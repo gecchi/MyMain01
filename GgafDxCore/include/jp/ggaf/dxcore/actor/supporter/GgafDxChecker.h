@@ -27,6 +27,9 @@ public:
      */
     explicit GgafDxChecker(GgafDxGeometricActor* prm_pActor);
 
+    /**
+     * 当たり判定領域を更新し、その領域をツリーに登録 .
+     */
     virtual void updateHitArea() = 0;
 
     /**

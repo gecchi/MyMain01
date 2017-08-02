@@ -4,6 +4,7 @@
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/effect/GgafDxMeshSetEffect.h"
 #include "jp/ggaf/dxcore/model/GgafDxMeshSetModel.h"
+#include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #ifdef MY_DEBUG
 #include "jp/ggaf/lib/actor/ColliAABoxActor.h"
@@ -23,7 +24,7 @@ SingleLaser::SingleLaser(const char* prm_name, const char* prm_model_id, GgafSta
                                  "SingleLaserEffect",
                                  "SingleLaserTechnique",
                                  prm_pStat,
-                                 NEW CollisionChecker3D(this) ) {
+                                 UTIL::createChecker(this) ) {
 
     _pMeshSetModel->_set_num = 26; //現在のシングルレーザーの最大セット数強制上書き。
 

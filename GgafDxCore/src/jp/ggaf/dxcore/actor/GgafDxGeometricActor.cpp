@@ -50,146 +50,148 @@ _is_local(false)
 
 void GgafDxGeometricActor::processSettlementBehavior() {
     if (_is_2D) {
-        return;
-    }
+        // 実装中
+    } else {
 
-    _was_calculated_matInvWorldRotMv = false; //逆行列未計算にリセット
+        _was_calculated_matInvWorldRotMv = false; //逆行列未計算にリセット
 
-    if (_pActor_base) {
-        //土台あり時ローカル座標に一旦戻す
-        changeGeoLocal();
-    }
-
-    //DirectXの単位に座標を変換しておく（World変換行列作成時にも使用されます）
-    _fX = C_DX(_x);
-    _fY = C_DX(_y);
-    _fZ = C_DX(_z);
-    //World変換行列（_matWorld）を更新
-    if (_pFunc_calc_rot_mv_world_matrix) {
-        //回転×移動のみ計算し _matWorldRotMv に保持
-        (*_pFunc_calc_rot_mv_world_matrix)(this, _matWorldRotMv);
-        _matWorld = _matWorldRotMv;
-        //回転×移動 の前に スケールを考慮して、
-        //最終的な _matWorld  行列(拡大×回転×移動)を保持
-        if (_sx != LEN_UNIT) {
-            const float sx = SC_R(_sx);
-            _matWorld._11 *= sx;
-            _matWorld._12 *= sx;
-            _matWorld._13 *= sx;
+        if (_pActor_base) {
+            //土台あり時ローカル座標に一旦戻す
+            changeGeoLocal();
         }
-        if (_sy != LEN_UNIT) {
-            const float sy = SC_R(_sy);
-            _matWorld._21 *= sy;
-            _matWorld._22 *= sy;
-            _matWorld._23 *= sy;
+
+        //DirectXの単位に座標を変換しておく（World変換行列作成時にも使用されます）
+        _fX = C_DX(_x);
+        _fY = C_DX(_y);
+        _fZ = C_DX(_z);
+        //World変換行列（_matWorld）を更新
+        if (_pFunc_calc_rot_mv_world_matrix) {
+            //回転×移動のみ計算し _matWorldRotMv に保持
+            (*_pFunc_calc_rot_mv_world_matrix)(this, _matWorldRotMv);
+            _matWorld = _matWorldRotMv;
+            //回転×移動 の前に スケールを考慮して、
+            //最終的な _matWorld  行列(拡大×回転×移動)を保持
+            if (_sx != LEN_UNIT) {
+                const float sx = SC_R(_sx);
+                _matWorld._11 *= sx;
+                _matWorld._12 *= sx;
+                _matWorld._13 *= sx;
+            }
+            if (_sy != LEN_UNIT) {
+                const float sy = SC_R(_sy);
+                _matWorld._21 *= sy;
+                _matWorld._22 *= sy;
+                _matWorld._23 *= sy;
+            }
+            if (_sz != LEN_UNIT) {
+                const float sz = SC_R(_sz);
+                _matWorld._31 *= sz;
+                _matWorld._32 *= sz;
+                _matWorld._33 *= sz;
+            }
         }
-        if (_sz != LEN_UNIT) {
-            const float sz = SC_R(_sz);
-            _matWorld._31 *= sz;
-            _matWorld._32 *= sz;
-            _matWorld._33 *= sz;
+
+        //デフォルトでは、_matWorldRotMv = 回転変換行列 × 平行移動変換行列
+        //                _matWorld      = 拡大縮小変換行列 × _matWorldRotMv となるようにしている。
+        //つまり _matWorld = 拡大縮小＞回転＞平行移動
+        //_matWorldRotMv は addSubGroupAsFk() 実行時に使用されるために作成している。
+        //従って addSubGroupAsFk() を絶対使用しないならば、_matWorldRotMvの計算は不要。
+        //processSettlementBehavior() をオーバーライドし、
+        //変換行列作成をもっと単純化することで、少し最適化が可能。
+
+        if (_pActor_base) {
+            //絶対座標に変換
+            D3DXMatrixMultiply(&_matWorld     , &_matWorld     , &(_pActor_base->_matWorldRotMv)); //合成
+            D3DXMatrixMultiply(&_matWorldRotMv, &_matWorldRotMv, &(_pActor_base->_matWorldRotMv)); //合成
+            changeGeoFinal();
+            //ワールド変換行列×土台ワールド変換行列の「回転×移動」のみの積）から平行移動部分を取り出し最終的な座標とする
+            _fX = _matWorld._41;
+            _fY = _matWorld._42;
+            _fZ = _matWorld._43;
+            _x = DX_C(_fX);
+            _y = DX_C(_fY);
+            _z = DX_C(_fZ);
+
+            //ローカルでのface方向が合成済みのワールド変換行列の「回転×移動」のみの積(_matWorldRotMv)があるので、
+            //ベクトル(1,0,0)に合成済み変換行列を掛ければ最終的なface方向を得れる
+            UTIL::convVectorToRzRy(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13, _rz, _ry);
+            _rx = _rx_local; //そのまま
+            //何をやっているのか説明。
+            //方向ベクトルはワールド変換行列の積（_matWorldRotMv)で変換され、現在の最終的な向きに向く。
+            //大元の方向ベクトルを(x_org_,y_org_,z_org_)、
+            //ワールド変換行列の回転部分の積（_matWorldRotMv)の成分を mat_xx、
+            //最終的な方向ベクトルを(vX, vY, vZ) とすると
+            //
+            //                         | mat_11 mat_12 mat_13 |
+            //| x_org_ y_org_ z_org_ | | mat_21 mat_22 mat_23 | = | vX vY vZ |
+            //                         | mat_31 mat_32 mat_33 |
+            //となる。
+            //
+            //vX = x_org_*mat_11 + y_org_*mat_21 + z_org_*mat_31
+            //vY = x_org_*mat_12 + y_org_*mat_22 + z_org_*mat_32
+            //vZ = x_org_*mat_13 + y_org_*mat_23 + z_org_*mat_33
+            //
+            //さてここで、大元が前方の単位方向ベクトル(1,0,0)の場合はどうなるか？を考えると
+            //
+            //vX = x_org_*mat_11
+            //vY = x_org_*mat_12
+            //vZ = x_org_*mat_13
+            //
+            //となる。本アプリでは、モデルは全て(1,0,0)を前方としているため
+            //最終的な方向ベクトルは（x_org_*mat_11, x_org_*mat_12, x_org_*mat_13) となる。
+            //この方向ベクトルを _rz _ry 表現すれば良い。
+            //計算しやすいようにx_org_を1と置いて
+            //
+            //UTIL::convVectorToRzRy(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13, _rz, _ry);
+            //となる
+            processChangeGeoFinal(); //絶対座標計算後の処理用コールバック
         }
+
+        //視錐台面からの距離を更新
+        const dxcoord fX = _fX;
+        const dxcoord fY = _fY;
+        const dxcoord fZ = _fZ;
+        GgafDxCamera* pCam = P_GOD->getSpacetime()->getCamera();
+        D3DXPLANE& plnTop = pCam->_plnTop;
+        _dest_from_vppln_top     = plnTop.a * fX +
+                                   plnTop.b * fY +
+                                   plnTop.c * fZ +
+                                   plnTop.d;
+        D3DXPLANE& plnBottom = pCam->_plnBottom;
+        _dest_from_vppln_bottom  = plnBottom.a * fX +
+                                   plnBottom.b * fY +
+                                   plnBottom.c * fZ +
+                                   plnBottom.d;
+        D3DXPLANE& plnLeft = pCam->_plnLeft;
+        _dest_from_vppln_left    = plnLeft.a * fX +
+                                   plnLeft.b * fY +
+                                   plnLeft.c * fZ +
+                                   plnLeft.d;
+        D3DXPLANE& plnRight = pCam->_plnRight;
+        _dest_from_vppln_right   = plnRight.a * fX +
+                                   plnRight.b * fY +
+                                   plnRight.c * fZ +
+                                   plnRight.d;
+        D3DXPLANE& plnInfront = pCam->_plnInfront;
+        _dest_from_vppln_infront = plnInfront.a * fX +
+                                   plnInfront.b * fY +
+                                   plnInfront.c * fZ +
+                                   plnInfront.d;
+       D3DXPLANE& plnBack = pCam->_plnBack;
+        _dest_from_vppln_back    = plnBack.a * fX +
+                                   plnBack.b * fY +
+                                   plnBack.c * fZ +
+                                   plnBack.d;
+        _offscreen_kind = -1;
     }
 
-    //デフォルトでは、_matWorldRotMv = 回転変換行列 × 平行移動変換行列
-    //                _matWorld      = 拡大縮小変換行列 × _matWorldRotMv となるようにしている。
-    //つまり _matWorld = 拡大縮小＞回転＞平行移動
-    //_matWorldRotMv は addSubGroupAsFk() 実行時に使用されるために作成している。
-    //従って addSubGroupAsFk() を絶対使用しないならば、_matWorldRotMvの計算は不要。
-    //processSettlementBehavior() をオーバーライドし、
-    //変換行列作成をもっと単純化することで、少し最適化が可能。
 
-    if (_pActor_base) {
-        //絶対座標に変換
-        D3DXMatrixMultiply(&_matWorld     , &_matWorld     , &(_pActor_base->_matWorldRotMv)); //合成
-        D3DXMatrixMultiply(&_matWorldRotMv, &_matWorldRotMv, &(_pActor_base->_matWorldRotMv)); //合成
-        changeGeoFinal();
-        //ワールド変換行列×土台ワールド変換行列の「回転×移動」のみの積）から平行移動部分を取り出し最終的な座標とする
-        _fX = _matWorld._41;
-        _fY = _matWorld._42;
-        _fZ = _matWorld._43;
-        _x = DX_C(_fX);
-        _y = DX_C(_fY);
-        _z = DX_C(_fZ);
-
-        //ローカルでのface方向が合成済みのワールド変換行列の「回転×移動」のみの積(_matWorldRotMv)があるので、
-        //ベクトル(1,0,0)に合成済み変換行列を掛ければ最終的なface方向を得れる
-        UTIL::convVectorToRzRy(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13, _rz, _ry);
-        _rx = _rx_local; //そのまま
-        //何をやっているのか説明。
-        //方向ベクトルはワールド変換行列の積（_matWorldRotMv)で変換され、現在の最終的な向きに向く。
-        //大元の方向ベクトルを(x_org_,y_org_,z_org_)、
-        //ワールド変換行列の回転部分の積（_matWorldRotMv)の成分を mat_xx、
-        //最終的な方向ベクトルを(vX, vY, vZ) とすると
-        //
-        //                         | mat_11 mat_12 mat_13 |
-        //| x_org_ y_org_ z_org_ | | mat_21 mat_22 mat_23 | = | vX vY vZ |
-        //                         | mat_31 mat_32 mat_33 |
-        //となる。
-        //
-        //vX = x_org_*mat_11 + y_org_*mat_21 + z_org_*mat_31
-        //vY = x_org_*mat_12 + y_org_*mat_22 + z_org_*mat_32
-        //vZ = x_org_*mat_13 + y_org_*mat_23 + z_org_*mat_33
-        //
-        //さてここで、大元が前方の単位方向ベクトル(1,0,0)の場合はどうなるか？を考えると
-        //
-        //vX = x_org_*mat_11
-        //vY = x_org_*mat_12
-        //vZ = x_org_*mat_13
-        //
-        //となる。本アプリでは、モデルは全て(1,0,0)を前方としているため
-        //最終的な方向ベクトルは（x_org_*mat_11, x_org_*mat_12, x_org_*mat_13) となる。
-        //この方向ベクトルを _rz _ry 表現すれば良い。
-        //計算しやすいようにx_org_を1と置いて
-        //
-        //UTIL::convVectorToRzRy(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13, _rz, _ry);
-        //となる
-        processChangeGeoFinal(); //絶対座標計算後の処理用コールバック
-    }
-
-    //視錐台面からの距離を更新
-    const dxcoord fX = _fX;
-    const dxcoord fY = _fY;
-    const dxcoord fZ = _fZ;
-    GgafDxCamera* pCam = P_GOD->getSpacetime()->getCamera();
-    D3DXPLANE& plnTop = pCam->_plnTop;
-    _dest_from_vppln_top     = plnTop.a * fX +
-                               plnTop.b * fY +
-                               plnTop.c * fZ +
-                               plnTop.d;
-    D3DXPLANE& plnBottom = pCam->_plnBottom;
-    _dest_from_vppln_bottom  = plnBottom.a * fX +
-                               plnBottom.b * fY +
-                               plnBottom.c * fZ +
-                               plnBottom.d;
-    D3DXPLANE& plnLeft = pCam->_plnLeft;
-    _dest_from_vppln_left    = plnLeft.a * fX +
-                               plnLeft.b * fY +
-                               plnLeft.c * fZ +
-                               plnLeft.d;
-    D3DXPLANE& plnRight = pCam->_plnRight;
-    _dest_from_vppln_right   = plnRight.a * fX +
-                               plnRight.b * fY +
-                               plnRight.c * fZ +
-                               plnRight.d;
-    D3DXPLANE& plnInfront = pCam->_plnInfront;
-    _dest_from_vppln_infront = plnInfront.a * fX +
-                               plnInfront.b * fY +
-                               plnInfront.c * fZ +
-                               plnInfront.d;
-   D3DXPLANE& plnBack = pCam->_plnBack;
-    _dest_from_vppln_back    = plnBack.a * fX +
-                               plnBack.b * fY +
-                               plnBack.c * fZ +
-                               plnBack.d;
-    _offscreen_kind = -1;
-
-    //八分木登録
     if (_pChecker) {
         if (_can_hit_flg) {
             if (_can_hit_out_of_view == false && isOutOfView()) {
                 //視野外当たり判定無効の場合は登録しない
             } else  {
+                //木登録
                 _pChecker->updateHitArea();
             }
         }

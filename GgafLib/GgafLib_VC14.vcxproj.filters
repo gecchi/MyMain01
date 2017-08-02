@@ -258,9 +258,6 @@
     <ClCompile Include="src\jp\ggaf\lib\util\ColliSphere.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\jp\ggaf\lib\util\LinearOctreeForActor.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="src\jp\ggaf\lib\util\SceneProgress.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -528,9 +525,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\lib\util\ColliSphere.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\lib\util\LinearOctreeForActor.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\lib\util\Quantity.hpp">

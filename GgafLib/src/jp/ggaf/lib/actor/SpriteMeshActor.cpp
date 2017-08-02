@@ -1,5 +1,6 @@
 #include "jp/ggaf/lib/actor/SpriteMeshActor.h"
 
+#include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #ifdef MY_DEBUG
@@ -18,7 +19,7 @@ SpriteMeshActor::SpriteMeshActor(const char* prm_name, const char* prm_model, Gg
     GgafDxSpriteMeshActor(prm_name,
                           prm_model,
                           prm_pStat,
-                          NEW CollisionChecker3D(this) ) {
+                          UTIL::createChecker(this) ) {
 
     _class_name = "SpriteMeshActor";
     _pColliChecker = (CollisionChecker3D*)_pChecker;

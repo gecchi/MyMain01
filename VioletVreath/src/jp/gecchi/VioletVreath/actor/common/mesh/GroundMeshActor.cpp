@@ -24,7 +24,7 @@ GroundMeshActor::GroundMeshActor(const char* prm_name, const char* prm_model, Gg
                      "GroundMeshEffect",
                      "GroundMeshTechnique",
                      prm_pStat,
-                     NEW CollisionChecker3D(this) ) {
+                     UTIL::createChecker(this) ) {
 
     _class_name = "GroundMeshActor";
     offset_frames_ = 0;

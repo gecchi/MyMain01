@@ -1,5 +1,6 @@
 #include "jp/ggaf/lib/actor/DefaultSpriteActor.h"
 
+#include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #ifdef MY_DEBUG
@@ -19,7 +20,7 @@ DefaultSpriteActor::DefaultSpriteActor(const char* prm_name, const char* prm_mod
                       "DefaultSpriteEffect",
                       "DefaultSpriteTechnique",
                       prm_pStat,
-                      NEW CollisionChecker3D(this) ) {
+                      UTIL::createChecker(this) ) {
     _class_name = "DefaultSpriteActor";
     _pColliChecker = (CollisionChecker3D*)_pChecker;
     setZWriteEnable(false);

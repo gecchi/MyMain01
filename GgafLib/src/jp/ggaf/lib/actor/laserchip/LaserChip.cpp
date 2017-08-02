@@ -4,6 +4,7 @@
 #include "jp/ggaf/dxcore/model/GgafDxMeshSetModel.h"
 #include "jp/ggaf/dxcore/effect/GgafDxMeshSetEffect.h"
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
+#include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/dxcore/util/GgafDxCollisionPart.h"
@@ -29,7 +30,7 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model, GgafStatus* pr
                          "LaserChipEffect",
                          "LaserChipTechnique",
                          prm_pStat,
-                         NEW CollisionChecker3D(this) ) {
+                         UTIL::createChecker(this) ) {
 //    _pMeshSetModel->_set_num = 11; //現在のレーザーの最大セット数は11。
     _obj_class |= Obj_LaserChip;
     _pColliChecker = (CollisionChecker3D*)_pChecker;

@@ -3,6 +3,7 @@
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
+#include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/ggaf/lib/scene/WallSectionScene.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChip.h"
@@ -44,7 +45,7 @@ MassWallActor::MassWallActor(const char* prm_name,
                                                     "MassWallEffect",
                                                     "MassWallTechnique",
                                                      prm_pStat,
-                                                     NEW CollisionChecker3D(this) )
+                                                     UTIL::createChecker(this) )
 {
     init();
 }
@@ -60,7 +61,7 @@ MassWallActor::MassWallActor(const char* prm_name,
                                                      prm_effect,
                                                      prm_technique,
                                                      prm_pStat,
-                                                     NEW CollisionChecker3D(this) )
+                                                     UTIL::createChecker(this) )
 {
     init();
 }

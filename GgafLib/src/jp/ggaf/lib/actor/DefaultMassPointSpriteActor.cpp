@@ -1,11 +1,11 @@
 #include "jp/ggaf/lib/actor/DefaultMassPointSpriteActor.h"
 
 #include "jp/ggaf/lib/DefaultGod.h"
+#include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
-
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #ifdef MY_DEBUG
 #include "jp/ggaf/lib/actor/ColliAABoxActor.h"
@@ -27,7 +27,7 @@ DefaultMassPointSpriteActor::DefaultMassPointSpriteActor(const char* prm_name, c
                         "DefaultMassPointSpriteEffect",
                         "DefaultMassPointSpriteTechnique",
                         prm_pStat,
-                        NEW CollisionChecker3D(this) ) {
+                        UTIL::createChecker(this) ) {
     _class_name = "DefaultMassPointSpriteActor";
     _pColliChecker = (CollisionChecker3D*)_pChecker;
     _pMassPointSpriteModel->registerCallback_VertexInstanceDataInfo(DefaultMassPointSpriteActor::createVertexInstanceData);

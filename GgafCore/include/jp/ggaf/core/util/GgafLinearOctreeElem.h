@@ -14,7 +14,7 @@ namespace GgafCore {
 class GgafLinearOctreeElem : public GgafObject {
 
     friend class GgafLinearOctree;
-
+    friend class GgafLinearQuadtree;
 private:
     /**
      * ©g‚ª©‚ç‹óŠÔ‚©‚ç—£’EAŠ‘®‹óŠÔ‚Ìî•ñ‚à‚¢‚«‚È‚èíœ .

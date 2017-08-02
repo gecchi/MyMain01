@@ -1,9 +1,9 @@
-#ifndef GGAFLIB_LINEAROCTREEFORACTOR_H_
-#define GGAFLIB_LINEAROCTREEFORACTOR_H_
-#include "GgafLibCommonHeader.h"
-#include "jp/ggaf/core/util/GgafLinearOctree.h"
+#ifndef GGAFCORE_GGAFLINEARQUADTREEFORACTOR_H_
+#define GGAFCORE_GGAFLINEARQUADTREEFORACTOR_H_
+#include "GgafCommonHeader.h"
+#include "GgafLinearQuadtree.h"
 
-namespace GgafLib {
+namespace GgafCore {
 
 #define MAX_COLLISIONSTACK_ACTOR_NUM (2000)
 /**
@@ -13,7 +13,7 @@ namespace GgafLib {
  * @since 2009/11/23
  * @author Masatoshi Tsuge
  */
-class LinearOctreeForActor : public GgafCore::GgafLinearOctree {
+class GgafLinearQuadtreeForActor : public GgafLinearQuadtree {
 
     uint32_t _num_space_minus_one;
 
@@ -48,7 +48,7 @@ public:
          */
         inline void push(GgafCore::GgafObject* prm_pObject) {
             if (_papCur == _papBanpei) {
-                _TRACE_("＜警告＞ LinearOctreeForActor::push("<<prm_pObject<<") スタックを使い切りました。無視します。一箇所に当たり判定が塊過ぎです。");
+                _TRACE_("＜警告＞ GgafLinearQuadtreeForActor::push("<<prm_pObject<<") スタックを使い切りました。無視します。一箇所に当たり判定が塊過ぎです。");
                 return;
             }
             (*_papCur) = prm_pObject;
@@ -79,14 +79,14 @@ public:
          */
         inline void popush(CollisionStack* prm_pCollisionStack) {
             if (_papCur == _papBanpei) {
-                _TRACE_("＜警告＞ LinearOctreeForActor::popush("<<prm_pCollisionStack<<") スタックを使い切ってます。無視します。一箇所に当たり判定が塊過ぎです。");
+                _TRACE_("＜警告＞ GgafLinearQuadtreeForActor::popush("<<prm_pCollisionStack<<") スタックを使い切ってます。無視します。一箇所に当たり判定が塊過ぎです。");
                 prm_pCollisionStack->clear();
                 return;
             }
             while ((*_papCur) = prm_pCollisionStack->pop()) { //代入。pop出来なければ nullptr。 I know "=" , not "=="
                  ++_papCur;
                  if (_papCur == _papBanpei) {
-                    _TRACE_("＜警告＞ LinearOctreeForActor::popush("<<prm_pCollisionStack<<") スタックを使い切りました。無視します。一箇所に当たり判定が塊過ぎです。");
+                    _TRACE_("＜警告＞ GgafLinearQuadtreeForActor::popush("<<prm_pCollisionStack<<") スタックを使い切りました。無視します。一箇所に当たり判定が塊過ぎです。");
                     prm_pCollisionStack->clear();
                     break;
                 }
@@ -122,7 +122,7 @@ public:
      * コンストラクタ
      * @param prm_level 作成する八分木空間レベル
      */
-    explicit LinearOctreeForActor(int prm_level);
+    explicit GgafLinearQuadtreeForActor(int prm_level);
 
     /**
      * 八分木所属の「アクター種別Aグループ 対 アクター種別Bグループ」を行う  .
@@ -148,10 +148,10 @@ public:
      */
     void executeHitChk_RoundRobin(CollisionStack* prm_pStackA, CollisionStack* prm_pStackB);
 
-    virtual ~LinearOctreeForActor();
+    virtual ~GgafLinearQuadtreeForActor();
 };
 
 
 }
-#endif /*GGAFLIB_LINEAROCTREEFORACTOR_H_*/
+#endif /*GGAFCORE_GGAFLINEARQUADTREEFORACTOR_H_*/
 

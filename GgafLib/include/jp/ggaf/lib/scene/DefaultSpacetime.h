@@ -20,12 +20,12 @@ class DefaultSpacetime : public GgafDxCore::GgafDxSpacetime {
     virtual void processFinal() override;
 
 public:
-    LinearOctreeForActor* _pLinearOctree;
+    GgafCore::GgafLinearOctreeForActor* _pLinearOctree;
 
 public:
     DefaultSpacetime(const char* prm_name, DefaultCamera* prm_pCamera);
 
-    inline LinearOctreeForActor* getLinearOctree() const {
+    inline GgafCore::GgafLinearOctreeForActor* getLinearOctree() const {
         return _pLinearOctree;
     }
     virtual DefaultCamera* getCamera() override { //‹¤•Ï‚Ì–ß‚è’l

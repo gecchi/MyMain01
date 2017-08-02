@@ -345,7 +345,6 @@
     <ClCompile Include="src\jp\ggaf\lib\util\ColliAAPyramid.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\CollisionChecker3D.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\ColliSphere.cpp" />
-    <ClCompile Include="src\jp\ggaf\lib\util\LinearOctreeForActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\SceneProgress.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\spline\FixedFrameSplineKurokoLeader.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\spline\FixedFrameSplineManufacture.cpp" />
@@ -439,7 +438,6 @@
     <ClInclude Include="include\jp\ggaf\lib\util\ColliAAPyramid.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\CollisionChecker3D.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\ColliSphere.h" />
-    <ClInclude Include="include\jp\ggaf\lib\util\LinearOctreeForActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\Quantity.hpp" />
     <ClInclude Include="include\jp\ggaf\lib\util\SceneProgress.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\spline\FixedFrameSplineKurokoLeader.h" />

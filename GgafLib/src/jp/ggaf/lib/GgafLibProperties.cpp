@@ -10,6 +10,8 @@ std::string GgafLibProperties::DIR_WALL  = GgafProperties::DIR_RESOURCE + "/" + 
 std::string GgafLibProperties::DIR_SPLINE = GgafProperties::DIR_RESOURCE + "/" + GgafLibProperties::DIRNAME_RESOURCE_SPLINE + "/" ;
 
 int GgafLibProperties::OCTREE_LEVEL = 1;
+bool GgafLibProperties::IS_HIT_CHECK_3D = true;
+bool GgafLibProperties::IS_HIT_CHECK_2D = false;
 
 void GgafLibProperties::load(std::string prm_properties_filename) {
     GgafDxProperties::load(prm_properties_filename);
@@ -19,6 +21,24 @@ void GgafLibProperties::load(std::string prm_properties_filename) {
     if (GgafProperties::isExistKey("DIRNAME_RESOURCE_SPLINE")) {
         GgafLibProperties::DIRNAME_RESOURCE_SPLINE  = getStr("DIRNAME_RESOURCE_SPLINE");
     }
+
+    if (GgafProperties::isExistKey("IS_HIT_CHECK_3D") && GgafProperties::isExistKey("IS_HIT_CHECK_2D")) {
+        GgafLibProperties::IS_HIT_CHECK_3D = getBool("IS_HIT_CHECK_3D");
+        GgafLibProperties::IS_HIT_CHECK_2D = getBool("IS_HIT_CHECK_2D");
+        if (GgafLibProperties::IS_HIT_CHECK_3D == GgafLibProperties::IS_HIT_CHECK_2D) {
+            throwGgafCriticalException("IS_HIT_CHECK_3D Ç∆ IS_HIT_CHECK_2D ÇÕÅAïKÇ∏Ç«ÇøÇÁÇ©àÍï˚ÇÃÇ›Ç true Ç…ê›íËÇµÇƒÇ≠ÇæÇ≥Ç¢ÅB");
+        }
+    } else {
+        if (GgafProperties::isExistKey("IS_HIT_CHECK_3D")) {
+            GgafLibProperties::IS_HIT_CHECK_3D = getBool("IS_HIT_CHECK_3D");
+            GgafLibProperties::IS_HIT_CHECK_2D = ! GgafLibProperties::IS_HIT_CHECK_3D;
+        }
+        if (GgafProperties::isExistKey("IS_HIT_CHECK_2D")) {
+            GgafLibProperties::IS_HIT_CHECK_2D = getBool("IS_HIT_CHECK_2D");
+            GgafLibProperties::IS_HIT_CHECK_3D = ! GgafLibProperties::IS_HIT_CHECK_2D;
+        }
+    }
+
 
     if (GgafProperties::isExistKey("OCTREE_LEVEL")) {
         GgafLibProperties::OCTREE_LEVEL  = getInt("OCTREE_LEVEL");

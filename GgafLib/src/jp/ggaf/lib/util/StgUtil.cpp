@@ -3,6 +3,9 @@
 #include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
 #include "jp/ggaf/dxcore/actor/GgafDxFigureActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/lib/GgafLibProperties.h"
+#include "jp/ggaf/lib/util/StgUtil.h"
+#include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/ggaf/lib/util/ColliSphere.h"
 #include "jp/ggaf/lib/util/ColliAAPrism.h"
 #include "jp/ggaf/lib/util/ColliAAPyramid.h"
@@ -62,6 +65,10 @@ void StgUtil::init() {
     StgUtil::BITNUM[32] = (0x80000000);     //0b 10000000 00000000 00000000 00000000
 
     StgUtil::_was_StgUtil_inited_flg = true;
+}
+
+GgafDxChecker* StgUtil::createChecker(GgafDxGeometricActor* prm_pActor) {
+    return PROPERTY::IS_HIT_CHECK_3D  ?  NEW CollisionChecker3D(prm_pActor) : NEW CollisionChecker3D(prm_pActor); //TODO:CollisionChecker2D
 }
 
 bool StgUtil::isHit(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliSphere* const pSphere01 ,

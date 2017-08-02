@@ -44,7 +44,7 @@ GgafGod::GgafGod() : GgafObject(),
     ::SetThreadPriority(_handleFactory01, THREAD_PRIORITY_IDLE);
     GgafGod::_pGod = this;
     _time_at_beginning_frame = timeGetTime();
-    _time_of_next_view = (frame)(_time_at_beginning_frame);
+    _time_of_next_view = _time_at_beginning_frame;
     _time_calc_fps_next = _time_at_beginning_frame + 1;
     _visualize_frames = 0;
     _prev_visualize_frames = 0;
@@ -114,7 +114,7 @@ void GgafGod::be() {
 #endif
         _pSpacetime->_pGod = this;
         _time_at_beginning_frame = timeGetTime();
-        _time_of_next_view = (frame)(_time_at_beginning_frame+100); //0.1秒後開始
+        _time_of_next_view = _time_at_beginning_frame+100; //0.1秒後開始
         _time_calc_fps_next = _time_at_beginning_frame + 1;
     }
 #ifdef MY_DEBUG

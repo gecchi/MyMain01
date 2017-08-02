@@ -37,7 +37,7 @@ class GgafElement : public GgafNode<T> {
 
 private:
     /**
-     * ツリー構造において、再帰呼び出しを行う。
+     * 自ツリーの配下ノード全てに、再帰呼び出しを行う。
      * @param pFunc 再帰呼び出しするメソッド
      */
     inline void callRecursive(void (GgafElement<T>::*pFunc)()) const {
@@ -53,7 +53,7 @@ private:
     }
 
     /**
-     * ツリー構造において、再帰呼び出しを行う。
+     * 自ツリーの配下ノード全てに、再帰呼び出しを行う。
      * @param pFunc 再帰呼び出しするメソッド(frame 引数有り)
      * @param prm_frame pFuncの引数であるframe
      */

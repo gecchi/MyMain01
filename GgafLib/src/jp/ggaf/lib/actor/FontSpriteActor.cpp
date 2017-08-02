@@ -3,6 +3,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
 #include "jp/ggaf/dxcore/effect/GgafDxMassSpriteEffect.h"
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
+#include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 
 using namespace GgafCore;
@@ -17,7 +18,7 @@ FontSpriteActor::FontSpriteActor(const char* prm_name, const char* prm_model_id,
                                   "FontSpriteEffect",
                                   "FontSpriteTechnique",
                                   prm_pStat,
-                                  NEW CollisionChecker3D(this) ) ,
+                                  UTIL::createChecker(this) ) ,
             ICharacterChip<FontSpriteActor>(this, (int)(_pMassSpriteModel->_model_width_px), (int)(_pMassSpriteModel->_model_height_px))
 {
     _class_name = "FontSpriteActor";

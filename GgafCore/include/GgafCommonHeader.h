@@ -409,6 +409,8 @@ class GgafEnumIndex;
 
 class GgafXpm;
 
+class GgafLinearOctreeForActor;
+class GgafLinearQuadtreeForActor;
 }
 
 #endif /*GGAFCOMMONHEADER_H_*/

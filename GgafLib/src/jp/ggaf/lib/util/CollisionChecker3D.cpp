@@ -11,7 +11,7 @@
 #include "jp/ggaf/lib/util/ColliSphere.h"
 #include "jp/ggaf/lib/util/ColliAAPrism.h"
 #include "jp/ggaf/lib/util/ColliAAPyramid.h"
-#include "jp/ggaf/lib/util/LinearOctreeForActor.h"
+#include "jp/ggaf/core/util/GgafLinearOctreeForActor.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 
 using namespace GgafCore;

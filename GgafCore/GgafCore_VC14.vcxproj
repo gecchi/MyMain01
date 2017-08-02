@@ -299,7 +299,10 @@
     <ClCompile Include="src\jp\ggaf\core\util\GgafCurtain.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\GgafLinearOctree.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\GgafLinearOctreeElem.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\util\GgafLinearOctreeForActor.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\GgafLinearOctreeOctant.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\util\GgafLinearQuadtree.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\util\GgafLinearQuadtreeForActor.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\GgafLogger.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\GgafRepeatSeq.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\GgafRgb.cpp" />
@@ -342,7 +345,10 @@
     <ClInclude Include="include\jp\ggaf\core\util\GgafEnumIndex.h" />
     <ClInclude Include="include\jp\ggaf\core\util\GgafLinearOctree.h" />
     <ClInclude Include="include\jp\ggaf\core\util\GgafLinearOctreeElem.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\GgafLinearOctreeForActor.h" />
     <ClInclude Include="include\jp\ggaf\core\util\GgafLinearOctreeOctant.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\GgafLinearQuadtree.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\GgafLinearQuadtreeForActor.h" />
     <ClInclude Include="include\jp\ggaf\core\util\GgafLinkedListRing.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\GgafLogger.h" />
     <ClInclude Include="include\jp\ggaf\core\util\GgafRepeatSeq.h" />

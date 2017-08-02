@@ -1,5 +1,6 @@
 #include "jp/ggaf/lib/actor/DefaultMassSpriteActor.h"
 
+#include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
@@ -23,7 +24,7 @@ DefaultMassSpriteActor::DefaultMassSpriteActor(const char* prm_name, const char*
                           "DefaultMassSpriteEffect",
                           "DefaultMassSpriteTechnique",
                           prm_pStat,
-                          NEW CollisionChecker3D(this) ) {
+                          UTIL::createChecker(this) ) {
 
     _class_name = "DefaultMassSpriteActor";
     _pColliChecker = (CollisionChecker3D*)_pChecker;

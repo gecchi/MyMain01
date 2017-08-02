@@ -1,8 +1,8 @@
 #include "jp/ggaf/lib/actor/DefaultMeshActor.h"
 
+#include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-
 #ifdef MY_DEBUG
 #include "jp/ggaf/lib/actor/ColliAABoxActor.h"
 #include "jp/ggaf/lib/actor/ColliAAPrismActor.h"
@@ -22,7 +22,7 @@ DefaultMeshActor::DefaultMeshActor(const char* prm_name,
                      "DefaultMeshEffect",
                      "DefaultMeshTechnique",
                      prm_pStat,
-                     NEW CollisionChecker3D(this) ) {
+                     UTIL::createChecker(this) ) {
     _class_name = "DefaultMeshActor";
     _pColliChecker = (CollisionChecker3D*)_pChecker;
 }

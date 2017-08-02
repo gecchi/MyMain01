@@ -3,7 +3,7 @@
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"
 #include "jp/ggaf/dxcore/scene/supporter/GgafDxBgmPerformerForScene.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
-#include "jp/ggaf/lib/util/LinearOctreeForActor.h"
+#include "jp/ggaf/core/util/GgafLinearOctreeForActor.h"
 #include "jp/gecchi/VioletVreath/actor/menu/pause/MenuBoardPause.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
@@ -368,7 +368,7 @@ void GameScene::processJudgement() {
         //空間分割(八分木)アルゴリズムにより、チェック回数の最適化を行っています。
         //詳細は 「種別相関定義コピペツール.xls」 の 「種別相関」 シート参照
 
-        LinearOctreeForActor* pLinearOctree = P_GOD->getSpacetime()->getLinearOctree();
+        GgafCore::GgafLinearOctreeForActor* pLinearOctree = P_GOD->getSpacetime()->getLinearOctree();
 #ifdef MY_DEBUG
         if (GgafDxInput::isPushedDownKey(DIK_I)) {
             pLinearOctree->putTree();

@@ -1,5 +1,6 @@
 #include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
 
+#include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #ifdef MY_DEBUG
@@ -19,7 +20,7 @@ DefaultMeshSetActor::DefaultMeshSetActor(const char* prm_name, const char* prm_m
                        "DefaultMeshSetEffect",
                        "DefaultMeshSetTechnique",
                        prm_pStat,
-                       NEW CollisionChecker3D(this) ) {
+                       UTIL::createChecker(this) ) {
     _class_name = "DefaultMeshSetActor";
     _pColliChecker = (CollisionChecker3D*)_pChecker;
 }

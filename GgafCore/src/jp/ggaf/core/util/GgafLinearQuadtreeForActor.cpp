@@ -1,20 +1,18 @@
-#include "jp/ggaf/lib/util/LinearOctreeForActor.h"
+#include "jp/ggaf/core/util/GgafLinearQuadtreeForActor.h"
 
 #include "jp/ggaf/core/util/GgafLinearOctreeOctant.h"
 #include "jp/ggaf/core/util/GgafLinearOctreeElem.h"
 #include "jp/ggaf/core/actor/GgafActor.h"
 
 using namespace GgafCore;
-using namespace GgafDxCore;
-using namespace GgafLib;
 
-LinearOctreeForActor::LinearOctreeForActor(int prm_level) : GgafLinearOctree(prm_level) {
+GgafLinearQuadtreeForActor::GgafLinearQuadtreeForActor(int prm_level) : GgafLinearQuadtree(prm_level) {
     _num_space_minus_one = _num_space-1;
     _kind_groupA = 0;
     _kind_groupB = 0;
 }
 
-void LinearOctreeForActor::executeAllHitChk(actorkind prm_groupA, actorkind prm_groupB) {
+void GgafLinearQuadtreeForActor::executeAllHitChk(actorkind prm_groupA, actorkind prm_groupB) {
     _kind_groupA = prm_groupA;
     _kind_groupB = prm_groupB;
     if ( (_paOctant[0]._kindinfobit & prm_groupA) && (_paOctant[0]._kindinfobit & prm_groupB) ) {
@@ -26,7 +24,7 @@ void LinearOctreeForActor::executeAllHitChk(actorkind prm_groupA, actorkind prm_
     }
 }
 
-void LinearOctreeForActor::executeHitChk(uint32_t prm_index) {
+void GgafLinearQuadtreeForActor::executeHitChk(uint32_t prm_index) {
     GgafLinearOctreeOctant* pOctant_this_level = &(_paOctant[prm_index]);
     GgafLinearOctreeElem* pElem = pOctant_this_level->_pElem_first;
     const uint32_t kind_groupA = _kind_groupA;
@@ -173,8 +171,8 @@ void LinearOctreeForActor::executeHitChk(uint32_t prm_index) {
     }
 }
 
-void LinearOctreeForActor::executeHitChk_RoundRobin(CollisionStack* prm_pStackA, CollisionStack* prm_pStackB) {
-    //LinearOctreeForActorでは、要素の指す(GgafObject*)インスタンスは GgafActorが前提
+void GgafLinearQuadtreeForActor::executeHitChk_RoundRobin(CollisionStack* prm_pStackA, CollisionStack* prm_pStackB) {
+    //GgafLinearQuadtreeForActorでは、要素の指す(GgafObject*)インスタンスは GgafActorが前提
     if (prm_pStackA->isExist() && prm_pStackB->isExist()) {
         GgafObject** papStackActor_A_Cur = prm_pStackA->_papCur;
         GgafObject** papStackActor_B_Cur = prm_pStackB->_papCur;
@@ -190,6 +188,6 @@ void LinearOctreeForActor::executeHitChk_RoundRobin(CollisionStack* prm_pStackA,
     }
 }
 
-LinearOctreeForActor::~LinearOctreeForActor() {
+GgafLinearQuadtreeForActor::~GgafLinearQuadtreeForActor() {
 }
 

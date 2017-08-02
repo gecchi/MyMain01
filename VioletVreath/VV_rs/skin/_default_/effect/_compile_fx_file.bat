@@ -4,7 +4,8 @@ REM コンパイルしています・・・。エラー時はPAUSEします。
   pause
   exit
 ) else (
-  copy /Y 3_0_%2 ..\..\..\..\..\Mogera\MgrRs\effect
+  copy /Y 3_0_%2 ..\..\..\..\..\Mogera\MgrRs\effect 
+  copy /Y 3_0_%2 ..\..\..\..\..\Hogera\HgrRs\effect
   copy /Y 3_0_%2 ..\..\..\..\..\SimpleSample\SS_rs\effect
   copy /Y 3_0_%2 ..\..\..\..\..\VVViewer\VvvRs\effect
   exit
