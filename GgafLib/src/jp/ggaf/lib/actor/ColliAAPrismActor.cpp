@@ -1,7 +1,7 @@
 #include "jp/ggaf/lib/actor/ColliAAPrismActor.h"
 
 #include "jp/ggaf/core/GgafGod.h"
-#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/dxcore/util/GgafDxCollisionArea.h"
 #include "jp/ggaf/dxcore/util/GgafDxCollisionPart.h"
 #include "jp/ggaf/lib/util/ColliAAPrism.h"
@@ -29,7 +29,7 @@ void ColliAAPrismActor::release() {
     GGAF_DELETE_NULLABLE(ColliAAPrismActor::_pObj);
 }
 
-void ColliAAPrismActor::drawHitarea(CollisionChecker3D* prm_pColliChecker) {
+void ColliAAPrismActor::drawHitarea(CollisionChecker* prm_pColliChecker) {
     if (prm_pColliChecker != nullptr &&
         prm_pColliChecker->_pCollisionArea != nullptr &&
         prm_pColliChecker->getTargetActor()->canHit() &&

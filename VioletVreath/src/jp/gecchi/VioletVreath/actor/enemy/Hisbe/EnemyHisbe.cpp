@@ -5,7 +5,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
-#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -99,7 +99,7 @@ void EnemyHisbe::onCreateModel() {
 
 void EnemyHisbe::initialize() {
 //    getKuroko()->linkFaceAngByMvAng(true);
-    CollisionChecker3D* pChecker = getCollisionChecker();
+    CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliSphere(0, 40000);
 

@@ -36,7 +36,7 @@ GgafLinearQuadtree::GgafLinearQuadtree(int prm_level) : GgafObject() {
     _pRegElemFirst = nullptr;
 }
 
-void GgafLinearQuadtree::setRootOctant(int x1, int y1, int x2, int y2) {
+void GgafLinearQuadtree::setRootQuadrant(int x1, int y1, int x2, int y2) {
     _root_x1 = x1;
     _root_y1 = y1;
     _root_x2 = x2;

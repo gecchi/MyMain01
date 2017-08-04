@@ -68,7 +68,7 @@ public:
     coord _wall_width;
 //    /** [r]壁ブロック移動スピード(値は正、但し移動方向はX軸負の方向) */
 //    int _scroll_speed;
-    GgafLib::CollisionChecker3D* _pColliChecker;
+    GgafLib::CollisionChecker* _pColliChecker;
     /** [r]外壁シーン */
     WallSectionScene* _pWallSectionScene;
 
@@ -128,7 +128,7 @@ public:
     virtual void config(WallSectionScene* prm_pWallSectionScene,
                         int prm_pos_info, int prm_wall_draw_face, int* prm_aColliBoxStretch);
 
-    inline CollisionChecker3D* getCollisionChecker() {
+    inline CollisionChecker* getCollisionChecker() {
         return _pColliChecker;
     }
 

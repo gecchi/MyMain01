@@ -29,7 +29,7 @@ protected:
     static void createVertexInstanceData(void* prm, GgafDxCore::GgafDxMassModel::VertexInstanceDataInfo* out_info);
 public:
     /** 衝突判定支援オブジェクト */
-    CollisionChecker3D* _pColliChecker;
+    CollisionChecker* _pColliChecker;
     virtual void setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign) override;
     virtual void setAlign(GgafDxAlign prm_align) override;
     virtual void setValign(GgafDxValign prm_valign) override;

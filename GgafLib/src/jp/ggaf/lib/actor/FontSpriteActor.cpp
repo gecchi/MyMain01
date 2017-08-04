@@ -4,7 +4,7 @@
 #include "jp/ggaf/dxcore/effect/GgafDxMassSpriteEffect.h"
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -22,7 +22,7 @@ FontSpriteActor::FontSpriteActor(const char* prm_name, const char* prm_model_id,
             ICharacterChip<FontSpriteActor>(this, (int)(_pMassSpriteModel->_model_width_px), (int)(_pMassSpriteModel->_model_height_px))
 {
     _class_name = "FontSpriteActor";
-    _pColliChecker = (CollisionChecker3D*)_pChecker;
+    _pColliChecker = (CollisionChecker*)_pChecker;
     _pMassSpriteModel->registerCallback_VertexInstanceDataInfo(FontSpriteActor::createVertexInstanceData);
 }
 

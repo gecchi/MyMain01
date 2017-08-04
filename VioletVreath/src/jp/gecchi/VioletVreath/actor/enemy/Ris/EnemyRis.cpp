@@ -4,7 +4,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
-#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
@@ -38,7 +38,7 @@ void EnemyRis::initialize() {
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->linkFaceAngByMvAng(true);
     pKuroko->setRollFaceAngVelo(5000);
-    CollisionChecker3D* pChecker = getCollisionChecker();
+    CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAABox(0, -30000, -30000, -30000, 30000, 30000, 30000);
 }

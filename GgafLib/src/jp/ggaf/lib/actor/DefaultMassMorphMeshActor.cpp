@@ -1,7 +1,7 @@
 #include "jp/ggaf/lib/actor/DefaultMassMorphMeshActor.h"
 
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/model/GgafDxMassMorphMeshModel.h"
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
@@ -26,7 +26,7 @@ DefaultMassMorphMeshActor::DefaultMassMorphMeshActor(const char* prm_name, const
                          prm_pStat,
                          UTIL::createChecker(this) ) {
     _class_name = "DefaultMassMorphMeshActor";
-    _pColliChecker = (CollisionChecker3D*)_pChecker;
+    _pColliChecker = (CollisionChecker*)_pChecker;
     _pMassMorphMeshModel->registerCallback_VertexInstanceDataInfo(DefaultMassMorphMeshActor::createVertexInstanceData);
 }
 

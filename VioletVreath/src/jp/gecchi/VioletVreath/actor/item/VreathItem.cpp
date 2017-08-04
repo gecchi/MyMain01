@@ -3,7 +3,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/TractorMagic.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
@@ -28,7 +28,7 @@ VreathItem::VreathItem(const char* prm_name, const char* prm_model, GgafCore::Gg
     kDX_ = kDY_ = kDZ_ = 0;
     useProgress(PROG_BANPEI);
     setHitAble(true, false); //‰æ–ÊŠO“–‚½‚è”»’è‚Í–³Œø
-    CollisionChecker3D* pChecker = getCollisionChecker();
+    CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAABox_Cube(0, 400000);
     GgafDxSeTransmitterForActor* pSe = getSeTransmitter();

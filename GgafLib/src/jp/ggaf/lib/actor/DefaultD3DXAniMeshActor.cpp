@@ -1,7 +1,7 @@
 #include "jp/ggaf/lib/actor/DefaultD3DXAniMeshActor.h"
 
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 
 #ifdef MY_DEBUG
@@ -23,7 +23,7 @@ DefaultD3DXAniMeshActor::DefaultD3DXAniMeshActor(const char* prm_name, const cha
                            prm_pStat,
                            UTIL::createChecker(this) ) {
     _class_name = "DefaultD3DXAniMeshActor";
-    _pColliChecker = (CollisionChecker3D*)_pChecker;
+    _pColliChecker = (CollisionChecker*)_pChecker;
 }
 
 void DefaultD3DXAniMeshActor::drawHitArea() {

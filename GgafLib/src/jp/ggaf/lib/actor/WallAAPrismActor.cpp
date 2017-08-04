@@ -4,7 +4,7 @@
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "jp/ggaf/dxcore/model/GgafDxMeshSetModel.h"
 #include "jp/ggaf/dxcore/effect/GgafDxMeshSetEffect.h"
-#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/scene/WalledSectionScene.h"
 
 using namespace GgafCore;
@@ -24,7 +24,7 @@ WallAAPrismActor::WallAAPrismActor(const char* prm_name,
     _class_name = "WallAAPrismActor";
     _pMeshSetModel->_set_num = 11; //WallAAPrismActor最大セット数は11。
 
-    CollisionChecker3D* pChecker = getCollisionChecker();
+    CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1); //0:BOX用当たり判定、1:プリズム用当たり判定
     pChecker->setColliAAPrism(0, 0,0,0, 0,0,0, 0);
     setZEnableDraw(true);       //描画時、Zバッファ値は考慮される
@@ -86,7 +86,7 @@ bool WallAAPrismActor::initStatic(WallAAPrismActor* prm_pWallAAPrismActor) {
 void WallAAPrismActor::config(WalledSectionScene* prm_pWalledSectionScene, int prm_pos_info, int prm_wall_draw_face, int* prm_aColliBoxStretch) {
     prm_wall_draw_face &= WallAAPrismActor::_delface[prm_pos_info]; //プリズム無条件描画不要面
     WallPartsActor::config(prm_pWalledSectionScene, prm_pos_info,  prm_wall_draw_face,  prm_aColliBoxStretch);
-    CollisionChecker3D* pChecker = getCollisionChecker();
+    CollisionChecker* pChecker = getCollisionChecker();
     if (prm_aColliBoxStretch[0] == 0) {
         pChecker->disable(0);
     } else {

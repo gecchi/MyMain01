@@ -4,7 +4,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/util/GgafDxCollisionArea.h"
-#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion004.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime.h"
@@ -62,7 +62,7 @@ void EnemyRatislavia::addSubGroupAsFkOnSurface(GgafDxGeometricActor* prm_pGeoAct
 void EnemyRatislavia::createCollisionAreaArea(int prm_nSphere){
     angle* paAngRadial = NEW angle[prm_nSphere];
     UTIL::getRadialAngle2D(0, prm_nSphere, paAngRadial);
-    CollisionChecker3D* pChecker = getCollisionChecker();
+    CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(prm_nSphere);
     for (int i = 0; i < prm_nSphere; i++) {
         pChecker->setColliSphere(
@@ -114,7 +114,7 @@ void EnemyRatislavia::processBehavior() {
                 //当たり判定球付近に爆発エフェクトを散乱させる
                 GgafDxCollisionPart* pPart;
                 GgafDxFigureActor* pE;
-                CollisionChecker3D* pChecker = getCollisionChecker();
+                CollisionChecker* pChecker = getCollisionChecker();
                 for (int j = 0; j < colli_part_num_; j++) {
                     pPart = pChecker->getArea()->getPart(j);
                     pE = dispatchDelayFromCommon(EffectExplosion004, RND(1,10));
@@ -132,7 +132,7 @@ void EnemyRatislavia::processBehavior() {
                 //当たり判定球付近に爆発エフェクトを散乱させる
                 GgafDxCollisionPart* pPart;
                 GgafDxFigureActor* pE;
-                CollisionChecker3D* pChecker = getCollisionChecker();
+                CollisionChecker* pChecker = getCollisionChecker();
                 for (int j = 0; j < colli_part_num_; j++) {
                     pPart = pChecker->getArea()->getPart(j);
                     pE = dispatchFromCommon(EffectExplosion004);

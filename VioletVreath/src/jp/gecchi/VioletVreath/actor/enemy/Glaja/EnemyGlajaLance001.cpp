@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion001.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
@@ -28,7 +28,7 @@ EnemyGlajaLance001::EnemyGlajaLance001(const char* prm_name) :
 
 void EnemyGlajaLance001::initialize() {
     setHitAble(false);
-    CollisionChecker3D* pChecker = getCollisionChecker();
+    CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(3);
     pChecker->setColliAABox_Cube(0, PX_C(20));
     pChecker->setColliAABox_Cube(1, -PX_C(80), 0, 0,
@@ -51,7 +51,7 @@ void EnemyGlajaLance001::onActive() {
                               RND(D_ANG(0), D_ANG(360)) );
     pKuroko->setRollPitchYawFaceAngVelo(D_ANG(0), D_ANG(20), D_ANG(15));
     pKuroko->linkFaceAngByMvAng(true);
-    CollisionChecker3D* pChecker = getCollisionChecker();
+    CollisionChecker* pChecker = getCollisionChecker();
     pChecker->disable(1);
     pChecker->disable(2);
     setScale(R_SC(1));
@@ -93,7 +93,7 @@ void EnemyGlajaLance001::processBehavior() {
             }
             if (!pScaler_->isTransitioning()) {
                 //‘„‚Ì—¼’[“–‚½‚è”»’èoŒ»
-                CollisionChecker3D* pChecker = getCollisionChecker();
+                CollisionChecker* pChecker = getCollisionChecker();
                 pChecker->enable(1);
                 pChecker->enable(2);
                 pProg->changeNext();

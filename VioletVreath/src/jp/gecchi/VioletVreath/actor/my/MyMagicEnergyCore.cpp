@@ -5,7 +5,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
-#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyMagicEnergy.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -33,7 +33,7 @@ void MyMagicEnergyCore::onCreateModel() {
 
 void MyMagicEnergyCore::initialize() {
     setHitAble(true);
-    CollisionChecker3D* pChecker = getCollisionChecker();
+    CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliSphere(0, 1);
 }
@@ -53,7 +53,7 @@ void MyMagicEnergyCore::processBehavior() {
                 s * MAX_SCALSE_MagicEnergyCore,
                 100
              );
-    CollisionChecker3D* pChecker = getCollisionChecker();
+    CollisionChecker* pChecker = getCollisionChecker();
     if (s > 0.0) {
         pChecker->enable(0);
         pChecker->setColliSphere(0, s*PX_C(40));

@@ -1,7 +1,7 @@
 #include "jp/ggaf/lib/actor/DefaultDynaD3DXMeshActor.h"
 
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #ifdef MY_DEBUG
 #include "jp/ggaf/lib/actor/ColliAABoxActor.h"
@@ -23,7 +23,7 @@ DefaultDynaD3DXMeshActor::DefaultDynaD3DXMeshActor(const char* prm_name, const c
                              prm_pStat,
                              UTIL::createChecker(this) ) {
     _class_name = "DefaultDynaD3DXMeshActor";
-    _pColliChecker = (CollisionChecker3D*)_pChecker;
+    _pColliChecker = (CollisionChecker*)_pChecker;
 }
 
 void DefaultDynaD3DXMeshActor::drawHitArea() {

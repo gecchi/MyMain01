@@ -4,7 +4,7 @@
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "jp/ggaf/dxcore/model/GgafDxMeshSetModel.h"
 #include "jp/ggaf/dxcore/effect/GgafDxMeshSetEffect.h"
-#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/scene/WalledSectionScene.h"
 
 using namespace GgafCore;
@@ -24,7 +24,7 @@ WallAAPyramidActor::WallAAPyramidActor(const char* prm_name,
     _class_name = "WallAAPyramidActor";
     _pMeshSetModel->_set_num = 11; //WallAAPyramidActor最大セット数は11。
 
-    CollisionChecker3D* pChecker = getCollisionChecker();
+    CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1); //0:BOX用当たり判定、1:ピラミッド用当たり判定
     pChecker->setColliAAPyramid(0, 0,0,0, 0,0,0, 0);
     setZEnableDraw(true);       //描画時、Zバッファ値は考慮される
@@ -78,7 +78,7 @@ bool WallAAPyramidActor::initStatic(WallAAPyramidActor* prm_pWallAAPyramidActor)
 void WallAAPyramidActor::config(WalledSectionScene* prm_pWalledSectionScene, int prm_pos_pyramid, int prm_wall_draw_face, int* prm_aColliBoxStretch) {
     prm_wall_draw_face &= WallAAPyramidActor::_delface[prm_pos_pyramid]; //ピラミッド無条件描画不要面
     WallPartsActor::config(prm_pWalledSectionScene, prm_pos_pyramid,  prm_wall_draw_face,  prm_aColliBoxStretch);
-    CollisionChecker3D* pChecker = getCollisionChecker();
+    CollisionChecker* pChecker = getCollisionChecker();
     if (prm_aColliBoxStretch[0] == 0) {
         pChecker->disable(0);
     } else {

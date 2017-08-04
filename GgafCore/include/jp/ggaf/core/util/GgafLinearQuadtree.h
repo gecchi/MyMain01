@@ -104,7 +104,7 @@ namespace GgafCore {
  * –Ú‚©‚ç—Ø‚Ì”ñí‚É‰ğ‚è‚â‚·‚¢‰ğà‚ÉŠ´Ó‚¢‚½‚µ‚Ü‚·B<BR>
  * <BR>
  * @version 1.00
- * @since 2009/11/23
+ * @since 2017/08/02
  * @author Masatoshi Tsuge
  */
 class GgafLinearQuadtree : public GgafObject {
@@ -231,8 +231,8 @@ public:
      * @param x2 V
      * @param y2 V
      */
-    virtual void setRootOctant(int x1, int y1,
-                               int x2, int y2);
+    virtual void setRootQuadrant(int x1, int y1,
+                                 int x2, int y2);
 
     /**
      * —v‘f‚ğl•ª–Ø‹óŠÔ‚É“o˜^‚·‚é

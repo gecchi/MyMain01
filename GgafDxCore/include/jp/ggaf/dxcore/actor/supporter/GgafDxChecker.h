@@ -41,7 +41,7 @@ public:
     virtual void createCollisionArea(int prm_colli_part_num);
 
     /**
-     * ヒットシしているかどうか
+     * ヒットしているかどうか
      * @param prm_pOtherChecker 相手のチェッカー
      * @return
      */

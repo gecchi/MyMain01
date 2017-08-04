@@ -8,7 +8,7 @@
 #include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChip.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
-#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
@@ -53,7 +53,7 @@ void EnemyEmus::initialize() {
     getKuroko()->linkFaceAngByMvAng(true);
     getMorpher()->setRange(MORPHTARGET_HATCH_OPEN, 0.0f, 1.0f);
     setMorphWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
-    CollisionChecker3D* pChecker = getCollisionChecker();
+    CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAABox_Cube(0, 200000);
     setScale(1000);

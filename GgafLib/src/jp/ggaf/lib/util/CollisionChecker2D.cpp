@@ -1,4 +1,4 @@
-#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/CollisionChecker2D.h"
 
 #include "jp/ggaf/core/actor/GgafGroupHead.h"
 #include "jp/ggaf/core/util/GgafLinearOctreeElem.h"
@@ -11,21 +11,23 @@
 #include "jp/ggaf/lib/util/ColliSphere.h"
 #include "jp/ggaf/lib/util/ColliAAPrism.h"
 #include "jp/ggaf/lib/util/ColliAAPyramid.h"
-#include "jp/ggaf/core/util/GgafLinearOctreeForActor.h"
+#include "jp/ggaf/core/util/GgafLinearQuadtreeForActor.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-CollisionChecker3D::CollisionChecker3D(GgafDxGeometricActor* prm_pActor) : CollisionChecker(prm_pActor) ,
-        _pLinearOctree(P_GOD->getSpacetime()->getLinearOctree()),
-        _pElem(NEW GgafLinearOctreeElem(_pLinearOctree, prm_pActor, 0))
+CollisionChecker2D::CollisionChecker2D(GgafDxGeometricActor* prm_pActor) : CollisionChecker(prm_pActor) ,
+        _pLinearQuadtree(nullptr),
+        _pElem(nullptr)
+        //_pLinearQuadtree(P_GOD->getSpacetime()->getLinearOctree())  //,
+        //_pElem(NEW GgafLinearOctreeElem(_pLinearQuadtree, prm_pActor, 0)) TODO:どーするか
 {
     _need_update_aabb = true;
 }
 
-void CollisionChecker3D::updateHitArea() {
+void CollisionChecker2D::updateHitArea() {
     GgafDxCollisionArea* const pCollisionArea = _pCollisionArea;
     if (pCollisionArea == nullptr) {
         return;
@@ -54,20 +56,19 @@ void CollisionChecker3D::updateHitArea() {
         //八分木に登録！
 #ifdef MY_DEBUG
         if (_pElem->_kindbit == 0) {
-            _TRACE_("＜警告＞ CollisionChecker3D::updateHitArea() pActor="<<pActor->getName()<<"("<<pActor<<")の種別が0にもかかわらず、八分木に登録しようとしています。なぜですか？。");
+            _TRACE_("＜警告＞ CollisionChecker2D::updateHitArea() pActor="<<pActor->getName()<<"("<<pActor<<")の種別が0にもかかわらず、八分木に登録しようとしています。なぜですか？。");
         }
 #endif
-        _pLinearOctree->registerElem(_pElem, pActor->_x + pCollisionArea->_aabb_x1,
+        _pLinearQuadtree->registerElem(_pElem, pActor->_x + pCollisionArea->_aabb_x1,
                                              pActor->_y + pCollisionArea->_aabb_y1,
-                                             pActor->_z + pCollisionArea->_aabb_z1,
+
                                              pActor->_x + pCollisionArea->_aabb_x2,
-                                             pActor->_y + pCollisionArea->_aabb_y2,
-                                             pActor->_z + pCollisionArea->_aabb_z2);
+                                             pActor->_y + pCollisionArea->_aabb_y2);
 
     }
 }
 
-bool CollisionChecker3D::isHit(const GgafDxCore::GgafDxChecker* const prm_pOppChecker) {
+bool CollisionChecker2D::isHit(const GgafDxCore::GgafDxChecker* const prm_pOppChecker) {
     GgafDxCollisionArea* const pCollisionArea = _pCollisionArea;
     GgafDxCollisionArea* const pOppCollisionArea = prm_pOppChecker->_pCollisionArea; //相手の当たり判定領域
     const GgafDxGeometricActor* const pActor = _pActor;                //相手のアクター
@@ -84,15 +85,15 @@ bool CollisionChecker3D::isHit(const GgafDxCore::GgafDxChecker* const prm_pOppCh
         bool is_hit_bound_aabb = false;
         if (pActor->_x + pCollisionArea->_aabb_x2 >= pOppActor->_x + pOppCollisionArea->_aabb_x1) {
             if (pActor->_x + pCollisionArea->_aabb_x1 <= pOppActor->_x + pOppCollisionArea->_aabb_x2) {
-                if (pActor->_z + pCollisionArea->_aabb_z2 >= pOppActor->_z + pOppCollisionArea->_aabb_z1) {
-                    if (pActor->_z + pCollisionArea->_aabb_z1 <= pOppActor->_z + pOppCollisionArea->_aabb_z2) {
+
+
                         if (pActor->_y + pCollisionArea->_aabb_y2 >= pOppActor->_y + pOppCollisionArea->_aabb_y1) {
                             if (pActor->_y + pCollisionArea->_aabb_y1 <= pOppActor->_y + pOppCollisionArea->_aabb_y2) {
                                 is_hit_bound_aabb = true;
                             }
                         }
-                    }
-                }
+
+
             }
         }
         if (!is_hit_bound_aabb) {
@@ -251,7 +252,7 @@ bool CollisionChecker3D::isHit(const GgafDxCore::GgafDxChecker* const prm_pOppCh
 }
 
 
-CollisionChecker3D::~CollisionChecker3D() {
+CollisionChecker2D::~CollisionChecker2D() {
     delete _pElem;
     //当たり判定はないかもしれない。この場合_pElemは無駄な生成と解放をすることになる。。
 }

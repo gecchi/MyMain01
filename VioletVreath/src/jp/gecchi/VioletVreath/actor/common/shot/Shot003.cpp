@@ -3,7 +3,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -22,7 +22,7 @@ void Shot003::initialize() {
     setZEnableDraw(true);   //描画時、Zバッファ値は考慮される
     setZWriteEnable(false); //自身のZバッファを書き込みしない
     effectBlendOne();       //加算合成
-    CollisionChecker3D* pChecker = getCollisionChecker();
+    CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAABox_Cube(0, PX_C(16));
 }

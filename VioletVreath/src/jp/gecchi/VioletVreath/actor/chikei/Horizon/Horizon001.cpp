@@ -6,7 +6,7 @@
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxChecker.h"
 #include "jp/gecchi/VioletVreath/God.h"
-#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -31,7 +31,7 @@ void Horizon001::onCreateModel() {
 void Horizon001::initialize() {
     setAlpha(0.99);
     setPosition(0, PX_C(-100), 0);
-    CollisionChecker3D* pChecker = getCollisionChecker();
+    CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     Spacetime* pSpacetime =  P_GOD->getSpacetime();
     pChecker->setColliAABox(0, pSpacetime->_x_bound_left  + (chip_width_*2),

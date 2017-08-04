@@ -4,7 +4,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/gecchi/VioletVreath/actor/label/SpriteLabelTest.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
 #include <stdio.h>
 
 using namespace GgafCore;
@@ -24,7 +24,7 @@ TestEnemy::TestEnemy(const char* prm_name,
 
 void TestEnemy::initialize() {
     setHitAble(true);
-    CollisionChecker3D* pChecker = getCollisionChecker();
+    CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(8);
 //    pChecker->setColliAABox(0, -30000, -30000, -30000, 30000, 30000, 30000);
 //    pChecker->setColliSphere(0, 30000);

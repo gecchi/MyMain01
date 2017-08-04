@@ -1,7 +1,7 @@
 #include "EnemyOzartiaShot01.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
@@ -18,7 +18,7 @@ EnemyOzartiaShot01::EnemyOzartiaShot01(const char* prm_name) :
 }
 
 void EnemyOzartiaShot01::initialize() {
-    CollisionChecker3D* pChecker = getCollisionChecker();
+    CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAABox(0, -30000, -30000, 30000, 30000);
     setHitAble(true);

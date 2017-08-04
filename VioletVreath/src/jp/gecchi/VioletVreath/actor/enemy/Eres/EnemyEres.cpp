@@ -5,7 +5,7 @@
 #include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/util/spline/FixedVelocitySplineKurokoLeader.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Eres/EnemyEresShot001.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -52,7 +52,7 @@ EnemyEres::EnemyEres(const char* prm_name, GgafActorDepository* prm_pDepo_EnemyE
 }
 
 void EnemyEres::initialize() {
-    CollisionChecker3D* pChecker = getCollisionChecker();
+    CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAABox(0, -30000, -30000, 30000, 30000);
 }

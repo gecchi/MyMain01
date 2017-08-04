@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Emilia/FormationEmilia.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -31,7 +31,7 @@ void EnemyEmiliaFragment::onCreateModel() {
 void EnemyEmiliaFragment::initialize() {
     setHitAble(true);
     setScaleR(0.3);
-    CollisionChecker3D* pChecker = getCollisionChecker();
+    CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliSphere(0, PX_C(80));
     getKuroko()->setRollPitchYawFaceAngVelo(D_ANG(2), D_ANG(4), D_ANG(8));

@@ -19,6 +19,8 @@ public:
     static std::string DIRNAME_RESOURCE_SPLINE;
     /** [r] 八分木空間レベル数 */
     static int OCTREE_LEVEL;
+    /** [r] 四分木空間レベル数 */
+    static int QUADTREE_LEVEL;
     /** [r] ヒットチェックに使用する空間分割は四分木場合true／それ以外はfalse */
     static bool IS_HIT_CHECK_3D;
     /** [r] ヒットチェックに使用する空間分割は八分木場合true／それ以外はfalse */

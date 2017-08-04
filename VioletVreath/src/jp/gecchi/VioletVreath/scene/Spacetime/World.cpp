@@ -6,7 +6,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 #include "jp/ggaf/dxcore/sound/GgafDxSound.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
-#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi8Font.h"
 #include "jp/gecchi/VioletVreath/Properties.h"
@@ -314,7 +314,7 @@ void World::processBehavior() {
                             GgafGod::_num_active_actor,
                             GgafActor::_num_actors,
                             GgafGod::_num_drawing,
-                            CollisionChecker3D::_num_check,
+                            CollisionChecker::_num_check,
                             askGod()->_fps,
                             (GgafDxSound::_app_master_volume)
                             );

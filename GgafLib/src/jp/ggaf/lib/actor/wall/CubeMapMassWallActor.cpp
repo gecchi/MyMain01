@@ -1,7 +1,7 @@
 #include "jp/ggaf/lib/actor/wall/CubeMapMassWallActor.h"
 
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
-#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/dxcore/effect/GgafDxEffect.h"
 #include "jp/ggaf/lib/scene/WallSectionScene.h"
 #include "jp/ggaf/lib/DefaultGod.h"

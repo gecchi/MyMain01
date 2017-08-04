@@ -1,19 +1,19 @@
-#ifndef GGAFLIB_COLLISIONCHECKER3D_H_
-#define GGAFLIB_COLLISIONCHECKER3D_H_
+#ifndef GGAFLIB_COLLISIONCHECKER2D_H_
+#define GGAFLIB_COLLISIONCHECKER2D_H_
 #include "GgafLibCommonHeader.h"
 #include "CollisionChecker.h"
 
 namespace GgafLib {
 
 /**
- * 3D用衝突チェッカークラス.
+ * 2D用衝突チェッカークラス.
  * @version 1.00
- * @since 2008/09/08
+ * @since 2017/08/04
  * @author Masatoshi Tsuge
  */
-class CollisionChecker3D : public CollisionChecker {
+class CollisionChecker2D : public CollisionChecker {
 
-    GgafCore::GgafLinearOctreeForActor* const _pLinearOctree; //TODO:どこに持たせようか悩むがとりあえずココに
+    GgafCore::GgafLinearQuadtreeForActor* const _pLinearQuadtree; //TODO:どこに持たせようか悩むがとりあえずココに
 
 public:
     /** 線形八分木登録用要素 */
@@ -24,7 +24,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pActor  当たり判定機能を追加するActor
      */
-    explicit CollisionChecker3D(GgafDxCore::GgafDxGeometricActor* prm_pActor);
+    explicit CollisionChecker2D(GgafDxCore::GgafDxGeometricActor* prm_pActor);
 
     /**
      * 当たり判定領域BOXの回転平行移動と、八分木登録を行います .
@@ -42,9 +42,9 @@ public:
      */
     bool isHit(const GgafDxCore::GgafDxChecker* const prm_pOppChecker) override;
 
-    virtual ~CollisionChecker3D();
+    virtual ~CollisionChecker2D();
 };
 
 }
-#endif /*GGAFLIB_COLLISIONCHECKER3D_H_*/
+#endif /*GGAFLIB_COLLISIONCHECKER2D_H_*/
 

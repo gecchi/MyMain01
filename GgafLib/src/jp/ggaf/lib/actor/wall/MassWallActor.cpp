@@ -4,7 +4,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/scene/WallSectionScene.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChip.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
@@ -69,7 +69,7 @@ MassWallActor::MassWallActor(const char* prm_name,
 void MassWallActor::init() {
     _class_name = "MassWallActor";
     _obj_class |= Obj_MassWallActor;
-    _pColliChecker = (CollisionChecker3D*)_pChecker;
+    _pColliChecker = (CollisionChecker*)_pChecker;
     _wall_draw_face = 0;
     _pos_info = 0;
     _pWallSectionScene = nullptr;
@@ -79,7 +79,7 @@ void MassWallActor::init() {
     _wall_height = 0;
     setHitAble(true);
 
-    CollisionChecker3D* pChecker = getCollisionChecker();
+    CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(2);
     pChecker->setColliAABox(0, 0,0,0, 0,0,0);
     pChecker->setColliAAPrism(1, 0,0,0, 0,0,0, 0);
@@ -362,7 +362,7 @@ void MassWallActor::config(WallSectionScene* prm_pWallSectionScene, int prm_pos_
     _wall_height = _pWallSectionScene->_wall_height;
     _pos_info = prm_pos_info;
 
-    CollisionChecker3D* pChecker = getCollisionChecker();
+    CollisionChecker* pChecker = getCollisionChecker();
     if (prm_aColliBoxStretch[0] == 0) {
         pChecker->disable(0);
         pChecker->disable(1);

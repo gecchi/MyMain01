@@ -10,7 +10,7 @@
 #include "jp/ggaf/dxcore/util/GgafDxCollisionArea.h"
 #include "jp/ggaf/dxcore/util/GgafDxCollisionPart.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
-#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectTurbo001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/DamageDispBar.h"
@@ -317,7 +317,7 @@ void MyShip::initialize() {
     //bringDirector()->addSubGroup(KIND_MY_SHOT_NOMAL, pLaserChipDepo_->extract());
 
     setHitAble(true);
-    CollisionChecker3D* pChecker = getCollisionChecker();
+    CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
 //    pChecker->setColliSphere(0, -100000, -50000, 20000, 100000);
 // pChecker->setColliAABox(0, -100000, -50000, 20000, 10000, 40000, 80000);

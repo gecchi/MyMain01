@@ -4,7 +4,7 @@
 #include "jp/ggaf/dxcore/effect/GgafDxMeshEffect.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/model/GgafDxMeshModel.h"
-#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #ifdef MY_DEBUG
 #include "jp/ggaf/lib/actor/ColliAABoxActor.h"
@@ -28,7 +28,7 @@ GroundMeshActor::GroundMeshActor(const char* prm_name, const char* prm_model, Gg
 
     _class_name = "GroundMeshActor";
     offset_frames_ = 0;
-    _pColliChecker = (CollisionChecker3D*)_pChecker;
+    _pColliChecker = (CollisionChecker*)_pChecker;
 
 //    if (pMeshModel_->paVtxBuffer_data_[0].nx == 0 &&
 //        pMeshModel_->paVtxBuffer_data_[0].ny == 0 &&

@@ -88,7 +88,9 @@ class ColliAABox;
 class ColliSphere;
 class ColliAAPrism;
 class ColliAAPyramid;
+class CollisionChecker;
 class CollisionChecker3D;
+class CollisionChecker2D;
 
 class SplineLine;
 class SplineKurokoLeader;

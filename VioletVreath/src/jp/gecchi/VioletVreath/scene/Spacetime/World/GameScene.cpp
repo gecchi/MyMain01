@@ -360,7 +360,7 @@ void GameScene::processJudgement() {
 
     if (getBehaveingFrame() >= 120) {
 #ifdef MY_DEBUG
-        CollisionChecker3D::_num_check = 0;
+        CollisionChecker::_num_check = 0;
 #endif
 
 

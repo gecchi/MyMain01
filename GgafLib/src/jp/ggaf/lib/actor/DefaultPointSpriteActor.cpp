@@ -1,7 +1,7 @@
 #include "jp/ggaf/lib/actor/DefaultPointSpriteActor.h"
 
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #ifdef MY_DEBUG
 #include "jp/ggaf/lib/actor/ColliAABoxActor.h"
@@ -23,7 +23,7 @@ DefaultPointSpriteActor::DefaultPointSpriteActor(const char* prm_name, const cha
                            UTIL::createChecker(this) ) {
 
     _class_name = "DefaultPointSpriteActor";
-    _pColliChecker = (CollisionChecker3D*)_pChecker;
+    _pColliChecker = (CollisionChecker*)_pChecker;
 }
 
 void DefaultPointSpriteActor::drawHitArea() {

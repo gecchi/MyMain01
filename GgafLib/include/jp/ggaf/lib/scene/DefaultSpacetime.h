@@ -21,13 +21,17 @@ class DefaultSpacetime : public GgafDxCore::GgafDxSpacetime {
 
 public:
     GgafCore::GgafLinearOctreeForActor* _pLinearOctree;
-
+    GgafCore::GgafLinearQuadtreeForActor* _pLinearQuadtree;
 public:
     DefaultSpacetime(const char* prm_name, DefaultCamera* prm_pCamera);
 
     inline GgafCore::GgafLinearOctreeForActor* getLinearOctree() const {
         return _pLinearOctree;
     }
+    inline GgafCore::GgafLinearQuadtreeForActor* getLinearQuadtree() const {
+        return _pLinearQuadtree;
+    }
+
     virtual DefaultCamera* getCamera() override { //‹¤•Ï‚Ì–ß‚è’l
         return (DefaultCamera*)_pCamera;
     }

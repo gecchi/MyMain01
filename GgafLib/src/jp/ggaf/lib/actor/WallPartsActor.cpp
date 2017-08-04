@@ -3,7 +3,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/scene/WalledSectionScene.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChip.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
@@ -33,7 +33,7 @@ WallPartsActor::WallPartsActor(const char* prm_name,
                                            UTIL::createChecker(this) ) {
     _class_name = "WallPartsActor";
     _obj_class |= Obj_WallPartsActor;
-    _pColliChecker = (CollisionChecker3D*)_pChecker;
+    _pColliChecker = (CollisionChecker*)_pChecker;
     _wall_draw_face = 0;
     _pos_info = 0;
     _pWalledSectionScene = nullptr;

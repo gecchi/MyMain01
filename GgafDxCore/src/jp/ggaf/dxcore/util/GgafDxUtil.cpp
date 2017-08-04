@@ -528,25 +528,25 @@ void GgafDxUtil::convVectorToRzRy(coord vx,
         throwGgafCriticalException("”ÍˆÍ‚ª”j’]‚µ‚Ä‚Ü‚·Bprj_rXY="<<prj_rXY<<" ˆø”:"<<vx<<","<<vy<<","<<vz);
     }
 #endif
-    //ÛŒÀ‚É‚æ‚Á‚Ä‰ñ“]Šp‚ğ•â³
+    //ŒTŒÀ‚É‚æ‚Á‚Ä‰ñ“]Šp‚ğ•â³
     if (vx >= 0) {
         if (vy >= 0) {
             if (vz >= 0) {
-                //‘æˆêÛŒÀ
+                //‘æˆêŒTŒÀ
                 out_rz = rot_z;
                 out_ry = (D360ANG - rot_y_rev);
             } else { //vz < 0
-                //‘æŒÜÛŒÀ
+                //‘æŒÜŒTŒÀ
                 out_rz = rot_z;
                 out_ry = rot_y_rev;
             }
         } else { //vy < 0
             if (vz >= 0) {
-                //‘ælÛŒÀ
+                //‘ælŒTŒÀ
                 out_rz = (D360ANG - rot_z);
                 out_ry = (D360ANG - rot_y_rev);
             } else { //vz < 0
-                //‘æ”ªÛŒÀ
+                //‘æ”ªŒTŒÀ
                 out_rz = (D360ANG - rot_z);
                 out_ry = rot_y_rev;
             }
@@ -554,21 +554,21 @@ void GgafDxUtil::convVectorToRzRy(coord vx,
     } else { //vx < 0
         if (vy >= 0) {
             if (vz >= 0) {
-                //‘æ“ñÛŒÀ
+                //‘æ“ñŒTŒÀ
                 out_rz = rot_z;
                 out_ry = (D180ANG + rot_y_rev);
             } else { //vz < 0
-                //‘æ˜ZÛŒÀ
+                //‘æ˜ZŒTŒÀ
                 out_rz = rot_z;
                 out_ry = (D180ANG - rot_y_rev);
             }
         } else { //vy < 0
             if (vz >= 0) {
-                //‘æOÛŒÀ
+                //‘æOŒTŒÀ
                 out_rz = (D360ANG - rot_z);
                 out_ry = (D180ANG + rot_y_rev);
             } else { //vz < 0
-                //‘æµÛŒÀ
+                //‘æµŒTŒÀ
                 out_rz = (D360ANG - rot_z);
                 out_ry = (D180ANG - rot_y_rev);
             }
@@ -609,28 +609,28 @@ void GgafDxUtil::convRzRyToVector(angle prm_rz,
                                   float& out_nvy,
                                   float& out_nvz) {
     //void GgafDxSphereRadiusVectors::getVectorClosely(int out_faceY, int prm_angZ, uint16_t& out_x, uint16_t& out_y, uint16_t& out_z) {
-    //‰ñ“]Šp‚É‚æ‚Á‚ÄÛŒÀ‚ğl—¶‚µAgetVectorClosely‚Ìƒpƒ‰ƒ[ƒ^Šp(< 900)‚ğo‚·
+    //‰ñ“]Šp‚É‚æ‚Á‚ÄŒTŒÀ‚ğl—¶‚µAgetVectorClosely‚Ìƒpƒ‰ƒ[ƒ^Šp(< 900)‚ğo‚·
     int xsign, ysign, zsign;
     s_ang rz, ry_rev;
 
     if (0 <= prm_rz && prm_rz < D90ANG) {
         rz = (prm_rz - D0ANG) * (1.0 / SANG_RATE);
-        if (0 <= prm_ry && prm_ry < D90ANG) { //‘æŒÜÛŒÀ
+        if (0 <= prm_ry && prm_ry < D90ANG) { //‘æŒÜŒTŒÀ
             ry_rev = prm_ry * (1.0 / SANG_RATE);
             xsign = 1;
             ysign = 1;
             zsign = -1;
-        } else if (D90ANG <= prm_ry && prm_ry < D180ANG) { //‘æ˜ZÛŒÀ
+        } else if (D90ANG <= prm_ry && prm_ry < D180ANG) { //‘æ˜ZŒTŒÀ
             ry_rev = (D180ANG - prm_ry) * (1.0 / SANG_RATE);
             xsign = -1;
             ysign = 1;
             zsign = -1;
-        } else if (D180ANG <= prm_ry && prm_ry < D270ANG) { //‘æ“ñÛŒÀ
+        } else if (D180ANG <= prm_ry && prm_ry < D270ANG) { //‘æ“ñŒTŒÀ
             ry_rev = (prm_ry - D180ANG) * (1.0 / SANG_RATE);
             xsign = -1;
             ysign = 1;
             zsign = 1;
-        } else if (D270ANG <= prm_ry && prm_ry <= D360ANG) { //‘æˆêÛŒÀ
+        } else if (D270ANG <= prm_ry && prm_ry <= D360ANG) { //‘æˆêŒTŒÀ
             ry_rev = (D360ANG - prm_ry) * (1.0 / SANG_RATE);
             xsign = 1;
             ysign = 1;
@@ -641,22 +641,22 @@ void GgafDxUtil::convRzRyToVector(angle prm_rz,
     } else if (D90ANG <= prm_rz && prm_rz < D180ANG) {
         rz = (D180ANG - prm_rz) * (1.0 / SANG_RATE);
 
-        if (0 <= prm_ry && prm_ry < D90ANG) { //‘æ“ñÛŒÀ
+        if (0 <= prm_ry && prm_ry < D90ANG) { //‘æ“ñŒTŒÀ
             ry_rev = prm_ry * (1.0 / SANG_RATE);
             xsign = -1;
             ysign = 1;
             zsign = 1;
-        } else if (D90ANG <= prm_ry && prm_ry < D180ANG) { //‘æˆêÛŒÀ
+        } else if (D90ANG <= prm_ry && prm_ry < D180ANG) { //‘æˆêŒTŒÀ
             ry_rev = (D180ANG - prm_ry) * (1.0 / SANG_RATE);
             xsign = 1;
             ysign = 1;
             zsign = 1;
-        } else if (D180ANG <= prm_ry && prm_ry < D270ANG) { //‘æŒÜÛŒÀ
+        } else if (D180ANG <= prm_ry && prm_ry < D270ANG) { //‘æŒÜŒTŒÀ
             ry_rev = (prm_ry - D180ANG) * (1.0 / SANG_RATE);
             xsign = 1;
             ysign = 1;
             zsign = -1;
-        } else if (D270ANG <= prm_ry && prm_ry <= D360ANG) { //‘æ˜ZÛŒÀ
+        } else if (D270ANG <= prm_ry && prm_ry <= D360ANG) { //‘æ˜ZŒTŒÀ
             ry_rev = (D360ANG - prm_ry) * (1.0 / SANG_RATE);
             xsign = -1;
             ysign = 1;
@@ -667,22 +667,22 @@ void GgafDxUtil::convRzRyToVector(angle prm_rz,
 
     } else if (D180ANG <= prm_rz && prm_rz < D270ANG) {
         rz = (prm_rz - D180ANG) * (1.0 / SANG_RATE);
-        if (0 <= prm_ry && prm_ry < D90ANG) { //‘æOÛŒÀ
+        if (0 <= prm_ry && prm_ry < D90ANG) { //‘æOŒTŒÀ
             ry_rev = prm_ry * (1.0 / SANG_RATE);
             xsign = -1;
             ysign = -1;
             zsign = 1;
-        } else if (D90ANG <= prm_ry && prm_ry < D180ANG) { //‘ælÛŒÀ
+        } else if (D90ANG <= prm_ry && prm_ry < D180ANG) { //‘ælŒTŒÀ
             ry_rev = (D180ANG - prm_ry) * (1.0 / SANG_RATE);
             xsign = 1;
             ysign = -1;
             zsign = 1;
-        } else if (D180ANG <= prm_ry && prm_ry < D270ANG) { //‘æ”ªÛŒÀ
+        } else if (D180ANG <= prm_ry && prm_ry < D270ANG) { //‘æ”ªŒTŒÀ
             ry_rev = (prm_ry - D180ANG) * (1.0 / SANG_RATE);
             xsign = 1;
             ysign = -1;
             zsign = -1;
-        } else if (D270ANG <= prm_ry && prm_ry <= D360ANG) { //‘æµÛŒÀ
+        } else if (D270ANG <= prm_ry && prm_ry <= D360ANG) { //‘æµŒTŒÀ
             ry_rev = (D360ANG - prm_ry) * (1.0 / SANG_RATE);
             xsign = -1;
             ysign = -1;
@@ -692,22 +692,22 @@ void GgafDxUtil::convRzRyToVector(angle prm_rz,
         }
     } else if (D270ANG <= prm_rz && prm_rz <= D360ANG) {
         rz = (D360ANG - prm_rz) * (1.0 / SANG_RATE);
-        if (0 <= prm_ry && prm_ry < D90ANG) { //‘æ”ªÛŒÀ
+        if (0 <= prm_ry && prm_ry < D90ANG) { //‘æ”ªŒTŒÀ
             ry_rev = prm_ry * (1.0 / SANG_RATE);
             xsign = 1;
             ysign = -1;
             zsign = -1;
-        } else if (D90ANG <= prm_ry && prm_ry < D180ANG) { //‘æµÛŒÀ
+        } else if (D90ANG <= prm_ry && prm_ry < D180ANG) { //‘æµŒTŒÀ
             ry_rev = (D180ANG - prm_ry) * (1.0 / SANG_RATE);
             xsign = -1;
             ysign = -1;
             zsign = -1;
-        } else if (D180ANG <= prm_ry && prm_ry < D270ANG) { //‘æOÛŒÀ
+        } else if (D180ANG <= prm_ry && prm_ry < D270ANG) { //‘æOŒTŒÀ
             ry_rev = (prm_ry - D180ANG) * (1.0 / SANG_RATE);
             xsign = -1;
             ysign = -1;
             zsign = 1;
-        } else if (D270ANG <= prm_ry && prm_ry <= D360ANG) { //‘ælÛŒÀ
+        } else if (D270ANG <= prm_ry && prm_ry <= D360ANG) { //‘ælŒTŒÀ
             ry_rev = (D360ANG - prm_ry) * (1.0 / SANG_RATE);
             xsign = 1;
             ysign = -1;

@@ -11,7 +11,7 @@
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
-#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -61,7 +61,7 @@ void EnemyRatislaviaEye::onCreateModel() {
 void EnemyRatislaviaEye::initialize() {
     setHitAble(true);
     getKuroko()->linkFaceAngByMvAng(true);
-    CollisionChecker3D* pChecker = getCollisionChecker();
+    CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliSphere(0, 200000);
 }

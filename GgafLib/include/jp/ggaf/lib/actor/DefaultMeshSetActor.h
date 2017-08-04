@@ -25,7 +25,7 @@ class DefaultMeshSetActor : public GgafDxCore::GgafDxMeshSetActor {
 
 public:
     /** 衝突判定支援オブジェクト */
-    CollisionChecker3D* _pColliChecker;
+    CollisionChecker* _pColliChecker;
 
 public:
     DefaultMeshSetActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
@@ -50,7 +50,7 @@ public:
 
     virtual void drawHitArea() override;
 
-    inline CollisionChecker3D* getCollisionChecker() {
+    inline CollisionChecker* getCollisionChecker() {
         return _pColliChecker;
     }
 

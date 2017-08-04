@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/lib/DefaultGod.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
@@ -29,7 +29,7 @@ DefaultMassPointSpriteActor::DefaultMassPointSpriteActor(const char* prm_name, c
                         prm_pStat,
                         UTIL::createChecker(this) ) {
     _class_name = "DefaultMassPointSpriteActor";
-    _pColliChecker = (CollisionChecker3D*)_pChecker;
+    _pColliChecker = (CollisionChecker*)_pChecker;
     _pMassPointSpriteModel->registerCallback_VertexInstanceDataInfo(DefaultMassPointSpriteActor::createVertexInstanceData);
 }
 

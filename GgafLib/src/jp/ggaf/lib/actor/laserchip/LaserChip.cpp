@@ -5,7 +5,7 @@
 #include "jp/ggaf/dxcore/effect/GgafDxMeshSetEffect.h"
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/dxcore/util/GgafDxCollisionPart.h"
 #include "jp/ggaf/dxcore/util/GgafDxCollisionArea.h"
@@ -33,7 +33,7 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model, GgafStatus* pr
                          UTIL::createChecker(this) ) {
 //    _pMeshSetModel->_set_num = 11; //現在のレーザーの最大セット数は11。
     _obj_class |= Obj_LaserChip;
-    _pColliChecker = (CollisionChecker3D*)_pChecker;
+    _pColliChecker = (CollisionChecker*)_pChecker;
     _class_name = "LaserChip";
     _pChip_infront = nullptr;
     _pChip_behind = nullptr;
@@ -71,7 +71,7 @@ void LaserChip::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
 }
 
 void LaserChip::onActive() {
-    CollisionChecker3D* pChecker = getCollisionChecker();
+    CollisionChecker* pChecker = getCollisionChecker();
 
     //出現時
     _chip_kind = 0; //未だ不明
@@ -103,7 +103,7 @@ void LaserChip::onActive() {
 }
 
 void LaserChip::processSettlementBehavior() {
-    CollisionChecker3D* pChecker = getCollisionChecker();
+    CollisionChecker* pChecker = getCollisionChecker();
     const LaserChip* pChip_infront = _pChip_infront;
     const LaserChip* pChip_behind = _pChip_behind;
 
@@ -290,7 +290,7 @@ void LaserChip::registerHitAreaCube_AutoGenMidColli(int prm_edge_length) {
     _middle_colli_able = true;
     _hitarea_edge_length = prm_edge_length;
     _hitarea_edge_length_3 = _hitarea_edge_length*3;
-    CollisionChecker3D* pChecker = getCollisionChecker();
+    CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(2);
     pChecker->setColliAABox_Cube(0, prm_edge_length);
     pChecker->setColliAABox_Cube(1, prm_edge_length);

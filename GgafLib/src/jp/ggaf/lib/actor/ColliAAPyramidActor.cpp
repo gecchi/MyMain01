@@ -1,7 +1,7 @@
 #include "jp/ggaf/lib/actor/ColliAAPyramidActor.h"
 
 #include "jp/ggaf/core/GgafGod.h"
-#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/dxcore/util/GgafDxCollisionArea.h"
 #include "jp/ggaf/dxcore/util/GgafDxCollisionPart.h"
 #include "jp/ggaf/lib/util/ColliAAPyramid.h"
@@ -29,7 +29,7 @@ void ColliAAPyramidActor::release() {
     GGAF_DELETE_NULLABLE(ColliAAPyramidActor::_pObj);
 }
 
-void ColliAAPyramidActor::drawHitarea(CollisionChecker3D* prm_pColliChecker) {
+void ColliAAPyramidActor::drawHitarea(CollisionChecker* prm_pColliChecker) {
     if (prm_pColliChecker != nullptr &&
         prm_pColliChecker->_pCollisionArea != nullptr &&
         prm_pColliChecker->getTargetActor()->canHit() &&

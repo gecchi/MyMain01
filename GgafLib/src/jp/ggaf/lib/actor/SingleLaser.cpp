@@ -5,7 +5,7 @@
 #include "jp/ggaf/dxcore/effect/GgafDxMeshSetEffect.h"
 #include "jp/ggaf/dxcore/model/GgafDxMeshSetModel.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
 #ifdef MY_DEBUG
 #include "jp/ggaf/lib/actor/ColliAABoxActor.h"
 #include "jp/ggaf/lib/actor/ColliAAPrismActor.h"
@@ -29,7 +29,7 @@ SingleLaser::SingleLaser(const char* prm_name, const char* prm_model_id, GgafSta
     _pMeshSetModel->_set_num = 26; //現在のシングルレーザーの最大セット数強制上書き。
 
     _class_name = "SingleLaser";
-    _pColliChecker = (CollisionChecker3D*)_pChecker;
+    _pColliChecker = (CollisionChecker*)_pChecker;
 
     setZEnableDraw(true);    //描画時、Zバッファ値は考慮される
     setZWriteEnable(false);  //自身のZバッファを書き込みしない

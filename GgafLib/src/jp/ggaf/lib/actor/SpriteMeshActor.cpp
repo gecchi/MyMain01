@@ -1,7 +1,7 @@
 #include "jp/ggaf/lib/actor/SpriteMeshActor.h"
 
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #ifdef MY_DEBUG
 #include "jp/ggaf/lib/actor/ColliAABoxActor.h"
@@ -22,7 +22,7 @@ SpriteMeshActor::SpriteMeshActor(const char* prm_name, const char* prm_model, Gg
                           UTIL::createChecker(this) ) {
 
     _class_name = "SpriteMeshActor";
-    _pColliChecker = (CollisionChecker3D*)_pChecker;
+    _pColliChecker = (CollisionChecker*)_pChecker;
 }
 
 void SpriteMeshActor::drawHitArea() {

@@ -62,7 +62,7 @@ public:
     };
 
     static VERTEX_instancedata _aInstancedata[];
-    CollisionChecker3D* _pColliChecker;
+    CollisionChecker* _pColliChecker;
 
     /** レーザーテクスチャ種別  0:不明 1:末尾 2:中間 3:先頭から２番目で先頭のテクスチャ （末尾かつ先頭は末尾が優先） 4:本当の先頭(但し描画できない) */
     int _chip_kind;
@@ -112,7 +112,7 @@ public:
      */
     virtual void registerHitAreaCube_AutoGenMidColli(int prm_edge_length);
 
-    inline CollisionChecker3D* getCollisionChecker() {
+    inline CollisionChecker* getCollisionChecker() {
         return _pColliChecker;
     }
 
