@@ -41,7 +41,7 @@ void WorldBoundTitle::processJudgement() {
 
 void WorldBoundTitle::fadein() {
     setAlpha(pAFader_->getBottom());
-    pAFader_->transitionLinerUntil(1.0, 120);
+    pAFader_->transitionLinearUntil(1.0, 120);
 }
 
 WorldBoundTitle::~WorldBoundTitle() {

@@ -30,8 +30,8 @@ private:
     void belongTo(GgafLinearOctreeOctant* const prm_pOctant_target);
 
 public:
-    /** [r]所属ツリー */
-    GgafLinearOctree* const _pLinearOctree;
+    /** 空間の配列 */
+    GgafLinearOctreeOctant*  _paLinearOctant;
     /** [r]要素オブジェクト（これが本体） */
     GgafObject* const _pObject;
     /** [r]要素オブジェクトの種別 */
@@ -51,7 +51,7 @@ public:
      * @param prm_kindbit その対象オブジェクの種別、種類分け不要な場合は、任意の数値でよい。
      * @return
      */
-    GgafLinearOctreeElem(GgafLinearOctree* prm_pLinearOctree, GgafObject* prm_pObject, uint32_t prm_kindbit);
+    GgafLinearOctreeElem(GgafLinearOctreeOctant* prm_pLinearOctree, GgafObject* prm_pObject, uint32_t prm_kindbit);
 
     void dump();
 

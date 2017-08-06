@@ -62,7 +62,7 @@ void EnemyAlisana::processBehavior() {
             static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
             static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
             if (pProg->hasArrivedAt(frame_of_summons_begin)) {
-                pAFader_->transitionLinerUntil(0.999, frame_of_entering);
+                pAFader_->transitionLinearUntil(0.999, frame_of_entering);
             }
             if (pProg->hasArrivedAt(frame_of_entering)) {
                 setHitAble(true);
@@ -72,7 +72,7 @@ void EnemyAlisana::processBehavior() {
         }
         case PROG_HATCH_OPEN: {
             if (pProg->hasJustChanged()) {
-                getMorpher()->transitionLinerUntil(MPH_HATCH_OPEN,
+                getMorpher()->transitionLinearUntil(MPH_HATCH_OPEN,
                                            1.0, frame_of_morph_interval_);
             }
             if (!getMorpher()->isTransitioning()) {
@@ -91,7 +91,7 @@ void EnemyAlisana::processBehavior() {
         //-----------------------------------------------------------------------
         case PROG_HATCH_CLOSE: {
             if (pProg->hasJustChanged()) {
-                getMorpher()->transitionLinerUntil(MPH_HATCH_OPEN,
+                getMorpher()->transitionLinearUntil(MPH_HATCH_OPEN,
                                            0.0, frame_of_morph_interval_);
             }
             if (!getMorpher()->isTransitioning()) {
@@ -103,7 +103,7 @@ void EnemyAlisana::processBehavior() {
             if (pProg->hasJustChanged()) {
                 setHitAble(false);
                 UTIL::activateLeaveEffectOf(this);
-                pAFader_->transitionLinerUntil(0.0, 30);
+                pAFader_->transitionLinearUntil(0.0, 30);
             }
             if (pProg->hasArrivedAt(60)) {
                 sayonara();

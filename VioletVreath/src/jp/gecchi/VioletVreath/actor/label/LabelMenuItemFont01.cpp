@@ -22,7 +22,7 @@ void LabelMenuItemFont01::initialize() {
 void LabelMenuItemFont01::onActive() {
     _pAFader->setRange(0.0, 1.0);
     setAlpha(0.0);
-    _pAFader->transitionLinerToTop(60);
+    _pAFader->transitionLinearToTop(60);
 }
 
 void LabelMenuItemFont01::onUpdate() {

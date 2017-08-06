@@ -48,7 +48,7 @@ void EnemyOzartiaPillar01::processBehavior() {
             static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
             static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
             if (pProg->hasArrivedAt(frame_of_summons_begin)) {
-                pAFader_->transitionLinerUntil(1.0, frame_of_entering);
+                pAFader_->transitionLinearUntil(1.0, frame_of_entering);
             }
             if (pProg->hasArrivedAt(frame_of_entering)) {
                 setHitAble(true);
@@ -67,7 +67,7 @@ void EnemyOzartiaPillar01::processBehavior() {
         case PROG_LEAVE: {
              if (pProg->hasJustChanged()) {
                  UTIL::activateLeaveEffectOf(this);
-                 pAFader_->transitionLinerUntil(0.0, 15);
+                 pAFader_->transitionLinearUntil(0.0, 15);
              }
              if (pProg->hasArrivedAt(60)) {
                  sayonara();

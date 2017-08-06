@@ -49,7 +49,7 @@ void MyMagicEnergyCore::processBehavior() {
     double s = (P_MYSHIP->mp_ * (1.0 / MY_SHIP_MAX_MP));
     GgafDxKuroko* const pKuroko = getKuroko();
     //MP‚É˜A“®‚µ‚Ä‘å‚«‚­‚È‚é
-    pScaler_->transitionLinerStep(
+    pScaler_->transitionLinearStep(
                 s * MAX_SCALSE_MagicEnergyCore,
                 100
              );

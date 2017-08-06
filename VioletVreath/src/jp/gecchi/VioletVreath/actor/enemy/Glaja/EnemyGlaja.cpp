@@ -69,7 +69,7 @@ void EnemyGlaja::processBehavior() {
              static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
              static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
              if (pProg->hasArrivedAt(frame_of_summons_begin)) {
-                 pAFader_->transitionLinerUntil(1.0, frame_of_entering);
+                 pAFader_->transitionLinearUntil(1.0, frame_of_entering);
              }
              if (pProg->hasArrivedAt(frame_of_entering)) {
                  setHitAble(true);
@@ -110,7 +110,7 @@ void EnemyGlaja::processBehavior() {
 
          case PROG_OPEN: {
              if (pProg->hasJustChanged()) {
-                 getMorpher()->transitionLinerUntil(MPH_OPEN, 1.0, 30);
+                 getMorpher()->transitionLinearUntil(MPH_OPEN, 1.0, 30);
              }
              if (pProg->hasArrivedAt(30)) {
                  pProg->changeNext();
@@ -140,7 +140,7 @@ void EnemyGlaja::processBehavior() {
 
          case PROG_CLOSE: {
              if (pProg->hasJustChanged()) {
-                 getMorpher()->transitionLinerUntil(MPH_OPEN, 0.0, 30);
+                 getMorpher()->transitionLinearUntil(MPH_OPEN, 0.0, 30);
              }
              if (pProg->hasArrivedAt(30)) {
                  pProg->change(PROG_MOVE01); //ŒJ‚è•Ô‚µ

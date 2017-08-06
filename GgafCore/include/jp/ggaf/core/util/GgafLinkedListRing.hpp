@@ -168,7 +168,7 @@ public:
     /** [r]関連要素数 */
     int _relation_num;
     /** [r]インデックスに対する要素値の配列、createIndex()実行で作成される */
-    const T** _papLinerVal;
+    const T** _papLinearVal;
 
 public:
     /**
@@ -886,7 +886,7 @@ GgafLinkedListRing<T>::GgafLinkedListRing(int prm_extend_relation_num) :
     _pElemActive = nullptr;
     _pElem_first = nullptr;
     _relation_num = prm_extend_relation_num;
-    _papLinerVal = nullptr;
+    _papLinearVal = nullptr;
 }
 
 
@@ -921,8 +921,8 @@ void GgafLinkedListRing<T>::addNext(const T* prm_pNew,
         pMyNext->_pPrev = pElem;
     }
     _num_elem++;
-    if (_papLinerVal) {
-        GGAF_DELETEARR(_papLinerVal);
+    if (_papLinearVal) {
+        GGAF_DELETEARR(_papLinearVal);
     }
 }
 
@@ -958,8 +958,8 @@ void GgafLinkedListRing<T>::addPrev(const T* prm_pNew,
         pMy->_pPrev = pElem;
     }
     _num_elem++;
-    if (_papLinerVal) {
-        GGAF_DELETEARR(_papLinerVal);
+    if (_papLinearVal) {
+        GGAF_DELETEARR(_papLinearVal);
     }
 }
 
@@ -993,8 +993,8 @@ void GgafLinkedListRing<T>::addLast(const T* prm_pNew,
         _pElem_first->_pPrev = pElem;
     }
     _num_elem++;
-    if (_papLinerVal) {
-        GGAF_DELETEARR(_papLinerVal);
+    if (_papLinearVal) {
+        GGAF_DELETEARR(_papLinearVal);
     }
 }
 
@@ -1029,8 +1029,8 @@ void GgafLinkedListRing<T>::addFirst(const T* prm_pNew,
         _pElem_first = pElem;
     }
     _num_elem++;
-    if (_papLinerVal) {
-        GGAF_DELETEARR(_papLinerVal);
+    if (_papLinearVal) {
+        GGAF_DELETEARR(_papLinearVal);
     }
 }
 
@@ -1096,12 +1096,12 @@ T* GgafLinkedListRing<T>::getNext(int n) const {
         throwGgafCriticalException("GgafLinkedListRing<T>::getNext 引数には正の整数を設定する必要があります n="<<n);
     }
 #endif
-    if (_papLinerVal) { //インデックスあり
+    if (_papLinearVal) { //インデックスあり
         int i = _pElemActive->_idx + n;
         if (i >= _num_elem) {
-            return (T*) _papLinerVal[(i % _num_elem)];
+            return (T*) _papLinearVal[(i % _num_elem)];
         } else {
-            return (T*) _papLinerVal[i];
+            return (T*) _papLinearVal[i];
         }
     } else { //インデックスなし
         Elem* pElem = _pElemActive;
@@ -1115,20 +1115,20 @@ T* GgafLinkedListRing<T>::getNext(int n) const {
 
 //template<class T>
 //T* GgafLinkedListRing<T>::getFromCurrent(int n) const {
-//    if (_papLinerVal) { //インデックスあり
+//    if (_papLinearVal) { //インデックスあり
 //      int i = _pElemActive->_idx + n;
 //      if (i >= _num_elem) {
-//          return (T*)_papLinerVal[(i % _num_elem)];
+//          return (T*)_papLinearVal[(i % _num_elem)];
 //      } else if (i < 0) {
 //          int x = (-i) % _num_elem;
 //          if (x == 0) {
-//              return (T*)_papLinerVal[0];
+//              return (T*)_papLinearVal[0];
 //          } else {
-//              return (T*)_papLinerVal[_num_elem - x];
+//              return (T*)_papLinearVal[_num_elem - x];
 //          }
 //
 //      } else {
-//          return (T*)_papLinerVal[i];
+//          return (T*)_papLinearVal[i];
 //      }
 //    } else { //インデックスなし
 //      Elem* pElem = _pElemActive;
@@ -1156,11 +1156,11 @@ T* GgafLinkedListRing<T>::getFromFirst(int n) const {
     if (pElem == nullptr) {
         return nullptr;
     }
-    if (_papLinerVal) { //インデックスあり
+    if (_papLinearVal) { //インデックスあり
         if (n >= _num_elem) {
-            return (T*) _papLinerVal[(n % _num_elem)];
+            return (T*) _papLinearVal[(n % _num_elem)];
         } else {
-            return (T*) _papLinerVal[n];
+            return (T*) _papLinearVal[n];
         }
     } else { //インデックスなし
         int x = n % _num_elem;
@@ -1183,12 +1183,12 @@ T* GgafLinkedListRing<T>::getPrev(int n) const {
         throwGgafCriticalException("GgafLinkedListRing<T>::getPrev 引数には正の整数を設定する必要があります n="<<n);
     }
 #endif
-    if (_papLinerVal) { //インデックスあり
+    if (_papLinearVal) { //インデックスあり
         int i = _pElemActive->_idx - (n % _num_elem);
         if (i >= 0) {
-            return (T*) _papLinerVal[i];
+            return (T*) _papLinearVal[i];
         } else {
-            return (T*) _papLinerVal[_num_elem + i];
+            return (T*) _papLinearVal[_num_elem + i];
         }
     } else { //インデックスなし
         Elem* pElem = _pElemActive;
@@ -1239,7 +1239,7 @@ int GgafLinkedListRing<T>::getCurrentIndex() const {
     if (_pElemActive == nullptr) {
         return -1;
     } else {
-        if (_papLinerVal) {
+        if (_papLinearVal) {
             return _pElemActive->_idx;
         } else {
             //従来の方法
@@ -1274,8 +1274,8 @@ T* GgafLinkedListRing<T>::set(const T* prm_pVal, bool prm_is_delete_value) {
     _pElemActive->_pValue = prm_pVal;
     _pElemActive->_is_delete_value = prm_is_delete_value;
 
-    if (_papLinerVal) {
-        _papLinerVal[_pElemActive->_idx] = prm_pVal;
+    if (_papLinearVal) {
+        _papLinearVal[_pElemActive->_idx] = prm_pVal;
     }
 
     if (is_delete_value) {
@@ -1291,9 +1291,9 @@ template<class T>
 T* GgafLinkedListRing<T>::remove() {
     Elem* pMy = _pElemActive;
     if (pMy) {
-        if (_papLinerVal) {
+        if (_papLinearVal) {
             //要素数が変更されるのでインデックスは無効化にする
-            GGAF_DELETEARR(_papLinerVal);
+            GGAF_DELETEARR(_papLinearVal);
         }
         _num_elem--;
         if (pMy->_is_first_flg && pMy->_is_last_flg) {
@@ -1329,9 +1329,9 @@ T* GgafLinkedListRing<T>::remove() {
 
 template<class T>
 int GgafLinkedListRing<T>::removeAll() {
-    if (_papLinerVal) {
+    if (_papLinearVal) {
         //要素数が変更されるのでインデックスは無効にする
-        GGAF_DELETEARR(_papLinerVal);
+        GGAF_DELETEARR(_papLinearVal);
     }
 
     Elem* pElem = _pElem_first;
@@ -1381,15 +1381,15 @@ int GgafLinkedListRing<T>::length() const {
 
 template<class T>
 void GgafLinkedListRing<T>::createIndex() {
-    if (_papLinerVal) {
-        GGAF_DELETEARR(_papLinerVal);
+    if (_papLinearVal) {
+        GGAF_DELETEARR(_papLinearVal);
     }
     Elem* p = _pElem_first;
     int len = length();
-    _papLinerVal = NEW const T*[len];
+    _papLinearVal = NEW const T*[len];
     for (int i = 0; i < len; i++) {
         p->_idx = i;
-        _papLinerVal[i] = p->_pValue;
+        _papLinearVal[i] = p->_pValue;
         p = p->_pNext;
     }
 }
@@ -1426,8 +1426,8 @@ GgafLinkedListRing<T>::~GgafLinkedListRing() {
         }
     }
 
-    if (_papLinerVal) {
-        GGAF_DELETEARR(_papLinerVal);
+    if (_papLinearVal) {
+        GGAF_DELETEARR(_papLinearVal);
     }
 }
 

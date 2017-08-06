@@ -43,11 +43,11 @@ void WorldBoundNameEntry::processJudgement() {
 void WorldBoundNameEntry::fadein() {
     activate();
     setAlpha(pAFader_->getBottom());
-    pAFader_->transitionLinerUntil(1.0, 120);
+    pAFader_->transitionLinearUntil(1.0, 120);
 }
 
 void WorldBoundNameEntry::fadeout() {
-    pAFader_->transitionLinerUntil(0.0, 120);
+    pAFader_->transitionLinearUntil(0.0, 120);
     inactivateDelay(120);
 }
 

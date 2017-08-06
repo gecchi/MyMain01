@@ -95,7 +95,7 @@ void EnemyRatislavia::processBehavior() {
     switch (pProg->get()) {
         case PROG_INIT: {
             setAlpha(0);
-            pAFader_->transitionLinerUntil(1.0, 30*60);
+            pAFader_->transitionLinearUntil(1.0, 30*60);
             pProg->change(PROG_FLOAT_MOVE);
             break;
         }

@@ -18,7 +18,7 @@ void CursorConfig003::initialize() {
 
 void CursorConfig003::onActive() {
     setAlpha(0.0);
-    _pAFader->transitionLinerToTop(60);
+    _pAFader->transitionLinearToTop(60);
 }
 
 void CursorConfig003::processBehavior() {

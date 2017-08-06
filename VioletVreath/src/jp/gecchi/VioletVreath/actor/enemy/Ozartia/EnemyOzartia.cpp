@@ -100,7 +100,7 @@ void EnemyOzartia::processBehavior() {
             static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
             static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
             if (pProg->hasArrivedAt(frame_of_summons_begin)) {
-                pAFader_->transitionLinerUntil(1.0, frame_of_entering);
+                pAFader_->transitionLinearUntil(1.0, frame_of_entering);
             }
             if (pProg->hasArrivedAt(frame_of_entering)) {
                 setHitAble(true);
@@ -216,7 +216,7 @@ void EnemyOzartia::processBehavior() {
         case PROG1_LEAVE: {
             if (pProg->hasJustChanged()) {
                 UTIL::activateLeaveEffectOf(this);
-                pAFader_->transitionLinerUntil(0.0, 30);
+                pAFader_->transitionLinearUntil(0.0, 30);
             }
             if (pProg->hasArrivedAt(60)) {
                 sayonara();
@@ -241,7 +241,7 @@ void EnemyOzartia::processBehavior() {
         case PROG2_SHOT01_01: {
             if (pProg->hasJustChanged()) {
                 faceto_ship_ = true;
-                getMorpher()->transitionLinerUntil(MPH_SHOT01, 1.0, 120);
+                getMorpher()->transitionLinearUntil(MPH_SHOT01, 1.0, 120);
             }
             if (pProg->hasArrivedAt(120)) {
                 pProg->change(PROG2_SHOT01_02);

@@ -30,7 +30,7 @@ void EffectExplosion004::onActive() {
     pUvFlipper->setActivePtnToTop();
     pUvFlipper->exec(FLIP_ORDER_NOLOOP, 1);
     setScale(500);
-    pScaler_->transitionLinerUntil(2000, 64);
+    pScaler_->transitionLinearUntil(2000, 64);
     setAlpha(0.99);
 }
 

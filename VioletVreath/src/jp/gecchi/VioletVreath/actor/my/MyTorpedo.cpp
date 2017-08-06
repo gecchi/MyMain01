@@ -59,7 +59,7 @@ void MyTorpedo::onActive() {
     setAlpha(0.3);
     _sx = _sy = _sz = 100;
     setScale(100);
-    pScaler_->transitionLinerStep(7000, 500);
+    pScaler_->transitionLinearStep(7000, 500);
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setRollPitchYawFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
     if (pTarget_) {

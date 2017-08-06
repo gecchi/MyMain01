@@ -39,10 +39,10 @@ void TamagoActor::processBehavior() {
 //                            0    );     //frame  prm_shift_weight_frames
 //    }
 //    if (GgafDxInput::isPushedDownKey(DIK_8)) {
-////        _pPuppeteer->play(1, 1.0, LOOP_MOTION_LINER);
+////        _pPuppeteer->play(1, 1.0, LOOP_MOTION_LINEAR);
 //    }
 //    if (GgafDxInput::isPushedDownKey(DIK_7)) {
-////        _pPuppeteer->play(1, -1.0, LOOP_MOTION_LINER);
+////        _pPuppeteer->play(1, -1.0, LOOP_MOTION_LINEAR);
 //    }
 //    if (GgafDxInput::isPushedDownKey(DIK_6)) {
 ////        _pPuppeteer->exchangStick();

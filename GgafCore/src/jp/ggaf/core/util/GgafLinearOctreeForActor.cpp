@@ -15,7 +15,7 @@ GgafLinearOctreeForActor::GgafLinearOctreeForActor(int prm_level) : GgafLinearOc
 void GgafLinearOctreeForActor::executeAllHitChk(actorkind prm_groupA, actorkind prm_groupB) {
     _kind_groupA = prm_groupA;
     _kind_groupB = prm_groupB;
-    if ( (_paOctant[0]._kindinfobit & prm_groupA) && (_paOctant[0]._kindinfobit & prm_groupB) ) {
+    if ( (_paLinearOctant[0]._kindinfobit & prm_groupA) && (_paLinearOctant[0]._kindinfobit & prm_groupB) ) {
         //では八分木を巡る旅へ行ってらっしゃい
         executeHitChk(0); //いってきます
         //はいお帰りなさい。
@@ -25,7 +25,7 @@ void GgafLinearOctreeForActor::executeAllHitChk(actorkind prm_groupA, actorkind 
 }
 
 void GgafLinearOctreeForActor::executeHitChk(uint32_t prm_index) {
-    GgafLinearOctreeOctant* pOctant_this_level = &(_paOctant[prm_index]);
+    GgafLinearOctreeOctant* pOctant_this_level = &(_paLinearOctant[prm_index]);
     GgafLinearOctreeElem* pElem = pOctant_this_level->_pElem_first;
     const uint32_t kind_groupA = _kind_groupA;
     const uint32_t kind_groupB = _kind_groupB;
@@ -74,7 +74,7 @@ void GgafLinearOctreeForActor::executeHitChk(uint32_t prm_index) {
         //又は、次のレベルの空間に種別Aがあり、かつストックに種別Bがあれば潜る。
         //又は、次のレベルの空間に種別Bがあり、かつストックに種別Aがあれば潜る。
         //それ以外は潜らない
-        GgafLinearOctreeOctant* pOctant_lower_level = &(_paOctant[lower_level_index]);
+        GgafLinearOctreeOctant* pOctant_lower_level = &(_paLinearOctant[lower_level_index]);
         uint32_t kindinfobit_lower_level = pOctant_lower_level->_kindinfobit;
         if (kindinfobit_lower_level & kind_groupA) {
             if (isExistGroupB || (kindinfobit_lower_level & kind_groupB)) {

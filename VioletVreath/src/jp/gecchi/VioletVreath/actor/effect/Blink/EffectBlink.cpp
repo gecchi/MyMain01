@@ -45,7 +45,7 @@ void EffectBlink::processBehavior() {
     GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
-            pScaler_->transitionLinerToTop(scale_in_frames_);
+            pScaler_->transitionLinearToTop(scale_in_frames_);
             pProg->changeNext();
             break;
         }
@@ -63,7 +63,7 @@ void EffectBlink::processBehavior() {
 
         case PROG_STAY: {
             if (pProg->getFrame() >= duration_frames_) {
-                pScaler_->transitionLinerToBottom(scale_out_frames_);
+                pScaler_->transitionLinearToBottom(scale_out_frames_);
                 pProg->changeNext();
             }
             break;
@@ -115,7 +115,7 @@ bool EffectBlink::isBlinking() {
 }
 
 void EffectBlink::forceFadeOut(frame prm_scale_out_frames) {
-    pScaler_->transitionLinerToBottom(prm_scale_out_frames);
+    pScaler_->transitionLinearToBottom(prm_scale_out_frames);
     getProgress()->change(PROG_OUT);
 }
 

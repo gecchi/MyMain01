@@ -64,36 +64,36 @@ void CubeMapMorphMeshTestActor::processBehavior() {
 //    getMorpher()->behave();
 
 //    if (GgafDxInput::isPressedKey(DIK_1)) {
-//        getMorpher()->transitionLinerUntil(1, 1.0, 30);
-//        getMorpher()->transitionLinerUntil(2, 0, 30);
-//        getMorpher()->transitionLinerUntil(3, 0, 30);
-//        getMorpher()->transitionLinerUntil(4, 0, 30);
+//        getMorpher()->transitionLinearUntil(1, 1.0, 30);
+//        getMorpher()->transitionLinearUntil(2, 0, 30);
+//        getMorpher()->transitionLinearUntil(3, 0, 30);
+//        getMorpher()->transitionLinearUntil(4, 0, 30);
 //    } else if (GgafDxInput::isPressedKey(DIK_7)) {
-//        getMorpher()->transitionLinerUntil(1, 0, 30);
+//        getMorpher()->transitionLinearUntil(1, 0, 30);
 //    }
 //    if (GgafDxInput::isPressedKey(DIK_2)) {
-//        getMorpher()->transitionLinerUntil(1, 0, 30);
-//        getMorpher()->transitionLinerUntil(2, 1.0, 30);
-//        getMorpher()->transitionLinerUntil(3, 0, 30);
-//        getMorpher()->transitionLinerUntil(4, 0, 30);
+//        getMorpher()->transitionLinearUntil(1, 0, 30);
+//        getMorpher()->transitionLinearUntil(2, 1.0, 30);
+//        getMorpher()->transitionLinearUntil(3, 0, 30);
+//        getMorpher()->transitionLinearUntil(4, 0, 30);
 //    } else if (GgafDxInput::isPressedKey(DIK_8)) {
-//        getMorpher()->transitionLinerUntil(2, 0, 30);
+//        getMorpher()->transitionLinearUntil(2, 0, 30);
 //    }
 //    if (GgafDxInput::isPressedKey(DIK_3)) {
-//        getMorpher()->transitionLinerUntil(1, 0, 30);
-//        getMorpher()->transitionLinerUntil(2, 0, 30);
-//        getMorpher()->transitionLinerUntil(3, 1.0, 30);
-//        getMorpher()->transitionLinerUntil(4, 0, 30);
+//        getMorpher()->transitionLinearUntil(1, 0, 30);
+//        getMorpher()->transitionLinearUntil(2, 0, 30);
+//        getMorpher()->transitionLinearUntil(3, 1.0, 30);
+//        getMorpher()->transitionLinearUntil(4, 0, 30);
 //    } else if (GgafDxInput::isPressedKey(DIK_9)) {
-//        getMorpher()->transitionLinerUntil(3, 0, 30);
+//        getMorpher()->transitionLinearUntil(3, 0, 30);
 //    }
 //    if (GgafDxInput::isPressedKey(DIK_4)) {
-//        getMorpher()->transitionLinerUntil(1, 0, 30);
-//        getMorpher()->transitionLinerUntil(2, 0, 30);
-//        getMorpher()->transitionLinerUntil(3, 0, 30);
-//        getMorpher()->transitionLinerUntil(4, 1.0, 30);
+//        getMorpher()->transitionLinearUntil(1, 0, 30);
+//        getMorpher()->transitionLinearUntil(2, 0, 30);
+//        getMorpher()->transitionLinearUntil(3, 0, 30);
+//        getMorpher()->transitionLinearUntil(4, 1.0, 30);
 //    } else if (GgafDxInput::isPressedKey(DIK_0)) {
-//        getMorpher()->transitionLinerUntil(4, 0, 30);
+//        getMorpher()->transitionLinearUntil(4, 0, 30);
 //    }
 //    getMorpher()->behave();
 //    /////////////モーフテスト////////////////

@@ -109,7 +109,7 @@ void EnemyEsperia::processBehavior() {
             static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
             static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
             if (pProg->hasArrivedAt(frame_of_summons_begin)) {
-                pAFader_->transitionLinerUntil(0.999, frame_of_entering);
+                pAFader_->transitionLinearUntil(0.999, frame_of_entering);
             }
             if (pProg->hasArrivedAt(frame_of_entering)) {
                 setHitAble(true);
@@ -131,7 +131,7 @@ void EnemyEsperia::processBehavior() {
         case PROG_HATCH_OPEN: {
             if (pProg->hasJustChanged()) {
                 getSeTransmitter()->play3D(SE_HATCH_OPEN);
-                getMorpher()->transitionLinerUntil(1, 1.0, 120);
+                getMorpher()->transitionLinearUntil(1, 1.0, 120);
             }
             if (pProg->hasArrivedAt(120)) {
                 pProg->changeNext();
@@ -319,7 +319,7 @@ void EnemyEsperia::processBehavior() {
         case PROG_HATCH_CLOSE: {
             if (pProg->hasJustChanged()) {
                 getSeTransmitter()->play3D(SE_HATCH_CLOSE);
-                getMorpher()->transitionLinerUntil(1, 0.0, 120);
+                getMorpher()->transitionLinearUntil(1, 0.0, 120);
             }
             if (pProg->hasArrivedAt(120)) {
                 pProg->changeNext();

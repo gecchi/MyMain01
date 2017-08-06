@@ -36,7 +36,7 @@ void EffectLockon001_Main::onActive() {
     setAlpha(0.01);
     pScaler_->setRange(60000, 2000); //スケーリング・範囲
     setScale(60000); //(6000%)
-    pScaler_->transitionLinerUntil(2000, 25);//スケーリング・25F費やして2000(200%)に縮小
+    pScaler_->transitionLinearUntil(2000, 25);//スケーリング・25F費やして2000(200%)に縮小
     getKuroko()->setFaceAngVelo(AXIS_Z, 1000);        //回転
     getSeTransmitter()->play3D(0); //ロックオンSE
 
@@ -119,7 +119,7 @@ void EffectLockon001_Main::lockon(GgafDxGeometricActor* prm_pTarget) {
     } else if (pProg->get() == LOCKON001_PROG_LOCK) {
     } else if (pProg->get() == LOCKON001_PROG_RELEASE) {
         pScaler_->setRange(60000, 2000); //スケーリング・範囲
-        pScaler_->transitionLinerUntil(2000, 25);//スケーリング・20F費やして2000(200%)に縮小
+        pScaler_->transitionLinearUntil(2000, 25);//スケーリング・20F費やして2000(200%)に縮小
         pKuroko->setFaceAngVelo(AXIS_Z, 1000);   //回転
         getSeTransmitter()->play3D(0); //ロックオンSE
         pProg->change(LOCKON001_PROG_FIRST_LOCK);
@@ -132,12 +132,12 @@ void EffectLockon001_Main::releaseLockon() {
         GgafProgress* const pProg = getProgress();
         if (pProg->get() == LOCKON001_PROG_FIRST_LOCK) {
             pScaler_->setRange(60000, 2000); //スケーリング・範囲
-            pScaler_->transitionLinerUntil(60000, 60);//スケーリング
+            pScaler_->transitionLinearUntil(60000, 60);//スケーリング
             pKuroko->setFaceAngVelo(AXIS_Z, pKuroko->_angvelo_face[AXIS_Z]*-3); //速く逆回転
             pProg->change(LOCKON001_PROG_RELEASE);
         } else if (pProg->get() == LOCKON001_PROG_LOCK) {
             pScaler_->setRange(60000, 2000); //スケーリング・範囲
-            pScaler_->transitionLinerUntil(60000, 60);//スケーリング
+            pScaler_->transitionLinearUntil(60000, 60);//スケーリング
             pKuroko->setFaceAngVelo(AXIS_Z, pKuroko->_angvelo_face[AXIS_Z]*-3); //速く逆回転
             pProg->change(LOCKON001_PROG_RELEASE);
         } else if (pProg->get() == LOCKON001_PROG_RELEASE) {

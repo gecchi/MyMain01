@@ -5,8 +5,8 @@
 
 using namespace GgafCore;
 
-GgafLinearOctreeElem::GgafLinearOctreeElem(GgafLinearOctree* prm_pLinearOctree, GgafObject* prm_pObject, uint32_t prm_kindbit) : GgafObject() ,
-    _pLinearOctree(prm_pLinearOctree),
+GgafLinearOctreeElem::GgafLinearOctreeElem(GgafLinearOctreeOctant* prm_paLinearOctant, GgafObject* prm_pObject, uint32_t prm_kindbit) : GgafObject() ,
+        _paLinearOctant(prm_paLinearOctant),
     _pObject(prm_pObject)
 {
     _kindbit = prm_kindbit;
@@ -23,14 +23,14 @@ void GgafLinearOctreeElem::clear() {
     }
     //情報リセット
     uint32_t index = _pOctant_current->_my_index;
-    GgafLinearOctreeOctant* paOctant = _pLinearOctree->_paOctant;
+//    GgafLinearOctreeOctant* paOctant = _pLinearOctree->_paLinearOctant;
     while (true) {
-        if (paOctant[index]._kindinfobit == 0 ) {
+        if (_paLinearOctant[index]._kindinfobit == 0 ) {
             break;
         } else {
-            paOctant[index]._kindinfobit = 0;
-            paOctant[index]._pElem_first = nullptr;
-            paOctant[index]._pElem_last = nullptr;
+            _paLinearOctant[index]._kindinfobit = 0;
+            _paLinearOctant[index]._pElem_first = nullptr;
+            _paLinearOctant[index]._pElem_last = nullptr;
         }
 
         if (index == 0) {
@@ -77,16 +77,16 @@ void GgafLinearOctreeElem::belongTo(GgafLinearOctreeOctant* const prm_pOctant_ta
     }
     //引数の要素番号
     uint32_t index = prm_pOctant_target->_my_index;
-    GgafLinearOctreeOctant* const paOctant = _pLinearOctree->_paOctant;
+//    GgafLinearOctreeOctant* const paOctant = _pLinearOctree->_paLinearOctant;
     const uint32_t this_kindbit = this->_kindbit;
     //親空間すべてに要素種別情報を流す
     while (true) {
-        if (paOctant[index]._kindinfobit & this_kindbit) {
+        if (_paLinearOctant[index]._kindinfobit & this_kindbit) {
             //もう種別情報が設定済みならば、それ以上の親も設定済みの為、抜ける
             break;
         } else {
             //空間に種別情報が未設定ならば設定
-            paOctant[index]._kindinfobit |= this_kindbit;
+            _paLinearOctant[index]._kindinfobit |= this_kindbit;
         }
         if (index == 0) {
             break;

@@ -85,7 +85,7 @@ void EnemyEmus::processBehavior() {
         }
         case PROG_HATCH_CLOSE: {
             if (pProg->hasJustChanged()) {
-                getMorpher()->transitionLinerUntil(MORPHTARGET_HATCH_OPEN,
+                getMorpher()->transitionLinearUntil(MORPHTARGET_HATCH_OPEN,
                                            0.0f, frame_of_morph_interval_);
                 pKuroko->setRollFaceAngVelo(0);
             }
@@ -98,7 +98,7 @@ void EnemyEmus::processBehavior() {
         }
         case PROG_HATCH_OPEN: {
             if (pProg->hasJustChanged()) {
-                getMorpher()->transitionLinerUntil(MORPHTARGET_HATCH_OPEN,
+                getMorpher()->transitionLinearUntil(MORPHTARGET_HATCH_OPEN,
                                            1.0f, frame_of_morph_interval_);
                 pKuroko->setRollFaceAngVelo(3000);
             }

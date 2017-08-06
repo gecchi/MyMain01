@@ -31,7 +31,7 @@ void EffectCondensation001::onActive() {
     setAlpha(0.01);
     pScaler_->setRange(30000, 1000); //スケーリング・範囲
     setScale(30000);
-    pScaler_->transitionLinerUntil(1000, 30);//スケーリング・60F費やして1000に縮小
+    pScaler_->transitionLinearUntil(1000, 30);//スケーリング・60F費やして1000に縮小
     getKuroko()->setFaceAngVelo(AXIS_Z, 1000);        //回転
 }
 

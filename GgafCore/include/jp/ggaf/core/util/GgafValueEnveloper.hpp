@@ -22,9 +22,9 @@ class GgafValueEnveloper : public GgafObject {
 public:
     enum TransitionMethod {
         NO_TRANSITION,
-        TARGET_LINER_UNTIL,
-        TARGET_LINER_STEP,
-        BEAT_LINER,
+        TARGET_LINEAR_UNTIL,
+        TARGET_LINEAR_STEP,
+        BEAT_LINEAR,
         BEAT_TRIANGLEWAVE,
         R_BEAT_TRIANGLEWAVE,
         BEAT_TRIGONOMETRIC,
@@ -254,9 +254,9 @@ public:
      * @param prm_target_T 遷移目標値
      * @param prm_spend_frame 費やすフレーム数
      */
-    virtual void transitionLinerUntil(VAL_TYPE prm_target, frame prm_spend_frame) {
+    virtual void transitionLinearUntil(VAL_TYPE prm_target, frame prm_spend_frame) {
         for (int i = 0; i < N; i++) {
-            transitionLinerUntil(i, prm_target, prm_spend_frame);
+            transitionLinearUntil(i, prm_target, prm_spend_frame);
         }
     }
 
@@ -267,12 +267,12 @@ public:
      * @param prm_target_T 遷移目標値
      * @param prm_spend_frame 費やすフレーム数
      */
-    virtual void transitionLinerUntil(int prm_idx, VAL_TYPE prm_target, frame prm_spend_frame) {
+    virtual void transitionLinearUntil(int prm_idx, VAL_TYPE prm_target, frame prm_spend_frame) {
         Parameter* p = &_parameter[prm_idx];
         p->_beat_frame_count = 0;
         p->_beat_target_frames = prm_spend_frame;
         p->_target = prm_target;
-        p->_method = TARGET_LINER_UNTIL;
+        p->_method = TARGET_LINEAR_UNTIL;
         //最初のアタックまでの速度
         const VAL_TYPE val = getValue(prm_idx);
         if (p->_beat_target_frames > 0 ) {
@@ -286,16 +286,16 @@ public:
      * 上限遷移へ片道等速値遷移（全インデックス対象・持続フレーム数指定） .
      * @param prm_spend_frame 費やすフレーム数
      */
-    virtual void transitionLinerToTop(frame prm_spend_frame) {
-        transitionLinerUntil(getTop(), prm_spend_frame);
+    virtual void transitionLinearToTop(frame prm_spend_frame) {
+        transitionLinearUntil(getTop(), prm_spend_frame);
     }
 
     /**
      * 下限遷移へ片道等速値遷移（全インデックス対象・持続フレーム数指定） .
      * @param prm_spend_frame 費やすフレーム数
      */
-    virtual void transitionLinerToBottom(frame prm_spend_frame) {
-        transitionLinerUntil(getBottom(), prm_spend_frame);
+    virtual void transitionLinearToBottom(frame prm_spend_frame) {
+        transitionLinearUntil(getBottom(), prm_spend_frame);
     }
 
     /**
@@ -304,9 +304,9 @@ public:
      * @param prm_target 遷移目標値
      * @param prm_velo 毎フレーム加算する遷移差分(>0.0)。正の遷移を指定する事。加算か減算かは自動判断する。
      */
-    virtual void transitionLinerStep(VAL_TYPE prm_target, VAL_TYPE prm_velo) {
+    virtual void transitionLinearStep(VAL_TYPE prm_target, VAL_TYPE prm_velo) {
         for (int i = 0; i < N; i++) {
-            transitionLinerStep(i, prm_target, prm_velo);
+            transitionLinearStep(i, prm_target, prm_velo);
         }
     }
 
@@ -317,9 +317,9 @@ public:
      * @param prm_target 遷移目標値
      * @param prm_velo 毎フレーム加算する遷移差分(>0.0)。正の遷移を指定する事。加算か減算かは自動判断する。
      */
-    virtual void transitionLinerStep(int prm_idx, VAL_TYPE prm_target, VAL_TYPE prm_velo) {
+    virtual void transitionLinearStep(int prm_idx, VAL_TYPE prm_target, VAL_TYPE prm_velo) {
         Parameter* p = &_parameter[prm_idx];
-        p->_method = TARGET_LINER_STEP;
+        p->_method = TARGET_LINEAR_STEP;
         p->_velo = prm_velo;
         p->_target = prm_target;
         p->_beat_frame_count = 0;
@@ -329,8 +329,8 @@ public:
     /**
      * 片道加速値遷移（全インデックス対象・遷移目標値指定） .
      * 目標の遷移へ加速指定で値遷移する。
-     * 遷移加速度を0に指定すると transitionLinerStep とほぼ同じ意味になる。
-     * transitionLinerStep の第３引数は正負を気にすること無いが、本メソッドは正負の自動判定はしない（できない）。
+     * 遷移加速度を0に指定すると transitionLinearStep とほぼ同じ意味になる。
+     * transitionLinearStep の第３引数は正負を気にすること無いが、本メソッドは正負の自動判定はしない（できない）。
      * 遷移速度が正の場合、遷移目標値を超えると値遷移終了。
      * 遷移速度が負の場合、遷移目標値を下回ると値遷移終了。
      * 遷移目標値に到達する前に、速度の正負が逆転すると、たぶん永遠に到達できないので注意。
@@ -347,8 +347,8 @@ public:
     /**
      * 片道加速値遷移（対象インデックス単位・遷移目標値指定） .
      * 目標の遷移へ加速指定で値遷移する。
-     * 遷移加速度を0に指定すると transitionLinerStep とほぼ同じ意味になる。
-     * transitionLinerStep の第３引数は正負を気にすること無いが、本メソッドは正負の自動判定はしない（できない）。
+     * 遷移加速度を0に指定すると transitionLinearStep とほぼ同じ意味になる。
+     * transitionLinearStep の第３引数は正負を気にすること無いが、本メソッドは正負の自動判定はしない（できない）。
      * 遷移速度が正の場合、遷移目標値を超えると値遷移終了。
      * 遷移速度が負の場合、遷移目標値を下回ると値遷移終了。
      * 遷移目標値に到達する前に、速度の正負が逆転すると、たぶん永遠に到達できないので注意。
@@ -413,9 +413,9 @@ public:
      * @param prm_beat_num ループする回数(1.2回など少数で指定可能、-1 でほぼ無限ループ)
      * @param prm_is_to_top true:初めはTOPに遷移する／false:初めはBOTTOMに遷移
      */
-    void transitionLinerLoop(frame prm_cycle_frames, double prm_beat_num, bool prm_is_to_top) {
+    void transitionLinearLoop(frame prm_cycle_frames, double prm_beat_num, bool prm_is_to_top) {
         for (int i = 0; i < N; i++) {
-            transitionLinerLoop(i, prm_cycle_frames, prm_beat_num, prm_is_to_top);
+            transitionLinearLoop(i, prm_cycle_frames, prm_beat_num, prm_is_to_top);
         }
     }
 
@@ -428,10 +428,10 @@ public:
      * @param prm_beat_num ループする回数(1.2回など少数で指定可能、-1 でほぼ無限ループ)
      * @param prm_is_to_top true:初めはTOPに遷移する／false:初めはBOTTOMに遷移
      */
-    virtual void transitionLinerLoop(int prm_idx, frame prm_cycle_frames, double prm_beat_num, bool prm_is_to_top) {
+    virtual void transitionLinearLoop(int prm_idx, frame prm_cycle_frames, double prm_beat_num, bool prm_is_to_top) {
         Parameter* p = &_parameter[prm_idx];
         const VAL_TYPE val = getValue(prm_idx);
-        p->_method = BEAT_LINER;
+        p->_method = BEAT_LINEAR;
         p->_beat_frame_count = 0;
         p->_beat_frame_count_in_roop = 0;
         p->_beat_cycle_frames = prm_cycle_frames;
@@ -711,14 +711,14 @@ public:
                     //何もしない
                     break;
                 }
-                case TARGET_LINER_UNTIL: {
+                case TARGET_LINEAR_UNTIL: {
                     if (p->_beat_frame_count >= p->_beat_target_frames) {
                         val = p->_target;
                         stop(i);//終了
                     }
                     break;
                 }
-                case TARGET_LINER_STEP: {
+                case TARGET_LINEAR_STEP: {
                     if ((p->_velo > 0  && val >= p->_target) || (p->_velo < 0  && val <= p->_target)) {
                         val = p->_target;
                         stop(i);//終了
@@ -743,7 +743,7 @@ public:
                     }
                     break;
                 }
-                case BEAT_LINER: {
+                case BEAT_LINEAR: {
                     p->_beat_frame_count_in_roop++;
                     const frame cnt = p->_beat_frame_count_in_roop;
                     const frame beat_cycle_frames = p->_beat_cycle_frames;

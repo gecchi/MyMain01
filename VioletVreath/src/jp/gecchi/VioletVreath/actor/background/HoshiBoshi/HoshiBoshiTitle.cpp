@@ -34,7 +34,7 @@ void HoshiBoshiTitle::processJudgement() {
 
 void HoshiBoshiTitle::fadein() {
     setAlpha(pAFader_->getBottom());
-    pAFader_->transitionLinerUntil(1.0, 240);
+    pAFader_->transitionLinearUntil(1.0, 240);
 }
 HoshiBoshiTitle::~HoshiBoshiTitle() {
     GGAF_DELETE(pAFader_);

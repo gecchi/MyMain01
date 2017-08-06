@@ -102,7 +102,7 @@ void MyBunshin::onActive() {
     pLockonCtrler_->onActive();
     pTorpedoCtrler_->onActive();
     setAlpha(0);
-    pAFader_->transitionLinerToTop(120);
+    pAFader_->transitionLinearToTop(120);
     resetMaterialColor();
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->setRollFaceAngVelo(pBase_->bunshin_default_angvelo_mv_); //分身のクルクル速度
