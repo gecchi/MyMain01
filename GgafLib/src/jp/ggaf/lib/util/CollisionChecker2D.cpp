@@ -19,10 +19,8 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 
 CollisionChecker2D::CollisionChecker2D(GgafDxGeometricActor* prm_pActor) : CollisionChecker(prm_pActor) ,
-        _pLinearQuadtree(nullptr),
-        _pElem(nullptr)
-        //_pLinearQuadtree(P_GOD->getSpacetime()->getLinearOctree())  //,
-        //_pElem(NEW GgafLinearOctreeElem(_pLinearQuadtree, prm_pActor, 0)) TODO:‚Ç[‚·‚é‚©
+        _pLinearQuadtree(P_GOD->getSpacetime()->getLinearQuadtree()),
+        _pElem(NEW GgafLinearOctreeElem(_pLinearQuadtree->_paLinearOctant, prm_pActor, 0))
 {
     _need_update_aabb = true;
 }
