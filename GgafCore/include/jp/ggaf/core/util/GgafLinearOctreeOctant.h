@@ -35,6 +35,8 @@ public:
         _my_index = 0xffffffff; //‚ ‚è‚¦‚È‚¢0xffffffff‚ð“ü‚ê‚Ä‚¨‚­
     }
 
+    void registerElem(GgafLinearOctreeElem* const prm_pElem);
+
     void dump();
 
     virtual ~GgafLinearOctreeOctant();

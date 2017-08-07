@@ -16,18 +16,18 @@ class GgafLinearOctreeElem : public GgafObject {
     friend class GgafLinearOctree;
     friend class GgafLinearQuadtree;
 private:
-    /**
-     * 自身が自ら空間から離脱、所属空間の情報もいきなり削除 .
-     */
-    void clear();
-    /**
-     * 自身が自ら空間の末尾にぶら下がり追加される .
-     * 一度 belongTo() を実行し所属したならば、
-     * GgafLinearOctree::clearElem();
-     * にて、八分木全要素クリアされるまで、再度 belongTo() は出来ない。
-     * @param prm_pOctant_target 所属する空間
-     */
-    void belongTo(GgafLinearOctreeOctant* const prm_pOctant_target);
+//    /**
+//     * 自身が自ら空間から離脱、所属空間の情報もいきなり削除 .
+//     */
+//    void clear();
+//    /**
+//     * 自身が自ら空間の末尾にぶら下がり追加される .
+//     * 一度 belongTo() を実行し所属したならば、
+//     * GgafLinearOctree::clearElem();
+//     * にて、八分木全要素クリアされるまで、再度 belongTo() は出来ない。
+//     * @param prm_pOctant_target 所属する空間
+//     */
+//    void belongTo(GgafLinearOctreeOctant* const prm_pOctant_target);
 
 public:
     /** 空間の配列 */

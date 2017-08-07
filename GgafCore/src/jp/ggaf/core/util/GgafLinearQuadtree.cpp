@@ -220,17 +220,40 @@ void GgafLinearQuadtree::registerElem(GgafLinearOctreeElem* const prm_pElem,
 #endif
     }
     //—v‘f‚ðüŒ`Žl•ª–Ø‹óŠÔ‚É“o˜^(Š‘®‚³‚¹‚é)
-    prm_pElem->belongTo(&(_paLinearOctant[index]));
+  //  prm_pElem->belongTo(&(_paLinearOctant[index]));
 }
 
 void GgafLinearQuadtree::clearAllElem() {
     //“o˜^Ï‚Ý‚Ì—v‘fƒŠƒXƒg‚ðŽg—p‚µ‚ÄAŽl•ª–Ø‚ðƒNƒŠƒA
     GgafLinearOctreeElem* pElem = _pRegElemFirst;
     while (pElem) {
-        pElem->clear();
+//        pElem->clear();
+        if(pElem->_pOctant_current == nullptr) {
+            //ƒXƒ‹[
+        } else {
+            uint32_t index = pElem->_pOctant_current->_my_index;
+            while (true) {
+                if (_paLinearOctant[index]._kindinfobit == 0 ) {
+                    break;
+                } else {
+                    _paLinearOctant[index]._kindinfobit = 0;
+                    _paLinearOctant[index]._pElem_first = nullptr;
+                    _paLinearOctant[index]._pElem_last = nullptr;
+                }
+                if (index == 0) {
+                    break;
+                }
+                // e‹óŠÔ—v‘f”Ô†‚ÅŒJ‚è•Ô‚·
+                index = (index-1)>>2;
+            }
+            pElem->_pNext = nullptr;
+            pElem->_pPrev = nullptr;
+            pElem->_pOctant_current = nullptr;
+        }
         pElem = pElem->_pRegLinkNext;
     }
     _pRegElemFirst = nullptr;
+
 }
 
 GgafLinearQuadtree::~GgafLinearQuadtree() {
