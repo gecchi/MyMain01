@@ -1,6 +1,8 @@
 #include "jp/ggaf/lib/util/CollisionChecker2D.h"
 
 #include "jp/ggaf/core/actor/GgafGroupHead.h"
+#include "jp/ggaf/core/util/GgafLinearQuadtree.h"
+#include "jp/ggaf/core/util/GgafLinearQuadtreeForActor.h"
 #include "jp/ggaf/core/util/GgafLinearOctreeElem.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/util/GgafDxCollisionArea.h"
@@ -11,7 +13,6 @@
 #include "jp/ggaf/lib/util/ColliSphere.h"
 #include "jp/ggaf/lib/util/ColliAAPrism.h"
 #include "jp/ggaf/lib/util/ColliAAPyramid.h"
-#include "jp/ggaf/core/util/GgafLinearQuadtreeForActor.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 
 using namespace GgafCore;

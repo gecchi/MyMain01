@@ -20,15 +20,20 @@ class DefaultSpacetime : public GgafDxCore::GgafDxSpacetime {
     virtual void processFinal() override;
 
 public:
-    GgafCore::GgafLinearOctreeForActor* _pLinearOctree;
-    GgafCore::GgafLinearQuadtreeForActor* _pLinearQuadtree;
+    GgafCore::GgafLinearOctree* _pLinearOctree;
+    GgafCore::GgafLinearOctreeForActor* _pLinearOctreeForActor;
+    GgafCore::GgafLinearQuadtree* _pLinearQuadtree;
+    GgafCore::GgafLinearQuadtreeForActor* _pLinearQuadtreeForActor;
 public:
     DefaultSpacetime(const char* prm_name, DefaultCamera* prm_pCamera);
 
-    inline GgafCore::GgafLinearOctreeForActor* getLinearOctree() const {
+    inline GgafCore::GgafLinearOctree* getLinearOctree() {
         return _pLinearOctree;
     }
-    inline GgafCore::GgafLinearQuadtreeForActor* getLinearQuadtree() const {
+    inline GgafCore::GgafLinearOctreeForActor* getLinearOctreeForActor() {
+        return _pLinearOctreeForActor;
+    }
+    inline GgafCore::GgafLinearQuadtree* getLinearQuadtree() {
         return _pLinearQuadtree;
     }
 

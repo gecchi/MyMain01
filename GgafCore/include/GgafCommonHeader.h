@@ -401,6 +401,7 @@ class GgafProperties;
 class GgafLinearOctree;
 class GgafLinearOctreeOctant;
 class GgafLinearOctreeElem;
+class GgafLinearQuadtree;
 
 class GgafCurtain;
 class GgafTable;

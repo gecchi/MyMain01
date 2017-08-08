@@ -1,6 +1,7 @@
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 
 #include "jp/ggaf/core/actor/GgafGroupHead.h"
+#include "jp/ggaf/core/util/GgafLinearOctree.h"
 #include "jp/ggaf/core/util/GgafLinearOctreeElem.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/util/GgafDxCollisionArea.h"

@@ -3,6 +3,7 @@
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"
 #include "jp/ggaf/dxcore/scene/supporter/GgafDxBgmPerformerForScene.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
+#include "jp/ggaf/core/util/GgafLinearOctree.h"
 #include "jp/ggaf/core/util/GgafLinearOctreeForActor.h"
 #include "jp/gecchi/VioletVreath/actor/menu/pause/MenuBoardPause.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -368,26 +369,26 @@ void GameScene::processJudgement() {
         //空間分割(八分木)アルゴリズムにより、チェック回数の最適化を行っています。
         //詳細は 「種別相関定義コピペツール.xls」 の 「種別相関」 シート参照
 
-        GgafCore::GgafLinearOctreeForActor* pLinearOctree = P_GOD->getSpacetime()->getLinearOctree();
+        GgafCore::GgafLinearOctreeForActor* pLinearOctreeForActor = P_GOD->getSpacetime()->getLinearOctreeForActor();
 #ifdef MY_DEBUG
         if (GgafDxInput::isPushedDownKey(DIK_I)) {
-            pLinearOctree->putTree();
+            P_GOD->getSpacetime()->getLinearOctree()->putTree();
         }
 #endif
         //八分木アルゴリズムでヒットチェック
-        pLinearOctree->executeAllHitChk(
+        pLinearOctreeForActor->executeAll(
             KIND_CHIKEI,
             KIND_MY_CHIKEI_HIT|KIND_ENEMY_CHIKEI_HIT|KIND_ITEM_CHIKEI_HIT|KIND_CHIKEI_CHIKEI_HIT
         );
-        pLinearOctree->executeAllHitChk(
+        pLinearOctreeForActor->executeAll(
             KIND_ITEM,
             KIND_MY_BODY_CHIKEI_HIT
         );
-        pLinearOctree->executeAllHitChk(
+        pLinearOctreeForActor->executeAll(
             KIND_MY,
             KIND_ENEMY_BODY
         );
-        pLinearOctree->executeAllHitChk(
+        pLinearOctreeForActor->executeAll(
             KIND_ENEMY_SHOT,
             KIND_MY_BODY
         );

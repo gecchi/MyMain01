@@ -13,7 +13,7 @@ namespace GgafLib {
  */
 class CollisionChecker2D : public CollisionChecker {
 
-    GgafCore::GgafLinearQuadtreeForActor* const _pLinearQuadtree; //TODO:どこに持たせようか悩むがとりあえずココに
+    GgafCore::GgafLinearQuadtree* const _pLinearQuadtree; //TODO:どこに持たせようか悩むがとりあえずココに
 
 public:
     /** 線形八分木登録用要素 */

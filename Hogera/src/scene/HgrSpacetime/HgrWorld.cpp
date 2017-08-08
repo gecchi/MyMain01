@@ -51,7 +51,7 @@ void HgrWorld::processBehavior() {
 
 void HgrWorld::processJudgement() {
     //当たり判定チェック
-    P_GOD->getSpacetime()->getLinearOctree()->executeAllHitChk(HGR_MIKATA, HGR_TEKI);
+//    P_GOD->getSpacetime()->getLinearOctree()->executeAllHitChk(HGR_MIKATA, HGR_TEKI);
     //executeAllHitChk は processJudgement() で呼ぶ必要あり
     //(processBehavior())ではまだ登録されていない)
 }

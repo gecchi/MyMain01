@@ -51,7 +51,7 @@ void MgrWorld::processBehavior() {
 
 void MgrWorld::processJudgement() {
     //当たり判定チェック
-    P_GOD->getSpacetime()->getLinearOctree()->executeAllHitChk(MGR_MIKATA, MGR_TEKI);
+//    P_GOD->getSpacetime()->getLinearOctree()->executeAll(MGR_MIKATA, MGR_TEKI);
     //executeAllHitChk は processJudgement() で呼ぶ必要あり
     //(processBehavior())ではまだ登録されていない)
 }

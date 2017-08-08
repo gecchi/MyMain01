@@ -1,19 +1,19 @@
 #ifndef GGAFCORE_GGAFLINEARQUADTREEFORACTOR_H_
 #define GGAFCORE_GGAFLINEARQUADTREEFORACTOR_H_
 #include "GgafCommonHeader.h"
-#include "GgafLinearQuadtree.h"
+#include "jp/ggaf/core/GgafObject.h"
 
 namespace GgafCore {
 
 #define MAX_COLLISIONSTACK_ACTOR_NUM (2000)
 /**
- * GgafActorを要素とし当たり判定機能を追加した線形八分木配列クラス .
+ * GgafActorを要素とし当たり判定機能を追加した線形四分木配列クラス .
  * 種別Aグループ 対 種別Bグループの2グループ間の当たり判定を行う
  * @version 1.00
  * @since 2017/08/02
  * @author Masatoshi Tsuge
  */
-class GgafLinearQuadtreeForActor : public GgafLinearQuadtree {
+class GgafLinearQuadtreeForActor : public GgafObject {
 
     uint32_t _num_space_minus_one;
 
@@ -22,31 +22,31 @@ public:
      * 当たり判定アクターを保持するスタック .
      * 速さの事しか考えてない危険なスタック
      */
-    class CollisionStack {
+    class ActorStack {
     public:
         /** [r]一つの空間にスタックするアクターの配列。使用するのは[0]～[MAX_COLLISIONSTACK_ACTOR_NUM-1]。+1は、最後の要素を番兵にしている */
-        GgafCore::GgafObject* _apObject[MAX_COLLISIONSTACK_ACTOR_NUM+1]; //最後の要素(+1)は番兵
+        GgafCore::GgafActor* _apActor[MAX_COLLISIONSTACK_ACTOR_NUM+1]; //最後の要素(+1)は番兵
         /** [r]カーソルポインタ(次にPUSH出来る要素を指している)  */
-        GgafCore::GgafObject** _papCur;
+        GgafCore::GgafActor** _papCur;
         /** [r]常にスタックの先頭要素を指している */
-        GgafCore::GgafObject** _papFirst;
+        GgafCore::GgafActor** _papFirst;
         /** [r]常にスタックの最後の要素の次を指している */
-        GgafCore::GgafObject** _papBanpei;
+        GgafCore::GgafActor** _papBanpei;
     public:
         /**
          * コンストラクタ
          * @return
          */
-        CollisionStack() {
-            _papFirst = &_apObject[0];
-            _papBanpei = &_apObject[MAX_COLLISIONSTACK_ACTOR_NUM];
+        ActorStack() {
+            _papFirst = &_apActor[0];
+            _papBanpei = &_apActor[MAX_COLLISIONSTACK_ACTOR_NUM];
             _papCur = _papFirst;
         }
         /**
          * スタックに積む .
          * @param prm_pActor 積むアクター
          */
-        inline void push(GgafCore::GgafObject* prm_pObject) {
+        inline void push(GgafCore::GgafActor* prm_pObject) {
             if (_papCur == _papBanpei) {
                 _TRACE_("＜警告＞ GgafLinearQuadtreeForActor::push("<<prm_pObject<<") スタックを使い切りました。無視します。一箇所に当たり判定が塊過ぎです。");
                 return;
@@ -59,7 +59,7 @@ public:
          * スタックから取り出す .
          * @return 取り出されたアクター
          */
-        inline GgafCore::GgafObject* pop() {
+        inline GgafCore::GgafActor* pop() {
             if (_papCur == _papFirst) {
                 return nullptr;
             } else {
@@ -75,19 +75,19 @@ public:
         /**
          * 引数のスタックから全て取り出し(pop)、出来る限り自身のスタックに積む(push) .
          * 引数のスタックは、必ず空になる。
-         * @param prm_pCollisionStack
+         * @param prm_pActorStack
          */
-        inline void popush(CollisionStack* prm_pCollisionStack) {
+        inline void popush(ActorStack* prm_pActorStack) {
             if (_papCur == _papBanpei) {
-                _TRACE_("＜警告＞ GgafLinearQuadtreeForActor::popush("<<prm_pCollisionStack<<") スタックを使い切ってます。無視します。一箇所に当たり判定が塊過ぎです。");
-                prm_pCollisionStack->clear();
+                _TRACE_("＜警告＞ GgafLinearQuadtreeForActor::popush("<<prm_pActorStack<<") スタックを使い切ってます。無視します。一箇所に当たり判定が塊過ぎです。");
+                prm_pActorStack->clear();
                 return;
             }
-            while ((*_papCur) = prm_pCollisionStack->pop()) { //代入。pop出来なければ nullptr。 I know "=" , not "=="
+            while ((*_papCur) = prm_pActorStack->pop()) { //代入。pop出来なければ nullptr。 I know "=" , not "=="
                  ++_papCur;
                  if (_papCur == _papBanpei) {
-                    _TRACE_("＜警告＞ GgafLinearQuadtreeForActor::popush("<<prm_pCollisionStack<<") スタックを使い切りました。無視します。一箇所に当たり判定が塊過ぎです。");
-                    prm_pCollisionStack->clear();
+                    _TRACE_("＜警告＞ GgafLinearQuadtreeForActor::popush("<<prm_pActorStack<<") スタックを使い切りました。無視します。一箇所に当たり判定が塊過ぎです。");
+                    prm_pActorStack->clear();
                     break;
                 }
             }
@@ -98,47 +98,50 @@ public:
         inline void clear() {
             _papCur = _papFirst;
         }
-        ~CollisionStack() {
+        ~ActorStack() {
             clear();
         }
     };
 
+    GgafLinearQuadtree* _pTargetLinearQuadtree;
+    GgafLinearOctreeOctant* _paTargetLinearOctant;
     /** [r]全空間の当たり判定時、現在の空間に所属するアクター種別Aグループのスタック */
-    CollisionStack _stackGroupA_Current;
+    ActorStack _stackGroupA_Current;
     /** [r]全空間の当たり判定時、現在の空間に所属するアクター種別Bグループのスタック */
-    CollisionStack _stackGroupB_Current;
+    ActorStack _stackGroupB_Current;
     /** [r]ある空間の当たり判定時、それよりも親空間に所属した全アクター種別Aグループのスタック */
-    CollisionStack _stackGroupA;
+    ActorStack _stackGroupA;
     /** [r]ある空間の当たり判定時、それよりも親空間に所属した全アクター種別Bグループのスタック */
-    CollisionStack _stackGroupB;
+    ActorStack _stackGroupB;
 
     /** [r]今回当たり判定を行うアクター種別A */
     actorkind _kind_groupA;
     /** [r]今回当たり判定を行うアクター種別B */
     actorkind _kind_groupB;
-
+    /** [r]実行するGgafActorのメンバ関数 */
+    void (GgafActor::*_pFunc)(GgafActor*);
 public:
     /**
      * コンストラクタ
-     * @param prm_level 作成する八分木空間レベル
+     * @param prm_level 作成する四分木空間レベル
      */
-    explicit GgafLinearQuadtreeForActor(int prm_level);
+    GgafLinearQuadtreeForActor(GgafLinearQuadtree* prm_paTargetLinearQuadtree, void (GgafActor::*prm_pFunc)(GgafActor*));
 
     /**
-     * 八分木所属の「アクター種別Aグループ 対 アクター種別Bグループ」を行う  .
+     * 四分木所属の「アクター種別Aグループ 対 アクター種別Bグループ」を行う  .
      * アプリ側は本メソッドを呼ぶだけでよい。<BR>
      * ただし executeAllHitChk は processJudgement() で呼ぶ必要あり。<BR>
      * @param prm_groupA アクター種別Aグループ
      * @param prm_groupB アクター種別Bグループ
      */
-    void executeAllHitChk(actorkind prm_groupA, actorkind prm_groupB);
+    void executeAll(actorkind prm_groupA, actorkind prm_groupB);
 
     /**
      * 引数の空間の当たり判定を行う  .
      * executeAllHitChk から使用される。
-     * @param prm_index 線形八分木配列の配列要素番号
+     * @param prm_index 線形四分木配列の配列要素番号
      */
-    void executeHitChk(uint32_t prm_index);
+    void execute(uint32_t prm_index);
 
     /**
      * アクター種別Aグループのスタックと、アクター種別Bグループのスタックの総当りの当たり判定を行う  .
@@ -146,7 +149,7 @@ public:
      * @param prm_pStackA アクター種別Aグループのスタック
      * @param prm_pStackB アクター種別Bグループのスタック
      */
-    void executeHitChk_RoundRobin(CollisionStack* prm_pStackA, CollisionStack* prm_pStackB);
+    void executeRoundRobin(ActorStack* prm_pStackA, ActorStack* prm_pStackB);
 
     virtual ~GgafLinearQuadtreeForActor();
 };
