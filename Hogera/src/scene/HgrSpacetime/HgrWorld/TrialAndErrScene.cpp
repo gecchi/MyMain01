@@ -28,11 +28,11 @@ void TrialAndErrScene::processBehavior() {
     if (getActiveFrame() == 100) {
         Test01* pTest = (Test01*)obtainActorFromFactory(10000);
         pTest->setPosition(0,0,0);
-        bringDirector()->addSubGroup(pTest);
+        bringDirector()->addSubGroup(HGR_MIKATA, pTest);
 
         Jiki* pJiki = (Jiki*)obtainActorFromFactory(10001);
         pJiki->setPosition(PX_C(200), PX_C(200),0);
-        bringDirector()->addSubGroup(pJiki);
+        bringDirector()->addSubGroup(HGR_TEKI, pJiki);
 
     }
 }

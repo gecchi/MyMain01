@@ -1,7 +1,7 @@
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 
 #include "jp/ggaf/core/actor/GgafGroupHead.h"
-#include "jp/ggaf/core/util/GgafLinearOctreeElem.h"
+#include "jp/ggaf/core/util/GgafTreeElem.hpp"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/util/GgafDxCollisionArea.h"
 #include "jp/ggaf/lib/DefaultGod.h"
@@ -11,7 +11,6 @@
 #include "jp/ggaf/lib/util/ColliSphere.h"
 #include "jp/ggaf/lib/util/ColliAAPrism.h"
 #include "jp/ggaf/lib/util/ColliAAPyramid.h"
-#include "jp/ggaf/core/util/GgafLinearOctreeForActor.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 
 using namespace GgafCore;
@@ -147,6 +146,5 @@ void CollisionChecker::setColliAAPyramid(int prm_index,
 
 
 CollisionChecker::~CollisionChecker() {
-    GGAF_DELETE_NULLABLE(_pCollisionArea);
     //ìñÇΩÇËîªíËÇÕÇ»Ç¢Ç©Ç‡ÇµÇÍÇ»Ç¢ÅBÇ±ÇÃèÍçá_pElemÇÕñ≥ë Ç»ê∂ê¨Ç∆âï˙ÇÇ∑ÇÈÇ±Ç∆Ç…Ç»ÇÈÅBÅB
 }

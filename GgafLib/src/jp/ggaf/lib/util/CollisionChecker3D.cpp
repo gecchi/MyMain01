@@ -2,7 +2,6 @@
 
 #include "jp/ggaf/core/actor/GgafGroupHead.h"
 #include "jp/ggaf/core/util/GgafLinearOctree.h"
-#include "jp/ggaf/core/util/GgafLinearOctreeElem.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/util/GgafDxCollisionArea.h"
 #include "jp/ggaf/lib/DefaultGod.h"
@@ -12,7 +11,6 @@
 #include "jp/ggaf/lib/util/ColliSphere.h"
 #include "jp/ggaf/lib/util/ColliAAPrism.h"
 #include "jp/ggaf/lib/util/ColliAAPyramid.h"
-#include "jp/ggaf/core/util/GgafLinearOctreeForActor.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 
 using namespace GgafCore;
@@ -21,7 +19,7 @@ using namespace GgafLib;
 
 CollisionChecker3D::CollisionChecker3D(GgafDxGeometricActor* prm_pActor) : CollisionChecker(prm_pActor) ,
         _pLinearOctree(P_GOD->getSpacetime()->getLinearOctree()),
-        _pElem(NEW GgafLinearOctreeElem(_pLinearOctree->_paLinearOctant, prm_pActor, 0))
+        _pElem(NEW GgafTreeElem<3>(_pLinearOctree->_paOctant, prm_pActor, 0))
 {
     _need_update_aabb = true;
 }
@@ -116,7 +114,7 @@ bool CollisionChecker3D::isHit(const GgafDxCore::GgafDxChecker* const prm_pOppCh
             if (shape_kind == COLLI_AABOX) {
                 if (opp_shape_kind == COLLI_AABOX) {
                     //ƒAAB ‚Æ AAB„
-                    if (UTIL::isHit(pActor   , (ColliAABox*)pColliPart,
+                    if (UTIL::isHit3D(pActor   , (ColliAABox*)pColliPart,
                                     pOppActor, (ColliAABox*)pOppColliPart)) {
                         pCollisionArea->_hit_colli_part_index = i;
                         pOppCollisionArea->_hit_colli_part_index = j;
@@ -124,7 +122,7 @@ bool CollisionChecker3D::isHit(const GgafDxCore::GgafDxChecker* const prm_pOppCh
                     }
                  } else if (opp_shape_kind == COLLI_SPHERE) {
                      //ƒAAB ‚Æ ‹…„
-                     if (UTIL::isHit(pActor   , (ColliAABox*)pColliPart,
+                     if (UTIL::isHit3D(pActor   , (ColliAABox*)pColliPart,
                                      pOppActor, (ColliSphere*)pOppColliPart)) {
                          pCollisionArea->_hit_colli_part_index = i;
                          pOppCollisionArea->_hit_colli_part_index = j;
@@ -132,7 +130,7 @@ bool CollisionChecker3D::isHit(const GgafDxCore::GgafDxChecker* const prm_pOppCh
                      }
                  } else if (opp_shape_kind == COLLI_AAPRISM) {
                      //ƒAAB ‚Æ AAPrism„
-                     if (UTIL::isHit(pOppActor, (ColliAAPrism*)pOppColliPart,
+                     if (UTIL::isHit3D(pOppActor, (ColliAAPrism*)pOppColliPart,
                                      pActor   , (ColliAABox*)pColliPart        )) {
                          pCollisionArea->_hit_colli_part_index = i;
                          pOppCollisionArea->_hit_colli_part_index = j;
@@ -140,7 +138,7 @@ bool CollisionChecker3D::isHit(const GgafDxCore::GgafDxChecker* const prm_pOppCh
                      }
                  } else if (opp_shape_kind == COLLI_AAPYRAMID) {
                      //ƒAAB ‚Æ AAPyramid„
-                     if (UTIL::isHit(pOppActor, (ColliAAPyramid*)pOppColliPart,
+                     if (UTIL::isHit3D(pOppActor, (ColliAAPyramid*)pOppColliPart,
                                      pActor   , (ColliAABox*)pColliPart        )) {
                          pCollisionArea->_hit_colli_part_index = i;
                          pOppCollisionArea->_hit_colli_part_index = j;
@@ -151,7 +149,7 @@ bool CollisionChecker3D::isHit(const GgafDxCore::GgafDxChecker* const prm_pOppCh
             } else if (shape_kind == COLLI_SPHERE) {
                 if (opp_shape_kind == COLLI_AABOX) {
                     //ƒ‹… ‚Æ AAB„
-                    if (UTIL::isHit(pOppActor, (ColliAABox*)pOppColliPart,
+                    if (UTIL::isHit3D(pOppActor, (ColliAABox*)pOppColliPart,
                                     pActor   , (ColliSphere*)pColliPart )) {
                         pCollisionArea->_hit_colli_part_index = i;
                         pOppCollisionArea->_hit_colli_part_index = j;
@@ -159,7 +157,7 @@ bool CollisionChecker3D::isHit(const GgafDxCore::GgafDxChecker* const prm_pOppCh
                     }
                 } else if (opp_shape_kind == COLLI_SPHERE) {
                     //ƒ‹… ‚Æ ‹…„
-                    if (UTIL::isHit(pActor  , (ColliSphere*)pColliPart,
+                    if (UTIL::isHit3D(pActor  , (ColliSphere*)pColliPart,
                                     pOppActor, (ColliSphere*)pOppColliPart)) {
                         pCollisionArea->_hit_colli_part_index = i;
                         pOppCollisionArea->_hit_colli_part_index = j;
@@ -167,7 +165,7 @@ bool CollisionChecker3D::isHit(const GgafDxCore::GgafDxChecker* const prm_pOppCh
                     }
                 } else if (opp_shape_kind == COLLI_AAPRISM) {
                     //ƒ‹… ‚Æ AAPrism„
-                    if (UTIL::isHit(pOppActor, (ColliAAPrism*)pOppColliPart,
+                    if (UTIL::isHit3D(pOppActor, (ColliAAPrism*)pOppColliPart,
                                     pActor   , (ColliSphere*)pColliPart     )) {
                         pCollisionArea->_hit_colli_part_index = i;
                         pOppCollisionArea->_hit_colli_part_index = j;
@@ -175,7 +173,7 @@ bool CollisionChecker3D::isHit(const GgafDxCore::GgafDxChecker* const prm_pOppCh
                     }
                 } else if (opp_shape_kind == COLLI_AAPYRAMID) {
                     //ƒ‹… ‚Æ AAPyramid„
-                    if (UTIL::isHit(pOppActor, (ColliAAPyramid*)pOppColliPart,
+                    if (UTIL::isHit3D(pOppActor, (ColliAAPyramid*)pOppColliPart,
                                     pActor   , (ColliSphere*)pColliPart     )) {
                         pCollisionArea->_hit_colli_part_index = i;
                         pOppCollisionArea->_hit_colli_part_index = j;
@@ -186,7 +184,7 @@ bool CollisionChecker3D::isHit(const GgafDxCore::GgafDxChecker* const prm_pOppCh
             } else if (shape_kind == COLLI_AAPRISM) {
                 if (opp_shape_kind == COLLI_AABOX) {
                     //ƒAAPrism ‚Æ AAB„
-                    if (UTIL::isHit(pActor   , (ColliAAPrism*)pColliPart,
+                    if (UTIL::isHit3D(pActor   , (ColliAAPrism*)pColliPart,
                                     pOppActor, (ColliAABox*)pOppColliPart  )) {
                         pCollisionArea->_hit_colli_part_index = i;
                         pOppCollisionArea->_hit_colli_part_index = j;
@@ -194,7 +192,7 @@ bool CollisionChecker3D::isHit(const GgafDxCore::GgafDxChecker* const prm_pOppCh
                     }
                 } else if (opp_shape_kind == COLLI_SPHERE) {
                     //ƒAAPrism ‚Æ ‹…„
-                    if (UTIL::isHit(pActor   , (ColliAAPrism*)pColliPart,
+                    if (UTIL::isHit3D(pActor   , (ColliAAPrism*)pColliPart,
                                     pOppActor, (ColliSphere*)pOppColliPart)) {
                         pCollisionArea->_hit_colli_part_index = i;
                         pOppCollisionArea->_hit_colli_part_index = j;
@@ -217,7 +215,7 @@ bool CollisionChecker3D::isHit(const GgafDxCore::GgafDxChecker* const prm_pOppCh
             } else if (shape_kind == COLLI_AAPYRAMID) {
                 if (opp_shape_kind == COLLI_AABOX) {
                     //ƒAAPyramid ‚Æ AAB„
-                    if (UTIL::isHit(pActor  , (ColliAAPyramid*)pColliPart,
+                    if (UTIL::isHit3D(pActor  , (ColliAAPyramid*)pColliPart,
                                     pOppActor, (ColliAABox*)pOppColliPart  )) {
                         pCollisionArea->_hit_colli_part_index = i;
                         pOppCollisionArea->_hit_colli_part_index = j;
@@ -225,7 +223,7 @@ bool CollisionChecker3D::isHit(const GgafDxCore::GgafDxChecker* const prm_pOppCh
                     }
                 } else if (opp_shape_kind == COLLI_SPHERE) {
                     //ƒAAPyramid ‚Æ ‹…„
-                    if (UTIL::isHit(pActor  , (ColliAAPyramid*)pColliPart,
+                    if (UTIL::isHit3D(pActor  , (ColliAAPyramid*)pColliPart,
                                     pOppActor, (ColliSphere*)pOppColliPart)) {
                         pCollisionArea->_hit_colli_part_index = i;
                         pOppCollisionArea->_hit_colli_part_index = j;

@@ -3,6 +3,9 @@
 #include "GgafCommonHeader.h"
 #include "jp/ggaf/core/GgafObject.h"
 
+#include "jp/ggaf/core/util/GgafTreeSpace.hpp"
+#include "jp/ggaf/core/util/GgafTreeElem.hpp"
+
 namespace GgafCore {
 
 /**
@@ -66,7 +69,7 @@ namespace GgafCore {
  * <BR>
  * <B>＜空間(配列)要素番号＞</B><BR>
  * 空間番号に対応する線形配列のインデックスを指す。<BR>
- * 具体的には _paLinearOctant の要素番号。<BR>
+ * 具体的には _paQuadrant の要素番号。<BR>
  * <BR>
  *
  *  <B>【例１】</B><BR>
@@ -190,9 +193,9 @@ private:
 
 public:
     /** [r]四分木の空間を一直線に並べた線形配列 */
-    GgafLinearOctreeOctant* _paLinearOctant; //_paLinearOctant[0] は ROOT空間へのポインタ
+    GgafTreeSpace<2>* _paQuadrant; //_paQuadrant[0] は ROOT空間へのポインタ
     /** [r]四分木の空間に登録を行った要素の先頭要素 */
-    GgafLinearOctreeElem* _pRegElemFirst;
+    GgafTreeElem<2>* _pRegElemFirst;
     /** [r]root空間の対角の頂点となるx座標の小さい方 */
     int _root_x1;
     /** [r]root空間の対角の頂点となるy座標の小さい方 */
@@ -243,7 +246,7 @@ public:
      * @param tx2 〃
      * @param ty2 〃
      */
-    void registerElem(GgafLinearOctreeElem* const prm_pElem,
+    void registerElem(GgafTreeElem<2>* const prm_pElem,
                       int tx1, int ty1,
                       int tx2, int ty2);
 

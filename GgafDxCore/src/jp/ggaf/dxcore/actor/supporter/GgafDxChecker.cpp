@@ -33,4 +33,5 @@ bool GgafDxChecker::isEnable(int prm_index) {
 }
 
 GgafDxChecker::~GgafDxChecker() {
+    GGAF_DELETE_NULLABLE(_pCollisionArea);
 }

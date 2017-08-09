@@ -76,7 +76,7 @@ GgafDxChecker* StgUtil::createChecker(GgafDxGeometricActor* prm_pActor) {
     }
 }
 
-bool StgUtil::isHit(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliSphere* const pSphere01 ,
+bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliSphere* const pSphere01 ,
                     const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere* const pSphere02 ) {
     //＜球 と 球＞
     //球1 ： 中心点の座標P1(x1, y1, z1), 半径r1
@@ -95,7 +95,7 @@ bool StgUtil::isHit(const GgafDxCore::GgafDxGeometricActor* const pActor01, cons
 
 
 
-bool StgUtil::isHit(const GgafDxCore::GgafDxGeometricActor* pActor01, const ColliAABox*  pAABox01,
+bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* pActor01, const ColliAABox*  pAABox01,
                     const GgafDxCore::GgafDxGeometricActor* pActor02, const ColliSphere* pSphere02) {
     //＜AAB と 球＞
     const coord o_scx = pActor02->_x + pSphere02->_cx;
@@ -141,7 +141,7 @@ bool StgUtil::isHit(const GgafDxCore::GgafDxGeometricActor* pActor01, const Coll
 }
 
 
- bool StgUtil::isHit(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
+ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox*   const pAABox02     ) {
     //＜プリズム と AAB＞
     const int aX1 = pActor01->_x + pAAPrism01->_x1;
@@ -398,14 +398,14 @@ bool StgUtil::isHit(const GgafDxCore::GgafDxGeometricActor* pActor01, const Coll
 
 
 
-bool StgUtil::isHit(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
+bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
                     const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere*  const pSphere02  ) {
     //＜プリズム と 球＞
     //MEMO:厳密な当たり判定計算は行っていません。
 
 
     //AAB 対 球でまず判定する
-    if (isHit(pActor01, (ColliAABox*)pAAPrism01,
+    if (isHit3D(pActor01, (ColliAABox*)pAAPrism01,
               pActor02, pSphere02             ) ) {
         //この時点でAAB 対 球でヒット。ここからプリズムでもヒットか検証する
         const int aX1 = pActor01->_x + pAAPrism01->_x1;
@@ -708,7 +708,7 @@ bool StgUtil::isHit(const GgafDxCore::GgafDxGeometricActor* const pActor01, cons
 }
 
 
-bool StgUtil::isHit(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPyramid* const pAAPyramid01,
+bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPyramid* const pAAPyramid01,
                     const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox*     const pAABox02     ) {
     //ピラミッドとBOX
     const int aX1 = pActor01->_x + pAAPyramid01->_x1;
@@ -827,7 +827,7 @@ bool StgUtil::isHit(const GgafDxCore::GgafDxGeometricActor* const pActor01, cons
     return false;
 }
 
-bool StgUtil::isHit(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPyramid* const pAAPyramid01,
+bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPyramid* const pAAPyramid01,
                     const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere*    const pSphere02  ) {
 
     //まずBOXと球で当たり判定を行う

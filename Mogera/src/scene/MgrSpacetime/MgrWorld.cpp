@@ -1,7 +1,6 @@
 #include "MgrWorld.h"
 
 #include "jp/ggaf/core/GgafFactory.h"
-#include "jp/ggaf/core/util/GgafLinearOctreeForActor.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 #include "jp/ggaf/core/GgafFactory.h"
 #include "scene/MgrSpacetime/MgrWorld/TrialAndErrScene.h"

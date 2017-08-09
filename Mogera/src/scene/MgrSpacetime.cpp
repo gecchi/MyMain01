@@ -2,7 +2,6 @@
 
 #include "jp/ggaf/core/GgafFactory.h"
 #include "scene/MgrSpacetime/MgrWorld.h"
-#include "jp/ggaf/core/util/GgafLinearOctreeForActor.h"
 #include "jp/ggaf/lib/GgafLibProperties.h"
 #include "util/MgrUtil.h"
 #include "MgrGod.h"

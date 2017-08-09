@@ -37,10 +37,12 @@ public:
      */
     void processBehavior() override;
 
-    virtual HgrCamera* getCamera() override { //‹¤•Ï‚Ì–ß‚è’l
+    HgrCamera* getCamera() override { //‹¤•Ï‚Ì–ß‚è’l
         return (HgrCamera*)_pCamera;
     }
-
+    HgrWorld* getWorld() {
+        return pWorld_;
+    }
     virtual ~HgrSpacetime();
 };
 

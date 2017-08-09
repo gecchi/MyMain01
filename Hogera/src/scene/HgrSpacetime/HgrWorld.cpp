@@ -1,9 +1,8 @@
 #include "HgrWorld.h"
 
 #include "jp/ggaf/core/GgafFactory.h"
-#include "jp/ggaf/core/util/GgafLinearOctreeForActor.h"
-#include "jp/ggaf/lib/util/VirtualButton.h"
-#include "jp/ggaf/core/GgafFactory.h"
+#include "jp/ggaf/core/util/GgafLinearQuadtree.h"
+#include "jp/ggaf/dxcore/util/GgafDxInput.h"
 #include "scene/HgrSpacetime/HgrWorld/TrialAndErrScene.h"
 #include "scene/HgrSpacetime.h"
 #include "HgrGod.h"
@@ -14,10 +13,15 @@ using namespace GgafLib;
 using namespace Hogera;
 
 HgrWorld::HgrWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
-    vb_ = NEW VirtualButton();
-    vb_->remapK(VB_UI_DEBUG, VBK_Q     );
-    vb_->remapK(VB_PAUSE   , VBK_ESCAPE);
+    vb_.remap(VB_UP     , VBK_UP   , VBJ_Y_POS_MINUS);  //VB_UP      = キーボード↑ または、Y軸－ とする。
+    vb_.remap(VB_DOWN   , VBK_DOWN , VBJ_Y_POS_PLUS );  //VB_DOWN    = キーボード↓ または、Y軸＋ とする。
+    vb_.remap(VB_LEFT   , VBK_LEFT , VBJ_X_POS_MINUS);  //VB_LEFT    = キーボード← または、X軸－ とする。
+    vb_.remap(VB_RIGHT  , VBK_RIGHT, VBJ_X_POS_PLUS );  //VB_RIGHT   = キーボード→ または、X軸＋ とする。
+    vb_.remap(VB_BUTTON1, VBK_SPACE, VBJ_BUTTON_01  );  //VB_BUTTON1 = スペースキー または ジョイスティックボタン１ とする。
+    vb_.remapK(VB_UI_DEBUG, VBK_Q);
+
     pTrialAndErrScene_ = nullptr;
+    pHitCheckRounder_  = P_GOD->getSpacetime()->getLinearQuadtreeHitCheckRounder();
 }
 
 void HgrWorld::initialize() {
@@ -27,31 +31,27 @@ void HgrWorld::initialize() {
 }
 
 void HgrWorld::processBehavior() {
-    //キャラをボタン入力で移動
-    vb_->update(); //入力状況更新
+    vb_.update(); //入力状況更新
+
+#ifdef MY_DEBUG
     //ワイヤフレーム表示切替
-    if (vb_->isPushedDown(VB_UI_DEBUG)) {
+    if (vb_.isPushedDown(VB_UI_DEBUG)) {
         if (GgafDxGod::_d3dfillmode == D3DFILL_WIREFRAME) {
             GgafDxGod::_d3dfillmode = D3DFILL_SOLID;
         } else {
             GgafDxGod::_d3dfillmode = D3DFILL_WIREFRAME;
         }
     }
-
-    //一時停止
-    if (vb_->isPushedDown(VB_PAUSE)) {
-        if (pTrialAndErrScene_->wasPaused()) {
-            pTrialAndErrScene_->unpause();
-        } else {
-            pTrialAndErrScene_->pause();
-        }
-    }
-
+#endif
 }
 
 void HgrWorld::processJudgement() {
     //当たり判定チェック
-//    P_GOD->getSpacetime()->getLinearOctree()->executeAllHitChk(HGR_MIKATA, HGR_TEKI);
+    if (GgafDxInput::isPushedDownKey(DIK_I)) {
+        P_GOD->getSpacetime()->getLinearQuadtree()->putTree();
+    }
+
+    pHitCheckRounder_->executeAll(HGR_MIKATA, HGR_TEKI);
     //executeAllHitChk は processJudgement() で呼ぶ必要あり
     //(processBehavior())ではまだ登録されていない)
 }

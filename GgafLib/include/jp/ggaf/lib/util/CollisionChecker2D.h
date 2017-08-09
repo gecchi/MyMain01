@@ -3,6 +3,7 @@
 #include "GgafLibCommonHeader.h"
 #include "CollisionChecker.h"
 
+#include "jp/ggaf/core/util/GgafTreeElem.hpp"
 namespace GgafLib {
 
 /**
@@ -17,7 +18,7 @@ class CollisionChecker2D : public CollisionChecker {
 
 public:
     /** üŒ`”ª•ª–Ø“o˜^—p—v‘f */
-    GgafCore::GgafLinearOctreeElem* const _pElem;
+    GgafCore::GgafTreeElem<2>* const _pElem;
 
 public:
     /**

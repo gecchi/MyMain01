@@ -23,17 +23,19 @@ public:
 public:
     Jiki(const char* prm_name);
 
-    virtual void initialize() override;
+    void initialize() override;
 
-    virtual void processBehavior() override;
+    void processBehavior() override;
 
-    virtual void onActive() override;
+    void onActive() override;
 
-    virtual void onReset() override;
+    void onReset() override;
 
-    virtual void onInactive() override;
+    void onInactive() override;
 
-    virtual void processJudgement() override;
+    void processJudgement() override;
+
+    void onHit(const GgafCore::GgafActor* prm_pOtherActor);
 
     virtual ~Jiki();
 

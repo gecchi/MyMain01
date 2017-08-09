@@ -3,6 +3,7 @@
 #include "GgafLibCommonHeader.h"
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 
+#include "jp/ggaf/core/util/GgafLinearTreeRounder.hpp"
 #include "jp/ggaf/lib/actor/camera/DefaultCamera.h"
 
 namespace GgafLib {
@@ -21,22 +22,24 @@ class DefaultSpacetime : public GgafDxCore::GgafDxSpacetime {
 
 public:
     GgafCore::GgafLinearOctree* _pLinearOctree;
-    GgafCore::GgafLinearOctreeForActor* _pLinearOctreeForActor;
+    GgafCore::GgafLinearTreeRounder<GgafCore::GgafActor, 3>* _pLinearOctreeHitCheckRounder;
     GgafCore::GgafLinearQuadtree* _pLinearQuadtree;
-    GgafCore::GgafLinearQuadtreeForActor* _pLinearQuadtreeForActor;
+    GgafCore::GgafLinearTreeRounder<GgafCore::GgafActor, 2>* _pLinearQuadtreeHitCheckRounder;
 public:
     DefaultSpacetime(const char* prm_name, DefaultCamera* prm_pCamera);
 
     inline GgafCore::GgafLinearOctree* getLinearOctree() {
         return _pLinearOctree;
     }
-    inline GgafCore::GgafLinearOctreeForActor* getLinearOctreeForActor() {
-        return _pLinearOctreeForActor;
+    inline GgafCore::GgafLinearTreeRounder<GgafCore::GgafActor, 3>* getLinearOctreeHitCheckRounder() {
+        return _pLinearOctreeHitCheckRounder;
     }
     inline GgafCore::GgafLinearQuadtree* getLinearQuadtree() {
         return _pLinearQuadtree;
     }
-
+    inline GgafCore::GgafLinearTreeRounder<GgafCore::GgafActor, 2>* getLinearQuadtreeHitCheckRounder() {
+        return _pLinearQuadtreeHitCheckRounder;
+    }
     virtual DefaultCamera* getCamera() override { //‹¤•Ï‚Ì–ß‚è’l
         return (DefaultCamera*)_pCamera;
     }

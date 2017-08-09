@@ -4,7 +4,10 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
+#include "jp/ggaf/dxcore/util/GgafDxInput.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
+#include "HgrGod.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -18,9 +21,7 @@ Test01::Test01(const char* prm_name) :
 
     setAlpha(0.9);          //α部分があるため、カリングをOFFするため透明オブジェクト扱いにする。
 
-    setHitAble(false); //当たり判定無し
-//    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
-//    pSe->set(0, "WAVE_LOCKON_001"); //効果音定義
+    setHitAble(true);
     useProgress(PROG_BANPEI);
 }
 
@@ -28,6 +29,10 @@ void Test01::initialize() {
     GgafDxUvFlipper* pUvFlipper = getUvFlipper();
     pUvFlipper->setFlipPtnRange(0, 3);   //アニメ範囲を０～１５
     pUvFlipper->exec(FLIP_ORDER_LOOP, 5); //アニメ順序
+
+    CollisionChecker* pChecker = getCollisionChecker();
+    pChecker->createCollisionArea(1);
+    pChecker->setColliAABox_Cube(0, PX_C(128));
 }
 
 
@@ -46,6 +51,19 @@ void Test01::processBehavior() {
     GgafProgress* const pProg = getProgress();
 
 
+    if (GgafDxInput::isPressedKey(DIK_D)) {
+        _x += PX_C(2); //右
+    }
+    if (GgafDxInput::isPressedKey(DIK_A)) {
+        _x -= PX_C(2); //左
+    }
+    if (GgafDxInput::isPressedKey(DIK_W)) {
+        _y += PX_C(2); //上
+    }
+    if (GgafDxInput::isPressedKey(DIK_S)) {
+        _y -= PX_C(2); //下
+    }
+
     getUvFlipper()->behave();
     pKuroko->behave();
 
@@ -57,6 +75,9 @@ void Test01::processJudgement() {
 void Test01::onInactive() {
 }
 
+void Test01::onHit(const GgafActor* prm_pOtherActor) {
+    _TRACE_("Test01::onHit!!!! 相手＝"<<prm_pOtherActor->getName()<<"");
+}
 
 Test01::~Test01() {
 }

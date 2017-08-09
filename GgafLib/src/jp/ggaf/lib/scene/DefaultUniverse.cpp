@@ -3,8 +3,6 @@
 #include "jp/ggaf/lib/GgafLibProperties.h"
 #include "jp/ggaf/core/util/GgafLinearOctree.h"
 #include "jp/ggaf/core/util/GgafLinearQuadtree.h"
-#include "jp/ggaf/core/util/GgafLinearOctreeForActor.h"
-#include "jp/ggaf/core/util/GgafLinearQuadtreeForActor.h"
 #ifdef MY_DEBUG
 #include "jp/ggaf/lib/actor/ColliAABoxActor.h"
 #include "jp/ggaf/lib/actor/ColliAAPrismActor.h"
@@ -24,18 +22,16 @@ DefaultSpacetime::DefaultSpacetime(const char* prm_name, DefaultCamera* prm_pCam
         _pLinearOctree = NEW GgafLinearOctree(PROPERTY::OCTREE_LEVEL);
         _pLinearOctree->setRootOctant(_x_bound_left  ,_y_bound_bottom, _z_bound_near ,
                                       _x_bound_right ,_y_bound_top   , _z_bound_far   );
-        void (GgafActor::*pFunc)(GgafActor*) = &GgafActor::executeHitChk_MeAnd;
-        _pLinearOctreeForActor = NEW GgafLinearOctreeForActor(_pLinearOctree, pFunc);
+        _pLinearOctreeHitCheckRounder = NEW GgafLinearTreeRounder<GgafActor,3>(_pLinearOctree->_paOctant, _pLinearOctree->_num_space, &GgafActor::executeHitChk_MeAnd);
         _pLinearQuadtree = nullptr;
         _TRACE_("八分木作成終了");
     } else {
         //四分木作成
         _TRACE_("四分木作成開始");
-        _pLinearQuadtree = NEW GgafLinearQuadtree(PROPERTY::OCTREE_LEVEL);
+        _pLinearQuadtree = NEW GgafLinearQuadtree(PROPERTY::QUADTREE_LEVEL);
         _pLinearQuadtree->setRootQuadrant(_x_bound_left  ,_y_bound_bottom,
                                           _x_bound_right ,_y_bound_top    );
-        void (GgafActor::*pFunc)(GgafActor*) = &GgafActor::executeHitChk_MeAnd;
-        _pLinearQuadtreeForActor = NEW GgafLinearQuadtreeForActor(_pLinearQuadtree, pFunc);
+        _pLinearQuadtreeHitCheckRounder = NEW GgafLinearTreeRounder<GgafActor, 2>(_pLinearQuadtree->_paQuadrant,_pLinearQuadtree->_num_space, &GgafActor::executeHitChk_MeAnd);
         _pLinearOctree = nullptr;
         _TRACE_("四分木作成終了");
     }
@@ -63,7 +59,9 @@ DefaultSpacetime::~DefaultSpacetime() {
 #endif
     if (PROPERTY::IS_HIT_CHECK_3D) {
         GGAF_DELETE(_pLinearOctree);
+        GGAF_DELETE(_pLinearOctreeHitCheckRounder);
     } else {
         GGAF_DELETE(_pLinearQuadtree);
+        GGAF_DELETE(_pLinearQuadtreeHitCheckRounder);
     }
 }

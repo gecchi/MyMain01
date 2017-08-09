@@ -4,7 +4,11 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
+#include "scene/HgrSpacetime.h"
+#include "scene/HgrSpacetime/HgrWorld.h"
+#include "HgrGod.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -18,7 +22,7 @@ Jiki::Jiki(const char* prm_name) :
 
     setAlpha(0.9);          //α部分があるため、カリングをOFFするため透明オブジェクト扱いにする。
 
-    setHitAble(false); //当たり判定無し
+    setHitAble(true);
 //    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
 //    pSe->set(0, "WAVE_LOCKON_001"); //効果音定義
     useProgress(PROG_BANPEI);
@@ -28,6 +32,10 @@ void Jiki::initialize() {
     GgafDxUvFlipper* pUvFlipper = getUvFlipper();
     pUvFlipper->setFlipPtnRange(0, 3);   //アニメ範囲を０～１５
     pUvFlipper->exec(FLIP_ORDER_LOOP, 5); //アニメ順序
+
+    CollisionChecker* pChecker = getCollisionChecker();
+    pChecker->createCollisionArea(1);
+    pChecker->setColliAABox_Cube(0, PX_C(128));
 }
 
 
@@ -44,7 +52,30 @@ void Jiki::onActive() {
 void Jiki::processBehavior() {
     GgafDxKuroko* const pKuroko = getKuroko();
     GgafProgress* const pProg = getProgress();
-
+    VirtualButton* pVb = &(P_GOD->getSpacetime()->getWorld()->vb_);
+    if (pVb->isPressed(VB_BUTTON1)) {
+        //ボタン１（スペースキー）を押しながらの場合
+        if (pVb->isPressed(VB_UP)) {
+            _z += PX_C(2); //奥
+        }
+        if (pVb->isPressed(VB_DOWN)) {
+            _z -= PX_C(2); //手前
+        }
+    } else {
+        //ボタン１（スペースキー）を離している場合
+        if (pVb->isPressed(VB_RIGHT)) {
+            _x += PX_C(2); //右
+        }
+        if (pVb->isPressed(VB_LEFT)) {
+            _x -= PX_C(2); //左
+        }
+        if (pVb->isPressed(VB_UP)) {
+            _y += PX_C(2); //上
+        }
+        if (pVb->isPressed(VB_DOWN)) {
+            _y -= PX_C(2); //下
+        }
+    }
 
     getUvFlipper()->behave();
     pKuroko->behave();
@@ -57,7 +88,9 @@ void Jiki::processJudgement() {
 void Jiki::onInactive() {
 }
 
-
+void Jiki::onHit(const GgafActor* prm_pOtherActor) {
+    _TRACE_("Jiki::onHit!!!! 相手＝"<<prm_pOtherActor->getName()<<"");
+}
 Jiki::~Jiki() {
 }
 

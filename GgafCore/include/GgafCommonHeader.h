@@ -315,7 +315,7 @@
 //例えば効果音が１分以上かかるようなWAVEが一つでもあるならば、(60*60)以上を設定しなければならない。
 
 
-/** アクターの種類 */
+/** アクターの種類(各Bitが種別を表し1を立てていく。分類は32種類(bit)ある事となる) */
 typedef uint32_t actorkind;
 /** フレーム(アプリケーション時間) */
 typedef uint32_t frame;
@@ -399,8 +399,13 @@ class GgafRgb;
 class GgafProperties;
 
 class GgafLinearOctree;
-class GgafLinearOctreeOctant;
-class GgafLinearOctreeElem;
+
+template<int BIT_SHIFT_NUM>
+class GgafTreeSpace;
+
+template<int BIT_SHIFT_NUM>
+class GgafTreeElem;
+
 class GgafLinearQuadtree;
 
 class GgafCurtain;
@@ -410,8 +415,10 @@ class GgafEnumIndex;
 
 class GgafXpm;
 
-class GgafLinearOctreeForActor;
-class GgafLinearQuadtreeForActor;
+template<class T, int BIT_SHIFT_NUM>
+class GgafLinearTreeRounder;
+
+
 }
 
 #endif /*GGAFCOMMONHEADER_H_*/

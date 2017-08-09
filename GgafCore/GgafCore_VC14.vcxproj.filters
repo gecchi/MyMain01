@@ -69,15 +69,6 @@
     <ClCompile Include="src\jp\ggaf\core\util\GgafCurtain.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\jp\ggaf\core\util\GgafLinearOctree.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\ggaf\core\util\GgafLinearOctreeElem.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\ggaf\core\util\GgafLinearOctreeOctant.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="src\jp\ggaf\core\util\GgafLogger.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -120,13 +111,13 @@
     <ClCompile Include="src\jp\ggaf\core\GgafProperties.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\jp\ggaf\core\util\GgafLinearOctreeForActor.cpp">
+    <ClCompile Include="src\jp\ggaf\core\util\GgafLinearOctree.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\ggaf\core\util\GgafLinearOctreeOctant.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\ggaf\core\util\GgafLinearQuadtree.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\ggaf\core\util\GgafLinearQuadtreeForActor.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -192,15 +183,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\core\util\GgafEnumIndex.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\core\util\GgafLinearOctree.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\core\util\GgafLinearOctreeElem.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\core\util\GgafLinearOctreeOctant.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\core\util\GgafLinkedListRing.hpp">
@@ -269,13 +251,19 @@
     <ClInclude Include="include\GgafCommonHeader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="include\jp\ggaf\core\util\GgafLinearOctreeForActor.h">
+    <ClInclude Include="include\jp\ggaf\core\util\GgafLinearOctree.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\core\util\GgafLinearQuadtree.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="include\jp\ggaf\core\util\GgafLinearQuadtreeForActor.h">
+    <ClInclude Include="include\jp\ggaf\core\util\GgafLinearTreeRounder.hpp">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\core\util\GgafTreeElem.hpp">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\core\util\GgafTreeSpace.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

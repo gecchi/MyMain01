@@ -46,6 +46,10 @@ void Zako::initialize() {
     pKuroko->linkFaceAngByMvAng(true);
     pKuroko->setRollFaceAngVelo(D_ANG(2));
     pKuroko->setMvVelo(PX_C(1));
+
+    CollisionChecker* pChecker = getCollisionChecker();
+    pChecker->createCollisionArea(1);
+    pChecker->setColliAABox_Cube(0, PX_C(128));
 }
 
 void Zako::onActive() {

@@ -4,11 +4,11 @@
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 #include "scene/HgrSpacetime.h"
+#include "jp/ggaf/core/util/GgafLinearTreeRounder.hpp"
 #include "jp/ggaf/lib/util/Quantity.hpp"
+#include "jp/ggaf/lib/util/VirtualButton.h"
 
 namespace Hogera {
-
-
 
 /**
  * 世界シーンの雛形 .
@@ -23,9 +23,11 @@ class HgrWorld : public GgafLib::DefaultScene {
 
 public:
     /** 入力受付 */
-    GgafLib::VirtualButton* vb_;
+    GgafLib::VirtualButton vb_;
 
     TrialAndErrScene* pTrialAndErrScene_;
+
+    GgafCore::GgafLinearTreeRounder<GgafCore::GgafActor, 2>* pHitCheckRounder_;
     /**
      * コンストラクタ .
      * @param prm_name 名称

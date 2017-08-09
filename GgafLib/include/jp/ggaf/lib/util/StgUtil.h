@@ -40,7 +40,7 @@ public:
 
     static GgafDxCore::GgafDxChecker* createChecker(GgafDxCore::GgafDxGeometricActor* prm_pActor);
 
-    static inline bool isHit(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAABox* const pAABox01,
+    static inline bool isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAABox* const pAABox01,
                              const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox* const pAABox02 ) {
         //ÅÉAAB Ç∆ AABÅÑ
         //é≤Ç™àÍívÇµÇ»Ç¢ämó¶Ç™çÇÇªÇ§Ç»èáî‘(X>Z>Y)Ç…îªíË
@@ -60,25 +60,74 @@ public:
         return false;
     }
 
-    static bool isHit(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliSphere* const pSphere01 ,
+    static bool isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliSphere* const pSphere01 ,
                       const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere* const pSphere02 );
 
-    static bool isHit(const GgafDxCore::GgafDxGeometricActor* pActor01, const ColliAABox*  pAABox01,
+    static bool isHit3D(const GgafDxCore::GgafDxGeometricActor* pActor01, const ColliAABox*  pAABox01,
                       const GgafDxCore::GgafDxGeometricActor* pActor02, const ColliSphere* pSphere02);
 
-    static bool isHit(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
+    static bool isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
                       const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox*   const pAABox02   );
 
 
-    static bool isHit(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
+    static bool isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
                       const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere*  const pSphere02  );
 
 
-    static bool isHit(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPyramid* const pAAPyramid01,
+    static bool isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPyramid* const pAAPyramid01,
                       const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox*     const pAABox02     );
 
-    static bool isHit(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPyramid* const pAAPyramid01,
+    static bool isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPyramid* const pAAPyramid01,
                       const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere*    const pSphere02    );
+
+
+    static inline bool isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAABox* const pAABox01,
+                             const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox* const pAABox02 ) {
+        //ÅÉAAB Ç∆ AABÅÑ
+        //é≤Ç™àÍívÇµÇ»Ç¢ämó¶Ç™çÇÇªÇ§Ç»èáî‘(X>Z>Y)Ç…îªíË
+        if (pActor01->_x + pAABox01->_x2 >= pActor02->_x + pAABox02->_x1) {
+            if (pActor01->_x + pAABox01->_x1 <= pActor02->_x + pAABox02->_x2) {
+                if (pActor01->_y + pAABox01->_y2 >= pActor02->_y + pAABox02->_y1) {
+                    if (pActor01->_y + pAABox01->_y1 <= pActor02->_y + pAABox02->_y2) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    static bool isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliSphere* const pSphere01 ,
+                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere* const pSphere02 ) {
+        return false;
+    }
+
+    static bool isHit2D(const GgafDxCore::GgafDxGeometricActor* pActor01, const ColliAABox*  pAABox01,
+                      const GgafDxCore::GgafDxGeometricActor* pActor02, const ColliSphere* pSphere02) {
+        return false;
+    }
+
+    static bool isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
+                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox*   const pAABox02   ) {
+        return false;
+    }
+
+
+    static bool isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
+                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere*  const pSphere02  ) {
+        return false;
+    }
+
+
+    static bool isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPyramid* const pAAPyramid01,
+                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox*     const pAABox02     ) {
+        return false;
+    }
+
+    static bool isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPyramid* const pAAPyramid01,
+                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere*    const pSphere02    ) {
+        return false;
+    }
 
     /**
      * íPî≠íeÇï°êîå¬åÇÇ¬ .
