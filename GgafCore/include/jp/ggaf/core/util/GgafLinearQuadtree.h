@@ -12,8 +12,7 @@ namespace GgafCore {
  * 線形四分木クラス .
  * 線形四分木とは、四分木空間分割手法の各空間を、一列の配列(線形)に並べた状態を意味します。
  * 本クラスでの用語を次のように定める事とする。
- * 立体図がコメントAAで表現できないため、4分木の図を例に言葉の説明するが。本クラスの機能は立体の四分木です。
- * <pre><code>
+  * <pre><code>
  *  +-----------+
  *  |           |
  *  |           |
@@ -49,7 +48,6 @@ namespace GgafCore {
  * <B>＜モートン順序＞</B><BR>
  * Z字のような順番で番号を振る手法事態を指す言葉。
  * 4分木では平面を4分割し左上、右上、左下、右下の順序で振る「手法」の事。<BR>
- * 8分木では立体空間（直方体）を8分割、Z字*2回で番号を振る「手法」の事を指す。<BR>
  * <BR>
  * <B>＜空間レベル＞</B><BR>
  * 上記図の右に書いてある、各空間のレベルを指す。<BR>
@@ -57,7 +55,6 @@ namespace GgafCore {
  * <B>＜モートン順序通し番号、空間番号＞</B><BR>
  * 上記図の各Level空間に振られている分割空間の番号のことを指す事とする。<BR>
  * 上記図の例ではLv1空間のモートン順序通し番号は 0～3、Lv2空間のモートン順序通し番号は0～15 というように使う。<BR>
- * 実際は四分木で立体なので。Lv1空間モートン順序通し番号は0～7、Lv2空間モートン順序通し番号は0～63 になる。<BR>
  * <BR>
  * <B>＜子空間、親空間。（子レベル、親レベル）＞</B><BR>
  * ある空間レベルの +1 を子空間、ある空間レベルの -1 を親空間と呼ぶことにする。<BR>
@@ -102,7 +99,7 @@ namespace GgafCore {
  * 【謝辞】<BR>
  * 本プログラムは、<BR>
  * 「○×（まるぺけ）つくろーどっとコム」 http://marupeke296.com/index.html<BR>
- * サイト内コンテンツの 「その15 8分木空間分割を最適化する！」 http://marupeke296.com/COL_3D_No15_Quadtree.html<BR>
+ * サイト内コンテンツの 「その8 4分木空間分割を最適化する！」 http://marupeke296.com/COL_2D_No8_QuadTree.html<BR>
  * の記事を参考に（というか殆どそのまま）作成しています。<BR>
  * 目から鱗の非常に解りやすい解説に感謝いたします。<BR>
  * <BR>
@@ -193,9 +190,9 @@ private:
 
 public:
     /** [r]四分木の空間を一直線に並べた線形配列 */
-    GgafTreeSpace<2>* _paQuadrant; //_paQuadrant[0] は ROOT空間へのポインタ
+    GgafTreeSpace<2u>* _paQuadrant; //_paQuadrant[0] は ROOT空間へのポインタ
     /** [r]四分木の空間に登録を行った要素の先頭要素 */
-    GgafTreeElem<2>* _pRegElemFirst;
+    GgafTreeElem<2u>* _pRegElemFirst;
     /** [r]root空間の対角の頂点となるx座標の小さい方 */
     int _root_x1;
     /** [r]root空間の対角の頂点となるy座標の小さい方 */
@@ -246,7 +243,7 @@ public:
      * @param tx2 〃
      * @param ty2 〃
      */
-    void registerElem(GgafTreeElem<2>* const prm_pElem,
+    void registerElem(GgafTreeElem<2u>* const prm_pElem,
                       int tx1, int ty1,
                       int tx2, int ty2);
 

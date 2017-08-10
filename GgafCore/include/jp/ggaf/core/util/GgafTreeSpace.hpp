@@ -12,7 +12,7 @@ namespace GgafCore {
  * @since 2009/11/23
  * @author Masatoshi Tsuge
  */
-template<int BIT_SHIFT_NUM>
+template<uint32_t BIT_SHIFT_NUM>
 class GgafTreeSpace : public GgafObject {
 
 public:

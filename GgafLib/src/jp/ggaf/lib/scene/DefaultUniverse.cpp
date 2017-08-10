@@ -1,6 +1,5 @@
 #include "jp/ggaf/lib/scene/DefaultSpacetime.h"
 
-#include "jp/ggaf/lib/GgafLibProperties.h"
 #include "jp/ggaf/core/util/GgafLinearOctree.h"
 #include "jp/ggaf/core/util/GgafLinearQuadtree.h"
 #ifdef MY_DEBUG
@@ -16,6 +15,10 @@ using namespace GgafLib;
 
 DefaultSpacetime::DefaultSpacetime(const char* prm_name, DefaultCamera* prm_pCamera) : GgafDxSpacetime(prm_name, prm_pCamera) {
     _class_name = "DefaultSpacetime";
+    _pLinearOctree = nullptr;
+    _pLinearQuadtree = nullptr;
+    _pLinearOctreeHitCheckRounder = nullptr;
+    _pLinearQuadtreeHitCheckRounder = nullptr;
     if (PROPERTY::IS_HIT_CHECK_3D) {
         //八分木作成
         _TRACE_("八分木作成開始");
@@ -23,7 +26,6 @@ DefaultSpacetime::DefaultSpacetime(const char* prm_name, DefaultCamera* prm_pCam
         _pLinearOctree->setRootOctant(_x_bound_left  ,_y_bound_bottom, _z_bound_near ,
                                       _x_bound_right ,_y_bound_top   , _z_bound_far   );
         _pLinearOctreeHitCheckRounder = NEW GgafLinearTreeRounder<GgafActor,3>(_pLinearOctree->_paOctant, _pLinearOctree->_num_space, &GgafActor::executeHitChk_MeAnd);
-        _pLinearQuadtree = nullptr;
         _TRACE_("八分木作成終了");
     } else {
         //四分木作成
@@ -32,7 +34,6 @@ DefaultSpacetime::DefaultSpacetime(const char* prm_name, DefaultCamera* prm_pCam
         _pLinearQuadtree->setRootQuadrant(_x_bound_left  ,_y_bound_bottom,
                                           _x_bound_right ,_y_bound_top    );
         _pLinearQuadtreeHitCheckRounder = NEW GgafLinearTreeRounder<GgafActor, 2>(_pLinearQuadtree->_paQuadrant,_pLinearQuadtree->_num_space, &GgafActor::executeHitChk_MeAnd);
-        _pLinearOctree = nullptr;
         _TRACE_("四分木作成終了");
     }
 }

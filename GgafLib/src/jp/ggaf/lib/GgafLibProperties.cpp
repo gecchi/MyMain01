@@ -74,7 +74,7 @@ void GgafLibProperties::load(std::string prm_properties_filename) {
     _TRACE_("GgafLibProperties::IS_HIT_CHECK_3D=" << GgafLibProperties::IS_HIT_CHECK_3D);
     _TRACE_("GgafLibProperties::IS_HIT_CHECK_2D=" << GgafLibProperties::IS_HIT_CHECK_2D);
     _TRACE_("GgafLibProperties::OCTREE_LEVEL=" << GgafLibProperties::OCTREE_LEVEL);
-    _TRACE_("GgafLibProperties::QUADTREE_LEVEL=" << GgafLibProperties::OCTREE_LEVEL);
+    _TRACE_("GgafLibProperties::QUADTREE_LEVEL=" << GgafLibProperties::QUADTREE_LEVEL);
 
 }
 

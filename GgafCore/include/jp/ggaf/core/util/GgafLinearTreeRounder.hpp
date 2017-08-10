@@ -16,7 +16,7 @@ namespace GgafCore {
  * @since 2009/11/23
  * @author Masatoshi Tsuge
  */
-template<class T, int BIT_SHIFT_NUM>
+template<class T, uint32_t BIT_SHIFT_NUM>
 class GgafLinearTreeRounder : public GgafObject {
 
     uint32_t _num_space_minus_one;

@@ -19,7 +19,7 @@ using namespace GgafLib;
 
 CollisionChecker2D::CollisionChecker2D(GgafDxGeometricActor* prm_pActor) : CollisionChecker(prm_pActor) ,
         _pLinearQuadtree(P_GOD->getSpacetime()->getLinearQuadtree()),
-        _pElem(NEW GgafTreeElem<2>(_pLinearQuadtree->_paQuadrant, prm_pActor, 0))
+        _pElem(NEW GgafTreeElem<2u>(_pLinearQuadtree->_paQuadrant, prm_pActor, 0))
 {
     _need_update_aabb = true;
 }

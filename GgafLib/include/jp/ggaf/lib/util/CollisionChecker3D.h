@@ -18,7 +18,7 @@ class CollisionChecker3D : public CollisionChecker {
 
 public:
     /** üŒ`”ª•ª–Ø“o˜^—p—v‘f */
-    GgafCore::GgafTreeElem<3>* const _pElem;
+    GgafCore::GgafTreeElem<3u>* const _pElem;
 
 public:
     /**

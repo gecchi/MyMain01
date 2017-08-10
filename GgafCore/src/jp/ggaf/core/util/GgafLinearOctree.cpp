@@ -31,7 +31,7 @@ GgafLinearOctree::GgafLinearOctree(int prm_level) : GgafObject() {
     //線形八分木配列作成
     _num_space = (int)((_pa_8pow[_top_space_level+1] -1) / 7); //空間数
     _TRACE_("GgafLinearOctree::GgafLinearOctree("<<prm_level<<") 線形八分木空間配列要素数 _num_space="<<_num_space);
-    _paOctant = NEW GgafTreeSpace<3>[_num_space];
+    _paOctant = NEW GgafTreeSpace<3u>[_num_space];
     for (uint32_t i = 0; i < _num_space; i++) {
         _paOctant[i]._my_index = i;
     }
@@ -56,7 +56,7 @@ void GgafLinearOctree::setRootOctant(int x1, int y1, int z1, int x2, int y2, int
     _TRACE_(FUNC_NAME<<" 八分木末端レベル(level="<<_top_space_level<<")の空間の広さ=" << _top_level_dx << "x" << _top_level_dy << "x" << _top_level_dz);
 }
 
-void GgafLinearOctree::registerElem(GgafTreeElem<3>* const prm_pElem,
+void GgafLinearOctree::registerElem(GgafTreeElem<3u>* const prm_pElem,
                                     int tx1, int ty1, int tz1,
                                     int tx2, int ty2, int tz2) {
 
@@ -236,7 +236,7 @@ void GgafLinearOctree::registerElem(GgafTreeElem<3>* const prm_pElem,
 
 void GgafLinearOctree::clearAllElem() {
     //登録済みの要素リストを使用して、八分木をクリア
-    GgafTreeElem<3>* pElem = _pRegElemFirst;
+    GgafTreeElem<3u>* pElem = _pRegElemFirst;
     while (pElem) {
 
         //pElem->clear();

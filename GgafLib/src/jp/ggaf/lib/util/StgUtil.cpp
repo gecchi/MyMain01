@@ -977,12 +977,70 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
             break;
         }
     }
-
-
-
     return false;
 }
 
+bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliSphere* const pSphere01 ,
+                    const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere* const pSphere02 ) {
+    //＜球 と 球＞
+    //球1 ： 中心点の座標P1(x1, y1, z1), 半径r1
+    //球2 ： 中心点の座標P2(x2, y2, z2), 半径r2
+    //(x2-x1)^2 + (y2-y1)^2 <= (r1+r2)^2
+    double d2 = (double)((pActor02->_x+pSphere02->_cx) - (pActor01->_x+pSphere01->_cx)) * ((pActor02->_x+pSphere02->_cx) - (pActor01->_x+pSphere01->_cx)) +
+                (double)((pActor02->_y+pSphere02->_cy) - (pActor01->_y+pSphere01->_cy)) * ((pActor02->_y+pSphere02->_cy) - (pActor01->_y+pSphere01->_cy));
+    if (d2 <= (double)(pSphere02->_r + pSphere01->_r) * (pSphere02->_r + pSphere01->_r)
+    ) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* pActor01, const ColliAABox*  pAABox01,
+                    const GgafDxCore::GgafDxGeometricActor* pActor02, const ColliSphere* pSphere02) {
+    //＜AAB と 球＞
+    const coord o_scx = pActor02->_x + pSphere02->_cx;
+    const coord o_scy = pActor02->_y + pSphere02->_cy;
+//    const coord o_scz = pActor02->_z + pSphere02->_cz;
+    const coord bx1 = pActor01->_x + pAABox01->_x1;
+    const coord bx2 = pActor01->_x + pAABox01->_x2;
+    const coord by1 = pActor01->_y + pAABox01->_y1;
+    const coord by2 = pActor01->_y + pAABox01->_y2;
+//    const coord bz1 = pActor01->_z + pAABox01->_z1;
+//    const coord bz2 = pActor01->_z + pAABox01->_z2;
+
+    double square_length = 0; //球の中心とAABの最短距離を二乗した値
+    if(o_scx < bx1) {
+        square_length += (double)(o_scx - bx1) * (o_scx - bx1);
+    }
+    if(o_scx > bx2) {
+        square_length += (double)(o_scx - bx2) * (o_scx - bx2);
+    }
+
+    if(o_scy < by1) {
+        square_length += (double)(o_scy - by1) * (o_scy - by1);
+    }
+    if(o_scy > by2) {
+        square_length += (double)(o_scy - by2) * (o_scy - by2);
+    }
+
+//    if(o_scz < bz1) {
+//        square_length += (double)(o_scz - bz1) * (o_scz - bz1);
+//    }
+//    if(o_scz > bz2) {
+//        square_length += (double)(o_scz - bz2) * (o_scz - bz2);
+//    }
+    //↑の判定が全てハズレて、square_length == 0 ならば、
+    //球の中心が、BOX内にあるという意味になる。
+
+    //square_lengthが球の半径（の二乗）よりも短ければ衝突している
+    if (square_length <= pSphere02->_rr) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 GgafDxFigureActor* StgUtil::shotWay001(coord prm_x, coord prm_y, coord prm_z,
                                        angle prm_rz, angle prm_ry,

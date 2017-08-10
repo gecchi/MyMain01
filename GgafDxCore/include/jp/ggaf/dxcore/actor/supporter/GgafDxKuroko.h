@@ -1096,7 +1096,7 @@ public:
     bool isTurningMvAng() const;
 
     /**
-     * 移動方角に伴って軸回転方角を更新 .
+     * 移動方角に伴って軸回転方角を更新（Z軸回転と、Y軸回転両方） .
      * true を設定すると、自動的に移動方角の方に向きが変わる。<BR>
      * false を設定すると、移動方角と向きは独立、デフォルトはこちら。<BR>
      * @param prm_b true:移動方角に伴って軸回転方角を更新/false:移動方角と軸回転方角は独立
@@ -1110,6 +1110,31 @@ public:
         }
     }
 
+    /**
+     * 移動方角に伴って軸回転方角を更新（Z軸回転のみ） .
+     * true を設定すると、Z軸回転のみ自動的に移動方角の方に向きが変わる。<BR>
+     * false を設定すると、移動方角と向きは独立、デフォルトはこちら。<BR>
+     * @param prm_b true:Z軸回転について移動方角に伴って軸回転方角を更新/false:移動方角と軸回転方角は独立
+     */
+    void linkRzFaceAngByMvAng(bool prm_b) {
+        _relate_RzFaceAng_with_RzMvAng_flg = prm_b;
+        if (prm_b) {
+            _pActor->_rz = _rz_mv;
+        }
+    }
+
+    /**
+     * 移動方角に伴って軸回転方角を更新（Y軸回転のみ） .
+     * true を設定すると、Y軸回転のみ自動的に移動方角の方に向きが変わる。<BR>
+     * false を設定すると、移動方角と向きは独立、デフォルトはこちら。<BR>
+     * @param prm_b true:Y軸回転について移動方角に伴って軸回転方角を更新/false:移動方角と軸回転方角は独立
+     */
+    void linkRyFaceAngByMvAng(bool prm_b) {
+        _relate_RyFaceAng_with_RyMvAng_flg = prm_b;
+        if (prm_b) {
+            _pActor->_ry = _ry_mv;
+        }
+    }
 
     /**
      * 黒衣の仕事を引継ぐ .

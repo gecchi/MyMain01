@@ -21,10 +21,7 @@ Jiki::Jiki(const char* prm_name) :
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //ワールド変換はビルボードでRz回転に強制
 
     setAlpha(0.9);          //α部分があるため、カリングをOFFするため透明オブジェクト扱いにする。
-
     setHitAble(true);
-//    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
-//    pSe->set(0, "WAVE_LOCKON_001"); //効果音定義
     useProgress(PROG_BANPEI);
 }
 

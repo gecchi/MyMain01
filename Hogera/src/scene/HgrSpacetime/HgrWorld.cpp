@@ -33,16 +33,6 @@ void HgrWorld::initialize() {
 void HgrWorld::processBehavior() {
     vb_.update(); //入力状況更新
 
-#ifdef MY_DEBUG
-    //ワイヤフレーム表示切替
-    if (vb_.isPushedDown(VB_UI_DEBUG)) {
-        if (GgafDxGod::_d3dfillmode == D3DFILL_WIREFRAME) {
-            GgafDxGod::_d3dfillmode = D3DFILL_SOLID;
-        } else {
-            GgafDxGod::_d3dfillmode = D3DFILL_WIREFRAME;
-        }
-    }
-#endif
 }
 
 void HgrWorld::processJudgement() {

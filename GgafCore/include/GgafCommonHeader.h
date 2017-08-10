@@ -400,10 +400,10 @@ class GgafProperties;
 
 class GgafLinearOctree;
 
-template<int BIT_SHIFT_NUM>
+template<uint32_t BIT_SHIFT_NUM>
 class GgafTreeSpace;
 
-template<int BIT_SHIFT_NUM>
+template<uint32_t BIT_SHIFT_NUM>
 class GgafTreeElem;
 
 class GgafLinearQuadtree;
@@ -415,7 +415,7 @@ class GgafEnumIndex;
 
 class GgafXpm;
 
-template<class T, int BIT_SHIFT_NUM>
+template<class T, uint32_t BIT_SHIFT_NUM>
 class GgafLinearTreeRounder;
 
 

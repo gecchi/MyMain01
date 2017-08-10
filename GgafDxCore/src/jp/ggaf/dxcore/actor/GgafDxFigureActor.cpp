@@ -162,6 +162,9 @@ void GgafDxFigureActor::processPreDraw() {
 
 void GgafDxFigureActor::processAfterDraw() {
 #ifdef MY_DEBUG
+//    //各所属シーンのαカーテンを設定する。
+//    getEffect()->setAlphaMaster(((GgafDxScene*)getPlatformScene())->_master_alpha);
+//    _TRACE_("this="<<getName()<<" PlathoneScene="<<((GgafDxScene*)getPlatformScene())->getName()<<" _master_alpha="<<((GgafDxScene*)getPlatformScene())->_master_alpha);
     //当たり判定領域表示
     if (GgafDxGod::_d3dfillmode == D3DFILL_WIREFRAME) {
         GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);

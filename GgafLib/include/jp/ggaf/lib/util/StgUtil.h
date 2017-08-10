@@ -98,14 +98,10 @@ public:
     }
 
     static bool isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliSphere* const pSphere01 ,
-                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere* const pSphere02 ) {
-        return false;
-    }
+                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere* const pSphere02 );
 
     static bool isHit2D(const GgafDxCore::GgafDxGeometricActor* pActor01, const ColliAABox*  pAABox01,
-                      const GgafDxCore::GgafDxGeometricActor* pActor02, const ColliSphere* pSphere02) {
-        return false;
-    }
+                      const GgafDxCore::GgafDxGeometricActor* pActor02, const ColliSphere* pSphere02);
 
     static bool isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
                       const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox*   const pAABox02   ) {

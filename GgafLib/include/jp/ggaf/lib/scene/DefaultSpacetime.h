@@ -3,6 +3,7 @@
 #include "GgafLibCommonHeader.h"
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 
+#include "jp/ggaf/lib/GgafLibProperties.h"
 #include "jp/ggaf/core/util/GgafLinearTreeRounder.hpp"
 #include "jp/ggaf/lib/actor/camera/DefaultCamera.h"
 
@@ -29,15 +30,38 @@ public:
     DefaultSpacetime(const char* prm_name, DefaultCamera* prm_pCamera);
 
     inline GgafCore::GgafLinearOctree* getLinearOctree() {
+#ifdef MY_DEBUG
+        if (_pLinearOctree == nullptr) {
+            throwGgafCriticalException("DefaultSpacetime::getLinearOctree() 八分木は作成されていません。 IS_HIT_CHECK_3D プロパティ true にしてください。現在のIS_HIT_CHECK_3D="<<PROPERTY::IS_HIT_CHECK_3D );
+        }
+#endif
         return _pLinearOctree;
     }
+
     inline GgafCore::GgafLinearTreeRounder<GgafCore::GgafActor, 3>* getLinearOctreeHitCheckRounder() {
+#ifdef MY_DEBUG
+        if (_pLinearOctreeHitCheckRounder == nullptr) {
+            throwGgafCriticalException("DefaultSpacetime::getLinearOctreeHitCheckRounder() 八分木は作成されていません。 IS_HIT_CHECK_3D プロパティ true にしてください。現在のIS_HIT_CHECK_3D="<<PROPERTY::IS_HIT_CHECK_3D );
+        }
+#endif
         return _pLinearOctreeHitCheckRounder;
     }
+
     inline GgafCore::GgafLinearQuadtree* getLinearQuadtree() {
+#ifdef MY_DEBUG
+        if (_pLinearQuadtree == nullptr) {
+            throwGgafCriticalException("DefaultSpacetime::getLinearQuadtree() 四分木は作成されていません。 IS_HIT_CHECK_2D プロパティ true にしてください。現在のIS_HIT_CHECK_2D="<<PROPERTY::IS_HIT_CHECK_2D );
+        }
+#endif
         return _pLinearQuadtree;
     }
+
     inline GgafCore::GgafLinearTreeRounder<GgafCore::GgafActor, 2>* getLinearQuadtreeHitCheckRounder() {
+#ifdef MY_DEBUG
+        if (_pLinearQuadtreeHitCheckRounder == nullptr) {
+            throwGgafCriticalException("DefaultSpacetime::_pLinearQuadtreeHitCheckRounder() 四分木は作成されていません。 IS_HIT_CHECK_2D プロパティ true にしてください。現在のIS_HIT_CHECK_2D="<<PROPERTY::IS_HIT_CHECK_2D );
+        }
+#endif
         return _pLinearQuadtreeHitCheckRounder;
     }
     virtual DefaultCamera* getCamera() override { //共変の戻り値

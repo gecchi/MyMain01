@@ -7,7 +7,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 #include "actor/Test01.h"
 #include "actor/Jiki.h"
-
+#include "HgrGod.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -35,6 +35,18 @@ void TrialAndErrScene::processBehavior() {
         bringDirector()->addSubGroup(HGR_TEKI, pJiki);
 
     }
+
+
+#ifdef MY_DEBUG
+    //ワイヤフレーム表示切替
+    if (GgafDxInput::isPushedDownKey(DIK_Q)) {
+        if (GgafDxGod::_d3dfillmode == D3DFILL_WIREFRAME) {
+            GgafDxGod::_d3dfillmode = D3DFILL_SOLID;
+        } else {
+            GgafDxGod::_d3dfillmode = D3DFILL_WIREFRAME;
+        }
+    }
+#endif
 }
 
 TrialAndErrScene::~TrialAndErrScene() {

@@ -194,9 +194,9 @@ private:
 
 public:
     /** [r]八分木の空間を一直線に並べた線形配列 */
-    GgafTreeSpace<3>* _paOctant; //_paOctant[0] は ROOT空間へのポインタ
+    GgafTreeSpace<3u>* _paOctant; //_paOctant[0] は ROOT空間へのポインタ
     /** [r]八分木の空間に登録を行った要素の先頭要素 */
-    GgafTreeElem<3>* _pRegElemFirst;
+    GgafTreeElem<3u>* _pRegElemFirst;
     /** [r]root空間の対角の頂点となるx座標の小さい方 */
     int _root_x1;
     /** [r]root空間の対角の頂点となるy座標の小さい方 */
@@ -258,7 +258,7 @@ public:
      * @param ty2 〃
      * @param tz2 〃
      */
-    void registerElem(GgafTreeElem<3>* const prm_pElem,
+    void registerElem(GgafTreeElem<3u>* const prm_pElem,
                       int tx1, int ty1, int tz1,
                       int tx2, int ty2, int tz2);
 
