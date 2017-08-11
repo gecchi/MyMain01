@@ -17,7 +17,10 @@ using namespace Hogera;
 Test01::Test01(const char* prm_name) :
         DefaultSpriteActor(prm_name, "Lockon001", nullptr) {
     _class_name = "Test01";
-    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //ワールド変換はビルボードでRz回転に強制
+//    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //ワールド変換はビルボードでRz回転に強制
+    effectBlendOne(); //エフェクトテクニックは加算合成に強制
+    setZEnableDraw(false);      //Zバッファは考慮無しに強制
+    setZWriteEnable(false); //自身のZバッファを書き込みしないに強制
 
     setAlpha(0.9);          //α部分があるため、カリングをOFFするため透明オブジェクト扱いにする。
 
