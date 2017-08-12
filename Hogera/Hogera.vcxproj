@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{9D66D8EF-58E6-47B2-89AA-B682498AF2D9}</ProjectGuid>
+    <ProjectGuid>{104A898D-4C1E-466A-AEA1-717FD14E8DCB}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Hogera</RootNamespace>
   </PropertyGroup>
@@ -231,16 +231,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\actor\BoardTest.cpp" />
     <ClCompile Include="src\actor\camera\HgrCamera.cpp" />
-    <ClCompile Include="src\actor\camera\HgrCameraUpVector.cpp" />
-    <ClCompile Include="src\actor\camera\HgrCameraViewPoint.cpp" />
-    <ClCompile Include="src\actor\camera\HgrCameraWorker.cpp" />
-    <ClCompile Include="src\actor\FormationZako.cpp" />
-    <ClCompile Include="src\actor\FormationZako001.cpp" />
-    <ClCompile Include="src\actor\PointSpriteTest.cpp" />
-    <ClCompile Include="src\actor\Zako.cpp" />
-    <ClCompile Include="src\actor\Zakoko.cpp" />
+    <ClCompile Include="src\actor\Jiki.cpp" />
+    <ClCompile Include="src\actor\Test01.cpp" />
     <ClCompile Include="src\HgrGod.cpp" />
     <ClCompile Include="src\Hogera.cpp" />
     <ClCompile Include="src\scene\HgrSpacetime.cpp" />
@@ -249,16 +242,9 @@
     <ClCompile Include="src\util\HgrUtil.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\actor\boardtest.h" />
     <ClInclude Include="src\actor\camera\HgrCamera.h" />
-    <ClInclude Include="src\actor\camera\HgrCameraUpVector.h" />
-    <ClInclude Include="src\actor\camera\HgrCameraViewPoint.h" />
-    <ClInclude Include="src\actor\camera\mgrcameraworker.h" />
-    <ClInclude Include="src\actor\FormationZako.h" />
-    <ClInclude Include="src\actor\FormationZako001.h" />
-    <ClInclude Include="src\actor\PointSpriteTest.h" />
-    <ClInclude Include="src\actor\Zako.h" />
-    <ClInclude Include="src\actor\Zakoko.h" />
+    <ClInclude Include="src\actor\Jiki.h" />
+    <ClInclude Include="src\actor\Test01.h" />
     <ClInclude Include="src\HgrGod.h" />
     <ClInclude Include="src\Hogera.h" />
     <ClInclude Include="src\scene\HgrSpacetime.h" />
