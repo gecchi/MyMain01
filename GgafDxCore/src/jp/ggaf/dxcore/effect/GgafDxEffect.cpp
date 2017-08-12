@@ -87,7 +87,8 @@ GgafDxEffect::GgafDxEffect(const char* prm_effect_name) : GgafObject() {
     }
     checkDxException(hr, D3D_OK, "["<<effect_file_name<<"]\n"<<(const char*)(pError->GetBufferPointer()));
     _TRACE_(" GgafDxEffect::GgafDxEffect "<<prm_effect_name<<" のエフェクトを生成しました。ADD:"<<this);
-    _h_alpha_master = _pID3DXEffect->GetParameterByName( nullptr, "g_alpha_master" ); //マスターα
+    _h_alpha_master = _pID3DXEffect->GetParameterByName( nullptr, "g_alpha_master" );
+    _pID3DXEffect->SetFloat(_h_alpha_master, 1.0); //マスターαデフォルトは1.0
 }
 
 std::string GgafDxEffect::getEffectFileName(std::string prm_file) {

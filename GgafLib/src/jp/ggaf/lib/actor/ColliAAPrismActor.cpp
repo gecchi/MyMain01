@@ -1,9 +1,10 @@
 #include "jp/ggaf/lib/actor/ColliAAPrismActor.h"
 
 #include "jp/ggaf/core/GgafGod.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/dxcore/effect/GgafDxEffect.h"
 #include "jp/ggaf/dxcore/util/GgafDxCollisionArea.h"
 #include "jp/ggaf/dxcore/util/GgafDxCollisionPart.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/util/ColliAAPrism.h"
 
 using namespace GgafCore;
@@ -39,11 +40,10 @@ void ColliAAPrismActor::drawHitarea(CollisionChecker* prm_pColliChecker) {
         GgafDxCollisionArea* pCollisionArea = prm_pColliChecker->_pCollisionArea;
         int iAreaNum = pCollisionArea->_colli_part_num;
         if (iAreaNum > 0) {
+            getEffect()->setAlphaMaster(1.0); //シーンに所属しないので固定値の設定が必要
             for (int i = 0; i < iAreaNum; i++) {
                 if (pCollisionArea->_papColliPart[i]->_is_valid_flg && pCollisionArea->_papColliPart[i]->_shape_kind == COLLI_AAPRISM) {
                     ColliAAPrism* prism = (ColliAAPrism*)pCollisionArea->_papColliPart[i];
-                    //_TRACE_("drawHitarea name="<<prm_pColliChecker->getTargetActor()->getName()<<" index="<<i);
-
                     if (prism->_pos_info == 0) {
                         _TRACE_("【警告】ColliAAPrismActor::drawHitarea BADPOS i="<<i<<" Target="<<pActor->getName()<<" 要調査");
                     } else {

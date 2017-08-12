@@ -1,9 +1,10 @@
 #include "jp/ggaf/lib/actor/ColliAABoxActor.h"
 
 #include "jp/ggaf/core/GgafGod.h"
-#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/dxcore/effect/GgafDxEffect.h"
 #include "jp/ggaf/dxcore/util/GgafDxCollisionArea.h"
 #include "jp/ggaf/dxcore/util/GgafDxCollisionPart.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/util/ColliAABox.h"
 
 using namespace GgafCore;
@@ -39,12 +40,11 @@ void ColliAABoxActor::drawHitarea(CollisionChecker* prm_pColliChecker) {
         GgafDxCollisionArea* pCollisionArea = prm_pColliChecker->_pCollisionArea;
         int iAreaNum = pCollisionArea->_colli_part_num;
         if (iAreaNum > 0) {
+            getEffect()->setAlphaMaster(1.0); //シーンに所属しないので固定値の設定が必要
             GgafDxCollisionPart** papColliPart = pCollisionArea->_papColliPart;
             for (int i = 0; i < iAreaNum; i++) {
                 if (papColliPart[i]->_is_valid_flg && papColliPart[i]->_shape_kind == COLLI_AABOX) {
                     ColliAABox* box = (ColliAABox*)papColliPart[i];
-                    //_TRACE_("drawHitarea name="<<prm_pColliChecker->getTargetActor()->getName()<<" index="<<i);
-
                     drawBox(pActor->_x + box->_x1,
                             pActor->_y + box->_y1,
                             pActor->_z + box->_z1,

@@ -28,10 +28,10 @@ void TrialAndErrScene::initialize() {
 void TrialAndErrScene::processBehavior() {
     if (getActiveFrame() == 100) {
 
-        ColliAABoxActor* XXX = NEW ColliAABoxActor("HOGEHOGE");
-        XXX->setScaleR(100);
-        bringDirector()->addSubGroup(XXX);
-        XXX->sayonara(2);
+//        ColliAABoxActor* XXX = NEW ColliAABoxActor("HOGEHOGE");
+//        XXX->setScaleR(100);
+//        bringDirector()->addSubGroup(XXX);
+//        XXX->sayonara(2);
 
 
         Test01* pTest = (Test01*)obtainActorFromFactory(10000);
