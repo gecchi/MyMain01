@@ -139,33 +139,33 @@ void GgafDxBoardModel::restore() {
     //1pxあたりのuvの大きさを求める
 //    float tex_width  = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
 //    float tex_height = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
-    float du = 0.0f;//1.0 / tex_width  / 100000.0; //テクスチャの幅1pxの10000分の1px
-    float dv = 0.0f;//1.0 / tex_height / 100000.0; //テクスチャの高さ1pxの10000分の1px
+    double du = 0.0;//1.0 / tex_width  / 100000.0; //テクスチャの幅1pxの10000分の1px
+    double dv = 0.0;//1.0 / tex_height / 100000.0; //テクスチャの高さ1pxの10000分の1px
 
     //左上
     paVertex[0].x = 0.0f;
     paVertex[0].y = 0.0f;
     paVertex[0].z = 0.0f;
-    paVertex[0].tu = du;
-    paVertex[0].tv = dv;
+    paVertex[0].tu = (float)du;
+    paVertex[0].tv = (float)dv;
     //右上
     paVertex[1].x = xdata.width;
     paVertex[1].y = 0.0f;
     paVertex[1].z = 0.0f;
-    paVertex[1].tu = (1.0 / xdata.col_texture_split) - du;
-    paVertex[1].tv = dv;
+    paVertex[1].tu = (float)((1.0 / xdata.col_texture_split) - du);
+    paVertex[1].tv = (float)dv;
     //左下
     paVertex[2].x = 0.0f;
     paVertex[2].y = xdata.height;
     paVertex[2].z = 0.0f;
-    paVertex[2].tu = du;
-    paVertex[2].tv = (1.0 / xdata.row_texture_split) - dv;
+    paVertex[2].tu = (float)du;
+    paVertex[2].tv = (float)((1.0 / xdata.row_texture_split) - dv);
     //右下
     paVertex[3].x = xdata.width;
     paVertex[3].y = xdata.height;
     paVertex[3].z = 0.0f;
-    paVertex[3].tu = (1.0 / xdata.col_texture_split) - du;
-    paVertex[3].tv = (1.0 / xdata.row_texture_split) - dv;
+    paVertex[3].tu = (float)((1.0 / xdata.col_texture_split) - du);
+    paVertex[3].tv = (float)((1.0 / xdata.row_texture_split) - dv);
 
     //バッファ作成
     if (_pVertexBuffer == nullptr) {

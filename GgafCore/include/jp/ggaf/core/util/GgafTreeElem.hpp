@@ -12,7 +12,7 @@ namespace GgafCore {
  * @since 2009/11/23
  * @author Masatoshi Tsuge
  */
-template<uint32_t BIT_SHIFT_NUM>
+template<uint32_t DIMENSION>
 class GgafTreeElem : public GgafObject {
 
     friend class GgafLinearOctree;
@@ -20,13 +20,13 @@ class GgafTreeElem : public GgafObject {
 
 public:
     /** 空間の配列 */
-    GgafTreeSpace<BIT_SHIFT_NUM>*  _paSpace;
+    GgafTreeSpace<DIMENSION>* _paSpace;
     /** [r]要素オブジェクト（これが本体） */
     GgafObject* const _pObject;
     /** [r]要素オブジェクトの種別 */
     actorkind _kindbit;
     /** [r]所属空間 */
-    GgafTreeSpace<BIT_SHIFT_NUM>* _pSpace_current;
+    GgafTreeSpace<DIMENSION>* _pSpace_current;
     /** [r]次要素 */
     GgafTreeElem* _pNext;
     /** [r]前要素 */
@@ -47,7 +47,7 @@ public:
      * @param prm_pObject
      * @param prm_kindbit
      */
-    GgafTreeElem(GgafTreeSpace<BIT_SHIFT_NUM>* prm_paSpace, GgafObject* prm_pObject, actorkind prm_kindbit) : GgafObject() ,
+    GgafTreeElem(GgafTreeSpace<DIMENSION>* prm_paSpace, GgafObject* prm_pObject, actorkind prm_kindbit) : GgafObject() ,
             _paSpace(prm_paSpace),
         _pObject(prm_pObject) {
         _kindbit = prm_kindbit;

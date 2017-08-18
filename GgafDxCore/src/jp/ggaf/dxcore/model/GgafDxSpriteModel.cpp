@@ -162,8 +162,8 @@ void GgafDxSpriteModel::restore() {
     //x,y の ÷2 とは、モデル中心をローカル座標の原点中心としたいため
     float tex_width  = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
     float tex_height = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
-    float du = 1.0f / tex_width  / 100000.0f; //テクスチャの幅1pxの10000分の1px
-    float dv = 1.0f / tex_height / 100000.0f; //テクスチャの高さ1pxの10000分の1px
+    double du = 1.0 / tex_width  / 100000.0; //テクスチャの幅1pxの100000分の1px
+    double dv = 1.0 / tex_height / 100000.0; //テクスチャの高さ1pxの100000分の1px
     float rev = 1.0f;//0.99609308; //99609309で割れ
     //左上
     paVertex[0].x = (PX_DX(xdata.width)  / -2.0)*rev;
@@ -173,8 +173,8 @@ void GgafDxSpriteModel::restore() {
     paVertex[0].ny = 0.0f;
     paVertex[0].nz = -1.0f;
     paVertex[0].color = D3DCOLOR_ARGB(255,255,255,255);
-    paVertex[0].tu = du;
-    paVertex[0].tv = dv;
+    paVertex[0].tu = (float)du;
+    paVertex[0].tv = (float)dv;
     //右上
     paVertex[1].x = (PX_DX(xdata.width)  /  2.0)*rev;
     paVertex[1].y = (PX_DX(xdata.height) /  2.0)*rev;
@@ -183,8 +183,8 @@ void GgafDxSpriteModel::restore() {
     paVertex[1].ny = 0.0f;
     paVertex[1].nz = -1.0f;
     paVertex[1].color = D3DCOLOR_ARGB(255,255,255,255);
-    paVertex[1].tu = (1.0 / xdata.col_texture_split) - du;
-    paVertex[1].tv = dv;
+    paVertex[1].tu = (float)((1.0 / xdata.col_texture_split) - du);
+    paVertex[1].tv = (float)dv;
     //左下
     paVertex[2].x = (PX_DX(xdata.width)  / -2.0)*rev;
     paVertex[2].y = (PX_DX(xdata.height) / -2.0)*rev;
@@ -193,8 +193,8 @@ void GgafDxSpriteModel::restore() {
     paVertex[2].ny = 0.0f;
     paVertex[2].nz = -1.0f;
     paVertex[2].color = D3DCOLOR_ARGB(255,255,255,255);
-    paVertex[2].tu = du;
-    paVertex[2].tv = (1.0 / xdata.row_texture_split) - dv;
+    paVertex[2].tu = (float)du;
+    paVertex[2].tv = (float)((1.0 / xdata.row_texture_split) - dv);
 
     //右下
     paVertex[3].x = (PX_DX(xdata.width)  / 2.0 )*rev;
@@ -204,8 +204,8 @@ void GgafDxSpriteModel::restore() {
     paVertex[3].ny = 0.0f;
     paVertex[3].nz = -1.0f;
     paVertex[3].color = D3DCOLOR_ARGB(255,255,255,255);
-    paVertex[3].tu = (1.0 / xdata.col_texture_split) - du;
-    paVertex[3].tv = (1.0 / xdata.row_texture_split) - dv;
+    paVertex[3].tu = (float)((1.0 / xdata.col_texture_split) - du);
+    paVertex[3].tv = (float)((1.0 / xdata.row_texture_split) - dv);
 
     //距離
     FLOAT model_bounding_sphere_radius = (FLOAT)(sqrt(paVertex[0].x * paVertex[0].x +

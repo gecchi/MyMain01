@@ -12,7 +12,7 @@ namespace GgafCore {
  * @since 2009/11/23
  * @author Masatoshi Tsuge
  */
-template<uint32_t BIT_SHIFT_NUM>
+template<uint32_t DIMENSION>
 class GgafTreeSpace : public GgafObject {
 
 public:
@@ -21,9 +21,9 @@ public:
     /** [r]所属してる要素の種別情報 */
     actorkind _kind_bit_field;
     /** [r]ぶら下がる要素の先頭 */
-    GgafTreeElem<BIT_SHIFT_NUM>* _pElem_first;
+    GgafTreeElem<DIMENSION>* _pElem_first;
     /** [r]ぶら下がる要素の末尾 */
-    GgafTreeElem<BIT_SHIFT_NUM>* _pElem_last;
+    GgafTreeElem<DIMENSION>* _pElem_last;
 
 public:
     /**
@@ -37,7 +37,7 @@ public:
         _my_index = 0xffffffff; //ありえない0xffffffffを入れておく
     }
 
-    void registerElem(GgafTreeElem<BIT_SHIFT_NUM>* const prm_pElem) {
+    void registerElem(GgafTreeElem<DIMENSION>* const prm_pElem) {
         if (prm_pElem->_pSpace_current == this) {
             //_TRACE_("belongToせんでいい");
             return;
@@ -63,7 +63,7 @@ public:
         //引数の要素番号
         uint32_t index = _my_index;
         const uint32_t this_kindbit = prm_pElem->_kindbit;
-        GgafTreeSpace<BIT_SHIFT_NUM>* p = this; //= & _paOctant[index]
+        GgafTreeSpace<DIMENSION>* p = this; //= & _paOctant[index]
         while (true) {
             if (p->_kind_bit_field & this_kindbit) {
                 //もう種別情報が設定済みならば、それ以上の親も設定済みの為、抜ける
@@ -76,15 +76,16 @@ public:
                 break;
             }
             //一つ上の親空間要素番号で繰り返す
-            index = (index-1)>>BIT_SHIFT_NUM;
+            index = (index-1)>>DIMENSION;
             p = p - (p->_my_index - index);
         }
     }
+
     void dump() {
         if (_pElem_first == nullptr) {
             _TRACE_N_("x");
         } else {
-            GgafTreeElem<BIT_SHIFT_NUM>* pElem = _pElem_first;
+            GgafTreeElem<DIMENSION>* pElem = _pElem_first;
             while (true) {
                 pElem->dump();
                 if (pElem == _pElem_last) {
@@ -98,7 +99,6 @@ public:
     virtual ~GgafTreeSpace() {
     }
 };
-
 
 }
 #endif /*GGAFCORE_GGAFTREESPACE_H_*/

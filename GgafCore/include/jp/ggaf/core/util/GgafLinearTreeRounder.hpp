@@ -10,13 +10,12 @@ namespace GgafCore {
 
 #define MAX_COLLISIONSTACK_ACTOR_NUM (2000)
 /**
- * Tを要素とし当たり判定機能を追加した線形八分木配列クラス .
- * 種別Aグループ 対 種別Bグループの2グループ間の当たり判定を行う
+ * Tを要素とし当たり判定機能を追加した線形八分木または四分木の各要素に処理を行う .
  * @version 1.00
  * @since 2009/11/23
  * @author Masatoshi Tsuge
  */
-template<class T, uint32_t BIT_SHIFT_NUM>
+template<class T, uint32_t DIMENSION>
 class GgafLinearTreeRounder : public GgafObject {
 
     uint32_t _num_space_minus_one;
@@ -107,7 +106,7 @@ public:
         }
     };
 
-    GgafTreeSpace<BIT_SHIFT_NUM>* _paTargetSpace;
+    GgafTreeSpace<DIMENSION>* _paTargetSpace;
     /** [r]全空間の当たり判定時、現在の空間に所属するアクター種別Aグループのスタック */
     TStack _stackGroupA_Current;
     /** [r]全空間の当たり判定時、現在の空間に所属するアクター種別Bグループのスタック */
@@ -129,7 +128,7 @@ public:
      * コンストラクタ
      * @param prm_level 作成する八分木空間レベル
      */
-    GgafLinearTreeRounder(GgafTreeSpace<BIT_SHIFT_NUM>* prm_paTargetSpace, int prm_num_space, void (T::*prm_pFunc)(T*)) {
+    GgafLinearTreeRounder(GgafTreeSpace<DIMENSION>* prm_paTargetSpace, int prm_num_space, void (T::*prm_pFunc)(T*)) {
         _paTargetSpace = prm_paTargetSpace;
         _num_space_minus_one = prm_num_space;
         _pFunc = prm_pFunc;
@@ -162,12 +161,12 @@ public:
      * @param prm_index 線形八分木配列の配列要素番号
      */
     void execute(uint32_t prm_index) {
-        GgafTreeSpace<BIT_SHIFT_NUM>* pOctant_this_level = &(_paTargetSpace[prm_index]);
-        GgafTreeElem<BIT_SHIFT_NUM>* pElem = pOctant_this_level->_pElem_first;
+        GgafTreeSpace<DIMENSION>* pOctant_this_level = &(_paTargetSpace[prm_index]);
+        GgafTreeElem<DIMENSION>* pElem = pOctant_this_level->_pElem_first;
         const actorkind kind_groupA = _kind_groupA;
         const actorkind kind_groupB = _kind_groupB;
         if (pElem) {
-            GgafTreeElem<BIT_SHIFT_NUM>* pElem_last = pOctant_this_level->_pElem_last;
+            GgafTreeElem<DIMENSION>* pElem_last = pOctant_this_level->_pElem_last;
             while (true) {
                 if (pElem->_kindbit & kind_groupA) {
                     _stackGroupA_Current.push((T*)(pElem->_pObject));
@@ -187,7 +186,7 @@ public:
             //親空間所属のグループAと現在の空間のグループB総当り
             executeRoundRobin(&_stackGroupA , &_stackGroupB_Current);
         }
-        const uint32_t lower_level_index = (prm_index<<BIT_SHIFT_NUM) + 1; //_papOctant[prm_index] 空間の子空間のモートン順序位置0番の配列要素番号
+        const uint32_t lower_level_index = (prm_index<<DIMENSION) + 1; //_papOctant[prm_index] 空間の子空間のモートン順序位置0番の配列要素番号
         if ( lower_level_index > _num_space_minus_one) {
             //要素数オーバー、つまりリーフ
             _stackGroupA_Current.clear();
@@ -210,7 +209,7 @@ public:
             //又は、次のレベルの空間に種別Aがあり、かつストックに種別Bがあれば潜る。
             //又は、次のレベルの空間に種別Bがあり、かつストックに種別Aがあれば潜る。
             //それ以外は潜らない
-            GgafTreeSpace<BIT_SHIFT_NUM>* pOctant_lower_level = &(_paTargetSpace[lower_level_index]);
+            GgafTreeSpace<DIMENSION>* pOctant_lower_level = &(_paTargetSpace[lower_level_index]);
             actorkind kind_bit_field_lower_level = pOctant_lower_level->_kind_bit_field;
             if (kind_bit_field_lower_level & kind_groupA) {
                 if (isExistGroupB || (kind_bit_field_lower_level & kind_groupB)) {
@@ -223,7 +222,7 @@ public:
             }
 
 
-            for (int i = 1; i < (1<<BIT_SHIFT_NUM); i++) {
+            for (int i = 1; i < (1<<DIMENSION); i++) {
                 kind_bit_field_lower_level = (++pOctant_lower_level)->_kind_bit_field;
                 if (kind_bit_field_lower_level & kind_groupA) {
                     if (isExistGroupB || (kind_bit_field_lower_level & kind_groupB)) {
@@ -244,7 +243,7 @@ public:
             //又は、次のレベルの空間に種別Aがあり、かつストックに種別Bがあれば潜る。
             //又は、次のレベルの空間に種別Bがあり、かつストックに種別Aがあれば潜る。
             //それ以外は潜らない
-//            GgafTreeSpace<BIT_SHIFT_NUM>* pOctant_lower_level = &(_paTargetSpace[lower_level_index]);
+//            GgafTreeSpace<DIMENSION>* pOctant_lower_level = &(_paTargetSpace[lower_level_index]);
 //            uint32_t kind_bit_field_lower_level = pOctant_lower_level->_kind_bit_field;
 //            if (kind_bit_field_lower_level & kind_groupA) {
 //                if (isExistGroupB || (kind_bit_field_lower_level & kind_groupB)) {

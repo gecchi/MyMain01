@@ -205,8 +205,8 @@ void GgafDxSpriteSetModel::restore() {
 
         float tex_width  = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
         float tex_height = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
-        float du = 1.0f / tex_width  / 100000.0f; //テクスチャの幅1pxの100000分の1px
-        float dv = 1.0f / tex_height / 100000.0f; //テクスチャの高さ1pxの100000分の1px
+        double du = 1.0 / tex_width  / 100000.0; //テクスチャの幅1pxの100000分の1px
+        double dv = 1.0 / tex_height / 100000.0; //テクスチャの高さ1pxの100000分の1px
         float rev = 1.0f;//0.99609308; //99609309で割れ
         //頂点配列情報をモデルに保持させる
         //UVは左上の１つ分（アニメパターン０）をデフォルトで設定する。
@@ -220,8 +220,8 @@ void GgafDxSpriteSetModel::restore() {
             paVertex[i*4 + 0].nx = 0.0f;
             paVertex[i*4 + 0].ny = 0.0f;
             paVertex[i*4 + 0].nz = -1.0f;
-            paVertex[i*4 + 0].tu = du;
-            paVertex[i*4 + 0].tv = dv;
+            paVertex[i*4 + 0].tu = (float)du;
+            paVertex[i*4 + 0].tv = (float)dv;
             paVertex[i*4 + 0].index = (float)i;
             //右上
             paVertex[i*4 + 1].x = (PX_DX(xdata.width)  / 2.0)*rev;
@@ -230,8 +230,8 @@ void GgafDxSpriteSetModel::restore() {
             paVertex[i*4 + 1].nx = 0.0f;
             paVertex[i*4 + 1].ny = 0.0f;
             paVertex[i*4 + 1].nz = -1.0f;
-            paVertex[i*4 + 1].tu = (1.0/xdata.col_texture_split) - du;
-            paVertex[i*4 + 1].tv = dv;
+            paVertex[i*4 + 1].tu = (float)((1.0 / xdata.col_texture_split) - du);
+            paVertex[i*4 + 1].tv = (float)dv;
             paVertex[i*4 + 1].index = (float)i;
             //左下
             paVertex[i*4 + 2].x = (PX_DX(xdata.width)  / -2.0)*rev;
@@ -240,8 +240,8 @@ void GgafDxSpriteSetModel::restore() {
             paVertex[i*4 + 2].nx = 0.0f;
             paVertex[i*4 + 2].ny = 0.0f;
             paVertex[i*4 + 2].nz = -1.0f;
-            paVertex[i*4 + 2].tu = du;
-            paVertex[i*4 + 2].tv = (1.0/xdata.row_texture_split) - dv;
+            paVertex[i*4 + 2].tu = (float)du;
+            paVertex[i*4 + 2].tv = (float)((1.0 / xdata.row_texture_split) - dv);
             paVertex[i*4 + 2].index = (float)i;
             //右下
             paVertex[i*4 + 3].x = (PX_DX(xdata.width)  /  2.0)*rev;
@@ -250,8 +250,8 @@ void GgafDxSpriteSetModel::restore() {
             paVertex[i*4 + 3].nx = 0.0f;
             paVertex[i*4 + 3].ny = 0.0f;
             paVertex[i*4 + 3].nz = -1.0f;
-            paVertex[i*4 + 3].tu = (1.0/xdata.col_texture_split) - du;
-            paVertex[i*4 + 3].tv = (1.0/xdata.row_texture_split) - dv;
+            paVertex[i*4 + 3].tu = (float)((1.0 / xdata.col_texture_split) - du);
+            paVertex[i*4 + 3].tv = (float)((1.0 / xdata.row_texture_split) - dv);
             paVertex[i*4 + 3].index = (float)i;
 
         }
