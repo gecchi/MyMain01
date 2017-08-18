@@ -34,9 +34,10 @@ void Test01::initialize() {
     pUvFlipper->exec(FLIP_ORDER_LOOP, 5); //ƒAƒjƒ‡˜
 
     CollisionChecker* pChecker = getCollisionChecker();
-    pChecker->createCollisionArea(1);
+    pChecker->createCollisionArea(2);
 //    pChecker->setColliAABox_Cube(0, PX_C(128));
     pChecker->setColliSphere(0, PX_C(64));
+    pChecker->setColliAABox(1, PX_C(-128), PX_C(-128), PX_C(-1), PX_C(-64), PX_C(-64), PX_C(1), false, false, true);
 }
 
 
