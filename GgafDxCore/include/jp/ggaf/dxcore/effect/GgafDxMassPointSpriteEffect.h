@@ -7,7 +7,7 @@
 namespace GgafDxCore {
 
 /**
- * GgafDxPointSprite用エフェクトクラス .
+ * GgafDxMassPointSpriteEffect用エフェクトクラス .
  * @version 1.00
  * @since 2009/03/09
  * @author Masatoshi Tsuge

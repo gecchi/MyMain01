@@ -45,6 +45,7 @@ private:
     GgafDxPointSpriteModel*      createPointSpriteModel(const char* prm_model_name);
     GgafDxMassPointSpriteModel*  createMassPointSpriteModel(const char* prm_model_name);
     GgafDxPointSpriteSetModel*   createPointSpriteSetModel(const char* prm_model_name);
+    GgafDxEnclosedBoardModel*    createEnclosedBoardModel(const char* prm_model_name);
 
 public:
 

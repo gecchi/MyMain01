@@ -127,7 +127,9 @@ _z_bound_far   (+DX_C(prm_pCamera->getZFar()))
 
     _TRACE_("通常の段階レンダリング深度数："<<REGULAR_RENDER_DEPTH_INDEXS_NUM);
     _TRACE_("通常の段階レンダリング距離範囲："<<DX_C(prm_pCamera->getZFar())<<" * "<<PROPERTY::RENDER_DEPTH_STAGE_RATIO <<
-                                             " = "<< DX_C((prm_pCamera->getZFar()) * PROPERTY::RENDER_DEPTH_STAGE_RATIO)   );
+                                             " = "<< DX_C(_dep_resolution)   );
+    _TRACE_("カメラからの距離  0 ~ "<<DX_C(_dep_resolution)<< " のActorは、 深度が考慮されて遠くのオブジェクトから順にレンダリングを行います。");
+    _TRACE_(DX_C(_dep_resolution)<<" より遠いオブジェクトは全て同一深度として最初にレンダリングされます。");
 }
 
 void GgafDxSpacetime::registerSe(GgafDxSe* prm_pSe,

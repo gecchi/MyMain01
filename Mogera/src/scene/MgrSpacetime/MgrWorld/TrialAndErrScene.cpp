@@ -4,6 +4,7 @@
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"
 #include "actor/PointSpriteTest.h"
+#include "actor/BoardTest.h"
 #include "actor/Zako.h"
 #include "scene/MgrSpacetime/MgrWorld.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
@@ -26,6 +27,7 @@ TrialAndErrScene::TrialAndErrScene(const char* prm_name) : DefaultScene(prm_name
 //    orderActorToFactory(994, PointSpriteTest, "PointSpriteTest5");
 //    orderActorToFactory(995, PointSpriteTest, "PointSpriteTest6");
 //    orderActorToFactory(996, PointSpriteTest, "PointSpriteTest7");
+    orderActorToFactory(20000, BoardTest, "BoardTest");
 }
 
 void TrialAndErrScene::initialize() {
@@ -36,6 +38,10 @@ void TrialAndErrScene::initialize() {
 void TrialAndErrScene::processBehavior() {
 
     if (getActiveFrame() == 100) {
+
+        BoardTest* pBoardTest = (BoardTest*)obtainActorFromFactory(20000);
+        pBoardTest->setPosition(PX_C(100), PX_C(200));
+        bringDirector()->addSubGroup(pBoardTest);
         for (int id = 0; id < 17; id++) {
             PointSpriteTest* pTest = (PointSpriteTest*)obtainActorFromFactory(900+id);
             pTest->setPosition(PX_C(100*id), PX_C(100*id), PX_C(100*id));

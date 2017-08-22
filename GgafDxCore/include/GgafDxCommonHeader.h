@@ -94,7 +94,7 @@
 //シェーダー2.0の限界のモーフターゲットは6個だった
 #define MAX_MORPH_TARGET 6
 
-/** アプリケーション座標単位 (目安： 1 coord  =  0.001 pixcoord  =  0.00001 dxcoord  ) */
+/** アプリケーション座標単位 (目安： 1 coord  =  0.001 pixcoord  =  0.0001 dxcoord  ) */
 typedef int coord;
 /** アプリケーション座標単位系の速度 */
 typedef int velo;
@@ -266,7 +266,7 @@ enum GgafDxValign {
 #define Obj_GgafDxMassMorphMeshActor     (0x100000000ULL)  //0b 00000000 00000000 00000000 00000001 00000000 00000000 00000000 00000000
 #define Obj_GgafDxMassPointSpriteActor   (0x200000000ULL)  //0b 00000000 00000000 00000000 00000010 00000000 00000000 00000000 00000000
 #define Obj_GgafDxPointSpriteSetActor    (0x400000000ULL)  //0b 00000000 00000000 00000000 00000100 00000000 00000000 00000000 00000000
-
+#define Obj_GgafDxEnclosedBoardActor     (0x800000000ULL)  //0b 00000000 00000000 00000000 00001000 00000000 00000000 00000000 0000000
 
 //前方宣言(forward declaration)
 namespace IkdLib {
@@ -343,6 +343,7 @@ class GgafDxMassBoardActor;
 class GgafDxPointSpriteActor;
 class GgafDxMassPointSpriteActor;
 class GgafDxPointSpriteSetActor;
+class GgafDxEnclosedBoardActor;
 
 class GgafDxModel;
 class GgafDxMassModel;
@@ -366,6 +367,7 @@ class GgafDxMassBoardModel;
 class GgafDxPointSpriteModel;
 class GgafDxMassPointSpriteModel;
 class GgafDxPointSpriteSetModel;
+class GgafDxEnclosedBoardModel;
 
 class GgafDxEffect;
 class GgafDxMassEffect;
@@ -388,6 +390,7 @@ class GgafDxMassBoardEffect;
 class GgafDxPointSpriteEffect;
 class GgafDxMassPointSpriteEffect;
 class GgafDxPointSpriteSetEffect;
+class GgafDxEnclosedBoardEffect;
 
 class GgafDxTexture;
 
