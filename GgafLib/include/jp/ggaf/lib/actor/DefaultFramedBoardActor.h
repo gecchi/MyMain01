@@ -1,22 +1,22 @@
-#ifndef GGAFLIB_DEFAULTENCLOSEDBOARDACTOR_H_
-#define GGAFLIB_DEFAULTENCLOSEDBOARDACTOR_H_
+#ifndef GGAFLIB_DEFAULTFRAMEDBOARDACTOR_H_
+#define GGAFLIB_DEFAULTFRAMEDBOARDACTOR_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/dxcore/actor/GgafDxEnclosedBoardActor.h"
+#include "jp/ggaf/dxcore/actor/GgafDxFramedBoardActor.h"
 
 namespace GgafLib {
 
 /**
  * 座標変換済みスプライトアクターの具象クラス.
- * GgafDxCore::GgafDxEnclosedBoardActor を空実装した具象アクターです。
+ * GgafDxCore::GgafDxFramedBoardActor を空実装した具象アクターです。
  * 本クラスを継承して色々画面表示を作成しましょう。<BR>
  * @version 1.00
  * @since 2017/08/22
  * @author Masatoshi Tsuge
  */
-class DefaultEnclosedBoardActor : public GgafDxCore::GgafDxEnclosedBoardActor {
+class DefaultFramedBoardActor : public GgafDxCore::GgafDxFramedBoardActor {
 
 public:
-    DefaultEnclosedBoardActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat = nullptr);
+    DefaultFramedBoardActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat = nullptr);
 
     virtual void onCreateModel() override {
     }
@@ -40,9 +40,9 @@ public:
     virtual void onHit(const GgafCore::GgafActor* prm_pOtherActor) override {
     }
 
-    virtual ~DefaultEnclosedBoardActor();
+    virtual ~DefaultFramedBoardActor();
 
 };
 
 }
-#endif /*GGAFLIB_DEFAULTENCLOSEDBOARDACTOR_H_*/
+#endif /*GGAFLIB_DEFAULTFRAMEDBOARDACTOR_H_*/

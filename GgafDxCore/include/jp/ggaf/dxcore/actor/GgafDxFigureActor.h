@@ -135,7 +135,7 @@ public:
      * @param prm_technique テクニック名
      * @param prm_frame 変更テクニックの継続フレーム数
      */
-    virtual void changeEffectTechniqueInterim(const char* prm_technique, frame prm_frame);
+    virtual void changeEffectTechniqueMoment(const char* prm_technique, frame prm_frame);
 
     /**
      * ピカっと光る。

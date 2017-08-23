@@ -40,7 +40,7 @@
 #include "jp/ggaf/dxcore/model/GgafDxPointSpriteModel.h"
 #include "jp/ggaf/dxcore/model/GgafDxMassPointSpriteModel.h"
 #include "jp/ggaf/dxcore/model/GgafDxPointSpriteSetModel.h"
-#include "jp/ggaf/dxcore/model/GgafDxEnclosedBoardModel.h"
+#include "jp/ggaf/dxcore/model/GgafDxFramedBoardModel.h"
 #include "jp/ggaf/dxcore/model/ex/GgafDxCubeMapMeshModel.h"
 #include "jp/ggaf/dxcore/model/ex/GgafDxCubeMapMeshSetModel.h"
 #include "jp/ggaf/dxcore/model/ex/GgafDxCubeMapMorphMeshModel.h"
@@ -223,7 +223,7 @@ GgafDxModel* GgafDxModelManager::processCreateResource(const char* prm_idstr, vo
             break;
         case 'E':
             //PointSpriteSetModel
-            pResourceModel = createEnclosedBoardModel(model_name);
+            pResourceModel = createFramedBoardModel(model_name);
             break;
         default:
             throwGgafCriticalException("prm_idstr="<<prm_idstr<<" の '"<<model_type<<"' ・・・そんなモデル種別は知りません");
@@ -356,10 +356,10 @@ GgafDxPointSpriteSetModel* GgafDxModelManager::createPointSpriteSetModel(const c
     return pPointSpriteSetModel_new;
 }
 
-GgafDxEnclosedBoardModel* GgafDxModelManager::createEnclosedBoardModel(const char* prm_model_name) {
-    GgafDxEnclosedBoardModel* pEnclosedBoardModel_new = NEW GgafDxEnclosedBoardModel(prm_model_name);
-    pEnclosedBoardModel_new->restore();
-    return pEnclosedBoardModel_new;
+GgafDxFramedBoardModel* GgafDxModelManager::createFramedBoardModel(const char* prm_model_name) {
+    GgafDxFramedBoardModel* pFramedBoardModel_new = NEW GgafDxFramedBoardModel(prm_model_name);
+    pFramedBoardModel_new->restore();
+    return pFramedBoardModel_new;
 }
 
 std::string GgafDxModelManager::getMeshFileName(std::string prm_model_name) {

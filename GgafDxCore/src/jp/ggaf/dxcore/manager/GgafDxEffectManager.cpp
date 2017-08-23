@@ -16,7 +16,7 @@
 #include "jp/ggaf/dxcore/effect/GgafDxPointSpriteEffect.h"
 #include "jp/ggaf/dxcore/effect/GgafDxMassPointSpriteEffect.h"
 #include "jp/ggaf/dxcore/effect/GgafDxPointSpriteSetEffect.h"
-#include "jp/ggaf/dxcore/effect/GgafDxEnclosedBoardEffect.h"
+#include "jp/ggaf/dxcore/effect/GgafDxFramedBoardEffect.h"
 #include "jp/ggaf/dxcore/effect/ex/GgafDxCubeMapMeshEffect.h"
 #include "jp/ggaf/dxcore/effect/ex/GgafDxCubeMapMeshSetEffect.h"
 #include "jp/ggaf/dxcore/effect/ex/GgafDxCubeMapMorphMeshEffect.h"
@@ -102,7 +102,7 @@ GgafDxEffect* GgafDxEffectManager::processCreateResource(const char* prm_idstr, 
             pResourceEffect = NEW GgafDxPointSpriteSetEffect(effect_name);
             break;
         case 'E':
-            pResourceEffect = NEW GgafDxEnclosedBoardEffect(effect_name);
+            pResourceEffect = NEW GgafDxFramedBoardEffect(effect_name);
             break;
         default:
             throwGgafCriticalException("prm_idstr="<<prm_idstr<<" の '"<<effect_type<<"' ・・・そんなエッフェクト種別は知りません");

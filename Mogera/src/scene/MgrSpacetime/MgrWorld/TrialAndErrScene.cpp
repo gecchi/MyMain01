@@ -17,12 +17,13 @@ using namespace Mogera;
 TrialAndErrScene::TrialAndErrScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "TrialAndErrScene";
     pTest_ = nullptr;
-    for (int id = 0; id < 17; id++) {
-        orderActorToFactory(900+id, PointSpriteTest, "PointSpriteTest");
-    }
-//    orderActorToFactory(990, PointSpriteTest, "PointSpriteTest1");
-//    orderActorToFactory(991, PointSpriteTest, "PointSpriteTest2");
-    orderActorToFactory(10000, Zako, "Zako");
+
+//    for (int id = 0; id < 17; id++) {
+//        orderActorToFactory(900+id, PointSpriteTest, "PointSpriteTest");
+//    }
+////    orderActorToFactory(990, PointSpriteTest, "PointSpriteTest1");
+////    orderActorToFactory(991, PointSpriteTest, "PointSpriteTest2");
+//    orderActorToFactory(10000, Zako, "Zako");
 //    orderActorToFactory(993, PointSpriteTest, "PointSpriteTest4");
 //    orderActorToFactory(994, PointSpriteTest, "PointSpriteTest5");
 //    orderActorToFactory(995, PointSpriteTest, "PointSpriteTest6");
@@ -38,15 +39,14 @@ void TrialAndErrScene::initialize() {
 void TrialAndErrScene::processBehavior() {
 
     if (getActiveFrame() == 100) {
-
         BoardTest* pBoardTest = (BoardTest*)obtainActorFromFactory(20000);
-        pBoardTest->setPosition(PX_C(100), PX_C(200));
+        pBoardTest->setPosition(PX_C(100), PX_C(50));
         bringDirector()->addSubGroup(pBoardTest);
-        for (int id = 0; id < 17; id++) {
-            PointSpriteTest* pTest = (PointSpriteTest*)obtainActorFromFactory(900+id);
-            pTest->setPosition(PX_C(100*id), PX_C(100*id), PX_C(100*id));
-            bringDirector()->addSubGroup(pTest);
-        }
+//        for (int id = 0; id < 17; id++) {
+//            PointSpriteTest* pTest = (PointSpriteTest*)obtainActorFromFactory(900+id);
+//            pTest->setPosition(PX_C(100*id), PX_C(100*id), PX_C(100*id));
+//            bringDirector()->addSubGroup(pTest);
+//        }
     }
 //    if (getActiveFrame() == 120) {
 //        PointSpriteTest* pTest1 = (PointSpriteTest*)obtainActorFromFactory(990);
@@ -58,11 +58,11 @@ void TrialAndErrScene::processBehavior() {
 //        bringDirector()->addSubGroup(pTest2);
 //        pTest2->setPosition(PX_C(200), PX_C(200), PX_C(200));
 //    }
-    if (getActiveFrame() == 160) {
-        Zako* pZako = (Zako*)obtainActorFromFactory(10000);
-        bringDirector()->addSubGroup(pZako);
-        pZako->setPosition(PX_C(400), PX_C(400), PX_C(400));
-    }
+//    if (getActiveFrame() == 160) {
+//        Zako* pZako = (Zako*)obtainActorFromFactory(10000);
+//        bringDirector()->addSubGroup(pZako);
+//        pZako->setPosition(PX_C(400), PX_C(400), PX_C(400));
+//    }
 //    if (getActiveFrame() == 180) {
 //        PointSpriteTest* pTest4 = (PointSpriteTest*)obtainActorFromFactory(993);
 //        bringDirector()->addSubGroup(pTest4);

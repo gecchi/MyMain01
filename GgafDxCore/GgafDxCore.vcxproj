@@ -39,8 +39,8 @@
     <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxD3DXAniMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxD3DXMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxDynaD3DXMeshActor.cpp" />
-    <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxEnclosedBoardActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxFigureActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxFramedBoardActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxGeometricActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxMassActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxMassBoardActor.cpp" />
@@ -78,7 +78,7 @@
     <ClCompile Include="src\jp\ggaf\dxcore\effect\GgafDxBoardSetEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\effect\GgafDxD3DXAniMeshEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\effect\GgafDxEffect.cpp" />
-    <ClCompile Include="src\jp\ggaf\dxcore\effect\GgafDxEnclosedBoardEffect.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\effect\GgafDxFramedBoardEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\effect\GgafDxMassBoardEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\effect\GgafDxMassEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\effect\GgafDxMassMeshEffect.cpp" />
@@ -113,7 +113,7 @@
     <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxBoardSetModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxD3DXAniMeshModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxD3DXMeshModel.cpp" />
-    <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxEnclosedBoardModel.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxFramedBoardModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxMassBoardModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxMassMeshModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxMassModel.cpp" />
@@ -182,8 +182,8 @@
     <ClInclude Include="include\jp\ggaf\dxcore\actor\ggafdxd3dxanimeshactor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\ggafdxd3dxmeshactor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\ggafdxdynad3dxmeshactor.h" />
-    <ClInclude Include="include\jp\ggaf\dxcore\actor\ggafdxenclosedboardactor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\ggafdxfigureactor.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\ggafdxframedboardactor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\ggafdxgeometricactor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\ggafdxmassactor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\GgafDxMassBoardActor.h" />
@@ -223,7 +223,7 @@
     <ClInclude Include="include\jp\ggaf\dxcore\effect\ggafdxboardseteffect.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\effect\GgafDxD3DXAniMeshEffect.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\effect\ggafdxeffect.h" />
-    <ClInclude Include="include\jp\ggaf\dxcore\effect\GgafDxEnclosedBoardEffect.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\effect\ggafdxframedboardeffect.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\effect\GgafDxMassBoardEffect.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\effect\ggafdxmasseffect.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\effect\ggafdxmassmesheffect.h" />
@@ -258,7 +258,7 @@
     <ClInclude Include="include\jp\ggaf\dxcore\model\ggafdxboardsetmodel.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\model\GgafDxD3DXAniMeshModel.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\model\GgafDxD3DXMeshModel.h" />
-    <ClInclude Include="include\jp\ggaf\dxcore\model\ggafdxenclosedboardmodel.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\model\ggafdxframedboardmodel.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\model\GgafDxMassBoardModel.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\model\ggafdxmassmeshmodel.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\model\ggafdxmassmodel.h" />

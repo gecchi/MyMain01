@@ -1,14 +1,15 @@
 #ifndef BOARDTEST_H_
 #define BOARDTEST_H_
 #include "Mogera.h"
-#include "jp/ggaf/lib/actor/DefaultEnclosedBoardActor.h"
+#include "jp/ggaf/lib/actor/DefaultFramedBoardActor.h"
 
 namespace Mogera {
 
-class BoardTest : public GgafLib::DefaultEnclosedBoardActor {
+class BoardTest : public GgafLib::DefaultFramedBoardActor {
 
 public:
     GgafDxCore::GgafDxAlphaFader* pAFader_;
+    GgafDxCore::GgafDxScaler* pScaler_;
 
     BoardTest(const char* prm_name);
 

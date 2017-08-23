@@ -266,7 +266,7 @@ void GgafDxFigureActor::changeEffectTechnique(const char* prm_technique) {
     strcpy(_technique, prm_technique);
 }
 
-void GgafDxFigureActor::changeEffectTechniqueInterim(const char* prm_technique, frame prm_frame) {
+void GgafDxFigureActor::changeEffectTechniqueMoment(const char* prm_technique, frame prm_frame) {
     if (_is_temp_technique == false) { //すでに一時テクニック使用時は無視
         //元々のテクニックを退避
         _hash_temp_technique = _hash_technique;
@@ -283,11 +283,11 @@ void GgafDxFigureActor::changeEffectTechniqueInterim(const char* prm_technique, 
 }
 
 void GgafDxFigureActor::effectFlush(frame prm_frame) {
-    changeEffectTechniqueInterim("Flush", prm_frame); //フラッシュ
+    changeEffectTechniqueMoment("Flush", prm_frame); //フラッシュ
 }
 
 void GgafDxFigureActor::effectBlendOne(frame prm_frame) {
-    changeEffectTechniqueInterim("DestBlendOne", prm_frame);
+    changeEffectTechniqueMoment("DestBlendOne", prm_frame);
 }
 
 void GgafDxFigureActor::effectDefault() {

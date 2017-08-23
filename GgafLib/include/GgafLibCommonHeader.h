@@ -65,7 +65,7 @@ class DefaultMassBoardActor;
 class DefaultPointSpriteActor;
 class DefaultMassPointSpriteActor;
 class DefaultPointSpriteSetActor;
-class DefaultEnclosedBoardActor;
+class DefaultFramedBoardActor;
 
 class ColliAABoxActor;
 class ColliAAPrismActor;

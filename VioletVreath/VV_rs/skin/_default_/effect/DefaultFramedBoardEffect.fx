@@ -1,6 +1,6 @@
 #include "GgafEffectConst.fxh" 
 ////////////////////////////////////////////////////////////////////////////////
-// Ggafライブラリ、GgafDxEnclosedBoardModel用シェーダー
+// Ggafライブラリ、GgafDxFramedBoardModel用シェーダー
 //
 // author : Masatoshi Tsuge
 // date:2017/08/21
@@ -10,7 +10,6 @@ float g_game_buffer_height; //画面高さ(px)
 float g_tex_blink_power;   
 float g_tex_blink_threshold;
 float g_alpha_master;
-
 
 float g_offset_u001;
 float g_offset_u002;
@@ -22,7 +21,6 @@ float g_offset_u007;
 float g_offset_u008;
 float g_offset_u009;
 
-
 float g_offset_v001;
 float g_offset_v002;
 float g_offset_v003;
@@ -33,11 +31,11 @@ float g_offset_v007;
 float g_offset_v008;
 float g_offset_v009;
 
-
-
-                                                         
-float g_unit_width;
-float g_unit_height;
+float g_center_width;
+float g_center_height;
+                                                        
+float g_frame_width;
+float g_frame_height;
 
 float g_top_edge_size_rate;
 float g_center_height_rate;
@@ -58,6 +56,7 @@ float g_local_offset_x;
 float g_local_offset_y;
 //s0レジスタのサンプラを使う(＝固定パイプラインにセットされたテクスチャをシェーダーで使う)
 sampler MyTextureSampler : register(s0);
+sampler MyTextureSampler_frame : register(s1);
 
 //頂点シェーダー、出力構造体
 struct OUT_VS
@@ -70,8 +69,8 @@ struct OUT_VS
 
 ///////////////////////////////////////////////////////////////////////////
 
-//GgafDxEnclosedBoardModel標準頂点シェーダー
-OUT_VS GgafDxVS_DefaultEnclosedBoard(
+//GgafDxFramedBoardModel標準頂点シェーダー
+OUT_VS GgafDxVS_DefaultFramedBoard(
       float4 prm_posModel_Local    : POSITION,     // モデルの頂点
 	  float  prm_index             : PSIZE ,       // モデル番号
       float2 prm_uv                : TEXCOORD0     // モデルの頂点のUV
@@ -83,9 +82,8 @@ OUT_VS GgafDxVS_DefaultEnclosedBoard(
 	float offsetV; //テクスチャV座標増分
 	float x; //変換済みX座標(px)
 	float y; //変換済みY座標(px)
-	float depthZ; //深度Z (0 ～ +1)
-	float alpha; //α
-                            
+	float center_flg = 0.0f; 
+	
     //    ┌─┬─┬─┐
     //    │０│１│２│
     //    ├─┼─┼─┤
@@ -99,67 +97,74 @@ OUT_VS GgafDxVS_DefaultEnclosedBoard(
 		offsetU = g_offset_u001;
 		offsetV = g_offset_v001;
 	} else if (index == 1) {
-		x = g_unit_width * g_left_edge_size_rate + prm_posModel_Local.x * g_center_width_rate;
+		x = g_frame_width * g_left_edge_size_rate + prm_posModel_Local.x * g_center_width_rate;
 		y = prm_posModel_Local.y * g_top_edge_size_rate;
 		offsetU = g_offset_u002;
 		offsetV = g_offset_v002;
 	} else if (index == 2) {
-		x = g_unit_width * g_left_edge_size_rate + prm_posModel_Local.x * g_center_width_rate + prm_posModel_Local.x * g_right_edge_size_rate;
+		x = g_frame_width * g_left_edge_size_rate + g_center_width * g_center_width_rate + prm_posModel_Local.x * g_right_edge_size_rate;
 		y = prm_posModel_Local.y * g_top_edge_size_rate;
 		offsetU = g_offset_u003;
 		offsetV = g_offset_v003;
 	} else if (index == 3) {
 		x = prm_posModel_Local.x * g_left_edge_size_rate;
-		y = g_unit_height * g_top_edge_size_rate + prm_posModel_Local.y * g_center_height_rate;
+		y = g_frame_height * g_top_edge_size_rate + prm_posModel_Local.y * g_center_height_rate;
 		offsetU = g_offset_u004;
 		offsetV = g_offset_v004;
 	} else if (index == 4) {
-		x = g_unit_width * g_left_edge_size_rate + prm_posModel_Local.x * g_center_width_rate;
-		y = g_unit_height * g_top_edge_size_rate + prm_posModel_Local.y * g_center_height_rate;
+		x = g_frame_width * g_left_edge_size_rate + prm_posModel_Local.x * g_center_width_rate;
+		y = g_frame_height * g_top_edge_size_rate + prm_posModel_Local.y * g_center_height_rate;
 		offsetU = g_offset_u005;
 		offsetV = g_offset_v005;
+		center_flg = 1.0f;
 	} else if (index == 5) {
-		x = g_unit_width * g_left_edge_size_rate + prm_posModel_Local.x * g_center_width_rate + prm_posModel_Local.x * g_right_edge_size_rate;
-		y = g_unit_height * g_top_edge_size_rate + prm_posModel_Local.y * g_center_height_rate;
+		x = g_frame_width * g_left_edge_size_rate + g_center_width * g_center_width_rate + prm_posModel_Local.x * g_right_edge_size_rate;
+		y = g_frame_height * g_top_edge_size_rate + prm_posModel_Local.y * g_center_height_rate;
 		offsetU = g_offset_u006;
 		offsetV = g_offset_v006;
 	} else if (index == 6) {	
 		x = prm_posModel_Local.x * g_left_edge_size_rate;
-		y = g_unit_height * g_top_edge_size_rate + g_unit_height * g_center_height_rate + prm_posModel_Local.y * g_bottom_edge_size_rate;
+		y = g_frame_height * g_top_edge_size_rate + g_center_height * g_center_height_rate + prm_posModel_Local.y * g_bottom_edge_size_rate;
 		offsetU = g_offset_u007;
 		offsetV = g_offset_v007;
 	} else if (index == 7) {	
-		x = g_unit_width * g_left_edge_size_rate + prm_posModel_Local.x * g_center_width_rate;
-		y = g_unit_height * g_top_edge_size_rate + g_unit_height * g_center_height_rate + prm_posModel_Local.y * g_bottom_edge_size_rate;
+		x = g_frame_width * g_left_edge_size_rate + prm_posModel_Local.x * g_center_width_rate;
+		y = g_frame_height * g_top_edge_size_rate + g_center_height * g_center_height_rate + prm_posModel_Local.y * g_bottom_edge_size_rate;
 		offsetU = g_offset_u008;
 		offsetV = g_offset_v008;
 	} else if (index == 8) {	
-		x = g_unit_width * g_left_edge_size_rate + prm_posModel_Local.x * g_center_width_rate + prm_posModel_Local.x * g_right_edge_size_rate;
-		y = g_unit_height * g_top_edge_size_rate + g_unit_height * g_center_height_rate + prm_posModel_Local.y * g_bottom_edge_size_rate;
+		x = g_frame_width * g_left_edge_size_rate + g_center_width * g_center_width_rate + prm_posModel_Local.x * g_right_edge_size_rate;
+		y = g_frame_height * g_top_edge_size_rate + g_center_height * g_center_height_rate + prm_posModel_Local.y * g_bottom_edge_size_rate;
 		offsetU = g_offset_u009;
 		offsetV = g_offset_v009;
 
 	}
 	//X座標Y座標をを -1 ～ +1 に押し込める。
-	out_vs.posModel_Proj.x = - 1 + ((2*x + 2*g_local_offset_x - 1) / g_game_buffer_width);
-	out_vs.posModel_Proj.y =   1 - ((2*y + 2*g_local_offset_y - 1) / g_game_buffer_height);
+	out_vs.posModel_Proj.x = - 1 + ((2*x + 2*g_local_offset_x + 2*g_x - 1) / g_game_buffer_width);
+	out_vs.posModel_Proj.y =   1 - ((2*y + 2*g_local_offset_y + 2*g_y - 1) / g_game_buffer_height);
 	out_vs.posModel_Proj.z = g_z;
 	out_vs.posModel_Proj.w = 1.0;
 	//UVのオフセットを加算
 	out_vs.uv.x = prm_uv.x + offsetU;
 	out_vs.uv.y = prm_uv.y + offsetV;
+	out_vs.color.r = center_flg;  //color.r に中心情報を埋め込む      
 	out_vs.color.a = g_alpha;
 	return out_vs;
 }
 
 
-//GgafDxEnclosedBoardModel標準ピクセルシェーダー
-float4 GgafDxPS_DefaultEnclosedBoard(
+//GgafDxFramedBoardModel標準ピクセルシェーダー
+float4 GgafDxPS_DefaultFramedBoard(
 	float2 prm_uv	  : TEXCOORD0,
 	float4 prm_color    : COLOR0 
 ) : COLOR  {
 	//求める色
-	float4 colOut = tex2D( MyTextureSampler, prm_uv); 
+	float4 colOut;
+	if (prm_color.r != 0.0f) {      
+		colOut = tex2D( MyTextureSampler, prm_uv); 
+	} else {
+		colOut = tex2D( MyTextureSampler_frame, prm_uv); 
+	}
 	if (colOut.r >= g_tex_blink_threshold || colOut.g >= g_tex_blink_threshold || colOut.b >= g_tex_blink_threshold) {
 		colOut *= g_tex_blink_power; //+ (colTex * g_tex_blink_power);
 	}          
@@ -173,37 +178,15 @@ float4 PS_Flush(
 	float4 prm_color    : COLOR0 
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 colOut = tex2D( MyTextureSampler, prm_uv) * FLUSH_COLOR;                
+	float4 colOut = tex2D( MyTextureSampler_frame, prm_uv) * FLUSH_COLOR;                
 	//α考慮
 	colOut.a = colOut.a * prm_color.a * g_alpha_master; 
 	return colOut;
 }
 
 
-//＜テクニック：DefaultEnclosedBoardTechnique＞
-//【機能】
-//GgafDxEnclosedBoardModel用標準シェーダー
-//【概要】
-//D3DFVF_XYZRHW で描画したような仕様で２Ｄ表示します。
-//画面左上隅が(0,0)で画面右下隅が（画面幅(px), 画面高さ(px))となる座標系で
-//プリミティブ（板ポリ）の基点は左上隅になります。
-//--- VS ---
-//・頂点を -1 ～ +1へ押し込み(＝正射影変換)、Y座標反転
-//--- PS ---
-//・オブジェクトのテクスチャ
-//・半透明α
-//
-//【設定グローバル】
-// float g_alpha			:	α値
-// float g_transformed_x		: 	変換済みX座標(px)
-// float g_transformed_y		:	変換済みY座標(px)
-// float g_depth_z			:	深度Z (0 ～ +1)
-// float g_game_buffer_width		:	画面幅(px)
-// float g_game_buffer_height		:	画面高さ(px)
-// float g_offset_u			:	テクスチャU座標増分
-// float g_offset_v			:	テクスチャV座標増分
-// s0レジスタ				:	2Dテクスチャ
-technique DefaultEnclosedBoardTechnique
+//＜テクニック：DefaultFramedBoardTechnique＞
+technique DefaultFramedBoardTechnique
 {
 	pass P0 {
 		AlphaBlendEnable = true;
@@ -213,8 +196,8 @@ technique DefaultEnclosedBoardTechnique
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-		VertexShader = compile VS_VERSION GgafDxVS_DefaultEnclosedBoard();
-		PixelShader  = compile PS_VERSION GgafDxPS_DefaultEnclosedBoard();
+		VertexShader = compile VS_VERSION GgafDxVS_DefaultFramedBoard();
+		PixelShader  = compile PS_VERSION GgafDxPS_DefaultFramedBoard();
 	}
 }
 
@@ -228,8 +211,8 @@ technique DestBlendOne
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-		VertexShader = compile VS_VERSION GgafDxVS_DefaultEnclosedBoard();
-		PixelShader  = compile PS_VERSION GgafDxPS_DefaultEnclosedBoard();
+		VertexShader = compile VS_VERSION GgafDxVS_DefaultFramedBoard();
+		PixelShader  = compile PS_VERSION GgafDxPS_DefaultFramedBoard();
 	}
 }
 
@@ -243,7 +226,7 @@ technique Flush
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-		VertexShader = compile VS_VERSION GgafDxVS_DefaultEnclosedBoard();
+		VertexShader = compile VS_VERSION GgafDxVS_DefaultFramedBoard();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}
 }

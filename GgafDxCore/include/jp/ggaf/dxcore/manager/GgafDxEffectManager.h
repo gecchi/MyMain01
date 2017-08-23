@@ -49,7 +49,7 @@ public:
      * 'P': GgafDxPointSpriteEffect オブジェクト
      * 'p': GgafDxMassPointSpriteEffect オブジェクト (未完成。利用できない)
      * 'o': GgafDxPointSpriteSetEffect オブジェクト
-     * 'E': GgafDxEnclosedBoardEffect オブジェクト
+     * 'E': GgafDxFramedBoardEffect オブジェクト
      *
      * 例："x/LaserChipEffect" の場合。
      * "LaserChipEffect.fx"を読み込む GgafDxMeshSetEffectインスタンス を返す。

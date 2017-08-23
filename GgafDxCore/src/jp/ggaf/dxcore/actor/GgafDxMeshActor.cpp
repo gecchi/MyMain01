@@ -82,7 +82,7 @@ void GgafDxMeshActor::processDraw() {
 
 void GgafDxMeshActor::effectBumpMapping(const char* prm_cubemap_tex, frame prm_frame) {
     setBumpMapTexture(prm_cubemap_tex);
-    changeEffectTechniqueInterim("BumpMapping", prm_frame);
+    changeEffectTechniqueMoment("BumpMapping", prm_frame);
 }
 
 GgafDxMeshActor::~GgafDxMeshActor() {

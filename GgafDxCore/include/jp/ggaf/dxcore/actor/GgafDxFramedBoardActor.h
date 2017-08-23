@@ -1,5 +1,5 @@
-#ifndef GGAFDXCORE_GGAFDXBOARDSETACTORD_H_
-#define GGAFDXCORE_GGAFDXBOARDSETACTORD_H_
+#ifndef GGAFDXCORE_GGAFDXFRAMEDBOARDACTOR_H_
+#define GGAFDXCORE_GGAFDXFRAMEDBOARDACTOR_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dxcore/actor/GgafDxFigureActor.h"
 
@@ -10,7 +10,7 @@ namespace GgafDxCore {
  * @since 2017/08/21
  * @author Masatoshi Tsuge
  */
-class GgafDxEnclosedBoardActor : public GgafDxFigureActor {
+class GgafDxFramedBoardActor : public GgafDxFigureActor {
 private:
     /**
      * 使用不可のため、privateでoverride
@@ -65,38 +65,35 @@ private:
 
 public:
     /** [r]モデルオブジェクトへのポインタ */
-    GgafDxEnclosedBoardModel* const _pEnclosedBoardModel;
+    GgafDxFramedBoardModel* const _pFramedBoardModel;
     /** [r]エフェクト */
-    GgafDxEnclosedBoardEffect* const _pEnclosedBoardEffect;
-    /** [r]UVフリッパー(パラパラアニメ) */
+    GgafDxFramedBoardEffect* const _pFramedBoardEffect;
+    /** [r]UVフリッパー(中心のメイン) */
     GgafDxUvFlipper* const _pUvFlipper;
-    /** [r]幅(px) */
-    pixcoord _unit_width_px;
-    /** [r]高さ(px) */
-    pixcoord _unit_height_px;
-//    /** [r]幅(px)の半分 */
-//    pixcoord _unit_harf_width_px;
-//    /** [r]高さ(px)の半分 */
-//    pixcoord _unit_harf_height_px;
+    /** [r]UVフリッパー(周囲フレーム) */
+    GgafDxUvFlipper* const _pUvFlipper_frame;
+
+    /** [r]モデルのオリジナルの幅(px) */
+    pixcoord _model_total_width_px;
+    /** [r]モデルのオリジナルの高さ(px) */
+    pixcoord _model_total_height_px;
+    /** [r]モデルのオリジナルの周囲フレームの幅(px) */
+    pixcoord _model_frame_width_px;
+    /** [r]モデルのオリジナルの周囲フレームの高さ(px) */
+    pixcoord _model_frame_height_px;
+    /** [r]モデルのオリジナルの中心のメインの幅(px) */
+    pixcoord _model_center_width_px;
+    /** [r]モデルのオリジナルの中心のメインの高さ(px) */
+    pixcoord _model_center_height_px;
+    /** [r]角がゆがまないで表示できる限界の幅(px) */
+    scale _lim_center_sx;
+    /** [r]角がゆがまないで表示できる限界の高さ(px) */
+    scale _lim_center_sy;
+
     GgafDxAlign _align;
     GgafDxValign _valign;
-    //rw
-    pixcoord _width_px;
-    //rw
-    pixcoord _height_px;
-//    double _top_edge_width_rate;
-//    double _bottom_edge_width_rate;
-//    double _left_edge_width_rate;
-//    double _right_edge_width_rate;
-
-    /** ゆがまない幅の限界 */
-    pixcoord _lim_width_px;
-    /** ゆがまない高さの限界 */
-    pixcoord _lim_height_px;
-
-
 public:
-    GgafDxEnclosedBoardActor(const char* prm_name,
+    GgafDxFramedBoardActor(const char* prm_name,
                         const char* prm_model_id,
                         const char* prm_effect_id,
                         const char* prm_technique );
@@ -107,7 +104,7 @@ public:
     virtual void processSettlementBehavior() override {
     }
 
-    virtual ~GgafDxEnclosedBoardActor(); //デストラクタ
+    virtual ~GgafDxFramedBoardActor(); //デストラクタ
 
     virtual void setPositionAt(const GgafDxGeometricActor* prm_pActor) override;
 
@@ -120,25 +117,31 @@ public:
     inline GgafDxUvFlipper* getUvFlipper() {
         return _pUvFlipper;
     }
-    float getModelWidth();
-    float getModelHeight();
 
-    void setWidth(pixcoord prm_width_px) {
-        _width_px = prm_width_px;
+    inline GgafDxUvFlipper* getFrameUvFlipper() {
+        return _pUvFlipper_frame;
+    }
+    virtual void setScale(scale s) override;
+    virtual void setScale(scale sx, scale sy) override;
+    virtual void setScale(scale sx, scale sy, scale sz) override;
+    virtual void setScaleR(float prm_rate) override;
+    virtual void setScaleR(float prm_x_rate, float prm_y_rate) override;
+    virtual void setScaleR(float prm_x_rate, float prm_y_rate, float prm_z_rate) override;
+    virtual void addScaleX(scale dsx) override {
+        _sx += dsx;
+    }
+    virtual void addScaleY(scale dsy) override {
+        _sy += dsy;
+    }
+    virtual void addScaleZ(scale dsz) override {
+        _sz += dsz;
     }
 
-    void setHeight(pixcoord prm_height_px) {
-        _height_px = prm_height_px;
-    }
-
-    void addWidth(pixcoord prm_px) {
-        _width_px += prm_px;
-    }
-
-    void addHeight(pixcoord prm_px) {
-        _height_px += prm_px;
-    }
+    void setWidth(coord prm_width);
+    void setHeight(coord prm_height);
+    void addWidth(coord prm_width);
+    void addHeight(coord prm_height);
 };
 
 }
-#endif /*GGAFDXCORE_GGAFDXBOARDSETACTORD_H_*/
+#endif /*GGAFDXCORE_GGAFDXFRAMEDBOARDACTOR_H_*/

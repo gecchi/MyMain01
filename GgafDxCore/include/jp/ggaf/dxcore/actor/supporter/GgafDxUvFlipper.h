@@ -56,7 +56,6 @@ public:
     /** [r]FLIP_OSCILLATE_LOOP用の現在のアニメ方向 */
     bool _is_reverse_order_in_oscillate_animation_flg;
 
-    /** */
     int* _pa_ptn_offset_customized;
     int _ptn_customized;
     int _cnt_customized;
@@ -240,6 +239,14 @@ public:
      * @param prm_pattno_uvflip アニメーションパターン番号
      */
     void setActivePtn(int prm_pattno_uvflip);
+
+    /**
+     * 現在のアニメーションパターンを取得する .
+     * @return 現在のアニメーションパターン番号
+     */
+    inline int getActivePtn() {
+        return _pattno_uvflip_now;
+    }
 
     /**
      * フリップアニメーションパターンの上限の下限のパターン番号を設定 .

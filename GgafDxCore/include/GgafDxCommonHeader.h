@@ -207,8 +207,8 @@ enum GgafDxUvFlippingMethod {
     FLIP_OSCILLATE_LOOP,
     FLIP_ORDER_NOLOOP,
     FLIP_REVERSE_NOLOOP,
-    FLIP_CUSTOMIZED_LOOP,    //!< TODO:ŽÀ‘•‚µ‚½‚ª–¢ŒŸØ
-    FLIP_CUSTOMIZED_NOLOOP,  //!< TODO:ŽÀ‘•‚µ‚½‚ª–¢ŒŸØ
+    FLIP_CUSTOMIZED_LOOP,
+    FLIP_CUSTOMIZED_NOLOOP,
     NOT_ANIMATED
 };
 
@@ -266,7 +266,7 @@ enum GgafDxValign {
 #define Obj_GgafDxMassMorphMeshActor     (0x100000000ULL)  //0b 00000000 00000000 00000000 00000001 00000000 00000000 00000000 00000000
 #define Obj_GgafDxMassPointSpriteActor   (0x200000000ULL)  //0b 00000000 00000000 00000000 00000010 00000000 00000000 00000000 00000000
 #define Obj_GgafDxPointSpriteSetActor    (0x400000000ULL)  //0b 00000000 00000000 00000000 00000100 00000000 00000000 00000000 00000000
-#define Obj_GgafDxEnclosedBoardActor     (0x800000000ULL)  //0b 00000000 00000000 00000000 00001000 00000000 00000000 00000000 0000000
+#define Obj_GgafDxFramedBoardActor     (0x800000000ULL)  //0b 00000000 00000000 00000000 00001000 00000000 00000000 00000000 0000000
 
 //‘O•ûéŒ¾(forward declaration)
 namespace IkdLib {
@@ -343,7 +343,7 @@ class GgafDxMassBoardActor;
 class GgafDxPointSpriteActor;
 class GgafDxMassPointSpriteActor;
 class GgafDxPointSpriteSetActor;
-class GgafDxEnclosedBoardActor;
+class GgafDxFramedBoardActor;
 
 class GgafDxModel;
 class GgafDxMassModel;
@@ -367,7 +367,7 @@ class GgafDxMassBoardModel;
 class GgafDxPointSpriteModel;
 class GgafDxMassPointSpriteModel;
 class GgafDxPointSpriteSetModel;
-class GgafDxEnclosedBoardModel;
+class GgafDxFramedBoardModel;
 
 class GgafDxEffect;
 class GgafDxMassEffect;
@@ -390,7 +390,7 @@ class GgafDxMassBoardEffect;
 class GgafDxPointSpriteEffect;
 class GgafDxMassPointSpriteEffect;
 class GgafDxPointSpriteSetEffect;
-class GgafDxEnclosedBoardEffect;
+class GgafDxFramedBoardEffect;
 
 class GgafDxTexture;
 

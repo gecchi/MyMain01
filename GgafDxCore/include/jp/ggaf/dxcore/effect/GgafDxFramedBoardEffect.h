@@ -1,17 +1,17 @@
-#ifndef GGAFDXCORE_GGAFDXENCLOSEDBOARDEFFECT_H_
-#define GGAFDXCORE_GGAFDXENCLOSEDBOARDEFFECT_H_
+#ifndef GGAFDXCORE_GGAFDXFRAMEDBOARDEFFECT_H_
+#define GGAFDXCORE_GGAFDXFRAMEDBOARDEFFECT_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dxcore/effect/GgafDxEffect.h"
 
 namespace GgafDxCore {
 
 /**
- * GgafDxEnclosedBoard用モデルクラス.
+ * GgafDxFramedBoard用モデルクラス.
  * @version 1.00
  * @since 2017/08/21
  * @author Masatoshi Tsuge
  */
-class GgafDxEnclosedBoardEffect : public GgafDxEffect {
+class GgafDxFramedBoardEffect : public GgafDxEffect {
     friend class GgafDxEffectManager;
 
 public:
@@ -25,8 +25,10 @@ public:
 //    D3DXHANDLE _ah_x_width_rate[9];
 //    D3DXHANDLE _ah_y_width_rate[9];
 
-    D3DXHANDLE _h_unit_width;
-    D3DXHANDLE _h_unit_height;
+    D3DXHANDLE _h_frame_width;
+    D3DXHANDLE _h_frame_height;
+    D3DXHANDLE _h_center_width;
+    D3DXHANDLE _h_center_height;
 
     D3DXHANDLE _h_local_offset_x;
     D3DXHANDLE _h_local_offset_y;
@@ -53,7 +55,7 @@ public:
      * @param prm_effect_name エフェクト識別名。".fx"を追加するとエフェクトファイル名になる。
      * @return
      */
-    GgafDxEnclosedBoardEffect(const char* prm_effect_name);
+    GgafDxFramedBoardEffect(const char* prm_effect_name);
 
 
     virtual void setParamPerFrame() override {};
@@ -62,9 +64,9 @@ public:
      * デストラクタ<BR>
      * deleteするのはGgafDxEffectManagerである<BR>
      */
-    virtual ~GgafDxEnclosedBoardEffect(); //デストラクタ
+    virtual ~GgafDxFramedBoardEffect(); //デストラクタ
 
 };
 
 }
-#endif /*GGAFDXCORE_GGAFDXENCLOSEDBOARDEFFECT_H_*/
+#endif /*GGAFDXCORE_GGAFDXFRAMEDBOARDEFFECT_H_*/

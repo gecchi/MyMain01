@@ -1,19 +1,19 @@
-#ifndef GGAFDXCORE_GGAFDXENCLOSEDBOARDMODEL_H_
-#define GGAFDXCORE_GGAFDXENCLOSEDBOARDMODEL_H_
+#ifndef GGAFDXCORE_GGAFDXFRAMEDBOARDMODEL_H_
+#define GGAFDXCORE_GGAFDXFRAMEDBOARDMODEL_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 
 namespace GgafDxCore {
 
 /**
- * GgafDxEnclosedBoardActor用モデルクラス.
+ * GgafDxFramedBoardActor用モデルクラス.
  * @version 1.00
  * @since 2017/08/21
  * @author Masatoshi Tsuge
  */
-class GgafDxEnclosedBoardModel : public GgafDxModel {
+class GgafDxFramedBoardModel : public GgafDxModel {
     friend class GgafDxModelManager;
-    friend class GgafDxEnclosedBoardActor;
+    friend class GgafDxFramedBoardActor;
 
 public:
     struct INDEXPARAM {
@@ -49,13 +49,18 @@ public:
     int _row_texture_split;
     int _col_texture_split;
 
+    float _model_frame_width_px;
+    float _model_frame_height_px;
+    int _row_frame_texture_split;
+    int _col_frame_texture_split;
+
 
 public:
     /**
      * コンストラクタ<BR>
      * @param prm_model_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
      */
-    GgafDxEnclosedBoardModel(const char* prm_model_name);
+    GgafDxFramedBoardModel(const char* prm_model_name);
 
     virtual HRESULT draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num = 1, void* prm_pPrm = nullptr) override;
 
@@ -68,7 +73,7 @@ public:
     /**
      * デストラクタ<BR>
      */
-    virtual ~GgafDxEnclosedBoardModel(); //デストラクタ
+    virtual ~GgafDxFramedBoardModel(); //デストラクタ
 };
 
 }

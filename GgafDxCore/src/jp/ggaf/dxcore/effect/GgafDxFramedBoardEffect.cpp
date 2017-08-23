@@ -1,4 +1,4 @@
-#include "jp/ggaf/dxcore/effect/GgafDxEnclosedBoardEffect.h"
+#include "jp/ggaf/dxcore/effect/GgafDxFramedBoardEffect.h"
 
 #include "jp/ggaf/dxcore/GgafDxGod.h"
 #include "jp/ggaf/dxcore/GgafDxProperties.h"
@@ -7,8 +7,8 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxEnclosedBoardEffect::GgafDxEnclosedBoardEffect(const char* prm_effect_name) : GgafDxEffect(prm_effect_name) {
-    _obj_effect |= Obj_GgafDxEnclosedBoardEffect;
+GgafDxFramedBoardEffect::GgafDxFramedBoardEffect(const char* prm_effect_name) : GgafDxEffect(prm_effect_name) {
+    _obj_effect |= Obj_GgafDxFramedBoardEffect;
     //シェーダー共通のグローバル変数設定
     HRESULT hr;
     static float game_buffer_width = (float)(PROPERTY::GAME_BUFFER_WIDTH);
@@ -79,8 +79,11 @@ GgafDxEnclosedBoardEffect::GgafDxEnclosedBoardEffect(const char* prm_effect_name
 //    _ah_y_width_rate[6] = _pID3DXEffect->GetParameterByName( nullptr, "g_local_Y007" );
 //    _ah_y_width_rate[7] = _pID3DXEffect->GetParameterByName( nullptr, "g_local_Y008" );
 //    _ah_y_width_rate[8] = _pID3DXEffect->GetParameterByName( nullptr, "g_local_Y009" );
-    _h_unit_width = _pID3DXEffect->GetParameterByName( nullptr, "g_unit_width" );
-    _h_unit_height = _pID3DXEffect->GetParameterByName( nullptr, "g_unit_height" );
+    _h_center_width = _pID3DXEffect->GetParameterByName( nullptr, "g_center_width" );
+    _h_center_height = _pID3DXEffect->GetParameterByName( nullptr, "g_center_height" );
+
+    _h_frame_width = _pID3DXEffect->GetParameterByName( nullptr, "g_frame_width" );
+    _h_frame_height = _pID3DXEffect->GetParameterByName( nullptr, "g_frame_height" );
 
     _h_local_offset_x = _pID3DXEffect->GetParameterByName( nullptr, "g_local_offset_x" );
     _h_local_offset_y = _pID3DXEffect->GetParameterByName( nullptr, "g_local_offset_y" );
@@ -104,6 +107,6 @@ GgafDxEnclosedBoardEffect::GgafDxEnclosedBoardEffect(const char* prm_effect_name
 
 }
 
-GgafDxEnclosedBoardEffect::~GgafDxEnclosedBoardEffect() {
+GgafDxFramedBoardEffect::~GgafDxFramedBoardEffect() {
 }
 

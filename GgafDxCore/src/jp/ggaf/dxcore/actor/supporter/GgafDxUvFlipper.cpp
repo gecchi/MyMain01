@@ -170,7 +170,6 @@ void GgafDxUvFlipper::behave() {
                 break;
             }
             case FLIP_CUSTOMIZED_LOOP: {
-                //TODO: 未検証（使う機会があればする）
                 if (_pa_ptn_offset_customized) {
                     _pattno_uvflip_now = _pa_ptn_offset_customized[_cnt_customized];
                     _cnt_customized ++;
@@ -181,7 +180,6 @@ void GgafDxUvFlipper::behave() {
                 break;
             }
             case FLIP_CUSTOMIZED_NOLOOP: {
-                //TODO: 未検証（使う機会があればする）
                 if (_pa_ptn_offset_customized) {
                     _pattno_uvflip_now = _pa_ptn_offset_customized[_cnt_customized];
                     _cnt_customized ++;
