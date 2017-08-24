@@ -60,25 +60,8 @@ GgafDxFramedBoardEffect::GgafDxFramedBoardEffect(const char* prm_effect_name) : 
     _ah_offset_y[6] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_y007" );
     _ah_offset_y[7] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_y008" );
     _ah_offset_y[8] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_y009" );
-//    _ah_x_width_rate[0] = _pID3DXEffect->GetParameterByName( nullptr, "g_local_X001" );
-//    _ah_x_width_rate[1] = _pID3DXEffect->GetParameterByName( nullptr, "g_local_X002" );
-//    _ah_x_width_rate[2] = _pID3DXEffect->GetParameterByName( nullptr, "g_local_X003" );
-//    _ah_x_width_rate[3] = _pID3DXEffect->GetParameterByName( nullptr, "g_local_X004" );
-//    _ah_x_width_rate[4] = _pID3DXEffect->GetParameterByName( nullptr, "g_local_X005" );
-//    _ah_x_width_rate[5] = _pID3DXEffect->GetParameterByName( nullptr, "g_local_X006" );
-//    _ah_x_width_rate[6] = _pID3DXEffect->GetParameterByName( nullptr, "g_local_X007" );
-//    _ah_x_width_rate[7] = _pID3DXEffect->GetParameterByName( nullptr, "g_local_X008" );
-//    _ah_x_width_rate[8] = _pID3DXEffect->GetParameterByName( nullptr, "g_local_X009" );
-//
-//    _ah_y_width_rate[0] = _pID3DXEffect->GetParameterByName( nullptr, "g_local_Y001" );
-//    _ah_y_width_rate[1] = _pID3DXEffect->GetParameterByName( nullptr, "g_local_Y002" );
-//    _ah_y_width_rate[2] = _pID3DXEffect->GetParameterByName( nullptr, "g_local_Y003" );
-//    _ah_y_width_rate[3] = _pID3DXEffect->GetParameterByName( nullptr, "g_local_Y004" );
-//    _ah_y_width_rate[4] = _pID3DXEffect->GetParameterByName( nullptr, "g_local_Y005" );
-//    _ah_y_width_rate[5] = _pID3DXEffect->GetParameterByName( nullptr, "g_local_Y006" );
-//    _ah_y_width_rate[6] = _pID3DXEffect->GetParameterByName( nullptr, "g_local_Y007" );
-//    _ah_y_width_rate[7] = _pID3DXEffect->GetParameterByName( nullptr, "g_local_Y008" );
-//    _ah_y_width_rate[8] = _pID3DXEffect->GetParameterByName( nullptr, "g_local_Y009" );
+
+
     _h_center_width = _pID3DXEffect->GetParameterByName( nullptr, "g_center_width" );
     _h_center_height = _pID3DXEffect->GetParameterByName( nullptr, "g_center_height" );
 
@@ -98,12 +81,11 @@ GgafDxFramedBoardEffect::GgafDxFramedBoardEffect(const char* prm_effect_name) : 
     _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_threshold" );
     _h_colMaterialDiffuse  = _pID3DXEffect->GetParameterByName( nullptr, "g_colMaterialDiffuse" );
 
-    _h_top_edge_size_rate    = _pID3DXEffect->GetParameterByName( nullptr, "g_top_edge_size_rate" );
-    _h_center_height_rate    = _pID3DXEffect->GetParameterByName( nullptr, "g_center_height_rate" );
-    _h_bottom_edge_size_rate = _pID3DXEffect->GetParameterByName( nullptr, "g_bottom_edge_size_rate" );
-    _h_left_edge_size_rate   = _pID3DXEffect->GetParameterByName( nullptr, "g_left_edge_size_rate" );
-    _h_center_width_rate     = _pID3DXEffect->GetParameterByName( nullptr, "g_center_width_rate" );
-    _h_right_edge_size_rate  = _pID3DXEffect->GetParameterByName( nullptr, "g_right_edge_size_rate" );
+    _h_frame_width_rate = _pID3DXEffect->GetParameterByName( nullptr, "g_frame_width_rate" );
+    _h_center_width_rate = _pID3DXEffect->GetParameterByName( nullptr, "g_center_width_rate" );
+
+    _h_frame_height_rate = _pID3DXEffect->GetParameterByName( nullptr, "g_frame_height_rate" );
+    _h_center_height_rate = _pID3DXEffect->GetParameterByName( nullptr, "g_center_height_rate" );
 
 }
 

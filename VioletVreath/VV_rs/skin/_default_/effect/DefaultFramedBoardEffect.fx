@@ -37,13 +37,11 @@ float g_center_height;
 float g_frame_width;
 float g_frame_height;
 
-float g_top_edge_size_rate;
+float g_frame_width_rate;
 float g_center_height_rate;
-float g_bottom_edge_size_rate;
 
-float g_left_edge_size_rate;
+float g_frame_height_rate;
 float g_center_width_rate;
-float g_right_edge_size_rate;
 
 float g_alpha;
     
@@ -92,49 +90,49 @@ OUT_VS GgafDxVS_DefaultFramedBoard(
     //    „ ‚U„ ‚V„ ‚W„ 
     //    „¤„Ÿ„¨„Ÿ„¨„Ÿ„£
 	if (index == 0) {
-		x = prm_posModel_Local.x * g_left_edge_size_rate;
-		y = prm_posModel_Local.y * g_top_edge_size_rate;
+		x = prm_posModel_Local.x * g_frame_width_rate;
+		y = prm_posModel_Local.y * g_frame_height_rate;
 		offsetU = g_offset_u001;
 		offsetV = g_offset_v001;
 	} else if (index == 1) {
-		x = g_frame_width * g_left_edge_size_rate + prm_posModel_Local.x * g_center_width_rate;
-		y = prm_posModel_Local.y * g_top_edge_size_rate;
+		x = g_frame_width * g_frame_width_rate + prm_posModel_Local.x * g_center_width_rate;
+		y = prm_posModel_Local.y * g_frame_height_rate;
 		offsetU = g_offset_u002;
 		offsetV = g_offset_v002;
 	} else if (index == 2) {
-		x = g_frame_width * g_left_edge_size_rate + g_center_width * g_center_width_rate + prm_posModel_Local.x * g_right_edge_size_rate;
-		y = prm_posModel_Local.y * g_top_edge_size_rate;
+		x = g_frame_width * g_frame_width_rate + g_center_width * g_center_width_rate + prm_posModel_Local.x * g_frame_width_rate;
+		y = prm_posModel_Local.y * g_frame_height_rate;
 		offsetU = g_offset_u003;
 		offsetV = g_offset_v003;
 	} else if (index == 3) {
-		x = prm_posModel_Local.x * g_left_edge_size_rate;
-		y = g_frame_height * g_top_edge_size_rate + prm_posModel_Local.y * g_center_height_rate;
+		x = prm_posModel_Local.x * g_frame_width_rate;
+		y = g_frame_height * g_frame_height_rate + prm_posModel_Local.y * g_center_height_rate;
 		offsetU = g_offset_u004;
 		offsetV = g_offset_v004;
 	} else if (index == 4) {
-		x = g_frame_width * g_left_edge_size_rate + prm_posModel_Local.x * g_center_width_rate;
-		y = g_frame_height * g_top_edge_size_rate + prm_posModel_Local.y * g_center_height_rate;
+		x = g_frame_width * g_frame_width_rate + prm_posModel_Local.x * g_center_width_rate;
+		y = g_frame_height * g_frame_height_rate + prm_posModel_Local.y * g_center_height_rate;
 		offsetU = g_offset_u005;
 		offsetV = g_offset_v005;
 		center_flg = 1.0f;
 	} else if (index == 5) {
-		x = g_frame_width * g_left_edge_size_rate + g_center_width * g_center_width_rate + prm_posModel_Local.x * g_right_edge_size_rate;
-		y = g_frame_height * g_top_edge_size_rate + prm_posModel_Local.y * g_center_height_rate;
+		x = g_frame_width * g_frame_width_rate + g_center_width * g_center_width_rate + prm_posModel_Local.x * g_frame_width_rate;
+		y = g_frame_height * g_frame_height_rate + prm_posModel_Local.y * g_center_height_rate;
 		offsetU = g_offset_u006;
 		offsetV = g_offset_v006;
 	} else if (index == 6) {	
-		x = prm_posModel_Local.x * g_left_edge_size_rate;
-		y = g_frame_height * g_top_edge_size_rate + g_center_height * g_center_height_rate + prm_posModel_Local.y * g_bottom_edge_size_rate;
+		x = prm_posModel_Local.x * g_frame_width_rate;
+		y = g_frame_height * g_frame_height_rate + g_center_height * g_center_height_rate + prm_posModel_Local.y * g_frame_height_rate;
 		offsetU = g_offset_u007;
 		offsetV = g_offset_v007;
 	} else if (index == 7) {	
-		x = g_frame_width * g_left_edge_size_rate + prm_posModel_Local.x * g_center_width_rate;
-		y = g_frame_height * g_top_edge_size_rate + g_center_height * g_center_height_rate + prm_posModel_Local.y * g_bottom_edge_size_rate;
+		x = g_frame_width * g_frame_width_rate + prm_posModel_Local.x * g_center_width_rate;
+		y = g_frame_height * g_frame_height_rate + g_center_height * g_center_height_rate + prm_posModel_Local.y * g_frame_height_rate;
 		offsetU = g_offset_u008;
 		offsetV = g_offset_v008;
 	} else if (index == 8) {	
-		x = g_frame_width * g_left_edge_size_rate + g_center_width * g_center_width_rate + prm_posModel_Local.x * g_right_edge_size_rate;
-		y = g_frame_height * g_top_edge_size_rate + g_center_height * g_center_height_rate + prm_posModel_Local.y * g_bottom_edge_size_rate;
+		x = g_frame_width * g_frame_width_rate + g_center_width * g_center_width_rate + prm_posModel_Local.x * g_frame_width_rate;
+		y = g_frame_height * g_frame_height_rate + g_center_height * g_center_height_rate + prm_posModel_Local.y * g_frame_height_rate;
 		offsetU = g_offset_u009;
 		offsetV = g_offset_v009;
 

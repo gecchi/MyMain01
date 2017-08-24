@@ -38,13 +38,13 @@ public:
     D3DXHANDLE _h_z;
     D3DXHANDLE _h_rz;
 
-    D3DXHANDLE _h_top_edge_size_rate;
-    D3DXHANDLE _h_center_height_rate;
-    D3DXHANDLE _h_bottom_edge_size_rate;
-
-    D3DXHANDLE _h_left_edge_size_rate;
+    D3DXHANDLE _h_frame_width_rate;
     D3DXHANDLE _h_center_width_rate;
-    D3DXHANDLE _h_right_edge_size_rate;
+
+    D3DXHANDLE _h_frame_height_rate;
+    D3DXHANDLE _h_center_height_rate;
+
+
 
     D3DXHANDLE _h_alpha;
     D3DXHANDLE _h_depth_z;

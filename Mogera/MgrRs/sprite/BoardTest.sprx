@@ -1,9 +1,9 @@
 xof 0303txt 0032
 
 SpriteDef Mogera-to {
-   256.0;
-   256.0;
-   "background01.png";
+   128.0;
+   128.0;
+   "test_tile2.png";
    2;
    2;
 } 

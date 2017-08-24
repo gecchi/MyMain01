@@ -27,7 +27,15 @@ GgafDxFramedBoardActor::GgafDxFramedBoardActor(const char* prm_name,
 _pFramedBoardModel((GgafDxFramedBoardModel*)_pModel),
 _pFramedBoardEffect((GgafDxFramedBoardEffect*)_pEffect),
 _pUvFlipper(NEW GgafDxUvFlipper(getModel()->_papTextureConnection[0]->peek())),
-_pUvFlipper_frame(NEW GgafDxUvFlipper(getModel()->_papTextureConnection[1]->peek())) {
+_pUvFlipper_frame(NEW GgafDxUvFlipper(getModel()->_papTextureConnection[1]->peek())),
+_model_frame_width_px((pixcoord)(_pFramedBoardModel->_model_frame_width_px)),
+_model_frame_height_px((pixcoord)(_pFramedBoardModel->_model_frame_height_px)),
+_model_center_width_px((pixcoord)(_pFramedBoardModel->_model_width_px)),
+_model_center_height_px((pixcoord)(_pFramedBoardModel->_model_height_px)),
+_model_total_width_px(_model_frame_width_px * 2 + _model_center_width_px),
+_model_total_height_px(_model_frame_height_px * 2 + _model_center_height_px),
+_lim_center_sx(R_SC( (_model_frame_width_px * 2.0) / _model_total_width_px )),
+_lim_center_sy(R_SC( (_model_frame_height_px * 2.0) / _model_total_height_px )) {
 
     _obj_class |= Obj_GgafDxFramedBoardActor;
     _class_name = "GgafDxFramedBoardActor";
@@ -41,26 +49,6 @@ _pUvFlipper_frame(NEW GgafDxUvFlipper(getModel()->_papTextureConnection[1]->peek
     _pUvFlipper_frame->setActivePtn(0);
     _pUvFlipper_frame->exec(NOT_ANIMATED, 1);
 
-    _model_frame_width_px = (pixcoord)(_pFramedBoardModel->_model_frame_width_px); //•(px)
-    _model_frame_height_px = (pixcoord)(_pFramedBoardModel->_model_frame_height_px); //‚‚³(px)
-    _model_center_width_px = (pixcoord)(_pFramedBoardModel->_model_width_px); //•(px)
-    _model_center_height_px = (pixcoord)(_pFramedBoardModel->_model_height_px); //‚‚³(px)
-
-    _model_total_width_px = _model_frame_width_px * 2 + _model_center_width_px;
-    _model_total_height_px = _model_frame_height_px * 2 + _model_center_height_px;
-//    _total_width_px = _model_total_width_px;
-//    _total_height_px = _model_total_height_px;
-
-//    _lim_width_px  = _model_frame_width_px + _model_frame_width_px;
-//    _lim_height_px = _model_frame_height_px + _model_frame_height_px;
-
-    _lim_center_sx = R_SC( (_model_frame_width_px * 2.0) / _model_total_width_px );
-    _lim_center_sy = R_SC( (_model_frame_height_px * 2.0) / _model_total_height_px );
-
-//    _center_width_px = _total_width_px - _lim_width_px;
-//    _center_height_px = _total_height_px - _lim_height_px;
-//    _center_width_rate = 1.0 * _center_width_px /_model_center_width_px;
-//    _center_height_rate =  1.0f * _center_height_px / _model_center_height_px;
     _align = ALIGN_LEFT;
     _valign = VALIGN_TOP;
     _alpha = 1.0f;
@@ -87,7 +75,10 @@ void GgafDxFramedBoardActor::processDraw() {
     //    „¥„Ÿ„©„Ÿ„©„Ÿ„§
     //    „ ‚U„ ‚V„ ‚W„ 
     //    „¤„Ÿ„¨„Ÿ„¨„Ÿ„£
-    if (_sx - _lim_center_sx > 0) {
+
+    float frame_width_rate, center_width_rate;
+    float total_width_px;
+    if (_sx  > _lim_center_sx) {
         //‰¡•‚É—]—T‚ ‚èA1,4,7 ‚Ì‰¡•‚ðLk‚³‚¹‚éB
 
         //  f = _model_frame_width_px
@@ -120,15 +111,11 @@ void GgafDxFramedBoardActor::processDraw() {
         //
         //  2f+x = r(2f+c)
         //  x = r(2f+c)-2f
-
+        frame_width_rate = 1.0f;
         pixcoord fw = 2*_model_frame_width_px;
-        float center_width_rate =  ( SC_R(_sx)*(fw + _model_center_width_px) - fw ) / _model_center_width_px;
-        hr = pID3DXEffect->SetFloat(pFramedBoardEffect->_h_left_edge_size_rate, 1.0f);
-        checkDxException(hr, D3D_OK, "SetFloat(_h_left_edge_size_rate) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-        hr = pID3DXEffect->SetFloat(pFramedBoardEffect->_h_center_width_rate, center_width_rate);
-        checkDxException(hr, D3D_OK, "SetFloat(_h_left_edge_size_rate) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-        hr = pID3DXEffect->SetFloat(pFramedBoardEffect->_h_right_edge_size_rate, 1.0f);
-        checkDxException(hr, D3D_OK, "SetFloat(_h_right_edge_size_rate) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+        center_width_rate = ( SC_R(_sx)*(fw + _model_center_width_px) - fw ) / _model_center_width_px;
+        total_width_px = fw + _model_center_width_px * center_width_rate;
+
     } else {
         //‰¡•‚É—]—T–³‚µA1,4,7 ‚Ì‰¡•‚Í0
         //0,3,6 ‚Æ 2,5,8 ‚Ì‰¡•‚ð –³—‚â‚è‚ä‚ª‚ß‚Ä•‚ð’²®
@@ -162,56 +149,50 @@ void GgafDxFramedBoardActor::processDraw() {
         //
         //  l2x = r2f
         //  x = 2rf / 2l = rf / l
-        pixcoord wx = (_sx * _model_frame_width_px) / _lim_center_sx;
-        float wrate = 1.0f * wx / _model_frame_width_px;
-        hr = pID3DXEffect->SetFloat(pFramedBoardEffect->_h_left_edge_size_rate, wrate);
-        checkDxException(hr, D3D_OK, "SetFloat(_h_left_edge_size_rate) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-        hr = pID3DXEffect->SetFloat(pFramedBoardEffect->_h_center_width_rate, 0);
-        checkDxException(hr, D3D_OK, "SetFloat(_h_left_edge_size_rate) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-        hr = pID3DXEffect->SetFloat(pFramedBoardEffect->_h_right_edge_size_rate, wrate);
-        checkDxException(hr, D3D_OK, "SetFloat(_h_right_edge_size_rate) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+        frame_width_rate = 1.0f * _sx  / _lim_center_sx;
+        center_width_rate = 0.0f;
+        total_width_px =  (_model_frame_width_px * frame_width_rate) + (_model_frame_width_px * frame_width_rate);
     }
+    hr = pID3DXEffect->SetFloat(pFramedBoardEffect->_h_frame_width_rate, frame_width_rate);
+    checkDxException(hr, D3D_OK, "SetFloat(_h_left_edge_size_rate) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    hr = pID3DXEffect->SetFloat(pFramedBoardEffect->_h_center_width_rate, center_width_rate);
+    checkDxException(hr, D3D_OK, "SetFloat(_h_left_edge_size_rate) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+
     if (_align == ALIGN_RIGHT) {
         //2f+x = r(2f+c)
-        pixcoord total_width_px = SC_R(_sx) * ((2 * _model_frame_width_px) + _model_center_width_px);
         hr = pID3DXEffect->SetFloat(pFramedBoardEffect->_h_local_offset_x, -total_width_px);
     } else if (_align == ALIGN_CENTER) {
-        pixcoord total_width_px = SC_R(_sx) * ((2 * _model_frame_width_px) + _model_center_width_px);
-        hr = pID3DXEffect->SetFloat(pFramedBoardEffect->_h_local_offset_x, -(total_width_px/2.0));
+        hr = pID3DXEffect->SetFloat(pFramedBoardEffect->_h_local_offset_x, -(total_width_px*0.5));
     } else { //ALIGN_LEFT ‚Í‚»‚Ì‚Ü‚Ü
         hr = pID3DXEffect->SetFloat(pFramedBoardEffect->_h_local_offset_x, 0.0f);
     }
     checkDxException(hr, D3D_OK, "SetFloat(_h_local_offset_x) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
-    if (_sy - _lim_center_sy > 0) {
+    float frame_height_rate, center_height_rate;
+    float total_height_px;
+    if (_sy > _lim_center_sy) {
         //c•‚É—]—T‚ ‚èA3,4,5 ‚Ìc•‚ðLk‚³‚¹‚éB
+        frame_height_rate = 1.0f;
         pixcoord fh = 2*_model_frame_height_px;
-        float center_height_rate =  ( SC_R(_sy)*(fh + _model_center_height_px) - fh ) / _model_center_height_px;
-
-        hr = pID3DXEffect->SetFloat(pFramedBoardEffect->_h_top_edge_size_rate, 1.0f);
-        checkDxException(hr, D3D_OK, "SetFloat(_h_top_edge_size_rate) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-        hr = pID3DXEffect->SetFloat(pFramedBoardEffect->_h_center_height_rate, center_height_rate);
-        checkDxException(hr, D3D_OK, "SetFloat(_h_left_edge_size_rate) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-        hr = pID3DXEffect->SetFloat(pFramedBoardEffect->_h_bottom_edge_size_rate, 1.0f);
-        checkDxException(hr, D3D_OK, "SetFloat(_h_bottom_edge_size_rate) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+        center_height_rate =  ( SC_R(_sy)*(fh + _model_center_height_px) - fh ) / _model_center_height_px;
+        total_height_px = fh + _model_center_height_px * center_height_rate;
     } else {
         //c•‚É—]—T–³‚µA3,4,5 ‚Ìc•‚Í0
         //0,1,2 ‚Æ 6,7,8 ‚Ìc•‚ð –³—‚â‚è‚ä‚ª‚ß‚Ä•‚ð’²®
-        pixcoord hy = (_sy * _model_frame_height_px) / _lim_center_sy;
-        float hrate = 1.0f * hy / _model_frame_height_px;
-        hr = pID3DXEffect->SetFloat(pFramedBoardEffect->_h_top_edge_size_rate, hrate);
-        checkDxException(hr, D3D_OK, "SetFloat(_h_top_edge_size_rate) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-        hr = pID3DXEffect->SetFloat(pFramedBoardEffect->_h_center_height_rate, 0);
-        checkDxException(hr, D3D_OK, "SetFloat(_h_left_edge_size_rate) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-        hr = pID3DXEffect->SetFloat(pFramedBoardEffect->_h_bottom_edge_size_rate, hrate);
-        checkDxException(hr, D3D_OK, "SetFloat(_h_bottom_edge_size_rate) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+        frame_height_rate = 1.0f * _sy / _lim_center_sy;
+        center_height_rate = 0.0f;
+        total_height_px = (_model_frame_height_px * frame_height_rate ) + (_model_frame_height_px * frame_height_rate );
     }
+
+    hr = pID3DXEffect->SetFloat(pFramedBoardEffect->_h_frame_height_rate, frame_height_rate);
+    checkDxException(hr, D3D_OK, "SetFloat(_h_top_edge_size_rate) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    hr = pID3DXEffect->SetFloat(pFramedBoardEffect->_h_center_height_rate, center_height_rate);
+    checkDxException(hr, D3D_OK, "SetFloat(_h_left_edge_size_rate) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+
     if (_valign == VALIGN_BOTTOM) {
-        pixcoord total_height_px = SC_R(_sy) * ((2 * _model_frame_height_px) + _model_center_height_px);
         hr = pID3DXEffect->SetFloat(pFramedBoardEffect->_h_local_offset_y, -total_height_px);
     } else if (_valign == VALIGN_MIDDLE) {
-        pixcoord total_height_px = SC_R(_sy) * ((2 * _model_frame_height_px) + _model_center_height_px);
-        hr = pID3DXEffect->SetFloat(pFramedBoardEffect->_h_local_offset_y, -total_height_px/2.0f);
+        hr = pID3DXEffect->SetFloat(pFramedBoardEffect->_h_local_offset_y, -total_height_px*0.5f);
     } else { //VALIGN_TOP ‚Í‚»‚Ì‚Ü‚Ü
         hr = pID3DXEffect->SetFloat(pFramedBoardEffect->_h_local_offset_y, 0.0f);
     }

@@ -90,7 +90,6 @@ void BoardTest::processBehavior() {
     if (GgafDxInput::isPressedKey(DIK_N)) {
         setValign(VALIGN_BOTTOM);
     }
-
     pAFader_->behave();
     getFrameUvFlipper()->behave();
     getUvFlipper()->behave();
@@ -109,3 +108,4 @@ void BoardTest::onInactive() {
 BoardTest::~BoardTest() {
     GGAF_DELETE(pAFader_);
 }
+

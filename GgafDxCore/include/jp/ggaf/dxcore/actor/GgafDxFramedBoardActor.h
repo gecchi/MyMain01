@@ -60,9 +60,6 @@ private:
         throwGgafCriticalException("使用不可です。");
         return nullptr;
     }
-
-
-
 public:
     /** [r]モデルオブジェクトへのポインタ */
     GgafDxFramedBoardModel* const _pFramedBoardModel;
@@ -73,22 +70,22 @@ public:
     /** [r]UVフリッパー(周囲フレーム) */
     GgafDxUvFlipper* const _pUvFlipper_frame;
 
-    /** [r]モデルのオリジナルの幅(px) */
-    pixcoord _model_total_width_px;
-    /** [r]モデルのオリジナルの高さ(px) */
-    pixcoord _model_total_height_px;
     /** [r]モデルのオリジナルの周囲フレームの幅(px) */
-    pixcoord _model_frame_width_px;
+    const pixcoord _model_frame_width_px;
     /** [r]モデルのオリジナルの周囲フレームの高さ(px) */
-    pixcoord _model_frame_height_px;
+    const pixcoord _model_frame_height_px;
     /** [r]モデルのオリジナルの中心のメインの幅(px) */
-    pixcoord _model_center_width_px;
+    const pixcoord _model_center_width_px;
     /** [r]モデルのオリジナルの中心のメインの高さ(px) */
-    pixcoord _model_center_height_px;
+    const pixcoord _model_center_height_px;
+    /** [r]モデルのオリジナルの幅(px) */
+    const pixcoord _model_total_width_px;
+    /** [r]モデルのオリジナルの高さ(px) */
+    const pixcoord _model_total_height_px;
     /** [r]角がゆがまないで表示できる限界の幅(px) */
-    scale _lim_center_sx;
+    const scale _lim_center_sx;
     /** [r]角がゆがまないで表示できる限界の高さ(px) */
-    scale _lim_center_sy;
+    const scale _lim_center_sy;
 
     GgafDxAlign _align;
     GgafDxValign _valign;
