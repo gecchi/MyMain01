@@ -16,12 +16,13 @@ MenuBoardResolutionSelect::MenuBoardResolutionSelect(const char* prm_name) :
     _class_name = "MenuBoardResolutionSelect";
 
     //メニューウィンドウ設定
-    update("%&&&&&&&&&&'\n"
-           ")**********+\n"
-           ")**********+\n"
-           ")**********+\n"
-           "-........../");
-
+//    update("%&&&&&&&&&&'\n"
+//           ")**********+\n"
+//           ")**********+\n"
+//           ")**********+\n"
+//           "-........../");
+    setWidth(PX_C(12*32));
+    setHeight(PX_C(5*32));
     LabelGecchi16Font* pLabel_ok = NEW LabelGecchi16Font("itemOK");
     pLabel_ok->update(" O K ", ALIGN_CENTER, VALIGN_MIDDLE);
     addItem(pLabel_ok, PX_C(100), PX_C(40));

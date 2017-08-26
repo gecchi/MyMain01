@@ -24,19 +24,20 @@ MenuBoardNameEntry::MenuBoardNameEntry(const char* prm_name) :
         MenuBoard(prm_name, "board_bg01") {
     _class_name = "MenuBoardNameEntry";
     //メニューウィンドウ設定
-    update("%&&&&&&&&&&&&&&&&&&&&&&'\n"
-           ")**********************+\n"
-           ")**********************+\n"
-           ")**********************+\n"
-           ")**********************+\n"
-           ")**********************+\n"
-           ")**********************+\n"
-           ")**********************+\n"
-           "-....................../");
+//    update("%&&&&&&&&&&&&&&&&&&&&&&'\n"
+//           ")**********************+\n"
+//           ")**********************+\n"
+//           ")**********************+\n"
+//           ")**********************+\n"
+//           ")**********************+\n"
+//           ")**********************+\n"
+//           ")**********************+\n"
+//           "-....................../");
 //        update("%&'\n"
 //               ")*+\n"
 //               "-./");
-
+    setWidth(PX_C(24*32));
+    setHeight(PX_C(9*32));
     //メニューアイテム（入力文字盤）設定
     for (int i = 0; i < input_item_num_; i++) {
         LabelGecchi16Font* pLabel = NEW LabelGecchi16Font("item");
@@ -195,7 +196,7 @@ void MenuBoardNameEntry::processBehavior() {
 #endif
     MenuBoard::processBehavior();
     if (getSelectedIndex() == ITEM_INDEX_OK_) {
-        FontBoardMenu* pMenuConfirm = getSubMenu();
+        DefaultFramedBoardMenu* pMenuConfirm = getSubMenu();
         if (pMenuConfirm->hasJustDecided()) { //サブメニューで「決定（振る舞い）」の時
             if (pMenuConfirm->getSelectedIndex() == MenuBoardConfirm::ITEM_OK) {
                 //ネームエントリー完了OK

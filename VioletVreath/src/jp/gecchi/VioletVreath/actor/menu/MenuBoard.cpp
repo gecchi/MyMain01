@@ -11,7 +11,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 MenuBoard::MenuBoard(const char* prm_name, const char* prm_model) :
-        FontBoardMenu(prm_name, prm_model) {
+        DefaultFramedBoardMenu(prm_name, prm_model) {
     _class_name = "MenuBoard";
     slide_from_offset_x_ = 0;
     slide_from_offset_y_ = 0;
@@ -85,25 +85,25 @@ bool MenuBoard::condSelectCancel() {
 void MenuBoard::riseMe() {
     target_x_ = _x;
     target_y_ = _y;
-    FontBoardMenu::riseMe();
+    DefaultFramedBoardMenu::riseMe();
 }
 
 void MenuBoard::rise(coord prm_target_x, coord prm_target_y) {
     target_x_ = prm_target_x;
     target_y_ = prm_target_y;
-    FontBoardMenu::riseMe();
+    DefaultFramedBoardMenu::riseMe();
 }
 
 void MenuBoard::riseSubMenu(int prm_index, coord prm_target_x, coord prm_target_y) {
-    FontBoardMenu::getSubMenu(prm_index)->setPosition(prm_target_x, prm_target_y); //←によりvoid MenuBoard::riseMe() に来た時にターゲット設定される
-    FontBoardMenu::riseSubMenu(prm_index);
+    DefaultFramedBoardMenu::getSubMenu(prm_index)->setPosition(prm_target_x, prm_target_y); //←によりvoid MenuBoard::riseMe() に来た時にターゲット設定される
+    DefaultFramedBoardMenu::riseSubMenu(prm_index);
 }
 void MenuBoard::riseSubMenu(coord prm_target_x, coord prm_target_y) {
     riseSubMenu(0, prm_target_x, prm_target_y);
 }
 
 void MenuBoard::moveCursor(bool prm_smooth) {
-    FontBoardMenu::moveCursor(prm_smooth);
+    DefaultFramedBoardMenu::moveCursor(prm_smooth);
     if (prm_smooth) { //スムーズ移動trueすなわち、活動状態。
         getSeTransmitter()->play(SE_MOVE_CURSOR);
     }
@@ -139,7 +139,7 @@ void MenuBoard::processBehavior() {
         setPosition(target_x_, target_y_);
     }
     pKuroko->behave();
-    FontBoardMenu::processBehavior();
+    DefaultFramedBoardMenu::processBehavior();
     //メニュー選択アイテム、表示アイテム、カーソルは、
     //ボード座標を基にしているため、自身の座標確定後に
     //上位 processBehavior() をコールしたほうが良い。
