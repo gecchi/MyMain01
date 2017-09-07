@@ -88,54 +88,54 @@ OUT_VS GgafDxVS_DefaultFramedBoard(
     //    │３│４│５│
     //    ├─┼─┼─┤
     //    │６│７│８│
-    //    └─┴─┴─┘
-	if (index == 0) {
-		x = prm_posModel_Local.x * g_frame_width_rate;
+    //    └─┴─┴─┘   
+	
+	if (index < 3) {
 		y = prm_posModel_Local.y * g_frame_height_rate;
-		offsetU = g_offset_u001;
-		offsetV = g_offset_v001;
-	} else if (index == 1) {
-		x = g_frame_width * g_frame_width_rate + prm_posModel_Local.x * g_center_width_rate;
-		y = prm_posModel_Local.y * g_frame_height_rate;
-		offsetU = g_offset_u002;
-		offsetV = g_offset_v002;
-	} else if (index == 2) {
-		x = g_frame_width * g_frame_width_rate + g_center_width * g_center_width_rate + prm_posModel_Local.x * g_frame_width_rate;
-		y = prm_posModel_Local.y * g_frame_height_rate;
-		offsetU = g_offset_u003;
-		offsetV = g_offset_v003;
-	} else if (index == 3) {
-		x = prm_posModel_Local.x * g_frame_width_rate;
+		if (index == 0) {
+			x = prm_posModel_Local.x * g_frame_width_rate;
+			offsetU = g_offset_u001;
+			offsetV = g_offset_v001;
+		} else if (index == 1) { 
+			x = g_frame_width * g_frame_width_rate + prm_posModel_Local.x * g_center_width_rate;
+			offsetU = g_offset_u002;
+			offsetV = g_offset_v002;
+		} else { //index == 2
+			x = g_frame_width * g_frame_width_rate + g_center_width * g_center_width_rate + prm_posModel_Local.x * g_frame_width_rate;
+			offsetU = g_offset_u003;
+			offsetV = g_offset_v003;
+		}
+	} else if (index < 6) {
 		y = g_frame_height * g_frame_height_rate + prm_posModel_Local.y * g_center_height_rate;
-		offsetU = g_offset_u004;
-		offsetV = g_offset_v004;
-	} else if (index == 4) {
-		x = g_frame_width * g_frame_width_rate + prm_posModel_Local.x * g_center_width_rate;
-		y = g_frame_height * g_frame_height_rate + prm_posModel_Local.y * g_center_height_rate;
-		offsetU = g_offset_u005;
-		offsetV = g_offset_v005;
-		center_flg = 1.0f;
-	} else if (index == 5) {
-		x = g_frame_width * g_frame_width_rate + g_center_width * g_center_width_rate + prm_posModel_Local.x * g_frame_width_rate;
-		y = g_frame_height * g_frame_height_rate + prm_posModel_Local.y * g_center_height_rate;
-		offsetU = g_offset_u006;
-		offsetV = g_offset_v006;
-	} else if (index == 6) {	
-		x = prm_posModel_Local.x * g_frame_width_rate;
+		if (index == 3) {
+			x = prm_posModel_Local.x * g_frame_width_rate;
+			offsetU = g_offset_u004;
+			offsetV = g_offset_v004;
+		} else if (index == 4) {
+			x = g_frame_width * g_frame_width_rate + prm_posModel_Local.x * g_center_width_rate;
+			offsetU = g_offset_u005;
+			offsetV = g_offset_v005;
+			center_flg = 1.0f; //中心パネルであることのフラグ
+		} else { //index == 5
+			x = g_frame_width * g_frame_width_rate + g_center_width * g_center_width_rate + prm_posModel_Local.x * g_frame_width_rate;
+			offsetU = g_offset_u006;
+			offsetV = g_offset_v006;
+		}
+	} else { // index >= 6
 		y = g_frame_height * g_frame_height_rate + g_center_height * g_center_height_rate + prm_posModel_Local.y * g_frame_height_rate;
-		offsetU = g_offset_u007;
-		offsetV = g_offset_v007;
-	} else if (index == 7) {	
-		x = g_frame_width * g_frame_width_rate + prm_posModel_Local.x * g_center_width_rate;
-		y = g_frame_height * g_frame_height_rate + g_center_height * g_center_height_rate + prm_posModel_Local.y * g_frame_height_rate;
-		offsetU = g_offset_u008;
-		offsetV = g_offset_v008;
-	} else if (index == 8) {	
-		x = g_frame_width * g_frame_width_rate + g_center_width * g_center_width_rate + prm_posModel_Local.x * g_frame_width_rate;
-		y = g_frame_height * g_frame_height_rate + g_center_height * g_center_height_rate + prm_posModel_Local.y * g_frame_height_rate;
-		offsetU = g_offset_u009;
-		offsetV = g_offset_v009;
-
+		if (index == 6) {
+			x = prm_posModel_Local.x * g_frame_width_rate;
+			offsetU = g_offset_u007;
+			offsetV = g_offset_v007;
+		} else if (index == 7) {
+			x = g_frame_width * g_frame_width_rate + prm_posModel_Local.x * g_center_width_rate;
+			offsetU = g_offset_u008;
+			offsetV = g_offset_v008;
+		} else { // index == 8
+			x = g_frame_width * g_frame_width_rate + g_center_width * g_center_width_rate + prm_posModel_Local.x * g_frame_width_rate;
+			offsetU = g_offset_u009;
+			offsetV = g_offset_v009;
+		}
 	}
 	//X座標Y座標をを -1 ～ +1 に押し込める。
 	out_vs.posModel_Proj.x = - 1 + ((2*x + 2*g_local_offset_x + 2*g_x - 1) / g_game_buffer_width);
@@ -145,7 +145,7 @@ OUT_VS GgafDxVS_DefaultFramedBoard(
 	//UVのオフセットを加算
 	out_vs.uv.x = prm_uv.x + offsetU;
 	out_vs.uv.y = prm_uv.y + offsetV;
-	out_vs.color.r = center_flg;  //color.r に中心情報を埋め込む      
+	out_vs.color.r = center_flg;  //中心パネルである事の情報を color.r として埋め込む
 	out_vs.color.a = g_alpha;
 	return out_vs;
 }
@@ -153,12 +153,12 @@ OUT_VS GgafDxVS_DefaultFramedBoard(
 
 //GgafDxFramedBoardModel標準ピクセルシェーダー
 float4 GgafDxPS_DefaultFramedBoard(
-	float2 prm_uv	  : TEXCOORD0,
-	float4 prm_color    : COLOR0 
+	float2 prm_uv    : TEXCOORD0,
+	float4 prm_color : COLOR0
 ) : COLOR  {
 	//求める色
 	float4 colOut;
-	if (prm_color.r != 0.0f) {      
+	if (prm_color.r == 1.0f) { //color.rは中心パネル情報
 		colOut = tex2D( MyTextureSampler, prm_uv); 
 	} else {
 		colOut = tex2D( MyTextureSampler_frame, prm_uv); 
@@ -172,11 +172,16 @@ float4 GgafDxPS_DefaultFramedBoard(
 }
 
 float4 PS_Flush(
-	float2 prm_uv	  : TEXCOORD0,
-	float4 prm_color    : COLOR0 
+	float2 prm_uv    : TEXCOORD0,
+	float4 prm_color : COLOR0 
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 colOut = tex2D( MyTextureSampler_frame, prm_uv) * FLUSH_COLOR;                
+	float4 colOut;
+	if (prm_color.r == 1.0f) { //color.rは中心パネル情報
+		colOut = tex2D( MyTextureSampler, prm_uv) * FLUSH_COLOR;
+	} else {
+		colOut = tex2D( MyTextureSampler_frame, prm_uv) * FLUSH_COLOR;
+	}
 	//α考慮
 	colOut.a = colOut.a * prm_color.a * g_alpha_master; 
 	return colOut;

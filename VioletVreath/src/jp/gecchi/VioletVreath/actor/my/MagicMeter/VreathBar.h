@@ -1,7 +1,7 @@
 #ifndef VREATHBAR_H_
 #define VREATHBAR_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/lib/actor/CappedGraphBarActor.h"
+#include "jp/ggaf/lib/actor/FramedHorizontalBarActor.h"
 
 namespace VioletVreath {
 
@@ -11,7 +11,7 @@ namespace VioletVreath {
  * @since 2012/05/11
  * @author Masatoshi Tsuge
  */
-class VreathBar : public GgafLib::CappedGraphBarActor {
+class VreathBar : public GgafLib::FramedHorizontalBarActor {
 
 public:
 

@@ -1,7 +1,7 @@
 #ifndef MPBAR_H_
 #define MPBAR_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/lib/actor/CappedGraphBarActor.h"
+#include "jp/ggaf/lib/actor/FramedHorizontalBarActor.h"
 
 namespace VioletVreath {
 
@@ -11,16 +11,13 @@ namespace VioletVreath {
  * @since 2013/09/12
  * @author Masatoshi Tsuge
  */
-class MpBar : public GgafLib::CappedGraphBarActor {
+class MpBar : public GgafLib::FramedHorizontalBarActor {
 
 public:
 
     MpBar(const char* prm_name);
 
     void initialize() override;
-
-    void addVal(double prm_val);
-
 
     virtual ~MpBar();
 };

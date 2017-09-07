@@ -1,14 +1,14 @@
 #ifndef DAMAGEDISPBARH_
 #define DAMAGEDISPBARH_
-#include "jp/ggaf/lib/actor/GraphBarActor.h"
+#include "jp/ggaf/lib/actor/FramedHorizontalBarActor.h"
 
 namespace VioletVreath {
 
-class DamageDispBar : public GgafLib::GraphBarActor {
+class DamageDispBar : public GgafLib::FramedHorizontalBarActor {
 
 public:
     /** 内容量 */
-    GgafLib::GraphBarActor* pSourceBar_;
+    GgafLib::FramedHorizontalBarActor* pSourceBar_;
     int velo_clear_damege_;
     frame damege_disp_timer_;
     bool is_damege_disp_;
@@ -18,7 +18,7 @@ public:
      * @param prm_name
      * @param prm_pPxQty config済みの PxQuantityオブジェクトの参照
      */
-    DamageDispBar(const char* prm_name, GgafLib::GraphBarActor* prm_pTargetSourceBar);
+    DamageDispBar(const char* prm_name, GgafLib::FramedHorizontalBarActor* prm_pTargetSourceBar);
 
     void initialize() override;
 

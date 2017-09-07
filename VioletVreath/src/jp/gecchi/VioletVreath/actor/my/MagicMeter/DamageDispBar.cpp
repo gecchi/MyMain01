@@ -10,8 +10,8 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-DamageDispBar::DamageDispBar(const char* prm_name, GgafLib::GraphBarActor* prm_pTargetSourceBar)
-      : GraphBarActor(prm_name, "CostDispBar") {
+DamageDispBar::DamageDispBar(const char* prm_name, GgafLib::FramedHorizontalBarActor* prm_pTargetSourceBar)
+      : FramedHorizontalBarActor(prm_name, "CostDispBar") {
     _class_name = "DamageDispBar";
     pSourceBar_ = prm_pTargetSourceBar;
     damege_disp_timer_ = 0;

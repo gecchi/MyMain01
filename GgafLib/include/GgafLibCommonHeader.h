@@ -82,6 +82,7 @@ class WallAAPyramidActor;
 class GraphBarActor;
 class CappedGraphBarActor;
 class MassWallActor;
+class FramedHorizontalBarActor;
 
 class SpriteMeshWorldBoundActor;
 class WorldBoundActor;

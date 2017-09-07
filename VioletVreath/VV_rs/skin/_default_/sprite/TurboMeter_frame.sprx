@@ -1,0 +1,9 @@
+xof 0303txt 0032
+
+SpriteDef TurboMeter {
+   8.0;
+   8.0;
+   "SPRITE.png";
+   6;
+   6;
+} 

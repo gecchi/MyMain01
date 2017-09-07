@@ -63,6 +63,9 @@ _lim_center_sy(R_SC( (_model_frame_height_px * 2.0) / _model_total_height_px )) 
 }
 
 void GgafDxFramedBoardActor::processDraw() {
+    if (_sx == 0 || _sy == 0) {
+        return;
+    }
     GgafDxFramedBoardEffect* pFramedBoardEffect = _pFramedBoardEffect;
     ID3DXEffect* pID3DXEffect = pFramedBoardEffect->_pID3DXEffect;
     HRESULT hr;
@@ -299,6 +302,12 @@ void GgafDxFramedBoardActor::addHeight(coord prm_height) {
     _sy += (R_SC(1.0 * C_PX(prm_height) / _model_total_height_px));
 }
 
+coord GgafDxFramedBoardActor::getWidth() {
+    return PX_C(_model_total_width_px * SC_R(_sx));
+}
+coord GgafDxFramedBoardActor::getHeight() {
+    return PX_C(_model_total_height_px * SC_R(_sy));
+}
 GgafDxFramedBoardActor::~GgafDxFramedBoardActor() {
     delete _pUvFlipper;
     delete _pUvFlipper_frame;

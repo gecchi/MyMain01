@@ -8,13 +8,14 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-CostDispBar::CostDispBar(const char* prm_name, GraphBarActor* prm_pTargetSourceBar)
-      : GraphBarActor(prm_name, "CostDispBar") {
+CostDispBar::CostDispBar(const char* prm_name, FramedHorizontalBarActor* prm_pTargetSourceBar)
+      : FramedHorizontalBarActor(prm_name, "CostDispBar") {
     _class_name = "CostDispBar";
     pSourceBar_ = prm_pTargetSourceBar;
 }
 
 void CostDispBar::initialize() {
+    setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
     setAlpha(0.7); //負の値も使う
 }
 
@@ -31,20 +32,26 @@ void CostDispBar::onActive() {
 }
 
 void CostDispBar::processBehavior() {
-    _x = pSourceBar_->_x + PX_C(pSourceBar_->getBarPx()); //pSourceBar_先端の座標
-    if (getVal() > 0) {
-        //正の値は主メーターの増分値を青で示すようにする。
-        getUvFlipper()->setActivePtn(4);//青
-    } else if (getVal() < 0) {
-        //負の値は主メーターの削減値を赤で示すようにする。
-        getUvFlipper()->setActivePtn(0);//赤
-    }
 }
 
 
 void CostDispBar::processJudgement() {
 }
 
+void CostDispBar::processPreDraw() {
+    _x = pSourceBar_->_x + PX_C(pSourceBar_->getBarPx()); //pSourceBar_先端の座標
+    pixcoord bar_width = (pixcoord)(_pPxQty->getQty());
+    if (bar_width >= 0) {
+        getUvFlipper()->setActivePtn(4);//青
+        setAlign(ALIGN_LEFT);
+        setWidth(PX_C(bar_width));
+    } else {
+        getUvFlipper()->setActivePtn(0);//赤
+        setAlign(ALIGN_RIGHT);
+        setWidth(PX_C(-bar_width));
+    }
+    DefaultFramedBoardActor::processPreDraw();
+}
 void CostDispBar::onInactive() {
 }
 

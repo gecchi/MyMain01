@@ -17,11 +17,11 @@ template<typename QTY, typename VAL>
 class Quantity : public GgafCore::GgafObject {
 
 public:
-    /** [r]数量 */
-    QTY _qty;
+
     /** [r]実値のポインタ */
     VAL* _pVal;
-
+    /** [r]実値に関わる数量 */
+    QTY _qty;
     /** [r]メーター値とピクセルの割合、 */
     double _rate_val;
 
@@ -66,26 +66,27 @@ public:
     }
 
     /**
-     * メーター値を設定 .
+     * 実値を設定 .
      * 設定すると、現在のメーターの長さ(_qty) も更新される
-     * @param prm_val メーター値
+     * @param prm_val 実値
      */
     inline void setVal(VAL prm_val) {
         *_pVal = prm_val;
+        _qty = (QTY)((*_pVal) * _rate_val);
     }
 
     /**
-     * メーター値を取得 .
+     * 値を実値で取得 .
      */
     inline VAL getVal() {
         return *_pVal;
     }
 
     /**
-     * メーター値をピクセル値で取得 .
+     * 値を実値に関わる数量で取得 .
      */
     inline QTY getQty() {
-        return (QTY)((*_pVal) * _rate_val);
+        return _qty;
     }
 
     virtual ~Quantity() {

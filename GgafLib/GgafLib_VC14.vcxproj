@@ -308,6 +308,7 @@
     <ClCompile Include="src\jp\ggaf\lib\actor\FkFormation.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\FontBoardActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\FontSpriteActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\FramedHorizontalBarActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\GraphBarActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\laserchip\HomingLaserChip.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\laserchip\LaserChip.cpp" />
@@ -402,6 +403,7 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\FkFormation.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\FontBoardActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\FontSpriteActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\FramedHorizontalBarActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\GraphBarActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\interface\ICharacterChip.hpp" />
     <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\HomingLaserChip.h" />

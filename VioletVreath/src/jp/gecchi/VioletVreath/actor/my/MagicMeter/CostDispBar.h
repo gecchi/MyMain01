@@ -1,15 +1,15 @@
 #ifndef COSTDISPBAR_H_
 #define COSTDISPBAR_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/lib/actor/GraphBarActor.h"
+#include "jp/ggaf/lib/actor/FramedHorizontalBarActor.h"
 
 namespace VioletVreath {
 
-class CostDispBar : public GgafLib::GraphBarActor {
+class CostDispBar : public GgafLib::FramedHorizontalBarActor {
 
 public:
     /** 内容量 */
-    GgafLib::GraphBarActor* pSourceBar_;
+    GgafLib::FramedHorizontalBarActor* pSourceBar_;
 public:
 
     /**
@@ -17,7 +17,7 @@ public:
      * @param prm_name
      * @param prm_pTargetSourceBar 表示元バー
      */
-    CostDispBar(const char* prm_name, GgafLib::GraphBarActor* prm_pTargetSourceBar);
+    CostDispBar(const char* prm_name, GgafLib::FramedHorizontalBarActor* prm_pTargetSourceBar);
 
     void initialize() override;
 
@@ -28,6 +28,8 @@ public:
     void processBehavior() override;
 
     void processJudgement() override;
+
+    void processPreDraw() override;
 
     void onInactive() override;
 
