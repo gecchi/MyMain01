@@ -370,7 +370,7 @@ void GameScene::processJudgement() {
         //空間分割(八分木)アルゴリズムにより、チェック回数の最適化を行っています。
         //詳細は 「種別相関定義コピペツール.xls」 の 「種別相関」 シート参照
 
-        GgafLinearTreeRounder<GgafActor, 3>* pHitCheckRounder = P_GOD->getSpacetime()->getLinearOctreeHitCheckRounder();
+        OctreeRounder* pHitCheckRounder = P_GOD->getSpacetime()->getLinearOctreeHitCheckRounder();
 #ifdef MY_DEBUG
         if (GgafDxInput::isPushedDownKey(DIK_I)) {
             P_GOD->getSpacetime()->getLinearOctree()->putTree();

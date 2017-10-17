@@ -70,8 +70,6 @@ public:
 
     static uint32_t shot2_matrix_[4][MYSHIP_SHOT_MATRIX];
     static uint32_t shot3_matrix_[2][MYSHIP_SHOT_MATRIX];
-    /** •½sˆÚ“®x‰‡ */
-    GgafDxCore::GgafDxAxesMover* pAxsMver_;
 
     angle senakai_[3*3*3];
     angle* pSenakai_;

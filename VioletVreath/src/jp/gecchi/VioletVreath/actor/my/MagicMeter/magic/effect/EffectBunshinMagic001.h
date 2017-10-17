@@ -15,10 +15,6 @@ namespace VioletVreath {
 class EffectBunshinMagic001 : public EffectBlink {
 
 public:
-    /** •½sˆÚ“®x‰‡ */
-    GgafDxCore::GgafDxAxesMover* pAxsMver_;
-
-public:
     EffectBunshinMagic001(const char* prm_name);
 
     void onCreateModel() override {

@@ -15,7 +15,6 @@ using namespace VioletVreath;
 EffectMyShipExplosion::EffectMyShipExplosion(const char* prm_name) :
         DefaultSpriteSetActor(prm_name, "EffectExplosion001", nullptr) {
     _class_name = "EffectMyShipExplosion";
-    pScaler_ = NEW GgafDxScaler(this);
     effectBlendOne(); //‰ÁŽZ‡¬
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv);
 }
@@ -40,7 +39,7 @@ void EffectMyShipExplosion::processBehavior() {
     setPositionAt(P_MYSHIP);
     getUvFlipper()->behave();
     getKuroko()->behave();
-    pScaler_->behave();
+    getScaler()->behave();
 }
 
 void EffectMyShipExplosion::processJudgement() {
@@ -50,5 +49,4 @@ void EffectMyShipExplosion::processJudgement() {
 }
 
 EffectMyShipExplosion::~EffectMyShipExplosion() {
-    GGAF_DELETE(pScaler_);
 }

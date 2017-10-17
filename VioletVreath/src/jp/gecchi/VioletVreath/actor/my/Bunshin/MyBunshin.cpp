@@ -74,7 +74,6 @@ MyBunshin::MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase) :
     pTorpedoCtrler_ = NEW MyTorpedoController("TorpedoController", this, pLockonCtrler_);
     addSubGroup(pTorpedoCtrler_);
 
-    pScaler_ = NEW GgafDxScaler(this);
     pAFader_ = NEW GgafDxAlphaFader(this);
     pColorist_ = NEW GgafDxColorist(this);
     GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
@@ -90,7 +89,7 @@ void MyBunshin::onCreateModel() {
 
 void MyBunshin::initialize() {
     setScaleR(1.0);
-    pScaler_->setRange(R_SC(1.0), R_SC(4.0));
+    getScaler()->setRange(R_SC(1.0), R_SC(4.0));
 }
 
 void MyBunshin::onReset() {
@@ -114,7 +113,7 @@ void MyBunshin::processBehavior() {
     GgafDxKuroko* pKuroko = getKuroko();
 
     pKuroko->behave();
-    pScaler_->behave();
+    getScaler()->behave();
     pAFader_->behave();
     pColorist_->behave();
     changeGeoFinal();
@@ -218,7 +217,7 @@ void MyBunshin::effectFreeModeIgnited() {
 }
 
 void MyBunshin::effectFreeModeReady() {
-    pScaler_->beat(10, 4, 0, 4, 1); //オプションぷるぷる、発射じゅんびOKのエフェクト
+    getScaler()->beat(10, 4, 0, 4, 1); //オプションぷるぷる、発射じゅんびOKのエフェクト
 }
 
 void MyBunshin::effectFreeModeLaunch() {
@@ -308,7 +307,6 @@ void MyBunshin::turnExpanse(coord prm_target_ang_expanse, frame prm_spent_frames
 }
 
 MyBunshin::~MyBunshin() {
-    GGAF_DELETE(pScaler_);
     GGAF_DELETE(pAFader_);
     GGAF_DELETE(pColorist_);
 }

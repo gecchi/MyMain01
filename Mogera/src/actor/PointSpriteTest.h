@@ -10,8 +10,6 @@ namespace Mogera {
 class PointSpriteTest : public GgafLib::DefaultPointSpriteSetActor {
 
 public:
-    GgafDxCore::GgafDxScaler* pScaler_;
-
     PointSpriteTest(const char* prm_name);
 
     void initialize() override;

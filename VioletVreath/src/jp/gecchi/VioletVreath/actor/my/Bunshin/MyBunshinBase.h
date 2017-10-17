@@ -151,9 +151,6 @@ public:
     /** [r]自身を中心とした、分身の半径距離の位置(標準状態) */
     velo bunshin_radius_pos_;
 
-    /** [r]平行移動支援 */
-    GgafDxCore::GgafDxAxesMover* pAxsMver_;
-
     /** [r]このフレーム以上連続で移動すると、TRACE_TWINBEE→TRACE_GRADIUS に移行する */
     frame moving_frames_since_default_pos_;
     /** [r]現在のトレースモード */

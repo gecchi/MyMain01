@@ -33,8 +33,6 @@ public:
     const GgafDxCore::GgafDxGeometricActor* pTarget_;
     /** [r]エフェクト終了時にsayonara()するか否か */
     bool sayonara_end_;
-    /** [r]拡大縮小支援オブジェクト */
-    GgafDxCore::GgafDxScaler* pScaler_;
 
 public:
     /**

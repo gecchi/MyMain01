@@ -2,10 +2,11 @@
 
 #include "jp/ggaf/dxcore/GgafDxGod.h"
 #include "jp/ggaf/core/util/GgafStatus.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxChecker.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxChecker.h"
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
@@ -15,8 +16,10 @@ using namespace GgafDxCore;
 GgafDxGeometricActor::GgafDxGeometricActor(const char* prm_name,
                                            GgafStatus* prm_pStat,
                                            GgafDxChecker* prm_pChecker) : GgafDxBaseActor(prm_name, prm_pStat),
-_pKuroko(new GgafDxKuroko(this)),
-_pSeTransmitter(new GgafDxSeTransmitterForActor(this)),
+_pKuroko(nullptr),
+_pAxesMover(nullptr),
+_pScaler(nullptr),
+_pSeTransmitter(nullptr),
 _is_2D(false),
 _offscreen_kind(-1),
 _x(0), _y(0), _z(0),
@@ -46,6 +49,21 @@ _is_local(false)
     _obj_class |= Obj_GgafDxGeometricActor;
     _class_name = "GgafDxGeometricActor";
     _pFormation = nullptr;
+}
+GgafDxKuroko* GgafDxGeometricActor::getKuroko() {
+    return _pKuroko ? _pKuroko : _pKuroko = new GgafDxKuroko(this);
+}
+
+GgafDxAxesMover* GgafDxGeometricActor::getAxesMover() {
+    return _pAxesMover ? _pAxesMover : _pAxesMover = new GgafDxAxesMover(this);
+}
+
+GgafDxSeTransmitterForActor* GgafDxGeometricActor::getSeTransmitter() {
+    return _pSeTransmitter ? _pSeTransmitter : _pSeTransmitter = new GgafDxSeTransmitterForActor(this);
+}
+
+GgafDxScaler* GgafDxGeometricActor::getScaler() {
+    return _pScaler ? _pScaler : _pScaler = new GgafDxScaler(this);
 }
 
 void GgafDxGeometricActor::processSettlementBehavior() {
@@ -444,8 +462,10 @@ void GgafDxGeometricActor::onEnd() {
 }
 
 GgafDxGeometricActor::~GgafDxGeometricActor() {
-    delete _pKuroko;
-    delete _pSeTransmitter;
+    GGAF_DELETE_NULLABLE(_pKuroko);
+    GGAF_DELETE_NULLABLE(_pAxesMover);
+    GGAF_DELETE_NULLABLE(_pScaler);
+    GGAF_DELETE_NULLABLE(_pSeTransmitter);
 }
 
 void GgafDxGeometricActor::dump() {

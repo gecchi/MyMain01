@@ -11,7 +11,6 @@ using namespace VioletVreath;
 EffectBunshinMagic001::EffectBunshinMagic001(const char* prm_name)
                : EffectBlink(prm_name, "EffectBunshinMagic001") {
     _class_name = "EffectBunshinMagic001";
-    pAxsMver_ = NEW GgafDxAxesMover(this);
     effectBlendOne(); //加算合成するTechnique指定
     setZEnableDraw(true);        //描画時、Zバッファ値は考慮される
     setZWriteEnable(false);  //自身のZバッファを書き込みしない
@@ -19,7 +18,7 @@ EffectBunshinMagic001::EffectBunshinMagic001(const char* prm_name)
 
 void EffectBunshinMagic001::initialize() {
     setAlpha(0.9);
-    pScaler_->setRange(0, R_SC(4.0));
+    getScaler()->setRange(0, R_SC(4.0));
 }
 
 void EffectBunshinMagic001::onActive() {
@@ -30,7 +29,6 @@ void EffectBunshinMagic001::onActive() {
 void EffectBunshinMagic001::processBehavior() {
     EffectBlink::processBehavior();
     getKuroko()->behave();
-    pAxsMver_->behave();
 }
 
 void EffectBunshinMagic001::processJudgement() {
@@ -45,5 +43,4 @@ void EffectBunshinMagic001::onInactive() {
 }
 
 EffectBunshinMagic001::~EffectBunshinMagic001() {
-    GGAF_DELETE(pAxsMver_);
 }

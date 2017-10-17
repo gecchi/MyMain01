@@ -19,7 +19,6 @@ DefaultCamera::DefaultCamera(const char* prm_name, double prm_rad_fovX, double p
     tx_ = _x;
     ty_ = _y;
     tz_ = _z;
-    pAxsMver_ = NEW GgafDxAxesMover(this);
 }
 
 DefaultCamera::DefaultCamera(const char* prm_name, double prm_rad_fovX) :
@@ -28,7 +27,6 @@ DefaultCamera::DefaultCamera(const char* prm_name, double prm_rad_fovX) :
     tx_ = _x;
     ty_ = _y;
     tz_ = _z;
-    pAxsMver_ = NEW GgafDxAxesMover(this);
 }
 
 DefaultCamera::DefaultCamera(const char* prm_name) :
@@ -37,7 +35,6 @@ DefaultCamera::DefaultCamera(const char* prm_name) :
     tx_ = _x;
     ty_ = _y;
     tz_ = _z;
-    pAxsMver_ = NEW GgafDxAxesMover(this);
 }
 
 GgafDxCameraViewPoint* DefaultCamera::createCameraViewPoint() {
@@ -55,13 +52,13 @@ void DefaultCamera::initialize() {
 }
 
 void DefaultCamera::processBehavior() {
-    pAxsMver_->behave();
+    getAxesMover()->behave();
     getKuroko()->behave();
     GgafDxCamera::processBehavior();
 }
 
 void DefaultCamera::slideMvTo(coord tx, coord ty, coord tz, frame t) {
-    pAxsMver_->asst()->slideVxyzMvByDtTo(
+    getAxesMover()->asst()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,
                               0.3, 0.7, 0, true);
 }
@@ -72,7 +69,7 @@ void DefaultCamera::slideMvTo(GgafDxGeometricActor* pTarget, frame t) {
 
 void DefaultCamera::slideMvTo(coord tx, coord ty, coord tz, frame t,
                        float prm_x_p1, float prm_y_p1, float prm_z_p1) {
-    pAxsMver_->asst()->slideVxyzMvByDtTo(
+    getAxesMover()->asst()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,
                               prm_x_p1, prm_x_p1, 0,
                               prm_y_p1, prm_y_p1, 0,
@@ -97,9 +94,8 @@ dir26 DefaultCamera::getVpDirNo() {
 }
 
 bool DefaultCamera::isSliding() {
-    return pAxsMver_->asst()->isSliding();
+    return getAxesMover()->asst()->isSliding();
 }
 
 DefaultCamera::~DefaultCamera() {
-    GGAF_DELETE(pAxsMver_);
 }

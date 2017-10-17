@@ -14,12 +14,6 @@ namespace VioletVreath {
 class MyMagicEnergyCore : public GgafLib::DefaultMeshActor {
 
 public:
-    /** 拡大縮小支援オブジェクト */
-    GgafDxCore::GgafDxScaler* pScaler_;
-    /** 平行移動支援 */
-    GgafDxCore::GgafDxAxesMover* pAxsMver_;
-
-public:
     MyMagicEnergyCore(const char* prm_name);
 
     void onCreateModel() override;

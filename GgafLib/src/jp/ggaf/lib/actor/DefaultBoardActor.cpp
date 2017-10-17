@@ -1,7 +1,5 @@
 #include "jp/ggaf/lib/actor/DefaultBoardActor.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

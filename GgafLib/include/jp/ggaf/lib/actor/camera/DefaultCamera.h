@@ -16,9 +16,6 @@ class DefaultCamera : public GgafDxCore::GgafDxCamera {
 public:
     coord tx_, ty_, tz_;
 
-    /** •½sˆÚ“®x‰‡ */
-    GgafDxCore::GgafDxAxesMover* pAxsMver_;
-
 public:
     DefaultCamera(const char* prm_name, double prm_rad_fovX, double prm_dep);
     DefaultCamera(const char* prm_name, double prm_rad_fovX);

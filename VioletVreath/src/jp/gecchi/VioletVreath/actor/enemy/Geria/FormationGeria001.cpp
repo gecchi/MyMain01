@@ -18,7 +18,7 @@ FormationGeria001::FormationGeria001(const char* prm_name) :
 
     setPosition(PX_C(5000), 0, PX_C(5000));
     setFaceAngTwd(PX_C(5000), 0, -PX_C(5000));
-    pAxsMver_->setVxyzMvVelo(-2000, 0, 0);
+    getAxesMover()->setVxyzMvVelo(-2000, 0, 0);
 }
 
 void FormationGeria001::processBehavior() {
@@ -31,7 +31,7 @@ void FormationGeria001::processBehavior() {
             pGeria->setMigrationLength(PX_C(10000));
         }
     }
-    pAxsMver_->behave();
+    getAxesMover()->behave();
 }
 
 void FormationGeria001::processJudgement() {

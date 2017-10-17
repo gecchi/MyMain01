@@ -14,7 +14,6 @@ using namespace VioletVreath;
 MyWave001::MyWave001(const char* prm_name) :
         DefaultMeshActor(prm_name, "wave", nullptr) {
     _class_name = "MyWave001";
-    pScaler_ = NEW GgafDxScaler(this);
 }
 
 void MyWave001::initialize() {
@@ -43,7 +42,7 @@ void MyWave001::initialize() {
     //	pChecker->pHitAreaBoxs_->setLine(4, 30000, 30000, -30000, -30000, true);
     //	pChecker->pHitAreaBoxs_->setLine(5, -30000, 30000, 30000, -30000, true);
     //
-    pScaler_->setRange(1000,20000);
+    getScaler()->setRange(1000,20000);
     //setAlpha(0.2);
 
     setHitAble(true);
@@ -52,11 +51,13 @@ void MyWave001::initialize() {
 
 void MyWave001::processBehavior() {
     GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDxScaler* const pScaler = getScaler();
+
     if (hasJustChangedToActive()) {
         //oŒ»Žž‹¤’Êˆ—
         setScale(1000);
-        pScaler_->transitionLinearStep(100000,100);
-        pScaler_->behave();
+        pScaler->transitionLinearStep(100000,100);
+        pScaler->behave();
         setHitAble(true);
         setPositionAt(P_MYSHIP);
         setRzFaceAng(P_MYSHIP->_rz);
@@ -69,7 +70,7 @@ void MyWave001::processBehavior() {
         //’Êíˆ—
         //behaveUvFlip();
         //À•W‚É”½‰f
-        pScaler_->behave();
+        pScaler->behave();
         pKuroko->behave();
     }
 }
@@ -97,5 +98,4 @@ void MyWave001::onInactive() {
 }
 
 MyWave001::~MyWave001() {
-    GGAF_DELETE(pScaler_);
 }

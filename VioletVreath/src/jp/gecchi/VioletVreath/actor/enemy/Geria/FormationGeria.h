@@ -15,8 +15,6 @@ class FormationGeria : public GgafLib::DefaultGeometricActor {
 public:
     /** ゲリアストック */
     GgafCore::GgafActorDepository* pDepo_;
-    /** 平行移動支援 */
-    GgafDxCore::GgafDxAxesMover* pAxsMver_;
 
 //    /** 出現範囲幅BOX */
 //    int X1_app_, Y1_app_, Z1_app_, X2_app_, Y2_app_, Z2_app_;

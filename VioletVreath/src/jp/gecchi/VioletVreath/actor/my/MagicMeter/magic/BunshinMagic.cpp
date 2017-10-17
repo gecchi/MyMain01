@@ -61,18 +61,20 @@ void BunshinMagic::processCastBegin(int prm_now_level, int prm_new_level) {
         MyMagicEnergyCore* pCore = pMyShip->pMyMagicEnergyCore_;
         angle* paAng_way = NEW angle[prm_new_level-prm_now_level];
         UTIL::getRadialAngle2D(0, prm_new_level-prm_now_level, paAng_way);
-        velo veloVxMv = pCore->pAxsMver_->_velo_vx_mv;
-        velo veloVyMv = pCore->pAxsMver_->_velo_vy_mv;
-        velo veloVzMv = pCore->pAxsMver_->_velo_vz_mv;
+        GgafDxAxesMover* const pCoreAxesMover = pCore->getAxesMover();
+        velo veloVxMv = pCoreAxesMover->_velo_vx_mv;
+        velo veloVyMv = pCoreAxesMover->_velo_vy_mv;
+        velo veloVzMv = pCoreAxesMover->_velo_vz_mv;
         EffectBunshinMagic001* pEffect;
         for (int lv = prm_now_level+1, n = 0; lv <= prm_new_level; lv++, n++) {
             pEffect = papEffect_[lv-1];
             pEffect->setPositionAt(pCore);
-            pEffect->pAxsMver_->resetMv();
-            pEffect->pAxsMver_->setVxyzMvVelo(veloVxMv*0.8,
-                                              veloVyMv + (ANG_SIN(paAng_way[n]) * PX_C(3)),
-                                              veloVzMv + (ANG_COS(paAng_way[n]) * PX_C(3)) ); //放射状にエフェクト放出
-            pEffect->pAxsMver_->execGravitationMvSequenceTwd(P_MYSHIP, 10000, 200, 2000);
+            GgafDxAxesMover* const pEffectAxesMover = pEffect->getAxesMover();
+            pEffectAxesMover->resetMv();
+            pEffectAxesMover->setVxyzMvVelo(veloVxMv*0.8,
+                                            veloVyMv + (ANG_SIN(paAng_way[n]) * PX_C(3)),
+                                            veloVzMv + (ANG_COS(paAng_way[n]) * PX_C(3)) ); //放射状にエフェクト放出
+            pEffectAxesMover->execGravitationMvSequenceTwd(P_MYSHIP, 10000, 200, 2000);
             _TRACE_(getBehaveingFrame()<<":BunshinMagic::processCastBegin("<<prm_now_level<<","<<prm_new_level<<") papEffect_["<<(lv-1)<<"]->activate();");
             pEffect->activate();
             pEffect->blink(10, MAX_FRAME, 0, nullptr, false);
@@ -105,7 +107,7 @@ void BunshinMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
         //レベルアップ時
         for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
             MyBunshinBase* p = P_MYSHIP_SCENE->papBunshinBase_[lv-1];
-            papEffect_[lv-1]->pAxsMver_->execGravitationMvSequenceTwd(
+            papEffect_[lv-1]->getAxesMover()->execGravitationMvSequenceTwd(
                                              P_MYSHIP,
                                              40000, 400, 200000
                                          );
@@ -123,7 +125,7 @@ void BunshinMagic::processInvokingBehavior(int prm_now_level, int prm_new_level)
         //レベルアップ時
         for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
             MyBunshinBase* p = P_MYSHIP_SCENE->papBunshinBase_[lv-1];
-            papEffect_[lv-1]->pAxsMver_->setGravitationTwd(P_MYSHIP);
+            papEffect_[lv-1]->getAxesMover()->setGravitationTwd(P_MYSHIP);
         }
     }
 }

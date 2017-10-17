@@ -25,8 +25,6 @@ public:
         SE_GET_ITEM ,
     };
 
-    /** •½sˆÚ“®x‰‡ */
-    GgafDxCore::GgafDxAxesMover* pAxsMver_;
     /** ‹z’…·•ªÀ•W */
     int kDX_, kDY_, kDZ_;
 public:

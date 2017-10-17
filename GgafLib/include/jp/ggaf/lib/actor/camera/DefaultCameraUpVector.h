@@ -15,9 +15,6 @@ namespace GgafLib {
 class DefaultCameraUpVector : public GgafDxCore::GgafDxCameraUpVector {
 
 public:
-    /** •½sˆÚ“®x‰‡ */
-    GgafDxCore::GgafDxAxesMover* pAxsMver_;
-
     dir26 up_dir_;
 
 public:

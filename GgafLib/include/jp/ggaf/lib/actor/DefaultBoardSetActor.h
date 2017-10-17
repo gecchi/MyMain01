@@ -23,6 +23,12 @@ namespace GgafLib {
  * @author Masatoshi Tsuge
  */
 class DefaultBoardSetActor : public GgafDxCore::GgafDxBoardSetActor {
+private:
+    /**
+     * Žg—p‹ÖŽ~ .
+     * @return
+     */
+    GgafDxCore::GgafDxScaler* getScaler();
 
 public:
     DefaultBoardSetActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat = nullptr);

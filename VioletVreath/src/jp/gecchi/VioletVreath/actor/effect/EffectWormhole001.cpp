@@ -23,9 +23,9 @@ void EffectWormhole001::initialize() {
 
 void EffectWormhole001::onActive() {
     setAlpha(0.01);
-    pScaler_->setRange(30000, 1000); //スケーリング・範囲
+    getScaler()->setRange(30000, 1000); //スケーリング・範囲
     setScale(30000);
-    pScaler_->transitionLinearUntil(1000, 30);//スケーリング・60F費やして1000に縮小
+    getScaler()->transitionLinearUntil(1000, 30);//スケーリング・60F費やして1000に縮小
     getKuroko()->setFaceAngVelo(AXIS_Z, 1000);        //回転
 }
 
@@ -33,14 +33,14 @@ void EffectWormhole001::processBehavior() {
     if (getAlpha() < 1.0) {
         addAlpha(0.05);
     }
-
-    if (!pScaler_->isTransitioning()) {
+    GgafDxScaler* pScaler = getScaler();
+    if (!pScaler->isTransitioning()) {
         //縮小完了後、Beat
-        pScaler_->setRange(1000, 2000);
-        pScaler_->beat(30, 2, 0, 26, -1); //無限ループ
+        pScaler->setRange(1000, 2000);
+        pScaler->beat(30, 2, 0, 26, -1); //無限ループ
     }
     getKuroko()->behave();
-    pScaler_->behave();
+    pScaler->behave();
 }
 
 void EffectWormhole001::processJudgement() {

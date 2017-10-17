@@ -3,11 +3,11 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -17,7 +17,6 @@ using namespace Mogera;
 PointSpriteTest::PointSpriteTest(const char* prm_name) :
         DefaultPointSpriteSetActor(prm_name, "PTEST2", nullptr) {
     _class_name = "PointSpriteTest";
-    pScaler_ = NEW GgafDxScaler(this);
 //    effectBlendOne(); //‰ÁŽZ‡¬
     setAlpha(0.8);
     setHitAble(false);
@@ -35,7 +34,7 @@ bool PointSpriteTest::isOutOfSpacetime() const {
 void PointSpriteTest::initialize() {
     getKuroko()->setRollPitchYawFaceAngVelo(30, 50, 70);
     setScale(0);
-    pScaler_->transitionAcceUntilVelo(-R_SC(0.01) , R_SC(0.1), -R_SC(0.001));
+    getScaler()->transitionAcceUntilVelo(-R_SC(0.01) , R_SC(0.1), -R_SC(0.001));
 }
 
 void PointSpriteTest::onActive() {
@@ -48,7 +47,7 @@ void PointSpriteTest::processBehavior() {
 //    }
     getUvFlipper()->behave();
     getKuroko()->behave();
-    pScaler_->behave();
+    getScaler()->behave();
 }
 
 void PointSpriteTest::processJudgement() {

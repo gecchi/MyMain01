@@ -19,7 +19,6 @@ MagicLvCursor::MagicLvCursor(const char* prm_name, const char* prm_model, MagicM
         DefaultBoardActor(prm_name, prm_model) {
     _class_name = "MagicLvCursor";
     pAFader_ = NEW GgafDxAlphaFader(this);
-    pScaler_ = NEW GgafDxScaler(this);
     pMagicMeter_ = prm_pMagicMeter;
     pMagic_ = prm_pMagic;
     magic_index_ = pMagicMeter_->lstMagic_.indexOf(pMagic_);
@@ -41,7 +40,7 @@ void MagicLvCursor::initialize() {
     _x = tx_ = pMagicMeter_->_x + (pMagicMeter_->width_ * magic_index_) + (pMagicMeter_->width_ / 2);
     _y = ty_ = pMagicMeter_->_y - (pMagicMeter_->height_*(point_lv_+1)) + (pMagicMeter_->height_ / 2);
     getUvFlipper()->exec(FLIP_ORDER_LOOP, 1);
-    pScaler_->setRange(1000, 3000);
+    getScaler()->setRange(1000, 3000);
 }
 
 void MagicLvCursor::processBehavior() {
@@ -54,7 +53,7 @@ void MagicLvCursor::processBehavior() {
     }
     getUvFlipper()->behave();
     pAFader_->behave();
-    pScaler_->behave();
+    getScaler()->behave();
 }
 void MagicLvCursor::processPreDraw() {
     //カーソル関連は
@@ -106,10 +105,9 @@ void MagicLvCursor::moveSmoothTo(int prm_lv, frame prm_target_frames, float prm_
 
 void MagicLvCursor::blink() {
     pAFader_->beat(6, 3, 0, 3, 7.5); //ピカピカ、+0.5は最後は表示終了為
-    pScaler_->beat(12, 6, 0, 6, 3);
+    getScaler()->beat(12, 6, 0, 6, 3);
 }
 
 MagicLvCursor::~MagicLvCursor() {
     GGAF_DELETE(pAFader_);
-    GGAF_DELETE(pScaler_);
 }

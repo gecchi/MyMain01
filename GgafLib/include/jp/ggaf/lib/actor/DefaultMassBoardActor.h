@@ -23,6 +23,12 @@ namespace GgafLib {
  * @author Masatoshi Tsuge
  */
 class DefaultMassBoardActor : public GgafDxCore::GgafDxMassBoardActor {
+private:
+    /**
+     * Žg—p‹ÖŽ~ .
+     * @return
+     */
+    GgafDxCore::GgafDxScaler* getScaler();
 
 protected:
     struct VERTEX_instancedata {

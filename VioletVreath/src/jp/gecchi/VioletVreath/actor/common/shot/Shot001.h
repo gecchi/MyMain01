@@ -15,8 +15,6 @@ namespace VioletVreath {
 class Shot001 : public GgafLib::DefaultMassMeshActor {
 
 public:
-    /** 拡大縮小支援オブジェクト */
-    GgafDxCore::GgafDxScaler* pScaler_;
     /** 移動スプラインプログラム */
     GgafLib::SplineKurokoLeader* pKurokoLeader_;
     /** スプライン定義資源への接続 */

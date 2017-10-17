@@ -1,6 +1,5 @@
 #include "jp/ggaf/lib/actor/WorldBoundActor.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/lib/DefaultGod.h"
 #include "jp/ggaf/lib/scene/DefaultSpacetime.h"
 #include "jp/ggaf/lib/actor/camera/DefaultCamera.h"

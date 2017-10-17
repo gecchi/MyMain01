@@ -600,11 +600,11 @@ void CameraWorker::setUpVec(coord tx, coord ty, coord tz) {
     pUp_->setPosition(tx,ty,tz);
 }
 void CameraWorker::stopMvCam() {
-    pCam_->pAxsMver_->stopMv();
+    pCam_->getAxesMover()->stopMv();
 }
 
 void CameraWorker::stopMvVp() {
-    pVp_->pAxsMver_->stopMv();
+    pVp_->getAxesMover()->stopMv();
 }
 
 CameraWorker::~CameraWorker() {

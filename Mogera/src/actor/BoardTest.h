@@ -9,7 +9,6 @@ class BoardTest : public GgafLib::DefaultFramedBoardActor {
 
 public:
     GgafDxCore::GgafDxAlphaFader* pAFader_;
-    GgafDxCore::GgafDxScaler* pScaler_;
 
     BoardTest(const char* prm_name);
 

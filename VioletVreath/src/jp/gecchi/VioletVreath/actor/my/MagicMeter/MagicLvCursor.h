@@ -16,8 +16,6 @@ class MagicLvCursor : public GgafLib::DefaultBoardActor {
 public:
     /** フィードイン・フェードアウト支援 */
     GgafDxCore::GgafDxAlphaFader* pAFader_;
-    /** 拡大縮小支援オブジェクト */
-    GgafDxCore::GgafDxScaler* pScaler_;
     /** [r]カーソル対象の魔法 */
     Magic* pMagic_;
     /** [r]魔法メーター */

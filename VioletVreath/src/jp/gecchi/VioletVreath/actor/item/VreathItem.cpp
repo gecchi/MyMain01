@@ -17,7 +17,6 @@ using namespace VioletVreath;
 VreathItem::VreathItem(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat)
                : Item(prm_name, prm_model, prm_pStat) {
     _class_name = "VreathItem";
-    pAxsMver_ = NEW GgafDxAxesMover(this);
     effectBlendOne(); //加算合成するTechnique指定
     setZEnableDraw(true);        //描画時、Zバッファ値は考慮される
     setZWriteEnable(false);  //自身のZバッファを書き込みしない
@@ -41,11 +40,11 @@ void VreathItem::initialize() {
 void VreathItem::onActive() {
     // _x, _y, _z は発生元座標に設定済み
     setHitAble(true, false);
-
-    pAxsMver_->forceVxyzMvVeloRange(-30000, 30000);
-    pAxsMver_->setZeroVxyzMvVelo();
-    pAxsMver_->setZeroVxyzMvAcce();
-    pAxsMver_->stopGravitationMvSequence();
+    GgafDxAxesMover* const pAxesMover = getAxesMover();
+    pAxesMover->forceVxyzMvVeloRange(-30000, 30000);
+    pAxesMover->setZeroVxyzMvVelo();
+    pAxesMover->setZeroVxyzMvAcce();
+    pAxesMover->stopGravitationMvSequence();
 
     //初期方向設定
     MyShip* pMyShip = P_MYSHIP;
@@ -77,6 +76,7 @@ void VreathItem::onActive() {
 void VreathItem::processBehavior() {
     //通常移動
     GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDxAxesMover* const pAxesMover = getAxesMover();
     GgafProgress* const pProg = getProgress();
     if (pProg->get() == PROG_DRIFT) {
         //TractorMagic発動中はPROG_ATTACHへ移行
@@ -93,10 +93,10 @@ void VreathItem::processBehavior() {
         MyShip* pMyShip = P_MYSHIP;
         if (pProg->hasJustChanged()) {
             //自機に引力で引き寄せられるような動き設定
-            pAxsMver_->setVxyzMvVelo(pKuroko->_vX * pKuroko->_velo_mv,
+            pAxesMover->setVxyzMvVelo(pKuroko->_vX * pKuroko->_velo_mv,
                                      pKuroko->_vY * pKuroko->_velo_mv,
                                      pKuroko->_vZ * pKuroko->_velo_mv );
-            pAxsMver_->execGravitationMvSequenceTwd(pMyShip, PX_C(20), 200, PX_C(100));
+            pAxesMover->execGravitationMvSequenceTwd(pMyShip, PX_C(20), 200, PX_C(100));
             pKuroko->stopMv();
         }
 
@@ -117,9 +117,9 @@ void VreathItem::processBehavior() {
     if (pProg->get() == PROG_ABSORB) {
         MyShip* pMyShip = P_MYSHIP;
         if (pProg->hasJustChanged()) {
-            pAxsMver_->setZeroVxyzMvVelo();
-            pAxsMver_->setZeroVxyzMvAcce();
-            pAxsMver_->stopGravitationMvSequence();
+            pAxesMover->setZeroVxyzMvVelo();
+            pAxesMover->setZeroVxyzMvAcce();
+            pAxesMover->stopGravitationMvSequence();
         }
         _x = pMyShip->_x + kDX_;
         _y = pMyShip->_y + kDY_;
@@ -135,7 +135,7 @@ void VreathItem::processBehavior() {
         pMyShip->getStatus()->plus(STAT_Stamina, 1);
     }
     pKuroko->behave();
-    pAxsMver_->behave();
+    pAxesMover->behave();
 }
 
 void VreathItem::processJudgement() {
@@ -172,6 +172,5 @@ void VreathItem::onHit(const GgafActor* prm_pOtherActor) {
 }
 
 VreathItem::~VreathItem() {
-    GGAF_DELETE(pAxsMver_);
 }
 

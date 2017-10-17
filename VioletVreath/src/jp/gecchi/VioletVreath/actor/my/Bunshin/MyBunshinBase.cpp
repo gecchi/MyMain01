@@ -45,10 +45,9 @@ MyBunshinBase::MyBunshinBase(const char* prm_name, unsigned int prm_no) :
     pPosTrace_ = NEW PosTrace(MyBunshinBase::BUNSHIN_D * prm_no);
     trace_mode_ = TRACE_GRADIUS;
     return_default_pos_frames_ = 0;
-
-    pAxsMver_ = NEW GgafDxAxesMover(this);
-    pAxsMver_->forceVxyzMvVeloRange(-MyBunshinBase::RENGE, MyBunshinBase::RENGE);
-    pAxsMver_->forceVxyzMvAcceRange(-MyBunshinBase::RENGE / 30, MyBunshinBase::RENGE / 30);
+    GgafDxAxesMover* const pAxesMover = getAxesMover();
+    pAxesMover->forceVxyzMvVeloRange(-MyBunshinBase::RENGE, MyBunshinBase::RENGE);
+    pAxesMover->forceVxyzMvAcceRange(-MyBunshinBase::RENGE / 30, MyBunshinBase::RENGE / 30);
 
     is_free_mode_ = false;
     is_isolate_mode_ = true;
@@ -116,9 +115,11 @@ void MyBunshinBase::onInactive() {
 
 void MyBunshinBase::processBehavior() {
     GgafDxKuroko* pKuroko = getKuroko();
+    GgafDxAxesMover* const pAxesMover = getAxesMover();
+
     if (is_isolate_mode_) {
         pKuroko->behave();
-        pAxsMver_->behave();
+        pAxesMover->behave();
         return;
     }
     const MyShip* pMyShip = P_MYSHIP;
@@ -195,8 +196,8 @@ void MyBunshinBase::processBehavior() {
                 //分身フリーモード移動開始
                 pBunshin_->effectFreeModeLaunch(); //発射エフェクト
                 is_free_mode_ = true;
-                pAxsMver_->setZeroVxyzMvVelo();
-                pAxsMver_->setZeroVxyzMvAcce();
+                pAxesMover->setZeroVxyzMvVelo();
+                pAxesMover->setZeroVxyzMvAcce();
             }
             if (pVbPlay->isPressed(VB_OPTION)) {
                 //分身フリーモードで移動中
@@ -234,24 +235,24 @@ void MyBunshinBase::processBehavior() {
                 const float cosRy = ANG_COS(_ry);
                 const float sinRz = ANG_SIN(_rz);
                 const float cosRz = ANG_COS(_rz);
-                pAxsMver_->setVxyzMvVelo((cosRx*-sinRz*cosRy + sinRx*sinRy)  * MyBunshinBase::VELO_BUNSHIN_FREE_MV,
+                pAxesMover->setVxyzMvVelo((cosRx*-sinRz*cosRy + sinRx*sinRy)  * MyBunshinBase::VELO_BUNSHIN_FREE_MV,
                                          (cosRx*cosRz)                       * MyBunshinBase::VELO_BUNSHIN_FREE_MV,
                                          (cosRx*-sinRz*-sinRy + sinRx*cosRy) * MyBunshinBase::VELO_BUNSHIN_FREE_MV );
             } else if (pProg->getFrame() > 3*(no_-1)) { //ばらつかせ
-                pAxsMver_->setVxyzMvAcce( (tx - (_x + pAxsMver_->_velo_vx_mv*6)),
-                                          (ty - (_y + pAxsMver_->_velo_vy_mv*6)),
-                                          (tz - (_z + pAxsMver_->_velo_vz_mv*6)) );
+                pAxesMover->setVxyzMvAcce( (tx - (_x + pAxesMover->_velo_vx_mv*6)),
+                                           (ty - (_y + pAxesMover->_velo_vy_mv*6)),
+                                           (tz - (_z + pAxesMover->_velo_vz_mv*6)) );
             }
             if (ABS(_x - tx) < 10000 &&
                 ABS(_y - ty) < 10000 &&
                 ABS(_z - tz) < 10000 &&
-                ABS(pAxsMver_->_velo_vx_mv) <= MyBunshinBase::VELO_BUNSHIN_FREE_MV &&
-                ABS(pAxsMver_->_velo_vy_mv) <= MyBunshinBase::VELO_BUNSHIN_FREE_MV &&
-                ABS(pAxsMver_->_velo_vz_mv) <= MyBunshinBase::VELO_BUNSHIN_FREE_MV)
+                ABS(pAxesMover->_velo_vx_mv) <= MyBunshinBase::VELO_BUNSHIN_FREE_MV &&
+                ABS(pAxesMover->_velo_vy_mv) <= MyBunshinBase::VELO_BUNSHIN_FREE_MV &&
+                ABS(pAxesMover->_velo_vz_mv) <= MyBunshinBase::VELO_BUNSHIN_FREE_MV)
             {
                 //もどった！
-                pAxsMver_->setZeroVxyzMvVelo();
-                pAxsMver_->setZeroVxyzMvAcce();
+                pAxesMover->setZeroVxyzMvVelo();
+                pAxesMover->setZeroVxyzMvAcce();
                 setPosition(tx, ty, tz);
                 moving_frames_since_default_pos_ = 0;
                 pProg->change(PROG_BUNSHIN_NOMAL_TRACE);
@@ -531,7 +532,7 @@ void MyBunshinBase::processBehavior() {
     }
 
     pKuroko->behave();
-    pAxsMver_->behave();
+    pAxesMover->behave();
 }
 
 void MyBunshinBase::resetBunshin(int prm_mode) {
@@ -626,7 +627,6 @@ void MyBunshinBase::addTurnAngleAroundAx2(float prm_ax_x, float prm_ax_y, float 
 
 MyBunshinBase::~MyBunshinBase() {
     GGAF_DELETE(pPosTrace_);
-    GGAF_DELETE(pAxsMver_);
 }
 
 void MyBunshinBase::setBunshinNum(int prm_num) {

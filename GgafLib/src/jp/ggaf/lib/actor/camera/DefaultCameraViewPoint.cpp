@@ -11,20 +11,19 @@ using namespace GgafLib;
 
 DefaultCameraViewPoint::DefaultCameraViewPoint(const char* prm_name) : GgafDxCameraViewPoint(prm_name) {
     _class_name = "DefaultCameraViewPoint";
-    pAxsMver_ = NEW GgafDxAxesMover(this);
 }
 
 void DefaultCameraViewPoint::initialize() {
 }
 
 void DefaultCameraViewPoint::processBehavior() {
-    pAxsMver_->behave();
+    getAxesMover()->behave();
     getKuroko()->behave();
 }
 
 void DefaultCameraViewPoint::slideMvTo(coord tx, coord ty, coord tz, frame t) {
     //ƒJƒƒ‰‚Ê‚é‚Á‚ÆˆÚ“®
-    pAxsMver_->asst()->slideVxyzMvByDtTo(
+    getAxesMover()->asst()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,
                               0.3, 0.4, 0, true);
 }
@@ -34,5 +33,4 @@ void DefaultCameraViewPoint::slideMvTo(GgafDxCore::GgafDxGeometricActor* pTarget
 }
 
 DefaultCameraViewPoint::~DefaultCameraViewPoint() {
-    GGAF_DELETE(pAxsMver_);
 }

@@ -19,8 +19,6 @@ using namespace VioletVreath;
 MyMagicEnergyCore::MyMagicEnergyCore(const char* prm_name) :
         DefaultMeshActor(prm_name, "MagicEnergyCore", STATUS(MyMagicEnergyCore)) {
     _class_name = "MyMagicEnergyCore";
-    pScaler_ = NEW GgafDxScaler(this);
-    pAxsMver_ = NEW GgafDxAxesMover(this);
     MyMagicEnergy* p = NEW MyMagicEnergy("MyMagicEnergy", this);
     addSubLast(p);
     setAlpha(0.7);
@@ -39,7 +37,7 @@ void MyMagicEnergyCore::initialize() {
 }
 
 void MyMagicEnergyCore::onActive() {
-    pAxsMver_->execGravitationMvSequenceTwd(
+    getAxesMover()->execGravitationMvSequenceTwd(
                       P_MYSHIP,
                       +PX_C(90), 0, 0,
                       PX_C(10), 1000, PX_C(20));
@@ -49,7 +47,7 @@ void MyMagicEnergyCore::processBehavior() {
     double s = (P_MYSHIP->mp_ * (1.0 / MY_SHIP_MAX_MP));
     GgafDxKuroko* const pKuroko = getKuroko();
     //MP‚É˜A“®‚µ‚Ä‘å‚«‚­‚È‚é
-    pScaler_->transitionLinearStep(
+    getScaler()->transitionLinearStep(
                 s * MAX_SCALSE_MagicEnergyCore,
                 100
              );
@@ -60,8 +58,8 @@ void MyMagicEnergyCore::processBehavior() {
     } else {
         pChecker->disable(0);
     }
-    pScaler_->behave();
-    pAxsMver_->behave();
+    getScaler()->behave();
+    getAxesMover()->behave();
     pKuroko->behave();
 }
 
@@ -79,6 +77,4 @@ bool MyMagicEnergyCore::isOutOfSpacetime() const {
 }
 
 MyMagicEnergyCore::~MyMagicEnergyCore() {
-    GGAF_DELETE(pScaler_);
-    GGAF_DELETE(pAxsMver_);
 }

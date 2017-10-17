@@ -43,7 +43,7 @@ void DamageDispBar::processBehavior() {
 
 void DamageDispBar::processJudgement() {
     if (is_damege_disp_) {
-        _x = pSourceBar_->_x + PX_C(pSourceBar_->getBarPx()); //pSourceBar_先端の座標
+        _x = pSourceBar_->_x + pSourceBar_->getWidth(); //pSourceBar_先端の座標
         getUvFlipper()->behave();
         damege_disp_timer_--;
         if (damege_disp_timer_ <= 0) {

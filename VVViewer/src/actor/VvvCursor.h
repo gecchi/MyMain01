@@ -21,8 +21,6 @@ public:
     };
     /** フィードイン・フェードアウト支援 */
     GgafDxCore::GgafDxAlphaFader* pAFader_;
-    /** 拡大縮小支援オブジェクト */
-    GgafDxCore::GgafDxScaler* pScaler_;
     coord tx_, ty_, tz_;
 
 public:

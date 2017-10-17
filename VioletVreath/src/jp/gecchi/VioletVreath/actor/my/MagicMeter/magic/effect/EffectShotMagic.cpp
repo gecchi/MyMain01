@@ -14,7 +14,6 @@ using namespace VioletVreath;
 EffectShotMagic::EffectShotMagic(const char* prm_name) :
         DefaultSpriteActor(prm_name, "EffectShotMagic", nullptr) {
     _class_name = "EffectShotMagic";
-    pScaler_ = NEW GgafDxScaler(this);
     pColorist_ = NEW GgafDxColorist(this);
     effectBlendOne(); //加算合成Technique
     setZEnableDraw(true);       //描画時、Zバッファ値は考慮される
@@ -39,7 +38,7 @@ void EffectShotMagic::processBehavior() {
     getUvFlipper()->behave();
     getKuroko()->behave();
     pColorist_->behave();
-    pScaler_->behave();
+    getScaler()->behave();
 }
 
 void EffectShotMagic::processJudgement() {
@@ -49,6 +48,5 @@ void EffectShotMagic::onInactive() {
 }
 
 EffectShotMagic::~EffectShotMagic() {
-    GGAF_DELETE(pScaler_);
     GGAF_DELETE(pColorist_);
 }

@@ -14,10 +14,6 @@ namespace VioletVreath {
 class EffectSpeedMagic : public GgafLib::DefaultSpriteActor {
 
 public:
-    /** 拡大縮小支援オブジェクト */
-    GgafDxCore::GgafDxScaler* pScaler_;
-
-public:
     EffectSpeedMagic(const char* prm_name);
 
     void initialize() override;

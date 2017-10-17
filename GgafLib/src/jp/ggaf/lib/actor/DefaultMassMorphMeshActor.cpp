@@ -2,7 +2,6 @@
 
 #include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/model/GgafDxMassMorphMeshModel.h"
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #ifdef MY_DEBUG

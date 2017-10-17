@@ -15,7 +15,6 @@ using namespace VVViewer;
 VvvCursor::VvvCursor(const char* prm_name) :
         GgafLib::DefaultSpriteActor(prm_name, "Cursor") {
     pAFader_ = NEW GgafDxAlphaFader(this);
-    pScaler_ = NEW GgafDxScaler(this);
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //ワールド変換はビルボードでRz回転に強制
     effectBlendOne(); //エフェクトテクニックは加算合成に強制
     setZEnableDraw(false);      //Zバッファは考慮無しに強制
@@ -32,8 +31,9 @@ void VvvCursor::initialize() {
     //座標設定
     _x = _y = _z = 0; //(0,0,0) は画面の中心
     getKuroko()->_angvelo_face[AXIS_Z] = 1000;
-    pScaler_->setRange(2000, 4000);
-    pScaler_->beat(30, 2, 0, 28, -1); //無限ループ
+    GgafDxScaler* const pScaler = getScaler();
+    pScaler->setRange(2000, 4000);
+    pScaler->beat(30, 2, 0, 28, -1); //無限ループ
     setAlpha(0);
 }
 
@@ -68,7 +68,7 @@ void VvvCursor::processBehavior() {
         _z = tz_;
     }
 
-    pScaler_->behave();
+    getScaler()->behave();
     pAFader_->behave();
 }
 void VvvCursor::sinkMe() {
@@ -89,5 +89,4 @@ void VvvCursor::moveTo(coord X, coord Y, coord Z) {
 
 VvvCursor::~VvvCursor() {
     GGAF_DELETE(pAFader_);
-    GGAF_DELETE(pScaler_);
 }

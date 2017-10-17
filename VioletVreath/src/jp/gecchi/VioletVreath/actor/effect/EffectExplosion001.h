@@ -14,10 +14,6 @@ namespace VioletVreath {
 class EffectExplosion001 : public GgafLib::DefaultMassSpriteActor {
 
 public:
-    /** 拡大縮小支援オブジェクト */
-    GgafDxCore::GgafDxScaler* pScaler_;
-
-public:
     EffectExplosion001(const char* prm_name);
 
     void initialize() override;

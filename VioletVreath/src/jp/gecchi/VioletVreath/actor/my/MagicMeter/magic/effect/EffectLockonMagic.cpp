@@ -13,7 +13,6 @@ using namespace VioletVreath;
 EffectLockonMagic::EffectLockonMagic(const char* prm_name) :
         DefaultSpriteActor(prm_name, "EffectLockonMagic", nullptr) {
     _class_name = "EffectLockonMagic";
-    pScaler_ = NEW GgafDxScaler(this);
     effectBlendOne(); //加算合成Technique
     setZEnableDraw(true);       //描画時、Zバッファ値は考慮される
     setZWriteEnable(false); //自身のZバッファを書き込みしない
@@ -32,7 +31,7 @@ void EffectLockonMagic::onActive() {
 void EffectLockonMagic::processBehavior() {
     getUvFlipper()->behave();
     getKuroko()->behave();
-    pScaler_->behave();
+    getScaler()->behave();
 }
 
 void EffectLockonMagic::processJudgement() {
@@ -42,5 +41,4 @@ void EffectLockonMagic::onInactive() {
 }
 
 EffectLockonMagic::~EffectLockonMagic() {
-    GGAF_DELETE(pScaler_);
 }

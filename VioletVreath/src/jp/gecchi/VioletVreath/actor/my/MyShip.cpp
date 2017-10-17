@@ -114,7 +114,6 @@ MyShip::MyShip(const char* prm_name) :
 //CubeMapMeshActor(prm_name, "wakka", STATUS(MyShip)) {
 //DefaultD3DXAniMeshActor(prm_name, "AnimatedSkelton", STATUS(MyShip)) {
     _class_name = "MyShip";
-    pAxsMver_ = NEW GgafDxAxesMover(this);
 
     //effectBlendOne(); //加算合成Technique指定
 
@@ -335,9 +334,9 @@ void MyShip::initialize() {
 
     //setMaterialColor(1.0, 0.5, 0.5);
     setAlpha(1.0);
-
-    pAxsMver_->forceVxyzMvVeloRange(-veloTurboTop_, veloTurboTop_);
-    pAxsMver_->setZeroVxyzMvAcce();
+    GgafDxAxesMover* const pAxesMover = getAxesMover();
+    pAxesMover->forceVxyzMvVeloRange(-veloTurboTop_, veloTurboTop_);
+    pAxesMover->setZeroVxyzMvAcce();
 
     getKuroko()->setRollFaceAngVelo(300);
 }
@@ -386,6 +385,7 @@ void MyShip::processBehavior() {
     VirtualButton* pVbPlay = VB_PLAY;
     int pos_camera = P_VAM->getPosCam();
     GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDxAxesMover* const pAxesMover = getAxesMover();
 
     //操作拒否
     if (!can_control_) {
@@ -415,7 +415,7 @@ void MyShip::processBehavior() {
         }
 
         if (pVbPlay->isPushedDown(VB_TURBO)) {
-            if (pAxsMver_->_velo_vx_mv == 0 && pAxsMver_->_velo_vy_mv == 0 && pAxsMver_->_velo_vz_mv == 0) {
+            if (pAxesMover->_velo_vx_mv == 0 && pAxesMover->_velo_vy_mv == 0 && pAxesMover->_velo_vz_mv == 0) {
                 //ターボ移動完全に終了しないと次のターボは実行不可
                 moveTurbo(way_);
                 UTIL::activateProperEffect01Of(this); //ターボ開始のエフェクト
@@ -430,28 +430,28 @@ void MyShip::processBehavior() {
             if (pVbPlay->isPressed(VB_TURBO)) {
                 //ターボボタンを押し続けることで、速度減衰がゆるやかになり、
                 //移動距離を伸ばす
-                pAxsMver_->_velo_vx_mv *= 0.96;
-                pAxsMver_->_velo_vy_mv *= 0.96;
-                pAxsMver_->_velo_vz_mv *= 0.96;
+                pAxesMover->_velo_vx_mv *= 0.96;
+                pAxesMover->_velo_vy_mv *= 0.96;
+                pAxesMover->_velo_vz_mv *= 0.96;
             } else {
                 //ターボを離した場合、速度減衰。
-                pAxsMver_->_velo_vx_mv *= 0.9;
-                pAxsMver_->_velo_vy_mv *= 0.9;
-                pAxsMver_->_velo_vz_mv *= 0.9;
+                pAxesMover->_velo_vx_mv *= 0.9;
+                pAxesMover->_velo_vy_mv *= 0.9;
+                pAxesMover->_velo_vz_mv *= 0.9;
             }
-            if (ABS(pAxsMver_->_velo_vx_mv) <= 2) {
-                pAxsMver_->_velo_vx_mv = 0;
+            if (ABS(pAxesMover->_velo_vx_mv) <= 2) {
+                pAxesMover->_velo_vx_mv = 0;
             }
-            if (ABS(pAxsMver_->_velo_vy_mv) <= 2) {
-                pAxsMver_->_velo_vy_mv = 0;
+            if (ABS(pAxesMover->_velo_vy_mv) <= 2) {
+                pAxesMover->_velo_vy_mv = 0;
             }
-            if (ABS(pAxsMver_->_velo_vz_mv) <= 2) {
-                pAxsMver_->_velo_vz_mv = 0;
+            if (ABS(pAxesMover->_velo_vz_mv) <= 2) {
+                pAxesMover->_velo_vz_mv = 0;
             }
         }
 
         if (pVbPlay->isDoublePushedDown(VB_OPTION,8,8) ) {
-            pAxsMver_->setZeroVxyzMvVelo(); //ターボ移動中でも停止する。（ターボキャンセル的になる！）
+            pAxesMover->setZeroVxyzMvVelo(); //ターボ移動中でも停止する。（ターボキャンセル的になる！）
         }
     }
 
@@ -484,7 +484,7 @@ void MyShip::processBehavior() {
 
     //座標に反映
     pKuroko->behave();
-    pAxsMver_->behave();
+    pAxesMover->behave();
     getSeTransmitter()->behave();
 
     if (invincible_frames_ > 0) {
@@ -545,8 +545,6 @@ void MyShip::processBehavior() {
             _z = MyShip::lim_z_right_;
         }
     }
-
-
 
 
     //毎フレームの呼吸の消費
@@ -1136,11 +1134,13 @@ void MyShip::moveNomal(dir26 prm_way) {
 }
 
 void MyShip::moveTurbo(dir26 prm_way) {
+    GgafDxAxesMover* const pAxesMover = getAxesMover();
+
     float vx,vy,vz;
     GgafDx26DirectionUtil::cnvDirNo2Vec(prm_way, vx, vy, vz);
-    pAxsMver_->addVxMvVelo(veloBeginMT_ * vx);
-    pAxsMver_->addVyMvVelo(veloBeginMT_ * vy);
-    pAxsMver_->addVzMvVelo(veloBeginMT_ * vz);
+    pAxesMover->addVxMvVelo(veloBeginMT_ * vx);
+    pAxesMover->addVyMvVelo(veloBeginMT_ * vy);
+    pAxesMover->addVzMvVelo(veloBeginMT_ * vz);
 
     angle rz, ry;
     GgafDx26DirectionUtil::cnvDirNo2RzRy(prm_way, rz, ry);
@@ -1155,7 +1155,6 @@ void MyShip::moveTurbo(dir26 prm_way) {
 }
 
 MyShip::~MyShip() {
-    GGAF_DELETE(pAxsMver_);
 }
 
 

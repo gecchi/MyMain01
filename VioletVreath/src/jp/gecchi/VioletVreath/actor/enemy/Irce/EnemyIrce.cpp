@@ -18,7 +18,6 @@ using namespace VioletVreath;
 EnemyIrce::EnemyIrce(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Eres", STATUS(EnemyIrce)) { //8/‚ð‚¢‚ê‚Æ‚©‚È‚¢‚Æƒ†ƒj[ƒN‚É‚È‚ç‚È‚¢
     _class_name = "EnemyIrce";
-    pScaler_ = NEW GgafDxScaler(this);
     iMovePatternNo_ = 0;
     GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
     pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
@@ -53,7 +52,7 @@ void EnemyIrce::processBehavior() {
     pKuroko->turnMvAngTwd(P_MYSHIP,
                           50, 0, TURN_CLOSE_TO, true);
     pKuroko->behave();
-    pScaler_->behave();
+    getScaler()->behave();
     //getSeTransmitter()->behave();
 }
 
@@ -80,5 +79,4 @@ void EnemyIrce::onInactive() {
 }
 
 EnemyIrce::~EnemyIrce() {
-    GGAF_DELETE(pScaler_);
 }

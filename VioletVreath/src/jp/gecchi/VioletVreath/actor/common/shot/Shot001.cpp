@@ -19,7 +19,6 @@ using namespace VioletVreath;
 Shot001::Shot001(const char* prm_name) :
         DefaultMassMeshActor(prm_name, "Flora", STATUS(Shot001)) {
     _class_name = "Shot001";
-    pScaler_ = NEW GgafDxScaler(this);
 
     GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
     pSe->set(0, "WAVE_EXPLOSION_002");
@@ -33,7 +32,7 @@ void Shot001::initialize() {
     pChecker->createCollisionArea(1);
     pChecker->setColliAABox_Cube(0, PX_C(16));
     setScale(2000);
-    pScaler_->setRange(2000, 3000);
+    getScaler()->setRange(2000, 3000);
 }
 
 void Shot001::onActive() {
@@ -44,7 +43,7 @@ void Shot001::onActive() {
     pKuroko->setMvVelo(RF_Shot001_MvVelo(G_RANK));    //移動速度
     pKuroko->setRollFaceAngVelo(RF_Shot001_AngVelo(G_RANK)); //きりもみ具合
     pKurokoLeader_->start(RELATIVE_COORD_DIRECTION);
-    pScaler_->beat(30,5,0,2,-1);
+    getScaler()->beat(30,5,0,2,-1);
 //    _TRACE_(FUNC_NAME<<" id=["<<getId()<<"]("<<getActiveFrame()<<") → = \t"<<getKuroko()->_rz_mv<<"\t"<<getKuroko()->_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");
 }
 
@@ -54,7 +53,7 @@ void Shot001::processBehavior() {
     //座標に反映
     pKurokoLeader_->behave(); //スプライン移動を振る舞い
     pKuroko->behave();
-    pScaler_->behave();
+    getScaler()->behave();
 //    _TRACE_(FUNC_NAME<<" after id=["<<getId()<<"]("<<getActiveFrame()<<") → = \t"<<getKuroko()->_rz_mv<<"\t"<<getKuroko()->_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");
 }
 
@@ -82,6 +81,5 @@ void Shot001::onInactive() {
 
 Shot001::~Shot001() {
     GGAF_DELETE(pKurokoLeader_);
-    GGAF_DELETE(pScaler_);
     pSplLineConnection_->close();
 }

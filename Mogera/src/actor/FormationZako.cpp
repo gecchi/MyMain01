@@ -1,7 +1,6 @@
 #include "FormationZako.h"
 
 #include "jp/ggaf/core/util/GgafRgb.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "Zako.h"

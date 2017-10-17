@@ -1,7 +1,6 @@
 #include "Planet001.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "Planet001Atmosphere.h"
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"

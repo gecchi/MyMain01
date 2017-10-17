@@ -13,10 +13,6 @@ namespace VioletVreath {
  */
 class EffectShotMagic : public GgafLib::DefaultSpriteActor {
 
-public:
-    /** 拡大縮小支援オブジェクト */
-    GgafDxCore::GgafDxScaler* pScaler_;
-
     GgafDxCore::GgafDxColorist* pColorist_;
 public:
     EffectShotMagic(const char* prm_name);

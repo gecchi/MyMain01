@@ -25,7 +25,7 @@ DefaultSpacetime::DefaultSpacetime(const char* prm_name, DefaultCamera* prm_pCam
         _pLinearOctree = NEW GgafLinearOctree(PROPERTY::OCTREE_LEVEL);
         _pLinearOctree->setRootOctant(_x_bound_left  ,_y_bound_bottom, _z_bound_near ,
                                       _x_bound_right ,_y_bound_top   , _z_bound_far   );
-        _pLinearOctreeHitCheckRounder = NEW GgafLinearTreeRounder<GgafActor,3>(_pLinearOctree->_paOctant, _pLinearOctree->_num_space, &GgafActor::executeHitChk_MeAnd);
+        _pLinearOctreeHitCheckRounder = NEW OctreeRounder(_pLinearOctree->_paOctant, _pLinearOctree->_num_space, &GgafActor::executeHitChk_MeAnd);
         _TRACE_("八分木作成終了");
     } else {
         //四分木作成
@@ -33,7 +33,7 @@ DefaultSpacetime::DefaultSpacetime(const char* prm_name, DefaultCamera* prm_pCam
         _pLinearQuadtree = NEW GgafLinearQuadtree(PROPERTY::QUADTREE_LEVEL);
         _pLinearQuadtree->setRootQuadrant(_x_bound_left  ,_y_bound_bottom,
                                           _x_bound_right ,_y_bound_top    );
-        _pLinearQuadtreeHitCheckRounder = NEW GgafLinearTreeRounder<GgafActor, 2>(_pLinearQuadtree->_paQuadrant,_pLinearQuadtree->_num_space, &GgafActor::executeHitChk_MeAnd);
+        _pLinearQuadtreeHitCheckRounder = NEW QuadtreeRounder(_pLinearQuadtree->_paQuadrant,_pLinearQuadtree->_num_space, &GgafActor::executeHitChk_MeAnd);
         _TRACE_("四分木作成終了");
     }
 }

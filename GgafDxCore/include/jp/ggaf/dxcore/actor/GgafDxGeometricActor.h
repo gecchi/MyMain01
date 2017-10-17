@@ -26,9 +26,13 @@ private:
     }
 
     /** [r]黒衣 */
-    GgafDxKuroko* const _pKuroko;
+    GgafDxKuroko* _pKuroko;
+    /** [r]平行移動支援 */
+    GgafDxAxesMover* _pAxesMover;
+    /** [r]拡大縮小支援 */
+    GgafDxScaler* _pScaler;
     /** [r]効果音発生管理オブジェクト */
-    GgafDxSeTransmitterForActor* const _pSeTransmitter;
+    GgafDxSeTransmitterForActor* _pSeTransmitter;
 
 public:
     /** [r] 変換済み座標であるか(true:本アクターは変換済み座標/false:本アクターはワールド座標) */
@@ -160,6 +164,31 @@ public:
     virtual GgafDxGeometricActor* getNext() const override { //共変の戻り値
         return (GgafDxGeometricActor*)GgafActor::getNext();
     }
+
+
+    /**
+     * 本アクターの黒衣を取得 .
+     * @return 黒衣
+     */
+    GgafDxKuroko* getKuroko();
+
+    /**
+     * 本アクターの平行移動支援オブジェクトを取得 .
+     * @return 平行移動支援オブジェクト
+     */
+    GgafDxAxesMover* getAxesMover();
+
+    /**
+     * 本アクターの拡大縮小支援オブジェクトを取得 .
+     * @return 拡大縮小支援オブジェクト
+     */
+    GgafDxScaler* getScaler();
+
+    /**
+     * 本アクターのサウンドエフェクト出力支援オブジェクトを取得 .
+     * @return サウンドエフェクト出力支援オブジェクト
+     */
+    GgafDxSeTransmitterForActor* getSeTransmitter();
 
     /**
      * 判定処理事前処理 .
@@ -610,21 +639,6 @@ public:
         _rate_of_bounding_sphere_radius = prm_rate;
     }
 
-    /**
-     * 本アクターの黒衣を取得 .
-     * @return 黒衣
-     */
-    inline GgafDxKuroko* getKuroko() const {
-        return _pKuroko;
-    }
-
-    /**
-     * 本アクターのサウンドエフェクト出力支援オブジェクトを取得 .
-     * @return サウンドエフェクト出力支援オブジェクト
-     */
-    inline GgafDxSeTransmitterForActor* getSeTransmitter() const {
-        return _pSeTransmitter;
-    }
 
     virtual void onEnd() override;
 

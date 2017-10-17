@@ -27,7 +27,7 @@ public:
 
     TrialAndErrScene* pTrialAndErrScene_;
 
-    GgafCore::GgafLinearTreeRounder<GgafCore::GgafActor, 2>* pHitCheckRounder_;
+    GgafLib::QuadtreeRounder* pHitCheckRounder_;
     /**
      * コンストラクタ .
      * @param prm_name 名称

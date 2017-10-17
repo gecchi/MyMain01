@@ -22,7 +22,7 @@ public:
     /** [r]出現座標(シーンが設定) */
     GgafDxCore::GgafDxGeoElem entry_pos_;
 
-    GgafDxCore::GgafDxScaler* pScaler_;
+    GgafDxCore::GgafDxScaler* pScaler4Sc_;
     GgafLib::DefaultGeometricActor* pActor4Sc_;
 
     XpmConnection* pXpmConnection_;

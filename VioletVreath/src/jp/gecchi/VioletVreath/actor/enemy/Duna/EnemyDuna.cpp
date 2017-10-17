@@ -25,7 +25,6 @@ EnemyDuna::EnemyDuna(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Duna", STATUS(EnemyDuna)) {
     _class_name = "EnemyDuna";
     pAFader_ = NEW GgafDxAlphaFader(this);
-    pAxsMver_ = NEW GgafDxAxesMover(this);
     GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
     pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     effectBlendOne(); //‰ÁŽZ‡¬
@@ -56,9 +55,10 @@ void EnemyDuna::processBehavior() {
 
     MyShip* pMyShip = P_MYSHIP;
     GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDxAxesMover* const pAxesMover = getAxesMover();
     GgafProgress* const pProg = getProgress();
     if (pProg->hasJustChanged()) {
-        pAxsMver_->execGravitationMvSequenceTwd(pMyShip, PX_C(3), 30, PX_C(1));
+        pAxesMover->execGravitationMvSequenceTwd(pMyShip, PX_C(3), 30, PX_C(1));
     }
 
     switch (pProg->get()) {
@@ -363,7 +363,7 @@ void EnemyDuna::processBehavior() {
      }
 
     pKuroko->behave();
-    pAxsMver_->behave();
+    pAxesMover->behave();
     getMorpher()->behave();
     pAFader_->behave();
 //_TRACE_("EnemyDuna f:"<<getBehaveingFrame()<<"  pProg="<<pProg->get()<<"   X,Y,Z="<<_x<<","<<_y<<","<<_z<<" ");
@@ -395,5 +395,4 @@ void EnemyDuna::onDispatchedShot(GgafDxCore::GgafDxFigureActor* prm_pActor, int 
 
 EnemyDuna::~EnemyDuna() {
     GGAF_DELETE(pAFader_);
-    GGAF_DELETE(pAxsMver_);
 }

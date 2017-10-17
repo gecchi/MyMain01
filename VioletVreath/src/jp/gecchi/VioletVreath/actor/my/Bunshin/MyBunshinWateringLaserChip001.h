@@ -28,8 +28,6 @@ class MyBunshinWateringLaserChip001 : public GgafLib::WateringLaserChip {
     void aimChip(int vTx, int vTy, int vTz);
 
 public:
-    /** 平行移動支援 */
-    GgafDxCore::GgafDxAxesMover* pAxsMver_;
 
     /** [r]ロックオンしている場合 true */
     bool is_lockon_;

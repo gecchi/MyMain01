@@ -14,10 +14,6 @@ namespace GgafLib {
 class DefaultCameraViewPoint : public GgafDxCore::GgafDxCameraViewPoint {
 
 public:
-    /** •½sˆÚ“®x‰‡ */
-    GgafDxCore::GgafDxAxesMover* pAxsMver_;
-
-public:
     DefaultCameraViewPoint(const char* prm_name);
 
     virtual void initialize() override;

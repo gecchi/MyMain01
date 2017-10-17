@@ -22,7 +22,6 @@ BoardTest::BoardTest(const char* prm_name) :
         DefaultFramedBoardActor(prm_name, "BoardTest") {
     _class_name = "BoardTest";
     pAFader_ = NEW GgafDxAlphaFader(this);
-    pScaler_ = NEW GgafDxScaler(this);
 }
 
 void BoardTest::onCreateModel() {
@@ -34,8 +33,9 @@ void BoardTest::initialize() {
     static int ptn[8] = {0, 8, 16, 24, 32, 40, 48, 56 };
     pFrameUvFlipper->customizePtnOrder(ptn, 8);
     pFrameUvFlipper->exec(FLIP_CUSTOMIZED_LOOP, 30);
-    pScaler_->setRange(R_SC(0.1), R_SC(1.5));
-    pScaler_->beat(300, 100, 100, 100, -1);
+    GgafDxScaler* const pScaler = getScaler();
+    pScaler->setRange(R_SC(0.1), R_SC(1.5));
+    pScaler->beat(300, 100, 100, 100, -1);
 //    setWidth(PX_C(32*4));
 //    setHeight(PX_C(32*5));
 }
@@ -93,7 +93,7 @@ void BoardTest::processBehavior() {
     pAFader_->behave();
     getFrameUvFlipper()->behave();
     getUvFlipper()->behave();
-//    pScaler_->behave();
+//    getScaler()->behave();
 }
 
 void BoardTest::processJudgement() {

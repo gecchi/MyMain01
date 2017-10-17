@@ -22,7 +22,6 @@ using namespace VioletVreath;
 EnemyEmus::EnemyEmus(const char* prm_name) :
         DefaultMassMorphMeshActor(prm_name, "Emus_1", STATUS(EnemyEmus)) {
     _class_name = "EnemyEmus";
-    pScaler_ = NEW GgafDxScaler(this);
     is_open_hatch_ = false;
     frame_of_open_interval_  = 3*60;
     frame_of_close_interval_ = 5*60;
@@ -57,8 +56,9 @@ void EnemyEmus::initialize() {
     pChecker->createCollisionArea(1);
     pChecker->setColliAABox_Cube(0, 200000);
     setScale(1000);
-    pScaler_->setRange(1000, 1200);
-    pScaler_->beat(30, 5, 0, 20, -1);
+    GgafDxScaler* const pScaler = getScaler();
+    pScaler->setRange(1000, 1200);
+    pScaler->beat(30, 5, 0, 20, -1);
 }
 
 void EnemyEmus::onActive() {
@@ -181,6 +181,5 @@ void EnemyEmus::onInactive() {
 }
 
 EnemyEmus::~EnemyEmus() {
-    GGAF_DELETE(pScaler_);
 //    pConn_pDepoStore_laser_set->close();
 }

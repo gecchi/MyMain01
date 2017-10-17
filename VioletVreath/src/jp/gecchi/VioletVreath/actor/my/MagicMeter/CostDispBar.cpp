@@ -39,7 +39,7 @@ void CostDispBar::processJudgement() {
 }
 
 void CostDispBar::processPreDraw() {
-    _x = pSourceBar_->_x + PX_C(pSourceBar_->getBarPx()); //pSourceBar_先端の座標
+    _x = pSourceBar_->_x + pSourceBar_->getWidth(); //pSourceBar_先端の座標
     pixcoord bar_width = (pixcoord)(_pPxQty->getQty());
     if (bar_width >= 0) {
         getUvFlipper()->setActivePtn(4);//青

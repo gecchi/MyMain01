@@ -13,7 +13,6 @@ using namespace VioletVreath;
 EffectExplosion003::EffectExplosion003(const char* prm_name) :
         DefaultPointSpriteSetActor(prm_name, "EffectExplosion003", nullptr) {
     _class_name = "EffectExplosion003";
-    pScaler_ = NEW GgafDxScaler(this);
     setHitAble(false);
 }
 
@@ -28,7 +27,7 @@ void EffectExplosion003::initialize() {
 
 void EffectExplosion003::onActive() {
     setScale(0);
-    pScaler_->transitionAcceUntilVelo(R_SC(0.01) , R_SC(0.1), -R_SC(0.001));
+    getScaler()->transitionAcceUntilVelo(R_SC(0.01) , R_SC(0.1), -R_SC(0.001));
     getUvFlipper()->exec(FLIP_ORDER_LOOP, 1);
     setRzRyFaceAng(getKuroko()->getRzMvAng(), getKuroko()->getRyMvAng());
 }
@@ -36,15 +35,14 @@ void EffectExplosion003::onActive() {
 void EffectExplosion003::processBehavior() {
     getUvFlipper()->behave();
     getKuroko()->behave();
-    pScaler_->behave();
+    getScaler()->behave();
 }
 
 void EffectExplosion003::processJudgement() {
-    if (!pScaler_->isTransitioning()) {
+    if (!getScaler()->isTransitioning()) {
         sayonara();
     }
 }
 
 EffectExplosion003::~EffectExplosion003() {
-    GGAF_DELETE(pScaler_);
 }

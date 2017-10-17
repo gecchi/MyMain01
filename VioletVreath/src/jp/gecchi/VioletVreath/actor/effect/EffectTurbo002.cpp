@@ -12,7 +12,6 @@ using namespace VioletVreath;
 EffectTurbo002::EffectTurbo002(const char* prm_name) :
         DefaultSpriteActor(prm_name, "Turbo002", nullptr) {
     _class_name = "EffectTurbo002";
-    pScaler_ = NEW GgafDxScaler(this);
     inactivate();
     effectBlendOne(); //加算合成
     setHitAble(false); //当たり判定無し
@@ -27,9 +26,9 @@ void EffectTurbo002::initialize() {
 void EffectTurbo002::onActive() {
     getUvFlipper()->setActivePtnToTop();
     setAlpha(0.4);
-    pScaler_->setRange(100000, 1000); //スケーリング・範囲
+    getScaler()->setRange(100000, 1000); //スケーリング・範囲
     setScale(1000);
-    pScaler_->transitionLinearUntil(100000, 60);//スケーリング・60F費やして1000に縮小
+    getScaler()->transitionLinearUntil(100000, 60);//スケーリング・60F費やして1000に縮小
     setRyFaceAng(D90ANG);
     getKuroko()->setFaceAngVelo(AXIS_Z, 2000);
 }
@@ -38,11 +37,11 @@ void EffectTurbo002::processBehavior() {
     addAlpha(-(1.0/60.0));
     getUvFlipper()->behave();
     getKuroko()->behave();
-    pScaler_->behave();
+    getScaler()->behave();
 }
 
 void EffectTurbo002::processJudgement() {
-    if (!pScaler_->isTransitioning()) {
+    if (!getScaler()->isTransitioning()) {
         inactivate();
     }
 }
@@ -51,5 +50,4 @@ void EffectTurbo002::onInactive() {
 }
 
 EffectTurbo002::~EffectTurbo002() {
-    GGAF_DELETE(pScaler_);
 }

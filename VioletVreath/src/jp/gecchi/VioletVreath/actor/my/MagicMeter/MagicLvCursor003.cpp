@@ -30,7 +30,7 @@ void MagicLvCursor003::initialize() {
     GgafDxUvFlipper* pUvFlipper = getUvFlipper();
     pUvFlipper->setFlipPtnRange(0, 3);
     pUvFlipper->exec(NOT_ANIMATED);
-    pScaler_->setRange(1000, 10000);
+    getScaler()->setRange(1000, 10000);
 }
 
 void MagicLvCursor003::processPreDraw() {
@@ -66,7 +66,7 @@ void MagicLvCursor003::markOnLevelUpCast(int prm_lv) {
     pUvFlipper->setActivePtnToTop();
     pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
     setScale(10000);
-    pScaler_->transitionLinearUntil(1000, 20);
+    getScaler()->transitionLinearUntil(1000, 20);
     setRzFaceAng(D180ANG);
     getKuroko()->turnRzFaceAngTo(0, D180ANG/20, 0, TURN_COUNTERCLOCKWISE);
 }
@@ -80,7 +80,7 @@ void MagicLvCursor003::markOnLevelDownCast(int prm_lv) {
     pUvFlipper->setActivePtnToTop();
     pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
     setScale(1000);
-    pScaler_->transitionLinearUntil(10000, 20);
+    getScaler()->transitionLinearUntil(10000, 20);
 }
 
 void MagicLvCursor003::markOnInvoke(int prm_lv) {
@@ -100,7 +100,7 @@ void MagicLvCursor003::markOnEffect(int prm_lv) {
     pUvFlipper->setActivePtnToTop();
     pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
     setScale(1000);
-    pScaler_->transitionLinearUntil(10000, 20);
+    getScaler()->transitionLinearUntil(10000, 20);
 }
 
 MagicLvCursor003::~MagicLvCursor003() {

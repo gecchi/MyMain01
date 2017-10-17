@@ -13,7 +13,6 @@ using namespace VioletVreath;
 EffectLaserMagic::EffectLaserMagic(const char* prm_name) :
         DefaultSpriteActor(prm_name, "EffectLaserMagic", nullptr) {
     _class_name = "EffectLaserMagic";
-    pScaler_ = NEW GgafDxScaler(this);
     effectBlendOne(); //加算合成Technique
     setZEnableDraw(true);       //描画時、Zバッファ値は考慮される
     setZWriteEnable(false); //自身のZバッファを書き込みしない
@@ -32,7 +31,7 @@ void EffectLaserMagic::onActive() {
 void EffectLaserMagic::processBehavior() {
     getUvFlipper()->behave();
     getKuroko()->behave();
-    pScaler_->behave();
+    getScaler()->behave();
 }
 
 void EffectLaserMagic::processJudgement() {
@@ -42,5 +41,4 @@ void EffectLaserMagic::onInactive() {
 }
 
 EffectLaserMagic::~EffectLaserMagic() {
-    GGAF_DELETE(pScaler_);
 }

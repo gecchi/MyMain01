@@ -27,8 +27,6 @@ public:
         SE_DAMAGED   ,
         SE_EXPLOSION ,
     };
-    /** •½sˆÚ“®x‰‡ */
-    GgafDxCore::GgafDxAxesMover* pAxsMver_;
 
 public:
     EnemyDrastea(const char* prm_name);

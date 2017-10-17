@@ -14,9 +14,6 @@ namespace VioletVreath {
 class EnemyTamago01 : public GgafLib::SpriteMeshSetActor {
 
 public:
-    /** 拡大縮小支援オブジェクト */
-    GgafDxCore::GgafDxScaler* pScaler_;
-
     /** 行動パターン番号 */
     int iMovePatternNo_;
     /** 移動スプラインプログラム */

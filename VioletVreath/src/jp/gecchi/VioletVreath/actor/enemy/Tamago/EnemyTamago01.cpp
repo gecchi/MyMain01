@@ -23,7 +23,6 @@ using namespace VioletVreath;
 EnemyTamago01::EnemyTamago01(const char* prm_name) :
         SpriteMeshSetActor(prm_name, "8/tamago", STATUS(EnemyTamago01)) { //8/‚ð‚¢‚ê‚Æ‚©‚È‚¢‚Æƒ†ƒj[ƒN‚É‚È‚ç‚È‚¢
     _class_name = "EnemyTamago01";
-    pScaler_ = NEW GgafDxScaler(this);
     iMovePatternNo_ = 0;
     pProgram_Tamago01Move_ = nullptr;
     pConn_depo_ = nullptr;
@@ -182,7 +181,7 @@ void EnemyTamago01::processBehavior() {
         pProgram_Tamago01Move_->behave();
     }
     pKuroko->behave();
-    pScaler_->behave();
+    getScaler()->behave();
     getUvFlipper()->behave();
     //getSeTransmitter()->behave();
 }
@@ -208,7 +207,6 @@ void EnemyTamago01::onInactive() {
 }
 
 EnemyTamago01::~EnemyTamago01() {
-    GGAF_DELETE(pScaler_);
     pConn_depo_->close();
     GGAF_DELETE_NULLABLE(pProgram_Tamago01Move_);
 }

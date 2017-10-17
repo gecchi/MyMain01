@@ -31,12 +31,12 @@ FormationThagoras::FormationThagoras(const char* prm_name,
     call_up_interval_ = 20;
 
     pActor4Sc_ = NEW DefaultGeometricActor("Actor4Sc");
-    pScaler_ = NEW GgafDxScaler(pActor4Sc_);
+    pScaler4Sc_ = NEW GgafDxScaler(pActor4Sc_);
 
 }
 void FormationThagoras::initialize() {
-    pScaler_->setRange(R_SC(1.0), R_SC(2.0));
-    pScaler_->beat(50, 10, 0, 40, -1);
+    pScaler4Sc_->setRange(R_SC(1.0), R_SC(2.0));
+    pScaler4Sc_->beat(50, 10, 0, 40, -1);
 }
 
 void FormationThagoras::onActive() {
@@ -56,7 +56,7 @@ void FormationThagoras::processBehavior() {
         }
         cnt_call_up_row_++;
     }
-    pScaler_->behave();
+    pScaler4Sc_->behave();
 }
 
 void FormationThagoras::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
@@ -69,6 +69,6 @@ GgafXpm* FormationThagoras::getXpm() {
 
 FormationThagoras::~FormationThagoras() {
     pXpmConnection_->close();
-    GGAF_DELETE(pScaler_);
+    GGAF_DELETE(pScaler4Sc_);
     GGAF_DELETE(pActor4Sc_);
 }

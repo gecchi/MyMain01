@@ -18,7 +18,6 @@ using namespace VioletVreath;
 EnemyDrastea::EnemyDrastea(const char* prm_name) :
         CubeMapMeshSetActor(prm_name, "Drastea", STATUS(EnemyDrastea)) {
     _class_name = "EnemyDrastea";
-    pAxsMver_ = NEW GgafDxAxesMover(this);
     GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
     pSe->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
@@ -78,9 +77,10 @@ void EnemyDrastea::initialize() {
 void EnemyDrastea::onActive() {
     getStatus()->reset();
     GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDxAxesMover* const pAxesMover = getAxesMover();
     pKuroko->setMvVelo(0);
     pKuroko->setRollPitchYawFaceAngVelo(700, 1100, 300);
-    pAxsMver_->setVxMvVelo(-3000);
+    pAxesMover->setVxMvVelo(-3000);
     const coord appearances_renge_z = (MyShip::lim_z_left_ - MyShip::lim_z_right_) * 4;
     const coord appearances_renge_y = (MyShip::lim_y_top_ - MyShip::lim_y_bottom_) * 4;
     Spacetime* pSpacetime =  P_GOD->getSpacetime();
@@ -93,7 +93,7 @@ void EnemyDrastea::onActive() {
 void EnemyDrastea::processBehavior() {
     //À•W‚É”½‰f
     getKuroko()->behave();
-    pAxsMver_->behave();
+    getAxesMover()->behave();
     getSeTransmitter()->behave();
 }
 
@@ -120,6 +120,5 @@ void EnemyDrastea::onInactive() {
 }
 
 EnemyDrastea::~EnemyDrastea() {
-    GGAF_DELETE(pAxsMver_);
 }
 

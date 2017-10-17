@@ -16,8 +16,6 @@ using namespace VioletVreath;
 Shot002::Shot002(const char* prm_name) :
         DefaultMassMeshActor(prm_name, "Flora", STATUS(Shot002)) {
     _class_name = "Shot002";
-    pScaler_ = NEW GgafDxScaler(this);
-
     GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
     pSe->set(0, "WAVE_EXPLOSION_002");
 }
@@ -53,7 +51,7 @@ void Shot002::processBehavior() {
     }
     //À•W‚É”½‰f
     pKuroko->behave();
-    pScaler_->behave();
+    getScaler()->behave();
     getSeTransmitter()->behave();
 }
 
@@ -75,5 +73,4 @@ void Shot002::onHit(const GgafActor* prm_pOtherActor) {
 }
 
 Shot002::~Shot002() {
-    GGAF_DELETE(pScaler_);
 }

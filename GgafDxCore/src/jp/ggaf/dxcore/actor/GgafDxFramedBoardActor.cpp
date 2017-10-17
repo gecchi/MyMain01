@@ -81,7 +81,8 @@ void GgafDxFramedBoardActor::processDraw() {
 
     float frame_width_rate, center_width_rate;
     float total_width_px;
-    if (_sx  > _lim_center_sx) {
+    int sgn_sx = SGN(_sx);
+    if (ABS(_sx)  > _lim_center_sx) {
         //â°ïùÇ…ó]óTÇ†ÇËÅA1,4,7 ÇÃâ°ïùÇêLèkÇ≥ÇπÇÈÅB
 
         //  f = _model_frame_width_px
@@ -114,7 +115,7 @@ void GgafDxFramedBoardActor::processDraw() {
         //
         //  2f+x = r(2f+c)
         //  x = r(2f+c)-2f
-        frame_width_rate = 1.0f;
+        frame_width_rate = 1.0f * sgn_sx;
         pixcoord fw = 2*_model_frame_width_px;
         center_width_rate = ( SC_R(_sx)*(fw + _model_center_width_px) - fw ) / _model_center_width_px;
         total_width_px = fw + _model_center_width_px * center_width_rate;
@@ -152,7 +153,7 @@ void GgafDxFramedBoardActor::processDraw() {
         //
         //  l2x = r2f
         //  x = 2rf / 2l = rf / l
-        frame_width_rate = 1.0f * _sx  / _lim_center_sx;
+        frame_width_rate = 1.0f * _sx / _lim_center_sx;
         center_width_rate = 0.0f;
         total_width_px =  (_model_frame_width_px * frame_width_rate) + (_model_frame_width_px * frame_width_rate);
     }
@@ -173,9 +174,10 @@ void GgafDxFramedBoardActor::processDraw() {
 
     float frame_height_rate, center_height_rate;
     float total_height_px;
-    if (_sy > _lim_center_sy) {
+    int sgn_sy = SGN(_sy);
+    if (ABS(_sy) > _lim_center_sy) {
         //ècïùÇ…ó]óTÇ†ÇËÅA3,4,5 ÇÃècïùÇêLèkÇ≥ÇπÇÈÅB
-        frame_height_rate = 1.0f;
+        frame_height_rate = 1.0f * sgn_sy;
         pixcoord fh = 2*_model_frame_height_px;
         center_height_rate =  ( SC_R(_sy)*(fh + _model_center_height_px) - fh ) / _model_center_height_px;
         total_height_px = fh + _model_center_height_px * center_height_rate;
@@ -200,7 +202,6 @@ void GgafDxFramedBoardActor::processDraw() {
         hr = pID3DXEffect->SetFloat(pFramedBoardEffect->_h_local_offset_y, 0.0f);
     }
     checkDxException(hr, D3D_OK, "SetFloat(_h_local_offset_y) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-
 
     hr = pID3DXEffect->SetFloat(pFramedBoardEffect->_h_x, C_PX(_x));
     checkDxException(hr, D3D_OK, "SetFloat(_h_x) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

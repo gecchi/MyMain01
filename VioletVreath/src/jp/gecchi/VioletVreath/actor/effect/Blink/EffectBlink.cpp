@@ -1,7 +1,7 @@
 #include "EffectBlink.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -12,18 +12,17 @@ EffectBlink::EffectBlink(const char* prm_name, const char* prm_model) :
         DefaultMassMeshActor(prm_name, prm_model, nullptr) {
     _class_name = "EffectBlink";
     setHitAble(false);
-    pScaler_ = NEW GgafDxScaler(this);
     pTarget_ = nullptr;
     scale_in_frames_ = 1;
     duration_frames_ = 1;
     scale_out_frames_ = 1;
     sayonara_end_ = true;
     useProgress(PROG_BANPEI);
-    pScaler_->setRange(0, R_SC(1.0));
+    getScaler()->setRange(0, R_SC(1.0));
 }
 
 void EffectBlink::onActive() {
-    setScale(pScaler_->getBottom());
+    setScale(getScaler()->getBottom());
     getProgress()->reset(PROG_INIT);
 }
 
@@ -42,16 +41,17 @@ void EffectBlink::processBehavior() {
         }
     }
 
+    GgafDxScaler* const pScaler = getScaler();
     GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
-            pScaler_->transitionLinearToTop(scale_in_frames_);
+            pScaler->transitionLinearToTop(scale_in_frames_);
             pProg->changeNext();
             break;
         }
 
         case PROG_IN: {
-            if (pScaler_->isTransitioning() == false) {
+            if (pScaler->isTransitioning() == false) {
                 if (duration_frames_ > 0) {
                     pProg->changeNext();
                 } else {
@@ -63,14 +63,14 @@ void EffectBlink::processBehavior() {
 
         case PROG_STAY: {
             if (pProg->getFrame() >= duration_frames_) {
-                pScaler_->transitionLinearToBottom(scale_out_frames_);
+                pScaler->transitionLinearToBottom(scale_out_frames_);
                 pProg->changeNext();
             }
             break;
         }
 
         case PROG_OUT: {
-            if (pScaler_->isTransitioning() == false) {
+            if (pScaler->isTransitioning() == false) {
                 if (sayonara_end_) {
                     sayonara();
                 }
@@ -83,7 +83,7 @@ void EffectBlink::processBehavior() {
             break;
         }
     }
-    pScaler_->behave();
+    pScaler->behave();
 }
 
 void EffectBlink::processJudgement() {
@@ -106,7 +106,7 @@ void EffectBlink::blink(frame prm_scale_in_frames, frame prm_duration_frames, fr
     duration_frames_ = prm_duration_frames;
     scale_out_frames_ = prm_scale_out_frames;
     sayonara_end_ = prm_sayonara_end;
-    setScale(pScaler_->getBottom());
+    setScale(getScaler()->getBottom());
     getProgress()->reset(PROG_INIT);
 }
 
@@ -115,11 +115,10 @@ bool EffectBlink::isBlinking() {
 }
 
 void EffectBlink::forceFadeOut(frame prm_scale_out_frames) {
-    pScaler_->transitionLinearToBottom(prm_scale_out_frames);
+    getScaler()->transitionLinearToBottom(prm_scale_out_frames);
     getProgress()->change(PROG_OUT);
 }
 
 EffectBlink::~EffectBlink() {
-    GGAF_DELETE(pScaler_);
     pTarget_ = nullptr;
 }

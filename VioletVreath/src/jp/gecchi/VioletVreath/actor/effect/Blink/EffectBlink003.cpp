@@ -21,8 +21,8 @@ void EffectBlink003::initialize() {
 
 void EffectBlink003::onActive() {
     EffectBlink::onActive();
-    pScaler_->setRange(1, 128000);
-    setScale(pScaler_->getBottom());
+    getScaler()->setRange(1, 128000);
+    setScale(getScaler()->getBottom());
     setFaceAngZero();
     getKuroko()->setRollPitchYawFaceAngVelo(11000,7000,5000);
 }

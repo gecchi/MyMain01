@@ -25,9 +25,6 @@ public:
     /** フィードイン・フェードアウト支援 */
     GgafDxCore::GgafDxAlphaFader* pAFader_;
 
-    /** 平行移動支援 */
-    GgafDxCore::GgafDxAxesMover* pAxsMver_;
-
     int iMovePatternNo_;
     /** 弾発射効果エフェクト */
     GgafCore::GgafActorDepository* pDepo_effect_;

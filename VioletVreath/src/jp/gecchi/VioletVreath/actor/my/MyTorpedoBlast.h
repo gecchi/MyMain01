@@ -17,10 +17,6 @@ namespace VioletVreath {
 class MyTorpedoBlast : public GgafLib::DefaultMeshSetActor {
 
 public:
-    /** 拡大縮小支援オブジェクト */
-    GgafDxCore::GgafDxScaler* pScaler_;
-
-public:
     /**
      * コンストラクタ .
      * @param prm_name

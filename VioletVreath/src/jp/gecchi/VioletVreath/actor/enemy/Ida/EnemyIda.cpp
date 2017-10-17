@@ -20,7 +20,6 @@ using namespace VioletVreath;
 EnemyIda::EnemyIda(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Ida", STATUS(EnemyIda)) {
     _class_name = "EnemyIda";
-    pScaler_ = NEW GgafDxScaler(this);
     pAFader_ = NEW GgafDxAlphaFader(this);
     GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
     pSe->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
@@ -124,7 +123,6 @@ void EnemyIda::onInactive() {
 }
 
 EnemyIda::~EnemyIda() {
-    GGAF_DELETE(pScaler_);
     GGAF_DELETE(pAFader_);
 }
 

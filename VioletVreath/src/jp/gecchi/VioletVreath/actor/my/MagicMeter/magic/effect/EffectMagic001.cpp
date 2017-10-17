@@ -10,7 +10,6 @@ using namespace VioletVreath;
 EffectMagic001::EffectMagic001(const char* prm_name)
                : DefaultMeshSetActor(prm_name, "EffectMagic001", nullptr) {
     _class_name = "EffectMagic001";
-    pAxsMver_ = NEW GgafDxAxesMover(this);
     effectBlendOne(); //加算合成するTechnique指定
     setZEnableDraw(true);        //描画時、Zバッファ値は考慮される
     setZWriteEnable(false);  //自身のZバッファを書き込みしない
@@ -28,7 +27,6 @@ void EffectMagic001::onActive() {
 
 void EffectMagic001::processBehavior() {
     getKuroko()->behave();
-    pAxsMver_->behave();
 }
 
 void EffectMagic001::processJudgement() {
@@ -41,5 +39,4 @@ void EffectMagic001::onInactive() {
 }
 
 EffectMagic001::~EffectMagic001() {
-    GGAF_DELETE(pAxsMver_);
 }

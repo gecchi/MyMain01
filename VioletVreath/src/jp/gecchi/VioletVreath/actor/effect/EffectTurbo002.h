@@ -14,10 +14,6 @@ namespace VioletVreath {
 class EffectTurbo002 : public GgafLib::DefaultSpriteActor {
 
 public:
-    /** 拡大縮小支援オブジェクト */
-    GgafDxCore::GgafDxScaler* pScaler_;
-
-public:
     EffectTurbo002(const char* prm_name);
 
     void initialize() override;

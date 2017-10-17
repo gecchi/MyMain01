@@ -19,7 +19,6 @@ using namespace VioletVreath;
 EnemyGlajaLance001::EnemyGlajaLance001(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "GlajaLance001", STATUS(EnemyGlajaLance001)) {
     _class_name = "EnemyGlajaLance001";
-    pScaler_ = NEW GgafDxScaler(this);
     effectBlendOne(); //加算合成
     setZEnableDraw(true);
     setZWriteEnable(false);
@@ -55,8 +54,9 @@ void EnemyGlajaLance001::onActive() {
     pChecker->disable(1);
     pChecker->disable(2);
     setScale(R_SC(1));
-    pScaler_->reset();
-    pScaler_->behave();
+    GgafDxScaler* const pScaler = getScaler();
+    pScaler->reset();
+    pScaler->behave();
     getStatus()->reset();
     setAlpha(0.99);
     getProgress()->reset(PROG_INIT);
@@ -65,6 +65,7 @@ void EnemyGlajaLance001::onActive() {
 void EnemyGlajaLance001::processBehavior() {
     MyShip* pMyShip = P_MYSHIP;
     GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDxScaler* const pScaler = getScaler();
     GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
@@ -87,11 +88,11 @@ void EnemyGlajaLance001::processBehavior() {
                 //シャキーンと槍になる！（伸びる！）
                 pKuroko->stopMv();
                 pKuroko->setRollPitchYawFaceAngVelo(0, 0, 0);
-                pScaler_->transitionAcceUntil(AXIS_X, R_SC(30), R_SC(1), R_SC(0.1));
-                pScaler_->transitionAcceUntil(AXIS_Y, R_SC(2), R_SC(1), R_SC(0.1));
-                pScaler_->transitionAcceUntil(AXIS_Z, R_SC(2), R_SC(1), R_SC(0.1));
+                pScaler->transitionAcceUntil(AXIS_X, R_SC(30), R_SC(1), R_SC(0.1));
+                pScaler->transitionAcceUntil(AXIS_Y, R_SC(2), R_SC(1), R_SC(0.1));
+                pScaler->transitionAcceUntil(AXIS_Z, R_SC(2), R_SC(1), R_SC(0.1));
             }
-            if (!pScaler_->isTransitioning()) {
+            if (!pScaler->isTransitioning()) {
                 //槍の両端当たり判定出現
                 CollisionChecker* pChecker = getCollisionChecker();
                 pChecker->enable(1);
@@ -142,7 +143,7 @@ void EnemyGlajaLance001::processBehavior() {
         }
     }
     //座標に反映
-    pScaler_->behave();
+    pScaler->behave();
     pKuroko->behave();
 }
 
@@ -170,5 +171,4 @@ void EnemyGlajaLance001::onHit(const GgafActor* prm_pOtherActor) {
 }
 
 EnemyGlajaLance001::~EnemyGlajaLance001() {
-    GGAF_DELETE(pScaler_);
 }

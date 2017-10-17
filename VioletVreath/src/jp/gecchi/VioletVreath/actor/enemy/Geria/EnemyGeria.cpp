@@ -20,7 +20,6 @@ using namespace VioletVreath;
 EnemyGeria::EnemyGeria(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Geria", STATUS(EnemyGeria)) {
     _class_name = "EnemyGeria";
-    pAxsMver_ = NEW GgafDxAxesMover(this);
     iMovePatternNo_ = 0;
     max_shots_ = 1;
     shot_num_ = 0;
@@ -67,6 +66,7 @@ void EnemyGeria::onActive() {
 
 void EnemyGeria::processBehavior() {
     GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDxAxesMover* const pAxesMover = getAxesMover();
     GgafProgress* const pProg = getProgress();
 
     switch (pProg->get()) {
@@ -158,7 +158,7 @@ void EnemyGeria::processBehavior() {
         default :
             break;
     }
-    pAxsMver_->behave();
+    pAxesMover->behave();
     pKuroko->behave();
     pAFader_->behave();
     mvd_ += pKuroko->getMvVelo();
@@ -190,7 +190,6 @@ void EnemyGeria::onHit(const GgafActor* prm_pOtherActor) {
 
 EnemyGeria::~EnemyGeria() {
     GGAF_DELETE(pAFader_);
-    GGAF_DELETE(pAxsMver_);
 }
 
 void EnemyGeria::callbackDispatched(GgafDxFigureActor* prm_pDispatched, int prm_dispatched_seq, int prm_set_seq) {

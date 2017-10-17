@@ -13,7 +13,6 @@ using namespace VioletVreath;
 EffectVreathMagic001::EffectVreathMagic001(const char* prm_name) :
         DefaultSpriteActor(prm_name, "EffectSpeedMagic", nullptr) {
     _class_name = "EffectVreathMagic001";
-    pScaler_ = NEW GgafDxScaler(this);
     effectBlendOne(); //加算合成Technique
     setZEnableDraw(true);       //描画時、Zバッファ値は考慮される
     setZWriteEnable(false); //自身のZバッファを書き込みしない
@@ -32,7 +31,7 @@ void EffectVreathMagic001::onActive() {
 void EffectVreathMagic001::processBehavior() {
     getUvFlipper()->behave();
     getKuroko()->behave();
-    pScaler_->behave();
+    getScaler()->behave();
 }
 
 void EffectVreathMagic001::processJudgement() {
@@ -42,5 +41,4 @@ void EffectVreathMagic001::onInactive() {
 }
 
 EffectVreathMagic001::~EffectVreathMagic001() {
-    GGAF_DELETE(pScaler_);
 }

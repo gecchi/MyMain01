@@ -16,7 +16,6 @@ FormationGeria::FormationGeria(
             int prm_nGeriaStock
             ) : DefaultGeometricActor(prm_name, nullptr) {
     _class_name = "FormationGeria";
-    pAxsMver_ = NEW GgafDxAxesMover(this);
     pDepo_ = NEW GgafActorDepository("RotEnemyGeria");
     for (int i = 0; i < prm_nGeriaStock; i++) {
         std::string name = "Geria"+XTOS(i);
@@ -33,5 +32,4 @@ EnemyGeria* FormationGeria::summonGeria() {
 }
 
 FormationGeria::~FormationGeria() {
-    GGAF_DELETE(pAxsMver_);
 }
