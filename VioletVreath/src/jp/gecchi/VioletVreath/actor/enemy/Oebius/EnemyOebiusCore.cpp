@@ -25,7 +25,6 @@ using namespace VioletVreath;
 EnemyOebiusCore::EnemyOebiusCore(const char* prm_name, EnemyOebiusController* prm_pController) :
         DefaultMorphMeshActor(prm_name, "1/OebiusCore", STATUS(EnemyOebiusCore)) {
     _class_name = "EnemyOebiusCore";
-    pAFader_ = NEW GgafDxAlphaFader(this);
     pController_ = prm_pController;
 
     GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
@@ -58,6 +57,8 @@ void EnemyOebiusCore::onActive() {
 
 void EnemyOebiusCore::processBehavior() {
     GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDxAlphaFader* pAlphaFader = getAlphaFader();
+
     GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
@@ -75,7 +76,7 @@ void EnemyOebiusCore::processBehavior() {
             static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
             static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
             if (pProg->hasArrivedAt(frame_of_summons_begin)) {
-                pAFader_->transitionLinearUntil(1.0, frame_of_entering);
+                pAlphaFader->transitionLinearUntil(1.0, frame_of_entering);
             }
             if (pProg->hasArrivedAt(frame_of_entering)) {
                 setHitAble(true);
@@ -97,7 +98,7 @@ void EnemyOebiusCore::processBehavior() {
         case PROG_LEAVE: {
             if (pProg->hasJustChanged()) {
                 UTIL::activateLeaveEffectOf(this);
-                pAFader_->transitionLinearUntil(0.0, 30);
+                pAlphaFader->transitionLinearUntil(0.0, 30);
             }
             if (pProg->hasArrivedAt(60)) {
                 sayonara();
@@ -109,8 +110,8 @@ void EnemyOebiusCore::processBehavior() {
             break;
     }
 
-    pAFader_->behave();
-    getKuroko()->behave();
+    pAlphaFader->behave();
+    pKuroko->behave();
 }
 
 void EnemyOebiusCore::processJudgement() {
@@ -136,5 +137,4 @@ void EnemyOebiusCore::onInactive() {
 }
 
 EnemyOebiusCore::~EnemyOebiusCore() {
-    GGAF_DELETE(pAFader_);
 }

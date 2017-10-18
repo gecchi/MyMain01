@@ -14,7 +14,6 @@ using namespace VioletVreath;
 EnemyOzartiaPillar01::EnemyOzartiaPillar01(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "myvic", STATUS(EnemyOzartiaPillar01)) {
     _class_name = "EnemyOzartiaPillar01";
-    pAFader_ = NEW GgafDxAlphaFader(this);
 }
 
 void EnemyOzartiaPillar01::initialize() {
@@ -32,6 +31,7 @@ void EnemyOzartiaPillar01::onActive() {
 void EnemyOzartiaPillar01::processBehavior() {
     //–{‘ÌˆÚ“®Œn‚Ìˆ— ‚±‚±‚©‚ç --->
     GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDxAlphaFader* pAlphaFader = getAlphaFader();
     GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
@@ -48,7 +48,7 @@ void EnemyOzartiaPillar01::processBehavior() {
             static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
             static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
             if (pProg->hasArrivedAt(frame_of_summons_begin)) {
-                pAFader_->transitionLinearUntil(1.0, frame_of_entering);
+                pAlphaFader->transitionLinearUntil(1.0, frame_of_entering);
             }
             if (pProg->hasArrivedAt(frame_of_entering)) {
                 setHitAble(true);
@@ -67,7 +67,7 @@ void EnemyOzartiaPillar01::processBehavior() {
         case PROG_LEAVE: {
              if (pProg->hasJustChanged()) {
                  UTIL::activateLeaveEffectOf(this);
-                 pAFader_->transitionLinearUntil(0.0, 15);
+                 pAlphaFader->transitionLinearUntil(0.0, 15);
              }
              if (pProg->hasArrivedAt(60)) {
                  sayonara();
@@ -78,6 +78,7 @@ void EnemyOzartiaPillar01::processBehavior() {
         default :
             break;
     }
+    pAlphaFader->behave();
     pKuroko->behave();
 }
 
@@ -102,5 +103,4 @@ void EnemyOzartiaPillar01::onInactive() {
 }
 
 EnemyOzartiaPillar01::~EnemyOzartiaPillar01() {
-    GGAF_DELETE(pAFader_);
 }

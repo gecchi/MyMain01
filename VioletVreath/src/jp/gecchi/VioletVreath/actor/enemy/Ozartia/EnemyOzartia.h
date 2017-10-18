@@ -65,8 +65,6 @@ public:
         SE_SHOT04 ,
     };
 
-    /** フィードイン・フェードアウト支援 */
-    GgafDxCore::GgafDxAlphaFader* pAFader_;
     /** ショット関連の進捗状態 */
     GgafCore::GgafProgress* pProg2_;
 

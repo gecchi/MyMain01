@@ -21,10 +21,6 @@ public:
         SE_EXPLOSION,
         SE_FIRE     ,
     };
-
-    /** フィードイン・フェードアウト支援 */
-    GgafDxCore::GgafDxAlphaFader* pAFader_;
-
     int iMovePatternNo_;
     /** 弾発射効果エフェクト */
     GgafCore::GgafActorDepository* pDepo_effect_;

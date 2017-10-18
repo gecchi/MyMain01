@@ -42,9 +42,6 @@ public:
         PROG_BANPEI,
     };
 
-    /** フィードイン・フェードアウト支援 */
-    GgafDxCore::GgafDxAlphaFader* pAFader_;
-
     GgafDxCore::GgafDxGeoElem next_pos_;
     int num_fire_;
     int nprog_;

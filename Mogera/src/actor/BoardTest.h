@@ -8,8 +8,6 @@ namespace Mogera {
 class BoardTest : public GgafLib::DefaultFramedBoardActor {
 
 public:
-    GgafDxCore::GgafDxAlphaFader* pAFader_;
-
     BoardTest(const char* prm_name);
 
     void onCreateModel() override;

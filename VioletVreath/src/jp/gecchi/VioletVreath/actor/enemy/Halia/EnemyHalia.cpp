@@ -44,8 +44,6 @@ EnemyHalia::EnemyHalia(const char* prm_name) :
     pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     pSe->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
 
-    pAFader_ = NEW GgafDxAlphaFader(this);
-
     useProgress(PROG_BANPEI);
     //‰ŠúƒJƒƒ‰ZˆÊ’u
     const Camera* const pCam = P_GOD->getSpacetime()->getCamera();
@@ -97,7 +95,7 @@ void EnemyHalia::processBehavior() {
             static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
             static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
             if (pProg->hasArrivedAt(frame_of_summons_begin)) {
-                pAFader_->transitionLinearUntil(1.0, frame_of_entering);
+                getAlphaFader()->transitionLinearUntil(1.0, frame_of_entering);
             }
             if (pProg->hasArrivedAt(frame_of_entering)) {
                 setHitAble(true);
@@ -181,7 +179,7 @@ void EnemyHalia::processBehavior() {
     pKuroko->behave();
     getMorpher()->behave();
     getSeTransmitter()->behave();
-    pAFader_->behave();
+    getAlphaFader()->behave();
 }
 
 void EnemyHalia::processJudgement() {
@@ -211,6 +209,5 @@ void EnemyHalia::onInactive() {
 }
 
 EnemyHalia::~EnemyHalia() {
-    GGAF_DELETE(pAFader_);
     GGAF_DELETE_NULLABLE(pKurokoLeader_);
 }

@@ -14,8 +14,6 @@ namespace VioletVreath {
 class MagicLvCursor : public GgafLib::DefaultBoardActor {
 
 public:
-    /** フィードイン・フェードアウト支援 */
-    GgafDxCore::GgafDxAlphaFader* pAFader_;
     /** [r]カーソル対象の魔法 */
     Magic* pMagic_;
     /** [r]魔法メーター */

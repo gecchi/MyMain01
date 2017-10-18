@@ -19,7 +19,6 @@ using namespace VioletVreath;
 EnemyAppho::EnemyAppho(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Appho", STATUS(EnemyAppho)) {
     _class_name = "EnemyAppho";
-    pAFader_ = NEW GgafDxAlphaFader(this);
     GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
     pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);
@@ -68,7 +67,7 @@ void EnemyAppho::processBehavior() {
              static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
              static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
              if (pProg->hasArrivedAt(frame_of_summons_begin)) {
-                 pAFader_->transitionLinearUntil(1.0, frame_of_entering);
+                 getAlphaFader()->transitionLinearUntil(1.0, frame_of_entering);
              }
              if (pProg->hasArrivedAt(frame_of_entering)) {
                  setHitAble(true);
@@ -173,7 +172,7 @@ void EnemyAppho::processBehavior() {
          }
      }
     pKuroko->behave();
-    pAFader_->behave();
+    getAlphaFader()->behave();
 }
 
 void EnemyAppho::processJudgement() {
@@ -198,5 +197,4 @@ void EnemyAppho::onInactive() {
 }
 
 EnemyAppho::~EnemyAppho() {
-    GGAF_DELETE(pAFader_);
 }

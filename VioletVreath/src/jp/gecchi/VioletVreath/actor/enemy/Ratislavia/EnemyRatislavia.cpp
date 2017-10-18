@@ -24,7 +24,6 @@ EnemyRatislavia::EnemyRatislavia(const char* prm_name, const char* prm_model, co
     r1_ = prm_r1;
     r2_ = prm_r2;
     colli_part_num_ = 16; //“–‚½‚è”»’è‹…‚Ì”
-    pAFader_ = NEW GgafDxAlphaFader(this);
     useProgress(PROG_BANPEI);
 }
 
@@ -95,7 +94,7 @@ void EnemyRatislavia::processBehavior() {
     switch (pProg->get()) {
         case PROG_INIT: {
             setAlpha(0);
-            pAFader_->transitionLinearUntil(1.0, 30*60);
+            getAlphaFader()->transitionLinearUntil(1.0, 30*60);
             pProg->change(PROG_FLOAT_MOVE);
             break;
         }
@@ -154,7 +153,7 @@ void EnemyRatislavia::processBehavior() {
     }
 
     pKuroko->behave();
-    pAFader_->behave();
+    getAlphaFader()->behave();
 }
 
 void EnemyRatislavia::processJudgement() {
@@ -190,5 +189,4 @@ bool EnemyRatislavia::isOutOfSpacetime() const {
 }
 
 EnemyRatislavia::~EnemyRatislavia() {
-    GGAF_DELETE(pAFader_);
 }

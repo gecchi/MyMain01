@@ -28,9 +28,6 @@ public:
         SE_EXPLOSION,
     };
 
-    /** フィードイン・フェードアウト支援 */
-    GgafDxCore::GgafDxAlphaFader* pAFader_;
-
 public:
     /**
      * コンストラクタ

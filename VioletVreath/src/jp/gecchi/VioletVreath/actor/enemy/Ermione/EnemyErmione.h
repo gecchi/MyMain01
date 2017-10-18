@@ -49,9 +49,6 @@ public:
     int num_arm_part_;  //腕の節数（3以上）
     Arm* paArm_;
 
-    /** フィードイン・フェードアウト支援 */
-    GgafDxCore::GgafDxAlphaFader* pAFader_;
-
 public:
     /**
      * コンストラクタ

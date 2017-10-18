@@ -33,8 +33,6 @@ public:
         PROG_BANPEI ,
     };
 
-    /** フィードイン・フェードアウト支援 */
-    GgafDxCore::GgafDxAlphaFader* pAFader_;
     /** [r]出現座標(フォーメーションオブジェクトが設定) */
     GgafDxCore::GgafDxGeoElem entry_pos_;
     /** [r]ウロウロする座標(フォーメーションオブジェクトが設定) */

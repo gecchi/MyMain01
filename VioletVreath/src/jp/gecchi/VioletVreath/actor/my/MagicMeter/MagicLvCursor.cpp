@@ -18,7 +18,6 @@ using namespace VioletVreath;
 MagicLvCursor::MagicLvCursor(const char* prm_name, const char* prm_model, MagicMeter* prm_pMagicMeter, Magic* prm_pMagic) :
         DefaultBoardActor(prm_name, prm_model) {
     _class_name = "MagicLvCursor";
-    pAFader_ = NEW GgafDxAlphaFader(this);
     pMagicMeter_ = prm_pMagicMeter;
     pMagic_ = prm_pMagic;
     magic_index_ = pMagicMeter_->lstMagic_.indexOf(pMagic_);
@@ -52,7 +51,7 @@ void MagicLvCursor::processBehavior() {
         _y = ty_;
     }
     getUvFlipper()->behave();
-    pAFader_->behave();
+    getAlphaFader()->behave();
     getScaler()->behave();
 }
 void MagicLvCursor::processPreDraw() {
@@ -104,10 +103,9 @@ void MagicLvCursor::moveSmoothTo(int prm_lv, frame prm_target_frames, float prm_
 }
 
 void MagicLvCursor::blink() {
-    pAFader_->beat(6, 3, 0, 3, 7.5); //ピカピカ、+0.5は最後は表示終了為
+    getAlphaFader()->beat(6, 3, 0, 3, 7.5); //ピカピカ、+0.5は最後は表示終了為
     getScaler()->beat(12, 6, 0, 6, 3);
 }
 
 MagicLvCursor::~MagicLvCursor() {
-    GGAF_DELETE(pAFader_);
 }

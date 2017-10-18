@@ -33,7 +33,7 @@ World::World(const char* prm_name) : DefaultScene(prm_name) {
     pLabel_aster_ = NEW LabelGecchi16Font("ASTER");
     bringDirector()->addSubGroup(pLabel_aster_);
     pLabel_aster_->update(PX_C(PROPERTY::GAME_BUFFER_WIDTH), 0, "*", ALIGN_RIGHT, VALIGN_TOP);
-    pLabel_aster_->pAFader_->beat(30, 15, 0, 15, -1); //チカチカ点滅
+    pLabel_aster_->getAlphaFader()->beat(30, 15, 0, 15, -1); //チカチカ点滅
 
     is_create_GameScene_ = false;
     pLabel_debug_ = nullptr;
@@ -222,7 +222,7 @@ void World::processBehavior() {
                 addSubLast(pPreDrawScene_);
                 pProg->changeNext();
             }
-            pLabel_aster_->pAFader_->behave(); //右上＊チカチカ
+            pLabel_aster_->getAlphaFader()->behave(); //右上＊チカチカ
             break;
         }
 
@@ -232,7 +232,7 @@ void World::processBehavior() {
                 pPreDrawScene_->sayonara(120);
                 pProg->changeNext();
             }
-            pLabel_aster_->pAFader_->behave(); //右上＊チカチカ
+            pLabel_aster_->getAlphaFader()->behave(); //右上＊チカチカ
             break;
         }
 
@@ -241,7 +241,7 @@ void World::processBehavior() {
                 pGameScene_ = (GameScene*)obtainSceneFromFactory(2);
                 pProg->changeNext();
             }
-            pLabel_aster_->pAFader_->behave(); //右上＊チカチカ
+            pLabel_aster_->getAlphaFader()->behave(); //右上＊チカチカ
             break;
         }
 
@@ -251,7 +251,7 @@ void World::processBehavior() {
             if ((pProg->getFrame() >= 30 && P_GOD->_fps >= PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX && P_GOD->_fps <= 64.0f) || pProg->getFrame() >= 60*60*5) {
                 pProg->changeNext();
             }
-            pLabel_aster_->pAFader_->behave(); //右上＊チカチカ
+            pLabel_aster_->getAlphaFader()->behave(); //右上＊チカチカ
             break;
         }
 
@@ -268,7 +268,7 @@ void World::processBehavior() {
                 pLabel_warn_dual_view_->sayonara();
                 pProg->changeNext(); //メインへループ
             }
-            pLabel_aster_->pAFader_->behave(); //右上＊チカチカ
+            pLabel_aster_->getAlphaFader()->behave(); //右上＊チカチカ
             break;
         }
 

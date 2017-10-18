@@ -22,7 +22,6 @@ using namespace VioletVreath;
 EnemyThagoras::EnemyThagoras(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Thagoras", STATUS(EnemyThagoras)) {
     _class_name = "EnemyThagoras";
-    pAFader_ = NEW GgafDxAlphaFader(this);
     GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
     pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);
@@ -51,6 +50,8 @@ void EnemyThagoras::onActive() {
 }
 
 void EnemyThagoras::processBehavior() {
+    GgafDxAlphaFader* pAlphaFader = getAlphaFader();
+
     GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
@@ -67,7 +68,7 @@ void EnemyThagoras::processBehavior() {
             static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
             static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
             if (pProg->hasArrivedAt(frame_of_summons_begin)) {
-                pAFader_->transitionLinearUntil(1.0, frame_of_entering);
+                pAlphaFader->transitionLinearUntil(1.0, frame_of_entering);
             }
             if (pProg->hasArrivedAt(frame_of_entering)) {
                 setHitAble(true);
@@ -88,7 +89,7 @@ void EnemyThagoras::processBehavior() {
         case PROG_LEAVE: {
             if (pProg->hasJustChanged()) {
                 UTIL::activateLeaveEffectOf(this);
-                pAFader_->transitionLinearUntil(0.0, 30);
+                pAlphaFader->transitionLinearUntil(0.0, 30);
             }
             if (pProg->hasArrivedAt(60)) {
                 sayonara();
@@ -99,7 +100,7 @@ void EnemyThagoras::processBehavior() {
         default :
             break;
     }
-    pAFader_->behave();
+    pAlphaFader->behave();
     getKuroko()->behave();
     //ŒÛ“®‚ð“¯Šú
     _sx = pActor4Sc_->_sx;
@@ -129,6 +130,5 @@ void EnemyThagoras::onInactive() {
 }
 
 EnemyThagoras::~EnemyThagoras() {
-    GGAF_DELETE(pAFader_);
     GGAF_DELETE_NULLABLE(pKurokoLeader_);
 }

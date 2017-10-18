@@ -10,7 +10,6 @@ LabelGecchi16Font::LabelGecchi16Font(const char* prm_name) :
         FontBoardActor(prm_name, "Gecchi_16Font")
 {
     _class_name = "LabelGecchi16Font";
-    pAFader_ = NEW GgafDxAlphaFader(this);
     setChrWidthRatio(' ',  0.5   );
     setChrWidthRatio('!',  0.625 );
     setChrWidthRatio('"',  0.625 );
@@ -87,6 +86,5 @@ void LabelGecchi16Font::processBehavior() {
 }
 
 LabelGecchi16Font::~LabelGecchi16Font() {
-    GGAF_DELETE(pAFader_);
 }
 

@@ -5,7 +5,6 @@
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"
 #include "scene/HgrSpacetime/HgrWorld.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 #include "actor/Test01.h"
 #include "actor/Jiki.h"
 #include "HgrGod.h"

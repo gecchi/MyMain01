@@ -17,7 +17,6 @@ using namespace VioletVreath;
 EnemyAntiope::EnemyAntiope(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
         DefaultMeshSetActor(prm_name, prm_model, prm_pStat) {
     _class_name = "EnemyAntiope";
-    pAFader_ = NEW GgafDxAlphaFader(this);
     GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
     pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);
@@ -43,6 +42,8 @@ void EnemyAntiope::onActive() {
 void EnemyAntiope::processBehavior() {
     GgafDxKuroko* const pKuroko = getKuroko();
     GgafDxAxesMover* const pAxesMover = getAxesMover();
+    GgafDxAlphaFader* pAlphaFader = getAlphaFader();
+
     GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
          case PROG_INIT: {
@@ -62,7 +63,7 @@ void EnemyAntiope::processBehavior() {
              static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
              static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
              if (pProg->hasArrivedAt(frame_of_summons_begin)) {
-                 pAFader_->transitionLinearUntil(1.0, frame_of_entering);
+                 pAlphaFader->transitionLinearUntil(1.0, frame_of_entering);
              }
              if (pProg->hasArrivedAt(frame_of_entering)) {
                  setHitAble(true);
@@ -100,7 +101,7 @@ void EnemyAntiope::processBehavior() {
          case PROG_LEAVE: {
              if (pProg->hasJustChanged()) {
                  UTIL::activateLeaveEffectOf(this);
-                 pAFader_->transitionLinearUntil(0.0, 15);
+                 pAlphaFader->transitionLinearUntil(0.0, 15);
              }
              if (pProg->hasArrivedAt(15)) {
                  setHitAble(false);
@@ -126,7 +127,7 @@ void EnemyAntiope::processBehavior() {
 //    _TRACE_(this<<":"<<getActiveFrame()<<" "<<_x<<","<<_y<<","<<_z<<"  ("<<_pKuroko->_velo_mv<<") "<<_pKuroko->_vX<<","<<_pKuroko->_vY<<","<<_pKuroko->_vZ<<"");
     pKuroko->behave();
     pAxesMover->behave();
-    pAFader_->behave();
+    pAlphaFader->behave();
 }
 
 void EnemyAntiope::processJudgement() {
@@ -159,5 +160,4 @@ void EnemyAntiope::onInactive() {
 }
 
 EnemyAntiope::~EnemyAntiope() {
-    GGAF_DELETE(pAFader_);
 }

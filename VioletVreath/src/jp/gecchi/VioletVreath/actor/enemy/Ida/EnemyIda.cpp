@@ -20,7 +20,6 @@ using namespace VioletVreath;
 EnemyIda::EnemyIda(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Ida", STATUS(EnemyIda)) {
     _class_name = "EnemyIda";
-    pAFader_ = NEW GgafDxAlphaFader(this);
     GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
     pSe->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­
@@ -65,7 +64,7 @@ void EnemyIda::processBehavior() {
             static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
             static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
             if (pProg->hasArrivedAt(frame_of_summons_begin)) {
-                pAFader_->transitionLinearUntil(1.0, frame_of_entering);
+                getAlphaFader()->transitionLinearUntil(1.0, frame_of_entering);
             }
             if (pProg->hasArrivedAt(frame_of_entering)) {
                 setHitAble(true);
@@ -95,7 +94,7 @@ void EnemyIda::processBehavior() {
         }
     }
 
-    pAFader_->behave();
+    getAlphaFader()->behave();
     pKuroko->behave();
 
     changeGeoFinal(); //â‘ÎÀ•WŒn‚Ö
@@ -123,7 +122,6 @@ void EnemyIda::onInactive() {
 }
 
 EnemyIda::~EnemyIda() {
-    GGAF_DELETE(pAFader_);
 }
 
 

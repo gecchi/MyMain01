@@ -1,5 +1,6 @@
 #include "jp/ggaf/dxcore/actor/GgafDxFigureActor.h"
 
+#include "jp/ggaf/core/util/GgafRgb.h"
 #include "jp/ggaf/dxcore/GgafDxGod.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
@@ -11,9 +12,8 @@
 #include "jp/ggaf/dxcore/scene/GgafDxScene.h"
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "jp/ggaf/dxcore/scene/supporter/GgafDxAlphaCurtain.h"
-#include "jp/ggaf/core/util/GgafRgb.h"
-
 #include "jp/ggaf/dxcore/GgafDxProperties.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 
@@ -44,7 +44,8 @@ _pEffectCon(
         )
     )
 ),
-_pEffect((GgafDxEffect*)_pEffectCon->peek())
+_pEffect((GgafDxEffect*)_pEffectCon->peek()),
+_pAlphaFader(nullptr)
 {
     _obj_class |= Obj_GgafDxFigureActor;
     _class_name = "GgafDxFigureActor";
@@ -95,7 +96,8 @@ _pEffectCon(
         )
     )
 ),
-_pEffect((GgafDxEffect*)_pEffectCon->peek())
+_pEffect((GgafDxEffect*)_pEffectCon->peek()),
+_pAlphaFader(nullptr)
 {
     _class_name = "GgafDxFigureActor";
 
@@ -117,6 +119,10 @@ _pEffect((GgafDxEffect*)_pEffectCon->peek())
     _specal_render_depth_index = -1;
     _zenable = true;
     _zwriteenable = true;
+}
+
+GgafDxAlphaFader* GgafDxFigureActor::getAlphaFader() {
+    return _pAlphaFader ? _pAlphaFader : _pAlphaFader = NEW GgafDxAlphaFader(this);
 }
 
 void GgafDxFigureActor::processPreDraw() {
@@ -341,6 +347,7 @@ GgafDxFigureActor::~GgafDxFigureActor() {
     GGAF_DELETEARR(_technique);
     GGAF_DELETEARR(_temp_technique);
     GGAF_DELETEARR(_paMaterial);
+    GGAF_DELETE_NULLABLE(_pAlphaFader);
     _pEffectCon->close();
     _pModelCon->close();
 }

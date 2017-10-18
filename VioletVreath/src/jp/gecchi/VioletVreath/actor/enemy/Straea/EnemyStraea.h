@@ -39,9 +39,6 @@ public:
         SE_FIRE     ,
     };
 
-    /** フィードイン・フェードアウト支援 */
-    GgafDxCore::GgafDxAlphaFader* pAFader_;
-
     /** レーザ発射間隔(frame) */
     int laser_interval_;
     /** 発射レーザーチップの数（レーザー長さ） */

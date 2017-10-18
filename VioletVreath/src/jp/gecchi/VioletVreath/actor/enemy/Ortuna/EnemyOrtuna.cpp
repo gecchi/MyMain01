@@ -18,7 +18,6 @@ using namespace VioletVreath;
 EnemyOrtuna::EnemyOrtuna(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Ortuna", STATUS(EnemyOrtuna)) {
     _class_name = "EnemyOrtuna";
-    pAFader_ = NEW GgafDxAlphaFader(this);
     _sx=_sy=_sz=100;
     GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
     pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
@@ -65,7 +64,7 @@ void EnemyOrtuna::processBehavior() {
              static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
              static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
              if (pProg->hasArrivedAt(frame_of_summons_begin)) {
-                 pAFader_->transitionLinearUntil(1.0, frame_of_entering);
+                 getAlphaFader()->transitionLinearUntil(1.0, frame_of_entering);
              }
              if (pProg->hasArrivedAt(frame_of_entering)) {
                  setHitAble(true);
@@ -147,6 +146,7 @@ void EnemyOrtuna::processBehavior() {
 
     pKuroko->behave();
     getMorpher()->behave();
+    getAlphaFader()->behave();
     //getSeTransmitter()->behave();
 }
 
@@ -172,5 +172,4 @@ void EnemyOrtuna::onInactive() {
 }
 
 EnemyOrtuna::~EnemyOrtuna() {
-    GGAF_DELETE(pAFader_);
 }

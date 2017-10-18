@@ -29,8 +29,8 @@ void GameBeginningScene::onReset() {
 //    fadeinScene(0);
     pLabel01_->update("");
     pLabel02_->update("");
-    pLabel02_->pAFader_->stop();
-    pLabel02_->setAlpha(pLabel02_->pAFader_->getTop());
+    pLabel02_->getAlphaFader()->stop();
+    pLabel02_->setAlpha(pLabel02_->getAlphaFader()->getTop());
 }
 //void GameBeginningScene::ready() {
 //    _TRACE_(FUNC_NAME<<"");
@@ -65,7 +65,7 @@ void GameBeginningScene::processBehavior() {
         case PROG_DECIDE: {
             if (pProg->hasJustChanged()) {
                 pLabel02_->update(PX_C(300), PX_C(300), "OK OK OK");
-                pLabel02_->pAFader_->beat(20, 3, 7, 3, -1);
+                pLabel02_->getAlphaFader()->beat(20, 3, 7, 3, -1);
 //                fadeoutScene(FADE_FRAMES);
             }
             if (pProg->hasArrivedAt(20)) {
@@ -90,7 +90,7 @@ void GameBeginningScene::processBehavior() {
             break;
         }
     }
-    pLabel02_->pAFader_->behave();
+    pLabel02_->getAlphaFader()->behave();
 }
 
 GameBeginningScene::~GameBeginningScene() {

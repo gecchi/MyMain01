@@ -14,7 +14,6 @@ using namespace VVViewer;
 
 VvvCursor::VvvCursor(const char* prm_name) :
         GgafLib::DefaultSpriteActor(prm_name, "Cursor") {
-    pAFader_ = NEW GgafDxAlphaFader(this);
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //ワールド変換はビルボードでRz回転に強制
     effectBlendOne(); //エフェクトテクニックは加算合成に強制
     setZEnableDraw(false);      //Zバッファは考慮無しに強制
@@ -49,7 +48,7 @@ void VvvCursor::processBehavior() {
         }
         case CUR_STAY: {
             if (_pProg->getFrame() > 60) {
-                pAFader_->transitionLinearUntil(0.0, 120);
+                getAlphaFader()->transitionLinearUntil(0.0, 120);
                 _pProg->change(CUR_SINK);
             }
             break;
@@ -69,7 +68,7 @@ void VvvCursor::processBehavior() {
     }
 
     getScaler()->behave();
-    pAFader_->behave();
+    getAlphaFader()->behave();
 }
 void VvvCursor::sinkMe() {
     _pProg->change(CUR_SINK);
@@ -88,5 +87,4 @@ void VvvCursor::moveTo(coord X, coord Y, coord Z) {
 }
 
 VvvCursor::~VvvCursor() {
-    GGAF_DELETE(pAFader_);
 }

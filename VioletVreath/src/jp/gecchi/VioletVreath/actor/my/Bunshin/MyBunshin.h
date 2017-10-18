@@ -34,8 +34,6 @@ public:
     /** [r]魚雷コントローラー */
     MyTorpedoController* pTorpedoCtrler_;
 
-    /** [r]フィードイン・フェードアウト支援 */
-    GgafDxCore::GgafDxAlphaFader* pAFader_;
     /** [r]カラーリストさん */
     GgafDxCore::GgafDxColorist* pColorist_;
 public:

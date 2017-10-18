@@ -21,7 +21,6 @@ using namespace Mogera;
 BoardTest::BoardTest(const char* prm_name) :
         DefaultFramedBoardActor(prm_name, "BoardTest") {
     _class_name = "BoardTest";
-    pAFader_ = NEW GgafDxAlphaFader(this);
 }
 
 void BoardTest::onCreateModel() {
@@ -90,7 +89,6 @@ void BoardTest::processBehavior() {
     if (GgafDxInput::isPressedKey(DIK_N)) {
         setValign(VALIGN_BOTTOM);
     }
-    pAFader_->behave();
     getFrameUvFlipper()->behave();
     getUvFlipper()->behave();
 //    getScaler()->behave();
@@ -106,6 +104,5 @@ void BoardTest::onInactive() {
 }
 
 BoardTest::~BoardTest() {
-    GGAF_DELETE(pAFader_);
 }
 

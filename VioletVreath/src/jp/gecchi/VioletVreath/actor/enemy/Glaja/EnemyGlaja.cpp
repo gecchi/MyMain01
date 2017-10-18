@@ -21,7 +21,6 @@ using namespace VioletVreath;
 EnemyGlaja::EnemyGlaja(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Glaja", STATUS(EnemyGlaja)) {
     _class_name = "EnemyGlaja";
-    pAFader_ = NEW GgafDxAlphaFader(this);
     GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
     pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     pConn_pShot_ = connectToDepositoryManager("GlajaLance001");
@@ -69,7 +68,7 @@ void EnemyGlaja::processBehavior() {
              static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
              static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
              if (pProg->hasArrivedAt(frame_of_summons_begin)) {
-                 pAFader_->transitionLinearUntil(1.0, frame_of_entering);
+                 getAlphaFader()->transitionLinearUntil(1.0, frame_of_entering);
              }
              if (pProg->hasArrivedAt(frame_of_entering)) {
                  setHitAble(true);
@@ -154,7 +153,7 @@ void EnemyGlaja::processBehavior() {
      }
     pKuroko->behave();
     getMorpher()->behave();
-    pAFader_->behave();
+    getAlphaFader()->behave();
 //_TRACE_("EnemyGlaja f:"<<getBehaveingFrame()<<"  pProg="<<pProg->get()<<"   X,Y,Z="<<_x<<","<<_y<<","<<_z<<" ");
 }
 
@@ -184,6 +183,5 @@ void EnemyGlaja::onDispatchedShot(GgafDxCore::GgafDxFigureActor* prm_pActor, int
 
 EnemyGlaja::~EnemyGlaja() {
     pConn_pShot_->close();
-    GGAF_DELETE(pAFader_);
 }
 

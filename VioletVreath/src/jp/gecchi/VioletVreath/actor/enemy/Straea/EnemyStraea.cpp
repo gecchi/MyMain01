@@ -24,7 +24,6 @@ using namespace VioletVreath;
 
 EnemyStraea::EnemyStraea(const char* prm_name) :
         DefaultMeshActor(prm_name, "Straea", STATUS(EnemyStraea)) {
-    pAFader_ = NEW GgafDxAlphaFader(this);
     //ƒŒ[ƒU[
     laser_way_ = 5;
     cnt_laserchip_ = 0;
@@ -121,13 +120,13 @@ void EnemyStraea::processBehavior() {
             static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
             static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
             if (pProg->hasArrivedAt(frame_of_summons_begin)) {
-                pAFader_->transitionLinearUntil(1.0, frame_of_entering);
+                getAlphaFader()->transitionLinearUntil(1.0, frame_of_entering);
             }
             if (pProg->hasArrivedAt(frame_of_entering)) {
                 setHitAble(true);
                 pProg->changeNext();
             }
-            pAFader_->behave();
+            getAlphaFader()->behave();
             break;
         }
         case PROG_MOVE: {
@@ -339,7 +338,6 @@ void EnemyStraea::onInactive() {
 
 
 EnemyStraea::~EnemyStraea() {
-    GGAF_DELETE(pAFader_);
     pConn_pRefractionEffectDepository_->close();
     pConn_pDepoStore_laser_set->close();
     pConn_pShotDepo2_->close();

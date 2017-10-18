@@ -30,7 +30,6 @@ EnemyGeria::EnemyGeria(const char* prm_name) :
     GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
     pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­
     pSe->set(SE_FIRE     , "WAVE_ENEMY_FIRE_SHOT_001");     //”­ŽË
-    pAFader_ = NEW GgafDxAlphaFader(this);
     useProgress(PROG_BANPEI);
     migration_length_ = PX_C(10000);
     mvd_ = 0;
@@ -67,6 +66,7 @@ void EnemyGeria::onActive() {
 void EnemyGeria::processBehavior() {
     GgafDxKuroko* const pKuroko = getKuroko();
     GgafDxAxesMover* const pAxesMover = getAxesMover();
+    GgafDxAlphaFader* pAlphaFader = getAlphaFader();
     GgafProgress* const pProg = getProgress();
 
     switch (pProg->get()) {
@@ -86,7 +86,7 @@ void EnemyGeria::processBehavior() {
             static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
             static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
             if (pProg->hasArrivedAt(frame_of_summons_begin)) {
-                pAFader_->transitionLinearUntil(1.0, frame_of_entering);
+                pAlphaFader->transitionLinearUntil(1.0, frame_of_entering);
             }
             if (pProg->hasArrivedAt(frame_of_entering)) {
                 setHitAble(true);
@@ -147,7 +147,7 @@ void EnemyGeria::processBehavior() {
                 setHitAble(false);
                 pKuroko->setMvVelo(0);
                 UTIL::activateLeaveEffectOf(this);
-                pAFader_->transitionLinearUntil(0.0, 30);
+                pAlphaFader->transitionLinearUntil(0.0, 30);
             }
             if (pProg->hasArrivedAt(60)) {
                 sayonara();
@@ -160,7 +160,7 @@ void EnemyGeria::processBehavior() {
     }
     pAxesMover->behave();
     pKuroko->behave();
-    pAFader_->behave();
+    pAlphaFader->behave();
     mvd_ += pKuroko->getMvVelo();
 }
 
@@ -189,7 +189,6 @@ void EnemyGeria::onHit(const GgafActor* prm_pOtherActor) {
 }
 
 EnemyGeria::~EnemyGeria() {
-    GGAF_DELETE(pAFader_);
 }
 
 void EnemyGeria::callbackDispatched(GgafDxFigureActor* prm_pDispatched, int prm_dispatched_seq, int prm_set_seq) {

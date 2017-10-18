@@ -24,7 +24,6 @@ using namespace VioletVreath;
 EnemyDuna::EnemyDuna(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Duna", STATUS(EnemyDuna)) {
     _class_name = "EnemyDuna";
-    pAFader_ = NEW GgafDxAlphaFader(this);
     GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
     pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     effectBlendOne(); //‰ÁŽZ‡¬
@@ -85,7 +84,7 @@ void EnemyDuna::processBehavior() {
              static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
              static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
              if (pProg->hasArrivedAt(frame_of_summons_begin)) {
-                 pAFader_->transitionLinearUntil(1.0, frame_of_entering);
+                 getAlphaFader()->transitionLinearUntil(1.0, frame_of_entering);
              }
              if (pProg->hasArrivedAt(frame_of_entering)) {
                  setHitAble(true);
@@ -365,7 +364,7 @@ void EnemyDuna::processBehavior() {
     pKuroko->behave();
     pAxesMover->behave();
     getMorpher()->behave();
-    pAFader_->behave();
+    getAlphaFader()->behave();
 //_TRACE_("EnemyDuna f:"<<getBehaveingFrame()<<"  pProg="<<pProg->get()<<"   X,Y,Z="<<_x<<","<<_y<<","<<_z<<" ");
 }
 
@@ -394,5 +393,4 @@ void EnemyDuna::onDispatchedShot(GgafDxCore::GgafDxFigureActor* prm_pActor, int 
 }
 
 EnemyDuna::~EnemyDuna() {
-    GGAF_DELETE(pAFader_);
 }

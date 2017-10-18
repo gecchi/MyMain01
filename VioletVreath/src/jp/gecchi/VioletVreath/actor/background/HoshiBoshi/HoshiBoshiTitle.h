@@ -15,10 +15,6 @@ namespace VioletVreath {
 class HoshiBoshiTitle : public HoshiBoshi {
 
 public:
-    /** フィードイン・フェードアウト支援 */
-    GgafDxCore::GgafDxAlphaFader* pAFader_;
-
-public:
     HoshiBoshiTitle(const char* prm_name);
 
     void initialize() override;

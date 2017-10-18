@@ -16,7 +16,7 @@ using namespace GgafDxCore;
 GgafDxGeometricActor::GgafDxGeometricActor(const char* prm_name,
                                            GgafStatus* prm_pStat,
                                            GgafDxChecker* prm_pChecker) : GgafDxBaseActor(prm_name, prm_pStat),
-_pKuroko(nullptr),
+_pKuroko(NEW GgafDxKuroko(this)),
 _pAxesMover(nullptr),
 _pScaler(nullptr),
 _pSeTransmitter(nullptr),
@@ -51,19 +51,19 @@ _is_local(false)
     _pFormation = nullptr;
 }
 GgafDxKuroko* GgafDxGeometricActor::getKuroko() {
-    return _pKuroko ? _pKuroko : _pKuroko = new GgafDxKuroko(this);
+    return _pKuroko;
 }
 
 GgafDxAxesMover* GgafDxGeometricActor::getAxesMover() {
-    return _pAxesMover ? _pAxesMover : _pAxesMover = new GgafDxAxesMover(this);
+    return _pAxesMover ? _pAxesMover : _pAxesMover = NEW GgafDxAxesMover(this);
 }
 
 GgafDxSeTransmitterForActor* GgafDxGeometricActor::getSeTransmitter() {
-    return _pSeTransmitter ? _pSeTransmitter : _pSeTransmitter = new GgafDxSeTransmitterForActor(this);
+    return _pSeTransmitter ? _pSeTransmitter : _pSeTransmitter = NEW GgafDxSeTransmitterForActor(this);
 }
 
 GgafDxScaler* GgafDxGeometricActor::getScaler() {
-    return _pScaler ? _pScaler : _pScaler = new GgafDxScaler(this);
+    return _pScaler ? _pScaler : _pScaler = NEW GgafDxScaler(this);
 }
 
 void GgafDxGeometricActor::processSettlementBehavior() {
@@ -462,7 +462,7 @@ void GgafDxGeometricActor::onEnd() {
 }
 
 GgafDxGeometricActor::~GgafDxGeometricActor() {
-    GGAF_DELETE_NULLABLE(_pKuroko);
+    GGAF_DELETE(_pKuroko);
     GGAF_DELETE_NULLABLE(_pAxesMover);
     GGAF_DELETE_NULLABLE(_pScaler);
     GGAF_DELETE_NULLABLE(_pSeTransmitter);

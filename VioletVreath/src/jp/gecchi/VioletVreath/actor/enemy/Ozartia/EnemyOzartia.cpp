@@ -26,7 +26,6 @@ using namespace VioletVreath;
 EnemyOzartia::EnemyOzartia(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Ozartia", STATUS(EnemyOzartia)) {
     _class_name = "EnemyOzartia";
-    pAFader_ = NEW GgafDxAlphaFader(this);
     GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
     pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI1_-1);
@@ -83,6 +82,7 @@ void EnemyOzartia::processBehavior() {
     MyShip* pMyShip = P_MYSHIP;
     //–{‘ÌˆÚ“®Œn‚Ìˆ— ‚±‚±‚©‚ç --->
     GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDxAlphaFader* pAlphaFader = getAlphaFader();
     GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG1_INIT: {
@@ -100,7 +100,7 @@ void EnemyOzartia::processBehavior() {
             static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
             static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
             if (pProg->hasArrivedAt(frame_of_summons_begin)) {
-                pAFader_->transitionLinearUntil(1.0, frame_of_entering);
+                 getAlphaFader()->transitionLinearUntil(1.0, frame_of_entering);
             }
             if (pProg->hasArrivedAt(frame_of_entering)) {
                 setHitAble(true);
@@ -216,7 +216,7 @@ void EnemyOzartia::processBehavior() {
         case PROG1_LEAVE: {
             if (pProg->hasJustChanged()) {
                 UTIL::activateLeaveEffectOf(this);
-                pAFader_->transitionLinearUntil(0.0, 30);
+                pAlphaFader->transitionLinearUntil(0.0, 30);
             }
             if (pProg->hasArrivedAt(60)) {
                 sayonara();
@@ -267,7 +267,7 @@ void EnemyOzartia::processBehavior() {
         }
     }
 
-    pAFader_->behave();
+    pAlphaFader->behave();
     pKurokoLeader01_->behave();
     pKuroko->behave();
     is_hit_ = false;
@@ -298,7 +298,6 @@ void EnemyOzartia::onInactive() {
 EnemyOzartia::~EnemyOzartia() {
     GGAF_DELETE(pKurokoLeader01_);
     pConn_pSplManuf_->close();
-    GGAF_DELETE(pAFader_);
     GGAF_DELETE(pProg2_);
 }
 

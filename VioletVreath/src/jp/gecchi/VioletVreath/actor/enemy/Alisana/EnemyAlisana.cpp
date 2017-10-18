@@ -17,7 +17,6 @@ using namespace VioletVreath;
 EnemyAlisana::EnemyAlisana(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Alisana", STATUS(EnemyAlisana)) {
     _class_name = "EnemyAlisana";
-    pAFader_ = NEW GgafDxAlphaFader(this);
     frame_of_morph_interval_ = 120;
 
     GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
@@ -46,6 +45,7 @@ void EnemyAlisana::onActive() {
 }
 
 void EnemyAlisana::processBehavior() {
+    GgafDxAlphaFader* pAlphaFader = getAlphaFader();
     GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
@@ -62,7 +62,7 @@ void EnemyAlisana::processBehavior() {
             static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
             static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
             if (pProg->hasArrivedAt(frame_of_summons_begin)) {
-                pAFader_->transitionLinearUntil(0.999, frame_of_entering);
+                pAlphaFader->transitionLinearUntil(0.999, frame_of_entering);
             }
             if (pProg->hasArrivedAt(frame_of_entering)) {
                 setHitAble(true);
@@ -103,7 +103,7 @@ void EnemyAlisana::processBehavior() {
             if (pProg->hasJustChanged()) {
                 setHitAble(false);
                 UTIL::activateLeaveEffectOf(this);
-                pAFader_->transitionLinearUntil(0.0, 30);
+                pAlphaFader->transitionLinearUntil(0.0, 30);
             }
             if (pProg->hasArrivedAt(60)) {
                 sayonara();
@@ -114,7 +114,7 @@ void EnemyAlisana::processBehavior() {
         default :
             break;
     }
-    pAFader_->behave();
+    pAlphaFader->behave();
     getMorpher()->behave();
     getKuroko()->behave();
 }
@@ -156,6 +156,5 @@ void EnemyAlisana::close_sayonara() {
 }
 
 EnemyAlisana::~EnemyAlisana() {
-    GGAF_DELETE(pAFader_);
 }
 

@@ -19,8 +19,6 @@ public:
         CUR_ON_MOVE,
         CUR_STAY,
     };
-    /** フィードイン・フェードアウト支援 */
-    GgafDxCore::GgafDxAlphaFader* pAFader_;
     coord tx_, ty_, tz_;
 
 public:

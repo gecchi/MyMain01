@@ -38,6 +38,8 @@ protected:
     hashval _hash_temp_technique;
     /** [r]一時テクニック終了フレーム */
     frame _frame_of_behaving_temp_technique_end;
+    /** [r]αフェーディング支援 */
+    GgafDxAlphaFader* _pAlphaFader;
 
 public:
     /** [r/w]描画時、Zバッファを考慮して描画を行うか否か。true:考慮する／false:Zバッファを無視して描画  */
@@ -115,6 +117,12 @@ public:
     virtual GgafDxFigureActor* getNext() const override {  //共変の戻り値
         return (GgafDxFigureActor*)GgafActor::getNext();
     }
+
+    /**
+     * αフェーディング支援オブジェクトを取得 .
+     * @return αフェーディング支援オブジェクト
+     */
+    GgafDxAlphaFader* getAlphaFader();
 
     /**
      * シェーダーのテクニックを変更する .

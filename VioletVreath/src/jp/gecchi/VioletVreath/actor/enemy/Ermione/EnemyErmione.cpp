@@ -22,7 +22,6 @@ using namespace VioletVreath;
 EnemyErmione::EnemyErmione(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Ermione", STATUS(EnemyErmione)) {
     _class_name = "EnemyErmione";
-    pAFader_ = NEW GgafDxAlphaFader(this);
 
 //    num_arm_ = 6; //腕の合計本数
 //    num_arm_part_ = 11;  //各腕の節数（3以上）
@@ -166,7 +165,7 @@ void EnemyErmione::processBehavior() {
             static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
             static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
             if (pProg->hasArrivedAt(frame_of_summons_begin)) {
-                pAFader_->transitionLinearUntil(1.0, frame_of_entering);
+                getAlphaFader()->transitionLinearUntil(1.0, frame_of_entering);
             }
             if (pProg->hasArrivedAt(frame_of_entering)) {
                 setHitAble(true);
@@ -195,7 +194,7 @@ void EnemyErmione::processBehavior() {
             break;
         }
     }
-    pAFader_->behave();
+    getAlphaFader()->behave();
     pKuroko->behave();
     getMorpher()->behave();
     getSeTransmitter()->behave();
@@ -229,6 +228,5 @@ void EnemyErmione::addArm(angle prm_rz, angle prm_ry) {
 }
 
 EnemyErmione::~EnemyErmione() {
-    GGAF_DELETE(pAFader_);
     GGAF_DELETEARR(paArm_);
 }

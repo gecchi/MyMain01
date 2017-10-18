@@ -34,8 +34,6 @@ public:
         MPH_HATCH_OPEN,
     };
 
-    /** フィードイン・フェードアウト支援 */
-    GgafDxCore::GgafDxAlphaFader* pAFader_;
     /** [r/w]ハッチ開＞閉 及び、閉＞開 のモーフアニメーションフレーム数 */
     frame frame_of_morph_interval_;
 

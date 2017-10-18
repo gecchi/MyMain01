@@ -31,8 +31,6 @@ public:
         PROG_BANPEI,
     };
 
-    /** フィードイン・フェードアウト支援 */
-    GgafDxCore::GgafDxAlphaFader* pAFader_;
     /** 平行移動速度ベクトル */
     GgafDxCore::GgafDxGeoElem mv_velo_twd_;
     /** 相方 */

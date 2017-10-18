@@ -74,7 +74,6 @@ MyBunshin::MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase) :
     pTorpedoCtrler_ = NEW MyTorpedoController("TorpedoController", this, pLockonCtrler_);
     addSubGroup(pTorpedoCtrler_);
 
-    pAFader_ = NEW GgafDxAlphaFader(this);
     pColorist_ = NEW GgafDxColorist(this);
     GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
     pSe->set(SE_FIRE_LASER,   "WAVE_MY_FIRE_LASER_002");
@@ -101,7 +100,7 @@ void MyBunshin::onActive() {
     pLockonCtrler_->onActive();
     pTorpedoCtrler_->onActive();
     setAlpha(0);
-    pAFader_->transitionLinearToTop(120);
+    getAlphaFader()->transitionLinearToTop(120);
     resetMaterialColor();
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->setRollFaceAngVelo(pBase_->bunshin_default_angvelo_mv_); //分身のクルクル速度
@@ -114,7 +113,7 @@ void MyBunshin::processBehavior() {
 
     pKuroko->behave();
     getScaler()->behave();
-    pAFader_->behave();
+    getAlphaFader()->behave();
     pColorist_->behave();
     changeGeoFinal();
 }
@@ -307,7 +306,6 @@ void MyBunshin::turnExpanse(coord prm_target_ang_expanse, frame prm_spent_frames
 }
 
 MyBunshin::~MyBunshin() {
-    GGAF_DELETE(pAFader_);
     GGAF_DELETE(pColorist_);
 }
 

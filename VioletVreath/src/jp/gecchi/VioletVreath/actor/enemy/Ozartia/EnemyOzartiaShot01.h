@@ -19,9 +19,6 @@ public:
         PROG_BANPEI,
     };
 
-    /** フィードイン・フェードアウト支援 */
-    GgafDxCore::GgafDxAlphaFader* pAFader_;
-
 public:
     EnemyOzartiaShot01(const char* prm_name);
 

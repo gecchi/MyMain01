@@ -42,8 +42,6 @@ public:
     coord dZ_camera_init_;
 
     GgafLib::LaserChipDepository* pLaserChipDepo_;
-    /** フィードイン・フェードアウト支援 */
-    GgafDxCore::GgafDxAlphaFader* pAFader_;
 
 public:
     /**

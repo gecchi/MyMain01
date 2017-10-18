@@ -17,7 +17,6 @@ using namespace Mogera;
 Zako::Zako(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Zako") {
     _class_name = "Zako";
-    pAFader_ = NEW GgafDxAlphaFader(this);
     useProgress(PROG_BANPEI);
     pKurokoLeader_ = nullptr; //フォーメーションオブジェクトが設定する
     pOs_ = nullptr;
@@ -92,7 +91,6 @@ void Zako::processBehavior() {
 //            break;
 //    }
 //
-//    pAFader_->behave();
     pKuroko->behave();
 }
 
@@ -112,6 +110,5 @@ Zako::~Zako() {
     if (pOs_) {
         (*pOs_).close();
     }
-    GGAF_DELETE(pAFader_);
     GGAF_DELETE_NULLABLE(pKurokoLeader_);
 }
