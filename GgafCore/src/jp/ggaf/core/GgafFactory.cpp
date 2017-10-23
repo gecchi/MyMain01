@@ -80,8 +80,7 @@ void GgafFactory::order(uint64_t prm_order_no,
         _TRACE2_("＜客:("<<prm_pOrderer<<")＞ 注文たまってますね、次々注文恐れ入ります。");
         pOrder_new->_is_first_order_flg = false;
         pOrder_new->_is_last_order_flg = true;
-        GgafOrder* pOrder_last;
-        pOrder_last = GgafFactory::ROOT_ORDER->_pOrder_prev;
+        GgafOrder* pOrder_last = GgafFactory::ROOT_ORDER->_pOrder_prev;
         pOrder_last->_is_last_order_flg = false;
         pOrder_last->_pOrder_next = pOrder_new;
         pOrder_new->_pOrder_prev = pOrder_last;
@@ -112,11 +111,10 @@ int GgafFactory::chkProgress(uint64_t prm_order_no) {
 
 void* GgafFactory::obtain(uint64_t prm_order_no, GgafObject* prm_pReceiver) {
     _TRACE2_("＜受取人:"<< (prm_pReceiver ? prm_pReceiver->toString() : "nullptr") <<"("<<prm_pReceiver<<")＞ まいど、["<<prm_order_no<<"-"<<prm_pReceiver<<"]を取りに来ましたよっと。");
-    GgafOrder* pOrder;
+    GgafOrder* pOrder= GgafFactory::ROOT_ORDER;
     GgafOrder* pOrder_my_next;
     GgafOrder* pOrder_my_prev;
     DWORD waittime = 0;
-    pOrder = GgafFactory::ROOT_ORDER;
     void* objectCreation;
 
     if (pOrder == nullptr) {

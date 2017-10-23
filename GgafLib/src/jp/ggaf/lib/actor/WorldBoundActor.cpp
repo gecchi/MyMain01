@@ -20,16 +20,15 @@ WorldBoundActor::WorldBoundActor(const char* prm_name, const char* prm_model) :
     _class_name = "WorldBoundActor";
     _offset_frames = 0;
     setSpecialRenderDepthIndex(RENDER_DEPTH_INDEX_WORLDBOUND);
-
-    setZEnableDraw(false);        //Zバッファは考慮無し
+    setHitAble(false);
+    setZEnableDraw(false);   //Zバッファは考慮無し
     setZWriteEnable(false);  //自身のZバッファを書き込みしない
+    setFaceAngZero();
 }
 
 void WorldBoundActor::initialize() {
     DefaultCamera* pCam = P_GOD->getSpacetime()->getCamera();
-    setHitAble(false);
     setPositionAt(pCam);
-    setFaceAngZero();
     dxcoord world_r = pCam->getZFar(); //世界境界球半径
     dxcoord world_bound_model_r = 1.0f; //WorldBound001のモデルは半径DIRECTX距離1の球である
     setScaleR((world_r*0.989)/world_bound_model_r);

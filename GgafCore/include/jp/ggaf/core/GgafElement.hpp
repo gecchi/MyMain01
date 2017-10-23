@@ -105,6 +105,7 @@ public:
     bool _is_already_reset;
     /** [r]状態進捗管理オブジェクト */
     GgafProgress* _pProg;
+
 public:
     /**
      * コンストラクタ
@@ -129,6 +130,10 @@ public:
     /**
      * ノード初期処理(実行対象：thisのみ) .
      * インスタンス生成後、何れかが呼び出される前に、最初に必ず１回だけ呼び出される。<BR>
+     * ＜コンストラクタとinitialize()の使い分けについて＞<BR>
+     * ・コンストラクタは工場で生成時に呼び出されるが、initialize() はツリーに属し、活動開始する直前に呼ばれる。
+     * ・initialize() は コンストラクタでは不可な、仮想関数を呼べるというメリットがある。<BR>
+     * ・initialize() は、単なる関数なので、任意の箇所で明示的に何度でも呼び出すことも可能。<BR>
      * 補足：initialize()が呼び出された後、reset() が呼び出される。
      */
     virtual void initialize() = 0;

@@ -784,10 +784,10 @@ bool MyStgUtil::performEnemyHit(GgafDxFigureActor* prm_this, const GgafDxGeometr
                 if (ZEROd_EQ(rp_r)) {
                     //なにもしない
                 } else if (ONEd_EQ(rp_r)) {
-                    G_RANK  += rp; //減衰率が1.0ならば、そのまま加算初期ランク値をプラス
+                    G_RANK += rp; //減衰率が1.0ならば、そのまま加算初期ランク値をプラス
                 } else if (rp_r > 0) {
                     frame n = prm_this->getActiveFrame();   //稼働フレーム
-                    G_RANK  += (rp * pow(rp_r, (double)n)); //rp * (rp_r ^ n)  ランク加算
+                    G_RANK += (rp * pow(rp_r, (double)n)); //rp * (rp_r ^ n)  ランク加算
                 } else {
                     //なにもしない
                 }
