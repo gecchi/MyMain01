@@ -25,7 +25,7 @@ void GgafTreeFormation::addFormationMember(GgafActor* prm_pSub) {
     _num_formation_member++;
     if (_pSubFirst == nullptr) {
         //団長に種別を正しく伝えるために、初回追加の種別を、自身の種別に上書（GgafTreeFormation）きする
-        actorkind kind = prm_pSub->getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND);
+        kind kind = prm_pSub->getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND);
         getStatus()->set(STAT_DEFAULT_ACTOR_KIND, kind);
         //メンバー無しの GgafTreeFormation を、addSubGroup した後に addFormationMember を行った場合、
         //まずメンバー無しの GgafTreeFormation を、addSubGroup した直後は、種別=0なので、作成された団長の種別も0で作成されてしまう。
@@ -40,7 +40,7 @@ void GgafTreeFormation::addFormationMember(GgafActor* prm_pSub) {
                 //種別が変わっている。この団長の種別を無理やり変更できるか？
                 if (myGroupHead->_kind == 0) {
                     //種別0だったので無理やり団長の種別を書き換えてしまおう。
-                    _TRACE_(FUNC_NAME<<" "<<NODE_INFO<<" は、所属済み団長の種別(＝自身の種別)"<<myGroupHead->_kind<<"と、追加メンバーの種別"<<kind<<"が異なります。"<<
+                    _TRACE_(FUNC_NAME<<" "<<NODE_INFO<<" は、所属済み団長の種別(＝自身の種別)"<<myGroupHead->_kind<<"と、追加メンバーの種別"<<kind<<"が異なります。\n"
                             "幸いにも、団長種別が 0 だったので、無理やり更新しました。旧団長種別="<<myGroupHead->_kind<<" → 新団長種別="<<kind<<"");
                     myGroupHead->setKind(kind);
                 } else {
@@ -57,8 +57,8 @@ void GgafTreeFormation::addFormationMember(GgafActor* prm_pSub) {
     } else {
 #ifdef MY_DEBUG
         if (getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND) != prm_pSub->getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND)) {
-            throwGgafCriticalException("異なる種別のアクターを登録しようとしています。 \n"<<
-                                       "想定="<<getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND)<<"[_pSubFirst="<<_pSubFirst->getName()<<"] \n"<<
+            throwGgafCriticalException("異なる種別のアクターを登録しようとしています。 \n"
+                                       "想定="<<getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND)<<"[_pSubFirst="<<_pSubFirst->getName()<<"] \n"
                                        "引数="<<prm_pSub->getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND)<<"["<<prm_pSub->getName()<<"]");
         }
 #endif

@@ -21,6 +21,7 @@ AroundViewCamWorker::AroundViewCamWorker(const char* prm_name, DefaultCamera* pr
     cd_ = 0;
     mdz_flg_ = false;
     mdz_vx_ = mdz_vy_ = mdz_vz_ = mdz_t_ = 0.0;
+    mdz_total_ = 0;
 }
 
 void AroundViewCamWorker::initialize() {

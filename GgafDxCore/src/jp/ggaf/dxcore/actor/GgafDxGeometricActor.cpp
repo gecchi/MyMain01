@@ -267,7 +267,7 @@ void GgafDxGeometricActor::changeGeoFinal() {
 //void GgafDxGeometricActor::updateGeoFinalFromLocal() {
 //
 //}
-GgafGroupHead* GgafDxGeometricActor::addSubGroupAsFk(actorkind prm_kind,
+GgafGroupHead* GgafDxGeometricActor::addSubGroupAsFk(kind prm_kind,
                                                      GgafDxGeometricActor* prm_pGeoActor,
                                                      coord prm_x_init_local,
                                                      coord prm_y_init_local,

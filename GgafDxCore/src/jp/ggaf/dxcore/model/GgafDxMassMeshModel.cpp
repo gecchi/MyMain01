@@ -81,7 +81,7 @@ void GgafDxMassMeshModel::restore() {
             _set_num = STOI(names[0]);
             xfile_name = GgafDxModelManager::getMeshFileName(names[1]);
         } else {
-            throwGgafCriticalException("_model_name には \"xxxxxx\" or \"8/xxxxx\" 形式を指定してください。 \n"<<
+            throwGgafCriticalException("_model_name には \"xxxxxx\" or \"8/xxxxx\" 形式を指定してください。 \n"
                     "実際は、_model_name="<<_model_name<<" でした。");
         }
         if (_set_num < 1 || _set_num > GGAFDXMASS_MAX_INSTANCE_NUM) {

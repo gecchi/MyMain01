@@ -109,10 +109,10 @@ void MenuBoard::moveCursor(bool prm_smooth) {
     }
 }
 
-void MenuBoard::onMoveCursor(int prm_from, int prm_to) {
+void MenuBoard::onMoveCursor(int prm_from_index, int prm_selected_index) {
 }
 
-void MenuBoard::onSelect(int prm_from, int prm_to) {
+void MenuBoard::onSelect(int prm_from_index, int prm_selected_index) {
 }
 
 void MenuBoard::initialize() {
@@ -124,11 +124,11 @@ void MenuBoard::initialize() {
 void MenuBoard::onRise() {
     //スライドイントランジション
     setPosition(target_x_ + slide_from_offset_x_,
-             target_y_ + slide_from_offset_y_);
+                target_y_ + slide_from_offset_y_);
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setMvAngTwd(target_x_, target_y_);
     pKuroko->asstMv()->slideByDt(UTIL::getDistance(_x, _y, target_x_, target_y_), _fade_frames,
-                                  0.2, 0.3, 0, true);
+                                 0.2, 0.3, 0, true);
     getSeTransmitter()->play(SE_ON_RISEN);
 }
 
@@ -160,7 +160,8 @@ void MenuBoard::onSink() {
                                   target_y_+slide_from_offset_y_
                            ),
                            _fade_frames,
-                           0.2, 0.3, 0, true);
+                           0.2, 0.3, 0, true
+                       );
 }
 
 MenuBoard::~MenuBoard() {

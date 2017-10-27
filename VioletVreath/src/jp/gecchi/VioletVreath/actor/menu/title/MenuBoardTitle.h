@@ -30,8 +30,6 @@ public:
         MENU_SCREEN_CONFIG,
         MENU_BANPEI,
     };
-    /** フィードイン・フェードアウト支援 */
-    GgafDxCore::GgafDxAlphaFader** papItemAFader_;
 
 public:
     MenuBoardTitle(const char* prm_name);
@@ -40,7 +38,7 @@ public:
     bool condSelectPrev() override;
     bool condSelectExNext() override;
     bool condSelectExPrev() override;
-    void onSelect(int prm_from, int prm_to) override;
+    void onSelect(int prm_from_index, int prm_selected_index) override;
     void onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) override;
     void onCancel(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) override;
 

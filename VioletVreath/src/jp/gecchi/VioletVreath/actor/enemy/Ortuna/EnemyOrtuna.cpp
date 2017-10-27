@@ -19,6 +19,7 @@ EnemyOrtuna::EnemyOrtuna(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Ortuna", STATUS(EnemyOrtuna)) {
     _class_name = "EnemyOrtuna";
     _sx=_sy=_sz=100;
+    stagnating_pos_frames_ = 1;
     GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
     pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);

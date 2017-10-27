@@ -24,7 +24,7 @@ public:
     /** [r]要素オブジェクト（これが本体） */
     GgafObject* const _pObject;
     /** [r]要素オブジェクトの種別 */
-    actorkind _kindbit;
+    kind _kind;
     /** [r]所属空間 */
     GgafTreeSpace<DIMENSION>* _pSpace_current;
     /** [r]次要素 */
@@ -35,22 +35,15 @@ public:
     GgafTreeElem* _pRegLinkNext;
 
     /**
-     * コンストラクタ
+     * コンストラクタ .
+     * @param prm_paSpace 空間の配列へのポインタ
      * @param prm_pObject 対象オブジェクト(キャラクタなどN分木で管理したい実際の値)
-     * @param prm_kindbit その対象オブジェクの種別、種類分け不要な場合は、任意の数値でよい。
-     * @return
      */
-
-    /**
-     *
-     * @param prm_paSpace
-     * @param prm_pObject
-     * @param prm_kindbit
-     */
-    GgafTreeElem(GgafTreeSpace<DIMENSION>* prm_paSpace, GgafObject* prm_pObject, actorkind prm_kindbit) : GgafObject() ,
-            _paSpace(prm_paSpace),
-        _pObject(prm_pObject) {
-        _kindbit = prm_kindbit;
+    GgafTreeElem(GgafTreeSpace<DIMENSION>* prm_paSpace, GgafObject* prm_pObject) : GgafObject() ,
+        _paSpace(prm_paSpace),
+        _pObject(prm_pObject)
+    {
+        _kind = 0;
         _pSpace_current = nullptr;
         _pNext = nullptr;
         _pPrev = nullptr;

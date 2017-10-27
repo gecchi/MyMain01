@@ -19,8 +19,6 @@ public:
     static int input_item_num_;
     int ITEM_INDEX_OK_;
     int ITEM_INDEX_BS_;
-//    GgafLib::FontBoardActor* pLabelInputedName_;
-//    GgafLib::FontBoardActor* pLabelSelectedChar_;
     GgafLib::FontSpriteActor* pLabelInputedName_;
     GgafLib::FontSpriteActor* pLabelSelectedChar_;
 

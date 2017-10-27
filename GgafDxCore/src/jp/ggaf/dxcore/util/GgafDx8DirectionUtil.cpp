@@ -63,14 +63,14 @@ void GgafDx8DirectionUtil::init() {
     GgafDx8DirectionUtil::is_init = true;
 }
 dir8 GgafDx8DirectionUtil::cnvVec2DirNo(float prm_vx, float prm_vy) {
-    int sgn_x, sgn_y, sgn_z;
+    int sgn_x, sgn_y;
     GgafDx8DirectionUtil::cnvVec2Sgn(prm_vx, prm_vy,
-                              sgn_x, sgn_y);
+                                     sgn_x, sgn_y);
     return DIR8(sgn_x, sgn_y);
 }
 
 void GgafDx8DirectionUtil::cnvVec2Sgn(float prm_vx, float prm_vy,
-                                     int& out_sgn_x, int& out_sgn_y) {
+                                      int& out_sgn_x, int& out_sgn_y) {
     //îºåaÇPÇ…ì‡ê⁄Ç∑ÇÈê≥î™äpå`ÇÃÇPï”ÇÕ 2Å„2 - 2
     //                  y
     //                  ^
@@ -123,9 +123,7 @@ void GgafDx8DirectionUtil::cnvVec2Sgn(float prm_vx, float prm_vy,
     } else {
         out_sgn_y = 0;
     }
-
 }
-
 
 void GgafDx8DirectionUtil::cnvDirNo2Vec(dir8 prm_dir_no, float& out_vx, float& out_vy) {
     out_vx = GgafDx8DirectionUtil::_dir2vec[prm_dir_no].vx;

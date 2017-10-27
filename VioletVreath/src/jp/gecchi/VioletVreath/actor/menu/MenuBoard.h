@@ -5,6 +5,8 @@
 
 namespace VioletVreath {
 
+typedef GgafLib::MenuActor<GgafLib::DefaultFramedBoardActor> DefaultFramedBoardMenu;
+
 /**
  * 本アプリのメニューボード標準実装 .
  * スライドのトランジション実装。
@@ -13,7 +15,7 @@ namespace VioletVreath {
  * @since 2011/12/26
  * @author Masatoshi Tsuge
  */
-class MenuBoard : public GgafLib::DefaultFramedBoardMenu {
+class MenuBoard : public DefaultFramedBoardMenu {
 
 public:
     enum {
@@ -49,8 +51,8 @@ public:
     virtual bool condSelectExPrev() override;
     virtual bool condSelectCancel() override;
     virtual void moveCursor(bool prm_smooth = true) override;
-    virtual void onMoveCursor(int prm_from, int prm_to) override;
-    virtual void onSelect(int prm_from, int prm_to) override;
+    virtual void onMoveCursor(int prm_from_index, int prm_selected_index) override;
+    virtual void onSelect(int prm_from_index, int prm_selected_index) override;
 
     virtual void initialize() override;
 

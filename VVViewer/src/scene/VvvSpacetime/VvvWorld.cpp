@@ -531,27 +531,27 @@ void VvvWorld::processBehavior() {
                 GgafDxFigureActor* pNewActor = nullptr;
                 if (pCurrentActor->instanceOf(Obj_GgafDxMeshActor)) {
                     string was_dropfile_dir = UTIL::getFileDirName(listActorInfo_.getCurrent()->modelfile_.c_str()) + "/";
-                    PROPERTY::DIR_MESH_MODEL[2]   = was_dropfile_dir;
-                    PROPERTY::DIR_TEXTURE[0]      = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
-                    PROPERTY::DIR_TEXTURE[1]      = was_dropfile_dir + "/../" + PROPERTY::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
-                    PROPERTY::DIR_TEXTURE[2]      = was_dropfile_dir;
+                    PROPERTY::DIR_MESH_MODEL[2] = was_dropfile_dir;
+                    PROPERTY::DIR_TEXTURE[0]    = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
+                    PROPERTY::DIR_TEXTURE[1]    = was_dropfile_dir + "/../" + PROPERTY::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
+                    PROPERTY::DIR_TEXTURE[2]    = was_dropfile_dir;
                     string was_model_id = UTIL::getFileBaseNameWithoutExt(listActorInfo_.getCurrent()->modelfile_.c_str());
                     pNewActor = createInFactory2(GgafLib::CubeMapMeshActor, "actor", was_model_id.c_str());
-                    PROPERTY::DIR_TEXTURE[0]      = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
-                    PROPERTY::DIR_TEXTURE[1]      = dropfile_dir + "/../" + PROPERTY::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
-                    PROPERTY::DIR_TEXTURE[2]      = dropfile_dir;
+                    PROPERTY::DIR_TEXTURE[0]    = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
+                    PROPERTY::DIR_TEXTURE[1]    = dropfile_dir + "/../" + PROPERTY::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
+                    PROPERTY::DIR_TEXTURE[2]    = dropfile_dir;
                     ((CubeMapMeshActor*)pNewActor)->setCubeMap(file_name.c_str(), 0.5);
 
                 } else if (pCurrentActor->instanceOf(Obj_GgafDxMorphMeshActor)) {
                     string was_dropfile_dir = UTIL::getFileDirName(listActorInfo_.getCurrent()->modelfile_.c_str()) + "/";
-                    PROPERTY::DIR_MESH_MODEL[2]   = was_dropfile_dir;
-                    PROPERTY::DIR_TEXTURE[0]      = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
-                    PROPERTY::DIR_TEXTURE[1]      = was_dropfile_dir + "/../" + PROPERTY::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
-                    PROPERTY::DIR_TEXTURE[2]      = was_dropfile_dir;
+                    PROPERTY::DIR_MESH_MODEL[2] = was_dropfile_dir;
+                    PROPERTY::DIR_TEXTURE[0]    = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
+                    PROPERTY::DIR_TEXTURE[1]    = was_dropfile_dir + "/../" + PROPERTY::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
+                    PROPERTY::DIR_TEXTURE[2]    = was_dropfile_dir;
                     pNewActor = createInFactory2(GgafLib::CubeMapMorphMeshActor, "actor", pCurrentActor->getModel()->getName());
-                    PROPERTY::DIR_TEXTURE[0]      = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
-                    PROPERTY::DIR_TEXTURE[1]      = dropfile_dir + "/../" + PROPERTY::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
-                    PROPERTY::DIR_TEXTURE[2]      = dropfile_dir;
+                    PROPERTY::DIR_TEXTURE[0]    = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
+                    PROPERTY::DIR_TEXTURE[1]    = dropfile_dir + "/../" + PROPERTY::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
+                    PROPERTY::DIR_TEXTURE[2]    = dropfile_dir;
                     ((CubeMapMorphMeshActor*)pNewActor)->setCubeMap(file_name.c_str(), 0.5);
                 }
                 pNewActor->setPositionAt(pCurrentActor);
@@ -570,9 +570,9 @@ void VvvWorld::processBehavior() {
             file_name.find("Normalmap") == std::string::npos)
         ) {
             GgafDxFigureActor* pCurrentActor = listActorInfo_.getCurrent()->pActor_;
-            PROPERTY::DIR_TEXTURE[0]      = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
-            PROPERTY::DIR_TEXTURE[1]      = dropfile_dir + "/../" + PROPERTY::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
-            PROPERTY::DIR_TEXTURE[2]      = dropfile_dir;
+            PROPERTY::DIR_TEXTURE[0] = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
+            PROPERTY::DIR_TEXTURE[1] = dropfile_dir + "/../" + PROPERTY::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
+            PROPERTY::DIR_TEXTURE[2] = dropfile_dir;
             if (pCurrentActor->instanceOf(Obj_GgafDxMeshActor)) {
                 ((GgafDxMeshActor*)pCurrentActor)->effectBumpMapping(file_name.c_str());
             }
@@ -614,14 +614,14 @@ void VvvWorld::processBehavior() {
             float g = p->_paMaterial[0].Ambient.g;
             float b = p->_paMaterial[0].Ambient.b;
             std::ostringstream oss;
-            oss << "["<<listActorInfo_.getCurrentIndex()<<"] = \""<<listActorInfo_.getCurrent()->modelfile_<<"\"\n"<<
-                   "Class : "<<p->_class_name<<"\n"<<
-                   "(_x, _y, _z) = ("<<(p->_x)<<", "<<(p->_y)<<", "<<(p->_z)<<")\n"<<
-                   "_rx, _ry, _rz = "<<(p->_rx)<<", "<<(p->_ry)<<", "<<(p->_rz)<<"\n"<<
-                   "_sx, _sy, _sz = "<<(p->_sx)<<", "<<(p->_sy)<<", "<<(p->_sz)<<"\n"<<
+            oss << "["<<listActorInfo_.getCurrentIndex()<<"] = \""<<listActorInfo_.getCurrent()->modelfile_<<"\"\n"
+                   "Class : "<<p->_class_name<<"\n"
+                   "(_x, _y, _z) = ("<<(p->_x)<<", "<<(p->_y)<<", "<<(p->_z)<<")\n"
+                   "_rx, _ry, _rz = "<<(p->_rx)<<", "<<(p->_ry)<<", "<<(p->_rz)<<"\n"
+                   "_sx, _sy, _sz = "<<(p->_sx)<<", "<<(p->_sy)<<", "<<(p->_sz)<<"\n"
                    "_bounding_sphere_radius = "<<(p->getModel()->_bounding_sphere_radius)<<" * "<<(p->_rate_of_bounding_sphere_radius)<<" = "<<
-                            (p->getModel()->_bounding_sphere_radius * p->_rate_of_bounding_sphere_radius)<<" (="<<DX_C(p->getModel()->_bounding_sphere_radius * p->_rate_of_bounding_sphere_radius)<<" coord)"<<"\n"<<
-                   "red/green/blue = "<<r<<"/"<<g<<"/"<<b<<"\n"<<
+                            (p->getModel()->_bounding_sphere_radius * p->_rate_of_bounding_sphere_radius)<<" (="<<DX_C(p->getModel()->_bounding_sphere_radius * p->_rate_of_bounding_sphere_radius)<<" coord)"<<"\n"
+                   "red/green/blue = "<<r<<"/"<<g<<"/"<<b<<"\n"
                    "_alpha = "<< (p->getAlpha())<<"\n";
             if (p->instanceOf(Obj_GgafDxCubeMapMorphMeshActor)) {
                 CubeMapMorphMeshActor* p2 = (CubeMapMorphMeshActor*)p;

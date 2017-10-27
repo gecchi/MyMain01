@@ -561,19 +561,20 @@ public:
         ry1 = ry2;
     }
 
+    /**
+     * アングル値の正規化 .
+     * @param prm_ang アングル値
+     * @return 0 ～ D360ANG の範囲に収められたアングル値
+     */
     static inline angle simplifyAng(angle prm_ang) {
         if (0 <= prm_ang && prm_ang < D360ANG) {
             return prm_ang;
+        } else if (prm_ang >= D360ANG) {
+            return prm_ang % D360ANG;
+        } else { // prm_ang < 0
+            return D360ANG - ((-1 * prm_ang) % D360ANG);
         }
-        while (prm_ang >= D360ANG) {
-            prm_ang -= D360ANG;
-        }
-        while (prm_ang < 0) {
-            prm_ang += D360ANG;
-        }
-        return prm_ang;
     }
-
 
     /**
      * 線分の当たり判定<BR>

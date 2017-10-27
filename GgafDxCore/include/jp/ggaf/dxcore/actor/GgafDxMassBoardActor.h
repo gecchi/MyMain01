@@ -40,7 +40,7 @@ private:
      * 使用不可のため、privateでoverride
      * @return
      */
-    GgafCore::GgafGroupHead* addSubGroupAsFk(actorkind prm_kind,
+    GgafCore::GgafGroupHead* addSubGroupAsFk(kind prm_kind,
                                              GgafDxGeometricActor* prm_pGeoActor,
                                              int prm_x_init_local,
                                              int prm_y_init_local,

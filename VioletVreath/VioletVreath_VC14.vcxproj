@@ -531,7 +531,6 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\CursorConfirmMenu.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardConfirm.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\MenuBoard.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\MenuSelectSub.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\name_entry\CursorNameEntryMenu.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\name_entry\MenuBoardNameEntry.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\pause\CursorPauseMenu.cpp" />
@@ -890,7 +889,6 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\CursorConfirmMenu.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardConfirm.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\MenuBoard.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\MenuSelectSub.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\name_entry\CursorNameEntryMenu.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\name_entry\MenuBoardNameEntry.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\pause\CursorPauseMenu.h" />

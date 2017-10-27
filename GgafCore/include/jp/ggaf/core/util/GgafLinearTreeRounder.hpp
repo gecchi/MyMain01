@@ -10,7 +10,7 @@ namespace GgafCore {
 
 #define MAX_COLLISIONSTACK_ACTOR_NUM (2000)
 /**
- * Tを要素とし当たり判定機能を追加した線形八分木または四分木の各要素に処理を行う .
+ * Tを要素とし当たり判定機能を追加した線形N分木または四分木の各要素に処理を行う .
  * @version 1.00
  * @since 2009/11/23
  * @author Masatoshi Tsuge
@@ -117,16 +117,16 @@ public:
     TStack _stackGroupB;
 
     /** [r]今回当たり判定を行うアクター種別A */
-    actorkind _kind_groupA;
+    kind _kind_groupA;
     /** [r]今回当たり判定を行うアクター種別B */
-    actorkind _kind_groupB;
+    kind _kind_groupB;
     /** [r]実行するTのメンバ関数 */
     void (T::*_pFunc)(T*);
 
 public:
     /**
      * コンストラクタ
-     * @param prm_level 作成する八分木空間レベル
+     * @param prm_level 作成するN分木空間レベル
      */
     GgafLinearTreeRounder(GgafTreeSpace<DIMENSION>* prm_paTargetSpace, int prm_num_space, void (T::*prm_pFunc)(T*)) {
         _paTargetSpace = prm_paTargetSpace;
@@ -137,17 +137,17 @@ public:
     }
 
     /**
-     * 八分木所属の「アクター種別Aグループ 対 アクター種別Bグループ」を行う  .
+     * N分木所属の「アクター種別Aグループ 対 アクター種別Bグループ」を行う  .
      * アプリ側は本メソッドを呼ぶだけでよい。<BR>
      * ただし executeAllHitChk は processJudgement() で呼ぶ必要あり。<BR>
      * @param prm_kind_groupA アクター種別Aグループ
      * @param prm_kind_groupB アクター種別Bグループ
      */
-    void executeAll(actorkind prm_kind_groupA, actorkind prm_kind_groupB) {
+    void executeAll(kind prm_kind_groupA, kind prm_kind_groupB) {
         _kind_groupA = prm_kind_groupA;
         _kind_groupB = prm_kind_groupB;
         if ( (_paTargetSpace[0]._kind_bit_field & prm_kind_groupA) && (_paTargetSpace[0]._kind_bit_field & prm_kind_groupB) ) {
-            //では八分木を巡る旅へ行ってらっしゃい
+            //ではN分木を巡る旅へ行ってらっしゃい
             execute(0); //いってきます
             //はいお帰りなさい。
             _stackGroupA.clear();
@@ -158,20 +158,20 @@ public:
     /**
      * 引数の空間の当たり判定を行う  .
      * executeAllHitChk から使用される。
-     * @param prm_index 線形八分木配列の配列要素番号
+     * @param prm_index 線形N分木配列の配列要素番号
      */
     void execute(uint32_t prm_index) {
         GgafTreeSpace<DIMENSION>* pOctant_this_level = &(_paTargetSpace[prm_index]);
         GgafTreeElem<DIMENSION>* pElem = pOctant_this_level->_pElem_first;
-        const actorkind kind_groupA = _kind_groupA;
-        const actorkind kind_groupB = _kind_groupB;
+        const kind kind_groupA = _kind_groupA;
+        const kind kind_groupB = _kind_groupB;
         if (pElem) {
             GgafTreeElem<DIMENSION>* pElem_last = pOctant_this_level->_pElem_last;
             while (true) {
-                if (pElem->_kindbit & kind_groupA) {
+                if (pElem->_kind & kind_groupA) {
                     _stackGroupA_Current.push((T*)(pElem->_pObject));
                 }
-                if (pElem->_kindbit & kind_groupB) {
+                if (pElem->_kind & kind_groupB) {
                     _stackGroupB_Current.push((T*)(pElem->_pObject));
                 }
                 if (pElem == pElem_last) {
@@ -210,7 +210,7 @@ public:
             //又は、次のレベルの空間に種別Bがあり、かつストックに種別Aがあれば潜る。
             //それ以外は潜らない
             GgafTreeSpace<DIMENSION>* pOctant_lower_level = &(_paTargetSpace[lower_level_index]);
-            actorkind kind_bit_field_lower_level = pOctant_lower_level->_kind_bit_field;
+            kind kind_bit_field_lower_level = pOctant_lower_level->_kind_bit_field;
             if (kind_bit_field_lower_level & kind_groupA) {
                 if (isExistGroupB || (kind_bit_field_lower_level & kind_groupB)) {
                     execute(lower_level_index);
@@ -234,103 +234,6 @@ public:
                     }
                 }
             }
-
-
-
-
-            //ヒットチェックを行いに、子空間(８個)へ潜りに行こう～。
-            //次のレベルの空間に種別AとBが登録されていれば潜る。
-            //又は、次のレベルの空間に種別Aがあり、かつストックに種別Bがあれば潜る。
-            //又は、次のレベルの空間に種別Bがあり、かつストックに種別Aがあれば潜る。
-            //それ以外は潜らない
-//            GgafTreeSpace<DIMENSION>* pOctant_lower_level = &(_paTargetSpace[lower_level_index]);
-//            uint32_t kind_bit_field_lower_level = pOctant_lower_level->_kind_bit_field;
-//            if (kind_bit_field_lower_level & kind_groupA) {
-//                if (isExistGroupB || (kind_bit_field_lower_level & kind_groupB)) {
-//                    execute(lower_level_index);
-//                }
-//            } else if (kind_bit_field_lower_level & kind_groupB) {
-//                if (isExistGroupA) {
-//                    execute(lower_level_index);
-//                }
-//            }
-//
-//            kind_bit_field_lower_level = (++pOctant_lower_level)->_kind_bit_field;
-//            if (kind_bit_field_lower_level & kind_groupA) {
-//                if (isExistGroupB || (kind_bit_field_lower_level & kind_groupB)) {
-//                    execute(lower_level_index+1);
-//                }
-//            } else if (kind_bit_field_lower_level & kind_groupB) {
-//                if (isExistGroupA) {
-//                    execute(lower_level_index+1);
-//                }
-//            }
-//
-//            kind_bit_field_lower_level = (++pOctant_lower_level)->_kind_bit_field;
-//            if (kind_bit_field_lower_level & kind_groupA) {
-//                if (isExistGroupB || (kind_bit_field_lower_level & kind_groupB)) {
-//                    execute(lower_level_index+2);
-//                }
-//            } else if (kind_bit_field_lower_level & kind_groupB) {
-//                if (isExistGroupA) {
-//                    execute(lower_level_index+2);
-//                }
-//            }
-//
-//            kind_bit_field_lower_level = (++pOctant_lower_level)->_kind_bit_field;
-//            if (kind_bit_field_lower_level & kind_groupA) {
-//                if (isExistGroupB || (kind_bit_field_lower_level & kind_groupB)) {
-//                    execute(lower_level_index+3);
-//                }
-//            } else if (kind_bit_field_lower_level & kind_groupB) {
-//                if (isExistGroupA) {
-//                    execute(lower_level_index+3);
-//                }
-//            }
-//
-//            kind_bit_field_lower_level = (++pOctant_lower_level)->_kind_bit_field;
-//            if (kind_bit_field_lower_level & kind_groupA) {
-//                if (isExistGroupB || (kind_bit_field_lower_level & kind_groupB)) {
-//                    execute(lower_level_index+4);
-//                }
-//            } else if (kind_bit_field_lower_level & kind_groupB) {
-//                if (isExistGroupA) {
-//                    execute(lower_level_index+4);
-//                }
-//            }
-//
-//            kind_bit_field_lower_level = (++pOctant_lower_level)->_kind_bit_field;
-//            if (kind_bit_field_lower_level & kind_groupA) {
-//                if (isExistGroupB || (kind_bit_field_lower_level & kind_groupB)) {
-//                    execute(lower_level_index+5);
-//                }
-//            } else if (kind_bit_field_lower_level & kind_groupB) {
-//                if (isExistGroupA) {
-//                    execute(lower_level_index+5);
-//                }
-//            }
-//
-//            kind_bit_field_lower_level = (++pOctant_lower_level)->_kind_bit_field;
-//            if (kind_bit_field_lower_level & kind_groupA) {
-//                if (isExistGroupB || (kind_bit_field_lower_level & kind_groupB)) {
-//                    execute(lower_level_index+6);
-//                }
-//            } else if (kind_bit_field_lower_level & kind_groupB) {
-//                if (isExistGroupA) {
-//                    execute(lower_level_index+6);
-//                }
-//            }
-//
-//            kind_bit_field_lower_level = (++pOctant_lower_level)->_kind_bit_field;
-//            if (kind_bit_field_lower_level & kind_groupA) {
-//                if (isExistGroupB || (kind_bit_field_lower_level & kind_groupB)) {
-//                    execute(lower_level_index+7);
-//                }
-//            } else if (kind_bit_field_lower_level & kind_groupB) {
-//                if (isExistGroupA) {
-//                    execute(lower_level_index+7);
-//                }
-//            }
 
             //お帰りなさい
             //スタックの解放（pushした分、元に戻す）
@@ -366,7 +269,6 @@ public:
     virtual ~GgafLinearTreeRounder() {
     }
 };
-
 
 }
 #endif /*GGAFCORE_GGAFLINEARTREEROUNDER_H_*/

@@ -74,7 +74,7 @@ public:
      * @param prm_pMainActor 種別と共に追加したいアクター
      * @return 引数アクターの団長(GgafGroupHead)
      */
-    GgafGroupHead* addSubGroup(actorkind prm_kind, GgafMainActor* prm_pMainActor);
+    GgafGroupHead* addSubGroup(kind prm_kind, GgafMainActor* prm_pMainActor);
 
     /**
      * 新たに種別を設定し、アクターを配下に追加する。 .
@@ -91,7 +91,7 @@ public:
      * @param prm_kind 探したい団長の種別
      * @return 団長、或いは存在しなければ nullptr
      */
-    GgafGroupHead* searchSubGroupHead(actorkind prm_kind);
+    GgafGroupHead* searchSubGroupHead(kind prm_kind);
 
     /**
      * 神に謁見 .
@@ -100,11 +100,11 @@ public:
     virtual GgafGod* askGod() override;
 
     /**
-     * 種別を取得する .
+     * 所属している団長の種別を取得する .
      * 下位の実装で自由に使用することを想定。
      * @return
      */
-    actorkind getKind();
+    kind lookUpKind();
 
     virtual ~GgafMainActor();
 };

@@ -20,8 +20,8 @@ FixedFrameSplineManufacture::FixedFrameSplineManufacture(const char* prm_source_
     //１区間の使用可能フレーム
     _frame_of_segment = 1.0*_spent_frame / (_sp->_rnum-1);
     if (_frame_of_segment < 1.0) {
-        _TRACE_("＜警告＞FixedFrameSplineManufacture ["<<prm_source_file<<"] _frame_of_segment="<<_frame_of_segment<<" < 1.0f です。"<<
-                "補完点数("<<(_sp->_rnum)<<")よりも、始点～終了点フレーム数("<<_spent_frame<<")が小さいので、補完点の飛びをなくすため、強制的に_frame_of_segmentは1.0に上書き。"<<
+        _TRACE_("＜警告＞FixedFrameSplineManufacture ["<<prm_source_file<<"] _frame_of_segment="<<_frame_of_segment<<" < 1.0f です。"
+                "補完点数("<<(_sp->_rnum)<<")よりも、始点～終了点フレーム数("<<_spent_frame<<")が小さいので、補完点の飛びをなくすため、強制的に_frame_of_segmentは1.0に上書き。"
                 "従って移動には"<<(_sp->_rnum)<<"フレームかかります。ご了承下さい。");
         _frame_of_segment = 1.0;
     }
@@ -41,8 +41,8 @@ FixedFrameSplineManufacture::FixedFrameSplineManufacture(SplineSource* prm_pSplS
     //１区間の使用可能フレーム
     _frame_of_segment = 1.0*_spent_frame / (_sp->_rnum-1);
     if (_frame_of_segment < 1.0) {
-        _TRACE_("＜警告＞FixedFrameSplineManufacture  _frame_of_segment="<<_frame_of_segment<<" < 1.0f です。"<<
-                "補完点数("<<(_sp->_rnum)<<")よりも、始点～終了点フレーム数("<<_spent_frame<<")が小さいので、補完点の飛びをなくすため、強制的に_frame_of_segmentは1.0に上書き。"<<
+        _TRACE_("＜警告＞FixedFrameSplineManufacture  _frame_of_segment="<<_frame_of_segment<<" < 1.0f です。"
+                "補完点数("<<(_sp->_rnum)<<")よりも、始点～終了点フレーム数("<<_spent_frame<<")が小さいので、補完点の飛びをなくすため、強制的に_frame_of_segmentは1.0に上書き。"
                 "従って移動には"<<(_sp->_rnum)<<"フレームかかります。ご了承下さい。");
         _frame_of_segment = 1.0;
     }

@@ -1085,12 +1085,14 @@ public:
 
     /**
      * 目標軸回転方角にターゲットするシークエンスが実行中か .
+     * turn**FaceAng**() を実行後、所望の目標移動方角に回転中の場合 true。
      * @return true:実行中/false:実行中でない
      */
     bool isTurningFaceAng() const;
 
     /**
      * 目標移動方角にターゲットするシークエンスが実行中か .
+     * turn**MvAng**() を実行後、所望の目標移動方角に回転中の場合 true。
      * @return true:実行中/false:実行中でない
      */
     bool isTurningMvAng() const;

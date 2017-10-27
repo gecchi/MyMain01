@@ -16,7 +16,7 @@ GgafObject::GgafObject() :
 //char* GgafObject::getName() {
 //       return _name;
 //}
-char* GgafObject::toString() {
+std::string GgafObject::toString() {
     //TODO:java‚Ì‚æ‚¤‚É‚µ‚½‚¢‚Ì‚©
     return "GgafObject";
 }

@@ -13,7 +13,6 @@ namespace VioletVreath {
  */
 class LabelMenuItemFont01 : public GgafLib::FontBoardActor {
 
-    GgafDxCore::GgafDxAlphaFader* _pAFader;
 public:
     LabelMenuItemFont01(const char* prm_name);
 

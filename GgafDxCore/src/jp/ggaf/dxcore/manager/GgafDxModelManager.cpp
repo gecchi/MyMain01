@@ -126,7 +126,7 @@ GgafDxModel* GgafDxModelManager::processCreateResource(const char* prm_idstr, vo
     std::string idstr = std::string(prm_idstr);
     std::vector<std::string> names = UTIL::split(idstr, "/", 1); //最初のスラッシュで分割
     if (names.size() != 2) {
-        throwGgafCriticalException("引数は、主に次の形式で与えてください。『モデルタイプ1文字  + \"/\" + モデル定義名(拡張子 .x を除いたもの)』\n"<<
+        throwGgafCriticalException("引数は、主に次の形式で与えてください。『モデルタイプ1文字  + \"/\" + モデル定義名(拡張子 .x を除いたもの)』\n"
                 "実際の引数は、prm_idstr="<<prm_idstr);
     }
     char model_type = (names[0])[0];

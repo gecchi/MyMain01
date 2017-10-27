@@ -36,7 +36,9 @@ public:
     inline GgafCore::GgafLinearOctree* getLinearOctree() {
 #ifdef MY_DEBUG
         if (_pLinearOctree == nullptr) {
-            throwGgafCriticalException("DefaultSpacetime::getLinearOctree() 八分木は作成されていません。 IS_HIT_CHECK_3D プロパティ true にしてください。現在のIS_HIT_CHECK_3D="<<PROPERTY::IS_HIT_CHECK_3D );
+            throwGgafCriticalException("DefaultSpacetime::getLinearOctree() 八分木は作成されていません。\n"
+                    "IS_HIT_CHECK_3D プロパティ true にしてください。\n"
+                    "現在のIS_HIT_CHECK_3D="<<PROPERTY::IS_HIT_CHECK_3D );
         }
 #endif
         return _pLinearOctree;
@@ -45,7 +47,9 @@ public:
     inline OctreeRounder* getLinearOctreeHitCheckRounder() {
 #ifdef MY_DEBUG
         if (_pLinearOctreeHitCheckRounder == nullptr) {
-            throwGgafCriticalException("DefaultSpacetime::getLinearOctreeHitCheckRounder() 八分木は作成されていません。 IS_HIT_CHECK_3D プロパティ true にしてください。現在のIS_HIT_CHECK_3D="<<PROPERTY::IS_HIT_CHECK_3D );
+            throwGgafCriticalException("DefaultSpacetime::getLinearOctreeHitCheckRounder() 八分木は作成されていません。\n"
+                    "IS_HIT_CHECK_3D プロパティ true にしてください。\n"
+                    "現在のIS_HIT_CHECK_3D="<<PROPERTY::IS_HIT_CHECK_3D );
         }
 #endif
         return _pLinearOctreeHitCheckRounder;

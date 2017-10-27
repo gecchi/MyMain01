@@ -189,9 +189,9 @@ public:
      * ＜例＞
      * void SampleActor::onHit(const GgafActor* prm_pOtherActor) {
      *    //自身の耐久力チェック
-     *    if (MyStgUtil::calcSampleStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+     *    if (MyStgUtil::calcSampleStatus(_pStatus, lookUpKind(), pOther->_pStatus, pOther->lookUpKind()) <= 0) {
      *        //Hitの相手のチェック
-     *        if (pOther->getKind() & KIND_MY) {
+     *        if (pOther->lookUpKind() & KIND_MY) {
      *            //Hitの相手は自機関連（自機、自機ユニット、自機発射弾)
      *            notifyDestroyedToFormation(); //編隊全滅判定に有効な破壊を通知する
      *        }

@@ -58,7 +58,10 @@ MyBunshinBase::MyBunshinBase(const char* prm_name, unsigned int prm_no) :
     bunshin_default_expanse_ = 0;
     bunshin_default_angvelo_mv_ = 0;
     bunshin_velo_mv_radius_pos_ = 0;
-
+    bunshin_radius_pos_ = 0;
+    c_ax_x_ = 0.0f;
+    c_ax_y_ = 0.0f;
+    c_ax_z_ = 0.0f;
 }
 
 void MyBunshinBase::config(

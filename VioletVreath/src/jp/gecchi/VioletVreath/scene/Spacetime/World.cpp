@@ -40,12 +40,16 @@ World::World(const char* prm_name) : DefaultScene(prm_name) {
     pLabel_title_ = nullptr;
     pLabel_resolution1_ = nullptr;
     pLabel_resolution2_ = nullptr;
+    pLabel_warn1_ = nullptr;
+    pLabel_warn2_ = nullptr;
     pLabel_warn_dual_view_ = nullptr;
     pPreDrawScene_ = nullptr;
     pGameScene_ = nullptr;
 
     need_reboot_ = 0;
     need_reboot_prev_ = need_reboot_;
+
+    pLabel_need_reboot_ = nullptr;
 
     hide_cursor_cnt_ = 0;
     is_show_cursor_ = true;

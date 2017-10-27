@@ -196,7 +196,7 @@ int GgafResourceConnection<T>::close() {
     for(int i = 0; _is_closing_resource || GgafResourceManager<T>::_is_connecting_resource; i++) {
         Sleep(10);
         if (i > 100*60) {
-            throwGgafCriticalException("[" << _pManager->_manager_name << "(" << _idstr << ")" << "]<-" << _num_connection << " \n"<<
+            throwGgafCriticalException("[" << _pManager->_manager_name << "(" << _idstr << ")" << "]<-" << _num_connection << " \n"
                                        "現在 connect() 或いは close() 中にもかかわらず、close()しようとしてタイムアウトになりました。connect～colse のスレッドを１本にして下さい。");
         }
         if (i % 100 == 0) {
@@ -246,7 +246,7 @@ int GgafResourceConnection<T>::close() {
                 _num_connection--;
             } else if (rnum < 0) {
                 //ココは通らない・・・
-                _TRACE_(FUNC_NAME<<"[" << _pManager->_manager_name << "(" << _idstr << ")" << "]<-" << _num_connection << "  "<<
+                _TRACE_(FUNC_NAME<<"[" << _pManager->_manager_name << "(" << _idstr << ")" << "]<-" << _num_connection << "  "
                         "解放しすぎ！、どないやねん。アホー(>_<)。とりあえずスルー。");
                 _num_connection = 0; //とりあえず解放
             }

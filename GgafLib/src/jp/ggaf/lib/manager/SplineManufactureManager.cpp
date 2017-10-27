@@ -112,7 +112,7 @@ SplineManufacture* SplineManufactureManager::processCreateResource(const char* p
     } else if (classname.find("SteppedCoordSpline") != std::string::npos) {
         leader = CLASS_SteppedCoordSpline;
     } else {
-        throwGgafCriticalException(prm_idstr<<" : "<<
+        throwGgafCriticalException(prm_idstr<<" : "
                 "[CLASS]="<<classname<<" は指定出来ません。可能なクラスは FixedFrameSpline/FixedVelocitySpline/SteppedCoordSpline のみです。");
     }
 
@@ -121,16 +121,16 @@ SplineManufacture* SplineManufactureManager::processCreateResource(const char* p
         if (leader == CLASS_FixedFrameSpline) {
             spent_frame = (frame)atoi(mapSplPropperties["SPENT_FRAME"].c_str());
             if (spent_frame == 0) {
-                throwGgafCriticalException(prm_idstr<<" : "<<
+                throwGgafCriticalException(prm_idstr<<" : "
                         "[SPENT_FRAME] に 0 は指定出来ません。");
             }
         } else {
-            throwGgafCriticalException(prm_idstr<<" : "<<
+            throwGgafCriticalException(prm_idstr<<" : "
                     "[CLASS]="<<classname<<" の場合は、[SPENT_FRAME] の指定は不可です。(コメント等にして除去して下さい)");
         }
     } else {
         if (leader == CLASS_FixedFrameSpline) {
-            throwGgafCriticalException(prm_idstr<<" : "<<
+            throwGgafCriticalException(prm_idstr<<" : "
                     "[CLASS]="<<classname<<" の場合は、[SPENT_FRAME] の指定が必須です。");
         }
     }
@@ -140,16 +140,16 @@ SplineManufacture* SplineManufactureManager::processCreateResource(const char* p
         if (leader == CLASS_FixedFrameSpline || leader == CLASS_FixedVelocitySpline) {
             angvelo_rzry_mv = (angvelo)atoi(mapSplPropperties["ANGLE_VELOCITY"].c_str());
             if (angvelo_rzry_mv == 0) {
-                _TRACE_("＜警告＞ SplineManufactureManager::processCreateResource "<<prm_idstr<<" : "<<
+                _TRACE_("＜警告＞ SplineManufactureManager::processCreateResource "<<prm_idstr<<" : "
                         "[ANGLE_VELOCITY] が 0 です。意図してますか？");
             }
         } else {
-            throwGgafCriticalException(prm_idstr<<" : "<<
+            throwGgafCriticalException(prm_idstr<<" : "
                     "[CLASS]="<<classname<<" の場合は、[ANGLE_VELOCITY] の指定は不可です。(コメント等にして除去して下さい)");
         }
     } else {
         if (leader == CLASS_FixedFrameSpline || leader == CLASS_FixedVelocitySpline) {
-            throwGgafCriticalException(prm_idstr<<" : "<<
+            throwGgafCriticalException(prm_idstr<<" : "
                     "[CLASS]="<<classname<<" の場合は、[ANGLE_VELOCITY] の指定が必須です。");
         }
     }
@@ -166,17 +166,17 @@ SplineManufacture* SplineManufactureManager::processCreateResource(const char* p
             } else if (mapSplPropperties["TURN_WAY"] == "TURN_COUNTERCLOCKWISE") {
                 turn_way = TURN_COUNTERCLOCKWISE;
             } else {
-                throwGgafCriticalException(prm_idstr<<" : "<<
-                        "[TURN_WAY] の値('"<<mapSplPropperties["TURN_WAY"]<<"')が不正です。\n" <<
+                throwGgafCriticalException(prm_idstr<<" : "
+                        "[TURN_WAY] の値('"<<mapSplPropperties["TURN_WAY"]<<"')が不正です。\n"
                                            "TURN_CLOSE_TO/TURN_ANTICLOSE_TO/TURN_CLOCKWISE/TURN_COUNTERCLOCKWISE の何れかを指定してください");
             }
         } else {
-            throwGgafCriticalException(prm_idstr<<" : "<<
+            throwGgafCriticalException(prm_idstr<<" : "
                     "[CLASS]="<<classname<<" の場合は、[TURN_WAY] の指定は不可です。");
         }
     } else {
         if (leader == CLASS_FixedFrameSpline || leader == CLASS_FixedVelocitySpline) {
-            throwGgafCriticalException(prm_idstr<<" : "<<
+            throwGgafCriticalException(prm_idstr<<" : "
                     "[CLASS]="<<classname<<" の場合は、[TURN_WAY] の指定が必須です。");
         }
     }
@@ -186,12 +186,12 @@ SplineManufacture* SplineManufactureManager::processCreateResource(const char* p
         if (leader == CLASS_FixedFrameSpline || leader == CLASS_FixedVelocitySpline) {
             turn_optimize = UTIL::cnvBool(mapSplPropperties["TURN_OPTIMIZE"]);
         } else {
-            throwGgafCriticalException(prm_idstr<<" : "<<
+            throwGgafCriticalException(prm_idstr<<" : "
                     "[CLASS]="<<classname<<" の場合は、[TURN_OPTIMIZE] の指定は不可です。(コメント等にして除去して下さい)");
         }
     } else {
         if (leader == CLASS_FixedFrameSpline || leader == CLASS_FixedVelocitySpline) {
-            throwGgafCriticalException(prm_idstr<<" : "<<
+            throwGgafCriticalException(prm_idstr<<" : "
                     "[CLASS]="<<classname<<" の場合は、[TURN_OPTIMIZE] の指定が必須です。");
         }
     }

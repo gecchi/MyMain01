@@ -134,7 +134,7 @@ void RankUpStageController::onCatchEvent(hashval prm_no, void* prm_pSource) {
                 }
             }
         } else {
-            throwGgafCriticalException("EVENT_RANKUP_WAS_END サブがnullptr"<<
+            throwGgafCriticalException("EVENT_RANKUP_WAS_END サブがnullptr。"
                                        "this="<<NODE_INFO<<" prm_pSource="<<prm_pSource);
         }
     }

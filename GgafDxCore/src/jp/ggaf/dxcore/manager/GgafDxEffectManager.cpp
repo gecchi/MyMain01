@@ -35,7 +35,7 @@ GgafDxEffect* GgafDxEffectManager::processCreateResource(const char* prm_idstr, 
     std::string idstr = std::string(prm_idstr);
     std::vector<std::string> names = UTIL::split(idstr, "/", 1);
     if (names.size() != 2) {
-        throwGgafCriticalException("引数は、次の形式で与えてください。『エフェクトタイプ1文字  + \"/\" + fxファイル名(拡張子 .fx を除いたもの)』\n"<<
+        throwGgafCriticalException("引数は、次の形式で与えてください。『エフェクトタイプ1文字  + \"/\" + fxファイル名(拡張子 .fx を除いたもの)』\n"
                 "実際の引数は、prm_idstr="<<prm_idstr);
     }
     char effect_type = (names[0])[0];

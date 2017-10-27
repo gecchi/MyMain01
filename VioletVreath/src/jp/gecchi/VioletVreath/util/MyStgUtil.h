@@ -256,9 +256,9 @@ public:
      * <tr><td>attribute_enemy‚Ì•û‚ª—D«</td><td>“¯Ši</td><td>kind_enemy‚Ì•û‚ª—ò«</td></tr>
      * </table>
      */
-    static int judgeMyAdvantage(actorkind attribute_my, actorkind attribute_enemy);
+    static int judgeMyAdvantage(kind attribute_my, kind attribute_enemy);
 
-    static int judgeEnemyAdvantage(actorkind kattribute_enemy, actorkind attribute_my);
+    static int judgeEnemyAdvantage(kind kattribute_enemy, kind attribute_my);
 
     /**
      * ©•ª(©‹@)‚Ì‘Ì—ÍŒvZ .

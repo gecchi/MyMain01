@@ -221,22 +221,22 @@ void MenuBoardKeyConfig::processBehavior() {
         int index = getSelectedIndex();
         if (VB_UI->isPushedDown(VB_UI_CANCEL)) {
             input_mode_ = 0;
-            paVBProperties[index].pKey->_pAFader->transitionLinearToTop(5);
-            paVBProperties[index].pJoy->_pAFader->transitionLinearToTop(5);
+            paVBProperties[index].pKey->getAlphaFader()->transitionLinearToTop(5);
+            paVBProperties[index].pJoy->getAlphaFader()->transitionLinearToTop(5);
         } else {
             int DIK_pushed = GgafDxInput::getPushedDownKey();
             if (DIK_pushed != -1 && 0x00 <= DIK_pushed && DIK_pushed <= 0xD1) {
                 paVBProperties[index].pKey->update(VirtualButton::_mapVBK2Str[DIK_pushed].c_str());
-                paVBProperties[index].pKey->_pAFader->beat(10, 5, 0, 5, 6.5);
-                paVBProperties[index].pJoy->_pAFader->transitionLinearToTop(5);
+                paVBProperties[index].pKey->getAlphaFader()->beat(10, 5, 0, 5, 6.5);
+                paVBProperties[index].pJoy->getAlphaFader()->transitionLinearToTop(5);
                 input_mode_ = 2;
             }
 
             int VBJ_pushed = VirtualButton::getPushedDownVirtualJoyButton();
             if (VBJ_pushed != -1) {
                  paVBProperties[index].pJoy->update(VirtualButton::_mapVBJ2Str[VBJ_pushed].c_str());
-                 paVBProperties[index].pJoy->_pAFader->beat(10, 5, 0, 5, 6.5);
-                 paVBProperties[index].pKey->_pAFader->transitionLinearToTop(5);
+                 paVBProperties[index].pJoy->getAlphaFader()->beat(10, 5, 0, 5, 6.5);
+                 paVBProperties[index].pKey->getAlphaFader()->transitionLinearToTop(5);
                  input_mode_ = 2;
             }
         }
@@ -254,8 +254,8 @@ void MenuBoardKeyConfig::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, in
     } else if (input_mode_ == 0) {
         input_mode_ = 1;
         input_target_item_ = prm_item_index;
-        paVBProperties[prm_item_index].pKey->_pAFader->beat(30, 15, 0, 15, -1);
-        paVBProperties[prm_item_index].pJoy->_pAFader->beat(30, 15, 0, 15, -1);
+        paVBProperties[prm_item_index].pKey->getAlphaFader()->beat(30, 15, 0, 15, -1);
+        paVBProperties[prm_item_index].pJoy->getAlphaFader()->beat(30, 15, 0, 15, -1);
     }
 }
 void MenuBoardKeyConfig::onCancel(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {

@@ -12,7 +12,7 @@ namespace VioletVreath {
  * @author Masatoshi Tsuge
  */
 class CursorConfig003 : public GgafLib::DefaultBoardActor {
-    GgafDxCore::GgafDxAlphaFader* _pAFader;
+
 public:
     CursorConfig003(const char* prm_name);
 

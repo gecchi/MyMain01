@@ -14,9 +14,6 @@ namespace VioletVreath {
 class LabelFix16Font01 : public GgafLib::FontBoardActor {
 
 public:
-    GgafDxCore::GgafDxAlphaFader* _pAFader;
-
-public:
     LabelFix16Font01(const char* prm_name);
 
     virtual void onCreateModel() override;

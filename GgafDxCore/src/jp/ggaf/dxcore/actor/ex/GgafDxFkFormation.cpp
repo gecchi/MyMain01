@@ -20,8 +20,8 @@ void GgafDxFkFormation::registerFormationFkBase(GgafDxGeometricActor* prm_pFkBas
     } else {
 #ifdef MY_DEBUG
         if (getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND) != prm_pFkBase->getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND)) {
-            throwGgafCriticalException("異なる種別のFKベースアクターを登録しようとしています。 \n"<<
-                                       "想定="<<getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND)<<"[_pSubFirst="<<_pSubFirst->getName()<<"] \n"<<
+            throwGgafCriticalException("異なる種別のFKベースアクターを登録しようとしています。 \n"
+                                       "想定="<<getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND)<<"[_pSubFirst="<<_pSubFirst->getName()<<"] \n"
                                        "引数="<<prm_pFkBase->getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND)<<"["<<prm_pFkBase->getName()<<"]");
         }
 #endif
@@ -40,12 +40,10 @@ void GgafDxFkFormation::addFormationMember(GgafDxGeometricActor* prm_pMember,
 #ifdef MY_DEBUG
     if (wasDeclaredEnd() || willInactivateAfter()) {
         //終了を待つのみ
-        throwGgafCriticalException(": "<<
-                                   "既に死にゆく定めのFormationです。サブに追加することはおかしいでしょう。this="<<getName());
+        throwGgafCriticalException(": 既に死にゆく定めのFormationです。サブに追加することはおかしいでしょう。this="<<getName());
     }
     if (getSubFirst() == nullptr) {
-        throwGgafCriticalException(": "<<
-                                   "FKベースアクターがいません。addFormationBase() してください。this="<<getName());
+        throwGgafCriticalException(": FKベースアクターがいません。addFormationBase() してください。this="<<getName());
     }
 #endif
     GgafDxGeometricActor* pFkBase = (GgafDxGeometricActor*)(getSubFirst());

@@ -167,7 +167,7 @@ void ScoreItem::onHit(const GgafActor* prm_pOtherActor) {
     //ここにヒットエフェクト
 
     GgafProgress* const pProg = getProgress();
-    if (pProg->get() == PROG_DRIFT && (pOther->getKind() & KIND_MY_BODY))  {
+    if (pProg->get() == PROG_DRIFT && (pOther->lookUpKind() & KIND_MY_BODY))  {
         setHitAble(false);
         pProg->change(PROG_ATTACH);
     }

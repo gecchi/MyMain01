@@ -42,7 +42,7 @@ public:
      * 識別名取得 .
      * @return 識別名
      */
-    virtual char* toString();
+    virtual std::string toString();
 
     /**
      * オブジェクトが何のクラス由来かを調べる。

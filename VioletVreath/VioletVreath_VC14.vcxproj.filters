@@ -723,9 +723,6 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\MenuBoard.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\MenuSelectSub.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\_Test\TestChokiShot.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -1791,9 +1788,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\MenuBoard.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\MenuSelectSub.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\_Test\TestChokiShot.h">

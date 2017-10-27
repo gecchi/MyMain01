@@ -11,7 +11,6 @@ LabelFix16Font01::LabelFix16Font01(const char* prm_name) :
         FontBoardActor(prm_name, "MSX_16Font")
 {
     _class_name = "LabelFix16Font01";
-    _pAFader = NEW GgafDxAlphaFader(this);
 }
 
 void LabelFix16Font01::onCreateModel() {
@@ -21,10 +20,9 @@ void LabelFix16Font01::initialize() {
 }
 
 void LabelFix16Font01::processBehavior() {
-    _pAFader->behave();
+    getAlphaFader()->behave();
 }
 
 LabelFix16Font01::~LabelFix16Font01() {
-    GGAF_DELETE(_pAFader);
 }
 

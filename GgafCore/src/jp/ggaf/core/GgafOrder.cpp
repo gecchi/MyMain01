@@ -36,12 +36,12 @@ std::string GgafOrder::getDebuginfo() {
         }
     }
     std::stringstream ss;
-    ss << "注文時刻:"<<_time_of_order<<", "<<
-          "注文番号:"<<_order_no<<"/"<<_pReceiver<<", "<<
+    ss << "注文時刻:"<<_time_of_order<<", "
+          "注文番号:"<<_order_no<<"/"<<_pReceiver<<", "
           "進捗:"<<_progress<<", "<<
-          "商品:"<<name_creation<<"("<<_pObject_creation<<")"<<", "<<
-          "製造開始:"<<_time_of_create_begin<<", "<<
-          "製造完了:"<<_time_of_create_finish<<", "<<
+          "商品:"<<name_creation<<"("<<_pObject_creation<<")"<<", "
+          "製造開始:"<<_time_of_create_begin<<", "
+          "製造完了:"<<_time_of_create_finish<<", "
           "発注者:"<<_pOrderer<<"";
     return ss.str();
 

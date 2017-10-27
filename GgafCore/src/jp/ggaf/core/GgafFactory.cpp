@@ -121,8 +121,8 @@ void* GgafFactory::obtain(uint64_t prm_order_no, GgafObject* prm_pReceiver) {
         //注文が無いよエラー発生！、エラーメッセージを作る。
         _TRACE_(FUNC_NAME<<" 注文が無いよエラー発生！");
         GgafFactory::debuginfo();
-        throwGgafCriticalException("Error! prm_order_no="<<prm_order_no<<" 注文リストはnullptrで全て製造済みしています。\n"<<
-                                   "orederとobtainの対応が取れていません。\n"<<
+        throwGgafCriticalException("Error! prm_order_no="<<prm_order_no<<" 注文リストはnullptrで全て製造済みしています。\n"
+                                   "orederとobtainの対応が取れていません。\n"
                                    "受取人(obtain呼び元)="<<(prm_pReceiver ? prm_pReceiver->toString() : "nullptr")<<"("<<prm_pReceiver<<")");
     }
 
@@ -140,8 +140,8 @@ void* GgafFactory::obtain(uint64_t prm_order_no, GgafObject* prm_pReceiver) {
                         _TRACE_(FUNC_NAME<<" タイムアウトエラー発生！");
                         GgafFactory::debuginfo();
                         //タイムアウトエラー発生！、エラーメッセージを作る。
-                        throwGgafCriticalException("Error! 注文["<<pOrder->getDebuginfo()<<"]の製造待ち時間タイムアウト、取得できません。\n"<<
-                                                   "何らかの理由でメインスレッドが停止している可能性が大きいです。"<<
+                        throwGgafCriticalException("Error! 注文["<<pOrder->getDebuginfo()<<"]の製造待ち時間タイムアウト、取得できません。\n"
+                                                   "何らかの理由でメインスレッドが停止している可能性が大きいです。"
                                                    "受取人(obtain呼び元)="<<(prm_pReceiver ? prm_pReceiver->toString() : "nullptr")<<"("<<prm_pReceiver<<")");
                     } else {
                     }
@@ -213,9 +213,9 @@ void* GgafFactory::obtain(uint64_t prm_order_no, GgafObject* prm_pReceiver) {
                 _TRACE_(FUNC_NAME<<" 注文の形跡が無い、取得出来ないエラー発生！");
                 GgafFactory::debuginfo();
                 //注文の形跡が無い、取得出来ないエラー発生！、エラーメッセージを作る。
-                throwGgafCriticalException("＜工場長＞全部探しましたけど、そんな注文("<<(prm_pReceiver ? prm_pReceiver->toString() : "nullptr")<<"さんへの 注文番号:"<<prm_order_no<<"-"<<prm_pReceiver<<")は、ありません。\n "<<
-                                           "oreder() と GgafFactory::obtain() の対応が取れていません。oreder()漏れ、或いは同じ GgafFactory::obtain() を２回以上してませんか？。\n"<<
-                                           "情報：受取人(obtain呼び元)="<<(prm_pReceiver ? prm_pReceiver->toString() : "nullptr")<<"("<<prm_pReceiver<<") でした。\n" <<
+                throwGgafCriticalException("＜工場長＞全部探しましたけど、そんな注文("<<(prm_pReceiver ? prm_pReceiver->toString() : "nullptr")<<"さんへの 注文番号:"<<prm_order_no<<"-"<<prm_pReceiver<<")は、ありません。\n"
+                                           "oreder() と GgafFactory::obtain() の対応が取れていません。oreder()漏れ、或いは同じ GgafFactory::obtain() を２回以上してませんか？。\n"
+                                           "情報：受取人(obtain呼び元)="<<(prm_pReceiver ? prm_pReceiver->toString() : "nullptr")<<"("<<prm_pReceiver<<") でした。\n"
                                            "（※ちなみに、現在工場の最終オーダーは、注文番号("<<pOrder->_order_no<<"-"<<pOrder->_pReceiver<<")で、発注者(order呼び元)=("<<pOrder->_pOrderer<<") でした）");
             } else {
                 pOrder = pOrder->_pOrder_next;
@@ -402,7 +402,7 @@ END_SYNCHRONIZED1; // <----- 排他終了
                         pOrder_creating->_time_of_create_finish = timeGetTime();
                         _TRACE2_("＜工場長＞ 製造した注文の品["<<pOrder_creating->_order_no<<"-"<<pOrder_creating->_pReceiver<<"]を、棚に置いときます。");
                     }  else if (GgafFactory::CREATING_ORDER != pOrder_creating) {
-                        _TRACE2_("＜工場長＞ 警告、注文の品["<<pOrder_creating->_order_no<<"-"<<pOrder_creating->_pReceiver<<"]を作っている間に、"<<
+                        _TRACE2_("＜工場長＞ 警告、注文の品["<<pOrder_creating->_order_no<<"-"<<pOrder_creating->_pReceiver<<"]を作っている間に、"
                                  "CREATING_ORDER が、別の注文["<<GgafFactory::CREATING_ORDER->_order_no<<"-"<<GgafFactory::CREATING_ORDER->_pReceiver<<"]を指していました！壊れてるかもしれません！強制的に元に戻します！要調査！");
                         GgafFactory::CREATING_ORDER = pOrder_creating; //ポインタ強制戻し
                         pOrder_creating->_pObject_creation = pObject; //製品登録

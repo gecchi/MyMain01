@@ -5,7 +5,7 @@
 
 using namespace GgafCore;
 
-GgafGroupHead::GgafGroupHead(actorkind prm_kind, GgafStatus* prm_pStat) : GgafActor("GROUP", prm_pStat) {
+GgafGroupHead::GgafGroupHead(kind prm_kind, GgafStatus* prm_pStat) : GgafActor("GROUP", prm_pStat) {
     _obj_class |= Obj_GgafGroupHead;
     _class_name = "GgafGroupHead";
     _kind = prm_kind;
@@ -27,7 +27,7 @@ GgafGroupHead::GgafGroupHead(actorkind prm_kind, GgafStatus* prm_pStat) : GgafAc
 #endif
 }
 
-void GgafGroupHead::setKind(actorkind prm_kind) {
+void GgafGroupHead::setKind(kind prm_kind) {
     _kind = prm_kind;
 
 #ifdef MY_DEBUG

@@ -158,7 +158,6 @@ public:
         return s;
     }
 
-
 public:
     ICharacterChip(T* prm_pBaseActor, int prm_chr_base_width_px, int prm_chr_base_height_px);
 

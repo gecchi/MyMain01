@@ -185,12 +185,12 @@ void GgafLinearQuadtree::registerElem(GgafTreeElem<2u>* const prm_pElem,
     if (index > _num_space-1) {
 
         _TRACE_(
-           "GgafLinearQuadtree::registerElem() 空間オーバー !. \n"<<
-           "Root=("<<_root_x1<<","<<_root_y1<<")-("<<_root_x2<<","<<_root_y2<<")\n"<<
-           "Elem=("<<tx1<<","<<ty1<<")-("<<tx2<<","<<ty2<<")\n"<<
-           "_top_level_dx="<<_top_level_dx<<" _top_level_dy="<<_top_level_dy<<"\n"<<
-           "minnum_in_toplevel="<<minnum_in_toplevel<<" maxnum_in_toplevel="<<maxnum_in_toplevel<<"\n"<<
-           "differ_bit_pos="<<differ_bit_pos<<" shift_num="<<shift_num<<" morton_order_space_num="<<morton_order_space_num<<"\n"<<
+           "GgafLinearQuadtree::registerElem() 空間オーバー !. \n"
+           "Root=("<<_root_x1<<","<<_root_y1<<")-("<<_root_x2<<","<<_root_y2<<")\n"
+           "Elem=("<<tx1<<","<<ty1<<")-("<<tx2<<","<<ty2<<")\n"
+           "_top_level_dx="<<_top_level_dx<<" _top_level_dy="<<_top_level_dy<<"\n"
+           "minnum_in_toplevel="<<minnum_in_toplevel<<" maxnum_in_toplevel="<<maxnum_in_toplevel<<"\n"
+           "differ_bit_pos="<<differ_bit_pos<<" shift_num="<<shift_num<<" morton_order_space_num="<<morton_order_space_num<<"\n"
            "index="<<index<<" _num_space="<<_num_space
         );
         _TRACE_("Min_x_index="<<((uint32_t)((tx1 - _root_x1) / _top_level_dx)));
@@ -214,7 +214,7 @@ void GgafLinearQuadtree::registerElem(GgafTreeElem<2u>* const prm_pElem,
         }
     } else {
 #ifdef MY_DEBUG
-        throwGgafCriticalException("登録しようとした引数要素は、他の空間に所属状態です。"<<
+        throwGgafCriticalException("登録しようとした引数要素は、他の空間に所属状態です。"
                                    "クリアがなされていないか、２重登録しています。現所属空間インデックス="<<(prm_pElem->_pSpace_current->_my_index)<<"  要素対象オブジェクト="<<(prm_pElem->_pObject));
 #endif
     }

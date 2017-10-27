@@ -233,7 +233,6 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\title\CursorTitleMenu.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\title\MenuBoardTitle.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\MenuBoard.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\MenuSelectSub.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\_Test\TestChokiShot.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\_Test\TestGuShot.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\_Test\TestNomalShot.cpp" />
@@ -591,7 +590,6 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\title\CursorTitleMenu.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\title\MenuBoardTitle.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\MenuBoard.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\menu\MenuSelectSub.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\_Test\TestChokiShot.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\_Test\TestGuShot.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\_Test\TestNomalShot.h" />

@@ -19,7 +19,7 @@ public:
     /** [r]線形N分木配列の自身の要素番号 */
     uint32_t _my_index;
     /** [r]所属してる要素の種別情報 */
-    actorkind _kind_bit_field;
+    kind _kind_bit_field;
     /** [r]ぶら下がる要素の先頭 */
     GgafTreeElem<DIMENSION>* _pElem_first;
     /** [r]ぶら下がる要素の末尾 */
@@ -62,15 +62,15 @@ public:
         }
         //引数の要素番号
         uint32_t index = _my_index;
-        const uint32_t this_kindbit = prm_pElem->_kindbit;
+        const uint32_t this_kind = prm_pElem->_kind;
         GgafTreeSpace<DIMENSION>* p = this; //= & _paOctant[index]
         while (true) {
-            if (p->_kind_bit_field & this_kindbit) {
+            if (p->_kind_bit_field & this_kind) {
                 //もう種別情報が設定済みならば、それ以上の親も設定済みの為、抜ける
                 break;
             } else {
                 //空間に種別情報が未設定ならば設定
-                p->_kind_bit_field |= this_kindbit;
+                p->_kind_bit_field |= this_kind;
             }
             if (index == 0) {
                 break;

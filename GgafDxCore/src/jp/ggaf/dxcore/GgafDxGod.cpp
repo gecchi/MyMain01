@@ -276,7 +276,7 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
             PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT    = PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT;
         } else {
             if (_num_adapter < PROPERTY::PRIMARY_ADAPTER_NO+1 || _num_adapter < PROPERTY::SECONDARY_ADAPTER_NO+1) {
-                throwGgafCriticalException("範囲外のディスプレイアダプタ番号を指定しています。アダプタ番号は 0～"<<_num_adapter-1<<" が有効です。\n"<<
+                throwGgafCriticalException("範囲外のディスプレイアダプタ番号を指定しています。アダプタ番号は 0～"<<_num_adapter-1<<" が有効です。\n"
                                            "PRIMARY_ADAPTER_NO="<<PROPERTY::PRIMARY_ADAPTER_NO<<", "
                                            "SECONDARY_ADAPTER_NO="<<PROPERTY::SECONDARY_ADAPTER_NO );
             }
@@ -1599,14 +1599,14 @@ HRESULT GgafDxGod::restoreFullScreenRenderTarget() {
                 _pRenderTextureSurface, &_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW],
                 _apBackBuffer[PRIMARY_VIEW], &_aRect_ViewScreen[PRIMARY_VIEW],
                 D3DTEXF_NONE);
-        checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 1画面目、背景色塗に失敗しました。(1)\n"<<
+        checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 1画面目、背景色塗に失敗しました。(1)\n"
                                      "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[PRIMARY_VIEW]="<<_apBackBuffer[PRIMARY_VIEW]);
 
         hr = GgafDxGod::_pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW],
                 _apBackBuffer[SECONDARY_VIEW], &_aRect_ViewScreen[SECONDARY_VIEW],
                 D3DTEXF_NONE);
-        checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 2画面目、背景色塗に失敗しました。(1)\n"<<
+        checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 2画面目、背景色塗に失敗しました。(1)\n"
                                      "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[PRIMARY_VIEW]="<<_apBackBuffer[PRIMARY_VIEW]);
     } else {
         hr = GgafDxGod::_pID3DDevice9->StretchRect(
@@ -1624,14 +1624,14 @@ HRESULT GgafDxGod::restoreFullScreenRenderTarget() {
                 _pRenderTextureSurface, &_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW],
                 _apBackBuffer[PRIMARY_VIEW], &_aRect_ViewScreen[PRIMARY_VIEW],
                 D3DTEXF_NONE);
-        checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 1画面目、背景色塗に失敗しました。(2)\n"<<
+        checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 1画面目、背景色塗に失敗しました。(2)\n"
                                      "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[PRIMARY_VIEW]="<<_apBackBuffer[PRIMARY_VIEW]);
 
         hr = GgafDxGod::_pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW],
                 _apBackBuffer[SECONDARY_VIEW], &_aRect_ViewScreen[SECONDARY_VIEW],
                 D3DTEXF_NONE);
-        checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 2画面目、背景色塗に失敗しました。(2)\n"<<
+        checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 2画面目、背景色塗に失敗しました。(2)\n"
                                      "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[PRIMARY_VIEW]="<<_apBackBuffer[PRIMARY_VIEW]);
     } else {
         hr = GgafDxGod::_pID3DDevice9->StretchRect(

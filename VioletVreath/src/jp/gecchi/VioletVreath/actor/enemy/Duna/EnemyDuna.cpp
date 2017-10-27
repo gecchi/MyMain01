@@ -29,6 +29,7 @@ EnemyDuna::EnemyDuna(const char* prm_name) :
     effectBlendOne(); //â¡éZçáê¨
     setScaleR(0.3);
     useProgress(PROG_BANPEI);
+    nprog_ = 0;
 }
 
 void EnemyDuna::onCreateModel() {

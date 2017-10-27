@@ -68,23 +68,12 @@ public:
     angle _rz_mv_start;
     angle _ry_mv_start;
 
-//    bool _is_linked_start_pos;
-//    bool _is_linked_start_ang;
-
     float _sinRx_begin;
     float _cosRx_begin;
     float _sinRz_begin;
     float _cosRz_begin;
     float _sinRy_begin;
     float _cosRy_begin;
-
-
-    coord _actor_prev_x;
-    coord _actor_prev_y;
-    coord _actor_prev_z;
-    coord _actor_prev_rx;
-    coord _actor_prev_rz;
-    coord _actor_prev_ry;
 
 public:
     /**

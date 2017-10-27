@@ -88,23 +88,23 @@ void GgafDxUtil::init() {
     for (s_ang ang = 0; ang < D360SANG+1; ang++) {
         double rad = (PI * 2.0 * ang) / D360SANG;
 
-        COS[ang] = (float)(cos(rad));
-        SIN[ang] = (float)(sin(rad));
-        RAD[ang] = (float)rad;
+        GgafDxUtil::COS[ang] = (float)(cos(rad));
+        GgafDxUtil::SIN[ang] = (float)(sin(rad));
+        GgafDxUtil::RAD[ang] = (float)rad;
         //PARABORA[ang] = (float)((double)((ang-(D360SANG/2))*(ang-(D360SANG/2))) /  (double)(-1.0*(D360SANG/2)*(D360SANG/2)) + 1.0);
         ////PARABORA[0] = 0 , PARABORA[D180SANG] = 1,  PARABORA[D360SANG-1] = 0 で y = -x^2  放物線の値をとる
     }
 
-    COS[D0SANG]   =  1;
-    COS[D90SANG]  =  0;
-    COS[D180SANG] = -1;
-    COS[D270SANG] =  0;
-    COS[D360SANG] =  1;
-    SIN[D0SANG]   =  0;
-    SIN[D90SANG]  =  1;
-    SIN[D180SANG] =  0;
-    SIN[D270SANG] = -1;
-    SIN[D360SANG] =  0;
+    GgafDxUtil::COS[D0SANG]   =  1;
+    GgafDxUtil::COS[D90SANG]  =  0;
+    GgafDxUtil::COS[D180SANG] = -1;
+    GgafDxUtil::COS[D270SANG] =  0;
+    GgafDxUtil::COS[D360SANG] =  1;
+    GgafDxUtil::SIN[D0SANG]   =  0;
+    GgafDxUtil::SIN[D90SANG]  =  1;
+    GgafDxUtil::SIN[D180SANG] =  0;
+    GgafDxUtil::SIN[D270SANG] = -1;
+    GgafDxUtil::SIN[D360SANG] =  0;
     Sleep(1);
     //<SLANT2ANG>
     double rad;
@@ -159,7 +159,7 @@ void GgafDxUtil::init() {
                 _TRACE_("＜警告＞想定範囲以上の傾き配列INDEXを設定。メモリが破壊されます。SLANT2ANG["<<i<<"]<="<<(ang*10));
             }
             //等分する（ここがアバウトのもと）
-            SLANT2ANG[i] = (angle)( ((ang-1) + (1.0*d)/(1.0*d_index_slant))*1.0);
+            GgafDxUtil::SLANT2ANG[i] = (angle)( ((ang-1) + (1.0*d)/(1.0*d_index_slant))*1.0);
         }
         index_slant_prev = index_slant;
     }
@@ -168,7 +168,7 @@ void GgafDxUtil::init() {
         if (i > 100000) {
             _TRACE_("＜警告＞想定範囲以上の傾き配列INDEXを設定。メモリが破壊されます。SLANT2ANG["<<i<<"]<="<<(450000));
         }
-        SLANT2ANG[i] = (angle)( (45000-1) + (1.0*d)/(1.0*d_index_slant) );
+        GgafDxUtil::SLANT2ANG[i] = (angle)( (45000-1) + (1.0*d)/(1.0*d_index_slant) );
     }
     Sleep(1);
     //<PROJ_ANG2ROT_ANG> （2009/10/20 経緯・・・速くするためなら何でもやってみよう）
@@ -204,7 +204,7 @@ void GgafDxUtil::init() {
             nvz = t * vz;
             //convVectorToRzRy((float)nvx,(float)nvy,(float)nvz,rz,ry,30);
             //単位ベクトルからRxRyを求める
-            _srv.getFaceAngClosely(
+            GgafDxUtil::_srv.getFaceAngClosely(
                     (uint32_t)(nvx*1000000),
                     (uint32_t)(nvy*1000000),
                     (uint32_t)(nvz*1000000),
@@ -212,8 +212,8 @@ void GgafDxUtil::init() {
                     ry_rev,
                     9999
             );
-            PROJANG_XY_XZ_TO_ROTANG_z[prj_ang_xy][prj_ang_xz] = rz*SANG_RATE;
-            PROJANG_XY_XZ_TO_ROTANG_y_REV[prj_ang_xy][prj_ang_xz] = ry_rev*SANG_RATE;
+            GgafDxUtil::PROJANG_XY_XZ_TO_ROTANG_z[prj_ang_xy][prj_ang_xz] = rz*SANG_RATE;
+            GgafDxUtil::PROJANG_XY_XZ_TO_ROTANG_y_REV[prj_ang_xy][prj_ang_xz] = ry_rev*SANG_RATE;
             //_TRACE_("["<<prj_ang_xy<<"]["<<prj_ang_xz<<"]=("<<PROJANG_XY_XZ_TO_ROTANG_z[prj_ang_xy][prj_ang_xz]<<","<<PROJANG_XY_XZ_TO_ROTANG_y_REV[prj_ang_xy][prj_ang_xz]<<")");
 
         }
@@ -235,7 +235,7 @@ void GgafDxUtil::init() {
             nvz = t * vz;
             //convVectorToRzRy((float)nvx,(float)nvy,(float)nvz,rz,ry,30);
             //単位ベクトルからRxRyを求める
-            _srv.getFaceAngClosely(
+            GgafDxUtil::_srv.getFaceAngClosely(
                     (uint32_t)(nvx*1000000),
                     (uint32_t)(nvy*1000000),
                     (uint32_t)(nvz*1000000),
@@ -249,8 +249,8 @@ void GgafDxUtil::init() {
             int rx_rev = rz;
             //(0,0,1.0)を0°としY軸の正の方を向いて反時計回りを正の角(ry)を考える
             //これは上で求めたry_revをD90ANGから引いた値である。
-            PROJANG_ZY_ZX_TO_ROTANG_x_REV[prj_ang_zy][prj_ang_zx] = rx_rev*SANG_RATE;
-            PROJANG_ZY_ZX_TO_ROTANG_y[prj_ang_zy][prj_ang_zx] = D90ANG - ry_rev*SANG_RATE;
+            GgafDxUtil::PROJANG_ZY_ZX_TO_ROTANG_x_REV[prj_ang_zy][prj_ang_zx] = rx_rev*SANG_RATE;
+            GgafDxUtil::PROJANG_ZY_ZX_TO_ROTANG_y[prj_ang_zy][prj_ang_zx] = D90ANG - ry_rev*SANG_RATE;
             //_TRACE_("PROJANG_ZY_ZX_TO_ROTANG_y["<<prj_ang_zy<<"]["<<prj_ang_zx<<"] = D90ANG - "<<ry_rev<<"*SANG_RATE = "<<PROJANG_ZY_ZX_TO_ROTANG_y[prj_ang_zy][prj_ang_zx]);
             //_TRACE_("["<<prj_ang_xy<<"]["<<prj_ang_xz<<"]=("<<PROJANG_XY_XZ_TO_ROTANG_z[prj_ang_xy][prj_ang_xz]<<","<<PROJANG_XY_XZ_TO_ROTANG_y_REV[prj_ang_xy][prj_ang_xz]<<")");
         }
@@ -267,7 +267,7 @@ void GgafDxUtil::getWayAngle2D(int prm_vx_Center,
                                int prm_ways,
                                angle prm_clearance,
                                angle* out_paAngle) {
-    return getWayAngle2D(getAngle2D(prm_vx_Center, prm_vy_Center), prm_ways, prm_clearance, out_paAngle);
+    return GgafDxUtil::getWayAngle2D(GgafDxUtil::getAngle2D(prm_vx_Center, prm_vy_Center), prm_ways, prm_clearance, out_paAngle);
 }
 
 void GgafDxUtil::getWayAngle2D(angle prm_center, int prm_ways, angle prm_clearance, angle* out_paAngle) {
@@ -320,14 +320,7 @@ void GgafDxUtil::convRzRyToRyRz(angle prm_rz, angle prm_ry, angle& out_ry, angle
 //}
 
 angle GgafDxUtil::addAng(angle prm_ang, angle prm_offset) {
-    angle angAdd = prm_ang + prm_offset;
-    while (angAdd >= D360ANG) {
-        angAdd -= D360ANG;
-    }
-    while (angAdd < 0) {
-        angAdd += D360ANG;
-    }
-    return angAdd;
+    return UTIL::simplifyAng(prm_ang + prm_offset);
 }
 
 angle GgafDxUtil::getAngDiff(angle prm_from, angle prm_to, int prm_way) {
@@ -351,7 +344,7 @@ angle GgafDxUtil::getAngDiff(angle prm_from, angle prm_to, int prm_way) {
             } else {
                 //おかしい
                 _TRACE_(FUNC_NAME<<" bad from=" << from << "/to=" << to<<"/prm_way="<<prm_way);
-                throwGgafCriticalException("アングル値が範囲外です(1)。\n"<<
+                throwGgafCriticalException("アングル値が範囲外です(1)。\n"
                                            "from=" << from << "/to=" << to<<"/prm_way="<<prm_way);
             }
         } else if (D180ANG <= from && from <= D360ANG) {
@@ -371,7 +364,7 @@ angle GgafDxUtil::getAngDiff(angle prm_from, angle prm_to, int prm_way) {
             } else {
                 //おかしい
                 _TRACE_(FUNC_NAME<<" bad from=" << from << "/to=" << to<<"/prm_way="<<prm_way);
-                throwGgafCriticalException("アングル値が範囲外です(2)。\n"<<
+                throwGgafCriticalException("アングル値が範囲外です(2)。\n"
                                            "from=" << from << "/to=" << to<<"/prm_way="<<prm_way);
             }
         }
@@ -393,7 +386,7 @@ angle GgafDxUtil::getAngDiff(angle prm_from, angle prm_to, int prm_way) {
             } else {
                 //おかしい
                 _TRACE_(FUNC_NAME<<" bad from=" << from << "/to=" << to<<"/prm_way="<<prm_way);
-                throwGgafCriticalException("アングル値が範囲外です(3)。\n"<<
+                throwGgafCriticalException("アングル値が範囲外です(3)。\n"
                                            "from=" << from << "/to=" << to<<"/prm_way="<<prm_way);
             }
         } else if (D180ANG <= from && from <= D360ANG) {
@@ -413,7 +406,7 @@ angle GgafDxUtil::getAngDiff(angle prm_from, angle prm_to, int prm_way) {
             } else {
                 //おかしい
                 _TRACE_(FUNC_NAME<<" bad from=" << from << "/to=" << to<<"/prm_way="<<prm_way);
-                throwGgafCriticalException("アングル値が範囲外です(4)。\n"<<
+                throwGgafCriticalException("アングル値が範囲外です(4)。\n"
                                            "from=" << from << "/to=" << to<<"/prm_way="<<prm_way);
             }
         }
@@ -435,7 +428,7 @@ angle GgafDxUtil::getAngDiff(angle prm_from, angle prm_to, int prm_way) {
     }
 
     _TRACE_("bad from=" << from << "/to=" << to<<"/prm_way="<<prm_way);
-    throwGgafCriticalException("何故かしら角の距離が求めれません。(1) \n"<<
+    throwGgafCriticalException("何故かしら角の距離が求めれません。(1) \n"
                                "from=" << from << "/to=" << to<<"/prm_way="<<prm_way);
 }
 
@@ -964,7 +957,6 @@ void GgafDxUtil::setWorldMatrix_ScRzRyMv(const GgafDxGeometricActor* const prm_p
     out_matWorld._43 = prm_pActor->_fZ;
     out_matWorld._44 = 1.0f;
 }
-
 
 
 void GgafDxUtil::mulWorldMatrix_RzRyScMv(const GgafDxGeometricActor* const prm_pActor, D3DXMATRIX& out_matWorld) {

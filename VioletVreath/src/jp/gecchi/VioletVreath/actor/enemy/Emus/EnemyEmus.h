@@ -46,8 +46,6 @@ public:
     /** [r]レーザーセット(レーザーチップのデポジトリ) */
     GgafCore::GgafActorDepository* pDepo_;
 
-    bool is_firing_;
-
     frame ini_wait_;
 public:
     /**

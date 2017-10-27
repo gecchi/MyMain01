@@ -26,10 +26,7 @@ public:
     /** [r]‘OƒtƒŒ[ƒ€‚ÌG_RANK_DISP */
     int tmp_rank_;
 
-    GgafDxCore::GgafDxAlphaFader* pAlphaFader_;
-
 public:
-
     LabelRankFont(const char* prm_name);
 
     virtual void onCreateModel() override;

@@ -355,7 +355,7 @@ public:
         return _is_last_flg;
     }
 
-    virtual char* toString() override {
+    virtual std::string toString() override {
         return getName();
     }
 

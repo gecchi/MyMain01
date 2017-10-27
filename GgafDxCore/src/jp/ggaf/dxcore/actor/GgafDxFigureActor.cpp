@@ -131,8 +131,8 @@ void GgafDxFigureActor::processPreDraw() {
     if (getPlatformScene()->instanceOf(Obj_GgafDxScene)) {
         //OK
     } else {
-        throwGgafCriticalException("name="<<getName()<<"‚ð•`‰æ“o˜^‚µ‚æ‚¤‚Æ‚µ‚Ü‚µ‚½‚ªAŠ‘®ƒV[ƒ“‚ª name="<<getName()<<"->getPlatformScene()["<<(getPlatformScene()->getName())<<"]‚ªAGgafDxScene ‚É•ÏŠ·•s‰Â‚Å‚·Bthis="<<NODE_INFO<<" \n"<<
-                "getPlatformScene()->_obj_class="<<getPlatformScene()->_obj_class<< " Obj_GgafDxScene="<<Obj_GgafDxScene<<" \n"<<
+        throwGgafCriticalException("name="<<getName()<<"‚ð•`‰æ“o˜^‚µ‚æ‚¤‚Æ‚µ‚Ü‚µ‚½‚ªAŠ‘®ƒV[ƒ“‚ª name="<<getName()<<"->getPlatformScene()["<<(getPlatformScene()->getName())<<"]‚ªAGgafDxScene ‚É•ÏŠ·•s‰Â‚Å‚·Bthis="<<NODE_INFO<<" \n"
+                "getPlatformScene()->_obj_class="<<getPlatformScene()->_obj_class<< " Obj_GgafDxScene="<<Obj_GgafDxScene<<" \n"
                 "(getPlatformScene()->_obj_class & Obj_GgafDxScene)="<<((getPlatformScene()->_obj_class) & Obj_GgafDxScene) <<" ==?? Obj_GgafDxScene("<<Obj_GgafDxScene<<")");
     }
 #endif

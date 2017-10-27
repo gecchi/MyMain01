@@ -88,8 +88,7 @@ LabelRankFont::LabelRankFont(const char* prm_name) :
 {
     _class_name = "LabelRankFont";
     tmp_rank_ = 0;
-    pAlphaFader_ = NEW GgafDxAlphaFader(this);
-    pAlphaFader_->setRange(0.0, 1.0);
+    getAlphaFader()->setRange(0.0, 1.0);
     setAlign(ALIGN_RIGHT, VALIGN_BOTTOM);
     GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
     pSe->set(SE_RANK_UP, "WAVE_RANK_UP");
@@ -111,9 +110,9 @@ void LabelRankFont::processBehavior() {
         update(c);
         tmp_rank_ = rank_level;
         getSeTransmitter()->play(SE_RANK_UP);
-        pAlphaFader_->rbeat(20, 10, 0, 10, 3);
+        getAlphaFader()->rbeat(20, 10, 0, 10, 3);
     }
-    pAlphaFader_->behave();
+    getAlphaFader()->behave();
 }
 
 void LabelRankFont::cnvRankStr(int prm_rank, char* out) {
@@ -167,6 +166,5 @@ void LabelRankFont::cnvRankStr(int prm_rank, char* out) {
 }
 
 LabelRankFont::~LabelRankFont() {
-    GGAF_DELETE(pAlphaFader_);
 }
 

@@ -127,7 +127,7 @@ public:
      * @param   prm_kind    種別名（＝GgafGroupHead名）
      * @param   prm_pMainActor   登録するアクター
      */
-    GgafGroupHead* addSubGroup(actorkind prm_kind, GgafMainActor* prm_pMainActor);
+    GgafGroupHead* addSubGroup(kind prm_kind, GgafMainActor* prm_pMainActor);
 
     /**
      * 単独GgafActor、或いはGgafDestructActorが単独親となるGgafActor連続体を<BR>
@@ -143,7 +143,7 @@ public:
      * @param prm_kind
      * @return
      */
-    GgafGroupHead* searchSubGroupHead(actorkind prm_kind);
+    GgafGroupHead* searchSubGroupHead(kind prm_kind);
 
     void updateActiveInTheTree() override;
 

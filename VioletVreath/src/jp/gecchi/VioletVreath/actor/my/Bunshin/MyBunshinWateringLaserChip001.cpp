@@ -374,7 +374,7 @@ void MyBunshinWateringLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
     //ヒットエフェクト
     UTIL::activateExplosionEffectOf(this); //爆発エフェクト出現
 
-    if ((pOther->getKind() & KIND_ENEMY_BODY) ) {
+    if ((pOther->lookUpKind() & KIND_ENEMY_BODY) ) {
         //ロックオン可能アクターならロックオン
         if (pOther->getStatus()->get(STAT_LockonAble) == 1) {
             pOrg_->pLockonCtrler_->lockon(pOther);
@@ -398,7 +398,7 @@ void MyBunshinWateringLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
             pAimInfo->_spent_frames_to_t1 = getActiveFrame();
         }
 
-    } else if (pOther->getKind() & KIND_CHIKEI) {
+    } else if (pOther->lookUpKind() & KIND_CHIKEI) {
         //地形相手は無条件さようなら
         sayonara();
     }

@@ -54,7 +54,7 @@ SplineKurokoLeader::SplineKurokoLeader(SplineManufacture* prm_pManufacture, Ggaf
 void SplineKurokoLeader::getPointCoord(int prm_point_index, coord& out_x, coord& out_y, coord& out_z) {
 #ifdef MY_DEBUG
     if (prm_point_index >= _pManufacture->_sp->_rnum) {
-        throwGgafCriticalException("ポイントのインデックスオーバー。"<<
+        throwGgafCriticalException("ポイントのインデックスオーバー。"
                                    "補完点数="<<(_pManufacture->_sp->_rnum)<<" prm_point_index="<<prm_point_index);
     }
 #endif

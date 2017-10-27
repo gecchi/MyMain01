@@ -22,18 +22,22 @@ namespace GgafLib {
 /**
  * メニュー .
  * GUI簡易メニューを簡単に実装するためのテンプレートです。<BR>
- * <b>【まぎらわしい用語の区別】</b><BR>
- * ・キャンセル（メニューアイテム）… 「キャンセル」の動作が期待されるGUI部品の事を指す。（例： [Cancel] や [取り消し] のボタン自体）<BR>
- * ・決定（振る舞い）              … ユーザー操作で、「決定」の意思を表す操作を指す。（例： [ENTER]キーや、[○]ボタンを押す事）<BR>
- * ・キャンセル（振る舞い）        … ユーザー操作で、「キャンセル」の意思を表す操作を指す。（例： [ESC]キーや、[×]ボタンを押す事）<BR>
+ * <b>【用語】</b><BR>
+ * ・メニューアイテム              … カーソルで選択が可能なオブジェクト（ボタン等のGUI部品）を指します。
+ * ・メニューラベル                … カーソルで選択が不可の表示用オブジェクト（ボタン等のGUI部品）を指します。
+ * ・キャンセル（メニューアイテム）… 「キャンセル」の動作が期待されるGUI部品の事を指す。（例： [Cancel] や [取り消し] 、[×] ボタン自体）<BR>
+ * ・決定（振る舞い）              … ユーザー操作で、メニューアイテムの「決定」の意思を表す操作を指す。（例： [ENTER]キーを押す事）<BR>
+ * ・キャンセル（振る舞い）        … ユーザー操作で、メニューアイテムの「キャンセル」の意思を表す操作を指す。（例： [ESC]キー押す事）<BR>
  * 俗に「キャンセルした」と言われる事について、本稿での説明では、<BR>
  * 『「キャンセル（メニューアイテム）」で、「決定（振る舞い） 」した。』<BR>
- * というめんどくさい表現になっています。<BR>
- * <BR>
- * ＜注意＞<BR>
+ * という表現になります。<BR>
+ * また、例えば [Yes][No] ボタンがあり、[Yes] ボタンを選択した状態で、ESC入力で[No]ボタンにカーソル選択が移動する場合、<BR>
+ *『Yesのメニューアイテムで、「キャンセル（振る舞い）」したので、「キャンセル（メニューアイテム）」にカーソル選択が移動する』
+ * という表現になります。<BR>
  * 本クラスは「キャンセル（メニューアイテム）」「決定（振る舞い）」「キャンセル（振る舞い）」を特別扱いし、
- * 様々な機能をサポートしますが、[OK]ボタン等の「決定（メニューアイテム）」についての機能は今のところありません。<BR>
- * @tparam T メニュー要素のアクターの型
+ * これらについて機能をサポートします。<BR>
+ * （※[OK]ボタン等の「決定（メニューアイテム）」について特別扱いしていません）<BR>
+ * @tparam T 母体のメニュー板となるアクターの型
  * @version 1.00
  * @since 2011/12/20
  * @author Masatoshi Tsuge
@@ -74,24 +78,23 @@ protected:
 
     bool _will_be_able_to_controll;
 
-
     /** メインカーソルの補正X座標 */
     coord _x_cursor_adjust;
     /** メインカーソルの補正Y座標 */
     coord _y_cursor_adjust;
     /** メインカーソルの補正Z座標 */
     coord _z_cursor_adjust;
-    /** メインカーソル移動先アイテムの前フレームのX座標 */
+    /** メインカーソル移動先メニューアイテムの前フレームのX座標 */
     coord _x_cursor_target_prev;
-    /** メインカーソル移動先アイテムの前フレームのY座標 */
+    /** メインカーソル移動先メニューアイテムの前フレームのY座標 */
     coord _y_cursor_target_prev;
-    /** メインカーソル移動先アイテムの前フレームのZ座標 */
+    /** メインカーソル移動先メニューアイテムの前フレームのZ座標 */
     coord _z_cursor_target_prev;
     /** [r]メインカーソルが、メニューアイテム間を移動する際に費やすスフレーム数 */
     int _cursor_move_frames;
-    /** [r]メインカーソルが移動時、アイテム間移動距離の速度０～最高速に達する時点の割合 */
+    /** [r]メインカーソルが移動時、メニューアイテム間移動距離の速度０～最高速に達する時点の割合 */
     float _cursor_move_p1;
-    /** [r]メインカーソルが移動時、アイテム間移動距離の最高速から減速を開始する割合 */
+    /** [r]メインカーソルが移動時、メニューアイテム間移動距離の最高速から減速を開始する割合 */
     float _cursor_move_p2;
     /** [r]メインメニューカーソル */
     GgafDxCore::GgafDxFigureActor* _pCursorActor;
@@ -111,17 +114,17 @@ protected:
         coord _y_adjust;
         /** 補助カーソルの補正Z座標 */
         coord _z_adjust;
-        /** 補助カーソル移動先アイテムの前フレームのX座標 */
+        /** 補助カーソル移動先メニューアイテムの前フレームのX座標 */
         coord _x_target_prev;
-        /** 補助カーソル移動先アイテムの前フレームのY座標 */
+        /** 補助カーソル移動先メニューアイテムの前フレームのY座標 */
         coord _y_target_prev;
-        /** 補助カーソル移動先アイテムの前フレームのZ座標 */
+        /** 補助カーソル移動先メニューアイテムの前フレームのZ座標 */
         coord _z_target_prev;
         /** [r]補助カーソルが、メニューアイテム間を移動する際に費やすスフレーム数 */
         int _move_frames;
-        /** [r]補助カーソルが移動時、アイテム間移動距離の速度０～最高速に達する時点の割合 */
+        /** [r]補助カーソルが移動時、メニューアイテム間移動距離の速度０～最高速に達する時点の割合 */
         float _move_p1;
-        /** [r]補助カーソルが移動時、アイテム間移動距離の最高速から減速を開始する割合 */
+        /** [r]補助カーソルが移動時、メニューアイテム間移動距離の最高速から減速を開始する割合 */
         float _move_p2;
     public:
         SubCursor() {
@@ -143,9 +146,9 @@ protected:
 
 protected:
     /**
-     * メインカーソルを選択アイテム(_lstItems のアクティブ要素)へ移動させる .
+     * メインカーソルを選択メニューアイテム(_lstItems のアクティブ要素)へ移動させる .
      * 「選択」と「カーソルの移動」は、別々で考えて下さい。<BR>
-     * 本メソッドは予め選択済みのアイテムへ「カーソルの移動」だけであり、視覚効果の処理に特化しています。<BR>
+     * 本メソッドは予め選択済みのメニューアイテムへ「カーソルの移動」だけであり、視覚効果の処理に特化しています。<BR>
      * 「選択」自体を行うものではありません。「選択」は selectItem() で行います。<BR>
      * また、selectItem() 処理内で、この moveCursor() は実行されます。<BR>
      * 従って、moveCursor() 単体で呼び出す事は殆ど想定してないので注意して下さい。<BR>
@@ -156,9 +159,9 @@ protected:
     virtual void moveCursor(bool prm_smooth = true);
 
     /**
-     * 補助カーソルを選択アイテムへ移動させる .
+     * 補助カーソルを選択メニューアイテムへ移動させる .
      * 「選択」と「カーソルの移動」は、別々で考えて下さい。<BR>
-     * 本メソッドは予め選択済みアイテムへ「カーソルの移動」だけであり、視覚効果の処理に特化しています。<BR>
+     * 本メソッドは予め選択済みメニューアイテムへ「カーソルの移動」だけであり、視覚効果の処理に特化しています。<BR>
      * 「選択」自体を行うものではありません。「選択」は selectItemBySubCursor() で行います。<BR>
      * また、selectItemBySubCursor() 処理内で、この moveSubCursor() は実行されます。<BR>
      * 従って、moveCursor() 単体で呼び出す事は殆ど想定してないので注意して下さい。<BR>
@@ -172,7 +175,7 @@ protected:
 public:
     /** [r]メニューアイテムのリスト、アクティブはメインカーソルが選択されている */
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxFigureActor> _lstItems;
-    /** [r]その他表示アイテムのリスト */
+    /** [r]その他表示メニューアイテムのリスト */
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxFigureActor> _lstLabelActors;
     /** [r]メインカーソルが移動したメニューアイテムインデックスのヒストリー(0～N、但し初期は全て -1 ) */
     GgafCore::GgafLinkedListRing<int> _lstMvCursorHistory;
@@ -235,51 +238,69 @@ public:
     }
 
     /**
-     * 選択可能メニューアイテムを追加し、メニューアイテム間のオーダーも連結追加する .
-     * 追加されたアイテムはメニューオブジェクト(this)のサブに登録されるため、
-     * メニューオブジェクトがタスクツリーに登録されるならば delete する必要はない。
+     * 選択可能なメニューアイテムを追加し、メニューアイテム間のオーダーも連結追加する .
+     * 追加されたメニューアイテムはメニューアイテム(this)のサブに登録されるため、
+     * メニューアイテムがタスクツリーに登録されるならば delete する必要はない。
      * 【注意】<BR>
      * 同一Z座標ならば、後に addItem() した方が、より手前に表示となる。<BR>
      * @param prm_pItem メニューアイテム
-     * @param prm_x_local メニューオブジェクトのローカル座標(0,0,0)からの相対位置X座標
-     * @param prm_y_local メニューオブジェクトのローカル座標(0,0,0)からの相対位置Y座標
-     * @param prm_z_local メニューオブジェクトのローカル座標(0,0,0)からの相対位置Z座標
+     * @param prm_x_local メニューアイテムのローカル座標(0,0,0)からの相対位置X座標
+     * @param prm_y_local メニューアイテムのローカル座標(0,0,0)からの相対位置Y座標
+     * @param prm_z_local メニューアイテムのローカル座標(0,0,0)からの相対位置Z座標
      */
     virtual void addItem(GgafDxCore::GgafDxFigureActor* prm_pItem,
                          coord prm_x_local, coord prm_y_local, coord prm_z_local);
 
     /**
      * 選択可能メニューアイテム追加し、メニューアイテム間のオーダーも連結追加する .
-     * 追加されたアイテムはメニューオブジェクト(this)のサブに登録されるため、
-     * メニューオブジェクトがタスクツリーに登録されるならば delete する必要はない。<BR>
+     * 追加されたメニューアイテムはメニューアイテム(this)のサブに登録されるため、
+     * メニューアイテムがタスクツリーに登録されるならば delete する必要はない。<BR>
      * 【注意】<BR>
      * 同一Z座標ならば、後に addItem() した方が、より手前に表示となる。<BR>
-     * Z座標は、オフセット0が設定される。つまりアイテムの絶対Z座標は、現在のメニューのZ座標と一致する。<BR>
-     * もしメニューが2Dで、アイテムの表示プライオリティの考慮が必要な場合は、オフセットを-1等に明示設定も可能。
+     * Z座標は、オフセット0が設定される。つまりメニューアイテムの絶対Z座標は、現在のメニューのZ座標と一致する。<BR>
+     * もしメニューが2Dで、メニューアイテムの表示プライオリティの考慮が必要な場合は、オフセットを-1等に明示設定も可能。
      * @param prm_pItem メニューアイテム
-     * @param prm_x_local メニューオブジェクトのローカル座標(0,0,0)からの相対位置X座標
-     * @param prm_y_local メニューオブジェクトのローカル座標(0,0,0)からの相対位置Y座標
+     * @param prm_x_local メニューアイテムのローカル座標(0,0,0)からの相対位置X座標
+     * @param prm_y_local メニューアイテムのローカル座標(0,0,0)からの相対位置Y座標
      */
     virtual void addItem(GgafDxCore::GgafDxFigureActor* prm_pItem,
                          coord prm_x_local, coord prm_y_local) {
         addItem(prm_pItem, prm_x_local, prm_y_local, 0);
     }
 
+    /**
+     * 選択可能メニューアイテム追加する .
+     * 位置は後から setPositionItem() で変更できる。
+     * @param prm_pItem メニューアイテム
+     */
     virtual void addItem(GgafDxCore::GgafDxFigureActor* prm_pItem) {
         addItem(prm_pItem, 0, 0, 0);
     }
 
+    /**
+     * 追加された選択可能メニューアイテムの座標位置を設定 .
+     * @param prm_index_of_item メニューアイテムのインデックス
+     * @param prm_x_local メニューアイテムのローカル座標(0,0,0)からの相対位置X座標
+     * @param prm_y_local メニューアイテムのローカル座標(0,0,0)からの相対位置Y座標
+     * @param prm_z_local メニューアイテムのローカル座標(0,0,0)からの相対位置Z座標
+     */
     virtual void setPositionItem(int prm_index_of_item, coord prm_x_local, coord prm_y_local, coord prm_z_local);
 
+    /**
+     * 追加されたメニューアイテムの座標位置を設定 .
+     * @param prm_index_of_item メニューアイテムのインデックス
+     * @param prm_x_local メニューアイテムのローカル座標(0,0,0)からの相対位置X座標
+     * @param prm_y_local メニューアイテムのローカル座標(0,0,0)からの相対位置Y座標
+     */
     virtual void setPositionItem(int prm_index_of_item, coord prm_x_local, coord prm_y_local) {
         setPositionItem(prm_index_of_item, prm_x_local, prm_y_local, 0);
     }
 
     /**
-     * 選択不可の表示用メニューアイテム(ラベル)を追加する .
+     * 選択不可の表示用メニューラベル(メニューラベル)を追加する .
      * 【注意】<BR>
      * 同一Z座標ならば、より後の順に addLabel() した方が、より手前に表示となる。<BR>
-     * @param prm_pItem 表示用ラベルのアクター
+     * @param prm_pItem 表示用メニューラベルのアクター
      * @param prm_x_local 表示用オブジェクトのローカル座標(0,0,0)からの相対位置X座標
      * @param prm_y_local 表示用オブジェクトのローカル座標(0,0,0)からの相対位置Y座標
      * @param prm_z_local 表示用オブジェクトのローカル座標(0,0,0)からの相対位置Z座標
@@ -292,8 +313,8 @@ public:
      * 【注意】<BR>
      * 同一Z座標ならば、より後の順に addLabel() した方が、より手前に表示となる。<BR>
      * Z座標は、オフセット0が設定される。つまり表示用アクターの絶対Z座標は、現在のメニューのZ座標と一致する。
-     * もしメニューが2Dで、アイテムの表示プライオリティの考慮が必要な場合は、オフセットを-1等に明示設定も可能。
-     * @param prm_pItem 表示用ラベルのアクター
+     * もしメニューが2Dで、メニューアイテムの表示プライオリティの考慮が必要な場合は、オフセットを-1等に明示設定も可能。
+     * @param prm_pItem 表示用メニューラベルのアクター
      * @param prm_x_local 表示用オブジェクトのローカル座標(0,0,0)からの相対位置X座標
      * @param prm_y_local 表示用オブジェクトのローカル座標(0,0,0)からの相対位置Y座標
      */
@@ -302,13 +323,30 @@ public:
         addLabel(prm_pLabel, prm_x_local, prm_y_local, 0);
     }
 
-
+    /**
+     * 選択不可の表示用メニューラベル追加する .
+     * 位置は後から setPositionLabel() で変更できる。
+     * @param prm_pLabel 表示用メニューラベルのアクター
+     */
     virtual void addLabel(GgafDxCore::GgafDxFigureActor* prm_pLabel) {
         addLabel(prm_pLabel, 0, 0, 0);
     }
 
+    /**
+     * 追加された選択不可の表示用メニューラベルの座標位置を設定 .
+     * @param prm_index_of_label メニューラベルのインデックス
+     * @param prm_x_local メニューラベルのローカル座標(0,0,0)からの相対位置X座標
+     * @param prm_y_local メニューラベルのローカル座標(0,0,0)からの相対位置Y座標
+     * @param prm_z_local メニューラベルのローカル座標(0,0,0)からの相対位置Z座標
+     */
     virtual void setPositionLabel(int prm_index_of_label, coord prm_x_local, coord prm_y_local, coord prm_z_local);
 
+    /**
+     * 追加された選択不可の表示用メニューラベルの座標位置を設定 .
+     * @param prm_index_of_label メニューラベルのインデックス
+     * @param prm_x_local メニューラベルのローカル座標(0,0,0)からの相対位置X座標
+     * @param prm_y_local メニューラベルのローカル座標(0,0,0)からの相対位置Y座標
+     */
     virtual void setPositionLabel(int prm_index_of_label, coord prm_x_local, coord prm_y_local) {
         setPositionLabel(prm_index_of_label, prm_x_local, prm_y_local, 0);
     }
@@ -322,12 +360,12 @@ public:
      * getKuroko()->behave(); <BR>
      * を実行する必要はありません。<BR>
      * @param prm_pCursorActor メインカーソル
-     * @param prm_x_cursor_adjust アイテムとの重なりを補正するための加算される差分X座標
-     * @param prm_y_cursor_adjust アイテムとの重なりを補正するための加算される差分Y座標
-     * @param prm_z_cursor_adjust アイテムとの重なりを補正するための加算される差分Z座標
-     * @param prm_cursor_move_frames メインカーソルがアイテム間移動に費やすフレーム(デフォルト8フレーム)
-     * @param prm_cursor_move_p1 メインカーソルが移動時、アイテム間移動距離の速度０～最高速に達する時点の割合(デフォルト0.2)
-     * @param prm_cursor_move_p2 メインカーソルが移動時、アイテム間移動距離の最高速から減速を開始する割合(デフォルト0.7)
+     * @param prm_x_cursor_adjust メニューアイテムとの重なりを補正するための加算される差分X座標
+     * @param prm_y_cursor_adjust メニューアイテムとの重なりを補正するための加算される差分Y座標
+     * @param prm_z_cursor_adjust メニューアイテムとの重なりを補正するための加算される差分Z座標
+     * @param prm_cursor_move_frames メインカーソルがメニューアイテム間移動に費やすフレーム(デフォルト8フレーム)
+     * @param prm_cursor_move_p1 メインカーソルが移動時、メニューアイテム間移動距離の速度０～最高速に達する時点の割合(デフォルト0.2)
+     * @param prm_cursor_move_p2 メインカーソルが移動時、メニューアイテム間移動距離の最高速から減速を開始する割合(デフォルト0.6)
      */
     virtual void setMainCursor(GgafDxCore::GgafDxFigureActor* prm_pCursorActor,
                                coord prm_x_cursor_adjust = 0,
@@ -346,12 +384,12 @@ public:
      * getKuroko()->behave(); <BR>
      * を実行する必要はありません。<BR>
      * @param prm_pCursorActor 補助カーソル
-     * @param prm_x_cursor_adjust アイテムとの重なりを補正するための加算される差分X座標
-     * @param prm_y_cursor_adjust アイテムとの重なりを補正するための加算される差分Y座標
-     * @param prm_z_cursor_adjust アイテムとの重なりを補正するための加算される差分Z座標
-     * @param prm_cursor_move_frames 補助カーソルがアイテム間移動に費やすフレーム(デフォルト8フレーム)
-     * @param prm_cursor_move_p1 補助カーソルが移動時、アイテム間移動距離の速度０～最高速に達する時点の割合(デフォルト0.2)
-     * @param prm_cursor_move_p2 補助カーソルが移動時、アイテム間移動距離の最高速から減速を開始する割合(デフォルト0.7)
+     * @param prm_x_cursor_adjust メニューアイテムとの重なりを補正するための加算される差分X座標
+     * @param prm_y_cursor_adjust メニューアイテムとの重なりを補正するための加算される差分Y座標
+     * @param prm_z_cursor_adjust メニューアイテムとの重なりを補正するための加算される差分Z座標
+     * @param prm_cursor_move_frames 補助カーソルがメニューアイテム間移動に費やすフレーム(デフォルト8フレーム)
+     * @param prm_cursor_move_p1 補助カーソルが移動時、メニューアイテム間移動距離の速度０～最高速に達する時点の割合(デフォルト0.2)
+     * @param prm_cursor_move_p2 補助カーソルが移動時、メニューアイテム間移動距離の最高速から減速を開始する割合(デフォルト0.6)
      */
     virtual void addSubCursor(GgafDxCore::GgafDxFigureActor* prm_pCursorActor,
                               coord prm_x_cursor_adjust = 0,
@@ -365,7 +403,7 @@ public:
      * メニューアイテム間のオーダー連結を拡張設定(自身がFrom ⇔ To) .
      * addItem(GgafDxCore::GgafDxFigureActor*) により、追加を行うことで、自動的に<BR>
      * 次、前、の線形オーダーが構築されているが、<BR>
-     * このメソッドはそれとは別にアイテム間の「次」、「前」、の関係を追加設定する。<BR>
+     * このメソッドはそれとは別にメニューアイテム間の「次」、「前」、の関係を追加設定する。<BR>
      * 例えば、「→」キーで「次」、「←」キーで「戻る」という動作になっているところに、
      * さらに「↑」「↓」の移動先を別途設定するといった使用方法を想定。<BR>
      * @param prm_index_of_fromitem 連結元のメニューアイテムのインデックス
@@ -383,6 +421,7 @@ public:
     virtual void relateItemToExNext(int prm_index_of_item1,
                                     int prm_index_of_item2,
                                     int prm_index_of_item3 );
+
     /**
      * メニューアイテム間のオーダー連結を拡張設定(item1 ⇔ item2  ⇔ item3 ⇔ item4) .
      * @param prm_index_of_item1 拡張連結するメニューアイテムのインデックス1
@@ -394,6 +433,7 @@ public:
                                     int prm_index_of_item2,
                                     int prm_index_of_item3,
                                     int prm_index_of_item4 );
+
     /**
      * メニューアイテム間のオーダー連結を拡張設定(item1 ⇔ item2  ⇔ item3 ⇔ item4 ⇔ item5).
      * @param prm_index_of_item1 拡張連結するメニューアイテムのインデックス1
@@ -415,7 +455,7 @@ public:
      * メニューアイテム間のオーダー連結を拡張設定(From ⇔ 自身がTo) .
      * addItem(GgafDxCore::GgafDxFigureActor*) により、追加を行うことで、自動的に<BR>
      * 次、前、の線形オーダーが構築されているが、<BR>
-     * このメソッドはそれとは別にアイテム間の「前」、「次」、の関係を追加設定する。<BR>
+     * このメソッドはそれとは別にメニューアイテム間の「前」、「次」、の関係を追加設定する。<BR>
      * 例えば、「→」キーで「次」、「←」キーで「戻る」という動作にした場合に
      * 「↑」「↓」の移動先を設定するといった使用方法を想定。<BR>
      * @param prm_index_of_fromitem 連結元のメニューアイテムのインデックス
@@ -425,8 +465,8 @@ public:
     virtual void relateItemToExPrev(int prm_index_of_fromitem, int prm_index_of_toitem);
 
     /**
-     * 既存アイテム全てに対し、「キャンセル（メニューアイテム）」へのオーダー連結を拡張設定する .
-     * @param prm_index_of_cancel_item キャンセルアイテムへのアイテムインデックス
+     * 既存メニューアイテム全てに対し、「キャンセル（メニューアイテム）」へのオーダー連結を拡張設定する .
+     * @param prm_index_of_cancel_item キャンセル（メニューアイテム）へのメニューアイテムインデックス
      */
     virtual void relateAllItemToCancel(int prm_index_of_cancel_item);
 
@@ -444,31 +484,31 @@ public:
     virtual GgafDxCore::GgafDxFigureActor* getSubCursor(int prm_subcur_no);
 
     /**
-     * メインカーソルで「次」のアイテム(但しisActive())選択＆メインカーソルを移動 .
+     * メインカーソルで「次」のメニューアイテム(但しisActive())選択＆メインカーソルを移動 .
      * onSelect() コールバックは必ず発生します。<BR>
      */
     virtual void selectNext();
 
     /**
-     * メインカーソルで「前」のアイテム(但しisActive())選択＆メインカーソルを移動 .
+     * メインカーソルで「前」のメニューアイテム(但しisActive())選択＆メインカーソルを移動 .
      * onSelect() コールバックは必ず発生します。<BR>
      */
     virtual void selectPrev();
 
     /**
-     * メインカーソルで「（別の）次」のアイテム(但しisActive())選択＆メインカーソルを移動 .
+     * メインカーソルで「（別の）次」のメニューアイテム(但しisActive())選択＆メインカーソルを移動 .
      * onSelect() コールバックは必ず発生します。<BR>
      */
     virtual void selectExNext();
 
     /**
-     * メインカーソルで「（別の）前」のアイテム(但しisActive())選択＆メインカーソルを移動 .
+     * メインカーソルで「（別の）前」のメニューアイテム(但しisActive())選択＆メインカーソルを移動 .
      * onSelect() コールバックは必ず発生します。<BR>
      */
     virtual void selectExPrev();
 
     /**
-     * メインカーソルで「キャンセル」アイテム選択＆メインカーソルを移動 .
+     * メインカーソルで「キャンセル」メニューアイテム選択＆メインカーソルを移動 .
      * onSelect() コールバックは必ず発生します。<BR>
      */
     virtual void selectCancel();
@@ -478,9 +518,9 @@ public:
      * onSelect() コールバックは必ず発生します。<BR>
      * 内部で moveCursor() がコールバックされ、メインカーソルが移動することになる。<BR>
      * 既に指定のインデックス選択中の場合はメインカーソルは何も移動無し。<BR>
-     * ついでに、引数インデックスのアイテムオブジェクトもゲット出来る。<BR>
-     * @param prm_index ターゲットのアイテムインデックス
-     * @return prm_indexのアイテムオブジェクト
+     * ついでに、引数インデックスのメニューアイテムオブジェクトもゲット出来る。<BR>
+     * @param prm_index ターゲットのメニューアイテムインデックス
+     * @return prm_indexのメニューアイテムオブジェクト
      */
     virtual GgafDxCore::GgafDxFigureActor* selectItem(int prm_index, bool prm_smooth = true);
 
@@ -489,18 +529,18 @@ public:
     * onSelect() コールバックは発生しません。<BR>
      * 内部で moveSubCursor() がコールバックされ、メインカーソルが移動することになる。<BR>
      * 既に指定のインデックス選択中の場合はメインカーソルは何も移動無し。<BR>
-     * ついでに、引数インデックスのアイテムオブジェクトもゲット出来る。<BR>
-     * @param prm_index ターゲットのアイテムインデックス
+     * ついでに、引数インデックスのメニューアイテムオブジェクトもゲット出来る。<BR>
      * @param prm_subcur_no 補助カーソル番号
-     * @return prm_indexのアイテムオブジェクト
+     * @param prm_index ターゲットのメニューアイテムインデックス
+     * @return prm_indexのメニューアイテムオブジェクト
      */
     virtual GgafDxCore::GgafDxFigureActor* selectItemBySubCursor(int prm_subcur_no, int prm_item_index, bool prm_smooth = true);
 
     /**
      * メインカーソルで指定のメニューアイテムを「選択」し、メインカーソルを移動させる .
-     * 引数のターゲットアイテムのインデックスを調べて、selectItem(index); を実行します。
-     * @param prm_item ターゲットアイテム
-     * @return ターゲットのアイテムインデックス
+     * 引数のターゲットメニューアイテムのインデックスを調べて、selectItem(index); を実行します。
+     * @param prm_item ターゲットメニューアイテム
+     * @return ターゲットのメニューアイテムインデックス
      */
     virtual int selectItem(GgafDxCore::GgafDxFigureActor* prm_item, bool prm_smooth = true);
 
@@ -508,45 +548,45 @@ public:
      * 補助カーソルで指定のメニューアイテムを「選択」し、補助カーソルを移動させる .
      * 内部で moveSubCursor() がコールバックされ、カーソルが移動することになる。<BR>
      * 既に指定のインデックス選択中の場合はカーソルは何も移動無し。<BR>
-     * ついでに、引数アイテムオブジェクトのインデックスもゲット出来る。<BR>
-     * @param prm_item ターゲットのアイテム
+     * ついでに、引数メニューアイテムオブジェクトのインデックスもゲット出来る。<BR>
      * @param prm_subcur_no 補助カーソル番号
+     * @param prm_item ターゲットのメニューアイテム
      * @return
      */
     virtual int selectItemBySubCursor(int prm_subcur_no, GgafDxCore::GgafDxFigureActor* prm_item, bool prm_smooth = true);
 
     /**
-     * 現在メインカーソルが選択中のアイテムのインデックスを取得 .
-     * @return 選択中のアイテムのインデックス
+     * 現在メインカーソルが選択中のメニューアイテムのインデックスを取得 .
+     * @return 選択中のメニューアイテムのインデックス
      */
     virtual int getSelectedIndex();
 
     /**
-     * 現在補助カーソルが選択中のアイテムのインデックスを取得 .
+     * 現在補助カーソルが選択中のメニューアイテムのインデックスを取得 .
      * @param prm_subcur_no 補助カーソル番号
-     * @return 選択中のアイテムのインデックス
+     * @return 選択中のメニューアイテムのインデックス
      */
     virtual int getSelectedIndexOnSubCursor(int prm_subcur_no);
 
     /**
-     * 現在メインカーソルが選択中のアイテムのオブジェクトを取得 .
-     * @return 選択中のアイテムオブジェクト
+     * 現在メインカーソルが選択中のメニューアイテムのオブジェクトを取得 .
+     * @return 選択中のメニューアイテムオブジェクト
      */
     virtual GgafDxCore::GgafDxFigureActor* getSelectedItem();
 
     /**
-     * 現在補助カーソルが選択中のアイテムのオブジェクトを取得 .
+     * 現在補助カーソルが選択中のメニューアイテムのオブジェクトを取得 .
      * @param prm_subcur_no 補助カーソル番号
-     * @return 選択中のアイテムオブジェクト
+     * @return 選択中のメニューアイテムオブジェクト
      */
     virtual GgafDxCore::GgafDxFigureActor* getSelectedItemOnSubCursor(int prm_subcur_no);
 
     /**
-     * 過去にメインカーソルが選択中だったアイテムのインデックスを取得 .
+     * 過去にメインカーソルが選択中だったメニューアイテムのインデックスを取得 .
      * getMvCursorHistoryIndex(0) は getSelectedIndex() と同じです。
      * 指定の過去がない場合は -1 を返します。
      * @param prm_n 幾つ過去のカーソル位置か(0 ～)
-     * @return 選択中だったのアイテムオブジェクトのインデックス（無い場合は -1）
+     * @return 選択中だったのメニューアイテムオブジェクトのインデックス（無い場合は -1）
      */
     virtual int getMvCursorHistoryIndex(int prm_n);
 
@@ -557,7 +597,7 @@ public:
      * processBehavior() で getOnDecidedIndex() の戻り値を毎フレーム調べることで、決定時の処理を記述することが可能。<BR>
      * もちろん onDecision() も呼び出されるので、オーバーライドし、ここで swith～case を記述しても良い。<BR>
      * どちらでも良いし、併用も可能。<BR>
-     * @return 決定された時：そのアイテムのインデックス(>=0)／何も決定されていない場合：常に -1
+     * @return 決定された時：そのメニューアイテムのインデックス(>=0)／何も決定されていない場合：常に -1
      */
     virtual int getOnDecidedIndex();
 
@@ -568,7 +608,7 @@ public:
      * processBehavior() で getOnDecidedItem() の戻り値を毎フレーム調べることで、決定時の処理を記述することが可能。<BR>
      * もちろん onDecision() も呼び出されるので、オーバーライドし、ここで swith～case を記述しても良い。<BR>
      * どちらでも良いし、併用も可能。<BR>
-     * @return 決定された時：そのアイテム／何も決定されていない場合：常に nullptr
+     * @return 決定された時：そのメニューアイテム／何も決定されていない場合：常に nullptr
      */
     virtual GgafDxCore::GgafDxFigureActor* getOnDecidedItem();
 
@@ -579,7 +619,7 @@ public:
      * processBehavior() で getOnCancelledIndex() の戻り値を毎フレーム調べることで、キャンセル時の処理を記述することが可能。<BR>
      * もちろん onCancel() も呼び出されるので、オーバーライドし、ここで swith～case を記述しても良い。<BR>
      * どちらでも良いし、併用も可能。<BR>
-     * @return キャンセルされた時：そのアイテムのインデックス(>=0)／何もキャンセルされていない場合：常に -1
+     * @return キャンセルされた時：そのメニューアイテムのインデックス(>=0)／何もキャンセルされていない場合：常に -1
      */
     virtual int getOnCancelledIndex();
 
@@ -590,44 +630,48 @@ public:
      * processBehavior() で getOnCancelledItem() の戻り値を毎フレーム調べることで、キャンセル時の処理を記述することが可能。<BR>
      * もちろん onCancel() も呼び出されるので、オーバーライドし、ここで swith～case を記述しても良い。<BR>
      * どちらでも良いし、併用も可能。<BR>
-     * @return キャンセルされた時：そのアイテム／何もキャンセルされていない場合：常に nullptr
+     * @return キャンセルされた時：そのメニューアイテム／何もキャンセルされていない場合：常に nullptr
      */
     virtual GgafDxCore::GgafDxFigureActor* getOnCancelledItem();
 
     /**
-     * 選択対象アイテムのオブジェクトを取得 .
-     * @param prm_index 取得したい選択対象アイテムのインデックス(0～)
-     * @return アイテムオブジェクト
+     * 選択対象メニューアイテムのオブジェクトを取得 .
+     * @param prm_index 取得したい選択対象メニューアイテムのインデックス(0～)
+     * @return メニューアイテムオブジェクト
      */
     virtual GgafDxCore::GgafDxFigureActor* getItem(int prm_index);
 
     /**
-     * その他表示用アイテムのオブジェクトを取得 .
-     * @param prm_index 取得したい表示用アイテムのインデックス(0～)
-     * @return 表示用アイテムオブジェクト
+     * 表示用メニューアイテムのオブジェクトを取得 .
+     * @param prm_index 取得したい表示用メニューアイテムのインデックス(0～)
+     * @return 表示用メニューアイテムオブジェクト
      */
     virtual GgafDxCore::GgafDxFigureActor* getLabel(int prm_index);
 
     /**
      * 「決定（振る舞い）」した、という事の成立条件を実装する .
      * 下位クラスでオーバーライドして、条件を実装してください。 <BR>
+     * (例えば Enterキーが押されたらtrueを返す ロジック等) <BR>
      * 同一フレームで condDecision() と condCancel() の条件成立はどちらか一方が成立し、
      * 判定優先順位は、condDecision() の方が先です。<BR>
-     * @return 「決定（振る舞い）」の条件成立 / false:不成立
+     * @return true:「決定（振る舞い）」の条件成立 / false:不成立
      */
     virtual bool condDecision() = 0;
 
     /**
      * 「キャンセル（振る舞い）」した、という事の成立条件を実装する .
      * 下位クラスでオーバーライドして、条件を実装してください。<BR>
+     * (例えば ESCキーが押されたらtrueを返す ロジック等) <BR>
      * 同一フレームで condDecision() と condCancel() の条件成立はどちらか一方が成立し、
      * 判定優先順位は、condDecision() の方が先です。<BR>
-     * @return 「キャンセル（振る舞い）」の条件成立 / false:不成立
+     * @return true:「キャンセル（振る舞い）」の条件成立 / false:不成立
      */
     virtual bool condCancel() = 0;
+
     /**
      * メインカーソルが「次のメニューアイテム」へ移動する条件を実装する .
      * 下位クラスでオーバーライドして、条件を実装してください。
+     * (例えば ↓キーが押されたらtrueを返す ロジック等) <BR>
      * @return true:「次のメニューアイテム」へ移動の条件成立 / false:不成立
      */
     virtual bool condSelectNext() = 0;
@@ -635,6 +679,7 @@ public:
     /**
      * メインカーソルが「前のメニューアイテム」へ移動する条件を実装する .
      * 下位クラスでオーバーライドして、条件を実装してください。
+     * (例えば ↑キーが押されたらtrueを返す ロジック等) <BR>
      * @return true:「前のメニューアイテム」へ移動の条件成立 / false:不成立
      */
     virtual bool condSelectPrev() = 0;
@@ -654,9 +699,9 @@ public:
     virtual bool condSelectExPrev() = 0;
 
     /**
-     * メインカーソルが「キャンセルのメニューアイテム」へ飛ぶ条件を実装する .
+     * メインカーソルが「キャンセル（メニューアイテム）」へ飛ぶ条件を実装する .
      * 下位クラスでオーバーライドして、条件を実装してください。
-     * @return true:「キャンセルのメニューアイテム」へ移動の条件成立 / false:不成立
+     * @return true:「キャンセル（メニューアイテム）」へ移動の条件成立 / false:不成立
      */
     virtual bool condSelectCancel() = 0;
 
@@ -667,8 +712,8 @@ public:
      * processBehavior() で、getOnDecidedIndex() の戻り値を毎フレーム調べることで、決定時の処理を記述することが可能。<BR>
      * もちろん onDecision() も呼び出されるので、オーバーライドし、ここで swith～case を記述しても良い。<BR>
      * どちらでも良いし、併用も可能。
-     * @param prm_pItem 決定されたのアイテム
-     * @param prm_item_index 決定されたのアイテムのインデックス
+     * @param prm_pItem 決定されたメニューアイテム
+     * @param prm_item_index 決定されたメニューアイテムのインデックス
      */
     virtual void onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) = 0;
 
@@ -692,23 +737,23 @@ public:
      * onMoveCursor(int,int) は、selectXxxxx 系のメソッド実行の際、カーソルが移動した場合のみ呼び出されます。<BR>
      * onSelect(int,int) は、selectXxxxx 系 のメソッドを実行時に、もれなく呼び出されます(たとえ、カーソルが移動しなくても)<BR>
      * 呼び出される順序は、onMoveCursor(int,int)  → onSelect(int,int) の順です。<BR>
-     * @param prm_from 移動元のアイテムのインデックス（無い（初期の）場合は -1）
-     * @param prm_to   移動先のアイテムのインデックス
+     * @param prm_from_index 移動元のメニューアイテムのインデックス（無い（初期の）場合は -1）
+     * @param prm_selected_index   移動先のメニューアイテムのインデックス
      */
-    virtual void onMoveCursor(int prm_from, int prm_to) = 0;
+    virtual void onMoveCursor(int prm_from_index, int prm_selected_index) = 0;
 
     /**
-     * メインカーソルがアイテムを選択された場合に呼び出されるコールバック。 .
+     * メインカーソルがメニューアイテムを選択された場合に呼び出されるコールバック。 .
      * 動作をオーバーライドして実装してください。<BR>
      * 【捕捉】<BR>
      * onMoveCursor(int,int) と onSelect(int,int) のコールバックタイミングの差について。<BR>
      * onMoveCursor(int,int) は、selectXxxxx 系のメソッド実行の際、カーソルが移動した場合のみ呼び出されます。<BR>
      * onSelect(int,int) は、selectXxxxx 系 のメソッドを実行時に、もれなく呼び出されます(たとえ、カーソルが移動しなくても)<BR>
      * 呼び出される順序は、onMoveCursor(int,int)  → onSelect(int,int) の順です。<BR>
-     * @param prm_from 選択元（今回選択される前）のアイテムのインデックス（無い（初期の）場合は -1）
-     * @param prm_to   選択先のアイテムのインデックス
+     * @param prm_from_index     選択元（今回選択される前）のメニューアイテムのインデックス（無い（初期の）場合は -1）
+     * @param prm_selected_index 選択先のメニューアイテムのインデックス
      */
-    virtual void onSelect(int prm_from, int prm_to) = 0;
+    virtual void onSelect(int prm_from_index, int prm_selected_index) = 0;
 
 
     /**
@@ -749,7 +794,7 @@ public:
 
     /**
      * メニューの振る舞い .
-     * カーソルの移動及び、アイテムとカーソルをメニューの母体座標に追従させる
+     * カーソルの移動及び、メニューアイテムとカーソルをメニューの母体座標に追従させる
      * 処理が実装済みです。<BR>
      * メニューの振る舞いを追加する場合は、オーバーライドして、
      * 処理中に上位 processBehavior() を呼び出すのを忘れないように。<BR>
@@ -877,7 +922,7 @@ public:
 
 template<class T>
 MenuActor<T>::MenuActor(const char* prm_name, const char* prm_model) :
-  T(prm_name, prm_model),_lstItems(3) { //全アイテム枝を３つ追加：「その他次」「その他前」「キャンセル」の３つ
+  T(prm_name, prm_model),_lstItems(3) { //全メニューアイテム枝を３つ追加：「その他次」「その他前」「キャンセル」の３つ
     T::_class_name = "MenuActor";
 
     _fade_frames = 0;
@@ -1277,7 +1322,7 @@ template<class T>
 GgafDxCore::GgafDxFigureActor* MenuActor<T>::getLabel(int prm_index) {
 #ifdef MY_DEBUG
     if (_lstLabelActors.length() <= prm_index) {
-        throwGgafCriticalException("MenuActor<T>::getLabel() 表示ラベルアイテム要素数オーバー name="<<T::getName()<<" _lstLabelActors.length()="<<_lstLabelActors.length()<<" prm_index="<<prm_index);
+        throwGgafCriticalException("MenuActor<T>::getLabel() 表示メニューラベルメニューアイテム要素数オーバー name="<<T::getName()<<" _lstLabelActors.length()="<<_lstLabelActors.length()<<" prm_index="<<prm_index);
     }
 #endif
     return _lstLabelActors.getFromFirst(prm_index);
@@ -1496,7 +1541,7 @@ void MenuActor<T>::riseMe() {
         p->activate();
         pElem = pElem->_pNext;
     }
-    //表示アイテム初期配置
+    //表示メニューアイテム初期配置
     pElem = _lstLabelActors.getElemFirst();
     int n_da = _lstLabelActors.length();
     for (int i = 0; i < n_da; i++) {
@@ -1597,7 +1642,7 @@ void MenuActor<T>::processBehavior() {
         pElem = pElem->_pNext;
     }
 
-    //表示アイテムをメニューに追従
+    //表示メニューアイテムをメニューに追従
     pElem = _lstLabelActors.getElemFirst();
     int n_da = _lstLabelActors.length();
     for (int i = 0; i < n_da; i++) {
@@ -1787,19 +1832,5 @@ template<class T>
 MenuActor<T>::~MenuActor() {
 }
 
-/** メニューの母体を GgafLib::DefaultBoardActor とするメニュー */
-typedef GgafLib::MenuActor<GgafLib::DefaultBoardActor> DefaultBoardMenu;
-/** メニューの母体を GgafLib::DefaultBoardSetActor とするメニュー */
-typedef GgafLib::MenuActor<GgafLib::DefaultBoardSetActor> DefaultBoardSetMenu;
-/** メニューの母体を GgafLib::DefaultSpriteActor とするメニュー */
-typedef GgafLib::MenuActor<GgafLib::DefaultSpriteActor> DefaultSpriteMenu;
-/** メニューの母体を GgafLib::DefaultSpriteSetActor とするメニュー */
-typedef GgafLib::MenuActor<GgafLib::DefaultSpriteSetActor> DefaultSpriteSetMenu;
-/** メニューの母体を GgafLib::FontBoardActor とするメニュー */
-typedef GgafLib::MenuActor<GgafLib::FontBoardActor> FontBoardMenu;
-/** メニューの母体を GgafLib::FontSpriteActor とするメニュー */
-typedef GgafLib::MenuActor<GgafLib::FontSpriteActor> FontSpriteMenu;
-/** メニューの母体を GgafLib::DefaultFramedBoardActor とするメニュー */
-typedef GgafLib::MenuActor<GgafLib::DefaultFramedBoardActor> DefaultFramedBoardMenu;
 }
 #endif /*GGAFLIB_MENUACTOR_H_*/

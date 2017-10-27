@@ -43,7 +43,6 @@ public:
     };
 
     GgafDxCore::GgafDxGeoElem next_pos_;
-    int num_fire_;
     int nprog_;
 public:
     /**

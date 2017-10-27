@@ -10,25 +10,24 @@ using namespace VioletVreath;
 
 CursorConfig003::CursorConfig003(const char* prm_name) : DefaultBoardActor(prm_name, "Cursor001") {
     _class_name = "CursorConfig003";
-    _pAFader = NEW GgafDxAlphaFader(this);
 }
+
 void CursorConfig003::initialize() {
     getUvFlipper()->exec(FLIP_OSCILLATE_LOOP, 10);
 }
 
 void CursorConfig003::onActive() {
     setAlpha(0.0);
-    _pAFader->transitionLinearToTop(60);
+    getAlphaFader()->transitionLinearToTop(60);
 }
 
 void CursorConfig003::processBehavior() {
     getUvFlipper()->behave();
-    _pAFader->behave();
+    getAlphaFader()->behave();
 }
 
 void CursorConfig003::processJudgement() {
 }
 
 CursorConfig003::~CursorConfig003() {
-    GGAF_DELETE(_pAFader);
 }

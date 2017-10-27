@@ -25,7 +25,7 @@ public:
     void initialize() override;
 
 
-    void moveSmoothTo(int prm_lv); //意図的に 上位の moveSmoothTo を hide してます。
+    void moveSmoothTo(int prm_lv); //意図的に 上位の moveSmoothTo を hiding
     /**
      * 操作不可状態表示 .
      */

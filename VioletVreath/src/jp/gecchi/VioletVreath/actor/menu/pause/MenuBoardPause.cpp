@@ -159,6 +159,7 @@ void MenuBoardPause::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, int pr
         }
     }
 }
+
 void MenuBoardPause::onCancel(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
 }
 
