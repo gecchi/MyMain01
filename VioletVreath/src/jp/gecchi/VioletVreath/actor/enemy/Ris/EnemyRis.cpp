@@ -90,14 +90,14 @@ void EnemyRis::processBehavior() {
                 }
             }
             //自機へ方向転換
-            pKuroko->turnMvAngTwd(P_MYSHIP,
+            pKuroko->turnMvAngTwd(pMYSHIP,
                                   3000, 0,
                                   TURN_CLOSE_TO, true);
             iMovePatternNo_++; //次の行動パターンへ
             break;
 
         case 3:  //【行動パターン３：自機へグルッと逆回転で方向転換開始】
-            if (_z-10000 < P_MYSHIP->_z && P_MYSHIP->_z < _z+10000) {
+            if (_z-10000 < pMYSHIP->_z && pMYSHIP->_z < _z+10000) {
                 //自機とZ軸が接近したらグルッと逆回転で方向転換
                 pKuroko->turnMvAngTwd(MyShip::lim_x_behaind_ - 500000 , _y, _z,
                                       10000, 0,

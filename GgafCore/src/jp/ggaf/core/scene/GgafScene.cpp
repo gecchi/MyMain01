@@ -55,7 +55,7 @@ void GgafScene::addSubLast(GgafScene* prm_pScene) {
 
 void GgafScene::nextFrame() {
     bool b = _is_active_in_the_tree_flg;
-    if (_once_in_n_time == 1 || P_GOD->_frame_of_God % _once_in_n_time == 0) {
+    if (_once_in_n_time == 1 || pGOD->_frame_of_God % _once_in_n_time == 0) {
         GgafElement<GgafScene>::nextFrame();
         frame f = _pSceneDirector->_frame_of_life;
         if (b || _is_active_in_the_tree_flg ||
@@ -72,7 +72,7 @@ void GgafScene::nextFrame() {
     }
 
 
-//    if (_once_in_n_time == 1 || P_GOD->_frame_of_God % _once_in_n_time == 0) {
+//    if (_once_in_n_time == 1 || pGOD->_frame_of_God % _once_in_n_time == 0) {
 //        GgafElement<GgafScene>::nextFrame();
 //        if(_pSceneDirector) {
 //            _pSceneDirector->nextFrame();
@@ -81,21 +81,21 @@ void GgafScene::nextFrame() {
 }
 
 void GgafScene::behave() {
-    if (_once_in_n_time == 1 || P_GOD->_frame_of_God % _once_in_n_time == 0) {
+    if (_once_in_n_time == 1 || pGOD->_frame_of_God % _once_in_n_time == 0) {
         GgafElement<GgafScene>::behave();
         _pSceneDirector->behave();
     }
 }
 
 void GgafScene::settleBehavior() {
-    if (_once_in_n_time == 1 || P_GOD->_frame_of_God % _once_in_n_time == 0) {
+    if (_once_in_n_time == 1 || pGOD->_frame_of_God % _once_in_n_time == 0) {
         GgafElement<GgafScene>::settleBehavior();
         _pSceneDirector->settleBehavior();
     }
 }
 
 void GgafScene::judge() {
-    if (_once_in_n_time == 1 || P_GOD->_frame_of_God % _once_in_n_time == 0) {
+    if (_once_in_n_time == 1 || pGOD->_frame_of_God % _once_in_n_time == 0) {
         GgafElement<GgafScene>::judge();
         _pSceneDirector->judge();
     }
@@ -135,7 +135,7 @@ void GgafScene::throwEventUpperTree(hashval prm_no) {
 }
 
 void GgafScene::doFinally() {
-    if (_once_in_n_time == 1 || P_GOD->_frame_of_God % _once_in_n_time == 0) {
+    if (_once_in_n_time == 1 || pGOD->_frame_of_God % _once_in_n_time == 0) {
         GgafElement<GgafScene>::doFinally();
         _pSceneDirector->doFinally();
     }

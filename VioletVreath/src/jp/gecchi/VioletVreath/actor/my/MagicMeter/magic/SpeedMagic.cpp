@@ -39,12 +39,12 @@ SpeedMagic::SpeedMagic(const char* prm_name, int*prm_pMP)
 
 void SpeedMagic::onReset() {
     Magic::onReset();
-    P_MYSHIP->setMoveSpeed(PX_C((0+1)*2));
+    pMYSHIP->setMoveSpeed(PX_C((0+1)*2));
 }
 
 void SpeedMagic::processCastBegin(int prm_now_level, int prm_new_level) {
     if (prm_new_level > prm_now_level) {
-        pEffect_->setPositionAt(P_MYSHIP->pMyMagicEnergyCore_);
+        pEffect_->setPositionAt(pMYSHIP->pMyMagicEnergyCore_);
         pEffect_->setAlpha(0.9);
         pEffect_->getKuroko()->setFaceAngVelo(AXIS_Z, 100);
         pEffect_->setScale(1000);
@@ -54,7 +54,7 @@ void SpeedMagic::processCastBegin(int prm_now_level, int prm_new_level) {
 
 void SpeedMagic::processCastingBehavior(int prm_now_level, int prm_new_level) {
     if (prm_new_level > prm_now_level) {
-        pEffect_->setPositionAt(P_MYSHIP->pMyMagicEnergyCore_);
+        pEffect_->setPositionAt(pMYSHIP->pMyMagicEnergyCore_);
         pEffect_->addScale(10);
     }
 }
@@ -88,7 +88,7 @@ void SpeedMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int p
 }
 
 void SpeedMagic::processEffectBegin(int prm_last_level, int prm_now_level) {
-    P_MYSHIP->setMoveSpeed(PX_C((prm_now_level+1)*2));
+    pMYSHIP->setMoveSpeed(PX_C((prm_now_level+1)*2));
 }
 
 void SpeedMagic::processEffectingBehavior(int prm_last_level, int prm_now_level) {

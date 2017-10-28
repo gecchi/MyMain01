@@ -39,13 +39,13 @@ void Shot002::onActive() {
 void Shot002::processBehavior() {
     GgafDxKuroko* const pKuroko = getKuroko();
     if (getActiveFrame() == 70) {
-        pKuroko->turnMvAngTwd(P_MYSHIP,
+        pKuroko->turnMvAngTwd(pMYSHIP,
                               3000, 0,
                               TURN_CLOSE_TO, true);
     }
 
     if (getActiveFrame() > 70 && !pKuroko->isTurningMvAng()) {
-        pKuroko->turnMvAngTwd(P_MYSHIP,
+        pKuroko->turnMvAngTwd(pMYSHIP,
                               100, 0,
                               TURN_CLOSE_TO, true);
     }

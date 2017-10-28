@@ -47,7 +47,7 @@ void EnemyGlaja::onActive() {
 }
 
 void EnemyGlaja::processBehavior() {
-    MyShip* pMyShip = P_MYSHIP;
+    MyShip* pMyShip = pMYSHIP;
     GgafDxKuroko* const pKuroko = getKuroko();
     GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {

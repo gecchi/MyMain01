@@ -9,8 +9,8 @@
     #undef __out
 #endif
 
-#undef P_GOD
-#define P_GOD (GgafCore::GgafGod::_pGod)
+#undef pGOD
+#define pGOD (GgafCore::GgafGod::_pGod)
 
 namespace GgafCore {
 

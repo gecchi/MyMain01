@@ -16,7 +16,7 @@ FormationOrtuna001b::FormationOrtuna001b(const char* prm_name) : FormationOrtuna
 void FormationOrtuna001b::onCallUpOrtuna(EnemyOrtuna* prm_pOrtuna, int prm_index) {
     if (prm_index == 0) {
         //初CallUp、基点をセット
-        MyShip* pMyShip = P_MYSHIP;
+        MyShip* pMyShip = pMYSHIP;
         setPosition(pMyShip->_x+PX_C(200), pMyShip->_y, pMyShip->_z);
     }
     angle ang = (prm_index * D360ANG) / num_Ortuna_;

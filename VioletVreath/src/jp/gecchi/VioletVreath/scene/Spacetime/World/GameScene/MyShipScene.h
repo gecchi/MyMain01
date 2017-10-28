@@ -7,14 +7,14 @@
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
 #include "jp/gecchi/VioletVreath/actor/camera/worker/VamSysCamWorker.h"
 
-#ifdef P_GAME_SCENE
-    #define P_MYSHIP_SCENE (P_GAME_SCENE->pMyShipScene_)
-    #define P_MYSHIP (P_MYSHIP_SCENE->pMyShip_)
-    #define P_VAM (P_MYSHIP_SCENE->pVamSysCamWorker_)
+#ifdef pGAME_SCENE
+    #define pMYSHIP_SCENE (pGAME_SCENE->pMyShipScene_)
+    #define pMYSHIP (pMYSHIP_SCENE->pMyShip_)
+    #define pVAM (pMYSHIP_SCENE->pVamSysCamWorker_)
 #else
-    #undef P_MYSHIP_SCENE
-    #undef P_MYSHIP
-    #undef P_VAM
+    #undef pMYSHIP_SCENE
+    #undef pMYSHIP
+    #undef pVAM
 #endif
 
 namespace VioletVreath {

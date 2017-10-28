@@ -24,7 +24,7 @@ void ViewPointGuide::onActive() {
 }
 
 void ViewPointGuide::processBehavior() {
-    Camera* pCam = P_GOD->getSpacetime()->getCamera();
+    Camera* pCam = pGOD->getSpacetime()->getCamera();
     setPositionAt(pCam->getCameraViewPoint());
 }
 

@@ -7,8 +7,8 @@
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 
 
-#undef P_GOD
-#define P_GOD ((GgafDxCore::GgafDxGod*)GgafDxCore::GgafDxGod::_pGod)
+#undef pGOD
+#define pGOD ((GgafDxCore::GgafDxGod*)GgafDxCore::GgafDxGod::_pGod)
 
 namespace GgafDxCore {
 

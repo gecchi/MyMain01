@@ -19,7 +19,7 @@ void Wall001::onCreateModel() {
 
 void Wall001::processBehavior() {
     WallAABActor::processBehavior();
-//    if (P_MYSHIP->isOutOfView()) {
+//    if (pMYSHIP->isOutOfView()) {
 //        setHitAble(true, true); //自機が視野外の場合、視野外壁も当たり判定有り
 //    } else {
 //        setHitAble(true, false);//自機が視野内の場合、視野外壁は当たり判定無し

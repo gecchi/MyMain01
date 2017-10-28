@@ -7,10 +7,10 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld/StageController/Stage.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld/StageController/TransitStage.h"
 
-#ifdef P_STAGE_WORLD
-    #define P_STAGE_CTRLER (P_STAGE_WORLD->pStageCtrler_)
+#ifdef pSTAGE_WORLD
+    #define pSTAGE_CTRLER (pSTAGE_WORLD->pStageCtrler_)
 #else
-    #error P_STAGE_WORLD isnt define
+    #error pSTAGE_WORLD isnt define
 #endif
 
 HASHVAL(EVENT_STG01_WAS_END);

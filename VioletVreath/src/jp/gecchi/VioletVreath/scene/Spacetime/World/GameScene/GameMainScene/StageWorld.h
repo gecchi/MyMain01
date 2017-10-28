@@ -7,10 +7,10 @@
 
 namespace VioletVreath {
 
-#ifdef P_GAME_SCENE
-    #define P_STAGE_WORLD (P_GAME_SCENE->pStageWorld_)
+#ifdef pGAME_SCENE
+    #define pSTAGE_WORLD (pGAME_SCENE->pStageWorld_)
 #else
-    #error P_GAME_SCENE isnt define
+    #error pGAME_SCENE isnt define
 #endif
 
 #define SLOW_FRAME_RANKUP (3)

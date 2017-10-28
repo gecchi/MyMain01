@@ -144,7 +144,7 @@ void VreathMagic::onReset() {
 
 void VreathMagic::processCastBegin(int prm_now_level, int prm_new_level) {
     if (prm_new_level > prm_now_level) {
-        pEffect_->setPositionAt(P_MYSHIP);
+        pEffect_->setPositionAt(pMYSHIP);
         pEffect_->setAlpha(0.9);
         pEffect_->getKuroko()->setFaceAngVelo(AXIS_Z, 100);
         pEffect_->setScale(1000);
@@ -154,7 +154,7 @@ void VreathMagic::processCastBegin(int prm_now_level, int prm_new_level) {
 
 void VreathMagic::processCastingBehavior(int prm_now_level, int prm_new_level) {
     if (prm_new_level > prm_now_level) {
-        pEffect_->setPositionAt(P_MYSHIP);
+        pEffect_->setPositionAt(pMYSHIP);
         pEffect_->addScale(10);
     }
 }
@@ -203,7 +203,7 @@ void VreathMagic::processEffectingBehavior(int prm_last_level, int prm_now_level
         }
 #endif
         int add_vreath = apaInt_vreath_per_frame_[prm_now_level][f] * r_add_vreath_[prm_now_level];
-        P_MYSHIP->getStatus()->plus(STAT_Stamina, add_vreath);
+        pMYSHIP->getStatus()->plus(STAT_Stamina, add_vreath);
     } else {
 
     }

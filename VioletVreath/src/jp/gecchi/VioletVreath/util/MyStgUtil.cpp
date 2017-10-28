@@ -364,11 +364,11 @@ GgafActorDepository* MyStgUtil::getDepositoryOf(GgafDxGeometricActor* prm_pActor
             break;
         }
         case DEPO_LASER001: {
-            pDepo = (GgafActorDepository*)(P_COMMON_SCENE->pStore_EnemyWateringLaser001_->dispatch());
+            pDepo = (GgafActorDepository*)(pCOMMON_SCENE->pStore_EnemyWateringLaser001_->dispatch());
             break;
         }
         case DEPO_LASER002: {
-            pDepo = (GgafActorDepository*)(P_COMMON_SCENE->pStore_EnemyStraightLaser001_->dispatch());
+            pDepo = (GgafActorDepository*)(pCOMMON_SCENE->pStore_EnemyStraightLaser001_->dispatch());
             break;
         }
         default: {
@@ -424,7 +424,7 @@ GgafDxFigureActor* MyStgUtil::activateRevengeShotOf(GgafDxGeometricActor* prm_pA
         }
 
         case SHOT_RV_GOLDEN_ANG_WAY: {
-            MyShip* pM = P_MYSHIP;
+            MyShip* pM = pMYSHIP;
             angle rz,ry;
             UTIL::convVectorToRzRy(pM->_x - prm_pActor->_x,
                                    pM->_y - prm_pActor->_y,

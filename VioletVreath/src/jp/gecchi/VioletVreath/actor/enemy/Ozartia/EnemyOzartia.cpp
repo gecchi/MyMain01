@@ -79,7 +79,7 @@ void EnemyOzartia::onActive() {
 }
 
 void EnemyOzartia::processBehavior() {
-    MyShip* pMyShip = P_MYSHIP;
+    MyShip* pMyShip = pMYSHIP;
     //–{‘ÌˆÚ“®Œn‚Ìˆ— ‚±‚±‚©‚ç --->
     GgafDxKuroko* const pKuroko = getKuroko();
     GgafDxAlphaFader* pAlphaFader = getAlphaFader();

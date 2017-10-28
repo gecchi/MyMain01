@@ -16,7 +16,7 @@ HoshiBoshiRankUp::HoshiBoshiRankUp(const char* prm_name) :
 
 void HoshiBoshiRankUp::initialize() {
     setFarRate(1.0f);
-    setCriteriaActor(P_MYSHIP);
+    setCriteriaActor(pMYSHIP);
 }
 
 void HoshiBoshiRankUp::onActive() {

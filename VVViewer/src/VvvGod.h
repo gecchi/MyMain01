@@ -5,8 +5,8 @@
 
 #include "scene/VvvSpacetime.h"
 
-#undef P_GOD
-#define P_GOD ((VVViewer::VvvGod*)VVViewer::VvvGod::_pGod)
+#undef pGOD
+#define pGOD ((VVViewer::VvvGod*)VVViewer::VvvGod::_pGod)
 
 namespace VVViewer {
 

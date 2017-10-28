@@ -16,7 +16,7 @@ HoshiBoshiTransit::HoshiBoshiTransit(const char* prm_name) :
 
 void HoshiBoshiTransit::initialize() {
     setFarRate(10.0f);
-    setCriteriaActor(P_MYSHIP);
+    setCriteriaActor(pMYSHIP);
 }
 
 void HoshiBoshiTransit::onActive() {

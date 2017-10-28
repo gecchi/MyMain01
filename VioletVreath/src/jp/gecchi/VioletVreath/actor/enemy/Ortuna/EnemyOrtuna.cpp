@@ -97,7 +97,7 @@ void EnemyOrtuna::processBehavior() {
              if (pProg->hasJustChanged()) {
                  //•ûŒü“]Š·
                  //‚ä‚Á‚­‚èŽ©‹@‚Ì•û‚ÖŒü‚©‚¹‚é
-                 pKuroko->turnMvAngTwd(P_MYSHIP,
+                 pKuroko->turnMvAngTwd(pMYSHIP,
                                         D_ANG(3), 0, TURN_CLOSE_TO, true);
                  getMorpher()->transitionLinearUntil(MPH_OPEN, 1.0, 60);
              }
@@ -105,7 +105,7 @@ void EnemyOrtuna::processBehavior() {
              if (pProg->getFrame() % 16U == 0) {
                  if (pKuroko->isTurningMvAng()) {
                      //‚¿‚å‚­‚¿‚å‚­Ž©‹@‚ðŒ©‚Â‚ß‚é
-                     pKuroko->turnFaceAngTwd(P_MYSHIP,
+                     pKuroko->turnFaceAngTwd(pMYSHIP,
                                               D_ANG(1), 0, TURN_CLOSE_TO, true);
                  }
              }

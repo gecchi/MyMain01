@@ -15,7 +15,7 @@ FormationOrtuna001a::FormationOrtuna001a(const char* prm_name) : FormationOrtuna
 
 void FormationOrtuna001a::onCallUpOrtuna(EnemyOrtuna* prm_pOrtuna, int prm_index) {
     int d = 300;
-    MyShip* pMyShip = P_MYSHIP;
+    MyShip* pMyShip = pMYSHIP;
 
     coord x = RND(pMyShip->_x+PX_C(d), pMyShip->_x + (PX_C(d)*3));
     coord y = pMyShip->_y + RND(-PX_C(d),PX_C(d));

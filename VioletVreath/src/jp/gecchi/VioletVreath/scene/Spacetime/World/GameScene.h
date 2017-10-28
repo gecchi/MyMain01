@@ -8,7 +8,7 @@
 
 namespace VioletVreath {
 
-#define P_GAME_SCENE (P_GOD->getSpacetime()->getWorld()->pGameScene_)
+#define pGAME_SCENE (pGOD->getSpacetime()->getWorld()->pGameScene_)
 
 /**
  * ゲームシーンクラス .

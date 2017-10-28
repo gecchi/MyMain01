@@ -18,16 +18,16 @@ void TestCamWorker::onActive() {
 }
 
 void TestCamWorker::onSwitchCameraWork() {
-    Camera* pCam = P_GOD->getSpacetime()->getCamera();
-    pCam->setPositionAt(P_MYSHIP);
+    Camera* pCam = pGOD->getSpacetime()->getCamera();
+    pCam->setPositionAt(pMYSHIP);
     GgafDxGeometricActor* pVP = pCam->getCameraViewPoint();
-    pVP->setPositionAt(P_MYSHIP);
+    pVP->setPositionAt(pMYSHIP);
 }
 
 void TestCamWorker::processBehavior() {
-    Camera* pCam = P_GOD->getSpacetime()->getCamera();
+    Camera* pCam = pGOD->getSpacetime()->getCamera();
     GgafDxGeometricActor* pVP = pCam->getCameraViewPoint();
-    pVP->setPositionAt(P_MYSHIP);
+    pVP->setPositionAt(pMYSHIP);
     pCam->_x += 2000;
     pCam->_y += 2000;
     pCam->_z += 2000;

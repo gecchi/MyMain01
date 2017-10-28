@@ -94,7 +94,7 @@ void FormationUnomia::processBehavior() {
             break;
         }
         case PROG_SHOT: {
-            MyShip* pMy = P_MYSHIP;
+            MyShip* pMy = pMYSHIP;
             GgafActor* pFollower = getSubFirst();
             while(true) {
                 EnemyUnomia* pUnomia =  (EnemyUnomia*)pFollower;

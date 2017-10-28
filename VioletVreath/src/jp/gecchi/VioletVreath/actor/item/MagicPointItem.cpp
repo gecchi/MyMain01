@@ -48,7 +48,7 @@ void MagicPointItem::onActive() {
     pAxesMover->stopGravitationMvSequence();
 
     //初期方向設定
-    MyShip* pMyShip = P_MYSHIP;
+    MyShip* pMyShip = pMYSHIP;
 //    //散らばり範囲正方形１辺の長さ
 //    int scattered_renge    = pChecker->_pCollisionArea->_papColliPart[0]->_dx; //当たり判定と同等
 //    //発生地点から、自機への方向への散らばり範囲正方形領域が位置する距離（scattered_distance > (scattered_renge/2) であること)
@@ -75,7 +75,7 @@ void MagicPointItem::onActive() {
 }
 
 void MagicPointItem::processBehavior() {
-    MyShip* pMyShip = P_MYSHIP;
+    MyShip* pMyShip = pMYSHIP;
     GgafDxKuroko* const pKuroko = getKuroko();
     GgafDxAxesMover* const pAxesMover = getAxesMover();
     GgafProgress* const pProg = getProgress();

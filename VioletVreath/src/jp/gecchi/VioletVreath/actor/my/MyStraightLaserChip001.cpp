@@ -39,7 +39,7 @@ MyStraightLaserChip001::MyStraightLaserChip001(const char* prm_name) :
 }
 
 void MyStraightLaserChip001::initialize() {
-    pOrg_ = P_MYSHIP;
+    pOrg_ = pMYSHIP;
     getKuroko()->setRzRyMvAng(0,0);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);

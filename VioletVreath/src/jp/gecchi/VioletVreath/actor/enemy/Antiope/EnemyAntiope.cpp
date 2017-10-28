@@ -113,8 +113,8 @@ void EnemyAntiope::processBehavior() {
          case PROG_RUSH: {
              //‘Š•û‚ª‚¢‚È‚­‚È‚Á‚½ê‡
              if (pProg->hasJustChanged()) {
-                 pAxesMover->execGravitationMvSequenceTwd(P_MYSHIP, PX_C(30), 200, PX_C(50));
-                 pKuroko->keepOnTurningFaceAngTwd(P_MYSHIP, D_ANG(2), 0, TURN_CLOSE_TO, false);
+                 pAxesMover->execGravitationMvSequenceTwd(pMYSHIP, PX_C(30), 200, PX_C(50));
+                 pKuroko->keepOnTurningFaceAngTwd(pMYSHIP, D_ANG(2), 0, TURN_CLOSE_TO, false);
              }
              break;
          }

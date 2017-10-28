@@ -35,12 +35,12 @@ ShotMagic::ShotMagic(const char* prm_name, int* prm_pMP)
 
 void ShotMagic::onReset() {
     Magic::onReset();
-    P_MYSHIP->can_shoot_laser_ = false;
+    pMYSHIP->can_shoot_laser_ = false;
 }
 
 void ShotMagic::processCastBegin(int prm_now_level, int prm_new_level) {
     if (prm_new_level > prm_now_level) {
-        pEffect_->setPositionAt(P_MYSHIP->pMyMagicEnergyCore_);
+        pEffect_->setPositionAt(pMYSHIP->pMyMagicEnergyCore_);
         pEffect_->setAlpha(0.9);
         pEffect_->getKuroko()->setFaceAngVelo(AXIS_Z, 100);
         pEffect_->setScale(1000);
@@ -52,7 +52,7 @@ void ShotMagic::processCastBegin(int prm_now_level, int prm_new_level) {
 
 void ShotMagic::processCastingBehavior(int prm_now_level, int prm_new_level) {
     if (prm_new_level > prm_now_level) {
-        pEffect_->setPositionAt(P_MYSHIP->pMyMagicEnergyCore_);
+        pEffect_->setPositionAt(pMYSHIP->pMyMagicEnergyCore_);
         pEffect_->addScale(10);
     }
 }
@@ -90,10 +90,10 @@ void ShotMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int pr
 
 void ShotMagic::processEffectBegin(int prm_last_level, int prm_now_level) {
     if (prm_now_level > 0) {
-        P_MYSHIP->shot_level_ = prm_now_level;
+        pMYSHIP->shot_level_ = prm_now_level;
     } else {
         //レベル0へレベルダウン時
-        P_MYSHIP->shot_level_ = 1;
+        pMYSHIP->shot_level_ = 1;
     }
 }
 

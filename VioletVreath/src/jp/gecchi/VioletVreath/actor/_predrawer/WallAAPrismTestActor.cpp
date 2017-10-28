@@ -23,7 +23,7 @@ void WallAAPrismTestActor::onCreateModel() {
 }
 
 bool WallAAPrismTestActor::isOutOfSpacetime() const {
-    Spacetime* pSpacetime =  P_GOD->getSpacetime();
+    Spacetime* pSpacetime =  pGOD->getSpacetime();
     if (pSpacetime->_x_bound_left <= _x) {
         return false;
     }

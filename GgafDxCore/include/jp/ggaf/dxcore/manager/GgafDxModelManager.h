@@ -8,7 +8,7 @@
 #include "jp/ggaf/dxcore/util/XFile/framework/Frm_Mesh.h"
 #include "jp/ggaf/dxcore/util/XFile/ToolBox/IOModel_X.h"
 
-#define connectToModelTextureManager(X) ((GgafDxCore::GgafDxTextureConnection*)P_GOD->_pModelManager->_pModelTextureManager->connect((X), this))
+#define connectToModelTextureManager(X) ((GgafDxCore::GgafDxTextureConnection*)pGOD->_pModelManager->_pModelTextureManager->connect((X), this))
 
 namespace GgafDxCore {
 

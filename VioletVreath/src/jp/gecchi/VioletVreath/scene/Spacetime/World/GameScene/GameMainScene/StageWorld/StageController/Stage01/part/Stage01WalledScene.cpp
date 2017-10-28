@@ -64,7 +64,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
 //    //構築
 //    buildWalledScene(
 //        wall_dep*scale_r, wall_width*scale_r, wall_height*scale_r,
-//        P_GOD->getSpacetime()->_x_bound_right,
+//        pGOD->getSpacetime()->_x_bound_right,
 //        (WalledSectionScene**)&apSection, 8,
 //        pDepo_wall ,pDepo_prism
 //    );
@@ -78,7 +78,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
     //構築
     buildWalledScene(
         wall_dep*scale_r, wall_width*scale_r, wall_height*scale_r,
-        P_GOD->getSpacetime()->_x_bound_right,
+        pGOD->getSpacetime()->_x_bound_right,
         (WalledSectionScene**)&apSection, 4,
         pDepo_wall ,pDepo_prism
     );
@@ -103,10 +103,10 @@ void Stage01WalledScene::initialize() {
 }
 
 void Stage01WalledScene::onActive() {
-    P_COMMON_SCENE->setScrollingFunction(_pFuncScrolling);
-    P_COMMON_SCENE->setScrollSpeed(getScrollSpeed());
+    pCOMMON_SCENE->setScrollingFunction(_pFuncScrolling);
+    pCOMMON_SCENE->setScrollSpeed(getScrollSpeed());
     _TRACE_(FUNC_NAME<<"  CommonScene にもスクロールを設定します。");
-    //P_COMMON_SCENE->dump();
+    //pCOMMON_SCENE->dump();
     WalledScene::onActive();
 }
 
@@ -156,19 +156,19 @@ void Stage01WalledScene::processBehavior() {
 ///////////////デバッグ///////////////////////////////
     if (GgafDxInput::isPressedKey(DIK_PGUP)) {
         addScrollSpeed(PX_C(1));
-        P_COMMON_SCENE->addScrollSpeed(PX_C(1));
+        pCOMMON_SCENE->addScrollSpeed(PX_C(1));
     }
     if (GgafDxInput::isPressedKey(DIK_PGDN)) {
         addScrollSpeed(PX_C(-1));
-        P_COMMON_SCENE->addScrollSpeed(PX_C(-1));
+        pCOMMON_SCENE->addScrollSpeed(PX_C(-1));
     }
 //////////////////////////////////////////////////////
 }
 
 void Stage01WalledScene::onFinishedAllSection() {
     _TRACE_(" Stage01WalledScene::onFinishedAllSection()  CommonScene のスクロールを解除します。");
-    P_COMMON_SCENE->setScrollingFunction(nullptr);
-    P_COMMON_SCENE->setScrollSpeed(0);
+    pCOMMON_SCENE->setScrollingFunction(nullptr);
+    pCOMMON_SCENE->setScrollSpeed(0);
     throwEventUpperTree(EVENT_STG01_WALLED_WAS_BROKEN);
 }
 

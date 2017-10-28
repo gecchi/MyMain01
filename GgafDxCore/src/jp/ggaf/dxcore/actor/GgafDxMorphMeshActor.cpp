@@ -103,7 +103,7 @@ void GgafDxMorphMeshActor::addMorphWeight(int prm_target_mesh_no, float prm_add_
 }
 
 void GgafDxMorphMeshActor::processDraw() {
-    GgafDxCamera* const pCam = P_GOD->getSpacetime()->getCamera();
+    GgafDxCamera* const pCam = pGOD->getSpacetime()->getCamera();
     const GgafDxMorphMeshEffect* const pMorphMeshEffect = _pMorphMeshEffect;
     ID3DXEffect* const pID3DXEffect = pMorphMeshEffect->_pID3DXEffect;
     HRESULT hr;

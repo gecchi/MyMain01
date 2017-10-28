@@ -57,7 +57,7 @@ void BunshinMagic::processCastBegin(int prm_now_level, int prm_new_level) {
     if (prm_new_level > prm_now_level) {
         //レベルアップ時
         //放射状にエフェクト放出
-        MyShip* pMyShip = P_MYSHIP;
+        MyShip* pMyShip = pMYSHIP;
         MyMagicEnergyCore* pCore = pMyShip->pMyMagicEnergyCore_;
         angle* paAng_way = NEW angle[prm_new_level-prm_now_level];
         UTIL::getRadialAngle2D(0, prm_new_level-prm_now_level, paAng_way);
@@ -74,7 +74,7 @@ void BunshinMagic::processCastBegin(int prm_now_level, int prm_new_level) {
             pEffectAxesMover->setVxyzMvVelo(veloVxMv*0.8,
                                             veloVyMv + (ANG_SIN(paAng_way[n]) * PX_C(3)),
                                             veloVzMv + (ANG_COS(paAng_way[n]) * PX_C(3)) ); //放射状にエフェクト放出
-            pEffectAxesMover->execGravitationMvSequenceTwd(P_MYSHIP, 10000, 200, 2000);
+            pEffectAxesMover->execGravitationMvSequenceTwd(pMYSHIP, 10000, 200, 2000);
             _TRACE_(getBehaveingFrame()<<":BunshinMagic::processCastBegin("<<prm_now_level<<","<<prm_new_level<<") papEffect_["<<(lv-1)<<"]->activate();");
             pEffect->activate();
             pEffect->blink(10, MAX_FRAME, 0, nullptr, false);
@@ -106,9 +106,9 @@ void BunshinMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
     if (prm_new_level > prm_now_level) {
         //レベルアップ時
         for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
-            MyBunshinBase* p = P_MYSHIP_SCENE->papBunshinBase_[lv-1];
+            MyBunshinBase* p = pMYSHIP_SCENE->papBunshinBase_[lv-1];
             papEffect_[lv-1]->getAxesMover()->execGravitationMvSequenceTwd(
-                                             P_MYSHIP,
+                                             pMYSHIP,
                                              40000, 400, 200000
                                          );
         }
@@ -124,8 +124,8 @@ void BunshinMagic::processInvokingBehavior(int prm_now_level, int prm_new_level)
     if (prm_new_level > prm_now_level) {
         //レベルアップ時
         for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
-            MyBunshinBase* p = P_MYSHIP_SCENE->papBunshinBase_[lv-1];
-            papEffect_[lv-1]->getAxesMover()->setGravitationTwd(P_MYSHIP);
+            MyBunshinBase* p = pMYSHIP_SCENE->papBunshinBase_[lv-1];
+            papEffect_[lv-1]->getAxesMover()->setGravitationTwd(pMYSHIP);
         }
     }
 }
@@ -140,7 +140,7 @@ void BunshinMagic::processEffectBegin(int prm_last_level, int prm_now_level)  {
     if (prm_now_level > prm_last_level) {
         //レベルアップ時、エフェクトの処理
         for (int lv = prm_last_level+1; lv <= prm_now_level; lv++) {
-            MyBunshin* pBunshin = P_MYSHIP_SCENE->papBunshinBase_[lv-1]->pBunshin_;
+            MyBunshin* pBunshin = pMYSHIP_SCENE->papBunshinBase_[lv-1]->pBunshin_;
             papEffect_[lv-1]->blink(0, 2, 120, pBunshin, false);
         }
     }

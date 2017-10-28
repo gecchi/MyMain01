@@ -46,9 +46,9 @@ void StageController::onReset() {
         pStageMainCannel_->inactivate();
     }
     //共通シーン、自機シーンを配下に引っ張ってくる
-    P_COMMON_SCENE->resetTree();
-    P_COMMON_SCENE->activateImmed();
-    addSubLast(P_COMMON_SCENE->extract());
+    pCOMMON_SCENE->resetTree();
+    pCOMMON_SCENE->activateImmed();
+    addSubLast(pCOMMON_SCENE->extract());
     getProgress()->reset(PROG_INIT);
 }
 //void StageController::readyNextStage() {

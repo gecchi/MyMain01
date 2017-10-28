@@ -60,10 +60,10 @@ void GameDemoScene::processBehavior() {
     switch (pProg->get()) {
         case PROG_INIT: {
             _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PROG_INIT)");
-            addSubLast(P_STAGE_WORLD->extract());
-            P_STAGE_WORLD->resetTree();
-            P_STAGE_WORLD->inactivateImmed();
-            P_STAGE_WORLD->activate();
+            addSubLast(pSTAGE_WORLD->extract());
+            pSTAGE_WORLD->resetTree();
+            pSTAGE_WORLD->inactivateImmed();
+            pSTAGE_WORLD->activate();
             pProg->change(PROG_DEMOPLAY);
             break;
         }
@@ -148,19 +148,19 @@ void GameDemoScene::processBehavior() {
 
 void GameDemoScene::onInactive() {
     _TRACE_(FUNC_NAME<<" ");
-    if (P_STAGE_CTRLER->pStageMainCannel_) {
-        _TRACE_(FUNC_NAME<<" P_STAGE_CTRLER->pStageMainCanne_("<<
-                P_STAGE_CTRLER->pStageMainCannel_->getName()<<") sayonara()");
-        P_STAGE_CTRLER->pStageMainCannel_->sayonara();
-        P_STAGE_CTRLER->pStageMainCannel_ = nullptr;
+    if (pSTAGE_CTRLER->pStageMainCannel_) {
+        _TRACE_(FUNC_NAME<<" pSTAGE_CTRLER->pStageMainCanne_("<<
+                pSTAGE_CTRLER->pStageMainCannel_->getName()<<") sayonara()");
+        pSTAGE_CTRLER->pStageMainCannel_->sayonara();
+        pSTAGE_CTRLER->pStageMainCannel_ = nullptr;
     } else {
         //throwGgafCriticalException("デモシーンのシーンが無い。あり得ないよ");
     }
 
-    if (P_RANKUP_CONTROLLER->pNowRankUpStage_) {
-        _TRACE_(FUNC_NAME<<" P_RANKUP_CONTROLLER->sayonaraRankUpStages()");
-        P_RANKUP_CONTROLLER->sayonaraRankUpStages();
-        P_RANKUP_CONTROLLER->pNowRankUpStage_ = nullptr;
+    if (pRANKUP_CONTROLLER->pNowRankUpStage_) {
+        _TRACE_(FUNC_NAME<<" pRANKUP_CONTROLLER->sayonaraRankUpStages()");
+        pRANKUP_CONTROLLER->sayonaraRankUpStages();
+        pRANKUP_CONTROLLER->pNowRankUpStage_ = nullptr;
     }
 }
 

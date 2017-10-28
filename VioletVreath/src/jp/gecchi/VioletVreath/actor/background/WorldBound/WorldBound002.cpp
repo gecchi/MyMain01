@@ -15,7 +15,7 @@ WorldBound002::WorldBound002(const char* prm_name) :
     base_v_ = 0;
 }
 void WorldBound002::initialize() {
-    const Camera* const pCam = P_GOD->getSpacetime()->getCamera();
+    const Camera* const pCam = pGOD->getSpacetime()->getCamera();
     //    getUvFlipper()->setRotation(16, 1/16.0, 1/16.0);
     //    getUvFlipper()->exec(FLIP_ORDER_LOOP, 5);
     //    getUvFlipper()->setFlipPtnRange(0, 16*16-1);

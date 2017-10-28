@@ -82,7 +82,7 @@ void MyShipScene::onReset() {
 
     fadeoutSceneWithBgm(0);
     getProgress()->reset(PROG_INIT);
-    P_GOD->getSpacetime()->resetCamWorker();
+    pGOD->getSpacetime()->resetCamWorker();
 }
 
 void MyShipScene::onActive() {
@@ -90,7 +90,7 @@ void MyShipScene::onActive() {
 }
 
 void MyShipScene::processBehavior() {
-    Spacetime* pSpacetime = P_GOD->getSpacetime();
+    Spacetime* pSpacetime = pGOD->getSpacetime();
      SceneProgress* pProg = getProgress();
     switch (pProg->getFromProgOnChange()) {
         case PROG_BEGIN: {
@@ -128,7 +128,7 @@ void MyShipScene::processBehavior() {
                 } else {
                     throwGgafCriticalException("VreathMagic‚ª‚ ‚è‚Ü‚¹‚ñB");
                 }
-                Spacetime* pSpacetime =  P_GOD->getSpacetime();
+                Spacetime* pSpacetime =  pGOD->getSpacetime();
                 pMyShip_->_x = pSpacetime->_x_bound_left;
                 pMyShip_->can_control_ = true;
                 pMyShip_->is_diving_ = true;

@@ -107,7 +107,7 @@ SplineSource::SplineSource(const char* prm_idstr)  : GgafObject() {
     if (d != 0 && d != 4) {
         throwGgafCriticalException(_idstr<<" [ADJUST_MAT] のデータ数が中途半端です。４列４行の行列を設定してください。");
     }
-//    DefaultSpacetime* pSpacetime =  P_GOD->getSpacetime();
+//    DefaultSpacetime* pSpacetime =  pGOD->getSpacetime();
 //    for (int i = 0; i < n; i++) {
 //        if (p[i][0] > pSpacetime->_x_bound_right*0.9999) {
 //            p[i][0] = pSpacetime->_x_bound_right*0.9999;

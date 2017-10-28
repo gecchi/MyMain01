@@ -9,7 +9,7 @@ using namespace GgafDxCore;
 
 GgafDxMassMeshEffect::GgafDxMassMeshEffect(const char* prm_effect_name) : GgafDxMassEffect(prm_effect_name) {
     _obj_effect |= Obj_GgafDxMassMeshEffect;
-    GgafDxCamera* const pCam = P_GOD->getSpacetime()->getCamera();
+    GgafDxCamera* const pCam = pGOD->getSpacetime()->getCamera();
     //シェーダー共通のグローバル変数設定
    HRESULT hr;
     //射影変換行列
@@ -39,7 +39,7 @@ GgafDxMassMeshEffect::GgafDxMassMeshEffect(const char* prm_effect_name) : GgafDx
 }
 
 void GgafDxMassMeshEffect::setParamPerFrame() {
-    GgafDxCamera* const pCam = P_GOD->getSpacetime()->getCamera();
+    GgafDxCamera* const pCam = pGOD->getSpacetime()->getCamera();
     HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, pCam->getViewMatrix() );
     checkDxException(hr, D3D_OK, "SetMatrix(_h_matView) に失敗しました。_effect_name="<<_effect_name);
     hr = _pID3DXEffect->SetValue(_h_posCam, pCam->getVecCamFromPoint(), sizeof(D3DXVECTOR3) );

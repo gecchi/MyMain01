@@ -16,17 +16,17 @@ void MyShipDivingCamWorker::initialize() {
 
 void MyShipDivingCamWorker::onActive() {
     CameraWorker::onActive();
-    MyShip* pMyShip = P_MYSHIP;
+    MyShip* pMyShip = pMYSHIP;
     slideMvCamTo(-PX_C(300), pMyShip->_y, pMyShip->_z , 60);
     slideMvVpTo(pMyShip, 60);
     slideMvUpVecTo(DIR26( 0, 1, 0), 120);
 }
 void MyShipDivingCamWorker::processBehavior() {
     if (getActiveFrame() > 30) {
-        Spacetime* pSpacetime =  P_GOD->getSpacetime();
-        MyShip* pMyShip = P_MYSHIP;
+        Spacetime* pSpacetime =  pGOD->getSpacetime();
+        MyShip* pMyShip = pMYSHIP;
         frame f = getSwitchedFrame();
-        coord dx = ABS(P_MYSHIP->_x);
+        coord dx = ABS(pMYSHIP->_x);
         static const coord dc = ABS(pSpacetime->_x_bound_left);
         static const coord r = PX_C(500);
         double t = (1.0-(1.0*dx / dc)); //t=0.0Å®1.0

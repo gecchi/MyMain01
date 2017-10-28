@@ -5,10 +5,10 @@
 
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld.h"
 
-#ifdef P_STAGE_WORLD
-    #define P_RANKUP_CONTROLLER (P_STAGE_WORLD->pRankUpStageCtrler_)
+#ifdef pSTAGE_WORLD
+    #define pRANKUP_CONTROLLER (pSTAGE_WORLD->pRankUpStageCtrler_)
 #else
-    #error P_STAGE_CTRLER isnt define
+    #error pSTAGE_CTRLER isnt define
 #endif
 
 HASHVAL(EVENT_RANKUP_WAS_END);

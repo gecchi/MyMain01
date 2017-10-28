@@ -27,7 +27,7 @@ WorldBoundActor::WorldBoundActor(const char* prm_name, const char* prm_model) :
 }
 
 void WorldBoundActor::initialize() {
-    DefaultCamera* pCam = P_GOD->getSpacetime()->getCamera();
+    DefaultCamera* pCam = pGOD->getSpacetime()->getCamera();
     setPositionAt(pCam);
     dxcoord world_r = pCam->getZFar(); //世界境界球半径
     dxcoord world_bound_model_r = 1.0f; //WorldBound001のモデルは半径DIRECTX距離1の球である
@@ -36,7 +36,7 @@ void WorldBoundActor::initialize() {
 
 
 void WorldBoundActor::processSettlementBehavior() {
-    DefaultCamera* pCam = P_GOD->getSpacetime()->getCamera();
+    DefaultCamera* pCam = pGOD->getSpacetime()->getCamera();
     //画面外判定無しに伴ない処理簡略化。
     //次の処理を無視しています
     //・自身がボーン時の考慮

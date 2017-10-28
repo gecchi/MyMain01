@@ -38,13 +38,13 @@ void MyMagicEnergyCore::initialize() {
 
 void MyMagicEnergyCore::onActive() {
     getAxesMover()->execGravitationMvSequenceTwd(
-                      P_MYSHIP,
+                      pMYSHIP,
                       +PX_C(90), 0, 0,
                       PX_C(10), 1000, PX_C(20));
 }
 
 void MyMagicEnergyCore::processBehavior() {
-    double s = (P_MYSHIP->mp_ * (1.0 / MY_SHIP_MAX_MP));
+    double s = (pMYSHIP->mp_ * (1.0 / MY_SHIP_MAX_MP));
     GgafDxKuroko* const pKuroko = getKuroko();
     //MP‚É˜A“®‚µ‚Ä‘å‚«‚­‚È‚é
     getScaler()->transitionLinearStep(

@@ -32,7 +32,7 @@ void Horizon001::initialize() {
     setPosition(0, PX_C(-100), 0);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
-    Spacetime* pSpacetime =  P_GOD->getSpacetime();
+    Spacetime* pSpacetime =  pGOD->getSpacetime();
     pChecker->setColliAABox(0, pSpacetime->_x_bound_left  + (chip_width_*2),
                                   0,
                                   pSpacetime->_z_bound_near  + (chip_width_*2),

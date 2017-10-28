@@ -169,7 +169,7 @@ void GgafDxGeometricActor::processSettlementBehavior() {
         const dxcoord fX = _fX;
         const dxcoord fY = _fY;
         const dxcoord fZ = _fZ;
-        GgafDxCamera* pCam = P_GOD->getSpacetime()->getCamera();
+        GgafDxCamera* pCam = pGOD->getSpacetime()->getCamera();
         D3DXPLANE& plnTop = pCam->_plnTop;
         _dest_from_vppln_top     = plnTop.a * fX +
                                    plnTop.b * fY +
@@ -372,7 +372,7 @@ int GgafDxGeometricActor::isOutOfView() {
 }
 
 bool GgafDxGeometricActor::isOutOfSpacetime() const {
-    GgafDxSpacetime* pSpacetime =  P_GOD->getSpacetime();
+    GgafDxSpacetime* pSpacetime =  pGOD->getSpacetime();
     if (pSpacetime->_x_bound_left <= _x) {
         if (_x <= pSpacetime->_x_bound_right) {
             if (pSpacetime->_y_bound_bottom <= _y) {

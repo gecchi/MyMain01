@@ -76,7 +76,7 @@ void EnemyIda::processBehavior() {
             if (pProg->hasJustChanged()) {
             }
             //Ž©‹@‚ÖŒü‚¯‚é
-            GgafDxGeometricActor* pTargetActor = P_MYSHIP;
+            GgafDxGeometricActor* pTargetActor = pMYSHIP;
             coord mvx = pTargetActor->_x - _x_final; //_x_final‚Íâ‘ÎÀ•W
             coord mvy = pTargetActor->_y - _y_final;
             coord mvz = pTargetActor->_z - _z_final;

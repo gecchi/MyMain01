@@ -96,12 +96,12 @@ void MyBunshinBase::onReset() {
 
 void MyBunshinBase::onActive() {
     is_free_mode_ = true;
-    setPosition(P_MYSHIP->_x,P_MYSHIP->_y,P_MYSHIP->_z);
+    setPosition(pMYSHIP->_x,pMYSHIP->_y,pMYSHIP->_z);
 
     int len = pPosTrace_->_num;
     Pos* p = pPosTrace_->_paPos;
     for (int i = 0; i < len; i++) {
-        p[i].set(P_MYSHIP);
+        p[i].set(pMYSHIP);
     }
     pBunshin_->setRadiusPosition(0);
     resetBunshin(0);
@@ -125,7 +125,7 @@ void MyBunshinBase::processBehavior() {
         pAxesMover->behave();
         return;
     }
-    const MyShip* pMyShip = P_MYSHIP;
+    const MyShip* pMyShip = pMYSHIP;
     const VirtualButton* pVbPlay = VB_PLAY;
     GgafProgress* const pProg = getProgress();
 
@@ -307,13 +307,13 @@ void MyBunshinBase::processBehavior() {
             //•ªg‚ÌŒü‚«(this“y‘ä‚ÌŒü‚«)‘€ì
             trace_mode_ = TRACE_FREEZE;
             //ƒJƒƒ‰ˆÊ’u‚É‚æ‚Á‚Äã‰º¶‰E‚Ì‘€ìŠ„“–‚ð•Ï‚¦‚é
-            const int pos_camera = P_VAM->getPosCam();
+            const int pos_camera = pVAM->getPosCam();
 
             const float vX = pKuroko->_vX;
             const float vY = pKuroko->_vY;
             const float vZ = pKuroko->_vZ;
             static const float ONE_OVER_ROOT2 = 1.0 / sqrt(2.0);
-            bool update_updown_rot_axis_timing = (pKuroko->isTurningMvAng() || pVbPlay->isPushedDown(VB_OPTION) || P_VAM->isJustChangedPosCam());
+            bool update_updown_rot_axis_timing = (pKuroko->isTurningMvAng() || pVbPlay->isPushedDown(VB_OPTION) || pVAM->isJustChangedPosCam());
             switch (pos_camera) {
                 case VAM_POS_ZRIGHT: {
                     // a = (0, 1, 0)        LEFT RIGHT ‰ñ“]Ž²
@@ -634,7 +634,7 @@ MyBunshinBase::~MyBunshinBase() {
 
 void MyBunshinBase::setBunshinNum(int prm_num) {
     MyBunshinBase::now_bunshin_num_ = prm_num;
-    MyBunshinBase** papBase = P_MYSHIP_SCENE->papBunshinBase_;
+    MyBunshinBase** papBase = pMYSHIP_SCENE->papBunshinBase_;
     for (int i = 0; i < MyBunshinBase::MAX_BUNSHIN_NUM; i++) {
         MyBunshinBase* p = papBase[i];
         if (i+1 <= prm_num) {

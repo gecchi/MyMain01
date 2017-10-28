@@ -57,7 +57,7 @@ void GgafDxSeTransmitterForActor::play(int prm_id) {
 }
 
 void GgafDxSeTransmitterForActor::play3D(int prm_id) {
-    GgafDxSpacetime* const pSpacetime = P_GOD->getSpacetime();
+    GgafDxSpacetime* const pSpacetime = pGOD->getSpacetime();
 #ifdef MY_DEBUG
     if (prm_id < 0 || prm_id >= _se_num) {
         throwGgafCriticalException("ID‚ª”ÍˆÍŠO‚Å‚·B0~"<<(_se_num-1)<<"‚Å‚¨Šè‚¢‚µ‚Ü‚·B_pActor="<<_pActor->getName()<<" prm_id="<<prm_id);
@@ -132,7 +132,7 @@ void GgafDxSeTransmitterForActor::updatePanVolume3D() {
     static const int VOLUME_RANGE_3D = GGAF_MAX_VOLUME - GGAF_MIN_VOLUME;
 
     bool calc_flg = true;
-    const GgafDxCamera* const pCam = P_GOD->getSpacetime()->getCamera();
+    const GgafDxCamera* const pCam = pGOD->getSpacetime()->getCamera();
     float pan = 0.0f;
     int vol = 0;
     float rate_frequency = 1.0;

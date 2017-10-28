@@ -23,11 +23,11 @@ StageWorld::StageWorld(const char* prm_name) : DefaultScene(prm_name) {
 }
 
 void StageWorld::onReset() {
-    _TRACE_(FUNC_NAME<<" "<<NODE_INFO<<" GOD="<<P_GOD->_frame_of_God);
-    _TRACE_("MyShipScene を、スローの影響を与えないために一つ上に引き上げます addSubLast(P_MYSHIP_SCENE->extract()); ");
-    P_MYSHIP_SCENE->resetTree();
-    P_MYSHIP_SCENE->activateImmed();
-    addSubLast(P_MYSHIP_SCENE->extract()); //スローの影響を与えないために一つ上
+    _TRACE_(FUNC_NAME<<" "<<NODE_INFO<<" GOD="<<pGOD->_frame_of_God);
+    _TRACE_("MyShipScene を、スローの影響を与えないために一つ上に引き上げます addSubLast(pMYSHIP_SCENE->extract()); ");
+    pMYSHIP_SCENE->resetTree();
+    pMYSHIP_SCENE->activateImmed();
+    addSubLast(pMYSHIP_SCENE->extract()); //スローの影響を与えないために一つ上
     pStageCtrler_->setRunFrameOnce(1); //スローなしに
 }
 
@@ -50,7 +50,7 @@ void StageWorld::processBehavior() {
         if (can_rank_up_) {
             _TRACE_("ランクアップシーン差し込みします！");
             pRankUpStageCtrler_->startRunkUpStage(G_RANKUP_LEVEL);
-            _TRACE_("P_STAGE_CTRLER をスロー");
+            _TRACE_("pSTAGE_CTRLER をスロー");
             pStageCtrler_->addRunFrameOnce(SLOW_FRAME_RANKUP); //スロー開始
         } else {
             //スルー
@@ -63,7 +63,7 @@ void StageWorld::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == EVENT_RANKUP_WAS_END) {
         _TRACE_(FUNC_NAME<<" EVENT_RANKUP_WAS_END");
         //スロー回復
-        _TRACE_("P_STAGE_CTRLER をスロー回復");
+        _TRACE_("pSTAGE_CTRLER をスロー回復");
         pStageCtrler_->addRunFrameOnce(-SLOW_FRAME_RANKUP); //スロー開始
     }
 }

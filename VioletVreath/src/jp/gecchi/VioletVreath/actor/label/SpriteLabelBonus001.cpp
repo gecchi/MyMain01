@@ -38,7 +38,7 @@ void SpriteLabelBonus001::onDispatched(GgafDxGeometricActor* prm_pOrgActor) {
 }
 
 void SpriteLabelBonus001::processBehavior() {
-    const Camera* const pCam = P_GOD->getSpacetime()->getCamera();
+    const Camera* const pCam = pGOD->getSpacetime()->getCamera();
     GgafDxKuroko* const pKuroko = getKuroko();
     GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {

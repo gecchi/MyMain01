@@ -37,7 +37,7 @@ FormationAllas002::FormationAllas002(const char* prm_name) :
 
 void FormationAllas002::onActive() {
     for (int i = 0; i < num_Allas_; i++) {
-        papAllas_[i]->setPosition(MyShip::lim_x_behaind_ *2 , P_MYSHIP->_y+300000,  P_MYSHIP->_z);
+        papAllas_[i]->setPosition(MyShip::lim_x_behaind_ *2 , pMYSHIP->_y+300000,  pMYSHIP->_z);
         papAllas_[i]->getKuroko()->setMvVelo(velo_mv_);
         papAllas_[i]->activateDelay(i*interval_frames_ + 1);//interval_frames_ä‘äuÇ≈ActiveÇ…Ç∑ÇÈÅB
     }

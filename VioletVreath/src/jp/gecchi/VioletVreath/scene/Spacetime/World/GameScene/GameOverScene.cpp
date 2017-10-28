@@ -68,7 +68,7 @@ void GameOverScene::processBehavior() {
                 }
             }
             if (pProg->hasArrivedAt(420)) {
-                P_GOD->getSpacetime()->resetCamWorker();
+                pGOD->getSpacetime()->resetCamWorker();
                 if (need_name_entry_) {
                     _TRACE_("pProg->change(PROG_NAMEENTRY);");
                     pProg->change(PROG_NAMEENTRY);

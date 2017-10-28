@@ -20,7 +20,7 @@ void WorldBound001::onCreateModel() {
 }
 
 void WorldBound001::initialize() {
-    const Camera* const pCam = P_GOD->getSpacetime()->getCamera();
+    const Camera* const pCam = pGOD->getSpacetime()->getCamera();
     setHitAble(false);
     setPositionAt(pCam);
     setFaceAngZero();

@@ -96,7 +96,7 @@ void EnemyStraea::initialize() {
 void EnemyStraea::onActive() {
     getStatus()->reset();
     setHitAble(false);
-    Spacetime* pSpacetime =  P_GOD->getSpacetime();
+    Spacetime* pSpacetime =  pGOD->getSpacetime();
     _x = pSpacetime->_x_bound_right;
     getProgress()->reset(PROG_INIT);
 }
@@ -144,7 +144,7 @@ void EnemyStraea::processBehavior() {
         case PROG_TURN: {
             if (pProg->hasJustChanged()) {
                 //ターン開始
-                pKuroko->turnFaceAngTwd(P_MYSHIP,
+                pKuroko->turnFaceAngTwd(pMYSHIP,
                                         angvelo_turn_, 0, TURN_ANTICLOSE_TO, false);
                 cnt_laserchip_ = 0;
             }

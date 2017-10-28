@@ -130,7 +130,7 @@ void EnemyTamago01::processBehavior() {
 
     if (iMovePatternNo_ == 1) {
         //スプライン移動終了時
-        pKuroko->turnMvAngTwd(P_MYSHIP->_x+800000, P_MYSHIP->_y, P_MYSHIP->_z,
+        pKuroko->turnMvAngTwd(pMYSHIP->_x+800000, pMYSHIP->_y, pMYSHIP->_z,
                                             2000, 0,
                                             TURN_CLOSE_TO, false);
         iMovePatternNo_++; //次の行動パターンへ
@@ -144,7 +144,7 @@ void EnemyTamago01::processBehavior() {
 
     }
     if (getBehaveingFrame() % 30U == 0) {
-        pKuroko->turnMvAngTwd(P_MYSHIP,
+        pKuroko->turnMvAngTwd(pMYSHIP,
                                 2000,0,TURN_CLOSE_TO, false);
 
         if (pDepo_shot_) {
@@ -152,7 +152,7 @@ void EnemyTamago01::processBehavior() {
             int way = 8;
             angle* paAng_way = NEW angle[way];
             angle target_RzRy_Rz, target_RzRy_Ry;
-            UTIL::convVectorToRzRy(P_MYSHIP->_x - _x, P_MYSHIP->_y - _y, P_MYSHIP->_z - _z,
+            UTIL::convVectorToRzRy(pMYSHIP->_x - _x, pMYSHIP->_y - _y, pMYSHIP->_z - _z,
                                    target_RzRy_Rz, target_RzRy_Ry);
             angle target_RyRz_Ry, target_RyRz_Rz;
             UTIL::convRzRyToRyRz(target_RzRy_Rz, target_RzRy_Ry, target_RyRz_Ry, target_RyRz_Rz);

@@ -170,10 +170,10 @@ void EnemyErmione::processBehavior() {
             if (pProg->hasArrivedAt(frame_of_entering)) {
                 setHitAble(true);
                 throwEventLowerTree(EVENT_ERMIONE_ENTRY_DONE);
-                pKuroko->setMvAngTwd(P_MYSHIP);
+                pKuroko->setMvAngTwd(pMYSHIP);
                 pKuroko->setMvVelo(PX_C(2));
                 pKuroko->asstFaceAng()->turnByDtTwd(
-                        P_MYSHIP, TURN_CLOSE_TO, true, 60*30,
+                        pMYSHIP, TURN_CLOSE_TO, true, 60*30,
                         0.4, 0.6, 0, true);
 
                 pProg->changeNext();

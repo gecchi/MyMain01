@@ -33,7 +33,7 @@ void FormationAntiope001::onActive() {
 void FormationAntiope001::processBehavior() {
     if (cnt_Antiope_ < num_Antiope_) {
         if (getActiveFrame() % interval_frames_ == 0) {
-            MyShip* pMyShip = P_MYSHIP;
+            MyShip* pMyShip = pMYSHIP;
             coord renge = PX_C(1200);
             GgafDxCore::GgafDxGeoElem entry_pos(RND(pMyShip->_x - (renge*0.5), pMyShip->_x + (renge*1.5)),
                                                 RND_ABOUT(pMyShip->_y, renge),

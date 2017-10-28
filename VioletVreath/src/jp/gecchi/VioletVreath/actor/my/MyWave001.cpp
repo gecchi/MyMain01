@@ -59,13 +59,13 @@ void MyWave001::processBehavior() {
         pScaler->transitionLinearStep(100000,100);
         pScaler->behave();
         setHitAble(true);
-        setPositionAt(P_MYSHIP);
-        setRzFaceAng(P_MYSHIP->_rz);
-        setRyFaceAng(P_MYSHIP->_ry);
-        pKuroko->setRzRyMvAng(P_MYSHIP->_rz, P_MYSHIP->_ry);
-        //		_x = P_MYSHIP->_x;
-        //		_y = P_MYSHIP->_y;
-        //		_z = P_MYSHIP->_z;
+        setPositionAt(pMYSHIP);
+        setRzFaceAng(pMYSHIP->_rz);
+        setRyFaceAng(pMYSHIP->_ry);
+        pKuroko->setRzRyMvAng(pMYSHIP->_rz, pMYSHIP->_ry);
+        //		_x = pMYSHIP->_x;
+        //		_y = pMYSHIP->_y;
+        //		_z = pMYSHIP->_z;
     } else {
         //’Êíˆ—
         //behaveUvFlip();

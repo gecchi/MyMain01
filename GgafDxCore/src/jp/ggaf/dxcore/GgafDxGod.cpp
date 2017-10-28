@@ -472,7 +472,7 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
         std::vector<UINT> vecHeight;
         std::vector<std::string> vecRezo;
         int mode_num = _paAvailableAdapter[adapter_no].mode_num;
-        D3DDISPLAYMODE* paMode = P_GOD->_paAvailableAdapter[adapter_no].paModes;
+        D3DDISPLAYMODE* paMode = pGOD->_paAvailableAdapter[adapter_no].paModes;
         _TRACE_("‰æ–Ê["<<adapter_no<<"] mode_num="<<mode_num);
         for (int n = 0; n < mode_num; n++) {
             UINT width = paMode[n].Width;

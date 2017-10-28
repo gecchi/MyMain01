@@ -154,7 +154,7 @@ public:
 
     /**
      * １つ上の親ノードを設定する。
-     * @param	prm_pParent	親ノード
+     * @param    prm_pParent    親ノード
      */
     inline virtual void setParent(T* prm_pParent) {
         _pParent = prm_pParent;
@@ -164,7 +164,7 @@ public:
      * 自ツリーノードを連結リストから切り離し、独立する。 .
      * 切り離され穴が開いた部分は、周りのノードが穴を埋めます（再連結します）<BR>
      * 自ノードに子がぶら下がっていた場合、それらも切り離されたことになります。<BR>
-     * @return	T* 自ノードのポインタ
+     * @return    T* 自ノードのポインタ
      */
     virtual T* extract();
 
@@ -208,7 +208,7 @@ public:
 
     /**
      * 次のノード取得する。
-     * @return	T*	次ノード
+     * @return    T*    次ノード
      */
     inline virtual T* getNext() const {
         return _pNext;
@@ -216,7 +216,7 @@ public:
 
     /**
      * 前のノード取得する。
-     * @return	T*	前ノード
+     * @return    T*    前ノード
      */
     inline virtual T* getPrev() const {
         return _pPrev;
@@ -224,7 +224,7 @@ public:
 
     /**
      * １つ上の親ノード取得する。
-     * @return	T*	親ノード
+     * @return    T*    親ノード
      */
     inline virtual T* getParent() const {
         return _pParent;
@@ -279,8 +279,8 @@ public:
      * 存在しない場合はエラー<BR>
      * 内部で char* の比較を見つかるまで行うため、やや重いです。<BR>
      * 毎フレーム実行されるような使用は避けるべきです。<BR>
-     * @param	prm_sub_name	子ノード名
-     * @return	T*	最初にヒットした子ノード名に対応する子ノードのポインタ
+     * @param    prm_sub_name    子ノード名
+     * @return    T*    最初にヒットした子ノード名に対応する子ノードのポインタ
      */
     virtual T* getSubByName(const char* prm_sub_name);
 
@@ -302,7 +302,7 @@ public:
     /**
      * 子ノードのグループの先頭ノードを取得する .
      * 子ノードが存在しない場合はnullptr。
-     * @return	T*	子ノードの先頭ノード
+     * @return    T*    子ノードの先頭ノード
      */
     inline virtual T* getSubFirst() const {
         return _pSubFirst;
@@ -325,8 +325,8 @@ public:
      * 子ノード存在チェック .
      * 内部で char* の比較を見つかるまで行うため、重いです。<BR>
      * 毎フレーム実行されるような使用は避けるべきです。<BR>
-     * @param	prm_sub_actor_name	存在チェックする子ノード名
-     * @return	bool true:存在する／false:存在しない
+     * @param    prm_sub_actor_name    存在チェックする子ノード名
+     * @return    bool true:存在する／false:存在しない
      */
     virtual bool hasSub(char* prm_sub_actor_name) const;
 
@@ -341,7 +341,7 @@ public:
 
     /**
      * 自ノードが先頭ノードか調べる .
-     * @return	bool true:先頭ノード／false:先頭ノードではない
+     * @return    bool true:先頭ノード／false:先頭ノードではない
      */
     inline virtual bool isFirst() const {
         return _is_first_flg;
@@ -349,7 +349,7 @@ public:
 
     /**
      * 自ノードが末尾ノードか調べる .
-     * @return	bool true:末尾ノード／false:末尾ノードではない
+     * @return    bool true:末尾ノード／false:末尾ノードではない
      */
     inline virtual bool isLast() const {
         return _is_last_flg;

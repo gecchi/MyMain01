@@ -46,7 +46,7 @@ EnemyHalia::EnemyHalia(const char* prm_name) :
 
     useProgress(PROG_BANPEI);
     //初期カメラZ位置
-    const Camera* const pCam = P_GOD->getSpacetime()->getCamera();
+    const Camera* const pCam = pGOD->getSpacetime()->getCamera();
     dZ_camera_init_ = -1 * DX_C(pCam->getZOrigin());
 }
 
@@ -128,12 +128,12 @@ void EnemyHalia::processBehavior() {
         }
         case PROG_TURN_OPEN: {
             if (pProg->hasJustChanged()) {
-                pKuroko->turnMvAngTwd(P_MYSHIP,
+                pKuroko->turnMvAngTwd(pMYSHIP,
                                       0, 100,
                                       TURN_CLOSE_TO, false);
             }
             if (!pKuroko->isTurningMvAng()) {
-                pKuroko->turnMvAngTwd(P_MYSHIP,
+                pKuroko->turnMvAngTwd(pMYSHIP,
                                       D_ANG(1), 0,
                                       TURN_CLOSE_TO, false);
                 getMorpher()->transitionAcceUntil(1, 1.0, 0.0, 0.0004); //開く 0.0004 開く速さ
@@ -143,7 +143,7 @@ void EnemyHalia::processBehavior() {
         }
         case PROG_FIRE_BEGIN: {
             if (!getMorpher()->isTransitioning()) {
-                if ( _x - P_MYSHIP->_x > -dZ_camera_init_) {
+                if ( _x - pMYSHIP->_x > -dZ_camera_init_) {
                     pKuroko->setMvVelo(PX_C(1)); //ちょっとバック
                     pKuroko->setRollFaceAngVelo(D_ANG(5));//発射中は速い回転
                     pProg->change(PROG_IN_FIRE);

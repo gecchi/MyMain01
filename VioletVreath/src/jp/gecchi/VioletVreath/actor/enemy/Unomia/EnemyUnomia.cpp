@@ -84,7 +84,7 @@ void EnemyUnomia::processBehavior() {
             if (pProg->hasJustChanged()) {
                 //Ž©‹@‚Ö•ûŒü“]Š·
                 pKuroko->turnMvAngTwd(
-                               P_MYSHIP->_x, _y, P_MYSHIP->_z,
+                               pMYSHIP->_x, _y, pMYSHIP->_z,
                                2000, 0,
                                TURN_CLOSE_TO, true
                            );

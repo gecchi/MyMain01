@@ -60,7 +60,7 @@ public:
             pass_p_seq_ = 0;
         }
         AimInfo* ap = &(pass_p_[pass_p_seq_]);
-        ap->begining_frame_of_GameScene_ = P_GAME_SCENE->getBehaveingFrame();
+        ap->begining_frame_of_GameScene_ = pGAME_SCENE->getBehaveingFrame();
         ap->pLeaderChip_ = nullptr;
         ap->pTarget = nullptr;
         ap->t1_x = 0;

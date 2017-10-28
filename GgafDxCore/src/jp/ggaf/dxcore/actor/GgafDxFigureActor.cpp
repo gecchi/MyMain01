@@ -126,7 +126,7 @@ GgafDxAlphaFader* GgafDxFigureActor::getAlphaFader() {
 }
 
 void GgafDxFigureActor::processPreDraw() {
-    GgafDxSpacetime* pSpacetime = P_GOD->getSpacetime();
+    GgafDxSpacetime* pSpacetime = pGOD->getSpacetime();
 #ifdef MY_DEBUG
     if (getPlatformScene()->instanceOf(Obj_GgafDxScene)) {
         //OK

@@ -99,7 +99,7 @@ void EnemyRatislaviaEye::processBehavior() {
 
         case PROG_TURN: {
             if (pProg->hasJustChanged()) {
-                pKuroko->turnMvAngTwd(P_MYSHIP,
+                pKuroko->turnMvAngTwd(pMYSHIP,
                                         D_ANG(1), 0, TURN_CLOSE_TO, false);
             }
             if (pProg->getFrame() > 240) {
@@ -110,7 +110,7 @@ void EnemyRatislaviaEye::processBehavior() {
 
         case PROG_FIRE_BEGIN: {
             if (pProg->hasJustChanged()) {
-                //_pKuroko->turnMvAngTwd(P_MYSHIP, D_ANG(1), 0, TURN_ANTICLOSE_TO, false);
+                //_pKuroko->turnMvAngTwd(pMYSHIP, D_ANG(1), 0, TURN_ANTICLOSE_TO, false);
                 pEffect_->activate();
             }
             pEffect_->setPositionAt(this);
@@ -121,7 +121,7 @@ void EnemyRatislaviaEye::processBehavior() {
         }
         case PROG_IN_FIRE: {
             if (pProg->hasJustChanged()) {
-                pKuroko->turnMvAngTwd(P_MYSHIP,
+                pKuroko->turnMvAngTwd(pMYSHIP,
                                         10, 0, TURN_CLOSE_TO, false);
             }
             LaserChip* pChip = pLaserChipDepo_->dispatch();

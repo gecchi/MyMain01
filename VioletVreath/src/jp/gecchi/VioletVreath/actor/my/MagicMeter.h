@@ -9,10 +9,10 @@
 
 namespace VioletVreath {
 
-#ifdef P_MYSHIP
-    #define P_MAGICMETER (P_MYSHIP->pMagicMeter_)
+#ifdef pMYSHIP
+    #define pMAGICMETER (pMYSHIP->pMagicMeter_)
 #else
-    #error P_MAGICMETER isnt define
+    #error pMAGICMETER isnt define
 #endif
 
 

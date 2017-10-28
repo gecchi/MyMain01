@@ -18,7 +18,7 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 
 CollisionChecker3D::CollisionChecker3D(GgafDxGeometricActor* prm_pActor) : CollisionChecker(prm_pActor) ,
-        _pLinearOctree(P_GOD->getSpacetime()->getLinearOctree()),
+        _pLinearOctree(pGOD->getSpacetime()->getLinearOctree()),
         _pElem(NEW GgafTreeElem<3u>(_pLinearOctree->_paOctant, prm_pActor))
 {
     _need_update_aabb = true;

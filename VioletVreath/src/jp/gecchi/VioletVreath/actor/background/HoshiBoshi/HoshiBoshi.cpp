@@ -28,7 +28,7 @@ HoshiBoshi::HoshiBoshi(const char* prm_name, const char* prm_model_id) :
     //独自ワールド変換
     defineRotMvWorldMatrix(HoshiBoshi::setWorldMatrix_HoshiBoshi);
     setSpecialRenderDepthIndex(RENDER_DEPTH_INDEX_HOSHIBOSHI);
-    pCriteria_ = P_GOD->getSpacetime()->getCamera();
+    pCriteria_ = pGOD->getSpacetime()->getCamera();
     setFarRate(1.0);
 
     static volatile bool is_init = HoshiBoshi::initStatic(this); //静的メンバ初期化
@@ -46,7 +46,7 @@ bool HoshiBoshi::initStatic(HoshiBoshi* prm_pHoshiBoshi) {
     HoshiBoshi::h_fY_MyShip_ = pID3DXEffect->GetParameterByName( nullptr, "g_fY_MyShip" );
     HoshiBoshi::h_fZ_MyShip_ = pID3DXEffect->GetParameterByName( nullptr, "g_fZ_MyShip" );
     HoshiBoshi::h_far_rate_  = pID3DXEffect->GetParameterByName( nullptr, "g_far_rate" );
-    HoshiBoshi::CAM_ZF_ = ABS(DX_C(P_GOD->getSpacetime()->getCamera()->getZFar()));
+    HoshiBoshi::CAM_ZF_ = ABS(DX_C(pGOD->getSpacetime()->getCamera()->getZFar()));
     return true;
 }
 
@@ -55,7 +55,7 @@ void HoshiBoshi::setFarRate(float prm_far_rate) {
     //現空間の大きさに散らばらせる
     far_rate_ = prm_far_rate;
     space_distance_ = HoshiBoshi::CAM_ZF_*far_rate_;
-    _sx = _sy = _sz =  (P_GOD->getSpacetime()->getCamera()->getZFar()*LEN_UNIT)*far_rate_;
+    _sx = _sy = _sz =  (pGOD->getSpacetime()->getCamera()->getZFar()*LEN_UNIT)*far_rate_;
 }
 int HoshiBoshi::isOutOfView() {
     //画面外判定無し

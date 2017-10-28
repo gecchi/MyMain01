@@ -5,6 +5,7 @@
 #ifndef _MSC_VER
     #include <atomic>
 #endif
+#include <string>
 
 namespace GgafCore {
 

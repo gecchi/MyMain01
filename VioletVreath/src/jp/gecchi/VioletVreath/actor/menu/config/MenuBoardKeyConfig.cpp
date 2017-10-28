@@ -202,7 +202,7 @@ void MenuBoardKeyConfig::processBehavior() {
         PROPERTY::save(VV_CONFIG_FILE);
         PROPERTY::load(VV_CONFIG_FILE); //再反映
         //実行中アプリへも反映
-        P_GOD->initVB();
+        pGOD->initVB();
 
         sinkCurrentSubMenu(); //確認メニュー閉じる
         sinkMe();        //自身メニュー閉じる

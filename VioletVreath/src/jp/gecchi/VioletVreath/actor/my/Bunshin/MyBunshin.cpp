@@ -127,7 +127,7 @@ void MyBunshin::processChangeGeoFinal() {
         return;
     }
      //â‘ÎÀ•WŒvŽZŒã
-    MyShip* const pMyShip = P_MYSHIP;
+    MyShip* const pMyShip = pMYSHIP;
     const VirtualButton* pVbPlay = VB_PLAY;
 
     if (pMyShip->is_just_shot_) {

@@ -27,7 +27,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
             pResource->put(NEW Shot001("Shot001"));
             Sleep(1);
         }
-        P_COMMON_SCENE->bringDirector()->addSubGroup(pResource); //最後にaddSubGroupすべし（さもないと直ぐに削除対象になる）
+        pCOMMON_SCENE->bringDirector()->addSubGroup(pResource); //最後にaddSubGroupすべし（さもないと直ぐに削除対象になる）
 
     } else if (strcmp("Shot002", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("MgrDepo_Shot002Stock");
@@ -35,7 +35,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
             pResource->put(NEW Shot002("Shot002"));
             Sleep(1);
         }
-        P_COMMON_SCENE->bringDirector()->addSubGroup(pResource);
+        pCOMMON_SCENE->bringDirector()->addSubGroup(pResource);
 
     } else if (strcmp("Shot003", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("MgrDepo_Shot003Stock");
@@ -43,14 +43,14 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
             pResource->put(NEW Shot003("Shot003"));
             Sleep(1);
         }
-        P_COMMON_SCENE->bringDirector()->addSubGroup(pResource);
+        pCOMMON_SCENE->bringDirector()->addSubGroup(pResource);
     } else if (strcmp("Shot004Blue", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("MgrDepo_Shot004BlueStock");
         for (int i = 0; i < 100; i++) {
             pResource->put(NEW Shot004Blue("Shot004Blue"));
             Sleep(1);
         }
-        P_COMMON_SCENE->bringDirector()->addSubGroup(pResource);
+        pCOMMON_SCENE->bringDirector()->addSubGroup(pResource);
 
     } else if (strcmp("Shot004Yellow", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("MgrDepo_Shot004YellowStock");
@@ -58,7 +58,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
             pResource->put(NEW Shot004Yellow("Shot004Yellow"));
             Sleep(1);
         }
-        P_COMMON_SCENE->bringDirector()->addSubGroup(pResource);
+        pCOMMON_SCENE->bringDirector()->addSubGroup(pResource);
 
     } else if (strcmp("EffRefraction001", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("MgrDepo_EffRefraction001");
@@ -66,7 +66,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
             pResource->put(NEW EffectLaserRefraction001("EffRefraction001"));
             Sleep(1);
         }
-        P_COMMON_SCENE->bringDirector()->addSubGroup(pResource);
+        pCOMMON_SCENE->bringDirector()->addSubGroup(pResource);
 
     } else if (strcmp("EnemyStraeaLaserChip001DepoStore", prm_idstr) == 0) {
         pResource = NEW GgafActorDepositoryStore("EnemyStraeaLaserChip001DepoStore");
@@ -81,7 +81,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
             }
             pResource->put(pLaserChipDepo);
         }
-        P_COMMON_SCENE->bringDirector()->addSubGroup(pResource);
+        pCOMMON_SCENE->bringDirector()->addSubGroup(pResource);
 
     } else if (strcmp("EnemyStraeaLaserChip002DepoStore", prm_idstr) == 0) {
         pResource = NEW GgafActorDepositoryStore("EnemyStraeaLaserChip002DepoStore");
@@ -100,7 +100,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
             }
             pResource->put(pLaserChipDepo);
         }
-        P_COMMON_SCENE->bringDirector()->addSubGroup(pResource);
+        pCOMMON_SCENE->bringDirector()->addSubGroup(pResource);
 
     } else if (strcmp("EnemyStraeaLaserChip003DepoStore", prm_idstr) == 0) {
         pResource = NEW GgafActorDepositoryStore("EnemyStraeaLaserChip001DepoStore");
@@ -115,7 +115,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
             }
             pResource->put(pLaserChipDepo);
         }
-        P_COMMON_SCENE->bringDirector()->addSubGroup(pResource);
+        pCOMMON_SCENE->bringDirector()->addSubGroup(pResource);
 
     } else if (strcmp("EnemyStraeaLaserChip004DepoStore", prm_idstr) == 0) {
         pResource = NEW GgafActorDepositoryStore("EnemyStraeaLaserChip004DepoStore");
@@ -130,7 +130,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
             }
             pResource->put(pLaserChipDepo);
         }
-        P_COMMON_SCENE->bringDirector()->addSubGroup(pResource);
+        pCOMMON_SCENE->bringDirector()->addSubGroup(pResource);
 
     } else if (strcmp("Emilia", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("Deop_Emilia");
@@ -138,7 +138,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
             pResource->put(NEW EnemyEmilia("EnemyEmilia"));
             Sleep(1);
         }
-        P_COMMON_SCENE->bringDirector()->addSubGroup(pResource);
+        pCOMMON_SCENE->bringDirector()->addSubGroup(pResource);
 
     } else if (strcmp("EmiliaFragment", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("Deop_EmiliaFragment");
@@ -146,7 +146,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
             pResource->put(NEW EnemyEmiliaFragment("EMF"));
             Sleep(1);
         }
-        P_COMMON_SCENE->bringDirector()->addSubGroup(pResource);
+        pCOMMON_SCENE->bringDirector()->addSubGroup(pResource);
 
     } else if (strcmp("EmiliaFragment2", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("Deop_EmiliaFragment2");
@@ -154,7 +154,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
             pResource->put(NEW EnemyEmiliaFragment2("EMF2"));
             Sleep(1);
         }
-        P_COMMON_SCENE->bringDirector()->addSubGroup(pResource);
+        pCOMMON_SCENE->bringDirector()->addSubGroup(pResource);
 
     } else if (strcmp("EmiliaFragment3", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("Deop_EmiliaFragment3");
@@ -162,7 +162,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
             pResource->put(NEW EnemyEmiliaFragment3("EMF3"));
             Sleep(1);
         }
-        P_COMMON_SCENE->bringDirector()->addSubGroup(pResource);
+        pCOMMON_SCENE->bringDirector()->addSubGroup(pResource);
 
     } else if (strcmp("EnemyEbe4Formation", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("Deop_Ebe");
@@ -170,7 +170,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
             pResource->put(NEW EnemyEbe("EnemyEmilia"));
             Sleep(1);
         }
-        P_COMMON_SCENE->bringDirector()->addSubGroup(pResource);
+        pCOMMON_SCENE->bringDirector()->addSubGroup(pResource);
 
     } else if (strcmp("EnemyEsperiaLaserChip001DepoStore", prm_idstr) == 0) {
         pResource = NEW GgafActorDepositoryStore("EnemyEsperiaLaserChip0014DepoStore");
@@ -185,7 +185,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
             }
             pResource->put(pLaserChipDepo);
         }
-        P_COMMON_SCENE->bringDirector()->addSubGroup(pResource);
+        pCOMMON_SCENE->bringDirector()->addSubGroup(pResource);
 
     } else if (strcmp("Talante", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("Depo_TalanteStock");
@@ -194,7 +194,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
             pResource->put(NEW EnemyTalante(name.c_str()));
             Sleep(1);
         }
-        P_COMMON_SCENE->bringDirector()->addSubGroup(pResource);
+        pCOMMON_SCENE->bringDirector()->addSubGroup(pResource);
 
     } else if (strcmp("EnemyEmusLaserChip001DepoStore", prm_idstr) == 0) {
         pResource = NEW GgafActorDepositoryStore("EnemyEmusLaserChip001DepoStore");
@@ -209,7 +209,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
             }
             pResource->put(pLaserChipDepo);
         }
-        P_COMMON_SCENE->bringDirector()->addSubGroup(pResource);
+        pCOMMON_SCENE->bringDirector()->addSubGroup(pResource);
 
     } else if (strcmp("EnemyHisbeLaserChip001DepoStore", prm_idstr) == 0) {
         pResource = NEW GgafActorDepositoryStore("EnemyEmusLaserChip001DepoStore");
@@ -226,7 +226,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
             }
             pResource->put(pLaserChipDepo);
         }
-        P_COMMON_SCENE->bringDirector()->addSubGroup(pResource);
+        pCOMMON_SCENE->bringDirector()->addSubGroup(pResource);
 
     } else if (strcmp("EnemyHisbeLaserChip002DepoStore", prm_idstr) == 0) {
         GgafActorDepository* pDepoEffect = NEW GgafActorDepository("HisbeLaser");
@@ -237,7 +237,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
             pDepoEffect->put(pEffect);
             Sleep(1);
         }
-        P_COMMON_SCENE->bringDirector()->addSubGroup(pDepoEffect);
+        pCOMMON_SCENE->bringDirector()->addSubGroup(pDepoEffect);
 
         pResource = NEW GgafActorDepositoryStore("EnemyHisbeLaserChip002DepoStore");
         LaserChipDepository* pLaserChipDepo;
@@ -254,7 +254,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
             }
             pResource->put(pLaserChipDepo);
         }
-        P_COMMON_SCENE->bringDirector()->addSubGroup(pResource);
+        pCOMMON_SCENE->bringDirector()->addSubGroup(pResource);
 
     } else if (strcmp("AntiopeP", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("Depo_AntiopeP");
@@ -263,7 +263,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
             pResource->put(NEW EnemyAntiopeP(name.c_str()));
             Sleep(1);
         }
-        P_COMMON_SCENE->bringDirector()->addSubGroup(pResource);
+        pCOMMON_SCENE->bringDirector()->addSubGroup(pResource);
 
     } else if (strcmp("AntiopeN", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("Depo_AntiopeN");
@@ -272,7 +272,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
             pResource->put(NEW EnemyAntiopeN(name.c_str()));
             Sleep(1);
         }
-        P_COMMON_SCENE->bringDirector()->addSubGroup(pResource);
+        pCOMMON_SCENE->bringDirector()->addSubGroup(pResource);
 
     } else if (strcmp("EnemyDelheid4Formation", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("Depo_DelheidStock");
@@ -281,7 +281,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
             pResource->put(NEW EnemyDelheid(name.c_str()));
             Sleep(1);
         }
-        P_COMMON_SCENE->bringDirector()->addSubGroup(pResource);
+        pCOMMON_SCENE->bringDirector()->addSubGroup(pResource);
 
     } else if (strcmp("EnemyDelheidShot", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("MgrDepo_DelheidShotStock");
@@ -289,7 +289,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
             pResource->put(NEW Shot004Yellow("Shot004Yellow"));
             Sleep(1);
         }
-        P_COMMON_SCENE->bringDirector()->addSubGroup(pResource);
+        pCOMMON_SCENE->bringDirector()->addSubGroup(pResource);
 
     } else if (strcmp("RingShot", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("MgrDepo_DelheidShotStock");
@@ -297,7 +297,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
             pResource->put(NEW Shot004Yellow("Shot004Yellow"));
             Sleep(1);
         }
-        P_COMMON_SCENE->bringDirector()->addSubGroup(pResource);
+        pCOMMON_SCENE->bringDirector()->addSubGroup(pResource);
 
     } else if (strcmp("GlajaLance001", prm_idstr) == 0) {
         pResource = NEW GgafActorDepository("Depo_EnemyGlajaLance001");
@@ -306,7 +306,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
             pResource->put(NEW EnemyGlajaLance001(name.c_str()));
             Sleep(1);
         }
-        P_COMMON_SCENE->bringDirector()->addSubGroup(pResource);
+        pCOMMON_SCENE->bringDirector()->addSubGroup(pResource);
     }
 
     if (pResource == nullptr) {

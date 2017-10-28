@@ -23,7 +23,7 @@ void EnemyEmilia::onDispatched(EnemyEmiliaBase* prm_pOrg, FormationEmilia* prm_p
     //prm_pOrg ‚Í–³‚¢(nullptr)
     const coord appearances_renge_z = (MyShip::lim_z_left_ - MyShip::lim_z_right_) * 3;
     const coord appearances_renge_y = (MyShip::lim_y_top_ - MyShip::lim_y_bottom_) * 3;
-    Spacetime* pSpacetime =  P_GOD->getSpacetime();
+    Spacetime* pSpacetime =  pGOD->getSpacetime();
     setPosition(pSpacetime->_x_bound_right,
                       RND(-(appearances_renge_y/2) , +(appearances_renge_y/2)),
                       RND(-(appearances_renge_z/2) , +(appearances_renge_z/2)) );

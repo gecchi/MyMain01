@@ -29,7 +29,7 @@ SpriteMeshWorldBoundActor::SpriteMeshWorldBoundActor(const char* prm_name,
 }
 
 void SpriteMeshWorldBoundActor::processSettlementBehavior() {
-    DefaultCamera* pCam = P_GOD->getSpacetime()->getCamera();
+    DefaultCamera* pCam = pGOD->getSpacetime()->getCamera();
     //画面外判定無しに伴ない処理簡略化。
     //次の処理を無視しています
     //・自身がボーン時の考慮

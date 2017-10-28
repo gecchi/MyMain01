@@ -11,8 +11,8 @@
 #include "jp/gecchi/VioletVreath/manager/SplineLineConnection.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime.h"
 
-#undef P_GOD
-#define P_GOD ((VioletVreath::God*)VioletVreath::God::_pGod)
+#undef pGOD
+#define pGOD ((VioletVreath::God*)VioletVreath::God::_pGod)
 
 namespace VioletVreath {
 
@@ -40,16 +40,16 @@ namespace VioletVreath {
  * 神が保持する DepositoryManager に接続し、コネクションを取得。
  * X：識別文字列（DepositoryManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) の prm_idstr に渡る)
  */
-#define connectToDepositoryManager(X) ((VioletVreath::DepositoryConnection*)(P_GOD->pDepoManager_->connect((X), this)))
+#define connectToDepositoryManager(X) ((VioletVreath::DepositoryConnection*)(pGOD->pDepoManager_->connect((X), this)))
 
 /**
  * 神が保持する SplineLineManager に接続し、コネクションを取得。
  * X：識別文字列（SplineLineManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) の prm_idstr に渡る)
  */
-#define connectToSplineLineManager(X)   ((VioletVreath::SplineLineConnection*)(P_GOD->pSpl3DManager_->connect((X), this)))
+#define connectToSplineLineManager(X)   ((VioletVreath::SplineLineConnection*)(pGOD->pSpl3DManager_->connect((X), this)))
 
 
-#define connectToXpmManager(X) ((VioletVreath::XpmConnection*)(P_GOD->pXpmManager_->connect((X), this)))
+#define connectToXpmManager(X) ((VioletVreath::XpmConnection*)(pGOD->pXpmManager_->connect((X), this)))
 
 
 /**

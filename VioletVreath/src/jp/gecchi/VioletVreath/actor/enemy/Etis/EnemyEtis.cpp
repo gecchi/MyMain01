@@ -55,7 +55,7 @@ void EnemyEtis::onActive() {
     pKuroko->setMvVelo(PX_C(3));
     const coord renge_y = (MyShip::lim_y_top_ - MyShip::lim_y_bottom_) * 4;
     const coord renge_z = (MyShip::lim_z_left_ - MyShip::lim_z_right_) * 4;
-    Spacetime* pSpacetime =  P_GOD->getSpacetime();
+    Spacetime* pSpacetime =  pGOD->getSpacetime();
     _x = pSpacetime->_x_bound_right - 1000;
     _y = RND(-(renge_y/2) , +(renge_y/2));
     _z = RND(-(renge_z/2) , +(renge_z/2));

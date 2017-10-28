@@ -94,13 +94,13 @@ void EnemyErmioneArm::processBehavior() {
                     int mvx,mvy,mvz;
                     if (RND(1, 1000) < 960 || arm_part_no_ >= 9) {
                         //絶対座標系で通常の自機を狙う方向ベクトル
-                        GgafDxGeometricActor* pTargetActor = P_MYSHIP;
+                        GgafDxGeometricActor* pTargetActor = pMYSHIP;
                         mvx = pTargetActor->_x - _x_final; //ここで自身の _x, _y, _z は絶対座標(_x_final)であることがポイント
                         mvy = (pTargetActor->_y + PX_C(50)) - _y_final; //自機のやや上を狙う
                         mvz = pTargetActor->_z - _z_final;
                     } else {
                         //たま～に逆方向を目標にして、触手に動きを強要する
-                        GgafDxGeometricActor* pTargetActor = P_MYSHIP;
+                        GgafDxGeometricActor* pTargetActor = pMYSHIP;
                         mvx = _x_final - pTargetActor->_x;
                         mvy = _y_final - pTargetActor->_y;
                         mvz = _z_final - pTargetActor->_z;

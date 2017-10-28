@@ -18,7 +18,7 @@ Item::Item(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat)
 
 TractorMagic* Item::getTractorMagic() {
     if (pTractorMagic_ == nullptr) {
-        pTractorMagic_ = P_MAGICMETER->pTractorMagic_;
+        pTractorMagic_ = pMAGICMETER->pTractorMagic_;
     }
     return pTractorMagic_;
 }

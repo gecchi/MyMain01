@@ -16,7 +16,7 @@ HoshiBoshi001::HoshiBoshi001(const char* prm_name) :
 
 void HoshiBoshi001::initialize() {
     setFarRate(30.0f);
-    setCriteriaActor(P_MYSHIP);
+    setCriteriaActor(pMYSHIP);
 }
 
 void HoshiBoshi001::onActive() {

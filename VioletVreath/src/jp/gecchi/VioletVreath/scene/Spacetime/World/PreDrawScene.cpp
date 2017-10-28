@@ -96,7 +96,7 @@ void PreDrawScene::processBehavior() {
     SceneProgress* pProg = getProgress();
     switch (pProg->get()) {
         case PROG_DISP: {
-            if (pProg->getFrame() % 10U == 0 && P_GOD->_fps >= PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) {
+            if (pProg->getFrame() % 10U == 0 && pGOD->_fps >= PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) {
                 if (_id_ > order_id_end_-order_id_begin_) {
                     pProg->changeNext();
                 } else {
@@ -113,7 +113,7 @@ void PreDrawScene::processBehavior() {
             break;
         }
         case PROG_CALM_DOWN: {
-            if ((pProg->getFrame() > 30 && P_GOD->_fps >= PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) ||
+            if ((pProg->getFrame() > 30 && pGOD->_fps >= PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) ||
                  pProg->getFrame() > 60*60) {
                 fadeoutSceneWithBgmTree(120);
                 pProg->changeNext();

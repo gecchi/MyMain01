@@ -334,8 +334,8 @@ void MenuBoardScreenConfig::onRise() {
     in_DUAL_VIEW_DRAW_POSITION1_   = PROPERTY::DUAL_VIEW_DRAW_POSITION1;
     in_DUAL_VIEW_DRAW_POSITION2_   = PROPERTY::DUAL_VIEW_DRAW_POSITION2;
     in_SINGLE_VIEW_DRAW_POSITION_  = PROPERTY::SINGLE_VIEW_DRAW_POSITION;
-    int num_adapter = P_GOD->_num_adapter;
-    GgafDxGod::AdapterRezos* paAdapterRezos = P_GOD->_paAdapterRezos;
+    int num_adapter = pGOD->_num_adapter;
+    GgafDxGod::AdapterRezos* paAdapterRezos = pGOD->_paAdapterRezos;
     if (num_adapter >= 1) {
         rezo_num_ = paAdapterRezos[0].rezo_num;
         GgafDxGod::RezoInfo* paRezos = paAdapterRezos[0].paRezoInfo;
@@ -369,7 +369,7 @@ void MenuBoardScreenConfig::onRise() {
 void MenuBoardScreenConfig::processBehavior() {
     MenuBoard::processBehavior();
 
-    World* pWorld = P_GOD->getSpacetime()->getWorld();
+    World* pWorld = pGOD->getSpacetime()->getWorld();
     //キー入力、ボタン入力、反映
     VirtualButton* pVB = VB;
     int selected_index = getSelectedIndex();
@@ -532,7 +532,7 @@ void MenuBoardScreenConfig::processBehavior() {
             }
             selectItemBySubCursor(SUBCUR_SINGLE_VIEW_DRAW_POSITION, i);
             PROPERTY::setValue("SINGLE_VIEW_DRAW_POSITION", i+1 - VALUE_POS_1);
-            if (!P_GOD->getSpacetime()->getWorld()->need_reboot_) {
+            if (!pGOD->getSpacetime()->getWorld()->need_reboot_) {
                 GgafDxCore::GgafDxGod::chengeViewPos1(i+1 - VALUE_POS_1);
             }
         }
@@ -598,7 +598,7 @@ void MenuBoardScreenConfig::processBehavior() {
                 }
             }
             if (rezo_num_ > 0) {
-                GgafDxGod::AdapterRezos* paAdapterRezos = P_GOD->_paAdapterRezos;
+                GgafDxGod::AdapterRezos* paAdapterRezos = pGOD->_paAdapterRezos;
                 FontBoardActor* pLabelRezo  = (FontBoardActor*) getItem(VALUE_SINGLE_VIEW_FULL_SCREEN_RESOLUTION);
                 pLabelRezo->update(paAdapterRezos[0].paRezoInfo[rezo_index_].item_str.c_str());
                 PROPERTY::setValue("SINGLE_VIEW_FULL_SCREEN_WIDTH" , paAdapterRezos[0].paRezoInfo[rezo_index_].width);
@@ -623,7 +623,7 @@ void MenuBoardScreenConfig::processBehavior() {
                 }
             }
             if (rezo1_num_ > 0) {
-                GgafDxGod::AdapterRezos* paAdapterRezos = P_GOD->_paAdapterRezos;
+                GgafDxGod::AdapterRezos* paAdapterRezos = pGOD->_paAdapterRezos;
                 FontBoardActor* pLabelRezo1  = (FontBoardActor*) getItem(VALUE_DUAL_VIEW_FULL_SCREEN1_RESOLUTION);
                 pLabelRezo1->update(paAdapterRezos[0].paRezoInfo[rezo1_index_].item_str.c_str());
                 PROPERTY::setValue("DUAL_VIEW_FULL_SCREEN1_WIDTH" , paAdapterRezos[0].paRezoInfo[rezo1_index_].width);
@@ -648,7 +648,7 @@ void MenuBoardScreenConfig::processBehavior() {
                         rezo2_index_--;
                     }
                 }
-                GgafDxGod::AdapterRezos* paAdapterRezos = P_GOD->_paAdapterRezos;
+                GgafDxGod::AdapterRezos* paAdapterRezos = pGOD->_paAdapterRezos;
                 FontBoardActor* pLabelRezo2 = (FontBoardActor*) getItem(VALUE_DUAL_VIEW_FULL_SCREEN2_RESOLUTION);
                 pLabelRezo2->update(paAdapterRezos[1].paRezoInfo[rezo2_index_].item_str.c_str());
                 PROPERTY::setValue("DUAL_VIEW_FULL_SCREEN2_WIDTH" , paAdapterRezos[1].paRezoInfo[rezo2_index_].width);

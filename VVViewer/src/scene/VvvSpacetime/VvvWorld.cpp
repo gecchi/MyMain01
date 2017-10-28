@@ -28,7 +28,7 @@ using namespace VVViewer;
 using namespace std;
 
 VvvWorld::VvvWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
-    pCamWorker_ = NEW VvvCamWorker("VvvCamWorker", P_GOD->getSpacetime()->getCamera());
+    pCamWorker_ = NEW VvvCamWorker("VvvCamWorker", pGOD->getSpacetime()->getCamera());
     bringDirector()->addSubGroup(pCamWorker_);
     pCursor_ = NEW VvvCursor("Cursor");
     bringDirector()->addSubGroup(pCursor_);
@@ -85,7 +85,7 @@ void VvvWorld::processBehavior() {
 
     if (GgafDxInput::isPushedDownKey(DIK_F1)) {
         //カメラを初期位置へ
-        VvvCamera* const pCam = P_GOD->getSpacetime()->getCamera();;
+        VvvCamera* const pCam = pGOD->getSpacetime()->getCamera();;
         pCamWorker_->slideMvCamTo(0,0,DX_C(pCam->getZOrigin()),60);
         pCamWorker_->slideMvVpTo(0,0,0,60);
        // pCam->auto_up_wait_frames = 65;
@@ -516,7 +516,7 @@ void VvvWorld::processBehavior() {
             ActorInfo* pActorInfo = NEW ActorInfo(pActor, string(VvvGod::dropfiles_));
             listActorInfo_.addLast(pActorInfo);
             listActorInfo_.last(); //カレントをlastへ
-            VvvCamera* pCam = P_GOD->getSpacetime()->getCamera();;
+            VvvCamera* pCam = pGOD->getSpacetime()->getCamera();;
 
             GgafDxGeometricActor* p = pCam->getCameraViewPoint();
             pActor->setPositionAt(p);

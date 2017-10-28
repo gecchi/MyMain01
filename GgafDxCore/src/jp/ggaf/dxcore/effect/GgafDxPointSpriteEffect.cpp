@@ -9,7 +9,7 @@ using namespace GgafDxCore;
 
 GgafDxPointSpriteEffect::GgafDxPointSpriteEffect(const char* prm_effect_name) : GgafDxEffect(prm_effect_name) {
     _obj_effect |= Obj_GgafDxPointSpriteEffect;
-    GgafDxCamera* const pCam = P_GOD->getSpacetime()->getCamera();
+    GgafDxCamera* const pCam = pGOD->getSpacetime()->getCamera();
     //シェーダー共通のグローバル変数設定
     HRESULT hr;
     hr = _pID3DXEffect->SetMatrix("g_matProj", pCam->getProjectionMatrix() );
@@ -31,7 +31,7 @@ GgafDxPointSpriteEffect::GgafDxPointSpriteEffect(const char* prm_effect_name) : 
 }
 
 void GgafDxPointSpriteEffect::setParamPerFrame() {
-    GgafDxCamera* const pCam = P_GOD->getSpacetime()->getCamera();
+    GgafDxCamera* const pCam = pGOD->getSpacetime()->getCamera();
     HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, pCam->getViewMatrix() );
     checkDxException(hr, D3D_OK, "setParamPerFrame SetMatrix(_h_matView) に失敗しました。");
 }

@@ -105,7 +105,7 @@ void EnemyGeria::processBehavior() {
                 }
             } else {
                 if (max_shots_ > shot_num_) {
-                    MyShip* pM = P_MYSHIP;
+                    MyShip* pM = pMYSHIP;
                     if (pM->_z - 500000 < _z && _z < pM->_z + 500000 &&
                         pM->_y - 500000 < _y && _y < pM->_y + 500000 )
                     {
@@ -123,7 +123,7 @@ void EnemyGeria::processBehavior() {
             }
 
             if (!pKuroko->isTurningFaceAng()) {
-                MyShip* pM = P_MYSHIP;
+                MyShip* pM = pMYSHIP;
                 GgafDxGeometricActor* pLast =
                       UTIL::shotWay001(_x, _y, _z,
                                        pM->_x, pM->_y, pM->_z,

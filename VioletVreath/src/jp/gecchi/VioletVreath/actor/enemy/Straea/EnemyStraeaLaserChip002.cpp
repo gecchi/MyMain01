@@ -48,9 +48,9 @@ void EnemyStraeaLaserChip002::onRefractionOutOf(int prm_num_refraction)  {
         angle out_ry_Target;
         angle out_d_rz;
         angle out_d_ry;
-        UTIL::convVectorToRzRy(P_MYSHIP->_x - _x,
-                               P_MYSHIP->_y - _y,
-                               P_MYSHIP->_z - _z,
+        UTIL::convVectorToRzRy(pMYSHIP->_x - _x,
+                               pMYSHIP->_y - _y,
+                               pMYSHIP->_z - _z,
                                out_rz_Target,
                                out_ry_Target);
         out_d_rz = pKuroko->getRzMvAngDistance(out_rz_Target, TURN_CLOSE_TO);
@@ -58,11 +58,11 @@ void EnemyStraeaLaserChip002::onRefractionOutOf(int prm_num_refraction)  {
         pKuroko->addRzMvAng(SGN(out_d_rz)*20000);
         pKuroko->addRyMvAng(SGN(out_d_ry)*30000);
 //        pKuroko->turnMvAngTwd(
-//                        P_MYSHIP,
+//                        pMYSHIP,
 //                        90000, 0,
 //                        TURN_CLOSE_TO, false);
 
-//        pKuroko->setMvAngTwd(P_MYSHIP);
+//        pKuroko->setMvAngTwd(pMYSHIP);
     }
 }
 

@@ -88,7 +88,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
     MyBunshin::AimInfo* pAimInfo = pAimInfo_;
     if (active_frame >= AIM_TIME_OUT*2) {
         sayonara(); //保険のタイムアウト
-//        P_GAME_SCENE->pauseGame();
+//        pGAME_SCENE->pauseGame();
     } else if (active_frame < 6 || pAimInfo->pTarget == nullptr) {
         //なにもしない
     } else {
@@ -134,7 +134,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                 } else if (pAimInfo->_spent_frames_to_t2 == 0) {
                     //●Leader が t1 へ Aim し終わったあと
                     //t2を決める
-                    static const Spacetime* pSpaceTime =  P_GOD->getSpacetime();
+                    static const Spacetime* pSpaceTime =  pGOD->getSpacetime();
                     static const double zf_r = UTIL::getDistance(
                                                       0.0, 0.0, 0.0,
                                                       (double)(pSpaceTime->_x_bound_right),
@@ -409,7 +409,7 @@ void MyBunshinWateringLaserChip001::onInactive() {
 
     if (pAimInfo->pLeaderChip_ == this) {
         if (pAimInfo->_spent_frames_to_t2 == 0) {
-            static const Spacetime* pSpaceTime =  P_GOD->getSpacetime();
+            static const Spacetime* pSpaceTime =  pGOD->getSpacetime();
             static const double zf_r = UTIL::getDistance(
                                               0.0, 0.0, 0.0,
                                               (double)(pSpaceTime->_x_bound_right),

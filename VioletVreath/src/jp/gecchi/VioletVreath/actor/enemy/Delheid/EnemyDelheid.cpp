@@ -68,7 +68,7 @@ void EnemyDelheid::onActive() {
 }
 
 void EnemyDelheid::processBehavior() {
-    MyShip* pMyShip = P_MYSHIP;
+    MyShip* pMyShip = pMYSHIP;
 
     //ˆÚ“®‚Ìó‘Ô‘JˆÚ------------------------------
     GgafProgress* const pProg = getProgress();
@@ -76,7 +76,7 @@ void EnemyDelheid::processBehavior() {
         case PROG_INIT: {
             pKurokoLeader_->start(RELATIVE_COORD_DIRECTION);
             getKuroko()->setMvAcce(0);
-            getKuroko()->keepOnTurningFaceAngTwd(P_MYSHIP,
+            getKuroko()->keepOnTurningFaceAngTwd(pMYSHIP,
                                                  D_ANG(1), 0, TURN_CLOSE_TO, false);
             pProg->changeNext();
             break;

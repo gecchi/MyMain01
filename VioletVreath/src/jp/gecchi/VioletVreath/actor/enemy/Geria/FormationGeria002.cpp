@@ -35,7 +35,7 @@ void FormationGeria002::processBehavior() {
 }
 
 void FormationGeria002::processJudgement() {
-    Spacetime* pSpacetime =  P_GOD->getSpacetime();
+    Spacetime* pSpacetime =  pGOD->getSpacetime();
     if (_x < pSpacetime->_x_bound_left) {
         _TRACE_(FUNC_NAME<<" I—¹");
         sayonara();

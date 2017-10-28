@@ -87,7 +87,7 @@ void EnemyAppho::processBehavior() {
              //滞留ポイントまで移動中
              if (pProg->getFrame() % 32U == 0) {
                  //ちょくちょく自機を見つめる
-                 pKuroko->turnFaceAngTwd(P_MYSHIP, D_ANG(0.5), 0,
+                 pKuroko->turnFaceAngTwd(pMYSHIP, D_ANG(0.5), 0,
                                          TURN_CLOSE_TO, true);
              }
              if (pKuroko->asstMv()->hasJustFinishedSliding()) {
@@ -100,16 +100,16 @@ void EnemyAppho::processBehavior() {
          case PROG_MOVE02: {
              if (pProg->hasJustChanged()) {
                  //滞留ポイント到着、自機方向へジワリ移動させる
-                 pKuroko->turnMvAngTwd(P_MYSHIP,
+                 pKuroko->turnMvAngTwd(pMYSHIP,
                                        100, 0, TURN_CLOSE_TO, false);
                  //ゆっくり自機の方へ向かせる
-                 pKuroko->turnFaceAngTwd(P_MYSHIP,
+                 pKuroko->turnFaceAngTwd(pMYSHIP,
                                          D_ANG(1), 0, TURN_CLOSE_TO, true);
              }
              //滞留中
              if (pProg->getFrame() % 16U == 0) {
                  //ちょくちょく自機を見つめる
-                 pKuroko->turnFaceAngTwd(P_MYSHIP,
+                 pKuroko->turnFaceAngTwd(pMYSHIP,
                                          D_ANG(1), 0, TURN_CLOSE_TO, true);
              }
 
@@ -143,7 +143,7 @@ void EnemyAppho::processBehavior() {
                  pKuroko->setMvAcce(10);
              }
              if (pProg->getFrame() % 16U == 0) {
-                 pKuroko->turnFaceAngTwd(P_MYSHIP,
+                 pKuroko->turnFaceAngTwd(pMYSHIP,
                                          D_ANG(1), 0, TURN_CLOSE_TO, true);
              }
              if (!pKuroko->isTurningMvAng()) {
@@ -161,7 +161,7 @@ void EnemyAppho::processBehavior() {
              }
              if (pProg->getFrame() % 16U == 0) {
                  //ちょくちょく自機を見つめる
-                 pKuroko->turnFaceAngTwd(P_MYSHIP,
+                 pKuroko->turnFaceAngTwd(pMYSHIP,
                                          D_ANG(1), 0, TURN_CLOSE_TO, true);
              }
              break;

@@ -297,7 +297,7 @@ void MassWallActor::processDraw() {
 }
 
 bool MassWallActor::isOutOfSpacetime() const {
-    GgafDxSpacetime* pSpacetime =  P_GOD->getSpacetime();
+    GgafDxSpacetime* pSpacetime =  pGOD->getSpacetime();
     if (pSpacetime->_x_bound_left <= _x+_wall_dep) {
         return false;
     }

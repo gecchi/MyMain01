@@ -53,7 +53,7 @@ void TractorMagic::processInvokingCancel(int prm_now_level) {
 
 }
 void TractorMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int prm_result_effect) {
-    P_MYSHIP->effectFlush(30); //フラッシュ
+    pMYSHIP->effectFlush(30); //フラッシュ
 }
 
 void TractorMagic::processEffectBegin(int prm_last_level, int prm_now_level) {

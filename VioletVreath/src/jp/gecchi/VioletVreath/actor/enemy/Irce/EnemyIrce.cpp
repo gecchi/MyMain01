@@ -49,7 +49,7 @@ void EnemyIrce::onActive() {
 
 void EnemyIrce::processBehavior() {
     GgafDxKuroko* const pKuroko = getKuroko();
-    pKuroko->turnMvAngTwd(P_MYSHIP,
+    pKuroko->turnMvAngTwd(pMYSHIP,
                           50, 0, TURN_CLOSE_TO, true);
     pKuroko->behave();
     getScaler()->behave();

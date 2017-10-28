@@ -36,12 +36,12 @@ LaserMagic::LaserMagic(const char* prm_name, int* prm_pMP)
 
 void LaserMagic::onReset() {
     Magic::onReset();
-    P_MYSHIP->can_shoot_laser_ = false;
+    pMYSHIP->can_shoot_laser_ = false;
 }
 
 void LaserMagic::processCastBegin(int prm_now_level, int prm_new_level) {
     if (prm_new_level > prm_now_level) {
-        pEffect_->setPositionAt(P_MYSHIP->pMyMagicEnergyCore_);
+        pEffect_->setPositionAt(pMYSHIP->pMyMagicEnergyCore_);
         pEffect_->setAlpha(0.9);
         pEffect_->getKuroko()->setFaceAngVelo(AXIS_Z, 100);
         pEffect_->setScale(1000);
@@ -53,7 +53,7 @@ void LaserMagic::processCastBegin(int prm_now_level, int prm_new_level) {
 
 void LaserMagic::processCastingBehavior(int prm_now_level, int prm_new_level) {
     if (prm_new_level > prm_now_level) {
-        pEffect_->setPositionAt(P_MYSHIP->pMyMagicEnergyCore_);
+        pEffect_->setPositionAt(pMYSHIP->pMyMagicEnergyCore_);
         pEffect_->addScale(10);
     }
 }
@@ -91,12 +91,12 @@ void LaserMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int p
 
 void LaserMagic::processEffectBegin(int prm_last_level, int prm_now_level) {
     if (prm_now_level > 0) {
-        P_MYSHIP->can_shoot_laser_ = true;
+        pMYSHIP->can_shoot_laser_ = true;
         MyStraightLaserChip001::chengeTex(prm_now_level-1);
         MyBunshinWateringLaserChip001::chengeTex(prm_now_level-1);
     } else {
         //レベル0へレベルダウン時
-        P_MYSHIP->can_shoot_laser_ = false;
+        pMYSHIP->can_shoot_laser_ = false;
         MyStraightLaserChip001::chengeTex(0);
         MyBunshinWateringLaserChip001::chengeTex(0);
     }

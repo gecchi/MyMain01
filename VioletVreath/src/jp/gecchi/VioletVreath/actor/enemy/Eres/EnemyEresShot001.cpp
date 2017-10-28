@@ -63,7 +63,7 @@ void EnemyEresShot001::processBehavior() {
     GgafDxKuroko* const pKuroko = getKuroko();
     //•ûŒü“]Š·ŠJŽn
     if (getActiveFrame() == frame_TurnBegin_) {
-        pKuroko->turnMvAngTwd(P_MYSHIP,
+        pKuroko->turnMvAngTwd(pMYSHIP,
                               angVelo_Turn_, 0,
                               TURN_CLOSE_TO, true);
         pKuroko->setMvAcce(iMoveAcce_2nd_);

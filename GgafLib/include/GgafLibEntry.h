@@ -71,7 +71,7 @@ void GgafLibWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLi
 void GgafLibWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
     switch (message) {
         case WM_SIZE:
-            if (P_GOD && GgafDxCore::GgafDxGod::_pHWndPrimary) {
+            if (pGOD && GgafDxCore::GgafDxGod::_pHWndPrimary) {
                 if (!PROPERTY::FULL_SCREEN) {
                     _TRACE_("GgafLibWndProc WM_SIZE");
                     GgafDxCore::GgafDxGod::_adjustGameWindow = true;

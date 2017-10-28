@@ -171,9 +171,9 @@ void EnemyOmulus::processBehavior() {
 //        //
 //
 //        //mvx mvy mvz を求める
-//        int mvx = P_MYSHIP->_x - _x;
-//        int mvy = P_MYSHIP->_y - _y;
-//        int mvz = P_MYSHIP->_z - _z;
+//        int mvx = pMYSHIP->_x - _x;
+//        int mvy = pMYSHIP->_y - _y;
+//        int mvz = pMYSHIP->_z - _z;
 //        //逆行列取得
 //        D3DXMATRIX* pBaseInvMatRM = getBaseActor()->getInvMatWorldRotMv();
 //        //ローカル座標でのターゲットとなる方向ベクトル計算

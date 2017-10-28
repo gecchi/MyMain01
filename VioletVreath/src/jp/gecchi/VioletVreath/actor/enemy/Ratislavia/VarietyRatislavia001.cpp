@@ -29,7 +29,7 @@ VarietyRatislavia001::VarietyRatislavia001(const char* prm_name) :
 
 void VarietyRatislavia001::initialize() {
     EnemyRatislavia::initialize();
-    Spacetime* pSpacetime =  P_GOD->getSpacetime();
+    Spacetime* pSpacetime =  pGOD->getSpacetime();
     _x = pSpacetime->_x_bound_right + r1_*2 + r2_*2;
     _y = 0;
     _z = 0;
@@ -45,7 +45,7 @@ void VarietyRatislavia001::processBehavior() {
         if (pEnemyRatislaviaEye_->is_wake_) {
 
         } else {
-            if (_x - P_MYSHIP->_x < PX_C(2000)) {
+            if (_x - pMYSHIP->_x < PX_C(2000)) {
                 pEnemyRatislaviaEye_->wake(); //Ç¨ÇÂÇÎÇËÇÒÅI
             }
         }

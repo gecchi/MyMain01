@@ -87,7 +87,7 @@ void EnemyOebiusCore::processBehavior() {
 
         case PROG_WAIT01: {
             if (pProg->hasJustChanged()) {
-                pKuroko->keepOnTurningFaceAngTwd(P_MYSHIP, D_ANG(1), 0, TURN_CLOSE_TO, false);
+                pKuroko->keepOnTurningFaceAngTwd(pMYSHIP, D_ANG(1), 0, TURN_CLOSE_TO, false);
             }
             if (pProg->hasArrivedAt(3600)) {
                 pProg->changeNext();

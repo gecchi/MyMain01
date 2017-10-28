@@ -10,7 +10,7 @@ using namespace GgafDxCore;
 
 GgafDxD3DXAniMeshEffect::GgafDxD3DXAniMeshEffect(const char* prm_effect_name) : GgafDxEffect(prm_effect_name) {
     _obj_effect |= Obj_GgafDxD3DXAniMeshEffect;
-    GgafDxCamera* pCam = P_GOD->getSpacetime()->getCamera();
+    GgafDxCamera* pCam = pGOD->getSpacetime()->getCamera();
     //シェーダー共通のグローバル変数設定
     HRESULT hr;
     //射影変換行列
@@ -36,7 +36,7 @@ GgafDxD3DXAniMeshEffect::GgafDxD3DXAniMeshEffect(const char* prm_effect_name) : 
 }
 
 void GgafDxD3DXAniMeshEffect::setParamPerFrame() {
-    GgafDxCamera* pCam = P_GOD->getSpacetime()->getCamera();
+    GgafDxCamera* pCam = pGOD->getSpacetime()->getCamera();
     HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, pCam->getViewMatrix() );
     checkDxException(hr, D3D_OK, "setParamPerFrame SetMatrix(_h_matView) に失敗しました。");
 }

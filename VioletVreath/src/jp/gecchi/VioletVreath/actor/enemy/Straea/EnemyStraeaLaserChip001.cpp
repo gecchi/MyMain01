@@ -36,19 +36,19 @@ void EnemyStraeaLaserChip001::onActive() {
 void EnemyStraeaLaserChip001::processBehaviorHeadChip() {
     GgafDxKuroko* const pKuroko = getKuroko();
     if (getActiveFrame() == 40) {
-        pKuroko->turnMvAngTwd(P_MYSHIP,
+        pKuroko->turnMvAngTwd(pMYSHIP,
                               7000, 0,
                               TURN_ANTICLOSE_TO, false);
     }
     if (!pKuroko->isTurningMvAng()) {
-        pKuroko->turnMvAngTwd(P_MYSHIP,
+        pKuroko->turnMvAngTwd(pMYSHIP,
                               100, 0,
                               TURN_CLOSE_TO, false);
     }
 //
 //    if (frame_of_behaving_from_onActive_ == 35) {
 //        pKuroko->turnMvAngTwd(
-//                    P_MYSHIP,
+//                    pMYSHIP,
 //                    20000, TURN_ANTICLOSE_TO);
 //    }
 

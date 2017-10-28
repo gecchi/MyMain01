@@ -69,7 +69,7 @@ void GameScene::initialize() {
 
 void GameScene::onReset() {
     VB_UI->clear();
-    P_GOD->setVB(VB_UI);
+    pGOD->setVB(VB_UI);
     DefaultScene* pSubScene;
     SceneProgress* pProg = getProgress();
     for (ProgSceneMap::const_iterator it = pProg->_mapProg2Scene.begin(); it != pProg->_mapProg2Scene.end(); ++it) {
@@ -80,7 +80,7 @@ void GameScene::onReset() {
             pSubScene->inactivate();
         }
     }
-    P_GOD->getSpacetime()->resetCamWorker();
+    pGOD->getSpacetime()->resetCamWorker();
     G_RANK = 0.0;
     G_RANKUP_LEVEL = 0;
     G_SCORE = 0;
@@ -91,7 +91,7 @@ void GameScene::onActive() {
 }
 
 void GameScene::processBehavior() {
-    Spacetime* pSpacetime = P_GOD->getSpacetime();
+    Spacetime* pSpacetime = pGOD->getSpacetime();
 #ifdef MY_DEBUG
     //ワイヤフレーム表示切替
     if (VB->isPushedDown(VB_UI_DEBUG) || GgafDxInput::isPushedDownKey(DIK_Q)) {
@@ -107,7 +107,7 @@ void GameScene::processBehavior() {
         case PROG_MAIN: {
             _TRACE_(FUNC_NAME<<" Prog has Just Changed 'From' PROG_MAIN");
             VB_UI->clear();
-            P_GOD->setVB(VB_UI);  //元に戻す
+            pGOD->setVB(VB_UI);  //元に戻す
             break;
         }
 
@@ -120,9 +120,9 @@ void GameScene::processBehavior() {
     switch (pProg->get()) {
         case PROG_INIT: {
 //            _TRACE_(FUNC_NAME<<" Prog(=PROG_INIT) has Just Changed");
-            //P_GOD->syncTimeFrame(); //描画を中止して、フレームと時間の同期を行う
+            //pGOD->syncTimeFrame(); //描画を中止して、フレームと時間の同期を行う
             if ((pProg->hasArrivedAt(120))) {
-                _TRACE_("P_GOD->_fps = "<<P_GOD->_fps);
+                _TRACE_("pGOD->_fps = "<<pGOD->_fps);
                 pProg->changeWithSceneCrossfading(PROG_PRE_TITLE);
                 World* pWorld = pSpacetime->getWorld();
                 pWorld->pPreDrawScene_->inactivateTreeImmed();
@@ -184,7 +184,7 @@ void GameScene::processBehavior() {
             if (pProg->hasJustChanged()) {
                 _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PROG_MAIN)");
                 VB_PLAY->clear();
-                P_GOD->setVB(VB_PLAY); //プレイ用に変更
+                pGOD->setVB(VB_PLAY); //プレイ用に変更
             }
 
             //今ポーズではない時
@@ -229,7 +229,7 @@ void GameScene::processBehavior() {
                     //ポーズ時に、ポーズキーを押して離した場合の処理
                     //ポーズ解除時直後の初期処理はココへ
                     _TRACE_("UNPAUSE!");
-                    P_GOD->setVB(VB_PLAY);
+                    pGOD->setVB(VB_PLAY);
                     pProg->getGazedScene()->unpauseTree();//ポーズ解除！！
                 }
             }
@@ -297,10 +297,10 @@ void GameScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
         _TRACE_("GameScene::onCatchEvent(EVENT_GOD_WILL_DEMISE) CommonSceneを拾い上げて後に解放されるようにします。");
         //神が死んでしまう前に
         //CommonSceneを拾い上げ、解放順序が後になるように操作する。(共有デポジトリとかあるし)
-        addSubLast(P_MYSHIP_SCENE->extract());
-        addSubLast(P_COMMON_SCENE->extract());
-        P_MYSHIP_SCENE->moveFirst();
-        P_COMMON_SCENE->moveFirst();
+        addSubLast(pMYSHIP_SCENE->extract());
+        addSubLast(pCOMMON_SCENE->extract());
+        pMYSHIP_SCENE->moveFirst();
+        pCOMMON_SCENE->moveFirst();
         //moveFirst()する理由は、解放は末尾ノードから行われるため。
         //先にCommonSceneが解放されないようにするため。
         //GgafCore::template<class T> GgafNode<T>::~GgafNode() のコメントを参照
@@ -351,7 +351,7 @@ void GameScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
     } else if (prm_no == EVENT_GO_TO_TITLE) {
         _TRACE_("GameScene::onCatchEvent(EVENT_GO_TO_TITLE)");
         _TRACE_("UNPAUSE!(because EVENT_GO_TO_TITLE)");
-        P_GOD->setVB(VB_PLAY);
+        pGOD->setVB(VB_PLAY);
         pProg->getGazedScene()->unpauseTree();//ポーズ解除！！
         pProg->change(PROG_FINISH);
     }
@@ -370,10 +370,10 @@ void GameScene::processJudgement() {
         //空間分割(八分木)アルゴリズムにより、チェック回数の最適化を行っています。
         //詳細は 「種別相関定義コピペツール.xls」 の 「種別相関」 シート参照
 
-        OctreeRounder* pHitCheckRounder = P_GOD->getSpacetime()->getLinearOctreeHitCheckRounder();
+        OctreeRounder* pHitCheckRounder = pGOD->getSpacetime()->getLinearOctreeHitCheckRounder();
 #ifdef MY_DEBUG
         if (GgafDxInput::isPushedDownKey(DIK_I)) {
-            P_GOD->getSpacetime()->getLinearOctree()->putTree();
+            pGOD->getSpacetime()->getLinearOctree()->putTree();
         }
 #endif
         //八分木アルゴリズムでヒットチェック
@@ -400,7 +400,7 @@ void GameScene::processJudgement() {
 void GameScene::pauseGame() {
     is_frame_advance_ = false;
     _TRACE_("PAUSE!");
-    P_GOD->setVB(VB_UI);  //入力はＵＩに切り替え
+    pGOD->setVB(VB_UI);  //入力はＵＩに切り替え
     getProgress()->getGazedScene()->pauseTree(); //ポーズ！！
     pMenuBoardPause_->rise(PX_C(100), PX_C(20));
 }

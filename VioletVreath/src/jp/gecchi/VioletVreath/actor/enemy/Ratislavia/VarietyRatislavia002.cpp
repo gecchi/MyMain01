@@ -28,7 +28,7 @@ VarietyRatislavia002::VarietyRatislavia002(const char* prm_name) :
 
 void VarietyRatislavia002::initialize() {
     EnemyRatislavia::initialize();
-    Spacetime* pSpacetime =  P_GOD->getSpacetime();
+    Spacetime* pSpacetime =  pGOD->getSpacetime();
     _x = pSpacetime->_x_bound_right + r1_*2 + r2_*2;
     _y = 0;
     _z = MyShip::lim_z_left_;
