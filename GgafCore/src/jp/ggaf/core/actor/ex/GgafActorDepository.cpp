@@ -33,18 +33,21 @@ void GgafActorDepository::onReset() {
     if (_pSubFirst == nullptr) {
         return;
     }
+    //GgafActorDepository のリセットは、配下を全て非活動状態とし、
+    //通常アクターの初回フレームで活動状態となることも抑えるために
+    //_frame_of_life_when_activation = 0 を設定
     GgafActor* pActor = getSubFirst();
     while (pActor) {
-        pActor->reset();
         if (pActor->isActive()) {
-            //TODO:・・・ちょっと悩みどころ
+            //TODO:・・・ちょっと悩みどころ、この処理を入れるべきか？
             pActor->inactivateImmed();
-            pActor->_frame_of_life_when_activation = 0;
             pActor->onInactive();
         } else {
-            //TODO:・・・ちょっと悩みどころ
-            pActor->_frame_of_life_when_activation = 0;
+            //inactive と同フレーム、または inactive 予定よりも後に active 予定があっても
+            //inactivate() の実行により、こちらのほうが強いので強制非活動となる。
+            pActor->inactivate();
         }
+        pActor->reset(); //リセット
         if (pActor->isLast()) {
             break;
         } else {
@@ -53,6 +56,7 @@ void GgafActorDepository::onReset() {
         }
     }
 }
+
 void GgafActorDepository::end(frame prm_offset_frames) {
     frame end_frame_delay = prm_offset_frames + (_sub_num*2) + 1; //メンバーを順に少し遅らせる。
     //既にend()実行済みの場合、より早くend()するならば有効とする
@@ -75,7 +79,6 @@ void GgafActorDepository::end(frame prm_offset_frames) {
         }
     }
 }
-
 
 //＜最適化案＞
 //TODO:GgafActorDepositoryは、GgafGroupHeadを継承して、

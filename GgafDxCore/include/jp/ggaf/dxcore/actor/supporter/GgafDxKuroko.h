@@ -696,7 +696,7 @@ public:
      * @param prm_vz 方向ベクトルZ軸要素
      * @param prm_opt 最適化フラグ（true:RzRyの差が最小になるように最適化する／false:普通のコンバート)
      */
-    void setRzRyMvAng(dxcoord prm_vx, dxcoord prm_vy, dxcoord prm_vz, bool prm_opt);
+    void setRzRyMvAng(dxcoord prm_vx, dxcoord prm_vy, dxcoord prm_vz, bool prm_opt = false);
 
     /**
      *  移動方向(RzRy)を、RyRzで設定。
@@ -770,8 +770,9 @@ public:
      *                         false:引数の prm_rz_target, prm_ry_target をそのままターゲートとする。<BR>
      */
     void turnRzRyFaceAngTo(angle prm_rz_target, angle prm_ry_target,
-                           angvelo prm_angvelo, angacce prm_angacce,
-                           int prm_way, bool prm_optimize_ang);
+                           angvelo prm_angvelo = D360ANG, angacce prm_angacce = 0,
+                           int prm_way = TURN_CLOSE_TO,
+                           bool prm_optimize_ang = false);
 
     /**
      * 軸回転方角を目標にターゲットするシークエンスを実行 .
@@ -792,8 +793,9 @@ public:
      *                         false:引数の prm_rz_target, prm_ry_target をそのままターゲートとする。<BR>
      */
     void turnFaceAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
-                        angvelo prm_angvelo, angacce prm_angacce,
-                        int prm_way, bool prm_optimize_ang);
+                        angvelo prm_angvelo = D360ANG, angacce prm_angacce = 0,
+                        int prm_way = TURN_CLOSE_TO,
+                        bool prm_optimize_ang = false);
 
 
     /**
@@ -813,8 +815,9 @@ public:
      *                         false:引数の prm_rz_target, prm_ry_target をそのままターゲートとする。<BR>
      */
     inline void turnFaceAngTwd(const GgafDxGeometricActor* prm_pActor_target,
-                               angvelo prm_angvelo, angacce prm_angacce,
-                               int prm_way, bool prm_optimize_ang) {
+                               angvelo prm_angvelo = D360ANG, angacce prm_angacce = 0,
+                               int prm_way = TURN_CLOSE_TO,
+                               bool prm_optimize_ang = false) {
         turnFaceAngTwd(
                 prm_pActor_target->_x,
                 prm_pActor_target->_y,
@@ -826,8 +829,9 @@ public:
         );
     }
     inline void turnFaceAngTwd(const GgafDxGeoElem* prm_pGeoElem,
-                               angvelo prm_angvelo, angacce prm_angacce,
-                               int prm_way, bool prm_optimize_ang) {
+                               angvelo prm_angvelo = D360ANG, angacce prm_angacce = 0,
+                               int prm_way = TURN_CLOSE_TO,
+                               bool prm_optimize_ang = false) {
         turnFaceAngTwd(
                 prm_pGeoElem->x,
                 prm_pGeoElem->y,
@@ -848,7 +852,7 @@ public:
      */
     void turnFaceAng(axis prm_axis,
                      angle prm_distance,
-                     angvelo prm_angvelo, angacce prm_angacce);
+                     angvelo prm_angvelo = D360ANG, angacce prm_angacce = 0);
 
     /**
      * 軸回転方角(Z軸)を目標にターゲットするシークエンスを実行 .
@@ -859,8 +863,8 @@ public:
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
     void turnRzFaceAngTo(angle prm_rz_target,
-                         angvelo prm_angvelo, angacce prm_angacce,
-                         int prm_way);
+                         angvelo prm_angvelo = D360ANG, angacce prm_angacce = 0,
+                         int prm_way = TURN_CLOSE_TO);
 
     /**
      * 軸回転方角(Y軸)を目標にターゲットするシークエンスを実行 .
@@ -871,8 +875,8 @@ public:
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
     void turnRyFaceAngTo(angle prm_ry_target,
-                         angvelo prm_angvelo, angacce prm_angacce,
-                         int prm_way);
+                         angvelo prm_angvelo = D360ANG, angacce prm_angacce = 0,
+                         int prm_way = TURN_CLOSE_TO);
 
     /**
      * 軸回転方角(X軸)を目標にターゲットするシークエンスを実行 .
@@ -883,8 +887,8 @@ public:
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
     void rollFaceAngTo(angle prm_rx_target,
-                       angvelo prm_angvelo, angacce prm_angacce,
-                       int prm_way);
+                       angvelo prm_angvelo = D360ANG, angacce prm_angacce = 0,
+                       int prm_way = TURN_CLOSE_TO);
 
     /**
      * 移動方角を目標にターゲットするシークエンスを実行 .
@@ -904,9 +908,9 @@ public:
      *                         false:引数の prm_rz_target, prm_ry_target をそのままターゲートとする。<BR>
      */
     void turnRzRyMvAngTo(angle prm_rz_target, angle prm_ry_target,
-                         angvelo prm_angvelo, angacce prm_angacce,
-                         int prm_way, bool prm_optimize_ang);
-
+                         angvelo prm_angvelo = D360ANG, angacce prm_angacce = 0,
+                         int prm_way = TURN_CLOSE_TO,
+                         bool prm_optimize_ang = false);
 
     /**
      * 移動方角を目標にターゲットするシークエンスを実行 .
@@ -927,8 +931,9 @@ public:
      *                         false:引数の prm_rz_target, prm_ry_target をそのままターゲートとする。<BR>
      */
     void turnMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
-                      angvelo prm_angvelo, angacce prm_angacce,
-                      int prm_way, bool prm_optimize_ang);
+                      angvelo prm_angvelo = D360ANG, angacce prm_angacce = 0,
+                      int prm_way = TURN_CLOSE_TO,
+                      bool prm_optimize_ang = false);
 
     /**
      * 移動方角を常に目標にターゲットするシークエンスを実行 .
@@ -949,8 +954,9 @@ public:
      *                         false:引数の prm_rz_target, prm_ry_target をそのままターゲートとする。<BR>
      */
     void keepOnTurningFaceAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
-                                 angvelo prm_angvelo, angacce prm_angacce,
-                                 int prm_way, bool prm_optimize_ang) {
+                                 angvelo prm_angvelo = D360ANG, angacce prm_angacce = 0,
+                                 int prm_way = TURN_CLOSE_TO,
+                                 bool prm_optimize_ang = false) {
         turnFaceAngTwd(prm_tx, prm_ty, prm_tz,
                        prm_angvelo,  prm_angacce,
                        prm_way, prm_optimize_ang );
@@ -982,8 +988,9 @@ public:
      *                         false:引数の prm_rz_target, prm_ry_target をそのままターゲートとする。<BR>
      */
     void keepOnTurningFaceAngTwd(const GgafDxGeometricActor* prm_pActor_target,
-                                 angvelo prm_angvelo, angacce prm_angacce,
-                                 int prm_way, bool prm_optimize_ang) {
+                                 angvelo prm_angvelo = D360ANG, angacce prm_angacce = 0,
+                                 int prm_way = TURN_CLOSE_TO,
+                                 bool prm_optimize_ang = false) {
         keepOnTurningFaceAngTwd(
                 prm_pActor_target->_x,
                 prm_pActor_target->_y,
@@ -1010,8 +1017,9 @@ public:
      *                         false:引数の prm_rz_target, prm_ry_target をそのままターゲートとする。<BR>
      */
     inline void turnMvAngTwd(const GgafDxGeometricActor* prm_pActor_target,
-                             angvelo prm_angvelo, angacce prm_angacce,
-                             int prm_way, bool prm_optimize_ang) {
+                             angvelo prm_angvelo = D360ANG, angacce prm_angacce = 0,
+                             int prm_way = TURN_CLOSE_TO,
+                             bool prm_optimize_ang = false) {
         turnMvAngTwd(
                 prm_pActor_target->_x,
                 prm_pActor_target->_y,
@@ -1024,8 +1032,9 @@ public:
     }
 
     inline void turnMvAngTwd(const GgafDxGeoElem* prm_pGeoElem,
-                             angvelo prm_angvelo, angacce prm_angacce,
-                             int prm_way, bool prm_optimize_ang) {
+                             angvelo prm_angvelo = D360ANG, angacce prm_angacce = 0,
+                             int prm_way = TURN_CLOSE_TO,
+                             bool prm_optimize_ang = false) {
         turnMvAngTwd(
                 prm_pGeoElem->x,
                 prm_pGeoElem->y,
@@ -1039,21 +1048,21 @@ public:
 
     /**
      * 移動方角(Z軸)を目標の角距離回転させるシークエンスを実行 .
-     * @param prm_distance  移動方角の回転角距離(Z軸)
+     * @param prm_rz_distance  移動方角の回転角距離(Z軸)
      * @param prm_angvelo ターゲットへ移動方角を回転移動中に適用する角速度（正負はprm_distanceの正負に依存）
      * @param prm_angacce 角加速度（正負はprm_distanceの正負に依存）
      */
-    void turnRzMvAng(angle prm_distance,
-                     angvelo prm_angvelo, angacce prm_angacce);
+    void turnRzMvAng(angle prm_rz_distance,
+                     angvelo prm_angvelo = D360ANG, angacce prm_angacce = 0);
 
     /**
      * 移動方角(Y軸)を目標の角距離回転させるシークエンスを実行 .
-     * @param prm_distance  移動方角の回転角距離(Y軸)
+     * @param prm_ry_distance  移動方角の回転角距離(Y軸)
      * @param prm_angvelo ターゲットへ移動方角を回転移動中に適用する角速度（正負はprm_distanceの正負に依存）
      * @param prm_angacce 角加速度（正負はprm_distanceの正負に依存）
      */
-    void turnRyMvAng(angle prm_distance,
-                     angvelo prm_angvelo, angacce prm_angacce);
+    void turnRyMvAng(angle prm_ry_distance,
+                     angvelo prm_angvelo = D360ANG, angacce prm_angacce = 0);
 
     /**
      * 移動方角(Z軸)を目標にターゲットするシークエンスを実行 .
@@ -1064,8 +1073,8 @@ public:
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
     void turnRzMvAngTo(angle prm_rz_target,
-                       angvelo prm_angvelo, angacce prm_angacce,
-                       int prm_way);
+                       angvelo prm_angvelo = D360ANG, angacce prm_angacce = 0,
+                       int prm_way = TURN_CLOSE_TO);
 
     /**
      * 移動方角(Y軸)を目標にターゲットするシークエンスを実行 .
@@ -1076,8 +1085,8 @@ public:
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
     void turnRyMvAngTo(angle prm_ry_target,
-                       angvelo prm_angvelo, angacce prm_angacce,
-                       int prm_way);
+                       angvelo prm_angvelo = D360ANG, angacce prm_angacce = 0,
+                       int prm_way = TURN_CLOSE_TO);
 
     void stopTurningMvAng();
 

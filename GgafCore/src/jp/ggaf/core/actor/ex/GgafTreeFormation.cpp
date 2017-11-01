@@ -25,7 +25,7 @@ void GgafTreeFormation::addFormationMember(GgafActor* prm_pSub) {
     _num_formation_member++;
     if (_pSubFirst == nullptr) {
         //団長に種別を正しく伝えるために、初回追加の種別を、自身の種別に上書（GgafTreeFormation）きする
-        kind kind = prm_pSub->getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND);
+        kind_t kind = prm_pSub->getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND);
         getStatus()->set(STAT_DEFAULT_ACTOR_KIND, kind);
         //メンバー無しの GgafTreeFormation を、addSubGroup した後に addFormationMember を行った場合、
         //まずメンバー無しの GgafTreeFormation を、addSubGroup した直後は、種別=0なので、作成された団長の種別も0で作成されてしまう。

@@ -32,7 +32,8 @@ void CollisionChecker3D::updateHitArea() {
     GgafDxGeometricActor* const pActor = _pActor;
     if (pActor->isActiveInTheTree()) {
         GgafDxCollisionPart* pColliPart;
-        for (int i = 0; i < pCollisionArea->_colli_part_num; i++) {
+        int colli_part_num = pCollisionArea->_colli_part_num;
+        for (int i = 0; i < colli_part_num; i++) {
 #ifdef MY_DEBUG
             if (_pCollisionArea->_papColliPart[i] == nullptr) {
                 throwGgafCriticalException("["<<getTargetActor()->getName()<<"]  _papColliPart["<<i<<"]‚ªnullptr‚Å‚·B");

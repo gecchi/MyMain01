@@ -253,8 +253,8 @@ void MyBunshinWateringLaserChip001::processSettlementBehavior() {
         } else {
             //先端以外は前のを受け継ぐ
             pAimInfo_ = pF->pAimInfo_; //受け継ぐ
-            coord velo = pF->getAxesMover()->_top_velo_vx_mv - PX_C(0.5);
-            pAxesMover->forceVxyzMvVeloRange(-velo, velo);
+            velo v = pF->getAxesMover()->_top_velo_vx_mv - PX_C(0.5);
+            pAxesMover->forceVxyzMvVeloRange(-v, v);
 #ifdef MY_DEBUG
 if (pAimInfo_ == nullptr) {
 throwGgafCriticalException("pAimInfo_ が引き継がれていません！"<<this<<
@@ -406,8 +406,7 @@ void MyBunshinWateringLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
 
 void MyBunshinWateringLaserChip001::onInactive() {
     MyBunshin::AimInfo* pAimInfo = pAimInfo_;
-
-    if (pAimInfo->pLeaderChip_ == this) {
+    if (pAimInfo && pAimInfo->pLeaderChip_ == this) {
         if (pAimInfo->_spent_frames_to_t2 == 0) {
             static const Spacetime* pSpaceTime =  pGOD->getSpacetime();
             static const double zf_r = UTIL::getDistance(
@@ -436,7 +435,6 @@ void MyBunshinWateringLaserChip001::onInactive() {
         }
         pAimInfo->pLeaderChip_ = nullptr;
     }
-
     pOrg_ = nullptr;
     pLockon_ = nullptr;
     pAimInfo_ = nullptr;

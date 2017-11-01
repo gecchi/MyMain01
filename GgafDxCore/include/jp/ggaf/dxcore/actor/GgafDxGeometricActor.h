@@ -555,7 +555,7 @@ public:
      * @param prm_rz_init_local 従属アクターのローカル(this)回転からのZ軸回転値
      * @return 種別トップの団長
      */
-    virtual GgafCore::GgafGroupHead* addSubGroupAsFk(kind prm_kind,
+    virtual GgafCore::GgafGroupHead* addSubGroupAsFk(kind_t prm_kind,
                                                      GgafDxGeometricActor* prm_pGeoActor,
                                                      int prm_x_init_local,
                                                      int prm_y_init_local,

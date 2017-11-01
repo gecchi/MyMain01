@@ -13,6 +13,32 @@ GgafDxKurokoMvAngAssistant::GgafDxKurokoMvAngAssistant(GgafDxKuroko* prm_pMaster
     _smthMvRzAng._t_acce = _pMaster->_angacce_rz_mv;
     _smthMvRyAng._t_velo = _pMaster->_angvelo_ry_mv;
     _smthMvRyAng._t_acce = _pMaster->_angacce_ry_mv;
+
+    _pnd_rz.count = 0;
+    _pnd_rz.target_num = 0;
+    for (int t = 0; t < 10; t++) {
+        _pnd_rz.target[t] = 0;
+    }
+    _pnd_rz.loop_num = 0;
+    _pnd_rz.way = 0;
+    _pnd_rz.target_frames = 0;
+    _pnd_rz.p1 = 0;
+    _pnd_rz.p2 = 0;
+    _pnd_rz.end_angvelo = 0;
+    _pnd_rz.zero_acc_end_flg = 0;
+
+    _pnd_ry.count = 0;
+    _pnd_ry.target_num = 0;
+    for (int t = 0; t < 10; t++) {
+        _pnd_ry.target[t] = 0;
+    }
+    _pnd_ry.loop_num = 0;
+    _pnd_ry.way = 0;
+    _pnd_ry.target_frames = 0;
+    _pnd_ry.p1 = 0;
+    _pnd_ry.p2 = 0;
+    _pnd_ry.end_angvelo = 0;
+    _pnd_ry.zero_acc_end_flg = 0;
 }
 
 void GgafDxKurokoMvAngAssistant::behave() {
@@ -20,11 +46,51 @@ void GgafDxKurokoMvAngAssistant::behave() {
         _smthMvRzAng.behave();
         _pMaster->setRzMvAngVelo(_smthMvRzAng._t_velo - _smthMvRzAng._t_acce); //こうしないと黒衣のbehaveで２回_acce足し込まれるし
         _pMaster->setRzMvAngAcce(_smthMvRzAng._t_acce);
+    } else {
+        if (_pnd_rz.target_num > 0) {
+            //ターゲットのアングルがある。ツイスト中
+            _pnd_rz.count++;
+            if (_pnd_rz.count == _pnd_rz.loop_num) {
+                _pnd_rz.target_num = 0;
+            } else {
+                if (_pnd_rz.way == TURN_CLOCKWISE) {
+                    _pnd_rz.way = TURN_COUNTERCLOCKWISE;
+                } else if (_pnd_rz.way == TURN_COUNTERCLOCKWISE) {
+                    _pnd_rz.way = TURN_CLOCKWISE;
+                }
+                int t = _pnd_rz.count % _pnd_rz.target_num;
+                turnRzByDtTo(_pnd_rz.target[t],
+                             _pnd_rz.way, _pnd_rz.target_frames,
+                             _pnd_rz.p1, _pnd_rz.p2,
+                             _pnd_rz.end_angvelo,
+                             _pnd_rz.zero_acc_end_flg);
+            }
+        }
     }
     if (_smthMvRyAng.isAccelerating()) {
         _smthMvRyAng.behave();
         _pMaster->setRyMvAngVelo(_smthMvRyAng._t_velo - _smthMvRyAng._t_acce); //こうしないと黒衣のbehaveで２回_acce足し込まれるし
         _pMaster->setRyMvAngAcce(_smthMvRyAng._t_acce);
+    } else {
+        if (_pnd_ry.target_num > 0) {
+            //ターゲットのアングルがある。ツイスト中
+            _pnd_ry.count++;
+            if (_pnd_ry.count == _pnd_ry.loop_num) {
+                _pnd_ry.target_num = 0;
+            } else {
+                if (_pnd_ry.way == TURN_CLOCKWISE) {
+                    _pnd_ry.way = TURN_COUNTERCLOCKWISE;
+                } else if (_pnd_ry.way == TURN_COUNTERCLOCKWISE) {
+                    _pnd_ry.way = TURN_CLOCKWISE;
+                }
+                int t = _pnd_ry.count % _pnd_ry.target_num;
+                turnRyByDtTo(_pnd_ry.target[t],
+                             _pnd_ry.way, _pnd_ry.target_frames,
+                             _pnd_ry.p1, _pnd_ry.p2,
+                             _pnd_ry.end_angvelo,
+                             _pnd_ry.zero_acc_end_flg);
+            }
+        }
     }
 }
 
@@ -78,8 +144,8 @@ void GgafDxKurokoMvAngAssistant::turnRyByVd(
 
 
 void GgafDxKurokoMvAngAssistant::turnRzByDtTo(angle prm_rz_target, int prm_way, int prm_target_frames,
-                                               float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-                                               bool prm_zero_acc_end_flg) {
+                                              float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                              bool prm_zero_acc_end_flg) {
     angle distance = _pMaster->getRzMvAngDistance(prm_rz_target, prm_way);
     turnRzByDt(distance, prm_target_frames,
                     prm_p1, prm_p2, prm_end_angvelo,
@@ -90,8 +156,8 @@ void GgafDxKurokoMvAngAssistant::turnRyByDtTo(angle prm_ry_target, int prm_way, 
                                               bool prm_zero_acc_end_flg) {
     angle distance = _pMaster->getRyMvAngDistance(prm_ry_target, prm_way);
     turnRyByDt(distance, prm_target_frames,
-                    prm_p1, prm_p2, prm_end_angvelo,
-                    prm_zero_acc_end_flg);
+               prm_p1, prm_p2, prm_end_angvelo,
+               prm_zero_acc_end_flg);
 }
 
 void GgafDxKurokoMvAngAssistant::turnRzRyByDtTo(
@@ -185,7 +251,7 @@ void GgafDxKurokoMvAngAssistant::turnRzRyByVdTo(
     angle out_ry_distance;
     if (prm_optimize_ang) {
         _pMaster->getRzRyMvAngDistanceTwd(prm_rz_target, prm_ry_target, prm_way,
-                                         out_rz_distance, out_ry_distance);
+                                          out_rz_distance, out_ry_distance);
     } else {
         out_rz_distance = _pMaster->getRzMvAngDistance(prm_rz_target, prm_way);
         out_ry_distance = _pMaster->getRyMvAngDistance(prm_ry_target, prm_way);
@@ -254,6 +320,51 @@ void GgafDxKurokoMvAngAssistant::turnByVdTwd(
             prm_pActor_target->_x, prm_pActor_target->_y, prm_pActor_target->_z, prm_way, prm_optimize_ang,
             prm_p1, prm_p2, prm_end_angvelo,
             prm_zero_acc_end_flg);
+}
+
+void GgafDxKurokoMvAngAssistant::turnRzPendulum(coord prm_target1, coord prm_target2,
+                                                int prm_twist_num,
+                                                int prm_first_way, int prm_target_frames,
+                                                float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                                bool prm_zero_acc_end_flg) {
+    _pnd_rz.count = 0;
+    _pnd_rz.target_num = 2;
+    _pnd_rz.target[0] = prm_target1;
+    _pnd_rz.target[1] = prm_target2;
+    _pnd_rz.loop_num = prm_twist_num;
+    _pnd_rz.way = prm_first_way;
+    _pnd_rz.target_frames = prm_target_frames;
+    _pnd_rz.p1 = prm_p1;
+    _pnd_rz.p2 = prm_p2;
+    _pnd_rz.end_angvelo = prm_end_angvelo;
+    _pnd_rz.zero_acc_end_flg = prm_zero_acc_end_flg;
+    turnRzByDtTo(_pnd_rz.target[0],
+                 _pnd_rz.way, _pnd_rz.target_frames,
+                 _pnd_rz.p1, _pnd_rz.p2,
+                 _pnd_rz.end_angvelo,
+                 _pnd_rz.zero_acc_end_flg);
+}
+void GgafDxKurokoMvAngAssistant::turnRyPendulum(coord prm_target1, coord prm_target2,
+                                                int prm_twist_num,
+                                                int prm_first_way, int prm_target_frames,
+                                                float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                                bool prm_zero_acc_end_flg) {
+    _pnd_ry.count = 0;
+    _pnd_ry.target_num = 2;
+    _pnd_ry.target[0] = prm_target1;
+    _pnd_ry.target[1] = prm_target2;
+    _pnd_ry.loop_num = prm_twist_num;
+    _pnd_ry.way = prm_first_way;
+    _pnd_ry.target_frames = prm_target_frames;
+    _pnd_ry.p1 = prm_p1;
+    _pnd_ry.p2 = prm_p2;
+    _pnd_ry.end_angvelo = prm_end_angvelo;
+    _pnd_ry.zero_acc_end_flg = prm_zero_acc_end_flg;
+    turnRyByDtTo(_pnd_ry.target[0],
+                 _pnd_ry.way, _pnd_ry.target_frames,
+                 _pnd_ry.p1, _pnd_ry.p2,
+                 _pnd_ry.end_angvelo,
+                 _pnd_ry.zero_acc_end_flg);
 }
 
 GgafDxKurokoMvAngAssistant::~GgafDxKurokoMvAngAssistant() {

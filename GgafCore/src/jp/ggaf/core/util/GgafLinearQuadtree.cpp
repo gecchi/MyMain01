@@ -8,16 +8,19 @@
 using namespace GgafCore;
 
 
-GgafLinearQuadtree::GgafLinearQuadtree(int prm_level) : GgafObject() {
-    _top_space_level = prm_level;
-    _top_level_dx = 0;
-    _top_level_dy = 0;
-    _r_top_level_dx = 0.0;
-    _r_top_level_dy = 0.0;
-    _root_x1 = 0;
-    _root_y1 = 0;
-    _root_x2 = 0;
-    _root_y2 = 0;
+GgafLinearQuadtree::GgafLinearQuadtree(uint32_t prm_level,
+                                       int x1, int y1,
+                                       int x2, int y2) : GgafObject(),
+_top_space_level(prm_level),
+_root_x1(x1),
+_root_y1(y1),
+_root_x2(x2),
+_root_y2(y2),
+_top_level_dx( ((_root_x2-_root_x1) / ((float)(1<<_top_space_level))) + 1 ),
+_top_level_dy( ((_root_y2-_root_y1) / ((float)(1<<_top_space_level))) + 1 ), //+1は空間数をオーバーしないように余裕をもたせるため
+_r_top_level_dx(1.0 / _top_level_dx),
+_r_top_level_dy(1.0 / _top_level_dy)
+{
     //べき乗作成
     _pa_4pow = NEW uint32_t[(prm_level+1)+1];
     _pa_4pow[0] = 1;
@@ -33,22 +36,10 @@ GgafLinearQuadtree::GgafLinearQuadtree(int prm_level) : GgafObject() {
         _paQuadrant[i]._my_index = i;
     }
     _pRegElemFirst = nullptr;
-}
-
-void GgafLinearQuadtree::setRootQuadrant(int x1, int y1, int x2, int y2) {
-    _root_x1 = x1;
-    _root_y1 = y1;
-    _root_x2 = x2;
-    _root_y2 = y2;
-
-    _top_level_dx = ((_root_x2-_root_x1) / ((float)(1<<_top_space_level))) + 1;
-    _top_level_dy = ((_root_y2-_root_y1) / ((float)(1<<_top_space_level))) + 1;//+1は空間数をオーバーしないように余裕をもたせるため
-    _r_top_level_dx = 1.0 / _top_level_dx;
-    _r_top_level_dy = 1.0 / _top_level_dy;
-
     _TRACE_(FUNC_NAME<<" 四分木ルートレベル(level=0)の空間の広さ=" << _root_x2-_root_x1 << "x" << _root_y2-_root_y1 );
     _TRACE_(FUNC_NAME<<" 四分木末端レベル(level="<<_top_space_level<<")の空間の広さ=" << _top_level_dx << "x" << _top_level_dy );
 }
+
 
 void GgafLinearQuadtree::registerElem(GgafTreeElem<2u>* const prm_pElem,
                                       int tx1, int ty1,
@@ -86,8 +77,7 @@ void GgafLinearQuadtree::registerElem(GgafTreeElem<2u>* const prm_pElem,
     //引数のRect(要素)は、どのレベルの空間に所属（内包されている）しているのか、最大のレベル空間を取得
     const uint32_t differ_bit_pos = maxnum_in_toplevel ^ minnum_in_toplevel;
     uint32_t shift_num = 0;
-    const uint32_t lv = (uint32_t)_top_space_level;
-    for(uint32_t i = 0; i < lv; i++) {
+    for (uint32_t i = 0; i < _top_space_level; i++) {
         if (((differ_bit_pos>>(i*2)) & 0x3) != 0 ) {
             shift_num = i+1;
         }

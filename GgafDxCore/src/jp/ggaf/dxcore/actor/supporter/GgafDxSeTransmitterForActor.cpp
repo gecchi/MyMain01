@@ -168,9 +168,9 @@ void GgafDxSeTransmitterForActor::updatePanVolume3D() {
 
                         //リアルタイムのパンを計算
                         const dxcoord fDist_VpVerticalCenter  =
-                                pCam->_plnVerticalCenter.a*_pActor->_fX +
-                                pCam->_plnVerticalCenter.b*_pActor->_fY +
-                                pCam->_plnVerticalCenter.c*_pActor->_fZ +
+                                pCam->_plnVerticalCenter.a * _pActor->_fX +
+                                pCam->_plnVerticalCenter.b * _pActor->_fY +
+                                pCam->_plnVerticalCenter.c * _pActor->_fZ +
                                 pCam->_plnVerticalCenter.d;
                         const angle ang = UTIL::getAngle2D(fDist_VpVerticalCenter, -_pActor->_dest_from_vppln_infront );
                         pan = ANG_COS(ang) * 0.8; //0.8意味は、完全に右のみ或いは左のみから聞こえるのを避けるため

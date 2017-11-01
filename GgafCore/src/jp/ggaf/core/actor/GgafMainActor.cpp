@@ -118,7 +118,7 @@ GgafSceneDirector* GgafMainActor::getMySceneDirector() {
 }
 
 
-GgafGroupHead* GgafMainActor::addSubGroup(kind prm_kind, GgafMainActor* prm_pMainActor) {
+GgafGroupHead* GgafMainActor::addSubGroup(kind_t prm_kind, GgafMainActor* prm_pMainActor) {
     if (prm_pMainActor->_pSceneDirector) {
         //_TRACE_("【警告】GgafSceneDirector::addSubGroup("<<getName()<<") すでに"<<prm_pMainActor->_pSceneDirector->_pScene_platform->getName()<<"シーンの監督に所属しています。が、"<<_pScene_platform->getName()<<"シーンの監督に乗り換えます");
         prm_pMainActor->extract();
@@ -160,7 +160,7 @@ GgafGroupHead* GgafMainActor::addSubGroup(GgafMainActor* prm_pMainActor) {
     return addSubGroup(prm_pMainActor->getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND), prm_pMainActor);
 }
 
-GgafGroupHead* GgafMainActor::searchSubGroupHead(kind prm_kind) {
+GgafGroupHead* GgafMainActor::searchSubGroupHead(kind_t prm_kind) {
     if (_pSubFirst == nullptr) {
         return nullptr;
     } else {
@@ -192,14 +192,14 @@ GgafGod* GgafMainActor::askGod() {
     return _pGod;
 }
 
-kind GgafMainActor::lookUpKind() {
-    GgafGroupHead* pMayHead = getMyGroupHead();
+kind_t GgafMainActor::lookUpKind() {
+    GgafGroupHead* pMyGroupHead = getMyGroupHead();
 #ifdef MY_DEBUG
-    if (pMayHead == nullptr) {
+    if (pMyGroupHead == nullptr) {
         throwGgafCriticalException("GgafMainActor::lookUpKind() GgafGroupHeadに所属していないので 種別がわかりません。this="<<NODE_INFO);
     }
 #endif
-    return pMayHead->_kind;
+    return pMyGroupHead->_kind;
 }
 
 GgafMainActor::~GgafMainActor() {

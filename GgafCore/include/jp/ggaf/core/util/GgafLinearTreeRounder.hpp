@@ -117,9 +117,9 @@ public:
     TStack _stackGroupB;
 
     /** [r]今回当たり判定を行うアクター種別A */
-    kind _kind_groupA;
+    kind_t _kind_groupA;
     /** [r]今回当たり判定を行うアクター種別B */
-    kind _kind_groupB;
+    kind_t _kind_groupB;
     /** [r]実行するTのメンバ関数 */
     void (T::*_pFunc)(T*);
 
@@ -143,7 +143,7 @@ public:
      * @param prm_kind_groupA アクター種別Aグループ
      * @param prm_kind_groupB アクター種別Bグループ
      */
-    void executeAll(kind prm_kind_groupA, kind prm_kind_groupB) {
+    void executeAll(kind_t prm_kind_groupA, kind_t prm_kind_groupB) {
         _kind_groupA = prm_kind_groupA;
         _kind_groupB = prm_kind_groupB;
         if ( (_paTargetSpace[0]._kind_bit_field & prm_kind_groupA) && (_paTargetSpace[0]._kind_bit_field & prm_kind_groupB) ) {
@@ -163,8 +163,8 @@ public:
     void execute(uint32_t prm_index) {
         GgafTreeSpace<DIMENSION>* pOctant_this_level = &(_paTargetSpace[prm_index]);
         GgafTreeElem<DIMENSION>* pElem = pOctant_this_level->_pElem_first;
-        const kind kind_groupA = _kind_groupA;
-        const kind kind_groupB = _kind_groupB;
+        const kind_t kind_groupA = _kind_groupA;
+        const kind_t kind_groupB = _kind_groupB;
         if (pElem) {
             GgafTreeElem<DIMENSION>* pElem_last = pOctant_this_level->_pElem_last;
             while (true) {
@@ -210,7 +210,7 @@ public:
             //又は、次のレベルの空間に種別Bがあり、かつストックに種別Aがあれば潜る。
             //それ以外は潜らない
             GgafTreeSpace<DIMENSION>* pOctant_lower_level = &(_paTargetSpace[lower_level_index]);
-            kind kind_bit_field_lower_level = pOctant_lower_level->_kind_bit_field;
+            kind_t kind_bit_field_lower_level = pOctant_lower_level->_kind_bit_field;
             if (kind_bit_field_lower_level & kind_groupA) {
                 if (isExistGroupB || (kind_bit_field_lower_level & kind_groupB)) {
                     execute(lower_level_index);

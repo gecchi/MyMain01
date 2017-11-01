@@ -140,7 +140,7 @@ GgafDxFigureActor* MyStgUtil::shotWayGoldenAng(GgafDxGeometricActor* prm_pFrom,
 
 
 
-int MyStgUtil::judgeMyAdvantage(kind attribute_my, kind attribute_enemy) {
+int MyStgUtil::judgeMyAdvantage(kind_t attribute_my, kind_t attribute_enemy) {
     int ret = 0;
     if (attribute_my & ATTRIBUTE_GU) {
         if (attribute_enemy & ATTRIBUTE_CHOKI) {
@@ -171,7 +171,7 @@ int MyStgUtil::judgeMyAdvantage(kind attribute_my, kind attribute_enemy) {
     return ret;
 }
 
-int MyStgUtil::judgeEnemyAdvantage(kind kattribute_enemy, kind attribute_my) {
+int MyStgUtil::judgeEnemyAdvantage(kind_t kattribute_enemy, kind_t attribute_my) {
     int ret = 0;
     if (kattribute_enemy & ATTRIBUTE_GU) {
         if (attribute_my & ATTRIBUTE_CHOKI) {

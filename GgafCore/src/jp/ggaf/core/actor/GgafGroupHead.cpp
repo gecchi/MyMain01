@@ -5,7 +5,7 @@
 
 using namespace GgafCore;
 
-GgafGroupHead::GgafGroupHead(kind prm_kind, GgafStatus* prm_pStat) : GgafActor("GROUP", prm_pStat) {
+GgafGroupHead::GgafGroupHead(kind_t prm_kind, GgafStatus* prm_pStat) : GgafActor("GROUP", prm_pStat) {
     _obj_class |= Obj_GgafGroupHead;
     _class_name = "GgafGroupHead";
     _kind = prm_kind;
@@ -19,7 +19,7 @@ GgafGroupHead::GgafGroupHead(kind prm_kind, GgafStatus* prm_pStat) : GgafActor("
     char aChar_strbit[bitnum+1];
     UTIL::strbin(prm_kind, aChar_strbit, bitnum);
     std::stringstream ss;
-    ss << "kind=" << aChar_strbit << "";
+    ss << "kind_t=" << aChar_strbit << "";
     std::string name = ss.str();
     int len = strlen(name.c_str());
     _name = NEW char[len+1];
@@ -27,7 +27,7 @@ GgafGroupHead::GgafGroupHead(kind prm_kind, GgafStatus* prm_pStat) : GgafActor("
 #endif
 }
 
-void GgafGroupHead::setKind(kind prm_kind) {
+void GgafGroupHead::setKind(kind_t prm_kind) {
     _kind = prm_kind;
 
 #ifdef MY_DEBUG
@@ -37,7 +37,7 @@ void GgafGroupHead::setKind(kind prm_kind) {
     char aChar_strbit[bitnum+1];
     UTIL::strbin(prm_kind, aChar_strbit, bitnum);
     std::stringstream ss;
-    ss << "kind=" << aChar_strbit << "";
+    ss << "kind_t=" << aChar_strbit << "";
     std::string name = ss.str();
     int len = strlen(name.c_str());
     _name = NEW char[len+1];

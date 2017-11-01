@@ -183,69 +183,69 @@ OUT_VS GgafDxVS_LaserChip(
     matWorld_infront._31_32_33_34 = prm_infront_world2;
     matWorld_infront._41_42_43_44 = prm_infront_world3; 
    
-    int kind = (int)(prm_info.x);
+    int kind_t = (int)(prm_info.x);
     float force_alpha = prm_info.y;
 //	const int index = (int)prm_index;
 //
 //	//頂点計算
 //	float4x4 matWorld;
 //	float4x4 matWorld_infront;
-//	int kind;
+//	int kind_t;
 //    float force_alpha;
 //	if (index == 0) {
 //		matWorld = g_matWorld001;
 //		matWorld_infront = g_matWorld_infront001;
-//		kind = g_kind001;
+//		kind_t = g_kind001;
 //        force_alpha = g_force_alpha001;
 //	} else if (index == 1) {
 //		matWorld = g_matWorld002;
 //		matWorld_infront = g_matWorld_infront002;
-//		kind = g_kind002;
+//		kind_t = g_kind002;
 //        force_alpha = g_force_alpha002;
 //	} else if (index == 2) {
 //		matWorld = g_matWorld003;
 //		matWorld_infront = g_matWorld_infront003;
-//		kind = g_kind003;
+//		kind_t = g_kind003;
 //        force_alpha = g_force_alpha003;
 //	} else if (index == 3) {
 //		matWorld = g_matWorld004;
 //		matWorld_infront = g_matWorld_infront004;
-//		kind = g_kind004;
+//		kind_t = g_kind004;
 //        force_alpha = g_force_alpha004;
 //	} else if (index == 4) {
 //		matWorld = g_matWorld005;
 //		matWorld_infront = g_matWorld_infront005;
-//		kind = g_kind005;
+//		kind_t = g_kind005;
 //        force_alpha = g_force_alpha005;
 //	} else if (index == 5) {
 //		matWorld = g_matWorld006;
 //		matWorld_infront = g_matWorld_infront006;
-//		kind = g_kind006;
+//		kind_t = g_kind006;
 //        force_alpha = g_force_alpha006;
 //	} else if (index == 6) {
 //		matWorld = g_matWorld007;
 //		matWorld_infront = g_matWorld_infront007;
-//		kind = g_kind007;
+//		kind_t = g_kind007;
 //        force_alpha = g_force_alpha007;
 //	} else if (index == 7) {
 //		matWorld = g_matWorld008;
 //		matWorld_infront = g_matWorld_infront008;
-//		kind = g_kind008;
+//		kind_t = g_kind008;
 //        force_alpha = g_force_alpha008;
 //	} else if (index == 8) {
 //		matWorld = g_matWorld009;
 //		matWorld_infront = g_matWorld_infront009;
-//		kind = g_kind009;
+//		kind_t = g_kind009;
 //        force_alpha = g_force_alpha009;
 //	} else if (index == 9) {
 //		matWorld = g_matWorld010;
 //		matWorld_infront = g_matWorld_infront010;
-//		kind = g_kind010;
+//		kind_t = g_kind010;
 //        force_alpha = g_force_alpha010;
 //	} else {
 //		matWorld = g_matWorld011;
 //		matWorld_infront = g_matWorld_infront011;
-//		kind = g_kind011;
+//		kind_t = g_kind011;
 //        force_alpha = g_force_alpha011;
 //	} 
 	float4 posModel_World;
@@ -255,7 +255,7 @@ OUT_VS GgafDxVS_LaserChip(
 //２倍して90度回転して、先頭専用テクスチャをを張れば、先を丸く見せれるのではないか
 //・・・単に２倍90度回転してだめだった、風車になるだけ
 
-//		if (kind == 4) {  //3ではないよ
+//		if (kind_t == 4) {  //3ではないよ
 //         x =  cos90*_Xorg + sin90*_Yorg  = 0*_Xorg + 1*_Yorg   =  Y
 //         y = -sin90*_Xorg + cos90*_Yorg  = -1*_Xorg + 0*_Yorg  = -X
 
@@ -263,21 +263,21 @@ OUT_VS GgafDxVS_LaserChip(
 //		   ナインか
 //		}
 		//頂点計算
-//		if (kind == 4) {  //3ではないよ
+//		if (kind_t == 4) {  //3ではないよ
 //			float tmpy = prm_posModel_Local.y;
 //			prm_posModel_Local.y = -8.0 * prm_posModel_Local.z;
 //			prm_posModel_Local.z = 8.0 * tmpy;
 //		}
 
 		prm_posModel_Local.x = 0;		
-		if (kind == 4) {  //3ではないよ
+		if (kind_t == 4) {  //3ではないよ
 			prm_posModel_Local.y = 0;
 			prm_posModel_Local.z = 0;
 		} 
 		// 一つ前方のチップ座標へくっつける
 		posModel_World = mul( prm_posModel_Local, matWorld_infront );      // World変換
 	} else {
-//		if (kind == 1) {  
+//		if (kind_t == 1) {  
 //			prm_posModel_Local.x = 0;
 //			prm_posModel_Local.y = 0;
 //			prm_posModel_Local.z = 0;
@@ -307,14 +307,14 @@ OUT_VS GgafDxVS_LaserChip(
     //     `----- 1:末尾チップ
     //
     //先頭と先端という言葉で区別しています。
-	if (kind == 2) {
+	if (kind_t == 2) {
 		//中間チップ
 		out_vs.uv = prm_uv;  
-	} else if (kind == 1) {
+	} else if (kind_t == 1) {
 		//末尾チップ
 		out_vs.uv.x = prm_uv.x < 0.51f ? 0.0f : prm_uv.x;
 		out_vs.uv.y = prm_uv.y;
-	} else if (kind == 3) {
+	} else if (kind_t == 3) {
 		//中間先頭チップ
 		out_vs.uv.x = prm_uv.x > 0.51f ? 1.0f : prm_uv.x;
 		out_vs.uv.y = prm_uv.y;

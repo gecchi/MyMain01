@@ -362,7 +362,7 @@ void ToolBox::IO_Model_X::ProcessBone(Frm::Bone* pBone) {
         case X_HEADER: //add tsuge
             break;
         case X_COMMENT:
-            break; //used for spaces and other kind of comments
+            break; //used for spaces and other kind_t of comments
         case X_EBRACE:
             return; //this is the end, my only friend ...
         case X_OBRACE:
@@ -530,7 +530,7 @@ void ToolBox::IO_Model_X::ProcessMesh(void) {
         Token = ProcessBlock();
         switch (Token) {
         case X_COMMENT:
-            break; //used for spaces and other kind of comments
+            break; //used for spaces and other kind_t of comments
         case X_EBRACE:
             _Object->_Meshes.push_back(_LoadMesh);
             return; //this is the end, my only friend ...
@@ -755,7 +755,7 @@ void ToolBox::IO_Model_X::ProcessMeshMaterials(void) {
         Token = ProcessBlock();
         switch (Token) {
         case X_COMMENT:
-            break; //used for spaces and other kind of comments
+            break; //used for spaces and other kind_t of comments
         case X_EBRACE:
             return; //this is the end, my only friend ...
         case X_MATERIAL:
@@ -811,7 +811,7 @@ void ToolBox::IO_Model_X::ProcessMaterial(void) {
         Token = ProcessBlock();
         switch (Token) {
         case X_COMMENT:
-            break; //used for spaces and other kind of comments
+            break; //used for spaces and other kind_t of comments
         case X_EBRACE:
             _LoadMesh->_Materials.push_back(NewMaterial);
             return; //this is the end, my only friend ...
@@ -918,7 +918,7 @@ void ToolBox::IO_Model_X::ProcessAnimationSets(void) {
         Token = ProcessBlock();
         switch (Token) {
         case X_COMMENT:
-            break; //used for spaces and other kind of comments
+            break; //used for spaces and other kind_t of comments
         case X_EBRACE:
             _LoadAnimationSet->_MaxKey = _MaxKey;
             _TRACE_("MaxKey:" << _MaxKey)
@@ -955,7 +955,7 @@ void ToolBox::IO_Model_X::ProcessAnimations(Frm::AnimationSet* &pAS) {
         Token = ProcessBlock();
         switch (Token) {
         case X_COMMENT:
-            break; //used for spaces and other kind of comments
+            break; //used for spaces and other kind_t of comments
         case X_EBRACE:
             pAS->_Animations.push_back(TempAnimation);
             return; //this is the end, my only friend ...

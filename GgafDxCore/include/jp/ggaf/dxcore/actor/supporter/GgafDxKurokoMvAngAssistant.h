@@ -17,6 +17,23 @@ class GgafDxKurokoMvAngAssistant : public GgafCore::GgafObject {
     friend class GgafDxKuroko;
 
 private:
+
+    struct Pendulum {
+        int count;
+        int target_num;
+        angle target[10];
+        int loop_num;
+        int way;
+        frame target_frames;
+        double p1;
+        double p2;
+        angvelo end_angvelo;
+        bool zero_acc_end_flg;
+    };
+
+    /** êUÇËéqèÓïÒ */
+    Pendulum _pnd_rz;
+    Pendulum _pnd_ry;
     /** [r]étè† */
     GgafDxKuroko* const _pMaster;
     GgafCore::GgafValueAccelerator<int> _smthMvRzAng;
@@ -243,6 +260,20 @@ public:
             GgafDxGeometricActor* prm_pActor_target, int prm_way, bool prm_optimize_ang,
             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
             bool prm_zero_acc_end_flg);
+
+
+
+    void turnRzPendulum(coord prm_target_rz1, coord prm_target_rz2,
+                        int prm_twist_num,
+                        int prm_first_way, int prm_target_frames,
+                        float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                        bool prm_zero_acc_end_flg);
+
+    void turnRyPendulum(coord prm_target_ry1, coord prm_target_ry2,
+                        int prm_twist_num,
+                        int prm_first_way, int prm_target_frames,
+                        float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                        bool prm_zero_acc_end_flg);
 
 
     inline bool isTurning() const {

@@ -791,31 +791,17 @@ angle GgafDxKuroko::getRyMvAngDistance(angle prm_target_ry_mv, int prm_way) {
 
 void GgafDxKuroko::getRzRyMvAngDistanceTwd(angle prm_target_rz, angle prm_target_ry, int prm_way,
                                            angle& out_d_rz, angle& out_d_ry) {
-    if (prm_way == TURN_CLOSE_TO) { //近いほう回転
-        //目標に到達するためには、回り方が常に２パターンある。
-        //それぞれ球面上の２点の距離を簡易近似値（速度優先のため）で比較し、近いと思われるほうを採用する。
-        angle d1_rz = getRzMvAngDistance(prm_target_rz, TURN_CLOSE_TO); //Rzの差
-        angle d1_ry = getRyMvAngDistance(prm_target_ry, TURN_CLOSE_TO);
-        angle d1 = ABS(d1_rz) + ABS(d1_ry);
-        UTIL::anotherRzRy(prm_target_rz, prm_target_ry);
-        angle d2_rz = getRzMvAngDistance(prm_target_rz, TURN_CLOSE_TO);
-        angle d2_ry = getRyMvAngDistance(prm_target_ry, TURN_CLOSE_TO);
-        angle d2 = ABS(d2_rz) + ABS(d2_ry);
-        if (d1 <= d2) { //より近い方を採用
-            out_d_rz = d1_rz;
-            out_d_ry = d1_ry;
-        } else {
-            out_d_rz = d2_rz;
-            out_d_ry = d2_ry;
-        }
-    } else if (prm_way == TURN_ANTICLOSE_TO) {
-        angle d1_rz = getRzMvAngDistance(prm_target_rz, TURN_ANTICLOSE_TO);
-        angle d1_ry = getRyMvAngDistance(prm_target_ry, TURN_ANTICLOSE_TO);
-        angle d1 = ABS(d1_rz) + ABS(d1_ry);
-        UTIL::anotherRzRy(prm_target_rz, prm_target_ry);
-        angle d2_rz = getRzMvAngDistance(prm_target_rz, TURN_ANTICLOSE_TO);
-        angle d2_ry = getRyMvAngDistance(prm_target_ry, TURN_ANTICLOSE_TO);
-        angle d2 = ABS(d2_rz) + ABS(d2_ry);
+    angle target_rz = UTIL::simplifyAng(prm_target_rz);
+    angle target_ry = UTIL::simplifyAng(prm_target_ry);
+    angle d1_rz = getRzMvAngDistance(target_rz, prm_way); //Rzの差
+    angle d1_ry = getRyMvAngDistance(target_ry, prm_way);
+    angle d1 = ABS(d1_rz) + ABS(d1_ry);
+    UTIL::anotherRzRy(target_rz, target_ry);
+    angle d2_rz = getRzMvAngDistance(target_rz, prm_way);
+    angle d2_ry = getRyMvAngDistance(target_ry, prm_way);
+    angle d2 = ABS(d2_rz) + ABS(d2_ry);
+
+    if (prm_way == TURN_ANTICLOSE_TO) {
         if (d1 >= d2) { //より遠い方を採用
             out_d_rz = d1_rz;
             out_d_ry = d1_ry;
@@ -823,68 +809,30 @@ void GgafDxKuroko::getRzRyMvAngDistanceTwd(angle prm_target_rz, angle prm_target
             out_d_rz = d2_rz;
             out_d_ry = d2_ry;
         }
-    } else if (prm_way == TURN_COUNTERCLOCKWISE) { //反時計回りの場合
-        angle d1_rz = getRzMvAngDistance(prm_target_rz, TURN_COUNTERCLOCKWISE);
-        angle d1_ry = getRyMvAngDistance(prm_target_ry, TURN_COUNTERCLOCKWISE);
-        angle d1 = ABS(d1_rz) + ABS(d1_ry);
-        UTIL::anotherRzRy(prm_target_rz, prm_target_ry);
-        angle d2_rz = getRzMvAngDistance(prm_target_rz, TURN_COUNTERCLOCKWISE);
-        angle d2_ry = getRyMvAngDistance(prm_target_ry, TURN_COUNTERCLOCKWISE);
-        angle d2 = ABS(d2_rz) + ABS(d2_ry);
-        if (d1 <= d2) {
-            out_d_rz = d1_rz;
-            out_d_ry = d1_ry;
-        } else {
-            out_d_rz = d2_rz;
-            out_d_ry = d2_ry;
-        }
-    } else if (prm_way == TURN_CLOCKWISE) { //時計回りの場合
-        angle d1_rz = getRzMvAngDistance(prm_target_rz, TURN_CLOCKWISE);
-        angle d1_ry = getRyMvAngDistance(prm_target_ry, TURN_CLOCKWISE);
-        angle d1 = ABS(d1_rz) + ABS(d1_ry);
-        UTIL::anotherRzRy(prm_target_rz, prm_target_ry);
-        angle d2_rz = getRzMvAngDistance(prm_target_rz, TURN_CLOCKWISE);
-        angle d2_ry = getRyMvAngDistance(prm_target_ry, TURN_CLOCKWISE);
-        angle d2 = ABS(d2_rz) + ABS(d2_ry);
-        if (d1 <= d2) {
-            out_d_rz = d1_rz;
-            out_d_ry = d1_ry;
-        } else {
-            out_d_rz = d2_rz;
-            out_d_ry = d2_ry;
-        }
     } else {
-        //おかしい
-        throwGgafCriticalException("prm_way="<<prm_way<<" は想定外です。_pActor="<<_pActor->getName());
+        if (d1 <= d2) { //より近い方を採用
+            out_d_rz = d1_rz;
+            out_d_ry = d1_ry;
+        } else {
+            out_d_rz = d2_rz;
+            out_d_ry = d2_ry;
+        }
     }
 }
 
 void GgafDxKuroko::getRzRyFaceAngDistanceTwd(angle prm_target_rz, angle prm_target_ry,int prm_way,
                                              angle& out_d_rz, angle& out_d_ry) {
-    if (prm_way == TURN_CLOSE_TO) { //近いほう回転
-        angle d1_rz = getFaceAngDistance(AXIS_Z, prm_target_rz, TURN_CLOSE_TO);
-        angle d1_ry = getFaceAngDistance(AXIS_Y, prm_target_ry, TURN_CLOSE_TO);
-        angle d1 = ABS(d1_rz) + ABS(d1_ry);
-        UTIL::anotherRzRy(prm_target_rz, prm_target_ry);
-        angle d2_rz = getFaceAngDistance(AXIS_Z, prm_target_rz, TURN_CLOSE_TO);
-        angle d2_ry = getFaceAngDistance(AXIS_Y, prm_target_ry, TURN_CLOSE_TO);
-        angle d2 = ABS(d2_rz) + ABS(d2_ry);
-        if (d1 <= d2) {
-            out_d_rz = d1_rz;
-            out_d_ry = d1_ry;
-        } else {
-            out_d_rz = d2_rz;
-            out_d_ry = d2_ry;
-        }
+    angle target_rz = UTIL::simplifyAng(prm_target_rz);
+    angle target_ry = UTIL::simplifyAng(prm_target_ry);
+    angle d1_rz = getFaceAngDistance(AXIS_Z, target_rz, TURN_CLOSE_TO);
+    angle d1_ry = getFaceAngDistance(AXIS_Y, target_ry, TURN_CLOSE_TO);
+    angle d1 = ABS(d1_rz) + ABS(d1_ry);
+    UTIL::anotherRzRy(target_rz, target_ry);
+    angle d2_rz = getFaceAngDistance(AXIS_Z, target_rz, TURN_CLOSE_TO);
+    angle d2_ry = getFaceAngDistance(AXIS_Y, target_ry, TURN_CLOSE_TO);
+    angle d2 = ABS(d2_rz) + ABS(d2_ry);
 
-    } else if (prm_way == TURN_ANTICLOSE_TO) { //遠い方の回転
-        angle d1_rz = getFaceAngDistance(AXIS_Z, prm_target_rz, TURN_ANTICLOSE_TO);
-        angle d1_ry = getFaceAngDistance(AXIS_Y, prm_target_ry, TURN_ANTICLOSE_TO);
-        angle d1 = ABS(d1_rz) + ABS(d1_ry);
-        UTIL::anotherRzRy(prm_target_rz, prm_target_ry);
-        angle d2_rz = getFaceAngDistance(AXIS_Z, prm_target_rz, TURN_ANTICLOSE_TO);
-        angle d2_ry = getFaceAngDistance(AXIS_Y, prm_target_ry, TURN_ANTICLOSE_TO);
-        angle d2 = ABS(d2_rz) + ABS(d2_ry);
+    if (prm_way == TURN_ANTICLOSE_TO) { //遠い方の回転
         if (d1 >= d2) {
             out_d_rz = d1_rz;
             out_d_ry = d1_ry;
@@ -892,39 +840,14 @@ void GgafDxKuroko::getRzRyFaceAngDistanceTwd(angle prm_target_rz, angle prm_targ
             out_d_rz = d2_rz;
             out_d_ry = d2_ry;
         }
-    } else if (prm_way == TURN_COUNTERCLOCKWISE) { //反時計回りの場合
-        angle d1_rz = getFaceAngDistance(AXIS_Z, prm_target_rz, TURN_COUNTERCLOCKWISE);
-        angle d1_ry = getFaceAngDistance(AXIS_Y, prm_target_ry, TURN_COUNTERCLOCKWISE);
-        angle d1 = ABS(d1_rz) + ABS(d1_ry);
-        UTIL::anotherRzRy(prm_target_rz, prm_target_ry);
-        angle d2_rz = getFaceAngDistance(AXIS_Z, prm_target_rz, TURN_COUNTERCLOCKWISE);
-        angle d2_ry = getFaceAngDistance(AXIS_Y, prm_target_ry, TURN_COUNTERCLOCKWISE);
-        angle d2 = ABS(d2_rz) + ABS(d2_ry);
-        if (d1 <= d2) {
-            out_d_rz = d1_rz;
-            out_d_ry = d1_ry;
-        } else {
-            out_d_rz = d2_rz;
-            out_d_ry = d2_ry;
-        }
-    } else if (prm_way == TURN_CLOCKWISE) { //時計回りの場合
-        angle d1_rz = getFaceAngDistance(AXIS_Z, prm_target_rz, TURN_CLOCKWISE);
-        angle d1_ry = getFaceAngDistance(AXIS_Y, prm_target_ry, TURN_CLOCKWISE);
-        angle d1 = ABS(d1_rz) + ABS(d1_ry);
-        UTIL::anotherRzRy(prm_target_rz, prm_target_ry);
-        angle d2_rz = getFaceAngDistance(AXIS_Z, prm_target_rz, TURN_CLOCKWISE);
-        angle d2_ry = getFaceAngDistance(AXIS_Y, prm_target_ry, TURN_CLOCKWISE);
-        angle d2 = ABS(d2_rz) + ABS(d2_ry);
-        if (d1 <= d2) {
-            out_d_rz = d1_rz;
-            out_d_ry = d1_ry;
-        } else {
-            out_d_rz = d2_rz;
-            out_d_ry = d2_ry;
-        }
     } else {
-        //おかしい
-        throwGgafCriticalException("prm_way="<<prm_way<<" は想定外です。_pActor="<<_pActor->getName());
+        if (d1 <= d2) {
+            out_d_rz = d1_rz;
+            out_d_ry = d1_ry;
+        } else {
+            out_d_rz = d2_rz;
+            out_d_ry = d2_ry;
+        }
     }
 }
 
@@ -1202,8 +1125,8 @@ void GgafDxKuroko::turnRyFaceAngTo(angle prm_ry_target,
 }
 
 void GgafDxKuroko::rollFaceAngTo(angle prm_rx_target,
-                                   angvelo prm_angvelo, angacce prm_angacce,
-                                   int prm_way) {
+                                 angvelo prm_angvelo, angacce prm_angacce,
+                                 int prm_way) {
     if (getFaceAngDistance(AXIS_X, prm_rx_target, prm_way) > 0) {
         setFaceAngVelo(AXIS_X, prm_angvelo);
         setFaceAngAcce(AXIS_X, prm_angacce);
@@ -1319,20 +1242,20 @@ void GgafDxKuroko::turnMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
     }
 }
 
-void GgafDxKuroko::turnRzMvAng(angle prm_distance,
+void GgafDxKuroko::turnRzMvAng(angle prm_rz_distance,
                                angvelo prm_angvelo, angacce prm_angacce) {
-    int s = SGN(prm_distance);
+    int s = SGN(prm_rz_distance);
     setRzMvAngVelo(ABS(prm_angvelo) * s);
     setRzMvAngAcce(ABS(prm_angacce) * s);
-    setStopTargetRzMvAng(_rz_mv+prm_distance);
+    setStopTargetRzMvAng(_rz_mv+prm_rz_distance);
 }
 
-void GgafDxKuroko::turnRyMvAng(angle prm_distance,
+void GgafDxKuroko::turnRyMvAng(angle prm_ry_distance,
                                angvelo prm_angvelo, angacce prm_angacce) {
-    int s = SGN(prm_distance);
+    int s = SGN(prm_ry_distance);
     setRyMvAngVelo(ABS(prm_angvelo) * s);
     setRyMvAngAcce(ABS(prm_angacce) * s);
-    setStopTargetRyMvAng(_ry_mv+prm_distance);
+    setStopTargetRyMvAng(_ry_mv+prm_ry_distance);
 }
 
 void GgafDxKuroko::turnRzMvAngTo(angle prm_rz_target,

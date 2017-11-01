@@ -279,8 +279,8 @@ public:
      * 内部で turnByDt() を繰り返し実行し、ツイストのような動きを行う。
      *
      * @param prm_axis ツイスト回転方角軸(AXIS_X or AXIS_Y or AXIS_Z)
-     * @param prm_ang_ry_target1 ツイスト到達目標１のY軸回転方角値
-     * @param prm_ang_ry_target2 ツイスト到達目標２のY軸回転方角値
+     * @param prm_ang_target1 ツイスト到達目標１のアングル値
+     * @param prm_ang_target2 ツイスト到達目標２のアングル角値
      * @param prm_twist_num ツイスト回数（-1 で無限ツイスト）
      * @param prm_first_way ツイスト到達目標１を最初にターゲットするための、回転方向指示。次のいずれかを指定、以降のツイストは反対周りに回転を繰り返す。<BR>
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
@@ -290,7 +290,7 @@ public:
      * @param prm_end_angvelo 目標到達時の最終角速度(ωe) （内部で正負がprm_distanceの正負に合わせられる）
      * @param prm_zero_acc_end_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
-    void twist(axis prm_axis, angle prm_ang_ry_target1, angle prm_ang_ry_target2, int prm_twist_num,
+    void twist(axis prm_axis, angle prm_ang_target1, angle prm_ang_target2, int prm_twist_num,
                int prm_first_way, int prm_target_frames,
                float prm_p1, float prm_p2, angvelo prm_end_angvelo,
                bool prm_zero_acc_end_flg);

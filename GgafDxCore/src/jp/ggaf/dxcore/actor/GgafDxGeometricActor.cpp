@@ -170,36 +170,36 @@ void GgafDxGeometricActor::processSettlementBehavior() {
         const dxcoord fY = _fY;
         const dxcoord fZ = _fZ;
         GgafDxCamera* pCam = pGOD->getSpacetime()->getCamera();
-        D3DXPLANE& plnTop = pCam->_plnTop;
-        _dest_from_vppln_top     = plnTop.a * fX +
-                                   plnTop.b * fY +
-                                   plnTop.c * fZ +
-                                   plnTop.d;
-        D3DXPLANE& plnBottom = pCam->_plnBottom;
-        _dest_from_vppln_bottom  = plnBottom.a * fX +
-                                   plnBottom.b * fY +
-                                   plnBottom.c * fZ +
-                                   plnBottom.d;
-        D3DXPLANE& plnLeft = pCam->_plnLeft;
-        _dest_from_vppln_left    = plnLeft.a * fX +
-                                   plnLeft.b * fY +
-                                   plnLeft.c * fZ +
-                                   plnLeft.d;
-        D3DXPLANE& plnRight = pCam->_plnRight;
-        _dest_from_vppln_right   = plnRight.a * fX +
-                                   plnRight.b * fY +
-                                   plnRight.c * fZ +
-                                   plnRight.d;
-        D3DXPLANE& plnInfront = pCam->_plnInfront;
-        _dest_from_vppln_infront = plnInfront.a * fX +
-                                   plnInfront.b * fY +
-                                   plnInfront.c * fZ +
-                                   plnInfront.d;
-       D3DXPLANE& plnBack = pCam->_plnBack;
-        _dest_from_vppln_back    = plnBack.a * fX +
-                                   plnBack.b * fY +
-                                   plnBack.c * fZ +
-                                   plnBack.d;
+        const D3DXPLANE* pPlnTop = &(pCam->_plnTop);
+        _dest_from_vppln_top     = pPlnTop->a * fX +
+                                   pPlnTop->b * fY +
+                                   pPlnTop->c * fZ +
+                                   pPlnTop->d;
+        const D3DXPLANE* pPlnBottom = &(pCam->_plnBottom);
+        _dest_from_vppln_bottom  = pPlnBottom->a * fX +
+                                   pPlnBottom->b * fY +
+                                   pPlnBottom->c * fZ +
+                                   pPlnBottom->d;
+        const D3DXPLANE* pPlnLeft = &(pCam->_plnLeft);
+        _dest_from_vppln_left    = pPlnLeft->a * fX +
+                                   pPlnLeft->b * fY +
+                                   pPlnLeft->c * fZ +
+                                   pPlnLeft->d;
+        const D3DXPLANE* pPlnRight = &(pCam->_plnRight);
+        _dest_from_vppln_right   = pPlnRight->a * fX +
+                                   pPlnRight->b * fY +
+                                   pPlnRight->c * fZ +
+                                   pPlnRight->d;
+        const D3DXPLANE* pPlnInfront = &(pCam->_plnInfront);
+        _dest_from_vppln_infront = pPlnInfront->a * fX +
+                                   pPlnInfront->b * fY +
+                                   pPlnInfront->c * fZ +
+                                   pPlnInfront->d;
+       const D3DXPLANE* pPlnBack = &(pCam->_plnBack);
+        _dest_from_vppln_back    = pPlnBack->a * fX +
+                                   pPlnBack->b * fY +
+                                   pPlnBack->c * fZ +
+                                   pPlnBack->d;
         _offscreen_kind = -1;
     }
 
@@ -267,7 +267,7 @@ void GgafDxGeometricActor::changeGeoFinal() {
 //void GgafDxGeometricActor::updateGeoFinalFromLocal() {
 //
 //}
-GgafGroupHead* GgafDxGeometricActor::addSubGroupAsFk(kind prm_kind,
+GgafGroupHead* GgafDxGeometricActor::addSubGroupAsFk(kind_t prm_kind,
                                                      GgafDxGeometricActor* prm_pGeoActor,
                                                      coord prm_x_init_local,
                                                      coord prm_y_init_local,

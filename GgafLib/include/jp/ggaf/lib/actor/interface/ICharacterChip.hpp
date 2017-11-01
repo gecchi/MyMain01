@@ -136,7 +136,7 @@ public:
      * @param c 文字
      * @param prm_width_ratio 幅の率(初期値の幅に乗じる値、初期値は1.0)
      */
-    inline void setChrWidthRatio(const char c, double prm_width_ratio) {
+    inline void setChrWidthRatio(const unsigned char c, double prm_width_ratio) {
         _is_fixed_width = false;
         _px_chr_width[c] = _chr_base_width_px * prm_width_ratio;
     }

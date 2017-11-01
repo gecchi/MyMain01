@@ -316,7 +316,7 @@
 
 
 /** アクターの種類(各Bitが種別を表し1を立てていく。分類は32種類(bit)ある事となる) */
-typedef uint32_t kind;
+typedef uint32_t kind_t;
 /** フレーム(アプリケーション時間) */
 typedef uint32_t frame;
 #define MAX_FRAME (0xffffffff)

@@ -197,46 +197,41 @@ public:
     GgafTreeSpace<3u>* _paOctant; //_paOctant[0] は ROOT空間へのポインタ
     /** [r]八分木の空間に登録を行った要素の先頭要素 */
     GgafTreeElem<3u>* _pRegElemFirst;
+    /** [r]最大空間レベル */
+    const uint32_t _top_space_level; //ルート空間はLevel=0
     /** [r]root空間の対角の頂点となるx座標の小さい方 */
-    int _root_x1;
+    const int _root_x1;
     /** [r]root空間の対角の頂点となるy座標の小さい方 */
-    int _root_y1;
+    const int _root_y1;
     /** [r]root空間の対角の頂点となるz座標の小さい方 */
-    int _root_z1;
+    const int _root_z1;
     /** [r]root空間の対角の頂点となるx座標大きい方 */
-    int _root_x2;
+    const int _root_x2;
     /** [r]root空間の対角の頂点となるy座標大きい方 */
-    int _root_y2;
+    const int _root_y2;
     /** [r]root空間の対角の頂点となるz座標大きい方 */
-    int _root_z2;
+    const int _root_z2;
     /** [r]最小空間(=最高分割の空間)の1空間のX軸方向の距離 */
-    int _top_level_dx;
+    const int _top_level_dx;
     /** [r]最小空間(=最高分割の空間)の1空間のY軸方向の距離 */
-    int _top_level_dy;
+    const int _top_level_dy;
     /** [r]最小空間(=最高分割の空間)の1空間のZ軸方向の距離 */
-    int _top_level_dz;
+    const int _top_level_dz;
 
-    double _r_top_level_dx;
-    double _r_top_level_dy;
-    double _r_top_level_dz;
+    const double _r_top_level_dx;
+    const double _r_top_level_dy;
+    const double _r_top_level_dz;
 
     /** [r]8の累乗の値を予め計算して保持している配列 */
     uint32_t* _pa_8pow;
     /** [r]全空間数 */
     uint32_t _num_space;
-    /** [r]最大空間レベル */
-    int _top_space_level; //ルート空間はLevel=0
+
 
 public:
     /**
      * 線形八分木空間を構築する.
      * @param prm_level 構築する空間レベル
-     */
-    GgafLinearOctree(int prm_level);
-
-    /**
-     * 空間レベル0の実範囲を更新.
-     * 随時変更可能。
      * @param x1 構築する外枠の空間座標
      * @param y1 〃
      * @param z1 〃
@@ -244,8 +239,9 @@ public:
      * @param y2 〃
      * @param z2 〃
      */
-    virtual void setRootOctant(int x1, int y1, int z1,
-                               int x2, int y2, int z2);
+    GgafLinearOctree(uint32_t prm_level,
+                     int x1, int y1, int z1,
+                     int x2, int y2, int z2);
 
     /**
      * 要素を八分木空間に登録する

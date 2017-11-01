@@ -41,12 +41,12 @@ public:
     /** [r]シーン監督 */
     GgafSceneDirector* _pSceneDirector;
     /** [r/w]本グループの種別 */
-    kind _kind;
+    kind_t _kind;
 
 public:
-    GgafGroupHead(kind prm_kind, GgafStatus* prm_pStat = nullptr);
+    GgafGroupHead(kind_t prm_kind, GgafStatus* prm_pStat = nullptr);
 
-    void setKind(kind prm_kind);
+    void setKind(kind_t prm_kind);
 
     /**
      * 初期処理 .

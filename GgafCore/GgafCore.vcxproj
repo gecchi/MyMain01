@@ -95,7 +95,6 @@
     <ClCompile Include="src\jp\ggaf\core\util\DetectMemoryLeaks.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\GgafCurtain.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\GgafLinearOctree.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\GgafLinearOctreeOctant.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\GgafLinearQuadtree.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\GgafLogger.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\GgafRepeatSeq.cpp" />

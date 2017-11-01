@@ -24,7 +24,7 @@ public:
     /** [r]要素オブジェクト（これが本体） */
     GgafObject* const _pObject;
     /** [r]要素オブジェクトの種別 */
-    kind _kind;
+    kind_t _kind;
     /** [r]所属空間 */
     GgafTreeSpace<DIMENSION>* _pSpace_current;
     /** [r]次要素 */

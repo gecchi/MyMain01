@@ -25,7 +25,7 @@ void GgafSceneDirector::remove() {
     throwGgafCriticalException("Error! GgafSceneDirector‚Íremove()‚É‚æ‚Á‚Äíœ‚Ís‚¦‚Ü‚¹‚ñI");
 }
 
-GgafGroupHead* GgafSceneDirector::addSubGroup(kind prm_kind, GgafMainActor* prm_pMainActor) {
+GgafGroupHead* GgafSceneDirector::addSubGroup(kind_t prm_kind, GgafMainActor* prm_pMainActor) {
     if (prm_pMainActor->_pSceneDirector) {
         prm_pMainActor->extract();
     }
@@ -54,7 +54,7 @@ GgafGroupHead* GgafSceneDirector::addSubGroup(GgafMainActor* prm_pMainActor) {
     return addSubGroup(prm_pMainActor->getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND), prm_pMainActor);
 }
 
-GgafGroupHead* GgafSceneDirector::searchSubGroupHead(kind prm_kind) {
+GgafGroupHead* GgafSceneDirector::searchSubGroupHead(kind_t prm_kind) {
     if (_pSubFirst == nullptr) {
         return nullptr;
     } else {
