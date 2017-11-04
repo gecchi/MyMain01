@@ -29,7 +29,7 @@ protected:
         bool isAry;
 
         Deleter( T* deletePtr, bool is_Ary = false ) : pObj(deletePtr), isAry( is_Ary ) {};
-        virtual ~Deleter(){
+        virtual ~Deleter() {
             if ( isAry ) {
                 T* pa = (T*)pObj;
                 GGAF_DELETEARR(pa);

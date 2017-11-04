@@ -400,7 +400,7 @@ void GgafDxFramedBoardModel::restore() {
 
     _num_materials = 1;
     D3DMATERIAL9* paMaterial = NEW D3DMATERIAL9[_num_materials];
-    for( DWORD i = 0; i < _num_materials; i++){
+    for ( DWORD i = 0; i < _num_materials; i++) {
         //paMaterial[i] = paD3DMaterial9_tmp[i].MatD3D;
         paMaterial[i].Diffuse.r = 1.0f;
         paMaterial[i].Diffuse.g = 1.0f;
@@ -426,11 +426,8 @@ void GgafDxFramedBoardModel::release() {
     GGAF_RELEASE(_pIndexBuffer);
     //テクスチャを解放
     if (_papTextureConnection) {
-        for (int i = 0; i < (int)_num_materials; i++) {
-            if (_papTextureConnection[i]) {
-                _papTextureConnection[i]->close();
-            }
-        }
+        _papTextureConnection[0]->close();
+        _papTextureConnection[1]->close(); //フレーム
     }
     GGAF_DELETEARR(_papTextureConnection);
     //TODO:親クラスメンバをDELETEするのはややきたないか

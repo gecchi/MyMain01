@@ -325,7 +325,7 @@ public:
      * @param out_binstr 2進数文字列化  char[33]  [out]
      * @param bitnum 所望の２進数ビット数
      */
-    static inline void strbin(uint32_t prm_decimal, char* out_binstr, int bitnum = 32){
+    static inline void strbin(uint32_t prm_decimal, char* out_binstr, int bitnum = 32) {
         /* 10進数-->2進数変換 */
         int i, k;
         for (i = 0, k = bitnum - 1; k >= 0; i++, k--) {

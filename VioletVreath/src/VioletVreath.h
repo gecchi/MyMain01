@@ -210,234 +210,177 @@ enum {
 
 namespace VioletVreath {
 
-//ëOï˚êÈåæ
-class God;
-class Spacetime;
-class World;
-
-class CommonScene;
-
-class TitleBoard;
-class Cursor001;
-
-class PreDrawScene;
-class LaserChipTestActor;
-
-class GameScene;
-class MyShipScene;
-class GamePreTitleScene;
-class GameTitleScene;
-class GameDemoScene;
-class GameBeginningScene;
-class GameMainScene;
-class GameEndingScene;
-class GameOverScene;
-class NameEntryScene;
-
-class RankUpStage;
-class RankUp001;
-class RankUp002;
-class RankUp003;
-class RankUp004;
-class RankUp005;
-class RankUp006;
-class RankUp007;
-
-class StageWorld;
-class StageController;
-class Stage;
-class Stage01;
-class Stage02;
-class Stage03;
-class Stage04;
-class Stage05;
-class TransitStage;
-class RankUpStageController;
-class RankUpStage;
-class RankUp001;
-class RankUp002;
-class RankUp100;
-class TamagoScene;
-
-class StagePartController;
-class Stage01PartController;
-class Stage01_01;
-class Stage01_02;
-class Stage01_03;
-class Stage01_Climax;
-class Stage01WalledSection001;
-class Stage01WalledScene;
-class Stage01WallSection001;
-class Stage01WallScene;
-class Wall001;
-class Wall001Prism;
-class Wall01;
-
-class Stage02PartController;
-class Stage02_01;
-class Stage02_Climax;
-
+//// forward declaration begin
+class AliceShot;
+class BunshinMagic;
 class Camera;
 class CameraUpVector;
 class CameraViewPoint;
-class ViewPointGuide;
-class DefaultCamWorker;
-class TestCamWorker;
-
-class GroundMeshActor;
-class Ratislavia;
-class VarietyRatislavia001;
-class VarietyRatislavia002;
-class VarietyRatislavia003;
-class VarietyRatislavia004;
-class EnemyRatislavia;
-class EnemyRatislaviaEye;
-class EnemyRatislaviaEyeStraightLaserChip001;
-class EffectRatislaviaEye001;
-
-class SingleLaser;
-class Shot001;
-class Shot002;
-class Shot003;
-class Shot004;
-class Shot004Blue;
-class Shot004Yellow;
-class EnemyWateringLaserChip001;
-class EnemyStraightLaserChip001;
-
-class VamSysCamWorker;
-class PauseCamWorker;
-class MyShipDivingCamWorker;
-
-class MyStraightLaserChip001;
-class MyShip;
-class MyMagicEnergyCore;
-class MyMagicEnergy;
-class MyLockonController;
-
-
-class MyBunshinBase;
-class MyBunshin;
-class MyBunshinShot001;
-class MyBunshinSnipeShot001;
-class MyBunshinWateringLaserChip001;
-
-
-class MyTorpedoController;
-class MyTorpedoTail;
-class MyTorpedo;
-class MyTorpedoBlast;
-class MyShot001;
-class MySnipeShot001;
-class MyWave001;
-class MyVreath;
-class EffectMyShipExplosion;
-
-class TestGuShot;
-class TestChokiShot;
-class TestPaShot;
-class TestNomalShot;
-
-class MagicMeter;
-class MagicMeterStatus;
-class MagicMeterCursor001;
-class MagicLvCursor;
-class MagicLvCursor001;
-class MagicLvCursor002;
-class MagicLvCursor003;
-class MpBar;
+class CameraWorkerConnection;
+class CameraWorkerManager;
+class CommonScene;
 class CostDispBar;
-class VreathBar;
+class CubeMapMeshSetTestActor;
+class CubeMapMeshTestActor;
+class CubeMapMorphMeshTestActor;
+class Cursor001;
+class CursorConfig001;
+class CursorConfig002;
+class CursorConfig003;
+class CursorConfig004;
+class CursorConfig005;
+class CursorConfirmMenu;
+class CursorNameEntryMenu;
+class CursorPauseMenu;
+class CursorResolutionSelect;
+class CursorTitleMenu;
 class DamageDispBar;
-
-class Magic;
-class BunshinMagic;
-class LaserMagic;
-class ShotMagic;
-class SpeedMagic;
-class LockonMagic;
-class TorpedoMagic;
-class TractorMagic;
-class VreathMagic;
-class SmileMagic;
-class EffectMagic001;
-class EffectSpeedMagic;
-class EffectTorpedoMagic;
-class EffectLockonMagic;
-class EffectLaserMagic;
-class EffectShotMagic;
-class EffectBunshinMagic001;
-class EffectVreathMagic001;
-class EffectSmileMagic001;
-
-class EffectExplosion001;
-class EffectExplosion002;
-class EffectExplosion003;
-class EffectExplosion004;
-class EffectLockon001;
-class EffectLockon001_Main;
-class EffectLockon001_Sub;
-class EffectTurbo001;
-class EffectTurbo002;
-class EffectCondensation001;
-class EffectLaserRefraction001;
-class EffectWormhole;
-class EffectWormhole001;
+class DanmakuAlice;
+class DanmakuAlice001;
+class DefaultBoardSetTestActor;
+class DefaultBoardTestActor;
+class DefaultCamWorker;
+class DefaultD3DXAniMeshTestActor;
+class DefaultD3DXMeshTestActor;
+class DefaultMeshSetTestActor;
+class DefaultMeshTestActor;
+class DefaultMorphMeshTestActor;
+class DefaultPointSpriteTestActor;
+class DefaultSpriteSetTestActor;
+class DefaultSpriteTestActor;
+class DepositoryConnection;
+class DepositoryManager;
 class EffectBlink;
 class EffectBlink001;
 class EffectBlink002;
 class EffectBlink003;
-
-class HoshiBoshiTransit;
-class HoshiBoshiRankUp;
-class HoshiBoshi001;
-class HoshiBoshiTitle;
-class WorldBoundTransit;
-class WorldBound001;
-class WorldBound002;
-class WorldBoundRankUp;
-class WorldBoundTitle;
-class WorldBoundNameEntry;
-
-class LabelFix16Font01;
-class LabelGecchi8Font;
-class LabelGecchi16Font;
-class LabelGecchi32Font;
-class LabelMenuTitleFont01;
-class LabelMenuItemFont01;
-class LabelRankFont;
-class LabelRankingFont;
-class LabelScoreFont;
-
-class SpriteLabelTest;
-class SpriteLabelGecchi32Font;
-class SpriteLabelBonus001;
-class LabelSceneSymbol;
-
-class TamagoActor;
-class TestEnemy;
-class TestGu;
-class TestChoki;
-class TestPa;
-class TestNomal;
-
-class EnemyTamago01Actor;
-class GameGlobal;
-
+class EffectBunshinMagic001;
+class EffectCondensation001;
+class EffectExplosion001;
+class EffectExplosion002;
+class EffectExplosion003;
+class EffectExplosion004;
+class EffectLaserMagic;
+class EffectLaserRefraction001;
+class EffectLockon001;
+class EffectLockon001_Main;
+class EffectLockon001_Sub;
+class EffectLockonMagic;
+class EffectMagic001;
+class EffectMyShipExplosion;
+class EffectRatislaviaEye001;
+class EffectShotMagic;
+class EffectSmileMagic001;
+class EffectSpeedMagic;
+class EffectTorpedoMagic;
+class EffectTurbo001;
+class EffectTurbo002;
+class EffectVreathMagic001;
+class EffectWormhole;
+class EffectWormhole001;
+class EnemyAlisana;
+class EnemyAllas;
+class EnemyAntiope;
+class EnemyAntiopeN;
+class EnemyAntiopeP;
+class EnemyAppho;
+class EnemyDelheid;
+class EnemyDrastea;
+class EnemyDuna;
+class EnemyEbe;
+class EnemyEmilia;
+class EnemyEmiliaBase;
+class EnemyEmiliaFragment;
+class EnemyEmiliaFragment2;
+class EnemyEmiliaFragment3;
+class EnemyEmus;
+class EnemyEmusLaserChip001;
 class EnemyEres;
 class EnemyEresShot001;
-class FormationEres001;
-class FormationEres002;
-
-class EnemyAllas;
+class EnemyErmione;
+class EnemyErmioneArm;
+class EnemyErmioneArmBody;
+class EnemyErmioneArmHead;
+class EnemyErmioneArmWeak;
+class EnemyEsperia;
+class EnemyEsperiaLaserChip001;
+class EnemyEtis;
+class EnemyGeria;
+class EnemyGlaja;
+class EnemyGlajaLance001;
+class EnemyHalia;
+class EnemyHisbe;
+class EnemyHisbe002;
+class EnemyHisbeLaserChip001;
+class EnemyHisbeLaserChip002;
+class EnemyHisbeLaserChip003;
+class EnemyIda;
+class EnemyIdaBase;
+class EnemyIdaBase001;
+class EnemyIrce;
+class EnemyOebius;
+class EnemyOebiusController;
+class EnemyOebiusController001;
+class EnemyOebiusController002;
+class EnemyOebiusCore;
+class EnemyOmulus;
+class EnemyOrtuna;
+class EnemyOzartia;
+class EnemyOzartiaLaserChip01;
+class EnemyOzartiaPillar01;
+class EnemyOzartiaShot01;
+class EnemyRatislavia;
+class EnemyRatislaviaEye;
+class EnemyRatislaviaEyeStraightLaserChip001;
+class EnemyRis;
+class EnemyStraea;
+class EnemyStraeaLaserChip001;
+class EnemyStraeaLaserChip002;
+class EnemyStraeaLaserChip003;
+class EnemyStraeaLaserChip004;
+class EnemyStraightLaserChip001;
+class EnemyTalante;
+class EnemyTamago01;
+class EnemyThagoras;
+class EnemyUnomia;
+class EnemyUrydike;
+class EnemyWateringLaserChip001;
 class FormationAllas001;
 class FormationAllas001a;
 class FormationAllas001b;
 class FormationAllas001c;
 class FormationAllas001d;
 class FormationAllas002;
-
-class EnemyUnomia;
+class FormationAntiope001;
+class FormationAppho001;
+class FormationAppho001a;
+class FormationAppho001b;
+class FormationDelheid;
+class FormationDelheid001;
+class FormationDrastea001;
+class FormationEbe;
+class FormationEbe001;
+class FormationEmilia;
+class FormationEres001;
+class FormationEres002;
+class FormationEtis001;
+class FormationGeria;
+class FormationGeria001;
+class FormationGeria002;
+class FormationHalia;
+class FormationIda;
+class FormationIda001;
+class FormationOebius;
+class FormationOebius001;
+class FormationOebius002;
+class FormationOrtuna001;
+class FormationOrtuna001a;
+class FormationOrtuna001b;
+class FormationRis001;
+class FormationRis002;
+class FormationThagoras;
+class FormationThagoras001;
+class FormationThagoras002;
 class FormationUnomia;
 class FormationUnomia001;
 class FormationUnomia001a;
@@ -445,211 +388,184 @@ class FormationUnomia001b;
 class FormationUnomia002;
 class FormationUnomia002a;
 class FormationUnomia002b;
-
-class EnemyGeria;
-class FormationGeria;
-class FormationGeria001;
-class FormationGeria002;
-
-class EnemyEtis;
-class FormationEtis001;
-class EnemyDrastea;
-class FormationDrastea001;
-
-class EnemyStraea;
-class EnemyStraeaLaserChip001;
-class EnemyStraeaLaserChip002;
-class EnemyStraeaLaserChip003;
-class EnemyStraeaLaserChip004;
-
-class EnemyRis;
-class FormationRis001;
-class FormationRis002;
-
-class EnemyOmulus;
-
-class EnemyOrtuna;
-class FormationOrtuna001;
-class FormationOrtuna001a;
-class FormationOrtuna001b;
-
-class EnemyEmus;
-class EnemyEmusLaserChip001;
-
-class EnemyIrce;
-
-class EnemyHalia;
-class FormationHalia;
-
-class EnemyEmiliaBase;
-class EnemyEmilia;
-class EnemyEmiliaFragment;
-class EnemyEmiliaFragment2;
-class EnemyEmiliaFragment3;
-class FormationEmilia;
-
-class EnemyEbe;
-class FormationEbe;
-class FormationEbe001;
-
-class EnemyHisbe;
-class EnemyHisbe002;
-class EnemyHisbeLaserChip001;
-class EnemyHisbeLaserChip002;
-class EnemyHisbeLaserChip003;
-
-class EnemyEsperia;
-class EnemyEsperiaLaserChip001;
-
-class EnemyTalante;
-
-class EnemyErmione;
-class EnemyErmioneArm;
-class EnemyErmioneArmBody;
-class EnemyErmioneArmHead;
-class EnemyErmioneArmWeak;
-
-class EnemyAppho;
-class FormationAppho001;
-class FormationAppho001a;
-class FormationAppho001b;
-
-class EnemyAntiope;
-class EnemyAntiopeP;
-class EnemyAntiopeN;
-class FormationAntiope001;
-
-class EnemyDelheid;
-class FormationDelheid;
-class FormationDelheid001;
-
-class EnemyAlisana;
-
-class EnemyIda;
-class EnemyIdaBase;
-class EnemyIdaBase001;
-class FormationIda;
-class FormationIda001;
-
-class EnemyThagoras;
-class FormationThagoras;
-class FormationThagoras001;
-class FormationThagoras002;
-
-class EnemyGlaja;
-class EnemyGlajaLance001;
-
-class EnemyDuna;
-
-class EnemyOzartia;
-class EnemyOzartiaLaserChip01;
-class EnemyOzartiaShot01;
-class EnemyOzartiaPillar01;
-
-class EnemyOebius;
-class EnemyOebiusCore;
-class EnemyOebiusController;
-class EnemyOebiusController001;
-class EnemyOebiusController002;
-class FormationOebius;
-class FormationOebius001;
-class FormationOebius002;
-
-class EnemyUrydike;
 class FormationUrydike;
 class FormationUrydike001;
 class FormationUrydike002;
-//"VVEnemysHeader.h" Ç‡ÇÌÇ∑ÇÍÇÈÇ»Å`
-
-
-
-class DanmakuAlice;
-class DanmakuAlice001;
-class AliceShot;
-//"VVEnemysHeader.h" Ç‡ÇÌÇ∑ÇÍÇÈÇ»Å`
-
-class DepositoryConnection;
-class DepositoryManager;
-class SplineLineConnection;
-class SplineLineManager;
-class XpmConnection;
-class XpmManager;
-
-class CameraWorkerManager;
-class CameraWorkerConnection;
-
-class TestDepository;
-
+class GameBeginningScene;
+class GameDemoScene;
+class GameEndingScene;
+class GameGlobal;
+class GameMainScene;
+class GameOverScene;
+class GamePreTitleScene;
+class GameScene;
+class GameTitleScene;
+class God;
+class GroundMeshActor;
+class Horizon001;
+class HoshiBoshi;
+class HoshiBoshi001;
+class HoshiBoshiRankUp;
+class HoshiBoshiTestActor;
+class HoshiBoshiTitle;
+class HoshiBoshiTransit;
+class InnerTitleBar;
 class Item;
+class LabelFix16Font01;
+class LabelGecchi16Font;
+class LabelGecchi32Font;
+class LabelGecchi8Font;
+class LabelMenuItemFont01;
+class LabelMenuTitleFont01;
+class LabelRankFont;
+class LabelRankingFont;
+class LabelSceneSymbol;
+class LabelScoreFont;
+class LaserChipTestActor;
+class LaserMagic;
+class LockonMagic;
+class Magic;
+class MagicLvCursor;
+class MagicLvCursor001;
+class MagicLvCursor002;
+class MagicLvCursor003;
+class MagicMeter;
+class MagicMeterCursor001;
+class MagicMeterStatus;
 class MagicPointItem;
 class MagicPointItem001;
 class MagicPointItem002;
 class MagicPointItem003;
-class ScoreItem;
-class ScoreItem001;
-class VreathItem;
-class VreathItem001;
-
-class Properties;
-class RankingTable;
+class MenuBoard;
+class MenuBoardConfig;
+class MenuBoardConfirm;
+class MenuBoardKeyConfig;
+class MenuBoardNameEntry;
+class MenuBoardPause;
+class MenuBoardResolutionSelect;
+class MenuBoardScreenConfig;
+class MenuBoardSoundConfig;
+class MenuBoardTitle;
+class MpBar;
+class MyBunshin;
+class MyBunshinBase;
+class MyBunshinShot001;
+class MyBunshinSnipeShot001;
+class MyBunshinWateringLaserChip001;
+class MyLockonController;
+class MyMagicEnergy;
+class MyMagicEnergyCore;
+class MyShip;
+class MyShipDivingCamWorker;
+class MyShipScene;
+class MyShot001;
+class MySnipeShot001;
 class MyStgUtil;
-
-template<class T>
-class Formation001;
-
-
+class MyStraightLaserChip001;
+class MyTorpedo;
+class MyTorpedoBlast;
+class MyTorpedoController;
+class MyTorpedoTail;
+class MyVreath;
+class MyWave001;
+class NameEntryScene;
+class PauseCamWorker;
 class Planet001;
 class Planet001Atmosphere;
-class Horizon001;
-
-class CubeMapMeshTestActor;
-class CubeMapMeshSetTestActor;
-class CubeMapMorphMeshTestActor;
-class DefaultD3DXAniMeshTestActor;
-class DefaultBoardTestActor;
-class DefaultBoardSetTestActor;
-class DefaultMeshTestActor;
-class DefaultD3DXMeshTestActor;
-class DefaultMeshSetTestActor;
-class DefaultMorphMeshTestActor;
-class DefaultPointSpriteTestActor;
-class DefaultSpriteTestActor;
-class DefaultSpriteSetTestActor;
-class GroundMeshTestActor;
-class HoshiboshiTestActor;
-class LaserChipTestActor;
+class PreDrawScene;
+class Properties;
+class RankingTable;
+class RankUp001;
+class RankUp002;
+class RankUp003;
+class RankUp100;
+class RankUpStage;
+class RankUpStageController;
+class ScoreItem;
+class ScoreItem001;
+class Shot001;
+class Shot002;
+class Shot003;
+class Shot004;
+class Shot004Blue;
+class Shot004Yellow;
+class ShotMagic;
 class SingleLaserTestActor;
-class SpriteMeshTestActor;
+class SmileMagic;
+class Spacetime;
+class SpeedMagic;
+class SplineLineConnection;
+class SplineLineManager;
+class SpriteLabelBonus001;
+class SpriteLabelGecchi32Font;
+class SpriteLabelTest;
 class SpriteMeshSetTestActor;
+class SpriteMeshTestActor;
+class Stage;
+class Stage01;
+class Stage01_01;
+class Stage01_02;
+class Stage01_03;
+class Stage01_Climax;
+class Stage01PartController;
+class Stage01WalledScene;
+class Stage01WalledSection001;
+class Stage01WallScene;
+class Stage01WallSection001;
+class Stage02;
+class Stage02_01;
+class Stage02_Climax;
+class Stage02PartController;
+class Stage03;
+class Stage04;
+class Stage05;
+class StageController;
+class StagePartController;
+class StageWorld;
+class TamagoActor;
+class TamagoScene;
+class TestCamWorker;
+class TestChoki;
+class TestChokiShot;
+class TestDepository;
+class TestEnemy;
+class TestGu;
+class TestGuShot;
+class TestNomal;
+class TestNomalShot;
+class TestPa;
+class TestPaShot;
+class TitleBoard;
+class TorpedoMagic;
+class TractorMagic;
+class TransitStage;
+class VamSysCamPosition;
+class VamSysCamWorker;
+class VarietyRatislavia001;
+class VarietyRatislavia002;
+class VarietyRatislavia003;
+class VarietyRatislavia004;
+class ViewPointGuide;
+class VreathBar;
+class VreathItem;
+class VreathItem001;
+class VreathMagic;
+class Wall001;
+class Wall001Prism;
+class Wall01;
 class WallAABTestActor;
 class WallAAPrismTestActor;
+class World;
+class WorldBound001;
+class WorldBound002;
+class WorldBoundNameEntry;
+class WorldBoundRankUp;
+class WorldBoundTitle;
+class WorldBoundTransit;
+class XpmConnection;
+class XpmManager;
+//// forward declaration end
 
-class VamSysCamPosition;
-class MenuBoard;
-class CursorCofirmMenu;
-class MenuBoardConfirm;
-class CursorPauseMenu;
-class MenuBoardPause;
-class CursorTitleMenu;
-class MenuBoardTitle;
-
-class CursorConfig001;
-class MenuBoardConfig;
-class CursorConfig002;
-class MenuBoardKeyConfig;
-class CursorConfig004;
-class MenuBoardSoundConfig;
-class CursorConfig003;
-class MenuBoardScreenConfig;
-class CursorResolutionSelect;
-class MenuBoardResolutionSelect;
-
-class MenuBoardNameEntry;
-class CursorNameEntryMenu;
-class CursorConfig005;
-
-class XpmHeader;
-class InnerTitleBar;
 }
 
 

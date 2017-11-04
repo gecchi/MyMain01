@@ -66,7 +66,7 @@ public:
     GgafEnumIndex(int prm_enum_start, int prm_enum_end) {
         _enum_start = prm_enum_start;
         _enum_end = prm_enum_end;
-        for(int i = 0; i <= prm_enum_end-prm_enum_start; i++) {
+        for (int i = 0; i <= prm_enum_end-prm_enum_start; i++) {
             _n[(prm_enum_start+i)] = i;
         }
     }
@@ -75,7 +75,7 @@ public:
      * —ñ‹“’l‚Æ‡˜ƒŠƒXƒg‚Ì‘Î‰‚ğƒŠƒZƒbƒg‚·‚éB
      */
     inline void reset() {
-        for(int i = 0; i <= _enum_end-_enum_start; i++) {
+        for (int i = 0; i <= _enum_end-_enum_start; i++) {
             _n[(_enum_start+i)] = i;
         }
     }
@@ -119,7 +119,7 @@ public:
         _n.erase(prm_key);
         //value ‚ğ‹l‚ß‚ÄU‚è’¼‚µ
         int i = 0;
-        for(std::map<int, int>::iterator it = _n.begin(); it != _n.end(); ++it) {
+        for (std::map<int, int>::iterator it = _n.begin(); it != _n.end(); ++it) {
             it->second = i;
             i++;
         }
@@ -130,12 +130,12 @@ public:
      * @param prm_to    íœ‚·‚é—ñ‹“—v‘f‚ÌI—¹’l
      */
     void remove(int prm_from, int prm_to) {
-        for(int i = prm_from; i <= prm_to; i++) {
+        for (int i = prm_from; i <= prm_to; i++) {
             _n.erase(i);
         }
         //value ‚ğ‹l‚ß‚ÄU‚è’¼‚µ
         int i = 0;
-        for(std::map<int, int>::iterator it = _n.begin(); it != _n.end(); ++it) {
+        for (std::map<int, int>::iterator it = _n.begin(); it != _n.end(); ++it) {
             it->second = i;
             i++;
         }
@@ -143,7 +143,7 @@ public:
 
 
     void dump() {
-        for(std::map<int, int>::iterator it = _n.begin(); it != _n.end(); ++it) {
+        for (std::map<int, int>::iterator it = _n.begin(); it != _n.end(); ++it) {
             std::cout << it->first << "->" << it->second << std::endl;
         }
     }

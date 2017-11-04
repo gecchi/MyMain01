@@ -112,7 +112,7 @@ void GgafLibWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
             }
             break;
         case WM_SYSCOMMAND:
-            if(wParam == SC_CLOSE){
+            if(wParam == SC_CLOSE) {
                 PostQuitMessage(0);
             }
             break;

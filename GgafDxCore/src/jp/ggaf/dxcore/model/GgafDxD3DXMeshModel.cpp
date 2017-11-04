@@ -187,7 +187,7 @@ void GgafDxD3DXMeshModel::restore() {
     // GetBufferPointer()で取得できる D3DXMATERIAL構造体配列のメンバのMatD3D (D3DMATERIAL9構造体) が欲しい。
     //構造体を物理コピーをして保存することにしましょ～、とりあえずそ～しましょう。
     paMaterial = NEW D3DMATERIAL9[num_materials];
-    for( DWORD i = 0; i < num_materials; i++){
+    for ( DWORD i = 0; i < num_materials; i++) {
         paMaterial[i] = paD3DMaterial9_tmp[i].MatD3D;
     }
 
@@ -199,14 +199,14 @@ void GgafDxD3DXMeshModel::restore() {
     //＜2009/3/13＞
     //固定パイプラインはもう使わなくなった。それに伴いマテリアルDiffuseはシェーダーのパラメータのみで利用している。
     //TODO:現在マテリアルAmbientは参照されない。今後もそうする？
-    for( DWORD i = 0; i < num_materials; i++) {
+    for ( DWORD i = 0; i < num_materials; i++) {
         paMaterial[i].Ambient = paMaterial[i].Diffuse;
     }
 
     //テクスチャを取り出す
     papTextureConnection = NEW GgafDxTextureConnection*[num_materials];
     char* texture_filename;
-    for( DWORD i = 0; i < num_materials; i++) {
+    for ( DWORD i = 0; i < num_materials; i++) {
         texture_filename = paD3DMaterial9_tmp[i].pTextureFilename;
         if (texture_filename != nullptr && lstrlen(texture_filename) > 0 ) {
             papTextureConnection[i] = (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(texture_filename, this));

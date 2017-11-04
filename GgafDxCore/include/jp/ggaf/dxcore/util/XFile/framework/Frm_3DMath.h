@@ -489,7 +489,7 @@ matrix<T> matrix<T>::operator*(T pT)
 {
     T Rdata[16];
     memcpy(Rdata, data, 16 * sizeof(T));
-    for(k = 0; k < 16; k++)
+    for (k = 0; k < 16; k++)
     Rdata[k] *= pT;
     return matrix<T>(Rdata);
 }

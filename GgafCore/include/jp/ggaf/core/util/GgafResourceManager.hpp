@@ -215,7 +215,7 @@ GgafResourceConnection<T>* GgafResourceManager<T>::connect(const char* prm_idstr
     if (_is_waiting_to_connect || _is_connecting_resource) {
         _TRACE_("＜警告＞ GgafResourceManager<T>::connect() "<<_manager_name<<"は、コネクト処理中にもかかわらず、更にconnect() 要求が来たため待機が発生しました・・ 待機中("<<prm_idstr<<")");
     }
-    for(int i = 0; _is_waiting_to_connect || _is_connecting_resource; i++) {
+    for (int i = 0; _is_waiting_to_connect || _is_connecting_resource; i++) {
         Sleep(10);
         if (i > 10*100*60) {
             //10分以上無応答時
@@ -231,7 +231,7 @@ GgafResourceConnection<T>* GgafResourceManager<T>::connect(const char* prm_idstr
 
     //TODO:簡易的な排他。ほぼ完璧だが完全ではない。
     GgafResourceConnection<T>* pObj = nullptr;
-    for(int i = 0; GgafResourceConnection<T>::_is_closing_resource; i++) {
+    for (int i = 0; GgafResourceConnection<T>::_is_closing_resource; i++) {
         _is_waiting_to_connect = true;
         Sleep(10);
         if (i > 10*100*60) {

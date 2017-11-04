@@ -2,15 +2,8 @@
 #define VVENEMYSHEADER_H_
 #include "VioletVreath.h"
 
-//シーンクラスに include されるヘッダです。
-
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
-
-#include "jp/gecchi/VioletVreath/actor/enemy/_Test/TestEnemy.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/_Test/TestGu.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/_Test/TestChoki.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/_Test/TestPa.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/_Test/TestNomal.h"
+#include "jp/ggaf/lib/scene/FormationTableScene.h"
 
 #include "jp/gecchi/VioletVreath/actor/enemy/Alisana/EnemyAlisana.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Allas/EnemyAllas.h"
@@ -77,6 +70,14 @@
 #include "jp/gecchi/VioletVreath/actor/enemy/Ida/FormationIda.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ida/FormationIda001.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Irce/EnemyIrce.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Oebius/EnemyOebius.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Oebius/EnemyOebiusController.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Oebius/EnemyOebiusController001.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Oebius/EnemyOebiusController002.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Oebius/EnemyOebiusCore.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Oebius/FormationOebius.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Oebius/FormationOebius001.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Oebius/FormationOebius002.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Omulus/EnemyOmulus.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ortuna/EnemyOrtuna.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ortuna/FormationOrtuna001.h"
@@ -117,17 +118,14 @@
 #include "jp/gecchi/VioletVreath/actor/enemy/Unomia/FormationUnomia002.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Unomia/FormationUnomia002a.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Unomia/FormationUnomia002b.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Oebius/EnemyOebiusController001.h"
-#include "jp/gecchi/VioletVreath/actor/enemy/Oebius/EnemyOebiusController002.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Urydike/EnemyUrydike.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/Urydike/FormationUrydike.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Urydike/FormationUrydike001.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Urydike/FormationUrydike002.h"
-
-#include "jp/gecchi/VioletVreath/actor/Danmaku/Alice/DanmakuAlice.h"
-#include "jp/gecchi/VioletVreath/actor/Danmaku/Alice/DanmakuAlice001.h"
-#include "jp/gecchi/VioletVreath/actor/Danmaku/Alice/AliceShot.h"
-//"VioletVreath.h"への前方宣言追記も忘れずに
-
-#include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
-#include "jp/ggaf/lib/scene/FormationTableScene.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/_Test/TestChoki.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/_Test/TestEnemy.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/_Test/TestGu.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/_Test/TestNomal.h"
+#include "jp/gecchi/VioletVreath/actor/enemy/_Test/TestPa.h"
 
 #endif /*VVENEMYSHEADER_H_*/

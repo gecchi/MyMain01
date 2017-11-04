@@ -199,7 +199,7 @@ void GgafDxMorphMeshModel::restore() {
 
     std::string* paXfileName = NEW std::string[morph_target_num+1];
 
-    for(int i = 0; i < morph_target_num+1; i++) {
+    for (int i = 0; i < morph_target_num+1; i++) {
         char* xfilename_base = _model_name + 2; //‚Q•¶Žš–ÚˆÈ~  "2/ceres" ¨ "ceres"
         paXfileName[i] = GgafDxModelManager::getMeshFileName(std::string(xfilename_base) + "_" + (char)('0'+i));
         if (paXfileName[i] == "") {

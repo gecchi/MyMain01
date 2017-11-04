@@ -27,12 +27,12 @@ _r_top_level_dz(1.0 / _top_level_dz)
     //べき乗作成
     _pa_8pow = NEW uint32_t[(prm_level+1)+1];
     _pa_8pow[0] = 1;
-    for (int i = 1; i < (prm_level+1)+1; i++) {
+    for (uint32_t i = 1; i < (prm_level+1)+1; i++) {
         _pa_8pow[i] = _pa_8pow[i-1] * 8;
         //_TRACE_("_pa_8pow["<<i<<"]="<<_pa_8pow[i]);
     }
     //線形八分木配列作成
-    _num_space = (int)((_pa_8pow[_top_space_level+1] -1) / 7); //空間数
+    _num_space = (uint32_t)((_pa_8pow[_top_space_level+1] -1) / 7); //空間数
     _TRACE_("GgafLinearOctree::GgafLinearOctree("<<prm_level<<") 線形八分木空間配列要素数 _num_space="<<_num_space);
     _paOctant = NEW GgafTreeSpace<3u>[_num_space];
     for (uint32_t i = 0; i < _num_space; i++) {

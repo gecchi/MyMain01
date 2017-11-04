@@ -86,7 +86,7 @@ public:
      * ’l‚ğÀ’l‚ÉŠÖ‚í‚é”—Ê‚Åæ“¾ .
      */
     inline QTY getQty() {
-        return _qty;
+        return _is_link ? (QTY)((*_pVal) * _rate_val) : _qty;
     }
 
     virtual ~Quantity() {

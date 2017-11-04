@@ -52,7 +52,7 @@ GgafXpm::GgafXpm(const char** prm_xpm) : GgafObject() {
     }
 }
 
-GgafXpm::~GgafXpm(){
+GgafXpm::~GgafXpm() {
     for (int i = 0; i < _colors; i++) {
         GgafRgb* pRgb = _mapCharRgb[_vecColorChar[i]];
         GGAF_DELETE(pRgb);

@@ -107,7 +107,7 @@ public:
      */
     explicit GgafDxModel(const char* prm_model_name);
 
-    char* getName(){
+    char* getName() {
         return _model_name;
     }
 

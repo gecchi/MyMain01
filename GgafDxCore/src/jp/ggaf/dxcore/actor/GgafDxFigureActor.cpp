@@ -58,7 +58,7 @@ _pAlphaFader(nullptr)
     _pNextRenderActor = nullptr;
     //マテリアルをコピー
     _paMaterial = NEW D3DMATERIAL9[_pModel->_num_materials];
-    for (DWORD i = 0; i < _pModel->_num_materials; i++){
+    for (DWORD i = 0; i < _pModel->_num_materials; i++) {
         _paMaterial[i] = _pModel->_paMaterial_default[i];
     }
     _alpha = 1.0f;
@@ -111,7 +111,7 @@ _pAlphaFader(nullptr)
 
     //マテリアルをコピー
     _paMaterial = NEW D3DMATERIAL9[_pModel->_num_materials];
-    for (DWORD i = 0; i < _pModel->_num_materials; i++){
+    for (DWORD i = 0; i < _pModel->_num_materials; i++) {
         _paMaterial[i] = _pModel->_paMaterial_default[i];
     }
     _alpha = 1.0f;

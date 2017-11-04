@@ -107,7 +107,7 @@ void GgafDxScene::fadeoutScene(int prm_frame_fade) {
     }
 }
 
-void GgafDxScene::fadeoutSceneWithBgm(int prm_frame_fade){
+void GgafDxScene::fadeoutSceneWithBgm(int prm_frame_fade) {
     if (prm_frame_fade == 0) {
         _pAlphaCurtain->close();
         _pBgmPerformer->stop();

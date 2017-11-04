@@ -304,7 +304,7 @@ void GgafDxBoardSetModel::restore() {
 
     _num_materials = 1;
     D3DMATERIAL9* paMaterial = NEW D3DMATERIAL9[_num_materials];
-    for( DWORD i = 0; i < _num_materials; i++){
+    for ( DWORD i = 0; i < _num_materials; i++) {
         //paMaterial[i] = paD3DMaterial9_tmp[i].MatD3D;
         paMaterial[i].Diffuse.r = 1.0f;
         paMaterial[i].Diffuse.g = 1.0f;

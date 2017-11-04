@@ -132,7 +132,7 @@ void GgafDxMassMorphMeshModel::restore() {
 
         std::string* xfile_names = NEW std::string[_morph_target_num+1];
 
-        for(int i = 0; i < _morph_target_num+1; i++) {
+        for (int i = 0; i < _morph_target_num+1; i++) {
             xfile_names[i] = GgafDxModelManager::getMeshFileName(str_model + "_" + XTOS(i));
         }
         HRESULT hr;

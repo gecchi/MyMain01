@@ -42,7 +42,7 @@ void GgafDxSphereRadiusVectors::getFaceAngClosely(uint32_t prm_x,
     bottom = (D90SANG+1)*(D90SANG+1) - 1;
 
     center_prev = -1;
-    for(int i = 0; i < s; i++) { //Å‚25‰ñ‚Ü‚ÅŒŸõ
+    for (int i = 0; i < s; i++) { //Å‚25‰ñ‚Ü‚ÅŒŸõ
         center = (top + bottom) / 2;
         if (_sr[center].num_yzx < target.num_yzx) {
             top = center;
@@ -62,7 +62,7 @@ void GgafDxSphereRadiusVectors::getFaceAngClosely(uint32_t prm_x,
     top = (top / (D90SANG+1)) * (D90SANG+1);
     bottom = top + (D90SANG+1)-1;
     center_prev = -1;
-    for(int i = 0; i < s; i++) { //Å‚25‰ñ‚Ü‚ÅŒŸõ
+    for (int i = 0; i < s; i++) { //Å‚25‰ñ‚Ü‚ÅŒŸõ
         center = (top + bottom) / 2;
         if (_sr[center].num_yzx < target.num_yzx) {
             top = center;

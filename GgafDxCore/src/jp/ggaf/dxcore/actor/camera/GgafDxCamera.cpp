@@ -122,7 +122,7 @@ void GgafDxCamera::processBehavior() {
             0.0f,  0.0f,  0.0f,  1.0f
         );
         // ワールド → ビュー → 射影 → スクリーン変換 の逆を行う
-        for( int i = 0; i < 4; i++ ) {
+        for ( int i = 0; i < 4; i++ ) {
             D3DXVec3Unproject(
                 &_vecNear[i], //D3DXVECTOR3 *pOut,              [in, out] 演算結果である D3DXVECTOR3 構造体へのポインタ。
                 &_vecNear[i], //CONST D3DXVECTOR3 *pV,          [in] 処理の基になる D3DXVECTOR3 構造体へのポインタ。

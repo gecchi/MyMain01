@@ -193,7 +193,7 @@ int GgafResourceConnection<T>::close() {
         _TRACE_("＜警告＞ GgafResourceConnection<T>::close() 別のスレッドがconnect() 或いは close() 。待機が発生しました・・・・意図的ならば良いです。[" << _pManager->_manager_name << "(" << _idstr << ")" << "]。");
     }
 
-    for(int i = 0; _is_closing_resource || GgafResourceManager<T>::_is_connecting_resource; i++) {
+    for (int i = 0; _is_closing_resource || GgafResourceManager<T>::_is_connecting_resource; i++) {
         Sleep(10);
         if (i > 100*60) {
             throwGgafCriticalException("[" << _pManager->_manager_name << "(" << _idstr << ")" << "]<-" << _num_connection << " \n"

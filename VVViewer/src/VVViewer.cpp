@@ -88,7 +88,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
         case WM_DROPFILES: {/* ファイルがドロップされた時の処理 */
             HDROP hDrop = (HDROP)wParam;
             UINT uFileNo = DragQueryFile((HDROP)wParam, 0xFFFFFFFF, nullptr, 0);
-            for(int i = 0; i < (int)uFileNo; i++) {
+            for (int i = 0; i < (int)uFileNo; i++) {
                 DragQueryFile(hDrop, i, VvvGod::dropfiles_, sizeof(VvvGod::dropfiles_));
                 _TRACE_("VvvGod::dropfiles_="<<VvvGod::dropfiles_);
             }

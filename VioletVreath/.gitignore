@@ -20,6 +20,7 @@
 /back.properties
 *.log
 *.tmp
+*.bak
 /Debug_XP/
 /Release_XP/
 *.dll

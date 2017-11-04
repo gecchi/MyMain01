@@ -87,7 +87,7 @@ void BunshinMagic::processCastBegin(int prm_now_level, int prm_new_level) {
     }
 }
 
-void BunshinMagic::processCastingBehavior(int prm_now_level, int prm_new_level){
+void BunshinMagic::processCastingBehavior(int prm_now_level, int prm_new_level) {
     if (prm_new_level > prm_now_level) {
     }
 }

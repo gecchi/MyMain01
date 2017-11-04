@@ -1897,7 +1897,7 @@ void GgafDxGod::presentSpacetimeVisualize() {
 
     if (GgafDxGod::_is_device_lost_flg) {
         _TRACE_("【デバイスロスト処理/リソース解放】協調性レベルチェック BEGIN ------>");
-        //for(int i = 0; i < 300; i++) {
+        //for (int i = 0; i < 300; i++) {
         while (true) {
             if (_can_wddm) {
                 hr = ((IDirect3DDevice9Ex*)pDevice)->CheckDeviceState(_paPresetPrm[_primary_adapter_no].hDeviceWindow);
@@ -1919,7 +1919,7 @@ void GgafDxGod::presentSpacetimeVisualize() {
 
         //デバイスリセットを試みる
         _TRACE_("【デバイスロスト処理】デバイスリセット BEGIN ------>");
-        for(int i = 0; i < 100*60*10; i++) {
+        for (int i = 0; i < 100*60*10; i++) {
             if (PROPERTY::FULL_SCREEN && PROPERTY::DUAL_VIEW) {
                 hr = pDevice->Reset(_paPresetPrm);
             } else {
@@ -2001,8 +2001,8 @@ void GgafDxGod::clean() {
     if (!_was_cleaned) {
         _TRACE_(FUNC_NAME<<" begin");
         IDirect3DDevice9* pDevice = GgafDxGod::_pID3DDevice9;
-        for(int i = 0; i < 8; ++i) { pDevice->SetTexture( i, nullptr ); }
-        for(int i = 0; i < 8; ++i) { pDevice->SetStreamSource( i, nullptr, 0, 0 ); }
+        for (int i = 0; i < 8; ++i) { pDevice->SetTexture( i, nullptr ); }
+        for (int i = 0; i < 8; ++i) { pDevice->SetStreamSource( i, nullptr, 0, 0 ); }
         pDevice->SetIndices( nullptr );
         pDevice->SetPixelShader( nullptr );
         pDevice->SetVertexShader( nullptr );

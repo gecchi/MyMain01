@@ -24,7 +24,7 @@ _r_top_level_dy(1.0 / _top_level_dy)
     //‚×‚«æì¬
     _pa_4pow = NEW uint32_t[(prm_level+1)+1];
     _pa_4pow[0] = 1;
-    for(int i = 1; i < (prm_level+1)+1; i++) {
+    for (uint32_t i = 1; i < (prm_level+1)+1; i++) {
         _pa_4pow[i] = _pa_4pow[i-1] * 4;
         //_TRACE_("_pa_4pow["<<i<<"]="<<_pa_4pow[i]);
     }

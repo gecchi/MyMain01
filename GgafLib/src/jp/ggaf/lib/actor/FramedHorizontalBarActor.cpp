@@ -45,7 +45,7 @@ void FramedHorizontalBarActor::linkVariable(int* prm_pVariable) {
 }
 
 void FramedHorizontalBarActor::processPreDraw() {
-    pixcoord bar_width = (pixcoord)(_pPxQty->getQty());
+    pixcoord bar_width = getBarPx();
     setWidth(PX_C(bar_width));
     DefaultFramedBoardActor::processPreDraw();
 }

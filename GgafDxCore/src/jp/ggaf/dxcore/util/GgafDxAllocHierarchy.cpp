@@ -78,7 +78,7 @@ void GgafDxAllocHierarchy::registerMaterial(CONST D3DXMATERIAL *pSrc, DWORD num,
     addDelList( NEW Deleter<D3DXMATERIAL>( *ppDest, true ) );
 
     DWORD i;
-    for(i=0; i<num; i++) {
+    for (i=0; i<num; i++) {
         (*ppDest)[i].MatD3D = pSrc[i].MatD3D;   // マテリアル登録
         (*ppDest)[i].pTextureFilename = copyStr( pSrc[i].pTextureFilename );// テクスチャ名登録
     }
@@ -98,7 +98,7 @@ void GgafDxAllocHierarchy::registerEffect(CONST D3DXEFFECTINSTANCE *pSrc, D3DXEF
     D3DXEFFECTDEFAULT *pEDSrc = pSrc->pDefaults;// コピー元
     D3DXEFFECTDEFAULT *pEDDest = (*ppDest)->pDefaults;// コピー先
     unsigned int i=0;
-    for(i = 0; i < pSrc->NumDefaults; i++) {
+    for (i = 0; i < pSrc->NumDefaults; i++) {
         pEDDest[i].pParamName = copyStr(pEDSrc[i].pParamName);              // パラメータ名
         DWORD NumBytes = pEDDest[i].NumBytes = pEDSrc[i].NumBytes;// パラメータサイズ
         pEDDest[i].Type = pEDSrc[i].Type;// パラメータタイプ

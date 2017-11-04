@@ -58,7 +58,7 @@ void EnemyRatislavia::addSubGroupAsFkOnSurface(GgafDxGeometricActor* prm_pGeoAct
     this->addSubGroupAsFk(prm_pGeoActor, X, Y, Z, D0ANG, ry, rz);
 }
 
-void EnemyRatislavia::createCollisionAreaArea(int prm_nSphere){
+void EnemyRatislavia::createCollisionAreaArea(int prm_nSphere) {
     angle* paAngRadial = NEW angle[prm_nSphere];
     UTIL::getRadialAngle2D(0, prm_nSphere, paAngRadial);
     CollisionChecker* pChecker = getCollisionChecker();
