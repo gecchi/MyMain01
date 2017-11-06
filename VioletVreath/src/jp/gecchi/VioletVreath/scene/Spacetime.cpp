@@ -48,12 +48,6 @@ CameraWorkerConnection* Spacetime::CameraWorkerHistory::pop() {
     apCamWorkerConnection_[p_] = nullptr;
     return r;
 }
-void Spacetime::CameraWorkerHistory::clear() {
-    p_ = 0;
-    for (int i = 0; i < CAM_WORKER_STACK_NUM; i++) {
-        apCamWorkerConnection_[i] = nullptr;
-    }
-}
 
 void Spacetime::CameraWorkerHistory::dump() {
     _TRACE_("CameraWorkerHistory Active p_="<<p_);
@@ -64,7 +58,10 @@ void Spacetime::CameraWorkerHistory::dump() {
     }
 }
 Spacetime::CameraWorkerHistory::~CameraWorkerHistory() {
-    clear();
+    for (int i = 0; i < CAM_WORKER_STACK_NUM; i++) {
+        apCamWorkerConnection_[i] = nullptr;
+    }
+    p_ = 0;
 }
 
 /////////////////////////////////////////////////
@@ -147,8 +144,8 @@ CameraWorker* Spacetime::changeCameraWork(const char* prm_pID) {
         stack_CamWorkerConnection_.dump();
         _TRACE_("＜警告＞Spacetime::changeCameraWork("<<prm_pID<<") 同じカメラワークを連続でpush()していますので無視します。pActiveCamWorker_="<<pActiveCamWorker_->getName());
 #endif
+        pCon->close();
     }
-//    stack_CamWorkerConnection_.dump();
     return pCamWorker;
 
 }
@@ -205,7 +202,7 @@ void Spacetime::resetCamWorker() {
     //DefaultCamWorkerまでキレイにする
    _TRACE_(FUNC_NAME<<"");
 //    stack_CamWorkerConnection_.dump();
-    for (int i = 0; i < 30; i++) {
+    for (int i = 0; i < CAM_WORKER_STACK_NUM; i++) {
         if (stack_CamWorkerConnection_.p_ == 1) {
             break;
         } else {
@@ -227,5 +224,13 @@ void Spacetime::resetCamWorker() {
 
 
 Spacetime::~Spacetime() {
+    for (int i = 0; i < CAM_WORKER_STACK_NUM; i++) {
+        CameraWorkerConnection* pCon = stack_CamWorkerConnection_.apCamWorkerConnection_[i];
+        if (pCon) {
+            pCon->close();
+        }
+        stack_CamWorkerConnection_.apCamWorkerConnection_[i] = nullptr;
+    }
+    stack_CamWorkerConnection_.p_ = 0;
     GGAF_DELETE(pCamWorkerManager_);
 }

@@ -36,7 +36,6 @@ class Spacetime : public GgafLib::DefaultSpacetime {
         CameraWorkerConnection* getLast();
         void push(CameraWorkerConnection* prm_pCamWorkerCon);
         CameraWorkerConnection* pop();
-        void clear();
         void dump();
         ~CameraWorkerHistory();
     };
@@ -71,16 +70,17 @@ public:
     }
 
     /**
-     * カメラマンを一時的に切り替える .
-     * 新しいカメラマンを１人追加し、そちらにカメラの主導権を切り替えます。
-     * 以後、undoCameraWork() が実行されるまでそのままです。
+     * カメラマンを切り替える .
+     * 引数のカメラマンIDが初めてならば、カメラマン１人追加し、そちらにカメラの活動権与え切り替えます。 <br>
+     * 引数のカメラマンIDが現在活動中のカメラマンと同じIDを指定した場合、単に無視されます。 <br>
+     * 引数のカメラマンIDが現在活動中のカメラマンとは異なるが、以前切り替え済みのIDをだった場合、以前のそのカメラマンに切り替わります。 <br>
      * @param prm_pID 新しいカメラマン識別ID（識別IDは CameraWorkerManager に事前登録要）
-     * @return 新しいカメラマン
+     * @return カメラマンID
      */
     GgafLib::CameraWorker* changeCameraWork(const char* prm_pID);
 
     /**
-     * 現在のカメラマンを排除し、一つ前のカメラマンに戻す。 .
+     * 現在活動中のカメラマン、切り替え前のカメラマンに戻します。 .
      * 事前に changeCameraWork() を１回以上実行しておく必要があります。
      * @return 元々居た、戻った方のカメラマン
      */
