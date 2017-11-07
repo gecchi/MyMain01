@@ -23,19 +23,6 @@ int MenuBoardNameEntry::input_item_num_ = 16*4;
 MenuBoardNameEntry::MenuBoardNameEntry(const char* prm_name) :
         MenuBoard(prm_name, "board_bg01") {
     _class_name = "MenuBoardNameEntry";
-    //メニューウィンドウ設定
-//    update("%&&&&&&&&&&&&&&&&&&&&&&'\n"
-//           ")**********************+\n"
-//           ")**********************+\n"
-//           ")**********************+\n"
-//           ")**********************+\n"
-//           ")**********************+\n"
-//           ")**********************+\n"
-//           ")**********************+\n"
-//           "-....................../");
-//        update("%&'\n"
-//               ")*+\n"
-//               "-./");
     setWidth(PX_C(24*32));
     setHeight(PX_C(9*32));
     //メニューアイテム（入力文字盤）設定

@@ -18,18 +18,6 @@ using namespace VioletVreath;
 MenuBoardConfig::MenuBoardConfig(const char* prm_name) :
         MenuBoard(prm_name, "board_bg01") {
     _class_name = "MenuBoardConfig";
-    //メニューウィンドウ設定
-//    update("%&&&&&&&&&&&'\n"
-//           ")***********+\n"
-//           ")***********+\n"
-//           ")***********+\n"
-//           ")***********+\n"
-//           ")***********+\n"
-//           ")***********+\n"
-//           ")***********+\n"
-//           ")***********+\n"
-//           ")***********+\n"
-//           "-.........../");
     setWidth(PX_C(13*32));
     setHeight(PX_C(11*32));
 

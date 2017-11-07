@@ -1592,7 +1592,11 @@ void MenuActor<T>::processBehavior() {
     if (_with_rising) {
         processRising();
     }
-    if (_can_controll && T::getActiveFrame() > 2) {
+    frame active_frames = T::getActiveFrame();
+    if (active_frames == 1) {
+        onSelect(-1, *(_lstMvSelectHistory.getCurrent())); //コールバック
+    }
+    if (_can_controll && active_frames > 1) {
         if (condDecision()) {
             _will_be_just_decided_next_frame = true;
         } else if (condCancel()) {

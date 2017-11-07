@@ -13,13 +13,6 @@ using namespace VioletVreath;
 MenuBoardConfirm::MenuBoardConfirm(const char* prm_name) :
         MenuBoard(prm_name, "board_bg01") {
     _class_name = "MenuBoardConfirm";
-
-    //メニューウィンドウ設定
-//    update("%&&&&&&&&&&'\n"
-//           ")**********+\n"
-//           ")**********+\n"
-//           ")**********+\n"
-//           "-........../");
     setWidth(PX_C(12*32));
     setHeight(PX_C(5*32));
 

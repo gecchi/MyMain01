@@ -19,15 +19,6 @@ using namespace VioletVreath;
 MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
         MenuBoard(prm_name, "board_bg01") {
     _class_name = "MenuBoardPause";
-    //メニューウィンドウ設定
-//    update("%&&&&&&&&&&&&'\n"
-//           ")************+\n"
-//           ")************+\n"
-//           ")************+\n"
-//           ")************+\n"
-//           ")************+\n"
-//           ")************+\n"
-//           "-............/");
     setWidth(PX_C(14*32));
     setHeight(PX_C(8*32));
 
@@ -45,7 +36,7 @@ MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
         pLabel->update(apItemStr[i], ALIGN_CENTER, VALIGN_MIDDLE);
         addItem(pLabel, PX_C(200), PX_C(40+(i*18)));
         pLabel->getAlphaFader()->setRange(0, 0.6);
-        pLabel->setAlpha(0.6);
+        pLabel->getAlphaFader()->transitionLinearToTop(1);
     }
     //キャンセル押下時移動先アイテム
     relateAllItemToCancel(ITEM_QUIT);
@@ -58,7 +49,7 @@ MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
     setTransition(10, PX_C(0), +PX_C(100));
     //初期選択
     selectItem(ITEM_GAME_START);
-    //確認サブメニュー
+    //サブメニュー
     addSubMenu(NEW MenuBoardConfirm("confirm"));            //MENU_CONFIRM = 0 ,
     addSubMenu(NEW MenuBoardKeyConfig("key_config"));       //MENU_KEY_CONFIG,
     addSubMenu(NEW MenuBoardSoundConfig("sound_config"));   //MENU_SOUND_CONFIG,
@@ -82,12 +73,12 @@ void MenuBoardTitle::onSelect(int prm_from_index, int prm_selected_index) {
     if (prm_from_index > -1) {
         //非選択項目は点滅させない
         GgafDxFigureActor* pItem = getItem(prm_from_index);
-        pItem->setAlpha(pItem->getAlphaFader()->getTop());
+        pItem->getAlphaFader()->transitionLinearToTop(1);
     }
     //選択項目を点滅
     if (prm_selected_index > -1) {
         GgafDxFigureActor* pItem = getItem(prm_selected_index);
-        pItem->getAlphaFader()->beat(20, 10, 0, 10,-1);
+        pItem->getAlphaFader()->beat(20, 10, 0, 10, -1);
     }
 }
 
@@ -137,11 +128,9 @@ void MenuBoardTitle::processBehavior() {
         }
     }
 
-    if (getRisingSubMenu()) {
-        getSelectedItem()->setAlpha(1.0); //点滅を停止して明るく！
-    } else {
-        getSelectedItem()->getAlphaFader()->behave();
-    }
+//    if (getRisingSubMenu()) {
+//        getSelectedItem()->setAlpha(1.0); //点滅を停止して明るく！
+//    }
 
 }
 MenuBoardTitle::~MenuBoardTitle() {
