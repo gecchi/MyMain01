@@ -7,6 +7,7 @@ using namespace GgafDxCore;
 
 GgafDxBgmManager::GgafDxBgmManager(const char* prm_manager_name) :
     GgafResourceManager<GgafDxBgm> (prm_manager_name) {
+    _bgm_master_volume_rate = 1.0;
 }
 
 GgafDxBgm* GgafDxBgmManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) {
@@ -14,18 +15,24 @@ GgafDxBgm* GgafDxBgmManager::processCreateResource(const char* prm_idstr, void* 
     return pResourceBgm;
 }
 
-void GgafDxBgmManager::updateVolume() {
+void GgafDxBgmManager::setBgmMasterVolumeRate(double prm_volume_rate) {
+    _bgm_master_volume_rate = prm_volume_rate;
     while (_is_connecting_resource) {
         Sleep(1);
     }
     GgafDxBgmConnection* pConne = (GgafDxBgmConnection*)_pConn_first;
     while (pConne) {
-        pConne->peek()->setVolume(GGAF_MAX_VOLUME);
+        GgafDxBgm* pBgm = pConne->peek();
+        pBgm->setVolume(pBgm->getVolume());
         while (_is_connecting_resource) { //ŠÈˆÕ”r‘¼
             Sleep(1);
         }
         pConne = (GgafDxBgmConnection*)(pConne->getNext());
     }
+}
+
+float GgafDxBgmManager::getBgmMasterVolumeRate() {
+    return _bgm_master_volume_rate;
 }
 
 GgafResourceConnection<GgafDxBgm>* GgafDxBgmManager::processCreateConnection(const char* prm_idstr, GgafDxBgm* prm_pResource) {

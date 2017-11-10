@@ -15,11 +15,11 @@ GgafDxBgmPerformerForScene::GgafDxBgmPerformerForScene(GgafDxScene* prm_pDxScene
     _default_fade = 600;
 }
 
-void GgafDxBgmPerformerForScene::ready(int prm_channel, const char* prm_bgm_name) {
-    if (prm_channel >= _bgm_num) {
+void GgafDxBgmPerformerForScene::ready(int prm_bgm_no, const char* prm_bgm_name) {
+    if (prm_bgm_no >= _bgm_num) {
         if (_bgm_num == 0) {
             //初回
-            int new_bgm_num = prm_channel + 1;
+            int new_bgm_num = prm_bgm_no + 1;
             _pa_is_fade = NEW bool[new_bgm_num];
             _pa_is_fadeout_stop = NEW bool[new_bgm_num];
             _pa_target_volume = NEW double[new_bgm_num];
@@ -33,7 +33,7 @@ void GgafDxBgmPerformerForScene::ready(int prm_channel, const char* prm_bgm_name
         } else {
             //拡張する。
             int old_bgm_num = _bgm_num;
-            int new_bgm_num = prm_channel + 1;
+            int new_bgm_num = prm_bgm_no + 1;
             bool* new_pa_is_fade = NEW bool[new_bgm_num];
             bool* new_pa_is_fadeout_stop = NEW bool[new_bgm_num];
             double* new_pa_target_volume = NEW double[new_bgm_num];
@@ -60,88 +60,87 @@ void GgafDxBgmPerformerForScene::ready(int prm_channel, const char* prm_bgm_name
             _pa_inc_volume = new_pa_inc_volume;
         }
     }
-    GgafDxBgmPerformer::ready(prm_channel, prm_bgm_name); //上位呼び出し
+    GgafDxBgmPerformer::ready(prm_bgm_no, prm_bgm_name); //上位呼び出し
 }
 
-void GgafDxBgmPerformerForScene::fade(int prm_channel, frame prm_frame, int prm_target_volume) {
-    _pa_is_fade[prm_channel] = true;
-    _pa_target_volume[prm_channel] = (double)prm_target_volume;
-    _pa_inc_volume[prm_channel] = (prm_target_volume - _pa_volume[prm_channel]) / (double)prm_frame;
+void GgafDxBgmPerformerForScene::fade(int prm_bgm_no, frame prm_frame, int prm_target_volume) {
+    _pa_is_fade[prm_bgm_no] = true;
+    _pa_target_volume[prm_bgm_no] = (double)prm_target_volume;
+    _pa_inc_volume[prm_bgm_no] = (prm_target_volume - _pa_volume[prm_bgm_no]) / (double)prm_frame;
 }
 
-void GgafDxBgmPerformerForScene::fadein_f(int prm_channel, frame prm_frame) {
-    fade(prm_channel, prm_frame, GGAF_MAX_VOLUME);
+void GgafDxBgmPerformerForScene::fadein_f(int prm_bgm_no, frame prm_frame) {
+    fade(prm_bgm_no, prm_frame, GGAF_MAX_VOLUME);
 }
 
-void GgafDxBgmPerformerForScene::play_fadein_f(int prm_channel, frame prm_frame) {
-    play(prm_channel, GGAF_MIN_VOLUME, true);
-    fadein_f(prm_channel, prm_frame);
+void GgafDxBgmPerformerForScene::play_fadein_f(int prm_bgm_no, frame prm_frame) {
+    setVolume(prm_bgm_no, GGAF_MIN_VOLUME);
+    play(prm_bgm_no, true);
+    fadein_f(prm_bgm_no, prm_frame);
 }
 
-void GgafDxBgmPerformerForScene::fadeout_f(int prm_channel, frame prm_frame) {
-    if (_papBgmConnection[prm_channel]->peek()->isPlaying()) {
-        fade(prm_channel, prm_frame, GGAF_MIN_VOLUME);
-        _pa_is_fadeout_stop[prm_channel] = false;
+void GgafDxBgmPerformerForScene::fadeout_f(int prm_bgm_no, frame prm_frame) {
+    if (_papBgmConnection[prm_bgm_no]->peek()->isPlaying()) {
+        fade(prm_bgm_no, prm_frame, GGAF_MIN_VOLUME);
+        _pa_is_fadeout_stop[prm_bgm_no] = false;
     } else {
-        _TRACE_("＜警告＞GgafDxBgmPerformerForScene::fadeout_f("<<prm_channel<<", "<<prm_frame<<") は、"
-                "再生されていないので、フェードアウトを無視しました。file_name="<<_papBgmConnection[prm_channel]->peek()->_ogg_file_name);
+        _TRACE_("＜警告＞GgafDxBgmPerformerForScene::fadeout_f("<<prm_bgm_no<<", "<<prm_frame<<") は、"
+                "再生されていないので、フェードアウトを無視しました。file_name="<<_papBgmConnection[prm_bgm_no]->peek()->_ogg_file_name);
     }
 }
 
-void GgafDxBgmPerformerForScene::fadeout_stop_f(int prm_channel, frame prm_frame) {
-    if (_papBgmConnection[prm_channel]->peek()->isPlaying()) {
-        fade(prm_channel, prm_frame, GGAF_MIN_VOLUME);
-        _pa_is_fadeout_stop[prm_channel] = true;
+void GgafDxBgmPerformerForScene::fadeout_stop_f(int prm_bgm_no, frame prm_frame) {
+    if (_papBgmConnection[prm_bgm_no]->peek()->isPlaying()) {
+        fade(prm_bgm_no, prm_frame, GGAF_MIN_VOLUME);
+        _pa_is_fadeout_stop[prm_bgm_no] = true;
     } else {
-        _TRACE_("＜警告＞GgafDxBgmPerformerForScene::fadeout_stop_f("<<prm_channel<<", "<<prm_frame<<") は、"
-                "再生されていないので、フェードアウトを無視しました。file_name="<<_papBgmConnection[prm_channel]->peek()->_ogg_file_name);
+        _TRACE_("＜警告＞GgafDxBgmPerformerForScene::fadeout_stop_f("<<prm_bgm_no<<", "<<prm_frame<<") は、"
+                "再生されていないので、フェードアウトを無視しました。file_name="<<_papBgmConnection[prm_bgm_no]->peek()->_ogg_file_name);
     }
 }
 
-void GgafDxBgmPerformerForScene::play(int prm_channel, int prm_volume, bool prm_is_loop) {
-    GgafDxBgmPerformer::play(prm_channel, prm_volume, prm_is_loop); //上位呼び出し
-    _pa_is_fade[prm_channel] = false;
+void GgafDxBgmPerformerForScene::fadein(int prm_bgm_no) {
+    fadein_f(prm_bgm_no, _default_fade);
+}
+void GgafDxBgmPerformerForScene::play_fadein(int prm_bgm_no) {
+    play_fadein_f(prm_bgm_no, _default_fade);
+}
+void GgafDxBgmPerformerForScene::fadeout(int prm_bgm_no) {
+    fadeout_f(prm_bgm_no, _default_fade);
+}
+void GgafDxBgmPerformerForScene::fadeout_stop(int prm_bgm_no) {
+    fadeout_stop_f(prm_bgm_no, _default_fade);
 }
 
-void GgafDxBgmPerformerForScene::fadein(int prm_channel) {
-    fadein_f(prm_channel, _default_fade);
+void GgafDxBgmPerformerForScene::play(int prm_bgm_no, bool prm_is_loop) {
+    GgafDxBgmPerformer::play(prm_bgm_no, prm_is_loop); //上位呼び出し
+    _pa_is_fade[prm_bgm_no] = false;
 }
-void GgafDxBgmPerformerForScene::play_fadein(int prm_channel) {
-    play_fadein_f(prm_channel, _default_fade);
-}
-void GgafDxBgmPerformerForScene::fadeout(int prm_channel) {
-    fadeout_f(prm_channel, _default_fade);
-}
-void GgafDxBgmPerformerForScene::fadeout_stop(int prm_channel) {
-    fadeout_stop_f(prm_channel, _default_fade);
-}
-
 void GgafDxBgmPerformerForScene::behave() {
-    for (int channel = 0; channel < _bgm_num; channel++) {
-        if (_pa_is_fade[channel]) {
+    for (int bgm_no = 0; bgm_no < _bgm_num; bgm_no++) {
+        if (_pa_is_fade[bgm_no]) {
             //音量フェード
-            _pa_volume[channel] += _pa_inc_volume[channel];
-            if (_pa_inc_volume[channel] > 0 && _pa_volume[channel] >= _pa_target_volume[channel]) {
+            addVolume(bgm_no, _pa_inc_volume[bgm_no]);
+            if (_pa_inc_volume[bgm_no] > 0 && getVolume(bgm_no) >= _pa_target_volume[bgm_no]) {
                 //増音フェード完了時
-                _papBgmConnection[channel]->peek()->setVolume(_pa_volume[channel]);
-                _pa_is_fade[channel] = false;
-            } else if (_pa_inc_volume[channel] < 0 && _pa_volume[channel] <= _pa_target_volume[channel]) {
+                setVolume(bgm_no, _pa_target_volume[bgm_no]);
+                _pa_is_fade[bgm_no] = false;
+            } else if (_pa_inc_volume[bgm_no] < 0 && getVolume(bgm_no) <= _pa_target_volume[bgm_no]) {
                 //減音フェード完了時
-                _papBgmConnection[channel]->peek()->setVolume(_pa_volume[channel]);
-                _pa_is_fade[channel] = false;
-                if (_pa_is_fadeout_stop[channel]) {
-                    stop(channel);
+                setVolume(bgm_no, _pa_target_volume[bgm_no]);
+                _pa_is_fade[bgm_no] = false;
+                if (_pa_is_fadeout_stop[bgm_no]) {
+                    //減音フェード完了時に演奏停止
+                    stop(bgm_no);
                 }
-            } else {
-                _papBgmConnection[channel]->peek()->setVolume(_pa_volume[channel]);
             }
         }
     }
 }
 
 void GgafDxBgmPerformerForScene::fadeout_stop() {
-    for (int channel = 0; channel < _bgm_num; channel++) {
-        fadeout_stop(channel);
+    for (int bgm_no = 0; bgm_no < _bgm_num; bgm_no++) {
+        fadeout_stop(bgm_no);
     }
 }
 

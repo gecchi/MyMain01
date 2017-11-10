@@ -40,10 +40,10 @@ public:
 
     /**
      * BGMを設定する。
-     * @param prm_channel BGMチャンネル番号(0 ～ )
-     * @param prm_bgm_name プロパティファイルの_OGG, _BPM, _TITLE のプレフィックスとなっているkey文字列
+     * @param prm_bgm_no BGM番号(0 ～ )
+     * @param prm_bgm_name プロパティファイルのkey文字列
      */
-    virtual void ready(int prm_channel, const char* prm_bgm_name) override;
+    virtual void ready(int prm_bgm_no, const char* prm_bgm_name) override;
 
     /**
      * BGMの振る舞い .
@@ -53,101 +53,83 @@ public:
 
     /**
      * 演奏中のBGMにフェード効果を実行する。
-     * @param prm_channel              BGMチャンネル番号(0 ～ )
+     * @param prm_bgm_no              BGM番号(0 ～ )
      * @param prm_frame           フェードに費やすフレーム時間
      * @param prm_target_volume   到達目標ボリューム(0 ～ 100)
      */
-    void fade(int prm_channel, frame prm_frame, int prm_target_volume);
+    void fade(int prm_bgm_no, frame prm_frame, int prm_target_volume);
 
     /**
      * 演奏中のBGMにフェードイン効果を実行する。
      * フェードイン時間は setDefaultFadeFrames() 指定のフレーム数。
-     * @param prm_channel  BGMチャンネル番号(0 ～ )
+     * @param prm_bgm_no  BGM番号(0 ～ )
      */
-    void fadein(int prm_channel);
+    void fadein(int prm_bgm_no);
 
     /**
      * 演奏中のBGMにフェードイン効果を実行する。
-     * @param prm_channel  BGMチャンネル番号(0 ～ )
+     * @param prm_bgm_no  BGM番号(0 ～ )
      * @param prm_frame フェードインフレーム数
      */
-    void fadein_f(int prm_channel, frame prm_frame);
+    void fadein_f(int prm_bgm_no, frame prm_frame);
 
     /**
      * BGMを、フェードインによる再生を開始する。
      * フェードイン時間は setDefaultFadeFrames() 指定のフレーム数。
-     * @param prm_channel BGMチャンネル番号(0 ～ )
+     * @param prm_bgm_no BGM番号(0 ～ )
      */
-    void play_fadein(int prm_channel);
+    void play_fadein(int prm_bgm_no);
 
     /**
      * BGMを、フェードインによる再生を開始する。
-     * @param prm_channel  BGMチャンネル番号(0 ～ )
+     * @param prm_bgm_no  BGM番号(0 ～ )
      * @param prm_frame フェードインフレーム数
      */
-    void play_fadein_f(int prm_channel, frame prm_frame);
+    void play_fadein_f(int prm_bgm_no, frame prm_frame);
 
     /**
      * 演奏中のBGMにフェードアウト効果を実行する。
      * フェードアウト時間は setDefaultFadeFrames() 指定のフレーム数。
-     * @param prm_channel BGMチャンネル番号(0 ～ )
+     * @param prm_bgm_no BGM番号(0 ～ )
      */
-    void fadeout(int prm_channel);
+    void fadeout(int prm_bgm_no);
 
     /**
      * 演奏中のBGMにフェードアウト効果を実行する。
-     * @param prm_channel BGMチャンネル番号(0 ～ )
+     * @param prm_bgm_no BGM番号(0 ～ )
      * @param prm_frame フェードアウトフレーム数
      */
-    void fadeout_f(int prm_channel, frame prm_frame);
+    void fadeout_f(int prm_bgm_no, frame prm_frame);
 
     /**
      * 演奏中のBGMにフェードアウト効果を実行し、フェードアウト後演奏を停止する。
      * フェードアウト時間は setDefaultFadeFrames() 指定のフレーム数。
-     * @param prm_channel BGMチャンネル番号(0 ～ )
+     * @param prm_bgm_no BGM番号(0 ～ )
      */
-    void fadeout_stop(int prm_channel);
+    void fadeout_stop(int prm_bgm_no);
 
     /**
      * 演奏中のBGMにフェードアウト効果を実行し、フェードアウト後演奏を停止する。
-     * @param prm_channel BGMチャンネル番号(0 ～ )
+     * @param prm_bgm_no BGM番号(0 ～ )
      * @param prm_frame フェードアウトフレーム数
      */
-    void fadeout_stop_f(int prm_channel, frame prm_frame);
+    void fadeout_stop_f(int prm_bgm_no, frame prm_frame);
 
     /**
      * BGMの演奏を開始する(フェード効果無し)。
-     * @param prm_channel       BGMチャンネル番号(0 ～ )
-     * @param prm_volume   ボリューム(0～100)
+     * @param prm_bgm_no   BGM番号(0 ～ )
      * @param prm_is_loop  ループするかどうか（true:ループ再生する／false:ループ再生しない）
      */
-    void play(int prm_channel, int prm_volume, bool prm_is_loop) override;
+    virtual void play(int prm_bgm_no, bool prm_is_loop = true) override;
 
     /**
-     * BGMの演奏を開始する(フェード効果無し、ループ再生)。
-     * @param prm_channel       BGMチャンネル番号(0 ～ )
-     * @param prm_volume   ボリューム(0～100)
-     */
-    void play(int prm_channel, int prm_volume) override {
-        play(prm_channel, prm_volume, true);
-    }
-
-    /**
-     * BGMの演奏を開始する(フェード効果無し、ループ再生、ボリューム100)。
-     * @param prm_channel       BGMチャンネル番号(0 ～ )
-     */
-    void play(int prm_channel) override {
-        play(prm_channel, GGAF_MAX_VOLUME);
-    }
-
-    /**
-     * 全BGMチャンネルの演奏中のBGMにフェードアウト効果を実行し、フェードアウト後演奏を停止する。
+     * 全BGM番号の演奏中のBGMにフェードアウト効果を実行し、フェードアウト後演奏を停止する。
      * フェードアウト時間は setDefaultFadeFrames() 指定のフレーム数。
      */
     void fadeout_stop();
 
     /**
-     * 全BGMチャンネルのフェードインフェードアウト時のデフォルトフレーム時間を設定 .
+     * 全BGM番号のフェードインフェードアウト時のデフォルトフレーム時間を設定 .
      * 初期設定値は360フレーム。
      * @param prm_default_fade フェードに費やすフレーム時間
      */

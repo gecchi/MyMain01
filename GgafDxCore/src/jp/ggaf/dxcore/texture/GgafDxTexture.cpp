@@ -156,7 +156,7 @@ void GgafDxTexture::release() {
 }
 
 GgafDxTexture::~GgafDxTexture() {
-    _TRACE_("" << _texture_name );
+    _TRACE4_("GgafDxTexture::~GgafDxTexture("<<_texture_name<<") Adr:"<<this);
     GgafDxTexture::release();
     GGAF_DELETEARR(_texture_name);
 }

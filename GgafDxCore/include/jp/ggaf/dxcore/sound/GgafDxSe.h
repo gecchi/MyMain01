@@ -26,7 +26,12 @@ namespace GgafDxCore {
 class GgafDxSe : public GgafCore::GgafObject {
 
     static std::string getWaveFileName(std::string prm_file);
-
+    /**
+     * バッファへWaveデータを転送 .
+     * @param WaveFile
+     * @return (true:成功 / false:失敗)
+     */
+    int writeBuffer(CWaveDecorder& WaveFile);
 public:
     /** [r]サウンドバッファ */
     LPDIRECTSOUNDBUFFER _pIDirectSoundBuffer;
@@ -39,8 +44,12 @@ public:
     DWORD _default_frequency;
     /** [r]SEを最後に発生したアクター */
     GgafDxGeometricActor* _pActor_last_played;
-
-    bool _can_looping;
+    /** [r]現在の音量値(0 ～ 1000) */
+    int _volume;
+    /** [r]現在のパン値(left:-1.0 ～ center:0 ～ right:1.0) */
+    float _pan;
+    /** [r]現在の周波数の率 */
+    float _frequency_rate;
 
 public:
     /**
@@ -51,45 +60,16 @@ public:
     explicit GgafDxSe(const char* prm_wave_key);
 
     /**
-     * バッファへWaveデータを転送 .
-     * @param WaveFile
-     * @return (true:成功 / false:失敗)
-     */
-    int writeBuffer(CWaveDecorder& WaveFile);
-
-    /**
      * SoundBufferの復帰 .
      * @return 結果 (true:成功 / false:失敗)
      */
-    int restore(void);
+    virtual int restore(void);
 
     /**
-     * ボリュームとパンと周波数の率を指定してSEを１回再生 .
-     * ボリュームについて、内部でマスタボリュームの考慮が処理されるので、
-     * アプリケーション側は、本来の音量を気にせず通常再生したい場合は、
-     * ボリュームを100で設定する事。
-     * @param prm_volume ボリューム(0 ～ 1000)
-     * @param prm_pan パン(left:-1.0 ～ center:0 ～ right:1.0)
-     * @param prm_frequency_rate 元の周波数に乗ずる率
+     * SEを再生 .
+     * @param prm_is_looping true:ループ再生
      */
-    virtual void play(int prm_volume, float prm_pan, float prm_frequency_rate);
-
-    /**
-     * ボリュームとパンを指定してSEを1回再生
-     * ボリュームについて、内部でマスタボリュームの考慮が処理されるので、
-     * アプリケーション側は、本来の音量を気にせず通常再生したい場合は、
-     * ボリュームを100で設定する事。
-     * @param prm_volume ボリューム(0 ～ 1000)
-     * @param prm_pan    パン(left:-1.0 ～ center:0 ～ right:1.0)
-     */
-    virtual void play(int prm_volume, float prm_pan) {
-        play(prm_volume, prm_pan, 1.0f);
-    }
-
-    /**
-     * SEを1回再生 .
-     */
-    virtual void play();
+    virtual void play(bool prm_is_looping = false);
 
     virtual void stop();
 
@@ -97,27 +77,38 @@ public:
      * SEが再生中か調べる .
      * @return
      */
-    bool isPlaying();
+    virtual bool isPlaying();
 
     /**
-     * ボリュームを変更 .
-     * play()実行後、SEが再生中に音量を変化させるなどに使用することを想定 .
-     * 内部でマスタボリュームの考慮が処理される。
+     * SEボリュームを変更 .
+     * ただし、内部で実際に設定される音量は、BGMマスター音量率が乗じられた値となります。
      * @param prm_volume ボリューム(0 ～ 1000)
      */
-    void setVolume(int prm_volume);
+    virtual void setVolume(int prm_volume);
+
+    /**
+     * SEボリュームを取得 .
+     * 取得される音量は、SEマスター音量率が考慮される前の値。
+     * つまり、本クラスのsetVolume(int) で設定した値がそのまま取得されます。
+     * @return SEのボリューム(0～1000)
+     */
+    virtual int getVolume() {
+        return _volume;
+    }
 
     /**
      * パンを変更 .
      * play()実行後、SEが再生中に使用することを想定 .
      * @param prm_pan パン(left:-1.0 ～ center:0 ～ right:1.0)
      */
-    void setPan(float prm_pan);
+    virtual void setPan(float prm_pan);
 
-
-    void setLooping(bool prm_can_looping) {
-        _can_looping = prm_can_looping;
+    virtual int getPan() {
+        return _pan;
     }
+//    void setLooping(bool prm_can_looping) {
+//        _can_looping = prm_can_looping;
+//    }
 
     /**
      * 周波数の率を変更 .
@@ -125,7 +116,9 @@ public:
      * @param prm_frequency_rate 元の周波数に乗ずる率
      */
     void setFrequencyRate(float prm_frequency_rate);
-
+    float getFrequencyRate() {
+        return _frequency_rate;
+    }
     virtual ~GgafDxSe();
 };
 

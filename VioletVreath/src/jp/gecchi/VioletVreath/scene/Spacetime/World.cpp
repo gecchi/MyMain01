@@ -320,7 +320,7 @@ void World::processBehavior() {
                             GgafGod::_num_drawing,
                             CollisionChecker::_num_check,
                             askGod()->_fps,
-                            (GgafDxSound::_app_master_volume)
+                            (GgafDxSound::getAppMasterVolume())
                             );
     pLabel_debug_->update(aBufDebug_);
     if (getActiveFrame() % 60U == 0) {

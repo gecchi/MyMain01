@@ -39,8 +39,8 @@ MyTorpedo::MyTorpedo(const char* prm_name, MyTorpedoController* prm_pTorpedoCont
     pTarget_ = nullptr;
     useProgress(10);
     trz_ = try_ = 0;
-    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
-    pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_TORPEDO");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_TORPEDO");
 }
 
 void MyTorpedo::initialize() {

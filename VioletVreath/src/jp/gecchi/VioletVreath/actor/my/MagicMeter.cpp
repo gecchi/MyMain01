@@ -134,27 +134,25 @@ height_(PX_C(height_px_)) {
     pMainCur_ = NEW MagicMeterCursor001("MagicCursor", this);
     addSubGroup(pMainCur_);
 
-    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
-    pSe->set(SE_CURSOR_MOVE_METER             , "WAVE_MM_CURSOR_MOVE_METER");  //主メーターカーソル移動時
-    pSe->set(SE_CURSOR_MOVE_LEVEL             , "WAVE_MM_CURSOR_MOVE_LEVEL");  //上下レベル移動時
-    pSe->set(SE_CURSOR_MOVE_LEVEL_CANCEL      , "WAVE_MM_CURSOR_MOVE_LEVEL_CANCEL");  //上下レベル移動キャンセル（）
-    pSe->set(SE_CURSOR_BAD_MOVE               , "WAVE_MM_CURSOR_BAD_MOVE");  //ダメなカーソル移動（鳴るとうるさいので現在未使用）
-    pSe->set(SE_EXECUTE_LEVELUP_MAGIC         , "WAVE_MM_EXECUTE_LEVELUP_MAGIC");  //レベルアップ実行時
-    pSe->set(SE_EXECUTE_LEVELDOWN_MAGIC       , "WAVE_MM_EXECUTE_LEVELDOWN_MAGIC");  //レベルダウン実行時
-    pSe->set(SE_EXECUTE_CANCEL_LEVELUP_MAGIC  , "WAVE_MM_EXECUTE_CANCEL_LEVELUP_MAGIC");  //（詠唱キャンセルして）レベルアップ実行時
-    pSe->set(SE_EXECUTE_CANCEL_LEVELDOWN_MAGIC, "WAVE_MM_EXECUTE_CANCEL_LEVELDOWN_MAGIC");  //（詠唱キャンセルして）レベルダウン実行時
-    pSe->set(SE_NG_MP_IS_SHORT                , "WAVE_MM_NG_MP_IS_SHORT");  //MPが足りないため発動あるいは効果開始できない場合
-    pSe->set(SE_EFFECT_MAGIC                  , "WAVE_MM_EFFECT_MAGIC");  //発動が完了し、効果発生時
-    pSe->set(SE_NOTICE_LEVELDOWN_MAGIC        , "WAVE_MM_NOTICE_LEVELDOWN_MAGIC");  //レベルダウン発生予告
-    pSe->set(SE_BAD_OPERATION                 , "WAVE_MM_BAD_OPERATION");  //操作ミス。出来ない入力、ブブー
+    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    pSeTx->set(SE_CURSOR_MOVE_METER             , "WAVE_MM_CURSOR_MOVE_METER");  //主メーターカーソル移動時
+    pSeTx->set(SE_CURSOR_MOVE_LEVEL             , "WAVE_MM_CURSOR_MOVE_LEVEL");  //上下レベル移動時
+    pSeTx->set(SE_CURSOR_MOVE_LEVEL_CANCEL      , "WAVE_MM_CURSOR_MOVE_LEVEL_CANCEL");  //上下レベル移動キャンセル（）
+    pSeTx->set(SE_CURSOR_BAD_MOVE               , "WAVE_MM_CURSOR_BAD_MOVE");  //ダメなカーソル移動（鳴るとうるさいので現在未使用）
+    pSeTx->set(SE_EXECUTE_LEVELUP_MAGIC         , "WAVE_MM_EXECUTE_LEVELUP_MAGIC");  //レベルアップ実行時
+    pSeTx->set(SE_EXECUTE_LEVELDOWN_MAGIC       , "WAVE_MM_EXECUTE_LEVELDOWN_MAGIC");  //レベルダウン実行時
+    pSeTx->set(SE_EXECUTE_CANCEL_LEVELUP_MAGIC  , "WAVE_MM_EXECUTE_CANCEL_LEVELUP_MAGIC");  //（詠唱キャンセルして）レベルアップ実行時
+    pSeTx->set(SE_EXECUTE_CANCEL_LEVELDOWN_MAGIC, "WAVE_MM_EXECUTE_CANCEL_LEVELDOWN_MAGIC");  //（詠唱キャンセルして）レベルダウン実行時
+    pSeTx->set(SE_NG_MP_IS_SHORT                , "WAVE_MM_NG_MP_IS_SHORT");  //MPが足りないため発動あるいは効果開始できない場合
+    pSeTx->set(SE_EFFECT_MAGIC                  , "WAVE_MM_EFFECT_MAGIC");  //発動が完了し、効果発生時
+    pSeTx->set(SE_NOTICE_LEVELDOWN_MAGIC        , "WAVE_MM_NOTICE_LEVELDOWN_MAGIC");  //レベルダウン発生予告
+    pSeTx->set(SE_BAD_OPERATION                 , "WAVE_MM_BAD_OPERATION");  //操作ミス。出来ない入力、ブブー
 
-    pSe4Cast_ = NEW GgafDxSeTransmitterForActor(this);
-    pSe4Invoke_ = NEW GgafDxSeTransmitterForActor(this);
+    pSeTx4Cast_ = NEW GgafDxSeTransmitterForActor(this);
+    pSeTx4Invoke_ = NEW GgafDxSeTransmitterForActor(this);
     for (int i = 0; i < magic_num; i++) {
-        pSe4Cast_->set(i, "WAVE_MM_CASTING", i); //詠唱中SE。チャンネル明示指定
-        pSe4Cast_->setLooping(i, true);
-        pSe4Invoke_->set(i, "WAVE_MM_INVOKING", i); //発動中SE。チャンネル明示指定
-        pSe4Invoke_->setLooping(i, true);
+        pSeTx4Cast_->set(i, "WAVE_MM_CASTING", i); //詠唱中SE。チャンネル明示指定
+        pSeTx4Invoke_->set(i, "WAVE_MM_INVOKING", i); //発動中SE。チャンネル明示指定
     }
     fraeme_of_notice_remaind_ = 60*5;//残り僅か警告発生の残り時間
     alpha_velo_ = -0.01f;
@@ -251,8 +249,8 @@ void MagicMeter::onReset() {
         r_roll_[i] = 0.0f;
         r_roll_velo_[i] = 0.0f;
 
-        pSe4Cast_->stop(i);
-        pSe4Invoke_->stop(i);
+        pSeTx4Cast_->stop(i);
+        pSeTx4Invoke_->stop(i);
     }
     pMpCostDispBar_->setVal(0);
     pVreathCostDispBar_->setVal(0);
@@ -299,7 +297,7 @@ void MagicMeter::processBehavior() {
             switch (pMagic->last_cast_) {
                 case MAGIC_CAST_OK_LEVELUP: {
                     getSeTransmitter()->play(SE_EXECUTE_LEVELUP_MAGIC);
-                    pSe4Cast_->play(m);
+                    pSeTx4Cast_->play(m, true);
                     pLvTgtMvCur->blink(); //ピカピカ！
                     pLvCastingCur->markOnLevelUpCast(pMagic_new_level);
                     break;
@@ -321,7 +319,7 @@ void MagicMeter::processBehavior() {
                         //なにもしない
                     } else {
                         getSeTransmitter()->play(SE_EXECUTE_CANCEL_LEVELUP_MAGIC);
-                        pSe4Cast_->play(m);
+                        pSeTx4Cast_->play(m);
                         pLvTgtMvCur->blink(); //ピカピカ！
                         pLvCastingCur->markOnLevelUpCast(pMagic_new_level);
                     }
@@ -352,19 +350,19 @@ void MagicMeter::processBehavior() {
             if (pMagic->new_level_ > pMagic_level) {
                 //レベルアップなら音程アップ
                 float r = ((float)(pMagicProg->getFrame())) / ((float)(pMagic->time_of_next_state_));
-                pSe4Cast_->get(m)->setFrequencyRate(1.0f + (r*3.0f));
+                pSeTx4Cast_->getSe(m)->setFrequencyRate(1.0f + (r*3.0f));
             }
         }
         //詠唱中ではなくなった
         if (pMagicProg->hasJustChangedFrom(Magic::STATE_CASTING)) {
-            pSe4Cast_->stop(m); //消音
+            pSeTx4Cast_->stop(m); //消音
         }
 
         //発動開始時
         if (pMagicProg->hasJustChangedTo(Magic::STATE_INVOKING)) {
             switch (pMagic->last_invoke_) {
                 case MAGIC_INVOKE_OK_LEVELUP: {
-                    pSe4Invoke_->play(m);
+                    pSeTx4Invoke_->play(m, true);
                     pLvTgtMvCur->dispDisable(); //操作不可表示
                     pLvNowCur->dispDisable();
                     if (pLvTgtMvCur->point_lv_ == pMagic_level) {
@@ -393,12 +391,12 @@ void MagicMeter::processBehavior() {
             if (pMagic->new_level_ > pMagic_level) {
                 //レベルアップ時
                 float r = ((float)(pMagicProg->getFrame())) / ((float)(pMagic->time_of_next_state_));
-                pSe4Invoke_->get(m)->setFrequencyRate(1.0f + (r*3.0f));//音程を上げる
+                pSeTx4Invoke_->getSe(m)->setFrequencyRate(1.0f + (r*3.0f));//音程を上げる
             }
         }
         //発動ではなくなった
         if (pMagicProg->hasJustChangedFrom(Magic::STATE_INVOKING)) {
-            pSe4Invoke_->stop(m); //消音
+            pSeTx4Invoke_->stop(m); //消音
             pLvTgtMvCur->dispEnable(); //操作不可表示を解除
             pLvNowCur->dispEnable();
         }
@@ -753,8 +751,8 @@ MagicMeter::~MagicMeter() {
     GGAF_DELETEARR(papLvCastingCur_);
     GGAF_DELETEARR(r_roll_);
     GGAF_DELETEARR(r_roll_velo_);
-    GGAF_DELETE(pSe4Cast_);
-    GGAF_DELETE(pSe4Invoke_);
+    GGAF_DELETE(pSeTx4Cast_);
+    GGAF_DELETE(pSeTx4Invoke_);
 
     GGAF_DELETEARR(paInstancedata_MM_);
 }

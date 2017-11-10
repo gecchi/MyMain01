@@ -51,8 +51,8 @@ void GgafDxSeTransmitterForActor::set(int prm_id, const char* prm_se_key) {
         }
     }
 }
-void GgafDxSeTransmitterForActor::play(int prm_id) {
-    GgafDxSeTransmitter::play(prm_id);
+void GgafDxSeTransmitterForActor::play(int prm_id, bool prm_can_looping) {
+    GgafDxSeTransmitter::play(prm_id, prm_can_looping);
     _paBool_is_playing_3d[prm_id] = false;
 }
 
@@ -109,8 +109,7 @@ void GgafDxSeTransmitterForActor::play3D(int prm_id) {
         }
     }
 
-
-    pSpacetime->registerSe(_papSeConnection[prm_id]->peek(), vol, pan, rate_frequency, delay, _pActor); // + (GgafDxSe::VOLUME_RANGE / 6) ‚Í‰¹—Ê’êã‚°
+    pSpacetime->registerSe(getSe(prm_id), vol, pan, rate_frequency, delay, _pActor); // + (GgafDxSe::VOLUME_RANGE / 6) ‚Í‰¹—Ê’êã‚°
 
     _paBool_is_playing_3d[prm_id] = true;
     //^‚ñ’†‚©‚ç‚Ì‹——£

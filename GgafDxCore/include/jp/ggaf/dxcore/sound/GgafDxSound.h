@@ -42,6 +42,19 @@ namespace GgafDxCore {
  * @author Masatoshi Tsuge
  */
 class GgafDxSound {
+
+
+    /** [r]アプリケーション・マスターボリューム値(0～1000) */
+    static int _app_master_volume;
+    /** [r]BGM・マスターボリューム値(0～1000) */
+    static int _bgm_master_volume;
+    /** [r]サウンドエフェクト・マスターボリューム値(0～1000) */
+    static int _se_master_volume;
+
+
+    /** 計算用定数 */
+    static const int _MAXMAX_VOLUME = (GGAF_MAX_VOLUME * GGAF_MAX_VOLUME);
+
 public:
     /** IDirectSound8インターフェイス */
     static IDirectSound8* _pIDirectSound8;
@@ -51,20 +64,10 @@ public:
     static GgafDxSeManager* _pSeManager;
     /** [r]GgafDxBgm 管理クラス */
     static GgafDxBgmManager* _pBgmManager;
-    /** [r]アプリケーション・マスターボリューム値(0～1000) */
-    static int _app_master_volume;
-    /** [r]BGM・マスターボリューム値(0～1000) */
-    static int _bgm_master_volume;
-    /** [r]サウンドエフェクト・マスターボリューム値(0～1000) */
-    static int _se_master_volume;
-    /** [r]アプリケーション・マスターボリュームの割合 0.0～1.0 */
-    static float _app_master_volume_rate;
-    /** [r]BGM・マスターボリュームの割合 0.0～1.0 */
-    static float _bgm_master_volume_rate;
-    /** [r]サウンドエフェクト・マスターボリューム割合 0.0～1.0 */
-    static float _se_master_volume_rate;
+
     /** [r]要素番号にボリューム値を入れると、対応デシベルが取得できる配列 */
     static double _a_db_volume[GGAF_MAX_VOLUME+1];
+
 
 public:
     /**
@@ -85,11 +88,18 @@ public:
      */
     static void setAppMasterVolume(int prm_app_master_volume);
 
+    static int getAppMasterVolume() {
+        return  _app_master_volume;
+    }
+
     /**
      * アプリ全体のマスタボリューム増分設定 .
      * @param prm_app_master_volume_offset 音量増分
      */
-    static void addAppMasterVolume(int prm_app_master_volume_offset);
+    static void addAppMasterVolume(int prm_app_master_volume_offset) {
+        GgafDxSound::setAppMasterVolume(_app_master_volume+prm_app_master_volume_offset);
+    }
+
 
     /**
      * 全BGMのマスタボリュームの設定 .
@@ -97,11 +107,17 @@ public:
      */
     static void setBgmMasterVolume(float prm_bgm_master_volume);
 
+    static int getBgmMasterVolume() {
+        return _bgm_master_volume;
+    }
+
     /**
      * 全BGMのマスタボリューム増分設定 .
      * @param prm_bgm_master_volume_offset 音量増分
      */
-    static void addBgmMasterVolume(int prm_bgm_master_volume_offset);
+    static void addBgmMasterVolume(int prm_bgm_master_volume_offset) {
+        GgafDxSound::setBgmMasterVolume(_bgm_master_volume+prm_bgm_master_volume_offset);
+    }
 
     /**
      * 全SEのマスタボリュームの率設定 .
@@ -109,11 +125,18 @@ public:
      */
     static void setSeMasterVolume(float prm_se_master_volume);
 
+    static int getSeMasterVolume() {
+        return _se_master_volume;
+    }
+
     /**
      * 全SEのマスタボリューム増分設定 .
      * @param prm_se_master_volume_offset 音量増分
      */
-    static void addSeMasterVolume(int prm_se_master_volume_offset);
+    static void addSeMasterVolume(int prm_se_master_volume_offset) {
+        GgafDxSound::setSeMasterVolume(_se_master_volume+prm_se_master_volume_offset);
+    }
+
 };
 
 }

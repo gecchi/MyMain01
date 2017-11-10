@@ -22,9 +22,9 @@ EnemyErmioneArm::EnemyErmioneArm(const char* prm_name, const char* prm_model, Gg
 
     aiming_ang_velo_ = 0;
     aiming_movable_limit_ang_ = 0;
-    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
-    pSe->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_001"); //˜r”j‰ó
+    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001"); //˜r”j‰ó
     useProgress(PROG_BANPEI);
     behave_frames_ = 0;
     arm_no_ = 0;

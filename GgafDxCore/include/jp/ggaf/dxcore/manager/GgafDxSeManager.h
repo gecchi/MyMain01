@@ -16,6 +16,9 @@ namespace GgafDxCore {
  */
 class GgafDxSeManager : public GgafCore::GgafResourceManager<GgafDxSe> {
 
+    /** [r]サウンドエフェクト・マスターボリューム割合 0.0～1.0 */
+    double _se_master_volume_rate;
+
 public:
     /**
      * コンストラクタ
@@ -27,7 +30,9 @@ public:
 
     GgafDxSe* processCreateResource(const char* prm_idstr, void* prm_pConnector) override;
 
-    void updateVolume();
+    void setSeMasterVolumeRate(double prm_volume_rate);
+
+    double getSeMasterVolumeRate();
 
     virtual ~GgafDxSeManager() {
     }

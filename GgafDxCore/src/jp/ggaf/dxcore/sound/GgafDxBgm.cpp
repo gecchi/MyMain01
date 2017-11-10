@@ -1,10 +1,11 @@
 #include "jp/ggaf/dxcore/sound/GgafDxBgm.h"
 
-#include "jp/ggaf/dxcore/sound/GgafDxSound.h"
 #include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/sound/GgafDxSound.h"
 #include "jp/ggaf/dxcore/sound/IkdLib/OggVorbisFile.h"
 #include "jp/ggaf/dxcore/sound/IkdLib/OggDecoder.h"
 #include "jp/ggaf/dxcore/sound/IkdLib/PCMPlayer.h"
+#include "jp/ggaf/dxcore/manager/GgafDxBgmManager.h"
 #include "Shlwapi.h"
 #ifdef __GNUG__
     #undef __in
@@ -14,18 +15,6 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace IkdLib;
-
-//GgafDxBgm::GgafDxBgm(char* prm_ogg_name) : GgafObject() {
-//    _TRACE_(FUNC_NAME<<" "<<prm_ogg_name);
-//    if (GgafDxSound::_pIDirectSound8 == nullptr) {
-//        throwGgafCriticalException("GgafDxBgm::GgafDxBgm("<<prm_ogg_name<<") DirectSound が、まだ初期化されていません。");
-//    }
-//    _file_name = std::string(prm_ogg_name);
-//    std::string ogg_filename = PROPERTY::DIR_OGG[0] + _file_name + ".ogg";
-//    _pOggResource = NEW OggVorbisFile( ogg_filename.c_str() );
-//    _pOggDecoder =  NEW OggDecoder( _pOggResource );
-//    _pPcmPlayer = NEW PCMPlayer(GgafDxSound::_pIDirectSound8 , _pOggDecoder);
-//}
 
 GgafDxBgm::GgafDxBgm(const char* prm_bgm_key) : GgafObject() {
     if (GgafDxSound::_pIDirectSound8 == nullptr) {
@@ -40,13 +29,12 @@ GgafDxBgm::GgafDxBgm(const char* prm_bgm_key) : GgafObject() {
     if (_ogg_file_name == "") {
         throwGgafCriticalException("prm_bgm_key="<<prm_bgm_key<<" プロパティファイルにキーがありません");
     }
-//    _bpm = atoi(GgafProperties::_mapProperties[bgm_key+"_BPM"].c_str());
-//    _title = GgafProperties::_mapProperties[bgm_key+"_TITLE"];
-//    _TRACE_(FUNC_NAME<<" KEY="<<prm_bgm_key<<" _file_name="<<_ogg_file_name<<" _bpm="<<_bpm<<" _title="<<_title);
     std::string full_ogg_file_name = getOggFileName(_ogg_file_name);
     _pOggResource = NEW OggVorbisFile( full_ogg_file_name.c_str() );
     _pOggDecoder =  NEW OggDecoder( _pOggResource );
     _pPcmPlayer = NEW PCMPlayer(GgafDxSound::_pIDirectSound8 , _pOggDecoder);
+    _volume = GGAF_MAX_VOLUME;
+    _pan = 0.0f;
 }
 
 std::string GgafDxBgm::getOggFileName(std::string prm_file) {
@@ -71,14 +59,10 @@ std::string GgafDxBgm::getOggFileName(std::string prm_file) {
     }
 }
 
-void GgafDxBgm::play(int prm_volume, float prm_pan, bool prm_is_looping) {
-    setVolume(prm_volume);
-    setPan(prm_pan);
+void GgafDxBgm::play(bool prm_is_looping) {
     _pPcmPlayer->play(prm_is_looping);
 }
-void GgafDxBgm::play(bool prm_is_looping) {
-    play(GGAF_MAX_VOLUME, 0.0f, prm_is_looping);
-}
+
 void GgafDxBgm::pause() {
     _pPcmPlayer->pause();
 }
@@ -91,15 +75,21 @@ void GgafDxBgm::stop() {
 }
 
 void GgafDxBgm::setVolume(int prm_volume) {
-    //ボリューム→デシベル
-    int db = GgafDxSound::_a_db_volume[(int)(prm_volume * GgafDxSound::_app_master_volume_rate * GgafDxSound::_bgm_master_volume_rate)];
+    _volume = prm_volume;
+    //マスターBGM音量率を考慮
+    int v = (int)(_volume * GgafDxSound::_pBgmManager->getBgmMasterVolumeRate());
+    if (v > GGAF_MAX_VOLUME) {
+        v = GGAF_MAX_VOLUME;
+    }
+    int db = GgafDxSound::_a_db_volume[v];
     _pPcmPlayer->setVolume(db);
 }
 
 void GgafDxBgm::setPan(float prm_pan) {
+    _pan = prm_pan;
+    //TODO: マスターパン率はまだ無い
     _pPcmPlayer->setPan(prm_pan*DSBPAN_RIGHT);
 }
-
 
 void GgafDxBgm::clear() {
     _pPcmPlayer->clear();

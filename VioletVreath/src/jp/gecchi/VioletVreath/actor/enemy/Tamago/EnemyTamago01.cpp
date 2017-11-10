@@ -32,8 +32,8 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) :
     pConn_depo_ = connectToDepositoryManager("Shot001");
     //pDepo_shot_ = pConn_depo_->peek();
     pDepo_shot_ = nullptr;
-    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
-    pSe->set(0, "WAVE_EXPLOSION_001");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    pSeTx->set(0, "WAVE_EXPLOSION_001");
 }
 
 void EnemyTamago01::onCreateModel() {

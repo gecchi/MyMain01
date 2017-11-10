@@ -13,9 +13,9 @@ TestGu::TestGu(const char* prm_name)
       : TestEnemy(prm_name, "TestGu", STATUS(TestGu)) {
     _class_name = "TestGu";
 
-    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
-    pSe->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
 }
 
 void TestGu::onActive() {

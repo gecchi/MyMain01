@@ -27,11 +27,11 @@ EnemyOebiusCore::EnemyOebiusCore(const char* prm_name, EnemyOebiusController* pr
     _class_name = "EnemyOebiusCore";
     pController_ = prm_pController;
 
-    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
-    pSe->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    pSe->set(SE_UNDAMAGED, "WAVE_ENEMY_UNDAMAGED_001");
-    pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_002");
-    pSe->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    pSeTx->set(SE_UNDAMAGED, "WAVE_ENEMY_UNDAMAGED_001");
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_002");
+    pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
 
     useProgress(PROG_BANPEI);
 

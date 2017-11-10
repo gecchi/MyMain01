@@ -26,8 +26,8 @@ using namespace VioletVreath;
 EnemyOzartia::EnemyOzartia(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Ozartia", STATUS(EnemyOzartia)) {
     _class_name = "EnemyOzartia";
-    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
-    pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI1_-1);
     pProg2_ = createProgress(PROG2_BANPEI-1);
     is_hit_ = false;

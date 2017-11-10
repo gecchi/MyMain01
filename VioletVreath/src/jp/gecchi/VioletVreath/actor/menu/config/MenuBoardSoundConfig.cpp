@@ -84,9 +84,9 @@ bool MenuBoardSoundConfig::condSelectPrev() {
 }
 void MenuBoardSoundConfig::onRise() {
     selectItem(ITEM_SE_VOL); //カーソルの初期選択アイテムを設定
-    pLabel_SeVol_->update(XTOS(GgafDxSound::_se_master_volume).c_str());
-    pLabel_BgmVol_->update(XTOS(GgafDxSound::_bgm_master_volume).c_str());
-    pLabel_MasterVol_->update(XTOS(GgafDxSound::_app_master_volume).c_str());
+    pLabel_SeVol_->update(XTOS(GgafDxSound::getSeMasterVolume()).c_str());
+    pLabel_BgmVol_->update(XTOS(GgafDxSound::getBgmMasterVolume()).c_str());
+    pLabel_MasterVol_->update(XTOS(GgafDxSound::getAppMasterVolume()).c_str());
     MenuBoard::onRise();
 }
 void MenuBoardSoundConfig::processBehavior() {
@@ -97,15 +97,15 @@ void MenuBoardSoundConfig::processBehavior() {
         MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu();
         if (pSubConfirm->hasJustDecidedOk()) { //SAVE確認OK!
             //現プロパティへ書き込み
-            PROPERTY::setValue("SE_VOLUME", GgafDxSound::_se_master_volume);
-            PROPERTY::setValue("BGM_VOLUME", GgafDxSound::_bgm_master_volume);
-            PROPERTY::setValue("MASTER_VOLUME", GgafDxSound::_app_master_volume);
+            PROPERTY::setValue("SE_VOLUME", GgafDxSound::getSeMasterVolume());
+            PROPERTY::setValue("BGM_VOLUME", GgafDxSound::getBgmMasterVolume());
+            PROPERTY::setValue("MASTER_VOLUME", GgafDxSound::getAppMasterVolume());
             PROPERTY::save(VV_CONFIG_FILE); //プロパティ保存
-            PROPERTY::load(VV_CONFIG_FILE); //プロパティ再反映
-            //実行中アプリへも即時反映
-            GgafDxSound::setSeMasterVolume(PROPERTY::SE_VOLUME);
-            GgafDxSound::setBgmMasterVolume(PROPERTY::BGM_VOLUME);
-            GgafDxSound::setAppMasterVolume(PROPERTY::MASTER_VOLUME);
+//            PROPERTY::load(VV_CONFIG_FILE); //プロパティ再反映
+//            //実行中アプリへも即時反映
+//            GgafDxSound::setSeMasterVolume(PROPERTY::SE_VOLUME);
+//            GgafDxSound::setBgmMasterVolume(PROPERTY::BGM_VOLUME);
+//            GgafDxSound::setAppMasterVolume(PROPERTY::MASTER_VOLUME);
 
             sinkCurrentSubMenu();
             sinkMe();
@@ -125,22 +125,22 @@ void MenuBoardSoundConfig::processBehavior() {
         } else if (pVB->isAutoRepeat(VB_UI_LEFT)) {
             GgafDxSound::addSeMasterVolume(-10);
         }
-        pLabel_SeVol_->update(XTOS(GgafDxSound::_se_master_volume).c_str());
     } else if (index == ITEM_BGM_VOL) {
         if (pVB->isAutoRepeat(VB_UI_RIGHT)) {
             GgafDxSound::addBgmMasterVolume(+10);
         } else if (pVB->isAutoRepeat(VB_UI_LEFT)) {
             GgafDxSound::addBgmMasterVolume(-10);
         }
-        pLabel_BgmVol_->update(XTOS(GgafDxSound::_bgm_master_volume).c_str());
     } else if (index == ITEM_MASTER_VOL) {
         if (pVB->isAutoRepeat(VB_UI_RIGHT)) {
             GgafDxSound::addAppMasterVolume(+10);
         } else if (pVB->isAutoRepeat(VB_UI_LEFT)) {
             GgafDxSound::addAppMasterVolume(-10);
         }
-        pLabel_MasterVol_->update(XTOS(GgafDxSound::_app_master_volume).c_str());
     }
+    pLabel_SeVol_->update(XTOS(GgafDxSound::getSeMasterVolume()).c_str());
+    pLabel_BgmVol_->update(XTOS(GgafDxSound::getBgmMasterVolume()).c_str());
+    pLabel_MasterVol_->update(XTOS(GgafDxSound::getAppMasterVolume()).c_str());
 }
 
 void MenuBoardSoundConfig::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {

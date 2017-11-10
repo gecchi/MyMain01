@@ -19,8 +19,8 @@ EnemyEsperiaLaserChip001::EnemyEsperiaLaserChip001(const char* prm_name) :
     tx2_ = ty2_ = tz2_ = 0;
     begin_y_ = 0;
     turn_dy_ = 0;
-    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
-    pSe->set(SE_FIRE , "WAVE_ENEMY_FIRE_LASER_001");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    pSeTx->set(SE_FIRE , "WAVE_ENEMY_FIRE_LASER_001");
 }
 
 void EnemyEsperiaLaserChip001::initialize() {

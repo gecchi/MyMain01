@@ -21,8 +21,8 @@ EffectLockon001::EffectLockon001(const char* prm_name, const char* prm_model_id)
     setAlpha(0.9);          //α部分があるため、カリングをOFFするため透明オブジェクト扱いにする。
 
     setHitAble(false); //当たり判定無し
-    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
-    pSe->set(0, "WAVE_LOCKON_001"); //効果音定義
+    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    pSeTx->set(0, "WAVE_LOCKON_001"); //効果音定義
     useProgress(PROG_BANPEI);
 }
 

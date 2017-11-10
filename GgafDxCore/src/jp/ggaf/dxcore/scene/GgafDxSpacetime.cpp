@@ -13,6 +13,7 @@
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
 #include "jp/ggaf/dxcore/scene/GgafDxScene.h"
+#include "jp/ggaf/dxcore/sound/GgafDxSound.h"
 #include "jp/ggaf/dxcore/sound/GgafDxSe.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
@@ -55,7 +56,10 @@ void GgafDxSpacetime::SeArray::add(GgafDxSe* prm_pSe, int prm_volume, float prm_
 }
 
 void GgafDxSpacetime::SeArray::play(int index) {
-    _apSe[index]->play(_volume[index], _pan[index], _frequency_rate[index]);
+    _apSe[index]->setVolume(_volume[index] );
+    _apSe[index]->setPan(_pan[index]);
+    _apSe[index]->setFrequencyRate(_frequency_rate[index]);
+    _apSe[index]->play(false);
     _apSe[index]->_pActor_last_played = _apActor[index];
     _apActor[index] = nullptr;
     _apSe[index] = nullptr;

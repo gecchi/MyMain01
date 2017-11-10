@@ -17,9 +17,9 @@ EnemyTalante::EnemyTalante(const char* prm_name) :
         DefaultMassMeshActor(prm_name, "Talante", STATUS(EnemyTalante)) {
     _class_name = "EnemyTalante";
     pDepo_shot_ = nullptr;
-    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
-    pSe->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­
+    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­
     Z_ok_ = Y_ok_ = false;
     useProgress(PROG_BANPEI);
 }

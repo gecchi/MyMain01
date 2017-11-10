@@ -22,8 +22,8 @@ using namespace VioletVreath;
 EnemyOebius::EnemyOebius(const char* prm_name) :
         DefaultMassMeshActor(prm_name, "Oebius", STATUS(EnemyOebius)) {
     _class_name = "EnemyOebius";
-    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
-    pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);
     pKurokoLeader_ = nullptr; //フォーメーションオブジェクトが設定する
     scatter_flg_ = false;

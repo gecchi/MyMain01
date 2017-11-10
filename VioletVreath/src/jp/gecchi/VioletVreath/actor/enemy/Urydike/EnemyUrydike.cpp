@@ -21,8 +21,8 @@ using namespace VioletVreath;
 EnemyUrydike::EnemyUrydike(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Urydike", STATUS(EnemyUrydike)) {
     _class_name = "EnemyUrydike";
-    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
-    pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);
     pKurokoLeader_ = nullptr; //フォーメーションオブジェクトが設定する
     scatter_flg_ = false;

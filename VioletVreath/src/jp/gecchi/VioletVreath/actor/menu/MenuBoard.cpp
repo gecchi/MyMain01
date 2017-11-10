@@ -17,12 +17,12 @@ MenuBoard::MenuBoard(const char* prm_name, const char* prm_model) :
     slide_from_offset_y_ = 0;
     target_x_ = _x;
     target_y_ = _y;
-    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
-    pSe->set(SE_ON_RISEN      , "WAVE_MENU_ON_RISEN");
-    pSe->set(SE_MOVE_CURSOR   , "WAVE_MENU_MOVE_CURSOR");
-    pSe->set(SE_DECIDED_OK    , "WAVE_MENU_DECIDED_OK");
-    pSe->set(SE_DECIDED_CANCEL, "WAVE_MENU_DECIDED_CANCEL");
-    pSe->set(SE_WRONG         , "WAVE_MENU_SE_WRONG");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    pSeTx->set(SE_ON_RISEN      , "WAVE_MENU_ON_RISEN");
+    pSeTx->set(SE_MOVE_CURSOR   , "WAVE_MENU_MOVE_CURSOR");
+    pSeTx->set(SE_DECIDED_OK    , "WAVE_MENU_DECIDED_OK");
+    pSeTx->set(SE_DECIDED_CANCEL, "WAVE_MENU_DECIDED_CANCEL");
+    pSeTx->set(SE_WRONG         , "WAVE_MENU_SE_WRONG");
 }
 
 void MenuBoard::setTransition(frame prm_menu_fade_frames,

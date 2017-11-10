@@ -19,8 +19,8 @@ using namespace VioletVreath;
 EnemyAppho::EnemyAppho(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Appho", STATUS(EnemyAppho)) {
     _class_name = "EnemyAppho";
-    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
-    pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);
 }
 

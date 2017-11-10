@@ -20,8 +20,8 @@ Shot001::Shot001(const char* prm_name) :
         DefaultMassMeshActor(prm_name, "Flora", STATUS(Shot001)) {
     _class_name = "Shot001";
 
-    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
-    pSe->set(0, "WAVE_EXPLOSION_002");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    pSeTx->set(0, "WAVE_EXPLOSION_002");
 
     pSplLineConnection_ = connectToSplineLineManager("Spl_HAN"); //スプライン定義
     pKurokoLeader_ = NEW FixedVelocitySplineKurokoLeader(getKuroko(), pSplLineConnection_->peek(), 10000); //移動速度固定

@@ -540,7 +540,7 @@ void GgafDxModel::setMaterial(Frm::Mesh* in_pMeshesFront) {
 }
 
 GgafDxModel::~GgafDxModel() {
-    _TRACE_("" << _model_name << " ");
+    _TRACE4_("GgafDxModel::~GgafDxModel("<<_model_name<<") Adr:"<<this);
     GGAF_DELETEARR_NULLABLE(_model_name);
     GGAF_DELETEARR_NULLABLE(_paMaterial_default);
     GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);

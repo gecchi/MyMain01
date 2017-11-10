@@ -27,9 +27,9 @@ EnemyGeria::EnemyGeria(const char* prm_name) :
     will_shot_ = false;
     velo_mv_begin_ = 0;
     frame_when_shot_ = 0;
-    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
-    pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­
-    pSe->set(SE_FIRE     , "WAVE_ENEMY_FIRE_SHOT_001");     //”­ŽË
+    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­
+    pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_SHOT_001");     //”­ŽË
     useProgress(PROG_BANPEI);
     migration_length_ = PX_C(10000);
     mvd_ = 0;

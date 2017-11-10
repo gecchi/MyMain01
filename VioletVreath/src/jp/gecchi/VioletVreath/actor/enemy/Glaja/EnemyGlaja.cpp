@@ -21,8 +21,8 @@ using namespace VioletVreath;
 EnemyGlaja::EnemyGlaja(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Glaja", STATUS(EnemyGlaja)) {
     _class_name = "EnemyGlaja";
-    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
-    pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     pConn_pShot_ = connectToDepositoryManager("GlajaLance001");
     effectBlendOne(); //â¡éZçáê¨
     setScaleR(0.3);

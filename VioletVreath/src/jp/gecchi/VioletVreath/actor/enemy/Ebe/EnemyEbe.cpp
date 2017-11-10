@@ -20,9 +20,9 @@ EnemyEbe::EnemyEbe(const char* prm_name) :
     pKurokoLeader_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;
-    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
-    pSe->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­
+    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­
     getKuroko()->linkFaceAngByMvAng(true);
     useProgress(PROG_BANPEI);
 }

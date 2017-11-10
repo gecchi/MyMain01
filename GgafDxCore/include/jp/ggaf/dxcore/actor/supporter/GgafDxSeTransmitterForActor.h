@@ -65,7 +65,7 @@ public:
      * ‘¦À‚ÉSE‚ğÄ¶‚·‚é(‹[—‚RD–³‚µ)B
      * @param prm_id SE‚ÌID ( 0 ` SE”-1 )
      */
-    void play(int prm_id) override;
+    void play(int prm_id, bool prm_can_looping = false) override;
 
     /**
      * SE‚Ì‹[—‚RDÄ¶ .

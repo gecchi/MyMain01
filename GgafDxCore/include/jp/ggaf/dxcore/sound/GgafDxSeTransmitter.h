@@ -7,7 +7,7 @@ namespace GgafDxCore {
 
 /**
  * サウンドエフェクト出力支援クラス .
- * 内部で GgafDxSeManager 利用。
+ * 内部で GgafDxSeManager 利用し、必要最低限のSE資源で
  * 再生チャンネルの機能を実装。
  * @version 1.00
  * @since 2010/04/19
@@ -18,8 +18,12 @@ class GgafDxSeTransmitter : public GgafCore::GgafObject {
 public:
     /** [r]SE資源接続の配列 */
     GgafDxSeConnection** _papSeConnection;
-    /** [r]SEの数 */
+    /** [r]扱うSEの数 */
     int _se_num;
+    /** [r]扱うSEのボリューム配列 */
+    double* _pa_volume;
+    /** [r]扱うSEのパン値 */
+    float* _pa_pan;
 
 public:
     /**
@@ -47,8 +51,56 @@ public:
     /**
      * 再生 .
      * @param prm_se_no  SEの番号 ( 0 ～ SE数-1 )
+     * @param prm_can_looping  true:ループ再生／false:1回再生
      */
-    virtual void play(int prm_se_no);
+    virtual void play(int prm_se_no, bool prm_can_looping = false);
+
+
+    /**
+     * ボリューム値を設定する。
+     * SEマスターボリュームも考慮された音量に設定される。
+     * @param prm_se_no SEの番号(0 ～ )
+     * @param prm_volume ボリューム値(0 ～ 1000)
+     */
+    virtual void setVolume(int prm_se_no, double prm_volume);
+
+    /**
+     * ボリューム値を取得する .
+     * SEマスターボリュームも考慮されていないsetVolume()で設定された音量を取得。
+     * @param prm_se_no SEの番号(0 ～ )
+     * @return ボリューム値(0 ～ 1000)
+     */
+    virtual int getVolume(int prm_se_no) {
+        return _pa_volume[prm_se_no];
+    }
+
+    /**
+     * ボリューム値を加算する .
+     * SEマスターボリュームも考慮された音量に設定される。
+     * @param prm_se_no SEの番号(0 ～ )
+     * @param prm_volume 加算ボリューム値(0 ～ 1000)
+     * @return
+     */
+    virtual void addVolume(int prm_se_no, double prm_volume) {
+        setVolume(prm_se_no, _pa_volume[prm_se_no] + prm_volume);
+    }
+
+    /**
+     * パン値を設定 .
+     * SEマスターパンは未作成のため、そのまま反映
+     * @param prm_pan パン値(left:-1.0 ～ center:0 ～ right:1.0)
+     */
+    virtual void setPan(int prm_se_no, float prm_pan);
+
+    /**
+     * パン値を取得する .
+     * @param prm_se_no
+     * @return
+     */
+    virtual float getPan(int prm_se_no) {
+        return _pa_pan[prm_se_no];
+    }
+
 
     /**
      * 再生停止 .
@@ -56,13 +108,12 @@ public:
      */
     virtual void stop(int prm_se_no);
 
-    virtual void setLooping(int prm_se_no, bool prm_can_looping);
 
     /**
      * GgafDxSe を取得。
      * @param prm_se_no SEの番号 ( 0 ～ SE数-1 )
      */
-    virtual GgafDxSe* get(int prm_se_no) const;
+    virtual GgafDxSe* getSe(int prm_se_no) const;
 
     /**
      * デストラクタ

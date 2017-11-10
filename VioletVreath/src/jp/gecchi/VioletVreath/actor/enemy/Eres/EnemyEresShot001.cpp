@@ -34,8 +34,8 @@ EnemyEresShot001::EnemyEresShot001(const char* prm_name) :
     /** 方向転換を開始（frame_TurnBegin_）から再設定される加速度 */
     iMoveAcce_2nd_ = 100;
 
-    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
-    pSe->set(ERESSHOT001_SE_EXPLOSION, "WAVE_EXPLOSION_002");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    pSeTx->set(ERESSHOT001_SE_EXPLOSION, "WAVE_EXPLOSION_002");
 }
 
 void EnemyEresShot001::initialize() {

@@ -11,6 +11,7 @@
 #include "jp/ggaf/dxcore/GgafDxProperties.h"
 #include "jp/ggaf/dxcore/sound/GgafDxSound.h"
 #include "jp/ggaf/dxcore/sound/CWaveDecorder.h"
+#include "jp/ggaf/dxcore/manager/GgafDxSeManager.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -57,7 +58,9 @@ GgafDxSe::GgafDxSe(const char* prm_wave_key) : GgafObject() {
     checkDxException(hr, D3D_OK, "prm_wave_key="<<prm_wave_key<<" GetFrequency に失敗しました。サウンドカードは有効ですか？");
 
     _pActor_last_played = nullptr;
-    _can_looping = false;
+    _volume = GGAF_MAX_VOLUME;
+    _pan = 0.0f;
+    _frequency_rate = 1.0;
     _TRACE_("GgafDxSe::GgafDxSe("<<prm_wave_key<<") _wave_file_name="<<_wave_file_name<<" this="<<this<<" _id="<<getId());
 }
 
@@ -91,9 +94,7 @@ int GgafDxSe::writeBuffer(CWaveDecorder& WaveFile) {
     LPVOID lpvPtr2; // ２番目のブロックのポインタ
     DWORD dwBytes2; // ２番目のブロックのサイズ
     HRESULT hr;
-
     hr = _pIDirectSoundBuffer->Lock(0, WaveFile.GetWaveSize(), &lpvPtr1, &dwBytes1, &lpvPtr2, &dwBytes2, 0);
-
     // DSERR_BUFFERLOSTが返された場合，Restoreメソッドを使ってバッファを復元する
     if (DSERR_BUFFERLOST == hr) {
         _TRACE_("DSERR_BUFFERLOST が返されました。バッファ復元を試みます");
@@ -119,7 +120,7 @@ int GgafDxSe::writeBuffer(CWaveDecorder& WaveFile) {
     return true;
 }
 
-void GgafDxSe::play(int prm_volume, float prm_pan, float prm_frequency_rate) {
+void GgafDxSe::play(bool prm_is_looping) {
     if (_pIDirectSoundBuffer == nullptr) {
         _TRACE_("_pIDirectSoundBuffer==nullptr;!");
     }
@@ -135,23 +136,16 @@ void GgafDxSe::play(int prm_volume, float prm_pan, float prm_frequency_rate) {
             _TRACE_("失敗");
         }
     }
-    setVolume(prm_volume);
-    setPan(prm_pan);
-    setFrequencyRate(prm_frequency_rate);
     HRESULT hr;
     hr = _pIDirectSoundBuffer->SetCurrentPosition(0); //バッファ頭だし
     checkDxException(hr, DS_OK, "SetCurrentPosition(0) が失敗しました。");
-    if (_can_looping) {
+    if (prm_is_looping) {
         hr = _pIDirectSoundBuffer->Play(0, 0, DSBPLAY_LOOPING);
         checkDxException(hr, DS_OK, "Play(0, 0, DSBPLAY_LOOPING) が失敗しました。");
     } else {
         hr = _pIDirectSoundBuffer->Play(0, 0, 0x00000000);
         checkDxException(hr, DS_OK, "Play(0, 0, 0x00000000) が失敗しました。");
     }
-}
-
-void GgafDxSe::play() {
-    play(GGAF_MAX_VOLUME, 0.0f);
 }
 
 void GgafDxSe::stop() {
@@ -163,17 +157,27 @@ void GgafDxSe::stop() {
 }
 
 void GgafDxSe::setVolume(int prm_volume) {
-    int db = GgafDxSound::_a_db_volume[(int)(prm_volume * GgafDxSound::_app_master_volume_rate * GgafDxSound::_se_master_volume_rate)];
+    _volume = prm_volume;
+    //マスターSE音量率を考慮
+    int v = (int)(_volume * GgafDxSound::_pSeManager->getSeMasterVolumeRate());
+    if (v > GGAF_MAX_VOLUME) {
+        v = GGAF_MAX_VOLUME;
+    }
+    int db = GgafDxSound::_a_db_volume[v];
     HRESULT hr = _pIDirectSoundBuffer->SetVolume(db);
     checkDxException(hr, DS_OK, "SetVolume("<<prm_volume<<") が失敗しました。");
 }
 
 void GgafDxSe::setPan(float prm_pan) {
-    HRESULT hr = _pIDirectSoundBuffer->SetPan((LONG)(prm_pan*DSBPAN_RIGHT));
+    _pan = prm_pan;
+    //TODO: マスターパン率はまだ無い
+    HRESULT hr = _pIDirectSoundBuffer->SetPan((LONG)(_pan*DSBPAN_RIGHT));
     checkDxException(hr, DS_OK, "SetPan("<<prm_pan<<") が失敗しました。");
 }
 
 void GgafDxSe::setFrequencyRate(float prm_frequency_rate) {
+    _frequency_rate = prm_frequency_rate;
+    //TODO: マスター周波数率はまだ無い
     HRESULT hr = _pIDirectSoundBuffer->SetFrequency((DWORD)(_default_frequency*prm_frequency_rate)); //再生周波数設定
     checkDxException(hr, DS_OK, "SetFrequency((DWORD)"<<(_default_frequency*prm_frequency_rate)<<") が失敗しました。");
 }
@@ -185,7 +189,6 @@ int GgafDxSe::restore(void) {
     if (!WaveFile.Open((LPSTR)full_wave_file_name.c_str())) {
         return false;
     }
-
     if (!writeBuffer(WaveFile)) {
         return false;
     }

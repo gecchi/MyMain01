@@ -16,6 +16,9 @@ namespace GgafDxCore {
  */
 class GgafDxBgmManager : public GgafCore::GgafResourceManager<GgafDxBgm> {
 
+    /** [r]BGM・マスターボリュームの割合 0.0～1.0 */
+    double _bgm_master_volume_rate;
+
 public:
     /**
      * コンストラクタ
@@ -27,8 +30,13 @@ public:
 
     GgafCore::GgafResourceConnection<GgafDxBgm>* processCreateConnection(const char* prm_idstr, GgafDxBgm* prm_pResource) override;
 
+    void setBgmMasterVolumeRate(double prm_volume_rate);
+
+    float getBgmMasterVolumeRate();
+
+
     /**
-     * 現在演奏中のBGMのボリュームを更新 .
+     * 現在演奏中の全てのBGMボリュームを更新 .
      */
     void updateVolume();
 

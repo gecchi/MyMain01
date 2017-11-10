@@ -19,8 +19,8 @@ EnemyIrce::EnemyIrce(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Eres", STATUS(EnemyIrce)) { //8/‚ð‚¢‚ê‚Æ‚©‚È‚¢‚Æƒ†ƒj[ƒN‚É‚È‚ç‚È‚¢
     _class_name = "EnemyIrce";
     iMovePatternNo_ = 0;
-    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
-    pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
 }
 
 void EnemyIrce::onCreateModel() {

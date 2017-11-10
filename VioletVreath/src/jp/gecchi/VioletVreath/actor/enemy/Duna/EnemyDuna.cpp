@@ -24,8 +24,8 @@ using namespace VioletVreath;
 EnemyDuna::EnemyDuna(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Duna", STATUS(EnemyDuna)) {
     _class_name = "EnemyDuna";
-    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
-    pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     effectBlendOne(); //â¡éZçáê¨
     setScaleR(0.3);
     useProgress(PROG_BANPEI);

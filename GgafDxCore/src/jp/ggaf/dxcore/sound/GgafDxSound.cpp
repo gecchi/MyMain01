@@ -18,12 +18,9 @@ GgafDxSeManager* GgafDxSound::_pSeManager = nullptr;
 double GgafDxSound::_a_db_volume[GGAF_MAX_VOLUME+1];
 
 DSCAPS GgafDxSound::_dsCaps;
-int GgafDxSound::_app_master_volume = 1000;
-int GgafDxSound::_bgm_master_volume = 1000;
-int GgafDxSound::_se_master_volume = 1000;
-float GgafDxSound::_app_master_volume_rate = 1.0;
-float GgafDxSound::_bgm_master_volume_rate = 1.0;
-float GgafDxSound::_se_master_volume_rate = 1.0;
+int GgafDxSound::_app_master_volume = GGAF_MAX_VOLUME;
+int GgafDxSound::_bgm_master_volume = GGAF_MAX_VOLUME;
+int GgafDxSound::_se_master_volume = GGAF_MAX_VOLUME;
 
 
 void GgafDxSound::init() {
@@ -68,51 +65,6 @@ void GgafDxSound::init() {
     GgafDxSound::setAppMasterVolume(PROPERTY::MASTER_VOLUME);
 }
 
-void GgafDxSound::setAppMasterVolume(int prm_app_master_volume) {
-    GgafDxSound::_app_master_volume = prm_app_master_volume;
-    if (GgafDxSound::_app_master_volume > GGAF_MAX_VOLUME) {
-        GgafDxSound::_app_master_volume = GGAF_MAX_VOLUME;
-    } else if (GgafDxSound::_app_master_volume < GGAF_MIN_VOLUME) {
-        GgafDxSound::_app_master_volume = GGAF_MIN_VOLUME;
-    }
-    GgafDxSound::_app_master_volume_rate = 1.0f * GgafDxSound::_app_master_volume / GGAF_MAX_VOLUME;
-    GgafDxSound::_pBgmManager->updateVolume(); //音量を更新
-    GgafDxSound::_pSeManager->updateVolume(); //音量を更新
-}
-
-void GgafDxSound::addAppMasterVolume(int prm_app_master_volume_offset) {
-    GgafDxSound::setAppMasterVolume(GgafDxSound::_app_master_volume+prm_app_master_volume_offset);
-}
-
-void GgafDxSound::setBgmMasterVolume(float prm_bgm_master_volume) {
-    GgafDxSound::_bgm_master_volume = prm_bgm_master_volume;
-    if (GgafDxSound::_bgm_master_volume > GGAF_MAX_VOLUME) {
-        GgafDxSound::_bgm_master_volume = GGAF_MAX_VOLUME;
-    } else if (GgafDxSound::_bgm_master_volume < GGAF_MIN_VOLUME) {
-        GgafDxSound::_bgm_master_volume = GGAF_MIN_VOLUME;
-    }
-    GgafDxSound::_bgm_master_volume_rate = 1.0f * GgafDxSound::_bgm_master_volume / GGAF_MAX_VOLUME;
-    GgafDxSound::_pBgmManager->updateVolume(); //音量を更新
-}
-
-void GgafDxSound::addBgmMasterVolume(int prm_bgm_master_volume_offset) {
-    GgafDxSound::setBgmMasterVolume(GgafDxSound::_bgm_master_volume+prm_bgm_master_volume_offset);
-}
-
-void GgafDxSound::setSeMasterVolume(float prm_se_master_volume) {
-    GgafDxSound::_se_master_volume = prm_se_master_volume;
-    if (GgafDxSound::_se_master_volume > GGAF_MAX_VOLUME) {
-        GgafDxSound::_se_master_volume = GGAF_MAX_VOLUME;
-    } else if (GgafDxSound::_se_master_volume < GGAF_MIN_VOLUME) {
-        GgafDxSound::_se_master_volume = GGAF_MIN_VOLUME;
-    }
-    GgafDxSound::_se_master_volume_rate = 1.0f * GgafDxSound::_se_master_volume / GGAF_MAX_VOLUME;
-    GgafDxSound::_pSeManager->updateVolume(); //音量を更新
-}
-
-void GgafDxSound::addSeMasterVolume(int prm_se_master_volume_offset) {
-    setSeMasterVolume(GgafDxSound::_se_master_volume+prm_se_master_volume_offset);
-}
 
 void GgafDxSound::release() {
     _TRACE_(FUNC_NAME<<" begin");
@@ -123,4 +75,44 @@ void GgafDxSound::release() {
     _TRACE_("GGAF_RELEASE(GgafDxSound::_pIDirectSound8);");
     GGAF_RELEASE(GgafDxSound::_pIDirectSound8);
     _TRACE_(FUNC_NAME<<" end");
+}
+
+void GgafDxSound::setAppMasterVolume(int prm_app_master_volume)  {
+    _app_master_volume = prm_app_master_volume;
+    if (_app_master_volume > GGAF_MAX_VOLUME) {
+        _app_master_volume = GGAF_MAX_VOLUME;
+    } else if (_app_master_volume < GGAF_MIN_VOLUME) {
+        _app_master_volume = GGAF_MIN_VOLUME;
+    }
+    double bgm_master_volume_rate =
+            1.0 * (_app_master_volume * _bgm_master_volume) / _MAXMAX_VOLUME;
+    GgafDxSound::_pBgmManager->setBgmMasterVolumeRate(bgm_master_volume_rate); //マスターBGM音量率を更新
+
+    double se_master_volume_rate  =
+            1.0 * (_app_master_volume * _se_master_volume ) / _MAXMAX_VOLUME;
+    GgafDxSound::_pSeManager->setSeMasterVolumeRate(se_master_volume_rate);   //マスターSE音量率を更新
+}
+
+void GgafDxSound::setBgmMasterVolume(float prm_bgm_master_volume) {
+    _bgm_master_volume = prm_bgm_master_volume;
+    if (_bgm_master_volume > GGAF_MAX_VOLUME) {
+        _bgm_master_volume = GGAF_MAX_VOLUME;
+    } else if (_bgm_master_volume < GGAF_MIN_VOLUME) {
+        _bgm_master_volume = GGAF_MIN_VOLUME;
+    }
+    double bgm_master_volume_rate =
+            1.0 * (_app_master_volume * _bgm_master_volume) / _MAXMAX_VOLUME;
+    GgafDxSound::_pBgmManager->setBgmMasterVolumeRate(bgm_master_volume_rate); //マスターBGM音量率を更新
+}
+
+void GgafDxSound::setSeMasterVolume(float prm_se_master_volume)  {
+    _se_master_volume = prm_se_master_volume;
+    if (_se_master_volume > GGAF_MAX_VOLUME) {
+        _se_master_volume = GGAF_MAX_VOLUME;
+    } else if (_se_master_volume < GGAF_MIN_VOLUME) {
+        _se_master_volume = GGAF_MIN_VOLUME;
+    }
+    double se_master_volume_rate  =
+            1.0 * (_app_master_volume * _se_master_volume ) / _MAXMAX_VOLUME;
+    GgafDxSound::_pSeManager->setSeMasterVolumeRate(se_master_volume_rate);   //マスターSE音量率を更新
 }

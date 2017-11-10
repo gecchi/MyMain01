@@ -60,7 +60,7 @@ pStageWorld_(nullptr) {
 
     was_paused_flg_GameMainScene_prev_frame_ = false;
 
-    getBGMer()->ready(0, "OGG_BGM_DEMO");
+    getBgmPerformer()->ready(0, "OGG_BGM_DEMO");
 }
 
 void GameScene::initialize() {
@@ -127,7 +127,7 @@ void GameScene::processBehavior() {
                 World* pWorld = pSpacetime->getWorld();
                 pWorld->pPreDrawScene_->inactivateTreeImmed();
                 pWorld->pPreDrawScene_->pauseTreeImmed();
-                getBGMer()->stop();
+                getBgmPerformer()->stop();
             }
             break;
         }
@@ -136,7 +136,7 @@ void GameScene::processBehavior() {
             //##########  タイトル前演出  ##########
             if (pProg->hasJustChanged()) {
                 _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PROG_PRE_TITLE)");
-                getBGMer()->play_fadein(0);
+                getBgmPerformer()->play_fadein(0);
             }
             //VB_UI_EXECUTE で、スキップしてTITLEへ
             if (VB->isPushedDown(VB_UI_EXECUTE)) { //skip
@@ -173,7 +173,7 @@ void GameScene::processBehavior() {
             //##########  ゲーム開始（モード選択等）  ##########
             if (pProg->hasJustChanged()) {
                 _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PROG_BEGINNING)");
-                getBGMer()->fadeout_stop();
+                getBgmPerformer()->fadeout_stop();
             }
             //イベント待ち EVENT_GAMEMODE_DECIDE
             break;
@@ -318,7 +318,7 @@ void GameScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
         //デモシーン終了
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMEDEMOSCENE_FINISH)");
         pProg->changeWithSceneFadeoutFadein(PROG_INIT,120,120); //最初へ
-        getBGMer()->fadeout_stop();
+        getBgmPerformer()->fadeout_stop();
 
     } else if (prm_no == EVENT_GAMESTART) {
         //スタート
@@ -341,7 +341,7 @@ void GameScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
         if (pProg->get() == PROG_DEMO) {
             //もし万が一、デモシーン中の全機消滅ならば、デモシーン終了
             pProg->changeWithSceneFadeoutFadein(PROG_INIT, 120, 120); //最初へ
-            getBGMer()->fadeout_stop();
+            getBgmPerformer()->fadeout_stop();
         } else {
             pProg->changeWithSceneCrossfading(PROG_GAME_OVER); //ゲームオーバーへ
         }

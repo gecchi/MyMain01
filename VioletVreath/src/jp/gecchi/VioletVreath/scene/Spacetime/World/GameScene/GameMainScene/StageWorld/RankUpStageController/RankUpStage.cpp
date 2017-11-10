@@ -63,7 +63,7 @@ void RankUpStage::processBehavior() {
             std::string m = "RUNKUP LEVEL:" + XTOS(G_RANKUP_LEVEL) ;
             pMessage2_->update(m.c_str());
             pMessage2_->getAlphaFader()->beat(120, 30, 30, 30, -1);
-            getBGMer()->play_fadein(0);
+            getBgmPerformer()->play_fadein(0);
             pProg->changeNext();
             break;
         }
@@ -109,7 +109,7 @@ void RankUpStage::processBehavior() {
 
             //結果表示？
             if (pProg->hasArrivedAt(320)) {
-                getBGMer()->fadeout_stop(0);
+                getBgmPerformer()->fadeout_stop(0);
                 if (all_hit_num_ <= hit_enemy_num_) { //全滅させた！
                     pMessage2_->update("PERFECT!!!!");
                 } else if (all_hit_num_/2 <= hit_enemy_num_) {

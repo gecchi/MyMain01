@@ -16,8 +16,8 @@ using namespace VioletVreath;
 Shot002::Shot002(const char* prm_name) :
         DefaultMassMeshActor(prm_name, "Flora", STATUS(Shot002)) {
     _class_name = "Shot002";
-    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
-    pSe->set(0, "WAVE_EXPLOSION_002");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    pSeTx->set(0, "WAVE_EXPLOSION_002");
 }
 
 void Shot002::initialize() {

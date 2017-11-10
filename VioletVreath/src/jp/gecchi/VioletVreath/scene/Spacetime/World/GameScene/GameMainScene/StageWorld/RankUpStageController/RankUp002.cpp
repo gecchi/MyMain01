@@ -49,7 +49,7 @@ RankUp002::RankUp002(const char* prm_name) : RankUpStage(prm_name) {
 	orderActorToFactory(90000026, EnemyTamago01, "EnemyTamago01-90000026");
     // gen01 end
 
-    getBGMer()->ready(0, "OGG_RANKUP002_THEMA");
+    getBgmPerformer()->ready(0, "OGG_RANKUP002_THEMA");
 }
 
 void RankUp002::initialize() {

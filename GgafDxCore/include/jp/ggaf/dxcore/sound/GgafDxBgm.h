@@ -25,41 +25,30 @@ public:
     IkdLib::PCMPlayer* _pPcmPlayer;
     IkdLib::OggVorbisFile* _pOggResource;
     IkdLib::OggDecoder* _pOggDecoder;
+    /** [r]現在の音量値(0 ～ 1000) */
+    int _volume;
+    /** [r]現在のパン値(left:-1.0 ～ center:0 ～ right:1.0) */
+    float _pan;
 
 public:
     /**
      * コンストラクタ .
      * プロパティファイルから次のキーの値を取得します。
-     * ① prm_bgm_key+"_OGG"      ・・・ 値：BGMとなる oggファイル名
-     * ② prm_bgm_key+"_BPM"      ・・・ 値：現在未使用
-     * ③ prm_bgm_key+"_TITLE"    ・・・ 値：現在未使用
+     * ① prm_bgm_key         ・・・ 値：BGMとなる oggファイル名
+     * ② prm_bgm_key+"_BPM"  ・・・ 値：現在未使用(:TODO)
+     * ③ prm_bgm_key+"_TITLE"・・・ 値：現在未使用(:TODO)
      * 次に、①のの値をのBGMとなる oggファイルを プロパティファイルの
      * DIR_OGG[0] の設定値配下から探してオープンし、再生準備を行います。
      * @param prm_bgm_key プロパティファイルのkey
-     *                    _OGG, _BPM, _TITLE のプレフィックスを指定
      * @return
      */
     explicit GgafDxBgm(const char* prm_bgm_key);
 
     /**
      * BGM再生 .
-     * ボリュームについて、内部でマスタボリュームの考慮が処理される。
-     * アプリケーション側は、本来の音量を気にせず通常再生したい場合は、
-     * ボリュームを100で設定する事。
-     * @param prm_volume 0～100
-     * @param prm_pan 左 -1.0 ～ 0 ～ 1.0 右
      * @param prm_is_looping true:ループ再生
      */
-    virtual void play(int prm_volume, float prm_pan, bool prm_is_looping);
-
-    /**
-     * BGM再生 .
-     * ボリュームについて、内部でマスタボリュームの考慮が処理される。
-     * アプリケーション側は、本来の音量を気にせず通常再生したい場合は、
-     * ボリュームを100で設定する事。
-     * @param prm_is_looping true:ループ再生
-     */
-    virtual void play(bool prm_is_looping);
+    virtual void play(bool prm_is_looping = true);
 
     /**
      * 一時停止する .
@@ -87,18 +76,30 @@ public:
 
     /**
      * BGMのボリューム設定 .
-     * 内部でマスタボリュームの考慮が処理される。
-     * アプリケーション側は、本来の音量を気にせず通常再生したい場合は、
-     * ボリュームを1000で設定する事。
+     * ただし、内部で実際に設定される音量は、BGMマスター音量率が乗じられた値となります。
      * @param volume 0～1000
      */
     virtual void setVolume(int volume);
+
+    /**
+     * BGMのボリュームを取得 .
+     * 取得される音量は、BGMマスター音量率が考慮される前の値。
+     * つまり、本クラスのsetVolume(int) で設定した値がそのまま取得されます。
+     * @return BGMのボリューム(0～1000)
+     */
+    virtual int getVolume() {
+        return _volume;
+    }
 
     /**
      * BGMのパン設定 .
      * @param pan 左 -1.0 ～ 0 ～ 1.0 右
      */
     virtual void setPan(float pan);
+
+    virtual int getPan() {
+        return _pan;
+    }
 
     /**
      * 再生スレッドを停止させ、サウンドバッファを解放する .

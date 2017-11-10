@@ -19,10 +19,10 @@ using namespace VioletVreath;
 EnemyDelheid::EnemyDelheid(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Delheid", STATUS(EnemyDelheid)) {
     _class_name = "EnemyDelheid";
-    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
-    pSe->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    pSe->set(SE_UNDAMAGED, "WAVE_ENEMY_UNDAMAGED_001");
-    pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
+    pSeTx->set(SE_UNDAMAGED, "WAVE_ENEMY_UNDAMAGED_001");
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);
     pProg2_ = createProgress(PROG2_BANPEI-1);
     shot_begin_frame_ = 0;

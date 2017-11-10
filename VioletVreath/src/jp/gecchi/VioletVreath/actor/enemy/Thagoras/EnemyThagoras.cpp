@@ -22,8 +22,8 @@ using namespace VioletVreath;
 EnemyThagoras::EnemyThagoras(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Thagoras", STATUS(EnemyThagoras)) {
     _class_name = "EnemyThagoras";
-    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
-    pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);
     pKurokoLeader_ = nullptr; //フォーメーションオブジェクトが設定する
     pActor4Sc_ = nullptr;

@@ -69,9 +69,9 @@ EnemyStraea::EnemyStraea(const char* prm_name) :
         }
     }
     GGAF_DELETEARR(paAng_way);
-    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
-    pSe->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
-    pSe->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
+    pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
 
     useProgress(PROG_BANPEI);
     pConn_pShotDepo2_ = connectToDepositoryManager("Shot004Yellow");

@@ -75,10 +75,10 @@ MyBunshin::MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase) :
     addSubGroup(pTorpedoCtrler_);
 
     pColorist_ = NEW GgafDxColorist(this);
-    GgafDxSeTransmitterForActor* pSe = getSeTransmitter();
-    pSe->set(SE_FIRE_LASER,   "WAVE_MY_FIRE_LASER_002");
-    pSe->set(SE_FIRE_SHOT,    "WAVE_MY_FIRE_SHOT_002");
-    pSe->set(SE_FIRE_TORPEDO, "WAVE_MY_FIRE_TORPEDO_002");
+    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    pSeTx->set(SE_FIRE_LASER,   "WAVE_MY_FIRE_LASER_002");
+    pSeTx->set(SE_FIRE_SHOT,    "WAVE_MY_FIRE_SHOT_002");
+    pSeTx->set(SE_FIRE_TORPEDO, "WAVE_MY_FIRE_TORPEDO_002");
 
     pass_p_seq_ = 0;
 }

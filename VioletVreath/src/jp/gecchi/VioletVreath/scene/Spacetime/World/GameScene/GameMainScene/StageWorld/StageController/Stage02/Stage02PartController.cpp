@@ -15,9 +15,9 @@ using namespace VioletVreath;
 
 Stage02PartController::Stage02PartController(const char* prm_name) : StagePartController(prm_name) {
     _class_name = "Stage02PartController";
-    getBGMer()->ready(0, "OGG_BGM_01_01");
-    getBGMer()->ready(1, "OGG_BGM_01_02");
-    getBGMer()->ready(2, "OGG_BGM_01_03");
+    getBgmPerformer()->ready(0, "OGG_BGM_01_01");
+    getBgmPerformer()->ready(1, "OGG_BGM_01_02");
+    getBgmPerformer()->ready(2, "OGG_BGM_01_03");
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
@@ -31,7 +31,7 @@ Stage02PartController::Stage02PartController(const char* prm_name) : StagePartCo
 }
 
 void Stage02PartController::initialize() {
-    getBGMer()->play_fadein(0);
+    getBgmPerformer()->play_fadein(0);
     getProgress()->change(Stage02PartController::PROG_INIT);
 }
 
