@@ -59,7 +59,6 @@ void GgafDxBgmPerformer::ready(int prm_bgm_no, const char* prm_bgm_name) {
 
     if (_papBgmConnection[prm_bgm_no]) {
         _TRACE_("【警告】GgafDxBgmPerformer::set() IDが使用済みです、上書きしますが意図してますか？？。prm_bgm_no="<<prm_bgm_no<<" prm_bgm_name="<<prm_bgm_name);
-        _papBgmConnection[prm_bgm_no]->peek()->clear();
         _papBgmConnection[prm_bgm_no]->close();
         _pa_volume[prm_bgm_no] = GGAF_MAX_VOLUME;
         _pa_pan[prm_bgm_no] = 0;
