@@ -16,51 +16,42 @@ using namespace GgafDxCore;
 
 GgafDxSeTransmitterForActor::GgafDxSeTransmitterForActor(GgafDxGeometricActor* prm_pActor) : GgafDxSeTransmitter() ,
 _pActor(prm_pActor) {
-    _paBool_is_playing_3d = nullptr;
 }
 
-void GgafDxSeTransmitterForActor::declareSeNum(int prm_se_num) {
-    GgafDxSeTransmitter::declareSeNum(prm_se_num);
-    _paBool_is_playing_3d = NEW bool[_se_num];
-    for (int i = 0; i < _se_num; i++) {
-        _paBool_is_playing_3d[i] = false;
+void GgafDxSeTransmitterForActor::set(int prm_se_no, const char* prm_se_key, int prm_cannel) {
+    int se_num = _vec_is_playing_3d.size();
+    if (prm_se_no >= se_num) {
+        for (int i = se_num; i <= prm_se_no; i++) {
+            _vec_is_playing_3d.push_back(false);
+        }
     }
+    GgafDxSeTransmitter::set(prm_se_no, prm_se_key, prm_cannel);
 }
 
-void GgafDxSeTransmitterForActor::set(int prm_id, const char* prm_se_key, int prm_cannel) {
-    if (prm_id < 0) {
-        throwGgafCriticalException("IDが範囲外です。正の数でお願いします。 prm_id="<<prm_id);
-    } else if (prm_id >= _se_num) {
-        GGAF_DELETEARR_NULLABLE(_paBool_is_playing_3d);
-        //declareSeNum が再呼び出しされるため、_paBool_is_playing_3d は再確保される。
-    }
-    GgafDxSeTransmitter::set(prm_id, prm_se_key, prm_cannel);
-}
-
-void GgafDxSeTransmitterForActor::set(int prm_id, const char* prm_se_key) {
+void GgafDxSeTransmitterForActor::set(int prm_se_no, const char* prm_se_key) {
     std::string ch_key = std::string(prm_se_key) + std::string("_CH");
     if (GgafRepeatSeq::isExist(ch_key)) {
-        set(prm_id, prm_se_key, GgafRepeatSeq::nextVal(ch_key));
+        set(prm_se_no, prm_se_key, GgafRepeatSeq::nextVal(ch_key));
     } else {
         if (GgafProperties::isExistKey(ch_key)) {
             int max_ch_num = GgafProperties::getInt(ch_key);
             GgafRepeatSeq::create(ch_key, 1, max_ch_num);
-            set(prm_id, prm_se_key, GgafRepeatSeq::nextVal(ch_key));
+            set(prm_se_no, prm_se_key, GgafRepeatSeq::nextVal(ch_key));
         } else {
-            set(prm_id, prm_se_key, 0);
+            set(prm_se_no, prm_se_key, 0);
         }
     }
 }
-void GgafDxSeTransmitterForActor::play(int prm_id, bool prm_can_looping) {
-    GgafDxSeTransmitter::play(prm_id, prm_can_looping);
-    _paBool_is_playing_3d[prm_id] = false;
+void GgafDxSeTransmitterForActor::play(int prm_se_no, bool prm_can_looping) {
+    GgafDxSeTransmitter::play(prm_se_no, prm_can_looping);
+    _vec_is_playing_3d[prm_se_no] = false;
 }
 
-void GgafDxSeTransmitterForActor::play3D(int prm_id) {
+void GgafDxSeTransmitterForActor::play3D(int prm_se_no) {
     GgafDxSpacetime* const pSpacetime = pGOD->getSpacetime();
 #ifdef MY_DEBUG
-    if (prm_id < 0 || prm_id >= _se_num) {
-        throwGgafCriticalException("IDが範囲外です。0~"<<(_se_num-1)<<"でお願いします。_pActor="<<_pActor->getName()<<" prm_id="<<prm_id);
+    if (prm_se_no < 0 || prm_se_no >= _se_num) {
+        throwGgafCriticalException("IDが範囲外です。0~"<<(_se_num-1)<<"でお願いします。_pActor="<<_pActor->getName()<<" prm_se_no="<<prm_se_no);
     }
 #endif
     static const int VOLUME_RANGE_3D = GGAF_MAX_VOLUME - GGAF_MIN_VOLUME;
@@ -109,9 +100,9 @@ void GgafDxSeTransmitterForActor::play3D(int prm_id) {
         }
     }
 
-    pSpacetime->registerSe(getSe(prm_id), vol, pan, rate_frequency, delay, _pActor); // + (GgafDxSe::VOLUME_RANGE / 6) は音量底上げ
+    pSpacetime->registerSe(getSe(prm_se_no), vol, pan, rate_frequency, delay, _pActor); // + (GgafDxSe::VOLUME_RANGE / 6) は音量底上げ
 
-    _paBool_is_playing_3d[prm_id] = true;
+    _vec_is_playing_3d[prm_se_no] = true;
     //真ん中からの距離
    //                float dPlnLeft = ABS(_dest_from_vppln_left);
    //                float dPlnRight = ABS(_dest_from_vppln_right);
@@ -124,7 +115,7 @@ void GgafDxSeTransmitterForActor::play3D(int prm_id) {
    //                    //d * tan (_rad_half_fovY - θ) = 距離
    //                    //d * tan (_rad_half_fovY - asin(dPlnLeft/d)) = 距離
    //                    //本当にこうしなければいけない？
-   // _papSe[prm_id]->play();
+   // _papSe[prm_se_no]->play();
 }
 
 void GgafDxSeTransmitterForActor::updatePanVolume3D() {
@@ -137,9 +128,9 @@ void GgafDxSeTransmitterForActor::updatePanVolume3D() {
     float rate_frequency = 1.0;
     const int se_num = _se_num;
     for (int i = 0; i < se_num; i++) {
-        if (_paBool_is_playing_3d[i]) {
-            if (_papSeConnection[i]) {
-                GgafDxSe* const pSe = _papSeConnection[i]->peek();
+        if (_vec_is_playing_3d[i]) {
+            if (_vecSeConnection[i]) {
+                GgafDxSe* const pSe = _vecSeConnection[i]->peek();
                 if (pSe->isPlaying() && pSe->_pActor_last_played == _pActor) {
                     if (calc_flg) {
                         calc_flg = false; //最初の１回目のループだけ距離計算
@@ -191,7 +182,7 @@ void GgafDxSeTransmitterForActor::updatePanVolume3D() {
                     pSe->setVolume(vol);
                     pSe->setFrequencyRate(rate_frequency);
                 } else {
-                    _paBool_is_playing_3d[i] = false;
+                    _vec_is_playing_3d[i] = false;
                 }
             }
         }
@@ -206,6 +197,5 @@ void GgafDxSeTransmitterForActor::behave() {
 }
 
 GgafDxSeTransmitterForActor::~GgafDxSeTransmitterForActor() {
-    GGAF_DELETEARR_NULLABLE(_paBool_is_playing_3d);
 }
 

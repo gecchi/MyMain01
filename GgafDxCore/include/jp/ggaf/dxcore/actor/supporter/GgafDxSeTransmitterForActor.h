@@ -21,15 +21,10 @@ private:
      */
     void updatePanVolume3D();
 
-    /**
-     * SE使用数を宣言する .
-     * @param prm_se_num SE数（種類数）
-     */
-    void declareSeNum(int prm_se_num) override;
 
 public:
     /** [r/w]各SE（配列）は、擬似３D再生かどうかを保持 */
-    bool* _paBool_is_playing_3d;
+    std::vector<bool> _vec_is_playing_3d;
     /** [r]SE発生元アクター */
     GgafDxGeometricActor* const _pActor;
 
@@ -46,20 +41,20 @@ public:
      * チャンネル数は、引数の prm_se_key+"_CH" というプロパティ値が参照される。
      * 存在しない場合、再生チャンネル番号は0固定(∴チャンネル数は1)
      * 設定済みIDに、上書き再設定可能。
-     * @param prm_id SEのID ( 0 ～ SE数-1 )
+     * @param se_no SEのID ( 0 ～ SE数-1 )
      * @param prm_se_key SE定義名（プロパティファイルのキー）
      */
-    void set(int prm_id, const char* prm_se_key);
+    void set(int prm_se_no, const char* prm_se_key);
 
     /**
      * SEの設定を行う .
      * 但し、SEの再生時間は GGAF_END_DELAY+(最大距離遅延) フレーム以内でなければいけない。
      * 上書き再設定可能。
-     * @param prm_id SEのID ( 0 ～ SE数-1 )
+     * @param se_no SEのID ( 0 ～ SE数-1 )
      * @param prm_se_key SE定義名（プロパティファイルのキー）
      * @param prm_cannel 再生チャンネル番号
      */
-    void set(int prm_id, const char* prm_se_key, int prm_cannel) override;
+    void set(int prm_se_no, const char* prm_se_key, int prm_cannel) override;
 
     /**
      * 即座にSEを再生する(擬似３D無し)。

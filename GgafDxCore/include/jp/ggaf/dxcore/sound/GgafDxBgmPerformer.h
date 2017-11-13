@@ -3,6 +3,8 @@
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/GgafObject.h"
 
+#include <vector>
+
 namespace GgafDxCore {
 
 /**
@@ -19,12 +21,13 @@ public:
 //    static int _active_bgm_bpm;
     /** [r]BGM番号数 */
     int _bgm_num;
-    /** [r]BGMのボリューム配列(添字はBGM番号) */
-    double* _pa_volume;
-    /** [r]BGMのパン値(添字はBGM番号) */
-    float* _pa_pan;
     /** [r]Bgm資源接続 */
-    GgafDxBgmConnection** _papBgmConnection;
+    std::vector<GgafDxBgmConnection*>  _vecBgmConnection;
+    /** [r]BGMのボリューム配列(添字はBGM番号) */
+    std::vector<double> _vec_volume;
+    /** [r]BGMのパン値(添字はBGM番号) */
+    std::vector<float> _vec_pan;
+
 
 public:
     GgafDxBgmPerformer();
@@ -51,7 +54,7 @@ public:
      * @return ボリューム値(0 ～ 1000)
      */
     virtual int getVolume(int prm_bgm_no) {
-        return _pa_volume[prm_bgm_no];
+        return _vec_volume[prm_bgm_no];
     }
 
     /**
@@ -62,7 +65,7 @@ public:
      * @return
      */
     virtual void addVolume(int prm_bgm_no, double prm_volume) {
-        setVolume(prm_bgm_no, _pa_volume[prm_bgm_no] + prm_volume);
+        setVolume(prm_bgm_no, _vec_volume[prm_bgm_no] + prm_volume);
     }
 
     /**
@@ -78,7 +81,7 @@ public:
      * @return
      */
     virtual float getPan(int prm_bgm_no) {
-        return _pa_pan[prm_bgm_no];
+        return _vec_pan[prm_bgm_no];
     }
 
     /**

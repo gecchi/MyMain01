@@ -3,6 +3,8 @@
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/GgafObject.h"
 
+#include <vector>
+
 namespace GgafDxCore {
 
 /**
@@ -16,27 +18,20 @@ namespace GgafDxCore {
 class GgafDxSeTransmitter : public GgafCore::GgafObject {
 
 public:
-    /** [r]SE資源接続の配列 */
-    GgafDxSeConnection** _papSeConnection;
     /** [r]扱うSEの数 */
     int _se_num;
+    /** [r]SE資源接続の配列 */
+    std::vector<GgafDxSeConnection*> _vecSeConnection;
     /** [r]扱うSEのボリューム配列 */
-    double* _pa_volume;
+    std::vector<double> _vec_volume;
     /** [r]扱うSEのパン値 */
-    float* _pa_pan;
+    std::vector<float> _vec_pan;
 
 public:
     /**
      * コンストラクタ .
      */
     GgafDxSeTransmitter();
-
-    /**
-     * SE使用数を宣言し、初期化を行う .
-     * 本オブジェクトの機能を利用するには、必須。
-     * @param prm_se_num SE数（種類数）
-     */
-    virtual void declareSeNum(int prm_se_num);
 
     /**
      * SEの設定を行う .
@@ -71,7 +66,7 @@ public:
      * @return ボリューム値(0 ～ 1000)
      */
     virtual int getVolume(int prm_se_no) {
-        return _pa_volume[prm_se_no];
+        return _vec_volume[prm_se_no];
     }
 
     /**
@@ -82,7 +77,7 @@ public:
      * @return
      */
     virtual void addVolume(int prm_se_no, double prm_volume) {
-        setVolume(prm_se_no, _pa_volume[prm_se_no] + prm_volume);
+        setVolume(prm_se_no, _vec_volume[prm_se_no] + prm_volume);
     }
 
     /**
@@ -98,7 +93,7 @@ public:
      * @return
      */
     virtual float getPan(int prm_se_no) {
-        return _pa_pan[prm_se_no];
+        return _vec_pan[prm_se_no];
     }
 
 
