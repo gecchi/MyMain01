@@ -250,7 +250,7 @@ GgafDxCameraUpVector* GgafDxCamera::getCameraUpVector() {
         return _pCameraUpVector;
     } else {
         _pCameraUpVector = createCameraUpVector();
-        _pCameraUpVector->setPosition(0, PX_C(1), 0);
+        _pCameraUpVector->setPosition(0, DX_C(1), 0);
         addSubGroup(_pCameraUpVector);
         return _pCameraUpVector;
     }
@@ -263,7 +263,7 @@ void GgafDxCamera::setDefaultPosition() {
     GgafDxCameraViewPoint* pVp = getCameraViewPoint();
     pVp->setPosition(0, 0, 0);
     GgafDxCameraUpVector* pUpv = getCameraUpVector();
-    pUpv->setPosition(0, PX_C(1), 0);
+    pUpv->setPosition(0, DX_C(1), 0);
 }
 
 bool GgafDxCamera::isMoving() {

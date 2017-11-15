@@ -109,7 +109,7 @@ public:
     void changeWithSceneOverlapping(progress prm_progress, frame prm_overlapping_frames);
 
     /**
-     * 現在の進捗状態に関連づいているシーンを取得 .
+     * 現在のアクティブな進捗状態に関連づいているシーンを取得 .
      * 取得できない場合は nullptr
      * ※本メソッドの効果を得るには relateSubScene() を予め実行し、シーンを関連付ける必要があります。
      * @return
@@ -117,7 +117,7 @@ public:
     DefaultScene* getGazedScene();
 
     /**
-     * 進捗状態に関連づいているシーンを取得 .
+     * 引数の進捗状態に関連づいているシーンを取得 .
      * 取得できない場合は nullptr
      * ※本メソッドの効果を得るには relateSubScene() を予め実行し、シーンを関連付ける必要があります。
      * @param prm_progress 進捗状態

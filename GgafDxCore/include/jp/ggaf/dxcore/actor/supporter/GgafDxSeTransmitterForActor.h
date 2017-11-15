@@ -36,12 +36,11 @@ public:
 
     /**
      * SEの設定を行う .
-     * 事前 declareSeNum() は不要(になった)。
      * SEの再生時間は GGAF_END_DELAY+(最大距離遅延) フレーム以内でなければいけない。
      * チャンネル数は、引数の prm_se_key+"_CH" というプロパティ値が参照される。
      * 存在しない場合、再生チャンネル番号は0固定(∴チャンネル数は1)
      * 設定済みIDに、上書き再設定可能。
-     * @param se_no SEのID ( 0 ～ SE数-1 )
+     * @param se_no SE登録番号 ( 0 ～ SE数-1 )
      * @param prm_se_key SE定義名（プロパティファイルのキー）
      */
     void set(int prm_se_no, const char* prm_se_key);
@@ -50,7 +49,7 @@ public:
      * SEの設定を行う .
      * 但し、SEの再生時間は GGAF_END_DELAY+(最大距離遅延) フレーム以内でなければいけない。
      * 上書き再設定可能。
-     * @param se_no SEのID ( 0 ～ SE数-1 )
+     * @param se_no SE登録番号 ( 0 ～ SE数-1 )
      * @param prm_se_key SE定義名（プロパティファイルのキー）
      * @param prm_cannel 再生チャンネル番号
      */
@@ -58,18 +57,18 @@ public:
 
     /**
      * 即座にSEを再生する(擬似３D無し)。
-     * @param prm_id SEのID ( 0 ～ SE数-1 )
+     * @param prm_se_no SE登録番号 ( 0 ～ SE数-1 )
      */
-    void play(int prm_id, bool prm_can_looping = false) override;
+    void play(int prm_se_no, bool prm_can_looping = false) override;
 
     /**
      * SEの擬似３D再生 .
      * オブジェクトの座標とカメラの座標から、左右のパン。<BR>
      * 距離に応じてのボリューム減少と、遅延再生を行う。<BR>
      * さらに behave() を毎フレーム呼び出しておくと、効果音発声中の移動も擬似３D効果を得る。<BR>
-     * @param prm_id SEのID ( 0 ～ SE数-1 )
+     * @param prm_se_no SE登録番号 ( 0 ～ SE数-1 )
      */
-    void play3D(int prm_id);
+    void play3D(int prm_se_no);
 
     /**
      * 擬似３D効果再生の毎フレームの処理 .

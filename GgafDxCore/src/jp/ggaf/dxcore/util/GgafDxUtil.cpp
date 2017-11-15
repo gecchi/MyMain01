@@ -256,7 +256,6 @@ void GgafDxUtil::init() {
         }
     }
 
-
     GgafDxUtil::_was_GgafDxUtil_inited_flg = true;
 }
 

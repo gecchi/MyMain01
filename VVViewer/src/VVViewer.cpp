@@ -10,6 +10,8 @@ HWND hWnd1, hWnd2;
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 BOOL CustmizeSysMenu(HWND hWnd);
+
+
 /**
  * GCC のエントリポイント
  */
@@ -25,7 +27,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
 
     //プロパティファイル読込み
     GgafLib::GgafLibProperties::load(".\\config.properties");
-
     //ウィンドウ定義＆作成
     WNDCLASSEX wcex1;
     ZeroMemory(&wcex1, sizeof(WNDCLASSEX));
@@ -38,8 +39,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     WNDCLASSEX wcex2 = wcex1;
     wcex2.lpszClassName = "secondary";
     DWORD dwStyle = WS_OVERLAPPEDWINDOW;
-
-
 
     //神の誕生
     VvvGod god = VvvGod();

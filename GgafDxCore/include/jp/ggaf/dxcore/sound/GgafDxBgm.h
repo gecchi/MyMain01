@@ -112,6 +112,8 @@ public:
      */
     virtual bool isPlaying();
 
+    virtual bool isPause();
+
     virtual ~GgafDxBgm();
 };
 

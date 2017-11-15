@@ -130,7 +130,7 @@ void GgafDxSeTransmitterForActor::updatePanVolume3D() {
     for (int i = 0; i < se_num; i++) {
         if (_vec_is_playing_3d[i]) {
             if (_vecSeConnection[i]) {
-                GgafDxSe* const pSe = _vecSeConnection[i]->peek();
+                GgafDxSe* pSe = getSe(i);
                 if (pSe->isPlaying() && pSe->_pActor_last_played == _pActor) {
                     if (calc_flg) {
                         calc_flg = false; //最初の１回目のループだけ距離計算
@@ -163,8 +163,8 @@ void GgafDxSeTransmitterForActor::updatePanVolume3D() {
                                 pCam->_plnVerticalCenter.c * _pActor->_fZ +
                                 pCam->_plnVerticalCenter.d;
                         const angle ang = UTIL::getAngle2D(fDist_VpVerticalCenter, -_pActor->_dest_from_vppln_infront );
-                        pan = ANG_COS(ang) * 0.8; //0.8意味は、完全に右のみ或いは左のみから聞こえるのを避けるため
-                                                              //最高で 0.2 : 0.8 の割合に留めるため。
+                        pan = ANG_COS(ang) * 0.9; //0.9意味は、完全に右のみ或いは左のみから聞こえるのを避けるため
+                                                              //最高で 0.1 : 0.9 の割合に留めるため。
                         //リアルタイムのパンを計算
                         if (_pActor->_dest_from_vppln_infront > 0) { //背後の場合周波数を下げ、音を少しぐぐもらせる。
                             if (_pActor->_dest_from_vppln_infront > PX_DX(800)) {

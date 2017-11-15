@@ -168,8 +168,8 @@ public:
      * ノードのフレーム毎の振る舞い処理(実行対象：自ツリー全て) .
      * この処理では、全ノード座標移動処理を行うこととする。<BR>
      * 実装用の processBehavior() がコールバックされるためのフラグの条件は、<BR>
-     * 活動フラグ、生存フラグがセット、かつ一時停止フラグがアンセット<BR>
-     * （ _is_active_in_the_tree_flg && !_was_paused_flg && _can_live_flg ）の場合である。 <BR>
+     * 活動フラグがセット、かつ一時停止フラグがアンセット<BR>
+     * （ _is_active_in_the_tree_flg && !_was_paused_flg ）の場合である。 <BR>
      * behave() は 仮想関数 processBehavior() をコールした後、配下のノード全てについて behave() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックで本メソッドを直接呼び出しを行わないこととする。<BR>
      * 下位クラスではコールされる processBehavior() をオーバーライドして具体的な座標移動ロジックを実装する。 <BR>
@@ -182,8 +182,7 @@ public:
      * この処理では、全ノード座標移動が完了していることが保証された後の処理を行う事とする設計。<BR>
      * 更新が完了した座標情報から、それに伴う内部の様々なステータス等の更新処理をここで行う事を目的とする<BR>
      * 実装用の processSettlementBehavior() がコールバックされるためのフラグの条件は、<BR>
-     * behave()と同じく活動フラグ、生存フラグがセット、かつ一時停止フラグがアンセット。<BR>
-     * つまり ( _is_active_in_the_tree_flg && !_was_paused_flg && _can_live_flg )の場合である。 <BR>
+     * 一時停止フラグの状態と無関係に実行される点が behave() と異なる。<BR>
      * settleBehavior()は、仮想関数 processSettlementBehavior() をコールした後、配下のノード全てについて settleBehavior() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックで本メソッドを直接呼び出しを行わないこととする。<BR>
      * 下位クラスではコールされる processSettlementBehavior() をオーバーライドしてロジックを実装することとする。 <BR>
@@ -196,8 +195,8 @@ public:
      * この処理では、ノード間の様々な判定処理を行う事とする設計。<BR>
      * 全ノード座標移動処理と伴なうステータス類の更新が完全に完了してが前提とする処理が行われる。<BR>
      * 実装用の processJudgement() がコールバックされるためのフラグの条件は、behave()と同じく、<BR>
-     * 活動フラグ、生存フラグがセット、かつ一時停止フラグがアンセット<BR>
-     * つまり ( _is_active_in_the_tree_flg && !_was_paused_flg && _can_live_flg )の場合 <BR>
+     * 活動フラグがセット、かつ一時停止フラグがアンセット<BR>
+     * つまり ( _is_active_in_the_tree_flg && !_was_paused_flg )の場合 <BR>
      * judge() は 仮想関数 processJudgement() をコールした後、配下のノード全てについて judge() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックで本メソッドを直接呼び出しを行わないこととする。<BR>
      * 下位クラスではコールされる processJudgement() をオーバーライドしてロジックを実装する <BR>
@@ -208,8 +207,8 @@ public:
 
     /**
      * ノードのフレーム毎の描画事前処理(実行対象：自ツリー全て)（フレームスキップされて呼び出されない場合もある。） .
-     * 実装用の processPreDraw() がコールバックされる条件は、活動フラグ、生存フラグがセット<BR>
-     * (つまり _is_active_flg && _can_live_flg)の場合である。 <BR>
+     * 実装用の processPreDraw() がコールバックされる条件は、活動フラグがセット<BR>
+     * ( _is_active_in_the_tree_flg )の場合である。 <BR>
      * processPreDraw() をコールした後、配下のノード全てについて preDraw() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
      * 下位クラスではコールされる processPreDraw() をオーバーライドしてロジックを実装する <BR>
@@ -219,8 +218,8 @@ public:
 
     /**
      * ノードのフレーム毎の描画本処理(実行対象：自ツリー全て)（フレームスキップされて呼び出されない場合もある。） .
-     * 実装用の processDraw() がコールバックされる条件は、活動フラグ、生存フラグがセット<BR>
-     * (つまり _is_active_in_the_tree_flg && _can_live_flg)の場合である。 <BR>
+     * 実装用の processDraw() がコールバックされる条件は、活動フラグがセット<BR>
+     * (_is_active_in_the_tree_flg)の場合である。 <BR>
      * processDraw() をコールした後、配下のノード全てについて draw() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
      * 下位クラスではコールされる processDraw() をオーバーライドしてロジックを実装する <BR>
@@ -230,8 +229,8 @@ public:
 
     /**
      * ノードのフレーム毎の描画事後処理(実行対象：自ツリー全て)（フレームスキップされて呼び出されない場合もある。） .
-     * 実装用の processAfterDraw() がコールバックされる条件は、活動フラグ、生存フラグがセット<BR>
-     * (つまり _is_active_in_the_tree_flg && _can_live_flg)の場合である。 <BR>
+     * 実装用の processAfterDraw() がコールバックされる条件は、活動フラグがセット<BR>
+     * (_is_active_in_the_tree_flg)の場合である。 <BR>
      * processAfterDraw() をコールした後、配下のノード全てについて afterDraw() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
      * 下位クラスではコールされる processAfterDraw() をオーバーライドしてロジックを実装する <BR>
@@ -243,8 +242,8 @@ public:
      * ノードのフレーム毎の最終処理(実行対象：自ツリー全て) .
      * 座標移動処理、判定処理、描画処理が終了した後に、最後に行う後始末処理を行う事とする設計。<BR>
      * 実装用の processFinal() がコールバックされる条件は、
-     * 活動フラグ、生存フラグがセット、かつ一時停止フラグがアンセット<BR>
-     * （_is_active_in_the_tree_flg && !_was_paused_flg && _can_live_flg）の場合である。 <BR>
+     * 活動フラグがセット、かつ一時停止フラグがアンセット<BR>
+     * （_is_active_in_the_tree_flg && !_was_paused_flg）の場合である。 <BR>
      * processFinal() をコールした後、配下のノード全てについて doFinally() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
      * 下位クラスではコールされる processFinal() をオーバーライドしてロジックを実装する <BR>

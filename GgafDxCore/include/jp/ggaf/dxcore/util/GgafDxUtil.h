@@ -87,6 +87,8 @@ public:
 
     static bool _was_GgafDxUtil_inited_flg;
 
+
+
     static GgafDxCamera* _pCam;
 public:
     static void init();

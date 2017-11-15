@@ -3,6 +3,9 @@
 #include "GgafLibCommonHeader.h"
 #include "jp/ggaf/core/actor/GgafMainActor.h"
 
+
+#define DEFAULT_CAMERA_SLIDE_FRAMES (60)
+
 namespace GgafLib {
 
 /**
@@ -15,17 +18,6 @@ namespace GgafLib {
  */
 class CameraWorker : public GgafCore::GgafMainActor {
 
-    /** [現カメラのUP要素ベクトルの面番号][視線の反対ベクトルの面番号] = 次の妥当なUP要素ベクトルの面番号(但しDIR26_NULLは移動不要を意味する)  関連テーブル */
-    static int relation_up_vec_[3*3*3][3*3*3];
-    /** relation_up_vec_アクセス用 */
-    static int (*relation_up_by_vec_)[3*3*3];
-
-private:
-    /** 現在のカメラ→視点の方向番号 */
-    dir26 vcv_dir_;
-    /** 前回カメラ→視点の方向番号 */
-    dir26 vcv_dir_prev_;
-
 public:
     /** [r]カメラへの参照 */
     DefaultCamera* pCam_;
@@ -37,8 +29,8 @@ public:
     coord t_x_CAM_, t_y_CAM_, t_z_CAM_;
     /** カメラマンのビューポイントの移動目標座標 */
     coord t_x_VP_, t_y_VP_, t_z_VP_;
-    /** カメラマンの頭の方向目標番号 */
-    dir26 t_cam_up_dir_;
+    /** UPベクトル目標 */
+    coord t_x_UP_, t_y_UP_, t_z_UP_;
 
     frame frame_of_behaving_since_onSwitch_;
 
@@ -101,15 +93,12 @@ public:
     void slideMvVpTo(coord tx, coord ty, coord tz, frame t);
 
     void slideMvUpVecTo(coord tx, coord ty, coord tz, frame t);
-    void slideMvUpVecTo(dir26 prm_up_dir_no, frame t);
 
     void setUpVec(coord tx, coord ty, coord tz);
-//    void stopNaturallyCam(coord distance, frame t);
-//    void stopNaturallyVp(coord distance, frame t);
 
     void stopMvCam();
     void stopMvVp();
-//    void behaveAutoCamUp();
+
     virtual ~CameraWorker(); //デストラクタ
 };
 

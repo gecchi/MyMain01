@@ -18,8 +18,9 @@ _pBgmPerformer(new GgafDxBgmPerformerForScene(this)) {
 void GgafDxScene::processSettlementBehavior() {
     if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
         _pAlphaCurtain->behave(); //_master_alpha‚ªXV‚³‚ê‚é
-        _pBgmPerformer->behave();
     }
+
+    _pBgmPerformer->behave();
     if (!_was_paused_flg && _was_paused_flg_in_next_frame) {
         _pBgmPerformer->pause();
     } else if (_was_paused_flg && !_was_paused_flg_in_next_frame) {

@@ -50,7 +50,7 @@ public:
      * カメラのUP面番号、引数の面番号にセットし、UPベクトルをスライド移動を開始させます。
      * @param prm_face_no カメラのUP面番号
      */
-    void moveTo(dir26 prm_dir_no, frame prm_spent);
+//    void moveTo(dir26 prm_dir_no, frame prm_spent);
     void moveTo(coord tx, coord ty, coord tz, frame prm_spent);
 
     virtual ~DefaultCameraUpVector();

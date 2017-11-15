@@ -35,17 +35,19 @@ public:
 
     /**
      * SEの設定を行う .
+     * 引数のチャンネル番号が異なれば、同じSE定義名のWaveでも、複数同時発声ができる。
+     * 引数のチャンネル番号が同じであれば、一つの発声しかできない。
      * 但し、SEの再生時間は GGAF_END_DELAY+(最大距離遅延) フレーム以内でなければいけない。
      * 上書き再設定可能。
-     * @param prm_se_no SEの番号 ( 0 ～ SE数-1 )
-     * @param prm_se_key SE定義名(プロパティファイルのキー)
+     * @param prm_se_no SE登録番号 ( 0 ～ SE数-1 )
+     * @param prm_se_key SE定義名(プロパティファイルのwaveファイル指定のキー)
      * @param prm_cannel 再生チャンネル番号
      */
     virtual void set(int prm_se_no, const char* prm_se_key, int prm_cannel);
 
     /**
      * 再生 .
-     * @param prm_se_no  SEの番号 ( 0 ～ SE数-1 )
+     * @param prm_se_no  SE登録番号 ( 0 ～ SE数-1 )
      * @param prm_can_looping  true:ループ再生／false:1回再生
      */
     virtual void play(int prm_se_no, bool prm_can_looping = false);
@@ -54,7 +56,7 @@ public:
     /**
      * ボリューム値を設定する。
      * SEマスターボリュームも考慮された音量に設定される。
-     * @param prm_se_no SEの番号(0 ～ )
+     * @param prm_se_no SE登録番号(0 ～ )
      * @param prm_volume ボリューム値(0 ～ 1000)
      */
     virtual void setVolume(int prm_se_no, double prm_volume);
@@ -62,7 +64,7 @@ public:
     /**
      * ボリューム値を取得する .
      * SEマスターボリュームも考慮されていないsetVolume()で設定された音量を取得。
-     * @param prm_se_no SEの番号(0 ～ )
+     * @param prm_se_no SE登録番号(0 ～ )
      * @return ボリューム値(0 ～ 1000)
      */
     virtual int getVolume(int prm_se_no) {
@@ -72,7 +74,7 @@ public:
     /**
      * ボリューム値を加算する .
      * SEマスターボリュームも考慮された音量に設定される。
-     * @param prm_se_no SEの番号(0 ～ )
+     * @param prm_se_no SE登録番号(0 ～ )
      * @param prm_volume 加算ボリューム値(0 ～ 1000)
      * @return
      */
@@ -99,14 +101,14 @@ public:
 
     /**
      * 再生停止 .
-     * @param prm_se_no  SEの番号 ( 0 ～ SE数-1 )
+     * @param prm_se_no  SE登録番号 ( 0 ～ SE数-1 )
      */
     virtual void stop(int prm_se_no);
 
 
     /**
      * GgafDxSe を取得。
-     * @param prm_se_no SEの番号 ( 0 ～ SE数-1 )
+     * @param prm_se_no SE登録番号 ( 0 ～ SE数-1 )
      */
     virtual GgafDxSe* getSe(int prm_se_no) const;
 

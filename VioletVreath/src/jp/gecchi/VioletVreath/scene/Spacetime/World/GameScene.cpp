@@ -54,7 +54,6 @@ pStageWorld_(nullptr) {
     addSubLast(NEW GameMainScene("GameMain"));
     addSubLast(NEW GameEndingScene("GameEnding"));
     addSubLast(NEW GameOverScene("GameOver"));
-
     getProgress()->relateSubScene(PROG_PRE_TITLE, PROG_GAME_OVER,  "PreGameTitle");
     is_frame_advance_ = false;
 
@@ -329,14 +328,7 @@ void GameScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
         //ゲームモードセレクト完了
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMEMODE_DECIDE)");
         pProg->changeWithSceneCrossfading(PROG_MAIN,600);//メインへ
-    } else if (prm_no == EVENT_GOTO_GAMETITLE) {
-        //とにかくタイトルへイベント発生
-        _TRACE_("GameScene::onCatchEvent(EVENT_GOTO_GAMETITLE)");
-        pProg->changeWithSceneFlipping(PROG_TITLE); //タイトルへ
-    }
-
-
-    if (prm_no == EVENT_ALL_MY_SHIP_WAS_DESTROYED) {
+    } else if (prm_no == EVENT_ALL_MY_SHIP_WAS_DESTROYED) {
         _TRACE_("GameScene::onCatchEvent(EVENT_ALL_MY_SHIP_WAS_DESTROYED)");
         if (pProg->get() == PROG_DEMO) {
             //もし万が一、デモシーン中の全機消滅ならば、デモシーン終了

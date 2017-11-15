@@ -23,11 +23,11 @@ void GgafDxBgmPerformer::ready(int prm_bgm_no, const char* prm_bgm_name) {
             _vec_volume.push_back(GGAF_MAX_VOLUME);
             _vec_pan.push_back(0);
         }
-        _bgm_num = _vecBgmConnection.size();;
+        _bgm_num = _vecBgmConnection.size();
     }
 
     if (_vecBgmConnection[prm_bgm_no]) {
-        _TRACE_("【警告】GgafDxBgmPerformer::set() IDが使用済みです、上書きしますが意図してますか？？。prm_bgm_no="<<prm_bgm_no<<" prm_bgm_name="<<prm_bgm_name);
+        _TRACE_("【警告】GgafDxBgmPerformer::ready() IDが使用済みです、上書きしますが意図してますか？？。prm_bgm_no="<<prm_bgm_no<<" prm_bgm_name="<<prm_bgm_name);
         _vecBgmConnection[prm_bgm_no]->close();
         _vec_volume[prm_bgm_no] = GGAF_MAX_VOLUME;
         _vec_pan[prm_bgm_no] = 0;
@@ -107,6 +107,14 @@ void GgafDxBgmPerformer::stop() {
     for (int bgm_no = 0; bgm_no < _bgm_num; bgm_no++) {
         stop(bgm_no);
     }
+}
+
+bool GgafDxBgmPerformer::isPlaying(int prm_bgm_no) {
+    return getBgm(prm_bgm_no)->isPlaying();
+}
+
+bool GgafDxBgmPerformer::isPause(int prm_bgm_no) {
+    return getBgm(prm_bgm_no)->isPause();
 }
 
 void GgafDxBgmPerformer::setVolume(int prm_bgm_no, double prm_volume) {

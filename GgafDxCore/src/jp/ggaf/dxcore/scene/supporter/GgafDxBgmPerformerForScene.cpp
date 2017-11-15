@@ -83,20 +83,22 @@ void GgafDxBgmPerformerForScene::play(int prm_bgm_no, bool prm_is_loop) {
 }
 void GgafDxBgmPerformerForScene::behave() {
     for (int bgm_no = 0; bgm_no < _bgm_num; bgm_no++) {
-        if (_vec_is_fade[bgm_no]) {
-            //音量フェード
-            addVolume(bgm_no, _vec_inc_volume[bgm_no]);
-            if (_vec_inc_volume[bgm_no] > 0 && getVolume(bgm_no) >= _vec_target_volume[bgm_no]) {
-                //増音フェード完了時
-                setVolume(bgm_no, _vec_target_volume[bgm_no]);
-                _vec_is_fade[bgm_no] = false;
-            } else if (_vec_inc_volume[bgm_no] < 0 && getVolume(bgm_no) <= _vec_target_volume[bgm_no]) {
-                //減音フェード完了時
-                setVolume(bgm_no, _vec_target_volume[bgm_no]);
-                _vec_is_fade[bgm_no] = false;
-                if (_vec_is_fadeout_stop[bgm_no]) {
-                    //減音フェード完了時に演奏停止
-                    stop(bgm_no);
+        if (isPlaying(bgm_no)) {
+            if (_vec_is_fade[bgm_no]) {
+                //音量フェード
+                addVolume(bgm_no, _vec_inc_volume[bgm_no]);
+                if (_vec_inc_volume[bgm_no] > 0 && getVolume(bgm_no) >= _vec_target_volume[bgm_no]) {
+                    //増音フェード完了時
+                    setVolume(bgm_no, _vec_target_volume[bgm_no]);
+                    _vec_is_fade[bgm_no] = false;
+                } else if (_vec_inc_volume[bgm_no] < 0 && getVolume(bgm_no) <= _vec_target_volume[bgm_no]) {
+                    //減音フェード完了時
+                    setVolume(bgm_no, _vec_target_volume[bgm_no]);
+                    _vec_is_fade[bgm_no] = false;
+                    if (_vec_is_fadeout_stop[bgm_no]) {
+                        //減音フェード完了時に演奏停止
+                        stop(bgm_no);
+                    }
                 }
             }
         }

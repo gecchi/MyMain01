@@ -124,6 +124,14 @@ public:
      */
     virtual void unpause();
 
+    virtual bool isPlaying(int prm_bgm_no);
+    /**
+     * BGM‚Ìˆê’â~’†‚©”»’f‚·‚é .
+     * @param prm_bgm_no BGM”Ô†(0 ` )
+     * @return true:ˆê’â~’†^false:ˆê’â~’†‚Å‚Í–³‚¢
+     */
+    virtual bool isPause(int prm_bgm_no);
+
     virtual GgafDxBgm* getBgm(int prm_bgm_no);
 
     virtual ~GgafDxBgmPerformer();

@@ -88,10 +88,8 @@ void GgafScene::behave() {
 }
 
 void GgafScene::settleBehavior() {
-    if (_once_in_n_time == 1 || pGOD->_frame_of_God % _once_in_n_time == 0) {
-        GgafElement<GgafScene>::settleBehavior();
-        _pSceneDirector->settleBehavior();
-    }
+    GgafElement<GgafScene>::settleBehavior();
+    _pSceneDirector->settleBehavior();
 }
 
 void GgafScene::judge() {
