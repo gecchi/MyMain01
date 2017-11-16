@@ -12,6 +12,7 @@ GgafScene::GgafScene(const char* prm_name) : GgafElement<GgafScene> (prm_name) {
 
     _pSceneDirector = NEW GgafSceneDirector(this);
     _once_in_n_time = 1;
+    _is_next_frame = true;
 #ifdef MY_DEBUG
     _TRACE_("new "<<NODE_INFO<<" _id="<<getId());
 #else
@@ -55,7 +56,8 @@ void GgafScene::addSubLast(GgafScene* prm_pScene) {
 
 void GgafScene::nextFrame() {
     bool b = _is_active_in_the_tree_flg;
-    if (_once_in_n_time == 1 || pGOD->_frame_of_God % _once_in_n_time == 0) {
+    _is_next_frame = (_once_in_n_time == 1 || pGOD->_frame_of_God % _once_in_n_time == 0);
+    if (_is_next_frame) {
         GgafElement<GgafScene>::nextFrame();
         frame f = _pSceneDirector->_frame_of_life;
         if (b || _is_active_in_the_tree_flg ||
@@ -81,19 +83,21 @@ void GgafScene::nextFrame() {
 }
 
 void GgafScene::behave() {
-    if (_once_in_n_time == 1 || pGOD->_frame_of_God % _once_in_n_time == 0) {
+    if (_is_next_frame) {
         GgafElement<GgafScene>::behave();
         _pSceneDirector->behave();
     }
 }
 
 void GgafScene::settleBehavior() {
-    GgafElement<GgafScene>::settleBehavior();
-    _pSceneDirector->settleBehavior();
+    if (_is_next_frame) {
+        GgafElement<GgafScene>::settleBehavior();
+        _pSceneDirector->settleBehavior();
+    }
 }
 
 void GgafScene::judge() {
-    if (_once_in_n_time == 1 || pGOD->_frame_of_God % _once_in_n_time == 0) {
+    if (_is_next_frame) {
         GgafElement<GgafScene>::judge();
         _pSceneDirector->judge();
     }
@@ -133,7 +137,7 @@ void GgafScene::throwEventUpperTree(hashval prm_no) {
 }
 
 void GgafScene::doFinally() {
-    if (_once_in_n_time == 1 || pGOD->_frame_of_God % _once_in_n_time == 0) {
+    if (_is_next_frame) {
         GgafElement<GgafScene>::doFinally();
         _pSceneDirector->doFinally();
     }
@@ -199,16 +203,6 @@ void GgafScene::pause() {
     _pSceneDirector->pause();
 }
 
-void GgafScene::pauseTreeImmed() {
-    GgafElement<GgafScene>::pauseTreeImmed();
-    _pSceneDirector->pauseTreeImmed();
-}
-
-void GgafScene::pauseImmed() {
-    GgafElement<GgafScene>::pauseImmed();
-    _pSceneDirector->pauseImmed();
-}
-
 void GgafScene::unpauseTree() {
     GgafElement<GgafScene>::unpauseTree();
     _pSceneDirector->unpauseTree();
@@ -217,16 +211,6 @@ void GgafScene::unpauseTree() {
 void GgafScene::unpause() {
     GgafElement<GgafScene>::unpause();
     _pSceneDirector->unpause();
-}
-
-void GgafScene::unpauseTreeImmed() {
-    GgafElement<GgafScene>::unpauseTreeImmed();
-    _pSceneDirector->unpauseTreeImmed();
-}
-
-void GgafScene::unpauseImmed() {
-    GgafElement<GgafScene>::unpauseImmed();
-    _pSceneDirector->unpauseImmed();
 }
 
 void GgafScene::executeFuncLowerTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2) {

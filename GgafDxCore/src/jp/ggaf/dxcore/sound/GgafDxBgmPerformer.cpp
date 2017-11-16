@@ -77,6 +77,7 @@ void GgafDxBgmPerformer::pause(int prm_bgm_no) {
     }
 #endif
     getBgm(prm_bgm_no)->pause();
+    _TRACE_("GgafDxBgmPerformer::pause("<<prm_bgm_no<<"):"<<_vecBgmConnection[prm_bgm_no]->getIdStr()<<" ‚ðpause()‚µ‚Ü‚µ‚½B");
 }
 
 void GgafDxBgmPerformer::pause() {
@@ -95,6 +96,7 @@ void GgafDxBgmPerformer::unpause(int prm_bgm_no) {
     }
 #endif
     getBgm(prm_bgm_no)->unpause();
+    _TRACE_("GgafDxBgmPerformer::unpause("<<prm_bgm_no<<"):"<<_vecBgmConnection[prm_bgm_no]->getIdStr()<<" unpause()‚µ‚Ü‚µ‚½B");
 }
 
 void GgafDxBgmPerformer::unpause() {

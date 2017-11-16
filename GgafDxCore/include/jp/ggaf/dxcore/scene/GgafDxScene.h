@@ -5,8 +5,6 @@
 
 namespace GgafDxCore {
 
-#define MAX_BGM_PER_ACTOR 3
-
 /**
  * GgafDxCore名前空間、基底シーンクラス.
  * 次の機能をシーンクラスに追加しています。<BR>
@@ -61,6 +59,11 @@ public:
      */
     virtual void processSettlementBehavior() override;
 
+    virtual void pauseTree() override;
+    virtual void pause() override;
+
+    virtual void unpauseTree() override;
+    virtual void unpause() override;
 
     /**
      * 自ツリーシーンのアクターをフェードインさせる .

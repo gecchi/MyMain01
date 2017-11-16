@@ -89,6 +89,8 @@ class GgafScene : public GgafElement<GgafScene> {
     friend class GgafSceneDirector;
     friend class GgafGarbageBox;
 
+private:
+    bool _is_next_frame;
 protected:
     /** このシーンの監督 */
     GgafSceneDirector* _pSceneDirector;
@@ -96,6 +98,7 @@ protected:
 public:
     /** 何フレームに１回動作するか */
     frame _once_in_n_time;
+
     /**
      * コンストラクタ .
      * 引数： prm_name シーン名<BR>
@@ -149,13 +152,9 @@ public:
 
     virtual void pauseTree() override;
     virtual void pause() override;
-    virtual void pauseTreeImmed() override;
-    virtual void pauseImmed() override;
 
     virtual void unpauseTree() override;
     virtual void unpause() override;
-    virtual void unpauseTreeImmed() override;
-    virtual void unpauseImmed() override;
 
     virtual void reset() override;
     virtual void resetTree() override;

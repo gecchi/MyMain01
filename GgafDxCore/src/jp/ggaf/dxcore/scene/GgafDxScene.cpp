@@ -1,5 +1,6 @@
 #include "jp/ggaf/dxcore/scene/GgafDxScene.h"
 
+#include "jp/ggaf/core/actor/GgafSceneDirector.h"
 #include "jp/ggaf/dxcore/scene/supporter/GgafDxAlphaCurtain.h"
 #include "jp/ggaf/dxcore/scene/supporter/GgafDxBgmPerformerForScene.h"
 
@@ -18,14 +19,44 @@ _pBgmPerformer(new GgafDxBgmPerformerForScene(this)) {
 void GgafDxScene::processSettlementBehavior() {
     if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
         _pAlphaCurtain->behave(); //_master_alphaが更新される
+        _pBgmPerformer->behave();
     }
+}
 
-    _pBgmPerformer->behave();
-    if (!_was_paused_flg && _was_paused_flg_in_next_frame) {
+void GgafDxScene::pauseTree() {
+    if (_can_live_flg) {
+        _TRACE_("GgafDxScene::pauseTree() シーン"<<getName()<<"("<<this<<")の BGMを一時停止 pause() します。");
         _pBgmPerformer->pause();
-    } else if (_was_paused_flg && !_was_paused_flg_in_next_frame) {
+    }
+    GgafElement<GgafScene>::pauseTree();
+    _pSceneDirector->pauseTree();
+}
+
+void GgafDxScene::pause() {
+    if (_can_live_flg) {
+        _TRACE_("GgafDxScene::pause() シーン"<<getName()<<"("<<this<<")の BGMを一時停止 pause() します。");
+        _pBgmPerformer->pause();
+    }
+    GgafElement<GgafScene>::pause();
+    _pSceneDirector->pause();
+}
+
+void GgafDxScene::unpauseTree() {
+    if (_can_live_flg) {
+        _TRACE_("GgafDxScene::unpauseTree() シーン"<<getName()<<"("<<this<<")の BGMを一時停止解除 unpause() します。");
         _pBgmPerformer->unpause();
     }
+    GgafElement<GgafScene>::unpauseTree();
+    _pSceneDirector->unpauseTree();
+}
+
+void GgafDxScene::unpause() {
+    if (_can_live_flg) {
+        _TRACE_("GgafDxScene::unpause() シーン"<<getName()<<"("<<this<<")の BGMを一時停止解除 unpause() します。");
+        _pBgmPerformer->unpause();
+    }
+    GgafElement<GgafScene>::unpause();
+    _pSceneDirector->unpause();
 }
 
 void GgafDxScene::fadeinSceneTree(int prm_frame_fade) {

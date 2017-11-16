@@ -539,21 +539,7 @@ public:
      */
     virtual void pauseTree();
 
-    /**
-     * 即座に一時停止状態にする(実行対象：this のみ) .
-     * 即座に一時停止状態フラグを更新(_was_paused_flg = true)する。<BR>
-     * 『同一フレーム内』であっても、既に処理されたノードと未処理のノードで、異なる状態になってしまう。<BR>
-     * 他ノードの影響、ツリー構造を良く考えて使用すること。<BR>
-     */
-    virtual void pauseImmed();
 
-    /**
-     * 即座に一時停止状態にする(実行対象：自ツリー全て) .
-     * 自身と配下ノード全てについて再帰的に pauseImmed() が実行される。<BR>
-     * pauseImmed() の説明を要参照。<BR>
-     * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
-     */
-    virtual void pauseTreeImmed();
 
     //===================
     /**
@@ -571,21 +557,7 @@ public:
      */
     virtual void unpauseTree();
 
-    /**
-     * 即座に一時停止状態を解除する(実行対象：this のみ) .
-     * 即座に一時停止状態フラグを更新(_was_paused_flg = false)する。<BR>
-     * 『同一フレーム内』であっても、既に処理されたノードと未処理のノードで、異なる状態になってしまう。<BR>
-     * 他ノードの影響、ツリー構造を良く考えて使用すること。<BR>
-     */
-    virtual void unpauseImmed();
 
-    /**
-     * 即座に一時停止状態を解除する(実行対象：自ツリー全て) .
-     * 自身と配下ノード全てについて再帰的に unpauseImmed() が実行される。<BR>
-     * unpauseImmed() の説明を要参照。<BR>
-     * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
-     */
-    virtual void unpauseTreeImmed();
 
 
     //===================
@@ -1296,23 +1268,6 @@ void GgafElement<T>::pause() {
 }
 
 template<class T>
-void GgafElement<T>::pauseTreeImmed() {
-    if (_can_live_flg) {
-        _was_paused_flg = true;
-        _was_paused_flg_in_next_frame = true;
-        callRecursive(&GgafElement<T>::pauseTreeImmed); //再帰
-    }
-}
-
-template<class T>
-void GgafElement<T>::pauseImmed() {
-    if (_can_live_flg) {
-        _was_paused_flg = true;
-        _was_paused_flg_in_next_frame = true;
-    }
-}
-
-template<class T>
 void GgafElement<T>::unpauseTree() {
     if (_can_live_flg) {
         _was_paused_flg_in_next_frame = false;
@@ -1323,23 +1278,6 @@ void GgafElement<T>::unpauseTree() {
 template<class T>
 void GgafElement<T>::unpause() {
     if (_can_live_flg) {
-        _was_paused_flg_in_next_frame = false;
-    }
-}
-
-template<class T>
-void GgafElement<T>::unpauseTreeImmed() {
-    if (_can_live_flg) {
-        _was_paused_flg = false;
-        _was_paused_flg_in_next_frame = false;
-        callRecursive(&GgafElement<T>::unpauseTreeImmed); //再帰
-    }
-}
-
-template<class T>
-void GgafElement<T>::unpauseImmed() {
-    if (_can_live_flg) {
-        _was_paused_flg = false;
         _was_paused_flg_in_next_frame = false;
     }
 }
@@ -1425,7 +1363,6 @@ void GgafElement<T>::clean(int prm_num_cleaning) {
         }
     }
 }
-
 
 template<class T>
 void GgafElement<T>::executeFuncLowerTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2) {

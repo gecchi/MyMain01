@@ -124,8 +124,8 @@ void GameScene::processBehavior() {
                 _TRACE_("pGOD->_fps = "<<pGOD->_fps);
                 pProg->changeWithSceneCrossfading(PROG_PRE_TITLE);
                 World* pWorld = pSpacetime->getWorld();
-                pWorld->pPreDrawScene_->inactivateTreeImmed();
-                pWorld->pPreDrawScene_->pauseTreeImmed();
+                pWorld->pPreDrawScene_->inactivateTree();
+                pWorld->pPreDrawScene_->pauseTree();
                 getBgmPerformer()->stop();
             }
             break;
