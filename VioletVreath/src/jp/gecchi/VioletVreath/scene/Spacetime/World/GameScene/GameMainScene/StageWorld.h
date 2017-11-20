@@ -13,7 +13,7 @@ namespace VioletVreath {
     #error pGAME_SCENE isnt define
 #endif
 
-#define SLOW_FRAME_RANKUP (3)
+#define SLOW_FRAME_RANKUP (2)
 
 /**
  * ステージ世界シーン .

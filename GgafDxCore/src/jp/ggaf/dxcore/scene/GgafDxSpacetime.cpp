@@ -227,7 +227,7 @@ void GgafDxSpacetime::draw() {
 #endif
         //各所属シーンのαカーテンを設定する。
         pDrawActor->getEffect()->setAlphaMaster(
-                                    ((GgafDxScene*)pDrawActor->getPlatformScene())->_master_alpha
+                                    ((GgafDxScene*)pDrawActor->getPlatformScene())->_scene_alpha_from_top
                                  );
 
         if (pDrawActor->_alpha < 1.0f) {

@@ -48,7 +48,7 @@
     <ClInclude Include="include\jp\ggaf\core\scene\GgafSpacetime.h" />
     <ClInclude Include="include\jp\ggaf\core\util\CmRandomNumberGenerator.h" />
     <ClInclude Include="include\jp\ggaf\core\util\DetectMemoryLeaks.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\GgafCurtain.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\ggafcurtain.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\GgafEnumIndex.h" />
     <ClInclude Include="include\jp\ggaf\core\util\GgafLinearOctree.h" />
     <ClInclude Include="include\jp\ggaf\core\util\ggaflinearquadtree.h" />
@@ -93,7 +93,6 @@
     <ClCompile Include="src\jp\ggaf\core\scene\GgafSpacetime.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\CmRandomNumberGenerator.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\DetectMemoryLeaks.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\GgafCurtain.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\GgafLinearOctree.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\GgafLinearQuadtree.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\GgafLogger.cpp" />

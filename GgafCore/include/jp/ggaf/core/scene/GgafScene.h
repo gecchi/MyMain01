@@ -168,6 +168,14 @@ public:
     virtual void executeFuncLowerTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2) override;
 
     /**
+     * 配下全てのシーンに対して指定の関数を実行させる .
+     * @param pFunc オブジェクトに実行させたい関数
+     * @param prm1 渡したい引数その１
+     * @param prm2 渡したい引数その２
+     */
+    virtual void executeFuncLowerSceneTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2);
+
+    /**
      * 自ツリーシーンをnフレーム後にゴミ箱へ移動します .
      * @param prm_offset_frames ゴミ箱へ移動タイミング残りフレーム数(デフォルト=1)
      */

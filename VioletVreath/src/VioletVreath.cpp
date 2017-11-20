@@ -84,7 +84,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     }
 
     hInst = hInstance; // グローバル変数にインスタンス処理を格納します。
-
     GgafCore::GgafRgb rgb = GgafCore::GgafRgb(PROPERTY::BORDER_COLOR);
     WNDCLASSEX wcex1;
     wcex1.cbSize = sizeof(WNDCLASSEX);
@@ -103,7 +102,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     WNDCLASSEX wcex2 = wcex1;
     wcex2.lpszClassName = "secondary";
     DWORD dwStyle = WS_OVERLAPPEDWINDOW;
-
 
 #ifdef MY_DEBUG
     #ifdef _MSC_VER
@@ -147,7 +145,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
         #endif
     #else
                         //メモリーリ－クチェックEND
-                      //  ::detectMemoryLeaksEnd(std::cout);
+                        //::detectMemoryLeaksEnd(std::cout);
     #endif
 #else
     #ifdef _MSC_VER
@@ -163,7 +161,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
                         //特に何も無し
     #endif
 #endif
-
                     if (VioletVreath::God::g_should_reboot_) {
                         //再起動
                         Sleep(2000);
@@ -245,7 +242,6 @@ void myTerminateHandler() {
     VB_UI->_pRpy->outputFile("VB_UI_LAST_Terminate.rep");
     std::terminate();
 }
-
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
     GgafLibWndProc(hWnd, message, wParam, lParam);
@@ -432,6 +428,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
     return DefWindowProc(hWnd, message, wParam, lParam);
 }
 
+
 // システムメニューをカスタマイズします。
 BOOL CustmizeSysMenu(HWND hWnd)
 {
@@ -522,5 +519,6 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam) {
 //        break;
 //}
 //}
+
 
 

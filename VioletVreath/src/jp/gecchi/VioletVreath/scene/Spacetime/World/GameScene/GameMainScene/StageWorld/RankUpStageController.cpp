@@ -54,7 +54,7 @@ void RankUpStageController::startRunkUpStage(int prm_rank_up_level) {
     }
     addSubLast(pNowRankUpStage_);
     pNowRankUpStage_->fadeoutSceneWithBgm(0);
-    pNowRankUpStage_->fadeinSceneTree(240);
+    pNowRankUpStage_->fadeinScene(240);
     apRankUpStage_[prm_rank_up_level-1] = pNowRankUpStage_;
     //スローダウン
 }

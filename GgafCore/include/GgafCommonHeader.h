@@ -408,7 +408,7 @@ class GgafTreeElem;
 
 class GgafLinearQuadtree;
 
-class GgafCurtain;
+//class GgafCurtain;
 class GgafTable;
 
 class GgafEnumIndex;

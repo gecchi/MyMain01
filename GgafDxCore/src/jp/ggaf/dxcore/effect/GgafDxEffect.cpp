@@ -112,8 +112,8 @@ std::string GgafDxEffect::getEffectFileName(std::string prm_file) {
         }
     }
 }
-void GgafDxEffect::setAlphaMaster(float prm_master_alpha) {
-    _pID3DXEffect->SetFloat(_h_alpha_master, prm_master_alpha);
+void GgafDxEffect::setAlphaMaster(float prm_scene_alpha) {
+    _pID3DXEffect->SetFloat(_h_alpha_master, prm_scene_alpha);
 }
 
 GgafDxEffect::~GgafDxEffect() {

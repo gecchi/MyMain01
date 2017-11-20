@@ -41,7 +41,7 @@ void SceneProgress::changeWithScene(progress prm_progress) {
     } else {
         _mapProg2Scene[prm_progress]->reset();
         _mapProg2Scene[prm_progress]->activate();
-        _mapProg2Scene[prm_progress]->fadeinSceneTree(0);
+        _mapProg2Scene[prm_progress]->fadeinScene(0);
     }
     change(prm_progress);
 }
@@ -61,7 +61,7 @@ void SceneProgress::changeWithSceneFlipping(progress prm_progress) {
     } else {
         _mapProg2Scene[prm_progress]->reset();
         _mapProg2Scene[prm_progress]->activate();
-        _mapProg2Scene[prm_progress]->fadeinSceneTree(0);
+        _mapProg2Scene[prm_progress]->fadeinScene(0);
     }
     change(prm_progress);
 }
@@ -82,7 +82,7 @@ void SceneProgress::changeWithSceneCrossfading(progress prm_progress, frame prm_
         _mapProg2Scene[prm_progress]->reset();
         _mapProg2Scene[prm_progress]->activate();
         _mapProg2Scene[prm_progress]->fadeoutSceneWithBgmTree(0);
-        _mapProg2Scene[prm_progress]->fadeinSceneTree(prm_cross_fade_frames);
+        _mapProg2Scene[prm_progress]->fadeinScene(prm_cross_fade_frames);
     }
     change(prm_progress);
 }
@@ -103,7 +103,7 @@ void SceneProgress::changeWithSceneFadeoutFadein(progress prm_progress, frame pr
         _mapProg2Scene[prm_progress]->reset();
         _mapProg2Scene[prm_progress]->activateDelay(prm_fade_out);   //活動予約
         _mapProg2Scene[prm_progress]->fadeoutSceneWithBgmTree(0);    //
-        _mapProg2Scene[prm_progress]->fadeinSceneTree(prm_fade_in);  //activateDelay なので、prm_fade_out フレーム後にフェードインする。
+        _mapProg2Scene[prm_progress]->fadeinScene(prm_fade_in);  //activateDelay なので、prm_fade_out フレーム後にフェードインする。
     }
     changeDelay(prm_progress, prm_fade_out); //進捗変更予約
 }

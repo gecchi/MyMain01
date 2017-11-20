@@ -114,6 +114,8 @@ public:
 
     virtual bool isPause();
 
+    virtual bool isStopping();
+
     virtual ~GgafDxBgm();
 };
 

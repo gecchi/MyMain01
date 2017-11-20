@@ -3,6 +3,8 @@
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/scene/GgafMainScene.h"
 
+#include "jp/ggaf/core/util/GgafCurtain.hpp"
+
 namespace GgafDxCore {
 
 /**
@@ -34,13 +36,13 @@ private :
     }
 
 public :
-    /** [r]αカーテン */
-    GgafDxAlphaCurtain* const _pAlphaCurtain;
+    /** [r]シーンのフェードイン・アウト用カーテン（デフォルトではαカーテン） */
+    GgafDxSceneCurtain* _pCurtain;
     /** [r]BGM演奏者 */
-    GgafDxBgmPerformerForScene* const _pBgmPerformer;
+    GgafDxBgmPerformerForScene* _pBgmPerformer;
     /** [r]シーンのα */
-    float _master_alpha;
-
+    float _scene_alpha;
+    float _scene_alpha_from_top;
 public:
     /**
      * コンストラクタ .
@@ -48,6 +50,24 @@ public:
      * @return
      */
     GgafDxScene(const char* prm_name);
+
+
+    void setSceneAlpha(float prm_scene_alpha);
+    float getSceneAlpha();
+    void addSceneAlpha(float prm_scene_alpha);
+
+    void setSceneAlphaFromTop(float prm_scene_alpha_from_top);
+    float getSceneAlphaFromTop();
+
+    /**
+     * カーテンを付け替える .
+     * @param prm_pCurtain_new 新しいカーテン
+     */
+    void chengeCurtain(GgafDxSceneCurtain* prm_pCurtain_new);
+
+    GgafDxSceneCurtain* getSceneCurtain() {
+        return _pCurtain;
+    }
 
     /**
      * 画面フェード、BGMフェード処理 .
@@ -66,12 +86,6 @@ public:
     virtual void unpause() override;
 
     /**
-     * 自ツリーシーンのアクターをフェードインさせる .
-     * @param prm_frame_fade アルファ値が 1.0 になるまでの実行フレーム数(0～)
-     */
-    void fadeinSceneTree(int prm_frame_fade);
-
-    /**
      * 自シーンのアクターをフェードインさせる .
      * @param prm_frame_fade アルファ値が 1.0 になるまでの実行フレーム数(0～)
      */
@@ -81,13 +95,17 @@ public:
      * 自ツリーシーンのアクターをフェードアウトさせる .
      * @param prm_frame_fade アルファ値が 0.0 になるまでの実行フレーム数(0～)
      */
-    void fadeoutSceneTree(int prm_frame_fade);
+//    void fadeoutSceneTree(int prm_frame_fade);
 
     /**
       * 自シーンのアクターをフェードアウトさせる .
      * @param prm_frame_fade アルファ値が 0.0 になるまでの実行フレーム数(0～)
      */
     void fadeoutScene(int prm_frame_fade);
+
+
+    void fadeoutBgm(int prm_frame_fade);
+    void fadeoutBgmTree(int prm_frame_fade);
 
     /**
      * 自シーンのアクターをフェードアウトさせると同時に、BGMもフェードアウトさせる .

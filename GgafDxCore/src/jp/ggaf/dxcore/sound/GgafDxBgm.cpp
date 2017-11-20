@@ -111,6 +111,14 @@ bool GgafDxBgm::isPause() {
     }
 }
 
+bool GgafDxBgm::isStopping() {
+    if (_pPcmPlayer->getState() == PCMPlayer::STATE_STOP) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 GgafDxBgm::~GgafDxBgm() {
     _TRACE_(FUNC_NAME<<" begin");
     _TRACE_("_pPcmPlayer->setVolume(DSBVOLUME_MIN);");

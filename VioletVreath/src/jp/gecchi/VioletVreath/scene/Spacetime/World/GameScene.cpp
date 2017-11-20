@@ -75,7 +75,7 @@ void GameScene::onReset() {
         pSubScene = it->second;
         if (pSubScene) {
             pSubScene->resetTree();
-            pSubScene->fadeinSceneTree(0);
+            pSubScene->fadeinScene(0);
             pSubScene->inactivate();
         }
     }

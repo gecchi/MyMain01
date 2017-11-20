@@ -79,7 +79,7 @@ public:
      */
     virtual void setParamPerFrame() = 0;
 
-    void setAlphaMaster(float prm_master_alpha);
+    void setAlphaMaster(float prm_scene_alpha);
 
     /**
      * デストラクタ<BR>

@@ -118,7 +118,9 @@ bool GgafDxBgmPerformer::isPlaying(int prm_bgm_no) {
 bool GgafDxBgmPerformer::isPause(int prm_bgm_no) {
     return getBgm(prm_bgm_no)->isPause();
 }
-
+bool GgafDxBgmPerformer::isStopping(int prm_bgm_no) {
+    return getBgm(prm_bgm_no)->isStopping();
+}
 void GgafDxBgmPerformer::setVolume(int prm_bgm_no, double prm_volume) {
     _vec_volume[prm_bgm_no] = prm_volume;
     getBgm(prm_bgm_no)->setVolume((int)(_vec_volume[prm_bgm_no]));

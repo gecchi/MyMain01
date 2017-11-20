@@ -132,6 +132,8 @@ public:
      */
     virtual bool isPause(int prm_bgm_no);
 
+    virtual bool isStopping(int prm_bgm_no);
+
     virtual GgafDxBgm* getBgm(int prm_bgm_no);
 
     virtual ~GgafDxBgmPerformer();

@@ -120,7 +120,7 @@ void StageController::processBehavior() {
                 pStageMainCannel_->fadeoutSceneWithBgm(0);
 
                 addSubLast(pStageMainCannel_);
-                pStageMainCannel_->fadeinSceneTree(180);
+                pStageMainCannel_->fadeinScene(180);
             }
             break;
         }
@@ -134,7 +134,7 @@ void StageController::processBehavior() {
                 pTransitStage_->setStage(main_stage_);
                 pTransitStage_->reset();
                 pTransitStage_->activate();
-                pTransitStage_->fadeinSceneTree(180);
+                pTransitStage_->fadeinScene(180);
             }
             //EVENT_TRANSIT_WAS_ENDƒCƒxƒ“ƒg‘Ò‚¿
             break;

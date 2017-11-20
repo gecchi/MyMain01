@@ -72,14 +72,6 @@ void GgafScene::nextFrame() {
         //必ず _pSceneDirector->nextFrame(); を実行する。
         //理由は onInactive() 等のイベントを発生させる為
     }
-
-
-//    if (_once_in_n_time == 1 || pGOD->_frame_of_God % _once_in_n_time == 0) {
-//        GgafElement<GgafScene>::nextFrame();
-//        if(_pSceneDirector) {
-//            _pSceneDirector->nextFrame();
-//        }
-//    }
 }
 
 void GgafScene::behave() {
@@ -217,13 +209,33 @@ void GgafScene::executeFuncLowerTree(void (*pFunc)(GgafObject*, void*, void*), v
     GgafElement<GgafScene>::executeFuncLowerTree(pFunc, prm1, prm2);
     _pSceneDirector->executeFuncLowerTree(pFunc, prm1, prm2);
 }
+void GgafScene::executeFuncLowerSceneTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2) {
+    if (_can_live_flg && _is_active_flg) {   //TODO:activeフラグも、入れても良いかな・・・
+        if (_was_initialize_flg) {
+            pFunc(this, prm1, prm2);
+        } else {
+
+        }
+        GgafScene* pScene = _pSubFirst;
+        while (pScene) {
+            pScene->executeFuncLowerSceneTree(pFunc, prm1, prm2);
+            if (pScene->_is_last_flg) {
+                break;
+            } else {
+                pScene = pScene->_pNext;
+            }
+        }
+    }
+}
 
 void GgafScene::reset() {
+    _once_in_n_time = 1;
     GgafElement<GgafScene>::reset();
     _pSceneDirector->reset();
 }
 
 void GgafScene::resetTree() {
+    _once_in_n_time = 1;
     GgafElement<GgafScene>::resetTree();
     _pSceneDirector->resetTree();
 }

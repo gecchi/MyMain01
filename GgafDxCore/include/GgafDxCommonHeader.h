@@ -134,6 +134,7 @@ enum {
 typedef int axis;
 typedef int dir26;
 typedef int dir8;
+
 #define MAX_SCALE (2147483647)
 
 
@@ -419,6 +420,7 @@ class GgafDxSeTransmitter;
 class GgafDxSeTransmitterForActor;
 class GgafDxBgmPerformer;
 class GgafDxAlphaCurtain;
+class GgafDxSceneCurtain;
 class GgafDxBgmPerformerForScene;
 class GgafDxTextureBlinker;
 class GgafDxUvFlipper;

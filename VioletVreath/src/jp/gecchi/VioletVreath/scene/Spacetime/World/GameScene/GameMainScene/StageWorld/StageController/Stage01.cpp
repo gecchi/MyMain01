@@ -74,7 +74,7 @@ void Stage01::processBehavior() {
 
                 pPlanet_->activate();
 
-                fadeinSceneTree(360);
+                fadeinScene(360);
                 pProg->change(Stage::PROG_PLAYING);
             }
             break;
