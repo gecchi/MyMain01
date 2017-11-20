@@ -170,7 +170,7 @@ void GgafDxScene::fadeoutBgmTree(int prm_frame_fade) {
 #endif
         GgafDxScene* pScene = (GgafDxScene*)getSubFirst();
         while (true) {
-            pScene->fadeoutBgm(prm_frame_fade);
+            pScene->fadeoutBgmTree(prm_frame_fade);
             if (pScene->isLast()) {
                 break;
             } else {
