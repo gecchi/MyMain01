@@ -20,11 +20,7 @@ namespace GgafDxCore {
  */
 class GgafDxScene : public GgafCore::GgafMainScene {
 private :
-    /**
-     * 下位で使用禁止 .
-     */
-    void processFinal() override {
-    }
+
     /**
      * draw() のオーバーライド禁止 .
      * 世界(GgafDxSpacetime)が全ての描画を行う仕組みになりました。<BR>
@@ -68,7 +64,12 @@ public:
     GgafDxSceneCurtain* getSceneCurtain() {
         return _pCurtain;
     }
+    /**
+     * 下位で使用禁止 .
+     */
+    void processFinal() override;
 
+//    virtual void settleBehavior() override;
     /**
      * 画面フェード、BGMフェード処理 .
      * 本クラスのprocessSettlementBehavior()で、 GgafDxAlphaCurtainとGgafDxBgmPerformerを<BR>
@@ -77,7 +78,7 @@ public:
      * 逆にGgafDxAlphaCurtainとGgafDxBgmPerformerの機能を使用しない事が明らかなシーンは、<BR>
      * オーバーライドして潰すことにより、僅かにパフォーマンス改善できるかも知れません<BR>
      */
-    virtual void processSettlementBehavior() override;
+//    virtual void processSettlementBehavior() override;
 
     virtual void pauseTree() override;
     virtual void pause() override;
@@ -127,6 +128,9 @@ public:
     inline GgafDxBgmPerformerForScene* getBgmPerformer() {
         return _pBgmPerformer;
     }
+
+    virtual void onEnd() override;
+
     virtual ~GgafDxScene();
 };
 

@@ -129,10 +129,10 @@ void GgafScene::throwEventUpperTree(hashval prm_no) {
 }
 
 void GgafScene::doFinally() {
-    if (_is_next_frame) {
-        GgafElement<GgafScene>::doFinally();
-        _pSceneDirector->doFinally();
-    }
+    //doFinally()は_once_in_n_timeの影響を受けない。
+    //必ず毎フレーム実行したい処理はprocessFinal()に書くことができることとする。
+    GgafElement<GgafScene>::doFinally();
+    _pSceneDirector->doFinally();
 }
 
 void GgafScene::activateTree() {

@@ -145,6 +145,7 @@ void RankUpStageController::sayonaraRankUpStages() {
         GgafScene* pRankUpStage = getSubFirst()->getPrev();//last
         if (pRankUpStage) {
             while (1) {
+                _TRACE_(FUNC_NAME<<" pRankUpStage("<<pRankUpStage->getName()<<")->sayonara()");
                 pRankUpStage->sayonara();
                 if (pRankUpStage == getSubFirst()) {
                     break;

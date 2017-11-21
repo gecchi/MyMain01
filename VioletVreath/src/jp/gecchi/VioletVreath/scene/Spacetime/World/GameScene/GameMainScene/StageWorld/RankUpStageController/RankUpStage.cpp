@@ -143,10 +143,6 @@ void RankUpStage::processBehavior() {
 void RankUpStage::onCatchEvent(hashval prm_no, void* prm_pSource) {
 }
 
-void RankUpStage::onEnd() {
-    _TRACE_(FUNC_NAME<<" ["<<getName()<<"] ");
-}
-
 RankUpStage::~RankUpStage() {
     pSeConnection_all_hit_->close();
 }

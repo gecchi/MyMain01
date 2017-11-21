@@ -261,11 +261,11 @@ void GameScene::processBehavior() {
                     pSubScene = it->second;
                     if (pSubScene) {
                         pSubScene->fadeoutSceneWithBgmTree(FADE_FRAMES);
-                        pSubScene->inactivateDelay(FADE_FRAMES);
+                        pSubScene->inactivateDelay(FADE_FRAMES+10);
                     }
                 }
             }
-            if (pProg->hasArrivedAt(FADE_FRAMES+10)) {
+            if (pProg->hasArrivedAt(FADE_FRAMES+20)) {
                 reset(); //リセット（最初の進捗状態に戻る）
             }
             break;

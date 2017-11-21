@@ -89,16 +89,16 @@ class GgafScene : public GgafElement<GgafScene> {
     friend class GgafSceneDirector;
     friend class GgafGarbageBox;
 
-private:
-    bool _is_next_frame;
+
 protected:
     /** このシーンの監督 */
     GgafSceneDirector* _pSceneDirector;
 
-public:
     /** 何フレームに１回動作するか */
     frame _once_in_n_time;
+    bool _is_next_frame;
 
+public:
     /**
      * コンストラクタ .
      * 引数： prm_name シーン名<BR>
@@ -134,6 +134,9 @@ public:
     virtual void preDraw() override;
     virtual void draw() override;
     virtual void afterDraw() override;
+    /**
+     * doFinally()は_once_in_n_timeの影響を受けない。
+     */
     virtual void doFinally() override;
     virtual void throwEventLowerTree(hashval prm_no, void* prm_pSource) override;
     virtual void throwEventLowerTree(hashval prm_no) override;

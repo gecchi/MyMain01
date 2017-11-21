@@ -2,6 +2,7 @@
 
 #include "jp/ggaf/dxcore/manager/GgafDxBgmConnection.h"
 #include "jp/ggaf/dxcore/sound/GgafDxBgm.h"
+#include "jp/ggaf/dxcore/scene/GgafDxScene.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

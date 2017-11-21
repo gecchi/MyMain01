@@ -51,13 +51,12 @@ void GgafDxScene::chengeCurtain(GgafDxSceneCurtain* prm_pCurtain_new) {
         _pCurtain = prm_pCurtain_new;
     }
 }
-
-void GgafDxScene::processSettlementBehavior() {
+void GgafDxScene::processFinal() {
     if (!_was_paused_flg && _can_live_flg) {
         if (_is_active_flg) {
             _pCurtain->behave(); //_scene_alphaが更新される
+            _pBgmPerformer->behave();
         }
-        _pBgmPerformer->behave();
     }
 }
 
@@ -96,39 +95,6 @@ void GgafDxScene::unpause() {
     GgafElement<GgafScene>::unpause();
     _pSceneDirector->unpause();
 }
-
-//void GgafDxScene::fadeinSceneTree(int prm_frame_fade) {
-//    if (prm_frame_fade == 0) {
-//        _pCurtain->open();
-//    } else {
-//        _pCurtain->openT(prm_frame_fade);
-//    }
-//    if (getSubFirst()) {
-//#ifdef MY_DEBUG
-//        if (getSubFirst()->instanceOf(Obj_GgafDxScene)) {
-//            //OK
-//        } else {
-//            throwGgafCriticalException("サブシーンが、GgafDxScene に変換不可です。this="<<getName()<<" getSubFirst()="<<(getSubFirst()->getName()) );
-//        }
-//#endif
-//        GgafDxScene* pScene = (GgafDxScene*)getSubFirst();
-//        while (true) {
-//            pScene->fadeinSceneTree(prm_frame_fade);
-//            if (pScene->isLast()) {
-//                break;
-//            } else {
-//#ifdef MY_DEBUG
-//                if (pScene->getNext()->instanceOf(Obj_GgafDxScene)) {
-//                    //OK
-//                } else {
-//                    throwGgafCriticalException("pScene["<<(pScene->getName())<<"->getNext()["<<(pScene->getNext()->getName())<<"]が、GgafDxScene に変換不可です。this="<<getName());
-//                }
-//#endif
-//                pScene = (GgafDxScene*)(pScene->getNext());
-//            }
-//        }
-//    }
-//}
 
 void GgafDxScene::fadeinScene(int prm_frame_fade) {
     if (prm_frame_fade == 0) {
@@ -196,6 +162,9 @@ void GgafDxScene::fadeoutSceneWithBgm(int prm_frame_fade) {
 void GgafDxScene::fadeoutSceneWithBgmTree(int prm_frame_fade) {
     fadeoutScene(prm_frame_fade);
     fadeoutBgmTree( prm_frame_fade);
+}
+void GgafDxScene::onEnd() {
+    _pBgmPerformer->stop();
 }
 
 GgafDxScene::~GgafDxScene() {
