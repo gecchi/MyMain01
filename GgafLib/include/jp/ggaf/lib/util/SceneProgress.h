@@ -70,7 +70,7 @@ public:
      * ※本メソッドの効果を得るには relateSubScene() を予め実行し、シーンを関連付ける必要があります。
      * @param prm_progress 新しい進捗状態
      */
-    void changeWithScene(progress prm_progress);
+    void changeWithSceneFadein(progress prm_progress, frame prm_fade_in = 120);
 
     /**
      * 新しい進捗状態を切り替えると同時に、関連付いたサブシーンに切り替え .

@@ -66,7 +66,6 @@ void GgafScene::nextFrame() {
                 f <= _pSceneDirector->_frame_of_life_when_end) {
             _pSceneDirector->nextFrame();
         }
-
         //_is_active_in_the_tree_flg == false でも
         //GgafElement<GgafScene>::nextFrame(); が実行時は
         //必ず _pSceneDirector->nextFrame(); を実行する。
@@ -257,7 +256,6 @@ void GgafScene::sayonara(frame prm_offset_frames) {
     } else {
         GgafElement<GgafScene>::end(prm_offset_frames);
     }
-
     GgafScene* pScene = _pSubFirst;
     while (pScene) {
         pScene->sayonara(prm_offset_frames);

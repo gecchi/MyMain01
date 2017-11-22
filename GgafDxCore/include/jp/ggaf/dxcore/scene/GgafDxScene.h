@@ -47,7 +47,6 @@ public:
      */
     GgafDxScene(const char* prm_name);
 
-
     void setSceneAlpha(float prm_scene_alpha);
     float getSceneAlpha();
     void addSceneAlpha(float prm_scene_alpha);
@@ -64,21 +63,10 @@ public:
     GgafDxSceneCurtain* getSceneCurtain() {
         return _pCurtain;
     }
-    /**
-     * 下位で使用禁止 .
-     */
-    void processFinal() override;
 
-//    virtual void settleBehavior() override;
-    /**
-     * 画面フェード、BGMフェード処理 .
-     * 本クラスのprocessSettlementBehavior()で、 GgafDxAlphaCurtainとGgafDxBgmPerformerを<BR>
-     * behave() しています。オーバーライドすると、画面フェード、BGMフェードが働きません。<BR>
-     * オーバーライドする場合は、必ず処理中で上位メソッドを呼び出して下さい。<BR>
-     * 逆にGgafDxAlphaCurtainとGgafDxBgmPerformerの機能を使用しない事が明らかなシーンは、<BR>
-     * オーバーライドして潰すことにより、僅かにパフォーマンス改善できるかも知れません<BR>
-     */
-//    virtual void processSettlementBehavior() override;
+    void callRecursive(void (GgafDxScene::*pFunc)());
+    virtual void settleBehavior() override;
+    void settleBehaviorEx();
 
     virtual void pauseTree() override;
     virtual void pause() override;
@@ -91,12 +79,6 @@ public:
      * @param prm_frame_fade アルファ値が 1.0 になるまでの実行フレーム数(0～)
      */
     void fadeinScene(int prm_frame_fade);
-
-    /**
-     * 自ツリーシーンのアクターをフェードアウトさせる .
-     * @param prm_frame_fade アルファ値が 0.0 になるまでの実行フレーム数(0～)
-     */
-//    void fadeoutSceneTree(int prm_frame_fade);
 
     /**
       * 自シーンのアクターをフェードアウトさせる .

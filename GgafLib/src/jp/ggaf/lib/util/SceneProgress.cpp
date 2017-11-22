@@ -33,15 +33,15 @@ void SceneProgress::relateSubScene(progress prm_FirstProgress, progress prm_EndP
     }
 }
 
-void SceneProgress::changeWithScene(progress prm_progress) {
-    _TRACE_("SceneProgress::changeWithScene("<<prm_progress<<")  進捗シーン:"<<get()<<"->"<<prm_progress<<" ");
+void SceneProgress::changeWithSceneFadein(progress prm_progress, frame prm_fade_in ) {
+    _TRACE_("SceneProgress::changeWithSceneFadein("<<prm_progress<<","<<prm_fade_in<<")  進捗シーン:"<<get()<<"->"<<prm_progress<<" ");
     if (_mapProg2Scene.find(prm_progress) == _mapProg2Scene.end()) {
-                _TRACE_("＜警告＞SceneProgress::changeWithScene シーン("<<_pScene->getName()<<")で、"
+                _TRACE_("＜警告＞SceneProgress::changeWithSceneFadein シーン("<<_pScene->getName()<<")で、"
             "サブシーンと関連付けされていない遷移先進捗(prm_progress="<<prm_progress<<") だった為、activate() ができませんでした。");
     } else {
         _mapProg2Scene[prm_progress]->reset();
         _mapProg2Scene[prm_progress]->activate();
-        _mapProg2Scene[prm_progress]->fadeinScene(0);
+        _mapProg2Scene[prm_progress]->fadeinScene(prm_fade_in);
     }
     change(prm_progress);
 }
@@ -53,6 +53,7 @@ void SceneProgress::changeWithSceneFlipping(progress prm_progress) {
         _TRACE_("＜警告＞SceneProgress::changeWithSceneFlipping シーン("<<_pScene->getName()<<")で、"
             "サブシーンと関連付けされていない遷移元進捗(get()="<<get()<<")だった為、inactivate() ができませんでした。");
     } else {
+        _mapProg2Scene[get()]->fadeoutBgmTree(0);
         _mapProg2Scene[get()]->inactivate();
     }
     if (_mapProg2Scene.find(prm_progress) == _mapProg2Scene.end()) {

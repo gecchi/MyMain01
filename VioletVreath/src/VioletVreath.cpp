@@ -505,7 +505,6 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam) {
 }
 
 
-//// システムメニューの挙動を記述
 //LRESULT SysMenuProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 //{
 //switch (wParam) {

@@ -44,6 +44,15 @@ public:
      */
     explicit GgafDxBgm(const char* prm_bgm_key);
 
+
+    virtual char* getKeyName() {
+        return _bgm_key;
+    }
+
+    virtual std::string getFileName() {
+        return _ogg_file_name;
+    }
+
     /**
      * BGMÄ¶ .
      * @param prm_is_looping true:ƒ‹[ƒvÄ¶
