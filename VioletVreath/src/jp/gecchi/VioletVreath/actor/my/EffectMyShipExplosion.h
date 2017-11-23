@@ -22,8 +22,6 @@ public:
 
     void onActive() override;
 
-    void processJudgement() override;
-
     virtual ~EffectMyShipExplosion();
 };
 

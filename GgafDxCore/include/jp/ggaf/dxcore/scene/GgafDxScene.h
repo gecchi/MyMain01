@@ -64,9 +64,7 @@ public:
         return _pCurtain;
     }
 
-    void callRecursive(void (GgafDxScene::*pFunc)());
-    virtual void settleBehavior() override;
-    void settleBehaviorEx();
+    virtual void processPreJudgement() override;
 
     virtual void pauseTree() override;
     virtual void pause() override;

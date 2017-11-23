@@ -162,14 +162,14 @@ void EnemyGeria::processBehavior() {
     pKuroko->behave();
     pAlphaFader->behave();
     mvd_ += pKuroko->getMvVelo();
+    if (mvd_ > migration_length_) {
+        getProgress()->change(PROG_LEAVE);
+    }
 }
 
 void EnemyGeria::processJudgement() {
     if (isOutOfSpacetime()) {
         sayonara();
-    }
-    if (mvd_ > migration_length_) {
-        getProgress()->change(PROG_LEAVE);
     }
 }
 

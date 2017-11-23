@@ -218,6 +218,7 @@ public:
      */
     virtual void processSettlementBehavior() override;
 
+    virtual void processPreJudgement() override;
     /**
      * 絶対座標計算後の処理 .
      * 土台となるアクター(_pActor_base) がある場合、processSettlementBehavior() 内で

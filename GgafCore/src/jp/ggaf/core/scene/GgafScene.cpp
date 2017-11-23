@@ -87,11 +87,14 @@ void GgafScene::settleBehavior() {
     }
 }
 
+void GgafScene::preJudge() {
+    GgafElement<GgafScene>::preJudge();
+    _pSceneDirector->preJudge();
+}
+
 void GgafScene::judge() {
-    if (_is_next_frame) {
-        GgafElement<GgafScene>::judge();
-        _pSceneDirector->judge();
-    }
+    GgafElement<GgafScene>::judge();
+    _pSceneDirector->judge();
 }
 
 void GgafScene::preDraw() {

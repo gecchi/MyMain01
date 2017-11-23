@@ -131,13 +131,6 @@ public:
      */
     virtual void processBehavior() override;
 
-
-    virtual void processSettlementBehavior() override {
-        _fX = C_DX(_x);
-        _fY = C_DX(_y);
-        _fZ = C_DX(_z);
-    }
-
     /**
      * DirectXのカメラへ反映 .
      * 自身の座標を _pVecCamFromPoint へコピー
@@ -146,7 +139,7 @@ public:
      * _pVecCamFromPoint, _pVecCamLookatPoint, _pVecCamUp で
      * D3DXMatrixLookAtLH() を実行。
      */
-    virtual void processJudgement() override;
+    virtual void processSettlementBehavior() override;
 
 
     virtual void setDefaultPosition();

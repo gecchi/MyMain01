@@ -203,6 +203,7 @@ void GgafGod::presentSpacetimeMoment() {
 }
 
 void GgafGod::executeSpacetimeJudge() {
+    _pSpacetime->preJudge();
     _pSpacetime->judge();
 }
 

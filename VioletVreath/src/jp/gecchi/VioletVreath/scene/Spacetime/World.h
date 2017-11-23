@@ -53,9 +53,6 @@ public:
 
     void processBehavior() override;
 
-    void processJudgement() override;
-
-
     void showCursor(bool prm_bool) {
         if (prm_bool) {
             if (is_show_cursor_) {

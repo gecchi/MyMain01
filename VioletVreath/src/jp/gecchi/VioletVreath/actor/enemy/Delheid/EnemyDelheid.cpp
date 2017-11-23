@@ -164,7 +164,7 @@ void EnemyDelheid::processBehavior() {
     getMorpher()->behave();
 }
 
-void EnemyDelheid::processJudgement() {
+void EnemyDelheid::processSettlementBehavior() {
     GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_SPLINE_MOVING: {
@@ -189,7 +189,10 @@ void EnemyDelheid::processJudgement() {
             break;
         }
     }
+    DefaultMorphMeshActor::processSettlementBehavior();
+}
 
+void EnemyDelheid::processJudgement() {
     if (isOutOfSpacetime()) {
         sayonara();
     }

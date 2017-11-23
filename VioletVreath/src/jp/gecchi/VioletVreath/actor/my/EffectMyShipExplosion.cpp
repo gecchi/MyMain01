@@ -40,9 +40,7 @@ void EffectMyShipExplosion::processBehavior() {
     getUvFlipper()->behave();
     getKuroko()->behave();
     getScaler()->behave();
-}
 
-void EffectMyShipExplosion::processJudgement() {
     if (getUvFlipper()->_uvflip_method == NOT_ANIMATED) {
         inactivate();
     }

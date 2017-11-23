@@ -136,8 +136,6 @@ public:
 
     void processBehavior() override;
 
-    void processJudgement() override;
-
     void onInactive() override;
 
     void processDraw() override;

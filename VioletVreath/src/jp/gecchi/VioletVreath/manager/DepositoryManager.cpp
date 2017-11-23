@@ -120,7 +120,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
     } else if (strcmp("EnemyStraeaLaserChip004DepoStore", prm_idstr) == 0) {
         pResource = NEW GgafActorDepositoryStore("EnemyStraeaLaserChip004DepoStore");
         LaserChipDepository* pLaserChipDepo;
-        for (int nLaser = 0; nLaser < 10; nLaser++) {
+        for (int nLaser = 0; nLaser < 50; nLaser++) {
             std::string name1 = "LaserChipDepository["+XTOS(nLaser)+"]";
             pLaserChipDepo = NEW LaserChipDepository(name1.c_str());
             for (int nChip = 0; nChip < 40; nChip++) {

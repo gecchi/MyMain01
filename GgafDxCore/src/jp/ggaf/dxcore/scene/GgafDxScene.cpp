@@ -52,44 +52,11 @@ void GgafDxScene::chengeCurtain(GgafDxSceneCurtain* prm_pCurtain_new) {
     }
 }
 
-void GgafDxScene::callRecursive(void (GgafDxScene::*pFunc)()) {
-    GgafScene* pElementTemp = getSubFirst();
-    while (pElementTemp) {
-        if (pElementTemp->instanceOf(Obj_GgafDxScene)) {
-            GgafDxScene* p = (GgafDxScene*)pElementTemp;
-            (p->*pFunc)(); //実行
-        }
-        if (pElementTemp->_is_last_flg) {
-            break;
-        } else {
-            pElementTemp = pElementTemp->getNext();
-        }
-    }
-}
-
-void GgafDxScene::settleBehaviorEx() {
+void GgafDxScene::processPreJudgement() {
+    GgafMainScene::processPreJudgement();
     //毎フレーム 実行される
-    if (!_was_paused_flg && _can_live_flg) {
-        if (_is_active_flg) {
-            _pCurtain->behave(); //_scene_alphaが更新される
-        }
-        _pBgmPerformer->behave();
-    }
-    callRecursive(&GgafDxScene::settleBehaviorEx);
-}
-
-
-void GgafDxScene::settleBehavior() {
-    if (getParent()->instanceOf(Obj_GgafDxSpacetime)) {
-        //_once_in_n_time の影響を受けずに、
-        //シーンだけ毎フレーム settleBehaviorEx() を実行させたい。
-        settleBehaviorEx();
-    }
-
-    if (_is_next_frame) {
-        GgafElement<GgafScene>::settleBehavior();
-        _pSceneDirector->settleBehavior();
-    }
+    _pCurtain->behave();
+    _pBgmPerformer->behave();
 }
 
 void GgafDxScene::pauseTree() {

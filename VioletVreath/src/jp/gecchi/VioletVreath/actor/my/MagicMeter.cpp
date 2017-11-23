@@ -261,9 +261,6 @@ void MagicMeter::onActive() {
 }
 
 void MagicMeter::processBehavior() {
-
-
-
     ////////////////////////各魔法についての処理//////////////////////////
     GgafProgress* pMagicProg;
     Magic* pMagic = nullptr;
@@ -490,9 +487,7 @@ void MagicMeter::processBehavior() {
 //        loadStatus(0);
 //    }
 //    //<-----------------debug
-}
 
-void MagicMeter::processJudgement() {
     ////////////////////////魔法メーターについての処理//////////////////////////
     VirtualButton* pVbPlay = VB_PLAY;
     MyShip* pMyShip = pMYSHIP;

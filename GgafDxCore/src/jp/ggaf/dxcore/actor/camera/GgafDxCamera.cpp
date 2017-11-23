@@ -93,132 +93,131 @@ void GgafDxCamera::initialize() {
 }
 
 void GgafDxCamera::processBehavior() {
-    //if (isMoving() || _pCameraViewPoint->isMoving()) {
-        //if (_frame_of_behaving % 2 == 0) { //10フレームに１回だけ計算
-        //スクリーン全体のクライアント領域を保持。
 
-        // _viewport.MinZ / MaxZ は、通常それぞれ 0 / 1
-        const dxcoord x1 = dxcoord(_viewport.X);
-        const dxcoord y1 = dxcoord(_viewport.Y);
-        const dxcoord x2 = dxcoord(_viewport.X + _viewport.Width);
-        const dxcoord y2 = dxcoord(_viewport.Y + _viewport.Height);
+    // _viewport.MinZ / MaxZ は、通常それぞれ 0 / 1
+    const dxcoord x1 = dxcoord(_viewport.X);
+    const dxcoord y1 = dxcoord(_viewport.Y);
+    const dxcoord x2 = dxcoord(_viewport.X + _viewport.Width);
+    const dxcoord y2 = dxcoord(_viewport.Y + _viewport.Height);
 
-        // 視錐台の８点が格納されるインスタンス
-        _vecNear[0].x = x1;  _vecNear[0].y = y1;  _vecNear[0].z = _viewport.MinZ;   // 左下 (変換後)
-        _vecNear[1].x = x2;  _vecNear[1].y = y1;  _vecNear[1].z = _viewport.MinZ;   // 右下 (変換後)
-        _vecNear[2].x = x1;  _vecNear[2].y = y2;  _vecNear[2].z = _viewport.MinZ;   // 左上 (変換後)
-        _vecNear[3].x = x2;  _vecNear[3].y = y2;  _vecNear[3].z = _viewport.MinZ;   // 右上 (変換後)
+    // 視錐台の８点が格納されるインスタンス
+    _vecNear[0].x = x1;  _vecNear[0].y = y1;  _vecNear[0].z = _viewport.MinZ;   // 左下 (変換後)
+    _vecNear[1].x = x2;  _vecNear[1].y = y1;  _vecNear[1].z = _viewport.MinZ;   // 右下 (変換後)
+    _vecNear[2].x = x1;  _vecNear[2].y = y2;  _vecNear[2].z = _viewport.MinZ;   // 左上 (変換後)
+    _vecNear[3].x = x2;  _vecNear[3].y = y2;  _vecNear[3].z = _viewport.MinZ;   // 右上 (変換後)
 
-        _vecFar[0].x  = x1;  _vecFar[0].y  = y1;  _vecFar[0].z  = _viewport.MaxZ;   // 左下 (変換後)
-        _vecFar[1].x  = x2;  _vecFar[1].y  = y1;  _vecFar[1].z  = _viewport.MaxZ;   // 右下 (変換後)
-        _vecFar[2].x  = x1;  _vecFar[2].y  = y2;  _vecFar[2].z  = _viewport.MaxZ;   // 左上 (変換後)
-        _vecFar[3].x  = x2;  _vecFar[3].y  = y2;  _vecFar[3].z  = _viewport.MaxZ;   // 右上 (変換後)
+    _vecFar[0].x  = x1;  _vecFar[0].y  = y1;  _vecFar[0].z  = _viewport.MaxZ;   // 左下 (変換後)
+    _vecFar[1].x  = x2;  _vecFar[1].y  = y1;  _vecFar[1].z  = _viewport.MaxZ;   // 右下 (変換後)
+    _vecFar[2].x  = x1;  _vecFar[2].y  = y2;  _vecFar[2].z  = _viewport.MaxZ;   // 左上 (変換後)
+    _vecFar[3].x  = x2;  _vecFar[3].y  = y2;  _vecFar[3].z  = _viewport.MaxZ;   // 右上 (変換後)
 
-        // 視錐台の８点の計算
-        const D3DXMATRIX mat_world = D3DXMATRIX(
-            1.0f,  0.0f,  0.0f,  0.0f,
-            0.0f,  1.0f,  0.0f,  0.0f,
-            0.0f,  0.0f,  1.0f,  0.0f,
-            0.0f,  0.0f,  0.0f,  1.0f
+    // 視錐台の８点の計算
+    const D3DXMATRIX mat_world = D3DXMATRIX(
+        1.0f,  0.0f,  0.0f,  0.0f,
+        0.0f,  1.0f,  0.0f,  0.0f,
+        0.0f,  0.0f,  1.0f,  0.0f,
+        0.0f,  0.0f,  0.0f,  1.0f
+    );
+    // ワールド → ビュー → 射影 → スクリーン変換 の逆を行う
+    for ( int i = 0; i < 4; i++ ) {
+        D3DXVec3Unproject(
+            &_vecNear[i], //D3DXVECTOR3 *pOut,              [in, out] 演算結果である D3DXVECTOR3 構造体へのポインタ。
+            &_vecNear[i], //CONST D3DXVECTOR3 *pV,          [in] 処理の基になる D3DXVECTOR3 構造体へのポインタ。
+            &_viewport,   //CONST D3DVIEWPORT9 *pViewport,  [in] ビューポートを表す D3DVIEWPORT9 構造体へのポインタ。
+            &_matProj,    //CONST D3DXMATRIX *pProjection,  [in] 射影行列を表す D3DXMATRIX 構造体へのポインタ。
+            &_matView,    //CONST D3DXMATRIX *pView,        [in] ビュー行列を表す D3DXMATRIX 構造体へのポインタ。
+            &mat_world    //CONST D3DXMATRIX *pWorld        [in] ワールド行列を表す D3DXMATRIX 構造体へのポインタ。
         );
-        // ワールド → ビュー → 射影 → スクリーン変換 の逆を行う
-        for ( int i = 0; i < 4; i++ ) {
-            D3DXVec3Unproject(
-                &_vecNear[i], //D3DXVECTOR3 *pOut,              [in, out] 演算結果である D3DXVECTOR3 構造体へのポインタ。
-                &_vecNear[i], //CONST D3DXVECTOR3 *pV,          [in] 処理の基になる D3DXVECTOR3 構造体へのポインタ。
-                &_viewport,   //CONST D3DVIEWPORT9 *pViewport,  [in] ビューポートを表す D3DVIEWPORT9 構造体へのポインタ。
-                &_matProj,    //CONST D3DXMATRIX *pProjection,  [in] 射影行列を表す D3DXMATRIX 構造体へのポインタ。
-                &_matView,    //CONST D3DXMATRIX *pView,        [in] ビュー行列を表す D3DXMATRIX 構造体へのポインタ。
-                &mat_world    //CONST D3DXMATRIX *pWorld        [in] ワールド行列を表す D3DXMATRIX 構造体へのポインタ。
-            );
-            D3DXVec3Unproject(
-                &_vecFar[i],
-                &_vecFar[i],
-                &_viewport,
-                &_matProj,
-                &_matView,
-                &mat_world
-            );
-        }
+        D3DXVec3Unproject(
+            &_vecFar[i],
+            &_vecFar[i],
+            &_viewport,
+            &_matProj,
+            &_matView,
+            &mat_world
+        );
+    }
 
-        // 視錐台の面
-        //-------------------------------------------------
-        //  平面方程式：ax+by+cz+d
-        //  平面の法線ベクトル：n = (a, b, c)
-        //  平面上の1点を、p = (x0, y0, z0) とすると、
-        //  平面の法線ベクトルと平面状の1点の内積：d = n*p
-        //
-        //  表裏判定をするときは、点 p = (x0, y0, z0)を、
-        //  p = (x0, y0, z0, 1) とみなし、
-        //  平面との内積：a*x0 + b*y0 + c*z0 + d*1 = ans
-        //  ans > 0 なら表、ans < 0 なら裏、ans == 0 なら面上、となる。
-        //  DXPlaneDotCoord() は、この処理を行っている
-        //
-        //  また、p = (x0, y0, z0, 0) とみなして内積の計算を行うと、
-        //  角度の関係を調べることができる。
-        //  → D3DXPlaneDotNormal()
-        //-------------------------------------------------
+    // 視錐台の面
+    //-------------------------------------------------
+    //  平面方程式：ax+by+cz+d
+    //  平面の法線ベクトル：n = (a, b, c)
+    //  平面上の1点を、p = (x0, y0, z0) とすると、
+    //  平面の法線ベクトルと平面状の1点の内積：d = n*p
+    //
+    //  表裏判定をするときは、点 p = (x0, y0, z0)を、
+    //  p = (x0, y0, z0, 1) とみなし、
+    //  平面との内積：a*x0 + b*y0 + c*z0 + d*1 = ans
+    //  ans > 0 なら表、ans < 0 なら裏、ans == 0 なら面上、となる。
+    //  DXPlaneDotCoord() は、この処理を行っている
+    //
+    //  また、p = (x0, y0, z0, 0) とみなして内積の計算を行うと、
+    //  角度の関係を調べることができる。
+    //  → D3DXPlaneDotNormal()
+    //-------------------------------------------------
 
-         // 上 ( F左上、N左上、N右上 )
-        D3DXPlaneNormalize(
-            &_plnTop,
-            D3DXPlaneFromPoints(&_plnTop, &(_vecFar[2]), &(_vecNear[2]), &(_vecNear[3]))
-        );
-        // 下 ( F左下、N右下、N左下 )
-        D3DXPlaneNormalize(
-            &_plnBottom,
-            D3DXPlaneFromPoints(&_plnBottom, &(_vecFar[0]), &(_vecNear[1]), &(_vecNear[0]))
-        );
-        // 左 ( F左下、N左下、N左上 )
-        D3DXPlaneNormalize(
-            &_plnLeft,
-            D3DXPlaneFromPoints(&_plnLeft, &(_vecFar[0]), &(_vecNear[0]), &(_vecNear[2]))
-        );
-        // 右 ( F右下、N右上、N右下 )
-        D3DXPlaneNormalize(
-            &_plnRight,
-            D3DXPlaneFromPoints(&_plnRight, &(_vecFar[1]), &(_vecNear[3]), &(_vecNear[1]))
-        );
-        // 手前 ( N左上、N左下、N右上)
-        D3DXPlaneNormalize(
-            &_plnInfront,
-            D3DXPlaneFromPoints(&_plnInfront, &(_vecNear[2]), &(_vecNear[0]), &(_vecNear[3]))
-        );
-        // 奥 ( F右上、F左下、F左上)
-        D3DXPlaneNormalize(
-            &_plnBack,
-            D3DXPlaneFromPoints(&_plnBack, &(_vecFar[3]), &(_vecFar[0]), &(_vecFar[2]))
-        );
+     // 上 ( F左上、N左上、N右上 )
+    D3DXPlaneNormalize(
+        &_plnTop,
+        D3DXPlaneFromPoints(&_plnTop, &(_vecFar[2]), &(_vecNear[2]), &(_vecNear[3]))
+    );
+    // 下 ( F左下、N右下、N左下 )
+    D3DXPlaneNormalize(
+        &_plnBottom,
+        D3DXPlaneFromPoints(&_plnBottom, &(_vecFar[0]), &(_vecNear[1]), &(_vecNear[0]))
+    );
+    // 左 ( F左下、N左下、N左上 )
+    D3DXPlaneNormalize(
+        &_plnLeft,
+        D3DXPlaneFromPoints(&_plnLeft, &(_vecFar[0]), &(_vecNear[0]), &(_vecNear[2]))
+    );
+    // 右 ( F右下、N右上、N右下 )
+    D3DXPlaneNormalize(
+        &_plnRight,
+        D3DXPlaneFromPoints(&_plnRight, &(_vecFar[1]), &(_vecNear[3]), &(_vecNear[1]))
+    );
+    // 手前 ( N左上、N左下、N右上)
+    D3DXPlaneNormalize(
+        &_plnInfront,
+        D3DXPlaneFromPoints(&_plnInfront, &(_vecNear[2]), &(_vecNear[0]), &(_vecNear[3]))
+    );
+    // 奥 ( F右上、F左下、F左上)
+    D3DXPlaneNormalize(
+        &_plnBack,
+        D3DXPlaneFromPoints(&_plnBack, &(_vecFar[3]), &(_vecFar[0]), &(_vecFar[2]))
+    );
 
-        // 中心垂直面 （ボリュームパンで使用）
-        _vecVerticalCenter[0].x = (_vecFar[1].x + _vecFar[0].x)*0.5f;
-        _vecVerticalCenter[0].y = (_vecFar[1].y + _vecFar[0].y)*0.5f;
-        _vecVerticalCenter[0].z = (_vecFar[1].z + _vecFar[0].z)*0.5f;
+    // 中心垂直面 （ボリュームパンで使用）
+    _vecVerticalCenter[0].x = (_vecFar[1].x + _vecFar[0].x)*0.5f;
+    _vecVerticalCenter[0].y = (_vecFar[1].y + _vecFar[0].y)*0.5f;
+    _vecVerticalCenter[0].z = (_vecFar[1].z + _vecFar[0].z)*0.5f;
 
-        _vecVerticalCenter[1].x = (_vecNear[3].x + _vecNear[2].x)*0.5f;
-        _vecVerticalCenter[1].y = (_vecNear[3].y + _vecNear[2].y)*0.5f;
-        _vecVerticalCenter[1].z = (_vecNear[3].z + _vecNear[2].z)*0.5f;
+    _vecVerticalCenter[1].x = (_vecNear[3].x + _vecNear[2].x)*0.5f;
+    _vecVerticalCenter[1].y = (_vecNear[3].y + _vecNear[2].y)*0.5f;
+    _vecVerticalCenter[1].z = (_vecNear[3].z + _vecNear[2].z)*0.5f;
 
-        _vecVerticalCenter[2].x = (_vecNear[1].x + _vecNear[0].x)*0.5f;
-        _vecVerticalCenter[2].y = (_vecNear[1].y + _vecNear[0].y)*0.5f;
-        _vecVerticalCenter[2].z = (_vecNear[1].z + _vecNear[0].z)*0.5f;
+    _vecVerticalCenter[2].x = (_vecNear[1].x + _vecNear[0].x)*0.5f;
+    _vecVerticalCenter[2].y = (_vecNear[1].y + _vecNear[0].y)*0.5f;
+    _vecVerticalCenter[2].z = (_vecNear[1].z + _vecNear[0].z)*0.5f;
 
-        D3DXPlaneNormalize(
-            &_plnVerticalCenter,
-            D3DXPlaneFromPoints(&_plnVerticalCenter, &(_vecVerticalCenter[0]),
-                                                     &(_vecVerticalCenter[1]),
-                                                     &(_vecVerticalCenter[2])
-                                )
-        );
-    //}
+    D3DXPlaneNormalize(
+        &_plnVerticalCenter,
+        D3DXPlaneFromPoints(&_plnVerticalCenter, &(_vecVerticalCenter[0]),
+                                                 &(_vecVerticalCenter[1]),
+                                                 &(_vecVerticalCenter[2])
+                            )
+    );
 
 }
 
-void GgafDxCamera::processJudgement() {
+void GgafDxCamera::processSettlementBehavior() {
+    _fX = C_DX(_x);
+    _fY = C_DX(_y);
+    _fZ = C_DX(_z);
+
     _x_prev = _x;
     _y_prev = _y;
     _z_prev = _z;
-
     _pVecCamFromPoint->x = _fX;
     _pVecCamFromPoint->y = _fY;
     _pVecCamFromPoint->z = _fZ;

@@ -35,14 +35,15 @@ void EffectTurbo001::processBehavior() {
     getUvFlipper()->behave();
     getKuroko()->behave();
     getScaler()->behave();
-}
-
-void EffectTurbo001::processJudgement() {
     if (VB_PLAY->isPressed(VB_TURBO)) { //É^Å[É{
 
     } else {
         inactivate();
     }
+}
+
+void EffectTurbo001::processJudgement() {
+
 }
 
 void EffectTurbo001::onInactive() {

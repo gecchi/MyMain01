@@ -21,6 +21,9 @@ public:
     DefaultCamera(const char* prm_name, double prm_rad_fovX);
     DefaultCamera(const char* prm_name);
 
+    virtual void processJudgement() override {
+    }
+
     virtual void processPreDraw() override {
     }
 

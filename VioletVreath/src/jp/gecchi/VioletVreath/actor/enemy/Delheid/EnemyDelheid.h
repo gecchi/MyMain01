@@ -78,7 +78,7 @@ public:
      * デルヘイドの振る舞い .
      */
     void processBehavior() override;
-
+    void processSettlementBehavior() override;
     /**
      * デルヘイドの振る舞い後の判定処理 .
      */

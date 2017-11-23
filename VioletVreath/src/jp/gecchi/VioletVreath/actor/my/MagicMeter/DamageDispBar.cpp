@@ -43,7 +43,6 @@ void DamageDispBar::processBehavior() {
 
 void DamageDispBar::processJudgement() {
     if (is_damege_disp_) {
-        _x = pSourceBar_->_x + pSourceBar_->getWidth(); //pSourceBar_先端の座標
         getUvFlipper()->behave();
         damege_disp_timer_--;
         if (damege_disp_timer_ <= 0) {
@@ -74,6 +73,7 @@ void DamageDispBar::addDamage(int prm_val) {
     is_damege_disp_ = true;
     incVal(prm_val);
     velo_clear_damege_ = -1* ((getVal() / 20) + 1); //20フレームでするするっと赤が消える
+    _x = pSourceBar_->_x + PX_C(pSourceBar_->getBarPx()); //pSourceBar_先端の座標
 }
 
 DamageDispBar::~DamageDispBar() {

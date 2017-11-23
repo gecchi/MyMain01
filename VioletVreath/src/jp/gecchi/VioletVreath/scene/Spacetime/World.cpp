@@ -334,9 +334,7 @@ void World::processBehavior() {
     pLabel_debug_->update(aBufDebug_);
 #endif
 
-}
 
-void World::processJudgement() {
     if (need_reboot_prev_ != need_reboot_) {
         if (need_reboot_ > 0) {
             pLabel_need_reboot_->update("YOU NEED REBOOT !!!!");

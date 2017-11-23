@@ -202,8 +202,9 @@ void GgafDxGeometricActor::processSettlementBehavior() {
                                    pPlnBack->d;
         _offscreen_kind = -1;
     }
+}
 
-
+void GgafDxGeometricActor::processPreJudgement() {
     if (_pChecker) {
         if (_can_hit_flg) {
             if (_can_hit_out_of_view == false && isOutOfView()) {

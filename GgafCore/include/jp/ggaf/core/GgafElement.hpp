@@ -190,6 +190,8 @@ public:
      */
     virtual void settleBehavior();
 
+
+    virtual void preJudge();
     /**
      * ノードのフレーム毎の判定処理(実行対象：自ツリー全て) .
      * この処理では、ノード間の様々な判定処理を行う事とする設計。<BR>
@@ -291,6 +293,8 @@ public:
      */
     virtual void processSettlementBehavior() {}
 
+
+    virtual void processPreJudgement() {}
     /**
      * フレーム毎の個別判断処理を実装。(ユーザー実装用) .
      * judge() 時の処理先頭でコールバックされる。<BR>
@@ -990,6 +994,14 @@ void GgafElement<T>::settleBehavior() {
     if (_is_active_in_the_tree_flg) { //_was_paused_flg は忘れていません
         processSettlementBehavior(); //フレームワーク用
         callRecursive(&GgafElement<T>::settleBehavior); //再帰
+    }
+}
+
+template<class T>
+void GgafElement<T>::preJudge() {
+    if (_is_active_in_the_tree_flg && !_was_paused_flg) {
+        processPreJudgement();    //フレームワーク用
+        callRecursive(&GgafElement<T>::preJudge); //再帰
     }
 }
 
