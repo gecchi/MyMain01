@@ -483,7 +483,6 @@ BOOL CustmizeSysMenu(HWND hWnd)
     return TRUE;
 }
 
-
 // バージョン情報ボックスのメッセージ ハンドラです。
 INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam) {
 

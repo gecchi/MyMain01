@@ -46,6 +46,9 @@ public:
     void processSettlementBehavior() override {
     }
 
+    void processPreJudgement() override {
+    }
+
     void processJudgement() override {
     }
 
@@ -149,7 +152,7 @@ public:
 
     /**
      * 神に謁見 .
-     * @return	呼ばれて出てきた神
+     * @return    呼ばれて出てきた神
      */
     GgafGod* askGod();
 

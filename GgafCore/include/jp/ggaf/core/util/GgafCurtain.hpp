@@ -51,7 +51,6 @@ template<class T>
 class GgafCurtain : public GgafObject {
 
 public:
-
     /** [r]現在のカーテンの状態 */
     GgafCurtainState _state;
     /** [r]カーテンレールの長さ */

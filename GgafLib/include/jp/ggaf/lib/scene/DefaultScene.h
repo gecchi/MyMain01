@@ -96,13 +96,13 @@ public:
     DefaultScene* getNearestScrollingScene();
 
     /**
-     * 最も直近の WalledScene を探して取得。 .
+     * 最も直近の WallScene を探して取得。 .
      * 検索範囲は 自シーン＋親シーン。
-     * WalledScene はX軸の負の方向スクロールしていることが将来保証されている。
-     * _pFuncScrolling が nullptr であろうとなかろうと、関係はなく、WalledScene ならばそれを返す。
-     * @return 直近のWalledScene
+     * WallScene はX軸の負の方向スクロールしていることが将来保証されている。
+     * _pFuncScrolling が nullptr であろうとなかろうと、関係はなく、WallScene ならばそれを返す。
+     * @return 直近のWallScene
      */
-    WalledScene* getNearestWalledScene();
+    WallScene* getNearestWallScene();
 
     virtual ~DefaultScene();
 };

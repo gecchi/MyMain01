@@ -92,7 +92,7 @@ void Stage01WallScene::initialize() {
 }
 
 void Stage01WallScene::onActive() {
-    pCOMMON_SCENE->setScrollingFunction(_pFuncScrolling);
+    pCOMMON_SCENE->setScrollingFunction(CommonScene::scrollX);
     pCOMMON_SCENE->setScrollSpeed(getScrollSpeed());
     _TRACE_(FUNC_NAME<<"  CommonScene にもスクロールを設定します。");
     //pCOMMON_SCENE->dump();

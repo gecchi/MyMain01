@@ -25,6 +25,8 @@ public:
     }
     void processBehavior() override {
     }
+    void processPreJudgement() override {
+    }
     void processJudgement() override {
     }
     void processPreDraw() override {

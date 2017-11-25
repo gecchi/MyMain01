@@ -60,16 +60,16 @@ DefaultScene* DefaultScene::getNearestScrollingScene() {
     }
 }
 
-WalledScene* DefaultScene::getNearestWalledScene() {
-    if (instanceOf(Obj_WalledScene)) {
-        return (WalledScene*)this;
+WallScene* DefaultScene::getNearestWallScene() {
+    if (instanceOf(Obj_WallScene)) {
+        return (WallScene*)this;
     } else {
         GgafScene* pScene = this;
         while (true) {
             pScene = pScene->getParent();
             if (pScene) {
-                if (pScene->instanceOf(Obj_WalledScene)) {
-                    return (WalledScene*)pScene;
+                if (pScene->instanceOf(Obj_WallScene)) {
+                    return (WallScene*)pScene;
                 }
             } else {
                 return nullptr;

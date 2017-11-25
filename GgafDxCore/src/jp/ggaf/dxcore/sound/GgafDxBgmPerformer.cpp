@@ -16,25 +16,26 @@ GgafDxBgmPerformer::GgafDxBgmPerformer() : GgafObject() {
 }
 
 void GgafDxBgmPerformer::ready(int prm_bgm_no, const char* prm_bgm_name) {
-    int bgm_num = _vecBgm.size();
+    int bgm_num = _vecBgmConnection.size();
     if (prm_bgm_no >= bgm_num) {
         for (int i = bgm_num; i <= prm_bgm_no; i++) {
-            _vecBgm.push_back(nullptr);
+            _vecBgmConnection.push_back(nullptr);
             _vec_volume.push_back(GGAF_MAX_VOLUME);
             _vec_pan.push_back(0);
         }
-        _bgm_num = _vecBgm.size();
+        _bgm_num = _vecBgmConnection.size();
     }
 
-    if (_vecBgm[prm_bgm_no]) {
+    if (_vecBgmConnection[prm_bgm_no]) {
         _TRACE_("【警告】GgafDxBgmPerformer::ready() IDが使用済みです、上書きしますが意図してますか？？。prm_bgm_no="<<prm_bgm_no<<" prm_bgm_name="<<prm_bgm_name);
-        GgafDxBgm* pBgm = _vecBgm[prm_bgm_no];
-        GGAF_DELETE_NULLABLE(pBgm);
-        _vecBgm[prm_bgm_no] = nullptr;
+        _vecBgmConnection[prm_bgm_no]->close();
         _vec_volume[prm_bgm_no] = GGAF_MAX_VOLUME;
         _vec_pan[prm_bgm_no] = 0;
     }
-    GgafDxBgm* pBgm = _vecBgm[prm_bgm_no] = NEW GgafDxBgm(prm_bgm_name);
+
+    std::string idstr =  XTOS(getId()) + "/" + prm_bgm_name;
+    _vecBgmConnection[prm_bgm_no] = connectToBgmManager(idstr.c_str());
+    GgafDxBgm* pBgm = _vecBgmConnection[prm_bgm_no]->peek();
     pBgm->stop();
     pBgm->setVolume(_vec_volume[prm_bgm_no]);
     pBgm->setPan(_vec_pan[prm_bgm_no]);
@@ -45,7 +46,7 @@ void GgafDxBgmPerformer::play(int prm_bgm_no, bool prm_is_loop) {
     if (prm_bgm_no < 0 || prm_bgm_no >= _bgm_num) {
         throwGgafCriticalException("IDが範囲外です。0~"<<(_bgm_num-1)<<"でお願いします。prm_bgm_no="<<prm_bgm_no<<"");
     }
-    if (_vecBgm[prm_bgm_no] == nullptr) {
+    if (_vecBgmConnection[prm_bgm_no] == nullptr) {
         throwGgafCriticalException("曲がセットされてません。prm_bgm_no="<<prm_bgm_no<<"");
     }
 #endif
@@ -61,7 +62,7 @@ void GgafDxBgmPerformer::stop(int prm_bgm_no) {
     if (prm_bgm_no < 0 || prm_bgm_no >= _bgm_num) {
         throwGgafCriticalException("IDが範囲外です。0~"<<(_bgm_num-1)<<"でお願いします。prm_bgm_no="<<prm_bgm_no);
     }
-    if (_vecBgm[prm_bgm_no] == nullptr) {
+    if (_vecBgmConnection[prm_bgm_no] == nullptr) {
         throwGgafCriticalException("曲がセットされてません。prm_bgm_no="<<prm_bgm_no<<"");
     }
 #endif
@@ -73,12 +74,12 @@ void GgafDxBgmPerformer::pause(int prm_bgm_no) {
     if (prm_bgm_no < 0 || prm_bgm_no >= _bgm_num) {
         throwGgafCriticalException("IDが範囲外です。0~"<<(_bgm_num-1)<<"でお願いします。prm_bgm_no="<<prm_bgm_no);
     }
-    if (_vecBgm[prm_bgm_no] == nullptr) {
+    if (_vecBgmConnection[prm_bgm_no] == nullptr) {
         throwGgafCriticalException("曲がセットされてません。prm_bgm_no="<<prm_bgm_no<<"");
     }
 #endif
     getBgm(prm_bgm_no)->pause();
-    _TRACE_("GgafDxBgmPerformer::pause("<<prm_bgm_no<<"):"<<_vecBgm[prm_bgm_no]->getKeyName()<<" をpause()しました。");
+    _TRACE_("GgafDxBgmPerformer::pause("<<prm_bgm_no<<"):"<<_vecBgmConnection[prm_bgm_no]->getIdStr()<<" をpause()しました。");
 }
 
 void GgafDxBgmPerformer::pause() {
@@ -92,12 +93,12 @@ void GgafDxBgmPerformer::unpause(int prm_bgm_no) {
     if (prm_bgm_no < 0 || prm_bgm_no >= _bgm_num) {
         throwGgafCriticalException("IDが範囲外です。0~"<<(_bgm_num-1)<<"でお願いします。prm_bgm_no="<<prm_bgm_no);
     }
-    if (_vecBgm[prm_bgm_no] == nullptr) {
+    if (_vecBgmConnection[prm_bgm_no] == nullptr) {
         throwGgafCriticalException("曲がセットされてません。prm_bgm_no="<<prm_bgm_no<<"");
     }
 #endif
     getBgm(prm_bgm_no)->unpause();
-    _TRACE_("GgafDxBgmPerformer::unpause("<<prm_bgm_no<<"):"<<_vecBgm[prm_bgm_no]->getKeyName()<<" unpause()しました。");
+    _TRACE_("GgafDxBgmPerformer::unpause("<<prm_bgm_no<<"):"<<_vecBgmConnection[prm_bgm_no]->getIdStr()<<" unpause()しました。");
 }
 
 void GgafDxBgmPerformer::unpause() {
@@ -138,13 +139,12 @@ GgafDxBgm* GgafDxBgmPerformer::getBgm(int prm_bgm_no) {
         throwGgafCriticalException("IDが範囲外です。0~"<<(_bgm_num-1)<<"でお願いします。prm_bgm_no="<<prm_bgm_no);
     }
 #endif
-    return _vecBgm[prm_bgm_no];
+    return _vecBgmConnection[prm_bgm_no]->peek();
 }
 GgafDxBgmPerformer::~GgafDxBgmPerformer() {
     for (int i = 0; i < _bgm_num; i++) {
-        if (_vecBgm[i]) {
-            GgafDxBgm* pBgm = _vecBgm[i];
-            GGAF_DELETE(pBgm);
+        if (_vecBgmConnection[i]) {
+            _vecBgmConnection[i]->close();
         }
     }
 }

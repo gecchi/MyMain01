@@ -30,9 +30,10 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
 	_paFrame_NextEvent = new frame[16];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
 	_event_num = 16;
-	orderActorToFactory(10000004, EnemyOebiusController001, "EnemyOebiusController001-10000004");
-	orderActorToFactory(10000005, EnemyOebiusController002, "EnemyOebiusController002-10000005");
-	orderActorToFactory(10000006, EnemyErmione, "EnemyErmione-10000006");
+	orderSceneToFactory(10000004, Stage01WallScene, "Stage01WallScene-10000004");
+	orderActorToFactory(10000005, EnemyOebiusController001, "EnemyOebiusController001-10000005");
+	orderActorToFactory(10000006, EnemyOebiusController002, "EnemyOebiusController002-10000006");
+	orderActorToFactory(10000007, EnemyErmione, "EnemyErmione-10000007");
     // gen01 end
     useProgress(Stage01PartController::PROG_BANPEI-1);
 }
@@ -55,7 +56,8 @@ void Stage01PartController::processBehavior() {
 				break;
 			}
 			case 300: {
-				EnemyErmione* pE = (EnemyErmione*)obtainActorFromFactory(10000006);
+				addSubLast(obtainSceneFromFactory(10000004));
+				EnemyErmione* pE = (EnemyErmione*)obtainActorFromFactory(10000007);
 				bringDirector()->addSubGroup(pE);
 				pE->_x = RND(1000000,4000000);
 				pE->_y = RND(-6000000,6000000);
@@ -63,13 +65,13 @@ void Stage01PartController::processBehavior() {
 				break;
 			}
 			case 500: {
-				EnemyOebiusController001* p1 = (EnemyOebiusController001*)obtainActorFromFactory(10000004);
+				EnemyOebiusController001* p1 = (EnemyOebiusController001*)obtainActorFromFactory(10000005);
 				bringDirector()->addSubGroup(p1);
 				p1->setPosition(PX_C(800), PX_C(100), PX_C(400) );
 				break;
 			}
 			case 600: {
-				EnemyOebiusController002* p2 = (EnemyOebiusController002*)obtainActorFromFactory(10000005);
+				EnemyOebiusController002* p2 = (EnemyOebiusController002*)obtainActorFromFactory(10000006);
 				bringDirector()->addSubGroup(p2);
 				p2->setPosition(PX_C(800), PX_C(400), PX_C(100) );
 				break;
@@ -87,11 +89,11 @@ void Stage01PartController::processBehavior() {
 				break;
 			}
 			case 19700: {
-				orderActorToFactory(10000007, EnemyErmione, "EnemyErmione-10000007");
+				orderActorToFactory(10000008, EnemyErmione, "EnemyErmione-10000008");
 				break;
 			}
 			case 20300: {
-				EnemyErmione* pE = (EnemyErmione*)obtainActorFromFactory(10000007);
+				EnemyErmione* pE = (EnemyErmione*)obtainActorFromFactory(10000008);
 				bringDirector()->addSubGroup(pE);
 				pE->_x = RND(1000000,4000000);
 				pE->_y = RND(-6000000,6000000);
@@ -111,7 +113,7 @@ void Stage01PartController::processBehavior() {
 				break;
 			}
 			case 39700: {
-				orderActorToFactory(10000008, EnemyErmione, "EnemyErmione-10000008");
+				orderActorToFactory(10000009, EnemyErmione, "EnemyErmione-10000009");
 				break;
 			}
 			case 40000: {
@@ -119,7 +121,7 @@ void Stage01PartController::processBehavior() {
 				break;
 			}
 			case 40300: {
-				EnemyErmione* pE = (EnemyErmione*)obtainActorFromFactory(10000008);
+				EnemyErmione* pE = (EnemyErmione*)obtainActorFromFactory(10000009);
 				bringDirector()->addSubGroup(pE);
 				pE->_x = RND(1000000,4000000);
 				pE->_y = RND(-6000000,6000000);

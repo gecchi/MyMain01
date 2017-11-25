@@ -54,9 +54,10 @@ void GgafDxScene::chengeCurtain(GgafDxSceneCurtain* prm_pCurtain_new) {
 
 void GgafDxScene::processPreJudgement() {
     GgafMainScene::processPreJudgement();
-    //–ˆƒtƒŒ[ƒ€ ŽÀs‚³‚ê‚é
-    _pCurtain->behave();
-    _pBgmPerformer->behave();
+    if (!_was_paused_flg) {
+        _pCurtain->behave();
+        _pBgmPerformer->behave();
+    }
 }
 
 void GgafDxScene::pauseTree() {

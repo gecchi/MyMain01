@@ -22,8 +22,7 @@ public:
     /** [r]BGM番号数 */
     int _bgm_num;
     /** [r]Bgm資源接続 */
-//    std::vector<GgafDxBgmConnection*>  _vecBgmConnection;
-    std::vector<GgafDxBgm*>  _vecBgm;
+    std::vector<GgafDxBgmConnection*>  _vecBgmConnection;
     /** [r]BGMのボリューム配列(添字はBGM番号) */
     std::vector<double> _vec_volume;
     /** [r]BGMのパン値(添字はBGM番号) */

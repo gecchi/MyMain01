@@ -11,8 +11,15 @@ GgafDxBgmManager::GgafDxBgmManager(const char* prm_manager_name) :
 }
 
 GgafDxBgm* GgafDxBgmManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) {
-    GgafDxBgm* pResourceBgm = NEW GgafDxBgm(prm_idstr);
-    return pResourceBgm;
+    GgafDxBgm* pResource = nullptr;
+    std::string idstr = std::string(prm_idstr);
+    std::vector<std::string> names = UTIL::split(idstr, "/", 1); //Å‰‚ÌƒXƒ‰ƒbƒVƒ…‚Å•ªŠ„
+    if (names.size() == 2) {
+        pResource = NEW GgafDxBgm(names[1].c_str());
+    } else {
+        pResource = NEW GgafDxBgm(names[0].c_str());
+    }
+    return pResource;
 }
 
 void GgafDxBgmManager::setBgmMasterVolumeRate(double prm_volume_rate) {

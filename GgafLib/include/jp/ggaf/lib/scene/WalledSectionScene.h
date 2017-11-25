@@ -9,6 +9,7 @@
 namespace GgafLib {
 
 /**
+ * ＜削除予定＞
  * X軸方向スクロールの壁ブロックセクションシーン .
  * WalledScene を構成するシーンの１つであり、
  * WalledSectionScene が連って一つの WalledScene を構成します。<BR>

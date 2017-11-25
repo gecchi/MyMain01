@@ -139,4 +139,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_WALLEDSECTIONSCENE_H_*/
+#endif /*GGAFLIB_WALLSECTIONSCENE_H_*/

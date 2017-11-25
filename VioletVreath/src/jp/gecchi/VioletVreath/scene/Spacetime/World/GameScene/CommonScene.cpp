@@ -238,5 +238,18 @@ void CommonScene::processBehavior() {
 
 }
 
+void CommonScene::scrollX(GgafObject* pThat, void* p1, void* p2) {
+    if (pThat->instanceOf(Obj_GgafDxGeometricActor)) {
+        GgafDxGeometricActor* pActor = (GgafDxGeometricActor*)pThat;
+        if (pActor->_is_active_flg && !pActor->_was_paused_flg && pActor->_can_live_flg) {
+            if (pActor->lookUpKind() & KIND_ITEM) {
+                //Item‚ÍƒXƒNƒ[ƒ‹‚Ì‰e‹¿‚ðŽó‚¯‚È‚¢
+            } else {
+                pActor->_x -= (*((coord*)p1));
+            }
+        }
+    }
+}
+
 CommonScene::~CommonScene() {
 }

@@ -999,7 +999,7 @@ void GgafElement<T>::settleBehavior() {
 
 template<class T>
 void GgafElement<T>::preJudge() {
-    if (_is_active_in_the_tree_flg && !_was_paused_flg) {
+    if (_is_active_in_the_tree_flg) { //_was_paused_flg は忘れていません
         processPreJudgement();    //フレームワーク用
         callRecursive(&GgafElement<T>::preJudge); //再帰
     }

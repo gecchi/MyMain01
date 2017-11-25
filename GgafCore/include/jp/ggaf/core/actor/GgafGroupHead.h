@@ -56,7 +56,8 @@ public:
 
     void processBehavior() override {
     }
-
+    void processPreJudgement() override {
+    }
     /**
      * 毎フレームのGgafGroupHead判定処理 .
      * サブが無ければ自動的に死亡する処理になっている。
@@ -109,7 +110,7 @@ public:
 
     /**
      * 神に謁見 .
-     * @return	呼ばれて出てきた神
+     * @return    呼ばれて出てきた神
      */
     GgafGod* askGod();
 
