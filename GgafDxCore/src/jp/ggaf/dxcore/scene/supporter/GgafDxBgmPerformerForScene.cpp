@@ -112,6 +112,7 @@ void GgafDxBgmPerformerForScene::play(int prm_bgm_no, bool prm_is_loop) {
     GgafDxBgmPerformer::play(prm_bgm_no, prm_is_loop); //è„à åƒÇ—èoÇµ
     _vec_is_fade[prm_bgm_no] = false;
 }
+
 void GgafDxBgmPerformerForScene::behave() {
     for (int bgm_no = 0; bgm_no < _bgm_num; bgm_no++) {
         if (_vec_is_fade[bgm_no]) {
@@ -140,6 +141,15 @@ void GgafDxBgmPerformerForScene::fadeout_stop() {
     for (int bgm_no = 0; bgm_no < _bgm_num; bgm_no++) {
         fadeout_stop(bgm_no);
     }
+}
+
+void GgafDxBgmPerformerForScene::stop(int prm_bgm_no) {
+    GgafDxBgmPerformer::stop(prm_bgm_no); //è„à åƒÇ—èoÇµ
+    _vec_is_fade[prm_bgm_no] = false;
+}
+
+void GgafDxBgmPerformerForScene::stop() {
+    GgafDxBgmPerformer::stop(); //è„à åƒÇ—èoÇµ
 }
 
 GgafDxBgmPerformerForScene::~GgafDxBgmPerformerForScene() {

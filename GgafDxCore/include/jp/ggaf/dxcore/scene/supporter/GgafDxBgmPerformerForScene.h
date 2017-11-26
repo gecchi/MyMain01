@@ -137,6 +137,17 @@ public:
         _default_fade = prm_default_fade;
     }
 
+    /**
+     * BGM‚ğ’â~‚·‚é .
+     * @param prm_bgm_no BGM”Ô†(0 ` )
+     */
+    virtual void stop(int prm_bgm_no) override;
+
+    /**
+     * ‘SBGM”Ô†‚ÌBGM‚ğ’â~ .
+     */
+    virtual void stop() override;
+
     virtual ~GgafDxBgmPerformerForScene();
 };
 
