@@ -75,7 +75,6 @@ void GgafDxBgm::stop() {
 }
 
 void GgafDxBgm::setVolume(int prm_volume) {
-    _TRACE_("GgafDxBgm::setVolume _bgm_key="<<_bgm_key<<"/prm_volume="<<prm_volume);
     _volume = prm_volume;
     //マスターBGM音量率を考慮
     int v = (int)(_volume * GgafDxSound::_pBgmManager->getBgmMasterVolumeRate());
@@ -85,7 +84,6 @@ void GgafDxBgm::setVolume(int prm_volume) {
     if (v < GGAF_MIN_VOLUME) {
         v = GGAF_MIN_VOLUME;
     }
-    _TRACE_("GgafDxBgm::setVolume rate="<<GgafDxSound::_pBgmManager->getBgmMasterVolumeRate()<<"/v="<<v);
     int db = GgafDxSound::_a_db_volume[v];
     _pPcmPlayer->setVolume(db);
 }

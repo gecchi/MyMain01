@@ -26,9 +26,39 @@ void GgafDxBgmPerformerForScene::ready(int prm_bgm_no, const char* prm_bgm_name)
 }
 
 void GgafDxBgmPerformerForScene::fade(int prm_bgm_no, frame prm_frame, int prm_target_volume) {
-    _vec_is_fade[prm_bgm_no] = true;
-    _vec_target_volume[prm_bgm_no] = (double)prm_target_volume;
-    _vec_inc_volume[prm_bgm_no] = (prm_target_volume - getVolume(prm_bgm_no)) / (double)prm_frame;
+    //既存のフェード中の場合
+    //フェード方向が異なる場合は後勝ち
+    //フェード方向が同じ場合は、フェード完了の残フレーム数を比較し、早く完了するほうが勝つ
+    double inc_volume = (prm_target_volume - getVolume(prm_bgm_no)) / (double)prm_frame;
+    if (_vec_is_fade[prm_bgm_no]) {
+        //既存フェード中
+        int sgn_cur_inc_volume = SGN(_vec_inc_volume[prm_bgm_no]);
+        int sgn_new_inc_volume = SGN(inc_volume);
+        if (sgn_cur_inc_volume == sgn_new_inc_volume) {
+            //フェード方向が同じ
+            //残フレーム数計算
+            frame new_zan = ABS(prm_target_volume              - getVolume(prm_bgm_no)) / ABS(inc_volume);
+            frame cur_zan = ABS(_vec_target_volume[prm_bgm_no] - getVolume(prm_bgm_no)) / ABS(_vec_inc_volume[prm_bgm_no]);
+            if (cur_zan > new_zan) {
+                //今回指定フェードのほうが完了が早いので後勝ち
+                _vec_target_volume[prm_bgm_no] = (double)prm_target_volume;
+                _vec_inc_volume[prm_bgm_no] = inc_volume;
+            } else {
+                //今回指定フェードのほうが遅いので、無視
+                _TRACE_("GgafDxBgmPerformerForScene::fade prm_bgm_no="<<prm_bgm_no<<"("<<getBgm(prm_bgm_no)->_bgm_key<<")のフェード指定は、"
+                        "既にフェード中の方が早く完了するので、無視されました。既存残f="<<cur_zan<<"/今回設定必要f="<<new_zan);
+            }
+        } else {
+            //フェード方向が異なるので後勝ち
+            _vec_target_volume[prm_bgm_no] = (double)prm_target_volume;
+            _vec_inc_volume[prm_bgm_no] = inc_volume;
+        }
+    } else {
+        //既存フェードは無し
+        _vec_is_fade[prm_bgm_no] = true;
+        _vec_target_volume[prm_bgm_no] = (double)prm_target_volume;
+        _vec_inc_volume[prm_bgm_no] = inc_volume;
+    }
 }
 
 void GgafDxBgmPerformerForScene::fadein_f(int prm_bgm_no, frame prm_frame) {
