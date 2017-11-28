@@ -16,19 +16,6 @@ namespace VioletVreath {
 class FormationDelheid : public GgafLib::DepositoryFormation {
 
 public:
-    enum {
-        PROG_INIT  ,
-        PROG_ENTRY ,
-        PROG_FROMATION_MOVE1,
-        PROG_FROMATION_MOVE2,
-        PROG_FROMATION_MOVE3,
-        PROG_FROMATION_MOVE4,
-        PROG_FROMATION_MOVE5,
-        PROG_LEAVE ,
-        PROG_BANPEI,
-    };
-
-
     /** デルヘイド借り入れ元Depository資源への接続 */
     DepositoryConnection* pConn_pDelheidDepo_;
     /** デルヘイドの発射弾の借り入れ元Depository資源への接続 */

@@ -50,9 +50,6 @@ class VamSysCamWorker : public GgafLib::CameraWorker {
     coord X_P_C_;
 
 public:
-    enum {
-        SE_RETURNNING_CAM_POS     ,
-    };
     MyShip* pMyShip_;
     GgafDxCore::GgafDxSeTransmitter* pSe_;
 

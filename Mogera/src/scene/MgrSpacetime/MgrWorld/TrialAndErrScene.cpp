@@ -15,6 +15,13 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace Mogera;
 
+enum {
+    PROG_INIT ,
+    PROG_CALM ,
+    PROG_WAIT ,
+    PROG_BANPEI,
+};
+
 TrialAndErrScene::TrialAndErrScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "TrialAndErrScene";
     pTest_ = nullptr;

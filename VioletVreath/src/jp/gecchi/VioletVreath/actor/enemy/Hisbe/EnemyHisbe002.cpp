@@ -13,6 +13,19 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    PROG_WAIT,
+    PROG_OPEN,
+    PROG_FIRE,
+    PROG_CLOSE,
+    PROG_BANPEI,
+};
+enum {
+    SE_DAMAGED  ,
+    SE_EXPLOSION,
+    SE_FIRE,
+};
+
 EnemyHisbe002::EnemyHisbe002(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Hisbe002", STATUS(EnemyHisbe002)) {
         //CubeMapMorphMeshActor(prm_name, "1/HisbeCM", STATUS(EnemyHisbe002)) {

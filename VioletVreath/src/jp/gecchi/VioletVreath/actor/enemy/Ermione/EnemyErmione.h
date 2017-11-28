@@ -22,18 +22,6 @@ class EnemyErmione :
 //class EnemyErmione : public GgafLib::CubeMapMorphMeshActor {
 
 public:
-    enum {
-        PROG_INIT ,
-        PROG_ENTRY,
-        PROG_MOVE ,
-        PROG_BANPEI,
-    };
-
-    enum {
-        SE_DAMAGED  ,
-        SE_EXPLOSION,
-    };
-
     class Arm {
     public:
         angle pos_Rz_;

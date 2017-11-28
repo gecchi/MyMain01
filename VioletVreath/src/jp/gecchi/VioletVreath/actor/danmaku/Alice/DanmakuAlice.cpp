@@ -8,6 +8,12 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    PROG_INIT,
+    PROG_1,
+    PROG_BANPEI,
+};
+
 DanmakuAlice::DanmakuAlice(const char* prm_name, const char* prm_shot_model_id) :
         DefaultGeometricActor(prm_name) {
 

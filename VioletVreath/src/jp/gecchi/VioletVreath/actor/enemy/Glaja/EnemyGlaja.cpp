@@ -11,12 +11,29 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Glaja/EnemyGlajaLance001.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAssistant.h"
-
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
+
+enum {
+    MPH_OPEN = 1,
+};
+enum {
+    SE_EXPLOSION ,
+};
+enum {
+    PROG_INIT   ,
+    PROG_ENTRY  ,
+    PROG_MOVE01 ,
+    PROG_MOVE02 ,
+    PROG_OPEN ,
+    PROG_FIRE ,
+    PROG_CLOSE ,
+    PROG_BANPEI,
+};
 
 EnemyGlaja::EnemyGlaja(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Glaja", STATUS(EnemyGlaja)) {

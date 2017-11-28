@@ -9,13 +9,25 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
-
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
+
+enum {
+    PROG_INIT  ,
+    PROG_ENTRY ,
+    PROG_MOVE  ,
+    PROG_FIRE  ,
+    PROG_LEAVE ,
+    PROG_BANPEI,
+};
+enum {
+    SE_EXPLOSION,
+    SE_FIRE     ,
+};
 
 EnemyGeria::EnemyGeria(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Geria", STATUS(EnemyGeria)) {

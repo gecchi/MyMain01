@@ -18,6 +18,22 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    PROG_MOVE ,
+    PROG_OPEN ,
+    PROG_TURN ,
+    PROG_FIRE_BEGIN,
+    PROG_IN_FIRE   ,
+    PROG_FIRE_END  ,
+    PROG_CLOSE     ,
+    PROG_BANPEI,
+};
+enum {
+    SE_DAMAGED  ,
+    SE_EXPLOSION,
+    SE_FIRE,
+};
+
 EnemyRatislaviaEye::EnemyRatislaviaEye(const char* prm_name, EnemyRatislavia* prm_pRatislavia) :
         DefaultMorphMeshActor(prm_name, "1/RatislaviaEye", STATUS(EnemyRatislaviaEye)) {
         //CubeMapMorphMeshActor(prm_name, "1/HaliaCM", STATUS(EnemyRatislaviaEye)) {

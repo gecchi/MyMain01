@@ -18,6 +18,16 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 #define GAMETITLE_TIMEOUT (60*20)
+
+enum {
+    PROG_INIT     ,
+    PROG_TITLE    ,
+    PROG_SELECT   ,
+    PROG_GAMESTART,
+    PROG_FINISH   ,
+    PROG_BANPEI,
+};
+
 GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameTitleScene";
     useProgress(PROG_BANPEI);
@@ -43,7 +53,7 @@ GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
 
     pSeConnection_exec_ = connectToSeManager("WAVE_EXECUTE");
 
-   // getBgmPerformer()->ready(0, "OGG_BGM_DEMO");
+   // getConductor()->ready(0, "OGG_BGM_DEMO");
     frame_of_noinput_ = 0;
     active_item_ = 0;
 

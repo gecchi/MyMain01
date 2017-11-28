@@ -14,6 +14,13 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    PROG_DRIFT      , //’ÊíˆÚ“®ó‘Ô
+    PROG_ATTACH     , //‹z’…’†(–¢‹z’…)ó‘Ô
+    PROG_ABSORB     , //‹z’…’†(‹z’…Ï)ó‘Ô
+    PROG_BANPEI,
+};
+
 VreathItem::VreathItem(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat)
                : Item(prm_name, prm_model, prm_pStat) {
     _class_name = "VreathItem";

@@ -19,6 +19,14 @@ using namespace VioletVreath;
 
 #define ORDER_ID_STAGE 11
 
+enum {
+    PROG_INIT    ,
+    PROG_BEGIN   ,
+    PROG_PLAY    ,
+    PROG_FINISH  ,
+    PROG_BANPEI,
+};
+
 //GameMainScene* GameMainScene::pGameMainScene_ = nullptr;
 
 GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
@@ -52,8 +60,7 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     pRankFont_ = NEW LabelRankFont("RankFont"); //LabelRankFont‚Í ALIGN_RIGHT,VALIGN_BOTTOM ŒÅ’è
     pRankFont_->setPosition(PX_C(PROPERTY::GAME_BUFFER_WIDTH), PX_C(PROPERTY::GAME_BUFFER_HEIGHT));
     bringDirector()->addSubGroup(pRankFont_);
-
-    useProgress(PROG_BANPEI-1);
+    useProgress(PROG_BANPEI);
 }
 
 void GameMainScene::onReset() {

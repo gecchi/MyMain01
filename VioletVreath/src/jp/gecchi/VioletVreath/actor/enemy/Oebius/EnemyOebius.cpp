@@ -11,13 +11,25 @@
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Oebius/FormationOebius.h"
-
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    SE_EXPLOSION ,
+};
+enum {
+    PROG_INIT   ,
+    PROG_ENTRY  ,
+    PROG_MOVE_BEGIN ,
+    PROG_SPLINE ,
+    PROG_SCATTER ,
+    PROG_LEAVE ,
+    PROG_BANPEI,
+};
 
 EnemyOebius::EnemyOebius(const char* prm_name) :
         DefaultMassMeshActor(prm_name, "Oebius", STATUS(EnemyOebius)) {

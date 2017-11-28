@@ -19,14 +19,6 @@ HASHVAL(RATISLAVIA_EXPLOSION);
 class EnemyRatislavia : public GgafLib::CubeMapMeshActor {
 
 public:
-    enum {
-        PROG_INIT      ,
-        PROG_FLOAT_MOVE,
-        PROG_EXPLOSION ,
-        PROG_NOTHING   ,
-        PROG_BANPEI,
-    };
-
     /** トーラスの半径1(輪の半径) */
     coord r1_;
     /** トーラスの半径2(太さの半径) */

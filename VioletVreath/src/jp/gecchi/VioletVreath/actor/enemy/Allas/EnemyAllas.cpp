@@ -16,6 +16,10 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    SE_EXPLOSION ,
+};
+
 EnemyAllas::EnemyAllas(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Allas", STATUS(EnemyAllas)) {
     _class_name = "EnemyAllas";

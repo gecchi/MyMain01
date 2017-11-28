@@ -16,10 +16,6 @@ namespace VioletVreath {
 class EnemyEres : public GgafLib::DefaultMeshSetActor {
 
 public:
-    enum {
-        SE_EXPLOSION ,
-    };
-
     /** 弾ストック */
     GgafCore::GgafActorDepository* pDepo_shot001_;
     /** スプラインプログラム */

@@ -12,15 +12,26 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
-
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
-
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    PROG_INIT,
+    PROG_ENTRY,
+    PROG_MOVE ,
+    PROG_TURN ,
+    PROG_FIRE ,
+    PROG_BANPEI,
+};
+enum {
+    SE_EXPLOSION,
+    SE_FIRE     ,
+};
 
 EnemyStraea::EnemyStraea(const char* prm_name) :
         DefaultMeshActor(prm_name, "Straea", STATUS(EnemyStraea)) {

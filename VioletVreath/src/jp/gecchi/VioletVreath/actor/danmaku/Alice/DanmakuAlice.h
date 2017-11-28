@@ -14,12 +14,6 @@ namespace VioletVreath {
  */
 class DanmakuAlice : public GgafLib::DefaultGeometricActor {
 
-    enum {
-        PROG_INIT,
-        PROG_1,
-        PROG_BANPEI,
-    };
-
     GgafCore::GgafActorDepository* pShotDepo_;
 
 public:

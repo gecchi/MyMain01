@@ -4,7 +4,7 @@
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 #include "jp/ggaf/dxcore/manager/GgafDxSeConnection.h"
-#include "jp/ggaf/dxcore/scene/supporter/GgafDxBgmPerformerForScene.h"
+#include "jp/ggaf/dxcore/sound/GgafDxBgmConductor.h"
 #include "jp/ggaf/dxcore/sound/GgafDxSound.h"
 #include "../RankUpStageController.h"
 #include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshiRankUp.h"
@@ -63,7 +63,7 @@ void RankUpStage::processBehavior() {
             std::string m = "RUNKUP LEVEL:" + XTOS(G_RANKUP_LEVEL) ;
             pMessage2_->update(m.c_str());
             pMessage2_->getAlphaFader()->beat(120, 30, 30, 30, -1);
-            getBgmPerformer()->play_fadein(0);
+            getConductor()->performFadein(0, 120);
             pProg->changeNext();
             break;
         }
@@ -109,7 +109,7 @@ void RankUpStage::processBehavior() {
 
             //結果表示？
             if (pProg->hasArrivedAt(320)) {
-                getBgmPerformer()->fadeout_stop(0);
+                getConductor()->fadeoutStop(0, 120);
                 if (all_hit_num_ <= hit_enemy_num_) { //全滅させた！
                     pMessage2_->update("PERFECT!!!!");
                 } else if (all_hit_num_/2 <= hit_enemy_num_) {

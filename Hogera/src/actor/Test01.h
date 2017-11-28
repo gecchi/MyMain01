@@ -13,14 +13,6 @@ namespace Hogera {
 class Test01 : public GgafLib::DefaultSpriteActor {
 
 public:
-    enum {
-        LOCKON001_PROG_FIRST_LOCK ,
-        LOCKON001_PROG_LOCK       ,
-        LOCKON001_PROG_RELEASE    ,
-        PROG_BANPEI,
-    };
-
-public:
     Test01(const char* prm_name);
 
     void initialize() override;

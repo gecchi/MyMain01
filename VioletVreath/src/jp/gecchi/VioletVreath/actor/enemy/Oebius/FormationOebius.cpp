@@ -11,12 +11,19 @@
 #include "jp/gecchi/VioletVreath/manager/XpmConnection.h"
 #include "EnemyOebiusCore.h"
 #include "EnemyOebiusController.h"
-
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
+
+enum {
+    PROG_INIT  ,
+    PROG_CALL_UP ,
+    PROG_WAIT  ,
+    PROG_BANPEI,
+};
 
 FormationOebius::FormationOebius(const char* prm_name, int prm_formation_col_num, int prm_formation_row_num, frame prm_call_up_interval, EnemyOebiusController* prm_pController) :
         TreeFormation(prm_name) {

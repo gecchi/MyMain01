@@ -10,6 +10,11 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    SE_DAMAGED   ,
+    SE_EXPLOSION ,
+};
+
 EnemyEmiliaBase::EnemyEmiliaBase(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat) :
         DefaultMassMeshActor(prm_name, prm_model, prm_pStat) {
     GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();

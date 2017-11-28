@@ -16,13 +16,7 @@ class EnemyEmiliaBase : public GgafLib::DefaultMassMeshActor {
 
 protected:
     virtual void processStaminaEnd(const GgafDxCore::GgafDxGeometricActor* prm_pOther) = 0;
-
 public:
-    enum {
-        SE_DAMAGED   ,
-        SE_EXPLOSION ,
-    };
-
     /** •Ò‘àƒƒ“ƒo[‚Ì‰ŠúˆÚ“®‘¬“x(RANK•Ï“®) */
     velo R_mv_velo_;
     EnemyEmiliaBase* pOrg_;

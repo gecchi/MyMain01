@@ -16,13 +16,6 @@ namespace Mogera {
 class Zako : public GgafLib::DefaultMeshSetActor {
 
 public:
-    enum {
-        PROG_INIT   ,
-        PROG_SPLINE ,
-        PROG_LEAVE ,
-        PROG_BANPEI,
-    };
-
     /** 移動スプラインプログラム */
     GgafLib::SplineKurokoLeader* pKurokoLeader_;
 

@@ -14,6 +14,19 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    SE_EXPLOSION,
+};
+enum {
+    PROG_INIT  ,
+    PROG_ENTRY ,
+    PROG_MOVE01,
+    PROG_LEAVE ,
+    PROG_RUSH,
+    PROG_BANPEI,
+};
+
+
 EnemyAntiope::EnemyAntiope(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
         DefaultMeshSetActor(prm_name, prm_model, prm_pStat) {
     _class_name = "EnemyAntiope";

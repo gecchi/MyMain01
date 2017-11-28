@@ -10,10 +10,16 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    PROG_INIT   ,
+    PROG_EXEC   ,
+    PROG_FINISH ,
+    PROG_BANPEI,
+};
+
 GamePreTitleScene::GamePreTitleScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GamePreTitleScene";
     useProgress(PROG_BANPEI);
-    getProgress()->change(GamePreTitleScene::PROG_INIT);
     pLabel01_ = NEW LabelGecchi16Font("STR01");
     bringDirector()->addSubGroup(pLabel01_);
     pLabel02_ = NEW LabelGecchi16Font("STR02");

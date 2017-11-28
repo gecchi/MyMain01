@@ -13,6 +13,20 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    PROG_INIT    ,
+    PROG_MOVE01_1,
+    PROG_MOVE01_2,
+    PROG_MOVE01_3,
+    PROG_MOVE01_4,
+    PROG_FINISH  ,
+    PROG_BANPEI,
+};
+enum {
+    SE_DAMAGED  ,
+    SE_EXPLOSION,
+};
+
 EnemyTalante::EnemyTalante(const char* prm_name) :
         DefaultMassMeshActor(prm_name, "Talante", STATUS(EnemyTalante)) {
     _class_name = "EnemyTalante";

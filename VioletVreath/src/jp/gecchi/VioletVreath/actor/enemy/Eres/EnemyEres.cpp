@@ -10,12 +10,16 @@
 #include "jp/gecchi/VioletVreath/actor/enemy/Eres/EnemyEresShot001.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
-
 #include "jp/gecchi/VioletVreath/Properties.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
+
+enum {
+    SE_EXPLOSION ,
+};
 
 EnemyEres::EnemyEres(const char* prm_name, GgafActorDepository* prm_pDepo_EnemyEresShots001) :
         DefaultMeshSetActor(prm_name, "Eres", STATUS(EnemyEres)) {

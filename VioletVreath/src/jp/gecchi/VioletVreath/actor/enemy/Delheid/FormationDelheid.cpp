@@ -13,6 +13,17 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    PROG_INIT  ,
+    PROG_ENTRY ,
+    PROG_FROMATION_MOVE1,
+    PROG_FROMATION_MOVE2,
+    PROG_FROMATION_MOVE3,
+    PROG_FROMATION_MOVE4,
+    PROG_FROMATION_MOVE5,
+    PROG_LEAVE ,
+    PROG_BANPEI,
+};
 
 FormationDelheid::FormationDelheid(const char* prm_name)
    : DepositoryFormation(prm_name) {

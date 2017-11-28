@@ -9,6 +9,11 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    SE_DAMAGED   ,
+    SE_EXPLOSION ,
+};
+
 TestNomal::TestNomal(const char* prm_name)
       : TestEnemy(prm_name, "TestNomal", STATUS(TestNomal)) {
     _class_name = "TestNomal";

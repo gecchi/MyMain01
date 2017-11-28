@@ -11,15 +11,6 @@ namespace VioletVreath {
 class EnemyOzartiaShot01 : public GgafLib::DefaultMeshSetActor {
 
 public:
-    enum {
-        PROG_INIT   ,
-        PROG_ENTRY  ,
-        PROG_MOVE01 ,
-        PROG_LEAVE  ,
-        PROG_BANPEI,
-    };
-
-public:
     EnemyOzartiaShot01(const char* prm_name);
 
     void initialize() override;

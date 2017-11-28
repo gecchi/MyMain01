@@ -15,6 +15,18 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    PROG_MOVE01_1   ,
+    PROG_SPLINE_MOVE,
+    PROG_MOVE02_1   ,
+    PROG_MOVE02_2   ,
+    PROG_BANPEI,
+};
+enum {
+    SE_DAMAGED   ,
+    SE_EXPLOSION ,
+};
+
 EnemyDrastea::EnemyDrastea(const char* prm_name) :
         CubeMapMeshSetActor(prm_name, "Drastea", STATUS(EnemyDrastea)) {
     _class_name = "EnemyDrastea";

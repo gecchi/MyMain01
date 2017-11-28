@@ -21,7 +21,6 @@ public:
         ITEM_BACK,
     };
 
-public:
     MenuBoardConfig(const char* prm_name);
     void onActive() override;
     bool condSelectNext() override;

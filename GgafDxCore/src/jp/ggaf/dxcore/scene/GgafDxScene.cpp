@@ -2,14 +2,14 @@
 
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"
 #include "jp/ggaf/dxcore/scene/supporter/GgafDxAlphaCurtain.h"
-#include "jp/ggaf/dxcore/scene/supporter/GgafDxBgmPerformerForScene.h"
+#include "jp/ggaf/dxcore/sound/GgafDxBgmConductor.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxScene::GgafDxScene(const char* prm_name) : GgafMainScene(prm_name),
 _pCurtain(new GgafDxAlphaCurtain(this)),
-_pBgmPerformer(new GgafDxBgmPerformerForScene(this)) {
+_pConductor(new GgafDxBgmConductor()) {
     _obj_class |= Obj_GgafDxScene;
     _class_name = "GgafDxScene";
     _scene_alpha = 1.0f;
@@ -56,14 +56,14 @@ void GgafDxScene::processPreJudgement() {
     GgafMainScene::processPreJudgement();
     if (!_was_paused_flg) {
         _pCurtain->behave();
-        _pBgmPerformer->behave();
+        _pConductor->behave();
     }
 }
 
 void GgafDxScene::pauseTree() {
     if (_can_live_flg) {
         _TRACE_("GgafDxScene::pauseTree() シーン"<<getName()<<"("<<this<<")の BGMを一時停止 pause() します。");
-        _pBgmPerformer->pause();
+        _pConductor->pause();
     }
     GgafElement<GgafScene>::pauseTree();
     _pSceneDirector->pauseTree();
@@ -72,7 +72,7 @@ void GgafDxScene::pauseTree() {
 void GgafDxScene::pause() {
     if (_can_live_flg) {
         _TRACE_("GgafDxScene::pause() シーン"<<getName()<<"("<<this<<")の BGMを一時停止 pause() します。");
-        _pBgmPerformer->pause();
+        _pConductor->pause();
     }
     GgafElement<GgafScene>::pause();
     _pSceneDirector->pause();
@@ -81,7 +81,7 @@ void GgafDxScene::pause() {
 void GgafDxScene::unpauseTree() {
     if (_can_live_flg) {
         _TRACE_("GgafDxScene::unpauseTree() シーン"<<getName()<<"("<<this<<")の BGMを一時停止解除 unpause() します。");
-        _pBgmPerformer->unpause();
+        _pConductor->unpause();
     }
     GgafElement<GgafScene>::unpauseTree();
     _pSceneDirector->unpauseTree();
@@ -90,7 +90,7 @@ void GgafDxScene::unpauseTree() {
 void GgafDxScene::unpause() {
     if (_can_live_flg) {
         _TRACE_("GgafDxScene::unpause() シーン"<<getName()<<"("<<this<<")の BGMを一時停止解除 unpause() します。");
-        _pBgmPerformer->unpause();
+        _pConductor->unpause();
     }
     GgafElement<GgafScene>::unpause();
     _pSceneDirector->unpause();
@@ -114,10 +114,9 @@ void GgafDxScene::fadeoutScene(int prm_frame_fade) {
 
 void GgafDxScene::fadeoutBgm(int prm_frame_fade) {
     if (prm_frame_fade == 0) {
-        _pBgmPerformer->stop();
+        _pConductor->stop();
     } else {
-        _pBgmPerformer->setDefaultFadeFrames(prm_frame_fade);
-        _pBgmPerformer->fadeout_stop();
+        _pConductor->fadeoutStopAll(prm_frame_fade);
     }
 }
 
@@ -164,10 +163,10 @@ void GgafDxScene::fadeoutSceneWithBgmTree(int prm_frame_fade) {
     fadeoutBgmTree( prm_frame_fade);
 }
 void GgafDxScene::onEnd() {
-    _pBgmPerformer->stop();
+    _pConductor->stop();
 }
 
 GgafDxScene::~GgafDxScene() {
     delete _pCurtain;
-    delete _pBgmPerformer;
+    delete _pConductor;
 }

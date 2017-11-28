@@ -10,8 +10,8 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
-
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -21,6 +21,30 @@ using namespace VioletVreath;
 #define LARGE_SEMIARC_ANGVELO (D_ANG(3))
 #define SMALL_SEMIARC_ANGVELO (D_ANG(6))
 #define SEMIARC_ANG (D_ANG(200))
+
+enum {
+    MPH_OPEN = 1,
+};
+enum {
+    SE_EXPLOSION ,
+};
+enum {
+    PROG_INIT   ,
+    PROG_ENTRY_EFFECT,
+    PROG_ENTRY_MOVE01,
+    PROG_ENTRY_MOVE02,
+    PROG_MOVE_ORDER_LARGE_SEMIARC_CW,
+    PROG_MOVE_ORDER_LARGE_SEMIARC_CCW,
+    PROG_MOVE_REV_LARGE_SEMIARC_CW,
+    PROG_MOVE_REV_LARGE_SEMIARC_CCW,
+    PROG_MOVE_ORDER_SMALL_SEMIARC_CW,
+    PROG_MOVE_ORDER_SMALL_SEMIARC_CCW,
+    PROG_MOVE_REV_SMALL_SEMIARC_CW,
+    PROG_MOVE_REV_SMALL_SEMIARC_CCW,
+    PROG_CLOSE ,
+    PROG_BANPEI,
+};
+
 EnemyDuna::EnemyDuna(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Duna", STATUS(EnemyDuna)) {
     _class_name = "EnemyDuna";

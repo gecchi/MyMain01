@@ -14,6 +14,18 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    PROG_ENTRY      ,
+    PROG_SPLINE_MOVE,
+    PROG_MOVE01_1   ,
+    PROG_MOVE01_2   ,
+    PROG_LEAVE      ,
+    PROG_BANPEI,
+};
+enum {
+    SE_EXPLOSION ,
+};
+
 EnemyUnomia::EnemyUnomia(const char* prm_name) :
         DefaultMassMeshActor(prm_name, "Unomia", STATUS(EnemyUnomia)) {
     _class_name = "EnemyUnomia";

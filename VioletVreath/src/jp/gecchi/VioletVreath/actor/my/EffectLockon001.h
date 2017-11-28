@@ -23,6 +23,7 @@ public:
         PROG_BANPEI,
     };
 
+
     GgafDxCore::GgafDxGeometricActor* pTarget_;
 
 public:

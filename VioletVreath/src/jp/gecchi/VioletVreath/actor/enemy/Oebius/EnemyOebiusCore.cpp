@@ -12,15 +12,27 @@
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Oebius/FormationOebius001.h"
 #include "EnemyOebiusController.h"
-
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
-
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    PROG_INIT  ,
+    PROG_ENTRY ,
+    PROG_WAIT01 ,
+    PROG_LEAVE ,
+    PROG_BANPEI,
+};
+enum {
+    SE_DAMAGED  ,
+    SE_UNDAMAGED  ,
+    SE_EXPLOSION,
+    SE_FIRE,
+};
 
 EnemyOebiusCore::EnemyOebiusCore(const char* prm_name, EnemyOebiusController* prm_pController) :
         DefaultMorphMeshActor(prm_name, "1/OebiusCore", STATUS(EnemyOebiusCore)) {

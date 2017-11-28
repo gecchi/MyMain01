@@ -10,12 +10,23 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
+
+enum {
+    PROG_INIT ,
+    PROG_ENTRY,
+    PROG_MOVE01,
+    PROG_BANPEI,
+};
+enum {
+    SE_DAMAGED  ,
+    SE_EXPLOSION,
+};
 
 EnemyIda::EnemyIda(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Ida", STATUS(EnemyIda)) {

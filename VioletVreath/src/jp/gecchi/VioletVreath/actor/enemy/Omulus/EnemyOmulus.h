@@ -19,18 +19,6 @@ private:
 //    /** [r]次回ハッチが閉じるフレーム(内部計算用) */
 //    frame frame_of_moment_nextclose_;
 public:
-    enum {
-        PROG_INIT       ,
-        PROG_HATCH_CLOSE,
-        PROG_HATCH_OPEN ,
-        PROG_BANPEI,
-    };
-
-    enum {
-        SE_DAMAGED  ,
-        SE_EXPLOSION,
-    };
-
     /** [r]状況 */
     bool is_open_hatch_;
     /** [r/w]ハッチが開いているフレーム間隔 */

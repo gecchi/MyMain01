@@ -15,13 +15,6 @@ namespace VioletVreath {
  */
 class FormationOebius : public GgafLib::TreeFormation {
 
-    enum {
-        PROG_INIT  ,
-        PROG_CALL_UP ,
-        PROG_WAIT  ,
-        PROG_BANPEI,
-    };
-
 public:
     EnemyOebiusController* pController_;
 

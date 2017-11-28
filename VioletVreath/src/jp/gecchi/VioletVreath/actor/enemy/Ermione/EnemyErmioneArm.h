@@ -20,7 +20,6 @@ public:
         PROG_AIMING ,
         PROG_BANPEI,
     };
-
     enum {
         SE_DAMAGED  ,
         SE_EXPLOSION,

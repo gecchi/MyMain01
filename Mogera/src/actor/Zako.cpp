@@ -13,6 +13,12 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace Mogera;
 
+enum {
+    PROG_INIT   ,
+    PROG_SPLINE ,
+    PROG_LEAVE ,
+    PROG_BANPEI,
+};
 
 Zako::Zako(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Zako") {

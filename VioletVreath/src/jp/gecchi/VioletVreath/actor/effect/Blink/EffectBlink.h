@@ -15,14 +15,6 @@ namespace VioletVreath {
 class EffectBlink : public GgafLib::DefaultMassMeshActor {
 
 public:
-    enum {
-        PROG_INIT ,
-        PROG_IN   ,
-        PROG_STAY ,
-        PROG_OUT  ,
-        PROG_BANPEI,
-    };
-
     /** [r]エフェクト発生～最大の大きさまで拡大、までのフレーム数 */
     frame scale_in_frames_;
     /** [r]エフェクト持続フレーム数 */

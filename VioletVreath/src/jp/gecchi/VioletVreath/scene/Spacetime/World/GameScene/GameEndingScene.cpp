@@ -7,9 +7,18 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    PROG_INIT    ,
+    PROG_BEGIN   ,
+    PROG_OPE     ,
+    PROG_DECIDE  ,
+    PROG_END     ,
+    PROG_BANPEI,
+};
+
 GameEndingScene::GameEndingScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameEndingScene";
-    useProgress(GameEndingScene::PROG_BANPEI-1);
+    useProgress(PROG_BANPEI-1);
 }
 
 void GameEndingScene::onReset() {

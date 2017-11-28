@@ -1,5 +1,5 @@
-#ifndef GGAFDXCORE_GGAFDXBGMPERFORMER_H_
-#define GGAFDXCORE_GGAFDXBGMPERFORMER_H_
+#ifndef GGAFDXCORE_GGAFDXBGMCONDUCTOR_H_
+#define GGAFDXCORE_GGAFDXBGMCONDUCTOR_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/GgafObject.h"
 
@@ -8,14 +8,14 @@
 namespace GgafDxCore {
 
 /**
- * BGM演奏支援クラス .
+ * BGM演奏指揮者クラス .
  * BGMとそれに紐つく音量、パンの値を保持
  * BGMマスターボリュームを考慮
  * @version 1.00
  * @since 2010/04/19
  * @author Masatoshi Tsuge
  */
-class GgafDxBgmPerformer : public GgafCore::GgafObject {
+class GgafDxBgmConductor : public GgafCore::GgafObject {
 
 public:
 //    static int _active_bgm_bpm;
@@ -27,13 +27,21 @@ public:
     std::vector<double> _vec_volume;
     /** [r]BGMのパン値(添字はBGM番号) */
     std::vector<float> _vec_pan;
-
+    /** [r]フェードターゲットボリュームの配列(添字はチャンネル) */
+    std::vector<double> _vec_target_volume;
+    /** [r]ボリューム加算値の配列(添字はチャンネル) */
+    std::vector<double> _vec_inc_volume;
+    /** [r]現在フェード中か否かの配列(添字はチャンネル) */
+    std::vector<bool> _vec_is_fade;
+    /** [r]フェード後停止させるのかどうかの配列(添字はチャンネル) */
+    std::vector<bool> _vec_is_fadeafter_stop;
 
 public:
-    GgafDxBgmPerformer();
+    GgafDxBgmConductor();
 
     /**
-     * BGMを設定する。
+     * BGMを準備する。
+     * 演奏前に必ず実行しておく必要があります。
      * @param prm_bgm_no BGM番号(0 ～ )
      * @param prm_bgm_name プロパティファイルkey文字列
      */
@@ -85,11 +93,14 @@ public:
     }
 
     /**
-     * BGMを再生する。
+     * 演奏する。
      * @param prm_bgm_no  BGM番号(0 ～ )
      * @param prm_is_loop  ループするかどうか（true:ループ再生する／false:ループ再生しない）
      */
-    virtual void play(int prm_bgm_no, bool prm_is_loop = true);
+    virtual void perform(int prm_bgm_no, bool prm_is_loop = true);
+
+
+    virtual void performFromTheBegining(int prm_bgm_no, bool prm_is_loop = true);
 
     /**
      * BGMを停止する .
@@ -124,7 +135,7 @@ public:
      */
     virtual void unpause();
 
-    virtual bool isPlaying(int prm_bgm_no);
+    virtual bool isPerforming(int prm_bgm_no);
     /**
      * BGMの一時停止中か判断する .
      * @param prm_bgm_no BGM番号(0 ～ )
@@ -136,8 +147,43 @@ public:
 
     virtual GgafDxBgm* getBgm(int prm_bgm_no);
 
-    virtual ~GgafDxBgmPerformer();
+    /**
+     * BGMの振る舞い .
+     * 主にボリュームを変化させ、フェードイン・アウト効果を持続処理させる。
+     */
+    virtual void behave();
+
+    /**
+     * 演奏中のBGMにフェード効果を実行する。
+     * @param prm_bgm_no              BGM番号(0 ～ )
+     * @param prm_frame           フェードに費やすフレーム時間
+     * @param prm_target_volume   到達目標ボリューム(0 ～ 100)
+     */
+    virtual void fade(int prm_bgm_no, frame prm_frame, int prm_target_volume);
+
+    /**
+     * BGMを、フェードインによる再生を開始する。
+     * @param prm_bgm_no  BGM番号(0 ～ )
+     * @param prm_frame フェードインフレーム数
+     */
+    virtual void performFadein(int prm_bgm_no, frame prm_frame);
+
+    /**
+     * 演奏中のBGMにフェードアウト効果を実行し、フェードアウト後演奏を停止する。
+     * @param prm_bgm_no BGM番号(0 ～ )
+     * @param prm_frame フェードアウトフレーム数
+     */
+    virtual void fadeoutStop(int prm_bgm_no, frame prm_frame);
+
+    /**
+     * 全BGM番号の演奏中のBGMにフェードアウト効果を実行し、フェードアウト後演奏を停止する。
+     * フェードアウト時間は setDefaultFadeFrames() 指定のフレーム数。
+     */
+    virtual void fadeoutStopAll(frame prm_frame);
+
+
+    virtual ~GgafDxBgmConductor();
 };
 
 }
-#endif /*GGAFDXCORE_GGAFDXBGMPERFORMER_H_*/
+#endif /*GGAFDXCORE_GGAFDXBGMCONDUCTOR_H_*/

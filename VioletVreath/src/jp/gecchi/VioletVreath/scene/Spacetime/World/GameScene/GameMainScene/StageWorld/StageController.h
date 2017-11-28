@@ -34,16 +34,6 @@ namespace VioletVreath {
 class StageController : public GgafLib::DefaultScene {
 
 public:
-    enum {
-        PROG_INIT        ,
-        PROG_BEGIN       ,
-        PROG_PLAY_STAGE  ,
-        PROG_PLAY_TRANSIT,
-        PROG_PLAY_RANKUP ,
-        PROG_FINISH      ,
-        PROG_BANPEI,
-    };
-
     char buf_[60];
     /** メインステージ(現在アクティブな面のシーンポインタ） */
     Stage* pStageMainCannel_;

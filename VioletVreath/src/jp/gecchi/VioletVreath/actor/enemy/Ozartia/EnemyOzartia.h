@@ -18,53 +18,6 @@ namespace VioletVreath {
 class EnemyOzartia : public GgafLib::DefaultMorphMeshActor {
 
 public:
-
-    enum {
-        PROG1_INIT   ,
-        PROG1_ENTRY  ,
-        PROG1_STAY   ,
-        PROG1_MV_POS0 ,
-        PROG1_MV_POS1 ,
-        PROG1_MV_POS2 ,
-        PROG1_MV_POS3 ,
-        PROG1_MV_POS4 ,
-        PROG1_MV_POS5 ,
-        PROG1_MOVE_START ,
-        PROG1_MOVING ,
-        PROG1_SP_MV01 ,
-        PROG1_LEAVE ,
-        PROG_BANPEI1_,
-    };
-
-    enum {
-        PROG2_WAIT ,
-        PROG2_SHOT01_01 ,
-        PROG2_SHOT01_02 ,
-        PROG2_SHOT02 ,
-        PROG2_SHOT03 ,
-        PROG2_SHOT04 ,
-        PROG2_BANPEI,
-    };
-
-    enum {
-        MPH_CLOSE  ,
-        MPH_SHOT01 ,
-        MPH_SHOT02 ,
-        MPH_SHOT03 ,
-        MPH_SHOT04 ,
-    };
-
-    enum {
-        SE_ENTRY,
-        SE_DAMAGED ,
-        SE_UNDAMAGED,
-        SE_EXPLOSION,
-        SE_SHOT01 ,
-        SE_SHOT02 ,
-        SE_SHOT03 ,
-        SE_SHOT04 ,
-    };
-
     /** ショット関連の進捗状態 */
     GgafCore::GgafProgress* pProg2_;
 

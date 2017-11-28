@@ -23,7 +23,6 @@ namespace VioletVreath {
 class GameScene : public GgafLib::DefaultScene {
 
 public:
-
     enum {
         PROG_INIT      ,
         PROG_PRE_TITLE ,
@@ -36,7 +35,9 @@ public:
         PROG_FINISH    ,
         PROG_BANPEI,
     };
-
+    enum {
+        BGM_DEMO,
+    };
 
     CommonScene* pCommonScene_;
     MyShipScene* pMyShipScene_;

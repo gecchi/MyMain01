@@ -15,10 +15,6 @@ namespace VioletVreath {
 class EnemyAllas : public GgafLib::DefaultMeshSetActor {
 
 public:
-    enum {
-        SE_EXPLOSION ,
-    };
-
     /** 移動スプラインプログラム */
     GgafLib::SplineKurokoLeader* pKurokoLeader_;
     /** 弾ストック */

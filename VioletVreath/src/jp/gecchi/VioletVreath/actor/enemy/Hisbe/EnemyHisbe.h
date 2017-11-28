@@ -29,21 +29,6 @@ class EnemyHisbe :  public GgafLib::DefaultMorphMeshActor {
     GgafLib::LaserChipDepository* pLaserChipDepo_;
 
 public:
-    enum {
-        PROG_WAIT,
-        PROG_OPEN,
-        PROG_FIRE,
-        PROG_CLOSE,
-        PROG_BANPEI,
-    };
-    enum {
-        SE_DAMAGED  ,
-        SE_EXPLOSION,
-        SE_FIRE,
-    };
-
-
-public:
     /**
      * コンストラクタ
      * @param prm_name

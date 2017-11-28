@@ -14,6 +14,13 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace Hogera;
 
+enum {
+    LOCKON001_PROG_FIRST_LOCK ,
+    LOCKON001_PROG_LOCK       ,
+    LOCKON001_PROG_RELEASE    ,
+    PROG_BANPEI,
+};
+
 Jiki::Jiki(const char* prm_name) :
         DefaultSpriteActor(prm_name, "Lockon001", nullptr) {
     _class_name = "Jiki";

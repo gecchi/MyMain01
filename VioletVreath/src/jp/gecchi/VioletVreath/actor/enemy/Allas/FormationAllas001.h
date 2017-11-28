@@ -14,14 +14,6 @@ namespace VioletVreath {
 class FormationAllas001 : public GgafLib::TreeFormation {
 
 public:
-    enum {
-        PROG_INIT  ,
-        PROG_READY_MEMBER,
-        PROG_CALL_UP ,
-        PROG_WAIT  ,
-        PROG_BANPEI,
-    };
-
     /** アラスの発射弾の借り入れ元Depository資源への接続 */
     DepositoryConnection* pConn_depo_;
     /** スプライン定義資源への接続 */

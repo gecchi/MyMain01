@@ -13,6 +13,14 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    PROG_INIT     ,
+    PROG_DISP     ,
+    PROG_NAMEENTRY,
+    PROG_FINISH   ,
+    PROG_BANPEI,
+};
+
 GameOverScene::GameOverScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameOverScene";
     pNameEntryScene_ = nullptr;

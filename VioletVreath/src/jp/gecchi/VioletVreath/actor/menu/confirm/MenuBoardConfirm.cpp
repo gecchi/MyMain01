@@ -9,7 +9,6 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-
 MenuBoardConfirm::MenuBoardConfirm(const char* prm_name) :
         MenuBoard(prm_name, "board_bg01") {
     _class_name = "MenuBoardConfirm";

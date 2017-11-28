@@ -14,6 +14,15 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    PROG_INIT     ,
+    PROG_PRE_DISP ,
+    PROG_INPUT    ,
+    PROG_DONE_DISP,
+    PROG_FINISH   ,
+    PROG_BANPEI,
+};
+
 NameEntryScene::NameEntryScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "NameEntryScene";
     pLabel01_ = NEW LabelGecchi16Font("STR01");

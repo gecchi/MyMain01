@@ -95,23 +95,6 @@ private:
     void addTurnAngleAroundAx2(float prm_ax_x, float prm_ax_y, float prm_ax_z);
 
 public:
-    enum {
-        TRACE_TWINBEE,   //ツインビーの分身のようなトレース
-        TRACE_GRADIUS,   //グラディウスのオプションのようなトレース
-        TRACE_FREEZE,    //グラディウスVのType1のオプションフリーズのような動き
-    };
-
-    enum {
-        PROG_INIT,
-        PROG_BUNSHIN_NOMAL_TRACE,
-        PROG_BUNSHIN_FREE_MODE_IGNITED,
-        PROG_BUNSHIN_FREE_MODE_READY,
-        PROG_BUNSHIN_FREE_MODE_MOVE,
-        PROG_BUNSHIN_FREE_MODE_STOP,
-        PROG_BUNSHIN_FREE_MODE_BACK_TO_DEFAULT_POS,
-        PROG_BANPEI,
-    };
-
     /** 最大分身数 */
     static const int MAX_BUNSHIN_NUM;
     /** [r]分身と分身の間隔 */

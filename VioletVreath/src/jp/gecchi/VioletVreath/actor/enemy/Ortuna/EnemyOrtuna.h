@@ -17,24 +17,6 @@ namespace VioletVreath {
 class EnemyOrtuna : public GgafLib::DefaultMorphMeshActor {
 
 public:
-
-    enum {
-        MPH_OPEN = 1,
-    };
-
-    enum {
-        SE_EXPLOSION ,
-    };
-
-    enum {
-        PROG_INIT   ,
-        PROG_ENTRY  ,
-        PROG_MOVE01 ,
-        PROG_MOVE02 ,
-        PROG_MOVE03 ,
-        PROG_BANPEI,
-    };
-
     /** [r]出現座標(フォーメーションオブジェクトが設定) */
     GgafDxCore::GgafDxGeoElem entry_pos_;
     /** [r]折り返し座標(フォーメーションオブジェクトが設定) */

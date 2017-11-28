@@ -108,6 +108,17 @@ uint32_t MyShip::shot3_matrix_[2][MYSHIP_SHOT_MATRIX] = {
 /** ソフト連射数でのショットとショットの間隔 */
 #define SOFT_RAPIDSHOT_INTERVAL  (4)
 
+enum {
+    SE_DAMAGED     ,
+    SE_EXPLOSION   ,
+    SE_TURBO       ,
+    SE_CANT_TURBO  ,
+    SE_FIRE_LASER  ,
+    SE_FIRE_SHOT   ,
+    SE_FIRE_TORPEDO,
+};
+
+
 MyShip::MyShip(const char* prm_name) :
         DefaultD3DXMeshActor(prm_name, "VicViper", STATUS(MyShip)) {
 //DefaultMeshActor(prm_name, "jiki", STATUS(MyShip)) {
@@ -713,7 +724,7 @@ void MyShip::processBehavior() {
     //光子魚雷発射
     if (pVbPlay->isPushedDown(VB_SHOT2)) {
         if (this->pTorpedoCtrler_->fire()) {
-            getSeTransmitter()->play3D(MyShip::SE_FIRE_TORPEDO);
+            getSeTransmitter()->play3D(SE_FIRE_TORPEDO);
         }
     }
 

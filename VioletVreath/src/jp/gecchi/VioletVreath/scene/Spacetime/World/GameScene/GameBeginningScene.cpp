@@ -11,6 +11,13 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    PROG_INIT       ,
+    PROG_SELECT_MODE,
+    PROG_DECIDE     ,
+    PROG_FINISH     ,
+    PROG_BANPEI,
+};
 
 GameBeginningScene::GameBeginningScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameBeginningScene";
@@ -20,7 +27,7 @@ GameBeginningScene::GameBeginningScene(const char* prm_name) : DefaultScene(prm_
     pLabel02_ = NEW LabelGecchi16Font("STR02");
     bringDirector()->addSubGroup(KIND_EFFECT, pLabel02_);
     selected_stage_ = 0;
-    useProgress(PROG_BANPEI-1);
+    useProgress(PROG_BANPEI);
 }
 
 void GameBeginningScene::onReset() {

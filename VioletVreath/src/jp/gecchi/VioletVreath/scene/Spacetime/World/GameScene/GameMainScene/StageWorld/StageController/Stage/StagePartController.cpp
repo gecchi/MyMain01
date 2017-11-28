@@ -1,6 +1,6 @@
 #include "StagePartController.h"
 #include "jp/ggaf/dxcore/scene/GgafDxScene.h"
-#include "jp/ggaf/dxcore/scene/supporter/GgafDxBgmPerformerForScene.h"
+#include "jp/ggaf/dxcore/sound/GgafDxBgmConductor.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -16,13 +16,13 @@ void StagePartController::fadeout_stop_AllPartSceneBgm() {
     GgafDxScene* pScene = (GgafDxScene*)(getSubFirst());
     while (pScene) {
         if (pScene->isLast()) {
-            if (pScene->getBgmPerformer()) {
-                pScene->getBgmPerformer()->fadeout_stop();
+            if (pScene->getConductor()) {
+                pScene->getConductor()->fadeoutStopAll(120);
             }
             break;
         } else {
-            if (pScene->getBgmPerformer()) {
-                pScene->getBgmPerformer()->fadeout_stop();
+            if (pScene->getConductor()) {
+                pScene->getConductor()->fadeoutStopAll(120);
             }
             pScene = (GgafDxScene*)(pScene->getNext());
         }

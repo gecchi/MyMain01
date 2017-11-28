@@ -11,13 +11,23 @@
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Thagoras/FormationThagoras.h"
-
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    SE_EXPLOSION ,
+};
+enum {
+    PROG_INIT   ,
+    PROG_ENTRY  ,
+    PROG_MOVE01 ,
+    PROG_LEAVE ,
+    PROG_BANPEI,
+};
 
 EnemyThagoras::EnemyThagoras(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Thagoras", STATUS(EnemyThagoras)) {

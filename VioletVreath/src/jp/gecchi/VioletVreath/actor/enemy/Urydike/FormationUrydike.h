@@ -15,14 +15,6 @@ namespace VioletVreath {
  */
 class FormationUrydike : public GgafLib::TreeFormation {
 
-    enum {
-        PROG_INIT  ,
-        PROG_READY_MEMBER,
-        PROG_CALL_UP ,
-        PROG_WAIT  ,
-        PROG_BANPEI,
-    };
-
 public:
     int num_Urydike_;
 

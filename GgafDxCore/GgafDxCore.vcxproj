@@ -132,11 +132,10 @@
     <ClCompile Include="src\jp\ggaf\dxcore\scene\GgafDxScene.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\scene\GgafDxSpacetime.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\scene\supporter\GgafDxAlphaCurtain.cpp" />
-    <ClCompile Include="src\jp\ggaf\dxcore\scene\supporter\GgafDxBgmPerformerForScene.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\scene\supporter\GgafDxSceneCurtain.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\sound\CWaveDecorder.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\sound\GgafDxBgm.cpp" />
-    <ClCompile Include="src\jp\ggaf\dxcore\sound\GgafDxBgmPerformer.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\sound\GgafDxBgmConductor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\sound\GgafDxSe.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\sound\GgafDxSeTransmitter.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\sound\GgafDxSound.cpp" />
@@ -278,11 +277,10 @@
     <ClInclude Include="include\jp\ggaf\dxcore\scene\ggafdxscene.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\scene\ggafdxspacetime.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\scene\supporter\GgafDxAlphaCurtain.h" />
-    <ClInclude Include="include\jp\ggaf\dxcore\scene\supporter\ggafdxbgmperformerforscene.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\scene\supporter\ggafdxscenecurtain.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\sound\CWaveDecorder.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\sound\ggafdxbgm.h" />
-    <ClInclude Include="include\jp\ggaf\dxcore\sound\ggafdxbgmperformer.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\sound\GgafDxBgmConductor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\sound\ggafdxse.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\sound\ggafdxsetransmitter.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\sound\ggafdxsound.h" />

@@ -12,11 +12,23 @@
 #include "jp/gecchi/VioletVreath/actor/effect/EffectLaserRefraction001.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Hisbe/EnemyHisbeLaserChip002.h"
 
-
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
+
+enum {
+    PROG_WAIT,
+    PROG_OPEN,
+    PROG_FIRE,
+    PROG_CLOSE,
+    PROG_BANPEI,
+};
+enum {
+    SE_DAMAGED  ,
+    SE_EXPLOSION,
+    SE_FIRE,
+};
 
 EnemyHisbe::EnemyHisbe(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Hisbe", STATUS(EnemyHisbe)) {

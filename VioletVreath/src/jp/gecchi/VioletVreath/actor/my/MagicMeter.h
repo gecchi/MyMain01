@@ -29,21 +29,6 @@ protected:
     VERTEX_instancedata* paInstancedata_MM_;
     int max_draw_num_;
 public:
-    enum {
-        SE_CURSOR_MOVE_METER       ,
-        SE_CURSOR_MOVE_LEVEL       ,
-        SE_CURSOR_MOVE_LEVEL_CANCEL,
-        SE_CURSOR_BAD_MOVE         ,
-        SE_EXECUTE_LEVELUP_MAGIC   ,
-        SE_EXECUTE_LEVELDOWN_MAGIC ,
-        SE_EXECUTE_CANCEL_LEVELUP_MAGIC   ,
-        SE_EXECUTE_CANCEL_LEVELDOWN_MAGIC ,
-        SE_NG_MP_IS_SHORT       ,
-        SE_EFFECT_MAGIC    ,
-        SE_NOTICE_LEVELDOWN_MAGIC,
-        SE_BAD_OPERATION   ,
-    };
-public:
     TractorMagic* pTractorMagic_;
     SpeedMagic*   pSpeedMagic_;
     LockonMagic*  pLockonMagic_;

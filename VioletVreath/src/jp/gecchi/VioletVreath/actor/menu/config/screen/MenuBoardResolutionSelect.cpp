@@ -2,7 +2,6 @@
 
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
 #include "jp/gecchi/VioletVreath/God.h"
-
 #include "CursorResolutionSelect.h"
 
 using namespace GgafCore;
@@ -10,17 +9,10 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-
 MenuBoardResolutionSelect::MenuBoardResolutionSelect(const char* prm_name) :
         MenuBoard(prm_name, "board_bg01") {
     _class_name = "MenuBoardResolutionSelect";
 
-    //メニューウィンドウ設定
-//    update("%&&&&&&&&&&'\n"
-//           ")**********+\n"
-//           ")**********+\n"
-//           ")**********+\n"
-//           "-........../");
     setWidth(PX_C(12*32));
     setHeight(PX_C(5*32));
     LabelGecchi16Font* pLabel_ok = NEW LabelGecchi16Font("itemOK");

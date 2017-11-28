@@ -28,11 +28,10 @@ public:
         ITEM_TURBO     ,
         ITEM_CONTROLL  ,
         ITEM_MAGIC     ,
-//        ITEM_VAM       ,
+    //        ITEM_VAM       ,
         ITEM_PAUSE     ,
         ITEM_BANPEI    ,
     };
-
     int ITEM_INDEX_OK_;
     int ITEM_INDEX_CANCEL_;
 

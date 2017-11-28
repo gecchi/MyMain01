@@ -17,18 +17,6 @@ namespace VioletVreath {
 class EnemyThagoras : public GgafLib::DefaultMeshSetActor {
 
 public:
-    enum {
-        SE_EXPLOSION ,
-    };
-
-    enum {
-        PROG_INIT   ,
-        PROG_ENTRY  ,
-        PROG_MOVE01 ,
-        PROG_LEAVE ,
-        PROG_BANPEI,
-    };
-
     /** 移動スプラインプログラム */
     GgafLib::SplineKurokoLeader* pKurokoLeader_;
     /** 鼓動(スケール)を同期させる為のダミーアクター */

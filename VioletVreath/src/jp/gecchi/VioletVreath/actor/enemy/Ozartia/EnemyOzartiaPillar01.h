@@ -12,14 +12,6 @@ namespace VioletVreath {
  * @author Masatoshi Tsuge
  */
 class EnemyOzartiaPillar01 : public GgafLib::DefaultMeshSetActor {
-public:
-    enum {
-        PROG_INIT   ,
-        PROG_ENTRY  ,
-        PROG_MOVE01 ,
-        PROG_LEAVE  ,
-        PROG_BANPEI,
-    };
 
 public:
     EnemyOzartiaPillar01(const char* prm_name);

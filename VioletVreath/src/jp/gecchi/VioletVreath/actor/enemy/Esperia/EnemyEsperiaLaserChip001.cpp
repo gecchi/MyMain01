@@ -12,6 +12,18 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    PROG_MOVE_UP,
+    PROG_TURN1,
+    PROG_TURN2,
+    PROG_INTO_MYSHIP,
+    PROG_NOTHING,
+    PROG_BANPEI,
+};
+enum {
+    SE_FIRE,
+};
+
 EnemyEsperiaLaserChip001::EnemyEsperiaLaserChip001(const char* prm_name) :
         HomingLaserChip(prm_name, "EsperiaLaserChip001", STATUS(EnemyEsperiaLaserChip001)) {
     _class_name = "EnemyEsperiaLaserChip001";

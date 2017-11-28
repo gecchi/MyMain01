@@ -11,6 +11,14 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    PROG_INIT   ,
+    PROG_ENTRY  ,
+    PROG_MOVE01 ,
+    PROG_LEAVE  ,
+    PROG_BANPEI,
+};
+
 EnemyOzartiaShot01::EnemyOzartiaShot01(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "myvic", STATUS(EnemyOzartiaShot01)) {
     _class_name = "EnemyOzartiaShot01";

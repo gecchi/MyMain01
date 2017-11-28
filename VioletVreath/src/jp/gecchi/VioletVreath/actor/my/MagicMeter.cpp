@@ -34,6 +34,20 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    SE_CURSOR_MOVE_METER       ,
+    SE_CURSOR_MOVE_LEVEL       ,
+    SE_CURSOR_MOVE_LEVEL_CANCEL,
+    SE_CURSOR_BAD_MOVE         ,
+    SE_EXECUTE_LEVELUP_MAGIC   ,
+    SE_EXECUTE_LEVELDOWN_MAGIC ,
+    SE_EXECUTE_CANCEL_LEVELUP_MAGIC   ,
+    SE_EXECUTE_CANCEL_LEVELDOWN_MAGIC ,
+    SE_NG_MP_IS_SHORT       ,
+    SE_EFFECT_MAGIC    ,
+    SE_NOTICE_LEVELDOWN_MAGIC,
+    SE_BAD_OPERATION   ,
+};
 
 MagicMeter::MagicMeter(const char* prm_name, int* prm_pMP_MyShip, int* prm_pVreath_MyShip)
       : DefaultMassBoardActor(prm_name, "128/MagicMeter"),

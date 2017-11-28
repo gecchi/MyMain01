@@ -43,17 +43,6 @@ public:
         SW_NOP = 0,
         SW_SUB = -1
     };
-
-    enum {
-        SE_DAMAGED     ,
-        SE_EXPLOSION   ,
-        SE_TURBO       ,
-        SE_CANT_TURBO  ,
-        SE_FIRE_LASER  ,
-        SE_FIRE_SHOT   ,
-        SE_FIRE_TORPEDO,
-    };
-
 public:
     /** à⁄ìÆYç¿ïWè„å¿ */
     static coord lim_y_top_;

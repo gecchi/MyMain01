@@ -1,7 +1,7 @@
 #include "Stage02PartController.h"
 
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"
-#include "jp/ggaf/dxcore/scene/supporter/GgafDxBgmPerformerForScene.h"
+#include "jp/ggaf/dxcore/sound/GgafDxBgmConductor.h"
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "../Stage02.h"
@@ -13,59 +13,64 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    PROG_INIT   ,
+    PROG_FAINAL ,
+    PROG_BANPEI,
+};
+
 Stage02PartController::Stage02PartController(const char* prm_name) : StagePartController(prm_name) {
     _class_name = "Stage02PartController";
-    getBgmPerformer()->ready(0, "OGG_BGM_01_01");
-    getBgmPerformer()->ready(1, "OGG_BGM_01_02");
-    getBgmPerformer()->ready(2, "OGG_BGM_01_03");
+    getConductor()->ready(0, "OGG_BGM_01_01");
+    getConductor()->ready(1, "OGG_BGM_01_02");
+    getConductor()->ready(2, "OGG_BGM_01_03");
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,3,2100,3000};
-	_paFrame_NextEvent = new frame[4];
-	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 4;
-	orderSceneToFactory(60000000, Stage02_01, "Stage02_01-60000000");
+    frame f[] = {1,3,2100,3000};
+    _paFrame_NextEvent = new frame[4];
+    memcpy(_paFrame_NextEvent, f, sizeof(f));
+    _event_num = 4;
+    orderSceneToFactory(60000000, Stage02_01, "Stage02_01-60000000");
     // gen01 end
-    useProgress(Stage02PartController::PROG_BANPEI-1);
+    useProgress(PROG_BANPEI);
 }
 
 void Stage02PartController::initialize() {
-    getBgmPerformer()->play_fadein(0);
-    getProgress()->change(Stage02PartController::PROG_INIT);
+    getProgress()->change(PROG_INIT);
 }
 
 void Stage02PartController::processBehavior() {
     // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen02 start
-	if (getBehaveingFrame() == _paFrame_NextEvent[_cnt_event]) {
-		switch (getBehaveingFrame()) {
-			case 1: {
-				break;
-			}
-			case 3: {
-				Stage02_01* pScene = (Stage02_01*)obtainSceneFromFactory(60000000);
-				addSubLast(pScene);
-				_pBgmPerformer->play_fadein(0);
-				break;
-			}
-			case 2100: {
-				orderSceneToFactory(60000001, Stage02_Climax, "Stage02_Climax-60000001");
-				break;
-			}
-			case 3000: {
-				Stage02_Climax* pScene = (Stage02_Climax*)obtainSceneFromFactory(60000001);
-				addSubLast(pScene);
-				_pBgmPerformer->fadeout_stop(0);
-				_pBgmPerformer->play_fadein(1);
-				break;
-			}
-			default :
-				break;
-		}
-		_cnt_event = (_cnt_event < 4-1 ? _cnt_event+1 : _cnt_event);
-	}
+    if (getBehaveingFrame() == _paFrame_NextEvent[_cnt_event]) {
+        switch (getBehaveingFrame()) {
+            case 1: {
+                break;
+            }
+            case 3: {
+                Stage02_01* pScene = (Stage02_01*)obtainSceneFromFactory(60000000);
+                addSubLast(pScene);
+                _pConductor->performFromTheBegining(0);
+                break;
+            }
+            case 2100: {
+                orderSceneToFactory(60000001, Stage02_Climax, "Stage02_Climax-60000001");
+                break;
+            }
+            case 3000: {
+                Stage02_Climax* pScene = (Stage02_Climax*)obtainSceneFromFactory(60000001);
+                addSubLast(pScene);
+                _pConductor->fadeoutStop(0, 120);
+                _pConductor->performFromTheBegining(1);
+                break;
+            }
+            default :
+                break;
+        }
+        _cnt_event = (_cnt_event < 4-1 ? _cnt_event+1 : _cnt_event);
+    }
     // gen02 end
 
     SceneProgress* pProg = getProgress();

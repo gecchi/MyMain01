@@ -7,12 +7,23 @@
 #include "jp/gecchi/VioletVreath/actor/enemy/Unomia/EnemyUnomia.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
-
 #include "jp/ggaf/core/GgafFactory.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
+
+enum {
+    PROG_INIT  ,
+    PROG_READY_MEMBER_ORDER,
+    PROG_READY_MEMBER_OBTAIN,
+    PROG_CALL_UP ,
+    PROG_WAIT1,
+    PROG_SHOT,
+    PROG_WAIT2,
+    PROG_BANPEI,
+};
 
 FormationUnomia::FormationUnomia(const char* prm_name, const char* prm_spl_id)
    : TreeFormation(prm_name, 20*60) {

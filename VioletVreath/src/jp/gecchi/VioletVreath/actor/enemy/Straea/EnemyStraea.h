@@ -25,20 +25,6 @@ private:
     };
 
 public:
-    enum {
-        PROG_INIT,
-        PROG_ENTRY,
-        PROG_MOVE ,
-        PROG_TURN ,
-        PROG_FIRE ,
-        PROG_BANPEI,
-    };
-
-    enum {
-        SE_EXPLOSION,
-        SE_FIRE     ,
-    };
-
     /** レーザ発射間隔(frame) */
     int laser_interval_;
     /** 発射レーザーチップの数（レーザー長さ） */

@@ -14,15 +14,6 @@ namespace VioletVreath {
 class NameEntryScene : public GgafLib::DefaultScene {
 
 public:
-    enum {
-        PROG_INIT     ,
-        PROG_PRE_DISP ,
-        PROG_INPUT    ,
-        PROG_DONE_DISP,
-        PROG_FINISH   ,
-        PROG_BANPEI,
-    };
-
     WorldBoundNameEntry* pWorldBound_;
 
     LabelGecchi16Font* pLabel01_;

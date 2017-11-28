@@ -11,11 +11,19 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
+
+enum {
+    PROG_INIT      ,
+    PROG_FLOAT_MOVE,
+    PROG_EXPLOSION ,
+    PROG_NOTHING   ,
+    PROG_BANPEI,
+};
+
 
 EnemyRatislavia::EnemyRatislavia(const char* prm_name, const char* prm_model, coord prm_r1, coord prm_r2) :
         CubeMapMeshActor(prm_name, prm_model, STATUS(EnemyRatislavia)) {

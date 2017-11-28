@@ -14,11 +14,6 @@ namespace VioletVreath {
 class EnemyIdaBase001 : public EnemyIdaBase {
 
 public:
-    enum {
-        PROG_INIT ,
-        PROG_MOVE ,
-        PROG_BANPEI,
-    };
     GgafLib::SplineManufactureConnection* pConn_pSplManuf_;
     GgafLib::SplineKurokoLeader* pKurokoLeader_;
 

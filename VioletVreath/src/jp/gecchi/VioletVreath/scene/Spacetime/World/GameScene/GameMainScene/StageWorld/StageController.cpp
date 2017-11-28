@@ -20,6 +20,16 @@ using namespace VioletVreath;
 
 #define ORDER_ID_STAGE 11
 
+enum {
+    PROG_INIT        ,
+    PROG_BEGIN       ,
+    PROG_PLAY_STAGE  ,
+    PROG_PLAY_TRANSIT,
+    PROG_PLAY_RANKUP ,
+    PROG_FINISH      ,
+    PROG_BANPEI,
+};
+
 StageController::StageController(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "StageController";
 
@@ -35,9 +45,7 @@ StageController::StageController(const char* prm_name) : DefaultScene(prm_name) 
 
     _pSceneSymbol = NEW LabelSceneSymbol("LabelSceneSymbol");
     bringDirector()->addSubGroup(_pSceneSymbol);
-
-
-    useProgress(PROG_BANPEI-1);
+    useProgress(PROG_BANPEI);
 }
 
 void StageController::onReset() {

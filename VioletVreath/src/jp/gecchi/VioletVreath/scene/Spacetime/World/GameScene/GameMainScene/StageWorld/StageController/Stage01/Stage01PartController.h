@@ -21,13 +21,6 @@ HASHVAL(EVENT_STG01_CLIMAX_WAS_BROKEN);
 class Stage01PartController : public StagePartController {
 
 public:
-    enum {
-        PROG_INIT   ,
-        PROG_FAINAL ,
-        PROG_BANPEI,
-    };
-
-public:
     Stage01PartController(const char* prm_name);
     /**
      * ‰Šúˆ—

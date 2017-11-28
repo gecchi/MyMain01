@@ -1,7 +1,7 @@
 #include "Stage01WallSection001.h"
 
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"
-#include "jp/ggaf/dxcore/scene/supporter/GgafDxBgmPerformerForScene.h"
+#include "jp/ggaf/dxcore/sound/GgafDxBgmConductor.h"
 #include "jp/ggaf/lib/scene/FormationTableScene.h"
 #include "../Stage01PartController.h"
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"

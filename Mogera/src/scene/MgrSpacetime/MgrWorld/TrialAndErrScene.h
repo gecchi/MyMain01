@@ -8,12 +8,6 @@ namespace Mogera {
 class TrialAndErrScene : public GgafLib::DefaultScene {
 
 public:
-    enum {
-        PROG_INIT ,
-        PROG_CALM ,
-        PROG_WAIT ,
-        PROG_BANPEI,
-    };
     PointSpriteTest* pTest_;
 
 public:

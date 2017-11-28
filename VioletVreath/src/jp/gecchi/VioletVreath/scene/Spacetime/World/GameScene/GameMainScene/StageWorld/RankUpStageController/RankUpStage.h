@@ -10,7 +10,6 @@ namespace VioletVreath {
 class RankUpStage : public GgafLib::DefaultScene {
 
 public:
-    static bool pause_;
     enum {
         PROG_INIT    ,
         PROG_BEGIN   ,
@@ -20,6 +19,8 @@ public:
         PROG_BANPEI,
     };
 
+
+    static bool pause_;
     GgafDxCore::GgafDxSeConnection* pSeConnection_all_hit_;
 
     int hit_enemy_num_;

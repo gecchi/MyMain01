@@ -13,14 +13,6 @@ namespace Hogera {
 class Jiki : public GgafLib::DefaultSpriteActor {
 
 public:
-    enum {
-        LOCKON001_PROG_FIRST_LOCK ,
-        LOCKON001_PROG_LOCK       ,
-        LOCKON001_PROG_RELEASE    ,
-        PROG_BANPEI,
-    };
-
-public:
     Jiki(const char* prm_name);
 
     void initialize() override;

@@ -14,6 +14,14 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    PROG_INIT  ,
+    PROG_READY_MEMBER,
+    PROG_CALL_UP ,
+    PROG_WAIT  ,
+    PROG_BANPEI,
+};
+
 FormationAllas001::FormationAllas001(const char* prm_name) :
         TreeFormation(prm_name) {
     _class_name = "FormationAllas001";

@@ -1,7 +1,7 @@
 #include "RankUp002.h"
 
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"
-#include "jp/ggaf/dxcore/scene/supporter/GgafDxBgmPerformerForScene.h"
+#include "jp/ggaf/dxcore/sound/GgafDxBgmConductor.h"
 #include "jp/ggaf/lib/util/SceneProgress.h"
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
 
@@ -49,7 +49,7 @@ RankUp002::RankUp002(const char* prm_name) : RankUpStage(prm_name) {
 	orderActorToFactory(90000026, EnemyTamago01, "EnemyTamago01-90000026");
     // gen01 end
 
-    getBgmPerformer()->ready(0, "OGG_RANKUP002_THEMA");
+    getConductor()->ready(0, "OGG_RANKUP002_THEMA");
 }
 
 void RankUp002::initialize() {

@@ -22,16 +22,20 @@
 #include "jp/ggaf/lib/util/VirtualButton.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 #include "jp/ggaf/core/util/GgafValueEnveloper.hpp"
-
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
-
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxColorist.h"
-
 #include "jp/gecchi/VioletVreath/actor/effect/EffectTurbo002.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
+
+enum {
+    SE_FIRE_LASER  ,
+    SE_FIRE_SHOT   ,
+    SE_FIRE_TORPEDO,
+};
 
 //MyBunshin::MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase) : DefaultMorphMeshActor(prm_name, "4/Eres") {
 //MyBunshin::MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase) : CubeMapMeshSetActor(prm_name, "4/Core4cm_") {

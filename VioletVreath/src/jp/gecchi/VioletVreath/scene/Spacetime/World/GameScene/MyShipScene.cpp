@@ -14,14 +14,22 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
-
 #include "jp/gecchi/VioletVreath/actor/my/Bunshin/MyBunshinBase.h"
-
 #include "jp/gecchi/VioletVreath/actor/my/Bunshin/MyBunshin.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
+
+enum {
+    PROG_INIT    ,
+    PROG_BEGIN   ,
+    PROG_PLAY    ,
+    PROG_DESTROY ,
+    PROG_END     ,
+    PROG_BANPEI,
+};
 
 MyShipScene::MyShipScene(const char* prm_name) : DefaultScene(prm_name) ,
 pMyShip_(nullptr),
@@ -165,7 +173,7 @@ void MyShipScene::processBehavior() {
             }
             if (pProg->hasArrivedAt(120)) {
                 fadeoutScene(120);
-                pMyShip_->inactivateDelay(120);
+                pMyShip_->inactivateDelay(121);
             }
             if (pProg->hasArrivedAt(240)) {
                 if (G_ZANKI == 0) {

@@ -15,20 +15,6 @@ namespace VioletVreath {
 class EnemyDrastea : public GgafLib::CubeMapMeshSetActor {
 
 public:
-    enum {
-        PROG_MOVE01_1   ,
-        PROG_SPLINE_MOVE,
-        PROG_MOVE02_1   ,
-        PROG_MOVE02_2   ,
-        PROG_BANPEI,
-    };
-
-    enum {
-        SE_DAMAGED   ,
-        SE_EXPLOSION ,
-    };
-
-public:
     EnemyDrastea(const char* prm_name);
 
     void onCreateModel() override;

@@ -22,6 +22,7 @@ public:
         PROG_WAIT ,
         PROG_BANPEI,
     };
+
     int order_id_begin_;
     int order_id_end_;
     int _id_;

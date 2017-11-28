@@ -14,12 +14,30 @@
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
+
+enum {
+    PROG_INIT   ,
+    PROG_ENTRY  ,
+    PROG_FIRST_MOVE,
+    PROG_MOVE      ,
+    PROG_TURN_OPEN ,
+    PROG_FIRE_BEGIN,
+    PROG_IN_FIRE   ,
+    PROG_CLOSE     ,
+    PROG_BANPEI,
+};
+enum {
+    SE_DAMAGED  ,
+    SE_UNDAMAGED  ,
+    SE_EXPLOSION,
+    SE_FIRE,
+};
 
 EnemyHalia::EnemyHalia(const char* prm_name) :
         DefaultMassMorphMeshActor(prm_name, "20/Halia_1", STATUS(EnemyHalia)) {

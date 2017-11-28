@@ -12,7 +12,6 @@
 #include "jp/gecchi/VioletVreath/actor/label/LabelMenuItemFont01.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World.h"
 
-
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

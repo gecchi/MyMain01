@@ -14,12 +14,6 @@ namespace VioletVreath {
 class TestGu : public TestEnemy {
 
 public:
-      enum {
-          SE_DAMAGED   ,
-          SE_EXPLOSION ,
-      };
-
-public:
     /**
      * コンストラクタ
      * @param prm_name

@@ -14,16 +14,6 @@ namespace VioletVreath {
 class World : public GgafLib::DefaultScene {
 
 public:
-    enum {
-        PROG_INIT  ,
-        PROG_CALM1 ,
-        PROG_CALM2 ,
-        PROG_CALM3 ,
-        PROG_CALM4 ,
-        PROG_MAINLOOP ,
-        PROG_BANPEI,
-    };
-
     bool is_create_GameScene_;
     char aBufDebug_[128];
     LabelGecchi16Font* pLabel_aster_;

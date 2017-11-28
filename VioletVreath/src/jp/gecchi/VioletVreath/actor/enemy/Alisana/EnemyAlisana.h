@@ -15,25 +15,6 @@ namespace VioletVreath {
 class EnemyAlisana : public GgafLib::DefaultMorphMeshActor {
 
 public:
-    enum {
-        PROG_INIT ,
-        PROG_ENTRY,
-        PROG_HATCH_OPEN,
-        PROG_HATCH_OPEN_DONE,
-        PROG_HATCH_CLOSE,
-        PROG_LEAVE,
-        PROG_BANPEI,
-    };
-    enum {
-        SE_DAMAGED  ,
-        SE_EXPLOSION,
-    };
-
-    enum {
-        MPH_HATCH_CLOSE,
-        MPH_HATCH_OPEN,
-    };
-
     /** [r/w]ハッチ開＞閉 及び、閉＞開 のモーフアニメーションフレーム数 */
     frame frame_of_morph_interval_;
 

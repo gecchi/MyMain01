@@ -3,13 +3,20 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
-
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
+
+enum {
+    PROG_INIT   ,
+    PROG_ENTRY  ,
+    PROG_MOVE01 ,
+    PROG_LEAVE  ,
+    PROG_BANPEI,
+};
 
 EnemyOzartiaPillar01::EnemyOzartiaPillar01(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "myvic", STATUS(EnemyOzartiaPillar01)) {

@@ -31,7 +31,6 @@ public:
         MENU_BANPEI,
     };
 
-public:
     MenuBoardTitle(const char* prm_name);
 
     bool condSelectNext() override;

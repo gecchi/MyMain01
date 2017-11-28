@@ -11,13 +11,23 @@
 #include "jp/gecchi/VioletVreath/actor/enemy/Ermione/EnemyErmioneArmHead.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ermione/EnemyErmioneArmBody.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoFaceAngAssistant.h"
-
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
+
+enum {
+    PROG_INIT ,
+    PROG_ENTRY,
+    PROG_MOVE ,
+    PROG_BANPEI,
+};
+enum {
+    SE_DAMAGED  ,
+    SE_EXPLOSION,
+};
 
 EnemyErmione::EnemyErmione(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Ermione", STATUS(EnemyErmione)) {

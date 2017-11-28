@@ -16,22 +16,6 @@ namespace VioletVreath {
 class EnemyOebiusCore : public GgafLib::DefaultMorphMeshActor {
 
 public:
-
-    enum {
-        PROG_INIT  ,
-        PROG_ENTRY ,
-        PROG_WAIT01 ,
-        PROG_LEAVE ,
-        PROG_BANPEI,
-    };
-
-    enum {
-        SE_DAMAGED  ,
-        SE_UNDAMAGED  ,
-        SE_EXPLOSION,
-        SE_FIRE,
-    };
-
     EnemyOebiusController* pController_;
 
 public:

@@ -15,13 +15,6 @@ namespace VioletVreath {
 class GameDemoScene : public GgafLib::DefaultScene {
 
 public:
-    enum {
-        PROG_INIT    ,
-        PROG_DEMOPLAY,
-        PROG_RANKING_TABLE ,
-        PROG_FINISH  ,
-        PROG_BANPEI,
-    };
     struct ScoreInfo {
         int rank;
         std::string name;

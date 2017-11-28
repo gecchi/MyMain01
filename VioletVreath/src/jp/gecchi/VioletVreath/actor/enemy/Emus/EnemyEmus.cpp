@@ -19,6 +19,20 @@ using namespace VioletVreath;
 
 #define MORPHTARGET_HATCH_OPEN 1
 
+enum {
+    PROG_INIT       ,
+    PROG_INI_WAIT   ,
+    PROG_HATCH_CLOSE,
+    PROG_HATCH_OPEN ,
+    PROG_FIRE       ,
+    PROG_NOTHING    ,
+    PROG_BANPEI,
+};
+enum {
+    SE_DAMAGED  ,
+    SE_EXPLOSION,
+};
+
 EnemyEmus::EnemyEmus(const char* prm_name) :
         DefaultMassMorphMeshActor(prm_name, "Emus_1", STATUS(EnemyEmus)) {
     _class_name = "EnemyEmus";

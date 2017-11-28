@@ -9,18 +9,6 @@ namespace VioletVreath {
 class EnemyGeria : public GgafLib::DefaultMeshSetActor {
 
 public:
-    enum {
-        PROG_INIT  ,
-        PROG_ENTRY ,
-        PROG_MOVE  ,
-        PROG_FIRE  ,
-        PROG_LEAVE ,
-        PROG_BANPEI,
-    };
-    enum {
-        SE_EXPLOSION,
-        SE_FIRE     ,
-    };
     int iMovePatternNo_;
     bool will_shot_;
     bool can_Shot_;

@@ -17,11 +17,6 @@ HASHVAL(EVENT_MyBunshin_ChangeGeoFinal);
 class MyBunshin : public GgafLib::DefaultMeshSetActor {
 
 public:
-    enum {
-        SE_FIRE_LASER  ,
-        SE_FIRE_SHOT   ,
-        SE_FIRE_TORPEDO,
-    };
     MyBunshinBase* pBase_;
     /** [r]ショットのデポジトリ */
     GgafCore::GgafActorDepository* pDepo_MyBunshinShot_;

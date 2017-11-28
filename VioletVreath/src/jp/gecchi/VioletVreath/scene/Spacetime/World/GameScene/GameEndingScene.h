@@ -14,16 +14,6 @@ namespace VioletVreath {
 class GameEndingScene : public GgafLib::DefaultScene {
 
 public:
-    enum {
-        PROG_INIT    ,
-        PROG_BEGIN   ,
-        PROG_OPE     ,
-        PROG_DECIDE  ,
-        PROG_END     ,
-        PROG_BANPEI,
-    };
-
-public:
     GameEndingScene(const char* prm_name);
     void onReset() override;
     void ready();

@@ -14,17 +14,17 @@ bool Stage::pause_ = false;
 Stage::Stage(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "Stage";
     pScene_StagePartCtrler_ = nullptr;
-    useProgress(Stage::PROG_BANPEI-1);
+    useProgress(PROG_BANPEI);
 }
 
 void Stage::initialize() {
-    getProgress()->reset(Stage::PROG_INIT);
+    getProgress()->reset(PROG_INIT);
 }
 void Stage::processBehavior() {
     DefaultScene::processBehavior();
     SceneProgress* pProg = getProgress();
     switch (pProg->get()) {
-        case Stage::PROG_BEGIN: {
+        case PROG_BEGIN: {
             if (pProg->hasJustChanged()) {
                 //乱数シード更新
                 uint32_t seed = (uint32_t)G_RANK_DISP;

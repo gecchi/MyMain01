@@ -11,6 +11,12 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    PROG_INIT ,
+    PROG_MOVE ,
+    PROG_BANPEI,
+};
+
 EnemyIdaBase001::EnemyIdaBase001(const char* prm_name) :
         EnemyIdaBase(prm_name) {
 

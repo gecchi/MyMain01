@@ -19,25 +19,6 @@ private:
     int cnt_laserchip_;
 
 public:
-    enum {
-        PROG_INIT,
-        PROG_ENTRY,
-        PROG_MOVE,
-        PROG_HATCH_OPEN,
-        PROG_FIRE,
-        PROG_HATCH_CLOSE,
-        PROG_NOTHING,
-        PROG_BANPEI,
-    };
-
-    enum {
-        SE_EXPLOSION,
-        SE_DAMAGED,
-        SE_HATCH_OPEN,
-        SE_FIRE,
-        SE_HATCH_CLOSE,
-    };
-
     /** [r]エスペリア１艦が発車する際の最大レーザーWay数 */
     static int max_laser_way_;
 

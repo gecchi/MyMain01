@@ -27,13 +27,6 @@ namespace VioletVreath {
 class RankUpStageController : public GgafLib::DefaultScene {
 
 public:
-    enum {
-        PROG_INIT  ,
-        PROG_PLAY  ,
-        PROG_FINISH,
-        PROG_BANPEI,
-    };
-
     char buf_[60];
     RankUpStage* apRankUpStage_[MAX_RANKUP_SCENE];
     RankUpStage* pNowRankUpStage_;

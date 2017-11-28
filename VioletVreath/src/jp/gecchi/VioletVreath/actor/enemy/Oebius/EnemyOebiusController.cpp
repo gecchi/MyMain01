@@ -11,6 +11,14 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    PROG_INIT  ,
+    PROG_ENTRY_CORE ,
+    PROG_WAIT01 ,
+    PROG_ENTRY_FORMATION ,
+    PROG_WAIT02 ,
+    PROG_BANPEI,
+};
 
 EnemyOebiusController::EnemyOebiusController(const char* prm_name, EnemyOebiusCore* prm_pCore,
                                                                    FormationOebius* prm_pFormation) :

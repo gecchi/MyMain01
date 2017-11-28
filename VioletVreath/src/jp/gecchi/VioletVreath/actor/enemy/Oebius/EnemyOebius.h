@@ -17,20 +17,6 @@ namespace VioletVreath {
 class EnemyOebius : public GgafLib::DefaultMassMeshActor {
 
 public:
-    enum {
-        SE_EXPLOSION ,
-    };
-
-    enum {
-        PROG_INIT   ,
-        PROG_ENTRY  ,
-        PROG_MOVE_BEGIN ,
-        PROG_SPLINE ,
-        PROG_SCATTER ,
-        PROG_LEAVE ,
-        PROG_BANPEI,
-    };
-
     /** 移動スプラインプログラム */
     GgafLib::SplineKurokoLeader* pKurokoLeader_;
 

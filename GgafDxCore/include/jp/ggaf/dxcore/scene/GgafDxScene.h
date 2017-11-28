@@ -35,7 +35,7 @@ public :
     /** [r]シーンのフェードイン・アウト用カーテン（デフォルトではαカーテン） */
     GgafDxSceneCurtain* _pCurtain;
     /** [r]BGM演奏者 */
-    GgafDxBgmPerformerForScene* _pBgmPerformer;
+    GgafDxBgmConductor* _pConductor;
     /** [r]シーンのα */
     float _scene_alpha;
     float _scene_alpha_from_top;
@@ -90,7 +90,7 @@ public:
 
     /**
      * 自シーンのアクターをフェードアウトさせると同時に、BGMもフェードアウトさせる .
-     * BGMは、シーンメンバーの _pBgmPerformer(GgafDxBgmPerformerForSceneオブジェクト) で
+     * BGMは、シーンメンバーの _pConductor(GgafDxBgmConductorオブジェクト) で
      * 演奏されていることが前提。
      * @param prm_frame_fade フェードアウトフレーム数
      */
@@ -98,15 +98,15 @@ public:
 
     /**
      * 自ツリーシーンのアクターをフェードアウトさせると同時に、BGMもフェードアウトさせる .
-     * BGMは、シーンメンバーの _pBgmPerformer(GgafDxBgmPerformerForSceneオブジェクト) で
+     * BGMは、シーンメンバーの _pConductor(GgafDxBgmConductorオブジェクト) で
      * 演奏されていることが前提。
      * @param prm_frame_fade フェードアウトフレーム数
      */
     void fadeoutSceneWithBgmTree(int prm_frame_fade);
 
 
-    inline GgafDxBgmPerformerForScene* getBgmPerformer() {
-        return _pBgmPerformer;
+    inline GgafDxBgmConductor* getConductor() {
+        return _pConductor;
     }
 
     virtual void onEnd() override;

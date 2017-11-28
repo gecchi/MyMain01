@@ -15,26 +15,6 @@ namespace VioletVreath {
 class EnemyHalia : public GgafLib::DefaultMassMorphMeshActor {
 //class EnemyHalia : public GgafLib::CubeMapMorphMeshActor {
 public:
-
-    enum {
-        PROG_INIT   ,
-        PROG_ENTRY  ,
-        PROG_FIRST_MOVE,
-        PROG_MOVE      ,
-        PROG_TURN_OPEN ,
-        PROG_FIRE_BEGIN,
-        PROG_IN_FIRE   ,
-        PROG_CLOSE     ,
-        PROG_BANPEI,
-    };
-
-    enum {
-        SE_DAMAGED  ,
-        SE_UNDAMAGED  ,
-        SE_EXPLOSION,
-        SE_FIRE,
-    };
-
     velo veloTopMv_;
     /** 移動スプラインプログラム */
     GgafLib::SplineKurokoLeader* pKurokoLeader_;

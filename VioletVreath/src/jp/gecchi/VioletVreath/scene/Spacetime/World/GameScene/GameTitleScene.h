@@ -15,15 +15,6 @@ namespace VioletVreath {
 class GameTitleScene : public GgafLib::DefaultScene {
 
 public:
-    enum {
-        PROG_INIT     ,
-        PROG_TITLE    ,
-        PROG_SELECT   ,
-        PROG_GAMESTART,
-        PROG_FINISH   ,
-        PROG_BANPEI,
-    };
-
     GgafDxCore::GgafDxSeConnection* pSeConnection_exec_;
 
     LabelGecchi16Font* pLabel01_;

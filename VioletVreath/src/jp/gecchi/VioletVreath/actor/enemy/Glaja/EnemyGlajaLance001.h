@@ -14,16 +14,6 @@ namespace VioletVreath {
  */
 class EnemyGlajaLance001 : public GgafLib::DefaultMeshSetActor {
 public:
-    enum {
-        PROG_INIT   ,
-        PROG_MOVE01 ,
-        PROG_AIM_ANIME01 ,
-        PROG_AIM_ANIME02 ,
-        PROG_MOVE02 ,
-        PROG_MOVE03 ,
-        PROG_LEAVE ,
-        PROG_BANPEI,
-    };
     //GgafDxCore::GgafDxGeoElem turning_pos_;
 
 public:

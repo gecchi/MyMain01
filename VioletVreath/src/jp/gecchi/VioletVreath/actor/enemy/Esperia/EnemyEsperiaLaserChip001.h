@@ -8,17 +8,6 @@ namespace VioletVreath {
 class EnemyEsperiaLaserChip001 : public GgafLib::HomingLaserChip {
 
 public:
-    enum {
-        PROG_MOVE_UP,
-        PROG_TURN1,
-        PROG_TURN2,
-        PROG_INTO_MYSHIP,
-        PROG_NOTHING,
-        PROG_BANPEI,
-    };
-    enum {
-        SE_FIRE,
-    };
     /** ”­Ë‚ÌYÀ•W */
     coord begin_y_;
     /** ‹üÜ‚Ü‚Å‚ÌY²•ûŒü‹——£ */

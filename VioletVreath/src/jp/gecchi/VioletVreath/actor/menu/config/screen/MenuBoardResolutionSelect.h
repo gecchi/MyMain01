@@ -19,7 +19,6 @@ public:
         ITEM_CANCEL ,
     };
 
-public:
     MenuBoardResolutionSelect(const char* prm_name);
 
     bool condSelectNext() override;

@@ -18,19 +18,6 @@ class EnemyAntiope :
     public GgafLib::DefaultMeshSetActor {
 
 public:
-    enum {
-        SE_EXPLOSION,
-    };
-
-    enum {
-        PROG_INIT  ,
-        PROG_ENTRY ,
-        PROG_MOVE01,
-        PROG_LEAVE ,
-        PROG_RUSH,
-        PROG_BANPEI,
-    };
-
     /** 平行移動速度ベクトル */
     GgafDxCore::GgafDxGeoElem mv_velo_twd_;
     /** 相方 */

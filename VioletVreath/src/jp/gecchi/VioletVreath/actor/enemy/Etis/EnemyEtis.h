@@ -15,11 +15,6 @@ namespace VioletVreath {
 class EnemyEtis : public GgafLib::DefaultMassMeshActor {
 
 public:
-    enum {
-        SE_DAMAGED   ,
-        SE_EXPLOSION ,
-    };
-
     int width_x_;
     int height_z_;
     int depth_y_;

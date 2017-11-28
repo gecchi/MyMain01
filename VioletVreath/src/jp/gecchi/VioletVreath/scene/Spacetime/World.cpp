@@ -26,6 +26,16 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    PROG_INIT  ,
+    PROG_CALM1 ,
+    PROG_CALM2 ,
+    PROG_CALM3 ,
+    PROG_CALM4 ,
+    PROG_MAINLOOP ,
+    PROG_BANPEI,
+};
+
 World::World(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "World";
     _TRACE_("World::World");

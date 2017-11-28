@@ -1,7 +1,7 @@
 #include "GameScene.h"
 
 #include "jp/ggaf/core/actor/GgafSceneDirector.h"
-#include "jp/ggaf/dxcore/scene/supporter/GgafDxBgmPerformerForScene.h"
+#include "jp/ggaf/dxcore/sound/GgafDxBgmConductor.h"
 
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/ggaf/core/util/GgafLinearOctree.h"
@@ -26,14 +26,13 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-
 GameScene::GameScene(const char* prm_name) : DefaultScene(prm_name) ,
 pCommonScene_(nullptr),
 pMyShipScene_(nullptr),
 pStageWorld_(nullptr) {
 
     _class_name = "GameScene";
-    useProgress(PROG_BANPEI-1);
+    useProgress(PROG_BANPEI);
     pCommonScene_ = NEW CommonScene("Common");
     pCommonScene_->inactivate();
     addSubLast(pCommonScene_);
@@ -59,7 +58,7 @@ pStageWorld_(nullptr) {
 
     was_paused_flg_GameMainScene_prev_frame_ = false;
 
-    getBgmPerformer()->ready(0, "OGG_BGM_DEMO");
+    getConductor()->ready(BGM_DEMO, "OGG_BGM_DEMO");
 }
 
 void GameScene::initialize() {
@@ -126,7 +125,7 @@ void GameScene::processBehavior() {
                 World* pWorld = pSpacetime->getWorld();
                 pWorld->pPreDrawScene_->inactivateTree();
                 pWorld->pPreDrawScene_->pauseTree();
-                getBgmPerformer()->stop();
+                getConductor()->stop();
             }
             break;
         }
@@ -135,7 +134,7 @@ void GameScene::processBehavior() {
             //##########  タイトル前演出  ##########
             if (pProg->hasJustChanged()) {
                 _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PROG_PRE_TITLE)");
-                getBgmPerformer()->play_fadein(0);
+                getConductor()->performFromTheBegining(BGM_DEMO);
             }
             //VB_UI_EXECUTE で、スキップしてTITLEへ
             if (VB->isPushedDown(VB_UI_EXECUTE)) { //skip
@@ -172,7 +171,7 @@ void GameScene::processBehavior() {
             //##########  ゲーム開始（モード選択等）  ##########
             if (pProg->hasJustChanged()) {
                 _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PROG_BEGINNING)");
-                getBgmPerformer()->fadeout_stop();
+                getConductor()->fadeoutStopAll(120);
             }
             //イベント待ち EVENT_GAMEMODE_DECIDE
             break;
@@ -317,7 +316,7 @@ void GameScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
         //デモシーン終了
         _TRACE_("GameScene::onCatchEvent(EVENT_GAMEDEMOSCENE_FINISH)");
         pProg->changeWithSceneFadeoutFadein(PROG_INIT,120,120); //最初へ
-        getBgmPerformer()->fadeout_stop();
+        getConductor()->fadeoutStopAll(120);
 
     } else if (prm_no == EVENT_GAMESTART) {
         //スタート
@@ -333,7 +332,7 @@ void GameScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
         if (pProg->get() == PROG_DEMO) {
             //もし万が一、デモシーン中の全機消滅ならば、デモシーン終了
             pProg->changeWithSceneFadeoutFadein(PROG_INIT, 120, 120); //最初へ
-            getBgmPerformer()->fadeout_stop();
+            getConductor()->fadeoutStopAll(120);
         } else {
             pProg->changeWithSceneCrossfading(PROG_GAME_OVER); //ゲームオーバーへ
         }

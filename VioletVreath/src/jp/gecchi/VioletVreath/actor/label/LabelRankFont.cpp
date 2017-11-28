@@ -81,7 +81,9 @@ char LabelRankFont::RANK_10000thDeg[][46] = {
 
 char LabelRankFont::RANK_INF[] = "UVWXYZ";
 
-
+enum {
+    SE_RANK_UP  ,
+};
 
 LabelRankFont::LabelRankFont(const char* prm_name) :
         FontBoardActor(prm_name, "70/RankFont")

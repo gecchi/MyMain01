@@ -333,9 +333,6 @@
     <ClCompile Include="src\jp\ggaf\dxcore\scene\supporter\GgafDxAlphaCurtain.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\jp\ggaf\dxcore\scene\supporter\GgafDxBgmPerformerForScene.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="src\jp\ggaf\dxcore\scene\GgafDxScene.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -361,9 +358,6 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\ggaf\dxcore\sound\GgafDxBgm.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\ggaf\dxcore\sound\GgafDxBgmPerformer.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\ggaf\dxcore\sound\GgafDxSe.cpp">
@@ -436,6 +430,9 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\ggaf\dxcore\scene\supporter\GgafDxSceneCurtain.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\ggaf\dxcore\sound\GgafDxBgmConductor.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -764,9 +761,6 @@
     <ClInclude Include="include\jp\ggaf\dxcore\scene\supporter\GgafDxAlphaCurtain.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="include\jp\ggaf\dxcore\scene\supporter\ggafdxbgmperformerforscene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="include\jp\ggaf\dxcore\scene\ggafdxscene.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -795,9 +789,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\dxcore\sound\ggafdxbgm.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\dxcore\sound\ggafdxbgmperformer.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\dxcore\sound\ggafdxse.h">
@@ -888,6 +879,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\dxcore\scene\supporter\GgafDxSceneCurtain.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\dxcore\sound\GgafDxBgmConductor.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

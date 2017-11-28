@@ -12,6 +12,10 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    ERESSHOT001_SE_EXPLOSION,
+};
+
 EnemyEresShot001::EnemyEresShot001(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "myvic", STATUS(EnemyEresShot001)) {
     _class_name = "EnemyEresShot001";

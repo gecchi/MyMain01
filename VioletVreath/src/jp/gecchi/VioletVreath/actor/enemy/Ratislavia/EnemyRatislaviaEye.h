@@ -16,22 +16,6 @@ class EnemyRatislaviaEye : public GgafLib::DefaultMorphMeshActor {
     EffectRatislaviaEye001* pEffect_;
 
 public:
-    enum {
-        PROG_MOVE ,
-        PROG_OPEN ,
-        PROG_TURN ,
-        PROG_FIRE_BEGIN,
-        PROG_IN_FIRE   ,
-        PROG_FIRE_END  ,
-        PROG_CLOSE     ,
-        PROG_BANPEI,
-    };
-
-    enum {
-        SE_DAMAGED  ,
-        SE_EXPLOSION,
-        SE_FIRE,
-    };
     bool is_wake_;
     EnemyRatislavia* pRatislavia_;
     GgafLib::LaserChipDepository* pLaserChipDepo_;

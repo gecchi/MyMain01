@@ -19,7 +19,6 @@ public:
         ITEM_CANCEL ,
     };
 
-public:
     MenuBoardConfirm(const char* prm_name);
 
     bool condSelectNext() override;

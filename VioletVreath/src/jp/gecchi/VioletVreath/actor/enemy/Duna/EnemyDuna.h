@@ -17,31 +17,6 @@ namespace VioletVreath {
 class EnemyDuna : public GgafLib::DefaultMorphMeshActor {
 
 public:
-    enum {
-        MPH_OPEN = 1,
-    };
-
-    enum {
-        SE_EXPLOSION ,
-    };
-
-    enum {
-        PROG_INIT   ,
-        PROG_ENTRY_EFFECT,
-        PROG_ENTRY_MOVE01,
-        PROG_ENTRY_MOVE02,
-        PROG_MOVE_ORDER_LARGE_SEMIARC_CW,
-        PROG_MOVE_ORDER_LARGE_SEMIARC_CCW,
-        PROG_MOVE_REV_LARGE_SEMIARC_CW,
-        PROG_MOVE_REV_LARGE_SEMIARC_CCW,
-        PROG_MOVE_ORDER_SMALL_SEMIARC_CW,
-        PROG_MOVE_ORDER_SMALL_SEMIARC_CCW,
-        PROG_MOVE_REV_SMALL_SEMIARC_CW,
-        PROG_MOVE_REV_SMALL_SEMIARC_CCW,
-        PROG_CLOSE ,
-        PROG_BANPEI,
-    };
-
     GgafDxCore::GgafDxGeoElem next_pos_;
     int nprog_;
 public:

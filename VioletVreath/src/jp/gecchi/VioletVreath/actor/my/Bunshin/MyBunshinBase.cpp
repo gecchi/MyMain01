@@ -24,10 +24,23 @@ const angvelo MyBunshinBase::ANGVELO_TURN = D_ANG(2.7);        //•ªg‚ÌŒü‚«‚ÌŠp‘
 const angvelo MyBunshinBase::ANGVELO_EXPANSE = D_ANG(2.7);     //•ªgL‚ª‚è‰ñ“]Šp‘¬“x
 const int MyBunshinBase::RENGE = PX_C(70);                  //•ªg‚ª–ß‚Á‚Ä‚­‚é‚ÌMAX‘¬‚³
 const velo MyBunshinBase::VELO_BUNSHIN_FREE_MV = PX_C(20);  //•ªgƒtƒŠ[ˆÚ“®‚Ì•ªg‚ÌˆÚ“®‘¬“x
-
-
-
 int MyBunshinBase::now_bunshin_num_ = 0;
+
+enum {
+    TRACE_TWINBEE,   //ƒcƒCƒ“ƒr[‚Ì•ªg‚Ì‚æ‚¤‚ÈƒgƒŒ[ƒX
+    TRACE_GRADIUS,   //ƒOƒ‰ƒfƒBƒEƒX‚ÌƒIƒvƒVƒ‡ƒ“‚Ì‚æ‚¤‚ÈƒgƒŒ[ƒX
+    TRACE_FREEZE,    //ƒOƒ‰ƒfƒBƒEƒXV‚ÌType1‚ÌƒIƒvƒVƒ‡ƒ“ƒtƒŠ[ƒY‚Ì‚æ‚¤‚È“®‚«
+};
+enum {
+    PROG_INIT,
+    PROG_BUNSHIN_NOMAL_TRACE,
+    PROG_BUNSHIN_FREE_MODE_IGNITED,
+    PROG_BUNSHIN_FREE_MODE_READY,
+    PROG_BUNSHIN_FREE_MODE_MOVE,
+    PROG_BUNSHIN_FREE_MODE_STOP,
+    PROG_BUNSHIN_FREE_MODE_BACK_TO_DEFAULT_POS,
+    PROG_BANPEI,
+};
 
 MyBunshinBase::MyBunshinBase(const char* prm_name, unsigned int prm_no) :
         DefaultGeometricActor(prm_name) {

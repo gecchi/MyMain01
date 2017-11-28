@@ -17,16 +17,6 @@ namespace VioletVreath {
 class EnemyOebiusController : public GgafCore::GgafDestructActor {
 
 public:
-
-    enum {
-        PROG_INIT  ,
-        PROG_ENTRY_CORE ,
-        PROG_WAIT01 ,
-        PROG_ENTRY_FORMATION ,
-        PROG_WAIT02 ,
-        PROG_BANPEI,
-    };
-
     EnemyOebiusCore* pOebiusCore_;
     FormationOebius* pFormationOebius_;
     GgafDxCore::GgafDxGeoElem entry_pos_;

@@ -9,6 +9,10 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    SE_DAMAGED   ,
+    SE_EXPLOSION ,
+};
 
 TestChoki::TestChoki(const char* prm_name) : TestEnemy(prm_name, "TestChoki", STATUS(TestChoki)) {
     _class_name = "TestChoki";

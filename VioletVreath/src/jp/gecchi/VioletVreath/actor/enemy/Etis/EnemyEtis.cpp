@@ -15,6 +15,11 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    SE_DAMAGED   ,
+    SE_EXPLOSION ,
+};
+
 EnemyEtis::EnemyEtis(const char* prm_name) :
         DefaultMassMeshActor(prm_name, "Etis", STATUS(EnemyEtis)) {
     _class_name = "EnemyEtis";

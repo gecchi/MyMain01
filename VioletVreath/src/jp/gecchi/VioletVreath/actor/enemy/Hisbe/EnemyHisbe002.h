@@ -24,19 +24,6 @@ class EnemyHisbe002 :  public GgafLib::DefaultMorphMeshActor {
     GgafCore::GgafActorDepository* pDepo_effect_;
 
 public:
-    enum {
-        PROG_WAIT,
-        PROG_OPEN,
-        PROG_FIRE,
-        PROG_CLOSE,
-        PROG_BANPEI,
-    };
-    enum {
-        SE_DAMAGED  ,
-        SE_EXPLOSION,
-        SE_FIRE,
-    };
-
     GgafLib::LaserChipDepository* pLaserChipDepo_;
 
 public:

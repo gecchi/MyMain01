@@ -19,6 +19,13 @@ using namespace VioletVreath;
 
 #define ORDER_ID_RANKUP (80)
 
+enum {
+    PROG_INIT  ,
+    PROG_PLAY  ,
+    PROG_FINISH,
+    PROG_BANPEI,
+};
+
 RankUpStageController::RankUpStageController(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "RankUpStageController";
     _TRACE_("RankUpStageController::RankUpStageController("<<prm_name<<")");
@@ -28,8 +35,6 @@ RankUpStageController::RankUpStageController(const char* prm_name) : DefaultScen
     }
 
     pSeConn_RankUpStageExec_ = connectToSeManager("WAVE_RANK_UP_STAGE_EXEC");
-
-    useProgress(RankUpStageController::PROG_BANPEI-1);
     ready(G_RANKUP_LEVEL + 1);
     useProgress(PROG_BANPEI);
 }

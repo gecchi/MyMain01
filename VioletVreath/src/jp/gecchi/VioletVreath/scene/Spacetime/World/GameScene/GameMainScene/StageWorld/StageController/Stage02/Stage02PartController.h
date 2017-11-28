@@ -21,11 +21,6 @@ class Stage02PartController : public StagePartController {
     GgafDxCore::GgafDxBgm* bgm_st1_;
 
 public:
-    enum {
-        PROG_INIT   ,
-        PROG_FAINAL ,
-        PROG_BANPEI,
-    };
     frame frame_prog_fainal_;
 
 public:

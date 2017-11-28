@@ -16,19 +16,6 @@ namespace VioletVreath {
 class EnemyIda : public GgafLib::DefaultMeshSetActor {
 
 public:
-    enum {
-        PROG_INIT ,
-        PROG_ENTRY,
-        PROG_MOVE01,
-        PROG_BANPEI,
-    };
-
-    enum {
-        SE_DAMAGED  ,
-        SE_EXPLOSION,
-    };
-
-public:
     /**
      * コンストラクタ
      * @param prm_name

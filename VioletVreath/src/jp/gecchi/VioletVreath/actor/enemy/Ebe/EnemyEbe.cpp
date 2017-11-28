@@ -14,6 +14,18 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    PROG_MOVE01_1   ,
+    PROG_SPLINE_MOVE,
+    PROG_MOVE02_1   ,
+    PROG_MOVE02_2   ,
+    PROG_BANPEI,
+};
+enum {
+    SE_DAMAGED  ,
+    SE_EXPLOSION,
+};
+
 EnemyEbe::EnemyEbe(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Ebe", STATUS(EnemyEbe)) {
     _class_name = "EnemyEbe";

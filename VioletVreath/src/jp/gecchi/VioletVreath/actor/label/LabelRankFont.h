@@ -20,9 +20,6 @@ class LabelRankFont : public GgafLib::FontBoardActor {
     static char RANK_INF[];
 
 public:
-    enum {
-        SE_RANK_UP  ,
-    };
     /** [r]‘OƒtƒŒ[ƒ€‚ÌG_RANK_DISP */
     int tmp_rank_;
 

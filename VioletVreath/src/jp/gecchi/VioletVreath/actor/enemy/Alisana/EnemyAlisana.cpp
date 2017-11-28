@@ -13,6 +13,23 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    PROG_INIT ,
+    PROG_ENTRY,
+    PROG_HATCH_OPEN,
+    PROG_HATCH_OPEN_DONE,
+    PROG_HATCH_CLOSE,
+    PROG_LEAVE,
+    PROG_BANPEI,
+};
+enum {
+    SE_DAMAGED  ,
+    SE_EXPLOSION,
+};
+enum {
+    MPH_HATCH_CLOSE,
+    MPH_HATCH_OPEN,
+};
 
 EnemyAlisana::EnemyAlisana(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "1/Alisana", STATUS(EnemyAlisana)) {

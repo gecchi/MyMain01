@@ -142,7 +142,7 @@ void GgafDxSpacetime::registerSe(GgafDxSe* prm_pSe,
                                  float prm_frequency_rate,
                                  int prm_delay,
                                  GgafDxGeometricActor* prm_pActor) {
-//    int bpm = GgafDxBgmPerformer::_active_bgm_bpm;
+//    int bpm = GgafDxBgmConductor::_active_bgm_bpm;
     //ズレフレーム数計算
     //1分間は60*60=3600フレーム
     //4分音符タイミングは 3600/_bpm

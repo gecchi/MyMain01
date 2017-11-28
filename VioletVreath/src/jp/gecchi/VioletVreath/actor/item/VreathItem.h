@@ -13,15 +13,7 @@ namespace VioletVreath {
  */
 class VreathItem : public Item {
 
-
 public:
-    enum {
-        PROG_DRIFT      , //’ÊíˆÚ“®ó‘Ô
-        PROG_ATTACH     , //‹z’…’†(–¢‹z’…)ó‘Ô
-        PROG_ABSORB     , //‹z’…’†(‹z’…Ï)ó‘Ô
-        PROG_BANPEI,
-    };
-
     /** ‹z’…·•ªÀ•W */
     int kDX_, kDY_, kDZ_;
 

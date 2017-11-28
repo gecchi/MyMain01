@@ -15,21 +15,6 @@ namespace VioletVreath {
 class EnemyTalante : public GgafLib::DefaultMassMeshActor {
 
 public:
-    enum {
-        PROG_INIT    ,
-        PROG_MOVE01_1,
-        PROG_MOVE01_2,
-        PROG_MOVE01_3,
-        PROG_MOVE01_4,
-        PROG_FINISH  ,
-        PROG_BANPEI,
-    };
-
-    enum {
-        SE_DAMAGED  ,
-        SE_EXPLOSION,
-    };
-
     /** 弾ストック */
     GgafCore::GgafActorDepository* pDepo_shot_;
 

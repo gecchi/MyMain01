@@ -24,10 +24,6 @@ class EnemyRis : public GgafLib::DefaultMeshSetActor {
     GgafCore::GgafActorDepository* pDepo_effect_;
 
 public:
-    enum {
-        SE_EXPLOSION,
-    };
-
     /** 行動パターン番号 */
     int iMovePatternNo_;
 

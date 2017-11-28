@@ -10,6 +10,13 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace Mogera;
 
+enum {
+    PROG_INIT  ,
+    PROG_CALL_UP ,
+    PROG_WAIT  ,
+    PROG_BANPEI,
+};
+
 FormationZako::FormationZako(const char* prm_name) :
         TreeFormation(prm_name) {
     _class_name = "FormationZako";

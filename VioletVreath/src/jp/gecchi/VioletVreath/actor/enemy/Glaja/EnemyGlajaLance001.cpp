@@ -16,6 +16,17 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    PROG_INIT   ,
+    PROG_MOVE01 ,
+    PROG_AIM_ANIME01 ,
+    PROG_AIM_ANIME02 ,
+    PROG_MOVE02 ,
+    PROG_MOVE03 ,
+    PROG_LEAVE ,
+    PROG_BANPEI,
+};
+
 EnemyGlajaLance001::EnemyGlajaLance001(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "GlajaLance001", STATUS(EnemyGlajaLance001)) {
     _class_name = "EnemyGlajaLance001";

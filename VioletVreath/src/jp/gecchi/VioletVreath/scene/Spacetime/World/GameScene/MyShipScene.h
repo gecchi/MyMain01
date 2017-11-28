@@ -28,15 +28,6 @@ namespace VioletVreath {
 class MyShipScene : public GgafLib::DefaultScene {
 
 public:
-    enum {
-        PROG_INIT    ,
-        PROG_BEGIN   ,
-        PROG_PLAY    ,
-        PROG_DESTROY ,
-        PROG_END     ,
-        PROG_BANPEI,
-    };
-
     /** 自機 */
     MyShip* pMyShip_;
     /** 自機爆発エフェクト */

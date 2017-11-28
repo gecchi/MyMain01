@@ -18,6 +18,19 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    SE_EXPLOSION ,
+};
+enum {
+    PROG_INIT   ,
+    PROG_ENTRY  ,
+    PROG_MOVE_BEGIN ,
+    PROG_SPLINE ,
+    PROG_SCATTER ,
+    PROG_LEAVE ,
+    PROG_BANPEI,
+};
+
 EnemyUrydike::EnemyUrydike(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Urydike", STATUS(EnemyUrydike)) {
     _class_name = "EnemyUrydike";

@@ -16,30 +16,6 @@ namespace VioletVreath {
 class EnemyDelheid : public GgafLib::DefaultMorphMeshActor {
 
 public:
-    enum {
-        PROG_INIT,
-        PROG_SPLINE_MOVING,
-        PROG_AFTER_LEAD,
-        PROG_AFTER_LEAD_MOVING,
-        PROG_BANPEI,
-    };
-    enum {
-        PROG2_WAIT,
-        PROG2_OPEN,
-        PROG2_SHOT,
-        PROG2_CLOSE,
-        PROG2_BANPEI,
-    };
-    enum {
-        MPH_CLOSE,
-        MPH_OPEN,
-    };
-    enum {
-        SE_DAMAGED  ,
-        SE_UNDAMAGED,
-        SE_EXPLOSION,
-    };
-
     /** スプライン移動のシークエンス */
     GgafLib::SplineKurokoLeader* pKurokoLeader_;
     /** ショットのデポジトリ */

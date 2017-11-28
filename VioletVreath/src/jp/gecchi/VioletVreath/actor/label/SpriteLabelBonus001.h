@@ -12,14 +12,6 @@ namespace VioletVreath {
  * @author Masatoshi Tsuge
  */
 class SpriteLabelBonus001 : public GgafLib::FontSpriteActor {
-public:
-    enum {
-        PROG_INIT   ,
-        PROG_MOVE01 ,
-        PROG_MOVE02 ,
-        PROG_LEAVE ,
-        PROG_BANPEI,
-    };
 
 public:
     SpriteLabelBonus001(const char* prm_name);

@@ -8,6 +8,14 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    PROG_INIT ,
+    PROG_IN   ,
+    PROG_STAY ,
+    PROG_OUT  ,
+    PROG_BANPEI,
+};
+
 EffectBlink::EffectBlink(const char* prm_name, const char* prm_model) :
         DefaultMassMeshActor(prm_name, prm_model, nullptr) {
     _class_name = "EffectBlink";

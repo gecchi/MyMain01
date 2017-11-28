@@ -14,10 +14,8 @@ namespace VioletVreath {
  *
  */
 class EnemyEresShot001 : public GgafLib::DefaultMeshSetActor {
+
 public:
-    enum {
-        ERESSHOT001_SE_EXPLOSION,
-    };
     //本Actorのカスタムプロパティ --->
     /** 出現時の初速 */
     int velo1st_;

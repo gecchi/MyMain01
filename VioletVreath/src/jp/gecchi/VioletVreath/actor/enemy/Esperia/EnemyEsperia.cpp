@@ -19,6 +19,24 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    PROG_INIT,
+    PROG_ENTRY,
+    PROG_MOVE,
+    PROG_HATCH_OPEN,
+    PROG_FIRE,
+    PROG_HATCH_CLOSE,
+    PROG_NOTHING,
+    PROG_BANPEI,
+};
+enum {
+    SE_EXPLOSION,
+    SE_DAMAGED,
+    SE_HATCH_OPEN,
+    SE_FIRE,
+    SE_HATCH_CLOSE,
+};
+
 int EnemyEsperia::max_laser_way_ = RF_EnemyEsperia_ShotWay(1.0);
 //RF_EnemyEsperia_ShotWayÉâÉìÉNéÆÇÕ 1.0Ç≈ç≈ëÂÇéÊÇÈÇÊÇ§Ç…ÇµÇ»ÇØÇÍÇŒÇ»ÇÁÇ»Ç¢
 

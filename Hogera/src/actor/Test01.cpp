@@ -13,6 +13,13 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace Hogera;
 
+enum {
+    LOCKON001_PROG_FIRST_LOCK ,
+    LOCKON001_PROG_LOCK       ,
+    LOCKON001_PROG_RELEASE    ,
+    PROG_BANPEI,
+};
+
 Test01::Test01(const char* prm_name) :
         DefaultSpriteActor(prm_name, "Lockon001", nullptr) {
     _class_name = "Test01";

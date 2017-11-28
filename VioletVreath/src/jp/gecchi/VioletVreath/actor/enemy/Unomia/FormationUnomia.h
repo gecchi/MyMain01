@@ -14,17 +14,6 @@ namespace VioletVreath {
 class FormationUnomia : public GgafLib::TreeFormation {
 
 public:
-    enum {
-        PROG_INIT  ,
-        PROG_READY_MEMBER_ORDER,
-        PROG_READY_MEMBER_OBTAIN,
-        PROG_CALL_UP ,
-        PROG_WAIT1,
-        PROG_SHOT,
-        PROG_WAIT2,
-        PROG_BANPEI,
-    };
-
     /** ウーノミアの玉、借り入れ元Depository資源への接続 */
     GgafCore::GgafActorDepository* pDepo_shot_;
 

@@ -9,6 +9,14 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    PROG_INIT   ,
+    PROG_MOVE01 ,
+    PROG_MOVE02 ,
+    PROG_LEAVE ,
+    PROG_BANPEI,
+};
+
 SpriteLabelBonus001::SpriteLabelBonus001(const char* prm_name) :
         FontSpriteActor(prm_name, "Ranking_16Font")
 {

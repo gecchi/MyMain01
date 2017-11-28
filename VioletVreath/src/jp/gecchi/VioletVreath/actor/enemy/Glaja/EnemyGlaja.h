@@ -18,26 +18,6 @@ namespace VioletVreath {
 class EnemyGlaja : public GgafLib::DefaultMorphMeshActor {
 
 public:
-
-    enum {
-        MPH_OPEN = 1,
-    };
-
-    enum {
-        SE_EXPLOSION ,
-    };
-
-    enum {
-        PROG_INIT   ,
-        PROG_ENTRY  ,
-        PROG_MOVE01 ,
-        PROG_MOVE02 ,
-        PROG_OPEN ,
-        PROG_FIRE ,
-        PROG_CLOSE ,
-        PROG_BANPEI,
-    };
-
     DepositoryConnection* pConn_pShot_;
     GgafDxCore::GgafDxGeoElem next_pos_;
     int num_fire_;

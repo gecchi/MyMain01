@@ -15,21 +15,6 @@ namespace VioletVreath {
 class EnemyEmus : public GgafLib::DefaultMassMorphMeshActor {
 
 public:
-    enum {
-        PROG_INIT       ,
-        PROG_INI_WAIT       ,
-        PROG_HATCH_CLOSE,
-        PROG_HATCH_OPEN ,
-        PROG_FIRE       ,
-        PROG_NOTHING    ,
-        PROG_BANPEI,
-    };
-
-    enum {
-        SE_DAMAGED  ,
-        SE_EXPLOSION,
-    };
-
     /** [r]状況 */
     bool is_open_hatch_;
     /** [r/w]ハッチが開いているフレーム間隔 */
