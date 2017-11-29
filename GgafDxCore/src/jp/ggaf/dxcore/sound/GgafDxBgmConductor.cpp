@@ -254,9 +254,6 @@ void GgafDxBgmConductor::behave() {
     }
 }
 
-
-
-
 GgafDxBgmConductor::~GgafDxBgmConductor() {
     for (int i = 0; i < _bgm_num; i++) {
         if (_vecBgmConnection[i]) {

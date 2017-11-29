@@ -55,8 +55,6 @@ void Stage01_Climax::processBehavior() {
             waiting_ = true;
         }
     }
-
-
 }
 
 Stage01_Climax::~Stage01_Climax() {
