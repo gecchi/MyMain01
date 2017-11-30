@@ -17,8 +17,8 @@ class StagePartController : public GgafLib::DefaultScene {
 
 public:
     StagePartController(const char* prm_name);
-    /** サブシーンの全てBGMをフェードアウトする。 */
-    void fadeout_stop_AllPartSceneBgm();
+//    /** サブシーンの全てBGMをフェードアウトする。 */
+//    void fadeout_stop_AllPartSceneBgm();
     virtual ~StagePartController();
 };
 

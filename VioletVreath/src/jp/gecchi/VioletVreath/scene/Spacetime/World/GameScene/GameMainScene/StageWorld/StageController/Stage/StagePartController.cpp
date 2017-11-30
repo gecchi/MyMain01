@@ -11,24 +11,24 @@ StagePartController::StagePartController(const char* prm_name) : DefaultScene(pr
     _class_name = "StagePartController";
 }
 
-void StagePartController::fadeout_stop_AllPartSceneBgm() {
-    _TRACE_(FUNC_NAME<<" ----->begin");
-    GgafDxScene* pScene = (GgafDxScene*)(getSubFirst());
-    while (pScene) {
-        if (pScene->isLast()) {
-            if (pScene->getConductor()) {
-                pScene->getConductor()->fadeoutStopAll(120);
-            }
-            break;
-        } else {
-            if (pScene->getConductor()) {
-                pScene->getConductor()->fadeoutStopAll(120);
-            }
-            pScene = (GgafDxScene*)(pScene->getNext());
-        }
-    }
-    _TRACE_(FUNC_NAME<<" <---- end");
-}
+//void StagePartController::fadeout_stop_AllPartSceneBgm() {
+//    _TRACE_(FUNC_NAME<<" ----->begin");
+//    GgafDxScene* pScene = (GgafDxScene*)(getSubFirst());
+//    while (pScene) {
+//        if (pScene->isLast()) {
+//            if (pScene->getConductor()) {
+//                pScene->getConductor()->fadeoutStopAll(120);
+//            }
+//            break;
+//        } else {
+//            if (pScene->getConductor()) {
+//                pScene->getConductor()->fadeoutStopAll(120);
+//            }
+//            pScene = (GgafDxScene*)(pScene->getNext());
+//        }
+//    }
+//    _TRACE_(FUNC_NAME<<" <---- end");
+//}
 
 StagePartController::~StagePartController() {
 }
