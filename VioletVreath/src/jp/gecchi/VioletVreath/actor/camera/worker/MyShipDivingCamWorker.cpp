@@ -27,12 +27,13 @@ void MyShipDivingCamWorker::processBehavior() {
         MyShip* pMyShip = pMYSHIP;
         coord dx = ABS(pMYSHIP->_x);
         static const coord dc = ABS(pSpacetime->_x_bound_left);
-        static const coord r = PX_C(500);
-        double t = (1.0-(1.0*dx / dc)); //t=0.0→1.0
-        angle a = UTIL::simplifyAng((D180ANG)*t); //180度回転カメラがぐるーんと回す
+        static const coord r = DX_C(ABS(pCam_->_cameraZ_org));
+
+        double t = RCNV(dc, 0, dx, 0.0, 1.0);  // dx = dc → 0 、t = 0.0 → 1.0
+        angle a = UTIL::simplifyAng((D360ANG)*t); //カメラがぐるーんと回す
         coord y = ANG_SIN(a) * r;
         coord z = -ANG_COS(a) * r;
-        slideMvCamTo(PX_C(300), y , z, 10);
+        slideMvCamTo(-PX_C(300), y , z, 10);
         slideMvVpTo(pMyShip, 10);
     }
 }

@@ -152,24 +152,24 @@ void* GgafFactory::obtain(uint64_t prm_order_no, GgafObject* prm_pReceiver) {
                     waittime += 5;
                     if (pOrder->_progress == 1) {
                         //着手済み
-                        _TRACE_N_("製造中、");
+                        _TRACE_N_("！");
                         continue; //待つ
                     } else if (pOrder->_progress == 0) {
                         //未着手？
                         pOrder = GgafFactory::ROOT_ORDER; //もう一度最初から探させる。
-                        _TRACE_N_("待って、");
+                        _TRACE_N_("…");
                         break;
                     } else if (pOrder->_progress == 2) {
                         //完成
                         pOrder = GgafFactory::ROOT_ORDER; //もう一度最初から探させる。
-                        _TRACE_N_("完成！");
+                        _TRACE_N_("(^_^)v");
                         break;
                     }
                 } else {
 
 #ifdef MY_DEBUG
                     if (waittime > 0) {
-                        _TRACE_N_("・・・おまたせしました。");
+                        _TRACE_N_("お待たせ！");
                     }
 #endif
                     _TRACE2_("＜受取人:"<<(prm_pReceiver ? prm_pReceiver->toString() : "nullptr")<<"("<<prm_pReceiver<<")＞ よ～し、["<<prm_order_no<<"-"<<prm_pReceiver<<"]は製造完了ですね。おおきに！");

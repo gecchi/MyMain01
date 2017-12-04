@@ -72,6 +72,8 @@ void AroundViewCamWorker::processBehavior() {
         }
     }
 
+    static const coord game_width = PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);
+
     if ( !(isPressedMouseButton0 && isPressedMouseButton1) &&
          (isPressedMouseButton0 || isPressedMouseButton1 || isPressedMouseButton2)
     ) {
@@ -186,7 +188,7 @@ void AroundViewCamWorker::processBehavior() {
             GgafDxQuaternion qu(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
             qu.mul(0, vx_cam, vy_cam, vz_cam); //R*P 回転軸が現在の進行方向ベクトルとなる
             qu.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
-            double r = ((d/cd_) * PX_C(PROPERTY::GAME_BUFFER_WIDTH*2));
+            double r = (d/cd_) * game_width;
             slideMvCamTo(t_x_CAM_ + (qu.i*r),
                          t_y_CAM_ + (qu.j*r),
                          t_z_CAM_ + (qu.k*r) , DEFAULT_CAMERA_SLIDE_FRAMES);
@@ -213,7 +215,7 @@ void AroundViewCamWorker::processBehavior() {
         if (mdz != 0) {
             r = (mdz*PX_UNIT*LEN_UNIT/10.0);
         } else if ((isPressedMouseButton0 && isPressedMouseButton1)) {
-            r = ((1.0*mdy/cd_) * PROPERTY::GAME_BUFFER_WIDTH*2)*LEN_UNIT;
+            r = (1.0*mdy/cd_) * game_width;
         }
         if (mdx != 0 || mdy != 0 || mdz != 0) {
             slideMvCamTo(t_x_CAM_ + mdz_vx_*r,

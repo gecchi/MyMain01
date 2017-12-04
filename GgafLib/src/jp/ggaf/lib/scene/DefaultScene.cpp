@@ -16,10 +16,14 @@ DefaultScene::DefaultScene(const char* prm_name) : GgafDxScene(prm_name) {
 
 void DefaultScene::useProgress(int prm_num) {
     if (GgafScene::_pProg == nullptr) {
-        GgafScene::_pProg = NEW SceneProgress(this, prm_num);
+        GgafScene::_pProg = createProgress(prm_num);
     } else {
         _TRACE_("ÅÉåxçêÅÑ["<<getName()<<"] ÇÕä˘Ç… useProgress ÇµÇƒÇ¢Ç‹Ç∑ÅBprm_num="<<prm_num);
     }
+}
+
+SceneProgress* DefaultScene::createProgress(int prm_num) {
+    return NEW SceneProgress(this, prm_num);
 }
 
 SceneProgress* DefaultScene::getProgress() const {

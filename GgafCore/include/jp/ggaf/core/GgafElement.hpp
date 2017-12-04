@@ -822,7 +822,7 @@ public:
      */
     virtual void useProgress(int prm_num = 10) {
         if (_pProg == nullptr) {
-            _pProg = NEW GgafProgress(&_frame_of_behaving, prm_num);
+            _pProg = createProgress(prm_num);
         } else {
             _TRACE_("＜警告＞useProgress() ["<<GgafNode<T>::getName()<<"] は既に useProgress している。以前の進捗の場合の数="<<_pProg->getProgressNum()<<"。今回引数 prm_num="<<prm_num);
             if (_pProg->getProgressNum() != prm_num) {
