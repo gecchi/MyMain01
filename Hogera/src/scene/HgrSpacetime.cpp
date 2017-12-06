@@ -6,7 +6,7 @@
 #include "util/HgrUtil.h"
 #include "HgrGod.h"
 #include "jp/ggaf/core/scene/GgafScene.h"
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
 using namespace Hogera;
 
 #define PRIMARY_VIEW 0

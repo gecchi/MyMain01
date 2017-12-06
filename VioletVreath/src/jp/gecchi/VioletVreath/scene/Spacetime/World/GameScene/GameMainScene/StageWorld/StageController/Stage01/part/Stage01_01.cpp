@@ -1,6 +1,6 @@
 #include "Stage01_01.h"
 
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/ggaf/dxcore/sound/GgafDxBgmConductor.h"
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -91,10 +91,10 @@ void Stage01_01::processBehavior() {
                 break;
             }
             case 2500: {
-                bringDirector()->addSubGroup(obtainActorFromFactory(20000013));
+                bringSceneMediator()->addSubGroup(obtainActorFromFactory(20000013));
                 VarietyRatislavia001* pRatislavia = (VarietyRatislavia001*)obtainActorFromFactory(20000017);
-                bringDirector()->addSubGroup(pRatislavia);
-                bringDirector()->addSubGroup(obtainActorFromFactory(20000019));
+                bringSceneMediator()->addSubGroup(pRatislavia);
+                bringSceneMediator()->addSubGroup(obtainActorFromFactory(20000019));
                 break;
             }
             case 2900: {
@@ -102,10 +102,10 @@ void Stage01_01::processBehavior() {
                 break;
             }
             case 3000: {
-                bringDirector()->addSubGroup(obtainActorFromFactory(20000015));
+                bringSceneMediator()->addSubGroup(obtainActorFromFactory(20000015));
                 VarietyRatislavia002* pRatislavia = (VarietyRatislavia002*)obtainActorFromFactory(20000018);
-                bringDirector()->addSubGroup(pRatislavia);
-                bringDirector()->addSubGroup(obtainActorFromFactory(20000027));
+                bringSceneMediator()->addSubGroup(pRatislavia);
+                bringSceneMediator()->addSubGroup(obtainActorFromFactory(20000027));
                 break;
             }
             case 3400: {
@@ -113,7 +113,7 @@ void Stage01_01::processBehavior() {
                 break;
             }
             case 3500: {
-                bringDirector()->addSubGroup(obtainActorFromFactory(20000020));
+                bringSceneMediator()->addSubGroup(obtainActorFromFactory(20000020));
                 break;
             }
             case 3900: {
@@ -121,7 +121,7 @@ void Stage01_01::processBehavior() {
                 break;
             }
             case 4000: {
-                bringDirector()->addSubGroup(obtainActorFromFactory(20000028));
+                bringSceneMediator()->addSubGroup(obtainActorFromFactory(20000028));
                 break;
             }
             case 4400: {
@@ -130,7 +130,7 @@ void Stage01_01::processBehavior() {
                 break;
             }
             case 4500: {
-                bringDirector()->addSubGroup(obtainActorFromFactory(20000021));
+                bringSceneMediator()->addSubGroup(obtainActorFromFactory(20000021));
                 orderActorToFactory(20000036, FormationDelheid001, "FormationDelheid001-20000036");
                 break;
             }
@@ -152,62 +152,62 @@ void Stage01_01::processBehavior() {
                 break;
             }
             case 5000: {
-                bringDirector()->addSubGroup(obtainActorFromFactory(20000029));
+                bringSceneMediator()->addSubGroup(obtainActorFromFactory(20000029));
                 FormationDelheid001* pF = (FormationDelheid001*)obtainActorFromFactory(20000035);
-                bringDirector()->addSubGroup(pF);
+                bringSceneMediator()->addSubGroup(pF);
                 pF->setPosition(PX_C(-200), PX_C(-400), PX_C(500), D_ANG(0), D_ANG(-40), D_ANG(0));
                 orderActorToFactory(20000041, FormationDelheid001, "FormationDelheid001-20000041");
                 break;
             }
             case 5100: {
                 FormationDelheid001* pF = (FormationDelheid001*)obtainActorFromFactory(20000036);
-                bringDirector()->addSubGroup(pF);
+                bringSceneMediator()->addSubGroup(pF);
                 pF->setPosition(PX_C(-200), PX_C(-300), PX_C(500), D_ANG(0), D_ANG(-30), D_ANG(0));
                 orderActorToFactory(20000042, FormationDelheid001, "FormationDelheid001-20000042");
                 break;
             }
             case 5200: {
                 FormationDelheid001* pF = (FormationDelheid001*)obtainActorFromFactory(20000037);
-                bringDirector()->addSubGroup(pF);
+                bringSceneMediator()->addSubGroup(pF);
                 pF->setPosition(PX_C(-200), PX_C(-200), PX_C(500), D_ANG(0), D_ANG(-20), D_ANG(0));
                 orderActorToFactory(20000043, FormationDelheid001, "FormationDelheid001-20000043");
                 break;
             }
             case 5300: {
                 FormationDelheid001* pF = (FormationDelheid001*)obtainActorFromFactory(20000038);
-                bringDirector()->addSubGroup(pF);
+                bringSceneMediator()->addSubGroup(pF);
                 pF->setPosition(PX_C(-200), PX_C(-100), PX_C(500), D_ANG(0), D_ANG(-10), D_ANG(0));
                 break;
             }
             case 5400: {
                 orderActorToFactory(20000030, FormationAppho001b, "FormationAppho001b-20000030");
                 FormationDelheid001* pF = (FormationDelheid001*)obtainActorFromFactory(20000039);
-                bringDirector()->addSubGroup(pF);
+                bringSceneMediator()->addSubGroup(pF);
                 pF->setPosition(PX_C(-200), PX_C(   0), PX_C(500), D_ANG(0), D_ANG(  0), D_ANG(0));
                 break;
             }
             case 5500: {
-                bringDirector()->addSubGroup(obtainActorFromFactory(20000022));
+                bringSceneMediator()->addSubGroup(obtainActorFromFactory(20000022));
                 FormationDelheid001* pF = (FormationDelheid001*)obtainActorFromFactory(20000040);
-                bringDirector()->addSubGroup(pF);
+                bringSceneMediator()->addSubGroup(pF);
                 pF->setPosition(PX_C(-200), PX_C( 100), PX_C(500), D_ANG(0), D_ANG( 10), D_ANG(0));
                 break;
             }
             case 5600: {
                 FormationDelheid001* pF = (FormationDelheid001*)obtainActorFromFactory(20000041);
-                bringDirector()->addSubGroup(pF);
+                bringSceneMediator()->addSubGroup(pF);
                 pF->setPosition(PX_C(-200), PX_C( 200), PX_C(500), D_ANG(0), D_ANG( 20), D_ANG(0));
                 break;
             }
             case 5700: {
                 FormationDelheid001* pF = (FormationDelheid001*)obtainActorFromFactory(20000042);
-                bringDirector()->addSubGroup(pF);
+                bringSceneMediator()->addSubGroup(pF);
                 pF->setPosition(PX_C(-200), PX_C( 300), PX_C(500), D_ANG(0), D_ANG( 30), D_ANG(0));
                 break;
             }
             case 5800: {
                 FormationDelheid001* pF = (FormationDelheid001*)obtainActorFromFactory(20000043);
-                bringDirector()->addSubGroup(pF);
+                bringSceneMediator()->addSubGroup(pF);
                 pF->setPosition(PX_C(-200), PX_C( 400), PX_C(500), D_ANG(0), D_ANG( 40), D_ANG(0));
                 break;
             }
@@ -217,7 +217,7 @@ void Stage01_01::processBehavior() {
                 break;
             }
             case 6000: {
-                bringDirector()->addSubGroup(obtainActorFromFactory(20000030));
+                bringSceneMediator()->addSubGroup(obtainActorFromFactory(20000030));
                 break;
             }
             case 6400: {
@@ -226,8 +226,8 @@ void Stage01_01::processBehavior() {
                 break;
             }
             case 6500: {
-                bringDirector()->addSubGroup(obtainActorFromFactory(20000014));
-                bringDirector()->addSubGroup(obtainActorFromFactory(20000023));
+                bringSceneMediator()->addSubGroup(obtainActorFromFactory(20000014));
+                bringSceneMediator()->addSubGroup(obtainActorFromFactory(20000023));
                 break;
             }
             case 6900: {
@@ -235,8 +235,8 @@ void Stage01_01::processBehavior() {
                 break;
             }
             case 7000: {
-                bringDirector()->addSubGroup(obtainActorFromFactory(20000016));
-                bringDirector()->addSubGroup(obtainActorFromFactory(20000031));
+                bringSceneMediator()->addSubGroup(obtainActorFromFactory(20000016));
+                bringSceneMediator()->addSubGroup(obtainActorFromFactory(20000031));
                 break;
             }
             case 7400: {
@@ -244,7 +244,7 @@ void Stage01_01::processBehavior() {
                 break;
             }
             case 7500: {
-                bringDirector()->addSubGroup(obtainActorFromFactory(20000024));
+                bringSceneMediator()->addSubGroup(obtainActorFromFactory(20000024));
                 break;
             }
             case 7900: {
@@ -252,7 +252,7 @@ void Stage01_01::processBehavior() {
                 break;
             }
             case 8000: {
-                bringDirector()->addSubGroup(obtainActorFromFactory(20000032));
+                bringSceneMediator()->addSubGroup(obtainActorFromFactory(20000032));
                 break;
             }
             case 8400: {
@@ -260,7 +260,7 @@ void Stage01_01::processBehavior() {
                 break;
             }
             case 8500: {
-                bringDirector()->addSubGroup(obtainActorFromFactory(20000025));
+                bringSceneMediator()->addSubGroup(obtainActorFromFactory(20000025));
                 break;
             }
             case 8900: {
@@ -268,7 +268,7 @@ void Stage01_01::processBehavior() {
                 break;
             }
             case 9000: {
-                bringDirector()->addSubGroup(obtainActorFromFactory(20000033));
+                bringSceneMediator()->addSubGroup(obtainActorFromFactory(20000033));
                 break;
             }
             case 9400: {
@@ -276,11 +276,11 @@ void Stage01_01::processBehavior() {
                 break;
             }
             case 9500: {
-                bringDirector()->addSubGroup(obtainActorFromFactory(20000026));
+                bringSceneMediator()->addSubGroup(obtainActorFromFactory(20000026));
                 break;
             }
             case 10000: {
-                bringDirector()->addSubGroup(obtainActorFromFactory(20000034));
+                bringSceneMediator()->addSubGroup(obtainActorFromFactory(20000034));
                 break;
             }
             default :

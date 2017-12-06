@@ -10,7 +10,7 @@ GgafGroupHead::GgafGroupHead(kind_t prm_kind, GgafStatus* prm_pStat) : GgafActor
     _class_name = "GgafGroupHead";
     _kind = prm_kind;
     setHitAble(false);
-    _pSceneDirector = nullptr;
+    _pSceneMediator = nullptr;
 
 #ifdef MY_DEBUG
     //デバッグ用。名前に種別ビットを表示
@@ -45,34 +45,34 @@ void GgafGroupHead::setKind(kind_t prm_kind) {
 #endif
 }
 
-GgafSceneDirector* GgafGroupHead::getMySceneDirector() {
-    if (_pSceneDirector == nullptr) {
+GgafSceneMediator* GgafGroupHead::getMySceneMediator() {
+    if (_pSceneMediator == nullptr) {
         if (_pParent == nullptr) {
-            _TRACE_("【警告】GgafGroupHead::getSceneDirector 所属していないため、Directorがとれません！("<<getName()<<")。そこで勝手にこの世(GgafSpacetime)所属のDirectorを返しました");
-            _pSceneDirector = GgafGod::_pGod->_pSpacetime->bringDirector();
+            _TRACE_("【警告】GgafGroupHead::getSceneMediator 所属していないため、Mediatorがとれません！("<<getName()<<")。そこで勝手にこの世(GgafSpacetime)所属のMediatorを返しました");
+            _pSceneMediator = GgafGod::_pGod->_pSpacetime->bringSceneMediator();
         } else {
             if (_pParent->instanceOf(Obj_GgafMainActor)) {
-                _pSceneDirector = ((GgafMainActor*)(_pParent))->getMySceneDirector();
+                _pSceneMediator = ((GgafMainActor*)(_pParent))->getMySceneMediator();
             } else if (_pParent->instanceOf(Obj_GgafGroupHead)) {
-                _pSceneDirector = ((GgafGroupHead*)(_pParent))->getMySceneDirector();
-            } else if (_pParent->instanceOf(Obj_GgafSceneDirector)) {
-                return (GgafSceneDirector*)_pParent; //Actorツリー頂点
+                _pSceneMediator = ((GgafGroupHead*)(_pParent))->getMySceneMediator();
+            } else if (_pParent->instanceOf(Obj_GgafSceneMediator)) {
+                return (GgafSceneMediator*)_pParent; //Actorツリー頂点
             }
-            _TRACE_("【警告】GgafGroupHead::getSceneDirector このツリーにはDirectorがいません！("<<getName()<<")。そこで勝手にこの世(GgafSpacetime)所属のDirectorを返しました");
-            _pSceneDirector = GgafGod::_pGod->_pSpacetime->bringDirector();
+            _TRACE_("【警告】GgafGroupHead::getSceneMediator このツリーにはMediatorがいません！("<<getName()<<")。そこで勝手にこの世(GgafSpacetime)所属のMediatorを返しました");
+            _pSceneMediator = GgafGod::_pGod->_pSpacetime->bringSceneMediator();
         }
     }
-    return _pSceneDirector;
+    return _pSceneMediator;
 }
 
-void GgafGroupHead::setMySceneDirector(GgafSceneDirector* prm_pSceneDirector) {
-    _pSceneDirector = prm_pSceneDirector;
+void GgafGroupHead::setMySceneMediator(GgafSceneMediator* prm_pSceneMediator) {
+    _pSceneMediator = prm_pSceneMediator;
     GgafActor* pActor = getSubFirst();
     while (pActor) {
         if (pActor->instanceOf(Obj_GgafMainActor)) {
-            ((GgafMainActor*)(pActor))->setMySceneDirector(prm_pSceneDirector);
+            ((GgafMainActor*)(pActor))->setMySceneMediator(prm_pSceneMediator);
         } else if (pActor->instanceOf(Obj_GgafGroupHead)) {
-            ((GgafGroupHead*)(pActor))->setMySceneDirector(prm_pSceneDirector);
+            ((GgafGroupHead*)(pActor))->setMySceneMediator(prm_pSceneMediator);
         }
         if (pActor->_is_last_flg) {
             break;

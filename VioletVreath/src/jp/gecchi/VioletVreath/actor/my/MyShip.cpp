@@ -322,9 +322,9 @@ void MyShip::initialize() {
     _TRACE_(FUNC_NAME<<"");
 
     //Ží•Ê‚ÉU‚è•ª‚¯
-//    bringDirector()->addSubGroup(KIND_MY_SHOT_NOMAL, pDepo_MyShots001_->extract());
-//    bringDirector()->addSubGroup(KIND_MY_SHOT_NOMAL, pDepo_MyWaves001_->extract());
-    //bringDirector()->addSubGroup(KIND_MY_SHOT_NOMAL, pLaserChipDepo_->extract());
+//    bringSceneMediator()->addSubGroup(KIND_MY_SHOT_NOMAL, pDepo_MyShots001_->extract());
+//    bringSceneMediator()->addSubGroup(KIND_MY_SHOT_NOMAL, pDepo_MyWaves001_->extract());
+    //bringSceneMediator()->addSubGroup(KIND_MY_SHOT_NOMAL, pLaserChipDepo_->extract());
 
     setHitAble(true);
     CollisionChecker* pChecker = getCollisionChecker();

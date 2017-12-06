@@ -1,6 +1,6 @@
 #include "jp/ggaf/lib/scene/FormationTableScene.h"
 
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/ggaf/core/actor/ex/GgafFormation.h"
 
 using namespace GgafCore;
@@ -24,7 +24,7 @@ GgafGroupHead* FormationTableScene::addToTable(GgafFormation* prm_pFormationActo
     prm_pFormationActor->inactivate();
     _table.addLast(NEW TblElem(prm_pFormationActor, prm_max_delay_offset), true);
 
-    return bringDirector()->addSubGroup(prm_pFormationActor);
+    return bringSceneMediator()->addSubGroup(prm_pFormationActor);
 }
 
 void FormationTableScene::onActive() {
@@ -47,7 +47,7 @@ void FormationTableScene::processBehavior() {
         //I—¹‚ð‘Ò‚Â‚Ì‚Ý
     } else {
 
-        if (!bringDirector()->getSubFirst()) {
+        if (!bringSceneMediator()->getSubFirst()) {
             sayonara(FORMATION_END_DELAY);
             return;
         }

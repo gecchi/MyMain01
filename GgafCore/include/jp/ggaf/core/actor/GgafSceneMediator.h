@@ -1,38 +1,38 @@
-#ifndef GGAFCORE_GGAFSCENEDIRECTOR_H_
-#define GGAFCORE_GGAFSCENEDIRECTOR_H_
+#ifndef GGAFCORE_GGAFSCENEMEDIATOR_H_
+#define GGAFCORE_GGAFSCENEMEDIATOR_H_
 #include "GgafCommonHeader.h"
 #include "jp/ggaf/core/actor/GgafActor.h"
 
 namespace GgafCore {
 
 /**
- * シーンの監督クラス .
+ * シーンの仲介者クラス .
  * 団長(GgafGroupHead)の親階層のアクターで、団長達を管理します。<BR>
  * また、シーンクラスとの橋渡しを行う特別なアクターでもあります。<BR>
- * シーンクラスとシーン監督は普通のhasAの関係です。（監督と団長は階層関係になっています）<BR>
- * 全てのシーン(GgafSceaneオブジェクト)に必ず１人シーン監督が居ます。<BR>
- * 監督は、アクター達ツリーの最も頂点に位置します。<BR>
- * 監督(GgafSceneDirector)のサブアクターは必ず団長(GgafGroupHead)になっています。<BR>
+ * シーンクラスとシーン仲介者は普通のhasAの関係です。（仲介者と団長は階層関係になっています）<BR>
+ * 全てのシーン(GgafSceaneオブジェクト)に必ず１人シーン仲介者が居ます。<BR>
+ * 仲介者は、アクター達ツリーの最も頂点に位置します。<BR>
+ * 仲介者(GgafSceneMediator)のサブアクターは必ず団長(GgafGroupHead)になっています。<BR>
  * さらに団長の下に普通のアクターが居ます。<BR>
- * 監督へのメソッド実行は、その配下全ての団長＋アクターへの指示となります。<BR>
+ * 仲介者へのメソッド実行は、その配下全ての団長＋アクターへの指示となります。<BR>
  * 団長(GgafGroupHead)の解説もあわせて参照して下さい。
  * @version 1.00
  * @since 2007/11/29
  * @author Masatoshi Tsuge
  */
-class GgafSceneDirector : public GgafActor {
+class GgafSceneMediator : public GgafActor {
 
 private:
     /**
      * 使用不可 .
      */
-    GgafSceneDirector* extract() override {
-        throwGgafCriticalException("GgafSceneDirector に extract() は実行できません。name="<<getName());
-        return (GgafSceneDirector*)nullptr;
+    GgafSceneMediator* extract() override {
+        throwGgafCriticalException("GgafSceneMediator に extract() は実行できません。name="<<getName());
+        return (GgafSceneMediator*)nullptr;
     }
 
 public:
-    GgafSceneDirector(GgafScene* prm_pScene_platform);
+    GgafSceneMediator(GgafScene* prm_pScene_platform);
 
     /**
      * 初期処理<BR>
@@ -124,7 +124,7 @@ public:
      * </pre>
      * 補足：引数の prm_pMainActor 以下全てのアクターに関して、
      *       ・所属シーンメンバ (_pScene_platform)
-     *       ・監督アクターメンバ(_pSceneDirector)
+     *       ・仲介者アクターメンバ(_pSceneMediator)
      *       ・団長アクターメンバ(_pGroupHead) ※但し下位に他の団長がいた場合はそこまで
      *       の更新を行います。
      * @param   prm_kind    種別名（＝GgafGroupHead名）
@@ -156,8 +156,10 @@ public:
      */
     GgafGod* askGod();
 
-    virtual ~GgafSceneDirector();
+    GgafActor* bring(hashval prm_name_hash);
+
+    virtual ~GgafSceneMediator();
 };
 
 }
-#endif /**GGAFSCENEDIRECTOR_H_*/
+#endif /**GGAFSCENEMEDIATOR_H_*/

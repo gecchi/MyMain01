@@ -1,6 +1,6 @@
 #include "TransitStage.h"
 
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "../StageController.h"
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
 #include "jp/gecchi/VioletVreath/actor/background/WorldBound/WorldBoundTransit.h"
@@ -18,14 +18,14 @@ TransitStage::TransitStage(const char* prm_name) : Stage(prm_name) {
     teansit_stage_ = 0;
     next_main_stage_ = 1;
     pWorldBound_ = NEW WorldBoundTransit("WBSTransit");
-    bringDirector()->addSubGroup(pWorldBound_);
+    bringSceneMediator()->addSubGroup(pWorldBound_);
 
     pHoshiBoshi_ = NEW HoshiBoshiTransit("HoshiBoshiTransit");
-    bringDirector()->addSubGroup(KIND_EFFECT, pHoshiBoshi_);
+    bringSceneMediator()->addSubGroup(KIND_EFFECT, pHoshiBoshi_);
 
     pMessage_ = NEW LabelGecchi16Font("TransitStageMsg");
     pMessage_->update(300*1000, 300*1000, "");
-    bringDirector()->addSubGroup(KIND_EFFECT, pMessage_);
+    bringSceneMediator()->addSubGroup(KIND_EFFECT, pMessage_);
 }
 
 void TransitStage::initialize() {

@@ -6,7 +6,7 @@
 namespace VioletVreath {
 
 
-HASHVAL(RATISLAVIA_EXPLOSION);
+DECLARE_HASHVAL(RATISLAVIA_EXPLOSION);
 
 /**
  * ラティスラヴィア .

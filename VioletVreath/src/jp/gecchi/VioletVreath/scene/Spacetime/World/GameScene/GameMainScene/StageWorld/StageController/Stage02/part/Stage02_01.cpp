@@ -1,6 +1,6 @@
 #include "Stage02_01.h"
 
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/ggaf/dxcore/sound/GgafDxBgmConductor.h"
 #include "jp/ggaf/lib/scene/FormationTableScene.h"
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
@@ -41,7 +41,7 @@ void Stage02_01::processBehavior() {
 			}
 			case 100: {
 				FormationGeria001* pF = (FormationGeria001*)obtainActorFromFactory(70000000);
-				bringDirector()->addSubGroup(pF);
+				bringSceneMediator()->addSubGroup(pF);
 				break;
 			}
 			case 400: {

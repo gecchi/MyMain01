@@ -1,7 +1,7 @@
 #include "jp/ggaf/lib/actor/camera/worker/AroundViewCamWorker.h"
 
 #include "jp/ggaf/core/GgafFactory.h"
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
 #include "jp/ggaf/dxcore/util/GgafDxQuaternion.h"

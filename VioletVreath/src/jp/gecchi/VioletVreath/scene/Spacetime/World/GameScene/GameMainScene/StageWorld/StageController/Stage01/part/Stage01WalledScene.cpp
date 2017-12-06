@@ -1,6 +1,6 @@
 #include "Stage01WalledScene.h"
 
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/ggaf/dxcore/sound/GgafDxBgmConductor.h"
 #include "jp/ggaf/lib/actor/WallAABActor.h"
 #include "jp/ggaf/lib/scene/FormationTableScene.h"
@@ -37,7 +37,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
         pWallAABActor->setScaleR(scale_r);
         pDepo_wall->put(pWallAABActor);
     }
-    bringDirector()->addSubGroup(pDepo_wall);
+    bringSceneMediator()->addSubGroup(pDepo_wall);
 
     //壁ブロック(プリズム)デポジトリ生成
     WallAAPrismActor* pWallAAPrismActor;
@@ -48,7 +48,7 @@ Stage01WalledScene::Stage01WalledScene(const char* prm_name) : WalledScene(prm_n
         pWallAAPrismActor->setScaleR(scale_r);
         pDepo_prism->put(pWallAAPrismActor);
     }
-    bringDirector()->addSubGroup(pDepo_prism);
+    bringSceneMediator()->addSubGroup(pDepo_prism);
 
 //    //シーンセクション生成
 //    WalledSectionScene* apSection[] = {
@@ -123,7 +123,7 @@ void Stage01WalledScene::processBehavior() {
             }
             case 100: {
                 EnemyHisbe* p = (EnemyHisbe*)obtainActorFromFactory(50000002);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 p->_x = PX_C(2000);
                 p->_y = 0;
                 p->_z = 1000000;
@@ -135,7 +135,7 @@ void Stage01WalledScene::processBehavior() {
                 break;
             }
             case 2000: {
-                bringDirector()->addSubGroup(obtainActorFromFactory(50000000));
+                bringSceneMediator()->addSubGroup(obtainActorFromFactory(50000000));
                 break;
             }
             case 5400: {
@@ -143,7 +143,7 @@ void Stage01WalledScene::processBehavior() {
                 break;
             }
             case 6000: {
-                bringDirector()->addSubGroup(obtainActorFromFactory(50000001));
+                bringSceneMediator()->addSubGroup(obtainActorFromFactory(50000001));
                 break;
             }
             default :

@@ -11,7 +11,7 @@
     #error pSTAGE_CTRLER isnt define
 #endif
 
-HASHVAL(EVENT_RANKUP_WAS_END);
+DECLARE_HASHVAL(EVENT_RANKUP_WAS_END);
 
 namespace VioletVreath {
 

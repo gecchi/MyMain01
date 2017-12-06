@@ -6,7 +6,7 @@
 #include "util/MgrUtil.h"
 #include "MgrGod.h"
 #include "jp/ggaf/core/scene/GgafScene.h"
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "actor/camera/MgrCameraWorker.h"
 using namespace Mogera;
 
@@ -24,7 +24,7 @@ MgrSpacetime::MgrSpacetime(const char* prm_name, MgrCamera* prm_pCam) :
     UTIL::center_y_ = PX_C(PROPERTY::RENDER_TARGET_BUFFER_HEIGHT / 2);
 
     pActiveCamWorker_ = NEW MgrCameraWorker("MgrCameraWorker", prm_pCam);
-    bringDirector()->addSubGroup(pActiveCamWorker_); //基底デフォルトカメラワーク
+    bringSceneMediator()->addSubGroup(pActiveCamWorker_); //基底デフォルトカメラワーク
 
     _TRACE_("Spacetime Bound = X("<<_x_bound_left<<" ~ "<<_x_bound_right<<") Y("<<_y_bound_bottom<<" ~ "<<_y_bound_top<<") Z("<<_z_bound_near<<" ~ "<<_z_bound_far<<")");
 }

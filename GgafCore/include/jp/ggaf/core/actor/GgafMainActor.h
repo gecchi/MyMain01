@@ -18,8 +18,8 @@ class GgafMainActor : public GgafActor {
 public:
     /** [r]自身が所属するグループの団長 */
     GgafGroupHead* _pGroupHead;
-    /** [r]自身が所属するグループの団長のシーン監督 */
-    GgafSceneDirector* _pSceneDirector;
+    /** [r]自身が所属するグループの団長のシーン仲介者 */
+    GgafSceneMediator* _pSceneMediator;
 
 public:
     GgafMainActor(const char* prm_name, GgafStatus* prm_pStat);
@@ -38,15 +38,15 @@ public:
      * 自ツリーノードを連結リストから切り離し、独立する。 .
      * 切り離され穴が開いた部分は、周りのノードが穴を埋めます（再連結します）<BR>
      * 自ノードに子がぶら下がっていた場合、それらも切り離されたことになります。<BR>
-     * GgafMainActorの場合、配下の _pSceneDirector 及び _pGroupHead に nullptr がセットされる。<BR>
+     * GgafMainActorの場合、配下の _pSceneMediator 及び _pGroupHead に nullptr がセットされる。<BR>
      * @return  自ノードのポインタ
      */
     virtual GgafMainActor* extract() override;
 
     /**
-     * シーン監督を設定する。 .
+     * シーン仲介者を設定する。 .
      */
-    virtual void setMySceneDirector(GgafSceneDirector* prm_pSceneDirector);
+    virtual void setMySceneMediator(GgafSceneMediator* prm_pSceneMediator);
 
     /**
      * 団長を設定する。<BR>
@@ -54,10 +54,10 @@ public:
     virtual void setMyGroupHead(GgafGroupHead* prm_pGroupHead);
 
     /**
-     * 所属シーンのシーン監督取得。但しシーンに所属していない場合は、この世(Spacetime)のシーン監督を返す .
-     * @return 所属シーン監督の監督。(いない場合 この世(Spacetime)の監督)
+     * 所属シーンのシーン仲介者取得。但しシーンに所属していない場合は、この世(Spacetime)のシーン仲介者を返す .
+     * @return 所属シーン仲介者の仲介者。(いない場合 この世(Spacetime)の仲介者)
      */
-    GgafSceneDirector* getMySceneDirector();
+    GgafSceneMediator* getMySceneMediator();
 
     /**
      * シーン団長を取得する。 .

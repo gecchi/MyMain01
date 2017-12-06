@@ -3,7 +3,7 @@
 #include "jp/ggaf/lib/actor/ColliAABoxActor.h"
 #include "jp/ggaf/core/GgafFactory.h"
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "scene/HgrSpacetime/HgrWorld.h"
 #include "actor/Test01.h"
 #include "actor/Jiki.h"
@@ -37,17 +37,17 @@ void TrialAndErrScene::processBehavior() {
 
 //        ColliAABoxActor* XXX = NEW ColliAABoxActor("HOGEHOGE");
 //        XXX->setScaleR(100);
-//        bringDirector()->addSubGroup(XXX);
+//        bringSceneMediator()->addSubGroup(XXX);
 //        XXX->sayonara(2);
 
 
         Test01* pTest = (Test01*)obtainActorFromFactory(10000);
         pTest->setPosition(0,0,0);
-        bringDirector()->addSubGroup(HGR_MIKATA, pTest);
+        bringSceneMediator()->addSubGroup(HGR_MIKATA, pTest);
 
         Jiki* pJiki = (Jiki*)obtainActorFromFactory(10001);
         pJiki->setPosition(PX_C(200), PX_C(200),0);
-        bringDirector()->addSubGroup(HGR_TEKI, pJiki);
+        bringSceneMediator()->addSubGroup(HGR_TEKI, pJiki);
 
 
     }

@@ -107,6 +107,7 @@ public:
     /** [r]子ノードの数 */
     int _sub_num;
 
+    hashval _name_hash;
 public:
     /**
      * コンストラクタ
@@ -379,9 +380,11 @@ GgafNode<T>::GgafNode(const char* prm_name) :
     _is_last_flg(true),
     _sub_num(0)
 {
+    _name_hash = UTIL::easy_hash(prm_name);
     int len = strlen(prm_name);
     _name = NEW char[len+1];
     strcpy(_name, prm_name);
+
 
 //#ifdef MY_DEBUG
 //    if (strlen(prm_name) > 49) {

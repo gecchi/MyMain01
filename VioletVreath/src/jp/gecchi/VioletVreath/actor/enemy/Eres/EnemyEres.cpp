@@ -1,6 +1,6 @@
 #include "EnemyEres.h"
 
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/ggaf/core/actor/GgafGroupHead.h"
 #include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
@@ -125,7 +125,7 @@ void EnemyEres::onHit(const GgafActor* prm_pOtherActor) {
 void EnemyEres::onInactive() {
     if (createGgafActorDepository_) {
         //’e‚Í’x‚ê‚ÄŠJ•ú‚³‚¹‚é‚æ‚¤‚ÉA“®‚«‚ðŒp‘±‚³‚¹‚é‚½‚ßˆÚ“®
-        getMySceneDirector()->addSubLast(pDepo_shot001_->getMyGroupHead()->extract());
+        getMySceneMediator()->addSubLast(pDepo_shot001_->getMyGroupHead()->extract());
         pDepo_shot001_->sayonara(60 * 5);//‰ð•ú—\–ñ
     }
     sayonara();

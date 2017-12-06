@@ -2,7 +2,7 @@
 
 #include <algorithm>
 #include "jp/ggaf/core/GgafFactory.h"
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/dxcore/actor/GgafDxMorphMeshActor.h"
 #include "jp/ggaf/dxcore/model/GgafDxMorphMeshModel.h"
@@ -29,16 +29,16 @@ using namespace std;
 
 VvvWorld::VvvWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
     pCamWorker_ = NEW VvvCamWorker("VvvCamWorker", pGOD->getSpacetime()->getCamera());
-    bringDirector()->addSubGroup(pCamWorker_);
+    bringSceneMediator()->addSubGroup(pCamWorker_);
     pCursor_ = NEW VvvCursor("Cursor");
-    bringDirector()->addSubGroup(pCursor_);
+    bringSceneMediator()->addSubGroup(pCursor_);
     pGrid_ = NEW VvvGrid("GRID");
-    bringDirector()->addSubGroup(pGrid_);
+    bringSceneMediator()->addSubGroup(pGrid_);
     vb_ = NEW VirtualButton();
     pFont01_info_ =  NEW Font01("Font01");
-    bringDirector()->addSubGroup(pFont01_info_);
+    bringSceneMediator()->addSubGroup(pFont01_info_);
     pFont01_help_ =  NEW Font01("Font01");
-    bringDirector()->addSubGroup(pFont01_help_);
+    bringSceneMediator()->addSubGroup(pFont01_help_);
     view_help_ = true;
     view_info_ = true;
 }
@@ -512,7 +512,7 @@ void VvvWorld::processBehavior() {
         }
 
         if (pActor) {
-            bringDirector()->addSubGroup(pActor);
+            bringSceneMediator()->addSubGroup(pActor);
             ActorInfo* pActorInfo = NEW ActorInfo(pActor, string(VvvGod::dropfiles_));
             listActorInfo_.addLast(pActorInfo);
             listActorInfo_.last(); //ƒJƒŒƒ“ƒg‚ðlast‚Ö
@@ -557,7 +557,7 @@ void VvvWorld::processBehavior() {
                 pNewActor->setPositionAt(pCurrentActor);
                 pNewActor->setFaceAngAs(pCurrentActor);
                 pNewActor->scaleAs(pCurrentActor);
-                bringDirector()->addSubGroup(pNewActor);
+                bringSceneMediator()->addSubGroup(pNewActor);
                 ActorInfo* pActorInfoNew = NEW ActorInfo(pNewActor, listActorInfo_.getCurrent()->modelfile_);
                 listActorInfo_.set(pActorInfoNew);
                 pCurrentActor->end();

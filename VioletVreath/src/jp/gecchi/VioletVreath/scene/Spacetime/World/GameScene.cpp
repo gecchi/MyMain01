@@ -1,6 +1,6 @@
 #include "GameScene.h"
 
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/ggaf/dxcore/sound/GgafDxBgmConductor.h"
 
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
@@ -44,7 +44,7 @@ pStageWorld_(nullptr) {
     addSubLast(pStageWorld_);
 
     pMenuBoardPause_ = NEW MenuBoardPause("MenuBoardPause");
-    bringDirector()->addSubGroup(pMenuBoardPause_);
+    bringSceneMediator()->addSubGroup(pMenuBoardPause_);
 
     addSubLast(NEW GamePreTitleScene("PreGameTitle"));
     addSubLast(NEW GameTitleScene("GameTitle"));

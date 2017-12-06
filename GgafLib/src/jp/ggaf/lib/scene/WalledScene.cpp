@@ -1,7 +1,7 @@
 #include "jp/ggaf/lib/scene/WalledScene.h"
 
 #include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/ggaf/lib/scene/WalledSectionScene.h"
 #include "jp/ggaf/lib/actor/WallPartsActor.h"
 
@@ -33,13 +33,13 @@ void WalledScene::buildWalledScene(
     if (_pDepo_wall->getPlatformScene()) {
         //既に所属しているならばOK
     } else {
-        bringDirector()->addSubGroup(_pDepo_wall); //仮所属 initialize() で本所属
+        bringSceneMediator()->addSubGroup(_pDepo_wall); //仮所属 initialize() で本所属
     }
     if (_pDepo_prism) {
         if (_pDepo_prism->getPlatformScene()) {
             //既に所属しているならばOK
         } else {
-            bringDirector()->addSubGroup(_pDepo_prism); //仮所属 initialize() で本所属
+            bringSceneMediator()->addSubGroup(_pDepo_prism); //仮所属 initialize() で本所属
         }
     }
     for (int i = 0; i < prm_section_num; i++) {
@@ -94,13 +94,13 @@ void WalledScene::initialize() {
     if (_pDepo_wall == nullptr) {
         throwGgafCriticalException("WalledScene["<<getName()<<"] オブジェクトが未完成です。buildWalledScene()を実行し構築してください。");
     }
-    //buildWalledScene が継承クラスのコンストラクタで実行された場合、bringDirector() は世界シーンを返すため
+    //buildWalledScene が継承クラスのコンストラクタで実行された場合、bringSceneMediator() は世界シーンを返すため
     //壁デポジトリの所属シーンは世界シーン所属になっている可能性がある。、
     //スクロール制御を行うためにも、壁デポジトリ は this の配下に置く必要があるため、以下の様に
     //配下シーンに再設定する。
-    bringDirector()->addSubGroup(_pDepo_wall->extract());
+    bringSceneMediator()->addSubGroup(_pDepo_wall->extract());
     if (_pDepo_prism) {
-        bringDirector()->addSubGroup(_pDepo_prism->extract());
+        bringSceneMediator()->addSubGroup(_pDepo_prism->extract());
     }
 }
 

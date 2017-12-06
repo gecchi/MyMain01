@@ -12,7 +12,8 @@
 #include <iomanip>
 #include "jp/ggaf/core/exception/GgafCriticalException.h"
 
-#define HASHVAL(X) const static hashval X = GgafCore::GgafUtil::easy_hash(#X)
+#define DECLARE_HASHVAL(X) const static hashval X = GgafCore::GgafUtil::easy_hash(#X)
+#define HASHVAL(X) GgafCore::GgafUtil::easy_hash(#X)
 
 #define XTOS(X) (GgafCore::GgafUtil::_xtos_(X))
 #define STOI(X) (GgafCore::GgafUtil::_stoi_(X))

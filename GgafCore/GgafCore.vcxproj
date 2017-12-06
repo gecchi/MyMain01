@@ -30,7 +30,6 @@
     <ClInclude Include="include\jp\ggaf\core\actor\GgafDisusedActor.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\GgafGroupHead.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\GgafMainActor.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\ggafscenedirector.h" />
     <ClInclude Include="include\jp\ggaf\core\exception\GgafCriticalException.h" />
     <ClInclude Include="include\jp\ggaf\core\exception\GgafException.h" />
     <ClInclude Include="include\jp\ggaf\core\GgafElement.hpp" />
@@ -78,7 +77,6 @@
     <ClCompile Include="src\jp\ggaf\core\actor\GgafActor.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\GgafGroupHead.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\GgafMainActor.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\GgafSceneDirector.cpp" />
     <ClCompile Include="src\jp\ggaf\core\exception\GgafCriticalException.cpp" />
     <ClCompile Include="src\jp\ggaf\core\exception\GgafException.cpp" />
     <ClCompile Include="src\jp\ggaf\core\GgafFactory.cpp" />

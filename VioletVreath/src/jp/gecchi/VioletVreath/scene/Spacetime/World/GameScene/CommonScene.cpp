@@ -1,7 +1,7 @@
 #include "CommonScene.h"
 
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/core/actor/ex/GgafActorDepositoryStore.h"
 
@@ -40,7 +40,7 @@ pStore_EnemyStraightLaser001_(NEW GgafActorDepositoryStore("CommonDepoStore_Enem
             std::string name = "EffectExplosion001("+XTOS(i)+")";
             pCOMMON_DEPO(EffectExplosion001)->put(NEW EffectExplosion001(name.c_str()));
         }
-        bringDirector()->addSubGroup(pCOMMON_DEPO(EffectExplosion001));
+        bringSceneMediator()->addSubGroup(pCOMMON_DEPO(EffectExplosion001));
     }
 
     //汎用爆発エフェクト EffectExplosion002
@@ -49,7 +49,7 @@ pStore_EnemyStraightLaser001_(NEW GgafActorDepositoryStore("CommonDepoStore_Enem
             std::string name = "EffectExplosion002("+XTOS(i)+")";
             pCOMMON_DEPO(EffectExplosion002)->put(NEW EffectExplosion002(name.c_str()));
         }
-        bringDirector()->addSubGroup(pCOMMON_DEPO(EffectExplosion002));
+        bringSceneMediator()->addSubGroup(pCOMMON_DEPO(EffectExplosion002));
     }
     //汎用爆発エフェクト EffectExplosion003
     {
@@ -57,7 +57,7 @@ pStore_EnemyStraightLaser001_(NEW GgafActorDepositoryStore("CommonDepoStore_Enem
             std::string name = "EffectExplosion003("+XTOS(i)+")";
             pCOMMON_DEPO(EffectExplosion003)->put(NEW EffectExplosion003(name.c_str()));
         }
-        bringDirector()->addSubGroup(pCOMMON_DEPO(EffectExplosion003));
+        bringSceneMediator()->addSubGroup(pCOMMON_DEPO(EffectExplosion003));
     }
 
     //汎用爆発エフェクト大 EffectExplosion004
@@ -66,7 +66,7 @@ pStore_EnemyStraightLaser001_(NEW GgafActorDepositoryStore("CommonDepoStore_Enem
             std::string name = "EffectExplosion004("+XTOS(i)+")";
             pCOMMON_DEPO(EffectExplosion004)->put(NEW EffectExplosion004(name.c_str()));
         }
-        bringDirector()->addSubGroup(pCOMMON_DEPO(EffectExplosion004));
+        bringSceneMediator()->addSubGroup(pCOMMON_DEPO(EffectExplosion004));
     }
 
     //アイテム小
@@ -75,7 +75,7 @@ pStore_EnemyStraightLaser001_(NEW GgafActorDepositoryStore("CommonDepoStore_Enem
             std::string name = "MagicPointItem001("+XTOS(i)+")";
             pCOMMON_DEPO(MagicPointItem001)->put(NEW MagicPointItem001(name.c_str()));
         }
-        bringDirector()->addSubGroup(pCOMMON_DEPO(MagicPointItem001));
+        bringSceneMediator()->addSubGroup(pCOMMON_DEPO(MagicPointItem001));
     }
 
     //アイテム中
@@ -84,7 +84,7 @@ pStore_EnemyStraightLaser001_(NEW GgafActorDepositoryStore("CommonDepoStore_Enem
             std::string name = "MagicPointItem002("+XTOS(i)+")";
             pCOMMON_DEPO(MagicPointItem002)->put(NEW MagicPointItem002(name.c_str()));
         }
-        bringDirector()->addSubGroup(pCOMMON_DEPO(MagicPointItem002));
+        bringSceneMediator()->addSubGroup(pCOMMON_DEPO(MagicPointItem002));
     }
 
     //アイテム大
@@ -93,7 +93,7 @@ pStore_EnemyStraightLaser001_(NEW GgafActorDepositoryStore("CommonDepoStore_Enem
             std::string name = "MagicPointItem003("+XTOS(i)+")";
             pCOMMON_DEPO(MagicPointItem003)->put(NEW MagicPointItem003(name.c_str()));
         }
-        bringDirector()->addSubGroup(pCOMMON_DEPO(MagicPointItem003));
+        bringSceneMediator()->addSubGroup(pCOMMON_DEPO(MagicPointItem003));
     }
 
     { //Effect EffectTurbo002 ターボ噴射
@@ -101,7 +101,7 @@ pStore_EnemyStraightLaser001_(NEW GgafActorDepositoryStore("CommonDepoStore_Enem
             std::string name = "EffectTurbo002("+XTOS(i)+")";
             pCOMMON_DEPO(EffectTurbo002)->put(NEW EffectTurbo002(name.c_str()));
         }
-        bringDirector()->addSubGroup(pCOMMON_DEPO(EffectTurbo002));
+        bringSceneMediator()->addSubGroup(pCOMMON_DEPO(EffectTurbo002));
     }
 
     //汎用出現エフェクト EffectBlink001
@@ -110,7 +110,7 @@ pStore_EnemyStraightLaser001_(NEW GgafActorDepositoryStore("CommonDepoStore_Enem
             std::string name = "EffectBlink001("+XTOS(i)+")";
             pCOMMON_DEPO(EffectBlink001)->put(NEW EffectBlink001(name.c_str()));
         }
-        bringDirector()->addSubGroup(pCOMMON_DEPO(EffectBlink001));
+        bringSceneMediator()->addSubGroup(pCOMMON_DEPO(EffectBlink001));
     }
 
     //汎用出現エフェクト EffectBlink002
@@ -119,7 +119,7 @@ pStore_EnemyStraightLaser001_(NEW GgafActorDepositoryStore("CommonDepoStore_Enem
             std::string name = "EffectBlink002("+XTOS(i)+")";
             pCOMMON_DEPO(EffectBlink002)->put(NEW EffectBlink002(name.c_str()));
         }
-        bringDirector()->addSubGroup(pCOMMON_DEPO(EffectBlink002));
+        bringSceneMediator()->addSubGroup(pCOMMON_DEPO(EffectBlink002));
     }
 
     //汎用出現エフェクト EffectBlink003
@@ -128,7 +128,7 @@ pStore_EnemyStraightLaser001_(NEW GgafActorDepositoryStore("CommonDepoStore_Enem
             std::string name = "EffectBlink003("+XTOS(i)+")";
             pCOMMON_DEPO(EffectBlink003)->put(NEW EffectBlink003(name.c_str()));
         }
-        bringDirector()->addSubGroup(pCOMMON_DEPO(EffectBlink003));
+        bringSceneMediator()->addSubGroup(pCOMMON_DEPO(EffectBlink003));
     }
 
     //ボーナスポイント表示エフェクト
@@ -137,7 +137,7 @@ pStore_EnemyStraightLaser001_(NEW GgafActorDepositoryStore("CommonDepoStore_Enem
             std::string name = "SpriteLabelBonus001("+XTOS(i)+")";
             pCOMMON_DEPO(SpriteLabelBonus001)->put(NEW SpriteLabelBonus001(name.c_str()));
         }
-        bringDirector()->addSubGroup(pCOMMON_DEPO(SpriteLabelBonus001));
+        bringSceneMediator()->addSubGroup(pCOMMON_DEPO(SpriteLabelBonus001));
     }
 
     //汎用ショット
@@ -146,7 +146,7 @@ pStore_EnemyStraightLaser001_(NEW GgafActorDepositoryStore("CommonDepoStore_Enem
             std::string name = "Shot004("+XTOS(i)+")";
             pCOMMON_DEPO(Shot004)->put(NEW Shot004(name.c_str()));
         }
-        bringDirector()->addSubGroup(pCOMMON_DEPO(Shot004));
+        bringSceneMediator()->addSubGroup(pCOMMON_DEPO(Shot004));
     }
 
     //汎用Wateringレーザー
@@ -161,7 +161,7 @@ pStore_EnemyStraightLaser001_(NEW GgafActorDepositoryStore("CommonDepoStore_Enem
             }
             pStore_EnemyWateringLaser001_->put(pLaserChipDepo);
         }
-        bringDirector()->addSubGroup(pStore_EnemyWateringLaser001_);
+        bringSceneMediator()->addSubGroup(pStore_EnemyWateringLaser001_);
     }
     //汎用ストレートレーザー
     {
@@ -175,7 +175,7 @@ pStore_EnemyStraightLaser001_(NEW GgafActorDepositoryStore("CommonDepoStore_Enem
             }
             pStore_EnemyStraightLaser001_->put(pLaserChipDepo);
         }
-        bringDirector()->addSubGroup(pStore_EnemyStraightLaser001_);
+        bringSceneMediator()->addSubGroup(pStore_EnemyStraightLaser001_);
     }
     //    { //EnemyShot001
     //        pDepo_EnemyShots001_ = NEW GgafActorDepository("TAMAS001");
@@ -185,7 +185,7 @@ pStore_EnemyStraightLaser001_(NEW GgafActorDepositoryStore("CommonDepoStore_Enem
     //            pEnemyShot->inactivateTreeImmed(); //最初非表示
     //            pDepo_EnemyShots001_->addSubLast(pEnemyShot);
     //        }
-    //        bringDirector()->addSubGroup(pDepo_EnemyShots001_);
+    //        bringSceneMediator()->addSubGroup(pDepo_EnemyShots001_);
     //    }
 
 
@@ -198,7 +198,7 @@ pStore_EnemyStraightLaser001_(NEW GgafActorDepositoryStore("CommonDepoStore_Enem
     //            pEffectExplosion->inactivateTreeImmed(); //最初非表示
     //            pCOMMON_DEPO(EffectExplosion003)->addSubLast(pEffectExplosion);
     //        }
-    //        bringDirector()->addSubGroup(pCOMMON_DEPO(EffectExplosion003));
+    //        bringSceneMediator()->addSubGroup(pCOMMON_DEPO(EffectExplosion003));
     //    }
 
 //
@@ -220,7 +220,7 @@ pStore_EnemyStraightLaser001_(NEW GgafActorDepositoryStore("CommonDepoStore_Enem
 //            pLaserChipDepo->inactivate();
 //            pDepo_LaserChipDepository_->addSubLast(pLaserChipDepo);
 //        }
-//        bringDirector()->addSubGroup(pDepo_LaserChipDepository_);
+//        bringSceneMediator()->addSubGroup(pDepo_LaserChipDepository_);
 //    }
 }
 

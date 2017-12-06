@@ -1,6 +1,6 @@
 #include "Stage01WallScene.h"
 
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/ggaf/dxcore/sound/GgafDxBgmConductor.h"
 #include "jp/ggaf/lib/actor/WallAABActor.h"
 #include "jp/ggaf/lib/scene/FormationTableScene.h"
@@ -36,7 +36,7 @@ Stage01WallScene::Stage01WallScene(const char* prm_name) : WallScene(prm_name) {
         pWall->setScaleR(scale_r);
         pDepo_wall->put(pWall);
     }
-    bringDirector()->addSubGroup(pDepo_wall);
+    bringSceneMediator()->addSubGroup(pDepo_wall);
 
 
 //    //シーンセクション生成
@@ -112,7 +112,7 @@ void Stage01WallScene::processBehavior() {
             }
             case 100: {
                 EnemyHisbe* p = (EnemyHisbe*)obtainActorFromFactory(60000002);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 p->_x = PX_C(2000);
                 p->_y = 0;
                 p->_z = 1000000;
@@ -124,7 +124,7 @@ void Stage01WallScene::processBehavior() {
                 break;
             }
             case 2000: {
-                bringDirector()->addSubGroup(obtainActorFromFactory(60000000));
+                bringSceneMediator()->addSubGroup(obtainActorFromFactory(60000000));
                 break;
             }
             case 5400: {
@@ -132,7 +132,7 @@ void Stage01WallScene::processBehavior() {
                 break;
             }
             case 6000: {
-                bringDirector()->addSubGroup(obtainActorFromFactory(60000001));
+                bringSceneMediator()->addSubGroup(obtainActorFromFactory(60000001));
                 break;
             }
             default :

@@ -10,7 +10,7 @@ namespace VioletVreath {
 
 
 
-HASHVAL(EVENT_MyBunshin_ChangeGeoFinal);
+DECLARE_HASHVAL(EVENT_MyBunshin_ChangeGeoFinal);
 
 
 //class MyBunshin : public GgafLib::DefaultMorphMeshActor {

@@ -1,7 +1,7 @@
 #include "jp/ggaf/core/scene/GgafScene.h"
 
 #include "jp/ggaf/core/GgafGod.h"
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/ggaf/core/GgafFactory.h"
 
 using namespace GgafCore;
@@ -10,7 +10,7 @@ GgafScene::GgafScene(const char* prm_name) : GgafElement<GgafScene> (prm_name) {
     _class_name = "GgafScene";
     _obj_class |= Obj_GgafScene;
 
-    _pSceneDirector = NEW GgafSceneDirector(this);
+    _pSceneMediator = NEW GgafSceneMediator(this);
     _once_in_n_time = 1;
     _is_next_frame = true;
 #ifdef MY_DEBUG
@@ -31,7 +31,7 @@ GgafScene::~GgafScene() {
 #else
     //OutputDebugStringA("*");
 #endif
-    GGAF_DELETE_NULLABLE(_pSceneDirector);
+    GGAF_DELETE_NULLABLE(_pSceneMediator);
 }
 void GgafScene::setRunFrameOnce(int prm_once_in_n_time) {
     if (prm_once_in_n_time <= 1) {
@@ -59,16 +59,16 @@ void GgafScene::nextFrame() {
     _is_next_frame = (_once_in_n_time == 1 || pGOD->_frame_of_God % _once_in_n_time == 0);
     if (_is_next_frame) {
         GgafElement<GgafScene>::nextFrame();
-        frame f = _pSceneDirector->_frame_of_life;
+        frame f = _pSceneMediator->_frame_of_life;
         if (b || _is_active_in_the_tree_flg ||
-                f <= _pSceneDirector->_frame_of_life_when_activation ||
-                f <= _pSceneDirector->_frame_of_life_when_inactivation ||
-                f <= _pSceneDirector->_frame_of_life_when_end) {
-            _pSceneDirector->nextFrame();
+                f <= _pSceneMediator->_frame_of_life_when_activation ||
+                f <= _pSceneMediator->_frame_of_life_when_inactivation ||
+                f <= _pSceneMediator->_frame_of_life_when_end) {
+            _pSceneMediator->nextFrame();
         }
         //_is_active_in_the_tree_flg == false でも
         //GgafElement<GgafScene>::nextFrame(); が実行時は
-        //必ず _pSceneDirector->nextFrame(); を実行する。
+        //必ず _pSceneMediator->nextFrame(); を実行する。
         //理由は onInactive() 等のイベントを発生させる為
     }
 }
@@ -76,50 +76,50 @@ void GgafScene::nextFrame() {
 void GgafScene::behave() {
     if (_is_next_frame) {
         GgafElement<GgafScene>::behave();
-        _pSceneDirector->behave();
+        _pSceneMediator->behave();
     }
 }
 
 void GgafScene::settleBehavior() {
     if (_is_next_frame) {
         GgafElement<GgafScene>::settleBehavior();
-        _pSceneDirector->settleBehavior();
+        _pSceneMediator->settleBehavior();
     }
 }
 
 void GgafScene::preJudge() {
     GgafElement<GgafScene>::preJudge();
-    _pSceneDirector->preJudge();
+    _pSceneMediator->preJudge();
 }
 
 void GgafScene::judge() {
     GgafElement<GgafScene>::judge();
-    _pSceneDirector->judge();
+    _pSceneMediator->judge();
 }
 
 void GgafScene::preDraw() {
     GgafElement<GgafScene>::preDraw();
-    _pSceneDirector->preDraw();
+    _pSceneMediator->preDraw();
 }
 
 void GgafScene::draw() {
     GgafElement<GgafScene>::draw();
-    _pSceneDirector->draw();
+    _pSceneMediator->draw();
 }
 
 void GgafScene::afterDraw() {
     GgafElement<GgafScene>::afterDraw();
-    _pSceneDirector->afterDraw();
+    _pSceneMediator->afterDraw();
 }
 
 void GgafScene::throwEventLowerTree(hashval prm_no, void* prm_pSource) {
     GgafElement<GgafScene>::throwEventLowerTree(prm_no, prm_pSource);
-    _pSceneDirector->throwEventLowerTree(prm_no, prm_pSource);
+    _pSceneMediator->throwEventLowerTree(prm_no, prm_pSource);
 }
 
 void GgafScene::throwEventLowerTree(hashval prm_no) {
     GgafElement<GgafScene>::throwEventLowerTree(prm_no);
-    _pSceneDirector->throwEventLowerTree(prm_no);
+    _pSceneMediator->throwEventLowerTree(prm_no);
 }
 
 void GgafScene::throwEventUpperTree(hashval prm_no, void* prm_pSource) {
@@ -134,82 +134,82 @@ void GgafScene::doFinally() {
     //doFinally()は_once_in_n_timeの影響を受けない。
     //必ず毎フレーム実行したい処理はprocessFinal()に書くことができることとする。
     GgafElement<GgafScene>::doFinally();
-    _pSceneDirector->doFinally();
+    _pSceneMediator->doFinally();
 }
 
 void GgafScene::activateTree() {
     GgafElement<GgafScene>::activateTree();
-    _pSceneDirector->activateTree();
+    _pSceneMediator->activateTree();
 }
 
 void GgafScene::activateDelay(frame prm_offset_frames) {
     GgafElement<GgafScene>::activateDelay(prm_offset_frames);
-    _pSceneDirector->activateDelay(prm_offset_frames);
+    _pSceneMediator->activateDelay(prm_offset_frames);
 }
 
 void GgafScene::activate() {
     GgafElement<GgafScene>::activate();
-    _pSceneDirector->activate();
+    _pSceneMediator->activate();
 }
 
 void GgafScene::activateTreeImmed() {
     GgafElement<GgafScene>::activateTreeImmed();
-    _pSceneDirector->activateTreeImmed();
+    _pSceneMediator->activateTreeImmed();
 }
 
 void GgafScene::activateImmed() {
     GgafElement<GgafScene>::activateImmed();
-    _pSceneDirector->activateImmed();
+    _pSceneMediator->activateImmed();
 }
 
 void GgafScene::inactivateTree() {
     GgafElement<GgafScene>::inactivateTree();
-    _pSceneDirector->inactivateTree();
+    _pSceneMediator->inactivateTree();
 }
 
 void GgafScene::inactivateDelay(frame prm_offset_frames) {
     GgafElement<GgafScene>::inactivateDelay(prm_offset_frames);
-    _pSceneDirector->inactivateDelay(prm_offset_frames);
+    _pSceneMediator->inactivateDelay(prm_offset_frames);
 }
 
 void GgafScene::inactivate() {
     GgafElement<GgafScene>::inactivate();
-    _pSceneDirector->inactivate();
+    _pSceneMediator->inactivate();
 }
 
 void GgafScene::inactivateTreeImmed() {
     GgafElement<GgafScene>::inactivateTreeImmed();
-    _pSceneDirector->inactivateTreeImmed();
+    _pSceneMediator->inactivateTreeImmed();
 }
 
 void GgafScene::inactivateImmed() {
     GgafElement<GgafScene>::inactivateImmed();
-    _pSceneDirector->inactivate();
+    _pSceneMediator->inactivate();
 }
 
 void GgafScene::pauseTree() {
     GgafElement<GgafScene>::pauseTree();
-    _pSceneDirector->pauseTree();
+    _pSceneMediator->pauseTree();
 }
 
 void GgafScene::pause() {
     GgafElement<GgafScene>::pause();
-    _pSceneDirector->pause();
+    _pSceneMediator->pause();
 }
 
 void GgafScene::unpauseTree() {
     GgafElement<GgafScene>::unpauseTree();
-    _pSceneDirector->unpauseTree();
+    _pSceneMediator->unpauseTree();
 }
 
 void GgafScene::unpause() {
     GgafElement<GgafScene>::unpause();
-    _pSceneDirector->unpause();
+    _pSceneMediator->unpause();
 }
 
 void GgafScene::executeFuncLowerTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2) {
     GgafElement<GgafScene>::executeFuncLowerTree(pFunc, prm1, prm2);
-    _pSceneDirector->executeFuncLowerTree(pFunc, prm1, prm2);
+    _pSceneMediator->executeFuncLowerTree(pFunc, prm1, prm2);
 }
 void GgafScene::executeFuncLowerSceneTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2) {
     if (_can_live_flg && _is_active_flg) {   //TODO:activeフラグも、入れても良いかな・・・
@@ -233,17 +233,17 @@ void GgafScene::executeFuncLowerSceneTree(void (*pFunc)(GgafObject*, void*, void
 void GgafScene::reset() {
     _once_in_n_time = 1;
     GgafElement<GgafScene>::reset();
-    _pSceneDirector->reset();
+    _pSceneMediator->reset();
 }
 
 void GgafScene::resetTree() {
     _once_in_n_time = 1;
     GgafElement<GgafScene>::resetTree();
-    _pSceneDirector->resetTree();
+    _pSceneMediator->resetTree();
 }
 
 void GgafScene::end(frame prm_offset_frames) {
-    _pSceneDirector->end(prm_offset_frames);
+    _pSceneMediator->end(prm_offset_frames);
     if (prm_offset_frames > 3) {
         GgafElement<GgafScene>::end(prm_offset_frames-2);
     } else {
@@ -253,7 +253,7 @@ void GgafScene::end(frame prm_offset_frames) {
 }
 
 void GgafScene::sayonara(frame prm_offset_frames) {
-    _pSceneDirector->sayonara(prm_offset_frames);
+    _pSceneMediator->sayonara(prm_offset_frames);
     if (prm_offset_frames > 3) {
         GgafElement<GgafScene>::end(prm_offset_frames-2);
     } else {
@@ -274,10 +274,10 @@ void GgafScene::clean(int prm_num_cleaning) {
     if (GgafGarbageBox::_cnt_cleaned >= prm_num_cleaning) {
         return;
     }
-    if (_pSceneDirector) {
-        _pSceneDirector->clean(prm_num_cleaning);
-        if (_pSceneDirector->_pSubFirst == nullptr) {
-            GGAF_DELETE(_pSceneDirector);
+    if (_pSceneMediator) {
+        _pSceneMediator->clean(prm_num_cleaning);
+        if (_pSceneMediator->_pSubFirst == nullptr) {
+            GGAF_DELETE(_pSceneMediator);
         }
     } else {
         GgafElement<GgafScene>::clean(prm_num_cleaning);
@@ -293,8 +293,8 @@ GgafGod* GgafScene::askGod() {
 
 void GgafScene::dump() {
     _TRACE_("●"<<NODE_INFO<<DUMP_FLGS);
-    if (_pSceneDirector) {
-        _pSceneDirector->dump();
+    if (_pSceneMediator) {
+        _pSceneMediator->dump();
         GgafScene* pScene_tmp = _pSubFirst;
         while (pScene_tmp) {
             pScene_tmp->dump("\t");
@@ -313,8 +313,8 @@ void GgafScene::dump() {
 
 void GgafScene::dump(std::string prm_parent) {
     _TRACE_(prm_parent+"●"<<NODE_INFO<<DUMP_FLGS);
-    if (_pSceneDirector) {
-        _pSceneDirector->dump(prm_parent + "\t\t\t\t\t\t\t\t");
+    if (_pSceneMediator) {
+        _pSceneMediator->dump(prm_parent + "\t\t\t\t\t\t\t\t");
         GgafScene* pScene_tmp = _pSubFirst;
         while (pScene_tmp) {
             pScene_tmp->dump(prm_parent + "\t");

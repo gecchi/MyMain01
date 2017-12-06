@@ -1,6 +1,6 @@
 #include "Stage01_Climax.h"
 
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/ggaf/dxcore/sound/GgafDxBgmConductor.h"
 #include "jp/ggaf/lib/scene/FormationTableScene.h"
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
@@ -44,7 +44,7 @@ void Stage01_Climax::processBehavior() {
         pBoss_ = (EnemyStraea*)obtainActorFromFactory(11111111);
         pBoss_->_z = -1800000;
         pBoss_->_y = -100000;
-        bringDirector()->addSubGroup(pBoss_);
+        bringSceneMediator()->addSubGroup(pBoss_);
     }
 
     if (getBehaveingFrame() > 60) {

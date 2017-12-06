@@ -1,6 +1,6 @@
 #include "GameBeginningScene.h"
 
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -23,9 +23,9 @@ GameBeginningScene::GameBeginningScene(const char* prm_name) : DefaultScene(prm_
     _class_name = "GameBeginningScene";
 
     pLabel01_ = NEW LabelGecchi16Font("STR01");
-    bringDirector()->addSubGroup(KIND_EFFECT, pLabel01_);
+    bringSceneMediator()->addSubGroup(KIND_EFFECT, pLabel01_);
     pLabel02_ = NEW LabelGecchi16Font("STR02");
-    bringDirector()->addSubGroup(KIND_EFFECT, pLabel02_);
+    bringSceneMediator()->addSubGroup(KIND_EFFECT, pLabel02_);
     selected_stage_ = 0;
     useProgress(PROG_BANPEI);
 }

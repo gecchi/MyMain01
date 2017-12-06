@@ -39,7 +39,7 @@ class GgafActor : public GgafElement<GgafActor> {
 
     friend class GgafGod;
     friend class GgafMainActor;
-    friend class GgafSceneDirector;
+    friend class GgafSceneMediator;
     friend class GgafGroupHead;
     friend class GgafDestructActor;
     friend class GgafScene;

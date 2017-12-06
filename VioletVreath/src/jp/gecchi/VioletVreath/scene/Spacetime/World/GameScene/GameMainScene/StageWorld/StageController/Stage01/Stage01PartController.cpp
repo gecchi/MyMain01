@@ -1,6 +1,6 @@
 #include "Stage01PartController.h"
 
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/ggaf/dxcore/sound/GgafDxBgmConductor.h"
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -62,7 +62,7 @@ void Stage01PartController::processBehavior() {
 			case 300: {
 				addSubLast(obtainSceneFromFactory(10000004));
 				EnemyErmione* pE = (EnemyErmione*)obtainActorFromFactory(10000007);
-				bringDirector()->addSubGroup(pE);
+				bringSceneMediator()->addSubGroup(pE);
 				pE->_x = RND(1000000,4000000);
 				pE->_y = RND(-6000000,6000000);
 				pE->_z = RND(-6000000,6000000);
@@ -70,13 +70,13 @@ void Stage01PartController::processBehavior() {
 			}
 			case 500: {
 				EnemyOebiusController001* p1 = (EnemyOebiusController001*)obtainActorFromFactory(10000005);
-				bringDirector()->addSubGroup(p1);
+				bringSceneMediator()->addSubGroup(p1);
 				p1->setPosition(PX_C(800), PX_C(100), PX_C(400) );
 				break;
 			}
 			case 600: {
 				EnemyOebiusController002* p2 = (EnemyOebiusController002*)obtainActorFromFactory(10000006);
-				bringDirector()->addSubGroup(p2);
+				bringSceneMediator()->addSubGroup(p2);
 				p2->setPosition(PX_C(800), PX_C(400), PX_C(100) );
 				break;
 			}
@@ -98,7 +98,7 @@ void Stage01PartController::processBehavior() {
 			}
 			case 20300: {
 				EnemyErmione* pE = (EnemyErmione*)obtainActorFromFactory(10000008);
-				bringDirector()->addSubGroup(pE);
+				bringSceneMediator()->addSubGroup(pE);
 				pE->_x = RND(1000000,4000000);
 				pE->_y = RND(-6000000,6000000);
 				pE->_z = RND(-6000000,6000000);
@@ -126,7 +126,7 @@ void Stage01PartController::processBehavior() {
 			}
 			case 40300: {
 				EnemyErmione* pE = (EnemyErmione*)obtainActorFromFactory(10000009);
-				bringDirector()->addSubGroup(pE);
+				bringSceneMediator()->addSubGroup(pE);
 				pE->_x = RND(1000000,4000000);
 				pE->_y = RND(-6000000,6000000);
 				pE->_z = RND(-6000000,6000000);

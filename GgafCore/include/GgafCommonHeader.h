@@ -331,7 +331,7 @@ typedef uint32_t frame;
 #define Obj_GgafActor              (0x1ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000001
 #define Obj_GgafMainActor          (0x2ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000010
 #define Obj_GgafDestructActor      (0x4ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000100
-#define Obj_GgafSceneDirector      (0x8ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00001000
+#define Obj_GgafSceneMediator      (0x8ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00001000
 #define Obj_GgafGroupHead         (0x10ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00010000
 #define Obj_GgafDisusedActor      (0x20ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00100000
 #define Obj_GgafActorDepository   (0x40ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 01000000
@@ -384,7 +384,7 @@ class GgafMainActor;
 class GgafDestructActor;
 class GgafSpacetime;
 class GgafMainScene;
-class GgafSceneDirector;
+class GgafSceneMediator;
 class GgafGroupHead;
 
 class GgafFormation;

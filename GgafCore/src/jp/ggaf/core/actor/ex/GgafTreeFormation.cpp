@@ -1,6 +1,6 @@
 #include "jp/ggaf/core/actor/ex/GgafTreeFormation.h"
 
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/ggaf/core/actor/GgafGroupHead.h"
 #include "jp/ggaf/core/util/GgafStatus.h"
 

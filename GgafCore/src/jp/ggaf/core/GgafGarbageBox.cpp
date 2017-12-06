@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/core/actor/GgafDisusedActor.h"
 #include "jp/ggaf/core/scene/GgafDisusedScene.h"
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include <windows.h>
 #ifdef __GNUG__
     #undef __in
@@ -63,14 +63,14 @@ void GgafGarbageBox::add(GgafScene* prm_pScene) {
     GgafGarbageBox::_wait = true;
     prm_pScene->inactivateTreeImmed();
     prm_pScene->_can_live_flg = false;
-    if (prm_pScene->_pSceneDirector) { //監督がいる場合は、監督はGgafGarbageBox::add(GgafActor* prm_pActor)へ
-        GgafSceneDirector* pSceneDirector = prm_pScene->_pSceneDirector;
-        prm_pScene->_pSceneDirector = nullptr;
+    if (prm_pScene->_pSceneMediator) { //仲介者がいる場合は、仲介者はGgafGarbageBox::add(GgafActor* prm_pActor)へ
+        GgafSceneMediator* pSceneMediator = prm_pScene->_pSceneMediator;
+        prm_pScene->_pSceneMediator = nullptr;
         //GgafGarbageBox::add(GgafActor* prm_pActor) と同じ処理を記述すること
-        pSceneDirector->inactivateTreeImmed();
-        pSceneDirector->_can_live_flg = false;
-        _pDisusedActor->addSubFirst(pSceneDirector); //addSubFirstです！addSubLastに非ず
-        _TRACE_("ゴミ箱(Actor) GgafGarbageBox::add( "<<NODE_INFO_P(prm_pScene)<<"の監督の"<<NODE_INFO_P(pSceneDirector)<<")");
+        pSceneMediator->inactivateTreeImmed();
+        pSceneMediator->_can_live_flg = false;
+        _pDisusedActor->addSubFirst(pSceneMediator); //addSubFirstです！addSubLastに非ず
+        _TRACE_("ゴミ箱(Actor) GgafGarbageBox::add( "<<NODE_INFO_P(prm_pScene)<<"の仲介者の"<<NODE_INFO_P(pSceneMediator)<<")");
     }
     _pDisusedScene->addSubFirst(prm_pScene->extract()); //addSubFirstです！addSubLastに非ず
     _TRACE_("ゴミ箱(Scene) GgafGarbageBox::add("<<NODE_INFO_P(prm_pScene)<<")");

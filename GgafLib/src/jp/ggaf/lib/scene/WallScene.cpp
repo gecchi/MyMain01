@@ -1,7 +1,7 @@
 #include "jp/ggaf/lib/scene/WallScene.h"
 
 #include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/ggaf/lib/scene/WallSectionScene.h"
 #include "jp/ggaf/lib/actor/wall/MassWallActor.h"
 
@@ -30,7 +30,7 @@ void WallScene::buildWallScene(
     if (_pDepo_wall->getPlatformScene()) {
         //既に所属しているならばOK
     } else {
-        bringDirector()->addSubGroup(_pDepo_wall); //仮所属 initialize() で本所属
+        bringSceneMediator()->addSubGroup(_pDepo_wall); //仮所属 initialize() で本所属
     }
     for (int i = 0; i < prm_section_num; i++) {
         addSubLast(prm_papSection[i]); //配下シーンに所属
@@ -84,11 +84,11 @@ void WallScene::initialize() {
     if (_pDepo_wall == nullptr) {
         throwGgafCriticalException("WallScene["<<getName()<<"] オブジェクトが未完成です。buildWallScene()を実行し構築してください。");
     }
-    //buildWallScene が継承クラスのコンストラクタで実行された場合、bringDirector() は世界シーンを返すため
+    //buildWallScene が継承クラスのコンストラクタで実行された場合、bringSceneMediator() は世界シーンを返すため
     //壁デポジトリの所属シーンは世界シーン所属になっている可能性がある。、
     //スクロール制御を行うためにも、壁デポジトリ は this の配下に置く必要があるため、以下の様に
     //配下シーンに再設定する。
-    bringDirector()->addSubGroup(_pDepo_wall->extract());
+    bringSceneMediator()->addSubGroup(_pDepo_wall->extract());
 }
 
 void WallScene::onActive() {

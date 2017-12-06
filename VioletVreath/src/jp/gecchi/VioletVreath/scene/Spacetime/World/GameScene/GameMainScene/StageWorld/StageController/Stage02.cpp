@@ -1,6 +1,6 @@
 #include "Stage02.h"
 
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshi001.h"
 #include "jp/gecchi/VioletVreath/actor/background/WorldBound/WorldBound002.h"
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
@@ -21,13 +21,13 @@ Stage02::Stage02(const char* prm_name) : Stage(prm_name) {
     addSubLast(pScene_StagePartCtrler_);
     Sleep(2);
     pWorldBound_  = NEW WorldBound002("BG_SPACE_TEST");
-    bringDirector()->addSubGroup(KIND_EFFECT, pWorldBound_);
+    bringSceneMediator()->addSubGroup(KIND_EFFECT, pWorldBound_);
 
     pHoshiBoshi_ = NEW HoshiBoshi001("HoshiBoshi001");
-    bringDirector()->addSubGroup(KIND_EFFECT, pHoshiBoshi_);
+    bringSceneMediator()->addSubGroup(KIND_EFFECT, pHoshiBoshi_);
 
     pMessage_ = NEW LabelGecchi16Font("Stage02Msg");
-    bringDirector()->addSubGroup(KIND_EFFECT, pMessage_);
+    bringSceneMediator()->addSubGroup(KIND_EFFECT, pMessage_);
     pMessage_->inactivate();
 
     fadeoutSceneWithBgm(0); //Å‰‚Í”ñ•\¦

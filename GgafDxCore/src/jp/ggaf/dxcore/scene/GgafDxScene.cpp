@@ -1,6 +1,6 @@
 #include "jp/ggaf/dxcore/scene/GgafDxScene.h"
 
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/ggaf/dxcore/scene/supporter/GgafDxAlphaCurtain.h"
 #include "jp/ggaf/dxcore/sound/GgafDxBgmConductor.h"
 
@@ -12,6 +12,10 @@ _pCurtain(new GgafDxAlphaCurtain(this)),
 _pConductor(new GgafDxBgmConductor()) {
     _obj_class |= Obj_GgafDxScene;
     _class_name = "GgafDxScene";
+    if (_pSceneMediator) {
+        GGAF_DELETE(_pSceneMediator);
+        _pSceneMediator = NEW GgafSceneMediator(this);
+    }
     _scene_alpha = 1.0f;
     _scene_alpha_from_top = _scene_alpha;
 }
@@ -66,7 +70,7 @@ void GgafDxScene::pauseTree() {
         _pConductor->pause();
     }
     GgafElement<GgafScene>::pauseTree();
-    _pSceneDirector->pauseTree();
+    _pSceneMediator->pauseTree();
 }
 
 void GgafDxScene::pause() {
@@ -75,7 +79,7 @@ void GgafDxScene::pause() {
         _pConductor->pause();
     }
     GgafElement<GgafScene>::pause();
-    _pSceneDirector->pause();
+    _pSceneMediator->pause();
 }
 
 void GgafDxScene::unpauseTree() {
@@ -84,7 +88,7 @@ void GgafDxScene::unpauseTree() {
         _pConductor->unpause();
     }
     GgafElement<GgafScene>::unpauseTree();
-    _pSceneDirector->unpauseTree();
+    _pSceneMediator->unpauseTree();
 }
 
 void GgafDxScene::unpause() {
@@ -93,7 +97,7 @@ void GgafDxScene::unpause() {
         _pConductor->unpause();
     }
     GgafElement<GgafScene>::unpause();
-    _pSceneDirector->unpause();
+    _pSceneMediator->unpause();
 }
 
 void GgafDxScene::fadeinScene(int prm_frame_fade) {

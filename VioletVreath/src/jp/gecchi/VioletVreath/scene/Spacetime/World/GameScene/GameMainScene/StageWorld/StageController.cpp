@@ -1,6 +1,6 @@
 #include "StageController.h"
 
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
@@ -44,7 +44,7 @@ StageController::StageController(const char* prm_name) : DefaultScene(prm_name) 
     addSubLast(pTransitStage_);
 
     _pSceneSymbol = NEW LabelSceneSymbol("LabelSceneSymbol");
-    bringDirector()->addSubGroup(_pSceneSymbol);
+    bringSceneMediator()->addSubGroup(_pSceneSymbol);
     useProgress(PROG_BANPEI);
 }
 

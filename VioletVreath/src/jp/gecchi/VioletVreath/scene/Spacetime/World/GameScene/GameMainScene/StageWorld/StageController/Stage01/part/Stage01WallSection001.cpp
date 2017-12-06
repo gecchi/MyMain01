@@ -1,6 +1,6 @@
 #include "Stage01WallSection001.h"
 
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/ggaf/dxcore/sound/GgafDxBgmConductor.h"
 #include "jp/ggaf/lib/scene/FormationTableScene.h"
 #include "../Stage01PartController.h"
@@ -52,7 +52,7 @@ void Stage01WallSection001::onBlockLaunch(int prm_loop_count, int prm_wall_count
         EnemyHisbe* p = createInFactory(EnemyHisbe,"TTT");
         p->setPosition(pGOD->getSpacetime()->_x_bound_right, -PX_C(900), -PX_C(900));
         p->setRyFaceAng(-D90ANG);
-        bringDirector()->addSubGroup(p);
+        bringSceneMediator()->addSubGroup(p);
     }
 }
 

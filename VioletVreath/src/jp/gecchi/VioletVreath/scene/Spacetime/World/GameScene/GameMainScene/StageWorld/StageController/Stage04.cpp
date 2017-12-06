@@ -1,6 +1,6 @@
 #include "Stage04.h"
 
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
 
 using namespace GgafCore;

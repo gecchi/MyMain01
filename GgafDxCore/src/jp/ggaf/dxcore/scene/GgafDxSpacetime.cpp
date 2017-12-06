@@ -1,6 +1,6 @@
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
 #include "jp/ggaf/core/util/GgafRepeatSeq.h"
 #include "jp/ggaf/dxcore/actor/GgafDxFigureActor.h"
@@ -93,7 +93,7 @@ _z_bound_far   (+DX_C(prm_pCamera->getZFar()))
     _pCamera = prm_pCamera;
     GgafDxUtil::_pCam = prm_pCamera;
 
-    bringDirector()->addSubGroup(_pCamera);
+    bringSceneMediator()->addSubGroup(_pCamera);
 
     _pRing_pSeArray = NEW GgafLinkedListRing<SeArray>();
     for (int i = 0; i < PROPERTY::MAX_SE_DELAY; i++) { //GGAF_END_DELAYは最大解放遅れフレームだが、遠方SEの遅延の最高フレーム数としても使う

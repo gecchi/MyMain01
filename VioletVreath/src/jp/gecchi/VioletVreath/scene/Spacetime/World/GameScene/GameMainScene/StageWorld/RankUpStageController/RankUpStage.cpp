@@ -1,7 +1,7 @@
 #include "RankUpStage.h"
 
 #include <stdio.h>
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 #include "jp/ggaf/dxcore/manager/GgafDxSeConnection.h"
 #include "jp/ggaf/dxcore/sound/GgafDxBgmConductor.h"
@@ -26,18 +26,18 @@ RankUpStage::RankUpStage(const char* prm_name) : DefaultScene(prm_name) {
 
     pWorldBound_  = NEW WorldBoundRankUp("BG_RankUp");
     pWorldBound_->inactivate();
-    bringDirector()->addSubGroup(pWorldBound_);
+    bringSceneMediator()->addSubGroup(pWorldBound_);
     pHoshiBoshi_ = NEW HoshiBoshiRankUp("HoshiBoshiRankUp");
-    bringDirector()->addSubGroup( pHoshiBoshi_);
+    bringSceneMediator()->addSubGroup( pHoshiBoshi_);
     pMessage1_ = NEW LabelGecchi16Font("RankUpMsg1");
     pMessage1_->setPosition(PX_C(400), PX_C(200));
-    bringDirector()->addSubGroup(pMessage1_);
+    bringSceneMediator()->addSubGroup(pMessage1_);
     pMessage2_ = NEW LabelGecchi16Font("RankUpMsg2");
     pMessage2_->setPosition(PX_C(400), PX_C(230));
-    bringDirector()->addSubGroup(pMessage2_);
+    bringSceneMediator()->addSubGroup(pMessage2_);
     pMessage3_ = NEW LabelGecchi16Font("RankUpMsg2");
     pMessage3_->setPosition(PX_C(400), PX_C(260));
-    bringDirector()->addSubGroup(pMessage3_);
+    bringSceneMediator()->addSubGroup(pMessage3_);
 
 
     useProgress(PROG_BANPEI);

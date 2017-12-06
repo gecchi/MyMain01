@@ -1,7 +1,7 @@
 #include "GameOverScene.h"
 
 #include "jp/ggaf/core/GgafFactory.h"
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
@@ -25,7 +25,7 @@ GameOverScene::GameOverScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameOverScene";
     pNameEntryScene_ = nullptr;
     pLabel01_ = NEW LabelGecchi16Font("STR01");
-    bringDirector()->addSubGroup(pLabel01_);
+    bringSceneMediator()->addSubGroup(pLabel01_);
     useProgress(PROG_BANPEI);
     need_name_entry_ = false;
 }

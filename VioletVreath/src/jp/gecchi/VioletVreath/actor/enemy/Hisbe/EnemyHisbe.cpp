@@ -1,6 +1,6 @@
 #include "EnemyHisbe.h"
 
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
@@ -117,7 +117,7 @@ void EnemyHisbe::initialize() {
 
 //    if (pConn_pDepoStore_laser_set->chkFirstConnectionIs(this)) {
 //        _TRACE_("pConn_pDepoStore_laser_setは、ワシ"<<NODE_INFO<<"が育てたエヘン！")
-//        getPlatformScene()->bringDirector()->addSubGroup(
+//        getPlatformScene()->bringSceneMediator()->addSubGroup(
 //                pConn_pDepoStore_laser_set->peek()->extract()
 //                );
 //    }

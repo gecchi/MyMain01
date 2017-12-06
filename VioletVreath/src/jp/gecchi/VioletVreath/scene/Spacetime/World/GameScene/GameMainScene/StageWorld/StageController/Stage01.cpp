@@ -8,7 +8,7 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld/StageController.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld/StageController/Stage01/Stage01PartController.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/ggaf/core/util/CmRandomNumberGenerator.h"
 #include "jp/gecchi/VioletVreath/actor/chikei/Horizon/Horizon001.h"
 
@@ -27,27 +27,27 @@ Stage01::Stage01(const char* prm_name) : Stage(prm_name) {
     addSubLast(pScene_StagePartCtrler_);
     Sleep(2);
     pWorldBound_  = NEW WorldBound001("BG_SPACE");
-    bringDirector()->addSubGroup(pWorldBound_);
+    bringSceneMediator()->addSubGroup(pWorldBound_);
 
     pHoshiBoshi_ = NEW HoshiBoshi001("HoshiBoshi001");
-    bringDirector()->addSubGroup(pHoshiBoshi_);
+    bringSceneMediator()->addSubGroup(pHoshiBoshi_);
 
     pMessage_ = NEW LabelGecchi16Font("Stage01Msg");
-    bringDirector()->addSubGroup(pMessage_);
+    bringSceneMediator()->addSubGroup(pMessage_);
     pMessage_->inactivate();
 
 
     pPlanet_ = NEW Planet001("Planet001");
-    bringDirector()->addSubGroup(KIND_EFFECT, pPlanet_);
+    bringSceneMediator()->addSubGroup(KIND_EFFECT, pPlanet_);
 //    pHorizon_ = NEW Horizon001("Horizon001");
-//    bringDirector()->addSubGroup(KIND_CHIKEI, pHorizon_);
+//    bringSceneMediator()->addSubGroup(KIND_CHIKEI, pHorizon_);
 
     //debug ---->
 //    EnemyHisbe* pTest = NEW EnemyHisbe("tst");
 //    pTest->setPosition(PX_C(0),PX_C(0), PX_C(100));
 //    pTest->setFaceAngTwd(PX_C(100), PX_C(100), PX_C(100));
 //    pTest->getKuroko()->behave();
-//    bringDirector()->addSubGroup(pTest);
+//    bringSceneMediator()->addSubGroup(pTest);
     //<-----debug
 
     fadeoutSceneWithBgm(0); //Å‰‚Í”ñ•\Ž¦

@@ -1,6 +1,6 @@
 #include "Stage01_03.h"
 
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/ggaf/dxcore/sound/GgafDxBgmConductor.h"
 #include "jp/ggaf/lib/scene/FormationTableScene.h"
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
@@ -68,43 +68,43 @@ void Stage01_03::processBehavior() {
                 orderActorToFactory(40000103, FormationRis001, "FormationRis001-40000103");
                 orderActorToFactory(40000104, FormationRis002, "FormationRis002-40000104");
                 FormationAntiope001* pFAnti = (FormationAntiope001*)obtainActorFromFactory(40000105);
-                bringDirector()->addSubGroup(pFAnti);
+                bringSceneMediator()->addSubGroup(pFAnti);
                 orderActorToFactory(40000106, FormationAntiope001, "FormationAntiope001-40000106");
                 break;
             }
             case 500: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000002);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000008, EnemyDrastea, "EnemyDrastea-40000008");
                 break;
             }
             case 600: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000003);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000009, EnemyDrastea, "EnemyDrastea-40000009");
                 break;
             }
             case 700: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000004);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000010, EnemyDrastea, "EnemyDrastea-40000010");
                 break;
             }
             case 800: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000005);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000011, EnemyDrastea, "EnemyDrastea-40000011");
                 break;
             }
             case 900: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000006);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000012, EnemyDrastea, "EnemyDrastea-40000012");
                 break;
             }
             case 1000: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000007);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000013, EnemyDrastea, "EnemyDrastea-40000013");
                 {
                 FormationTableScene* ta = NEW FormationTableScene("FormationTableScene-1");
@@ -118,547 +118,547 @@ void Stage01_03::processBehavior() {
                 ta->addToTable(((FormationRis002*)obtainActorFromFactory(40000104)), 400);
                 }
                 FormationAntiope001* pFAnti = (FormationAntiope001*)obtainActorFromFactory(40000106);
-                bringDirector()->addSubGroup(pFAnti);
+                bringSceneMediator()->addSubGroup(pFAnti);
                 break;
             }
             case 1100: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000008);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000014, EnemyDrastea, "EnemyDrastea-40000014");
                 break;
             }
             case 1200: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000009);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000015, EnemyDrastea, "EnemyDrastea-40000015");
                 break;
             }
             case 1300: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000010);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000016, EnemyDrastea, "EnemyDrastea-40000016");
                 break;
             }
             case 1400: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000011);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000017, EnemyDrastea, "EnemyDrastea-40000017");
                 break;
             }
             case 1500: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000012);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000018, EnemyDrastea, "EnemyDrastea-40000018");
                 break;
             }
             case 1600: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000013);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000019, EnemyDrastea, "EnemyDrastea-40000019");
                 break;
             }
             case 1700: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000014);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000020, EnemyDrastea, "EnemyDrastea-40000020");
                 break;
             }
             case 1800: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000015);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000021, EnemyDrastea, "EnemyDrastea-40000021");
                 break;
             }
             case 1900: {
                 orderActorToFactory(40000000, FormationUnomia001a, "FormationUnomia001a-40000000");
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000016);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000022, EnemyDrastea, "EnemyDrastea-40000022");
                 break;
             }
             case 2000: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000017);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000023, EnemyDrastea, "EnemyDrastea-40000023");
                 break;
             }
             case 2100: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000018);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000024, EnemyDrastea, "EnemyDrastea-40000024");
                 break;
             }
             case 2200: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000019);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000025, EnemyDrastea, "EnemyDrastea-40000025");
                 break;
             }
             case 2300: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000020);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000026, EnemyDrastea, "EnemyDrastea-40000026");
                 break;
             }
             case 2400: {
                 orderActorToFactory(40000001, FormationUnomia001b, "FormationUnomia001b-40000001");
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000021);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000027, EnemyDrastea, "EnemyDrastea-40000027");
                 break;
             }
             case 2500: {
                 FormationUnomia001a* pFormationUnomia = (FormationUnomia001a*)obtainActorFromFactory(40000000);
-                bringDirector()->addSubGroup(pFormationUnomia);
+                bringSceneMediator()->addSubGroup(pFormationUnomia);
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000022);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000028, EnemyDrastea, "EnemyDrastea-40000028");
                 break;
             }
             case 2600: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000023);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000029, EnemyDrastea, "EnemyDrastea-40000029");
                 break;
             }
             case 2700: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000024);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000030, EnemyDrastea, "EnemyDrastea-40000030");
                 break;
             }
             case 2800: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000025);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000031, EnemyDrastea, "EnemyDrastea-40000031");
                 break;
             }
             case 2900: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000026);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000032, EnemyDrastea, "EnemyDrastea-40000032");
                 break;
             }
             case 3000: {
                 FormationUnomia001b* pFormationUnomia = (FormationUnomia001b*)obtainActorFromFactory(40000001);
-                bringDirector()->addSubGroup(pFormationUnomia);
+                bringSceneMediator()->addSubGroup(pFormationUnomia);
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000027);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000033, EnemyDrastea, "EnemyDrastea-40000033");
                 break;
             }
             case 3100: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000028);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000034, EnemyDrastea, "EnemyDrastea-40000034");
                 break;
             }
             case 3200: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000029);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000035, EnemyDrastea, "EnemyDrastea-40000035");
                 break;
             }
             case 3300: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000030);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000036, EnemyDrastea, "EnemyDrastea-40000036");
                 break;
             }
             case 3400: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000031);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000037, EnemyDrastea, "EnemyDrastea-40000037");
                 break;
             }
             case 3500: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000032);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000038, EnemyDrastea, "EnemyDrastea-40000038");
                 break;
             }
             case 3600: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000033);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000039, EnemyDrastea, "EnemyDrastea-40000039");
                 break;
             }
             case 3700: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000034);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000040, EnemyDrastea, "EnemyDrastea-40000040");
                 break;
             }
             case 3800: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000035);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000041, EnemyDrastea, "EnemyDrastea-40000041");
                 break;
             }
             case 3900: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000036);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000042, EnemyDrastea, "EnemyDrastea-40000042");
                 break;
             }
             case 4000: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000037);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000043, EnemyDrastea, "EnemyDrastea-40000043");
                 break;
             }
             case 4100: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000038);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000044, EnemyDrastea, "EnemyDrastea-40000044");
                 break;
             }
             case 4200: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000039);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000045, EnemyDrastea, "EnemyDrastea-40000045");
                 break;
             }
             case 4300: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000040);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000046, EnemyDrastea, "EnemyDrastea-40000046");
                 break;
             }
             case 4400: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000041);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000047, EnemyDrastea, "EnemyDrastea-40000047");
                 break;
             }
             case 4500: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000042);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000048, EnemyDrastea, "EnemyDrastea-40000048");
                 break;
             }
             case 4600: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000043);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000049, EnemyDrastea, "EnemyDrastea-40000049");
                 break;
             }
             case 4700: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000044);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000050, EnemyDrastea, "EnemyDrastea-40000050");
                 break;
             }
             case 4800: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000045);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000051, EnemyDrastea, "EnemyDrastea-40000051");
                 break;
             }
             case 4900: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000046);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000052, EnemyDrastea, "EnemyDrastea-40000052");
                 break;
             }
             case 5000: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000047);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000053, EnemyDrastea, "EnemyDrastea-40000053");
                 break;
             }
             case 5100: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000048);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000054, EnemyDrastea, "EnemyDrastea-40000054");
                 break;
             }
             case 5200: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000049);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000055, EnemyDrastea, "EnemyDrastea-40000055");
                 break;
             }
             case 5300: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000050);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000056, EnemyDrastea, "EnemyDrastea-40000056");
                 break;
             }
             case 5400: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000051);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000057, EnemyDrastea, "EnemyDrastea-40000057");
                 break;
             }
             case 5500: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000052);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000058, EnemyDrastea, "EnemyDrastea-40000058");
                 break;
             }
             case 5600: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000053);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000059, EnemyDrastea, "EnemyDrastea-40000059");
                 break;
             }
             case 5700: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000054);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000060, EnemyDrastea, "EnemyDrastea-40000060");
                 break;
             }
             case 5800: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000055);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000061, EnemyDrastea, "EnemyDrastea-40000061");
                 break;
             }
             case 5900: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000056);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000062, EnemyDrastea, "EnemyDrastea-40000062");
                 break;
             }
             case 6000: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000057);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000063, EnemyDrastea, "EnemyDrastea-40000063");
                 break;
             }
             case 6100: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000058);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000064, EnemyDrastea, "EnemyDrastea-40000064");
                 break;
             }
             case 6200: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000059);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000065, EnemyDrastea, "EnemyDrastea-40000065");
                 break;
             }
             case 6300: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000060);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000066, EnemyDrastea, "EnemyDrastea-40000066");
                 break;
             }
             case 6400: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000061);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000067, EnemyDrastea, "EnemyDrastea-40000067");
                 break;
             }
             case 6500: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000062);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000068, EnemyDrastea, "EnemyDrastea-40000068");
                 break;
             }
             case 6600: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000063);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000069, EnemyDrastea, "EnemyDrastea-40000069");
                 break;
             }
             case 6700: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000064);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000070, EnemyDrastea, "EnemyDrastea-40000070");
                 break;
             }
             case 6800: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000065);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000071, EnemyDrastea, "EnemyDrastea-40000071");
                 break;
             }
             case 6900: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000066);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000072, EnemyDrastea, "EnemyDrastea-40000072");
                 break;
             }
             case 7000: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000067);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000073, EnemyDrastea, "EnemyDrastea-40000073");
                 break;
             }
             case 7100: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000068);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000074, EnemyDrastea, "EnemyDrastea-40000074");
                 break;
             }
             case 7200: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000069);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000075, EnemyDrastea, "EnemyDrastea-40000075");
                 break;
             }
             case 7300: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000070);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000076, EnemyDrastea, "EnemyDrastea-40000076");
                 break;
             }
             case 7400: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000071);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000077, EnemyDrastea, "EnemyDrastea-40000077");
                 break;
             }
             case 7500: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000072);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000078, EnemyDrastea, "EnemyDrastea-40000078");
                 break;
             }
             case 7600: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000073);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000079, EnemyDrastea, "EnemyDrastea-40000079");
                 break;
             }
             case 7700: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000074);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000080, EnemyDrastea, "EnemyDrastea-40000080");
                 break;
             }
             case 7800: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000075);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000081, EnemyDrastea, "EnemyDrastea-40000081");
                 break;
             }
             case 7900: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000076);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000082, EnemyDrastea, "EnemyDrastea-40000082");
                 break;
             }
             case 8000: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000077);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000083, EnemyDrastea, "EnemyDrastea-40000083");
                 break;
             }
             case 8100: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000078);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000084, EnemyDrastea, "EnemyDrastea-40000084");
                 break;
             }
             case 8200: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000079);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000085, EnemyDrastea, "EnemyDrastea-40000085");
                 break;
             }
             case 8300: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000080);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000086, EnemyDrastea, "EnemyDrastea-40000086");
                 break;
             }
             case 8400: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000081);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000087, EnemyDrastea, "EnemyDrastea-40000087");
                 break;
             }
             case 8500: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000082);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000088, EnemyDrastea, "EnemyDrastea-40000088");
                 break;
             }
             case 8600: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000083);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000089, EnemyDrastea, "EnemyDrastea-40000089");
                 break;
             }
             case 8700: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000084);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000090, EnemyDrastea, "EnemyDrastea-40000090");
                 break;
             }
             case 8800: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000085);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000091, EnemyDrastea, "EnemyDrastea-40000091");
                 break;
             }
             case 8900: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000086);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000092, EnemyDrastea, "EnemyDrastea-40000092");
                 break;
             }
             case 9000: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000087);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000093, EnemyDrastea, "EnemyDrastea-40000093");
                 break;
             }
             case 9100: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000088);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000094, EnemyDrastea, "EnemyDrastea-40000094");
                 break;
             }
             case 9200: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000089);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000095, EnemyDrastea, "EnemyDrastea-40000095");
                 break;
             }
             case 9300: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000090);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000096, EnemyDrastea, "EnemyDrastea-40000096");
                 break;
             }
             case 9400: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000091);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 orderActorToFactory(40000097, EnemyDrastea, "EnemyDrastea-40000097");
                 break;
             }
             case 9500: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000092);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 break;
             }
             case 9600: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000093);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 break;
             }
             case 9700: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000094);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 break;
             }
             case 9800: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000095);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 break;
             }
             case 9900: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000096);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 break;
             }
             case 10000: {
                 EnemyDrastea* p = (EnemyDrastea*)obtainActorFromFactory(40000097);
-                bringDirector()->addSubGroup(p);
+                bringSceneMediator()->addSubGroup(p);
                 break;
             }
             default :

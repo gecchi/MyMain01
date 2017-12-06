@@ -5,7 +5,7 @@
 
 namespace VioletVreath {
 
-HASHVAL(EVENT_STG02_CTRLER_WAS_END);
+DECLARE_HASHVAL(EVENT_STG02_CTRLER_WAS_END);
 
 /**
  * ステージ02 .

@@ -1,6 +1,6 @@
 #include "GamePreTitleScene.h"
 
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/gecchi/VioletVreath/actor/title/TitleBoard.h"
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -21,16 +21,16 @@ GamePreTitleScene::GamePreTitleScene(const char* prm_name) : DefaultScene(prm_na
     _class_name = "GamePreTitleScene";
     useProgress(PROG_BANPEI);
     pLabel01_ = NEW LabelGecchi16Font("STR01");
-    bringDirector()->addSubGroup(pLabel01_);
+    bringSceneMediator()->addSubGroup(pLabel01_);
     pLabel02_ = NEW LabelGecchi16Font("STR02");
-    bringDirector()->addSubGroup(pLabel02_);
+    bringSceneMediator()->addSubGroup(pLabel02_);
     pTitleBoard_ = NEW TitleBoard("TitleBoard4Pre");
-    bringDirector()->addSubGroup(pTitleBoard_);
+    bringSceneMediator()->addSubGroup(pTitleBoard_);
 
 //    papSpriteLabel_ = NEW SpriteLabelTest*[9];
 //    for (int i = 0; i < 9; i++) {
 //        papSpriteLabel_[i] = NEW SpriteLabelTest("tst");
-//        bringDirector()->addSubGroup(papSpriteLabel_[i]);
+//        bringSceneMediator()->addSubGroup(papSpriteLabel_[i]);
 //    }
 }
 void GamePreTitleScene::onReset() {

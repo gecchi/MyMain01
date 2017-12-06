@@ -306,6 +306,7 @@
     <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxMorphMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxPointSpriteActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxPointSpriteSetActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxSceneMediator.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxSpriteActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxSpriteSetActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\interface\GgafDxIBumpMapActor.cpp" />
@@ -449,6 +450,7 @@
     <ClInclude Include="include\jp\ggaf\dxcore\actor\ggafdxmorphmeshactor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\ggafdxpointspriteactor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\GgafDxPointSpriteSetActor.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\GgafDxSceneMediator.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\ggafdxspriteactor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\ggafdxspritesetactor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\interface\ggafdxibumpmapactor.h" />

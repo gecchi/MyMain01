@@ -9,7 +9,7 @@ using namespace GgafCore;
 GgafMainActor::GgafMainActor(const char* prm_name, GgafStatus* prm_pStat) :
     GgafActor(prm_name, prm_pStat),
     _pGroupHead(nullptr),
-    _pSceneDirector(nullptr)
+    _pSceneMediator(nullptr)
 {
     _obj_class |= Obj_GgafMainActor;
     _class_name = "GgafMainActor";
@@ -19,7 +19,7 @@ GgafMainActor::GgafMainActor(const char* prm_name, GgafStatus* prm_pStat) :
 GgafMainActor* GgafMainActor::extract() {
     GgafMainActor* pActor = (GgafMainActor*)GgafActor::extract();
     pActor->setPlatformScene(nullptr);
-    pActor->setMySceneDirector(nullptr);
+    pActor->setMySceneMediator(nullptr);
     pActor->setMyGroupHead(nullptr);
     return pActor;
 }
@@ -38,14 +38,14 @@ void GgafMainActor::updateActiveInTheTree() {
 
 }
 
-void GgafMainActor::setMySceneDirector(GgafSceneDirector* prm_pSceneDirector) {
-    _pSceneDirector = prm_pSceneDirector;
+void GgafMainActor::setMySceneMediator(GgafSceneMediator* prm_pSceneMediator) {
+    _pSceneMediator = prm_pSceneMediator;
     GgafActor* pActor = getSubFirst();
     while (pActor) {
         if (pActor->instanceOf(Obj_GgafMainActor)) {
-            ((GgafMainActor*)(pActor))->setMySceneDirector(prm_pSceneDirector);
+            ((GgafMainActor*)(pActor))->setMySceneMediator(prm_pSceneMediator);
         } else if (pActor->instanceOf(Obj_GgafGroupHead)) {
-            ((GgafGroupHead*)(pActor))->setMySceneDirector(prm_pSceneDirector);
+            ((GgafGroupHead*)(pActor))->setMySceneMediator(prm_pSceneMediator);
         }
         if (pActor->_is_last_flg) {
             break;
@@ -92,35 +92,35 @@ GgafGroupHead* GgafMainActor::getMyGroupHead() {
 }
 
 
-GgafSceneDirector* GgafMainActor::getMySceneDirector() {
-    if (_pSceneDirector) {
-        return _pSceneDirector;
+GgafSceneMediator* GgafMainActor::getMySceneMediator() {
+    if (_pSceneMediator) {
+        return _pSceneMediator;
     } else {
         if (_pParent) {
             if (_pParent->instanceOf(Obj_GgafMainActor)) {
-                _pSceneDirector = ((GgafMainActor*)(_pParent))->getMySceneDirector();
-                return _pSceneDirector;
+                _pSceneMediator = ((GgafMainActor*)(_pParent))->getMySceneMediator();
+                return _pSceneMediator;
             } else if (_pParent->instanceOf(Obj_GgafGroupHead)) {
-                _pSceneDirector = ((GgafGroupHead*)(_pParent))->getMySceneDirector();
-                return _pSceneDirector;
-            } else if (_pParent->instanceOf(Obj_GgafSceneDirector)) { //ありえんかな
-                _pSceneDirector = (GgafSceneDirector*)_pParent;
-                return _pSceneDirector;
+                _pSceneMediator = ((GgafGroupHead*)(_pParent))->getMySceneMediator();
+                return _pSceneMediator;
+            } else if (_pParent->instanceOf(Obj_GgafSceneMediator)) { //ありえんかな
+                _pSceneMediator = (GgafSceneMediator*)_pParent;
+                return _pSceneMediator;
             } else {
-                _pSceneDirector = nullptr;
-                return _pSceneDirector;
+                _pSceneMediator = nullptr;
+                return _pSceneMediator;
             }
         } else {
-            _pSceneDirector = nullptr;
-            return _pSceneDirector;
+            _pSceneMediator = nullptr;
+            return _pSceneMediator;
         }
     }
 }
 
 
 GgafGroupHead* GgafMainActor::addSubGroup(kind_t prm_kind, GgafMainActor* prm_pMainActor) {
-    if (prm_pMainActor->_pSceneDirector) {
-        //_TRACE_("【警告】GgafSceneDirector::addSubGroup("<<getName()<<") すでに"<<prm_pMainActor->_pSceneDirector->_pScene_platform->getName()<<"シーンの監督に所属しています。が、"<<_pScene_platform->getName()<<"シーンの監督に乗り換えます");
+    if (prm_pMainActor->_pSceneMediator) {
+        //_TRACE_("【警告】GgafSceneMediator::addSubGroup("<<getName()<<") すでに"<<prm_pMainActor->_pSceneMediator->_pScene_platform->getName()<<"シーンの仲介者に所属しています。が、"<<_pScene_platform->getName()<<"シーンの仲介者に乗り換えます");
         prm_pMainActor->extract();
     }
     GgafGroupHead* pMyGroupHead = getMyGroupHead();
@@ -128,7 +128,7 @@ GgafGroupHead* GgafMainActor::addSubGroup(kind_t prm_kind, GgafMainActor* prm_pM
         //自身の所属済み団長種別と引数のアクターの種別が同じ場合
         addSubLast(prm_pMainActor); //単純に自分のサブに追加でOK
         prm_pMainActor->setMyGroupHead(pMyGroupHead);             //団長を反映
-        prm_pMainActor->setMySceneDirector(getMySceneDirector()); //監督を反映
+        prm_pMainActor->setMySceneMediator(getMySceneMediator()); //仲介者を反映
         prm_pMainActor->setPlatformScene(getPlatformScene());     //所属シーンを反映
         return pMyGroupHead;
     } else {
@@ -138,7 +138,7 @@ GgafGroupHead* GgafMainActor::addSubGroup(kind_t prm_kind, GgafMainActor* prm_pM
             //サブに同じ種別団長がいた場合、その団長のサブへ
             pSubGroupActor->addSubLast(prm_pMainActor);                //サブに居る既存団長の配下に追加
             prm_pMainActor->setMyGroupHead(pSubGroupActor);            //団長を反映
-            prm_pMainActor->setMySceneDirector(getMySceneDirector());  //監督を反映
+            prm_pMainActor->setMySceneMediator(getMySceneMediator());  //仲介者を反映
             prm_pMainActor->setPlatformScene(getPlatformScene());      //所属シーンを反映
             return pSubGroupActor;
         } else {
@@ -148,7 +148,7 @@ GgafGroupHead* GgafMainActor::addSubGroup(kind_t prm_kind, GgafMainActor* prm_pM
             addSubLast(pNewSubGroupActor);                          //自身の配下に新団長を追加し
             pNewSubGroupActor->addSubLast(prm_pMainActor);          //新団長の配下に引数のアクター
             prm_pMainActor->setMyGroupHead(pNewSubGroupActor);            //団長を反映
-            pNewSubGroupActor->setMySceneDirector(getMySceneDirector());  //新団長配下に監督を反映
+            pNewSubGroupActor->setMySceneMediator(getMySceneMediator());  //新団長配下に仲介者を反映
             pNewSubGroupActor->setPlatformScene(getPlatformScene());      //新団長配下に所属シーンセット
             return pNewSubGroupActor;
         }

@@ -1,7 +1,7 @@
 #include "GameDemoScene.h"
 
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
-#include "jp/ggaf/core/actor/GgafSceneDirector.h"
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
@@ -31,16 +31,16 @@ GameDemoScene::GameDemoScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameDemoScene";
     useProgress(PROG_BANPEI);
     pLabel01_ = NEW LabelGecchi16Font("STR01");
-    bringDirector()->addSubGroup(pLabel01_);
+    bringSceneMediator()->addSubGroup(pLabel01_);
     pLabel02_ = NEW LabelGecchi16Font("STR02");
-    bringDirector()->addSubGroup(pLabel02_);
+    bringSceneMediator()->addSubGroup(pLabel02_);
     demo_stage_ = 1;
 
     papLabel_ranking_ = NEW LabelRankingFont*[G_RANKING_TABLE.getCount()];
     int cnt = (int)(G_RANKING_TABLE.getCount());
     for (int i = 0; i < cnt; i++) {
         papLabel_ranking_[i] = NEW LabelRankingFont("RANK_INFO");
-        bringDirector()->addSubGroup(papLabel_ranking_[i]);
+        bringSceneMediator()->addSubGroup(papLabel_ranking_[i]);
     }
 
 }
