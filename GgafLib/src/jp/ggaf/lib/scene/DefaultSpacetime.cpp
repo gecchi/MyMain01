@@ -1,5 +1,6 @@
 #include "jp/ggaf/lib/scene/DefaultSpacetime.h"
 
+#include "jp/ggaf/lib/actor/DefaultSceneMediator.h"
 #include "jp/ggaf/core/util/GgafLinearOctree.h"
 #include "jp/ggaf/core/util/GgafLinearQuadtree.h"
 #ifdef MY_DEBUG
@@ -13,12 +14,14 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-DefaultSpacetime::DefaultSpacetime(const char* prm_name, DefaultCamera* prm_pCamera) : GgafDxSpacetime(prm_name, prm_pCamera) {
+DefaultSpacetime::DefaultSpacetime(const char* prm_name, DefaultCamera* prm_pCamera) :
+        GgafDxSpacetime(prm_name, prm_pCamera) {
     _class_name = "DefaultSpacetime";
     _pLinearOctree = nullptr;
     _pLinearQuadtree = nullptr;
     _pLinearOctreeHitCheckRounder = nullptr;
     _pLinearQuadtreeHitCheckRounder = nullptr;
+
     if (PROPERTY::IS_HIT_CHECK_3D) {
         //”ª•ª–Øì¬
         _TRACE_("”ª•ª–Øì¬ŠJn");

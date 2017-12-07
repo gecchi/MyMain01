@@ -302,6 +302,7 @@
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultMorphMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultPointSpriteActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultPointSpriteSetActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\DefaultSceneMediator.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultSpriteActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultSpriteSetActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DepositoryFormation.cpp" />
@@ -336,7 +337,7 @@
     <ClCompile Include="src\jp\ggaf\lib\manager\SplineSourceConnection.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\manager\SplineSourceManager.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\scene\DefaultScene.cpp" />
-    <ClCompile Include="src\jp\ggaf\lib\scene\DefaultUniverse.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\scene\DefaultSpacetime.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\scene\FormationTableScene.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\scene\WalledScene.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\scene\WalledSectionScene.cpp" />
@@ -397,6 +398,7 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultMorphMeshActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultPointSpriteActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultPointSpriteSetActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\DefaultSceneMediator.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultSpriteActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultSpriteSetActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DepositoryFormation.h" />

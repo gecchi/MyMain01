@@ -1,10 +1,13 @@
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
+#include "jp/ggaf/lib/actor/DefaultSceneMediator.h"
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-DefaultScene::DefaultScene(const char* prm_name) : GgafDxScene(prm_name) {
+DefaultScene::DefaultScene(const char* prm_name, GgafSceneMediator* prm_pSceneMediator) :
+        GgafDxScene(prm_name, prm_pSceneMediator ? prm_pSceneMediator : NEW DefaultSceneMediator(this)) {
     _obj_class |= Obj_DefaultScene;
     _class_name = "DefaultScene";
     _paFrame_NextEvent = nullptr;

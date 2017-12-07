@@ -6,11 +6,15 @@
 
 using namespace GgafCore;
 
-GgafScene::GgafScene(const char* prm_name) : GgafElement<GgafScene> (prm_name) {
+GgafScene::GgafScene(const char* prm_name, GgafSceneMediator* prm_pSceneMediator) : GgafElement<GgafScene> (prm_name) {
     _class_name = "GgafScene";
     _obj_class |= Obj_GgafScene;
+    if (prm_pSceneMediator) {
+        _pSceneMediator = prm_pSceneMediator;
+    } else {
+        _pSceneMediator =  NEW GgafSceneMediator(this);
+    }
 
-    _pSceneMediator = NEW GgafSceneMediator(this);
     _once_in_n_time = 1;
     _is_next_frame = true;
 #ifdef MY_DEBUG

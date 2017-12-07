@@ -10,6 +10,7 @@ namespace SimpleSample {
 class SmpGod;
 class SmpSpacetime;
 class SmpWorld;
+class SmpWorldMediator;
 class SmpCamera;
 class SmpActor;
 }

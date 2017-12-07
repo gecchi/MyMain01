@@ -2,7 +2,7 @@
 
 using namespace GgafCore;
 
-GgafMainScene::GgafMainScene(const char* prm_name) : GgafScene(prm_name) {
+GgafMainScene::GgafMainScene(const char* prm_name, GgafSceneMediator* prm_pSceneMediator) : GgafScene(prm_name, prm_pSceneMediator) {
     _obj_class |= Obj_GgafMainScene;
     _class_name = "GgafMainScene";
 }

@@ -7,15 +7,11 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxScene::GgafDxScene(const char* prm_name) : GgafMainScene(prm_name),
+GgafDxScene::GgafDxScene(const char* prm_name, GgafSceneMediator* prm_pSceneMediator) : GgafMainScene(prm_name, prm_pSceneMediator),
 _pCurtain(new GgafDxAlphaCurtain(this)),
 _pConductor(new GgafDxBgmConductor()) {
     _obj_class |= Obj_GgafDxScene;
     _class_name = "GgafDxScene";
-    if (_pSceneMediator) {
-        GGAF_DELETE(_pSceneMediator);
-        _pSceneMediator = NEW GgafSceneMediator(this);
-    }
     _scene_alpha = 1.0f;
     _scene_alpha_from_top = _scene_alpha;
 }

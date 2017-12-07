@@ -21,8 +21,6 @@ class SmpWorld : public GgafLib::DefaultScene {
 public:
     /** 入力受付 */
     GgafLib::VirtualButton vb_;
-    /** テストキャラ */
-    SmpActor* pActor_;
 
 public:
     /**
@@ -41,6 +39,9 @@ public:
      */
     void processBehavior() override;
 
+    GgafLib::VirtualButton* getVB() {
+        return &vb_;
+    }
     virtual ~SmpWorld();
 };
 

@@ -45,7 +45,7 @@ public:
      * @param prm_name
      * @return
      */
-    GgafDxScene(const char* prm_name);
+    GgafDxScene(const char* prm_name, GgafCore::GgafSceneMediator* prm_pSceneMediator = nullptr);
 
     void setSceneAlpha(float prm_scene_alpha);
     float getSceneAlpha();

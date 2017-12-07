@@ -7,7 +7,7 @@
 
 using namespace GgafCore;
 
-GgafSceneMediator::GgafSceneMediator(GgafScene* prm_pScene_platform) : GgafActor(std::string(std::string(prm_pScene_platform->getName()) + "'s SceneMediator").c_str(), nullptr) {
+GgafSceneMediator::GgafSceneMediator(GgafScene* prm_pScene_platform) : GgafActor("SceneMediator", nullptr) {
     _obj_class |= Obj_GgafSceneMediator;
     _class_name = "GgafSceneMediator";
     _pScene_platform = prm_pScene_platform;

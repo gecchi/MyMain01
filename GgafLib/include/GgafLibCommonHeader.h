@@ -42,6 +42,8 @@ class WallScene;
 class WallSectionScene;
 
 class GgafLibProperties;
+
+class DefaultSceneMediator;
 class TreeFormation;
 class FkFormation;
 class DepositoryFormation;

@@ -30,7 +30,7 @@ public:
     void (*_pFuncScrolling)(GgafCore::GgafObject*, void*, void*);
 
 public:
-    DefaultScene(const char* prm_name);
+    DefaultScene(const char* prm_name, GgafCore::GgafSceneMediator* prm_pSceneMediator = nullptr);
 
     virtual void useProgress(int prm_num = 10) override;
 
