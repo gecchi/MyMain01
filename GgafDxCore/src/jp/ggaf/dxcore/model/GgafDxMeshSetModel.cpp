@@ -53,14 +53,9 @@ GgafDxMeshSetModel::GgafDxMeshSetModel(const char* prm_model_name) : GgafDxModel
     _nFaces= 0;
 
     _obj_model |= Obj_GgafDxMeshSetModel;
-
-    //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどのメンバー初期化は
-    //void GgafDxModelManager::restoreMeshSetModel(GgafDxMeshSetModel*)
-    //で行うようにした。要参照。
     _TRACE_("GgafDxMeshSetModel::GgafDxMeshSetModel(" << _model_name << ") End");
 }
 
-//描画
 HRESULT GgafDxMeshSetModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
     _TRACE4_("GgafDxMeshSetModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
 #ifdef MY_DEBUG
@@ -479,7 +474,7 @@ void GgafDxMeshSetModel::restore() {
 
     if (!_papTextureConnection) {
         _papTextureConnection = NEW GgafDxTextureConnection*[_num_materials];
-        for (int n = 0; n < _num_materials; n++) {
+        for (DWORD n = 0; n < _num_materials; n++) {
             _papTextureConnection[n] =
                     (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(_pa_texture_filenames[n].c_str(), this));
         }

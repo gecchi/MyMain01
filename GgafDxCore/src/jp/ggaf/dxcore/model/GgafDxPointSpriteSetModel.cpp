@@ -26,17 +26,12 @@ GgafDxPointSpriteSetModel::GgafDxPointSpriteSetModel(const char* prm_model_name)
     _square_size_px = 0.0f;
     _texture_size_px = 0.0f;
     _texture_split_rowcol = 1;
+    _size_vertices = 0;
     _size_vertex_unit= 0;
     _nVertices = 0;
     _obj_model |= Obj_GgafDxPointSpriteSetModel;
-
-    //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどのメンバー初期化は
-    //void GgafDxModelManager::restorePointSpriteSetModel(GgafDxPointSpriteSetModel*)
-    //で行うようにした。要参照。
-    _TRACE_("GgafDxPointSpriteSetModel::GgafDxPointSpriteSetModel(" << _model_name << ") End");
 }
 
-//描画
 HRESULT GgafDxPointSpriteSetModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
     _TRACE4_("GgafDxPointSpriteSetModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
 #ifdef MY_DEBUG
@@ -189,7 +184,7 @@ void GgafDxPointSpriteSetModel::restore() {
         FLOAT model_bounding_sphere_radius;
 
 
-        for (int i = 0; i < _nVertices; i++) {
+        for (UINT i = 0; i < _nVertices; i++) {
             _paVtxBuffer_data[i].x = xdata.paD3DVECTOR_Vertices[i].x;
             _paVtxBuffer_data[i].y = xdata.paD3DVECTOR_Vertices[i].y;
             _paVtxBuffer_data[i].z = xdata.paD3DVECTOR_Vertices[i].z;
@@ -216,7 +211,7 @@ void GgafDxPointSpriteSetModel::restore() {
 
         for (int n = 1; n < _set_num; n++) {
             int os = n*_nVertices;
-            for (int i = 0; i < _nVertices; i++) {
+            for (UINT i = 0; i < _nVertices; i++) {
                 _paVtxBuffer_data[os+i].x = _paVtxBuffer_data[i].x;
                 _paVtxBuffer_data[os+i].y = _paVtxBuffer_data[i].y;
                 _paVtxBuffer_data[os+i].z = _paVtxBuffer_data[i].z;

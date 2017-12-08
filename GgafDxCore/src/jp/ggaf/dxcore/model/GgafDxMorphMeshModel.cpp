@@ -56,11 +56,6 @@ GgafDxMorphMeshModel::GgafDxMorphMeshModel(const char* prm_model_name) : GgafDxM
     _size_vertex_unit_morph = 0;
 
     _obj_model |= Obj_GgafDxMorphMeshModel;
-
-    //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
-    //void GgafDxModelManager::restoreMorphMeshModel(GgafDxMorphMeshModel*)
-    //で行うようにした。要参照。
-    _TRACE_("GgafDxMorphMeshModel::GgafDxMorphMeshModel(" << _model_name << ") End");
 }
 
 HRESULT GgafDxMorphMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
@@ -545,7 +540,7 @@ void GgafDxMorphMeshModel::restore() {
 
     if (!_papTextureConnection) {
         _papTextureConnection = NEW GgafDxTextureConnection*[_num_materials];
-        for (int n = 0; n < _num_materials; n++) {
+        for (DWORD n = 0; n < _num_materials; n++) {
             _papTextureConnection[n] =
                     (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(_pa_texture_filenames[n].c_str(), this));
         }

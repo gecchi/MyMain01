@@ -28,13 +28,8 @@ GgafDxPointSpriteModel::GgafDxPointSpriteModel(const char* prm_model_name) : Gga
     _texture_size_px = 0.0f;
     _texture_split_rowcol = 1;
     _obj_model |= Obj_GgafDxPointSpriteModel;
-
-    //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
-    //void GgafDxModelManager::restorePointSpriteModel(GgafDxPointSpriteModel*)
-    //で行うようにした。要参照。
 }
 
-//描画
 HRESULT GgafDxPointSpriteModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
     IDirect3DDevice9* const pDevice = GgafDxGod::_pID3DDevice9;
     _TRACE4_("GgafDxPointSpriteModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());

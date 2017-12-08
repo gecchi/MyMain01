@@ -128,7 +128,7 @@ void GgafDxMassPointSpriteModel::restore() {
         _size_vertices_model = sizeof(GgafDxMassPointSpriteModel::VERTEX_model) * _nVertices*_set_num;
 
         FLOAT model_bounding_sphere_radius;
-        for (int i = 0; i < _nVertices; i++) {
+        for (UINT i = 0; i < _nVertices; i++) {
             _paVtxBuffer_data_model[i].x = xdata.paD3DVECTOR_Vertices[i].x;
             _paVtxBuffer_data_model[i].y = xdata.paD3DVECTOR_Vertices[i].y;
             _paVtxBuffer_data_model[i].z = xdata.paD3DVECTOR_Vertices[i].z;
@@ -154,7 +154,7 @@ void GgafDxMassPointSpriteModel::restore() {
 
         for (int n = 1; n < _set_num; n++) {
             int os = n*_nVertices;
-            for (int i = 0; i < _nVertices; i++) {
+            for (UINT i = 0; i < _nVertices; i++) {
                 _paVtxBuffer_data_model[os+i].x = _paVtxBuffer_data_model[i].x;
                 _paVtxBuffer_data_model[os+i].y = _paVtxBuffer_data_model[i].y;
                 _paVtxBuffer_data_model[os+i].z = _paVtxBuffer_data_model[i].z;

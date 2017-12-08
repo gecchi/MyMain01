@@ -28,10 +28,6 @@ GgafDxBoardModel::GgafDxBoardModel(const char* prm_model_name) :
     _size_vertices = 0;
     _size_vertex_unit = 0;
     _obj_model |= Obj_GgafDxBoardModel;
-
-    //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
-    //void GgafDxModelManager::restoreBoardModel(GgafDxBoardModel*)
-    //で行っている。
 }
 
 HRESULT GgafDxBoardModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {

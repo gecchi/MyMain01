@@ -32,18 +32,7 @@ GgafDxFramedBoardModel::GgafDxFramedBoardModel(const char* prm_model_name) : Gga
     _size_vertices = 0;
     _size_vertex_unit = 0;
     _obj_model |= Obj_GgafDxFramedBoardModel;
-
-//    std::string model_name = std::string(prm_model_name);
-//    std::vector<std::string> names = UTIL::split(model_name, "/", 1);
-//    if (names.size() > 2) {
-//        throwGgafCriticalException("prm_model_name には \"xxxxxx\" or \"8/xxxxx\" 形式を指定してください。 \n"
-//                                   "実際の引数は、prm_idstr="<<prm_model_name);
-//    }
     _set_num = 9;
-
-    //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
-    //void GgafDxModelManager::restoreFramedBoardModel(GgafDxFramedBoardModel*)
-    //で行うようにした。要参照。
 }
 
 HRESULT GgafDxFramedBoardModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
@@ -164,8 +153,6 @@ void GgafDxFramedBoardModel::restore() {
     _model_frame_height_px = xdata_frame.height;
     _row_frame_texture_split = xdata_frame.row_texture_split;
     _col_frame_texture_split = xdata_frame.col_texture_split;
-
-
 
     //テクスチャ取得しモデルに保持させる
     GgafDxTextureConnection* model_pTextureConnection = (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(xdata.texture_file, this));

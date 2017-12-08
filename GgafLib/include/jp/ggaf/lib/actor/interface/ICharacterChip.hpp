@@ -45,6 +45,8 @@ public:
     pixcoord _px_chr_width[256];
     bool _is_fixed_width;
 
+    pixcoord _px_total_width;
+    pixcoord _px_total_height;
     /**
      * 内部バッファ数を引数の直近8の倍数の切り上げに変更 .
      * @param prm_max_len 新しいバッファ数
@@ -158,6 +160,16 @@ public:
         return s;
     }
 
+    inline int getDrawStringLength() {
+        return _len;
+    }
+    inline pixcoord getTotalWidth() {
+        return _px_total_width;
+    }
+    inline pixcoord getTotalHeight() {
+        return _px_total_height;
+    }
+
 public:
     ICharacterChip(T* prm_pBaseActor, int prm_chr_base_width_px, int prm_chr_base_height_px);
 
@@ -189,6 +201,8 @@ _chr_base_height_px(prm_chr_base_height_px)
     for (int i = 0; i < 256; i++) {
         _px_chr_width[i] = _chr_base_width_px;
     }
+    _px_total_width = 0;
+    _px_total_height = 0;
 }
 
 template<class T>
@@ -215,6 +229,8 @@ void ICharacterChip<T>::prepare1(const char* prm_str) {
     const char* p_prm_str = prm_str;
     int* p_draw_string = _draw_string;
     pixcoord* p_width_line_px = _px_row_width;
+    pixcoord max_width_line_px = 0;
+
     *p_width_line_px = 0;
     _nn = 0;
     _draw_chr_num = 0;
@@ -232,9 +248,15 @@ void ICharacterChip<T>::prepare1(const char* prm_str) {
             *p_draw_string = c; //保存
         }
         if (c == '\n') {
+            if (_nn == 0 || max_width_line_px < *p_width_line_px) {
+                max_width_line_px = *p_width_line_px;
+            }
             _nn++; //行数カウント
             ++p_width_line_px;  *p_width_line_px = 0; //行の幅保持配列を次へ ＆ 0にリセット
         } else if (c == '\0') {
+            if (_nn == 0 || max_width_line_px < *p_width_line_px) {
+                max_width_line_px = *p_width_line_px;
+            }
             _nn++; //文字列最後を行数１としてカウント。文字列は改行で終わる必要がない。
             break;
         } else {
@@ -245,6 +267,8 @@ void ICharacterChip<T>::prepare1(const char* prm_str) {
         }
         ++p_prm_str;  ++p_draw_string;
     }
+    _px_total_width = max_width_line_px;
+    _px_total_height = _chr_base_height_px*_nn;
     if (is_different) {
         prepare2();
     }
@@ -279,9 +303,9 @@ void ICharacterChip<T>::prepare2() {
             px_x = 0;
         }
         if (valign == VALIGN_BOTTOM) {
-            px_y = -(_chr_base_height_px*_nn);
+            px_y = -_px_total_height;
         } else if (valign == VALIGN_MIDDLE) {
-            px_y = -(_chr_base_height_px*_nn/2);
+            px_y = -(_px_total_height/2);
         } else { //VALIGN_TOP
             px_y = 0;
         }
@@ -325,9 +349,9 @@ void ICharacterChip<T>::prepare2() {
         pixcoord px_y = 0;
         if (align == ALIGN_LEFT || align == ALIGN_CENTER) {
             if (valign == VALIGN_BOTTOM) {
-                px_y = -(_chr_base_height_px*_nn);
+                px_y = -_px_total_height;
             } else if (valign == VALIGN_MIDDLE) {
-                px_y = -(_chr_base_height_px*_nn/2);
+                px_y = -(_px_total_height/2);
             } else { //VALIGN_TOP
                 px_y = 0;
             }
@@ -371,9 +395,9 @@ void ICharacterChip<T>::prepare2() {
             if (valign == VALIGN_BOTTOM) {
                 px_y = -_chr_base_height_px;
             } else if (valign == VALIGN_MIDDLE) {
-                px_y = ((_chr_base_height_px*_nn/2) - _chr_base_height_px);
+                px_y = ((_px_total_height/2) - _chr_base_height_px);
             } else { //VALIGN_TOP
-                px_y = ((_chr_base_height_px*_nn) - _chr_base_height_px);
+                px_y = ((_px_total_height*_nn) - _chr_base_height_px);
             }
 
             //右から表示する

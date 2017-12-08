@@ -20,7 +20,7 @@ MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
         MenuBoard(prm_name, "board_bg01") {
     _class_name = "MenuBoardPause";
     setWidth(PX_C(14*32));
-    setHeight(PX_C(8*32));
+    setHeight(PX_C(6*32));
 
     //メニューアイテム設定
     const char* apItemStr[] = {
@@ -79,7 +79,13 @@ void MenuBoardTitle::onSelect(int prm_from_index, int prm_selected_index) {
     if (prm_selected_index > -1) {
         GgafDxFigureActor* pItem = getItem(prm_selected_index);
         pItem->getAlphaFader()->beat(20, 10, 0, 10, -1);
+
+//        GgafDxFigureActor* pMainCursor = getMainCursor();
+//        pixcoord w = ((FontBoardActor*)pItem)->getTotalWidth();
+        //TODO: wによってカーソルの大きさ変えてみる？
     }
+
+
 }
 
 void MenuBoardTitle::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {

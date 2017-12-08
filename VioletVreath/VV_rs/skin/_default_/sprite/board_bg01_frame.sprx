@@ -3,7 +3,7 @@ xof 0303txt 0032
 SpriteDef board_bg01 {
    32.0;
    32.0;
-   "test_tile.png";
+   "waku256.png";
    8;
    8;
 } 

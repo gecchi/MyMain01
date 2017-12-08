@@ -116,14 +116,14 @@ void GgafDxMassMeshModel::restore() {
         if (_nVertices > 65535) {
             throwGgafCriticalException("頂点が 65535を超えたかもしれません。\n対象Model："<<getName()<<"  _nVertices:"<<_nVertices);
         }
-        int nTextureCoords = pMeshesFront->_nTextureCoords;
+        UINT nTextureCoords = pMeshesFront->_nTextureCoords;
 //        nFaceNormals = pMeshesFront->_nFaceNormals;
         _paVtxBuffer_data_model = NEW GgafDxMassMeshModel::VERTEX_model[_nVertices];
         _size_vertex_unit_model = sizeof(GgafDxMassMeshModel::VERTEX_model);
         _size_vertices_model = sizeof(GgafDxMassMeshModel::VERTEX_model) * _nVertices;
         //法線以外設定
         FLOAT model_bounding_sphere_radius;
-        for (int i = 0; i < _nVertices; i++) {
+        for (UINT i = 0; i < _nVertices; i++) {
             _paVtxBuffer_data_model[i].x = pMeshesFront->_Vertices[i].data[0];
             _paVtxBuffer_data_model[i].y = pMeshesFront->_Vertices[i].data[1];
             _paVtxBuffer_data_model[i].z = pMeshesFront->_Vertices[i].data[2];
@@ -159,7 +159,7 @@ void GgafDxMassMeshModel::restore() {
 
         //インデックスバッファ構築
         _paIndexBuffer_data = NEW WORD[_nFaces*3];
-        for (int i = 0; i < _nFaces; i++) {
+        for (UINT i = 0; i < _nFaces; i++) {
             _paIndexBuffer_data[i*3 + 0] = pMeshesFront->_Faces[i].data[0];
             _paIndexBuffer_data[i*3 + 1] = pMeshesFront->_Faces[i].data[1];
             _paIndexBuffer_data[i*3 + 2] = pMeshesFront->_Faces[i].data[2];
@@ -209,7 +209,7 @@ void GgafDxMassMeshModel::restore() {
     //デバイスにテクスチャ作成
     if (!_papTextureConnection) {
         _papTextureConnection = NEW GgafDxTextureConnection*[_num_materials];
-        for (int n = 0; n < _num_materials; n++) {
+        for (DWORD n = 0; n < _num_materials; n++) {
             _papTextureConnection[n] =
                     (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(_pa_texture_filenames[n].c_str(), this));
         }

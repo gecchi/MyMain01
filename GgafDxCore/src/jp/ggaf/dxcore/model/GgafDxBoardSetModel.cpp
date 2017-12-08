@@ -45,10 +45,6 @@ GgafDxBoardSetModel::GgafDxBoardSetModel(const char* prm_model_name) : GgafDxMod
         _TRACE_("GgafDxBoardSetModel("<<prm_model_name<<") の同時描画セット数省略のため、最大の28がセットされます。");
         _set_num = 28;
     }
-
-    //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
-    //void GgafDxModelManager::restoreBoardSetModel(GgafDxBoardSetModel*)
-    //で行うようにした。要参照。
 }
 
 HRESULT GgafDxBoardSetModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {

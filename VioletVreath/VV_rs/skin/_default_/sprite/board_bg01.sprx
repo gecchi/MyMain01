@@ -1,9 +1,9 @@
 xof 0303txt 0032
 
 SpriteDef board_bg01 {
-   32.0;
-   32.0;
-   "test_tile2.png";
-   4;
-   4;
+   8.0;
+   8.0;
+   "blue_bk.png";
+   1;
+   1;
 } 

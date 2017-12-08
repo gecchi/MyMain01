@@ -34,13 +34,8 @@ GgafDxMeshModel::GgafDxMeshModel(const char* prm_model_name) : GgafDxModel(prm_m
     _nVertices = 0;
     _nFaces = 0;
     _obj_model |= Obj_GgafDxMeshModel;
-
-    //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
-    //void GgafDxModelManager::restoreMeshModel(GgafDxMeshModel*)
-    //で行うようにした。要参照。
 }
 
-//描画
 HRESULT GgafDxMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
     IDirect3DDevice9* const pDevice = GgafDxGod::_pID3DDevice9;
     //対象アクター
@@ -215,7 +210,7 @@ void GgafDxMeshModel::restore() {
         _paVtxBuffer_data = NEW GgafDxMeshModel::VERTEX[_nVertices];
         _size_vertices = sizeof(GgafDxMeshModel::VERTEX) * _nVertices;
         _size_vertex_unit = sizeof(GgafDxMeshModel::VERTEX);
-        int nTextureCoords = pMeshesFront->_nTextureCoords;
+        UINT nTextureCoords = pMeshesFront->_nTextureCoords;
         if (_nVertices < nTextureCoords) {
             _TRACE3_("nTextureCoords="<<nTextureCoords<<"/_nVertices="<<_nVertices);
             _TRACE3_("UV座標数が、頂点バッファ数を越えてます。頂点数までしか設定されません。対象="<<xfile_name);
@@ -224,7 +219,7 @@ void GgafDxMeshModel::restore() {
         //頂点バッファ作成開始！
         //法線以外設定
         FLOAT model_bounding_sphere_radius;
-        for (int i = 0; i < _nVertices; i++) {
+        for (UINT i = 0; i < _nVertices; i++) {
             _paVtxBuffer_data[i].x = pMeshesFront->_Vertices[i].data[0];
             _paVtxBuffer_data[i].y = pMeshesFront->_Vertices[i].data[1];
             _paVtxBuffer_data[i].z = pMeshesFront->_Vertices[i].data[2];
@@ -262,7 +257,7 @@ void GgafDxMeshModel::restore() {
 
         //インデックスバッファ登録
         _paIndexBuffer_data = NEW WORD[_nFaces*3];
-        for (int i = 0; i < _nFaces; i++) {
+        for (UINT i = 0; i < _nFaces; i++) {
             _paIndexBuffer_data[i*3 + 0] = pMeshesFront->_Faces[i].data[0];
             _paIndexBuffer_data[i*3 + 1] = pMeshesFront->_Faces[i].data[1];
             _paIndexBuffer_data[i*3 + 2] = pMeshesFront->_Faces[i].data[2];
@@ -393,7 +388,7 @@ void GgafDxMeshModel::restore() {
     //テクスチャ作成
     if (!_papTextureConnection) {
         _papTextureConnection = NEW GgafDxTextureConnection*[_num_materials];
-        for (int n = 0; n < _num_materials; n++) {
+        for (DWORD n = 0; n < _num_materials; n++) {
             _papTextureConnection[n] =
                     (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(_pa_texture_filenames[n].c_str(), this));
         }
@@ -441,7 +436,7 @@ GgafDxMeshModel::~GgafDxMeshModel() {
 //        //デバッグ
 //        _TRACE_("#頂点バッファ _nVertices="<<_nVertices);
 //        float x,y,z,nx,ny,nz,tu,tv,tan_x,tan_y,tan_z,bin_x,bin_y,bin_z;
-//        for (int i = 0; i < _nVertices; i++) {
+//        for (UINT i = 0; i < _nVertices; i++) {
 //            x = _paVtxBuffer_data[i].x;
 //            y = _paVtxBuffer_data[i].y;
 //            z = _paVtxBuffer_data[i].z;
@@ -465,7 +460,7 @@ GgafDxMeshModel::~GgafDxMeshModel() {
 //        //デバッグ
 //        _TRACE_("#頂点バッファ _nVertices="<<_nVertices);
 //        float x,y,z,nx,ny,nz,tu,tv;
-//        for (int i = 0; i < _nVertices; i++) {
+//        for (UINT i = 0; i < _nVertices; i++) {
 //            x = _paVtxBuffer_data[i].x;
 //            y = _paVtxBuffer_data[i].y;
 //            z = _paVtxBuffer_data[i].z;

@@ -24,10 +24,6 @@ GgafDxMassMorphMeshModel::GgafDxMassMorphMeshModel(const char* prm_model_name) :
     _size_vertex_unit_morph_model = 0;
     _morph_target_num = 0;
     registerCallback_VertexModelInfo(GgafDxMassMorphMeshModel::createVertexModel); //頂点レイアウト情報作成コールバック関数
-    //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
-    //void GgafDxModelManager::restoreMassMorphMeshModel(GgafDxMassMorphMeshModel*)
-    //で行うようにした。要参照。
-    _TRACE_("GgafDxMassMorphMeshModel::GgafDxMassMorphMeshModel(" << _model_name << ") End");
 }
 
 void GgafDxMassMorphMeshModel::createVertexModel(void* prm, GgafDxMassModel::VertexModelInfo* out_info) {
@@ -135,11 +131,6 @@ void GgafDxMassMorphMeshModel::restore() {
         for (int i = 0; i < _morph_target_num+1; i++) {
             xfile_names[i] = GgafDxModelManager::getMeshFileName(str_model + "_" + XTOS(i));
         }
-        HRESULT hr;
-        D3DMATERIAL9*                         paMaterial = nullptr;
-
-        GgafDxTextureConnection** model_papTextureConnection = nullptr;
-
         //流し込む頂点バッファデータ作成
         ToolBox::IO_Model_X iox;
         Frm::Model3D** papModel3D = NEW Frm::Model3D*[_morph_target_num+1];
@@ -179,7 +170,7 @@ void GgafDxMassMorphMeshModel::restore() {
                 _size_vertices_model = sizeof(GgafDxMassMorphMeshModel::VERTEX_model_primary) * _nVertices;
                 //法線以外設定
                 FLOAT model_bounding_sphere_radius;
-                for (int i = 0; i < _nVertices; i++) {
+                for (UINT i = 0; i < _nVertices; i++) {
                     _paVtxBuffer_data_model[i].x = papMeshesFront[pattern]->_Vertices[i].data[0];
                     _paVtxBuffer_data_model[i].y = papMeshesFront[pattern]->_Vertices[i].data[1];
                     _paVtxBuffer_data_model[i].z = papMeshesFront[pattern]->_Vertices[i].data[2];
@@ -209,7 +200,7 @@ void GgafDxMassMorphMeshModel::restore() {
                 _size_vertex_unit_morph_model = sizeof(GgafDxMassMorphMeshModel::VERTEX_model_morph);
                 _size_vertices_morph_model = sizeof(GgafDxMassMorphMeshModel::VERTEX_model_morph) * _nVertices;
                 //法線以外設定
-                for (int i = 0; i < _nVertices; i++) {
+                for (UINT i = 0; i < _nVertices; i++) {
                     _papaVtxBuffer_data_morph_model[pattern-1][i].x = papMeshesFront[pattern]->_Vertices[i].data[0];
                     _papaVtxBuffer_data_morph_model[pattern-1][i].y = papMeshesFront[pattern]->_Vertices[i].data[1];
                     _papaVtxBuffer_data_morph_model[pattern-1][i].z = papMeshesFront[pattern]->_Vertices[i].data[2];
@@ -237,7 +228,7 @@ void GgafDxMassMorphMeshModel::restore() {
 
         //インデックスバッファ取得
         _paIndexBuffer_data = NEW WORD[_nFaces*3];
-        for (int i = 0; i < _nFaces; i++) {
+        for (UINT i = 0; i < _nFaces; i++) {
             _paIndexBuffer_data[i*3 + 0] = papMeshesFront[0]->_Faces[i].data[0];
             _paIndexBuffer_data[i*3 + 1] = papMeshesFront[0]->_Faces[i].data[1];
             _paIndexBuffer_data[i*3 + 2] = papMeshesFront[0]->_Faces[i].data[2];
@@ -322,7 +313,7 @@ void GgafDxMassMorphMeshModel::restore() {
 
     if (!_papTextureConnection) {
         _papTextureConnection = NEW GgafDxTextureConnection*[_num_materials];
-        for (int n = 0; n < _num_materials; n++) {
+        for (DWORD n = 0; n < _num_materials; n++) {
             _papTextureConnection[n] =
                     (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(_pa_texture_filenames[n].c_str(), this));
         }

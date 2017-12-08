@@ -20,10 +20,6 @@ GgafDxD3DXMeshModel::GgafDxD3DXMeshModel(const char* prm_model_name, DWORD prm_d
     _num_materials = 0L;
     _dwOptions = prm_dwOptions;
     _obj_model |= Obj_GgafDxD3DXMeshModel;
-
-    //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
-    //void GgafDxModelManager::restoreD3DXMeshModel(GgafDxD3DXMeshModel*)
-    //で行うようにした。要参照。
 }
 
 HRESULT GgafDxD3DXMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {

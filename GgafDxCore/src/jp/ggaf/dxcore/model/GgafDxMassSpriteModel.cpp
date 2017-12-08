@@ -29,9 +29,6 @@ GgafDxMassSpriteModel::GgafDxMassSpriteModel(const char* prm_model_name) : GgafD
     _obj_model |= Obj_GgafDxMassSpriteModel;
 
     registerCallback_VertexModelInfo(GgafDxMassSpriteModel::createVertexModel); //頂点レイアウト情報作成コールバック関数
-    //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
-    //void GgafDxModelManager::restoreMassSpriteModel(GgafDxMassSpriteModel*)
-    //で行うようにした。要参照。
 }
 
 void GgafDxMassSpriteModel::createVertexModel(void* prm, GgafDxMassModel::VertexModelInfo* out_info) {
@@ -339,7 +336,7 @@ void GgafDxMassSpriteModel::restore() {
     //デバイスにテクスチャ作成
     if (!_papTextureConnection) {
         _papTextureConnection = NEW GgafDxTextureConnection*[_num_materials];
-        for (int n = 0; n < _num_materials; n++) {
+        for (DWORD n = 0; n < _num_materials; n++) {
             _papTextureConnection[n] =
                     (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(_pa_texture_filenames[n].c_str(), this));
         }
