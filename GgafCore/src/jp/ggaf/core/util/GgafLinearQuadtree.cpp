@@ -4,9 +4,10 @@
 #include "jp/ggaf/core/util/GgafTreeSpace.hpp"
 #include "jp/ggaf/core/util/GgafUtil.h"
 
-
 using namespace GgafCore;
 
+const uint32_t GgafLinearQuadtree::_POW4[(MAX_QUADTREE_LEVEL+1)+1] =
+    {1, 4, 16, 64, 256, 1024, 4096, 16384, 65536, 262144, 1048576, 4194304, 16777216, 67108864, 268435456, 1073741824};
 
 GgafLinearQuadtree::GgafLinearQuadtree(uint32_t prm_level,
                                        int x1, int y1,
@@ -19,17 +20,10 @@ _root_y2(y2),
 _top_level_dx( ((_root_x2-_root_x1) / ((float)(1<<_top_space_level))) + 1 ),
 _top_level_dy( ((_root_y2-_root_y1) / ((float)(1<<_top_space_level))) + 1 ), //+1は空間数をオーバーしないように余裕をもたせるため
 _r_top_level_dx(1.0 / _top_level_dx),
-_r_top_level_dy(1.0 / _top_level_dy)
+_r_top_level_dy(1.0 / _top_level_dy),
+_num_space((uint32_t)((_POW4[_top_space_level+1] -1) / 3))
 {
-    //べき乗作成
-    _pa_4pow = NEW uint32_t[(prm_level+1)+1];
-    _pa_4pow[0] = 1;
-    for (uint32_t i = 1; i < (prm_level+1)+1; i++) {
-        _pa_4pow[i] = _pa_4pow[i-1] * 4;
-        //_TRACE_("_pa_4pow["<<i<<"]="<<_pa_4pow[i]);
-    }
     //線形四分木配列作成
-    _num_space = (int)((_pa_4pow[_top_space_level+1] -1) / 3); //空間数
     _TRACE_("GgafLinearQuadtree::GgafLinearQuadtree("<<prm_level<<") 線形四分木空間配列要素数 _num_space="<<_num_space);
     _paQuadrant = NEW GgafTreeSpace<2u>[_num_space];
     for (uint32_t i = 0; i < _num_space; i++) {
@@ -150,8 +144,8 @@ void GgafLinearQuadtree::registerElem(GgafTreeElem<2u>* const prm_pElem,
     // あとはこれを配列Indexに変換するのみ
 
     //所属空間(シフト回数)とその空間のモートン順序通し空間番号から線形四分木配列の要素番号を求める
-    const uint32_t index = morton_order_space_num + (_pa_4pow[_top_space_level-shift_num]-1)/3;
-    //(_pa_4pow[_top_space_level-shift_num]-1)/7;
+    const uint32_t index = morton_order_space_num + (_POW4[_top_space_level-shift_num]-1)/3;
+    //(_POW4[_top_space_level-shift_num]-1)/7;
     //は、線形四分木空間配列の、所属空間レベルの最初の空間の要素番号をあらわす。
     //等比数列の和
     // Σr^k = r^0 + r^1 + r^2 + ... + r^n
@@ -247,7 +241,6 @@ void GgafLinearQuadtree::clearAllElem() {
 
 GgafLinearQuadtree::~GgafLinearQuadtree() {
     GGAF_DELETEARR(_paQuadrant);
-    GGAF_DELETEARR(_pa_4pow);
 }
 
 

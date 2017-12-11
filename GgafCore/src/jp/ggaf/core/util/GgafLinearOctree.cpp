@@ -6,6 +6,7 @@
 
 using namespace GgafCore;
 
+const uint32_t GgafLinearOctree::_POW8[(MAX_OCTREE_LEVEL+1)+1] = {1, 8, 64, 512, 4096, 32768, 262144, 2097152, 16777216, 134217728};
 
 GgafLinearOctree::GgafLinearOctree(uint32_t prm_level,
                                    int x1, int y1, int z1,
@@ -22,17 +23,10 @@ _top_level_dy( ((_root_y2-_root_y1) / ((float)(1<<_top_space_level))) + 1 ),
 _top_level_dz( ((_root_z2-_root_z1) / ((float)(1<<_top_space_level))) + 1 ), //+1は空間数をオーバーしないように余裕をもたせるため
 _r_top_level_dx(1.0 / _top_level_dx),
 _r_top_level_dy(1.0 / _top_level_dy),
-_r_top_level_dz(1.0 / _top_level_dz)
+_r_top_level_dz(1.0 / _top_level_dz),
+_num_space((uint32_t)((_POW8[_top_space_level+1] -1) / 7))
 {
-    //べき乗作成
-    _pa_8pow = NEW uint32_t[(prm_level+1)+1];
-    _pa_8pow[0] = 1;
-    for (uint32_t i = 1; i < (prm_level+1)+1; i++) {
-        _pa_8pow[i] = _pa_8pow[i-1] * 8;
-        //_TRACE_("_pa_8pow["<<i<<"]="<<_pa_8pow[i]);
-    }
     //線形八分木配列作成
-    _num_space = (uint32_t)((_pa_8pow[_top_space_level+1] -1) / 7); //空間数
     _TRACE_("GgafLinearOctree::GgafLinearOctree("<<prm_level<<") 線形八分木空間配列要素数 _num_space="<<_num_space);
     _paOctant = NEW GgafTreeSpace<3u>[_num_space];
     for (uint32_t i = 0; i < _num_space; i++) {
@@ -158,8 +152,8 @@ void GgafLinearOctree::registerElem(GgafTreeElem<3u>* const prm_pElem,
     // あとはこれを配列Indexに変換するのみ
 
     //所属空間(シフト回数)とその空間のモートン順序通し空間番号から線形八分木配列の要素番号を求める
-    const uint32_t index = morton_order_space_num + (_pa_8pow[_top_space_level-shift_num]-1)/7;
-    //(_pa_8pow[_top_space_level-shift_num]-1)/7;
+    const uint32_t index = morton_order_space_num + (_POW8[_top_space_level-shift_num]-1)/7;
+    //(_POW8[_top_space_level-shift_num]-1)/7;
     //は、線形八分木空間配列の、所属空間レベルの最初の空間の要素番号をあらわす。
     //等比数列の和
     // Σr^k = r^0 + r^1 + r^2 + ... + r^n
@@ -256,13 +250,9 @@ void GgafLinearOctree::clearAllElem() {
     _pRegElemFirst = nullptr;
 }
 
-
-
 GgafLinearOctree::~GgafLinearOctree() {
     GGAF_DELETEARR(_paOctant);
-    GGAF_DELETEARR(_pa_8pow);
 }
-
 
 void GgafLinearOctree::putTree() {
     char aChar_strbit[33];

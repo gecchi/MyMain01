@@ -110,8 +110,8 @@ _z_bound_far   (+DX_C(prm_pCamera->getZFar()))
     // y = sin(x^(e/pi))
     // 0 <= x <= (pi^(pi/e)) / (2^(pi/e))
     //                               ª y=1‚ÅÚ‚·‚é‰ÓŠ
-    const double e = 2.7182818284590452354;
-    const double period = pow(PI, (PI/e)) / pow(2,(PI/e));
+    static const double e = 2.7182818284590452354;
+    static const double period = pow(PI, (PI/e)) / pow(2,(PI/e));
 
     _dep_resolution = prm_pCamera->getZFar() * PROPERTY::RENDER_DEPTH_STAGE_RATIO;  //’iŠKƒŒƒ“ƒ_l—¶”ÍˆÍ
     pixcoord px_dep_resolution = DX_PX(_dep_resolution);

@@ -6,6 +6,8 @@
 #include "jp/ggaf/core/util/GgafTreeSpace.hpp"
 #include "jp/ggaf/core/util/GgafTreeElem.hpp"
 
+#define MAX_QUADTREE_LEVEL 14
+
 namespace GgafCore {
 
 /**
@@ -210,11 +212,11 @@ public:
 
     const double _r_top_level_dx;
     const double _r_top_level_dy;
-
-    /** [r]8の累乗の値を予め計算して保持している配列 */
-    uint32_t* _pa_4pow;
     /** [r]全空間数 */
-    uint32_t _num_space;
+    const uint32_t _num_space;
+    /** [r]8の累乗の値を予め計算して保持している配列 */
+    static const uint32_t _POW4[(MAX_QUADTREE_LEVEL+1)+1];
+
 
 public:
     /**
