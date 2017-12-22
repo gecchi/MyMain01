@@ -242,9 +242,34 @@ void GgafLinearQuadtree::clearAllElem() {
 GgafLinearQuadtree::~GgafLinearQuadtree() {
     GGAF_DELETEARR(_paQuadrant);
 }
-
+void GgafLinearQuadtree::putTree(uint32_t prm_index, int prm_lv, int prm_pos) {
+    int space_no = prm_index;
+    if (_paQuadrant[prm_index]._kind_bit_field != 0) {
+        for (int i = 0; i < prm_lv; i++) {
+            space_no -= _POW4[i];
+            _TRACE_N_("  ");
+        }
+        UTIL::strbin(_paQuadrant[prm_index]._kind_bit_field, _aChar_strbit);
+        _TRACE_N_("LV"<<prm_lv<<"-"<<space_no<<"(POS:"<<prm_pos<<")["<<prm_index<<"]="<<_aChar_strbit<<" /GgafTreeElem->");
+        _paQuadrant[prm_index].dump();
+        _TRACE_N_("\n");
+    }
+    uint32_t lower_level_index = (prm_index<<2) + 1;
+    if ( lower_level_index >= _num_space) {
+        //要素数オーバー、つまりリーフ
+        return; //親空間へ戻る
+    } else {
+        //もぐる
+        for (int i = 0; i < (1<<2); i++) {
+            putTree(lower_level_index+i, prm_lv+1, i);
+        }
+        return; //親空間へ戻る
+    }
+}
 
 void GgafLinearQuadtree::putTree() {
+    putTree(0);
+/*
     char aChar_strbit[33];
     int lv0_order_num = 0;
     int lv1_order_num = 0;
@@ -350,6 +375,7 @@ void GgafLinearQuadtree::putTree() {
             }
         }
     }
+*/
 }
 
 

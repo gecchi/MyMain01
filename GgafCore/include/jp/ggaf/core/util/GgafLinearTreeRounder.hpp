@@ -18,7 +18,7 @@ namespace GgafCore {
 template<class T, uint32_t DIMENSION>
 class GgafLinearTreeRounder : public GgafObject {
 
-    uint32_t _num_space_minus_one;
+    uint32_t _num_space;
 
 public:
     /**
@@ -130,7 +130,7 @@ public:
      */
     GgafLinearTreeRounder(GgafTreeSpace<DIMENSION>* prm_paTargetSpace, int prm_num_space, void (T::*prm_pFunc)(T*)) {
         _paTargetSpace = prm_paTargetSpace;
-        _num_space_minus_one = prm_num_space;
+        _num_space = prm_num_space;
         _pFunc = prm_pFunc;
         _kind_groupA = 0;
         _kind_groupB = 0;
@@ -187,7 +187,7 @@ public:
             executeRoundRobin(&_stackGroupA , &_stackGroupB_Current);
         }
         const uint32_t lower_level_index = (prm_index<<DIMENSION) + 1; //_papOctant[prm_index] 空間の子空間のモートン順序位置0番の配列要素番号
-        if ( lower_level_index > _num_space_minus_one) {
+        if ( lower_level_index >= _num_space) {
             //要素数オーバー、つまりリーフ
             _stackGroupA_Current.clear();
             _stackGroupB_Current.clear();
@@ -220,7 +220,6 @@ public:
                     execute(lower_level_index);
                 }
             }
-
 
             for (int i = 1; i < (1<<DIMENSION); i++) {
                 kind_bit_field_lower_level = (++pOctant_lower_level)->_kind_bit_field;

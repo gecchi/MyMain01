@@ -254,7 +254,34 @@ GgafLinearOctree::~GgafLinearOctree() {
     GGAF_DELETEARR(_paOctant);
 }
 
+void GgafLinearOctree::putTree(uint32_t prm_index, int prm_lv, int prm_pos) {
+    int space_no = prm_index;
+    if (_paOctant[prm_index]._kind_bit_field != 0) {
+        for (int i = 0; i < prm_lv; i++) {
+            space_no -= _POW8[i];
+            _TRACE_N_("  ");
+        }
+        UTIL::strbin(_paOctant[prm_index]._kind_bit_field, _aChar_strbit);
+        _TRACE_N_("LV"<<prm_lv<<"-"<<space_no<<"(POS:"<<prm_pos<<")["<<prm_index<<"]="<<_aChar_strbit<<" /GgafTreeElem->");
+        _paOctant[prm_index].dump();
+        _TRACE_N_("\n");
+    }
+    uint32_t lower_level_index = (prm_index<<3) + 1;
+    if ( lower_level_index >= _num_space) {
+        //要素数オーバー、つまりリーフ
+        return; //親空間へ戻る
+    } else {
+        //もぐる
+        for (int i = 0; i < (1<<3); i++) {
+            putTree(lower_level_index+i, prm_lv+1, i);
+        }
+        return; //親空間へ戻る
+    }
+}
+
 void GgafLinearOctree::putTree() {
+    putTree(0);
+    /*
     char aChar_strbit[33];
     int lv0_order_num = 0;
     int lv1_order_num = 0;
@@ -360,6 +387,7 @@ void GgafLinearOctree::putTree() {
             }
         }
     }
+    */
 }
 
 

@@ -217,7 +217,7 @@ public:
     /** [r]8の累乗の値を予め計算して保持している配列 */
     static const uint32_t _POW4[(MAX_QUADTREE_LEVEL+1)+1];
 
-
+    char _aChar_strbit[33];
 public:
     /**
      * 線形四分木空間を構築する.
@@ -256,6 +256,7 @@ public:
      * デバッグ用。四分木登録状況出力（レベル８までしか対応していない） .
      */
     void putTree();
+    void putTree(uint32_t prm_index_begin, int prm_lv = 0, int prm_pos = 0);
 
     virtual ~GgafLinearQuadtree();
 };
