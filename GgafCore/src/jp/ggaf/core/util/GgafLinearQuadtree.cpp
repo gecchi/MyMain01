@@ -30,6 +30,7 @@ _num_space((uint32_t)((_POW4[_top_space_level+1] -1) / 3))
         _paQuadrant[i]._my_index = i;
     }
     _pRegElemFirst = nullptr;
+    _TRACE_(FUNC_NAME<<" 四分木ルートレベル(level=0)の空間位置=(" << _root_x1 << "," << _root_y1 << ")-(" << _root_x2 << "," << _root_y2 << ")");
     _TRACE_(FUNC_NAME<<" 四分木ルートレベル(level=0)の空間の広さ=" << _root_x2-_root_x1 << "x" << _root_y2-_root_y1 );
     _TRACE_(FUNC_NAME<<" 四分木末端レベル(level="<<_top_space_level<<")の空間の広さ=" << _top_level_dx << "x" << _top_level_dy );
 }
@@ -236,12 +237,12 @@ void GgafLinearQuadtree::clearAllElem() {
         pElem = pElem->_pRegLinkNext;
     }
     _pRegElemFirst = nullptr;
-
 }
 
 GgafLinearQuadtree::~GgafLinearQuadtree() {
     GGAF_DELETEARR(_paQuadrant);
 }
+
 void GgafLinearQuadtree::putTree(uint32_t prm_index, int prm_lv, int prm_pos) {
     int space_no = prm_index;
     if (_paQuadrant[prm_index]._kind_bit_field != 0) {
@@ -269,113 +270,6 @@ void GgafLinearQuadtree::putTree(uint32_t prm_index, int prm_lv, int prm_pos) {
 
 void GgafLinearQuadtree::putTree() {
     putTree(0);
-/*
-    char aChar_strbit[33];
-    int lv0_order_num = 0;
-    int lv1_order_num = 0;
-    int lv2_order_num = 0;
-    int lv3_order_num = 0;
-    int lv4_order_num = 0;
-    int lv5_order_num = 0;
-    int lv6_order_num = 0;
-    int lv7_order_num = 0;
-    int lv8_order_num = 0;
-
-    int lv0_order_pos = 0;
-
-    int LV0 = 0;
-
-    if (_paQuadrant[0]._kind_bit_field == 0) {
-        _TRACE_("4分木に何も無し！");
-    } else {
-        UTIL::strbin(_paQuadrant[LV0]._kind_bit_field, aChar_strbit);
-        _TRACE_N_("LV0."<<lv0_order_num<<"(POS:"<<lv0_order_pos<<")["<<LV0<<"]="<<aChar_strbit<<" /GgafTreeElem->");
-        _paQuadrant[LV0].dump();
-        _TRACE_N_("\n");
-    }
-
-    uint32_t index_lv1_begin = LV0*4 + 1;
-    if (index_lv1_begin > _num_space-1) { return; }
-
-    for (uint32_t LV1 = index_lv1_begin, lv1_order_pos = 0; LV1 < index_lv1_begin+4; LV1++, lv1_order_num++, lv1_order_pos++) {
-        if (_paQuadrant[LV1]._kind_bit_field == 0) { continue; }
-        UTIL::strbin(_paQuadrant[LV1]._kind_bit_field, aChar_strbit);
-        _TRACE_N_("  LV1-"<<lv1_order_num<<"(POS:"<<lv1_order_pos<<")["<<LV1<<"]="<<aChar_strbit<<" /GgafTreeElem->");
-        _paQuadrant[LV1].dump();
-        _TRACE_N_("\n");
-        ////
-        uint32_t index_lv2_begin = LV1*4 + 1;
-        if (index_lv2_begin > _num_space-1) { continue; } //次の階層にもぐれるかLvチェック
-
-        for (uint32_t LV2 = index_lv2_begin, lv2_order_pos = 0; LV2 < index_lv2_begin+4; LV2++, lv2_order_num++, lv2_order_pos++) {
-            if (_paQuadrant[LV2]._kind_bit_field == 0) { continue; }  //何も無いので下位表示を飛ばし
-            UTIL::strbin(_paQuadrant[LV2]._kind_bit_field, aChar_strbit);
-            _TRACE_N_("    LV2-"<<lv2_order_num<<"(POS:"<<lv2_order_pos<<")["<<LV2<<"]="<<aChar_strbit<<" /GgafTreeElem->");
-            _paQuadrant[LV2].dump();
-            _TRACE_N_("\n");
-            ///
-            uint32_t index_lv3_begin = LV2*4 + 1;
-            if (index_lv3_begin > _num_space-1) { continue; } //次の階層にもぐれるかLvチェック
-            for (uint32_t LV3 = index_lv3_begin, lv3_order_pos = 0; LV3 < index_lv3_begin+4; LV3++, lv3_order_num++, lv3_order_pos++) {
-                if (_paQuadrant[LV3]._kind_bit_field == 0) { continue; }  //何も無いので下位表示を飛ばし
-                UTIL::strbin(_paQuadrant[LV3]._kind_bit_field, aChar_strbit);
-                _TRACE_N_("      LV3-"<<lv3_order_num<<"(POS:"<<lv3_order_pos<<")["<<LV3<<"]="<<aChar_strbit<<" /GgafTreeElem->");
-                _paQuadrant[LV3].dump();
-                _TRACE_N_("\n");
-                ///
-                uint32_t index_lv4_begin = LV3*4 + 1;
-                if (index_lv4_begin > _num_space-1) { continue; } //次の階層にもぐれるかLvチェック
-                for (uint32_t LV4 = index_lv4_begin, lv4_order_pos = 0; LV4 < index_lv4_begin+4; LV4++, lv4_order_num++, lv4_order_pos++) {
-                    if (_paQuadrant[LV4]._kind_bit_field == 0) { continue; }  //何も無いので下位表示を飛ばし
-                    UTIL::strbin(_paQuadrant[LV4]._kind_bit_field, aChar_strbit);
-                    _TRACE_N_("        LV4-"<<lv4_order_num<<"(POS:"<<lv4_order_pos<<")["<<LV4<<"]="<<aChar_strbit<<" /GgafTreeElem->");
-                    _paQuadrant[LV4].dump();
-                    _TRACE_N_("\n");
-                    ///
-                    uint32_t index_lv5_begin = LV4*4 + 1;
-                    if (index_lv5_begin > _num_space-1) { continue; } //次の階層にもぐれるかLvチェック
-                    for (uint32_t LV5 = index_lv5_begin, lv5_order_pos = 0; LV5 < index_lv5_begin+4; LV5++, lv5_order_num++, lv5_order_pos++) {
-                        if (_paQuadrant[LV5]._kind_bit_field == 0) { continue; }  //何も無いので下位表示を飛ばし
-                        UTIL::strbin(_paQuadrant[LV5]._kind_bit_field, aChar_strbit);
-                        _TRACE_N_("          LV5-"<<lv5_order_num<<"(POS:"<<lv5_order_pos<<")["<<LV5<<"]="<<aChar_strbit<<" /GgafTreeElem->");
-                        _paQuadrant[LV5].dump();
-                        _TRACE_N_("\n");
-                        ///
-                        uint32_t index_lv6_begin = LV5*4 + 1;
-                        if (index_lv6_begin > _num_space-1) { continue; } //次の階層にもぐれるかLvチェック
-                        for (uint32_t LV6 = index_lv6_begin, lv6_order_pos = 0; LV6 < index_lv6_begin+4; LV6++, lv6_order_num++, lv6_order_pos++) {
-                            if (_paQuadrant[LV6]._kind_bit_field == 0) { continue; }  //何も無いので下位表示を飛ばし
-                            UTIL::strbin(_paQuadrant[LV6]._kind_bit_field, aChar_strbit);
-                            _TRACE_N_("            LV6-"<<lv6_order_num<<"(POS:"<<lv6_order_pos<<")["<<LV6<<"]="<<aChar_strbit<<" /GgafTreeElem->");
-                            _paQuadrant[LV6].dump();
-                            _TRACE_N_("\n");
-                            ///
-                            uint32_t index_lv7_begin = LV6*4 + 1;
-                            if (index_lv7_begin > _num_space-1) { continue; } //次の階層にもぐれるかLvチェック
-                            for (uint32_t LV7 = index_lv7_begin, lv7_order_pos = 0; LV7 < index_lv7_begin+4; LV7++, lv7_order_num++, lv7_order_pos++) {
-                                if (_paQuadrant[LV7]._kind_bit_field == 0) { continue; }  //何も無いので下位表示を飛ばし
-                                UTIL::strbin(_paQuadrant[LV7]._kind_bit_field, aChar_strbit);
-                                _TRACE_N_("              LV7-"<<lv7_order_num<<"(POS:"<<lv7_order_pos<<")["<<LV7<<"]="<<aChar_strbit<<" /GgafTreeElem->");
-                                _paQuadrant[LV7].dump();
-                                _TRACE_N_("\n");
-                                ///
-                                uint32_t index_lv8_begin = LV7*4 + 1;
-                                if (index_lv8_begin > _num_space-1) { continue; } //次の階層にもぐれるかLvチェック
-                                for (uint32_t LV8 = index_lv8_begin, lv8_order_pos = 0; LV8 < index_lv8_begin+4; LV8++, lv8_order_num++, lv8_order_pos++) {
-                                    if (_paQuadrant[LV8]._kind_bit_field == 0) { continue; }  //何も無いので下位表示を飛ばし
-                                    UTIL::strbin(_paQuadrant[LV8]._kind_bit_field, aChar_strbit);
-                                    _TRACE_N_("                LV8-"<<lv8_order_num<<"(POS:"<<lv8_order_pos<<")["<<LV8<<"]="<<aChar_strbit<<" /GgafTreeElem->");
-                                    _paQuadrant[LV8].dump();
-                                    _TRACE_N_("\n");
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-*/
 }
 
 

@@ -270,10 +270,11 @@ public:
     void clearAllElem();
 
     /**
-     * デバッグ用。八分木登録状況出力（レベル８までしか対応していない） .
+     * デバッグ用。八分木登録状況出力 .
      */
     void putTree();
     void putTree(uint32_t prm_index_begin, int prm_lv = 0, int prm_pos = 0);
+
     virtual ~GgafLinearOctree();
 };
 

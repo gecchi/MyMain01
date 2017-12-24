@@ -27,20 +27,19 @@ HgrWorld::HgrWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
 void HgrWorld::initialize() {
     pTrialAndErrScene_ = createInFactory(TrialAndErrScene, "TrialAndErrScene");
     addSubLast(pTrialAndErrScene_);
-
 }
 
 void HgrWorld::processBehavior() {
     vb_.update(); //入力状況更新
-
 }
 
 void HgrWorld::processJudgement() {
     //当たり判定チェック
     if (GgafDxInput::isPushedDownKey(DIK_I)) {
+        _TRACE_("----------------------------------");
         P_GOD->getSpacetime()->getLinearQuadtree()->putTree();
+        _TRACE_("----------------------------------");
     }
-
     pHitCheckRounder_->executeAll(HGR_MIKATA, HGR_TEKI);
     //executeAllHitChk は processJudgement() で呼ぶ必要あり
     //(processBehavior())ではまだ登録されていない)
