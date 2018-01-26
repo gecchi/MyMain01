@@ -13,7 +13,6 @@ int g_TextureSplitRowcol; //テクスチャの縦横分割数。
                             //3：縦横３分割＝９個のアニメパターン
 float g_UvFlipPtnNo;
 
-
 //float4 g_colMaterialDiffuse;  //マテリアルのDiffuse反射色と、Ambien反射色
 float g_alpha_master;
 
@@ -147,6 +146,8 @@ OUT_VS GgafDxVS_DefaultPointSpriteSet(
     if (out_vs.posModel_Proj.z > g_zf*0.98) {   
         out_vs.posModel_Proj.z = g_zf*0.98; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
     }
+	//dot by dot考慮
+	out_vs.posModel_Proj = adjustDotByDot(out_vs.posModel_Proj);
 	return out_vs;
 }
 

@@ -5,7 +5,6 @@
 // author : Masatoshi Tsuge
 // date:2016/03/30
 ////////////////////////////////////////////////////////////////////////////////
-
 float4x4 g_matView;   //View変換行列
 float4x4 g_matProj;   //射影変換行列
 float g_tex_blink_power;
@@ -54,6 +53,9 @@ OUT_VS GgafDxVS_FontSprite(
 
     //World*View*射影変換
     out_vs.posModel_Proj = mul(mul(mul( prm_posModel_Local, matWorld ), g_matView ), g_matProj);  // 出力に設定
+	//dot by dot考慮
+	out_vs.posModel_Proj = adjustDotByDot(out_vs.posModel_Proj);
+
     //UVのオフセット(パターン番号による増分)加算
     out_vs.uv.x = prm_uv.x + prm_offset_uv.x;
     out_vs.uv.y = prm_uv.y + prm_offset_uv.y;

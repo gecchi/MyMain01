@@ -211,6 +211,9 @@ OUT_VS GgafDxVS_DefaultSpriteSet(
 
 	//World*View*射影変換
 	out_vs.posModel_Proj = mul(mul(mul( prm_posModel_Local, matWorld ), g_matView ), g_matProj);  // 出力に設定
+	//dot by dot考慮
+	out_vs.posModel_Proj = adjustDotByDot(out_vs.posModel_Proj);
+
 	//UVのオフセット(パターン番号による増分)加算
 	out_vs.uv.x = prm_uv.x + offsetU;
 	out_vs.uv.y = prm_uv.y + offsetV;

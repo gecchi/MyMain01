@@ -142,6 +142,14 @@ public:
         _is_fixed_width = false;
         _px_chr_width[c] = _chr_base_width_px * prm_width_ratio;
     }
+    /**
+     * 空白の文字を設定する .
+     * 空白の文字は描画処理がスキップされるので、パフォーマンスが向上する。
+     * @param prm_c 空白文字
+     */
+    inline void setBlankChr(char prm_c) {
+        _chr_blank = (int)prm_c;
+    }
 
     inline void getDrawString(char* out_paCh) {
         int len = _len;

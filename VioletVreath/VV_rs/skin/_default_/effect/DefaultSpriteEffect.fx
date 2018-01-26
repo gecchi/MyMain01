@@ -5,7 +5,6 @@
 // author : Masatoshi Tsuge
 // date:2009/03/06 
 ////////////////////////////////////////////////////////////////////////////////
-
 float4x4 g_matWorld;  //World変換行列
 float4x4 g_matView;   //View変換行列
 float4x4 g_matProj;   //射影変換行列
@@ -47,8 +46,10 @@ OUT_VS GgafDxVS_DefaultSprite(
         if (out_vs.posModel_Proj.z > g_zf*g_far_rate) {   
             out_vs.posModel_Proj.z = g_zf*g_far_rate; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
         }
-    } 
-
+    }
+	//dot by dot考慮
+	out_vs.posModel_Proj = adjustDotByDot(out_vs.posModel_Proj);
+	
 	//UVのオフセット(パターン番号による増分)加算
 	out_vs.uv.x = prm_uv.x + g_offset_u;
 	out_vs.uv.y = prm_uv.y + g_offset_v;

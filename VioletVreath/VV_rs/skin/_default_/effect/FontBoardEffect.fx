@@ -48,6 +48,8 @@ OUT_VS GgafDxVS_FontBoard(
     out_vs.posModel_Proj.y =   1 - ((2*prm_posModel_Local.y + 2*px_y - 1) / g_game_buffer_height);
     out_vs.posModel_Proj.z = depthZ;
     out_vs.posModel_Proj.w = 1.0;
+	//dot by dot考慮
+	//out_vs.posModel_Proj = adjustDotByDot(out_vs.posModel_Proj);
     //UVのオフセットを加算
     out_vs.uv.x = prm_uv.x + offset_u;
     out_vs.uv.y = prm_uv.y + offset_v;

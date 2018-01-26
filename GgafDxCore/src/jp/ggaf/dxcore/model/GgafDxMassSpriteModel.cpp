@@ -240,12 +240,11 @@ void GgafDxMassSpriteModel::restore() {
 
 //        float tex_width  = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
 //        float tex_height = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
-        float du = 1.0f / 10000000.0f; //テクスチャの幅1pxの100000分の1px
-        float dv = 1.0f / 10000000.0f; //テクスチャの高さ1pxの100000分の1px
-        float rev = 1.0;//0.99609308; //99609309で割れ
+        double du = 0.0;
+        double dv = 0.0;
         //左上
-        _paVtxBuffer_data_model[0].x = (PX_DX(xdata.width)  / -2.0)*rev;
-        _paVtxBuffer_data_model[0].y = (PX_DX(xdata.height) /  2.0)*rev;
+        _paVtxBuffer_data_model[0].x = PX_DX(xdata.width)  / -2.0;
+        _paVtxBuffer_data_model[0].y = PX_DX(xdata.height) /  2.0;
         _paVtxBuffer_data_model[0].z = 0.0f;
         _paVtxBuffer_data_model[0].nx = 0.0f;
         _paVtxBuffer_data_model[0].ny = 0.0f;
@@ -253,8 +252,8 @@ void GgafDxMassSpriteModel::restore() {
         _paVtxBuffer_data_model[0].tu = du;
         _paVtxBuffer_data_model[0].tv = dv;
         //右上
-        _paVtxBuffer_data_model[1].x = (PX_DX(xdata.width)  / 2.0)*rev;
-        _paVtxBuffer_data_model[1].y = (PX_DX(xdata.height) / 2.0)*rev;
+        _paVtxBuffer_data_model[1].x = PX_DX(xdata.width)  / 2.0;
+        _paVtxBuffer_data_model[1].y = PX_DX(xdata.height) / 2.0;
         _paVtxBuffer_data_model[1].z = 0.0f;
         _paVtxBuffer_data_model[1].nx = 0.0f;
         _paVtxBuffer_data_model[1].ny = 0.0f;
@@ -262,8 +261,8 @@ void GgafDxMassSpriteModel::restore() {
         _paVtxBuffer_data_model[1].tu = (1.0/xdata.col_texture_split) - du;
         _paVtxBuffer_data_model[1].tv = dv;
         //左下
-        _paVtxBuffer_data_model[2].x = (PX_DX(xdata.width)  / -2.0)*rev;
-        _paVtxBuffer_data_model[2].y = (PX_DX(xdata.height) / -2.0)*rev;
+        _paVtxBuffer_data_model[2].x = PX_DX(xdata.width)  / -2.0;
+        _paVtxBuffer_data_model[2].y = PX_DX(xdata.height) / -2.0;
         _paVtxBuffer_data_model[2].z = 0.0f;
         _paVtxBuffer_data_model[2].nx = 0.0f;
         _paVtxBuffer_data_model[2].ny = 0.0f;
@@ -271,14 +270,14 @@ void GgafDxMassSpriteModel::restore() {
         _paVtxBuffer_data_model[2].tu = du;
         _paVtxBuffer_data_model[2].tv = (1.0/xdata.row_texture_split) - dv;
         //右下
-        _paVtxBuffer_data_model[3].x = (PX_DX(xdata.width)  /  2.0)*rev;
-        _paVtxBuffer_data_model[3].y = (PX_DX(xdata.height) / -2.0)*rev;
+        _paVtxBuffer_data_model[3].x = PX_DX(xdata.width)  /  2.0;
+        _paVtxBuffer_data_model[3].y = PX_DX(xdata.height) / -2.0;
         _paVtxBuffer_data_model[3].z = 0.0f;
         _paVtxBuffer_data_model[3].nx = 0.0f;
         _paVtxBuffer_data_model[3].ny = 0.0f;
         _paVtxBuffer_data_model[3].nz = -1.0f;
-        _paVtxBuffer_data_model[3].tu = (1.0/xdata.col_texture_split) - du;
-        _paVtxBuffer_data_model[3].tv = (1.0/xdata.row_texture_split) - dv;
+        _paVtxBuffer_data_model[3].tu = 1.0/xdata.col_texture_split;
+        _paVtxBuffer_data_model[3].tv = 1.0/xdata.row_texture_split;
 
         _paIndexBuffer_data = NEW WORD[(_nFaces*3)];
         _paIndexBuffer_data[0] = 0;

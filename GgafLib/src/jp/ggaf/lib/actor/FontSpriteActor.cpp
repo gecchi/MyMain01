@@ -138,8 +138,8 @@ void FontSpriteActor::processDraw() {
 
             for (int i = 0; i < n; i++) {
                 memcpy(paInstancedata, &(pFontSpriteActor->_matWorld), size_of_D3DXMATRIX);
-                paInstancedata->local_x = PX_DX(  (pInstancePart->px_local_x ) + (pFontSpriteActor->_chr_base_width_px/2) );
-                paInstancedata->local_y = PX_DX( ((pInstancePart->px_local_y ) + (pFontSpriteActor->_chr_base_height_px/2) ) * (-1) ) ; //-1‚ÍÀ•WŒn‚Ì³‚ÌŒü‚«‚ª‹t‚Ìˆ×
+                paInstancedata->local_x = PX_DX(  (pInstancePart->px_local_x ) + (pFontSpriteActor->_chr_base_width_px /2) );
+                paInstancedata->local_y = PX_DX( ((pInstancePart->px_local_y ) + (pFontSpriteActor->_chr_base_height_px/2) ) * (-1) ); //-1‚ÍÀ•WŒn‚Ì³‚ÌŒü‚«‚ª‹t‚Ìˆ×
                 ((FontSpriteActor*)pDrawActor)->getUvFlipper()->getUV(u,v);
                 paInstancedata->offset_u = pInstancePart->offset_u;
                 paInstancedata->offset_v = pInstancePart->offset_v;

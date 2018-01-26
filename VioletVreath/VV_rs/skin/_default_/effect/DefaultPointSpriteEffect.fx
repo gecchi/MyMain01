@@ -61,6 +61,8 @@ OUT_VS GgafDxVS_DefaultPointSprite(
     if (out_vs.posModel_Proj.z > g_zf*0.98) {   
         out_vs.posModel_Proj.z = g_zf*0.98; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
     }
+	//dot by dot考慮
+	out_vs.posModel_Proj = adjustDotByDot(out_vs.posModel_Proj);
 	return out_vs;
 }
 

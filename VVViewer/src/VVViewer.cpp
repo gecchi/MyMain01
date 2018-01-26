@@ -11,7 +11,6 @@ HWND hWnd1, hWnd2;
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 BOOL CustmizeSysMenu(HWND hWnd);
 
-
 /**
  * GCC のエントリポイント
  */

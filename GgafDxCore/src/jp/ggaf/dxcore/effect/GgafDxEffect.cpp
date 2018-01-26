@@ -89,6 +89,15 @@ GgafDxEffect::GgafDxEffect(const char* prm_effect_name) : GgafObject() {
     _TRACE_(" GgafDxEffect::GgafDxEffect "<<prm_effect_name<<" のエフェクトを生成しました。ADD:"<<this);
     _h_alpha_master = _pID3DXEffect->GetParameterByName( nullptr, "g_alpha_master" );
     _pID3DXEffect->SetFloat(_h_alpha_master, 1.0); //マスターαデフォルトは1.0
+
+//    Out.pos.x = (Out.pos.x * ScreenW - 0.5f) / ScreenW;
+//    Out.pos.y = (Out.pos.y * ScreenH + 0.5f) / ScreenH;
+
+    _h_dbd_offset_x = _pID3DXEffect->GetParameterByName( nullptr, "g_dbd_offset_x" );
+    _pID3DXEffect->SetFloat(_h_dbd_offset_x, -1.0 / GgafDxProperties::RENDER_TARGET_BUFFER_WIDTH); //-0.5ピクセル
+    _h_dbd_offset_y = _pID3DXEffect->GetParameterByName( nullptr, "g_dbd_offset_y" );
+    _pID3DXEffect->SetFloat(_h_dbd_offset_y, +1.0 / GgafDxProperties::RENDER_TARGET_BUFFER_HEIGHT); //+0.5ピクセル
+
 }
 
 std::string GgafDxEffect::getEffectFileName(std::string prm_file) {

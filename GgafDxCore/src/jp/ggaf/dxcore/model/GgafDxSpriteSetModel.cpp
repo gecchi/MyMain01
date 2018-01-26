@@ -198,19 +198,18 @@ void GgafDxSpriteSetModel::restore() {
 
         GgafDxSpriteSetModel::VERTEX* paVertex = NEW GgafDxSpriteSetModel::VERTEX[4 * _set_num];
 
-        float tex_width  = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
-        float tex_height = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
-        double du = 1.0 / tex_width  / 100000.0; //テクスチャの幅1pxの100000分の1px
-        double dv = 1.0 / tex_height / 100000.0; //テクスチャの高さ1pxの100000分の1px
-        float rev = 1.0f;//0.99609308; //99609309で割れ
+//        float tex_width  = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
+//        float tex_height = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
+        double du = 0.0;
+        double dv = 0.0;
         //頂点配列情報をモデルに保持させる
         //UVは左上の１つ分（アニメパターン０）をデフォルトで設定する。
         //シェーダーが描画時にアニメパターン番号をみてUV座標をずらす仕様としよっと。
         //x,y の ÷2 とは、モデル中心をローカル座標の原点中心としたいため
         for (int i = 0; i < _set_num; i++) {
             //左上
-            paVertex[i*4 + 0].x = (PX_DX(xdata.width)  / -2.0)*rev;
-            paVertex[i*4 + 0].y = (PX_DX(xdata.height) /  2.0)*rev;
+            paVertex[i*4 + 0].x = PX_DX(xdata.width)  / -2.0;
+            paVertex[i*4 + 0].y = PX_DX(xdata.height) /  2.0;
             paVertex[i*4 + 0].z = 0.0f;
             paVertex[i*4 + 0].nx = 0.0f;
             paVertex[i*4 + 0].ny = 0.0f;
@@ -219,8 +218,8 @@ void GgafDxSpriteSetModel::restore() {
             paVertex[i*4 + 0].tv = (float)dv;
             paVertex[i*4 + 0].index = (float)i;
             //右上
-            paVertex[i*4 + 1].x = (PX_DX(xdata.width)  / 2.0)*rev;
-            paVertex[i*4 + 1].y = (PX_DX(xdata.height) / 2.0)*rev;
+            paVertex[i*4 + 1].x = PX_DX(xdata.width)  / 2.0;
+            paVertex[i*4 + 1].y = PX_DX(xdata.height) / 2.0;
             paVertex[i*4 + 1].z = 0.0f;
             paVertex[i*4 + 1].nx = 0.0f;
             paVertex[i*4 + 1].ny = 0.0f;
@@ -229,8 +228,8 @@ void GgafDxSpriteSetModel::restore() {
             paVertex[i*4 + 1].tv = (float)dv;
             paVertex[i*4 + 1].index = (float)i;
             //左下
-            paVertex[i*4 + 2].x = (PX_DX(xdata.width)  / -2.0)*rev;
-            paVertex[i*4 + 2].y = (PX_DX(xdata.height) / -2.0)*rev;
+            paVertex[i*4 + 2].x = PX_DX(xdata.width)  / -2.0;
+            paVertex[i*4 + 2].y = PX_DX(xdata.height) / -2.0;
             paVertex[i*4 + 2].z = 0.0f;
             paVertex[i*4 + 2].nx = 0.0f;
             paVertex[i*4 + 2].ny = 0.0f;
@@ -239,8 +238,8 @@ void GgafDxSpriteSetModel::restore() {
             paVertex[i*4 + 2].tv = (float)((1.0 / xdata.row_texture_split) - dv);
             paVertex[i*4 + 2].index = (float)i;
             //右下
-            paVertex[i*4 + 3].x = (PX_DX(xdata.width)  /  2.0)*rev;
-            paVertex[i*4 + 3].y = (PX_DX(xdata.height) / -2.0)*rev;
+            paVertex[i*4 + 3].x = PX_DX(xdata.width)  /  2.0;
+            paVertex[i*4 + 3].y = PX_DX(xdata.height) / -2.0;
             paVertex[i*4 + 3].z = 0.0f;
             paVertex[i*4 + 3].nx = 0.0f;
             paVertex[i*4 + 3].ny = 0.0f;

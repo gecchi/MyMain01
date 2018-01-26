@@ -12,7 +12,6 @@ namespace VVViewer {
  * @author Masatoshi Tsuge
  */
 class VvvGrid : public GgafLib::DefaultSpriteActor {
-
 public:
     /**
      * コンストラクタ

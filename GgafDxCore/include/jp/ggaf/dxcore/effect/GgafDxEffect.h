@@ -52,6 +52,9 @@ class GgafDxEffect : public GgafCore::GgafObject {
 
 public:
     D3DXHANDLE _h_alpha_master;
+
+    D3DXHANDLE _h_dbd_offset_x;
+    D3DXHANDLE _h_dbd_offset_y;
     /** [r]エフェクト定義の識別名。(50文字まで) */
     char* _effect_name;
     /** [r]エフェクト */

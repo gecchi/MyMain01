@@ -135,8 +135,8 @@ void GgafDxBoardModel::restore() {
     //1pxあたりのuvの大きさを求める
 //    float tex_width  = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
 //    float tex_height = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
-    double du = 0.0;//1.0 / tex_width  / 100000.0; //テクスチャの幅1pxの10000分の1px
-    double dv = 0.0;//1.0 / tex_height / 100000.0; //テクスチャの高さ1pxの10000分の1px
+    double du = 0.0;
+    double dv = 0.0;
 
     //左上
     paVertex[0].x = 0.0f;
