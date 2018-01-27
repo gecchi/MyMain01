@@ -421,10 +421,13 @@ OUT_VS GgafDxVS_DefaultBoardSet(
 	} 
 
 	//X座標Y座標をを -1 ～ +1 に押し込める。
-	out_vs.posModel_Proj.x = - 1 + ((2*prm_posModel_Local.x + 2*transformedX - 1) / g_game_buffer_width);
-	out_vs.posModel_Proj.y =   1 - ((2*prm_posModel_Local.y + 2*transformedY - 1) / g_game_buffer_height);
+	out_vs.posModel_Proj.x = - 1 + ((2*prm_posModel_Local.x + 2*transformedX) / g_game_buffer_width);
+	out_vs.posModel_Proj.y =   1 - ((2*prm_posModel_Local.y + 2*transformedY) / g_game_buffer_height);
 	out_vs.posModel_Proj.z = depthZ;
 	out_vs.posModel_Proj.w = 1.0;
+	//dot by dot考慮
+	out_vs.posModel_Proj = adjustDotByDot(out_vs.posModel_Proj);
+
 	//dot by dot考慮
 	//out_vs.posModel_Proj = adjustDotByDot(out_vs.posModel_Proj);
 	//UVのオフセットを加算

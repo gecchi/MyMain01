@@ -44,12 +44,12 @@ OUT_VS GgafDxVS_FontBoard(
     float alpha = prm_info.z; //α
 
     //X座標Y座標をを -1 ～ +1 に押し込める。
-    out_vs.posModel_Proj.x = - 1 + ((2*prm_posModel_Local.x + 2*px_x - 1) / g_game_buffer_width);
-    out_vs.posModel_Proj.y =   1 - ((2*prm_posModel_Local.y + 2*px_y - 1) / g_game_buffer_height);
+    out_vs.posModel_Proj.x = - 1 + ((2*prm_posModel_Local.x + 2*px_x) / g_game_buffer_width);
+    out_vs.posModel_Proj.y =   1 - ((2*prm_posModel_Local.y + 2*px_y) / g_game_buffer_height);
     out_vs.posModel_Proj.z = depthZ;
     out_vs.posModel_Proj.w = 1.0;
 	//dot by dot考慮
-	//out_vs.posModel_Proj = adjustDotByDot(out_vs.posModel_Proj);
+	out_vs.posModel_Proj = adjustDotByDot(out_vs.posModel_Proj);
     //UVのオフセットを加算
     out_vs.uv.x = prm_uv.x + offset_u;
     out_vs.uv.y = prm_uv.y + offset_v;

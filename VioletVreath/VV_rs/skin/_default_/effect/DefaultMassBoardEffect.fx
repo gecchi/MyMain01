@@ -50,20 +50,20 @@ OUT_VS GgafDxVS_DefaultMassBoard(
 
     if (rad_rz == 0.0f) {
         //X座標Y座標をを -1 ～ +1 に押し込める。
-        out_vs.posModel_Proj.x = - 1 + ( (2*( ((prm_posModel_Local.x + local_px_x)*r_sx) + px_x) - 1) / g_game_buffer_width);
-        out_vs.posModel_Proj.y =   1 - ( (2*( ((prm_posModel_Local.y + local_px_y)*r_sy) + px_y) - 1) / g_game_buffer_height);
+        out_vs.posModel_Proj.x = - 1 + ( (2*( ((prm_posModel_Local.x + local_px_x)*r_sx) + px_x)) / g_game_buffer_width);
+        out_vs.posModel_Proj.y =   1 - ( (2*( ((prm_posModel_Local.y + local_px_y)*r_sy) + px_y)) / g_game_buffer_height);
     } else {
         //拡大縮小
         const float lx = (prm_posModel_Local.x + local_px_x) * r_sx;
         const float ly = (prm_posModel_Local.y + local_px_y) * r_sy;
         //回転 ＆ X座標Y座標をを -1 ～ +1 に押し込める。
-        out_vs.posModel_Proj.x = - 1 + ( (2*( (lx * cos(rad_rz) - ly * sin(rad_rz))      + px_x) - 1) / g_game_buffer_width);
-        out_vs.posModel_Proj.y =   1 - ( (2*( (lx * sin(rad_rz) + ly * cos(rad_rz))      + px_y) - 1) / g_game_buffer_height);
+        out_vs.posModel_Proj.x = - 1 + ( (2*( (lx * cos(rad_rz) - ly * sin(rad_rz))      + px_x)) / g_game_buffer_width);
+        out_vs.posModel_Proj.y =   1 - ( (2*( (lx * sin(rad_rz) + ly * cos(rad_rz))      + px_y)) / g_game_buffer_height);
     }
 	out_vs.posModel_Proj.z = depthZ;
 	out_vs.posModel_Proj.w = 1.0;
 	//dot by dot考慮
-	//out_vs.posModel_Proj = adjustDotByDot(out_vs.posModel_Proj);
+	out_vs.posModel_Proj = adjustDotByDot(out_vs.posModel_Proj);
 
 	//UVのオフセットを加算
 	out_vs.uv.x = prm_uv.x + prm_offset_uv.x;

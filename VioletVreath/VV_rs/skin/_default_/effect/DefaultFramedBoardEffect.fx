@@ -138,10 +138,13 @@ OUT_VS GgafDxVS_DefaultFramedBoard(
 		}
 	}
 	//X座標Y座標をを -1 ～ +1 に押し込める。
-	out_vs.posModel_Proj.x = - 1 + ((2*x + 2*g_local_offset_x + 2*g_x - 1) / g_game_buffer_width);
-	out_vs.posModel_Proj.y =   1 - ((2*y + 2*g_local_offset_y + 2*g_y - 1) / g_game_buffer_height);
+	out_vs.posModel_Proj.x = - 1 + ((2*x + 2*g_local_offset_x + 2*g_x) / g_game_buffer_width);
+	out_vs.posModel_Proj.y =   1 - ((2*y + 2*g_local_offset_y + 2*g_y) / g_game_buffer_height);
 	out_vs.posModel_Proj.z = g_z;
 	out_vs.posModel_Proj.w = 1.0;
+	//dot by dot考慮
+	out_vs.posModel_Proj = adjustDotByDot(out_vs.posModel_Proj);
+
 	//UVのオフセットを加算
 	out_vs.uv.x = prm_uv.x + offsetU;
 	out_vs.uv.y = prm_uv.y + offsetV;
