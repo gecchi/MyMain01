@@ -16,13 +16,13 @@ StagePartController::StagePartController(const char* prm_name) : DefaultScene(pr
 //    GgafDxScene* pScene = (GgafDxScene*)(getSubFirst());
 //    while (pScene) {
 //        if (pScene->isLast()) {
-//            if (pScene->getConductor()) {
-//                pScene->getConductor()->fadeoutStopAll(120);
+//            if (pScene->getBgmConductor()) {
+//                pScene->getBgmConductor()->fadeoutStopAll(120);
 //            }
 //            break;
 //        } else {
-//            if (pScene->getConductor()) {
-//                pScene->getConductor()->fadeoutStopAll(120);
+//            if (pScene->getBgmConductor()) {
+//                pScene->getBgmConductor()->fadeoutStopAll(120);
 //            }
 //            pScene = (GgafDxScene*)(pScene->getNext());
 //        }

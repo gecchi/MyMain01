@@ -215,19 +215,20 @@ void GgafDxSpacetime::draw() {
 
     while (pDrawActor) {
         GgafDxSpacetime::_pActor_draw_active = pDrawActor;
+        GgafScene* pPlatformScene = pDrawActor->getMySceneMediator()->getPlatformScene();
 
 #ifdef MY_DEBUG
-        if (pDrawActor->getPlatformScene()->instanceOf(Obj_GgafDxScene)) {
+        if (pPlatformScene->instanceOf(Obj_GgafDxScene)) {
             //OK
         } else {
-            throwGgafCriticalException("err2. 描画アクターの所属シーン _pActor_draw_active["<<(pDrawActor->getName())<<"->getPlatformScene()["<<(pDrawActor->getPlatformScene()->getName())<<"]が、GgafDxScene に変換不可です。this="<<getName()<<" \n"
-                    "pDrawActor->getPlatformScene()->_obj_class="<<pDrawActor->getPlatformScene()->_obj_class<< " Obj_GgafDxScene="<<Obj_GgafDxScene<<" \n"
-                    "(pDrawActor->getPlatformScene()->_obj_class & Obj_GgafDxScene)="<<((pDrawActor->getPlatformScene()->_obj_class) & Obj_GgafDxScene) <<" ==?? Obj_GgafDxScene("<<Obj_GgafDxScene<<")");
+            throwGgafCriticalException("err2. 描画アクターの所属シーン _pActor_draw_active["<<(pDrawActor->getName())<<"->getPlatformScene()["<<(pPlatformScene->getName())<<"]が、GgafDxScene に変換不可です。this="<<getName()<<" \n"
+                    "pDrawActor->getPlatformScene()->_obj_class="<<pPlatformScene->_obj_class<< " Obj_GgafDxScene="<<Obj_GgafDxScene<<" \n"
+                    "(pDrawActor->getPlatformScene()->_obj_class & Obj_GgafDxScene)="<<((pPlatformScene->_obj_class) & Obj_GgafDxScene) <<" ==?? Obj_GgafDxScene("<<Obj_GgafDxScene<<")");
         }
 #endif
         //各所属シーンのαカーテンを設定する。
         pDrawActor->getEffect()->setAlphaMaster(
-                                    ((GgafDxScene*)pDrawActor->getPlatformScene())->_scene_alpha_from_top
+                                    ((GgafDxScene*)pPlatformScene)->_scene_alpha_from_top
                                  );
 
         if (pDrawActor->_alpha < 1.0f) {

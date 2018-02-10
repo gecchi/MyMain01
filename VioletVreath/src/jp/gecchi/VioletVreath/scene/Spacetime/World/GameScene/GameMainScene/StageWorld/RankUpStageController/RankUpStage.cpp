@@ -20,7 +20,7 @@ using namespace VioletVreath;
 
 bool RankUpStage::pause_ = false;
 
-RankUpStage::RankUpStage(const char* prm_name) : DefaultScene(prm_name) {
+RankUpStage::RankUpStage(const char* prm_name) : DefaultScene(prm_name, NEW RankUpStage::Medietor(this)) {
     _class_name = "RankUpStage";
     _obj_class |= Obj_RankUpStage;
 
@@ -43,16 +43,15 @@ RankUpStage::RankUpStage(const char* prm_name) : DefaultScene(prm_name) {
     useProgress(PROG_BANPEI);
 
     pSeConnection_all_hit_ = connectToSeManager("WAVE_EXPLOSION_002"); //全滅の最後の一機破壊時SE
-
-    all_hit_num_ = 0;
-    hit_enemy_num_ = 0; //MyStgUtil::calcEnemyStamina() で加算されます
 }
 
 void RankUpStage::initialize() {
     getProgress()->reset(PROG_INIT);
 }
 void RankUpStage::processBehavior() {
-    sprintf(buff,"HIT/ALL %d/%d",hit_enemy_num_,all_hit_num_);
+    RankUpStage::Medietor* pMedietor = bringSceneMediator();
+
+    sprintf(buff,"HIT/ALL %d/%d", pMedietor->hit_enemy_num_, pMedietor->all_hit_num_);
     SceneProgress* pProg = getProgress();
     pMessage3_->update(buff);
     switch (pProg->get()) {
@@ -63,7 +62,7 @@ void RankUpStage::processBehavior() {
             std::string m = "RUNKUP LEVEL:" + XTOS(G_RANKUP_LEVEL) ;
             pMessage2_->update(m.c_str());
             pMessage2_->getAlphaFader()->beat(120, 30, 30, 30, -1);
-            getConductor()->performFadein(0, 120);
+            getBgmConductor()->performFadein(0, 120);
             pProg->changeNext();
             break;
         }
@@ -80,7 +79,7 @@ void RankUpStage::processBehavior() {
             }
 
             if (pProg->getFrame() > _paFrame_NextEvent[_event_num-1]) { //最後の敵機が出現以降
-                if (all_hit_num_ == hit_enemy_num_) {
+                if (pMedietor->all_hit_num_ == pMedietor->hit_enemy_num_) {
                     //全滅させた！即効結果画面へ
                     _TRACE_(FUNC_NAME<<" ["<<getName()<<"] 全滅させた！");
                     pSeConnection_all_hit_->peek()->play(); //全滅時SE!
@@ -104,17 +103,17 @@ void RankUpStage::processBehavior() {
                 pMessage1_->update("RANKUPSTAGE::PROG_RESULT");
                 pMessage2_->update("KEKKA HAPYOU!!!");
                 _TRACE_(FUNC_NAME<<" ["<<getName()<<"] PROG_RESULT !");
-                _TRACE_(FUNC_NAME<<" ["<<getName()<<"] 結果 hit_enemy_num_="<<hit_enemy_num_<<" all_hit_num_="<<all_hit_num_);
+                _TRACE_(FUNC_NAME<<" ["<<getName()<<"] 結果 hit_enemy_num_="<<pMedietor->hit_enemy_num_<<" all_hit_num_="<<pMedietor->all_hit_num_);
             }
 
             //結果表示？
             if (pProg->hasArrivedAt(320)) {
-                getConductor()->fadeoutStop(0, 120);
-                if (all_hit_num_ <= hit_enemy_num_) { //全滅させた！
+                getBgmConductor()->fadeoutStop(0, 120);
+                if (pMedietor->all_hit_num_ <= pMedietor->hit_enemy_num_) { //全滅させた！
                     pMessage2_->update("PERFECT!!!!");
-                } else if (all_hit_num_/2 <= hit_enemy_num_) {
+                } else if (pMedietor->all_hit_num_/2 <= pMedietor->hit_enemy_num_) {
                     pMessage2_->update("VERY GOOD!!!!");
-                } else if (all_hit_num_/3 <= hit_enemy_num_) {
+                } else if (pMedietor->all_hit_num_/3 <= pMedietor->hit_enemy_num_) {
                     pMessage2_->update("GOOD!!!!");
                 } else {
                     pMessage2_->update("HETAKUSO!!!!");

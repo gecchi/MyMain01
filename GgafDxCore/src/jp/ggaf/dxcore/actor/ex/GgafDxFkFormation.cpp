@@ -16,13 +16,13 @@ void GgafDxFkFormation::registerFormationFkBase(GgafDxGeometricActor* prm_pFkBas
     if (_pSubFirst == nullptr) { //最初の１つ目
         //本フォーメーションオブジェクト自体の種別を確定
         getStatus()->set(STAT_DEFAULT_ACTOR_KIND,
-                      prm_pFkBase->getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND));
+                      prm_pFkBase->getDefaultKind());
     } else {
 #ifdef MY_DEBUG
-        if (getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND) != prm_pFkBase->getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND)) {
+        if (getDefaultKind() != prm_pFkBase->getDefaultKind()) {
             throwGgafCriticalException("異なる種別のFKベースアクターを登録しようとしています。 \n"
-                                       "想定="<<getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND)<<"[_pSubFirst="<<_pSubFirst->getName()<<"] \n"
-                                       "引数="<<prm_pFkBase->getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND)<<"["<<prm_pFkBase->getName()<<"]");
+                                       "想定="<<getDefaultKind()<<"[_pSubFirst="<<_pSubFirst->getName()<<"] \n"
+                                       "引数="<<prm_pFkBase->getDefaultKind()<<"["<<prm_pFkBase->getName()<<"]");
         }
 #endif
     }

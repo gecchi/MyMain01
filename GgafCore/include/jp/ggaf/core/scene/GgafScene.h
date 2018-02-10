@@ -209,7 +209,7 @@ public:
      * 自シーンの仲介者を取得 .
      * @return シーン仲介者
      */
-    inline GgafSceneMediator* bringSceneMediator() const {
+    virtual GgafSceneMediator* bringSceneMediator() const {
         return _pSceneMediator;
     }
 

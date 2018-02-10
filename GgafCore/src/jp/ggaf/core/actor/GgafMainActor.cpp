@@ -18,7 +18,6 @@ GgafMainActor::GgafMainActor(const char* prm_name, GgafStatus* prm_pStat) :
 
 GgafMainActor* GgafMainActor::extract() {
     GgafMainActor* pActor = (GgafMainActor*)GgafActor::extract();
-    pActor->setPlatformScene(nullptr);
     pActor->setMySceneMediator(nullptr);
     pActor->setMyGroupHead(nullptr);
     return pActor;
@@ -129,7 +128,6 @@ GgafGroupHead* GgafMainActor::addSubGroup(kind_t prm_kind, GgafMainActor* prm_pM
         addSubLast(prm_pMainActor); //’Pƒ‚ÉŽ©•ª‚ÌƒTƒu‚É’Ç‰Á‚ÅOK
         prm_pMainActor->setMyGroupHead(pMyGroupHead);             //’c’·‚ð”½‰f
         prm_pMainActor->setMySceneMediator(getMySceneMediator()); //’‡‰îŽÒ‚ð”½‰f
-        prm_pMainActor->setPlatformScene(getPlatformScene());     //Š‘®ƒV[ƒ“‚ð”½‰f
         return pMyGroupHead;
     } else {
         //Ž©g‚ÌŠ‘®Ï‚Ý’c’·Ží•Ê‚Æˆø”‚ÌƒAƒNƒ^[‚ÌŽí•Ê‚ªˆÙ‚È‚éê‡
@@ -139,7 +137,6 @@ GgafGroupHead* GgafMainActor::addSubGroup(kind_t prm_kind, GgafMainActor* prm_pM
             pSubGroupActor->addSubLast(prm_pMainActor);                //ƒTƒu‚É‹‚éŠù‘¶’c’·‚Ì”z‰º‚É’Ç‰Á
             prm_pMainActor->setMyGroupHead(pSubGroupActor);            //’c’·‚ð”½‰f
             prm_pMainActor->setMySceneMediator(getMySceneMediator());  //’‡‰îŽÒ‚ð”½‰f
-            prm_pMainActor->setPlatformScene(getPlatformScene());      //Š‘®ƒV[ƒ“‚ð”½‰f
             return pSubGroupActor;
         } else {
             //ƒTƒu‚É“¯‚¶Ží•Ê’c’·‚ª‚¢‚È‚¢ê‡A’c’·‚ðV‚½‚Éì¬‚µŽ©g‚ÌƒTƒu‚ÖA
@@ -149,7 +146,6 @@ GgafGroupHead* GgafMainActor::addSubGroup(kind_t prm_kind, GgafMainActor* prm_pM
             pNewSubGroupActor->addSubLast(prm_pMainActor);          //V’c’·‚Ì”z‰º‚Éˆø”‚ÌƒAƒNƒ^[
             prm_pMainActor->setMyGroupHead(pNewSubGroupActor);            //’c’·‚ð”½‰f
             pNewSubGroupActor->setMySceneMediator(getMySceneMediator());  //V’c’·”z‰º‚É’‡‰îŽÒ‚ð”½‰f
-            pNewSubGroupActor->setPlatformScene(getPlatformScene());      //V’c’·”z‰º‚ÉŠ‘®ƒV[ƒ“ƒZƒbƒg
             return pNewSubGroupActor;
         }
     }
@@ -157,7 +153,7 @@ GgafGroupHead* GgafMainActor::addSubGroup(kind_t prm_kind, GgafMainActor* prm_pM
 
 GgafGroupHead* GgafMainActor::addSubGroup(GgafMainActor* prm_pMainActor) {
     //getStatus()->get() ‚Íint Œ^‚¾‚ªA—á‚¦•‰‚Ì”‚É‚È‚Á‚Ä‚¢‚½‚Æ‚µ‚Ä‚àAƒrƒbƒg‚Ìî•ñ‚É‰e‹¿‚Í‚È‚¢
-    return addSubGroup(prm_pMainActor->getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND), prm_pMainActor);
+    return addSubGroup(prm_pMainActor->getDefaultKind(), prm_pMainActor);
 }
 
 GgafGroupHead* GgafMainActor::searchSubGroupHead(kind_t prm_kind) {

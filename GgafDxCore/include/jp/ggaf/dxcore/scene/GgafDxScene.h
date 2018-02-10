@@ -105,7 +105,7 @@ public:
     void fadeoutSceneWithBgmTree(int prm_frame_fade);
 
 
-    inline GgafDxBgmConductor* getConductor() {
+    inline GgafDxBgmConductor* getBgmConductor() {
         return _pConductor;
     }
 

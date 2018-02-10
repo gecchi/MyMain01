@@ -21,9 +21,9 @@ enum {
 
 Stage02PartController::Stage02PartController(const char* prm_name) : StagePartController(prm_name) {
     _class_name = "Stage02PartController";
-    getConductor()->ready(0, "OGG_BGM_01_01");
-    getConductor()->ready(1, "OGG_BGM_01_02");
-    getConductor()->ready(2, "OGG_BGM_01_03");
+    getBgmConductor()->ready(0, "OGG_BGM_01_01");
+    getBgmConductor()->ready(1, "OGG_BGM_01_02");
+    getBgmConductor()->ready(2, "OGG_BGM_01_03");
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start

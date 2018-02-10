@@ -9,7 +9,6 @@ unsigned int GgafActor::_num_actors = 0;
 #endif
 GgafActor::GgafActor(const char* prm_name, GgafStatus* prm_pStat) :
 GgafElement<GgafActor>(prm_name),
-_pScene_platform(nullptr),
 _pDependenceDepository(nullptr),
 _pFormation(nullptr),
 _can_hit_flg(false),
@@ -41,19 +40,6 @@ GgafActor::~GgafActor() {
 #endif
     _TRACE_("delete "<<NODE_INFO<<" _id="<<getId());
     //OutputDebugStringA("*");
-}
-
-void GgafActor::setPlatformScene(GgafScene* prm_pScene_platform) {
-    _pScene_platform = prm_pScene_platform;
-    GgafActor* pActor_tmp = _pSubFirst;
-    while (pActor_tmp) {
-        pActor_tmp->setPlatformScene(prm_pScene_platform);
-        if (pActor_tmp->_is_last_flg) {
-            break;
-        } else {
-            pActor_tmp = pActor_tmp->_pNext;
-        }
-    }
 }
 
 void GgafActor::setHitAble(bool prm_can_hit_flg, bool prm_can_hit_out_of_view_flg) {
@@ -92,17 +78,6 @@ void GgafActor::setHitAbleTree(bool prm_can_hit_flg) {
     }
 }
 
-GgafScene* GgafActor::getPlatformScene() {
-    if (_pScene_platform == nullptr) {
-        if (getParent()) {
-            _pScene_platform = getParent()->getPlatformScene();
-        } else {
-            _pScene_platform = nullptr;
-        }
-    }
-    return _pScene_platform;
-}
-
 void GgafActor::sayonara(frame prm_offset_frames) {
     if (_pDependenceDepository) {
         inactivateDelay(prm_offset_frames);
@@ -118,12 +93,6 @@ void GgafActor::sayonara(frame prm_offset_frames) {
             pActor = pActor->_pNext;
         }
     }
-}
-
-GgafActor* GgafActor::extract() {
-    GgafActor* pActor = GgafElement<GgafActor>::extract();
-    pActor->setPlatformScene(nullptr); //所属シーンリセット
-    return pActor;
 }
 
 void GgafActor::notifyDestroyedToFormation() {

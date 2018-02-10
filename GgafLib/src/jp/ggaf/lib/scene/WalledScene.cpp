@@ -30,13 +30,13 @@ void WalledScene::buildWalledScene(
 
     _pDepo_wall = prm_pDepo_wall;
     _pDepo_prism = prm_pDepo_prism;
-    if (_pDepo_wall->getPlatformScene()) {
+    if (_pDepo_wall->getMySceneMediator()) {
         //Šù‚ÉŠ‘®‚µ‚Ä‚¢‚é‚È‚ç‚ÎOK
     } else {
         bringSceneMediator()->addSubGroup(_pDepo_wall); //‰¼Š‘® initialize() ‚Å–{Š‘®
     }
     if (_pDepo_prism) {
-        if (_pDepo_prism->getPlatformScene()) {
+        if (_pDepo_prism->getMySceneMediator()) {
             //Šù‚ÉŠ‘®‚µ‚Ä‚¢‚é‚È‚ç‚ÎOK
         } else {
             bringSceneMediator()->addSubGroup(_pDepo_prism); //‰¼Š‘® initialize() ‚Å–{Š‘®

@@ -1,5 +1,6 @@
 #include "EnemyHisbeLaserChip003.h"
 
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -39,7 +40,7 @@ void EnemyHisbeLaserChip003::onActive() {
     getStatus()->reset();
     pKurokoLeader_->start(RELATIVE_COORD_DIRECTION); //向てる方向にスプライン座標をワールド変換
     sp_index_ = 0;
-    pScrollingScene_ = ((DefaultScene*)getPlatformScene())->getNearestScrollingScene();
+    pScrollingScene_ = ((DefaultScene*)(getMySceneMediator()->getPlatformScene()))->getNearestScrollingScene();
 }
 
 void EnemyHisbeLaserChip003::processBehavior() {

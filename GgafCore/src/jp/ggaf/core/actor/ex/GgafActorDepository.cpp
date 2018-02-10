@@ -13,13 +13,13 @@ GgafActorDepository::GgafActorDepository(const char* prm_name, GgafStatus* prm_p
 void GgafActorDepository::put(GgafActor* prm_pSub) {
     if (_pSubFirst == nullptr) {
         //種別を引き継ぐ
-        getStatus()->set(STAT_DEFAULT_ACTOR_KIND, prm_pSub->getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND));
+        getStatus()->set(STAT_DEFAULT_ACTOR_KIND, prm_pSub->getDefaultKind());
     } else {
 #ifdef MY_DEBUG
-        if (getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND) != prm_pSub->getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND)) {
+        if (getDefaultKind() != prm_pSub->getDefaultKind()) {
             throwGgafCriticalException("異なる種別のアクターを登録しようとしています。 \n"
-                                       "想定="<<getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND)<<"[_pSubFirst="<<_pSubFirst->getName()<<"] \n"
-                                       "引数="<<prm_pSub->getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND)<<"["<<prm_pSub->getName()<<"]");
+                                       "想定="<<getDefaultKind()<<"[_pSubFirst="<<_pSubFirst->getName()<<"] \n"
+                                       "引数="<<prm_pSub->getDefaultKind()<<"["<<prm_pSub->getName()<<"]");
         }
 #endif
     }

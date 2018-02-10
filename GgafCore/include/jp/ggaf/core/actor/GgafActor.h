@@ -46,15 +46,6 @@ class GgafActor : public GgafElement<GgafActor> {
     friend class GgafSpacetime;
     friend class GgafGarbageBox;
 
-private:
-    /** 現在の所属シーン */
-    GgafScene* _pScene_platform;
-
-    /**
-     * 所属シーンを設定する。 .
-     */
-    void setPlatformScene(GgafScene* prm_pScene_platform);
-
 public:
 #ifdef MY_DEBUG
     static unsigned int _num_actors;
@@ -116,12 +107,6 @@ public:
             return false;
         }
     }
-
-    /**
-     * 所属しているシーンを取得。 .
-     * @return	GgafScene*	所属しているシーン
-     */
-    virtual GgafScene* getPlatformScene();
 
     /**
      * 自アクターと他アクターの１対１の当たり判定処理を行う。
@@ -221,12 +206,6 @@ public:
     virtual void sayonara(frame prm_offset_frames = 1);
 
     /**
-     * ツリー構造から切り離す .
-     * @return
-     */
-    virtual GgafActor* extract() override;
-
-    /**
      * オブジェクトが何のクラス由来かを調べる。
      * _obj_class メンバ変数に Obj_xxxx マクロ定数が設定されていることが前提。
      * @param prm_Obj_xxxx 調べるクラスのマクロ定数
@@ -243,6 +222,10 @@ public:
 
     inline GgafStatus* getStatus() const {
         return _pStatus;
+    }
+
+    inline kind_t getDefaultKind() const {
+        return (kind_t)getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND);
     }
 
     /**

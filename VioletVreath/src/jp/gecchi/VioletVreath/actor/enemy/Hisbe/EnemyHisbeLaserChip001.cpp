@@ -1,5 +1,6 @@
 #include "EnemyHisbeLaserChip001.h"
 
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
@@ -35,7 +36,7 @@ void EnemyHisbeLaserChip001::onActive() {
     HomingLaserChip::onActive();
     //ステータスリセット
     getStatus()->reset();
-    pScrollingScene_ = ((DefaultScene*)getPlatformScene())->getNearestScrollingScene();
+    pScrollingScene_ = ((DefaultScene*)(getMySceneMediator()->getPlatformScene()))->getNearestScrollingScene();
 }
 
 void EnemyHisbeLaserChip001::onInactive() {

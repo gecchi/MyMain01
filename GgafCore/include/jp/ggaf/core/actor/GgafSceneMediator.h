@@ -23,12 +23,23 @@ namespace GgafCore {
 class GgafSceneMediator : public GgafActor {
 
 private:
+    /** 現在の所属シーン */
+    GgafScene* _pScene_platform;
+
+private:
     /**
      * 使用不可 .
      */
     GgafSceneMediator* extract() override {
         throwGgafCriticalException("GgafSceneMediator に extract() は実行できません。name="<<getName());
         return (GgafSceneMediator*)nullptr;
+    }
+
+    /**
+     * 所属シーンを設定する。.
+     */
+    void setPlatformScene(GgafScene* prm_pScene_platform) {
+        _pScene_platform = prm_pScene_platform;
     }
 
 public:
@@ -86,6 +97,14 @@ public:
     }
 
     void remove();
+
+    /**
+     * 所属しているシーンを取得。 .
+     * @return	GgafScene*	所属しているシーン
+     */
+    virtual GgafScene* getPlatformScene() {
+        return _pScene_platform;
+    }
 
     /**
      * グループとして引数のアクターをサブアクターに追加します .

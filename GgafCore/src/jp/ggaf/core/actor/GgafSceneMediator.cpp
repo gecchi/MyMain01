@@ -7,7 +7,9 @@
 
 using namespace GgafCore;
 
-GgafSceneMediator::GgafSceneMediator(GgafScene* prm_pScene_platform) : GgafActor("SceneMediator", nullptr) {
+GgafSceneMediator::GgafSceneMediator(GgafScene* prm_pScene_platform) : GgafActor("SceneMediator", nullptr),
+_pScene_platform(nullptr)
+{
     _obj_class |= Obj_GgafSceneMediator;
     _class_name = "GgafSceneMediator";
     _pScene_platform = prm_pScene_platform;
@@ -36,17 +38,15 @@ GgafGroupHead* GgafSceneMediator::addSubGroup(kind_t prm_kind, GgafMainActor* pr
         pSubGroupActor = NEW GgafGroupHead(prm_kind);
         addSubLast(pSubGroupActor);
         pSubGroupActor->setMySceneMediator(this);
-        pSubGroupActor->setPlatformScene(_pScene_platform);
     }
     pSubGroupActor->addSubLast(prm_pMainActor);
     prm_pMainActor->setMyGroupHead(pSubGroupActor);
     prm_pMainActor->setMySceneMediator(this);
-    prm_pMainActor->setPlatformScene(_pScene_platform);
     return pSubGroupActor;
 }
 
 GgafGroupHead* GgafSceneMediator::addSubGroup(GgafMainActor* prm_pMainActor) {
-    return addSubGroup(prm_pMainActor->getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND), prm_pMainActor);
+    return addSubGroup(prm_pMainActor->getDefaultKind(), prm_pMainActor);
 }
 
 GgafGroupHead* GgafSceneMediator::searchSubGroupHead(kind_t prm_kind) {

@@ -31,16 +31,16 @@ void GgafDepositoryFormation::setFormationMember(GgafActorDepository* prm_pDepo)
         throwGgafCriticalException("引数デポジトリのサブが存在しません。\n"
                                    "this="<<NODE_INFO<<" prm_pDepo="<<NODE_INFO_P(prm_pDepo)<<"");
     }
-    if (prm_pDepo->getPlatformScene()) {
+    if (prm_pDepo->getMySceneMediator()) {
         //OK
     } else {
-        throwGgafCriticalException("引数デポジトリがシーンに未所属です。\n"
+        throwGgafCriticalException("引数デポジトリがシーンに未所属(SceneMediatorが見えない)です。\n"
                                    "this="<<NODE_INFO<<" prm_pDepo="<<NODE_INFO_P(prm_pDepo)<<"");
     }
 #endif
     _pDepo = prm_pDepo;
     //団長に種別を正しく伝えるためにデポジトリ種別引継ぎ
-    getStatus()->set(STAT_DEFAULT_ACTOR_KIND, _pDepo->getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND));
+    getStatus()->set(STAT_DEFAULT_ACTOR_KIND, _pDepo->getDefaultKind());
     //TODO:↑必要だっただろうか、Treeじゃないので不要ではないか？？2015/02/20
 }
 

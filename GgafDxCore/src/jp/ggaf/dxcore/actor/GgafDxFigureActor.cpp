@@ -1,5 +1,6 @@
 #include "jp/ggaf/dxcore/actor/GgafDxFigureActor.h"
 
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/ggaf/core/util/GgafRgb.h"
 #include "jp/ggaf/dxcore/GgafDxGod.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
@@ -127,13 +128,14 @@ GgafDxAlphaFader* GgafDxFigureActor::getAlphaFader() {
 
 void GgafDxFigureActor::processPreDraw() {
     GgafDxSpacetime* pSpacetime = pGOD->getSpacetime();
+    GgafScene* pPlatformScene = getMySceneMediator()->getPlatformScene();
 #ifdef MY_DEBUG
-    if (getPlatformScene()->instanceOf(Obj_GgafDxScene)) {
+    if (pPlatformScene->instanceOf(Obj_GgafDxScene)) {
         //OK
     } else {
-        throwGgafCriticalException("name="<<getName()<<"を描画登録しようとしましたが、所属シーンが name="<<getName()<<"->getPlatformScene()["<<(getPlatformScene()->getName())<<"]が、GgafDxScene に変換不可です。this="<<NODE_INFO<<" \n"
-                "getPlatformScene()->_obj_class="<<getPlatformScene()->_obj_class<< " Obj_GgafDxScene="<<Obj_GgafDxScene<<" \n"
-                "(getPlatformScene()->_obj_class & Obj_GgafDxScene)="<<((getPlatformScene()->_obj_class) & Obj_GgafDxScene) <<" ==?? Obj_GgafDxScene("<<Obj_GgafDxScene<<")");
+        throwGgafCriticalException("name="<<getName()<<"を描画登録しようとしましたが、所属シーンが name="<<getName()<<"->getPlatformScene()["<<(pPlatformScene->getName())<<"]が、GgafDxScene に変換不可です。this="<<NODE_INFO<<" \n"
+                "getPlatformScene()->_obj_class="<<pPlatformScene->_obj_class<< " Obj_GgafDxScene="<<Obj_GgafDxScene<<" \n"
+                "(getPlatformScene()->_obj_class & Obj_GgafDxScene)="<<((pPlatformScene->_obj_class) & Obj_GgafDxScene) <<" ==?? Obj_GgafDxScene("<<Obj_GgafDxScene<<")");
     }
 #endif
     if (_pModel->_is_init_model == false) {
@@ -143,7 +145,7 @@ void GgafDxFigureActor::processPreDraw() {
     _pNextRenderActor = nullptr;
     if (isActiveInTheTree()) {
         GgafGod::_num_active_actor++;
-        if (_alpha > 0.0f &&  ((GgafDxScene*)getPlatformScene())->_scene_alpha > 0.0f) { //isActiveInTheTree() で判定すると、
+        if (_alpha > 0.0f &&  ((GgafDxScene*)pPlatformScene)->_scene_alpha > 0.0f) { //isActiveInTheTree() で判定すると、
             if (_is_2D) {
                 _now_drawdepth = pSpacetime->registerFigureActor2D(this);
             } else {

@@ -1,5 +1,10 @@
 #include "MyStgUtil.h"
 
+#include "jp/ggaf/core/actor/GgafGroupHead.h"
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
+#include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
+#include "jp/ggaf/core/actor/ex/GgafActorDepositoryStore.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
 #include "jp/gecchi/VioletVreath/actor/my/Bunshin/MyBunshinWateringLaserChip001.h"
@@ -8,10 +13,6 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld/RankUpStageController/RankUpStage.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
-#include "jp/ggaf/core/actor/GgafGroupHead.h"
-#include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
-#include "jp/ggaf/core/actor/ex/GgafActorDepositoryStore.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -795,10 +796,11 @@ bool MyStgUtil::performEnemyHit(GgafDxFigureActor* prm_this, const GgafDxGeometr
             prm_this->notifyDestroyedToFormation();     //編隊全滅判定に有効な破壊のされ方でしたよ、と通知
             UTIL::activateItemOf(prm_this);             //アイテム出現
             UTIL::activateDestroyedEffectOf(prm_this);  //やられたエフェクト
-            if (prm_this->getPlatformScene()->instanceOf(Obj_RankUpStage)) {
+            GgafScene* pThisPlatformScene = prm_this->getMySceneMediator()->getPlatformScene();
+            if (pThisPlatformScene->instanceOf(Obj_RankUpStage)) {
                 //ランクアップステージの敵ならば、
-                RankUpStage* pRankUpStage = (RankUpStage*)(prm_this->getPlatformScene());
-                pRankUpStage->hit_enemy_num_ ++; //ランクアップステージの敵倒したよ！カウントアップ
+                RankUpStage* pRankUpStage = (RankUpStage*)(pThisPlatformScene);
+                pRankUpStage->onDestroyedEnemy(prm_this, prm_pOther);
             }
         }
         UTIL::activateRevengeShotOf(prm_this);     //打ち返し弾
