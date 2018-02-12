@@ -2,6 +2,7 @@
 #define SMPWORLD_H_
 #include "SimpleSample.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
+#include "jp/ggaf/lib/actor/DefaultSceneMediator.h"
 
 #include "jp/ggaf/lib/util/VirtualButton.h"
 
@@ -19,8 +20,45 @@ namespace SimpleSample {
 class SmpWorld : public GgafLib::DefaultScene {
 
 public:
-    /** 入力受付 */
-    GgafLib::VirtualButton vb_;
+    /**
+     * シーンとアクターの仲介者 .
+     */
+    class Mediator : public GgafLib::DefaultSceneMediator {
+    public:
+        /** 仮想ボタンオブジェクト */
+        GgafLib::VirtualButton vb_;
+
+        /**
+         * コンストラクタ
+         * @param prm_pSmpWorld
+         * @return
+         */
+        Mediator(SmpWorld* prm_pSmpWorld) : GgafLib::DefaultSceneMediator(prm_pSmpWorld) {
+            vb_.remap(VB_UP     , VBK_UP   , VBJ_Y_POS_MINUS);  //VB_UP      = キーボード↑ または、Y軸－ とする。
+            vb_.remap(VB_DOWN   , VBK_DOWN , VBJ_Y_POS_PLUS );  //VB_DOWN    = キーボード↓ または、Y軸＋ とする。
+            vb_.remap(VB_LEFT   , VBK_LEFT , VBJ_X_POS_MINUS);  //VB_LEFT    = キーボード← または、X軸－ とする。
+            vb_.remap(VB_RIGHT  , VBK_RIGHT, VBJ_X_POS_PLUS );  //VB_RIGHT   = キーボード→ または、X軸＋ とする。
+            vb_.remap(VB_BUTTON1, VBK_SPACE, VBJ_BUTTON_01  );  //VB_BUTTON1 = スペースキー または ジョイスティックボタン１ とする。
+        }
+
+        void initialize() override {
+        }
+
+        void processBehavior() override {
+            vb_.update();
+        }
+
+        /**
+         * 仮想ボタンオブジェクトを返す .
+         * @return 仮想ボタン
+         */
+        GgafLib::VirtualButton* getVB() {
+            return &vb_;
+        }
+
+        virtual ~Mediator() {
+        }
+    };
 
 public:
     /**
@@ -39,9 +77,6 @@ public:
      */
     void processBehavior() override;
 
-    GgafLib::VirtualButton* getVB() {
-        return &vb_;
-    }
     virtual ~SmpWorld();
 };
 

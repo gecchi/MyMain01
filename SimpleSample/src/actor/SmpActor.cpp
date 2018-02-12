@@ -2,6 +2,8 @@
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoFaceAngAssistant.h"
+#include "jp/ggaf/lib/util/VirtualButton.h"
+#include "scene/SmpSpacetime/SmpWorld.h"
 
 using namespace SimpleSample;
 
@@ -21,6 +23,31 @@ void SmpActor::initialize() {
 }
 
 void SmpActor::processBehavior() {
+    //キャラをボタン入力で移動
+    GgafLib::VirtualButton* vb = ((SmpWorld::Mediator*)getMySceneMediator())->getVB();
+    if (vb->isPressed(VB_BUTTON1)) {
+        //ボタン１（スペースキー）を押しながらの場合
+        if (vb->isPressed(VB_UP)) {
+            _z += PX_C(2); //奥
+        }
+        if (vb->isPressed(VB_DOWN)) {
+            _z -= PX_C(2); //手前
+        }
+    } else {
+        //ボタン１（スペースキー）を離している場合
+        if (vb->isPressed(VB_RIGHT)) {
+            _x += PX_C(2); //右
+        }
+        if (vb->isPressed(VB_LEFT)) {
+            _x -= PX_C(2); //左
+        }
+        if (vb->isPressed(VB_UP)) {
+            _y += PX_C(2); //上
+        }
+        if (vb->isPressed(VB_DOWN)) {
+            _y -= PX_C(2); //下
+        }
+    }
     getKuroko()->behave(); //黒衣を活動させる（Z軸回転する）
 }
 

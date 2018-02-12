@@ -7,7 +7,6 @@
     <ClCompile Include="src\scene\SmpSpacetime.cpp" />
     <ClCompile Include="src\SimpleSample.cpp" />
     <ClCompile Include="src\SmpGod.cpp" />
-    <ClCompile Include="src\scene\SmpSpacetime\SmpWorldMediator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\actor\SmpActor.h" />
@@ -16,6 +15,5 @@
     <ClInclude Include="src\scene\SmpSpacetime.h" />
     <ClInclude Include="src\SimpleSample.h" />
     <ClInclude Include="src\SmpGod.h" />
-    <ClInclude Include="src\scene\smpspacetime\smpworldmediator.h" />
   </ItemGroup>
 </Project>

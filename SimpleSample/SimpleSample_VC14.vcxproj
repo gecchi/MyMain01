@@ -324,7 +324,6 @@
     <ClCompile Include="src\actor\SmpCamera.cpp" />
     <ClCompile Include="src\scene\SmpSpacetime.cpp" />
     <ClCompile Include="src\scene\SmpSpacetime\SmpWorld.cpp" />
-    <ClCompile Include="src\scene\SmpSpacetime\SmpWorldMediator.cpp" />
     <ClCompile Include="src\SimpleSample.cpp" />
     <ClCompile Include="src\SmpGod.cpp" />
   </ItemGroup>
@@ -333,7 +332,6 @@
     <ClInclude Include="src\actor\SmpCamera.h" />
     <ClInclude Include="src\scene\SmpSpacetime.h" />
     <ClInclude Include="src\scene\SmpSpacetime\SmpWorld.h" />
-    <ClInclude Include="src\scene\SmpSpacetime\SmpWorldMediator.h" />
     <ClInclude Include="src\SimpleSample.h" />
     <ClInclude Include="src\SmpGod.h" />
   </ItemGroup>
