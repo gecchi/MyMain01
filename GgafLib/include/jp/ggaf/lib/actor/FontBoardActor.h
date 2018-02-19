@@ -8,12 +8,12 @@
 namespace GgafLib {
 
 /**
- * 固定幅文字表示 .
+ * 文字キャラクタ表示 .
  * @version 1.00
  * @since 2016/02/25
  * @author Masatoshi Tsuge
  */
-class FontBoardActor : public GgafDxCore::GgafDxMassBoardActor , public ICharacterChip<FontBoardActor> {
+class FontBoardActor : public GgafDxCore::GgafDxMassBoardActor , public ICharacterChip<FontBoardActor, 256, 1024> {
 
 protected:
     struct VERTEX_instancedata {

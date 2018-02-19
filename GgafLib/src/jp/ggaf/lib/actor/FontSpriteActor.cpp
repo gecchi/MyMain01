@@ -19,7 +19,7 @@ FontSpriteActor::FontSpriteActor(const char* prm_name, const char* prm_model_id,
                                   "FontSpriteTechnique",
                                   prm_pStat,
                                   UTIL::createChecker(this) ) ,
-            ICharacterChip<FontSpriteActor>(this, (int)(_pMassSpriteModel->_model_width_px), (int)(_pMassSpriteModel->_model_height_px))
+            ICharacterChip<FontSpriteActor, 256, 1024>(this, (int)(_pMassSpriteModel->_model_width_px), (int)(_pMassSpriteModel->_model_height_px))
 {
     _class_name = "FontSpriteActor";
     _pColliChecker = (CollisionChecker*)_pChecker;

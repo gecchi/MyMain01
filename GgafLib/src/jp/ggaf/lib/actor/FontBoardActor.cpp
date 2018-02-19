@@ -12,7 +12,7 @@ FontBoardActor::VERTEX_instancedata FontBoardActor::_aInstancedata[GGAFDXMASS_MA
 
 FontBoardActor::FontBoardActor(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
           GgafDxMassBoardActor(prm_name, prm_model, "FontBoardEffect", "FontBoardTechnique"),
-          ICharacterChip<FontBoardActor>(this, (int)(_pMassBoardModel->_model_width_px), (int)(_pMassBoardModel->_model_height_px))
+          ICharacterChip<FontBoardActor, 256, 1024>(this, (int)(_pMassBoardModel->_model_width_px), (int)(_pMassBoardModel->_model_height_px))
 {
     _class_name = "FontBoardActor";
     _pMassBoardModel->registerCallback_VertexInstanceDataInfo(FontBoardActor::createVertexInstanceData);

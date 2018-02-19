@@ -26,9 +26,9 @@ LabelScoreFont::LabelScoreFont(const char* prm_name) :
         FontBoardActor(prm_name, "ScoreFont")
 {
     _class_name = "LabelScoreFont";
-    _chr_ptn_zero = (int)('+');
     num_pno_ = 16;
 
+    setPatternZeroChr('+');
     setBaseChrWidth(_chr_base_width_px*0.6);
 //    +   ,   -   .   /   0   1   2
 //    3   4   5   6   7   8   9   :

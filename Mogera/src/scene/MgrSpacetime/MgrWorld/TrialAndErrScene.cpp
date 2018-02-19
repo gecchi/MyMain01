@@ -38,7 +38,7 @@ TrialAndErrScene::TrialAndErrScene(const char* prm_name) : DefaultScene(prm_name
 //    orderActorToFactory(994, PointSpriteTest, "PointSpriteTest5");
 //    orderActorToFactory(995, PointSpriteTest, "PointSpriteTest6");
 //    orderActorToFactory(996, PointSpriteTest, "PointSpriteTest7");
-//    orderActorToFactory(20000, BoardTest, "BoardTest");
+    orderActorToFactory(20000, BoardTest, "BoardTest");
 }
 
 void TrialAndErrScene::initialize() {
@@ -52,9 +52,9 @@ void TrialAndErrScene::processBehavior() {
         SmpActor* pSmpActor = (SmpActor*)obtainActorFromFactory(1234);
         bringSceneMediator()->addSubGroup(pSmpActor);
 
-//        BoardTest* pBoardTest = (BoardTest*)obtainActorFromFactory(20000);
-//        pBoardTest->setPosition(PX_C(100), PX_C(50));
-//        bringSceneMediator()->addSubGroup(pBoardTest);
+        BoardTest* pBoardTest = (BoardTest*)obtainActorFromFactory(20000);
+        pBoardTest->setPosition(PX_C(100), PX_C(50));
+        bringSceneMediator()->addSubGroup(pBoardTest);
 
 
 //        for (int id = 0; id < 17; id++) {
