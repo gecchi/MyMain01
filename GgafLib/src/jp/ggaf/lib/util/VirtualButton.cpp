@@ -732,7 +732,7 @@ bool VirtualButton::arePushedDownAtOnce(vb_sta prm_aVB[], int prm_num_button) co
         prev1Flg = wasNotPressed(prm_aVB[i], 1);
         prev2Flg = wasNotPressed(prm_aVB[i], 2);
         prev3Flg = wasNotPressed(prm_aVB[i], 3);
-        if (prev1Flg) { //– > – > ª >
+        if (prev1Flg) {        //– > – > ª >
             continue;
         } else if (prev2Flg) { //– > ª > – >
             continue;

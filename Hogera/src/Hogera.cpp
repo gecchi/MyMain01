@@ -1,9 +1,7 @@
 /**
  * 「Gecchi Game App Framework ライブラリ」使用サンプル
  */
-#include "GgafLibEntry.h" //"GgafLibEntry.h" をインクルードし、
-                          //main関数 WinMain関数 ウィンドウプロシージャは
-                          //１つのファイルに記述します。
+#include "GgafLib.h" //"GgafLib.h" をインクルードし、
 #include "Hogera.h"
 
 #include "HgrGod.h"
@@ -17,14 +15,14 @@ LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
  * GCC のエントリポイント
  */
 int main(int argc, char *argv[]) {
-    return GgafLibMain(argc, argv); //直後に、この様に呼び出して下さい。
+    return GgafLib::main(argc, argv); //直後に、この様に呼び出して下さい。
 }
 
 /**
  * MSVC のエントリポイント
  */
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow) {
-    GgafLibWinMain(hInstance, hPrevInstance, lpCmdLine, nCmdShow); //直後に、この様に呼び出して下さい。
+    GgafLib::WinMain(hInstance, hPrevInstance, lpCmdLine, nCmdShow); //直後に、この様に呼び出して下さい。
 
     //プロパティファイル読込み
     GgafLib::GgafLibProperties::load(".\\config.properties");
@@ -79,7 +77,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
  * ウィンドウプロシージャ
  */
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
-    GgafLibWndProc(hWnd, message, wParam, lParam); //直後に、この様に呼び出して下さい。
+    GgafLib::WndProc(hWnd, message, wParam, lParam); //直後に、この様に呼び出して下さい。
     static HRGN hRgn1,hRgn2;
     switch (message) {
         case WM_CREATE: {

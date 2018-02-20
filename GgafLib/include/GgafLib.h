@@ -1,5 +1,5 @@
-#ifndef GGAFLIBENTRY_H_
-#define GGAFLIBENTRY_H_
+#ifndef GGAFLIB_H_
+#define GGAFLIB_H_
 #include "GgafLibCommonHeader.h"
 
 #include <windows.h>
@@ -11,12 +11,12 @@
 #include "jp/ggaf/lib/GgafLibProperties.h"
 #include "jp/ggaf/lib/DefaultGod.h"
 
+namespace GgafLib {
 
-
-HINSTANCE WinMain_hInstance;
-HINSTANCE WinMain_hPrevInstance;
-LPTSTR WinMain_lpCmdLine;
-int WinMain_nCmdShow;
+static HINSTANCE WinMain_hInstance;
+static HINSTANCE WinMain_hPrevInstance;
+static LPTSTR WinMain_lpCmdLine;
+static int WinMain_nCmdShow;
 
 /**
  * ÉÅÉCÉìèàóù .
@@ -24,7 +24,7 @@ int WinMain_nCmdShow;
  * @param argv
  * @return
  */
-int GgafLibMain(int argc, char *argv[]) {
+static int main(int argc, char *argv[]) {
     STARTUPINFO StatUpInfo;
     HINSTANCE hInstance;
     HANDLE hPrevInstance;
@@ -42,7 +42,7 @@ int GgafLibMain(int argc, char *argv[]) {
     while (*lpCmdLine == ' ') { ++lpCmdLine; }
 
     //ñ{óàÇÃWinMainÇ÷
-    return WinMain((HINSTANCE)hInstance, (HINSTANCE)hPrevInstance, lpCmdLine, nCmdShow);
+    return ::WinMain((HINSTANCE)hInstance, (HINSTANCE)hPrevInstance, lpCmdLine, nCmdShow);
 }
 
 /**
@@ -52,13 +52,13 @@ int GgafLibMain(int argc, char *argv[]) {
  * @param lpCmdLine
  * @param nCmdShow
  */
-void GgafLibWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow) {
+static void WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow) {
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
-    WinMain_hInstance = hInstance;
-    WinMain_hPrevInstance = hPrevInstance;
-    WinMain_lpCmdLine = lpCmdLine;
-    WinMain_nCmdShow = nCmdShow;
+    GgafLib::WinMain_hInstance = hInstance;
+    GgafLib::WinMain_hPrevInstance = hPrevInstance;
+    GgafLib::WinMain_lpCmdLine = lpCmdLine;
+    GgafLib::WinMain_nCmdShow = nCmdShow;
 }
 
 /**
@@ -68,7 +68,7 @@ void GgafLibWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLi
  * @param wParam
  * @param lParam
  */
-void GgafLibWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
+static void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
     switch (message) {
         case WM_SIZE:
             if (pGOD && GgafDxCore::GgafDxGod::_pHWndPrimary) {
@@ -124,6 +124,9 @@ void GgafLibWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
     }
 }
 
+}
+
+
 
 //int main(void) {
 //    PIP_ADAPTER_INFO pAdapterInfo;
@@ -166,8 +169,5 @@ void GgafLibWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 //}
 
 
-
-
-
-#endif /*GGAFLIBENTRY_H_*/
+#endif /*GGAFLIB_H_*/
 

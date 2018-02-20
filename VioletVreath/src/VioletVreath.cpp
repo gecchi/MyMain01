@@ -1,6 +1,6 @@
+#include "GgafLib.h"
 #include "VioletVreath.h"
 
-#include "GgafLibEntry.h"
 #include "resource.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/Properties.h"
@@ -45,14 +45,14 @@ void myTerminateHandler();
  * GNU GCC ならばエントリポイント
  */
 int main(int argc, char *argv[]) {
-    return GgafLibMain(argc, argv);
+    return GgafLib::main(argc, argv);
 }
 
 /**
  * VCならばエントリポイント
  */
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow) {
-    GgafLibWinMain(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
+    GgafLib::WinMain(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
     TCHAR current_dir[MAX_PATH];
     GetCurrentDirectory(MAX_PATH, current_dir);
     LPTSTR command_line = GetCommandLine();
@@ -244,7 +244,7 @@ void myTerminateHandler() {
 }
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
-    GgafLibWndProc(hWnd, message, wParam, lParam);
+    GgafLib::WndProc(hWnd, message, wParam, lParam);
 
     switch (message) {
 

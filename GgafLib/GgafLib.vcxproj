@@ -113,8 +113,8 @@
     <ClCompile Include="src\jp\ggaf\lib\util\VirtualButton.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\GgafLib.h" />
     <ClInclude Include="include\ggaflibcommonheader.h" />
-    <ClInclude Include="include\ggaflibentry.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\camera\defaultcamera.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\camera\defaultcameraupvector.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\camera\defaultcameraviewpoint.h" />
