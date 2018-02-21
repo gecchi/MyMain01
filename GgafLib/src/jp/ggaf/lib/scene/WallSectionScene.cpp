@@ -2,7 +2,7 @@
 
 #include <fstream>
 #include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
-#include "jp/ggaf/lib/GgafLibProperties.h"
+#include "jp/ggaf/lib/GgafLibConfig.h"
 #include "jp/ggaf/lib/scene/WallScene.h"
 #include "jp/ggaf/lib/actor/wall/MassWallActor.h"
 
@@ -28,7 +28,7 @@ WallSectionScene::WallSectionScene(const char* prm_name, const char* prm_data_fi
     _frame_of_launch_next = 0;
     _cnt_area_len = 0;
     _is_loop_end = false;
-    std::string data_filename = PROPERTY::DIR_WALL + std::string(prm_data_filename);
+    std::string data_filename = CONFIG::DIR_WALL + std::string(prm_data_filename);
     std::ifstream ifs(data_filename.c_str());
     if (ifs.fail()) {
         throwGgafCriticalException(prm_data_filename<<" ‚ªŠJ‚¯‚Ü‚¹‚ñ");

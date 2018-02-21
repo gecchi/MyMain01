@@ -5,7 +5,7 @@
 #include "jp/ggaf/core/GgafGarbageBox.h"
 #include "jp/ggaf/core/actor/GgafActor.h"
 #include "jp/ggaf/core/scene/GgafScene.h"
-#include "jp/ggaf/core/GgafProperties.h"
+#include "jp/ggaf/core/GgafConfig.h"
 
 
 using namespace GgafCore;
@@ -418,7 +418,7 @@ END_SYNCHRONIZED1; // <----- îrëºèIóπ
                 //ñ≥èåèë“ã@
                 _TRACE2_("ÅÉçHèÍí∑ÅÑ çHèÍÇ…ÇÕâΩÅ`ÇÒÇ‡Ç†ÇËÇ‹ÇπÇÒÅBÇ≥ÇüÇ»ÇÒÇ≈Ç‡íçï∂óàÇ¢óàÇ¢ÅIÅIÅEÅEÅEÇ»Ç¢ÇÃÇÒÅHÅBÅië“ã@Åj");
 END_SYNCHRONIZED1; // <----- îrëºèIóπ
-                if (GgafGod::_pGod->_fps >= PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) {
+                if (GgafGod::_pGod->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX) {
                     _TRACE2_("ÅÉçHèÍí∑ÅÑ Ç≥ÇŸÇ«ñZÇµÇ≠Ç»Ç¢ÇÃÇ≈ÅAÉSÉ~î†ÇÃÉSÉ~ÇèoÇµÇ∆Ç±Ç§ÅB");
                     GgafGarbageBox::_pGarbageBox->clean(5); //â…Ç»ÇÃÇ≈ÅAÉSÉ~î†ë|èú
                     GgafGarbageBox::_cnt_cleaned = 0;
@@ -431,7 +431,7 @@ END_SYNCHRONIZED1; // <----- îrëºèIóπ
                 } else {
                     _TRACE2_("ÅÉçHèÍí∑ÅÑ Ç≥ÇƒÅAñ¢êªë¢íçï∂ÇÕñ≥ÇµÅBíIÇ…êªë¢çœÇÃÇÒÇ™ÇΩÇ‹Ç¡ÇƒÇÈÇÃÇëÅÇ≠éÊÇ…óàÇ¢óàÇ¢ÅIÅBÅië“ã@Åj");
 END_SYNCHRONIZED1; // <----- îrëºèIóπ
-                    if (GgafGod::_pGod->_fps >= PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX) {
+                    if (GgafGod::_pGod->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX) {
                         _TRACE2_("ÅÉçHèÍí∑ÅÑ Ç≥ÇŸÇ«ñZÇµÇ≠Ç»Ç¢Ç≥ÇªÇ§Ç»ÇÃÇ≈ÅAÉSÉ~î†ÇÃÉSÉ~ÇèoÇµÇ∆Ç±Ç§Ç©ÅB");
                         GgafGarbageBox::_pGarbageBox->clean(5); //â…Ç»ÇÃÇ≈ÅAÉSÉ~î†ë|èú
                         GgafGarbageBox::_cnt_cleaned = 0;

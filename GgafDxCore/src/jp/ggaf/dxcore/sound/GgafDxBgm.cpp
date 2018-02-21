@@ -1,6 +1,6 @@
 #include "jp/ggaf/dxcore/sound/GgafDxBgm.h"
 
-#include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/GgafDxConfig.h"
 #include "jp/ggaf/dxcore/sound/GgafDxSound.h"
 #include "jp/ggaf/dxcore/sound/IkdLib/OggVorbisFile.h"
 #include "jp/ggaf/dxcore/sound/IkdLib/OggDecoder.h"
@@ -25,7 +25,7 @@ GgafDxBgm::GgafDxBgm(const char* prm_bgm_key) : GgafObject() {
     _bgm_key = NEW char[len+1];
     strcpy(_bgm_key, prm_bgm_key);
 
-    _ogg_file_name = GgafProperties::_mapProperties[std::string(_bgm_key)];
+    _ogg_file_name = GgafConfig::_properties.getStr(std::string(_bgm_key));
     if (_ogg_file_name == "") {
         throwGgafCriticalException("prm_bgm_key="<<prm_bgm_key<<" プロパティファイルにキーがありません");
     }
@@ -38,17 +38,17 @@ GgafDxBgm::GgafDxBgm(const char* prm_bgm_key) : GgafObject() {
 }
 
 std::string GgafDxBgm::getOggFileName(std::string prm_file) {
-    std::string ogg_file = PROPERTY::DIR_OGG[2] + "/" + prm_file;
+    std::string ogg_file = CONFIG::DIR_OGG[2] + "/" + prm_file;
     UTIL::strReplace(ogg_file, "//", "/");
     if (PathFileExists(ogg_file.c_str()) ) {
         return ogg_file;
     } else {
-        ogg_file = PROPERTY::DIR_OGG[1] + "/" + prm_file;
+        ogg_file = CONFIG::DIR_OGG[1] + "/" + prm_file;
         UTIL::strReplace(ogg_file, "//", "/");
         if (PathFileExists(ogg_file.c_str()) ) {
             return ogg_file; //ユーザースキンに存在すればそれを優先
         } else {
-            ogg_file = PROPERTY::DIR_OGG[0] + "/" + prm_file;
+            ogg_file = CONFIG::DIR_OGG[0] + "/" + prm_file;
             UTIL::strReplace(ogg_file, "//", "/");
             if (PathFileExists(ogg_file.c_str()) ) {
                 return ogg_file;

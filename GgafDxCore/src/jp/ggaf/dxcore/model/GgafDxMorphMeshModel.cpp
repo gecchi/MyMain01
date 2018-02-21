@@ -1,7 +1,7 @@
 #include "jp/ggaf/dxcore/model/GgafDxMorphMeshModel.h"
 
 #include "jp/ggaf/dxcore/GgafDxGod.h"
-#include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/GgafDxConfig.h"
 #include "jp/ggaf/dxcore/actor/GgafDxMorphMeshActor.h"
 #include "jp/ggaf/dxcore/effect/GgafDxMorphMeshEffect.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
@@ -106,7 +106,7 @@ HRESULT GgafDxMorphMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm
                     pDevice->SetTexture(0, _papTextureConnection[material_no]->peek()->_pIDirect3DBaseTexture9);
                 }
             } else {
-                _TRACE_("GgafDxMorphMeshModel::draw("<<prm_pActor_target->getName()<<") テクスチャがありません。"<<(PROPERTY::WHITE_TEXTURE)<<"が設定されるべきです。おかしいです");
+                _TRACE_("GgafDxMorphMeshModel::draw("<<prm_pActor_target->getName()<<") テクスチャがありません。"<<(CONFIG::WHITE_TEXTURE)<<"が設定されるべきです。おかしいです");
                 //無ければテクスチャ無し
                 pDevice->SetTexture(0, nullptr);
             }

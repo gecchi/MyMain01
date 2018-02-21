@@ -8,7 +8,7 @@
 #include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
 #include "jp/ggaf/dxcore/manager/GgafDxEffectManager.h"
 #include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
-#include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/GgafDxConfig.h"
 
 #include "jp/ggaf/dxcore/model/GgafDxMassModel.h"
 using namespace GgafCore;
@@ -68,7 +68,7 @@ HRESULT GgafDxCubeMapMorphMeshModel::draw(GgafDxFigureActor* prm_pActor_target, 
                     pDevice->SetTexture(0, _papTextureConnection[material_no]->peek()->_pIDirect3DBaseTexture9);
                 }
             } else {
-                _TRACE_("GgafDxCubeMapMorphMeshModel::draw("<<prm_pActor_target->getName()<<") テクスチャがありません。"<<(PROPERTY::WHITE_TEXTURE)<<"が設定されるべきです。おかしいです");
+                _TRACE_("GgafDxCubeMapMorphMeshModel::draw("<<prm_pActor_target->getName()<<") テクスチャがありません。"<<(CONFIG::WHITE_TEXTURE)<<"が設定されるべきです。おかしいです");
                 //無ければテクスチャ無し
                 pDevice->SetTexture(0, nullptr);
             }

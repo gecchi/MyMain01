@@ -396,8 +396,8 @@ class GgafActorDepositoryStore;
 class GgafOrder;
 class GgafRgb;
 
+class GgafConfig;
 class GgafProperties;
-
 class GgafLinearOctree;
 
 template<uint32_t DIMENSION>

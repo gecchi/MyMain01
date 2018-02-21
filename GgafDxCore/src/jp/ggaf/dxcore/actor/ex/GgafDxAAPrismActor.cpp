@@ -1,6 +1,6 @@
 #include "jp/ggaf/dxcore/actor/ex/GgafDxAAPrismActor.h"
 
-#include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/GgafDxConfig.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
 using namespace GgafCore;
@@ -12,7 +12,7 @@ GgafDxAAPrismActor::GgafDxAAPrismActor(const char* prm_name, GgafStatus* prm_pSt
                                    GgafDxChecker* prm_pChecker) :
 
                                    GgafDxMeshActor(prm_name,
-                                                   PROPERTY::COLI_AAPRISM_MODEL.c_str(),
+                                                   CONFIG::COLI_AAPRISM_MODEL.c_str(),
                                                    "DefaultMeshEffect",
                                                    "DefaultMeshTechnique",
                                                    prm_pStat,

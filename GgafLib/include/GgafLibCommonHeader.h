@@ -41,7 +41,7 @@ class WalledSectionScene;
 class WallScene;
 class WallSectionScene;
 
-class GgafLibProperties;
+class GgafLibConfig;
 
 class DefaultSceneMediator;
 class TreeFormation;

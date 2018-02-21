@@ -1,7 +1,7 @@
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 
 #include "jp/ggaf/dxcore/GgafDxGod.h"
-#include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/GgafDxConfig.h"
 #include "jp/ggaf/dxcore/manager/GgafDxModelManager.h"
 #include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
 #include "jp/ggaf/dxcore/manager/GgafDxTextureManager.h"
@@ -503,7 +503,7 @@ void GgafDxModel::setMaterial(Frm::Mesh* in_pMeshesFront) {
                 _paMaterial_default[n].Emissive.a = 1.000000f;
                 _pa_texture_filenames[n] = (*material)->_TextureName;
                 if (_pa_texture_filenames[n].size() == 0) {
-                   _pa_texture_filenames[n] = PROPERTY::WHITE_TEXTURE;
+                   _pa_texture_filenames[n] = CONFIG::WHITE_TEXTURE;
                 }
                 n++;
             }
@@ -533,7 +533,7 @@ void GgafDxModel::setMaterial(Frm::Mesh* in_pMeshesFront) {
             _paMaterial_default[0].Emissive.g = 1.0f;
             _paMaterial_default[0].Emissive.b = 1.0f;
             _paMaterial_default[0].Emissive.a = 1.0f;
-            _pa_texture_filenames[0] = PROPERTY::WHITE_TEXTURE;
+            _pa_texture_filenames[0] = CONFIG::WHITE_TEXTURE;
         }
     }
 

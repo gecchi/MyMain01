@@ -1,5 +1,5 @@
 #include "HgrUtil.h"
-#include "jp/ggaf/lib/GgafLibProperties.h"
+#include "jp/ggaf/lib/GgafLibConfig.h"
 #include "HgrGod.h"
 
 using namespace GgafCore;

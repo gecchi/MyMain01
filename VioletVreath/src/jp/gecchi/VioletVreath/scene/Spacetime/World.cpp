@@ -9,7 +9,7 @@
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi8Font.h"
-#include "jp/gecchi/VioletVreath/Properties.h"
+#include "jp/gecchi/VioletVreath/Config.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/PreDrawScene.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene.h"
 #include "jp/gecchi/VioletVreath/actor/InnerTitleBar.h"
@@ -42,7 +42,7 @@ World::World(const char* prm_name) : DefaultScene(prm_name) {
 
     pLabel_aster_ = NEW LabelGecchi16Font("ASTER");
     bringSceneMediator()->addSubGroup(pLabel_aster_);
-    pLabel_aster_->update(PX_C(PROPERTY::GAME_BUFFER_WIDTH), 0, "*", ALIGN_RIGHT, VALIGN_TOP);
+    pLabel_aster_->update(PX_C(CONFIG::GAME_BUFFER_WIDTH), 0, "*", ALIGN_RIGHT, VALIGN_TOP);
     pLabel_aster_->getAlphaFader()->beat(30, 15, 0, 15, -1); //チカチカ点滅
 
     is_create_GameScene_ = false;
@@ -70,8 +70,8 @@ World::World(const char* prm_name) : DefaultScene(prm_name) {
 
 void World::initialize() {
     _TRACE_(FUNC_NAME<<"");
-    pixcoord cx = PROPERTY::GAME_BUFFER_WIDTH/2;
-    pixcoord cy = PROPERTY::GAME_BUFFER_HEIGHT/2;
+    pixcoord cx = CONFIG::GAME_BUFFER_WIDTH/2;
+    pixcoord cy = CONFIG::GAME_BUFFER_HEIGHT/2;
     std::ostringstream os;
     os << "[ VIOLET VREATH ]\n" << VERSION << "\n" << "PLEASE WAIT A MOMENT ...";
     pLabel_title_ = createInFactory(LabelGecchi16Font, "STR01");
@@ -112,28 +112,28 @@ void World::initialize() {
     bringSceneMediator()->addSubGroup(pLabel_need_reboot_);
     pLabel_need_reboot_->update(PX_C(cx), PX_C(cy/2), "", ALIGN_CENTER, VALIGN_MIDDLE);
 
-    std::string fix_str = PROPERTY::FIXED_GAME_VIEW_ASPECT ? "ASPECT FIX" : "VIEW STRETCH";
+    std::string fix_str = CONFIG::FIXED_GAME_VIEW_ASPECT ? "ASPECT FIX" : "VIEW STRETCH";
     pixcoord w1,h1,w2,h2;
     pixcoord w1_bk,h1_bk,w2_bk,h2_bk;
     w1 = h1 = w2 = h2 = 0;
     w1_bk = h1_bk = w2_bk = h2_bk = 0;
     bool is_warn_dual_view = false;
-    if (PROPERTY::FULL_SCREEN && !PROPERTY::DUAL_VIEW && PROPERTY::getBool("DUAL_VIEW")) {
+    if (CONFIG::FULL_SCREEN && !CONFIG::DUAL_VIEW && CONFIG::_properties.getBool("DUAL_VIEW")) {
         //２画面フルスクリーン指定なのに、無理やり１画面フルスクリーンに設定された。
         is_warn_dual_view = true;
     }
     bool is_warn1 = false;
     bool is_warn2 = false;
-    if (PROPERTY::DUAL_VIEW) {
-        if (PROPERTY::FULL_SCREEN) {
-            w1 = PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH;
-            h1 = PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT;
-            w2 = PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH;
-            h2 = PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT;
-            w1_bk = PROPERTY::DUAL_VIEW_FULL_SCREEN1_WIDTH_BK;
-            h1_bk = PROPERTY::DUAL_VIEW_FULL_SCREEN1_HEIGHT_BK;
-            w2_bk = PROPERTY::DUAL_VIEW_FULL_SCREEN2_WIDTH_BK;
-            h2_bk = PROPERTY::DUAL_VIEW_FULL_SCREEN2_HEIGHT_BK;
+    if (CONFIG::DUAL_VIEW) {
+        if (CONFIG::FULL_SCREEN) {
+            w1 = CONFIG::DUAL_VIEW_FULL_SCREEN1_WIDTH;
+            h1 = CONFIG::DUAL_VIEW_FULL_SCREEN1_HEIGHT;
+            w2 = CONFIG::DUAL_VIEW_FULL_SCREEN2_WIDTH;
+            h2 = CONFIG::DUAL_VIEW_FULL_SCREEN2_HEIGHT;
+            w1_bk = CONFIG::DUAL_VIEW_FULL_SCREEN1_WIDTH_BK;
+            h1_bk = CONFIG::DUAL_VIEW_FULL_SCREEN1_HEIGHT_BK;
+            w2_bk = CONFIG::DUAL_VIEW_FULL_SCREEN2_WIDTH_BK;
+            h2_bk = CONFIG::DUAL_VIEW_FULL_SCREEN2_HEIGHT_BK;
             if (w1 != w1_bk || h1 != h1_bk) {
                 is_warn1 = true;
             }
@@ -141,33 +141,33 @@ void World::initialize() {
                 is_warn2 = true;
             }
         } else {
-            w1 = PROPERTY::DUAL_VIEW_WINDOW1_WIDTH;
-            h1 = PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT;
-            w2 = PROPERTY::DUAL_VIEW_WINDOW2_WIDTH;
-            h2 = PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT;
+            w1 = CONFIG::DUAL_VIEW_WINDOW1_WIDTH;
+            h1 = CONFIG::DUAL_VIEW_WINDOW1_HEIGHT;
+            w2 = CONFIG::DUAL_VIEW_WINDOW2_WIDTH;
+            h2 = CONFIG::DUAL_VIEW_WINDOW2_HEIGHT;
             w1_bk = w1;
             h1_bk = h1;
             w2_bk = w2;
             h2_bk = h2;
         }
     } else {
-        if (PROPERTY::FULL_SCREEN) {
-            w1 = PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH;
-            h1 = PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT;
-            w1_bk = PROPERTY::SINGLE_VIEW_FULL_SCREEN_WIDTH_BK;
-            h1_bk = PROPERTY::SINGLE_VIEW_FULL_SCREEN_HEIGHT_BK;
+        if (CONFIG::FULL_SCREEN) {
+            w1 = CONFIG::SINGLE_VIEW_FULL_SCREEN_WIDTH;
+            h1 = CONFIG::SINGLE_VIEW_FULL_SCREEN_HEIGHT;
+            w1_bk = CONFIG::SINGLE_VIEW_FULL_SCREEN_WIDTH_BK;
+            h1_bk = CONFIG::SINGLE_VIEW_FULL_SCREEN_HEIGHT_BK;
             if (w1 != w1_bk || h1 != h1_bk) {
                 is_warn1 = true;
             }
         } else {
-            w1 = PROPERTY::SINGLE_VIEW_WINDOW_WIDTH;
-            h1 = PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT;
+            w1 = CONFIG::SINGLE_VIEW_WINDOW_WIDTH;
+            h1 = CONFIG::SINGLE_VIEW_WINDOW_HEIGHT;
             w1_bk = w1;
             h1_bk = h1;
         }
     }
 
-    if (PROPERTY::DUAL_VIEW) {
+    if (CONFIG::DUAL_VIEW) {
         //解像度情報表示
         pLabel_resolution1_->update(
             PX_C(cx/2), PX_C(cy),
@@ -255,7 +255,7 @@ void World::processBehavior() {
         }
 
         case PROG_CALM2: {
-            if ((pProg->getFrame() >= 30 && pGOD->_fps >= PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX && pGOD->_fps <= 64.0f) || pProg->getFrame() >= 60*60*5) {
+            if ((pProg->getFrame() >= 30 && pGOD->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX && pGOD->_fps <= 64.0f) || pProg->getFrame() >= 60*60*5) {
                 pGameScene_ = (GameScene*)obtainSceneFromFactory(2);
                 pProg->changeNext();
             }
@@ -266,7 +266,7 @@ void World::processBehavior() {
         case PROG_CALM3: {
             if (pProg->hasJustChanged()) {
             }
-            if ((pProg->getFrame() >= 30 && pGOD->_fps >= PROPERTY::FPS_TO_CLEAN_GARBAGE_BOX && pGOD->_fps <= 64.0f) || pProg->getFrame() >= 60*60*5) {
+            if ((pProg->getFrame() >= 30 && pGOD->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX && pGOD->_fps <= 64.0f) || pProg->getFrame() >= 60*60*5) {
                 pProg->changeNext();
             }
             pLabel_aster_->getAlphaFader()->behave(); //右上＊チカチカ
@@ -309,7 +309,7 @@ void World::processBehavior() {
             break;
         }
     }
-    if (PROPERTY::FULL_SCREEN) {
+    if (CONFIG::FULL_SCREEN) {
         //しばらくカーソルを動かさなければ消す。
         long mdx, mdy, mdz;
         GgafDxInput::getMousePointer_REL(&mdx, &mdy, &mdz);

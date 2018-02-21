@@ -1,7 +1,7 @@
 #include "jp/ggaf/dxcore/effect/GgafDxD3DXAniMeshEffect.h"
 
 #include "jp/ggaf/dxcore/GgafDxGod.h"
-#include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/GgafDxConfig.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 

@@ -3,12 +3,12 @@
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/scene/GgafSpacetime.h"
 
-#include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/GgafDxConfig.h"
 #include "jp/ggaf/dxcore/actor/camera/GgafDxCamera.h"
 
 
 #define EX_RENDER_DEPTH_INDEXS_FRONT_NUM   (5)
-#define REGULAR_RENDER_DEPTH_INDEXS_NUM    (PROPERTY::RENDER_DEPTH_INDEXS_NUM)  //段階レンダー分解能
+#define REGULAR_RENDER_DEPTH_INDEXS_NUM    (CONFIG::RENDER_DEPTH_INDEXS_NUM)  //段階レンダー分解能
 #define EX_RENDER_DEPTH_INDEXS_BACK_NUM    (5)
 #define ALL_RENDER_DEPTH_INDEXS_NUM        (EX_RENDER_DEPTH_INDEXS_FRONT_NUM+REGULAR_RENDER_DEPTH_INDEXS_NUM+EX_RENDER_DEPTH_INDEXS_BACK_NUM)
 

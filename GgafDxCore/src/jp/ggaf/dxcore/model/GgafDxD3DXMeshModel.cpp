@@ -1,7 +1,7 @@
 #include "jp/ggaf/dxcore/model/GgafDxD3DXMeshModel.h"
 
 #include "jp/ggaf/dxcore/GgafDxGod.h"
-#include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/GgafDxConfig.h"
 #include "jp/ggaf/dxcore/actor/GgafDxD3DXMeshActor.h"
 #include "jp/ggaf/dxcore/effect/GgafDxMeshEffect.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
@@ -50,7 +50,7 @@ HRESULT GgafDxD3DXMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_
                     pDevice->SetTexture(0, _papTextureConnection[i]->peek()->_pIDirect3DBaseTexture9);
                 }
             } else {
-                _TRACE_("GgafDxD3DXMeshModel::draw("<<prm_pActor_target->getName()<<") テクスチャがありません。"<<(PROPERTY::WHITE_TEXTURE)<<"が設定されるべきです。おかしいです");
+                _TRACE_("GgafDxD3DXMeshModel::draw("<<prm_pActor_target->getName()<<") テクスチャがありません。"<<(CONFIG::WHITE_TEXTURE)<<"が設定されるべきです。おかしいです");
                 //無ければテクスチャ無し
                 pDevice->SetTexture(0, nullptr);
             }
@@ -208,7 +208,7 @@ void GgafDxD3DXMeshModel::restore() {
             papTextureConnection[i] = (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(texture_filename, this));
         } else {
             //テクスチャ無し
-            papTextureConnection[i] = (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(PROPERTY::WHITE_TEXTURE.c_str(), this));
+            papTextureConnection[i] = (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(CONFIG::WHITE_TEXTURE.c_str(), this));
         }
     }
     GGAF_RELEASE(pID3DXBuffer);//テクスチャファイル名はもういらないのでバッファ解放

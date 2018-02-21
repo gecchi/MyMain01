@@ -1071,10 +1071,10 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\God.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVreath\Properties.cpp">
+    <ClCompile Include="src\VioletVreath.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\VioletVreath.cpp">
+    <ClCompile Include="src\jp\gecchi\VioletVreath\Config.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -2144,9 +2144,6 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\God.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\jp\gecchi\VioletVreath\Properties.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="src\VioletVreath.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -2154,6 +2151,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jp\gecchi\VioletVreath\Config.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

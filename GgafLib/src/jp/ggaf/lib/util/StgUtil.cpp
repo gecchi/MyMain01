@@ -3,7 +3,7 @@
 #include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
 #include "jp/ggaf/dxcore/actor/GgafDxFigureActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/lib/GgafLibProperties.h"
+#include "jp/ggaf/lib/GgafLibConfig.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker2D.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
@@ -69,7 +69,7 @@ void StgUtil::init() {
 }
 
 GgafDxChecker* StgUtil::createChecker(GgafDxGeometricActor* prm_pActor) {
-    if (PROPERTY::IS_HIT_CHECK_3D) {
+    if (CONFIG::IS_HIT_CHECK_3D) {
         return NEW CollisionChecker3D(prm_pActor);
     } else {
         return NEW CollisionChecker2D(prm_pActor);

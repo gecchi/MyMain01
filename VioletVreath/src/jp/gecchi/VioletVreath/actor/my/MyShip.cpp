@@ -21,7 +21,7 @@
 #include "jp/gecchi/VioletVreath/actor/my/MyStraightLaserChip001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyTorpedoController.h"
 #include "jp/gecchi/VioletVreath/God.h"
-#include "jp/gecchi/VioletVreath/Properties.h"
+#include "jp/gecchi/VioletVreath/Config.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/actor/my/Bunshin/MyBunshinBase.h"
 #include "jp/ggaf/dxcore/util/GgafDx26DirectionUtil.h"
@@ -130,8 +130,8 @@ MyShip::MyShip(const char* prm_name) :
 
     //画面の大きさに伴って、移動範囲を決定
     //このあたりはFovXに依存するので微調整。
-    static const coord game_buffer_width  = PX_C(PROPERTY::GAME_BUFFER_WIDTH);
-    static const coord game_buffer_height = PX_C(PROPERTY::GAME_BUFFER_HEIGHT);
+    static const coord game_buffer_width  = PX_C(CONFIG::GAME_BUFFER_WIDTH);
+    static const coord game_buffer_height = PX_C(CONFIG::GAME_BUFFER_HEIGHT);
     MyShip::lim_y_top_     =  (game_buffer_height/2) + game_buffer_height*4;  //上は、高さ4画面分見えない領域まで移動可能
     MyShip::lim_y_bottom_  = -(game_buffer_height/2) - game_buffer_height*4;  //下は、高さ4画面分見えない領域まで移動可能
     MyShip::lim_x_infront_ =  (game_buffer_width/2)  + game_buffer_width*2;   //前は、幅の2画面分見えない領域まで移動可能
@@ -296,7 +296,7 @@ MyShip::MyShip(const char* prm_name) :
 
     //魔法メーター設置
     pMagicMeter_ = NEW MagicMeter("MagicMeter", &mp_, &(getStatus()->_paValue[STAT_Stamina]._int_val) );
-    pMagicMeter_->setPosition(PX_C(100), PX_C(PROPERTY::GAME_BUFFER_HEIGHT) - (pMagicMeter_->height_) - PX_C(16+16+16));
+    pMagicMeter_->setPosition(PX_C(100), PX_C(CONFIG::GAME_BUFFER_HEIGHT) - (pMagicMeter_->height_) - PX_C(16+16+16));
     addSubGroup(pMagicMeter_);
 
     r_blown_velo_decay_ = 0.8;

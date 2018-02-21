@@ -1,7 +1,7 @@
 #include "jp/ggaf/dxcore/effect/GgafDxEffect.h"
 
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
-#include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/GgafDxConfig.h"
 #include "jp/ggaf/dxcore/GgafDxGod.h"
 #include "Shlwapi.h"
 
@@ -23,7 +23,7 @@ GgafDxEffect::GgafDxEffect(const char* prm_effect_name) : GgafObject() {
     strcpy(_effect_name, prm_effect_name);
 
     std::string effect_file_name;
-    if (PROPERTY::REALTIME_EFFECT_COMPILE) {
+    if (CONFIG::REALTIME_EFFECT_COMPILE) {
         //fx ファイルからコンパイル
         effect_file_name = GgafDxEffect::getEffectFileName(std::string(prm_effect_name) + ".fx");
     } else {
@@ -94,24 +94,24 @@ GgafDxEffect::GgafDxEffect(const char* prm_effect_name) : GgafObject() {
 //    Out.pos.y = (Out.pos.y * ScreenH + 0.5f) / ScreenH;
 
     _h_dbd_offset_x = _pID3DXEffect->GetParameterByName( nullptr, "g_dbd_offset_x" );
-    _pID3DXEffect->SetFloat(_h_dbd_offset_x, -1.0 / GgafDxProperties::RENDER_TARGET_BUFFER_WIDTH); //-0.5ピクセル
+    _pID3DXEffect->SetFloat(_h_dbd_offset_x, -1.0 / GgafDxConfig::RENDER_TARGET_BUFFER_WIDTH); //-0.5ピクセル
     _h_dbd_offset_y = _pID3DXEffect->GetParameterByName( nullptr, "g_dbd_offset_y" );
-    _pID3DXEffect->SetFloat(_h_dbd_offset_y, +1.0 / GgafDxProperties::RENDER_TARGET_BUFFER_HEIGHT); //+0.5ピクセル
+    _pID3DXEffect->SetFloat(_h_dbd_offset_y, +1.0 / GgafDxConfig::RENDER_TARGET_BUFFER_HEIGHT); //+0.5ピクセル
 
 }
 
 std::string GgafDxEffect::getEffectFileName(std::string prm_file) {
-    std::string effect_file = PROPERTY::DIR_EFFECT[2] + "/" + prm_file;
+    std::string effect_file = CONFIG::DIR_EFFECT[2] + "/" + prm_file;
     UTIL::strReplace(effect_file, "//", "/");
     if (PathFileExists(effect_file.c_str()) ) {
         return effect_file;
     } else {
-        effect_file = PROPERTY::DIR_EFFECT[1] + "/" + prm_file;
+        effect_file = CONFIG::DIR_EFFECT[1] + "/" + prm_file;
         UTIL::strReplace(effect_file, "//", "/");
         if (PathFileExists(effect_file.c_str()) ) {
             return effect_file; //ユーザースキンに存在すればそれを優先
         } else {
-            effect_file = PROPERTY::DIR_EFFECT[0] + "/" + prm_file;
+            effect_file = CONFIG::DIR_EFFECT[0] + "/" + prm_file;
             UTIL::strReplace(effect_file, "//", "/");
             if (PathFileExists(effect_file.c_str()) ) {
                 return effect_file;

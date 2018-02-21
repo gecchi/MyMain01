@@ -1,7 +1,7 @@
 #include "jp/ggaf/dxcore/model/GgafDxD3DXAniMeshModel.h"
 
 #include "jp/ggaf/dxcore/GgafDxGod.h"
-#include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/GgafDxConfig.h"
 #include "jp/ggaf/dxcore/actor/GgafDxD3DXAniMeshActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxPuppeteer.h"
 #include "jp/ggaf/dxcore/effect/GgafDxD3DXAniMeshEffect.h"
@@ -236,7 +236,7 @@ void GgafDxD3DXAniMeshModel::restore() {
                     model_papTextureConnection[n] = (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(texture_filename, this));
                 } else {
                     //テクスチャ無し時は真っ白なテクスチャに置き換え
-                    model_papTextureConnection[n] = (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(PROPERTY::WHITE_TEXTURE.c_str(), this));
+                    model_papTextureConnection[n] = (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(CONFIG::WHITE_TEXTURE.c_str(), this));
                 }
                 n ++;
             }

@@ -205,7 +205,7 @@ height_(PX_C(height_px_)) {
 
 void MagicMeter::loadStatus(int prm_saveno) {
     st_[prm_saveno].seekg(std::stringstream::beg); //“ªo‚µ
-    load(st_[prm_saveno]);
+    loadProperties(st_[prm_saveno]);
 }
 
 void MagicMeter::saveStatus(int prm_saveno) {
@@ -222,7 +222,7 @@ void MagicMeter::save(std::stringstream& sts) {
     }
 }
 
-void MagicMeter::load(std::stringstream& sts) {
+void MagicMeter::loadProperties(std::stringstream& sts) {
     int mp;
     sts >> mp;
     pMpBar_->setVal(mp);
@@ -230,7 +230,7 @@ void MagicMeter::load(std::stringstream& sts) {
     Magic* pOrgMagic = lstMagic_.getCurrent();
     int len_magics = lstMagic_.length();
     for (int i = 0; i < len_magics; i++) {
-        pOrgMagic->load(sts);
+        pOrgMagic->loadProperties(sts);
         pOrgMagic = lstMagic_.next();
     }
 }

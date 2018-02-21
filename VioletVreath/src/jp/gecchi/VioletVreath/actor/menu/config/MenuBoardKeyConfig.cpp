@@ -8,7 +8,7 @@
 #include "jp/gecchi/VioletVreath/actor/label/LabelMenuTitleFont01.h"
 #include "jp/gecchi/VioletVreath/actor/menu/confirm/MenuBoardConfirm.h"
 #include "jp/gecchi/VioletVreath/God.h"
-#include "jp/gecchi/VioletVreath/Properties.h"
+#include "jp/gecchi/VioletVreath/Config.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelMenuItemFont01.h"
 #include "jp/ggaf/core/util/GgafValueEnveloper.hpp"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
@@ -59,14 +59,14 @@ MenuBoardKeyConfig::MenuBoardKeyConfig(const char* prm_name) :
     addItem(pLabel_CANCEL, PX_C(400), PX_C(350));
     ITEM_INDEX_CANCEL_ = item_index + 1;
 
-    paVBProperties = NEW VBProperty[item_index+1];
+    paVBConfig = NEW VBProperty[item_index+1];
     for (int i = ITEM_UP; i < ITEM_BANPEI; i++) {
-        paVBProperties[i].pKey = NEW LabelFix16Font01("DISP_KEY");
-        paVBProperties[i].pKey->setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
-        addLabel(paVBProperties[i].pKey, PX_C(600), PX_C(100+(i*20)));
-        paVBProperties[i].pJoy = NEW LabelFix16Font01("DISP_JOY");
-        paVBProperties[i].pJoy->setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
-        addLabel(paVBProperties[i].pJoy, PX_C(800), PX_C(100+(i*20)));
+        paVBConfig[i].pKey = NEW LabelFix16Font01("DISP_KEY");
+        paVBConfig[i].pKey->setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
+        addLabel(paVBConfig[i].pKey, PX_C(600), PX_C(100+(i*20)));
+        paVBConfig[i].pJoy = NEW LabelFix16Font01("DISP_JOY");
+        paVBConfig[i].pJoy->setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
+        addLabel(paVBConfig[i].pJoy, PX_C(800), PX_C(100+(i*20)));
     }
 
     LabelMenuTitleFont01* pLabel_title = NEW LabelMenuTitleFont01("LABEL_TITLE");
@@ -102,37 +102,37 @@ void MenuBoardKeyConfig::onRise() {
 
     selectItem(ITEM_UP); //カーソルの初期選択アイテムを設定
     //リセット
-    paVBProperties[ITEM_UP        ].pKey->update(PROPERTY::MY_KEY_UP        .c_str());
-    paVBProperties[ITEM_DOWN      ].pKey->update(PROPERTY::MY_KEY_DOWN      .c_str());
-    paVBProperties[ITEM_LEFT      ].pKey->update(PROPERTY::MY_KEY_LEFT      .c_str());
-    paVBProperties[ITEM_RIGHT     ].pKey->update(PROPERTY::MY_KEY_RIGHT     .c_str());
-    paVBProperties[ITEM_VIEW_UP   ].pKey->update(PROPERTY::MY_KEY_VIEW_UP   .c_str());
-    paVBProperties[ITEM_VIEW_DOWN ].pKey->update(PROPERTY::MY_KEY_VIEW_DOWN .c_str());
-    //paVBProperties[ITEM_VIEW_LEFT ].pKey->update(PROPERTY::MY_KEY_VIEW_LEFT .c_str());
-    //paVBProperties[ITEM_VIEW_RIGHT].pKey->update(PROPERTY::MY_KEY_VIEW_RIGHT.c_str());
-    paVBProperties[ITEM_MAIN_SHOT ].pKey->update(PROPERTY::MY_KEY_SHOT1     .c_str());
-    paVBProperties[ITEM_SUB_SHOT  ].pKey->update(PROPERTY::MY_KEY_SHOT2     .c_str());
-    paVBProperties[ITEM_TURBO     ].pKey->update(PROPERTY::MY_KEY_TURBO     .c_str());
-    paVBProperties[ITEM_CONTROLL  ].pKey->update(PROPERTY::MY_KEY_OPTION    .c_str());
-    paVBProperties[ITEM_MAGIC     ].pKey->update(PROPERTY::MY_KEY_POWERUP   .c_str());
-//    paVBProperties[ITEM_VAM       ].pKey->update(PROPERTY::MY_KEY_VIEW      .c_str());
-    paVBProperties[ITEM_PAUSE     ].pKey->update(PROPERTY::MY_KEY_PAUSE     .c_str());
+    paVBConfig[ITEM_UP        ].pKey->update(CONFIG::MY_KEY_UP        .c_str());
+    paVBConfig[ITEM_DOWN      ].pKey->update(CONFIG::MY_KEY_DOWN      .c_str());
+    paVBConfig[ITEM_LEFT      ].pKey->update(CONFIG::MY_KEY_LEFT      .c_str());
+    paVBConfig[ITEM_RIGHT     ].pKey->update(CONFIG::MY_KEY_RIGHT     .c_str());
+    paVBConfig[ITEM_VIEW_UP   ].pKey->update(CONFIG::MY_KEY_VIEW_UP   .c_str());
+    paVBConfig[ITEM_VIEW_DOWN ].pKey->update(CONFIG::MY_KEY_VIEW_DOWN .c_str());
+    //paVBConfig[ITEM_VIEW_LEFT ].pKey->update(CONFIG::MY_KEY_VIEW_LEFT .c_str());
+    //paVBConfig[ITEM_VIEW_RIGHT].pKey->update(CONFIG::MY_KEY_VIEW_RIGHT.c_str());
+    paVBConfig[ITEM_MAIN_SHOT ].pKey->update(CONFIG::MY_KEY_SHOT1     .c_str());
+    paVBConfig[ITEM_SUB_SHOT  ].pKey->update(CONFIG::MY_KEY_SHOT2     .c_str());
+    paVBConfig[ITEM_TURBO     ].pKey->update(CONFIG::MY_KEY_TURBO     .c_str());
+    paVBConfig[ITEM_CONTROLL  ].pKey->update(CONFIG::MY_KEY_OPTION    .c_str());
+    paVBConfig[ITEM_MAGIC     ].pKey->update(CONFIG::MY_KEY_POWERUP   .c_str());
+//    paVBConfig[ITEM_VAM       ].pKey->update(CONFIG::MY_KEY_VIEW      .c_str());
+    paVBConfig[ITEM_PAUSE     ].pKey->update(CONFIG::MY_KEY_PAUSE     .c_str());
 
-    paVBProperties[ITEM_UP        ].pJoy->update(PROPERTY::MY_JOY_UP        .c_str());
-    paVBProperties[ITEM_DOWN      ].pJoy->update(PROPERTY::MY_JOY_DOWN      .c_str());
-    paVBProperties[ITEM_LEFT      ].pJoy->update(PROPERTY::MY_JOY_LEFT      .c_str());
-    paVBProperties[ITEM_RIGHT     ].pJoy->update(PROPERTY::MY_JOY_RIGHT     .c_str());
-    paVBProperties[ITEM_VIEW_UP   ].pJoy->update(PROPERTY::MY_JOY_VIEW_UP   .c_str());
-    paVBProperties[ITEM_VIEW_DOWN ].pJoy->update(PROPERTY::MY_JOY_VIEW_DOWN .c_str());
-    //paVBProperties[ITEM_VIEW_LEFT ].pJoy->update(PROPERTY::MY_JOY_VIEW_LEFT .c_str());
-    //paVBProperties[ITEM_VIEW_RIGHT].pJoy->update(PROPERTY::MY_JOY_VIEW_RIGHT.c_str());
-    paVBProperties[ITEM_MAIN_SHOT ].pJoy->update(PROPERTY::MY_JOY_SHOT1     .c_str());
-    paVBProperties[ITEM_SUB_SHOT  ].pJoy->update(PROPERTY::MY_JOY_SHOT2     .c_str());
-    paVBProperties[ITEM_TURBO     ].pJoy->update(PROPERTY::MY_JOY_TURBO     .c_str());
-    paVBProperties[ITEM_CONTROLL  ].pJoy->update(PROPERTY::MY_JOY_OPTION    .c_str());
-    paVBProperties[ITEM_MAGIC     ].pJoy->update(PROPERTY::MY_JOY_POWERUP   .c_str());
-//    paVBProperties[ITEM_VAM       ].pJoy->update(PROPERTY::MY_JOY_VIEW      .c_str());
-    paVBProperties[ITEM_PAUSE     ].pJoy->update(PROPERTY::MY_JOY_PAUSE     .c_str());
+    paVBConfig[ITEM_UP        ].pJoy->update(CONFIG::MY_JOY_UP        .c_str());
+    paVBConfig[ITEM_DOWN      ].pJoy->update(CONFIG::MY_JOY_DOWN      .c_str());
+    paVBConfig[ITEM_LEFT      ].pJoy->update(CONFIG::MY_JOY_LEFT      .c_str());
+    paVBConfig[ITEM_RIGHT     ].pJoy->update(CONFIG::MY_JOY_RIGHT     .c_str());
+    paVBConfig[ITEM_VIEW_UP   ].pJoy->update(CONFIG::MY_JOY_VIEW_UP   .c_str());
+    paVBConfig[ITEM_VIEW_DOWN ].pJoy->update(CONFIG::MY_JOY_VIEW_DOWN .c_str());
+    //paVBConfig[ITEM_VIEW_LEFT ].pJoy->update(CONFIG::MY_JOY_VIEW_LEFT .c_str());
+    //paVBConfig[ITEM_VIEW_RIGHT].pJoy->update(CONFIG::MY_JOY_VIEW_RIGHT.c_str());
+    paVBConfig[ITEM_MAIN_SHOT ].pJoy->update(CONFIG::MY_JOY_SHOT1     .c_str());
+    paVBConfig[ITEM_SUB_SHOT  ].pJoy->update(CONFIG::MY_JOY_SHOT2     .c_str());
+    paVBConfig[ITEM_TURBO     ].pJoy->update(CONFIG::MY_JOY_TURBO     .c_str());
+    paVBConfig[ITEM_CONTROLL  ].pJoy->update(CONFIG::MY_JOY_OPTION    .c_str());
+    paVBConfig[ITEM_MAGIC     ].pJoy->update(CONFIG::MY_JOY_POWERUP   .c_str());
+//    paVBConfig[ITEM_VAM       ].pJoy->update(CONFIG::MY_JOY_VIEW      .c_str());
+    paVBConfig[ITEM_PAUSE     ].pJoy->update(CONFIG::MY_JOY_PAUSE     .c_str());
 
     MenuBoard::onRise();
 
@@ -151,39 +151,39 @@ void MenuBoardKeyConfig::processBehavior() {
     MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu();
     if (pSubConfirm->hasJustDecidedOk()) {
         //現プロパティをファイルに保存
-        PROPERTY::setValue("MY_KEY_UP"        , paVBProperties[ITEM_UP        ].pKey->getDrawString());
-        PROPERTY::setValue("MY_KEY_DOWN"      , paVBProperties[ITEM_DOWN      ].pKey->getDrawString());
-        PROPERTY::setValue("MY_KEY_LEFT"      , paVBProperties[ITEM_LEFT      ].pKey->getDrawString());
-        PROPERTY::setValue("MY_KEY_RIGHT"     , paVBProperties[ITEM_RIGHT     ].pKey->getDrawString());
-        PROPERTY::setValue("MY_KEY_VIEW_UP"   , paVBProperties[ITEM_VIEW_UP   ].pKey->getDrawString());
-        PROPERTY::setValue("MY_KEY_VIEW_DOWN" , paVBProperties[ITEM_VIEW_DOWN ].pKey->getDrawString());
-        //PROPERTY::setValue("MY_KEY_VIEW_LEFT" , paVBProperties[ITEM_VIEW_LEFT ].pKey->getDrawString());
-        //PROPERTY::setValue("MY_KEY_VIEW_RIGHT", paVBProperties[ITEM_VIEW_RIGHT].pKey->getDrawString());
-        PROPERTY::setValue("MY_KEY_SHOT1"     , paVBProperties[ITEM_MAIN_SHOT ].pKey->getDrawString());
-        PROPERTY::setValue("MY_KEY_SHOT2"     , paVBProperties[ITEM_SUB_SHOT  ].pKey->getDrawString());
-        PROPERTY::setValue("MY_KEY_TURBO"     , paVBProperties[ITEM_TURBO     ].pKey->getDrawString());
-        PROPERTY::setValue("MY_KEY_OPTION"    , paVBProperties[ITEM_CONTROLL  ].pKey->getDrawString());
-        PROPERTY::setValue("MY_KEY_POWERUP"   , paVBProperties[ITEM_MAGIC     ].pKey->getDrawString());
-//        PROPERTY::setValue("MY_KEY_VIEW"      , paVBProperties[ITEM_VAM       ].pKey->getDrawString());
-        PROPERTY::setValue("MY_KEY_PAUSE"     , paVBProperties[ITEM_PAUSE     ].pKey->getDrawString());
+        CONFIG::_properties.setValue("MY_KEY_UP"        , paVBConfig[ITEM_UP        ].pKey->getDrawString());
+        CONFIG::_properties.setValue("MY_KEY_DOWN"      , paVBConfig[ITEM_DOWN      ].pKey->getDrawString());
+        CONFIG::_properties.setValue("MY_KEY_LEFT"      , paVBConfig[ITEM_LEFT      ].pKey->getDrawString());
+        CONFIG::_properties.setValue("MY_KEY_RIGHT"     , paVBConfig[ITEM_RIGHT     ].pKey->getDrawString());
+        CONFIG::_properties.setValue("MY_KEY_VIEW_UP"   , paVBConfig[ITEM_VIEW_UP   ].pKey->getDrawString());
+        CONFIG::_properties.setValue("MY_KEY_VIEW_DOWN" , paVBConfig[ITEM_VIEW_DOWN ].pKey->getDrawString());
+        //CONFIG::_properties.setValue("MY_KEY_VIEW_LEFT" , paVBConfig[ITEM_VIEW_LEFT ].pKey->getDrawString());
+        //CONFIG::_properties.setValue("MY_KEY_VIEW_RIGHT", paVBConfig[ITEM_VIEW_RIGHT].pKey->getDrawString());
+        CONFIG::_properties.setValue("MY_KEY_SHOT1"     , paVBConfig[ITEM_MAIN_SHOT ].pKey->getDrawString());
+        CONFIG::_properties.setValue("MY_KEY_SHOT2"     , paVBConfig[ITEM_SUB_SHOT  ].pKey->getDrawString());
+        CONFIG::_properties.setValue("MY_KEY_TURBO"     , paVBConfig[ITEM_TURBO     ].pKey->getDrawString());
+        CONFIG::_properties.setValue("MY_KEY_OPTION"    , paVBConfig[ITEM_CONTROLL  ].pKey->getDrawString());
+        CONFIG::_properties.setValue("MY_KEY_POWERUP"   , paVBConfig[ITEM_MAGIC     ].pKey->getDrawString());
+//        CONFIG::_properties.setValue("MY_KEY_VIEW"      , paVBConfig[ITEM_VAM       ].pKey->getDrawString());
+        CONFIG::_properties.setValue("MY_KEY_PAUSE"     , paVBConfig[ITEM_PAUSE     ].pKey->getDrawString());
 
-        PROPERTY::setValue("MY_JOY_UP"        , paVBProperties[ITEM_UP        ].pJoy->getDrawString());
-        PROPERTY::setValue("MY_JOY_DOWN"      , paVBProperties[ITEM_DOWN      ].pJoy->getDrawString());
-        PROPERTY::setValue("MY_JOY_LEFT"      , paVBProperties[ITEM_LEFT      ].pJoy->getDrawString());
-        PROPERTY::setValue("MY_JOY_RIGHT"     , paVBProperties[ITEM_RIGHT     ].pJoy->getDrawString());
-        PROPERTY::setValue("MY_JOY_VIEW_UP"   , paVBProperties[ITEM_VIEW_UP   ].pJoy->getDrawString());
-        PROPERTY::setValue("MY_JOY_VIEW_DOWN" , paVBProperties[ITEM_VIEW_DOWN ].pJoy->getDrawString());
-        //PROPERTY::setValue("MY_JOY_VIEW_LEFT" , paVBProperties[ITEM_VIEW_LEFT ].pJoy->getDrawString());
-        //PROPERTY::setValue("MY_JOY_VIEW_RIGHT", paVBProperties[ITEM_VIEW_RIGHT].pJoy->getDrawString());
-        PROPERTY::setValue("MY_JOY_SHOT1"     , paVBProperties[ITEM_MAIN_SHOT ].pJoy->getDrawString());
-        PROPERTY::setValue("MY_JOY_SHOT2"     , paVBProperties[ITEM_SUB_SHOT  ].pJoy->getDrawString());
-        PROPERTY::setValue("MY_JOY_TURBO"     , paVBProperties[ITEM_TURBO     ].pJoy->getDrawString());
-        PROPERTY::setValue("MY_JOY_OPTION"    , paVBProperties[ITEM_CONTROLL  ].pJoy->getDrawString());
-        PROPERTY::setValue("MY_JOY_POWERUP"   , paVBProperties[ITEM_MAGIC     ].pJoy->getDrawString());
-//        PROPERTY::setValue("MY_JOY_VIEW"      , paVBProperties[ITEM_VAM       ].pJoy->getDrawString());
-        PROPERTY::setValue("MY_JOY_PAUSE"     , paVBProperties[ITEM_PAUSE     ].pJoy->getDrawString());
-        PROPERTY::save(VV_CONFIG_FILE);
-        PROPERTY::load(VV_CONFIG_FILE); //再反映
+        CONFIG::_properties.setValue("MY_JOY_UP"        , paVBConfig[ITEM_UP        ].pJoy->getDrawString());
+        CONFIG::_properties.setValue("MY_JOY_DOWN"      , paVBConfig[ITEM_DOWN      ].pJoy->getDrawString());
+        CONFIG::_properties.setValue("MY_JOY_LEFT"      , paVBConfig[ITEM_LEFT      ].pJoy->getDrawString());
+        CONFIG::_properties.setValue("MY_JOY_RIGHT"     , paVBConfig[ITEM_RIGHT     ].pJoy->getDrawString());
+        CONFIG::_properties.setValue("MY_JOY_VIEW_UP"   , paVBConfig[ITEM_VIEW_UP   ].pJoy->getDrawString());
+        CONFIG::_properties.setValue("MY_JOY_VIEW_DOWN" , paVBConfig[ITEM_VIEW_DOWN ].pJoy->getDrawString());
+        //CONFIG::_properties.setValue("MY_JOY_VIEW_LEFT" , paVBConfig[ITEM_VIEW_LEFT ].pJoy->getDrawString());
+        //CONFIG::_properties.setValue("MY_JOY_VIEW_RIGHT", paVBConfig[ITEM_VIEW_RIGHT].pJoy->getDrawString());
+        CONFIG::_properties.setValue("MY_JOY_SHOT1"     , paVBConfig[ITEM_MAIN_SHOT ].pJoy->getDrawString());
+        CONFIG::_properties.setValue("MY_JOY_SHOT2"     , paVBConfig[ITEM_SUB_SHOT  ].pJoy->getDrawString());
+        CONFIG::_properties.setValue("MY_JOY_TURBO"     , paVBConfig[ITEM_TURBO     ].pJoy->getDrawString());
+        CONFIG::_properties.setValue("MY_JOY_OPTION"    , paVBConfig[ITEM_CONTROLL  ].pJoy->getDrawString());
+        CONFIG::_properties.setValue("MY_JOY_POWERUP"   , paVBConfig[ITEM_MAGIC     ].pJoy->getDrawString());
+//        CONFIG::_properties.setValue("MY_JOY_VIEW"      , paVBConfig[ITEM_VAM       ].pJoy->getDrawString());
+        CONFIG::_properties.setValue("MY_JOY_PAUSE"     , paVBConfig[ITEM_PAUSE     ].pJoy->getDrawString());
+        CONFIG::_properties.write(VV_CONFIG_FILE);
+        CONFIG::loadProperties(VV_CONFIG_FILE); //再反映
         //実行中アプリへも反映
         pGOD->initVB();
 
@@ -204,22 +204,22 @@ void MenuBoardKeyConfig::processBehavior() {
         int index = getSelectedIndex();
         if (VB_UI->isPushedDown(VB_UI_CANCEL)) {
             input_mode_ = 0;
-            paVBProperties[index].pKey->getAlphaFader()->transitionLinearToTop(5);
-            paVBProperties[index].pJoy->getAlphaFader()->transitionLinearToTop(5);
+            paVBConfig[index].pKey->getAlphaFader()->transitionLinearToTop(5);
+            paVBConfig[index].pJoy->getAlphaFader()->transitionLinearToTop(5);
         } else {
             int DIK_pushed = GgafDxInput::getPushedDownKey();
             if (DIK_pushed != -1 && 0x00 <= DIK_pushed && DIK_pushed <= 0xD1) {
-                paVBProperties[index].pKey->update(VirtualButton::_mapVBK2Str[DIK_pushed].c_str());
-                paVBProperties[index].pKey->getAlphaFader()->beat(10, 5, 0, 5, 6.5);
-                paVBProperties[index].pJoy->getAlphaFader()->transitionLinearToTop(5);
+                paVBConfig[index].pKey->update(VirtualButton::_mapVBK2Str[DIK_pushed].c_str());
+                paVBConfig[index].pKey->getAlphaFader()->beat(10, 5, 0, 5, 6.5);
+                paVBConfig[index].pJoy->getAlphaFader()->transitionLinearToTop(5);
                 input_mode_ = 2;
             }
 
             int VBJ_pushed = VirtualButton::getPushedDownVirtualJoyButton();
             if (VBJ_pushed != -1) {
-                 paVBProperties[index].pJoy->update(VirtualButton::_mapVBJ2Str[VBJ_pushed].c_str());
-                 paVBProperties[index].pJoy->getAlphaFader()->beat(10, 5, 0, 5, 6.5);
-                 paVBProperties[index].pKey->getAlphaFader()->transitionLinearToTop(5);
+                 paVBConfig[index].pJoy->update(VirtualButton::_mapVBJ2Str[VBJ_pushed].c_str());
+                 paVBConfig[index].pJoy->getAlphaFader()->beat(10, 5, 0, 5, 6.5);
+                 paVBConfig[index].pKey->getAlphaFader()->transitionLinearToTop(5);
                  input_mode_ = 2;
             }
         }
@@ -237,8 +237,8 @@ void MenuBoardKeyConfig::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, in
     } else if (input_mode_ == 0) {
         input_mode_ = 1;
         input_target_item_ = prm_item_index;
-        paVBProperties[prm_item_index].pKey->getAlphaFader()->beat(30, 15, 0, 15, -1);
-        paVBProperties[prm_item_index].pJoy->getAlphaFader()->beat(30, 15, 0, 15, -1);
+        paVBConfig[prm_item_index].pKey->getAlphaFader()->beat(30, 15, 0, 15, -1);
+        paVBConfig[prm_item_index].pJoy->getAlphaFader()->beat(30, 15, 0, 15, -1);
     }
 }
 void MenuBoardKeyConfig::onCancel(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
@@ -246,5 +246,5 @@ void MenuBoardKeyConfig::onCancel(GgafDxCore::GgafDxFigureActor* prm_pItem, int 
 }
 
 MenuBoardKeyConfig::~MenuBoardKeyConfig() {
-    GGAF_DELETEARR(paVBProperties);
+    GGAF_DELETEARR(paVBConfig);
 }

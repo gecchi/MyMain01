@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/dxcore/GgafDxGod.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
-#include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/GgafDxConfig.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 #include "jp/ggaf/dxcore/model/ex/GgafDxWorldBoundModel.h"
 #include "jp/ggaf/dxcore/effect/ex/GgafDxWorldBoundEffect.h"

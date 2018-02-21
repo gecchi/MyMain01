@@ -5,7 +5,7 @@
 #include "jp/ggaf/dxcore/actor/camera/GgafDxCamera.h"
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
-#include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/GgafDxConfig.h"
 #include "jp/ggaf/dxcore/manager/GgafDxSeConnection.h"
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "jp/ggaf/dxcore/sound/GgafDxSe.h"
@@ -33,8 +33,8 @@ void GgafDxSeTransmitterForActor::set(int prm_se_no, const char* prm_se_key) {
     if (GgafRepeatSeq::isExist(ch_key)) {
         set(prm_se_no, prm_se_key, GgafRepeatSeq::nextVal(ch_key));
     } else {
-        if (GgafProperties::isExistKey(ch_key)) {
-            int max_ch_num = GgafProperties::getInt(ch_key);
+        if (GgafConfig::_properties.isExistKey(ch_key)) {
+            int max_ch_num = GgafConfig::_properties.getInt(ch_key);
             GgafRepeatSeq::create(ch_key, 1, max_ch_num);
             set(prm_se_no, prm_se_key, GgafRepeatSeq::nextVal(ch_key));
         } else {
@@ -80,13 +80,13 @@ void GgafDxSeTransmitterForActor::play3D(int prm_se_no) {
     const angle ang = UTIL::getAngle2D(fDist_VpVerticalCenter, -_pActor->_dest_from_vppln_infront );
     const float pan = ANG_COS(ang) * 0.9; //0.9は完全に右のみ或いは左のみから聞こえるのをやや緩和
 
-    int delay = (d / DX_PX(pCam->getZFar()))*PROPERTY::MAX_SE_DELAY - 10; //10フレーム底上げ
+    int delay = (d / DX_PX(pCam->getZFar()))*CONFIG::MAX_SE_DELAY - 10; //10フレーム底上げ
                                                                     //pCam->getZFar() はカメラの表示範囲の最遠距離
                                                                     //最遠に位置したアクターのSEはMAX_SE_DELAYフレーム遅れる
     if (delay < 0) {
         delay = 0;
-    } else if (delay > PROPERTY::MAX_SE_DELAY) {
-        delay = PROPERTY::MAX_SE_DELAY;
+    } else if (delay > CONFIG::MAX_SE_DELAY) {
+        delay = CONFIG::MAX_SE_DELAY;
     }
 
     float rate_frequency = 1.0;

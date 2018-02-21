@@ -1,16 +1,16 @@
-#ifndef GGAFDXCORE_GGAFDXPROPERTIES_H_
-#define GGAFDXCORE_GGAFDXPROPERTIES_H_
+#ifndef GGAFDXCORE_GGAFDXCONFIG_H_
+#define GGAFDXCORE_GGAFDXCONFIG_H_
 #include "GgafDxCommonHeader.h"
-#include "jp/ggaf/core/GgafProperties.h"
+#include "jp/ggaf/core/GgafConfig.h"
 
-#ifdef PROPERTY
-    #undef PROPERTY
+#ifdef CONFIG
+    #undef CONFIG
 #endif
-#define PROPERTY GgafDxCore::GgafDxProperties
+#define CONFIG GgafDxCore::GgafDxConfig
 
 namespace GgafDxCore {
 
-class GgafDxProperties: public GgafCore::GgafProperties {
+class GgafDxConfig: public GgafCore::GgafConfig {
 public:
     /** [r] フルスクリーンモードであるかどうか */
     static bool FULL_SCREEN;
@@ -158,9 +158,9 @@ public:
     static pixcoord DUAL_VIEW_FULL_SCREEN2_HEIGHT_BK;
 
 public:
-    static void load(std::string prm_properties_filename); //shadows
+    static void loadProperties(std::string prm_properties_filename); //shadows
 };
 
 }
-#endif /*GGAFDXCORE_GGAFDXPROPERTIES_H_*/
+#endif /*GGAFDXCORE_GGAFDXCONFIG_H_*/
 

@@ -12,7 +12,7 @@ using namespace GgafDxCore;
 #include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
 #include "jp/ggaf/dxcore/manager/GgafDxEffectManager.h"
 #include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
-#include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/GgafDxConfig.h"
 
 GgafDxWorldBoundModel::GgafDxWorldBoundModel(const char* prm_model_name) : GgafDxMorphMeshModel(prm_model_name) {
     _TRACE3_("_model_name="<<_model_name);

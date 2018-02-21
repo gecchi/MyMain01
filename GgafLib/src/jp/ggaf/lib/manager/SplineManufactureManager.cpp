@@ -1,6 +1,6 @@
 #include "jp/ggaf/lib/manager/SplineManufactureManager.h"
 
-#include "jp/ggaf/lib/GgafLibProperties.h"
+#include "jp/ggaf/lib/GgafLibConfig.h"
 #include "jp/ggaf/lib/manager/SplineManufactureConnection.h"
 #include "jp/ggaf/lib/util/spline/FixedFrameSplineManufacture.h"
 #include "jp/ggaf/lib/util/spline/FixedVelocitySplineManufacture.h"
@@ -31,7 +31,7 @@ SplineManufacture* SplineManufactureManager::processCreateResource(const char* p
 
 
     std::string spl_data_file="";
-    std::string spl_filename = PROPERTY::DIR_SPLINE + spline_id[0] + ".spl";
+    std::string spl_filename = CONFIG::DIR_SPLINE + spline_id[0] + ".spl";
 
     GgafStrMap mapSplPropperties;
     UTIL::readProperties(spl_filename, mapSplPropperties);

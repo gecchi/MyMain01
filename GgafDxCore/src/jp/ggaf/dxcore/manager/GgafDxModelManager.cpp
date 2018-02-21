@@ -21,7 +21,7 @@
 #endif
 
 #include "jp/ggaf/dxcore/GgafDxGod.h"
-#include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/GgafDxConfig.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/manager/GgafDxTextureManager.h"
 #include "jp/ggaf/dxcore/model/GgafDxD3DXMeshModel.h"
@@ -117,7 +117,7 @@ GgafDxModelManager::GgafDxModelManager(const char* prm_manager_name) :
     hr = GgafDxModelManager::_pID3DXFile_psprx->RegisterTemplates(pointsprite_model_xfile_template, (DWORD)(strlen(pointsprite_model_xfile_template)));
 #ifdef MY_DEBUG
     if(hr != S_OK) {
-        throwGgafCriticalException("RegisterTemplatesに失敗しました。\""<<PROPERTY::DIR_SPRITE_MODEL[0]<<"ggaf_pointspritemodel_define.x\"を確認して下さい。");
+        throwGgafCriticalException("RegisterTemplatesに失敗しました。\""<<CONFIG::DIR_SPRITE_MODEL[0]<<"ggaf_pointspritemodel_define.x\"を確認して下さい。");
     }
 #endif
 }
@@ -363,19 +363,19 @@ GgafDxFramedBoardModel* GgafDxModelManager::createFramedBoardModel(const char* p
 }
 
 std::string GgafDxModelManager::getMeshFileName(std::string prm_model_name) {
-    std::string xfile_name = PROPERTY::DIR_MESH_MODEL[2] + "/" + prm_model_name + ".x"; //モデル名＋".x"でXファイル名になる
+    std::string xfile_name = CONFIG::DIR_MESH_MODEL[2] + "/" + prm_model_name + ".x"; //モデル名＋".x"でXファイル名になる
     UTIL::strReplace(xfile_name, "//", "/");
     _TRACE_("1 xfile_name.c_str()="<<xfile_name.c_str());
     if (PathFileExists(xfile_name.c_str()) ) {
         return xfile_name; //カレントに存在すればそれを優先
     } else {
-        xfile_name = PROPERTY::DIR_MESH_MODEL[1] + "/" + prm_model_name+ ".x";
+        xfile_name = CONFIG::DIR_MESH_MODEL[1] + "/" + prm_model_name+ ".x";
         UTIL::strReplace(xfile_name, "//", "/");
         _TRACE_("2 xfile_name.c_str()="<<xfile_name.c_str());
         if (PathFileExists(xfile_name.c_str()) ) {
             return xfile_name; //ユーザースキンに存在すればそれを優先
         } else {
-            xfile_name = PROPERTY::DIR_MESH_MODEL[0] + "/" + prm_model_name+ ".x";
+            xfile_name = CONFIG::DIR_MESH_MODEL[0] + "/" + prm_model_name+ ".x";
             UTIL::strReplace(xfile_name, "//", "/");
             _TRACE_("3 xfile_name.c_str()="<<xfile_name.c_str());
             if (PathFileExists(xfile_name.c_str()) ) {
@@ -387,17 +387,17 @@ std::string GgafDxModelManager::getMeshFileName(std::string prm_model_name) {
     }
 }
 std::string GgafDxModelManager::getSpriteFileName(std::string prm_model_name) {
-    std::string xfile_name = PROPERTY::DIR_SPRITE_MODEL[2] + "/" + prm_model_name + ".sprx";
+    std::string xfile_name = CONFIG::DIR_SPRITE_MODEL[2] + "/" + prm_model_name + ".sprx";
     UTIL::strReplace(xfile_name, "//", "/");
     if (PathFileExists(xfile_name.c_str()) ) {
         return xfile_name;
     } else {
-        xfile_name = PROPERTY::DIR_SPRITE_MODEL[1] + "/" +  prm_model_name + ".sprx";
+        xfile_name = CONFIG::DIR_SPRITE_MODEL[1] + "/" +  prm_model_name + ".sprx";
         UTIL::strReplace(xfile_name, "//", "/");
         if (PathFileExists(xfile_name.c_str()) ) {
             return xfile_name; //ユーザースキンに存在すればそれを優先
         } else {
-            xfile_name = PROPERTY::DIR_SPRITE_MODEL[0] + "/" +  prm_model_name + ".sprx";
+            xfile_name = CONFIG::DIR_SPRITE_MODEL[0] + "/" +  prm_model_name + ".sprx";
             UTIL::strReplace(xfile_name, "//", "/");
             if (PathFileExists(xfile_name.c_str()) ) {
                 return xfile_name;
@@ -409,17 +409,17 @@ std::string GgafDxModelManager::getSpriteFileName(std::string prm_model_name) {
 }
 
 std::string GgafDxModelManager::getPointSpriteFileName(std::string prm_model_name) {
-    std::string xfile_name = PROPERTY::DIR_SPRITE_MODEL[2] + "/" + prm_model_name + ".psprx";
+    std::string xfile_name = CONFIG::DIR_SPRITE_MODEL[2] + "/" + prm_model_name + ".psprx";
     UTIL::strReplace(xfile_name, "//", "/");
     if (PathFileExists(xfile_name.c_str()) ) {
         return xfile_name;
     } else {
-        xfile_name = PROPERTY::DIR_SPRITE_MODEL[1] + "/" +  prm_model_name + ".psprx";
+        xfile_name = CONFIG::DIR_SPRITE_MODEL[1] + "/" +  prm_model_name + ".psprx";
         UTIL::strReplace(xfile_name, "//", "/");
         if (PathFileExists(xfile_name.c_str()) ) {
             return xfile_name;  //ユーザースキンに存在すればそれを優先
         } else {
-            xfile_name = PROPERTY::DIR_SPRITE_MODEL[0] + "/" +  prm_model_name + ".psprx";
+            xfile_name = CONFIG::DIR_SPRITE_MODEL[0] + "/" +  prm_model_name + ".psprx";
             UTIL::strReplace(xfile_name, "//", "/");
             if (PathFileExists(xfile_name.c_str()) ) {
                 return xfile_name;

@@ -22,10 +22,10 @@ DefaultSpacetime::DefaultSpacetime(const char* prm_name, DefaultCamera* prm_pCam
     _pLinearOctreeHitCheckRounder = nullptr;
     _pLinearQuadtreeHitCheckRounder = nullptr;
 
-    if (PROPERTY::IS_HIT_CHECK_3D) {
+    if (CONFIG::IS_HIT_CHECK_3D) {
         //八分木作成
         _TRACE_("八分木作成開始");
-        _pLinearOctree = NEW GgafLinearOctree(PROPERTY::OCTREE_LEVEL,
+        _pLinearOctree = NEW GgafLinearOctree(CONFIG::OCTREE_LEVEL,
                                               _x_bound_left  ,_y_bound_bottom, _z_bound_near ,
                                               _x_bound_right ,_y_bound_top   , _z_bound_far   );
         _pLinearOctreeHitCheckRounder = NEW OctreeRounder(_pLinearOctree->_paOctant, _pLinearOctree->_num_space, &GgafActor::executeHitChk_MeAnd);
@@ -33,7 +33,7 @@ DefaultSpacetime::DefaultSpacetime(const char* prm_name, DefaultCamera* prm_pCam
     } else {
         //四分木作成
         _TRACE_("四分木作成開始");
-        _pLinearQuadtree = NEW GgafLinearQuadtree(PROPERTY::QUADTREE_LEVEL,
+        _pLinearQuadtree = NEW GgafLinearQuadtree(CONFIG::QUADTREE_LEVEL,
                                                   _x_bound_left  ,_y_bound_bottom,
                                                   _x_bound_right ,_y_bound_top    );
         _pLinearQuadtreeHitCheckRounder = NEW QuadtreeRounder(_pLinearQuadtree->_paQuadrant,_pLinearQuadtree->_num_space, &GgafActor::executeHitChk_MeAnd);
@@ -42,7 +42,7 @@ DefaultSpacetime::DefaultSpacetime(const char* prm_name, DefaultCamera* prm_pCam
 }
 
 void DefaultSpacetime::processFinal() {
-    if (PROPERTY::IS_HIT_CHECK_3D) {
+    if (CONFIG::IS_HIT_CHECK_3D) {
         _pLinearOctree->clearAllElem();
     } else {
         _pLinearQuadtree->clearAllElem();
@@ -51,7 +51,7 @@ void DefaultSpacetime::processFinal() {
 
 DefaultSpacetime::~DefaultSpacetime() {
 #ifdef MY_DEBUG
-    if (PROPERTY::IS_HIT_CHECK_3D) {
+    if (CONFIG::IS_HIT_CHECK_3D) {
         _pLinearOctree->putTree();
     } else {
         _pLinearQuadtree->putTree();
@@ -61,7 +61,7 @@ DefaultSpacetime::~DefaultSpacetime() {
     ColliAAPyramidActor::release();
     ColliSphereActor::release();
 #endif
-    if (PROPERTY::IS_HIT_CHECK_3D) {
+    if (CONFIG::IS_HIT_CHECK_3D) {
         GGAF_DELETE(_pLinearOctree);
         GGAF_DELETE(_pLinearOctreeHitCheckRounder);
     } else {

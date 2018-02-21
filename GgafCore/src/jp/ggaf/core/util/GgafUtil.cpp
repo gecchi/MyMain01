@@ -129,7 +129,7 @@ void GgafUtil::writeProperties(std::ostream &os, GgafStrMap& mapStr, const char 
     }
 }
 
-void GgafUtil::printProperties(std::ostream &os, GgafStrMap& mapStr) {
+void GgafUtil::printConfig(std::ostream &os, GgafStrMap& mapStr) {
     GgafStrMap::iterator it = mapStr.begin(), end = mapStr.end();
     for (; it != end; ++it)
         os << (*it).first << "=" << (*it).second << std::endl;

@@ -2,7 +2,7 @@
 
 #include "Shlwapi.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
-#include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/GgafDxConfig.h"
 #include "jp/ggaf/dxcore/GgafDxGod.h"
 
 using namespace GgafCore;
@@ -16,17 +16,17 @@ GgafDxTexture::GgafDxTexture(const char* prm_texture_name) : GgafObject() {
 }
 
 std::string GgafDxTexture::getTextureFileName(std::string prm_file) {
-    std::string texture_file = PROPERTY::DIR_TEXTURE[2] + "/" + prm_file;
+    std::string texture_file = CONFIG::DIR_TEXTURE[2] + "/" + prm_file;
     UTIL::strReplace(texture_file, "//", "/");
     if (PathFileExists(texture_file.c_str()) ) {
         return texture_file; //ユーザースキンに存在すればそれを優先
     } else {
-        texture_file = PROPERTY::DIR_TEXTURE[1] + "/" + prm_file;
+        texture_file = CONFIG::DIR_TEXTURE[1] + "/" + prm_file;
         UTIL::strReplace(texture_file, "//", "/");
         if (PathFileExists(texture_file.c_str()) ) {
             return texture_file;
         } else {
-            texture_file = PROPERTY::DIR_TEXTURE[0] + "/" + prm_file;
+            texture_file = CONFIG::DIR_TEXTURE[0] + "/" + prm_file;
             UTIL::strReplace(texture_file, "//", "/");
             if (PathFileExists(texture_file.c_str()) ) {
                 return texture_file;
@@ -70,7 +70,7 @@ void GgafDxTexture::restore() {
         if (hr != D3D_OK) {
             _TRACE_("D3DXCreateTextureFromFileEx失敗。対象="<<texture_file_name);
             //失敗用テクスチャ"GgafDxIlligalTexture.dds"を設定
-            std::string texture_file_name2 = getTextureFileName(PROPERTY::ILLIGAL_TEXTURE);
+            std::string texture_file_name2 = getTextureFileName(CONFIG::ILLIGAL_TEXTURE);
             HRESULT hr2 = D3DXCreateTextureFromFileEx(
                              GgafDxGod::_pID3DDevice9,   // [in] LPDIRECT3DDEVICE9 pDevice,
                              texture_file_name2.c_str(), // [in] LPCTSTR pSrcFile,
@@ -116,7 +116,7 @@ void GgafDxTexture::restore() {
         if (hr != D3D_OK) {
             _TRACE_("＜警告＞GgafDxTextureManager::restore() D3DXCreateCubeTextureFromFileEx 失敗。対象="<<texture_name);
             //失敗用環境マップテクスチャ"GgafDxIlligalCubeMapTexture.dds"を設定
-            std::string texture_file_name2 = getTextureFileName(PROPERTY::ILLIGAL_CUBEMAP_TEXTURE);
+            std::string texture_file_name2 = getTextureFileName(CONFIG::ILLIGAL_CUBEMAP_TEXTURE);
             HRESULT hr2 = D3DXCreateCubeTextureFromFileEx(
                                     GgafDxGod::_pID3DDevice9,   // [in ] LPDIRECT3DDEVICE9 pDevice,
                                     texture_file_name2.c_str(), // [in ] LPCTSTR pSrcFile,

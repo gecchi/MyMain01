@@ -3,7 +3,7 @@
 #include <fstream>
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "jp/ggaf/lib/util/spline/SplineLine.h"
-#include "jp/ggaf/lib/GgafLibProperties.h"
+#include "jp/ggaf/lib/GgafLibConfig.h"
 #include "jp/ggaf/lib/DefaultGod.h"
 
 using namespace GgafCore;
@@ -27,7 +27,7 @@ SplineSource::SplineSource(const char* prm_idstr)  : GgafObject() {
 
     double accuracy = 1.0;
     SplineLine::RotMat rotmat;
-    std::string data_filename = PROPERTY::DIR_SPLINE + _idstr;// + ".spls";
+    std::string data_filename = CONFIG::DIR_SPLINE + _idstr;// + ".spls";
     std::ifstream ifs(data_filename.c_str());
     if (ifs.fail()) {
         throwGgafCriticalException(data_filename<<" ‚ªŠJ‚¯‚Ü‚¹‚ñ");

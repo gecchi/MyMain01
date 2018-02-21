@@ -12,7 +12,7 @@
 #include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
 #include "jp/ggaf/lib/actor/DefaultMeshActor.h"
 #include "jp/ggaf/lib/actor/DefaultPointSpriteActor.h"
-#include "jp/ggaf/lib/GgafLibProperties.h"
+#include "jp/ggaf/lib/GgafLibConfig.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 #include "VvvGod.h"
 #include "actor/CamWorker/VvvCamWorker.h"
@@ -77,7 +77,7 @@ void VvvWorld::initialize() {
              );
 
      pFont01_info_->setAlign(ALIGN_LEFT, VALIGN_BOTTOM);
-     pFont01_info_->update(0, PX_C(PROPERTY::GAME_BUFFER_HEIGHT), "");
+     pFont01_info_->update(0, PX_C(CONFIG::GAME_BUFFER_HEIGHT), "");
 }
 
 void VvvWorld::processBehavior() {
@@ -459,21 +459,21 @@ void VvvWorld::processBehavior() {
         _TRACE_("model_type="<<model_type);
 
         //プロパティ一時退避
-        string dir_mesh_model_default = PROPERTY::DIR_MESH_MODEL[0];
-        string dir_mesh_model_user = PROPERTY::DIR_MESH_MODEL[1];
-        string dir_mesh_model_current = PROPERTY::DIR_MESH_MODEL[2];
-        string dir_sprite_model_default = PROPERTY::DIR_SPRITE_MODEL[0];
-        string dir_sprite_model_user = PROPERTY::DIR_SPRITE_MODEL[1];
-        string dir_sprite_model_current = PROPERTY::DIR_SPRITE_MODEL[2];
-        string dir_texture_default = PROPERTY::DIR_TEXTURE[0];
-        string dir_texture_user = PROPERTY::DIR_TEXTURE[1];
-        string dir_texture_current = PROPERTY::DIR_TEXTURE[2];
+        string dir_mesh_model_default = CONFIG::DIR_MESH_MODEL[0];
+        string dir_mesh_model_user = CONFIG::DIR_MESH_MODEL[1];
+        string dir_mesh_model_current = CONFIG::DIR_MESH_MODEL[2];
+        string dir_sprite_model_default = CONFIG::DIR_SPRITE_MODEL[0];
+        string dir_sprite_model_user = CONFIG::DIR_SPRITE_MODEL[1];
+        string dir_sprite_model_current = CONFIG::DIR_SPRITE_MODEL[2];
+        string dir_texture_default = CONFIG::DIR_TEXTURE[0];
+        string dir_texture_user = CONFIG::DIR_TEXTURE[1];
+        string dir_texture_current = CONFIG::DIR_TEXTURE[2];
         //プロパティ書き換え
-        PROPERTY::DIR_MESH_MODEL[2]   = dropfile_dir;
-        PROPERTY::DIR_SPRITE_MODEL[2] = dropfile_dir;
-        PROPERTY::DIR_TEXTURE[0]      = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
-        PROPERTY::DIR_TEXTURE[1]      = dropfile_dir + "/../" + PROPERTY::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
-        PROPERTY::DIR_TEXTURE[2]      = dropfile_dir;
+        CONFIG::DIR_MESH_MODEL[2]   = dropfile_dir;
+        CONFIG::DIR_SPRITE_MODEL[2] = dropfile_dir;
+        CONFIG::DIR_TEXTURE[0]      = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
+        CONFIG::DIR_TEXTURE[1]      = dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
+        CONFIG::DIR_TEXTURE[2]      = dropfile_dir;
         transform(model_type.begin(), model_type.end(), model_type.begin(), static_cast<int (*)(int)>(toupper));
 
         GgafDxFigureActor* pActor = nullptr;
@@ -531,27 +531,27 @@ void VvvWorld::processBehavior() {
                 GgafDxFigureActor* pNewActor = nullptr;
                 if (pCurrentActor->instanceOf(Obj_GgafDxMeshActor)) {
                     string was_dropfile_dir = UTIL::getFileDirName(listActorInfo_.getCurrent()->modelfile_.c_str()) + "/";
-                    PROPERTY::DIR_MESH_MODEL[2] = was_dropfile_dir;
-                    PROPERTY::DIR_TEXTURE[0]    = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
-                    PROPERTY::DIR_TEXTURE[1]    = was_dropfile_dir + "/../" + PROPERTY::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
-                    PROPERTY::DIR_TEXTURE[2]    = was_dropfile_dir;
+                    CONFIG::DIR_MESH_MODEL[2] = was_dropfile_dir;
+                    CONFIG::DIR_TEXTURE[0]    = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
+                    CONFIG::DIR_TEXTURE[1]    = was_dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
+                    CONFIG::DIR_TEXTURE[2]    = was_dropfile_dir;
                     string was_model_id = UTIL::getFileBaseNameWithoutExt(listActorInfo_.getCurrent()->modelfile_.c_str());
                     pNewActor = createInFactory2(GgafLib::CubeMapMeshActor, "actor", was_model_id.c_str());
-                    PROPERTY::DIR_TEXTURE[0]    = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
-                    PROPERTY::DIR_TEXTURE[1]    = dropfile_dir + "/../" + PROPERTY::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
-                    PROPERTY::DIR_TEXTURE[2]    = dropfile_dir;
+                    CONFIG::DIR_TEXTURE[0]    = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
+                    CONFIG::DIR_TEXTURE[1]    = dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
+                    CONFIG::DIR_TEXTURE[2]    = dropfile_dir;
                     ((CubeMapMeshActor*)pNewActor)->setCubeMap(file_name.c_str(), 0.5);
 
                 } else if (pCurrentActor->instanceOf(Obj_GgafDxMorphMeshActor)) {
                     string was_dropfile_dir = UTIL::getFileDirName(listActorInfo_.getCurrent()->modelfile_.c_str()) + "/";
-                    PROPERTY::DIR_MESH_MODEL[2] = was_dropfile_dir;
-                    PROPERTY::DIR_TEXTURE[0]    = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
-                    PROPERTY::DIR_TEXTURE[1]    = was_dropfile_dir + "/../" + PROPERTY::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
-                    PROPERTY::DIR_TEXTURE[2]    = was_dropfile_dir;
+                    CONFIG::DIR_MESH_MODEL[2] = was_dropfile_dir;
+                    CONFIG::DIR_TEXTURE[0]    = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
+                    CONFIG::DIR_TEXTURE[1]    = was_dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
+                    CONFIG::DIR_TEXTURE[2]    = was_dropfile_dir;
                     pNewActor = createInFactory2(GgafLib::CubeMapMorphMeshActor, "actor", pCurrentActor->getModel()->getName());
-                    PROPERTY::DIR_TEXTURE[0]    = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
-                    PROPERTY::DIR_TEXTURE[1]    = dropfile_dir + "/../" + PROPERTY::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
-                    PROPERTY::DIR_TEXTURE[2]    = dropfile_dir;
+                    CONFIG::DIR_TEXTURE[0]    = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
+                    CONFIG::DIR_TEXTURE[1]    = dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
+                    CONFIG::DIR_TEXTURE[2]    = dropfile_dir;
                     ((CubeMapMorphMeshActor*)pNewActor)->setCubeMap(file_name.c_str(), 0.5);
                 }
                 pNewActor->setPositionAt(pCurrentActor);
@@ -570,24 +570,24 @@ void VvvWorld::processBehavior() {
             file_name.find("Normalmap") == std::string::npos)
         ) {
             GgafDxFigureActor* pCurrentActor = listActorInfo_.getCurrent()->pActor_;
-            PROPERTY::DIR_TEXTURE[0] = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
-            PROPERTY::DIR_TEXTURE[1] = dropfile_dir + "/../" + PROPERTY::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
-            PROPERTY::DIR_TEXTURE[2] = dropfile_dir;
+            CONFIG::DIR_TEXTURE[0] = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
+            CONFIG::DIR_TEXTURE[1] = dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
+            CONFIG::DIR_TEXTURE[2] = dropfile_dir;
             if (pCurrentActor->instanceOf(Obj_GgafDxMeshActor)) {
                 ((GgafDxMeshActor*)pCurrentActor)->effectBumpMapping(file_name.c_str());
             }
         }
 
         //プロパティ復帰
-        PROPERTY::DIR_MESH_MODEL[0]   = dir_mesh_model_default;
-        PROPERTY::DIR_MESH_MODEL[1]   = dir_mesh_model_user;
-        PROPERTY::DIR_MESH_MODEL[2]   = dir_mesh_model_current;
-        PROPERTY::DIR_SPRITE_MODEL[0] = dir_sprite_model_default;
-        PROPERTY::DIR_SPRITE_MODEL[1] = dir_sprite_model_user;
-        PROPERTY::DIR_SPRITE_MODEL[2] = dir_sprite_model_current;
-        PROPERTY::DIR_TEXTURE[0]      = dir_texture_default;
-        PROPERTY::DIR_TEXTURE[1]      = dir_texture_user;
-        PROPERTY::DIR_TEXTURE[2]      = dir_texture_current;
+        CONFIG::DIR_MESH_MODEL[0]   = dir_mesh_model_default;
+        CONFIG::DIR_MESH_MODEL[1]   = dir_mesh_model_user;
+        CONFIG::DIR_MESH_MODEL[2]   = dir_mesh_model_current;
+        CONFIG::DIR_SPRITE_MODEL[0] = dir_sprite_model_default;
+        CONFIG::DIR_SPRITE_MODEL[1] = dir_sprite_model_user;
+        CONFIG::DIR_SPRITE_MODEL[2] = dir_sprite_model_current;
+        CONFIG::DIR_TEXTURE[0]      = dir_texture_default;
+        CONFIG::DIR_TEXTURE[1]      = dir_texture_user;
+        CONFIG::DIR_TEXTURE[2]      = dir_texture_current;
         VvvGod::is_wm_dropfiles_ = false;
     }
 

@@ -1,7 +1,7 @@
 #include "jp/ggaf/dxcore/effect/GgafDxBoardSetEffect.h"
 
 #include "jp/ggaf/dxcore/GgafDxGod.h"
-#include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/GgafDxConfig.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 
 using namespace GgafCore;
@@ -11,8 +11,8 @@ GgafDxBoardSetEffect::GgafDxBoardSetEffect(const char* prm_effect_name) : GgafDx
     _obj_effect |= Obj_GgafDxBoardSetEffect;
     //シェーダー共通のグローバル変数設定
     HRESULT hr;
-    static float game_buffer_width = (float)(PROPERTY::GAME_BUFFER_WIDTH);
-    static float game_buffer_height = (float)(PROPERTY::GAME_BUFFER_HEIGHT);
+    static float game_buffer_width = (float)(CONFIG::GAME_BUFFER_WIDTH);
+    static float game_buffer_height = (float)(CONFIG::GAME_BUFFER_HEIGHT);
     hr = _pID3DXEffect->SetFloat("g_game_buffer_width", game_buffer_width);
     checkDxException(hr, D3D_OK, "SetFloat(g_game_buffer_width) に失敗しました。");
     hr = _pID3DXEffect->SetFloat("g_game_buffer_height", game_buffer_height);

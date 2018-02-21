@@ -163,7 +163,7 @@ void Magic::save(std::stringstream& sts) {
     }
 }
 
-void Magic::load(std::stringstream& sts) {
+void Magic::loadProperties(std::stringstream& sts) {
     sts >> max_level_
         >> level_
         >> new_level_

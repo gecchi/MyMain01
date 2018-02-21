@@ -3,7 +3,7 @@
 
 #include "resource.h"
 #include "jp/gecchi/VioletVreath/God.h"
-#include "jp/gecchi/VioletVreath/Properties.h"
+#include "jp/gecchi/VioletVreath/Config.h"
 #include "jp/ggaf/lib/util/VBReplayRecorder.h"
 
 #define MY_IDM_RESET_WINDOW_SIZE  10
@@ -45,14 +45,14 @@ void myTerminateHandler();
  * GNU GCC ならばエントリポイント
  */
 int main(int argc, char *argv[]) {
-    return GgafLib::main(argc, argv);
+    return GgafLibMain(argc, argv);
 }
 
 /**
  * VCならばエントリポイント
  */
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow) {
-    GgafLib::WinMain(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
+    GgafLibWinMain(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
     TCHAR current_dir[MAX_PATH];
     GetCurrentDirectory(MAX_PATH, current_dir);
     LPTSTR command_line = GetCommandLine();
@@ -69,11 +69,11 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     //プロパティファイル読込み
     if (PathFileExists(VV_DEFAULT_CONFIG_FILE)) {
         if (PathFileExists(VV_CONFIG_FILE)) {
-            VioletVreath::Properties::load(VV_CONFIG_FILE);
+            VioletVreath::Config::loadProperties(VV_CONFIG_FILE);
             _TRACE_("config.properties を load しました");
         } else {
-            VioletVreath::Properties::load(VV_DEFAULT_CONFIG_FILE);
-            VioletVreath::Properties::save(VV_CONFIG_FILE);
+            VioletVreath::Config::loadProperties(VV_DEFAULT_CONFIG_FILE);
+            VioletVreath::Config::_properties.write(VV_CONFIG_FILE);
             _TRACE_("＜警告＞config.properties が存在しないので、既定の '" <<VV_DEFAULT_CONFIG_FILE << "' を load しました。");
         }
 
@@ -84,7 +84,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     }
 
     hInst = hInstance; // グローバル変数にインスタンス処理を格納します。
-    GgafCore::GgafRgb rgb = GgafCore::GgafRgb(PROPERTY::BORDER_COLOR);
+    GgafCore::GgafRgb rgb = GgafCore::GgafRgb(CONFIG::BORDER_COLOR);
     WNDCLASSEX wcex1;
     wcex1.cbSize = sizeof(WNDCLASSEX);
     wcex1.style = CS_HREDRAW | CS_VREDRAW | CS_CLASSDC | CS_DBLCLKS ;
@@ -244,7 +244,7 @@ void myTerminateHandler() {
 }
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
-    GgafLib::WndProc(hWnd, message, wParam, lParam);
+    GgafLibWndProc(hWnd, message, wParam, lParam);
 
     switch (message) {
 
@@ -312,47 +312,47 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
                 }
             } else if(wParam == MY_IDM_RESET_WINDOW_SIZE) {
                 //初期ウィンドウサイズにリセット
-                if (!PROPERTY::FULL_SCREEN) {
-                    if (PROPERTY::DUAL_VIEW) {
-                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, PROPERTY::DUAL_VIEW_WINDOW1_WIDTH, PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT);
-                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd2, PROPERTY::DUAL_VIEW_WINDOW2_WIDTH, PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT);
+                if (!CONFIG::FULL_SCREEN) {
+                    if (CONFIG::DUAL_VIEW) {
+                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, CONFIG::DUAL_VIEW_WINDOW1_WIDTH, CONFIG::DUAL_VIEW_WINDOW1_HEIGHT);
+                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd2, CONFIG::DUAL_VIEW_WINDOW2_WIDTH, CONFIG::DUAL_VIEW_WINDOW2_HEIGHT);
                     } else {
-                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, PROPERTY::SINGLE_VIEW_WINDOW_WIDTH, PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT);
+                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, CONFIG::SINGLE_VIEW_WINDOW_WIDTH, CONFIG::SINGLE_VIEW_WINDOW_HEIGHT);
                     }
                 }
             } else if(wParam == MY_IDM_RESET_PIXEL_BY_DOT_WINDOW_SIZE) {
                 //pixel by dot ウィンドウサイズにリセット
-                if (!PROPERTY::FULL_SCREEN) {
-                    if (PROPERTY::DUAL_VIEW) {
-                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, PROPERTY::RENDER_TARGET_BUFFER_WIDTH/2, PROPERTY::RENDER_TARGET_BUFFER_HEIGHT);
-                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd2, PROPERTY::RENDER_TARGET_BUFFER_WIDTH/2, PROPERTY::RENDER_TARGET_BUFFER_HEIGHT);
+                if (!CONFIG::FULL_SCREEN) {
+                    if (CONFIG::DUAL_VIEW) {
+                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, CONFIG::RENDER_TARGET_BUFFER_WIDTH/2, CONFIG::RENDER_TARGET_BUFFER_HEIGHT);
+                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd2, CONFIG::RENDER_TARGET_BUFFER_WIDTH/2, CONFIG::RENDER_TARGET_BUFFER_HEIGHT);
                     } else {
-                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, PROPERTY::RENDER_TARGET_BUFFER_WIDTH, PROPERTY::RENDER_TARGET_BUFFER_HEIGHT);
+                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, CONFIG::RENDER_TARGET_BUFFER_WIDTH, CONFIG::RENDER_TARGET_BUFFER_HEIGHT);
                     }
                 }
             } else if(wParam == MY_IDM_RESET_PIXEL_BY_2DOT_WINDOW_SIZE) {
                 //pixel by 2*2dot ウィンドウサイズにリセット
-                if (!PROPERTY::FULL_SCREEN) {
-                    if (PROPERTY::DUAL_VIEW) {
-                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, PROPERTY::RENDER_TARGET_BUFFER_WIDTH/2*2, PROPERTY::RENDER_TARGET_BUFFER_HEIGHT*2);
-                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd2, PROPERTY::RENDER_TARGET_BUFFER_WIDTH/2*2, PROPERTY::RENDER_TARGET_BUFFER_HEIGHT*2);
+                if (!CONFIG::FULL_SCREEN) {
+                    if (CONFIG::DUAL_VIEW) {
+                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, CONFIG::RENDER_TARGET_BUFFER_WIDTH/2*2, CONFIG::RENDER_TARGET_BUFFER_HEIGHT*2);
+                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd2, CONFIG::RENDER_TARGET_BUFFER_WIDTH/2*2, CONFIG::RENDER_TARGET_BUFFER_HEIGHT*2);
                     } else {
-                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, PROPERTY::RENDER_TARGET_BUFFER_WIDTH*2, PROPERTY::RENDER_TARGET_BUFFER_HEIGHT*2);
+                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, CONFIG::RENDER_TARGET_BUFFER_WIDTH*2, CONFIG::RENDER_TARGET_BUFFER_HEIGHT*2);
                     }
                 }
             } else if(wParam == MY_IDM_RESET_PIXEL_BY_3DOT_WINDOW_SIZE) {
                 //pixel by 3*3dot ウィンドウサイズにリセット
-                if (!PROPERTY::FULL_SCREEN) {
-                    if (PROPERTY::DUAL_VIEW) {
-                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, PROPERTY::RENDER_TARGET_BUFFER_WIDTH/2*3, PROPERTY::RENDER_TARGET_BUFFER_HEIGHT*3);
-                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd2, PROPERTY::RENDER_TARGET_BUFFER_WIDTH/2*3, PROPERTY::RENDER_TARGET_BUFFER_HEIGHT*3);
+                if (!CONFIG::FULL_SCREEN) {
+                    if (CONFIG::DUAL_VIEW) {
+                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, CONFIG::RENDER_TARGET_BUFFER_WIDTH/2*3, CONFIG::RENDER_TARGET_BUFFER_HEIGHT*3);
+                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd2, CONFIG::RENDER_TARGET_BUFFER_WIDTH/2*3, CONFIG::RENDER_TARGET_BUFFER_HEIGHT*3);
                     } else {
-                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, PROPERTY::RENDER_TARGET_BUFFER_WIDTH*3, PROPERTY::RENDER_TARGET_BUFFER_HEIGHT*3);
+                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, CONFIG::RENDER_TARGET_BUFFER_WIDTH*3, CONFIG::RENDER_TARGET_BUFFER_HEIGHT*3);
                     }
                 }
             } else if(wParam == MY_IDM_SAVE) {
-                if (!PROPERTY::FULL_SCREEN) {
-                    if (PROPERTY::DUAL_VIEW) {
+                if (!CONFIG::FULL_SCREEN) {
+                    if (CONFIG::DUAL_VIEW) {
                         RECT cRect1, cRect2;
                         GetClientRect(hWnd1, &cRect1);
                         GetClientRect(hWnd2, &cRect2);
@@ -360,34 +360,34 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
                         pixcoord ch1 = cRect1.bottom - cRect1.top;
                         pixcoord cw2 = cRect2.right - cRect2.left;
                         pixcoord ch2 = cRect2.bottom - cRect2.top;
-                        PROPERTY::DUAL_VIEW_WINDOW1_WIDTH  = cw1;
-                        PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT = ch1;
-                        PROPERTY::DUAL_VIEW_WINDOW2_WIDTH  = cw2;
-                        PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT = ch2;
-                        PROPERTY::setValue("DUAL_VIEW_WINDOW1_WIDTH" , PROPERTY::DUAL_VIEW_WINDOW1_WIDTH);
-                        PROPERTY::setValue("DUAL_VIEW_WINDOW1_HEIGHT", PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT);
-                        PROPERTY::setValue("DUAL_VIEW_WINDOW2_WIDTH" , PROPERTY::DUAL_VIEW_WINDOW2_WIDTH);
-                        PROPERTY::setValue("DUAL_VIEW_WINDOW2_HEIGHT", PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT);
+                        CONFIG::DUAL_VIEW_WINDOW1_WIDTH  = cw1;
+                        CONFIG::DUAL_VIEW_WINDOW1_HEIGHT = ch1;
+                        CONFIG::DUAL_VIEW_WINDOW2_WIDTH  = cw2;
+                        CONFIG::DUAL_VIEW_WINDOW2_HEIGHT = ch2;
+                        CONFIG::_properties.setValue("DUAL_VIEW_WINDOW1_WIDTH" , CONFIG::DUAL_VIEW_WINDOW1_WIDTH);
+                        CONFIG::_properties.setValue("DUAL_VIEW_WINDOW1_HEIGHT", CONFIG::DUAL_VIEW_WINDOW1_HEIGHT);
+                        CONFIG::_properties.setValue("DUAL_VIEW_WINDOW2_WIDTH" , CONFIG::DUAL_VIEW_WINDOW2_WIDTH);
+                        CONFIG::_properties.setValue("DUAL_VIEW_WINDOW2_HEIGHT", CONFIG::DUAL_VIEW_WINDOW2_HEIGHT);
 
-                        PROPERTY::setValue("DUAL_VIEW_DRAW_POSITION1", PROPERTY::DUAL_VIEW_DRAW_POSITION1);
-                        PROPERTY::setValue("DUAL_VIEW_DRAW_POSITION2", PROPERTY::DUAL_VIEW_DRAW_POSITION2);
+                        CONFIG::_properties.setValue("DUAL_VIEW_DRAW_POSITION1", CONFIG::DUAL_VIEW_DRAW_POSITION1);
+                        CONFIG::_properties.setValue("DUAL_VIEW_DRAW_POSITION2", CONFIG::DUAL_VIEW_DRAW_POSITION2);
 
                     } else {
                         RECT cRect1;
                         GetClientRect(hWnd1, &cRect1);
                         pixcoord cw1 = cRect1.right - cRect1.left;
                         pixcoord ch1 = cRect1.bottom - cRect1.top;
-                        PROPERTY::SINGLE_VIEW_WINDOW_WIDTH  = cw1;
-                        PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT = ch1;
-                        PROPERTY::setValue("SINGLE_VIEW_WINDOW_WIDTH" , PROPERTY::SINGLE_VIEW_WINDOW_WIDTH);
-                        PROPERTY::setValue("SINGLE_VIEW_WINDOW_HEIGHT", PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT);
+                        CONFIG::SINGLE_VIEW_WINDOW_WIDTH  = cw1;
+                        CONFIG::SINGLE_VIEW_WINDOW_HEIGHT = ch1;
+                        CONFIG::_properties.setValue("SINGLE_VIEW_WINDOW_WIDTH" , CONFIG::SINGLE_VIEW_WINDOW_WIDTH);
+                        CONFIG::_properties.setValue("SINGLE_VIEW_WINDOW_HEIGHT", CONFIG::SINGLE_VIEW_WINDOW_HEIGHT);
 
-                        PROPERTY::setValue("SINGLE_VIEW_DRAW_POSITION", PROPERTY::SINGLE_VIEW_DRAW_POSITION);
+                        CONFIG::_properties.setValue("SINGLE_VIEW_DRAW_POSITION", CONFIG::SINGLE_VIEW_DRAW_POSITION);
                     }
-                    PROPERTY::setValue("FIXED_GAME_VIEW_ASPECT", PROPERTY::FIXED_GAME_VIEW_ASPECT);
+                    CONFIG::_properties.setValue("FIXED_GAME_VIEW_ASPECT", CONFIG::FIXED_GAME_VIEW_ASPECT);
 
-                    PROPERTY::save(VV_CONFIG_FILE); //プロパティ保存
-                    PROPERTY::load(VV_CONFIG_FILE); //プロパティ再反映
+                    CONFIG::_properties.write(VV_CONFIG_FILE); //プロパティ保存
+                    CONFIG::loadProperties(VV_CONFIG_FILE); //プロパティ再反映
                 }
             } else if(wParam == MY_IDM_REBOOT) {
                 //再起動実行

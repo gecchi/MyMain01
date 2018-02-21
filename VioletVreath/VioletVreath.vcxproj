@@ -581,6 +581,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\SpriteMeshTestActor.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\WallAABTestActor.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\WallAAPrismTestActor.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\Config.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\GameGlobal.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\God.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\manager\CameraWorkerConnection.cpp" />
@@ -591,7 +592,6 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\manager\SplineLineManager.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\manager\XpmConnection.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\manager\XpmManager.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\Properties.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene.cpp" />
@@ -941,6 +941,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\_predrawer\SpriteMeshTestActor.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\_predrawer\WallAABTestActor.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\_predrawer\WallAAPrismTestActor.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\config.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\GameGlobal.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\God.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\manager\CameraWorkerConnection.h" />
@@ -951,7 +952,6 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\manager\SplineLineManager.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\manager\XpmConnection.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\manager\XpmManager.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\Properties.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene.h" />

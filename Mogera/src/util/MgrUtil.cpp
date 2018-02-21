@@ -1,5 +1,5 @@
 #include "MgrUtil.h"
-#include "jp/ggaf/lib/GgafLibProperties.h"
+#include "jp/ggaf/lib/GgafLibConfig.h"
 #include "MgrGod.h"
 
 using namespace GgafCore;

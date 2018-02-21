@@ -1,7 +1,7 @@
 #include "jp/ggaf/dxcore/model/GgafDxPointSpriteSetModel.h"
 
 #include "jp/ggaf/dxcore/GgafDxGod.h"
-#include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/GgafDxConfig.h"
 #include "jp/ggaf/dxcore/actor/GgafDxPointSpriteSetActor.h"
 #include "jp/ggaf/dxcore/effect/GgafDxPointSpriteSetEffect.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
@@ -60,7 +60,7 @@ HRESULT GgafDxPointSpriteSetModel::draw(GgafDxFigureActor* prm_pActor_target, in
         if (_papTextureConnection[0]) {
             hr = pDevice->SetTexture(0, getDefaultTextureConnection()->peek()->_pIDirect3DBaseTexture9);
         } else {
-            _TRACE_("GgafDxPointSpriteSetModel::draw("<<prm_pActor_target->getName()<<") テクスチャがありません。"<<(PROPERTY::WHITE_TEXTURE)<<"が設定されるべきです。おかしいです");
+            _TRACE_("GgafDxPointSpriteSetModel::draw("<<prm_pActor_target->getName()<<") テクスチャがありません。"<<(CONFIG::WHITE_TEXTURE)<<"が設定されるべきです。おかしいです");
             //無ければテクスチャ無し
             hr = pDevice->SetTexture(0, nullptr);
         }

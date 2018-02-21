@@ -459,7 +459,7 @@ public:
     static void readProperties(std::istream &is, GgafStrMap& mapStr);
     static void writeProperties(const char *filename, GgafStrMap& mapStr, const char *header = nullptr);
     static void writeProperties(std::ostream &os, GgafStrMap& mapStr, const char *header = nullptr);
-    static void printProperties(std::ostream &os, GgafStrMap& mapStr);
+    static void printConfig(std::ostream &os, GgafStrMap& mapStr);
 
     static bool isExistKey(std::string prm_key, GgafStrMap& mapStr);
     static bool cnvBool(std::string prm_str);

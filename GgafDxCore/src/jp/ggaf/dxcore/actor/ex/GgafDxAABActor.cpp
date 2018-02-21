@@ -1,6 +1,6 @@
 #include "jp/ggaf/dxcore/actor/ex/GgafDxAABActor.h"
 
-#include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/GgafDxConfig.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
 using namespace GgafCore;
@@ -11,7 +11,7 @@ GgafDxAABActor::GgafDxAABActor(const char* prm_name,
                                GgafDxChecker* prm_pChecker) :
 
                                    GgafDxMeshActor(prm_name,
-                                                   PROPERTY::COLI_AABOX_MODEL.c_str(),
+                                                   CONFIG::COLI_AABOX_MODEL.c_str(),
                                                    "DefaultMeshEffect",
                                                    "DefaultMeshTechnique",
                                                    prm_pStat,

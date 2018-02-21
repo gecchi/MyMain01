@@ -39,7 +39,7 @@ public:
         LabelFix16Font01* pKey;
         LabelFix16Font01* pJoy;
     };
-    VBProperty* paVBProperties;
+    VBProperty* paVBConfig;
 
     /** 0:メニュー移動、1:KEY割り当て入力待ち状態、2:JOY割り当て入力待ち状態 */
     int input_mode_;

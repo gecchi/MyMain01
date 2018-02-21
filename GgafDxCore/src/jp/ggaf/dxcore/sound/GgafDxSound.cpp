@@ -1,7 +1,7 @@
 #include "jp/ggaf/dxcore/sound/GgafDxSound.h"
 
 #include "jp/ggaf/core/exception/GgafCriticalException.h"
-#include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/GgafDxConfig.h"
 #include "jp/ggaf/dxcore/GgafDxGod.h"
 #include "jp/ggaf/dxcore/manager/GgafDxBgmManager.h"
 #include "jp/ggaf/dxcore/manager/GgafDxSeManager.h"
@@ -60,9 +60,9 @@ void GgafDxSound::init() {
     }
     GgafDxSound::_a_db_volume[GGAF_MAX_VOLUME] = DSBVOLUME_MAX;
 
-    GgafDxSound::setBgmMasterVolume(PROPERTY::BGM_VOLUME);
-    GgafDxSound::setSeMasterVolume(PROPERTY::SE_VOLUME);
-    GgafDxSound::setAppMasterVolume(PROPERTY::MASTER_VOLUME);
+    GgafDxSound::setBgmMasterVolume(CONFIG::BGM_VOLUME);
+    GgafDxSound::setSeMasterVolume(CONFIG::SE_VOLUME);
+    GgafDxSound::setAppMasterVolume(CONFIG::MASTER_VOLUME);
 }
 
 

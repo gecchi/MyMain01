@@ -27,19 +27,19 @@ std::string GgafDxSpacetime::_seqkey_se_delay = "_SE_D_";
 
 GgafDxSpacetime::SeArray::SeArray() {
 #ifdef MY_DEBUG
-    if (PROPERTY::MAX_SE_AT_ONCE > 64) {
-        throwGgafCriticalException("プロパティ値 MAX_SE_AT_ONCE が、上限(64)を超えています。プロパティファイルを確認してください。PROPERTY::MAX_SE_AT_ONCE="<<PROPERTY::MAX_SE_AT_ONCE);
+    if (CONFIG::MAX_SE_AT_ONCE > 64) {
+        throwGgafCriticalException("プロパティ値 MAX_SE_AT_ONCE が、上限(64)を超えています。プロパティファイルを確認してください。CONFIG::MAX_SE_AT_ONCE="<<CONFIG::MAX_SE_AT_ONCE);
     }
 #endif
     _p = 0;
-    for (int i = 0; i < PROPERTY::MAX_SE_AT_ONCE; i++) {
+    for (int i = 0; i < CONFIG::MAX_SE_AT_ONCE; i++) {
         _apSe[i] = nullptr;
         _apActor[i] = nullptr;
     }
 }
 
 void GgafDxSpacetime::SeArray::add(GgafDxSe* prm_pSe, int prm_volume, float prm_pan, float prm_frequency_rate, GgafDxGeometricActor* prm_pActor) {
-    if (_p < PROPERTY::MAX_SE_AT_ONCE) {
+    if (_p < CONFIG::MAX_SE_AT_ONCE) {
         _apSe[_p] = prm_pSe;
         _frequency_rate[_p] = prm_frequency_rate;
         _volume[_p] = prm_volume;
@@ -96,7 +96,7 @@ _z_bound_far   (+DX_C(prm_pCamera->getZFar()))
     bringSceneMediator()->addSubGroup(_pCamera);
 
     _pRing_pSeArray = NEW GgafLinkedListRing<SeArray>();
-    for (int i = 0; i < PROPERTY::MAX_SE_DELAY; i++) { //GGAF_END_DELAYは最大解放遅れフレームだが、遠方SEの遅延の最高フレーム数としても使う
+    for (int i = 0; i < CONFIG::MAX_SE_DELAY; i++) { //GGAF_END_DELAYは最大解放遅れフレームだが、遠方SEの遅延の最高フレーム数としても使う
         _pRing_pSeArray->addLast(NEW SeArray(), true);
     }
     _pRing_pSeArray->createIndex();
@@ -113,7 +113,7 @@ _z_bound_far   (+DX_C(prm_pCamera->getZFar()))
     static const double e = 2.7182818284590452354;
     static const double period = pow(PI, (PI/e)) / pow(2,(PI/e));
 
-    _dep_resolution = prm_pCamera->getZFar() * PROPERTY::RENDER_DEPTH_STAGE_RATIO;  //段階レンダ考慮範囲
+    _dep_resolution = prm_pCamera->getZFar() * CONFIG::RENDER_DEPTH_STAGE_RATIO;  //段階レンダ考慮範囲
     pixcoord px_dep_resolution = DX_PX(_dep_resolution);
     _paDep2Lv = NEW int[px_dep_resolution+1];
 
@@ -130,7 +130,7 @@ _z_bound_far   (+DX_C(prm_pCamera->getZFar()))
     //powを使うときは気をつけよう。
 
     _TRACE_("通常の段階レンダリング深度数："<<REGULAR_RENDER_DEPTH_INDEXS_NUM);
-    _TRACE_("通常の段階レンダリング距離範囲："<<DX_C(prm_pCamera->getZFar())<<" * "<<PROPERTY::RENDER_DEPTH_STAGE_RATIO <<
+    _TRACE_("通常の段階レンダリング距離範囲："<<DX_C(prm_pCamera->getZFar())<<" * "<<CONFIG::RENDER_DEPTH_STAGE_RATIO <<
                                              " = "<< DX_C(_dep_resolution)   );
     _TRACE_("カメラからの距離  0 ~ "<<DX_C(_dep_resolution)<< " のActorは、 深度が考慮されて遠くのオブジェクトから順にレンダリングを行います。");
     _TRACE_(DX_C(_dep_resolution)<<" より遠いオブジェクトは全て同一深度として最初にレンダリングされます。");
@@ -156,8 +156,8 @@ void GgafDxSpacetime::registerSe(GgafDxSe* prm_pSe,
 
     //SEの鳴るタイミングを 0～8フレームをずらしてバラつかせる
     int delay = prm_delay+1+(GgafRepeatSeq::nextVal(_seqkey_se_delay));
-    if (delay > PROPERTY::MAX_SE_DELAY-1) {
-        delay = PROPERTY::MAX_SE_DELAY-1;
+    if (delay > CONFIG::MAX_SE_DELAY-1) {
+        delay = CONFIG::MAX_SE_DELAY-1;
     }
     _pRing_pSeArray->getNext(delay)->add(prm_pSe, prm_volume, prm_pan, prm_frequency_rate, prm_pActor);
 }

@@ -7,7 +7,7 @@
 #include "jp/gecchi/VioletVreath/actor/menu/confirm/MenuBoardConfirm.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/gecchi/VioletVreath/Properties.h"
+#include "jp/gecchi/VioletVreath/Config.h"
 #include "jp/gecchi/VioletVreath/actor/menu/config/MenuBoardKeyConfig.h"
 #include "jp/gecchi/VioletVreath/actor/menu/config/MenuBoardSoundConfig.h"
 
@@ -120,7 +120,7 @@ void MenuBoardPause::processBehavior() {
     if (selected != ITEM_HIDE_MENU) {
         if (toggle_HIDE_MENU_) {
             toggle_HIDE_MENU_ = false;
-            _x += PX_C(PROPERTY::GAME_BUFFER_WIDTH);
+            _x += PX_C(CONFIG::GAME_BUFFER_WIDTH);
         }
     }
 }
@@ -141,10 +141,10 @@ void MenuBoardPause::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, int pr
     } else if (prm_item_index == ITEM_HIDE_MENU) {
         if (toggle_HIDE_MENU_) {
             toggle_HIDE_MENU_ = false;
-            _x += PX_C(PROPERTY::GAME_BUFFER_WIDTH);
+            _x += PX_C(CONFIG::GAME_BUFFER_WIDTH);
         } else {
             toggle_HIDE_MENU_ = true;
-            _x -= PX_C(PROPERTY::GAME_BUFFER_WIDTH);
+            _x -= PX_C(CONFIG::GAME_BUFFER_WIDTH);
         }
     }
 }

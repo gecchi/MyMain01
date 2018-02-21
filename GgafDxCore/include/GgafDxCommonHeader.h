@@ -291,7 +291,7 @@ class Mesh;
 namespace GgafDxCore {
 
 class GgafDxCriticalException;
-class GgafDxProperties;
+class GgafDxConfig;
 class GgafDxGod;
 class GgafDxInput;
 class GgafDxSound;

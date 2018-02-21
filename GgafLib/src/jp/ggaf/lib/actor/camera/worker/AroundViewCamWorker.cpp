@@ -7,7 +7,7 @@
 #include "jp/ggaf/dxcore/util/GgafDxQuaternion.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAssistant.h"
 #include "jp/ggaf/lib/DefaultGod.h"
-#include "jp/ggaf/lib/GgafLibProperties.h"
+#include "jp/ggaf/lib/GgafLibConfig.h"
 #include "jp/ggaf/lib/actor/camera/DefaultCamera.h"
 #include "jp/ggaf/lib/actor/camera/DefaultCameraViewPoint.h"
 #include "jp/ggaf/lib/actor/camera/DefaultCameraUpVector.h"
@@ -72,7 +72,7 @@ void AroundViewCamWorker::processBehavior() {
         }
     }
 
-    static const coord game_width = PX_C(PROPERTY::GAME_BUFFER_WIDTH*2);
+    static const coord game_width = PX_C(CONFIG::GAME_BUFFER_WIDTH*2);
 
     if ( !(isPressedMouseButton0 && isPressedMouseButton1) &&
          (isPressedMouseButton0 || isPressedMouseButton1 || isPressedMouseButton2)

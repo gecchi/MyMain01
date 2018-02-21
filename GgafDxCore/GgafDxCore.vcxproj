@@ -94,8 +94,8 @@
     <ClCompile Include="src\jp\ggaf\dxcore\effect\GgafDxSpriteEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\effect\GgafDxSpriteSetEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\exception\GgafDxCriticalException.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\GgafDxConfig.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\GgafDxGod.cpp" />
-    <ClCompile Include="src\jp\ggaf\dxcore\GgafDxProperties.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\manager\GgafDxBgmConnection.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\manager\GgafDxBgmManager.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\manager\GgafDxEffectConnection.cpp" />
@@ -240,8 +240,8 @@
     <ClInclude Include="include\jp\ggaf\dxcore\effect\GgafDxSpriteEffect.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\effect\GgafDxSpriteSetEffect.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\exception\ggafdxcriticalexception.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\ggafdxconfig.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\ggafdxgod.h" />
-    <ClInclude Include="include\jp\ggaf\dxcore\ggafdxproperties.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\manager\ggafdxbgmconnection.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\manager\GgafDxBgmManager.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\manager\GgafDxEffectConnection.h" />

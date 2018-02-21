@@ -33,6 +33,7 @@
     <ClInclude Include="include\jp\ggaf\core\actor\ggafscenemediator.h" />
     <ClInclude Include="include\jp\ggaf\core\exception\GgafCriticalException.h" />
     <ClInclude Include="include\jp\ggaf\core\exception\GgafException.h" />
+    <ClInclude Include="include\jp\ggaf\core\GgafConfig.h" />
     <ClInclude Include="include\jp\ggaf\core\GgafElement.hpp" />
     <ClInclude Include="include\jp\ggaf\core\GgafFactory.h" />
     <ClInclude Include="include\jp\ggaf\core\GgafGarbageBox.h" />
@@ -81,6 +82,7 @@
     <ClCompile Include="src\jp\ggaf\core\actor\GgafSceneMediator.cpp" />
     <ClCompile Include="src\jp\ggaf\core\exception\GgafCriticalException.cpp" />
     <ClCompile Include="src\jp\ggaf\core\exception\GgafException.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\GgafConfig.cpp" />
     <ClCompile Include="src\jp\ggaf\core\GgafFactory.cpp" />
     <ClCompile Include="src\jp\ggaf\core\GgafGarbageBox.cpp" />
     <ClCompile Include="src\jp\ggaf\core\GgafGod.cpp" />

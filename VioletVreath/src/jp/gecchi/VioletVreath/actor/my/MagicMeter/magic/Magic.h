@@ -279,7 +279,7 @@ public:
 
     virtual void save(std::stringstream& sts);
 
-    virtual void load(std::stringstream& sts);
+    virtual void loadProperties(std::stringstream& sts);
 
     /**
      * ‰r¥ŠJnÀs .

@@ -3,7 +3,7 @@
 #include "jp/ggaf/core/exception/GgafCriticalException.h"
 #include "jp/ggaf/core/GgafFactory.h"
 #include "jp/ggaf/core/GgafGarbageBox.h"
-#include "jp/ggaf/core/GgafProperties.h"
+#include "jp/ggaf/core/GgafConfig.h"
 #include "jp/ggaf/core/scene/GgafSpacetime.h"
 #include "jp/ggaf/core/scene/GgafDisusedScene.h"
 #include "jp/ggaf/core/actor/GgafDisusedActor.h"
@@ -53,7 +53,7 @@ GgafGod::GgafGod() : GgafObject(),
     GgafGarbageBox::_pGarbageBox = NEW GgafGarbageBox();
     _was_cleaned = false;
     _skip_count_of_frame = 0;
-    _max_skip_frames = (int)PROPERTY::MAX_SKIP_FRAME;
+    _max_skip_frames = (int)CONFIG::MAX_SKIP_FRAME;
     _slowdown_mode = SLOWDOWN_MODE_DEFAULT;
     _sync_frame_time = false;
     _cnt_frame = 0;
@@ -208,9 +208,9 @@ void GgafGod::executeSpacetimeJudge() {
 }
 
 void GgafGod::makeSpacetimeMaterialize() {
-    if (GgafGod::_num_active_actor > PROPERTY::OBJNUM_TO_SLOWDOWN2) {
+    if (GgafGod::_num_active_actor > CONFIG::OBJNUM_TO_SLOWDOWN2) {
         _slowdown_mode = SLOWDOWN_MODE_30FPS;
-    } else if (GgafGod::_num_active_actor > PROPERTY::OBJNUM_TO_SLOWDOWN1) {
+    } else if (GgafGod::_num_active_actor > CONFIG::OBJNUM_TO_SLOWDOWN1) {
         _slowdown_mode = SLOWDOWN_MODE_40FPS;
     } else {
         _slowdown_mode = SLOWDOWN_MODE_DEFAULT;

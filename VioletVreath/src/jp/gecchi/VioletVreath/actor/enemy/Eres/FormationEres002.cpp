@@ -1,6 +1,6 @@
 #include "FormationEres002.h"
 
-#include "jp/gecchi/VioletVreath/Properties.h"
+#include "jp/gecchi/VioletVreath/Config.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Eres/EnemyEres.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
@@ -14,7 +14,7 @@ FormationEres002::FormationEres002(const char* prm_name) : TreeFormation(prm_nam
 
     for (int i = 0; i < 30; i++) {
         EnemyEres* pEres = NEW EnemyEres("Eres");
-        pEres->Y_turn_ = -1*(PROPERTY::GAME_BUFFER_HEIGHT*LEN_UNIT/2) + (i * ((PROPERTY::GAME_BUFFER_HEIGHT*LEN_UNIT)/30));
+        pEres->Y_turn_ = -1*(CONFIG::GAME_BUFFER_HEIGHT*LEN_UNIT/2) + (i * ((CONFIG::GAME_BUFFER_HEIGHT*LEN_UNIT)/30));
         pEres->_z = -1500000;
         addFormationMember(pEres);
     }

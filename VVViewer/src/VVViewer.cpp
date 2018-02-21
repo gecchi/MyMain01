@@ -14,17 +14,17 @@ BOOL CustmizeSysMenu(HWND hWnd);
  * GCC のエントリポイント
  */
 int main(int argc, char *argv[]) {
-    return GgafLib::main(argc, argv);
+    return GgafLibMain(argc, argv);
 }
 
 /**
  * MSVC のエントリポイント
  */
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow) {
-    GgafLib::WinMain(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
+    GgafLibWinMain(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
 
     //プロパティファイル読込み
-    GgafLib::GgafLibProperties::load(".\\config.properties");
+    GgafLib::GgafLibConfig::loadProperties(".\\config.properties");
     //ウィンドウ定義＆作成
     WNDCLASSEX wcex1;
     ZeroMemory(&wcex1, sizeof(WNDCLASSEX));
@@ -73,7 +73,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
  * ウィンドウプロシージャ実装例 .
  */
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
-    GgafLib::WndProc(hWnd, message, wParam, lParam); //直後に、この様に呼び出して下さい。
+    GgafLibWndProc(hWnd, message, wParam, lParam); //直後に、この様に呼び出して下さい。
     //必要があれば、メッセージ処理をココに追加記述
     switch (message) {
 
@@ -96,12 +96,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
         case WM_SYSCOMMAND: {
             if(wParam == MY_IDM_RESET_WINDOW_SIZE) {
                 //初期ウィンドウサイズにリセット
-                if (!PROPERTY::FULL_SCREEN) {
-                    if (PROPERTY::DUAL_VIEW) {
-                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, PROPERTY::DUAL_VIEW_WINDOW1_WIDTH, PROPERTY::DUAL_VIEW_WINDOW1_HEIGHT);
-                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd2, PROPERTY::DUAL_VIEW_WINDOW2_WIDTH, PROPERTY::DUAL_VIEW_WINDOW2_HEIGHT);
+                if (!CONFIG::FULL_SCREEN) {
+                    if (CONFIG::DUAL_VIEW) {
+                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, CONFIG::DUAL_VIEW_WINDOW1_WIDTH, CONFIG::DUAL_VIEW_WINDOW1_HEIGHT);
+                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd2, CONFIG::DUAL_VIEW_WINDOW2_WIDTH, CONFIG::DUAL_VIEW_WINDOW2_HEIGHT);
                     } else {
-                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, PROPERTY::SINGLE_VIEW_WINDOW_WIDTH, PROPERTY::SINGLE_VIEW_WINDOW_HEIGHT);
+                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, CONFIG::SINGLE_VIEW_WINDOW_WIDTH, CONFIG::SINGLE_VIEW_WINDOW_HEIGHT);
                     }
                 }
             }

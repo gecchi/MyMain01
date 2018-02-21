@@ -3,7 +3,7 @@
 #include "GgafLibCommonHeader.h"
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 
-#include "jp/ggaf/lib/GgafLibProperties.h"
+#include "jp/ggaf/lib/GgafLibConfig.h"
 #include "jp/ggaf/core/util/GgafLinearTreeRounder.hpp"
 #include "jp/ggaf/lib/actor/camera/DefaultCamera.h"
 
@@ -38,7 +38,7 @@ public:
         if (_pLinearOctree == nullptr) {
             throwGgafCriticalException("DefaultSpacetime::getLinearOctree() 八分木は作成されていません。\n"
                     "IS_HIT_CHECK_3D プロパティ true にしてください。\n"
-                    "現在のIS_HIT_CHECK_3D="<<PROPERTY::IS_HIT_CHECK_3D );
+                    "現在のIS_HIT_CHECK_3D="<<CONFIG::IS_HIT_CHECK_3D );
         }
 #endif
         return _pLinearOctree;
@@ -49,7 +49,7 @@ public:
         if (_pLinearOctreeHitCheckRounder == nullptr) {
             throwGgafCriticalException("DefaultSpacetime::getLinearOctreeHitCheckRounder() 八分木は作成されていません。\n"
                     "IS_HIT_CHECK_3D プロパティ true にしてください。\n"
-                    "現在のIS_HIT_CHECK_3D="<<PROPERTY::IS_HIT_CHECK_3D );
+                    "現在のIS_HIT_CHECK_3D="<<CONFIG::IS_HIT_CHECK_3D );
         }
 #endif
         return _pLinearOctreeHitCheckRounder;
@@ -58,7 +58,7 @@ public:
     inline GgafCore::GgafLinearQuadtree* getLinearQuadtree() {
 #ifdef MY_DEBUG
         if (_pLinearQuadtree == nullptr) {
-            throwGgafCriticalException("DefaultSpacetime::getLinearQuadtree() 四分木は作成されていません。 IS_HIT_CHECK_2D プロパティ true にしてください。現在のIS_HIT_CHECK_2D="<<PROPERTY::IS_HIT_CHECK_2D );
+            throwGgafCriticalException("DefaultSpacetime::getLinearQuadtree() 四分木は作成されていません。 IS_HIT_CHECK_2D プロパティ true にしてください。現在のIS_HIT_CHECK_2D="<<CONFIG::IS_HIT_CHECK_2D );
         }
 #endif
         return _pLinearQuadtree;
@@ -67,7 +67,7 @@ public:
     inline QuadtreeRounder* getLinearQuadtreeHitCheckRounder() {
 #ifdef MY_DEBUG
         if (_pLinearQuadtreeHitCheckRounder == nullptr) {
-            throwGgafCriticalException("DefaultSpacetime::_pLinearQuadtreeHitCheckRounder() 四分木は作成されていません。 IS_HIT_CHECK_2D プロパティ true にしてください。現在のIS_HIT_CHECK_2D="<<PROPERTY::IS_HIT_CHECK_2D );
+            throwGgafCriticalException("DefaultSpacetime::_pLinearQuadtreeHitCheckRounder() 四分木は作成されていません。 IS_HIT_CHECK_2D プロパティ true にしてください。現在のIS_HIT_CHECK_2D="<<CONFIG::IS_HIT_CHECK_2D );
         }
 #endif
         return _pLinearQuadtreeHitCheckRounder;

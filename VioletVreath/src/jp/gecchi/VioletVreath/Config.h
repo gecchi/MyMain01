@@ -1,16 +1,16 @@
-#ifndef PROPERTIES_H_
-#define PROPERTIES_H_
+#ifndef CONFIG_H_
+#define CONFIG_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/lib/GgafLibProperties.h"
+#include "jp/ggaf/lib/GgafLibConfig.h"
 
-#ifdef PROPERTY
-    #undef PROPERTY
+#ifdef CONFIG
+    #undef CONFIG
 #endif
-#define PROPERTY VioletVreath::Properties
+#define CONFIG VioletVreath::Config
 
 namespace VioletVreath {
 
-class Properties: public GgafLib::GgafLibProperties {
+class Config: public GgafLib::GgafLibConfig {
 public:
     static std::string MY_KEY_SHOT1;
     static std::string MY_KEY_SHOT2;
@@ -62,9 +62,9 @@ public:
     //static std::string MY_JOY_UI_DEBUG;
 
 public:
-    static void load(std::string prm_ini_filename); //shadows
+    static void loadProperties(std::string prm_ini_filename); //shadows
 };
 
 }
-#endif /*PROPERTIES_H_*/
+#endif /*CONFIG_H_*/
 

@@ -111,7 +111,7 @@ public:
 
     void save(std::stringstream& sts);
 
-    void load(std::stringstream& sts);
+    void loadProperties(std::stringstream& sts);
 
     void initialize() override;
 

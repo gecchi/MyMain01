@@ -417,9 +417,6 @@
     <ClCompile Include="src\jp\ggaf\dxcore\GgafDxGod.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\jp\ggaf\dxcore\GgafDxProperties.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxFramedBoardActor.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -436,6 +433,9 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\ggaf\dxcore\actor\GgafDxSceneMediator.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\ggaf\dxcore\GgafDxConfig.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -866,9 +866,6 @@
     <ClInclude Include="include\jp\ggaf\dxcore\ggafdxgod.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="include\jp\ggaf\dxcore\ggafdxproperties.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="include\ggafdxcommonheader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -888,6 +885,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\dxcore\actor\GgafDxSceneMediator.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\dxcore\GgafDxConfig.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

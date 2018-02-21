@@ -14,17 +14,17 @@ LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
  * GCC のエントリポイント
  */
 int main(int argc, char *argv[]) {
-    return GgafLib::main(argc, argv); //直後に、こう呼び出して下さい。
+    return GgafLibMain(argc, argv); //直後に、こう呼び出して下さい。
 }
 
 /**
  * MSVC のエントリポイント
  */
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow) {
-    GgafLib::WinMain(hInstance, hPrevInstance, lpCmdLine, nCmdShow); //直後に、この様に呼び出して下さい。
+    GgafLibWinMain(hInstance, hPrevInstance, lpCmdLine, nCmdShow); //直後に、この様に呼び出して下さい。
 
     //プロパティファイル読込み
-    GgafLib::GgafLibProperties::load(".\\config.properties");
+    GgafLib::GgafLibConfig::loadProperties(".\\config.properties");
     //神の誕生
     SmpGod god = SmpGod();
     //メイン処理
@@ -59,8 +59,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
  * ウィンドウプロシージャ実装例 .
  */
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
-    GgafLib::WndProc(hWnd, message, wParam, lParam); //直後に、この様に呼び出して下さい。
-   //必要があれば、メッセージ処理をココに追加記述
-   return DefWindowProc(hWnd, message, wParam, lParam);
+    GgafLibWndProc(hWnd, message, wParam, lParam); //直後に、この様に呼び出して下さい。
+    //必要があれば、メッセージ処理をココに追加記述
+    return DefWindowProc(hWnd, message, wParam, lParam);
 }
 

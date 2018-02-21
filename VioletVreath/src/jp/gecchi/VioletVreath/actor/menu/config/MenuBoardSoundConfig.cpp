@@ -7,7 +7,7 @@
 #include "jp/gecchi/VioletVreath/actor/label/LabelMenuTitleFont01.h"
 #include "jp/gecchi/VioletVreath/actor/menu/confirm/MenuBoardConfirm.h"
 #include "jp/gecchi/VioletVreath/God.h"
-#include "jp/gecchi/VioletVreath/Properties.h"
+#include "jp/gecchi/VioletVreath/Config.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelMenuItemFont01.h"
 
 using namespace GgafCore;
@@ -97,15 +97,15 @@ void MenuBoardSoundConfig::processBehavior() {
         MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu();
         if (pSubConfirm->hasJustDecidedOk()) { //SAVE確認OK!
             //現プロパティへ書き込み
-            PROPERTY::setValue("SE_VOLUME", GgafDxSound::getSeMasterVolume());
-            PROPERTY::setValue("BGM_VOLUME", GgafDxSound::getBgmMasterVolume());
-            PROPERTY::setValue("MASTER_VOLUME", GgafDxSound::getAppMasterVolume());
-            PROPERTY::save(VV_CONFIG_FILE); //プロパティ保存
-//            PROPERTY::load(VV_CONFIG_FILE); //プロパティ再反映
+            CONFIG::_properties.setValue("SE_VOLUME", GgafDxSound::getSeMasterVolume());
+            CONFIG::_properties.setValue("BGM_VOLUME", GgafDxSound::getBgmMasterVolume());
+            CONFIG::_properties.setValue("MASTER_VOLUME", GgafDxSound::getAppMasterVolume());
+            CONFIG::_properties.write(VV_CONFIG_FILE); //プロパティ保存
+//            CONFIG::loadProperties(VV_CONFIG_FILE); //プロパティ再反映
 //            //実行中アプリへも即時反映
-//            GgafDxSound::setSeMasterVolume(PROPERTY::SE_VOLUME);
-//            GgafDxSound::setBgmMasterVolume(PROPERTY::BGM_VOLUME);
-//            GgafDxSound::setAppMasterVolume(PROPERTY::MASTER_VOLUME);
+//            GgafDxSound::setSeMasterVolume(CONFIG::SE_VOLUME);
+//            GgafDxSound::setBgmMasterVolume(CONFIG::BGM_VOLUME);
+//            GgafDxSound::setAppMasterVolume(CONFIG::MASTER_VOLUME);
 
             sinkCurrentSubMenu();
             sinkMe();
@@ -146,9 +146,9 @@ void MenuBoardSoundConfig::processBehavior() {
 void MenuBoardSoundConfig::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
     if (prm_item_index == ITEM_INDEX_CANCEL_) {
         //音量を元に戻す
-        GgafDxSound::setSeMasterVolume(PROPERTY::SE_VOLUME);
-        GgafDxSound::setBgmMasterVolume(PROPERTY::BGM_VOLUME);
-        GgafDxSound::setAppMasterVolume(PROPERTY::MASTER_VOLUME);
+        GgafDxSound::setSeMasterVolume(CONFIG::SE_VOLUME);
+        GgafDxSound::setBgmMasterVolume(CONFIG::BGM_VOLUME);
+        GgafDxSound::setAppMasterVolume(CONFIG::MASTER_VOLUME);
         sinkMe();
     } else if (prm_item_index == ITEM_INDEX_OK_) {
         riseSubMenu(getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y - PX_C(50)); //確認メニュー起動

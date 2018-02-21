@@ -1,6 +1,6 @@
 #include "jp/ggaf/dxcore/actor/ex/GgafDxAAPyramidActor.h"
 
-#include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/GgafDxConfig.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
 using namespace GgafCore;
@@ -12,7 +12,7 @@ GgafDxAAPyramidActor::GgafDxAAPyramidActor(const char* prm_name, GgafStatus* prm
                                    GgafDxChecker* prm_pChecker) :
 
                                    GgafDxMeshActor(prm_name,
-                                                   PROPERTY::COLI_AAPYRAMID_MODEL.c_str(),
+                                                   CONFIG::COLI_AAPYRAMID_MODEL.c_str(),
                                                    "DefaultMeshEffect",
                                                    "DefaultMeshTechnique",
                                                    prm_pStat,

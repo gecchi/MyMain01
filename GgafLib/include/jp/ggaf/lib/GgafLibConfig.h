@@ -1,17 +1,17 @@
-#ifndef GGAFLIBPROPERTIESH_
-#define GGAFLIBPROPERTIESH_
-#include "jp/ggaf/dxcore/GgafDxProperties.h"
+#ifndef GGAFLIBCONFIGH_
+#define GGAFLIBCONFIGH_
+#include "jp/ggaf/dxcore/GgafDxConfig.h"
 
 #include <Shlwapi.h>
 
-#ifdef PROPERTY
-    #undef PROPERTY
+#ifdef CONFIG
+    #undef CONFIG
 #endif
-#define PROPERTY GgafLib::GgafLibProperties
+#define CONFIG GgafLib::GgafLibConfig
 
 namespace GgafLib {
 
-class GgafLibProperties: public GgafDxCore::GgafDxProperties {
+class GgafLibConfig: public GgafDxCore::GgafDxConfig {
 public:
     /** [r] シーン地形データファイル(datファイル)格納ディレクトリ名 */
     static std::string DIRNAME_RESOURCE_WALL;
@@ -35,9 +35,9 @@ public:
 
 
 public:
-    static void load(std::string prm_properties_filename); //shadows
+    static void loadProperties(std::string prm_properties_filename); //shadows
 };
 
 }
-#endif /*GGAFLIBPROPERTIESH_*/
+#endif /*GGAFLIBCONFIGH_*/
 

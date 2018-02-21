@@ -1,6 +1,6 @@
 #include "jp/ggaf/dxcore/actor/camera/GgafDxCamera.h"
 
-#include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/GgafDxConfig.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/camera/GgafDxCameraViewPoint.h"
 #include "jp/ggaf/dxcore/actor/camera/GgafDxCameraUpVector.h"
@@ -14,18 +14,18 @@ GgafDxCamera::GgafDxCamera(const char* prm_name, double prm_rad_fovX, double prm
 _rad_fovX(prm_rad_fovX),      //全ての基準はfovXから考える
 _dep(prm_dep),
 _rad_half_fovX(_rad_fovX / 2.0),
-_screen_aspect(1.0 * (PROPERTY::GAME_BUFFER_WIDTH) / (PROPERTY::GAME_BUFFER_HEIGHT)),
+_screen_aspect(1.0 * (CONFIG::GAME_BUFFER_WIDTH) / (CONFIG::GAME_BUFFER_HEIGHT)),
 _rad_fovY(atan( ( (tan(_rad_fovX/2.0)) / _screen_aspect) )*2.0),
 _rad_half_fovY(_rad_fovY / 2.0),
 _tan_half_fovX(tan(_rad_fovX/2.0)),
 _tan_half_fovY(tan(_rad_fovY/2.0)),
-_cameraZ_org(-1.0 * ((1.0 * (PROPERTY::GAME_BUFFER_HEIGHT) / PX_UNIT) / 2.0) / _tan_half_fovY),
+_cameraZ_org(-1.0 * ((1.0 * (CONFIG::GAME_BUFFER_HEIGHT) / PX_UNIT) / 2.0) / _tan_half_fovY),
 _zn(0.1f),
 _zf(-_cameraZ_org*(_dep+1.0)),
-_x_buffer_left(PX_C(PROPERTY::GAME_BUFFER_WIDTH) / -2),
-_x_buffer_right(PX_C(PROPERTY::GAME_BUFFER_WIDTH) / 2),
-_y_buffer_top(PX_C(PROPERTY::GAME_BUFFER_HEIGHT) / 2),
-_y_buffer_bottom(PX_C(PROPERTY::GAME_BUFFER_HEIGHT) / -2)
+_x_buffer_left(PX_C(CONFIG::GAME_BUFFER_WIDTH) / -2),
+_x_buffer_right(PX_C(CONFIG::GAME_BUFFER_WIDTH) / 2),
+_y_buffer_top(PX_C(CONFIG::GAME_BUFFER_HEIGHT) / 2),
+_y_buffer_bottom(PX_C(CONFIG::GAME_BUFFER_HEIGHT) / -2)
 {
     _class_name = "GgafDxCamera";
     //fovXとアスペクト比からfovYを計算して求める
@@ -52,12 +52,12 @@ _y_buffer_bottom(PX_C(PROPERTY::GAME_BUFFER_HEIGHT) / -2)
 
 
     _TRACE_(FUNC_NAME<<" 範囲 ["<<_zn<<" ~ "<<_zf<<"]");
-    if (PROPERTY::PRJ_2D_MODE) {
+    if (CONFIG::PRJ_2D_MODE) {
         //2Dモード正射影
         D3DXMatrixOrthoLH(
             &_matProj,
-            PX_DX(PROPERTY::GAME_BUFFER_WIDTH),
-            PX_DX(PROPERTY::GAME_BUFFER_HEIGHT),
+            PX_DX(CONFIG::GAME_BUFFER_WIDTH),
+            PX_DX(CONFIG::GAME_BUFFER_HEIGHT),
             _zn,
             _zf
         );

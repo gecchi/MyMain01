@@ -8,7 +8,7 @@
 #endif
 
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
-#include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/GgafDxConfig.h"
 #include "jp/ggaf/dxcore/sound/GgafDxSound.h"
 #include "jp/ggaf/dxcore/sound/CWaveDecorder.h"
 #include "jp/ggaf/dxcore/manager/GgafDxSeManager.h"
@@ -25,7 +25,7 @@ GgafDxSe::GgafDxSe(const char* prm_wave_key) : GgafObject() {
     _wave_key = NEW char[len+1];
     strcpy(_wave_key, prm_wave_key);
 
-    _wave_file_name = GgafProperties::_mapProperties[std::string(_wave_key)];
+    _wave_file_name = GgafConfig::_properties.getStr(std::string(_wave_key));
     std::string full_wave_file_name = getWaveFileName(_wave_file_name);
 
     HRESULT hr;
@@ -66,17 +66,17 @@ GgafDxSe::GgafDxSe(const char* prm_wave_key) : GgafObject() {
 
 
 std::string GgafDxSe::getWaveFileName(std::string prm_file) {
-    std::string wave_file = PROPERTY::DIR_WAVE[2] + "/" + prm_file;
+    std::string wave_file = CONFIG::DIR_WAVE[2] + "/" + prm_file;
     UTIL::strReplace(wave_file, "//", "/");
     if (PathFileExists(wave_file.c_str()) ) {
         return wave_file;
     } else {
-        wave_file = PROPERTY::DIR_WAVE[1] + "/" + prm_file;
+        wave_file = CONFIG::DIR_WAVE[1] + "/" + prm_file;
         UTIL::strReplace(wave_file, "//", "/");
         if (PathFileExists(wave_file.c_str()) ) {
             return wave_file; //ユーザースキンに存在すればそれを優先
         } else {
-            wave_file = PROPERTY::DIR_WAVE[0] + "/" + prm_file;
+            wave_file = CONFIG::DIR_WAVE[0] + "/" + prm_file;
             UTIL::strReplace(wave_file, "//", "/");
             if (PathFileExists(wave_file.c_str()) ) {
                 return wave_file;

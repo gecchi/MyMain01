@@ -13,7 +13,7 @@
 #include "jp/ggaf/dxcore/scene/GgafDxScene.h"
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "jp/ggaf/dxcore/scene/supporter/GgafDxAlphaCurtain.h"
-#include "jp/ggaf/dxcore/GgafDxProperties.h"
+#include "jp/ggaf/dxcore/GgafDxConfig.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
