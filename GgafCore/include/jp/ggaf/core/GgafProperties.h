@@ -23,17 +23,27 @@ public:
 
 public:
     GgafProperties();
+
+    GgafProperties(std::string prm_properties_filename);
+
     /**
      * 外部プロパティファイルから未ロードならロードして保持プロパティへ設定、メンバ変数に反映 .
      * @param prm_properties_filename プロパティファイル
      */
     void read(std::string prm_properties_filename);
 
+    void read(std::istream &is);
+
     /**
      * 保持プロパティを、外部プロパティファイルへ保存 .
      * @param prm_properties_filename プロパティファイル
      */
-    void write(std::string prm_properties_filename);
+    void write(std::string prm_properties_filename, const char *header = nullptr);
+
+    void write(std::ostream &os, const char *header = nullptr);
+
+    void print(std::ostream &os);
+
 
     /**
      * 保持プロパティにキーが存在するか調べる .

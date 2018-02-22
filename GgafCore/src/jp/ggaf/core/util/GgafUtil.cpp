@@ -50,126 +50,32 @@ int32_t GgafUtil::_rnd_int32_(int32_t prm_from, int32_t prm_to) {
     //↑[N3551 Random Number Generation in C++11] を読んで焦って修正、今まで剰余使ってたし！ 2013/03/22
 }
 
-void GgafUtil::readProperties(std::string filename, GgafStrMap& mapStr) {
-    std::ifstream file(filename.c_str());
-    if (!file) {
-        throwGgafCriticalException("ファイルが見つかりません。 filename="<<filename);
-    }
-    _TRACE_(FUNC_NAME<<" filename="<<filename);
-    GgafUtil::readProperties(file, mapStr);
-    file.close();
-}
-
-void GgafUtil::readProperties(std::istream& is, GgafStrMap& mapStr) {
-    if (!is)
-        throwGgafCriticalException("unable to read from stream");
-
-    int ch = 0;
-
-    ch = is.get();
-
-    while (!is.eof()) {
-        switch (ch) {
-            case '#':
-            case '!':
-                do {
-                    ch = is.get();
-                } while (!is.eof() && ch >= 0 && ch != '\n' && ch != '\r');
-                continue;
-            case '\n':
-            case '\r':
-            case ' ':
-            case '\t':
-                ch = is.get();
-                continue;
-        }
-
-        std::ostringstream key, val;
-
-        while (!is.eof() && ch >= 0 && ch != '=' && ch != ':' && ch != ' ' && ch != '\t' && ch != '\n' && ch != '\r') {
-            key << char(ch);
-            ch = is.get();
-        }
-
-        while (!is.eof() && (ch == ' ' || ch == '\t'))
-            ch = is.get();
-
-        if (!is.eof() && (ch == '=' || ch == ':'))
-            ch = is.get();
-
-        while (!is.eof() && (ch == ' ' || ch == '\t'))
-            ch = is.get();
-
-        while (!is.eof() && ch >= 0 && ch != '\n' && ch != '\r') {
-            int next = 0;
-            next = is.get();
-            val << char(ch);
-            ch = next;
-        }
-        _TRACE_("\"" << key.str() << "\" => \"" << val.str() <<"\"");
-        mapStr[key.str()] = val.str();
-    }
-}
-
-void GgafUtil::writeProperties(const char *filename, GgafStrMap& mapStr, const char *header) {
-    std::ofstream file(filename);
-    GgafUtil::writeProperties(file, mapStr, header);
-    file.close();
-}
-
-void GgafUtil::writeProperties(std::ostream &os, GgafStrMap& mapStr, const char *header) {
-    if (header != nullptr) {
-        os << '#' << header << std::endl;
-    }
-    os << '#' << "update " << GgafUtil::getSystemDateTimeStr() << std::endl;
-
-    for (GgafStrMap::iterator it = mapStr.begin(), end = mapStr.end(); it != end; ++it) {
-        const std::string &key = (*it).first, &val = (*it).second;
-        os << key << '=' << val << std::endl;
-    }
-}
-
-void GgafUtil::printConfig(std::ostream &os, GgafStrMap& mapStr) {
-    GgafStrMap::iterator it = mapStr.begin(), end = mapStr.end();
-    for (; it != end; ++it)
-        os << (*it).first << "=" << (*it).second << std::endl;
-}
-
-
-bool GgafUtil::isExistKey(std::string prm_key, GgafStrMap& mapStr) {
-    GgafStrMap::iterator itr = mapStr.find(prm_key);
-    if (itr != mapStr.end()) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-bool GgafUtil::cnvBool(std::string prm_str) {
+bool GgafUtil::cnvBool(std::string& prm_str) {
+    const char* s = prm_str.c_str();
     bool ret;
-    if (strcmp(prm_str.c_str(), "false") == 0 ||
-        strcmp(prm_str.c_str(), "off")   == 0 ||
-        strcmp(prm_str.c_str(), "no")    == 0 ||
-        strcmp(prm_str.c_str(), "False") == 0 ||
-        strcmp(prm_str.c_str(), "Off")   == 0 ||
-        strcmp(prm_str.c_str(), "No")    == 0 ||
-        strcmp(prm_str.c_str(), "FALSE") == 0 ||
-        strcmp(prm_str.c_str(), "OFF")   == 0 ||
-        strcmp(prm_str.c_str(), "NO")    == 0 ||
-        strcmp(prm_str.c_str(), "0")     == 0
+    if (strcmp(s, "false") == 0 ||
+        strcmp(s, "off")   == 0 ||
+        strcmp(s, "no")    == 0 ||
+        strcmp(s, "False") == 0 ||
+        strcmp(s, "Off")   == 0 ||
+        strcmp(s, "No")    == 0 ||
+        strcmp(s, "FALSE") == 0 ||
+        strcmp(s, "OFF")   == 0 ||
+        strcmp(s, "NO")    == 0 ||
+        strcmp(s, "0")     == 0
     ) {
         ret = false;
     } else if (
-        strcmp(prm_str.c_str(), "true") == 0 ||
-        strcmp(prm_str.c_str(), "on")   == 0 ||
-        strcmp(prm_str.c_str(), "yes")  == 0 ||
-        strcmp(prm_str.c_str(), "True") == 0 ||
-        strcmp(prm_str.c_str(), "On")   == 0 ||
-        strcmp(prm_str.c_str(), "Yes")  == 0 ||
-        strcmp(prm_str.c_str(), "TRUE") == 0 ||
-        strcmp(prm_str.c_str(), "ON")   == 0 ||
-        strcmp(prm_str.c_str(), "YES")  == 0 ||
-        strcmp(prm_str.c_str(), "1")    == 0
+        strcmp(s, "true") == 0 ||
+        strcmp(s, "on")   == 0 ||
+        strcmp(s, "yes")  == 0 ||
+        strcmp(s, "True") == 0 ||
+        strcmp(s, "On")   == 0 ||
+        strcmp(s, "Yes")  == 0 ||
+        strcmp(s, "TRUE") == 0 ||
+        strcmp(s, "ON")   == 0 ||
+        strcmp(s, "YES")  == 0 ||
+        strcmp(s, "1")    == 0
     ) {
         ret = true;
     } else {

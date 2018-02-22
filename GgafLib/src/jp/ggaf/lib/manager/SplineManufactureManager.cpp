@@ -33,13 +33,12 @@ SplineManufacture* SplineManufactureManager::processCreateResource(const char* p
     std::string spl_data_file="";
     std::string spl_filename = CONFIG::DIR_SPLINE + spline_id[0] + ".spl";
 
-    GgafStrMap mapSplPropperties;
-    UTIL::readProperties(spl_filename, mapSplPropperties);
+    GgafProperties propSpl = GgafProperties(spl_filename);
 
-    if (UTIL::isExistKey("SPLINE", mapSplPropperties)) {
+    if (propSpl.isExistKey("SPLINE")) {
         if (spline_id.size() == 1) {
             //prm_idstr = "FormationUrydike001"
-            std::string spl_data_file_csv = mapSplPropperties["SPLINE"];
+            std::string spl_data_file_csv = propSpl.getStr("SPLINE");
             std::vector<std::string> vecSplineData = UTIL::split(spl_data_file_csv, ",");
 #ifdef MY_DEBUG
             if (0 < vecSplineData.size()) {
@@ -53,7 +52,7 @@ SplineManufacture* SplineManufactureManager::processCreateResource(const char* p
             //splファイルの SPLINEは
             //SPLINE=mobius1.dat,mobius2.dat,mobius3.dat,mobius4.dat
             //のようにCSVで複数指定していて、スラッシュの後の数値がインデックスとする。
-            std::string spl_data_file_csv = mapSplPropperties["SPLINE"];
+            std::string spl_data_file_csv = propSpl.getStr("SPLINE");
             std::vector<std::string> vecSplineData = UTIL::split(spl_data_file_csv, ",");
             int i = STOI(spline_id[1]);
 #ifdef MY_DEBUG
@@ -73,18 +72,18 @@ SplineManufacture* SplineManufactureManager::processCreateResource(const char* p
         throwGgafCriticalException(prm_idstr<<" [SPLINE] が指定されてません。");
     }
 
-    if (UTIL::isExistKey("MAG_X", mapSplPropperties)) {
-        rate_x = atof(mapSplPropperties["MAG_X"].c_str());
+    if (propSpl.isExistKey("MAG_X")) {
+        rate_x = propSpl.getDouble("MAG_X");
     } else {
         rate_x = 1.0;
     }
-    if (UTIL::isExistKey("MAG_Y", mapSplPropperties)) {
-        rate_y = atof(mapSplPropperties["MAG_Y"].c_str());
+    if (propSpl.isExistKey("MAG_Y")) {
+        rate_y = propSpl.getDouble("MAG_Y");
     } else {
         rate_y = 1.0;
     }
-    if (UTIL::isExistKey("MAG_Z", mapSplPropperties)) {
-        rate_z = atof(mapSplPropperties["MAG_Z"].c_str());
+    if (propSpl.isExistKey("MAG_Z")) {
+        rate_z = propSpl.getDouble("MAG_Z");
     } else {
         rate_z = 1.0;
     }
@@ -96,8 +95,8 @@ SplineManufacture* SplineManufactureManager::processCreateResource(const char* p
         CLASS_SteppedCoordSpline,
     } leader;
 
-    if (UTIL::isExistKey("CLASS", mapSplPropperties)) {
-        classname = mapSplPropperties["CLASS"];
+    if (propSpl.isExistKey("CLASS")) {
+        classname = propSpl.getStr("CLASS");
         if (classname.length() == 0) {
             throwGgafCriticalException(prm_idstr<<" [CLASS] が指定されてません。");
         }
@@ -117,9 +116,9 @@ SplineManufacture* SplineManufactureManager::processCreateResource(const char* p
     }
 
     //SPENT_FRAME
-    if (UTIL::isExistKey("SPENT_FRAME", mapSplPropperties)) {
+    if (propSpl.isExistKey("SPENT_FRAME")) {
         if (leader == CLASS_FixedFrameSpline) {
-            spent_frame = (frame)atoi(mapSplPropperties["SPENT_FRAME"].c_str());
+            spent_frame = (frame)propSpl.getUInt("SPENT_FRAME");
             if (spent_frame == 0) {
                 throwGgafCriticalException(prm_idstr<<" : "
                         "[SPENT_FRAME] に 0 は指定出来ません。");
@@ -136,9 +135,9 @@ SplineManufacture* SplineManufactureManager::processCreateResource(const char* p
     }
 
     //ANGLE_VELOCITY
-    if (UTIL::isExistKey("ANGLE_VELOCITY", mapSplPropperties)) {
+    if (propSpl.isExistKey("ANGLE_VELOCITY")) {
         if (leader == CLASS_FixedFrameSpline || leader == CLASS_FixedVelocitySpline) {
-            angvelo_rzry_mv = (angvelo)atoi(mapSplPropperties["ANGLE_VELOCITY"].c_str());
+            angvelo_rzry_mv = (angvelo)propSpl.getInt("ANGLE_VELOCITY");
             if (angvelo_rzry_mv == 0) {
                 _TRACE_("＜警告＞ SplineManufactureManager::processCreateResource "<<prm_idstr<<" : "
                         "[ANGLE_VELOCITY] が 0 です。意図してますか？");
@@ -155,20 +154,21 @@ SplineManufacture* SplineManufactureManager::processCreateResource(const char* p
     }
 
     //TURN_WAY
-    if (UTIL::isExistKey("TURN_WAY", mapSplPropperties)) {
+    if (propSpl.isExistKey("TURN_WAY")) {
+        std::string turn_way_val = propSpl.getStr("TURN_WAY");
         if (leader == CLASS_FixedFrameSpline || leader == CLASS_FixedVelocitySpline) {
-            if (mapSplPropperties["TURN_WAY"] == "TURN_CLOSE_TO") {
+            if (turn_way_val == "TURN_CLOSE_TO") {
                 turn_way = TURN_CLOSE_TO;
-            } else if (mapSplPropperties["TURN_WAY"] == "TURN_ANTICLOSE_TO") {
+            } else if (turn_way_val == "TURN_ANTICLOSE_TO") {
                 turn_way = TURN_ANTICLOSE_TO;
-            } else if (mapSplPropperties["TURN_WAY"] == "TURN_CLOCKWISE") {
+            } else if (turn_way_val == "TURN_CLOCKWISE") {
                 turn_way = TURN_CLOCKWISE;
-            } else if (mapSplPropperties["TURN_WAY"] == "TURN_COUNTERCLOCKWISE") {
+            } else if (turn_way_val == "TURN_COUNTERCLOCKWISE") {
                 turn_way = TURN_COUNTERCLOCKWISE;
             } else {
                 throwGgafCriticalException(prm_idstr<<" : "
-                        "[TURN_WAY] の値('"<<mapSplPropperties["TURN_WAY"]<<"')が不正です。\n"
-                                           "TURN_CLOSE_TO/TURN_ANTICLOSE_TO/TURN_CLOCKWISE/TURN_COUNTERCLOCKWISE の何れかを指定してください");
+                        "[TURN_WAY] の値('"<<turn_way<<"')が不正です。\n"
+                         "TURN_CLOSE_TO/TURN_ANTICLOSE_TO/TURN_CLOCKWISE/TURN_COUNTERCLOCKWISE の何れかを指定してください");
             }
         } else {
             throwGgafCriticalException(prm_idstr<<" : "
@@ -182,9 +182,9 @@ SplineManufacture* SplineManufactureManager::processCreateResource(const char* p
     }
 
     //TURN_OPTIMIZE
-    if (UTIL::isExistKey("TURN_OPTIMIZE", mapSplPropperties)) {
+    if (propSpl.isExistKey("TURN_OPTIMIZE")) {
         if (leader == CLASS_FixedFrameSpline || leader == CLASS_FixedVelocitySpline) {
-            turn_optimize = UTIL::cnvBool(mapSplPropperties["TURN_OPTIMIZE"]);
+            turn_optimize = propSpl.getBool("TURN_OPTIMIZE");
         } else {
             throwGgafCriticalException(prm_idstr<<" : "
                     "[CLASS]="<<classname<<" の場合は、[TURN_OPTIMIZE] の指定は不可です。(コメント等にして除去して下さい)");
