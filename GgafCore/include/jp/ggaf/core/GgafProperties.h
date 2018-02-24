@@ -32,7 +32,7 @@ public:
      */
     void read(std::string prm_properties_filename);
 
-    void read(std::istream &is);
+    void read(std::istream& is);
 
     /**
      * 保持プロパティを、外部プロパティファイルへ保存 .

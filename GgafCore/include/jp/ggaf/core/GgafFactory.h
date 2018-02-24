@@ -119,7 +119,7 @@ public:
                            void* prm_pArg1,
                            void* prm_pArg2,
                            void* prm_pArg3) {
-        order(prm_order_no, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pOrderer, prm_pReceiver, prm_pArg1, prm_pArg2, prm_pArg3);
+        GgafFactory::order(prm_order_no, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pOrderer, prm_pReceiver, prm_pArg1, prm_pArg2, prm_pArg3);
     }
 
     /**

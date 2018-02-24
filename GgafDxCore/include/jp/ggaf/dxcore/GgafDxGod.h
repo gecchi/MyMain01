@@ -255,7 +255,7 @@ public:
      * @param prm_title2 ２画面目のタイトル
      */
     void createWindow(WNDPROC prm_WndProc,
-                      const char* prm_title1, const char* prm_title2);
+                      const char* prm_title1, const char* prm_title2 = "window02");
 
     /**
      * ウィンドウ生成処理 .

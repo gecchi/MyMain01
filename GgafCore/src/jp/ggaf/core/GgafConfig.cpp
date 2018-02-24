@@ -109,12 +109,3 @@ void GgafConfig::loadProperties(std::string prm_properties_filename) {
     _TRACE_("GgafConfig::DIR_SKIN_KIND[1]="<<GgafConfig::DIR_SKIN_KIND[1]);
 }
 
-//void GgafConfig::_properties.write(std::string prm_properties_filename) {
-//    WAIT_LOCK;
-//    GgafConfig::_is_lock = true;
-//    _properties.write(prm_properties_filename.c_str());
-//    GgafConfig::_is_lock = false;
-//}
-
-
-

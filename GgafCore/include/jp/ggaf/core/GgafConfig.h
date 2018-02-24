@@ -71,14 +71,6 @@ public:
      */
     static void loadProperties(std::string prm_properties_filename);
 
-//    /**
-//     * 保持プロパティを、外部プロパティファイルへ保存 .
-//     * @param prm_properties_filename プロパティファイル
-//     */
-//    static void save(std::string prm_properties_filename);
-
-
-
 };
 
 }

@@ -15,16 +15,12 @@ GgafProperties::GgafProperties(std::string prm_properties_filename)  : GgafObjec
     GgafProperties::read(prm_properties_filename);
 }
 
-//void GgafProperties::read(std::string prm_properties_filename) {
-//    UTIL::readProperties(prm_properties_filename, _mapProperties);
-//
-//}
-void GgafProperties::read(std::string filename) {
-    std::ifstream file(filename.c_str());
+void GgafProperties::read(std::string prm_properties_filename) {
+    std::ifstream file(prm_properties_filename.c_str());
     if (!file) {
-        throwGgafCriticalException("ファイルが見つかりません。 filename="<<filename);
+        throwGgafCriticalException("ファイルが見つかりません。 prm_properties_filename="<<prm_properties_filename);
     }
-    _TRACE_(FUNC_NAME<<" filename="<<filename);
+    _TRACE_(FUNC_NAME<<" prm_properties_filename="<<prm_properties_filename);
     read(file);
     file.close();
 }
@@ -80,9 +76,9 @@ void GgafProperties::read(std::istream& is) {
     }
 }
 
-void GgafProperties::write(std::string filename, const char *header) {
-    std::ofstream file(filename.c_str());
-    write(file, header);
+void GgafProperties::write(std::string prm_properties_filename, const char *header) {
+    std::ofstream file(prm_properties_filename.c_str());
+    write(prm_properties_filename, header);
     file.close();
 }
 
@@ -103,10 +99,6 @@ void GgafProperties::print(std::ostream &os) {
     for (; it != end; ++it)
         os << (*it).first << "=" << (*it).second << std::endl;
 }
-
-//void GgafProperties::write(std::string prm_properties_filename) {
-//    UTIL::writeProperties(prm_properties_filename.c_str(), _mapProperties);
-//}
 
 std::string GgafProperties::getStr(std::string prm_key) {
     if (isExistKey(prm_key)) {
@@ -139,7 +131,7 @@ int GgafProperties::getInt(std::string prm_key) {
 
 uint32_t GgafProperties::getUInt(std::string prm_key) {
     if (isExistKey(prm_key)) {
-        uint32_t ret = (uint32_t)(atof(_mapProperties[prm_key].c_str()));
+        uint32_t ret = (uint32_t)(strtoul(_mapProperties[prm_key].c_str(), 0, 0));
         return ret;
     } else {
         throwGgafCriticalException("Error! プロパティに、キー("<<prm_key<<")が存在しません。");

@@ -709,7 +709,8 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
 
 
 bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPyramid* const pAAPyramid01,
-                    const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox*     const pAABox02     ) {
+                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox*     const pAABox02     ) {
+    //TODO:未完成
     //ピラミッドとBOX
     const int aX1 = pActor01->_x + pAAPyramid01->_x1;
     const int aY1 = pActor01->_y + pAAPyramid01->_y1;

@@ -24,14 +24,14 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     GgafLibWinMain(hInstance, hPrevInstance, lpCmdLine, nCmdShow); //直後に、この様に呼び出して下さい。
 
     //プロパティファイル読込み
-    GgafLib::GgafLibConfig::loadProperties(".\\config.properties");
+    CONFIG::loadProperties(".\\config.properties");
     //神の誕生
-    SmpGod god = SmpGod();
+    SmpGod god;
     //メイン処理
     MSG msg;
     try {
         //ウィンドウ作成
-        god.createWindow(WndProc, "SimpleSample[1]", "SimpleSample[2]");
+        god.createWindow(WndProc, "SimpleSample[1]");
         //ループ本体
         while (true) {
             if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
