@@ -2,7 +2,6 @@
 
 #include "jp/ggaf/core/GgafFactory.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
-#include "jp/ggaf/core/GgafFactory.h"
 #include "scene/MgrSpacetime/MgrWorld/TrialAndErrScene.h"
 #include "scene/MgrSpacetime.h"
 #include "MgrGod.h"
@@ -13,10 +12,9 @@ using namespace GgafLib;
 using namespace Mogera;
 
 MgrWorld::MgrWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
-    vb_ = NEW VirtualButton();
-    vb_->remapK(VB_UI_DEBUG, VBK_Q     );
-    vb_->remapK(VB_PAUSE   , VBK_ESCAPE);
     pTrialAndErrScene_ = nullptr;
+
+    pHitCheckRounder_ = P_GOD->getSpacetime()->getLinearOctreeHitCheckRounder();
 }
 
 void MgrWorld::initialize() {
@@ -26,10 +24,9 @@ void MgrWorld::initialize() {
 }
 
 void MgrWorld::processBehavior() {
-    //キャラをボタン入力で移動
-    vb_->update(); //入力状況更新
+    VirtualButton* pVb = P_GOD->getSpacetime()->pVb_;
     //ワイヤフレーム表示切替
-    if (vb_->isPushedDown(VB_UI_DEBUG)) {
+    if (pVb->isPushedDown(VB_UI_DEBUG)) {
         if (GgafDxGod::_d3dfillmode == D3DFILL_WIREFRAME) {
             GgafDxGod::_d3dfillmode = D3DFILL_SOLID;
         } else {
@@ -38,7 +35,7 @@ void MgrWorld::processBehavior() {
     }
 
     //一時停止
-    if (vb_->isPushedDown(VB_PAUSE)) {
+    if (pVb->isPushedDown(VB_PAUSE)) {
         if (pTrialAndErrScene_->wasPaused()) {
             pTrialAndErrScene_->unpause();
         } else {
@@ -50,9 +47,7 @@ void MgrWorld::processBehavior() {
 
 void MgrWorld::processJudgement() {
     //当たり判定チェック
-//    P_GOD->getSpacetime()->getLinearOctree()->executeAll(MGR_MIKATA, MGR_TEKI);
-    //executeAllHitChk は processJudgement() で呼ぶ必要あり
-    //(processBehavior())ではまだ登録されていない)
+    pHitCheckRounder_->executeAll(MGR_MIKATA, MGR_TEKI);
 }
 
 MgrWorld::~MgrWorld() {

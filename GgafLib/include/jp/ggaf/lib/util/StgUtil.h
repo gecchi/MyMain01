@@ -40,8 +40,16 @@ public:
 
     static GgafDxCore::GgafDxChecker* createChecker(GgafDxCore::GgafDxGeometricActor* prm_pActor);
 
+    /**
+     * AAB 対 AAB 当たり判定 .
+     * @param pActor01
+     * @param pAABox01
+     * @param pActor02
+     * @param pAABox02
+     * @return
+     */
     static inline bool isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAABox* const pAABox01,
-                             const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox* const pAABox02 ) {
+                               const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox* const pAABox02 ) {
         //＜AAB と AAB＞
         //軸が一致しない確率が高そうな順番(X>Z>Y)に判定
         if (pActor01->_x + pAABox01->_x2 >= pActor02->_x + pAABox02->_x1) {
@@ -60,29 +68,83 @@ public:
         return false;
     }
 
+    /**
+     * 球 対 球 当たり判定 .
+     * @param pActor01
+     * @param pSphere01
+     * @param pActor02
+     * @param pSphere02
+     * @return
+     */
     static bool isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliSphere* const pSphere01 ,
-                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere* const pSphere02 );
+                        const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere* const pSphere02 );
 
+    /**
+     * AAB 対 球 当たり判定 .
+     * @param pActor01
+     * @param pAABox01
+     * @param pActor02
+     * @param pSphere02
+     * @return
+     */
     static bool isHit3D(const GgafDxCore::GgafDxGeometricActor* pActor01, const ColliAABox*  pAABox01,
-                      const GgafDxCore::GgafDxGeometricActor* pActor02, const ColliSphere* pSphere02);
+                        const GgafDxCore::GgafDxGeometricActor* pActor02, const ColliSphere* pSphere02);
 
+    /**
+     * AAプリズム 対 AAB 当たり判定 .
+     * @param pActor01
+     * @param pAAPrism01
+     * @param pActor02
+     * @param pAABox02
+     * @return
+     */
     static bool isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
-                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox*   const pAABox02   );
+                        const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox*   const pAABox02   );
 
-
+    /**
+     * AAプリズム 対 球 当たり判定 .
+     * @param pActor01
+     * @param pAAPrism01
+     * @param pActor02
+     * @param pSphere02
+     * @return
+     */
     static bool isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
-                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere*  const pSphere02  );
+                        const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere*  const pSphere02  );
 
-
+    /**
+     * AAピラミッド 対 AAB 当たり判定（未完成） .
+     * @param pActor01
+     * @param pAAPyramid01
+     * @param pActor02
+     * @param pAABox02
+     * @return
+     */
     static bool isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPyramid* const pAAPyramid01,
-                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox*     const pAABox02     );
+                        const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox*     const pAABox02     );
 
+    /**
+     * AAピラミッド 対 球 当たり判定（未完成） .
+     * @param pActor01
+     * @param pAAPyramid01
+     * @param pActor02
+     * @param pSphere02
+     * @return
+     */
     static bool isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPyramid* const pAAPyramid01,
-                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere*    const pSphere02    );
+                        const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere*    const pSphere02    );
 
 
+    /**
+     * 長方形 対 長方形 当たり判定 .
+     * @param pActor01
+     * @param pAABox01
+     * @param pActor02
+     * @param pAABox02
+     * @return
+     */
     static inline bool isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAABox* const pAABox01,
-                             const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox* const pAABox02 ) {
+                               const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox* const pAABox02 ) {
         //＜AAB と AAB＞
         //軸が一致しない確率が高そうな順番(X>Z>Y)に判定
         if (pActor01->_x + pAABox01->_x2 >= pActor02->_x + pAABox02->_x1) {
@@ -97,31 +159,77 @@ public:
         return false;
     }
 
+    /**
+     * 円 対 円 当たり判定 .
+     * @param pActor01
+     * @param pSphere01
+     * @param pActor02
+     * @param pSphere02
+     * @return
+     */
     static bool isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliSphere* const pSphere01 ,
-                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere* const pSphere02 );
+                        const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere* const pSphere02 );
 
+    /**
+     * 長方形 対 円 当たり判定 .
+     * @param pActor01
+     * @param pAABox01
+     * @param pActor02
+     * @param pSphere02
+     * @return
+     */
     static bool isHit2D(const GgafDxCore::GgafDxGeometricActor* pActor01, const ColliAABox*  pAABox01,
-                      const GgafDxCore::GgafDxGeometricActor* pActor02, const ColliSphere* pSphere02);
+                        const GgafDxCore::GgafDxGeometricActor* pActor02, const ColliSphere* pSphere02);
 
+    /**
+     * 直角三角形 対 長方形 当たり判定（未完成） .
+     * @param pActor01
+     * @param pAAPrism01
+     * @param pActor02
+     * @param pAABox02
+     * @return
+     */
     static bool isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
-                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox*   const pAABox02   ) {
+                        const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox*   const pAABox02   ) {
         return false;
     }
 
-
+    /**
+     * 直角三角形 対 円 当たり判定（未完成） .
+     * @param pActor01
+     * @param pAAPrism01
+     * @param pActor02
+     * @param pSphere02
+     * @return
+     */
     static bool isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
-                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere*  const pSphere02  ) {
+                        const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere*  const pSphere02  ) {
         return false;
     }
 
-
+    /**
+     * 直角三角形 対 長方形 当たり判定（未完成） .
+     * @param pActor01
+     * @param pAAPyramid01
+     * @param pActor02
+     * @param pAABox02
+     * @return
+     */
     static bool isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPyramid* const pAAPyramid01,
-                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox*     const pAABox02     ) {
+                        const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox*     const pAABox02     ) {
         return false;
     }
 
+    /**
+     * 直角三角形 対 円 当たり判定（未完成） .
+     * @param pActor01
+     * @param pAAPyramid01
+     * @param pActor02
+     * @param pSphere02
+     * @return
+     */
     static bool isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPyramid* const pAAPyramid01,
-                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere*    const pSphere02    ) {
+                        const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere*    const pSphere02    ) {
         return false;
     }
 

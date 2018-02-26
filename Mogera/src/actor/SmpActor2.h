@@ -1,5 +1,5 @@
-#ifndef SMPACTOR_H_
-#define SMPACTOR_H_
+#ifndef SMPACTOR2_H_
+#define SMPACTOR2_H_
 #include "Mogera.h"
 #include "jp/ggaf/lib/actor/DefaultMeshActor.h"
 
@@ -11,7 +11,7 @@ namespace Mogera {
  * @since 2011/02/16
  * @author Masatoshi Tsuge
  */
-class SmpActor : public GgafLib::DefaultMeshActor {
+class SmpActor2 : public GgafLib::DefaultMeshActor {
 
 public:
     /**
@@ -19,7 +19,7 @@ public:
      * @param prm_name
      * @return
      */
-    SmpActor(const char* prm_name);
+    SmpActor2(const char* prm_name);
 
     /**
      * ÉLÉÉÉâÇÃèâä˙èàóù .
@@ -31,9 +31,11 @@ public:
      */
     void processBehavior() override;
 
-    virtual ~SmpActor();
+    void onHit(const GgafCore::GgafActor* prm_pOtherActor);
+
+    virtual ~SmpActor2();
 };
 
 }
-#endif /*SMPACTOR_H_*/
+#endif /*SMPACTOR2_H_*/
 

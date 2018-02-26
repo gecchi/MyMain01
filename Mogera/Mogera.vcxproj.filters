@@ -17,7 +17,8 @@
     <ClCompile Include="src\actor\BoardTest.cpp" />
     <ClCompile Include="src\actor\camera\MgrCameraWorker.cpp" />
     <ClCompile Include="src\actor\PointSpriteTest.cpp" />
-    <ClCompile Include="src\actor\SmpActor.cpp" />
+    <ClCompile Include="src\actor\SmpActor1.cpp" />
+    <ClCompile Include="src\actor\SmpActor2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\actor\camera\MgrCamera.h" />
@@ -36,6 +37,7 @@
     <ClInclude Include="src\actor\boardtest.h" />
     <ClInclude Include="src\actor\camera\mgrcameraworker.h" />
     <ClInclude Include="src\actor\PointSpriteTest.h" />
-    <ClInclude Include="src\actor\SmpActor.h" />
+    <ClInclude Include="src\actor\smpactor1.h" />
+    <ClInclude Include="src\actor\smpactor2.h" />
   </ItemGroup>
 </Project>

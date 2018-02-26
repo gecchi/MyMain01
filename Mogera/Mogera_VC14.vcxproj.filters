@@ -63,7 +63,10 @@
     <ClCompile Include="src\Mogera.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\actor\SmpActor.cpp">
+    <ClCompile Include="src\actor\SmpActor1.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\actor\SmpActor2.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -116,7 +119,10 @@
     <ClInclude Include="src\Mogera.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\actor\SmpActor.h">
+    <ClInclude Include="src\actor\SmpActor1.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\actor\SmpActor2.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

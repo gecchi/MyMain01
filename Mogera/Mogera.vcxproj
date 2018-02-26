@@ -239,7 +239,8 @@
     <ClCompile Include="src\actor\FormationZako.cpp" />
     <ClCompile Include="src\actor\FormationZako001.cpp" />
     <ClCompile Include="src\actor\PointSpriteTest.cpp" />
-    <ClCompile Include="src\actor\SmpActor.cpp" />
+    <ClCompile Include="src\actor\SmpActor1.cpp" />
+    <ClCompile Include="src\actor\SmpActor2.cpp" />
     <ClCompile Include="src\actor\Zako.cpp" />
     <ClCompile Include="src\actor\Zakoko.cpp" />
     <ClCompile Include="src\MgrGod.cpp" />
@@ -258,7 +259,8 @@
     <ClInclude Include="src\actor\FormationZako.h" />
     <ClInclude Include="src\actor\FormationZako001.h" />
     <ClInclude Include="src\actor\PointSpriteTest.h" />
-    <ClInclude Include="src\actor\SmpActor.h" />
+    <ClInclude Include="src\actor\smpactor1.h" />
+    <ClInclude Include="src\actor\smpactor2.h" />
     <ClInclude Include="src\actor\Zako.h" />
     <ClInclude Include="src\actor\Zakoko.h" />
     <ClInclude Include="src\MgrGod.h" />

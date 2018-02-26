@@ -3,6 +3,7 @@
 #include "Mogera.h"
 #include "jp/ggaf/lib/scene/DefaultSpacetime.h"
 
+#include "jp/ggaf/lib/util/VirtualButton.h"
 #include "actor/camera/MgrCamera.h"
 
 namespace Mogera {
@@ -20,6 +21,9 @@ public:
     MgrWorld* pWorld_;
 
     MgrCameraWorker* pActiveCamWorker_;
+
+    /** 入力受付 */
+    GgafLib::VirtualButton* pVb_;
 public:
     /**
      * コンストラクタ .

@@ -1,3 +1,4 @@
+
 #include "TrialAndErrScene.h"
 
 #include "jp/ggaf/core/GgafFactory.h"
@@ -6,7 +7,8 @@
 #include "actor/PointSpriteTest.h"
 #include "actor/BoardTest.h"
 #include "actor/Zako.h"
-#include "actor/SmpActor.h"
+#include "actor/SmpActor1.h"
+#include "actor/SmpActor2.h"
 #include "scene/MgrSpacetime/MgrWorld.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 
@@ -26,7 +28,9 @@ TrialAndErrScene::TrialAndErrScene(const char* prm_name) : DefaultScene(prm_name
     _class_name = "TrialAndErrScene";
     pTest_ = nullptr;
 
-    orderActorToFactory(1234, SmpActor, "SmpActor");
+
+    orderActorToFactory(1111, SmpActor1, "SmpActor1");
+    orderActorToFactory(2222, SmpActor2, "SmpActor2");
 
 //    for (int id = 0; id < 17; id++) {
 //        orderActorToFactory(900+id, PointSpriteTest, "PointSpriteTest");
@@ -38,7 +42,7 @@ TrialAndErrScene::TrialAndErrScene(const char* prm_name) : DefaultScene(prm_name
 //    orderActorToFactory(994, PointSpriteTest, "PointSpriteTest5");
 //    orderActorToFactory(995, PointSpriteTest, "PointSpriteTest6");
 //    orderActorToFactory(996, PointSpriteTest, "PointSpriteTest7");
-    orderActorToFactory(20000, BoardTest, "BoardTest");
+//    orderActorToFactory(20000, BoardTest, "BoardTest");
 }
 
 void TrialAndErrScene::initialize() {
@@ -49,12 +53,17 @@ void TrialAndErrScene::initialize() {
 void TrialAndErrScene::processBehavior() {
 
     if (getActiveFrame() == 100) {
-        SmpActor* pSmpActor = (SmpActor*)obtainActorFromFactory(1234);
-        bringSceneMediator()->addSubGroup(pSmpActor);
+        SmpActor1* pSmpActor1 = (SmpActor1*)obtainActorFromFactory(1111);
+        bringSceneMediator()->addSubGroup(MGR_MIKATA, pSmpActor1);
+        pSmpActor1->setPosition(0, PX_C(+100), 0);
 
-        BoardTest* pBoardTest = (BoardTest*)obtainActorFromFactory(20000);
-        pBoardTest->setPosition(PX_C(100), PX_C(50));
-        bringSceneMediator()->addSubGroup(pBoardTest);
+        SmpActor2* pSmpActor2 = (SmpActor2*)obtainActorFromFactory(2222);
+        bringSceneMediator()->addSubGroup(MGR_TEKI, pSmpActor2);
+        pSmpActor2->setPosition(0, PX_C(-100), 0);
+
+//        BoardTest* pBoardTest = (BoardTest*)obtainActorFromFactory(20000);
+//        pBoardTest->setPosition(PX_C(100), PX_C(50));
+//        bringSceneMediator()->addSubGroup(pBoardTest);
 
 
 //        for (int id = 0; id < 17; id++) {

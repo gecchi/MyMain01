@@ -30,7 +30,8 @@ class Zakoko;
 class FormationZako;
 class FormationZako001;
 class MgrUtil;
-
+class SmpActor1;
+class SmpActor2;
 class BoardTest;
 class PointSpriteTest;
 }

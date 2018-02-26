@@ -22,8 +22,8 @@ namespace Mogera {
 class MgrWorld : public GgafLib::DefaultScene {
 
 public:
-    /** “ü—ÍŽó•t */
-    GgafLib::VirtualButton* vb_;
+
+    GgafLib::OctreeRounder* pHitCheckRounder_;
 
     TrialAndErrScene* pTrialAndErrScene_;
     /**
