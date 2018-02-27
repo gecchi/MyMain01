@@ -55,11 +55,11 @@ void TrialAndErrScene::processBehavior() {
     if (getActiveFrame() == 100) {
         SmpActor1* pSmpActor1 = (SmpActor1*)obtainActorFromFactory(1111);
         bringSceneMediator()->addSubGroup(MGR_MIKATA, pSmpActor1);
-        pSmpActor1->setPosition(0, PX_C(+100), 0);
+        pSmpActor1->setPosition(PX_C(50), PX_C(+200), PX_C(50));
 
         SmpActor2* pSmpActor2 = (SmpActor2*)obtainActorFromFactory(2222);
         bringSceneMediator()->addSubGroup(MGR_TEKI, pSmpActor2);
-        pSmpActor2->setPosition(0, PX_C(-100), 0);
+        pSmpActor2->setPosition(PX_C(50), PX_C(50), PX_C(50));
 
 //        BoardTest* pBoardTest = (BoardTest*)obtainActorFromFactory(20000);
 //        pBoardTest->setPosition(PX_C(100), PX_C(50));

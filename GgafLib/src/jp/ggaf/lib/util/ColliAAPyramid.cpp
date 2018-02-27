@@ -44,43 +44,39 @@ void ColliAAPyramid::set(int prm_x1, int prm_y1, int prm_z1, int prm_x2, int prm
     float hdx = PX_DX(_hdx);
     float hdy = PX_DX(_hdy);
     float hdz = PX_DX(_hdz);
-
+    //対角線ベクトル
+    float dg_vx,dg_vy,dg_vz;
+    //対角線
+//    float a,b,c,d;
     switch (_pos_pyramid) {
         case POS_PYRAMID_nnn: {
             UTIL::getPlaneNomalVec(x2, y1, z1,
                                    x1, y2, z1,
                                    x1, y1, z2,
                                    _s_nvx, _s_nvy, _s_nvz, _s_d);
-            // (x1,y2), (x2,y1) を通る直線の傾きと切片
-            _a_xy = (y1-y2) / (x2-x1);
-            _b_xy_z1 = (x2*y2 - x1*y1) / (x2-x1);
-            //↑は、Z軸 = z1 XY平面 の値になる。
-            //Z軸 = z2 XY平面 (x1,y1) を通り、傾きはそのままの場合の切片を求める
-            //y = ax + b より
-            //b = y - ax
-            _b_xy_z2 = y1 - _a_xy*x1;
+            //対角線ベクトル
+            dg_vx = x2-x1;
+            dg_vy = y2-y1;
+            dg_vz = z2-z1;
 
-//             //XY平面 : (x1,y2), (x1+hdx, y1) を通る直線
-//             _a_xy[0] = (y1-y2) / ((x1+hdx)-x1);
-//             _b_xy[0] = ((x1+hdx)*y2 - x1*y1) / ((x1+hdx)-x1);
-//             //XY平面 : (x2,y1), (x1, y1+hdy) を通る直線
-//             _a_xy[1] = ((y1+hdy)-y1) / (x1-x2);
-//             _b_xy[1] = (x1*y1 - x2*(y1+hdy)) / (x1-x2);
-//
-//             //YZ平面 : (y1,z2), (y1+hdy,z1) を通る直線
-//             _a_yz[0] = (z1-z2) / ((y1+hdy)-y1);
-//             _b_yz[0] = ((y1+hdy)*z2 - y1*z1) / ((y1+hdy)-y1);
-//             //YZ平面 : (y2,z1), (y1,z1+hdz) を通る直線
-//             _a_yz[1] = ((z1+hdz)-z1) / (y1-y2);
-//             _b_yz[1] = (y1*z1 - y2*(z1+hdz)) / (y1-y2);
-//
-//             //ZX平面 : (z1,x2), (z1+hdz,x1) を通る直線
-//             _a_zx[0] = (x1-x2) / ((z1+hdz)-z1);
-//             _b_zx[0] = ((z1+hdz)*x2 - z1*x1) / ((z1+hdz)-z1);
-//             //ZX平面 : (z2,x1), (z1,x1+hdx) を通る直線
-//             _a_zx[1] = ((x1+hdx)-x1) / (z1-z2);
-//             _b_zx[1] = (z1*x1 - z2*(x1+hdx)) / (z1-z2);
+            float x0, y0, z0;//通る点
+            x0 = x1;
+            y0 = y1;
+            z0 = z1;
+            //これが、x0, y0, z0 を通るので対角線の方程式は
+            // (x-x0/dg_vx) = (y-y0/dg_vy) = (z-z0/dg_vz)
+            // (x,y,z) = (x0,y0,z0) + t(dg_vx,dg_vy,dg_vz)     ・・・①
+            //斜面 _s_nvx*x + _s_nvy*y + _s_nvz*z + _s_d = 0   ・・・②
 
+            //①を②に代入して、ｔを求める
+            // _s_nvx*(x0+t*dg_vx) + _s_nvy*(y0+t*dg_vy) + _s_nvz*(z0+t*dg_vz) + _s_d = 0
+            // t=-(_s_nvz*z0+_s_nvy*y0+_s_nvx*x0+_s_d)/(_s_nvz*dg_vz+_s_nvy*dg_vy+_s_nvx*dg_vx)
+            //これを①へ代入
+            float t=-(_s_nvz*z0+_s_nvy*y0+_s_nvx*x0+_s_d)/(_s_nvz*dg_vz+_s_nvy*dg_vy+_s_nvx*dg_vx);
+            //交点は
+            _l_px = x0 + t*dg_vx;
+            _l_py = y0 + t*dg_vy;
+            _l_pz = z0 + t*dg_vz;
              break;
          }
          case POS_PYRAMID_nnp: {
@@ -137,7 +133,7 @@ void ColliAAPyramid::set(int prm_x1, int prm_y1, int prm_z1, int prm_x2, int prm
          }
      }
     _d_nv = sqrt((_s_nvz*_s_nvz) + (_s_nvy*_s_nvy) + (_s_nvx*_s_nvx));
-    _d_c2vtx = UTIL::getDistance(_cx, _cy, _cz, _x1, _y1, _z1);
+//    _d_c2vtx = UTIL::getDistance(_cx, _cy, _cz, _x1, _y1, _z1);
 }
 
 

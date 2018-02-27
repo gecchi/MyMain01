@@ -19,7 +19,7 @@ SmpActor2::SmpActor2(const char* prm_name) :
     setMaterialColor(1.0, 1.0, 0.0);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
-    pChecker->setColliAAPyramid_WHD(0, PX_C(32),PX_C(48),PX_C(64), POS_PYRAMID_nnn);
+    pChecker->setColliAAPyramid_WHD(0, PX_C(100),PX_C(100),PX_C(100), POS_PYRAMID_nnn);
 //    pChecker->setColliAABox_WHD(0, PX_C(32),PX_C(48),PX_C(64));
     setHitAble(true);
 }

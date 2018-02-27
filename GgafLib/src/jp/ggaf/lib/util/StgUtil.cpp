@@ -719,6 +719,14 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     const int aY2 = pActor01->_y + pAAPyramid01->_y2;
     const int aZ2 = pActor01->_z + pAAPyramid01->_z2;
 
+    float a = pAAPyramid01->_s_nvx;
+    float b = pAAPyramid01->_s_nvy;
+    float c = pAAPyramid01->_s_nvz;
+    //斜面と対角線の交点
+    float px = pActor01->_x + pAAPyramid01->_l_px;
+    float py = pActor01->_y + pAAPyramid01->_l_py;
+    float pz = pActor01->_z + pAAPyramid01->_l_pz;
+
     const int bX1 = pActor02->_x + pAABox02->_x1;
     const int bY1 = pActor02->_y + pAABox02->_y1;
     const int bZ1 = pActor02->_z + pAABox02->_z1;
@@ -726,7 +734,8 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     const int bY2 = pActor02->_y + pAABox02->_y2;
     const int bZ2 = pActor02->_z + pAABox02->_z2;
 
-    if (aZ2 >= bZ1 && aZ1 <= bZ2 && aY2 >= bY1 && aY1 <= bY2 && aX2 >= bX1 && aX1 <= bX2) {
+
+    if (aX2 >= bX1 && aX1 <= bX2 && aZ2 >= bZ1 && aZ1 <= bZ2 && aY2 >= bY1 && aY1 <= bY2) {
         //この時点でAAB と AAB ならばヒット
 
         //ピラミッド斜面に対してピラミッド側のBOX領域内で、相手BOXの最近傍点を求める
@@ -753,7 +762,6 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
                 nnx = aX1;
             }
         }
-
         if (pos_pyramid & POS_PYRAMID__p_) {
             //bY2に興味がある
             if (aY1 <= bY2 && bY2 <= aY2) {
@@ -779,50 +787,29 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
             if (aZ1 <= bZ2 && bZ2 <= aZ2) {
                 //bZ2 が中にある
                 nnz = bZ2;
-            } else if (aZ2 < bZ2) {
+            } else { //if (aZ2 < bZ2) {
                 //bZ2 が外にある
                 nnz = aZ2;
-            } else {
-                //ありえない？
             }
         } else {
             //bZ1に興味がある
             if (aZ1 <= bZ1 && bZ1 <= aZ2) {
                 //bz1 が中にある
                 nnz = bZ1;
-            } else if (aZ1 > bZ1) {
+            } else { //if (aZ1 > bZ1) {
                 //bx1 が外にある
                 nnz = aZ1;
-            } else {
-                //ヒットしてない？
             }
         }
         //(nnx,nny,nnz) が近傍点
-        float a_xy = pAAPyramid01->_a_xy;
-        float b_xy_z1 = pAAPyramid01->_b_xy_z1;
-        float b_xy_z2 = pAAPyramid01->_b_xy_z2;
-        float b_xy = RCNV(bZ1, bZ2, nnz, b_xy_z1, b_xy_z2);
-
-        //XYでスライスした場合の切片を MAX切片～MIN切片 の間割合を bZ1～bZ2 の変化割合で求める
-        //XY平面にスライスした直角三角形の内側（三角形斜辺の直線方程式境界の三角形内部側領域）
-        //に近傍点があればヒット
-
-        // y = ax + b
-        // y = a_xy * x + b_xy を
-        // X軸にpActor01_x、Y軸にpActor01_y平行移動した直線は
-        // y-pActor01_y = a_xy * (x-pActor01_x) + b_xy
-        // y = a_xy * (x-pActor01_x) + b_xy + pActor01_y
-        //
-        // この直線と(nnx,nny)の点の位置の範囲を調べる
-
-        if (pos_pyramid & POS_PYRAMID__p_) {
-            if (nny >= a_xy * (nnx-pActor01->_x) + b_xy + pActor01->_y) {
-                return true;
-            }
+        //斜面の法線ベクトル (a, b, c)
+        //斜面上の点(px, py, pz) から 近傍点(nnx,nny,nnz) のベクトル
+        // (nnx-px, nny-py, nnz-pz) の内積が 負 ならば近傍点 (nnx,nny,nnz) がピラミッドの中にある
+        double d = a*(nnx-px) + b*(nny-py) + c*(nnz-pz);
+        if (d < 0) {
+            return true;
         } else {
-            if (nny <= a_xy * (nnx-pActor01->_x) + b_xy + pActor01->_y) {
-                return true;
-            }
+            return false;
         }
     }
     return false;
@@ -933,23 +920,23 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
             //球の中心がキューブ内でかつ
             //Z軸スライス直角三角形内部にあればヒット
             if (sgn_x_spos == 0 && sgn_y_spos == 0 && sgn_z_spos == 0) {
-                float a_xy = pAAPyramid01->_a_xy;
-                float b_xy_z1 = pAAPyramid01->_b_xy_z1;
-                float b_xy_z2 = pAAPyramid01->_b_xy_z2;
-                float b_xy = RCNV(b_z1, b_z2, o_scz, b_xy_z1, b_xy_z2);
-                //XYでスライスした場合の切片を MAX切片～MIN切片 の間割合を bZ1～bZ2 の変化割合で求める
-                //XY平面にスライスした直角三角形の内側（三角形斜辺の直線方程式境界の三角形内部側領域）
-                //に近傍点があればヒット
-
-                if (pos_pyramid & POS_PYRAMID__p_) {
-                    if (o_scy >= a_xy * (o_scx-pActor01->_x) + b_xy + pActor01->_y) {
-                        return true;
-                    }
-                } else {
-                    if (o_scy <= a_xy * (o_scx-pActor01->_x) + b_xy + pActor01->_y) {
-                        return true;
-                    }
-                }
+//                float a_xy = pAAPyramid01->_a_xy;
+//                float b_xy_z1 = pAAPyramid01->_b_xy_z1;
+//                float b_xy_z2 = pAAPyramid01->_b_xy_z2;
+//                float b_xy = RCNV(b_z1, b_z2, o_scz, b_xy_z1, b_xy_z2);
+//                //XYでスライスした場合の切片を MAX切片～MIN切片 の間割合を bZ1～bZ2 の変化割合で求める
+//                //XY平面にスライスした直角三角形の内側（三角形斜辺の直線方程式境界の三角形内部側領域）
+//                //に近傍点があればヒット
+//
+//                if (pos_pyramid & POS_PYRAMID__p_) {
+//                    if (o_scy >= a_xy * (o_scx-pActor01->_x) + b_xy + pActor01->_y) {
+//                        return true;
+//                    }
+//                } else {
+//                    if (o_scy <= a_xy * (o_scx-pActor01->_x) + b_xy + pActor01->_y) {
+//                        return true;
+//                    }
+//                }
             }
             break;
         }
