@@ -20,23 +20,12 @@ public:
     int _pos_pyramid;
     /** 三角錐斜面法線ベクトル */
     float _s_nvx, _s_nvy, _s_nvz, _s_d;
-    /** 三角錐斜面法線ベクトルの長さ */
-    float _d_nv;
     /** 対角線と斜面の交点 */
-    float _l_px, _l_py, _l_pz;
-//    /** BOX中心から対角線の距離 */
-//    coord _d_c2vtx;
-//    /** XY平面でスライスした場合の斜面の直線の傾き */
-//    float _a_xy;
-//    /** XY平面でスライスした場合の斜面の直線のローカル座標切片（Z軸=z1） */
-//    float _b_xy_z1;
-//    /** XY平面でスライスした場合の斜面の直線のローカル座標切片（Z軸=z2） */
-//    float _b_xy_z2;
+    coord _l_px, _l_py, _l_pz;
 
-//    /** 各面(XY面,YZ面,ZX面) 斜辺の傾き */
-//    float _a_xy[2], _a_yz[2], _a_zx[2];
-//    /** 各面(XY面,YZ面,ZX面) 切片 */
-//    float _b_xy[2], _b_yz[2], _b_zx[2];
+    double _rad_xy;
+    double _rad_yz;
+    double _rad_zx;
 public:
     ColliAAPyramid();
 

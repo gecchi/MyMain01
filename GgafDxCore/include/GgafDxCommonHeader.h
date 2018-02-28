@@ -80,9 +80,13 @@
 #define POS_PYRAMID_ppn   (0x86) //0b  10000110
 #define POS_PYRAMID_ppp   (0x87) //0b  10000111
 
-#define POS_PYRAMID_p__   (0x4)  //0b  00000100
-#define POS_PYRAMID__p_   (0x2)  //0b  00000010
 #define POS_PYRAMID___p   (0x1)  //0b  00000001
+#define POS_PYRAMID__p_   (0x2)  //0b  00000010
+#define POS_PYRAMID__pp   (0x3)  //0b  00000011
+#define POS_PYRAMID_p__   (0x4)  //0b  00000100
+#define POS_PYRAMID_p_p   (0x5)  //0b  00000101
+#define POS_PYRAMID_pp_   (0x6)  //0b  00000110
+
 
 //DirectXの3D空間の座標単位１に対しての原点付近の画面px相当数（画面高さ(px)などを、PX_UNITで割ると3D空間の座標単位１になる）
 #define PX_UNIT (10)

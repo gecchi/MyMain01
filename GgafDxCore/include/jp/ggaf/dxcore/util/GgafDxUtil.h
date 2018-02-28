@@ -93,6 +93,14 @@ public:
 public:
     static void init();
 
+
+    static double getRad2D(double vx1, double vy1, double vx2, double vy2) {
+
+        // a・b = |a||b|cosθ より
+        //cosθ = 内積 / 長さの積
+        double cos_t = ((vx1*vx2)+(vy1*vy2)) / (sqrt((vx1*vx1)+(vy1*vy1)) *  sqrt((vx2*vx2)+(vy2*vy2)) );
+        return acos(cos_t);
+    }
     /**
      * 平面上のベクトル(vx, vy) が作る原点のなす角を返す .
      * @param prm_vx ベクトル x 要素

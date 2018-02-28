@@ -3,6 +3,7 @@
 #include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
 #include "jp/ggaf/dxcore/actor/GgafDxFigureActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dxcore/util/GgafDxInput.h"
 #include "jp/ggaf/lib/GgafLibConfig.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker2D.h"
@@ -710,7 +711,6 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
 
 bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPyramid* const pAAPyramid01,
                       const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox*     const pAABox02     ) {
-    //TODO:未完成
     //ピラミッドとBOX
     const int aX1 = pActor01->_x + pAAPyramid01->_x1;
     const int aY1 = pActor01->_y + pAAPyramid01->_y1;
@@ -723,9 +723,9 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     float b = pAAPyramid01->_s_nvy;
     float c = pAAPyramid01->_s_nvz;
     //斜面と対角線の交点
-    float px = pActor01->_x + pAAPyramid01->_l_px;
-    float py = pActor01->_y + pAAPyramid01->_l_py;
-    float pz = pActor01->_z + pAAPyramid01->_l_pz;
+    const int px = pActor01->_x + pAAPyramid01->_l_px;
+    const int py = pActor01->_y + pAAPyramid01->_l_py;
+    const int pz = pActor01->_z + pAAPyramid01->_l_pz;
 
     const int bX1 = pActor02->_x + pAABox02->_x1;
     const int bY1 = pActor02->_y + pAABox02->_y1;
@@ -816,7 +816,37 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
 }
 
 bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPyramid* const pAAPyramid01,
-                    const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere*    const pSphere02  ) {
+                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere*    const pSphere02  ) {
+
+
+// 2条の距離をいかの場合わけで設定
+//
+//  a
+//	if(o_scx < b_x1) {
+//		square_length += (double)(o_scx - b_x1) * (o_scx - b_x1);
+//	}
+
+//	b
+//	if(o_scx > b_x2) {
+//		square_length += (double)(o_scx - b_x2) * (o_scx - b_x2);
+//	}
+
+//          a         b      c        d      e
+//    -------------><---><---------><---><-----------------
+//              ,─、
+//             │  │   ,─、
+//              `─'  _│_ │
+//                  |＼ `─'
+//                  |  ＼   ＼
+//                  |    ＼  r＼
+//                  |      ＼   ＼
+//                  |        ＼    ,─、
+//                  |          ＼ │| │
+//                  |            ＼`+-'
+//                  ----------------,─、
+//              ,─、              │  │
+//             │  │               `─'
+//              `─'
 
     //まずBOXと球で当たり判定を行う
     //＜AAB と 球＞
@@ -831,140 +861,77 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     const coord b_z1 = pActor01->_z + pAAPyramid01->_z1;
     const coord b_z2 = pActor01->_z + pAAPyramid01->_z2;
 
+
     double square_length = 0; //球の中心とAABの最短距離を二乗した値
     int sgn_x_spos, sgn_y_spos, sgn_z_spos;
+
+    if (GgafDxCore::GgafDxInput::isPressedKey(DIK_Z)) {
+        _TRACE_("kitayo");
+    }
+
+
+    //点と斜面の距離を半径にする
+    float a = pAAPyramid01->_s_nvx;
+    float b = pAAPyramid01->_s_nvy;
+    float c = pAAPyramid01->_s_nvz;
+    float d = pAAPyramid01->_s_d;
+
+
+///////////////////////こここここ
+///
+///  _r * x; の r を距離に
+///
+
+    //(a)
     if(o_scx < b_x1) {
         square_length += (double)(o_scx - b_x1) * (o_scx - b_x1);
-        sgn_x_spos = -1;
-    } else if(o_scx > b_x2) {
-        square_length += (double)(o_scx - b_x2) * (o_scx - b_x2);
-        sgn_x_spos = +1;
-    } else {
-        sgn_x_spos = 0;
     }
+    if (b_x1 <= o_scx && o_scx <= b_x2) {
+        double x = cos(pAAPyramid01->_rad_xy) ;
+        double dx = pSphere02->_r * x;
+        square_length += (dx * dx);
+    }
+    //(e)
+    if(o_scx > b_x2) {
+        square_length += (double)(o_scx - b_x2) * (o_scx - b_x2);
+    }
+
+
 
     if(o_scy < b_y1) {
         square_length += (double)(o_scy - b_y1) * (o_scy - b_y1);
-        sgn_y_spos = -1;
-    } else if(o_scy > b_y2) {
+    }
+    if (b_y1 <= o_scy && o_scy <= b_y2) {
+        double y = cos(pAAPyramid01->_rad_yz);
+        double dy = pSphere02->_r * y;
+        square_length += (dy* dy);
+    }
+    if(o_scy > b_y2) {
         square_length += (double)(o_scy - b_y2) * (o_scy - b_y2);
-        sgn_y_spos = +1;
-    } else {
-        sgn_y_spos = 0;
     }
 
     if(o_scz < b_z1) {
         square_length += (double)(o_scz - b_z1) * (o_scz - b_z1);
-        sgn_z_spos = -1;
-    } else if(o_scz > b_z2) {
+    }
+    if (b_z1 <= o_scz && o_scz <= b_z2) {
+        double z = cos(pAAPyramid01->_rad_zx) ;
+        double dz = pSphere02->_r * z;
+        square_length += (dz* dz);
+    }
+    if(o_scz > b_z2) {
         square_length += (double)(o_scz - b_z2) * (o_scz - b_z2);
-        sgn_z_spos = +1;
     } else {
-        sgn_z_spos = 0;
 
     }
     //square_lengthが球の半径（の二乗）よりも短ければ衝突している
     if (square_length <= pSphere02->_rr) {
         //OK、まずBOXと球でヒット、第一条件クリア
-        //落下
+        return true;
     } else {
         return false;
     }
 
-    const int pos_pyramid = pAAPyramid01->_pos_pyramid;
-    switch (pos_pyramid) {
-        case POS_PYRAMID_nnn: {
-//                if (sgn_x_spos == -1 && sgn_y_spos == -1) {
-//                    return true;
-//                }
-//                if (sgn_y_spos == -1 && sgn_z_spos == -1) {
-//                    return true;
-//                }
-//                if (sgn_z_spos == -1 && sgn_x_spos == -1) {
-//                    return true;
-//                }
-            if (sgn_x_spos == -1) {
-                if (sgn_y_spos == -1 || sgn_z_spos == -1) {
-                    return true;
-                } else if (sgn_y_spos == -1 && sgn_z_spos == -1) {
-                    return true;
-                }
-            }
 
-//            if (o_r < pAAPyramid01->_d_c2vtx && sgn_x_spos == 1 && sgn_y_spos == 1 && sgn_x_spos == 1) {
-//                return false;
-//            }
-//                //計算を楽にするため直角三角錐の３直角を原点に平行移動して考える
-////                const coord b0_x1 = 0;
-//                const coord b0_x2 = pAAPyramid01->_dx;
-////                const coord b0_y1 = 0;
-//                const coord b0_y2 = pAAPyramid01->_dy;
-////                const coord b0_z1 = 0;
-//                const coord b0_z2 = pAAPyramid01->_dz;
-//
-//                const coord o0_scx = o_scx - pAAPyramid01->_x1;
-//                const coord o0_scy = o_scy - pAAPyramid01->_y1;
-//                const coord o0_scz = o_scz - pAAPyramid01->_z1;
-
-
-            //中心と斜面の距離が半径よりちいさければヒット
-            //平面 a*x + b*y + c*z + d = 0
-            //点D(x0,y0,z0)
-            //距離 ＝ abs(a*x0+b*y0+c*z0+d) / sqrt(a^2+b^2+c^2)
-            double d = ABS(pAAPyramid01->_s_nvx*o_scx + pAAPyramid01->_s_nvy*o_scy + pAAPyramid01->_s_nvz*o_scz + pAAPyramid01->_s_d) / pAAPyramid01->_d_nv;
-            if (d <= o_r) {
-                return true;
-            }
-
-
-            //球の中心がキューブ内でかつ
-            //Z軸スライス直角三角形内部にあればヒット
-            if (sgn_x_spos == 0 && sgn_y_spos == 0 && sgn_z_spos == 0) {
-//                float a_xy = pAAPyramid01->_a_xy;
-//                float b_xy_z1 = pAAPyramid01->_b_xy_z1;
-//                float b_xy_z2 = pAAPyramid01->_b_xy_z2;
-//                float b_xy = RCNV(b_z1, b_z2, o_scz, b_xy_z1, b_xy_z2);
-//                //XYでスライスした場合の切片を MAX切片～MIN切片 の間割合を bZ1～bZ2 の変化割合で求める
-//                //XY平面にスライスした直角三角形の内側（三角形斜辺の直線方程式境界の三角形内部側領域）
-//                //に近傍点があればヒット
-//
-//                if (pos_pyramid & POS_PYRAMID__p_) {
-//                    if (o_scy >= a_xy * (o_scx-pActor01->_x) + b_xy + pActor01->_y) {
-//                        return true;
-//                    }
-//                } else {
-//                    if (o_scy <= a_xy * (o_scx-pActor01->_x) + b_xy + pActor01->_y) {
-//                        return true;
-//                    }
-//                }
-            }
-            break;
-        }
-        case POS_PYRAMID_nnp: {
-            break;
-        }
-        case POS_PYRAMID_npn: {
-            break;
-        }
-        case POS_PYRAMID_npp: {
-            break;
-        }
-        case POS_PYRAMID_pnn: {
-            break;
-        }
-        case POS_PYRAMID_pnp: {
-            break;
-        }
-        case POS_PYRAMID_ppn: {
-            break;
-        }
-        case POS_PYRAMID_ppp: {
-            break;
-        }
-        default: {
-            break;
-        }
-    }
     return false;
 }
 

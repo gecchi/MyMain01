@@ -457,11 +457,7 @@ float GgafDxModel::getRadv1_v0v1v2(Frm::Vertex& v0, Frm::Vertex& v1, Frm::Vertex
     LV = V.Abs();
     LW = W.Abs();
     cosV1 = DOT / LV / LW;
-    if (ZEROf_EQ(cosV1)) {
-        return (float)PI/2;
-    } else {
-        return cosV1;
-    }
+    return acos(cosV1);
 }
 
 

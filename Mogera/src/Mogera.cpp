@@ -8,7 +8,6 @@
 #include <scrnsave.h>
 using namespace Mogera;
 
-
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 /**
