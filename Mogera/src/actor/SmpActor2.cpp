@@ -33,7 +33,6 @@ SmpActor2::SmpActor2(const char* prm_name) :
 //    pChecker->setColliAAPyramid_WHD(5, ox - (w/2), oy + (h/2), oz - (d/2), w, h, d, POS_PYRAMID_pnp);
 //    pChecker->setColliAAPyramid_WHD(6, ox - (w/2), oy - (h/2), oz + (d/2), w, h, d, POS_PYRAMID_ppn);
 //    pChecker->setColliAAPyramid_WHD(7, ox - (w/2), oy - (h/2), oz - (d/2), w, h, d, POS_PYRAMID_ppp);
-
     coord ox = PX_C(-50);
     coord oy = PX_C(-50);
     coord oz = PX_C(-50);
@@ -42,9 +41,9 @@ SmpActor2::SmpActor2(const char* prm_name) :
     coord d = PX_C(100);
     pChecker->createCollisionArea(1);
     pChecker->setColliAAPyramid_WHD(0, ox - (w/2), oy - (h/2), oz - (d/2), w, h, d, POS_PYRAMID_ppp);
-
     setHitAble(true);
 }
+
 
 void SmpActor2::initialize() {
 }

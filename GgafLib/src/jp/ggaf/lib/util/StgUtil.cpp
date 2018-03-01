@@ -850,9 +850,9 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
 
     //まずBOXと球で当たり判定を行う
     //＜AAB と 球＞
-    const coord o_scx = pActor02->_x + pSphere02->_cx;
-    const coord o_scy = pActor02->_y + pSphere02->_cy;
-    const coord o_scz = pActor02->_z + pSphere02->_cz;
+    const coord o_cx = pActor02->_x + pSphere02->_cx;
+    const coord o_cy = pActor02->_y + pSphere02->_cy;
+    const coord o_cz = pActor02->_z + pSphere02->_cz;
     const coord o_r = pSphere02->_r;
     const coord b_x1 = pActor01->_x + pAAPyramid01->_x1;
     const coord b_x2 = pActor01->_x + pAAPyramid01->_x2;
@@ -861,6 +861,10 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     const coord b_z1 = pActor01->_z + pAAPyramid01->_z1;
     const coord b_z2 = pActor01->_z + pAAPyramid01->_z2;
 
+    const coord lpx = pActor01->_z + pAAPyramid01->_l_px;
+    const coord lpy = pActor01->_z + pAAPyramid01->_l_py;
+    const coord lpz = pActor01->_z + pAAPyramid01->_l_pz;
+    const int pos_pyramid = pAAPyramid01->_pos_pyramid;
 
     double square_length = 0; //球の中心とAABの最短距離を二乗した値
     int sgn_x_spos, sgn_y_spos, sgn_z_spos;
@@ -870,56 +874,84 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     }
 
 
-    //点と斜面の距離を半径にする
-    float a = pAAPyramid01->_s_nvx;
-    float b = pAAPyramid01->_s_nvy;
-    float c = pAAPyramid01->_s_nvz;
-    float d = pAAPyramid01->_s_d;
+
 
 
 ///////////////////////こここここ
 ///
 ///  _r * x; の r を距離に
 ///
+///
+///
+//  円の中心から、斜面に垂線を下ろしたときの交点を求める
+//
+    //点と斜面の距離を半径にする
+    float a = pAAPyramid01->_s_nvx;
+    float b = pAAPyramid01->_s_nvy;
+    float c = pAAPyramid01->_s_nvz;
+
+    //円の中心から斜面に降ろした垂線
+    //(x,y,z) = (o_cx,o_cy,o_cz) + t(a,b,c)  ・・・①
+    //法線ベクトル (a, b, c)、点 ( lpx, lpy, lpz )を通る面は
+    //a*(x-lpx) + b*(y-lpy) + c*(z-lpz) = 0  ・・・②
+    //①を②に代入して、ｔを求める
+    //a*((o_cx+t*a)-lpx) + b*((o_cy+t*b)-lpy) + c*((o_cz+t*c)-lpz) = 0
+    //t=-(c*o_cz+b*o_cy+a*o_cx-c*lpz-b*lpy-a*lpx)/(c^2+b^2+a^2)
+    double t =-(c*o_cz+b*o_cy+a*o_cx-c*lpz-b*lpy-a*lpx)/(c*c+b*b+a*a);
+    //交点は
+    coord cx = o_cx + t*a;
+    coord cy = o_cy + t*b;
+    coord cz = o_cz + t*c;
+
+
+    //円の中心から、斜面に垂線を下ろしたときの交点の距離
+    coord d = UTIL::getDistance(o_cx, o_cy, o_cz, cx, cy, cz);
+
+//    //円の中心から、斜面に垂線を下ろしたときの交点のベクトルを成分わけ
+//    // (vx, vy, vz) = (o_cx, o_cy, o_cz) + d(-a,-b,-c); ???
+//
+//    coord dvx = o_cx + d*-a;
+//    coord dvy = o_cy + d*-b;
+//    coord dvz = o_cz + d*-c;
+
+
+
 
     //(a)
-    if(o_scx < b_x1) {
-        square_length += (double)(o_scx - b_x1) * (o_scx - b_x1);
+    if(o_cx < b_x1) {
+        square_length += (double)(o_cx - b_x1) * (o_cx - b_x1);
     }
-    if (b_x1 <= o_scx && o_scx <= b_x2) {
-        double x = cos(pAAPyramid01->_rad_xy) ;
-        double dx = pSphere02->_r * x;
+    if (b_x1 <= o_cx && o_cx <= b_x2) {
+        double dx = d * cos(pAAPyramid01->_rad_xy);
         square_length += (dx * dx);
     }
     //(e)
-    if(o_scx > b_x2) {
-        square_length += (double)(o_scx - b_x2) * (o_scx - b_x2);
+    if(o_cx > b_x2) {
+        square_length += (double)(o_cx - b_x2) * (o_cx - b_x2);
     }
 
 
 
-    if(o_scy < b_y1) {
-        square_length += (double)(o_scy - b_y1) * (o_scy - b_y1);
+    if(o_cy < b_y1) {
+        square_length += (double)(o_cy - b_y1) * (o_cy - b_y1);
     }
-    if (b_y1 <= o_scy && o_scy <= b_y2) {
-        double y = cos(pAAPyramid01->_rad_yz);
-        double dy = pSphere02->_r * y;
+    if (b_y1 <= o_cy && o_cy <= b_y2) {
+        double dy = d * cos(pAAPyramid01->_rad_yz);
         square_length += (dy* dy);
     }
-    if(o_scy > b_y2) {
-        square_length += (double)(o_scy - b_y2) * (o_scy - b_y2);
+    if(o_cy > b_y2) {
+        square_length += (double)(o_cy - b_y2) * (o_cy - b_y2);
     }
 
-    if(o_scz < b_z1) {
-        square_length += (double)(o_scz - b_z1) * (o_scz - b_z1);
+    if(o_cz < b_z1) {
+        square_length += (double)(o_cz - b_z1) * (o_cz - b_z1);
     }
-    if (b_z1 <= o_scz && o_scz <= b_z2) {
-        double z = cos(pAAPyramid01->_rad_zx) ;
-        double dz = pSphere02->_r * z;
+    if (b_z1 <= o_cz && o_cz <= b_z2) {
+        double dz = d * cos(pAAPyramid01->_rad_zx);
         square_length += (dz* dz);
     }
-    if(o_scz > b_z2) {
-        square_length += (double)(o_scz - b_z2) * (o_scz - b_z2);
+    if(o_cz > b_z2) {
+        square_length += (double)(o_cz - b_z2) * (o_cz - b_z2);
     } else {
 
     }
@@ -936,7 +968,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
 }
 
 bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliSphere* const pSphere01 ,
-                    const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere* const pSphere02 ) {
+                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere* const pSphere02 ) {
     //＜球 と 球＞
     //球1 ： 中心点の座標P1(x1, y1, z1), 半径r1
     //球2 ： 中心点の座標P2(x2, y2, z2), 半径r2

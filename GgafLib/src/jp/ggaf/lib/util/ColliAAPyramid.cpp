@@ -140,6 +140,8 @@ void ColliAAPyramid::set(int prm_x1, int prm_y1, int prm_z1, int prm_x2, int prm
          }
      }
 
+    //対角線と斜面の交点を求める
+    //
     //これが、x0, y0, z0 を通るので対角線の方程式は
     // (x-x0/dg_vx) = (y-y0/dg_vy) = (z-z0/dg_vz)
     // (x,y,z) = (x0,y0,z0) + t(dg_vx,dg_vy,dg_vz)     ・・・①
