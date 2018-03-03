@@ -915,6 +915,188 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
 //    coord dvz = o_cz + d*-c;
 
 
+//<MEMO>
+//    a*(x-x0)+b*(y-y0)+c*(z-z0)=0
+//    a*x*-a*x0 + b*y-b*y0 + c*z-c*z0 = 0
+//    a*x + b*y + c*z + (-a*x0 - b*y0 - c*z0) = 0
+
+
+//    a*(x-x0)+b*(y-y0)+c*(z-z0)=0
+//    a*x*-a*x0 + b*y-b*y0 + c*z-c*z0 = 0
+//    a*x + b*y + c*z + (-a*x0 - b*y0 - c*z0) = 0
+//
+
+
+//    //空間分割
+//
+//    //原点に三直角頂点をおき、(ex,0,0), (0,ey,0), (0,0,ez) の三直角三角錐を考え
+//    //斜面を底面とした三角柱（高さ無限）の範囲を考える
+//
+//
+//    面の法線(a,b,c)  に垂直な面を
+//    va*(x-x0)+vb*(y-y0)+vc*(z-z0)=0  ・・・①
+//    va*x + vb*y + vc*z + (-va*x0 - vb*y0 - vc*z0) = 0     ・・・①'
+//    と置こう、
+//
+//    ところで法線同士は内積は0なので
+//    a*va + b*vb + c*vc = 0           ・・・②
+//
+//    [I] (ex,0,0), (0,ey,0) を通る面を考える
+//
+//
+//
+//
+//
+//
+//
+//
+//    //va*(x-x0) + vb*(y-y0) + vc*(z-z0) = 0  ・・・①
+//
+//    va*a      + vb*b      + vc*c      = 0  ・・・②'
+//
+//    va*(x-ex) + vb*y      + vc*z      = 0  ・・・③
+//    va*x      + vb*y      + vc*z     + (-ex*va)   = 0   ・・・③'
+//
+//    va*x      + vb*(y-ey) + vc*z      = 0 ・・・ ④
+//    va*x      + vb*y      + vc*z     + (-ey*vb)   = 0   ・・・④'
+//
+//
+//    ・(ex,0,0) , (0,ey,0)を通る直線と、斜面は、垂直に交わる。
+//    (0,ey,0) - (ex,0,0) = (-ex, ey, 0) と、法線(a,b,c) の内積が0
+//     (-ex, ey, 0) ・(a, b, c) = 0
+//    -ez*a + ey*b = 0 ・・・⑤
+//
+//
+//    ここまでを整理
+//    va*(x-x0)+vb*(y-y0)+vc*(z-z0)=0  ・・・①
+//
+//    a*va + b*vb + c*vc = 0           ・・・②
+//    va*(x-ex) + vb*y      + vc*z      = 0  ・・・③
+//    va*x      + vb*(y-ey) + vc*z      = 0 ・・・ ④
+//    -ez*a + ey*b = 0 ・・・⑤
+//
+//    ②～⑤を用いて、va, vb, vc について求め、
+//    ①に代入すればよい
+//
+//    ③ - ④
+//    va*(x-ex) - va*x + vb*y - vb*(y-ey) = 0
+//    - va*ex + vb*ey = 0  ・・・ ⑥
+//    ⑥②より
+//    va*a + vb*b + vc*c + (a*ez - b*ey) = 0 ・・・⑦
+//
+//
+//
+//    ①'③'④'は同一平面なので
+//    (-ex*va) = (-ey*vb)
+//    (-va*x0 - vb*y0 - vc*z0) = (-ex*va)
+//    (-va*x0 - vb*y0 - vc*z0) = (-ey*vb)
+//
+//
+//
+//
+//
+//    ---------------------------------------------
+//    ③ - ④
+//    va*(x-ex) - va*x + vb*y - vb*(y-ey) = 0
+//    - va*ex + vb*ey = 0  ・・・ ⑤
+//
+//    ②' は
+//    vc = -(b*vb+a*va)/c
+//    これを③へ代入
+//    va*(x-ex) + vb*y + (-(b*vb+a*va)/c)*z  = 0  ・・・⑥
+//
+//    ⑤と⑥より
+//    ⑤を変形  vb=(ex*va)/ey を⑥へ代入
+//    va*(x-ex) + ((ex*va)/ey)*y + (-(b*vb+a*va)/c)*z  = 0
+//    va について解く
+//    va = -(b*ey*vb*z)/(a*ey*z-c*ex*y-c*ey*x+c*ex*ey) ・・・⑦
+//
+//    ⑤を変形  va=(ey*vb)/ex を⑥へ代入
+//    ((ey*vb)/ex)*(x-ex) + vb*y + (-(b*vb+a*va)/c)*z  = 0
+//    vb について解く
+//    vb = -(a*ex*va*z)/(b*ex*z-c*ex*y-c*ey*x+c*ex*ey)  ・・・⑧
+//
+//    ⑦⑧を③へ代入
+//    (-(b*ey*vb*z)/(a*ey*z-c*ex*y-c*ey*x+c*ex*ey))*(x-ex) + (-(a*ex*va*z)/(b*ex*z-c*ex*y-c*ey*x+c*ex*ey))*y + vc*z = 0
+//    vc について解く
+//    vc=(a^2*ex*ey*va*y*z+b^2*ex*ey*vb*x*z-b^2*ex^2*ey*vb*z-a*c*ex^2*va*y^2-b*c*ex*ey*vb*x*y-a*c*ex*ey*va*x*y+b*c*ex^2*ey*vb*y+a*c*ex^2*ey*va*y-b*c*ey^2*vb*x^2+2*b*c*ex*ey^2*vb*x-b*c*ex^2*ey^2*vb)/((b*ex*z-c*ex*y-c*ey*x+c*ex*ey)*(a*ey*z-c*ex*y-c*ey*x+c*ex*ey))
+//
+//    ーーーーーーーーーー
+//    a*(x-x0)+b*(y-y0)+c*(z-z0)=0
+//    a*x*-a*x0 + b*y-b*y0 + c*z-c*z0 = 0
+//    a*x + b*y + c*z + (-a*x0 - b*y0 - c*z0) = 0
+//
+//
+//
+//    原点に三直角頂点をおき、A(ex,0,0), B(0,ey,0), C(0,0,ez) の三直角三角錐を考え
+//
+//    [I] A(ex,0,0), B(0,ey,0) を通る面を考える
+//    点Cから辺ABに対して垂直に降ろした線と、辺ABの交点をC'(cvx, cvy, cvz)とする
+//
+//
+//    直線AB の式を
+//    ()
+//
+//
+//
+//
+//    直線AB の式を
+//    (x,y,z) = A + t1(B - A)
+//    (x,y,z) = (ex,0,0) + t1(0-ex, ey-0, 0)  ・・・①
+//
+//    x = ex - t1*ex
+//    y = -t1*ex
+//    z = 0
+//
+//    直線C'C の式を
+//    (x,y,z) = C' + t2(C - C')
+//    (x,y,z) = (cvx, cvy, cvz) + t2(0-cvx, 0-cvy, ez-cvz)  ・・・②
+//
+//    x = cvx - t2*cvx
+//    y = cvy - t2*cvy
+//    z = cvz + t2*(ez-cvz)
+//
+//    ところで、ベクトル C'C は斜面法線との内積は0
+//
+//    (0-cvx, 0-cvy, ez-cvz)・(a, b, c) = 0
+//    -a*cvx -b*cvy + c*(ez-cvz) = 0
+//
+//
+//    ーーーーーーーー
+//
+//    //空間分割
+//
+//    //原点に三直角頂点をおき、A(ex,0,0), B(0,ey,0), C(0,0,ez) の三直角三角錐を考え
+//    //斜面を底面とした三角柱（高さ無限）の範囲を考える
+//
+//    [I] A(ex,0,0), B(0,ey,0) を通る面を考える
+//
+//
+//    点Cから辺ABに対して垂直に降ろした線と、辺ABの交点をC'(cvx, cvy, cvz)とする
+//
+//    面の法線(a,b,c)  に垂直な面を
+//    va*(x-x0)+vb*(y-y0)+vc*(z-z0)=0  ・・・①
+//
+//    ところで法線同士は内積は0なので
+//    a*va + b*vb + c*vc = 0           ・・・②
+//
+//    これが、  A B C' をとおるので
+//    va*(x-ex) + vb*y      + vc*z      = 0  ・・・③
+//    va*x      + vb*y      + vc*z     + (-ex*va)   = 0   ・・・③'
+//
+//    va*x      + vb*(y-ey) + vc*z      = 0 ・・・ ④
+//    va*x      + vb*y      + vc*z     + (-ey*vb)   = 0   ・・・④'
+//
+//    va*(x-cvx) + vb*(y-cvy) + vc*(z-cvz) = 0  ・・・⑤
+//
+//
+//
+
+//わからなくなってきた；；；
+
+
+
+
 
 
     //(a)
