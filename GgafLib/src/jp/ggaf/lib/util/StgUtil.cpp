@@ -850,21 +850,26 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
 
     //まずBOXと球で当たり判定を行う
     //＜AAB と 球＞
-    const coord o_cx = pActor02->_x + pSphere02->_cx;
-    const coord o_cy = pActor02->_y + pSphere02->_cy;
-    const coord o_cz = pActor02->_z + pSphere02->_cz;
-    const coord o_r = pSphere02->_r;
-    const coord b_x1 = pActor01->_x + pAAPyramid01->_x1;
-    const coord b_x2 = pActor01->_x + pAAPyramid01->_x2;
-    const coord b_y1 = pActor01->_y + pAAPyramid01->_y1;
-    const coord b_y2 = pActor01->_y + pAAPyramid01->_y2;
-    const coord b_z1 = pActor01->_z + pAAPyramid01->_z1;
-    const coord b_z2 = pActor01->_z + pAAPyramid01->_z2;
+    coord o_cx = pActor02->_x + pSphere02->_cx;
+    coord o_cy = pActor02->_y + pSphere02->_cy;
+    coord o_cz = pActor02->_z + pSphere02->_cz;
+    coord o_r = pSphere02->_r;
+    coord b_x1 = pActor01->_x + pAAPyramid01->_x1;
+    coord b_x2 = pActor01->_x + pAAPyramid01->_x2;
+    coord b_y1 = pActor01->_y + pAAPyramid01->_y1;
+    coord b_y2 = pActor01->_y + pAAPyramid01->_y2;
+    coord b_z1 = pActor01->_z + pAAPyramid01->_z1;
+    coord b_z2 = pActor01->_z + pAAPyramid01->_z2;
 
-    const coord lpx = pActor01->_z + pAAPyramid01->_l_px;
-    const coord lpy = pActor01->_z + pAAPyramid01->_l_py;
-    const coord lpz = pActor01->_z + pAAPyramid01->_l_pz;
-    const int pos_pyramid = pAAPyramid01->_pos_pyramid;
+    float a = pAAPyramid01->_s_nvx;
+    float b = pAAPyramid01->_s_nvy;
+    float c = pAAPyramid01->_s_nvz;
+
+
+    coord lpx = pActor01->_z + pAAPyramid01->_l_px;
+    coord lpy = pActor01->_z + pAAPyramid01->_l_py;
+    coord lpz = pActor01->_z + pAAPyramid01->_l_pz;
+    int pos_pyramid = pAAPyramid01->_pos_pyramid;
 
     double square_length = 0; //球の中心とAABの最短距離を二乗した値
     int sgn_x_spos, sgn_y_spos, sgn_z_spos;
@@ -875,7 +880,54 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
 
 
 
+    //原点に三直角頂点をおき(POS_PYRAMID_nnn)、
+    // (ex,0,0), (0,ey,0), (0,0,ez) の三直角三角錐で考えたいので、
+    // 座標変換
 
+    //三直角頂点の向きをPOS_PYRAMID_nnnに変換
+    if (pos_pyramid & POS_PYRAMID_p__) {
+        //x軸反転
+        o_cx = -o_cx;
+        b_x1 = -b_x1;
+        b_x2 = -b_x2;
+        a = -a;
+    }
+
+    if (pos_pyramid & POS_PYRAMID__p_) {
+        //y軸反転
+        o_cy = -o_cy;
+        b_y1 = -b_y1;
+        b_y2 = -b_y2;
+        b = -b;
+    }
+
+    if (pos_pyramid & POS_PYRAMID___p) {
+        //z軸反転
+        o_cz = -o_cz;
+        b_z1 = -b_z1;
+        b_z2 = -b_z2;
+        c = -c;
+    }
+    //三直角頂点の座標を(0,0,0) に変換
+    //POS_PYRAMID_nnnなので三直角頂点（b_x1, b_y1, b_z2）
+    coord offset_x = -b_x1;
+    coord offset_y = -b_y1;
+    coord offset_z = -b_z1;
+
+    o_cx += offset_x;
+    o_cy += offset_y;
+    o_cz += offset_z;
+    b_x1 += offset_x;
+    b_x2 += offset_x;
+    b_y1 += offset_y;
+    b_y2 += offset_y;
+    b_z1 += offset_z;
+    b_z2 += offset_z;
+
+
+    coord ex = b_x2;
+    coord ey = b_y2;
+    coord ez = b_z2;
 
 ///////////////////////こここここ
 ///
@@ -886,9 +938,9 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
 //  円の中心から、斜面に垂線を下ろしたときの交点を求める
 //
     //点と斜面の距離を半径にする
-    float a = pAAPyramid01->_s_nvx;
-    float b = pAAPyramid01->_s_nvy;
-    float c = pAAPyramid01->_s_nvz;
+//    float a = pAAPyramid01->_s_nvx;
+//    float b = pAAPyramid01->_s_nvy;
+//    float c = pAAPyramid01->_s_nvz;
 
     //円の中心から斜面に降ろした垂線
     //(x,y,z) = (o_cx,o_cy,o_cz) + t(a,b,c)  ・・・①
@@ -926,175 +978,223 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
 //    a*x + b*y + c*z + (-a*x0 - b*y0 - c*z0) = 0
 //
 
-
+///////////////////////////////////////////////////////////////////////////////
 //    //空間分割
 //
 //    //原点に三直角頂点をおき、(ex,0,0), (0,ey,0), (0,0,ez) の三直角三角錐を考え
 //    //斜面を底面とした三角柱（高さ無限）の範囲を考える
 //
 //
-//    面の法線(a,b,c)  に垂直な面を
-//    va*(x-x0)+vb*(y-y0)+vc*(z-z0)=0  ・・・①
-//    va*x + vb*y + vc*z + (-va*x0 - vb*y0 - vc*z0) = 0     ・・・①'
-//    と置こう、
+
+//    (1) (a, b, c) が平面の法線ベクトルです。
 //
-//    ところで法線同士は内積は0なので
-//    a*va + b*vb + c*vc = 0           ・・・②
+//    (2) |d|/|(a, b, c)| が "平面と原点の距離" になります。つまり、原点から平面に垂線を降ろした時の、垂線の長さです。
+//    　但し、|(a, b, c)| = √(a^2+b^2+c^2) (法線ベクトルの長さ) です。
+//    　法線ベクトル (a,b,c) が既に規格化されている場合 (|(a,b,c)|=1 の場合) は、単に |d| が "平面と原点の距離" です。
 //
-//    [I] (ex,0,0), (0,ey,0) を通る面を考える
+//    (3) d の符号は、原点が平面の表側にあるか裏側にあるかに対応しています。
+//    　d が正の時は、原点は平面の表側(平面から見て法線ベクトルの方向)にあります。
+//    　d が負の時は、原点は平面の裏側(法線ベクトルと逆の方向)にあります。
+
+//    a→=(ax,ay,az),
+//    b→=(bx,by,bz)
 //
+//    内積
+//    内積-1）：スカラー値 |a→||b→|cosθ のこと
+//    （内積-2）：スカラー値 ax bx + ay by + az bz のこと。
 //
-//
-//
-//
-//
-//
-//
-//    //va*(x-x0) + vb*(y-y0) + vc*(z-z0) = 0  ・・・①
-//
-//    va*a      + vb*b      + vc*c      = 0  ・・・②'
-//
-//    va*(x-ex) + vb*y      + vc*z      = 0  ・・・③
-//    va*x      + vb*y      + vc*z     + (-ex*va)   = 0   ・・・③'
-//
-//    va*x      + vb*(y-ey) + vc*z      = 0 ・・・ ④
-//    va*x      + vb*y      + vc*z     + (-ey*vb)   = 0   ・・・④'
+//    外積
+//    長さが |a→||b→|sinθ で a→ と b→ に垂直なベクトルのこと
+//    （外積-2）：(ay bz - az by, az bx - ax bz, ax by - ay bx)という成分で表されるベクトルのこと。
 //
 //
-//    ・(ex,0,0) , (0,ey,0)を通る直線と、斜面は、垂直に交わる。
-//    (0,ey,0) - (ex,0,0) = (-ex, ey, 0) と、法線(a,b,c) の内積が0
-//     (-ex, ey, 0) ・(a, b, c) = 0
-//    -ez*a + ey*b = 0 ・・・⑤
+//    原点に三直角頂点をおき、A(ex,0,0), B(0,ey,0), C(0,0,ez) の三直角三角錐を考え (ex>0, ey>0, ez>0)
+//    斜面を底面とした三角柱（高さ無限）の範囲を考える
+//
+//    斜面の方程式
+//    AB→ = (-ex, ey, 0 )
+//    AC→ = (-ex, 0 , ez)
+//    AB→ｘAC→ = (a,b,c)
+//
+//    a = ey*ez
+//    b = ex*ez
+//    c = ey*ex
+//
+//    ey ez x + ex ez y + ey ex z + d = 0
+//    これが、A(ex,0,0)をとおるので、
+//
+//    d = -ex*ey*ez
+//
+//    斜面の方程式
+//    (ey*ez)*x + (ex*ez)*y + (ey*ex)*z - ex*ey*ez = 0
+//    法線 (ey*ez, ex*ez, ey*ex)
+//
+//    ----------------------------------------------------------
+//    A(ex,0,0), B(0,ey,0) を含む斜面に垂直な面を求める
+//
+//    求める面を
+//    va*x + vb*y + vc*z + vd = 0 とする
+//    ---------------------------------
+//    ＜外積で求める＞
+//
+//    求める面の法線は(va, vb, vc)
+//    求める面の法線は (ey*ez, ex*ez, ey*ex)に垂直でかつ、AB→(-ex, ey, 0 )とも垂直なので
+//    (ey*ez, ex*ez, ey*ex) ｘ (-ex, ey, 0 ) = (va, vb, vc)
+//
+//    (va, vb, vc) =
+//    ( - (ey*ex)* ey, (ey*ex)*(-ex) , (ey*ez)*ey - (ex*ez)*(-ex))
+//    ( -ex*ey^2, -ex^2*ey , (ey^2+ex^2)*ez)
+//
+//    -------------
+//
+//    ＜内積が0で求める＞
+//
+//    求める面の法線は (ey*ez, ex*ez, ey*ex)に垂直なので
+//    (ey*ez, ex*ez, ey*ex)・(va, vb, vc) = 0
+//    ey*ez*va + ex*ez*vb + ey*ex*vc = 0        ・・・①
+//
+//    求める面の法線はAB→(-ex, ey, 0 )とも垂直なので
+//    (-ex, ey, 0 )・(va, vb, vc) = 0
+//    -ex*va + ey*vb = 0 ・・・②
+//
+//    ここで 法線ベクトル(va, vb, vc) z成分 vc=1 （z成分法線はせいというのが図よりわかったので）とすると
+//
+//    ey*ez*va + ex*ez*vb + ey*ex = 0  ・・・①’
+//    -ex*va + ey*vb = 0               ・・・②
+//
+//    va=(ey*vb)/ex を①’へ
+//
+//    ey*ez*((ey*vb)/ex) + ex*ez*vb + ey*ex = 0
+//
+//    vb=-(ex^2*ey)/((ey^2+ex^2)*ez)
+//    ②へ代入
+//
+//    -ex*va + ey*(-(ex^2*ey)/((ey^2+ex^2)*ez)) = 0
+//    va=-(ex*ey^2)/((ey^2+ex^2)*ez)
+//
+//    よって法線(va, vb, vc) =
+//     (-(ex*ey^2)/((ey^2+ex^2)*ez), -(ex^2*ey)/((ey^2+ex^2)*ez), 1)
+//
+//    ((ey^2+ex^2)*ez)を掛けて整理
+//    (-ex*ey^2, -ex^2*ey, (ey^2+ex^2)*ez)
 //
 //
-//    ここまでを整理
-//    va*(x-x0)+vb*(y-y0)+vc*(z-z0)=0  ・・・①
+//    -----------------------------------------------------
 //
-//    a*va + b*vb + c*vc = 0           ・・・②
-//    va*(x-ex) + vb*y      + vc*z      = 0  ・・・③
-//    va*x      + vb*(y-ey) + vc*z      = 0 ・・・ ④
-//    -ez*a + ey*b = 0 ・・・⑤
+//    (-ex*ey^2)*x + (-ex^2*ey)*y + ((ey^2+ex^2)*ez)*z + vd = 0
+//    が A(ex,0,0) を通るので
+//    (-ex*ey^2)*ex + vd = 0
+//    vd=ex^2*ey^2
 //
-//    ②～⑤を用いて、va, vb, vc について求め、
-//    ①に代入すればよい
-//
-//    ③ - ④
-//    va*(x-ex) - va*x + vb*y - vb*(y-ey) = 0
-//    - va*ex + vb*ey = 0  ・・・ ⑥
-//    ⑥②より
-//    va*a + vb*b + vc*c + (a*ez - b*ey) = 0 ・・・⑦
-//
-//
-//
-//    ①'③'④'は同一平面なので
-//    (-ex*va) = (-ey*vb)
-//    (-va*x0 - vb*y0 - vc*z0) = (-ex*va)
-//    (-va*x0 - vb*y0 - vc*z0) = (-ey*vb)
-//
-//
-//
-//
-//
-//    ---------------------------------------------
-//    ③ - ④
-//    va*(x-ex) - va*x + vb*y - vb*(y-ey) = 0
-//    - va*ex + vb*ey = 0  ・・・ ⑤
-//
-//    ②' は
-//    vc = -(b*vb+a*va)/c
-//    これを③へ代入
-//    va*(x-ex) + vb*y + (-(b*vb+a*va)/c)*z  = 0  ・・・⑥
-//
-//    ⑤と⑥より
-//    ⑤を変形  vb=(ex*va)/ey を⑥へ代入
-//    va*(x-ex) + ((ex*va)/ey)*y + (-(b*vb+a*va)/c)*z  = 0
-//    va について解く
-//    va = -(b*ey*vb*z)/(a*ey*z-c*ex*y-c*ey*x+c*ex*ey) ・・・⑦
-//
-//    ⑤を変形  va=(ey*vb)/ex を⑥へ代入
-//    ((ey*vb)/ex)*(x-ex) + vb*y + (-(b*vb+a*va)/c)*z  = 0
-//    vb について解く
-//    vb = -(a*ex*va*z)/(b*ex*z-c*ex*y-c*ey*x+c*ex*ey)  ・・・⑧
-//
-//    ⑦⑧を③へ代入
-//    (-(b*ey*vb*z)/(a*ey*z-c*ex*y-c*ey*x+c*ex*ey))*(x-ex) + (-(a*ex*va*z)/(b*ex*z-c*ex*y-c*ey*x+c*ex*ey))*y + vc*z = 0
-//    vc について解く
-//    vc=(a^2*ex*ey*va*y*z+b^2*ex*ey*vb*x*z-b^2*ex^2*ey*vb*z-a*c*ex^2*va*y^2-b*c*ex*ey*vb*x*y-a*c*ex*ey*va*x*y+b*c*ex^2*ey*vb*y+a*c*ex^2*ey*va*y-b*c*ey^2*vb*x^2+2*b*c*ex*ey^2*vb*x-b*c*ex^2*ey^2*vb)/((b*ex*z-c*ex*y-c*ey*x+c*ex*ey)*(a*ey*z-c*ex*y-c*ey*x+c*ex*ey))
-//
-//    ーーーーーーーーーー
-//    a*(x-x0)+b*(y-y0)+c*(z-z0)=0
-//    a*x*-a*x0 + b*y-b*y0 + c*z-c*z0 = 0
-//    a*x + b*y + c*z + (-a*x0 - b*y0 - c*z0) = 0
-//
-//
-//
-//    原点に三直角頂点をおき、A(ex,0,0), B(0,ey,0), C(0,0,ez) の三直角三角錐を考え
-//
-//    [I] A(ex,0,0), B(0,ey,0) を通る面を考える
-//    点Cから辺ABに対して垂直に降ろした線と、辺ABの交点をC'(cvx, cvy, cvz)とする
-//
-//
-//    直線AB の式を
-//    ()
-//
-//
-//
-//
-//    直線AB の式を
-//    (x,y,z) = A + t1(B - A)
-//    (x,y,z) = (ex,0,0) + t1(0-ex, ey-0, 0)  ・・・①
-//
-//    x = ex - t1*ex
-//    y = -t1*ex
-//    z = 0
-//
-//    直線C'C の式を
-//    (x,y,z) = C' + t2(C - C')
-//    (x,y,z) = (cvx, cvy, cvz) + t2(0-cvx, 0-cvy, ez-cvz)  ・・・②
-//
-//    x = cvx - t2*cvx
-//    y = cvy - t2*cvy
-//    z = cvz + t2*(ez-cvz)
-//
-//    ところで、ベクトル C'C は斜面法線との内積は0
-//
-//    (0-cvx, 0-cvy, ez-cvz)・(a, b, c) = 0
-//    -a*cvx -b*cvy + c*(ez-cvz) = 0
-//
-//
-//    ーーーーーーーー
-//
-//    //空間分割
-//
-//    //原点に三直角頂点をおき、A(ex,0,0), B(0,ey,0), C(0,0,ez) の三直角三角錐を考え
-//    //斜面を底面とした三角柱（高さ無限）の範囲を考える
-//
-//    [I] A(ex,0,0), B(0,ey,0) を通る面を考える
-//
-//
-//    点Cから辺ABに対して垂直に降ろした線と、辺ABの交点をC'(cvx, cvy, cvz)とする
-//
-//    面の法線(a,b,c)  に垂直な面を
-//    va*(x-x0)+vb*(y-y0)+vc*(z-z0)=0  ・・・①
-//
-//    ところで法線同士は内積は0なので
-//    a*va + b*vb + c*vc = 0           ・・・②
-//
-//    これが、  A B C' をとおるので
-//    va*(x-ex) + vb*y      + vc*z      = 0  ・・・③
-//    va*x      + vb*y      + vc*z     + (-ex*va)   = 0   ・・・③'
-//
-//    va*x      + vb*(y-ey) + vc*z      = 0 ・・・ ④
-//    va*x      + vb*y      + vc*z     + (-ey*vb)   = 0   ・・・④'
-//
-//    va*(x-cvx) + vb*(y-cvy) + vc*(z-cvz) = 0  ・・・⑤
-//
-//
+//    よって求めたい平面は
+//    (-ex*ey^2)*x + (-ex^2*ey)*y + ((ey^2+ex^2)*ez)*z + (ex^2*ey^2) = 0
 //
 
-//わからなくなってきた；；；
 
 
+//    同様にして、
+//
+//    B(0,ey,0) C(0,0,ez) を含む斜面に垂直な面を求める
+//
+//    求める面を
+//    va*x + vb*y + vc*z + vd = 0 とする
+//
+//    求める面の法線は (ey*ez, ex*ez, ey*ex)に垂直なので
+//    (ey*ez, ex*ez, ey*ex)・(va, vb, vc) = 0
+//    ey*ez*va + ex*ez*vb + ey*ex*vc = 0        ・・・①
+//
+//
+//    求める面の法線はBC→(0, -ey, ez)とも垂直なので
+//    (0, -ey, ez)・(va, vb, vc) = 0
+//    -ey*vb + ez*vc = 0 ・・・②
+//
+//    ここで 法線ベクトル(va, vb, vc) x成分 va=1 （x成分法線は正というのが図よりわかったので）とすると
+//
+//    ey*ez + ex*ez*vb + ey*ex*vc = 0     ・・・①’
+//    -ey*vb + ez*vc = 0                  ・・・②’
+//
+//    vb=(ez*vc)/ey を ①’へ代入
+//
+//    ey*ez + ex*ez*((ez*vc)/ey) + ey*ex*vc = 0
+//
+//    vc=-(ey^2*ez)/(ex*ez^2+ex*ey^2)
+//    ②’へ代入
+//    -ey*vb + ez*(-(ey^2*ez)/(ex*ez^2+ex*ey^2)) = 0
+//
+//    vb=-(ey*ez^2)/(ex*ez^2+ex*ey^2)
+//
+//    よって法線(va, vb, vc) =
+//    (1, -(ey*ez^2)/(ex*ez^2+ex*ey^2), -(ey^2*ez)/(ex*ez^2+ex*ey^2))
+//
+//    (ex*ez^2+ex*ey^2) を掛けて整理
+//
+//    (ex*(ez^2+ey^2), -ey*ez^2, -ey^2*ez)
+//    -----------------------------------------------------
+//
+//    (ex*(ez^2+ey^2))*x + (-ey*ez^2)*y + (ey^2*ez)*z + vd = 0
+//    がB(0,ey,0) を通るので、
+//    (-ey*ez^2)*ey + vd = 0
+//    vd=ey^2*ez^2
+//
+//    よって求めたい平面は
+//
+//    (ex*(ez^2+ey^2))*x + (-ey*ez^2)*y + (ey^2*ez)*z + (ey^2*ez^2) = 0
+
+
+//    同様にして
+//    C(0,0,ez) A(ex,0,0) を含む斜面に垂直な面を求める
+//
+//    求める面を
+//    va*x + vb*y + vc*z + vd = 0 とする
+//
+//    求める面の法線は (ey*ez, ex*ez, ey*ex)に垂直なので
+//    (ey*ez, ex*ez, ey*ex)・(va, vb, vc) = 0
+//    ey*ez*va + ex*ez*vb + ey*ex*vc = 0        ・・・①
+//
+//    求める面の法線はCA→(ex, 0, -ez)とも垂直なので
+//    (ex, 0, -ez)・(va, vb, vc) = 0
+//    ex*va - ez*vc = 0 ・・・②
+//
+//    ここで 法線ベクトル(va, vb, vc) y成分 vb=1 （y成分法線は正というのが図よりわかったので）とすると
+//
+//    ey*ez*va + ex*ez + ey*ex*vc = 0        ・・・①’
+//    ex*va - ez*vc = 0                      ・・・②
+//
+//    va=(ez*vc)/ex  を①’へ代入
+//
+//    ey*ez*((ez*vc)/ex) + ex*ez + ey*ex*vc = 0
+//    vc=-(ex^2*ez)/(ey*ez^2+ex^2*ey)
+//    ②へ代入
+//    ex*va - ez*(-(ex^2*ez)/(ey*ez^2+ex^2*ey)) = 0
+//    va=-(ex*ez^2)/(ey*ez^2+ex^2*ey)
+//
+//
+//    よって法線(va, vb, vc) =
+//    (-(ex*ez^2)/(ey*ez^2+ex^2*ey), 1, -(ex^2*ez)/(ey*ez^2+ex^2*ey))
+//
+//    (ey*ez^2+ex^2*ey) を掛けて整理
+//
+//    (-ex*ez^2, ey*(ez^2+ex^2), -ex^2*ez)
+//
+//    -----------------------------------------------------
+//    (-ex*ez^2)*x + (ey*(ez^2+ex^2))*y + (-ex^2*ez)*z + vd = 0
+//    が C(0,0,ez) を通るので、
+//    (-ex^2*ez)*ez + vd = 0
+//    vd=ex^2*ez^2
+//
+//    よって求めたい平面は
+//
+//    (-ex*ez^2)*x + (ey*(ez^2+ex^2))*y + (-ex^2*ez)*z + ex^2*ez^2 = 0
+
+
+
+
+    //   よって斜面を底面とした三角柱（高さ無限）の範囲は
+
+    //    (ey*ez)*x + (ex*ez)*y + (ey*ex)*z - ex*ey*ez > 0      斜面
+    //    (-ex*ey^2)*x       + (-ex^2*ey)*y       + ((ey^2+ex^2)*ez)*z + (ex^2*ey^2) > 0
+    //    (ex*(ez^2+ey^2))*x + (-ey*ez^2)*y       + (ey^2*ez)*z        + (ey^2*ez^2) > 0
+    //    (-ex*ez^2)*x       + (ey*(ez^2+ex^2))*y + (-ex^2*ez)*z       + (ex^2*ez^2) > 0
 
 
 
