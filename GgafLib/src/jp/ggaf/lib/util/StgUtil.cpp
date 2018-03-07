@@ -1198,11 +1198,11 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     //斜面より外か（原点の無い側）
     bool ramp = ((ey*ez)*o_cx + (ex*ez)*o_cy + (ey*ex)*o_cz - ex*ey*ez > 0);
     //A(ex,0,0), B(0,ey,0) を含む斜面に垂直な面より内（原点がある側）
-    bool vramp_xy = ((-ex*ey^2)*o_cx       + (-ex^2*ey)*o_cy       + (ez*(ex^2+ey^2))*o_cz + (ex^2*ey^2) > 0);
+    bool vramp_xy = ((-ex*ey*ey)*o_cx       + (-ex*ex*ey)*o_cy       + (ez*(ex*ex+ey*ey))*o_cz + (ex*ex*ey*ey) > 0);
     //B(0,ey,0) C(0,0,ez)  を含む斜面に垂直な面より内（原点がある側）
-    bool vramp_yz = ((ex*(ey^2+ez^2))*o_cx + (-ey*ez^2)*o_cy       + (ey^2*ez)*o_cz        + (ey^2*ez^2) > 0);
+    bool vramp_yz = ((ex*(ey*ey+ez*ez))*o_cx + (-ey*ez*ez)*o_cy       + (ey*ey*ez)*o_cz        + (ey*ey*ez*ez) > 0);
     //C(0,0,ez) A(ex,0,0)  を含む斜面に垂直な面より内（原点がある側）
-    bool vramp_zx = ((-ez^2*ex)*o_cx       + (ey*(ez^2+ex^2))*o_cy + (-ez*ex^2)*o_cz       + (ez^2*ex^2) > 0);
+    bool vramp_zx = ((-ez*ez*ex)*o_cx       + (ey*(ez*ez+ex*ex))*o_cy + (-ez*ex*ex)*o_cz       + (ez*ez*ex*ex) > 0);
     //xy平面より内(第一象限側)か
     bool xy = (o_cz > 0);
     //yz平面より内(第一象限側)か
@@ -1212,8 +1212,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
 
 
 
-
-
+    //未完成・・・
 
     //(a)
     if(o_cx < b_x1) {
