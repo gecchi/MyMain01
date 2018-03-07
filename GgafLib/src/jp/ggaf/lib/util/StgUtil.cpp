@@ -742,10 +742,10 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
         //
         const int pos_pyramid = pAAPyramid01->_pos_pyramid;
 
-        int nnx, nny, nnz; //最近傍点
+        int nnx, nny, nnz; //BOX内最近傍点
         if (pos_pyramid & POS_PYRAMID_p__) {
             //bX2に興味がある
-            if (aX1 <= bX2 && bX2 <= aX2) {
+            if (/* aX1 <= bX2 && */ bX2 <= aX2) {
                 //bX2 が中にある
                 nnx = bX2;
             } else { //if (aX2 < bX2) {
@@ -754,7 +754,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
             }
         } else {
             //bX1に興味がある
-            if (aX1 <= bX1 && bX1 <= aX2) {
+            if (aX1 <= bX1 /* && bX1 <= aX2*/ ) {
                 //bX1 が中にある
                 nnx = bX1;
             } else { // if (aX1 > bX1) {
@@ -764,7 +764,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
         }
         if (pos_pyramid & POS_PYRAMID__p_) {
             //bY2に興味がある
-            if (aY1 <= bY2 && bY2 <= aY2) {
+            if (/* aY1 <= bY2 &&*/ bY2 <= aY2) {
                 //bY2 が中にある
                 nny = bY2;
             } else { //if (aY2 < bY2) {
@@ -773,7 +773,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
             }
         } else {
             //bY1に興味がある
-            if (aY1 <= bY1 && bY1 <= aY2) {
+            if (aY1 <= bY1 /*&& bY1 <= aY2*/) {
                 //by1 が中にある
                 nny = bY1;
             } else { //if (aY1 > bY1) {
@@ -784,7 +784,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
 
         if (pos_pyramid & POS_PYRAMID___p) {
             //bZ2に興味がある
-            if (aZ1 <= bZ2 && bZ2 <= aZ2) {
+            if (/*aZ1 <= bZ2 &&*/ bZ2 <= aZ2) {
                 //bZ2 が中にある
                 nnz = bZ2;
             } else { //if (aZ2 < bZ2) {
@@ -793,7 +793,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
             }
         } else {
             //bZ1に興味がある
-            if (aZ1 <= bZ1 && bZ1 <= aZ2) {
+            if (aZ1 <= bZ1 /* && bZ1 <= aZ2*/) {
                 //bz1 が中にある
                 nnz = bZ1;
             } else { //if (aZ1 > bZ1) {
@@ -801,7 +801,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
                 nnz = aZ1;
             }
         }
-        //(nnx,nny,nnz) が近傍点
+        //(nnx,nny,nnz) がBOX内近傍点
         //斜面の法線ベクトル (a, b, c)
         //斜面上の点(px, py, pz) から 近傍点(nnx,nny,nnz) のベクトル
         // (nnx-px, nny-py, nnz-pz) の内積が 負 ならば近傍点 (nnx,nny,nnz) がピラミッドの中にある
@@ -1190,11 +1190,27 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
 
 
     //   よって斜面を底面とした三角柱（高さ無限）の範囲は
-
     //    (ey*ez)*x + (ex*ez)*y + (ey*ex)*z - ex*ey*ez > 0      斜面
-    //    (-ex*ey^2)*x       + (-ex^2*ey)*y       + ((ey^2+ex^2)*ez)*z + (ex^2*ey^2) > 0
-    //    (ex*(ez^2+ey^2))*x + (-ey*ez^2)*y       + (ey^2*ez)*z        + (ey^2*ez^2) > 0
-    //    (-ex*ez^2)*x       + (ey*(ez^2+ex^2))*y + (-ex^2*ez)*z       + (ex^2*ez^2) > 0
+    //    (-ex*ey^2)*x       + (-ex^2*ey)*y       + (ez*(ex^2+ey^2))*z + (ex^2*ey^2) > 0
+    //    (ex*(ey^2+ez^2))*x + (-ey*ez^2)*y       + (ey^2*ez)*z        + (ey^2*ez^2) > 0
+    //    (-ez^2*ex)*x       + (ey*(ez^2+ex^2))*y + (-ez*ex^2)*z       + (ez^2*ex^2) > 0
+
+    //斜面より外か（原点の無い側）
+    bool ramp = ((ey*ez)*o_cx + (ex*ez)*o_cy + (ey*ex)*o_cz - ex*ey*ez > 0);
+    //A(ex,0,0), B(0,ey,0) を含む斜面に垂直な面より内（原点がある側）
+    bool vramp_xy = ((-ex*ey^2)*o_cx       + (-ex^2*ey)*o_cy       + (ez*(ex^2+ey^2))*o_cz + (ex^2*ey^2) > 0);
+    //B(0,ey,0) C(0,0,ez)  を含む斜面に垂直な面より内（原点がある側）
+    bool vramp_yz = ((ex*(ey^2+ez^2))*o_cx + (-ey*ez^2)*o_cy       + (ey^2*ez)*o_cz        + (ey^2*ez^2) > 0);
+    //C(0,0,ez) A(ex,0,0)  を含む斜面に垂直な面より内（原点がある側）
+    bool vramp_zx = ((-ez^2*ex)*o_cx       + (ey*(ez^2+ex^2))*o_cy + (-ez*ex^2)*o_cz       + (ez^2*ex^2) > 0);
+    //xy平面より内(第一象限側)か
+    bool xy = (o_cz > 0);
+    //yz平面より内(第一象限側)か
+    bool yz = (o_cx > 0);
+    //zx平面より内(第一象限側)か
+    bool zx = (o_cy > 0);
+
+
 
 
 
