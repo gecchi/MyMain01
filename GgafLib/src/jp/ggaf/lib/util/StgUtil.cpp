@@ -1195,19 +1195,81 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     //    (ex*(ey^2+ez^2))*x + (-ey*ez^2)*y       + (ey^2*ez)*z        + (ey^2*ez^2) > 0
     //    (-ez^2*ex)*x       + (ey*(ez^2+ex^2))*y + (-ez*ex^2)*z       + (ez^2*ex^2) > 0
 
+
+
+
+//    ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+//        原点に三直角頂点をおき、A(ex,0,0), B(0,ey,0), C(0,0,ez) の三直角三角錐を考え (ex>0, ey>0, ez>0)
+//        A(ex,0,0), B(0,ey,0) を含むxy平面に垂直な面を求める
+//        求める面を
+//        va*x + vb*y + vc*z + vd = 0 とする
+//
+//        法線(va, vb, vc) = (-ey, -ex, 0)  なので
+//        -ey*x -ex*y + vd = 0   となり、これがA(ex,0,0)を通るので
+//        -ey*ex + vd = 0
+//        vd = ex*ey
+//
+//        よって求める面は
+//        -ey*x - ex*y + ex*ey = 0
+//
+//    -----------
+//        B(0,ey,0), C(0,0,ez) を含むyz平面に垂直な面を求める
+//        va*x + vb*y + vc*z + vd = 0 とする
+//
+//        法線(va, vb, vc) = (0, -ez, -ey)  なので
+//        -ez*y - ey*z + vd = 0   となり、これがB(0,ey,0)を通るので
+//        -ez*ey + vd = 0
+//        vd = ey*ez
+//
+//        よって求める面は
+//        -ez*y - ey*z + ey*ez = 0
+//
+//    ------------------------
+//        C(0,0,ez), A(ex,0,0) を含むzx平面に垂直な面を求める
+//        va*x + vb*y + vc*z + vd = 0 とする
+//
+//        法線(va, vb, vc) = (-ez, 0, -ex)  なので
+//        -ez*x - ex*z + vd = 0 となり、これがC(0,0,ez)を通るので
+//        -ex*ez + vd = 0
+//        vd=ez*ex
+//
+//        よって求める面は
+//       -ez*x - ex*z + ez*ex = 0
+//    ------------------------
+
+
+
+
+
+
+
+
+
+
+
+
     //斜面より外か（原点の無い側）
     bool ramp = ((ey*ez)*o_cx + (ex*ez)*o_cy + (ey*ex)*o_cz - ex*ey*ez > 0);
+
     //A(ex,0,0), B(0,ey,0) を含む斜面に垂直な面より内（原点がある側）
-    bool vramp_xy = ((-ex*ey*ey)*o_cx       + (-ex*ex*ey)*o_cy       + (ez*(ex*ex+ey*ey))*o_cz + (ex*ex*ey*ey) > 0);
+    bool vramp_AB = ((-ex*ey*ey)*o_cx        + (-ex*ex*ey)*o_cy        + (ez*(ex*ex+ey*ey))*o_cz + (ex*ex*ey*ey) > 0);
     //B(0,ey,0) C(0,0,ez)  を含む斜面に垂直な面より内（原点がある側）
-    bool vramp_yz = ((ex*(ey*ey+ez*ez))*o_cx + (-ey*ez*ez)*o_cy       + (ey*ey*ez)*o_cz        + (ey*ey*ez*ez) > 0);
+    bool vramp_BC = ((ex*(ey*ey+ez*ez))*o_cx + (-ey*ez*ez)*o_cy        + (ey*ey*ez)*o_cz         + (ey*ey*ez*ez) > 0);
     //C(0,0,ez) A(ex,0,0)  を含む斜面に垂直な面より内（原点がある側）
-    bool vramp_zx = ((-ez*ez*ex)*o_cx       + (ey*(ez*ez+ex*ex))*o_cy + (-ez*ex*ex)*o_cz       + (ez*ez*ex*ex) > 0);
-    //xy平面より内(第一象限側)か
+    bool vramp_CA = ((-ez*ez*ex)*o_cx        + (ey*(ez*ez+ex*ex))*o_cy + (-ez*ex*ex)*o_cz        + (ez*ez*ex*ex) > 0);
+
+    // A(ex,0,0), B(0,ey,0) を含むxy平面に垂直な面より内（原点がある側）
+    bool vxy_AB = (-ey*o_cx - ex*o_cy           + ex*ey > 0);
+    // B(0,ey,0), C(0,0,ez) を含むyz平面に垂直な面より内（原点がある側）
+    bool vyz_BC = (          -ez*o_cy - ey*o_cz + ey*ez > 0);
+    // C(0,0,ez), A(ex,0,0) を含むzx平面に垂直な面より内（原点がある側）
+    bool vzx_CA = (-ez*o_cx           - ex*o_cz + ez*ex > 0);
+
+    //xy平面より内(第一卦限側)か
     bool xy = (o_cz > 0);
-    //yz平面より内(第一象限側)か
+    //yz平面より内(第一卦限側)か
     bool yz = (o_cx > 0);
-    //zx平面より内(第一象限側)か
+    //zx平面より内(第一卦限側)か
     bool zx = (o_cy > 0);
 
 
