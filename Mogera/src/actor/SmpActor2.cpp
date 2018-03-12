@@ -17,6 +17,7 @@ SmpActor2::SmpActor2(const char* prm_name) :
         GgafLib::DefaultMeshActor(prm_name, "Zako") { //Guruguru.x ‚ªŽQÆ‚³‚ê‚éB
     //À•WÝ’è
     setMaterialColor(1.0, 1.0, 0.0);
+    setAlpha(0);
     CollisionChecker* pChecker = getCollisionChecker();
 //    pChecker->createCollisionArea(8);
 //    coord ox = PX_C(20);

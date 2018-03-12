@@ -850,29 +850,30 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
 
     //まずBOXと球で当たり判定を行う
     //＜AAB と 球＞
-    coord o_cx = pActor02->_x + pSphere02->_cx;
-    coord o_cy = pActor02->_y + pSphere02->_cy;
-    coord o_cz = pActor02->_z + pSphere02->_cz;
-    coord o_r = pSphere02->_r;
-    coord b_x1 = pActor01->_x + pAAPyramid01->_x1;
-    coord b_x2 = pActor01->_x + pAAPyramid01->_x2;
-    coord b_y1 = pActor01->_y + pAAPyramid01->_y1;
-    coord b_y2 = pActor01->_y + pAAPyramid01->_y2;
-    coord b_z1 = pActor01->_z + pAAPyramid01->_z1;
-    coord b_z2 = pActor01->_z + pAAPyramid01->_z2;
+    double o_cx = C_DX(pActor02->_x + pSphere02->_cx);
+    double o_cy = C_DX(pActor02->_y + pSphere02->_cy);
+    double o_cz = C_DX(pActor02->_z + pSphere02->_cz);
+    double o_r  = C_DX(pSphere02->_r);
+    double o_rr = o_r*o_r;
+    double b_x1 = C_DX(pActor01->_x + pAAPyramid01->_x1);
+    double b_x2 = C_DX(pActor01->_x + pAAPyramid01->_x2);
+    double b_y1 = C_DX(pActor01->_y + pAAPyramid01->_y1);
+    double b_y2 = C_DX(pActor01->_y + pAAPyramid01->_y2);
+    double b_z1 = C_DX(pActor01->_z + pAAPyramid01->_z1);
+    double b_z2 = C_DX(pActor01->_z + pAAPyramid01->_z2);
 
-    float a = pAAPyramid01->_s_nvx;
-    float b = pAAPyramid01->_s_nvy;
-    float c = pAAPyramid01->_s_nvz;
+//    float a = pAAPyramid01->_s_nvx;
+//    float b = pAAPyramid01->_s_nvy;
+//    float c = pAAPyramid01->_s_nvz;
 
 
-    coord lpx = pActor01->_z + pAAPyramid01->_l_px;
-    coord lpy = pActor01->_z + pAAPyramid01->_l_py;
-    coord lpz = pActor01->_z + pAAPyramid01->_l_pz;
+    double lpx = C_DX(pActor01->_z + pAAPyramid01->_l_px);
+    double lpy = C_DX(pActor01->_z + pAAPyramid01->_l_py);
+    double lpz = C_DX(pActor01->_z + pAAPyramid01->_l_pz);
     int pos_pyramid = pAAPyramid01->_pos_pyramid;
 
-    double square_length = 0; //球の中心とAABの最短距離を二乗した値
-    int sgn_x_spos, sgn_y_spos, sgn_z_spos;
+//    double square_length = 0; //球の中心とAABの最短距離を二乗した値
+//    int sgn_x_spos, sgn_y_spos, sgn_z_spos;
 
     if (GgafDxCore::GgafDxInput::isPressedKey(DIK_Z)) {
         _TRACE_("kitayo");
@@ -890,7 +891,8 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
         o_cx = -o_cx;
         b_x1 = -b_x1;
         b_x2 = -b_x2;
-        a = -a;
+        lpx = -lpx;
+//        a = -a;
     }
 
     if (pos_pyramid & POS_PYRAMID__p_) {
@@ -898,7 +900,8 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
         o_cy = -o_cy;
         b_y1 = -b_y1;
         b_y2 = -b_y2;
-        b = -b;
+        lpy = -lpy;
+//        b = -b;
     }
 
     if (pos_pyramid & POS_PYRAMID___p) {
@@ -906,13 +909,14 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
         o_cz = -o_cz;
         b_z1 = -b_z1;
         b_z2 = -b_z2;
-        c = -c;
+        lpz = -lpz;
+//        c = -c;
     }
     //三直角頂点の座標を(0,0,0) に変換
     //POS_PYRAMID_nnnなので三直角頂点（b_x1, b_y1, b_z2）
-    coord offset_x = -b_x1;
-    coord offset_y = -b_y1;
-    coord offset_z = -b_z1;
+    double offset_x = -b_x1;
+    double offset_y = -b_y1;
+    double offset_z = -b_z1;
 
     o_cx += offset_x;
     o_cy += offset_y;
@@ -925,9 +929,9 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     b_z2 += offset_z;
 
 
-    coord ex = b_x2;
-    coord ey = b_y2;
-    coord ez = b_z2;
+    double ex = b_x2;
+    double ey = b_y2;
+    double ez = b_z2;
 
 ///////////////////////こここここ
 ///
@@ -949,15 +953,15 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     //①を②に代入して、ｔを求める
     //a*((o_cx+t*a)-lpx) + b*((o_cy+t*b)-lpy) + c*((o_cz+t*c)-lpz) = 0
     //t=-(c*o_cz+b*o_cy+a*o_cx-c*lpz-b*lpy-a*lpx)/(c^2+b^2+a^2)
-    double t =-(c*o_cz+b*o_cy+a*o_cx-c*lpz-b*lpy-a*lpx)/(c*c+b*b+a*a);
-    //交点は
-    coord cx = o_cx + t*a;
-    coord cy = o_cy + t*b;
-    coord cz = o_cz + t*c;
+//    double t =-(c*o_cz+b*o_cy+a*o_cx-c*lpz-b*lpy-a*lpx)/(c*c+b*b+a*a);
+//    //交点は
+//    coord cx = o_cx + t*a;
+//    coord cy = o_cy + t*b;
+//    coord cz = o_cz + t*c;
 
 
     //円の中心から、斜面に垂線を下ろしたときの交点の距離
-    coord d = UTIL::getDistance(o_cx, o_cy, o_cz, cx, cy, cz);
+//    coord d = UTIL::getDistance(o_cx, o_cy, o_cz, cx, cy, cz);
 
 //    //円の中心から、斜面に垂線を下ろしたときの交点のベクトルを成分わけ
 //    // (vx, vy, vz) = (o_cx, o_cy, o_cz) + d(-a,-b,-c); ???
@@ -1340,27 +1344,11 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
 //   -ey*ex * x             + ey*ez * z - ey*ez^2 = 0    ・・・点Cと辺CAの境界面
 //               -ey*ex * y + ex*ez * z - ex*ez^2 = 0    ・・・点Cと辺CBの境界面
 
-
-
-
-
-
-    //斜面より外か（原点の無い側）
-    bool ramp = ((ey*ez)*o_cx + (ex*ez)*o_cy + (ey*ex)*o_cz - ex*ey*ez > 0);
-
-    //A(ex,0,0), B(0,ey,0) を含む斜面に垂直な面より内（原点がある側）
-    bool vramp_AB = ((-ex*ey*ey)*o_cx        + (-ex*ex*ey)*o_cy        + (ez*(ex*ex+ey*ey))*o_cz + (ex*ex*ey*ey) > 0);
-    //B(0,ey,0) C(0,0,ez)  を含む斜面に垂直な面より内（原点がある側）
-    bool vramp_BC = ((ex*(ey*ey+ez*ez))*o_cx + (-ey*ez*ez)*o_cy        + (ey*ey*ez)*o_cz         + (ey*ey*ez*ez) > 0);
-    //C(0,0,ez) A(ex,0,0)  を含む斜面に垂直な面より内（原点がある側）
-    bool vramp_CA = ((-ez*ez*ex)*o_cx        + (ey*(ez*ez+ex*ex))*o_cy + (-ez*ex*ex)*o_cz        + (ez*ez*ex*ex) > 0);
-
-    // A(ex,0,0), B(0,ey,0) を含むxy平面に垂直な面より内（原点がある側）
-    bool vxy_AB = (-ey*o_cx - ex*o_cy           + ex*ey > 0);
-    // B(0,ey,0), C(0,0,ez) を含むyz平面に垂直な面より内（原点がある側）
-    bool vyz_BC = (          -ez*o_cy - ey*o_cz + ey*ez > 0);
-    // C(0,0,ez), A(ex,0,0) を含むzx平面に垂直な面より内（原点がある側）
-    bool vzx_CA = (-ez*o_cx           - ex*o_cz + ez*ex > 0);
+    //斜面の方程式の要素
+    double a = (ey*ez);
+    double b = (ex*ez);
+    double c = (ey*ex);
+    double d = -(ex*ex*ez);
 
     //xy平面より内(第一卦限側)か
     bool xy = (o_cz > 0);
@@ -1369,55 +1357,238 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     //zx平面より内(第一卦限側)か
     bool zx = (o_cy > 0);
 
+    //xy平面に平行な点Cを通る平面(true:原点側)
+    bool xy_C = (o_cz < ez);
+    //yz平面に平行な点Aを通る平面(true:原点側)
+    bool yz_A = (o_cx < ex);
+    //zx平面に平行な点Bを通る平面(true:原点側)
+    bool zx_B = (o_cy < ey);
+
+    // A(ex,0,0), B(0,ey,0) を含むxy平面に垂直な面より内（原点がある側）
+    bool vxy_AB = (-ey*o_cx - ex*o_cy           + ex*ey > 0);
+    // B(0,ey,0), C(0,0,ez) を含むyz平面に垂直な面より内（原点がある側）
+    bool vyz_BC = (          -ez*o_cy - ey*o_cz + ey*ez > 0);
+    // C(0,0,ez), A(ex,0,0) を含むzx平面に垂直な面より内（原点がある側）
+    bool vzx_CA = (-ez*o_cx           - ex*o_cz + ez*ex > 0);
 
 
-    //未完成・・・
+    //点Aと辺ABの境界面(true:原点側)
+    bool bo_A_AB = ( ex*ez * o_cx - ey*ez * o_cy                - ex*ex*ez > 0);
+    //点Aと辺ACの境界面(true:原点側)
+    bool bo_A_AC = ( ey*ex * o_cx                - ey*ez * o_cz - ey*ex*ex > 0);
+    //点Bと辺BAの境界面(true:原点側)
+    bool bo_B_BA = (-ex*ez * o_cx + ey*ez * o_cy                - ey*ey*ez > 0);
+    //点Bと辺BCの境界面(true:原点側)
+    bool bo_B_BC = (                ey*ex * o_cy - ex*ez * o_cz - ey*ey*ez > 0);
+    //点Cと辺CAの境界面(true:原点側)
+    bool bo_C_CA = (-ey*ex * o_cx                + ey*ez * o_cz - ey*ez*ez > 0);
+    //点Cと辺CBの境界面
+    bool bo_C_CB = (               -ey*ex * o_cy + ex*ez * o_cz - ex*ez*ez > 0);
 
-    //(a)
-    if(o_cx < b_x1) {
-        square_length += (double)(o_cx - b_x1) * (o_cx - b_x1);
-    }
-    if (b_x1 <= o_cx && o_cx <= b_x2) {
-        double dx = d * cos(pAAPyramid01->_rad_xy);
-        square_length += (dx * dx);
-    }
-    //(e)
-    if(o_cx > b_x2) {
-        square_length += (double)(o_cx - b_x2) * (o_cx - b_x2);
-    }
+    //A(ex,0,0), B(0,ey,0) を含む斜面に垂直な面より内（原点がある側）
+    bool vramp_AB = ((-ex*ey*ey)*o_cx        + (-ex*ex*ey)*o_cy        + (ez*(ex*ex+ey*ey))*o_cz + (ex*ex*ey*ey) > 0);
+    //B(0,ey,0) C(0,0,ez)  を含む斜面に垂直な面より内（原点がある側）
+    bool vramp_BC = ((ex*(ey*ey+ez*ez))*o_cx + (-ey*ez*ez)*o_cy        + (ey*ey*ez)*o_cz         + (ey*ey*ez*ez) > 0);
+    //C(0,0,ez) A(ex,0,0)  を含む斜面に垂直な面より内（原点がある側）
+    bool vramp_CA = ((-ez*ez*ex)*o_cx        + (ey*(ez*ez+ex*ex))*o_cy + (-ez*ex*ex)*o_cz        + (ez*ez*ex*ex) > 0);
+
+    //斜面より外か（原点の無い側）
+    bool ramp = ((ey*ez)*o_cx + (ex*ez)*o_cy + (ey*ex)*o_cz - ex*ey*ez > 0);
 
 
 
-    if(o_cy < b_y1) {
-        square_length += (double)(o_cy - b_y1) * (o_cy - b_y1);
+
+    //    // A(ex,0,0), B(0,ey,0) を含むxy平面に垂直な面より内（原点がある側）
+    //    bool vxy_AB = (-ey*o_cx - ex*o_cy           + c > 0);
+    //    // B(0,ey,0), C(0,0,ez) を含むyz平面に垂直な面より内（原点がある側）
+    //    bool vyz_BC = (          -ez*o_cy - ey*o_cz + a > 0);
+    //    // C(0,0,ez), A(ex,0,0) を含むzx平面に垂直な面より内（原点がある側）
+    //    bool vzx_CA = (-ez*o_cx           - ex*o_cz + b > 0);
+
+    //    //点Aと辺ABの境界面(true:原点側)
+    //    bool bo_A_AB = ( b * o_cx - a * o_cy            - ex*ex*ez > 0);
+    //    //点Aと辺ACの境界面(true:原点側)
+    //    bool bo_A_AC = ( c * o_cx            - a * o_cz - ey*ex*ex > 0);
+    //    //点Bと辺BAの境界面(true:原点側)
+    //    bool bo_B_BA = (-b * o_cx + a * o_cy            - ey*ey*ez > 0);
+    //    //点Bと辺BCの境界面(true:原点側)
+    //    bool bo_B_BC = (            c * o_cy - b * o_cz - ey*ey*ez > 0);
+    //    //点Cと辺CAの境界面(true:原点側)
+    //    bool bo_C_CA = (-c * o_cx            + a * o_cz - ey*ez*ez > 0);
+    //    //点Cと辺CBの境界面
+    //    bool bo_C_CB = (           -c * o_cy + b * o_cz - ex*ez*ez > 0);
+
+
+
+
+//    double a = (ey*ez);
+//    double b = (ex*ez);
+//    double c = (ey*ex);
+//    double d = -(ex*ex*ez);
+
+    //    //A(ex,0,0), B(0,ey,0) を含む斜面に垂直な面より内（原点がある側）
+    //    bool vramp_AB = ((-ex*ey*ey)*o_cx        + (-ex*ex*ey)*o_cy        + (ez*(ex*ex+ey*ey))*o_cz + (ex*ex*ey*ey) > 0);
+    //    //B(0,ey,0) C(0,0,ez)  を含む斜面に垂直な面より内（原点がある側）
+    //    bool vramp_BC = ((ex*(ey*ey+ez*ez))*o_cx + (-ey*ez*ez)*o_cy        + (ey*ey*ez)*o_cz         + (ey*ey*ez*ez) > 0);
+    //    //C(0,0,ez) A(ex,0,0)  を含む斜面に垂直な面より内（原点がある側）
+    //    bool vramp_CA = ((-ez*ez*ex)*o_cx        + (ey*(ez*ez+ex*ex))*o_cy + (-ez*ex*ex)*o_cz        + (ez*ez*ex*ex) > 0);
+    //
+    //    //斜面より外か（原点の無い側）
+    //    bool ramp = (a*o_cx + b*o_cy + c*o_cz + d > 0);
+    if (!xy && !yz && !zx) {
+        //頂点Oとの距離
+        _TRACE_("頂点Oとの距離");
+        double length = o_cx*o_cx + o_cy*o_cy + o_cz*o_cz;
+        if (length < o_rr) {
+            return true;
+        } else {
+            return false;
+        }
     }
-    if (b_y1 <= o_cy && o_cy <= b_y2) {
-        double dy = d * cos(pAAPyramid01->_rad_yz);
-        square_length += (dy* dy);
+    if (!yz_A && bo_A_AB && bo_A_AC) {
+        //頂点Aとの距離
+        _TRACE_("頂点Aとの距離");
     }
-    if(o_cy > b_y2) {
-        square_length += (double)(o_cy - b_y2) * (o_cy - b_y2);
+    if (!zx_B && bo_B_BA && bo_B_BC) {
+        //頂点Bとの距離
+        _TRACE_("頂点Bとの距離");
+    }
+    if (!xy_C && bo_C_CA && bo_C_CB) {
+        //頂点Cとの距離
+        _TRACE_("頂点Cとの距離");
+    }
+    if (!xy && yz && !zx && yz_A) {
+        //辺OAとの距離
+        _TRACE_("辺OAとの距離");
+        double length = o_cy*o_cy + o_cz*o_cz;
+        if (length < o_rr) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    if (!xy && !yz && zx && zx_B) {
+        //辺OBとの距離
+        _TRACE_("辺OBとの距離");
+        double length = o_cx*o_cx + o_cz*o_cz;
+        if (length < o_rr) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    if (xy && !yz && !zx && xy_C) {
+        //辺OCとの距離
+        _TRACE_("辺OCとの距離");
+        double length = o_cx*o_cx + o_cy*o_cy;
+        if (length < o_rr) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    if (!vxy_AB && !bo_A_AB && !bo_B_BA && !vramp_AB) {
+        //辺ABとの距離
+        _TRACE_("辺ABとの距離");
+    }
+    if (!vyz_BC && !bo_B_BC && !bo_C_CB && !vramp_BC) {
+        //辺BCとの距離
+        _TRACE_("辺BCとの距離");
+    }
+    if (!vzx_CA && !bo_A_AC && !bo_C_CA && !vramp_CA) {
+        //辺CAとの距離
+        _TRACE_("辺CAとの距離");
+    }
+    if (!xy && yz && zx && vxy_AB) {
+        //面OABとの距離
+        _TRACE_("面OABとの距離");
+    }
+    if (xy && !yz && zx && vyz_BC) {
+        //面OBCとの距離
+        _TRACE_("面OBCとの距離");
+    }
+    if (xy && yz && !zx && vzx_CA) {
+        //面OCAとの距離
+        _TRACE_("面OCAとの距離");
+    }
+    if (vramp_AB && vramp_BC && vramp_CA && ramp) {
+        //面ABCとの距離
+        _TRACE_("面ABC(斜面)との距離");
+
+        //円の中心から斜面に降ろした垂線の交点(lx,ly,lz)を求める
+        //斜面は
+        //a*x + b*y + c*z - ex*ey*ez = 0
+        //垂線の方程式は
+        //(x,y,z) = (o_cx,o_cy,o_cz) + t(a,b,c)
+        // x = o_cx + t*a
+        // y = o_cy + t*b
+        // z = o_cz + t*c
+        // tを求める
+        // a*(o_cx + t*a) + b*(o_cy + t*b) + c*(o_cz + t*c) - ex*ey*ez = 0
+        // t=-(c*o_cz+b*o_cy+a*o_cx-ex*ey*ez)/(c^2+b^2+a^2)
+        double t =-(c*o_cz+b*o_cy+a*o_cx-ex*ey*ez)/(c*c+b*b+a*a);
+
+        //交点は
+        double lx = o_cx + t*a;
+        double ly = o_cy + t*b;
+        double lz = o_cz + t*c;
+        //円の中心から、斜面に垂線を下ろしたときの交点との距離(の２乗)
+        double length = (o_cx-lx)*(o_cx-lx) + (o_cy-ly)*(o_cy-ly) + (o_cz-lz)*(o_cz-lz);
+        if (length < o_rr) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    if(o_cz < b_z1) {
-        square_length += (double)(o_cz - b_z1) * (o_cz - b_z1);
-    }
-    if (b_z1 <= o_cz && o_cz <= b_z2) {
-        double dz = d * cos(pAAPyramid01->_rad_zx);
-        square_length += (dz* dz);
-    }
-    if(o_cz > b_z2) {
-        square_length += (double)(o_cz - b_z2) * (o_cz - b_z2);
-    } else {
 
-    }
-    //square_lengthが球の半径（の二乗）よりも短ければ衝突している
-    if (square_length <= pSphere02->_rr) {
-        //OK、まずBOXと球でヒット、第一条件クリア
-        return true;
-    } else {
-        return false;
-    }
+//    //未完成・・・
+//
+//    //(a)
+//    if(o_cx < b_x1) {
+//        square_length += (double)(o_cx - b_x1) * (o_cx - b_x1);
+//    }
+//    if (b_x1 <= o_cx && o_cx <= b_x2) {
+//        double dx = d * cos(pAAPyramid01->_rad_xy);
+//        square_length += (dx * dx);
+//    }
+//    //(e)
+//    if(o_cx > b_x2) {
+//        square_length += (double)(o_cx - b_x2) * (o_cx - b_x2);
+//    }
+//
+//
+//
+//    if(o_cy < b_y1) {
+//        square_length += (double)(o_cy - b_y1) * (o_cy - b_y1);
+//    }
+//    if (b_y1 <= o_cy && o_cy <= b_y2) {
+//        double dy = d * cos(pAAPyramid01->_rad_yz);
+//        square_length += (dy* dy);
+//    }
+//    if(o_cy > b_y2) {
+//        square_length += (double)(o_cy - b_y2) * (o_cy - b_y2);
+//    }
+//
+//    if(o_cz < b_z1) {
+//        square_length += (double)(o_cz - b_z1) * (o_cz - b_z1);
+//    }
+//    if (b_z1 <= o_cz && o_cz <= b_z2) {
+//        double dz = d * cos(pAAPyramid01->_rad_zx);
+//        square_length += (dz* dz);
+//    }
+//    if(o_cz > b_z2) {
+//        square_length += (double)(o_cz - b_z2) * (o_cz - b_z2);
+//    } else {
+//
+//    }
+//    //square_lengthが球の半径（の二乗）よりも短ければ衝突している
+//    if (square_length <= pSphere02->_rr) {
+//        //OK、まずBOXと球でヒット、第一条件クリア
+//        return true;
+//    } else {
+//        return false;
+//    }
 
 
     return false;
