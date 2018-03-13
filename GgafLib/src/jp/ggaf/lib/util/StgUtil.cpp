@@ -1135,14 +1135,14 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
 //    (ex*(ez^2+ey^2), -ey*ez^2, -ey^2*ez)
 //    -----------------------------------------------------
 //
-//    (ex*(ez^2+ey^2))*x + (-ey*ez^2)*y + (ey^2*ez)*z + vd = 0
+//    (ex*(ez^2+ey^2))*x + (-ey*ez^2)*y + (-ey^2*ez)*z + vd = 0
 //    がB(0,ey,0) を通るので、
 //    (-ey*ez^2)*ey + vd = 0
 //    vd=ey^2*ez^2
 //
 //    よって求めたい平面は
 //
-//    (ex*(ez^2+ey^2))*x + (-ey*ez^2)*y + (ey^2*ez)*z + (ey^2*ez^2) = 0
+//    (ex*(ez^2+ey^2))*x + (-ey*ez^2)*y + (-ey^2*ez)*z + (ey^2*ez^2) = 0
 
 
 //    同様にして
@@ -1284,10 +1284,10 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
 //    ey*ex * y - ex*ez * z + d = 0
 //
 //    これが点B(0,ey,0)を通るので
-//    d = -ey^2*ez
+//    d = -ey^2*ex
 //
 //    求める面は
-//    ey*ex * y - ex*ez * z - ey^2*ez = 0   ・・・点Bと辺BCの境界面
+//    ey*ex * y - ex*ez * z - ey^2*ex = 0   ・・・点Bと辺BCの境界面
 //
 //
 //    ------------------------------------------------
@@ -1339,7 +1339,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
 //    ey*ex * x             - ey*ez * z - ey*ex^2 = 0   ・・・点Aと辺ACの境界面
 //
 //   -ex*ez * x + ey*ez * y             - ey^2*ez = 0    ・・・点Bと辺BAの境界面
-//                ey*ex * y - ex*ez * z - ey^2*ez = 0    ・・・点Bと辺BCの境界面
+//                ey*ex * y - ex*ez * z - ey^2*ex = 0    ・・・点Bと辺BCの境界面
 //
 //   -ey*ex * x             + ey*ez * z - ey*ez^2 = 0    ・・・点Cと辺CAの境界面
 //               -ey*ex * y + ex*ez * z - ex*ez^2 = 0    ・・・点Cと辺CBの境界面
@@ -1371,7 +1371,6 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     // C(0,0,ez), A(ex,0,0) を含むzx平面に垂直な面より内（原点がある側）
     bool vzx_CA = (-ez*o_cx           - ex*o_cz + ez*ex > 0);
 
-
     //点Aと辺ABの境界面(true:原点側)
     bool bo_A_AB = ( ex*ez * o_cx - ey*ez * o_cy                - ex*ex*ez > 0);
     //点Aと辺ACの境界面(true:原点側)
@@ -1379,7 +1378,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     //点Bと辺BAの境界面(true:原点側)
     bool bo_B_BA = (-ex*ez * o_cx + ey*ez * o_cy                - ey*ey*ez > 0);
     //点Bと辺BCの境界面(true:原点側)
-    bool bo_B_BC = (                ey*ex * o_cy - ex*ez * o_cz - ey*ey*ez > 0);
+    bool bo_B_BC = (                ey*ex * o_cy - ex*ez * o_cz - ey*ey*ex > 0);
     //点Cと辺CAの境界面(true:原点側)
     bool bo_C_CA = (-ey*ex * o_cx                + ey*ez * o_cz - ey*ez*ez > 0);
     //点Cと辺CBの境界面
@@ -1388,7 +1387,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     //A(ex,0,0), B(0,ey,0) を含む斜面に垂直な面より内（原点がある側）
     bool vramp_AB = ((-ex*ey*ey)*o_cx        + (-ex*ex*ey)*o_cy        + (ez*(ex*ex+ey*ey))*o_cz + (ex*ex*ey*ey) > 0);
     //B(0,ey,0) C(0,0,ez)  を含む斜面に垂直な面より内（原点がある側）
-    bool vramp_BC = ((ex*(ey*ey+ez*ez))*o_cx + (-ey*ez*ez)*o_cy        + (ey*ey*ez)*o_cz         + (ey*ey*ez*ez) > 0);
+    bool vramp_BC = ((ex*(ey*ey+ez*ez))*o_cx + (-ey*ez*ez)*o_cy        + (-ey*ey*ez)*o_cz         + (ey*ey*ez*ez) > 0);
     //C(0,0,ez) A(ex,0,0)  を含む斜面に垂直な面より内（原点がある側）
     bool vramp_CA = ((-ez*ez*ex)*o_cx        + (ey*(ez*ez+ex*ex))*o_cy + (-ez*ex*ex)*o_cz        + (ez*ez*ex*ex) > 0);
 
@@ -1396,45 +1395,6 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     bool ramp = ((ey*ez)*o_cx + (ex*ez)*o_cy + (ey*ex)*o_cz - ex*ey*ez > 0);
 
 
-
-
-    //    // A(ex,0,0), B(0,ey,0) を含むxy平面に垂直な面より内（原点がある側）
-    //    bool vxy_AB = (-ey*o_cx - ex*o_cy           + c > 0);
-    //    // B(0,ey,0), C(0,0,ez) を含むyz平面に垂直な面より内（原点がある側）
-    //    bool vyz_BC = (          -ez*o_cy - ey*o_cz + a > 0);
-    //    // C(0,0,ez), A(ex,0,0) を含むzx平面に垂直な面より内（原点がある側）
-    //    bool vzx_CA = (-ez*o_cx           - ex*o_cz + b > 0);
-
-    //    //点Aと辺ABの境界面(true:原点側)
-    //    bool bo_A_AB = ( b * o_cx - a * o_cy            - ex*ex*ez > 0);
-    //    //点Aと辺ACの境界面(true:原点側)
-    //    bool bo_A_AC = ( c * o_cx            - a * o_cz - ey*ex*ex > 0);
-    //    //点Bと辺BAの境界面(true:原点側)
-    //    bool bo_B_BA = (-b * o_cx + a * o_cy            - ey*ey*ez > 0);
-    //    //点Bと辺BCの境界面(true:原点側)
-    //    bool bo_B_BC = (            c * o_cy - b * o_cz - ey*ey*ez > 0);
-    //    //点Cと辺CAの境界面(true:原点側)
-    //    bool bo_C_CA = (-c * o_cx            + a * o_cz - ey*ez*ez > 0);
-    //    //点Cと辺CBの境界面
-    //    bool bo_C_CB = (           -c * o_cy + b * o_cz - ex*ez*ez > 0);
-
-
-
-
-//    double a = (ey*ez);
-//    double b = (ex*ez);
-//    double c = (ey*ex);
-//    double d = -(ex*ex*ez);
-
-    //    //A(ex,0,0), B(0,ey,0) を含む斜面に垂直な面より内（原点がある側）
-    //    bool vramp_AB = ((-ex*ey*ey)*o_cx        + (-ex*ex*ey)*o_cy        + (ez*(ex*ex+ey*ey))*o_cz + (ex*ex*ey*ey) > 0);
-    //    //B(0,ey,0) C(0,0,ez)  を含む斜面に垂直な面より内（原点がある側）
-    //    bool vramp_BC = ((ex*(ey*ey+ez*ez))*o_cx + (-ey*ez*ez)*o_cy        + (ey*ey*ez)*o_cz         + (ey*ey*ez*ez) > 0);
-    //    //C(0,0,ez) A(ex,0,0)  を含む斜面に垂直な面より内（原点がある側）
-    //    bool vramp_CA = ((-ez*ez*ex)*o_cx        + (ey*(ez*ez+ex*ex))*o_cy + (-ez*ex*ex)*o_cz        + (ez*ez*ex*ex) > 0);
-    //
-    //    //斜面より外か（原点の無い側）
-    //    bool ramp = (a*o_cx + b*o_cy + c*o_cz + d > 0);
     if (!xy && !yz && !zx) {
         //頂点Oとの距離
         _TRACE_("頂点Oとの距離");
@@ -1448,14 +1408,32 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     if (!yz_A && bo_A_AB && bo_A_AC) {
         //頂点Aとの距離
         _TRACE_("頂点Aとの距離");
+        double length = (o_cx-ex)*(o_cx-ex) + (o_cy*o_cy) + (o_cz*o_cz);
+        if (length < o_rr) {
+            return true;
+        } else {
+            return false;
+        }
     }
     if (!zx_B && bo_B_BA && bo_B_BC) {
         //頂点Bとの距離
         _TRACE_("頂点Bとの距離");
+        double length = (o_cx*o_cx) + (o_cy-ey)*(o_cy-ey) + (o_cz*o_cz);
+        if (length < o_rr) {
+            return true;
+        } else {
+            return false;
+        }
     }
     if (!xy_C && bo_C_CA && bo_C_CB) {
         //頂点Cとの距離
         _TRACE_("頂点Cとの距離");
+        double length = (o_cx*o_cx) + (o_cy*o_cy) + (o_cz-ez)*(o_cz-ez);
+        if (length < o_rr) {
+            return true;
+        } else {
+            return false;
+        }
     }
     if (!xy && yz && !zx && yz_A) {
         //辺OAとの距離
@@ -1490,6 +1468,64 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     if (!vxy_AB && !bo_A_AB && !bo_B_BA && !vramp_AB) {
         //辺ABとの距離
         _TRACE_("辺ABとの距離");
+        //(0,0,ex)-(0,ey,0)
+
+//ーーーーーーーーーーーーーーーー
+//
+//        直交座標に関して、
+//        点(x[0],y[0],z[0])と、
+//        パラメータtの直線(x,y,z)=(a,b,c)+t(p,q,r)との距離は、
+//
+//
+//        ベタにやっちゃいましょう。
+//        点Pから直線に垂線を下ろし、その足をHとするとHの位置ベクトルは
+//        H=(a+pt,b+qt,c+rt)と表せます。
+//        PHベクトルと直線の方向ベクトル(p,q,r)が垂直であることから
+//        (a+pt-x0,b+qt-y0,c+rt-z0)・(p,q,r)=0
+//        ここからtを求め、PHベクトルに代入して|PH|を求めれば完成です。
+//        あと、きちんと展開していないので質問欄の式と自分の答えが合っている確証はもてませんが、質問欄に書いてある答えまで展開すると返ってわかりにくい気がしました。
+//        私の場合x0-a=X,y0-b=Y,z0-c=Zと置くと、次のようになりました。
+//        L=√[{(q^2+r^2)X^2+(r^2+p^2)Y^2+(p^2+q^2)Z^2-2(pqXY+qrYZ+rpZX)}/(p^2+q^2+r^2)]
+//        こうすると定点と、直線が通る一点との関係が明確に式に表れ、覚えやすいと思います。
+//
+//
+//
+//ーーーーーーーーーーー
+//
+//        +(c^2+b^2)o_cx^2+2(-Xc^2+Zac-Xb^2+Yab)o_cx
+//        +(Y^2+X^2)c^2+2(-Yb-Xa)Zc+(Z^2+X^2)b^2-2XYab+(Z^2+Y^2)a^2}
+//        /(c^2+b^2+a^2)]
+//
+//        L=√
+//        (((b^2+a^2)*o_cz^2+2*(-bc*o_cy-a*c*o_cx+Y*b*c+X*a*c-Z*b^2-Z*a^2)*o_cz
+//        +(c^2+a^2)*o_cy^2+2*(-a*b*o_cx-Y*c^2+Z*b*c+X*a*b-Y*a^2)*o_cy
+//        +(c^2+b^2)*o_cx^2+2*(-X*c^2+Z*a*c-X*b^2+Y*a*b)*o_cx
+//        +(Y^2+X^2)*c^2+2*(-Y*b-X*a)*Z*c+(Z^2+X^2)*b^2-2*X*Y*a*b+(Z^2+Y^2)*a^2)
+//        /(c^2+b^2+a^2))
+//
+//
+//ーーーーーーーーーーーー
+//        点P(o_cx, o_cy, o_cz) と 直線l (x,y,z) = (p,q,r) + t(a,b,c)の距離を考える。
+//
+//        点Pから直線に垂直に降ろした交点を Hとすると、点Hは直線l上なので
+//        H (p + t*a, q + t*b, r + t*c) であらわされる
+//        |PH|^2  = (p + t*a - o_cx)^2 + (q + t*b - o_cy)^2 + (r + t*c - o_cz)^2  ・・・①
+//
+//        →PH(p + t*a - o_cx,  q + t*b - o_cy, r + t*c - o_cz)  と ベクトル(a,b,c) は垂直なので内積が0
+//        c*(t*c+r-o_cz)+b*(t*b+q-o_cy)+a*(t*a+p-o_cx)=0
+//
+//        t=-(c*r+b*q+a*p-c*o_cz-a*o_cx-b*o_cy)/(c^2+b^2+a^2)
+
+
+//        tを求めて①へだいにゅうすればいい
+        //A(0,0,ex),B(0,ey,0)
+        //辺ABの直線の式は
+        //(0,0,ex) + t(0,ey,-ex)
+        //t=-(-ex*ex-(-ex)*o_cz+ey*o_cy)/((-ex)^2+ey^2)
+        //t=-(ex*o_cz+ey*o_cy-ex^2)/(ey^2+ex^2)
+        // |PH|^2  = (p + t*a - o_cx)^2 + (q + t*b - o_cy)^2 + (r + t*c - o_cz)^2
+
+
     }
     if (!vyz_BC && !bo_B_BC && !bo_C_CB && !vramp_BC) {
         //辺BCとの距離
@@ -1542,6 +1578,10 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     }
 
 
+    if (xy && yz && zx && !ramp) {
+        _TRACE_("三角錐内部");
+        return true;
+    }
 //    //未完成・・・
 //
 //    //(a)
