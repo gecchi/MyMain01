@@ -19,7 +19,7 @@ SmpActor1::SmpActor1(const char* prm_name) :
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
 //    pChecker->setColliAABox_WHD(0, PX_C(100),PX_C(100),PX_C(100));
-    pChecker->setColliSphere(0, PX_C(10));
+    pChecker->setColliSphere(0, PX_C(20));
     setHitAble(true);
 }
 

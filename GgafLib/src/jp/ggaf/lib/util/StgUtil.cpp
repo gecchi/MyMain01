@@ -817,39 +817,10 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
 
 bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPyramid* const pAAPyramid01,
                       const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere*    const pSphere02  ) {
+    if (GgafDxCore::GgafDxInput::isPressedKey(DIK_P)) {
+        _TRACE_("kitayo");
+    }
 
-
-// 2条の距離をいかの場合わけで設定
-//
-//  a
-//	if(o_scx < b_x1) {
-//		square_length += (double)(o_scx - b_x1) * (o_scx - b_x1);
-//	}
-
-//	b
-//	if(o_scx > b_x2) {
-//		square_length += (double)(o_scx - b_x2) * (o_scx - b_x2);
-//	}
-
-//          a         b      c        d      e
-//    -------------><---><---------><---><-----------------
-//              ,─、
-//             │  │   ,─、
-//              `─'  _│_ │
-//                  |＼ `─'
-//                  |  ＼   ＼
-//                  |    ＼  r＼
-//                  |      ＼   ＼
-//                  |        ＼    ,─、
-//                  |          ＼ │| │
-//                  |            ＼`+-'
-//                  ----------------,─、
-//              ,─、              │  │
-//             │  │               `─'
-//              `─'
-
-    //まずBOXと球で当たり判定を行う
-    //＜AAB と 球＞
     double o_cx = C_DX(pActor02->_x + pSphere02->_cx);
     double o_cy = C_DX(pActor02->_y + pSphere02->_cy);
     double o_cz = C_DX(pActor02->_z + pSphere02->_cz);
@@ -875,49 +846,32 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
 //    double square_length = 0; //球の中心とAABの最短距離を二乗した値
 //    int sgn_x_spos, sgn_y_spos, sgn_z_spos;
 
-    if (GgafDxCore::GgafDxInput::isPressedKey(DIK_Z)) {
-        _TRACE_("kitayo");
-    }
-
-
-
     //原点に三直角頂点をおき(POS_PYRAMID_nnn)、
     // (ex,0,0), (0,ey,0), (0,0,ez) の三直角三角錐で考えたいので、
     // 座標変換
 
-    //三直角頂点の向きをPOS_PYRAMID_nnnに変換
+    double offset_x = 0;
     if (pos_pyramid & POS_PYRAMID_p__) {
-        //x軸反転
-        o_cx = -o_cx;
-        b_x1 = -b_x1;
-        b_x2 = -b_x2;
-        lpx = -lpx;
-//        a = -a;
+        offset_x = -b_x2;
+    } else {
+        offset_x = -b_x1;
     }
-
+    double offset_y = 0;
     if (pos_pyramid & POS_PYRAMID__p_) {
-        //y軸反転
-        o_cy = -o_cy;
-        b_y1 = -b_y1;
-        b_y2 = -b_y2;
-        lpy = -lpy;
-//        b = -b;
+        offset_y = -b_y2;
+    } else {
+        offset_y = -b_y1;
     }
 
+    double offset_z = 0;
     if (pos_pyramid & POS_PYRAMID___p) {
-        //z軸反転
-        o_cz = -o_cz;
-        b_z1 = -b_z1;
-        b_z2 = -b_z2;
-        lpz = -lpz;
-//        c = -c;
+        offset_z = -b_z2;
+    } else {
+        offset_z = -b_z1;
     }
+
     //三直角頂点の座標を(0,0,0) に変換
     //POS_PYRAMID_nnnなので三直角頂点（b_x1, b_y1, b_z2）
-    double offset_x = -b_x1;
-    double offset_y = -b_y1;
-    double offset_z = -b_z1;
-
     o_cx += offset_x;
     o_cy += offset_y;
     o_cz += offset_z;
@@ -927,6 +881,37 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     b_y2 += offset_y;
     b_z1 += offset_z;
     b_z2 += offset_z;
+
+    //三直角頂点の向きをPOS_PYRAMID_nnnに変換
+    if (pos_pyramid & POS_PYRAMID_p__) {
+        //x軸反転
+        o_cx = -o_cx;
+        double tmp_b_x2 = b_x2;
+        b_x2 = -b_x1;
+        b_x1 = -tmp_b_x2;
+        lpx = -lpx;
+//        a = -a;
+    }
+
+    if (pos_pyramid & POS_PYRAMID__p_) {
+        //y軸反転
+        o_cy = -o_cy;
+        double tmp_b_y2 = b_y2;
+        b_y2 = -b_y1;
+        b_y1 = -tmp_b_y2;
+        lpy = -lpy;
+//        b = -b;
+    }
+
+    if (pos_pyramid & POS_PYRAMID___p) {
+        //z軸反転
+        o_cz = -o_cz;
+        double tmp_b_z2 = b_z2;
+        b_z2 = -b_z1;
+        b_z1 = -tmp_b_z2;
+        lpz = -lpz;
+//        c = -c;
+    }
 
 
     double ex = b_x2;
@@ -1468,84 +1453,107 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     if (!vxy_AB && !bo_A_AB && !bo_B_BA && !vramp_AB) {
         //辺ABとの距離
         _TRACE_("辺ABとの距離");
-        //(0,0,ex)-(0,ey,0)
+//        A(ex,0,0), B(0,ey,0)  より
+//        辺ABの直線の式は
+//
+//        点P(o_cx, o_cy, o_cz) と
+//        ABを通る直線l (x,y,z) = (ex,0,0) + t(-ex, ey, 0)の距離を考える。
+//        点Pから直線lに垂直に降ろした線の交点を H とすると、点Hは直線l上なので
+//        点H(ex-t*ex, t*ey, 0) であらわされる
+//
+//        |PH|^2 = ((ex-t*ex)-o_cx)^2 + (t*ey - o_cy)^2 + (0-o_cz)^2
+//
+//        ところで、ABとPHは垂直なので
+//        (-ex, ey, 0)・((ex-t*ex)-o_cx, t*ey-o_cy, -o_cz) = 0
+//
+//        (-ex*((ex-t*ex)-o_cx)) + (ey*(t*ey-o_cy)) + (0) = 0
+//        t=(ey*o_cy-ex*o_cx+ex^2)/(ey^2+ex^2)
 
-//ーーーーーーーーーーーーーーーー
-//
-//        直交座標に関して、
-//        点(x[0],y[0],z[0])と、
-//        パラメータtの直線(x,y,z)=(a,b,c)+t(p,q,r)との距離は、
-//
-//
-//        ベタにやっちゃいましょう。
-//        点Pから直線に垂線を下ろし、その足をHとするとHの位置ベクトルは
-//        H=(a+pt,b+qt,c+rt)と表せます。
-//        PHベクトルと直線の方向ベクトル(p,q,r)が垂直であることから
-//        (a+pt-x0,b+qt-y0,c+rt-z0)・(p,q,r)=0
-//        ここからtを求め、PHベクトルに代入して|PH|を求めれば完成です。
-//        あと、きちんと展開していないので質問欄の式と自分の答えが合っている確証はもてませんが、質問欄に書いてある答えまで展開すると返ってわかりにくい気がしました。
-//        私の場合x0-a=X,y0-b=Y,z0-c=Zと置くと、次のようになりました。
-//        L=√[{(q^2+r^2)X^2+(r^2+p^2)Y^2+(p^2+q^2)Z^2-2(pqXY+qrYZ+rpZX)}/(p^2+q^2+r^2)]
-//        こうすると定点と、直線が通る一点との関係が明確に式に表れ、覚えやすいと思います。
-//
-//
-//
-//ーーーーーーーーーーー
-//
-//        +(c^2+b^2)o_cx^2+2(-Xc^2+Zac-Xb^2+Yab)o_cx
-//        +(Y^2+X^2)c^2+2(-Yb-Xa)Zc+(Z^2+X^2)b^2-2XYab+(Z^2+Y^2)a^2}
-//        /(c^2+b^2+a^2)]
-//
-//        L=√
-//        (((b^2+a^2)*o_cz^2+2*(-bc*o_cy-a*c*o_cx+Y*b*c+X*a*c-Z*b^2-Z*a^2)*o_cz
-//        +(c^2+a^2)*o_cy^2+2*(-a*b*o_cx-Y*c^2+Z*b*c+X*a*b-Y*a^2)*o_cy
-//        +(c^2+b^2)*o_cx^2+2*(-X*c^2+Z*a*c-X*b^2+Y*a*b)*o_cx
-//        +(Y^2+X^2)*c^2+2*(-Y*b-X*a)*Z*c+(Z^2+X^2)*b^2-2*X*Y*a*b+(Z^2+Y^2)*a^2)
-//        /(c^2+b^2+a^2))
-//
-//
-//ーーーーーーーーーーーー
-//        点P(o_cx, o_cy, o_cz) と 直線l (x,y,z) = (p,q,r) + t(a,b,c)の距離を考える。
-//
-//        点Pから直線に垂直に降ろした交点を Hとすると、点Hは直線l上なので
-//        H (p + t*a, q + t*b, r + t*c) であらわされる
-//        |PH|^2  = (p + t*a - o_cx)^2 + (q + t*b - o_cy)^2 + (r + t*c - o_cz)^2  ・・・①
-//
-//        →PH(p + t*a - o_cx,  q + t*b - o_cy, r + t*c - o_cz)  と ベクトル(a,b,c) は垂直なので内積が0
-//        c*(t*c+r-o_cz)+b*(t*b+q-o_cy)+a*(t*a+p-o_cx)=0
-//
-//        t=-(c*r+b*q+a*p-c*o_cz-a*o_cx-b*o_cy)/(c^2+b^2+a^2)
-
-
-//        tを求めて①へだいにゅうすればいい
-        //A(0,0,ex),B(0,ey,0)
-        //辺ABの直線の式は
-        //(0,0,ex) + t(0,ey,-ex)
-        //t=-(-ex*ex-(-ex)*o_cz+ey*o_cy)/((-ex)^2+ey^2)
-        //t=-(ex*o_cz+ey*o_cy-ex^2)/(ey^2+ex^2)
-        // |PH|^2  = (p + t*a - o_cx)^2 + (q + t*b - o_cy)^2 + (r + t*c - o_cz)^2
-
-
+        double t = (ey*o_cy-ex*o_cx+ex*ex)/(ey*ey+ex*ex);
+        double length = ((ex-t*ex)-o_cx)*((ex-t*ex)-o_cx) + (t*ey - o_cy)*(t*ey - o_cy) + (0-o_cz)*(0-o_cz);
+        if (length < o_rr) {
+            return true;
+        } else {
+            return false;
+        }
     }
     if (!vyz_BC && !bo_B_BC && !bo_C_CB && !vramp_BC) {
         //辺BCとの距離
         _TRACE_("辺BCとの距離");
+//        B(0,ey,0), C(0,0,ez)  より
+//        点P(o_cx, o_cy, o_cz) と
+//        BCを通る直線l (x,y,z) = (0,ey,0) + t(0, -ey, ez)の距離を考える。
+//        点Pから直線lに垂直に降ろした線の交点を H とすると、点Hは直線l上なので
+//        点H(0, ey-t*ey, t*ez) であらわされる
+//
+//        |PH|^2 = (0-o_cx)^2 + ((ey-t*ey) - o_cy)^2 + (t*ez - o_cz)^2
+//
+//        ところで、BCとPHは垂直なので
+//        (0, -ey, ez)・(-o_cx, (ey-t*ey) - o_cy, t*ez - o_cz) = 0
+//
+//        (0) + (-ey*((ey-t*ey) - o_cy)) + (ez*(t*ez - o_cz)) = 0
+//        t=(ez*o_cz-ey*o_cy+ey^2)/(ez^2+ey^2)
+        double t = (ez*o_cz-ey*o_cy+ey*ey)/(ez*ez+ey*ey);
+        double length = (0-o_cx)*(0-o_cx) + ((ey-t*ey) - o_cy)*((ey-t*ey) - o_cy) + (t*ez - o_cz)*(t*ez - o_cz);
+        if (length < o_rr) {
+            return true;
+        } else {
+            return false;
+        }
     }
     if (!vzx_CA && !bo_A_AC && !bo_C_CA && !vramp_CA) {
         //辺CAとの距離
         _TRACE_("辺CAとの距離");
+//        C(0,0,ez) A(ex,0,0) より
+//        点P(o_cx, o_cy, o_cz) と
+//        CAを通る直線l (x,y,z) = (0,0,ez) + t(ex, 0, -ez)の距離を考える。
+//        点Pから直線lに垂直に降ろした線の交点を H とすると、点Hは直線l上なので
+//        点H(t*ex, 0, ez-t*ez) であらわされる
+//
+//        |PH|^2 = (t*ex-o_cx)^2 + (0 - o_cy)^2 + ((ez-t*ez) - o_cz)^2
+//
+//        ところで、CAとPHは垂直なので
+//        (ex, 0, -ez)・(t*ex-o_cx, -o_cy, (ez-t*ez)-o_cz) = 0
+//
+//        (ex*(t*ex-o_cx)) + (0) + (-ez*((ez-t*ez)-o_cz)) = 0
+//        t=(ex*o_cx-ez*o_cz+ez^2)/(ez^2+ex^2)
+        double t = (ex*o_cx-ez*o_cz+ez*ez)/(ez*ez+ex*ex);
+        double length = (t*ex-o_cx)*(t*ex-o_cx) + (0 - o_cy)*(0 - o_cy) + ((ez-t*ez) - o_cz)*((ez-t*ez) - o_cz);
+        if (length < o_rr) {
+            return true;
+        } else {
+            return false;
+        }
     }
     if (!xy && yz && zx && vxy_AB) {
         //面OABとの距離
         _TRACE_("面OABとの距離");
+        double length = o_cz*o_cz;
+        if (length < o_rr) {
+            return true;
+        } else {
+            return false;
+        }
     }
     if (xy && !yz && zx && vyz_BC) {
         //面OBCとの距離
         _TRACE_("面OBCとの距離");
+        double length = o_cx*o_cx;
+        if (length < o_rr) {
+            return true;
+        } else {
+            return false;
+        }
     }
     if (xy && yz && !zx && vzx_CA) {
         //面OCAとの距離
         _TRACE_("面OCAとの距離");
+        double length = o_cy*o_cy;
+        if (length < o_rr) {
+            return true;
+        } else {
+            return false;
+        }
     }
     if (vramp_AB && vramp_BC && vramp_CA && ramp) {
         //面ABCとの距離
@@ -1582,54 +1590,6 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
         _TRACE_("三角錐内部");
         return true;
     }
-//    //未完成・・・
-//
-//    //(a)
-//    if(o_cx < b_x1) {
-//        square_length += (double)(o_cx - b_x1) * (o_cx - b_x1);
-//    }
-//    if (b_x1 <= o_cx && o_cx <= b_x2) {
-//        double dx = d * cos(pAAPyramid01->_rad_xy);
-//        square_length += (dx * dx);
-//    }
-//    //(e)
-//    if(o_cx > b_x2) {
-//        square_length += (double)(o_cx - b_x2) * (o_cx - b_x2);
-//    }
-//
-//
-//
-//    if(o_cy < b_y1) {
-//        square_length += (double)(o_cy - b_y1) * (o_cy - b_y1);
-//    }
-//    if (b_y1 <= o_cy && o_cy <= b_y2) {
-//        double dy = d * cos(pAAPyramid01->_rad_yz);
-//        square_length += (dy* dy);
-//    }
-//    if(o_cy > b_y2) {
-//        square_length += (double)(o_cy - b_y2) * (o_cy - b_y2);
-//    }
-//
-//    if(o_cz < b_z1) {
-//        square_length += (double)(o_cz - b_z1) * (o_cz - b_z1);
-//    }
-//    if (b_z1 <= o_cz && o_cz <= b_z2) {
-//        double dz = d * cos(pAAPyramid01->_rad_zx);
-//        square_length += (dz* dz);
-//    }
-//    if(o_cz > b_z2) {
-//        square_length += (double)(o_cz - b_z2) * (o_cz - b_z2);
-//    } else {
-//
-//    }
-//    //square_lengthが球の半径（の二乗）よりも短ければ衝突している
-//    if (square_length <= pSphere02->_rr) {
-//        //OK、まずBOXと球でヒット、第一条件クリア
-//        return true;
-//    } else {
-//        return false;
-//    }
-
 
     return false;
 }

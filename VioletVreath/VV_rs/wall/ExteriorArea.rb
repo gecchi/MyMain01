@@ -42,10 +42,13 @@ class ExteriorArea
   attr_accessor :width ,:height, :len
   attr_accessor :area
 
+  #KARA_VAL：全くの未設定
   KARA_VAL = -1
+  #KABE_BOX_VAL:0＝BOX、0より大きい＝@pos_prismの値
   KABE_BOX_VAL = 0   #Box.@pos_prismの値
+  #fullfullにより、BOXでもプリズムでもないけど当たり判定が設定済み
   FULL_VAL = -2
-
+  #nobashi_zumi 専用フラグ。その座標はもう当たり判定伸ばし済み
   SUMI_FLG = -3
   
   FACE_A_BIT = 0b100000
