@@ -12,8 +12,10 @@ namespace GgafLib {
  * @author Masatoshi Tsuge
  */
 class ColliAABox : public GgafDxCore::GgafDxCollisionPart {
-
 public:
+    /** ƒ|ƒWƒVƒ‡ƒ“î•ñ */
+    pos_t _pos_info;
+
     ColliAABox();
 
     /**

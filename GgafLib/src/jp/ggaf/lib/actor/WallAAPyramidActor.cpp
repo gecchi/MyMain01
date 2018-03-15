@@ -75,9 +75,9 @@ bool WallAAPyramidActor::initStatic(WallAAPyramidActor* prm_pWallAAPyramidActor)
     return true;
 }
 
-void WallAAPyramidActor::config(WalledSectionScene* prm_pWalledSectionScene, int prm_pos_pyramid, int prm_wall_draw_face, int* prm_aColliBoxStretch) {
-    prm_wall_draw_face &= WallAAPyramidActor::_delface[prm_pos_pyramid]; //ピラミッド無条件描画不要面
-    WallPartsActor::config(prm_pWalledSectionScene, prm_pos_pyramid,  prm_wall_draw_face,  prm_aColliBoxStretch);
+void WallAAPyramidActor::config(WalledSectionScene* prm_pWalledSectionScene, pos_t prm_pos_info, int prm_wall_draw_face, int* prm_aColliBoxStretch) {
+    prm_wall_draw_face &= WallAAPyramidActor::_delface[prm_pos_info]; //ピラミッド無条件描画不要面
+    WallPartsActor::config(prm_pWalledSectionScene, prm_pos_info,  prm_wall_draw_face,  prm_aColliBoxStretch);
     CollisionChecker* pChecker = getCollisionChecker();
     if (prm_aColliBoxStretch[0] == 0) {
         pChecker->disable(0);

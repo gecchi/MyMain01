@@ -7,7 +7,6 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 
 ColliAAPrism::ColliAAPrism() : ColliAABox() {
-    _pos_info = 0;
     _shape_kind = COLLI_AAPRISM;
     _a = 0;
     _b = 0;
@@ -15,7 +14,7 @@ ColliAAPrism::ColliAAPrism() : ColliAABox() {
     _vIH_y = 0;
 }
 
-void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_prism, bool rot_x, bool rot_y, bool rot_z) {
+void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, pos_t pos_info, bool rot_x, bool rot_y, bool rot_z) {
 #ifdef MY_DEBUG
     if (rot_x || rot_y || rot_z) {
         //TODO:ひまならプリズム要素は回転平行移動実装
@@ -32,7 +31,7 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_p
     //   y  = {(y2-y1)/(x2-x1)} (x-x1) + y1
     //+90度で法線で行こう
     int x1_s=0, y1_s=0, x2_e=0, y2_e=0;
-    _pos_info = pos_prism;
+    _pos_info = pos_info;
     if (_pos_info & POS_PRISM_XY) {
         if (_pos_info & POS_PRISM_pp) {
             //            ↑ y+

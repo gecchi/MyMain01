@@ -57,10 +57,10 @@ bool GgafDxAAPyramidActor::initStatic() {
 //}
 
 void GgafDxAAPyramidActor::drawPyramid(coord prm_x1, coord prm_y1, coord prm_z1,
-                                       coord prm_x2, coord prm_y2, coord prm_z2, int pos_pyramid) {
-    _rx = GgafDxAAPyramidActor::pos2r[pos_pyramid]._rx;
-    _rz = GgafDxAAPyramidActor::pos2r[pos_pyramid]._rz;
-    _ry = GgafDxAAPyramidActor::pos2r[pos_pyramid]._ry;
+                                       coord prm_x2, coord prm_y2, coord prm_z2, pos_t pos_info) {
+    _rx = GgafDxAAPyramidActor::pos2r[pos_info]._rx;
+    _rz = GgafDxAAPyramidActor::pos2r[pos_info]._rz;
+    _ry = GgafDxAAPyramidActor::pos2r[pos_info]._ry;
     _sx = (prm_x2 - prm_x1);
     _sy = (prm_y2 - prm_y1);
     _sz = (prm_z2 - prm_z1);

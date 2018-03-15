@@ -57,7 +57,7 @@ public:
     static std::map<int, UINT> _delface;
 
     /** [r]壁ブロックプリズム位置情報(> 0の場合はプリズム又はピラミッド、0の場合はBOX) */
-    int _pos_info;
+    pos_t _pos_info;
     /** [r]壁ブロック表示面情報 */
     int _wall_draw_face;
     /** [r]壁ブロックの長さ（X座標軸長さ）*/
@@ -126,7 +126,7 @@ public:
      * @param prm_aColliBoxStretch 壁ブロック当たり判定情報
      */
     virtual void config(WallSectionScene* prm_pWallSectionScene,
-                        int prm_pos_info, int prm_wall_draw_face, int* prm_aColliBoxStretch);
+                        pos_t prm_pos_info, int prm_wall_draw_face, int* prm_aColliBoxStretch);
 
     inline CollisionChecker* getCollisionChecker() {
         return _pColliChecker;

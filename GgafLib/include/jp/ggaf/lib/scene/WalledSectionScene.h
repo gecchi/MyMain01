@@ -26,7 +26,7 @@ class WalledSectionScene : public DefaultScene {
      */
     struct WallInfo {
         /** プリズム位置情報(> 0の場合はプリズム、0の場合はBOX) */
-        int _pos_info;
+        pos_t _pos_info;
         /** 表示時のY座標 */
         int _y;
         /** 表示時のZ座標 */

@@ -91,7 +91,7 @@ void CollisionChecker::setColliAABox(int prm_index,
 void CollisionChecker::setColliAAPrism(int prm_index,
                                          coord x1, coord y1, coord z1,
                                          coord x2, coord y2, coord z2,
-                                         int pos_prism,
+                                         pos_t pos_info,
                                          bool rot_x, bool rot_y, bool rot_z) {
 #ifdef MY_DEBUG
     if (_pCollisionArea == nullptr) {
@@ -112,14 +112,14 @@ void CollisionChecker::setColliAAPrism(int prm_index,
     ColliAAPrism* pAAPrism = (ColliAAPrism*)_pCollisionArea->_papColliPart[prm_index];
     pAAPrism->_shape_kind = COLLI_AAPRISM;
     pAAPrism->_is_valid_flg = true;
-    pAAPrism->set(x1, y1, z1, x2, y2, z2, pos_prism, rot_x, rot_y, rot_z);
+    pAAPrism->set(x1, y1, z1, x2, y2, z2, pos_info, rot_x, rot_y, rot_z);
     _need_update_aabb = true;
 }
 
 void CollisionChecker::setColliAAPyramid(int prm_index,
                                            coord x1, coord y1, coord z1,
                                            coord x2, coord y2, coord z2,
-                                           int pos_pyramid,
+                                           pos_t pos_info,
                                            bool rot_x, bool rot_y, bool rot_z) {
 #ifdef MY_DEBUG
     if (_pCollisionArea == nullptr) {
@@ -140,7 +140,7 @@ void CollisionChecker::setColliAAPyramid(int prm_index,
     ColliAAPyramid* pAAPyramid = (ColliAAPyramid*)_pCollisionArea->_papColliPart[prm_index];
     pAAPyramid->_shape_kind = COLLI_AAPYRAMID;
     pAAPyramid->_is_valid_flg = true;
-    pAAPyramid->set(x1, y1, z1, x2, y2, z2, pos_pyramid, rot_x, rot_y, rot_z);
+    pAAPyramid->set(x1, y1, z1, x2, y2, z2, pos_info, rot_x, rot_y, rot_z);
     _need_update_aabb = true;
 }
 

@@ -202,12 +202,12 @@ public:
      * @param x2 右下奥X座標
      * @param y2 右下奥Y座標
      * @param z2 右下奥Z座標
-     * @param pos_prism プリズム位置（POS_PRISM_**_**)
+     * @param pos_info プリズム位置（POS_PRISM_**_**)
      * @param rot_x 当たり判定の直方体を、向きに伴ってローカルX軸での回転平行移動を行う場合 true
      * @param rot_y 当たり判定の直方体を、向きに伴ってローカルY軸での回転平行移動を行う場合 true
      * @param rot_z 当たり判定の直方体を、向きに伴ってローカルZ軸での回転平行移動を行う場合 true
      */
-    void setColliAAPrism(int prm_index, coord x1, coord y1, coord z1, coord x2, coord y2, coord z2, int pos_prism, bool rot_x, bool rot_y, bool rot_z);
+    void setColliAAPrism(int prm_index, coord x1, coord y1, coord z1, coord x2, coord y2, coord z2, pos_t pos_info, bool rot_x, bool rot_y, bool rot_z);
 
     /**
      * 当たり判定領域要素を軸平行直方体として定義 .
@@ -219,19 +219,19 @@ public:
      * @param x2 右下奥X座標
      * @param y2 右下奥Y座標
      * @param z2 右下奥Z座標
-     * @param pos_prism プリズム位置（GgafDxAAPrismActor の #define 定義参照)
+     * @param pos_info プリズム位置（GgafDxAAPrismActor の #define 定義参照)
      */
-    void setColliAAPrism(int prm_index, coord x1, coord y1, coord z1, coord x2, coord y2, coord z2, int pos_prism) {
-        setColliAAPrism(prm_index, x1, y1, z1, x2, y2, z2, pos_prism, false, false, false);
+    void setColliAAPrism(int prm_index, coord x1, coord y1, coord z1, coord x2, coord y2, coord z2, pos_t pos_info) {
+        setColliAAPrism(prm_index, x1, y1, z1, x2, y2, z2, pos_info, false, false, false);
     }
 
 
 
-    void setColliAAPrism_WHD(int prm_index, coord x, coord y, coord z, coord prm_width, coord prm_height, coord prm_depth, int pos_prism) {
+    void setColliAAPrism_WHD(int prm_index, coord x, coord y, coord z, coord prm_width, coord prm_height, coord prm_depth, pos_t pos_info) {
         int hw = prm_width  / 2;
         int hh = prm_height / 2;
         int hd = prm_depth  / 2;
-        setColliAAPrism(prm_index, x-hw, y-hh, z-hd, x+hw, y+hh, z+hd, pos_prism);
+        setColliAAPrism(prm_index, x-hw, y-hh, z-hd, x+hw, y+hh, z+hd, pos_info);
     }
 
     /**
@@ -241,10 +241,10 @@ public:
      * @param prm_width 幅(X軸方向幅)
      * @param prm_height 高さ(Y軸方向幅)
      * @param prm_depth 深さ(Z軸方向幅)
-     * @param pos_prism プリズム位置（GgafDxAAPrismActor の #define 定義参照)
+     * @param pos_info プリズム位置（GgafDxAAPrismActor の #define 定義参照)
      */
-    void setColliAAPrism_WHD(int prm_index, coord prm_width, coord prm_height, coord prm_depth, int pos_prism) {
-        setColliAAPrism_WHD(prm_index, 0, 0, 0, prm_width, prm_height, prm_depth, pos_prism);
+    void setColliAAPrism_WHD(int prm_index, coord prm_width, coord prm_height, coord prm_depth, pos_t pos_info) {
+        setColliAAPrism_WHD(prm_index, 0, 0, 0, prm_width, prm_height, prm_depth, pos_info);
     }
 
     /**
@@ -255,11 +255,11 @@ public:
      * @param y 当たり判定の立方体の中心ローカルY座標
      * @param z 当たり判定の立方体の中心ローカルZ座標
      * @param prm_edge １辺の長さ
-     * @param pos_prism プリズム位置（GgafDxAAPrismActor の #define 定義参照)
+     * @param pos_info プリズム位置（GgafDxAAPrismActor の #define 定義参照)
      */
-    void setColliAAPrism_Cube(int prm_index, coord x, coord y, coord z, coord prm_edge, int pos_prism) {
+    void setColliAAPrism_Cube(int prm_index, coord x, coord y, coord z, coord prm_edge, pos_t pos_info) {
         int h = prm_edge / 2;
-        setColliAAPrism(prm_index, x-h, y-h, z-h, x+h, y+h, z+h, pos_prism);
+        setColliAAPrism(prm_index, x-h, y-h, z-h, x+h, y+h, z+h, pos_info);
     }
 
     /**
@@ -273,11 +273,11 @@ public:
      * @param rot_x 当たり判定の立方体を、向きに伴ってローカルX軸での回転平行移動を行う場合 true
      * @param rot_y 当たり判定の立方体を、向きに伴ってローカルY軸での回転平行移動を行う場合 true
      * @param rot_z 当たり判定の立方体を、向きに伴ってローカルZ軸での回転平行移動を行う場合 true
-     * @param pos_prism プリズム位置（GgafDxAAPrismActor の #define 定義参照)
+     * @param pos_info プリズム位置（GgafDxAAPrismActor の #define 定義参照)
      */
-    void setColliAAPrism_Cube(int prm_index, coord x, coord y, coord z, coord prm_edge, int pos_prism, bool rot_x, bool rot_y, bool rot_z) {
+    void setColliAAPrism_Cube(int prm_index, coord x, coord y, coord z, coord prm_edge, pos_t pos_info, bool rot_x, bool rot_y, bool rot_z) {
         int h = prm_edge / 2;
-        setColliAAPrism(prm_index, x-h, y-h, z-h, x+h, y+h, z+h, pos_prism, rot_x, rot_y, rot_z);
+        setColliAAPrism(prm_index, x-h, y-h, z-h, x+h, y+h, z+h, pos_info, rot_x, rot_y, rot_z);
     }
 
     /**
@@ -285,10 +285,10 @@ public:
      * オブジェクトの基点を中心として、１辺の長さで指定
      * @param prm_index 当たり判定領域の要素番号
      * @param prm_edge １辺の長さ
-     * @param pos_prism プリズム位置（GgafDxAAPrismActor.h の、捕捉コメント参照)
+     * @param pos_info プリズム位置（GgafDxAAPrismActor.h の、捕捉コメント参照)
      */
-    void setColliAAPrism_Cube(int prm_index, coord prm_edge, int pos_prism) {
-        setColliAAPrism_Cube(prm_index, 0, 0, 0, prm_edge, pos_prism);
+    void setColliAAPrism_Cube(int prm_index, coord prm_edge, pos_t pos_info) {
+        setColliAAPrism_Cube(prm_index, 0, 0, 0, prm_edge, pos_info);
     }
 
 
@@ -301,12 +301,12 @@ public:
      * @param x2 右下奥X座標
      * @param y2 右下奥Y座標
      * @param z2 右下奥Z座標
-     * @param pos_pyramid ピラミッド位置（POS_PYRAMID_***)
+     * @param pos_info ピラミッド位置（POS_PYRAMID_***)
      * @param rot_x 当たり判定の直方体を、向きに伴ってローカルX軸での回転平行移動を行う場合 true
      * @param rot_y 当たり判定の直方体を、向きに伴ってローカルY軸での回転平行移動を行う場合 true
      * @param rot_z 当たり判定の直方体を、向きに伴ってローカルZ軸での回転平行移動を行う場合 true
      */
-    void setColliAAPyramid(int prm_index, coord x1, coord y1, coord z1, coord x2, coord y2, coord z2, int pos_pyramid, bool rot_x, bool rot_y, bool rot_z);
+    void setColliAAPyramid(int prm_index, coord x1, coord y1, coord z1, coord x2, coord y2, coord z2, pos_t pos_info, bool rot_x, bool rot_y, bool rot_z);
 
     /**
      * 当たり判定領域要素を軸平行の三直角三角錐として定義 .
@@ -318,19 +318,19 @@ public:
      * @param x2 右下奥X座標
      * @param y2 右下奥Y座標
      * @param z2 右下奥Z座標
-     * @param pos_pyramid ピラミッド位置（GgafDxAAPyramidActor の #define 定義参照)
+     * @param pos_info ピラミッド位置（GgafDxAAPyramidActor の #define 定義参照)
      */
-    void setColliAAPyramid(int prm_index, coord x1, coord y1, coord z1, coord x2, coord y2, coord z2, int pos_pyramid) {
-        setColliAAPyramid(prm_index, x1, y1, z1, x2, y2, z2, pos_pyramid, false, false, false);
+    void setColliAAPyramid(int prm_index, coord x1, coord y1, coord z1, coord x2, coord y2, coord z2, pos_t pos_info) {
+        setColliAAPyramid(prm_index, x1, y1, z1, x2, y2, z2, pos_info, false, false, false);
     }
 
 
 
-    void setColliAAPyramid_WHD(int prm_index, coord x, coord y, coord z, coord prm_width, coord prm_height, coord prm_depth, int pos_pyramid) {
+    void setColliAAPyramid_WHD(int prm_index, coord x, coord y, coord z, coord prm_width, coord prm_height, coord prm_depth, pos_t pos_info) {
         int hw = prm_width  / 2;
         int hh = prm_height / 2;
         int hd = prm_depth  / 2;
-        setColliAAPyramid(prm_index, x-hw, y-hh, z-hd, x+hw, y+hh, z+hd, pos_pyramid);
+        setColliAAPyramid(prm_index, x-hw, y-hh, z-hd, x+hw, y+hh, z+hd, pos_info);
     }
 
     /**
@@ -340,10 +340,10 @@ public:
      * @param prm_width 幅(X軸方向幅)
      * @param prm_height 高さ(Y軸方向幅)
      * @param prm_depth 深さ(Z軸方向幅)
-     * @param pos_pyramid ピラミッド位置（GgafDxAAPyramidActor の #define 定義参照)
+     * @param pos_info ピラミッド位置（GgafDxAAPyramidActor の #define 定義参照)
      */
-    void setColliAAPyramid_WHD(int prm_index, coord prm_width, coord prm_height, coord prm_depth, int pos_pyramid) {
-        setColliAAPyramid_WHD(prm_index, 0, 0, 0, prm_width, prm_height, prm_depth, pos_pyramid);
+    void setColliAAPyramid_WHD(int prm_index, coord prm_width, coord prm_height, coord prm_depth, pos_t pos_info) {
+        setColliAAPyramid_WHD(prm_index, 0, 0, 0, prm_width, prm_height, prm_depth, pos_info);
     }
 
     /**
@@ -354,11 +354,11 @@ public:
      * @param y 当たり判定の立方体の中心ローカルY座標
      * @param z 当たり判定の立方体の中心ローカルZ座標
      * @param prm_edge １辺の長さ
-     * @param pos_pyramid ピラミッド位置（GgafDxAAPyramidActor の #define 定義参照)
+     * @param pos_info ピラミッド位置（GgafDxAAPyramidActor の #define 定義参照)
      */
-    void setColliAAPyramid_Cube(int prm_index, coord x, coord y, coord z, coord prm_edge, int pos_pyramid) {
+    void setColliAAPyramid_Cube(int prm_index, coord x, coord y, coord z, coord prm_edge, pos_t pos_info) {
         int h = prm_edge / 2;
-        setColliAAPyramid(prm_index, x-h, y-h, z-h, x+h, y+h, z+h, pos_pyramid);
+        setColliAAPyramid(prm_index, x-h, y-h, z-h, x+h, y+h, z+h, pos_info);
     }
 
     /**
@@ -372,11 +372,11 @@ public:
      * @param rot_x 当たり判定の立方体を、向きに伴ってローカルX軸での回転平行移動を行う場合 true
      * @param rot_y 当たり判定の立方体を、向きに伴ってローカルY軸での回転平行移動を行う場合 true
      * @param rot_z 当たり判定の立方体を、向きに伴ってローカルZ軸での回転平行移動を行う場合 true
-     * @param pos_pyramid ピラミッド位置（GgafDxAAPyramidActor の #define 定義参照)
+     * @param pos_info ピラミッド位置（GgafDxAAPyramidActor の #define 定義参照)
      */
-    void setColliAAPyramid_Cube(int prm_index, coord x, coord y, coord z, coord prm_edge, int pos_pyramid, bool rot_x, bool rot_y, bool rot_z) {
+    void setColliAAPyramid_Cube(int prm_index, coord x, coord y, coord z, coord prm_edge, pos_t pos_info, bool rot_x, bool rot_y, bool rot_z) {
         int h = prm_edge / 2;
-        setColliAAPyramid(prm_index, x-h, y-h, z-h, x+h, y+h, z+h, pos_pyramid, rot_x, rot_y, rot_z);
+        setColliAAPyramid(prm_index, x-h, y-h, z-h, x+h, y+h, z+h, pos_info, rot_x, rot_y, rot_z);
     }
 
     /**
@@ -384,10 +384,10 @@ public:
      * オブジェクトの基点を中心として、１辺の長さで指定
      * @param prm_index 当たり判定領域の要素番号
      * @param prm_edge １辺の長さ
-     * @param pos_pyramid ピラミッド位置（GgafDxAAPyramidActor.h の、捕捉コメント参照)
+     * @param pos_info ピラミッド位置（GgafDxAAPyramidActor.h の、捕捉コメント参照)
      */
-    void setColliAAPyramid_Cube(int prm_index, coord prm_edge, int pos_pyramid) {
-        setColliAAPyramid_Cube(prm_index, 0, 0, 0, prm_edge, pos_pyramid);
+    void setColliAAPyramid_Cube(int prm_index, coord prm_edge, pos_t pos_info) {
+        setColliAAPyramid_Cube(prm_index, 0, 0, 0, prm_edge, pos_info);
     }
 
     virtual ~CollisionChecker();

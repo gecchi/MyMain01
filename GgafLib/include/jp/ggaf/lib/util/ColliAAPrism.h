@@ -15,8 +15,6 @@ namespace GgafLib {
 class ColliAAPrism : public ColliAABox {
 
 public:
-    /** プリズム位置 */
-    int _pos_info;
     /** プリズム斜辺の境界線傾き */
     double _a;
     /** プリズム斜辺の境界線の切片 */
@@ -29,7 +27,7 @@ public:
 public:
     ColliAAPrism();
 
-    void set(int x1, int y1, int z1, int x2, int y2, int z2, int pos_prism, bool rot_x, bool rot_y, bool rot_z);
+    void set(int x1, int y1, int z1, int x2, int y2, int z2, pos_t pos_info, bool rot_x, bool rot_y, bool rot_z);
 
     virtual ~ColliAAPrism();
 };

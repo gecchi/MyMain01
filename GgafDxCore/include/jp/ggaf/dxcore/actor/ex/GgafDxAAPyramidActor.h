@@ -39,7 +39,7 @@ public:
     static bool initStatic();
 
     void drawPyramid(coord prm_x1, coord prm_y1, coord prm_z1,
-                     coord prm_x2, coord prm_y2, coord prm_z2, int pos_pyramid);
+                     coord prm_x2, coord prm_y2, coord prm_z2, pos_t pos_info);
 
     virtual ~GgafDxAAPyramidActor(); //デストラクタ
 };
@@ -48,7 +48,7 @@ public:
 #endif /*GGAFDXCORE_GGAFDXAAPYRAMIDACTOR_H_*/
 
 //補足
-//ピラミッド位置(pos_pyramid)を、表す定数(GgafDxCommonHeader.hで定義)は以下のような命名がなされている。
+//ピラミッド位置(pos_info)を、表す定数(GgafDxCommonHeader.hで定義)は以下のような命名がなされている。
 //＜例＞
 //POS_PYRAMID_npn
 //

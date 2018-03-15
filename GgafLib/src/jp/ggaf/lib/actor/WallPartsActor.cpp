@@ -134,7 +134,7 @@ int WallPartsActor::isOutOfView() {
 }
 
 
-void WallPartsActor::config(WalledSectionScene* prm_pWalledSectionScene, int prm_pos_info, int prm_wall_draw_face, int* prm_aColliBoxStretch) {
+void WallPartsActor::config(WalledSectionScene* prm_pWalledSectionScene, pos_t prm_pos_info, int prm_wall_draw_face, int* prm_aColliBoxStretch) {
     _pWalledSectionScene =prm_pWalledSectionScene;
     _wall_dep = _pWalledSectionScene->_wall_dep;
     _wall_width = _pWalledSectionScene->_wall_width;

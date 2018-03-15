@@ -718,7 +718,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     const int aX2 = pActor01->_x + pAAPyramid01->_x2;
     const int aY2 = pActor01->_y + pAAPyramid01->_y2;
     const int aZ2 = pActor01->_z + pAAPyramid01->_z2;
-
+    //斜面の法線
     float a = pAAPyramid01->_s_nvx;
     float b = pAAPyramid01->_s_nvy;
     float c = pAAPyramid01->_s_nvz;
@@ -740,10 +740,10 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
 
         //ピラミッド斜面に対してピラミッド側のBOX領域内で、相手BOXの最近傍点を求める
         //
-        const int pos_pyramid = pAAPyramid01->_pos_pyramid;
+        const pos_t pos_info = pAAPyramid01->_pos_info;
 
         int nnx, nny, nnz; //BOX内最近傍点
-        if (pos_pyramid & POS_PYRAMID_p__) {
+        if (pos_info & POS_PYRAMID_p__) {
             //bX2に興味がある
             if (/* aX1 <= bX2 && */ bX2 <= aX2) {
                 //bX2 が中にある
@@ -762,7 +762,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
                 nnx = aX1;
             }
         }
-        if (pos_pyramid & POS_PYRAMID__p_) {
+        if (pos_info & POS_PYRAMID__p_) {
             //bY2に興味がある
             if (/* aY1 <= bY2 &&*/ bY2 <= aY2) {
                 //bY2 が中にある
@@ -782,7 +782,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
             }
         }
 
-        if (pos_pyramid & POS_PYRAMID___p) {
+        if (pos_info & POS_PYRAMID___p) {
             //bZ2に興味がある
             if (/*aZ1 <= bZ2 &&*/ bZ2 <= aZ2) {
                 //bZ2 が中にある
@@ -833,38 +833,26 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     double b_z1 = C_DX(pActor01->_z + pAAPyramid01->_z1);
     double b_z2 = C_DX(pActor01->_z + pAAPyramid01->_z2);
 
-//    float a = pAAPyramid01->_s_nvx;
-//    float b = pAAPyramid01->_s_nvy;
-//    float c = pAAPyramid01->_s_nvz;
-
-
-    double lpx = C_DX(pActor01->_z + pAAPyramid01->_l_px);
-    double lpy = C_DX(pActor01->_z + pAAPyramid01->_l_py);
-    double lpz = C_DX(pActor01->_z + pAAPyramid01->_l_pz);
-    int pos_pyramid = pAAPyramid01->_pos_pyramid;
-
-//    double square_length = 0; //球の中心とAABの最短距離を二乗した値
-//    int sgn_x_spos, sgn_y_spos, sgn_z_spos;
+    pos_t pos_info = pAAPyramid01->_pos_info;
 
     //原点に三直角頂点をおき(POS_PYRAMID_nnn)、
     // (ex,0,0), (0,ey,0), (0,0,ez) の三直角三角錐で考えたいので、
     // 座標変換
-
     double offset_x = 0;
-    if (pos_pyramid & POS_PYRAMID_p__) {
+    if (pos_info & POS_PYRAMID_p__) {
         offset_x = -b_x2;
     } else {
         offset_x = -b_x1;
     }
     double offset_y = 0;
-    if (pos_pyramid & POS_PYRAMID__p_) {
+    if (pos_info & POS_PYRAMID__p_) {
         offset_y = -b_y2;
     } else {
         offset_y = -b_y1;
     }
 
     double offset_z = 0;
-    if (pos_pyramid & POS_PYRAMID___p) {
+    if (pos_info & POS_PYRAMID___p) {
         offset_z = -b_z2;
     } else {
         offset_z = -b_z1;
@@ -883,457 +871,34 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     b_z2 += offset_z;
 
     //三直角頂点の向きをPOS_PYRAMID_nnnに変換
-    if (pos_pyramid & POS_PYRAMID_p__) {
+    if (pos_info & POS_PYRAMID_p__) {
         //x軸反転
         o_cx = -o_cx;
         double tmp_b_x2 = b_x2;
         b_x2 = -b_x1;
         b_x1 = -tmp_b_x2;
-        lpx = -lpx;
-//        a = -a;
     }
 
-    if (pos_pyramid & POS_PYRAMID__p_) {
+    if (pos_info & POS_PYRAMID__p_) {
         //y軸反転
         o_cy = -o_cy;
         double tmp_b_y2 = b_y2;
         b_y2 = -b_y1;
         b_y1 = -tmp_b_y2;
-        lpy = -lpy;
-//        b = -b;
     }
 
-    if (pos_pyramid & POS_PYRAMID___p) {
+    if (pos_info & POS_PYRAMID___p) {
         //z軸反転
         o_cz = -o_cz;
         double tmp_b_z2 = b_z2;
         b_z2 = -b_z1;
         b_z1 = -tmp_b_z2;
-        lpz = -lpz;
-//        c = -c;
     }
 
-
-    double ex = b_x2;
-    double ey = b_y2;
-    double ez = b_z2;
-
-///////////////////////こここここ
-///
-///  _r * x; の r を距離に
-///
-///
-///
-//  円の中心から、斜面に垂線を下ろしたときの交点を求める
-//
-    //点と斜面の距離を半径にする
-//    float a = pAAPyramid01->_s_nvx;
-//    float b = pAAPyramid01->_s_nvy;
-//    float c = pAAPyramid01->_s_nvz;
-
-    //円の中心から斜面に降ろした垂線
-    //(x,y,z) = (o_cx,o_cy,o_cz) + t(a,b,c)  ・・・①
-    //法線ベクトル (a, b, c)、点 ( lpx, lpy, lpz )を通る面は
-    //a*(x-lpx) + b*(y-lpy) + c*(z-lpz) = 0  ・・・②
-    //①を②に代入して、ｔを求める
-    //a*((o_cx+t*a)-lpx) + b*((o_cy+t*b)-lpy) + c*((o_cz+t*c)-lpz) = 0
-    //t=-(c*o_cz+b*o_cy+a*o_cx-c*lpz-b*lpy-a*lpx)/(c^2+b^2+a^2)
-//    double t =-(c*o_cz+b*o_cy+a*o_cx-c*lpz-b*lpy-a*lpx)/(c*c+b*b+a*a);
-//    //交点は
-//    coord cx = o_cx + t*a;
-//    coord cy = o_cy + t*b;
-//    coord cz = o_cz + t*c;
-
-
-    //円の中心から、斜面に垂線を下ろしたときの交点の距離
-//    coord d = UTIL::getDistance(o_cx, o_cy, o_cz, cx, cy, cz);
-
-//    //円の中心から、斜面に垂線を下ろしたときの交点のベクトルを成分わけ
-//    // (vx, vy, vz) = (o_cx, o_cy, o_cz) + d(-a,-b,-c); ???
-//
-//    coord dvx = o_cx + d*-a;
-//    coord dvy = o_cy + d*-b;
-//    coord dvz = o_cz + d*-c;
-
-
-//<MEMO>
-//    a*(x-x0)+b*(y-y0)+c*(z-z0)=0
-//    a*x*-a*x0 + b*y-b*y0 + c*z-c*z0 = 0
-//    a*x + b*y + c*z + (-a*x0 - b*y0 - c*z0) = 0
-
-
-//    a*(x-x0)+b*(y-y0)+c*(z-z0)=0
-//    a*x*-a*x0 + b*y-b*y0 + c*z-c*z0 = 0
-//    a*x + b*y + c*z + (-a*x0 - b*y0 - c*z0) = 0
-//
-
-///////////////////////////////////////////////////////////////////////////////
-//    //空間分割
-//
-//    //原点に三直角頂点をおき、(ex,0,0), (0,ey,0), (0,0,ez) の三直角三角錐を考え
-//    //斜面を底面とした三角柱（高さ無限）の範囲を考える
-//
-//
-
-//    (1) (a, b, c) が平面の法線ベクトルです。
-//
-//    (2) |d|/|(a, b, c)| が "平面と原点の距離" になります。つまり、原点から平面に垂線を降ろした時の、垂線の長さです。
-//    　但し、|(a, b, c)| = √(a^2+b^2+c^2) (法線ベクトルの長さ) です。
-//    　法線ベクトル (a,b,c) が既に規格化されている場合 (|(a,b,c)|=1 の場合) は、単に |d| が "平面と原点の距離" です。
-//
-//    (3) d の符号は、原点が平面の表側にあるか裏側にあるかに対応しています。
-//    　d が正の時は、原点は平面の表側(平面から見て法線ベクトルの方向)にあります。
-//    　d が負の時は、原点は平面の裏側(法線ベクトルと逆の方向)にあります。
-
-//    a→=(ax,ay,az),
-//    b→=(bx,by,bz)
-//
-//    内積
-//    内積-1）：スカラー値 |a→||b→|cosθ のこと
-//    （内積-2）：スカラー値 ax bx + ay by + az bz のこと。
-//
-//    外積
-//    長さが |a→||b→|sinθ で a→ と b→ に垂直なベクトルのこと
-//    （外積-2）：(ay bz - az by, az bx - ax bz, ax by - ay bx)という成分で表されるベクトルのこと。
-//
-//
-//    原点に三直角頂点をおき、A(ex,0,0), B(0,ey,0), C(0,0,ez) の三直角三角錐を考え (ex>0, ey>0, ez>0)
-//    斜面を底面とした三角柱（高さ無限）の範囲を考える
-//
-//    斜面の方程式
-//    AB→ = (-ex, ey, 0 )
-//    AC→ = (-ex, 0 , ez)
-//    AB→ｘAC→ = (a,b,c)
-//
-//    a = ey*ez
-//    b = ex*ez
-//    c = ey*ex
-//
-//    ey ez x + ex ez y + ey ex z + d = 0
-//    これが、A(ex,0,0)をとおるので、
-//
-//    d = -ex*ey*ez
-//
-//    斜面の方程式
-//    (ey*ez)*x + (ex*ez)*y + (ey*ex)*z - ex*ey*ez = 0
-//    法線 (ey*ez, ex*ez, ey*ex)
-//
-//    ----------------------------------------------------------
-//    A(ex,0,0), B(0,ey,0) を含む斜面に垂直な面を求める
-//
-//    求める面を
-//    va*x + vb*y + vc*z + vd = 0 とする
-//    ---------------------------------
-//    ＜外積で求める＞
-//
-//    求める面の法線は(va, vb, vc)
-//    求める面の法線は (ey*ez, ex*ez, ey*ex)に垂直でかつ、AB→(-ex, ey, 0 )とも垂直なので
-//    (ey*ez, ex*ez, ey*ex) ｘ (-ex, ey, 0 ) = (va, vb, vc)
-//
-//    (va, vb, vc) =
-//    ( - (ey*ex)* ey, (ey*ex)*(-ex) , (ey*ez)*ey - (ex*ez)*(-ex))
-//    ( -ex*ey^2, -ex^2*ey , (ey^2+ex^2)*ez)
-//
-//    -------------
-//
-//    ＜内積が0で求める＞
-//
-//    求める面の法線は (ey*ez, ex*ez, ey*ex)に垂直なので
-//    (ey*ez, ex*ez, ey*ex)・(va, vb, vc) = 0
-//    ey*ez*va + ex*ez*vb + ey*ex*vc = 0        ・・・①
-//
-//    求める面の法線はAB→(-ex, ey, 0 )とも垂直なので
-//    (-ex, ey, 0 )・(va, vb, vc) = 0
-//    -ex*va + ey*vb = 0 ・・・②
-//
-//    ここで 法線ベクトル(va, vb, vc) z成分 vc=1 （z成分法線はせいというのが図よりわかったので）とすると
-//
-//    ey*ez*va + ex*ez*vb + ey*ex = 0  ・・・①’
-//    -ex*va + ey*vb = 0               ・・・②
-//
-//    va=(ey*vb)/ex を①’へ
-//
-//    ey*ez*((ey*vb)/ex) + ex*ez*vb + ey*ex = 0
-//
-//    vb=-(ex^2*ey)/((ey^2+ex^2)*ez)
-//    ②へ代入
-//
-//    -ex*va + ey*(-(ex^2*ey)/((ey^2+ex^2)*ez)) = 0
-//    va=-(ex*ey^2)/((ey^2+ex^2)*ez)
-//
-//    よって法線(va, vb, vc) =
-//     (-(ex*ey^2)/((ey^2+ex^2)*ez), -(ex^2*ey)/((ey^2+ex^2)*ez), 1)
-//
-//    ((ey^2+ex^2)*ez)を掛けて整理
-//    (-ex*ey^2, -ex^2*ey, (ey^2+ex^2)*ez)
-//
-//
-//    -----------------------------------------------------
-//
-//    (-ex*ey^2)*x + (-ex^2*ey)*y + ((ey^2+ex^2)*ez)*z + vd = 0
-//    が A(ex,0,0) を通るので
-//    (-ex*ey^2)*ex + vd = 0
-//    vd=ex^2*ey^2
-//
-//    よって求めたい平面は
-//    (-ex*ey^2)*x + (-ex^2*ey)*y + ((ey^2+ex^2)*ez)*z + (ex^2*ey^2) = 0
-//
-
-
-
-//    同様にして、
-//
-//    B(0,ey,0) C(0,0,ez) を含む斜面に垂直な面を求める
-//
-//    求める面を
-//    va*x + vb*y + vc*z + vd = 0 とする
-//
-//    求める面の法線は (ey*ez, ex*ez, ey*ex)に垂直なので
-//    (ey*ez, ex*ez, ey*ex)・(va, vb, vc) = 0
-//    ey*ez*va + ex*ez*vb + ey*ex*vc = 0        ・・・①
-//
-//
-//    求める面の法線はBC→(0, -ey, ez)とも垂直なので
-//    (0, -ey, ez)・(va, vb, vc) = 0
-//    -ey*vb + ez*vc = 0 ・・・②
-//
-//    ここで 法線ベクトル(va, vb, vc) x成分 va=1 （x成分法線は正というのが図よりわかったので）とすると
-//
-//    ey*ez + ex*ez*vb + ey*ex*vc = 0     ・・・①’
-//    -ey*vb + ez*vc = 0                  ・・・②’
-//
-//    vb=(ez*vc)/ey を ①’へ代入
-//
-//    ey*ez + ex*ez*((ez*vc)/ey) + ey*ex*vc = 0
-//
-//    vc=-(ey^2*ez)/(ex*ez^2+ex*ey^2)
-//    ②’へ代入
-//    -ey*vb + ez*(-(ey^2*ez)/(ex*ez^2+ex*ey^2)) = 0
-//
-//    vb=-(ey*ez^2)/(ex*ez^2+ex*ey^2)
-//
-//    よって法線(va, vb, vc) =
-//    (1, -(ey*ez^2)/(ex*ez^2+ex*ey^2), -(ey^2*ez)/(ex*ez^2+ex*ey^2))
-//
-//    (ex*ez^2+ex*ey^2) を掛けて整理
-//
-//    (ex*(ez^2+ey^2), -ey*ez^2, -ey^2*ez)
-//    -----------------------------------------------------
-//
-//    (ex*(ez^2+ey^2))*x + (-ey*ez^2)*y + (-ey^2*ez)*z + vd = 0
-//    がB(0,ey,0) を通るので、
-//    (-ey*ez^2)*ey + vd = 0
-//    vd=ey^2*ez^2
-//
-//    よって求めたい平面は
-//
-//    (ex*(ez^2+ey^2))*x + (-ey*ez^2)*y + (-ey^2*ez)*z + (ey^2*ez^2) = 0
-
-
-//    同様にして
-//    C(0,0,ez) A(ex,0,0) を含む斜面に垂直な面を求める
-//
-//    求める面を
-//    va*x + vb*y + vc*z + vd = 0 とする
-//
-//    求める面の法線は (ey*ez, ex*ez, ey*ex)に垂直なので
-//    (ey*ez, ex*ez, ey*ex)・(va, vb, vc) = 0
-//    ey*ez*va + ex*ez*vb + ey*ex*vc = 0        ・・・①
-//
-//    求める面の法線はCA→(ex, 0, -ez)とも垂直なので
-//    (ex, 0, -ez)・(va, vb, vc) = 0
-//    ex*va - ez*vc = 0 ・・・②
-//
-//    ここで 法線ベクトル(va, vb, vc) y成分 vb=1 （y成分法線は正というのが図よりわかったので）とすると
-//
-//    ey*ez*va + ex*ez + ey*ex*vc = 0        ・・・①’
-//    ex*va - ez*vc = 0                      ・・・②
-//
-//    va=(ez*vc)/ex  を①’へ代入
-//
-//    ey*ez*((ez*vc)/ex) + ex*ez + ey*ex*vc = 0
-//    vc=-(ex^2*ez)/(ey*ez^2+ex^2*ey)
-//    ②へ代入
-//    ex*va - ez*(-(ex^2*ez)/(ey*ez^2+ex^2*ey)) = 0
-//    va=-(ex*ez^2)/(ey*ez^2+ex^2*ey)
-//
-//
-//    よって法線(va, vb, vc) =
-//    (-(ex*ez^2)/(ey*ez^2+ex^2*ey), 1, -(ex^2*ez)/(ey*ez^2+ex^2*ey))
-//
-//    (ey*ez^2+ex^2*ey) を掛けて整理
-//
-//    (-ex*ez^2, ey*(ez^2+ex^2), -ex^2*ez)
-//
-//    -----------------------------------------------------
-//    (-ex*ez^2)*x + (ey*(ez^2+ex^2))*y + (-ex^2*ez)*z + vd = 0
-//    が C(0,0,ez) を通るので、
-//    (-ex^2*ez)*ez + vd = 0
-//    vd=ex^2*ez^2
-//
-//    よって求めたい平面は
-//
-//    (-ex*ez^2)*x + (ey*(ez^2+ex^2))*y + (-ex^2*ez)*z + ex^2*ez^2 = 0
-
-
-
-
-    //   よって斜面を底面とした三角柱（高さ無限）の範囲は
-    //    (ey*ez)*x + (ex*ez)*y + (ey*ex)*z - ex*ey*ez > 0      斜面
-    //    (-ex*ey^2)*x       + (-ex^2*ey)*y       + (ez*(ex^2+ey^2))*z + (ex^2*ey^2) > 0
-    //    (ex*(ey^2+ez^2))*x + (-ey*ez^2)*y       + (ey^2*ez)*z        + (ey^2*ez^2) > 0
-    //    (-ez^2*ex)*x       + (ey*(ez^2+ex^2))*y + (-ez*ex^2)*z       + (ez^2*ex^2) > 0
-
-
-
-
-//    ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
-//        原点に三直角頂点をおき、A(ex,0,0), B(0,ey,0), C(0,0,ez) の三直角三角錐を考え (ex>0, ey>0, ez>0)
-//        A(ex,0,0), B(0,ey,0) を含むxy平面に垂直な面を求める
-//        求める面を
-//        va*x + vb*y + vc*z + vd = 0 とする
-//
-//        法線(va, vb, vc) = (-ey, -ex, 0)  なので
-//        -ey*x -ex*y + vd = 0   となり、これがA(ex,0,0)を通るので
-//        -ey*ex + vd = 0
-//        vd = ex*ey
-//
-//        よって求める面は
-//        -ey*x - ex*y + ex*ey = 0
-//
-//    -----------
-//        B(0,ey,0), C(0,0,ez) を含むyz平面に垂直な面を求める
-//        va*x + vb*y + vc*z + vd = 0 とする
-//
-//        法線(va, vb, vc) = (0, -ez, -ey)  なので
-//        -ez*y - ey*z + vd = 0   となり、これがB(0,ey,0)を通るので
-//        -ez*ey + vd = 0
-//        vd = ey*ez
-//
-//        よって求める面は
-//        -ez*y - ey*z + ey*ez = 0
-//
-//    ------------------------
-//        C(0,0,ez), A(ex,0,0) を含むzx平面に垂直な面を求める
-//        va*x + vb*y + vc*z + vd = 0 とする
-//
-//        法線(va, vb, vc) = (-ez, 0, -ex)  なので
-//        -ez*x - ex*z + vd = 0 となり、これがC(0,0,ez)を通るので
-//        -ex*ez + vd = 0
-//        vd=ez*ex
-//
-//        よって求める面は
-//       -ez*x - ex*z + ez*ex = 0
-//    ------------------------
-
-    //外積メモ
-//     a→=(ax,ay,az),
-//     b→=(bx,by,bz)
-//    (ay*bz - az*by, az*bx - ax*bz, ax*by - ay*bx)
-
-
-//    A(ex,0,0), B(0,ey,0), C(0,0,ez)
-//
-//    ＜点Bと辺BAの境界面＞
-//    斜面の方程式
-//    (ey*ez)*x + (ex*ez)*y + (ey*ex)*z - ex*ey*ez = 0
-//    より、
-//
-//    B(0,ey,0)を通り斜面法線 (ey*ez, ex*ez, ey*ex) に平行な線であるので、
-//    (x,y,z) = (0,ey,0) + t(ey*ez, ex*ez, ey*ex)  ・・・①
-//
-//    A(ex,0,0)を通り面zx に平行な（境界の）線その１は
-//    (x,y,z) = (0,ey,0) + t(0, 0, -1)  ・・・②
-//
-//    ①②を含む面を求める
-//    この面の法線を(a,b,c) とすると
-//    外積は垂直より
-//    (ey*ez, ex*ez, ey*ex)ｘ(0, 0, -1) = (-ex*ez, ey*ez, 0)
-//
-//    -ex*ez * x + ey*ez * y + d = 0
-//    これが点B(0,ey,0)を通るので
-//    d = -ey^2*ez
-//
-//    求める面は
-//    -ex*ez * x + ey*ez * y - ey^2*ez = 0    ・・・点Bと辺BAの境界面
-//    ------------------------------------------------
-//    ＜点Bと辺BCの境界面＞
-//    (x,y,z) = (ex,0,0) + t(ey*ez, ex*ez, ey*ex)  ・・・①
-//    B(0,ey,0)を通り面zx に平行な（境界の）線その２は
-//    (x,y,z) = (ex,0,0) + t(-1, 0, 0)  ・・・②
-//    ①②を含む面を求める
-//    この面の法線を(a,b,c) とすると
-//    外積は垂直より
-//    (-1, 0, 0)ｘ(ey*ez, ex*ez, ey*ex) = (0, ey*ex, -ex*ez)
-//
-//    ey*ex * y - ex*ez * z + d = 0
-//
-//    これが点B(0,ey,0)を通るので
-//    d = -ey^2*ex
-//
-//    求める面は
-//    ey*ex * y - ex*ez * z - ey^2*ex = 0   ・・・点Bと辺BCの境界面
-//
-//
-//    ------------------------------------------------
-//    ＜点Aと辺ABの境界面＞
-//    外積は垂直よりこの面の法線ベクトルは
-//    (0, 0, -1)ｘ(ey*ez, ex*ez, ey*ex) =  (ex*ez, -ey*ez, 0)
-//
-//    ex*ez * x - ey*ez * y + d = 0
-//    これが点A(ex,0,0)を通るので
-//    d = -ex^2*ez
-//
-//    求める面は
-//    ex*ez * x - ey*ez * y - ex^2*ez = 0   ・・・点Aと辺ABの境界面
-//    ------------------------------------------------
-//    ＜点Aと辺ACの境界面＞
-//    外積は垂直よりこの面の法線ベクトルは
-//    (ey*ez, ex*ez, ey*ex)ｘ(0, -1, 0) = (ey*ex, 0, -ey*ez)
-//
-//    ey*ex * x - ey*ez * z + d = 0
-//    これが点A(ex,0,0)を通るので
-//    d = -ey*ex^2
-//
-//    求める面は
-//    ey*ex * x - ey*ez * z - ey*ex^2 = 0   ・・・点Aと辺ACの境界面
-//
-//
-//    ------------------------------------------------
-//    ＜点Cと辺CAの境界面＞
-//    外積は垂直よりこの面の法線ベクトルは
-//    (0, -1, 0)ｘ(ey*ez, ex*ez, ey*ex) = (-ey*ex, 0, ey*ez)
-//    -ey*ex * x + ey*ez * z + d = 0
-//    これが点 C(0,0,ez) を通るので
-//    d = -ey*ez^2
-//    求める面は
-//    -ey*ex * x + ey*ez * z -ey*ez^2 = 0  ・・・点Cと辺CAの境界面
-//    ------------------------------------------------
-//    ＜点Cと辺CBの境界面＞
-//    外積は垂直よりこの面の法線ベクトルは
-//    (ey*ez, ex*ez, ey*ex)ｘ(-1, 0, 0) = (0, -ey*ex, ex*ez)
-//    -ey*ex * y + ex*ez * z + d = 0
-//    これが点 C(0,0,ez) を通るので
-//    d = -ex*ez^2
-//    求める面は
-//    -ey*ex * y + ex*ez * z - ex*ez^2 = 0    ・・・点Cと辺CBの境界面
-//
-
-
-//    ex*ez * x - ey*ez * y             - ex^2*ez = 0   ・・・点Aと辺ABの境界面
-//    ey*ex * x             - ey*ez * z - ey*ex^2 = 0   ・・・点Aと辺ACの境界面
-//
-//   -ex*ez * x + ey*ez * y             - ey^2*ez = 0    ・・・点Bと辺BAの境界面
-//                ey*ex * y - ex*ez * z - ey^2*ex = 0    ・・・点Bと辺BCの境界面
-//
-//   -ey*ex * x             + ey*ez * z - ey*ez^2 = 0    ・・・点Cと辺CAの境界面
-//               -ey*ex * y + ex*ez * z - ex*ez^2 = 0    ・・・点Cと辺CBの境界面
-
-    //斜面の方程式の要素
-    double a = (ey*ez);
-    double b = (ex*ez);
-    double c = (ey*ex);
-    double d = -(ex*ex*ez);
+    //原点に三直角頂点をおき、(ex,0,0), (0,ey,0), (0,0,ez) の三直角三角錐を考える
+    double& ex = b_x2;
+    double& ey = b_y2;
+    double& ez = b_z2;
 
     //xy平面より内(第一卦限側)か
     bool xy = (o_cz > 0);
@@ -1341,7 +906,6 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     bool yz = (o_cx > 0);
     //zx平面より内(第一卦限側)か
     bool zx = (o_cy > 0);
-
     //xy平面に平行な点Cを通る平面(true:原点側)
     bool xy_C = (o_cz < ez);
     //yz平面に平行な点Aを通る平面(true:原点側)
@@ -1349,216 +913,216 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     //zx平面に平行な点Bを通る平面(true:原点側)
     bool zx_B = (o_cy < ey);
 
-    // A(ex,0,0), B(0,ey,0) を含むxy平面に垂直な面より内（原点がある側）
-    bool vxy_AB = (-ey*o_cx - ex*o_cy           + ex*ey > 0);
-    // B(0,ey,0), C(0,0,ez) を含むyz平面に垂直な面より内（原点がある側）
-    bool vyz_BC = (          -ez*o_cy - ey*o_cz + ey*ez > 0);
-    // C(0,0,ez), A(ex,0,0) を含むzx平面に垂直な面より内（原点がある側）
-    bool vzx_CA = (-ez*o_cx           - ex*o_cz + ez*ex > 0);
-
-    //点Aと辺ABの境界面(true:原点側)
-    bool bo_A_AB = ( ex*ez * o_cx - ey*ez * o_cy                - ex*ex*ez > 0);
-    //点Aと辺ACの境界面(true:原点側)
-    bool bo_A_AC = ( ey*ex * o_cx                - ey*ez * o_cz - ey*ex*ex > 0);
-    //点Bと辺BAの境界面(true:原点側)
-    bool bo_B_BA = (-ex*ez * o_cx + ey*ez * o_cy                - ey*ey*ez > 0);
-    //点Bと辺BCの境界面(true:原点側)
-    bool bo_B_BC = (                ey*ex * o_cy - ex*ez * o_cz - ey*ey*ex > 0);
-    //点Cと辺CAの境界面(true:原点側)
-    bool bo_C_CA = (-ey*ex * o_cx                + ey*ez * o_cz - ey*ez*ez > 0);
-    //点Cと辺CBの境界面
-    bool bo_C_CB = (               -ey*ex * o_cy + ex*ez * o_cz - ex*ez*ez > 0);
-
-    //A(ex,0,0), B(0,ey,0) を含む斜面に垂直な面より内（原点がある側）
-    bool vramp_AB = ((-ex*ey*ey)*o_cx        + (-ex*ex*ey)*o_cy        + (ez*(ex*ex+ey*ey))*o_cz + (ex*ex*ey*ey) > 0);
-    //B(0,ey,0) C(0,0,ez)  を含む斜面に垂直な面より内（原点がある側）
-    bool vramp_BC = ((ex*(ey*ey+ez*ez))*o_cx + (-ey*ez*ez)*o_cy        + (-ey*ey*ez)*o_cz         + (ey*ey*ez*ez) > 0);
-    //C(0,0,ez) A(ex,0,0)  を含む斜面に垂直な面より内（原点がある側）
-    bool vramp_CA = ((-ez*ez*ex)*o_cx        + (ey*(ez*ez+ex*ex))*o_cy + (-ez*ex*ex)*o_cz        + (ez*ez*ex*ex) > 0);
-
-    //斜面より外か（原点の無い側）
-    bool ramp = ((ey*ez)*o_cx + (ex*ez)*o_cy + (ey*ex)*o_cz - ex*ey*ez > 0);
-
+    //BOX対球を行う
+    double slength = 0; //球の中心とAABの最短距離を二乗した値
+    double o_cx2 = o_cx*o_cx;
+    double o_cy2 = o_cy*o_cy;
+    double o_cz2 = o_cz*o_cz;
+    double o_cx_ex2 = (o_cx - ex)*(o_cx - ex);
+    double o_cx_ey2 = (o_cx - ey)*(o_cx - ey);
+    double o_cx_ez2 = (o_cx - ez)*(o_cx - ez);
+    if (!yz) {
+        slength += o_cx2;
+    }
+    if (!yz_A) {
+        slength += o_cx_ex2;
+    }
+    if (!zx) {
+        slength += o_cy2;
+    }
+    if (!zx_B) {
+        slength += o_cx_ey2;
+    }
+    if (!xy) {
+        slength += o_cz2;
+    }
+    if (!xy_C) {
+        slength += o_cx_ez2;
+    }
+    //square_lengthが球の半径（の二乗）よりも短ければ衝突している
+    if (slength > o_rr) {
+        return false;
+    }
 
     if (!xy && !yz && !zx) {
         //頂点Oとの距離
-        _TRACE_("頂点Oとの距離");
-        double length = o_cx*o_cx + o_cy*o_cy + o_cz*o_cz;
-        if (length < o_rr) {
-            return true;
+        return true;
+    }
+
+    if (xy) {
+        if (!yz) {
+            if (!zx) {
+                // xy && !yz && !zx
+                if (xy_C) {
+                    //辺OCとの距離
+                    return true;
+                }
+            }
+        }
+    } else {
+        if (yz) {
+            if (!zx) {
+                // !xy && yz && !zx
+                if (yz_A) {
+                    //辺OAとの距離
+                    return true;
+                }
+            }
         } else {
-            return false;
+            if (zx) {
+                // !xy && !yz && zx
+                if (zx_B) {
+                    //辺OBとの距離
+                    return true;
+                }
+            }
         }
     }
+
+    double exey = ex*ey;
+    double eyez = ey*ez;
+    double ezex = ez*ex;
+    // A(ex,0,0), B(0,ey,0) を含むxy平面に垂直な面より内（原点がある側）
+    bool vxy_AB = (-ey*o_cx - ex*o_cy           + exey > 0);
+    // B(0,ey,0), C(0,0,ez) を含むyz平面に垂直な面より内（原点がある側）
+    bool vyz_BC = (          -ez*o_cy - ey*o_cz + eyez > 0);
+    // C(0,0,ez), A(ex,0,0) を含むzx平面に垂直な面より内（原点がある側）
+    bool vzx_CA = (-ez*o_cx           - ex*o_cz + ezex > 0);
+    if (xy) {
+        if (yz) {
+            if (!zx) {
+                // xy && yz && !zx
+                if (vzx_CA) {
+                    //面OCAとの距離
+                    return true;
+                }
+
+            }
+        } else {
+            if (zx) {
+                if (vyz_BC) {
+                    //面OBCとの距離
+                    return true;
+                }
+            }
+        }
+    } else {
+        if (yz) {
+            if (zx) {
+                // !xy && yz && zx
+                if (vxy_AB) {
+                    //面OABとの距離
+                    return true;
+                }
+            }
+        }
+    }
+
+    double exez = ex*ez;
+    double ex2 = ex*ex;
+    double ey2 = ey*ey;
+    double ez2 = ez*ez;
+    //点Aと辺ABの境界面(true:原点側)
+    bool bo_A_AB = ( exez * o_cx - eyez * o_cy               - ex2*ez > 0);
+    //点Aと辺ACの境界面(true:原点側)
+    bool bo_A_AC = ( exey * o_cx               - eyez * o_cz - ey*ex2 > 0);
+    //なぜこうなるのかは、「球とピラミッド（頂点と辺の境界面）」参照
     if (!yz_A && bo_A_AB && bo_A_AC) {
         //頂点Aとの距離
-        _TRACE_("頂点Aとの距離");
-        double length = (o_cx-ex)*(o_cx-ex) + (o_cy*o_cy) + (o_cz*o_cz);
+        double length = o_cx_ex2 + o_cy2 + o_cz2;
         if (length < o_rr) {
             return true;
         } else {
             return false;
         }
     }
+
+    //点Bと辺BAの境界面(true:原点側)
+    bool bo_B_BA = (-exez * o_cx + eyez * o_cy               - ey2*ez > 0);
+    //点Bと辺BCの境界面(true:原点側)
+    bool bo_B_BC = (               exey * o_cy - exez * o_cz - ey2*ex > 0);
     if (!zx_B && bo_B_BA && bo_B_BC) {
         //頂点Bとの距離
-        _TRACE_("頂点Bとの距離");
-        double length = (o_cx*o_cx) + (o_cy-ey)*(o_cy-ey) + (o_cz*o_cz);
+        double length = o_cx2 + o_cx_ey2 + o_cz2;
         if (length < o_rr) {
             return true;
         } else {
             return false;
         }
     }
+    //点Cと辺CAの境界面(true:原点側)
+    bool bo_C_CA = (-exey * o_cx               + eyez * o_cz - ey*ez2 > 0);
+    //点Cと辺CBの境界面
+    bool bo_C_CB = (              -exey * o_cy + exez * o_cz - ex*ez2 > 0);
     if (!xy_C && bo_C_CA && bo_C_CB) {
         //頂点Cとの距離
-        _TRACE_("頂点Cとの距離");
-        double length = (o_cx*o_cx) + (o_cy*o_cy) + (o_cz-ez)*(o_cz-ez);
+        double length = o_cx2 + o_cy2 + o_cx_ez2;
         if (length < o_rr) {
             return true;
         } else {
             return false;
         }
     }
-    if (!xy && yz && !zx && yz_A) {
-        //辺OAとの距離
-        _TRACE_("辺OAとの距離");
-        double length = o_cy*o_cy + o_cz*o_cz;
-        if (length < o_rr) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    if (!xy && !yz && zx && zx_B) {
-        //辺OBとの距離
-        _TRACE_("辺OBとの距離");
-        double length = o_cx*o_cx + o_cz*o_cz;
-        if (length < o_rr) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    if (xy && !yz && !zx && xy_C) {
-        //辺OCとの距離
-        _TRACE_("辺OCとの距離");
-        double length = o_cx*o_cx + o_cy*o_cy;
-        if (length < o_rr) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+
+    //A(ex,0,0), B(0,ey,0) を含む斜面に垂直な面より内（原点がある側）
+    bool vramp_AB = ((-ex*ey2)*o_cx      + (-ex2*ey)*o_cy      + (ez*(ex2+ey2))*o_cz + (ex2*ey2) > 0);
+    //なぜこうなるのかは、「球とピラミッド（斜面との距離で判定する範囲）」参照
     if (!vxy_AB && !bo_A_AB && !bo_B_BA && !vramp_AB) {
         //辺ABとの距離
-        _TRACE_("辺ABとの距離");
-//        A(ex,0,0), B(0,ey,0)  より
-//        辺ABの直線の式は
-//
-//        点P(o_cx, o_cy, o_cz) と
-//        ABを通る直線l (x,y,z) = (ex,0,0) + t(-ex, ey, 0)の距離を考える。
-//        点Pから直線lに垂直に降ろした線の交点を H とすると、点Hは直線l上なので
-//        点H(ex-t*ex, t*ey, 0) であらわされる
-//
-//        |PH|^2 = ((ex-t*ex)-o_cx)^2 + (t*ey - o_cy)^2 + (0-o_cz)^2
-//
-//        ところで、ABとPHは垂直なので
-//        (-ex, ey, 0)・((ex-t*ex)-o_cx, t*ey-o_cy, -o_cz) = 0
-//
-//        (-ex*((ex-t*ex)-o_cx)) + (ey*(t*ey-o_cy)) + (0) = 0
-//        t=(ey*o_cy-ex*o_cx+ex^2)/(ey^2+ex^2)
-
-        double t = (ey*o_cy-ex*o_cx+ex*ex)/(ey*ey+ex*ex);
-        double length = ((ex-t*ex)-o_cx)*((ex-t*ex)-o_cx) + (t*ey - o_cy)*(t*ey - o_cy) + (0-o_cz)*(0-o_cz);
+        // A(ex,0,0), B(0,ey,0)  より
+        // 辺ABの直線の式は
+        //
+        // 点P(o_cx, o_cy, o_cz) と
+        // ABを通る直線l (x,y,z) = (ex,0,0) + t(-ex, ey, 0)の距離を考える。
+        // 点Pから直線lに垂直に降ろした線の交点を H とすると、点Hは直線l上なので
+        // 点H(ex-t*ex, t*ey, 0) であらわされる
+        //
+        // |PH|^2 = ((ex-t*ex)-o_cx)^2 + (t*ey - o_cy)^2 + (0-o_cz)^2
+        //
+        // ところで、ABとPHは垂直なので
+        // (-ex, ey, 0)・((ex-t*ex)-o_cx, t*ey-o_cy, -o_cz) = 0
+        //
+        // (-ex*((ex-t*ex)-o_cx)) + (ey*(t*ey-o_cy)) + (0) = 0
+        // t=(ey*o_cy-ex*o_cx+ex^2)/(ey^2+ex^2)
+        double t = (ey*o_cy-ex*o_cx+ex2)/(ey2+ex2);
+        double length = ((ex-t*ex)-o_cx)*((ex-t*ex)-o_cx) + (t*ey - o_cy)*(t*ey - o_cy) + o_cz2;
         if (length < o_rr) {
             return true;
         } else {
             return false;
         }
     }
+
+    //B(0,ey,0) C(0,0,ez)  を含む斜面に垂直な面より内（原点がある側）
+    bool vramp_BC = ((ex*(ey2+ez2))*o_cx + (-ey*ez2)*o_cy      + (-ey2*ez)*o_cz      + (ey2*ez2) > 0);
     if (!vyz_BC && !bo_B_BC && !bo_C_CB && !vramp_BC) {
         //辺BCとの距離
-        _TRACE_("辺BCとの距離");
-//        B(0,ey,0), C(0,0,ez)  より
-//        点P(o_cx, o_cy, o_cz) と
-//        BCを通る直線l (x,y,z) = (0,ey,0) + t(0, -ey, ez)の距離を考える。
-//        点Pから直線lに垂直に降ろした線の交点を H とすると、点Hは直線l上なので
-//        点H(0, ey-t*ey, t*ez) であらわされる
-//
-//        |PH|^2 = (0-o_cx)^2 + ((ey-t*ey) - o_cy)^2 + (t*ez - o_cz)^2
-//
-//        ところで、BCとPHは垂直なので
-//        (0, -ey, ez)・(-o_cx, (ey-t*ey) - o_cy, t*ez - o_cz) = 0
-//
-//        (0) + (-ey*((ey-t*ey) - o_cy)) + (ez*(t*ez - o_cz)) = 0
-//        t=(ez*o_cz-ey*o_cy+ey^2)/(ez^2+ey^2)
-        double t = (ez*o_cz-ey*o_cy+ey*ey)/(ez*ez+ey*ey);
-        double length = (0-o_cx)*(0-o_cx) + ((ey-t*ey) - o_cy)*((ey-t*ey) - o_cy) + (t*ez - o_cz)*(t*ez - o_cz);
+        double t = (ez*o_cz-ey*o_cy+ey2)/(ez2+ey2);
+        double length = o_cx2 + ((ey-t*ey) - o_cy)*((ey-t*ey) - o_cy) + (t*ez - o_cz)*(t*ez - o_cz);
         if (length < o_rr) {
             return true;
         } else {
             return false;
         }
     }
+
+    //C(0,0,ez) A(ex,0,0)  を含む斜面に垂直な面より内（原点がある側）
+    bool vramp_CA = ((-ez2*ex)*o_cx      + (ey*(ez2+ex2))*o_cy + (-ez*ex2)*o_cz      + (ez2*ex2) > 0);
     if (!vzx_CA && !bo_A_AC && !bo_C_CA && !vramp_CA) {
         //辺CAとの距離
-        _TRACE_("辺CAとの距離");
-//        C(0,0,ez) A(ex,0,0) より
-//        点P(o_cx, o_cy, o_cz) と
-//        CAを通る直線l (x,y,z) = (0,0,ez) + t(ex, 0, -ez)の距離を考える。
-//        点Pから直線lに垂直に降ろした線の交点を H とすると、点Hは直線l上なので
-//        点H(t*ex, 0, ez-t*ez) であらわされる
-//
-//        |PH|^2 = (t*ex-o_cx)^2 + (0 - o_cy)^2 + ((ez-t*ez) - o_cz)^2
-//
-//        ところで、CAとPHは垂直なので
-//        (ex, 0, -ez)・(t*ex-o_cx, -o_cy, (ez-t*ez)-o_cz) = 0
-//
-//        (ex*(t*ex-o_cx)) + (0) + (-ez*((ez-t*ez)-o_cz)) = 0
-//        t=(ex*o_cx-ez*o_cz+ez^2)/(ez^2+ex^2)
-        double t = (ex*o_cx-ez*o_cz+ez*ez)/(ez*ez+ex*ex);
-        double length = (t*ex-o_cx)*(t*ex-o_cx) + (0 - o_cy)*(0 - o_cy) + ((ez-t*ez) - o_cz)*((ez-t*ez) - o_cz);
+        double t = (ex*o_cx-ez*o_cz+ez2)/(ez2+ex2);
+        double length = (t*ex-o_cx)*(t*ex-o_cx) + o_cy2 + ((ez-t*ez) - o_cz)*((ez-t*ez) - o_cz);
         if (length < o_rr) {
             return true;
         } else {
             return false;
         }
     }
-    if (!xy && yz && zx && vxy_AB) {
-        //面OABとの距離
-        _TRACE_("面OABとの距離");
-        double length = o_cz*o_cz;
-        if (length < o_rr) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    if (xy && !yz && zx && vyz_BC) {
-        //面OBCとの距離
-        _TRACE_("面OBCとの距離");
-        double length = o_cx*o_cx;
-        if (length < o_rr) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    if (xy && yz && !zx && vzx_CA) {
-        //面OCAとの距離
-        _TRACE_("面OCAとの距離");
-        double length = o_cy*o_cy;
-        if (length < o_rr) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+
+    //斜面より外か（原点の無い側）
+    bool ramp = ((ey*ez)*o_cx + (ex*ez)*o_cy + (ey*ex)*o_cz - ex*ey*ez > 0);
     if (vramp_AB && vramp_BC && vramp_CA && ramp) {
         //面ABCとの距離
-        _TRACE_("面ABC(斜面)との距離");
-
         //円の中心から斜面に降ろした垂線の交点(lx,ly,lz)を求める
         //斜面は
         //a*x + b*y + c*z - ex*ey*ez = 0
@@ -1570,8 +1134,14 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
         // tを求める
         // a*(o_cx + t*a) + b*(o_cy + t*b) + c*(o_cz + t*c) - ex*ey*ez = 0
         // t=-(c*o_cz+b*o_cy+a*o_cx-ex*ey*ez)/(c^2+b^2+a^2)
-        double t =-(c*o_cz+b*o_cy+a*o_cx-ex*ey*ez)/(c*c+b*b+a*a);
+        //斜面の方程式の要素
 
+        //斜面の法線(a,b,c)
+        double a = eyez;
+        double b = exez;
+        double c = exey;
+        //double d = -(ex*ex*ez);
+        double t =-(c*o_cz+b*o_cy+a*o_cx-ex*ey*ez)/(c*c+b*b+a*a);
         //交点は
         double lx = o_cx + t*a;
         double ly = o_cy + t*b;
@@ -1585,10 +1155,11 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
         }
     }
 
-
     if (xy && yz && zx && !ramp) {
-        _TRACE_("三角錐内部");
+        //三角錐内部
         return true;
+    } else {
+        _TRACE_("ありえない！！！！！");
     }
 
     return false;
@@ -2177,3 +1748,349 @@ GgafDxFigureActor* StgUtil::shotWay004(const GgafDxGeometricActor* prm_pFrom,
 //t=((z1-z1)*z0+(y1-y2)*y0+(x2-x1)*x0-z1*z1-y2*y1-x1*x2+z1^2+y2^2+x1^2)/(z1^2-2*z1*z1+y1^2-2*y2*y1+x2^2-2*x1*x2+z1^2+y2^2+x1^2)
 //
 //t=(y2^2+(-y1-y0)*y2+y0*y1+(x0-x1)*x2+x1^2-x0*x1)/(y2^2-2*y1*y2+y1^2+x2^2-2*x1*x2+x1^2)
+
+
+// 球とピラミッド（斜面との距離で判定する範囲）
+//    (1) (a, b, c) が平面の法線ベクトルです。
+//
+//    (2) |d|/|(a, b, c)| が "平面と原点の距離" になります。つまり、原点から平面に垂線を降ろした時の、垂線の長さです。
+//    　但し、|(a, b, c)| = √(a^2+b^2+c^2) (法線ベクトルの長さ) です。
+//    　法線ベクトル (a,b,c) が既に規格化されている場合 (|(a,b,c)|=1 の場合) は、単に |d| が "平面と原点の距離" です。
+//
+//    (3) d の符号は、原点が平面の表側にあるか裏側にあるかに対応しています。
+//    　d が正の時は、原点は平面の表側(平面から見て法線ベクトルの方向)にあります。
+//    　d が負の時は、原点は平面の裏側(法線ベクトルと逆の方向)にあります。
+
+//    a→=(ax,ay,az),
+//    b→=(bx,by,bz)
+//
+//    内積
+//    内積-1）：スカラー値 |a→||b→|cosθ のこと
+//    （内積-2）：スカラー値 ax bx + ay by + az bz のこと。
+//
+//    外積
+//    長さが |a→||b→|sinθ で a→ と b→ に垂直なベクトルのこと
+//    （外積-2）：(ay bz - az by, az bx - ax bz, ax by - ay bx)という成分で表されるベクトルのこと。
+//
+//
+//    原点に三直角頂点をおき、A(ex,0,0), B(0,ey,0), C(0,0,ez) の三直角三角錐を考え (ex>0, ey>0, ez>0)
+//    斜面を底面とした三角柱（高さ無限）の範囲を考える
+//
+//    斜面の方程式
+//    AB→ = (-ex, ey, 0 )
+//    AC→ = (-ex, 0 , ez)
+//    AB→ｘAC→ = (a,b,c)
+//
+//    a = ey*ez
+//    b = ex*ez
+//    c = ey*ex
+//
+//    ey ez x + ex ez y + ey ex z + d = 0
+//    これが、A(ex,0,0)をとおるので、
+//
+//    d = -ex*ey*ez
+//
+//    斜面の方程式
+//    (ey*ez)*x + (ex*ez)*y + (ey*ex)*z - ex*ey*ez = 0
+//    法線 (ey*ez, ex*ez, ey*ex)
+//
+//    ----------------------------------------------------------
+//    A(ex,0,0), B(0,ey,0) を含む斜面に垂直な面を求める
+//
+//    求める面を
+//    va*x + vb*y + vc*z + vd = 0 とする
+//    ---------------------------------
+//    ＜外積で求める＞
+//
+//    求める面の法線は(va, vb, vc)
+//    求める面の法線は (ey*ez, ex*ez, ey*ex)に垂直でかつ、AB→(-ex, ey, 0 )とも垂直なので
+//    (ey*ez, ex*ez, ey*ex) ｘ (-ex, ey, 0 ) = (va, vb, vc)
+//
+//    (va, vb, vc) =
+//    ( - (ey*ex)* ey, (ey*ex)*(-ex) , (ey*ez)*ey - (ex*ez)*(-ex))
+//    ( -ex*ey^2, -ex^2*ey , (ey^2+ex^2)*ez)
+//
+//    -------------
+//
+//    ＜内積が0で求める＞
+//
+//    求める面の法線は (ey*ez, ex*ez, ey*ex)に垂直なので
+//    (ey*ez, ex*ez, ey*ex)・(va, vb, vc) = 0
+//    ey*ez*va + ex*ez*vb + ey*ex*vc = 0        ・・・①
+//
+//    求める面の法線はAB→(-ex, ey, 0 )とも垂直なので
+//    (-ex, ey, 0 )・(va, vb, vc) = 0
+//    -ex*va + ey*vb = 0 ・・・②
+//
+//    ここで 法線ベクトル(va, vb, vc) z成分 vc=1 （z成分法線はせいというのが図よりわかったので）とすると
+//
+//    ey*ez*va + ex*ez*vb + ey*ex = 0  ・・・①’
+//    -ex*va + ey*vb = 0               ・・・②
+//
+//    va=(ey*vb)/ex を①’へ
+//
+//    ey*ez*((ey*vb)/ex) + ex*ez*vb + ey*ex = 0
+//
+//    vb=-(ex^2*ey)/((ey^2+ex^2)*ez)
+//    ②へ代入
+//
+//    -ex*va + ey*(-(ex^2*ey)/((ey^2+ex^2)*ez)) = 0
+//    va=-(ex*ey^2)/((ey^2+ex^2)*ez)
+//
+//    よって法線(va, vb, vc) =
+//     (-(ex*ey^2)/((ey^2+ex^2)*ez), -(ex^2*ey)/((ey^2+ex^2)*ez), 1)
+//
+//    ((ey^2+ex^2)*ez)を掛けて整理
+//    (-ex*ey^2, -ex^2*ey, (ey^2+ex^2)*ez)
+//
+//
+//    -----------------------------------------------------
+//
+//    (-ex*ey^2)*x + (-ex^2*ey)*y + ((ey^2+ex^2)*ez)*z + vd = 0
+//    が A(ex,0,0) を通るので
+//    (-ex*ey^2)*ex + vd = 0
+//    vd=ex^2*ey^2
+//
+//    よって求めたい平面は
+//    (-ex*ey^2)*x + (-ex^2*ey)*y + ((ey^2+ex^2)*ez)*z + (ex^2*ey^2) = 0
+//
+
+//    同様にして、
+//
+//    B(0,ey,0) C(0,0,ez) を含む斜面に垂直な面を求める
+//
+//    求める面を
+//    va*x + vb*y + vc*z + vd = 0 とする
+//
+//    求める面の法線は (ey*ez, ex*ez, ey*ex)に垂直なので
+//    (ey*ez, ex*ez, ey*ex)・(va, vb, vc) = 0
+//    ey*ez*va + ex*ez*vb + ey*ex*vc = 0        ・・・①
+//
+//
+//    求める面の法線はBC→(0, -ey, ez)とも垂直なので
+//    (0, -ey, ez)・(va, vb, vc) = 0
+//    -ey*vb + ez*vc = 0 ・・・②
+//
+//    ここで 法線ベクトル(va, vb, vc) x成分 va=1 （x成分法線は正というのが図よりわかったので）とすると
+//
+//    ey*ez + ex*ez*vb + ey*ex*vc = 0     ・・・①’
+//    -ey*vb + ez*vc = 0                  ・・・②’
+//
+//    vb=(ez*vc)/ey を ①’へ代入
+//
+//    ey*ez + ex*ez*((ez*vc)/ey) + ey*ex*vc = 0
+//
+//    vc=-(ey^2*ez)/(ex*ez^2+ex*ey^2)
+//    ②’へ代入
+//    -ey*vb + ez*(-(ey^2*ez)/(ex*ez^2+ex*ey^2)) = 0
+//
+//    vb=-(ey*ez^2)/(ex*ez^2+ex*ey^2)
+//
+//    よって法線(va, vb, vc) =
+//    (1, -(ey*ez^2)/(ex*ez^2+ex*ey^2), -(ey^2*ez)/(ex*ez^2+ex*ey^2))
+//
+//    (ex*ez^2+ex*ey^2) を掛けて整理
+//
+//    (ex*(ez^2+ey^2), -ey*ez^2, -ey^2*ez)
+//    -----------------------------------------------------
+//
+//    (ex*(ez^2+ey^2))*x + (-ey*ez^2)*y + (-ey^2*ez)*z + vd = 0
+//    がB(0,ey,0) を通るので、
+//    (-ey*ez^2)*ey + vd = 0
+//    vd=ey^2*ez^2
+//
+//    よって求めたい平面は
+//
+//    (ex*(ez^2+ey^2))*x + (-ey*ez^2)*y + (-ey^2*ez)*z + (ey^2*ez^2) = 0
+
+
+//    同様にして
+//    C(0,0,ez) A(ex,0,0) を含む斜面に垂直な面を求める
+//
+//    求める面を
+//    va*x + vb*y + vc*z + vd = 0 とする
+//
+//    求める面の法線は (ey*ez, ex*ez, ey*ex)に垂直なので
+//    (ey*ez, ex*ez, ey*ex)・(va, vb, vc) = 0
+//    ey*ez*va + ex*ez*vb + ey*ex*vc = 0        ・・・①
+//
+//    求める面の法線はCA→(ex, 0, -ez)とも垂直なので
+//    (ex, 0, -ez)・(va, vb, vc) = 0
+//    ex*va - ez*vc = 0 ・・・②
+//
+//    ここで 法線ベクトル(va, vb, vc) y成分 vb=1 （y成分法線は正というのが図よりわかったので）とすると
+//
+//    ey*ez*va + ex*ez + ey*ex*vc = 0        ・・・①’
+//    ex*va - ez*vc = 0                      ・・・②
+//
+//    va=(ez*vc)/ex  を①’へ代入
+//
+//    ey*ez*((ez*vc)/ex) + ex*ez + ey*ex*vc = 0
+//    vc=-(ex^2*ez)/(ey*ez^2+ex^2*ey)
+//    ②へ代入
+//    ex*va - ez*(-(ex^2*ez)/(ey*ez^2+ex^2*ey)) = 0
+//    va=-(ex*ez^2)/(ey*ez^2+ex^2*ey)
+//
+//
+//    よって法線(va, vb, vc) =
+//    (-(ex*ez^2)/(ey*ez^2+ex^2*ey), 1, -(ex^2*ez)/(ey*ez^2+ex^2*ey))
+//
+//    (ey*ez^2+ex^2*ey) を掛けて整理
+//
+//    (-ex*ez^2, ey*(ez^2+ex^2), -ex^2*ez)
+//
+//    -----------------------------------------------------
+//    (-ex*ez^2)*x + (ey*(ez^2+ex^2))*y + (-ex^2*ez)*z + vd = 0
+//    が C(0,0,ez) を通るので、
+//    (-ex^2*ez)*ez + vd = 0
+//    vd=ex^2*ez^2
+//
+//    よって求めたい平面は
+//
+//    (-ex*ez^2)*x + (ey*(ez^2+ex^2))*y + (-ex^2*ez)*z + ex^2*ez^2 = 0
+//   よって斜面を底面とした三角柱（高さ無限）の範囲は
+//    (ey*ez)*x + (ex*ez)*y + (ey*ex)*z - ex*ey*ez > 0      斜面
+//    (-ex*ey^2)*x       + (-ex^2*ey)*y       + (ez*(ex^2+ey^2))*z + (ex^2*ey^2) > 0
+//    (ex*(ey^2+ez^2))*x + (-ey*ez^2)*y       + (ey^2*ez)*z        + (ey^2*ez^2) > 0
+//    (-ez^2*ex)*x       + (ey*(ez^2+ex^2))*y + (-ez*ex^2)*z       + (ez^2*ex^2) > 0
+
+//球とピラミッド「頂点と辺の境界面」
+//    ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+//        原点に三直角頂点をおき、A(ex,0,0), B(0,ey,0), C(0,0,ez) の三直角三角錐を考え (ex>0, ey>0, ez>0)
+//        A(ex,0,0), B(0,ey,0) を含むxy平面に垂直な面を求める
+//        求める面を
+//        va*x + vb*y + vc*z + vd = 0 とする
+//
+//        法線(va, vb, vc) = (-ey, -ex, 0)  なので
+//        -ey*x -ex*y + vd = 0   となり、これがA(ex,0,0)を通るので
+//        -ey*ex + vd = 0
+//        vd = ex*ey
+//
+//        よって求める面は
+//        -ey*x - ex*y + ex*ey = 0
+//
+//    -----------
+//        B(0,ey,0), C(0,0,ez) を含むyz平面に垂直な面を求める
+//        va*x + vb*y + vc*z + vd = 0 とする
+//
+//        法線(va, vb, vc) = (0, -ez, -ey)  なので
+//        -ez*y - ey*z + vd = 0   となり、これがB(0,ey,0)を通るので
+//        -ez*ey + vd = 0
+//        vd = ey*ez
+//
+//        よって求める面は
+//        -ez*y - ey*z + ey*ez = 0
+//
+//    ------------------------
+//        C(0,0,ez), A(ex,0,0) を含むzx平面に垂直な面を求める
+//        va*x + vb*y + vc*z + vd = 0 とする
+//
+//        法線(va, vb, vc) = (-ez, 0, -ex)  なので
+//        -ez*x - ex*z + vd = 0 となり、これがC(0,0,ez)を通るので
+//        -ex*ez + vd = 0
+//        vd=ez*ex
+//
+//        よって求める面は
+//       -ez*x - ex*z + ez*ex = 0
+//    ------------------------
+
+    //外積メモ
+//     a→=(ax,ay,az),
+//     b→=(bx,by,bz)
+//    (ay*bz - az*by, az*bx - ax*bz, ax*by - ay*bx)
+
+
+//    A(ex,0,0), B(0,ey,0), C(0,0,ez)
+//
+//    ＜点Bと辺BAの境界面＞
+//    斜面の方程式
+//    (ey*ez)*x + (ex*ez)*y + (ey*ex)*z - ex*ey*ez = 0
+//    より、
+//
+//    B(0,ey,0)を通り斜面法線 (ey*ez, ex*ez, ey*ex) に平行な線であるので、
+//    (x,y,z) = (0,ey,0) + t(ey*ez, ex*ez, ey*ex)  ・・・①
+//
+//    A(ex,0,0)を通り面zx に平行な（境界の）線その１は
+//    (x,y,z) = (0,ey,0) + t(0, 0, -1)  ・・・②
+//
+//    ①②を含む面を求める
+//    この面の法線を(a,b,c) とすると
+//    外積は垂直より
+//    (ey*ez, ex*ez, ey*ex)ｘ(0, 0, -1) = (-ex*ez, ey*ez, 0)
+//
+//    -ex*ez * x + ey*ez * y + d = 0
+//    これが点B(0,ey,0)を通るので
+//    d = -ey^2*ez
+//
+//    求める面は
+//    -ex*ez * x + ey*ez * y - ey^2*ez = 0    ・・・点Bと辺BAの境界面
+//    ------------------------------------------------
+//    ＜点Bと辺BCの境界面＞
+//    (x,y,z) = (ex,0,0) + t(ey*ez, ex*ez, ey*ex)  ・・・①
+//    B(0,ey,0)を通り面zx に平行な（境界の）線その２は
+//    (x,y,z) = (ex,0,0) + t(-1, 0, 0)  ・・・②
+//    ①②を含む面を求める
+//    この面の法線を(a,b,c) とすると
+//    外積は垂直より
+//    (-1, 0, 0)ｘ(ey*ez, ex*ez, ey*ex) = (0, ey*ex, -ex*ez)
+//
+//    ey*ex * y - ex*ez * z + d = 0
+//
+//    これが点B(0,ey,0)を通るので
+//    d = -ey^2*ex
+//
+//    求める面は
+//    ey*ex * y - ex*ez * z - ey^2*ex = 0   ・・・点Bと辺BCの境界面
+//
+//
+//    ------------------------------------------------
+//    ＜点Aと辺ABの境界面＞
+//    外積は垂直よりこの面の法線ベクトルは
+//    (0, 0, -1)ｘ(ey*ez, ex*ez, ey*ex) =  (ex*ez, -ey*ez, 0)
+//
+//    ex*ez * x - ey*ez * y + d = 0
+//    これが点A(ex,0,0)を通るので
+//    d = -ex^2*ez
+//
+//    求める面は
+//    ex*ez * x - ey*ez * y - ex^2*ez = 0   ・・・点Aと辺ABの境界面
+//    ------------------------------------------------
+//    ＜点Aと辺ACの境界面＞
+//    外積は垂直よりこの面の法線ベクトルは
+//    (ey*ez, ex*ez, ey*ex)ｘ(0, -1, 0) = (ey*ex, 0, -ey*ez)
+//
+//    ey*ex * x - ey*ez * z + d = 0
+//    これが点A(ex,0,0)を通るので
+//    d = -ey*ex^2
+//
+//    求める面は
+//    ey*ex * x - ey*ez * z - ey*ex^2 = 0   ・・・点Aと辺ACの境界面
+//
+//
+//    ------------------------------------------------
+//    ＜点Cと辺CAの境界面＞
+//    外積は垂直よりこの面の法線ベクトルは
+//    (0, -1, 0)ｘ(ey*ez, ex*ez, ey*ex) = (-ey*ex, 0, ey*ez)
+//    -ey*ex * x + ey*ez * z + d = 0
+//    これが点 C(0,0,ez) を通るので
+//    d = -ey*ez^2
+//    求める面は
+//    -ey*ex * x + ey*ez * z -ey*ez^2 = 0  ・・・点Cと辺CAの境界面
+//    ------------------------------------------------
+//    ＜点Cと辺CBの境界面＞
+//    外積は垂直よりこの面の法線ベクトルは
+//    (ey*ez, ex*ez, ey*ex)ｘ(-1, 0, 0) = (0, -ey*ex, ex*ez)
+//    -ey*ex * y + ex*ez * z + d = 0
+//    これが点 C(0,0,ez) を通るので
+//    d = -ex*ez^2
+//    求める面は
+//    -ey*ex * y + ex*ez * z - ex*ez^2 = 0    ・・・点Cと辺CBの境界面
+//
+//    ex*ez * x - ey*ez * y             - ex^2*ez = 0   ・・・点Aと辺ABの境界面
+//    ey*ex * x             - ey*ez * z - ey*ex^2 = 0   ・・・点Aと辺ACの境界面
+//
+//   -ex*ez * x + ey*ez * y             - ey^2*ez = 0    ・・・点Bと辺BAの境界面
+//                ey*ex * y - ex*ez * z - ey^2*ex = 0    ・・・点Bと辺BCの境界面
+//
+//   -ey*ex * x             + ey*ez * z - ey*ez^2 = 0    ・・・点Cと辺CAの境界面
+//               -ey*ex * y + ex*ez * z - ex*ez^2 = 0    ・・・点Cと辺CBの境界面

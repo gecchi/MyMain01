@@ -136,7 +136,7 @@ OUT_VS GgafDxVS_WallAAPrism(
 	} 
     //ï`âÊñ î‘çÜèÓïÒÇ™ÅAÉèÅ[ÉãÉhïœä∑çsóÒÇÃmatWorld._14 Ç…ñÑÇﬂçûÇ‹ÇÍÇƒÇ¢ÇÈ
 	int draw_face = matWorld._14;
-	int pos_prism = matWorld._24;
+	int pos_info = matWorld._24;
 	//å≥ÇÃçsóÒílÇ…ñﬂÇµÇƒÇ®Ç≠
     matWorld._14 = 0; 
     matWorld._24 = 0; //å≥ÇÃçsóÒílÇ…ñﬂÇµÇƒÇ®Ç≠
@@ -245,48 +245,48 @@ OUT_VS GgafDxVS_WallAAPrism(
 
     //BOXÇÃÇPñ Çñ≥óùÇ‚ÇËï¬Ç∂ÇƒÉvÉäÉYÉÄå^Ç…ïœå`Ç≥ÇπÇÈ
 	float ah,fh;
-	if (pos_prism >= POS_PRISM_ZX) {   
+	if (pos_info >= POS_PRISM_ZX) {   
 		//Å{X -X ÇÃñ Ç™ÉvÉäÉYÉÄÇÃéŒÇﬂñ Ç…Ç»ÇÁÇ»Ç¢ÇÊÇ§Ç…Ç∑ÇÈ
 		// ZX ÇÕ XZïΩñ Ç∆å©ÇÈ
-		pos_prism -= POS_PRISM_ZX;
+		pos_info -= POS_PRISM_ZX;
 		ah = g_wall_width / g_wall_dep / 2.0; //åXÇ´ z/x ÅiåXÇ´ x/z Ç≈ÇÕÇ»Ç≠ÇƒÅj
 		//ah = g_wall_height / g_wall_dep / 2.0; //åXÇ´ y/x
 		fh = g_wall_dep/2.0;
-		if (pos_prism == POS_PRISM_pp) {
+		if (pos_info == POS_PRISM_pp) {
 			prm_posModel_Local.z = (prm_posModel_Local.z * ((prm_posModel_Local.x+fh)/g_wall_dep))       - ((prm_posModel_Local.x-fh)*ah);
-		} else if (pos_prism == POS_PRISM_pn) {
+		} else if (pos_info == POS_PRISM_pn) {
 			prm_posModel_Local.z = (prm_posModel_Local.z * (1.0-((prm_posModel_Local.x+fh)/g_wall_dep))) + ((prm_posModel_Local.x+fh)*ah);
-		} else if (pos_prism == POS_PRISM_np) { 
+		} else if (pos_info == POS_PRISM_np) { 
 			prm_posModel_Local.z = (prm_posModel_Local.z * ((prm_posModel_Local.x+fh)/g_wall_dep))       + ((prm_posModel_Local.x-fh)*ah);
-		} else { //if (pos_prism == POS_PRISM_nn) {
+		} else { //if (pos_info == POS_PRISM_nn) {
 			prm_posModel_Local.z = (prm_posModel_Local.z * (1.0-((prm_posModel_Local.x+fh)/g_wall_dep))) - ((prm_posModel_Local.x+fh)*ah);
 		}
-	} else if (pos_prism >= POS_PRISM_YZ) {   
+	} else if (pos_info >= POS_PRISM_YZ) {   
 		//Å{Z -Z ÇÃñ Ç™ÉvÉäÉYÉÄÇÃéŒÇﬂñ Ç…Ç»ÇÁÇ»Ç¢ÇÊÇ§Ç…Ç∑ÇÈ
-		pos_prism -= POS_PRISM_YZ;
+		pos_info -= POS_PRISM_YZ;
 		ah = g_wall_height / g_wall_width / 2.0; //åXÇ´ y/z
 		fh = g_wall_width/2.0;                   //åXÇ≠é≤
-		if (pos_prism == POS_PRISM_pp) {
+		if (pos_info == POS_PRISM_pp) {
 			prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.z+fh)/g_wall_width))       - ((prm_posModel_Local.z-fh)*ah);
-		} else if (pos_prism == POS_PRISM_pn) {
+		} else if (pos_info == POS_PRISM_pn) {
 			prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.z+fh)/g_wall_width))) + ((prm_posModel_Local.z+fh)*ah);
-		} else if (pos_prism == POS_PRISM_np) { 
+		} else if (pos_info == POS_PRISM_np) { 
 			prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.z+fh)/g_wall_width))       + ((prm_posModel_Local.z-fh)*ah);
-		} else { //if (pos_prism == POS_PRISM_nn) {
+		} else { //if (pos_info == POS_PRISM_nn) {
 			prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.z+fh)/g_wall_width))) - ((prm_posModel_Local.z+fh)*ah);
 		}
-	} else { //if (pos_prism >= POS_PRISM_XY) {   
+	} else { //if (pos_info >= POS_PRISM_XY) {   
 		//Å{X -X ÇÃñ Ç™ÉvÉäÉYÉÄÇÃéŒÇﬂñ Ç…Ç»ÇÁÇ»Ç¢ÇÊÇ§Ç…Ç∑ÇÈ
-		pos_prism -= POS_PRISM_XY;
+		pos_info -= POS_PRISM_XY;
 		ah = g_wall_height / g_wall_dep / 2.0; //åXÇ´ y/x
 		fh = g_wall_dep/2.0;                   //åXÇ≠é≤
-		if (pos_prism == POS_PRISM_pp) {
+		if (pos_info == POS_PRISM_pp) {
 			prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.x+fh)/g_wall_dep))       - ((prm_posModel_Local.x-fh)*ah);
-		} else if (pos_prism == POS_PRISM_pn) {
+		} else if (pos_info == POS_PRISM_pn) {
 			prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.x+fh)/g_wall_dep))       + ((prm_posModel_Local.x-fh)*ah);
-		} else if (pos_prism == POS_PRISM_np) { 
+		} else if (pos_info == POS_PRISM_np) { 
 			prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.x+fh)/g_wall_dep))) + ((prm_posModel_Local.x+fh)*ah);
-		} else { //if (pos_prism == POS_PRISM_nn) {
+		} else { //if (pos_info == POS_PRISM_nn) {
 			prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.x+fh)/g_wall_dep))) - ((prm_posModel_Local.x+fh)*ah);
 		}
 	}

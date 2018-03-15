@@ -58,7 +58,7 @@ bool WallAABActor::initStatic(WallAABActor* prm_pWallAABActor) {
 //    WallAABActor::_ah_wall_draw_face[18]  = pID3DXEffect->GetParameterByName( nullptr, "g_wall_draw_face019" );
     return true;
 }
-void WallAABActor::config(WalledSectionScene* prm_pWalledSectionScene, int prm_pos_info, int prm_wall_draw_face, int* prm_aColliBoxStretch) {
+void WallAABActor::config(WalledSectionScene* prm_pWalledSectionScene, pos_t prm_pos_info, int prm_wall_draw_face, int* prm_aColliBoxStretch) {
     WallPartsActor::config(prm_pWalledSectionScene, prm_pos_info,  prm_wall_draw_face,  prm_aColliBoxStretch);
     CollisionChecker* pChecker = getCollisionChecker();
     if (prm_aColliBoxStretch[0] == 0) {

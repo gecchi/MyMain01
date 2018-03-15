@@ -83,7 +83,7 @@ bool WallAAPrismActor::initStatic(WallAAPrismActor* prm_pWallAAPrismActor) {
     return true;
 }
 
-void WallAAPrismActor::config(WalledSectionScene* prm_pWalledSectionScene, int prm_pos_info, int prm_wall_draw_face, int* prm_aColliBoxStretch) {
+void WallAAPrismActor::config(WalledSectionScene* prm_pWalledSectionScene, pos_t prm_pos_info, int prm_wall_draw_face, int* prm_aColliBoxStretch) {
     prm_wall_draw_face &= WallAAPrismActor::_delface[prm_pos_info]; //プリズム無条件描画不要面
     WallPartsActor::config(prm_pWalledSectionScene, prm_pos_info,  prm_wall_draw_face,  prm_aColliBoxStretch);
     CollisionChecker* pChecker = getCollisionChecker();

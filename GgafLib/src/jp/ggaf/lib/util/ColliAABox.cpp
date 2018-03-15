@@ -8,9 +8,11 @@ using namespace GgafLib;
 
 ColliAABox::ColliAABox() : GgafDxCollisionPart() {
     _shape_kind = COLLI_AABOX;
+    _pos_info = 0;
 }
 
 void ColliAABox::set(coord x1, coord y1, coord z1, coord x2, coord y2, coord z2, bool rot_x, bool rot_y, bool rot_z) {
+    _pos_info = 0;
     if (x1 < x2) {
         _x1 = x1;
         _x2 = x2;

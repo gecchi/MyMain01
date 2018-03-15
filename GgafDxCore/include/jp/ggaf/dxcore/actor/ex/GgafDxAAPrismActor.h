@@ -38,7 +38,7 @@ public:
     static bool initStatic();
 
     void drawPrism(coord prm_x1, coord prm_y1, coord prm_z1,
-                   coord prm_x2, coord prm_y2, coord prm_z2, int pos_prism);
+                   coord prm_x2, coord prm_y2, coord prm_z2, pos_t pos_info);
 
     virtual ~GgafDxAAPrismActor(); //デストラクタ
 };
@@ -47,7 +47,7 @@ public:
 #endif /*GGAFDXCORE_GGAFDXBOXACTOR_H_*/
 
 //補足
-//プリズム位置(pos_prism)を、表す定数(GgafDxCommonHeader.hで定義)は以下のような命名がなされている。
+//プリズム位置(pos_info)を、表す定数(GgafDxCommonHeader.hで定義)は以下のような命名がなされている。
 //＜例＞
 //POS_PRISM_YZ_nn
 //＜意味＞

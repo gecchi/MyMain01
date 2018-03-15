@@ -347,7 +347,7 @@ int MassWallActor::isOutOfView() {
 }
 
 
-void MassWallActor::config(WallSectionScene* prm_pWallSectionScene, int prm_pos_info, int prm_wall_draw_face, int* prm_aColliBoxStretch) {
+void MassWallActor::config(WallSectionScene* prm_pWallSectionScene, pos_t prm_pos_info, int prm_wall_draw_face, int* prm_aColliBoxStretch) {
     if (prm_pos_info == 0) {
         //BOX
         _wall_draw_face = prm_wall_draw_face;

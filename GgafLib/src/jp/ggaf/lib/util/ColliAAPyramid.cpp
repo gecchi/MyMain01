@@ -6,11 +6,10 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 
 ColliAAPyramid::ColliAAPyramid() : ColliAABox() {
-    _pos_pyramid = -1;
     _shape_kind = COLLI_AAPYRAMID;
 }
 
-void ColliAAPyramid::set(int prm_x1, int prm_y1, int prm_z1, int prm_x2, int prm_y2, int prm_z2, int prm_pos_pyramid, bool prm_rot_x, bool prm_rot_y, bool prm_rot_z) {
+void ColliAAPyramid::set(int prm_x1, int prm_y1, int prm_z1, int prm_x2, int prm_y2, int prm_z2, pos_t prm_pos_info, bool prm_rot_x, bool prm_rot_y, bool prm_rot_z) {
 #ifdef MY_DEBUG
     if (prm_rot_x || prm_rot_y || prm_rot_z) {
         //TODO:‚Ğ‚Ü‚È‚çÀ‘•
@@ -18,7 +17,7 @@ void ColliAAPyramid::set(int prm_x1, int prm_y1, int prm_z1, int prm_x2, int prm
     }
 #endif
     ColliAABox::set(prm_x1, prm_y1, prm_z1, prm_x2, prm_y2, prm_z2, prm_rot_x, prm_rot_y, prm_rot_z);
-    _pos_pyramid = prm_pos_pyramid;
+    _pos_info = prm_pos_info;
     //–@üƒxƒNƒgƒ‹‚ğ—\‚ß‹‚ß‚Ä•Û
     float x1 = C_DX(_x1);
     float y1 = C_DX(_y1);
@@ -29,7 +28,7 @@ void ColliAAPyramid::set(int prm_x1, int prm_y1, int prm_z1, int prm_x2, int prm
 
     float dg_vx, dg_vy, dg_vz; //‘ÎŠpü•ûŒüƒxƒNƒgƒ‹
     float x0, y0, z0;          //‚R’¼Šp‚Ì’¸“_i‘ÎŠpü‚ª’Ê‚é“_j
-    switch (_pos_pyramid) {
+    switch (_pos_info) {
         case POS_PYRAMID_nnn: {
             UTIL::getPlaneNomalVec(x2, y1, z1,
                                    x1, y2, z1,
@@ -135,7 +134,7 @@ void ColliAAPyramid::set(int prm_x1, int prm_y1, int prm_z1, int prm_x2, int prm
              break;
          }
          default: {
-             throwGgafCriticalException("ColliAAPyramid::set() prm_pos_pyramid ‚ª•s³‚Å‚·Bprm_pos_pyramid="<<prm_pos_pyramid);
+             throwGgafCriticalException("ColliAAPyramid::set() prm_pos_info ‚ª•s³‚Å‚·Bprm_pos_info="<<prm_pos_info);
              break;
          }
      }
@@ -150,111 +149,11 @@ void ColliAAPyramid::set(int prm_x1, int prm_y1, int prm_z1, int prm_x2, int prm
     // _s_nvx*(x0+t*dg_vx) + _s_nvy*(y0+t*dg_vy) + _s_nvz*(z0+t*dg_vz) + _s_d = 0
     // t=-(_s_nvz*z0+_s_nvy*y0+_s_nvx*x0+_s_d)/(_s_nvz*dg_vz+_s_nvy*dg_vy+_s_nvx*dg_vx)
     //‚±‚ê‚ğ‡@‚Ö‘ã“ü
-    float t=-(_s_nvz*z0+_s_nvy*y0+_s_nvx*x0+_s_d)/(_s_nvz*dg_vz+_s_nvy*dg_vy+_s_nvx*dg_vx);
+    double t=-(_s_nvz*z0+_s_nvy*y0+_s_nvx*x0+_s_d)/(_s_nvz*dg_vz+_s_nvy*dg_vy+_s_nvx*dg_vx);
     //Œğ“_‚Í
     _l_px = DX_C(x0 + t*dg_vx);
     _l_py = DX_C(y0 + t*dg_vy);
     _l_pz = DX_C(z0 + t*dg_vz);
-
-
-    // 2ğ‚Ì‹——£‚ğ‚¢‚©‚Ìê‡‚í‚¯‚Åİ’è
-    //
-    //  a
-    //	if(o_scx < b_x1) {
-    //		square_length += (double)(o_scx - b_x1) * (o_scx - b_x1);
-    //	}
-
-    //	b
-    //	if(o_scx > b_x2) {
-    //		square_length += (double)(o_scx - b_x2) * (o_scx - b_x2);
-    //	}
-
-    //          a         b      c        d      e
-    //    -------------><---><---------><---><-----------------
-    //              ,„ŸA
-    //             „   „    ,„ŸA
-    //              `„Ÿ'  _„ _ „ ‡@
-    //                  |_ `„Ÿ'
-    //                  |  _   _
-    //                  |    _  r_
-    //                  |      _   _
-    //                  |        _    ,„ŸA‡A
-    //                  |          _ „ | „ 
-    //                  |            _`+-'
-    //                  ----------------,„ŸA
-    //              ,„ŸA              „   „ 
-    //             „   „                `„Ÿ'
-    //              `„Ÿ'
-
-    //Î–Ê‚Æ‹…‚ªÚ‚µ‚½ê‡A‹…‚Ì’†S(cx,cy,cz)‚©‚ç‚ü‚ğÎ–Ê‚É~‚ë‚µ‚½“_P(x,y,z)‚ğl‚¦
-    //ü(cx,cy,cz)-(x,y,z) ‚Ì XY•½–ÊAYZ•½–ÊAZX•½–Ê‚©‚çŒ©‚½‚»‚ê‚¼‚ê‚Ìu‚È‚·ŠpvƒÆ‚ğ‹‚ß‚é
-    //‡@ A‡A‚Ì‚Æ‚«‚Ì‘«‚µ‚±‚Ş2ğ‚Ì‹——£‚ğ‹‚ß‚é‚½‚ß‚É
-
-
-
-
-
-
-    // XY•½–Ê‚Ål‚¦‚é
-    //
-    //    (x1,y1) (x2,y2) ‚ğ ’Ê‚é’¼ü
-    //    y = ax + b
-    //    a = (y2-y1) / (x2-x1)
-    //    b = (x2*y1 - x1*y2) / (x2-x1)
-    //
-    // (a,b) (c,d) ‚ğ’Ê‚é’¼ü
-    //ŒX‚« = (d-b) / (c-a);
-    //Ø•Ğ = (c*b - a*d) / (c-a);
-
-    //y = ax + b ‚æ‚è
-    //b = y - ax
-
-    // XY•½–Ê‚Ål‚¦‚é
-    // a = (y2-y1) / (x2-x1) ‚æ‚è
-    float a_XY = (y2-y1) / (x2-x1);
-
-//    if ((_pos_pyramid & POS_PYRAMID_ppn) ||(_pos_pyramid & POS_PYRAMID_ppp)) {
-////    (x1,y2)    (x2,y2)
-////        _______
-////        _    |
-////          _  |
-////            _|
-////              (x2, y1)ƒRƒR
-//        _rad_xy =              UTIL::getRad2D(x2-x2,y2-y1 , x1-x2,y2-y1);
-//    }
-//    if ((_pos_pyramid & POS_PYRAMID_npn) ||(_pos_pyramid & POS_PYRAMID_npp)) {
-////    (x1,y2)    (x2,y2)ƒRƒR
-////        _______
-////        |    ^
-////        |  ^
-////        |^
-////    (x1, y1)
-//        _rad_xy = (PI / 2.0) + UTIL::getRad2D(x1-x2,y2-y2 , x1-x2,y1-y2);
-//    }
-//    if ((_pos_pyramid & POS_PYRAMID_nnn) ||(_pos_pyramid & POS_PYRAMID_nnp)) {
-////    (x1,y2)ƒRƒR
-////        |_
-////        |  _
-////        |    _
-////        --------
-//// (x1, y1)   (x2, y1)
-//        _rad_xy = PI + UTIL::getRad2D(x1-x1,y1-y2 , x2-x1,y1-y2);
-//    }
-//    if ((_pos_pyramid & POS_PYRAMID_pnn) ||(_pos_pyramid & POS_PYRAMID_pnp)) {
-////          (x2,y2)ƒRƒR
-////        ^|
-////      ^  |
-////    ^    |
-////   --------
-//// (x1, y1)   (x2, y1)
-//        _rad_xy = ((3.0 * PI) / 2.0) + UTIL::getRad2D(x2-x2,y1-y2 , x1-x2,y1-y2);
-//    }
-//
-////    _rad_xy =              UTIL::getRad2D(x2-x2,y2-y1 , x1-x2,y2-y1);
-
-    _rad_xy = UTIL::getRad2D(x2-x2,y2-y1 , x1-x2,y2-y1);
-    _rad_yz = UTIL::getRad2D(y2-y2,z2-z1 , y1-y2,z2-z1);
-    _rad_zx = UTIL::getRad2D(z2-z2,x2-x1 , z1-z2,x2-x1);
 }
 
 

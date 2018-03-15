@@ -31,8 +31,10 @@
 /** 回転方法定数、どちらかの回転（いずれの回転でも） */
 #define TURN_BOTH 0
 
+typedef uint32_t pos_t;
 
 //プリズム姿勢(位置)定数
+
 #define POS_PRISM_XY_nn   (0x11) //0b 00010001
 #define POS_PRISM_XY_np   (0x12) //0b 00010010
 #define POS_PRISM_XY_pn   (0x14) //0b 00010100
@@ -67,25 +69,23 @@
 /** 直角がある場所 は, (正, 正)である */
 #define POS_PRISM_pp      (0x8)  //0b 00001000
 
-
-
 //直角の頂点の位置をネガポジ
 //                  xyz
-#define POS_PYRAMID_nnn   (0x80) //0b  10000000
-#define POS_PYRAMID_nnp   (0x81) //0b  10000001
-#define POS_PYRAMID_npn   (0x82) //0b  10000010
-#define POS_PYRAMID_npp   (0x83) //0b  10000011
-#define POS_PYRAMID_pnn   (0x84) //0b  10000100
-#define POS_PYRAMID_pnp   (0x85) //0b  10000101
-#define POS_PYRAMID_ppn   (0x86) //0b  10000110
-#define POS_PYRAMID_ppp   (0x87) //0b  10000111
+#define POS_PYRAMID_nnn   (0x8000) //0b  10000000 00000000
+#define POS_PYRAMID_nnp   (0x8100) //0b  10000001 00000000
+#define POS_PYRAMID_npn   (0x8200) //0b  10000010 00000000
+#define POS_PYRAMID_npp   (0x8300) //0b  10000011 00000000
+#define POS_PYRAMID_pnn   (0x8400) //0b  10000100 00000000
+#define POS_PYRAMID_pnp   (0x8500) //0b  10000101 00000000
+#define POS_PYRAMID_ppn   (0x8600) //0b  10000110 00000000
+#define POS_PYRAMID_ppp   (0x8700) //0b  10000111 00000000
 
-#define POS_PYRAMID___p   (0x1)  //0b  00000001
-#define POS_PYRAMID__p_   (0x2)  //0b  00000010
-#define POS_PYRAMID__pp   (0x3)  //0b  00000011
-#define POS_PYRAMID_p__   (0x4)  //0b  00000100
-#define POS_PYRAMID_p_p   (0x5)  //0b  00000101
-#define POS_PYRAMID_pp_   (0x6)  //0b  00000110
+#define POS_PYRAMID___p   (0x100)  //0b  00000001 00000000
+#define POS_PYRAMID__p_   (0x200)  //0b  00000010 00000000
+#define POS_PYRAMID__pp   (0x300)  //0b  00000011 00000000
+#define POS_PYRAMID_p__   (0x400)  //0b  00000100 00000000
+#define POS_PYRAMID_p_p   (0x500)  //0b  00000101 00000000
+#define POS_PYRAMID_pp_   (0x600)  //0b  00000110 00000000
 
 
 //DirectXの3D空間の座標単位１に対しての原点付近の画面px相当数（画面高さ(px)などを、PX_UNITで割ると3D空間の座標単位１になる）

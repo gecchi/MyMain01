@@ -44,7 +44,7 @@ void ColliAAPyramidActor::drawHitarea(CollisionChecker* prm_pColliChecker) {
             for (int i = 0; i < iAreaNum; i++) {
                 if (pCollisionArea->_papColliPart[i]->_is_valid_flg && pCollisionArea->_papColliPart[i]->_shape_kind == COLLI_AAPYRAMID) {
                     ColliAAPyramid* pyramid = (ColliAAPyramid*)pCollisionArea->_papColliPart[i];
-                    if (pyramid->_pos_pyramid < 0) {
+                    if (pyramid->_pos_info < 0) {
                         _TRACE_("【警告】ColliAAPyramidActor::drawHitarea BADPOS i="<<i<<" Target="<<pActor->getName()<<" 要調査");
                     } else {
                         drawPyramid(pActor->_x + pyramid->_x1,
@@ -53,7 +53,7 @@ void ColliAAPyramidActor::drawHitarea(CollisionChecker* prm_pColliChecker) {
                                     pActor->_x + pyramid->_x2,
                                     pActor->_y + pyramid->_y2,
                                     pActor->_z + pyramid->_z2,
-                                    pyramid->_pos_pyramid);
+                                    pyramid->_pos_info);
                     }
 #ifdef MY_DEBUG
                     GgafGod::_num_drawing--; //当たり判定表示は表示オブジェクト数にカウントしない

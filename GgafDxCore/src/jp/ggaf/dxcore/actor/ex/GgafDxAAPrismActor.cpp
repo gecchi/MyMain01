@@ -67,10 +67,10 @@ bool GgafDxAAPrismActor::initStatic() {
 //}
 
 void GgafDxAAPrismActor::drawPrism(coord prm_x1, coord prm_y1, coord prm_z1,
-                                   coord prm_x2, coord prm_y2, coord prm_z2, int pos_prism) {
-    _rx = GgafDxAAPrismActor::pos2r[pos_prism]._rx;
-    _rz = GgafDxAAPrismActor::pos2r[pos_prism]._rz;
-    _ry = GgafDxAAPrismActor::pos2r[pos_prism]._ry;
+                                   coord prm_x2, coord prm_y2, coord prm_z2, pos_t pos_info) {
+    _rx = GgafDxAAPrismActor::pos2r[pos_info]._rx;
+    _rz = GgafDxAAPrismActor::pos2r[pos_info]._rz;
+    _ry = GgafDxAAPrismActor::pos2r[pos_info]._ry;
     _sx = (prm_x2 - prm_x1);
     _sy = (prm_y2 - prm_y1);
     _sz = (prm_z2 - prm_z1);

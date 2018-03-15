@@ -22,8 +22,8 @@ Stage01WallScene::Stage01WallScene(const char* prm_name) : WallScene(prm_name) {
 
     //********* 壁情報 ***********
     coord wall_dep    = DX_C(40);  //壁ブロックモデル１個のX軸方向の幅設定（Xファイルにより決まる）
-    coord wall_width  = DX_C(20);  //壁ブロックモデル１個のZ軸方向の幅設定（Xファイルにより決まる）
-    coord wall_height = DX_C(20);  //壁ブロックモデル１個のY軸方向の幅設定（Xファイルにより決まる）
+    coord wall_width  = DX_C(10);  //壁ブロックモデル１個のZ軸方向の幅設定（Xファイルにより決まる）
+    coord wall_height = DX_C(10);  //壁ブロックモデル１個のY軸方向の幅設定（Xファイルにより決まる）
     float scale_r = 4.0f;        //今回壁ブロックの拡大率（ここで設定可能）
     //****************************
 
