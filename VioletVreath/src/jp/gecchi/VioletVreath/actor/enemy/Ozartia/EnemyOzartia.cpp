@@ -108,7 +108,7 @@ void EnemyOzartia::onCreateModel() {
 void EnemyOzartia::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
-    pChecker->setColliAABox_Cube(0, 40000);
+    pChecker->setColliAACube(0, 40000);
     GgafDxKuroko* pKuroko = getKuroko();
     pKuroko->forceMvVeloRange(PX_C(1), PX_C(30));
     pKuroko->linkFaceAngByMvAng(false); //“Æ—§

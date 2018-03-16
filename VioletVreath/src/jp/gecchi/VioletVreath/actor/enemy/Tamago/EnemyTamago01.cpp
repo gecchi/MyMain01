@@ -64,7 +64,7 @@ void EnemyTamago01::initialize() {
 
 //    pChecker->setColliAABox_WHD(0,20000,-30000,50000,
 //                                              90000,140000,60000);
-    pChecker->setColliAABox_Cube(0, 50000);
+    pChecker->setColliAACube(0, 50000);
 
 
     //pChecker->setColliAABox(0, -30000, -30000, -30000, 30000, 30000, 30000);

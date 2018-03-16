@@ -50,7 +50,7 @@ MyTorpedo::MyTorpedo(const char* prm_name, MyTorpedoController* prm_pTorpedoCont
 void MyTorpedo::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
-    pChecker->setColliAABox_Cube(0, 70000);
+    pChecker->setColliAACube(0, 70000);
 }
 
 void MyTorpedo::onReset() {

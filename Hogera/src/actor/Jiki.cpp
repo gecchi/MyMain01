@@ -41,9 +41,8 @@ void Jiki::initialize() {
 
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
-//    pChecker->setColliAABox_Cube(0, PX_C(128));
-    pChecker->setColliSphere(0, PX_C(64));
-
+//    pChecker->set2DColliSquare(0, PX_C(128));
+    pChecker->set2DColliCircle(0, PX_C(32));
 }
 
 

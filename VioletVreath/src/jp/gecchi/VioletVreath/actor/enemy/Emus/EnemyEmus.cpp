@@ -68,7 +68,7 @@ void EnemyEmus::initialize() {
     setMorphWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
-    pChecker->setColliAABox_Cube(0, 200000);
+    pChecker->setColliAACube(0, 200000);
     setScale(1000);
     GgafDxScaler* const pScaler = getScaler();
     pScaler->setRange(1000, 1200);

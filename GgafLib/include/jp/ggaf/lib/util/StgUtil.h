@@ -113,7 +113,7 @@ public:
                         const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere*  const pSphere02  );
 
     /**
-     * AAピラミッド 対 AAB 当たり判定（未完成） .
+     * AAピラミッド 対 AAB 当たり判定 .
      * @param pActor01
      * @param pAAPyramid01
      * @param pActor02
@@ -124,7 +124,7 @@ public:
                         const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox*     const pAABox02     );
 
     /**
-     * AAピラミッド 対 球 当たり判定（未完成） .
+     * AAピラミッド 対 球 当たり判定 .
      * @param pActor01
      * @param pAAPyramid01
      * @param pActor02
@@ -136,7 +136,7 @@ public:
 
 
     /**
-     * 長方形 対 長方形 当たり判定 .
+     * 2D 長方形 対 長方形 当たり判定 .
      * @param pActor01
      * @param pAABox01
      * @param pActor02
@@ -160,7 +160,7 @@ public:
     }
 
     /**
-     * 円 対 円 当たり判定 .
+     * 2D 円 対 円 当たり判定 .
      * @param pActor01
      * @param pSphere01
      * @param pActor02
@@ -171,7 +171,7 @@ public:
                         const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere* const pSphere02 );
 
     /**
-     * 長方形 対 円 当たり判定 .
+     * 2D 長方形 対 円 当たり判定 .
      * @param pActor01
      * @param pAABox01
      * @param pActor02
@@ -182,7 +182,7 @@ public:
                         const GgafDxCore::GgafDxGeometricActor* pActor02, const ColliSphere* pSphere02);
 
     /**
-     * 直角三角形 対 長方形 当たり判定（未完成） .
+     * 2D 直角三角形 対 長方形 当たり判定 .
      * @param pActor01
      * @param pAAPrism01
      * @param pActor02
@@ -190,12 +190,10 @@ public:
      * @return
      */
     static bool isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
-                        const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox*   const pAABox02   ) {
-        return false;
-    }
+                        const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox*   const pAABox02   );
 
     /**
-     * 直角三角形 対 円 当たり判定（未完成） .
+     * 2D 直角三角形 対 円 当たり判定 .
      * @param pActor01
      * @param pAAPrism01
      * @param pActor02
@@ -203,35 +201,17 @@ public:
      * @return
      */
     static bool isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
-                        const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere*  const pSphere02  ) {
-        return false;
-    }
-
+                        const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere*  const pSphere02  );
     /**
-     * 直角三角形 対 長方形 当たり判定（未完成） .
+     * 2D 直角三角形 対 円 直角三角形 .
      * @param pActor01
-     * @param pAAPyramid01
+     * @param pAAPrism01
      * @param pActor02
-     * @param pAABox02
+     * @param pAAPrism02
      * @return
      */
-    static bool isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPyramid* const pAAPyramid01,
-                        const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox*     const pAABox02     ) {
-        return false;
-    }
-
-    /**
-     * 直角三角形 対 円 当たり判定（未完成） .
-     * @param pActor01
-     * @param pAAPyramid01
-     * @param pActor02
-     * @param pSphere02
-     * @return
-     */
-    static bool isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPyramid* const pAAPyramid01,
-                        const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere*    const pSphere02    ) {
-        return false;
-    }
+    static bool isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
+                        const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAAPrism* const pAAPrism02  );
 
     /**
      * 単発弾を複数個撃つ .

@@ -201,18 +201,18 @@ bool CollisionChecker3D::isHit(const GgafDxCore::GgafDxChecker* const prm_pOppCh
                     }
                 }  else if (opp_shape_kind == COLLI_AAPRISM) {
                     //＜AAPrism と AAPrism＞
-                    //TODO: 考えるだけで重たくなりそう、というかめんどくさそうな感じがする；。
-                    //時間があれば考えよう・・・。今は未対応。
-                    throwGgafCriticalException("AAPrism と AAPrism の当たり判定処理が存在します。そんな処理は未だ作ってません。 "<<
+                    //TODO:未対応。 考えるだけで重たくなりそう、というかめんどくさそうな感じがする；。
+                    //時間があれば考えよう・・・
+                    _TRACE_("＜警告＞AAPrism と AAPrism の当たり判定処理が存在します。そんな処理は未だ作ってません。 "<<
                             pActor <<"["<<pActor->getName()<<"] vs "<<pOppActor<<"["<<pOppActor->getName()<<"]");
-                   return false;
+                    return false;
                 } else if (opp_shape_kind == COLLI_AAPYRAMID) {
                     //＜AAPrism と AAPyramid＞
                     //TODO: 今は未対応。
-                    throwGgafCriticalException("AAPrism と AAPyramid の当たり判定処理が存在します。そんな処理は未だ作ってません。 "<<
+                    _TRACE_("＜警告＞AAPrism と AAPyramid の当たり判定処理が存在します。そんな処理は未だ作ってません。 "<<
                             pActor <<"["<<pActor->getName()<<"] vs "<<pOppActor<<"["<<pOppActor->getName()<<"]");
                     return false;
-                 }
+                }
             } else if (shape_kind == COLLI_AAPYRAMID) {
                 if (opp_shape_kind == COLLI_AABOX) {
                     //＜AAPyramid と AAB＞
@@ -233,19 +233,18 @@ bool CollisionChecker3D::isHit(const GgafDxCore::GgafDxChecker* const prm_pOppCh
                 } else if (opp_shape_kind == COLLI_AAPRISM) {
                     //＜AAPyramid と AAPrism＞
                     //TODO: 今は未対応。
-                    throwGgafCriticalException("AAPyramid と AAPrism の当たり判定処理が存在します。そんな処理は未だ作ってません。 "<<
+                    _TRACE_("＜警告＞AAPyramid と AAPrism の当たり判定処理が存在します。そんな処理は未だ作ってません。 "<<
                             pActor <<"["<<_pActor->getName()<<"] vs "<<pOppActor<<"["<<pOppActor->getName()<<"]");
                     return false;
                 } else if (opp_shape_kind == COLLI_AAPYRAMID) {
                     //＜AAPyramid と AAPyramid＞
                     //TODO: 今は未対応。
-                    throwGgafCriticalException("AAPyramid と AAPyramid の当たり判定処理が存在します。そんな処理は未だ作ってません。 "<<
+                    _TRACE_("＜警告＞AAPyramid と AAPyramid の当たり判定処理が存在します。そんな処理は未だ作ってません。 "<<
                             pActor <<"["<<_pActor->getName()<<"] vs "<<pOppActor<<"["<<pOppActor->getName()<<"]");
                     return false;
                 }
             }
         }
-
     }
     return false;
 }

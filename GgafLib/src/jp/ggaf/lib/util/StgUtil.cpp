@@ -31,7 +31,6 @@ void StgUtil::init() {
         StgUtil::ROOT_1_MINUS_XX[i] = sqrt(1.0 - ((double)i/1000.0) * ((double)i/1000.0));
     }
 
-
     StgUtil::BITNUM[ 0] = 0;
     StgUtil::BITNUM[ 1] = (0x1);            //0b 00000000 00000000 00000000 00000001
     StgUtil::BITNUM[ 2] = (0x2);            //0b 00000000 00000000 00000000 00000010
@@ -97,7 +96,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
 
 
 bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* pActor01, const ColliAABox*  pAABox01,
-                    const GgafDxCore::GgafDxGeometricActor* pActor02, const ColliSphere* pSphere02) {
+                      const GgafDxCore::GgafDxGeometricActor* pActor02, const ColliSphere* pSphere02) {
     //＜AAB と 球＞
     const coord o_scx = pActor02->_x + pSphere02->_cx;
     const coord o_scy = pActor02->_y + pSphere02->_cy;
@@ -151,7 +150,6 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* pActor01, const Co
     const int aX2 = pActor01->_x + pAAPrism01->_x2;
     const int aY2 = pActor01->_y + pAAPrism01->_y2;
     const int aZ2 = pActor01->_z + pAAPrism01->_z2;
-
     const int bX1 = pActor02->_x + pAABox02->_x1;
     const int bY1 = pActor02->_y + pAABox02->_y1;
     const int bZ1 = pActor02->_z + pAABox02->_z1;
@@ -398,316 +396,337 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* pActor01, const Co
 }
 
 
-
 bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
-                    const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere*  const pSphere02  ) {
+                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere*  const pSphere02  ) {
     //＜プリズム と 球＞
     //MEMO:厳密な当たり判定計算は行っていません。
 
+    //まず、球 対 AAB の判定を行う
+    const coord o_scx = pActor02->_x + pSphere02->_cx;
+    const coord o_scy = pActor02->_y + pSphere02->_cy;
+    const coord o_scz = pActor02->_z + pSphere02->_cz;
+    const coord aX1 = pActor01->_x + pAAPrism01->_x1;
+    const coord aY1 = pActor01->_y + pAAPrism01->_y1;
+    const coord aZ1 = pActor01->_z + pAAPrism01->_z1;
+    const coord aX2 = pActor01->_x + pAAPrism01->_x2;
+    const coord aY2 = pActor01->_y + pAAPrism01->_y2;
+    const coord aZ2 = pActor01->_z + pAAPrism01->_z2;
+    double square_length = 0; //球の中心とAABの最短距離を二乗した値
+    if(o_scx < aX1) {
+        square_length += (double)(o_scx - aX1) * (o_scx - aX1);
+    }
+    if(o_scx > aX2) {
+        square_length += (double)(o_scx - aX2) * (o_scx - aX2);
+    }
+    if(o_scy < aY1) {
+        square_length += (double)(o_scy - aY1) * (o_scy - aY1);
+    }
+    if(o_scy > aY2) {
+        square_length += (double)(o_scy - aY2) * (o_scy - aY2);
+    }
+    if(o_scz < aZ1) {
+        square_length += (double)(o_scz - aZ1) * (o_scz - aZ1);
+    }
+    if(o_scz > aZ2) {
+        square_length += (double)(o_scz - aZ2) * (o_scz - aZ2);
+    }
+    //square_lengthが球の半径（の二乗）よりも短ければ衝突している
+    if (square_length > pSphere02->_rr) {
+        return false;
+    }
+    //この時点でAAB 対 球でヒット。ここからプリズムでもヒットか検証する
 
-    //AAB 対 球でまず判定する
-    if (isHit3D(pActor01, (ColliAABox*)pAAPrism01,
-              pActor02, pSphere02             ) ) {
-        //この時点でAAB 対 球でヒット。ここからプリズムでもヒットか検証する
-        const int aX1 = pActor01->_x + pAAPrism01->_x1;
-        const int aY1 = pActor01->_y + pAAPrism01->_y1;
-        const int aZ1 = pActor01->_z + pAAPrism01->_z1;
-        const int aX2 = pActor01->_x + pAAPrism01->_x2;
-        const int aY2 = pActor01->_y + pAAPrism01->_y2;
-        const int aZ2 = pActor01->_z + pAAPrism01->_z2;
-        const int pos = pAAPrism01->_pos_info;
-        const double a = pAAPrism01->_a;
-        if (pos & POS_PRISM_XY) { //XY平面スライスのプリズム
-            //ワールド座標でのプリズム境界線の切片を求める b = y - ax
-            const double b = ((pActor01->_y+pAAPrism01->_cy) - pAAPrism01->_a * (pActor01->_x+pAAPrism01->_cx)) + pAAPrism01->_b;
+    const int pos = pAAPrism01->_pos_info;
+    const double a = pAAPrism01->_a;
+    if (pos & POS_PRISM_XY) { //XY平面スライスのプリズム
+        //ワールド座標でのプリズム境界線の切片を求める b = y - ax
+        const double b = ((pActor01->_y+pAAPrism01->_cy) - pAAPrism01->_a * (pActor01->_x+pAAPrism01->_cx)) + pAAPrism01->_b;
 
-            int oppX, oppY;
-            const int bZc = pActor02->_z + pSphere02->_cz; //球の中心Z座標
-            if (aZ1 < bZc && bZc < aZ2) {
-                //球の中心Z座標がプリズムのZ幅範囲内ならば、予め保持している_vIH_x,_vIH_yを使用して
-                //プリズム斜辺と最短距離の円周上のXY座標を求める
-                oppX = (pActor02->_x + pSphere02->_cx) + pAAPrism01->_vIH_x * pSphere02->_r;
-                oppY = (pActor02->_y + pSphere02->_cy) + pAAPrism01->_vIH_y * pSphere02->_r;
-            } else if (bZc >= aZ2) {
-                //球の中心Z座標がプリズムのZ幅範囲外の場合
-                //離れる距離に応じて、球側の半径(pSphere02->_r)を小さくして差分を計算
-                //小さくする割合は ROOT_1_MINUS_XX (1/4円の解のテーブル配列）を使用。
-                //                 |
-                //                 ＼
-                //        ┌───┐ `─
-                // z- ←  │      │  → z+
-                int r = pSphere02->_r * UTIL::ROOT_1_MINUS_XX[(int)((1.0*(bZc - aZ2) / pSphere02->_r)*1000)];
-                oppX = (pActor02->_x + pSphere02->_cx) + pAAPrism01->_vIH_x * r;
-                oppY = (pActor02->_y + pSphere02->_cy) + pAAPrism01->_vIH_y * r;
-            } else { //if (aZ1 >= bZc) {
-                int r = pSphere02->_r * UTIL::ROOT_1_MINUS_XX[(int)((1.0*(aZ1 - bZc) / pSphere02->_r)*1000)];
-                oppX = (pActor02->_x + pSphere02->_cx) + pAAPrism01->_vIH_x * r;
-                oppY = (pActor02->_y + pSphere02->_cy) + pAAPrism01->_vIH_y * r;
+        int oppX, oppY;
+        const int bZc = o_scz; //球の中心Z座標
+        if (aZ1 < bZc && bZc < aZ2) {
+            //球の中心Z座標がプリズムのZ幅範囲内ならば、予め保持している_vIH_x,_vIH_yを使用して
+            //プリズム斜辺と最短距離の円周上のXY座標を求める
+            oppX = o_scx + pAAPrism01->_vIH_x * pSphere02->_r;
+            oppY = o_scy + pAAPrism01->_vIH_y * pSphere02->_r;
+        } else if (bZc >= aZ2) {
+            //球の中心Z座標がプリズムのZ幅範囲外の場合
+            //離れる距離に応じて、球側の半径(pSphere02->_r)を小さくして差分を計算
+            //小さくする割合は ROOT_1_MINUS_XX (1/4円の解のテーブル配列）を使用。
+            //                 |
+            //                 ＼
+            //        ┌───┐ `─
+            // z- ←  │      │  → z+
+            int r = pSphere02->_r * UTIL::ROOT_1_MINUS_XX[(int)((1.0*(bZc - aZ2) / pSphere02->_r)*1000)];
+            oppX = o_scx + pAAPrism01->_vIH_x * r;
+            oppY = o_scy + pAAPrism01->_vIH_y * r;
+        } else { //if (aZ1 >= bZc) {
+            int r = pSphere02->_r * UTIL::ROOT_1_MINUS_XX[(int)((1.0*(aZ1 - bZc) / pSphere02->_r)*1000)];
+            oppX = o_scx + pAAPrism01->_vIH_x * r;
+            oppY = o_scy + pAAPrism01->_vIH_y * r;
+        }
+
+        if (pos & POS_PRISM_pp) {
+            //            ↑ y+
+            //
+            //        ┌───┐
+            //        │＼こち│
+            // x- ←  │　＼ら│  → x+
+            //       ,┼○　＼│
+            //      │└┼──┘
+            //       `─'
+            //            ↓ y-
+            //
+            //プリズム境界線 y = ax + b と
+            //○の座標(bX2, bY2)、との位置関係を考える
+            //y > ax + b であればヒット
+            if (oppY > a * oppX +  b) {
+                return true;
             }
 
-            if (pos & POS_PRISM_pp) {
-                //            ↑ y+
-                //
-                //        ┌───┐
-                //        │＼こち│
-                // x- ←  │　＼ら│  → x+
-                //       ,┼○　＼│
-                //      │└┼──┘
-                //       `─'
-                //            ↓ y-
-                //
-                //プリズム境界線 y = ax + b と
-                //○の座標(bX2, bY2)、との位置関係を考える
-                //y > ax + b であればヒット
-                if (oppY > a * oppX +  b) {
-                    return true;
-                }
-
-            } else if (pos & POS_PRISM_np) {
-                //            ↑ y+
-                //
-                //        ┌───┐
-                //        │こち／│
-                // x- ←  │ら／　│  → x+
-                //        │／　○┼、
-                //        └──┼┘│Opp
-                //               `─'
-                //            ↓ y-
-                //
-                //プリズム境界線 y = ax + b と
-                //○の座標(bX1, bY2)、との位置関係を考える
-                //y > ax + b であればヒット
-                if (oppY > a * oppX +  b) {
-                    return true;
-                }
-
-            } else if (pos & POS_PRISM_pn) {
-                //            ↑ y+
-                //       ,─、
-                //      │┌┼──┐
-                //       `┼○　／│
-                // x- ←  │　／こ│  → x+
-                //        │／ちら│
-                //        └───┘
-                //
-                //            ↓ y-
-                //
-                //プリズム境界線 y = ax + b と
-                //○の座標(bX2, bY1)、との位置関係を考える
-                //y < ax + b であればヒット
-                if (oppY < a * oppX +  b) {
-                    return true;
-                }
-
-            } else { // のこりは POS_PRISM_nn のみである
-                //            ↑ y+
-                //               ,─、
-                //        ┌──┼┐│Opp
-                //        │＼　○┼'
-                // x- ←  │こ＼　│  → x+
-                //        │ちら＼│
-                //        └───┘
-                //
-                //            ↓ y-
-                //
-                //プリズム境界線 y = ax + b と
-                //○の座標(bX1, bY1)、との位置関係を考える
-                //y < ax + b であればヒット
-                if (oppY < a * oppX +  b) {
-                    return true;
-                }
-
-
-            }
-        } else if (pos & POS_PRISM_YZ) {//YZ平面スライスのプリズム
-            //ワールド座標でのプリズム境界線の切片を求める b = z - ay
-            const int b = ((pActor01->_z+pAAPrism01->_cz) - pAAPrism01->_a * (pActor01->_y+pAAPrism01->_cy)) + pAAPrism01->_b;
-            int oppY, oppZ;
-
-            const int bXc = pActor02->_x + pSphere02->_cx;
-            if (aX1 < bXc && bXc < aX2) {
-                oppY = (pActor02->_y + pSphere02->_cy) + pAAPrism01->_vIH_x * pSphere02->_r;
-                oppZ = (pActor02->_z + pSphere02->_cz) + pAAPrism01->_vIH_y * pSphere02->_r;
-            } else {
-                if (bXc >= aX2) {
-                    int r = pSphere02->_r * UTIL::ROOT_1_MINUS_XX[(int)((1.0*(bXc - aX2) / pSphere02->_r)*1000)];
-                    oppY = (pActor02->_y + pSphere02->_cy) + pAAPrism01->_vIH_x * r;
-                    oppZ = (pActor02->_z + pSphere02->_cz) + pAAPrism01->_vIH_y * r;
-                } else if (aX1 >= bXc) {
-                    int r = pSphere02->_r * UTIL::ROOT_1_MINUS_XX[(int)((1.0*(aX1 - bXc) / pSphere02->_r)*1000)];
-                    oppY = (pActor02->_y + pSphere02->_cy) + pAAPrism01->_vIH_x * r;
-                    oppZ = (pActor02->_z + pSphere02->_cz) + pAAPrism01->_vIH_y * r;
-                }
-            }
-            if (pos & POS_PRISM_pp) {
-                //            ↑ z+
-                //
-                //        ┌───┐
-                //        │＼こち│
-                // y- ←  │　＼ら│  → y+
-                //       ,┼○　＼│
-                //      │└┼──┘
-                //       `─'
-                //            ↓ z-
-                //
-                //プリズム境界線 z = ay + b と
-                //○の座標(bY2, bZ2)、との位置関係を考える
-                //z > ay + b であればヒット
-                if (oppZ > a * oppY +  b) {
-                    return true;
-                }
-
-            } else if (pos & POS_PRISM_np) {
-                //            ↑ z+
-                //
-                //        ┌───┐
-                //        │こち／│
-                // y- ←  │ら／　│  → y+
-                //        │／　○┼、
-                //        └──┼┘│Opp
-                //               `─'
-                //            ↓ z-
-                //
-                //プリズム境界線 z = ay + b と
-                //○の座標(bY1, bZ2)、との位置関係を考える
-                //z > ay + b であればヒット
-                if (oppZ > a * oppY +  b) {
-                    return true;
-                }
-
-            } else if (pos & POS_PRISM_pn) {
-                //            ↑ z+
-                //       ,─、
-                //      │┌┼──┐
-                //       `┼○　／│
-                // y- ←  │　／こ│  → y+
-                //        │／ちら│
-                //        └───┘
-                //
-                //            ↓ z-
-                //
-                //プリズム境界線 z = ay + b と
-                //○の座標(bY2, bZ1)、との位置関係を考える
-                //z < ay + b であればヒット
-                if (oppZ < a * oppY +  b) {
-                    return true;
-                }
-
-            } else { //のこりは POS_PRISM_nn のみである
-                //            ↑ z+
-                //               ,─、
-                //        ┌──┼┐│Opp
-                //        │＼　○┼'
-                // y- ←  │こ＼　│  → y+
-                //        │ちら＼│
-                //        └───┘
-                //
-                //            ↓ z-
-                //
-                //プリズム境界線 z = ay + b と
-                //○の座標(bY1, bZ1)、との位置関係を考える
-                //z < ay + b であればヒット
-                if (oppZ < a * oppY +  b) {
-                    return true;
-                }
+        } else if (pos & POS_PRISM_np) {
+            //            ↑ y+
+            //
+            //        ┌───┐
+            //        │こち／│
+            // x- ←  │ら／　│  → x+
+            //        │／　○┼、
+            //        └──┼┘│Opp
+            //               `─'
+            //            ↓ y-
+            //
+            //プリズム境界線 y = ax + b と
+            //○の座標(bX1, bY2)、との位置関係を考える
+            //y > ax + b であればヒット
+            if (oppY > a * oppX +  b) {
+                return true;
             }
 
-        } else if (pos & POS_PRISM_ZX) {
-            //ワールド座標でのプリズム境界線の切片を求める b = x - az
-            const int b = ((pActor01->_x+pAAPrism01->_cx) - pAAPrism01->_a * (pActor01->_z+pAAPrism01->_cz)) + pAAPrism01->_b;
-            int oppZ,oppX;
-            const int bYc = pActor02->_y + pSphere02->_cy;
-            if (aY1 < bYc && bYc < aY2) {
-                oppZ = (pActor02->_z + pSphere02->_cz) + pAAPrism01->_vIH_x * pSphere02->_r;
-                oppX = (pActor02->_x + pSphere02->_cx) + pAAPrism01->_vIH_y * pSphere02->_r;
-            } else {
-                if (bYc >= aY2) {
-                    int r = pSphere02->_r * UTIL::ROOT_1_MINUS_XX[(int)((1.0*(bYc - aY2) / pSphere02->_r)*1000)];
-                    oppZ = (pActor02->_z + pSphere02->_cz) + pAAPrism01->_vIH_x * r;
-                    oppX = (pActor02->_x + pSphere02->_cx) + pAAPrism01->_vIH_y * r;
-                } else if (aY1 >= bYc) {
-                    int r = pSphere02->_r * UTIL::ROOT_1_MINUS_XX[(int)((1.0*(aY1 - bYc) / pSphere02->_r)*1000)];
-                    oppZ = (pActor02->_z + pSphere02->_cz) + pAAPrism01->_vIH_x * r;
-                    oppX = (pActor02->_x + pSphere02->_cx) + pAAPrism01->_vIH_y * r;
-                }
+        } else if (pos & POS_PRISM_pn) {
+            //            ↑ y+
+            //       ,─、
+            //      │┌┼──┐
+            //       `┼○　／│
+            // x- ←  │　／こ│  → x+
+            //        │／ちら│
+            //        └───┘
+            //
+            //            ↓ y-
+            //
+            //プリズム境界線 y = ax + b と
+            //○の座標(bX2, bY1)、との位置関係を考える
+            //y < ax + b であればヒット
+            if (oppY < a * oppX +  b) {
+                return true;
             }
-            if (pos & POS_PRISM_pp) {
-                //            ↑ x+
-                //
-                //        ┌───┐
-                //        │＼こち│
-                // z- ←  │　＼ら│  → z+
-                //       ,┼○　＼│
-                //      │└┼──┘
-                //       `─'
-                //            ↓ x-
-                //
-                //プリズム境界線 x = az + b と
-                //○の座標(bZ2, bX2)、との位置関係を考える
-                //x > az + b であればヒット
-                if (oppX > a * oppZ +  b) {
-                    return true;
-                }
 
-            } else if (pos & POS_PRISM_np) {
-                //            ↑ x+
-                //
-                //        ┌───┐
-                //        │こち／│
-                // z- ←  │ら／　│  → z+
-                //        │／　○┼、
-                //        └──┼┘│Opp
-                //               `─'
-                //            ↓ x-
-                //
-                //プリズム境界線 x = az + b と
-                //○の座標(bZ1, bX2)、との位置関係を考える
-                //x > az + b であればヒット
-                if (oppX > a * oppZ +  b) {
-                    return true;
-                }
+        } else { // のこりは POS_PRISM_nn のみである
+            //            ↑ y+
+            //               ,─、
+            //        ┌──┼┐│Opp
+            //        │＼　○┼'
+            // x- ←  │こ＼　│  → x+
+            //        │ちら＼│
+            //        └───┘
+            //
+            //            ↓ y-
+            //
+            //プリズム境界線 y = ax + b と
+            //○の座標(bX1, bY1)、との位置関係を考える
+            //y < ax + b であればヒット
+            if (oppY < a * oppX +  b) {
+                return true;
+            }
 
-            } else if (pos & POS_PRISM_pn) {
-                //            ↑ x+
-                //       ,─、
-                //      │┌┼──┐
-                //       `┼○　／│
-                // z- ←  │　／こ│  → z+
-                //        │／ちら│
-                //        └───┘
-                //
-                //            ↓ x-
-                //
-                //プリズム境界線 x = az + b と
-                //○の座標(bZ2, bX1)、との位置関係を考える
-                //x < az + b であればヒット
-                if (oppX < a * oppZ +  b) {
-                    return true;
-                }
 
-            } else { //残りは POS_PRISM_nn のみである
-                //            ↑ x+
-                //               ,─、
-                //        ┌──┼┐│Opp
-                //        │＼　○┼'
-                // z- ←  │こ＼　│  → z+
-                //        │ちら＼│
-                //        └───┘
-                //
-                //            ↓ x-
-                //
-                //プリズム境界線 x = az + b と
-                //○の座標(bZ1, bX1)、との位置関係を考える
-                //x < az + b であればヒット
-                if (oppX < a * oppZ +  b) {
-                    return true;
-                }
+        }
+    } else if (pos & POS_PRISM_YZ) {//YZ平面スライスのプリズム
+        //ワールド座標でのプリズム境界線の切片を求める b = z - ay
+        const int b = ((pActor01->_z+pAAPrism01->_cz) - pAAPrism01->_a * (pActor01->_y+pAAPrism01->_cy)) + pAAPrism01->_b;
+        int oppY, oppZ;
+
+        const int bXc = o_scx;
+        if (aX1 < bXc && bXc < aX2) {
+            oppY = o_scy + pAAPrism01->_vIH_x * pSphere02->_r;
+            oppZ = o_scz + pAAPrism01->_vIH_y * pSphere02->_r;
+        } else {
+            if (bXc >= aX2) {
+                int r = pSphere02->_r * UTIL::ROOT_1_MINUS_XX[(int)((1.0*(bXc - aX2) / pSphere02->_r)*1000)];
+                oppY = o_scy + pAAPrism01->_vIH_x * r;
+                oppZ = o_scz + pAAPrism01->_vIH_y * r;
+            } else if (aX1 >= bXc) {
+                int r = pSphere02->_r * UTIL::ROOT_1_MINUS_XX[(int)((1.0*(aX1 - bXc) / pSphere02->_r)*1000)];
+                oppY = o_scy + pAAPrism01->_vIH_x * r;
+                oppZ = o_scz + pAAPrism01->_vIH_y * r;
+            }
+        }
+        if (pos & POS_PRISM_pp) {
+            //            ↑ z+
+            //
+            //        ┌───┐
+            //        │＼こち│
+            // y- ←  │　＼ら│  → y+
+            //       ,┼○　＼│
+            //      │└┼──┘
+            //       `─'
+            //            ↓ z-
+            //
+            //プリズム境界線 z = ay + b と
+            //○の座標(bY2, bZ2)、との位置関係を考える
+            //z > ay + b であればヒット
+            if (oppZ > a * oppY +  b) {
+                return true;
+            }
+
+        } else if (pos & POS_PRISM_np) {
+            //            ↑ z+
+            //
+            //        ┌───┐
+            //        │こち／│
+            // y- ←  │ら／　│  → y+
+            //        │／　○┼、
+            //        └──┼┘│Opp
+            //               `─'
+            //            ↓ z-
+            //
+            //プリズム境界線 z = ay + b と
+            //○の座標(bY1, bZ2)、との位置関係を考える
+            //z > ay + b であればヒット
+            if (oppZ > a * oppY +  b) {
+                return true;
+            }
+
+        } else if (pos & POS_PRISM_pn) {
+            //            ↑ z+
+            //       ,─、
+            //      │┌┼──┐
+            //       `┼○　／│
+            // y- ←  │　／こ│  → y+
+            //        │／ちら│
+            //        └───┘
+            //
+            //            ↓ z-
+            //
+            //プリズム境界線 z = ay + b と
+            //○の座標(bY2, bZ1)、との位置関係を考える
+            //z < ay + b であればヒット
+            if (oppZ < a * oppY +  b) {
+                return true;
+            }
+
+        } else { //のこりは POS_PRISM_nn のみである
+            //            ↑ z+
+            //               ,─、
+            //        ┌──┼┐│Opp
+            //        │＼　○┼'
+            // y- ←  │こ＼　│  → y+
+            //        │ちら＼│
+            //        └───┘
+            //
+            //            ↓ z-
+            //
+            //プリズム境界線 z = ay + b と
+            //○の座標(bY1, bZ1)、との位置関係を考える
+            //z < ay + b であればヒット
+            if (oppZ < a * oppY +  b) {
+                return true;
+            }
+        }
+
+    } else if (pos & POS_PRISM_ZX) {
+        //ワールド座標でのプリズム境界線の切片を求める b = x - az
+        const int b = ((pActor01->_x+pAAPrism01->_cx) - pAAPrism01->_a * (pActor01->_z+pAAPrism01->_cz)) + pAAPrism01->_b;
+        int oppZ,oppX;
+        const int bYc = o_scy;
+        if (aY1 < bYc && bYc < aY2) {
+            oppZ = o_scz + pAAPrism01->_vIH_x * pSphere02->_r;
+            oppX = o_scx + pAAPrism01->_vIH_y * pSphere02->_r;
+        } else {
+            if (bYc >= aY2) {
+                int r = pSphere02->_r * UTIL::ROOT_1_MINUS_XX[(int)((1.0*(bYc - aY2) / pSphere02->_r)*1000)];
+                oppZ = o_scz + pAAPrism01->_vIH_x * r;
+                oppX = o_scx + pAAPrism01->_vIH_y * r;
+            } else if (aY1 >= bYc) {
+                int r = pSphere02->_r * UTIL::ROOT_1_MINUS_XX[(int)((1.0*(aY1 - bYc) / pSphere02->_r)*1000)];
+                oppZ = o_scz + pAAPrism01->_vIH_x * r;
+                oppX = o_scx + pAAPrism01->_vIH_y * r;
+            }
+        }
+        if (pos & POS_PRISM_pp) {
+            //            ↑ x+
+            //
+            //        ┌───┐
+            //        │＼こち│
+            // z- ←  │　＼ら│  → z+
+            //       ,┼○　＼│
+            //      │└┼──┘
+            //       `─'
+            //            ↓ x-
+            //
+            //プリズム境界線 x = az + b と
+            //○の座標(bZ2, bX2)、との位置関係を考える
+            //x > az + b であればヒット
+            if (oppX > a * oppZ +  b) {
+                return true;
+            }
+
+        } else if (pos & POS_PRISM_np) {
+            //            ↑ x+
+            //
+            //        ┌───┐
+            //        │こち／│
+            // z- ←  │ら／　│  → z+
+            //        │／　○┼、
+            //        └──┼┘│Opp
+            //               `─'
+            //            ↓ x-
+            //
+            //プリズム境界線 x = az + b と
+            //○の座標(bZ1, bX2)、との位置関係を考える
+            //x > az + b であればヒット
+            if (oppX > a * oppZ +  b) {
+                return true;
+            }
+
+        } else if (pos & POS_PRISM_pn) {
+            //            ↑ x+
+            //       ,─、
+            //      │┌┼──┐
+            //       `┼○　／│
+            // z- ←  │　／こ│  → z+
+            //        │／ちら│
+            //        └───┘
+            //
+            //            ↓ x-
+            //
+            //プリズム境界線 x = az + b と
+            //○の座標(bZ2, bX1)、との位置関係を考える
+            //x < az + b であればヒット
+            if (oppX < a * oppZ +  b) {
+                return true;
+            }
+
+        } else { //残りは POS_PRISM_nn のみである
+            //            ↑ x+
+            //               ,─、
+            //        ┌──┼┐│Opp
+            //        │＼　○┼'
+            // z- ←  │こ＼　│  → z+
+            //        │ちら＼│
+            //        └───┘
+            //
+            //            ↓ x-
+            //
+            //プリズム境界線 x = az + b と
+            //○の座標(bZ1, bX1)、との位置関係を考える
+            //x < az + b であればヒット
+            if (oppX < a * oppZ +  b) {
+                return true;
             }
         }
     }
     return false;
 }
-
 
 bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPyramid* const pAAPyramid01,
                       const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox*     const pAABox02     ) {
@@ -739,9 +758,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
         //この時点でAAB と AAB ならばヒット
 
         //ピラミッド斜面に対してピラミッド側のBOX領域内で、相手BOXの最近傍点を求める
-        //
         const pos_t pos_info = pAAPyramid01->_pos_info;
-
         int nnx, nny, nnz; //BOX内最近傍点
         if (pos_info & POS_PYRAMID_p__) {
             //bX2に興味がある
@@ -817,110 +834,69 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
 
 bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPyramid* const pAAPyramid01,
                       const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere*    const pSphere02  ) {
-    if (GgafDxCore::GgafDxInput::isPressedKey(DIK_P)) {
-        _TRACE_("kitayo");
-    }
+    //三直角三角錐の三直角頂点の座標を原点(0,0,0)におき、
+    //A(ex,0,0), B(0,ey,0), C(0,0,ez) の三直角三角錐で当たり判定を考えたいので、
+    //球の位置(o_cx, o_cy, o_cz)を座標変換する。
 
+    const double ex = C_DX(pAAPyramid01->_dx); //幅がそのまま頂点AのX軸座標となる
+    const double ey = C_DX(pAAPyramid01->_dy); //高さがそのまま頂点BのY軸座標となる
+    const double ez = C_DX(pAAPyramid01->_dz); //奥行きさがそのまま頂点CのZ軸座標となる
+    const double o_r  = C_DX(pSphere02->_r);   //球の半径は座標変換に無影響なのでそのまま
+    const double o_rr = o_r*o_r;
+
+    //本来の球の位置
     double o_cx = C_DX(pActor02->_x + pSphere02->_cx);
     double o_cy = C_DX(pActor02->_y + pSphere02->_cy);
     double o_cz = C_DX(pActor02->_z + pSphere02->_cz);
-    double o_r  = C_DX(pSphere02->_r);
-    double o_rr = o_r*o_r;
-    double b_x1 = C_DX(pActor01->_x + pAAPyramid01->_x1);
-    double b_x2 = C_DX(pActor01->_x + pAAPyramid01->_x2);
-    double b_y1 = C_DX(pActor01->_y + pAAPyramid01->_y1);
-    double b_y2 = C_DX(pActor01->_y + pAAPyramid01->_y2);
-    double b_z1 = C_DX(pActor01->_z + pAAPyramid01->_z1);
-    double b_z2 = C_DX(pActor01->_z + pAAPyramid01->_z2);
-
-    pos_t pos_info = pAAPyramid01->_pos_info;
-
-    //原点に三直角頂点をおき(POS_PYRAMID_nnn)、
-    // (ex,0,0), (0,ey,0), (0,0,ez) の三直角三角錐で考えたいので、
-    // 座標変換
-    double offset_x = 0;
+    const pos_t pos_info = pAAPyramid01->_pos_info; //三直角三角錐の姿勢情報
     if (pos_info & POS_PYRAMID_p__) {
-        offset_x = -b_x2;
+        //元の三直角三角錐の頂点のX軸は正の方向
+        o_cx -= C_DX(pActor01->_x + pAAPyramid01->_x2);
+        o_cx = -o_cx; //x軸反転
     } else {
-        offset_x = -b_x1;
+        //元の三直角三角錐の頂点のX軸は負の方向
+        o_cx -= C_DX(pActor01->_x + pAAPyramid01->_x1);
     }
-    double offset_y = 0;
     if (pos_info & POS_PYRAMID__p_) {
-        offset_y = -b_y2;
+        //元の三直角三角錐の頂点のY軸は正の方向
+        o_cy -= C_DX(pActor01->_y + pAAPyramid01->_y2);
+        o_cy = -o_cy; //y軸反転
     } else {
-        offset_y = -b_y1;
-    }
-
-    double offset_z = 0;
-    if (pos_info & POS_PYRAMID___p) {
-        offset_z = -b_z2;
-    } else {
-        offset_z = -b_z1;
-    }
-
-    //三直角頂点の座標を(0,0,0) に変換
-    //POS_PYRAMID_nnnなので三直角頂点（b_x1, b_y1, b_z2）
-    o_cx += offset_x;
-    o_cy += offset_y;
-    o_cz += offset_z;
-    b_x1 += offset_x;
-    b_x2 += offset_x;
-    b_y1 += offset_y;
-    b_y2 += offset_y;
-    b_z1 += offset_z;
-    b_z2 += offset_z;
-
-    //三直角頂点の向きをPOS_PYRAMID_nnnに変換
-    if (pos_info & POS_PYRAMID_p__) {
-        //x軸反転
-        o_cx = -o_cx;
-        double tmp_b_x2 = b_x2;
-        b_x2 = -b_x1;
-        b_x1 = -tmp_b_x2;
-    }
-
-    if (pos_info & POS_PYRAMID__p_) {
-        //y軸反転
-        o_cy = -o_cy;
-        double tmp_b_y2 = b_y2;
-        b_y2 = -b_y1;
-        b_y1 = -tmp_b_y2;
+        //元の三直角三角錐の頂点のY軸は負の方向
+        o_cy -= C_DX(pActor01->_y + pAAPyramid01->_y1);
     }
 
     if (pos_info & POS_PYRAMID___p) {
-        //z軸反転
-        o_cz = -o_cz;
-        double tmp_b_z2 = b_z2;
-        b_z2 = -b_z1;
-        b_z1 = -tmp_b_z2;
+        //元の三直角三角錐の頂点のZ軸は正の方向
+        o_cz -= C_DX(pActor01->_z + pAAPyramid01->_z2);
+        o_cz = -o_cz; //z軸反転
+    } else {
+        //元の三直角三角錐の頂点のZ軸は負の方向
+        o_cz -= C_DX(pActor01->_z + pAAPyramid01->_z1);
     }
-
-    //原点に三直角頂点をおき、(ex,0,0), (0,ey,0), (0,0,ez) の三直角三角錐を考える
-    double& ex = b_x2;
-    double& ey = b_y2;
-    double& ez = b_z2;
+    //球の位置変換完了、ここから当たり判定ロジック
 
     //xy平面より内(第一卦限側)か
-    bool xy = (o_cz > 0);
+    const bool xy = (o_cz > 0);
     //yz平面より内(第一卦限側)か
-    bool yz = (o_cx > 0);
+    const bool yz = (o_cx > 0);
     //zx平面より内(第一卦限側)か
-    bool zx = (o_cy > 0);
+    const bool zx = (o_cy > 0);
     //xy平面に平行な点Cを通る平面(true:原点側)
-    bool xy_C = (o_cz < ez);
+    const bool xy_C = (o_cz < ez);
     //yz平面に平行な点Aを通る平面(true:原点側)
-    bool yz_A = (o_cx < ex);
+    const bool yz_A = (o_cx < ex);
     //zx平面に平行な点Bを通る平面(true:原点側)
-    bool zx_B = (o_cy < ey);
+    const bool zx_B = (o_cy < ey);
 
-    //BOX対球を行う
+    //球対BOXの当たり判定をまず行う
+    const double o_cx2 = o_cx*o_cx;
+    const double o_cy2 = o_cy*o_cy;
+    const double o_cz2 = o_cz*o_cz;
+    const double o_cx_ex2 = (o_cx - ex)*(o_cx - ex);
+    const double o_cy_ey2 = (o_cy - ey)*(o_cy - ey);
+    const double o_cz_ez2 = (o_cz - ez)*(o_cz - ez);
     double slength = 0; //球の中心とAABの最短距離を二乗した値
-    double o_cx2 = o_cx*o_cx;
-    double o_cy2 = o_cy*o_cy;
-    double o_cz2 = o_cz*o_cz;
-    double o_cx_ex2 = (o_cx - ex)*(o_cx - ex);
-    double o_cx_ey2 = (o_cx - ey)*(o_cx - ey);
-    double o_cx_ez2 = (o_cx - ez)*(o_cx - ez);
     if (!yz) {
         slength += o_cx2;
     }
@@ -931,30 +907,34 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
         slength += o_cy2;
     }
     if (!zx_B) {
-        slength += o_cx_ey2;
+        slength += o_cy_ey2;
     }
     if (!xy) {
         slength += o_cz2;
     }
     if (!xy_C) {
-        slength += o_cx_ez2;
+        slength += o_cz_ez2;
     }
-    //square_lengthが球の半径（の二乗）よりも短ければ衝突している
     if (slength > o_rr) {
+        //square_length が球の半径（の二乗）よりも長ければBOXとすら衝突していない。
         return false;
     }
+    //ここから以降は、球 対 BOX で衝突していることになる。
+    //三直角三角錐のどの部分（頂点、辺、面）との距離で判定すればよいか
+    //場合わけで考える
 
     if (!xy && !yz && !zx) {
-        //頂点Oとの距離
+        //原点との距離で判定
+        //球 対 BOX で衝突しているのでヒット
         return true;
     }
 
     if (xy) {
         if (!yz) {
             if (!zx) {
-                // xy && !yz && !zx
                 if (xy_C) {
-                    //辺OCとの距離
+                    //辺OCとの距離で判定
+                    //球 対 BOX で衝突しているのでヒット
                     return true;
                 }
             }
@@ -962,38 +942,38 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     } else {
         if (yz) {
             if (!zx) {
-                // !xy && yz && !zx
                 if (yz_A) {
-                    //辺OAとの距離
+                    //辺OAとの距離で判定
+                    //球 対 BOX で衝突しているのでヒット
                     return true;
                 }
             }
         } else {
             if (zx) {
-                // !xy && !yz && zx
                 if (zx_B) {
-                    //辺OBとの距離
+                    //辺OBとの距離で判定
+                    //球 対 BOX で衝突しているのでヒット
                     return true;
                 }
             }
         }
     }
 
-    double exey = ex*ey;
-    double eyez = ey*ez;
-    double ezex = ez*ex;
+    const double exey = ex*ey;
+    const double eyez = ey*ez;
+    const double ezex = ez*ex;
     // A(ex,0,0), B(0,ey,0) を含むxy平面に垂直な面より内（原点がある側）
-    bool vxy_AB = (-ey*o_cx - ex*o_cy           + exey > 0);
+    const bool vxy_AB = (-ey*o_cx - ex*o_cy           + exey > 0);
     // B(0,ey,0), C(0,0,ez) を含むyz平面に垂直な面より内（原点がある側）
-    bool vyz_BC = (          -ez*o_cy - ey*o_cz + eyez > 0);
+    const bool vyz_BC = (          -ez*o_cy - ey*o_cz + eyez > 0);
     // C(0,0,ez), A(ex,0,0) を含むzx平面に垂直な面より内（原点がある側）
-    bool vzx_CA = (-ez*o_cx           - ex*o_cz + ezex > 0);
+    const bool vzx_CA = (-ez*o_cx           - ex*o_cz + ezex > 0);
     if (xy) {
         if (yz) {
             if (!zx) {
-                // xy && yz && !zx
                 if (vzx_CA) {
-                    //面OCAとの距離
+                    //面OCAとの距離で判定
+                    //球 対 BOX で衝突しているのでヒット
                     return true;
                 }
 
@@ -1001,7 +981,8 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
         } else {
             if (zx) {
                 if (vyz_BC) {
-                    //面OBCとの距離
+                    //面OBCとの距離で判定
+                    //球 対 BOX で衝突しているのでヒット
                     return true;
                 }
             }
@@ -1009,26 +990,26 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     } else {
         if (yz) {
             if (zx) {
-                // !xy && yz && zx
                 if (vxy_AB) {
-                    //面OABとの距離
+                    //面OABとの距離で判定
+                    //球 対 BOX で衝突しているのでヒット
                     return true;
                 }
             }
         }
     }
 
-    double exez = ex*ez;
-    double ex2 = ex*ex;
-    double ey2 = ey*ey;
-    double ez2 = ez*ez;
+    const double exez = ex*ez;
+    const double ex2 = ex*ex;
+    const double ey2 = ey*ey;
+    const double ez2 = ez*ez;
     //点Aと辺ABの境界面(true:原点側)
-    bool bo_A_AB = ( exez * o_cx - eyez * o_cy               - ex2*ez > 0);
+    const bool bo_A_AB = ( exez * o_cx - eyez * o_cy               - ex2*ez > 0);
     //点Aと辺ACの境界面(true:原点側)
-    bool bo_A_AC = ( exey * o_cx               - eyez * o_cz - ey*ex2 > 0);
+    const bool bo_A_AC = ( exey * o_cx               - eyez * o_cz - ey*ex2 > 0);
     //なぜこうなるのかは、「球とピラミッド（頂点と辺の境界面）」参照
     if (!yz_A && bo_A_AB && bo_A_AC) {
-        //頂点Aとの距離
+        //頂点Aとの距離で判定
         double length = o_cx_ex2 + o_cy2 + o_cz2;
         if (length < o_rr) {
             return true;
@@ -1038,12 +1019,12 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     }
 
     //点Bと辺BAの境界面(true:原点側)
-    bool bo_B_BA = (-exez * o_cx + eyez * o_cy               - ey2*ez > 0);
+    const bool bo_B_BA = (-exez * o_cx + eyez * o_cy               - ey2*ez > 0);
     //点Bと辺BCの境界面(true:原点側)
-    bool bo_B_BC = (               exey * o_cy - exez * o_cz - ey2*ex > 0);
+    const bool bo_B_BC = (               exey * o_cy - exez * o_cz - ey2*ex > 0);
     if (!zx_B && bo_B_BA && bo_B_BC) {
-        //頂点Bとの距離
-        double length = o_cx2 + o_cx_ey2 + o_cz2;
+        //頂点Bとの距離で判定
+        double length = o_cx2 + o_cy_ey2 + o_cz2;
         if (length < o_rr) {
             return true;
         } else {
@@ -1051,12 +1032,12 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
         }
     }
     //点Cと辺CAの境界面(true:原点側)
-    bool bo_C_CA = (-exey * o_cx               + eyez * o_cz - ey*ez2 > 0);
+    const bool bo_C_CA = (-exey * o_cx               + eyez * o_cz - ey*ez2 > 0);
     //点Cと辺CBの境界面
-    bool bo_C_CB = (              -exey * o_cy + exez * o_cz - ex*ez2 > 0);
+    const bool bo_C_CB = (              -exey * o_cy + exez * o_cz - ex*ez2 > 0);
     if (!xy_C && bo_C_CA && bo_C_CB) {
-        //頂点Cとの距離
-        double length = o_cx2 + o_cy2 + o_cx_ez2;
+        //頂点Cとの距離で判定
+        double length = o_cx2 + o_cy2 + o_cz_ez2;
         if (length < o_rr) {
             return true;
         } else {
@@ -1068,7 +1049,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     bool vramp_AB = ((-ex*ey2)*o_cx      + (-ex2*ey)*o_cy      + (ez*(ex2+ey2))*o_cz + (ex2*ey2) > 0);
     //なぜこうなるのかは、「球とピラミッド（斜面との距離で判定する範囲）」参照
     if (!vxy_AB && !bo_A_AB && !bo_B_BA && !vramp_AB) {
-        //辺ABとの距離
+        //辺ABとの距離で判定
         // A(ex,0,0), B(0,ey,0)  より
         // 辺ABの直線の式は
         //
@@ -1096,7 +1077,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     //B(0,ey,0) C(0,0,ez)  を含む斜面に垂直な面より内（原点がある側）
     bool vramp_BC = ((ex*(ey2+ez2))*o_cx + (-ey*ez2)*o_cy      + (-ey2*ez)*o_cz      + (ey2*ez2) > 0);
     if (!vyz_BC && !bo_B_BC && !bo_C_CB && !vramp_BC) {
-        //辺BCとの距離
+        //辺BCとの距離で判定
         double t = (ez*o_cz-ey*o_cy+ey2)/(ez2+ey2);
         double length = o_cx2 + ((ey-t*ey) - o_cy)*((ey-t*ey) - o_cy) + (t*ez - o_cz)*(t*ez - o_cz);
         if (length < o_rr) {
@@ -1109,7 +1090,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     //C(0,0,ez) A(ex,0,0)  を含む斜面に垂直な面より内（原点がある側）
     bool vramp_CA = ((-ez2*ex)*o_cx      + (ey*(ez2+ex2))*o_cy + (-ez*ex2)*o_cz      + (ez2*ex2) > 0);
     if (!vzx_CA && !bo_A_AC && !bo_C_CA && !vramp_CA) {
-        //辺CAとの距離
+        //辺CAとの距離で判定
         double t = (ex*o_cx-ez*o_cz+ez2)/(ez2+ex2);
         double length = (t*ex-o_cx)*(t*ex-o_cx) + o_cy2 + ((ez-t*ez) - o_cz)*((ez-t*ez) - o_cz);
         if (length < o_rr) {
@@ -1122,7 +1103,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     //斜面より外か（原点の無い側）
     bool ramp = ((ey*ez)*o_cx + (ex*ez)*o_cy + (ey*ex)*o_cz - ex*ey*ez > 0);
     if (vramp_AB && vramp_BC && vramp_CA && ramp) {
-        //面ABCとの距離
+        //面ABCとの距離で判定
         //円の中心から斜面に降ろした垂線の交点(lx,ly,lz)を求める
         //斜面は
         //a*x + b*y + c*z - ex*ey*ez = 0
@@ -1187,13 +1168,10 @@ bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* pActor01, const Co
     //＜AAB と 球＞
     const coord o_scx = pActor02->_x + pSphere02->_cx;
     const coord o_scy = pActor02->_y + pSphere02->_cy;
-//    const coord o_scz = pActor02->_z + pSphere02->_cz;
     const coord bx1 = pActor01->_x + pAABox01->_x1;
     const coord bx2 = pActor01->_x + pAABox01->_x2;
     const coord by1 = pActor01->_y + pAABox01->_y1;
     const coord by2 = pActor01->_y + pAABox01->_y2;
-//    const coord bz1 = pActor01->_z + pAABox01->_z1;
-//    const coord bz2 = pActor01->_z + pAABox01->_z2;
 
     double square_length = 0; //球の中心とAABの最短距離を二乗した値
     if(o_scx < bx1) {
@@ -1209,22 +1187,222 @@ bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* pActor01, const Co
     if(o_scy > by2) {
         square_length += (double)(o_scy - by2) * (o_scy - by2);
     }
-
-//    if(o_scz < bz1) {
-//        square_length += (double)(o_scz - bz1) * (o_scz - bz1);
-//    }
-//    if(o_scz > bz2) {
-//        square_length += (double)(o_scz - bz2) * (o_scz - bz2);
-//    }
-    //↑の判定が全てハズレて、square_length == 0 ならば、
-    //球の中心が、BOX内にあるという意味になる。
-
     //square_lengthが球の半径（の二乗）よりも短ければ衝突している
     if (square_length <= pSphere02->_rr) {
         return true;
     } else {
         return false;
     }
+}
+bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
+                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox*   const pAABox02   ) {
+    const int aX1 = pActor01->_x + pAAPrism01->_x1;
+    const int aY1 = pActor01->_y + pAAPrism01->_y1;
+    const int aX2 = pActor01->_x + pAAPrism01->_x2;
+    const int aY2 = pActor01->_y + pAAPrism01->_y2;
+    const int bX1 = pActor02->_x + pAABox02->_x1;
+    const int bY1 = pActor02->_y + pAABox02->_y1;
+    const int bX2 = pActor02->_x + pAABox02->_x2;
+    const int bY2 = pActor02->_y + pAABox02->_y2;
+
+    if (aY2 >= bY1 && aY1 <= bY2 && aX2 >= bX1 && aX1 <= bX2) {
+        //この時点でAAB と AAB ならばヒット
+        const int pos = pAAPrism01->_pos_info;
+        const double a = pAAPrism01->_a;
+        const double b = ((pActor01->_y+pAAPrism01->_cy) - pAAPrism01->_a * (pActor01->_x+pAAPrism01->_cx)) + pAAPrism01->_b;
+        if (pos & POS_PRISM_pp) {
+            //            ↑ y+
+            //
+            //        ┌───┐
+            //        │＼こち│
+            // x- ←  │　＼ら│  → x+
+            //      ┌┼○　＼│
+            //      │└┼──┘
+            //      └─┘
+            //            ↓ y-
+            //
+            //プリズム境界線 y = ax + b と
+            //○の座標(bX2, bY2)、との位置関係を考える
+            //y > ax + b であればヒット
+            if (bY2 > a * bX2 +  b) {
+                return true;
+            }
+
+        } else if (pos & POS_PRISM_np) {
+            //            ↑ y+
+            //
+            //        ┌───┐
+            //        │こち／│
+            // x- ←  │ら／　│  → x+
+            //        │／　○┼┐
+            //        └──┼┘│Opp
+            //              └─┘
+            //            ↓ y-
+            //
+            //プリズム境界線 y = ax + b と
+            //○の座標(bX1, bY2)、との位置関係を考える
+            //y > ax + b であればヒット
+            if (bY2 > a * bX1 +  b) {
+                return true;
+            }
+
+        } else if (pos & POS_PRISM_pn) {
+            //            ↑ y+
+            //      ┌─┐
+            //      │┌┼──┐
+            //      └┼○　／│
+            // x- ←  │　／こ│  → x+
+            //        │／ちら│
+            //        └───┘
+            //
+            //            ↓ y-
+            //
+            //プリズム境界線 y = ax + b と
+            //○の座標(bX2, bY1)、との位置関係を考える
+            //y < ax + b であればヒット
+            if (bY1 < a * bX2 +  b) {
+                return true;
+            }
+
+        } else { // のこりは POS_PRISM_nn のみである
+            //            ↑ y+
+            //              ┌─┐
+            //        ┌──┼┐│Opp
+            //        │＼　○┼┘
+            // x- ←  │こ＼　│  → x+
+            //        │ちら＼│
+            //        └───┘
+            //
+            //            ↓ y-
+            //
+            //プリズム境界線 y = ax + b と
+            //○の座標(bX1, bY1)、との位置関係を考える
+            //y < ax + b であればヒット
+            if (bY1 < a * bX1 +  b) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
+                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere*  const pSphere02  ) {
+    //＜プリズム と 球＞
+    //MEMO:厳密な当たり判定計算は行っていません。
+
+    //まず、球 対 AAB の判定を行う
+    const coord o_scx = pActor02->_x + pSphere02->_cx;
+    const coord o_scy = pActor02->_y + pSphere02->_cy;
+    const coord aX1 = pActor01->_x + pAAPrism01->_x1;
+    const coord aY1 = pActor01->_y + pAAPrism01->_y1;
+    const coord aX2 = pActor01->_x + pAAPrism01->_x2;
+    const coord aY2 = pActor01->_y + pAAPrism01->_y2;
+    double square_length = 0; //球の中心とAABの最短距離を二乗した値
+    if(o_scx < aX1) {
+        square_length += (double)(o_scx - aX1) * (o_scx - aX1);
+    }
+    if(o_scx > aX2) {
+        square_length += (double)(o_scx - aX2) * (o_scx - aX2);
+    }
+    if(o_scy < aY1) {
+        square_length += (double)(o_scy - aY1) * (o_scy - aY1);
+    }
+    if(o_scy > aY2) {
+        square_length += (double)(o_scy - aY2) * (o_scy - aY2);
+    }
+    //square_lengthが球の半径（の二乗）よりも短ければ衝突している
+    if (square_length > pSphere02->_rr) {
+        return false;
+    }
+    //この時点でAAB 対 球でヒット。ここからプリズムでもヒットか検証する
+
+    const int pos = pAAPrism01->_pos_info;
+    const double a = pAAPrism01->_a;
+    //ワールド座標でのプリズム境界線の切片を求める b = y - ax
+    const double b = ((pActor01->_y+pAAPrism01->_cy) - pAAPrism01->_a * (pActor01->_x+pAAPrism01->_cx)) + pAAPrism01->_b;
+
+    //予め保持している_vIH_x,_vIH_yを使用して
+    //プリズム斜辺と最短距離の円周上のXY座標を求める
+    int oppX = o_scx + pAAPrism01->_vIH_x * pSphere02->_r;
+    int oppY = o_scy + pAAPrism01->_vIH_y * pSphere02->_r;
+    if (pos & POS_PRISM_pp) {
+        //            ↑ y+
+        //
+        //        ┌───┐
+        //        │＼こち│
+        // x- ←  │　＼ら│  → x+
+        //       ,┼○　＼│
+        //      │└┼──┘
+        //       `─'
+        //            ↓ y-
+        //
+        //プリズム境界線 y = ax + b と
+        //○の座標(bX2, bY2)、との位置関係を考える
+        //y > ax + b であればヒット
+        if (oppY > a * oppX +  b) {
+            return true;
+        }
+
+    } else if (pos & POS_PRISM_np) {
+        //            ↑ y+
+        //
+        //        ┌───┐
+        //        │こち／│
+        // x- ←  │ら／　│  → x+
+        //        │／　○┼、
+        //        └──┼┘│Opp
+        //               `─'
+        //            ↓ y-
+        //
+        //プリズム境界線 y = ax + b と
+        //○の座標(bX1, bY2)、との位置関係を考える
+        //y > ax + b であればヒット
+        if (oppY > a * oppX +  b) {
+            return true;
+        }
+
+    } else if (pos & POS_PRISM_pn) {
+        //            ↑ y+
+        //       ,─、
+        //      │┌┼──┐
+        //       `┼○　／│
+        // x- ←  │　／こ│  → x+
+        //        │／ちら│
+        //        └───┘
+        //
+        //            ↓ y-
+        //
+        //プリズム境界線 y = ax + b と
+        //○の座標(bX2, bY1)、との位置関係を考える
+        //y < ax + b であればヒット
+        if (oppY < a * oppX +  b) {
+            return true;
+        }
+
+    } else { // のこりは POS_PRISM_nn のみである
+        //            ↑ y+
+        //               ,─、
+        //        ┌──┼┐│Opp
+        //        │＼　○┼'
+        // x- ←  │こ＼　│  → x+
+        //        │ちら＼│
+        //        └───┘
+        //
+        //            ↓ y-
+        //
+        //プリズム境界線 y = ax + b と
+        //○の座標(bX1, bY1)、との位置関係を考える
+        //y < ax + b であればヒット
+        if (oppY < a * oppX +  b) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
+             const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAAPrism* const pAAPrism02  ) {
+    return false;
 }
 
 GgafDxFigureActor* StgUtil::shotWay001(coord prm_x, coord prm_y, coord prm_z,
@@ -1633,9 +1811,6 @@ GgafDxFigureActor* StgUtil::shotWay004(const GgafDxGeometricActor* prm_pFrom,
 
 
 
-
-
-
 //// 特定の点(a,b,c)を通り、方向ベクトルが(p,q,r)の直線は。
 //(x,y,z) = (a,b,c) + t(p,q,r)  (tは媒介変数)
 //
@@ -1673,10 +1848,8 @@ GgafDxFigureActor* StgUtil::shotWay004(const GgafDxGeometricActor* prm_pFrom,
 //(-2*b*c*q-2*a*c*p)*r+(c^2+a^2)*q^2-2*a*b*p*q+(c^2+b^2)*p^2)/(sqrt(r^2+q^2+p^2))
 
 
-
-
-
-//// 点 A(a,b,c) B(d,e,f) を通る直線は
+//点ABを通る直線と点Dの距離
+//点 A(a,b,c) B(d,e,f) を通る直線は
 //AB = (d-a, e-b, f-c)
 //(x,y,z) = (a,b,c) + t(d-a, e-b, f-c)  (tは媒介変数)
 //
@@ -1713,41 +1886,7 @@ GgafDxFigureActor* StgUtil::shotWay004(const GgafDxGeometricActor* prm_pFrom,
 //(((2*a-2*d)*e+2*b*d-2*a*b)*x0-2*b*f^2+(2*c*e+2*b*c)*f+(2*a*d-2*c^2-2*a^2)*e-2*b*d^2+2*a*b*d)*y0+
 //(f^2-2*c*f+e^2-2*b*e+c^2+b^2)*x0^2+(-2*a*f^2+(2*c*d+2*a*c)*f-2*a*e^2+(2*b*d+2*a*b)*e+(-2*c^2-2*b^2)*d)*x0+(b^2+a^2)*
 //f^2+(-2*b*c*e-2*a*c*d)*f+(c^2+a^2)*e^2-2*a*b*d*e+(c^2+b^2)*d^2)/(f^2-2*c*f+e^2-2*b*e+d^2-2*a*d+c^2+b^2+a^2))
-
-
-
-
-
-
-
-
-
-
-
-
-//点 A(x1,y2,z1) B(x2,y1,z1) を通る直線と点D(o_scx,o_scy,o_scz)の距離
-//
-//(x1,y2,z1) (x2,y1,z1)     (o_scx,o_scy,o_scz)
-//
-//sqrt(((y1^2-2*y2*y1+x2^2-2*x1*x2+y2^2+x1^2)*o_scz^2+(((2*y2-2*y1)*z1+2*z1*y1-2*y2*z1)*o_scy+((2*x1-2*x2)*z1+2*z1*x2-2*x1*z1)*o_scx+
-//(2*y2*y1+2*x1*x2-2*y2^2-2*x1^2)*z1-2*z1*y1^2+2*y2*z1*y1-2*z1*x2^2+2*x1*z1*x2)*o_scz+(z1^2-2*z1*z1+x2^2-2*x1*x2+z1^2+x1^2)*o_scy^2+
-//(((2*x1-2*x2)*y1+2*y2*x2-2*x1*y2)*o_scx-2*y2*z1^2+(2*z1*y1+2*y2*z1)*z1+(2*x1*x2-2*z1^2-2*x1^2)*y1-2*y2*x2^2+2*x1*y2*x2)*o_scy+
-//(z1^2-2*z1*z1+y1^2-2*y2*y1+z1^2+y2^2)*o_scx^2+(-2*x1*z1^2+(2*z1*x2+2*x1*z1)*z1-2*x1*y1^2+(2*y2*x2+2*x1*y2)*y1+(-2*z1^2-2*y2^2)*x2)*o_scx+(y2^2+x1^2)*
-//z1^2+(-2*y2*z1*y1-2*x1*z1*x2)*z1+(z1^2+x1^2)*y1^2-2*x1*y2*x2*y1+(z1^2+y2^2)*x2^2)/(z1^2-2*z1*z1+y1^2-2*y2*y1+x2^2-2*x1*x2+z1^2+y2^2+x1^2))
-//
-//
-//sqrt(((y2^2-2*y1*y2+y1^2+x2^2-2*x1*x2+x1^2)*z1^2+(-2*o_scz*y2^2+4*o_scz*y1*y2-2*o_scz*y1^2-2*o_scz*x2^2+4*o_scz*x1*x2-2*o_scz*x1^2)*z1+
-//(x2^2-2*o_scx*x2+o_scz^2+o_scx^2)*y2^2+
-//(((2*o_scx-2*x1)*x2+2*o_scx*x1-2*o_scz^2-2*o_scx^2)*y1-2*o_scy*x2^2+(2*o_scy*x1+2*o_scx*o_scy)*x2-2*o_scx*o_scy*x1)*y2+
-//(x1^2-2*o_scx*x1+o_scz^2+o_scx^2)*y1^2+((2*o_scy*x1-2*o_scx*o_scy)*x2-2*o_scy*x1^2+2*o_scx*o_scy*x1)*y1+(o_scz^2+o_scy^2)*x2^2+(-2*o_scz^2-2*o_scy^2)*x1*
-//x2+(o_scz^2+o_scy^2)*x1^2)/(y2^2-2*y1*y2+y1^2+x2^2-2*x1*x2+x1^2))
-//
-//
-//
-//
-//t=((z1-z1)*z0+(y1-y2)*y0+(x2-x1)*x0-z1*z1-y2*y1-x1*x2+z1^2+y2^2+x1^2)/(z1^2-2*z1*z1+y1^2-2*y2*y1+x2^2-2*x1*x2+z1^2+y2^2+x1^2)
-//
-//t=(y2^2+(-y1-y0)*y2+y0*y1+(x0-x1)*x2+x1^2-x0*x1)/(y2^2-2*y1*y2+y1^2+x2^2-2*x1*x2+x1^2)
+//なんじゃこれ・・・
 
 
 // 球とピラミッド（斜面との距離で判定する範囲）
@@ -1760,7 +1899,6 @@ GgafDxFigureActor* StgUtil::shotWay004(const GgafDxGeometricActor* prm_pFrom,
 //    (3) d の符号は、原点が平面の表側にあるか裏側にあるかに対応しています。
 //    　d が正の時は、原点は平面の表側(平面から見て法線ベクトルの方向)にあります。
 //    　d が負の時は、原点は平面の裏側(法線ベクトルと逆の方向)にあります。
-
 //    a→=(ax,ay,az),
 //    b→=(bx,by,bz)
 //
@@ -1994,11 +2132,10 @@ GgafDxFigureActor* StgUtil::shotWay004(const GgafDxGeometricActor* prm_pFrom,
 //       -ez*x - ex*z + ez*ex = 0
 //    ------------------------
 
-    //外積メモ
+//外積メモ
 //     a→=(ax,ay,az),
 //     b→=(bx,by,bz)
 //    (ay*bz - az*by, az*bx - ax*bz, ax*by - ay*bx)
-
 
 //    A(ex,0,0), B(0,ey,0), C(0,0,ez)
 //

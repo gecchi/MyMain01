@@ -89,10 +89,10 @@ void CollisionChecker::setColliAABox(int prm_index,
 }
 
 void CollisionChecker::setColliAAPrism(int prm_index,
-                                         coord x1, coord y1, coord z1,
-                                         coord x2, coord y2, coord z2,
-                                         pos_t pos_info,
-                                         bool rot_x, bool rot_y, bool rot_z) {
+                                       coord x1, coord y1, coord z1,
+                                       coord x2, coord y2, coord z2,
+                                       pos_t pos_info,
+                                       bool rot_x, bool rot_y, bool rot_z) {
 #ifdef MY_DEBUG
     if (_pCollisionArea == nullptr) {
         throwGgafCriticalException("["<<getTargetActor()->getName()<<"]  まず createCollisionArea を実行して、要素数を宣言してください。");
@@ -117,10 +117,10 @@ void CollisionChecker::setColliAAPrism(int prm_index,
 }
 
 void CollisionChecker::setColliAAPyramid(int prm_index,
-                                           coord x1, coord y1, coord z1,
-                                           coord x2, coord y2, coord z2,
-                                           pos_t pos_info,
-                                           bool rot_x, bool rot_y, bool rot_z) {
+                                         coord x1, coord y1, coord z1,
+                                         coord x2, coord y2, coord z2,
+                                         pos_t pos_info,
+                                         bool rot_x, bool rot_y, bool rot_z) {
 #ifdef MY_DEBUG
     if (_pCollisionArea == nullptr) {
         throwGgafCriticalException("["<<getTargetActor()->getName()<<"]  まず createCollisionArea を実行して、要素数を宣言してください。");

@@ -41,9 +41,11 @@ void Test01::initialize() {
 
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
-//    pChecker->setColliAABox_Cube(0, PX_C(128));
-    pChecker->setColliSphere(0, PX_C(64));
+    pChecker->set2DColliIsoRightTriangle(0, PX_C(128), POS_R_TRIANGLE_pp);
+
+//    pChecker->setColliSphere(0, PX_C(64));
 //    pChecker->setColliAABox(1, PX_C(-128), PX_C(-128), PX_C(-1), PX_C(-64), PX_C(-64), PX_C(1), false, false, true);
+//    pChecker->setColli2DRectangle(0, PX_C(-128), PX_C(-128), PX_C(-64), PX_C(-64), true);
 }
 
 

@@ -56,7 +56,7 @@ void EnemyOebiusCore::onCreateModel() {
 void EnemyOebiusCore::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
-    pChecker->setColliAABox_Cube(0, 40000);
+    pChecker->setColliAACube(0, 40000);
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->linkFaceAngByMvAng(true);
     pKuroko->forceMvVeloRange(PX_C(15));

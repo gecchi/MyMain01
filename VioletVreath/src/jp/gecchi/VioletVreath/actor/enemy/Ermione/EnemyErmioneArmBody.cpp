@@ -23,7 +23,7 @@ void EnemyErmioneArmBody::initialize() {
     EnemyErmioneArm::initialize();
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
-    pChecker->setColliAABox_Cube(0, 40000);
+    pChecker->setColliAACube(0, 40000);
 }
 
 void EnemyErmioneArmBody::onHit(const GgafActor* prm_pOtherActor) {

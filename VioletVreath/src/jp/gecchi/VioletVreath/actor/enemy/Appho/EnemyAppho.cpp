@@ -45,7 +45,7 @@ void EnemyAppho::initialize() {
     setScale(100);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
-    pChecker->setColliAABox_Cube(0, 40000);
+    pChecker->setColliAACube(0, 40000);
 }
 
 void EnemyAppho::onActive() {

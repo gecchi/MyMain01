@@ -24,7 +24,7 @@ void Shot003::initialize() {
     effectBlendOne();       //‰ÁŽZ‡¬
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
-    pChecker->setColliAABox_Cube(0, PX_C(16));
+    pChecker->setColliAACube(0, PX_C(16));
 }
 
 void Shot003::onActive() {

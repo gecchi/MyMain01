@@ -40,11 +40,11 @@ void EnemyGlajaLance001::initialize() {
     setHitAble(false);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(3);
-    pChecker->setColliAABox_Cube(0, PX_C(20));
-    pChecker->setColliAABox_Cube(1, -PX_C(80), 0, 0,
+    pChecker->setColliAACube(0, PX_C(20));
+    pChecker->setColliAACube(1, -PX_C(80), 0, 0,
                                         PX_C(10),
                                         true, true, true);
-    pChecker->setColliAABox_Cube(2, PX_C(80), 0, 0,
+    pChecker->setColliAACube(2, PX_C(80), 0, 0,
                                         PX_C(10),
                                         true, true, true);
 

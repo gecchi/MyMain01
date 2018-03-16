@@ -336,9 +336,9 @@ void MyShip::initialize() {
 //    pChecker->setColliSphere(3, 0,0,-100000, 30000, true, true, true);
 //    pChecker->setColliSphere(4, 0,0,100000, 30000, true, true, true);
 
-//    pChecker->setColliAABox_Cube(0, 40000);
+//    pChecker->setColliAACube(0, 40000);
 /////////////TEST
-      pChecker->setColliAABox_Cube(0, PX_C(120));
+      pChecker->setColliAACube(0, PX_C(120));
 
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setMvVelo(0);

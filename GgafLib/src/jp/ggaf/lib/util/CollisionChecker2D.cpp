@@ -132,12 +132,9 @@ bool CollisionChecker2D::isHit(const GgafDxCore::GgafDxChecker* const prm_pOppCh
                      }
                  } else if (opp_shape_kind == COLLI_AAPYRAMID) {
                      //＜AAB と AAPyramid＞
-                     if (UTIL::isHit2D(pOppActor, (ColliAAPyramid*)pOppColliPart,
-                                       pActor   , (ColliAABox*)pColliPart        )) {
-                         pCollisionArea->_hit_colli_part_index = i;
-                         pOppCollisionArea->_hit_colli_part_index = j;
-                         return true;
-                     }
+                    _TRACE_("＜警告＞2Dで AAB と AAPyramid の当たり判定処理が存在します。AAPyramidの2D当たり判定はありません "<<
+                            pActor <<"["<<pActor->getName()<<"] vs "<<pOppActor<<"["<<pOppActor->getName()<<"]");
+                    return false;
                  }
 
             } else if (shape_kind == COLLI_SPHERE) {
@@ -167,12 +164,9 @@ bool CollisionChecker2D::isHit(const GgafDxCore::GgafDxChecker* const prm_pOppCh
                     }
                 } else if (opp_shape_kind == COLLI_AAPYRAMID) {
                     //＜球 と AAPyramid＞
-                    if (UTIL::isHit2D(pOppActor, (ColliAAPyramid*)pOppColliPart,
-                                      pActor   , (ColliSphere*)pColliPart     )) {
-                        pCollisionArea->_hit_colli_part_index = i;
-                        pOppCollisionArea->_hit_colli_part_index = j;
-                        return true;
-                    }
+                    _TRACE_("＜警告＞2Dで 球 と AAPyramid の当たり判定処理が存在します。AAPyramidの2D当たり判定はありません "<<
+                            pActor <<"["<<pActor->getName()<<"] vs "<<pOppActor<<"["<<pOppActor->getName()<<"]");
+                    return false;
                 }
 
             } else if (shape_kind == COLLI_AAPRISM) {
@@ -194,48 +188,23 @@ bool CollisionChecker2D::isHit(const GgafDxCore::GgafDxChecker* const prm_pOppCh
                     }
                 }  else if (opp_shape_kind == COLLI_AAPRISM) {
                     //＜AAPrism と AAPrism＞
-                    //TODO: 考えるだけで重たくなりそう、というかめんどくさそうな感じがする；。
-                    //時間があれば考えよう・・・。今は未対応。
-                    throwGgafCriticalException("AAPrism と AAPrism の当たり判定処理が存在します。そんな処理は未だ作ってません。 "<<
-                            pActor <<"["<<pActor->getName()<<"] vs "<<pOppActor<<"["<<pOppActor->getName()<<"]");
-                   return false;
+                    //TODO:未作成
+                    if (UTIL::isHit2D(pActor   , (ColliAAPrism*)pColliPart,
+                                      pOppActor, (ColliAAPrism*)pOppColliPart)) {
+                        pCollisionArea->_hit_colli_part_index = i;
+                        pOppCollisionArea->_hit_colli_part_index = j;
+                        return true;
+                    }
                 } else if (opp_shape_kind == COLLI_AAPYRAMID) {
                     //＜AAPrism と AAPyramid＞
-                    //TODO: 今は未対応。
-                    throwGgafCriticalException("AAPrism と AAPyramid の当たり判定処理が存在します。そんな処理は未だ作ってません。 "<<
+                    _TRACE_("＜警告＞2Dで AAPrism と AAPyramid の当たり判定処理が存在します。AAPyramidの2D当たり判定はありません "<<
                             pActor <<"["<<pActor->getName()<<"] vs "<<pOppActor<<"["<<pOppActor->getName()<<"]");
                     return false;
                  }
             } else if (shape_kind == COLLI_AAPYRAMID) {
-                if (opp_shape_kind == COLLI_AABOX) {
-                    //＜AAPyramid と AAB＞
-                    if (UTIL::isHit2D(pActor   , (ColliAAPyramid*)pColliPart,
-                                      pOppActor, (ColliAABox*)pOppColliPart  )) {
-                        pCollisionArea->_hit_colli_part_index = i;
-                        pOppCollisionArea->_hit_colli_part_index = j;
-                        return true;
-                    }
-                } else if (opp_shape_kind == COLLI_SPHERE) {
-                    //＜AAPyramid と 球＞
-                    if (UTIL::isHit2D(pActor   , (ColliAAPyramid*)pColliPart,
-                                      pOppActor, (ColliSphere*)pOppColliPart)) {
-                        pCollisionArea->_hit_colli_part_index = i;
-                        pOppCollisionArea->_hit_colli_part_index = j;
-                        return true;
-                    }
-                } else if (opp_shape_kind == COLLI_AAPRISM) {
-                    //＜AAPyramid と AAPrism＞
-                    //TODO: 今は未対応。
-                    throwGgafCriticalException("AAPyramid と AAPrism の当たり判定処理が存在します。そんな処理は未だ作ってません。 "<<
-                            pActor <<"["<<_pActor->getName()<<"] vs "<<pOppActor<<"["<<pOppActor->getName()<<"]");
-                    return false;
-                } else if (opp_shape_kind == COLLI_AAPYRAMID) {
-                    //＜AAPyramid と AAPyramid＞
-                    //TODO: 今は未対応。
-                    throwGgafCriticalException("AAPyramid と AAPyramid の当たり判定処理が存在します。そんな処理は未だ作ってません。 "<<
-                            pActor <<"["<<_pActor->getName()<<"] vs "<<pOppActor<<"["<<pOppActor->getName()<<"]");
-                    return false;
-                }
+                _TRACE_("＜警告＞2Dで AAPyramid の当たり判定処理が存在します。AAPyramidの2D当たり判定はありません "<<
+                        pActor <<"["<<pActor->getName()<<"] vs "<<pOppActor<<"["<<pOppActor->getName()<<"]");
+                return false;
             }
         }
     }

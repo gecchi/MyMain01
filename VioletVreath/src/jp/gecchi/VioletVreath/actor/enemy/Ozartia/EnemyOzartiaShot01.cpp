@@ -27,7 +27,7 @@ EnemyOzartiaShot01::EnemyOzartiaShot01(const char* prm_name) :
 void EnemyOzartiaShot01::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
-    pChecker->setColliAABox(0, -30000, -30000, 30000, 30000);
+    pChecker->setColliAACube(0, PX_C(60));
     setHitAble(true);
     getProgress()->reset(PROG_INIT);
 }

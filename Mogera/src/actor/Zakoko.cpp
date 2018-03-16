@@ -28,7 +28,7 @@ void Zakoko::initialize() {
 
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
-    pChecker->setColliAABox_Cube(0, PX_C(128));
+    pChecker->setColliAACube(0, PX_C(128));
 }
 
 void Zakoko::onActive() {
