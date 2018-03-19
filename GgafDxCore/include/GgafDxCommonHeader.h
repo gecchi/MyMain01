@@ -69,6 +69,9 @@ typedef uint32_t pos_t;
 /** 直角がある方向は, (正, 正)である */
 #define POS_PRISM_pp      (0x8)  //0b 00001000
 
+#define POS_PRISM__p (POS_PRISM_np | POS_PRISM_pp)
+#define POS_PRISM_p_ (POS_PRISM_pn | POS_PRISM_pp)
+
 //2D直角三角形の当たり判定時に指定する定数
 /** 直角がある方向は, (x, y) = (負, 負) 方向である */
 #define POS_R_TRIANGLE_nn POS_PRISM_XY_nn
@@ -78,6 +81,9 @@ typedef uint32_t pos_t;
 #define POS_R_TRIANGLE_pn POS_PRISM_XY_pn
 /** 直角がある方向は, (x, y) = (正, 正) 方向である */
 #define POS_R_TRIANGLE_pp POS_PRISM_XY_pp
+
+#define POS_R_TRIANGLE__p (POS_R_TRIANGLE_np | POS_R_TRIANGLE_pp)
+#define POS_R_TRIANGLE_p_ (POS_R_TRIANGLE_pn | POS_R_TRIANGLE_pp)
 
 //直角の頂点の位置をネガポジ
 //                  xyz
