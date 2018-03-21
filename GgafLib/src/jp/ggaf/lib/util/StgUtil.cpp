@@ -1401,7 +1401,351 @@ bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
 }
 
 bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
-             const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAAPrism* const pAAPrism02  ) {
+                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAAPrism* const pAAPrism02  ) {
+    if (GgafDxCore::GgafDxInput::isPressedKey(DIK_P)) {
+        _TRACE_("kitayo");
+    }
+    double aX1 = C_DX(pActor01->_x + pAAPrism01->_x1);
+    double aY1 = C_DX(pActor01->_y + pAAPrism01->_y1);
+    double aX2 = C_DX(pActor01->_x + pAAPrism01->_x2);
+    double aY2 = C_DX(pActor01->_y + pAAPrism01->_y2);
+    double aCX = C_DX(pActor01->_x + pAAPrism01->_cx);
+    double aCY = C_DX(pActor01->_y + pAAPrism01->_cy);
+
+    double aA = C_DX(pAAPrism01->_a); //斜辺の傾き
+    double aB = C_DX(pActor01->_y + pAAPrism01->_b); //斜辺の切片
+
+    double bX1 = C_DX(pActor02->_x + pAAPrism02->_x1);
+    double bY1 = C_DX(pActor02->_y + pAAPrism02->_y1);
+    double bX2 = C_DX(pActor02->_x + pAAPrism02->_x2);
+    double bY2 = C_DX(pActor02->_y + pAAPrism02->_y2);
+    double bCX = C_DX(pActor02->_x + pAAPrism02->_cx);
+    double bCY = C_DX(pActor02->_y + pAAPrism02->_cy);
+
+    double bA = C_DX(pAAPrism02->_a);
+    double bB = C_DX(pActor02->_y + pAAPrism02->_b);
+
+    int pos1 = pAAPrism01->_pos_info;
+    int pos2 = pAAPrism02->_pos_info;
+    //直角頂点の座標を原点(0,0)におき、
+    //A(aex,0), B(0,aey),の三直角三角錐で当たり判定を考えたいので、
+    double offset_x = -aX1;
+    double offset_y = -aY1;
+
+    aX1 += offset_x;
+    aY1 += offset_y;
+    aX2 += offset_x;
+    aY2 += offset_y;
+    aCX += offset_x;
+    aCY += offset_y;
+    aB += offset_y;
+
+    bX1 += offset_x;
+    bY1 += offset_y;
+    bX2 += offset_x;
+    bY2 += offset_y;
+    bCX += offset_x;
+    bCY += offset_y;
+    bB += offset_y;
+    //自分の三角形の横と縦要素
+    double aEx = aX2 - aX1;
+    double aEy = aY2 - aY1;
+    //自分の三角形の斜面上の点
+
+    //自分の三角形の斜面の法線ベクトル
+    double aNx = -pAAPrism01->_vIH_x;
+    double aNy = -pAAPrism01->_vIH_y;
+
+    //自分の頂点は(0,0)
+
+//    //相手の三角形の横と縦要素
+//    double bEx = bX2 - bX1;
+//    double bEy = bY2 - bY1;
+
+    //相手の三角形の斜面の法線ベクトル
+    double bNx = -pAAPrism02->_vIH_x;
+    double bNy = -pAAPrism02->_vIH_y;
+
+    //相手の頂点
+//    double vtx_bX = bX1;
+//    double vtx_bY = bY1;
+
+    if (pos1 == POS_R_TRIANGLE_nn) {
+        if (pos2 == POS_R_TRIANGLE_nn) {
+            //相手の直角頂点は (bX1, bY1)
+            if (bX1 <= 0) {
+                if (bY1 <= 0) {
+                    //位置1
+                    _TRACE_("位置１");
+                    //自身の直角頂点が、近傍点(0, 0)
+                    //相手の直角三角形の斜辺の法線ベクトル (bNx, bNy) と
+                    //相手の直角三角形の斜辺の点 (bCX, bCY) から  近傍点(0, 0) のベクトル(-bCX, -bCY)の
+                    //内積が負 ならば近傍点(0, 0) が相手の直角三角形の中にある
+                    //(bNx, bNy)・(-bCX, -bCY) = bNx*(-bCX) + bNy*(bCY)
+                    if ((bNx*(-bCX) + bNy*(-bCY)) < 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else if (bY1 <= aEy) {
+                    //位置4
+                    _TRACE_("位置４");
+                    if (bX2 > 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    //位置7
+                    _TRACE_("位置７");
+                    return false;
+                }
+            } else if (bX1 <= aEx) {
+                if (bY1 <= 0) {
+                    //位置2
+                    _TRACE_("位置２");
+                    if (bY2 > 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else if (bY1 <= aEy) {
+                    //位置5
+                    _TRACE_("位置５");
+                    //相手の直角頂点が、近傍点(bX1, bY1)
+                    //自身の直角三角形の斜辺の法線ベクトル (aNx, aNy) と
+                    //自身の直角三角形の斜辺の点 (aCX, aCY) から  近傍点(bX1, bY1) のベクトル(bX1-aCX, bY1-aCY)の
+                    //内積が負 ならば近傍点(bX1, bY1) が直角三角形の中にある
+                    //(aNx, aNy)・(bX1-aCX, bY1-aCY) = aNx*(bX1-aCX) + aNy*(bY1-aCY)
+                    if ((aNx*(bX1-aCX) + aNy*(bY1-aCY)) < 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    //位置8
+                    _TRACE_("位置８");
+                    return false;
+                }
+            } else {
+                return false;
+//                if (bY1 <= 0) {
+//                    //位置3
+//                    _TRACE_("位置３");
+//                    return false;
+//                } else if (bY1 <= aEy) {
+//                    //位置6
+//                    _TRACE_("位置６");
+//                    return false;
+//                } else {
+//                    //位置9
+//                    _TRACE_("位置９");
+//                    return false;
+//                }
+            }
+        }
+
+        if (pos2 == POS_R_TRIANGLE_np) {
+            //相手の直角頂点は (bX1, bY2)
+            if (bX1 <= 0) {
+                if (bY2 <= 0) {
+                    //位置1
+                    _TRACE_("位置１");
+                    return false;
+                } else if (bY2 <= aEy) {
+                    //位置4
+                    _TRACE_("位置４");
+                    if (bX2 > 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    //位置7
+                    _TRACE_("位置７");
+                    //自身の頂点近傍点(0, aY2)
+                    //相手の直角三角形の斜辺の法線ベクトル (bNx, bNy) と
+                    //相手の直角三角形の斜辺の点 (bCX, bCY) から  近傍点(0, aY2) のベクトル(-bCX, aY2-bCY)の
+                    //内積が負 ならば近傍点(0, 0) が相手の直角三角形の中にある
+                    //(bNx, bNy)・(-bCX, aY2-bCY) = bNx*(-bCX) + bNy*(aY2-bCY)
+                    if ((bNx*(-bCX) + bNy*(aY2-bCY)) < 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            } else if (bX1 <= aEx) {
+                if (bY2 <= 0) {
+                    //位置2
+                    _TRACE_("位置２");
+                    return false;
+                } else if (bY2 <= aEy) {
+                    //位置5
+                    _TRACE_("位置５");
+                    //相手の頂点近傍点(bX1, bY1)
+                    //自身の直角三角形の斜辺の法線ベクトル (aNx, aNy) と
+                    //自身の直角三角形の斜辺の点 (aCX, aCY) から  近傍点(bX1, bY1) のベクトル(bX1-aCX, bY1-aCY)の
+                    //内積が負 ならば近傍点(bX1, bY1) が直角三角形の中にある
+                    //(aNx, aNy)・(bX1-aCX, bY1-aCY) = aNx*(bX1-aCX) + aNy*(bY1-aCY)
+                    if ((aNx*(bX1-aCX) + aNy*(bY1-aCY)) < 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    //位置8
+                    _TRACE_("位置８");
+                    //位置5と同じ
+                    if ((aNx*(bX1-aCX) + aNy*(bY1-aCY)) < 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            } else {
+                return false;
+//                if (bY2 <= 0) {
+//                    //位置3
+//                    _TRACE_("位置３");
+//                    return false;
+//                } else if (bY2 <= aEy) {
+//                    //位置6
+//                    _TRACE_("位置６");
+//                    return false;
+//                } else {
+//                    //位置9
+//                    _TRACE_("位置９");
+//                    return false;
+//                }
+            }
+        }
+
+
+        if (pos2 == POS_R_TRIANGLE_pn) {
+            //相手の直角頂点は (bX2, bY1)
+            if (bX2 <= 0) {
+                return false;
+//                if (bY1 <= 0) {
+//                    //位置1
+//                    _TRACE_("位置１");
+//                    return false;
+//                } else if (bY1 <= aEy) {
+//                    //位置4
+//                    _TRACE_("位置４");
+//                    return false;
+//                } else {
+//                    //位置7
+//                    _TRACE_("位置７");
+//                    return false;
+//                }
+            } else if (bX2 <= aEx) {
+                if (bY1 <= 0) {
+                    //位置2
+                    _TRACE_("位置２");
+                    if (bY2 > 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else if (bY1 <= aEy) {
+                    //位置5
+                    _TRACE_("位置５");
+                    //相手の頂点近傍点(bX1, bY1)
+                    //自身の直角三角形の斜辺の法線ベクトル (aNx, aNy) と
+                    //自身の直角三角形の斜辺の点 (aCX, aCY) から  近傍点(bX1, bY1) のベクトル(bX1-aCX, bY1-aCY)の
+                    //内積が負 ならば近傍点(bX1, bY1) が直角三角形の中にある
+                    //(aNx, aNy)・(bX1-aCX, bY1-aCY) = aNx*(bX1-aCX) + aNy*(bY1-aCY)
+                    if ((aNx*(bX1-aCX) + aNy*(bY1-aCY)) < 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    //位置8
+                    _TRACE_("位置８");
+                    return false;
+                }
+            } else {
+                if (bY1 <= 0) {
+                    //位置3
+                    _TRACE_("位置３");
+                    //自身の頂点近傍点(aX2, 0)
+                    //相手の直角三角形の斜辺の法線ベクトル (bNx, bNy) と
+                    //相手の直角三角形の斜辺の点 (bCX, bCY) から  近傍点(aX2, 0) のベクトル(aX2-bCX, -bCY)の
+                    //内積が負 ならば近傍点(0, 0) が相手の直角三角形の中にある
+                    //(bNx, bNy)・(aX2-bCX, -bCY) = bNx*(aX2-bCX) + bNy*(-bCY)
+                    if ((bNx*(aX2-bCX) + bNy*(-bCY)) < 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else if (bY1 <= aEy) {
+                    //位置6
+                    _TRACE_("位置６");
+                    //位置5と同じ
+                    if ((aNx*(bX1-aCX) + aNy*(bY1-aCY)) < 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    //位置9
+                    _TRACE_("位置９");
+                    return false;
+                }
+            }
+        }
+
+
+
+        if (pos2 == POS_R_TRIANGLE_pp) {
+            //相手の直角頂点は (bX2, bY2)
+            if (bX2 <= 0) {
+                if (bY2 <= 0) {
+                    //位置1
+                    _TRACE_("位置１");
+                    return false;
+                } else if (bY2 <= aEy) {
+                    //位置4
+                    _TRACE_("位置４");
+                    return false;
+                } else {
+                    //位置7
+                    _TRACE_("位置７");
+                    return false;
+                }
+            } else if (bX2 <= aEx) {
+                if (bY2 <= 0) {
+                    //位置2
+                    _TRACE_("位置２");
+                    return false;
+                } else if (bY2 <= aEy) {
+                    //位置5
+                    _TRACE_("位置５");
+                    //斜辺の不等式・・・・
+
+                } else {
+                    //位置8
+                    _TRACE_("位置８");
+                }
+            } else {
+                if (bY2 <= 0) {
+                    //位置3
+                    _TRACE_("位置３");
+                    return false;
+                } else if (bY2 <= aEy) {
+                    //位置6
+                    _TRACE_("位置６");
+                } else {
+                    //位置9
+                    _TRACE_("位置９");
+                }
+            }
+        }
+
+
+
+    }
     return false;
 }
 
