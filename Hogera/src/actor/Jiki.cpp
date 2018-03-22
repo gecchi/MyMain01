@@ -42,7 +42,7 @@ void Jiki::initialize() {
     pChecker->createCollisionArea(1);
 //    pChecker->set2DColliSquare(0, PX_C(128));
 //    pChecker->set2DColliCircle(0, PX_C(32));
-    pChecker->set2DColliRightTriangle_WH(0, PX_C(0), PX_C(0), PX_C(100), PX_C(200), POS_R_TRIANGLE_pn);
+    pChecker->set2DColliRightTriangle_WH(0, PX_C(0), PX_C(0), PX_C(200), PX_C(100), POS_R_TRIANGLE_pp);
 }
 
 void Jiki::onReset() {
@@ -97,5 +97,6 @@ void Jiki::onHit(const GgafActor* prm_pOtherActor) {
 
 Jiki::~Jiki() {
 }
+
 
 

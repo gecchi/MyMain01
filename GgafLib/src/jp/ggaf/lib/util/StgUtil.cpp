@@ -1412,7 +1412,7 @@ bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     double aCX = C_DX(pActor01->_x + pAAPrism01->_cx);
     double aCY = C_DX(pActor01->_y + pAAPrism01->_cy);
 
-    double aA = C_DX(pAAPrism01->_a); //斜辺の傾き
+    double aA = pAAPrism01->_a; //斜辺の傾き
     double aB = C_DX(pActor01->_y + pAAPrism01->_b); //斜辺の切片
 
     double bX1 = C_DX(pActor02->_x + pAAPrism02->_x1);
@@ -1422,7 +1422,7 @@ bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     double bCX = C_DX(pActor02->_x + pAAPrism02->_cx);
     double bCY = C_DX(pActor02->_y + pAAPrism02->_cy);
 
-    double bA = C_DX(pAAPrism02->_a);
+    double bA = pAAPrism02->_a;
     double bB = C_DX(pActor02->_y + pAAPrism02->_b);
 
     int pos1 = pAAPrism01->_pos_info;
@@ -1543,7 +1543,7 @@ bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
 //                    return false;
 //                }
             }
-        }
+        } //pos2 == POS_R_TRIANGLE_nn
 
         if (pos2 == POS_R_TRIANGLE_np) {
             //相手の直角頂点は (bX1, bY2)
@@ -1566,7 +1566,7 @@ bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
                     //自身の頂点近傍点(0, aY2)
                     //相手の直角三角形の斜辺の法線ベクトル (bNx, bNy) と
                     //相手の直角三角形の斜辺の点 (bCX, bCY) から  近傍点(0, aY2) のベクトル(-bCX, aY2-bCY)の
-                    //内積が負 ならば近傍点(0, 0) が相手の直角三角形の中にある
+                    //内積が負 ならば近傍点(0, aY2) が相手の直角三角形の中にある
                     //(bNx, bNy)・(-bCX, aY2-bCY) = bNx*(-bCX) + bNy*(aY2-bCY)
                     if ((bNx*(-bCX) + bNy*(aY2-bCY)) < 0) {
                         return true;
@@ -1618,7 +1618,7 @@ bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
 //                    return false;
 //                }
             }
-        }
+        } //pos2 == POS_R_TRIANGLE_np
 
 
         if (pos2 == POS_R_TRIANGLE_pn) {
@@ -1672,7 +1672,7 @@ bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
                     //自身の頂点近傍点(aX2, 0)
                     //相手の直角三角形の斜辺の法線ベクトル (bNx, bNy) と
                     //相手の直角三角形の斜辺の点 (bCX, bCY) から  近傍点(aX2, 0) のベクトル(aX2-bCX, -bCY)の
-                    //内積が負 ならば近傍点(0, 0) が相手の直角三角形の中にある
+                    //内積が負 ならば近傍点(aX2, 0) が相手の直角三角形の中にある
                     //(bNx, bNy)・(aX2-bCX, -bCY) = bNx*(aX2-bCX) + bNy*(-bCY)
                     if ((bNx*(aX2-bCX) + bNy*(-bCY)) < 0) {
                         return true;
@@ -1694,7 +1694,7 @@ bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
                     return false;
                 }
             }
-        }
+        } //pos2 == POS_R_TRIANGLE_pn
 
 
 
@@ -1722,8 +1722,6 @@ bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
                 } else if (bY2 <= aEy) {
                     //位置5
                     _TRACE_("位置５");
-                    //斜辺の不等式・・・・
-
                 } else {
                     //位置8
                     _TRACE_("位置８");
@@ -1741,7 +1739,113 @@ bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
                     _TRACE_("位置９");
                 }
             }
-        }
+
+            //位置5,6,8,9
+
+            //まず傾きをきを比較
+            // aA < bA の場合、相手三角形の頂点(bX1,bY2) の位置に注目
+            // aA > bA の場合、相手三角形の頂点(bX2,bY1) の位置に注目
+            // aA = bA の場合、斜辺が平行なのでどっちでもいい
+            // 注目の頂点について、
+            // A(aEx,0) を含む斜辺の法線に平行な線と
+            // B(0,aEy) を含む斜辺の法線に平行な線との間の範囲(範囲Rとする)
+            // の内側に相手の頂点があるか無いかで場合わけ
+            //
+            //A(aEx,0) を含む斜辺の法線に平行な線は、
+            //直線の法線 →AB=(-aEx, aEy) に向けたいので
+            //-aEx * x + aEy * y + c = 0
+            //これが、A(aEx,0)を通るので
+            //-aEx * aEx + c = 0
+            //c = aEx^2
+            //よって
+            //-aEx * x + aEy * y + aEx^2 > 0
+            //
+            //B(0,aEy) を含む斜辺の法線に平行な線は、
+            //直線の法線 →BA=(aEx, -aEy) に向けたいので
+            //aEx * x - aEy * y + c = 0
+            //これが、B(0,aEy) を通るので
+            //- aEy * aEy + c = 0
+            //c = aEy^2
+            //よって
+            //aEx * x - aEy * y + aEy^2 > 0
+
+            //領域Rは
+            //-aEx * x + aEy * y + aEx^2 > 0
+            //aEx * x - aEy * y + aEy^2 > 0
+            //の範囲
+
+            if (aA < bA) {
+                //斜辺の傾き（負）が、相手三角形の方がより水平に近い
+
+                //相手三角形の頂点(bX1,bY2) の位置に注目
+                if ((-aEx*bX1 + aEy*bY2 + aEx*aEx) < 0) {
+                    //注目の頂点(bX1,bY2)がA(aEx,0) を含む斜辺の法線に平行な線の外側
+                    return false;
+                } else if ((aEx*bX1 - aEy*bY2 + aEy*aEy) < 0) {
+                    //注目の頂点(bX1,bY2)がB(0,aEy) を含む斜辺の法線に平行な線の外側
+
+                    //自身の頂点近傍点(0, aY2)
+                    //相手の直角三角形の斜辺の法線ベクトル (bNx, bNy) と
+                    //相手の直角三角形の斜辺の点 (bCX, bCY) から  近傍点(0, aY2) のベクトル(-bCX, aY2-bCY)の
+                    //内積が負 ならば近傍点(0, aY2) が相手の直角三角形の中にある
+                    //(bNx, bNy)・(-bCX, aY2-bCY) = bNx*(-bCX) + bNy*(aY2-bCY)
+                    if ((bNx*(-bCX) + bNy*(aY2-bCY)) < 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    //注目の頂点(bX1,bY2)が範囲Rの範囲内の場合
+
+                    //相手の頂点近傍点(bX1,bY2)
+                    //自身の直角三角形の斜辺の法線ベクトル (aNx, aNy) と
+                    //自身の直角三角形の斜辺の点 (aCX, aCY) から  近傍点(bX1,bY2) のベクトル(bX1-aCX, bY2-aCY)の
+                    //内積が負 ならば近傍点(bX1, bY2) が直角三角形の中にある
+                    //(aNx, aNy)・(bX1-aCX, bY2-aCY) = aNx*(bX1-aCX) + aNy*(bY2-aCY)
+                    if ((aNx*(bX1-aCX) + aNy*(bY2-aCY)) < 0)  {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+
+            } else {
+                //斜辺の傾き（負）が、相手三角形の方がより垂直に近い
+                //相手三角形の頂点(bX2,bY1) の位置に注目
+                if ((-aEx*bX2 + aEy*bY1 + aEx*aEx) < 0) {
+                    //注目の頂点(bX2,bY1)がA(aEx,0) を含む斜辺の法線に平行な線の外側
+
+                    //自身の頂点近傍点(aX2, 0)
+                    //相手の直角三角形の斜辺の法線ベクトル (bNx, bNy) と
+                    //相手の直角三角形の斜辺の点 (bCX, bCY) から  近傍点(aX2, 0) のベクトル(aX2-bCX, -bCY)の
+                    //内積が負 ならば近傍点(aX2, 0) が相手の直角三角形の中にある
+                    //(bNx, bNy)・(aX2-bCX, -bCY) = bNx*(aX2-bCX) + bNy*(-bCY)
+                    if ((bNx*(aX2-bCX) + bNy*(-bCY)) < 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else if ((aEx*bX2 - aEy*bY1 + aEy*aEy) < 0) {
+                    //注目の頂点(bX2,bY1)がB(0,aEy) を含む斜辺の法線に平行な線の外側
+
+                    return false;
+                } else {
+                    //注目の頂点(bX2,bY1)が範囲Rの範囲内の場合
+
+                    //相手の頂点近傍点(bX2,bY1)
+                    //自身の直角三角形の斜辺の法線ベクトル (aNx, aNy) と
+                    //自身の直角三角形の斜辺の点 (aCX, aCY) から  近傍点(bX2,bY1) のベクトル(bX2-aCX, bY1-aCY)の
+                    //内積が負 ならば近傍点(bX2, bY1) が直角三角形の中にある
+                    //(aNx, aNy)・(bX2-aCX, bY1-aCY) = aNx*(bX2-aCX) + aNy*(bY1-aCY)
+                    if ((aNx*(bX2-aCX) + aNy*(bY1-aCY)) < 0)  {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+
+            }
+        } //pos2 == POS_R_TRIANGLE_pp
 
 
 
