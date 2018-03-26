@@ -537,7 +537,7 @@ public:
      * @param y1 当たり判定直角三角形の境界長方形の左下Y座標（Actorローカル座標）
      * @param x2 当たり判定直角三角形の境界長方形の右上X座標（Actorローカル座標）
      * @param y2 当たり判定直角三角形の境界長方形の右上Y座標（Actorローカル座標）
-     * @param pos_info プリズム位置（POS_PRISM_**_**)
+     * @param pos_info 直角位置（POS_R_TRIANGLE_**)
      * @param rot_z 当たり判定の直角三角形を、Actorの向きに伴ってActorローカルZ軸を中心に回転平行移動を行う場合 true
      */
     void set2DColliRightTriangle(int prm_index, coord x1, coord y1, coord x2, coord y2, pos_t pos_info, bool rot_z=false) {
@@ -552,7 +552,7 @@ public:
      * @param y 当たり判定直角三角形の境界長方形の中心Y座標（Actorローカル座標）
      * @param prm_width 当たり判定直角三角形の境界長方形の幅（X軸方向の長さ）
      * @param prm_height 当たり判定直角三角形の境界長方形の高さ（Y軸方向の長さ）
-     * @param pos_info プリズム位置（POS_PRISM_**_**)
+     * @param pos_info 直角位置（POS_R_TRIANGLE_**)
      * @param rot_z 当たり判定の直角三角形を、Actorの向きに伴ってActorローカルZ軸を中心に回転平行移動を行う場合 true
      */
     void set2DColliRightTriangle_WH(int prm_index, coord x, coord y, coord prm_width, coord prm_height, pos_t pos_info, bool rot_z=false) {
@@ -568,7 +568,7 @@ public:
      * @param x 当たり判定直角三角形の境界正方形の中心X座標（Actorローカル座標）
      * @param y 当たり判定直角三角形の境界正方形の中心Y座標（Actorローカル座標）
      * @param prm_width 当たり判定直角三角形の境界正方形の１辺の長さ（斜辺ではありません）
-     * @param pos_info プリズム位置（POS_PRISM_**_**)
+     * @param pos_info 直角位置（POS_R_TRIANGLE_**)
      * @param rot_z 当たり判定の直角三角形を、Actorの向きに伴ってActorローカルZ軸を中心に回転平行移動を行う場合 true
      */
     void set2DColliIsoRightTriangle(int prm_index, coord x, coord y, coord prm_edge, pos_t pos_info, bool rot_z=false) {
@@ -586,7 +586,7 @@ public:
      * @param x 当たり判定直角三角形の境界正方形の中心X座標（Actorローカル座標）
      * @param y 当たり判定直角三角形の境界正方形の中心Y座標（Actorローカル座標）
      * @param prm_width 当たり判定直角三角形の境界正方形の１辺の長さ（斜辺ではありません）
-     * @param pos_info プリズム位置（POS_PRISM_**_**)
+     * @param pos_info 直角位置（POS_R_TRIANGLE_**)
      * @param rot_z 当たり判定の直角三角形を、Actorの向きに伴ってActorローカルZ軸を中心に回転平行移動を行う場合 true
      */
     void set2DColliIsoRightTriangle(int prm_index, coord prm_edge, pos_t pos_info) {

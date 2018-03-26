@@ -29,7 +29,7 @@ void ColliAAPyramid::set(int prm_x1, int prm_y1, int prm_z1, int prm_x2, int prm
     float dg_vx, dg_vy, dg_vz; //ëŒäpê¸ï˚å¸ÉxÉNÉgÉã
     float x0, y0, z0;          //ÇRíºäpÇÃí∏ì_ÅiëŒäpê¸Ç™í ÇÈì_Åj
     switch (_pos_info) {
-        case POS_PYRAMID_nnn: {
+        case POS_PYRAMID_NNN: {
             UTIL::getPlaneNomalVec(x2, y1, z1,
                                    x1, y2, z1,
                                    x1, y1, z2,
@@ -42,7 +42,7 @@ void ColliAAPyramid::set(int prm_x1, int prm_y1, int prm_z1, int prm_x2, int prm
             dg_vz = z2-z1;
             break;
          }
-         case POS_PYRAMID_nnp: {
+         case POS_PYRAMID_NNP: {
              UTIL::getPlaneNomalVec(x1, y1, z1,
                                     x1, y2, z2,
                                     x2, y1, z2,
@@ -55,7 +55,7 @@ void ColliAAPyramid::set(int prm_x1, int prm_y1, int prm_z1, int prm_x2, int prm
              dg_vz = z1-z2;
              break;
          }
-         case POS_PYRAMID_npn: {
+         case POS_PYRAMID_NPN: {
              UTIL::getPlaneNomalVec(x2, y2, z1,
                                     x1, y2, z2,
                                     x1, y1, z1,
@@ -68,7 +68,7 @@ void ColliAAPyramid::set(int prm_x1, int prm_y1, int prm_z1, int prm_x2, int prm
              dg_vz = z2-z1;
              break;
          }
-         case POS_PYRAMID_npp: {
+         case POS_PYRAMID_NPP: {
              UTIL::getPlaneNomalVec(x2, y2, z2,
                                     x1, y1, z2,
                                     x1, y2, z1,
@@ -81,7 +81,7 @@ void ColliAAPyramid::set(int prm_x1, int prm_y1, int prm_z1, int prm_x2, int prm
              dg_vz = z1-z2;
              break;
          }
-         case POS_PYRAMID_pnn: {
+         case POS_PYRAMID_PNN: {
              UTIL::getPlaneNomalVec(x2, y1, z2,
                                     x2, y2, z1,
                                     x1, y1, z1,
@@ -94,7 +94,7 @@ void ColliAAPyramid::set(int prm_x1, int prm_y1, int prm_z1, int prm_x2, int prm
              dg_vz = z2-z1;
              break;
          }
-         case POS_PYRAMID_pnp: {
+         case POS_PYRAMID_PNP: {
              UTIL::getPlaneNomalVec(x1, y1, z2,
                                     x2, y2, z2,
                                     x2, y1, z1,
@@ -107,7 +107,7 @@ void ColliAAPyramid::set(int prm_x1, int prm_y1, int prm_z1, int prm_x2, int prm
              dg_vz = z1-z2;
              break;
          }
-         case POS_PYRAMID_ppn: {
+         case POS_PYRAMID_PPN: {
              UTIL::getPlaneNomalVec(x2, y2, z2,
                                     x1, y2, z1,
                                     x2, y1, z1,
@@ -120,7 +120,7 @@ void ColliAAPyramid::set(int prm_x1, int prm_y1, int prm_z1, int prm_x2, int prm
              dg_vz = z2-z1;
              break;
          }
-         case POS_PYRAMID_ppp: {
+         case POS_PYRAMID_PPP: {
              UTIL::getPlaneNomalVec(x1, y2, z2,
                                     x2, y2, z1,
                                     x2, y1, z2,

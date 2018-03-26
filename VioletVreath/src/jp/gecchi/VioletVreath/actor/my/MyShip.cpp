@@ -789,8 +789,8 @@ void MyShip::onHit(const GgafActor* prm_pOtherActor) {
                 //ÉvÉäÉYÉÄï«
                 ColliAAPrism* pPrism = (ColliAAPrism*)(pOther->_pChecker->_pCollisionArea->_papColliPart[0]);
                 pos_t pos_info = pPrism->_pos_info;
-                if (pos_info & POS_PRISM_XY) {
-                    if (pos_info & POS_PRISM_pp) {
+                if (pos_info & POS_PRISM_XY_xx) {
+                    if (pos_info & POS_PRISM_xx_PP) {
                         //            Å™ y+
                         // (_x1,_y2)      (_x2,_y2)
                         //        Ñ°ÑüÑüÑüÑ¢
@@ -803,7 +803,7 @@ void MyShip::onHit(const GgafActor* prm_pOtherActor) {
                         dX2 = (_x - (pOther->_x + pPrism->_hdx));
                         dY2 = (_y - (pOther->_y + pPrism->_hdy));
                         dZ2 = (_z - (pOther->_z               ));
-                    } else if (pos_info & POS_PRISM_np) {
+                    } else if (pos_info & POS_PRISM_xx_NP) {
                         //            Å™ y+
                         // (_x1,_y2)      (_x2,_y2)
                         //        Ñ°ÑüÑüÑüÑ¢
@@ -816,7 +816,7 @@ void MyShip::onHit(const GgafActor* prm_pOtherActor) {
                         dX2 = (_x - (pOther->_x - pPrism->_hdx));
                         dY2 = (_y - (pOther->_y + pPrism->_hdy));
                         dZ2 = (_z - (pOther->_z               ));
-                    } else if (pos_info & POS_PRISM_pn) {
+                    } else if (pos_info & POS_PRISM_xx_PN) {
                         //            Å™ y+
                         // (_x1,_y2)      (_x2,_y2)
                         //        Ñ°ÑüÑüÑüÑ¢
@@ -829,7 +829,7 @@ void MyShip::onHit(const GgafActor* prm_pOtherActor) {
                         dX2 = (_x - (pOther->_x + pPrism->_hdx));
                         dY2 = (_y - (pOther->_y - pPrism->_hdy));
                         dZ2 = (_z - (pOther->_z               ));
-                    } else { // ÇÃÇ±ÇËÇÕ POS_PRISM_nn
+                    } else { // ÇÃÇ±ÇËÇÕ POS_PRISM_xx_NN
                         //            Å™ y+
                         // (_x1,_y2)      (_x2,_y2)
                         //        Ñ°ÑüÑüÑüÑ¢
@@ -844,9 +844,9 @@ void MyShip::onHit(const GgafActor* prm_pOtherActor) {
                         dZ2 = (_z - (pOther->_z               ));
                     }
 
-                } else if (pos_info & POS_PRISM_YZ) {
+                } else if (pos_info & POS_PRISM_YZ_xx) {
 
-                    if (pos_info & POS_PRISM_pp) {
+                    if (pos_info & POS_PRISM_xx_PP) {
                         //            Å™ z+
                         // (_y1,_z2)      (_y2,_z2)
                         //        Ñ°ÑüÑüÑüÑ¢
@@ -859,7 +859,7 @@ void MyShip::onHit(const GgafActor* prm_pOtherActor) {
                         dX2 = (_x - (pOther->_x               ));
                         dY2 = (_y - (pOther->_y + pPrism->_hdy));
                         dZ2 = (_z - (pOther->_z + pPrism->_hdz));
-                    } else if (pos_info & POS_PRISM_np) {
+                    } else if (pos_info & POS_PRISM_xx_NP) {
                         //            Å™ z+
                         // (_y1,_z2)      (_y2,_z2)
                         //        Ñ°ÑüÑüÑüÑ¢
@@ -872,7 +872,7 @@ void MyShip::onHit(const GgafActor* prm_pOtherActor) {
                         dX2 = (_x - (pOther->_x               ));
                         dY2 = (_y - (pOther->_y - pPrism->_hdy));
                         dZ2 = (_z - (pOther->_z + pPrism->_hdz));
-                    } else if (pos_info & POS_PRISM_pn) {
+                    } else if (pos_info & POS_PRISM_xx_PN) {
                         //            Å™ z+
                         // (_y1,_z2)      (_y2,_z2)
                         //        Ñ°ÑüÑüÑüÑ¢
@@ -885,7 +885,7 @@ void MyShip::onHit(const GgafActor* prm_pOtherActor) {
                         dX2 = (_x - (pOther->_x               ));
                         dY2 = (_y - (pOther->_y + pPrism->_hdy));
                         dZ2 = (_z - (pOther->_z - pPrism->_hdz));
-                    } else { // ÇÃÇ±ÇËÇÕ POS_PRISM_nn
+                    } else { // ÇÃÇ±ÇËÇÕ POS_PRISM_xx_NN
                         //            Å™ z+
                         // (_y1,_z2)      (_y2,_z2)
                         //        Ñ°ÑüÑüÑüÑ¢
@@ -900,8 +900,8 @@ void MyShip::onHit(const GgafActor* prm_pOtherActor) {
                         dZ2 = (_z - (pOther->_z - pPrism->_hdz));
                     }
 
-                } else if (pos_info & POS_PRISM_ZX) {
-                    if (pos_info & POS_PRISM_pp) {
+                } else if (pos_info & POS_PRISM_ZX_xx) {
+                    if (pos_info & POS_PRISM_xx_PP) {
                         //            Å™ x+
                         // (_z1,_x2)      (_z2,_x2)
                         //        Ñ°ÑüÑüÑüÑ¢
@@ -914,7 +914,7 @@ void MyShip::onHit(const GgafActor* prm_pOtherActor) {
                         dX2 = (_x - (pOther->_x + pPrism->_hdx));
                         dY2 = (_y - (pOther->_y               ));
                         dZ2 = (_z - (pOther->_z + pPrism->_hdz));
-                    } else if (pos_info & POS_PRISM_np) {
+                    } else if (pos_info & POS_PRISM_xx_NP) {
                         //            Å™ x+
                         // (_z1,_x2)      (_z2,_x2)
                         //        Ñ°ÑüÑüÑüÑ¢
@@ -927,7 +927,7 @@ void MyShip::onHit(const GgafActor* prm_pOtherActor) {
                         dX2 = (_x - (pOther->_x + pPrism->_hdx));
                         dY2 = (_y - (pOther->_y               ));
                         dZ2 = (_z - (pOther->_z - pPrism->_hdz));
-                    } else if (pos_info & POS_PRISM_pn) {
+                    } else if (pos_info & POS_PRISM_xx_PN) {
                         //            Å™ x+
                         // (_z1,_x2)      (_z2,_x2)
                         //        Ñ°ÑüÑüÑüÑ¢
@@ -940,7 +940,7 @@ void MyShip::onHit(const GgafActor* prm_pOtherActor) {
                         dX2 = (_x - (pOther->_x - pPrism->_hdx));
                         dY2 = (_y - (pOther->_y               ));
                         dZ2 = (_z - (pOther->_z + pPrism->_hdz));
-                    } else { // ÇÃÇ±ÇËÇÕ POS_PRISM_nn
+                    } else { // ÇÃÇ±ÇËÇÕ POS_PRISM_xx_NN
                         //            Å™ x+
                         // (_z1,_x2)      (_z2,_x2)
                         //        Ñ°ÑüÑüÑüÑ¢

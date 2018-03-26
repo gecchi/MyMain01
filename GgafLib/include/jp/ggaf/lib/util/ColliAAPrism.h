@@ -17,7 +17,7 @@ class ColliAAPrism : public ColliAABox {
 public:
     /** プリズム斜辺の境界線傾き */
     double _a;
-    /** プリズム斜辺の境界線の切片 */
+    /** プリズム斜辺の境界線の切片(ローカル座標) */
     double _b;
     /** プリズム斜辺面の法線ベクトルの逆ベクトルX要素(当たり判定計算用) */
     float _vIH_x;

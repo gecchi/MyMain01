@@ -34,61 +34,61 @@ void TestEnemy::initialize() {
     pChecker->setColliAAPyramid(0,
                                 PX_C(-50)+(n*d),PX_C(-50)+(n*d),PX_C(-50)+(n*d),
                                 PX_C(70)+(n*d),PX_C(80)+(n*d),PX_C(90)+(n*d),
-                                POS_PYRAMID_nnn,
+                                POS_PYRAMID_NNN,
                                 false,false,false);
     n++;
     pChecker->setColliAAPyramid(1,
                                 PX_C(-50)+(n*d),PX_C(-50)+(n*d),PX_C(-50)+(n*d),
                                 PX_C(70)+(n*d),PX_C(80)+(n*d),PX_C(90)+(n*d),
-                                POS_PYRAMID_nnp,
+                                POS_PYRAMID_NNP,
                                 false,false,false);
     n++;
     pChecker->setColliAAPyramid(2,
                                 PX_C(-50)+(n*d),PX_C(-50)+(n*d),PX_C(-50)+(n*d),
                                 PX_C(70)+(n*d),PX_C(80)+(n*d),PX_C(90)+(n*d),
-                                POS_PYRAMID_npn,
+                                POS_PYRAMID_NPN,
                                 false,false,false);
     n++;
     pChecker->setColliAAPyramid(3,
                                 PX_C(-50)+(n*d),PX_C(-50)+(n*d),PX_C(-50)+(n*d),
                                 PX_C(70)+(n*d),PX_C(80)+(n*d),PX_C(90)+(n*d),
-                                POS_PYRAMID_npp,
+                                POS_PYRAMID_NPP,
                                 false,false,false);
     n++;
     pChecker->setColliAAPyramid(4,
                                 PX_C(-50)+(n*d),PX_C(-50)+(n*d),PX_C(-50)+(n*d),
                                 PX_C(70)+(n*d),PX_C(80)+(n*d),PX_C(90)+(n*d),
-                                POS_PYRAMID_pnn,
+                                POS_PYRAMID_PNN,
                                 false,false,false);
     n++;
     pChecker->setColliAAPyramid(5,
                                 PX_C(-50)+(n*d),PX_C(-50)+(n*d),PX_C(-50)+(n*d),
                                 PX_C(70)+(n*d),PX_C(80)+(n*d),PX_C(90)+(n*d),
-                                POS_PYRAMID_pnp,
+                                POS_PYRAMID_PNP,
                                 false,false,false);
     n++;
     pChecker->setColliAAPyramid(6,
                                 PX_C(-50)+(n*d),PX_C(-50)+(n*d),PX_C(-50)+(n*d),
                                 PX_C(70)+(n*d),PX_C(80)+(n*d),PX_C(90)+(n*d),
-                                POS_PYRAMID_ppn,
+                                POS_PYRAMID_PPN,
                                 false,false,false);
     n++;
     pChecker->setColliAAPyramid(7,
                                 PX_C(-50)+(n*d),PX_C(-50)+(n*d),PX_C(-50)+(n*d),
                                 PX_C(70)+(n*d),PX_C(80)+(n*d),PX_C(90)+(n*d),
-                                POS_PYRAMID_ppp,
+                                POS_PYRAMID_PPP,
                                 false,false,false);
 
 
 
-//#define POS_PYRAMID_nnn   (0x0) //0b 000
-//#define POS_PYRAMID_nnp   (0x1) //0b 001
-//#define POS_PYRAMID_npn   (0x2) //0b 010
-//#define POS_PYRAMID_npp   (0x3) //0b 011
-//#define POS_PYRAMID_pnn   (0x4) //0b 100
-//#define POS_PYRAMID_pnp   (0x5) //0b 101
-//#define POS_PYRAMID_ppn   (0x6) //0b 110
-//#define POS_PYRAMID_ppp   (0x7) //0b 111
+//#define POS_PYRAMID_NNN   (0x0) //0b 000
+//#define POS_PYRAMID_NNP   (0x1) //0b 001
+//#define POS_PYRAMID_NPN   (0x2) //0b 010
+//#define POS_PYRAMID_NPP   (0x3) //0b 011
+//#define POS_PYRAMID_PNN   (0x4) //0b 100
+//#define POS_PYRAMID_PNP   (0x5) //0b 101
+//#define POS_PYRAMID_PPN   (0x6) //0b 110
+//#define POS_PYRAMID_PPP   (0x7) //0b 111
 
 
 }

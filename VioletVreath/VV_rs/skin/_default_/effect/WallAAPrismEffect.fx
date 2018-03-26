@@ -59,13 +59,13 @@ float4x4 g_matWorld017;
 //float4x4 g_matWorld019;
 //float4x4 g_matWorld020;
 
-#define POS_PRISM_nn    1 
-#define POS_PRISM_np    2 
-#define POS_PRISM_pn    4 
-#define POS_PRISM_pp    8 
-#define POS_PRISM_XY    16
-#define POS_PRISM_YZ    32
-#define POS_PRISM_ZX    64
+#define POS_PRISM_xx_NN    1 
+#define POS_PRISM_xx_NP    2 
+#define POS_PRISM_xx_PN    4 
+#define POS_PRISM_xx_PP    8 
+#define POS_PRISM_XY_xx    16
+#define POS_PRISM_YZ_xx    32
+#define POS_PRISM_ZX_xx    64
 
 //ÉeÉNÉXÉ`ÉÉÇÃÉTÉìÉvÉâ(s0ÉåÉWÉXÉ^)
 sampler MyTextureSampler : register(s0);
@@ -245,48 +245,48 @@ OUT_VS GgafDxVS_WallAAPrism(
 
     //BOXÇÃÇPñ Çñ≥óùÇ‚ÇËï¬Ç∂ÇƒÉvÉäÉYÉÄå^Ç…ïœå`Ç≥ÇπÇÈ
 	float ah,fh;
-	if (pos_info >= POS_PRISM_ZX) {   
+	if (pos_info >= POS_PRISM_ZX_xx) {   
 		//Å{X -X ÇÃñ Ç™ÉvÉäÉYÉÄÇÃéŒÇﬂñ Ç…Ç»ÇÁÇ»Ç¢ÇÊÇ§Ç…Ç∑ÇÈ
 		// ZX ÇÕ XZïΩñ Ç∆å©ÇÈ
-		pos_info -= POS_PRISM_ZX;
+		pos_info -= POS_PRISM_ZX_xx;
 		ah = g_wall_width / g_wall_dep / 2.0; //åXÇ´ z/x ÅiåXÇ´ x/z Ç≈ÇÕÇ»Ç≠ÇƒÅj
 		//ah = g_wall_height / g_wall_dep / 2.0; //åXÇ´ y/x
 		fh = g_wall_dep/2.0;
-		if (pos_info == POS_PRISM_pp) {
+		if (pos_info == POS_PRISM_xx_PP) {
 			prm_posModel_Local.z = (prm_posModel_Local.z * ((prm_posModel_Local.x+fh)/g_wall_dep))       - ((prm_posModel_Local.x-fh)*ah);
-		} else if (pos_info == POS_PRISM_pn) {
+		} else if (pos_info == POS_PRISM_xx_PN) {
 			prm_posModel_Local.z = (prm_posModel_Local.z * (1.0-((prm_posModel_Local.x+fh)/g_wall_dep))) + ((prm_posModel_Local.x+fh)*ah);
-		} else if (pos_info == POS_PRISM_np) { 
+		} else if (pos_info == POS_PRISM_xx_NP) { 
 			prm_posModel_Local.z = (prm_posModel_Local.z * ((prm_posModel_Local.x+fh)/g_wall_dep))       + ((prm_posModel_Local.x-fh)*ah);
-		} else { //if (pos_info == POS_PRISM_nn) {
+		} else { //if (pos_info == POS_PRISM_xx_NN) {
 			prm_posModel_Local.z = (prm_posModel_Local.z * (1.0-((prm_posModel_Local.x+fh)/g_wall_dep))) - ((prm_posModel_Local.x+fh)*ah);
 		}
-	} else if (pos_info >= POS_PRISM_YZ) {   
+	} else if (pos_info >= POS_PRISM_YZ_xx) {   
 		//Å{Z -Z ÇÃñ Ç™ÉvÉäÉYÉÄÇÃéŒÇﬂñ Ç…Ç»ÇÁÇ»Ç¢ÇÊÇ§Ç…Ç∑ÇÈ
-		pos_info -= POS_PRISM_YZ;
+		pos_info -= POS_PRISM_YZ_xx;
 		ah = g_wall_height / g_wall_width / 2.0; //åXÇ´ y/z
 		fh = g_wall_width/2.0;                   //åXÇ≠é≤
-		if (pos_info == POS_PRISM_pp) {
+		if (pos_info == POS_PRISM_xx_PP) {
 			prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.z+fh)/g_wall_width))       - ((prm_posModel_Local.z-fh)*ah);
-		} else if (pos_info == POS_PRISM_pn) {
+		} else if (pos_info == POS_PRISM_xx_PN) {
 			prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.z+fh)/g_wall_width))) + ((prm_posModel_Local.z+fh)*ah);
-		} else if (pos_info == POS_PRISM_np) { 
+		} else if (pos_info == POS_PRISM_xx_NP) { 
 			prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.z+fh)/g_wall_width))       + ((prm_posModel_Local.z-fh)*ah);
-		} else { //if (pos_info == POS_PRISM_nn) {
+		} else { //if (pos_info == POS_PRISM_xx_NN) {
 			prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.z+fh)/g_wall_width))) - ((prm_posModel_Local.z+fh)*ah);
 		}
-	} else { //if (pos_info >= POS_PRISM_XY) {   
+	} else { //if (pos_info >= POS_PRISM_XY_xx) {   
 		//Å{X -X ÇÃñ Ç™ÉvÉäÉYÉÄÇÃéŒÇﬂñ Ç…Ç»ÇÁÇ»Ç¢ÇÊÇ§Ç…Ç∑ÇÈ
-		pos_info -= POS_PRISM_XY;
+		pos_info -= POS_PRISM_XY_xx;
 		ah = g_wall_height / g_wall_dep / 2.0; //åXÇ´ y/x
 		fh = g_wall_dep/2.0;                   //åXÇ≠é≤
-		if (pos_info == POS_PRISM_pp) {
+		if (pos_info == POS_PRISM_xx_PP) {
 			prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.x+fh)/g_wall_dep))       - ((prm_posModel_Local.x-fh)*ah);
-		} else if (pos_info == POS_PRISM_pn) {
+		} else if (pos_info == POS_PRISM_xx_PN) {
 			prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.x+fh)/g_wall_dep))       + ((prm_posModel_Local.x-fh)*ah);
-		} else if (pos_info == POS_PRISM_np) { 
+		} else if (pos_info == POS_PRISM_xx_NP) { 
 			prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.x+fh)/g_wall_dep))) + ((prm_posModel_Local.x+fh)*ah);
-		} else { //if (pos_info == POS_PRISM_nn) {
+		} else { //if (pos_info == POS_PRISM_xx_NN) {
 			prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.x+fh)/g_wall_dep))) - ((prm_posModel_Local.x+fh)*ah);
 		}
 	}

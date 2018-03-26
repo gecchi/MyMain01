@@ -1,23 +1,23 @@
 
-POS_PRISM_XY_nn = (0x11) #0b 0010001
-POS_PRISM_XY_np = (0x12) #0b 0010010
-POS_PRISM_XY_pn = (0x14) #0b 0010100
-POS_PRISM_XY_pp = (0x18) #0b 0011000
-POS_PRISM_YZ_nn = (0x21) #0b 0100001
-POS_PRISM_YZ_np = (0x22) #0b 0100010
-POS_PRISM_YZ_pn = (0x24) #0b 0100100
-POS_PRISM_YZ_pp = (0x28) #0b 0101000
-POS_PRISM_ZX_nn = (0x41) #0b 1000001
-POS_PRISM_ZX_np = (0x42) #0b 1000010
-POS_PRISM_ZX_pn = (0x44) #0b 1000100
-POS_PRISM_ZX_pp = (0x48) #0b 1001000
-POS_PRISM_nn    = (0x1)  #0b 0000001
-POS_PRISM_np    = (0x2)  #0b 0000010
-POS_PRISM_pn    = (0x4)  #0b 0000100
-POS_PRISM_pp    = (0x8)  #0b 0001000
-POS_PRISM_XY    = (0x10) #0b 0010000
-POS_PRISM_YZ    = (0x20) #0b 0100000
-POS_PRISM_ZX    = (0x40) #0b 1000000
+POS_PRISM_XY_NN = (0x11) #0b 0010001
+POS_PRISM_XY_NP = (0x12) #0b 0010010
+POS_PRISM_XY_PN = (0x14) #0b 0010100
+POS_PRISM_XY_PP = (0x18) #0b 0011000
+POS_PRISM_YZ_NN = (0x21) #0b 0100001
+POS_PRISM_YZ_NP = (0x22) #0b 0100010
+POS_PRISM_YZ_PN = (0x24) #0b 0100100
+POS_PRISM_YZ_PP = (0x28) #0b 0101000
+POS_PRISM_ZX_NN = (0x41) #0b 1000001
+POS_PRISM_ZX_NP = (0x42) #0b 1000010
+POS_PRISM_ZX_PN = (0x44) #0b 1000100
+POS_PRISM_ZX_PP = (0x48) #0b 1001000
+POS_PRISM_xx_NN    = (0x1)  #0b 0000001
+POS_PRISM_xx_NP    = (0x2)  #0b 0000010
+POS_PRISM_xx_PN    = (0x4)  #0b 0000100
+POS_PRISM_xx_PP    = (0x8)  #0b 0001000
+POS_PRISM_XY_xx    = (0x10) #0b 0010000
+POS_PRISM_YZ_xx    = (0x20) #0b 0100000
+POS_PRISM_ZX_xx    = (0x40) #0b 1000000
 
 class Veartex
   attr_accessor :X ,:Y, :Z
@@ -82,10 +82,10 @@ class ExteriorArea
   end
 
   def isXY(pos)
-    if ((pos == POS_PRISM_XY_nn) ||
-        (pos == POS_PRISM_XY_np) ||
-        (pos == POS_PRISM_XY_pn) ||
-        (pos == POS_PRISM_XY_pp)   ) then
+    if ((pos == POS_PRISM_XY_NN) ||
+        (pos == POS_PRISM_XY_NP) ||
+        (pos == POS_PRISM_XY_PN) ||
+        (pos == POS_PRISM_XY_PP)   ) then
       return true
     else
       return false
@@ -93,10 +93,10 @@ class ExteriorArea
   end
 
   def isYZ(pos)
-    if ((pos == POS_PRISM_YZ_nn) ||
-        (pos == POS_PRISM_YZ_np) ||
-        (pos == POS_PRISM_YZ_pn) ||
-        (pos == POS_PRISM_YZ_pp)   ) then
+    if ((pos == POS_PRISM_YZ_NN) ||
+        (pos == POS_PRISM_YZ_NP) ||
+        (pos == POS_PRISM_YZ_PN) ||
+        (pos == POS_PRISM_YZ_PP)   ) then
       return true
     else
       return false
@@ -104,10 +104,10 @@ class ExteriorArea
   end
 
   def isZX(pos)
-    if ((pos == POS_PRISM_ZX_nn) ||
-        (pos == POS_PRISM_ZX_np) ||
-        (pos == POS_PRISM_ZX_pn) ||
-        (pos == POS_PRISM_ZX_pp)   ) then
+    if ((pos == POS_PRISM_ZX_NN) ||
+        (pos == POS_PRISM_ZX_NP) ||
+        (pos == POS_PRISM_ZX_PN) ||
+        (pos == POS_PRISM_ZX_PP)   ) then
       return true
     else
       return false
@@ -115,10 +115,10 @@ class ExteriorArea
   end
 
   def isXpositive(pos)
-    if ((pos == POS_PRISM_XY_pp) ||
-        (pos == POS_PRISM_XY_pn) ||
-        (pos == POS_PRISM_ZX_pp) ||
-        (pos == POS_PRISM_ZX_np)   ) then
+    if ((pos == POS_PRISM_XY_PP) ||
+        (pos == POS_PRISM_XY_PN) ||
+        (pos == POS_PRISM_ZX_PP) ||
+        (pos == POS_PRISM_ZX_NP)   ) then
       return true
     else
       return false
@@ -126,10 +126,10 @@ class ExteriorArea
   end
 
   def isXnegative(pos)
-    if ((pos == POS_PRISM_XY_np) ||
-        (pos == POS_PRISM_XY_nn) ||
-        (pos == POS_PRISM_ZX_pn) ||
-        (pos == POS_PRISM_ZX_nn)   ) then
+    if ((pos == POS_PRISM_XY_NP) ||
+        (pos == POS_PRISM_XY_NN) ||
+        (pos == POS_PRISM_ZX_PN) ||
+        (pos == POS_PRISM_ZX_NN)   ) then
       return true
     else
       return false
@@ -137,10 +137,10 @@ class ExteriorArea
   end
 
   def isYpositive(pos)
-    if ((pos == POS_PRISM_XY_pp) ||
-        (pos == POS_PRISM_XY_np) ||
-        (pos == POS_PRISM_YZ_pp) ||
-        (pos == POS_PRISM_YZ_pn)   ) then
+    if ((pos == POS_PRISM_XY_PP) ||
+        (pos == POS_PRISM_XY_NP) ||
+        (pos == POS_PRISM_YZ_PP) ||
+        (pos == POS_PRISM_YZ_PN)   ) then
       return true
     else
       return false
@@ -148,10 +148,10 @@ class ExteriorArea
   end
 
   def isYnegative(pos)
-    if ((pos == POS_PRISM_XY_pn) ||
-        (pos == POS_PRISM_XY_nn) ||
-        (pos == POS_PRISM_YZ_np) ||
-        (pos == POS_PRISM_YZ_nn)   ) then
+    if ((pos == POS_PRISM_XY_PN) ||
+        (pos == POS_PRISM_XY_NN) ||
+        (pos == POS_PRISM_YZ_NP) ||
+        (pos == POS_PRISM_YZ_NN)   ) then
       return true
     else
       return false
@@ -159,10 +159,10 @@ class ExteriorArea
   end
 
   def isZpositive(pos)
-    if ((pos == POS_PRISM_YZ_pp) ||
-        (pos == POS_PRISM_YZ_np) ||
-        (pos == POS_PRISM_ZX_pp) ||
-        (pos == POS_PRISM_ZX_pn)   ) then
+    if ((pos == POS_PRISM_YZ_PP) ||
+        (pos == POS_PRISM_YZ_NP) ||
+        (pos == POS_PRISM_ZX_PP) ||
+        (pos == POS_PRISM_ZX_PN)   ) then
       return true
     else
       return false
@@ -170,10 +170,10 @@ class ExteriorArea
   end
 
   def isZnegative(pos)
-    if ((pos == POS_PRISM_YZ_pn) ||
-        (pos == POS_PRISM_YZ_nn) ||
-        (pos == POS_PRISM_ZX_np) ||
-        (pos == POS_PRISM_ZX_nn)   ) then
+    if ((pos == POS_PRISM_YZ_PN) ||
+        (pos == POS_PRISM_YZ_NN) ||
+        (pos == POS_PRISM_ZX_NP) ||
+        (pos == POS_PRISM_ZX_NN)   ) then
       return true
     else
       return false

@@ -35,73 +35,73 @@ typedef uint32_t pos_t;
 
 //プリズム姿勢(位置)定数
 
-#define POS_PRISM_XY_nn   (0x11) //0b 00010001
-#define POS_PRISM_XY_np   (0x12) //0b 00010010
-#define POS_PRISM_XY_pn   (0x14) //0b 00010100
-#define POS_PRISM_XY_pp   (0x18) //0b 00011000
-#define POS_PRISM_YZ_nn   (0x21) //0b 00100001
-#define POS_PRISM_YZ_np   (0x22) //0b 00100010
-#define POS_PRISM_YZ_pn   (0x24) //0b 00100100
-#define POS_PRISM_YZ_pp   (0x28) //0b 00101000
-#define POS_PRISM_ZX_nn   (0x41) //0b 01000001
-#define POS_PRISM_ZX_np   (0x42) //0b 01000010
-#define POS_PRISM_ZX_pn   (0x44) //0b 01000100
-#define POS_PRISM_ZX_pp   (0x48) //0b 01001000
+#define POS_PRISM_XY_NN   (0x11) //0b 00010001
+#define POS_PRISM_XY_NP   (0x12) //0b 00010010
+#define POS_PRISM_XY_PN   (0x14) //0b 00010100
+#define POS_PRISM_XY_PP   (0x18) //0b 00011000
+#define POS_PRISM_YZ_NN   (0x21) //0b 00100001
+#define POS_PRISM_YZ_NP   (0x22) //0b 00100010
+#define POS_PRISM_YZ_PN   (0x24) //0b 00100100
+#define POS_PRISM_YZ_PP   (0x28) //0b 00101000
+#define POS_PRISM_ZX_NN   (0x41) //0b 01000001
+#define POS_PRISM_ZX_NP   (0x42) //0b 01000010
+#define POS_PRISM_ZX_PN   (0x44) //0b 01000100
+#define POS_PRISM_ZX_PP   (0x48) //0b 01001000
 
 //プリズムは、直方体をどの面から見て対角線に垂直にスライスされて出来上がった形かを示す
 /** XY平面から見て対角線に垂直にスライスした形である */
-#define POS_PRISM_XY      (0x10) //0b 00010000
+#define POS_PRISM_XY_xx      (0x10) //0b 00010000
 /** YZ平面から見て対角線に垂直にスライスした形である */
-#define POS_PRISM_YZ      (0x20) //0b 00100000
+#define POS_PRISM_YZ_xx      (0x20) //0b 00100000
 /** ZX平面から見て対角線に垂直にスライスした形である */
-#define POS_PRISM_ZX      (0x40) //0b 01000000
+#define POS_PRISM_ZX_xx      (0x40) //0b 01000000
 
 //スライスで出来るプリズム(４通り)の位置を、
 //直角三角形の直角がある場所に注目し、
 //平面座標の象限(軸座標の正負)で示す。
 //n = negative(負), p = positive(正)
 /** 直角がある方向は, (負, 負)である */
-#define POS_PRISM_nn      (0x1)  //0b 00000001
+#define POS_PRISM_xx_NN      (0x1)  //0b 00000001
 /** 直角がある方向は, (負, 正)である */
-#define POS_PRISM_np      (0x2)  //0b 00000010
+#define POS_PRISM_xx_NP      (0x2)  //0b 00000010
 /** 直角がある方向は, (正, 負)である */
-#define POS_PRISM_pn      (0x4)  //0b 00000100
+#define POS_PRISM_xx_PN      (0x4)  //0b 00000100
 /** 直角がある方向は, (正, 正)である */
-#define POS_PRISM_pp      (0x8)  //0b 00001000
+#define POS_PRISM_xx_PP      (0x8)  //0b 00001000
 
-#define POS_PRISM__p (POS_PRISM_np | POS_PRISM_pp)
-#define POS_PRISM_p_ (POS_PRISM_pn | POS_PRISM_pp)
+#define POS_PRISM_xx_xP (POS_PRISM_xx_NP | POS_PRISM_xx_PP)
+#define POS_PRISM_xx_Px (POS_PRISM_xx_PN | POS_PRISM_xx_PP)
 
 //2D直角三角形の当たり判定時に指定する定数
 /** 直角がある方向は, (x, y) = (負, 負) 方向である */
-#define POS_R_TRIANGLE_nn POS_PRISM_XY_nn
+#define POS_R_TRIANGLE_NN POS_PRISM_XY_NN
 /** 直角がある方向は, (x, y) = (負, 正) 方向である */
-#define POS_R_TRIANGLE_np POS_PRISM_XY_np
+#define POS_R_TRIANGLE_NP POS_PRISM_XY_NP
 /** 直角がある方向は, (x, y) = (正, 負) 方向である */
-#define POS_R_TRIANGLE_pn POS_PRISM_XY_pn
+#define POS_R_TRIANGLE_PN POS_PRISM_XY_PN
 /** 直角がある方向は, (x, y) = (正, 正) 方向である */
-#define POS_R_TRIANGLE_pp POS_PRISM_XY_pp
+#define POS_R_TRIANGLE_PP POS_PRISM_XY_PP
 
-#define POS_R_TRIANGLE__p (POS_R_TRIANGLE_np | POS_R_TRIANGLE_pp)
-#define POS_R_TRIANGLE_p_ (POS_R_TRIANGLE_pn | POS_R_TRIANGLE_pp)
+#define POS_R_TRIANGLE_xP POS_PRISM_xx_xP
+#define POS_R_TRIANGLE_Px POS_PRISM_xx_Px
 
 //直角の頂点の位置をネガポジ
 //                  xyz
-#define POS_PYRAMID_nnn   (0x8000) //0b  10000000 00000000
-#define POS_PYRAMID_nnp   (0x8100) //0b  10000001 00000000
-#define POS_PYRAMID_npn   (0x8200) //0b  10000010 00000000
-#define POS_PYRAMID_npp   (0x8300) //0b  10000011 00000000
-#define POS_PYRAMID_pnn   (0x8400) //0b  10000100 00000000
-#define POS_PYRAMID_pnp   (0x8500) //0b  10000101 00000000
-#define POS_PYRAMID_ppn   (0x8600) //0b  10000110 00000000
-#define POS_PYRAMID_ppp   (0x8700) //0b  10000111 00000000
+#define POS_PYRAMID_NNN   (0x8000) //0b  10000000 00000000
+#define POS_PYRAMID_NNP   (0x8100) //0b  10000001 00000000
+#define POS_PYRAMID_NPN   (0x8200) //0b  10000010 00000000
+#define POS_PYRAMID_NPP   (0x8300) //0b  10000011 00000000
+#define POS_PYRAMID_PNN   (0x8400) //0b  10000100 00000000
+#define POS_PYRAMID_PNP   (0x8500) //0b  10000101 00000000
+#define POS_PYRAMID_PPN   (0x8600) //0b  10000110 00000000
+#define POS_PYRAMID_PPP   (0x8700) //0b  10000111 00000000
 
-#define POS_PYRAMID___p   (0x100)  //0b  00000001 00000000
-#define POS_PYRAMID__p_   (0x200)  //0b  00000010 00000000
-#define POS_PYRAMID__pp   (0x300)  //0b  00000011 00000000
-#define POS_PYRAMID_p__   (0x400)  //0b  00000100 00000000
-#define POS_PYRAMID_p_p   (0x500)  //0b  00000101 00000000
-#define POS_PYRAMID_pp_   (0x600)  //0b  00000110 00000000
+#define POS_PYRAMID_xxP   (0x100)  //0b  00000001 00000000
+#define POS_PYRAMID_xPx   (0x200)  //0b  00000010 00000000
+#define POS_PYRAMID_xPP   (0x300)  //0b  00000011 00000000
+#define POS_PYRAMID_Pxx   (0x400)  //0b  00000100 00000000
+#define POS_PYRAMID_PxP   (0x500)  //0b  00000101 00000000
+#define POS_PYRAMID_PPx   (0x600)  //0b  00000110 00000000
 
 
 //DirectXの3D空間の座標単位１に対しての原点付近の画面px相当数（画面高さ(px)などを、PX_UNITで割ると3D空間の座標単位１になる）

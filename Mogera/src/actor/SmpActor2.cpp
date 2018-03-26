@@ -26,14 +26,14 @@ SmpActor2::SmpActor2(const char* prm_name) :
     coord w = PX_C(100);
     coord h = PX_C(130);
     coord d = PX_C(170);
-    pChecker->setColliAAPyramid_WHD(0, ox + (w*1), oy + (h*1), oz + (d*1), w, h, d, POS_PYRAMID_nnn);
-    pChecker->setColliAAPyramid_WHD(1, ox + (w*1), oy + (h*1), oz - (d*1), w, h, d, POS_PYRAMID_nnp);
-    pChecker->setColliAAPyramid_WHD(2, ox + (w*1), oy - (h*1), oz + (d*1), w, h, d, POS_PYRAMID_npn);
-    pChecker->setColliAAPyramid_WHD(3, ox + (w*1), oy - (h*1), oz - (d*1), w, h, d, POS_PYRAMID_npp);
-    pChecker->setColliAAPyramid_WHD(4, ox - (w*1), oy + (h*1), oz + (d*1), w, h, d, POS_PYRAMID_pnn);
-    pChecker->setColliAAPyramid_WHD(5, ox - (w*1), oy + (h*1), oz - (d*1), w, h, d, POS_PYRAMID_pnp);
-    pChecker->setColliAAPyramid_WHD(6, ox - (w*1), oy - (h*1), oz + (d*1), w, h, d, POS_PYRAMID_ppn);
-    pChecker->setColliAAPyramid_WHD(7, ox - (w*1), oy - (h*1), oz - (d*1), w, h, d, POS_PYRAMID_ppp);
+    pChecker->setColliAAPyramid_WHD(0, ox + (w*1), oy + (h*1), oz + (d*1), w, h, d, POS_PYRAMID_NNN);
+    pChecker->setColliAAPyramid_WHD(1, ox + (w*1), oy + (h*1), oz - (d*1), w, h, d, POS_PYRAMID_NNP);
+    pChecker->setColliAAPyramid_WHD(2, ox + (w*1), oy - (h*1), oz + (d*1), w, h, d, POS_PYRAMID_NPN);
+    pChecker->setColliAAPyramid_WHD(3, ox + (w*1), oy - (h*1), oz - (d*1), w, h, d, POS_PYRAMID_NPP);
+    pChecker->setColliAAPyramid_WHD(4, ox - (w*1), oy + (h*1), oz + (d*1), w, h, d, POS_PYRAMID_PNN);
+    pChecker->setColliAAPyramid_WHD(5, ox - (w*1), oy + (h*1), oz - (d*1), w, h, d, POS_PYRAMID_PNP);
+    pChecker->setColliAAPyramid_WHD(6, ox - (w*1), oy - (h*1), oz + (d*1), w, h, d, POS_PYRAMID_PPN);
+    pChecker->setColliAAPyramid_WHD(7, ox - (w*1), oy - (h*1), oz - (d*1), w, h, d, POS_PYRAMID_PPP);
 
 //    coord ox = PX_C(-50);
 //    coord oy = PX_C(-50);
@@ -42,7 +42,7 @@ SmpActor2::SmpActor2(const char* prm_name) :
 //    coord h = PX_C(100);
 //    coord d = PX_C(100);
 //    pChecker->createCollisionArea(1);
-//    pChecker->setColliAAPyramid_WHD(0, ox + (w/2), oy + (h/2), oz + (d/2), w, h, d, POS_PYRAMID_nnn);
+//    pChecker->setColliAAPyramid_WHD(0, ox + (w/2), oy + (h/2), oz + (d/2), w, h, d, POS_PYRAMID_NNN);
 
 //    coord ox = PX_C(-50);
 //    coord oy = PX_C(-50);
@@ -51,7 +51,7 @@ SmpActor2::SmpActor2(const char* prm_name) :
 //    coord h = PX_C(100);
 //    coord d = PX_C(100);
 //    pChecker->createCollisionArea(1);
-//    pChecker->setColliAAPrism_WHD(0, ox + (w/2), oy + (h/2), oz + (d/2), w, h, d, POS_PRISM_XY_nn);
+//    pChecker->setColliAAPrism_WHD(0, ox + (w/2), oy + (h/2), oz + (d/2), w, h, d, POS_PRISM_XY_NN);
 
     setHitAble(true);
 }

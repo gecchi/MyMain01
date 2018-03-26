@@ -37,7 +37,8 @@ public:
     static float ROOT_1_MINUS_XX[1000];
 
     static uint32_t BITNUM[];
-
+    static std::map<pos_t,pos_t> POS_R_TRIANGLE_inv_X;
+    static std::map<pos_t,pos_t> POS_R_TRIANGLE_inv_Y;
     static GgafDxCore::GgafDxChecker* createChecker(GgafDxCore::GgafDxGeometricActor* prm_pActor);
 
     /**

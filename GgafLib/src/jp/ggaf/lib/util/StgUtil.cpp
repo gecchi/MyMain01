@@ -19,6 +19,8 @@ using namespace GgafLib;
 bool StgUtil::_was_StgUtil_inited_flg = false;
 float StgUtil::ROOT_1_MINUS_XX[1000];
 uint32_t StgUtil::BITNUM[33];
+std::map<pos_t,pos_t> StgUtil::POS_R_TRIANGLE_inv_X;
+std::map<pos_t,pos_t> StgUtil::POS_R_TRIANGLE_inv_Y;
 
 void StgUtil::init() {
     GgafDxUtil::init();
@@ -64,6 +66,16 @@ void StgUtil::init() {
     StgUtil::BITNUM[30] = (0x20000000);     //0b 00100000 00000000 00000000 00000000
     StgUtil::BITNUM[31] = (0x40000000);     //0b 01000000 00000000 00000000 00000000
     StgUtil::BITNUM[32] = (0x80000000);     //0b 10000000 00000000 00000000 00000000
+
+    StgUtil::POS_R_TRIANGLE_inv_X[POS_R_TRIANGLE_NN] = POS_R_TRIANGLE_PN;
+    StgUtil::POS_R_TRIANGLE_inv_X[POS_R_TRIANGLE_NP] = POS_R_TRIANGLE_PP;
+    StgUtil::POS_R_TRIANGLE_inv_X[POS_R_TRIANGLE_PN] = POS_R_TRIANGLE_NN;
+    StgUtil::POS_R_TRIANGLE_inv_X[POS_R_TRIANGLE_PP] = POS_R_TRIANGLE_NP;
+
+    StgUtil::POS_R_TRIANGLE_inv_Y[POS_R_TRIANGLE_NN] = POS_R_TRIANGLE_NP;
+    StgUtil::POS_R_TRIANGLE_inv_Y[POS_R_TRIANGLE_NP] = POS_R_TRIANGLE_NN;
+    StgUtil::POS_R_TRIANGLE_inv_Y[POS_R_TRIANGLE_PN] = POS_R_TRIANGLE_PP;
+    StgUtil::POS_R_TRIANGLE_inv_Y[POS_R_TRIANGLE_PP] = POS_R_TRIANGLE_PN;
 
     StgUtil::_was_StgUtil_inited_flg = true;
 }
@@ -161,11 +173,11 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* pActor01, const Co
         //この時点でAAB と AAB ならばヒット
         const int pos = pAAPrism01->_pos_info;
         const double a = pAAPrism01->_a;
-        if (pos & POS_PRISM_XY) { //XY平面スライスのプリズム
+        if (pos & POS_PRISM_XY_xx) { //XY平面スライスのプリズム
             //ワールド座標でのプリズム境界線の切片を求める b = y - ax
             const double b = ((pActor01->_y+pAAPrism01->_cy) - pAAPrism01->_a * (pActor01->_x+pAAPrism01->_cx)) + pAAPrism01->_b;
 
-            if (pos & POS_PRISM_pp) {
+            if (pos & POS_PRISM_xx_PP) {
                 //            ↑ y+
                 //
                 //        ┌───┐
@@ -183,7 +195,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* pActor01, const Co
                     return true;
                 }
 
-            } else if (pos & POS_PRISM_np) {
+            } else if (pos & POS_PRISM_xx_NP) {
                 //            ↑ y+
                 //
                 //        ┌───┐
@@ -201,7 +213,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* pActor01, const Co
                     return true;
                 }
 
-            } else if (pos & POS_PRISM_pn) {
+            } else if (pos & POS_PRISM_xx_PN) {
                 //            ↑ y+
                 //      ┌─┐
                 //      │┌┼──┐
@@ -219,7 +231,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* pActor01, const Co
                     return true;
                 }
 
-            } else { // のこりは POS_PRISM_nn のみである
+            } else { // のこりは POS_PRISM_xx_NN のみである
                 //            ↑ y+
                 //              ┌─┐
                 //        ┌──┼┐│Opp
@@ -239,10 +251,10 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* pActor01, const Co
 
 
             }
-        } else if (pos & POS_PRISM_YZ) {//YZ平面スライスのプリズム
+        } else if (pos & POS_PRISM_YZ_xx) {//YZ平面スライスのプリズム
             //ワールド座標でのプリズム境界線の切片を求める b = z - ay
             int b = ((pActor01->_z+pAAPrism01->_cz) - pAAPrism01->_a * (pActor01->_y+pAAPrism01->_cy)) + pAAPrism01->_b;
-            if (pos & POS_PRISM_pp) {
+            if (pos & POS_PRISM_xx_PP) {
                 //            ↑ z+
                 //
                 //        ┌───┐
@@ -260,7 +272,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* pActor01, const Co
                     return true;
                 }
 
-            } else if (pos & POS_PRISM_np) {
+            } else if (pos & POS_PRISM_xx_NP) {
                 //            ↑ z+
                 //
                 //        ┌───┐
@@ -278,7 +290,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* pActor01, const Co
                     return true;
                 }
 
-            } else if (pos & POS_PRISM_pn) {
+            } else if (pos & POS_PRISM_xx_PN) {
                 //            ↑ z+
                 //      ┌─┐
                 //      │┌┼──┐
@@ -296,7 +308,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* pActor01, const Co
                     return true;
                 }
 
-            } else { //のこりは POS_PRISM_nn のみである
+            } else { //のこりは POS_PRISM_xx_NN のみである
                 //            ↑ z+
                 //              ┌─┐
                 //        ┌──┼┐│Opp
@@ -315,10 +327,10 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* pActor01, const Co
                 }
             }
 
-        } else if (pos & POS_PRISM_ZX) {
+        } else if (pos & POS_PRISM_ZX_xx) {
             //ワールド座標でのプリズム境界線の切片を求める b = x - az
             int b = ((pActor01->_x+pAAPrism01->_cx) - pAAPrism01->_a * (pActor01->_z+pAAPrism01->_cz)) + pAAPrism01->_b;
-            if (pos & POS_PRISM_pp) {
+            if (pos & POS_PRISM_xx_PP) {
                 //            ↑ x+
                 //
                 //        ┌───┐
@@ -336,7 +348,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* pActor01, const Co
                     return true;
                 }
 
-            } else if (pos & POS_PRISM_np) {
+            } else if (pos & POS_PRISM_xx_NP) {
                 //            ↑ x+
                 //
                 //        ┌───┐
@@ -354,7 +366,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* pActor01, const Co
                     return true;
                 }
 
-            } else if (pos & POS_PRISM_pn) {
+            } else if (pos & POS_PRISM_xx_PN) {
                 //            ↑ x+
                 //      ┌─┐
                 //      │┌┼──┐
@@ -372,7 +384,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* pActor01, const Co
                     return true;
                 }
 
-            } else { //残りは POS_PRISM_nn のみである
+            } else { //残りは POS_PRISM_xx_NN のみである
                 //            ↑ x+
                 //              ┌─┐
                 //        ┌──┼┐│Opp
@@ -438,7 +450,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
 
     const int pos = pAAPrism01->_pos_info;
     const double a = pAAPrism01->_a;
-    if (pos & POS_PRISM_XY) { //XY平面スライスのプリズム
+    if (pos & POS_PRISM_XY_xx) { //XY平面スライスのプリズム
         //ワールド座標でのプリズム境界線の切片を求める b = y - ax
         const double b = ((pActor01->_y+pAAPrism01->_cy) - pAAPrism01->_a * (pActor01->_x+pAAPrism01->_cx)) + pAAPrism01->_b;
 
@@ -466,7 +478,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
             oppY = o_scy + pAAPrism01->_vIH_y * r;
         }
 
-        if (pos & POS_PRISM_pp) {
+        if (pos & POS_PRISM_xx_PP) {
             //            ↑ y+
             //
             //        ┌───┐
@@ -484,7 +496,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
                 return true;
             }
 
-        } else if (pos & POS_PRISM_np) {
+        } else if (pos & POS_PRISM_xx_NP) {
             //            ↑ y+
             //
             //        ┌───┐
@@ -502,7 +514,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
                 return true;
             }
 
-        } else if (pos & POS_PRISM_pn) {
+        } else if (pos & POS_PRISM_xx_PN) {
             //            ↑ y+
             //       ,─、
             //      │┌┼──┐
@@ -520,7 +532,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
                 return true;
             }
 
-        } else { // のこりは POS_PRISM_nn のみである
+        } else { // のこりは POS_PRISM_xx_NN のみである
             //            ↑ y+
             //               ,─、
             //        ┌──┼┐│Opp
@@ -540,7 +552,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
 
 
         }
-    } else if (pos & POS_PRISM_YZ) {//YZ平面スライスのプリズム
+    } else if (pos & POS_PRISM_YZ_xx) {//YZ平面スライスのプリズム
         //ワールド座標でのプリズム境界線の切片を求める b = z - ay
         const int b = ((pActor01->_z+pAAPrism01->_cz) - pAAPrism01->_a * (pActor01->_y+pAAPrism01->_cy)) + pAAPrism01->_b;
         int oppY, oppZ;
@@ -560,7 +572,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
                 oppZ = o_scz + pAAPrism01->_vIH_y * r;
             }
         }
-        if (pos & POS_PRISM_pp) {
+        if (pos & POS_PRISM_xx_PP) {
             //            ↑ z+
             //
             //        ┌───┐
@@ -578,7 +590,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
                 return true;
             }
 
-        } else if (pos & POS_PRISM_np) {
+        } else if (pos & POS_PRISM_xx_NP) {
             //            ↑ z+
             //
             //        ┌───┐
@@ -596,7 +608,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
                 return true;
             }
 
-        } else if (pos & POS_PRISM_pn) {
+        } else if (pos & POS_PRISM_xx_PN) {
             //            ↑ z+
             //       ,─、
             //      │┌┼──┐
@@ -614,7 +626,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
                 return true;
             }
 
-        } else { //のこりは POS_PRISM_nn のみである
+        } else { //のこりは POS_PRISM_xx_NN のみである
             //            ↑ z+
             //               ,─、
             //        ┌──┼┐│Opp
@@ -633,7 +645,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
             }
         }
 
-    } else if (pos & POS_PRISM_ZX) {
+    } else if (pos & POS_PRISM_ZX_xx) {
         //ワールド座標でのプリズム境界線の切片を求める b = x - az
         const int b = ((pActor01->_x+pAAPrism01->_cx) - pAAPrism01->_a * (pActor01->_z+pAAPrism01->_cz)) + pAAPrism01->_b;
         int oppZ,oppX;
@@ -652,7 +664,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
                 oppX = o_scx + pAAPrism01->_vIH_y * r;
             }
         }
-        if (pos & POS_PRISM_pp) {
+        if (pos & POS_PRISM_xx_PP) {
             //            ↑ x+
             //
             //        ┌───┐
@@ -670,7 +682,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
                 return true;
             }
 
-        } else if (pos & POS_PRISM_np) {
+        } else if (pos & POS_PRISM_xx_NP) {
             //            ↑ x+
             //
             //        ┌───┐
@@ -688,7 +700,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
                 return true;
             }
 
-        } else if (pos & POS_PRISM_pn) {
+        } else if (pos & POS_PRISM_xx_PN) {
             //            ↑ x+
             //       ,─、
             //      │┌┼──┐
@@ -706,7 +718,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
                 return true;
             }
 
-        } else { //残りは POS_PRISM_nn のみである
+        } else { //残りは POS_PRISM_xx_NN のみである
             //            ↑ x+
             //               ,─、
             //        ┌──┼┐│Opp
@@ -760,7 +772,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
         //ピラミッド斜面に対してピラミッド側のBOX領域内で、相手BOXの最近傍点を求める
         const pos_t pos_info = pAAPyramid01->_pos_info;
         int nnx, nny, nnz; //BOX内最近傍点
-        if (pos_info & POS_PYRAMID_p__) {
+        if (pos_info & POS_PYRAMID_Pxx) {
             //bX2に興味がある
             if (/* aX1 <= bX2 && */ bX2 <= aX2) {
                 //bX2 が中にある
@@ -779,7 +791,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
                 nnx = aX1;
             }
         }
-        if (pos_info & POS_PYRAMID__p_) {
+        if (pos_info & POS_PYRAMID_xPx) {
             //bY2に興味がある
             if (/* aY1 <= bY2 &&*/ bY2 <= aY2) {
                 //bY2 が中にある
@@ -799,7 +811,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
             }
         }
 
-        if (pos_info & POS_PYRAMID___p) {
+        if (pos_info & POS_PYRAMID_xxP) {
             //bZ2に興味がある
             if (/*aZ1 <= bZ2 &&*/ bZ2 <= aZ2) {
                 //bZ2 が中にある
@@ -849,7 +861,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     double o_cy = C_DX(pActor02->_y + pSphere02->_cy);
     double o_cz = C_DX(pActor02->_z + pSphere02->_cz);
     const pos_t pos_info = pAAPyramid01->_pos_info; //三直角三角錐の姿勢情報
-    if (pos_info & POS_PYRAMID_p__) {
+    if (pos_info & POS_PYRAMID_Pxx) {
         //元の三直角三角錐の頂点のX軸は正の方向
         o_cx -= C_DX(pActor01->_x + pAAPyramid01->_x2);
         o_cx = -o_cx; //x軸反転
@@ -857,7 +869,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
         //元の三直角三角錐の頂点のX軸は負の方向
         o_cx -= C_DX(pActor01->_x + pAAPyramid01->_x1);
     }
-    if (pos_info & POS_PYRAMID__p_) {
+    if (pos_info & POS_PYRAMID_xPx) {
         //元の三直角三角錐の頂点のY軸は正の方向
         o_cy -= C_DX(pActor01->_y + pAAPyramid01->_y2);
         o_cy = -o_cy; //y軸反転
@@ -866,7 +878,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
         o_cy -= C_DX(pActor01->_y + pAAPyramid01->_y1);
     }
 
-    if (pos_info & POS_PYRAMID___p) {
+    if (pos_info & POS_PYRAMID_xxP) {
         //元の三直角三角錐の頂点のZ軸は正の方向
         o_cz -= C_DX(pActor01->_z + pAAPyramid01->_z2);
         o_cz = -o_cz; //z軸反転
@@ -1210,7 +1222,7 @@ bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
         const int pos = pAAPrism01->_pos_info;
         const double a = pAAPrism01->_a;
         const double b = ((pActor01->_y+pAAPrism01->_cy) - pAAPrism01->_a * (pActor01->_x+pAAPrism01->_cx)) + pAAPrism01->_b;
-        if (pos & POS_PRISM_pp) {
+        if (pos & POS_PRISM_xx_PP) {
             //            ↑ y+
             //
             //        ┌───┐
@@ -1228,7 +1240,7 @@ bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
                 return true;
             }
 
-        } else if (pos & POS_PRISM_np) {
+        } else if (pos & POS_PRISM_xx_NP) {
             //            ↑ y+
             //
             //        ┌───┐
@@ -1246,7 +1258,7 @@ bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
                 return true;
             }
 
-        } else if (pos & POS_PRISM_pn) {
+        } else if (pos & POS_PRISM_xx_PN) {
             //            ↑ y+
             //      ┌─┐
             //      │┌┼──┐
@@ -1264,7 +1276,7 @@ bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
                 return true;
             }
 
-        } else { // のこりは POS_PRISM_nn のみである
+        } else { // のこりは POS_PRISM_xx_NN のみである
             //            ↑ y+
             //              ┌─┐
             //        ┌──┼┐│Opp
@@ -1325,7 +1337,7 @@ bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     //プリズム斜辺と最短距離の円周上のXY座標を求める
     int oppX = o_scx + pAAPrism01->_vIH_x * pSphere02->_r;
     int oppY = o_scy + pAAPrism01->_vIH_y * pSphere02->_r;
-    if (pos & POS_PRISM_pp) {
+    if (pos & POS_PRISM_xx_PP) {
         //            ↑ y+
         //
         //        ┌───┐
@@ -1343,7 +1355,7 @@ bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
             return true;
         }
 
-    } else if (pos & POS_PRISM_np) {
+    } else if (pos & POS_PRISM_xx_NP) {
         //            ↑ y+
         //
         //        ┌───┐
@@ -1361,7 +1373,7 @@ bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
             return true;
         }
 
-    } else if (pos & POS_PRISM_pn) {
+    } else if (pos & POS_PRISM_xx_PN) {
         //            ↑ y+
         //       ,─、
         //      │┌┼──┐
@@ -1379,7 +1391,7 @@ bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
             return true;
         }
 
-    } else { // のこりは POS_PRISM_nn のみである
+    } else { // のこりは POS_PRISM_xx_NN のみである
         //            ↑ y+
         //               ,─、
         //        ┌──┼┐│Opp
@@ -1402,454 +1414,408 @@ bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
 
 bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
                       const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAAPrism* const pAAPrism02  ) {
-    if (GgafDxCore::GgafDxInput::isPressedKey(DIK_P)) {
-        _TRACE_("kitayo");
+    const coord aX = pActor01->_x;
+    const coord aY = pActor01->_y;
+    const coord bX = pActor02->_x;
+    const coord bY = pActor02->_y;
+
+    coord bX1 = bX + pAAPrism02->_x1;
+    coord bY1 = bY + pAAPrism02->_y1;
+    coord bX2 = bX + pAAPrism02->_x2;
+    coord bY2 = bY + pAAPrism02->_y2;
+    if (aY + pAAPrism01->_y2 >= bY1 && aY + pAAPrism01->_y1 <= bY2 &&
+        aX + pAAPrism01->_x2 >= bX1 && aX + pAAPrism01->_x1 <= bX2)
+    {
+        //この時点でAAB と AAB ならばヒット
+    } else {
+        //この時点でAAB と AAB だとしてもヒットしてない
+        return false;
     }
-    double aX1 = C_DX(pActor01->_x + pAAPrism01->_x1);
-    double aY1 = C_DX(pActor01->_y + pAAPrism01->_y1);
-    double aX2 = C_DX(pActor01->_x + pAAPrism01->_x2);
-    double aY2 = C_DX(pActor01->_y + pAAPrism01->_y2);
-    double aCX = C_DX(pActor01->_x + pAAPrism01->_cx);
-    double aCY = C_DX(pActor01->_y + pAAPrism01->_cy);
-
-    double aA = pAAPrism01->_a; //斜辺の傾き
-    double aB = C_DX(pActor01->_y + pAAPrism01->_b); //斜辺の切片
-
-    double bX1 = C_DX(pActor02->_x + pAAPrism02->_x1);
-    double bY1 = C_DX(pActor02->_y + pAAPrism02->_y1);
-    double bX2 = C_DX(pActor02->_x + pAAPrism02->_x2);
-    double bY2 = C_DX(pActor02->_y + pAAPrism02->_y2);
-    double bCX = C_DX(pActor02->_x + pAAPrism02->_cx);
-    double bCY = C_DX(pActor02->_y + pAAPrism02->_cy);
-
-    double bA = pAAPrism02->_a;
-    double bB = C_DX(pActor02->_y + pAAPrism02->_b);
-
     int pos1 = pAAPrism01->_pos_info;
+    coord aCX = aX + pAAPrism01->_cx;
+    coord aCY = aY + pAAPrism01->_cy;
+    double aA = pAAPrism01->_a; //斜辺の傾き
+    coord aB = aY + pAAPrism01->_b; //斜辺の切片
+    float aNx = -pAAPrism01->_vIH_x;  //自分の三角形の斜面の法線ベクトル
+    float aNy = -pAAPrism01->_vIH_y; //自分の三角形の斜面の法線ベクトル
+
     int pos2 = pAAPrism02->_pos_info;
+    coord bCX = bX + pAAPrism02->_cx;
+    coord bCY = bY + pAAPrism02->_cy;
+    double bA = pAAPrism02->_a;
+    coord bB = bY + pAAPrism02->_b;
+    float bNx = -pAAPrism02->_vIH_x;//相手の三角形の斜面の法線ベクトル
+    float bNy = -pAAPrism02->_vIH_y;//相手の三角形の斜面の法線ベクトル
+
     //直角頂点の座標を原点(0,0)におき、
-    //A(aex,0), B(0,aey),の三直角三角錐で当たり判定を考えたいので、
-    double offset_x = -aX1;
-    double offset_y = -aY1;
+    //自分の直角三角形を、A(aEx,0), B(0,aEy) に直角頂点がある位置で当たり判定を考えたい
+    //自分の三角形の横と縦要素に一致
+    coord aEx = pAAPrism01->_dx;
+    coord aEy = pAAPrism01->_dy;
 
-    aX1 += offset_x;
-    aY1 += offset_y;
-    aX2 += offset_x;
-    aY2 += offset_y;
-    aCX += offset_x;
-    aCY += offset_y;
-    aB += offset_y;
-
-    bX1 += offset_x;
-    bY1 += offset_y;
-    bX2 += offset_x;
-    bY2 += offset_y;
-    bCX += offset_x;
-    bCY += offset_y;
-    bB += offset_y;
-    //自分の三角形の横と縦要素
-    double aEx = aX2 - aX1;
-    double aEy = aY2 - aY1;
-    //自分の三角形の斜面上の点
-
-    //自分の三角形の斜面の法線ベクトル
-    double aNx = -pAAPrism01->_vIH_x;
-    double aNy = -pAAPrism01->_vIH_y;
-
-    //自分の頂点は(0,0)
-
-//    //相手の三角形の横と縦要素
-//    double bEx = bX2 - bX1;
-//    double bEy = bY2 - bY1;
-
-    //相手の三角形の斜面の法線ベクトル
-    double bNx = -pAAPrism02->_vIH_x;
-    double bNy = -pAAPrism02->_vIH_y;
-
-    //相手の頂点
-//    double vtx_bX = bX1;
-//    double vtx_bY = bY1;
-
-    if (pos1 == POS_R_TRIANGLE_nn) {
-        if (pos2 == POS_R_TRIANGLE_nn) {
-            //相手の直角頂点は (bX1, bY1)
-            if (bX1 <= 0) {
-                if (bY1 <= 0) {
-                    //位置1
-                    _TRACE_("位置１");
-                    //自身の直角頂点が、近傍点(0, 0)
-                    //相手の直角三角形の斜辺の法線ベクトル (bNx, bNy) と
-                    //相手の直角三角形の斜辺の点 (bCX, bCY) から  近傍点(0, 0) のベクトル(-bCX, -bCY)の
-                    //内積が負 ならば近傍点(0, 0) が相手の直角三角形の中にある
-                    //(bNx, bNy)・(-bCX, -bCY) = bNx*(-bCX) + bNy*(bCY)
-                    if ((bNx*(-bCX) + bNy*(-bCY)) < 0) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                } else if (bY1 <= aEy) {
-                    //位置4
-                    _TRACE_("位置４");
-                    if (bX2 > 0) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                } else {
-                    //位置7
-                    _TRACE_("位置７");
-                    return false;
-                }
-            } else if (bX1 <= aEx) {
-                if (bY1 <= 0) {
-                    //位置2
-                    _TRACE_("位置２");
-                    if (bY2 > 0) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                } else if (bY1 <= aEy) {
-                    //位置5
-                    _TRACE_("位置５");
-                    //相手の直角頂点が、近傍点(bX1, bY1)
-                    //自身の直角三角形の斜辺の法線ベクトル (aNx, aNy) と
-                    //自身の直角三角形の斜辺の点 (aCX, aCY) から  近傍点(bX1, bY1) のベクトル(bX1-aCX, bY1-aCY)の
-                    //内積が負 ならば近傍点(bX1, bY1) が直角三角形の中にある
-                    //(aNx, aNy)・(bX1-aCX, bY1-aCY) = aNx*(bX1-aCX) + aNy*(bY1-aCY)
-                    if ((aNx*(bX1-aCX) + aNy*(bY1-aCY)) < 0) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                } else {
-                    //位置8
-                    _TRACE_("位置８");
-                    return false;
-                }
-            } else {
-                return false;
-//                if (bY1 <= 0) {
-//                    //位置3
-//                    _TRACE_("位置３");
-//                    return false;
-//                } else if (bY1 <= aEy) {
-//                    //位置6
-//                    _TRACE_("位置６");
-//                    return false;
-//                } else {
-//                    //位置9
-//                    _TRACE_("位置９");
-//                    return false;
-//                }
-            }
-        } //pos2 == POS_R_TRIANGLE_nn
-
-        if (pos2 == POS_R_TRIANGLE_np) {
-            //相手の直角頂点は (bX1, bY2)
-            if (bX1 <= 0) {
-                if (bY2 <= 0) {
-                    //位置1
-                    _TRACE_("位置１");
-                    return false;
-                } else if (bY2 <= aEy) {
-                    //位置4
-                    _TRACE_("位置４");
-                    if (bX2 > 0) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                } else {
-                    //位置7
-                    _TRACE_("位置７");
-                    //自身の頂点近傍点(0, aY2)
-                    //相手の直角三角形の斜辺の法線ベクトル (bNx, bNy) と
-                    //相手の直角三角形の斜辺の点 (bCX, bCY) から  近傍点(0, aY2) のベクトル(-bCX, aY2-bCY)の
-                    //内積が負 ならば近傍点(0, aY2) が相手の直角三角形の中にある
-                    //(bNx, bNy)・(-bCX, aY2-bCY) = bNx*(-bCX) + bNy*(aY2-bCY)
-                    if ((bNx*(-bCX) + bNy*(aY2-bCY)) < 0) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                }
-            } else if (bX1 <= aEx) {
-                if (bY2 <= 0) {
-                    //位置2
-                    _TRACE_("位置２");
-                    return false;
-                } else if (bY2 <= aEy) {
-                    //位置5
-                    _TRACE_("位置５");
-                    //相手の頂点近傍点(bX1, bY1)
-                    //自身の直角三角形の斜辺の法線ベクトル (aNx, aNy) と
-                    //自身の直角三角形の斜辺の点 (aCX, aCY) から  近傍点(bX1, bY1) のベクトル(bX1-aCX, bY1-aCY)の
-                    //内積が負 ならば近傍点(bX1, bY1) が直角三角形の中にある
-                    //(aNx, aNy)・(bX1-aCX, bY1-aCY) = aNx*(bX1-aCX) + aNy*(bY1-aCY)
-                    if ((aNx*(bX1-aCX) + aNy*(bY1-aCY)) < 0) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                } else {
-                    //位置8
-                    _TRACE_("位置８");
-                    //位置5と同じ
-                    if ((aNx*(bX1-aCX) + aNy*(bY1-aCY)) < 0) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                }
-            } else {
-                return false;
-//                if (bY2 <= 0) {
-//                    //位置3
-//                    _TRACE_("位置３");
-//                    return false;
-//                } else if (bY2 <= aEy) {
-//                    //位置6
-//                    _TRACE_("位置６");
-//                    return false;
-//                } else {
-//                    //位置9
-//                    _TRACE_("位置９");
-//                    return false;
-//                }
-            }
-        } //pos2 == POS_R_TRIANGLE_np
-
-
-        if (pos2 == POS_R_TRIANGLE_pn) {
-            //相手の直角頂点は (bX2, bY1)
-            if (bX2 <= 0) {
-                return false;
-//                if (bY1 <= 0) {
-//                    //位置1
-//                    _TRACE_("位置１");
-//                    return false;
-//                } else if (bY1 <= aEy) {
-//                    //位置4
-//                    _TRACE_("位置４");
-//                    return false;
-//                } else {
-//                    //位置7
-//                    _TRACE_("位置７");
-//                    return false;
-//                }
-            } else if (bX2 <= aEx) {
-                if (bY1 <= 0) {
-                    //位置2
-                    _TRACE_("位置２");
-                    if (bY2 > 0) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                } else if (bY1 <= aEy) {
-                    //位置5
-                    _TRACE_("位置５");
-                    //相手の頂点近傍点(bX1, bY1)
-                    //自身の直角三角形の斜辺の法線ベクトル (aNx, aNy) と
-                    //自身の直角三角形の斜辺の点 (aCX, aCY) から  近傍点(bX1, bY1) のベクトル(bX1-aCX, bY1-aCY)の
-                    //内積が負 ならば近傍点(bX1, bY1) が直角三角形の中にある
-                    //(aNx, aNy)・(bX1-aCX, bY1-aCY) = aNx*(bX1-aCX) + aNy*(bY1-aCY)
-                    if ((aNx*(bX1-aCX) + aNy*(bY1-aCY)) < 0) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                } else {
-                    //位置8
-                    _TRACE_("位置８");
-                    return false;
-                }
-            } else {
-                if (bY1 <= 0) {
-                    //位置3
-                    _TRACE_("位置３");
-                    //自身の頂点近傍点(aX2, 0)
-                    //相手の直角三角形の斜辺の法線ベクトル (bNx, bNy) と
-                    //相手の直角三角形の斜辺の点 (bCX, bCY) から  近傍点(aX2, 0) のベクトル(aX2-bCX, -bCY)の
-                    //内積が負 ならば近傍点(aX2, 0) が相手の直角三角形の中にある
-                    //(bNx, bNy)・(aX2-bCX, -bCY) = bNx*(aX2-bCX) + bNy*(-bCY)
-                    if ((bNx*(aX2-bCX) + bNy*(-bCY)) < 0) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                } else if (bY1 <= aEy) {
-                    //位置6
-                    _TRACE_("位置６");
-                    //位置5と同じ
-                    if ((aNx*(bX1-aCX) + aNy*(bY1-aCY)) < 0) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                } else {
-                    //位置9
-                    _TRACE_("位置９");
-                    return false;
-                }
-            }
-        } //pos2 == POS_R_TRIANGLE_pn
-
-
-
-        if (pos2 == POS_R_TRIANGLE_pp) {
-            //相手の直角頂点は (bX2, bY2)
-            if (bX2 <= 0) {
-                if (bY2 <= 0) {
-                    //位置1
-                    _TRACE_("位置１");
-                    return false;
-                } else if (bY2 <= aEy) {
-                    //位置4
-                    _TRACE_("位置４");
-                    return false;
-                } else {
-                    //位置7
-                    _TRACE_("位置７");
-                    return false;
-                }
-            } else if (bX2 <= aEx) {
-                if (bY2 <= 0) {
-                    //位置2
-                    _TRACE_("位置２");
-                    return false;
-                } else if (bY2 <= aEy) {
-                    //位置5
-                    _TRACE_("位置５");
-                } else {
-                    //位置8
-                    _TRACE_("位置８");
-                }
-            } else {
-                if (bY2 <= 0) {
-                    //位置3
-                    _TRACE_("位置３");
-                    return false;
-                } else if (bY2 <= aEy) {
-                    //位置6
-                    _TRACE_("位置６");
-                } else {
-                    //位置9
-                    _TRACE_("位置９");
-                }
-            }
-
-            //位置5,6,8,9
-
-            //まず傾きをきを比較
-            // aA < bA の場合、相手三角形の頂点(bX1,bY2) の位置に注目
-            // aA > bA の場合、相手三角形の頂点(bX2,bY1) の位置に注目
-            // aA = bA の場合、斜辺が平行なのでどっちでもいい
-            // 注目の頂点について、
-            // A(aEx,0) を含む斜辺の法線に平行な線と
-            // B(0,aEy) を含む斜辺の法線に平行な線との間の範囲(範囲Rとする)
-            // の内側に相手の頂点があるか無いかで場合わけ
-            //
-            //A(aEx,0) を含む斜辺の法線に平行な線は、
-            //直線の法線 →AB=(-aEx, aEy) に向けたいので
-            //-aEx * x + aEy * y + c = 0
-            //これが、A(aEx,0)を通るので
-            //-aEx * aEx + c = 0
-            //c = aEx^2
-            //よって
-            //-aEx * x + aEy * y + aEx^2 > 0
-            //
-            //B(0,aEy) を含む斜辺の法線に平行な線は、
-            //直線の法線 →BA=(aEx, -aEy) に向けたいので
-            //aEx * x - aEy * y + c = 0
-            //これが、B(0,aEy) を通るので
-            //- aEy * aEy + c = 0
-            //c = aEy^2
-            //よって
-            //aEx * x - aEy * y + aEy^2 > 0
-
-            //領域Rは
-            //-aEx * x + aEy * y + aEx^2 > 0
-            //aEx * x - aEy * y + aEy^2 > 0
-            //の範囲
-
-            if (aA < bA) {
-                //斜辺の傾き（負）が、相手三角形の方がより水平に近い
-
-                //相手三角形の頂点(bX1,bY2) の位置に注目
-                if ((-aEx*bX1 + aEy*bY2 + aEx*aEx) < 0) {
-                    //注目の頂点(bX1,bY2)がA(aEx,0) を含む斜辺の法線に平行な線の外側
-                    return false;
-                } else if ((aEx*bX1 - aEy*bY2 + aEy*aEy) < 0) {
-                    //注目の頂点(bX1,bY2)がB(0,aEy) を含む斜辺の法線に平行な線の外側
-
-                    //自身の頂点近傍点(0, aY2)
-                    //相手の直角三角形の斜辺の法線ベクトル (bNx, bNy) と
-                    //相手の直角三角形の斜辺の点 (bCX, bCY) から  近傍点(0, aY2) のベクトル(-bCX, aY2-bCY)の
-                    //内積が負 ならば近傍点(0, aY2) が相手の直角三角形の中にある
-                    //(bNx, bNy)・(-bCX, aY2-bCY) = bNx*(-bCX) + bNy*(aY2-bCY)
-                    if ((bNx*(-bCX) + bNy*(aY2-bCY)) < 0) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                } else {
-                    //注目の頂点(bX1,bY2)が範囲Rの範囲内の場合
-
-                    //相手の頂点近傍点(bX1,bY2)
-                    //自身の直角三角形の斜辺の法線ベクトル (aNx, aNy) と
-                    //自身の直角三角形の斜辺の点 (aCX, aCY) から  近傍点(bX1,bY2) のベクトル(bX1-aCX, bY2-aCY)の
-                    //内積が負 ならば近傍点(bX1, bY2) が直角三角形の中にある
-                    //(aNx, aNy)・(bX1-aCX, bY2-aCY) = aNx*(bX1-aCX) + aNy*(bY2-aCY)
-                    if ((aNx*(bX1-aCX) + aNy*(bY2-aCY)) < 0)  {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                }
-
-            } else {
-                //斜辺の傾き（負）が、相手三角形の方がより垂直に近い
-                //相手三角形の頂点(bX2,bY1) の位置に注目
-                if ((-aEx*bX2 + aEy*bY1 + aEx*aEx) < 0) {
-                    //注目の頂点(bX2,bY1)がA(aEx,0) を含む斜辺の法線に平行な線の外側
-
-                    //自身の頂点近傍点(aX2, 0)
-                    //相手の直角三角形の斜辺の法線ベクトル (bNx, bNy) と
-                    //相手の直角三角形の斜辺の点 (bCX, bCY) から  近傍点(aX2, 0) のベクトル(aX2-bCX, -bCY)の
-                    //内積が負 ならば近傍点(aX2, 0) が相手の直角三角形の中にある
-                    //(bNx, bNy)・(aX2-bCX, -bCY) = bNx*(aX2-bCX) + bNy*(-bCY)
-                    if ((bNx*(aX2-bCX) + bNy*(-bCY)) < 0) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                } else if ((aEx*bX2 - aEy*bY1 + aEy*aEy) < 0) {
-                    //注目の頂点(bX2,bY1)がB(0,aEy) を含む斜辺の法線に平行な線の外側
-
-                    return false;
-                } else {
-                    //注目の頂点(bX2,bY1)が範囲Rの範囲内の場合
-
-                    //相手の頂点近傍点(bX2,bY1)
-                    //自身の直角三角形の斜辺の法線ベクトル (aNx, aNy) と
-                    //自身の直角三角形の斜辺の点 (aCX, aCY) から  近傍点(bX2,bY1) のベクトル(bX2-aCX, bY1-aCY)の
-                    //内積が負 ならば近傍点(bX2, bY1) が直角三角形の中にある
-                    //(aNx, aNy)・(bX2-aCX, bY1-aCY) = aNx*(bX2-aCX) + aNy*(bY1-aCY)
-                    if ((aNx*(bX2-aCX) + aNy*(bY1-aCY)) < 0)  {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                }
-
-            }
-        } //pos2 == POS_R_TRIANGLE_pp
-
-
-
+    //直角三角形の位置関係をダイナミックに変換！
+    if (pos1 & POS_R_TRIANGLE_Px) {
+        //X軸平行移動
+        const coord aX2 = aX + pAAPrism01->_x2;
+        aCX -= aX2;
+        bX1 -= aX2;
+        bX2 -= aX2;
+        bCX -= aX2;
+        //X座標反転(Y軸反転)
+        aCX = -aCX;
+        aA = -aA;
+        //aB 切片はそのまま
+        aNx = -aNx;
+        const coord tmp_bX2 = bX2;
+        bX2 = -bX1;
+        bX1 = -tmp_bX2;
+        bCX = -bCX;
+        bA = -bA;
+        //bB 切片はそのまま
+        bNx = -bNx;
+        pos2 = StgUtil::POS_R_TRIANGLE_inv_X[pos2];
+    } else {
+        //X軸平行移動
+        const coord aX1 = aX + pAAPrism01->_x1;
+        aCX -= aX1;
+        bX1 -= aX1;
+        bX2 -= aX1;
+        bCX -= aX1;
     }
+
+    if (pos1 & POS_R_TRIANGLE_xP) {
+        //Y軸平行移動
+        const coord aY2 = aY + pAAPrism01->_y2;
+        aCY -= aY2;
+        aB  -= aY2;
+        bY1 -= aY2;
+        bY2 -= aY2;
+        bCY -= aY2;
+        bB  -= aY2;
+        //Y座標反転(X軸反転)
+        aCY = -aCY;
+        aA = -aA;
+        aB = -aB;
+        aNy = -aNy;
+        const coord tmp_bY2 = bY2;
+        bY2 = -bY1;
+        bY1 = -tmp_bY2;
+        bCY = -bCY;
+        bA = -bA;
+        bB = -bB;
+        bNy = -bNy;
+        pos2 = StgUtil::POS_R_TRIANGLE_inv_Y[pos2];
+    } else {
+        //Y軸平行移動
+        const coord aY1 = aY + pAAPrism01->_y1;
+        aCY -= aY1;
+        aB  -= aY1;
+        bY1 -= aY1;
+        bY2 -= aY1;
+        bCY -= aY1;
+        bB  -= aY1;
+    }
+
+    //自分の頂点は(0,0)で POS_R_TRIANGLE_NN 固定
+    //相手の直角三角形は、それに伴い位置関係が変換された状態
+    if (pos2 == POS_R_TRIANGLE_NN) {
+        //相手の直角頂点は (bX1, bY1)
+        if (bX1 <= 0) {
+            if (bY1 <= 0) {
+                //位置1
+                //自身の直角頂点が、近傍点(0, 0)
+                //相手の直角三角形の斜辺の法線ベクトル (bNx, bNy) と
+                //相手の直角三角形の斜辺の点 (bCX, bCY) から  近傍点(0, 0) のベクトル(-bCX, -bCY)の
+                //内積が負 ならば近傍点(0, 0) が相手の直角三角形の中にある
+                //(bNx, bNy)・(-bCX, -bCY) = bNx*(-bCX) + bNy*(bCY)
+                if ((bNx*(-bCX) + bNy*(-bCY)) < 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else if (bY1 <= aEy) {
+                //位置4
+                if (bX2 > 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                //位置7
+                return false;
+            }
+        } else if (bX1 <= aEx) {
+            if (bY1 <= 0) {
+                //位置2
+                if (bY2 > 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else if (bY1 <= aEy) {
+                //位置5
+                //相手の直角頂点が、近傍点(bX1, bY1)
+                //自身の直角三角形の斜辺の法線ベクトル (aNx, aNy) と
+                //自身の直角三角形の斜辺の点 (aCX, aCY) から  近傍点(bX1, bY1) のベクトル(bX1-aCX, bY1-aCY)の
+                //内積が負 ならば近傍点(bX1, bY1) が直角三角形の中にある
+                //(aNx, aNy)・(bX1-aCX, bY1-aCY) = aNx*(bX1-aCX) + aNy*(bY1-aCY)
+                if ((aNx*(bX1-aCX) + aNy*(bY1-aCY)) < 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                //位置8
+                return false;
+            }
+        } else {
+            //位置3 or 6 or 9
+            return false;
+        }
+    } //pos2 == POS_R_TRIANGLE_NN
+
+    if (pos2 == POS_R_TRIANGLE_NP) {
+        //相手の直角頂点は (bX1, bY2)
+        if (bX1 <= 0) {
+            if (bY2 <= 0) {
+                //位置1
+                return false;
+            } else if (bY2 <= aEy) {
+                //位置4
+                if (bX2 > 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                //位置7
+                //自身の頂点近傍点(0, aEy)
+                //相手の直角三角形の斜辺の法線ベクトル (bNx, bNy) と
+                //相手の直角三角形の斜辺の点 (bCX, bCY) から  近傍点(0, aEy) のベクトル(-bCX, aEy-bCY)の
+                //内積が負 ならば近傍点(0, aEy) が相手の直角三角形の中にある
+                //(bNx, bNy)・(-bCX, aEy-bCY) = bNx*(-bCX) + bNy*(aEy-bCY)
+                if ((bNx*(-bCX) + bNy*(aEy-bCY)) < 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        } else if (bX1 <= aEx) {
+            if (bY2 <= 0) {
+                //位置2
+                return false;
+            } else if (bY2 <= aEy) {
+                //位置5
+                //相手の頂点近傍点(bX1, bY1)
+                //自身の直角三角形の斜辺の法線ベクトル (aNx, aNy) と
+                //自身の直角三角形の斜辺の点 (aCX, aCY) から  近傍点(bX1, bY1) のベクトル(bX1-aCX, bY1-aCY)の
+                //内積が負 ならば近傍点(bX1, bY1) が直角三角形の中にある
+                //(aNx, aNy)・(bX1-aCX, bY1-aCY) = aNx*(bX1-aCX) + aNy*(bY1-aCY)
+                if ((aNx*(bX1-aCX) + aNy*(bY1-aCY)) < 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                //位置8
+                //位置5と同じ
+                if ((aNx*(bX1-aCX) + aNy*(bY1-aCY)) < 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        } else {
+            //位置3 or 6or 9
+            return false;
+        }
+    } //pos2 == POS_R_TRIANGLE_NP
+
+    if (pos2 == POS_R_TRIANGLE_PN) {
+        //相手の直角頂点は (bX2, bY1)
+        if (bX2 <= 0) {
+            return false;
+        } else if (bX2 <= aEx) {
+            if (bY1 <= 0) {
+                //位置2
+                if (bY2 > 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else if (bY1 <= aEy) {
+                //位置5
+                //相手の頂点近傍点(bX1, bY1)
+                //自身の直角三角形の斜辺の法線ベクトル (aNx, aNy) と
+                //自身の直角三角形の斜辺の点 (aCX, aCY) から  近傍点(bX1, bY1) のベクトル(bX1-aCX, bY1-aCY)の
+                //内積が負 ならば近傍点(bX1, bY1) が直角三角形の中にある
+                //(aNx, aNy)・(bX1-aCX, bY1-aCY) = aNx*(bX1-aCX) + aNy*(bY1-aCY)
+                if ((aNx*(bX1-aCX) + aNy*(bY1-aCY)) < 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                //位置8
+                return false;
+            }
+        } else {
+            if (bY1 <= 0) {
+                //位置3
+                //自身の頂点近傍点(aEx, 0)
+                //相手の直角三角形の斜辺の法線ベクトル (bNx, bNy) と
+                //相手の直角三角形の斜辺の点 (bCX, bCY) から  近傍点(aEx, 0) のベクトル(aEx-bCX, -bCY)の
+                //内積が負 ならば近傍点(aEx, 0) が相手の直角三角形の中にある
+                //(bNx, bNy)・(aEx-bCX, -bCY) = bNx*(aEx-bCX) + bNy*(-bCY)
+                if ((bNx*(aEx-bCX) + bNy*(-bCY)) < 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else if (bY1 <= aEy) {
+                //位置6
+                //位置5と同じ
+                if ((aNx*(bX1-aCX) + aNy*(bY1-aCY)) < 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                //位置9
+                return false;
+            }
+        }
+    } //pos2 == POS_R_TRIANGLE_PN
+
+    if (pos2 == POS_R_TRIANGLE_PP) {
+        //相手の直角頂点は (bX2, bY2)
+        if (bX2 <= 0) {
+            //位置1 or 4 or 7
+            return false;
+        } else if (bX2 <= aEx) {
+            if (bY2 <= 0) {
+                //位置2
+                return false;
+            } else {
+                //位置5 or 8
+            }
+        } else {
+            if (bY2 <= 0) {
+                //位置3
+                return false;
+            } else if (bY2 <= aEy) {
+                //位置6 or 9
+            }
+        }
+
+        //位置5 or 6 or 8 or 9
+        //まず傾きをきを比較
+        // aA < bA の場合、相手三角形の頂点(bX1,bY2) の位置に注目
+        // aA > bA の場合、相手三角形の頂点(bX2,bY1) の位置に注目
+        // aA = bA の場合、斜辺が平行なのでどっちでもいい
+        // 注目の頂点について、
+        // A(aEx,0) を含む斜辺の法線に平行な線と
+        // B(0,aEy) を含む斜辺の法線に平行な線との間の範囲(範囲Rとする)
+        // の内側に相手の頂点があるか無いかで場合わけ
+        //
+        //A(aEx,0) を含む斜辺の法線に平行な線は、
+        //直線の法線 →AB=(-aEx, aEy) に向けたいので
+        //-aEx * x + aEy * y + c = 0
+        //これが、A(aEx,0)を通るので
+        //-aEx * aEx + c = 0
+        //c = aEx^2
+        //よって
+        //-aEx * x + aEy * y + aEx^2 > 0
+        //
+        //B(0,aEy) を含む斜辺の法線に平行な線は、
+        //直線の法線 →BA=(aEx, -aEy) に向けたいので
+        //aEx * x - aEy * y + c = 0
+        //これが、B(0,aEy) を通るので
+        //- aEy * aEy + c = 0
+        //c = aEy^2
+        //よって
+        //aEx * x - aEy * y + aEy^2 > 0
+
+        //領域Rは
+        //-aEx * x + aEy * y + aEx^2 > 0
+        //aEx * x - aEy * y + aEy^2 > 0
+        //の範囲
+
+        const double ex = aEx;
+        const double ey = aEy;
+        if (aA < bA) {
+            //斜辺の傾き（負）が、相手三角形の方がより水平に近い
+
+            //相手三角形の頂点(bX1,bY2) の位置に注目
+            if ((-ex*bX1 + ey*bY2 + ex*ex) < 0) {
+                //注目の頂点(bX1,bY2)がA(ex,0) を含む斜辺の法線に平行な線の外側
+                return false;
+            } else if ((ex*bX1 - ey*bY2 + ey*ey) < 0) {
+                //注目の頂点(bX1,bY2)がB(0,ey) を含む斜辺の法線に平行な線の外側
+
+                //自身の頂点近傍点(0, aEy)
+                //相手の直角三角形の斜辺の法線ベクトル (bNx, bNy) と
+                //相手の直角三角形の斜辺の点 (bCX, bCY) から  近傍点(0, aEy) のベクトル(-bCX, aEy-bCY)の
+                //内積が負 ならば近傍点(0, aEy) が相手の直角三角形の中にある
+                //(bNx, bNy)・(-bCX, aEy-bCY) = bNx*(-bCX) + bNy*(aEy-bCY)
+                if ((bNx*(-bCX) + bNy*(aEy-bCY)) < 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                //注目の頂点(bX1,bY2)が範囲Rの範囲内の場合
+
+                //相手の頂点近傍点(bX1,bY2)
+                //自身の直角三角形の斜辺の法線ベクトル (aNx, aNy) と
+                //自身の直角三角形の斜辺の点 (aCX, aCY) から  近傍点(bX1,bY2) のベクトル(bX1-aCX, bY2-aCY)の
+                //内積が負 ならば近傍点(bX1, bY2) が直角三角形の中にある
+                //(aNx, aNy)・(bX1-aCX, bY2-aCY) = aNx*(bX1-aCX) + aNy*(bY2-aCY)
+                if ((aNx*(bX1-aCX) + aNy*(bY2-aCY)) < 0)  {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+        } else {
+            //斜辺の傾き（負）が、相手三角形の方がより垂直に近い
+            //相手三角形の頂点(bX2,bY1) の位置に注目
+            if ((-ex*bX2 + ey*bY1 + ex*ex) < 0) {
+                //注目の頂点(bX2,bY1)がA(ex,0) を含む斜辺の法線に平行な線の外側
+
+                //自身の頂点近傍点(aEx, 0)
+                //相手の直角三角形の斜辺の法線ベクトル (bNx, bNy) と
+                //相手の直角三角形の斜辺の点 (bCX, bCY) から  近傍点(aEx, 0) のベクトル(aEx-bCX, -bCY)の
+                //内積が負 ならば近傍点(aX2, 0) が相手の直角三角形の中にある
+                //(bNx, bNy)・(aEx-bCX, -bCY) = bNx*(aEx-bCX) + bNy*(-bCY)
+                if ((bNx*(aEx-bCX) + bNy*(-bCY)) < 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else if ((ex*bX2 - ey*bY1 + ey*ey) < 0) {
+                //注目の頂点(bX2,bY1)がB(0,ey) を含む斜辺の法線に平行な線の外側
+
+                return false;
+            } else {
+                //注目の頂点(bX2,bY1)が範囲Rの範囲内の場合
+
+                //相手の頂点近傍点(bX2,bY1)
+                //自身の直角三角形の斜辺の法線ベクトル (aNx, aNy) と
+                //自身の直角三角形の斜辺の点 (aCX, aCY) から  近傍点(bX2,bY1) のベクトル(bX2-aCX, bY1-aCY)の
+                //内積が負 ならば近傍点(bX2, bY1) が直角三角形の中にある
+                //(aNx, aNy)・(bX2-aCX, bY1-aCY) = aNx*(bX2-aCX) + aNy*(bY1-aCY)
+                if ((aNx*(bX2-aCX) + aNy*(bY1-aCY)) < 0)  {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+        }
+    } //pos2 == POS_R_TRIANGLE_PP
+
     return false;
 }
 

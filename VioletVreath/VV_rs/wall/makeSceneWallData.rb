@@ -202,31 +202,31 @@ while true
         #プリズムではなくてBOX
         box[box_index].pos_prism = 0
       elsif counter[0] == 0 && counter[1] == 0 then
-        box[box_index].pos_prism = POS_PRISM_XY_nn
+        box[box_index].pos_prism = POS_PRISM_XY_NN
       elsif counter[2] == 0 && counter[3] == 0 then
-        box[box_index].pos_prism = POS_PRISM_XY_np
+        box[box_index].pos_prism = POS_PRISM_XY_NP
       elsif counter[4] == 0 && counter[5] == 0 then
-        box[box_index].pos_prism = POS_PRISM_XY_pn
+        box[box_index].pos_prism = POS_PRISM_XY_PN
       elsif counter[6] == 0 && counter[7] == 0 then
-        box[box_index].pos_prism = POS_PRISM_XY_pp
+        box[box_index].pos_prism = POS_PRISM_XY_PP
 
       elsif counter[0] == 0 && counter[4] == 0 then
-        box[box_index].pos_prism = POS_PRISM_YZ_nn
+        box[box_index].pos_prism = POS_PRISM_YZ_NN
       elsif counter[5] == 0 && counter[1] == 0 then
-        box[box_index].pos_prism = POS_PRISM_YZ_np
+        box[box_index].pos_prism = POS_PRISM_YZ_NP
       elsif counter[2] == 0 && counter[6] == 0 then
-        box[box_index].pos_prism = POS_PRISM_YZ_pn
+        box[box_index].pos_prism = POS_PRISM_YZ_PN
       elsif counter[3] == 0 && counter[7] == 0 then
-        box[box_index].pos_prism = POS_PRISM_YZ_pp
+        box[box_index].pos_prism = POS_PRISM_YZ_PP
 
       elsif counter[0] == 0 && counter[2] == 0 then
-        box[box_index].pos_prism = POS_PRISM_ZX_nn
+        box[box_index].pos_prism = POS_PRISM_ZX_NN
       elsif counter[4] == 0 && counter[6] == 0 then
-        box[box_index].pos_prism = POS_PRISM_ZX_np
+        box[box_index].pos_prism = POS_PRISM_ZX_NP
       elsif counter[1] == 0 && counter[3] == 0 then
-        box[box_index].pos_prism = POS_PRISM_ZX_pn
+        box[box_index].pos_prism = POS_PRISM_ZX_PN
       elsif counter[5] == 0 && counter[7] == 0 then
-        box[box_index].pos_prism = POS_PRISM_ZX_pp
+        box[box_index].pos_prism = POS_PRISM_ZX_PP
       else
         #ありえない
         puts "not prism and not box!!!"

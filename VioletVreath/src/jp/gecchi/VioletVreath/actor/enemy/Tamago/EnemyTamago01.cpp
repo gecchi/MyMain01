@@ -52,15 +52,15 @@ void EnemyTamago01::initialize() {
     pKuroko->setMvVelo(3000);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
-//    pChecker->setColliAAPrism_Cube(0, 200000,POS_PRISM_ZX_pp);
-//        pChecker->setColliAAPrism_WHD(0,0,0,300000,100000,200000,100000,POS_PRISM_YZ_pn);
+//    pChecker->setColliAAPrism_Cube(0, 200000,POS_PRISM_ZX_PP);
+//        pChecker->setColliAAPrism_WHD(0,0,0,300000,100000,200000,100000,POS_PRISM_YZ_PN);
 
     //ヒットしない理由を探せ！！
 //      pChecker->setColliAAPrism_WHD(0,20000,-30000,50000,
-//                                                90000,140000,60000,POS_PRISM_XY_nn);
+//                                                90000,140000,60000,POS_PRISM_XY_NN);
 //
 //      pChecker->setColliAAPrism_WHD(1,-20000,-30000,-50000,
-//                                                 60000,90000,140000,POS_PRISM_ZX_pp);
+//                                                 60000,90000,140000,POS_PRISM_ZX_PP);
 
 //    pChecker->setColliAABox_WHD(0,20000,-30000,50000,
 //                                              90000,140000,60000);

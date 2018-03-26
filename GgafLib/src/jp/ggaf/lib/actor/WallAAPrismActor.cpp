@@ -64,22 +64,22 @@ bool WallAAPrismActor::initStatic(WallAAPrismActor* prm_pWallAAPrismActor) {
     //に設定
 
     //XYプリズムの場合は +X -X面をつぶす
-    WallAAPrismActor::_delface[POS_PRISM_XY_nn] = ~FACE_F_BIT;
-    WallAAPrismActor::_delface[POS_PRISM_XY_np] = ~FACE_F_BIT;
-    WallAAPrismActor::_delface[POS_PRISM_XY_pn] = ~FACE_B_BIT;
-    WallAAPrismActor::_delface[POS_PRISM_XY_pp] = ~FACE_B_BIT;
+    WallAAPrismActor::_delface[POS_PRISM_XY_NN] = ~FACE_F_BIT;
+    WallAAPrismActor::_delface[POS_PRISM_XY_NP] = ~FACE_F_BIT;
+    WallAAPrismActor::_delface[POS_PRISM_XY_PN] = ~FACE_B_BIT;
+    WallAAPrismActor::_delface[POS_PRISM_XY_PP] = ~FACE_B_BIT;
 
     //YZプリズムの場合も +Z -Z面をつぶす
-    WallAAPrismActor::_delface[POS_PRISM_YZ_nn] = ~FACE_C_BIT;
-    WallAAPrismActor::_delface[POS_PRISM_YZ_np] = ~FACE_E_BIT;
-    WallAAPrismActor::_delface[POS_PRISM_YZ_pn] = ~FACE_C_BIT;
-    WallAAPrismActor::_delface[POS_PRISM_YZ_pp] = ~FACE_E_BIT;
+    WallAAPrismActor::_delface[POS_PRISM_YZ_NN] = ~FACE_C_BIT;
+    WallAAPrismActor::_delface[POS_PRISM_YZ_NP] = ~FACE_E_BIT;
+    WallAAPrismActor::_delface[POS_PRISM_YZ_PN] = ~FACE_C_BIT;
+    WallAAPrismActor::_delface[POS_PRISM_YZ_PP] = ~FACE_E_BIT;
 
     //ZXプリズムの場合も +X -X面をつぶす
-    WallAAPrismActor::_delface[POS_PRISM_ZX_nn] = ~FACE_F_BIT;
-    WallAAPrismActor::_delface[POS_PRISM_ZX_np] = ~FACE_B_BIT;
-    WallAAPrismActor::_delface[POS_PRISM_ZX_pn] = ~FACE_F_BIT;
-    WallAAPrismActor::_delface[POS_PRISM_ZX_pp] = ~FACE_B_BIT;
+    WallAAPrismActor::_delface[POS_PRISM_ZX_NN] = ~FACE_F_BIT;
+    WallAAPrismActor::_delface[POS_PRISM_ZX_NP] = ~FACE_B_BIT;
+    WallAAPrismActor::_delface[POS_PRISM_ZX_PN] = ~FACE_F_BIT;
+    WallAAPrismActor::_delface[POS_PRISM_ZX_PP] = ~FACE_B_BIT;
     return true;
 }
 

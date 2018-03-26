@@ -42,20 +42,20 @@ bool GgafDxAAPrismActor::initStatic() {
     //                 |
 
 //                                                             rx        rz       ry
-    GgafDxAAPrismActor::pos2r[POS_PRISM_XY_nn] = RotPosPrism(D0ANG  , D0ANG  , D0ANG  );
-    GgafDxAAPrismActor::pos2r[POS_PRISM_XY_np] = RotPosPrism(D0ANG  , D270ANG, D0ANG  );
-    GgafDxAAPrismActor::pos2r[POS_PRISM_XY_pn] = RotPosPrism(D0ANG  , D90ANG , D0ANG  );
-    GgafDxAAPrismActor::pos2r[POS_PRISM_XY_pp] = RotPosPrism(D0ANG  , D180ANG, D0ANG  );
+    GgafDxAAPrismActor::pos2r[POS_PRISM_XY_NN] = RotPosPrism(D0ANG  , D0ANG  , D0ANG  );
+    GgafDxAAPrismActor::pos2r[POS_PRISM_XY_NP] = RotPosPrism(D0ANG  , D270ANG, D0ANG  );
+    GgafDxAAPrismActor::pos2r[POS_PRISM_XY_PN] = RotPosPrism(D0ANG  , D90ANG , D0ANG  );
+    GgafDxAAPrismActor::pos2r[POS_PRISM_XY_PP] = RotPosPrism(D0ANG  , D180ANG, D0ANG  );
 
-    GgafDxAAPrismActor::pos2r[POS_PRISM_YZ_nn] = RotPosPrism(D0ANG  , D90ANG , D90ANG );
-    GgafDxAAPrismActor::pos2r[POS_PRISM_YZ_np] = RotPosPrism(D0ANG  , D0ANG  , D90ANG );
-    GgafDxAAPrismActor::pos2r[POS_PRISM_YZ_pn] = RotPosPrism(D0ANG  , D180ANG, D90ANG );
-    GgafDxAAPrismActor::pos2r[POS_PRISM_YZ_pp] = RotPosPrism(D0ANG  , D270ANG, D90ANG );
+    GgafDxAAPrismActor::pos2r[POS_PRISM_YZ_NN] = RotPosPrism(D0ANG  , D90ANG , D90ANG );
+    GgafDxAAPrismActor::pos2r[POS_PRISM_YZ_NP] = RotPosPrism(D0ANG  , D0ANG  , D90ANG );
+    GgafDxAAPrismActor::pos2r[POS_PRISM_YZ_PN] = RotPosPrism(D0ANG  , D180ANG, D90ANG );
+    GgafDxAAPrismActor::pos2r[POS_PRISM_YZ_PP] = RotPosPrism(D0ANG  , D270ANG, D90ANG );
 
-    GgafDxAAPrismActor::pos2r[POS_PRISM_ZX_nn] = RotPosPrism(D90ANG , D0ANG  , D0ANG  );
-    GgafDxAAPrismActor::pos2r[POS_PRISM_ZX_np] = RotPosPrism(D90ANG , D0ANG  , D270ANG);
-    GgafDxAAPrismActor::pos2r[POS_PRISM_ZX_pn] = RotPosPrism(D90ANG , D0ANG  , D90ANG );
-    GgafDxAAPrismActor::pos2r[POS_PRISM_ZX_pp] = RotPosPrism(D90ANG , D0ANG  , D180ANG);
+    GgafDxAAPrismActor::pos2r[POS_PRISM_ZX_NN] = RotPosPrism(D90ANG , D0ANG  , D0ANG  );
+    GgafDxAAPrismActor::pos2r[POS_PRISM_ZX_NP] = RotPosPrism(D90ANG , D0ANG  , D270ANG);
+    GgafDxAAPrismActor::pos2r[POS_PRISM_ZX_PN] = RotPosPrism(D90ANG , D0ANG  , D90ANG );
+    GgafDxAAPrismActor::pos2r[POS_PRISM_ZX_PP] = RotPosPrism(D90ANG , D0ANG  , D180ANG);
 
     GgafDxAAPrismActor::pos2r[0] = RotPosPrism(D0ANG  , D0ANG  , D0ANG  );
     return true;

@@ -43,13 +43,13 @@ float4x4 g_matView;
 //射影変換行列  
 float4x4 g_matProj;  
 
-#define POS_PRISM_nn    1 
-#define POS_PRISM_np    2 
-#define POS_PRISM_pn    4 
-#define POS_PRISM_pp    8 
-#define POS_PRISM_XY    16
-#define POS_PRISM_YZ    32
-#define POS_PRISM_ZX    64
+#define POS_PRISM_xx_NN    1 
+#define POS_PRISM_xx_NP    2 
+#define POS_PRISM_xx_PN    4 
+#define POS_PRISM_xx_PP    8 
+#define POS_PRISM_XY_xx    16
+#define POS_PRISM_YZ_xx    32
+#define POS_PRISM_ZX_xx    64
 
 //テクスチャのサンプラ(s0レジスタ)
 sampler MyTextureSampler : register(s0);
@@ -186,42 +186,42 @@ OUT_VS GgafDxVS_MassWall(
 
 	if (pos_info == 0) {
         //BOX
-	} else if (pos_info >= POS_PRISM_ZX) {   
+	} else if (pos_info >= POS_PRISM_ZX_xx) {   
         //BOXの１面を無理やり閉じてプリズム型に変形させる
 		//＋X -X の面がプリズムの斜め面にならないようにする
 		// ZX は XZ平面と見る
-		pos_info -= POS_PRISM_ZX;
-		if (pos_info == POS_PRISM_pp) {
+		pos_info -= POS_PRISM_ZX_xx;
+		if (pos_info == POS_PRISM_xx_PP) {
 			prm_posModel_Local.z = (prm_posModel_Local.z * ((prm_posModel_Local.x+g_fh_POS_PRISM_ZX)/g_wall_dep))       - ((prm_posModel_Local.x-g_fh_POS_PRISM_ZX)*g_ah_POS_PRISM_ZX);
-		} else if (pos_info == POS_PRISM_pn) {
+		} else if (pos_info == POS_PRISM_xx_PN) {
 			prm_posModel_Local.z = (prm_posModel_Local.z * (1.0-((prm_posModel_Local.x+g_fh_POS_PRISM_ZX)/g_wall_dep))) + ((prm_posModel_Local.x+g_fh_POS_PRISM_ZX)*g_ah_POS_PRISM_ZX);
-		} else if (pos_info == POS_PRISM_np) { 
+		} else if (pos_info == POS_PRISM_xx_NP) { 
 			prm_posModel_Local.z = (prm_posModel_Local.z * ((prm_posModel_Local.x+g_fh_POS_PRISM_ZX)/g_wall_dep))       + ((prm_posModel_Local.x-g_fh_POS_PRISM_ZX)*g_ah_POS_PRISM_ZX);
-		} else { //if (pos_info == POS_PRISM_nn) {
+		} else { //if (pos_info == POS_PRISM_xx_NN) {
 			prm_posModel_Local.z = (prm_posModel_Local.z * (1.0-((prm_posModel_Local.x+g_fh_POS_PRISM_ZX)/g_wall_dep))) - ((prm_posModel_Local.x+g_fh_POS_PRISM_ZX)*g_ah_POS_PRISM_ZX);
 		}
-	} else if (pos_info >= POS_PRISM_YZ) {   
+	} else if (pos_info >= POS_PRISM_YZ_xx) {   
 		//＋Z -Z の面がプリズムの斜め面にならないようにする
-		pos_info -= POS_PRISM_YZ;
-		if (pos_info == POS_PRISM_pp) {
+		pos_info -= POS_PRISM_YZ_xx;
+		if (pos_info == POS_PRISM_xx_PP) {
 			prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.z+g_fh_POS_PRISM_YZ)/g_wall_width))       - ((prm_posModel_Local.z-g_fh_POS_PRISM_YZ)*g_ah_POS_PRISM_YZ);
-		} else if (pos_info == POS_PRISM_pn) {
+		} else if (pos_info == POS_PRISM_xx_PN) {
 			prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.z+g_fh_POS_PRISM_YZ)/g_wall_width))) + ((prm_posModel_Local.z+g_fh_POS_PRISM_YZ)*g_ah_POS_PRISM_YZ);
-		} else if (pos_info == POS_PRISM_np) { 
+		} else if (pos_info == POS_PRISM_xx_NP) { 
 			prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.z+g_fh_POS_PRISM_YZ)/g_wall_width))       + ((prm_posModel_Local.z-g_fh_POS_PRISM_YZ)*g_ah_POS_PRISM_YZ);
-		} else { //if (pos_info == POS_PRISM_nn) {
+		} else { //if (pos_info == POS_PRISM_xx_NN) {
 			prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.z+g_fh_POS_PRISM_YZ)/g_wall_width))) - ((prm_posModel_Local.z+g_fh_POS_PRISM_YZ)*g_ah_POS_PRISM_YZ);
 		}
-	} else { //if (pos_info >= POS_PRISM_XY) {   
-		pos_info -= POS_PRISM_XY;
+	} else { //if (pos_info >= POS_PRISM_XY_xx) {   
+		pos_info -= POS_PRISM_XY_xx;
 		//＋X -X の面がプリズムの斜め面にならないようにする
-		if (pos_info == POS_PRISM_pp) {
+		if (pos_info == POS_PRISM_xx_PP) {
 			prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.x+g_fh_POS_PRISM_XY)/g_wall_dep))       - ((prm_posModel_Local.x-g_fh_POS_PRISM_XY)*g_ah_POS_PRISM_XY);
-		} else if (pos_info == POS_PRISM_pn) {
+		} else if (pos_info == POS_PRISM_xx_PN) {
 			prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.x+g_fh_POS_PRISM_XY)/g_wall_dep))       + ((prm_posModel_Local.x-g_fh_POS_PRISM_XY)*g_ah_POS_PRISM_XY);
-		} else if (pos_info == POS_PRISM_np) { 
+		} else if (pos_info == POS_PRISM_xx_NP) { 
 			prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.x+g_fh_POS_PRISM_XY)/g_wall_dep))) + ((prm_posModel_Local.x+g_fh_POS_PRISM_XY)*g_ah_POS_PRISM_XY);
-		} else { //if (pos_info == POS_PRISM_nn) {
+		} else { //if (pos_info == POS_PRISM_xx_NN) {
 			prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.x+g_fh_POS_PRISM_XY)/g_wall_dep))) - ((prm_posModel_Local.x+g_fh_POS_PRISM_XY)*g_ah_POS_PRISM_XY);
 		}
 	}

@@ -49,7 +49,7 @@ public:
 //補足
 //プリズム位置(pos_info)を、表す定数(GgafDxCommonHeader.hで定義)は以下のような命名がなされている。
 //＜例＞
-//POS_PRISM_YZ_nn
+//POS_PRISM_YZ_NN
 //＜意味＞
 //"POS_PRISM_" + どの平面にスライスを入れるか + "_" + スライスの仕方
 //[どの平面にスライスを入れるか]

@@ -40,14 +40,14 @@ bool GgafDxAAPyramidActor::initStatic() {
     //                 |
     //                 |
     //                                                              rx      rz       ry
-    GgafDxAAPyramidActor::pos2r[POS_PYRAMID_nnn] = RotPosPyramid(D0ANG , D0ANG  , D0ANG   );
-    GgafDxAAPyramidActor::pos2r[POS_PYRAMID_nnp] = RotPosPyramid(D0ANG , D0ANG  , D90ANG  );
-    GgafDxAAPyramidActor::pos2r[POS_PYRAMID_npn] = RotPosPyramid(D0ANG , D180ANG, D90ANG  );
-    GgafDxAAPyramidActor::pos2r[POS_PYRAMID_npp] = RotPosPyramid(D0ANG , D180ANG, D180ANG );
-    GgafDxAAPyramidActor::pos2r[POS_PYRAMID_pnn] = RotPosPyramid(D0ANG , D0ANG  , D270ANG );
-    GgafDxAAPyramidActor::pos2r[POS_PYRAMID_pnp] = RotPosPyramid(D0ANG , D0ANG  , D180ANG );
-    GgafDxAAPyramidActor::pos2r[POS_PYRAMID_ppn] = RotPosPyramid(D0ANG , D180ANG, D0ANG   );
-    GgafDxAAPyramidActor::pos2r[POS_PYRAMID_ppp] = RotPosPyramid(D0ANG , D180ANG, D270ANG );
+    GgafDxAAPyramidActor::pos2r[POS_PYRAMID_NNN] = RotPosPyramid(D0ANG , D0ANG  , D0ANG   );
+    GgafDxAAPyramidActor::pos2r[POS_PYRAMID_NNP] = RotPosPyramid(D0ANG , D0ANG  , D90ANG  );
+    GgafDxAAPyramidActor::pos2r[POS_PYRAMID_NPN] = RotPosPyramid(D0ANG , D180ANG, D90ANG  );
+    GgafDxAAPyramidActor::pos2r[POS_PYRAMID_NPP] = RotPosPyramid(D0ANG , D180ANG, D180ANG );
+    GgafDxAAPyramidActor::pos2r[POS_PYRAMID_PNN] = RotPosPyramid(D0ANG , D0ANG  , D270ANG );
+    GgafDxAAPyramidActor::pos2r[POS_PYRAMID_PNP] = RotPosPyramid(D0ANG , D0ANG  , D180ANG );
+    GgafDxAAPyramidActor::pos2r[POS_PYRAMID_PPN] = RotPosPyramid(D0ANG , D180ANG, D0ANG   );
+    GgafDxAAPyramidActor::pos2r[POS_PYRAMID_PPP] = RotPosPyramid(D0ANG , D180ANG, D270ANG );
     return true;
 }
 

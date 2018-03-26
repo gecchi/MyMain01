@@ -64,14 +64,14 @@ bool WallAAPyramidActor::initStatic(WallAAPyramidActor* prm_pWallAAPyramidActor)
     //特に条件がない場合、描画する面ビットを 1
     //に設定
                                                                                            //斜面
-    WallAAPyramidActor::_delface[POS_PYRAMID_nnn] = FACE_D_BIT | FACE_B_BIT | FACE_E_BIT | FACE_A_BIT;
-    WallAAPyramidActor::_delface[POS_PYRAMID_nnp] = FACE_D_BIT | FACE_C_BIT | FACE_B_BIT | FACE_A_BIT;
-    WallAAPyramidActor::_delface[POS_PYRAMID_npn] = FACE_A_BIT | FACE_B_BIT | FACE_E_BIT | FACE_D_BIT;
-    WallAAPyramidActor::_delface[POS_PYRAMID_npp] = FACE_A_BIT | FACE_C_BIT | FACE_B_BIT | FACE_D_BIT;
-    WallAAPyramidActor::_delface[POS_PYRAMID_pnn] = FACE_D_BIT | FACE_F_BIT | FACE_E_BIT | FACE_A_BIT;
-    WallAAPyramidActor::_delface[POS_PYRAMID_pnp] = FACE_D_BIT | FACE_C_BIT | FACE_F_BIT | FACE_A_BIT;
-    WallAAPyramidActor::_delface[POS_PYRAMID_ppn] = FACE_A_BIT | FACE_F_BIT | FACE_E_BIT | FACE_D_BIT;
-    WallAAPyramidActor::_delface[POS_PYRAMID_ppp] = FACE_A_BIT | FACE_C_BIT | FACE_F_BIT | FACE_D_BIT;
+    WallAAPyramidActor::_delface[POS_PYRAMID_NNN] = FACE_D_BIT | FACE_B_BIT | FACE_E_BIT | FACE_A_BIT;
+    WallAAPyramidActor::_delface[POS_PYRAMID_NNP] = FACE_D_BIT | FACE_C_BIT | FACE_B_BIT | FACE_A_BIT;
+    WallAAPyramidActor::_delface[POS_PYRAMID_NPN] = FACE_A_BIT | FACE_B_BIT | FACE_E_BIT | FACE_D_BIT;
+    WallAAPyramidActor::_delface[POS_PYRAMID_NPP] = FACE_A_BIT | FACE_C_BIT | FACE_B_BIT | FACE_D_BIT;
+    WallAAPyramidActor::_delface[POS_PYRAMID_PNN] = FACE_D_BIT | FACE_F_BIT | FACE_E_BIT | FACE_A_BIT;
+    WallAAPyramidActor::_delface[POS_PYRAMID_PNP] = FACE_D_BIT | FACE_C_BIT | FACE_F_BIT | FACE_A_BIT;
+    WallAAPyramidActor::_delface[POS_PYRAMID_PPN] = FACE_A_BIT | FACE_F_BIT | FACE_E_BIT | FACE_D_BIT;
+    WallAAPyramidActor::_delface[POS_PYRAMID_PPP] = FACE_A_BIT | FACE_C_BIT | FACE_F_BIT | FACE_D_BIT;
     return true;
 }
 
