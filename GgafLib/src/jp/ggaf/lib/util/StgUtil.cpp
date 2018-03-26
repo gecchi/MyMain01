@@ -1448,12 +1448,11 @@ bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     float bNy = -pAAPrism02->_vIH_y;//相手の三角形の斜面の法線ベクトル
 
     //直角頂点の座標を原点(0,0)におき、
-    //自分の直角三角形を、A(aEx,0), B(0,aEy) に直角頂点がある位置で当たり判定を考えたい
-    //自分の三角形の横と縦要素に一致
+    //自分の直角三角形について、直角頂点を(0, 0) 残りの頂点を A(aEx,0), B(0,aEy) とする直角三角形での当たり判定を考えたい
     coord aEx = pAAPrism01->_dx;
     coord aEy = pAAPrism01->_dy;
 
-    //直角三角形の位置関係をダイナミックに変換！
+    //そこで、自分と相手の直角三角形の位置関係をダイナミックに変換！
     if (pos1 & POS_R_TRIANGLE_Px) {
         //X軸平行移動
         const coord aX2 = aX + pAAPrism01->_x2;
