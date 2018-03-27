@@ -4,12 +4,6 @@
 #include "jp/ggaf/lib/actor/camera/DefaultCamera.h"
 #include "jp/ggaf/lib/scene/DefaultSpacetime.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#ifdef MY_DEBUG
-#include "jp/ggaf/lib/actor/ColliAABoxActor.h"
-#include "jp/ggaf/lib/actor/ColliAAPrismActor.h"
-#include "jp/ggaf/lib/actor/ColliAAPyramidActor.h"
-#include "jp/ggaf/lib/actor/ColliSphereActor.h"
-#endif
 
 using namespace GgafCore;
 using namespace GgafDxCore;

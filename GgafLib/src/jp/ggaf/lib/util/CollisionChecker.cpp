@@ -12,6 +12,12 @@
 #include "jp/ggaf/lib/util/ColliAAPrism.h"
 #include "jp/ggaf/lib/util/ColliAAPyramid.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
+#ifdef MY_DEBUG
+#include "jp/ggaf/lib/actor/ColliAABoxActor.h"
+#include "jp/ggaf/lib/actor/ColliAAPrismActor.h"
+#include "jp/ggaf/lib/actor/ColliAAPyramidActor.h"
+#include "jp/ggaf/lib/actor/ColliSphereActor.h"
+#endif
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -142,6 +148,21 @@ void CollisionChecker::setColliAAPyramid(int prm_index,
     pAAPyramid->_is_valid_flg = true;
     pAAPyramid->set(x1, y1, z1, x2, y2, z2, pos_info, rot_x, rot_y, rot_z);
     _need_update_aabb = true;
+}
+
+
+void CollisionChecker::drawHitArea(CollisionChecker* prm_pColliChecker) {
+    ColliAABoxActor::get()->drawHitarea(prm_pColliChecker);
+    ColliAAPrismActor::get()->drawHitarea(prm_pColliChecker);
+    ColliAAPyramidActor::get()->drawHitarea(prm_pColliChecker);
+    ColliSphereActor::get()->drawHitarea(prm_pColliChecker);
+}
+
+void CollisionChecker::releaseHitArea() {
+    ColliAABoxActor::release();
+    ColliAAPrismActor::release();
+    ColliAAPyramidActor::release();
+    ColliSphereActor::release();
 }
 
 

@@ -6,12 +6,6 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
-#ifdef MY_DEBUG
-#include "jp/ggaf/lib/actor/ColliAABoxActor.h"
-#include "jp/ggaf/lib/actor/ColliAAPrismActor.h"
-#include "jp/ggaf/lib/actor/ColliAAPyramidActor.h"
-#include "jp/ggaf/lib/actor/ColliSphereActor.h"
-#endif
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -34,7 +28,7 @@ DefaultMassPointSpriteActor::DefaultMassPointSpriteActor(const char* prm_name, c
 
 void DefaultMassPointSpriteActor::drawHitArea() {
 #ifdef MY_DEBUG
-    ColliAABoxActor::get()->drawHitarea(_pColliChecker); ColliAAPrismActor::get()->drawHitarea(_pColliChecker); ColliAAPyramidActor::get()->drawHitarea(_pColliChecker); ColliSphereActor::get()->drawHitarea(_pColliChecker);
+    CollisionChecker::drawHitArea(_pColliChecker);
 #endif
 }
 

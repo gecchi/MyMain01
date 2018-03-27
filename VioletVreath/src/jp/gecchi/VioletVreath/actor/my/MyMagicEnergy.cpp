@@ -60,7 +60,7 @@ bool MyMagicEnergy::isOutOfSpacetime() const {
 }
 
 void MyMagicEnergy::drawHitArea() {
-    //ColliAABoxActor::get()->drawHitarea(_pColliChecker); ColliAAPrismActor::get()->drawHitarea(_pColliChecker); ColliAAPyramidActor::get()->drawHitarea(_pColliChecker); ColliSphereActor::get()->drawHitarea(_pColliChecker);
+    //CollisionChecker::drawHitArea(_pColliChecker);
 }
 
 MyMagicEnergy::~MyMagicEnergy() {

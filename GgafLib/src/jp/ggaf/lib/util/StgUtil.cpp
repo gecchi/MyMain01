@@ -107,8 +107,8 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
 
 
 
-bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* pActor01, const ColliAABox*  pAABox01,
-                      const GgafDxCore::GgafDxGeometricActor* pActor02, const ColliSphere* pSphere02) {
+bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAABox*  pAABox01,
+                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere* pSphere02) {
     //＜AAB と 球＞
     const coord o_scx = pActor02->_x + pSphere02->_cx;
     const coord o_scy = pActor02->_y + pSphere02->_cy;
@@ -153,15 +153,18 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* pActor01, const Co
 }
 
 
- bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
-                     const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox*   const pAABox02     ) {
+bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
+                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox*   const pAABox02     ) {
     //＜プリズム と AAB＞
-    const int aX1 = pActor01->_x + pAAPrism01->_x1;
-    const int aY1 = pActor01->_y + pAAPrism01->_y1;
-    const int aZ1 = pActor01->_z + pAAPrism01->_z1;
-    const int aX2 = pActor01->_x + pAAPrism01->_x2;
-    const int aY2 = pActor01->_y + pAAPrism01->_y2;
-    const int aZ2 = pActor01->_z + pAAPrism01->_z2;
+    const coord aX = pActor01->_x;
+    const coord aY = pActor01->_y;
+    const coord aZ = pActor01->_z;
+    const int aX1 = aX + pAAPrism01->_x1;
+    const int aY1 = aY + pAAPrism01->_y1;
+    const int aZ1 = aZ + pAAPrism01->_z1;
+    const int aX2 = aX + pAAPrism01->_x2;
+    const int aY2 = aY + pAAPrism01->_y2;
+    const int aZ2 = aZ + pAAPrism01->_z2;
     const int bX1 = pActor02->_x + pAABox02->_x1;
     const int bY1 = pActor02->_y + pAABox02->_y1;
     const int bZ1 = pActor02->_z + pAABox02->_z1;
@@ -175,7 +178,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* pActor01, const Co
         const double a = pAAPrism01->_a;
         if (pos & POS_PRISM_XY_xx) { //XY平面スライスのプリズム
             //ワールド座標でのプリズム境界線の切片を求める b = y - ax
-            const double b = ((pActor01->_y+pAAPrism01->_cy) - pAAPrism01->_a * (pActor01->_x+pAAPrism01->_cx)) + pAAPrism01->_b;
+            const double b = ((aY+pAAPrism01->_cy) - pAAPrism01->_a * (aX+pAAPrism01->_cx)) + pAAPrism01->_b;
 
             if (pos & POS_PRISM_xx_PP) {
                 //            ↑ y+
@@ -253,7 +256,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* pActor01, const Co
             }
         } else if (pos & POS_PRISM_YZ_xx) {//YZ平面スライスのプリズム
             //ワールド座標でのプリズム境界線の切片を求める b = z - ay
-            int b = ((pActor01->_z+pAAPrism01->_cz) - pAAPrism01->_a * (pActor01->_y+pAAPrism01->_cy)) + pAAPrism01->_b;
+            int b = ((aZ+pAAPrism01->_cz) - pAAPrism01->_a * (aY+pAAPrism01->_cy)) + pAAPrism01->_b;
             if (pos & POS_PRISM_xx_PP) {
                 //            ↑ z+
                 //
@@ -329,7 +332,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* pActor01, const Co
 
         } else if (pos & POS_PRISM_ZX_xx) {
             //ワールド座標でのプリズム境界線の切片を求める b = x - az
-            int b = ((pActor01->_x+pAAPrism01->_cx) - pAAPrism01->_a * (pActor01->_z+pAAPrism01->_cz)) + pAAPrism01->_b;
+            int b = ((aX+pAAPrism01->_cx) - pAAPrism01->_a * (aZ+pAAPrism01->_cz)) + pAAPrism01->_b;
             if (pos & POS_PRISM_xx_PP) {
                 //            ↑ x+
                 //
@@ -412,17 +415,19 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
                       const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere*  const pSphere02  ) {
     //＜プリズム と 球＞
     //MEMO:厳密な当たり判定計算は行っていません。
-
     //まず、球 対 AAB の判定を行う
+    const coord aX = pActor01->_x;
+    const coord aY = pActor01->_y;
+    const coord aZ = pActor01->_z;
     const coord o_scx = pActor02->_x + pSphere02->_cx;
     const coord o_scy = pActor02->_y + pSphere02->_cy;
     const coord o_scz = pActor02->_z + pSphere02->_cz;
-    const coord aX1 = pActor01->_x + pAAPrism01->_x1;
-    const coord aY1 = pActor01->_y + pAAPrism01->_y1;
-    const coord aZ1 = pActor01->_z + pAAPrism01->_z1;
-    const coord aX2 = pActor01->_x + pAAPrism01->_x2;
-    const coord aY2 = pActor01->_y + pAAPrism01->_y2;
-    const coord aZ2 = pActor01->_z + pAAPrism01->_z2;
+    const coord aX1 = aX + pAAPrism01->_x1;
+    const coord aY1 = aY + pAAPrism01->_y1;
+    const coord aZ1 = aZ + pAAPrism01->_z1;
+    const coord aX2 = aX + pAAPrism01->_x2;
+    const coord aY2 = aY + pAAPrism01->_y2;
+    const coord aZ2 = aZ + pAAPrism01->_z2;
     double square_length = 0; //球の中心とAABの最短距離を二乗した値
     if(o_scx < aX1) {
         square_length += (double)(o_scx - aX1) * (o_scx - aX1);
@@ -452,7 +457,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     const double a = pAAPrism01->_a;
     if (pos & POS_PRISM_XY_xx) { //XY平面スライスのプリズム
         //ワールド座標でのプリズム境界線の切片を求める b = y - ax
-        const double b = ((pActor01->_y+pAAPrism01->_cy) - pAAPrism01->_a * (pActor01->_x+pAAPrism01->_cx)) + pAAPrism01->_b;
+        const double b = ((aY+pAAPrism01->_cy) - pAAPrism01->_a * (aX+pAAPrism01->_cx)) + pAAPrism01->_b;
 
         int oppX, oppY;
         const int bZc = o_scz; //球の中心Z座標
@@ -554,7 +559,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
         }
     } else if (pos & POS_PRISM_YZ_xx) {//YZ平面スライスのプリズム
         //ワールド座標でのプリズム境界線の切片を求める b = z - ay
-        const int b = ((pActor01->_z+pAAPrism01->_cz) - pAAPrism01->_a * (pActor01->_y+pAAPrism01->_cy)) + pAAPrism01->_b;
+        const int b = ((aZ+pAAPrism01->_cz) - pAAPrism01->_a * (aY+pAAPrism01->_cy)) + pAAPrism01->_b;
         int oppY, oppZ;
 
         const int bXc = o_scx;
@@ -647,7 +652,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
 
     } else if (pos & POS_PRISM_ZX_xx) {
         //ワールド座標でのプリズム境界線の切片を求める b = x - az
-        const int b = ((pActor01->_x+pAAPrism01->_cx) - pAAPrism01->_a * (pActor01->_z+pAAPrism01->_cz)) + pAAPrism01->_b;
+        const int b = ((aX+pAAPrism01->_cx) - pAAPrism01->_a * (aZ+pAAPrism01->_cz)) + pAAPrism01->_b;
         int oppZ,oppX;
         const int bYc = o_scy;
         if (aY1 < bYc && bYc < aY2) {
@@ -1175,8 +1180,8 @@ bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
 }
 
 
-bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* pActor01, const ColliAABox*  pAABox01,
-                    const GgafDxCore::GgafDxGeometricActor* pActor02, const ColliSphere* pSphere02) {
+bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAABox*  pAABox01,
+                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere* pSphere02) {
     //＜AAB と 球＞
     const coord o_scx = pActor02->_x + pSphere02->_cx;
     const coord o_scy = pActor02->_y + pSphere02->_cy;
@@ -1431,89 +1436,69 @@ bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
         //この時点でAAB と AAB だとしてもヒットしてない
         return false;
     }
-    int pos1 = pAAPrism01->_pos_info;
-    coord aCX = aX + pAAPrism01->_cx;
-    coord aCY = aY + pAAPrism01->_cy;
-    double aA = pAAPrism01->_a; //斜辺の傾き
-    coord aB = aY + pAAPrism01->_b; //斜辺の切片
-    float aNx = -pAAPrism01->_vIH_x;  //自分の三角形の斜面の法線ベクトル
-    float aNy = -pAAPrism01->_vIH_y; //自分の三角形の斜面の法線ベクトル
+    int pos1 = pAAPrism01->_pos_info; //自分の三角形の直角頂点の位置
+    double aA = pAAPrism01->_a;       //自分の三角形の斜辺の傾き
+    coord aB = aY + pAAPrism01->_b;   //自分の三角形の斜辺の切片
+    float aNx = -pAAPrism01->_vIH_x;  //自分の三角形の斜辺の法線ベクトルX要素
+    float aNy = -pAAPrism01->_vIH_y;  //自分の三角形の斜辺の法線ベクトルY要素
 
-    int pos2 = pAAPrism02->_pos_info;
-    coord bCX = bX + pAAPrism02->_cx;
-    coord bCY = bY + pAAPrism02->_cy;
-    double bA = pAAPrism02->_a;
-    coord bB = bY + pAAPrism02->_b;
-    float bNx = -pAAPrism02->_vIH_x;//相手の三角形の斜面の法線ベクトル
-    float bNy = -pAAPrism02->_vIH_y;//相手の三角形の斜面の法線ベクトル
+    int pos2 = pAAPrism02->_pos_info; //自分の三角形の直角頂点の位置
+    double bA = pAAPrism02->_a;       //自分の三角形の斜辺の傾き
+    coord bB = bY + pAAPrism02->_b;   //自分の三角形の斜辺の切片
+    float bNx = -pAAPrism02->_vIH_x;  //自分の三角形の斜辺の法線ベクトルX要素
+    float bNy = -pAAPrism02->_vIH_y;  //自分の三角形の斜辺の法線ベクトルY要素
 
-    //直角頂点の座標を原点(0,0)におき、
-    //自分の直角三角形について、直角頂点を(0, 0) 残りの頂点を A(aEx,0), B(0,aEy) とする直角三角形での当たり判定を考えたい
-    coord aEx = pAAPrism01->_dx;
-    coord aEy = pAAPrism01->_dy;
-
+    //自分の直角三角形について、直角頂点を(0, 0) におき、残りの頂点を A(aEx,0), B(0,aEy) とする
+    //直角三角形での当たり判定を考えたい（POS_R_TRIANGLE_NN に固定したい）
+    const coord aEx = pAAPrism01->_dx;
+    const coord aEy = pAAPrism01->_dy;
+    const coord aCX = aEx / 2; //自分の三角形の斜辺上の点のX要素
+    const coord aCY = aEy / 2; //自分の三角形の斜辺上の点のY要素
     //そこで、自分と相手の直角三角形の位置関係をダイナミックに変換！
     if (pos1 & POS_R_TRIANGLE_Px) {
-        //X軸平行移動
+        //相手直角三角形座標の、X軸平行移動・X座標反転(Y軸反転)
         const coord aX2 = aX + pAAPrism01->_x2;
-        aCX -= aX2;
-        bX1 -= aX2;
-        bX2 -= aX2;
-        bCX -= aX2;
-        //X座標反転(Y軸反転)
-        aCX = -aCX;
-        aA = -aA;
-        //aB 切片はそのまま
-        aNx = -aNx;
         const coord tmp_bX2 = bX2;
-        bX2 = -bX1;
-        bX1 = -tmp_bX2;
-        bCX = -bCX;
+        bX2 = aX2 - bX1;
+        bX1 = aX2 - tmp_bX2;
+        //aB bB 切片はそのまま
+        //相手直角三角形要素の、X座標反転(Y軸反転)
+        aA = -aA;
         bA = -bA;
-        //bB 切片はそのまま
+        aNx = -aNx;
         bNx = -bNx;
         pos2 = StgUtil::POS_R_TRIANGLE_inv_X[pos2];
     } else {
         //X軸平行移動
         const coord aX1 = aX + pAAPrism01->_x1;
-        aCX -= aX1;
         bX1 -= aX1;
         bX2 -= aX1;
-        bCX -= aX1;
     }
 
     if (pos1 & POS_R_TRIANGLE_xP) {
-        //Y軸平行移動
+        //相手直角三角形座標の、Y軸平行移動・Y座標反転(X軸反転)
         const coord aY2 = aY + pAAPrism01->_y2;
-        aCY -= aY2;
-        aB  -= aY2;
-        bY1 -= aY2;
-        bY2 -= aY2;
-        bCY -= aY2;
-        bB  -= aY2;
-        //Y座標反転(X軸反転)
-        aCY = -aCY;
-        aA = -aA;
-        aB = -aB;
-        aNy = -aNy;
         const coord tmp_bY2 = bY2;
-        bY2 = -bY1;
-        bY1 = -tmp_bY2;
-        bCY = -bCY;
+        bY2 = aY2 - bY1;
+        bY1 = aY2 - tmp_bY2;
+        aB  = aY2 - aB;
+        bB  = aY2 - bB;
+        //相手直角三角形要素の、Y座標反転(X軸反転)
+        aA = -aA;
         bA = -bA;
-        bB = -bB;
+        aNy = -aNy;
         bNy = -bNy;
         pos2 = StgUtil::POS_R_TRIANGLE_inv_Y[pos2];
     } else {
         //Y軸平行移動
         const coord aY1 = aY + pAAPrism01->_y1;
-        aCY -= aY1;
-        aB  -= aY1;
         bY1 -= aY1;
         bY2 -= aY1;
-        bCY -= aY1;
+        aB  -= aY1;
         bB  -= aY1;
     }
+    coord bCX = bX1 + (pAAPrism02->_dx / 2); //相手の三角形の斜辺上の点のX要素
+    coord bCY = bY1 + (pAAPrism02->_dy / 2); //相手の三角形の斜辺上の点のY要素
 
     //自分の頂点は(0,0)で POS_R_TRIANGLE_NN 固定
     //相手の直角三角形は、それに伴い位置関係が変換された状態

@@ -37,8 +37,11 @@ public:
     static float ROOT_1_MINUS_XX[1000];
 
     static uint32_t BITNUM[];
+    /** POS_R_TRIANGLE の X要素反転テーブル */
     static std::map<pos_t,pos_t> POS_R_TRIANGLE_inv_X;
+    /** POS_R_TRIANGLE の Y要素反転テーブル */
     static std::map<pos_t,pos_t> POS_R_TRIANGLE_inv_Y;
+
     static GgafDxCore::GgafDxChecker* createChecker(GgafDxCore::GgafDxGeometricActor* prm_pActor);
 
     /**
@@ -88,8 +91,8 @@ public:
      * @param pSphere02
      * @return
      */
-    static bool isHit3D(const GgafDxCore::GgafDxGeometricActor* pActor01, const ColliAABox*  pAABox01,
-                        const GgafDxCore::GgafDxGeometricActor* pActor02, const ColliSphere* pSphere02);
+    static bool isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAABox*  pAABox01,
+                        const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere* pSphere02);
 
     /**
      * AAプリズム 対 AAB 当たり判定 .
@@ -179,8 +182,8 @@ public:
      * @param pSphere02
      * @return
      */
-    static bool isHit2D(const GgafDxCore::GgafDxGeometricActor* pActor01, const ColliAABox*  pAABox01,
-                        const GgafDxCore::GgafDxGeometricActor* pActor02, const ColliSphere* pSphere02);
+    static bool isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAABox*  pAABox01,
+                        const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere* pSphere02);
 
     /**
      * 2D 直角三角形 対 長方形 当たり判定 .

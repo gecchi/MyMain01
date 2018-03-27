@@ -3,17 +3,10 @@
 #include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
-#ifdef MY_DEBUG
-#include "jp/ggaf/lib/actor/ColliAABoxActor.h"
-#include "jp/ggaf/lib/actor/ColliAAPrismActor.h"
-#include "jp/ggaf/lib/actor/ColliAAPyramidActor.h"
-#include "jp/ggaf/lib/actor/ColliSphereActor.h"
-#endif
 
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
-
 
 DefaultMassMeshActor::VERTEX_instancedata DefaultMassMeshActor::_aInstancedata[GGAFDXMASS_MAX_INSTANCE_NUM];
 
@@ -32,7 +25,7 @@ DefaultMassMeshActor::DefaultMassMeshActor(const char* prm_name, const char* prm
 
 void DefaultMassMeshActor::drawHitArea() {
 #ifdef MY_DEBUG
-    ColliAABoxActor::get()->drawHitarea(_pColliChecker); ColliAAPrismActor::get()->drawHitarea(_pColliChecker); ColliAAPyramidActor::get()->drawHitarea(_pColliChecker); ColliSphereActor::get()->drawHitarea(_pColliChecker);
+    CollisionChecker::drawHitArea(_pColliChecker);
 #endif
 }
 

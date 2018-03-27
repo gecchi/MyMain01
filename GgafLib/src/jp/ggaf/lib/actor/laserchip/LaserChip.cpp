@@ -11,13 +11,6 @@
 #include "jp/ggaf/dxcore/util/GgafDxCollisionArea.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxChecker.h"
 
-#ifdef MY_DEBUG
-#include "jp/ggaf/lib/actor/ColliAABoxActor.h"
-#include "jp/ggaf/lib/actor/ColliAAPrismActor.h"
-#include "jp/ggaf/lib/actor/ColliAAPyramidActor.h"
-#include "jp/ggaf/lib/actor/ColliSphereActor.h"
-#endif
-
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -261,7 +254,7 @@ void LaserChip::processPreDraw() {
 
 void LaserChip::drawHitArea() {
 #ifdef MY_DEBUG
-    ColliAABoxActor::get()->drawHitarea(_pColliChecker); ColliAAPrismActor::get()->drawHitarea(_pColliChecker); ColliAAPyramidActor::get()->drawHitarea(_pColliChecker); ColliSphereActor::get()->drawHitarea(_pColliChecker);
+    CollisionChecker::drawHitArea(_pColliChecker);
 #endif
 }
 

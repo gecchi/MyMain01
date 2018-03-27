@@ -63,3 +63,4 @@ void SmpActor1::onHit(const GgafActor* prm_pOtherActor) {
 
 SmpActor1::~SmpActor1() {
 }
+

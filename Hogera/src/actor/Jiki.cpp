@@ -53,9 +53,7 @@ void Jiki::initialize() {
     pChecker->set2DColliRightTriangle_WH(1, ox - (w*2), oy + (h*2), w, h, POS_R_TRIANGLE_PN);
     pChecker->set2DColliRightTriangle_WH(2, ox + (w*2), oy - (h*2), w, h, POS_R_TRIANGLE_NP);
     pChecker->set2DColliRightTriangle_WH(3, ox + (w*2), oy + (h*2), w, h, POS_R_TRIANGLE_NN);
-
 }
-
 
 void Jiki::onReset() {
     getProgress()->reset(LOCKON001_PROG_RELEASE);

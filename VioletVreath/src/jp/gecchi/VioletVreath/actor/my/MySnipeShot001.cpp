@@ -51,7 +51,7 @@ void MySnipeShot001::onHit(const GgafActor* prm_pOtherActor) {
 
 
 //void MySnipeShot001::drawHitArea() {
-//    ColliAABoxActor::get()->drawHitarea(_pColliChecker); ColliAAPrismActor::get()->drawHitarea(_pColliChecker); ColliAAPyramidActor::get()->drawHitarea(_pColliChecker); ColliSphereActor::get()->drawHitarea(_pColliChecker);
+//    CollisionChecker::drawHitArea(_pColliChecker);
 //}
 MySnipeShot001::~MySnipeShot001() {
 }

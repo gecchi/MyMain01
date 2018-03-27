@@ -1,6 +1,5 @@
 #include "TrialAndErrScene.h"
 
-#include "jp/ggaf/lib/actor/ColliAABoxActor.h"
 #include "jp/ggaf/core/GgafFactory.h"
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
 #include "jp/ggaf/core/actor/GgafSceneMediator.h"

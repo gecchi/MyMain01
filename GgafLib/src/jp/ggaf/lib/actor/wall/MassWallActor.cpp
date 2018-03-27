@@ -9,12 +9,6 @@
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/lib/DefaultGod.h"
 #include "jp/ggaf/dxcore/effect/GgafDxEffect.h"
-#ifdef MY_DEBUG
-#include "jp/ggaf/lib/actor/ColliAABoxActor.h"
-#include "jp/ggaf/lib/actor/ColliAAPrismActor.h"
-#include "jp/ggaf/lib/actor/ColliAAPyramidActor.h"
-#include "jp/ggaf/lib/actor/ColliSphereActor.h"
-#endif
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -396,7 +390,7 @@ void MassWallActor::config(WallSectionScene* prm_pWallSectionScene, pos_t prm_po
 
 void MassWallActor::drawHitArea() {
 #ifdef MY_DEBUG
-    ColliAABoxActor::get()->drawHitarea(_pColliChecker); ColliAAPrismActor::get()->drawHitarea(_pColliChecker); ColliAAPyramidActor::get()->drawHitarea(_pColliChecker); ColliSphereActor::get()->drawHitarea(_pColliChecker);
+    CollisionChecker::drawHitArea(_pColliChecker);
 #endif
 }
 

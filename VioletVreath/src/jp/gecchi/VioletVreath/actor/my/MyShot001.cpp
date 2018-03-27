@@ -53,7 +53,7 @@ void MyShot001::onHit(const GgafActor* prm_pOtherActor) {
 
 
 //void MyShot001::drawHitArea() {
-//    ColliAABoxActor::get()->drawHitarea(_pColliChecker); ColliAAPrismActor::get()->drawHitarea(_pColliChecker); ColliAAPyramidActor::get()->drawHitarea(_pColliChecker); ColliSphereActor::get()->drawHitarea(_pColliChecker);
+//    CollisionChecker::drawHitArea(_pColliChecker);
 //}
 MyShot001::~MyShot001() {
 }
