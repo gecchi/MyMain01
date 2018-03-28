@@ -7,8 +7,8 @@
 #include <map>
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
 
-typedef int vbk;
-typedef int vbj;
+typedef int_fast32_t vbk;
+typedef int_fast32_t vbj;
 typedef uint64_t vb_sta;
 
 namespace GgafLib {

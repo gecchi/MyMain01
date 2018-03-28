@@ -152,17 +152,21 @@ void CollisionChecker::setColliAAPyramid(int prm_index,
 
 
 void CollisionChecker::drawHitArea(CollisionChecker* prm_pColliChecker) {
+#ifdef MY_DEBUG
     ColliAABoxActor::get()->drawHitarea(prm_pColliChecker);
     ColliAAPrismActor::get()->drawHitarea(prm_pColliChecker);
     ColliAAPyramidActor::get()->drawHitarea(prm_pColliChecker);
     ColliSphereActor::get()->drawHitarea(prm_pColliChecker);
+#endif
 }
 
 void CollisionChecker::releaseHitArea() {
+#ifdef MY_DEBUG
     ColliAABoxActor::release();
     ColliAAPrismActor::release();
     ColliAAPyramidActor::release();
     ColliSphereActor::release();
+#endif
 }
 
 

@@ -219,7 +219,7 @@ public:
     static int checkAppropriateDisplaySize(GgafDxGod::RezoInfo* prm_paRezos, int prm_rezo_num,
                                            UINT prm_width, UINT prm_height);
     /**
-     * ウィンドウ生成処理
+     * ウィンドウ生成処理 .
      * @param prm_wndclass1 １画面目のWNDCLASSEXパラメータ
      * @param prm_wndclass2 ２画面目のWNDCLASSEXパラメータ
      * @param prm_title1 １画面目のタイトル
@@ -233,6 +233,18 @@ public:
                       const char* prm_title1   , const char* prm_title2,
                       DWORD       prm_dwStyle1 , DWORD       prm_dwStyle2,
                       HWND&       out_hWnd1    , HWND&       out_hWnd2);
+
+    /**
+     * ウィンドウ生成処理 .
+     * @param prm_wndclass1 WNDCLASSEXパラメータ
+     * @param prm_title1    タイトル
+     * @param prm_dwStyle1  ウィンドウモード時のウインドウ1のスタイル定数
+     * @param out_hWnd1     （戻り値）１画面目のウィンドウハンドル
+     */
+    void createWindow(WNDCLASSEX& prm_wndclass1,
+                      const char* prm_title1   ,
+                      DWORD       prm_dwStyle1 ,
+                      HWND&       out_hWnd1     );
 
     /**
      * ウィンドウ生成処理 .
@@ -270,6 +282,17 @@ public:
     void createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
                       const char* prm_title1   , const char* prm_title2,
                       HWND&       out_hWnd1    , HWND&       out_hWnd2);
+
+    /**
+     * ウィンドウ生成処理 .
+     * ウィンドウモード時のウインドウスタイル定数は WS_OVERLAPPEDWINDOW が設定されます。
+     * @param prm_wndclass1 １画面目のWNDCLASSEXパラメータ
+     * @param prm_title1 １画面目のタイトル
+     * @param out_hWnd1 （戻り値）１画面目のウィンドウハンドル
+     */
+    void createWindow(WNDCLASSEX& prm_wndclass1,
+                      const char* prm_title1   ,
+                      HWND&       out_hWnd1     );
 
     /**
      * ウィンドウのサイズを再設定 .

@@ -5,7 +5,7 @@
 
 namespace VioletVreath {
 
-typedef int magic_point;
+typedef int_fast32_t magic_point;
 typedef frame magic_time;
 #define MAX_MAGIC_TIME MAX_FRAME
 

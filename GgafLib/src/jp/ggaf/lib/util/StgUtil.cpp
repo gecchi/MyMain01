@@ -22,6 +22,10 @@ uint32_t StgUtil::BITNUM[33];
 std::map<pos_t,pos_t> StgUtil::POS_R_TRIANGLE_inv_X;
 std::map<pos_t,pos_t> StgUtil::POS_R_TRIANGLE_inv_Y;
 
+
+#define C_INT64(X)  ( (int_fast64_t)((X) * (1.0 / LEN_UNIT)) )
+
+
 void StgUtil::init() {
     GgafDxUtil::init();
     if (StgUtil::_was_StgUtil_inited_flg) {
@@ -33,39 +37,10 @@ void StgUtil::init() {
         StgUtil::ROOT_1_MINUS_XX[i] = sqrt(1.0 - ((double)i/1000.0) * ((double)i/1000.0));
     }
 
-    StgUtil::BITNUM[ 0] = 0;
-    StgUtil::BITNUM[ 1] = (0x1);            //0b 00000000 00000000 00000000 00000001
-    StgUtil::BITNUM[ 2] = (0x2);            //0b 00000000 00000000 00000000 00000010
-    StgUtil::BITNUM[ 3] = (0x4);            //0b 00000000 00000000 00000000 00000100
-    StgUtil::BITNUM[ 4] = (0x8);            //0b 00000000 00000000 00000000 00001000
-    StgUtil::BITNUM[ 5] = (0x10);           //0b 00000000 00000000 00000000 00010000
-    StgUtil::BITNUM[ 6] = (0x20);           //0b 00000000 00000000 00000000 00100000
-    StgUtil::BITNUM[ 7] = (0x40);           //0b 00000000 00000000 00000000 01000000
-    StgUtil::BITNUM[ 8] = (0x80);           //0b 00000000 00000000 00000000 10000000
-    StgUtil::BITNUM[ 9] = (0x100);          //0b 00000000 00000000 00000001 00000000
-    StgUtil::BITNUM[10] = (0x200);          //0b 00000000 00000000 00000010 00000000
-    StgUtil::BITNUM[11] = (0x400);          //0b 00000000 00000000 00000100 00000000
-    StgUtil::BITNUM[12] = (0x800);          //0b 00000000 00000000 00001000 00000000
-    StgUtil::BITNUM[13] = (0x1000);         //0b 00000000 00000000 00010000 00000000
-    StgUtil::BITNUM[14] = (0x2000);         //0b 00000000 00000000 00100000 00000000
-    StgUtil::BITNUM[15] = (0x4000);         //0b 00000000 00000000 01000000 00000000
-    StgUtil::BITNUM[16] = (0x8000);         //0b 00000000 00000000 10000000 00000000
-    StgUtil::BITNUM[17] = (0x10000);        //0b 00000000 00000001 00000000 00000000
-    StgUtil::BITNUM[18] = (0x20000);        //0b 00000000 00000010 00000000 00000000
-    StgUtil::BITNUM[19] = (0x40000);        //0b 00000000 00000100 00000000 00000000
-    StgUtil::BITNUM[20] = (0x80000);        //0b 00000000 00001000 00000000 00000000
-    StgUtil::BITNUM[21] = (0x100000);       //0b 00000000 00010000 00000000 00000000
-    StgUtil::BITNUM[22] = (0x200000);       //0b 00000000 00100000 00000000 00000000
-    StgUtil::BITNUM[23] = (0x400000);       //0b 00000000 01000000 00000000 00000000
-    StgUtil::BITNUM[24] = (0x800000);       //0b 00000000 10000000 00000000 00000000
-    StgUtil::BITNUM[25] = (0x1000000);      //0b 00000001 00000000 00000000 00000000
-    StgUtil::BITNUM[26] = (0x2000000);      //0b 00000010 00000000 00000000 00000000
-    StgUtil::BITNUM[27] = (0x4000000);      //0b 00000100 00000000 00000000 00000000
-    StgUtil::BITNUM[28] = (0x8000000);      //0b 00001000 00000000 00000000 00000000
-    StgUtil::BITNUM[29] = (0x10000000);     //0b 00010000 00000000 00000000 00000000
-    StgUtil::BITNUM[30] = (0x20000000);     //0b 00100000 00000000 00000000 00000000
-    StgUtil::BITNUM[31] = (0x40000000);     //0b 01000000 00000000 00000000 00000000
-    StgUtil::BITNUM[32] = (0x80000000);     //0b 10000000 00000000 00000000 00000000
+    BITNUM[0] = (uint32_t)0;
+    for (int i = 1; i <= 33; i++) {
+        BITNUM[i] = ((uint32_t)1 << (i-1));
+    }
 
     StgUtil::POS_R_TRIANGLE_inv_X[POS_R_TRIANGLE_NN] = POS_R_TRIANGLE_PN;
     StgUtil::POS_R_TRIANGLE_inv_X[POS_R_TRIANGLE_NP] = POS_R_TRIANGLE_PP;
@@ -89,15 +64,15 @@ GgafDxChecker* StgUtil::createChecker(GgafDxGeometricActor* prm_pActor) {
 }
 
 bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliSphere* const pSphere01 ,
-                    const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere* const pSphere02 ) {
+                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere* const pSphere02 ) {
     //＜球 と 球＞
     //球1 ： 中心点の座標P1(x1, y1, z1), 半径r1
     //球2 ： 中心点の座標P2(x2, y2, z2), 半径r2
     //(x2-x1)^2 + (y2-y1)^2 + (z2-z1)^2 <= (r1+r2)^2
-    double d2 = (double)((pActor02->_x+pSphere02->_cx) - (pActor01->_x+pSphere01->_cx)) * ((pActor02->_x+pSphere02->_cx) - (pActor01->_x+pSphere01->_cx)) +
-                (double)((pActor02->_y+pSphere02->_cy) - (pActor01->_y+pSphere01->_cy)) * ((pActor02->_y+pSphere02->_cy) - (pActor01->_y+pSphere01->_cy)) +
-                (double)((pActor02->_z+pSphere02->_cz) - (pActor01->_z+pSphere01->_cz)) * ((pActor02->_z+pSphere02->_cz) - (pActor01->_z+pSphere01->_cz));
-    if (d2 <= (double)(pSphere02->_r + pSphere01->_r) * (pSphere02->_r + pSphere01->_r)
+    double d2 = ((double)(pActor02->_x+pSphere02->_cx) - (pActor01->_x+pSphere01->_cx)) * ((double)(pActor02->_x+pSphere02->_cx) - (pActor01->_x+pSphere01->_cx)) +
+                ((double)(pActor02->_y+pSphere02->_cy) - (pActor01->_y+pSphere01->_cy)) * ((double)(pActor02->_y+pSphere02->_cy) - (pActor01->_y+pSphere01->_cy)) +
+                ((double)(pActor02->_z+pSphere02->_cz) - (pActor01->_z+pSphere01->_cz)) * ((double)(pActor02->_z+pSphere02->_cz) - (pActor01->_z+pSphere01->_cz));
+    if (d2 <= (double)(pSphere02->_r + pSphere01->_r) * (double)(pSphere02->_r + pSphere01->_r)
     ) {
         return true;
     } else {
@@ -159,18 +134,18 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     const coord aX = pActor01->_x;
     const coord aY = pActor01->_y;
     const coord aZ = pActor01->_z;
-    const int aX1 = aX + pAAPrism01->_x1;
-    const int aY1 = aY + pAAPrism01->_y1;
-    const int aZ1 = aZ + pAAPrism01->_z1;
-    const int aX2 = aX + pAAPrism01->_x2;
-    const int aY2 = aY + pAAPrism01->_y2;
-    const int aZ2 = aZ + pAAPrism01->_z2;
-    const int bX1 = pActor02->_x + pAABox02->_x1;
-    const int bY1 = pActor02->_y + pAABox02->_y1;
-    const int bZ1 = pActor02->_z + pAABox02->_z1;
-    const int bX2 = pActor02->_x + pAABox02->_x2;
-    const int bY2 = pActor02->_y + pAABox02->_y2;
-    const int bZ2 = pActor02->_z + pAABox02->_z2;
+    const coord aX1 = aX + pAAPrism01->_x1;
+    const coord aY1 = aY + pAAPrism01->_y1;
+    const coord aZ1 = aZ + pAAPrism01->_z1;
+    const coord aX2 = aX + pAAPrism01->_x2;
+    const coord aY2 = aY + pAAPrism01->_y2;
+    const coord aZ2 = aZ + pAAPrism01->_z2;
+    const coord bX1 = pActor02->_x + pAABox02->_x1;
+    const coord bY1 = pActor02->_y + pAABox02->_y1;
+    const coord bZ1 = pActor02->_z + pAABox02->_z1;
+    const coord bX2 = pActor02->_x + pAABox02->_x2;
+    const coord bY2 = pActor02->_y + pAABox02->_y2;
+    const coord bZ2 = pActor02->_z + pAABox02->_z2;
 
     if (aZ2 >= bZ1 && aZ1 <= bZ2 && aY2 >= bY1 && aY1 <= bY2 && aX2 >= bX1 && aX1 <= bX2) {
         //この時点でAAB と AAB ならばヒット
@@ -748,27 +723,27 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
 bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPyramid* const pAAPyramid01,
                       const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox*     const pAABox02     ) {
     //ピラミッドとBOX
-    const int aX1 = pActor01->_x + pAAPyramid01->_x1;
-    const int aY1 = pActor01->_y + pAAPyramid01->_y1;
-    const int aZ1 = pActor01->_z + pAAPyramid01->_z1;
-    const int aX2 = pActor01->_x + pAAPyramid01->_x2;
-    const int aY2 = pActor01->_y + pAAPyramid01->_y2;
-    const int aZ2 = pActor01->_z + pAAPyramid01->_z2;
+    const coord aX1 = pActor01->_x + pAAPyramid01->_x1;
+    const coord aY1 = pActor01->_y + pAAPyramid01->_y1;
+    const coord aZ1 = pActor01->_z + pAAPyramid01->_z1;
+    const coord aX2 = pActor01->_x + pAAPyramid01->_x2;
+    const coord aY2 = pActor01->_y + pAAPyramid01->_y2;
+    const coord aZ2 = pActor01->_z + pAAPyramid01->_z2;
     //斜面の法線
     float a = pAAPyramid01->_s_nvx;
     float b = pAAPyramid01->_s_nvy;
     float c = pAAPyramid01->_s_nvz;
     //斜面と対角線の交点
-    const int px = pActor01->_x + pAAPyramid01->_l_px;
-    const int py = pActor01->_y + pAAPyramid01->_l_py;
-    const int pz = pActor01->_z + pAAPyramid01->_l_pz;
+    const coord px = pActor01->_x + pAAPyramid01->_l_px;
+    const coord py = pActor01->_y + pAAPyramid01->_l_py;
+    const coord pz = pActor01->_z + pAAPyramid01->_l_pz;
 
-    const int bX1 = pActor02->_x + pAABox02->_x1;
-    const int bY1 = pActor02->_y + pAABox02->_y1;
-    const int bZ1 = pActor02->_z + pAABox02->_z1;
-    const int bX2 = pActor02->_x + pAABox02->_x2;
-    const int bY2 = pActor02->_y + pAABox02->_y2;
-    const int bZ2 = pActor02->_z + pAABox02->_z2;
+    const coord bX1 = pActor02->_x + pAABox02->_x1;
+    const coord bY1 = pActor02->_y + pAABox02->_y1;
+    const coord bZ1 = pActor02->_z + pAABox02->_z1;
+    const coord bX2 = pActor02->_x + pAABox02->_x2;
+    const coord bY2 = pActor02->_y + pAABox02->_y2;
+    const coord bZ2 = pActor02->_z + pAABox02->_z2;
 
 
     if (aX2 >= bX1 && aX1 <= bX2 && aZ2 >= bZ1 && aZ1 <= bZ2 && aY2 >= bY1 && aY1 <= bY2) {
@@ -776,7 +751,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
 
         //ピラミッド斜面に対してピラミッド側のBOX領域内で、相手BOXの最近傍点を求める
         const pos_t pos_info = pAAPyramid01->_pos_info;
-        int nnx, nny, nnz; //BOX内最近傍点
+        coord nnx, nny, nnz; //BOX内最近傍点
         if (pos_info & POS_PYRAMID_Pxx) {
             //bX2に興味がある
             if (/* aX1 <= bX2 && */ bX2 <= aX2) {
@@ -855,41 +830,41 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     //A(ex,0,0), B(0,ey,0), C(0,0,ez) の三直角三角錐で当たり判定を考えたいので、
     //球の位置(o_cx, o_cy, o_cz)を座標変換する。
 
-    const double ex = C_DX(pAAPyramid01->_dx); //幅がそのまま頂点AのX軸座標となる
-    const double ey = C_DX(pAAPyramid01->_dy); //高さがそのまま頂点BのY軸座標となる
-    const double ez = C_DX(pAAPyramid01->_dz); //奥行きさがそのまま頂点CのZ軸座標となる
-    const double o_r  = C_DX(pSphere02->_r);   //球の半径は座標変換に無影響なのでそのまま
-    const double o_rr = o_r*o_r;
+    const int_fast64_t ex = C_INT64(pAAPyramid01->_dx); //幅がそのまま頂点AのX軸座標となる
+    const int_fast64_t ey = C_INT64(pAAPyramid01->_dy); //高さがそのまま頂点BのY軸座標となる
+    const int_fast64_t ez = C_INT64(pAAPyramid01->_dz); //奥行きさがそのまま頂点CのZ軸座標となる
+    const int_fast64_t o_r  = C_INT64(pSphere02->_r);   //球の半径は座標変換に無影響なのでそのまま
+    const int_fast64_t o_rr = o_r*o_r;
 
     //本来の球の位置
-    double o_cx = C_DX(pActor02->_x + pSphere02->_cx);
-    double o_cy = C_DX(pActor02->_y + pSphere02->_cy);
-    double o_cz = C_DX(pActor02->_z + pSphere02->_cz);
+    int_fast64_t o_cx = C_INT64(pActor02->_x + pSphere02->_cx);
+    int_fast64_t o_cy = C_INT64(pActor02->_y + pSphere02->_cy);
+    int_fast64_t o_cz = C_INT64(pActor02->_z + pSphere02->_cz);
     const pos_t pos_info = pAAPyramid01->_pos_info; //三直角三角錐の姿勢情報
     if (pos_info & POS_PYRAMID_Pxx) {
         //元の三直角三角錐の頂点のX軸は正の方向
-        o_cx -= C_DX(pActor01->_x + pAAPyramid01->_x2);
+        o_cx -= C_INT64(pActor01->_x + pAAPyramid01->_x2);
         o_cx = -o_cx; //x軸反転
     } else {
         //元の三直角三角錐の頂点のX軸は負の方向
-        o_cx -= C_DX(pActor01->_x + pAAPyramid01->_x1);
+        o_cx -= C_INT64(pActor01->_x + pAAPyramid01->_x1);
     }
     if (pos_info & POS_PYRAMID_xPx) {
         //元の三直角三角錐の頂点のY軸は正の方向
-        o_cy -= C_DX(pActor01->_y + pAAPyramid01->_y2);
+        o_cy -= C_INT64(pActor01->_y + pAAPyramid01->_y2);
         o_cy = -o_cy; //y軸反転
     } else {
         //元の三直角三角錐の頂点のY軸は負の方向
-        o_cy -= C_DX(pActor01->_y + pAAPyramid01->_y1);
+        o_cy -= C_INT64(pActor01->_y + pAAPyramid01->_y1);
     }
 
     if (pos_info & POS_PYRAMID_xxP) {
         //元の三直角三角錐の頂点のZ軸は正の方向
-        o_cz -= C_DX(pActor01->_z + pAAPyramid01->_z2);
+        o_cz -= C_INT64(pActor01->_z + pAAPyramid01->_z2);
         o_cz = -o_cz; //z軸反転
     } else {
         //元の三直角三角錐の頂点のZ軸は負の方向
-        o_cz -= C_DX(pActor01->_z + pAAPyramid01->_z1);
+        o_cz -= C_INT64(pActor01->_z + pAAPyramid01->_z1);
     }
     //球の位置変換完了、ここから当たり判定ロジック
 
@@ -907,30 +882,30 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     const bool zx_B = (o_cy < ey);
 
     //球対BOXの当たり判定をまず行う
-    const double o_cx2 = o_cx*o_cx;
-    const double o_cy2 = o_cy*o_cy;
-    const double o_cz2 = o_cz*o_cz;
-    const double o_cx_ex2 = (o_cx - ex)*(o_cx - ex);
-    const double o_cy_ey2 = (o_cy - ey)*(o_cy - ey);
-    const double o_cz_ez2 = (o_cz - ez)*(o_cz - ez);
-    double slength = 0; //球の中心とAABの最短距離を二乗した値
+    const int_fast64_t o_cx2 = o_cx*o_cx;
+    const int_fast64_t o_cy2 = o_cy*o_cy;
+    const int_fast64_t o_cz2 = o_cz*o_cz;
+    const int_fast64_t o_cx_MINUS_ex2 = (o_cx - ex)*(o_cx - ex);
+    const int_fast64_t o_cy_MINUS_ey2 = (o_cy - ey)*(o_cy - ey);
+    const int_fast64_t o_cz_MINUS_ez2 = (o_cz - ez)*(o_cz - ez);
+    int_fast64_t slength = 0; //球の中心とAABの最短距離を二乗した値
     if (!yz) {
         slength += o_cx2;
     }
     if (!yz_A) {
-        slength += o_cx_ex2;
+        slength += o_cx_MINUS_ex2;
     }
     if (!zx) {
         slength += o_cy2;
     }
     if (!zx_B) {
-        slength += o_cy_ey2;
+        slength += o_cy_MINUS_ey2;
     }
     if (!xy) {
         slength += o_cz2;
     }
     if (!xy_C) {
-        slength += o_cz_ez2;
+        slength += o_cz_MINUS_ez2;
     }
     if (slength > o_rr) {
         //square_length が球の半径（の二乗）よりも長ければBOXとすら衝突していない。
@@ -976,9 +951,9 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
         }
     }
 
-    const double exey = ex*ey;
-    const double eyez = ey*ez;
-    const double ezex = ez*ex;
+    const int_fast64_t exey = ex*ey;
+    const int_fast64_t eyez = ey*ez;
+    const int_fast64_t ezex = ez*ex;
     // A(ex,0,0), B(0,ey,0) を含むxy平面に垂直な面より内（原点がある側）
     const bool vxy_AB = (-ey*o_cx - ex*o_cy           + exey > 0);
     // B(0,ey,0), C(0,0,ez) を含むyz平面に垂直な面より内（原点がある側）
@@ -1016,18 +991,17 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
         }
     }
 
-    const double exez = ex*ez;
-    const double ex2 = ex*ex;
-    const double ey2 = ey*ey;
-    const double ez2 = ez*ez;
+    const int_fast64_t ex2 = ex*ex;
+    const int_fast64_t ey2 = ey*ey;
+    const int_fast64_t ez2 = ez*ez;
     //点Aと辺ABの境界面(true:原点側)
-    const bool bo_A_AB = ( exez * o_cx - eyez * o_cy               - ex2*ez > 0);
+    const bool bo_A_AB = ( ezex * o_cx - eyez * o_cy               - ex2*ez > 0);
     //点Aと辺ACの境界面(true:原点側)
     const bool bo_A_AC = ( exey * o_cx               - eyez * o_cz - ey*ex2 > 0);
     //なぜこうなるのかは、「球とピラミッド（頂点と辺の境界面）」参照
     if (!yz_A && bo_A_AB && bo_A_AC) {
         //頂点Aとの距離で判定
-        double length = o_cx_ex2 + o_cy2 + o_cz2;
+        int_fast64_t length = o_cx_MINUS_ex2 + o_cy2 + o_cz2;
         if (length < o_rr) {
             return true;
         } else {
@@ -1036,12 +1010,12 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     }
 
     //点Bと辺BAの境界面(true:原点側)
-    const bool bo_B_BA = (-exez * o_cx + eyez * o_cy               - ey2*ez > 0);
+    const bool bo_B_BA = (-ezex * o_cx + eyez * o_cy               - ey2*ez > 0);
     //点Bと辺BCの境界面(true:原点側)
-    const bool bo_B_BC = (               exey * o_cy - exez * o_cz - ey2*ex > 0);
+    const bool bo_B_BC = (               exey * o_cy - ezex * o_cz - ey2*ex > 0);
     if (!zx_B && bo_B_BA && bo_B_BC) {
         //頂点Bとの距離で判定
-        double length = o_cx2 + o_cy_ey2 + o_cz2;
+        int_fast64_t length = o_cx2 + o_cy_MINUS_ey2 + o_cz2;
         if (length < o_rr) {
             return true;
         } else {
@@ -1051,10 +1025,10 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     //点Cと辺CAの境界面(true:原点側)
     const bool bo_C_CA = (-exey * o_cx               + eyez * o_cz - ey*ez2 > 0);
     //点Cと辺CBの境界面
-    const bool bo_C_CB = (              -exey * o_cy + exez * o_cz - ex*ez2 > 0);
+    const bool bo_C_CB = (              -exey * o_cy + ezex * o_cz - ex*ez2 > 0);
     if (!xy_C && bo_C_CA && bo_C_CB) {
         //頂点Cとの距離で判定
-        double length = o_cx2 + o_cy2 + o_cz_ez2;
+        int_fast64_t length = o_cx2 + o_cy2 + o_cz_MINUS_ez2;
         if (length < o_rr) {
             return true;
         } else {
@@ -1082,8 +1056,8 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
         //
         // (-ex*((ex-t*ex)-o_cx)) + (ey*(t*ey-o_cy)) + (0) = 0
         // t=(ey*o_cy-ex*o_cx+ex^2)/(ey^2+ex^2)
-        double t = (ey*o_cy-ex*o_cx+ex2)/(ey2+ex2);
-        double length = ((ex-t*ex)-o_cx)*((ex-t*ex)-o_cx) + (t*ey - o_cy)*(t*ey - o_cy) + o_cz2;
+        double t = (ey*o_cy - ex*o_cx + ex2) / double(ey2+ex2);
+        int_fast64_t length = ((ex-t*ex)-o_cx)*((ex-t*ex)-o_cx) + (t*ey - o_cy)*(t*ey - o_cy) + o_cz2;
         if (length < o_rr) {
             return true;
         } else {
@@ -1095,8 +1069,8 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     bool vramp_BC = ((ex*(ey2+ez2))*o_cx + (-ey*ez2)*o_cy      + (-ey2*ez)*o_cz      + (ey2*ez2) > 0);
     if (!vyz_BC && !bo_B_BC && !bo_C_CB && !vramp_BC) {
         //辺BCとの距離で判定
-        double t = (ez*o_cz-ey*o_cy+ey2)/(ez2+ey2);
-        double length = o_cx2 + ((ey-t*ey) - o_cy)*((ey-t*ey) - o_cy) + (t*ez - o_cz)*(t*ez - o_cz);
+        double t = (ez*o_cz - ey*o_cy + ey2) / double(ez2+ey2);
+        int_fast64_t length = o_cx2 + ((ey-t*ey) - o_cy)*((ey-t*ey) - o_cy) + (t*ez - o_cz)*(t*ez - o_cz);
         if (length < o_rr) {
             return true;
         } else {
@@ -1108,8 +1082,8 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     bool vramp_CA = ((-ez2*ex)*o_cx      + (ey*(ez2+ex2))*o_cy + (-ez*ex2)*o_cz      + (ez2*ex2) > 0);
     if (!vzx_CA && !bo_A_AC && !bo_C_CA && !vramp_CA) {
         //辺CAとの距離で判定
-        double t = (ex*o_cx-ez*o_cz+ez2)/(ez2+ex2);
-        double length = (t*ex-o_cx)*(t*ex-o_cx) + o_cy2 + ((ez-t*ez) - o_cz)*((ez-t*ez) - o_cz);
+        double t = (ex*o_cx - ez*o_cz + ez2) / double(ez2+ex2);
+        int_fast64_t length = (t*ex-o_cx)*(t*ex-o_cx) + o_cy2 + ((ez-t*ez) - o_cz)*((ez-t*ez) - o_cz);
         if (length < o_rr) {
             return true;
         } else {
@@ -1118,7 +1092,8 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     }
 
     //斜面より外か（原点の無い側）
-    bool ramp = ((ey*ez)*o_cx + (ex*ez)*o_cy + (ey*ex)*o_cz - ex*ey*ez > 0);
+    int_fast64_t ramp_value = eyez*o_cx + ezex*o_cy + exey*o_cz - ex*ey*ez;
+    bool ramp = (ramp_value > 0);
     if (vramp_AB && vramp_BC && vramp_CA && ramp) {
         //面ABCとの距離で判定
         //円の中心から斜面に降ろした垂線の交点(lx,ly,lz)を求める
@@ -1135,17 +1110,18 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
         //斜面の方程式の要素
 
         //斜面の法線(a,b,c)
-        double a = eyez;
-        double b = exez;
-        double c = exey;
+        //int_fast64_t a = eyez;
+        //int_fast64_t b = ezex;
+        //int_fast64_t c = exey;
         //double d = -(ex*ex*ez);
-        double t =-(c*o_cz+b*o_cy+a*o_cx-ex*ey*ez)/(c*c+b*b+a*a);
+        //double t =-(a*o_cx + b*o_cy +c*o_cz - ex*ey*ez) / double(a*a + b*b + c*c);
+        double t = -ramp_value / double(eyez*eyez + ezex*ezex + exey*exey);
         //交点は
-        double lx = o_cx + t*a;
-        double ly = o_cy + t*b;
-        double lz = o_cz + t*c;
+        int_fast64_t lx = o_cx + t*eyez;
+        int_fast64_t ly = o_cy + t*ezex;
+        int_fast64_t lz = o_cz + t*exey;
         //円の中心から、斜面に垂線を下ろしたときの交点との距離(の２乗)
-        double length = (o_cx-lx)*(o_cx-lx) + (o_cy-ly)*(o_cy-ly) + (o_cz-lz)*(o_cz-lz);
+        int_fast64_t length = (o_cx-lx)*(o_cx-lx) + (o_cy-ly)*(o_cy-ly) + (o_cz-lz)*(o_cz-lz);
         if (length < o_rr) {
             return true;
         } else {
@@ -1157,7 +1133,7 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
         //三角錐内部
         return true;
     } else {
-        _TRACE_("ありえない！！！！！");
+        _TRACE_("＜警告＞StgUtil::isHit3D() 数値範囲がオーバーフローして、正しく判定されていません。");
     }
 
     return false;
@@ -1213,14 +1189,14 @@ bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
 }
 bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
                       const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox*   const pAABox02   ) {
-    const int aX1 = pActor01->_x + pAAPrism01->_x1;
-    const int aY1 = pActor01->_y + pAAPrism01->_y1;
-    const int aX2 = pActor01->_x + pAAPrism01->_x2;
-    const int aY2 = pActor01->_y + pAAPrism01->_y2;
-    const int bX1 = pActor02->_x + pAABox02->_x1;
-    const int bY1 = pActor02->_y + pAABox02->_y1;
-    const int bX2 = pActor02->_x + pAABox02->_x2;
-    const int bY2 = pActor02->_y + pAABox02->_y2;
+    const coord aX1 = pActor01->_x + pAAPrism01->_x1;
+    const coord aY1 = pActor01->_y + pAAPrism01->_y1;
+    const coord aX2 = pActor01->_x + pAAPrism01->_x2;
+    const coord aY2 = pActor01->_y + pAAPrism01->_y2;
+    const coord bX1 = pActor02->_x + pAABox02->_x1;
+    const coord bY1 = pActor02->_y + pAABox02->_y1;
+    const coord bX2 = pActor02->_x + pAABox02->_x2;
+    const coord bY2 = pActor02->_y + pAABox02->_y2;
 
     if (aY2 >= bY1 && aY1 <= bY2 && aX2 >= bX1 && aX1 <= bX2) {
         //この時点でAAB と AAB ならばヒット

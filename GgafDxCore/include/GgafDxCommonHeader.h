@@ -31,7 +31,7 @@
 /** 回転方法定数、どちらかの回転（いずれの回転でも） */
 #define TURN_BOTH 0
 
-typedef uint32_t pos_t;
+typedef uint_fast32_t pos_t;
 
 //プリズム姿勢(位置)定数
 
@@ -115,34 +115,34 @@ typedef uint32_t pos_t;
 #define MAX_MORPH_TARGET 6
 
 /** アプリケーション座標単位 (目安： 1 coord  =  0.001 pixcoord  =  0.0001 dxcoord  ) */
-typedef int coord;
+typedef int_fast32_t coord;
 /** アプリケーション座標単位系の速度 */
-typedef int velo;
+typedef int_fast32_t velo;
 /**  アプリケーション座標単位系の加速度 */
-typedef int acce;
+typedef int_fast32_t acce;
 /**  アプリケーション座標単位系の躍度(TODO:現在未使用) */
-typedef int jerk;
+typedef int_fast32_t jerk;
 
 /** ピクセル座標単位 (目安： 1 pixcoord  =  1000 coord   =  0.1 dxcoord ) */
-typedef int pixcoord;
+typedef int_fast32_t pixcoord;
 /** DirectX座標単位  (目安： 1 dxcoord   =  10 pixcoord  =  10000 coord ) */
 typedef float dxcoord;
 
 /** アプリケーションスケール単位 (目安： 1 scale  =  0.001 倍) */
-typedef int scale;
-typedef int scalevelo;
-typedef int scaleacce;
+typedef int_fast32_t scale;
+typedef int_fast32_t scalevelo;
+typedef int_fast32_t scaleacce;
 /** アプリケーション角度単位 (目安： 1 angle  =  0.001 度) */
-typedef int angle;
+typedef int_fast32_t angle;
 /** アプリケーション角度単位系の角速度 */
-typedef int angvelo;
+typedef int_fast32_t angvelo;
 /** アプリケーション角度単位系の角加速度 */
-typedef int angacce;
+typedef int_fast32_t angacce;
 /** アプリケーション角度単位系の角加加速度 */
-typedef int angjerk;
+typedef int_fast32_t angjerk;
 
 /** アプリケーション内部の角度精度単位(フレームワーク用) */
-typedef int s_ang;
+typedef int_fast32_t s_ang;
 
 /** 軸型(AXIS_X / AXIS_Y / AXIS_Z) */
 enum {
@@ -151,9 +151,9 @@ enum {
     AXIS_Z
 };
 
-typedef int axis;
-typedef int dir26;
-typedef int dir8;
+typedef int_fast32_t axis;
+typedef int_fast32_t dir26;
+typedef int_fast32_t dir8;
 
 #define MAX_SCALE (2147483647)
 

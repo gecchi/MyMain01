@@ -6,7 +6,7 @@
 #define PROGRESS_NOTHING (-1)
 #define PROGRESS_NULL (-2)
 
-typedef int progress;
+typedef int_fast32_t progress;
 
 namespace GgafCore {
 

@@ -32,6 +32,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Mogera", "Mogera\Mogera.vcx
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Hogera", "Hogera\Hogera.vcxproj", "{104A898D-4C1E-466A-AEA1-717FD14E8DCB}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VioletVrain", "VioletVrain\VioletVrain.vcxproj", "{65C8D7EF-89E4-4741-97D8-DD75609E03DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -120,6 +122,14 @@ Global
 		{104A898D-4C1E-466A-AEA1-717FD14E8DCB}.Release|Win32.Build.0 = Release|Win32
 		{104A898D-4C1E-466A-AEA1-717FD14E8DCB}.Release|x64.ActiveCfg = Release|x64
 		{104A898D-4C1E-466A-AEA1-717FD14E8DCB}.Release|x64.Build.0 = Release|x64
+		{65C8D7EF-89E4-4741-97D8-DD75609E03DD}.Debug|Win32.ActiveCfg = Debug|Win32
+		{65C8D7EF-89E4-4741-97D8-DD75609E03DD}.Debug|Win32.Build.0 = Debug|Win32
+		{65C8D7EF-89E4-4741-97D8-DD75609E03DD}.Debug|x64.ActiveCfg = Debug|x64
+		{65C8D7EF-89E4-4741-97D8-DD75609E03DD}.Debug|x64.Build.0 = Debug|x64
+		{65C8D7EF-89E4-4741-97D8-DD75609E03DD}.Release|Win32.ActiveCfg = Release|Win32
+		{65C8D7EF-89E4-4741-97D8-DD75609E03DD}.Release|Win32.Build.0 = Release|Win32
+		{65C8D7EF-89E4-4741-97D8-DD75609E03DD}.Release|x64.ActiveCfg = Release|x64
+		{65C8D7EF-89E4-4741-97D8-DD75609E03DD}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

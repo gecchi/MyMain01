@@ -193,7 +193,6 @@ int GgafDxGod::checkAppropriateDisplaySize(GgafDxGod::RezoInfo* prm_paRezos, int
     return resut_index;
 }
 
-
 void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
                              const char* prm_title1   , const char* prm_title2,
                              DWORD       prm_dwStyle1 , DWORD       prm_dwStyle2,
@@ -1045,6 +1044,28 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
                   prm_title1, prm_title2,
                   WS_OVERLAPPEDWINDOW | WS_VISIBLE, WS_OVERLAPPEDWINDOW | WS_VISIBLE,
                   out_hWnd1, out_hWnd2   );
+}
+
+void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1,
+                  const char* prm_title1   ,
+                  DWORD       prm_dwStyle1 ,
+                  HWND&       out_hWnd1     ) {
+    HWND hWnd2;
+    WNDCLASSEX wcex2 = prm_wndclass1;
+    wcex2.lpszClassName = "Gecchi Game App Framework (window[1])";
+    createWindow( prm_wndclass1, wcex2,
+                  prm_title1,    "window02",
+                  prm_dwStyle1,  WS_OVERLAPPEDWINDOW | WS_VISIBLE,
+                  out_hWnd1,     hWnd2   );
+}
+
+void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1,
+                             const char* prm_title1   ,
+                             HWND&       out_hWnd1     ) {
+    createWindow( prm_wndclass1,
+                  prm_title1,
+                  WS_OVERLAPPEDWINDOW | WS_VISIBLE,
+                  out_hWnd1);
 }
 
 void GgafDxGod::createWindow(WNDPROC prm_WndProc,
