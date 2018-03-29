@@ -3,10 +3,10 @@
 #include "jp/ggaf/core/GgafFactory.h"
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
 #include "jp/ggaf/core/actor/GgafSceneMediator.h"
-#include "scene/VvSpacetime/VvWorld.h"
-#include "actor/Test01.h"
-#include "actor/Jiki.h"
-#include "VvGod.h"
+#include "jp/gecchi/VioletVrain/scene/VvSpacetime/World.h"
+#include "jp/gecchi/VioletVrain/actor/Test01.h"
+#include "jp/gecchi/VioletVrain/actor/Jiki.h"
+#include "jp/gecchi/VioletVrain/VvGod.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

@@ -1,18 +1,18 @@
-#include "VvWorld.h"
+#include "World.h"
 
 #include "jp/ggaf/core/GgafFactory.h"
 #include "jp/ggaf/core/util/GgafLinearQuadtree.h"
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
-#include "scene/VvSpacetime/VvWorld/TrialAndErrScene.h"
-#include "scene/VvSpacetime.h"
-#include "VvGod.h"
+#include "jp/gecchi/VioletVrain/scene/VvSpacetime/World/TrialAndErrScene.h"
+#include "jp/gecchi/VioletVrain/scene/VvSpacetime.h"
+#include "jp/gecchi/VioletVrain/VvGod.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVrain;
 
-VvWorld::VvWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
+World::World(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
     vb_.remap(VB_UP     , VBK_UP   , VBJ_Y_POS_MINUS);  //VB_UP      = キーボード↑ または、Y軸－ とする。
     vb_.remap(VB_DOWN   , VBK_DOWN , VBJ_Y_POS_PLUS );  //VB_DOWN    = キーボード↓ または、Y軸＋ とする。
     vb_.remap(VB_LEFT   , VBK_LEFT , VBJ_X_POS_MINUS);  //VB_LEFT    = キーボード← または、X軸－ とする。
@@ -24,16 +24,16 @@ VvWorld::VvWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
     pHitCheckRounder_  = P_GOD->getSpacetime()->getLinearQuadtreeHitCheckRounder();
 }
 
-void VvWorld::initialize() {
+void World::initialize() {
     pTrialAndErrScene_ = createInFactory(TrialAndErrScene, "TrialAndErrScene");
     addSubLast(pTrialAndErrScene_);
 }
 
-void VvWorld::processBehavior() {
+void World::processBehavior() {
     vb_.update(); //入力状況更新
 }
 
-void VvWorld::processJudgement() {
+void World::processJudgement() {
     //当たり判定チェック
     if (GgafDxInput::isPushedDownKey(DIK_I)) {
         _TRACE_("----------------------------------");
@@ -45,7 +45,7 @@ void VvWorld::processJudgement() {
     //(processBehavior())ではまだ登録されていない)
 }
 
-VvWorld::~VvWorld() {
+World::~World() {
 //    GGAF_DELETE(pBarVal_);
 }
 

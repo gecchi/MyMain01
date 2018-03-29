@@ -1,10 +1,9 @@
 #include "VvSpacetime.h"
 
 #include "jp/ggaf/core/GgafFactory.h"
-#include "scene/VvSpacetime/VvWorld.h"
-#include "jp/ggaf/lib/GgafLibConfig.h"
-#include "util/VvUtil.h"
-#include "VvGod.h"
+#include "jp/gecchi/VioletVrain/scene/VvSpacetime/World.h"
+#include "jp/gecchi/VioletVrain/util/VvUtil.h"
+#include "jp/gecchi/VioletVrain/VvGod.h"
 #include "jp/ggaf/core/scene/GgafScene.h"
 #include "jp/ggaf/core/actor/GgafSceneMediator.h"
 using namespace VioletVrain;
@@ -27,8 +26,7 @@ VvSpacetime::VvSpacetime(const char* prm_name, VvCamera* prm_pCam) :
 }
 
 void VvSpacetime::initialize() {
-    //世界シーン生成し、自シーンの配下に所属させる
-    pWorld_ = createInFactory(VioletVrain::VvWorld, "VIOLETVRAIN_WORLD");
+    pWorld_ = createInFactory(VioletVrain::World, "WORLD");
     addSubLast(pWorld_);
 }
 

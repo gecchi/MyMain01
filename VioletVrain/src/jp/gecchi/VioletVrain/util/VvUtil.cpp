@@ -1,6 +1,7 @@
 #include "VvUtil.h"
+
 #include "jp/ggaf/lib/GgafLibConfig.h"
-#include "VvGod.h"
+#include "jp/gecchi/VioletVrain/VvGod.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

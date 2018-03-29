@@ -1,25 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\camera\VvCamera.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\Jiki.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\Test01.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime\World\TrialAndErrScene.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime\World.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVrain\util\VvUtil.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVrain\VvGod.cpp" />
     <ClCompile Include="src\VioletVrain.cpp" />
-    <ClCompile Include="src\actor\camera\VvCamera.cpp" />
-    <ClCompile Include="src\actor\Jiki.cpp" />
-    <ClCompile Include="src\actor\Test01.cpp" />
-    <ClCompile Include="src\scene\VvSpacetime\VvWorld\TrialAndErrScene.cpp" />
-    <ClCompile Include="src\scene\VvSpacetime\VvWorld.cpp" />
-    <ClCompile Include="src\scene\VvSpacetime.cpp" />
-    <ClCompile Include="src\util\VvUtil.cpp" />
-    <ClCompile Include="src\VvGod.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\camera\VvCamera.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\Jiki.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\Test01.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime\World\TrialAndErrScene.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime\World.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\util\VvUtil.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\VvGod.h" />
     <ClInclude Include="src\VioletVrain.h" />
-    <ClInclude Include="src\actor\camera\VvCamera.h" />
-    <ClInclude Include="src\actor\Jiki.h" />
-    <ClInclude Include="src\actor\Test01.h" />
-    <ClInclude Include="src\scene\VvSpacetime\VvWorld\TrialAndErrScene.h" />
-    <ClInclude Include="src\scene\VvSpacetime\VvWorld.h" />
-    <ClInclude Include="src\scene\VvSpacetime.h" />
-    <ClInclude Include="src\util\VvUtil.h" />
-    <ClInclude Include="src\VvGod.h" />
   </ItemGroup>
 </Project>

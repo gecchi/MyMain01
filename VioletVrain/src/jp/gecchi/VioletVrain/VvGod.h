@@ -11,9 +11,7 @@
 namespace VioletVrain {
 
 /**
- * 神の雛形 .
- * GgafLib::DefaultGod を継承し、神クラスを作成して下さい。<BR>
- * その際、GgafCore::GgafSpacetime* createSpacetime() をオーバーライド＆実装して下さい。<BR>
+ * 神 .
  * @version 1.00
  * @since 2012/02/16
  * @author Masatoshi Tsuge
@@ -23,9 +21,6 @@ class VvGod : public GgafLib::DefaultGod {
 public:
     /**
      * コンストラクタ .
-     * @param prm_hInstance インスタンスハンドル
-     * @param prm_hWnd1 １画面目ウインドウハンドル
-     * @param prm_hWnd2 ２画面目ウインドウハンドル
      */
     VvGod();
 

@@ -6,7 +6,7 @@
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "VvGod.h"
+#include "jp/gecchi/VioletVrain/VvGod.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

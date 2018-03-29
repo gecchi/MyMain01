@@ -5,9 +5,9 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "scene/VvSpacetime.h"
-#include "scene/VvSpacetime/VvWorld.h"
-#include "VvGod.h"
+#include "jp/gecchi/VioletVrain/scene/VvSpacetime.h"
+#include "jp/gecchi/VioletVrain/scene/VvSpacetime/World.h"
+#include "jp/gecchi/VioletVrain/VvGod.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

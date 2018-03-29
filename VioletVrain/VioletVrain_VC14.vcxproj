@@ -34,6 +34,28 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\camera\VvCamera.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\Jiki.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\Test01.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime\World.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime\World\TrialAndErrScene.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVrain\util\VvUtil.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVrain\VvGod.cpp" />
+    <ClCompile Include="src\VioletVrain.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\camera\VvCamera.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\Jiki.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\Test01.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime\World.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime\World\TrialAndErrScene.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\util\VvUtil.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\VvGod.h" />
+    <ClInclude Include="src\VioletVrain.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{00AD85EE-8B26-41BF-A92F-61B2EB53A7D7}</ProjectGuid>
     <RootNamespace>VioletVrain_VC14</RootNamespace>
@@ -319,28 +341,6 @@
       <Command>COPY /Y ..\$(Configuration)\$(Platform)\$(PlatformToolset)\$(ProjectName).exe .\$(ProjectName)_$(Platform)_$(PlatformToolset)_$(Configuration).exe</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="src\actor\camera\VvCamera.cpp" />
-    <ClCompile Include="src\actor\Jiki.cpp" />
-    <ClCompile Include="src\actor\Test01.cpp" />
-    <ClCompile Include="src\VvGod.cpp" />
-    <ClCompile Include="src\VioletVrain.cpp" />
-    <ClCompile Include="src\scene\VvSpacetime.cpp" />
-    <ClCompile Include="src\scene\VvSpacetime\VvWorld.cpp" />
-    <ClCompile Include="src\scene\VvSpacetime\VvWorld\TrialAndErrScene.cpp" />
-    <ClCompile Include="src\util\VvUtil.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\actor\camera\VvCamera.h" />
-    <ClInclude Include="src\actor\Jiki.h" />
-    <ClInclude Include="src\actor\Test01.h" />
-    <ClInclude Include="src\VvGod.h" />
-    <ClInclude Include="src\VioletVrain.h" />
-    <ClInclude Include="src\scene\VvSpacetime.h" />
-    <ClInclude Include="src\scene\VvSpacetime\VvWorld.h" />
-    <ClInclude Include="src\scene\VvSpacetime\VvWorld\TrialAndErrScene.h" />
-    <ClInclude Include="src\util\VvUtil.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
