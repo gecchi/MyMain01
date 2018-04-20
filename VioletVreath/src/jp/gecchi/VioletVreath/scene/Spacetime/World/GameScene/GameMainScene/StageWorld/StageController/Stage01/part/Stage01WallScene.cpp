@@ -79,11 +79,11 @@ Stage01WallScene::Stage01WallScene(const char* prm_name) : WallScene(prm_name) {
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-    frame f[] = {1,100,1400,2000,5400,6000};
-    _paFrame_NextEvent = new frame[6];
-    memcpy(_paFrame_NextEvent, f, sizeof(f));
-    _event_num = 6;
-    orderActorToFactory(60000002, EnemyHisbe, "EnemyHisbe-60000002");
+	frame f[] = {1,100,1400,2000,5400,6000};
+	_paFrame_NextEvent = new frame[6];
+	memcpy(_paFrame_NextEvent, f, sizeof(f));
+	_event_num = 6;
+	wishActor(60000002, EnemyHisbe, "EnemyHisbe-60000002");
     // gen01 end
 }
 
@@ -105,41 +105,41 @@ void Stage01WallScene::processBehavior() {
     // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen02 start
-    if (getBehaveingFrame() == _paFrame_NextEvent[_cnt_event]) {
-        switch (getBehaveingFrame()) {
-            case 1: {
-                break;
-            }
-            case 100: {
-                EnemyHisbe* p = (EnemyHisbe*)obtainActorFromFactory(60000002);
-                bringSceneMediator()->addSubGroup(p);
-                p->_x = PX_C(2000);
-                p->_y = 0;
-                p->_z = 1000000;
-                //a
-                break;
-            }
-            case 1400: {
-                orderActorToFactory(60000000, FormationUnomia001a, "FormationUnomia001a-60000000");
-                break;
-            }
-            case 2000: {
-                bringSceneMediator()->addSubGroup(obtainActorFromFactory(60000000));
-                break;
-            }
-            case 5400: {
-                orderActorToFactory(60000001, FormationUnomia001b, "FormationUnomia001b-60000001");
-                break;
-            }
-            case 6000: {
-                bringSceneMediator()->addSubGroup(obtainActorFromFactory(60000001));
-                break;
-            }
-            default :
-                break;
-        }
-        _cnt_event = (_cnt_event < 6-1 ? _cnt_event+1 : _cnt_event);
-    }
+	if (getBehaveingFrame() == _paFrame_NextEvent[_cnt_event]) {
+		switch (getBehaveingFrame()) {
+			case 1: {
+				break;
+			}
+			case 100: {
+				EnemyHisbe* p = (EnemyHisbe*)receiveActor(60000002);
+				bringSceneMediator()->addSubGroup(p);
+				p->_x = PX_C(2000);
+				p->_y = 0;
+				p->_z = 1000000;
+				//a
+				break;
+			}
+			case 1400: {
+				wishActor(60000000, FormationUnomia001a, "FormationUnomia001a-60000000");
+				break;
+			}
+			case 2000: {
+				bringSceneMediator()->addSubGroup(receiveActor(60000000));
+				break;
+			}
+			case 5400: {
+				wishActor(60000001, FormationUnomia001b, "FormationUnomia001b-60000001");
+				break;
+			}
+			case 6000: {
+				bringSceneMediator()->addSubGroup(receiveActor(60000001));
+				break;
+			}
+			default :
+				break;
+		}
+		_cnt_event = (_cnt_event < 6-1 ? _cnt_event+1 : _cnt_event);
+	}
     // gen02 end
 
 ///////////////デバッグ///////////////////////////////

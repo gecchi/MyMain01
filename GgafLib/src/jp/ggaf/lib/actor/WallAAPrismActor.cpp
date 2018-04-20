@@ -29,7 +29,13 @@ WallAAPrismActor::WallAAPrismActor(const char* prm_name,
     pChecker->setColliAAPrism(0, 0,0,0, 0,0,0, 0);
     setZEnableDraw(true);       //描画時、Zバッファ値は考慮される
     setZWriteEnable(true);  //自身のZバッファを書き込みする
-
+    if (isFirstEffectConnector()) {
+        ID3DXEffect* pID3DXEffect = getEffect()->_pID3DXEffect;
+        WallAAPrismActor::_h_distance_AlphaTarget = pID3DXEffect->GetParameterByName( nullptr, "g_distance_AlphaTarget" );
+        WallAAPrismActor::_h_wall_dep    = pID3DXEffect->GetParameterByName( nullptr, "g_wall_dep" );
+        WallAAPrismActor::_h_wall_height = pID3DXEffect->GetParameterByName( nullptr, "g_wall_height" );
+        WallAAPrismActor::_h_wall_width  = pID3DXEffect->GetParameterByName( nullptr, "g_wall_width" );
+    }
     static volatile bool is_init = WallAAPrismActor::initStatic(this); //静的メンバ初期化
 }
 
@@ -38,13 +44,8 @@ D3DXHANDLE WallAAPrismActor::_h_wall_dep;
 D3DXHANDLE WallAAPrismActor::_h_wall_height;
 D3DXHANDLE WallAAPrismActor::_h_wall_width;
 std::map<int, UINT> WallAAPrismActor::_delface;
-bool WallAAPrismActor::initStatic(WallAAPrismActor* prm_pWallAAPrismActor) {
-    ID3DXEffect* pID3DXEffect = prm_pWallAAPrismActor->getEffect()->_pID3DXEffect;
-    WallAAPrismActor::_h_distance_AlphaTarget = pID3DXEffect->GetParameterByName( nullptr, "g_distance_AlphaTarget" );
-    WallAAPrismActor::_h_wall_dep    = pID3DXEffect->GetParameterByName( nullptr, "g_wall_dep" );
-    WallAAPrismActor::_h_wall_height = pID3DXEffect->GetParameterByName( nullptr, "g_wall_height" );
-    WallAAPrismActor::_h_wall_width  = pID3DXEffect->GetParameterByName( nullptr, "g_wall_width" );
 
+bool WallAAPrismActor::initStatic(WallAAPrismActor* prm_pWallAAPrismActor) {
     //プリズム壁であるならば、形状により無条件で描画不要面がある、
     //    c
     // a b d f

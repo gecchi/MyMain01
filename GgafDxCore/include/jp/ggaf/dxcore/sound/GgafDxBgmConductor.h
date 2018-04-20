@@ -93,13 +93,17 @@ public:
     }
 
     /**
-     * 演奏する。
+     * 演奏する .
      * @param prm_bgm_no  BGM番号(0 ～ )
      * @param prm_is_loop  ループするかどうか（true:ループ再生する／false:ループ再生しない）
      */
     virtual void perform(int prm_bgm_no, bool prm_is_loop = true);
 
-
+    /**
+     * 曲の最初から演奏する .
+     * @param prm_bgm_no  BGM番号(0 ～ )
+     * @param prm_is_loop ループするかどうか（true:ループ再生する／false:ループ再生しない）
+     */
     virtual void performFromTheBegining(int prm_bgm_no, bool prm_is_loop = true);
 
     /**

@@ -7,7 +7,6 @@
 #include "jp/gecchi/VioletVreath/actor/enemy/Unomia/EnemyUnomia.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
-#include "jp/ggaf/core/GgafFactory.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -71,13 +70,13 @@ void FormationUnomia::processBehavior() {
         }
         case PROG_READY_MEMBER_ORDER: {
             uint64_t order_no = pProg->getFrame();
-            orderActorToFactory(order_no, EnemyUnomia, "EnemyUnomia");
+            wishActor(order_no, EnemyUnomia, "EnemyUnomia");
             pProg->changeNextWhenArrivedAt(num_formation_member_);
             break;
         }
         case PROG_READY_MEMBER_OBTAIN: {
             uint64_t order_no = pProg->getFrame();
-            addFormationMember(obtainActorFromFactory(order_no));
+            addFormationMember(receiveActor(order_no));
             pProg->changeNextWhenArrivedAt(num_formation_member_);
             break;
         }

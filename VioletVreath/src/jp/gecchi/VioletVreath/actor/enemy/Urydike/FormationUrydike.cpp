@@ -10,7 +10,6 @@
 #include "jp/gecchi/VioletVreath/manager/XpmManager.h"
 #include "jp/gecchi/VioletVreath/manager/XpmConnection.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/core/GgafFactory.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -68,12 +67,12 @@ void FormationUrydike::processBehavior() {
         case PROG_READY_MEMBER: {
             if (pProg->hasJustChanged()) {
                 for (int i = 0; i < num_Urydike_; i++) {
-                    orderActorToFactory(i, EnemyUrydike, "EnemyUrydike");
+                    wishActor(i, EnemyUrydike, "EnemyUrydike");
                 }
             }
             if (pProg->hasArrivedAt(120)) {
                 for (int i = 0; i < num_Urydike_; i++) {
-                    addFormationMember(obtainActorFromFactory(i));
+                    addFormationMember(receiveActor(i));
                 }
                 pProg->changeNext();
             }

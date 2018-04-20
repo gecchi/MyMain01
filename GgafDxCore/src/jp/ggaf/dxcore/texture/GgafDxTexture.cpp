@@ -94,7 +94,7 @@ void GgafDxTexture::restore() {
         _tex_width = d3dsurface_desc.Width;
         _tex_height = d3dsurface_desc.Height;
         _pIDirect3DBaseTexture9 = pIDirect3DTexture9;
-        Sleep(1); //工場に気を使う。
+        Sleep(1); //愛に気を使う。
     } else {
         //環境マップテクスチャの場合
         LPDIRECT3DCUBETEXTURE9 pIDirect3DCubeTexture9;

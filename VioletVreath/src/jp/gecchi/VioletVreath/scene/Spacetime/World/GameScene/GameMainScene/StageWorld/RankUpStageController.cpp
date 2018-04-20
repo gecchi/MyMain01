@@ -1,8 +1,8 @@
 #include "RankUpStageController.h"
 
-#include "jp/ggaf/core/GgafFactory.h"
 #include "jp/ggaf/core/util/GgafResourceConnection.hpp"
 #include "jp/ggaf/dxcore/sound/GgafDxSound.h"
+#include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld/RankUpStageController/RankUp001.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld/RankUpStageController/RankUp002.h"
@@ -42,7 +42,7 @@ void RankUpStageController::startRunkUpStage(int prm_rank_up_level) {
     pSeConn_RankUpStageExec_->peek()->play(); //ランクアップステージ開始SE！
     ready(prm_rank_up_level);     //これはパスされるはずであるが、念のため。
     ready(prm_rank_up_level + 1); //次のシーンを先行予約
-    pNowRankUpStage_ = (RankUpStage*)obtainSceneFromFactory(ORDER_ID_RANKUP+prm_rank_up_level);
+    pNowRankUpStage_ = (RankUpStage*)receiveScene(ORDER_ID_RANKUP+prm_rank_up_level);
     _TRACE_(FUNC_NAME<<" pNowRankUpStage_="<<pNowRankUpStage_);
     GgafScene* pRankUpStage = getSubFirst();
     if (pRankUpStage) {
@@ -71,19 +71,19 @@ void RankUpStageController::onReset() {
 void RankUpStageController::ready(int prm_rank_up_level) {
     switch (prm_rank_up_level) {
         case 1:
-            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp001, "RankUp001");
+            wishScene(ORDER_ID_RANKUP+prm_rank_up_level, RankUp001, "RankUp001");
             break;
         case 2:
-            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp002, "RankUp002");
+            wishScene(ORDER_ID_RANKUP+prm_rank_up_level, RankUp002, "RankUp002");
             break;
         case 3:
-            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp003, "RankUp003");
+            wishScene(ORDER_ID_RANKUP+prm_rank_up_level, RankUp003, "RankUp003");
             break;
 //        case 100:
-//            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp100, "RankUp100");
+//            wishScene(ORDER_ID_RANKUP+prm_rank_up_level, RankUp100, "RankUp100");
 //            break;
         default:
-            orderSceneToFactory(ORDER_ID_RANKUP+prm_rank_up_level, RankUp100, "RankUp100");
+            wishScene(ORDER_ID_RANKUP+prm_rank_up_level, RankUp100, "RankUp100");
             break;
     }
 }

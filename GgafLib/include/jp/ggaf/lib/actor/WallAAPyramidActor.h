@@ -6,6 +6,7 @@
 namespace GgafLib {
 
 /**
+ * ＜削除予定＞
  * 外壁シーン(WalledSectionScene)の壁ブロック(ピラミッド型)基底クラス .
  * @version 1.00
  * @since 2016/01/20

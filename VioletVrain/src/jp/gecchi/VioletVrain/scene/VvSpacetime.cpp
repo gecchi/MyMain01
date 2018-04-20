@@ -1,6 +1,5 @@
 #include "VvSpacetime.h"
 
-#include "jp/ggaf/core/GgafFactory.h"
 #include "jp/gecchi/VioletVrain/scene/VvSpacetime/World.h"
 #include "jp/gecchi/VioletVrain/util/VvUtil.h"
 #include "jp/gecchi/VioletVrain/VvGod.h"
@@ -26,7 +25,7 @@ VvSpacetime::VvSpacetime(const char* prm_name, VvCamera* prm_pCam) :
 }
 
 void VvSpacetime::initialize() {
-    pWorld_ = createInFactory(VioletVrain::World, "WORLD");
+    pWorld_ = keepWishing(VioletVrain::World, "WORLD");
     addSubLast(pWorld_);
 }
 

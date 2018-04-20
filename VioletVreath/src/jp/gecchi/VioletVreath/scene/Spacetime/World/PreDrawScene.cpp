@@ -1,6 +1,5 @@
 #include "PreDrawScene.h"
 
-#include "jp/ggaf/core/GgafFactory.h"
 #include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -38,25 +37,25 @@ PreDrawScene::PreDrawScene(const char* prm_name) : DefaultScene(prm_name) {
     _id_ = 0;
     order_id_begin_ = ID_ORDER_BEGIN;
     int id = order_id_begin_;
-    orderActorToFactory(id, CubeMapMeshTestActor       , "CubeMapMeshTestActor");           id++;
-    orderActorToFactory(id, CubeMapMeshSetTestActor    , "CubeMapMeshSetTestActor");        id++;
-    orderActorToFactory(id, CubeMapMorphMeshTestActor  , "CubeMapMorphMeshTestActor");      id++;
-    orderActorToFactory(id, DefaultD3DXAniMeshTestActor , "DefaultD3DXAniMeshTestActor");   id++;
-//    orderActorToFactory(id, DefaultBoardTestActor      , "DefaultBoardTestActor");          id++;
-//    orderActorToFactory(id, DefaultBoardSetTestActor   , "DefaultBoardSetTestActor");       id++;
-    orderActorToFactory(id, DefaultMeshTestActor       , "DefaultMeshTestActor");           id++;
-    orderActorToFactory(id, DefaultMeshSetTestActor    , "DefaultMeshSetTestActor");        id++;
-    orderActorToFactory(id, DefaultMorphMeshTestActor  , "DefaultMorphMeshTestActor");      id++;
-//    orderActorToFactory(id, DefaultPointSpriteTestActor, "DefaultPointSpriteTestActor");    id++;
-//    orderActorToFactory(id, DefaultSpriteTestActor     , "DefaultSpriteTestActor");         id++;
-//    orderActorToFactory(id, DefaultSpriteSetTestActor  , "DefaultSpriteSetTestActor");      id++;
-    orderActorToFactory(id, HoshiBoshiTestActor        , "HoshiBoshiTestActor");            id++;
-    orderActorToFactory(id, LaserChipTestActor         , "LaserChipTestActor");             id++;
-    orderActorToFactory(id, SingleLaserTestActor       , "SingleLaserTestActor");           id++;
-    orderActorToFactory(id, SpriteMeshTestActor        , "SpriteMeshTestActor");            id++;
-    orderActorToFactory(id, SpriteMeshSetTestActor     , "SpriteMeshSetTestActor");         id++;
-    orderActorToFactory(id, WallAABTestActor           , "WallAABTestActor");               id++;
-    orderActorToFactory(id, WallAAPrismTestActor       , "WallAAPrismTestActor");           id++;
+    wishActor(id, CubeMapMeshTestActor       , "CubeMapMeshTestActor");           id++;
+    wishActor(id, CubeMapMeshSetTestActor    , "CubeMapMeshSetTestActor");        id++;
+    wishActor(id, CubeMapMorphMeshTestActor  , "CubeMapMorphMeshTestActor");      id++;
+    wishActor(id, DefaultD3DXAniMeshTestActor , "DefaultD3DXAniMeshTestActor");   id++;
+//    wishActor(id, DefaultBoardTestActor      , "DefaultBoardTestActor");          id++;
+//    wishActor(id, DefaultBoardSetTestActor   , "DefaultBoardSetTestActor");       id++;
+    wishActor(id, DefaultMeshTestActor       , "DefaultMeshTestActor");           id++;
+    wishActor(id, DefaultMeshSetTestActor    , "DefaultMeshSetTestActor");        id++;
+    wishActor(id, DefaultMorphMeshTestActor  , "DefaultMorphMeshTestActor");      id++;
+//    wishActor(id, DefaultPointSpriteTestActor, "DefaultPointSpriteTestActor");    id++;
+//    wishActor(id, DefaultSpriteTestActor     , "DefaultSpriteTestActor");         id++;
+//    wishActor(id, DefaultSpriteSetTestActor  , "DefaultSpriteSetTestActor");      id++;
+    wishActor(id, HoshiBoshiTestActor        , "HoshiBoshiTestActor");            id++;
+    wishActor(id, LaserChipTestActor         , "LaserChipTestActor");             id++;
+    wishActor(id, SingleLaserTestActor       , "SingleLaserTestActor");           id++;
+    wishActor(id, SpriteMeshTestActor        , "SpriteMeshTestActor");            id++;
+    wishActor(id, SpriteMeshSetTestActor     , "SpriteMeshSetTestActor");         id++;
+    wishActor(id, WallAABTestActor           , "WallAABTestActor");               id++;
+    wishActor(id, WallAAPrismTestActor       , "WallAAPrismTestActor");           id++;
     order_id_end_ = id - 1;
     useProgress();
     getProgress()->reset(PROG_DISP);
@@ -101,7 +100,7 @@ void PreDrawScene::processBehavior() {
                 if (_id_ > order_id_end_-order_id_begin_) {
                     pProg->changeNext();
                 } else {
-                    GgafDxGeometricActor* pActor = (GgafDxGeometricActor*)obtainActorFromFactory(_id_+order_id_begin_);
+                    GgafDxGeometricActor* pActor = (GgafDxGeometricActor*)receiveActor(_id_+order_id_begin_);
                     pActor->setPosition(PX_C(_id_*70 - 700), PX_C(-100), 0);
                     bringSceneMediator()->addSubGroup(pActor);  _id_++;
                 }
@@ -130,24 +129,24 @@ void PreDrawScene::processBehavior() {
 //
 //    if (getActiveFrame() == 1) {
 ////
-////        bringSceneMediator()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //CubeMapMeshTestActor
-////        bringSceneMediator()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //CubeMapMeshSetTestActor
-////        bringSceneMediator()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //CubeMapMorphMeshTestActor
-//        bringSceneMediator()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //DefaultD3DXAniMeshTestActor
-//////        bringSceneMediator()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //DefaultBoardTestActor
-//////        bringSceneMediator()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //DefaultBoardSetTestActor
-////        bringSceneMediator()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //DefaultMeshTestActor
-////        bringSceneMediator()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //DefaultMeshSetTestActor
-////        bringSceneMediator()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //DefaultMorphMeshTestActor
-//////        bringSceneMediator()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //DefaultPointSpriteTestActor
-//////        bringSceneMediator()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //DefaultSpriteTestActor
-//////        bringSceneMediator()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //DefaultSpriteSetTestActor
-////        bringSceneMediator()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //LaserChipTestActor
-////        bringSceneMediator()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //SingleLaserTestActor
-////        bringSceneMediator()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //SpriteMeshTestActor
-////        bringSceneMediator()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //SpriteMeshSetTestActor
-////        bringSceneMediator()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //WallAABTestActor
-////        bringSceneMediator()->addSubGroup(obtainActorFromFactory(_id_));  _id_++;     //WallAAPrismTestActor
+////        bringSceneMediator()->addSubGroup(receiveActor(_id_));  _id_++;     //CubeMapMeshTestActor
+////        bringSceneMediator()->addSubGroup(receiveActor(_id_));  _id_++;     //CubeMapMeshSetTestActor
+////        bringSceneMediator()->addSubGroup(receiveActor(_id_));  _id_++;     //CubeMapMorphMeshTestActor
+//        bringSceneMediator()->addSubGroup(receiveActor(_id_));  _id_++;     //DefaultD3DXAniMeshTestActor
+//////        bringSceneMediator()->addSubGroup(receiveActor(_id_));  _id_++;     //DefaultBoardTestActor
+//////        bringSceneMediator()->addSubGroup(receiveActor(_id_));  _id_++;     //DefaultBoardSetTestActor
+////        bringSceneMediator()->addSubGroup(receiveActor(_id_));  _id_++;     //DefaultMeshTestActor
+////        bringSceneMediator()->addSubGroup(receiveActor(_id_));  _id_++;     //DefaultMeshSetTestActor
+////        bringSceneMediator()->addSubGroup(receiveActor(_id_));  _id_++;     //DefaultMorphMeshTestActor
+//////        bringSceneMediator()->addSubGroup(receiveActor(_id_));  _id_++;     //DefaultPointSpriteTestActor
+//////        bringSceneMediator()->addSubGroup(receiveActor(_id_));  _id_++;     //DefaultSpriteTestActor
+//////        bringSceneMediator()->addSubGroup(receiveActor(_id_));  _id_++;     //DefaultSpriteSetTestActor
+////        bringSceneMediator()->addSubGroup(receiveActor(_id_));  _id_++;     //LaserChipTestActor
+////        bringSceneMediator()->addSubGroup(receiveActor(_id_));  _id_++;     //SingleLaserTestActor
+////        bringSceneMediator()->addSubGroup(receiveActor(_id_));  _id_++;     //SpriteMeshTestActor
+////        bringSceneMediator()->addSubGroup(receiveActor(_id_));  _id_++;     //SpriteMeshSetTestActor
+////        bringSceneMediator()->addSubGroup(receiveActor(_id_));  _id_++;     //WallAABTestActor
+////        bringSceneMediator()->addSubGroup(receiveActor(_id_));  _id_++;     //WallAAPrismTestActor
 //    }
 
 }

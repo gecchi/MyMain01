@@ -1,6 +1,5 @@
 #include "GameOverScene.h"
 
-#include "jp/ggaf/core/GgafFactory.h"
 #include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
@@ -68,7 +67,7 @@ void GameOverScene::processBehavior() {
                 if (G_RANKING_TABLE.isRankIn(G_SCORE)) {
                     _TRACE_("ランクイン!!!!");
                     //ランクインのため、ネームエントリーシーン準備
-                    orderSceneToFactory(ORDER_ID_NAMEENTRYSCENE, NameEntryScene, "NameEntryScene");
+                    wishScene(ORDER_ID_NAMEENTRYSCENE, NameEntryScene, "NameEntryScene");
                     need_name_entry_ = true;
                 } else {
                     _TRACE_("ランクインではない!!!!");
@@ -89,7 +88,7 @@ void GameOverScene::processBehavior() {
 
         case PROG_NAMEENTRY: {
              if (pProg->hasJustChanged()) {
-                 pNameEntryScene_ = (NameEntryScene*)obtainSceneFromFactory(ORDER_ID_NAMEENTRYSCENE);
+                 pNameEntryScene_ = (NameEntryScene*)receiveScene(ORDER_ID_NAMEENTRYSCENE);
                  addSubLast(pNameEntryScene_);
              }
              //EVENT_NAMEENTRYSCENE_FINISH イベント待ち

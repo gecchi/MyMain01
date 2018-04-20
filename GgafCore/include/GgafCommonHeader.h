@@ -247,8 +247,8 @@
     #define _TRACE_N_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss); }
     //#define _TRACE_N_(X)
 
-    /** 工場関連関連ログ */
-    //#define _TRACE2_(X) {std::stringstream ss; ss << "[製造工場]" << FUNC_NAME << " " << X; GgafCore::GgafLogger::writeln(ss); }
+    /** 愛関連関連ログ */
+    //#define _TRACE2_(X) {std::stringstream ss; ss << "[祝福愛]" << FUNC_NAME << " " << X; GgafCore::GgafLogger::writeln(ss); }
     #define _TRACE2_(X)
 
     /** 資源マネージャ、コネクション関連ログ */
@@ -380,7 +380,6 @@ class GgafValueAccelerator;
 template<class VAL_TYPE, int N>
 class GgafValueEnveloper;
 
-class GgafFactory;
 class GgafGarbageBox;
 class GgafProgress;
 class GgafScene;
@@ -401,7 +400,7 @@ class GgafDepositoryFormation;
 class GgafActorDepository;
 class GgafActorDepositoryStore;
 
-class GgafOrder;
+class GgafCradle;
 class GgafRgb;
 
 class GgafConfig;

@@ -77,23 +77,28 @@ void MassWallActor::init() {
     pChecker->setColliAABox(0, 0,0,0, 0,0,0);
     pChecker->setColliAAPrism(1, 0,0,0, 0,0,0, 0);
     _pMassMeshModel->registerCallback_VertexInstanceDataInfo(MassWallActor::createVertexInstanceData);
+
+    if (isFirstEffectConnector()) {
+        _TRACE_("MassWallActor::init() isFirstEffectConnector!!");
+        //TODO:: デバイスロスト時にココは実行されないよね・・・
+        ID3DXEffect* pID3DXEffect = getEffect()->_pID3DXEffect;
+        MassWallActor::_h_distance_AlphaTarget = pID3DXEffect->GetParameterByName( nullptr, "g_distance_AlphaTarget" );
+        MassWallActor::_h_wall_dep    = pID3DXEffect->GetParameterByName( nullptr, "g_wall_dep" );
+        MassWallActor::_h_wall_height = pID3DXEffect->GetParameterByName( nullptr, "g_wall_height" );
+        MassWallActor::_h_wall_width  = pID3DXEffect->GetParameterByName( nullptr, "g_wall_width" );
+        MassWallActor::_h_ah_POS_PRISM_ZX = pID3DXEffect->GetParameterByName( nullptr, "g_ah_POS_PRISM_ZX" );
+        MassWallActor::_h_fh_POS_PRISM_ZX = pID3DXEffect->GetParameterByName( nullptr, "g_fh_POS_PRISM_ZX" );
+        MassWallActor::_h_ah_POS_PRISM_YZ = pID3DXEffect->GetParameterByName( nullptr, "g_ah_POS_PRISM_YZ" );
+        MassWallActor::_h_fh_POS_PRISM_YZ = pID3DXEffect->GetParameterByName( nullptr, "g_fh_POS_PRISM_YZ" );
+        MassWallActor::_h_ah_POS_PRISM_XY = pID3DXEffect->GetParameterByName( nullptr, "g_ah_POS_PRISM_XY" );
+        MassWallActor::_h_fh_POS_PRISM_XY = pID3DXEffect->GetParameterByName( nullptr, "g_fh_POS_PRISM_XY" );
+        MassWallActor::_h_reflectance = pID3DXEffect->GetParameterByName(nullptr, "g_reflectance");
+    }
+
     static volatile bool is_init = MassWallActor::initStatic(this); //静的メンバ初期化
 }
 
 bool MassWallActor::initStatic(MassWallActor* prm_pMassWallActor) {
-    ID3DXEffect* pID3DXEffect = prm_pMassWallActor->getEffect()->_pID3DXEffect;
-    MassWallActor::_h_distance_AlphaTarget = pID3DXEffect->GetParameterByName( nullptr, "g_distance_AlphaTarget" );
-    MassWallActor::_h_wall_dep    = pID3DXEffect->GetParameterByName( nullptr, "g_wall_dep" );
-    MassWallActor::_h_wall_height = pID3DXEffect->GetParameterByName( nullptr, "g_wall_height" );
-    MassWallActor::_h_wall_width  = pID3DXEffect->GetParameterByName( nullptr, "g_wall_width" );
-    MassWallActor::_h_ah_POS_PRISM_ZX = pID3DXEffect->GetParameterByName( nullptr, "g_ah_POS_PRISM_ZX" );
-    MassWallActor::_h_fh_POS_PRISM_ZX = pID3DXEffect->GetParameterByName( nullptr, "g_fh_POS_PRISM_ZX" );
-    MassWallActor::_h_ah_POS_PRISM_YZ = pID3DXEffect->GetParameterByName( nullptr, "g_ah_POS_PRISM_YZ" );
-    MassWallActor::_h_fh_POS_PRISM_YZ = pID3DXEffect->GetParameterByName( nullptr, "g_fh_POS_PRISM_YZ" );
-    MassWallActor::_h_ah_POS_PRISM_XY = pID3DXEffect->GetParameterByName( nullptr, "g_ah_POS_PRISM_XY" );
-    MassWallActor::_h_fh_POS_PRISM_XY = pID3DXEffect->GetParameterByName( nullptr, "g_fh_POS_PRISM_XY" );
-    MassWallActor::_h_reflectance = pID3DXEffect->GetParameterByName(nullptr, "g_reflectance");
-
     //プリズム壁であるならば、形状により無条件で描画不要面がある、
     //    c
     // a b d f

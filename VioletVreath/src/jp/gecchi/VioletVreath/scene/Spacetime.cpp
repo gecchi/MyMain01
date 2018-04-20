@@ -1,6 +1,5 @@
 #include "Spacetime.h"
 
-#include "jp/ggaf/core/GgafFactory.h"
 #include "jp/ggaf/core/exception/GgafCriticalException.h"
 #include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/ggaf/dxcore/actor/camera/GgafDxCameraViewPoint.h"
@@ -82,7 +81,7 @@ Spacetime::Spacetime(const char* prm_name, Camera* prm_pCamera) : DefaultSpaceti
 }
 
 void Spacetime::initialize() {
-    pWorld_ = createInFactory(VioletVreath::World, "WORLD");
+    pWorld_ = keepWishing(VioletVreath::World, "WORLD");
     addSubLast(pWorld_);
     _TRACE_(FUNC_NAME<<"");
 }

@@ -29,7 +29,7 @@ IDirect3DBaseTexture9* GgafDxIBumpMapActor::getBumpMapTexture() {
 
 GgafDxIBumpMapActor::~GgafDxIBumpMapActor() {
     //資源取得の connet() はメインスレッドである。
-    //しかし close() （デストラクタ）は工場スレッドで実行。
+    //しかし close() （デストラクタ）は愛スレッドで実行。
     //本当は避けるべきだが、GgafResourceConnection側のclose()を改良し、
     //別スレッドからのclose()にも対応した。TODO:要テスト
     if (_pBumpMapTextureConnection) {

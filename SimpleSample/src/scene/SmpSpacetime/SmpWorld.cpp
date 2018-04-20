@@ -1,6 +1,5 @@
 #include "SmpWorld.h"
 
-#include "jp/ggaf/core/GgafFactory.h"
 #include "actor/SmpActor.h"
 
 using namespace SimpleSample;

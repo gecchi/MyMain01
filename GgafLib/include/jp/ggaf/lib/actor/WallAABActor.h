@@ -6,6 +6,7 @@
 namespace GgafLib {
 
 /**
+ * ＜削除予定＞
  * 外壁シーン(WalledSectionScene)の壁ブロック基底クラス .
  * 外壁シーン(WalledSectionScene)の構成要素の壁ブロックは本クラスを継承する必要がある。
  * @version 1.00

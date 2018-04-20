@@ -1,6 +1,5 @@
 #include "World.h"
 
-#include "jp/ggaf/core/GgafFactory.h"
 #include "jp/ggaf/core/util/GgafLinearQuadtree.h"
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
 #include "jp/gecchi/VioletVrain/scene/VvSpacetime/World/TrialAndErrScene.h"
@@ -25,7 +24,7 @@ World::World(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
 }
 
 void World::initialize() {
-    pTrialAndErrScene_ = createInFactory(TrialAndErrScene, "TrialAndErrScene");
+    pTrialAndErrScene_ = keepWishing(TrialAndErrScene, "TrialAndErrScene");
     addSubLast(pTrialAndErrScene_);
 }
 

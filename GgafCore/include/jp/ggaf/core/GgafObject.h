@@ -19,7 +19,7 @@ typedef uint64_t nodekind;
  * @author Masatoshi Tsuge
  */
 class GgafObject {
-
+public:
 #ifdef _MSC_VER
     //x86系VCならばアトミック性がある・・64bitでも？？・・・。
     //まぁ_obj_seqが狂ってもDEBUGの時にちょっと不便なだけなので・・・；
@@ -29,7 +29,7 @@ class GgafObject {
 #endif
     uint64_t _id;
 
-public:
+
     /** [r]インスタンス種類 */
     nodekind _obj_class;
 

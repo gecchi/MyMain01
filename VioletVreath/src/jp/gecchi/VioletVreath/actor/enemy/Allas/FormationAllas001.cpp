@@ -4,7 +4,6 @@
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/core/GgafFactory.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/DefaultGod.h"
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
@@ -54,12 +53,12 @@ void FormationAllas001::processBehavior() {
         case PROG_READY_MEMBER: {
             if (pProg->hasJustChanged()) {
                 for (int i = 0; i < num_Allas_; i++) {
-                    orderActorToFactory(i, EnemyAllas, "EnemyAllas");
+                    wishActor(i, EnemyAllas, "EnemyAllas");
                 }
             }
             if (pProg->hasArrivedAt(60)) {
                 for (int i = 0; i < num_Allas_; i++) {
-                    addFormationMember(obtainActorFromFactory(i));
+                    addFormationMember(receiveActor(i));
                 }
                 pProg->changeNext();
             }

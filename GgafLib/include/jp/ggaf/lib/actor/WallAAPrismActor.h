@@ -6,6 +6,7 @@
 namespace GgafLib {
 
 /**
+ * ＜削除予定＞
  * 外壁シーン(WalledSectionScene)の壁ブロック(プリズム型)基底クラス .
  * 外壁シーン(WalledSectionScene)の構成要素の壁ブロック(プリズム型)は本クラスを継承する必要がある。
  * @version 1.00

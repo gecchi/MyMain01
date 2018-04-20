@@ -2,7 +2,6 @@
 #define RANKUPSTAGE_H_
 #include "VioletVreath.h"
 
-#include "jp/ggaf/core/GgafFactory.h"
 #include "jp/ggaf/core/actor/GgafMainActor.h"
 #include "jp/ggaf/core/actor/ex/GgafFormation.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"

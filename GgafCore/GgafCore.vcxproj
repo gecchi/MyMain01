@@ -34,13 +34,12 @@
     <ClInclude Include="include\jp\ggaf\core\exception\GgafCriticalException.h" />
     <ClInclude Include="include\jp\ggaf\core\exception\GgafException.h" />
     <ClInclude Include="include\jp\ggaf\core\GgafConfig.h" />
+    <ClInclude Include="include\jp\ggaf\core\ggafcradle.h" />
     <ClInclude Include="include\jp\ggaf\core\GgafElement.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\GgafFactory.h" />
     <ClInclude Include="include\jp\ggaf\core\GgafGarbageBox.h" />
     <ClInclude Include="include\jp\ggaf\core\GgafGod.h" />
     <ClInclude Include="include\jp\ggaf\core\GgafNode.hpp" />
     <ClInclude Include="include\jp\ggaf\core\GgafObject.h" />
-    <ClInclude Include="include\jp\ggaf\core\GgafOrder.h" />
     <ClInclude Include="include\jp\ggaf\core\GgafProgress.h" />
     <ClInclude Include="include\jp\ggaf\core\GgafProperties.h" />
     <ClInclude Include="include\jp\ggaf\core\scene\GgafDisusedScene.h" />
@@ -83,11 +82,10 @@
     <ClCompile Include="src\jp\ggaf\core\exception\GgafCriticalException.cpp" />
     <ClCompile Include="src\jp\ggaf\core\exception\GgafException.cpp" />
     <ClCompile Include="src\jp\ggaf\core\GgafConfig.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\GgafFactory.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\GgafCradle.cpp" />
     <ClCompile Include="src\jp\ggaf\core\GgafGarbageBox.cpp" />
     <ClCompile Include="src\jp\ggaf\core\GgafGod.cpp" />
     <ClCompile Include="src\jp\ggaf\core\GgafObject.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\GgafOrder.cpp" />
     <ClCompile Include="src\jp\ggaf\core\GgafProgress.cpp" />
     <ClCompile Include="src\jp\ggaf\core\GgafProperties.cpp" />
     <ClCompile Include="src\jp\ggaf\core\scene\GgafMainScene.cpp" />

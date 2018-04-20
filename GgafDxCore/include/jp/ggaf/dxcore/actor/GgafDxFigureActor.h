@@ -67,8 +67,10 @@ public:
     int _specal_render_depth_index;
     /** [r]一時テクニック適用中の場合 true */
     bool _is_temp_technique;
-
-
+    /** [r]自身がモデルオブジェクトの最初のコネクターである場合true */
+    bool _is_first_model_connector;
+    /** [r]自身がエフェクトオブジェクトの最初のコネクターである場合true */
+    bool _is_first_effect_connector;
 public:
     /**
      * コンストラクタ .
@@ -299,6 +301,14 @@ public:
      *         ※判定優先順位順に並んでいます。（例：1 かつ 4 は 1 が返ります）
      */
     virtual int isOutOfView() override;
+
+    bool isFirstModelConnector() {
+        return _is_first_model_connector;
+    }
+
+    bool isFirstEffectConnector() {
+        return _is_first_effect_connector;
+    }
 
     virtual ~GgafDxFigureActor(); //デストラクタ
 };

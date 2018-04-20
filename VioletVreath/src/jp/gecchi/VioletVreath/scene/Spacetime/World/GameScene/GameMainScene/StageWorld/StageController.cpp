@@ -50,6 +50,8 @@ StageController::StageController(const char* prm_name) : DefaultScene(prm_name) 
 
 void StageController::onReset() {
     _TRACE_(FUNC_NAME<<" "<<NODE_INFO<<"");
+    loop_ = 1;
+    main_stage_ = 1;
     if (pStageMainCannel_) {
         pStageMainCannel_->inactivate();
     }
@@ -69,19 +71,19 @@ void StageController::readyStage(int prm_main_stage) {
     _TRACE_("StageController::readyStage("<<prm_main_stage<<")");
     switch (prm_main_stage) {
         case 1:
-            orderSceneToFactory(ORDER_ID_STAGE+prm_main_stage, Stage01, "Stage01");
+            wishScene(ORDER_ID_STAGE+prm_main_stage, Stage01, "Stage01");
             break;
         case 2:
-            orderSceneToFactory(ORDER_ID_STAGE+prm_main_stage, Stage02, "Stage02");
+            wishScene(ORDER_ID_STAGE+prm_main_stage, Stage02, "Stage02");
             break;
         case 3:
-            orderSceneToFactory(ORDER_ID_STAGE+prm_main_stage, Stage03, "Stage03");
+            wishScene(ORDER_ID_STAGE+prm_main_stage, Stage03, "Stage03");
             break;
         case 4:
-            orderSceneToFactory(ORDER_ID_STAGE+prm_main_stage, Stage04, "Stage04");
+            wishScene(ORDER_ID_STAGE+prm_main_stage, Stage04, "Stage04");
             break;
         case 5:
-            orderSceneToFactory(ORDER_ID_STAGE+prm_main_stage, Stage05, "Stage05");
+            wishScene(ORDER_ID_STAGE+prm_main_stage, Stage05, "Stage05");
             break;
         default:
             break;
@@ -123,7 +125,7 @@ void StageController::processBehavior() {
                 if (pStageMainCannel_) {
                     _TRACE_("‚¢‚¢‚Ì‚©I PROG_PLAY_STAGE: ‹Œ pStageMainCannel_="<<pStageMainCannel_->getName()<<"");
                 }
-                pStageMainCannel_ = (Stage*)obtainSceneFromFactory(ORDER_ID_STAGE+main_stage_);
+                pStageMainCannel_ = (Stage*)receiveScene(ORDER_ID_STAGE+main_stage_);
                 _TRACE_("PROG_PLAY_STAGE: V pStageMainCannel_="<<pStageMainCannel_->getName()<<"");
                 pStageMainCannel_->fadeoutSceneWithBgm(0);
 

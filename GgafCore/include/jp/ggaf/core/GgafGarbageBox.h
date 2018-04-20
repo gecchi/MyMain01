@@ -12,7 +12,7 @@ namespace GgafCore {
 /**
  * ゴミ箱 .
  * 不要になったオブジェクト（アクター、シーン）は、とりあえずココに登録。<BR>
- * ココに登録されると、CPUの余裕のあるときに工場(GgafFactory)が勝手にちびちびと delete してゆきます<BR>
+ * ココに登録されると、CPUの余裕のあるときに神が勝手にちびちびと delete してゆきます<BR>
  * (旧GgafTrashBox)
  * @version 1.00
  * @since 2008/12/16

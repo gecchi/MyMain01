@@ -1,6 +1,5 @@
 #include "HgrSpacetime.h"
 
-#include "jp/ggaf/core/GgafFactory.h"
 #include "scene/HgrSpacetime/HgrWorld.h"
 #include "jp/ggaf/lib/GgafLibConfig.h"
 #include "util/HgrUtil.h"
@@ -28,7 +27,7 @@ HgrSpacetime::HgrSpacetime(const char* prm_name, HgrCamera* prm_pCam) :
 
 void HgrSpacetime::initialize() {
     //世界シーン生成し、自シーンの配下に所属させる
-    pWorld_ = createInFactory(Hogera::HgrWorld, "HOGERA_WORLD");
+    pWorld_ = keepWishing(Hogera::HgrWorld, "HOGERA_WORLD");
     addSubLast(pWorld_);
 }
 

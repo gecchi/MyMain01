@@ -1,6 +1,5 @@
 #include "VvvSpacetime.h"
 
-#include "jp/ggaf/core/GgafFactory.h"
 #include "scene/VvvSpacetime/VvvWorld.h"
 
 using namespace VVViewer;
@@ -14,7 +13,7 @@ VvvSpacetime::VvvSpacetime(const char* prm_name, VvvCamera* prm_pCam) :
 
 void VvvSpacetime::initialize() {
     //世界シーン生成し、自シーンの配下に所属させる
-    pWorld_ = createInFactory(VVViewer::VvvWorld, "SIMPLE_WORLD");
+    pWorld_ = keepWishing(VVViewer::VvvWorld, "SIMPLE_WORLD");
     addSubLast(pWorld_);
 }
 

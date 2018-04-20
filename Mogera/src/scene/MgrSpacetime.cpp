@@ -1,6 +1,5 @@
 #include "MgrSpacetime.h"
 
-#include "jp/ggaf/core/GgafFactory.h"
 #include "scene/MgrSpacetime/MgrWorld.h"
 #include "util/MgrUtil.h"
 #include "MgrGod.h"
@@ -43,7 +42,7 @@ MgrSpacetime::MgrSpacetime(const char* prm_name, MgrCamera* prm_pCam) :
 
 void MgrSpacetime::initialize() {
     //世界シーン生成し、自シーンの配下に所属させる
-    pWorld_ = createInFactory(Mogera::MgrWorld, "MOGERA_WORLD");
+    pWorld_ = keepWishing(Mogera::MgrWorld, "MOGERA_WORLD");
     addSubLast(pWorld_);
 
 

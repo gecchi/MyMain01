@@ -30,7 +30,13 @@ HoshiBoshi::HoshiBoshi(const char* prm_name, const char* prm_model_id) :
     setSpecialRenderDepthIndex(RENDER_DEPTH_INDEX_HOSHIBOSHI);
     pCriteria_ = pGOD->getSpacetime()->getCamera();
     setFarRate(1.0);
-
+    if (isFirstEffectConnector()) {
+        ID3DXEffect* pID3DXEffect = getEffect()->_pID3DXEffect;
+        HoshiBoshi::h_fX_MyShip_ = pID3DXEffect->GetParameterByName( nullptr, "g_fX_MyShip" );
+        HoshiBoshi::h_fY_MyShip_ = pID3DXEffect->GetParameterByName( nullptr, "g_fY_MyShip" );
+        HoshiBoshi::h_fZ_MyShip_ = pID3DXEffect->GetParameterByName( nullptr, "g_fZ_MyShip" );
+        HoshiBoshi::h_far_rate_  = pID3DXEffect->GetParameterByName( nullptr, "g_far_rate" );
+    }
     static volatile bool is_init = HoshiBoshi::initStatic(this); //Ã“Iƒƒ“ƒo‰Šú‰»
 }
 
@@ -41,11 +47,6 @@ D3DXHANDLE HoshiBoshi::h_fZ_MyShip_;
 D3DXHANDLE HoshiBoshi::h_far_rate_;
 coord HoshiBoshi::CAM_ZF_;
 bool HoshiBoshi::initStatic(HoshiBoshi* prm_pHoshiBoshi) {
-    ID3DXEffect* pID3DXEffect = prm_pHoshiBoshi->getEffect()->_pID3DXEffect;
-    HoshiBoshi::h_fX_MyShip_ = pID3DXEffect->GetParameterByName( nullptr, "g_fX_MyShip" );
-    HoshiBoshi::h_fY_MyShip_ = pID3DXEffect->GetParameterByName( nullptr, "g_fY_MyShip" );
-    HoshiBoshi::h_fZ_MyShip_ = pID3DXEffect->GetParameterByName( nullptr, "g_fZ_MyShip" );
-    HoshiBoshi::h_far_rate_  = pID3DXEffect->GetParameterByName( nullptr, "g_far_rate" );
     HoshiBoshi::CAM_ZF_ = ABS(DX_C(pGOD->getSpacetime()->getCamera()->getZFar()));
     return true;
 }

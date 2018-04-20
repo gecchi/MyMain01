@@ -2,7 +2,6 @@
 
 #include "jp/ggaf/core/GgafGod.h"
 #include "jp/ggaf/core/actor/GgafSceneMediator.h"
-#include "jp/ggaf/core/GgafFactory.h"
 
 using namespace GgafCore;
 
@@ -25,10 +24,10 @@ GgafScene::GgafScene(const char* prm_name, GgafSceneMediator* prm_pSceneMediator
 }
 
 GgafScene::~GgafScene() {
-    if (GgafFactory::_is_working_flg) {
-        GgafFactory::removeOrder(this); //自身が注文しっぱなしの商品を掃除
+    if (GgafGod::_is_working_flg) {
+        GgafGod::fate(this); //自身が望んだ命を破棄
     } else {
-        //アプリ終了処理時のため、工場ももれなく掃除されるため考慮不要
+        //アプリ終了処理時のため、愛ももれなく掃除されるため考慮不要
     }
 #ifdef MY_DEBUG
     _TRACE_("delete "<<NODE_INFO<<" _id="<<getId());

@@ -29,7 +29,13 @@ WallAAPyramidActor::WallAAPyramidActor(const char* prm_name,
     pChecker->setColliAAPyramid(0, 0,0,0, 0,0,0, 0);
     setZEnableDraw(true);       //描画時、Zバッファ値は考慮される
     setZWriteEnable(true);  //自身のZバッファを書き込みする
-
+    if (isFirstEffectConnector()) {
+        ID3DXEffect* pID3DXEffect = getEffect()->_pID3DXEffect;
+        WallAAPyramidActor::_h_distance_AlphaTarget = pID3DXEffect->GetParameterByName( nullptr, "g_distance_AlphaTarget" );
+        WallAAPyramidActor::_h_wall_dep    = pID3DXEffect->GetParameterByName( nullptr, "g_wall_dep" );
+        WallAAPyramidActor::_h_wall_height = pID3DXEffect->GetParameterByName( nullptr, "g_wall_height" );
+        WallAAPyramidActor::_h_wall_width  = pID3DXEffect->GetParameterByName( nullptr, "g_wall_width" );
+    }
     static volatile bool is_init = WallAAPyramidActor::initStatic(this); //静的メンバ初期化
 }
 
@@ -39,12 +45,6 @@ D3DXHANDLE WallAAPyramidActor::_h_wall_height;
 D3DXHANDLE WallAAPyramidActor::_h_wall_width;
 std::map<int, UINT> WallAAPyramidActor::_delface;
 bool WallAAPyramidActor::initStatic(WallAAPyramidActor* prm_pWallAAPyramidActor) {
-    ID3DXEffect* pID3DXEffect = prm_pWallAAPyramidActor->getEffect()->_pID3DXEffect;
-    WallAAPyramidActor::_h_distance_AlphaTarget = pID3DXEffect->GetParameterByName( nullptr, "g_distance_AlphaTarget" );
-    WallAAPyramidActor::_h_wall_dep    = pID3DXEffect->GetParameterByName( nullptr, "g_wall_dep" );
-    WallAAPyramidActor::_h_wall_height = pID3DXEffect->GetParameterByName( nullptr, "g_wall_height" );
-    WallAAPyramidActor::_h_wall_width  = pID3DXEffect->GetParameterByName( nullptr, "g_wall_width" );
-
     //ピラミッド壁であるならば、形状により無条件で描画不要面がある、
     //    c
     // a b d f

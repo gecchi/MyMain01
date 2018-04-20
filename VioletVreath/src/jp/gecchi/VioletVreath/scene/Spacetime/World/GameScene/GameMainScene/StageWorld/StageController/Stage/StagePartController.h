@@ -3,7 +3,6 @@
 #include "VioletVreath.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
-#include "jp/ggaf/core/GgafFactory.h"
 
 namespace VioletVreath {
 

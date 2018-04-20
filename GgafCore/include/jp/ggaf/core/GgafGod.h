@@ -9,6 +9,12 @@
     #undef __out
 #endif
 
+#ifndef _MSC_VER
+    #include <atomic>
+#endif
+
+#define ORDER_ID_MAX     (0xffffffffffffffffULL)
+
 #undef pGOD
 #define pGOD (GgafCore::GgafGod::_pGod)
 
@@ -48,15 +54,15 @@ public:
     static CRITICAL_SECTION CS2;
     /** [r] 自身 */
     static GgafGod* _pGod;
-    /** [r] 生成工場(別スレッド)のエラー状態。nullptr＝正常稼働中／not nullptr＝異常発生 */
+    /** [r] 生成神(別スレッド)のエラー状態。nullptr＝正常稼働中／not nullptr＝異常発生 */
     static GgafCriticalException* _pException_factory;
     /** [r] 次にこの世を活動させる時間のオフセット */
     static DWORD _aaTime_offset_of_next_view[3][60];
 
-    /** [r] GgafFactory::work スレッドハンドル  */
-    HANDLE _handleFactory01;
-    /** [r] GgafFactory::work スレッドID  */
-    unsigned int _thID01;
+    /** [r] GgafGod::love スレッドハンドル  */
+    HANDLE _handle_god_love01;
+    /** [r] GgafGod::love スレッドID  */
+    unsigned int _th_id01;
     /** [r] 神のフレーム開始システム時間 */
     DWORD _time_at_beginning_frame;
     /** [r] 次にこの世を活動させるシステム時間 */
@@ -95,7 +101,7 @@ public:
 public:
     /**
      * コンストラクタ .
-     * 別スレッドで工場を稼動させます。
+     * 別スレッドで神を稼動させます。
      */
     GgafGod();
 
@@ -166,7 +172,261 @@ public:
     }
 
     virtual ~GgafGod();
+
+
+private:
+    /**
+     * 神にゆりかごを行う（メインスレッドが使用） .
+     * @param prm_cradle_no	ゆりかご番号
+     * @param prm_pFunc	実際に祝福処理を行う関数のポインタ
+     * @param prm_pWisher 望んだ人
+     * @param prm_pReceiver 受け取り予定者
+     * @param prm_pArg1	祝福処理を行う関数への引数1
+     * @param prm_pArg2	祝福処理を行う関数への引数2
+     * @param prm_pArg3	祝福処理を行う関数への引数3
+     */
+    static void createCradle(uint64_t prm_cradle_no,
+                      GgafObject* (*prm_pFunc)(void*, void*, void*),
+                      GgafObject* prm_pWisher,
+                      GgafObject* prm_pReceiver,
+                      void* prm_pArg1,
+                      void* prm_pArg2,
+                      void* prm_pArg3);
+
+    /**
+     * 望んだ命を受け取る（メインスレッドが使用） .
+     * 未祝福だった場合、祝福が完了するまで待つ。<BR>
+     * @param   prm_cradle_no	ゆりかご番号
+     * @param   prm_pReceiver	受取人
+     * @return	命のポインタ
+     */
+    static void* receive(uint64_t prm_cradle_no, GgafObject* prm_pReceiver);
+
+public:
+    /** 先頭のゆりかご */
+    static GgafCradle* ROOT_CRADLE;
+    /** 現在祝福中のゆりかご */
+    static GgafCradle* CREATING_CRADLE;
+    //CREATING_CRADLE は、全て祝福済みの場合、最終ゆりかごを指しつづける
+    //全て祝福済みかつ、ゆりかごが全て引き取られた場合は nullptr になる。
+    //_is_last_cradle_flg == false を常に判定し、最終ゆりかごでなくなったら（新規ゆりかごがあれば）、
+    //祝福を行って次に進める。 _is_last_cradle_flg == false になるまで祝福しつづける
+    // また、先頭と末尾のゆりかごもポインタでつながっている(環状)
+
+    //      ROOT_CRADLE
+    //        ↓
+    //      pCradle <-> pCradle <-> pCradle <-> pCradle <-> pCradle <-> pCradle
+    //     (祝福済)   (祝福済)  （祝福中）  (未着手)   (未着手)   (未着手)
+    //                              ↑                            _is_last_cradle_flg == true
+    //                        CREATING_CRADLE
+    //                    祝福を終えると右に動く  ===>
+    //
+    //prev <------古いゆりかご----------------------------------新しいゆりかご-----> next
+    //                                               ゆりかごは末尾についてくる
+#ifdef _MSC_VER
+    //x86系ならばアトミック性がある・・・・・・・・。
+    /** [r]活動フラグ(神が操作する) */
+    static volatile bool _is_working_flg;
+    /** [r]休むフラグ */
+    static volatile bool _have_to_rest_flg;
+    /** [r]休でいるフラグ */
+    static volatile bool _is_resting_flg;
+    /** [r]完全店終い */
+    static volatile bool _was_finished_flg;
+#else
+    /** [r]活動フラグ(神が操作する) */
+    static volatile std::atomic<bool> _is_working_flg;
+    /** [r]休むフラグ */
+    static volatile std::atomic<bool> _have_to_rest_flg;
+    /** [r]休でいるフラグ */
+    static volatile std::atomic<bool> _is_resting_flg;
+    /** [r]完全店終い */
+    static volatile std::atomic<bool> _was_finished_flg;
+#endif
+public:
+    /**
+     * 神にアクターを祝福してもらうための、ゆりかごをつくる（メインスレッドが使用） .
+     * @tparam X ゆりかごアクターの型
+     * @param prm_cradle_no ゆりかご番号
+     * @param prm_pFunc 実際に祝福処理を行う関数のポインタ
+     * @param prm_pWisher ゆりかご者
+     * @param prm_pReceiver 受取人
+     * @param prm_pArg1 祝福処理を行う関数への引数1
+     * @param prm_pArg2 祝福処理を行う関数への引数2
+     * @param prm_pArg3 祝福処理を行う関数への引数3
+     */
+    template<class X>
+    static void createActorCradle(uint64_t prm_cradle_no,
+                                  X* (*prm_pFunc)(void*, void*, void*),
+                                  GgafObject* prm_pWisher,
+                                  GgafObject* prm_pReceiver,
+                                  void* prm_pArg1,
+                                  void* prm_pArg2,
+                                  void* prm_pArg3) {
+        GgafGod::createCradle(prm_cradle_no, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pWisher, prm_pReceiver, prm_pArg1, prm_pArg2, prm_pArg3);
+    }
+
+    /**
+     * 神にシーン作成（祝福）してもらうための、ゆりかごをつくる（メインスレッドが使用） .
+     * @tparam X ゆりかごシーンの型
+     * @param prm_cradle_no ゆりかご番号
+     * @param prm_pFunc	実際に祝福処理を行う関数のポインタ
+     * @param prm_pWisher ゆりかご者
+     * @param prm_pReceiver 受取人
+     * @param prm_pArg1	祝福処理を行う関数への引数1
+     * @param prm_pArg2	祝福処理を行う関数への引数2
+     * @param prm_pArg3	祝福処理を行う関数への引数3
+     */
+    template<class X>
+    static void createSceneCradle(uint64_t prm_cradle_no,
+                                  X* (*prm_pFunc)(void*, void*, void*),
+                                  GgafObject* prm_pWisher,
+                                  GgafObject* prm_pReceiver,
+                                  void* prm_pArg1,
+                                  void* prm_pArg2,
+                                  void* prm_pArg3) {
+        GgafGod::createCradle(prm_cradle_no, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pWisher, prm_pReceiver, prm_pArg1, prm_pArg2, prm_pArg3);
+    }
+
+    /**
+     * 望んだアクターを受け取る。（メインスレッドが使用） .
+     * メイン処理が呼び出します。<BR>
+     * 未祝福だった場合、祝福が完了するまで待つ。<BR>
+     * @param   prm_cradle_no ゆりかご番号
+     * @param   prm_pReceiver 受取人
+     * @return	生成されたアクターのポインタ
+     */
+    static GgafMainActor* receiveActor2(uint64_t prm_cradle_no, GgafObject* prm_pReceiver);
+
+    /**
+     * 望んだシーンを受け取る。（メインスレッドが使用） .
+     * メイン処理が呼び出します。<BR>
+     * 未祝福だった場合、祝福が完了するまで待つ。<BR>
+     * @param   prm_cradle_no ゆりかご番号
+     * @param   prm_pReceiver 受取人
+     * @return	生成されたシーンのポインタ
+     */
+    static GgafMainScene* receiveScene2(uint64_t prm_cradle_no, GgafObject* prm_pReceiver);
+
+    /**
+     * 望んで、祝福されるまで待って、すぐに受け取る。
+     * @tparam X ゆりかご命の型
+     * @param prm_pFunc
+     * @param prm_pWisher
+     * @param prm_pReceiver
+     * @param prm_pArg1
+     * @param prm_pArg2
+     * @param prm_pArg3
+     * @param prm_org
+     * @return 出来上がった命
+     */
+    template<class X>
+    static X* makeObject(X* (*prm_pFunc)(void*, void*, void*),
+                         GgafObject* prm_pWisher,
+                         GgafObject* prm_pReceiver,
+                         void* prm_pArg1,
+                         void* prm_pArg2,
+                         void* prm_pArg3,
+                         GgafObject* prm_org) {
+        GgafGod::createCradle(ORDER_ID_MAX, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pWisher, prm_pReceiver, prm_pArg1, prm_pArg2, prm_pArg3);
+        return (X*)(GgafGod::receive(ORDER_ID_MAX, prm_org));
+    }
+
+    /**
+     * 望んだ命が出来上がっているか調べる。（メインスレッドが使用） .
+     * @param   prm_cradle_no   ゆりかご番号
+     * @return   ゆりかご番号の命の進捗具合(-2:神自体が動いてない/-1:ゆりかごすらしていない/0:ゆりかご済みで神未着手/1:祝福中/2:祝福済み）
+     */
+    static int chkProgress(uint64_t prm_cradle_no);
+
+    /**
+     * ゆりかごを掃除する（メインスレッドが使用） .
+     * メイン処理の神が呼び出します。<BR>
+     * ROOT_CRADLE が指しているゆりかごの連結リストを全て解放する<BR>
+     * 注意：必ず以下のようにクリティカルセクションで囲んで呼び出してください！。<BR>
+     * ＜コード例＞ <BR>
+     *     BEGIN_SYNCHRONIZED1; // ----->排他開始<BR>
+     * GgafGod::clean();<BR>
+     *     END_SYNCHRONIZED1; // <----- 排他終了<BR>
+     */
+    static void cleanCradle();
+
+    /**
+     * 運命 .
+     * @param prm_pReceiver 授かるはずだった人
+     */
+    static void fate(GgafObject* prm_pReceiver);
+
+    /**
+     * 愛 .
+     * 神（GgafGod）が初期設定時に別スレッドで一度実行され、メソッド内部で無限ループしてます。<BR>
+     * ゆりかごがあれば作成し、ストックします。<BR>
+     * 神が死ぬまで（アプリ終了まで）永遠に愛し続けます。<BR>
+     */
+    static unsigned __stdcall love(void* prm_arg);
+
+    /**
+     * 神一時休止を指示 （メインスレッドが使用） .
+     * しかし呼び出しても直ぐに休止状態になるとは限りません。<BR>
+     * isResting() で完全休止するまで調べる続ける必要があります。<BR>
+     */
+    static void beginRest();
+    /**
+     * 神の状態を取得（メインスレッドが使用） .
+     * @return true=休止状態/false=稼動状態
+     */
+    static bool isResting();
+
+    /**
+     * 神休止の解除を指示 （メインスレッドが使用） .
+     */
+    static void finishRest();
+
+    /**
+     * 祝福する(引数は１つ) .
+     * @tparam X 命の型
+     * @param p1 命生成の為の引数1 (使用される)
+     * @param p2 命生成の為の引数2 (無視される)
+     * @param p3 命生成の為の引数3 (無視される)
+     * @return 生成された命
+     */
+    template<class X>
+    static X* bless(void* p1, void* p2, void* p3) {
+        //p1 : 名称
+        X* p = NEW X((const char*)p1);
+        return p;
+    }
+
+    /**
+     * 祝福する(引数は２つ) .
+     * @tparam X 命の型
+     * @param p1 命生成の為の引数1 (使用される)
+     * @param p2 命生成の為の引数2 (使用される)
+     * @param p3 命生成の為の引数3 (無視される)
+     * @return 生成された命
+     */
+    template<class X>
+    static X* bless2(void* p1, void* p2, void* p3) {
+        //p1 : 名称
+        X* p = NEW X((const char*)p1, (const char*)p2);
+        return p;
+    }
+
+    static void debuginfo();
+
 };
+
+/** シーンを神に望む */
+#define wishScene(ID, CLASS, NAME) (GgafCore::GgafGod::createSceneCradle<CLASS>((ID),GgafCore::GgafGod::bless, this, this, (void*)(NAME),(void*)(nullptr),(void*)(nullptr)))
+/** アクターを神に望む */
+#define wishActor(ID, CLASS, NAME) (GgafCore::GgafGod::createActorCradle<CLASS>((ID),GgafCore::GgafGod::bless, this, this, (void*)(NAME),(void*)(nullptr),(void*)(nullptr)))
+/** 祝福されたアクターを受け取る */
+#define receiveActor(ID) (GgafCore::GgafGod::receiveActor2((ID),this))
+/** 祝福されたシーンを受け取る */
+#define receiveScene(ID) (GgafCore::GgafGod::receiveScene2((ID),this))
+/** 神に望む */
+#define keepWishing(CLASS, NAME) (GgafCore::GgafGod::makeObject<CLASS>(GgafCore::GgafGod::bless, this, this, (void*)(NAME),(void*)(nullptr),(void*)(nullptr),this))
+#define keepWishing2(CLASS, NAME, MODEL) (GgafCore::GgafGod::makeObject<CLASS>(GgafCore::GgafGod::bless2, this, this, (void*)(NAME),(void*)(MODEL),(void*)(nullptr),this))
 
 }
 #endif /*GGAFCORE_GGAFGOD_H_*/

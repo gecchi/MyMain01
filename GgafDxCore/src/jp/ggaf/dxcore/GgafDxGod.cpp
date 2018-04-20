@@ -1,7 +1,6 @@
 #include "jp/ggaf/dxcore/GgafDxGod.h"
 
 #include <algorithm>
-#include "jp/ggaf/core/GgafFactory.h"
 #include "jp/ggaf/dxcore/actor/camera/GgafDxCamera.h"
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
@@ -1882,19 +1881,19 @@ void GgafDxGod::presentSpacetimeVisualize() {
             Sleep(100);
             _TRACE_("【デバイスロスト処理】BEGIN ------>");
 
-            //工場休止
-            _TRACE_("【デバイスロスト処理】工場停止 BEGIN ------>");
-            GgafFactory::beginRest();
+            //愛休止
+            _TRACE_("【デバイスロスト処理】愛停止 BEGIN ------>");
+            GgafGod::beginRest();
             END_SYNCHRONIZED1; // <----- 排他終了
-            for (int i = 0; GgafFactory::isResting() == false; i++) {
-                Sleep(10); //工場が落ち着くまで待つ
+            for (int i = 0; GgafGod::isResting() == false; i++) {
+                Sleep(10); //愛が落ち着くまで待つ
                 if (i > 10*60*100) {
-                    _TRACE_("【デバイスロスト処理/工場停止】 10分待機しましたが、工場から反応がありません。強制breakします。要調査");
+                    _TRACE_("【デバイスロスト処理/愛停止】 10分待機しましたが、愛から反応がありません。強制breakします。要調査");
                     break;
                 }
             }
             BEGIN_SYNCHRONIZED1; // ----->排他開始
-            _TRACE_("【デバイスロスト処理】工場停止 <-------- END");
+            _TRACE_("【デバイスロスト処理】愛停止 <-------- END");
 
             _TRACE_("【デバイスロスト処理】リソース解放 BEGIN ------>");
 
@@ -1992,10 +1991,10 @@ void GgafDxGod::presentSpacetimeVisualize() {
         GgafDxGod::_is_device_lost_flg = false;
         _TRACE_("【デバイスロスト処理】リソース再構築 <-------- END");
 
-        //工場再開
-        _TRACE_("【デバイスロスト処理】工場再起動 BEGIN ------>");
-        GgafFactory::finishRest();
-        _TRACE_("【デバイスロスト処理】工場再起動 <-------- END");
+        //愛再開
+        _TRACE_("【デバイスロスト処理】愛再起動 BEGIN ------>");
+        GgafGod::finishRest();
+        _TRACE_("【デバイスロスト処理】愛再起動 <-------- END");
 
         _TRACE_("【デバイスロスト処理】<-------- END");
 

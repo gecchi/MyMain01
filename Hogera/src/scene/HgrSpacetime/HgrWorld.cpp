@@ -1,6 +1,5 @@
 #include "HgrWorld.h"
 
-#include "jp/ggaf/core/GgafFactory.h"
 #include "jp/ggaf/core/util/GgafLinearQuadtree.h"
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
 #include "scene/HgrSpacetime/HgrWorld/TrialAndErrScene.h"
@@ -25,7 +24,7 @@ HgrWorld::HgrWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
 }
 
 void HgrWorld::initialize() {
-    pTrialAndErrScene_ = createInFactory(TrialAndErrScene, "TrialAndErrScene");
+    pTrialAndErrScene_ = keepWishing(TrialAndErrScene, "TrialAndErrScene");
     addSubLast(pTrialAndErrScene_);
 }
 

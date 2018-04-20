@@ -7,6 +7,7 @@
 #include "jp/ggaf/dxcore/sound/GgafDxBgmConductor.h"
 #include "jp/ggaf/dxcore/sound/GgafDxSound.h"
 #include "../RankUpStageController.h"
+#include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshiRankUp.h"
 #include "jp/gecchi/VioletVreath/actor/background/WorldBound/WorldBoundRankUp.h"
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"

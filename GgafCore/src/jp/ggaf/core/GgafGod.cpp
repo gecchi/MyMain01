@@ -1,7 +1,7 @@
 #include "jp/ggaf/core/GgafGod.h"
 
 #include "jp/ggaf/core/exception/GgafCriticalException.h"
-#include "jp/ggaf/core/GgafFactory.h"
+#include "jp/ggaf/core/GgafCradle.h"
 #include "jp/ggaf/core/GgafGarbageBox.h"
 #include "jp/ggaf/core/GgafConfig.h"
 #include "jp/ggaf/core/scene/GgafSpacetime.h"
@@ -33,15 +33,15 @@ GgafGod::GgafGod() : GgafObject(),
   _fps(0) {
     timeBeginPeriod(1);
     _frame_of_God = 0;
-    _handleFactory01 = (HANDLE)_beginthreadex(nullptr, 0, GgafCore::GgafFactory::work, nullptr, CREATE_SUSPENDED, &_thID01);
+    _handle_god_love01 = (HANDLE)_beginthreadex(nullptr, 0, GgafCore::GgafGod::love, nullptr, CREATE_SUSPENDED, &_th_id01);
 
-    if (_handleFactory01 == 0) {
+    if (_handle_god_love01 == 0) {
         throwGgafCriticalException("Error! スレッド作成失敗！");
     }
     ::InitializeCriticalSection(&(GgafGod::CS1));
     ::InitializeCriticalSection(&(GgafGod::CS2));
-    ::ResumeThread(_handleFactory01);
-    ::SetThreadPriority(_handleFactory01, THREAD_PRIORITY_IDLE);
+    ::ResumeThread(_handle_god_love01);
+    ::SetThreadPriority(_handle_god_love01, THREAD_PRIORITY_IDLE);
     GgafGod::_pGod = this;
     _time_at_beginning_frame = timeGetTime();
     _time_of_next_view = _time_at_beginning_frame;
@@ -118,7 +118,7 @@ void GgafGod::be() {
         _time_calc_fps_next = _time_at_beginning_frame + 1;
     }
 #ifdef MY_DEBUG
-    //工場（別スレッド）例外をチェック
+    //神（別スレッド）例外をチェック
     if (_pException_factory) {
         throw *_pException_factory;
     }
@@ -238,30 +238,30 @@ void GgafGod::clean() {
         _TRACE_(FUNC_NAME<<" start");
         if (_pSpacetime) {
             _TRACE_("_pSpacetime != nullptr");
-            //工場を止める
+            //神を止める
             Sleep(10);
-            GgafFactory::_is_working_flg = false;
-            _TRACE_("GgafGod::~GgafGod() 工場が落ち着くまで待つ・・・");
-            for (int i = 0; GgafFactory::_was_finished_flg == false; i++) {
-                Sleep(10); //工場が落ち着くまで待つ
+            GgafGod::_is_working_flg = false;
+            _TRACE_("GgafGod::~GgafGod() 神が落ち着くまで待つ・・・");
+            for (int i = 0; GgafGod::_was_finished_flg == false; i++) {
+                Sleep(10); //神が落ち着くまで待つ
                 if (i > 10*100*60) {
-                    _TRACE_("GgafGod::~GgafGod() 10分待機しましたが、工場から反応がありません。強制breakします。要調査");
+                    _TRACE_("GgafGod::~GgafGod() 10分待機しましたが、神から反応がありません。強制breakします。要調査");
                     break;
                 }
             }
-            _TRACE_("GgafGod::~GgafGod() 工場が落ち着きました");
+            _TRACE_("GgafGod::~GgafGod() 神が落ち着きました");
             //排他の解除、スレッドが終了するまで待つ
-            _TRACE_("GgafGod::~GgafGod()  WaitForSingleObject(_handleFactory01, 120*1000) .....");
-            DWORD r = WaitForSingleObject(_handleFactory01, 120*1000);  //DeleteCriticalSectionを行うために必要
+            _TRACE_("GgafGod::~GgafGod()  WaitForSingleObject(_handle_god_love01, 120*1000) .....");
+            DWORD r = WaitForSingleObject(_handle_god_love01, 120*1000);  //DeleteCriticalSectionを行うために必要
             if (r == WAIT_TIMEOUT) {
-                throwGgafCriticalException("工場が落ち着いたにもかかわらず、２分たってもスレッドが残っています。");
+                throwGgafCriticalException("神が落ち着いたにもかかわらず、２分たってもスレッドが残っています。");
             }
-            _TRACE_("GgafGod::~GgafGod()  CloseHandle(_handleFactory01) .....");
-            CloseHandle(_handleFactory01);
+            _TRACE_("GgafGod::~GgafGod()  CloseHandle(_handle_god_love01) .....");
+            CloseHandle(_handle_god_love01);
             _TRACE_("GgafGod::~GgafGod()  DeleteCriticalSection(&(GgafGod::CS1)); .....");
             DeleteCriticalSection(&(GgafGod::CS1));
-            _handleFactory01 = nullptr;
-            _TRACE_("GgafGod::~GgafGod() 無事に工場スレッドを終了。クリティカルセクション解除");
+            _handle_god_love01 = nullptr;
+            _TRACE_("GgafGod::~GgafGod() 無事に神スレッドを終了。クリティカルセクション解除");
 
 #ifdef MY_DEBUG
             //ツリー構造表示
@@ -269,9 +269,9 @@ void GgafGod::clean() {
             _pSpacetime->dump();
 #endif
 
-            //工場掃除
+            //神掃除
             _TRACE_(FUNC_NAME<<"");
-            GgafFactory::clean();
+            GgafGod::cleanCradle();
             //ゴミ箱
 #ifdef MY_DEBUG
             _TRACE_("Dumping GgafGarbageBox::_pGarbageBox->_pDisusedScene ...");
@@ -289,7 +289,7 @@ void GgafGod::clean() {
             DeleteCriticalSection(&(GgafGod::CS2));
         }
 
-        //工場例外 _pException_factory が起こっているかもしれない。
+        //神例外 _pException_factory が起こっているかもしれない。
         _TRACE_("GGAF_DELETE_NULLABLE(_pException_factory);");
         GGAF_DELETE_NULLABLE(_pException_factory);
         _TRACE_(FUNC_NAME<<" end");
@@ -302,3 +302,449 @@ GgafGod::~GgafGod() {
     clean();
     _was_cleaned = true;
 }
+
+
+//初期化
+GgafCradle* GgafGod::ROOT_CRADLE = nullptr;
+GgafCradle* GgafGod::CREATING_CRADLE = nullptr;
+#ifdef _MSC_VER
+volatile bool GgafGod::_is_working_flg   = true;
+volatile bool GgafGod::_have_to_rest_flg = false;
+volatile bool GgafGod::_is_resting_flg   = false;
+volatile bool GgafGod::_was_finished_flg = false;
+#else
+volatile std::atomic<bool> GgafGod::_is_working_flg(true);
+volatile std::atomic<bool> GgafGod::_have_to_rest_flg(false);
+volatile std::atomic<bool> GgafGod::_is_resting_flg(false);
+volatile std::atomic<bool> GgafGod::_was_finished_flg(false);
+#endif
+
+GgafMainActor* GgafGod::receiveActor2(uint64_t prm_cradle_no, GgafObject* prm_pReceiver) {
+    return (GgafMainActor*)GgafGod::receive(prm_cradle_no, prm_pReceiver);
+}
+
+GgafMainScene* GgafGod::receiveScene2(uint64_t prm_cradle_no, GgafObject* prm_pReceiver) {
+    return (GgafMainScene*)GgafGod::receive(prm_cradle_no, prm_pReceiver);
+}
+
+
+//このメソッドはメインスレッドが実行する。
+void GgafGod::createCradle(uint64_t prm_cradle_no,
+                        GgafObject* (*prm_pFunc)(void*, void*, void*),
+                        GgafObject* prm_pWisher,
+                        GgafObject* prm_pReceiver,
+                        void* prm_pArg1,
+                        void* prm_pArg2,
+                        void* prm_pArg3) {
+
+    _TRACE2_("＜客:("<<prm_pWisher<<")＞ 別スレッドの神さん、 [" << prm_cradle_no << "-"<<prm_pReceiver<<"]を作っといてや～。");
+    //既に祝福していないかチェック
+    GgafCradle* pCradle = GgafGod::ROOT_CRADLE;
+    while (pCradle) {
+        if (pCradle->_cradle_no == prm_cradle_no &&  pCradle->_pReceiver == prm_pReceiver) {
+            _TRACE_("＜警告＞ GgafGod::createCradle( ちょっと、[" << prm_cradle_no << "-"<<prm_pReceiver<<"]は、２重祝福していますよ！、無視します。意図していますか？");
+            return;
+        }
+        if (pCradle->_is_last_cradle_flg) {
+            break;
+        }
+        pCradle = pCradle->_pCradle_next;
+    }
+    //既は未だであるようなので先頭にストック
+    GgafCradle* pCradle_new;
+    pCradle_new = NEW GgafCradle(prm_cradle_no);
+    pCradle_new->_pObject_creation=nullptr;
+    pCradle_new->_pFunc = prm_pFunc;
+    pCradle_new->_pWisher = prm_pWisher;
+    pCradle_new->_pReceiver = prm_pReceiver;
+    pCradle_new->_time_of_wish = timeGetTime();
+    pCradle_new->_pArg1 = prm_pArg1;
+    pCradle_new->_pArg2 = prm_pArg2;
+    pCradle_new->_pArg3 = prm_pArg3;
+    pCradle_new->_progress = 0;
+    if (GgafGod::ROOT_CRADLE == nullptr) {
+        _TRACE2_("＜客:("<<prm_pWisher<<")＞ あぁ、神は空っきしですね。祝福したら、すぐできるよね？。");
+        pCradle_new->_is_first_cradle_flg = true;
+        pCradle_new->_is_last_cradle_flg = true;
+        pCradle_new->_pCradle_next = pCradle_new;
+        pCradle_new->_pCradle_prev = pCradle_new;
+        GgafGod::ROOT_CRADLE = pCradle_new;
+        GgafGod::CREATING_CRADLE = pCradle_new;
+    } else {
+        _TRACE2_("＜客:("<<prm_pWisher<<")＞ ゆりかごたまってますね、次々ゆりかご恐れ入ります。");
+        pCradle_new->_is_first_cradle_flg = false;
+        pCradle_new->_is_last_cradle_flg = true;
+        GgafCradle* pCradle_last = GgafGod::ROOT_CRADLE->_pCradle_prev;
+        pCradle_last->_is_last_cradle_flg = false;
+        pCradle_last->_pCradle_next = pCradle_new;
+        pCradle_new->_pCradle_prev = pCradle_last;
+        pCradle_new->_pCradle_next = GgafGod::ROOT_CRADLE;
+        GgafGod::ROOT_CRADLE->_pCradle_prev = pCradle_new;
+    }
+}
+
+int GgafGod::chkProgress(uint64_t prm_cradle_no) {
+    GgafCradle* pCradle;
+    pCradle = GgafGod::ROOT_CRADLE;
+    if (pCradle == nullptr) {
+        return -1;
+    }
+    while (GgafGod::_is_working_flg) {
+        if (pCradle->_cradle_no == prm_cradle_no) {
+            return pCradle->_progress;
+        } else {
+            if (pCradle->_is_last_cradle_flg) {
+                return -1;
+            } else {
+                pCradle = pCradle->_pCradle_next;
+            }
+        }
+    }
+    return -2;
+}
+
+void* GgafGod::receive(uint64_t prm_cradle_no, GgafObject* prm_pReceiver) {
+    _TRACE2_("＜受取人:"<< (prm_pReceiver ? prm_pReceiver->toString() : "nullptr") <<"("<<prm_pReceiver<<")＞ まいど、["<<prm_cradle_no<<"-"<<prm_pReceiver<<"]を取りに来ましたよっと。");
+    GgafCradle* pCradle= GgafGod::ROOT_CRADLE;
+    GgafCradle* pCradle_my_next;
+    GgafCradle* pCradle_my_prev;
+    DWORD waittime = 0;
+    void* objectCreation;
+
+    if (pCradle == nullptr) {
+        //ゆりかごが無いよエラー発生！、エラーメッセージを作る。
+        _TRACE_(FUNC_NAME<<" ゆりかごが無いよエラー発生！");
+        GgafGod::debuginfo();
+        throwGgafCriticalException("Error! prm_cradle_no="<<prm_cradle_no<<" ゆりかごリストはnullptrで全て祝福済みしています。\n"
+                                   "orederとobtainの対応が取れていません。\n"
+                                   "受取人(obtain呼び元)="<<(prm_pReceiver ? prm_pReceiver->toString() : "nullptr")<<"("<<prm_pReceiver<<")");
+    }
+
+    //obtainメインループ
+    while (GgafGod::_is_working_flg) {
+        if (pCradle->_cradle_no == prm_cradle_no && (pCradle->_pReceiver == nullptr || pCradle->_pReceiver == prm_pReceiver) ) {
+            while (GgafGod::_is_working_flg) {
+                if (pCradle->_progress < 2) {
+                    _TRACE2_("＜受取人:"<<(prm_pReceiver ? prm_pReceiver->toString() : "nullptr")<<"("<<prm_pReceiver<<")＞ ねぇ神長さん、["<<prm_cradle_no<<"-"<<prm_pReceiver<<"]の祝福まだ～？、5ミリ秒だけ待ったげよう。pCradle->_progress="<<(pCradle->_progress));
+#ifdef _DEBUG
+                    //デバッグ時はタイムアウト無し
+#else
+
+                    if (waittime > 1000*600) { //約10分
+                        _TRACE_(FUNC_NAME<<" タイムアウトエラー発生！");
+                        GgafGod::debuginfo();
+                        //タイムアウトエラー発生！、エラーメッセージを作る。
+                        throwGgafCriticalException("Error! ゆりかご["<<pCradle->getDebuginfo()<<"]の祝福待ち時間タイムアウト、取得できません。\n"
+                                                   "何らかの理由でメインスレッドが停止している可能性が大きいです。"
+                                                   "受取人(obtain呼び元)="<<(prm_pReceiver ? prm_pReceiver->toString() : "nullptr")<<"("<<prm_pReceiver<<")");
+                    } else {
+                    }
+#endif
+                    END_SYNCHRONIZED1; // <----- 排他終了
+                    Sleep(5);
+                    BEGIN_SYNCHRONIZED1; // ----->排他開始
+                    waittime += 5;
+                    if (pCradle->_progress == 1) {
+                        //着手済み
+                        _TRACE_N_("！");
+                        continue; //待つ
+                    } else if (pCradle->_progress == 0) {
+                        //未着手？
+                        pCradle = GgafGod::ROOT_CRADLE; //もう一度最初から探させる。
+                        _TRACE_N_("…");
+                        break;
+                    } else if (pCradle->_progress == 2) {
+                        //完成
+                        pCradle = GgafGod::ROOT_CRADLE; //もう一度最初から探させる。
+                        _TRACE_N_("(^_^)v");
+                        break;
+                    }
+                } else {
+
+#ifdef MY_DEBUG
+                    if (waittime > 0) {
+                        _TRACE_N_("お待たせ！");
+                    }
+#endif
+                    _TRACE2_("＜受取人:"<<(prm_pReceiver ? prm_pReceiver->toString() : "nullptr")<<"("<<prm_pReceiver<<")＞ よ～し、["<<prm_cradle_no<<"-"<<prm_pReceiver<<"]は祝福完了ですね。おおきに！");
+                    if (pCradle->_is_first_cradle_flg && pCradle->_is_last_cradle_flg) {
+                        //最後の一つを obtain
+                        objectCreation = pCradle->_pObject_creation;
+                        pCradle->_pObject_creation = nullptr;
+                        GGAF_DELETE(pCradle);
+                        pCradle = nullptr;
+                        GgafGod::ROOT_CRADLE = nullptr;
+                        GgafGod::CREATING_CRADLE = nullptr;
+                        _TRACE2_("＜受取人:"<<(prm_pReceiver ? prm_pReceiver->toString() : "nullptr")<<"("<<prm_pReceiver<<")＞ あ、ところでもう神は空ですね。暇になったん？、ねぇ？");
+                        return (void*)objectCreation;
+                    } else {
+                        //中間をobtain、鎖を繋ぎ直す。
+                        pCradle_my_next = pCradle->_pCradle_next;
+                        pCradle_my_prev = pCradle->_pCradle_prev;
+                        pCradle_my_prev->_pCradle_next = pCradle_my_next;
+                        pCradle_my_next->_pCradle_prev = pCradle_my_prev;
+                        if (pCradle->_is_last_cradle_flg) {
+                            pCradle_my_prev->_is_last_cradle_flg = true;
+                        }
+                        if (pCradle->_is_first_cradle_flg) {
+                            GgafGod::ROOT_CRADLE = pCradle_my_next;
+                            pCradle_my_next->_is_first_cradle_flg = true;
+                        }
+                        if (GgafGod::CREATING_CRADLE == pCradle) {
+                            GgafGod::CREATING_CRADLE = pCradle_my_next;
+                        }
+                        objectCreation = pCradle->_pObject_creation;
+                        pCradle->_pObject_creation = nullptr;
+                        GGAF_DELETE(pCradle);
+                        pCradle = nullptr;
+
+                        return (void*)objectCreation;
+                    }
+                }
+            }
+        } else {
+            if (pCradle->_is_last_cradle_flg) {
+                _TRACE_(FUNC_NAME<<" ゆりかごの形跡が無い、取得出来ないエラー発生！");
+                GgafGod::debuginfo();
+                //ゆりかごの形跡が無い、取得出来ないエラー発生！、エラーメッセージを作る。
+                throwGgafCriticalException("＜神＞全部探しましたけど、そんなゆりかご("<<(prm_pReceiver ? prm_pReceiver->toString() : "nullptr")<<"さんへの ゆりかご番号:"<<prm_cradle_no<<"-"<<prm_pReceiver<<")は、ありません。\n"
+                                           "oreder() と GgafGod::receive() の対応が取れていません。oreder()漏れ、或いは同じ GgafGod::receive() を２回以上してませんか？。\n"
+                                           "情報：受取人(obtain呼び元)="<<(prm_pReceiver ? prm_pReceiver->toString() : "nullptr")<<"("<<prm_pReceiver<<") でした。\n"
+                                           "（※ちなみに、現在神の最終オーダーは、ゆりかご番号("<<pCradle->_cradle_no<<"-"<<pCradle->_pReceiver<<")で、望んだ人(createCradle(呼び元)=("<<pCradle->_pWisher<<") でした）");
+            } else {
+                pCradle = pCradle->_pCradle_next;
+            }
+        }
+    }
+    if (GgafGod::_pException_factory) {
+        throw *(GgafGod::_pException_factory);
+    }
+    return nullptr;
+}
+
+void GgafGod::beginRest() {
+    _TRACE_(FUNC_NAME<<" ＜神＞神、休憩しなさい");
+    GgafGod::_have_to_rest_flg = true;
+}
+
+bool GgafGod::isResting() {
+    if (GgafGod::_is_resting_flg) {
+        _TRACE_(FUNC_NAME<<" 神休止状態");
+    } else {
+        _TRACE_(FUNC_NAME<<" 神稼働状態");
+    }
+    return GgafGod::_is_resting_flg;
+}
+
+void GgafGod::finishRest() {
+    _TRACE_(FUNC_NAME<<" ＜神＞神、休憩はおしまい。さあ動け！");
+    GgafGod::_have_to_rest_flg = false;
+}
+
+//神にため込んでいる全てのゆりかごを破棄
+//神(GgafGod)がアプリ終了時等に実行する予定。
+void GgafGod::cleanCradle() {
+    _TRACE2_("＜神＞ ゆりかご掃除開始");
+    GgafCradle* pCradle = GgafGod::ROOT_CRADLE;
+    if (pCradle == nullptr) {
+        _TRACE2_("＜神＞ しかし何も無い！！");
+        return;
+    }
+    uint64_t cnt = 0;
+    while (GgafGod::_is_working_flg || GgafGod::_was_finished_flg == false) {
+        Sleep(10);
+        _TRACE_(FUNC_NAME<<" ＜神＞ まだ愛してます・・・");
+        cnt++;
+        if (cnt > 100*60*5) {
+            _TRACE_(FUNC_NAME<<" ＜神＞ まだ愛してます・・・もう待ってられません。強制だ");
+            break;
+        }
+    }
+
+    GgafGod::debuginfo();
+
+    while (true) {
+        if (pCradle->_is_last_cradle_flg) {
+            _TRACE2_("＜神＞ ゆりかご削除["<<pCradle->getDebuginfo()<<"]、最後のストック");
+            GGAF_DELETE(pCradle);
+            pCradle = nullptr;
+            GgafGod::ROOT_CRADLE = nullptr;
+            GgafGod::CREATING_CRADLE = nullptr;
+            break;
+        } else {
+            _TRACE2_("＜神＞ ゆりかご削除["<<pCradle->getDebuginfo()<<"]");
+            GgafCradle* pCradle_my_next = pCradle->_pCradle_next;
+            GGAF_DELETE(pCradle);
+            pCradle = pCradle_my_next;
+        }
+    }
+    _TRACE2_("＜神＞ ゆりかごを掃除完了");
+    return;
+}
+
+void GgafGod::fate(GgafObject* prm_pReceiver) {
+    GgafCradle* pCradle = GgafGod::ROOT_CRADLE;
+    while (pCradle) {
+        if (pCradle->_pReceiver == prm_pReceiver) {
+            if (pCradle->_is_last_cradle_flg && pCradle->_is_first_cradle_flg) {
+                //最後の一つ
+                GGAF_DELETE(pCradle);
+                GgafGod::ROOT_CRADLE = nullptr;
+                GgafGod::CREATING_CRADLE = nullptr;
+                break; //終了
+            } else {
+                //間の場合、ポインタを繋ぎ直す。
+                GgafCradle* pCradle_t_next = pCradle->_pCradle_next;
+                GgafCradle* pCradle_t_prev = pCradle->_pCradle_prev;
+                pCradle_t_prev->_pCradle_next = pCradle_t_next;
+                pCradle_t_next->_pCradle_prev = pCradle_t_prev;
+
+                if (pCradle->_is_last_cradle_flg) {
+                    pCradle_t_prev->_is_last_cradle_flg = true;
+                }
+                if (pCradle->_is_first_cradle_flg) {
+                    GgafGod::ROOT_CRADLE = pCradle_t_next;
+                    pCradle_t_next->_is_first_cradle_flg = true;
+                }
+                if (GgafGod::CREATING_CRADLE == pCradle) {
+                    GgafGod::CREATING_CRADLE = pCradle_t_next;
+                }
+                _TRACE_(FUNC_NAME<<" 受取人("<<prm_pReceiver<<")死亡の為、ゆりかごを削除します。" << pCradle->getDebuginfo() << "");
+                GGAF_DELETE(pCradle);
+                pCradle = pCradle_t_next;
+                continue;
+            }
+        } else {
+            if (pCradle->_is_last_cradle_flg) {
+                break; //終了
+            } else {
+                pCradle = pCradle->_pCradle_next;
+                continue;
+            }
+        }
+    }
+}
+
+void GgafGod::debuginfo() {
+    _TRACE_(FUNC_NAME<<" ＜デバッグ情報＞ 現在の神の状態");
+    try {
+        GgafCradle* p = GgafGod::ROOT_CRADLE;
+        if (p) {
+            while(p) {
+                _TRACE_("・" << p->getDebuginfo() );
+                p = p->_pCradle_next;
+                if (p == GgafGod::ROOT_CRADLE) {
+                    break;
+                }
+            }
+        } else {
+            _TRACE_("・オーダーありません！");
+        }
+    } catch (...) {
+        _TRACE_(FUNC_NAME<<" なんということでしょう。現在の神の状態の表示が不可能です。");
+    }
+    _TRACE_(FUNC_NAME<<" 以上");
+}
+
+unsigned __stdcall GgafGod::love(void* prm_arg) {
+    //_CrtSetBreakAlloc(65854);
+    try {
+        GgafObject* (*func)(void*, void*, void*) = nullptr;
+        GgafObject* pObject = nullptr;
+        Sleep(1000); //god のインスタンスが完成するまでほんのちょっと待つ必要があるかもしれない
+
+        //製品を作りまくる神ループ！
+        while (GgafGod::_is_working_flg) {
+            if (GgafGod::_have_to_rest_flg) {
+                GgafGod::_is_resting_flg = true;
+                Sleep(100);
+                continue;
+            } else {
+                GgafGod::_is_resting_flg = false;
+            }
+
+BEGIN_SYNCHRONIZED1; // ----->排他開始
+            GgafCradle* pCradle_creating = GgafGod::CREATING_CRADLE;
+            if (pCradle_creating) {
+                if (pCradle_creating->_progress == 0) { //未着手ならまず作る
+                    _TRACE2_("＜神＞ よし、ゆりかご["<<pCradle_creating->_cradle_no<<"-"<<pCradle_creating->_pReceiver<<"]は未着手(_progress == "<<pCradle_creating->_progress<<")だな。ゆえに今から作ります！");
+                    pCradle_creating->_progress = 1; //ステータスを祝福中へ
+                    pCradle_creating->_time_of_create_begin = timeGetTime();
+                    func = pCradle_creating->_pFunc;
+                    void* arg1 = pCradle_creating->_pArg1;
+                    void* arg2 = pCradle_creating->_pArg2;
+                    void* arg3 = pCradle_creating->_pArg3;
+                    _TRACE2_("＜神＞ 祝福開始！["<<pCradle_creating->_cradle_no<<"-"<<pCradle_creating->_pReceiver<<"]");
+                    Sleep(2);
+                    END_SYNCHRONIZED1; // <----- 排他終了
+
+                    pObject = (*func)(arg1, arg2, arg3); //製品の祝福！
+
+                    BEGIN_SYNCHRONIZED1; // ----->排他開始
+                    Sleep(2);
+                    _TRACE2_("＜神＞ 祝福完了！品は["<<pCradle_creating->_cradle_no<<"-"<<pCradle_creating->_pReceiver<<"] (^_^)v");
+                    if (GgafGod::CREATING_CRADLE == nullptr) {
+                        //GgafGod::CREATING_CRADLE が祝福後 nullptr になってしまっている場合キャンセル。
+                        _TRACE2_("＜神＞ ガーン！。せっかく作ったのにキャンセルっすか・・・。破棄します。pObjectをdelete!");
+                        GGAF_DELETE(pObject);
+END_SYNCHRONIZED1; // <----- 排他終了
+                        continue;
+                    } else if (GgafGod::CREATING_CRADLE == pCradle_creating) {
+                        //正常なケース
+                        pCradle_creating->_pObject_creation = pObject; //製品登録
+                        pCradle_creating->_progress = 2; //ステータスを祝福済みへ
+                        pCradle_creating->_time_of_create_finish = timeGetTime();
+                        _TRACE2_("＜神＞ 祝福したゆりかごの品["<<pCradle_creating->_cradle_no<<"-"<<pCradle_creating->_pReceiver<<"]を、棚に置いときます。");
+                    }  else if (GgafGod::CREATING_CRADLE != pCradle_creating) {
+                        _TRACE2_("＜神＞ 警告、ゆりかごの品["<<pCradle_creating->_cradle_no<<"-"<<pCradle_creating->_pReceiver<<"]を作っている間に、"
+                                 "CREATING_CRADLE が、別のゆりかご["<<GgafGod::CREATING_CRADLE->_cradle_no<<"-"<<GgafGod::CREATING_CRADLE->_pReceiver<<"]を指していました！壊れてるかもしれません！強制的に元に戻します！要調査！");
+                        GgafGod::CREATING_CRADLE = pCradle_creating; //ポインタ強制戻し
+                        pCradle_creating->_pObject_creation = pObject; //製品登録
+                        pCradle_creating->_progress = 2; //ステータスを祝福済みへ
+                        pCradle_creating->_time_of_create_finish = timeGetTime();
+                        _TRACE2_("＜神＞ 祝福したゆりかごの品["<<pCradle_creating->_cradle_no<<"-"<<pCradle_creating->_pReceiver<<"]を、棚に置いときます・・・。");
+                    }
+                } else {
+                    _TRACE2_("＜神＞ ゆりかご["<<pCradle_creating->_cradle_no<<"-"<<pCradle_creating->_pReceiver<<"]は、もう作って棚に置いてあるし・・・(_progress == "<<pCradle_creating->_progress<<")。");
+                }
+            }
+            if (GgafGod::ROOT_CRADLE == nullptr) {
+                //無条件待機
+                _TRACE2_("＜神＞ 神には何～んもありません。さぁなんでもゆりかご来い来い！！・・・ないのん？。（待機）");
+END_SYNCHRONIZED1; // <----- 排他終了
+                if (GgafGod::_pGod->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX) {
+                    _TRACE2_("＜神＞ さほど忙しくないので、ゴミ箱のゴミを出しとこう。");
+                    GgafGarbageBox::_pGarbageBox->clean(5); //暇なので、ゴミ箱掃除
+                    GgafGarbageBox::_cnt_cleaned = 0;
+                }
+            } else {
+                if (GgafGod::ROOT_CRADLE != nullptr && GgafGod::ROOT_CRADLE->_pCradle_prev->_progress == 0) {
+                    _TRACE2_("＜神＞ ・・・未祝福のゆりかごがある気配。最終目標のゆりかごは["<<GgafGod::ROOT_CRADLE->_pCradle_prev->_cradle_no<<"/受取人="<<GgafGod::ROOT_CRADLE->_pCradle_prev->_pReceiver<<"]なのか？。");
+                    GgafGod::CREATING_CRADLE = GgafGod::CREATING_CRADLE->_pCradle_next;
+END_SYNCHRONIZED1; // <----- 排他終了
+                } else {
+                    _TRACE2_("＜神＞ さて、未祝福ゆりかごは無し。棚に祝福済のんがたまってるのを早く取に来い来い！。（待機）");
+END_SYNCHRONIZED1; // <----- 排他終了
+                    if (GgafGod::_pGod->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX) {
+                        _TRACE2_("＜神＞ さほど忙しくないさそうなので、ゴミ箱のゴミを出しとこうか。");
+                        GgafGarbageBox::_pGarbageBox->clean(5); //暇なので、ゴミ箱掃除
+                        GgafGarbageBox::_cnt_cleaned = 0;
+                    }
+                }
+            }
+            Sleep(2);
+        } // <-- while (GgafGod::_is_working_flg)
+        _TRACE2_("＜神＞ 神はこれにて店じまいです。さようなら、また会いましょう。");
+        GgafGod::_was_finished_flg = true;
+    } catch (GgafCriticalException& e) {
+        GgafGod::debuginfo();
+        _TRACE_("＜神例外＞ 私としたことがすみません；"<<e.getMsg());
+        GgafGod::_is_working_flg = false;
+        GgafGod::_was_finished_flg = true;
+        GgafGod::_pException_factory = NEW GgafCriticalException(e.getMsg());
+        return 1;
+    }
+    return 0;
+}
+
+

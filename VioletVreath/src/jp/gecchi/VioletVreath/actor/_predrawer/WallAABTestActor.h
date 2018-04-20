@@ -8,6 +8,7 @@ namespace VioletVreath  {
 
 
 /**
+ * ＜削除予定＞
  * プリロード用テストアクター .
  * @version 1.00
  * @since 2011/04/18

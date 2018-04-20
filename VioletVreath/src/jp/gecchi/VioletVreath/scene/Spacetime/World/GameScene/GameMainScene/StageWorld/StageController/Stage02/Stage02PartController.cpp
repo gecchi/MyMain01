@@ -2,6 +2,7 @@
 
 #include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/ggaf/dxcore/sound/GgafDxBgmConductor.h"
+#include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "../Stage02.h"
@@ -21,9 +22,6 @@ enum {
 
 Stage02PartController::Stage02PartController(const char* prm_name) : StagePartController(prm_name) {
     _class_name = "Stage02PartController";
-    getBgmConductor()->ready(0, "OGG_BGM_01_01");
-    getBgmConductor()->ready(1, "OGG_BGM_01_02");
-    getBgmConductor()->ready(2, "OGG_BGM_01_03");
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
@@ -31,7 +29,7 @@ Stage02PartController::Stage02PartController(const char* prm_name) : StagePartCo
     _paFrame_NextEvent = new frame[4];
     memcpy(_paFrame_NextEvent, f, sizeof(f));
     _event_num = 4;
-    orderSceneToFactory(60000000, Stage02_01, "Stage02_01-60000000");
+    wishScene(70000000, Stage02_01, "Stage02_01-70000000");
     // gen01 end
     useProgress(PROG_BANPEI);
 }
@@ -50,20 +48,17 @@ void Stage02PartController::processBehavior() {
                 break;
             }
             case 3: {
-                Stage02_01* pScene = (Stage02_01*)obtainSceneFromFactory(60000000);
+                Stage02_01* pScene = (Stage02_01*)receiveScene(70000000);
                 addSubLast(pScene);
-                _pConductor->performFromTheBegining(0);
                 break;
             }
             case 2100: {
-                orderSceneToFactory(60000001, Stage02_Climax, "Stage02_Climax-60000001");
+                wishScene(70000001, Stage02_Climax, "Stage02_Climax-70000001");
                 break;
             }
             case 3000: {
-                Stage02_Climax* pScene = (Stage02_Climax*)obtainSceneFromFactory(60000001);
+                Stage02_Climax* pScene = (Stage02_Climax*)receiveScene(70000001);
                 addSubLast(pScene);
-                _pConductor->fadeoutStop(0, 120);
-                _pConductor->performFromTheBegining(1);
                 break;
             }
             default :

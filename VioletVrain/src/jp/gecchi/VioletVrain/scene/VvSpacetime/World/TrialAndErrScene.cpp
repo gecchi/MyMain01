@@ -1,6 +1,5 @@
 #include "TrialAndErrScene.h"
 
-#include "jp/ggaf/core/GgafFactory.h"
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
 #include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/gecchi/VioletVrain/scene/VvSpacetime/World.h"
@@ -22,8 +21,8 @@ enum {
 
 TrialAndErrScene::TrialAndErrScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "TrialAndErrScene";
-    orderActorToFactory(10000, Test01, "Test01");
-    orderActorToFactory(10001, Jiki, "Jiki");
+    wishActor(10000, Test01, "Test01");
+    wishActor(10001, Jiki, "Jiki");
 }
 
 void TrialAndErrScene::initialize() {
@@ -40,11 +39,11 @@ void TrialAndErrScene::processBehavior() {
 //        XXX->sayonara(2);
 
 
-        Test01* pTest = (Test01*)obtainActorFromFactory(10000);
+        Test01* pTest = (Test01*)receiveActor(10000);
         pTest->setPosition(0,0,0);
         bringSceneMediator()->addSubGroup(VV_MIKATA, pTest);
 
-        Jiki* pJiki = (Jiki*)obtainActorFromFactory(10001);
+        Jiki* pJiki = (Jiki*)receiveActor(10001);
         pJiki->setPosition(PX_C(200), PX_C(200),0);
         bringSceneMediator()->addSubGroup(VV_TEKI, pJiki);
 

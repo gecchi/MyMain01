@@ -6,6 +6,7 @@
 namespace VioletVreath {
 
 /**
+ * ＜削除予定＞
  * ステージ01の壁セクション(種別001) .
  * @version 1.00
  * @since 2010/08/18

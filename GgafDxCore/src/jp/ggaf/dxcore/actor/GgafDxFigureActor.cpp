@@ -68,6 +68,17 @@ _pAlphaFader(nullptr)
     _specal_render_depth_index = -1;
     _zenable = true;
     _zwriteenable = true;
+    if (_pModelCon->chkFirstConnectionIs(this) ) {
+        _is_first_model_connector = true;
+    } else {
+        _is_first_model_connector = false;
+    }
+    if (_pEffectCon->chkFirstConnectionIs(this) ) {
+        _is_first_effect_connector = true;
+    } else {
+        _is_first_effect_connector = false;
+    }
+
 }
 
 GgafDxFigureActor::GgafDxFigureActor(const char* prm_name,

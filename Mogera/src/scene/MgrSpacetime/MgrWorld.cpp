@@ -1,6 +1,5 @@
 #include "MgrWorld.h"
 
-#include "jp/ggaf/core/GgafFactory.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 #include "scene/MgrSpacetime/MgrWorld/TrialAndErrScene.h"
 #include "scene/MgrSpacetime.h"
@@ -18,7 +17,7 @@ MgrWorld::MgrWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
 }
 
 void MgrWorld::initialize() {
-    pTrialAndErrScene_ = createInFactory(TrialAndErrScene, "TrialAndErrScene");
+    pTrialAndErrScene_ = keepWishing(TrialAndErrScene, "TrialAndErrScene");
     addSubLast(pTrialAndErrScene_);
 
 }

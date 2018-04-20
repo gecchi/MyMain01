@@ -6,6 +6,7 @@
 namespace VioletVreath  {
 
 /**
+ * ƒíœ—\’è„
  * •ÇƒuƒƒbƒN‚»‚Ì‚P
  * @version 1.00
  * @since 2010/11/08
