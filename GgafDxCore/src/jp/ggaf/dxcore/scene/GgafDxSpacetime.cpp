@@ -180,14 +180,14 @@ void GgafDxSpacetime::draw() {
     IDirect3DDevice9* const pDevice = GgafDxGod::_pID3DDevice9;
 
     //ここで、全 Model に対してGgafDxTextureBlinkerの状態を進行させる
-    GgafDxModelConnection* pModelCon = GgafDxGod::_pModelManager->getFirstConnection();
+    GgafDxModelConnection* pModelCon = pGOD->_pModelManager->getFirstConnection();
     while (pModelCon) {
         pModelCon->peek()->_pTexBlinker->behave();
         pModelCon = (GgafDxModelConnection*)(pModelCon->getNext());
     }
 
     //ここで、全 Effect に対してVew変換行列を設定するようにする
-    GgafDxGod::_pEffectManager->setParamPerFrameAll();
+    pGOD->_pEffectManager->setParamPerFrameAll();
 
     //段階レンダリング描画
     //描画順アクターリストを構築

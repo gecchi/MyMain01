@@ -149,13 +149,13 @@ public:
     ////////////////////////////////////////////////////////////
 
     /** モデル(GgafDxModel)資源管理者 */
-    static GgafDxModelManager* _pModelManager;
+    GgafDxModelManager* _pModelManager;
     /** エフェクト(GgafDxEffect)資源管理者 */
-    static GgafDxEffectManager* _pEffectManager;
+    GgafDxEffectManager* _pEffectManager;
     /** 環境マップ用テクスチャー(GgafDxTexture)資源管理者。（※通常のテクスチャはGgafDxModelの内部管理） */
-    static GgafDxTextureManager* _pCubeMapTextureManager;
+    GgafDxTextureManager* _pCubeMapTextureManager;
     /** バンプマップ用テクスチャー(GgafDxTexture)資源管理者。（※通常のテクスチャはGgafDxModelの内部管理） */
-    static GgafDxTextureManager* _pBumpMapTextureManager;
+    GgafDxTextureManager* _pBumpMapTextureManager;
     /** [r] 1画面目のウィンドウハンドル  */
     static HWND _pHWndPrimary;
     /** [r] 2画面目のウィンドウハンドル  */

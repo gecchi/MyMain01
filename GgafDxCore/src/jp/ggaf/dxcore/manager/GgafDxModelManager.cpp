@@ -55,18 +55,17 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxModel* GgafDxModelManager::_pModelLastDraw = nullptr;
-ID3DXFile* GgafDxModelManager::_pID3DXFile_sprx = nullptr;
-ID3DXFile* GgafDxModelManager::_pID3DXFile_psprx = nullptr;
-GgafDxTextureManager* GgafDxModelManager::_pModelTextureManager = nullptr;
+//ID3DXFile* GgafDxModelManager::_pID3DXFile_sprx = nullptr;
+//ID3DXFile* GgafDxModelManager::_pID3DXFile_psprx = nullptr;
+//GgafDxTextureManager* GgafDxModelManager::_pModelTextureManager = nullptr;
 
 GgafDxModelManager::GgafDxModelManager(const char* prm_manager_name) :
     GgafResourceManager<GgafDxModel> (prm_manager_name) {
-
     //テクスチャマネジャー
-    GgafDxModelManager::_pModelTextureManager = NEW GgafDxTextureManager("GgafDxTextureManager");
+    _pModelTextureManager = NEW GgafDxTextureManager("GgafDxTextureManager");
     //板ポリゴンモデル定義ファイル(拡張子sprx)のフォーマット定義
     HRESULT hr;
-    D3DXFileCreate( &GgafDxModelManager::_pID3DXFile_sprx );
+    D3DXFileCreate( &_pID3DXFile_sprx );
     static const char* sprite_model_xfile_template =
     "xof 0303txt 0032\n" \
     "template SpriteDef {" \
@@ -78,7 +77,7 @@ GgafDxModelManager::GgafDxModelManager(const char* prm_manager_name) :
     "   DWORD  TextureSplitCols;" \
     "}";
 
-    hr = GgafDxModelManager::_pID3DXFile_sprx->RegisterTemplates(sprite_model_xfile_template, (DWORD)(strlen(sprite_model_xfile_template)));
+    hr = _pID3DXFile_sprx->RegisterTemplates(sprite_model_xfile_template, (DWORD)(strlen(sprite_model_xfile_template)));
 #ifdef MY_DEBUG
     if(hr != S_OK) {
         throwGgafCriticalException("RegisterTemplatesに失敗しました。sprite_model_xfile_template を確認して下さい。");
@@ -86,7 +85,7 @@ GgafDxModelManager::GgafDxModelManager(const char* prm_manager_name) :
 #endif
 
     //ポイントスプライト定義ファイル(拡張子psprx)のフォーマット定義
-    D3DXFileCreate( &GgafDxModelManager::_pID3DXFile_psprx );
+    D3DXFileCreate( &_pID3DXFile_psprx );
     static const char* pointsprite_model_xfile_template =
             "xof 0303txt 0032\n" \
             "template Vector {\n" \
@@ -114,7 +113,7 @@ GgafDxModelManager::GgafDxModelManager(const char* prm_manager_name) :
             "  array  FLOAT     InitScale[VerticesNum];\n" \
             "}\n" \
             "\n";
-    hr = GgafDxModelManager::_pID3DXFile_psprx->RegisterTemplates(pointsprite_model_xfile_template, (DWORD)(strlen(pointsprite_model_xfile_template)));
+    hr = _pID3DXFile_psprx->RegisterTemplates(pointsprite_model_xfile_template, (DWORD)(strlen(pointsprite_model_xfile_template)));
 #ifdef MY_DEBUG
     if(hr != S_OK) {
         throwGgafCriticalException("RegisterTemplatesに失敗しました。\""<<CONFIG::DIR_SPRITE_MODEL[0]<<"ggaf_pointspritemodel_define.x\"を確認して下さい。");
@@ -442,10 +441,10 @@ void GgafDxModelManager::obtainSpriteInfo(SpriteXFileFmt* pSpriteFmt_out, std::s
     //    DWORD  TextureSplitCols;
     // }
     ID3DXFileEnumObject* pID3DXFileEnumObject;
-    HRESULT hr = GgafDxModelManager::_pID3DXFile_sprx->CreateEnumObject(
-                                                         (void*)prm_sprite_x_filename.c_str(),
-                                                         D3DXF_FILELOAD_FROMFILE,
-                                                         &pID3DXFileEnumObject);
+    HRESULT hr = _pID3DXFile_sprx->CreateEnumObject(
+                                     (void*)prm_sprite_x_filename.c_str(),
+                                     D3DXF_FILELOAD_FROMFILE,
+                                     &pID3DXFileEnumObject);
     checkDxException(hr, S_OK, "'"<<prm_sprite_x_filename<<"' のCreateEnumObjectに失敗しました。sprxファイルのフォーマットを確認して下さい。");
     //TODO:GUIDなんとかする。今は完全無視。
     //const GUID PersonID_GUID ={ 0xB2B63407,0x6AA9,0x4618, 0x95, 0x63, 0x63, 0x1E, 0xDC, 0x20, 0x4C, 0xDE};
@@ -476,7 +475,7 @@ void GgafDxModelManager::obtainPointSpriteInfo(PointSpriteXFileFmt* pPointSprite
     //スプライト情報読込みテンプレートの登録(初回実行時のみ)
     ID3DXFileEnumObject* pID3DXFileEnumObject;
     ID3DXFileData* pID3DXFileData = nullptr;
-    HRESULT hr = GgafDxModelManager::_pID3DXFile_psprx->CreateEnumObject((void*)prm_point_sprite_x_filename.c_str(), D3DXF_FILELOAD_FROMFILE, &pID3DXFileEnumObject);
+    HRESULT hr = _pID3DXFile_psprx->CreateEnumObject((void*)prm_point_sprite_x_filename.c_str(), D3DXF_FILELOAD_FROMFILE, &pID3DXFileEnumObject);
     checkDxException(hr, S_OK, "'"<<prm_point_sprite_x_filename<<"' のCreateEnumObjectに失敗しました。psprx ファイルのフォーマットを確認して下さい。");
 
     //TODO:GUIDなんとかする。今は完全無視。
@@ -566,9 +565,9 @@ GgafResourceConnection<GgafDxModel>* GgafDxModelManager::processCreateConnection
 
 GgafDxModelManager::~GgafDxModelManager() {
     _TRACE3_("start-->");
-    GGAF_RELEASE(GgafDxModelManager::_pID3DXFile_sprx);
-    GGAF_RELEASE(GgafDxModelManager::_pID3DXFile_psprx);
-    GGAF_DELETE(GgafDxModelManager::_pModelTextureManager);
+    GGAF_RELEASE(_pID3DXFile_sprx);
+    GGAF_RELEASE(_pID3DXFile_psprx);
+    GGAF_DELETE(_pModelTextureManager);
     _TRACE3_("するけども、ここでは既に何も解放するものがないはずです");
     releaseAll();
 }

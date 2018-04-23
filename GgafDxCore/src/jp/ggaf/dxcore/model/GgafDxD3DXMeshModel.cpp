@@ -137,6 +137,7 @@ HRESULT GgafDxD3DXMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_
 
 void GgafDxD3DXMeshModel::restore() {
     _TRACE3_("_model_name=" << _model_name << " start");
+    GgafDxModelManager* pModelManager = pGOD->_pModelManager;
     //【restoreD3DXMeshModel再構築（＝初期化）処理概要】
     //1)D3DXLoadMeshFromXを使用してXファイルを読み込む
     //2)GgafDxD3DXMeshModelのメンバにセット
@@ -205,10 +206,10 @@ void GgafDxD3DXMeshModel::restore() {
     for ( DWORD i = 0; i < num_materials; i++) {
         texture_filename = paD3DMaterial9_tmp[i].pTextureFilename;
         if (texture_filename != nullptr && lstrlen(texture_filename) > 0 ) {
-            papTextureConnection[i] = (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(texture_filename, this));
+            papTextureConnection[i] = (GgafDxTextureConnection*)(pModelManager->_pModelTextureManager->connect(texture_filename, this));
         } else {
             //テクスチャ無し
-            papTextureConnection[i] = (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(CONFIG::WHITE_TEXTURE.c_str(), this));
+            papTextureConnection[i] = (GgafDxTextureConnection*)(pModelManager->_pModelTextureManager->connect(CONFIG::WHITE_TEXTURE.c_str(), this));
         }
     }
     GGAF_RELEASE(pID3DXBuffer);//テクスチャファイル名はもういらないのでバッファ解放

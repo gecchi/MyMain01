@@ -130,18 +130,19 @@ HRESULT GgafDxSpriteModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_dr
 
 void GgafDxSpriteModel::restore() {
     _TRACE3_("_model_name=" << _model_name << " start");
+    GgafDxModelManager* pModelManager = pGOD->_pModelManager;
     _papTextureConnection = nullptr;
     HRESULT hr;
     std::string xfile_name = GgafDxModelManager::getSpriteFileName(_model_name);
     GgafDxModelManager::SpriteXFileFmt xdata;
-    GgafDxModelManager::obtainSpriteInfo(&xdata, xfile_name);
+    pModelManager->obtainSpriteInfo(&xdata, xfile_name);
     _model_width_px = xdata.width;
     _model_height_px =  xdata.height;
     _row_texture_split = xdata.row_texture_split;
     _col_texture_split = xdata.col_texture_split;
 
     //テクスチャ取得しモデルに保持させる
-    GgafDxTextureConnection* model_pTextureConnection = (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(xdata.texture_file, this));
+    GgafDxTextureConnection* model_pTextureConnection = (GgafDxTextureConnection*)(pModelManager->_pModelTextureManager->connect(xdata.texture_file, this));
 
     //テクスチャの参照を保持させる。
     _papTextureConnection = NEW GgafDxTextureConnection*[1];

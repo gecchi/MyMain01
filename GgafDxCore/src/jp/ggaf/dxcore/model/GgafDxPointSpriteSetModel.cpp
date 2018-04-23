@@ -125,6 +125,7 @@ HRESULT GgafDxPointSpriteSetModel::draw(GgafDxFigureActor* prm_pActor_target, in
 
 void GgafDxPointSpriteSetModel::restore() {
     _TRACE3_("_model_name=" << _model_name << " start");
+    GgafDxModelManager* pModelManager = pGOD->_pModelManager;
     HRESULT hr;
     if (!_paVtxBuffer_data) {
 
@@ -149,7 +150,7 @@ void GgafDxPointSpriteSetModel::restore() {
 //            throwGgafCriticalException("ポイントスプライト定義ファイル(*.psprx)が見つかりません。model_name="<<(_model_name));
 //        }
         GgafDxModelManager::PointSpriteXFileFmt xdata;
-        GgafDxModelManager::obtainPointSpriteInfo(&xdata, xfile_name);
+        pModelManager->obtainPointSpriteInfo(&xdata, xfile_name);
 
         //マテリアル定義が１つも無いので、描画のために無理やり１つマテリアルを作成。
         setMaterial();
@@ -160,7 +161,7 @@ void GgafDxPointSpriteSetModel::restore() {
         if (!_papTextureConnection) {
             _papTextureConnection = NEW GgafDxTextureConnection*[1];
             _papTextureConnection[0] =
-                (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(_pa_texture_filenames[0].c_str(), this));
+                (GgafDxTextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[0].c_str(), this));
             GgafDxTexture* pTex = _papTextureConnection[0]->peek();
             float tex_width  = (float)(pTex->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
             float tex_height = (float)(pTex->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)幅と同じになる
@@ -250,7 +251,7 @@ void GgafDxPointSpriteSetModel::restore() {
         _num_materials = 1;
         _papTextureConnection = NEW GgafDxTextureConnection*[1];
         _papTextureConnection[0] =
-            (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(_pa_texture_filenames[0].c_str(), this));
+            (GgafDxTextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[0].c_str(), this));
         GgafDxTexture* pTex = _papTextureConnection[0]->peek();
         float tex_width  = (float)(pTex->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
         float tex_height = (float)(pTex->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)幅と同じになる

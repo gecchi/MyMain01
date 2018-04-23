@@ -84,16 +84,16 @@ public:
         }
     };
 
-    static GgafDxTextureManager* _pModelTextureManager;
+    GgafDxTextureManager* _pModelTextureManager;
     /** カスタムテンプレートXファイル読み込み用の ID3DXFile のポインタ */
-    static ID3DXFile* _pID3DXFile_sprx;
-    static ID3DXFile* _pID3DXFile_psprx;
+    ID3DXFile* _pID3DXFile_sprx;
+    ID3DXFile* _pID3DXFile_psprx;
     static std::string getMeshFileName(std::string prm_model_name);
     static std::string getSpriteFileName(std::string prm_model_name);
     static std::string getPointSpriteFileName(std::string prm_model_name);
 
-    static void obtainSpriteInfo(SpriteXFileFmt* pSpriteFmt_out, std::string prm_sprite_x_filename);
-    static void obtainPointSpriteInfo(PointSpriteXFileFmt* pPointSpriteFmt_out, std::string prm_point_sprite_x_filename);
+    void obtainSpriteInfo(SpriteXFileFmt* pSpriteFmt_out, std::string prm_sprite_x_filename);
+    void obtainPointSpriteInfo(PointSpriteXFileFmt* pPointSpriteFmt_out, std::string prm_point_sprite_x_filename);
 public:
     /**
      * コンストラクタ

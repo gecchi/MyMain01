@@ -8,11 +8,16 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 
-
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
+
+D3DXHANDLE HoshiBoshi::h_fX_MyShip_;
+D3DXHANDLE HoshiBoshi::h_fY_MyShip_;
+D3DXHANDLE HoshiBoshi::h_fZ_MyShip_;
+D3DXHANDLE HoshiBoshi::h_far_rate_;
+coord HoshiBoshi::CAM_ZF_;
 
 HoshiBoshi::HoshiBoshi(const char* prm_name, const char* prm_model_id) :
         GgafDxPointSpriteActor(prm_name,
@@ -40,12 +45,6 @@ HoshiBoshi::HoshiBoshi(const char* prm_name, const char* prm_model_id) :
     static volatile bool is_init = HoshiBoshi::initStatic(this); //Ã“Iƒƒ“ƒo‰Šú‰»
 }
 
-
-D3DXHANDLE HoshiBoshi::h_fX_MyShip_;
-D3DXHANDLE HoshiBoshi::h_fY_MyShip_;
-D3DXHANDLE HoshiBoshi::h_fZ_MyShip_;
-D3DXHANDLE HoshiBoshi::h_far_rate_;
-coord HoshiBoshi::CAM_ZF_;
 bool HoshiBoshi::initStatic(HoshiBoshi* prm_pHoshiBoshi) {
     HoshiBoshi::CAM_ZF_ = ABS(DX_C(pGOD->getSpacetime()->getCamera()->getZFar()));
     return true;

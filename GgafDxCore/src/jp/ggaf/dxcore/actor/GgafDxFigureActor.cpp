@@ -32,7 +32,7 @@ GgafDxFigureActor::GgafDxFigureActor(const char* prm_name,
                                                               prm_pChecker),
 _pModelCon(
     (GgafDxModelConnection*)(
-        GgafDxGod::_pModelManager->connect(
+        pGOD->_pModelManager->connect(
             std::string(prm_model).c_str(), this
         )
     )
@@ -40,7 +40,7 @@ _pModelCon(
 _pModel((GgafDxModel*)_pModelCon->peek()),
 _pEffectCon(
     (GgafDxEffectConnection*)(
-        GgafDxGod::_pEffectManager->connect(
+        pGOD->_pEffectManager->connect(
             std::string(prm_effect).c_str(), this
         )
     )
@@ -95,7 +95,7 @@ GgafDxFigureActor::GgafDxFigureActor(const char* prm_name,
                                                               prm_pChecker),
 _pModelCon(
     (GgafDxModelConnection*)(
-        GgafDxGod::_pModelManager->connect(
+        pGOD->_pModelManager->connect(
             (std::string(prm_model_type) + "/" + std::string(prm_model_id)).c_str(), this
         )
     )
@@ -103,7 +103,7 @@ _pModelCon(
 _pModel((GgafDxModel*)_pModelCon->peek()),
 _pEffectCon(
     (GgafDxEffectConnection*)(
-        GgafDxGod::_pEffectManager->connect(
+        pGOD->_pEffectManager->connect(
             (std::string(prm_effect_type) + "/" + std::string(prm_effect_id)).c_str(), this
         )
     )
@@ -131,6 +131,16 @@ _pAlphaFader(nullptr)
     _specal_render_depth_index = -1;
     _zenable = true;
     _zwriteenable = true;
+    if (_pModelCon->chkFirstConnectionIs(this) ) {
+        _is_first_model_connector = true;
+    } else {
+        _is_first_model_connector = false;
+    }
+    if (_pEffectCon->chkFirstConnectionIs(this) ) {
+        _is_first_effect_connector = true;
+    } else {
+        _is_first_effect_connector = false;
+    }
 }
 
 GgafDxAlphaFader* GgafDxFigureActor::getAlphaFader() {

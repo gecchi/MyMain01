@@ -66,6 +66,7 @@ void GgafDxMassMeshModel::createVertexModel(void* prm, GgafDxMassModel::VertexMo
 
 void GgafDxMassMeshModel::restore() {
     _TRACE3_("_model_name=" << _model_name << " start");
+    GgafDxModelManager* pModelManager = pGOD->_pModelManager;
     HRESULT hr;
     if (!_paVtxBuffer_data_model) {
         // _model_name Ç…ÇÕ "xxxxxx" or "8/xxxxx" Ç™ÅAìnÇ¡ÇƒÇ≠ÇÈÅB
@@ -211,7 +212,7 @@ void GgafDxMassMeshModel::restore() {
         _papTextureConnection = NEW GgafDxTextureConnection*[_num_materials];
         for (DWORD n = 0; n < _num_materials; n++) {
             _papTextureConnection[n] =
-                    (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(_pa_texture_filenames[n].c_str(), this));
+                    (GgafDxTextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[n].c_str(), this));
         }
     }
 

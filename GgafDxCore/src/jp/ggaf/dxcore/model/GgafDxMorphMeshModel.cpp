@@ -190,10 +190,9 @@ void GgafDxMorphMeshModel::restore() {
     //　　　　・マテリアル配列(要素数＝マテリアル数。プライマリメッシュのみ)
     //　　　　・テクスチャ配列(要素数＝マテリアル数。プライマリメッシュのみ)
     //　　　　・DrawIndexedPrimitive用引数配列(要素数＝マテリアルリストが変化した数。プライマリメッシュのみ)
+    GgafDxModelManager* pModelManager = pGOD->_pModelManager;
     int morph_target_num = _morph_target_num;
-
     std::string* paXfileName = NEW std::string[morph_target_num+1];
-
     for (int i = 0; i < morph_target_num+1; i++) {
         char* xfilename_base = _model_name + 2; //２文字目以降  "2/ceres" → "ceres"
         paXfileName[i] = GgafDxModelManager::getMeshFileName(std::string(xfilename_base) + "_" + (char)('0'+i));
@@ -542,7 +541,7 @@ void GgafDxMorphMeshModel::restore() {
         _papTextureConnection = NEW GgafDxTextureConnection*[_num_materials];
         for (DWORD n = 0; n < _num_materials; n++) {
             _papTextureConnection[n] =
-                    (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(_pa_texture_filenames[n].c_str(), this));
+                    (GgafDxTextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[n].c_str(), this));
         }
     }
 

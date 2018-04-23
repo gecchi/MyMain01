@@ -17,12 +17,12 @@ void GgafDxIBumpMapActor::setBumpMapTexture(const char* prm_bumpmap_tex) {
     if (_pBumpMapTextureConnection) {
         _pBumpMapTextureConnection->close();
     }
-    _pBumpMapTextureConnection = (GgafDxTextureConnection*)(GgafDxGod::_pBumpMapTextureManager->connect(_bumpmap_tex,this));
+    _pBumpMapTextureConnection = (GgafDxTextureConnection*)(pGOD->_pBumpMapTextureManager->connect(_bumpmap_tex,this));
 }
 
 IDirect3DBaseTexture9* GgafDxIBumpMapActor::getBumpMapTexture() {
     if (!_pBumpMapTextureConnection) {
-        _pBumpMapTextureConnection = (GgafDxTextureConnection*)(GgafDxGod::_pBumpMapTextureManager->connect("alpha_zero_cubemap.dds",this));
+        _pBumpMapTextureConnection = (GgafDxTextureConnection*)(pGOD->_pBumpMapTextureManager->connect("alpha_zero_cubemap.dds",this));
     }
     return _pBumpMapTextureConnection->peek()->_pIDirect3DBaseTexture9;
 }

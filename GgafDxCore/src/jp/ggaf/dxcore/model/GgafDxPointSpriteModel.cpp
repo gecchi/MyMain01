@@ -113,11 +113,12 @@ HRESULT GgafDxPointSpriteModel::draw(GgafDxFigureActor* prm_pActor_target, int p
 
 void GgafDxPointSpriteModel::restore() {
     _TRACE3_("_model_name="<<_model_name);
+    GgafDxModelManager* pModelManager = pGOD->_pModelManager;
     _papTextureConnection = nullptr;
     HRESULT hr;
     std::string xfile_name = GgafDxModelManager::getPointSpriteFileName(_model_name);
     GgafDxModelManager::PointSpriteXFileFmt pointsprite_info;
-    GgafDxModelManager::obtainPointSpriteInfo(&pointsprite_info, xfile_name);
+    pModelManager->obtainPointSpriteInfo(&pointsprite_info, xfile_name);
     //退避
     float square_size_px = pointsprite_info.SquareSize;
     int texture_split_rowcol = pointsprite_info.TextureSplitRowCol;
@@ -128,7 +129,7 @@ void GgafDxPointSpriteModel::restore() {
 
     //テクスチャ取得しモデルに保持させる
     GgafDxTextureConnection** papTextureConnection = NEW GgafDxTextureConnection*[1];
-    papTextureConnection[0] = (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(pointsprite_info.TextureFile , this));
+    papTextureConnection[0] = (GgafDxTextureConnection*)(pModelManager->_pModelTextureManager->connect(pointsprite_info.TextureFile , this));
     GgafDxTexture* pTex = papTextureConnection[0]->peek();
 
     float tex_width  = (float)(pTex->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)

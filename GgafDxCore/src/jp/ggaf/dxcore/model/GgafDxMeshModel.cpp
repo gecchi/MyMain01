@@ -176,7 +176,7 @@ void GgafDxMeshModel::restore() {
     //      ・テクスチャ配列(要素数＝マテリアル数)
     //      ・DrawIndexedPrimitive用引数配列(要素数＝マテリアルリストが変化した数)
 
-
+    GgafDxModelManager* pModelManager = pGOD->_pModelManager;
     std::string xfile_name = GgafDxModelManager::getMeshFileName(_model_name);
     if (xfile_name == "") {
         throwGgafCriticalException("メッシュファイル(*.x)が見つかりません。_model_name="<<_model_name);
@@ -390,7 +390,7 @@ void GgafDxMeshModel::restore() {
         _papTextureConnection = NEW GgafDxTextureConnection*[_num_materials];
         for (DWORD n = 0; n < _num_materials; n++) {
             _papTextureConnection[n] =
-                    (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(_pa_texture_filenames[n].c_str(), this));
+                    (GgafDxTextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[n].c_str(), this));
         }
     }
     _TRACE3_("_model_name=" << _model_name << " end");

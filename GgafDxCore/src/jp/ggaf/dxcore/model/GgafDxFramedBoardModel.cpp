@@ -135,12 +135,14 @@ HRESULT GgafDxFramedBoardModel::draw(GgafDxFigureActor* prm_pActor_target, int p
 void GgafDxFramedBoardModel::restore() {
     _TRACE3_("_model_name=" << _model_name << " start");
     _set_num = 9;
+
+    GgafDxModelManager* pModelManager = pGOD->_pModelManager;
     _papTextureConnection = nullptr;
     HRESULT hr;
 
     std::string xfile_name = GgafDxModelManager::getSpriteFileName(_model_name);
     GgafDxModelManager::SpriteXFileFmt xdata;
-    GgafDxModelManager::obtainSpriteInfo(&xdata, xfile_name);
+    pModelManager->obtainSpriteInfo(&xdata, xfile_name);
     _model_width_px  = xdata.width;
     _model_height_px = xdata.height;
     _row_texture_split = xdata.row_texture_split;
@@ -148,15 +150,15 @@ void GgafDxFramedBoardModel::restore() {
 
     std::string xfile_name_frame = GgafDxModelManager::getSpriteFileName(std::string(_model_name)+"_frame");
     GgafDxModelManager::SpriteXFileFmt xdata_frame;
-    GgafDxModelManager::obtainSpriteInfo(&xdata_frame, xfile_name_frame);
+    pModelManager->obtainSpriteInfo(&xdata_frame, xfile_name_frame);
     _model_frame_width_px  = xdata_frame.width;
     _model_frame_height_px = xdata_frame.height;
     _row_frame_texture_split = xdata_frame.row_texture_split;
     _col_frame_texture_split = xdata_frame.col_texture_split;
 
     //テクスチャ取得しモデルに保持させる
-    GgafDxTextureConnection* model_pTextureConnection = (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(xdata.texture_file, this));
-    GgafDxTextureConnection* model_frame_pTextureConnection = (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(xdata_frame.texture_file, this));
+    GgafDxTextureConnection* model_pTextureConnection = (GgafDxTextureConnection*)(pModelManager->_pModelTextureManager->connect(xdata.texture_file, this));
+    GgafDxTextureConnection* model_frame_pTextureConnection = (GgafDxTextureConnection*)(pModelManager->_pModelTextureManager->connect(xdata_frame.texture_file, this));
 
     //テクスチャの参照を保持させる。
     _papTextureConnection = NEW GgafDxTextureConnection*[2];

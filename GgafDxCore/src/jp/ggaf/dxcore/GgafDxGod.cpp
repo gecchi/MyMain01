@@ -43,10 +43,10 @@ DWORD GgafDxGod::_ambient_brightness_default = 0xff404040;
 
 D3DFILLMODE GgafDxGod::_d3dfillmode = D3DFILL_SOLID;//D3DFILL_WIREFRAME;//D3DFILL_SOLID;
 
-GgafDxModelManager* GgafDxGod::_pModelManager = nullptr;
-GgafDxEffectManager* GgafDxGod::_pEffectManager = nullptr;
-GgafDxTextureManager* GgafDxGod::_pCubeMapTextureManager = nullptr;
-GgafDxTextureManager* GgafDxGod::_pBumpMapTextureManager = nullptr;
+//GgafDxModelManager* GgafDxGod::_pModelManager = nullptr;
+//GgafDxEffectManager* GgafDxGod::_pEffectManager = nullptr;
+//GgafDxTextureManager* GgafDxGod::_pCubeMapTextureManager = nullptr;
+//GgafDxTextureManager* GgafDxGod::_pBumpMapTextureManager = nullptr;
 bool GgafDxGod::_is_device_lost_flg = false;
 bool GgafDxGod::_adjustGameWindow = false;
 HWND GgafDxGod::_pHWnd_adjustScreen = nullptr;
@@ -97,6 +97,10 @@ GgafDxGod::GgafDxGod() : GgafGod() {
     _paPresetPrm = nullptr;
     _paDisplayMode = nullptr;
     _paHWnd = nullptr;
+    _pModelManager = nullptr;
+    _pEffectManager = nullptr;
+    _pCubeMapTextureManager = nullptr;
+    _pBumpMapTextureManager = nullptr;
 }
 
 
@@ -1281,10 +1285,10 @@ HRESULT GgafDxGod::initDevice() {
     }
 
     //その他必要な初期化
-    GgafDxGod::_pCubeMapTextureManager = NEW GgafDxTextureManager("CubeMapTexManager");
-    GgafDxGod::_pBumpMapTextureManager = NEW GgafDxTextureManager("BumpMapTexManager");
-    GgafDxGod::_pModelManager = NEW GgafDxModelManager("ModelManager");
-    GgafDxGod::_pEffectManager = NEW GgafDxEffectManager("EffectManager");
+    _pCubeMapTextureManager = NEW GgafDxTextureManager("CubeMapTexManager");
+    _pBumpMapTextureManager = NEW GgafDxTextureManager("BumpMapTexManager");
+    _pModelManager = NEW GgafDxModelManager("ModelManager");
+    _pEffectManager = NEW GgafDxEffectManager("EffectManager");
     GgafDxUtil::init();  //ユーティリティ準備
     GgafDxInput::init(); //DirectInput準備
     GgafDxSound::init(); //DirectSound準備
@@ -1902,12 +1906,12 @@ void GgafDxGod::presentSpacetimeVisualize() {
                 releaseFullScreenRenderTarget();
             }
             //環境マップテクスチャ、デバイスロスト処理
-            GgafDxGod::_pCubeMapTextureManager->releaseAll();
-            GgafDxGod::_pBumpMapTextureManager->releaseAll();
+            _pCubeMapTextureManager->releaseAll();
+            _pBumpMapTextureManager->releaseAll();
             //エフェクト、デバイスロスト処理
-            GgafDxGod::_pEffectManager->onDeviceLostAll();
+            _pEffectManager->onDeviceLostAll();
             //モデル解放
-            GgafDxGod::_pModelManager->onDeviceLostAll();
+            _pModelManager->onDeviceLostAll();
             //全ノードに解放しなさいイベント発令
             getSpacetime()->throwEventLowerTree(GGAF_EVENT_ON_DEVICE_LOST);
             _TRACE_("【デバイスロスト処理】リソース解放 <-------- END");
@@ -1978,12 +1982,12 @@ void GgafDxGod::presentSpacetimeVisualize() {
         //リソース再構築
         _TRACE_("【デバイスロスト処理】リソース再構築 BEGIN ------>");
         //環境マップテクスチャ、復帰処理
-        GgafDxGod::_pCubeMapTextureManager->restoreAll();
-        GgafDxGod::_pBumpMapTextureManager->restoreAll();
+        _pCubeMapTextureManager->restoreAll();
+        _pBumpMapTextureManager->restoreAll();
         //エフェクトリセット
-        GgafDxGod::_pEffectManager->restoreAll();
+        _pEffectManager->restoreAll();
         //モデル再設定
-        GgafDxGod::_pModelManager->restoreAll();
+        _pModelManager->restoreAll();
         //全ノードに再設定しなさいイベント発令
         getSpacetime()->throwEventLowerTree(GGAF_EVENT_ON_DEVICE_LOST_RESTORE);
         //前回描画モデル情報を無効にする
@@ -2032,10 +2036,10 @@ void GgafDxGod::clean() {
 
         CmRandomNumberGenerator::getInstance()->release();
         //保持モデル解放
-        GGAF_DELETE(GgafDxGod::_pCubeMapTextureManager);
-        GGAF_DELETE(GgafDxGod::_pBumpMapTextureManager);
-        GGAF_DELETE(GgafDxGod::_pModelManager);
-        GGAF_DELETE(GgafDxGod::_pEffectManager);
+        GGAF_DELETE(_pCubeMapTextureManager);
+        GGAF_DELETE(_pBumpMapTextureManager);
+        GGAF_DELETE(_pModelManager);
+        GGAF_DELETE(_pEffectManager);
         _TRACE_(FUNC_NAME<<" end");
     }
 }

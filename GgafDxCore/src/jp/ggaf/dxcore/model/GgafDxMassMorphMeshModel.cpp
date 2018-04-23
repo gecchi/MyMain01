@@ -94,7 +94,7 @@ void GgafDxMassMorphMeshModel::createVertexModel(void* prm, GgafDxMassModel::Ver
 
 void GgafDxMassMorphMeshModel::restore() {
     _TRACE3_("_model_name=" << _model_name << " start");
-
+    GgafDxModelManager* pModelManager = pGOD->_pModelManager;
     if (!_paVtxBuffer_data_model) {
         // _model_name には "8/xxx_4" or "xxx_4" という文字列が渡ってくる。 (/と_は区切り文字)
         // 8   ：同時描画セット数(省略時 GGAFDXMASS_MAX_INSTANCE_NUM)
@@ -315,7 +315,7 @@ void GgafDxMassMorphMeshModel::restore() {
         _papTextureConnection = NEW GgafDxTextureConnection*[_num_materials];
         for (DWORD n = 0; n < _num_materials; n++) {
             _papTextureConnection[n] =
-                    (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(_pa_texture_filenames[n].c_str(), this));
+                    (GgafDxTextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[n].c_str(), this));
         }
     }
     _TRACE3_("_model_name=" << _model_name << " end");

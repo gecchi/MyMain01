@@ -116,9 +116,10 @@ HRESULT GgafDxBoardModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_dra
 void GgafDxBoardModel::restore() {
     _TRACE3_("_model_name=" << _model_name << " start");
     HRESULT hr;
+    GgafDxModelManager* pModelManager = pGOD->_pModelManager;
     std::string xfile_name = GgafDxModelManager::getSpriteFileName(_model_name);
     GgafDxModelManager::SpriteXFileFmt xdata;
-    GgafDxModelManager::obtainSpriteInfo(&xdata, xfile_name);
+    pModelManager->obtainSpriteInfo(&xdata, xfile_name);
     _model_width_px  = xdata.width;
     _model_height_px = xdata.height;
     _row_texture_split = xdata.row_texture_split;
@@ -126,7 +127,7 @@ void GgafDxBoardModel::restore() {
 
     //テクスチャ取得しモデルに保持させる
     _papTextureConnection = NEW GgafDxTextureConnection*[1];
-    _papTextureConnection[0] = (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(xdata.texture_file, this));
+    _papTextureConnection[0] = (GgafDxTextureConnection*)(pModelManager->_pModelTextureManager->connect(xdata.texture_file, this));
 
     GgafDxBoardModel::VERTEX* paVertex = NEW GgafDxBoardModel::VERTEX[4];
     _size_vertices = sizeof(GgafDxBoardModel::VERTEX)*4;

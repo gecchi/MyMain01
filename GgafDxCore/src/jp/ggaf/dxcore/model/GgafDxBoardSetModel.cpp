@@ -146,6 +146,8 @@ void GgafDxBoardSetModel::restore() {
     }
 
     _papTextureConnection = nullptr;
+    GgafDxModelManager* pModelManager = pGOD->_pModelManager;
+
     HRESULT hr;
     std::string xfile_name; //読み込むスプライト定義ファイル名（Xファイル形式）
     //"12/Moji" or "8/Moji" or "Moji" から "Moji" だけ取とりだしてフルパス名取得。
@@ -158,14 +160,14 @@ void GgafDxBoardSetModel::restore() {
         xfile_name = GgafDxModelManager::getSpriteFileName(std::string(_model_name));
     }
     GgafDxModelManager::SpriteXFileFmt xdata;
-    GgafDxModelManager::obtainSpriteInfo(&xdata, xfile_name);
+    pModelManager->obtainSpriteInfo(&xdata, xfile_name);
     _model_width_px  = xdata.width;
     _model_height_px = xdata.height;
     _row_texture_split = xdata.row_texture_split;
     _col_texture_split = xdata.col_texture_split;
 
     //テクスチャ取得しモデルに保持させる
-    GgafDxTextureConnection* model_pTextureConnection = (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(xdata.texture_file, this));
+    GgafDxTextureConnection* model_pTextureConnection = (GgafDxTextureConnection*)(pModelManager->_pModelTextureManager->connect(xdata.texture_file, this));
     //テクスチャの参照を保持させる。
     _papTextureConnection = NEW GgafDxTextureConnection*[1];
     _papTextureConnection[0] = model_pTextureConnection;

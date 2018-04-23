@@ -191,6 +191,8 @@ HRESULT GgafDxMeshSetModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_d
 
 void GgafDxMeshSetModel::restore() {
     _TRACE3_("_model_name=" << _model_name << " start");
+
+    GgafDxModelManager* pModelManager = pGOD->_pModelManager;
     std::string xfile_name; //読み込むXファイル名
     //"12/Eres" or "8/Celes" or "Celes" から "Celes" だけ取とりだしてフルパス名取得
     //TODO:数値３桁以上の時はだめ
@@ -476,7 +478,7 @@ void GgafDxMeshSetModel::restore() {
         _papTextureConnection = NEW GgafDxTextureConnection*[_num_materials];
         for (DWORD n = 0; n < _num_materials; n++) {
             _papTextureConnection[n] =
-                    (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(_pa_texture_filenames[n].c_str(), this));
+                    (GgafDxTextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[n].c_str(), this));
         }
     }
 

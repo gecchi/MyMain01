@@ -141,7 +141,7 @@ HRESULT GgafDxD3DXAniMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int p
 void GgafDxD3DXAniMeshModel::restore() {
     _TRACE3_("_model_name=" << _model_name << " start");
     //TODO:作成中？！！！！！！！！
-
+    GgafDxModelManager* pModelManager = pGOD->_pModelManager;
     //【restoreD3DXAniMeshModel再構築（＝初期化）処理概要】
     //1)D3DXLoadMeshFromXを使用してXファイルを読み込む
     //2)GgafDxD3DXAniMeshModelのメンバにセット
@@ -233,10 +233,10 @@ void GgafDxD3DXAniMeshModel::restore() {
 
                 texture_filename = (*it)->pMeshContainer->pMaterials[j].pTextureFilename;
                 if (texture_filename != nullptr && lstrlen(texture_filename) > 0 ) {
-                    model_papTextureConnection[n] = (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(texture_filename, this));
+                    model_papTextureConnection[n] = (GgafDxTextureConnection*)(pModelManager->_pModelTextureManager->connect(texture_filename, this));
                 } else {
                     //テクスチャ無し時は真っ白なテクスチャに置き換え
-                    model_papTextureConnection[n] = (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(CONFIG::WHITE_TEXTURE.c_str(), this));
+                    model_papTextureConnection[n] = (GgafDxTextureConnection*)(pModelManager->_pModelTextureManager->connect(CONFIG::WHITE_TEXTURE.c_str(), this));
                 }
                 n ++;
             }

@@ -200,6 +200,7 @@ HRESULT GgafDxMassBoardModel::draw(GgafDxFigureActor* prm_pActor_target, int prm
 
 void GgafDxMassBoardModel::restore() {
     _TRACE3_("_model_name=" << _model_name << " start");
+    GgafDxModelManager* pModelManager = pGOD->_pModelManager;
     HRESULT hr;
     if (!_paVtxBuffer_data_model) {
         //静的な情報設定
@@ -223,7 +224,7 @@ void GgafDxMassBoardModel::restore() {
             throwGgafCriticalException("スプライト定義ファイル(*.sprx)が見つかりません。model_name="<<(_model_name));
         }
         GgafDxModelManager::SpriteXFileFmt xdata;
-        GgafDxModelManager::obtainSpriteInfo(&xdata, xfile_name);
+        pModelManager->obtainSpriteInfo(&xdata, xfile_name);
         _model_width_px  = xdata.width;
         _model_height_px = xdata.height;
         _model_half_width_px = _model_width_px/2;
@@ -333,7 +334,7 @@ void GgafDxMassBoardModel::restore() {
         _papTextureConnection = NEW GgafDxTextureConnection*[_num_materials];
         for (DWORD n = 0; n < _num_materials; n++) {
             _papTextureConnection[n] =
-                    (GgafDxTextureConnection*)(GgafDxModelManager::_pModelTextureManager->connect(_pa_texture_filenames[n].c_str(), this));
+                    (GgafDxTextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[n].c_str(), this));
         }
     }
 }
