@@ -24,7 +24,7 @@ HgrWorld::HgrWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
 }
 
 void HgrWorld::initialize() {
-    pTrialAndErrScene_ = keepWishing(TrialAndErrScene, "TrialAndErrScene");
+    pTrialAndErrScene_ = believeIn(TrialAndErrScene, "TrialAndErrScene");
     addSubLast(pTrialAndErrScene_);
 }
 

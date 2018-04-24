@@ -59,8 +59,8 @@ void Stage01PartController::processBehavior() {
 				break;
 			}
 			case 300: {
-				addSubLast(receiveScene(10000001));
-				EnemyErmione* pE = (EnemyErmione*)receiveActor(10000004);
+				addSubLast(grantScene(10000001));
+				EnemyErmione* pE = (EnemyErmione*)grantActor(10000004);
 				bringSceneMediator()->addSubGroup(pE);
 				pE->_x = RND(1000000,4000000);
 				pE->_y = RND(-6000000,6000000);
@@ -68,14 +68,14 @@ void Stage01PartController::processBehavior() {
 				break;
 			}
 			case 500: {
-				EnemyOebiusController001* p1 = (EnemyOebiusController001*)receiveActor(10000002);
+				EnemyOebiusController001* p1 = (EnemyOebiusController001*)grantActor(10000002);
 				bringSceneMediator()->addSubGroup(p1);
 				p1->setPosition(PX_C(800), PX_C(100), PX_C(400) );
 				break;
 			}
 			case 600: {
-				addSubLast(receiveScene(10000000));
-				EnemyOebiusController002* p2 = (EnemyOebiusController002*)receiveActor(10000003);
+				addSubLast(grantScene(10000000));
+				EnemyOebiusController002* p2 = (EnemyOebiusController002*)grantActor(10000003);
 				bringSceneMediator()->addSubGroup(p2);
 				p2->setPosition(PX_C(800), PX_C(400), PX_C(100) );
 				break;
@@ -85,7 +85,7 @@ void Stage01PartController::processBehavior() {
 				break;
 			}
 			case 20300: {
-				EnemyErmione* pE = (EnemyErmione*)receiveActor(10000005);
+				EnemyErmione* pE = (EnemyErmione*)grantActor(10000005);
 				bringSceneMediator()->addSubGroup(pE);
 				pE->_x = RND(1000000,4000000);
 				pE->_y = RND(-6000000,6000000);
@@ -97,7 +97,7 @@ void Stage01PartController::processBehavior() {
 				break;
 			}
 			case 40300: {
-				EnemyErmione* pE = (EnemyErmione*)receiveActor(10000006);
+				EnemyErmione* pE = (EnemyErmione*)grantActor(10000006);
 				bringSceneMediator()->addSubGroup(pE);
 				pE->_x = RND(1000000,4000000);
 				pE->_y = RND(-6000000,6000000);

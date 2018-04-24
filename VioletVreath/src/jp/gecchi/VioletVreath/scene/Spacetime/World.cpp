@@ -67,7 +67,7 @@ void World::initialize() {
     pixcoord cy = CONFIG::GAME_BUFFER_HEIGHT/2;
     std::ostringstream os;
     os << "[ VIOLET VREATH ]\n" << VERSION << "\n" << "PLEASE WAIT A MOMENT ...";
-    pLabel_title_ = keepWishing(LabelGecchi16Font, "STR01");
+    pLabel_title_ = believeIn(LabelGecchi16Font, "STR01");
     bringSceneMediator()->addSubGroup(pLabel_title_);
     pLabel_title_->update(PX_C(cx), PX_C(cy/2),
                           os.str().c_str(),
@@ -76,29 +76,29 @@ void World::initialize() {
 #ifdef MY_DEBUG
     CollisionChecker::drawHitArea(nullptr);  //当たり判定領域表示用プリロード
 #endif
-    pLabel_debug_ = keepWishing(LabelGecchi16Font, "DebugStr");
+    pLabel_debug_ = believeIn(LabelGecchi16Font, "DebugStr");
     pLabel_debug_->update(PX_C(1), PX_C(1), "");
     bringSceneMediator()->addSubGroup(pLabel_debug_);
 
-    pLabel_resolution1_ = keepWishing(VioletVreath::LabelGecchi16Font, "RESOLUTION1");
+    pLabel_resolution1_ = believeIn(VioletVreath::LabelGecchi16Font, "RESOLUTION1");
     pLabel_resolution1_->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     bringSceneMediator()->addSubGroup(pLabel_resolution1_);
-    pLabel_resolution2_ = keepWishing(VioletVreath::LabelGecchi16Font, "RESOLUTION2");
+    pLabel_resolution2_ = believeIn(VioletVreath::LabelGecchi16Font, "RESOLUTION2");
     pLabel_resolution2_->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     bringSceneMediator()->addSubGroup(pLabel_resolution2_);
 
-    pLabel_warn1_ = keepWishing(VioletVreath::LabelGecchi8Font, "WARN1");
+    pLabel_warn1_ = believeIn(VioletVreath::LabelGecchi8Font, "WARN1");
     pLabel_warn1_->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     bringSceneMediator()->addSubGroup(pLabel_warn1_);
-    pLabel_warn2_ = keepWishing(VioletVreath::LabelGecchi8Font, "WARN2");
+    pLabel_warn2_ = believeIn(VioletVreath::LabelGecchi8Font, "WARN2");
     pLabel_warn2_->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     bringSceneMediator()->addSubGroup(pLabel_warn2_);
 
-    pLabel_warn_dual_view_ = keepWishing(VioletVreath::LabelGecchi8Font, "WARN_DUAL_VIEW");
+    pLabel_warn_dual_view_ = believeIn(VioletVreath::LabelGecchi8Font, "WARN_DUAL_VIEW");
     pLabel_warn_dual_view_->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
     bringSceneMediator()->addSubGroup(pLabel_warn_dual_view_);
 
-    pLabel_need_reboot_ = keepWishing(VioletVreath::LabelGecchi16Font, "reboot");
+    pLabel_need_reboot_ = believeIn(VioletVreath::LabelGecchi16Font, "reboot");
     bringSceneMediator()->addSubGroup(pLabel_need_reboot_);
     pLabel_need_reboot_->update(PX_C(cx), PX_C(cy/2), "", ALIGN_CENTER, VALIGN_MIDDLE);
 
@@ -225,8 +225,8 @@ void World::processBehavior() {
     SceneProgress* pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
-            if (GgafGod::chkProgress(1) == 2) {
-                pPreDrawScene_ = (PreDrawScene*)receiveScene(1);
+            if (pGOD->chkProgress(1) == 2) {
+                pPreDrawScene_ = (PreDrawScene*)grantScene(1);
                 addSubLast(pPreDrawScene_);
                 pProg->changeNext();
             }
@@ -246,7 +246,7 @@ void World::processBehavior() {
 
         case PROG_CALM2: {
             if ((pProg->getFrame() >= 30 && pGOD->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX && pGOD->_fps <= 64.0f) || pProg->getFrame() >= 60*60*5) {
-                pGameScene_ = (GameScene*)receiveScene(2);
+                pGameScene_ = (GameScene*)grantScene(2);
                 pProg->changeNext();
             }
             pLabel_aster_->getAlphaFader()->behave(); //右上＊チカチカ

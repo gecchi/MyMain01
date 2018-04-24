@@ -7,7 +7,7 @@ using namespace VioletVreath;
 
 PauseCamWorker::PauseCamWorker(const char* prm_name, Camera* prm_pCamera) : AroundViewCamWorker(prm_name, (DefaultCamera*)prm_pCamera) {
     _class_name = "PauseCamWorker";
-//    pVPGuide_ = keepWishing(ViewPointGuide, "VPGuide");
+//    pVPGuide_ = believeIn(ViewPointGuide, "VPGuide");
 }
 
 PauseCamWorker::~PauseCamWorker() {

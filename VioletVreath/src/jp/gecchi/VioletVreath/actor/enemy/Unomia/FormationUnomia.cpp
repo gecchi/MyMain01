@@ -76,7 +76,7 @@ void FormationUnomia::processBehavior() {
         }
         case PROG_READY_MEMBER_OBTAIN: {
             uint64_t order_no = pProg->getFrame();
-            addFormationMember(receiveActor(order_no));
+            addFormationMember(grantActor(order_no));
             pProg->changeNextWhenArrivedAt(num_formation_member_);
             break;
         }

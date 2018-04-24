@@ -40,7 +40,7 @@ void Stage01_Climax::processBehavior() {
         getBgmConductor()->performFromTheBegining(0);
     }
     if (getBehaveingFrame() == 60) {
-        pBoss_ = (EnemyStraea*)receiveActor(11111111);
+        pBoss_ = (EnemyStraea*)grantActor(11111111);
         pBoss_->_z = -1800000;
         pBoss_->_y = -100000;
         bringSceneMediator()->addSubGroup(pBoss_);

@@ -122,7 +122,7 @@ void Stage01WalledScene::processBehavior() {
 				break;
 			}
 			case 100: {
-				EnemyHisbe* p = (EnemyHisbe*)receiveActor(50000002);
+				EnemyHisbe* p = (EnemyHisbe*)grantActor(50000002);
 				bringSceneMediator()->addSubGroup(p);
 				p->_x = PX_C(2000);
 				p->_y = 0;
@@ -135,7 +135,7 @@ void Stage01WalledScene::processBehavior() {
 				break;
 			}
 			case 2000: {
-				bringSceneMediator()->addSubGroup(receiveActor(50000000));
+				bringSceneMediator()->addSubGroup(grantActor(50000000));
 				break;
 			}
 			case 5400: {
@@ -143,7 +143,7 @@ void Stage01WalledScene::processBehavior() {
 				break;
 			}
 			case 6000: {
-				bringSceneMediator()->addSubGroup(receiveActor(50000001));
+				bringSceneMediator()->addSubGroup(grantActor(50000001));
 				break;
 			}
 			default :

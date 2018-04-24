@@ -493,21 +493,21 @@ void VvvWorld::processBehavior() {
                         break;
                     }
                 }
-                pActor = keepWishing2(GgafLib::DefaultMorphMeshActor, "actor",
+                pActor = believeIn2(GgafLib::DefaultMorphMeshActor, "actor",
                                           string(XTOS(targetnum) + "/" +model_part).c_str());
             } else {
 //            if (model_id.find("WORLDBOUND") == string::npos) {
-//                pActor = keepWishing2(GgafLib::WorldBoundActor, "actor", filename);
+//                pActor = believeIn2(GgafLib::WorldBoundActor, "actor", filename);
 //            } else {
-                pActor = keepWishing2(GgafLib::DefaultMeshActor, "actor", model_id.c_str());
+                pActor = believeIn2(GgafLib::DefaultMeshActor, "actor", model_id.c_str());
 //            }
 //                DefaultMeshActor* pDefaultMeshActor = (DefaultMeshActor*)pActor;
 //                pDefaultMeshActor->setBumpMapTexture("normal.bmp");
             }
         } else if (model_type == "SPRX") {
-            pActor = keepWishing2(GgafLib::DefaultSpriteActor, "actor", model_id.c_str());
+            pActor = believeIn2(GgafLib::DefaultSpriteActor, "actor", model_id.c_str());
         } else if (model_type == "PSPRX") {
-            pActor = keepWishing2(GgafLib::DefaultPointSpriteActor, "actor", model_id.c_str());
+            pActor = believeIn2(GgafLib::DefaultPointSpriteActor, "actor", model_id.c_str());
         }
 
         if (pActor) {
@@ -535,7 +535,7 @@ void VvvWorld::processBehavior() {
                     CONFIG::DIR_TEXTURE[1]    = was_dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
                     CONFIG::DIR_TEXTURE[2]    = was_dropfile_dir;
                     string was_model_id = UTIL::getFileBaseNameWithoutExt(listActorInfo_.getCurrent()->modelfile_.c_str());
-                    pNewActor = keepWishing2(GgafLib::CubeMapMeshActor, "actor", was_model_id.c_str());
+                    pNewActor = believeIn2(GgafLib::CubeMapMeshActor, "actor", was_model_id.c_str());
                     CONFIG::DIR_TEXTURE[0]    = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
                     CONFIG::DIR_TEXTURE[1]    = dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
                     CONFIG::DIR_TEXTURE[2]    = dropfile_dir;
@@ -547,7 +547,7 @@ void VvvWorld::processBehavior() {
                     CONFIG::DIR_TEXTURE[0]    = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
                     CONFIG::DIR_TEXTURE[1]    = was_dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
                     CONFIG::DIR_TEXTURE[2]    = was_dropfile_dir;
-                    pNewActor = keepWishing2(GgafLib::CubeMapMorphMeshActor, "actor", pCurrentActor->getModel()->getName());
+                    pNewActor = believeIn2(GgafLib::CubeMapMorphMeshActor, "actor", pCurrentActor->getModel()->getName());
                     CONFIG::DIR_TEXTURE[0]    = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
                     CONFIG::DIR_TEXTURE[1]    = dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
                     CONFIG::DIR_TEXTURE[2]    = dropfile_dir;

@@ -40,7 +40,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     DWORD dwStyle = WS_OVERLAPPEDWINDOW;
     HWND hWnd1, hWnd2;
 
-    MgrGod god = MgrGod();
+    MgrGod god;
     //ÉQÅ[ÉÄÉãÅ[Év
     MSG msg;
     try {

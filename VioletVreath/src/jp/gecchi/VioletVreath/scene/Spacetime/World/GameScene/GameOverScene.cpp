@@ -88,7 +88,7 @@ void GameOverScene::processBehavior() {
 
         case PROG_NAMEENTRY: {
              if (pProg->hasJustChanged()) {
-                 pNameEntryScene_ = (NameEntryScene*)receiveScene(ORDER_ID_NAMEENTRYSCENE);
+                 pNameEntryScene_ = (NameEntryScene*)grantScene(ORDER_ID_NAMEENTRYSCENE);
                  addSubLast(pNameEntryScene_);
              }
              //EVENT_NAMEENTRYSCENE_FINISH ƒCƒxƒ“ƒg‘Ò‚¿

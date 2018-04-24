@@ -39,11 +39,11 @@ void TrialAndErrScene::processBehavior() {
 //        XXX->sayonara(2);
 
 
-        Test01* pTest = (Test01*)receiveActor(10000);
+        Test01* pTest = (Test01*)grantActor(10000);
         pTest->setPosition(0,0,0);
         bringSceneMediator()->addSubGroup(HGR_MIKATA, pTest);
 
-        Jiki* pJiki = (Jiki*)receiveActor(10001);
+        Jiki* pJiki = (Jiki*)grantActor(10001);
         pJiki->setPosition(PX_C(200), PX_C(200),0);
         bringSceneMediator()->addSubGroup(HGR_TEKI, pJiki);
 

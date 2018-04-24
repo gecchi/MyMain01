@@ -81,7 +81,7 @@ Spacetime::Spacetime(const char* prm_name, Camera* prm_pCamera) : DefaultSpaceti
 }
 
 void Spacetime::initialize() {
-    pWorld_ = keepWishing(VioletVreath::World, "WORLD");
+    pWorld_ = believeIn(VioletVreath::World, "WORLD");
     addSubLast(pWorld_);
     _TRACE_(FUNC_NAME<<"");
 }

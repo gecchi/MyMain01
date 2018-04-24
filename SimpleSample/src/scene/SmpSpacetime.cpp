@@ -21,7 +21,7 @@ SmpSpacetime::SmpSpacetime(const char* prm_name, SmpCamera* prm_pCam) :
 
 void SmpSpacetime::initialize() {
     //¢ŠEƒV[ƒ“(SmpWorld)‚ğ”z‰º‚ÉŠ‘®‚³‚¹‚é
-    addSubLast(receiveScene(0));
+    addSubLast(grantScene(0));
 }
 
 void SmpSpacetime::processBehavior() {

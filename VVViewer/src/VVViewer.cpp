@@ -39,7 +39,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     DWORD dwStyle = WS_OVERLAPPEDWINDOW;
 
     //神の誕生
-    VvvGod god = VvvGod();
+    VvvGod god;
     //ゲームループ
     MSG msg;
     try {

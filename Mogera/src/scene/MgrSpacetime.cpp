@@ -42,7 +42,7 @@ MgrSpacetime::MgrSpacetime(const char* prm_name, MgrCamera* prm_pCam) :
 
 void MgrSpacetime::initialize() {
     //世界シーン生成し、自シーンの配下に所属させる
-    pWorld_ = keepWishing(Mogera::MgrWorld, "MOGERA_WORLD");
+    pWorld_ = believeIn(Mogera::MgrWorld, "MOGERA_WORLD");
     addSubLast(pWorld_);
 
 

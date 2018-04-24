@@ -127,7 +127,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
 #endif
 
     MSG msg;
-    VioletVreath::God god = VioletVreath::God();
+    VioletVreath::God god;
     try {
         //ê_ÇÃíaê∂
         god.createWindow(wcex1, wcex2, szTitle, "secondary", dwStyle, dwStyle, hWnd1, hWnd2);

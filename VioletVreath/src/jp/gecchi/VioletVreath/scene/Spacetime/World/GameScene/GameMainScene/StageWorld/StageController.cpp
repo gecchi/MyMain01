@@ -125,7 +125,7 @@ void StageController::processBehavior() {
                 if (pStageMainCannel_) {
                     _TRACE_("Ç¢Ç¢ÇÃÇ©ÅI PROG_PLAY_STAGE: ãå pStageMainCannel_="<<pStageMainCannel_->getName()<<"");
                 }
-                pStageMainCannel_ = (Stage*)receiveScene(ORDER_ID_STAGE+main_stage_);
+                pStageMainCannel_ = (Stage*)grantScene(ORDER_ID_STAGE+main_stage_);
                 _TRACE_("PROG_PLAY_STAGE: êV pStageMainCannel_="<<pStageMainCannel_->getName()<<"");
                 pStageMainCannel_->fadeoutSceneWithBgm(0);
 

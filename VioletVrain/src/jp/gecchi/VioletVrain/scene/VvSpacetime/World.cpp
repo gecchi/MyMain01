@@ -24,7 +24,7 @@ World::World(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
 }
 
 void World::initialize() {
-    pTrialAndErrScene_ = keepWishing(TrialAndErrScene, "TrialAndErrScene");
+    pTrialAndErrScene_ = believeIn(TrialAndErrScene, "TrialAndErrScene");
     addSubLast(pTrialAndErrScene_);
 }
 

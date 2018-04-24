@@ -42,7 +42,7 @@ void RankUpStageController::startRunkUpStage(int prm_rank_up_level) {
     pSeConn_RankUpStageExec_->peek()->play(); //ランクアップステージ開始SE！
     ready(prm_rank_up_level);     //これはパスされるはずであるが、念のため。
     ready(prm_rank_up_level + 1); //次のシーンを先行予約
-    pNowRankUpStage_ = (RankUpStage*)receiveScene(ORDER_ID_RANKUP+prm_rank_up_level);
+    pNowRankUpStage_ = (RankUpStage*)grantScene(ORDER_ID_RANKUP+prm_rank_up_level);
     _TRACE_(FUNC_NAME<<" pNowRankUpStage_="<<pNowRankUpStage_);
     GgafScene* pRankUpStage = getSubFirst();
     if (pRankUpStage) {

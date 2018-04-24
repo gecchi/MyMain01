@@ -41,7 +41,7 @@ void Stage02_01::processBehavior() {
                 break;
             }
             case 100: {
-                FormationGeria001* pF = (FormationGeria001*)receiveActor(80000000);
+                FormationGeria001* pF = (FormationGeria001*)grantActor(80000000);
                 bringSceneMediator()->addSubGroup(pF);
                 break;
             }
@@ -59,12 +59,12 @@ void Stage02_01::processBehavior() {
                 FormationTableScene* ta = NEW FormationTableScene("FormationTableScene-1");
                 ta->setMaxPerformFrame(2000);
                 addSubLast(ta);
-                ta->addToTable(((FormationRis001*)receiveActor(80000002)), 400);
-                ta->addToTable(((FormationRis002*)receiveActor(80000003)), 400);
-                ta->addToTable(((FormationRis001*)receiveActor(80000004)), 400);
-                ta->addToTable(((FormationRis002*)receiveActor(80000005)), 400);
-                ta->addToTable(((FormationRis001*)receiveActor(80000006)), 400);
-                ta->addToTable(((FormationRis002*)receiveActor(80000007)), 400);
+                ta->addToTable(((FormationRis001*)grantActor(80000002)), 400);
+                ta->addToTable(((FormationRis002*)grantActor(80000003)), 400);
+                ta->addToTable(((FormationRis001*)grantActor(80000004)), 400);
+                ta->addToTable(((FormationRis002*)grantActor(80000005)), 400);
+                ta->addToTable(((FormationRis001*)grantActor(80000006)), 400);
+                ta->addToTable(((FormationRis002*)grantActor(80000007)), 400);
                 }
                 break;
             }

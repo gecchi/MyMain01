@@ -72,7 +72,7 @@ void FormationUrydike::processBehavior() {
             }
             if (pProg->hasArrivedAt(120)) {
                 for (int i = 0; i < num_Urydike_; i++) {
-                    addFormationMember(receiveActor(i));
+                    addFormationMember(grantActor(i));
                 }
                 pProg->changeNext();
             }

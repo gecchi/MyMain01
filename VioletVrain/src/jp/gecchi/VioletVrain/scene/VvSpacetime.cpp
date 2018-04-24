@@ -25,7 +25,7 @@ VvSpacetime::VvSpacetime(const char* prm_name, VvCamera* prm_pCam) :
 }
 
 void VvSpacetime::initialize() {
-    pWorld_ = keepWishing(VioletVrain::World, "WORLD");
+    pWorld_ = believeIn(VioletVrain::World, "WORLD");
     addSubLast(pWorld_);
 }
 

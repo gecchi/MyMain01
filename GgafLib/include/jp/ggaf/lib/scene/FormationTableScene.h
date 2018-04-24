@@ -21,11 +21,11 @@ namespace GgafLib {
  *     FormationTableScene* ftbl = NEW FormationTableScene("TableScene_9");
  *     addSubLast(ftbl);               //子シーンとして登録
  *     ftbl->setMaxPerformFrame(280);  //編隊テーブル全体フレーム数設定
- *     ftbl->addToTable(((FormationAllas001a*)receiveActor(21047100)), 100);   //編隊a。次の 編隊b は 編隊a が全消滅した場合即出現。全消滅しなくとも、100フレーム後出現。
- *     ftbl->addToTable(((FormationAllas001b*)receiveActor(21057100)), 100);   //編隊b。次の 編隊c は 編隊b が全消滅した場合即出現。全消滅しなくとも、100フレーム後出現。
- *     ftbl->addToTable(((FormationAllas001c*)receiveActor(21067100)), 100);   //編隊c。次の 編隊d は 編隊c が全消滅した場合即出現。全消滅しなくとも、100フレーム後出現。
- *     ftbl->addToTable(((FormationAllas001d*)receiveActor(21077100)), 100);   //編隊d。次の 編隊e は 編隊d が全消滅した場合即出現。全消滅しなくとも、100フレーム後出現。
- *     ftbl->addToTable(((FormationAllas001e*)receiveActor(21087100)));        //編隊e。次の敵が無いため、フレーム数設定の意味は無くなる。
+ *     ftbl->addToTable(((FormationAllas001a*)grantActor(21047100)), 100);   //編隊a。次の 編隊b は 編隊a が全消滅した場合即出現。全消滅しなくとも、100フレーム後出現。
+ *     ftbl->addToTable(((FormationAllas001b*)grantActor(21057100)), 100);   //編隊b。次の 編隊c は 編隊b が全消滅した場合即出現。全消滅しなくとも、100フレーム後出現。
+ *     ftbl->addToTable(((FormationAllas001c*)grantActor(21067100)), 100);   //編隊c。次の 編隊d は 編隊c が全消滅した場合即出現。全消滅しなくとも、100フレーム後出現。
+ *     ftbl->addToTable(((FormationAllas001d*)grantActor(21077100)), 100);   //編隊d。次の 編隊e は 編隊d が全消滅した場合即出現。全消滅しなくとも、100フレーム後出現。
+ *     ftbl->addToTable(((FormationAllas001e*)grantActor(21087100)));        //編隊e。次の敵が無いため、フレーム数設定の意味は無くなる。
  *
  * ・これは下図のような事を意味する。
  *                                                             :
