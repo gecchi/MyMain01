@@ -28,20 +28,20 @@ TrialAndErrScene::TrialAndErrScene(const char* prm_name) : DefaultScene(prm_name
     pTest_ = nullptr;
 
 
-    wishActor(1111, SmpActor1, "SmpActor1");
-    wishActor(2222, SmpActor2, "SmpActor2");
+    wantActor(1111, SmpActor1, "SmpActor1");
+    wantActor(2222, SmpActor2, "SmpActor2");
 
 //    for (int id = 0; id < 17; id++) {
-//        wishActor(900+id, PointSpriteTest, "PointSpriteTest");
+//        wantActor(900+id, PointSpriteTest, "PointSpriteTest");
 //    }
-////    wishActor(990, PointSpriteTest, "PointSpriteTest1");
-////    wishActor(991, PointSpriteTest, "PointSpriteTest2");
-//    wishActor(10000, Zako, "Zako");
-//    wishActor(993, PointSpriteTest, "PointSpriteTest4");
-//    wishActor(994, PointSpriteTest, "PointSpriteTest5");
-//    wishActor(995, PointSpriteTest, "PointSpriteTest6");
-//    wishActor(996, PointSpriteTest, "PointSpriteTest7");
-//    wishActor(20000, BoardTest, "BoardTest");
+////    wantActor(990, PointSpriteTest, "PointSpriteTest1");
+////    wantActor(991, PointSpriteTest, "PointSpriteTest2");
+//    wantActor(10000, Zako, "Zako");
+//    wantActor(993, PointSpriteTest, "PointSpriteTest4");
+//    wantActor(994, PointSpriteTest, "PointSpriteTest5");
+//    wantActor(995, PointSpriteTest, "PointSpriteTest6");
+//    wantActor(996, PointSpriteTest, "PointSpriteTest7");
+//    wantActor(20000, BoardTest, "BoardTest");
 }
 
 void TrialAndErrScene::initialize() {

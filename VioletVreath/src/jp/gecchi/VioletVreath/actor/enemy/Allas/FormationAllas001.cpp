@@ -53,7 +53,7 @@ void FormationAllas001::processBehavior() {
         case PROG_READY_MEMBER: {
             if (pProg->hasJustChanged()) {
                 for (int i = 0; i < num_Allas_; i++) {
-                    wishActor(i, EnemyAllas, "EnemyAllas");
+                    wantActor(i, EnemyAllas, "EnemyAllas");
                 }
             }
             if (pProg->hasArrivedAt(60)) {

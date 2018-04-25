@@ -21,34 +21,34 @@ RankUp001::RankUp001(const char* prm_name) : RankUpStage(prm_name) {
     _paFrame_NextEvent = new frame[35];
     memcpy(_paFrame_NextEvent, f, sizeof(f));
     _event_num = 35;
-    wishActor(90000000, EnemyIrce, "EnemyIrce-90000000");
-    wishActor(90000001, EnemyIrce, "EnemyIrce-90000001");
-    wishActor(90000002, EnemyIrce, "EnemyIrce-90000002");
-    wishActor(90000003, EnemyIrce, "EnemyIrce-90000003");
-    wishActor(90000004, EnemyIrce, "EnemyIrce-90000004");
-    wishActor(90000005, EnemyIrce, "EnemyIrce-90000005");
-    wishActor(90000006, EnemyIrce, "EnemyIrce-90000006");
-    wishActor(90000007, EnemyIrce, "EnemyIrce-90000007");
-    wishActor(90000008, EnemyIrce, "EnemyIrce-90000008");
-    wishActor(90000009, EnemyIrce, "EnemyIrce-90000009");
-    wishActor(90000010, EnemyIrce, "EnemyIrce-90000010");
-    wishActor(90000011, EnemyIrce, "EnemyIrce-90000011");
-    wishActor(90000012, EnemyIrce, "EnemyIrce-90000012");
-    wishActor(90000013, EnemyIrce, "EnemyIrce-90000013");
-    wishActor(90000014, EnemyIrce, "EnemyIrce-90000014");
-    wishActor(90000015, EnemyIrce, "EnemyIrce-90000015");
-    wishActor(90000016, EnemyIrce, "EnemyIrce-90000016");
-    wishActor(90000017, EnemyIrce, "EnemyIrce-90000017");
-    wishActor(90000018, EnemyIrce, "EnemyIrce-90000018");
-    wishActor(90000019, EnemyIrce, "EnemyIrce-90000019");
-    wishActor(90000020, EnemyIrce, "EnemyIrce-90000020");
-    wishActor(90000021, EnemyIrce, "EnemyIrce-90000021");
-    wishActor(90000022, EnemyIrce, "EnemyIrce-90000022");
-    wishActor(90000023, EnemyIrce, "EnemyIrce-90000023");
-    wishActor(90000024, EnemyIrce, "EnemyIrce-90000024");
-    wishActor(90000025, EnemyIrce, "EnemyIrce-90000025");
-    wishActor(90000026, EnemyIrce, "EnemyIrce-90000026");
-    wishActor(90000031, FormationThagoras001, "FormationThagoras001-90000031");
+    wantActor(90000000, EnemyIrce, "EnemyIrce-90000000");
+    wantActor(90000001, EnemyIrce, "EnemyIrce-90000001");
+    wantActor(90000002, EnemyIrce, "EnemyIrce-90000002");
+    wantActor(90000003, EnemyIrce, "EnemyIrce-90000003");
+    wantActor(90000004, EnemyIrce, "EnemyIrce-90000004");
+    wantActor(90000005, EnemyIrce, "EnemyIrce-90000005");
+    wantActor(90000006, EnemyIrce, "EnemyIrce-90000006");
+    wantActor(90000007, EnemyIrce, "EnemyIrce-90000007");
+    wantActor(90000008, EnemyIrce, "EnemyIrce-90000008");
+    wantActor(90000009, EnemyIrce, "EnemyIrce-90000009");
+    wantActor(90000010, EnemyIrce, "EnemyIrce-90000010");
+    wantActor(90000011, EnemyIrce, "EnemyIrce-90000011");
+    wantActor(90000012, EnemyIrce, "EnemyIrce-90000012");
+    wantActor(90000013, EnemyIrce, "EnemyIrce-90000013");
+    wantActor(90000014, EnemyIrce, "EnemyIrce-90000014");
+    wantActor(90000015, EnemyIrce, "EnemyIrce-90000015");
+    wantActor(90000016, EnemyIrce, "EnemyIrce-90000016");
+    wantActor(90000017, EnemyIrce, "EnemyIrce-90000017");
+    wantActor(90000018, EnemyIrce, "EnemyIrce-90000018");
+    wantActor(90000019, EnemyIrce, "EnemyIrce-90000019");
+    wantActor(90000020, EnemyIrce, "EnemyIrce-90000020");
+    wantActor(90000021, EnemyIrce, "EnemyIrce-90000021");
+    wantActor(90000022, EnemyIrce, "EnemyIrce-90000022");
+    wantActor(90000023, EnemyIrce, "EnemyIrce-90000023");
+    wantActor(90000024, EnemyIrce, "EnemyIrce-90000024");
+    wantActor(90000025, EnemyIrce, "EnemyIrce-90000025");
+    wantActor(90000026, EnemyIrce, "EnemyIrce-90000026");
+    wantActor(90000031, FormationThagoras001, "FormationThagoras001-90000031");
     // gen01 end
 
     getBgmConductor()->ready(0, "OGG_RANKUP001_THEMA");
@@ -70,21 +70,21 @@ void RankUp001::processBehavior() {
                 break;
             }
             case 20: {
-                wishActor(90000027, EnemyIrce, "EnemyIrce-90000027");
+                wantActor(90000027, EnemyIrce, "EnemyIrce-90000027");
                 break;
             }
             case 80: {
-                wishActor(90000028, EnemyIrce, "EnemyIrce-90000028");
+                wantActor(90000028, EnemyIrce, "EnemyIrce-90000028");
                 break;
             }
             case 140: {
-                wishActor(90000029, EnemyIrce, "EnemyIrce-90000029");
+                wantActor(90000029, EnemyIrce, "EnemyIrce-90000029");
                 break;
             }
             case 200: {
                 EnemyIrce* p = (EnemyIrce*)grantActor(90000000);
                 bringSceneMediator()->addSubGroup(p);
-                wishActor(90000030, EnemyIrce, "EnemyIrce-90000030");
+                wantActor(90000030, EnemyIrce, "EnemyIrce-90000030");
                 FormationThagoras001* pF1 = (FormationThagoras001*)grantActor(90000031);
                 bringSceneMediator()->addSubGroup(pF1);
                 pF1->setPosition(PX_C(-200), PX_C(  0), PX_C(500));

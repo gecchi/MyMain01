@@ -8,7 +8,7 @@ using namespace SimpleSample;
 SmpSpacetime::SmpSpacetime(const char* prm_name, SmpCamera* prm_pCam) :
         GgafLib::DefaultSpacetime(prm_name, prm_pCam) {
     //SmpWorldシーンの作成をゆりかごする
-    wishScene(0, SimpleSample::SmpWorld, "SMP_WORLD");
+    wantScene(0, SimpleSample::SmpWorld, "SMP_WORLD");
     //この世(Spacetime)コンストラクタ内で、
     //他のシーンの所属( addSubLast(GgafScene*) )は実行しないでください。
 

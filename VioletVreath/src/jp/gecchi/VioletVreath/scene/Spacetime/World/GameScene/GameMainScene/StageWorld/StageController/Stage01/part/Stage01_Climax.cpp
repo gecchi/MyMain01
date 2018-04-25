@@ -18,7 +18,7 @@ using namespace VioletVreath;
 
 Stage01_Climax::Stage01_Climax(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "Stage01_Climax";
-    wishActor(11111111, EnemyStraea, "STG1BOSS");
+    wantActor(11111111, EnemyStraea, "STG1BOSS");
     // gen01 end
     waiting_ = false;
 

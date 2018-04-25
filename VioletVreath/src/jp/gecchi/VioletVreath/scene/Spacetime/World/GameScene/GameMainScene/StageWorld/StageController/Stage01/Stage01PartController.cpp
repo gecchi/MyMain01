@@ -36,11 +36,11 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
 	_paFrame_NextEvent = new frame[8];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
 	_event_num = 8;
-	wishScene(10000000, Stage01_Climax, "Stage01_Climax-10000000");
-	wishScene(10000001, Stage01WallScene, "Stage01WallScene-10000001");
-	wishActor(10000002, EnemyOebiusController001, "EnemyOebiusController001-10000002");
-	wishActor(10000003, EnemyOebiusController002, "EnemyOebiusController002-10000003");
-	wishActor(10000004, EnemyErmione, "EnemyErmione-10000004");
+	wantScene(10000000, Stage01_Climax, "Stage01_Climax-10000000");
+	wantScene(10000001, Stage01WallScene, "Stage01WallScene-10000001");
+	wantActor(10000002, EnemyOebiusController001, "EnemyOebiusController001-10000002");
+	wantActor(10000003, EnemyOebiusController002, "EnemyOebiusController002-10000003");
+	wantActor(10000004, EnemyErmione, "EnemyErmione-10000004");
     // gen01 end
     useProgress(PROG_BANPEI);
 }
@@ -81,7 +81,7 @@ void Stage01PartController::processBehavior() {
 				break;
 			}
 			case 19700: {
-				wishActor(10000005, EnemyErmione, "EnemyErmione-10000005");
+				wantActor(10000005, EnemyErmione, "EnemyErmione-10000005");
 				break;
 			}
 			case 20300: {
@@ -93,7 +93,7 @@ void Stage01PartController::processBehavior() {
 				break;
 			}
 			case 39700: {
-				wishActor(10000006, EnemyErmione, "EnemyErmione-10000006");
+				wantActor(10000006, EnemyErmione, "EnemyErmione-10000006");
 				break;
 			}
 			case 40300: {

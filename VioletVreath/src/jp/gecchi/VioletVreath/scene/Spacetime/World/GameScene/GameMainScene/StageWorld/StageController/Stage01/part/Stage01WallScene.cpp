@@ -83,7 +83,7 @@ Stage01WallScene::Stage01WallScene(const char* prm_name) : WallScene(prm_name) {
 	_paFrame_NextEvent = new frame[6];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
 	_event_num = 6;
-	wishActor(60000002, EnemyHisbe, "EnemyHisbe-60000002");
+	wantActor(60000002, EnemyHisbe, "EnemyHisbe-60000002");
     // gen01 end
 }
 
@@ -120,7 +120,7 @@ void Stage01WallScene::processBehavior() {
 				break;
 			}
 			case 1400: {
-				wishActor(60000000, FormationUnomia001a, "FormationUnomia001a-60000000");
+				wantActor(60000000, FormationUnomia001a, "FormationUnomia001a-60000000");
 				break;
 			}
 			case 2000: {
@@ -128,7 +128,7 @@ void Stage01WallScene::processBehavior() {
 				break;
 			}
 			case 5400: {
-				wishActor(60000001, FormationUnomia001b, "FormationUnomia001b-60000001");
+				wantActor(60000001, FormationUnomia001b, "FormationUnomia001b-60000001");
 				break;
 			}
 			case 6000: {

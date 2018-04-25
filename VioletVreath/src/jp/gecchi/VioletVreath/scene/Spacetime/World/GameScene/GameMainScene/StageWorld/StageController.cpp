@@ -71,19 +71,19 @@ void StageController::readyStage(int prm_main_stage) {
     _TRACE_("StageController::readyStage("<<prm_main_stage<<")");
     switch (prm_main_stage) {
         case 1:
-            wishScene(ORDER_ID_STAGE+prm_main_stage, Stage01, "Stage01");
+            wantScene(ORDER_ID_STAGE+prm_main_stage, Stage01, "Stage01");
             break;
         case 2:
-            wishScene(ORDER_ID_STAGE+prm_main_stage, Stage02, "Stage02");
+            wantScene(ORDER_ID_STAGE+prm_main_stage, Stage02, "Stage02");
             break;
         case 3:
-            wishScene(ORDER_ID_STAGE+prm_main_stage, Stage03, "Stage03");
+            wantScene(ORDER_ID_STAGE+prm_main_stage, Stage03, "Stage03");
             break;
         case 4:
-            wishScene(ORDER_ID_STAGE+prm_main_stage, Stage04, "Stage04");
+            wantScene(ORDER_ID_STAGE+prm_main_stage, Stage04, "Stage04");
             break;
         case 5:
-            wishScene(ORDER_ID_STAGE+prm_main_stage, Stage05, "Stage05");
+            wantScene(ORDER_ID_STAGE+prm_main_stage, Stage05, "Stage05");
             break;
         default:
             break;

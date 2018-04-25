@@ -24,23 +24,23 @@ Stage01_02::Stage01_02(const char* prm_name) : DefaultScene(prm_name) {
 	_paFrame_NextEvent = new frame[1019];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
 	_event_num = 1019;
-	wishActor(30000000, EnemyEtis, "EnemyEtis-30000000");
-	wishActor(30000001, EnemyEtis, "EnemyEtis-30000001");
-	wishActor(30000002, EnemyEtis, "EnemyEtis-30000002");
-	wishActor(30000003, EnemyEtis, "EnemyEtis-30000003");
-	wishActor(30000004, EnemyEtis, "EnemyEtis-30000004");
-	wishActor(30000005, EnemyEtis, "EnemyEtis-30000005");
-	wishActor(30000006, EnemyEtis, "EnemyEtis-30000006");
-	wishActor(30000007, EnemyEtis, "EnemyEtis-30000007");
-	wishActor(30000008, EnemyEtis, "EnemyEtis-30000008");
-	wishActor(30000009, EnemyEtis, "EnemyEtis-30000009");
-	wishActor(30000010, EnemyEtis, "EnemyEtis-30000010");
-	wishActor(30000011, EnemyEtis, "EnemyEtis-30000011");
-	wishActor(30000012, EnemyEtis, "EnemyEtis-30000012");
-	wishActor(30000013, EnemyEtis, "EnemyEtis-30000013");
-	wishActor(30000014, EnemyEtis, "EnemyEtis-30000014");
-	wishActor(30000015, EnemyEtis, "EnemyEtis-30000015");
-	wishActor(30000016, EnemyEtis, "EnemyEtis-30000016");
+	wantActor(30000000, EnemyEtis, "EnemyEtis-30000000");
+	wantActor(30000001, EnemyEtis, "EnemyEtis-30000001");
+	wantActor(30000002, EnemyEtis, "EnemyEtis-30000002");
+	wantActor(30000003, EnemyEtis, "EnemyEtis-30000003");
+	wantActor(30000004, EnemyEtis, "EnemyEtis-30000004");
+	wantActor(30000005, EnemyEtis, "EnemyEtis-30000005");
+	wantActor(30000006, EnemyEtis, "EnemyEtis-30000006");
+	wantActor(30000007, EnemyEtis, "EnemyEtis-30000007");
+	wantActor(30000008, EnemyEtis, "EnemyEtis-30000008");
+	wantActor(30000009, EnemyEtis, "EnemyEtis-30000009");
+	wantActor(30000010, EnemyEtis, "EnemyEtis-30000010");
+	wantActor(30000011, EnemyEtis, "EnemyEtis-30000011");
+	wantActor(30000012, EnemyEtis, "EnemyEtis-30000012");
+	wantActor(30000013, EnemyEtis, "EnemyEtis-30000013");
+	wantActor(30000014, EnemyEtis, "EnemyEtis-30000014");
+	wantActor(30000015, EnemyEtis, "EnemyEtis-30000015");
+	wantActor(30000016, EnemyEtis, "EnemyEtis-30000016");
     // gen01 end
 
     getBgmConductor()->ready(0, "OGG_BGM_01_02");
@@ -60,204 +60,204 @@ void Stage01_02::processBehavior() {
 				break;
 			}
 			case 10: {
-				wishActor(30000017, EnemyEtis, "EnemyEtis-30000017");
+				wantActor(30000017, EnemyEtis, "EnemyEtis-30000017");
 				break;
 			}
 			case 40: {
-				wishActor(30000018, EnemyEtis, "EnemyEtis-30000018");
+				wantActor(30000018, EnemyEtis, "EnemyEtis-30000018");
 				break;
 			}
 			case 70: {
-				wishActor(30000019, EnemyEtis, "EnemyEtis-30000019");
+				wantActor(30000019, EnemyEtis, "EnemyEtis-30000019");
 				break;
 			}
 			case 100: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000000);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000020, EnemyEtis, "EnemyEtis-30000020");
+				wantActor(30000020, EnemyEtis, "EnemyEtis-30000020");
 				break;
 			}
 			case 130: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000001);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000021, EnemyEtis, "EnemyEtis-30000021");
+				wantActor(30000021, EnemyEtis, "EnemyEtis-30000021");
 				break;
 			}
 			case 160: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000002);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000022, EnemyEtis, "EnemyEtis-30000022");
+				wantActor(30000022, EnemyEtis, "EnemyEtis-30000022");
 				break;
 			}
 			case 190: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000003);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000023, EnemyEtis, "EnemyEtis-30000023");
+				wantActor(30000023, EnemyEtis, "EnemyEtis-30000023");
 				break;
 			}
 			case 220: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000004);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000024, EnemyEtis, "EnemyEtis-30000024");
+				wantActor(30000024, EnemyEtis, "EnemyEtis-30000024");
 				break;
 			}
 			case 250: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000005);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000025, EnemyEtis, "EnemyEtis-30000025");
+				wantActor(30000025, EnemyEtis, "EnemyEtis-30000025");
 				break;
 			}
 			case 280: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000006);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000026, EnemyEtis, "EnemyEtis-30000026");
+				wantActor(30000026, EnemyEtis, "EnemyEtis-30000026");
 				break;
 			}
 			case 310: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000007);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000027, EnemyEtis, "EnemyEtis-30000027");
+				wantActor(30000027, EnemyEtis, "EnemyEtis-30000027");
 				break;
 			}
 			case 340: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000008);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000028, EnemyEtis, "EnemyEtis-30000028");
+				wantActor(30000028, EnemyEtis, "EnemyEtis-30000028");
 				break;
 			}
 			case 370: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000009);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000029, EnemyEtis, "EnemyEtis-30000029");
+				wantActor(30000029, EnemyEtis, "EnemyEtis-30000029");
 				break;
 			}
 			case 400: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000010);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000030, EnemyEtis, "EnemyEtis-30000030");
-				wishActor(30000997, VarietyRatislavia001, "VarietyRatislavia001-30000997");
-				wishActor(30001018, FormationHalia, "FormationHalia-30001018");
-				wishActor(30001029, FormationEbe001, "FormationEbe001-30001029");
+				wantActor(30000030, EnemyEtis, "EnemyEtis-30000030");
+				wantActor(30000997, VarietyRatislavia001, "VarietyRatislavia001-30000997");
+				wantActor(30001018, FormationHalia, "FormationHalia-30001018");
+				wantActor(30001029, FormationEbe001, "FormationEbe001-30001029");
 				break;
 			}
 			case 430: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000011);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000031, EnemyEtis, "EnemyEtis-30000031");
+				wantActor(30000031, EnemyEtis, "EnemyEtis-30000031");
 				break;
 			}
 			case 460: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000012);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000032, EnemyEtis, "EnemyEtis-30000032");
+				wantActor(30000032, EnemyEtis, "EnemyEtis-30000032");
 				break;
 			}
 			case 490: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000013);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000033, EnemyEtis, "EnemyEtis-30000033");
+				wantActor(30000033, EnemyEtis, "EnemyEtis-30000033");
 				break;
 			}
 			case 520: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000014);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000034, EnemyEtis, "EnemyEtis-30000034");
+				wantActor(30000034, EnemyEtis, "EnemyEtis-30000034");
 				break;
 			}
 			case 550: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000015);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000035, EnemyEtis, "EnemyEtis-30000035");
+				wantActor(30000035, EnemyEtis, "EnemyEtis-30000035");
 				break;
 			}
 			case 580: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000016);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000036, EnemyEtis, "EnemyEtis-30000036");
+				wantActor(30000036, EnemyEtis, "EnemyEtis-30000036");
 				break;
 			}
 			case 610: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000017);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000037, EnemyEtis, "EnemyEtis-30000037");
+				wantActor(30000037, EnemyEtis, "EnemyEtis-30000037");
 				break;
 			}
 			case 640: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000018);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000038, EnemyEtis, "EnemyEtis-30000038");
+				wantActor(30000038, EnemyEtis, "EnemyEtis-30000038");
 				break;
 			}
 			case 670: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000019);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000039, EnemyEtis, "EnemyEtis-30000039");
+				wantActor(30000039, EnemyEtis, "EnemyEtis-30000039");
 				break;
 			}
 			case 700: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000020);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000040, EnemyEtis, "EnemyEtis-30000040");
+				wantActor(30000040, EnemyEtis, "EnemyEtis-30000040");
 				break;
 			}
 			case 730: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000021);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000041, EnemyEtis, "EnemyEtis-30000041");
+				wantActor(30000041, EnemyEtis, "EnemyEtis-30000041");
 				break;
 			}
 			case 760: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000022);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000042, EnemyEtis, "EnemyEtis-30000042");
+				wantActor(30000042, EnemyEtis, "EnemyEtis-30000042");
 				break;
 			}
 			case 790: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000023);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000043, EnemyEtis, "EnemyEtis-30000043");
+				wantActor(30000043, EnemyEtis, "EnemyEtis-30000043");
 				break;
 			}
 			case 820: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000024);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000044, EnemyEtis, "EnemyEtis-30000044");
+				wantActor(30000044, EnemyEtis, "EnemyEtis-30000044");
 				break;
 			}
 			case 850: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000025);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000045, EnemyEtis, "EnemyEtis-30000045");
+				wantActor(30000045, EnemyEtis, "EnemyEtis-30000045");
 				break;
 			}
 			case 880: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000026);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000046, EnemyEtis, "EnemyEtis-30000046");
+				wantActor(30000046, EnemyEtis, "EnemyEtis-30000046");
 				break;
 			}
 			case 910: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000027);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000047, EnemyEtis, "EnemyEtis-30000047");
+				wantActor(30000047, EnemyEtis, "EnemyEtis-30000047");
 				break;
 			}
 			case 940: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000028);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000048, EnemyEtis, "EnemyEtis-30000048");
+				wantActor(30000048, EnemyEtis, "EnemyEtis-30000048");
 				break;
 			}
 			case 970: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000029);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000049, EnemyEtis, "EnemyEtis-30000049");
+				wantActor(30000049, EnemyEtis, "EnemyEtis-30000049");
 				break;
 			}
 			case 1000: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000030);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000050, EnemyEtis, "EnemyEtis-30000050");
+				wantActor(30000050, EnemyEtis, "EnemyEtis-30000050");
 				VarietyRatislavia001* pRatislavia = (VarietyRatislavia001*)grantActor(30000997);
 				bringSceneMediator()->addSubGroup(pRatislavia);
 				FormationHalia* pF = (FormationHalia*)grantActor(30001018);
@@ -269,279 +269,279 @@ void Stage01_02::processBehavior() {
 			case 1030: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000031);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000051, EnemyEtis, "EnemyEtis-30000051");
+				wantActor(30000051, EnemyEtis, "EnemyEtis-30000051");
 				break;
 			}
 			case 1060: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000032);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000052, EnemyEtis, "EnemyEtis-30000052");
+				wantActor(30000052, EnemyEtis, "EnemyEtis-30000052");
 				break;
 			}
 			case 1090: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000033);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000053, EnemyEtis, "EnemyEtis-30000053");
+				wantActor(30000053, EnemyEtis, "EnemyEtis-30000053");
 				break;
 			}
 			case 1120: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000034);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000054, EnemyEtis, "EnemyEtis-30000054");
+				wantActor(30000054, EnemyEtis, "EnemyEtis-30000054");
 				break;
 			}
 			case 1150: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000035);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000055, EnemyEtis, "EnemyEtis-30000055");
+				wantActor(30000055, EnemyEtis, "EnemyEtis-30000055");
 				break;
 			}
 			case 1180: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000036);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000056, EnemyEtis, "EnemyEtis-30000056");
+				wantActor(30000056, EnemyEtis, "EnemyEtis-30000056");
 				break;
 			}
 			case 1210: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000037);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000057, EnemyEtis, "EnemyEtis-30000057");
+				wantActor(30000057, EnemyEtis, "EnemyEtis-30000057");
 				break;
 			}
 			case 1240: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000038);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000058, EnemyEtis, "EnemyEtis-30000058");
+				wantActor(30000058, EnemyEtis, "EnemyEtis-30000058");
 				break;
 			}
 			case 1270: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000039);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000059, EnemyEtis, "EnemyEtis-30000059");
+				wantActor(30000059, EnemyEtis, "EnemyEtis-30000059");
 				break;
 			}
 			case 1300: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000040);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000060, EnemyEtis, "EnemyEtis-30000060");
+				wantActor(30000060, EnemyEtis, "EnemyEtis-30000060");
 				break;
 			}
 			case 1330: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000041);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000061, EnemyEtis, "EnemyEtis-30000061");
+				wantActor(30000061, EnemyEtis, "EnemyEtis-30000061");
 				break;
 			}
 			case 1360: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000042);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000062, EnemyEtis, "EnemyEtis-30000062");
+				wantActor(30000062, EnemyEtis, "EnemyEtis-30000062");
 				break;
 			}
 			case 1390: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000043);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000063, EnemyEtis, "EnemyEtis-30000063");
+				wantActor(30000063, EnemyEtis, "EnemyEtis-30000063");
 				break;
 			}
 			case 1420: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000044);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000064, EnemyEtis, "EnemyEtis-30000064");
+				wantActor(30000064, EnemyEtis, "EnemyEtis-30000064");
 				break;
 			}
 			case 1450: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000045);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000065, EnemyEtis, "EnemyEtis-30000065");
+				wantActor(30000065, EnemyEtis, "EnemyEtis-30000065");
 				break;
 			}
 			case 1480: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000046);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000066, EnemyEtis, "EnemyEtis-30000066");
+				wantActor(30000066, EnemyEtis, "EnemyEtis-30000066");
 				break;
 			}
 			case 1510: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000047);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000067, EnemyEtis, "EnemyEtis-30000067");
+				wantActor(30000067, EnemyEtis, "EnemyEtis-30000067");
 				break;
 			}
 			case 1540: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000048);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000068, EnemyEtis, "EnemyEtis-30000068");
+				wantActor(30000068, EnemyEtis, "EnemyEtis-30000068");
 				break;
 			}
 			case 1570: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000049);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000069, EnemyEtis, "EnemyEtis-30000069");
+				wantActor(30000069, EnemyEtis, "EnemyEtis-30000069");
 				break;
 			}
 			case 1600: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000050);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000070, EnemyEtis, "EnemyEtis-30000070");
+				wantActor(30000070, EnemyEtis, "EnemyEtis-30000070");
 				break;
 			}
 			case 1630: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000051);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000071, EnemyEtis, "EnemyEtis-30000071");
+				wantActor(30000071, EnemyEtis, "EnemyEtis-30000071");
 				break;
 			}
 			case 1660: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000052);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000072, EnemyEtis, "EnemyEtis-30000072");
+				wantActor(30000072, EnemyEtis, "EnemyEtis-30000072");
 				break;
 			}
 			case 1690: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000053);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000073, EnemyEtis, "EnemyEtis-30000073");
+				wantActor(30000073, EnemyEtis, "EnemyEtis-30000073");
 				break;
 			}
 			case 1700: {
-				wishActor(30000998, EnemyStraea, "EnemyStraea-30000998");
+				wantActor(30000998, EnemyStraea, "EnemyStraea-30000998");
 				break;
 			}
 			case 1720: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000054);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000074, EnemyEtis, "EnemyEtis-30000074");
+				wantActor(30000074, EnemyEtis, "EnemyEtis-30000074");
 				break;
 			}
 			case 1750: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000055);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000075, EnemyEtis, "EnemyEtis-30000075");
+				wantActor(30000075, EnemyEtis, "EnemyEtis-30000075");
 				break;
 			}
 			case 1780: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000056);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000076, EnemyEtis, "EnemyEtis-30000076");
+				wantActor(30000076, EnemyEtis, "EnemyEtis-30000076");
 				break;
 			}
 			case 1810: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000057);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000077, EnemyEtis, "EnemyEtis-30000077");
+				wantActor(30000077, EnemyEtis, "EnemyEtis-30000077");
 				break;
 			}
 			case 1840: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000058);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000078, EnemyEtis, "EnemyEtis-30000078");
+				wantActor(30000078, EnemyEtis, "EnemyEtis-30000078");
 				break;
 			}
 			case 1870: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000059);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000079, EnemyEtis, "EnemyEtis-30000079");
+				wantActor(30000079, EnemyEtis, "EnemyEtis-30000079");
 				break;
 			}
 			case 1900: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000060);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000080, EnemyEtis, "EnemyEtis-30000080");
-				wishActor(30000999, FormationEmilia, "FormationEmilia-30000999");
+				wantActor(30000080, EnemyEtis, "EnemyEtis-30000080");
+				wantActor(30000999, FormationEmilia, "FormationEmilia-30000999");
 				break;
 			}
 			case 1930: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000061);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000081, EnemyEtis, "EnemyEtis-30000081");
+				wantActor(30000081, EnemyEtis, "EnemyEtis-30000081");
 				break;
 			}
 			case 1960: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000062);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000082, EnemyEtis, "EnemyEtis-30000082");
+				wantActor(30000082, EnemyEtis, "EnemyEtis-30000082");
 				break;
 			}
 			case 1990: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000063);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000083, EnemyEtis, "EnemyEtis-30000083");
+				wantActor(30000083, EnemyEtis, "EnemyEtis-30000083");
 				break;
 			}
 			case 2020: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000064);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000084, EnemyEtis, "EnemyEtis-30000084");
+				wantActor(30000084, EnemyEtis, "EnemyEtis-30000084");
 				break;
 			}
 			case 2050: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000065);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000085, EnemyEtis, "EnemyEtis-30000085");
+				wantActor(30000085, EnemyEtis, "EnemyEtis-30000085");
 				break;
 			}
 			case 2080: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000066);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000086, EnemyEtis, "EnemyEtis-30000086");
+				wantActor(30000086, EnemyEtis, "EnemyEtis-30000086");
 				break;
 			}
 			case 2100: {
-				wishActor(30001001, FormationAllas001a, "FormationAllas001a-30001001");
-				wishActor(30001002, FormationAllas001b, "FormationAllas001b-30001002");
-				wishActor(30001003, FormationAllas001c, "FormationAllas001c-30001003");
-				wishActor(30001004, FormationAllas001d, "FormationAllas001d-30001004");
-				wishActor(30001005, FormationAllas001a, "FormationAllas001a-30001005");
-				wishActor(30001006, FormationAllas001d, "FormationAllas001d-30001006");
-				wishActor(30001007, FormationAllas001b, "FormationAllas001b-30001007");
-				wishActor(30001008, FormationAllas001c, "FormationAllas001c-30001008");
-				wishActor(30001009, FormationAllas001a, "FormationAllas001a-30001009");
-				wishActor(30001010, FormationAllas001d, "FormationAllas001d-30001010");
-				wishActor(30001011, FormationAllas001b, "FormationAllas001b-30001011");
-				wishActor(30001012, FormationAllas001c, "FormationAllas001c-30001012");
+				wantActor(30001001, FormationAllas001a, "FormationAllas001a-30001001");
+				wantActor(30001002, FormationAllas001b, "FormationAllas001b-30001002");
+				wantActor(30001003, FormationAllas001c, "FormationAllas001c-30001003");
+				wantActor(30001004, FormationAllas001d, "FormationAllas001d-30001004");
+				wantActor(30001005, FormationAllas001a, "FormationAllas001a-30001005");
+				wantActor(30001006, FormationAllas001d, "FormationAllas001d-30001006");
+				wantActor(30001007, FormationAllas001b, "FormationAllas001b-30001007");
+				wantActor(30001008, FormationAllas001c, "FormationAllas001c-30001008");
+				wantActor(30001009, FormationAllas001a, "FormationAllas001a-30001009");
+				wantActor(30001010, FormationAllas001d, "FormationAllas001d-30001010");
+				wantActor(30001011, FormationAllas001b, "FormationAllas001b-30001011");
+				wantActor(30001012, FormationAllas001c, "FormationAllas001c-30001012");
 				break;
 			}
 			case 2110: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000067);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000087, EnemyEtis, "EnemyEtis-30000087");
+				wantActor(30000087, EnemyEtis, "EnemyEtis-30000087");
 				break;
 			}
 			case 2140: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000068);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000088, EnemyEtis, "EnemyEtis-30000088");
+				wantActor(30000088, EnemyEtis, "EnemyEtis-30000088");
 				break;
 			}
 			case 2170: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000069);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000089, EnemyEtis, "EnemyEtis-30000089");
+				wantActor(30000089, EnemyEtis, "EnemyEtis-30000089");
 				break;
 			}
 			case 2200: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000070);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000090, EnemyEtis, "EnemyEtis-30000090");
+				wantActor(30000090, EnemyEtis, "EnemyEtis-30000090");
 				break;
 			}
 			case 2230: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000071);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000091, EnemyEtis, "EnemyEtis-30000091");
+				wantActor(30000091, EnemyEtis, "EnemyEtis-30000091");
 				break;
 			}
 			case 2260: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000072);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000092, EnemyEtis, "EnemyEtis-30000092");
+				wantActor(30000092, EnemyEtis, "EnemyEtis-30000092");
 				break;
 			}
 			case 2290: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000073);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000093, EnemyEtis, "EnemyEtis-30000093");
+				wantActor(30000093, EnemyEtis, "EnemyEtis-30000093");
 				break;
 			}
 			case 2300: {
@@ -554,47 +554,47 @@ void Stage01_02::processBehavior() {
 			case 2320: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000074);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000094, EnemyEtis, "EnemyEtis-30000094");
+				wantActor(30000094, EnemyEtis, "EnemyEtis-30000094");
 				break;
 			}
 			case 2350: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000075);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000095, EnemyEtis, "EnemyEtis-30000095");
+				wantActor(30000095, EnemyEtis, "EnemyEtis-30000095");
 				break;
 			}
 			case 2380: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000076);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000096, EnemyEtis, "EnemyEtis-30000096");
+				wantActor(30000096, EnemyEtis, "EnemyEtis-30000096");
 				break;
 			}
 			case 2400: {
-				wishActor(30001013, FormationGeria001, "FormationGeria001-30001013");
+				wantActor(30001013, FormationGeria001, "FormationGeria001-30001013");
 				break;
 			}
 			case 2410: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000077);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000097, EnemyEtis, "EnemyEtis-30000097");
+				wantActor(30000097, EnemyEtis, "EnemyEtis-30000097");
 				break;
 			}
 			case 2440: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000078);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000098, EnemyEtis, "EnemyEtis-30000098");
+				wantActor(30000098, EnemyEtis, "EnemyEtis-30000098");
 				break;
 			}
 			case 2470: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000079);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000099, EnemyEtis, "EnemyEtis-30000099");
+				wantActor(30000099, EnemyEtis, "EnemyEtis-30000099");
 				break;
 			}
 			case 2500: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000080);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000100, EnemyEtis, "EnemyEtis-30000100");
+				wantActor(30000100, EnemyEtis, "EnemyEtis-30000100");
 				FormationEmilia* pFormationEmilia = (FormationEmilia*)grantActor(30000999);
 				bringSceneMediator()->addSubGroup(pFormationEmilia);
 				break;
@@ -602,37 +602,37 @@ void Stage01_02::processBehavior() {
 			case 2530: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000081);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000101, EnemyEtis, "EnemyEtis-30000101");
+				wantActor(30000101, EnemyEtis, "EnemyEtis-30000101");
 				break;
 			}
 			case 2560: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000082);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000102, EnemyEtis, "EnemyEtis-30000102");
+				wantActor(30000102, EnemyEtis, "EnemyEtis-30000102");
 				break;
 			}
 			case 2590: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000083);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000103, EnemyEtis, "EnemyEtis-30000103");
+				wantActor(30000103, EnemyEtis, "EnemyEtis-30000103");
 				break;
 			}
 			case 2620: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000084);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000104, EnemyEtis, "EnemyEtis-30000104");
+				wantActor(30000104, EnemyEtis, "EnemyEtis-30000104");
 				break;
 			}
 			case 2650: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000085);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000105, EnemyEtis, "EnemyEtis-30000105");
+				wantActor(30000105, EnemyEtis, "EnemyEtis-30000105");
 				break;
 			}
 			case 2680: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000086);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000106, EnemyEtis, "EnemyEtis-30000106");
+				wantActor(30000106, EnemyEtis, "EnemyEtis-30000106");
 				break;
 			}
 			case 2700: {
@@ -658,61 +658,61 @@ void Stage01_02::processBehavior() {
 			case 2710: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000087);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000107, EnemyEtis, "EnemyEtis-30000107");
+				wantActor(30000107, EnemyEtis, "EnemyEtis-30000107");
 				break;
 			}
 			case 2740: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000088);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000108, EnemyEtis, "EnemyEtis-30000108");
+				wantActor(30000108, EnemyEtis, "EnemyEtis-30000108");
 				break;
 			}
 			case 2770: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000089);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000109, EnemyEtis, "EnemyEtis-30000109");
+				wantActor(30000109, EnemyEtis, "EnemyEtis-30000109");
 				break;
 			}
 			case 2800: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000090);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000110, EnemyEtis, "EnemyEtis-30000110");
+				wantActor(30000110, EnemyEtis, "EnemyEtis-30000110");
 				break;
 			}
 			case 2830: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000091);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000111, EnemyEtis, "EnemyEtis-30000111");
+				wantActor(30000111, EnemyEtis, "EnemyEtis-30000111");
 				break;
 			}
 			case 2860: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000092);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000112, EnemyEtis, "EnemyEtis-30000112");
+				wantActor(30000112, EnemyEtis, "EnemyEtis-30000112");
 				break;
 			}
 			case 2890: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000093);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000113, EnemyEtis, "EnemyEtis-30000113");
+				wantActor(30000113, EnemyEtis, "EnemyEtis-30000113");
 				break;
 			}
 			case 2920: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000094);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000114, EnemyEtis, "EnemyEtis-30000114");
+				wantActor(30000114, EnemyEtis, "EnemyEtis-30000114");
 				break;
 			}
 			case 2950: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000095);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000115, EnemyEtis, "EnemyEtis-30000115");
+				wantActor(30000115, EnemyEtis, "EnemyEtis-30000115");
 				break;
 			}
 			case 2980: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000096);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000116, EnemyEtis, "EnemyEtis-30000116");
+				wantActor(30000116, EnemyEtis, "EnemyEtis-30000116");
 				break;
 			}
 			case 3000: {
@@ -723,206 +723,206 @@ void Stage01_02::processBehavior() {
 			case 3010: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000097);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000117, EnemyEtis, "EnemyEtis-30000117");
+				wantActor(30000117, EnemyEtis, "EnemyEtis-30000117");
 				break;
 			}
 			case 3040: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000098);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000118, EnemyEtis, "EnemyEtis-30000118");
+				wantActor(30000118, EnemyEtis, "EnemyEtis-30000118");
 				break;
 			}
 			case 3070: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000099);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000119, EnemyEtis, "EnemyEtis-30000119");
+				wantActor(30000119, EnemyEtis, "EnemyEtis-30000119");
 				break;
 			}
 			case 3100: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000100);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000120, EnemyEtis, "EnemyEtis-30000120");
+				wantActor(30000120, EnemyEtis, "EnemyEtis-30000120");
 				break;
 			}
 			case 3130: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000101);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000121, EnemyEtis, "EnemyEtis-30000121");
+				wantActor(30000121, EnemyEtis, "EnemyEtis-30000121");
 				break;
 			}
 			case 3160: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000102);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000122, EnemyEtis, "EnemyEtis-30000122");
+				wantActor(30000122, EnemyEtis, "EnemyEtis-30000122");
 				break;
 			}
 			case 3190: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000103);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000123, EnemyEtis, "EnemyEtis-30000123");
+				wantActor(30000123, EnemyEtis, "EnemyEtis-30000123");
 				break;
 			}
 			case 3220: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000104);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000124, EnemyEtis, "EnemyEtis-30000124");
+				wantActor(30000124, EnemyEtis, "EnemyEtis-30000124");
 				break;
 			}
 			case 3250: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000105);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000125, EnemyEtis, "EnemyEtis-30000125");
+				wantActor(30000125, EnemyEtis, "EnemyEtis-30000125");
 				break;
 			}
 			case 3280: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000106);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000126, EnemyEtis, "EnemyEtis-30000126");
+				wantActor(30000126, EnemyEtis, "EnemyEtis-30000126");
 				break;
 			}
 			case 3310: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000107);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000127, EnemyEtis, "EnemyEtis-30000127");
+				wantActor(30000127, EnemyEtis, "EnemyEtis-30000127");
 				break;
 			}
 			case 3340: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000108);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000128, EnemyEtis, "EnemyEtis-30000128");
+				wantActor(30000128, EnemyEtis, "EnemyEtis-30000128");
 				break;
 			}
 			case 3370: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000109);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000129, EnemyEtis, "EnemyEtis-30000129");
+				wantActor(30000129, EnemyEtis, "EnemyEtis-30000129");
 				break;
 			}
 			case 3400: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000110);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000130, EnemyEtis, "EnemyEtis-30000130");
-				wishActor(30001014, VarietyRatislavia001, "VarietyRatislavia001-30001014");
+				wantActor(30000130, EnemyEtis, "EnemyEtis-30000130");
+				wantActor(30001014, VarietyRatislavia001, "VarietyRatislavia001-30001014");
 				break;
 			}
 			case 3430: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000111);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000131, EnemyEtis, "EnemyEtis-30000131");
+				wantActor(30000131, EnemyEtis, "EnemyEtis-30000131");
 				break;
 			}
 			case 3460: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000112);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000132, EnemyEtis, "EnemyEtis-30000132");
+				wantActor(30000132, EnemyEtis, "EnemyEtis-30000132");
 				break;
 			}
 			case 3490: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000113);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000133, EnemyEtis, "EnemyEtis-30000133");
+				wantActor(30000133, EnemyEtis, "EnemyEtis-30000133");
 				break;
 			}
 			case 3520: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000114);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000134, EnemyEtis, "EnemyEtis-30000134");
+				wantActor(30000134, EnemyEtis, "EnemyEtis-30000134");
 				break;
 			}
 			case 3550: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000115);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000135, EnemyEtis, "EnemyEtis-30000135");
+				wantActor(30000135, EnemyEtis, "EnemyEtis-30000135");
 				break;
 			}
 			case 3580: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000116);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000136, EnemyEtis, "EnemyEtis-30000136");
+				wantActor(30000136, EnemyEtis, "EnemyEtis-30000136");
 				break;
 			}
 			case 3610: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000117);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000137, EnemyEtis, "EnemyEtis-30000137");
+				wantActor(30000137, EnemyEtis, "EnemyEtis-30000137");
 				break;
 			}
 			case 3640: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000118);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000138, EnemyEtis, "EnemyEtis-30000138");
+				wantActor(30000138, EnemyEtis, "EnemyEtis-30000138");
 				break;
 			}
 			case 3670: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000119);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000139, EnemyEtis, "EnemyEtis-30000139");
+				wantActor(30000139, EnemyEtis, "EnemyEtis-30000139");
 				break;
 			}
 			case 3700: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000120);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000140, EnemyEtis, "EnemyEtis-30000140");
+				wantActor(30000140, EnemyEtis, "EnemyEtis-30000140");
 				break;
 			}
 			case 3730: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000121);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000141, EnemyEtis, "EnemyEtis-30000141");
+				wantActor(30000141, EnemyEtis, "EnemyEtis-30000141");
 				break;
 			}
 			case 3760: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000122);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000142, EnemyEtis, "EnemyEtis-30000142");
+				wantActor(30000142, EnemyEtis, "EnemyEtis-30000142");
 				break;
 			}
 			case 3790: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000123);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000143, EnemyEtis, "EnemyEtis-30000143");
+				wantActor(30000143, EnemyEtis, "EnemyEtis-30000143");
 				break;
 			}
 			case 3820: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000124);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000144, EnemyEtis, "EnemyEtis-30000144");
+				wantActor(30000144, EnemyEtis, "EnemyEtis-30000144");
 				break;
 			}
 			case 3850: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000125);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000145, EnemyEtis, "EnemyEtis-30000145");
+				wantActor(30000145, EnemyEtis, "EnemyEtis-30000145");
 				break;
 			}
 			case 3880: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000126);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000146, EnemyEtis, "EnemyEtis-30000146");
+				wantActor(30000146, EnemyEtis, "EnemyEtis-30000146");
 				break;
 			}
 			case 3910: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000127);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000147, EnemyEtis, "EnemyEtis-30000147");
+				wantActor(30000147, EnemyEtis, "EnemyEtis-30000147");
 				break;
 			}
 			case 3940: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000128);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000148, EnemyEtis, "EnemyEtis-30000148");
+				wantActor(30000148, EnemyEtis, "EnemyEtis-30000148");
 				break;
 			}
 			case 3970: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000129);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000149, EnemyEtis, "EnemyEtis-30000149");
+				wantActor(30000149, EnemyEtis, "EnemyEtis-30000149");
 				break;
 			}
 			case 4000: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000130);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000150, EnemyEtis, "EnemyEtis-30000150");
+				wantActor(30000150, EnemyEtis, "EnemyEtis-30000150");
 				VarietyRatislavia001* pRatislavia = (VarietyRatislavia001*)grantActor(30001014);
 				bringSceneMediator()->addSubGroup(pRatislavia);
 				break;
@@ -930,205 +930,205 @@ void Stage01_02::processBehavior() {
 			case 4030: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000131);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000151, EnemyEtis, "EnemyEtis-30000151");
+				wantActor(30000151, EnemyEtis, "EnemyEtis-30000151");
 				break;
 			}
 			case 4060: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000132);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000152, EnemyEtis, "EnemyEtis-30000152");
+				wantActor(30000152, EnemyEtis, "EnemyEtis-30000152");
 				break;
 			}
 			case 4090: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000133);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000153, EnemyEtis, "EnemyEtis-30000153");
+				wantActor(30000153, EnemyEtis, "EnemyEtis-30000153");
 				break;
 			}
 			case 4120: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000134);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000154, EnemyEtis, "EnemyEtis-30000154");
+				wantActor(30000154, EnemyEtis, "EnemyEtis-30000154");
 				break;
 			}
 			case 4150: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000135);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000155, EnemyEtis, "EnemyEtis-30000155");
+				wantActor(30000155, EnemyEtis, "EnemyEtis-30000155");
 				break;
 			}
 			case 4180: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000136);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000156, EnemyEtis, "EnemyEtis-30000156");
+				wantActor(30000156, EnemyEtis, "EnemyEtis-30000156");
 				break;
 			}
 			case 4210: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000137);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000157, EnemyEtis, "EnemyEtis-30000157");
+				wantActor(30000157, EnemyEtis, "EnemyEtis-30000157");
 				break;
 			}
 			case 4240: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000138);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000158, EnemyEtis, "EnemyEtis-30000158");
+				wantActor(30000158, EnemyEtis, "EnemyEtis-30000158");
 				break;
 			}
 			case 4270: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000139);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000159, EnemyEtis, "EnemyEtis-30000159");
+				wantActor(30000159, EnemyEtis, "EnemyEtis-30000159");
 				break;
 			}
 			case 4300: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000140);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000160, EnemyEtis, "EnemyEtis-30000160");
+				wantActor(30000160, EnemyEtis, "EnemyEtis-30000160");
 				break;
 			}
 			case 4330: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000141);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000161, EnemyEtis, "EnemyEtis-30000161");
+				wantActor(30000161, EnemyEtis, "EnemyEtis-30000161");
 				break;
 			}
 			case 4360: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000142);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000162, EnemyEtis, "EnemyEtis-30000162");
+				wantActor(30000162, EnemyEtis, "EnemyEtis-30000162");
 				break;
 			}
 			case 4390: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000143);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000163, EnemyEtis, "EnemyEtis-30000163");
+				wantActor(30000163, EnemyEtis, "EnemyEtis-30000163");
 				break;
 			}
 			case 4400: {
-				wishActor(30001015, VarietyRatislavia002, "VarietyRatislavia002-30001015");
-				wishActor(30001019, FormationHalia, "FormationHalia-30001019");
-				wishActor(30001030, EnemyEsperia, "EnemyEsperia-30001030");
+				wantActor(30001015, VarietyRatislavia002, "VarietyRatislavia002-30001015");
+				wantActor(30001019, FormationHalia, "FormationHalia-30001019");
+				wantActor(30001030, EnemyEsperia, "EnemyEsperia-30001030");
 				break;
 			}
 			case 4420: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000144);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000164, EnemyEtis, "EnemyEtis-30000164");
+				wantActor(30000164, EnemyEtis, "EnemyEtis-30000164");
 				break;
 			}
 			case 4450: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000145);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000165, EnemyEtis, "EnemyEtis-30000165");
+				wantActor(30000165, EnemyEtis, "EnemyEtis-30000165");
 				break;
 			}
 			case 4480: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000146);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000166, EnemyEtis, "EnemyEtis-30000166");
+				wantActor(30000166, EnemyEtis, "EnemyEtis-30000166");
 				break;
 			}
 			case 4510: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000147);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000167, EnemyEtis, "EnemyEtis-30000167");
+				wantActor(30000167, EnemyEtis, "EnemyEtis-30000167");
 				break;
 			}
 			case 4540: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000148);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000168, EnemyEtis, "EnemyEtis-30000168");
+				wantActor(30000168, EnemyEtis, "EnemyEtis-30000168");
 				break;
 			}
 			case 4570: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000149);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000169, EnemyEtis, "EnemyEtis-30000169");
+				wantActor(30000169, EnemyEtis, "EnemyEtis-30000169");
 				break;
 			}
 			case 4600: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000150);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000170, EnemyEtis, "EnemyEtis-30000170");
+				wantActor(30000170, EnemyEtis, "EnemyEtis-30000170");
 				break;
 			}
 			case 4630: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000151);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000171, EnemyEtis, "EnemyEtis-30000171");
+				wantActor(30000171, EnemyEtis, "EnemyEtis-30000171");
 				break;
 			}
 			case 4660: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000152);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000172, EnemyEtis, "EnemyEtis-30000172");
+				wantActor(30000172, EnemyEtis, "EnemyEtis-30000172");
 				break;
 			}
 			case 4690: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000153);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000173, EnemyEtis, "EnemyEtis-30000173");
+				wantActor(30000173, EnemyEtis, "EnemyEtis-30000173");
 				break;
 			}
 			case 4720: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000154);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000174, EnemyEtis, "EnemyEtis-30000174");
+				wantActor(30000174, EnemyEtis, "EnemyEtis-30000174");
 				break;
 			}
 			case 4750: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000155);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000175, EnemyEtis, "EnemyEtis-30000175");
+				wantActor(30000175, EnemyEtis, "EnemyEtis-30000175");
 				break;
 			}
 			case 4780: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000156);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000176, EnemyEtis, "EnemyEtis-30000176");
+				wantActor(30000176, EnemyEtis, "EnemyEtis-30000176");
 				break;
 			}
 			case 4810: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000157);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000177, EnemyEtis, "EnemyEtis-30000177");
+				wantActor(30000177, EnemyEtis, "EnemyEtis-30000177");
 				break;
 			}
 			case 4840: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000158);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000178, EnemyEtis, "EnemyEtis-30000178");
+				wantActor(30000178, EnemyEtis, "EnemyEtis-30000178");
 				break;
 			}
 			case 4870: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000159);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000179, EnemyEtis, "EnemyEtis-30000179");
+				wantActor(30000179, EnemyEtis, "EnemyEtis-30000179");
 				break;
 			}
 			case 4900: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000160);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000180, EnemyEtis, "EnemyEtis-30000180");
+				wantActor(30000180, EnemyEtis, "EnemyEtis-30000180");
 				break;
 			}
 			case 4930: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000161);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000181, EnemyEtis, "EnemyEtis-30000181");
+				wantActor(30000181, EnemyEtis, "EnemyEtis-30000181");
 				break;
 			}
 			case 4960: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000162);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000182, EnemyEtis, "EnemyEtis-30000182");
+				wantActor(30000182, EnemyEtis, "EnemyEtis-30000182");
 				break;
 			}
 			case 4990: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000163);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000183, EnemyEtis, "EnemyEtis-30000183");
+				wantActor(30000183, EnemyEtis, "EnemyEtis-30000183");
 				break;
 			}
 			case 5000: {
@@ -1142,204 +1142,204 @@ void Stage01_02::processBehavior() {
 			case 5020: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000164);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000184, EnemyEtis, "EnemyEtis-30000184");
+				wantActor(30000184, EnemyEtis, "EnemyEtis-30000184");
 				break;
 			}
 			case 5050: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000165);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000185, EnemyEtis, "EnemyEtis-30000185");
+				wantActor(30000185, EnemyEtis, "EnemyEtis-30000185");
 				break;
 			}
 			case 5080: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000166);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000186, EnemyEtis, "EnemyEtis-30000186");
+				wantActor(30000186, EnemyEtis, "EnemyEtis-30000186");
 				break;
 			}
 			case 5110: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000167);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000187, EnemyEtis, "EnemyEtis-30000187");
+				wantActor(30000187, EnemyEtis, "EnemyEtis-30000187");
 				break;
 			}
 			case 5140: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000168);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000188, EnemyEtis, "EnemyEtis-30000188");
+				wantActor(30000188, EnemyEtis, "EnemyEtis-30000188");
 				break;
 			}
 			case 5170: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000169);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000189, EnemyEtis, "EnemyEtis-30000189");
+				wantActor(30000189, EnemyEtis, "EnemyEtis-30000189");
 				break;
 			}
 			case 5200: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000170);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000190, EnemyEtis, "EnemyEtis-30000190");
+				wantActor(30000190, EnemyEtis, "EnemyEtis-30000190");
 				break;
 			}
 			case 5230: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000171);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000191, EnemyEtis, "EnemyEtis-30000191");
+				wantActor(30000191, EnemyEtis, "EnemyEtis-30000191");
 				break;
 			}
 			case 5260: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000172);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000192, EnemyEtis, "EnemyEtis-30000192");
+				wantActor(30000192, EnemyEtis, "EnemyEtis-30000192");
 				break;
 			}
 			case 5290: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000173);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000193, EnemyEtis, "EnemyEtis-30000193");
+				wantActor(30000193, EnemyEtis, "EnemyEtis-30000193");
 				break;
 			}
 			case 5320: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000174);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000194, EnemyEtis, "EnemyEtis-30000194");
+				wantActor(30000194, EnemyEtis, "EnemyEtis-30000194");
 				break;
 			}
 			case 5350: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000175);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000195, EnemyEtis, "EnemyEtis-30000195");
+				wantActor(30000195, EnemyEtis, "EnemyEtis-30000195");
 				break;
 			}
 			case 5380: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000176);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000196, EnemyEtis, "EnemyEtis-30000196");
+				wantActor(30000196, EnemyEtis, "EnemyEtis-30000196");
 				break;
 			}
 			case 5400: {
-				wishActor(30001016, VarietyRatislavia003, "VarietyRatislavia003-30001016");
-				wishActor(30001031, EnemyEsperia, "EnemyEsperia-30001031");
+				wantActor(30001016, VarietyRatislavia003, "VarietyRatislavia003-30001016");
+				wantActor(30001031, EnemyEsperia, "EnemyEsperia-30001031");
 				break;
 			}
 			case 5410: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000177);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000197, EnemyEtis, "EnemyEtis-30000197");
+				wantActor(30000197, EnemyEtis, "EnemyEtis-30000197");
 				break;
 			}
 			case 5440: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000178);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000198, EnemyEtis, "EnemyEtis-30000198");
+				wantActor(30000198, EnemyEtis, "EnemyEtis-30000198");
 				break;
 			}
 			case 5470: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000179);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000199, EnemyEtis, "EnemyEtis-30000199");
+				wantActor(30000199, EnemyEtis, "EnemyEtis-30000199");
 				break;
 			}
 			case 5500: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000180);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000200, EnemyEtis, "EnemyEtis-30000200");
+				wantActor(30000200, EnemyEtis, "EnemyEtis-30000200");
 				break;
 			}
 			case 5530: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000181);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000201, EnemyEtis, "EnemyEtis-30000201");
+				wantActor(30000201, EnemyEtis, "EnemyEtis-30000201");
 				break;
 			}
 			case 5560: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000182);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000202, EnemyEtis, "EnemyEtis-30000202");
+				wantActor(30000202, EnemyEtis, "EnemyEtis-30000202");
 				break;
 			}
 			case 5590: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000183);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000203, EnemyEtis, "EnemyEtis-30000203");
+				wantActor(30000203, EnemyEtis, "EnemyEtis-30000203");
 				break;
 			}
 			case 5620: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000184);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000204, EnemyEtis, "EnemyEtis-30000204");
+				wantActor(30000204, EnemyEtis, "EnemyEtis-30000204");
 				break;
 			}
 			case 5650: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000185);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000205, EnemyEtis, "EnemyEtis-30000205");
+				wantActor(30000205, EnemyEtis, "EnemyEtis-30000205");
 				break;
 			}
 			case 5680: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000186);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000206, EnemyEtis, "EnemyEtis-30000206");
+				wantActor(30000206, EnemyEtis, "EnemyEtis-30000206");
 				break;
 			}
 			case 5710: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000187);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000207, EnemyEtis, "EnemyEtis-30000207");
+				wantActor(30000207, EnemyEtis, "EnemyEtis-30000207");
 				break;
 			}
 			case 5740: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000188);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000208, EnemyEtis, "EnemyEtis-30000208");
+				wantActor(30000208, EnemyEtis, "EnemyEtis-30000208");
 				break;
 			}
 			case 5770: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000189);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000209, EnemyEtis, "EnemyEtis-30000209");
+				wantActor(30000209, EnemyEtis, "EnemyEtis-30000209");
 				break;
 			}
 			case 5800: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000190);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000210, EnemyEtis, "EnemyEtis-30000210");
+				wantActor(30000210, EnemyEtis, "EnemyEtis-30000210");
 				break;
 			}
 			case 5830: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000191);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000211, EnemyEtis, "EnemyEtis-30000211");
+				wantActor(30000211, EnemyEtis, "EnemyEtis-30000211");
 				break;
 			}
 			case 5860: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000192);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000212, EnemyEtis, "EnemyEtis-30000212");
+				wantActor(30000212, EnemyEtis, "EnemyEtis-30000212");
 				break;
 			}
 			case 5890: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000193);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000213, EnemyEtis, "EnemyEtis-30000213");
+				wantActor(30000213, EnemyEtis, "EnemyEtis-30000213");
 				break;
 			}
 			case 5920: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000194);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000214, EnemyEtis, "EnemyEtis-30000214");
+				wantActor(30000214, EnemyEtis, "EnemyEtis-30000214");
 				break;
 			}
 			case 5950: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000195);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000215, EnemyEtis, "EnemyEtis-30000215");
+				wantActor(30000215, EnemyEtis, "EnemyEtis-30000215");
 				break;
 			}
 			case 5980: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000196);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000216, EnemyEtis, "EnemyEtis-30000216");
+				wantActor(30000216, EnemyEtis, "EnemyEtis-30000216");
 				break;
 			}
 			case 6000: {
@@ -1351,207 +1351,207 @@ void Stage01_02::processBehavior() {
 			case 6010: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000197);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000217, EnemyEtis, "EnemyEtis-30000217");
+				wantActor(30000217, EnemyEtis, "EnemyEtis-30000217");
 				break;
 			}
 			case 6040: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000198);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000218, EnemyEtis, "EnemyEtis-30000218");
+				wantActor(30000218, EnemyEtis, "EnemyEtis-30000218");
 				break;
 			}
 			case 6070: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000199);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000219, EnemyEtis, "EnemyEtis-30000219");
+				wantActor(30000219, EnemyEtis, "EnemyEtis-30000219");
 				break;
 			}
 			case 6100: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000200);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000220, EnemyEtis, "EnemyEtis-30000220");
+				wantActor(30000220, EnemyEtis, "EnemyEtis-30000220");
 				break;
 			}
 			case 6130: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000201);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000221, EnemyEtis, "EnemyEtis-30000221");
+				wantActor(30000221, EnemyEtis, "EnemyEtis-30000221");
 				break;
 			}
 			case 6160: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000202);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000222, EnemyEtis, "EnemyEtis-30000222");
+				wantActor(30000222, EnemyEtis, "EnemyEtis-30000222");
 				break;
 			}
 			case 6190: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000203);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000223, EnemyEtis, "EnemyEtis-30000223");
+				wantActor(30000223, EnemyEtis, "EnemyEtis-30000223");
 				break;
 			}
 			case 6220: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000204);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000224, EnemyEtis, "EnemyEtis-30000224");
+				wantActor(30000224, EnemyEtis, "EnemyEtis-30000224");
 				break;
 			}
 			case 6250: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000205);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000225, EnemyEtis, "EnemyEtis-30000225");
+				wantActor(30000225, EnemyEtis, "EnemyEtis-30000225");
 				break;
 			}
 			case 6280: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000206);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000226, EnemyEtis, "EnemyEtis-30000226");
+				wantActor(30000226, EnemyEtis, "EnemyEtis-30000226");
 				break;
 			}
 			case 6310: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000207);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000227, EnemyEtis, "EnemyEtis-30000227");
+				wantActor(30000227, EnemyEtis, "EnemyEtis-30000227");
 				break;
 			}
 			case 6340: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000208);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000228, EnemyEtis, "EnemyEtis-30000228");
+				wantActor(30000228, EnemyEtis, "EnemyEtis-30000228");
 				break;
 			}
 			case 6370: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000209);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000229, EnemyEtis, "EnemyEtis-30000229");
+				wantActor(30000229, EnemyEtis, "EnemyEtis-30000229");
 				break;
 			}
 			case 6400: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000210);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000230, EnemyEtis, "EnemyEtis-30000230");
-				wishActor(30001017, VarietyRatislavia004, "VarietyRatislavia004-30001017");
-				wishActor(30001032, EnemyEsperia, "EnemyEsperia-30001032");
+				wantActor(30000230, EnemyEtis, "EnemyEtis-30000230");
+				wantActor(30001017, VarietyRatislavia004, "VarietyRatislavia004-30001017");
+				wantActor(30001032, EnemyEsperia, "EnemyEsperia-30001032");
 				break;
 			}
 			case 6430: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000211);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000231, EnemyEtis, "EnemyEtis-30000231");
+				wantActor(30000231, EnemyEtis, "EnemyEtis-30000231");
 				break;
 			}
 			case 6460: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000212);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000232, EnemyEtis, "EnemyEtis-30000232");
+				wantActor(30000232, EnemyEtis, "EnemyEtis-30000232");
 				break;
 			}
 			case 6490: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000213);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000233, EnemyEtis, "EnemyEtis-30000233");
+				wantActor(30000233, EnemyEtis, "EnemyEtis-30000233");
 				break;
 			}
 			case 6520: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000214);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000234, EnemyEtis, "EnemyEtis-30000234");
+				wantActor(30000234, EnemyEtis, "EnemyEtis-30000234");
 				break;
 			}
 			case 6550: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000215);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000235, EnemyEtis, "EnemyEtis-30000235");
+				wantActor(30000235, EnemyEtis, "EnemyEtis-30000235");
 				break;
 			}
 			case 6580: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000216);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000236, EnemyEtis, "EnemyEtis-30000236");
+				wantActor(30000236, EnemyEtis, "EnemyEtis-30000236");
 				break;
 			}
 			case 6610: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000217);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000237, EnemyEtis, "EnemyEtis-30000237");
+				wantActor(30000237, EnemyEtis, "EnemyEtis-30000237");
 				break;
 			}
 			case 6640: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000218);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000238, EnemyEtis, "EnemyEtis-30000238");
+				wantActor(30000238, EnemyEtis, "EnemyEtis-30000238");
 				break;
 			}
 			case 6670: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000219);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000239, EnemyEtis, "EnemyEtis-30000239");
+				wantActor(30000239, EnemyEtis, "EnemyEtis-30000239");
 				break;
 			}
 			case 6700: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000220);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000240, EnemyEtis, "EnemyEtis-30000240");
+				wantActor(30000240, EnemyEtis, "EnemyEtis-30000240");
 				break;
 			}
 			case 6730: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000221);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000241, EnemyEtis, "EnemyEtis-30000241");
+				wantActor(30000241, EnemyEtis, "EnemyEtis-30000241");
 				break;
 			}
 			case 6760: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000222);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000242, EnemyEtis, "EnemyEtis-30000242");
+				wantActor(30000242, EnemyEtis, "EnemyEtis-30000242");
 				break;
 			}
 			case 6790: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000223);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000243, EnemyEtis, "EnemyEtis-30000243");
+				wantActor(30000243, EnemyEtis, "EnemyEtis-30000243");
 				break;
 			}
 			case 6820: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000224);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000244, EnemyEtis, "EnemyEtis-30000244");
+				wantActor(30000244, EnemyEtis, "EnemyEtis-30000244");
 				break;
 			}
 			case 6850: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000225);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000245, EnemyEtis, "EnemyEtis-30000245");
+				wantActor(30000245, EnemyEtis, "EnemyEtis-30000245");
 				break;
 			}
 			case 6880: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000226);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000246, EnemyEtis, "EnemyEtis-30000246");
+				wantActor(30000246, EnemyEtis, "EnemyEtis-30000246");
 				break;
 			}
 			case 6910: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000227);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000247, EnemyEtis, "EnemyEtis-30000247");
+				wantActor(30000247, EnemyEtis, "EnemyEtis-30000247");
 				break;
 			}
 			case 6940: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000228);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000248, EnemyEtis, "EnemyEtis-30000248");
+				wantActor(30000248, EnemyEtis, "EnemyEtis-30000248");
 				break;
 			}
 			case 6970: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000229);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000249, EnemyEtis, "EnemyEtis-30000249");
+				wantActor(30000249, EnemyEtis, "EnemyEtis-30000249");
 				break;
 			}
 			case 7000: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000230);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000250, EnemyEtis, "EnemyEtis-30000250");
+				wantActor(30000250, EnemyEtis, "EnemyEtis-30000250");
 				VarietyRatislavia004* pRatislavia = (VarietyRatislavia004*)grantActor(30001017);
 				bringSceneMediator()->addSubGroup(pRatislavia);
 				bringSceneMediator()->addSubGroup(grantActor(30001032));
@@ -1560,203 +1560,203 @@ void Stage01_02::processBehavior() {
 			case 7030: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000231);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000251, EnemyEtis, "EnemyEtis-30000251");
+				wantActor(30000251, EnemyEtis, "EnemyEtis-30000251");
 				break;
 			}
 			case 7060: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000232);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000252, EnemyEtis, "EnemyEtis-30000252");
+				wantActor(30000252, EnemyEtis, "EnemyEtis-30000252");
 				break;
 			}
 			case 7090: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000233);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000253, EnemyEtis, "EnemyEtis-30000253");
+				wantActor(30000253, EnemyEtis, "EnemyEtis-30000253");
 				break;
 			}
 			case 7120: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000234);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000254, EnemyEtis, "EnemyEtis-30000254");
+				wantActor(30000254, EnemyEtis, "EnemyEtis-30000254");
 				break;
 			}
 			case 7150: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000235);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000255, EnemyEtis, "EnemyEtis-30000255");
+				wantActor(30000255, EnemyEtis, "EnemyEtis-30000255");
 				break;
 			}
 			case 7180: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000236);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000256, EnemyEtis, "EnemyEtis-30000256");
+				wantActor(30000256, EnemyEtis, "EnemyEtis-30000256");
 				break;
 			}
 			case 7210: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000237);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000257, EnemyEtis, "EnemyEtis-30000257");
+				wantActor(30000257, EnemyEtis, "EnemyEtis-30000257");
 				break;
 			}
 			case 7240: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000238);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000258, EnemyEtis, "EnemyEtis-30000258");
+				wantActor(30000258, EnemyEtis, "EnemyEtis-30000258");
 				break;
 			}
 			case 7270: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000239);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000259, EnemyEtis, "EnemyEtis-30000259");
+				wantActor(30000259, EnemyEtis, "EnemyEtis-30000259");
 				break;
 			}
 			case 7300: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000240);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000260, EnemyEtis, "EnemyEtis-30000260");
+				wantActor(30000260, EnemyEtis, "EnemyEtis-30000260");
 				break;
 			}
 			case 7330: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000241);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000261, EnemyEtis, "EnemyEtis-30000261");
+				wantActor(30000261, EnemyEtis, "EnemyEtis-30000261");
 				break;
 			}
 			case 7360: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000242);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000262, EnemyEtis, "EnemyEtis-30000262");
+				wantActor(30000262, EnemyEtis, "EnemyEtis-30000262");
 				break;
 			}
 			case 7390: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000243);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000263, EnemyEtis, "EnemyEtis-30000263");
+				wantActor(30000263, EnemyEtis, "EnemyEtis-30000263");
 				break;
 			}
 			case 7400: {
-				wishActor(30001033, EnemyEsperia, "EnemyEsperia-30001033");
+				wantActor(30001033, EnemyEsperia, "EnemyEsperia-30001033");
 				break;
 			}
 			case 7420: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000244);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000264, EnemyEtis, "EnemyEtis-30000264");
+				wantActor(30000264, EnemyEtis, "EnemyEtis-30000264");
 				break;
 			}
 			case 7450: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000245);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000265, EnemyEtis, "EnemyEtis-30000265");
+				wantActor(30000265, EnemyEtis, "EnemyEtis-30000265");
 				break;
 			}
 			case 7480: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000246);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000266, EnemyEtis, "EnemyEtis-30000266");
+				wantActor(30000266, EnemyEtis, "EnemyEtis-30000266");
 				break;
 			}
 			case 7510: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000247);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000267, EnemyEtis, "EnemyEtis-30000267");
+				wantActor(30000267, EnemyEtis, "EnemyEtis-30000267");
 				break;
 			}
 			case 7540: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000248);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000268, EnemyEtis, "EnemyEtis-30000268");
+				wantActor(30000268, EnemyEtis, "EnemyEtis-30000268");
 				break;
 			}
 			case 7570: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000249);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000269, EnemyEtis, "EnemyEtis-30000269");
+				wantActor(30000269, EnemyEtis, "EnemyEtis-30000269");
 				break;
 			}
 			case 7600: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000250);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000270, EnemyEtis, "EnemyEtis-30000270");
+				wantActor(30000270, EnemyEtis, "EnemyEtis-30000270");
 				break;
 			}
 			case 7630: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000251);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000271, EnemyEtis, "EnemyEtis-30000271");
+				wantActor(30000271, EnemyEtis, "EnemyEtis-30000271");
 				break;
 			}
 			case 7660: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000252);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000272, EnemyEtis, "EnemyEtis-30000272");
+				wantActor(30000272, EnemyEtis, "EnemyEtis-30000272");
 				break;
 			}
 			case 7690: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000253);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000273, EnemyEtis, "EnemyEtis-30000273");
+				wantActor(30000273, EnemyEtis, "EnemyEtis-30000273");
 				break;
 			}
 			case 7720: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000254);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000274, EnemyEtis, "EnemyEtis-30000274");
+				wantActor(30000274, EnemyEtis, "EnemyEtis-30000274");
 				break;
 			}
 			case 7750: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000255);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000275, EnemyEtis, "EnemyEtis-30000275");
+				wantActor(30000275, EnemyEtis, "EnemyEtis-30000275");
 				break;
 			}
 			case 7780: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000256);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000276, EnemyEtis, "EnemyEtis-30000276");
+				wantActor(30000276, EnemyEtis, "EnemyEtis-30000276");
 				break;
 			}
 			case 7810: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000257);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000277, EnemyEtis, "EnemyEtis-30000277");
+				wantActor(30000277, EnemyEtis, "EnemyEtis-30000277");
 				break;
 			}
 			case 7840: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000258);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000278, EnemyEtis, "EnemyEtis-30000278");
+				wantActor(30000278, EnemyEtis, "EnemyEtis-30000278");
 				break;
 			}
 			case 7870: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000259);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000279, EnemyEtis, "EnemyEtis-30000279");
+				wantActor(30000279, EnemyEtis, "EnemyEtis-30000279");
 				break;
 			}
 			case 7900: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000260);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000280, EnemyEtis, "EnemyEtis-30000280");
+				wantActor(30000280, EnemyEtis, "EnemyEtis-30000280");
 				break;
 			}
 			case 7930: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000261);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000281, EnemyEtis, "EnemyEtis-30000281");
+				wantActor(30000281, EnemyEtis, "EnemyEtis-30000281");
 				break;
 			}
 			case 7960: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000262);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000282, EnemyEtis, "EnemyEtis-30000282");
+				wantActor(30000282, EnemyEtis, "EnemyEtis-30000282");
 				break;
 			}
 			case 7990: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000263);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000283, EnemyEtis, "EnemyEtis-30000283");
+				wantActor(30000283, EnemyEtis, "EnemyEtis-30000283");
 				break;
 			}
 			case 8000: {
@@ -1766,217 +1766,217 @@ void Stage01_02::processBehavior() {
 			case 8020: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000264);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000284, EnemyEtis, "EnemyEtis-30000284");
+				wantActor(30000284, EnemyEtis, "EnemyEtis-30000284");
 				break;
 			}
 			case 8050: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000265);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000285, EnemyEtis, "EnemyEtis-30000285");
+				wantActor(30000285, EnemyEtis, "EnemyEtis-30000285");
 				break;
 			}
 			case 8080: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000266);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000286, EnemyEtis, "EnemyEtis-30000286");
+				wantActor(30000286, EnemyEtis, "EnemyEtis-30000286");
 				break;
 			}
 			case 8110: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000267);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000287, EnemyEtis, "EnemyEtis-30000287");
+				wantActor(30000287, EnemyEtis, "EnemyEtis-30000287");
 				break;
 			}
 			case 8140: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000268);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000288, EnemyEtis, "EnemyEtis-30000288");
+				wantActor(30000288, EnemyEtis, "EnemyEtis-30000288");
 				break;
 			}
 			case 8170: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000269);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000289, EnemyEtis, "EnemyEtis-30000289");
+				wantActor(30000289, EnemyEtis, "EnemyEtis-30000289");
 				break;
 			}
 			case 8200: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000270);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000290, EnemyEtis, "EnemyEtis-30000290");
+				wantActor(30000290, EnemyEtis, "EnemyEtis-30000290");
 				break;
 			}
 			case 8230: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000271);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000291, EnemyEtis, "EnemyEtis-30000291");
+				wantActor(30000291, EnemyEtis, "EnemyEtis-30000291");
 				break;
 			}
 			case 8260: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000272);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000292, EnemyEtis, "EnemyEtis-30000292");
+				wantActor(30000292, EnemyEtis, "EnemyEtis-30000292");
 				break;
 			}
 			case 8290: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000273);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000293, EnemyEtis, "EnemyEtis-30000293");
+				wantActor(30000293, EnemyEtis, "EnemyEtis-30000293");
 				break;
 			}
 			case 8320: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000274);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000294, EnemyEtis, "EnemyEtis-30000294");
+				wantActor(30000294, EnemyEtis, "EnemyEtis-30000294");
 				break;
 			}
 			case 8350: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000275);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000295, EnemyEtis, "EnemyEtis-30000295");
+				wantActor(30000295, EnemyEtis, "EnemyEtis-30000295");
 				break;
 			}
 			case 8380: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000276);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000296, EnemyEtis, "EnemyEtis-30000296");
+				wantActor(30000296, EnemyEtis, "EnemyEtis-30000296");
 				break;
 			}
 			case 8400: {
-				wishActor(30001020, FormationHalia, "FormationHalia-30001020");
-				wishActor(30001034, EnemyEsperia, "EnemyEsperia-30001034");
+				wantActor(30001020, FormationHalia, "FormationHalia-30001020");
+				wantActor(30001034, EnemyEsperia, "EnemyEsperia-30001034");
 				break;
 			}
 			case 8410: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000277);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000297, EnemyEtis, "EnemyEtis-30000297");
+				wantActor(30000297, EnemyEtis, "EnemyEtis-30000297");
 				break;
 			}
 			case 8440: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000278);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000298, EnemyEtis, "EnemyEtis-30000298");
+				wantActor(30000298, EnemyEtis, "EnemyEtis-30000298");
 				break;
 			}
 			case 8470: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000279);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000299, EnemyEtis, "EnemyEtis-30000299");
+				wantActor(30000299, EnemyEtis, "EnemyEtis-30000299");
 				break;
 			}
 			case 8500: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000280);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000300, EnemyEtis, "EnemyEtis-30000300");
+				wantActor(30000300, EnemyEtis, "EnemyEtis-30000300");
 				break;
 			}
 			case 8530: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000281);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000301, EnemyEtis, "EnemyEtis-30000301");
+				wantActor(30000301, EnemyEtis, "EnemyEtis-30000301");
 				break;
 			}
 			case 8560: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000282);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000302, EnemyEtis, "EnemyEtis-30000302");
+				wantActor(30000302, EnemyEtis, "EnemyEtis-30000302");
 				break;
 			}
 			case 8590: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000283);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000303, EnemyEtis, "EnemyEtis-30000303");
+				wantActor(30000303, EnemyEtis, "EnemyEtis-30000303");
 				break;
 			}
 			case 8600: {
-				wishActor(30001022, FormationRis002, "FormationRis002-30001022");
-				wishActor(30001023, FormationRis001, "FormationRis001-30001023");
-				wishActor(30001024, FormationRis001, "FormationRis001-30001024");
-				wishActor(30001025, FormationRis002, "FormationRis002-30001025");
-				wishActor(30001026, FormationRis001, "FormationRis001-30001026");
-				wishActor(30001027, FormationRis002, "FormationRis002-30001027");
+				wantActor(30001022, FormationRis002, "FormationRis002-30001022");
+				wantActor(30001023, FormationRis001, "FormationRis001-30001023");
+				wantActor(30001024, FormationRis001, "FormationRis001-30001024");
+				wantActor(30001025, FormationRis002, "FormationRis002-30001025");
+				wantActor(30001026, FormationRis001, "FormationRis001-30001026");
+				wantActor(30001027, FormationRis002, "FormationRis002-30001027");
 				break;
 			}
 			case 8620: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000284);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000304, EnemyEtis, "EnemyEtis-30000304");
+				wantActor(30000304, EnemyEtis, "EnemyEtis-30000304");
 				break;
 			}
 			case 8650: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000285);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000305, EnemyEtis, "EnemyEtis-30000305");
+				wantActor(30000305, EnemyEtis, "EnemyEtis-30000305");
 				break;
 			}
 			case 8680: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000286);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000306, EnemyEtis, "EnemyEtis-30000306");
+				wantActor(30000306, EnemyEtis, "EnemyEtis-30000306");
 				break;
 			}
 			case 8710: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000287);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000307, EnemyEtis, "EnemyEtis-30000307");
+				wantActor(30000307, EnemyEtis, "EnemyEtis-30000307");
 				break;
 			}
 			case 8740: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000288);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000308, EnemyEtis, "EnemyEtis-30000308");
+				wantActor(30000308, EnemyEtis, "EnemyEtis-30000308");
 				break;
 			}
 			case 8770: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000289);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000309, EnemyEtis, "EnemyEtis-30000309");
+				wantActor(30000309, EnemyEtis, "EnemyEtis-30000309");
 				break;
 			}
 			case 8800: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000290);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000310, EnemyEtis, "EnemyEtis-30000310");
+				wantActor(30000310, EnemyEtis, "EnemyEtis-30000310");
 				break;
 			}
 			case 8830: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000291);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000311, EnemyEtis, "EnemyEtis-30000311");
+				wantActor(30000311, EnemyEtis, "EnemyEtis-30000311");
 				break;
 			}
 			case 8860: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000292);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000312, EnemyEtis, "EnemyEtis-30000312");
+				wantActor(30000312, EnemyEtis, "EnemyEtis-30000312");
 				break;
 			}
 			case 8890: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000293);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000313, EnemyEtis, "EnemyEtis-30000313");
+				wantActor(30000313, EnemyEtis, "EnemyEtis-30000313");
 				break;
 			}
 			case 8900: {
-				wishActor(30001028, EnemyIrce, "EnemyIrce-30001028");
+				wantActor(30001028, EnemyIrce, "EnemyIrce-30001028");
 				break;
 			}
 			case 8920: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000294);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000314, EnemyEtis, "EnemyEtis-30000314");
+				wantActor(30000314, EnemyEtis, "EnemyEtis-30000314");
 				break;
 			}
 			case 8950: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000295);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000315, EnemyEtis, "EnemyEtis-30000315");
+				wantActor(30000315, EnemyEtis, "EnemyEtis-30000315");
 				break;
 			}
 			case 8980: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000296);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000316, EnemyEtis, "EnemyEtis-30000316");
+				wantActor(30000316, EnemyEtis, "EnemyEtis-30000316");
 				break;
 			}
 			case 9000: {
@@ -1988,43 +1988,43 @@ void Stage01_02::processBehavior() {
 			case 9010: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000297);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000317, EnemyEtis, "EnemyEtis-30000317");
+				wantActor(30000317, EnemyEtis, "EnemyEtis-30000317");
 				break;
 			}
 			case 9040: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000298);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000318, EnemyEtis, "EnemyEtis-30000318");
+				wantActor(30000318, EnemyEtis, "EnemyEtis-30000318");
 				break;
 			}
 			case 9070: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000299);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000319, EnemyEtis, "EnemyEtis-30000319");
+				wantActor(30000319, EnemyEtis, "EnemyEtis-30000319");
 				break;
 			}
 			case 9100: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000300);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000320, EnemyEtis, "EnemyEtis-30000320");
+				wantActor(30000320, EnemyEtis, "EnemyEtis-30000320");
 				break;
 			}
 			case 9130: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000301);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000321, EnemyEtis, "EnemyEtis-30000321");
+				wantActor(30000321, EnemyEtis, "EnemyEtis-30000321");
 				break;
 			}
 			case 9160: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000302);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000322, EnemyEtis, "EnemyEtis-30000322");
+				wantActor(30000322, EnemyEtis, "EnemyEtis-30000322");
 				break;
 			}
 			case 9190: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000303);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000323, EnemyEtis, "EnemyEtis-30000323");
+				wantActor(30000323, EnemyEtis, "EnemyEtis-30000323");
 				break;
 			}
 			case 9200: {
@@ -2044,62 +2044,62 @@ void Stage01_02::processBehavior() {
 			case 9220: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000304);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000324, EnemyEtis, "EnemyEtis-30000324");
+				wantActor(30000324, EnemyEtis, "EnemyEtis-30000324");
 				break;
 			}
 			case 9250: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000305);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000325, EnemyEtis, "EnemyEtis-30000325");
+				wantActor(30000325, EnemyEtis, "EnemyEtis-30000325");
 				break;
 			}
 			case 9280: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000306);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000326, EnemyEtis, "EnemyEtis-30000326");
+				wantActor(30000326, EnemyEtis, "EnemyEtis-30000326");
 				break;
 			}
 			case 9310: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000307);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000327, EnemyEtis, "EnemyEtis-30000327");
+				wantActor(30000327, EnemyEtis, "EnemyEtis-30000327");
 				break;
 			}
 			case 9340: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000308);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000328, EnemyEtis, "EnemyEtis-30000328");
+				wantActor(30000328, EnemyEtis, "EnemyEtis-30000328");
 				break;
 			}
 			case 9370: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000309);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000329, EnemyEtis, "EnemyEtis-30000329");
+				wantActor(30000329, EnemyEtis, "EnemyEtis-30000329");
 				break;
 			}
 			case 9400: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000310);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000330, EnemyEtis, "EnemyEtis-30000330");
-				wishActor(30001035, EnemyEsperia, "EnemyEsperia-30001035");
+				wantActor(30000330, EnemyEtis, "EnemyEtis-30000330");
+				wantActor(30001035, EnemyEsperia, "EnemyEsperia-30001035");
 				break;
 			}
 			case 9430: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000311);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000331, EnemyEtis, "EnemyEtis-30000331");
+				wantActor(30000331, EnemyEtis, "EnemyEtis-30000331");
 				break;
 			}
 			case 9460: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000312);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000332, EnemyEtis, "EnemyEtis-30000332");
+				wantActor(30000332, EnemyEtis, "EnemyEtis-30000332");
 				break;
 			}
 			case 9490: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000313);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000333, EnemyEtis, "EnemyEtis-30000333");
+				wantActor(30000333, EnemyEtis, "EnemyEtis-30000333");
 				break;
 			}
 			case 9500: {
@@ -2110,3980 +2110,3980 @@ void Stage01_02::processBehavior() {
 			case 9520: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000314);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000334, EnemyEtis, "EnemyEtis-30000334");
+				wantActor(30000334, EnemyEtis, "EnemyEtis-30000334");
 				break;
 			}
 			case 9550: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000315);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000335, EnemyEtis, "EnemyEtis-30000335");
+				wantActor(30000335, EnemyEtis, "EnemyEtis-30000335");
 				break;
 			}
 			case 9580: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000316);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000336, EnemyEtis, "EnemyEtis-30000336");
+				wantActor(30000336, EnemyEtis, "EnemyEtis-30000336");
 				break;
 			}
 			case 9610: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000317);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000337, EnemyEtis, "EnemyEtis-30000337");
+				wantActor(30000337, EnemyEtis, "EnemyEtis-30000337");
 				break;
 			}
 			case 9640: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000318);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000338, EnemyEtis, "EnemyEtis-30000338");
+				wantActor(30000338, EnemyEtis, "EnemyEtis-30000338");
 				break;
 			}
 			case 9670: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000319);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000339, EnemyEtis, "EnemyEtis-30000339");
+				wantActor(30000339, EnemyEtis, "EnemyEtis-30000339");
 				break;
 			}
 			case 9700: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000320);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000340, EnemyEtis, "EnemyEtis-30000340");
+				wantActor(30000340, EnemyEtis, "EnemyEtis-30000340");
 				break;
 			}
 			case 9730: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000321);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000341, EnemyEtis, "EnemyEtis-30000341");
+				wantActor(30000341, EnemyEtis, "EnemyEtis-30000341");
 				break;
 			}
 			case 9760: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000322);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000342, EnemyEtis, "EnemyEtis-30000342");
+				wantActor(30000342, EnemyEtis, "EnemyEtis-30000342");
 				break;
 			}
 			case 9790: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000323);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000343, EnemyEtis, "EnemyEtis-30000343");
+				wantActor(30000343, EnemyEtis, "EnemyEtis-30000343");
 				break;
 			}
 			case 9820: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000324);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000344, EnemyEtis, "EnemyEtis-30000344");
+				wantActor(30000344, EnemyEtis, "EnemyEtis-30000344");
 				break;
 			}
 			case 9850: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000325);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000345, EnemyEtis, "EnemyEtis-30000345");
+				wantActor(30000345, EnemyEtis, "EnemyEtis-30000345");
 				break;
 			}
 			case 9880: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000326);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000346, EnemyEtis, "EnemyEtis-30000346");
+				wantActor(30000346, EnemyEtis, "EnemyEtis-30000346");
 				break;
 			}
 			case 9910: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000327);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000347, EnemyEtis, "EnemyEtis-30000347");
+				wantActor(30000347, EnemyEtis, "EnemyEtis-30000347");
 				break;
 			}
 			case 9940: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000328);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000348, EnemyEtis, "EnemyEtis-30000348");
+				wantActor(30000348, EnemyEtis, "EnemyEtis-30000348");
 				break;
 			}
 			case 9970: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000329);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000349, EnemyEtis, "EnemyEtis-30000349");
+				wantActor(30000349, EnemyEtis, "EnemyEtis-30000349");
 				break;
 			}
 			case 10000: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000330);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000350, EnemyEtis, "EnemyEtis-30000350");
+				wantActor(30000350, EnemyEtis, "EnemyEtis-30000350");
 				bringSceneMediator()->addSubGroup(grantActor(30001035));
 				break;
 			}
 			case 10030: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000331);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000351, EnemyEtis, "EnemyEtis-30000351");
+				wantActor(30000351, EnemyEtis, "EnemyEtis-30000351");
 				break;
 			}
 			case 10060: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000332);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000352, EnemyEtis, "EnemyEtis-30000352");
+				wantActor(30000352, EnemyEtis, "EnemyEtis-30000352");
 				break;
 			}
 			case 10090: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000333);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000353, EnemyEtis, "EnemyEtis-30000353");
+				wantActor(30000353, EnemyEtis, "EnemyEtis-30000353");
 				break;
 			}
 			case 10120: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000334);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000354, EnemyEtis, "EnemyEtis-30000354");
+				wantActor(30000354, EnemyEtis, "EnemyEtis-30000354");
 				break;
 			}
 			case 10150: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000335);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000355, EnemyEtis, "EnemyEtis-30000355");
+				wantActor(30000355, EnemyEtis, "EnemyEtis-30000355");
 				break;
 			}
 			case 10180: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000336);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000356, EnemyEtis, "EnemyEtis-30000356");
+				wantActor(30000356, EnemyEtis, "EnemyEtis-30000356");
 				break;
 			}
 			case 10210: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000337);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000357, EnemyEtis, "EnemyEtis-30000357");
+				wantActor(30000357, EnemyEtis, "EnemyEtis-30000357");
 				break;
 			}
 			case 10240: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000338);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000358, EnemyEtis, "EnemyEtis-30000358");
+				wantActor(30000358, EnemyEtis, "EnemyEtis-30000358");
 				break;
 			}
 			case 10270: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000339);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000359, EnemyEtis, "EnemyEtis-30000359");
+				wantActor(30000359, EnemyEtis, "EnemyEtis-30000359");
 				break;
 			}
 			case 10300: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000340);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000360, EnemyEtis, "EnemyEtis-30000360");
+				wantActor(30000360, EnemyEtis, "EnemyEtis-30000360");
 				break;
 			}
 			case 10330: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000341);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000361, EnemyEtis, "EnemyEtis-30000361");
+				wantActor(30000361, EnemyEtis, "EnemyEtis-30000361");
 				break;
 			}
 			case 10360: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000342);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000362, EnemyEtis, "EnemyEtis-30000362");
+				wantActor(30000362, EnemyEtis, "EnemyEtis-30000362");
 				break;
 			}
 			case 10390: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000343);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000363, EnemyEtis, "EnemyEtis-30000363");
+				wantActor(30000363, EnemyEtis, "EnemyEtis-30000363");
 				break;
 			}
 			case 10420: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000344);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000364, EnemyEtis, "EnemyEtis-30000364");
+				wantActor(30000364, EnemyEtis, "EnemyEtis-30000364");
 				break;
 			}
 			case 10450: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000345);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000365, EnemyEtis, "EnemyEtis-30000365");
+				wantActor(30000365, EnemyEtis, "EnemyEtis-30000365");
 				break;
 			}
 			case 10480: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000346);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000366, EnemyEtis, "EnemyEtis-30000366");
+				wantActor(30000366, EnemyEtis, "EnemyEtis-30000366");
 				break;
 			}
 			case 10510: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000347);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000367, EnemyEtis, "EnemyEtis-30000367");
+				wantActor(30000367, EnemyEtis, "EnemyEtis-30000367");
 				break;
 			}
 			case 10540: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000348);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000368, EnemyEtis, "EnemyEtis-30000368");
+				wantActor(30000368, EnemyEtis, "EnemyEtis-30000368");
 				break;
 			}
 			case 10570: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000349);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000369, EnemyEtis, "EnemyEtis-30000369");
+				wantActor(30000369, EnemyEtis, "EnemyEtis-30000369");
 				break;
 			}
 			case 10600: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000350);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000370, EnemyEtis, "EnemyEtis-30000370");
+				wantActor(30000370, EnemyEtis, "EnemyEtis-30000370");
 				break;
 			}
 			case 10630: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000351);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000371, EnemyEtis, "EnemyEtis-30000371");
+				wantActor(30000371, EnemyEtis, "EnemyEtis-30000371");
 				break;
 			}
 			case 10660: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000352);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000372, EnemyEtis, "EnemyEtis-30000372");
+				wantActor(30000372, EnemyEtis, "EnemyEtis-30000372");
 				break;
 			}
 			case 10690: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000353);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000373, EnemyEtis, "EnemyEtis-30000373");
+				wantActor(30000373, EnemyEtis, "EnemyEtis-30000373");
 				break;
 			}
 			case 10720: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000354);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000374, EnemyEtis, "EnemyEtis-30000374");
+				wantActor(30000374, EnemyEtis, "EnemyEtis-30000374");
 				break;
 			}
 			case 10750: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000355);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000375, EnemyEtis, "EnemyEtis-30000375");
+				wantActor(30000375, EnemyEtis, "EnemyEtis-30000375");
 				break;
 			}
 			case 10780: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000356);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000376, EnemyEtis, "EnemyEtis-30000376");
+				wantActor(30000376, EnemyEtis, "EnemyEtis-30000376");
 				break;
 			}
 			case 10810: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000357);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000377, EnemyEtis, "EnemyEtis-30000377");
+				wantActor(30000377, EnemyEtis, "EnemyEtis-30000377");
 				break;
 			}
 			case 10840: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000358);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000378, EnemyEtis, "EnemyEtis-30000378");
+				wantActor(30000378, EnemyEtis, "EnemyEtis-30000378");
 				break;
 			}
 			case 10870: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000359);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000379, EnemyEtis, "EnemyEtis-30000379");
+				wantActor(30000379, EnemyEtis, "EnemyEtis-30000379");
 				break;
 			}
 			case 10900: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000360);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000380, EnemyEtis, "EnemyEtis-30000380");
+				wantActor(30000380, EnemyEtis, "EnemyEtis-30000380");
 				break;
 			}
 			case 10930: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000361);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000381, EnemyEtis, "EnemyEtis-30000381");
+				wantActor(30000381, EnemyEtis, "EnemyEtis-30000381");
 				break;
 			}
 			case 10960: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000362);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000382, EnemyEtis, "EnemyEtis-30000382");
+				wantActor(30000382, EnemyEtis, "EnemyEtis-30000382");
 				break;
 			}
 			case 10990: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000363);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000383, EnemyEtis, "EnemyEtis-30000383");
+				wantActor(30000383, EnemyEtis, "EnemyEtis-30000383");
 				break;
 			}
 			case 11020: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000364);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000384, EnemyEtis, "EnemyEtis-30000384");
+				wantActor(30000384, EnemyEtis, "EnemyEtis-30000384");
 				break;
 			}
 			case 11050: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000365);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000385, EnemyEtis, "EnemyEtis-30000385");
+				wantActor(30000385, EnemyEtis, "EnemyEtis-30000385");
 				break;
 			}
 			case 11080: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000366);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000386, EnemyEtis, "EnemyEtis-30000386");
+				wantActor(30000386, EnemyEtis, "EnemyEtis-30000386");
 				break;
 			}
 			case 11110: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000367);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000387, EnemyEtis, "EnemyEtis-30000387");
+				wantActor(30000387, EnemyEtis, "EnemyEtis-30000387");
 				break;
 			}
 			case 11140: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000368);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000388, EnemyEtis, "EnemyEtis-30000388");
+				wantActor(30000388, EnemyEtis, "EnemyEtis-30000388");
 				break;
 			}
 			case 11170: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000369);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000389, EnemyEtis, "EnemyEtis-30000389");
+				wantActor(30000389, EnemyEtis, "EnemyEtis-30000389");
 				break;
 			}
 			case 11200: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000370);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000390, EnemyEtis, "EnemyEtis-30000390");
+				wantActor(30000390, EnemyEtis, "EnemyEtis-30000390");
 				break;
 			}
 			case 11230: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000371);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000391, EnemyEtis, "EnemyEtis-30000391");
+				wantActor(30000391, EnemyEtis, "EnemyEtis-30000391");
 				break;
 			}
 			case 11260: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000372);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000392, EnemyEtis, "EnemyEtis-30000392");
+				wantActor(30000392, EnemyEtis, "EnemyEtis-30000392");
 				break;
 			}
 			case 11290: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000373);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000393, EnemyEtis, "EnemyEtis-30000393");
+				wantActor(30000393, EnemyEtis, "EnemyEtis-30000393");
 				break;
 			}
 			case 11320: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000374);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000394, EnemyEtis, "EnemyEtis-30000394");
+				wantActor(30000394, EnemyEtis, "EnemyEtis-30000394");
 				break;
 			}
 			case 11350: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000375);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000395, EnemyEtis, "EnemyEtis-30000395");
+				wantActor(30000395, EnemyEtis, "EnemyEtis-30000395");
 				break;
 			}
 			case 11380: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000376);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000396, EnemyEtis, "EnemyEtis-30000396");
+				wantActor(30000396, EnemyEtis, "EnemyEtis-30000396");
 				break;
 			}
 			case 11410: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000377);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000397, EnemyEtis, "EnemyEtis-30000397");
+				wantActor(30000397, EnemyEtis, "EnemyEtis-30000397");
 				break;
 			}
 			case 11440: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000378);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000398, EnemyEtis, "EnemyEtis-30000398");
+				wantActor(30000398, EnemyEtis, "EnemyEtis-30000398");
 				break;
 			}
 			case 11470: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000379);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000399, EnemyEtis, "EnemyEtis-30000399");
+				wantActor(30000399, EnemyEtis, "EnemyEtis-30000399");
 				break;
 			}
 			case 11500: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000380);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000400, EnemyEtis, "EnemyEtis-30000400");
+				wantActor(30000400, EnemyEtis, "EnemyEtis-30000400");
 				break;
 			}
 			case 11530: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000381);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000401, EnemyEtis, "EnemyEtis-30000401");
+				wantActor(30000401, EnemyEtis, "EnemyEtis-30000401");
 				break;
 			}
 			case 11560: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000382);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000402, EnemyEtis, "EnemyEtis-30000402");
+				wantActor(30000402, EnemyEtis, "EnemyEtis-30000402");
 				break;
 			}
 			case 11590: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000383);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000403, EnemyEtis, "EnemyEtis-30000403");
+				wantActor(30000403, EnemyEtis, "EnemyEtis-30000403");
 				break;
 			}
 			case 11620: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000384);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000404, EnemyEtis, "EnemyEtis-30000404");
+				wantActor(30000404, EnemyEtis, "EnemyEtis-30000404");
 				break;
 			}
 			case 11650: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000385);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000405, EnemyEtis, "EnemyEtis-30000405");
+				wantActor(30000405, EnemyEtis, "EnemyEtis-30000405");
 				break;
 			}
 			case 11680: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000386);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000406, EnemyEtis, "EnemyEtis-30000406");
+				wantActor(30000406, EnemyEtis, "EnemyEtis-30000406");
 				break;
 			}
 			case 11710: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000387);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000407, EnemyEtis, "EnemyEtis-30000407");
+				wantActor(30000407, EnemyEtis, "EnemyEtis-30000407");
 				break;
 			}
 			case 11740: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000388);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000408, EnemyEtis, "EnemyEtis-30000408");
+				wantActor(30000408, EnemyEtis, "EnemyEtis-30000408");
 				break;
 			}
 			case 11770: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000389);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000409, EnemyEtis, "EnemyEtis-30000409");
+				wantActor(30000409, EnemyEtis, "EnemyEtis-30000409");
 				break;
 			}
 			case 11800: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000390);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000410, EnemyEtis, "EnemyEtis-30000410");
+				wantActor(30000410, EnemyEtis, "EnemyEtis-30000410");
 				break;
 			}
 			case 11830: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000391);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000411, EnemyEtis, "EnemyEtis-30000411");
+				wantActor(30000411, EnemyEtis, "EnemyEtis-30000411");
 				break;
 			}
 			case 11860: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000392);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000412, EnemyEtis, "EnemyEtis-30000412");
+				wantActor(30000412, EnemyEtis, "EnemyEtis-30000412");
 				break;
 			}
 			case 11890: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000393);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000413, EnemyEtis, "EnemyEtis-30000413");
+				wantActor(30000413, EnemyEtis, "EnemyEtis-30000413");
 				break;
 			}
 			case 11920: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000394);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000414, EnemyEtis, "EnemyEtis-30000414");
+				wantActor(30000414, EnemyEtis, "EnemyEtis-30000414");
 				break;
 			}
 			case 11950: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000395);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000415, EnemyEtis, "EnemyEtis-30000415");
+				wantActor(30000415, EnemyEtis, "EnemyEtis-30000415");
 				break;
 			}
 			case 11980: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000396);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000416, EnemyEtis, "EnemyEtis-30000416");
+				wantActor(30000416, EnemyEtis, "EnemyEtis-30000416");
 				break;
 			}
 			case 12010: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000397);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000417, EnemyEtis, "EnemyEtis-30000417");
+				wantActor(30000417, EnemyEtis, "EnemyEtis-30000417");
 				break;
 			}
 			case 12040: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000398);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000418, EnemyEtis, "EnemyEtis-30000418");
+				wantActor(30000418, EnemyEtis, "EnemyEtis-30000418");
 				break;
 			}
 			case 12070: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000399);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000419, EnemyEtis, "EnemyEtis-30000419");
+				wantActor(30000419, EnemyEtis, "EnemyEtis-30000419");
 				break;
 			}
 			case 12100: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000400);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000420, EnemyEtis, "EnemyEtis-30000420");
+				wantActor(30000420, EnemyEtis, "EnemyEtis-30000420");
 				break;
 			}
 			case 12130: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000401);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000421, EnemyEtis, "EnemyEtis-30000421");
+				wantActor(30000421, EnemyEtis, "EnemyEtis-30000421");
 				break;
 			}
 			case 12160: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000402);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000422, EnemyEtis, "EnemyEtis-30000422");
+				wantActor(30000422, EnemyEtis, "EnemyEtis-30000422");
 				break;
 			}
 			case 12190: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000403);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000423, EnemyEtis, "EnemyEtis-30000423");
+				wantActor(30000423, EnemyEtis, "EnemyEtis-30000423");
 				break;
 			}
 			case 12220: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000404);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000424, EnemyEtis, "EnemyEtis-30000424");
+				wantActor(30000424, EnemyEtis, "EnemyEtis-30000424");
 				break;
 			}
 			case 12250: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000405);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000425, EnemyEtis, "EnemyEtis-30000425");
+				wantActor(30000425, EnemyEtis, "EnemyEtis-30000425");
 				break;
 			}
 			case 12280: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000406);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000426, EnemyEtis, "EnemyEtis-30000426");
+				wantActor(30000426, EnemyEtis, "EnemyEtis-30000426");
 				break;
 			}
 			case 12310: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000407);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000427, EnemyEtis, "EnemyEtis-30000427");
+				wantActor(30000427, EnemyEtis, "EnemyEtis-30000427");
 				break;
 			}
 			case 12340: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000408);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000428, EnemyEtis, "EnemyEtis-30000428");
+				wantActor(30000428, EnemyEtis, "EnemyEtis-30000428");
 				break;
 			}
 			case 12370: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000409);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000429, EnemyEtis, "EnemyEtis-30000429");
+				wantActor(30000429, EnemyEtis, "EnemyEtis-30000429");
 				break;
 			}
 			case 12400: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000410);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000430, EnemyEtis, "EnemyEtis-30000430");
+				wantActor(30000430, EnemyEtis, "EnemyEtis-30000430");
 				break;
 			}
 			case 12430: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000411);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000431, EnemyEtis, "EnemyEtis-30000431");
+				wantActor(30000431, EnemyEtis, "EnemyEtis-30000431");
 				break;
 			}
 			case 12460: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000412);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000432, EnemyEtis, "EnemyEtis-30000432");
+				wantActor(30000432, EnemyEtis, "EnemyEtis-30000432");
 				break;
 			}
 			case 12490: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000413);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000433, EnemyEtis, "EnemyEtis-30000433");
+				wantActor(30000433, EnemyEtis, "EnemyEtis-30000433");
 				break;
 			}
 			case 12520: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000414);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000434, EnemyEtis, "EnemyEtis-30000434");
+				wantActor(30000434, EnemyEtis, "EnemyEtis-30000434");
 				break;
 			}
 			case 12550: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000415);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000435, EnemyEtis, "EnemyEtis-30000435");
+				wantActor(30000435, EnemyEtis, "EnemyEtis-30000435");
 				break;
 			}
 			case 12580: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000416);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000436, EnemyEtis, "EnemyEtis-30000436");
+				wantActor(30000436, EnemyEtis, "EnemyEtis-30000436");
 				break;
 			}
 			case 12610: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000417);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000437, EnemyEtis, "EnemyEtis-30000437");
+				wantActor(30000437, EnemyEtis, "EnemyEtis-30000437");
 				break;
 			}
 			case 12640: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000418);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000438, EnemyEtis, "EnemyEtis-30000438");
+				wantActor(30000438, EnemyEtis, "EnemyEtis-30000438");
 				break;
 			}
 			case 12670: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000419);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000439, EnemyEtis, "EnemyEtis-30000439");
+				wantActor(30000439, EnemyEtis, "EnemyEtis-30000439");
 				break;
 			}
 			case 12700: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000420);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000440, EnemyEtis, "EnemyEtis-30000440");
+				wantActor(30000440, EnemyEtis, "EnemyEtis-30000440");
 				break;
 			}
 			case 12730: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000421);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000441, EnemyEtis, "EnemyEtis-30000441");
+				wantActor(30000441, EnemyEtis, "EnemyEtis-30000441");
 				break;
 			}
 			case 12760: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000422);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000442, EnemyEtis, "EnemyEtis-30000442");
+				wantActor(30000442, EnemyEtis, "EnemyEtis-30000442");
 				break;
 			}
 			case 12790: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000423);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000443, EnemyEtis, "EnemyEtis-30000443");
+				wantActor(30000443, EnemyEtis, "EnemyEtis-30000443");
 				break;
 			}
 			case 12820: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000424);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000444, EnemyEtis, "EnemyEtis-30000444");
+				wantActor(30000444, EnemyEtis, "EnemyEtis-30000444");
 				break;
 			}
 			case 12850: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000425);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000445, EnemyEtis, "EnemyEtis-30000445");
+				wantActor(30000445, EnemyEtis, "EnemyEtis-30000445");
 				break;
 			}
 			case 12880: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000426);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000446, EnemyEtis, "EnemyEtis-30000446");
+				wantActor(30000446, EnemyEtis, "EnemyEtis-30000446");
 				break;
 			}
 			case 12910: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000427);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000447, EnemyEtis, "EnemyEtis-30000447");
+				wantActor(30000447, EnemyEtis, "EnemyEtis-30000447");
 				break;
 			}
 			case 12940: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000428);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000448, EnemyEtis, "EnemyEtis-30000448");
+				wantActor(30000448, EnemyEtis, "EnemyEtis-30000448");
 				break;
 			}
 			case 12970: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000429);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000449, EnemyEtis, "EnemyEtis-30000449");
+				wantActor(30000449, EnemyEtis, "EnemyEtis-30000449");
 				break;
 			}
 			case 13000: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000430);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000450, EnemyEtis, "EnemyEtis-30000450");
+				wantActor(30000450, EnemyEtis, "EnemyEtis-30000450");
 				break;
 			}
 			case 13030: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000431);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000451, EnemyEtis, "EnemyEtis-30000451");
+				wantActor(30000451, EnemyEtis, "EnemyEtis-30000451");
 				break;
 			}
 			case 13060: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000432);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000452, EnemyEtis, "EnemyEtis-30000452");
+				wantActor(30000452, EnemyEtis, "EnemyEtis-30000452");
 				break;
 			}
 			case 13090: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000433);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000453, EnemyEtis, "EnemyEtis-30000453");
+				wantActor(30000453, EnemyEtis, "EnemyEtis-30000453");
 				break;
 			}
 			case 13120: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000434);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000454, EnemyEtis, "EnemyEtis-30000454");
+				wantActor(30000454, EnemyEtis, "EnemyEtis-30000454");
 				break;
 			}
 			case 13150: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000435);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000455, EnemyEtis, "EnemyEtis-30000455");
+				wantActor(30000455, EnemyEtis, "EnemyEtis-30000455");
 				break;
 			}
 			case 13180: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000436);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000456, EnemyEtis, "EnemyEtis-30000456");
+				wantActor(30000456, EnemyEtis, "EnemyEtis-30000456");
 				break;
 			}
 			case 13210: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000437);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000457, EnemyEtis, "EnemyEtis-30000457");
+				wantActor(30000457, EnemyEtis, "EnemyEtis-30000457");
 				break;
 			}
 			case 13240: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000438);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000458, EnemyEtis, "EnemyEtis-30000458");
+				wantActor(30000458, EnemyEtis, "EnemyEtis-30000458");
 				break;
 			}
 			case 13270: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000439);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000459, EnemyEtis, "EnemyEtis-30000459");
+				wantActor(30000459, EnemyEtis, "EnemyEtis-30000459");
 				break;
 			}
 			case 13300: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000440);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000460, EnemyEtis, "EnemyEtis-30000460");
+				wantActor(30000460, EnemyEtis, "EnemyEtis-30000460");
 				break;
 			}
 			case 13330: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000441);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000461, EnemyEtis, "EnemyEtis-30000461");
+				wantActor(30000461, EnemyEtis, "EnemyEtis-30000461");
 				break;
 			}
 			case 13360: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000442);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000462, EnemyEtis, "EnemyEtis-30000462");
+				wantActor(30000462, EnemyEtis, "EnemyEtis-30000462");
 				break;
 			}
 			case 13390: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000443);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000463, EnemyEtis, "EnemyEtis-30000463");
+				wantActor(30000463, EnemyEtis, "EnemyEtis-30000463");
 				break;
 			}
 			case 13420: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000444);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000464, EnemyEtis, "EnemyEtis-30000464");
+				wantActor(30000464, EnemyEtis, "EnemyEtis-30000464");
 				break;
 			}
 			case 13450: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000445);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000465, EnemyEtis, "EnemyEtis-30000465");
+				wantActor(30000465, EnemyEtis, "EnemyEtis-30000465");
 				break;
 			}
 			case 13480: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000446);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000466, EnemyEtis, "EnemyEtis-30000466");
+				wantActor(30000466, EnemyEtis, "EnemyEtis-30000466");
 				break;
 			}
 			case 13510: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000447);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000467, EnemyEtis, "EnemyEtis-30000467");
+				wantActor(30000467, EnemyEtis, "EnemyEtis-30000467");
 				break;
 			}
 			case 13540: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000448);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000468, EnemyEtis, "EnemyEtis-30000468");
+				wantActor(30000468, EnemyEtis, "EnemyEtis-30000468");
 				break;
 			}
 			case 13570: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000449);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000469, EnemyEtis, "EnemyEtis-30000469");
+				wantActor(30000469, EnemyEtis, "EnemyEtis-30000469");
 				break;
 			}
 			case 13600: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000450);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000470, EnemyEtis, "EnemyEtis-30000470");
+				wantActor(30000470, EnemyEtis, "EnemyEtis-30000470");
 				break;
 			}
 			case 13630: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000451);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000471, EnemyEtis, "EnemyEtis-30000471");
+				wantActor(30000471, EnemyEtis, "EnemyEtis-30000471");
 				break;
 			}
 			case 13660: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000452);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000472, EnemyEtis, "EnemyEtis-30000472");
+				wantActor(30000472, EnemyEtis, "EnemyEtis-30000472");
 				break;
 			}
 			case 13690: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000453);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000473, EnemyEtis, "EnemyEtis-30000473");
+				wantActor(30000473, EnemyEtis, "EnemyEtis-30000473");
 				break;
 			}
 			case 13720: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000454);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000474, EnemyEtis, "EnemyEtis-30000474");
+				wantActor(30000474, EnemyEtis, "EnemyEtis-30000474");
 				break;
 			}
 			case 13750: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000455);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000475, EnemyEtis, "EnemyEtis-30000475");
+				wantActor(30000475, EnemyEtis, "EnemyEtis-30000475");
 				break;
 			}
 			case 13780: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000456);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000476, EnemyEtis, "EnemyEtis-30000476");
+				wantActor(30000476, EnemyEtis, "EnemyEtis-30000476");
 				break;
 			}
 			case 13810: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000457);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000477, EnemyEtis, "EnemyEtis-30000477");
+				wantActor(30000477, EnemyEtis, "EnemyEtis-30000477");
 				break;
 			}
 			case 13840: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000458);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000478, EnemyEtis, "EnemyEtis-30000478");
+				wantActor(30000478, EnemyEtis, "EnemyEtis-30000478");
 				break;
 			}
 			case 13870: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000459);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000479, EnemyEtis, "EnemyEtis-30000479");
+				wantActor(30000479, EnemyEtis, "EnemyEtis-30000479");
 				break;
 			}
 			case 13900: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000460);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000480, EnemyEtis, "EnemyEtis-30000480");
+				wantActor(30000480, EnemyEtis, "EnemyEtis-30000480");
 				break;
 			}
 			case 13930: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000461);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000481, EnemyEtis, "EnemyEtis-30000481");
+				wantActor(30000481, EnemyEtis, "EnemyEtis-30000481");
 				break;
 			}
 			case 13960: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000462);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000482, EnemyEtis, "EnemyEtis-30000482");
+				wantActor(30000482, EnemyEtis, "EnemyEtis-30000482");
 				break;
 			}
 			case 13990: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000463);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000483, EnemyEtis, "EnemyEtis-30000483");
+				wantActor(30000483, EnemyEtis, "EnemyEtis-30000483");
 				break;
 			}
 			case 14020: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000464);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000484, EnemyEtis, "EnemyEtis-30000484");
+				wantActor(30000484, EnemyEtis, "EnemyEtis-30000484");
 				break;
 			}
 			case 14050: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000465);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000485, EnemyEtis, "EnemyEtis-30000485");
+				wantActor(30000485, EnemyEtis, "EnemyEtis-30000485");
 				break;
 			}
 			case 14080: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000466);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000486, EnemyEtis, "EnemyEtis-30000486");
+				wantActor(30000486, EnemyEtis, "EnemyEtis-30000486");
 				break;
 			}
 			case 14110: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000467);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000487, EnemyEtis, "EnemyEtis-30000487");
+				wantActor(30000487, EnemyEtis, "EnemyEtis-30000487");
 				break;
 			}
 			case 14140: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000468);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000488, EnemyEtis, "EnemyEtis-30000488");
+				wantActor(30000488, EnemyEtis, "EnemyEtis-30000488");
 				break;
 			}
 			case 14170: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000469);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000489, EnemyEtis, "EnemyEtis-30000489");
+				wantActor(30000489, EnemyEtis, "EnemyEtis-30000489");
 				break;
 			}
 			case 14200: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000470);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000490, EnemyEtis, "EnemyEtis-30000490");
+				wantActor(30000490, EnemyEtis, "EnemyEtis-30000490");
 				break;
 			}
 			case 14230: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000471);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000491, EnemyEtis, "EnemyEtis-30000491");
+				wantActor(30000491, EnemyEtis, "EnemyEtis-30000491");
 				break;
 			}
 			case 14260: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000472);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000492, EnemyEtis, "EnemyEtis-30000492");
+				wantActor(30000492, EnemyEtis, "EnemyEtis-30000492");
 				break;
 			}
 			case 14290: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000473);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000493, EnemyEtis, "EnemyEtis-30000493");
+				wantActor(30000493, EnemyEtis, "EnemyEtis-30000493");
 				break;
 			}
 			case 14320: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000474);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000494, EnemyEtis, "EnemyEtis-30000494");
+				wantActor(30000494, EnemyEtis, "EnemyEtis-30000494");
 				break;
 			}
 			case 14350: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000475);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000495, EnemyEtis, "EnemyEtis-30000495");
+				wantActor(30000495, EnemyEtis, "EnemyEtis-30000495");
 				break;
 			}
 			case 14380: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000476);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000496, EnemyEtis, "EnemyEtis-30000496");
+				wantActor(30000496, EnemyEtis, "EnemyEtis-30000496");
 				break;
 			}
 			case 14410: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000477);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000497, EnemyEtis, "EnemyEtis-30000497");
+				wantActor(30000497, EnemyEtis, "EnemyEtis-30000497");
 				break;
 			}
 			case 14440: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000478);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000498, EnemyEtis, "EnemyEtis-30000498");
+				wantActor(30000498, EnemyEtis, "EnemyEtis-30000498");
 				break;
 			}
 			case 14470: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000479);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000499, EnemyEtis, "EnemyEtis-30000499");
+				wantActor(30000499, EnemyEtis, "EnemyEtis-30000499");
 				break;
 			}
 			case 14500: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000480);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000500, EnemyEtis, "EnemyEtis-30000500");
+				wantActor(30000500, EnemyEtis, "EnemyEtis-30000500");
 				break;
 			}
 			case 14530: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000481);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000501, EnemyEtis, "EnemyEtis-30000501");
+				wantActor(30000501, EnemyEtis, "EnemyEtis-30000501");
 				break;
 			}
 			case 14560: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000482);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000502, EnemyEtis, "EnemyEtis-30000502");
+				wantActor(30000502, EnemyEtis, "EnemyEtis-30000502");
 				break;
 			}
 			case 14590: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000483);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000503, EnemyEtis, "EnemyEtis-30000503");
+				wantActor(30000503, EnemyEtis, "EnemyEtis-30000503");
 				break;
 			}
 			case 14620: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000484);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000504, EnemyEtis, "EnemyEtis-30000504");
+				wantActor(30000504, EnemyEtis, "EnemyEtis-30000504");
 				break;
 			}
 			case 14650: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000485);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000505, EnemyEtis, "EnemyEtis-30000505");
+				wantActor(30000505, EnemyEtis, "EnemyEtis-30000505");
 				break;
 			}
 			case 14680: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000486);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000506, EnemyEtis, "EnemyEtis-30000506");
+				wantActor(30000506, EnemyEtis, "EnemyEtis-30000506");
 				break;
 			}
 			case 14710: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000487);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000507, EnemyEtis, "EnemyEtis-30000507");
+				wantActor(30000507, EnemyEtis, "EnemyEtis-30000507");
 				break;
 			}
 			case 14740: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000488);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000508, EnemyEtis, "EnemyEtis-30000508");
+				wantActor(30000508, EnemyEtis, "EnemyEtis-30000508");
 				break;
 			}
 			case 14770: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000489);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000509, EnemyEtis, "EnemyEtis-30000509");
+				wantActor(30000509, EnemyEtis, "EnemyEtis-30000509");
 				break;
 			}
 			case 14800: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000490);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000510, EnemyEtis, "EnemyEtis-30000510");
+				wantActor(30000510, EnemyEtis, "EnemyEtis-30000510");
 				break;
 			}
 			case 14830: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000491);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000511, EnemyEtis, "EnemyEtis-30000511");
+				wantActor(30000511, EnemyEtis, "EnemyEtis-30000511");
 				break;
 			}
 			case 14860: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000492);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000512, EnemyEtis, "EnemyEtis-30000512");
+				wantActor(30000512, EnemyEtis, "EnemyEtis-30000512");
 				break;
 			}
 			case 14890: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000493);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000513, EnemyEtis, "EnemyEtis-30000513");
+				wantActor(30000513, EnemyEtis, "EnemyEtis-30000513");
 				break;
 			}
 			case 14920: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000494);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000514, EnemyEtis, "EnemyEtis-30000514");
+				wantActor(30000514, EnemyEtis, "EnemyEtis-30000514");
 				break;
 			}
 			case 14950: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000495);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000515, EnemyEtis, "EnemyEtis-30000515");
+				wantActor(30000515, EnemyEtis, "EnemyEtis-30000515");
 				break;
 			}
 			case 14980: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000496);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000516, EnemyEtis, "EnemyEtis-30000516");
+				wantActor(30000516, EnemyEtis, "EnemyEtis-30000516");
 				break;
 			}
 			case 15010: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000497);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000517, EnemyEtis, "EnemyEtis-30000517");
+				wantActor(30000517, EnemyEtis, "EnemyEtis-30000517");
 				break;
 			}
 			case 15040: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000498);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000518, EnemyEtis, "EnemyEtis-30000518");
+				wantActor(30000518, EnemyEtis, "EnemyEtis-30000518");
 				break;
 			}
 			case 15070: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000499);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000519, EnemyEtis, "EnemyEtis-30000519");
+				wantActor(30000519, EnemyEtis, "EnemyEtis-30000519");
 				break;
 			}
 			case 15100: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000500);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000520, EnemyEtis, "EnemyEtis-30000520");
+				wantActor(30000520, EnemyEtis, "EnemyEtis-30000520");
 				break;
 			}
 			case 15130: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000501);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000521, EnemyEtis, "EnemyEtis-30000521");
+				wantActor(30000521, EnemyEtis, "EnemyEtis-30000521");
 				break;
 			}
 			case 15160: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000502);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000522, EnemyEtis, "EnemyEtis-30000522");
+				wantActor(30000522, EnemyEtis, "EnemyEtis-30000522");
 				break;
 			}
 			case 15190: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000503);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000523, EnemyEtis, "EnemyEtis-30000523");
+				wantActor(30000523, EnemyEtis, "EnemyEtis-30000523");
 				break;
 			}
 			case 15220: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000504);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000524, EnemyEtis, "EnemyEtis-30000524");
+				wantActor(30000524, EnemyEtis, "EnemyEtis-30000524");
 				break;
 			}
 			case 15250: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000505);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000525, EnemyEtis, "EnemyEtis-30000525");
+				wantActor(30000525, EnemyEtis, "EnemyEtis-30000525");
 				break;
 			}
 			case 15280: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000506);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000526, EnemyEtis, "EnemyEtis-30000526");
+				wantActor(30000526, EnemyEtis, "EnemyEtis-30000526");
 				break;
 			}
 			case 15310: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000507);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000527, EnemyEtis, "EnemyEtis-30000527");
+				wantActor(30000527, EnemyEtis, "EnemyEtis-30000527");
 				break;
 			}
 			case 15340: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000508);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000528, EnemyEtis, "EnemyEtis-30000528");
+				wantActor(30000528, EnemyEtis, "EnemyEtis-30000528");
 				break;
 			}
 			case 15370: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000509);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000529, EnemyEtis, "EnemyEtis-30000529");
+				wantActor(30000529, EnemyEtis, "EnemyEtis-30000529");
 				break;
 			}
 			case 15400: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000510);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000530, EnemyEtis, "EnemyEtis-30000530");
+				wantActor(30000530, EnemyEtis, "EnemyEtis-30000530");
 				break;
 			}
 			case 15430: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000511);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000531, EnemyEtis, "EnemyEtis-30000531");
+				wantActor(30000531, EnemyEtis, "EnemyEtis-30000531");
 				break;
 			}
 			case 15460: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000512);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000532, EnemyEtis, "EnemyEtis-30000532");
+				wantActor(30000532, EnemyEtis, "EnemyEtis-30000532");
 				break;
 			}
 			case 15490: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000513);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000533, EnemyEtis, "EnemyEtis-30000533");
+				wantActor(30000533, EnemyEtis, "EnemyEtis-30000533");
 				break;
 			}
 			case 15520: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000514);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000534, EnemyEtis, "EnemyEtis-30000534");
+				wantActor(30000534, EnemyEtis, "EnemyEtis-30000534");
 				break;
 			}
 			case 15550: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000515);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000535, EnemyEtis, "EnemyEtis-30000535");
+				wantActor(30000535, EnemyEtis, "EnemyEtis-30000535");
 				break;
 			}
 			case 15580: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000516);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000536, EnemyEtis, "EnemyEtis-30000536");
+				wantActor(30000536, EnemyEtis, "EnemyEtis-30000536");
 				break;
 			}
 			case 15610: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000517);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000537, EnemyEtis, "EnemyEtis-30000537");
+				wantActor(30000537, EnemyEtis, "EnemyEtis-30000537");
 				break;
 			}
 			case 15640: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000518);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000538, EnemyEtis, "EnemyEtis-30000538");
+				wantActor(30000538, EnemyEtis, "EnemyEtis-30000538");
 				break;
 			}
 			case 15670: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000519);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000539, EnemyEtis, "EnemyEtis-30000539");
+				wantActor(30000539, EnemyEtis, "EnemyEtis-30000539");
 				break;
 			}
 			case 15700: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000520);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000540, EnemyEtis, "EnemyEtis-30000540");
+				wantActor(30000540, EnemyEtis, "EnemyEtis-30000540");
 				break;
 			}
 			case 15730: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000521);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000541, EnemyEtis, "EnemyEtis-30000541");
+				wantActor(30000541, EnemyEtis, "EnemyEtis-30000541");
 				break;
 			}
 			case 15760: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000522);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000542, EnemyEtis, "EnemyEtis-30000542");
+				wantActor(30000542, EnemyEtis, "EnemyEtis-30000542");
 				break;
 			}
 			case 15790: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000523);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000543, EnemyEtis, "EnemyEtis-30000543");
+				wantActor(30000543, EnemyEtis, "EnemyEtis-30000543");
 				break;
 			}
 			case 15820: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000524);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000544, EnemyEtis, "EnemyEtis-30000544");
+				wantActor(30000544, EnemyEtis, "EnemyEtis-30000544");
 				break;
 			}
 			case 15850: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000525);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000545, EnemyEtis, "EnemyEtis-30000545");
+				wantActor(30000545, EnemyEtis, "EnemyEtis-30000545");
 				break;
 			}
 			case 15880: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000526);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000546, EnemyEtis, "EnemyEtis-30000546");
+				wantActor(30000546, EnemyEtis, "EnemyEtis-30000546");
 				break;
 			}
 			case 15910: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000527);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000547, EnemyEtis, "EnemyEtis-30000547");
+				wantActor(30000547, EnemyEtis, "EnemyEtis-30000547");
 				break;
 			}
 			case 15940: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000528);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000548, EnemyEtis, "EnemyEtis-30000548");
+				wantActor(30000548, EnemyEtis, "EnemyEtis-30000548");
 				break;
 			}
 			case 15970: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000529);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000549, EnemyEtis, "EnemyEtis-30000549");
+				wantActor(30000549, EnemyEtis, "EnemyEtis-30000549");
 				break;
 			}
 			case 16000: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000530);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000550, EnemyEtis, "EnemyEtis-30000550");
+				wantActor(30000550, EnemyEtis, "EnemyEtis-30000550");
 				break;
 			}
 			case 16030: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000531);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000551, EnemyEtis, "EnemyEtis-30000551");
+				wantActor(30000551, EnemyEtis, "EnemyEtis-30000551");
 				break;
 			}
 			case 16060: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000532);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000552, EnemyEtis, "EnemyEtis-30000552");
+				wantActor(30000552, EnemyEtis, "EnemyEtis-30000552");
 				break;
 			}
 			case 16090: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000533);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000553, EnemyEtis, "EnemyEtis-30000553");
+				wantActor(30000553, EnemyEtis, "EnemyEtis-30000553");
 				break;
 			}
 			case 16120: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000534);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000554, EnemyEtis, "EnemyEtis-30000554");
+				wantActor(30000554, EnemyEtis, "EnemyEtis-30000554");
 				break;
 			}
 			case 16150: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000535);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000555, EnemyEtis, "EnemyEtis-30000555");
+				wantActor(30000555, EnemyEtis, "EnemyEtis-30000555");
 				break;
 			}
 			case 16180: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000536);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000556, EnemyEtis, "EnemyEtis-30000556");
+				wantActor(30000556, EnemyEtis, "EnemyEtis-30000556");
 				break;
 			}
 			case 16210: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000537);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000557, EnemyEtis, "EnemyEtis-30000557");
+				wantActor(30000557, EnemyEtis, "EnemyEtis-30000557");
 				break;
 			}
 			case 16240: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000538);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000558, EnemyEtis, "EnemyEtis-30000558");
+				wantActor(30000558, EnemyEtis, "EnemyEtis-30000558");
 				break;
 			}
 			case 16270: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000539);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000559, EnemyEtis, "EnemyEtis-30000559");
+				wantActor(30000559, EnemyEtis, "EnemyEtis-30000559");
 				break;
 			}
 			case 16300: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000540);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000560, EnemyEtis, "EnemyEtis-30000560");
+				wantActor(30000560, EnemyEtis, "EnemyEtis-30000560");
 				break;
 			}
 			case 16330: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000541);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000561, EnemyEtis, "EnemyEtis-30000561");
+				wantActor(30000561, EnemyEtis, "EnemyEtis-30000561");
 				break;
 			}
 			case 16360: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000542);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000562, EnemyEtis, "EnemyEtis-30000562");
+				wantActor(30000562, EnemyEtis, "EnemyEtis-30000562");
 				break;
 			}
 			case 16390: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000543);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000563, EnemyEtis, "EnemyEtis-30000563");
+				wantActor(30000563, EnemyEtis, "EnemyEtis-30000563");
 				break;
 			}
 			case 16420: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000544);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000564, EnemyEtis, "EnemyEtis-30000564");
+				wantActor(30000564, EnemyEtis, "EnemyEtis-30000564");
 				break;
 			}
 			case 16450: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000545);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000565, EnemyEtis, "EnemyEtis-30000565");
+				wantActor(30000565, EnemyEtis, "EnemyEtis-30000565");
 				break;
 			}
 			case 16480: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000546);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000566, EnemyEtis, "EnemyEtis-30000566");
+				wantActor(30000566, EnemyEtis, "EnemyEtis-30000566");
 				break;
 			}
 			case 16510: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000547);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000567, EnemyEtis, "EnemyEtis-30000567");
+				wantActor(30000567, EnemyEtis, "EnemyEtis-30000567");
 				break;
 			}
 			case 16540: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000548);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000568, EnemyEtis, "EnemyEtis-30000568");
+				wantActor(30000568, EnemyEtis, "EnemyEtis-30000568");
 				break;
 			}
 			case 16570: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000549);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000569, EnemyEtis, "EnemyEtis-30000569");
+				wantActor(30000569, EnemyEtis, "EnemyEtis-30000569");
 				break;
 			}
 			case 16600: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000550);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000570, EnemyEtis, "EnemyEtis-30000570");
+				wantActor(30000570, EnemyEtis, "EnemyEtis-30000570");
 				break;
 			}
 			case 16630: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000551);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000571, EnemyEtis, "EnemyEtis-30000571");
+				wantActor(30000571, EnemyEtis, "EnemyEtis-30000571");
 				break;
 			}
 			case 16660: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000552);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000572, EnemyEtis, "EnemyEtis-30000572");
+				wantActor(30000572, EnemyEtis, "EnemyEtis-30000572");
 				break;
 			}
 			case 16690: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000553);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000573, EnemyEtis, "EnemyEtis-30000573");
+				wantActor(30000573, EnemyEtis, "EnemyEtis-30000573");
 				break;
 			}
 			case 16720: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000554);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000574, EnemyEtis, "EnemyEtis-30000574");
+				wantActor(30000574, EnemyEtis, "EnemyEtis-30000574");
 				break;
 			}
 			case 16750: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000555);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000575, EnemyEtis, "EnemyEtis-30000575");
+				wantActor(30000575, EnemyEtis, "EnemyEtis-30000575");
 				break;
 			}
 			case 16780: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000556);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000576, EnemyEtis, "EnemyEtis-30000576");
+				wantActor(30000576, EnemyEtis, "EnemyEtis-30000576");
 				break;
 			}
 			case 16810: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000557);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000577, EnemyEtis, "EnemyEtis-30000577");
+				wantActor(30000577, EnemyEtis, "EnemyEtis-30000577");
 				break;
 			}
 			case 16840: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000558);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000578, EnemyEtis, "EnemyEtis-30000578");
+				wantActor(30000578, EnemyEtis, "EnemyEtis-30000578");
 				break;
 			}
 			case 16870: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000559);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000579, EnemyEtis, "EnemyEtis-30000579");
+				wantActor(30000579, EnemyEtis, "EnemyEtis-30000579");
 				break;
 			}
 			case 16900: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000560);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000580, EnemyEtis, "EnemyEtis-30000580");
+				wantActor(30000580, EnemyEtis, "EnemyEtis-30000580");
 				break;
 			}
 			case 16930: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000561);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000581, EnemyEtis, "EnemyEtis-30000581");
+				wantActor(30000581, EnemyEtis, "EnemyEtis-30000581");
 				break;
 			}
 			case 16960: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000562);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000582, EnemyEtis, "EnemyEtis-30000582");
+				wantActor(30000582, EnemyEtis, "EnemyEtis-30000582");
 				break;
 			}
 			case 16990: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000563);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000583, EnemyEtis, "EnemyEtis-30000583");
+				wantActor(30000583, EnemyEtis, "EnemyEtis-30000583");
 				break;
 			}
 			case 17020: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000564);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000584, EnemyEtis, "EnemyEtis-30000584");
+				wantActor(30000584, EnemyEtis, "EnemyEtis-30000584");
 				break;
 			}
 			case 17050: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000565);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000585, EnemyEtis, "EnemyEtis-30000585");
+				wantActor(30000585, EnemyEtis, "EnemyEtis-30000585");
 				break;
 			}
 			case 17080: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000566);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000586, EnemyEtis, "EnemyEtis-30000586");
+				wantActor(30000586, EnemyEtis, "EnemyEtis-30000586");
 				break;
 			}
 			case 17110: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000567);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000587, EnemyEtis, "EnemyEtis-30000587");
+				wantActor(30000587, EnemyEtis, "EnemyEtis-30000587");
 				break;
 			}
 			case 17140: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000568);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000588, EnemyEtis, "EnemyEtis-30000588");
+				wantActor(30000588, EnemyEtis, "EnemyEtis-30000588");
 				break;
 			}
 			case 17170: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000569);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000589, EnemyEtis, "EnemyEtis-30000589");
+				wantActor(30000589, EnemyEtis, "EnemyEtis-30000589");
 				break;
 			}
 			case 17200: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000570);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000590, EnemyEtis, "EnemyEtis-30000590");
+				wantActor(30000590, EnemyEtis, "EnemyEtis-30000590");
 				break;
 			}
 			case 17230: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000571);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000591, EnemyEtis, "EnemyEtis-30000591");
+				wantActor(30000591, EnemyEtis, "EnemyEtis-30000591");
 				break;
 			}
 			case 17260: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000572);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000592, EnemyEtis, "EnemyEtis-30000592");
+				wantActor(30000592, EnemyEtis, "EnemyEtis-30000592");
 				break;
 			}
 			case 17290: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000573);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000593, EnemyEtis, "EnemyEtis-30000593");
+				wantActor(30000593, EnemyEtis, "EnemyEtis-30000593");
 				break;
 			}
 			case 17320: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000574);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000594, EnemyEtis, "EnemyEtis-30000594");
+				wantActor(30000594, EnemyEtis, "EnemyEtis-30000594");
 				break;
 			}
 			case 17350: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000575);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000595, EnemyEtis, "EnemyEtis-30000595");
+				wantActor(30000595, EnemyEtis, "EnemyEtis-30000595");
 				break;
 			}
 			case 17380: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000576);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000596, EnemyEtis, "EnemyEtis-30000596");
+				wantActor(30000596, EnemyEtis, "EnemyEtis-30000596");
 				break;
 			}
 			case 17410: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000577);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000597, EnemyEtis, "EnemyEtis-30000597");
+				wantActor(30000597, EnemyEtis, "EnemyEtis-30000597");
 				break;
 			}
 			case 17440: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000578);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000598, EnemyEtis, "EnemyEtis-30000598");
+				wantActor(30000598, EnemyEtis, "EnemyEtis-30000598");
 				break;
 			}
 			case 17470: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000579);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000599, EnemyEtis, "EnemyEtis-30000599");
+				wantActor(30000599, EnemyEtis, "EnemyEtis-30000599");
 				break;
 			}
 			case 17500: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000580);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000600, EnemyEtis, "EnemyEtis-30000600");
+				wantActor(30000600, EnemyEtis, "EnemyEtis-30000600");
 				break;
 			}
 			case 17530: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000581);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000601, EnemyEtis, "EnemyEtis-30000601");
+				wantActor(30000601, EnemyEtis, "EnemyEtis-30000601");
 				break;
 			}
 			case 17560: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000582);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000602, EnemyEtis, "EnemyEtis-30000602");
+				wantActor(30000602, EnemyEtis, "EnemyEtis-30000602");
 				break;
 			}
 			case 17590: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000583);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000603, EnemyEtis, "EnemyEtis-30000603");
+				wantActor(30000603, EnemyEtis, "EnemyEtis-30000603");
 				break;
 			}
 			case 17620: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000584);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000604, EnemyEtis, "EnemyEtis-30000604");
+				wantActor(30000604, EnemyEtis, "EnemyEtis-30000604");
 				break;
 			}
 			case 17650: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000585);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000605, EnemyEtis, "EnemyEtis-30000605");
+				wantActor(30000605, EnemyEtis, "EnemyEtis-30000605");
 				break;
 			}
 			case 17680: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000586);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000606, EnemyEtis, "EnemyEtis-30000606");
+				wantActor(30000606, EnemyEtis, "EnemyEtis-30000606");
 				break;
 			}
 			case 17710: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000587);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000607, EnemyEtis, "EnemyEtis-30000607");
+				wantActor(30000607, EnemyEtis, "EnemyEtis-30000607");
 				break;
 			}
 			case 17740: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000588);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000608, EnemyEtis, "EnemyEtis-30000608");
+				wantActor(30000608, EnemyEtis, "EnemyEtis-30000608");
 				break;
 			}
 			case 17770: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000589);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000609, EnemyEtis, "EnemyEtis-30000609");
+				wantActor(30000609, EnemyEtis, "EnemyEtis-30000609");
 				break;
 			}
 			case 17800: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000590);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000610, EnemyEtis, "EnemyEtis-30000610");
+				wantActor(30000610, EnemyEtis, "EnemyEtis-30000610");
 				break;
 			}
 			case 17830: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000591);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000611, EnemyEtis, "EnemyEtis-30000611");
+				wantActor(30000611, EnemyEtis, "EnemyEtis-30000611");
 				break;
 			}
 			case 17860: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000592);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000612, EnemyEtis, "EnemyEtis-30000612");
+				wantActor(30000612, EnemyEtis, "EnemyEtis-30000612");
 				break;
 			}
 			case 17890: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000593);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000613, EnemyEtis, "EnemyEtis-30000613");
+				wantActor(30000613, EnemyEtis, "EnemyEtis-30000613");
 				break;
 			}
 			case 17920: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000594);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000614, EnemyEtis, "EnemyEtis-30000614");
+				wantActor(30000614, EnemyEtis, "EnemyEtis-30000614");
 				break;
 			}
 			case 17950: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000595);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000615, EnemyEtis, "EnemyEtis-30000615");
+				wantActor(30000615, EnemyEtis, "EnemyEtis-30000615");
 				break;
 			}
 			case 17980: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000596);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000616, EnemyEtis, "EnemyEtis-30000616");
+				wantActor(30000616, EnemyEtis, "EnemyEtis-30000616");
 				break;
 			}
 			case 18010: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000597);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000617, EnemyEtis, "EnemyEtis-30000617");
+				wantActor(30000617, EnemyEtis, "EnemyEtis-30000617");
 				break;
 			}
 			case 18040: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000598);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000618, EnemyEtis, "EnemyEtis-30000618");
+				wantActor(30000618, EnemyEtis, "EnemyEtis-30000618");
 				break;
 			}
 			case 18070: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000599);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000619, EnemyEtis, "EnemyEtis-30000619");
+				wantActor(30000619, EnemyEtis, "EnemyEtis-30000619");
 				break;
 			}
 			case 18100: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000600);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000620, EnemyEtis, "EnemyEtis-30000620");
+				wantActor(30000620, EnemyEtis, "EnemyEtis-30000620");
 				break;
 			}
 			case 18130: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000601);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000621, EnemyEtis, "EnemyEtis-30000621");
+				wantActor(30000621, EnemyEtis, "EnemyEtis-30000621");
 				break;
 			}
 			case 18160: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000602);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000622, EnemyEtis, "EnemyEtis-30000622");
+				wantActor(30000622, EnemyEtis, "EnemyEtis-30000622");
 				break;
 			}
 			case 18190: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000603);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000623, EnemyEtis, "EnemyEtis-30000623");
+				wantActor(30000623, EnemyEtis, "EnemyEtis-30000623");
 				break;
 			}
 			case 18220: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000604);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000624, EnemyEtis, "EnemyEtis-30000624");
+				wantActor(30000624, EnemyEtis, "EnemyEtis-30000624");
 				break;
 			}
 			case 18250: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000605);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000625, EnemyEtis, "EnemyEtis-30000625");
+				wantActor(30000625, EnemyEtis, "EnemyEtis-30000625");
 				break;
 			}
 			case 18280: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000606);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000626, EnemyEtis, "EnemyEtis-30000626");
+				wantActor(30000626, EnemyEtis, "EnemyEtis-30000626");
 				break;
 			}
 			case 18310: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000607);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000627, EnemyEtis, "EnemyEtis-30000627");
+				wantActor(30000627, EnemyEtis, "EnemyEtis-30000627");
 				break;
 			}
 			case 18340: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000608);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000628, EnemyEtis, "EnemyEtis-30000628");
+				wantActor(30000628, EnemyEtis, "EnemyEtis-30000628");
 				break;
 			}
 			case 18370: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000609);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000629, EnemyEtis, "EnemyEtis-30000629");
+				wantActor(30000629, EnemyEtis, "EnemyEtis-30000629");
 				break;
 			}
 			case 18400: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000610);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000630, EnemyEtis, "EnemyEtis-30000630");
+				wantActor(30000630, EnemyEtis, "EnemyEtis-30000630");
 				break;
 			}
 			case 18430: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000611);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000631, EnemyEtis, "EnemyEtis-30000631");
+				wantActor(30000631, EnemyEtis, "EnemyEtis-30000631");
 				break;
 			}
 			case 18460: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000612);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000632, EnemyEtis, "EnemyEtis-30000632");
+				wantActor(30000632, EnemyEtis, "EnemyEtis-30000632");
 				break;
 			}
 			case 18490: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000613);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000633, EnemyEtis, "EnemyEtis-30000633");
+				wantActor(30000633, EnemyEtis, "EnemyEtis-30000633");
 				break;
 			}
 			case 18520: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000614);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000634, EnemyEtis, "EnemyEtis-30000634");
+				wantActor(30000634, EnemyEtis, "EnemyEtis-30000634");
 				break;
 			}
 			case 18550: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000615);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000635, EnemyEtis, "EnemyEtis-30000635");
+				wantActor(30000635, EnemyEtis, "EnemyEtis-30000635");
 				break;
 			}
 			case 18580: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000616);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000636, EnemyEtis, "EnemyEtis-30000636");
+				wantActor(30000636, EnemyEtis, "EnemyEtis-30000636");
 				break;
 			}
 			case 18610: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000617);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000637, EnemyEtis, "EnemyEtis-30000637");
+				wantActor(30000637, EnemyEtis, "EnemyEtis-30000637");
 				break;
 			}
 			case 18640: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000618);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000638, EnemyEtis, "EnemyEtis-30000638");
+				wantActor(30000638, EnemyEtis, "EnemyEtis-30000638");
 				break;
 			}
 			case 18670: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000619);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000639, EnemyEtis, "EnemyEtis-30000639");
+				wantActor(30000639, EnemyEtis, "EnemyEtis-30000639");
 				break;
 			}
 			case 18700: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000620);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000640, EnemyEtis, "EnemyEtis-30000640");
+				wantActor(30000640, EnemyEtis, "EnemyEtis-30000640");
 				break;
 			}
 			case 18730: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000621);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000641, EnemyEtis, "EnemyEtis-30000641");
+				wantActor(30000641, EnemyEtis, "EnemyEtis-30000641");
 				break;
 			}
 			case 18760: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000622);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000642, EnemyEtis, "EnemyEtis-30000642");
+				wantActor(30000642, EnemyEtis, "EnemyEtis-30000642");
 				break;
 			}
 			case 18790: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000623);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000643, EnemyEtis, "EnemyEtis-30000643");
+				wantActor(30000643, EnemyEtis, "EnemyEtis-30000643");
 				break;
 			}
 			case 18820: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000624);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000644, EnemyEtis, "EnemyEtis-30000644");
+				wantActor(30000644, EnemyEtis, "EnemyEtis-30000644");
 				break;
 			}
 			case 18850: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000625);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000645, EnemyEtis, "EnemyEtis-30000645");
+				wantActor(30000645, EnemyEtis, "EnemyEtis-30000645");
 				break;
 			}
 			case 18880: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000626);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000646, EnemyEtis, "EnemyEtis-30000646");
+				wantActor(30000646, EnemyEtis, "EnemyEtis-30000646");
 				break;
 			}
 			case 18910: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000627);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000647, EnemyEtis, "EnemyEtis-30000647");
+				wantActor(30000647, EnemyEtis, "EnemyEtis-30000647");
 				break;
 			}
 			case 18940: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000628);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000648, EnemyEtis, "EnemyEtis-30000648");
+				wantActor(30000648, EnemyEtis, "EnemyEtis-30000648");
 				break;
 			}
 			case 18970: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000629);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000649, EnemyEtis, "EnemyEtis-30000649");
+				wantActor(30000649, EnemyEtis, "EnemyEtis-30000649");
 				break;
 			}
 			case 19000: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000630);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000650, EnemyEtis, "EnemyEtis-30000650");
+				wantActor(30000650, EnemyEtis, "EnemyEtis-30000650");
 				break;
 			}
 			case 19030: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000631);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000651, EnemyEtis, "EnemyEtis-30000651");
+				wantActor(30000651, EnemyEtis, "EnemyEtis-30000651");
 				break;
 			}
 			case 19060: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000632);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000652, EnemyEtis, "EnemyEtis-30000652");
+				wantActor(30000652, EnemyEtis, "EnemyEtis-30000652");
 				break;
 			}
 			case 19090: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000633);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000653, EnemyEtis, "EnemyEtis-30000653");
+				wantActor(30000653, EnemyEtis, "EnemyEtis-30000653");
 				break;
 			}
 			case 19120: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000634);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000654, EnemyEtis, "EnemyEtis-30000654");
+				wantActor(30000654, EnemyEtis, "EnemyEtis-30000654");
 				break;
 			}
 			case 19150: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000635);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000655, EnemyEtis, "EnemyEtis-30000655");
+				wantActor(30000655, EnemyEtis, "EnemyEtis-30000655");
 				break;
 			}
 			case 19180: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000636);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000656, EnemyEtis, "EnemyEtis-30000656");
+				wantActor(30000656, EnemyEtis, "EnemyEtis-30000656");
 				break;
 			}
 			case 19210: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000637);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000657, EnemyEtis, "EnemyEtis-30000657");
+				wantActor(30000657, EnemyEtis, "EnemyEtis-30000657");
 				break;
 			}
 			case 19240: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000638);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000658, EnemyEtis, "EnemyEtis-30000658");
+				wantActor(30000658, EnemyEtis, "EnemyEtis-30000658");
 				break;
 			}
 			case 19270: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000639);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000659, EnemyEtis, "EnemyEtis-30000659");
+				wantActor(30000659, EnemyEtis, "EnemyEtis-30000659");
 				break;
 			}
 			case 19300: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000640);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000660, EnemyEtis, "EnemyEtis-30000660");
+				wantActor(30000660, EnemyEtis, "EnemyEtis-30000660");
 				break;
 			}
 			case 19330: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000641);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000661, EnemyEtis, "EnemyEtis-30000661");
+				wantActor(30000661, EnemyEtis, "EnemyEtis-30000661");
 				break;
 			}
 			case 19360: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000642);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000662, EnemyEtis, "EnemyEtis-30000662");
+				wantActor(30000662, EnemyEtis, "EnemyEtis-30000662");
 				break;
 			}
 			case 19390: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000643);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000663, EnemyEtis, "EnemyEtis-30000663");
+				wantActor(30000663, EnemyEtis, "EnemyEtis-30000663");
 				break;
 			}
 			case 19420: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000644);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000664, EnemyEtis, "EnemyEtis-30000664");
+				wantActor(30000664, EnemyEtis, "EnemyEtis-30000664");
 				break;
 			}
 			case 19450: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000645);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000665, EnemyEtis, "EnemyEtis-30000665");
+				wantActor(30000665, EnemyEtis, "EnemyEtis-30000665");
 				break;
 			}
 			case 19480: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000646);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000666, EnemyEtis, "EnemyEtis-30000666");
+				wantActor(30000666, EnemyEtis, "EnemyEtis-30000666");
 				break;
 			}
 			case 19510: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000647);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000667, EnemyEtis, "EnemyEtis-30000667");
+				wantActor(30000667, EnemyEtis, "EnemyEtis-30000667");
 				break;
 			}
 			case 19540: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000648);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000668, EnemyEtis, "EnemyEtis-30000668");
+				wantActor(30000668, EnemyEtis, "EnemyEtis-30000668");
 				break;
 			}
 			case 19570: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000649);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000669, EnemyEtis, "EnemyEtis-30000669");
+				wantActor(30000669, EnemyEtis, "EnemyEtis-30000669");
 				break;
 			}
 			case 19600: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000650);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000670, EnemyEtis, "EnemyEtis-30000670");
+				wantActor(30000670, EnemyEtis, "EnemyEtis-30000670");
 				break;
 			}
 			case 19630: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000651);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000671, EnemyEtis, "EnemyEtis-30000671");
+				wantActor(30000671, EnemyEtis, "EnemyEtis-30000671");
 				break;
 			}
 			case 19660: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000652);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000672, EnemyEtis, "EnemyEtis-30000672");
+				wantActor(30000672, EnemyEtis, "EnemyEtis-30000672");
 				break;
 			}
 			case 19690: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000653);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000673, EnemyEtis, "EnemyEtis-30000673");
+				wantActor(30000673, EnemyEtis, "EnemyEtis-30000673");
 				break;
 			}
 			case 19720: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000654);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000674, EnemyEtis, "EnemyEtis-30000674");
+				wantActor(30000674, EnemyEtis, "EnemyEtis-30000674");
 				break;
 			}
 			case 19750: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000655);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000675, EnemyEtis, "EnemyEtis-30000675");
+				wantActor(30000675, EnemyEtis, "EnemyEtis-30000675");
 				break;
 			}
 			case 19780: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000656);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000676, EnemyEtis, "EnemyEtis-30000676");
+				wantActor(30000676, EnemyEtis, "EnemyEtis-30000676");
 				break;
 			}
 			case 19810: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000657);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000677, EnemyEtis, "EnemyEtis-30000677");
+				wantActor(30000677, EnemyEtis, "EnemyEtis-30000677");
 				break;
 			}
 			case 19840: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000658);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000678, EnemyEtis, "EnemyEtis-30000678");
+				wantActor(30000678, EnemyEtis, "EnemyEtis-30000678");
 				break;
 			}
 			case 19870: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000659);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000679, EnemyEtis, "EnemyEtis-30000679");
+				wantActor(30000679, EnemyEtis, "EnemyEtis-30000679");
 				break;
 			}
 			case 19900: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000660);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000680, EnemyEtis, "EnemyEtis-30000680");
+				wantActor(30000680, EnemyEtis, "EnemyEtis-30000680");
 				break;
 			}
 			case 19930: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000661);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000681, EnemyEtis, "EnemyEtis-30000681");
+				wantActor(30000681, EnemyEtis, "EnemyEtis-30000681");
 				break;
 			}
 			case 19960: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000662);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000682, EnemyEtis, "EnemyEtis-30000682");
+				wantActor(30000682, EnemyEtis, "EnemyEtis-30000682");
 				break;
 			}
 			case 19990: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000663);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000683, EnemyEtis, "EnemyEtis-30000683");
+				wantActor(30000683, EnemyEtis, "EnemyEtis-30000683");
 				break;
 			}
 			case 20020: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000664);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000684, EnemyEtis, "EnemyEtis-30000684");
+				wantActor(30000684, EnemyEtis, "EnemyEtis-30000684");
 				break;
 			}
 			case 20050: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000665);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000685, EnemyEtis, "EnemyEtis-30000685");
+				wantActor(30000685, EnemyEtis, "EnemyEtis-30000685");
 				break;
 			}
 			case 20080: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000666);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000686, EnemyEtis, "EnemyEtis-30000686");
+				wantActor(30000686, EnemyEtis, "EnemyEtis-30000686");
 				break;
 			}
 			case 20110: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000667);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000687, EnemyEtis, "EnemyEtis-30000687");
+				wantActor(30000687, EnemyEtis, "EnemyEtis-30000687");
 				break;
 			}
 			case 20140: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000668);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000688, EnemyEtis, "EnemyEtis-30000688");
+				wantActor(30000688, EnemyEtis, "EnemyEtis-30000688");
 				break;
 			}
 			case 20170: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000669);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000689, EnemyEtis, "EnemyEtis-30000689");
+				wantActor(30000689, EnemyEtis, "EnemyEtis-30000689");
 				break;
 			}
 			case 20200: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000670);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000690, EnemyEtis, "EnemyEtis-30000690");
+				wantActor(30000690, EnemyEtis, "EnemyEtis-30000690");
 				break;
 			}
 			case 20230: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000671);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000691, EnemyEtis, "EnemyEtis-30000691");
+				wantActor(30000691, EnemyEtis, "EnemyEtis-30000691");
 				break;
 			}
 			case 20260: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000672);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000692, EnemyEtis, "EnemyEtis-30000692");
+				wantActor(30000692, EnemyEtis, "EnemyEtis-30000692");
 				break;
 			}
 			case 20290: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000673);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000693, EnemyEtis, "EnemyEtis-30000693");
+				wantActor(30000693, EnemyEtis, "EnemyEtis-30000693");
 				break;
 			}
 			case 20320: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000674);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000694, EnemyEtis, "EnemyEtis-30000694");
+				wantActor(30000694, EnemyEtis, "EnemyEtis-30000694");
 				break;
 			}
 			case 20350: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000675);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000695, EnemyEtis, "EnemyEtis-30000695");
+				wantActor(30000695, EnemyEtis, "EnemyEtis-30000695");
 				break;
 			}
 			case 20380: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000676);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000696, EnemyEtis, "EnemyEtis-30000696");
+				wantActor(30000696, EnemyEtis, "EnemyEtis-30000696");
 				break;
 			}
 			case 20410: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000677);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000697, EnemyEtis, "EnemyEtis-30000697");
+				wantActor(30000697, EnemyEtis, "EnemyEtis-30000697");
 				break;
 			}
 			case 20440: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000678);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000698, EnemyEtis, "EnemyEtis-30000698");
+				wantActor(30000698, EnemyEtis, "EnemyEtis-30000698");
 				break;
 			}
 			case 20470: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000679);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000699, EnemyEtis, "EnemyEtis-30000699");
+				wantActor(30000699, EnemyEtis, "EnemyEtis-30000699");
 				break;
 			}
 			case 20500: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000680);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000700, EnemyEtis, "EnemyEtis-30000700");
+				wantActor(30000700, EnemyEtis, "EnemyEtis-30000700");
 				break;
 			}
 			case 20530: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000681);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000701, EnemyEtis, "EnemyEtis-30000701");
+				wantActor(30000701, EnemyEtis, "EnemyEtis-30000701");
 				break;
 			}
 			case 20560: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000682);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000702, EnemyEtis, "EnemyEtis-30000702");
+				wantActor(30000702, EnemyEtis, "EnemyEtis-30000702");
 				break;
 			}
 			case 20590: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000683);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000703, EnemyEtis, "EnemyEtis-30000703");
+				wantActor(30000703, EnemyEtis, "EnemyEtis-30000703");
 				break;
 			}
 			case 20620: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000684);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000704, EnemyEtis, "EnemyEtis-30000704");
+				wantActor(30000704, EnemyEtis, "EnemyEtis-30000704");
 				break;
 			}
 			case 20650: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000685);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000705, EnemyEtis, "EnemyEtis-30000705");
+				wantActor(30000705, EnemyEtis, "EnemyEtis-30000705");
 				break;
 			}
 			case 20680: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000686);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000706, EnemyEtis, "EnemyEtis-30000706");
+				wantActor(30000706, EnemyEtis, "EnemyEtis-30000706");
 				break;
 			}
 			case 20710: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000687);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000707, EnemyEtis, "EnemyEtis-30000707");
+				wantActor(30000707, EnemyEtis, "EnemyEtis-30000707");
 				break;
 			}
 			case 20740: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000688);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000708, EnemyEtis, "EnemyEtis-30000708");
+				wantActor(30000708, EnemyEtis, "EnemyEtis-30000708");
 				break;
 			}
 			case 20770: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000689);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000709, EnemyEtis, "EnemyEtis-30000709");
+				wantActor(30000709, EnemyEtis, "EnemyEtis-30000709");
 				break;
 			}
 			case 20800: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000690);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000710, EnemyEtis, "EnemyEtis-30000710");
+				wantActor(30000710, EnemyEtis, "EnemyEtis-30000710");
 				break;
 			}
 			case 20830: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000691);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000711, EnemyEtis, "EnemyEtis-30000711");
+				wantActor(30000711, EnemyEtis, "EnemyEtis-30000711");
 				break;
 			}
 			case 20860: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000692);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000712, EnemyEtis, "EnemyEtis-30000712");
+				wantActor(30000712, EnemyEtis, "EnemyEtis-30000712");
 				break;
 			}
 			case 20890: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000693);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000713, EnemyEtis, "EnemyEtis-30000713");
+				wantActor(30000713, EnemyEtis, "EnemyEtis-30000713");
 				break;
 			}
 			case 20920: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000694);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000714, EnemyEtis, "EnemyEtis-30000714");
+				wantActor(30000714, EnemyEtis, "EnemyEtis-30000714");
 				break;
 			}
 			case 20950: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000695);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000715, EnemyEtis, "EnemyEtis-30000715");
+				wantActor(30000715, EnemyEtis, "EnemyEtis-30000715");
 				break;
 			}
 			case 20980: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000696);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000716, EnemyEtis, "EnemyEtis-30000716");
+				wantActor(30000716, EnemyEtis, "EnemyEtis-30000716");
 				break;
 			}
 			case 21010: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000697);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000717, EnemyEtis, "EnemyEtis-30000717");
+				wantActor(30000717, EnemyEtis, "EnemyEtis-30000717");
 				break;
 			}
 			case 21040: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000698);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000718, EnemyEtis, "EnemyEtis-30000718");
+				wantActor(30000718, EnemyEtis, "EnemyEtis-30000718");
 				break;
 			}
 			case 21070: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000699);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000719, EnemyEtis, "EnemyEtis-30000719");
+				wantActor(30000719, EnemyEtis, "EnemyEtis-30000719");
 				break;
 			}
 			case 21100: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000700);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000720, EnemyEtis, "EnemyEtis-30000720");
+				wantActor(30000720, EnemyEtis, "EnemyEtis-30000720");
 				break;
 			}
 			case 21130: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000701);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000721, EnemyEtis, "EnemyEtis-30000721");
+				wantActor(30000721, EnemyEtis, "EnemyEtis-30000721");
 				break;
 			}
 			case 21160: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000702);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000722, EnemyEtis, "EnemyEtis-30000722");
+				wantActor(30000722, EnemyEtis, "EnemyEtis-30000722");
 				break;
 			}
 			case 21190: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000703);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000723, EnemyEtis, "EnemyEtis-30000723");
+				wantActor(30000723, EnemyEtis, "EnemyEtis-30000723");
 				break;
 			}
 			case 21220: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000704);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000724, EnemyEtis, "EnemyEtis-30000724");
+				wantActor(30000724, EnemyEtis, "EnemyEtis-30000724");
 				break;
 			}
 			case 21250: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000705);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000725, EnemyEtis, "EnemyEtis-30000725");
+				wantActor(30000725, EnemyEtis, "EnemyEtis-30000725");
 				break;
 			}
 			case 21280: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000706);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000726, EnemyEtis, "EnemyEtis-30000726");
+				wantActor(30000726, EnemyEtis, "EnemyEtis-30000726");
 				break;
 			}
 			case 21310: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000707);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000727, EnemyEtis, "EnemyEtis-30000727");
+				wantActor(30000727, EnemyEtis, "EnemyEtis-30000727");
 				break;
 			}
 			case 21340: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000708);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000728, EnemyEtis, "EnemyEtis-30000728");
+				wantActor(30000728, EnemyEtis, "EnemyEtis-30000728");
 				break;
 			}
 			case 21370: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000709);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000729, EnemyEtis, "EnemyEtis-30000729");
+				wantActor(30000729, EnemyEtis, "EnemyEtis-30000729");
 				break;
 			}
 			case 21400: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000710);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000730, EnemyEtis, "EnemyEtis-30000730");
+				wantActor(30000730, EnemyEtis, "EnemyEtis-30000730");
 				break;
 			}
 			case 21430: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000711);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000731, EnemyEtis, "EnemyEtis-30000731");
+				wantActor(30000731, EnemyEtis, "EnemyEtis-30000731");
 				break;
 			}
 			case 21460: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000712);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000732, EnemyEtis, "EnemyEtis-30000732");
+				wantActor(30000732, EnemyEtis, "EnemyEtis-30000732");
 				break;
 			}
 			case 21490: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000713);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000733, EnemyEtis, "EnemyEtis-30000733");
+				wantActor(30000733, EnemyEtis, "EnemyEtis-30000733");
 				break;
 			}
 			case 21520: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000714);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000734, EnemyEtis, "EnemyEtis-30000734");
+				wantActor(30000734, EnemyEtis, "EnemyEtis-30000734");
 				break;
 			}
 			case 21550: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000715);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000735, EnemyEtis, "EnemyEtis-30000735");
+				wantActor(30000735, EnemyEtis, "EnemyEtis-30000735");
 				break;
 			}
 			case 21580: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000716);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000736, EnemyEtis, "EnemyEtis-30000736");
+				wantActor(30000736, EnemyEtis, "EnemyEtis-30000736");
 				break;
 			}
 			case 21610: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000717);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000737, EnemyEtis, "EnemyEtis-30000737");
+				wantActor(30000737, EnemyEtis, "EnemyEtis-30000737");
 				break;
 			}
 			case 21640: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000718);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000738, EnemyEtis, "EnemyEtis-30000738");
+				wantActor(30000738, EnemyEtis, "EnemyEtis-30000738");
 				break;
 			}
 			case 21670: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000719);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000739, EnemyEtis, "EnemyEtis-30000739");
+				wantActor(30000739, EnemyEtis, "EnemyEtis-30000739");
 				break;
 			}
 			case 21700: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000720);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000740, EnemyEtis, "EnemyEtis-30000740");
+				wantActor(30000740, EnemyEtis, "EnemyEtis-30000740");
 				break;
 			}
 			case 21730: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000721);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000741, EnemyEtis, "EnemyEtis-30000741");
+				wantActor(30000741, EnemyEtis, "EnemyEtis-30000741");
 				break;
 			}
 			case 21760: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000722);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000742, EnemyEtis, "EnemyEtis-30000742");
+				wantActor(30000742, EnemyEtis, "EnemyEtis-30000742");
 				break;
 			}
 			case 21790: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000723);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000743, EnemyEtis, "EnemyEtis-30000743");
+				wantActor(30000743, EnemyEtis, "EnemyEtis-30000743");
 				break;
 			}
 			case 21820: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000724);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000744, EnemyEtis, "EnemyEtis-30000744");
+				wantActor(30000744, EnemyEtis, "EnemyEtis-30000744");
 				break;
 			}
 			case 21850: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000725);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000745, EnemyEtis, "EnemyEtis-30000745");
+				wantActor(30000745, EnemyEtis, "EnemyEtis-30000745");
 				break;
 			}
 			case 21880: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000726);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000746, EnemyEtis, "EnemyEtis-30000746");
+				wantActor(30000746, EnemyEtis, "EnemyEtis-30000746");
 				break;
 			}
 			case 21910: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000727);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000747, EnemyEtis, "EnemyEtis-30000747");
+				wantActor(30000747, EnemyEtis, "EnemyEtis-30000747");
 				break;
 			}
 			case 21940: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000728);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000748, EnemyEtis, "EnemyEtis-30000748");
+				wantActor(30000748, EnemyEtis, "EnemyEtis-30000748");
 				break;
 			}
 			case 21970: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000729);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000749, EnemyEtis, "EnemyEtis-30000749");
+				wantActor(30000749, EnemyEtis, "EnemyEtis-30000749");
 				break;
 			}
 			case 22000: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000730);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000750, EnemyEtis, "EnemyEtis-30000750");
+				wantActor(30000750, EnemyEtis, "EnemyEtis-30000750");
 				break;
 			}
 			case 22030: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000731);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000751, EnemyEtis, "EnemyEtis-30000751");
+				wantActor(30000751, EnemyEtis, "EnemyEtis-30000751");
 				break;
 			}
 			case 22060: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000732);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000752, EnemyEtis, "EnemyEtis-30000752");
+				wantActor(30000752, EnemyEtis, "EnemyEtis-30000752");
 				break;
 			}
 			case 22090: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000733);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000753, EnemyEtis, "EnemyEtis-30000753");
+				wantActor(30000753, EnemyEtis, "EnemyEtis-30000753");
 				break;
 			}
 			case 22120: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000734);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000754, EnemyEtis, "EnemyEtis-30000754");
+				wantActor(30000754, EnemyEtis, "EnemyEtis-30000754");
 				break;
 			}
 			case 22150: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000735);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000755, EnemyEtis, "EnemyEtis-30000755");
+				wantActor(30000755, EnemyEtis, "EnemyEtis-30000755");
 				break;
 			}
 			case 22180: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000736);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000756, EnemyEtis, "EnemyEtis-30000756");
+				wantActor(30000756, EnemyEtis, "EnemyEtis-30000756");
 				break;
 			}
 			case 22210: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000737);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000757, EnemyEtis, "EnemyEtis-30000757");
+				wantActor(30000757, EnemyEtis, "EnemyEtis-30000757");
 				break;
 			}
 			case 22240: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000738);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000758, EnemyEtis, "EnemyEtis-30000758");
+				wantActor(30000758, EnemyEtis, "EnemyEtis-30000758");
 				break;
 			}
 			case 22270: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000739);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000759, EnemyEtis, "EnemyEtis-30000759");
+				wantActor(30000759, EnemyEtis, "EnemyEtis-30000759");
 				break;
 			}
 			case 22300: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000740);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000760, EnemyEtis, "EnemyEtis-30000760");
+				wantActor(30000760, EnemyEtis, "EnemyEtis-30000760");
 				break;
 			}
 			case 22330: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000741);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000761, EnemyEtis, "EnemyEtis-30000761");
+				wantActor(30000761, EnemyEtis, "EnemyEtis-30000761");
 				break;
 			}
 			case 22360: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000742);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000762, EnemyEtis, "EnemyEtis-30000762");
+				wantActor(30000762, EnemyEtis, "EnemyEtis-30000762");
 				break;
 			}
 			case 22390: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000743);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000763, EnemyEtis, "EnemyEtis-30000763");
+				wantActor(30000763, EnemyEtis, "EnemyEtis-30000763");
 				break;
 			}
 			case 22420: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000744);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000764, EnemyEtis, "EnemyEtis-30000764");
+				wantActor(30000764, EnemyEtis, "EnemyEtis-30000764");
 				break;
 			}
 			case 22450: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000745);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000765, EnemyEtis, "EnemyEtis-30000765");
+				wantActor(30000765, EnemyEtis, "EnemyEtis-30000765");
 				break;
 			}
 			case 22480: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000746);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000766, EnemyEtis, "EnemyEtis-30000766");
+				wantActor(30000766, EnemyEtis, "EnemyEtis-30000766");
 				break;
 			}
 			case 22510: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000747);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000767, EnemyEtis, "EnemyEtis-30000767");
+				wantActor(30000767, EnemyEtis, "EnemyEtis-30000767");
 				break;
 			}
 			case 22540: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000748);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000768, EnemyEtis, "EnemyEtis-30000768");
+				wantActor(30000768, EnemyEtis, "EnemyEtis-30000768");
 				break;
 			}
 			case 22570: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000749);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000769, EnemyEtis, "EnemyEtis-30000769");
+				wantActor(30000769, EnemyEtis, "EnemyEtis-30000769");
 				break;
 			}
 			case 22600: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000750);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000770, EnemyEtis, "EnemyEtis-30000770");
+				wantActor(30000770, EnemyEtis, "EnemyEtis-30000770");
 				break;
 			}
 			case 22630: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000751);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000771, EnemyEtis, "EnemyEtis-30000771");
+				wantActor(30000771, EnemyEtis, "EnemyEtis-30000771");
 				break;
 			}
 			case 22660: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000752);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000772, EnemyEtis, "EnemyEtis-30000772");
+				wantActor(30000772, EnemyEtis, "EnemyEtis-30000772");
 				break;
 			}
 			case 22690: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000753);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000773, EnemyEtis, "EnemyEtis-30000773");
+				wantActor(30000773, EnemyEtis, "EnemyEtis-30000773");
 				break;
 			}
 			case 22720: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000754);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000774, EnemyEtis, "EnemyEtis-30000774");
+				wantActor(30000774, EnemyEtis, "EnemyEtis-30000774");
 				break;
 			}
 			case 22750: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000755);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000775, EnemyEtis, "EnemyEtis-30000775");
+				wantActor(30000775, EnemyEtis, "EnemyEtis-30000775");
 				break;
 			}
 			case 22780: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000756);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000776, EnemyEtis, "EnemyEtis-30000776");
+				wantActor(30000776, EnemyEtis, "EnemyEtis-30000776");
 				break;
 			}
 			case 22810: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000757);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000777, EnemyEtis, "EnemyEtis-30000777");
+				wantActor(30000777, EnemyEtis, "EnemyEtis-30000777");
 				break;
 			}
 			case 22840: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000758);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000778, EnemyEtis, "EnemyEtis-30000778");
+				wantActor(30000778, EnemyEtis, "EnemyEtis-30000778");
 				break;
 			}
 			case 22870: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000759);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000779, EnemyEtis, "EnemyEtis-30000779");
+				wantActor(30000779, EnemyEtis, "EnemyEtis-30000779");
 				break;
 			}
 			case 22900: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000760);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000780, EnemyEtis, "EnemyEtis-30000780");
+				wantActor(30000780, EnemyEtis, "EnemyEtis-30000780");
 				break;
 			}
 			case 22930: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000761);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000781, EnemyEtis, "EnemyEtis-30000781");
+				wantActor(30000781, EnemyEtis, "EnemyEtis-30000781");
 				break;
 			}
 			case 22960: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000762);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000782, EnemyEtis, "EnemyEtis-30000782");
+				wantActor(30000782, EnemyEtis, "EnemyEtis-30000782");
 				break;
 			}
 			case 22990: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000763);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000783, EnemyEtis, "EnemyEtis-30000783");
+				wantActor(30000783, EnemyEtis, "EnemyEtis-30000783");
 				break;
 			}
 			case 23020: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000764);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000784, EnemyEtis, "EnemyEtis-30000784");
+				wantActor(30000784, EnemyEtis, "EnemyEtis-30000784");
 				break;
 			}
 			case 23050: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000765);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000785, EnemyEtis, "EnemyEtis-30000785");
+				wantActor(30000785, EnemyEtis, "EnemyEtis-30000785");
 				break;
 			}
 			case 23080: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000766);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000786, EnemyEtis, "EnemyEtis-30000786");
+				wantActor(30000786, EnemyEtis, "EnemyEtis-30000786");
 				break;
 			}
 			case 23110: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000767);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000787, EnemyEtis, "EnemyEtis-30000787");
+				wantActor(30000787, EnemyEtis, "EnemyEtis-30000787");
 				break;
 			}
 			case 23140: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000768);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000788, EnemyEtis, "EnemyEtis-30000788");
+				wantActor(30000788, EnemyEtis, "EnemyEtis-30000788");
 				break;
 			}
 			case 23170: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000769);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000789, EnemyEtis, "EnemyEtis-30000789");
+				wantActor(30000789, EnemyEtis, "EnemyEtis-30000789");
 				break;
 			}
 			case 23200: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000770);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000790, EnemyEtis, "EnemyEtis-30000790");
+				wantActor(30000790, EnemyEtis, "EnemyEtis-30000790");
 				break;
 			}
 			case 23230: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000771);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000791, EnemyEtis, "EnemyEtis-30000791");
+				wantActor(30000791, EnemyEtis, "EnemyEtis-30000791");
 				break;
 			}
 			case 23260: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000772);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000792, EnemyEtis, "EnemyEtis-30000792");
+				wantActor(30000792, EnemyEtis, "EnemyEtis-30000792");
 				break;
 			}
 			case 23290: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000773);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000793, EnemyEtis, "EnemyEtis-30000793");
+				wantActor(30000793, EnemyEtis, "EnemyEtis-30000793");
 				break;
 			}
 			case 23320: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000774);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000794, EnemyEtis, "EnemyEtis-30000794");
+				wantActor(30000794, EnemyEtis, "EnemyEtis-30000794");
 				break;
 			}
 			case 23350: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000775);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000795, EnemyEtis, "EnemyEtis-30000795");
+				wantActor(30000795, EnemyEtis, "EnemyEtis-30000795");
 				break;
 			}
 			case 23380: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000776);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000796, EnemyEtis, "EnemyEtis-30000796");
+				wantActor(30000796, EnemyEtis, "EnemyEtis-30000796");
 				break;
 			}
 			case 23410: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000777);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000797, EnemyEtis, "EnemyEtis-30000797");
+				wantActor(30000797, EnemyEtis, "EnemyEtis-30000797");
 				break;
 			}
 			case 23440: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000778);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000798, EnemyEtis, "EnemyEtis-30000798");
+				wantActor(30000798, EnemyEtis, "EnemyEtis-30000798");
 				break;
 			}
 			case 23470: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000779);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000799, EnemyEtis, "EnemyEtis-30000799");
+				wantActor(30000799, EnemyEtis, "EnemyEtis-30000799");
 				break;
 			}
 			case 23500: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000780);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000800, EnemyEtis, "EnemyEtis-30000800");
+				wantActor(30000800, EnemyEtis, "EnemyEtis-30000800");
 				break;
 			}
 			case 23530: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000781);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000801, EnemyEtis, "EnemyEtis-30000801");
+				wantActor(30000801, EnemyEtis, "EnemyEtis-30000801");
 				break;
 			}
 			case 23560: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000782);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000802, EnemyEtis, "EnemyEtis-30000802");
+				wantActor(30000802, EnemyEtis, "EnemyEtis-30000802");
 				break;
 			}
 			case 23590: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000783);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000803, EnemyEtis, "EnemyEtis-30000803");
+				wantActor(30000803, EnemyEtis, "EnemyEtis-30000803");
 				break;
 			}
 			case 23620: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000784);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000804, EnemyEtis, "EnemyEtis-30000804");
+				wantActor(30000804, EnemyEtis, "EnemyEtis-30000804");
 				break;
 			}
 			case 23650: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000785);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000805, EnemyEtis, "EnemyEtis-30000805");
+				wantActor(30000805, EnemyEtis, "EnemyEtis-30000805");
 				break;
 			}
 			case 23680: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000786);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000806, EnemyEtis, "EnemyEtis-30000806");
+				wantActor(30000806, EnemyEtis, "EnemyEtis-30000806");
 				break;
 			}
 			case 23710: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000787);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000807, EnemyEtis, "EnemyEtis-30000807");
+				wantActor(30000807, EnemyEtis, "EnemyEtis-30000807");
 				break;
 			}
 			case 23740: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000788);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000808, EnemyEtis, "EnemyEtis-30000808");
+				wantActor(30000808, EnemyEtis, "EnemyEtis-30000808");
 				break;
 			}
 			case 23770: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000789);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000809, EnemyEtis, "EnemyEtis-30000809");
+				wantActor(30000809, EnemyEtis, "EnemyEtis-30000809");
 				break;
 			}
 			case 23800: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000790);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000810, EnemyEtis, "EnemyEtis-30000810");
+				wantActor(30000810, EnemyEtis, "EnemyEtis-30000810");
 				break;
 			}
 			case 23830: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000791);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000811, EnemyEtis, "EnemyEtis-30000811");
+				wantActor(30000811, EnemyEtis, "EnemyEtis-30000811");
 				break;
 			}
 			case 23860: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000792);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000812, EnemyEtis, "EnemyEtis-30000812");
+				wantActor(30000812, EnemyEtis, "EnemyEtis-30000812");
 				break;
 			}
 			case 23890: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000793);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000813, EnemyEtis, "EnemyEtis-30000813");
+				wantActor(30000813, EnemyEtis, "EnemyEtis-30000813");
 				break;
 			}
 			case 23920: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000794);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000814, EnemyEtis, "EnemyEtis-30000814");
+				wantActor(30000814, EnemyEtis, "EnemyEtis-30000814");
 				break;
 			}
 			case 23950: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000795);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000815, EnemyEtis, "EnemyEtis-30000815");
+				wantActor(30000815, EnemyEtis, "EnemyEtis-30000815");
 				break;
 			}
 			case 23980: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000796);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000816, EnemyEtis, "EnemyEtis-30000816");
+				wantActor(30000816, EnemyEtis, "EnemyEtis-30000816");
 				break;
 			}
 			case 24010: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000797);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000817, EnemyEtis, "EnemyEtis-30000817");
+				wantActor(30000817, EnemyEtis, "EnemyEtis-30000817");
 				break;
 			}
 			case 24040: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000798);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000818, EnemyEtis, "EnemyEtis-30000818");
+				wantActor(30000818, EnemyEtis, "EnemyEtis-30000818");
 				break;
 			}
 			case 24070: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000799);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000819, EnemyEtis, "EnemyEtis-30000819");
+				wantActor(30000819, EnemyEtis, "EnemyEtis-30000819");
 				break;
 			}
 			case 24100: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000800);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000820, EnemyEtis, "EnemyEtis-30000820");
+				wantActor(30000820, EnemyEtis, "EnemyEtis-30000820");
 				break;
 			}
 			case 24130: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000801);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000821, EnemyEtis, "EnemyEtis-30000821");
+				wantActor(30000821, EnemyEtis, "EnemyEtis-30000821");
 				break;
 			}
 			case 24160: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000802);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000822, EnemyEtis, "EnemyEtis-30000822");
+				wantActor(30000822, EnemyEtis, "EnemyEtis-30000822");
 				break;
 			}
 			case 24190: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000803);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000823, EnemyEtis, "EnemyEtis-30000823");
+				wantActor(30000823, EnemyEtis, "EnemyEtis-30000823");
 				break;
 			}
 			case 24220: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000804);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000824, EnemyEtis, "EnemyEtis-30000824");
+				wantActor(30000824, EnemyEtis, "EnemyEtis-30000824");
 				break;
 			}
 			case 24250: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000805);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000825, EnemyEtis, "EnemyEtis-30000825");
+				wantActor(30000825, EnemyEtis, "EnemyEtis-30000825");
 				break;
 			}
 			case 24280: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000806);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000826, EnemyEtis, "EnemyEtis-30000826");
+				wantActor(30000826, EnemyEtis, "EnemyEtis-30000826");
 				break;
 			}
 			case 24310: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000807);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000827, EnemyEtis, "EnemyEtis-30000827");
+				wantActor(30000827, EnemyEtis, "EnemyEtis-30000827");
 				break;
 			}
 			case 24340: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000808);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000828, EnemyEtis, "EnemyEtis-30000828");
+				wantActor(30000828, EnemyEtis, "EnemyEtis-30000828");
 				break;
 			}
 			case 24370: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000809);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000829, EnemyEtis, "EnemyEtis-30000829");
+				wantActor(30000829, EnemyEtis, "EnemyEtis-30000829");
 				break;
 			}
 			case 24400: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000810);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000830, EnemyEtis, "EnemyEtis-30000830");
+				wantActor(30000830, EnemyEtis, "EnemyEtis-30000830");
 				break;
 			}
 			case 24430: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000811);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000831, EnemyEtis, "EnemyEtis-30000831");
+				wantActor(30000831, EnemyEtis, "EnemyEtis-30000831");
 				break;
 			}
 			case 24460: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000812);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000832, EnemyEtis, "EnemyEtis-30000832");
+				wantActor(30000832, EnemyEtis, "EnemyEtis-30000832");
 				break;
 			}
 			case 24490: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000813);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000833, EnemyEtis, "EnemyEtis-30000833");
+				wantActor(30000833, EnemyEtis, "EnemyEtis-30000833");
 				break;
 			}
 			case 24520: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000814);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000834, EnemyEtis, "EnemyEtis-30000834");
+				wantActor(30000834, EnemyEtis, "EnemyEtis-30000834");
 				break;
 			}
 			case 24550: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000815);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000835, EnemyEtis, "EnemyEtis-30000835");
+				wantActor(30000835, EnemyEtis, "EnemyEtis-30000835");
 				break;
 			}
 			case 24580: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000816);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000836, EnemyEtis, "EnemyEtis-30000836");
+				wantActor(30000836, EnemyEtis, "EnemyEtis-30000836");
 				break;
 			}
 			case 24610: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000817);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000837, EnemyEtis, "EnemyEtis-30000837");
+				wantActor(30000837, EnemyEtis, "EnemyEtis-30000837");
 				break;
 			}
 			case 24640: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000818);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000838, EnemyEtis, "EnemyEtis-30000838");
+				wantActor(30000838, EnemyEtis, "EnemyEtis-30000838");
 				break;
 			}
 			case 24670: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000819);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000839, EnemyEtis, "EnemyEtis-30000839");
+				wantActor(30000839, EnemyEtis, "EnemyEtis-30000839");
 				break;
 			}
 			case 24700: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000820);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000840, EnemyEtis, "EnemyEtis-30000840");
+				wantActor(30000840, EnemyEtis, "EnemyEtis-30000840");
 				break;
 			}
 			case 24730: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000821);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000841, EnemyEtis, "EnemyEtis-30000841");
+				wantActor(30000841, EnemyEtis, "EnemyEtis-30000841");
 				break;
 			}
 			case 24760: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000822);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000842, EnemyEtis, "EnemyEtis-30000842");
+				wantActor(30000842, EnemyEtis, "EnemyEtis-30000842");
 				break;
 			}
 			case 24790: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000823);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000843, EnemyEtis, "EnemyEtis-30000843");
+				wantActor(30000843, EnemyEtis, "EnemyEtis-30000843");
 				break;
 			}
 			case 24820: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000824);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000844, EnemyEtis, "EnemyEtis-30000844");
+				wantActor(30000844, EnemyEtis, "EnemyEtis-30000844");
 				break;
 			}
 			case 24850: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000825);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000845, EnemyEtis, "EnemyEtis-30000845");
+				wantActor(30000845, EnemyEtis, "EnemyEtis-30000845");
 				break;
 			}
 			case 24880: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000826);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000846, EnemyEtis, "EnemyEtis-30000846");
+				wantActor(30000846, EnemyEtis, "EnemyEtis-30000846");
 				break;
 			}
 			case 24910: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000827);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000847, EnemyEtis, "EnemyEtis-30000847");
+				wantActor(30000847, EnemyEtis, "EnemyEtis-30000847");
 				break;
 			}
 			case 24940: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000828);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000848, EnemyEtis, "EnemyEtis-30000848");
+				wantActor(30000848, EnemyEtis, "EnemyEtis-30000848");
 				break;
 			}
 			case 24970: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000829);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000849, EnemyEtis, "EnemyEtis-30000849");
+				wantActor(30000849, EnemyEtis, "EnemyEtis-30000849");
 				break;
 			}
 			case 25000: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000830);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000850, EnemyEtis, "EnemyEtis-30000850");
+				wantActor(30000850, EnemyEtis, "EnemyEtis-30000850");
 				break;
 			}
 			case 25030: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000831);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000851, EnemyEtis, "EnemyEtis-30000851");
+				wantActor(30000851, EnemyEtis, "EnemyEtis-30000851");
 				break;
 			}
 			case 25060: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000832);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000852, EnemyEtis, "EnemyEtis-30000852");
+				wantActor(30000852, EnemyEtis, "EnemyEtis-30000852");
 				break;
 			}
 			case 25090: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000833);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000853, EnemyEtis, "EnemyEtis-30000853");
+				wantActor(30000853, EnemyEtis, "EnemyEtis-30000853");
 				break;
 			}
 			case 25120: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000834);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000854, EnemyEtis, "EnemyEtis-30000854");
+				wantActor(30000854, EnemyEtis, "EnemyEtis-30000854");
 				break;
 			}
 			case 25150: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000835);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000855, EnemyEtis, "EnemyEtis-30000855");
+				wantActor(30000855, EnemyEtis, "EnemyEtis-30000855");
 				break;
 			}
 			case 25180: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000836);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000856, EnemyEtis, "EnemyEtis-30000856");
+				wantActor(30000856, EnemyEtis, "EnemyEtis-30000856");
 				break;
 			}
 			case 25210: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000837);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000857, EnemyEtis, "EnemyEtis-30000857");
+				wantActor(30000857, EnemyEtis, "EnemyEtis-30000857");
 				break;
 			}
 			case 25240: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000838);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000858, EnemyEtis, "EnemyEtis-30000858");
+				wantActor(30000858, EnemyEtis, "EnemyEtis-30000858");
 				break;
 			}
 			case 25270: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000839);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000859, EnemyEtis, "EnemyEtis-30000859");
+				wantActor(30000859, EnemyEtis, "EnemyEtis-30000859");
 				break;
 			}
 			case 25300: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000840);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000860, EnemyEtis, "EnemyEtis-30000860");
+				wantActor(30000860, EnemyEtis, "EnemyEtis-30000860");
 				break;
 			}
 			case 25330: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000841);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000861, EnemyEtis, "EnemyEtis-30000861");
+				wantActor(30000861, EnemyEtis, "EnemyEtis-30000861");
 				break;
 			}
 			case 25360: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000842);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000862, EnemyEtis, "EnemyEtis-30000862");
+				wantActor(30000862, EnemyEtis, "EnemyEtis-30000862");
 				break;
 			}
 			case 25390: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000843);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000863, EnemyEtis, "EnemyEtis-30000863");
+				wantActor(30000863, EnemyEtis, "EnemyEtis-30000863");
 				break;
 			}
 			case 25420: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000844);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000864, EnemyEtis, "EnemyEtis-30000864");
+				wantActor(30000864, EnemyEtis, "EnemyEtis-30000864");
 				break;
 			}
 			case 25450: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000845);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000865, EnemyEtis, "EnemyEtis-30000865");
+				wantActor(30000865, EnemyEtis, "EnemyEtis-30000865");
 				break;
 			}
 			case 25480: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000846);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000866, EnemyEtis, "EnemyEtis-30000866");
+				wantActor(30000866, EnemyEtis, "EnemyEtis-30000866");
 				break;
 			}
 			case 25510: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000847);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000867, EnemyEtis, "EnemyEtis-30000867");
+				wantActor(30000867, EnemyEtis, "EnemyEtis-30000867");
 				break;
 			}
 			case 25540: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000848);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000868, EnemyEtis, "EnemyEtis-30000868");
+				wantActor(30000868, EnemyEtis, "EnemyEtis-30000868");
 				break;
 			}
 			case 25570: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000849);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000869, EnemyEtis, "EnemyEtis-30000869");
+				wantActor(30000869, EnemyEtis, "EnemyEtis-30000869");
 				break;
 			}
 			case 25600: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000850);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000870, EnemyEtis, "EnemyEtis-30000870");
+				wantActor(30000870, EnemyEtis, "EnemyEtis-30000870");
 				break;
 			}
 			case 25630: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000851);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000871, EnemyEtis, "EnemyEtis-30000871");
+				wantActor(30000871, EnemyEtis, "EnemyEtis-30000871");
 				break;
 			}
 			case 25660: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000852);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000872, EnemyEtis, "EnemyEtis-30000872");
+				wantActor(30000872, EnemyEtis, "EnemyEtis-30000872");
 				break;
 			}
 			case 25690: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000853);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000873, EnemyEtis, "EnemyEtis-30000873");
+				wantActor(30000873, EnemyEtis, "EnemyEtis-30000873");
 				break;
 			}
 			case 25720: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000854);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000874, EnemyEtis, "EnemyEtis-30000874");
+				wantActor(30000874, EnemyEtis, "EnemyEtis-30000874");
 				break;
 			}
 			case 25750: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000855);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000875, EnemyEtis, "EnemyEtis-30000875");
+				wantActor(30000875, EnemyEtis, "EnemyEtis-30000875");
 				break;
 			}
 			case 25780: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000856);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000876, EnemyEtis, "EnemyEtis-30000876");
+				wantActor(30000876, EnemyEtis, "EnemyEtis-30000876");
 				break;
 			}
 			case 25810: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000857);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000877, EnemyEtis, "EnemyEtis-30000877");
+				wantActor(30000877, EnemyEtis, "EnemyEtis-30000877");
 				break;
 			}
 			case 25840: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000858);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000878, EnemyEtis, "EnemyEtis-30000878");
+				wantActor(30000878, EnemyEtis, "EnemyEtis-30000878");
 				break;
 			}
 			case 25870: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000859);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000879, EnemyEtis, "EnemyEtis-30000879");
+				wantActor(30000879, EnemyEtis, "EnemyEtis-30000879");
 				break;
 			}
 			case 25900: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000860);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000880, EnemyEtis, "EnemyEtis-30000880");
+				wantActor(30000880, EnemyEtis, "EnemyEtis-30000880");
 				break;
 			}
 			case 25930: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000861);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000881, EnemyEtis, "EnemyEtis-30000881");
+				wantActor(30000881, EnemyEtis, "EnemyEtis-30000881");
 				break;
 			}
 			case 25960: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000862);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000882, EnemyEtis, "EnemyEtis-30000882");
+				wantActor(30000882, EnemyEtis, "EnemyEtis-30000882");
 				break;
 			}
 			case 25990: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000863);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000883, EnemyEtis, "EnemyEtis-30000883");
+				wantActor(30000883, EnemyEtis, "EnemyEtis-30000883");
 				break;
 			}
 			case 26020: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000864);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000884, EnemyEtis, "EnemyEtis-30000884");
+				wantActor(30000884, EnemyEtis, "EnemyEtis-30000884");
 				break;
 			}
 			case 26050: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000865);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000885, EnemyEtis, "EnemyEtis-30000885");
+				wantActor(30000885, EnemyEtis, "EnemyEtis-30000885");
 				break;
 			}
 			case 26080: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000866);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000886, EnemyEtis, "EnemyEtis-30000886");
+				wantActor(30000886, EnemyEtis, "EnemyEtis-30000886");
 				break;
 			}
 			case 26110: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000867);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000887, EnemyEtis, "EnemyEtis-30000887");
+				wantActor(30000887, EnemyEtis, "EnemyEtis-30000887");
 				break;
 			}
 			case 26140: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000868);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000888, EnemyEtis, "EnemyEtis-30000888");
+				wantActor(30000888, EnemyEtis, "EnemyEtis-30000888");
 				break;
 			}
 			case 26170: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000869);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000889, EnemyEtis, "EnemyEtis-30000889");
+				wantActor(30000889, EnemyEtis, "EnemyEtis-30000889");
 				break;
 			}
 			case 26200: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000870);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000890, EnemyEtis, "EnemyEtis-30000890");
+				wantActor(30000890, EnemyEtis, "EnemyEtis-30000890");
 				break;
 			}
 			case 26230: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000871);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000891, EnemyEtis, "EnemyEtis-30000891");
+				wantActor(30000891, EnemyEtis, "EnemyEtis-30000891");
 				break;
 			}
 			case 26260: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000872);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000892, EnemyEtis, "EnemyEtis-30000892");
+				wantActor(30000892, EnemyEtis, "EnemyEtis-30000892");
 				break;
 			}
 			case 26290: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000873);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000893, EnemyEtis, "EnemyEtis-30000893");
+				wantActor(30000893, EnemyEtis, "EnemyEtis-30000893");
 				break;
 			}
 			case 26320: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000874);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000894, EnemyEtis, "EnemyEtis-30000894");
+				wantActor(30000894, EnemyEtis, "EnemyEtis-30000894");
 				break;
 			}
 			case 26350: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000875);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000895, EnemyEtis, "EnemyEtis-30000895");
+				wantActor(30000895, EnemyEtis, "EnemyEtis-30000895");
 				break;
 			}
 			case 26380: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000876);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000896, EnemyEtis, "EnemyEtis-30000896");
+				wantActor(30000896, EnemyEtis, "EnemyEtis-30000896");
 				break;
 			}
 			case 26410: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000877);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000897, EnemyEtis, "EnemyEtis-30000897");
+				wantActor(30000897, EnemyEtis, "EnemyEtis-30000897");
 				break;
 			}
 			case 26440: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000878);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000898, EnemyEtis, "EnemyEtis-30000898");
+				wantActor(30000898, EnemyEtis, "EnemyEtis-30000898");
 				break;
 			}
 			case 26470: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000879);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000899, EnemyEtis, "EnemyEtis-30000899");
+				wantActor(30000899, EnemyEtis, "EnemyEtis-30000899");
 				break;
 			}
 			case 26500: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000880);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000900, EnemyEtis, "EnemyEtis-30000900");
+				wantActor(30000900, EnemyEtis, "EnemyEtis-30000900");
 				break;
 			}
 			case 26530: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000881);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000901, EnemyEtis, "EnemyEtis-30000901");
+				wantActor(30000901, EnemyEtis, "EnemyEtis-30000901");
 				break;
 			}
 			case 26560: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000882);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000902, EnemyEtis, "EnemyEtis-30000902");
+				wantActor(30000902, EnemyEtis, "EnemyEtis-30000902");
 				break;
 			}
 			case 26590: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000883);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000903, EnemyEtis, "EnemyEtis-30000903");
+				wantActor(30000903, EnemyEtis, "EnemyEtis-30000903");
 				break;
 			}
 			case 26620: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000884);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000904, EnemyEtis, "EnemyEtis-30000904");
+				wantActor(30000904, EnemyEtis, "EnemyEtis-30000904");
 				break;
 			}
 			case 26650: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000885);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000905, EnemyEtis, "EnemyEtis-30000905");
+				wantActor(30000905, EnemyEtis, "EnemyEtis-30000905");
 				break;
 			}
 			case 26680: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000886);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000906, EnemyEtis, "EnemyEtis-30000906");
+				wantActor(30000906, EnemyEtis, "EnemyEtis-30000906");
 				break;
 			}
 			case 26710: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000887);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000907, EnemyEtis, "EnemyEtis-30000907");
+				wantActor(30000907, EnemyEtis, "EnemyEtis-30000907");
 				break;
 			}
 			case 26740: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000888);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000908, EnemyEtis, "EnemyEtis-30000908");
+				wantActor(30000908, EnemyEtis, "EnemyEtis-30000908");
 				break;
 			}
 			case 26770: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000889);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000909, EnemyEtis, "EnemyEtis-30000909");
+				wantActor(30000909, EnemyEtis, "EnemyEtis-30000909");
 				break;
 			}
 			case 26800: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000890);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000910, EnemyEtis, "EnemyEtis-30000910");
+				wantActor(30000910, EnemyEtis, "EnemyEtis-30000910");
 				break;
 			}
 			case 26830: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000891);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000911, EnemyEtis, "EnemyEtis-30000911");
+				wantActor(30000911, EnemyEtis, "EnemyEtis-30000911");
 				break;
 			}
 			case 26860: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000892);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000912, EnemyEtis, "EnemyEtis-30000912");
+				wantActor(30000912, EnemyEtis, "EnemyEtis-30000912");
 				break;
 			}
 			case 26890: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000893);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000913, EnemyEtis, "EnemyEtis-30000913");
+				wantActor(30000913, EnemyEtis, "EnemyEtis-30000913");
 				break;
 			}
 			case 26920: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000894);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000914, EnemyEtis, "EnemyEtis-30000914");
+				wantActor(30000914, EnemyEtis, "EnemyEtis-30000914");
 				break;
 			}
 			case 26950: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000895);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000915, EnemyEtis, "EnemyEtis-30000915");
+				wantActor(30000915, EnemyEtis, "EnemyEtis-30000915");
 				break;
 			}
 			case 26980: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000896);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000916, EnemyEtis, "EnemyEtis-30000916");
+				wantActor(30000916, EnemyEtis, "EnemyEtis-30000916");
 				break;
 			}
 			case 27010: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000897);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000917, EnemyEtis, "EnemyEtis-30000917");
+				wantActor(30000917, EnemyEtis, "EnemyEtis-30000917");
 				break;
 			}
 			case 27040: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000898);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000918, EnemyEtis, "EnemyEtis-30000918");
+				wantActor(30000918, EnemyEtis, "EnemyEtis-30000918");
 				break;
 			}
 			case 27070: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000899);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000919, EnemyEtis, "EnemyEtis-30000919");
+				wantActor(30000919, EnemyEtis, "EnemyEtis-30000919");
 				break;
 			}
 			case 27100: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000900);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000920, EnemyEtis, "EnemyEtis-30000920");
+				wantActor(30000920, EnemyEtis, "EnemyEtis-30000920");
 				break;
 			}
 			case 27130: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000901);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000921, EnemyEtis, "EnemyEtis-30000921");
+				wantActor(30000921, EnemyEtis, "EnemyEtis-30000921");
 				break;
 			}
 			case 27160: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000902);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000922, EnemyEtis, "EnemyEtis-30000922");
+				wantActor(30000922, EnemyEtis, "EnemyEtis-30000922");
 				break;
 			}
 			case 27190: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000903);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000923, EnemyEtis, "EnemyEtis-30000923");
+				wantActor(30000923, EnemyEtis, "EnemyEtis-30000923");
 				break;
 			}
 			case 27220: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000904);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000924, EnemyEtis, "EnemyEtis-30000924");
+				wantActor(30000924, EnemyEtis, "EnemyEtis-30000924");
 				break;
 			}
 			case 27250: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000905);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000925, EnemyEtis, "EnemyEtis-30000925");
+				wantActor(30000925, EnemyEtis, "EnemyEtis-30000925");
 				break;
 			}
 			case 27280: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000906);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000926, EnemyEtis, "EnemyEtis-30000926");
+				wantActor(30000926, EnemyEtis, "EnemyEtis-30000926");
 				break;
 			}
 			case 27310: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000907);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000927, EnemyEtis, "EnemyEtis-30000927");
+				wantActor(30000927, EnemyEtis, "EnemyEtis-30000927");
 				break;
 			}
 			case 27340: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000908);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000928, EnemyEtis, "EnemyEtis-30000928");
+				wantActor(30000928, EnemyEtis, "EnemyEtis-30000928");
 				break;
 			}
 			case 27370: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000909);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000929, EnemyEtis, "EnemyEtis-30000929");
+				wantActor(30000929, EnemyEtis, "EnemyEtis-30000929");
 				break;
 			}
 			case 27400: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000910);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000930, EnemyEtis, "EnemyEtis-30000930");
+				wantActor(30000930, EnemyEtis, "EnemyEtis-30000930");
 				break;
 			}
 			case 27430: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000911);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000931, EnemyEtis, "EnemyEtis-30000931");
+				wantActor(30000931, EnemyEtis, "EnemyEtis-30000931");
 				break;
 			}
 			case 27460: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000912);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000932, EnemyEtis, "EnemyEtis-30000932");
+				wantActor(30000932, EnemyEtis, "EnemyEtis-30000932");
 				break;
 			}
 			case 27490: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000913);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000933, EnemyEtis, "EnemyEtis-30000933");
+				wantActor(30000933, EnemyEtis, "EnemyEtis-30000933");
 				break;
 			}
 			case 27520: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000914);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000934, EnemyEtis, "EnemyEtis-30000934");
+				wantActor(30000934, EnemyEtis, "EnemyEtis-30000934");
 				break;
 			}
 			case 27550: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000915);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000935, EnemyEtis, "EnemyEtis-30000935");
+				wantActor(30000935, EnemyEtis, "EnemyEtis-30000935");
 				break;
 			}
 			case 27580: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000916);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000936, EnemyEtis, "EnemyEtis-30000936");
+				wantActor(30000936, EnemyEtis, "EnemyEtis-30000936");
 				break;
 			}
 			case 27610: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000917);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000937, EnemyEtis, "EnemyEtis-30000937");
+				wantActor(30000937, EnemyEtis, "EnemyEtis-30000937");
 				break;
 			}
 			case 27640: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000918);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000938, EnemyEtis, "EnemyEtis-30000938");
+				wantActor(30000938, EnemyEtis, "EnemyEtis-30000938");
 				break;
 			}
 			case 27670: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000919);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000939, EnemyEtis, "EnemyEtis-30000939");
+				wantActor(30000939, EnemyEtis, "EnemyEtis-30000939");
 				break;
 			}
 			case 27700: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000920);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000940, EnemyEtis, "EnemyEtis-30000940");
+				wantActor(30000940, EnemyEtis, "EnemyEtis-30000940");
 				break;
 			}
 			case 27730: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000921);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000941, EnemyEtis, "EnemyEtis-30000941");
+				wantActor(30000941, EnemyEtis, "EnemyEtis-30000941");
 				break;
 			}
 			case 27760: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000922);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000942, EnemyEtis, "EnemyEtis-30000942");
+				wantActor(30000942, EnemyEtis, "EnemyEtis-30000942");
 				break;
 			}
 			case 27790: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000923);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000943, EnemyEtis, "EnemyEtis-30000943");
+				wantActor(30000943, EnemyEtis, "EnemyEtis-30000943");
 				break;
 			}
 			case 27820: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000924);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000944, EnemyEtis, "EnemyEtis-30000944");
+				wantActor(30000944, EnemyEtis, "EnemyEtis-30000944");
 				break;
 			}
 			case 27850: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000925);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000945, EnemyEtis, "EnemyEtis-30000945");
+				wantActor(30000945, EnemyEtis, "EnemyEtis-30000945");
 				break;
 			}
 			case 27880: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000926);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000946, EnemyEtis, "EnemyEtis-30000946");
+				wantActor(30000946, EnemyEtis, "EnemyEtis-30000946");
 				break;
 			}
 			case 27910: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000927);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000947, EnemyEtis, "EnemyEtis-30000947");
+				wantActor(30000947, EnemyEtis, "EnemyEtis-30000947");
 				break;
 			}
 			case 27940: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000928);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000948, EnemyEtis, "EnemyEtis-30000948");
+				wantActor(30000948, EnemyEtis, "EnemyEtis-30000948");
 				break;
 			}
 			case 27970: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000929);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000949, EnemyEtis, "EnemyEtis-30000949");
+				wantActor(30000949, EnemyEtis, "EnemyEtis-30000949");
 				break;
 			}
 			case 28000: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000930);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000950, EnemyEtis, "EnemyEtis-30000950");
+				wantActor(30000950, EnemyEtis, "EnemyEtis-30000950");
 				break;
 			}
 			case 28030: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000931);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000951, EnemyEtis, "EnemyEtis-30000951");
+				wantActor(30000951, EnemyEtis, "EnemyEtis-30000951");
 				break;
 			}
 			case 28060: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000932);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000952, EnemyEtis, "EnemyEtis-30000952");
+				wantActor(30000952, EnemyEtis, "EnemyEtis-30000952");
 				break;
 			}
 			case 28090: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000933);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000953, EnemyEtis, "EnemyEtis-30000953");
+				wantActor(30000953, EnemyEtis, "EnemyEtis-30000953");
 				break;
 			}
 			case 28120: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000934);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000954, EnemyEtis, "EnemyEtis-30000954");
+				wantActor(30000954, EnemyEtis, "EnemyEtis-30000954");
 				break;
 			}
 			case 28150: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000935);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000955, EnemyEtis, "EnemyEtis-30000955");
+				wantActor(30000955, EnemyEtis, "EnemyEtis-30000955");
 				break;
 			}
 			case 28180: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000936);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000956, EnemyEtis, "EnemyEtis-30000956");
+				wantActor(30000956, EnemyEtis, "EnemyEtis-30000956");
 				break;
 			}
 			case 28210: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000937);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000957, EnemyEtis, "EnemyEtis-30000957");
+				wantActor(30000957, EnemyEtis, "EnemyEtis-30000957");
 				break;
 			}
 			case 28240: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000938);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000958, EnemyEtis, "EnemyEtis-30000958");
+				wantActor(30000958, EnemyEtis, "EnemyEtis-30000958");
 				break;
 			}
 			case 28270: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000939);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000959, EnemyEtis, "EnemyEtis-30000959");
+				wantActor(30000959, EnemyEtis, "EnemyEtis-30000959");
 				break;
 			}
 			case 28300: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000940);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000960, EnemyEtis, "EnemyEtis-30000960");
+				wantActor(30000960, EnemyEtis, "EnemyEtis-30000960");
 				break;
 			}
 			case 28330: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000941);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000961, EnemyEtis, "EnemyEtis-30000961");
+				wantActor(30000961, EnemyEtis, "EnemyEtis-30000961");
 				break;
 			}
 			case 28360: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000942);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000962, EnemyEtis, "EnemyEtis-30000962");
+				wantActor(30000962, EnemyEtis, "EnemyEtis-30000962");
 				break;
 			}
 			case 28390: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000943);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000963, EnemyEtis, "EnemyEtis-30000963");
+				wantActor(30000963, EnemyEtis, "EnemyEtis-30000963");
 				break;
 			}
 			case 28420: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000944);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000964, EnemyEtis, "EnemyEtis-30000964");
+				wantActor(30000964, EnemyEtis, "EnemyEtis-30000964");
 				break;
 			}
 			case 28450: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000945);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000965, EnemyEtis, "EnemyEtis-30000965");
+				wantActor(30000965, EnemyEtis, "EnemyEtis-30000965");
 				break;
 			}
 			case 28480: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000946);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000966, EnemyEtis, "EnemyEtis-30000966");
+				wantActor(30000966, EnemyEtis, "EnemyEtis-30000966");
 				break;
 			}
 			case 28510: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000947);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000967, EnemyEtis, "EnemyEtis-30000967");
+				wantActor(30000967, EnemyEtis, "EnemyEtis-30000967");
 				break;
 			}
 			case 28540: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000948);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000968, EnemyEtis, "EnemyEtis-30000968");
+				wantActor(30000968, EnemyEtis, "EnemyEtis-30000968");
 				break;
 			}
 			case 28570: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000949);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000969, EnemyEtis, "EnemyEtis-30000969");
+				wantActor(30000969, EnemyEtis, "EnemyEtis-30000969");
 				break;
 			}
 			case 28600: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000950);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000970, EnemyEtis, "EnemyEtis-30000970");
+				wantActor(30000970, EnemyEtis, "EnemyEtis-30000970");
 				break;
 			}
 			case 28630: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000951);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000971, EnemyEtis, "EnemyEtis-30000971");
+				wantActor(30000971, EnemyEtis, "EnemyEtis-30000971");
 				break;
 			}
 			case 28660: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000952);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000972, EnemyEtis, "EnemyEtis-30000972");
+				wantActor(30000972, EnemyEtis, "EnemyEtis-30000972");
 				break;
 			}
 			case 28690: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000953);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000973, EnemyEtis, "EnemyEtis-30000973");
+				wantActor(30000973, EnemyEtis, "EnemyEtis-30000973");
 				break;
 			}
 			case 28720: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000954);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000974, EnemyEtis, "EnemyEtis-30000974");
+				wantActor(30000974, EnemyEtis, "EnemyEtis-30000974");
 				break;
 			}
 			case 28750: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000955);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000975, EnemyEtis, "EnemyEtis-30000975");
+				wantActor(30000975, EnemyEtis, "EnemyEtis-30000975");
 				break;
 			}
 			case 28780: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000956);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000976, EnemyEtis, "EnemyEtis-30000976");
+				wantActor(30000976, EnemyEtis, "EnemyEtis-30000976");
 				break;
 			}
 			case 28810: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000957);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000977, EnemyEtis, "EnemyEtis-30000977");
+				wantActor(30000977, EnemyEtis, "EnemyEtis-30000977");
 				break;
 			}
 			case 28840: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000958);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000978, EnemyEtis, "EnemyEtis-30000978");
+				wantActor(30000978, EnemyEtis, "EnemyEtis-30000978");
 				break;
 			}
 			case 28870: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000959);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000979, EnemyEtis, "EnemyEtis-30000979");
+				wantActor(30000979, EnemyEtis, "EnemyEtis-30000979");
 				break;
 			}
 			case 28900: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000960);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000980, EnemyEtis, "EnemyEtis-30000980");
+				wantActor(30000980, EnemyEtis, "EnemyEtis-30000980");
 				break;
 			}
 			case 28930: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000961);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000981, EnemyEtis, "EnemyEtis-30000981");
+				wantActor(30000981, EnemyEtis, "EnemyEtis-30000981");
 				break;
 			}
 			case 28960: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000962);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000982, EnemyEtis, "EnemyEtis-30000982");
+				wantActor(30000982, EnemyEtis, "EnemyEtis-30000982");
 				break;
 			}
 			case 28990: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000963);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000983, EnemyEtis, "EnemyEtis-30000983");
+				wantActor(30000983, EnemyEtis, "EnemyEtis-30000983");
 				break;
 			}
 			case 29020: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000964);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000984, EnemyEtis, "EnemyEtis-30000984");
+				wantActor(30000984, EnemyEtis, "EnemyEtis-30000984");
 				break;
 			}
 			case 29050: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000965);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000985, EnemyEtis, "EnemyEtis-30000985");
+				wantActor(30000985, EnemyEtis, "EnemyEtis-30000985");
 				break;
 			}
 			case 29080: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000966);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000986, EnemyEtis, "EnemyEtis-30000986");
+				wantActor(30000986, EnemyEtis, "EnemyEtis-30000986");
 				break;
 			}
 			case 29110: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000967);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000987, EnemyEtis, "EnemyEtis-30000987");
+				wantActor(30000987, EnemyEtis, "EnemyEtis-30000987");
 				break;
 			}
 			case 29140: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000968);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000988, EnemyEtis, "EnemyEtis-30000988");
+				wantActor(30000988, EnemyEtis, "EnemyEtis-30000988");
 				break;
 			}
 			case 29170: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000969);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000989, EnemyEtis, "EnemyEtis-30000989");
+				wantActor(30000989, EnemyEtis, "EnemyEtis-30000989");
 				break;
 			}
 			case 29200: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000970);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000990, EnemyEtis, "EnemyEtis-30000990");
+				wantActor(30000990, EnemyEtis, "EnemyEtis-30000990");
 				break;
 			}
 			case 29230: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000971);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000991, EnemyEtis, "EnemyEtis-30000991");
+				wantActor(30000991, EnemyEtis, "EnemyEtis-30000991");
 				break;
 			}
 			case 29260: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000972);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000992, EnemyEtis, "EnemyEtis-30000992");
+				wantActor(30000992, EnemyEtis, "EnemyEtis-30000992");
 				break;
 			}
 			case 29290: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000973);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000993, EnemyEtis, "EnemyEtis-30000993");
+				wantActor(30000993, EnemyEtis, "EnemyEtis-30000993");
 				break;
 			}
 			case 29320: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000974);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000994, EnemyEtis, "EnemyEtis-30000994");
+				wantActor(30000994, EnemyEtis, "EnemyEtis-30000994");
 				break;
 			}
 			case 29350: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000975);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000995, EnemyEtis, "EnemyEtis-30000995");
+				wantActor(30000995, EnemyEtis, "EnemyEtis-30000995");
 				break;
 			}
 			case 29380: {
 				EnemyEtis* pEtis = (EnemyEtis*)grantActor(30000976);
 				bringSceneMediator()->addSubGroup(pEtis);
-				wishActor(30000996, EnemyEtis, "EnemyEtis-30000996");
+				wantActor(30000996, EnemyEtis, "EnemyEtis-30000996");
 				break;
 			}
 			case 29410: {

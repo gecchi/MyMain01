@@ -70,7 +70,7 @@ void FormationUnomia::processBehavior() {
         }
         case PROG_READY_MEMBER_ORDER: {
             uint64_t order_no = pProg->getFrame();
-            wishActor(order_no, EnemyUnomia, "EnemyUnomia");
+            wantActor(order_no, EnemyUnomia, "EnemyUnomia");
             pProg->changeNextWhenArrivedAt(num_formation_member_);
             break;
         }

@@ -10,34 +10,34 @@ using namespace VioletVreath;
 TamagoScene::TamagoScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "TamagoScene";
 
-    //wishActor(100000001, HoshiBoshi001, "HoshiBoshi001");
-//    wishActor(100000002, EnemyTamago01, "gyoku2");
-//    wishActor(100000003, EnemyTamago01, "gyoku3");
-//    wishActor(100000004, EnemyTamago01, "gyoku4");
-//    wishActor(100000005, EnemyTamago01, "gyoku5");
-//    wishActor(100000006, EnemyTamago01, "gyoku6");
-//    wishActor(100000007, EnemyTamago01, "gyoku7");
-//    wishActor(100000008, EnemyTamago01, "gyoku8");
-//    wishActor(100000009, EnemyTamago01, "gyoku9");
-//    wishActor(100000010, EnemyTamago01, "gyoku10");
-//    wishActor(100000011, EnemyTamago01, "gyoku11");
-//    wishActor(100000012, EnemyTamago01, "gyoku12");
-//    wishActor(100000013, EnemyTamago01, "gyoku13");
-//    wishActor(100000014, EnemyTamago01, "gyoku14");
-//    wishActor(100000015, EnemyTamago01, "gyoku15");
-//    wishActor(100000016, EnemyTamago01, "gyoku16");
+    //wantActor(100000001, HoshiBoshi001, "HoshiBoshi001");
+//    wantActor(100000002, EnemyTamago01, "gyoku2");
+//    wantActor(100000003, EnemyTamago01, "gyoku3");
+//    wantActor(100000004, EnemyTamago01, "gyoku4");
+//    wantActor(100000005, EnemyTamago01, "gyoku5");
+//    wantActor(100000006, EnemyTamago01, "gyoku6");
+//    wantActor(100000007, EnemyTamago01, "gyoku7");
+//    wantActor(100000008, EnemyTamago01, "gyoku8");
+//    wantActor(100000009, EnemyTamago01, "gyoku9");
+//    wantActor(100000010, EnemyTamago01, "gyoku10");
+//    wantActor(100000011, EnemyTamago01, "gyoku11");
+//    wantActor(100000012, EnemyTamago01, "gyoku12");
+//    wantActor(100000013, EnemyTamago01, "gyoku13");
+//    wantActor(100000014, EnemyTamago01, "gyoku14");
+//    wantActor(100000015, EnemyTamago01, "gyoku15");
+//    wantActor(100000016, EnemyTamago01, "gyoku16");
 
 //
-//    wishActor(100000001, EnemyOmulus, "EnemyOmulus1");
-//    wishActor(100000002, EnemyOmulus, "EnemyOmulus2");
-//    wishActor(100000003, EnemyOmulus, "EnemyOmulus3");
-//    wishActor(100000004, EnemyOmulus, "EnemyOmulus4");
-//    wishActor(100000005, EnemyOmulus, "EnemyOmulus5");
-//    wishActor(100000006, EnemyOmulus, "EnemyOmulus6");
-//    wishActor(100000009, EnemyIrce, "EnemyIrce");
+//    wantActor(100000001, EnemyOmulus, "EnemyOmulus1");
+//    wantActor(100000002, EnemyOmulus, "EnemyOmulus2");
+//    wantActor(100000003, EnemyOmulus, "EnemyOmulus3");
+//    wantActor(100000004, EnemyOmulus, "EnemyOmulus4");
+//    wantActor(100000005, EnemyOmulus, "EnemyOmulus5");
+//    wantActor(100000006, EnemyOmulus, "EnemyOmulus6");
+//    wantActor(100000009, EnemyIrce, "EnemyIrce");
 
-//    wishActor(100000001, FormationGeria001, "FormationGeria001");
-//    wishActor(900000001, VarietyRatislavia001, "EnemyRatislavia001");
+//    wantActor(100000001, FormationGeria001, "FormationGeria001");
+//    wantActor(900000001, VarietyRatislavia001, "EnemyRatislavia001");
 }
 
 void TamagoScene::onReset() {

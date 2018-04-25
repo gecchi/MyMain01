@@ -29,7 +29,7 @@ Stage02PartController::Stage02PartController(const char* prm_name) : StagePartCo
     _paFrame_NextEvent = new frame[4];
     memcpy(_paFrame_NextEvent, f, sizeof(f));
     _event_num = 4;
-    wishScene(70000000, Stage02_01, "Stage02_01-70000000");
+    wantScene(70000000, Stage02_01, "Stage02_01-70000000");
     // gen01 end
     useProgress(PROG_BANPEI);
 }
@@ -53,7 +53,7 @@ void Stage02PartController::processBehavior() {
                 break;
             }
             case 2100: {
-                wishScene(70000001, Stage02_Climax, "Stage02_Climax-70000001");
+                wantScene(70000001, Stage02_Climax, "Stage02_Climax-70000001");
                 break;
             }
             case 3000: {

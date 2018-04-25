@@ -21,33 +21,33 @@ RankUp100::RankUp100(const char* prm_name) : RankUpStage(prm_name) {
     _paFrame_NextEvent = new frame[35];
     memcpy(_paFrame_NextEvent, f, sizeof(f));
     _event_num = 35;
-    wishActor(120000000, EnemyTamago01, "EnemyTamago01-120000000");
-    wishActor(120000001, EnemyTamago01, "EnemyTamago01-120000001");
-    wishActor(120000002, EnemyTamago01, "EnemyTamago01-120000002");
-    wishActor(120000003, EnemyTamago01, "EnemyTamago01-120000003");
-    wishActor(120000004, EnemyTamago01, "EnemyTamago01-120000004");
-    wishActor(120000005, EnemyTamago01, "EnemyTamago01-120000005");
-    wishActor(120000006, EnemyTamago01, "EnemyTamago01-120000006");
-    wishActor(120000007, EnemyTamago01, "EnemyTamago01-120000007");
-    wishActor(120000008, EnemyTamago01, "EnemyTamago01-120000008");
-    wishActor(120000009, EnemyTamago01, "EnemyTamago01-120000009");
-    wishActor(120000010, EnemyTamago01, "EnemyTamago01-120000010");
-    wishActor(120000011, EnemyTamago01, "EnemyTamago01-120000011");
-    wishActor(120000012, EnemyTamago01, "EnemyTamago01-120000012");
-    wishActor(120000013, EnemyTamago01, "EnemyTamago01-120000013");
-    wishActor(120000014, EnemyTamago01, "EnemyTamago01-120000014");
-    wishActor(120000015, EnemyTamago01, "EnemyTamago01-120000015");
-    wishActor(120000016, EnemyTamago01, "EnemyTamago01-120000016");
-    wishActor(120000017, EnemyTamago01, "EnemyTamago01-120000017");
-    wishActor(120000018, EnemyTamago01, "EnemyTamago01-120000018");
-    wishActor(120000019, EnemyTamago01, "EnemyTamago01-120000019");
-    wishActor(120000020, EnemyTamago01, "EnemyTamago01-120000020");
-    wishActor(120000021, EnemyTamago01, "EnemyTamago01-120000021");
-    wishActor(120000022, EnemyTamago01, "EnemyTamago01-120000022");
-    wishActor(120000023, EnemyTamago01, "EnemyTamago01-120000023");
-    wishActor(120000024, EnemyTamago01, "EnemyTamago01-120000024");
-    wishActor(120000025, EnemyTamago01, "EnemyTamago01-120000025");
-    wishActor(120000026, EnemyTamago01, "EnemyTamago01-120000026");
+    wantActor(120000000, EnemyTamago01, "EnemyTamago01-120000000");
+    wantActor(120000001, EnemyTamago01, "EnemyTamago01-120000001");
+    wantActor(120000002, EnemyTamago01, "EnemyTamago01-120000002");
+    wantActor(120000003, EnemyTamago01, "EnemyTamago01-120000003");
+    wantActor(120000004, EnemyTamago01, "EnemyTamago01-120000004");
+    wantActor(120000005, EnemyTamago01, "EnemyTamago01-120000005");
+    wantActor(120000006, EnemyTamago01, "EnemyTamago01-120000006");
+    wantActor(120000007, EnemyTamago01, "EnemyTamago01-120000007");
+    wantActor(120000008, EnemyTamago01, "EnemyTamago01-120000008");
+    wantActor(120000009, EnemyTamago01, "EnemyTamago01-120000009");
+    wantActor(120000010, EnemyTamago01, "EnemyTamago01-120000010");
+    wantActor(120000011, EnemyTamago01, "EnemyTamago01-120000011");
+    wantActor(120000012, EnemyTamago01, "EnemyTamago01-120000012");
+    wantActor(120000013, EnemyTamago01, "EnemyTamago01-120000013");
+    wantActor(120000014, EnemyTamago01, "EnemyTamago01-120000014");
+    wantActor(120000015, EnemyTamago01, "EnemyTamago01-120000015");
+    wantActor(120000016, EnemyTamago01, "EnemyTamago01-120000016");
+    wantActor(120000017, EnemyTamago01, "EnemyTamago01-120000017");
+    wantActor(120000018, EnemyTamago01, "EnemyTamago01-120000018");
+    wantActor(120000019, EnemyTamago01, "EnemyTamago01-120000019");
+    wantActor(120000020, EnemyTamago01, "EnemyTamago01-120000020");
+    wantActor(120000021, EnemyTamago01, "EnemyTamago01-120000021");
+    wantActor(120000022, EnemyTamago01, "EnemyTamago01-120000022");
+    wantActor(120000023, EnemyTamago01, "EnemyTamago01-120000023");
+    wantActor(120000024, EnemyTamago01, "EnemyTamago01-120000024");
+    wantActor(120000025, EnemyTamago01, "EnemyTamago01-120000025");
+    wantActor(120000026, EnemyTamago01, "EnemyTamago01-120000026");
     // gen01 end
     getBgmConductor()->ready(0, "OGG_RANKUP100_THEMA");
 }
@@ -68,21 +68,21 @@ void RankUp100::processBehavior() {
                 break;
             }
             case 20: {
-                wishActor(120000027, EnemyTamago01, "EnemyTamago01-120000027");
+                wantActor(120000027, EnemyTamago01, "EnemyTamago01-120000027");
                 break;
             }
             case 80: {
-                wishActor(120000028, EnemyTamago01, "EnemyTamago01-120000028");
+                wantActor(120000028, EnemyTamago01, "EnemyTamago01-120000028");
                 break;
             }
             case 140: {
-                wishActor(120000029, EnemyTamago01, "EnemyTamago01-120000029");
+                wantActor(120000029, EnemyTamago01, "EnemyTamago01-120000029");
                 break;
             }
             case 200: {
                 EnemyTamago01* pActor = (EnemyTamago01*)grantActor(120000000);
                 bringSceneMediator()->addSubGroup(pActor);
-                wishActor(120000030, EnemyTamago01, "EnemyTamago01-120000030");
+                wantActor(120000030, EnemyTamago01, "EnemyTamago01-120000030");
                 break;
             }
             case 260: {

@@ -259,12 +259,12 @@ public:
      */
     template<class X>
     void createActorCradle(uint64_t prm_cradle_no,
-                                  X* (*prm_pFunc)(void*, void*, void*),
-                                  GgafObject* prm_pWisher,
-                                  GgafObject* prm_pReceiver,
-                                  void* prm_pArg1,
-                                  void* prm_pArg2,
-                                  void* prm_pArg3) {
+                           X* (*prm_pFunc)(void*, void*, void*),
+                           GgafObject* prm_pWisher,
+                           GgafObject* prm_pReceiver,
+                           void* prm_pArg1,
+                           void* prm_pArg2,
+                           void* prm_pArg3) {
         createCradle(prm_cradle_no, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pWisher, prm_pReceiver, prm_pArg1, prm_pArg2, prm_pArg3);
     }
 
@@ -281,12 +281,12 @@ public:
      */
     template<class X>
     void createSceneCradle(uint64_t prm_cradle_no,
-                                  X* (*prm_pFunc)(void*, void*, void*),
-                                  GgafObject* prm_pWisher,
-                                  GgafObject* prm_pReceiver,
-                                  void* prm_pArg1,
-                                  void* prm_pArg2,
-                                  void* prm_pArg3) {
+                           X* (*prm_pFunc)(void*, void*, void*),
+                           GgafObject* prm_pWisher,
+                           GgafObject* prm_pReceiver,
+                           void* prm_pArg1,
+                           void* prm_pArg2,
+                           void* prm_pArg3) {
         createCradle(prm_cradle_no, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pWisher, prm_pReceiver, prm_pArg1, prm_pArg2, prm_pArg3);
     }
 
@@ -298,7 +298,7 @@ public:
      * @param   prm_pReceiver 受取人
      * @return	生成されたアクターのポインタ
      */
-    GgafMainActor* receiveActor2(uint64_t prm_cradle_no, GgafObject* prm_pReceiver);
+    GgafMainActor* receiveActor(uint64_t prm_cradle_no, GgafObject* prm_pReceiver);
 
     /**
      * 望んだシーンを受け取る。（メインスレッドが使用） .
@@ -308,7 +308,7 @@ public:
      * @param   prm_pReceiver 受取人
      * @return	生成されたシーンのポインタ
      */
-    GgafMainScene* receiveScene2(uint64_t prm_cradle_no, GgafObject* prm_pReceiver);
+    GgafMainScene* receiveScene(uint64_t prm_cradle_no, GgafObject* prm_pReceiver);
 
     /**
      * 望んで、祝福されるまで待って、すぐに受け取る。
@@ -332,6 +332,30 @@ public:
                          GgafObject* prm_org) {
         createCradle(ORDER_ID_MAX, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pWisher, prm_pReceiver, prm_pArg1, prm_pArg2, prm_pArg3);
         return (X*)(receive(ORDER_ID_MAX, prm_org));
+    }
+
+    template<class X>
+    X* makeActor(X* (*prm_pFunc)(void*, void*, void*),
+                         GgafObject* prm_pWisher,
+                         GgafObject* prm_pReceiver,
+                         void* prm_pArg1,
+                         void* prm_pArg2,
+                         void* prm_pArg3,
+                         GgafObject* prm_org) {
+        createActorCradle(ORDER_ID_MAX, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pWisher, prm_pReceiver, prm_pArg1, prm_pArg2, prm_pArg3);
+        return (X*)(receiveActor(ORDER_ID_MAX, prm_org));
+    }
+
+    template<class X>
+    X* makeScene(X* (*prm_pFunc)(void*, void*, void*),
+                         GgafObject* prm_pWisher,
+                         GgafObject* prm_pReceiver,
+                         void* prm_pArg1,
+                         void* prm_pArg2,
+                         void* prm_pArg3,
+                         GgafObject* prm_org) {
+        createSceneCradle(ORDER_ID_MAX, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pWisher, prm_pReceiver, prm_pArg1, prm_pArg2, prm_pArg3);
+        return (X*)(receiveScene(ORDER_ID_MAX, prm_org));
     }
 
     /**
@@ -420,16 +444,19 @@ public:
 };
 
 /** シーンを神に望む */
-#define wishScene(ID, CLASS, NAME) (pGOD->createSceneCradle<CLASS>((ID),GgafCore::GgafGod::bless, this, this, (void*)(NAME),(void*)(nullptr),(void*)(nullptr)))
+#define wantScene(ID, CLASS, NAME) (pGOD->createSceneCradle<CLASS>((ID),GgafCore::GgafGod::bless, this, this, (void*)(NAME),(void*)(nullptr),(void*)(nullptr)))
 /** アクターを神に望む */
-#define wishActor(ID, CLASS, NAME) (pGOD->createActorCradle<CLASS>((ID),GgafCore::GgafGod::bless, this, this, (void*)(NAME),(void*)(nullptr),(void*)(nullptr)))
-/** 祝福されたアクターを受け取る */
-#define grantActor(ID) (pGOD->receiveActor2((ID),this))
-/** 祝福されたシーンを受け取る */
-#define grantScene(ID) (pGOD->receiveScene2((ID),this))
-/** 神に望む */
-#define believeIn(CLASS, NAME) (pGOD->makeObject<CLASS>(GgafCore::GgafGod::bless, this, this, (void*)(NAME),(void*)(nullptr),(void*)(nullptr),this))
-#define believeIn2(CLASS, NAME, MODEL) (pGOD->makeObject<CLASS>(GgafCore::GgafGod::bless2, this, this, (void*)(NAME),(void*)(MODEL),(void*)(nullptr),this))
+#define wantActor(ID, CLASS, NAME) (pGOD->createActorCradle<CLASS>((ID),GgafCore::GgafGod::bless, this, this, (void*)(NAME),(void*)(nullptr),(void*)(nullptr)))
+/** 望まれ祝福されたアクターを受け取る */
+#define grantActor(ID) (pGOD->receiveActor((ID),this))
+/** 望まれ祝福されたシーンを受け取る */
+#define grantScene(ID) (pGOD->receiveScene((ID),this))
+/** シーンを神に望み、祝福され、受け取れるまで強欲に待つ */
+#define desireScene(CLASS, NAME) (pGOD->makeScene<CLASS>(GgafCore::GgafGod::bless, this, this, (void*)(NAME),(void*)(nullptr),(void*)(nullptr),this))
+/** アクターを神に望み、祝福され、受け取れるまで強欲に待つ */
+#define desireActor(CLASS, NAME) (pGOD->makeActor<CLASS>(GgafCore::GgafGod::bless, this, this, (void*)(NAME),(void*)(nullptr),(void*)(nullptr),this))
+/** 神に望み、受け取るまで待つ */
+#define desireObject(CLASS, NAME) (pGOD->makeObject<CLASS>(GgafCore::GgafGod::bless, this, this, (void*)(NAME),(void*)(nullptr),(void*)(nullptr),this))
 
 }
 #endif /*GGAFCORE_GGAFGOD_H_*/
