@@ -5,6 +5,7 @@
 
 #include "jp/ggaf/lib/util/VirtualButton.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
+#include "jp/gecchi/VioletVreath/manager/EffectManager.h"
 #include "jp/gecchi/VioletVreath/manager/DepositoryManager.h"
 #include "jp/gecchi/VioletVreath/manager/DepositoryConnection.h"
 #include "jp/gecchi/VioletVreath/manager/SplineLineManager.h"
@@ -123,6 +124,8 @@ public:
     virtual void clean() override;
 
     virtual void oops() override;
+
+    virtual EffectManager* createEffectManager() override;  //‹¤•Ï‚Ì–ß‚è’l
 
     virtual ~God();
 };

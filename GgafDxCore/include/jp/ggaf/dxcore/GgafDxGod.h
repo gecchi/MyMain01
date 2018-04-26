@@ -340,6 +340,18 @@ public:
         return (GgafDxSpacetime*)_pSpacetime;
     }
 
+
+    virtual GgafDxModelManager* getModelManager() {
+        return _pModelManager;
+    }
+    virtual GgafDxEffectManager* getEffectManager() {
+        return _pEffectManager;
+    }
+
+    virtual GgafDxModelManager* createModelManager();
+    virtual GgafDxEffectManager* createEffectManager();
+
+
     virtual void clean() override;
 
     virtual ~GgafDxGod();

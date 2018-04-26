@@ -11,22 +11,21 @@
 // date:2009/03/06 
 ////////////////////////////////////////////////////////////////////////////////
 
-//エラー回避のためにとりあえず追加後でちゃんとする
+
 float3 g_posCam_World;
 float g_specular;
 float g_specular_power;
-
-
-float g_zf;
 float g_tex_blink_power;   
 float g_tex_blink_threshold;
-float g_alpha_master;
 // ライトの方向
 float3 g_vecLightFrom_World;
 // Ambienライト色（入射色）
 float4 g_colLightAmbient;
 // Diffuseライト色（入射色）  
-float4 g_colLightDiffuse;  
+float4 g_colLightDiffuse; 
+
+float g_zf;
+float g_alpha_master;
 //View変換行列
 float4x4 g_matView; 
 //射影変換行列  

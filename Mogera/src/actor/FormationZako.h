@@ -21,7 +21,7 @@ public:
     int formation_col_num_;
     int formation_row_num_;
     frame call_up_interval_;
-    int call_up_row_cnt_;
+    int call_up_row_idx_;
 
     /** [r]出現座標(シーンが設定) */
     GgafDxCore::GgafDxGeoElem entry_pos_;

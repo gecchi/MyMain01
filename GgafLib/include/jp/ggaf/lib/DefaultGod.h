@@ -7,6 +7,7 @@
 #include "jp/ggaf/lib/manager/SplineSourceConnection.h"
 #include "jp/ggaf/lib/manager/SplineManufactureManager.h"
 #include "jp/ggaf/lib/manager/SplineManufactureConnection.h"
+#include "jp/ggaf/lib/manager/DefaultEffectManager.h"
 #include "jp/ggaf/lib/scene/DefaultSpacetime.h"
 
 #undef pGOD
@@ -34,7 +35,7 @@ public:
     }
 
     virtual void clean() override;
-
+    virtual DefaultEffectManager* createEffectManager() override;  //‹¤•Ï‚Ì–ß‚è’l
     virtual ~DefaultGod();
 };
 

@@ -148,6 +148,26 @@ public:
                            const char* prm_technique,
                            GgafCore::GgafStatus* prm_pStat,
                            GgafDxChecker* prm_pChecker );
+    /**
+     * 下位継承用コンストラクタ
+     * @param prm_name アクター名称（任意）
+     * @param prm_model_id モデル定義名
+     * @param prm_model_type モデルタイプ
+     * @param prm_effect_id エフェクト定義名
+     * @param prm_effect_type エフェクトタイプ
+     * @param prm_technique エフェクトのテクニック
+     * @param prm_pStat 使用するステータスオブジェクト(使用しない時 nullptrでよい)
+     * @param prm_pChecker 使用するチェッカーオブジェクト（チェッカー未使用時はnullptrでよい）
+     * @return
+     */
+    GgafDxPointSpriteActor(const char* prm_name,
+                           const char* prm_model_id,
+                           const char* prm_model_type,
+                           const char* prm_effect_id,
+                           const char* prm_effect_type,
+                           const char* prm_technique,
+                           GgafCore::GgafStatus* prm_pStat,
+                           GgafDxChecker* prm_pChecker);
 
     virtual void processDraw() override;
 

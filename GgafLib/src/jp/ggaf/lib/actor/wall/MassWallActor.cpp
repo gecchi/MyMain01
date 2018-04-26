@@ -9,22 +9,11 @@
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/lib/DefaultGod.h"
 #include "jp/ggaf/dxcore/effect/GgafDxEffect.h"
-
+#include "jp/ggaf/lib/effect/MassWallEffect.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-D3DXHANDLE MassWallActor::_h_distance_AlphaTarget;
-D3DXHANDLE MassWallActor::_h_wall_dep;
-D3DXHANDLE MassWallActor::_h_wall_height;
-D3DXHANDLE MassWallActor::_h_wall_width;
-D3DXHANDLE MassWallActor::_h_ah_POS_PRISM_ZX;
-D3DXHANDLE MassWallActor::_h_fh_POS_PRISM_ZX;
-D3DXHANDLE MassWallActor::_h_ah_POS_PRISM_YZ;
-D3DXHANDLE MassWallActor::_h_fh_POS_PRISM_YZ;
-D3DXHANDLE MassWallActor::_h_ah_POS_PRISM_XY;
-D3DXHANDLE MassWallActor::_h_fh_POS_PRISM_XY;
-D3DXHANDLE MassWallActor::_h_reflectance;
 
 std::map<int, UINT> MassWallActor::_delface;
 MassWallActor::VERTEX_instancedata MassWallActor::_aInstancedata[GGAFDXMASS_MAX_INSTANCE_NUM];
@@ -35,10 +24,12 @@ MassWallActor::MassWallActor(const char* prm_name,
 
                                  GgafDxMassMeshActor(prm_name,
                                                      prm_model,
-                                                    "MassWallEffect",
-                                                    "MassWallTechnique",
+                                                     "t",
+                                                     "MassWallEffect",
+                                                     "@",
+                                                     "MassWallTechnique",
                                                      prm_pStat,
-                                                     UTIL::createChecker(this) )
+                                                     UTIL::createChecker(this))
 {
     init();
 }
@@ -51,10 +42,12 @@ MassWallActor::MassWallActor(const char* prm_name,
 
                                  GgafDxMassMeshActor(prm_name,
                                                      prm_model,
+                                                     "t",
                                                      prm_effect,
+                                                     "@",
                                                      prm_technique,
                                                      prm_pStat,
-                                                     UTIL::createChecker(this) )
+                                                     UTIL::createChecker(this))
 {
     init();
 }
@@ -77,23 +70,6 @@ void MassWallActor::init() {
     pChecker->setColliAABox(0, 0,0,0, 0,0,0);
     pChecker->setColliAAPrism(1, 0,0,0, 0,0,0, 0);
     _pMassMeshModel->registerCallback_VertexInstanceDataInfo(MassWallActor::createVertexInstanceData);
-
-    if (isFirstEffectConnector()) {
-        _TRACE_("MassWallActor::init() isFirstEffectConnector!!");
-        //TODO:: デバイスロスト時にココは実行されないよね・・・
-        ID3DXEffect* pID3DXEffect = getEffect()->_pID3DXEffect;
-        MassWallActor::_h_distance_AlphaTarget = pID3DXEffect->GetParameterByName( nullptr, "g_distance_AlphaTarget" );
-        MassWallActor::_h_wall_dep    = pID3DXEffect->GetParameterByName( nullptr, "g_wall_dep" );
-        MassWallActor::_h_wall_height = pID3DXEffect->GetParameterByName( nullptr, "g_wall_height" );
-        MassWallActor::_h_wall_width  = pID3DXEffect->GetParameterByName( nullptr, "g_wall_width" );
-        MassWallActor::_h_ah_POS_PRISM_ZX = pID3DXEffect->GetParameterByName( nullptr, "g_ah_POS_PRISM_ZX" );
-        MassWallActor::_h_fh_POS_PRISM_ZX = pID3DXEffect->GetParameterByName( nullptr, "g_fh_POS_PRISM_ZX" );
-        MassWallActor::_h_ah_POS_PRISM_YZ = pID3DXEffect->GetParameterByName( nullptr, "g_ah_POS_PRISM_YZ" );
-        MassWallActor::_h_fh_POS_PRISM_YZ = pID3DXEffect->GetParameterByName( nullptr, "g_fh_POS_PRISM_YZ" );
-        MassWallActor::_h_ah_POS_PRISM_XY = pID3DXEffect->GetParameterByName( nullptr, "g_ah_POS_PRISM_XY" );
-        MassWallActor::_h_fh_POS_PRISM_XY = pID3DXEffect->GetParameterByName( nullptr, "g_fh_POS_PRISM_XY" );
-        MassWallActor::_h_reflectance = pID3DXEffect->GetParameterByName(nullptr, "g_reflectance");
-    }
 
     static volatile bool is_init = MassWallActor::initStatic(this); //静的メンバ初期化
 }
@@ -228,40 +204,41 @@ void MassWallActor::processPreDraw() {
 
 void MassWallActor::processDraw() {
     HRESULT hr;
-    ID3DXEffect* pID3DXEffect = getEffect()->_pID3DXEffect;
+    MassWallEffect* pMassWallEffect = (MassWallEffect*)_pMassMeshEffect;
+    ID3DXEffect* pID3DXEffect = pMassWallEffect->_pID3DXEffect;
     dxcoord wall_dep    = C_DX(_wall_dep)/_rate_of_bounding_sphere_radius;
     dxcoord wall_height = C_DX(_wall_height)/_rate_of_bounding_sphere_radius;
     dxcoord wall_width  = C_DX(_wall_width)/_rate_of_bounding_sphere_radius;
-    hr = pID3DXEffect->SetFloat(MassWallActor::_h_wall_dep, wall_dep);
+    hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_wall_dep, wall_dep);
     checkDxException(hr, D3D_OK, "SetFloat(_h_wall_dep) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(MassWallActor::_h_wall_height, wall_height);
+    hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_wall_height, wall_height);
     checkDxException(hr, D3D_OK, "SetFloat(_h_wall_height) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(MassWallActor::_h_wall_width, wall_width);
+    hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_wall_width, wall_width);
     checkDxException(hr, D3D_OK, "SetFloat(_h_wall_width) に失敗しました。");
     if (_pWallSectionScene->_pActor_infront_alpha_target) {
-        hr = pID3DXEffect->SetFloat(MassWallActor::_h_distance_AlphaTarget, -(_pWallSectionScene->_pActor_infront_alpha_target->_dest_from_vppln_infront));
+        hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_distance_AlphaTarget, -(_pWallSectionScene->_pActor_infront_alpha_target->_dest_from_vppln_infront));
         checkDxException(hr, D3D_OK, "SetMatrix(_h_distance_AlphaTarget) に失敗しました。");
     } else {
-        hr = pID3DXEffect->SetFloat(MassWallActor::_h_distance_AlphaTarget, -100.0f);
+        hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_distance_AlphaTarget, -100.0f);
         checkDxException(hr, D3D_OK, "SetMatrix(_h_distance_AlphaTarget) に失敗しました。");
     }
     //	ah = g_wall_width / g_wall_dep / 2.0; //傾き z/x （傾き x/z ではなくて）
     //	fh = g_wall_dep/2.0;
-    hr = pID3DXEffect->SetFloat(MassWallActor::_h_ah_POS_PRISM_ZX, wall_width/wall_dep/2.0f);
+    hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_ah_POS_PRISM_ZX, wall_width/wall_dep/2.0f);
     checkDxException(hr, D3D_OK, "SetFloat(_h_ah_POS_PRISM_ZX) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(MassWallActor::_h_fh_POS_PRISM_ZX, wall_dep/2.0f);
+    hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_fh_POS_PRISM_ZX, wall_dep/2.0f);
     checkDxException(hr, D3D_OK, "SetFloat(_h_fh_POS_PRISM_ZX) に失敗しました。");
     //	ah = g_wall_height / g_wall_width / 2.0; //傾き y/z
     //	fh = g_wall_width/2.0;                   //傾く軸
-    hr = pID3DXEffect->SetFloat(MassWallActor::_h_ah_POS_PRISM_YZ, wall_height/wall_width/2.0f);
+    hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_ah_POS_PRISM_YZ, wall_height/wall_width/2.0f);
     checkDxException(hr, D3D_OK, "SetFloat(_h_ah_POS_PRISM_YZ) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(MassWallActor::_h_fh_POS_PRISM_YZ, wall_width/2.0f);
+    hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_fh_POS_PRISM_YZ, wall_width/2.0f);
     checkDxException(hr, D3D_OK, "SetFloat(_h_fh_POS_PRISM_YZ) に失敗しました。");
     //	ah = g_wall_height / g_wall_dep / 2.0; //傾き y/x
     //	fh = g_wall_dep/2.0;                   //傾く軸
-    hr = pID3DXEffect->SetFloat(MassWallActor::_h_ah_POS_PRISM_XY, wall_height/wall_dep/2.0f);
+    hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_ah_POS_PRISM_XY, wall_height/wall_dep/2.0f);
     checkDxException(hr, D3D_OK, "SetFloat(_h_ah_POS_PRISM_XY) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(MassWallActor::_h_fh_POS_PRISM_XY, wall_dep/2.0f);
+    hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_fh_POS_PRISM_XY, wall_dep/2.0f);
     checkDxException(hr, D3D_OK, "SetFloat(_h_fh_POS_PRISM_XY) に失敗しました。");
 
     int draw_set_num = 0; //GgafDxMassMeshActorの同じモデルで同じテクニックが

@@ -1287,8 +1287,8 @@ HRESULT GgafDxGod::initDevice() {
     //その他必要な初期化
     _pCubeMapTextureManager = NEW GgafDxTextureManager("CubeMapTexManager");
     _pBumpMapTextureManager = NEW GgafDxTextureManager("BumpMapTexManager");
-    _pModelManager = NEW GgafDxModelManager("ModelManager");
-    _pEffectManager = NEW GgafDxEffectManager("EffectManager");
+    _pModelManager = createModelManager();
+    _pEffectManager = createEffectManager();
     GgafDxUtil::init();  //ユーティリティ準備
     GgafDxInput::init(); //DirectInput準備
     GgafDxSound::init(); //DirectSound準備
@@ -2194,6 +2194,16 @@ void GgafDxGod::setPositionPresentRect(int prm_pos, RECT& inout_rectPresent, pix
         inout_rectPresent.left = prm_screen_width - (inout_rectPresent.right - inout_rectPresent.left);
         inout_rectPresent.right = prm_screen_width;
     }
+}
+
+
+GgafDxModelManager* GgafDxGod::createModelManager() {
+    GgafDxModelManager* p =  NEW GgafDxModelManager("ModelManager");
+    return p;
+}
+GgafDxEffectManager* GgafDxGod::createEffectManager() {
+    GgafDxEffectManager* p = NEW GgafDxEffectManager("EffectManager");
+    return p;
 }
 
 GgafDxGod::~GgafDxGod() {

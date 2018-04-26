@@ -38,7 +38,7 @@ FormationOebius::FormationOebius(const char* prm_name, int prm_formation_col_num
         addFormationMember(NEW EnemyOebius(name.c_str()));
     }
     call_up_interval_ = prm_call_up_interval; //oŒ»ŠÔŠu
-    call_up_row_cnt_ = 0;
+    call_up_row_idx_ = 0;
     useProgress(PROG_BANPEI);
 }
 
@@ -57,7 +57,7 @@ FormationOebius::FormationOebius(const char* prm_name, const char* prm_xpm_id, f
         Sleep(1);
     }
     call_up_interval_ = prm_call_up_interval; //oŒ»ŠÔŠu
-    call_up_row_cnt_ = 0;
+    call_up_row_idx_ = 0;
     useProgress(PROG_BANPEI);
 }
 
@@ -65,7 +65,7 @@ void FormationOebius::initialize() {
 }
 
 void FormationOebius::onActive() {
-    call_up_row_cnt_ = 0;
+    call_up_row_idx_ = 0;
     getProgress()->reset(PROG_INIT);
 }
 
@@ -84,20 +84,20 @@ void FormationOebius::processBehavior() {
                     for (int col = 0; col < formation_col_num_; col++) {
                         if (pXpmConnection_) {
                             //xpm•Ò‘à
-                            if (!pXpmConnection_->peek()->isNonColor(call_up_row_cnt_, col)) {
+                            if (!pXpmConnection_->peek()->isNonColor(call_up_row_idx_, col)) {
                                 EnemyOebius* pOebius = (EnemyOebius*)callUpMember();
                                 if (pOebius) {
-                                    onCallUp(pOebius, call_up_row_cnt_, col);
+                                    onCallUp(pOebius, call_up_row_idx_, col);
                                 }
                             }
                         } else {
                             EnemyOebius* pOebius = (EnemyOebius*)callUpMember();
                             if (pOebius) {
-                                onCallUp(pOebius, call_up_row_cnt_, col);
+                                onCallUp(pOebius, call_up_row_idx_, col);
                             }
                         }
                     }
-                    call_up_row_cnt_ ++;
+                    call_up_row_idx_ ++;
                 }
             } else {
                 pProg->changeNext();

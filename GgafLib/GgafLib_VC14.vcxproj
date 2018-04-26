@@ -331,7 +331,10 @@
     <ClCompile Include="src\jp\ggaf\lib\actor\wall\MassWallActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\WorldBoundActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\DefaultGod.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\effect\MassWallEffect.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\effect\SingleLaserEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\GgafLibConfig.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\manager\DefaultEffectManager.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\manager\SplineManufactureConnection.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\manager\SplineManufactureManager.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\manager\SplineSourceConnection.cpp" />
@@ -429,7 +432,10 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\wall\MassWallActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\WorldBoundActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\DefaultGod.h" />
+    <ClInclude Include="include\jp\ggaf\lib\effect\MassWallEffect.h" />
+    <ClInclude Include="include\jp\ggaf\lib\effect\SingleLaserEffect.h" />
     <ClInclude Include="include\jp\ggaf\lib\GgafLibConfig.h" />
+    <ClInclude Include="include\jp\ggaf\lib\manager\DefaultEffectManager.h" />
     <ClInclude Include="include\jp\ggaf\lib\manager\SplineManufactureConnection.h" />
     <ClInclude Include="include\jp\ggaf\lib\manager\SplineManufactureManager.h" />
     <ClInclude Include="include\jp\ggaf\lib\manager\SplineSourceConnection.h" />

@@ -62,11 +62,11 @@ public:
 
     GgafCore::GgafResourceConnection<GgafDxEffect>* processCreateConnection(const char* prm_idstr, GgafDxEffect* prm_pResource) override;
 
-    void setParamPerFrameAll();
+    virtual void setParamPerFrameAll();
 
-    void restoreAll();
+    virtual void restoreAll();
 
-    void onDeviceLostAll();
+    virtual void onDeviceLostAll();
 
     virtual ~GgafDxEffectManager() {
     }

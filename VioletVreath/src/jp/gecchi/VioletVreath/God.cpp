@@ -165,6 +165,11 @@ void God::oops() {
     DefaultGod::oops(); //ãˆÊ‚Ìu‚µ‚Ü‚Á‚½Iv‚Ö
 }
 
+EffectManager* God::createEffectManager() {
+    EffectManager* p = NEW EffectManager("EffectManager");
+    return p;
+}
+
 God::~God() {
     if (getSpacetime()) {
         World* pWorld = getSpacetime()->getWorld();

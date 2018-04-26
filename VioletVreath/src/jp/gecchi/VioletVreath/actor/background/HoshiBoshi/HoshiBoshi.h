@@ -2,9 +2,9 @@
 #define HOSHIBOSHI_H_
 #include "VioletVreath.h"
 #include "jp/ggaf/dxcore/actor/GgafDxPointSpriteActor.h"
+#include "jp/ggaf/lib/actor/WorldBoundActor.h"
 
 namespace VioletVreath {
-
 
 #define RENDER_DEPTH_INDEX_HOSHIBOSHI (RENDER_DEPTH_INDEX_WORLDBOUND-1)
 
@@ -26,10 +26,6 @@ public:
 
     GgafDxCore::GgafDxGeometricActor* pCriteria_;
 
-    static D3DXHANDLE h_fX_MyShip_;
-    static D3DXHANDLE h_fY_MyShip_;
-    static D3DXHANDLE h_fZ_MyShip_;
-    static D3DXHANDLE h_far_rate_;
     static coord CAM_ZF_;
 
 public:

@@ -24,7 +24,7 @@ FormationZako::FormationZako(const char* prm_name) :
     formation_row_num_ = 0;
     num_Zako_ = 0;
     call_up_interval_ = 0;
-    call_up_row_cnt_ = 0;
+    call_up_row_idx_ = 0;
     useProgress(PROG_BANPEI);
 }
 
@@ -37,13 +37,13 @@ void FormationZako::addMember(int prm_formation_col_num, int prm_formation_row_n
         addFormationMember(NEW Zako(name.c_str()));
     }
     call_up_interval_ = prm_call_up_interval; //oŒ»ŠÔŠu
-    call_up_row_cnt_ = 0;
+    call_up_row_idx_ = 0;
 }
 void FormationZako::initialize() {
 }
 
 void FormationZako::onActive() {
-    call_up_row_cnt_ = 0;
+    call_up_row_idx_ = 0;
     getProgress()->reset(PROG_INIT);
 }
 
@@ -57,15 +57,15 @@ void FormationZako::processBehavior() {
         case PROG_CALL_UP: {
             if (pProg->hasJustChanged()) {
             }
-            if (canCallUp()) {
+            if (formation_row_num_ > call_up_row_idx_ && canCallUp()) {
                 if (getActiveFrame() % call_up_interval_ == 0) {
                     for (int col = 0; col < formation_col_num_; col++) {
                         Zako* pZako = (Zako*)callUpMember();
                         if (pZako) {
-                            onCallUp(pZako, call_up_row_cnt_, col);
+                            onCallUp(pZako, call_up_row_idx_, col);
                         }
                     }
-                    call_up_row_cnt_ ++;
+                    call_up_row_idx_ ++;
                 }
             } else {
                 pProg->changeNext();

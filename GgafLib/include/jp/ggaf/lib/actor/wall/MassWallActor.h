@@ -41,17 +41,17 @@ protected:
     static void createVertexInstanceData(void* prm, GgafDxCore::GgafDxMassModel::VertexInstanceDataInfo* out_info);
 
 public:
-    static D3DXHANDLE _h_distance_AlphaTarget;
-    static D3DXHANDLE _h_wall_dep;
-    static D3DXHANDLE _h_wall_height;
-    static D3DXHANDLE _h_wall_width;
-    static D3DXHANDLE _h_ah_POS_PRISM_ZX;
-    static D3DXHANDLE _h_fh_POS_PRISM_ZX;
-    static D3DXHANDLE _h_ah_POS_PRISM_YZ;
-    static D3DXHANDLE _h_fh_POS_PRISM_YZ;
-    static D3DXHANDLE _h_ah_POS_PRISM_XY;
-    static D3DXHANDLE _h_fh_POS_PRISM_XY;
-    static D3DXHANDLE _h_reflectance;
+//    static D3DXHANDLE _h_distance_AlphaTarget;
+//    static D3DXHANDLE _h_wall_dep;
+//    static D3DXHANDLE _h_wall_height;
+//    static D3DXHANDLE _h_wall_width;
+//    static D3DXHANDLE _h_ah_POS_PRISM_ZX;
+//    static D3DXHANDLE _h_fh_POS_PRISM_ZX;
+//    static D3DXHANDLE _h_ah_POS_PRISM_YZ;
+//    static D3DXHANDLE _h_fh_POS_PRISM_YZ;
+//    static D3DXHANDLE _h_ah_POS_PRISM_XY;
+//    static D3DXHANDLE _h_fh_POS_PRISM_XY;
+//    static D3DXHANDLE _h_reflectance;
 
     /** プリズム無条件追加描画不要面テーブル */
     static std::map<int, UINT> _delface;

@@ -29,7 +29,10 @@ void DefaultGod::clean() {
         _TRACE_(FUNC_NAME<<" end");
     }
 }
-
+DefaultEffectManager* DefaultGod::createEffectManager() {
+    DefaultEffectManager* p = NEW DefaultEffectManager("EffectManager");
+    return p;
+}
 DefaultGod::~DefaultGod() {
     clean();
     _was_cleaned = true;

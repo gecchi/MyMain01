@@ -1,9 +1,10 @@
 #include "HoshiBoshiTestActor.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
-#include "jp/gecchi/VioletVreath/God.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/effect/GgafDxPointSpriteEffect.h"
+#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/effect/HoshiboshiEffect.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -29,15 +30,16 @@ void HoshiBoshiTestActor::processJudgement() {
 }
 
 void HoshiBoshiTestActor::processDraw() {
-    ID3DXEffect* const pID3DXEffect = _pPointSpriteEffect->_pID3DXEffect;
+    HoshiboshiEffect* pHoshiboshiEffect = (HoshiboshiEffect*)_pPointSpriteEffect;
+    ID3DXEffect* const pID3DXEffect = pHoshiboshiEffect->_pID3DXEffect;
     HRESULT hr;
-    hr = pID3DXEffect->SetFloat(HoshiBoshi::h_fX_MyShip_, 0);
+    hr = pID3DXEffect->SetFloat(pHoshiboshiEffect->h_fX_MyShip_, 0);
     checkDxException(hr, D3D_OK, "SetFloat(h_fX_MyShip_) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    hr = pID3DXEffect->SetFloat(HoshiBoshi::h_fY_MyShip_, 0);
+    hr = pID3DXEffect->SetFloat(pHoshiboshiEffect->h_fY_MyShip_, 0);
     checkDxException(hr, D3D_OK, "SetFloat(h_fY_MyShip_) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    hr = pID3DXEffect->SetFloat(HoshiBoshi::h_fZ_MyShip_, 0);
+    hr = pID3DXEffect->SetFloat(pHoshiboshiEffect->h_fZ_MyShip_, 0);
     checkDxException(hr, D3D_OK, "SetFloat(h_fZ_MyShip_) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    hr = pID3DXEffect->SetFloat(HoshiBoshi::h_far_rate_, far_rate_);
+    hr = pID3DXEffect->SetFloat(pHoshiboshiEffect->h_far_rate_, far_rate_);
     checkDxException(hr, D3D_OK, "SetFloat(h_far_rate_) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     GgafDxPointSpriteActor::processDraw();
 }

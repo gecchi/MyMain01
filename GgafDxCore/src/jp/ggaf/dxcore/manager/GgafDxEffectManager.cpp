@@ -40,7 +40,7 @@ GgafDxEffect* GgafDxEffectManager::processCreateResource(const char* prm_idstr, 
     }
     char effect_type = (names[0])[0];
     const char* effect_name = names[1].c_str();
-    GgafDxEffect* pResourceEffect;
+    GgafDxEffect* pResourceEffect = nullptr;
     switch (effect_type) {
         case 'D':
         case 'd':
@@ -147,7 +147,7 @@ void GgafDxEffectManager::setParamPerFrameAll() {
     }
 }
 GgafResourceConnection<GgafDxEffect>* GgafDxEffectManager::processCreateConnection(const char* prm_idstr,
-                                                                                     GgafDxEffect* prm_pResource) {
+                                                                                   GgafDxEffect* prm_pResource) {
     _TRACE3_("prm_idstr="<<prm_idstr<<" を生成開始。");
     GgafDxEffectConnection* pConne = NEW GgafDxEffectConnection(prm_idstr, prm_pResource);
     _TRACE3_("prm_idstr="<<prm_idstr<<" を生成終了。");

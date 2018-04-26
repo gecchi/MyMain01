@@ -71,10 +71,6 @@
 float3 g_posCam_World;
 float g_specular;
 float g_specular_power;
-
-
-
-
 float g_tex_blink_power;   
 float g_tex_blink_threshold;
 float g_alpha_master;

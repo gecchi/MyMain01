@@ -117,6 +117,9 @@ class StraightLaserChip;
 class RefractionLaserChip;
 class NomalLaserChip;
 class LaserChipDepository;
+
+class DefaultEffectManager;
+class MassWallEffect;
 }
 
 #endif /*GGAFLIBHEADER_H_*/

@@ -32,8 +32,6 @@ TCHAR szTitle[MAX_LOADSTRING]; // タイトル バーのテキスト
 TCHAR szWindowClass[MAX_LOADSTRING]; // メイン ウィンドウ クラス名
 HWND hWnd1, hWnd2;
 
-// このコード モジュールに含まれる関数の宣言を転送します:
-
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK About(HWND, UINT, WPARAM, LPARAM);
 BOOL CustmizeSysMenu(HWND hWnd);

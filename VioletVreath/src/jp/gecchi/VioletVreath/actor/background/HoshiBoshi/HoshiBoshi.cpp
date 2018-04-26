@@ -1,31 +1,27 @@
 #include "HoshiBoshi.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
-#include "jp/ggaf/dxcore/effect/GgafDxPointSpriteEffect.h"
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
-#include "jp/ggaf/lib/actor/WorldBoundActor.h"
+#include "jp/gecchi/VioletVreath/effect/HoshiboshiEffect.h"
 #include "jp/gecchi/VioletVreath/God.h"
-#include "jp/gecchi/VioletVreath/scene/Spacetime.h"
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
+#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-D3DXHANDLE HoshiBoshi::h_fX_MyShip_;
-D3DXHANDLE HoshiBoshi::h_fY_MyShip_;
-D3DXHANDLE HoshiBoshi::h_fZ_MyShip_;
-D3DXHANDLE HoshiBoshi::h_far_rate_;
 coord HoshiBoshi::CAM_ZF_;
 
 HoshiBoshi::HoshiBoshi(const char* prm_name, const char* prm_model_id) :
-        GgafDxPointSpriteActor(prm_name,
-                               prm_model_id,
-                               "HoshiBoshiEffect",
-                               "HoshiBoshiTechnique",
-                               nullptr,
-                               nullptr ) {
+
+                                        GgafDxPointSpriteActor(prm_name,
+                                                              prm_model_id,
+                                                             "P",
+                                                             "HoshiBoshiEffect",
+                                                             "*",
+                                                             "HoshiBoshiTechnique",
+                                                             nullptr,
+                                                             nullptr) {
     _class_name = "HoshiBoshi";
     effectBlendOne(); //â¡éZçáê¨
     setHitAble(false);
@@ -35,13 +31,6 @@ HoshiBoshi::HoshiBoshi(const char* prm_name, const char* prm_model_id) :
     setSpecialRenderDepthIndex(RENDER_DEPTH_INDEX_HOSHIBOSHI);
     pCriteria_ = pGOD->getSpacetime()->getCamera();
     setFarRate(1.0);
-    if (isFirstEffectConnector()) {
-        ID3DXEffect* pID3DXEffect = getEffect()->_pID3DXEffect;
-        HoshiBoshi::h_fX_MyShip_ = pID3DXEffect->GetParameterByName( nullptr, "g_fX_MyShip" );
-        HoshiBoshi::h_fY_MyShip_ = pID3DXEffect->GetParameterByName( nullptr, "g_fY_MyShip" );
-        HoshiBoshi::h_fZ_MyShip_ = pID3DXEffect->GetParameterByName( nullptr, "g_fZ_MyShip" );
-        HoshiBoshi::h_far_rate_  = pID3DXEffect->GetParameterByName( nullptr, "g_far_rate" );
-    }
     static volatile bool is_init = HoshiBoshi::initStatic(this); //ê√ìIÉÅÉìÉoèâä˙âª
 }
 
@@ -70,6 +59,7 @@ bool HoshiBoshi::isOutOfSpacetime() const {
     //ÉQÅ[ÉÄç¿ïWîÕàÕäOîªíËñ≥Çµ
     return false;
 }
+
 void HoshiBoshi::initialize() {
 
 }
@@ -105,15 +95,16 @@ void HoshiBoshi::processJudgement() {
 }
 
 void HoshiBoshi::processDraw() {
-    ID3DXEffect* const pID3DXEffect = _pPointSpriteEffect->_pID3DXEffect;
+    HoshiboshiEffect* pHoshiboshiEffect = (HoshiboshiEffect*)_pPointSpriteEffect;
+    ID3DXEffect* const pID3DXEffect = pHoshiboshiEffect->_pID3DXEffect;
     HRESULT hr;
-    hr = pID3DXEffect->SetFloat(HoshiBoshi::h_fX_MyShip_, pCriteria_->_fX);
+    hr = pID3DXEffect->SetFloat(pHoshiboshiEffect->h_fX_MyShip_, pCriteria_->_fX);
     checkDxException(hr, D3D_OK, "SetFloat(h_fX_MyShip_) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    hr = pID3DXEffect->SetFloat(HoshiBoshi::h_fY_MyShip_, pCriteria_->_fY);
+    hr = pID3DXEffect->SetFloat(pHoshiboshiEffect->h_fY_MyShip_, pCriteria_->_fY);
     checkDxException(hr, D3D_OK, "SetFloat(h_fY_MyShip_) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    hr = pID3DXEffect->SetFloat(HoshiBoshi::h_fZ_MyShip_, pCriteria_->_fZ);
+    hr = pID3DXEffect->SetFloat(pHoshiboshiEffect->h_fZ_MyShip_, pCriteria_->_fZ);
     checkDxException(hr, D3D_OK, "SetFloat(h_fZ_MyShip_) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    hr = pID3DXEffect->SetFloat(HoshiBoshi::h_far_rate_, far_rate_);
+    hr = pID3DXEffect->SetFloat(pHoshiboshiEffect->h_far_rate_, far_rate_);
     checkDxException(hr, D3D_OK, "SetFloat(h_far_rate_) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     GgafDxPointSpriteActor::processDraw();
 }

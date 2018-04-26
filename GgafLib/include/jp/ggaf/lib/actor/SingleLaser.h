@@ -18,7 +18,7 @@ namespace GgafLib {
 class SingleLaser : public GgafDxCore::GgafDxMeshSetActor {
 
 public:
-    static D3DXHANDLE _ah_matWorld[26];
+//    static D3DXHANDLE _ah_matWorld[26];
 
     /** 衝突判定支援オブジェクト */
     CollisionChecker* _pColliChecker;
@@ -30,7 +30,7 @@ public:
      * スタティックイニシャライザもどき .
      * @return true
      */
-    static bool initStatic(SingleLaser* prm_pSingleLaser);
+//    static bool initStatic(SingleLaser* prm_pSingleLaser);
 
     virtual void onCreateModel() override {}
 
