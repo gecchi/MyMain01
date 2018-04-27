@@ -19,7 +19,7 @@ GgafCradle::GgafCradle(uint64_t prm_cradle_no) : GgafObject() {
     _pArg1 = nullptr;
     _pArg2 = nullptr;
     _pArg3 = nullptr;
-    _time_of_wish = 0;
+    _time_of_wants = 0;
     _time_of_create_begin = 0;
     _time_of_create_finish = 0;
     _progress = 0;
@@ -36,7 +36,7 @@ std::string GgafCradle::getDebuginfo() {
         }
     }
     std::stringstream ss;
-    ss << "‚ä‚è‚©‚²Žž:"<<_time_of_wish<<", "
+    ss << "‚ä‚è‚©‚²Žž:"<<_time_of_wants<<", "
           "‚ä‚è‚©‚²”Ô†:"<<_cradle_no<<"/"<<_pReceiver<<", "
           "i’»:"<<_progress<<", "<<
           "–½:"<<name_creation<<"("<<_pObject_creation<<")"<<", "
@@ -47,7 +47,7 @@ std::string GgafCradle::getDebuginfo() {
 
 }
 GgafCradle::~GgafCradle() {
-    //–½ _pObject_creation ‚Íˆ¤‚ª¶¬‚·‚é‚©‚à‚µ‚ê‚È‚¢B
+    //ä`‚Ì‚à‚ ‚ê‚Îâ‚Â
     GGAF_DELETE_NULLABLE(_pObject_creation);
 }
 

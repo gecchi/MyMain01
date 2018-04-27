@@ -29,7 +29,7 @@ private:
     /** 受取予定人(nullptrの場合は、だれでも受け取れる) */
     GgafObject* _pReceiver;
     /** 望んだ時刻 */
-    DWORD _time_of_wish;
+    DWORD _time_of_wants;
     /** 祝福開始時刻 */
     DWORD _time_of_create_begin;
     /** 祝福完了時刻 */

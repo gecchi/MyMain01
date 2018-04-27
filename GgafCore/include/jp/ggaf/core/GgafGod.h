@@ -206,43 +206,43 @@ private:
 
 public:
     /** 先頭のゆりかご */
-    GgafCradle* ROOT_CRADLE;
+    GgafCradle* _pCradleRoot;
     /** 現在祝福中のゆりかご */
-    GgafCradle* CREATING_CRADLE;
-    //CREATING_CRADLE は、全て祝福済みの場合、最終ゆりかごを指しつづける
+    GgafCradle* _pCradleBlessing;
+    //_pCradleBlessing は、全て祝福済みの場合、最終ゆりかごを指しつづける
     //全て祝福済みかつ、ゆりかごが全て引き取られた場合は nullptr になる。
     //_is_last_cradle_flg == false を常に判定し、最終ゆりかごでなくなったら（新規ゆりかごがあれば）、
     //祝福を行って次に進める。 _is_last_cradle_flg == false になるまで祝福しつづける
     // また、先頭と末尾のゆりかごもポインタでつながっている(環状)
 
-    //      ROOT_CRADLE
+    //      _pCradleRoot
     //        ↓
     //      pCradle <-> pCradle <-> pCradle <-> pCradle <-> pCradle <-> pCradle
-    //     (祝福済)   (祝福済)  （祝福中）  (未着手)   (未着手)   (未着手)
-    //                              ↑                            _is_last_cradle_flg == true
-    //                        CREATING_CRADLE
-    //                    祝福を終えると右に動く  ===>
+    //     (祝福済)     (祝福済)   （祝福中）   (未着手)    (未着手)    (未着手)
+    //                                 ↑                                _is_last_cradle_flg == true
+    //                           _pCradleBlessing
+    //                      祝福を終えると右に動く  ===>
     //
     //prev <------古いゆりかご----------------------------------新しいゆりかご-----> next
     //                                               ゆりかごは末尾についてくる
 #ifdef _MSC_VER
     //x86系ならばアトミック性がある・・・・・・・・。
-    /** [r]活動フラグ(神が操作する) */
-    volatile bool _is_working_flg;
+    /** [r]愛してるフラグ */
+    volatile bool _is_loving_flg;
     /** [r]休むフラグ */
     volatile bool _have_to_rest_flg;
     /** [r]休でいるフラグ */
     volatile bool _is_resting_flg;
-    /** [r]完全店終い */
+    /** [r]愛のおわり */
     volatile bool _was_finished_flg;
 #else
-    /** [r]活動フラグ(神が操作する) */
-    volatile std::atomic<bool> _is_working_flg;
+    /** [r]愛してるフラグ */
+    volatile std::atomic<bool> _is_loving_flg;
     /** [r]休むフラグ */
     volatile std::atomic<bool> _have_to_rest_flg;
     /** [r]休でいるフラグ */
     volatile std::atomic<bool> _is_resting_flg;
-    /** [r]完全店終い */
+    /** [r]愛のおわり */
     volatile std::atomic<bool> _was_finished_flg;
 #endif
 public:
@@ -360,37 +360,43 @@ public:
 
     /**
      * 望んだ命が出来上がっているか調べる。（メインスレッドが使用） .
-     * @param   prm_cradle_no   ゆりかご番号
-     * @return   ゆりかご番号の命の進捗具合(-2:神自体が動いてない/-1:ゆりかごすらしていない/0:ゆりかご済みで神未着手/1:祝福中/2:祝福済み）
+     * @param prm_cradle_no   ゆりかご番号
+     * @return ゆりかご番号の命の進捗具合(-2:神が愛していない/-1:ゆりかご自体が無い/0:ゆりかごは在るが未祝福/1:祝福中/2:祝福済み）
      */
-    int chkProgress(uint64_t prm_cradle_no);
+    int chkCradle(uint64_t prm_cradle_no);
 
     /**
+     * 洪水 .
      * ゆりかごを掃除する（メインスレッドが使用） .
      * メイン処理の神が呼び出します。<BR>
-     * ROOT_CRADLE が指しているゆりかごの連結リストを全て解放する<BR>
+     * _pCradleRoot が指しているゆりかごの連結リストを全て解放する<BR>
      * 注意：必ず以下のようにクリティカルセクションで囲んで呼び出してください！。<BR>
      * ＜コード例＞ <BR>
      *     BEGIN_SYNCHRONIZED1; // ----->排他開始<BR>
      * GgafGod::clean();<BR>
      *     END_SYNCHRONIZED1; // <----- 排他終了<BR>
      */
-    void cleanCradle();
+    void flood();
 
     /**
-     * 運命 .
-     * @param prm_pReceiver 授かるはずだった人
+     * 容赦する .
+     * @param prm_pReceiver 受け取るはずだった人
      */
-    void fate(GgafObject* prm_pReceiver);
+    void pardon(GgafObject* prm_pReceiver);
 
     /**
      * 愛 .
-     * 神（GgafGod）が初期設定時に別スレッドで一度実行され、メソッド内部で無限ループしてます。<BR>
-     * ゆりかごがあれば作成し、ストックします。<BR>
+     * 神（GgafGod）が初期設定時に別スレッドで一度実行されます。<BR>
      * 神が死ぬまで（アプリ終了まで）永遠に愛し続けます。<BR>
      */
-    static unsigned __stdcall loveth(void* prm_arg);
-    unsigned love(void* prm_arg);
+    static unsigned __stdcall love(void* prm_arg);
+
+    /**
+     * 永遠の愛 .
+     * ゆりかごを受付て祝福し命を誕生させます。
+     * @param prm_arg
+     */
+    unsigned loveEternal(void* prm_arg);
 
     /**
      * 神一時休止を指示 （メインスレッドが使用） .

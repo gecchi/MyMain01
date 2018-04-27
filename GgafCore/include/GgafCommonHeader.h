@@ -224,19 +224,19 @@
 
     //メモリ解放用マクロ
     /** nullptrはありえない delete */
-    #define GGAF_DELETE(POINTER)     do { if(POINTER) { delete (POINTER); (POINTER)=nullptr; } else { (POINTER)=nullptr; } } while(0)
+    #define GGAF_DELETE(POINTER)             do { if(POINTER) { delete (POINTER); (POINTER)=nullptr; } else { (POINTER)=nullptr; } } while(0)
     /** nullptrはありえない delete[] */
-    #define GGAF_DELETEARR(POINTER)  do { if(POINTER) { delete[] (POINTER); (POINTER)=nullptr; } else { (POINTER)=nullptr; } } while(0)
+    #define GGAF_DELETEARR(POINTER)          do { if(POINTER) { delete[] (POINTER); (POINTER)=nullptr; } else { (POINTER)=nullptr; } } while(0)
     /** nullptrかもしれない delete */
-    #define GGAF_DELETE_NULLABLE(POINTER)       do { if(POINTER) { delete (POINTER); (POINTER)=nullptr; } else { (POINTER)=nullptr; } } while(0)
+    #define GGAF_DELETE_NULLABLE(POINTER)    do { if(POINTER) { delete (POINTER); (POINTER)=nullptr; } else { (POINTER)=nullptr; } } while(0)
     /** nullptrかもしれない delete[] */
-    #define GGAF_DELETEARR_NULLABLE(POINTER)    do { if(POINTER) { delete[] (POINTER); (POINTER)=nullptr; } else { (POINTER)=nullptr; } } while(0)
+    #define GGAF_DELETEARR_NULLABLE(POINTER) do { if(POINTER) { delete[] (POINTER); (POINTER)=nullptr; } else { (POINTER)=nullptr; } } while(0)
     /** nullptrかもしれない Release() */
-    #define GGAF_RELEASE_NULLABLE(POINTER)      do { if(POINTER) { (POINTER)->Release(); (POINTER)=nullptr; } else { (POINTER)=nullptr; } } while(0)
+    #define GGAF_RELEASE_NULLABLE(POINTER)   do { if(POINTER) { (POINTER)->Release(); (POINTER)=nullptr; } else { (POINTER)=nullptr; } } while(0)
     /** nullptrはありえない Release() */
-    #define GGAF_RELEASE(POINTER)    do { if(POINTER) { (POINTER)->Release(); (POINTER)=nullptr; } else { (POINTER)=nullptr; } } while(0)
+    #define GGAF_RELEASE(POINTER)            do { if(POINTER) { (POINTER)->Release(); (POINTER)=nullptr; } else { (POINTER)=nullptr; } } while(0)
     /** 自明で検査不要の何も言わないRelease() */
-    #define GGAF_RELEASE_BY_FROCE(POINTER)       do { if(POINTER) { (POINTER)->Release(); (POINTER)=nullptr; } else { (POINTER)=nullptr; } } while(0)
+    #define GGAF_RELEASE_BY_FROCE(POINTER)   do { if(POINTER) { (POINTER)->Release(); (POINTER)=nullptr; } else { (POINTER)=nullptr; } } while(0)
 
 #endif
 
@@ -307,8 +307,8 @@
                     "id="<<getId()
 
 
-/** 共通遅延解放フレーム数 */
-#define GGAF_END_DELAY (60*60)
+/** 共通遅延解放フレーム数（≒エフェクト最大再生時間） */
+#define GGAF_END_DELAY (60*90)
 //GGAF_END_DELAYは全Element共通の解放遅延フレーム数で、
 //アクター消失後、直ぐに不正ポインタになるのではなく、しばらく参照が可能とするための仕組み。
 //少し長めに設定しないと、いろいろ不都合が多い。
@@ -316,11 +316,11 @@
 //消滅後の消滅アクター配下に属する発射弾（子アクター）が、親アクターの座標を参照しているなど、
 //消滅しても、しばらくは残存させなければいけない場合が多々ある。
 //GGAF_END_DELAYには、基本的に、画面から消滅確定→完全にdeleteまでのフレームの最大フレームを指定する。
-//現在は1分(60*60)。
+//現在は90秒。
 //もし、GGAF_END_DELAYを短めに設定すると、
 //消滅後の子の発射弾については、残された発射弾が突然消えるので少し不自然。という程度で問題はない。
 //しかし、SEの3D効果は、エラーになるため、SE再生時間の最大フレーム数を設定しなければいけない。
-//例えば効果音が１分以上かかるようなWAVEが一つでもあるならば、(60*60)以上を設定しなければならない。
+//例えば効果音が90秒以上かかるようなWAVEが一つでもあるならば、90秒以上を設定しなければならない。
 
 
 /** アクターの種類(各Bitが種別を表し1を立てていく。分類は32種類(bit)ある事となる) */

@@ -225,7 +225,7 @@ void World::processBehavior() {
     SceneProgress* pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
-            if (pGOD->chkProgress(1) == 2) {
+            if (pGOD->chkCradle(1) == 2) {
                 pPreDrawScene_ = (PreDrawScene*)grantScene(1);
                 addSubLast(pPreDrawScene_);
                 pProg->changeNext();

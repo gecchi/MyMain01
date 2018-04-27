@@ -24,8 +24,8 @@ GgafScene::GgafScene(const char* prm_name, GgafSceneMediator* prm_pSceneMediator
 }
 
 GgafScene::~GgafScene() {
-    if (pGOD->_is_working_flg) {
-        pGOD->fate(this); //自身が望んだ命を破棄
+    if (pGOD->_is_loving_flg) {
+        pGOD->pardon(this); //自身が望んだ命を破棄
     } else {
         //アプリ終了処理時のため、愛ももれなく掃除されるため考慮不要
     }
