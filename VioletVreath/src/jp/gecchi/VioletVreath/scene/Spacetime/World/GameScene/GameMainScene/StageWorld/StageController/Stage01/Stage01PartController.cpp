@@ -32,15 +32,13 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,300,500,600,19700,20300,39700,40300};
-	_paFrame_NextEvent = new frame[8];
+	frame f[] = {1,100,300,500,600,1000,9100,10000,29100,30000,34100,35000};
+	_paFrame_NextEvent = new frame[12];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 8;
-	wantScene(10000000, Stage01_Climax, "Stage01_Climax-10000000");
-	wantScene(10000001, Stage01WallScene, "Stage01WallScene-10000001");
-	wantActor(10000002, EnemyOebiusController001, "EnemyOebiusController001-10000002");
-	wantActor(10000003, EnemyOebiusController002, "EnemyOebiusController002-10000003");
-	wantActor(10000004, EnemyErmione, "EnemyErmione-10000004");
+	_event_num = 12;
+	wantScene(10000004, Stage01WallScene, "Stage01WallScene-10000004");
+	wantActor(10000005, EnemyOebiusController001, "EnemyOebiusController001-10000005");
+	wantActor(10000006, EnemyOebiusController002, "EnemyOebiusController002-10000006");
     // gen01 end
     useProgress(PROG_BANPEI);
 }
@@ -58,56 +56,58 @@ void Stage01PartController::processBehavior() {
 			case 1: {
 				break;
 			}
+			case 100: {
+				wantScene(10000000, Stage01_01, "Stage01_01-10000000");
+				break;
+			}
 			case 300: {
-				addSubLast(grantScene(10000001));
-				EnemyErmione* pE = (EnemyErmione*)grantActor(10000004);
-				bringSceneMediator()->addSubGroup(pE);
-				pE->_x = RND(1000000,4000000);
-				pE->_y = RND(-6000000,6000000);
-				pE->_z = RND(-6000000,6000000);
+				addSubLast(grantScene(10000004));
 				break;
 			}
 			case 500: {
-				EnemyOebiusController001* p1 = (EnemyOebiusController001*)grantActor(10000002);
+				EnemyOebiusController001* p1 = (EnemyOebiusController001*)grantActor(10000005);
 				bringSceneMediator()->addSubGroup(p1);
 				p1->setPosition(PX_C(800), PX_C(100), PX_C(400) );
 				break;
 			}
 			case 600: {
-				addSubLast(grantScene(10000000));
-				EnemyOebiusController002* p2 = (EnemyOebiusController002*)grantActor(10000003);
+				EnemyOebiusController002* p2 = (EnemyOebiusController002*)grantActor(10000006);
 				bringSceneMediator()->addSubGroup(p2);
 				p2->setPosition(PX_C(800), PX_C(400), PX_C(100) );
 				break;
 			}
-			case 19700: {
-				wantActor(10000005, EnemyErmione, "EnemyErmione-10000005");
+			case 1000: {
+				addSubLast(grantScene(10000000));
 				break;
 			}
-			case 20300: {
-				EnemyErmione* pE = (EnemyErmione*)grantActor(10000005);
-				bringSceneMediator()->addSubGroup(pE);
-				pE->_x = RND(1000000,4000000);
-				pE->_y = RND(-6000000,6000000);
-				pE->_z = RND(-6000000,6000000);
+			case 9100: {
+				wantScene(10000001, Stage01_02, "Stage01_02-10000001");
 				break;
 			}
-			case 39700: {
-				wantActor(10000006, EnemyErmione, "EnemyErmione-10000006");
+			case 10000: {
+				addSubLast(grantScene(10000001));
 				break;
 			}
-			case 40300: {
-				EnemyErmione* pE = (EnemyErmione*)grantActor(10000006);
-				bringSceneMediator()->addSubGroup(pE);
-				pE->_x = RND(1000000,4000000);
-				pE->_y = RND(-6000000,6000000);
-				pE->_z = RND(-6000000,6000000);
+			case 29100: {
+				wantScene(10000002, Stage01_03, "Stage01_03-10000002");
+				break;
+			}
+			case 30000: {
+				addSubLast(grantScene(10000002));
+				break;
+			}
+			case 34100: {
+				wantScene(10000003, Stage01_Climax, "Stage01_Climax-10000003");
+				break;
+			}
+			case 35000: {
+				addSubLast(grantScene(10000003));
 				break;
 			}
 			default :
 				break;
 		}
-		_cnt_event = (_cnt_event < 8-1 ? _cnt_event+1 : _cnt_event);
+		_cnt_event = (_cnt_event < 12-1 ? _cnt_event+1 : _cnt_event);
 	}
     // gen02 end
 

@@ -32,8 +32,7 @@ public:
     std::vector<char> _vecColorChar;
     /** [r]ピクセル色の文字に対応する、実際のRGB値 */
     std::map<char, GgafCore::GgafRgb*> _mapCharRgb;
-    const char** _xpm_hd;
-    const char** _pixels;
+    char** _pixels;
 public:
     /**
      * コンストラクタ .
@@ -75,25 +74,39 @@ public:
 
     /**
      * Pixmapの指定のピクセルの色を取得 .
-     * @param prm_row 何行目かを指定
-     * @param prm_col 何列目かを指定
+     * @param prm_row_idx 何行目かを指定(0～)
+     * @param prm_col_idx 何列目かを指定(0～)
      * @return 色
      */
-    inline GgafCore::GgafRgb* getColor(int prm_row, int prm_col) {
-        return _mapCharRgb[_pixels[prm_row][prm_col]];
+    inline GgafCore::GgafRgb* getColor(int prm_row_idx, int prm_col_idx) {
+        GgafRgb* r = nullptr;
+        if (prm_row_idx < _height && prm_col_idx < _width) {
+            //範囲内
+            r = _mapCharRgb[_pixels[prm_row_idx][prm_col_idx]];
+        } else {
+            //範囲外
+            r = _mapCharRgb['\0'];
+        }
+        return r;
     }
 
     /**
      * Pixmapの指定のピクセルの色が透明色か否か取得 .
-     * @param prm_row 何行目かを指定
-     * @param prm_col 何列目かを指定
+     * @param prm_row_idx 何行目かを指定(0～)
+     * @param prm_col_idx 何列目かを指定(0～)
      * @return true:透明色 / false:透明色以外
      */
-    inline bool isNonColor(int prm_row, int prm_col) {
-        if (_pixels[prm_row][prm_col] == _c_px_non) {
-            return true;
+    inline bool isNonColor(int prm_row_idx, int prm_col_idx) {
+        if (prm_row_idx < _height && prm_col_idx < _width) {
+            //範囲内
+            if (_pixels[prm_row_idx][prm_col_idx] == _c_px_non) {
+                return true;
+            } else {
+                return false;
+            }
         } else {
-            return false;
+            //範囲外
+            return true;
         }
     }
 

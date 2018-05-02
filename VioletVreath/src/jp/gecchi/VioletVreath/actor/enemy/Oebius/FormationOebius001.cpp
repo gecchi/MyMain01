@@ -19,7 +19,6 @@ FormationOebius001::FormationOebius001(const char* prm_name, EnemyOebiusControll
     for (int col = 0; col < getFormationColNum(); col++) {
         papSplManufConn_[col] = connectToSplineManufactureManager(("FormationOebius001/"+XTOS(col)).c_str());
     }
-
 }
 
 void FormationOebius001::processBehavior() {

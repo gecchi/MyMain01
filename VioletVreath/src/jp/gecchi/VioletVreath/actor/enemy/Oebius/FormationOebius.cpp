@@ -79,7 +79,7 @@ void FormationOebius::processBehavior() {
         case PROG_CALL_UP: {
             if (pProg->hasJustChanged()) {
             }
-            if (canCallUp()) {
+            if (canCallUp() && call_up_row_idx_ < formation_row_num_) {
                 if (getActiveFrame() % call_up_interval_ == 0) {
                     for (int col = 0; col < formation_col_num_; col++) {
                         if (pXpmConnection_) {

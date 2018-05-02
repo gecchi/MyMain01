@@ -72,8 +72,8 @@ void EnemyOebiusController::processBehavior() {
             if (pProg->hasJustChanged()) {
                 if (pOebiusCore_) {
                     pFormationOebius_->setPosition(pOebiusCore_->_x,
-                                                pOebiusCore_->_y,
-                                                pOebiusCore_->_z  );
+                                                   pOebiusCore_->_y,
+                                                   pOebiusCore_->_z  );
                     pFormationOebius_->setRzRyAng(pOebiusCore_->_rz, pOebiusCore_->_ry);
                     pFormationOebius_->activate();
                 }
