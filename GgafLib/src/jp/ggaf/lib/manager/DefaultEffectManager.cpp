@@ -23,10 +23,10 @@ GgafDxEffect* DefaultEffectManager::processCreateResource(const char* prm_idstr,
     const char* effect_name = names[1].c_str();
     GgafDxEffect* pResourceEffect = nullptr;
     switch (effect_type) {
-    case '@':
+    case TYPE_MASSWALL_EFFECT:
         pResourceEffect = NEW MassWallEffect(effect_name);
         break;
-    case '-':
+    case TYPE_SINGLELASER_EFFECT:
         pResourceEffect = NEW SingleLaserEffect(effect_name);
         break;
     default:

@@ -4,6 +4,8 @@
 
 #include "jp/ggaf/lib/manager/DefaultEffectManager.h"
 
+#define TYPE_HOSHIBOSHI_EFFECT    '*'
+
 namespace VioletVreath {
 
 /**

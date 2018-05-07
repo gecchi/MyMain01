@@ -19,9 +19,9 @@ GgafDxMassMeshActor::GgafDxMassMeshActor(const char* prm_name,
 
                                              GgafDxMassActor(prm_name,
                                                              prm_model_id,
-                                                             "t",
+                                                             TYPE_MASSMESH_MODEL,
                                                              prm_effect_id,
-                                                             "t",
+                                                             TYPE_MASSMESH_EFFECT,
                                                              prm_technique,
                                                              prm_pStat,
                                                              prm_pChecker),
@@ -35,9 +35,9 @@ _pMassMeshEffect((GgafDxMassMeshEffect*)_pEffect)
 
 GgafDxMassMeshActor::GgafDxMassMeshActor(const char* prm_name,
                                          const char* prm_model_id,
-                                         const char* prm_model_type,
+                                         const char prm_model_type,
                                          const char* prm_effect_id,
-                                         const char* prm_effect_type,
+                                         const char prm_effect_type,
                                          const char* prm_technique,
                                          GgafStatus* prm_pStat,
                                          GgafDxChecker* prm_pChecker) :

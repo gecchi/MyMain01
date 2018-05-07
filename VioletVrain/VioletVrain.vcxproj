@@ -244,6 +244,9 @@
   <ItemGroup>
     <ClInclude Include="src\jp\gecchi\VioletVrain\actor\camera\VvCamera.h" />
     <ClInclude Include="src\jp\gecchi\VioletVrain\actor\Jiki.h" />
+    <ClInclude Include="src\jp\gecchi\violetvrain\actor\kind\vvactor.hpp" />
+    <ClInclude Include="src\jp\gecchi\violetvrain\actor\kind\vvmikataactor.hpp" />
+    <ClInclude Include="src\jp\gecchi\violetvrain\actor\kind\vvtekiactor.hpp" />
     <ClInclude Include="src\jp\gecchi\VioletVrain\actor\Test01.h" />
     <ClInclude Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime.h" />
     <ClInclude Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime\World.h" />

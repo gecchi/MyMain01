@@ -3,6 +3,7 @@
 #include <map>
 
 using namespace GgafCore;
+std::map<std::string, std::string> GgafRgb::_cname;
 
 GgafRgb::GgafRgb() : GgafObject(),
         _allowedChars("0123456789abcdefABCDEF#") , _red(0), _green(0), _blue(0), _r(0), _g(0), _b(0), _hex(""), _is_valid(true) {
@@ -15,12 +16,10 @@ GgafRgb::GgafRgb(std::string prm_str_color) : GgafObject(),
     set(prm_str_color);
 }
 
-bool GgafRgb::_is_init = false;
-std::map<std::string, std::string> GgafRgb::_cname;
 void GgafRgb::init() {
-    if (GgafRgb::_is_init) {
-        return;
-    }
+    static volatile bool is_init = GgafRgb::initStatic(); //ê√ìIÉÅÉìÉoèâä˙âª
+}
+bool GgafRgb::initStatic() {
     GgafRgb::_cname["snow"] = "#FFFAFA";
     GgafRgb::_cname["ghost white"] = "#F8F8FF";
     GgafRgb::_cname["GhostWhite"] = "#F8F8FF";
@@ -773,7 +772,7 @@ void GgafRgb::init() {
     GgafRgb::_cname["DarkRed"] = "#8B0000";
     GgafRgb::_cname["light green"] = "#90EE90";
     GgafRgb::_cname["LightGreen"] = "#90EE90";
-    GgafRgb::_is_init = true;
+    return true;
 }
 
 bool GgafRgb::isValid() {

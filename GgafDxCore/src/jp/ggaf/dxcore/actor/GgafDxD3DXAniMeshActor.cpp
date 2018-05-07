@@ -2,6 +2,7 @@
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxPuppeteer.h"
 #include "jp/ggaf/dxcore/model/GgafDxD3DXAniMeshModel.h"
+#include "jp/ggaf/dxcore/effect/GgafDxD3DXAniMeshEffect.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
 using namespace GgafCore;
@@ -17,9 +18,9 @@ GgafDxD3DXAniMeshActor::GgafDxD3DXAniMeshActor(const char* prm_name,
 
                                                    GgafDxFigureActor(prm_name,
                                                                      prm_model_id,
-                                                                     "A",
+                                                                     TYPE_D3DXANIMESH_MODEL,
                                                                      prm_effect_id,
-                                                                     "A",
+                                                                     TYPE_D3DXANIMESH_EFFECT,
                                                                      prm_technique,
                                                                      prm_pStat,
                                                                      prm_pChecker) {

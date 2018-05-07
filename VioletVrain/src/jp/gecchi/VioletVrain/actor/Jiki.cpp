@@ -22,7 +22,7 @@ enum {
 };
 
 Jiki::Jiki(const char* prm_name) :
-        DefaultSpriteActor(prm_name, "Lockon001", nullptr) {
+        VvMikataActor<DefaultSpriteActor>(prm_name, "Lockon001", nullptr) {
     _class_name = "Jiki";
 //    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //ワールド変換はビルボードでRz回転に強制
     effectBlendOne(); //エフェクトテクニックは加算合成に強制
@@ -99,10 +99,6 @@ void Jiki::processJudgement() {
 }
 
 void Jiki::onInactive() {
-}
-
-void Jiki::onHit(const GgafActor* prm_pOtherActor) {
-    _TRACE_("Jiki::onHit!!!! 相手＝"<<prm_pOtherActor->getName()<<"");
 }
 
 Jiki::~Jiki() {

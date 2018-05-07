@@ -18,7 +18,7 @@ _pStatus(prm_pStat)
     _class_name = "GgafActor";
     _obj_class = Obj_GgafActor;
     if (_pStatus == nullptr) {
-        _pStatus = NEW GgafStatus(12, nullptr);
+        _pStatus = NEW GgafStatus(1, nullptr);
         getStatus()->set(0, 0);
     }
 #ifdef MY_DEBUG

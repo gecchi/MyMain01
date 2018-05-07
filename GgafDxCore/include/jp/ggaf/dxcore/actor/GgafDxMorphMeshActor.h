@@ -63,9 +63,9 @@ public:
      */
     GgafDxMorphMeshActor(const char* prm_name,
                          const char* prm_model_id,
-                         const char* prm_model_type,
+                         const char prm_model_type,
                          const char* prm_effect_id,
-                         const char* prm_effect_type,
+                         const char prm_effect_type,
                          const char* prm_technique,
                          GgafCore::GgafStatus* prm_pStat,
                          GgafDxChecker* prm_pChecker);

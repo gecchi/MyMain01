@@ -4,6 +4,8 @@
 
 #include "jp/ggaf/dxcore/manager/GgafDxEffectManager.h"
 
+#define TYPE_MASSWALL_EFFECT      '@'
+#define TYPE_SINGLELASER_EFFECT   '-'
 
 namespace GgafLib {
 

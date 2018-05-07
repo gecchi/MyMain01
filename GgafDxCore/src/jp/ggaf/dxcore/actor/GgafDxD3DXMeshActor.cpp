@@ -18,9 +18,9 @@ GgafDxD3DXMeshActor::GgafDxD3DXMeshActor(const char* prm_name,
 
                                              GgafDxFigureActor(prm_name,
                                                                prm_model_id,
-                                                               "D",
+                                                               TYPE_D3DXMESH_MODEL,
                                                                prm_effect_id,
-                                                               "X",
+                                                               TYPE_MESH_EFFECT,
                                                                prm_technique,
                                                                prm_pStat,
                                                                prm_pChecker) {

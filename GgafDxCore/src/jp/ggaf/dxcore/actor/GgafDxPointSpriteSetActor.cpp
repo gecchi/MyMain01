@@ -21,9 +21,9 @@ GgafDxPointSpriteSetActor::GgafDxPointSpriteSetActor(const char* prm_name,
 
                                                          GgafDxFigureActor(prm_name,
                                                                            prm_model_id,
-                                                                           "o",
+                                                                           TYPE_POINTSPRITESET_MODEL,
                                                                            prm_effect_id,
-                                                                           "o",
+                                                                           TYPE_POINTSPRITESET_EFFECT,
                                                                            prm_technique,
                                                                            prm_pStat,
                                                                            prm_pChecker),
@@ -44,9 +44,9 @@ _pUvFlipper(NEW GgafDxUvFlipper(getModel()->getDefaultTextureConnection()->peek(
 
 GgafDxPointSpriteSetActor::GgafDxPointSpriteSetActor(const char* prm_name,
                                                      const char* prm_model_id,
-                                                     const char* prm_model_type,
+                                                     const char prm_model_type,
                                                      const char* prm_effect_id,
-                                                     const char* prm_effect_type,
+                                                     const char prm_effect_type,
                                                      const char* prm_technique,
                                                      GgafStatus* prm_pStat,
                                                      GgafDxChecker* prm_pChecker) :

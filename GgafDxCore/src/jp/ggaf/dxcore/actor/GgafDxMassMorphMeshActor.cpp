@@ -19,9 +19,9 @@ GgafDxMassMorphMeshActor::GgafDxMassMorphMeshActor(const char* prm_name,
 
                                                        GgafDxFigureActor(prm_name,
                                                                          prm_model_id,
-                                                                         "m",
+                                                                         TYPE_MASSMORPHMESH_MODEL,
                                                                          prm_effect_id,
-                                                                         "m",
+                                                                         TYPE_MASSMORPHMESH_EFFECT,
                                                                          prm_technique,
                                                                          prm_pStat,
                                                                          prm_pChecker),
@@ -42,9 +42,9 @@ _pMassMorphMeshEffect((GgafDxMassMorphMeshEffect*)_pEffect)
 
 GgafDxMassMorphMeshActor::GgafDxMassMorphMeshActor(const char* prm_name,
                                                    const char* prm_model_id,
-                                                   const char* prm_model_type,
+                                                   const char prm_model_type,
                                                    const char* prm_effect_id,
-                                                   const char* prm_effect_type,
+                                                   const char prm_effect_type,
                                                    const char* prm_technique,
                                                    GgafStatus* prm_pStat,
                                                    GgafDxChecker* prm_pChecker) :

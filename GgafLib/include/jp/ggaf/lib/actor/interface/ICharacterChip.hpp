@@ -265,7 +265,9 @@ void ICharacterChip<T, N, L>::prepare1(const char* prm_str) {
     _nn = 0;
     _draw_chr_num = 0;
     int c;
-    int chr_blank = _chr_blank;
+    const int chr_blank = _chr_blank;
+    const bool is_fixed_width = _is_fixed_width;
+    const pixcoord chr_base_width_px = _chr_base_width_px;
     while (true) {
         c = (int)(*p_prm_str);
 #ifdef MY_DEBUG
@@ -290,7 +292,7 @@ void ICharacterChip<T, N, L>::prepare1(const char* prm_str) {
             _nn++; //文字列最後を行数１としてカウント。文字列は改行で終わる必要がない。
             break;
         } else {
-            *p_width_line_px += (_is_fixed_width ? _chr_base_width_px : _px_chr_width[c]); //行の幅(px)を加算
+            *p_width_line_px += (is_fixed_width ? chr_base_width_px : _px_chr_width[c]); //行の幅(px)を加算
         }
         if (c != chr_blank) { //ブランク
             _draw_chr_num++; //描画文字数カウント
@@ -317,8 +319,13 @@ void ICharacterChip<T, N, L>::prepare2() {
     if (_len == 0) {
         return;
     }
-    GgafDxAlign align  = _pBaseActor->_align;
-    GgafDxValign valign = _pBaseActor->_valign;
+    const GgafDxAlign align  = _pBaseActor->_align;
+    const GgafDxValign valign = _pBaseActor->_valign;
+    const pixcoord chr_base_height_px = _chr_base_height_px;
+    const pixcoord chr_base_width_px = _chr_base_width_px;
+    const int chr_newline = _chr_newline;
+    const int chr_blank = _chr_blank;
+    const int chr_ptn_zero = _chr_ptn_zero;
     GgafDxCore::GgafDxUvFlipper* pUvFlipper = _pBaseActor->getUvFlipper();
     if (_is_fixed_width) {
         //固定幅時
@@ -339,8 +346,6 @@ void ICharacterChip<T, N, L>::prepare2() {
         } else { //VALIGN_TOP
             px_y = 0;
         }
-        int chr_blank = _chr_blank;
-        int chr_ptn_zero = _chr_ptn_zero;
         float u, v;
         int* p_chr  = _draw_string;
         InstancePart* pInstancePart = _paInstancePart;
@@ -348,7 +353,7 @@ void ICharacterChip<T, N, L>::prepare2() {
             int draw_chr = *p_chr;
             if (draw_chr == (int)('\0')) {
                 break; //おしまい
-            } else if (draw_chr == _chr_newline) {
+            } else if (draw_chr == chr_newline) {
                 nnn++;
                 if (align == ALIGN_CENTER) {
                     px_x = -(_px_row_width[nnn]/2);
@@ -357,7 +362,7 @@ void ICharacterChip<T, N, L>::prepare2() {
                 } else {  //ALIGN_LEFT
                     px_x = 0;
                 }
-                px_y += _chr_base_height_px;
+                px_y += chr_base_height_px;
                 ++p_chr;
                 continue; //表示文字はない
             }
@@ -370,7 +375,7 @@ void ICharacterChip<T, N, L>::prepare2() {
                 pInstancePart->offset_v = v;
                 ++pInstancePart;
             }
-            px_x += _chr_base_width_px;
+            px_x += chr_base_width_px;
             ++p_chr;
         }
     } else {
@@ -385,8 +390,6 @@ void ICharacterChip<T, N, L>::prepare2() {
             } else { //VALIGN_TOP
                 px_y = 0;
             }
-            int chr_blank = _chr_blank;
-            int chr_ptn_zero = _chr_ptn_zero;
             int nnn = 0; // num of \n now
             pixcoord px_x =  -(align == ALIGN_CENTER ? _px_row_width[nnn]/2 : 0);
             pixcoord x_tmp = px_x;
@@ -397,18 +400,18 @@ void ICharacterChip<T, N, L>::prepare2() {
                 int draw_chr = *p_chr;
                 if (draw_chr == (int)('\0')) {
                     break; //おしまい
-                } else if (draw_chr == _chr_newline) {
+                } else if (draw_chr == chr_newline) {
                     nnn++;
                     px_x = -(align == ALIGN_CENTER ? _px_row_width[nnn]/2 : 0);
                     x_tmp = px_x;
-                    px_y += _chr_base_height_px;
+                    px_y += chr_base_height_px;
                     ++p_chr;
                     continue; //表示文字はない
                 }
                 //プロポーショナルな幅計算
-                int w = ((_chr_base_width_px - _px_chr_width[draw_chr]) / 2);
+                int w = ((chr_base_width_px - _px_chr_width[draw_chr]) / 2);
                 px_x = x_tmp - w;
-                x_tmp = px_x + _chr_base_width_px - w;
+                x_tmp = px_x + chr_base_width_px - w;
 
                 //情報更新
                 if (draw_chr != chr_blank) {
@@ -423,16 +426,14 @@ void ICharacterChip<T, N, L>::prepare2() {
             }
         } else if (align == ALIGN_RIGHT) {
             if (valign == VALIGN_BOTTOM) {
-                px_y = -_chr_base_height_px;
+                px_y = -chr_base_height_px;
             } else if (valign == VALIGN_MIDDLE) {
-                px_y = ((_px_total_height/2) - _chr_base_height_px);
+                px_y = ((_px_total_height/2) - chr_base_height_px);
             } else { //VALIGN_TOP
-                px_y = ((_px_total_height*_nn) - _chr_base_height_px);
+                px_y = ((_px_total_height*_nn) - chr_base_height_px);
             }
 
             //右から表示する
-            int chr_blank = _chr_blank;
-            int chr_ptn_zero = _chr_ptn_zero;
             pixcoord px_x = 0;
             pixcoord x_tmp = px_x;
             float u, v;
@@ -441,15 +442,15 @@ void ICharacterChip<T, N, L>::prepare2() {
             InstancePart* pInstancePart = &(_paInstancePart[_draw_chr_num - 1]);
             while (true) {
                 int draw_chr = *p_chr;
-                if (draw_chr == _chr_newline) {
+                if (draw_chr == chr_newline) {
                     px_x = 0;
                     x_tmp = px_x;
-                    px_y -= _chr_base_height_px;
+                    px_y -= chr_base_height_px;
                     p_chr--;
                     continue;
                 }
                 //プロポーショナルな幅計算
-                w = ((_chr_base_width_px - _px_chr_width[draw_chr]) / 2);
+                w = ((chr_base_width_px - _px_chr_width[draw_chr]) / 2);
                 px_x = x_tmp - (w + _px_chr_width[draw_chr]);
                 x_tmp = px_x + w;
                 //情報更新

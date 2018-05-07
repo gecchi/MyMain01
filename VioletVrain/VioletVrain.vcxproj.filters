@@ -21,5 +21,8 @@
     <ClInclude Include="src\jp\gecchi\VioletVrain\util\VvUtil.h" />
     <ClInclude Include="src\jp\gecchi\VioletVrain\VvGod.h" />
     <ClInclude Include="src\VioletVrain.h" />
+    <ClInclude Include="src\jp\gecchi\violetvrain\actor\kind\vvactor.hpp" />
+    <ClInclude Include="src\jp\gecchi\violetvrain\actor\kind\vvmikataactor.hpp" />
+    <ClInclude Include="src\jp\gecchi\violetvrain\actor\kind\vvtekiactor.hpp" />
   </ItemGroup>
 </Project>

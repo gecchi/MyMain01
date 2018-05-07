@@ -83,9 +83,9 @@ _pAlphaFader(nullptr)
 
 GgafDxFigureActor::GgafDxFigureActor(const char* prm_name,
                                      const char* prm_model_id,
-                                     const char* prm_model_type,
+                                     const char prm_model_type,
                                      const char* prm_effect_id,
-                                     const char* prm_effect_type,
+                                     const char prm_effect_type,
                                      const char* prm_technique,
                                      GgafStatus* prm_pStat,
                                      GgafDxChecker* prm_pChecker) :
@@ -96,7 +96,7 @@ GgafDxFigureActor::GgafDxFigureActor(const char* prm_name,
 _pModelCon(
     (GgafDxModelConnection*)(
         pGOD->_pModelManager->connect(
-            (std::string(prm_model_type) + "/" + std::string(prm_model_id)).c_str(), this
+            (std::string(1, prm_model_type) + "/" + std::string(prm_model_id)).c_str(), this
         )
     )
 ),
@@ -104,7 +104,7 @@ _pModel((GgafDxModel*)_pModelCon->peek()),
 _pEffectCon(
     (GgafDxEffectConnection*)(
         pGOD->_pEffectManager->connect(
-            (std::string(prm_effect_type) + "/" + std::string(prm_effect_id)).c_str(), this
+            (std::string(1, prm_effect_type) + "/" + std::string(prm_effect_id)).c_str(), this
         )
     )
 ),

@@ -2,6 +2,8 @@
 #define GGAFDXCORE_GGAFDXFIGUREACTOR_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
+#include "jp/ggaf/dxcore/manager/GgafDxModelManager.h"
+#include "jp/ggaf/dxcore/manager/GgafDxEffectManager.h"
 
 namespace GgafDxCore {
 
@@ -105,9 +107,9 @@ public:
      */
     GgafDxFigureActor(const char* prm_name,
                       const char* prm_model_id,
-                      const char* prm_model_type,
+                      const char prm_model_type,
                       const char* prm_effect_id,
-                      const char* prm_effect_type,
+                      const char prm_effect_type,
                       const char* prm_technique,
                       GgafCore::GgafStatus* prm_pStat,
                       GgafDxChecker* prm_pChecker);

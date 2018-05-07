@@ -20,7 +20,7 @@ class GgafStatus : public GgafObject {
      * ステータス値を表す .
      */
     union VALUE {
-      char _char_val;
+      uint64_t _v;
       int _int_val;
       unsigned int _uint_val;
       double _double_val;
@@ -45,16 +45,7 @@ public:
      */
     GgafStatus(int prm_max_status_kind, GgafStatus* (*prm_pFunc_reset)(GgafStatus*) = nullptr);
 
-    inline void set(int prm_status_kind, char val) {
-#ifdef MY_DEBUG
-        if (_len < prm_status_kind) {
-            throwGgafCriticalException("配列要素数オーバー");
-        }
-#endif
-        _paValue[prm_status_kind]._char_val = val;
-    }
-
-    inline void set(int prm_status_kind, int val) {
+    inline void set(const int prm_status_kind, const int val) {
 #ifdef MY_DEBUG
         if (_len < prm_status_kind) {
             throwGgafCriticalException("配列要素数オーバー");
@@ -63,7 +54,7 @@ public:
         _paValue[prm_status_kind]._int_val = val;
     }
 
-    inline void set(int prm_status_kind, unsigned int val) {
+    inline void set(const int prm_status_kind, const unsigned int val) {
 #ifdef MY_DEBUG
         if (_len < prm_status_kind) {
             throwGgafCriticalException("配列要素数オーバー");
@@ -72,7 +63,7 @@ public:
         _paValue[prm_status_kind]._uint_val = val;
     }
 
-    inline void set(int prm_status_kind, double val) {
+    inline void set(const int prm_status_kind, const double val) {
 #ifdef MY_DEBUG
         if (_len < prm_status_kind) {
             throwGgafCriticalException("配列要素数オーバー");
@@ -81,7 +72,7 @@ public:
         _paValue[prm_status_kind]._double_val = val;
     }
 
-    inline void set(int prm_status_kind, void* p) {
+    inline void set(const int prm_status_kind, void* p) {
 #ifdef MY_DEBUG
         if (_len < prm_status_kind) {
             throwGgafCriticalException("配列要素数オーバー");
@@ -90,64 +81,103 @@ public:
         _paValue[prm_status_kind]._ptr = p;
     }
 
-    inline char plus(int prm_status_kind, char val) {
-        return _paValue[prm_status_kind]._char_val += val;
-    }
-
-    inline int plus(int prm_status_kind, int val) {
+    inline int plus(const int prm_status_kind, const int val) {
+#ifdef MY_DEBUG
+        if (_len < prm_status_kind) {
+            throwGgafCriticalException("配列要素数オーバー");
+        }
+#endif
         return _paValue[prm_status_kind]._int_val += val;
     }
 
-    inline double plus(int prm_status_kind, double val) {
+    inline double plus(const int prm_status_kind, const double val) {
+#ifdef MY_DEBUG
+        if (_len < prm_status_kind) {
+            throwGgafCriticalException("配列要素数オーバー");
+        }
+#endif
         return _paValue[prm_status_kind]._double_val += val;
     }
 
-    inline char minus(int prm_status_kind, char val) {
-        return _paValue[prm_status_kind]._char_val -= val;
-    }
-
-    inline int minus(int prm_status_kind, int val) {
+    inline int minus(const int prm_status_kind, const int val) {
+#ifdef MY_DEBUG
+        if (_len < prm_status_kind) {
+            throwGgafCriticalException("配列要素数オーバー");
+        }
+#endif
         return _paValue[prm_status_kind]._int_val -= val;
     }
 
-    inline double minus(int prm_status_kind, double val) {
+    inline double minus(const int prm_status_kind, const double val) {
+#ifdef MY_DEBUG
+        if (_len < prm_status_kind) {
+            throwGgafCriticalException("配列要素数オーバー");
+        }
+#endif
         return _paValue[prm_status_kind]._double_val -= val;
     }
 
-    inline char mul(int prm_status_kind, char val) {
-        return _paValue[prm_status_kind]._char_val *= val;
-    }
-
-    inline int mul(int prm_status_kind, int val) {
+    inline int mul(const int prm_status_kind, const int val) {
+#ifdef MY_DEBUG
+        if (_len < prm_status_kind) {
+            throwGgafCriticalException("配列要素数オーバー");
+        }
+#endif
         return _paValue[prm_status_kind]._int_val *= val;
     }
 
-    inline double mul(int prm_status_kind, double val) {
+    inline double mul(const int prm_status_kind, const double val) {
+#ifdef MY_DEBUG
+        if (_len < prm_status_kind) {
+            throwGgafCriticalException("配列要素数オーバー");
+        }
+#endif
         return _paValue[prm_status_kind]._double_val *= val;
     }
 
-    inline int get(int prm_status_kind) const {
-        return _paValue[prm_status_kind]._int_val;
+    inline int get(const int prm_status_kind) const {
+        if (_len < prm_status_kind) {
+            _TRACE_("＜警告＞配列要素数オーバー。意図していますか？");
+            return 0;
+        } else {
+            return _paValue[prm_status_kind]._int_val;
+        }
     }
 
-    inline int getChar(int prm_status_kind) const {
-        return _paValue[prm_status_kind]._char_val;
+    inline int getInt(const int prm_status_kind) const {
+        if (_len < prm_status_kind) {
+            _TRACE_("＜警告＞配列要素数オーバー。意図していますか？");
+            return 0;
+        } else {
+            return _paValue[prm_status_kind]._int_val;
+        }
     }
 
-    inline int getInt(int prm_status_kind) const {
-        return _paValue[prm_status_kind]._int_val;
+    inline unsigned int getUint(const int prm_status_kind) const {
+        if (_len < prm_status_kind) {
+            _TRACE_("＜警告＞配列要素数オーバー。意図していますか？");
+            return 0;
+        } else {
+            return _paValue[prm_status_kind]._uint_val;
+        }
     }
 
-    inline unsigned int getUint(int prm_status_kind) const {
-        return _paValue[prm_status_kind]._uint_val;
+    inline double getDouble(const int prm_status_kind) const {
+        if (_len < prm_status_kind) {
+            _TRACE_("＜警告＞配列要素数オーバー。意図していますか？");
+            return 0.0;
+        } else {
+            return _paValue[prm_status_kind]._double_val;
+        }
     }
 
-    inline double getDouble(int prm_status_kind) const {
-        return _paValue[prm_status_kind]._double_val;
-    }
-
-    inline void* getPtr(int prm_status_kind) const {
-        return _paValue[prm_status_kind]._ptr;
+    inline void* getPtr(const int prm_status_kind) const {
+        if (_len < prm_status_kind) {
+            _TRACE_("＜警告＞配列要素数オーバー。意図していますか？");
+            return nullptr;
+        } else {
+            return _paValue[prm_status_kind]._ptr;
+        }
     }
 
     /**

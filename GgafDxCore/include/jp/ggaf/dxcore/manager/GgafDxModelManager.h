@@ -10,6 +10,30 @@
 
 #define connectToModelTextureManager(X) ((GgafDxCore::GgafDxTextureConnection*)pGOD->_pModelManager->_pModelTextureManager->connect((X), this))
 
+#define TYPE_D3DXMESH_MODEL         'D'
+#define TYPE_DYNAD3DXMESH_MODEL     'd'
+#define TYPE_D3DXANIMESH_MODEL      'A'
+#define TYPE_MESH_MODEL             'X'
+#define TYPE_MESHSET_MODEL          'x'
+#define TYPE_MASSMESH_MODEL         't'
+#define TYPE_CUBEMAPMESH_MODEL      'G'
+#define TYPE_CUBEMAPMESHSET_MODEL   'g'
+#define TYPE_MORPHMESH_MODEL        'M'
+#define TYPE_MASSMORPHMESH_MODEL    'm'
+#define TYPE_CUBEMAPMORPHMESH_MODEL 'H'
+#define TYPE_WORLDBOUND_MODEL       'W'
+#define TYPE_SPRITE_MODEL           'S'
+#define TYPE_SPRITESET_MODEL        's'
+#define TYPE_MESHSPRITE_MODEL       'z'
+#define TYPE_BOARD_MODEL            'B'
+#define TYPE_BOARDSET_MODEL         'b'
+#define TYPE_MASSBOARD_MODEL        'w'
+#define TYPE_CUBE_MODEL             'C'
+#define TYPE_POINTSPRITE_MODEL      'P'
+#define TYPE_MASSPOINTSPRITE_MODEL  'p'
+#define TYPE_POINTSPRITESET_MODEL   'o'
+#define TYPE_FRAMEDBOARD_MODEL      'E'
+
 namespace GgafDxCore {
 
 /**
@@ -45,7 +69,7 @@ private:
     GgafDxPointSpriteModel*      createPointSpriteModel(const char* prm_model_name);
     GgafDxMassPointSpriteModel*  createMassPointSpriteModel(const char* prm_model_name);
     GgafDxPointSpriteSetModel*   createPointSpriteSetModel(const char* prm_model_name);
-    GgafDxFramedBoardModel*    createFramedBoardModel(const char* prm_model_name);
+    GgafDxFramedBoardModel*      createFramedBoardModel(const char* prm_model_name);
 
 public:
 

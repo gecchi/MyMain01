@@ -132,96 +132,77 @@ GgafDxModel* GgafDxModelManager::processCreateResource(const char* prm_idstr, vo
     const char* model_name = names[1].c_str();
     GgafDxModel* pResourceModel;
     switch (model_type) {
-        case 'D':
-            //D3DXMeshModel
+        case TYPE_D3DXMESH_MODEL:
             pResourceModel = createD3DXMeshModel(model_name, D3DXMESH_SYSTEMMEM);
             break;
-        case 'd':
-            //DynaD3DXMeshModel
+        case TYPE_DYNAD3DXMESH_MODEL:
             pResourceModel = createD3DXMeshModel(model_name, D3DXMESH_DYNAMIC);
             break;
-        case 'A':
-            //D3DXAniMeshModel
+        case TYPE_D3DXANIMESH_MODEL:
             pResourceModel = createD3DXAniMeshModel(model_name);
             break;
-        case 'X':
-            //MeshModel
+        case TYPE_MESH_MODEL:
             pResourceModel = createMeshModel(model_name);
             break;
-        case 'x':
-            //MeshSetModel
+        case TYPE_MESHSET_MODEL:
             pResourceModel = createMeshSetModel(model_name);
             break;
-        case 't':
-            //MassMeshModel
+        case TYPE_MASSMESH_MODEL:
             pResourceModel = createMassMeshModel(model_name);
             break;
-        case 'G':
-            //CubeMapMeshModel
+        case TYPE_CUBEMAPMESH_MODEL:
             pResourceModel = createCubeMapMeshModel(model_name);
             break;
-        case 'g':
-            //CubeMapMeshSetModel
+        case TYPE_CUBEMAPMESHSET_MODEL:
             pResourceModel = createCubeMapMeshSetModel(model_name);
             break;
-        case 'M':
-            //MorphMeshModel "M/4/xxxxx" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
+        case TYPE_MORPHMESH_MODEL:
+            // "M/4/xxxxx" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
             pResourceModel = createMorphMeshModel(model_name);
             break;
-        case 'm':
-            //MassMorphMeshModel "m/4/xxxxx_2" の場合、セットが４プライマリのメッシュが1、モーフターゲットのメッシュが2つという意味
+        case TYPE_MASSMORPHMESH_MODEL:
+            //"m/4/xxxxx_2" の場合、セットが４プライマリのメッシュが1、モーフターゲットのメッシュが2つという意味
             pResourceModel = createMassMorphMeshModel(model_name);
             break;
-        case 'H':
-            //CubeMapMorphMeshModel "H/4/xxxxx" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
+        case TYPE_CUBEMAPMORPHMESH_MODEL:
+            //"H/4/xxxxx" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
             pResourceModel = createCubeMapMorphMeshModel(model_name);
             break;
-        case 'W':
-            //WorldBoundModel "W/4/xxxxx" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
+        case TYPE_WORLDBOUND_MODEL:
+            // "W/4/xxxxx" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
             pResourceModel = createWorldBoundModel(model_name);
             break;
-        case 'S':
-            //SpriteModel
+        case TYPE_SPRITE_MODEL:
             pResourceModel = createSpriteModel(model_name);
             break;
-        case 's':
-            //SpriteSetModel
+        case TYPE_SPRITESET_MODEL:
             pResourceModel = createSpriteSetModel(model_name);
             break;
-        case 'z':
-            //MeshSpriteModel
+        case TYPE_MESHSPRITE_MODEL:
             pResourceModel = createMassSpriteModel(model_name);
             break;
-        case 'B':
-            //BoardModel
+        case TYPE_BOARD_MODEL:
             pResourceModel = createBoardModel(model_name);
             break;
-        case 'b':
-            //BoardSetModel
+        case TYPE_BOARDSET_MODEL:
             pResourceModel = createBoardSetModel(model_name);
             break;
-        case 'w':
-            //MassBoardModel
+        case TYPE_MASSBOARD_MODEL:
             pResourceModel = createMassBoardModel(model_name);
             break;
-        case 'C':
-            //cubeModel
+        case TYPE_CUBE_MODEL:
             pResourceModel = createD3DXMeshModel(const_cast<char*>("cube"), D3DXMESH_SYSTEMMEM);
             break;
-        case 'P':
-            //PointSpriteModel
+        case TYPE_POINTSPRITE_MODEL:
             pResourceModel = createPointSpriteModel(model_name);
             break;
-        case 'p':
-            //MassPointSpriteModel
+        case TYPE_MASSPOINTSPRITE_MODEL:
             pResourceModel = createMassPointSpriteModel(model_name);
             break;
-        case 'o':
-            //PointSpriteSetModel
+        case TYPE_POINTSPRITESET_MODEL:
             pResourceModel = createPointSpriteSetModel(model_name);
             break;
-        case 'E':
-            //PointSpriteSetModel
+        case TYPE_FRAMEDBOARD_MODEL:
             pResourceModel = createFramedBoardModel(model_name);
             break;
         default:

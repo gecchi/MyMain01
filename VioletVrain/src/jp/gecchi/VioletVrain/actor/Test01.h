@@ -1,8 +1,10 @@
 #ifndef TEST01_H_
 #define TEST01_H_
+
 #include "VioletVrain.h"
 
 #include "jp/ggaf/lib/actor/DefaultSpriteActor.h"
+#include "jp/gecchi/VioletVrain/actor/kind/VvTekiActor.hpp"
 
 namespace VioletVrain {
 
@@ -10,7 +12,7 @@ namespace VioletVrain {
  * ƒeƒXƒg
  * @author Masatoshi Tsuge
  */
-class Test01 : public GgafLib::DefaultSpriteActor {
+class Test01 : public VvTekiActor<GgafLib::DefaultSpriteActor> {
 
 public:
     Test01(const char* prm_name);
@@ -27,11 +29,7 @@ public:
 
     void processJudgement() override;
 
-    void onHit(const GgafCore::GgafActor* prm_pOtherActor);
-
     virtual ~Test01();
-
-
 };
 
 }

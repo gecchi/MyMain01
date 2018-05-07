@@ -37,7 +37,6 @@ public:
     /** 色文字列が妥当かどうか */
     bool _is_valid;
 
-    static bool _is_init;
     static std::map<std::string, std::string> _cname;
 
 public:
@@ -53,9 +52,8 @@ public:
      * @param prm_str_color "#FFFFFF"形式の文字列（"#"は省略可）、またはX11色名
      */
     GgafRgb(std::string prm_str_color);
-
     void init();
-
+    static bool initStatic();
     /**
      * 引数の文字列をRGB値とし設定します .
      * @param prm_hex "#FFFFFF"形式の文字列 （"#"は省略可）、またはX11色名

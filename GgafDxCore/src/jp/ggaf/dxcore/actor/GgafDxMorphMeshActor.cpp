@@ -19,9 +19,9 @@ GgafDxMorphMeshActor::GgafDxMorphMeshActor(const char* prm_name,
 
                                                GgafDxFigureActor(prm_name,
                                                                  prm_model_id,
-                                                                 "M",
+                                                                 TYPE_MORPHMESH_MODEL,
                                                                  prm_effect_id,
-                                                                 "M",
+                                                                 TYPE_MORPHMESH_EFFECT,
                                                                  prm_technique,
                                                                  prm_pStat,
                                                                  prm_pChecker),
@@ -42,9 +42,9 @@ _pMorphMeshEffect((GgafDxMorphMeshEffect*)_pEffect)
 
 GgafDxMorphMeshActor::GgafDxMorphMeshActor(const char* prm_name,
                                            const char* prm_model_id,
-                                           const char* prm_model_type,
+                                           const char prm_model_type,
                                            const char* prm_effect_id,
-                                           const char* prm_effect_type,
+                                           const char prm_effect_type,
                                            const char* prm_technique,
                                            GgafStatus* prm_pStat,
                                            GgafDxChecker* prm_pChecker) :

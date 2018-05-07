@@ -42,66 +42,64 @@ GgafDxEffect* GgafDxEffectManager::processCreateResource(const char* prm_idstr, 
     const char* effect_name = names[1].c_str();
     GgafDxEffect* pResourceEffect = nullptr;
     switch (effect_type) {
-        case 'D':
-        case 'd':
-        case 'X':
+        case TYPE_MESH_EFFECT:
             pResourceEffect = NEW GgafDxMeshEffect(effect_name);
             break;
-        case 'x':
+        case TYPE_MESHSET_EFFECT:
             pResourceEffect = NEW GgafDxMeshSetEffect(effect_name);
             break;
-        case 't':
+        case TYPE_MASSMESH_EFFECT:
             pResourceEffect = NEW GgafDxMassMeshEffect(effect_name);
             break;
-        case 'G':
+        case TYPE_CUBEMAPMESH_EFFECT:
             pResourceEffect = NEW GgafDxCubeMapMeshEffect(effect_name);
             break;
-        case 'g':
+        case TYPE_CUBEMAPMESHSET_EFFECT:
             pResourceEffect = NEW GgafDxCubeMapMeshSetEffect(effect_name);
             break;
-        case 'A':
+        case TYPE_D3DXANIMESH_EFFECT:
             pResourceEffect = NEW GgafDxD3DXAniMeshEffect(effect_name);
             break;
-        case 'M':
+        case TYPE_MORPHMESH_EFFECT:
             pResourceEffect = NEW GgafDxMorphMeshEffect(effect_name);
             break;
-        case 'm':
+        case TYPE_MASSMORPHMESH_EFFECT:
             pResourceEffect = NEW GgafDxMassMorphMeshEffect(effect_name);
             break;
-        case 'H':
+        case TYPE_CUBEMAPMORPHMESH_EFFECT:
             pResourceEffect = NEW GgafDxCubeMapMorphMeshEffect(effect_name);
             break;
-        case 'W':
+        case TYPE_WORLDBOUND_EFFECT:
             pResourceEffect = NEW GgafDxWorldBoundEffect(effect_name);
             break;
-        case 'S':
+        case TYPE_SPRITE_EFFECT:
             pResourceEffect = NEW GgafDxSpriteEffect(effect_name);
             break;
-        case 's':
+        case TYPE_SPRITESET_EFFECT:
             pResourceEffect = NEW GgafDxSpriteSetEffect(effect_name);
             break;
-        case 'z':
+        case TYPE_MASSSPRITE_EFFECT:
             pResourceEffect = NEW GgafDxMassSpriteEffect(effect_name);
             break;
-        case 'B':
+        case TYPE_BOARD_EFFECT:
             pResourceEffect = NEW GgafDxBoardEffect(effect_name);
             break;
-        case 'b':
+        case TYPE_BOARDSET_EFFECT:
             pResourceEffect = NEW GgafDxBoardSetEffect(effect_name);
             break;
-        case 'w':
+        case TYPE_MASSBOARD_EFFECT:
             pResourceEffect = NEW GgafDxMassBoardEffect(effect_name);
             break;
-        case 'P':
+        case TYPE_POINTSPRITE_EFFECT:
             pResourceEffect = NEW GgafDxPointSpriteEffect(effect_name);
             break;
-        case 'p':
+        case TYPE_MASSPOINTSPRITE_EFFECT:
             pResourceEffect = NEW GgafDxMassPointSpriteEffect(effect_name);
             break;
-        case 'o':
+        case TYPE_POINTSPRITESET_EFFECT:
             pResourceEffect = NEW GgafDxPointSpriteSetEffect(effect_name);
             break;
-        case 'E':
+        case TYPE_FRAMEDBOARD_EFFECT:
             pResourceEffect = NEW GgafDxFramedBoardEffect(effect_name);
             break;
         default:

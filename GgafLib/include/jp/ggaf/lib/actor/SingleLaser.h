@@ -2,6 +2,7 @@
 #define GGAFLIB_SINGLELASER_H_
 #include "GgafLibCommonHeader.h"
 #include "jp/ggaf/dxcore/actor/GgafDxMeshSetActor.h"
+#include "jp/ggaf/lib/manager/DefaultEffectManager.h"
 
 namespace GgafLib {
 
@@ -18,19 +19,11 @@ namespace GgafLib {
 class SingleLaser : public GgafDxCore::GgafDxMeshSetActor {
 
 public:
-//    static D3DXHANDLE _ah_matWorld[26];
-
     /** 衝突判定支援オブジェクト */
     CollisionChecker* _pColliChecker;
 
 public:
     SingleLaser(const char* prm_name, const char* prm_model_id, GgafCore::GgafStatus* prm_pStat=nullptr);
-
-    /**
-     * スタティックイニシャライザもどき .
-     * @return true
-     */
-//    static bool initStatic(SingleLaser* prm_pSingleLaser);
 
     virtual void onCreateModel() override {}
 

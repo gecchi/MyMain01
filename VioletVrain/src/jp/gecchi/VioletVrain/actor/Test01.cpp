@@ -21,7 +21,7 @@ enum {
 };
 
 Test01::Test01(const char* prm_name) :
-        DefaultSpriteActor(prm_name, "Lockon001", nullptr) {
+        VvTekiActor<DefaultSpriteActor>(prm_name, "Lockon001", nullptr) {
     _class_name = "Test01";
 //    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //ワールド変換はビルボードでRz回転に強制
     effectBlendOne(); //エフェクトテクニックは加算合成に強制
@@ -91,10 +91,6 @@ void Test01::processJudgement() {
 }
 
 void Test01::onInactive() {
-}
-
-void Test01::onHit(const GgafActor* prm_pOtherActor) {
-    _TRACE_("Test01::onHit!!!! 相手＝"<<prm_pOtherActor->getName()<<"");
 }
 
 Test01::~Test01() {

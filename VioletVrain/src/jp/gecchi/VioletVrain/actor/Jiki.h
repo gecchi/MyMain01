@@ -3,6 +3,7 @@
 #include "VioletVrain.h"
 
 #include "jp/ggaf/lib/actor/DefaultSpriteActor.h"
+#include "jp/gecchi/VioletVrain/actor/kind/VvMikataActor.hpp"
 
 namespace VioletVrain {
 
@@ -10,7 +11,7 @@ namespace VioletVrain {
  * ƒeƒXƒg
  * @author Masatoshi Tsuge
  */
-class Jiki : public GgafLib::DefaultSpriteActor {
+class Jiki : public VvMikataActor<GgafLib::DefaultSpriteActor> {
 
 public:
     Jiki(const char* prm_name);
@@ -27,10 +28,7 @@ public:
 
     void processJudgement() override;
 
-    void onHit(const GgafCore::GgafActor* prm_pOtherActor);
-
     virtual ~Jiki();
-
 
 };
 

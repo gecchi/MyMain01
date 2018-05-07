@@ -15,13 +15,13 @@ coord HoshiBoshi::CAM_ZF_;
 HoshiBoshi::HoshiBoshi(const char* prm_name, const char* prm_model_id) :
 
                                         GgafDxPointSpriteActor(prm_name,
-                                                              prm_model_id,
-                                                             "P",
-                                                             "HoshiBoshiEffect",
-                                                             "*",
-                                                             "HoshiBoshiTechnique",
-                                                             nullptr,
-                                                             nullptr) {
+                                                               prm_model_id,
+                                                               TYPE_POINTSPRITE_MODEL,
+                                                               "HoshiBoshiEffect",
+                                                               TYPE_HOSHIBOSHI_EFFECT,
+                                                               "HoshiBoshiTechnique",
+                                                               nullptr,
+                                                               nullptr) {
     _class_name = "HoshiBoshi";
     effectBlendOne(); //â¡éZçáê¨
     setHitAble(false);

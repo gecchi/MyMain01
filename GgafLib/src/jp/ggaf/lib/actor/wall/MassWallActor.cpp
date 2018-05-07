@@ -24,9 +24,9 @@ MassWallActor::MassWallActor(const char* prm_name,
 
                                  GgafDxMassMeshActor(prm_name,
                                                      prm_model,
-                                                     "t",
+                                                     TYPE_MASSMESH_MODEL,
                                                      "MassWallEffect",
-                                                     "@",
+                                                     TYPE_MASSWALL_EFFECT,
                                                      "MassWallTechnique",
                                                      prm_pStat,
                                                      UTIL::createChecker(this))
@@ -42,9 +42,9 @@ MassWallActor::MassWallActor(const char* prm_name,
 
                                  GgafDxMassMeshActor(prm_name,
                                                      prm_model,
-                                                     "t",
+                                                     TYPE_MASSMESH_MODEL,
                                                      prm_effect,
-                                                     "@",
+                                                     TYPE_MASSWALL_EFFECT,
                                                      prm_technique,
                                                      prm_pStat,
                                                      UTIL::createChecker(this))
