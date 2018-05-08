@@ -42,12 +42,7 @@ OUT_VS GgafDxVS_FontSprite(
 ) {
     OUT_VS out_vs = (OUT_VS)0;
     //’¸“_ŒvŽZ
-    float4x4 matWorld;
-    matWorld._11_12_13_14 = prm_world0;
-    matWorld._21_22_23_24 = prm_world1;
-    matWorld._31_32_33_34 = prm_world2;
-    matWorld._41_42_43_44 = prm_world3;
-
+	float4x4 matWorld = {prm_world0, prm_world1, prm_world2, prm_world3};
     prm_posModel_Local.x += prm_local.x;
     prm_posModel_Local.y += prm_local.y;
 

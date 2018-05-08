@@ -167,18 +167,8 @@ OUT_VS GgafDxVS_LaserChip(
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
 
-    float4x4 matWorld;
-    matWorld._11_12_13_14 = prm_world0; 
-    matWorld._21_22_23_24 = prm_world1;
-    matWorld._31_32_33_34 = prm_world2;
-    matWorld._41_42_43_44 = prm_world3; 
-
-    float4x4 matWorld_infront;
-    matWorld_infront._11_12_13_14 = prm_infront_world0; 
-    matWorld_infront._21_22_23_24 = prm_infront_world1;
-    matWorld_infront._31_32_33_34 = prm_infront_world2;
-    matWorld_infront._41_42_43_44 = prm_infront_world3; 
-   
+	float4x4 matWorld = {prm_world0, prm_world1, prm_world2, prm_world3};
+    float4x4 matWorld_infront = {prm_infront_world0, prm_infront_world1, prm_infront_world2, prm_infront_world3};
     int kind_t = (int)(prm_info.x);
     float force_alpha = prm_info.y;
 //	const int index = (int)prm_index;

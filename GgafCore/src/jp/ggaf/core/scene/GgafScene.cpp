@@ -214,13 +214,10 @@ void GgafScene::executeFuncLowerTree(void (*pFunc)(GgafObject*, void*, void*), v
     GgafElement<GgafScene>::executeFuncLowerTree(pFunc, prm1, prm2);
     _pSceneMediator->executeFuncLowerTree(pFunc, prm1, prm2);
 }
-void GgafScene::executeFuncLowerSceneTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2) {
-    if (_can_live_flg && _is_active_flg) {   //TODO:activeフラグも、入れても良いかな・・・
-        if (_was_initialize_flg) {
-            pFunc(this, prm1, prm2);
-        } else {
 
-        }
+void GgafScene::executeFuncLowerSceneTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2) {
+    if (_can_live_flg && _is_active_flg) {
+        pFunc(this, prm1, prm2);
         GgafScene* pScene = _pSubFirst;
         while (pScene) {
             pScene->executeFuncLowerSceneTree(pFunc, prm1, prm2);

@@ -48,12 +48,7 @@ OUT_VS GgafDxVS_DefaultMassPointSprite(
     float prm_pattno_uvflip_now  : TEXCOORD6
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
-    float4x4 matWorld;
-    matWorld._11_12_13_14 = prm_world0; 
-    matWorld._21_22_23_24 = prm_world1;
-    matWorld._31_32_33_34 = prm_world2;
-    matWorld._41_42_43_44 = prm_world3; 
-
+	float4x4 matWorld = {prm_world0, prm_world1, prm_world2, prm_world3};
     const float4 posModel_View = mul(mul(prm_posModel_Local, matWorld), g_matView); 
 	const float dep = posModel_View.z + 1.0; //+1.0ÇÃà”ñ°ÇÕ
                                     //VIEWïœä∑ÇÕ(0.0, 0.0, -1.0) Ç©ÇÁ (0.0, 0.0, 0.0) Çå©ÇƒÇ¢ÇÈÇΩÇﬂÅA

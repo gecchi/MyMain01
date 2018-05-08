@@ -229,11 +229,7 @@ OUT_VS GgafDxVS_MassWall(
 	//(prm_posModel_Local.y * ((prm_posModel_Local.x+fh)/g_wall_dep))   ・・・ 先端をキュッとまとめる計算
 	//+ ((prm_posModel_Local.x-fh)*ah);                      ・・・ 先端を水平にする計算
 
-	float4x4 matWorld;
-    matWorld._11_12_13_14 = prm_world0; 
-    matWorld._21_22_23_24 = prm_world1;
-    matWorld._31_32_33_34 = prm_world2;
-    matWorld._41_42_43_44 = prm_world3; 
+	float4x4 matWorld = {prm_world0, prm_world1, prm_world2, prm_world3};
 	//World*View*射影変換
 	out_vs.posModel_Proj = mul(mul(mul( prm_posModel_Local, matWorld ), g_matView ), g_matProj);
 	//UVはそのまま

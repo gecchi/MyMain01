@@ -1378,12 +1378,8 @@ void GgafElement<T>::clean(int prm_num_cleaning) {
 
 template<class T>
 void GgafElement<T>::executeFuncLowerTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2) {
-    if (_can_live_flg && _is_active_flg) {   //TODO:activeフラグも、入れても良いかな・・・
-        if (_was_initialize_flg) {
-            pFunc(this, prm1, prm2);
-        } else {
-
-        }
+    if (_can_live_flg && _is_active_flg) {
+        pFunc(this, prm1, prm2);
         T* pElementTemp = GgafNode<T>::_pSubFirst;
         while (pElementTemp) {
             pElementTemp->executeFuncLowerTree(pFunc, prm1, prm2);
@@ -1415,9 +1411,7 @@ void GgafElement<T>::throwEventLowerTree(hashval prm_no, void* prm_pSource) {
 template<class T>
 void GgafElement<T>::throwEventUpperTree(hashval prm_no, void* prm_pSource) {
     if (_can_live_flg) {
-        if (_was_initialize_flg) {
-            onCatchEvent(prm_no, prm_pSource);
-        }
+        onCatchEvent(prm_no, prm_pSource);
         if (GgafNode<T>::_pParent) {
             T* pElementTemp = GgafNode<T>::_pParent;
             pElementTemp->throwEventUpperTree(prm_no, prm_pSource);
