@@ -114,7 +114,7 @@ bool MassWallActor::initStatic(MassWallActor* prm_pMassWallActor) {
 }
 
 void MassWallActor::createVertexInstanceData(void* prm, GgafDxMassModel::VertexInstanceDataInfo* out_info) {
-    int element_num = 5;
+    int element_num = 6;
     out_info->paElement = NEW D3DVERTEXELEMENT9[element_num];
     // Stream = 1 ---->
     WORD st1_offset_next = 0;
@@ -150,13 +150,22 @@ void MassWallActor::createVertexInstanceData(void* prm, GgafDxMassModel::VertexI
     out_info->paElement[3].Usage  = D3DDECLUSAGE_TEXCOORD;
     out_info->paElement[3].UsageIndex = 4;
     st1_offset_next += sizeof(float)*4;
-    //float _wall_draw_face, _pos_info;  // : TEXCOORD5 壁ブロックプリズム位置情報, 壁ブロック表示面
+    //float r, g, b, a;        // : TEXCOORD5  マテリアルカラー
     out_info->paElement[4].Stream = 1;
     out_info->paElement[4].Offset = st1_offset_next;
-    out_info->paElement[4].Type   = D3DDECLTYPE_FLOAT2;
+    out_info->paElement[4].Type   = D3DDECLTYPE_FLOAT4;
     out_info->paElement[4].Method = D3DDECLMETHOD_DEFAULT;
     out_info->paElement[4].Usage  = D3DDECLUSAGE_TEXCOORD;
     out_info->paElement[4].UsageIndex = 5;
+    st1_offset_next += sizeof(float)*4;
+
+    //float _wall_draw_face, _pos_info;  // : TEXCOORD6 壁ブロックプリズム位置情報, 壁ブロック表示面
+    out_info->paElement[5].Stream = 1;
+    out_info->paElement[5].Offset = st1_offset_next;
+    out_info->paElement[5].Type   = D3DDECLTYPE_FLOAT2;
+    out_info->paElement[5].Method = D3DDECLMETHOD_DEFAULT;
+    out_info->paElement[5].Usage  = D3DDECLUSAGE_TEXCOORD;
+    out_info->paElement[5].UsageIndex = 6;
     st1_offset_next += sizeof(float)*2;
     // <---- Stream = 1
 
@@ -248,6 +257,7 @@ void MassWallActor::processDraw() {
     const hashval hash_technique = _hash_technique;
 
     static const size_t size_of_D3DXMATRIX = sizeof(D3DXMATRIX);
+    static const size_t size_of_D3DCOLORVALUE = sizeof(D3DCOLORVALUE);
     VERTEX_instancedata* paInstancedata = MassWallActor::_aInstancedata;
     MassWallActor* pMassWallActor = nullptr;
     GgafDxFigureActor* pDrawActor = this;
@@ -255,6 +265,7 @@ void MassWallActor::processDraw() {
         if (pDrawActor->getModel() == pMassMeshModel && pDrawActor->_hash_technique == hash_technique) {
             pMassWallActor = (MassWallActor*)pDrawActor;
             memcpy(paInstancedata, &(pDrawActor->_matWorld), size_of_D3DXMATRIX);
+            memcpy(&(paInstancedata->r), &(pDrawActor->_paMaterial[0].Diffuse), size_of_D3DCOLORVALUE);
             paInstancedata->_wall_draw_face = pMassWallActor->_wall_draw_face;
             paInstancedata->_pos_info =  pMassWallActor->_pos_info;
             ++paInstancedata;

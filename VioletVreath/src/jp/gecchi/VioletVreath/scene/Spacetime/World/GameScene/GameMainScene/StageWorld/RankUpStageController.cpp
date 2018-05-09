@@ -71,19 +71,19 @@ void RankUpStageController::onReset() {
 void RankUpStageController::ready(int prm_rank_up_level) {
     switch (prm_rank_up_level) {
         case 1:
-            wantScene(ORDER_ID_RANKUP+prm_rank_up_level, RankUp001, "RankUp001");
+            wantScene(ORDER_ID_RANKUP+prm_rank_up_level, RankUp001);
             break;
         case 2:
-            wantScene(ORDER_ID_RANKUP+prm_rank_up_level, RankUp002, "RankUp002");
+            wantScene(ORDER_ID_RANKUP+prm_rank_up_level, RankUp002);
             break;
         case 3:
-            wantScene(ORDER_ID_RANKUP+prm_rank_up_level, RankUp003, "RankUp003");
+            wantScene(ORDER_ID_RANKUP+prm_rank_up_level, RankUp003);
             break;
 //        case 100:
-//            wantScene(ORDER_ID_RANKUP+prm_rank_up_level, RankUp100, "RankUp100");
+//            wantScene(ORDER_ID_RANKUP+prm_rank_up_level, RankUp100);
 //            break;
         default:
-            wantScene(ORDER_ID_RANKUP+prm_rank_up_level, RankUp100, "RankUp100");
+            wantScene(ORDER_ID_RANKUP+prm_rank_up_level, RankUp100);
             break;
     }
 }

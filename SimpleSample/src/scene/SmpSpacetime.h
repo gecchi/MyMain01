@@ -3,8 +3,6 @@
 #include "SimpleSample.h"
 #include "jp/ggaf/lib/scene/DefaultSpacetime.h"
 
-#include "jp/ggaf/lib/util/VirtualButton.h"
-
 namespace SimpleSample {
 
 /**
@@ -15,10 +13,6 @@ namespace SimpleSample {
  * @author Masatoshi Tsuge
  */
 class SmpSpacetime : public GgafLib::DefaultSpacetime {
-
-public:
-    /** 仮想ボタンオブジェクト */
-    GgafLib::VirtualButton vb_;
 
 public:
     /**
@@ -37,14 +31,6 @@ public:
      * 「この世」の振る舞い処理 .
      */
     void processBehavior() override;
-
-    /**
-     * 仮想ボタンオブジェクトを返す .
-     * @return 仮想ボタン
-     */
-    GgafLib::VirtualButton* getVB() {
-        return &vb_;
-    }
 
     virtual ~SmpSpacetime();
 };

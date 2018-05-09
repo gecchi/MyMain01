@@ -16,7 +16,7 @@
 #define ORDER_ID_MAX     (0xffffffffffffffffULL)
 
 #undef pGOD
-#define pGOD (GgafCore::GgafGod::_pGod)
+#define pGOD (GgafCore::GgafGod::ask())
 
 namespace GgafCore {
 
@@ -171,6 +171,14 @@ public:
      */
     virtual void oops() {
         _TRACE_("(-_-;) {Oops!");
+    }
+
+    /**
+     * ‰yŒ© .
+     * @return Ž„‚¾
+     */
+    static GgafGod* ask() {
+        return GgafGod::_pGod;
     }
 
     virtual ~GgafGod();
@@ -444,25 +452,68 @@ public:
         X* p = NEW X((const char*)p1, (const char*)p2);
         return p;
     }
+    template<class X>
+    static X* bless3(void* p1, void* p2, void* p3) {
+        //p1 : –¼Ì
+        X* p = NEW X((const char*)p1, (const char*)p2, (const char*)p3);
+        return p;
+    }
 
     void debuginfo();
 
 };
 
-/** ƒV[ƒ“‚ð_‚É–]‚Þ */
-#define wantScene(ID, CLASS, NAME) (pGOD->createSceneCradle<CLASS>((ID),GgafCore::GgafGod::bless, this, this, (void*)(NAME),(void*)(nullptr),(void*)(nullptr)))
-/** ƒAƒNƒ^[‚ð_‚É–]‚Þ */
-#define wantActor(ID, CLASS, NAME) (pGOD->createActorCradle<CLASS>((ID),GgafCore::GgafGod::bless, this, this, (void*)(NAME),(void*)(nullptr),(void*)(nullptr)))
+
+#define wantActor1(ID, CLASS)                   (pGOD->createActorCradle<CLASS>((ID),GgafCore::GgafGod::bless, this, this, (void*)(#CLASS "_" #ID),(void*)(nullptr),(void*)(nullptr)))
+#define wantActor2(ID, CLASS, NAME)             (pGOD->createActorCradle<CLASS>((ID),GgafCore::GgafGod::bless, this, this, (void*)(NAME),(void*)(nullptr),(void*)(nullptr)))
+#define wantActor3(ID, CLASS, NAME, ARG1)       (pGOD->createActorCradle<CLASS>((ID),GgafCore::GgafGod::bless2, this, this, (void*)(NAME),(void*)(ARG1),(void*)(nullptr)))
+#define wantActor4(ID, CLASS, NAME, ARG1, ARG2) (pGOD->createActorCradle<CLASS>((ID),GgafCore::GgafGod::bless3, this, this, (void*)(NAME),(void*)(ARG1),(void*)(ARG2)))
+#define selectWantActorMacro(_1,_2,_3,_4,MACRO,...) MACRO
+
+#define wantScene1(ID, CLASS)                   (pGOD->createSceneCradle<CLASS>((ID),GgafCore::GgafGod::bless, this, this, (void*)(#CLASS "_" #ID),(void*)(nullptr),(void*)(nullptr)))
+#define wantScene2(ID, CLASS, NAME)             (pGOD->createSceneCradle<CLASS>((ID),GgafCore::GgafGod::bless, this, this, (void*)(NAME),(void*)(nullptr),(void*)(nullptr)))
+#define wantScene3(ID, CLASS, NAME, ARG1)       (pGOD->createSceneCradle<CLASS>((ID),GgafCore::GgafGod::bless2, this, this, (void*)(NAME),(void*)(ARG1),(void*)(nullptr)))
+#define wantScene4(ID, CLASS, NAME, ARG1, ARG2) (pGOD->createSceneCradle<CLASS>((ID),GgafCore::GgafGod::bless3, this, this, (void*)(NAME),(void*)(ARG1),(void*)(ARG2)))
+#define selectWantSceneMacro(_1,_2,_3,_4,MACRO,...) MACRO
+
+#define desireActor1(CLASS)                   (pGOD->makeActor<CLASS>(GgafCore::GgafGod::bless, this, this, (void*)(#CLASS),(void*)(nullptr),(void*)(nullptr),this))
+#define desireActor2(CLASS, NAME)             (pGOD->makeActor<CLASS>(GgafCore::GgafGod::bless, this, this, (void*)(NAME),(void*)(nullptr),(void*)(nullptr),this))
+#define desireActor3(CLASS, NAME, ARG1)       (pGOD->makeActor<CLASS>(GgafCore::GgafGod::bless2, this, this, (void*)(NAME),(void*)(ARG1),(void*)(nullptr),this))
+#define desireActor4(CLASS, NAME, ARG1, ARG2) (pGOD->makeActor<CLASS>(GgafCore::GgafGod::bless3, this, this, (void*)(NAME),(void*)(ARG1),(void*)(ARG2),this))
+#define selectDesireActorMacro(_1,_2,_3,_4,MACRO,...) MACRO
+
+#define desireScene1(CLASS)                   (pGOD->makeScene<CLASS>(GgafCore::GgafGod::bless, this, this, (void*)(#CLASS),(void*)(nullptr),(void*)(nullptr),this))
+#define desireScene2(CLASS, NAME)             (pGOD->makeScene<CLASS>(GgafCore::GgafGod::bless, this, this, (void*)(NAME),(void*)(nullptr),(void*)(nullptr),this))
+#define desireScene3(CLASS, NAME, ARG1)       (pGOD->makeScene<CLASS>(GgafCore::GgafGod::bless2, this, this, (void*)(NAME),(void*)(ARG1),(void*)(nullptr),this))
+#define desireScene4(CLASS, NAME, ARG1, ARG2) (pGOD->makeScene<CLASS>(GgafCore::GgafGod::bless3, this, this, (void*)(NAME),(void*)(ARG1),(void*)(ARG2),this))
+#define selectDesireSceneMacro(_1,_2,_3,_4,MACRO,...) MACRO
+
+#ifdef _MSC_VER
+    //MSVC‚Ìê‡
+    #define ___EXPAND( X ) X
+    /** ƒAƒNƒ^[‚ð_‚É–]‚Þ */
+    #define wantActor(ID,...) ___EXPAND( selectWantActorMacro(__VA_ARGS__,wantActor4,wantActor3,wantActor2,wantActor1)(ID,__VA_ARGS__) )
+    /** ƒV[ƒ“‚ð_‚É–]‚Þ */
+    #define wantScene(ID,...) ___EXPAND( selectWantSceneMacro(__VA_ARGS__,wantScene4,wantScene3,wantScene2,wantScene1)(ID,__VA_ARGS__) )
+    /** ƒV[ƒ“‚ð_‚É–]‚ÝAj•Ÿ‚³‚êAŽó‚¯Žæ‚ê‚é‚Ü‚Å‹­—~‚É‘Ò‚Â */
+    #define desireActor(...) ___EXPAND( selectDesireActorMacro(__VA_ARGS__,desireActor4,desireActor3,desireActor2,desireActor1)(__VA_ARGS__) )
+    /** ƒV[ƒ“‚ð_‚É–]‚ÝAj•Ÿ‚³‚êAŽó‚¯Žæ‚ê‚é‚Ü‚Å‹­—~‚É‘Ò‚Â */
+    #define desireScene(...) ___EXPAND( selectDesireSceneMacro(__VA_ARGS__,desireScene4,desireScene3,desireScene2,desireScene1)(__VA_ARGS__) )
+#else
+    //GCC‚Ìê‡
+    /** ƒAƒNƒ^[‚ð_‚É–]‚Þ */
+    #define wantActor(ID,...) selectWantActorMacro(__VA_ARGS__,wantActor4,wantActor3,wantActor2,wantActor1)(ID,__VA_ARGS__)
+    /** ƒV[ƒ“‚ð_‚É–]‚Þ */
+    #define wantScene(ID,...) selectWantSceneMacro(__VA_ARGS__,wantScene4,wantScene3,wantScene2,wantScene1)(ID,__VA_ARGS__)
+    /** ƒV[ƒ“‚ð_‚É–]‚ÝAj•Ÿ‚³‚êAŽó‚¯Žæ‚ê‚é‚Ü‚Å‹­—~‚É‘Ò‚Â */
+    #define desireActor(...) selectDesireActorMacro(__VA_ARGS__,desireActor4,desireActor3,desireActor2,desireActor1)(__VA_ARGS__)
+    /** ƒV[ƒ“‚ð_‚É–]‚ÝAj•Ÿ‚³‚êAŽó‚¯Žæ‚ê‚é‚Ü‚Å‹­—~‚É‘Ò‚Â */
+    #define desireScene(...) selectDesireSceneMacro(__VA_ARGS__,desireScene4,desireScene3,desireScene2,desireScene1)(__VA_ARGS__)
+#endif
+
 /** –]‚Ü‚êj•Ÿ‚³‚ê‚½ƒAƒNƒ^[‚ðŽó‚¯Žæ‚é */
 #define grantActor(ID) (pGOD->receiveActor((ID),this))
 /** –]‚Ü‚êj•Ÿ‚³‚ê‚½ƒV[ƒ“‚ðŽó‚¯Žæ‚é */
 #define grantScene(ID) (pGOD->receiveScene((ID),this))
-/** ƒV[ƒ“‚ð_‚É–]‚ÝAj•Ÿ‚³‚êAŽó‚¯Žæ‚ê‚é‚Ü‚Å‹­—~‚É‘Ò‚Â */
-#define desireScene(CLASS, NAME) (pGOD->makeScene<CLASS>(GgafCore::GgafGod::bless, this, this, (void*)(NAME),(void*)(nullptr),(void*)(nullptr),this))
-/** ƒAƒNƒ^[‚ð_‚É–]‚ÝAj•Ÿ‚³‚êAŽó‚¯Žæ‚ê‚é‚Ü‚Å‹­—~‚É‘Ò‚Â */
-#define desireActor(CLASS, NAME) (pGOD->makeActor<CLASS>(GgafCore::GgafGod::bless, this, this, (void*)(NAME),(void*)(nullptr),(void*)(nullptr),this))
-/** _‚É–]‚ÝAŽó‚¯Žæ‚é‚Ü‚Å‘Ò‚Â */
-#define desireObject(CLASS, NAME) (pGOD->makeObject<CLASS>(GgafCore::GgafGod::bless, this, this, (void*)(NAME),(void*)(nullptr),(void*)(nullptr),this))
-
 }
 #endif /*GGAFCORE_GGAFGOD_H_*/

@@ -203,8 +203,8 @@ void World::initialize() {
             );
         }
     }
-    wantScene(1, PreDrawScene, "PreDraw");
-    wantScene(2, GameScene, "Game");
+    wantScene(1, PreDrawScene);
+    wantScene(2, GameScene);
     useProgress(PROG_BANPEI);
     getProgress()->reset(PROG_INIT);
 }

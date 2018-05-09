@@ -74,7 +74,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
             VioletVreath::Config::_properties.write(VV_CONFIG_FILE);
             _TRACE_("＜警告＞config.properties が存在しないので、既定の '" <<VV_DEFAULT_CONFIG_FILE << "' を load しました。");
         }
-
     } else {
         MessageBox(nullptr, "既定設定ファイル(.default_config.properties)が見つかりません。",
                                  "Error", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
@@ -100,7 +99,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     WNDCLASSEX wcex2 = wcex1;
     wcex2.lpszClassName = "secondary";
     DWORD dwStyle = WS_OVERLAPPEDWINDOW;
-
 #ifdef MY_DEBUG
     #ifdef _MSC_VER
         #ifdef _DEBUG

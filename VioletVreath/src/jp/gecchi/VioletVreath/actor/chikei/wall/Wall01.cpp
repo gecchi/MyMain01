@@ -1,5 +1,6 @@
 #include "Wall01.h"
 
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
@@ -20,9 +21,14 @@ Wall01::Wall01(const char* prm_name) :
 
 void Wall01::onCreateModel() {
 }
-
+void Wall01::onActive() {
+    MassWallActor::onActive();
+    setAlpha(0);
+    getAlphaFader()->transitionLinearToTop(60);
+}
 void Wall01::processBehavior() {
     MassWallActor::processBehavior();
+    getAlphaFader()->behave();
 //    if (pMYSHIP->isOutOfView()) {
 //        setHitAble(true, true); //自機が視野外の場合、視野外壁も当たり判定有り
 //    } else {

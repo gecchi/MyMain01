@@ -17,7 +17,7 @@ MgrWorld::MgrWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
 }
 
 void MgrWorld::initialize() {
-    pTrialAndErrScene_ = desireScene(TrialAndErrScene, "TrialAndErrScene");
+    pTrialAndErrScene_ = desireScene(TrialAndErrScene);
     addSubLast(pTrialAndErrScene_);
 
 }

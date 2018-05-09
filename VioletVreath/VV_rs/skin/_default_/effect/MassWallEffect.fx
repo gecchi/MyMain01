@@ -75,7 +75,8 @@ OUT_VS GgafDxVS_MassWall(
       float4 prm_world1           : TEXCOORD2,
       float4 prm_world2           : TEXCOORD3,
       float4 prm_world3           : TEXCOORD4,
-      float2 prm_info             : TEXCOORD5
+      float4 prm_color            : TEXCOORD5,
+      float2 prm_info             : TEXCOORD6
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
 
@@ -241,8 +242,10 @@ OUT_VS GgafDxVS_MassWall(
     //法線と、Diffuseライト方向の内積を計算し、面に対するライト方向の入射角による減衰具合を求める。
 	float power = max(dot(vecNormal_World, float3(-0.819232,0.573462,0)), 0);      
 	//Ambientライト色、Diffuseライト色、Diffuseライト方向 を考慮したカラー作成。      
-	out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*power));// * マテリアル色無しcolMaterialDiffuse;
-
+//	out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*power)) * prm_color;
+//	out_vs.color.a = prm_color.a;
+ 	out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*power));  //TODO:なぜ * prm_color; をすると暗くなってしまうのか？！
+    out_vs.color.a = prm_color.a;
 	//αフォグ
 	//out_vs.color.a = colMaterialDiffuse.a;
 //    if (out_vs.posModel_Proj.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に

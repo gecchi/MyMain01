@@ -67,7 +67,7 @@ void GameOverScene::processBehavior() {
                 if (G_RANKING_TABLE.isRankIn(G_SCORE)) {
                     _TRACE_("ランクイン!!!!");
                     //ランクインのため、ネームエントリーシーン準備
-                    wantScene(ORDER_ID_NAMEENTRYSCENE, NameEntryScene, "NameEntryScene");
+                    wantScene(ORDER_ID_NAMEENTRYSCENE, NameEntryScene);
                     need_name_entry_ = true;
                 } else {
                     _TRACE_("ランクインではない!!!!");

@@ -21,8 +21,8 @@ enum {
 
 TrialAndErrScene::TrialAndErrScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "TrialAndErrScene";
-    wantActor(10000, Test01, "Test01");
-    wantActor(10001, Jiki, "Jiki");
+    wantActor(10000, Test01);
+    wantActor(10001, Jiki);
 }
 
 void TrialAndErrScene::initialize() {

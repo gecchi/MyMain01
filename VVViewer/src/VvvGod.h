@@ -6,7 +6,7 @@
 #include "scene/VvvSpacetime.h"
 
 #undef pGOD
-#define pGOD ((VVViewer::VvvGod*)VVViewer::VvvGod::_pGod)
+#define pGOD ((VVViewer::VvvGod*)GgafCore::GgafGod::ask())
 
 namespace VVViewer {
 

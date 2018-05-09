@@ -17,7 +17,7 @@ public:
     Wall01(const char* prm_name);
 
     void onCreateModel() override;
-
+    void onActive() override;
     void processBehavior() override;
 //    bool isOutOfSpacetime() const override;
 

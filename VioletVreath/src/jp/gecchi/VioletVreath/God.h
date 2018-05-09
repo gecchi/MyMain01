@@ -13,7 +13,7 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime.h"
 
 #undef pGOD
-#define pGOD ((VioletVreath::God*)VioletVreath::God::_pGod)
+#define pGOD ((VioletVreath::God*)GgafCore::GgafGod::ask())
 
 namespace VioletVreath {
 

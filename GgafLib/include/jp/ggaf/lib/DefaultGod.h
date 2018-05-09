@@ -11,7 +11,7 @@
 #include "jp/ggaf/lib/scene/DefaultSpacetime.h"
 
 #undef pGOD
-#define pGOD ((GgafLib::DefaultGod*)GgafCore::GgafGod::_pGod)
+#define pGOD ((GgafLib::DefaultGod*)GgafCore::GgafGod::ask())
 
 /**
  * 神が保持する SplineManufactureManager に接続し、コネクションを取得。

@@ -8,7 +8,7 @@
 
 
 #undef pGOD
-#define pGOD ((GgafDxCore::GgafDxGod*)GgafDxCore::GgafDxGod::_pGod)
+#define pGOD ((GgafDxCore::GgafDxGod*)GgafCore::GgafGod::ask())
 
 namespace GgafDxCore {
 

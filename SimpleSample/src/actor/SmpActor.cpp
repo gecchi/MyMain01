@@ -2,12 +2,13 @@
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
+#include "SmpGod.h"
 #include "scene/SmpSpacetime.h"
+
 
 using GgafLib::DefaultMeshActor;
 using GgafLib::VirtualButton;
 using GgafDxCore::GgafDxKuroko;
-
 using namespace SimpleSample;
 
 SmpActor::SmpActor(const char* prm_name) :
@@ -25,7 +26,7 @@ void SmpActor::initialize() {
 
 void SmpActor::processBehavior() {
     //キャラをボタン入力で移動
-    VirtualButton* vb = ((SmpSpacetime*)askGod()->getSpacetime())->getVB();
+    VirtualButton* vb = pGOD->getVB();
     static const coord d = PX_C(2);
     if (vb->isPressed(VB_BUTTON1)) {
         //ボタン１（スペースキー）を押しながらの場合
