@@ -80,7 +80,8 @@ OUT_VS GgafDxVS_CubeMapMassWall(
       float4 prm_world1           : TEXCOORD2,
       float4 prm_world2           : TEXCOORD3,
       float4 prm_world3           : TEXCOORD4,
-      float2 prm_info             : TEXCOORD5
+      float4 prm_color            : TEXCOORD5,
+      float2 prm_info             : TEXCOORD6
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
 
@@ -236,8 +237,9 @@ OUT_VS GgafDxVS_CubeMapMassWall(
 
     float4x4 matWorld = {prm_world0, prm_world1, prm_world2, prm_world3};
 	//World*View*射影変換
-    const float4 posModel_World = mul(prm_posModel_Local, matWorld);        //World 変換
-    out_vs.posModel_Proj = mul( mul( posModel_World, g_matView), g_matProj);  //View*射影 変換
+    const float4 posModel_World = mul(prm_posModel_Local, matWorld); //World 変換
+    const float4 posModel_View = mul(posModel_World, g_matView ); //World*View 変換
+	out_vs.posModel_Proj = mul(posModel_View, g_matProj); //World*View*射影変換
 	//UVはそのまま
 	out_vs.uv = prm_uv;
 	//法線を World 変換して正規化
@@ -248,27 +250,17 @@ OUT_VS GgafDxVS_CubeMapMassWall(
 	float power = max(dot(out_vs.vecNormal_World, float3(-0.819232,0.573462,0)), 0);      
 // const float power = max(dot(out_vs.vecNormal_World, -g_vecLightFrom_World ), 0); //本来
 
-	//Ambientライト色、Diffuseライト色、Diffuseライト方向 を考慮したカラー作成。      
-	out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*power));// * マテリアル色無しcolMaterialDiffuse;
+	out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*power)) * prm_color;
+	out_vs.color.a = prm_color.a;
+    //自機より手前はα
+	if (posModel_View.z < g_distance_AlphaTarget) {
+		//out_vs.color.a *= ((posModel_View.z  / (g_distance_AlphaTarget*2)) + 0.5f); //1.0～0.5
+		out_vs.color.a *= (posModel_View.z  / g_distance_AlphaTarget); //1.0～0.0
+	}
+
     //「頂点→カメラ視点」方向ベクトル
     out_vs.vecEye_World = normalize(g_posCam_World.xyz - posModel_World.xyz);
-
-	//αフォグ
-	//out_vs.color.a = colMaterialDiffuse.a;
-//    if (out_vs.posModel_Proj.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
-//        out_vs.color.a *= (-3.0*(out_vs.posModel_Proj.z/g_zf) + 3.0);
-//    }
     
-    if (out_vs.posModel_Proj.z > out_vs.posModel_Proj.w) {
-        out_vs.posModel_Proj.z = out_vs.posModel_Proj.w;
-    }
-    //自機より手前はα
-	if ( out_vs.posModel_Proj.z < g_distance_AlphaTarget) {
-		out_vs.color.a = (out_vs.posModel_Proj.z + 1.0)  / (g_distance_AlphaTarget*2);
-	}
-//    if (out_vs.posModel_Proj.z > g_zf*0.98) {   
-//        out_vs.posModel_Proj.z = g_zf*0.98; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
-//    }
 	return out_vs;
 }
 

@@ -40,7 +40,7 @@ void CubeMapMassWallActor::processDraw() {
         hr = pID3DXEffect->SetFloat(pEffect->_h_distance_AlphaTarget, -(_pWallSectionScene->_pActor_infront_alpha_target->_dest_from_vppln_infront));
         checkDxException(hr, D3D_OK, "SetMatrix(_h_distance_AlphaTarget) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     } else {
-        hr = pID3DXEffect->SetFloat(pEffect->_h_distance_AlphaTarget, -100.0f);
+        hr = pID3DXEffect->SetFloat(pEffect->_h_distance_AlphaTarget, PX_DX(1));
         checkDxException(hr, D3D_OK, "SetMatrix(_h_distance_AlphaTarget) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     }
     //	ah = g_wall_width / g_wall_dep / 2.0; //ŒX‚« z/x iŒX‚« x/z ‚Å‚Í‚È‚­‚Äj
@@ -75,6 +75,7 @@ void CubeMapMassWallActor::processDraw() {
     const hashval hash_technique = _hash_technique;
 
     static const size_t size_of_D3DXMATRIX = sizeof(D3DXMATRIX);
+    static const size_t size_of_D3DCOLORVALUE = sizeof(D3DCOLORVALUE);
     MassWallActor::VERTEX_instancedata* paInstancedata = MassWallActor::_aInstancedata;
     CubeMapMassWallActor* pCubeMapMassWallActor = nullptr;
     GgafDxFigureActor* pDrawActor = this;
@@ -82,6 +83,7 @@ void CubeMapMassWallActor::processDraw() {
         if (pDrawActor->getModel() == pMassMeshModel && pDrawActor->_hash_technique == hash_technique) {
             pCubeMapMassWallActor = (CubeMapMassWallActor*)pDrawActor;
             memcpy(paInstancedata, &(pDrawActor->_matWorld), size_of_D3DXMATRIX);
+            memcpy(&(paInstancedata->r), &(pDrawActor->_paMaterial[0].Diffuse), size_of_D3DCOLORVALUE);
             paInstancedata->_wall_draw_face = pCubeMapMassWallActor->_wall_draw_face;
             paInstancedata->_pos_info =  pCubeMapMassWallActor->_pos_info;
             ++paInstancedata;

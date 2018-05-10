@@ -54,7 +54,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     TCHAR current_dir[MAX_PATH];
     GetCurrentDirectory(MAX_PATH, current_dir);
     LPTSTR command_line = GetCommandLine();
-
     _TRACE_("current_dir="<<current_dir);
     _TRACE_("command_line="<<command_line);
     std::set_unexpected(myUnexpectedHandler);
@@ -243,7 +242,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
     GgafLibWndProc(hWnd, message, wParam, lParam);
 
     switch (message) {
-
         case WM_CREATE: {
             // システムメニューカスタム関数を呼ぶ
             CustmizeSysMenu(hWnd);

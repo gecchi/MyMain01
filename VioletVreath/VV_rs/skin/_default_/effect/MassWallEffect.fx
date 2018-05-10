@@ -231,8 +231,10 @@ OUT_VS GgafDxVS_MassWall(
 	//+ ((prm_posModel_Local.x-fh)*ah);                      ・・・ 先端を水平にする計算
 
 	float4x4 matWorld = {prm_world0, prm_world1, prm_world2, prm_world3};
-	//World*View*射影変換
-	out_vs.posModel_Proj = mul(mul(mul( prm_posModel_Local, matWorld ), g_matView ), g_matProj);
+	               
+    const float4 posModel_View = mul(mul( prm_posModel_Local, matWorld ), g_matView ); //World*View
+	out_vs.posModel_Proj = mul(posModel_View, g_matProj); //射影変換  
+
 	//UVはそのまま
 	out_vs.uv = prm_uv;
 	//法線を World 変換して正規化
@@ -242,26 +244,18 @@ OUT_VS GgafDxVS_MassWall(
     //法線と、Diffuseライト方向の内積を計算し、面に対するライト方向の入射角による減衰具合を求める。
 	float power = max(dot(vecNormal_World, float3(-0.819232,0.573462,0)), 0);      
 	//Ambientライト色、Diffuseライト色、Diffuseライト方向 を考慮したカラー作成。      
-//	out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*power)) * prm_color;
-//	out_vs.color.a = prm_color.a;
- 	out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*power));  //TODO:なぜ * prm_color; をすると暗くなってしまうのか？！
-    out_vs.color.a = prm_color.a;
-	//αフォグ
-	//out_vs.color.a = colMaterialDiffuse.a;
-//    if (out_vs.posModel_Proj.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
-//        out_vs.color.a *= (-3.0*(out_vs.posModel_Proj.z/g_zf) + 3.0);
-//    }
-    
-    if (out_vs.posModel_Proj.z > out_vs.posModel_Proj.w) {
-        out_vs.posModel_Proj.z = out_vs.posModel_Proj.w; //本来視野外のZでも、描画を強制するため g_zf*0.999 に上書き、
-    }
+	out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*power)) * prm_color;
+	out_vs.color.a = prm_color.a;
     //自機より手前はα
-	if ( out_vs.posModel_Proj.z < g_distance_AlphaTarget) {
-		out_vs.color.a = (out_vs.posModel_Proj.z + 1.0)  / (g_distance_AlphaTarget*2);
+	if (posModel_View.z < g_distance_AlphaTarget) {
+		//out_vs.color.a *= ((posModel_View.z  / (g_distance_AlphaTarget*2)) + 0.5f); //1.0～0.5
+		out_vs.color.a *= (posModel_View.z  / g_distance_AlphaTarget); //1.0～0.0
 	}
-//    if (out_vs.posModel_Proj.z > g_zf*0.98) {   
-//        out_vs.posModel_Proj.z = g_zf*0.98; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
-//    }
+    if (out_vs.posModel_Proj.z > out_vs.posModel_Proj.w) {
+        out_vs.posModel_Proj.z = out_vs.posModel_Proj.w; //描画外のZでも、描画を強制するために上書き、
+    }
+	//メモ：posModel_Proj.w = 1.0 の場合 posModel_Proj ＝ X座標Y座標 -1 ～ +1、深度Z  0 ～ +1
+
 	return out_vs;
 }
 

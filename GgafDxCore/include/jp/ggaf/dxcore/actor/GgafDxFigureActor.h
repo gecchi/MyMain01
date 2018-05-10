@@ -60,7 +60,7 @@ public:
     char* _technique;
     /** [r]現在描画に使用しているのシェーダーテクニックのハッシュコード */
     hashval _hash_technique;
-    /** [r/w]現在のマテリアル別カラー */
+    /** [r/w]現在のマテリアル別カラー(TODO:Diffuse のみ使用） */
     D3DMATERIAL9* _paMaterial;
 
     /** [r/w]現在の描画深度 */

@@ -16,7 +16,6 @@ Wall01::Wall01(const char* prm_name) :
     _class_name = "Wall01";
 //    setCubeMap("uffizi_cross_cubemap.dds", 0.4);
     getModel()->setSpecular(5.0, 1.0);
-    //drawAnyFar(true);//‰“‚­‚Ä‚à•\Ž¦
 }
 
 void Wall01::onCreateModel() {

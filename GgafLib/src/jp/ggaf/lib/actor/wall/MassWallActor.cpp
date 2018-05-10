@@ -228,7 +228,7 @@ void MassWallActor::processDraw() {
         hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_distance_AlphaTarget, -(_pWallSectionScene->_pActor_infront_alpha_target->_dest_from_vppln_infront));
         checkDxException(hr, D3D_OK, "SetMatrix(_h_distance_AlphaTarget) ‚É¸”s‚µ‚Ü‚µ‚½B");
     } else {
-        hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_distance_AlphaTarget, -100.0f);
+        hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_distance_AlphaTarget, PX_DX(1));
         checkDxException(hr, D3D_OK, "SetMatrix(_h_distance_AlphaTarget) ‚É¸”s‚µ‚Ü‚µ‚½B");
     }
     //	ah = g_wall_width / g_wall_dep / 2.0; //ŒX‚« z/x iŒX‚« x/z ‚Å‚Í‚È‚­‚Äj

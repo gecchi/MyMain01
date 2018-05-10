@@ -5,7 +5,6 @@
 #include "SmpGod.h"
 #include "scene/SmpSpacetime.h"
 
-
 using GgafLib::DefaultMeshActor;
 using GgafLib::VirtualButton;
 using GgafDxCore::GgafDxKuroko;
