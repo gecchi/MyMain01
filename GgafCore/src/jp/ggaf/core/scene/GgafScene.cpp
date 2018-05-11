@@ -210,17 +210,17 @@ void GgafScene::unpause() {
     _pSceneMediator->unpause();
 }
 
-void GgafScene::executeFuncLowerTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2) {
-    GgafElement<GgafScene>::executeFuncLowerTree(pFunc, prm1, prm2);
-    _pSceneMediator->executeFuncLowerTree(pFunc, prm1, prm2);
+void GgafScene::executeFuncLowerTree(void (*pFunc)(GgafObject*, void*, void*, void*), void* prm1, void* prm2, void* prm3) {
+    GgafElement<GgafScene>::executeFuncLowerTree(pFunc, prm1, prm2, prm3);
+    _pSceneMediator->executeFuncLowerTree(pFunc, prm1, prm2, prm3);
 }
 
-void GgafScene::executeFuncLowerSceneTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2) {
+void GgafScene::executeFuncLowerSceneTree(void (*pFunc)(GgafObject*, void*, void*, void*), void* prm1, void* prm2, void* prm3) {
     if (_can_live_flg && _is_active_flg) {
-        pFunc(this, prm1, prm2);
+        pFunc(this, prm1, prm2, prm3);
         GgafScene* pScene = _pSubFirst;
         while (pScene) {
-            pScene->executeFuncLowerSceneTree(pFunc, prm1, prm2);
+            pScene->executeFuncLowerSceneTree(pFunc, prm1, prm2, prm3);
             if (pScene->_is_last_flg) {
                 break;
             } else {

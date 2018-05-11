@@ -168,16 +168,18 @@ public:
      * @param pFunc オブジェクトに実行させたい関数
      * @param prm1 渡したい引数その１
      * @param prm2 渡したい引数その２
+     * @param prm3 渡したい引数その３
      */
-    virtual void executeFuncLowerTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2) override;
+    virtual void executeFuncLowerTree(void (*pFunc)(GgafObject*, void*, void*, void*), void* prm1, void* prm2, void* prm3) override;
 
     /**
      * 配下全てのシーンに対して指定の関数を実行させる .
      * @param pFunc オブジェクトに実行させたい関数
      * @param prm1 渡したい引数その１
      * @param prm2 渡したい引数その２
+     * @param prm3 渡したい引数その３
      */
-    virtual void executeFuncLowerSceneTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2);
+    virtual void executeFuncLowerSceneTree(void (*pFunc)(GgafObject*, void*, void*, void*), void* prm1, void* prm2, void* prm3);
 
     /**
      * 自ツリーシーンをnフレーム後にゴミ箱へ移動します .

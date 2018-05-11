@@ -27,7 +27,7 @@ public:
     /** スクロール速度 */
     velo _scroll_speed;
     /** [r/w]スクロール関数へのポインタ */
-    void (*_pFuncScrolling)(GgafCore::GgafObject*, void*, void*);
+    void (*_pFuncScrolling)(GgafCore::GgafObject*, void*, void*, void*);
 
 public:
     DefaultScene(const char* prm_name, GgafCore::GgafSceneMediator* prm_pSceneMediator = nullptr);
@@ -71,10 +71,10 @@ public:
      * スクロール関数を設定する。
      * 設定されたスクロール関数を配下ツリーシーンの全アクターに実行を行う。<BR>
      * 第１引数には、対象アクター、第２引数には、スクロールスピード(_scroll_speedへのポインタ)が渡される。<BR>
-     * シーンが WalledSceneの場合に限り、標準で WalledScene::scrollX(GgafObject*, void*, void*) が設定されている。<BR>
-     * @param prm_pFuncScrolling 引数が(GgafObject*, void*, void*) となる関数ポインタ
+     * シーンが WalledSceneの場合に限り、標準で WalledScene::scrollX(GgafObject*, void*, void*, void*) が設定されている。<BR>
+     * @param prm_pFuncScrolling 引数が(GgafObject*, void*, void*, void*) となる関数ポインタ
      */
-    void setScrollingFunction(void (*prm_pFuncScrolling)(GgafCore::GgafObject*, void*, void*)) {
+    void setScrollingFunction(void (*prm_pFuncScrolling)(GgafCore::GgafObject*, void*, void*, void*)) {
         _pFuncScrolling = prm_pFuncScrolling;
     }
 

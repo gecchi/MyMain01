@@ -171,7 +171,7 @@ void FormationDelheid::processBehavior() {
          //全メンバー減速
          case PROG_FROMATION_MOVE2: {
              if (pProg->hasJustChanged()) {
-                 _listFollower.executeFunc(FormationDelheid::order1, this, nullptr);
+                 _listFollower.executeFunc(FormationDelheid::order1, this, nullptr, nullptr);
              }
              if (pProg->hasArrivedAt(120)) {
                  pProg->changeNext();
@@ -183,7 +183,7 @@ void FormationDelheid::processBehavior() {
          //メンバー停滞&発射
          case PROG_FROMATION_MOVE3: {
              if (pProg->hasJustChanged()) {
-                 _listFollower.executeFunc(FormationDelheid::order2, this, nullptr);
+                 _listFollower.executeFunc(FormationDelheid::order2, this, nullptr, nullptr);
              }
              if (pProg->hasArrivedAt(360)) {
                  pProg->changeNext(); //停滞終了！
@@ -194,7 +194,7 @@ void FormationDelheid::processBehavior() {
          //メンバー再始動
          case PROG_FROMATION_MOVE4: {
              if (pProg->hasJustChanged()) {
-                 _listFollower.executeFunc(FormationDelheid::order3, this, nullptr);
+                 _listFollower.executeFunc(FormationDelheid::order3, this, nullptr, nullptr);
              }
              if (pProg->hasArrivedAt(120)) {
                  pProg->changeNext(); //再始動完了
@@ -227,14 +227,14 @@ void FormationDelheid::processBehavior() {
      }
 }
 
-void FormationDelheid::order1(GgafCore::GgafActor* prm_pDelheid, void* prm1, void* prm2) {
+void FormationDelheid::order1(GgafCore::GgafActor* prm_pDelheid, void* prm1, void* prm2, void* prm3) {
     //各メンバー減速
     EnemyDelheid* pMember = (EnemyDelheid*)prm_pDelheid;
     FormationDelheid* pFormation = (FormationDelheid*)prm1;
     pMember->getKuroko()->setMvAcceByT(120, -(pFormation->RV_MvVelo_/8));
 }
 
-void FormationDelheid::order2(GgafCore::GgafActor* prm_pDelheid, void* prm1, void* prm2) {
+void FormationDelheid::order2(GgafCore::GgafActor* prm_pDelheid, void* prm1, void* prm2, void* prm3) {
     //各メンバー停滞&発射
     EnemyDelheid* pMember = (EnemyDelheid*)prm_pDelheid;
     FormationDelheid* pFormation = (FormationDelheid*)prm1;
@@ -242,7 +242,7 @@ void FormationDelheid::order2(GgafCore::GgafActor* prm_pDelheid, void* prm1, voi
     pMember->open_shot(); //ショット発射！
 }
 
-void FormationDelheid::order3(GgafCore::GgafActor* prm_pDelheid, void* prm1, void* prm2) {
+void FormationDelheid::order3(GgafCore::GgafActor* prm_pDelheid, void* prm1, void* prm2, void* prm3) {
     //各メンバー再始動
     EnemyDelheid* pMember = (EnemyDelheid*)prm_pDelheid;
     FormationDelheid* pFormation = (FormationDelheid*)prm1;

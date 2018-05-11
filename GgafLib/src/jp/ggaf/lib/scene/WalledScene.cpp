@@ -161,7 +161,7 @@ void WalledScene::processBehavior() {
 void WalledScene::processFinal() {
 }
 
-void WalledScene::scrollX(GgafObject* pThat, void* p1, void* p2) {
+void WalledScene::scrollX(GgafObject* pThat, void* p1, void* p2, void* p3) {
     if (pThat->instanceOf(Obj_GgafDxGeometricActor)) {
         GgafDxGeometricActor* pActor = (GgafDxGeometricActor*)pThat;
         if (pActor->_is_active_flg && !pActor->_was_paused_flg && pActor->_can_live_flg) {

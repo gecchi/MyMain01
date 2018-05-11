@@ -85,9 +85,10 @@ public:
      * X軸の負の方向にスクロールさせる関数 .
      * @param pThat アクター
      * @param p1 スクロールスピード(_scroll_speedへのポインタ)
-     * @param p2 任意（引数は特に無し）
+     * @param p2 nullptr
+     * @param p3 nullptr
      */
-    static void scrollX(GgafObject* pThat, void* p1, void* p2);
+    static void scrollX(GgafObject* pThat, void* p1, void* p2, void* p3);
 
 
     virtual ~WallScene();

@@ -781,8 +781,8 @@ public:
      * 配下オブジェクト（アクターかシーン）のポインタが、引数関数ポインタの pFuncの第１引数に渡ってくる。<BR>
      * 引数関数ポインタの pFunc の第２引数には、executeFuncLowerTree 呼び出し時の prm1(引数１)のポインタが渡ってくる。<BR>
      * 引数関数ポインタの pFunc の第３引数には、executeFuncLowerTree 呼び出し時の prm2(引数２)のポインタが渡ってくる。<BR>
+     * 引数関数ポインタの pFunc の第４引数には、executeFuncLowerTree 呼び出し時の prm3(引数３)のポインタが渡ってくる。<BR>
      * 配下のオブジェクトが何であるのか判っている上で使用しないと危険である。<BR>
-     * あと、ラムダ式とキャプチャーを使わせてください。<BR>
      *
      * ＜使用例＞<BR>
      * XXXXActor 配下のオブジェクト全てのアクター(但しGgafDxGeometricActor)のメンバ変数 _x に、
@@ -794,7 +794,7 @@ public:
      * public :
      *     int velo_;
      *
-     *     static void addX(GgafObject* pThat, void* p1, void* p2) {
+     *     static void addX(GgafObject* pThat, void* p1, void* p2, void* p3) {
      *         if (pThat->instanceOf(Obj_GgafDxGeometricActor)) { //GgafDxGeometricActorならば
      *             GgafDxGeometricActor* pActor = (GgafDxGeometricActor*)pThat;
      *             pActor->_x += (*((int*)p1));  //_x 加算。p1 には velo_ へのポインタが渡ってくる
@@ -804,16 +804,17 @@ public:
      *     void processBehavior() {
      *         //配下アクター全てにaddX実行
      *         velo_ = 1000;
-     *         executeFuncLowerTree(XXXXActor::addX, &velo_, nullptr);
+     *         executeFuncLowerTree(XXXXActor::addX, &velo_, nullptr, nullptr);
      *     }
      * }
      *
      * </pre></code>
-     * @param pFunc オブジェクトに実行させたい関数。パラメータは(GgafObject*, void*, void*) 固定。
+     * @param pFunc オブジェクトに実行させたい関数。パラメータは(GgafObject*, void*, void*, void*) 固定。
      * @param prm1 渡したい引数その１
      * @param prm2 渡したい引数その２
+     * @param prm3 渡したい引数その３
      */
-    virtual void executeFuncLowerTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2);
+    virtual void executeFuncLowerTree(void (*pFunc)(GgafObject*, void*, void*, void*), void* prm1, void* prm2, void* prm3);
 
     /**
      * 本オブジェクトの _frame_of_behaving に関連性を持った、進捗管理オブジェクト(GgafProgress) の利用宣言をする .
@@ -1377,12 +1378,12 @@ void GgafElement<T>::clean(int prm_num_cleaning) {
 }
 
 template<class T>
-void GgafElement<T>::executeFuncLowerTree(void (*pFunc)(GgafObject*, void*, void*), void* prm1, void* prm2) {
+void GgafElement<T>::executeFuncLowerTree(void (*pFunc)(GgafObject*, void*, void*, void*), void* prm1, void* prm2, void* prm3) {
     if (_can_live_flg && _is_active_flg) {
-        pFunc(this, prm1, prm2);
+        pFunc(this, prm1, prm2, prm3);
         T* pElementTemp = GgafNode<T>::_pSubFirst;
         while (pElementTemp) {
-            pElementTemp->executeFuncLowerTree(pFunc, prm1, prm2);
+            pElementTemp->executeFuncLowerTree(pFunc, prm1, prm2, prm3);
             if (pElementTemp->_is_last_flg) {
                 break;
             } else {

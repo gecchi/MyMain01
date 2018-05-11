@@ -148,10 +148,11 @@ void WallScene::processBehavior() {
 void WallScene::processFinal() {
 }
 
-void WallScene::scrollX(GgafObject* pThat, void* p1, void* p2) {
+void WallScene::scrollX(GgafObject* pThat, void* p1, void* p2, void* p3) {
     if (pThat->instanceOf(Obj_GgafDxGeometricActor)) {
         GgafDxGeometricActor* pActor = (GgafDxGeometricActor*)pThat;
-        if (pActor->_is_active_flg && !pActor->_was_paused_flg && pActor->_can_live_flg) {
+        if (!pActor->_was_paused_flg) {
+            // _is_active_flg と、_can_live_flg は、GgafElement<T>::executeFuncLowerTree()でチェック済み
             pActor->_x -= (*((coord*)p1));
         }
     }

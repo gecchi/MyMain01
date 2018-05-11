@@ -238,10 +238,10 @@ void CommonScene::processBehavior() {
 
 }
 
-void CommonScene::scrollX(GgafObject* pThat, void* p1, void* p2) {
+void CommonScene::scrollX(GgafObject* pThat, void* p1, void* p2, void* p3) {
     if (pThat->instanceOf(Obj_GgafDxGeometricActor)) {
         GgafDxGeometricActor* pActor = (GgafDxGeometricActor*)pThat;
-        if (pActor->_is_active_flg && !pActor->_was_paused_flg && pActor->_can_live_flg) {
+        if (!pActor->_was_paused_flg) {
             if (pActor->lookUpKind() & KIND_ITEM) {
                 //Item‚ÍƒXƒNƒ[ƒ‹‚Ì‰e‹¿‚ğó‚¯‚È‚¢
             } else {

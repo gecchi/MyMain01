@@ -824,7 +824,7 @@ public:
     /**
      * 全ての要素値に対して指定の関数を実行させる .
      * 要素地のポインタが、引数関数ポインタの pFuncの第１引数 T* に渡ってきます。
-     * prm1, prm2 は、引数関数ポインタの void*, void* に渡ってきます。(キャプチャ的に使って！)<BR>
+     * prm1, prm2, prm3 は、引数関数ポインタの void*, void*, void* に渡ってきます。(キャプチャ的に使って！)<BR>
      * <BR>
      * ＜使用例＞<BR>
      * フォーメーションの編隊メンバーのオブジェクト(GgafActor*)が、GgafLinkedListRingリスト(listFollowers_)に
@@ -839,7 +839,7 @@ public:
      *     int velo_mv_;
      *     GgafLinkedListRing<GgafActor> listFollowers_;
      *
-     *     static void FormationXXX::order1(GgafCore::GgafActor* prm_pActor, void* p1, void* p2) {
+     *     static void FormationXXX::order1(GgafCore::GgafActor* prm_pActor, void* p1, void* p2, void* p3) {
      *         //個々のメンバー加速
      *         EnemyXXX* pEnemyXXX = (EnemyDelheid*)prm_pActor; //実装の型にキャスト
      *         int velo_mv = *((velo*)p1);                       //キャプチャ引数を元の型に戻す
@@ -849,23 +849,24 @@ public:
      *     void processBehavior() {
      *         //全ての編隊メンバーに加速支持を出す。
      *         velo_mv_ = 3000; //速度
-     *         listFollowers_.executeFunc(FormationXXX::order1, &velo_mv_, nullptr);
+     *         listFollowers_.executeFunc(FormationXXX::order1, &velo_mv_, nullptr, nullptr);
      *     }
      * }
      *
      * </pre></code>
-     * @param pFunc 要素値に実行させたい関数。パラメータは(T*, void*, void*) 固定。T* 要素の値が渡される。
+     * @param pFunc 要素値に実行させたい関数。パラメータは(T*, void*, void*, void*) 固定。T* 要素の値が渡される。
      * @param prm1 渡したい引数その１
      * @param prm2 渡したい引数その２
+     * @param prm3 渡したい引数その３
      */
-    void executeFunc(void (*pFunc)(T*, void*, void*), void* prm1, void* prm2) {
+    void executeFunc(void (*pFunc)(T*, void*, void*, void*), void* prm1, void* prm2, void* prm3) {
         if (_pElemActive == nullptr) {
             return;
         } else {
             Elem* pElem = _pElem_first;
             int n = _num_elem;
             for (int i = 0; i < n; i++) {
-                pFunc((T*) pElem->_pValue, prm1, prm2);
+                pFunc((T*) pElem->_pValue, prm1, prm2, prm3);
                 pElem = pElem->_pNext;
             }
             return;

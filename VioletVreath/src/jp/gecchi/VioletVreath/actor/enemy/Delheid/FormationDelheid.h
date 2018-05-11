@@ -69,11 +69,11 @@ public:
     virtual void onSayonaraAll() override;
 
 
-    static void order1(GgafCore::GgafActor* prm_pDelheid, void* prm1, void* prm2);
+    static void order1(GgafCore::GgafActor* prm_pDelheid, void* prm1, void* prm2, void* prm3);
 
-    static void order2(GgafCore::GgafActor* prm_pDelheid, void* prm1, void* prm2);
+    static void order2(GgafCore::GgafActor* prm_pDelheid, void* prm1, void* prm2, void* prm3);
 
-    static void order3(GgafCore::GgafActor* prm_pDelheid, void* prm1, void* prm2);
+    static void order3(GgafCore::GgafActor* prm_pDelheid, void* prm1, void* prm2, void* prm3);
 
     /**
      * 設置座標と向きをセット .
