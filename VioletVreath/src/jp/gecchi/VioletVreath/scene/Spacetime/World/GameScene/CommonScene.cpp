@@ -10,147 +10,46 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name),
+#define REGISTER(TYPE, NUM)   do { \
+        pCOMMON_DEPO(TYPE) = NEW GgafActorDepository("CommonDepo_" #TYPE); \
+        pCOMMON_DEPO(TYPE)->put<TYPE>(NUM); \
+        bringSceneMediator()->addSubGroup(pCOMMON_DEPO(TYPE)); \
+}while(0)
 
-pCOMMON_DEPO(EffectExplosion001) (NEW GgafActorDepository("CommonDepo_Explosion001") ),
-pCOMMON_DEPO(EffectExplosion002) ( NEW GgafActorDepository("CommonDepo_Explosion002") ),
-pCOMMON_DEPO(EffectExplosion003) ( NEW GgafActorDepository("CommonDepo_Explosion003") ),
-pCOMMON_DEPO(EffectExplosion004) ( NEW GgafActorDepository("CommonDepo_Explosion004") ),
-pCOMMON_DEPO(MagicPointItem001) ( NEW GgafActorDepository("CommonDepo_MagicPointItem001") ),
-pCOMMON_DEPO(MagicPointItem002) ( NEW GgafActorDepository("CommonDepo_MagicPointItem002") ),
-pCOMMON_DEPO(MagicPointItem003) ( NEW GgafActorDepository("CommonDepo_MagicPointItem003") ),
-pCOMMON_DEPO(EffectTurbo002) ( NEW GgafActorDepository("CommonDepo_EffectTurbo002") ),
-pCOMMON_DEPO(EffectBlink001) ( NEW GgafActorDepository("CommonDepo_EffectBlink001") ),
-pCOMMON_DEPO(EffectBlink002) ( NEW GgafActorDepository("CommonDepo_EffectBlink002") ),
-pCOMMON_DEPO(EffectBlink003) ( NEW GgafActorDepository("CommonDepo_EffectBlink003") ),
-pCOMMON_DEPO(SpriteLabelBonus001) ( NEW GgafActorDepository("CommonDepo_SpriteLabelBonus001") ),
-pCOMMON_DEPO(Shot004) ( NEW GgafActorDepository("CommonDepo_Shot004") ),
-pStore_EnemyWateringLaser001_(NEW GgafActorDepositoryStore("CommonDepoStore_EnemyWateringLaser001") ),
-pStore_EnemyStraightLaser001_(NEW GgafActorDepositoryStore("CommonDepoStore_EnemyStraightLaser001") )
-
-{
+CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "CommonScene";
 
     //全シーンに渡って常時使用な汎用的なアクター類は
     //ココにそのデポジトリを事前作成する。
-
-    //汎用爆発エフェクト EffectExplosion001
-    {
-        for (int i = 0; i < 300; i++) {
-            std::string name = "EffectExplosion001("+XTOS(i)+")";
-            pCOMMON_DEPO(EffectExplosion001)->put(NEW EffectExplosion001(name.c_str()));
-        }
-        bringSceneMediator()->addSubGroup(pCOMMON_DEPO(EffectExplosion001));
-    }
-
-    //汎用爆発エフェクト EffectExplosion002
-    {
-        for (int i = 0; i < 100; i++) {
-            std::string name = "EffectExplosion002("+XTOS(i)+")";
-            pCOMMON_DEPO(EffectExplosion002)->put(NEW EffectExplosion002(name.c_str()));
-        }
-        bringSceneMediator()->addSubGroup(pCOMMON_DEPO(EffectExplosion002));
-    }
-    //汎用爆発エフェクト EffectExplosion003
-    {
-        for (int i = 0; i < 10; i++) {
-            std::string name = "EffectExplosion003("+XTOS(i)+")";
-            pCOMMON_DEPO(EffectExplosion003)->put(NEW EffectExplosion003(name.c_str()));
-        }
-        bringSceneMediator()->addSubGroup(pCOMMON_DEPO(EffectExplosion003));
-    }
-
-    //汎用爆発エフェクト大 EffectExplosion004
-    {
-        for (int i = 0; i < 100; i++) {
-            std::string name = "EffectExplosion004("+XTOS(i)+")";
-            pCOMMON_DEPO(EffectExplosion004)->put(NEW EffectExplosion004(name.c_str()));
-        }
-        bringSceneMediator()->addSubGroup(pCOMMON_DEPO(EffectExplosion004));
-    }
-
+    //汎用爆発エフェクト
+    REGISTER(EffectExplosion001, 300);
+    //汎用爆発エフェクト
+    REGISTER(EffectExplosion002, 100);
+    //汎用爆発エフェクト
+    REGISTER(EffectExplosion003, 10);
+    //汎用爆発エフェクト大
+    REGISTER(EffectExplosion004, 100);
     //アイテム小
-    { //pCOMMON_DEPO(MagicPointItem001)
-        for (int i = 0; i < 400; i++) {
-            std::string name = "MagicPointItem001("+XTOS(i)+")";
-            pCOMMON_DEPO(MagicPointItem001)->put(NEW MagicPointItem001(name.c_str()));
-        }
-        bringSceneMediator()->addSubGroup(pCOMMON_DEPO(MagicPointItem001));
-    }
-
+    REGISTER(MagicPointItem001, 400);
     //アイテム中
-    { //pCOMMON_DEPO(MagicPointItem002)
-        for (int i = 0; i < 30; i++) {
-            std::string name = "MagicPointItem002("+XTOS(i)+")";
-            pCOMMON_DEPO(MagicPointItem002)->put(NEW MagicPointItem002(name.c_str()));
-        }
-        bringSceneMediator()->addSubGroup(pCOMMON_DEPO(MagicPointItem002));
-    }
-
+    REGISTER(MagicPointItem002, 30);
     //アイテム大
-    { //pCOMMON_DEPO(MagicPointItem003)
-        for (int i = 0; i < 10; i++) {
-            std::string name = "MagicPointItem003("+XTOS(i)+")";
-            pCOMMON_DEPO(MagicPointItem003)->put(NEW MagicPointItem003(name.c_str()));
-        }
-        bringSceneMediator()->addSubGroup(pCOMMON_DEPO(MagicPointItem003));
-    }
-
-    { //Effect EffectTurbo002 ターボ噴射
-        for (int i = 0; i < 10; i++) {
-            std::string name = "EffectTurbo002("+XTOS(i)+")";
-            pCOMMON_DEPO(EffectTurbo002)->put(NEW EffectTurbo002(name.c_str()));
-        }
-        bringSceneMediator()->addSubGroup(pCOMMON_DEPO(EffectTurbo002));
-    }
-
+    REGISTER(MagicPointItem003, 10);
+    //Effect EffectTurbo002 ターボ噴射
+    REGISTER(EffectTurbo002, 10);
     //汎用出現エフェクト EffectBlink001
-    {
-        for (int i = 0; i < 200; i++) {
-            std::string name = "EffectBlink001("+XTOS(i)+")";
-            pCOMMON_DEPO(EffectBlink001)->put(NEW EffectBlink001(name.c_str()));
-        }
-        bringSceneMediator()->addSubGroup(pCOMMON_DEPO(EffectBlink001));
-    }
-
+    REGISTER(EffectBlink001, 200);
     //汎用出現エフェクト EffectBlink002
-    {
-        for (int i = 0; i < 30; i++) {
-            std::string name = "EffectBlink002("+XTOS(i)+")";
-            pCOMMON_DEPO(EffectBlink002)->put(NEW EffectBlink002(name.c_str()));
-        }
-        bringSceneMediator()->addSubGroup(pCOMMON_DEPO(EffectBlink002));
-    }
-
+    REGISTER(EffectBlink002, 30);
     //汎用出現エフェクト EffectBlink003
-    {
-        for (int i = 0; i < 30; i++) {
-            std::string name = "EffectBlink003("+XTOS(i)+")";
-            pCOMMON_DEPO(EffectBlink003)->put(NEW EffectBlink003(name.c_str()));
-        }
-        bringSceneMediator()->addSubGroup(pCOMMON_DEPO(EffectBlink003));
-    }
-
+    REGISTER(EffectBlink003, 30);
     //ボーナスポイント表示エフェクト
-    {
-        for (int i = 0; i < 40; i++) {
-            std::string name = "SpriteLabelBonus001("+XTOS(i)+")";
-            pCOMMON_DEPO(SpriteLabelBonus001)->put(NEW SpriteLabelBonus001(name.c_str()));
-        }
-        bringSceneMediator()->addSubGroup(pCOMMON_DEPO(SpriteLabelBonus001));
-    }
-
+    REGISTER(SpriteLabelBonus001, 30);
     //汎用ショット
-    {
-        for (int i = 0; i < 500; i++) {
-            std::string name = "Shot004("+XTOS(i)+")";
-            pCOMMON_DEPO(Shot004)->put(NEW Shot004(name.c_str()));
-        }
-        bringSceneMediator()->addSubGroup(pCOMMON_DEPO(Shot004));
-    }
-
+    REGISTER(Shot004, 30);
     //汎用Wateringレーザー
     {
+        pStore_EnemyWateringLaser001_ = NEW GgafActorDepositoryStore("CommonDepoStore_EnemyWateringLaser001");
         LaserChipDepository* pLaserChipDepo;
         for (int laser_no = 0; laser_no < 30; laser_no++) { //セット本数
             std::string name_depo = "LaserChipDepo["+XTOS(laser_no)+"]";
@@ -165,6 +64,7 @@ pStore_EnemyStraightLaser001_(NEW GgafActorDepositoryStore("CommonDepoStore_Enem
     }
     //汎用ストレートレーザー
     {
+        pStore_EnemyStraightLaser001_ = NEW GgafActorDepositoryStore("CommonDepoStore_EnemyStraightLaser001");
         LaserChipDepository* pLaserChipDepo;
         for (int laser_no = 0; laser_no < 8; laser_no++) { //セット本数
             std::string name_depo = "LaserChipDepo["+XTOS(laser_no)+"]";

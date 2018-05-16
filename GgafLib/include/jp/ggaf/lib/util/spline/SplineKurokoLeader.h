@@ -60,13 +60,9 @@ public:
     /** [r]アクターの現在位置からスプライン始点までの距離。start()時点で更新される。 */
     int _distance_to_begin;
     /** [r]始点座標を固定する。（固定しない場合は黒子Aのアクターの座標になる） */
-    bool _is_fix_start_pos;
-
-    bool _is_fix_start_ang;
+    bool _is_force_start_pos;
+    bool _is_force_start_ang;
     bool _is_loop_ang_by_face;
-    angle _ang_rx_mv_start;
-    angle _rz_mv_start;
-    angle _ry_mv_start;
 
     float _sinRx_begin;
     float _cosRx_begin;
@@ -240,49 +236,41 @@ public:
     virtual void getPointCoord(int prm_index, coord& out_x, coord& out_y, coord& out_z);
 
     /**
-     * スプラインの開始座標を引数の座標に固定（start()時に影響しない）。
-     * もし、本メソッドを実行しなかった場合、スプライン開始座標は、<BR>
-     * 「スプライン開始座標 ＝ start()時の黒子Aのアクターの座標」となる。<BR>
-     * これを避けて、スプライン開始座標を、任意の座標に上書き設定を行う。
+     * スプラインの開始座標を引数の座標に設定。
+     * 本メソッドを実行しなかった場合、スプライン開始座標は、<BR>
+     * 「スプライン開始座標 ＝ start()時の黒子Aのアクターの座標」となるのだが、<BR>
+     * これを行わずに、スプライン開始座標を、任意の座標からのスタートに設定を行う。
      * 想定使用方法は、本メソッド実行で開始座標を設定した後、<BR>
      * 実際の移動するアクターの座標は別の場所に設定して、スプライン移動を開始、<BR>
      * そうするとスプライン曲線軌道に徐々に合流するような効果を演出することができる。<BR>
      * 但し、start()時、スプライン移動繰り返し設定(２週以上)を行った場合、２周目以降には適用されない。<BR>
+     * ２週目以降は、開始座標は、前回の論理最終座標が、開始座標に設定される。
      * @param prm_x
      * @param prm_y
      * @param prm_z
      */
-    void fixStartPosition(coord prm_x, coord prm_y, coord prm_z) {
-        _is_fix_start_pos = true;
+    void setStartPosition(coord prm_x, coord prm_y, coord prm_z) {
+        _is_force_start_pos = true;
         _x_start_in_loop = prm_x;
         _y_start_in_loop = prm_y;
         _z_start_in_loop = prm_z;
     }
 
     /**
-     * スプラインの開始移動方向を固定（start()時に影響しない）。
-     * もし、本メソッドを実行しなかった場合、スプライン開始時のスプライン方向は、<BR>
-     * 「スプライン開始方向 ＝ start()時の対象アクターの黒子Aの向きの方向(_rz, _ry）となる。<BR>
-     * これを避けて、スプライン開始時、任意のスプライン方向に上書き設定を行う。<BR>
-     * 但し、start()時、スプライン移動繰り返し設定(２週以上)を行った場合、２周目以降には適用されない。<BR>
+     * スプラインの開始移動方向を固定に設定。
+     * 本メソッドを実行しなかった場合、スプライン開始時のスプライン方向は、<BR>
+     * 「スプライン開始方向 ＝ start()時の対象アクターの黒子Aの向きの方向(_rz, _ry）」となるのだが、<BR>
+     * これを行わずに、スプライン開始時、任意のスプライン方向からのスタートに設定を行う。<BR>
+     * start()時、スプライン移動繰り返し設定(２週以上)を行った場合、
+     * ２週目以降は、開始移動方向はそのままで、この値がそのまま引き継がれることになる。<BR>
      * ※スプライン方向の設定は、RELATIVE_COORD_DIRECTION の場合のみ意味がある。
      * 注意：rx > rz > ry の引数順！
      * @param prm_rx
      * @param prm_rz
      * @param prm_ry
      */
-    void fixStartAngle(angle prm_rx, angle prm_rz, angle prm_ry);
+    void setStartAngle(angle prm_rx, angle prm_rz, angle prm_ry);
 
-    /**
-     * スプラインの開始座標固定を解除する。
-     */
-    void unfixStartPosition() {
-        _is_fix_start_pos = false;
-    }
-
-    void unfixStartAngle() {
-        _is_fix_start_ang = false;
-    }
     /**
      * スプライン移動の開始方向を、自分が向いている方向に対して開始する (デフォルト).
      * start()時の対象アクターの向きの方向(_rz, _ry)に座標変換されて、スプラインの軌跡が構築される。
@@ -303,7 +291,7 @@ public:
 
 
 //    void linkedStartPosition() {
-//        unfixStartPosition();
+//        unsetStartPosition();
 //        _is_linked_start_pos = true;
 //    }
 //
@@ -312,7 +300,7 @@ public:
 //    }
 //
 //    void linkedStartAngle() {
-//        unfixStartAngle();
+//        unsetStartAngle();
 //        _is_linked_start_ang = true;
 //    }
 //

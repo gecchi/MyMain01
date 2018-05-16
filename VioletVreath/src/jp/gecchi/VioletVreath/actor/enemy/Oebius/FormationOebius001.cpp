@@ -33,31 +33,28 @@ void FormationOebius001::onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, int
         pOebius->pKurokoLeader_ = papSplManufConn_[prm_col]->peek()->
                                       createKurokoLeader(pOebius->getKuroko());
     }
-    double rate_z = pOebius->pKurokoLeader_->_pManufacture->_rate_z;
-
-    //Z = (prm_col*(0.4+0.4))*rate_z  //基本間隔は0.4。本編隊はmobius1.dat、mobius3.dat、mobius5.dat と一つ飛びなので0.4+0.4
-    //(0, 0, Z) を Rz > Ry 回転移動させると
-    //(Z*sinRy, 0, Z*cosRy)
-    float sinRy = ANG_SIN(entry_pos_.ry);
-    float cosRy = ANG_COS(entry_pos_.ry);
-    double d_col = -1.0 * papSplManufConn_[prm_col]->peek()->_sp->_rotmat._43;
-    float Z = d_col*rate_z; //rate_zを掛けることにより、ここで Z はcoordの単位となる。
-
-    coord dx = Z*sinRy;
-    coord dy = 0;
-    coord dz = Z*cosRy;
-    pOebius->pKurokoLeader_->fixStartPosition(entry_pos_.x + dx,
-                                              entry_pos_.y + dy,
-                                              entry_pos_.z + dz);
-    pOebius->pKurokoLeader_->fixStartAngle(entry_pos_.rx, entry_pos_.rz, entry_pos_.ry);
-
-
-    pOebius->setPosition( RND_ABOUT(entry_pos_.x + dx, PX_C(700)),
-                          RND_ABOUT(entry_pos_.y + dy, PX_C(700)),
-                          RND_ABOUT(entry_pos_.z + dz, PX_C(700)) );
-    pOebius->setFaceAngTwd(entry_pos_.x + dx,
-                           entry_pos_.y + dy,
-                           entry_pos_.z + dz);
+//    double rate_z = pOebius->pKurokoLeader_->_pManufacture->_rate_z;
+//
+//    //Z = (prm_col*(0.4+0.4))*rate_z  //基本間隔は0.4。本編隊はmobius1.dat、mobius3.dat、mobius5.dat と一つ飛びなので0.4+0.4
+//    //(0, 0, Z) を Rz > Ry 回転移動させると
+//    //(Z*sinRy, 0, Z*cosRy)
+//    float sinRy = ANG_SIN(geo_.ry);
+//    float cosRy = ANG_COS(geo_.ry);
+//    double d_col = -1.0 * papSplManufConn_[prm_col]->peek()->_sp->_rotmat._43;
+//    float Z = d_col*rate_z; //rate_zを掛けることにより、ここで Z はcoordの単位となる。
+//
+//    coord dx = Z*sinRy;
+//    coord dy = 0;
+//    coord dz = Z*cosRy;
+//    pOebius->pKurokoLeader_->setStartPosition(geo_.x + dx,
+//                                              geo_.y + dy,
+//                                              geo_.z + dz);
+    pOebius->pKurokoLeader_->setStartPosition(geo_.x, geo_.y, geo_.z);
+    pOebius->pKurokoLeader_->setStartAngle(geo_.rx, geo_.rz, geo_.ry);
+    pOebius->setPosition( RND_ABOUT(geo_.x, PX_C(700)),
+                          RND_ABOUT(geo_.y, PX_C(700)),
+                          RND_ABOUT(geo_.z, PX_C(700)) );
+    pOebius->setFaceAngTwd(geo_.x, geo_.y, geo_.z);
     pOebius->getKuroko()->setMvAngByFaceAng();
     pOebius->getKuroko()->setMvVelo(0);
     pOebius->getKuroko()->setMvAcce(80);

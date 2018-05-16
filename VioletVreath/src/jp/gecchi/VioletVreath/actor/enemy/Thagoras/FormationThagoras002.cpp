@@ -34,7 +34,7 @@ void FormationThagoras002::onCallUp(GgafDxFigureActor* prm_pActor, int prm_row, 
         pThagoras->pKurokoLeader_ = papSplManufConn_[prm_col]->peek()->
                                       createKurokoLeader(pThagoras->getKuroko());
     }
-    pThagoras->pKurokoLeader_->fixStartPosition(entry_pos_.x                      ,
+    pThagoras->pKurokoLeader_->setStartPosition(entry_pos_.x                      ,
                                                 entry_pos_.y + (prm_col*PX_C(30)) ,
                                                 entry_pos_.z                       );
 

@@ -148,7 +148,7 @@ void FormationDelheid::processBehavior() {
                              pDelheid->setPositionAt(&geoLocate_);
                              pDelheid->setFaceAngAs(&geoLocate_);
                              pDelheid->getKuroko()->setRzRyMvAng(geoLocate_.rz, geoLocate_.ry);
-                             pDelheid->pKurokoLeader_->fixStartAngle(geoLocate_.rx, geoLocate_.rz, geoLocate_.ry);
+                             pDelheid->pKurokoLeader_->setStartAngle(geoLocate_.rx, geoLocate_.rz, geoLocate_.ry);
                              pDelheid->pKurokoLeader_->setLoopAngleByMvAng();
                              onCallUpDelheid(pDelheid); //下位フォーメーションクラス個別実装の処理
                          } else {

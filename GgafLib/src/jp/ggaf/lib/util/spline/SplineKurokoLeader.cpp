@@ -41,14 +41,10 @@ SplineKurokoLeader::SplineKurokoLeader(SplineManufacture* prm_pManufacture, Ggaf
     _distance_to_begin = 0;
     _cnt_loop = 0;
     _max_loop = 1;
-    _is_fix_start_pos = false;
+    _is_force_start_pos = false;
 
-    _is_fix_start_ang = false;
+    _is_force_start_ang = false;
     _is_loop_ang_by_face = true;
-    _ang_rx_mv_start = _pActor_target->_rx;
-    _rz_mv_start = _pActor_target->_rz;
-    _ry_mv_start = _pActor_target->_ry;
-
 }
 
 void SplineKurokoLeader::getPointCoord(int prm_point_index, coord& out_x, coord& out_y, coord& out_z) {
@@ -96,7 +92,7 @@ void SplineKurokoLeader::getPointCoord(int prm_point_index, coord& out_x, coord&
             const double dy_sinRx_now = dy*sinRx_now;
             const double dz_cosRx_now = dz*cosRx_now;
             //    •½sˆÚ“® „ XŽ²‰ñ“] „ ZŽ²‰ñ“] „ YŽ²‰ñ“]
-            if (_is_fix_start_pos) {
+            if (_is_force_start_pos) {
                 out_x = ((dx_cosRz_now + (dy_cosRx_now + -dz_sinRx_now)*-sinRz_now)* cosRy_now + ((dy_sinRx_now + dz_cosRx_now))*sinRy_now ) + 0;
                 out_y = ((dx*sinRz_now + (dy_cosRx_now + -dz_sinRx_now)* cosRz_now)                                                        ) + 0;
                 out_z = ((dx_cosRz_now + (dy_cosRx_now + -dz_sinRx_now)*-sinRz_now)*-sinRy_now + ((dy_sinRx_now + dz_cosRx_now))*cosRy_now ) + 0;
@@ -117,7 +113,7 @@ void SplineKurokoLeader::getPointCoord(int prm_point_index, coord& out_x, coord&
             out_z = dz + _z_start_in_loop;
         } else {
             //•ˆß‚³‚ñ‚ªæ“±‚µ‚Ä‚¢‚È‚¢(not leading ’†)
-            if (_is_fix_start_pos) {
+            if (_is_force_start_pos) {
                 out_x = dx + 0;
                 out_y = dy + 0;
                 out_z = dz + 0;
@@ -140,14 +136,14 @@ void SplineKurokoLeader::restart() {
     const double p0x = _flip_x * pSpl->_x_compute[0] * _pManufacture->_rate_x + _offset_x;
     const double p0y = _flip_y * pSpl->_y_compute[0] * _pManufacture->_rate_y + _offset_y;
     const double p0z = _flip_z * pSpl->_z_compute[0] * _pManufacture->_rate_z + _offset_z;
-    if (_cnt_loop >= 2) {
-        //‚QŽü–ÚˆÈ~‚Í fixStartPosition() ‚ªÝ’è‚³‚ê‚Ä‚¢‚Ä‚àAŒø—Í‚Í‚È‚­‚È‚éB
-        _is_fix_start_pos = false;
-        _is_fix_start_ang = false;
-    }
-    if (_is_fix_start_pos) {
+//    if (_cnt_loop >= 2) {
+//        //‚QŽü–ÚˆÈ~‚Í setStartPosition() ‚ªÝ’è‚³‚ê‚Ä‚¢‚Ä‚àAŒø—Í‚Í‚È‚­‚È‚éB
+//        _is_force_start_pos = false;
+//        _is_force_start_ang = false;
+//    }
+    if (_is_force_start_pos) {
         //ŠJŽnÀ•W(_x_start_in_loop, _y_start_in_loop, _z_start_in_loop)‚ÍA
-        //•Ê“r fixStartPosition() ‚É‚æ‚èÝ’èÏ‚Ý
+        //•Ê“r setStartPosition() ‚É‚æ‚èÝ’èÏ‚Ý
     } else {
         if (_cnt_loop == 1) {
             //‚PT–Ú‚Í³‚É¡‚ÌÀ•W‚ªŠJŽnÀ•W
@@ -164,63 +160,67 @@ void SplineKurokoLeader::restart() {
         }
     }
 
-    if (_is_fix_start_ang) {
+    if (_is_force_start_ang) {
         //_rz_mv_start, _ry_mv_startA‚Í
-        //•Ê“r fixStartAngle() ‚É‚æ‚èÝ’èÏ‚Ý‚Ìê‡‚ÍA
+        //•Ê“r setStartAngle() ‚É‚æ‚èÝ’èÏ‚Ý‚Ìê‡‚ÍA
         //ƒAƒNƒ^[‚Ì¡‚ÌŒü‚«‚ÉŠÖŒW‚È‚­AÝ’èÏ‚Ý‚ÌŒü‚«‚Æ‚È‚é
-        _sinRx_begin = ANG_SIN(_ang_rx_mv_start);
-        _cosRx_begin = ANG_COS(_ang_rx_mv_start);
-        _sinRz_begin = ANG_SIN(_rz_mv_start);
-        _cosRz_begin = ANG_COS(_rz_mv_start);
-        _sinRy_begin = ANG_SIN(_ry_mv_start);
-        _cosRy_begin = ANG_COS(_ry_mv_start);
     } else {
         if (_cnt_loop == 1) {
             if (_is_loop_ang_by_face) {
                 //setLoopAngleByFaceAng() Ý’èÏ‚Ý‚Ìê‡iƒfƒtƒHƒ‹ƒg)
                 //‚PT–Ú‚ÍƒAƒNƒ^[‚ª³‚É¡Œü‚¢‚Ä‚¢‚é•ûŒü‚ªŠJŽnˆÚ“®•ûŒü
-                _ang_rx_mv_start = _pActor_target->_rx;
-                _rz_mv_start = _pActor_target->_rz;
-                _ry_mv_start = _pActor_target->_ry;
-                _sinRx_begin = ANG_SIN(_ang_rx_mv_start);
-                _cosRx_begin = ANG_COS(_ang_rx_mv_start);
-                _sinRz_begin = ANG_SIN(_rz_mv_start);
-                _cosRz_begin = ANG_COS(_rz_mv_start);
-                _sinRy_begin = ANG_SIN(_ry_mv_start);
-                _cosRy_begin = ANG_COS(_ry_mv_start);
+                angle rx_mv_start = _pActor_target->_rx;
+                angle rz_mv_start = _pActor_target->_rz;
+                angle ry_mv_start = _pActor_target->_ry;
+                _sinRx_begin = ANG_SIN(rx_mv_start);
+                _cosRx_begin = ANG_COS(rx_mv_start);
+                _sinRz_begin = ANG_SIN(rz_mv_start);
+                _cosRz_begin = ANG_COS(rz_mv_start);
+                _sinRy_begin = ANG_SIN(ry_mv_start);
+                _cosRy_begin = ANG_COS(ry_mv_start);
             } else {
                 //setLoopAngleByMvAng() Ý’èÏ‚Ý‚Ìê‡
                 //‚PT–Ú‚ÍƒAƒNƒ^[‚ÌˆÚ“®•ûŒü‚ªŠJŽnˆÚ“®•ûŒü
                 GgafDxKuroko* _pActorKuroko = _pActor_target->getKuroko();
-                _ang_rx_mv_start = D0ANG;
-                _rz_mv_start = _pActorKuroko->_rz_mv;
-                _ry_mv_start = _pActorKuroko->_ry_mv;
-                _sinRx_begin = ANG_SIN(_ang_rx_mv_start);
-                _cosRx_begin = ANG_COS(_ang_rx_mv_start);
-                _sinRz_begin = ANG_SIN(_rz_mv_start);
-                _cosRz_begin = ANG_COS(_rz_mv_start);
-                _sinRy_begin = ANG_SIN(_ry_mv_start);
-                _cosRy_begin = ANG_COS(_ry_mv_start);
+                angle rx_mv_start = D0ANG;
+                angle rz_mv_start = _pActorKuroko->_rz_mv;
+                angle ry_mv_start = _pActorKuroko->_ry_mv;
+                _sinRx_begin = ANG_SIN(rx_mv_start);
+                _cosRx_begin = ANG_COS(rx_mv_start);
+                _sinRz_begin = ANG_SIN(rz_mv_start);
+                _cosRz_begin = ANG_COS(rz_mv_start);
+                _sinRy_begin = ANG_SIN(ry_mv_start);
+                _cosRy_begin = ANG_COS(ry_mv_start);
             }
         } else {
             //‚QT–ÚˆÈ~‚ÍA‚»‚Ì‚Ü‚Ü;
         }
     }
 
-    if (_option == RELATIVE_COORD_DIRECTION) {
-        _distance_to_begin = UTIL::getDistance(0.0, 0.0, 0.0,
-                                               p0x, p0y, p0z );
-    } else if (_option == RELATIVE_COORD) {
-        _distance_to_begin = UTIL::getDistance(0.0, 0.0, 0.0,
-                                               p0x, p0y, p0z );
-    } else { //ABSOLUTE_COORD
+//    if (_option == RELATIVE_COORD_DIRECTION) {
+//        _distance_to_begin = UTIL::getDistance(0.0, 0.0, 0.0,
+//                                               p0x, p0y, p0z );
+//    } else if (_option == RELATIVE_COORD) {
+//        _distance_to_begin = UTIL::getDistance(0.0, 0.0, 0.0,
+//                                               p0x, p0y, p0z );
+//    } else { //ABSOLUTE_COORD
+//        _distance_to_begin = UTIL::getDistance(
+//                                (double)(_pActor_target->_x),
+//                                (double)(_pActor_target->_y),
+//                                (double)(_pActor_target->_z),
+//                                p0x, p0y, p0z
+//                             );
+//   }
+    if (_option == ABSOLUTE_COORD) {
         _distance_to_begin = UTIL::getDistance(
                                 (double)(_pActor_target->_x),
                                 (double)(_pActor_target->_y),
                                 (double)(_pActor_target->_z),
                                 p0x, p0y, p0z
                              );
-   }
+    } else {
+        _distance_to_begin = 0;
+    }
 }
 
 void SplineKurokoLeader::setManufacture(SplineManufacture* prm_pManufacture) {
@@ -285,11 +285,17 @@ int SplineKurokoLeader::getPointNum() {
     return _pManufacture->_sp->_rnum;
 }
 
-void SplineKurokoLeader::fixStartAngle(angle prm_rx, angle prm_rz, angle prm_ry) {
-    _is_fix_start_ang = true;
-    _ang_rx_mv_start = UTIL::simplifyAng(prm_rx);
-    _rz_mv_start = UTIL::simplifyAng(prm_rz);
-    _ry_mv_start = UTIL::simplifyAng(prm_ry);
+void SplineKurokoLeader::setStartAngle(angle prm_rx, angle prm_rz, angle prm_ry) {
+    _is_force_start_ang = true;
+    angle rx_mv_start = UTIL::simplifyAng(prm_rx);
+    angle rz_mv_start = UTIL::simplifyAng(prm_rz);
+    angle ry_mv_start = UTIL::simplifyAng(prm_ry);
+    _sinRx_begin = ANG_SIN(rx_mv_start);
+    _cosRx_begin = ANG_COS(rx_mv_start);
+    _sinRz_begin = ANG_SIN(rz_mv_start);
+    _cosRz_begin = ANG_COS(rz_mv_start);
+    _sinRy_begin = ANG_SIN(ry_mv_start);
+    _cosRy_begin = ANG_COS(ry_mv_start);
 }
 
 SplineKurokoLeader::~SplineKurokoLeader() {

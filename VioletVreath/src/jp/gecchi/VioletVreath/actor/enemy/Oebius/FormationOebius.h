@@ -26,7 +26,7 @@ public:
     int call_up_row_idx_;
 
     /** [r]出現座標(シーンが設定) */
-    GgafDxCore::GgafDxGeoElem entry_pos_;
+    GgafDxCore::GgafDxGeoElem geo_;
 
     XpmConnection* pXpmConnection_;
 
@@ -67,9 +67,9 @@ public:
      * @param z
      */
     void setPosition(coord x, coord y, coord z) {
-        entry_pos_.x = x;
-        entry_pos_.y = y;
-        entry_pos_.z = z;
+        geo_.x = x;
+        geo_.y = y;
+        geo_.z = z;
     }
 
     /**
@@ -78,8 +78,8 @@ public:
      * @param ry
      */
     void setRzRyAng(angle rz, angle ry) {
-        entry_pos_.rz = rz;
-        entry_pos_.ry = ry;
+        geo_.rz = rz;
+        geo_.ry = ry;
     }
 
     virtual ~FormationOebius();

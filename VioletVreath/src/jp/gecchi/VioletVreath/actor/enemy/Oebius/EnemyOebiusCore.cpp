@@ -99,9 +99,10 @@ void EnemyOebiusCore::processBehavior() {
 
         case PROG_WAIT01: {
             if (pProg->hasJustChanged()) {
-                pKuroko->keepOnTurningFaceAngTwd(pMYSHIP, D_ANG(1), 0, TURN_CLOSE_TO, false);
+//                pKuroko->keepOnTurningFaceAngTwd(pMYSHIP, D_ANG(1), 0, TURN_CLOSE_TO, false);
+                pKuroko->setRollPitchYawFaceAngVelo(D_ANG(0.11), D_ANG(0.17), D_ANG(0.19));
             }
-            if (pProg->hasArrivedAt(3600)) {
+            if (pProg->hasArrivedAt(10*60*60)) {
                 pProg->changeNext();
             }
             break;

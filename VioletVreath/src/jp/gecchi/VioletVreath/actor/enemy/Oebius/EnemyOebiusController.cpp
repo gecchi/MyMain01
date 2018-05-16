@@ -69,16 +69,17 @@ void EnemyOebiusController::processBehavior() {
         }
 
         case PROG_ENTRY_FORMATION: {
-            if (pProg->hasJustChanged()) {
-                if (pOebiusCore_) {
-                    pFormationOebius_->setPosition(pOebiusCore_->_x,
-                                                   pOebiusCore_->_y,
-                                                   pOebiusCore_->_z  );
-                    pFormationOebius_->setRzRyAng(pOebiusCore_->_rz, pOebiusCore_->_ry);
+            if (pOebiusCore_) {
+                pFormationOebius_->setPosition(pOebiusCore_->_x,
+                                               pOebiusCore_->_y,
+                                               pOebiusCore_->_z  );
+                pFormationOebius_->setRzRyAng(pOebiusCore_->_rz, pOebiusCore_->_ry);
+                if (pProg->hasJustChanged()) {
                     pFormationOebius_->activate();
                 }
             }
-            if (pProg->hasArrivedAt(300)) {
+
+            if (pProg->hasArrivedAt(600)) {
                 pProg->changeNext();
             }
             break;
@@ -87,7 +88,12 @@ void EnemyOebiusController::processBehavior() {
         case PROG_WAIT02: {
             if (pProg->hasJustChanged()) {
             }
-            if (pOebiusCore_ == nullptr) {
+            if (pOebiusCore_) {
+                pFormationOebius_->setPosition(pOebiusCore_->_x,
+                                               pOebiusCore_->_y,
+                                               pOebiusCore_->_z  );
+                pFormationOebius_->setRzRyAng(pOebiusCore_->_rz, pOebiusCore_->_ry);
+            } else {
                 //ƒRƒA‚ª‚¢‚È‚­‚È‚Á‚½‚çŽU‚èŽU‚è‚É
                 scatterOebiusFormation();
                 pProg->changeNothing(); //‚¨‚µ‚Ü‚¢

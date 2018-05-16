@@ -1,6 +1,7 @@
 #ifndef GGAFCORE_GGAFACTORDEPOSITORY_H_
 #define GGAFCORE_GGAFACTORDEPOSITORY_H_
 #include "GgafCommonHeader.h"
+#include <typeinfo>
 #include "jp/ggaf/core/actor/ex/GgafDestructActor.h"
 
 namespace GgafCore {
@@ -43,6 +44,15 @@ public:
      * @param prm_pSub 貸出メンバーアクター
      */
     virtual void put(GgafActor* prm_pSub);
+
+    template <typename T>
+    void put(const int prm_num) {
+        const char* type = typeid(T).name();
+        for (int i = 0; i < prm_num; i++) {
+            std::string name = std::string(type) + "("+XTOS(i)+")";
+            put(NEW T(name.c_str()));
+        }
+    }
 
     /**
      * activate系は子アクターへは影響させないようにする .

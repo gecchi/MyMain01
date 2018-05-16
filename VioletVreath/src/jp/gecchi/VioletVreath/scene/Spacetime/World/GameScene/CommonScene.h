@@ -36,37 +36,37 @@ class CommonScene : public GgafLib::DefaultScene {
 public:
     /** 汎用爆発エフェクトその１用、常備デポジトリ */
 
-    GgafCore::GgafActorDepository* const pCOMMON_DEPO(EffectExplosion001);
+    GgafCore::GgafActorDepository* pCOMMON_DEPO(EffectExplosion001);
     /** 汎用爆発エフェクトその２用、常備デポジトリ */
-    GgafCore::GgafActorDepository* const pCOMMON_DEPO(EffectExplosion002);
+    GgafCore::GgafActorDepository* pCOMMON_DEPO(EffectExplosion002);
     /** 汎用爆発エフェクトその３用、常備デポジトリ */
-    GgafCore::GgafActorDepository* const pCOMMON_DEPO(EffectExplosion003);
+    GgafCore::GgafActorDepository* pCOMMON_DEPO(EffectExplosion003);
     /** 汎用爆発エフェクトその４用、常備デポジトリ */
-    GgafCore::GgafActorDepository* const pCOMMON_DEPO(EffectExplosion004);
+    GgafCore::GgafActorDepository* pCOMMON_DEPO(EffectExplosion004);
     /** ターボエフェクト用、常備デポジトリ */
-    GgafCore::GgafActorDepository* const pCOMMON_DEPO(EffectTurbo002);
+    GgafCore::GgafActorDepository* pCOMMON_DEPO(EffectTurbo002);
     /** アイテムオブジェクト小、常備デポジトリ */
-    GgafCore::GgafActorDepository* const pCOMMON_DEPO(MagicPointItem001);
+    GgafCore::GgafActorDepository* pCOMMON_DEPO(MagicPointItem001);
     /** アイテムオブジェクト中、常備デポジトリ */
-    GgafCore::GgafActorDepository* const pCOMMON_DEPO(MagicPointItem002);
+    GgafCore::GgafActorDepository* pCOMMON_DEPO(MagicPointItem002);
     /** アイテムオブジェクト大、常備デポジトリ */
-    GgafCore::GgafActorDepository* const pCOMMON_DEPO(MagicPointItem003);
+    GgafCore::GgafActorDepository* pCOMMON_DEPO(MagicPointItem003);
 
     /** 汎用出現エフェクトその１用、常備デポジトリ */
-    GgafCore::GgafActorDepository* const pCOMMON_DEPO(EffectBlink001);
+    GgafCore::GgafActorDepository* pCOMMON_DEPO(EffectBlink001);
     /** 汎用出現エフェクトその２用、常備デポジトリ */
-    GgafCore::GgafActorDepository* const pCOMMON_DEPO(EffectBlink002);
+    GgafCore::GgafActorDepository* pCOMMON_DEPO(EffectBlink002);
     /** 汎用出現エフェクトその３用、常備デポジトリ */
-    GgafCore::GgafActorDepository* const pCOMMON_DEPO(EffectBlink003);
+    GgafCore::GgafActorDepository* pCOMMON_DEPO(EffectBlink003);
 
-    GgafCore::GgafActorDepository* const pCOMMON_DEPO(SpriteLabelBonus001);
+    GgafCore::GgafActorDepository* pCOMMON_DEPO(SpriteLabelBonus001);
 
     /** 汎用出現エフェクトその３用、常備デポジトリ */
-    GgafCore::GgafActorDepository* const pCOMMON_DEPO(Shot004);
+    GgafCore::GgafActorDepository* pCOMMON_DEPO(Shot004);
 
     /**  */
-    GgafCore::GgafActorDepositoryStore* const pStore_EnemyWateringLaser001_;
-    GgafCore::GgafActorDepositoryStore* const pStore_EnemyStraightLaser001_;
+    GgafCore::GgafActorDepositoryStore* pStore_EnemyWateringLaser001_;
+    GgafCore::GgafActorDepositoryStore* pStore_EnemyStraightLaser001_;
 
 public:
     CommonScene(const char* prm_name);

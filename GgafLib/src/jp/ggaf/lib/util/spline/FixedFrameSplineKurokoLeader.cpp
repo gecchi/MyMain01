@@ -41,7 +41,6 @@ void FixedFrameSplineKurokoLeader::restart() {
     _point_index = 0;
     _prev_point_index = -1;
 
-
     //始点へ行く特別処理。
     //始点への距離(_distance_to_begin) がわかっているので、
     //
@@ -106,8 +105,8 @@ void FixedFrameSplineKurokoLeader::behave() {
                                         _pActor_target->_y,
                                         _pActor_target->_z,
                                         x, y, z);
-                if (_pFixedFrameSplManuf->_paDistance_to[_point_index]*1.1 < d) {
-                    //補正：距離が予想より開いているので少し急ぐ(1.1倍のスピードにする)
+                if (_pFixedFrameSplManuf->_paDistance_to[_point_index]*1.2 < d) {
+                    //補正：距離が予想より開いている(1.2倍空いてる)ので少し急ぐ(1.1倍のスピードにする)
                     pKuroko_target->setMvVelo(_pFixedFrameSplManuf->_paSPMvVeloTo[_point_index] * 1.1) ;
                     //pKuroko_target->setMvVelo(((velo)(d / _pFixedFrameSplManuf->_frame_of_segment)) + 1);
                 } else {

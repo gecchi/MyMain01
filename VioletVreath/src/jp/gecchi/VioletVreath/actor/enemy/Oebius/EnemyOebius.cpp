@@ -12,7 +12,7 @@
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Oebius/FormationOebius.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
-
+#include "FormationOebius.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
@@ -104,6 +104,21 @@ void EnemyOebius::processBehavior() {
                 getKuroko()->setMvAcce(0); //加速度がある場合は切っておく
                 pKurokoLeader_->start(RELATIVE_COORD_DIRECTION, -1); //-1は無限ループ
             }
+
+
+//            FormationOebius* pFormation = (FormationOebius*)getFormation();
+//            pKurokoLeader_->_rz_mv_start = pFormation->geo_.rz;
+//            pKurokoLeader_->_ry_mv_start = pFormation->geo_.ry;
+//            pKurokoLeader_->_sinRz_begin = ANG_SIN(pFormation->geo_.rz);
+//            pKurokoLeader_->_cosRz_begin = ANG_COS(pFormation->geo_.rz);
+//            pKurokoLeader_->_sinRy_begin = ANG_SIN(pFormation->geo_.ry);
+//            pKurokoLeader_->_cosRy_begin = ANG_COS(pFormation->geo_.ry);
+            FormationOebius* pFormation = (FormationOebius*)getFormation();
+            pKurokoLeader_->setStartPosition(pFormation->geo_.x, pFormation->geo_.y, pFormation->geo_.z);
+            pKurokoLeader_->setStartAngle(pFormation->geo_.rx, pFormation->geo_.rz, pFormation->geo_.ry);
+//            _TRACE_("rx,rz,ry="<<pFormation->geo_.rx<<","<<pFormation->geo_.rz<<","<<pFormation->geo_.ry);
+//            pOebius->pKurokoLeader_->setStartAngle(geo_.rx, geo_.rz, geo_.ry);
+
             pKurokoLeader_->behave(); //スプライン移動を振る舞い
 
             if (scatter_flg_) {

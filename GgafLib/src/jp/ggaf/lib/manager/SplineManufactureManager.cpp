@@ -51,7 +51,7 @@ SplineManufacture* SplineManufactureManager::processCreateResource(const char* p
             //のように、区切りがある場合、
             //splファイルの SPLINEは
             //SPLINE=mobius1.dat,mobius2.dat,mobius3.dat,mobius4.dat
-            //のようにCSVで複数指定していて、スラッシュの後の数値がインデックスとする。
+            //のようにCSVで複数指定していて、スラッシュの後の数値がインデックス(0～)とする。
             std::string spl_data_file_csv = propSpl.getStr("SPLINE");
             std::vector<std::string> vecSplineData = UTIL::split(spl_data_file_csv, ",");
             int i = STOI(spline_id[1]);
