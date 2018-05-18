@@ -190,6 +190,11 @@ public:
      */
     void compute();
 
+    /**
+     *
+     */
+    void rotation(angle prm_rx, angle prm_ry, angle prm_rz);
+
     virtual ~SplineLine();
 
 };

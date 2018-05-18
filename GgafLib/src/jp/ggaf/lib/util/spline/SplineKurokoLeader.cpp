@@ -42,7 +42,7 @@ SplineKurokoLeader::SplineKurokoLeader(SplineManufacture* prm_pManufacture, Ggaf
     _cnt_loop = 0;
     _max_loop = 1;
     _is_force_start_pos = false;
-
+    _is_fix_pos = false;
     _is_force_start_ang = false;
     _is_loop_ang_by_face = true;
 }
@@ -141,22 +141,27 @@ void SplineKurokoLeader::restart() {
 //        _is_force_start_pos = false;
 //        _is_force_start_ang = false;
 //    }
-    if (_is_force_start_pos) {
-        //開始座標(_x_start_in_loop, _y_start_in_loop, _z_start_in_loop)は、
-        //別途 setStartPosition() により設定済み
+    if (_is_fix_pos) {
+        //開始座標は何ループしても固定。
     } else {
-        if (_cnt_loop == 1) {
-            //１週目は正に今の座標が開始座標
-            _x_start_in_loop = _pActor_target->_x;
-            _y_start_in_loop = _pActor_target->_y;
-            _z_start_in_loop = _pActor_target->_z;
+        if (_is_force_start_pos) {
+            //開始座標(_x_start_in_loop, _y_start_in_loop, _z_start_in_loop)は、
+            //別途 setStartPosition() により設定済み
+            _is_force_start_pos = false;
         } else {
-            //２週目以降は、開始座標は、前回の論理最終座標が、開始座標
-            coord end_x, end_y, end_z;
-            getPointCoord(getPointNum()-1, end_x, end_y, end_z);
-            _x_start_in_loop = end_x;
-            _y_start_in_loop = end_y;
-            _z_start_in_loop = end_z;
+            if (_cnt_loop == 1) {
+                //１週目は正に今の座標が開始座標
+                _x_start_in_loop = _pActor_target->_x;
+                _y_start_in_loop = _pActor_target->_y;
+                _z_start_in_loop = _pActor_target->_z;
+            } else {
+                //２週目以降は、開始座標は、前回の論理最終座標が、開始座標
+                coord end_x, end_y, end_z;
+                getPointCoord(getPointNum()-1, end_x, end_y, end_z);
+                _x_start_in_loop = end_x;
+                _y_start_in_loop = end_y;
+                _z_start_in_loop = end_z;
+            }
         }
     }
 
@@ -164,6 +169,7 @@ void SplineKurokoLeader::restart() {
         //_rz_mv_start, _ry_mv_start、は
         //別途 setStartAngle() により設定済みの場合は、
         //アクターの今の向きに関係なく、設定済みの向きとなる
+        _is_force_start_ang = false;
     } else {
         if (_cnt_loop == 1) {
             if (_is_loop_ang_by_face) {
@@ -285,7 +291,7 @@ int SplineKurokoLeader::getPointNum() {
     return _pManufacture->_sp->_rnum;
 }
 
-void SplineKurokoLeader::setStartAngle(angle prm_rx, angle prm_rz, angle prm_ry) {
+void SplineKurokoLeader::setStartAngle(angle prm_rx, angle prm_ry, angle prm_rz) {
     _is_force_start_ang = true;
     angle rx_mv_start = UTIL::simplifyAng(prm_rx);
     angle rz_mv_start = UTIL::simplifyAng(prm_rz);

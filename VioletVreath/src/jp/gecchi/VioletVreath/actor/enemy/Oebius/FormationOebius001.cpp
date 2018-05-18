@@ -23,6 +23,11 @@ FormationOebius001::FormationOebius001(const char* prm_name, EnemyOebiusControll
 
 void FormationOebius001::processBehavior() {
     FormationOebius::processBehavior();
+//    int col_num = getFormationColNum();
+//    for (int col = 0; col < col_num; col++) {
+//        SplineLine* sp = papSplManufConn_[col]->peek()->_sp;
+//        sp->rotation(D_ANG(1.1), D_ANG(1.3), D_ANG(1.7));
+//    }
 }
 
 void FormationOebius001::onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, int prm_row, int prm_col) {
@@ -50,7 +55,7 @@ void FormationOebius001::onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, int
 //                                              geo_.y + dy,
 //                                              geo_.z + dz);
     pOebius->pKurokoLeader_->setStartPosition(geo_.x, geo_.y, geo_.z);
-    pOebius->pKurokoLeader_->setStartAngle(geo_.rx, geo_.rz, geo_.ry);
+    pOebius->pKurokoLeader_->setStartAngle(geo_.rx, geo_.ry, geo_.rz);
     pOebius->setPosition( RND_ABOUT(geo_.x, PX_C(700)),
                           RND_ABOUT(geo_.y, PX_C(700)),
                           RND_ABOUT(geo_.z, PX_C(700)) );
@@ -59,9 +64,17 @@ void FormationOebius001::onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, int
     pOebius->getKuroko()->setMvVelo(0);
     pOebius->getKuroko()->setMvAcce(80);
 
-    double r = RCNV(0, getFormationColNum()                      , prm_col         , 0.3, 1.0);
-    double g = RCNV(0, getFormationColNum()*getFormationRowNum() , prm_col*prm_row , 0.3, 1.0);
-    double b = RCNV(0, getFormationRowNum()                      , prm_row         , 0.3, 1.0);
+//    float sr = ANG_SIN(RCNV(0, getFormationColNum()                      , prm_col         , D0ANG, D360ANG));
+//    float sg = ANG_SIN(RCNV(0, getFormationColNum()*getFormationRowNum() , prm_col*prm_row , D0ANG, D360ANG));
+//    float sb = ANG_SIN(RCNV(0, getFormationRowNum()                      , prm_row         , D0ANG, D360ANG));
+
+    float sr = ANG_SIN(RCNV(0, getFormationRowNum() , prm_row , D0ANG, D360ANG));
+    float sg = ANG_COS(RCNV(0, getFormationRowNum() , prm_row , D0ANG, D360ANG));
+    float sb = ANG_SIN(RCNV(0, getFormationColNum() , prm_col , D0ANG, D360ANG));
+
+    double r = RCNV(-1.0, 1.0, sr, 0.2, 1.1);
+    double g = RCNV(-1.0, 1.0, sg, 0.2, 1.1);
+    double b = RCNV(-1.0, 1.0, sb, 0.2, 1.1);
     pOebius->setMaterialColor(r, g, b);
 }
 

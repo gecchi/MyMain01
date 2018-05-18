@@ -62,6 +62,7 @@ public:
     /** [r]始点座標を固定する。（固定しない場合は黒子Aのアクターの座標になる） */
     bool _is_force_start_pos;
     bool _is_force_start_ang;
+    bool _is_fix_pos;
     bool _is_loop_ang_by_face;
 
     float _sinRx_begin;
@@ -236,13 +237,24 @@ public:
     virtual void getPointCoord(int prm_index, coord& out_x, coord& out_y, coord& out_z);
 
     /**
-     * スプラインの開始座標を引数の座標に設定。
+     * スプラインの開始座標を引数の座標に固定設定。
      * 本メソッドを実行しなかった場合、スプライン開始座標は、<BR>
      * 「スプライン開始座標 ＝ start()時の黒子Aのアクターの座標」となるのだが、<BR>
      * これを行わずに、スプライン開始座標を、任意の座標からのスタートに設定を行う。
      * 想定使用方法は、本メソッド実行で開始座標を設定した後、<BR>
      * 実際の移動するアクターの座標は別の場所に設定して、スプライン移動を開始、<BR>
      * そうするとスプライン曲線軌道に徐々に合流するような効果を演出することができる。<BR>
+     * @param prm_x
+     * @param prm_y
+     * @param prm_z
+     */
+    void setPositionFix(coord prm_x, coord prm_y, coord prm_z) {
+        setStartPosition(prm_x, prm_y, prm_z);
+        _is_fix_pos = true;
+    }
+
+    /**
+     * 一番最初のスプラインの開始座標を引数の座標に設定。
      * 但し、start()時、スプライン移動繰り返し設定(２週以上)を行った場合、２周目以降には適用されない。<BR>
      * ２週目以降は、開始座標は、前回の論理最終座標が、開始座標に設定される。
      * @param prm_x
@@ -256,6 +268,9 @@ public:
         _z_start_in_loop = prm_z;
     }
 
+
+
+
     /**
      * スプラインの開始移動方向を固定に設定。
      * 本メソッドを実行しなかった場合、スプライン開始時のスプライン方向は、<BR>
@@ -264,12 +279,12 @@ public:
      * start()時、スプライン移動繰り返し設定(２週以上)を行った場合、
      * ２週目以降は、開始移動方向はそのままで、この値がそのまま引き継がれることになる。<BR>
      * ※スプライン方向の設定は、RELATIVE_COORD_DIRECTION の場合のみ意味がある。
-     * 注意：rx > rz > ry の引数順！
+     * 注意：rx > ry > rz の引数順！(rz > ryではない)
      * @param prm_rx
      * @param prm_rz
      * @param prm_ry
      */
-    void setStartAngle(angle prm_rx, angle prm_rz, angle prm_ry);
+    void setStartAngle(angle prm_rx, angle prm_ry, angle prm_rz);
 
     /**
      * スプライン移動の開始方向を、自分が向いている方向に対して開始する (デフォルト).

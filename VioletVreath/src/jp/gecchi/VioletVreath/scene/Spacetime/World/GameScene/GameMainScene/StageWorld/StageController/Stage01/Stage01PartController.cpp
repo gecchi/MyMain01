@@ -32,12 +32,11 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,500,600};
-	_paFrame_NextEvent = new frame[3];
+	frame f[] = {1,500};
+	_paFrame_NextEvent = new frame[2];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 3;
+	_event_num = 2;
 	wantActor(10000000, EnemyOebiusController001, "EnemyOebiusController001-10000000");
-	wantActor(10000001, EnemyOebiusController002, "EnemyOebiusController002-10000001");
     // gen01 end
     useProgress(PROG_BANPEI);
 }
@@ -61,16 +60,10 @@ void Stage01PartController::processBehavior() {
 				p1->setPosition(PX_C(3400), PX_C(450), PX_C(700) );
 				break;
 			}
-			case 600: {
-				EnemyOebiusController002* p2 = (EnemyOebiusController002*)grantActor(10000001);
-				bringSceneMediator()->addSubGroup(p2);
-				p2->setPosition(PX_C(3400), PX_C(-450), PX_C(700) );
-				break;
-			}
 			default :
 				break;
 		}
-		_cnt_event = (_cnt_event < 3-1 ? _cnt_event+1 : _cnt_event);
+		_cnt_event = (_cnt_event < 2-1 ? _cnt_event+1 : _cnt_event);
 	}
     // gen02 end
 

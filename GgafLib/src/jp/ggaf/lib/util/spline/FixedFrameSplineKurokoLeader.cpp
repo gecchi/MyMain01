@@ -100,15 +100,16 @@ void FixedFrameSplineKurokoLeader::behave() {
                 //Œë·‚àŽd•û‚È‚¢‚Ì‚Å _frame_of_segment ‚ÅŽn“_‚ÉˆÚ“®‚·‚é‘¬“x‚ð•t—^
                 pKuroko_target->setMvVelo((velo)(_distance_to_begin / _pFixedFrameSplManuf->_frame_of_segment));
             } else {
-                const coord d = UTIL::getDistance(
+                const coord next_d = _pFixedFrameSplManuf->_paDistance_to[_point_index];
+                const coord now_d = UTIL::getDistance(
                                         _pActor_target->_x,
                                         _pActor_target->_y,
                                         _pActor_target->_z,
                                         x, y, z);
-                if (_pFixedFrameSplManuf->_paDistance_to[_point_index]*1.2 < d) {
-                    //•â³F‹——£‚ª—\‘z‚æ‚èŠJ‚¢‚Ä‚¢‚é(1.2”{‹ó‚¢‚Ä‚é)‚Ì‚Å­‚µ‹}‚®(1.1”{‚ÌƒXƒs[ƒh‚É‚·‚é)
+                if (next_d*1.2 < now_d) {
+                    //•â³F‹——£‚ª—\‘z‚æ‚èŠJ‚¢‚Ä‚¢‚é(1.2”{ˆÈã‹ó‚¢‚Ä‚é)‚Ì‚Å­‚µ‹}‚®(1.1”{‚ÌƒXƒs[ƒh‚É‚·‚é)
                     pKuroko_target->setMvVelo(_pFixedFrameSplManuf->_paSPMvVeloTo[_point_index] * 1.1) ;
-                    //pKuroko_target->setMvVelo(((velo)(d / _pFixedFrameSplManuf->_frame_of_segment)) + 1);
+                    //pKuroko_target->setMvVelo(((velo)(now_d / _pFixedFrameSplManuf->_frame_of_segment)) + 1);
                 } else {
                     pKuroko_target->setMvVelo(_pFixedFrameSplManuf->_paSPMvVeloTo[_point_index]);
                 }

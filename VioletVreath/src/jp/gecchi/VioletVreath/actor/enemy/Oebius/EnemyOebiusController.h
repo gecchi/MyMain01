@@ -51,8 +51,6 @@ public:
      */
     void processBehavior() override;
 
-    void scatterOebiusFormation();
-
     virtual ~EnemyOebiusController();
 };
 

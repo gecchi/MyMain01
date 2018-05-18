@@ -73,13 +73,12 @@ public:
     }
 
     /**
-     * oŒ»•ûŒü‚ğİ’èB
-     * @param rz
-     * @param ry
+     * •ûŒü‚ğİ’èB
      */
-    void setRzRyAng(angle rz, angle ry) {
-        geo_.rz = rz;
+    void setAng(angle rx, angle ry, angle rz) {
+        geo_.rx = rx;
         geo_.ry = ry;
+        geo_.rz = rz;
     }
 
     virtual ~FormationOebius();

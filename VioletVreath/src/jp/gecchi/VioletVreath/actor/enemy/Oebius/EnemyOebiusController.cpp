@@ -43,6 +43,16 @@ void EnemyOebiusController::onActive() {
 }
 
 void EnemyOebiusController::processBehavior() {
+    if (pOebiusCore_) {
+        if (!pOebiusCore_->canLive()) {
+            pOebiusCore_ == nullptr;
+        }
+    }
+    if (pFormationOebius_) {
+        if (!pFormationOebius_->canLive()) {
+            pFormationOebius_ == nullptr;
+        }
+    }
 
     GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
@@ -52,8 +62,10 @@ void EnemyOebiusController::processBehavior() {
         }
         case PROG_ENTRY_CORE: {
             if (pProg->hasJustChanged()) {
-                pOebiusCore_->setPositionAt(&entry_pos_);
-                pOebiusCore_->activate();
+                if (pOebiusCore_) {
+                    pOebiusCore_->setPositionAt(&entry_pos_);
+                    pOebiusCore_->activate();
+                }
             }
             pProg->changeNext();
             break;
@@ -69,12 +81,8 @@ void EnemyOebiusController::processBehavior() {
         }
 
         case PROG_ENTRY_FORMATION: {
-            if (pOebiusCore_) {
-                pFormationOebius_->setPosition(pOebiusCore_->_x,
-                                               pOebiusCore_->_y,
-                                               pOebiusCore_->_z  );
-                pFormationOebius_->setRzRyAng(pOebiusCore_->_rz, pOebiusCore_->_ry);
-                if (pProg->hasJustChanged()) {
+            if (pProg->hasJustChanged()) {
+                if (pFormationOebius_) {
                     pFormationOebius_->activate();
                 }
             }
@@ -88,14 +96,11 @@ void EnemyOebiusController::processBehavior() {
         case PROG_WAIT02: {
             if (pProg->hasJustChanged()) {
             }
-            if (pOebiusCore_) {
-                pFormationOebius_->setPosition(pOebiusCore_->_x,
-                                               pOebiusCore_->_y,
-                                               pOebiusCore_->_z  );
-                pFormationOebius_->setRzRyAng(pOebiusCore_->_rz, pOebiusCore_->_ry);
-            } else {
+            if (!pOebiusCore_) {
                 //コアがいなくなったら散り散りに
-                scatterOebiusFormation();
+                if (pFormationOebius_) {
+                    pFormationOebius_->scatterMember();
+                }
                 pProg->changeNothing(); //おしまい
             }
             break;
@@ -104,14 +109,18 @@ void EnemyOebiusController::processBehavior() {
         default :
             break;
     }
-}
 
-void EnemyOebiusController::scatterOebiusFormation() {
-    if (pFormationOebius_) {
-        pFormationOebius_->scatterMember();
+    //コアとフォーメーションの座標と向きの同期を取る
+    if (pOebiusCore_ && pFormationOebius_) {
+        pFormationOebius_->setPosition(pOebiusCore_->_x,
+                                       pOebiusCore_->_y,
+                                       pOebiusCore_->_z );
+        pFormationOebius_->setAng(pOebiusCore_->_rx,
+                                  pOebiusCore_->_ry,
+                                  pOebiusCore_->_rz);
     }
-}
 
+}
 
 EnemyOebiusController::~EnemyOebiusController() {
 }

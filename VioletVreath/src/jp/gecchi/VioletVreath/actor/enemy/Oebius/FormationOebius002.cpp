@@ -26,6 +26,11 @@ FormationOebius002::FormationOebius002(const char* prm_name, EnemyOebiusControll
 
 void FormationOebius002::processBehavior() {
     FormationOebius::processBehavior();
+//    int col_num = getFormationColNum();
+//    for (int col = 0; col < col_num; col++) {
+//        SplineLine* sp = papSplManufConn_[col]->peek()->_sp;
+//        sp->rotation(geo_.rx, geo_.rz, geo_.ry);
+//    }
 }
 
 void FormationOebius002::onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, int prm_row, int prm_col) {
@@ -52,7 +57,7 @@ void FormationOebius002::onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, int
 //                                              geo_.y + dy,
 //                                              geo_.z + dz);
     pOebius->pKurokoLeader_->setStartPosition(geo_.x, geo_.y, geo_.z);
-    pOebius->pKurokoLeader_->setStartAngle(geo_.rx, geo_.rz, geo_.ry);
+    pOebius->pKurokoLeader_->setStartAngle(geo_.rx, geo_.ry, geo_.rz);
 
     pOebius->setPosition( RND_ABOUT(geo_.x, PX_C(700)),
                           RND_ABOUT(geo_.y, PX_C(700)),

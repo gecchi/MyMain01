@@ -1,6 +1,7 @@
 #include "jp/ggaf/lib/util/spline/SplineLine.h"
 
 #include "jp/ggaf/core/exception/GgafCriticalException.h"
+#include "jp/ggaf/lib/util/StgUtil.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -76,6 +77,23 @@ void SplineLine::compute() {
         index++;
     }
     _rnum = index;
+}
+
+void SplineLine::rotation(angle prm_rx, angle prm_ry, angle prm_rz) {
+    const double sinRx = ANG_SIN(prm_rx);
+    const double cosRx = ANG_COS(prm_rx);
+    const double sinRy = ANG_SIN(prm_ry);
+    const double cosRy = ANG_COS(prm_ry);
+    const double sinRz = ANG_SIN(prm_rz);
+    const double cosRz = ANG_COS(prm_rz);
+    for (int t = 0; t < _rnum; t ++) {
+        double x = _x_compute[t];
+        double y = _y_compute[t];
+        double z = _z_compute[t];
+        _x_compute[t] = x*cosRz*cosRy + y*(cosRx*-sinRz*cosRy + sinRx*sinRy) + z*(-sinRx*-sinRz*cosRy + cosRx*sinRy);
+        _y_compute[t] = x*sinRz + y*cosRx*cosRz + z*-sinRx*cosRz;
+        _z_compute[t] = x*cosRz*-sinRy + y*(cosRx*-sinRz*-sinRy + sinRx*cosRy) + z*(-sinRx*-sinRz*-sinRy + cosRx*cosRy);
+    }
 }
 
 SplineLine::~SplineLine() {

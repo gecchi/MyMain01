@@ -106,19 +106,10 @@ void EnemyOebius::processBehavior() {
             }
 
 
-//            FormationOebius* pFormation = (FormationOebius*)getFormation();
-//            pKurokoLeader_->_rz_mv_start = pFormation->geo_.rz;
-//            pKurokoLeader_->_ry_mv_start = pFormation->geo_.ry;
-//            pKurokoLeader_->_sinRz_begin = ANG_SIN(pFormation->geo_.rz);
-//            pKurokoLeader_->_cosRz_begin = ANG_COS(pFormation->geo_.rz);
-//            pKurokoLeader_->_sinRy_begin = ANG_SIN(pFormation->geo_.ry);
-//            pKurokoLeader_->_cosRy_begin = ANG_COS(pFormation->geo_.ry);
+
             FormationOebius* pFormation = (FormationOebius*)getFormation();
             pKurokoLeader_->setStartPosition(pFormation->geo_.x, pFormation->geo_.y, pFormation->geo_.z);
-            pKurokoLeader_->setStartAngle(pFormation->geo_.rx, pFormation->geo_.rz, pFormation->geo_.ry);
-//            _TRACE_("rx,rz,ry="<<pFormation->geo_.rx<<","<<pFormation->geo_.rz<<","<<pFormation->geo_.ry);
-//            pOebius->pKurokoLeader_->setStartAngle(geo_.rx, geo_.rz, geo_.ry);
-
+            pKurokoLeader_->setStartAngle(pFormation->geo_.rx, pFormation->geo_.ry, pFormation->geo_.rz);
             pKurokoLeader_->behave(); //ƒXƒvƒ‰ƒCƒ“ˆÚ“®‚ğU‚é•‘‚¢
 
             if (scatter_flg_) {

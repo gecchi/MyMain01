@@ -146,7 +146,7 @@ void EnemyOebiusCore::onHit(const GgafActor* prm_pOtherActor) {
 
 void EnemyOebiusCore::onInactive() {
     sayonara();
-    pController_->pOebiusCore_ = nullptr;
+//    pController_->pOebiusCore_ = nullptr;
 }
 
 EnemyOebiusCore::~EnemyOebiusCore() {

@@ -57,7 +57,7 @@ void FormationUrydike001::onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, in
     pUrydike->pKurokoLeader_->setStartPosition(entry_pos_.x + dx,
                                                entry_pos_.y + dy,
                                                entry_pos_.z + dz);
-    pUrydike->pKurokoLeader_->setStartAngle(entry_pos_.rx, entry_pos_.rz, entry_pos_.ry);
+    pUrydike->pKurokoLeader_->setStartAngle(entry_pos_.rx, entry_pos_.ry, entry_pos_.rz);
 
 
     pUrydike->setPosition( RND_ABOUT(entry_pos_.x + dx, PX_C(700)),
