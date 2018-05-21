@@ -83,6 +83,12 @@ public:
      */
     static angle PROJANG_ZY_ZX_TO_ROTANG_y[D90SANG+1][D90SANG+1];
 
+    static double RND_CIRCLE_X[];
+    static double RND_CIRCLE_Y[];
+    static double RND_SPHERE_X[];
+    static double RND_SPHERE_Y[];
+    static double RND_SPHERE_Z[];
+
     static GgafDxSphereRadiusVectors _srv;
 
     static bool _was_GgafDxUtil_inited_flg;
@@ -648,6 +654,37 @@ public:
         out_x = in_x2 + t*vx;
         out_y = in_y2 + t*vy;
         out_z = in_z2 + t*vz;
+    }
+
+    /**
+     * 原点中心の球内の一様なランダム座標を返す .
+     * @param r 球の半径
+     * @param out_x
+     * @param out_y
+     * @param out_z
+     */
+    static void getRndSpherCoord(double r,
+                                 double& out_x,
+                                 double& out_y,
+                                 double& out_z) {
+        int rnd = RND(0,10000-1);
+        out_x = RND_SPHERE_X[rnd] * r;
+        out_y = RND_SPHERE_Y[rnd] * r;
+        out_z = RND_SPHERE_Z[rnd] * r;
+    }
+
+    /**
+     * 原点中心の円内の一様なランダム座標を返す .
+     * @param r 円の半径
+     * @param out_x
+     * @param out_y
+     */
+    static void getRndCircleCoord(double r,
+                                  double& out_x,
+                                  double& out_y) {
+        int rnd = RND(0,10000-1);
+        out_x = RND_CIRCLE_X[rnd] * r;
+        out_y = RND_CIRCLE_Y[rnd] * r;
     }
 
     /**

@@ -26,6 +26,7 @@
 #define MY_IDM_ASPECT_FIXED       31
 #define MY_IDM_ASPECT_STRETCH     32
 #define MAX_LOADSTRING 100
+
 // グローバル変数:
 HINSTANCE hInst; // 現在のインターフェイス
 TCHAR szTitle[MAX_LOADSTRING]; // タイトル バーのテキスト
@@ -510,6 +511,5 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam) {
 //        break;
 //}
 //}
-
 
 

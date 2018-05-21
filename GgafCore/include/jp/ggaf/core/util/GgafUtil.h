@@ -48,6 +48,8 @@
  */
 #define RND_ABOUT(__BASE_VALUE__, __MARGIN__) (RND(((int)(__BASE_VALUE__) - (int)(__MARGIN__)), (__BASE_VALUE__ + __MARGIN__)))
 
+#define dRND(__FROM__,__TO__) (GgafCore::GgafUtil::_rnd_double_((__FROM__),(__TO__)))
+
 typedef std::map<std::string, std::string> GgafStrMap;
 /** ハッシュ数値 */
 typedef uint64_t hashval;
@@ -454,6 +456,8 @@ public:
      * @return
      */
     static int32_t _rnd_int32_(int32_t prm_from, int32_t prm_to);
+
+    static double _rnd_double_(double prm_from, double prm_to);
 
     static bool cnvBool(std::string& prm_str);
 

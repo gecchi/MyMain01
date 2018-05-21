@@ -57,7 +57,7 @@ void Stage01PartController::processBehavior() {
 			case 500: {
 				EnemyOebiusController001* p1 = (EnemyOebiusController001*)grantActor(10000000);
 				bringSceneMediator()->addSubGroup(p1);
-				p1->setPosition(PX_C(3400), PX_C(450), PX_C(700) );
+				p1->setPosition(PX_C(3400), PX_C(450), PX_C(0) );
 				break;
 			}
 			default :

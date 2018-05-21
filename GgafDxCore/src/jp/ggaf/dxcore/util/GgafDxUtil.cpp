@@ -77,6 +77,11 @@ angle GgafDxUtil::PROJANG_XY_XZ_TO_ROTANG_y_REV[D90SANG+1][D90SANG+1];
 angle GgafDxUtil::PROJANG_ZY_ZX_TO_ROTANG_x_REV[D90SANG+1][D90SANG+1];
 angle GgafDxUtil::PROJANG_ZY_ZX_TO_ROTANG_y[D90SANG+1][D90SANG+1];
 
+double GgafDxUtil::RND_CIRCLE_X[10000];
+double GgafDxUtil::RND_CIRCLE_Y[10000];
+double GgafDxUtil::RND_SPHERE_X[10000];
+double GgafDxUtil::RND_SPHERE_Y[10000];
+double GgafDxUtil::RND_SPHERE_Z[10000];
 GgafDxSphereRadiusVectors GgafDxUtil::_srv = GgafDxSphereRadiusVectors();
 GgafDxCamera* GgafDxUtil::_pCam = nullptr; //GgafDxSpacetime::GgafDxSpacetime() で設定される
 
@@ -256,6 +261,25 @@ void GgafDxUtil::init() {
         }
     }
 
+
+    //円内、球内に一様に分布するランダムな点を生成
+    for (int i = 0; i < 10000; i++) {
+        const double r = dRND(0.0, 1.0);
+        const double z = dRND(-1.0, 1.0);
+        const double phi = dRND(0.0, 2.0*PI);
+
+        const double cos_phi = cos(phi);
+        const double sin_phi = sin(phi);
+        const double wk1 = sqrt(1 - z * z);
+        const double wk2 = cbrt(r);
+        GgafDxUtil::RND_SPHERE_X[i] = wk2 * wk1 * cos_phi;
+        GgafDxUtil::RND_SPHERE_Y[i] = wk2 * wk1 * sin_phi;
+        GgafDxUtil::RND_SPHERE_Z[i] = wk2 * z;
+
+        const double wk3 = sqrt(r);
+        GgafDxUtil::RND_CIRCLE_X[i] = wk3 * cos_phi;
+        GgafDxUtil::RND_CIRCLE_Y[i] = wk3 * sin_phi;
+    }
     GgafDxUtil::_was_GgafDxUtil_inited_flg = true;
 }
 

@@ -70,8 +70,9 @@ void FixedFrameSplineKurokoLeader::restart() {
 void FixedFrameSplineKurokoLeader::behave() {
     if (_is_leading) {
         GgafDxKuroko* const pKuroko_target = _pActor_target->getKuroko();
+        const double frame_of_segment = _pFixedFrameSplManuf->_frame_of_segment;
         //現在の点INDEX
-        _point_index = (_leading_frames+_hosei_frames) / _pFixedFrameSplManuf->_frame_of_segment;
+        _point_index = (_leading_frames+_hosei_frames) / frame_of_segment;
         if ( _point_index == _pFixedFrameSplManuf->_sp->_rnum) {
             if (_cnt_loop == _max_loop) {
                 //終了
@@ -82,7 +83,7 @@ void FixedFrameSplineKurokoLeader::behave() {
                 //ループ
                 _cnt_loop++;
                 restart();
-                _point_index = (_leading_frames+_hosei_frames) / _pFixedFrameSplManuf->_frame_of_segment;
+                _point_index = (_leading_frames+_hosei_frames) / frame_of_segment;
             }
         }
 
@@ -98,7 +99,7 @@ void FixedFrameSplineKurokoLeader::behave() {
             if (_point_index == 0) {
                 //現座標と開始が離れている。
                 //誤差も仕方ないので _frame_of_segment で始点に移動する速度を付与
-                pKuroko_target->setMvVelo((velo)(_distance_to_begin / _pFixedFrameSplManuf->_frame_of_segment));
+                pKuroko_target->setMvVelo((velo)(_distance_to_begin / frame_of_segment));
             } else {
                 const coord next_d = _pFixedFrameSplManuf->_paDistance_to[_point_index];
                 const coord now_d = UTIL::getDistance(
@@ -109,7 +110,7 @@ void FixedFrameSplineKurokoLeader::behave() {
                 if (next_d*1.2 < now_d) {
                     //補正：距離が予想より開いている(1.2倍以上空いてる)ので少し急ぐ(1.1倍のスピードにする)
                     pKuroko_target->setMvVelo(_pFixedFrameSplManuf->_paSPMvVeloTo[_point_index] * 1.1) ;
-                    //pKuroko_target->setMvVelo(((velo)(now_d / _pFixedFrameSplManuf->_frame_of_segment)) + 1);
+                    //pKuroko_target->setMvVelo(((velo)(now_d / frame_of_segment)) + 1);
                 } else {
                     pKuroko_target->setMvVelo(_pFixedFrameSplManuf->_paSPMvVeloTo[_point_index]);
                 }

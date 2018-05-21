@@ -64,17 +64,18 @@ void FormationOebius001::onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, int
     pOebius->getKuroko()->setMvVelo(0);
     pOebius->getKuroko()->setMvAcce(80);
 
-//    float sr = ANG_SIN(RCNV(0, getFormationColNum()                      , prm_col         , D0ANG, D360ANG));
-//    float sg = ANG_SIN(RCNV(0, getFormationColNum()*getFormationRowNum() , prm_col*prm_row , D0ANG, D360ANG));
-//    float sb = ANG_SIN(RCNV(0, getFormationRowNum()                      , prm_row         , D0ANG, D360ANG));
+//    float sr = ANG_SIN(RCNV(0, getFormationRowNum() , prm_row , D0ANG, D360ANG));
+//    float sg = ANG_COS(RCNV(0, getFormationRowNum() , prm_row , D0ANG, D360ANG));
+//    float sb = ANG_SIN(RCNV(0, getFormationColNum() , prm_col , D0ANG, D360ANG));
+//
+//    double r = RCNV(-1.0, 1.0, sr, 0.2, 1.1);
+//    double g = RCNV(-1.0, 1.0, sg, 0.2, 1.1);
+//    double b = RCNV(-1.0, 1.0, sb, 0.2, 1.1);
 
-    float sr = ANG_SIN(RCNV(0, getFormationRowNum() , prm_row , D0ANG, D360ANG));
-    float sg = ANG_COS(RCNV(0, getFormationRowNum() , prm_row , D0ANG, D360ANG));
-    float sb = ANG_SIN(RCNV(0, getFormationColNum() , prm_col , D0ANG, D360ANG));
+    double r = RCNV(0, getFormationColNum()                      , prm_col         , 0.3, 1.0);
+    double g = RCNV(0, getFormationColNum()*getFormationRowNum() , prm_col*prm_row , 0.3, 1.0);
+    double b = RCNV(0, getFormationRowNum()                      , prm_row         , 0.3, 1.0);
 
-    double r = RCNV(-1.0, 1.0, sr, 0.2, 1.1);
-    double g = RCNV(-1.0, 1.0, sg, 0.2, 1.1);
-    double b = RCNV(-1.0, 1.0, sb, 0.2, 1.1);
     pOebius->setMaterialColor(r, g, b);
 }
 

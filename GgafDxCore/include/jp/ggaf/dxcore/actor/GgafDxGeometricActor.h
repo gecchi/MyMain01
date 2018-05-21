@@ -284,17 +284,21 @@ public:
     }
 
     /**
-     * 遊びありのワールド座標を設定 .
-     * @param x
-     * @param y
-     * @param z
-     * @param margin 遊び、指定値の±の値をランダムに加算
+     * 座標を指定座標付近に適当に設定 .
+     * @param x 範囲中心X座標
+     * @param y 範囲中心Y座標
+     * @param z 範囲中心Z座標
+     * @param r 範囲球の半径
      */
-    virtual void setPositionAround(coord x, coord y, coord z, coord margin) {
-        _x = RND_ABOUT(x, margin);
-        _y = RND_ABOUT(y, margin);
-        _z = RND_ABOUT(z, margin);
-    }
+    virtual void setPositionAround(coord x, coord y, coord z, coord r);
+
+    /**
+     * 座標を指定座標付近に適当に設定 .
+     * @param x 範囲中心X座標
+     * @param y 範囲中心Y座標
+     * @param r 範囲円の半径
+     */
+    virtual void setPositionAround(coord x, coord y, coord r);
 
     /**
      * X軸Y軸Z軸各軸スケール _sx, _sy, _sz を同じ値で設定 .
@@ -425,20 +429,16 @@ public:
     /**
      * 指定のアクターと同じ座標(_x, _y, _z)にランダムな遊びを加算して設定 .
      * @param prm_pActor 座標コピー元アクター
-     * @param margin 遊び。指定値の±の値をランダムに加算
+     * @param r 範囲球の半径
      */
-    virtual void setPositionAroundAt(const GgafDxGeometricActor* prm_pActor, coord margin) {
-        _x = RND_ABOUT(prm_pActor->_x, margin);
-        _y = RND_ABOUT(prm_pActor->_y, margin);
-        _z = RND_ABOUT(prm_pActor->_z, margin);
-    }
+    virtual void setPositionAroundAt(const GgafDxGeometricActor* prm_pActor, coord r);
 
     /**
      * 指定の座標オブジェクトにランダムな遊びを加算して設定 .
      * @param prm_pGeoElem  座標オブジェクト
-     * @param margin 遊び。指定値の±の値をランダムに加算
+     * @param r 範囲球の半径
      */
-    virtual void setPositionAroundAt(const GgafDxGeoElem* prm_pGeoElem, coord margin);
+    virtual void setPositionAroundAt(const GgafDxGeoElem* prm_pGeoElem, coord r);
 
     /**
      * 回転角度 _rx, _ry, _rz をコピーして設定 .

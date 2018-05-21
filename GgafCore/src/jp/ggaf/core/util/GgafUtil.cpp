@@ -49,7 +49,14 @@ int32_t GgafUtil::_rnd_int32_(int32_t prm_from, int32_t prm_to) {
     return ((int32_t)(GgafCore::CmRandomNumberGenerator::getInstance()->genrand_real2() * (prm_to - prm_from + 1) ) + prm_from );
     //↑[N3551 Random Number Generation in C++11] を読んで焦って修正、今まで剰余使ってたし！ 2013/03/22
 }
-
+double GgafUtil::_rnd_double_(double prm_from, double prm_to) {
+#ifdef MY_DEBUG
+    if (prm_from > prm_to) {
+        MessageBox(nullptr, "GgafUtil::_rnd_double_() from toの大小がおかしい", "不本意な事態", MB_OK|MB_ICONQUESTION|MB_SETFOREGROUND|MB_TOPMOST);
+    }
+#endif
+    return (GgafCore::CmRandomNumberGenerator::getInstance()->genrand_real1() * (prm_to - prm_from) ) + prm_from ;
+}
 bool GgafUtil::cnvBool(std::string& prm_str) {
     const char* s = prm_str.c_str();
     bool ret;

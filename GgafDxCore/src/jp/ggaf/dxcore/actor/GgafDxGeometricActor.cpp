@@ -404,10 +404,24 @@ void GgafDxGeometricActor::setPositionAt(const GgafDxGeoElem* prm_pGeoElem) {
     _y = prm_pGeoElem->y;
     _z = prm_pGeoElem->z;
 }
-void GgafDxGeometricActor::setPositionAroundAt(const GgafDxGeoElem* prm_pGeoElem, coord margin) {
-    _x = RND_ABOUT(prm_pGeoElem->x, margin);
-    _y = RND_ABOUT(prm_pGeoElem->y, margin);
-    _z = RND_ABOUT(prm_pGeoElem->z, margin);
+
+void GgafDxGeometricActor::setPositionAround(coord x, coord y, coord z, coord r) {
+    double out_x, out_y, out_z;
+    UTIL::getRndSpherCoord(r, out_x, out_y, out_z);
+    setPosition(x+out_x, y+out_y, z+out_z);
+}
+
+void GgafDxGeometricActor::setPositionAround(coord x, coord y, coord r) {
+    double out_x, out_y;
+    UTIL::getRndCircleCoord(r, out_x, out_y);
+    setPosition(x+out_x, y+out_y);
+}
+
+void GgafDxGeometricActor::setPositionAroundAt(const GgafDxGeometricActor* prm_pActor, coord r) {
+    setPositionAround(prm_pActor->_x, prm_pActor->_y, prm_pActor->_z, r);
+}
+void GgafDxGeometricActor::setPositionAroundAt(const GgafDxGeoElem* prm_pGeoElem, coord r) {
+    setPositionAround(prm_pGeoElem->x, prm_pGeoElem->y, prm_pGeoElem->z, r);
 }
 void GgafDxGeometricActor::setFaceAngAs(const GgafDxGeometricActor* prm_pActor) {
     setRxFaceAng(prm_pActor->_rx);

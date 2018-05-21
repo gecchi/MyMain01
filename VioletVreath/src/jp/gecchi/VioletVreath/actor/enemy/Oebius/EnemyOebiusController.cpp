@@ -44,12 +44,12 @@ void EnemyOebiusController::onActive() {
 
 void EnemyOebiusController::processBehavior() {
     if (pOebiusCore_) {
-        if (!pOebiusCore_->canLive()) {
+        if (!pOebiusCore_->wasDeclaredEnd()) {
             pOebiusCore_ == nullptr;
         }
     }
     if (pFormationOebius_) {
-        if (!pFormationOebius_->canLive()) {
+        if (!pFormationOebius_->wasDeclaredEnd()) {
             pFormationOebius_ == nullptr;
         }
     }

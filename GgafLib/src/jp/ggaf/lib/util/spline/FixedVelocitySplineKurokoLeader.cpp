@@ -42,10 +42,12 @@ void FixedVelocitySplineKurokoLeader::behave() {
     if (_is_leading) {
         GgafDxKuroko* const pKuroko_target = _pActor_target->getKuroko();
         //変わり目
-        if (_leadning_float_frames >= _float_frame_of_next) {
+        const float leadning_float_frames_now = _leadning_float_frames;
+        const int sp_rnum = _pFixedVeloSplManuf->_sp->_rnum;
+        if (leadning_float_frames_now >= _float_frame_of_next) {
 again:
             _point_index++;
-            if ( _point_index == _pFixedVeloSplManuf->_sp->_rnum) {
+            if (_point_index == sp_rnum) {
                 if (_cnt_loop == _max_loop) {
                     //終了
                     _is_leading = false;
@@ -68,7 +70,7 @@ again:
                                      _pFixedVeloSplManuf->_paFrame_need_at[_point_index];
             }
         }
-        if (_leadning_float_frames >= _float_frame_of_next) {
+        if (leadning_float_frames_now >= _float_frame_of_next) {
             //_float_frame_of_nextを次に進めても足りない場合、もう一つ_point_indexを進める
             goto again;
         }
