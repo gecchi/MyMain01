@@ -271,7 +271,7 @@ void GgafDxUtil::init() {
         const double cos_phi = cos(phi);
         const double sin_phi = sin(phi);
         const double wk1 = sqrt(1 - z * z);
-        const double wk2 = cbrt(r);
+        const double wk2 = GgafUtil::_cbrt_(r);
         GgafDxUtil::RND_SPHERE_X[i] = wk2 * wk1 * cos_phi;
         GgafDxUtil::RND_SPHERE_Y[i] = wk2 * wk1 * sin_phi;
         GgafDxUtil::RND_SPHERE_Z[i] = wk2 * z;

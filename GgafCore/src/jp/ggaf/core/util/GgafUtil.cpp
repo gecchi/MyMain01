@@ -3,6 +3,7 @@
 #include "jp/ggaf/core/exception/GgafCriticalException.h"
 #include <fstream>
 #include <time.h>
+#include <math.h>
 #include <windows.h>
 #ifdef __GNUG__
     #undef __in
@@ -57,6 +58,30 @@ double GgafUtil::_rnd_double_(double prm_from, double prm_to) {
 #endif
     return (GgafCore::CmRandomNumberGenerator::getInstance()->genrand_real1() * (prm_to - prm_from) ) + prm_from ;
 }
+
+double GgafUtil::_cbrt_(double x) {
+    double stv, dx, last, diff, v3;
+    stv = x >= 0.0 ? sqrt(x) : -sqrt(-x);
+    dx = stv / 10.0;
+    if (x == 0.0) return 0.0;
+    if (x < stv * stv * stv) dx = -dx;
+    while (1) {
+        last = stv;
+
+        while (1) {
+            v3 = stv * stv * stv;
+            if (dx > 0 && x < v3) break;
+            if (dx < 0 && x > v3) break;
+            // —§•ûª‚Æ‹ßŽ—’l‚Ì‘å¬ŠÖŒW‚ª•Ï‰»‚µ‚½‚ç“à‘¤‚Ì–³ŒÀƒ‹[ƒv‚©‚ç”²‚¯‚é
+            stv += dx;
+        }
+        diff = stv - last;
+        if ((diff > -0.0000001) && (diff < 0.0000001)) break;
+        dx = -dx / 10.0;
+    }
+    return (stv);
+}
+
 bool GgafUtil::cnvBool(std::string& prm_str) {
     const char* s = prm_str.c_str();
     bool ret;

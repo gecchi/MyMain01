@@ -447,7 +447,7 @@ public:
         return ( (min_b-max_b)*x - (max_a*min_b) + (max_b*min_a) ) / (min_a-max_a);
     }
 
-
+    static double _cbrt_(double x);
     /**
      * int32_tƒ‰ƒ“ƒ_ƒ€ŠÖ” .
      * prm_from ‚Æ prm_to ‚ª‹t“]‚µ‚Ä‚Í‚¢‚¯‚È‚¢(•‰‚Ì%‰‰Z‚ÍAVC++‚Å‚Ì“®ì‚Í•s’è‚Ì‚½‚ß)

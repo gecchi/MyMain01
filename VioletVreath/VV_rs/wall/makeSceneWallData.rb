@@ -167,22 +167,22 @@ while true
         x = boxvtx[vidx].X
         y = boxvtx[vidx].Y
         z = boxvtx[vidx].Z
-        if    x > box[box_index].X && y > box[box_index].Y && z > box[box_index].Z then     #0
-          counter[0] = counter[0] + 1
+        if    x > box[box_index].X && y > box[box_index].Y && z > box[box_index].Z then  #0
+          counter[0] += 1
         elsif x > box[box_index].X && y > box[box_index].Y && z < box[box_index].Z then  #1
-          counter[1] = counter[1] + 1
+          counter[1] += 1
         elsif x > box[box_index].X && y < box[box_index].Y && z > box[box_index].Z then  #2
-          counter[2] = counter[2] + 1
+          counter[2] += 1
         elsif x > box[box_index].X && y < box[box_index].Y && z < box[box_index].Z then  #3
-          counter[3] = counter[3] + 1
+          counter[3] += 1
         elsif x < box[box_index].X && y > box[box_index].Y && z > box[box_index].Z then  #4
-          counter[4] = counter[4] + 1
+          counter[4] += 1
         elsif x < box[box_index].X && y > box[box_index].Y && z < box[box_index].Z then  #5
-          counter[5] = counter[5] + 1
+          counter[5] += 1
         elsif x < box[box_index].X && y < box[box_index].Y && z > box[box_index].Z then  #6
-          counter[6] = counter[6] + 1
+          counter[6] += 1
         elsif x < box[box_index].X && y < box[box_index].Y && z < box[box_index].Z then  #7
-          counter[7] = counter[7] + 1
+          counter[7] += 1
         end
       end
 
@@ -190,53 +190,104 @@ while true
       #８個全ての頂点に伸びている場合は、BOX
       #伸びてない頂点が２個の場合、プリズム
       #伸びてない頂点が４の場合、ピラミッド（実装予定）
-
-      if counter[0] > 0 &&
-         counter[1] > 0 &&
-         counter[2] > 0 &&
-         counter[3] > 0 &&
-         counter[4] > 0 &&
-         counter[5] > 0 &&
-         counter[6] > 0 &&
-         counter[7] > 0   then
-        #プリズムではなくてBOX
-        box[box_index].pos_prism = 0
-      elsif counter[0] == 0 && counter[1] == 0 then
-        box[box_index].pos_prism = POS_PRISM_XY_NN
-      elsif counter[2] == 0 && counter[3] == 0 then
-        box[box_index].pos_prism = POS_PRISM_XY_NP
-      elsif counter[4] == 0 && counter[5] == 0 then
-        box[box_index].pos_prism = POS_PRISM_XY_PN
-      elsif counter[6] == 0 && counter[7] == 0 then
-        box[box_index].pos_prism = POS_PRISM_XY_PP
-
-      elsif counter[0] == 0 && counter[4] == 0 then
-        box[box_index].pos_prism = POS_PRISM_YZ_NN
-      elsif counter[5] == 0 && counter[1] == 0 then
-        box[box_index].pos_prism = POS_PRISM_YZ_NP
-      elsif counter[2] == 0 && counter[6] == 0 then
-        box[box_index].pos_prism = POS_PRISM_YZ_PN
-      elsif counter[3] == 0 && counter[7] == 0 then
-        box[box_index].pos_prism = POS_PRISM_YZ_PP
-
-      elsif counter[0] == 0 && counter[2] == 0 then
-        box[box_index].pos_prism = POS_PRISM_ZX_NN
-      elsif counter[4] == 0 && counter[6] == 0 then
-        box[box_index].pos_prism = POS_PRISM_ZX_NP
-      elsif counter[1] == 0 && counter[3] == 0 then
-        box[box_index].pos_prism = POS_PRISM_ZX_PN
-      elsif counter[5] == 0 && counter[7] == 0 then
-        box[box_index].pos_prism = POS_PRISM_ZX_PP
-      else
-        #ありえない
-        puts "not prism and not box!!!"
-        p "counter=",counter
-        p "boxvtx=",boxvtx
-        exit(1)
-
+      counter_sum = 0
+      if counter[0] > 0 then
+        counter_sum += 1
       end
+      if counter[1] > 0 then
+        counter_sum += 1
+      end
+      if counter[2] > 0 then
+        counter_sum += 1
+      end
+      if counter[3] > 0 then
+        counter_sum += 1
+      end
+      if counter[4] > 0 then
+        counter_sum += 1
+      end
+      if counter[5] > 0 then
+        counter_sum += 1
+      end
+      if counter[6] > 0 then
+        counter_sum += 1
+      end
+      if counter[7] > 0 then
+        counter_sum += 1
+      end
+
+      if counter_sum == 8 then
+      
+        #BOX
+        box[box_index].pos_info = 0
+        
+      elsif counter_sum == 6 then
+        #プリズム
+
+        if counter[0] == 0 && counter[1] == 0 then
+          box[box_index].pos_info = POS_PRISM_XY_NN
+        elsif counter[2] == 0 && counter[3] == 0 then
+          box[box_index].pos_info = POS_PRISM_XY_NP
+        elsif counter[4] == 0 && counter[5] == 0 then
+          box[box_index].pos_info = POS_PRISM_XY_PN
+        elsif counter[6] == 0 && counter[7] == 0 then
+          box[box_index].pos_info = POS_PRISM_XY_PP
+
+        elsif counter[0] == 0 && counter[4] == 0 then
+          box[box_index].pos_info = POS_PRISM_YZ_NN
+        elsif counter[5] == 0 && counter[1] == 0 then
+          box[box_index].pos_info = POS_PRISM_YZ_NP
+        elsif counter[2] == 0 && counter[6] == 0 then
+          box[box_index].pos_info = POS_PRISM_YZ_PN
+        elsif counter[3] == 0 && counter[7] == 0 then
+          box[box_index].pos_info = POS_PRISM_YZ_PP
+
+        elsif counter[0] == 0 && counter[2] == 0 then
+          box[box_index].pos_info = POS_PRISM_ZX_NN
+        elsif counter[4] == 0 && counter[6] == 0 then
+          box[box_index].pos_info = POS_PRISM_ZX_NP
+        elsif counter[1] == 0 && counter[3] == 0 then
+          box[box_index].pos_info = POS_PRISM_ZX_PN
+        elsif counter[5] == 0 && counter[7] == 0 then
+          box[box_index].pos_info = POS_PRISM_ZX_PP
+        else
+          #ありえない
+          puts "Illigal prism!!!"
+          p "counter=",counter
+          p "boxvtx=",boxvtx
+          exit(1)
+        end
+
+      elsif counter_sum == 4 then
+        #ピラミッド
+        
+        if counter[7] > 0 && counter[5] > 0 && counter[6] > 0 && counter[3] > 0 then
+          box[box_index].pos_info = POS_PYRAMID_NNN
+        elsif counter[6] > 0 && counter[4] > 0 && counter[7] > 0 && counter[2] > 0 then
+          box[box_index].pos_info = POS_PYRAMID_NNP
+        elsif counter[5] > 0 && counter[1] > 0 && counter[4] > 0 && counter[7] > 0 then
+          box[box_index].pos_info = POS_PYRAMID_NPN
+        elsif counter[4] > 0 && counter[0] > 0 && counter[6] > 0 && counter[5] > 0 then
+          box[box_index].pos_info = POS_PYRAMID_NPP
+        elsif counter[3] > 0 && counter[1] > 0 && counter[2] > 0 && counter[7] > 0 then
+          box[box_index].pos_info = POS_PYRAMID_PNN
+        elsif counter[2] > 0 && counter[0] > 0 && counter[3] > 0 && counter[6] > 0 then
+          box[box_index].pos_info = POS_PYRAMID_PNP
+        elsif counter[1] > 0 && counter[0] > 0 && counter[5] > 0 && counter[3] > 0 then
+          box[box_index].pos_info = POS_PYRAMID_PPN
+        elsif counter[0] > 0 && counter[1] > 0 && counter[2] > 0 && counter[4] > 0 then
+          box[box_index].pos_info = POS_PYRAMID_PPP
+        else
+          puts "Illigal Pyramid!!!"
+          p "counter=",counter
+          p "boxvtx=",boxvtx
+        end
+        
+      end
+
+
 #        #プリズムと判定された要素表示
-#      if box[box_index].pos_prism != 0 then
+#      if box[box_index].pos_info != 0 then
 #        p counter
 #        p "boxvtx=",boxvtx
 #      end
@@ -284,7 +335,7 @@ while true
       iY = ((box[idx].Y-($box_height/2))/$box_height) + ($area_height/2)
       iZ = ((box[idx].Z-($box_width/2))/$box_width)  + ($area_width/2)
       #print idx,",(",iX,",",iY,",",iZ,") box[idx].X=",box[idx].X,"\n"
-      exArea.area[iX][iY][iZ] = box[idx].pos_prism  #ExteriorArea::KABE_BOX_VAL
+      exArea.area[iX][iY][iZ] = box[idx].pos_info  #ExteriorArea::KABE_BOX_VAL
   end
 
   #exArea.dump01
