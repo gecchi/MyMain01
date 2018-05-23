@@ -71,7 +71,7 @@ class ExteriorArea
   FULL_VAL = -2
   #nobashi_zumi 専用フラグ。その座標はもう当たり判定伸ばし済み
   SUMI_FLG = -3
-  
+
   FACE_A_BIT = 0b100000
   FACE_B_BIT = 0b010000
   FACE_C_BIT = 0b001000
@@ -101,7 +101,7 @@ class ExteriorArea
       }
     }
   end
-  
+
   def isPrism(pos)
     if ((pos > KABE_BOX_VAL) && (pos <= POS_PRISM_MAXVALUE)) then
       return true
@@ -109,7 +109,7 @@ class ExteriorArea
       return false
     end
   end
-  
+
   def isPyramid(pos)
     if ((pos > POS_PRISM_MAXVALUE) && (pos <= POS_PYRAMID_MAXVALUE)) then
       return true
@@ -117,7 +117,7 @@ class ExteriorArea
       return false
     end
   end
-  
+
   def isPrismXY(pos)
     if ((pos == POS_PRISM_XY_NN) ||
         (pos == POS_PRISM_XY_NP) ||
@@ -151,7 +151,7 @@ class ExteriorArea
     end
   end
 
-  def isPrismXpositive(pos)
+  def isPrismXPosi(pos)
     if ((pos == POS_PRISM_XY_PP) ||
         (pos == POS_PRISM_XY_PN) ||
         (pos == POS_PRISM_ZX_PP) ||
@@ -162,7 +162,7 @@ class ExteriorArea
     end
   end
 
-  def isPrismXnegative(pos)
+  def isPrismXNega(pos)
     if ((pos == POS_PRISM_XY_NP) ||
         (pos == POS_PRISM_XY_NN) ||
         (pos == POS_PRISM_ZX_PN) ||
@@ -173,7 +173,7 @@ class ExteriorArea
     end
   end
 
-  def isPrismYpositive(pos)
+  def isPrismYPosi(pos)
     if ((pos == POS_PRISM_XY_PP) ||
         (pos == POS_PRISM_XY_NP) ||
         (pos == POS_PRISM_YZ_PP) ||
@@ -184,7 +184,7 @@ class ExteriorArea
     end
   end
 
-  def isPrismYnegative(pos)
+  def isPrismYNega(pos)
     if ((pos == POS_PRISM_XY_PN) ||
         (pos == POS_PRISM_XY_NN) ||
         (pos == POS_PRISM_YZ_NP) ||
@@ -195,7 +195,7 @@ class ExteriorArea
     end
   end
 
-  def isPrismZpositive(pos)
+  def isPrismZPosi(pos)
     if ((pos == POS_PRISM_YZ_PP) ||
         (pos == POS_PRISM_YZ_NP) ||
         (pos == POS_PRISM_ZX_PP) ||
@@ -206,11 +206,77 @@ class ExteriorArea
     end
   end
 
-  def isPrismZnegative(pos)
+  def isPrismZNega(pos)
     if ((pos == POS_PRISM_YZ_PN) ||
         (pos == POS_PRISM_YZ_NN) ||
         (pos == POS_PRISM_ZX_NP) ||
         (pos == POS_PRISM_ZX_NN)   ) then
+      return true
+    else
+      return false
+    end
+  end
+
+  def isPyramidXPosi(pos)
+    if ((pos == POS_PYRAMID_PNN) ||
+        (pos == POS_PYRAMID_PNP) ||
+        (pos == POS_PYRAMID_PPN) ||
+        (pos == POS_PYRAMID_PPP)   ) then
+      return true
+    else
+      return false
+    end
+  end
+
+  def isPyramidXNega(pos)
+    if ((pos == POS_PYRAMID_NNN) ||
+        (pos == POS_PYRAMID_NNP) ||
+        (pos == POS_PYRAMID_NPN) ||
+        (pos == POS_PYRAMID_NPP)   ) then
+      return true
+    else
+      return false
+    end
+  end
+
+  def isPyramidYPosi(pos)
+    if ((pos == POS_PYRAMID_NPN) ||
+        (pos == POS_PYRAMID_NPP) ||
+        (pos == POS_PYRAMID_PPN) ||
+        (pos == POS_PYRAMID_PPP)   ) then
+      return true
+    else
+      return false
+    end
+  end
+
+  def isPyramidYNega(pos)
+    if ((pos == POS_PYRAMID_NNN) ||
+        (pos == POS_PYRAMID_NNP) ||
+        (pos == POS_PYRAMID_PNN) ||
+        (pos == POS_PYRAMID_PNP)   ) then
+      return true
+    else
+      return false
+    end
+  end
+
+  def isPyramidZPosi(pos)
+    if ((pos == POS_PYRAMID_NNP) ||
+        (pos == POS_PYRAMID_NPP) ||
+        (pos == POS_PYRAMID_PNP) ||
+        (pos == POS_PYRAMID_PPP)   ) then
+      return true
+    else
+      return false
+    end
+  end
+
+  def isPyramidZNega(pos)
+    if ((pos == POS_PYRAMID_NNN) ||
+        (pos == POS_PYRAMID_NPN) ||
+        (pos == POS_PYRAMID_PNN) ||
+        (pos == POS_PYRAMID_PPN)   ) then
       return true
     else
       return false
@@ -225,42 +291,50 @@ class ExteriorArea
       for y in 0..@height-1
         for z in 0..@width-1
           type = 0b111111
-          if @area[x][y][z] == KARA_VAL then
+          box_elem = @area[x][y][z]
+          b_box = x-1 >= 0          ? @area[x-1][y][z] : -999
+          f_box = x+1 <= @len-1     ? @area[x+1][y][z] : -999
+          d_box = y-1 >= 0          ? @area[x][y-1][z] : -999
+          a_box = y+1 <= @height-1  ? @area[x][y+1][z] : -999
+          e_box = z-1 >= 0          ? @area[x][y][z-1] : -999
+          c_box = z+1 <= @width-1   ? @area[x][y][z+1] : -999
+
+          if box_elem == KARA_VAL then
             ret.area[x][y][z] = KARA_VAL
-          elsif @area[x][y][z] == FULL_VAL then
+          elsif box_elem == FULL_VAL then
             ret.area[x][y][z] = FULL_VAL
-          elsif @area[x][y][z] == KABE_BOX_VAL then
+          elsif box_elem == KABE_BOX_VAL then
             #自身がBOXの場合
-            
+
             #6面の開き具合を調べる
             #開いているビットがアンセットされる
-            # 0b 00abcdef 
+            # 0b 00abcdef
             #    c
             # a b d f
             #      e
 
             #BOX(自身)とBOXが隣り合わせ
-            if (x-1 >= 0 && (@area[x-1][y][z] == KABE_BOX_VAL || @area[x-1][y][z] == FULL_VAL)) then #bが開いている
+            if ((b_box == KABE_BOX_VAL || b_box == FULL_VAL)) then #bが開いている
               type = type ^ FACE_B_BIT
             end
 
-            if (x+1 <= @len-1 && (@area[x+1][y][z] == KABE_BOX_VAL || @area[x+1][y][z] == FULL_VAL)) then #fが開いている
+            if ((f_box == KABE_BOX_VAL || f_box == FULL_VAL)) then #fが開いている
               type = type ^ FACE_F_BIT
             end
 
-            if (y-1 >= 0 && (@area[x][y-1][z] == KABE_BOX_VAL || @area[x][y-1][z] == FULL_VAL)) then #dが開いている
+            if ((d_box == KABE_BOX_VAL || d_box == FULL_VAL)) then #dが開いている
               type = type ^ FACE_D_BIT
             end
 
-            if (y+1 <= @height-1 && (@area[x][y+1][z] == KABE_BOX_VAL || @area[x][y+1][z] == FULL_VAL)) then #aが開いている
+            if ((a_box == KABE_BOX_VAL || a_box == FULL_VAL)) then #aが開いている
               type = type ^ FACE_A_BIT
             end
 
-            if (z-1 >= 0         && (@area[x][y][z-1] == KABE_BOX_VAL || @area[x][y][z-1] == FULL_VAL)) then #eが開いている
+            if ((e_box == KABE_BOX_VAL || e_box == FULL_VAL)) then #eが開いている
               type = type ^ FACE_E_BIT
             end
 
-            if (z+1 <= @width-1  && (@area[x][y][z+1] == KABE_BOX_VAL || @area[x][y][z+1] == FULL_VAL)) then #cが開いている
+            if ((c_box == KABE_BOX_VAL || c_box == FULL_VAL)) then #cが開いている
               type = type ^ FACE_C_BIT
             end
 
@@ -268,39 +342,39 @@ class ExteriorArea
             #    c
             # a b d f
             #      e
-            if (x-1 >= 0 && isPrism(@area[x-1][y][z]) ) then #bが開けれるか
+            if (isPrism(b_box) ) then #bが開けれるか
               #bが開けれるプリズムか判断
-              if (isPrismXpositive(@area[x-1][y][z])) then
+              if (isPrismXPosi(b_box)) then
                 type = type ^ FACE_B_BIT
               end
             end
 
-            if (x+1 <= @len-1 && isPrism(@area[x+1][y][z]) ) then #fが開けれるか
-              if (isPrismXnegative(@area[x+1][y][z])) then
+            if (isPrism(f_box) ) then #fが開けれるか
+              if (isPrismXNega(f_box)) then
                 type = type ^ FACE_F_BIT
               end
             end
 
-            if (y-1 >= 0 && isPrism(@area[x][y-1][z]) ) then #dが開けれるか
-              if (isPrismYpositive(@area[x][y-1][z])) then
+            if (isPrism(d_box) ) then #dが開けれるか
+              if (isPrismYPosi(d_box)) then
                 type = type ^ FACE_D_BIT
               end
             end
 
-            if (y+1 <= @height-1 && isPrism(@area[x][y+1][z]) ) then #aが開けれるか
-              if (isPrismYnegative(@area[x][y+1][z])) then
+            if (isPrism(a_box) ) then #aが開けれるか
+              if (isPrismYNega(a_box)) then
                 type = type ^ FACE_A_BIT
               end
             end
 
-            if (z-1 >= 0         && isPrism(@area[x][y][z-1]) ) then #eが開けれるか
-              if (isPrismZpositive(@area[x][y][z-1])) then
+            if (isPrism(e_box) ) then #eが開けれるか
+              if (isPrismZPosi(e_box)) then
                 type = type ^ FACE_E_BIT
               end
             end
 
-            if (z+1 <= @width-1  && isPrism(@area[x][y][z+1]) ) then #cが開けれるか
-              if (isPrismZnegative(@area[x][y][z+1])) then
+            if (isPrism(c_box) ) then #cが開けれるか
+              if (isPrismZNega(c_box)) then
                 type = type ^ FACE_C_BIT
               end
             end
@@ -308,45 +382,45 @@ class ExteriorArea
 #            ret.area[x][y][z] = sprintf("%02d ", type)
             ret.area[x][y][z] = type
 
-          elsif (isPrism(@area[x][y][z])) then
+          elsif (isPrism(box_elem)) then
             #自身がプリズムの場合
             #    c
             # a b d f
             #      e
-            
+
             #プリズム(自身)とBOXが隣り合わせ
-            if (x-1 >= 0 && (@area[x-1][y][z] == KABE_BOX_VAL || @area[x-1][y][z] == FULL_VAL)) then #bが開けれるか
-              if (isPrismYZ(@area[x][y][z]) || isPrismXnegative(@area[x][y][z])) then
+            if ((b_box == KABE_BOX_VAL || b_box == FULL_VAL)) then #bが開けれるか
+              if (isPrismYZ(box_elem) || isPrismXNega(box_elem)) then
                 type = type ^ FACE_B_BIT
               end
             end
 
-            if (x+1 <= @len-1 && (@area[x+1][y][z] == KABE_BOX_VAL || @area[x+1][y][z] == FULL_VAL)) then #fが開けれるか
-              if (isPrismYZ(@area[x][y][z]) || isPrismXpositive(@area[x][y][z])) then
+            if ((f_box == KABE_BOX_VAL || f_box == FULL_VAL)) then #fが開けれるか
+              if (isPrismYZ(box_elem) || isPrismXPosi(box_elem)) then
                 type = type ^ FACE_F_BIT
               end
             end
 
-            if (y-1 >= 0 && (@area[x][y-1][z] == KABE_BOX_VAL || @area[x][y-1][z] == FULL_VAL)) then #dが開けれるか
-              if (isPrismZX(@area[x][y][z]) || isPrismYnegative(@area[x][y][z])) then
+            if ((d_box == KABE_BOX_VAL || d_box == FULL_VAL)) then #dが開けれるか
+              if (isPrismZX(box_elem) || isPrismYNega(box_elem)) then
                 type = type ^ FACE_D_BIT
               end
             end
 
-            if (y+1 <= @height-1 && (@area[x][y+1][z] == KABE_BOX_VAL || @area[x][y+1][z] == FULL_VAL)) then #aが開けれるか
-              if (isPrismZX(@area[x][y][z]) || isPrismYpositive(@area[x][y][z])) then
+            if ((a_box == KABE_BOX_VAL || a_box == FULL_VAL)) then #aが開けれるか
+              if (isPrismZX(box_elem) || isPrismYPosi(box_elem)) then
                 type = type ^ FACE_A_BIT
               end
             end
 
-            if (z-1 >= 0         && (@area[x][y][z-1] == KABE_BOX_VAL || @area[x][y][z-1] == FULL_VAL)) then #eが開けれるか
-              if (isPrismXY(@area[x][y][z]) || isPrismZnegative(@area[x][y][z])) then
+            if ((e_box == KABE_BOX_VAL || e_box == FULL_VAL)) then #eが開けれるか
+              if (isPrismXY(box_elem) || isPrismZNega(box_elem)) then
                 type = type ^ FACE_E_BIT
               end
             end
 
-            if (z+1 <= @width-1  && (@area[x][y][z+1] == KABE_BOX_VAL || @area[x][y][z+1] == FULL_VAL)) then #cが開けれるか
-              if (isPrismXY(@area[x][y][z]) || isPrismZpositive(@area[x][y][z])) then
+            if ((c_box == KABE_BOX_VAL || c_box == FULL_VAL)) then #cが開けれるか
+              if (isPrismXY(box_elem) || isPrismZPosi(box_elem)) then
                 type = type ^ FACE_C_BIT
               end
             end
@@ -355,142 +429,214 @@ class ExteriorArea
             #    c
             # a b d f
             #      e
-            if (x-1 >= 0 && isPrism(@area[x-1][y][z]) ) then #bが開けれるか
+            if (isPrism(b_box) ) then #bが開けれるか
               #bが開けれるプリズムか判断
-              if (isPrismXnegative(@area[x][y][z]) && isPrismXpositive(@area[x-1][y][z])) then
+              if (isPrismXNega(box_elem) && isPrismXPosi(b_box)) then
                 #bをあける為には 自身がXnegative 相手が Xpositive であればOK
                 type = type ^ FACE_B_BIT
-              elsif (isPrismYZ(@area[x][y][z]) && isPrismXpositive(@area[x-1][y][z])) then
+              elsif (isPrismYZ(box_elem) && isPrismXPosi(b_box)) then
                 #自身がYZで相手が Xpositive であればOK
                 type = type ^ FACE_B_BIT
-              elsif (isPrismYZ(@area[x][y][z]) && isPrismYZ(@area[x-1][y][z]) && @area[x][y][z] == @area[x-1][y][z]) then
+              elsif (isPrismYZ(box_elem) && isPrismYZ(b_box) && box_elem == b_box) then
                 #YZ同士で同じプリズムであってもOK
                 type = type ^ FACE_B_BIT
               end
             end
 
-            if (x+1 <= @len-1 && isPrism(@area[x+1][y][z]) ) then #fが開けれるか
+            if (isPrism(f_box) ) then #fが開けれるか
               #fが開けれるプリズムか判断
-              if (isPrismXpositive(@area[x][y][z]) && isPrismXnegative(@area[x+1][y][z])) then
+              if (isPrismXPosi(box_elem) && isPrismXNega(f_box)) then
                 #fをあける為には 自身が Xpositive 相手が Xnegative であればOK
                 type = type ^ FACE_F_BIT
-              elsif (isPrismYZ(@area[x][y][z]) && isPrismXnegative(@area[x+1][y][z])) then
+              elsif (isPrismYZ(box_elem) && isPrismXNega(f_box)) then
                 #自身がYZで相手が Xnegative であればOK
                 type = type ^ FACE_F_BIT
-              elsif (isPrismYZ(@area[x][y][z]) && isPrismYZ(@area[x+1][y][z]) && @area[x][y][z] == @area[x+1][y][z]) then
+              elsif (isPrismYZ(box_elem) && isPrismYZ(f_box) && box_elem == f_box) then
                 #YZ同士で同じプリズムであってもOK
                 type = type ^ FACE_F_BIT
               end
             end
 
-            if (y-1 >= 0 && isPrism(@area[x][y-1][z]) ) then #dが開けれるか
+            if (isPrism(d_box) ) then #dが開けれるか
               #dが開けれるプリズムか判断
-              if (isPrismYnegative(@area[x][y][z]) && isPrismYpositive(@area[x][y-1][z])) then
+              if (isPrismYNega(box_elem) && isPrismYPosi(d_box)) then
                 #dをあける為には 自身が Ynegative  相手が Ypositive であればOK
                 type = type ^ FACE_D_BIT
-              elsif (isPrismZX(@area[x][y][z]) && isPrismYpositive(@area[x][y-1][z])) then
+              elsif (isPrismZX(box_elem) && isPrismYPosi(d_box)) then
                 #自身がZXで相手が Ypositive であればOK
                 type = type ^ FACE_D_BIT
-              elsif (isPrismZX(@area[x][y][z]) && isPrismZX(@area[x][y-1][z]) && @area[x][y][z] == @area[x][y-1][z]) then
+              elsif (isPrismZX(box_elem) && isPrismZX(d_box) && box_elem == d_box) then
                 #XY同士で同じプリズムであってもOK
                 type = type ^ FACE_D_BIT
               end
             end
 
-            if (y+1 <= @height-1 && isPrism(@area[x][y+1][z]) ) then #aが開けれるか
+            if (isPrism(a_box) ) then #aが開けれるか
               #aが開けれるプリズムか判断
-              if (isPrismYpositive(@area[x][y][z]) && isPrismYnegative(@area[x][y+1][z])) then
+              if (isPrismYPosi(box_elem) && isPrismYNega(a_box)) then
                 #aをあける為には 自身が Ypositive 相手が Ynegative であればOK
                 type = type ^ FACE_A_BIT
-              elsif (isPrismZX(@area[x][y][z]) && isPrismYnegative(@area[x][y+1][z])) then
+              elsif (isPrismZX(box_elem) && isPrismYNega(a_box)) then
                 #自身がZXで相手が Ynegative であればOK
                 type = type ^ FACE_A_BIT
-              elsif (isPrismZX(@area[x][y][z]) && isPrismZX(@area[x][y+1][z]) && @area[x][y][z] == @area[x][y+1][z]) then
+              elsif (isPrismZX(box_elem) && isPrismZX(a_box) && box_elem == a_box) then
                 #YZ同士で同じプリズムであってもOK
                 type = type ^ FACE_A_BIT
               end
             end
 
-            if (z-1 >= 0         && isPrism(@area[x][y][z-1]) ) then #eが開けれるか
+            if (isPrism(e_box) ) then #eが開けれるか
               #eが開けれるプリズムか判断
-              if (isPrismZnegative(@area[x][y][z]) && isPrismZpositive(@area[x][y][z-1])) then
+              if (isPrismZNega(box_elem) && isPrismZPosi(e_box)) then
                 #eをあける為には 自身が Znegative  相手が Zpositive であればOK
                 type = type ^ FACE_E_BIT
-              elsif (isPrismXY(@area[x][y][z]) && isPrismZpositive(@area[x][y][z-1])) then
+              elsif (isPrismXY(box_elem) && isPrismZPosi(e_box)) then
                 #自身がXYで相手が Ypositive であればOK
                 type = type ^ FACE_E_BIT
-              elsif (isPrismXY(@area[x][y][z]) && isPrismXY(@area[x][y][z-1]) && @area[x][y][z] == @area[x][y][z-1]) then
+              elsif (isPrismXY(box_elem) && isPrismXY(e_box) && box_elem == e_box) then
                 #XY同士で同じプリズムであってもOK
                 type = type ^ FACE_E_BIT
               end
             end
 
-            if (z+1 <= @width-1  && isPrism(@area[x][y][z+1]) ) then #cが開けれるか
+            if (isPrism(c_box) ) then #cが開けれるか
               #cが開けれるプリズムか判断
-              if (isPrismZpositive(@area[x][y][z]) && isPrismZnegative(@area[x][y][z+1])) then
+              if (isPrismZPosi(box_elem) && isPrismZNega(c_box)) then
                 #cをあける為には 自身が Zpositive 相手が Znegative であればOK
                 type = type ^ FACE_C_BIT
-              elsif (isPrismXY(@area[x][y][z]) && isPrismZnegative(@area[x][y][z+1])) then
+              elsif (isPrismXY(box_elem) && isPrismZNega(c_box)) then
                 #自身がXYで相手が Ynegative であればOK
                 type = type ^ FACE_C_BIT
-              elsif (isPrismXY(@area[x][y][z]) && isPrismXY(@area[x][y][z+1]) && @area[x][y][z] == @area[x][y][z+1]) then
+              elsif (isPrismXY(box_elem) && isPrismXY(c_box) && box_elem == c_box) then
                 #XY同士で同じプリズムであってもOK
                 type = type ^ FACE_C_BIT
               end
             end
-            
-            
+
+
             #プリズム（自身）とピラミッドが隣り合わせ
             #    c
             # a b d f
             #      e
-#POS_PRISM_YZ_NN = (0x21) #0b 00100001
-#POS_PRISM_YZ_NP = (0x22) #0b 00100010
-#POS_PRISM_YZ_PN = (0x24) #0b 00100100
-#POS_PRISM_YZ_PP = (0x28) #0b 00101000
-
-#POS_PYRAMID_NNN = (0x8000) #0b  10000000 00000000
-#POS_PYRAMID_NNP = (0x8100) #0b  10000001 00000000
-#POS_PYRAMID_NPN = (0x8200) #0b  10000010 00000000
-#POS_PYRAMID_NPP = (0x8300) #0b  10000011 00000000
-#POS_PYRAMID_PNN = (0x8400) #0b  10000100 00000000
-#POS_PYRAMID_PNP = (0x8500) #0b  10000101 00000000
-#POS_PYRAMID_PPN = (0x8600) #0b  10000110 00000000
-#POS_PYRAMID_PPP = (0x8700) #0b  10000111 00000000
-
-            if (x-1 >= 0 && isPyramid(@area[x-1][y][z])) then #bが開けれるか
-              if (isPrismYZ(@area[x][y][z]) ) then
-                if (@area[x][y][z] == POS_PRISM_YZ_NN) then
-                  b_p = @area[x-1][y][z]
-                  if (b_p == POS_PRISM_YZ_NN) then
-                  
-                  
-                  end
-                end
-
-
+            if (isPyramid(b_box)) then #bが開けれるか
+              if    (box_elem == POS_PRISM_YZ_NN && b_box == POS_PYRAMID_PNN) then
+                type = type ^ FACE_B_BIT
+              elsif (box_elem == POS_PRISM_YZ_NP && b_box == POS_PYRAMID_PNP) then
+                type = type ^ FACE_B_BIT
+              elsif (box_elem == POS_PRISM_YZ_PN && b_box == POS_PYRAMID_PPN) then
+                type = type ^ FACE_B_BIT
+              elsif (box_elem == POS_PRISM_YZ_PP && b_box == POS_PYRAMID_PPP) then
+                type = type ^ FACE_B_BIT
               end
-            end 
+            end
 
+            if (isPyramid(f_box)) then #fが開けれるか
+              if    (box_elem == POS_PRISM_YZ_NN && b_box == POS_PYRAMID_NNN) then
+                type = type ^ FACE_F_BIT
+              elsif (box_elem == POS_PRISM_YZ_NP && b_box == POS_PYRAMID_NNP) then
+                type = type ^ FACE_F_BIT
+              elsif (box_elem == POS_PRISM_YZ_PN && b_box == POS_PYRAMID_NPN) then
+                type = type ^ FACE_F_BIT
+              elsif (box_elem == POS_PRISM_YZ_PP && b_box == POS_PYRAMID_NPP) then
+                type = type ^ FACE_F_BIT
+              end
+            end
 
+            if (isPyramid(d_box)) then #dが開けれるか
+              if    (box_elem == POS_PRISM_ZX_NN && b_box == POS_PYRAMID_NPN) then
+                type = type ^ FACE_D_BIT
+              elsif (box_elem == POS_PRISM_ZX_NP && b_box == POS_PYRAMID_NPP) then
+                type = type ^ FACE_D_BIT
+              elsif (box_elem == POS_PRISM_ZX_PN && b_box == POS_PYRAMID_PPN) then
+                type = type ^ FACE_D_BIT
+              elsif (box_elem == POS_PRISM_ZX_PP && b_box == POS_PYRAMID_PPP) then
+                type = type ^ FACE_D_BIT
+              end
+            end
 
+            if (isPyramid(a_box)) then #aが開けれるか
+              if    (box_elem == POS_PRISM_ZX_NN && b_box == POS_PYRAMID_NNN) then
+                type = type ^ FACE_A_BIT
+              elsif (box_elem == POS_PRISM_ZX_NP && b_box == POS_PYRAMID_NNP) then
+                type = type ^ FACE_A_BIT
+              elsif (box_elem == POS_PRISM_ZX_PN && b_box == POS_PYRAMID_PNN) then
+                type = type ^ FACE_A_BIT
+              elsif (box_elem == POS_PRISM_ZX_PP && b_box == POS_PYRAMID_PNP) then
+                type = type ^ FACE_A_BIT
+              end
+            end
 
+            if (isPyramid(e_box)) then #eが開けれるか
+              if    (box_elem == POS_PRISM_XY_NN && b_box == POS_PYRAMID_NNP) then
+                type = type ^ FACE_E_BIT
+              elsif (box_elem == POS_PRISM_XY_NP && b_box == POS_PYRAMID_NPP) then
+                type = type ^ FACE_E_BIT
+              elsif (box_elem == POS_PRISM_XY_PN && b_box == POS_PYRAMID_PNP) then
+                type = type ^ FACE_E_BIT
+              elsif (box_elem == POS_PRISM_XY_PP && b_box == POS_PYRAMID_PPP) then
+                type = type ^ FACE_E_BIT
+              end
+            end
 
-
+            if (isPyramid(c_box)) then #cが開けれるか
+              if    (box_elem == POS_PRISM_XY_NN && b_box == POS_PYRAMID_NNN) then
+                type = type ^ FACE_C_BIT
+              elsif (box_elem == POS_PRISM_XY_NP && b_box == POS_PYRAMID_NPN) then
+                type = type ^ FACE_C_BIT
+              elsif (box_elem == POS_PRISM_XY_PN && b_box == POS_PYRAMID_PNN) then
+                type = type ^ FACE_C_BIT
+              elsif (box_elem == POS_PRISM_XY_PP && b_box == POS_PYRAMID_PPN) then
+                type = type ^ FACE_C_BIT
+              end
+            end
 
 #            ret.area[x][y][z] = sprintf("%02d ", type)
             ret.area[x][y][z] = type
 
-          elsif (isPyramid(@area[x][y][z]) ) then
+          elsif (isPyramid(box_elem) ) then
             #自身がピラミッドの場合
-            
-            
-            
-            
-            
-            
-            
-            
+
+
+            #ピラミッド（自身）と壁（かプリズムの面が壁）が隣り合わせ
+            #    c
+            # a b d f
+            #      e
+            if (b_box == KABE_BOX_VAL || b_box == FULL_VAL || (isPrism(b_box) && isPrismXPosi(b_box)) ) then #bが開けれるか
+              if (isPyramidXNega(box_elem)) then
+                type = type ^ FACE_B_BIT
+              end
+            end
+
+            if (f_box == KABE_BOX_VAL || f_box == FULL_VAL || (isPrism(f_box) && isPrismXNega(f_box)) ) then #fが開けれるか
+              if (isPyramidXPosi(box_elem)) then
+                type = type ^ FACE_F_BIT
+              end
+            end
+
+            if (d_box == KABE_BOX_VAL || d_box == FULL_VAL || (isPrism(d_box) && isPrismYPosi(d_box)) ) then #dが開けれるか
+              if (isPyramidYNega(box_elem)) then
+                type = type ^ FACE_D_BIT
+              end
+            end
+
+            if (a_box == KABE_BOX_VAL || a_box == FULL_VAL || (isPrism(a_box) && isPrismYNega(a_box)) ) then #aが開けれるか
+              if (isPyramidYPosi(box_elem)) then
+                type = type ^ FACE_A_BIT
+              end
+            end
+
+            if (e_box == KABE_BOX_VAL || e_box == FULL_VAL || (isPrism(e_box) && isPrismZPosi(e_box)) ) then #eが開けれるか
+              if (isPyramidZNega(box_elem)) then
+                type = type ^ FACE_E_BIT
+              end
+            end
+
+            if (c_box == KABE_BOX_VAL || c_box == FULL_VAL || (isPrism(c_box) && isPrismZNega(c_box)) ) then #cが開けれるか
+              if (isPyramidZPosi(box_elem)) then
+                type = type ^ FACE_C_BIT
+              end
+            end
+
           end
         end
       end
@@ -507,7 +653,7 @@ class ExteriorArea
 
     nobashi_zumi = ExteriorArea.new(@len, @height, @width)
 
-    
+
     for x in 0..@len-1
       for y in 0..@height-1
         for z in 0..@width-1
@@ -624,7 +770,7 @@ class ExteriorArea
   def getAnalyze03(exArea)
     ret = ExteriorArea.new(@len, @height, @width)
     nobashi_zumi = ExteriorArea.new(@len, @height, @width)
-    
+
 
     for x in 0..@len-1
       for y in 0..@height-1
@@ -808,8 +954,8 @@ class ExteriorArea
     max_x_colliwall_num = prm_max_x_colliwall_num
     ret = ExteriorArea.new(@len, @height, @width)
     nobashi_zumi = ExteriorArea.new(@len, @height, @width)
-    
-    
+
+
     (@len-1).downto(0) do |x| #お尻からループ
       for y in 0..@height-1
         for z in 0..@width-1
