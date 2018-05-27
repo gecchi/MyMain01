@@ -63,7 +63,7 @@ public:
     /** [r]全壁ブロック(WallPartsActor)の配置情報 */
     WallInfo** _papaWallInfo;
     /** [r]全壁ブロック(WallPartsActor)の配置情報の、外壁の壁ブロック数。要素＝何ブロック目か */
-    int* _paWallInfoLen;
+    int* _paWallNum;
     /** [r]壁ブロック(WallPartsActor)デポジトリ */
     GgafCore::GgafActorDepository* _pDepo_wall;
     GgafCore::GgafActorDepository* _pDepo_prism;

@@ -59,10 +59,10 @@ Stage01WallScene::Stage01WallScene(const char* prm_name) : WallScene(prm_name) {
 //    );
     //シーンセクション生成
     WallSectionScene* apSection[] = {
-        NEW Stage01WallSection001("Stage01-001-0", this, "scene4_wall_0.dat"),
-        NEW Stage01WallSection001("Stage01-001-1", this, "scene4_wall_1.dat"),
-        NEW Stage01WallSection001("Stage01-001-2", this, "scene4_wall_2.dat"),
-        NEW Stage01WallSection001("Stage01-001-3", this, "scene4_wall_3.dat"),
+        NEW Stage01WallSection001("Stage01-001-0", this, "scene6_wall_0.dat"),
+        NEW Stage01WallSection001("Stage01-001-1", this, "scene6_wall_1.dat"),
+        NEW Stage01WallSection001("Stage01-001-2", this, "scene6_wall_2.dat"),
+        NEW Stage01WallSection001("Stage01-001-3", this, "scene6_wall_3.dat"),
     };
     //構築
     buildWallScene(

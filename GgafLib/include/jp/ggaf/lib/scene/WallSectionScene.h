@@ -61,8 +61,8 @@ public:
     int _cnt_area_len;
     /** [r]全壁ブロック(MassWallActor)の配置情報 */
     WallInfo** _papaWallInfo;
-    /** [r]全壁ブロック(MassWallActor)の配置情報の、外壁の壁ブロック数。要素＝何ブロック目か */
-    int* _paWallInfoLen;
+    /** [r]全壁ブロック(MassWallActor)の配置情報の、外壁の壁ブロック数。要素＝何ブロック目か(_area_lenインデックス) */
+    int* _paWallNum;
     /** [r]壁ブロック(MassWallActor)デポジトリ */
     GgafCore::GgafActorDepository* _pDepo_wall;
     /** [r]手前ブロックの透過機能有効時の基準となるアクター */

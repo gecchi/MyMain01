@@ -19,12 +19,12 @@ public:
     D3DXHANDLE _h_wall_dep;
     D3DXHANDLE _h_wall_height;
     D3DXHANDLE _h_wall_width;
-    D3DXHANDLE _h_ah_POS_PRISM_ZX;
-    D3DXHANDLE _h_fh_POS_PRISM_ZX;
-    D3DXHANDLE _h_ah_POS_PRISM_YZ;
-    D3DXHANDLE _h_fh_POS_PRISM_YZ;
-    D3DXHANDLE _h_ah_POS_PRISM_XY;
-    D3DXHANDLE _h_fh_POS_PRISM_XY;
+    D3DXHANDLE _h_ah_POS_ZX;
+    D3DXHANDLE _h_fh_POS_ZX;
+    D3DXHANDLE _h_ah_POS_YZ;
+    D3DXHANDLE _h_fh_POS_YZ;
+    D3DXHANDLE _h_ah_POS_XY;
+    D3DXHANDLE _h_fh_POS_XY;
     D3DXHANDLE _h_reflectance;
 
 public:

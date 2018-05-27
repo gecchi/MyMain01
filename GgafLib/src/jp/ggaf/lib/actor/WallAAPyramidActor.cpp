@@ -43,7 +43,7 @@ D3DXHANDLE WallAAPyramidActor::_h_distance_AlphaTarget;
 D3DXHANDLE WallAAPyramidActor::_h_wall_dep;
 D3DXHANDLE WallAAPyramidActor::_h_wall_height;
 D3DXHANDLE WallAAPyramidActor::_h_wall_width;
-std::map<int, UINT> WallAAPyramidActor::_delface;
+std::map<int, UINT> WallAAPyramidActor::_draw_face;
 bool WallAAPyramidActor::initStatic(WallAAPyramidActor* prm_pWallAAPyramidActor) {
     //ピラミッド壁であるならば、形状により無条件で描画不要面がある、
     //    c
@@ -64,19 +64,19 @@ bool WallAAPyramidActor::initStatic(WallAAPyramidActor* prm_pWallAAPyramidActor)
     //特に条件がない場合、描画する面ビットを 1
     //に設定
                                                                                            //斜面
-    WallAAPyramidActor::_delface[POS_PYRAMID_NNN] = FACE_D_BIT | FACE_B_BIT | FACE_E_BIT | FACE_A_BIT;
-    WallAAPyramidActor::_delface[POS_PYRAMID_NNP] = FACE_D_BIT | FACE_C_BIT | FACE_B_BIT | FACE_A_BIT;
-    WallAAPyramidActor::_delface[POS_PYRAMID_NPN] = FACE_A_BIT | FACE_B_BIT | FACE_E_BIT | FACE_D_BIT;
-    WallAAPyramidActor::_delface[POS_PYRAMID_NPP] = FACE_A_BIT | FACE_C_BIT | FACE_B_BIT | FACE_D_BIT;
-    WallAAPyramidActor::_delface[POS_PYRAMID_PNN] = FACE_D_BIT | FACE_F_BIT | FACE_E_BIT | FACE_A_BIT;
-    WallAAPyramidActor::_delface[POS_PYRAMID_PNP] = FACE_D_BIT | FACE_C_BIT | FACE_F_BIT | FACE_A_BIT;
-    WallAAPyramidActor::_delface[POS_PYRAMID_PPN] = FACE_A_BIT | FACE_F_BIT | FACE_E_BIT | FACE_D_BIT;
-    WallAAPyramidActor::_delface[POS_PYRAMID_PPP] = FACE_A_BIT | FACE_C_BIT | FACE_F_BIT | FACE_D_BIT;
+    WallAAPyramidActor::_draw_face[POS_PYRAMID_NNN] = FACE_D_BIT | FACE_B_BIT | FACE_E_BIT | FACE_A_BIT;
+    WallAAPyramidActor::_draw_face[POS_PYRAMID_NNP] = FACE_D_BIT | FACE_C_BIT | FACE_B_BIT | FACE_A_BIT;
+    WallAAPyramidActor::_draw_face[POS_PYRAMID_NPN] = FACE_A_BIT | FACE_B_BIT | FACE_E_BIT | FACE_D_BIT;
+    WallAAPyramidActor::_draw_face[POS_PYRAMID_NPP] = FACE_A_BIT | FACE_C_BIT | FACE_B_BIT | FACE_D_BIT;
+    WallAAPyramidActor::_draw_face[POS_PYRAMID_PNN] = FACE_D_BIT | FACE_F_BIT | FACE_E_BIT | FACE_A_BIT;
+    WallAAPyramidActor::_draw_face[POS_PYRAMID_PNP] = FACE_D_BIT | FACE_C_BIT | FACE_F_BIT | FACE_A_BIT;
+    WallAAPyramidActor::_draw_face[POS_PYRAMID_PPN] = FACE_A_BIT | FACE_F_BIT | FACE_E_BIT | FACE_D_BIT;
+    WallAAPyramidActor::_draw_face[POS_PYRAMID_PPP] = FACE_A_BIT | FACE_C_BIT | FACE_F_BIT | FACE_D_BIT;
     return true;
 }
 
 void WallAAPyramidActor::config(WalledSectionScene* prm_pWalledSectionScene, pos_t prm_pos_info, int prm_wall_draw_face, int* prm_aColliBoxStretch) {
-    prm_wall_draw_face &= WallAAPyramidActor::_delface[prm_pos_info]; //ピラミッド無条件描画不要面
+    prm_wall_draw_face &= WallAAPyramidActor::_draw_face[prm_pos_info]; //ピラミッド無条件描画不要面
     WallPartsActor::config(prm_pWalledSectionScene, prm_pos_info,  prm_wall_draw_face,  prm_aColliBoxStretch);
     CollisionChecker* pChecker = getCollisionChecker();
     if (prm_aColliBoxStretch[0] == 0) {

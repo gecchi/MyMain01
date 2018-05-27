@@ -637,6 +637,162 @@ class ExteriorArea
               end
             end
 
+            #ピラミッド（自身）とプリズムの直角三角形面が隣り合わせ
+            #    c
+            # a b d f
+            #      e
+            if isPrism(b_box) then #bが開けれるか
+              if    (box_elem == POS_PYRAMID_NNN && b_box == POS_PRISM_YZ_NN) then
+                type = type ^ FACE_B_BIT
+              elsif (box_elem == POS_PYRAMID_NNP && b_box == POS_PRISM_YZ_NP) then
+                type = type ^ FACE_B_BIT
+              elsif (box_elem == POS_PYRAMID_NPN && b_box == POS_PRISM_YZ_PN) then
+                type = type ^ FACE_B_BIT
+              elsif (box_elem == POS_PYRAMID_NPP && b_box == POS_PRISM_YZ_PP) then
+                type = type ^ FACE_B_BIT
+              end
+            end
+
+            if isPrism(f_box) then #fが開けれるか
+              if    (box_elem == POS_PYRAMID_PNN && f_box == POS_PRISM_YZ_NN) then
+                type = type ^ FACE_F_BIT
+              elsif (box_elem == POS_PYRAMID_PNP && f_box == POS_PRISM_YZ_NP) then
+                type = type ^ FACE_F_BIT
+              elsif (box_elem == POS_PYRAMID_PPN && f_box == POS_PRISM_YZ_PN) then
+                type = type ^ FACE_F_BIT
+              elsif (box_elem == POS_PYRAMID_PPP && f_box == POS_PRISM_YZ_PP) then
+                type = type ^ FACE_F_BIT
+              end
+            end
+
+            if isPrism(d_box) then #dが開けれるか
+              if    (box_elem == POS_PYRAMID_NNN && d_box == POS_PRISM_ZX_NN) then
+                type = type ^ FACE_D_BIT
+              elsif (box_elem == POS_PYRAMID_NNP && d_box == POS_PRISM_ZX_NP) then
+                type = type ^ FACE_D_BIT
+              elsif (box_elem == POS_PYRAMID_PNN && d_box == POS_PRISM_ZX_PN) then
+                type = type ^ FACE_D_BIT
+              elsif (box_elem == POS_PYRAMID_PNP && d_box == POS_PRISM_ZX_PP) then
+                type = type ^ FACE_D_BIT
+              end
+            end
+
+            if isPrism(a_box) then #aが開けれるか
+              if    (box_elem == POS_PYRAMID_NPN && a_box == POS_PRISM_ZX_NN) then
+                type = type ^ FACE_A_BIT
+              elsif (box_elem == POS_PYRAMID_NPP && a_box == POS_PRISM_ZX_NP) then
+                type = type ^ FACE_A_BIT
+              elsif (box_elem == POS_PYRAMID_PPN && a_box == POS_PRISM_ZX_PN) then
+                type = type ^ FACE_A_BIT
+              elsif (box_elem == POS_PYRAMID_PPP && a_box == POS_PRISM_ZX_PP) then
+                type = type ^ FACE_A_BIT
+              end
+            end
+
+            if isPrism(e_box) then #eが開けれるか
+              if    (box_elem == POS_PYRAMID_NNN && e_box == POS_PRISM_XY_NN) then
+                type = type ^ FACE_E_BIT
+              elsif (box_elem == POS_PYRAMID_NPN && e_box == POS_PRISM_XY_NP) then
+                type = type ^ FACE_E_BIT
+              elsif (box_elem == POS_PYRAMID_PNN && e_box == POS_PRISM_XY_PN) then
+                type = type ^ FACE_E_BIT
+              elsif (box_elem == POS_PYRAMID_PPN && e_box == POS_PRISM_XY_PP) then
+                type = type ^ FACE_E_BIT
+              end
+            end
+
+            if isPrism(c_box) then #cが開けれるか
+              if    (box_elem == POS_PYRAMID_NNP && c_box == POS_PRISM_XY_NN) then
+                type = type ^ FACE_C_BIT
+              elsif (box_elem == POS_PYRAMID_NPP && c_box == POS_PRISM_XY_NP) then
+                type = type ^ FACE_C_BIT
+              elsif (box_elem == POS_PYRAMID_PNP && c_box == POS_PRISM_XY_PN) then
+                type = type ^ FACE_C_BIT
+              elsif (box_elem == POS_PYRAMID_PPP && c_box == POS_PRISM_XY_PP) then
+                type = type ^ FACE_C_BIT
+              end
+            end
+
+            #ピラミッド（自身）とピラミッドが隣り合わせ
+            #    c
+            # a b d f
+            #      e
+            if isPyramid(b_box) then #bが開けれるか
+              if    (box_elem == POS_PYRAMID_NNN && b_box == POS_PYRAMID_PNN) then
+                type = type ^ FACE_B_BIT
+              elsif (box_elem == POS_PYRAMID_NNP && b_box == POS_PYRAMID_PNP) then
+                type = type ^ FACE_B_BIT
+              elsif (box_elem == POS_PYRAMID_NPN && b_box == POS_PYRAMID_PPN) then
+                type = type ^ FACE_B_BIT
+              elsif (box_elem == POS_PYRAMID_NPP && b_box == POS_PYRAMID_PPP) then
+                type = type ^ FACE_B_BIT
+              end
+            end
+
+            if isPyramid(f_box) then #fが開けれるか
+              if    (box_elem == POS_PYRAMID_PNN && f_box == POS_PYRAMID_NNN) then
+                type = type ^ FACE_F_BIT
+              elsif (box_elem == POS_PYRAMID_PNP && f_box == POS_PYRAMID_NNP) then
+                type = type ^ FACE_F_BIT
+              elsif (box_elem == POS_PYRAMID_PPN && f_box == POS_PYRAMID_NPN) then
+                type = type ^ FACE_F_BIT
+              elsif (box_elem == POS_PYRAMID_PPP && f_box == POS_PYRAMID_NPP) then
+                type = type ^ FACE_F_BIT
+              end
+            end
+
+
+            if isPyramid(d_box) then #dが開けれるか
+              if    (box_elem == POS_PYRAMID_NNN && d_box == POS_PYRAMID_NPN) then
+                type = type ^ FACE_D_BIT
+              elsif (box_elem == POS_PYRAMID_NNP && d_box == POS_PYRAMID_NPP) then
+                type = type ^ FACE_D_BIT
+              elsif (box_elem == POS_PYRAMID_PNN && d_box == POS_PYRAMID_PPN) then
+                type = type ^ FACE_D_BIT
+              elsif (box_elem == POS_PYRAMID_PNP && d_box == POS_PYRAMID_PPP) then
+                type = type ^ FACE_D_BIT
+              end
+            end
+
+            if isPrism(a_box) then #aが開けれるか
+              if    (box_elem == POS_PYRAMID_NPN && a_box == POS_PYRAMID_NNN) then
+                type = type ^ FACE_A_BIT
+              elsif (box_elem == POS_PYRAMID_NPP && a_box == POS_PYRAMID_NNP) then
+                type = type ^ FACE_A_BIT
+              elsif (box_elem == POS_PYRAMID_PPN && a_box == POS_PYRAMID_PNN) then
+                type = type ^ FACE_A_BIT
+              elsif (box_elem == POS_PYRAMID_PPP && a_box == POS_PYRAMID_PNP) then
+                type = type ^ FACE_A_BIT
+              end
+            end
+
+            if isPrism(e_box) then #eが開けれるか
+              if    (box_elem == POS_PYRAMID_NNN && e_box == POS_PYRAMID_NNP) then
+                type = type ^ FACE_E_BIT
+              elsif (box_elem == POS_PYRAMID_NPN && e_box == POS_PYRAMID_NPP) then
+                type = type ^ FACE_E_BIT
+              elsif (box_elem == POS_PYRAMID_PNN && e_box == POS_PYRAMID_PNP) then
+                type = type ^ FACE_E_BIT
+              elsif (box_elem == POS_PYRAMID_PPN && e_box == POS_PYRAMID_PPP) then
+                type = type ^ FACE_E_BIT
+              end
+            end
+
+            if isPrism(c_box) then #cが開けれるか
+              if    (box_elem == POS_PYRAMID_NNP && c_box == POS_PYRAMID_NNN) then
+                type = type ^ FACE_C_BIT
+              elsif (box_elem == POS_PYRAMID_NPP && c_box == POS_PYRAMID_NPN) then
+                type = type ^ FACE_C_BIT
+              elsif (box_elem == POS_PYRAMID_PNP && c_box == POS_PYRAMID_PNN) then
+                type = type ^ FACE_C_BIT
+              elsif (box_elem == POS_PYRAMID_PPP && c_box == POS_PYRAMID_PPN) then
+                type = type ^ FACE_C_BIT
+              end
+            end 
+            
+#            ret.area[x][y][z] = sprintf("%02d ", type)
+            ret.area[x][y][z] = type
+
           end
         end
       end
@@ -752,8 +908,11 @@ class ExteriorArea
 
 #           print "@area[",x,"][",y,"][",z,"]=",@area[x][y][z],"\n"
 #           print "@area[",x,"][",y,"][",z,"] & FACE_C_BIT=",(@area[x][y][z] & FACE_C_BIT),"\n"
-          elsif exArea.area[x][y][z] <= POS_PRISM_MAXVALUE  then
+          elsif isPrism(exArea.area[x][y][z])  then
             #自身がプリズムの場合
+            ret.area[x][y][z] = [1,1,1,1,1,1]
+          elsif isPyramid(exArea.area[x][y][z])  then
+            #自身がピラミッドの場合
             ret.area[x][y][z] = [1,1,1,1,1,1]
           end
 
@@ -784,7 +943,7 @@ class ExteriorArea
              next
           elsif ret.area[x][y][z] == [0,0,0,0,0,0] then
              next
-          #elsif exArea.area[x][y][z] == KABE_BOX_VAL then
+          #elsif exArea.area[x][y][z] == KABE_BOX_VAL || isPrism(exArea.area[x][y][z]) then 
           else
             ret.area[x][y][z] = @area[x][y][z]
             #    c
@@ -933,8 +1092,6 @@ class ExteriorArea
                 nobashi_zumi.area[x][y][iz] = SUMI_FLG
               end
             end
-
-          #elsif exArea.area[x][y][z] <= POS_PRISM_MAXVALUE then
 
           end
 #           print "@area[",x,"][",y,"][",z,"]=",@area[x][y][z],"\n"

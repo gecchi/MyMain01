@@ -217,10 +217,10 @@ while true
       end
 
       if counter_sum == 8 then
-      
+
         #BOX
         box[box_index].pos_info = 0
-        
+
       elsif counter_sum == 6 then
         #プリズム
 
@@ -257,10 +257,15 @@ while true
           p "boxvtx=",boxvtx
           exit(1)
         end
+         
+         
+         
+         #box[box_index].pos_info = POS_PYRAMID_PPP #TEST
+
 
       elsif counter_sum == 4 then
         #ピラミッド
-        
+
         if counter[7] > 0 && counter[5] > 0 && counter[6] > 0 && counter[3] > 0 then
           box[box_index].pos_info = POS_PYRAMID_NNN
         elsif counter[6] > 0 && counter[4] > 0 && counter[7] > 0 && counter[2] > 0 then
@@ -281,8 +286,9 @@ while true
           puts "Illigal Pyramid!!!"
           p "counter=",counter
           p "boxvtx=",boxvtx
+box[box_index].pos_info = 0
         end
-        
+
       end
 
 
@@ -345,7 +351,7 @@ while true
     exArea.fullfull #２回以上でほとんどの場合は大丈夫だが・・
   end
 
-  #BOX６面の内、最低限描画しなければいけない面を解析
+  #各BOXの6面の内、最低限描画しなければいけない面を解析
   r01_exArea = exArea.getAnalyze01
 
   #print "r01_exArea.dump01---------------\n"

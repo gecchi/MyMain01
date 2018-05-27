@@ -15,7 +15,7 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 
 
-std::map<int, UINT> MassWallActor::_delface;
+std::map<int, UINT> MassWallActor::_draw_face;
 MassWallActor::VERTEX_instancedata MassWallActor::_aInstancedata[GGAFDXMASS_MAX_INSTANCE_NUM];
 
 MassWallActor::MassWallActor(const char* prm_name,
@@ -66,9 +66,10 @@ void MassWallActor::init() {
     setHitAble(true);
 
     CollisionChecker* pChecker = getCollisionChecker();
-    pChecker->createCollisionArea(2);
+    pChecker->createCollisionArea(3);
     pChecker->setColliAABox(0, 0,0,0, 0,0,0);
     pChecker->setColliAAPrism(1, 0,0,0, 0,0,0, 0);
+    pChecker->setColliAAPyramid(2, 0,0,0, 0,0,0, POS_PYRAMID_NNN);
     _pMassMeshModel->registerCallback_VertexInstanceDataInfo(MassWallActor::createVertexInstanceData);
 
     static volatile bool is_init = MassWallActor::initStatic(this); //静的メンバ初期化
@@ -79,7 +80,6 @@ bool MassWallActor::initStatic(MassWallActor* prm_pMassWallActor) {
     //    c
     // a b d f
     //      e
-    //
     //                 00abcdef
     //
     //    FACE_A_BIT = 32 = 0b100000
@@ -94,22 +94,49 @@ bool MassWallActor::initStatic(MassWallActor* prm_pMassWallActor) {
     //に設定
 
     //XYプリズムの場合は +X -X面をつぶす
-    MassWallActor::_delface[POS_PRISM_XY_NN] = ~FACE_F_BIT;
-    MassWallActor::_delface[POS_PRISM_XY_NP] = ~FACE_F_BIT;
-    MassWallActor::_delface[POS_PRISM_XY_PN] = ~FACE_B_BIT;
-    MassWallActor::_delface[POS_PRISM_XY_PP] = ~FACE_B_BIT;
+    MassWallActor::_draw_face[POS_PRISM_XY_NN] = ~FACE_F_BIT;
+    MassWallActor::_draw_face[POS_PRISM_XY_NP] = ~FACE_F_BIT;
+    MassWallActor::_draw_face[POS_PRISM_XY_PN] = ~FACE_B_BIT;
+    MassWallActor::_draw_face[POS_PRISM_XY_PP] = ~FACE_B_BIT;
 
     //YZプリズムの場合も +Z -Z面をつぶす
-    MassWallActor::_delface[POS_PRISM_YZ_NN] = ~FACE_C_BIT;
-    MassWallActor::_delface[POS_PRISM_YZ_NP] = ~FACE_E_BIT;
-    MassWallActor::_delface[POS_PRISM_YZ_PN] = ~FACE_C_BIT;
-    MassWallActor::_delface[POS_PRISM_YZ_PP] = ~FACE_E_BIT;
+    MassWallActor::_draw_face[POS_PRISM_YZ_NN] = ~FACE_C_BIT;
+    MassWallActor::_draw_face[POS_PRISM_YZ_NP] = ~FACE_E_BIT;
+    MassWallActor::_draw_face[POS_PRISM_YZ_PN] = ~FACE_C_BIT;
+    MassWallActor::_draw_face[POS_PRISM_YZ_PP] = ~FACE_E_BIT;
 
     //ZXプリズムの場合も +X -X面をつぶす
-    MassWallActor::_delface[POS_PRISM_ZX_NN] = ~FACE_F_BIT;
-    MassWallActor::_delface[POS_PRISM_ZX_NP] = ~FACE_B_BIT;
-    MassWallActor::_delface[POS_PRISM_ZX_PN] = ~FACE_F_BIT;
-    MassWallActor::_delface[POS_PRISM_ZX_PP] = ~FACE_B_BIT;
+    MassWallActor::_draw_face[POS_PRISM_ZX_NN] = ~FACE_F_BIT;
+    MassWallActor::_draw_face[POS_PRISM_ZX_NP] = ~FACE_B_BIT;
+    MassWallActor::_draw_face[POS_PRISM_ZX_PN] = ~FACE_F_BIT;
+    MassWallActor::_draw_face[POS_PRISM_ZX_PP] = ~FACE_B_BIT;
+
+
+    //ピラミッドであるならば、形状により無条件で描画不要面がある、
+    //    c
+    // a b d f
+    //      e
+    //                 00abcdef
+    //
+    //    FACE_A_BIT = 32 = 0b100000
+    //    FACE_B_BIT = 16 = 0b010000
+    //    FACE_C_BIT = 8  = 0b001000
+    //    FACE_D_BIT = 4  = 0b000100
+    //    FACE_E_BIT = 2  = 0b000010
+    //    FACE_F_BIT = 1  = 0b000001
+    //
+    //無条件で不要な面ビットを 0
+    //特に条件がない場合、描画する面ビットを 1
+    //に設定
+    MassWallActor::_draw_face[POS_PYRAMID_NNN] = ~(FACE_C_BIT | FACE_F_BIT);
+    MassWallActor::_draw_face[POS_PYRAMID_NNP] = ~(FACE_E_BIT | FACE_F_BIT);
+    MassWallActor::_draw_face[POS_PYRAMID_NPN] = ~(FACE_C_BIT | FACE_F_BIT);
+    MassWallActor::_draw_face[POS_PYRAMID_NPP] = ~(FACE_E_BIT | FACE_F_BIT);
+    MassWallActor::_draw_face[POS_PYRAMID_PNN] = ~(FACE_B_BIT | FACE_C_BIT);
+    MassWallActor::_draw_face[POS_PYRAMID_PNP] = ~(FACE_B_BIT | FACE_E_BIT);
+    MassWallActor::_draw_face[POS_PYRAMID_PPN] = ~(FACE_B_BIT | FACE_C_BIT);
+    MassWallActor::_draw_face[POS_PYRAMID_PPP] = ~(FACE_B_BIT | FACE_E_BIT);
+
     return true;
 }
 
@@ -232,23 +259,23 @@ void MassWallActor::processDraw() {
         checkDxException(hr, D3D_OK, "SetMatrix(_h_distance_AlphaTarget) に失敗しました。");
     }
     //	ah = g_wall_width / g_wall_dep / 2.0; //傾き z/x （傾き x/z ではなくて）
-    //	fh = g_wall_dep/2.0;
-    hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_ah_POS_PRISM_ZX, wall_width/wall_dep/2.0f);
-    checkDxException(hr, D3D_OK, "SetFloat(_h_ah_POS_PRISM_ZX) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_fh_POS_PRISM_ZX, wall_dep/2.0f);
-    checkDxException(hr, D3D_OK, "SetFloat(_h_fh_POS_PRISM_ZX) に失敗しました。");
+    //	fh = g_wall_dep/2.0;                  //傾く軸
+    hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_ah_POS_ZX, wall_width/wall_dep/2.0f);
+    checkDxException(hr, D3D_OK, "SetFloat(_h_ah_POS_ZX) に失敗しました。");
+    hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_fh_POS_ZX, wall_dep/2.0f);
+    checkDxException(hr, D3D_OK, "SetFloat(_h_fh_POS_ZX) に失敗しました。");
     //	ah = g_wall_height / g_wall_width / 2.0; //傾き y/z
     //	fh = g_wall_width/2.0;                   //傾く軸
-    hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_ah_POS_PRISM_YZ, wall_height/wall_width/2.0f);
-    checkDxException(hr, D3D_OK, "SetFloat(_h_ah_POS_PRISM_YZ) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_fh_POS_PRISM_YZ, wall_width/2.0f);
-    checkDxException(hr, D3D_OK, "SetFloat(_h_fh_POS_PRISM_YZ) に失敗しました。");
+    hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_ah_POS_YZ, wall_height/wall_width/2.0f);
+    checkDxException(hr, D3D_OK, "SetFloat(_h_ah_POS_YZ) に失敗しました。");
+    hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_fh_POS_YZ, wall_width/2.0f);
+    checkDxException(hr, D3D_OK, "SetFloat(_h_fh_POS_YZ) に失敗しました。");
     //	ah = g_wall_height / g_wall_dep / 2.0; //傾き y/x
     //	fh = g_wall_dep/2.0;                   //傾く軸
-    hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_ah_POS_PRISM_XY, wall_height/wall_dep/2.0f);
-    checkDxException(hr, D3D_OK, "SetFloat(_h_ah_POS_PRISM_XY) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_fh_POS_PRISM_XY, wall_dep/2.0f);
-    checkDxException(hr, D3D_OK, "SetFloat(_h_fh_POS_PRISM_XY) に失敗しました。");
+    hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_ah_POS_XY, wall_height/wall_dep/2.0f);
+    checkDxException(hr, D3D_OK, "SetFloat(_h_ah_POS_XY) に失敗しました。");
+    hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_fh_POS_XY, wall_dep/2.0f);
+    checkDxException(hr, D3D_OK, "SetFloat(_h_fh_POS_XY) に失敗しました。");
 
     int draw_set_num = 0; //GgafDxMassMeshActorの同じモデルで同じテクニックが
                           //連続しているカウント数。同一描画深度は一度に描画する。
@@ -264,10 +291,10 @@ void MassWallActor::processDraw() {
     while (pDrawActor) {
         if (pDrawActor->getModel() == pMassMeshModel && pDrawActor->_hash_technique == hash_technique) {
             pMassWallActor = (MassWallActor*)pDrawActor;
-            memcpy(paInstancedata, &(pDrawActor->_matWorld), size_of_D3DXMATRIX);
-            memcpy(&(paInstancedata->r), &(pDrawActor->_paMaterial[0].Diffuse), size_of_D3DCOLORVALUE);
-            paInstancedata->_wall_draw_face = pMassWallActor->_wall_draw_face;
-            paInstancedata->_pos_info =  pMassWallActor->_pos_info;
+            memcpy(paInstancedata, &(pDrawActor->_matWorld), size_of_D3DXMATRIX); //TEXCOORD1 ～ TEXCOORD4
+            memcpy(&(paInstancedata->r), &(pDrawActor->_paMaterial[0].Diffuse), size_of_D3DCOLORVALUE); //TEXCOORD5
+            paInstancedata->_wall_draw_face = pMassWallActor->_wall_draw_face; //TEXCOORD6
+            paInstancedata->_pos_info =  pMassWallActor->_pos_info;            //TEXCOORD6
             ++paInstancedata;
             draw_set_num++;
             GgafDxSpacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
@@ -339,8 +366,8 @@ void MassWallActor::config(WallSectionScene* prm_pWallSectionScene, pos_t prm_po
         //BOX
         _wall_draw_face = prm_wall_draw_face;
     } else {
-        //プリズムなので、無条件で描画不要面が一つ存在、それを追加
-        _wall_draw_face = (prm_wall_draw_face & MassWallActor::_delface[prm_pos_info]);
+        //プリズムかピラミッドなので、無条件で描画不要面が一つ存在、それを追加
+        _wall_draw_face = (prm_wall_draw_face & MassWallActor::_draw_face[prm_pos_info]);
     }
     _pWallSectionScene =prm_pWallSectionScene;
     _wall_dep = _pWallSectionScene->_wall_dep;
@@ -352,6 +379,7 @@ void MassWallActor::config(WallSectionScene* prm_pWallSectionScene, pos_t prm_po
     if (prm_aColliBoxStretch[0] == 0) {
         pChecker->disable(0);
         pChecker->disable(1);
+        pChecker->disable(2);
     } else {
         if (prm_pos_info == 0) {
             //BOX
@@ -364,7 +392,8 @@ void MassWallActor::config(WallSectionScene* prm_pWallSectionScene, pos_t prm_po
                                  );
             pChecker->enable(0);
             pChecker->disable(1);
-        } else {
+            pChecker->disable(2);
+        } else if (POS_PRISM_XY_NN <= prm_pos_info && prm_pos_info <= POS_PRISM_ZX_PP) {
             //プリズム
             pChecker->setColliAAPrism(1, -(_wall_dep/2)    - (_wall_dep    * (prm_aColliBoxStretch[FACE_B_IDX]-1)),
                                          -(_wall_height/2) - (_wall_height * (prm_aColliBoxStretch[FACE_D_IDX]-1)),
@@ -375,8 +404,20 @@ void MassWallActor::config(WallSectionScene* prm_pWallSectionScene, pos_t prm_po
                                           _pos_info   );
             pChecker->enable(1);
             pChecker->disable(0);
+            pChecker->disable(2);
+        } else {
+            //ピラミッド
+            pChecker->setColliAAPyramid(2, -(_wall_dep/2)    - (_wall_dep    * (prm_aColliBoxStretch[FACE_B_IDX]-1)),
+                                           -(_wall_height/2) - (_wall_height * (prm_aColliBoxStretch[FACE_D_IDX]-1)),
+                                           -(_wall_width/2)  - (_wall_width  * (prm_aColliBoxStretch[FACE_E_IDX]-1)),
+                                            (_wall_dep/2)    + (_wall_dep    * (prm_aColliBoxStretch[FACE_F_IDX]-1)),
+                                            (_wall_height/2) + (_wall_height * (prm_aColliBoxStretch[FACE_A_IDX]-1)),
+                                            (_wall_width/2)  + (_wall_width  * (prm_aColliBoxStretch[FACE_C_IDX]-1)),
+                                            _pos_info   );
+            pChecker->enable(2);
+            pChecker->disable(0);
+            pChecker->disable(1);
         }
-
 
     }
 }

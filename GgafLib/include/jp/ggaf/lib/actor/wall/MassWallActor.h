@@ -37,28 +37,15 @@ protected:
         float _41, _42, _43, _44;   // : TEXCOORD4  World変換行列、４行目
         float r, g, b, a;           // : TEXCOORD5  マテリアルカラー
         float _wall_draw_face, _pos_info;  // : TEXCOORD6 壁ブロックプリズム位置情報, 壁ブロック表示面
-        //float r, g, b, a;
     };
     static VERTEX_instancedata _aInstancedata[];
     static void createVertexInstanceData(void* prm, GgafDxCore::GgafDxMassModel::VertexInstanceDataInfo* out_info);
 
 public:
-//    static D3DXHANDLE _h_distance_AlphaTarget;
-//    static D3DXHANDLE _h_wall_dep;
-//    static D3DXHANDLE _h_wall_height;
-//    static D3DXHANDLE _h_wall_width;
-//    static D3DXHANDLE _h_ah_POS_PRISM_ZX;
-//    static D3DXHANDLE _h_fh_POS_PRISM_ZX;
-//    static D3DXHANDLE _h_ah_POS_PRISM_YZ;
-//    static D3DXHANDLE _h_fh_POS_PRISM_YZ;
-//    static D3DXHANDLE _h_ah_POS_PRISM_XY;
-//    static D3DXHANDLE _h_fh_POS_PRISM_XY;
-//    static D3DXHANDLE _h_reflectance;
-
     /** プリズム無条件追加描画不要面テーブル */
-    static std::map<int, UINT> _delface;
+    static std::map<int, UINT> _draw_face;
 
-    /** [r]壁ブロックプリズム位置情報(> 0の場合はプリズム又はピラミッド、0の場合はBOX) */
+    /** [r]壁ブロック情報(0の場合はBOX:0より大きい場合はプリズム又はピラミッド) */
     pos_t _pos_info;
     /** [r]壁ブロック表示面情報 */
     int _wall_draw_face;
@@ -123,7 +110,7 @@ public:
     /**
      * 壁ブロックを設定する .
      * @param prm_pWallSectionScene WallSectionSceneオブジェクト
-     * @param prm_pos_info プリズム位置番号（プリズム型ブロックの場合のみ）
+     * @param prm_pos_info 0:BOX/1～:プリズムorピラミッド位置番号(POS_***)
      * @param prm_wall_draw_face 壁ブロック表示面情報
      * @param prm_aColliBoxStretch 壁ブロック当たり判定情報
      */

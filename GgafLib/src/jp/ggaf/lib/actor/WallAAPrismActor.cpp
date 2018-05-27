@@ -43,7 +43,7 @@ D3DXHANDLE WallAAPrismActor::_h_distance_AlphaTarget;
 D3DXHANDLE WallAAPrismActor::_h_wall_dep;
 D3DXHANDLE WallAAPrismActor::_h_wall_height;
 D3DXHANDLE WallAAPrismActor::_h_wall_width;
-std::map<int, UINT> WallAAPrismActor::_delface;
+std::map<int, UINT> WallAAPrismActor::_draw_face;
 
 bool WallAAPrismActor::initStatic(WallAAPrismActor* prm_pWallAAPrismActor) {
     //プリズム壁であるならば、形状により無条件で描画不要面がある、
@@ -65,27 +65,27 @@ bool WallAAPrismActor::initStatic(WallAAPrismActor* prm_pWallAAPrismActor) {
     //に設定
 
     //XYプリズムの場合は +X -X面をつぶす
-    WallAAPrismActor::_delface[POS_PRISM_XY_NN] = ~FACE_F_BIT;
-    WallAAPrismActor::_delface[POS_PRISM_XY_NP] = ~FACE_F_BIT;
-    WallAAPrismActor::_delface[POS_PRISM_XY_PN] = ~FACE_B_BIT;
-    WallAAPrismActor::_delface[POS_PRISM_XY_PP] = ~FACE_B_BIT;
+    WallAAPrismActor::_draw_face[POS_PRISM_XY_NN] = ~FACE_F_BIT;
+    WallAAPrismActor::_draw_face[POS_PRISM_XY_NP] = ~FACE_F_BIT;
+    WallAAPrismActor::_draw_face[POS_PRISM_XY_PN] = ~FACE_B_BIT;
+    WallAAPrismActor::_draw_face[POS_PRISM_XY_PP] = ~FACE_B_BIT;
 
     //YZプリズムの場合も +Z -Z面をつぶす
-    WallAAPrismActor::_delface[POS_PRISM_YZ_NN] = ~FACE_C_BIT;
-    WallAAPrismActor::_delface[POS_PRISM_YZ_NP] = ~FACE_E_BIT;
-    WallAAPrismActor::_delface[POS_PRISM_YZ_PN] = ~FACE_C_BIT;
-    WallAAPrismActor::_delface[POS_PRISM_YZ_PP] = ~FACE_E_BIT;
+    WallAAPrismActor::_draw_face[POS_PRISM_YZ_NN] = ~FACE_C_BIT;
+    WallAAPrismActor::_draw_face[POS_PRISM_YZ_NP] = ~FACE_E_BIT;
+    WallAAPrismActor::_draw_face[POS_PRISM_YZ_PN] = ~FACE_C_BIT;
+    WallAAPrismActor::_draw_face[POS_PRISM_YZ_PP] = ~FACE_E_BIT;
 
     //ZXプリズムの場合も +X -X面をつぶす
-    WallAAPrismActor::_delface[POS_PRISM_ZX_NN] = ~FACE_F_BIT;
-    WallAAPrismActor::_delface[POS_PRISM_ZX_NP] = ~FACE_B_BIT;
-    WallAAPrismActor::_delface[POS_PRISM_ZX_PN] = ~FACE_F_BIT;
-    WallAAPrismActor::_delface[POS_PRISM_ZX_PP] = ~FACE_B_BIT;
+    WallAAPrismActor::_draw_face[POS_PRISM_ZX_NN] = ~FACE_F_BIT;
+    WallAAPrismActor::_draw_face[POS_PRISM_ZX_NP] = ~FACE_B_BIT;
+    WallAAPrismActor::_draw_face[POS_PRISM_ZX_PN] = ~FACE_F_BIT;
+    WallAAPrismActor::_draw_face[POS_PRISM_ZX_PP] = ~FACE_B_BIT;
     return true;
 }
 
 void WallAAPrismActor::config(WalledSectionScene* prm_pWalledSectionScene, pos_t prm_pos_info, int prm_wall_draw_face, int* prm_aColliBoxStretch) {
-    prm_wall_draw_face &= WallAAPrismActor::_delface[prm_pos_info]; //プリズム無条件描画不要面
+    prm_wall_draw_face &= WallAAPrismActor::_draw_face[prm_pos_info]; //プリズム無条件描画不要面
     WallPartsActor::config(prm_pWalledSectionScene, prm_pos_info,  prm_wall_draw_face,  prm_aColliBoxStretch);
     CollisionChecker* pChecker = getCollisionChecker();
     if (prm_aColliBoxStretch[0] == 0) {

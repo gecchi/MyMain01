@@ -70,7 +70,7 @@ void WalledScene::buildWalledScene(
         //最初、中間、各セクションの最末尾ブロック面の全BOXのFACE_F描画を潰す
         for (int i = 0; i < prm_section_num-1; i++) {
             WalledSectionScene* pSection = prm_papSection[i];
-            int len = pSection->_paWallInfoLen[pSection->_area_len-1];
+            int len = pSection->_paWallNum[pSection->_area_len-1];
             for (int j = 0; j < len; j++) {
                 pSection->_papaWallInfo[pSection->_area_len-1][j]._wall_draw_face &= 62; //FACE_Fを潰す 0b111110
             }
@@ -78,7 +78,7 @@ void WalledScene::buildWalledScene(
         //中間、最後、各セクションの最前ブロック面の全BOXのFACE_B描画を潰す
         for (int i = 1; i < prm_section_num; i++) {
             WalledSectionScene* pSection = prm_papSection[i];
-            int len = pSection->_paWallInfoLen[0];
+            int len = pSection->_paWallNum[0];
             for (int j = 0; j < len; j++) {
                 pSection->_papaWallInfo[0][j]._wall_draw_face &= 47; //FACE_Bを潰す 0b111110
             }

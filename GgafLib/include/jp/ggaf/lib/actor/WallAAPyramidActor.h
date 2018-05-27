@@ -20,7 +20,7 @@ public:
     static D3DXHANDLE _h_wall_height;
     static D3DXHANDLE _h_wall_width;
     /** プリズム無条件追加描画不要面テーブル */
-    static std::map<int, UINT> _delface;
+    static std::map<int, UINT> _draw_face;
 
 public:
     WallAAPyramidActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);

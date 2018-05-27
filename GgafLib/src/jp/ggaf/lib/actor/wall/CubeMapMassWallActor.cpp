@@ -45,22 +45,22 @@ void CubeMapMassWallActor::processDraw() {
     }
     //	ah = g_wall_width / g_wall_dep / 2.0; //ŒX‚« z/x iŒX‚« x/z ‚Å‚Í‚È‚­‚Äj
     //	fh = g_wall_dep/2.0;
-    hr = pID3DXEffect->SetFloat(pEffect->_h_ah_POS_PRISM_ZX, wall_width/wall_dep/2.0f);
-    checkDxException(hr, D3D_OK, "SetFloat(_h_ah_POS_PRISM_ZX) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    hr = pID3DXEffect->SetFloat(pEffect->_h_fh_POS_PRISM_ZX, wall_dep/2.0f);
-    checkDxException(hr, D3D_OK, "SetFloat(_h_fh_POS_PRISM_ZX) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    hr = pID3DXEffect->SetFloat(pEffect->_h_ah_POS_ZX, wall_width/wall_dep/2.0f);
+    checkDxException(hr, D3D_OK, "SetFloat(_h_ah_POS_ZX) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    hr = pID3DXEffect->SetFloat(pEffect->_h_fh_POS_ZX, wall_dep/2.0f);
+    checkDxException(hr, D3D_OK, "SetFloat(_h_fh_POS_ZX) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     //	ah = g_wall_height / g_wall_width / 2.0; //ŒX‚« y/z
     //	fh = g_wall_width/2.0;                   //ŒX‚­Ž²
-    hr = pID3DXEffect->SetFloat(pEffect->_h_ah_POS_PRISM_YZ, wall_height/wall_width/2.0f);
-    checkDxException(hr, D3D_OK, "SetFloat(_h_ah_POS_PRISM_YZ) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    hr = pID3DXEffect->SetFloat(pEffect->_h_fh_POS_PRISM_YZ, wall_width/2.0f);
-    checkDxException(hr, D3D_OK, "SetFloat(_h_fh_POS_PRISM_YZ) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    hr = pID3DXEffect->SetFloat(pEffect->_h_ah_POS_YZ, wall_height/wall_width/2.0f);
+    checkDxException(hr, D3D_OK, "SetFloat(_h_ah_POS_YZ) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    hr = pID3DXEffect->SetFloat(pEffect->_h_fh_POS_YZ, wall_width/2.0f);
+    checkDxException(hr, D3D_OK, "SetFloat(_h_fh_POS_YZ) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     //	ah = g_wall_height / g_wall_dep / 2.0; //ŒX‚« y/x
     //	fh = g_wall_dep/2.0;                   //ŒX‚­Ž²
-    hr = pID3DXEffect->SetFloat(pEffect->_h_ah_POS_PRISM_XY, wall_height/wall_dep/2.0f);
-    checkDxException(hr, D3D_OK, "SetFloat(_h_ah_POS_PRISM_XY) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    hr = pID3DXEffect->SetFloat(pEffect->_h_fh_POS_PRISM_XY, wall_dep/2.0f);
-    checkDxException(hr, D3D_OK, "SetFloat(_h_fh_POS_PRISM_XY) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    hr = pID3DXEffect->SetFloat(pEffect->_h_ah_POS_XY, wall_height/wall_dep/2.0f);
+    checkDxException(hr, D3D_OK, "SetFloat(_h_ah_POS_XY) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    hr = pID3DXEffect->SetFloat(pEffect->_h_fh_POS_XY, wall_dep/2.0f);
+    checkDxException(hr, D3D_OK, "SetFloat(_h_fh_POS_XY) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
 
     hr = pID3DXEffect->SetFloat(pEffect->_h_reflectance, getCubeMapReflectance());

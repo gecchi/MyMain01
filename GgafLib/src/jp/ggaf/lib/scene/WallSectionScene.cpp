@@ -42,10 +42,10 @@ WallSectionScene::WallSectionScene(const char* prm_name, const char* prm_data_fi
         throwGgafCriticalException(prm_data_filename<<" フォーマットエラーその１");
     }
     int r_data;
-    _paWallInfoLen = NEW int[_area_len];
+    _paWallNum = NEW int[_area_len];
     for (int i = 0; i < _area_len; i++) {
         ifs >> r_data;
-        _paWallInfoLen[i] = r_data;
+        _paWallNum[i] = r_data;
         if (ifs.fail()) {
             throwGgafCriticalException(prm_data_filename<<" フォーマットエラーその２ i="<<i<<" _area_len="<<_area_len);
         }
@@ -54,8 +54,8 @@ WallSectionScene::WallSectionScene(const char* prm_name, const char* prm_data_fi
     _papaWallInfo = NEW WallInfo*[_area_len];
     for (int i = 0; i < _area_len; i++) {
         _TRACE_("WallSectionScene read..."<<i);
-        _papaWallInfo[i] = NEW WallInfo[_paWallInfoLen[i]];
-        for (int j = 0; j < _paWallInfoLen[i]; j++) {
+        _papaWallInfo[i] = NEW WallInfo[_paWallNum[i]];
+        for (int j = 0; j < _paWallNum[i]; j++) {
             ifs >> _papaWallInfo[i][j]._pos_info >>
                    _papaWallInfo[i][j]._y >>
                    _papaWallInfo[i][j]._z >>
@@ -67,7 +67,7 @@ WallSectionScene::WallSectionScene(const char* prm_name, const char* prm_data_fi
                    _papaWallInfo[i][j]._aColliBoxStretch[4] >>
                    _papaWallInfo[i][j]._aColliBoxStretch[5];
             if (ifs.fail()) {
-                throwGgafCriticalException(prm_data_filename<<" フォーマットエラーその３ i="<<i<<"/j="<<j<<"/_area_len="<<_area_len<<"/_paWallInfoLen[i]="<<_paWallInfoLen[i]);
+                throwGgafCriticalException(prm_data_filename<<" フォーマットエラーその３ i="<<i<<"/j="<<j<<"/_area_len="<<_area_len<<"/_paWallNum[i]="<<_paWallNum[i]);
             }
         }
     }
@@ -121,7 +121,7 @@ void WallSectionScene::processBehavior() {
                 }
             }
             MassWallActor* pWall = nullptr;
-            const int len = _paWallInfoLen[_cnt_area_len];
+            const int len = _paWallNum[_cnt_area_len];
             const int harf_area_height = _area_height/2;
             const int harf_area_width = _area_width/2;
             for (int n = 0; n < len; n++) {
@@ -135,8 +135,8 @@ void WallSectionScene::processBehavior() {
                 }
 
                 pWall->config(this, pWallInfo->_pos_info,
-                                         pWallInfo->_wall_draw_face,
-                                         pWallInfo->_aColliBoxStretch);
+                                    pWallInfo->_wall_draw_face,
+                                    pWallInfo->_aColliBoxStretch);
                 pWall->setPosition( _pWallLast==nullptr ? _wall_start_x : _pWallLast->_x + _wall_dep,
                                     (-harf_area_height + pWallInfo->_y) * _wall_height,
                                     (-harf_area_width  + pWallInfo->_z) * _wall_width   );
@@ -165,5 +165,5 @@ WallSectionScene::~WallSectionScene() {
         GGAF_DELETEARR(_papaWallInfo[i]);
     }
     GGAF_DELETEARR(_papaWallInfo);
-    GGAF_DELETEARR(_paWallInfoLen);
+    GGAF_DELETEARR(_paWallNum);
 }
