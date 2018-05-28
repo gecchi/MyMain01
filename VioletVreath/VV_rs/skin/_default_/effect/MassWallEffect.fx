@@ -307,7 +307,7 @@ OUT_VS GgafDxVS_MassWall(
 					prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.x+g_fh_POS_XY)/g_wall_dep))       + ((g_fh_POS_XY-prm_posModel_Local.x)*g_ah_POS_XY);
 				} else {
 					// PPN
-					prm_posModel_Local.z = (prm_posModel_Local.z * (1.0-((prm_posModel_Local.x+g_fh_POS_ZX)/g_wall_dep))) + ((g_fh_POS_ZX+prm_posModel_Local.x)*g_ah_POS_ZX);
+					prm_posModel_Local.z = (prm_posModel_Local.z * ((prm_posModel_Local.x+g_fh_POS_ZX)/g_wall_dep))       - ((g_fh_POS_ZX-prm_posModel_Local.x)*g_ah_POS_ZX);
 					prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.z+g_fh_POS_YZ)/g_wall_width))) + ((g_fh_POS_YZ+prm_posModel_Local.z)*g_ah_POS_YZ);
 					prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.x+g_fh_POS_XY)/g_wall_dep))       + ((g_fh_POS_XY-prm_posModel_Local.x)*g_ah_POS_XY);
 				}
@@ -320,7 +320,7 @@ OUT_VS GgafDxVS_MassWall(
 					prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.x+g_fh_POS_XY)/g_wall_dep))       - ((g_fh_POS_XY-prm_posModel_Local.x)*g_ah_POS_XY);
 				} else {
 					// PNN
-					prm_posModel_Local.z = (prm_posModel_Local.z * (1.0-((prm_posModel_Local.x+g_fh_POS_ZX)/g_wall_dep))) + ((g_fh_POS_ZX+prm_posModel_Local.x)*g_ah_POS_ZX);
+					prm_posModel_Local.z = (prm_posModel_Local.z * ((prm_posModel_Local.x+g_fh_POS_ZX)/g_wall_dep))       - ((g_fh_POS_ZX-prm_posModel_Local.x)*g_ah_POS_ZX);
 					prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.z+g_fh_POS_YZ)/g_wall_width))) - ((g_fh_POS_YZ+prm_posModel_Local.z)*g_ah_POS_YZ);
 					prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.x+g_fh_POS_XY)/g_wall_dep))       - ((g_fh_POS_XY-prm_posModel_Local.x)*g_ah_POS_XY);
 				}
@@ -333,7 +333,7 @@ OUT_VS GgafDxVS_MassWall(
 				pos_info -= POS_PYRAMID_xPx;
 				if (pos_info >= POS_PYRAMID_xxP) {
 					// NPP
-					prm_posModel_Local.z = (prm_posModel_Local.z * ((prm_posModel_Local.x+g_fh_POS_ZX)/g_wall_dep))       - ((g_fh_POS_ZX-prm_posModel_Local.x)*g_ah_POS_ZX);
+					prm_posModel_Local.z = (prm_posModel_Local.z * (1.0-((prm_posModel_Local.x+g_fh_POS_ZX)/g_wall_dep))) + ((g_fh_POS_ZX+prm_posModel_Local.x)*g_ah_POS_ZX);
 					prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.z+g_fh_POS_YZ)/g_wall_width))       + ((g_fh_POS_YZ-prm_posModel_Local.z)*g_ah_POS_YZ);
 					prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.x+g_fh_POS_XY)/g_wall_dep))) + ((g_fh_POS_XY+prm_posModel_Local.x)*g_ah_POS_XY);
 					
@@ -347,7 +347,7 @@ OUT_VS GgafDxVS_MassWall(
 				// NNx
 				if (pos_info >= POS_PYRAMID_xxP) {
 					// NNP
-					prm_posModel_Local.z = (prm_posModel_Local.z * ((prm_posModel_Local.x+g_fh_POS_ZX)/g_wall_dep))       - ((g_fh_POS_ZX-prm_posModel_Local.x)*g_ah_POS_ZX);
+					prm_posModel_Local.z = (prm_posModel_Local.z * (1.0-((prm_posModel_Local.x+g_fh_POS_ZX)/g_wall_dep))) + ((g_fh_POS_ZX+prm_posModel_Local.x)*g_ah_POS_ZX);
 					prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.z+g_fh_POS_YZ)/g_wall_width))       - ((g_fh_POS_YZ-prm_posModel_Local.z)*g_ah_POS_YZ);
 					prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.x+g_fh_POS_XY)/g_wall_dep))) - ((g_fh_POS_XY+prm_posModel_Local.x)*g_ah_POS_XY);
 				} else {

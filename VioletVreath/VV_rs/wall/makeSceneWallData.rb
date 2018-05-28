@@ -257,11 +257,6 @@ while true
           p "boxvtx=",boxvtx
           exit(1)
         end
-         
-         
-         
-         #box[box_index].pos_info = POS_PYRAMID_PPP #TEST
-
 
       elsif counter_sum == 4 then
         #ピラミッド
@@ -286,7 +281,7 @@ while true
           puts "Illigal Pyramid!!!"
           p "counter=",counter
           p "boxvtx=",boxvtx
-box[box_index].pos_info = 0
+          exit(1)
         end
 
       end
