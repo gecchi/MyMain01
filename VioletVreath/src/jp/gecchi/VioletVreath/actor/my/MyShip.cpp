@@ -25,8 +25,8 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/actor/my/Bunshin/MyBunshinBase.h"
 #include "jp/ggaf/dxcore/util/GgafDx26DirectionUtil.h"
-
 #include "jp/ggaf/lib/util/ColliAAPrism.h"
+#include "jp/ggaf/lib/util/ColliAAPyramid.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -784,10 +784,20 @@ void MyShip::onHit(const GgafActor* prm_pOtherActor) {
         }
         float vx2, vy2, vz2;
         coord dX2,dY2,dZ2;
-        if ( pOther->instanceOf(Obj_WallPartsActor)) {
-            if ((pOther->_pChecker->_pCollisionArea->_papColliPart[0]->_shape_kind) & COLLI_AAPRISM) {
+        if ( pOther->instanceOf(Obj_MassWallActor)) {
+            GgafDxCollisionPart** papColli = pOther->_pChecker->_pCollisionArea->_papColliPart;
+
+            ColliAABox* pBox = (ColliAABox*)(papColli[0]); //[0]BOX,[1]プリズム,[2]ピラミッド
+            ColliAAPrism* pPrism = (ColliAAPrism*)(papColli[1]); //[0]BOX,[1]プリズム,[2]ピラミッド
+            ColliAAPyramid* pPyramid = (ColliAAPyramid*)(papColli[2]); //[0]BOX,[1]プリズム,[2]ピラミッド
+            if (pBox->_is_valid_flg) {
+                //プリズム以外の壁
+                dX2 = (_x - pOther->_x);
+                dY2 = (_y - pOther->_y);
+                dZ2 = (_z - pOther->_z);
+            } else if (pPrism->_is_valid_flg) {
                 //プリズム壁
-                ColliAAPrism* pPrism = (ColliAAPrism*)(pOther->_pChecker->_pCollisionArea->_papColliPart[0]);
+                //吹っ飛ぶ重心座標を補正
                 pos_t pos_info = pPrism->_pos_info;
                 if (pos_info & POS_PRISM_XY_xx) {
                     if (pos_info & POS_PRISM_xx_PP) {
@@ -954,16 +964,17 @@ void MyShip::onHit(const GgafActor* prm_pOtherActor) {
                         dY2 = (_y - (pOther->_y                ));
                         dZ2 = (_z - (pOther->_z - pPrism->_hdz));
                     }
-                } else {
-
+                } else if (pPyramid->_is_valid_flg) {
+                    //TODO:ピラミッドふっとぶ重心
+                    dX2 = (_x - pOther->_x);
+                    dY2 = (_y - pOther->_y);
+                    dZ2 = (_z - pOther->_z);
                 }
             } else {
-                //プリズム以外の壁
-                dX2 = (_x - pOther->_x);
-                dY2 = (_y - pOther->_y);
-                dZ2 = (_z - pOther->_z);
+
             }
         } else {
+            //壁じゃない場合は中心座標で吹っ飛ぶ方向決定
             GgafDxCollisionArea* pCollisionArea = pOther->_pChecker->_pCollisionArea;
             if (pCollisionArea->_hit_colli_part_index >= 0) {
                 GgafDxCollisionPart* pPart = pCollisionArea->_papColliPart[pCollisionArea->_hit_colli_part_index];

@@ -26,7 +26,7 @@ public:
     GgafDxCollisionPart** _papColliPart;
     /** 当たり判定領域要素数 */
     int _colli_part_num;
-
+    /** ヒットチェックでヒットしたパートインデックスが入る(isHit で設定) */
     int _hit_colli_part_index;
 
 public:

@@ -56,7 +56,7 @@ LaserChip* LaserChipDepository::dispatch(int prm_offset_frames) {
         if (pChip) {
             if (_pChip_prev_dispatch) {
                 //以前のdispatch()したチップ
-                if ( ( _frame_of_behaving_prev_dispatch+1 == _pChip_prev_dispatch->getBehaveingFrame()  &&  _pChip_prev_dispatch->isActive() ) || 
+                if ( ( _frame_of_behaving_prev_dispatch+1 == _pChip_prev_dispatch->getBehaveingFrame()  &&  _pChip_prev_dispatch->isActive() ) ||
                        _frame_of_behaving_prev_dispatch   == _pChip_prev_dispatch->getBehaveingFrame()
                 ) {
                     //同フレームでdispatch() 或いは１フレーム差で連続でdispatch() の場合連結とみなす
@@ -80,7 +80,7 @@ LaserChip* LaserChipDepository::dispatch(int prm_offset_frames) {
             }
             _pChip_prev_dispatch = pChip;
             _frame_of_behaving_prev_dispatch = pChip->getBehaveingFrame();
-            //16回に一回は Obj_WallPartsActor ヒットありのチップとする
+            //16回に一回は 地形 ヒットありのチップとする
             if (_num_continual_dispatch_count % 16U == 0) {
                 pChip->_can_chikei_hit = true;
             } else {
