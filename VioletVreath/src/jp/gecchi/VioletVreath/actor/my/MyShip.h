@@ -201,7 +201,7 @@ public:
 
     void setMoveSpeed(velo prm_speed_velo);
 
-    int getMoveWay();
+    dir26 getMoveWay();
 
     void moveNomal(dir26 prm_way);
 

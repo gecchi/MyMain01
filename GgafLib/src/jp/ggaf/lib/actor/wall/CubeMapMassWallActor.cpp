@@ -25,45 +25,45 @@ CubeMapMassWallActor::CubeMapMassWallActor(const char* prm_name, const char* prm
 
 void CubeMapMassWallActor::processDraw() {
     HRESULT hr;
-    MassWallEffect* pEffect = (MassWallEffect*)getEffect();
-    ID3DXEffect* pID3DXEffect = pEffect->_pID3DXEffect;
+    MassWallEffect* pMassWallEffect = (MassWallEffect*)getEffect();
+    ID3DXEffect* pID3DXEffect = pMassWallEffect->_pID3DXEffect;
     dxcoord wall_dep    = C_DX(_wall_dep)/_rate_of_bounding_sphere_radius;
     dxcoord wall_height = C_DX(_wall_height)/_rate_of_bounding_sphere_radius;
     dxcoord wall_width  = C_DX(_wall_width)/_rate_of_bounding_sphere_radius;
-    hr = pID3DXEffect->SetFloat(pEffect->_h_wall_dep, wall_dep);
+    hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_wall_dep, wall_dep);
     checkDxException(hr, D3D_OK, "SetFloat(_h_wall_dep) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    hr = pID3DXEffect->SetFloat(pEffect->_h_wall_height, wall_height);
+    hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_wall_height, wall_height);
     checkDxException(hr, D3D_OK, "SetFloat(_h_wall_height) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    hr = pID3DXEffect->SetFloat(pEffect->_h_wall_width, wall_width);
+    hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_wall_width, wall_width);
     checkDxException(hr, D3D_OK, "SetFloat(_h_wall_width) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     if (_pWallSectionScene->_pActor_infront_alpha_target) {
-        hr = pID3DXEffect->SetFloat(pEffect->_h_distance_AlphaTarget, -(_pWallSectionScene->_pActor_infront_alpha_target->_dest_from_vppln_infront));
+        hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_distance_AlphaTarget, -(_pWallSectionScene->_pActor_infront_alpha_target->_dest_from_vppln_infront));
         checkDxException(hr, D3D_OK, "SetMatrix(_h_distance_AlphaTarget) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     } else {
-        hr = pID3DXEffect->SetFloat(pEffect->_h_distance_AlphaTarget, PX_DX(1));
+        hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_distance_AlphaTarget, PX_DX(1));
         checkDxException(hr, D3D_OK, "SetMatrix(_h_distance_AlphaTarget) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     }
     //	ah = g_wall_width / g_wall_dep / 2.0; //ŒX‚« z/x iŒX‚« x/z ‚Å‚Í‚È‚­‚Äj
     //	fh = g_wall_dep/2.0;
-    hr = pID3DXEffect->SetFloat(pEffect->_h_ah_POS_ZX, wall_width/wall_dep/2.0f);
+    hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_ah_POS_ZX, wall_width/wall_dep/2.0f);
     checkDxException(hr, D3D_OK, "SetFloat(_h_ah_POS_ZX) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    hr = pID3DXEffect->SetFloat(pEffect->_h_fh_POS_ZX, wall_dep/2.0f);
+    hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_fh_POS_ZX, wall_dep/2.0f);
     checkDxException(hr, D3D_OK, "SetFloat(_h_fh_POS_ZX) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     //	ah = g_wall_height / g_wall_width / 2.0; //ŒX‚« y/z
     //	fh = g_wall_width/2.0;                   //ŒX‚­Ž²
-    hr = pID3DXEffect->SetFloat(pEffect->_h_ah_POS_YZ, wall_height/wall_width/2.0f);
+    hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_ah_POS_YZ, wall_height/wall_width/2.0f);
     checkDxException(hr, D3D_OK, "SetFloat(_h_ah_POS_YZ) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    hr = pID3DXEffect->SetFloat(pEffect->_h_fh_POS_YZ, wall_width/2.0f);
+    hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_fh_POS_YZ, wall_width/2.0f);
     checkDxException(hr, D3D_OK, "SetFloat(_h_fh_POS_YZ) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     //	ah = g_wall_height / g_wall_dep / 2.0; //ŒX‚« y/x
     //	fh = g_wall_dep/2.0;                   //ŒX‚­Ž²
-    hr = pID3DXEffect->SetFloat(pEffect->_h_ah_POS_XY, wall_height/wall_dep/2.0f);
+    hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_ah_POS_XY, wall_height/wall_dep/2.0f);
     checkDxException(hr, D3D_OK, "SetFloat(_h_ah_POS_XY) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    hr = pID3DXEffect->SetFloat(pEffect->_h_fh_POS_XY, wall_dep/2.0f);
+    hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_fh_POS_XY, wall_dep/2.0f);
     checkDxException(hr, D3D_OK, "SetFloat(_h_fh_POS_XY) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
 
-    hr = pID3DXEffect->SetFloat(pEffect->_h_reflectance, getCubeMapReflectance());
+    hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_reflectance, getCubeMapReflectance());
     checkDxException(hr, D3D_OK, "SetFloat(_h_reflectances) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = GgafDxGod::_pID3DDevice9->SetTexture(1, getCubeMapTexture());
     checkDxException(hr, D3D_OK, "SetTexture ‚ÉŽ¸”s‚µ‚Ü‚µ‚½");

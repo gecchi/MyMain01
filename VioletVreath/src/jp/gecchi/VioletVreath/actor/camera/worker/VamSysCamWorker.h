@@ -5,15 +5,36 @@
 
 #include "jp/ggaf/dxcore/util/GgafDx26DirectionUtil.h"
 
-#define VAM_POS_NON          DIR26( 0, 0, 0)
-#define VAM_POS_ZRIGHT       DIR26( 0, 0,-1)
-#define VAM_POS_ZRIGHT_UP    DIR26( 0,+1,-1)
-#define VAM_POS_UP           DIR26( 0,+1, 0)
-#define VAM_POS_ZLEFT_UP     DIR26( 0,+1,+1)
-#define VAM_POS_ZLEFT        DIR26( 0, 0,+1)
-#define VAM_POS_ZLEFT_DOWN   DIR26( 0,-1,+1)
-#define VAM_POS_DOWN         DIR26( 0,-1, 0)
-#define VAM_POS_ZRIGHT_DOWN  DIR26( 0,-1,-1)
+
+#define VAM_POS_BEHIND              DIR26(-1, 0, 0)
+#define VAM_POS_BEHIND_ZRIGHT       DIR26(-1, 0,-1)
+#define VAM_POS_BEHIND_ZRIGHT_UP    DIR26(-1,+1,-1)
+#define VAM_POS_BEHIND_UP           DIR26(-1,+1, 0)
+#define VAM_POS_BEHIND_ZLEFT_UP     DIR26(-1,+1,+1)
+#define VAM_POS_BEHIND_ZLEFT        DIR26(-1, 0,+1)
+#define VAM_POS_BEHIND_ZLEFT_DOWN   DIR26(-1,-1,+1)
+#define VAM_POS_BEHIND_DOWN         DIR26(-1,-1, 0)
+#define VAM_POS_BEHIND_ZRIGHT_DOWN  DIR26(-1,-1,-1)
+
+#define VAM_POS_NON                 DIR26( 0, 0, 0)
+#define VAM_POS_ZRIGHT              DIR26( 0, 0,-1)
+#define VAM_POS_ZRIGHT_UP           DIR26( 0,+1,-1)
+#define VAM_POS_UP                  DIR26( 0,+1, 0)
+#define VAM_POS_ZLEFT_UP            DIR26( 0,+1,+1)
+#define VAM_POS_ZLEFT               DIR26( 0, 0,+1)
+#define VAM_POS_ZLEFT_DOWN          DIR26( 0,-1,+1)
+#define VAM_POS_DOWN                DIR26( 0,-1, 0)
+#define VAM_POS_ZRIGHT_DOWN         DIR26( 0,-1,-1)
+
+#define VAM_POS_FRONT               DIR26(+1, 0, 0)
+#define VAM_POS_FRONT_ZRIGHT        DIR26(+1, 0,-1)
+#define VAM_POS_FRONT_ZRIGHT_UP     DIR26(+1,+1,-1)
+#define VAM_POS_FRONT_UP            DIR26(+1,+1, 0)
+#define VAM_POS_FRONT_ZLEFT_UP      DIR26(+1,+1,+1)
+#define VAM_POS_FRONT_ZLEFT         DIR26(+1, 0,+1)
+#define VAM_POS_FRONT_ZLEFT_DOWN    DIR26(+1,-1,+1)
+#define VAM_POS_FRONT_DOWN          DIR26(+1,-1, 0)
+#define VAM_POS_FRONT_ZRIGHT_DOWN   DIR26(+1,-1,-1)
 
 namespace VioletVreath {
 

@@ -1031,105 +1031,126 @@ void MyShip::setInvincibleFrames(int prm_frames) {
     setHitAble(false);
     invincible_frames_ = prm_frames;
 }
-int MyShip::getMoveWay() {
+dir26 MyShip::getMoveWay() {
     VirtualButton* pVbPlay = VB_PLAY;
-    int pos_camera = pVAM->getPosCam();
-    int way = 0;
-    int sgn_x = 0;
-    int sgn_y = 0;
-    int sgn_z = 0;
+    dir26 pos_camera = pVAM->getPosCam();
+    int cam_sgn_x = 0;
+    int cam_sgn_y = 0;
+    int cam_sgn_z = 0;
+    GgafDx26DirectionUtil::cnvDirNo2Sgn(pos_camera, cam_sgn_x, cam_sgn_y, cam_sgn_z);
+    int mv_sgn_x = 0;
+    int mv_sgn_y = 0;
+    int mv_sgn_z = 0;
+
+//    if (pos_camera == VAM_POS_BEHIND) {
+//        if (pVbPlay->isPressed(VB_UP)) {
+//            mv_sgn_y = 1;
+//        }
+//        if (pVbPlay->isPressed(VB_DOWN)) {
+//            mv_sgn_y = -1;
+//        }
+//        if (pVbPlay->isPressed(VB_LEFT)) {
+//            mv_sgn_z = -1;
+//        }
+//        if (pVbPlay->isPressed(VB_RIGHT)) {
+//            mv_sgn_z = 1;
+//        }
+//
+//    }
 
 
-    if (pVbPlay->isPressed(VB_RIGHT)) {
-        sgn_x = 1;
-    }
-    if (pVbPlay->isPressed(VB_LEFT)) {
-        sgn_x = -1;
+    if (cam_sgn_x == 0) {
+        if (pVbPlay->isPressed(VB_RIGHT)) {
+            mv_sgn_x = 1;
+        }
+        if (pVbPlay->isPressed(VB_LEFT)) {
+            mv_sgn_x = -1;
+        }
+        switch (pos_camera) {
+            case VAM_POS_ZRIGHT: {
+                if (pVbPlay->isPressed(VB_UP)) {
+                    mv_sgn_y = 1;
+                }
+                if (pVbPlay->isPressed(VB_DOWN)) {
+                    mv_sgn_y = -1;
+                }
+                break;
+            }
+            case VAM_POS_ZRIGHT_UP: {
+                if (pVbPlay->isPressed(VB_UP)) {
+                    mv_sgn_y = 1;
+                    mv_sgn_z = 1;
+                }
+                if (pVbPlay->isPressed(VB_DOWN)) {
+                    mv_sgn_y = -1;
+                    mv_sgn_z = -1;
+                }
+                break;
+            }
+            case VAM_POS_UP: {
+                if (pVbPlay->isPressed(VB_UP)) {
+                    mv_sgn_z = 1;
+                }
+                if (pVbPlay->isPressed(VB_DOWN)) {
+                    mv_sgn_z = -1;
+                }
+                break;
+            }
+            case VAM_POS_ZLEFT_UP: {
+                if (pVbPlay->isPressed(VB_UP)) {
+                    mv_sgn_y = -1;
+                    mv_sgn_z = 1;
+                }
+                if (pVbPlay->isPressed(VB_DOWN)) {
+                    mv_sgn_y = 1;
+                    mv_sgn_z = -1;
+                }
+                break;
+            }
+            case VAM_POS_ZLEFT: {
+                if (pVbPlay->isPressed(VB_UP)) {
+                    mv_sgn_y = -1;
+                }
+                if (pVbPlay->isPressed(VB_DOWN)) {
+                    mv_sgn_y = 1;
+                }
+                break;
+            }
+            case VAM_POS_ZLEFT_DOWN: {
+                if (pVbPlay->isPressed(VB_UP)) {
+                    mv_sgn_y = -1;
+                    mv_sgn_z = -1;
+                }
+                if (pVbPlay->isPressed(VB_DOWN)) {
+                    mv_sgn_y = 1;
+                    mv_sgn_z = 1;
+                }
+                break;
+            }
+            case VAM_POS_DOWN: {
+                if (pVbPlay->isPressed(VB_UP)) {
+                    mv_sgn_z = -1;
+                }
+                if (pVbPlay->isPressed(VB_DOWN)) {
+                    mv_sgn_z = 1;
+                }
+                break;
+            }
+            case VAM_POS_ZRIGHT_DOWN: {
+                if (pVbPlay->isPressed(VB_UP)) {
+                    mv_sgn_y = 1;
+                    mv_sgn_z = -1;
+                }
+                if (pVbPlay->isPressed(VB_DOWN)) {
+                    mv_sgn_y = -1;
+                    mv_sgn_z = 1;
+                }
+                break;
+            }
+        }
     }
 
-    switch (pos_camera) {
-        case VAM_POS_ZRIGHT: {
-            if (pVbPlay->isPressed(VB_UP)) {
-                sgn_y = 1;
-            }
-            if (pVbPlay->isPressed(VB_DOWN)) {
-                sgn_y = -1;
-            }
-            break;
-        }
-        case VAM_POS_ZRIGHT_UP: {
-            if (pVbPlay->isPressed(VB_UP)) {
-                sgn_y = 1;
-                sgn_z = 1;
-            }
-            if (pVbPlay->isPressed(VB_DOWN)) {
-                sgn_y = -1;
-                sgn_z = -1;
-            }
-            break;
-        }
-        case VAM_POS_UP: {
-            if (pVbPlay->isPressed(VB_UP)) {
-                sgn_z = 1;
-            }
-            if (pVbPlay->isPressed(VB_DOWN)) {
-                sgn_z = -1;
-            }
-            break;
-        }
-        case VAM_POS_ZLEFT_UP: {
-            if (pVbPlay->isPressed(VB_UP)) {
-                sgn_y = -1;
-                sgn_z = 1;
-            }
-            if (pVbPlay->isPressed(VB_DOWN)) {
-                sgn_y = 1;
-                sgn_z = -1;
-            }
-            break;
-        }
-        case VAM_POS_ZLEFT: {
-            if (pVbPlay->isPressed(VB_UP)) {
-                sgn_y = -1;
-            }
-            if (pVbPlay->isPressed(VB_DOWN)) {
-                sgn_y = 1;
-            }
-            break;
-        }
-        case VAM_POS_ZLEFT_DOWN: {
-            if (pVbPlay->isPressed(VB_UP)) {
-                sgn_y = -1;
-                sgn_z = -1;
-            }
-            if (pVbPlay->isPressed(VB_DOWN)) {
-                sgn_y = 1;
-                sgn_z = 1;
-            }
-            break;
-        }
-        case VAM_POS_DOWN: {
-            if (pVbPlay->isPressed(VB_UP)) {
-                sgn_z = -1;
-            }
-            if (pVbPlay->isPressed(VB_DOWN)) {
-                sgn_z = 1;
-            }
-            break;
-        }
-        case VAM_POS_ZRIGHT_DOWN: {
-            if (pVbPlay->isPressed(VB_UP)) {
-                sgn_y = 1;
-                sgn_z = -1;
-            }
-            if (pVbPlay->isPressed(VB_DOWN)) {
-                sgn_y = -1;
-                sgn_z = 1;
-            }
-            break;
-        }
-    }
-    return DIR26(sgn_x, sgn_y, sgn_z);
+    return DIR26(mv_sgn_x, mv_sgn_y, mv_sgn_z);
 }
 
 void MyShip::moveNomal(dir26 prm_way) {
