@@ -32,13 +32,11 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,100,300,400,500,600,1000,1400,2000,9100,10000,29100,30000,34100,35000};
-	_paFrame_NextEvent = new frame[15];
+	frame f[] = {1,400};
+	_paFrame_NextEvent = new frame[2];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 15;
-	wantScene(10000004, Stage01WallScene, "Stage01WallScene-10000004");
-	wantActor(10000005, EnemyOebiusController001, "EnemyOebiusController001-10000005");
-	wantActor(10000006, EnemyOebiusController002, "EnemyOebiusController002-10000006");
+	_event_num = 2;
+	wantActor(10000000, EnemyErelmanController001, "EnemyErelmanController001-10000000");
     // gen01 end
     useProgress(PROG_BANPEI);
 }
@@ -56,75 +54,16 @@ void Stage01PartController::processBehavior() {
 			case 1: {
 				break;
 			}
-			case 100: {
-				wantScene(10000000, Stage01_01, "Stage01_01-10000000");
-				break;
-			}
-			case 300: {
-				addSubLast(grantScene(10000004));
-				break;
-			}
 			case 400: {
-				wantActor(10000007, FormationUrydike001, "FormationUrydike001-10000007");
-				break;
-			}
-			case 500: {
-				EnemyOebiusController001* p1 = (EnemyOebiusController001*)grantActor(10000005);
+				EnemyErelmanController001* p1 = (EnemyErelmanController001*)grantActor(10000000);
 				bringSceneMediator()->addSubGroup(p1);
 				p1->setPosition(PX_C(3400), PX_C(450), PX_C(0) );
-				break;
-			}
-			case 600: {
-				EnemyOebiusController002* p2 = (EnemyOebiusController002*)grantActor(10000006);
-				bringSceneMediator()->addSubGroup(p2);
-				p2->setPosition(PX_C(3400), PX_C(-450), PX_C(700) );
-				break;
-			}
-			case 1000: {
-				addSubLast(grantScene(10000000));
-				FormationUrydike001* p3 = (FormationUrydike001*)grantActor(10000007);
-				bringSceneMediator()->addSubGroup(p3);
-				p3->setPosition(PX_C(1000), PX_C(-800), PX_C(3000) );
-				break;
-			}
-			case 1400: {
-				wantActor(10000008, FormationUrydike002, "FormationUrydike002-10000008");
-				break;
-			}
-			case 2000: {
-				FormationUrydike002* p4 = (FormationUrydike002*)grantActor(10000008);
-				bringSceneMediator()->addSubGroup(p4);
-				p4->setPosition(PX_C(-500), PX_C(-800), PX_C(2000) );
-				break;
-			}
-			case 9100: {
-				wantScene(10000001, Stage01_02, "Stage01_02-10000001");
-				break;
-			}
-			case 10000: {
-				addSubLast(grantScene(10000001));
-				break;
-			}
-			case 29100: {
-				wantScene(10000002, Stage01_03, "Stage01_03-10000002");
-				break;
-			}
-			case 30000: {
-				addSubLast(grantScene(10000002));
-				break;
-			}
-			case 34100: {
-				wantScene(10000003, Stage01_Climax, "Stage01_Climax-10000003");
-				break;
-			}
-			case 35000: {
-				addSubLast(grantScene(10000003));
 				break;
 			}
 			default :
 				break;
 		}
-		_cnt_event = (_cnt_event < 15-1 ? _cnt_event+1 : _cnt_event);
+		_cnt_event = (_cnt_event < 2-1 ? _cnt_event+1 : _cnt_event);
 	}
     // gen02 end
 

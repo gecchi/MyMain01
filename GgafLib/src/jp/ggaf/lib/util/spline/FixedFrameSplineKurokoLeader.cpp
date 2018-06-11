@@ -107,10 +107,13 @@ void FixedFrameSplineKurokoLeader::behave() {
                                         _pActor_target->_y,
                                         _pActor_target->_z,
                                         x, y, z);
-                if (next_d*1.2 < now_d) {
-                    //•â³F‹——£‚ª—\‘z‚æ‚èŠJ‚¢‚Ä‚¢‚é(1.2”{ˆÈã‹ó‚¢‚Ä‚é)‚Ì‚Å­‚µ‹}‚®(1.1”{‚ÌƒXƒs[ƒh‚É‚·‚é)
-                    pKuroko_target->setMvVelo(_pFixedFrameSplManuf->_paSPMvVeloTo[_point_index] * 1.1) ;
+                if (next_d*1.06 < now_d) {
+                    //•â³F‹——£‚ª—\‘z‚æ‚èŠJ‚¢‚Ä‚¢‚é(1.6”{ˆÈã‹ó‚¢‚Ä‚é)‚Ì‚Å­‚µ‹}‚®(1.05”{‚ÌƒXƒs[ƒh‚É‚·‚é)
+                    pKuroko_target->setMvVelo(_pFixedFrameSplManuf->_paSPMvVeloTo[_point_index] * 1.05) ;
                     //pKuroko_target->setMvVelo(((velo)(now_d / frame_of_segment)) + 1);
+                } if (next_d*0.94 > now_d) {
+                     //•â³F‹——£‚ª—\‘z‚æ‚è‹ß‚¢(0.95”{ˆÈ“à‚É‚È‚Á‚Ä‚¢‚é)‚Ì‚Å­‚µ‚ä‚Á‚­‚è‚·‚é(0.91”{‚ÌƒXƒs[ƒh‚É‚·‚é)
+                    pKuroko_target->setMvVelo(_pFixedFrameSplManuf->_paSPMvVeloTo[_point_index] * 0.95) ;
                 } else {
                     pKuroko_target->setMvVelo(_pFixedFrameSplManuf->_paSPMvVeloTo[_point_index]);
                 }

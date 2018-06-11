@@ -515,6 +515,10 @@ public:
 	static GgafCore::GgafStatus* resetEnemyOebiusStatus(GgafCore::GgafStatus* p);
 	//エビウスコア
 	static GgafCore::GgafStatus* resetEnemyOebiusCoreStatus(GgafCore::GgafStatus* p);
+	//エレルマン
+	static GgafCore::GgafStatus* resetEnemyErelmanStatus(GgafCore::GgafStatus* p);
+	//エレルマンコア
+	static GgafCore::GgafStatus* resetEnemyErelmanCoreStatus(GgafCore::GgafStatus* p);
 	//ウリュディケ
 	static GgafCore::GgafStatus* resetEnemyUrydikeStatus(GgafCore::GgafStatus* p);
 	//弾幕アリス用ショット
