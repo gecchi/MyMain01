@@ -57,9 +57,9 @@ void FormationOebius001::onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, int
     pOebius->pKurokoLeader_->setStartPosition(geo_.x, geo_.y, geo_.z);
     pOebius->pKurokoLeader_->setStartAngle(geo_.rx, geo_.ry, geo_.rz);
     pOebius->setPositionAround(geo_.x, geo_.y, geo_.z, PX_C(700));
-    pOebius->setFaceAngTwd(pOebius->_x - geo_.x,
-                           pOebius->_y - geo_.y,
-                           pOebius->_z - geo_.z);
+    pOebius->setFaceAngTwd(pOebius->_x + (pOebius->_x - geo_.x),
+                           pOebius->_y + (pOebius->_y - geo_.y),
+                           pOebius->_z + (pOebius->_z - geo_.z) );
     pOebius->getKuroko()->setMvAngByFaceAng();
     pOebius->getKuroko()->setMvVelo(0);
     pOebius->getKuroko()->setMvAcce(80);

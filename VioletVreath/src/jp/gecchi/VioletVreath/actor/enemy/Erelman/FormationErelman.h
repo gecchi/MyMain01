@@ -8,9 +8,9 @@
 namespace VioletVreath {
 
 /**
- * 敵機エビウス用フォーメーションその１ .
+ * 敵機エレルマン用フォーメーションその１ .
  * @version 1.00
- * @since 2014/09/17
+ * @since 2018/06/11
  * @author Masatoshi Tsuge
  */
 class FormationErelman : public GgafLib::TreeFormation {
@@ -18,28 +18,19 @@ class FormationErelman : public GgafLib::TreeFormation {
 public:
     EnemyErelmanController* pController_;
 
-    int num_Erelman_;
-
-    int formation_col_num_;
-    int formation_row_num_;
-    frame call_up_interval_;
-    int call_up_row_idx_;
-
     /** [r]出現座標(シーンが設定) */
     GgafDxCore::GgafDxGeoElem geo_;
 
-    XpmConnection* pXpmConnection_;
+//    XpmConnection* pXpmConnection_;
 
 public:
-    FormationErelman(const char* prm_name, int prm_formation_col_num, int prm_formation_row_num, frame prm_call_up_interval, EnemyErelmanController* prm_pController);
-    FormationErelman(const char* prm_name, const char* prm_xpm_id, frame prm_call_up_interval, EnemyErelmanController* prm_pController);
+    FormationErelman(const char* prm_name, EnemyErelmanController* prm_pController);
+//    FormationErelman(const char* prm_name, const char* prm_xpm_id, frame prm_call_up_interval, EnemyErelmanController* prm_pController);
 
     /**
      * 編隊を作成 .
      */
     virtual void initialize() override;
-
-    virtual void onActive() override;
 
     virtual void processBehavior() override;
 
@@ -53,12 +44,6 @@ public:
 
     void scatterMember();
 
-    int getFormationColNum() {
-        return formation_col_num_;
-    }
-    int getFormationRowNum() {
-        return formation_row_num_;
-    }
 
     /**
      * 出現座標を設定。

@@ -6,10 +6,10 @@
 namespace VioletVreath {
 
 /**
- * エビウスのコアと、エビウス編隊を管理その１ .
+ * エレルマンのコアと、エレルマン編隊を管理その１ .
  * シーンに追加するアクターはこのアクターです。
  * @version 1.00
- * @since 2015/01/21
+ * @since 2018/06/11
  * @author Masatoshi Tsuge
  */
 class EnemyErelmanController001 : public EnemyErelmanController {

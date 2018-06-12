@@ -5,13 +5,12 @@
 
 #include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
 
-
 namespace VioletVreath {
 
 /**
- * エビウスのコアと、エビウス編隊を管理クラス基底 .
+ * エレルマンのコアと、エレルマン編隊を管理クラス基底 .
  * @version 1.00
- * @since 2015/01/19
+ * @since 2018/06/11
  * @author Masatoshi Tsuge
  */
 class EnemyErelmanController : public GgafCore::GgafDestructActor {

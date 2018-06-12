@@ -8,20 +8,20 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 
 FixedFrameSplineManufacture::FixedFrameSplineManufacture(const char* prm_source_file,
-                                                         frame prm_spent_frame,
+                                                         frame prm_spent_frames,
                                                          angvelo prm_angvelo_rzry_mv,
                                                          int prm_turn_way,
                                                          bool prm_turn_optimaize) : SplineManufacture(prm_source_file) {
-    _spent_frame = prm_spent_frame;
+    _spent_frames = prm_spent_frames;
     _angvelo_rzry_mv = prm_angvelo_rzry_mv;
     _turn_way = prm_turn_way;
     _turn_optimize = prm_turn_optimaize;
 
     //１区間の使用可能フレーム
-    _frame_of_segment = 1.0*_spent_frame / (_sp->_rnum-1);
+    _frame_of_segment = 1.0*_spent_frames / (_sp->_rnum-1);
     if (_frame_of_segment < 1.0) {
         _TRACE_("＜警告＞FixedFrameSplineManufacture ["<<prm_source_file<<"] _frame_of_segment="<<_frame_of_segment<<" < 1.0f です。"
-                "補完点数("<<(_sp->_rnum)<<")よりも、始点～終了点フレーム数("<<_spent_frame<<")が小さいので、補完点の飛びをなくすため、強制的に_frame_of_segmentは1.0に上書き。"
+                "補完点数("<<(_sp->_rnum)<<")よりも、始点～終了点フレーム数("<<_spent_frames<<")が小さいので、補完点の飛びをなくすため、強制的に_frame_of_segmentは1.0に上書き。"
                 "従って移動には"<<(_sp->_rnum)<<"フレームかかります。ご了承下さい。");
         _frame_of_segment = 1.0;
     }
@@ -29,20 +29,20 @@ FixedFrameSplineManufacture::FixedFrameSplineManufacture(const char* prm_source_
 }
 
 FixedFrameSplineManufacture::FixedFrameSplineManufacture(SplineSource* prm_pSplSrc,
-                                                         frame prm_spent_frame,
+                                                         frame prm_spent_frames,
                                                          angvelo prm_angvelo_rzry_mv,
                                                          int prm_turn_way,
                                                          bool prm_turn_optimaize) : SplineManufacture(prm_pSplSrc) {
-    _spent_frame = prm_spent_frame;
+    _spent_frames = prm_spent_frames;
     _angvelo_rzry_mv = prm_angvelo_rzry_mv;
     _turn_way = prm_turn_way;
     _turn_optimize = prm_turn_optimaize;
 
     //１区間の使用可能フレーム
-    _frame_of_segment = 1.0*_spent_frame / (_sp->_rnum-1);
+    _frame_of_segment = 1.0*_spent_frames / (_sp->_rnum-1);
     if (_frame_of_segment < 1.0) {
         _TRACE_("＜警告＞FixedFrameSplineManufacture  _frame_of_segment="<<_frame_of_segment<<" < 1.0f です。"
-                "補完点数("<<(_sp->_rnum)<<")よりも、始点～終了点フレーム数("<<_spent_frame<<")が小さいので、補完点の飛びをなくすため、強制的に_frame_of_segmentは1.0に上書き。"
+                "補完点数("<<(_sp->_rnum)<<")よりも、始点～終了点フレーム数("<<_spent_frames<<")が小さいので、補完点の飛びをなくすため、強制的に_frame_of_segmentは1.0に上書き。"
                 "従って移動には"<<(_sp->_rnum)<<"フレームかかります。ご了承下さい。");
         _frame_of_segment = 1.0;
     }
@@ -89,20 +89,42 @@ void FixedFrameSplineManufacture::calculate() {
     //            = (1000,2000,3000)    = (2000,1000,0)                      = (3900, 0, 1000)
     //
     //                 <--------------------------------------------------------->
-    //                                 120Frame費やして移動(=_spent_frame)
+    //                                 120Frame費やして移動(=_spent_frames)
     //                  <-->
-    //                  _spent_frame = １区間は 120/8 Frame = _spent_frame / (sp._rnum-1);
+    //                  _spent_frames = １区間は 120/8 Frame = _spent_frames / (sp._rnum-1);
     SplineManufacture::calculate();
     int rnum = _sp->_rnum;
     //_TRACE_("rnum="<<rnum);
     for (int t = 1; t < rnum; t++) {
         //距離 paDistanceTo[t] を、時間frm_segment で移動するために必要な速度を求める。
         //速さ＝距離÷時間
-        _paSPMvVeloTo[t] = ((velo)(_paDistance_to[t] / _frame_of_segment)) + 1; //+1は切り上げ
+        _paSPMvVeloTo[t] = ((velo)(_paDistance_to[t] / _frame_of_segment));
+        if (_paSPMvVeloTo[t] == 0) {
+            _paSPMvVeloTo[t] = 1;
+        }
         //_TRACE_("_paDistance_to["<<t<<"]="<<_paDistance_to[t]<<" _frame_of_segment="<<_frame_of_segment<<" _paSPMvVeloTo["<<t<<"]="<<_paDistance_to[t]<<"");
     }
     _paSPMvVeloTo[0] = 0; //始点までの速度など分からない。
     _paDistance_to[0] = 0;   //始点までの距離など分からない。
+}
+
+void FixedFrameSplineManufacture::recalculateBySpentFrame(frame prm_spent_frames) {
+    _spent_frames = prm_spent_frames;
+    _frame_of_segment = 1.0*_spent_frames / (_sp->_rnum-1);
+    if (_frame_of_segment < 1.0) {
+        _TRACE_("＜警告＞FixedFrameSplineManufacture::setSpentFrames()  _frame_of_segment="<<_frame_of_segment<<" < 1.0f です。"
+                "補完点数("<<(_sp->_rnum)<<")よりも、始点～終了点フレーム数("<<_spent_frames<<")が小さいので、補完点の飛びをなくすため、強制的に_frame_of_segmentは1.0に上書き。"
+                "従って移動には"<<(_sp->_rnum)<<"フレームかかります。ご了承下さい。");
+        _frame_of_segment = 1.0;
+    }
+    int rnum = _sp->_rnum;
+    for (int t = 1; t < rnum; t++) {
+        _paSPMvVeloTo[t] = ((velo)(_paDistance_to[t] / _frame_of_segment));
+        if (_paSPMvVeloTo[t] == 0) {
+            _paSPMvVeloTo[t] = 1;
+        }
+    }
+    _paSPMvVeloTo[0] = 0; //始点までの速度など分からない。
 }
 
 SplineKurokoLeader* FixedFrameSplineManufacture::createKurokoLeader(GgafDxCore::GgafDxKuroko* const prm_pKuroko) {

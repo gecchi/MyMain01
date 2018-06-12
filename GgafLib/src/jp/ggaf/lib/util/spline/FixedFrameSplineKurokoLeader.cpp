@@ -21,11 +21,11 @@ FixedFrameSplineKurokoLeader::FixedFrameSplineKurokoLeader(SplineManufacture* pr
 }
 FixedFrameSplineKurokoLeader::FixedFrameSplineKurokoLeader(GgafDxKuroko* prm_pKuroko_target,
                                                            SplineLine* prm_pSpl,
-                                                           frame prm_spent_frame,
+                                                           frame prm_spent_frames,
                                                            angvelo prm_angvelo_rzry_mv):
         SplineKurokoLeader(nullptr, prm_pKuroko_target) {  //nullptrで渡す事により、_is_created_pManufacture が falseになる
 
-    _pFixedFrameSplManuf = NEW FixedFrameSplineManufacture(NEW SplineSource(prm_pSpl), prm_spent_frame, prm_angvelo_rzry_mv);
+    _pFixedFrameSplManuf = NEW FixedFrameSplineManufacture(NEW SplineSource(prm_pSpl), prm_spent_frames, prm_angvelo_rzry_mv);
     _pFixedFrameSplManuf->calculate();//これも忘れないように。いずれこのタイプは消す
     _pManufacture = _pFixedFrameSplManuf;
     _leading_frames = 0;
@@ -101,19 +101,19 @@ void FixedFrameSplineKurokoLeader::behave() {
                 //誤差も仕方ないので _frame_of_segment で始点に移動する速度を付与
                 pKuroko_target->setMvVelo((velo)(_distance_to_begin / frame_of_segment));
             } else {
-                const coord next_d = _pFixedFrameSplManuf->_paDistance_to[_point_index];
-                const coord now_d = UTIL::getDistance(
+                const coord calc_d = _pFixedFrameSplManuf->_paDistance_to[_point_index];
+                const coord actually_d = UTIL::getDistance(
                                         _pActor_target->_x,
                                         _pActor_target->_y,
                                         _pActor_target->_z,
                                         x, y, z);
-                if (next_d*1.06 < now_d) {
-                    //補正：距離が予想より開いている(1.6倍以上空いてる)ので少し急ぐ(1.05倍のスピードにする)
+
+                if (calc_d*1.06 < actually_d) {
+                    //速度補正：距離が予想より開いている(1.06倍以上空いてる)ので少し急ぐ(1.05倍のスピードにする)
                     pKuroko_target->setMvVelo(_pFixedFrameSplManuf->_paSPMvVeloTo[_point_index] * 1.05) ;
-                    //pKuroko_target->setMvVelo(((velo)(now_d / frame_of_segment)) + 1);
-                } if (next_d*0.94 > now_d) {
-                     //補正：距離が予想より近い(0.95倍以内になっている)ので少しゆっくりする(0.91倍のスピードにする)
-                    pKuroko_target->setMvVelo(_pFixedFrameSplManuf->_paSPMvVeloTo[_point_index] * 0.95) ;
+                } if (calc_d*0.94 > actually_d) {
+                    //速度補正：距離が予想より近い(0.94倍以内になっている)ので少しゆっくりする(0.95倍のスピードにする)
+                    pKuroko_target->setMvVelo(_pFixedFrameSplManuf->_paSPMvVeloTo[_point_index] * (((1.0*actually_d)/calc_d)*0.95)) ;
                 } else {
                     pKuroko_target->setMvVelo(_pFixedFrameSplManuf->_paSPMvVeloTo[_point_index]);
                 }

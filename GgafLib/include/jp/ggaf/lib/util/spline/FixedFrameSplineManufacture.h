@@ -26,19 +26,19 @@ public:
     /** [rw]旋回最適化有無 */
     bool _turn_optimize;
     /** [r]最終地点到着までのフレーム数 */
-    frame _spent_frame;
+    frame _spent_frames;
 
 public:
     /**
      * コンストラクタ .
      * @param prm_source_file スプライン座標情報ファイル
-     * @param prm_spent_frame 始点(アクターの現座標ではない)～最終地点到着までのフレーム数
+     * @param prm_spent_frames 始点(アクターの現座標ではない)～最終地点到着までのフレーム数
      * @param prm_angvelo_rzry_mv アクターの旋回角度
      * @param prm_turn_way アクターの旋回方法(デフォルト TURN_CLOSE_TO)
      * @param prm_turn_optimaize アクターの旋回の最適化オプション(デフォルト false)
      */
     FixedFrameSplineManufacture(const char* prm_source_file,
-                                frame prm_spent_frame,
+                                frame prm_spent_frames,
                                 angvelo prm_angvelo_rzry_mv = (D90ANG/9),
                                 int prm_turn_way = TURN_CLOSE_TO,
                                 bool prm_turn_optimaize = false );
@@ -46,13 +46,13 @@ public:
     /**
      * コンストラクタ .
      * @param prm_pSplSrc スプライン座標情報オブジェクト
-     * @param prm_spent_frame 始点(アクターの現座標ではない)～最終地点到着までのフレーム数
+     * @param prm_spent_frames 始点(アクターの現座標ではない)～最終地点到着までのフレーム数
      * @param prm_angvelo_rzry_mv アクターの旋回角度
      * @param prm_turn_way アクターの旋回方法 (デフォルト TURN_CLOSE_TO)
      * @param prm_turn_optimaize アクターの旋回の最適化オプション(デフォルト false)
      */
     FixedFrameSplineManufacture(SplineSource* prm_pSplSrc,
-                                frame prm_spent_frame,
+                                frame prm_spent_frames,
                                 angvelo prm_angvelo_rzry_mv = (D90ANG/9),
                                 int prm_turn_way = TURN_CLOSE_TO,
                                 bool prm_turn_optimaize = false );
@@ -62,6 +62,19 @@ public:
      * 一度実行する必要があります。
      */
     void calculate() override;
+
+    /**
+     * 最終地点到着までのフレーム数を取得 .
+     * @return
+     */
+    frame getSpentFrames() {
+        return _spent_frames;
+    }
+    /**
+     * 最終地点到着までのフレーム数を指定し、再計算する .
+     * @param prm_spent_frames
+     */
+    void recalculateBySpentFrame(frame prm_spent_frames);
 
     /**
      * SplineKurokoLeaderオブジェクトの生成 .
