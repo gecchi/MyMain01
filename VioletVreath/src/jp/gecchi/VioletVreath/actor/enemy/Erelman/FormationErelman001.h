@@ -19,11 +19,11 @@ public:
 
     int formation_col_num_;
     int formation_row_num_;
-    frame call_up_interval_base_;
     int call_up_cnt_;
+    frame spent_frames_;
+    frame* pa_frame_of_call_up_;
 
-    frame* pa_call_up_interval_;
-    int* pa_call_up_row_idx_;
+    int call_up_row_idx_;
 
     GgafLib::SplineManufactureConnection** papSplManufConn_;
 

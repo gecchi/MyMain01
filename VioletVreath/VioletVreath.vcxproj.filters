@@ -365,6 +365,11 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\FormationErelman.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\FormationErelman001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\FormationErelman002.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanController003.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanCore001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanCore002.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanCore003.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\FormationErelman003.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\_predrawer\CubeMapMeshSetTestActor.h" />
@@ -736,6 +741,11 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\erelman\formationerelman.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\erelman\formationerelman001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\enemy\erelman\formationerelman002.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanController003.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanCore001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanCore002.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanCore003.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\FormationErelman003.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="VioletVreath.rc" />

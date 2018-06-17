@@ -36,7 +36,7 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
 	_paFrame_NextEvent = new frame[2];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
 	_event_num = 2;
-	wantActor(10000000, EnemyErelmanController001, "EnemyErelmanController001-10000000");
+	wantActor(10000000, EnemyErelmanController003, "EnemyErelmanController003-10000000");
     // gen01 end
     useProgress(PROG_BANPEI);
 }
@@ -55,9 +55,9 @@ void Stage01PartController::processBehavior() {
 				break;
 			}
 			case 400: {
-				EnemyErelmanController001* p1 = (EnemyErelmanController001*)grantActor(10000000);
+				EnemyErelmanController003* p1 = (EnemyErelmanController003*)grantActor(10000000);
 				bringSceneMediator()->addSubGroup(p1);
-				p1->setPosition(PX_C(3400), PX_C(450), PX_C(0) );
+				p1->setPosition(PX_C(2400), PX_C(0), PX_C(0) );
 				break;
 			}
 			default :

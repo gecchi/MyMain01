@@ -24,11 +24,11 @@ FormationErelman001::FormationErelman001(const char* prm_name, EnemyErelmanContr
         FormationErelman(prm_name,  prm_pController) {
     _class_name = "FormationErelman001";
     formation_col_num_ = 4;
-    formation_row_num_ = 120;
-    call_up_interval_base_ = 10; //出現間隔
+    formation_row_num_ = 130;
     call_up_cnt_ = 0;
-    pa_call_up_interval_ = NEW frame[formation_col_num_];
-    pa_call_up_row_idx_ = NEW int[formation_col_num_];
+    call_up_row_idx_ = 0;
+    pa_frame_of_call_up_ = NEW frame[formation_row_num_];
+
 
     num_Erelman_ = formation_col_num_  * formation_row_num_;
     for (int i = 0; i < num_Erelman_; i++) {
@@ -39,18 +39,20 @@ FormationErelman001::FormationErelman001(const char* prm_name, EnemyErelmanContr
     papSplManufConn_ = NEW SplineManufactureConnection*[formation_col_num_];
     for (int col = 0; col < formation_col_num_; col++) {
         papSplManufConn_[col] = connectToSplineManufactureManager(("FormationErelman001/"+XTOS(col)).c_str());
-        FixedFrameSplineManufacture* Manuf =  ((FixedFrameSplineManufacture*)(papSplManufConn_[col])->peek());
-        frame spent_frames = Manuf->getSpentFrames();
-        double rate = RCNV(0.0, formation_col_num_-1, col ,1.0, 1.0);
-        Manuf->recalculateBySpentFrame(spent_frames * rate);
-        pa_call_up_interval_[col] = call_up_interval_base_ * rate;
-        pa_call_up_row_idx_[col] = 0;
+    }
 
+    FixedFrameSplineManufacture* Manuf =  ((FixedFrameSplineManufacture*)(papSplManufConn_[0])->peek());
+    spent_frames_ = Manuf->getSpentFrames();
+//    double call_up_interval_ = spent_frames / formation_row_num_;  //出現間隔
+
+    for (int row = 0; row < formation_row_num_; row++) {
+        //出現フレーム(最後の +1は getFrame() が 1フレームから始まる為
+//        pa_frame_of_call_up_[row] = ((spent_frames / formation_row_num_) + (spent_frames / formation_row_num_)*row    ) + 1;
+        pa_frame_of_call_up_[row] = (frame)( ( (1.0*spent_frames_*(1+row))  /  formation_row_num_)  ) + 1;
     }
     useProgress(PROG_BANPEI);
 }
 void FormationErelman001::onActive() {
-    call_up_cnt_ = 0;
     getProgress()->reset(PROG_INIT);
 }
 void FormationErelman001::processBehavior() {
@@ -65,24 +67,19 @@ void FormationErelman001::processBehavior() {
         case PROG_CALL_UP: {
             if (pProg->hasJustChanged()) {
             }
-
-            for (int col = 0; col < formation_col_num_; col++) {
-                if (canCallUp() && call_up_cnt_ < num_Erelman_) {
-                    if (getActiveFrame() % pa_call_up_interval_[col] == 0) {
+            if (call_up_row_idx_ < formation_row_num_) {
+                if (pProg->getFrame() == pa_frame_of_call_up_[call_up_row_idx_]) {
+                    for (int col = 0; col < formation_col_num_; col++) {
                         EnemyErelman* pErelman = (EnemyErelman*)callUpMember();
                         if (pErelman) {
-                            onCallUp(pErelman, pa_call_up_row_idx_[col], col);
+                            onCallUp(pErelman, call_up_row_idx_, col);
                         }
-                        call_up_cnt_ ++;
-                        pa_call_up_row_idx_[col] ++;
                     }
-                } else {
-                   pProg->changeNext();
-                   break;
-               }
+                    call_up_row_idx_++;
+                }
+            } else {
+                pProg->changeNext();
             }
-
-
             break;
         }
         case PROG_WAIT: {
@@ -137,7 +134,5 @@ FormationErelman001::~FormationErelman001() {
         papSplManufConn_[col]->close();
     }
     GGAF_DELETEARR(papSplManufConn_);
-    GGAF_DELETEARR(pa_call_up_interval_);
-    GGAF_DELETEARR(pa_call_up_row_idx_);
 }
 

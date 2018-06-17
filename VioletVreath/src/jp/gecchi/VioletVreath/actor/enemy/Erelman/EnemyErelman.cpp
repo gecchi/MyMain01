@@ -43,7 +43,7 @@ EnemyErelman::EnemyErelman(const char* prm_name) :
 }
 
 void EnemyErelman::onCreateModel() {
-//    pModel->setSpecular(5.0, 1.0);
+    getModel()->setSpecular(5.0, 0.5);
 }
 
 void EnemyErelman::initialize() {
@@ -51,7 +51,7 @@ void EnemyErelman::initialize() {
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
     GgafDxKuroko* const pKuroko = getKuroko();
-    pKuroko->linkFaceAngByMvAng(true);
+//    pKuroko->linkFaceAngByMvAng(true);
     pKuroko->forceMvVeloRange(PX_C(15));
 }
 
@@ -68,7 +68,9 @@ void EnemyErelman::processBehavior() {
         case PROG_INIT: {
             setHitAble(false);
             setAlpha(0);
-            pKuroko->setRollFaceAngVelo(D_ANG(3));
+//            pKuroko->setRollFaceAngVelo(D_ANG(3));
+            setRyFaceAng(D_ANG(90));
+            pKuroko->setRzFaceAngVelo(D_ANG(3));
             pProg->changeNext();
             break;
         }

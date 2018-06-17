@@ -1,5 +1,5 @@
-#ifndef FORMATIONERELMAN002_H_
-#define FORMATIONERELMAN002_H_
+#ifndef FORMATIONERELMAN003_H_
+#define FORMATIONERELMAN003_H_
 #include "VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Erelman/FormationErelman.h"
 #include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
@@ -7,12 +7,12 @@
 namespace VioletVreath {
 
 /**
- * 敵機エレルマン用フォーメーションその002 .
+ * 敵機エレルマン用フォーメーションその003 .
  * @version 1.00
  * @since 2018/06/11
  * @author Masatoshi Tsuge
  */
-class FormationErelman002 : public FormationErelman {
+class FormationErelman003 : public FormationErelman {
 
 public:
     int num_Erelman_;
@@ -26,7 +26,7 @@ public:
     int* pa_call_up_row_idx_;
     GgafLib::SplineManufactureConnection** papSplManufConn_;
 
-    FormationErelman002(const char* prm_name, EnemyErelmanController* prm_pController);
+    FormationErelman003(const char* prm_name, EnemyErelmanController* prm_pController);
     virtual void onActive() override;
     virtual void processBehavior() override;
     virtual void onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, int prm_row, int prm_col) override;
@@ -37,8 +37,8 @@ public:
     int getFormationRowNum() {
         return formation_row_num_;
     }
-    virtual ~FormationErelman002();
+    virtual ~FormationErelman003();
 };
 
 }
-#endif /*FORMATIONERELMAN002_H_*/
+#endif /*FORMATIONERELMAN003_H_*/
