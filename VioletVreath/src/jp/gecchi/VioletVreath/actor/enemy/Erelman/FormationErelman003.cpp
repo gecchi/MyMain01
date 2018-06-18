@@ -24,7 +24,7 @@ FormationErelman003::FormationErelman003(const char* prm_name, EnemyErelmanContr
         FormationErelman(prm_name,  prm_pController) {
     _class_name = "FormationErelman003";
     formation_col_num_ = 10;
-    formation_row_num_ = 130;
+    formation_row_num_ = 140;
     num_Erelman_ = formation_col_num_ * formation_row_num_;
     call_up_cnt_ = 0;
     papa_frame_of_call_up_ = NEW frame*[formation_col_num_];
@@ -41,7 +41,7 @@ FormationErelman003::FormationErelman003(const char* prm_name, EnemyErelmanContr
         papa_frame_of_call_up_[col] = NEW frame[formation_row_num_];
         pa_call_up_row_idx_[col] = 0;
         papSplManufConn_[col] = connectToSplineManufactureManager(("FormationErelman003/"+XTOS(col)).c_str());
-        FixedFrameSplineManufacture* Manuf =  ((FixedFrameSplineManufacture*)(papSplManufConn_[col])->peek());
+        FixedFrameSplineManufacture* Manuf = ((FixedFrameSplineManufacture*)(papSplManufConn_[col])->peek());
         pa_spent_frames_[col] = Manuf->getSpentFrames();
     }
 
@@ -146,14 +146,26 @@ void FormationErelman003::onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, in
 //        pErelman->setMaterialColor(1, 1, 0.5);
 //    }
 
-    double r = RCNV(0, getFormationColNum()                      , prm_col         , 0.7, 1.5);
-    double g = RCNV(0, getFormationColNum()*getFormationRowNum() , prm_col*prm_row , 0.7, 1.5);
-    double b = RCNV(0, getFormationRowNum()                      , prm_row         , 0.7, 1.5);
+    double r = RCNV(0, getFormationColNum()                      , prm_col         , 0.8, 1.5);
+    double g = RCNV(0, getFormationColNum()*getFormationRowNum() , prm_col*prm_row , 0.8, 1.5);
+    double b = RCNV(0, getFormationRowNum()                      , prm_row         , 0.8, 1.5);
     pErelman->setMaterialColor(r, g, b);
 }
 
 void FormationErelman003::onFinshLeading(GgafDxCore::GgafDxFigureActor* prm_pActor) {
 
+}
+
+void FormationErelman003::freeMenber(frame prm_free_interval) {
+    EnemyErelman* pErelman = (EnemyErelman*)getSubFirst();
+    while (pErelman) {
+        pErelman->setFreeInterval(prm_free_interval);
+        if (pErelman->isLast()) {
+            break;
+        } else {
+            pErelman = (EnemyErelman*)(pErelman->getNext());
+        }
+    }
 }
 
 FormationErelman003::~FormationErelman003() {

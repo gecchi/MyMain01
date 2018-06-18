@@ -3,34 +3,96 @@
 #include "jp/gecchi/VioletVreath/actor/enemy/Oebius/EnemyOebius.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/manager/XpmConnection.h"
+#include "jp/gecchi/VioletVreath/manager/XpmManager.h"
 #include "jp/ggaf/core/util/GgafResourceConnection.hpp"
 #include "jp/ggaf/core/util/GgafXpm.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
 #include "jp/ggaf/lib/util/spline/SplineManufacture.h"
+#include "jp/ggaf/lib/util/spline/FixedFrameSplineManufacture.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    PROG_INIT  ,
+    PROG_CALL_UP ,
+    PROG_WAIT  ,
+    PROG_BANPEI,
+};
+
 FormationOebius002::FormationOebius002(const char* prm_name, EnemyOebiusController* prm_pController) :
-        FormationOebius(prm_name, "FormationOebius002_Xpm", 7, prm_pController) {
+        FormationOebius(prm_name, prm_pController) {
     _class_name = "FormationOebius002";
 
-    papSplManufConn_ = NEW SplineManufactureConnection*[getFormationColNum()];
-    for (int col = 0; col < getFormationColNum(); col++) {
+    pXpmConnection_ = connectToXpmManager("FormationOebius002_Xpm");
+    GgafXpm* pXpM = pXpmConnection_->peek();
+    formation_col_num_ = pXpM->getWidth();
+    formation_row_num_ = pXpM->getHeight();
+    num_Oebius_ = pXpM->getPixelNum();
+    for (int i = 0; i < num_Oebius_; i++) {
+        std::string name = "Oebius("+XTOS(i)+")";
+        addFormationMember(NEW EnemyOebius(name.c_str()));
+        Sleep(1);
+    }
+
+    papSplManufConn_ = NEW SplineManufactureConnection*[formation_col_num_];
+    for (int col = 0; col < formation_col_num_; col++) {
         papSplManufConn_[col] = connectToSplineManufactureManager(("FormationOebius002/"+XTOS(col)).c_str());
     }
-}
+    FixedFrameSplineManufacture* Manuf =  ((FixedFrameSplineManufacture*)(papSplManufConn_[0])->peek());
+    frame spent_frames = Manuf->getSpentFrames();
+    pa_frame_of_call_up_ = NEW frame[formation_row_num_];
+    for (int row = 0; row < formation_row_num_; row++) {
+        //出現フレーム(最後の +1は getFrame() が 1フレームから始まる為
+        pa_frame_of_call_up_[row] = (frame)( ( (1.0*spent_frames*(1+row))  /  formation_row_num_)  ) + 1;
+    }
+    call_up_row_idx_ = 0;
+    useProgress(PROG_BANPEI);
 
+}
+void FormationOebius002::onActive() {
+    call_up_row_idx_ = 0;
+    getProgress()->reset(PROG_INIT);
+}
 void FormationOebius002::processBehavior() {
-    FormationOebius::processBehavior();
-//    int col_num = getFormationColNum();
-//    for (int col = 0; col < col_num; col++) {
-//        SplineLine* sp = papSplManufConn_[col]->peek()->_sp;
-//        sp->rotation(geo_.rx, geo_.rz, geo_.ry);
-//    }
+    GgafProgress* const pProg = getProgress();
+    switch (pProg->get()) {
+        case PROG_INIT: {
+            pProg->changeNext();
+            break;
+        }
+        case PROG_CALL_UP: {
+            if (pProg->hasJustChanged()) {
+            }
+            if (call_up_row_idx_ < formation_row_num_) {
+                if (pProg->getFrame() == pa_frame_of_call_up_[call_up_row_idx_]) {
+                    for (int col = 0; col < formation_col_num_; col++) {
+                        //xpm編隊
+                        if (!pXpmConnection_->peek()->isNonColor(call_up_row_idx_, col)) {
+                            EnemyOebius* pOebius = (EnemyOebius*)callUpMember();
+                            if (pOebius) {
+                                onCallUp(pOebius, call_up_row_idx_, col);
+                            }
+                        }
+                    }
+                    call_up_row_idx_ ++;
+                }
+            } else {
+                pProg->changeNext();
+            }
+            break;
+        }
+        case PROG_WAIT: {
+            if (pProg->hasJustChanged()) {
+            }
+            break;
+        }
+        default :
+            break;
+    }
 }
 
 void FormationOebius002::onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, int prm_row, int prm_col) {
@@ -76,9 +138,13 @@ void FormationOebius002::onFinshLeading(GgafDxCore::GgafDxFigureActor* prm_pActo
 }
 
 FormationOebius002::~FormationOebius002() {
-    for (int col = 0; col < getFormationColNum(); col++) {
+    if (pXpmConnection_) {
+        pXpmConnection_->close();
+    }
+    for (int col = 0; col < formation_col_num_; col++) {
         papSplManufConn_[col]->close();
     }
     GGAF_DELETEARR(papSplManufConn_);
+    GGAF_DELETEARR(pa_frame_of_call_up_);
 }
 

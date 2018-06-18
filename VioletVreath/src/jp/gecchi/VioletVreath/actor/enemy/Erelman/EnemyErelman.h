@@ -21,7 +21,7 @@ public:
     GgafLib::SplineKurokoLeader* pKurokoLeader_;
 
     bool scatter_flg_;
-
+    frame free_interval_;
     frame delay_;
 
 public:
@@ -68,6 +68,13 @@ public:
      */
     void scatter();
 
+    /**
+     * フォーメーションから一時的に開放 .
+     * @param prm_free_interval
+     */
+    void setFreeInterval(frame prm_free_interval) {
+        free_interval_ = prm_free_interval;
+    }
 
     virtual ~EnemyErelman();
 };

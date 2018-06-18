@@ -134,6 +134,7 @@ void EnemyErelmanCore::processJudgement() {
 
 void EnemyErelmanCore::onHit(const GgafActor* prm_pOtherActor) {
     bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+    pController_->onCoreHit();
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTransmitter()->play3D(SE_EXPLOSION);

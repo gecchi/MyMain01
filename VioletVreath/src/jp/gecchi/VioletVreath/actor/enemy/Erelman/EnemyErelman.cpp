@@ -40,6 +40,7 @@ EnemyErelman::EnemyErelman(const char* prm_name) :
     pKurokoLeader_ = nullptr; //フォーメーションオブジェクトが設定する
     scatter_flg_ = false;
     delay_ = 0;
+    free_interval_ = 0;
 }
 
 void EnemyErelman::onCreateModel() {
@@ -106,12 +107,14 @@ void EnemyErelman::processBehavior() {
                 getKuroko()->setMvAcce(0); //加速度がある場合は切っておく
                 pKurokoLeader_->start(RELATIVE_COORD_DIRECTION, -1); //-1は無限ループ
             }
-
-            FormationErelman* pFormation = (FormationErelman*)getFormation();
-            pKurokoLeader_->setStartPosition(pFormation->geo_.x, pFormation->geo_.y, pFormation->geo_.z);
-            pKurokoLeader_->setStartAngle(pFormation->geo_.rx, pFormation->geo_.ry, pFormation->geo_.rz);
-            pKurokoLeader_->behave(); //スプライン移動を振る舞い
-
+            if (free_interval_ == 0) {
+                FormationErelman* pFormation = (FormationErelman*)getFormation();
+                pKurokoLeader_->setStartPosition(pFormation->geo_.x, pFormation->geo_.y, pFormation->geo_.z);
+                pKurokoLeader_->setStartAngle(pFormation->geo_.rx, pFormation->geo_.ry, pFormation->geo_.rz);
+                pKurokoLeader_->behave(); //スプライン移動を振る舞い
+            } else {
+                free_interval_--;
+            }
             if (scatter_flg_) {
                 pProg->changeNext();
             }

@@ -44,13 +44,13 @@ void EnemyErelmanController::onActive() {
 
 void EnemyErelmanController::processBehavior() {
     if (pErelmanCore_) {
-        if (!pErelmanCore_->wasDeclaredEnd()) {
-            pErelmanCore_ == nullptr;
+        if (pErelmanCore_->wasDeclaredEnd()) {
+            pErelmanCore_ = nullptr;
         }
     }
     if (pFormationErelman_) {
-        if (!pFormationErelman_->wasDeclaredEnd()) {
-            pFormationErelman_ == nullptr;
+        if (pFormationErelman_->wasDeclaredEnd()) {
+            pFormationErelman_ = nullptr;
         }
     }
 

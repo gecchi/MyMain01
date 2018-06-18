@@ -21,11 +21,8 @@ public:
     /** [r]出現座標(シーンが設定) */
     GgafDxCore::GgafDxGeoElem geo_;
 
-//    XpmConnection* pXpmConnection_;
-
 public:
     FormationErelman(const char* prm_name, EnemyErelmanController* prm_pController);
-//    FormationErelman(const char* prm_name, const char* prm_xpm_id, frame prm_call_up_interval, EnemyErelmanController* prm_pController);
 
     /**
      * 編隊を作成 .

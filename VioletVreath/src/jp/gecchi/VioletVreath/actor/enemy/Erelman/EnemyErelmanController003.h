@@ -22,6 +22,8 @@ public:
      */
     EnemyErelmanController003(const char* prm_name);
 
+    virtual void onCoreHit() override;
+
     virtual ~EnemyErelmanController003();
 };
 

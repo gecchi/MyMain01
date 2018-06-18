@@ -37,6 +37,9 @@ public:
     int getFormationRowNum() {
         return formation_row_num_;
     }
+
+    void freeMenber(frame prm_free_interval);
+
     virtual ~FormationErelman003();
 };
 

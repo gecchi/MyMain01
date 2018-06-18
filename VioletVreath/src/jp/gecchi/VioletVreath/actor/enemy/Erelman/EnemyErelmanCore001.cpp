@@ -40,7 +40,7 @@ void EnemyErelmanCore001::processBehavior() {
         case PROG_INIT: {
             setHitAble(false);
             setAlpha(0);
-            pKuroko->setRollFaceAngVelo(D_ANG(3));
+//            pKuroko->setRollFaceAngVelo(D_ANG(1));
             pProg->changeNext();
             break;
         }
@@ -63,13 +63,17 @@ void EnemyErelmanCore001::processBehavior() {
 
         case PROG_WAIT01: {
             if (pProg->hasJustChanged()) {
-                pKuroko->setRollPitchYawFaceAngVelo(D_ANG(0.027), D_ANG(0.0031), D_ANG(0.0071));
+//                pKuroko->setRollPitchYawFaceAngVelo(D_ANG(0.027), D_ANG(0.0031), D_ANG(0.0071));
+//                pKuroko->turnFaceAngTwd(0,0,0,D_ANG(2));
+                setRzFaceAng(D_ANG(89));
+                pKuroko->setRyFaceAngVelo(D_ANG(0.01));
             }
             if (pProg->hasArrivedAt(10*60*60)) {
                 pProg->changeNext();
             }
             break;
         }
+
 
         case PROG_LEAVE: {
             if (pProg->hasJustChanged()) {

@@ -50,6 +50,12 @@ public:
      */
     void processBehavior() override;
 
+    /**
+     * コアがヒットしたときのコールバック .
+     */
+    virtual void onCoreHit() {
+    }
+
     virtual ~EnemyErelmanController();
 };
 

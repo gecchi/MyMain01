@@ -1014,6 +1014,10 @@ void GgafDxKuroko::turnRzRyFaceAngTo(angle prm_rz_target, angle prm_ry_target,
             setFaceAngAcce(AXIS_Y, -ra);
         }
     } else if (drz < dry) {
+        float t_sin_rz = ABS(ANG_SIN(UTIL::simplifyAng(prm_rz_target)) * 0.8);// Y軸回転極座標補正。0.8は緩くするため
+        double hosei = 1.0 / (1.0 - t_sin_rz); //* 0.8しているので、t_sin_rz が 1.0にならないので 0除算は起こらない。
+
+
         double drr = drz / dry ;
 
         angvelo rv = prm_angvelo*drr;
@@ -1032,13 +1036,18 @@ void GgafDxKuroko::turnRzRyFaceAngTo(angle prm_rz_target, angle prm_ry_target,
             setFaceAngAcce(AXIS_Z, -ra);
         }
         if (out_d_ry > 0) {
-            setFaceAngVelo(AXIS_Y, prm_angvelo);
-            setFaceAngAcce(AXIS_Y, prm_angacce);
+            setFaceAngVelo(AXIS_Y, prm_angvelo*hosei);
+            setFaceAngAcce(AXIS_Y, prm_angacce*hosei);
         } else {
-            setFaceAngVelo(AXIS_Y, -prm_angvelo);
-            setFaceAngAcce(AXIS_Y, -prm_angacce);
+            setFaceAngVelo(AXIS_Y, -prm_angvelo*hosei);
+            setFaceAngAcce(AXIS_Y, -prm_angacce*hosei);
         }
     } else {
+
+        float t_sin_rz = ABS(ANG_SIN(UTIL::simplifyAng(prm_rz_target)) * 0.8);// Y軸回転極座標補正。0.8は緩くするため
+        double hosei = 1.0 / (1.0 - t_sin_rz); //* 0.8しているので、t_sin_rz が 1.0にならないので 0除算は起こらない。
+
+
         if (out_d_rz > 0) {
             setFaceAngVelo(AXIS_Z, prm_angvelo);
             setFaceAngAcce(AXIS_Z, prm_angacce);
@@ -1047,11 +1056,11 @@ void GgafDxKuroko::turnRzRyFaceAngTo(angle prm_rz_target, angle prm_ry_target,
             setFaceAngAcce(AXIS_Z, -prm_angacce);
         }
         if (out_d_ry > 0) {
-            setFaceAngVelo(AXIS_Y, prm_angvelo);
-            setFaceAngAcce(AXIS_Y, prm_angacce);
+            setFaceAngVelo(AXIS_Y, prm_angvelo*hosei);
+            setFaceAngAcce(AXIS_Y, prm_angacce*hosei);
         } else {
-            setFaceAngVelo(AXIS_Y, -prm_angvelo);
-            setFaceAngAcce(AXIS_Y, -prm_angacce);
+            setFaceAngVelo(AXIS_Y, -prm_angvelo*hosei);
+            setFaceAngAcce(AXIS_Y, -prm_angacce*hosei);
         }
     }
 
@@ -1178,8 +1187,9 @@ void GgafDxKuroko::turnRzRyMvAngTo(angle prm_rz_target, angle prm_ry_target,
             setRyMvAngAcce(-ra);
         }
     } else if (drz < dry) {
+        float t_sin_rz = ABS(ANG_SIN(UTIL::simplifyAng(prm_rz_target)) * 0.8);// Y軸回転極座標補正。0.8は緩くするため
+        double hosei = 1.0 / (1.0 - t_sin_rz); //* 0.8しているので、t_sin_rz が 1.0にならないので 0除算は起こらない。
         double drr = drz / dry;
-
         angvelo rv = prm_angvelo*drr;
         if (rv == 0 && prm_angvelo > 0) {
             rv = ABS(prm_angvelo);
@@ -1196,13 +1206,16 @@ void GgafDxKuroko::turnRzRyMvAngTo(angle prm_rz_target, angle prm_ry_target,
             setRzMvAngAcce(-ra);
         }
         if (out_d_ry > 0) {
-            setRyMvAngVelo(prm_angvelo);
-            setRyMvAngAcce(prm_angacce);
+            setRyMvAngVelo(prm_angvelo*hosei);
+            setRyMvAngAcce(prm_angacce*hosei);
         } else {
-            setRyMvAngVelo(-prm_angvelo);
-            setRyMvAngAcce(-prm_angacce);
+            setRyMvAngVelo(-prm_angvelo*hosei);
+            setRyMvAngAcce(-prm_angacce*hosei);
         }
     } else {
+
+        float t_sin_rz = ABS(ANG_SIN(UTIL::simplifyAng(prm_rz_target)) * 0.8);// Y軸回転極座標補正。0.8は緩くするため
+        double hosei = 1.0 / (1.0 - t_sin_rz); //* 0.8しているので、t_sin_rz が 1.0にならないので 0除算は起こらない。
         if (out_d_rz > 0) {
             setRzMvAngVelo(prm_angvelo);
             setRzMvAngAcce(prm_angacce);
@@ -1211,11 +1224,11 @@ void GgafDxKuroko::turnRzRyMvAngTo(angle prm_rz_target, angle prm_ry_target,
             setRzMvAngAcce(-prm_angacce);
         }
         if (out_d_ry > 0) {
-            setRyMvAngVelo(prm_angvelo);
-            setRyMvAngAcce(prm_angacce);
+            setRyMvAngVelo(prm_angvelo*hosei);
+            setRyMvAngAcce(prm_angacce*hosei);
         } else {
-            setRyMvAngVelo(-prm_angvelo);
-            setRyMvAngAcce(-prm_angacce);
+            setRyMvAngVelo(-prm_angvelo*hosei);
+            setRyMvAngAcce(-prm_angacce*hosei);
         }
     }
     setStopTargetRzMvAng(prm_rz_target);
