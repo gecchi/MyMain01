@@ -52,7 +52,6 @@ FormationErelman003::FormationErelman003(const char* prm_name, EnemyErelmanContr
 //
 //     3/5 (意味：1.0 - (2/5))   →  5/3 倍
 //     1/5 (意味：1.0 - (2/5)*2) →  5 倍
-
     pa_spent_frames_[0] *= 1.0;       //順☆
     pa_spent_frames_[1] *= (5.0/3.0); //順 速度  3/5
     pa_spent_frames_[2] *= 5.0;       //順 速度  1/5
@@ -64,10 +63,9 @@ FormationErelman003::FormationErelman003(const char* prm_name, EnemyErelmanContr
     pa_spent_frames_[8] *= 5.0;       //順 速度  1/5
     pa_spent_frames_[9] *= (5.0/3.0); //順 速度  3/5
     for (int col = 0; col < formation_col_num_; col++) {
-        FixedFrameSplineManufacture* Manuf =  ((FixedFrameSplineManufacture*)(papSplManufConn_[col])->peek());
-        Manuf->recalculateBySpentFrame(pa_spent_frames_[col]);
+        FixedFrameSplineManufacture* pManuf =  ((FixedFrameSplineManufacture*)(papSplManufConn_[col])->peek());
+        pManuf->recalculateBySpentFrame(pa_spent_frames_[col]);
     }
-
     for (int col = 0; col < formation_col_num_; col++) {
         for (int row = 0; row < formation_row_num_; row++) {
             //出現フレーム(最後の +1は getFrame() が 1フレームから始まる為
@@ -76,9 +74,11 @@ FormationErelman003::FormationErelman003(const char* prm_name, EnemyErelmanContr
     }
     useProgress(PROG_BANPEI);
 }
+
 void FormationErelman003::onActive() {
     getProgress()->reset(PROG_INIT);
 }
+
 void FormationErelman003::processBehavior() {
     FormationErelman::processBehavior();
 

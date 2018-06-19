@@ -72,7 +72,7 @@ WallSectionScene::WallSectionScene(const char* prm_name, const char* prm_data_fi
         }
     }
     ifs.close();
-    _pWallLast = nullptr;;
+    _pWallLast = nullptr;
     _wall_start_x = 0;
     _pDepo_wall = nullptr;
     _TRACE_(FUNC_NAME<<" "<<prm_data_filename<<" done");

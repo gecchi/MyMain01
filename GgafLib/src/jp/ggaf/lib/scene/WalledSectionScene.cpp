@@ -72,7 +72,7 @@ WalledSectionScene::WalledSectionScene(const char* prm_name, const char* prm_dat
         }
     }
     ifs.close();
-    _pWallPartsLast = nullptr;;
+    _pWallPartsLast = nullptr;
     _wall_start_x = 0;
     _pDepo_wall = nullptr;
     _pDepo_prism = nullptr;

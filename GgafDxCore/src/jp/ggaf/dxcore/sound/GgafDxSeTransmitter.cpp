@@ -22,7 +22,7 @@ void GgafDxSeTransmitter::set(int prm_se_no, const char* prm_se_key, int prm_can
             _vec_volume.push_back(GGAF_MAX_VOLUME);
             _vec_pan.push_back(0);
         }
-        _se_num = _vecSeConnection.size();;
+        _se_num = _vecSeConnection.size();
     }
 
     if (strlen(prm_se_key) > 128) {
