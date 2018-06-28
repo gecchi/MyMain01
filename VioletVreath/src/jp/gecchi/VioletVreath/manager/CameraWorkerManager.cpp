@@ -2,7 +2,7 @@
 
 #include "jp/gecchi/VioletVreath/manager/CameraWorkerConnection.h"
 #include "jp/gecchi/VioletVreath/actor/camera/worker/DefaultCamWorker.h"
-#include "jp/gecchi/VioletVreath/actor/camera/worker/VamSysCamWorker.h"
+#include "jp/gecchi/VioletVreath/actor/camera/worker/VamSysCamWorker2.h"
 #include "jp/gecchi/VioletVreath/actor/camera/worker/PauseCamWorker.h"
 #include "jp/gecchi/VioletVreath/actor/camera/worker/MyShipDivingCamWorker.h"
 #include "jp/gecchi/VioletVreath/actor/camera/worker/TestCamWorker.h"
@@ -25,10 +25,12 @@ CameraWorker* CameraWorkerManager::processCreateResource(const char* prm_idstr, 
         pResource = NEW DefaultCamWorker("DefaultCamWorker", pCamera);
     }
 
-    if (strcmp("VamSysCamWorker", prm_idstr) == 0) {
-        pResource = NEW VamSysCamWorker("VamSysCamWorker", pCamera);
+//    if (strcmp("VamSysCamWorker", prm_idstr) == 0) {
+//        pResource = NEW VamSysCamWorker("VamSysCamWorker", pCamera);
+//    }
+    if (strcmp("VamSysCamWorker2", prm_idstr) == 0) {
+        pResource = NEW VamSysCamWorker2("VamSysCamWorke2", pCamera);
     }
-
     if (strcmp("PauseCamWorker", prm_idstr) == 0) {
         pResource = NEW PauseCamWorker("PauseCamWorker", pCamera);
     }

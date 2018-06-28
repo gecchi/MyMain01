@@ -17,6 +17,11 @@ GgafDxCameraViewPoint* Camera::createCameraViewPoint() {
     CameraViewPoint* pVP = NEW CameraViewPoint("CameraViewPoint");
     return (GgafDxCameraViewPoint*)pVP;
 }
+
+void Camera::processBehavior() {
+    DefaultCamera::processBehavior();
+}
+
 GgafDxCameraUpVector* Camera::createCameraUpVector() {
     CameraUpVector* pUp = NEW CameraUpVector("CameraUpVector");
     return (GgafDxCameraUpVector*)pUp;

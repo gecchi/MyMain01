@@ -176,23 +176,23 @@ namespace GgafLib {
 
 
 
-#define VBJ_BUTTON_01       (0x00)
-#define VBJ_BUTTON_02       (0x01)
-#define VBJ_BUTTON_03       (0x02)
-#define VBJ_BUTTON_04       (0x03)
-#define VBJ_BUTTON_05       (0x04)
-#define VBJ_BUTTON_06       (0x05)
-#define VBJ_BUTTON_07       (0x06)
-#define VBJ_BUTTON_08       (0x07)
-#define VBJ_BUTTON_09       (0x08)
-#define VBJ_BUTTON_10       (0x09)
-#define VBJ_BUTTON_11       (0x0A)
-#define VBJ_BUTTON_12       (0x0B)
-#define VBJ_BUTTON_13       (0x0C)
-#define VBJ_BUTTON_14       (0x0D)
-#define VBJ_BUTTON_15       (0x0E)
-#define VBJ_BUTTON_16       (0x0F)
-#define VBJ_BUTTON_MAX      (0x0F) //rgbボタン番兵
+#define VBJ_BUTTON_01       (0x01)
+#define VBJ_BUTTON_02       (0x02)
+#define VBJ_BUTTON_03       (0x03)
+#define VBJ_BUTTON_04       (0x04)
+#define VBJ_BUTTON_05       (0x05)
+#define VBJ_BUTTON_06       (0x06)
+#define VBJ_BUTTON_07       (0x07)
+#define VBJ_BUTTON_08       (0x08)
+#define VBJ_BUTTON_09       (0x09)
+#define VBJ_BUTTON_10       (0x0A)
+#define VBJ_BUTTON_11       (0x0B)
+#define VBJ_BUTTON_12       (0x0C)
+#define VBJ_BUTTON_13       (0x0D)
+#define VBJ_BUTTON_14       (0x0E)
+#define VBJ_BUTTON_15       (0x0F)
+#define VBJ_BUTTON_16       (0x10)
+#define VBJ_BUTTON_MAX      (0x10) //rgbボタン番兵
 
 #define VBJ_X_POS_MINUS     (0x80)
 #define VBJ_X_POS_PLUS      (0x81)
@@ -412,21 +412,21 @@ public:
      * @param prm_VBK VBK_... で始まる仮想キー定数、仮想ボタンへ割り当てるキーボードを指定
      * @param prm_VBJ VBJ_... で始まる仮想JOYスティックボタン定数、仮想ボタンへ割り当てるJOYスティックボタンを指定
      */
-    inline void remap(vb_sta prm_VB, vbk prm_VBK, vbj prm_VBJ) { *_mapVB2keyboardmap[prm_VB] = prm_VBK;   *_mapVB2joystickmap[prm_VB] = prm_VBJ;  }
+    void remap(vb_sta prm_VB, vbk prm_VBK, vbj prm_VBJ);
 
     /**
      * 仮想ボタンの割り当てを変更（キーボードのみ） .
      * @param prm_VB VB_... で始まる仮想ボタン、割り当て対象の仮想ボタンを指定
      * @param prm_VBK VBK_... で始まる仮想キー定数、仮想ボタンへ割り当てるキーボードを指定
      */
-    inline void remapK(vb_sta prm_VB, vbk prm_VBK)  { *_mapVB2keyboardmap[prm_VB] = prm_VBK; }
+    void remapK(vb_sta prm_VB, vbk prm_VBK);
 
     /**
      * 仮想ボタンの割り当てを変更（ジョイスティックのみ） .
      * @param prm_VB VB_... で始まる仮想ボタン、割り当て対象の仮想ボタンを指定
      * @param prm_VBJ VBJ_... で始まる仮想JOYスティックボタン定数、仮想ボタンへ割り当てるJOYスティックボタンを指定
      */
-    inline void remapJ(vb_sta prm_VB, vbj prm_VBJ)  { *_mapVB2joystickmap[prm_VB] = prm_VBJ; }
+    void remapJ(vb_sta prm_VB, vbj prm_VBJ);
     /**     * 過去の入力状態を取得 .     * @param prm_frame_ago 現在より何フレーム過去かを指定     * @return 過去の入力状態     */    VirtualButton::VBRecord* getPastVBRecord(frame prm_frame_ago) const;
 
     /**

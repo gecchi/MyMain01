@@ -394,7 +394,7 @@ void MyShip::onInactive() {
 }
 void MyShip::processBehavior() {
     VirtualButton* pVbPlay = VB_PLAY;
-    int pos_camera = pVAM->getPosCam();
+//    int pos_camera = pVAM->getPosCam();
     GgafDxKuroko* const pKuroko = getKuroko();
     GgafDxAxesMover* const pAxesMover = getAxesMover();
 
@@ -1033,123 +1033,51 @@ void MyShip::setInvincibleFrames(int prm_frames) {
 }
 dir26 MyShip::getMoveWay() {
     VirtualButton* pVbPlay = VB_PLAY;
+
     dir26 pos_camera = pVAM->getPosCam();
-    int cam_sgn_x = 0;
-    int cam_sgn_y = 0;
-    int cam_sgn_z = 0;
-    GgafDx26DirectionUtil::cnvDirNo2Sgn(pos_camera, cam_sgn_x, cam_sgn_y, cam_sgn_z);
+    dir26 pos_up = pVAM->getPosUp();
+    dir26* pa_dir8 = VamSysCamWorker2::slant_8dir_[pos_camera]; //８方向ゲット
+    //UP方向を探す。
+    int up_idx = 0;
+    for (int i = 0; i < 8; i++) {
+        if (pos_up == pa_dir8[i]) {
+            up_idx = i; //UP方向インデックス保存
+        }
+    }
+    //pa_dir8[up_idx] が上である
     int mv_sgn_x = 0;
     int mv_sgn_y = 0;
     int mv_sgn_z = 0;
-
-//    if (pos_camera == VAM_POS_BEHIND) {
-//        if (pVbPlay->isPressed(VB_UP)) {
-//            mv_sgn_y = 1;
-//        }
-//        if (pVbPlay->isPressed(VB_DOWN)) {
-//            mv_sgn_y = -1;
-//        }
-//        if (pVbPlay->isPressed(VB_LEFT)) {
-//            mv_sgn_z = -1;
-//        }
-//        if (pVbPlay->isPressed(VB_RIGHT)) {
-//            mv_sgn_z = 1;
-//        }
-//
-//    }
-
-
-    if (cam_sgn_x == 0) {
-        if (pVbPlay->isPressed(VB_RIGHT)) {
-            mv_sgn_x = 1;
+    bool isPressed_VB_UP    = pVbPlay->isPressed(VB_UP);
+    bool isPressed_VB_DOWN  = pVbPlay->isPressed(VB_DOWN);
+    bool isPressed_VB_LEFT  = pVbPlay->isPressed(VB_LEFT);
+    bool isPressed_VB_RIGHT = pVbPlay->isPressed(VB_RIGHT);
+    int mv_dir = -1; //入力方向番号0~7(上から右回りの８方向)
+    if (isPressed_VB_UP) {
+        if (isPressed_VB_RIGHT) {
+            mv_dir = 1; //右上
+        } else if (isPressed_VB_LEFT) {
+            mv_dir = 7; //左上
+        } else {
+            mv_dir = 0; //上
         }
-        if (pVbPlay->isPressed(VB_LEFT)) {
-            mv_sgn_x = -1;
+    } else if (isPressed_VB_DOWN) {
+        if (isPressed_VB_RIGHT) {
+            mv_dir = 3; //右下
+        } else if (isPressed_VB_LEFT) {
+            mv_dir = 5; //左下
+        } else {
+            mv_dir = 4; //下
         }
-        switch (pos_camera) {
-            case VAM_POS_ZRIGHT: {
-                if (pVbPlay->isPressed(VB_UP)) {
-                    mv_sgn_y = 1;
-                }
-                if (pVbPlay->isPressed(VB_DOWN)) {
-                    mv_sgn_y = -1;
-                }
-                break;
-            }
-            case VAM_POS_ZRIGHT_UP: {
-                if (pVbPlay->isPressed(VB_UP)) {
-                    mv_sgn_y = 1;
-                    mv_sgn_z = 1;
-                }
-                if (pVbPlay->isPressed(VB_DOWN)) {
-                    mv_sgn_y = -1;
-                    mv_sgn_z = -1;
-                }
-                break;
-            }
-            case VAM_POS_UP: {
-                if (pVbPlay->isPressed(VB_UP)) {
-                    mv_sgn_z = 1;
-                }
-                if (pVbPlay->isPressed(VB_DOWN)) {
-                    mv_sgn_z = -1;
-                }
-                break;
-            }
-            case VAM_POS_ZLEFT_UP: {
-                if (pVbPlay->isPressed(VB_UP)) {
-                    mv_sgn_y = -1;
-                    mv_sgn_z = 1;
-                }
-                if (pVbPlay->isPressed(VB_DOWN)) {
-                    mv_sgn_y = 1;
-                    mv_sgn_z = -1;
-                }
-                break;
-            }
-            case VAM_POS_ZLEFT: {
-                if (pVbPlay->isPressed(VB_UP)) {
-                    mv_sgn_y = -1;
-                }
-                if (pVbPlay->isPressed(VB_DOWN)) {
-                    mv_sgn_y = 1;
-                }
-                break;
-            }
-            case VAM_POS_ZLEFT_DOWN: {
-                if (pVbPlay->isPressed(VB_UP)) {
-                    mv_sgn_y = -1;
-                    mv_sgn_z = -1;
-                }
-                if (pVbPlay->isPressed(VB_DOWN)) {
-                    mv_sgn_y = 1;
-                    mv_sgn_z = 1;
-                }
-                break;
-            }
-            case VAM_POS_DOWN: {
-                if (pVbPlay->isPressed(VB_UP)) {
-                    mv_sgn_z = -1;
-                }
-                if (pVbPlay->isPressed(VB_DOWN)) {
-                    mv_sgn_z = 1;
-                }
-                break;
-            }
-            case VAM_POS_ZRIGHT_DOWN: {
-                if (pVbPlay->isPressed(VB_UP)) {
-                    mv_sgn_y = 1;
-                    mv_sgn_z = -1;
-                }
-                if (pVbPlay->isPressed(VB_DOWN)) {
-                    mv_sgn_y = -1;
-                    mv_sgn_z = 1;
-                }
-                break;
-            }
-        }
+    } else if (isPressed_VB_RIGHT) {
+        mv_dir = 2;
+    } else if (isPressed_VB_LEFT) {
+        mv_dir = 6;
     }
-
+    if (mv_dir > -1) {
+        int dir_8_idx = (up_idx + mv_dir) % 8;
+        GgafDx26DirectionUtil::cnvDirNo2Sgn(pa_dir8[dir_8_idx], mv_sgn_x, mv_sgn_y, mv_sgn_z);
+    }
     return DIR26(mv_sgn_x, mv_sgn_y, mv_sgn_z);
 }
 

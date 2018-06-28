@@ -344,7 +344,6 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\util\MyStgUtil.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\util\RankingTable.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\util\VamSysCamPosition.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\GameGlobal.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\God.cpp" />
     <ClCompile Include="src\VioletVreath.cpp" />
@@ -370,6 +369,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanCore002.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanCore003.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\FormationErelman003.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\worker\VamSysCamWorker2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\_predrawer\CubeMapMeshSetTestActor.h" />
@@ -718,7 +718,6 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\util\MyStgUtil.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\util\RankingTable.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\util\VamSysCamPosition.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\GameGlobal.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\God.h" />
     <ClInclude Include="src\VioletVreath.h" />
@@ -746,6 +745,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanCore002.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanCore003.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\FormationErelman003.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\camera\worker\vamsyscamworker2.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="VioletVreath.rc" />

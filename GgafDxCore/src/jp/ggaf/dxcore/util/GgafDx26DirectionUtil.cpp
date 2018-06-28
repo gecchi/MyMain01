@@ -8,33 +8,33 @@ using namespace GgafDxCore;
 #define V3E (0.57735026918963)    // 斜めの単位ベクトル各要素(t = (1.0 / √(1*1+1*1+1*1)) * 1 )
 #define V2E (0.70710678118655)    // t = (1.0 / √(1*1+1*1)) * 1
 const GgafDx26DirectionUtil::FaceVec GgafDx26DirectionUtil::_vec[3*3*3] = {
-        {-V3E, -V3E, -V3E},     //DIR26(-1,-1,-1)
-        {-V2E, -V2E,    0},     //DIR26(-1,-1, 0)
-        {-V3E, -V3E, +V3E},     //DIR26(-1,-1, 1)
-        {-V2E,    0, -V2E},     //DIR26(-1, 0,-1)
-        {  -1,    0,    0},     //DIR26(-1, 0, 0)
-        {-V2E,    0, +V2E},     //DIR26(-1, 0, 1)
-        {-V3E, +V3E, -V3E},     //DIR26(-1, 1,-1)
-        {-V2E, +V2E,    0},     //DIR26(-1, 1, 0)
-        {-V3E, +V3E, +V3E},     //DIR26(-1, 1, 1)
-        {   0, -V2E, -V2E},     //DIR26( 0,-1,-1)
-        {   0,   -1,    0},     //DIR26( 0,-1, 0)
-        {   0, -V2E, +V2E},     //DIR26( 0,-1, 1)
-        {   0,    0,   -1},     //DIR26( 0, 0,-1)
-        {   0,    0,    0},     //DIR26( 0, 0, 0)
-        {   0,    0,   +1},     //DIR26( 0, 0, 1)
-        {   0, +V2E, -V2E},     //DIR26( 0, 1,-1)
-        {   0,   +1,    0},     //DIR26( 0, 1, 0)
-        {   0, +V2E, +V2E},     //DIR26( 0, 1, 1)
-        {+V3E, -V3E, -V3E},     //DIR26( 1,-1,-1)
-        {+V2E, -V2E,    0},     //DIR26( 1,-1, 0)
-        {+V3E, -V3E, +V3E},     //DIR26( 1,-1, 1)
-        {+V2E,    0, -V2E},     //DIR26( 1, 0,-1)
-        {  +1,    0,    0},     //DIR26( 1, 0, 0)
-        {+V2E,    0, +V2E},     //DIR26( 1, 0, 1)
-        {+V3E, +V3E, -V3E},     //DIR26( 1, 1,-1)
-        {+V2E, +V2E,    0},     //DIR26( 1, 1, 0)
-        {+V3E, +V3E, +V3E}      //DIR26( 1, 1, 1)
+        {-V3E, -V3E, -V3E},     //DIR26(-1,-1,-1) = -13
+        {-V2E, -V2E,    0},     //DIR26(-1,-1, 0) = -12
+        {-V3E, -V3E, +V3E},     //DIR26(-1,-1, 1) = -11
+        {-V2E,    0, -V2E},     //DIR26(-1, 0,-1) = -10
+        {  -1,    0,    0},     //DIR26(-1, 0, 0) = -9
+        {-V2E,    0, +V2E},     //DIR26(-1, 0, 1) = -8
+        {-V3E, +V3E, -V3E},     //DIR26(-1, 1,-1) = -7
+        {-V2E, +V2E,    0},     //DIR26(-1, 1, 0) = -6
+        {-V3E, +V3E, +V3E},     //DIR26(-1, 1, 1) = -5
+        {   0, -V2E, -V2E},     //DIR26( 0,-1,-1) = -4
+        {   0,   -1,    0},     //DIR26( 0,-1, 0) = -3
+        {   0, -V2E, +V2E},     //DIR26( 0,-1, 1) = -2
+        {   0,    0,   -1},     //DIR26( 0, 0,-1) = -1
+        {   0,    0,    0},     //DIR26( 0, 0, 0) =  0
+        {   0,    0,   +1},     //DIR26( 0, 0, 1) =  1
+        {   0, +V2E, -V2E},     //DIR26( 0, 1,-1) =  2
+        {   0,   +1,    0},     //DIR26( 0, 1, 0) =  3
+        {   0, +V2E, +V2E},     //DIR26( 0, 1, 1) =  4
+        {+V3E, -V3E, -V3E},     //DIR26( 1,-1,-1) =  5
+        {+V2E, -V2E,    0},     //DIR26( 1,-1, 0) =  6
+        {+V3E, -V3E, +V3E},     //DIR26( 1,-1, 1) =  7
+        {+V2E,    0, -V2E},     //DIR26( 1, 0,-1) =  8
+        {  +1,    0,    0},     //DIR26( 1, 0, 0) =  9
+        {+V2E,    0, +V2E},     //DIR26( 1, 0, 1) =  10
+        {+V3E, +V3E, -V3E},     //DIR26( 1, 1,-1) =  11
+        {+V2E, +V2E,    0},     //DIR26( 1, 1, 0) =  12
+        {+V3E, +V3E, +V3E}      //DIR26( 1, 1, 1) =  13
 };
 const GgafDx26DirectionUtil::FaceVec* GgafDx26DirectionUtil::_dir2vec = &(GgafDx26DirectionUtil::_vec[13]); //13 は 3*3*3=27 の真ん中の要素。_dir2vec[-13～13]でアクセスする為
 
@@ -102,25 +102,14 @@ const GgafDx26DirectionUtil::RzRy GgafDx26DirectionUtil::_rzry[3*3*3] = {
 const GgafDx26DirectionUtil::RzRy* GgafDx26DirectionUtil::_face2rzry = &(GgafDx26DirectionUtil::_rzry[13]); //13 は 3*3*3=27 の真ん中の要素。_dir2sgn[-13～13]でアクセスする為
 
 
-
-bool GgafDx26DirectionUtil::is_init = false;
-
-
-void GgafDx26DirectionUtil::init() {
-    if (GgafDx26DirectionUtil::is_init) {
-        return;
-    }
-    _TRACE_(FUNC_NAME<<"");
-
-
-    GgafDx26DirectionUtil::is_init = true;
-}
 dir26 GgafDx26DirectionUtil::cnvVec2DirNo(float prm_vx, float prm_vy, float prm_vz) {
     int sgn_x, sgn_y, sgn_z;
     GgafDx26DirectionUtil::cnvVec2Sgn(prm_vx, prm_vy, prm_vz,
                               sgn_x, sgn_y, sgn_z);
     return DIR26(sgn_x, sgn_y, sgn_z);
 }
+
+
 
 void GgafDx26DirectionUtil::cnvVec2Sgn(float prm_vx, float prm_vy, float prm_vz,
                                        int& out_sgn_x, int& out_sgn_y, int& out_sgn_z) {
@@ -186,6 +175,39 @@ void GgafDx26DirectionUtil::cnvVec2Sgn(float prm_vx, float prm_vy, float prm_vz,
     }
 }
 
+void GgafDx26DirectionUtil::cnvVec2Sgn(float prm_vx, float prm_vy, float prm_vz,
+                                       float& out_nvx, float& out_nvy, float& out_nvz,
+                                       int& out_sgn_x, int& out_sgn_y, int& out_sgn_z) {
+
+    static const float u = 0.38268343236509f;
+    static const float v = 0.92387953251129f;
+
+    UTIL::getNormalizedVector(prm_vx, prm_vy, prm_vz,
+                              out_nvx, out_nvy, out_nvz);
+    if (out_nvx < -u) {
+        out_sgn_x = -1;
+    } else if (u < out_nvx) {
+        out_sgn_x = +1;
+    } else {
+        out_sgn_x = 0;
+    }
+
+    if (out_nvy < -u) {
+        out_sgn_y = -1;
+    } else if (u < out_nvy) {
+        out_sgn_y = +1;
+    } else {
+        out_sgn_y = 0;
+    }
+
+    if (out_nvz < -u) {
+        out_sgn_z = -1;
+    } else if (u < out_nvz) {
+        out_sgn_z = +1;
+    } else {
+        out_sgn_z = 0;
+    }
+}
 
 void GgafDx26DirectionUtil::cnvDirNo2Vec(dir26 prm_dir_no, float& out_vx, float& out_vy, float& out_vz) {
     out_vx = GgafDx26DirectionUtil::_dir2vec[prm_dir_no].vx;

@@ -3,7 +3,7 @@
 #include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/camera/worker/MyShipDivingCamWorker.h"
-#include "jp/gecchi/VioletVreath/actor/camera/worker/VamSysCamWorker.h"
+#include "jp/gecchi/VioletVreath/actor/camera/worker/VamSysCamWorker2.h"
 #include "jp/gecchi/VioletVreath/actor/my/EffectMyShipExplosion.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/VreathMagic.h"
@@ -62,7 +62,7 @@ papBunshinBase_(nullptr) {
     pEffectMyShipExplosion_ = NEW EffectMyShipExplosion("EffectMyShipExplosion");
     pEffectMyShipExplosion_->inactivate();
     bringSceneMediator()->addSubGroup(pEffectMyShipExplosion_);
-    pVamSysCamWorker_ = nullptr;
+    pVamSysCamWorker2_ = nullptr;
     //z_ = 0.99;//ÇΩÇ‘ÇÒç≈îwñ  Åi0 <= z_ < 1.0ÅjZ=(0Å`+1)
     //z_ = 0.9999999f;
 
@@ -113,9 +113,9 @@ void MyShipScene::processBehavior() {
     switch (pProg->get()) {
         case PROG_INIT: {
             pProg->change(PROG_BEGIN);
-            if (pSpacetime->getActiveCamWorker() != pVamSysCamWorker_) {
-                pVamSysCamWorker_ = (VamSysCamWorker*)(pSpacetime->changeCameraWork("VamSysCamWorker"));
-                pVamSysCamWorker_->pMyShip_ = pMyShip_;
+            if (pSpacetime->getActiveCamWorker() != pVamSysCamWorker2_) {
+                pVamSysCamWorker2_ = (VamSysCamWorker2*)(pSpacetime->changeCameraWork("VamSysCamWorker2"));
+                pVamSysCamWorker2_->pMyShip_ = pMyShip_;
             }
             break;
         }
@@ -178,7 +178,7 @@ void MyShipScene::processBehavior() {
             if (pProg->hasArrivedAt(240)) {
                 if (G_ZANKI == 0) {
                    throwEventUpperTree(EVENT_ALL_MY_SHIP_WAS_DESTROYED);
-                   pSpacetime->undoCameraWork(); //VamSysCamWorkerâèú
+                   pSpacetime->undoCameraWork(); //VamSysCamWorker2âèú
                    pProg->changeNothing();
                    inactivate();
                 } else {

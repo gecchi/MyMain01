@@ -62,6 +62,12 @@ public:
     static void cnvVec2Sgn(float prm_vx, float prm_vy,
                            int& out_sgn_x, int& out_sgn_y);
 
+    static void cnvVec2Sgn(coord prm_vx, coord prm_vy,
+                           int& out_sgn_x, int& out_sgn_y) {
+        GgafDx8DirectionUtil::cnvVec2Sgn(C_DX(prm_vx), C_DX(prm_vy),
+                                         out_sgn_x, out_sgn_y);
+    }
+
     /**
      * 八方向番号( DIR8(X,Y) )から、方向ベクトル（正規化済み）を取得 .
      * @param prm_dir_no 八方向番号( DIR8(X,Y) )

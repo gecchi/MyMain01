@@ -36,8 +36,8 @@ VamSysCamWorker::VamSysCamWorker(const char* prm_name, Camera* prm_pCamera) : Ca
     cam_mv_frame_ = cam_mv_frame_base_;
     ang_cam_around_base_ = D180ANG;
     ang_cam_around_ = ang_cam_around_base_;
-    returnning_cam_pos_ = false;
-    returnning_cam_pos_frames_ = 0;
+    returning_cam_pos_ = false;
+    returning_cam_pos_frames_ = 0;
     is_just_changed_pos_cam_ = false;
 
     //ƒJƒƒ‰‚ÌˆÚ“®”ÍˆÍ‹——£Z—p
@@ -66,7 +66,7 @@ void VamSysCamWorker::initialize() {
     pos_camera_ = VAM_POS_ZRIGHT;
     pos_camera_prev_ = VAM_POS_NON;
     ang_cam_around_ = ang_cam_around_base_;
-    returnning_cam_pos_frames_ = 0;
+    returning_cam_pos_frames_ = 0;
 
     _TRACE_(FUNC_NAME<<" this="<<NODE_INFO);
     dump();
@@ -96,26 +96,26 @@ void VamSysCamWorker::processBehavior() {
         mv_t_x_CAM = -DX2_C_;
     }
 
-    if (returnning_cam_pos_) {
-        if (returnning_cam_pos_frames_ == 0) {
-            returnning_cam_pos_ = false;
+    if (returning_cam_pos_) {
+        if (returning_cam_pos_frames_ == 0) {
+            returning_cam_pos_ = false;
         } else {
-            returnning_cam_pos_frames_--;
+            returning_cam_pos_frames_--;
         }
     }
 
-    if (!returnning_cam_pos_) {
+    if (!returning_cam_pos_) {
         if (pVbPlay->arePushedDownAtOnce(VB_VIEW_UP, VB_VIEW_DOWN) ) {
             pSe_->play(SE_RETURNNING_CAM_POS);
             angle d = UTIL::getAngDiff(ang_cam_around_, ang_cam_around_base_, TURN_CLOSE_TO);
             ang_cam_around_ = ang_cam_around_base_;
             cam_mv_frame_ = (frame)(ANG_D(ABS(d))/3);
-            returnning_cam_pos_frames_ = cam_mv_frame_;
-            returnning_cam_pos_ = true;
+            returning_cam_pos_frames_ = cam_mv_frame_;
+            returning_cam_pos_ = true;
         }
     }
 
-    if (!returnning_cam_pos_) {
+    if (!returning_cam_pos_) {
         bool isPressed_VB_VIEW_UP   = pVbPlay->isPressed(VB_VIEW_UP);
         bool isPressed_VB_VIEW_DOWN = pVbPlay->isPressed(VB_VIEW_DOWN);
         if (isPressed_VB_VIEW_UP && !isPressed_VB_VIEW_DOWN) {

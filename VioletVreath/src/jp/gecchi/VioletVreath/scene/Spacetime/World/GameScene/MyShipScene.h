@@ -5,12 +5,12 @@
 
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
-#include "jp/gecchi/VioletVreath/actor/camera/worker/VamSysCamWorker.h"
+#include "jp/gecchi/VioletVreath/actor/camera/worker/VamSysCamWorker2.h"
 
 #ifdef pGAME_SCENE
     #define pMYSHIP_SCENE (pGAME_SCENE->pMyShipScene_)
     #define pMYSHIP (pMYSHIP_SCENE->pMyShip_)
-    #define pVAM (pMYSHIP_SCENE->pVamSysCamWorker_)
+    #define pVAM (pMYSHIP_SCENE->pVamSysCamWorker2_)
 #else
     #undef pMYSHIP_SCENE
     #undef pMYSHIP
@@ -33,7 +33,7 @@ public:
     /** 自機爆発エフェクト */
     EffectMyShipExplosion* pEffectMyShipExplosion_;
     /** VAMSYSTEM カメラワーク */
-    VamSysCamWorker* pVamSysCamWorker_;
+    VamSysCamWorker2* pVamSysCamWorker2_;
     /** 残機表示 */
     LabelGecchi16Font* pLabelZanki_;
 

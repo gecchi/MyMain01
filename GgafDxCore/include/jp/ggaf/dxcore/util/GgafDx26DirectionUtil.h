@@ -46,11 +46,6 @@ public:
 
     static const RzRy* _face2rzry;
 
-    /** 初期化用 */
-    static bool is_init;
-
-    static void init();
-
     /**
      * 中心からの方向ベクトルを、直近の斜方立方八面体の面番号(２６方向番号)に変換 .
      * @param prm_vx 方向ベクトルX要素
@@ -72,6 +67,23 @@ public:
     static void cnvVec2Sgn(float prm_vx, float prm_vy, float prm_vz,
                            int& out_sgn_x, int& out_sgn_y, int& out_sgn_z);
 
+    static void cnvVec2Sgn(coord prm_vx, coord prm_vy, coord prm_vz,
+                           int& out_sgn_x, int& out_sgn_y, int& out_sgn_z) {
+        GgafDx26DirectionUtil::cnvVec2Sgn(C_DX(prm_vx), C_DX(prm_vy), C_DX(prm_vz),
+                                          out_sgn_x, out_sgn_y, out_sgn_z);
+    }
+
+    static void cnvVec2Sgn(float prm_vx, float prm_vy, float prm_vz,
+                           float& out_nvx, float& out_nvy, float& out_nvz,
+                           int& out_sgn_x, int& out_sgn_y, int& out_sgn_z);
+
+    static void cnvVec2Sgn(coord prm_vx, coord prm_vy, coord prm_vz,
+                           float& out_nvx, float& out_nvy, float& out_nvz,
+                           int& out_sgn_x, int& out_sgn_y, int& out_sgn_z) {
+        GgafDx26DirectionUtil::cnvVec2Sgn(C_DX(prm_vx), C_DX(prm_vy), C_DX(prm_vz),
+                                          out_nvx, out_nvy, out_nvz,
+                                          out_sgn_x, out_sgn_y, out_sgn_z);
+    }
     /**
      * 斜方立方八面体の面番号(２６方向番号)から、方向ベクトル（正規化済み）を取得 .
      * @param prm_dir_no 斜方立方八面体の面番号(２６方向番号)、DIR_NNN ～ DIR_PPP

@@ -1292,7 +1292,6 @@ HRESULT GgafDxGod::initDevice() {
     GgafDxUtil::init();  //ユーティリティ準備
     GgafDxInput::init(); //DirectInput準備
     GgafDxSound::init(); //DirectSound準備
-    GgafDx26DirectionUtil::init();
     //デバイス初期化
     hr = initDx9Device();
     if (hr == E_FAIL) {

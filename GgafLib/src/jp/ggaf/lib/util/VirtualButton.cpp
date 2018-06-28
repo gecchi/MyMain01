@@ -605,6 +605,44 @@ bool VirtualButton::initStatic() {
     return true;
 }
 
+void VirtualButton::remap(vb_sta prm_VB, vbk prm_VBK, vbj prm_VBJ) {
+    if (_mapVB2keyboardmap.count(prm_VB) == 0) {
+        throwGgafCriticalException("VirtualButton::remap _mapVB2keyboardmapに、キーが存在しません。prm_VB="<<prm_VB);
+    }
+    if (prm_VBK == 0) {
+        throwGgafCriticalException("VirtualButton::remap prm_VB="<<prm_VB<<"に、割り当てる値が不正です。prm_VBK="<<prm_VBK);
+    }
+    if (_mapVB2joystickmap.count(prm_VB) == 0) {
+        throwGgafCriticalException("VirtualButton::remap _mapVB2joystickmap、キーが存在しません。prm_VB="<<prm_VB);
+    }
+    if (prm_VBJ == 0) {
+        throwGgafCriticalException("VirtualButton::remap prm_VB="<<prm_VB<<"に、割り当てる値が不正です。prm_VBJ="<<prm_VBJ);
+    }
+
+    *_mapVB2keyboardmap[prm_VB] = prm_VBK;
+    *_mapVB2joystickmap[prm_VB] = prm_VBJ;
+}
+
+void VirtualButton::remapK(vb_sta prm_VB, vbk prm_VBK)  {
+    if (_mapVB2keyboardmap.count(prm_VB) == 0) {
+        throwGgafCriticalException("VirtualButton::remap _mapVB2keyboardmapに、キーが存在しません。prm_VB="<<prm_VB);
+    }
+    if (prm_VBK == 0) {
+        throwGgafCriticalException("VirtualButton::remap prm_VB="<<prm_VB<<"に、割り当てる値が不正です。prm_VBK="<<prm_VBK);
+    }
+    *_mapVB2keyboardmap[prm_VB] = prm_VBK;
+}
+
+void VirtualButton::remapJ(vb_sta prm_VB, vbj prm_VBJ)  {
+    if (_mapVB2joystickmap.count(prm_VB) == 0) {
+        throwGgafCriticalException("VirtualButton::remap _mapVB2joystickmap、キーが存在しません。prm_VB="<<prm_VB);
+    }
+    if (prm_VBJ == 0) {
+        throwGgafCriticalException("VirtualButton::remap prm_VB="<<prm_VB<<"に、割り当てる値が不正です。prm_VBJ="<<prm_VBJ);
+    }
+    *_mapVB2joystickmap[prm_VB] = prm_VBJ;
+}
+
 VirtualButton::VBRecord* VirtualButton::getPastVBRecord(frame prm_frame_ago) const {
     VirtualButton::VBRecord* pVBRecord_temp = _pVBRecord_active;
     for (frame i = 0; i < prm_frame_ago; i++) {

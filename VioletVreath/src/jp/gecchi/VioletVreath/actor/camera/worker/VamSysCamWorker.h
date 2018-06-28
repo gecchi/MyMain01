@@ -51,9 +51,9 @@ class VamSysCamWorker : public GgafLib::CameraWorker {
     /** [r]ang_cam_around_ の初期アングル位置 */
     angle ang_cam_around_base_;
     /** [r]ang_cam_around_が、元のang_cam_around_base_に自動戻り中に、true */
-    bool returnning_cam_pos_;
+    bool returning_cam_pos_;
     /** [r]ang_cam_around_が、元のang_cam_around_base_に自動戻り費やす時間(フレーム) */
-    frame returnning_cam_pos_frames_;
+    frame returning_cam_pos_frames_;
     /** [r]ang_cam_around_ を８方向の定数で表した方向値(VAM_POS_XXXXX が入る) */
     dir26 pos_camera_;
     /** [r]pos_camera_の１フレーム前の方向値(VAM_POS_XXXXX) */

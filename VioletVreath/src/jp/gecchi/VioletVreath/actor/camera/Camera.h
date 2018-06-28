@@ -16,6 +16,8 @@ class Camera : public GgafLib::DefaultCamera {
 public:
     Camera(const char* prm_name);
 
+    virtual void processBehavior() override;
+
     GgafDxCore::GgafDxCameraViewPoint* createCameraViewPoint() override;
 
     GgafDxCore::GgafDxCameraUpVector* createCameraUpVector() override;

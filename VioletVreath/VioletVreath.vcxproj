@@ -304,6 +304,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\worker\PauseCamWorker.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\worker\TestCamWorker.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\worker\VamSysCamWorker.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\worker\VamSysCamWorker2.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\Horizon\Horizon001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\Planet\Planet001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\Planet\Planet001Atmosphere.cpp" />
@@ -652,7 +653,6 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\PreDrawScene.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\util\MyStgUtil.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\util\RankingTable.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\util\VamSysCamPosition.cpp" />
     <ClCompile Include="src\VioletVreath.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -676,6 +676,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\worker\PauseCamWorker.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\worker\TestCamWorker.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\worker\VamSysCamWorker.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\camera\worker\vamsyscamworker2.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\chikei\Horizon\Horizon001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\chikei\Planet\Planet001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\chikei\Planet\Planet001Atmosphere.h" />
@@ -1027,7 +1028,6 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\PreDrawScene.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\util\MyStgUtil.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\util\RankingTable.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\util\VamSysCamPosition.h" />
     <ClInclude Include="src\VioletVreath.h" />
     <ClInclude Include="Version.h" />
   </ItemGroup>

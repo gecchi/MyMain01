@@ -77,9 +77,9 @@ void GgafProperties::read(std::istream& is) {
 }
 
 void GgafProperties::write(std::string prm_properties_filename, const char *header) {
-    std::ofstream file(prm_properties_filename.c_str());
-    write(prm_properties_filename, header);
-    file.close();
+    std::ofstream ofs_properties(prm_properties_filename.c_str());
+    write(ofs_properties, header);
+    ofs_properties.close();
 }
 
 void GgafProperties::write(std::ostream &os, const char *header) {
