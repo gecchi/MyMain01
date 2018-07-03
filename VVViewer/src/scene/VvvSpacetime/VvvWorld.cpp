@@ -1,5 +1,6 @@
 #include "VvvWorld.h"
 
+#include <Shlwapi.h>
 #include <algorithm>
 #include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"

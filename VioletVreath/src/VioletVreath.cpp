@@ -1,6 +1,7 @@
 #include "GgafLib.h"
 #include "VioletVreath.h"
 
+#include <Shlwapi.h>
 #include "resource.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/Config.h"

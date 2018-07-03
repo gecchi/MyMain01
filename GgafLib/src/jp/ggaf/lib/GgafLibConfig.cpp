@@ -1,5 +1,7 @@
 #include "jp/ggaf/lib/GgafLibConfig.h"
 
+#include <Shlwapi.h>
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

@@ -96,6 +96,35 @@
 #ifndef MY_SAL_H_
 #define MY_SAL_H_
 //Mingw-GCC用にコンパイルが通るように空定義
+/* Pointer parameters */
+#define _In_
+#define _Out_
+#define _Inout_
+#define _In_z_
+#define _Inout_z_
+#define _In_reads_(s)
+#define _In_reads_bytes_(s)
+#define _In_reads_z_(s)
+#define _In_reads_or_z_(s)
+#define _Out_writes_(s)
+#define _Out_writes_bytes_(s)
+#define _Out_writes_z_(s)
+#define _Inout_updates_(s)
+#define _Inout_updates_bytes_(s)
+#define _Inout_updates_z_(s)
+#define _Out_writes_to_(s,c)
+#define _Out_writes_bytes_to_(s, c)
+#define _Out_writes_all_(s)
+#define _Out_writes_bytes_all_(s)
+#define _Inout_updates_to_(s, c)
+#define _Inout_updates_bytes_to_(s, c)
+#define _Inout_updates_all_(s)
+#define _Inout_updates_bytes_all_(s)
+#define _In_reads_to_ptr_(p)
+#define _In_reads_to_ptr_z_(p)
+#define _Out_writes_to_ptr_(p)
+#define _Out_writes_to_ptr_z(p)
+
 #define __ecount(size)
 #define __bcount(size)
 #define __in

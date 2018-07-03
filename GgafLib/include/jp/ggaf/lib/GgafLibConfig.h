@@ -2,8 +2,6 @@
 #define GGAFLIBCONFIGH_
 #include "jp/ggaf/dxcore/GgafDxConfig.h"
 
-#include <Shlwapi.h>
-
 #ifdef CONFIG
     #undef CONFIG
 #endif
