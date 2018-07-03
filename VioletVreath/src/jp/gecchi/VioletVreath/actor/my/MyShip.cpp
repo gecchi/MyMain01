@@ -1036,7 +1036,7 @@ dir26 MyShip::getMoveWay() {
 
     dir26 pos_camera = pVAM->getPosCam();
     dir26 pos_up = pVAM->getPosUp();
-    dir26* pa_dir8 = VamSysCamWorker2::slant_8dir_[pos_camera]; //‚W•ûŒüƒQƒbƒg
+    dir26* pa_dir8 = VamSysCamWorker2::cam_to_8dir_[pos_camera]; //‚W•ûŒüƒQƒbƒg
     //UP•ûŒü‚ğ’T‚·B
     int up_idx = 0;
     for (int i = 0; i < 8; i++) {

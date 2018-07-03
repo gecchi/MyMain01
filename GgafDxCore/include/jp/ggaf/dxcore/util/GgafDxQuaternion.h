@@ -30,7 +30,7 @@ public:
         k = 0;
     }
 
-    GgafDxQuaternion(float prm_R, float prm_i, float prm_j, float prm_k) : GgafObject(),
+    GgafDxQuaternion(const float prm_R, const float prm_i, const float prm_j, const float prm_k) : GgafObject(),
         R(prm_R),
         i(prm_i),
         j(prm_j),
@@ -38,7 +38,7 @@ public:
     }
 
 
-    inline void set(float prm_R, float prm_i, float prm_j, float prm_k) {
+    inline void set(const float prm_R, const float prm_i, const float prm_j, const float prm_k) {
         R = prm_R;
         i = prm_i;
         j = prm_j;
@@ -52,7 +52,7 @@ public:
      * @param y2
      * @param z2
      */
-    inline void mul(float a2, float b2, float c2, float d2) {
+    inline void mul(const float a2, const float b2, const float c2, const float d2) {
         float a1 = R;
         float b1 = i;
         float c1 = j;
@@ -63,7 +63,7 @@ public:
         k = a1*d2 + b1*c2 - c1*b2 + d1*a2;
     }
 
-    inline void mul(GgafDxQuaternion& H) {
+    inline void mul(const GgafDxQuaternion& H) {
         mul(H.R, H.i, H.j, H.k);
     }
 

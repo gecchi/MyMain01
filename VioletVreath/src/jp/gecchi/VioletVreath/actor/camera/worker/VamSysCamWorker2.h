@@ -2,7 +2,6 @@
 #define VAMSYSCAMWORKER2_H_
 #include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/camera/worker/CameraWorker.h"
-#include "jp/ggaf/dxcore/util/GgafDx26DirectionUtil.h"
 
 #define VAM_POS_BEHIND              DIR26(-1, 0, 0)
 #define VAM_POS_BEHIND_ZRIGHT       DIR26(-1, 0,-1)
@@ -45,11 +44,11 @@ namespace VioletVreath {
 class VamSysCamWorker2 : public GgafLib::CameraWorker {
 public:
     /** 角の方向(XYZ要素に0が含まれない８種の方向) 対 その隣接する周辺の方向６個 */
-    static int nbhd_dir_entity_[3*3*3][6];
-    static int (*nbhd_dir_)[6];
-    /** 斜め方向(XYZ要素に0が1つ含まれる12種の方向) 対 その方向から見つめた場合の(擬似)８方向 */
-    static int slant_8dir_entity_[3*3*3][8];
-    static int (*slant_8dir_)[8];
+    static dir26 nbhd_dir_entity_[3*3*3][6];
+    static dir26 (*nbhd_dir_)[6];
+    /** カメラの方向（eyeベクトル) 対 その方向から見つめた場合の(擬似)８方向 */
+    static dir26 cam_to_8dir_entity_[3*3*3][8];
+    static dir26 (*cam_to_8dir_)[8];
 
 //////////////////////////////////////////
     //自機とカメラの半径
@@ -62,10 +61,6 @@ public:
     coord mv_t_y_vCAM_;
     coord mv_t_z_vCAM_;
 
-//    coord mv_t_x_VP_;
-//    coord mv_t_y_VP_;
-//    coord mv_t_z_VP_;
-
     dir26 pos_vam_camera_;
     dir26 pos_vam_camera_prev_;
     dir26 pos_vam_up_;
@@ -76,12 +71,12 @@ public:
     /** [r]カメラがホームポジション戻るのに費やす時間(フレーム) */
     frame returning_cam_pos_frames_;
 
-
-
-    coord DZC_;
-    coord DXC_;
-    coord DX2_C_;
-    coord X_P_C_;
+    coord CAM_HOSEI_DX_;
+    coord VP_HOSEI_DX_;
+    coord CAM_HOSEI_DY_;
+    coord VP_HOSEI_DY_;
+    coord CAM_HOSEI_DZ_;
+    coord VP_HOSEI_DZ_;
 public:
     MyShip* pMyShip_;
     GgafDxCore::GgafDxSeTransmitter* pSe_;

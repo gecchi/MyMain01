@@ -9,7 +9,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 Camera::Camera(const char* prm_name) :
-        DefaultCamera(prm_name, PI * 90.0 / 180.0) { //‚©‚È‚è‰¡’·‰æ–Ê‚È‚Ì‚Å‹–ìŠp‚P‚O‚O“x‚®‚ç‚¢
+        DefaultCamera(prm_name, 2*PI * 90.0 / 360.0) { //‚©‚È‚è‰¡’·‰æ–Ê‚È‚Ì‚Å‹–ìŠp90`100“x‚®‚ç‚¢
     _class_name = "Camera";
 }
 

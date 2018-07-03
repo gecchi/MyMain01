@@ -8,6 +8,7 @@
 #include "jp/gecchi/VioletVreath/actor/camera/Camera.h"
 #include "jp/gecchi/VioletVreath/actor/camera/CameraViewPoint.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"
+#include "jp/ggaf/dxcore/util/GgafDx26DirectionUtil.h"
 #include "jp/ggaf/dxcore/util/GgafDx8DirectionUtil.h"
 #include "jp/ggaf/dxcore/util/GgafDxQuaternion.h"
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
@@ -24,18 +25,13 @@ using namespace VioletVreath;
 enum {
     SE_RETURNNING_CAM_POS     ,
 };
-#define VIEW_LEFT DIR8(-1, 0 )
-#define VIEW_DOWN DIR8( 0,-1 )
-#define VIEW_UP DIR8( 0, 1 )
-#define VIEW_RIGHT DIR8( 1, 0 )
 
-int VamSysCamWorker2::nbhd_dir_entity_[3*3*3][6];
-int (*VamSysCamWorker2::nbhd_dir_)[6];
-int VamSysCamWorker2::slant_8dir_entity_[3*3*3][8];
-int (*VamSysCamWorker2::slant_8dir_)[8];
+dir26 VamSysCamWorker2::nbhd_dir_entity_[3*3*3][6];
+dir26 (*VamSysCamWorker2::nbhd_dir_)[6];
+dir26 VamSysCamWorker2::cam_to_8dir_entity_[3*3*3][8];
+dir26 (*VamSysCamWorker2::cam_to_8dir_)[8];
 
 bool VamSysCamWorker2::initStatic() {
-
     for (int i = 0; i < 3*3*3; i++) {
         for (int j = 0; j < 6; j++) {
             VamSysCamWorker2::nbhd_dir_entity_[i][j] = DIR26_NULL;
@@ -102,178 +98,177 @@ bool VamSysCamWorker2::initStatic() {
     VamSysCamWorker2::nbhd_dir_[DIR26(-1,-1,-1)][5] = DIR26( 0, 0,-1);
 
 //////////////////////
-///
     for (int i = 0; i < 3*3*3; i++) {
         for (int j = 0; j < 8; j++) {
-            VamSysCamWorker2::slant_8dir_entity_[i][j] = DIR26_NULL;
+            VamSysCamWorker2::cam_to_8dir_entity_[i][j] = DIR26_NULL;
         }
     }
     //第１要素を -13 ～ 0 ～ 13 （ DIR26(-1,-1,-1) ～ DIR26(0,0,0) ～ DIR26(1,1,1) ）でアクセスす為に
-    //真ん中要素のポインタを slant_8dir_[0] に登録
-    VamSysCamWorker2::slant_8dir_ = (int (*)[8])(&(VamSysCamWorker2::slant_8dir_entity_[13][0])); //13 は DIR26 の真ん中の要素
+    //真ん中要素のポインタを cam_to_8dir_[0] に登録
+    VamSysCamWorker2::cam_to_8dir_ = (int (*)[8])(&(VamSysCamWorker2::cam_to_8dir_entity_[13][0])); //13 は DIR26 の真ん中の要素
 
     //全て右回りに順に設定すること
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZRIGHT][0] = DIR26( 0,+1, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZRIGHT][1] = DIR26(+1,+1, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZRIGHT][2] = DIR26(+1, 0, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZRIGHT][3] = DIR26(+1,-1, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZRIGHT][4] = DIR26( 0,-1, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZRIGHT][5] = DIR26(-1,-1, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZRIGHT][6] = DIR26(-1, 0, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZRIGHT][7] = DIR26(-1,+1, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZRIGHT][0] = DIR26( 0,+1, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZRIGHT][1] = DIR26(+1,+1, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZRIGHT][2] = DIR26(+1, 0, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZRIGHT][3] = DIR26(+1,-1, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZRIGHT][4] = DIR26( 0,-1, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZRIGHT][5] = DIR26(-1,-1, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZRIGHT][6] = DIR26(-1, 0, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZRIGHT][7] = DIR26(-1,+1, 0);
 
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZLEFT][0] = DIR26( 0,+1, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZLEFT][1] = DIR26(-1,+1, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZLEFT][2] = DIR26(-1, 0, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZLEFT][3] = DIR26(-1,-1, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZLEFT][4] = DIR26( 0,-1, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZLEFT][5] = DIR26(+1,-1, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZLEFT][6] = DIR26(+1, 0, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZLEFT][7] = DIR26(+1,+1, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZLEFT][0] = DIR26( 0,+1, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZLEFT][1] = DIR26(-1,+1, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZLEFT][2] = DIR26(-1, 0, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZLEFT][3] = DIR26(-1,-1, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZLEFT][4] = DIR26( 0,-1, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZLEFT][5] = DIR26(+1,-1, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZLEFT][6] = DIR26(+1, 0, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZLEFT][7] = DIR26(+1,+1, 0);
 
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT][0] = DIR26( 0,+1, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT][1] = DIR26( 0,+1,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT][2] = DIR26( 0, 0,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT][3] = DIR26( 0,-1,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT][4] = DIR26( 0,-1, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT][5] = DIR26( 0,-1,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT][6] = DIR26( 0, 0,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT][7] = DIR26( 0,+1,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT][0] = DIR26( 0,+1, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT][1] = DIR26( 0,+1,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT][2] = DIR26( 0, 0,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT][3] = DIR26( 0,-1,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT][4] = DIR26( 0,-1, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT][5] = DIR26( 0,-1,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT][6] = DIR26( 0, 0,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT][7] = DIR26( 0,+1,-1);
 
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND][0] = DIR26( 0,+1, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND][1] = DIR26( 0,+1,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND][2] = DIR26( 0, 0,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND][3] = DIR26( 0,-1,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND][4] = DIR26( 0,-1, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND][5] = DIR26( 0,-1,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND][6] = DIR26( 0, 0,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND][7] = DIR26( 0,+1,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND][0] = DIR26( 0,+1, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND][1] = DIR26( 0,+1,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND][2] = DIR26( 0, 0,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND][3] = DIR26( 0,-1,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND][4] = DIR26( 0,-1, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND][5] = DIR26( 0,-1,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND][6] = DIR26( 0, 0,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND][7] = DIR26( 0,+1,+1);
 
-    VamSysCamWorker2::slant_8dir_[VAM_POS_UP][0] = DIR26( 0, 0,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_UP][1] = DIR26(+1, 0,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_UP][2] = DIR26(+1, 0, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_UP][3] = DIR26(+1, 0,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_UP][4] = DIR26( 0, 0,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_UP][5] = DIR26(-1, 0,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_UP][6] = DIR26(-1, 0, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_UP][7] = DIR26(-1, 0,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_UP][0] = DIR26( 0, 0,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_UP][1] = DIR26(+1, 0,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_UP][2] = DIR26(+1, 0, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_UP][3] = DIR26(+1, 0,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_UP][4] = DIR26( 0, 0,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_UP][5] = DIR26(-1, 0,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_UP][6] = DIR26(-1, 0, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_UP][7] = DIR26(-1, 0,+1);
 
-    VamSysCamWorker2::slant_8dir_[VAM_POS_DOWN][0] = DIR26( 0, 0,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_DOWN][1] = DIR26(-1, 0,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_DOWN][2] = DIR26(-1, 0, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_DOWN][3] = DIR26(-1, 0,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_DOWN][4] = DIR26( 0, 0,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_DOWN][5] = DIR26(+1, 0,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_DOWN][6] = DIR26(+1, 0, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_DOWN][7] = DIR26(+1, 0,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_DOWN][0] = DIR26( 0, 0,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_DOWN][1] = DIR26(-1, 0,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_DOWN][2] = DIR26(-1, 0, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_DOWN][3] = DIR26(-1, 0,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_DOWN][4] = DIR26( 0, 0,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_DOWN][5] = DIR26(+1, 0,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_DOWN][6] = DIR26(+1, 0, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_DOWN][7] = DIR26(+1, 0,+1);
 
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZRIGHT_UP][0] = DIR26( 0,+1,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZRIGHT_UP][1] = DIR26(+1,+1,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZRIGHT_UP][2] = DIR26(+1, 0, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZRIGHT_UP][3] = DIR26(+1,-1,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZRIGHT_UP][4] = DIR26( 0,-1,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZRIGHT_UP][5] = DIR26(-1,-1,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZRIGHT_UP][6] = DIR26(-1, 0, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZRIGHT_UP][7] = DIR26(-1,+1,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZRIGHT_UP][0] = DIR26( 0,+1,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZRIGHT_UP][1] = DIR26(+1,+1,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZRIGHT_UP][2] = DIR26(+1, 0, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZRIGHT_UP][3] = DIR26(+1,-1,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZRIGHT_UP][4] = DIR26( 0,-1,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZRIGHT_UP][5] = DIR26(-1,-1,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZRIGHT_UP][6] = DIR26(-1, 0, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZRIGHT_UP][7] = DIR26(-1,+1,+1);
 
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZLEFT_DOWN][0] = DIR26( 0,+1,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZLEFT_DOWN][1] = DIR26(-1,+1,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZLEFT_DOWN][2] = DIR26(-1, 0, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZLEFT_DOWN][3] = DIR26(-1,-1,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZLEFT_DOWN][4] = DIR26( 0,-1,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZLEFT_DOWN][5] = DIR26(+1,-1,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZLEFT_DOWN][6] = DIR26(+1, 0, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZLEFT_DOWN][7] = DIR26(+1,+1,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZLEFT_DOWN][0] = DIR26( 0,+1,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZLEFT_DOWN][1] = DIR26(-1,+1,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZLEFT_DOWN][2] = DIR26(-1, 0, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZLEFT_DOWN][3] = DIR26(-1,-1,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZLEFT_DOWN][4] = DIR26( 0,-1,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZLEFT_DOWN][5] = DIR26(+1,-1,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZLEFT_DOWN][6] = DIR26(+1, 0, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZLEFT_DOWN][7] = DIR26(+1,+1,+1);
 
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZRIGHT_DOWN][0] = DIR26( 0,+1,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZRIGHT_DOWN][1] = DIR26(+1,+1,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZRIGHT_DOWN][2] = DIR26(+1, 0, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZRIGHT_DOWN][3] = DIR26(+1,-1,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZRIGHT_DOWN][4] = DIR26( 0,-1,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZRIGHT_DOWN][5] = DIR26(-1,-1,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZRIGHT_DOWN][6] = DIR26(-1, 0, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZRIGHT_DOWN][7] = DIR26(-1,+1,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZRIGHT_DOWN][0] = DIR26( 0,+1,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZRIGHT_DOWN][1] = DIR26(+1,+1,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZRIGHT_DOWN][2] = DIR26(+1, 0, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZRIGHT_DOWN][3] = DIR26(+1,-1,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZRIGHT_DOWN][4] = DIR26( 0,-1,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZRIGHT_DOWN][5] = DIR26(-1,-1,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZRIGHT_DOWN][6] = DIR26(-1, 0, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZRIGHT_DOWN][7] = DIR26(-1,+1,-1);
 
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZLEFT_UP][0] = DIR26( 0,+1,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZLEFT_UP][1] = DIR26(-1,+1,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZLEFT_UP][2] = DIR26(-1, 0, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZLEFT_UP][3] = DIR26(-1,-1,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZLEFT_UP][4] = DIR26( 0,-1,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZLEFT_UP][5] = DIR26(+1,-1,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZLEFT_UP][6] = DIR26(+1, 0, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_ZLEFT_UP][7] = DIR26(+1,+1,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZLEFT_UP][0] = DIR26( 0,+1,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZLEFT_UP][1] = DIR26(-1,+1,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZLEFT_UP][2] = DIR26(-1, 0, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZLEFT_UP][3] = DIR26(-1,-1,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZLEFT_UP][4] = DIR26( 0,-1,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZLEFT_UP][5] = DIR26(+1,-1,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZLEFT_UP][6] = DIR26(+1, 0, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_ZLEFT_UP][7] = DIR26(+1,+1,-1);
 
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT_ZRIGHT][0] = DIR26( 0,+1, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT_ZRIGHT][1] = DIR26(+1,+1,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT_ZRIGHT][2] = DIR26(+1, 0,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT_ZRIGHT][3] = DIR26(+1,-1,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT_ZRIGHT][4] = DIR26( 0,-1, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT_ZRIGHT][5] = DIR26(-1,-1,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT_ZRIGHT][6] = DIR26(-1, 0,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT_ZRIGHT][7] = DIR26(-1,+1,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT_ZRIGHT][0] = DIR26( 0,+1, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT_ZRIGHT][1] = DIR26(+1,+1,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT_ZRIGHT][2] = DIR26(+1, 0,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT_ZRIGHT][3] = DIR26(+1,-1,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT_ZRIGHT][4] = DIR26( 0,-1, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT_ZRIGHT][5] = DIR26(-1,-1,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT_ZRIGHT][6] = DIR26(-1, 0,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT_ZRIGHT][7] = DIR26(-1,+1,-1);
 
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND_ZLEFT][0] = DIR26( 0,+1, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND_ZLEFT][1] = DIR26(-1,+1,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND_ZLEFT][2] = DIR26(-1, 0,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND_ZLEFT][3] = DIR26(-1,-1,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND_ZLEFT][4] = DIR26( 0,-1, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND_ZLEFT][5] = DIR26(+1,-1,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND_ZLEFT][6] = DIR26(+1, 0,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND_ZLEFT][7] = DIR26(+1,+1,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND_ZLEFT][0] = DIR26( 0,+1, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND_ZLEFT][1] = DIR26(-1,+1,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND_ZLEFT][2] = DIR26(-1, 0,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND_ZLEFT][3] = DIR26(-1,-1,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND_ZLEFT][4] = DIR26( 0,-1, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND_ZLEFT][5] = DIR26(+1,-1,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND_ZLEFT][6] = DIR26(+1, 0,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND_ZLEFT][7] = DIR26(+1,+1,+1);
 
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND_ZRIGHT][0] = DIR26( 0,+1, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND_ZRIGHT][1] = DIR26(+1,+1,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND_ZRIGHT][2] = DIR26(+1, 0,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND_ZRIGHT][3] = DIR26(+1,-1,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND_ZRIGHT][4] = DIR26( 0,-1, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND_ZRIGHT][5] = DIR26(-1,-1,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND_ZRIGHT][6] = DIR26(-1, 0,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND_ZRIGHT][7] = DIR26(-1,+1,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND_ZRIGHT][0] = DIR26( 0,+1, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND_ZRIGHT][1] = DIR26(+1,+1,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND_ZRIGHT][2] = DIR26(+1, 0,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND_ZRIGHT][3] = DIR26(+1,-1,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND_ZRIGHT][4] = DIR26( 0,-1, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND_ZRIGHT][5] = DIR26(-1,-1,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND_ZRIGHT][6] = DIR26(-1, 0,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND_ZRIGHT][7] = DIR26(-1,+1,+1);
 
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT_ZLEFT][0] = DIR26( 0,+1, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT_ZLEFT][1] = DIR26(-1,+1,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT_ZLEFT][2] = DIR26(-1, 0,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT_ZLEFT][3] = DIR26(-1,-1,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT_ZLEFT][4] = DIR26( 0,-1, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT_ZLEFT][5] = DIR26(+1,-1,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT_ZLEFT][6] = DIR26(+1, 0,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT_ZLEFT][7] = DIR26(+1,+1,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT_ZLEFT][0] = DIR26( 0,+1, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT_ZLEFT][1] = DIR26(-1,+1,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT_ZLEFT][2] = DIR26(-1, 0,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT_ZLEFT][3] = DIR26(-1,-1,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT_ZLEFT][4] = DIR26( 0,-1, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT_ZLEFT][5] = DIR26(+1,-1,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT_ZLEFT][6] = DIR26(+1, 0,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT_ZLEFT][7] = DIR26(+1,+1,-1);
 
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT_UP][0] = DIR26(-1,+1, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT_UP][1] = DIR26(-1,+1,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT_UP][2] = DIR26( 0, 0,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT_UP][3] = DIR26(+1,-1,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT_UP][4] = DIR26(+1,-1, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT_UP][5] = DIR26(+1,-1,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT_UP][6] = DIR26( 0, 0,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT_UP][7] = DIR26(-1,+1,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT_UP][0] = DIR26(-1,+1, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT_UP][1] = DIR26(-1,+1,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT_UP][2] = DIR26( 0, 0,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT_UP][3] = DIR26(+1,-1,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT_UP][4] = DIR26(+1,-1, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT_UP][5] = DIR26(+1,-1,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT_UP][6] = DIR26( 0, 0,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT_UP][7] = DIR26(-1,+1,-1);
 
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND_DOWN][0] = DIR26(-1,+1, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND_DOWN][1] = DIR26(-1,+1,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND_DOWN][2] = DIR26( 0, 0,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND_DOWN][3] = DIR26(+1,-1,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND_DOWN][4] = DIR26(+1,-1, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND_DOWN][5] = DIR26(+1,-1,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND_DOWN][6] = DIR26( 0, 0,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND_DOWN][7] = DIR26(-1,+1,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND_DOWN][0] = DIR26(-1,+1, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND_DOWN][1] = DIR26(-1,+1,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND_DOWN][2] = DIR26( 0, 0,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND_DOWN][3] = DIR26(+1,-1,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND_DOWN][4] = DIR26(+1,-1, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND_DOWN][5] = DIR26(+1,-1,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND_DOWN][6] = DIR26( 0, 0,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND_DOWN][7] = DIR26(-1,+1,+1);
 
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT_DOWN][0] = DIR26(+1,+1, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT_DOWN][1] = DIR26(+1,+1,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT_DOWN][2] = DIR26( 0, 0,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT_DOWN][3] = DIR26(-1,-1,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT_DOWN][4] = DIR26(-1,-1, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT_DOWN][5] = DIR26(-1,-1,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT_DOWN][6] = DIR26( 0, 0,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_FRONT_DOWN][7] = DIR26(+1,+1,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT_DOWN][0] = DIR26(+1,+1, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT_DOWN][1] = DIR26(+1,+1,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT_DOWN][2] = DIR26( 0, 0,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT_DOWN][3] = DIR26(-1,-1,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT_DOWN][4] = DIR26(-1,-1, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT_DOWN][5] = DIR26(-1,-1,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT_DOWN][6] = DIR26( 0, 0,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_FRONT_DOWN][7] = DIR26(+1,+1,-1);
 
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND_UP][0] = DIR26(+1,+1, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND_UP][1] = DIR26(+1,+1,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND_UP][2] = DIR26( 0, 0,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND_UP][3] = DIR26(-1,-1,-1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND_UP][4] = DIR26(-1,-1, 0);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND_UP][5] = DIR26(-1,-1,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND_UP][6] = DIR26( 0, 0,+1);
-    VamSysCamWorker2::slant_8dir_[VAM_POS_BEHIND_UP][7] = DIR26(+1,+1,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND_UP][0] = DIR26(+1,+1, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND_UP][1] = DIR26(+1,+1,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND_UP][2] = DIR26( 0, 0,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND_UP][3] = DIR26(-1,-1,-1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND_UP][4] = DIR26(-1,-1, 0);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND_UP][5] = DIR26(-1,-1,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND_UP][6] = DIR26( 0, 0,+1);
+    VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND_UP][7] = DIR26(+1,+1,+1);
 
     _TRACE_("VamSysCamWorker2::initStatic() 初期化OK");
     return true;
@@ -284,9 +279,6 @@ VamSysCamWorker2::VamSysCamWorker2(const char* prm_name, Camera* prm_pCamera) : 
 
     pMyShip_ = nullptr; //MyShipSceneに設定してもらう
 
-//    mv_t_x_VP_  = 0;
-//    mv_t_y_VP_  = 0;
-//    mv_t_z_VP_  = 0;
     pos_vam_camera_ = VAM_POS_ZRIGHT;
     pos_vam_camera_prev_ = VAM_POS_NON;
     is_just_changed_pos_vam_cam_ = false;
@@ -298,27 +290,72 @@ VamSysCamWorker2::VamSysCamWorker2(const char* prm_name, Camera* prm_pCamera) : 
     pSe_ = NEW GgafDxSeTransmitter();
     pSe_->set(SE_RETURNNING_CAM_POS, "WAVE_MY_RETURNNING_CAM_POS" ,0);
 
+    dxcoord cam_dz_org = ABS(prm_pCamera->_cameraZ_org); //DZ
+    cam_radius_ = DX_C(cam_dz_org);
+    //     z+
+    //    ^
+    //    |
+    //    |                      /        ┐ 視線ベクトル
+    //    |                     /       ／
+    //    |                    /      ／               →
+    //    |          cam_x    /     ／          ＿─   Ａ = カメラの表示の右の境界線ベクトル
+    // ---+-------------+----/----／------自＿─---------
+    //    |         ^   :   /   ／ vp   ＿─    ↑
+    //    |         |   :  /  ／    ＿─   :     a  画面の端っことX軸の交点
+    //    |      DZ |   : / ／  ＿─       :
+    //    |         v   :/／＿─  b        :
+    //    |            ∀------------------:
+    //    |           cam
+    //    |                        <-------->
+    //    |                          vp_DX
+    //    |
+    //    |            <-------------------->
+    //    |                   cam_DX
+    //    |
+    //    |<-------------------------------->
+    //               MyShip::lim_x_infront_ = l
+    //
+    //∠vp(大きいほう)  = θ とすると
+    //∠a = 2π - H_FOVX - θ
+    //        coord DZ  = cam_radius_;
+    //        double vp_th = (PI/2); //ここを調整する！
+    //        double H_FOVX = prm_pCamera->_rad_half_fovX;
+    //        double a = PI - H_FOVX - vp_th;
+    //        //camからX軸に平行線と→Ａ(カメラの表示の右の境界線ベクトル)のなす角(b)は、錯角で角 aと等しい
+    //        //∠b = a = PI - H_FOVX - vp_th;
+    //        double b = PI - H_FOVX - vp_th;;
+    //        //cam_x ～ a の長さをDX
+    //        //tan(b) = DZ/cam_DX より、cam_DX = DZ / tan(b)
+    //        double cam_DX = DZ / tan(b);
+    //        CAM_HOSEI_DX_ = DX_C(cam_DX);
+    //        //直角三角形 cam, vp, cam_x を考える
+    //        //∠vp(小さいほう)  = π-θ
+    //        double vp_th2 = 2*PI - vp_th;
+    //        //tan(∠vp(小さいほう)) =  DZ / (cam_x ～ vp_xの長さ)
+    //        //cam_x ～ vp_xの長さ = DZ / tan(∠vp(小さいほう))
+    //        // vp_DX = cam_DX - (cam_x ～ vp_xの長さ)
+    //        double vp_DX = cam_DX - (DZ / tan(vp_th2));
+    //        VP_HOSEI_DX_ = DX_C(vp_DX);
 
+    double rad_half_fovX = prm_pCamera->_rad_half_fovX;
+    double vpx_th = 2*PI * 100.0 / 360.0; //ここを調整する！
+    double cam_DX = cam_dz_org / tan(PI-vpx_th-rad_half_fovX);
+    CAM_HOSEI_DX_ = DX_C(cam_DX);
+    double vp_DX = cam_DX - (cam_dz_org / tan(PI - vpx_th));
+    VP_HOSEI_DX_ = DX_C(vp_DX);
 
-    //カメラの移動範囲距離算用
-    double H_FOVX = prm_pCamera->_rad_half_fovX;
-    double DZ = ABS(prm_pCamera->_cameraZ_org);
-    double X_BOUND = prm_pCamera->_zf;
-    //視野右境界線と、X軸が、ゲーム領域右端で交わる場合のCAMとVPのスライド具合Dx（求め方はコード末尾のメモ）
-    double DX = (sqrt((cos(H_FOVX)*cos(H_FOVX)-8*sin(H_FOVX)*sin(H_FOVX))*DZ*DZ+12*cos(H_FOVX)*sin(H_FOVX)*X_BOUND*DZ+4*sin(H_FOVX)*sin(H_FOVX)*X_BOUND*X_BOUND)-cos(H_FOVX)*DZ-2*sin(H_FOVX)*X_BOUND)/(4*sin(H_FOVX));
-    //視野左境界線と、X軸の交点P(X_P, 0, 0) 求め方はコード末尾のメモ）
-    double X_P = -((DZ*DZ+2*DX*DX)*sin(-H_FOVX)+DX*DZ*cos(-H_FOVX))/(2*DX*sin(-H_FOVX)-DZ*cos(-H_FOVX));
-    double X_BEHAIND = C_DX(MyShip::lim_x_behaind_);
-    double DX2 = (sqrt((cos(-H_FOVX)*cos(-H_FOVX)-8*sin(-H_FOVX)*sin(-H_FOVX))*DZ*DZ+12*cos(-H_FOVX)*sin(-H_FOVX)*X_BEHAIND*DZ+4*sin(-H_FOVX)*sin(-H_FOVX)*X_BEHAIND*X_BEHAIND)-cos(-H_FOVX)*DZ-2*sin(-H_FOVX)*X_BEHAIND)/(4*sin(-H_FOVX));
+    double rad_half_fovY = prm_pCamera->_rad_half_fovY;
+    double vpy_th = (PI/2); //ここを調整する！
+    double cam_DY = cam_dz_org / tan(PI-vpy_th-rad_half_fovY);
+    CAM_HOSEI_DY_ = DX_C(cam_DY);
+    double vp_DY = cam_DY - (cam_dz_org / tan(PI - vpy_th));
+    VP_HOSEI_DY_ = DX_C(vp_DY);
 
-    DZC_ = DX_C(DZ);
-    DXC_ = DX_C(DX);
-    DX2_C_ = DX_C(DX2);
-    X_P_C_ = DX_C(X_P);
-
-    cam_radius_ = DZC_;
-
-
+    double vpz_th = vpx_th;
+    double cam_DZ = cam_dz_org / tan(PI-vpx_th-rad_half_fovX); //そのまま後ろに回ること多いので、rad_half_fovXで
+    CAM_HOSEI_DZ_ = DX_C(cam_DZ);
+    double vp_DZ = cam_DZ - (cam_dz_org / tan(PI - vpz_th));
+    VP_HOSEI_DZ_ = DX_C(vp_DZ);
 
     mv_t_x_vUP_  = 0;
     mv_t_y_vUP_  = DX_C(1);
@@ -334,17 +371,10 @@ VamSysCamWorker2::VamSysCamWorker2(const char* prm_name, Camera* prm_pCamera) : 
 
 void VamSysCamWorker2::initialize() {
     CameraWorker::initialize();
-//    pos_camera_ = VAM_POS_ZRIGHT;
-//    pos_camera_prev_ = VAM_POS_NON;
-//    ang_cam_around_ = ang_cam_around_base_;
-//    returning_cam_pos_frames_ = 0;
-
     _TRACE_(FUNC_NAME<<" this="<<NODE_INFO);
-    dump();
 }
 void VamSysCamWorker2::onActive() {
     CameraWorker::onActive();
-//    cam_mv_frame_ = cam_mv_frame_base_;
 }
 
 void VamSysCamWorker2::processBehavior() {
@@ -355,18 +385,12 @@ void VamSysCamWorker2::processBehavior() {
     coord pMyShip_x = pMyShip_->_x;
     coord pMyShip_y = pMyShip_->_y;
     coord pMyShip_z = pMyShip_->_z;
-//    mv_t_x_VP_  = pMyShip_x;
-//    mv_t_y_VP_  = pMyShip_y;
-//    mv_t_z_VP_  = pMyShip_z;
-
     frame cam_mv_frame = 20;
 
     bool isPressed_VB_VIEW_UP    = pVbPlay->isPressed(VB_VIEW_UP);
     bool isPressed_VB_VIEW_DOWN  = pVbPlay->isPressed(VB_VIEW_DOWN);
     bool isPressed_VB_VIEW_LEFT  = pVbPlay->isPressed(VB_VIEW_LEFT);
     bool isPressed_VB_VIEW_RIGHT = pVbPlay->isPressed(VB_VIEW_RIGHT);
-
-
 
     if (returning_cam_pos_) {
         if (returning_cam_pos_frames_ == 0) {
@@ -398,14 +422,13 @@ void VamSysCamWorker2::processBehavior() {
         }
     }
 
-
-
-
     //注視点→カメラ の方向ベクトル(vx, vy, vz)
-    float vx_eye = C_DX(mv_t_x_vCAM_);
-    float vy_eye = C_DX(mv_t_y_vCAM_);
-    float vz_eye = C_DX(mv_t_z_vCAM_);
-
+    const dxcoord f_mv_t_x_vCAM = C_DX(mv_t_x_vCAM_);
+    const dxcoord f_mv_t_y_vCAM = C_DX(mv_t_y_vCAM_);
+    const dxcoord f_mv_t_z_vCAM = C_DX(mv_t_z_vCAM_);
+    const dxcoord f_mv_t_x_vUP = C_DX(mv_t_x_vUP_);
+    const dxcoord f_mv_t_y_vUP = C_DX(mv_t_y_vUP_);
+    const dxcoord f_mv_t_z_vUP = C_DX(mv_t_z_vUP_);
     //視点を中心にカメラが回転移動
     //カメラを中心に視点が回転移動
     //カメラをと視点が平行移動
@@ -435,16 +458,16 @@ void VamSysCamWorker2::processBehavior() {
         vy = t * vy;
         vz = 0;
 
-        const D3DXVECTOR3 vecCamFromPoint( C_DX(mv_t_x_vCAM_), C_DX(mv_t_y_vCAM_), C_DX(mv_t_z_vCAM_) ); //位置
+        const D3DXVECTOR3 vecCamFromPoint(f_mv_t_x_vCAM, f_mv_t_y_vCAM, f_mv_t_z_vCAM ); //位置
         const D3DXVECTOR3 vecCamLookatPoint( 0.0f, 0.0f, 0.0f ); //注視する方向
-        const D3DXVECTOR3 vecCamUp( C_DX(mv_t_x_vUP_), C_DX(mv_t_y_vUP_), C_DX(mv_t_z_vUP_) ); //上方向
+        const D3DXVECTOR3 vecCamUp(f_mv_t_x_vUP, f_mv_t_y_vUP, f_mv_t_z_vUP); //上方向
         D3DXMATRIX matView;
         // VIEW変換行列作成
         D3DXMatrixLookAtLH(
            &matView,             // pOut [in, out] 演算結果である D3DXMATRIX 構造体へのポインタ。
-           &vecCamFromPoint,    // pEye [in] 視点を定義する D3DXVECTOR3 構造体へのポインタ。この値は、平行移動に使用される。
-           &vecCamLookatPoint,  // pAt  [in] カメラの注視対象を定義する D3DXVECTOR3 構造体へのポインタ。
-           &vecCamUp            // pUp  [in] カレント ワールドの上方、一般には [0, 1, 0] を定義する D3DXVECTOR3 構造体へのポインタ。
+           &vecCamFromPoint,     // pEye [in] 視点を定義する D3DXVECTOR3 構造体へのポインタ。この値は、平行移動に使用される。
+           &vecCamLookatPoint,   // pAt  [in] カメラの注視対象を定義する D3DXVECTOR3 構造体へのポインタ。
+           &vecCamUp             // pUp  [in] カレント ワールドの上方、一般には [0, 1, 0] を定義する D3DXVECTOR3 構造体へのポインタ。
         );
 
 
@@ -479,52 +502,42 @@ void VamSysCamWorker2::processBehavior() {
         //(α, β, γ) = (vX_axis,vY_axis,vY_axis);
         //(x, y, z) は CAM か VP か UP
 
-
-
         //回転させたい角度
-        double ang = (2*PI) * (1.0/360.0); //1度
+        const double ang = (2*PI) * (2.0/360.0); //2度
 
         double sinHalf = sin(ang/2);
         double cosHalf = cos(ang/2);
         GgafDxQuaternion qu(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
         GgafDxQuaternion qu2 = qu;
         GgafDxQuaternion Q(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf);
-        qu.mul(0, vx_eye, vy_eye, vz_eye); //R*P
+        qu.mul(0, f_mv_t_x_vCAM, f_mv_t_y_vCAM, f_mv_t_z_vCAM); //R*P
         qu.mul(Q); //R*P*Q
         mv_t_x_vCAM_ = DX_C(qu.i);
         mv_t_y_vCAM_ = DX_C(qu.j);
         mv_t_z_vCAM_ = DX_C(qu.k);
         //UPもまわす
         {
-            float vx_up = C_DX(mv_t_x_vUP_);
-            float vy_up = C_DX(mv_t_y_vUP_);
-            float vz_up = C_DX(mv_t_z_vUP_);
-            qu2.mul(0, vx_up, vy_up, vz_up);//R*P
+            qu2.mul(0, f_mv_t_x_vUP, f_mv_t_y_vUP, f_mv_t_z_vUP);//R*P
             qu2.mul(Q); //R*P*Q
             mv_t_x_vUP_ = DX_C(qu2.i);
             mv_t_y_vUP_ = DX_C(qu2.j);
             mv_t_z_vUP_ = DX_C(qu2.k);
         }
     }
-/////////
-//    //カメラの移動目標座標設定( mv_t_x_CAM, mv_t_y_CAM, mv_t_z_CAM)
-//    coord mv_t_x_CAM2 =  -DXC_ + ((X_P_C_*0.85) - pMyShip_x)*2;
-//                             //↑ X_P_C_ はカメラ移動開始位置、*0.85 は自機キャラの横幅を考慮
-//                             //   最後の *2 は自機が後ろに下がった時のカメラのパンの速さ具合。
-//    if (-DXC_ > mv_t_x_CAM2) {
-//        mv_t_x_CAM2 = -DXC_;
-//    } else if (mv_t_x_CAM2 > -DX2_C_) {
-//        mv_t_x_CAM2 = -DX2_C_;
-//    }
-////////
-////    coord mv_t_x_CAM = mv_t_x_CAM2;
-    coord mv_t_x_CAM = pMyShip_x + mv_t_x_vCAM_;
-    coord mv_t_y_CAM = pMyShip_y + mv_t_y_vCAM_;
-    coord mv_t_z_CAM = pMyShip_z + mv_t_z_vCAM_;
 
-    coord mv_t_x_VP = pMyShip_x;
-    coord mv_t_y_VP = pMyShip_y;
-    coord mv_t_z_VP = pMyShip_z;
+    coord cam_x_hosei = RCNV(MyShip::lim_x_behaind_, MyShip::lim_x_infront_, pMyShip_x, -CAM_HOSEI_DX_, CAM_HOSEI_DX_);
+    coord vp_x_hosei = RCNV(MyShip::lim_x_behaind_, MyShip::lim_x_infront_, pMyShip_x, -VP_HOSEI_DX_, VP_HOSEI_DX_);
+    coord cam_y_hosei = RCNV(MyShip::lim_y_bottom_, MyShip::lim_y_top_, pMyShip_y, -CAM_HOSEI_DY_, CAM_HOSEI_DY_);
+    coord vp_y_hosei = RCNV(MyShip::lim_y_bottom_, MyShip::lim_y_top_, pMyShip_y, -VP_HOSEI_DY_, VP_HOSEI_DY_);
+    coord cam_z_hosei = RCNV(MyShip::lim_z_right_, MyShip::lim_z_left_, pMyShip_z, -CAM_HOSEI_DZ_, CAM_HOSEI_DZ_);
+    coord vp_z_hosei = RCNV(MyShip::lim_z_right_, MyShip::lim_z_left_, pMyShip_z, -VP_HOSEI_DZ_, VP_HOSEI_DZ_);
+    //CAM_HOSEI_DY_ VP_HOSEI_DY_ がなんかでかい
+    coord mv_t_x_CAM = pMyShip_x + mv_t_x_vCAM_ - cam_x_hosei;
+    coord mv_t_y_CAM = pMyShip_y + mv_t_y_vCAM_ - cam_y_hosei;
+    coord mv_t_z_CAM = pMyShip_z + mv_t_z_vCAM_ - cam_z_hosei;
+    coord mv_t_x_VP = pMyShip_x - vp_x_hosei;
+    coord mv_t_y_VP = pMyShip_y - vp_y_hosei;
+    coord mv_t_z_VP = pMyShip_z - vp_z_hosei;
 
     if (t_x_CAM_ != mv_t_x_CAM  || t_y_CAM_ != mv_t_y_CAM || t_z_CAM_ != mv_t_z_CAM ||
         t_x_VP_  != mv_t_x_VP   || t_y_VP_  != mv_t_y_VP  || t_z_VP_  != mv_t_z_VP
@@ -559,13 +572,9 @@ void VamSysCamWorker2::processBehavior() {
     pos_vam_camera_prev_ = pos_vam_camera_;
 }
 
-///////////TODO:TEST
 void VamSysCamWorker2::onSwitchCameraWork() {
-    ///////////TODO:4TEST
     CameraWorker::onSwitchCameraWork();
-    /////////
 }
-/////////
 
 VamSysCamWorker2::~VamSysCamWorker2() {
     GGAF_DELETE(pSe_);
@@ -602,7 +611,7 @@ void VamSysCamWorker2::cnvVec2VamUpSgn(dir26 prm_vam_cam_pos,
                                           t_nvx, t_nvy, t_nvz,
                                           out_sgn_x, out_sgn_y, out_sgn_z);
         dir26 t_dir = DIR26(out_sgn_x, out_sgn_y, out_sgn_z);
-        dir26* pa_dir8 = VamSysCamWorker2::slant_8dir_[prm_vam_cam_pos];
+        dir26* pa_dir8 = VamSysCamWorker2::cam_to_8dir_[prm_vam_cam_pos];
         bool is_match = false;
         for (int i = 0; i < 8; i++) {
             is_match = (t_dir == pa_dir8[i]);
@@ -656,19 +665,6 @@ void VamSysCamWorker2::cnvVec2VamSgn(coord prm_vx, coord prm_vy, coord prm_vz,
     float nvx, nvy, nvz;
     UTIL::getNormalizedVector(prm_vx, prm_vy, prm_vz,
                               nvx, nvy, nvz);
-
-    //
-    //     ^
-    //     | u
-    //     |____
-    //    ^|   :＼
-    //   v||   :  ＼
-    //    ||...:....＼
-    //    v|   :      | u
-    //-----+---+------+--------->
-    //     |<--------->
-    //     |     v
-
     if (nvx < -u) {
         out_sgn_x = -1;
     } else if (u < nvx) {
@@ -713,520 +709,3 @@ void VamSysCamWorker2::cnvVec2VamSgn(coord prm_vx, coord prm_vy, coord prm_vz,
         GgafDx26DirectionUtil::cnvDirNo2Sgn(nearest_dir, out_sgn_x, out_sgn_y, out_sgn_z);
     }
 }
-//     int my_direction[3*3*3][3*3*3][3*3];
-//
-//    //[Vamのpos][Upベクトル(Vamのpos)][その方向を向いて上下左右(Dir8)] = DIR26
-//
-//     my_direction[VAM_POS_ZRIGHT][VAM_POS_UP][VIEW_UP]               = VAM_POS_UP;
-//     my_direction[VAM_POS_ZRIGHT][VAM_POS_UP][VIEW_DOWN]             = VAM_POS_DOWN;
-//     my_direction[VAM_POS_ZRIGHT][VAM_POS_UP][VIEW_RIGHT]            = VAM_POS_FRONT;
-//     my_direction[VAM_POS_ZRIGHT][VAM_POS_UP][VIEW_LEFT]             = VAM_POS_BEHIND;
-//
-//     my_direction[VAM_POS_ZRIGHT][VAM_POS_FRONT][VIEW_UP]            = VAM_POS_FRONT;
-//     my_direction[VAM_POS_ZRIGHT][VAM_POS_FRONT][VIEW_DOWN]          = VAM_POS_BEHIND;
-//     my_direction[VAM_POS_ZRIGHT][VAM_POS_FRONT][VIEW_RIGHT]         = VAM_POS_DOWN;
-//     my_direction[VAM_POS_ZRIGHT][VAM_POS_FRONT][VIEW_LEFT]          = VAM_POS_UP;
-//
-//     my_direction[VAM_POS_ZRIGHT][VAM_POS_DOWN][VIEW_UP]             = VAM_POS_DOWN;
-//     my_direction[VAM_POS_ZRIGHT][VAM_POS_DOWN][VIEW_DOWN]           = VAM_POS_UP;
-//     my_direction[VAM_POS_ZRIGHT][VAM_POS_DOWN][VIEW_RIGHT]          = VAM_POS_BEHIND;
-//     my_direction[VAM_POS_ZRIGHT][VAM_POS_DOWN][VIEW_LEFT]           = VAM_POS_FRONT;
-//
-//     my_direction[VAM_POS_ZRIGHT][VAM_POS_BEHIND][VIEW_UP]            = VAM_POS_BEHIND;
-//     my_direction[VAM_POS_ZRIGHT][VAM_POS_BEHIND][VIEW_DOWN]          = VAM_POS_FRONT;
-//     my_direction[VAM_POS_ZRIGHT][VAM_POS_BEHIND][VIEW_RIGHT]         = VAM_POS_UP;
-//     my_direction[VAM_POS_ZRIGHT][VAM_POS_BEHIND][VIEW_LEFT]          = VAM_POS_DOWN;
-//
-//
-//     my_direction[VAM_POS_ZRIGHT_UP][VAM_POS_ZLEFT_UP][VIEW_UP]       = VAM_POS_ZLEFT_UP;
-//     my_direction[VAM_POS_ZRIGHT_UP][VAM_POS_ZLEFT_UP][VIEW_DOWN]     = VAM_POS_ZRIGHT_DOWN;
-//     my_direction[VAM_POS_ZRIGHT_UP][VAM_POS_ZLEFT_UP][VIEW_RIGHT]    = VAM_POS_FRONT;
-//     my_direction[VAM_POS_ZRIGHT_UP][VAM_POS_ZLEFT_UP][VIEW_LEFT]     = VAM_POS_BEHIND;
-//
-//     my_direction[VAM_POS_ZRIGHT_UP][VAM_POS_FRONT][VIEW_UP]          = VAM_POS_FRONT;
-//     my_direction[VAM_POS_ZRIGHT_UP][VAM_POS_FRONT][VIEW_DOWN]        = VAM_POS_BEHIND;
-//     my_direction[VAM_POS_ZRIGHT_UP][VAM_POS_FRONT][VIEW_RIGHT]       = VAM_POS_ZRIGHT_DOWN;
-//     my_direction[VAM_POS_ZRIGHT_UP][VAM_POS_FRONT][VIEW_LEFT]        = VAM_POS_ZLEFT_UP;
-//
-//     my_direction[VAM_POS_ZRIGHT_UP][VAM_POS_ZRIGHT_DOWN][VIEW_UP]    = VAM_POS_ZRIGHT_DOWN;
-//     my_direction[VAM_POS_ZRIGHT_UP][VAM_POS_ZRIGHT_DOWN][VIEW_DOWN]  = VAM_POS_ZLEFT_UP;
-//     my_direction[VAM_POS_ZRIGHT_UP][VAM_POS_ZRIGHT_DOWN][VIEW_RIGHT] = VAM_POS_BEHIND;
-//     my_direction[VAM_POS_ZRIGHT_UP][VAM_POS_ZRIGHT_DOWN][VIEW_LEFT]  = VAM_POS_FRONT;
-//
-//     my_direction[VAM_POS_ZRIGHT_UP][VAM_POS_BEHIND][VIEW_UP]         =  VAM_POS_BEHIND;
-//     my_direction[VAM_POS_ZRIGHT_UP][VAM_POS_BEHIND][VIEW_DOWN]       =  VAM_POS_FRONT;
-//     my_direction[VAM_POS_ZRIGHT_UP][VAM_POS_BEHIND][VIEW_RIGHT]      =  VAM_POS_ZLEFT_UP;
-//     my_direction[VAM_POS_ZRIGHT_UP][VAM_POS_BEHIND][VIEW_LEFT]       =  VAM_POS_ZRIGHT_DOWN;
-//
-//
-//     my_direction[VAM_POS_UP][VAM_POS_ZLEFT][VIEW_UP]       = VAM_POS_ZLEFT;
-//     my_direction[VAM_POS_UP][VAM_POS_ZLEFT][VIEW_DOWN]     = VAM_POS_ZRIGHT;
-//     my_direction[VAM_POS_UP][VAM_POS_ZLEFT][VIEW_RIGHT]    = VAM_POS_FRONT;
-//     my_direction[VAM_POS_UP][VAM_POS_ZLEFT][VIEW_LEFT]     = VAM_POS_BEHIND;
-//
-//     my_direction[VAM_POS_UP][VAM_POS_FRONT][VIEW_UP]       = VAM_POS_FRONT;
-//     my_direction[VAM_POS_UP][VAM_POS_FRONT][VIEW_DOWN]     = VAM_POS_BEHIND;
-//     my_direction[VAM_POS_UP][VAM_POS_FRONT][VIEW_RIGHT]    = VAM_POS_ZRIGHT;
-//     my_direction[VAM_POS_UP][VAM_POS_FRONT][VIEW_LEFT]     = VAM_POS_ZLEFT;
-//
-//     my_direction[VAM_POS_UP][VAM_POS_ZRIGHT][VIEW_UP]      = VAM_POS_ZRIGHT;
-//     my_direction[VAM_POS_UP][VAM_POS_ZRIGHT][VIEW_DOWN]    = VAM_POS_ZLEFT;
-//     my_direction[VAM_POS_UP][VAM_POS_ZRIGHT][VIEW_RIGHT]   = VAM_POS_BEHIND;
-//     my_direction[VAM_POS_UP][VAM_POS_ZRIGHT][VIEW_LEFT]    = VAM_POS_FRONT;
-//
-//     my_direction[VAM_POS_UP][VAM_POS_BEHIND][VIEW_UP]      =  VAM_POS_BEHIND;
-//     my_direction[VAM_POS_UP][VAM_POS_BEHIND][VIEW_DOWN]    =  VAM_POS_FRONT;
-//     my_direction[VAM_POS_UP][VAM_POS_BEHIND][VIEW_RIGHT]   =  VAM_POS_ZLEFT;
-//     my_direction[VAM_POS_UP][VAM_POS_BEHIND][VIEW_LEFT]    =  VAM_POS_ZRIGHT;
-
-
-
-//										         {-1,-1 },
-//										         {-1, 0 },
-//										         {-1, 1 },
-//										         { 0,-1 },
-//										         { 0, 0 },
-//										         { 0, 1 },
-//										         { 1,-1 },
-//										         { 1, 0 },
-//										         { 1, 1 }
-
-
-
-
-//    for (int i = 0; i < 3*3*3; i++) {
-//        for (int j = 0; j < 3*3*3; j++) {
-//            VamSysCamWorker2::relation_up_vec_[i][j] = DIR26_NULL;
-//        }
-//    }
-//    VamSysCamWorker2::relation_up_by_vec_ =  (int (*)[3*3*3])(&(VamSysCamWorker2::relation_up_vec_[13][13])); //13 は 3*3*3=27 の真ん中の要素、_relation_up_vec[-13～13][-13～13]でアクセスする為
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0, 0)][DIR26( 1,-1,-1)] = DIR26( 1, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0, 0)][DIR26( 1,-1, 0)] = DIR26( 1, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0, 0)][DIR26( 1,-1, 1)] = DIR26( 1, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0, 0)][DIR26( 1, 0,-1)] = DIR26( 1, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0, 0)][DIR26( 1, 0, 0)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0, 0)][DIR26( 1, 0, 1)] = DIR26( 1, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0, 0)][DIR26( 1, 1,-1)] = DIR26( 1,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0, 0)][DIR26( 1, 1, 0)] = DIR26( 1,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0, 0)][DIR26( 1, 1, 1)] = DIR26( 1,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0, 0)][DIR26(-1,-1,-1)] = DIR26( 1,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0, 0)][DIR26(-1,-1, 0)] = DIR26( 1,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0, 0)][DIR26(-1,-1, 1)] = DIR26( 1,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0, 0)][DIR26(-1, 0,-1)] = DIR26( 1, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0, 0)][DIR26(-1, 0, 0)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0, 0)][DIR26(-1, 0, 1)] = DIR26( 1, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0, 0)][DIR26(-1, 1,-1)] = DIR26( 1, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0, 0)][DIR26(-1, 1, 0)] = DIR26( 1, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0, 0)][DIR26(-1, 1, 1)] = DIR26( 1, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0, 0)][DIR26(-1,-1,-1)] = DIR26(-1, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0, 0)][DIR26(-1,-1, 0)] = DIR26(-1, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0, 0)][DIR26(-1,-1, 1)] = DIR26(-1, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0, 0)][DIR26(-1, 0,-1)] = DIR26(-1, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0, 0)][DIR26(-1, 0, 0)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0, 0)][DIR26(-1, 0, 1)] = DIR26(-1, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0, 0)][DIR26(-1, 1,-1)] = DIR26(-1,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0, 0)][DIR26(-1, 1, 0)] = DIR26(-1,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0, 0)][DIR26(-1, 1, 1)] = DIR26(-1,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0, 0)][DIR26( 1,-1,-1)] = DIR26(-1,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0, 0)][DIR26( 1,-1, 0)] = DIR26(-1,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0, 0)][DIR26( 1,-1, 1)] = DIR26(-1,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0, 0)][DIR26( 1, 0,-1)] = DIR26(-1, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0, 0)][DIR26( 1, 0, 0)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0, 0)][DIR26( 1, 0, 1)] = DIR26(-1, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0, 0)][DIR26( 1, 1,-1)] = DIR26(-1, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0, 0)][DIR26( 1, 1, 0)] = DIR26(-1, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0, 0)][DIR26( 1, 1, 1)] = DIR26(-1, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1, 0)][DIR26(-1, 1,-1)] = DIR26( 1, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1, 0)][DIR26(-1, 1, 0)] = DIR26( 1, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1, 0)][DIR26(-1, 1, 1)] = DIR26( 1, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1, 0)][DIR26( 0, 1,-1)] = DIR26( 0, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1, 0)][DIR26( 0, 1, 0)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1, 0)][DIR26( 0, 1, 1)] = DIR26( 0, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1, 0)][DIR26( 1, 1,-1)] = DIR26(-1, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1, 0)][DIR26( 1, 1, 0)] = DIR26(-1, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1, 0)][DIR26( 1, 1, 1)] = DIR26(-1, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1, 0)][DIR26(-1,-1,-1)] = DIR26(-1, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1, 0)][DIR26(-1,-1, 0)] = DIR26(-1, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1, 0)][DIR26(-1,-1, 1)] = DIR26(-1, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1, 0)][DIR26( 0,-1,-1)] = DIR26( 0, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1, 0)][DIR26( 0,-1, 0)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1, 0)][DIR26( 0,-1, 1)] = DIR26( 0, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1, 0)][DIR26( 1,-1,-1)] = DIR26( 1, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1, 0)][DIR26( 1,-1, 0)] = DIR26( 1, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1, 0)][DIR26( 1,-1, 1)] = DIR26( 1, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1, 0)][DIR26(-1,-1,-1)] = DIR26( 1,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1, 0)][DIR26(-1,-1, 0)] = DIR26( 1,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1, 0)][DIR26(-1,-1, 1)] = DIR26( 1,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1, 0)][DIR26( 0,-1,-1)] = DIR26( 0,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1, 0)][DIR26( 0,-1, 0)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1, 0)][DIR26( 0,-1, 1)] = DIR26( 0,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1, 0)][DIR26( 1,-1,-1)] = DIR26(-1,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1, 0)][DIR26( 1,-1, 0)] = DIR26(-1,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1, 0)][DIR26( 1,-1, 1)] = DIR26(-1,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1, 0)][DIR26(-1, 1,-1)] = DIR26(-1,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1, 0)][DIR26(-1, 1, 0)] = DIR26(-1,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1, 0)][DIR26(-1, 1, 1)] = DIR26(-1,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1, 0)][DIR26( 0, 1,-1)] = DIR26( 0,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1, 0)][DIR26( 0, 1, 0)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1, 0)][DIR26( 0, 1, 1)] = DIR26( 0,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1, 0)][DIR26( 1, 1,-1)] = DIR26( 1,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1, 0)][DIR26( 1, 1, 0)] = DIR26( 1,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1, 0)][DIR26( 1, 1, 1)] = DIR26( 1,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 0, 1)][DIR26(-1,-1, 1)] = DIR26( 1, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 0, 1)][DIR26(-1, 0, 1)] = DIR26( 1, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 0, 1)][DIR26(-1, 1, 1)] = DIR26( 1,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 0, 1)][DIR26( 0,-1, 1)] = DIR26( 0, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 0, 1)][DIR26( 0, 0, 1)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 0, 1)][DIR26( 0, 1, 1)] = DIR26( 0,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 0, 1)][DIR26( 1,-1, 1)] = DIR26(-1, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 0, 1)][DIR26( 1, 0, 1)] = DIR26(-1, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 0, 1)][DIR26( 1, 1, 1)] = DIR26(-1,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 0, 1)][DIR26(-1,-1,-1)] = DIR26(-1,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 0, 1)][DIR26(-1, 0,-1)] = DIR26(-1, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 0, 1)][DIR26(-1, 1,-1)] = DIR26(-1, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 0, 1)][DIR26( 0,-1,-1)] = DIR26( 0,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 0, 1)][DIR26( 0, 0,-1)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 0, 1)][DIR26( 0, 1,-1)] = DIR26( 0, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 0, 1)][DIR26( 1,-1,-1)] = DIR26( 1,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 0, 1)][DIR26( 1, 0,-1)] = DIR26( 1, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 0, 1)][DIR26( 1, 1,-1)] = DIR26( 1, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 0,-1)][DIR26(-1,-1,-1)] = DIR26( 1, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 0,-1)][DIR26(-1, 0,-1)] = DIR26( 1, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 0,-1)][DIR26(-1, 1,-1)] = DIR26( 1,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 0,-1)][DIR26( 0,-1,-1)] = DIR26( 0, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 0,-1)][DIR26( 0, 0,-1)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 0,-1)][DIR26( 0, 1,-1)] = DIR26( 0,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 0,-1)][DIR26( 1,-1,-1)] = DIR26(-1, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 0,-1)][DIR26( 1, 0,-1)] = DIR26(-1, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 0,-1)][DIR26( 1, 1,-1)] = DIR26(-1,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 0,-1)][DIR26(-1,-1, 1)] = DIR26(-1,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 0,-1)][DIR26(-1, 0, 1)] = DIR26(-1, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 0,-1)][DIR26(-1, 1, 1)] = DIR26(-1, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 0,-1)][DIR26( 0,-1, 1)] = DIR26( 0,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 0,-1)][DIR26( 0, 0, 1)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 0,-1)][DIR26( 0, 1, 1)] = DIR26( 0, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 0,-1)][DIR26( 1,-1, 1)] = DIR26( 1,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 0,-1)][DIR26( 1, 0, 1)] = DIR26( 1, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 0,-1)][DIR26( 1, 1, 1)] = DIR26( 1, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1, 0)][DIR26( 0, 1,-1)] = DIR26( 1, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1, 0)][DIR26( 0, 1, 0)] = DIR26( 1, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1, 0)][DIR26( 0, 1, 1)] = DIR26( 1, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1, 0)][DIR26( 1, 0,-1)] = DIR26( 0, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1, 0)][DIR26( 1, 0, 0)] = DIR26( 0, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1, 0)][DIR26( 1, 0, 1)] = DIR26( 0, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1, 0)][DIR26( 1, 1,-1)] = DIR26( 1, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1, 0)][DIR26( 1, 1, 0)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1, 0)][DIR26( 1, 1, 1)] = DIR26( 1, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1, 0)][DIR26(-1,-1,-1)] = DIR26( 1, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1, 0)][DIR26(-1,-1, 0)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1, 0)][DIR26(-1,-1, 1)] = DIR26( 1, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1, 0)][DIR26(-1, 0,-1)] = DIR26( 0, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1, 0)][DIR26(-1, 0, 0)] = DIR26( 0, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1, 0)][DIR26(-1, 0, 1)] = DIR26( 0, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1, 0)][DIR26( 0,-1,-1)] = DIR26( 1, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1, 0)][DIR26( 0,-1, 0)] = DIR26( 1, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1, 0)][DIR26( 0,-1, 1)] = DIR26( 1, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1, 0)][DIR26(-1,-1,-1)] = DIR26(-1,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1, 0)][DIR26(-1,-1, 0)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1, 0)][DIR26(-1,-1, 1)] = DIR26(-1,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1, 0)][DIR26(-1, 0,-1)] = DIR26( 0,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1, 0)][DIR26(-1, 0, 0)] = DIR26( 0,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1, 0)][DIR26(-1, 0, 1)] = DIR26( 0,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1, 0)][DIR26( 0,-1,-1)] = DIR26(-1, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1, 0)][DIR26( 0,-1, 0)] = DIR26(-1, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1, 0)][DIR26( 0,-1, 1)] = DIR26(-1, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1, 0)][DIR26( 0, 1,-1)] = DIR26(-1, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1, 0)][DIR26( 0, 1, 0)] = DIR26(-1, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1, 0)][DIR26( 0, 1, 1)] = DIR26(-1, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1, 0)][DIR26( 1, 0,-1)] = DIR26( 0,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1, 0)][DIR26( 1, 0, 0)] = DIR26( 0,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1, 0)][DIR26( 1, 0, 1)] = DIR26( 0,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1, 0)][DIR26( 1, 1,-1)] = DIR26(-1,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1, 0)][DIR26( 1, 1, 0)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1, 0)][DIR26( 1, 1, 1)] = DIR26(-1,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0, 1)][DIR26( 0,-1, 1)] = DIR26( 1, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0, 1)][DIR26( 0, 0, 1)] = DIR26( 1, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0, 1)][DIR26( 0, 1, 1)] = DIR26( 1,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0, 1)][DIR26( 1,-1, 0)] = DIR26( 0, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0, 1)][DIR26( 1, 0, 0)] = DIR26( 0, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0, 1)][DIR26( 1, 1, 0)] = DIR26( 0,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0, 1)][DIR26( 1,-1, 1)] = DIR26( 1, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0, 1)][DIR26( 1, 0, 1)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0, 1)][DIR26( 1, 1, 1)] = DIR26( 1,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0, 1)][DIR26(-1,-1,-1)] = DIR26( 1,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0, 1)][DIR26(-1, 0,-1)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0, 1)][DIR26(-1, 1,-1)] = DIR26( 1, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0, 1)][DIR26(-1,-1, 0)] = DIR26( 0,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0, 1)][DIR26(-1, 0, 0)] = DIR26( 0, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0, 1)][DIR26(-1, 1, 0)] = DIR26( 0, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0, 1)][DIR26( 0,-1,-1)] = DIR26( 1,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0, 1)][DIR26( 0, 0,-1)] = DIR26( 1, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0, 1)][DIR26( 0, 1,-1)] = DIR26( 1, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0,-1)][DIR26(-1,-1,-1)] = DIR26(-1, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0,-1)][DIR26(-1, 0,-1)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0,-1)][DIR26(-1, 1,-1)] = DIR26(-1,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0,-1)][DIR26(-1,-1, 0)] = DIR26( 0, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0,-1)][DIR26(-1, 0, 0)] = DIR26( 0, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0,-1)][DIR26(-1, 1, 0)] = DIR26( 0,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0,-1)][DIR26( 0,-1,-1)] = DIR26(-1, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0,-1)][DIR26( 0, 0,-1)] = DIR26(-1, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0,-1)][DIR26( 0, 1,-1)] = DIR26(-1,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0,-1)][DIR26( 0,-1, 1)] = DIR26(-1,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0,-1)][DIR26( 0, 0, 1)] = DIR26(-1, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0,-1)][DIR26( 0, 1, 1)] = DIR26(-1, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0,-1)][DIR26( 1,-1, 0)] = DIR26( 0,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0,-1)][DIR26( 1, 0, 0)] = DIR26( 0, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0,-1)][DIR26( 1, 1, 0)] = DIR26( 0, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0,-1)][DIR26( 1,-1, 1)] = DIR26(-1,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0,-1)][DIR26( 1, 0, 1)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0,-1)][DIR26( 1, 1, 1)] = DIR26(-1, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1, 1)][DIR26(-1, 0, 1)] = DIR26( 1, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1, 1)][DIR26( 0, 0, 1)] = DIR26( 0, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1, 1)][DIR26( 1, 0, 1)] = DIR26(-1, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1, 1)][DIR26(-1, 1, 0)] = DIR26( 1, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1, 1)][DIR26( 0, 1, 0)] = DIR26( 0, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1, 1)][DIR26( 1, 1, 0)] = DIR26(-1, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1, 1)][DIR26(-1, 1, 1)] = DIR26( 1, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1, 1)][DIR26( 0, 1, 1)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1, 1)][DIR26( 1, 1, 1)] = DIR26(-1, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1, 1)][DIR26(-1,-1,-1)] = DIR26(-1, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1, 1)][DIR26( 0,-1,-1)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1, 1)][DIR26( 1,-1,-1)] = DIR26( 1, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1, 1)][DIR26(-1,-1, 0)] = DIR26(-1, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1, 1)][DIR26( 0,-1, 0)] = DIR26( 0, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1, 1)][DIR26( 1,-1, 0)] = DIR26( 1, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1, 1)][DIR26(-1, 0,-1)] = DIR26(-1, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1, 1)][DIR26( 0, 0,-1)] = DIR26( 0, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1, 1)][DIR26( 1, 0,-1)] = DIR26( 1, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1,-1)][DIR26(-1,-1,-1)] = DIR26( 1,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1,-1)][DIR26( 0,-1,-1)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1,-1)][DIR26( 1,-1,-1)] = DIR26(-1,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1,-1)][DIR26(-1,-1, 0)] = DIR26( 1, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1,-1)][DIR26( 0,-1, 0)] = DIR26( 0, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1,-1)][DIR26( 1,-1, 0)] = DIR26(-1, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1,-1)][DIR26(-1, 0,-1)] = DIR26( 1,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1,-1)][DIR26( 0, 0,-1)] = DIR26( 0,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1,-1)][DIR26( 1, 0,-1)] = DIR26(-1,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1,-1)][DIR26(-1, 0, 1)] = DIR26(-1,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1,-1)][DIR26( 0, 0, 1)] = DIR26( 0,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1,-1)][DIR26( 1, 0, 1)] = DIR26( 1,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1,-1)][DIR26(-1, 1, 0)] = DIR26(-1, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1,-1)][DIR26( 0, 1, 0)] = DIR26( 0, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1,-1)][DIR26( 1, 1, 0)] = DIR26( 1, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1,-1)][DIR26(-1, 1, 1)] = DIR26(-1,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1,-1)][DIR26( 0, 1, 1)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1,-1)][DIR26( 1, 1, 1)] = DIR26( 1,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1, 0)][DIR26( 0, 1,-1)] = DIR26(-1, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1, 0)][DIR26( 0, 1, 0)] = DIR26(-1, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1, 0)][DIR26( 0, 1, 1)] = DIR26(-1, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1, 0)][DIR26(-1, 0,-1)] = DIR26( 0, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1, 0)][DIR26(-1, 0, 0)] = DIR26( 0, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1, 0)][DIR26(-1, 0, 1)] = DIR26( 0, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1, 0)][DIR26(-1, 1,-1)] = DIR26(-1, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1, 0)][DIR26(-1, 1, 0)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1, 0)][DIR26(-1, 1, 1)] = DIR26(-1, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1, 0)][DIR26( 1,-1,-1)] = DIR26(-1, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1, 0)][DIR26( 1,-1, 0)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1, 0)][DIR26( 1,-1, 1)] = DIR26(-1, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1, 0)][DIR26( 1, 0,-1)] = DIR26( 0, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1, 0)][DIR26( 1, 0, 0)] = DIR26( 0, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1, 0)][DIR26( 1, 0, 1)] = DIR26( 0, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1, 0)][DIR26( 0,-1,-1)] = DIR26(-1, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1, 0)][DIR26( 0,-1, 0)] = DIR26(-1, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1, 0)][DIR26( 0,-1, 1)] = DIR26(-1, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1, 0)][DIR26( 1, 0,-1)] = DIR26( 0,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1, 0)][DIR26( 1, 0, 0)] = DIR26( 0,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1, 0)][DIR26( 1, 0, 1)] = DIR26( 0,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1, 0)][DIR26( 0,-1,-1)] = DIR26( 1, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1, 0)][DIR26( 0,-1, 0)] = DIR26( 1, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1, 0)][DIR26( 0,-1, 1)] = DIR26( 1, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1, 0)][DIR26( 1,-1,-1)] = DIR26( 1,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1, 0)][DIR26( 1,-1, 0)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1, 0)][DIR26( 1,-1, 1)] = DIR26( 1,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1, 0)][DIR26(-1, 1,-1)] = DIR26( 1,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1, 0)][DIR26(-1, 1, 0)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1, 0)][DIR26(-1, 1, 1)] = DIR26( 1,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1, 0)][DIR26( 0, 1,-1)] = DIR26( 1, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1, 0)][DIR26( 0, 1, 0)] = DIR26( 1, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1, 0)][DIR26( 0, 1, 1)] = DIR26( 1, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1, 0)][DIR26(-1, 0,-1)] = DIR26( 0,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1, 0)][DIR26(-1, 0, 0)] = DIR26( 0,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1, 0)][DIR26(-1, 0, 1)] = DIR26( 0,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0, 1)][DIR26( 0,-1, 1)] = DIR26(-1, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0, 1)][DIR26( 0, 0, 1)] = DIR26(-1, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0, 1)][DIR26( 0, 1, 1)] = DIR26(-1,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0, 1)][DIR26(-1,-1, 0)] = DIR26( 0, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0, 1)][DIR26(-1, 0, 0)] = DIR26( 0, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0, 1)][DIR26(-1, 1, 0)] = DIR26( 0,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0, 1)][DIR26(-1,-1, 1)] = DIR26(-1, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0, 1)][DIR26(-1, 0, 1)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0, 1)][DIR26(-1, 1, 1)] = DIR26(-1,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0, 1)][DIR26( 1,-1,-1)] = DIR26(-1,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0, 1)][DIR26( 1, 0,-1)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0, 1)][DIR26( 1, 1,-1)] = DIR26(-1, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0, 1)][DIR26( 1,-1, 0)] = DIR26( 0,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0, 1)][DIR26( 1, 0, 0)] = DIR26( 0, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0, 1)][DIR26( 1, 1, 0)] = DIR26( 0, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0, 1)][DIR26( 0,-1,-1)] = DIR26(-1,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0, 1)][DIR26( 0, 0,-1)] = DIR26(-1, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 0, 1)][DIR26( 0, 1,-1)] = DIR26(-1, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0,-1)][DIR26( 1,-1, 0)] = DIR26( 0, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0,-1)][DIR26( 1, 0, 0)] = DIR26( 0, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0,-1)][DIR26( 1, 1, 0)] = DIR26( 0,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0,-1)][DIR26( 0,-1,-1)] = DIR26( 1, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0,-1)][DIR26( 0, 0,-1)] = DIR26( 1, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0,-1)][DIR26( 0, 1,-1)] = DIR26( 1,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0,-1)][DIR26( 1,-1,-1)] = DIR26( 1, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0,-1)][DIR26( 1, 0,-1)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0,-1)][DIR26( 1, 1,-1)] = DIR26( 1,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0,-1)][DIR26(-1,-1, 1)] = DIR26( 1,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0,-1)][DIR26(-1, 0, 1)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0,-1)][DIR26(-1, 1, 1)] = DIR26( 1, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0,-1)][DIR26( 0,-1, 1)] = DIR26( 1,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0,-1)][DIR26( 0, 0, 1)] = DIR26( 1, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0,-1)][DIR26( 0, 1, 1)] = DIR26( 1, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0,-1)][DIR26(-1,-1, 0)] = DIR26( 0,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0,-1)][DIR26(-1, 0, 0)] = DIR26( 0, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 0,-1)][DIR26(-1, 1, 0)] = DIR26( 0, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1, 1)][DIR26(-1, 0, 1)] = DIR26( 1,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1, 1)][DIR26( 0, 0, 1)] = DIR26( 0,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1, 1)][DIR26( 1, 0, 1)] = DIR26(-1,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1, 1)][DIR26(-1,-1, 0)] = DIR26( 1, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1, 1)][DIR26( 0,-1, 0)] = DIR26( 0, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1, 1)][DIR26( 1,-1, 0)] = DIR26(-1, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1, 1)][DIR26(-1,-1, 1)] = DIR26( 1,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1, 1)][DIR26( 0,-1, 1)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1, 1)][DIR26( 1,-1, 1)] = DIR26(-1,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1, 1)][DIR26(-1, 1,-1)] = DIR26(-1,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1, 1)][DIR26( 0, 1,-1)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1, 1)][DIR26( 1, 1,-1)] = DIR26( 1,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1, 1)][DIR26(-1, 1, 0)] = DIR26(-1, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1, 1)][DIR26( 0, 1, 0)] = DIR26( 0, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1, 1)][DIR26( 1, 1, 0)] = DIR26( 1, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1, 1)][DIR26(-1, 0,-1)] = DIR26(-1,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1, 1)][DIR26( 0, 0,-1)] = DIR26( 0,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0,-1, 1)][DIR26( 1, 0,-1)] = DIR26( 1,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1,-1)][DIR26(-1, 1, 0)] = DIR26( 1, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1,-1)][DIR26( 0, 1, 0)] = DIR26( 0, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1,-1)][DIR26( 1, 1, 0)] = DIR26(-1, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1,-1)][DIR26(-1, 0,-1)] = DIR26( 1, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1,-1)][DIR26( 0, 0,-1)] = DIR26( 0, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1,-1)][DIR26( 1, 0,-1)] = DIR26(-1, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1,-1)][DIR26(-1, 1,-1)] = DIR26( 1, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1,-1)][DIR26( 0, 1,-1)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1,-1)][DIR26( 1, 1,-1)] = DIR26(-1, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1,-1)][DIR26(-1,-1, 1)] = DIR26(-1, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1,-1)][DIR26( 0,-1, 1)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1,-1)][DIR26( 1,-1, 1)] = DIR26( 1, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1,-1)][DIR26(-1, 0, 1)] = DIR26(-1, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1,-1)][DIR26( 0, 0, 1)] = DIR26( 0, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1,-1)][DIR26( 1, 0, 1)] = DIR26( 1, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1,-1)][DIR26(-1,-1, 0)] = DIR26(-1, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1,-1)][DIR26( 0,-1, 0)] = DIR26( 0, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 0, 1,-1)][DIR26( 1,-1, 0)] = DIR26( 1, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1, 1)][DIR26( 0, 0, 1)] = DIR26( 1, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1, 1)][DIR26( 0, 1, 0)] = DIR26( 1, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1, 1)][DIR26( 0, 1, 1)] = DIR26( 1, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1, 1)][DIR26( 1, 0, 0)] = DIR26( 0, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1, 1)][DIR26( 1, 0, 1)] = DIR26( 0, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1, 1)][DIR26( 1, 1, 0)] = DIR26( 0, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1, 1)][DIR26( 1, 1, 1)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1, 1)][DIR26( 0,-1, 0)] = DIR26( 1, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1, 1)][DIR26( 0,-1,-1)] = DIR26( 1, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1, 1)][DIR26(-1, 0, 0)] = DIR26( 0, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1, 1)][DIR26(-1, 0,-1)] = DIR26( 0, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1, 1)][DIR26(-1,-1, 0)] = DIR26( 0, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1, 1)][DIR26(-1,-1,-1)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1,-1)][DIR26( 0, 0,-1)] = DIR26(-1,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1,-1)][DIR26( 0,-1,-1)] = DIR26(-1, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1,-1)][DIR26(-1, 0, 0)] = DIR26( 0,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1,-1)][DIR26(-1, 0,-1)] = DIR26( 0,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1,-1)][DIR26(-1,-1, 0)] = DIR26( 0, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1,-1)][DIR26(-1,-1,-1)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1,-1)][DIR26( 0, 0, 1)] = DIR26(-1,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1,-1)][DIR26( 0, 1, 0)] = DIR26(-1, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1,-1)][DIR26( 1, 0, 0)] = DIR26( 0,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1,-1)][DIR26( 1, 0, 1)] = DIR26( 0,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1,-1)][DIR26( 1, 1, 0)] = DIR26( 0, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1,-1)][DIR26( 1, 1, 1)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1,-1)][DIR26( 0, 0,-1)] = DIR26( 1, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1,-1)][DIR26( 0, 1, 0)] = DIR26( 1, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1,-1)][DIR26( 0, 1,-1)] = DIR26( 1, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1,-1)][DIR26( 1, 0,-1)] = DIR26( 0, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1,-1)][DIR26( 1, 1, 0)] = DIR26( 0, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1,-1)][DIR26( 1, 1,-1)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1,-1)][DIR26( 0, 0, 1)] = DIR26( 1, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1,-1)][DIR26( 0,-1, 0)] = DIR26( 1, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1,-1)][DIR26( 0,-1, 1)] = DIR26( 1, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1,-1)][DIR26(-1, 0, 0)] = DIR26( 0, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1,-1)][DIR26(-1,-1, 0)] = DIR26( 0, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1, 1,-1)][DIR26(-1,-1, 1)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1, 1)][DIR26( 0, 0, 1)] = DIR26(-1,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1, 1)][DIR26( 0,-1, 0)] = DIR26(-1, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1, 1)][DIR26( 0,-1, 1)] = DIR26(-1, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1, 1)][DIR26(-1, 0, 0)] = DIR26( 0,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1, 1)][DIR26(-1, 0, 1)] = DIR26( 0,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1, 1)][DIR26(-1,-1, 1)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1, 1)][DIR26( 0, 0,-1)] = DIR26(-1,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1, 1)][DIR26( 0, 1, 0)] = DIR26(-1, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1, 1)][DIR26( 0, 1,-1)] = DIR26(-1, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1, 1)][DIR26( 1, 0, 0)] = DIR26( 0,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1, 1)][DIR26( 1, 0,-1)] = DIR26( 0,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1, 1)][DIR26( 1, 1, 0)] = DIR26( 0, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1,-1, 1)][DIR26( 1, 1,-1)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1, 1)][DIR26( 0, 0, 1)] = DIR26( 1,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1, 1)][DIR26( 0,-1, 0)] = DIR26( 1, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1, 1)][DIR26( 0,-1, 1)] = DIR26( 1, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1, 1)][DIR26( 1, 0, 0)] = DIR26( 0,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1, 1)][DIR26( 1, 0, 1)] = DIR26( 0,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1, 1)][DIR26( 1,-1, 0)] = DIR26( 0, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1, 1)][DIR26( 1,-1, 1)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1, 1)][DIR26( 0, 0,-1)] = DIR26( 1,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1, 1)][DIR26( 0, 1, 0)] = DIR26( 1, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1, 1)][DIR26( 0, 1,-1)] = DIR26( 1, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1, 1)][DIR26(-1, 0, 0)] = DIR26( 0,-1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1, 1)][DIR26(-1, 0,-1)] = DIR26( 0,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1, 1)][DIR26(-1, 1, 0)] = DIR26( 0, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1, 1)][DIR26(-1, 1,-1)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1,-1)][DIR26( 0, 0,-1)] = DIR26(-1, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1,-1)][DIR26( 0, 1, 0)] = DIR26(-1, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1,-1)][DIR26( 0, 1,-1)] = DIR26(-1, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1,-1)][DIR26(-1, 0, 0)] = DIR26( 0, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1,-1)][DIR26(-1, 0,-1)] = DIR26( 0, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1,-1)][DIR26(-1, 1, 0)] = DIR26( 0, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1,-1)][DIR26(-1, 1,-1)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1,-1)][DIR26( 0, 0, 1)] = DIR26(-1, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1,-1)][DIR26( 0,-1, 0)] = DIR26(-1, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1,-1)][DIR26( 0,-1, 1)] = DIR26(-1, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1,-1)][DIR26( 1, 0, 0)] = DIR26( 0, 1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1,-1)][DIR26( 1, 0, 1)] = DIR26( 0, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1,-1)][DIR26( 1,-1, 0)] = DIR26( 0, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1,-1)][DIR26( 1,-1, 1)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1,-1)][DIR26( 0, 0,-1)] = DIR26( 1,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1,-1)][DIR26( 0,-1, 0)] = DIR26( 1, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1,-1)][DIR26( 0,-1,-1)] = DIR26( 1, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1,-1)][DIR26( 1, 0, 0)] = DIR26( 0,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1,-1)][DIR26( 1, 0,-1)] = DIR26( 0,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1,-1)][DIR26( 1,-1, 0)] = DIR26( 0, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1,-1)][DIR26( 1,-1,-1)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1,-1)][DIR26( 0, 0, 1)] = DIR26( 1,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1,-1)][DIR26( 0, 1, 0)] = DIR26( 1, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1,-1)][DIR26( 0, 1, 1)] = DIR26( 1, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1,-1)][DIR26(-1, 0, 0)] = DIR26( 0,-1,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1,-1)][DIR26(-1, 0, 1)] = DIR26( 0,-1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1,-1)][DIR26(-1, 1, 0)] = DIR26( 0, 0,-1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26( 1,-1,-1)][DIR26(-1, 1, 1)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1, 1)][DIR26( 0, 0, 1)] = DIR26(-1, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1, 1)][DIR26( 0, 1, 0)] = DIR26(-1, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1, 1)][DIR26( 0, 1, 1)] = DIR26(-1, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1, 1)][DIR26(-1, 0, 0)] = DIR26( 0, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1, 1)][DIR26(-1, 0, 1)] = DIR26( 0, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1, 1)][DIR26(-1, 1, 0)] = DIR26( 0, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1, 1)][DIR26(-1, 1, 1)] = DIR26( 0, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1, 1)][DIR26( 0, 0,-1)] = DIR26(-1, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1, 1)][DIR26( 0,-1, 0)] = DIR26(-1, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1, 1)][DIR26( 0,-1,-1)] = DIR26(-1, 0, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1, 1)][DIR26( 1, 0, 0)] = DIR26( 0, 1, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1, 1)][DIR26( 1, 0,-1)] = DIR26( 0, 1, 0);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1, 1)][DIR26( 1,-1, 0)] = DIR26( 0, 0, 1);
-//    VamSysCamWorker2::relation_up_by_vec_[DIR26(-1, 1, 1)][DIR26( 1,-1,-1)] = DIR26( 0, 0, 0);
