@@ -3,35 +3,33 @@
 #include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/camera/worker/CameraWorker.h"
 
-#define VAM_POS_BEHIND              DIR26(-1, 0, 0)
-#define VAM_POS_BEHIND_ZRIGHT       DIR26(-1, 0,-1)
-//#define VAM_POS_BEHIND_ZRIGHT_UP    DIR26(-1,+1,-1)
-#define VAM_POS_BEHIND_UP           DIR26(-1,+1, 0)
-//#define VAM_POS_BEHIND_ZLEFT_UP     DIR26(-1,+1,+1)
-#define VAM_POS_BEHIND_ZLEFT        DIR26(-1, 0,+1)
-//#define VAM_POS_BEHIND_ZLEFT_DOWN   DIR26(-1,-1,+1)
-#define VAM_POS_BEHIND_DOWN         DIR26(-1,-1, 0)
-//#define VAM_POS_BEHIND_ZRIGHT_DOWN  DIR26(-1,-1,-1)
-
-#define VAM_POS_NON                 DIR26( 0, 0, 0)
-#define VAM_POS_ZRIGHT              DIR26( 0, 0,-1)
-#define VAM_POS_ZRIGHT_UP           DIR26( 0,+1,-1)
-#define VAM_POS_UP                  DIR26( 0,+1, 0)
-#define VAM_POS_ZLEFT_UP            DIR26( 0,+1,+1)
-#define VAM_POS_ZLEFT               DIR26( 0, 0,+1)
-#define VAM_POS_ZLEFT_DOWN          DIR26( 0,-1,+1)
-#define VAM_POS_DOWN                DIR26( 0,-1, 0)
-#define VAM_POS_ZRIGHT_DOWN         DIR26( 0,-1,-1)
-
-#define VAM_POS_FRONT               DIR26(+1, 0, 0)
-#define VAM_POS_FRONT_ZRIGHT        DIR26(+1, 0,-1)
-//#define VAM_POS_FRONT_ZRIGHT_UP     DIR26(+1,+1,-1)
-#define VAM_POS_FRONT_UP            DIR26(+1,+1, 0)
-//#define VAM_POS_FRONT_ZLEFT_UP      DIR26(+1,+1,+1)
-#define VAM_POS_FRONT_ZLEFT         DIR26(+1, 0,+1)
-//#define VAM_POS_FRONT_ZLEFT_DOWN    DIR26(+1,-1,+1)
-#define VAM_POS_FRONT_DOWN          DIR26(+1,-1, 0)
-//#define VAM_POS_FRONT_ZRIGHT_DOWN   DIR26(+1,-1,-1)
+#define VAM_POS_BEHIND_ZRIGHT_DOWN  DIR26(-1,-1,-1) // -13 カメラはこの方向は取らない
+#define VAM_POS_BEHIND_DOWN         DIR26(-1,-1, 0) // -12
+#define VAM_POS_BEHIND_ZLEFT_DOWN   DIR26(-1,-1,+1) // -11 カメラはこの方向は取らない
+#define VAM_POS_BEHIND_ZRIGHT       DIR26(-1, 0,-1) // -10
+#define VAM_POS_BEHIND              DIR26(-1, 0, 0) // -9
+#define VAM_POS_BEHIND_ZLEFT        DIR26(-1, 0,+1) // -8
+#define VAM_POS_BEHIND_ZRIGHT_UP    DIR26(-1,+1,-1) // -7  カメラはこの方向は取らない
+#define VAM_POS_BEHIND_UP           DIR26(-1,+1, 0) // -6
+#define VAM_POS_BEHIND_ZLEFT_UP     DIR26(-1,+1,+1) // -5  カメラはこの方向は取らない
+#define VAM_POS_ZRIGHT_DOWN         DIR26( 0,-1,-1) // -4
+#define VAM_POS_DOWN                DIR26( 0,-1, 0) // -3
+#define VAM_POS_ZLEFT_DOWN          DIR26( 0,-1,+1) // -2
+#define VAM_POS_ZRIGHT              DIR26( 0, 0,-1) // -1
+#define VAM_POS_NON                 DIR26( 0, 0, 0) //  0
+#define VAM_POS_ZLEFT               DIR26( 0, 0,+1) //  1
+#define VAM_POS_ZRIGHT_UP           DIR26( 0,+1,-1) //  2
+#define VAM_POS_UP                  DIR26( 0,+1, 0) //  3
+#define VAM_POS_ZLEFT_UP            DIR26( 0,+1,+1) //  4
+#define VAM_POS_FRONT_ZRIGHT_DOWN   DIR26(+1,-1,-1) //  5   カメラはこの方向は取らない
+#define VAM_POS_FRONT_DOWN          DIR26(+1,-1, 0) //  6
+#define VAM_POS_FRONT_ZLEFT_DOWN    DIR26(+1,-1,+1) //  7   カメラはこの方向は取らない
+#define VAM_POS_FRONT_ZRIGHT        DIR26(+1, 0,-1) //  8
+#define VAM_POS_FRONT               DIR26(+1, 0, 0) //  9
+#define VAM_POS_FRONT_ZLEFT         DIR26(+1, 0,+1) //  10
+#define VAM_POS_FRONT_ZRIGHT_UP     DIR26(+1,+1,-1) //  11  カメラはこの方向は取らない
+#define VAM_POS_FRONT_UP            DIR26(+1,+1, 0) //  12
+#define VAM_POS_FRONT_ZLEFT_UP      DIR26(+1,+1,+1) //  13  カメラはこの方向は取らない
 
 namespace VioletVreath {
 
@@ -49,10 +47,40 @@ public:
     /** カメラの方向（eyeベクトル) 対 その方向から見つめた場合の(擬似)８方向 */
     static dir26 cam_to_8dir_entity_[3*3*3][8];
     static dir26 (*cam_to_8dir_)[8];
-
-//////////////////////////////////////////
     //自機とカメラの半径
-    coord  cam_radius_;
+    static coord  cam_radius_;
+
+    class FovInfo {
+    public:
+        int x_fov;
+        int y_fov;
+        int z_fov;
+        FovInfo() {
+            x_fov = 0;
+            y_fov = 0;
+            z_fov = 0;
+        }
+        void set(int prm_x_fov, int prm_y_fov, int prm_z_fov) {
+            x_fov = prm_x_fov;
+            y_fov = prm_y_fov;
+            z_fov = prm_z_fov;
+        }
+    };
+
+
+    /**  [現カメラ方向][UP方向] = 各軸のカメラ移動補正値 */
+    static FovInfo cam_hosei_fov_entity_[3*3*3][3*3*3];
+    static FovInfo (*cam_hosei_fov_)[3*3*3];
+    /**  [現カメラ方向][UP方向] = 各軸のVP移動補正値 */
+    static FovInfo vp_hosei_fov_entity_[3*3*3][3*3*3];
+    static FovInfo (*vp_hosei_fov_)[3*3*3];
+    /** カメラを回転させたい角度 */
+    static double mv_ang_;
+    static double mv_ang_sinHalf_;
+    static double mv_ang_cosHalf_;
+//////////////////////////////////////////
+
+
     coord mv_t_x_vUP_;
     coord mv_t_y_vUP_;
     coord mv_t_z_vUP_;
@@ -61,6 +89,12 @@ public:
     coord mv_t_y_vCAM_;
     coord mv_t_z_vCAM_;
 
+    int cam_sgn_x_;
+    int cam_sgn_y_;
+    int cam_sgn_z_;
+    int up_sgn_x_;
+    int up_sgn_y_;
+    int up_sgn_z_;
     dir26 pos_vam_camera_;
     dir26 pos_vam_camera_prev_;
     dir26 pos_vam_up_;
@@ -71,12 +105,7 @@ public:
     /** [r]カメラがホームポジション戻るのに費やす時間(フレーム) */
     frame returning_cam_pos_frames_;
 
-    coord CAM_HOSEI_DX_;
-    coord VP_HOSEI_DX_;
-    coord CAM_HOSEI_DY_;
-    coord VP_HOSEI_DY_;
-    coord CAM_HOSEI_DZ_;
-    coord VP_HOSEI_DZ_;
+
 public:
     MyShip* pMyShip_;
     GgafDxCore::GgafDxSeTransmitter* pSe_;
@@ -84,7 +113,7 @@ public:
 public:
     VamSysCamWorker2(const char* prm_name, Camera* prm_pCamera);
 
-    static bool initStatic();
+    static bool initStatic(Camera* prm_pCamera);
 
     virtual void initialize() override;
 

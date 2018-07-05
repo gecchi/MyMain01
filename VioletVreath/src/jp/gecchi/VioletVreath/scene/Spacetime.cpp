@@ -121,7 +121,13 @@ CameraWorker* Spacetime::changeCameraWork(const char* prm_pID) {
     //    +------+                             +------+
     CameraWorkerConnection* pCon = (CameraWorkerConnection*)pCamWorkerManager_->connect(prm_pID, getCamera());
     CameraWorker* pCamWorker = pCon->peek();
-    if (pCamWorker != pActiveCamWorker_) {
+    if (pCamWorker == pActiveCamWorker_) {
+#ifdef MY_DEBUG
+        stack_CamWorkerConnection_.dump();
+        _TRACE_("＜警告＞Spacetime::changeCameraWork("<<prm_pID<<") 同じカメラワークを連続でpush()していますので無視します。pActiveCamWorker_="<<pActiveCamWorker_->getName());
+#endif
+        pCon->close();
+    } else {
         _TRACE_("現pActiveCamWorker_="<<pActiveCamWorker_->getName()<<" は一時非活動で待機");
         //現在の CameraWork を非活動へ
         pActiveCamWorker_->onChangedToOtherCameraWork(); //コールバック
@@ -138,12 +144,6 @@ CameraWorker* Spacetime::changeCameraWork(const char* prm_pID) {
         stack_CamWorkerConnection_.push(pCon);
         pActiveCamWorker_ = pCamWorker;
         _TRACE_("新pActiveCamWorker_="<<pActiveCamWorker_->getName()<<" は上書きで活動状態");
-    } else {
-#ifdef MY_DEBUG
-        stack_CamWorkerConnection_.dump();
-        _TRACE_("＜警告＞Spacetime::changeCameraWork("<<prm_pID<<") 同じカメラワークを連続でpush()していますので無視します。pActiveCamWorker_="<<pActiveCamWorker_->getName());
-#endif
-        pCon->close();
     }
     return pCamWorker;
 

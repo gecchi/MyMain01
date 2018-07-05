@@ -31,7 +31,18 @@ dir26 (*VamSysCamWorker2::nbhd_dir_)[6];
 dir26 VamSysCamWorker2::cam_to_8dir_entity_[3*3*3][8];
 dir26 (*VamSysCamWorker2::cam_to_8dir_)[8];
 
-bool VamSysCamWorker2::initStatic() {
+
+VamSysCamWorker2::FovInfo VamSysCamWorker2::cam_hosei_fov_entity_[3*3*3][3*3*3];
+VamSysCamWorker2::FovInfo (*VamSysCamWorker2::cam_hosei_fov_)[3*3*3];
+VamSysCamWorker2::FovInfo VamSysCamWorker2::vp_hosei_fov_entity_[3*3*3][3*3*3];
+VamSysCamWorker2::FovInfo (*VamSysCamWorker2::vp_hosei_fov_)[3*3*3];
+coord VamSysCamWorker2::cam_radius_;
+
+double VamSysCamWorker2::mv_ang_;
+double VamSysCamWorker2::mv_ang_sinHalf_;
+double VamSysCamWorker2::mv_ang_cosHalf_;
+
+bool VamSysCamWorker2::initStatic(Camera* prm_pCamera) {
     for (int i = 0; i < 3*3*3; i++) {
         for (int j = 0; j < 6; j++) {
             VamSysCamWorker2::nbhd_dir_entity_[i][j] = DIR26_NULL;
@@ -270,28 +281,8 @@ bool VamSysCamWorker2::initStatic() {
     VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND_UP][6] = DIR26( 0, 0,+1);
     VamSysCamWorker2::cam_to_8dir_[VAM_POS_BEHIND_UP][7] = DIR26(+1,+1,+1);
 
-    _TRACE_("VamSysCamWorker2::initStatic() 初期化OK");
-    return true;
-}
-
-VamSysCamWorker2::VamSysCamWorker2(const char* prm_name, Camera* prm_pCamera) : CameraWorker(prm_name, (DefaultCamera*)prm_pCamera) {
-    _class_name = "VamSysCamWorker2";
-
-    pMyShip_ = nullptr; //MyShipSceneに設定してもらう
-
-    pos_vam_camera_ = VAM_POS_ZRIGHT;
-    pos_vam_camera_prev_ = VAM_POS_NON;
-    is_just_changed_pos_vam_cam_ = false;
-
-    returning_cam_pos_ = false;
-    returning_cam_pos_frames_ = 0;
-
-    pos_vam_up_ = DIR26(0,1,0);
-    pSe_ = NEW GgafDxSeTransmitter();
-    pSe_->set(SE_RETURNNING_CAM_POS, "WAVE_MY_RETURNNING_CAM_POS" ,0);
-
     dxcoord cam_dz_org = ABS(prm_pCamera->_cameraZ_org); //DZ
-    cam_radius_ = DX_C(cam_dz_org);
+    VamSysCamWorker2::cam_radius_ = DX_C(cam_dz_org);
     //     z+
     //    ^
     //    |
@@ -327,7 +318,7 @@ VamSysCamWorker2::VamSysCamWorker2(const char* prm_name, Camera* prm_pCamera) : 
     //        //cam_x ～ a の長さをDX
     //        //tan(b) = DZ/cam_DX より、cam_DX = DZ / tan(b)
     //        double cam_DX = DZ / tan(b);
-    //        CAM_HOSEI_DX_ = DX_C(cam_DX);
+    //        CAM_HOSEI_FOVX_DX_ = DX_C(cam_DX);
     //        //直角三角形 cam, vp, cam_x を考える
     //        //∠vp(小さいほう)  = π-θ
     //        double vp_th2 = 2*PI - vp_th;
@@ -335,27 +326,298 @@ VamSysCamWorker2::VamSysCamWorker2(const char* prm_name, Camera* prm_pCamera) : 
     //        //cam_x ～ vp_xの長さ = DZ / tan(∠vp(小さいほう))
     //        // vp_DX = cam_DX - (cam_x ～ vp_xの長さ)
     //        double vp_DX = cam_DX - (DZ / tan(vp_th2));
-    //        VP_HOSEI_DX_ = DX_C(vp_DX);
+    //        VP_HOSEI_FOVX_DX_ = DX_C(vp_DX);
 
-    double rad_half_fovX = prm_pCamera->_rad_half_fovX;
-    double vpx_th = 2*PI * 100.0 / 360.0; //ここを調整する！
+    double rad_half_fovX = prm_pCamera->_rad_half_fovX * 0.8; //0.8は調整、1.0で左右端まで行く
+    double vpx_th = 2*PI * 120.0 / 360.0; //ここを調整する！
     double cam_DX = cam_dz_org / tan(PI-vpx_th-rad_half_fovX);
-    CAM_HOSEI_DX_ = DX_C(cam_DX);
+    coord CAM_HOSEI_FOVX = DX_C(cam_DX);
     double vp_DX = cam_DX - (cam_dz_org / tan(PI - vpx_th));
-    VP_HOSEI_DX_ = DX_C(vp_DX);
+    coord VP_HOSEI_FOVX = DX_C(vp_DX);
 
-    double rad_half_fovY = prm_pCamera->_rad_half_fovY;
-    double vpy_th = (PI/2); //ここを調整する！
+    double rad_half_fovY = prm_pCamera->_rad_half_fovY * 0.9; //0.9は調整、1.0で上下端まで行く
+    double vpy_th = 2*PI * 100.0 / 360.0; //ここを調整する！
     double cam_DY = cam_dz_org / tan(PI-vpy_th-rad_half_fovY);
-    CAM_HOSEI_DY_ = DX_C(cam_DY);
+    coord CAM_HOSEI_FOVY = DX_C(cam_DY);
     double vp_DY = cam_DY - (cam_dz_org / tan(PI - vpy_th));
-    VP_HOSEI_DY_ = DX_C(vp_DY);
+    coord VP_HOSEI_FOVY = DX_C(vp_DY);
 
-    double vpz_th = vpx_th;
-    double cam_DZ = cam_dz_org / tan(PI-vpx_th-rad_half_fovX); //そのまま後ろに回ること多いので、rad_half_fovXで
-    CAM_HOSEI_DZ_ = DX_C(cam_DZ);
-    double vp_DZ = cam_DZ - (cam_dz_org / tan(PI - vpz_th));
-    VP_HOSEI_DZ_ = DX_C(vp_DZ);
+    coord CAM_HOSEI_FOVZ = CAM_HOSEI_FOVY/10;
+    coord VP_HOSEI_FOVZ = VP_HOSEI_FOVY/10;
+
+    int CAM_HOSEI_FOVXY = CAM_HOSEI_FOVY * 0.7071067811865475; //1/√2
+    int VP_HOSEI_FOVXY = CAM_HOSEI_FOVY * 0.7071067811865475;  //1/√2
+
+    int CAM_HOSEI_FOVXYZ = CAM_HOSEI_FOVY * 0.5773502691896258; //1/√3
+    int VP_HOSEI_FOVXYZ = VP_HOSEI_FOVY * 0.5773502691896258;   //1/√3
+
+    VamSysCamWorker2::cam_hosei_fov_ =  (FovInfo (*)[3*3*3])(&(VamSysCamWorker2::cam_hosei_fov_entity_[13][13])); //13 は 3*3*3=27 の真ん中の要素、_relation_up_vec[-13～13][-13～13]でアクセスする為
+    //                                 CAM             UP                   x_axis_fov       y_axis_fov       z_axis_fov
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_ZRIGHT][DIR26( 0,+1, 0)].set(CAM_HOSEI_FOVX , CAM_HOSEI_FOVY , CAM_HOSEI_FOVZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_ZRIGHT][DIR26(+1,+1, 0)].set(CAM_HOSEI_FOVXY, CAM_HOSEI_FOVXY, CAM_HOSEI_FOVZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_ZRIGHT][DIR26(+1, 0, 0)].set(CAM_HOSEI_FOVY , CAM_HOSEI_FOVX , CAM_HOSEI_FOVZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_ZRIGHT][DIR26(+1,-1, 0)].set(CAM_HOSEI_FOVXY, CAM_HOSEI_FOVXY, CAM_HOSEI_FOVZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_ZRIGHT][DIR26( 0,-1, 0)].set(CAM_HOSEI_FOVX , CAM_HOSEI_FOVY , CAM_HOSEI_FOVZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_ZRIGHT][DIR26(-1,-1, 0)].set(CAM_HOSEI_FOVXY, CAM_HOSEI_FOVXY, CAM_HOSEI_FOVZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_ZRIGHT][DIR26(-1, 0, 0)].set(CAM_HOSEI_FOVY , CAM_HOSEI_FOVX , CAM_HOSEI_FOVZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_ZRIGHT][DIR26(-1,+1, 0)].set(CAM_HOSEI_FOVXY, CAM_HOSEI_FOVXY, CAM_HOSEI_FOVZ);
+    // 真裏は同じなので、VAM_POS_ZRIGHT の定義を VAM_POS_ZLEFT にコピー
+    memcpy(&VamSysCamWorker2::cam_hosei_fov_[VAM_POS_ZLEFT][DIR26(-1,-1,-1)],
+           &VamSysCamWorker2::cam_hosei_fov_[VAM_POS_ZRIGHT][DIR26(-1,-1,-1)],
+           sizeof(FovInfo)*3*3*3);
+    //                                 CAM             UP                   x_axis_fov       y_axis_fov      z_axis_fov
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_FRONT][DIR26( 0,+1, 0)].set(CAM_HOSEI_FOVZ, CAM_HOSEI_FOVY , CAM_HOSEI_FOVX );
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_FRONT][DIR26( 0,+1,+1)].set(CAM_HOSEI_FOVZ, CAM_HOSEI_FOVXY, CAM_HOSEI_FOVXY);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_FRONT][DIR26( 0, 0,+1)].set(CAM_HOSEI_FOVZ, CAM_HOSEI_FOVX , CAM_HOSEI_FOVY );
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_FRONT][DIR26( 0,-1,+1)].set(CAM_HOSEI_FOVZ, CAM_HOSEI_FOVXY, CAM_HOSEI_FOVXY);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_FRONT][DIR26( 0,-1, 0)].set(CAM_HOSEI_FOVZ, CAM_HOSEI_FOVY , CAM_HOSEI_FOVX );
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_FRONT][DIR26( 0,-1,-1)].set(CAM_HOSEI_FOVZ, CAM_HOSEI_FOVXY, CAM_HOSEI_FOVXY);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_FRONT][DIR26( 0, 0,-1)].set(CAM_HOSEI_FOVZ, CAM_HOSEI_FOVX , CAM_HOSEI_FOVY );
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_FRONT][DIR26( 0,+1,-1)].set(CAM_HOSEI_FOVZ, CAM_HOSEI_FOVXY, CAM_HOSEI_FOVXY);
+    // 真裏は同じなので、VAM_POS_FRONT の定義を VAM_POS_BEHIND にコピー
+    memcpy(&VamSysCamWorker2::cam_hosei_fov_[VAM_POS_BEHIND][DIR26(-1,-1,-1)],
+           &VamSysCamWorker2::cam_hosei_fov_[VAM_POS_FRONT][DIR26(-1,-1,-1)],
+           sizeof(FovInfo)*3*3*3);
+    //                                 CAM             UP               x_axis_fov       y_axis_fov       z_axis_fov
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_UP][DIR26( 0, 0,+1)].set(CAM_HOSEI_FOVX,  CAM_HOSEI_FOVZ , CAM_HOSEI_FOVY );
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_UP][DIR26(+1, 0,+1)].set(CAM_HOSEI_FOVXY, CAM_HOSEI_FOVZ , CAM_HOSEI_FOVXY);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_UP][DIR26(+1, 0, 0)].set(CAM_HOSEI_FOVY , CAM_HOSEI_FOVZ , CAM_HOSEI_FOVX );
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_UP][DIR26(+1, 0,-1)].set(CAM_HOSEI_FOVXY, CAM_HOSEI_FOVZ , CAM_HOSEI_FOVXY);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_UP][DIR26( 0, 0,-1)].set(CAM_HOSEI_FOVX,  CAM_HOSEI_FOVZ , CAM_HOSEI_FOVY );
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_UP][DIR26(-1, 0,-1)].set(CAM_HOSEI_FOVXY, CAM_HOSEI_FOVZ , CAM_HOSEI_FOVXY);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_UP][DIR26(-1, 0, 0)].set(CAM_HOSEI_FOVY , CAM_HOSEI_FOVZ , CAM_HOSEI_FOVX );
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_UP][DIR26(-1, 0,+1)].set(CAM_HOSEI_FOVXY, CAM_HOSEI_FOVZ , CAM_HOSEI_FOVXY);
+    // 真裏は同じなので、VAM_POS_UP の定義を VAM_POS_DOWN にコピー
+    memcpy(&VamSysCamWorker2::cam_hosei_fov_[VAM_POS_DOWN][DIR26(-1,-1,-1)],
+           &VamSysCamWorker2::cam_hosei_fov_[VAM_POS_UP][DIR26(-1,-1,-1)],
+           sizeof(FovInfo)*3*3*3);
+    //                                 CAM                UP                   x_axis_fov       y_axis_fov       z_axis_fov
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_ZRIGHT_UP][DIR26( 0,+1,+1)].set(CAM_HOSEI_FOVX  , CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_ZRIGHT_UP][DIR26(+1,+1,+1)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_ZRIGHT_UP][DIR26(+1, 0, 0)].set(CAM_HOSEI_FOVY  , CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_ZRIGHT_UP][DIR26(+1,-1,-1)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_ZRIGHT_UP][DIR26( 0,-1,-1)].set(CAM_HOSEI_FOVX  , CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_ZRIGHT_UP][DIR26(-1,-1,-1)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_ZRIGHT_UP][DIR26(-1, 0, 0)].set(CAM_HOSEI_FOVY  , CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_ZRIGHT_UP][DIR26(-1,+1,+1)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ);
+    //真裏は同じなので、 VAM_POS_ZRIGHT_UP の定義を VAM_POS_ZLEFT_DOWN にコピー
+    memcpy(&VamSysCamWorker2::cam_hosei_fov_[VAM_POS_ZLEFT_DOWN][DIR26(-1,-1,-1)],
+           &VamSysCamWorker2::cam_hosei_fov_[VAM_POS_ZRIGHT_UP][DIR26(-1,-1,-1)],
+           sizeof(FovInfo)*3*3*3);
+    //                                 CAM                  UP                   x_axis_fov       y_axis_fov       z_axis_fov
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_ZRIGHT_DOWN][DIR26( 0,+1,-1)].set(CAM_HOSEI_FOVX  , CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_ZRIGHT_DOWN][DIR26(+1,+1,-1)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_ZRIGHT_DOWN][DIR26(+1, 0, 0)].set(CAM_HOSEI_FOVY  , CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_ZRIGHT_DOWN][DIR26(+1,-1,+1)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_ZRIGHT_DOWN][DIR26( 0,-1,+1)].set(CAM_HOSEI_FOVX  , CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_ZRIGHT_DOWN][DIR26(-1,-1,+1)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_ZRIGHT_DOWN][DIR26(-1, 0, 0)].set(CAM_HOSEI_FOVY  , CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_ZRIGHT_DOWN][DIR26(-1,+1,-1)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ);
+    //真裏は同じなので、 VAM_POS_ZRIGHT_DOWN の定義を VAM_POS_ZLEFT_UP にコピー
+    memcpy(&VamSysCamWorker2::cam_hosei_fov_[VAM_POS_ZLEFT_UP][DIR26(-1,-1,-1)],
+           &VamSysCamWorker2::cam_hosei_fov_[VAM_POS_ZRIGHT_DOWN][DIR26(-1,-1,-1)],
+           sizeof(FovInfo)*3*3*3);
+    //                                 CAM                  UP                    x_axis_fov       y_axis_fov       z_axis_fov
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_FRONT_ZRIGHT][DIR26( 0,+1, 0)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVY  , CAM_HOSEI_FOVXYZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_FRONT_ZRIGHT][DIR26(+1,+1,+1)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_FRONT_ZRIGHT][DIR26(+1, 0,+1)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVX  , CAM_HOSEI_FOVXYZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_FRONT_ZRIGHT][DIR26(+1,-1,+1)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_FRONT_ZRIGHT][DIR26( 0,-1, 0)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVY  , CAM_HOSEI_FOVXYZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_FRONT_ZRIGHT][DIR26(-1,-1,-1)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_FRONT_ZRIGHT][DIR26(-1, 0,-1)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVX  , CAM_HOSEI_FOVXYZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_FRONT_ZRIGHT][DIR26(-1,+1,-1)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ);
+    //真裏は同じなので、 VAM_POS_FRONT_ZRIGHT の定義を VAM_POS_BEHIND_ZLEFT にコピー
+    memcpy(&VamSysCamWorker2::cam_hosei_fov_[VAM_POS_BEHIND_ZLEFT][DIR26(-1,-1,-1)],
+           &VamSysCamWorker2::cam_hosei_fov_[VAM_POS_FRONT_ZRIGHT][DIR26(-1,-1,-1)],
+           sizeof(FovInfo)*3*3*3);
+    //                                 CAM                  UP                    x_axis_fov       y_axis_fov       z_axis_fov
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_BEHIND_ZRIGHT][DIR26( 0,+1, 0)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVY  , CAM_HOSEI_FOVXYZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_BEHIND_ZRIGHT][DIR26(+1,+1,-1)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_BEHIND_ZRIGHT][DIR26(+1, 0,-1)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVX  , CAM_HOSEI_FOVXYZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_BEHIND_ZRIGHT][DIR26(+1,-1,-1)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_BEHIND_ZRIGHT][DIR26( 0,-1, 0)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVY  , CAM_HOSEI_FOVXYZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_BEHIND_ZRIGHT][DIR26(-1,-1,+1)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_BEHIND_ZRIGHT][DIR26(-1, 0,+1)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVX  , CAM_HOSEI_FOVXYZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_BEHIND_ZRIGHT][DIR26(-1,+1,+1)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ);
+    //真裏は同じなので、 VAM_POS_BEHIND_ZRIGHT の定義を VAM_POS_FRONT_ZLEFT にコピー
+    memcpy(&VamSysCamWorker2::cam_hosei_fov_[VAM_POS_FRONT_ZLEFT][DIR26(-1,-1,-1)],
+           &VamSysCamWorker2::cam_hosei_fov_[VAM_POS_BEHIND_ZRIGHT][DIR26(-1,-1,-1)],
+           sizeof(FovInfo)*3*3*3);
+    //                                 CAM                  UP                x_axis_fov       y_axis_fov       z_axis_fov
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_FRONT_UP][DIR26(-1,+1, 0)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVX  );
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_FRONT_UP][DIR26(-1,+1,+1)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_FRONT_UP][DIR26( 0, 0,+1)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVY  );
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_FRONT_UP][DIR26(+1,-1,+1)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_FRONT_UP][DIR26(+1,-1, 0)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVX  );
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_FRONT_UP][DIR26(+1,-1,-1)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_FRONT_UP][DIR26( 0, 0,-1)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVY  );
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_FRONT_UP][DIR26(-1,+1,-1)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ);
+    //真裏は同じなので、 VAM_POS_FRONT_UP の定義を VAM_POS_BEHIND_DOWN にコピー
+    memcpy(&VamSysCamWorker2::cam_hosei_fov_[VAM_POS_BEHIND_DOWN][DIR26(-1,-1,-1)],
+           &VamSysCamWorker2::cam_hosei_fov_[VAM_POS_FRONT_UP][DIR26(-1,-1,-1)],
+           sizeof(FovInfo)*3*3*3);
+    //                                 CAM                  UP                 x_axis_fov       y_axis_fov       z_axis_fov
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_FRONT_DOWN][DIR26(+1,+1, 0)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVX  );
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_FRONT_DOWN][DIR26(+1,+1,+1)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_FRONT_DOWN][DIR26( 0, 0,+1)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVY  );
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_FRONT_DOWN][DIR26(-1,-1,+1)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_FRONT_DOWN][DIR26(-1,-1, 0)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVX  );
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_FRONT_DOWN][DIR26(-1,-1,-1)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ);
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_FRONT_DOWN][DIR26( 0, 0,-1)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVY  );
+    VamSysCamWorker2::cam_hosei_fov_[VAM_POS_FRONT_DOWN][DIR26(+1,+1,-1)].set(CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ, CAM_HOSEI_FOVXYZ);
+    //真裏は同じなので、 VAM_POS_FRONT_DOWN の定義を VAM_POS_BEHIND_UP にコピー
+    memcpy(&VamSysCamWorker2::cam_hosei_fov_[VAM_POS_BEHIND_UP][DIR26(-1,-1,-1)],
+           &VamSysCamWorker2::cam_hosei_fov_[VAM_POS_FRONT_DOWN][DIR26(-1,-1,-1)],
+           sizeof(FovInfo)*3*3*3);
+
+
+
+    //VPも同様に
+    VamSysCamWorker2::vp_hosei_fov_ =  (FovInfo (*)[3*3*3])(&(VamSysCamWorker2::vp_hosei_fov_entity_[13][13])); //13 は 3*3*3=27 の真ん中の要素、_relation_up_vec[-13～13][-13～13]でアクセスする為
+    //                                 CAM             UP                   x_axis_fov       y_axis_fov       z_axis_fov
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_ZRIGHT][DIR26( 0,+1, 0)].set(VP_HOSEI_FOVX , VP_HOSEI_FOVY , VP_HOSEI_FOVZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_ZRIGHT][DIR26(+1,+1, 0)].set(VP_HOSEI_FOVXY, VP_HOSEI_FOVXY, VP_HOSEI_FOVZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_ZRIGHT][DIR26(+1, 0, 0)].set(VP_HOSEI_FOVY , VP_HOSEI_FOVX , VP_HOSEI_FOVZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_ZRIGHT][DIR26(+1,-1, 0)].set(VP_HOSEI_FOVXY, VP_HOSEI_FOVXY, VP_HOSEI_FOVZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_ZRIGHT][DIR26( 0,-1, 0)].set(VP_HOSEI_FOVX , VP_HOSEI_FOVY , VP_HOSEI_FOVZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_ZRIGHT][DIR26(-1,-1, 0)].set(VP_HOSEI_FOVXY, VP_HOSEI_FOVXY, VP_HOSEI_FOVZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_ZRIGHT][DIR26(-1, 0, 0)].set(VP_HOSEI_FOVY , VP_HOSEI_FOVX , VP_HOSEI_FOVZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_ZRIGHT][DIR26(-1,+1, 0)].set(VP_HOSEI_FOVXY, VP_HOSEI_FOVXY, VP_HOSEI_FOVZ);
+    // 真裏は同じなので、VAM_POS_ZRIGHT の定義を VAM_POS_ZLEFT にコピー
+    memcpy(&VamSysCamWorker2::vp_hosei_fov_[VAM_POS_ZLEFT][DIR26(-1,-1,-1)],
+           &VamSysCamWorker2::vp_hosei_fov_[VAM_POS_ZRIGHT][DIR26(-1,-1,-1)],
+           sizeof(FovInfo)*3*3*3);
+    //                                 CAM             UP                   x_axis_fov       y_axis_fov      z_axis_fov
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_FRONT][DIR26( 0,+1, 0)].set(VP_HOSEI_FOVZ, VP_HOSEI_FOVY , VP_HOSEI_FOVX );
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_FRONT][DIR26( 0,+1,+1)].set(VP_HOSEI_FOVZ, VP_HOSEI_FOVXY, VP_HOSEI_FOVXY);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_FRONT][DIR26( 0, 0,+1)].set(VP_HOSEI_FOVZ, VP_HOSEI_FOVX , VP_HOSEI_FOVY );
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_FRONT][DIR26( 0,-1,+1)].set(VP_HOSEI_FOVZ, VP_HOSEI_FOVXY, VP_HOSEI_FOVXY);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_FRONT][DIR26( 0,-1, 0)].set(VP_HOSEI_FOVZ, VP_HOSEI_FOVY , VP_HOSEI_FOVX );
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_FRONT][DIR26( 0,-1,-1)].set(VP_HOSEI_FOVZ, VP_HOSEI_FOVXY, VP_HOSEI_FOVXY);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_FRONT][DIR26( 0, 0,-1)].set(VP_HOSEI_FOVZ, VP_HOSEI_FOVX , VP_HOSEI_FOVY );
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_FRONT][DIR26( 0,+1,-1)].set(VP_HOSEI_FOVZ, VP_HOSEI_FOVXY, VP_HOSEI_FOVXY);
+    // 真裏は同じなので、VAM_POS_FRONT の定義を VAM_POS_BEHIND にコピー
+    memcpy(&VamSysCamWorker2::vp_hosei_fov_[VAM_POS_BEHIND][DIR26(-1,-1,-1)],
+           &VamSysCamWorker2::vp_hosei_fov_[VAM_POS_FRONT][DIR26(-1,-1,-1)],
+           sizeof(FovInfo)*3*3*3);
+    //                                 CAM             UP               x_axis_fov       y_axis_fov       z_axis_fov
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_UP][DIR26( 0, 0,+1)].set(VP_HOSEI_FOVX,  VP_HOSEI_FOVZ , VP_HOSEI_FOVY );
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_UP][DIR26(+1, 0,+1)].set(VP_HOSEI_FOVXY, VP_HOSEI_FOVZ , VP_HOSEI_FOVXY);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_UP][DIR26(+1, 0, 0)].set(VP_HOSEI_FOVY , VP_HOSEI_FOVZ , VP_HOSEI_FOVX );
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_UP][DIR26(+1, 0,-1)].set(VP_HOSEI_FOVXY, VP_HOSEI_FOVZ , VP_HOSEI_FOVXY);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_UP][DIR26( 0, 0,-1)].set(VP_HOSEI_FOVX,  VP_HOSEI_FOVZ , VP_HOSEI_FOVY );
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_UP][DIR26(-1, 0,-1)].set(VP_HOSEI_FOVXY, VP_HOSEI_FOVZ , VP_HOSEI_FOVXY);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_UP][DIR26(-1, 0, 0)].set(VP_HOSEI_FOVY , VP_HOSEI_FOVZ , VP_HOSEI_FOVX );
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_UP][DIR26(-1, 0,+1)].set(VP_HOSEI_FOVXY, VP_HOSEI_FOVZ , VP_HOSEI_FOVXY);
+    // 真裏は同じなので、VAM_POS_UP の定義を VAM_POS_DOWN にコピー
+    memcpy(&VamSysCamWorker2::vp_hosei_fov_[VAM_POS_DOWN][DIR26(-1,-1,-1)],
+           &VamSysCamWorker2::vp_hosei_fov_[VAM_POS_UP][DIR26(-1,-1,-1)],
+           sizeof(FovInfo)*3*3*3);
+    //                                 CAM                UP                   x_axis_fov       y_axis_fov       z_axis_fov
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_ZRIGHT_UP][DIR26( 0,+1,+1)].set(VP_HOSEI_FOVX  , VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_ZRIGHT_UP][DIR26(+1,+1,+1)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_ZRIGHT_UP][DIR26(+1, 0, 0)].set(VP_HOSEI_FOVY  , VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_ZRIGHT_UP][DIR26(+1,-1,-1)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_ZRIGHT_UP][DIR26( 0,-1,-1)].set(VP_HOSEI_FOVX  , VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_ZRIGHT_UP][DIR26(-1,-1,-1)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_ZRIGHT_UP][DIR26(-1, 0, 0)].set(VP_HOSEI_FOVY  , VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_ZRIGHT_UP][DIR26(-1,+1,+1)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ);
+    //真裏は同じなので、 VAM_POS_ZRIGHT_UP の定義を VAM_POS_ZLEFT_DOWN にコピー
+    memcpy(&VamSysCamWorker2::vp_hosei_fov_[VAM_POS_ZLEFT_DOWN][DIR26(-1,-1,-1)],
+           &VamSysCamWorker2::vp_hosei_fov_[VAM_POS_ZRIGHT_UP][DIR26(-1,-1,-1)],
+           sizeof(FovInfo)*3*3*3);
+    //                                 CAM                  UP                   x_axis_fov       y_axis_fov       z_axis_fov
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_ZRIGHT_DOWN][DIR26( 0,+1,-1)].set(VP_HOSEI_FOVX  , VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_ZRIGHT_DOWN][DIR26(+1,+1,-1)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_ZRIGHT_DOWN][DIR26(+1, 0, 0)].set(VP_HOSEI_FOVY  , VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_ZRIGHT_DOWN][DIR26(+1,-1,+1)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_ZRIGHT_DOWN][DIR26( 0,-1,+1)].set(VP_HOSEI_FOVX  , VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_ZRIGHT_DOWN][DIR26(-1,-1,+1)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_ZRIGHT_DOWN][DIR26(-1, 0, 0)].set(VP_HOSEI_FOVY  , VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_ZRIGHT_DOWN][DIR26(-1,+1,-1)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ);
+    //真裏は同じなので、 VAM_POS_ZRIGHT_DOWN の定義を VAM_POS_ZLEFT_UP にコピー
+    memcpy(&VamSysCamWorker2::vp_hosei_fov_[VAM_POS_ZLEFT_UP][DIR26(-1,-1,-1)],
+           &VamSysCamWorker2::vp_hosei_fov_[VAM_POS_ZRIGHT_DOWN][DIR26(-1,-1,-1)],
+           sizeof(FovInfo)*3*3*3);
+    //                                 CAM                  UP                    x_axis_fov       y_axis_fov       z_axis_fov
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_FRONT_ZRIGHT][DIR26( 0,+1, 0)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVY  , VP_HOSEI_FOVXYZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_FRONT_ZRIGHT][DIR26(+1,+1,+1)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_FRONT_ZRIGHT][DIR26(+1, 0,+1)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVX  , VP_HOSEI_FOVXYZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_FRONT_ZRIGHT][DIR26(+1,-1,+1)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_FRONT_ZRIGHT][DIR26( 0,-1, 0)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVY  , VP_HOSEI_FOVXYZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_FRONT_ZRIGHT][DIR26(-1,-1,-1)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_FRONT_ZRIGHT][DIR26(-1, 0,-1)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVX  , VP_HOSEI_FOVXYZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_FRONT_ZRIGHT][DIR26(-1,+1,-1)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ);
+    //真裏は同じなので、 VAM_POS_FRONT_ZRIGHT の定義を VAM_POS_BEHIND_ZLEFT にコピー
+    memcpy(&VamSysCamWorker2::vp_hosei_fov_[VAM_POS_BEHIND_ZLEFT][DIR26(-1,-1,-1)],
+           &VamSysCamWorker2::vp_hosei_fov_[VAM_POS_FRONT_ZRIGHT][DIR26(-1,-1,-1)],
+           sizeof(FovInfo)*3*3*3);
+    //                                 CAM                  UP                    x_axis_fov       y_axis_fov       z_axis_fov
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_BEHIND_ZRIGHT][DIR26( 0,+1, 0)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVY  , VP_HOSEI_FOVXYZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_BEHIND_ZRIGHT][DIR26(+1,+1,-1)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_BEHIND_ZRIGHT][DIR26(+1, 0,-1)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVX  , VP_HOSEI_FOVXYZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_BEHIND_ZRIGHT][DIR26(+1,-1,-1)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_BEHIND_ZRIGHT][DIR26( 0,-1, 0)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVY  , VP_HOSEI_FOVXYZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_BEHIND_ZRIGHT][DIR26(-1,-1,+1)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_BEHIND_ZRIGHT][DIR26(-1, 0,+1)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVX  , VP_HOSEI_FOVXYZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_BEHIND_ZRIGHT][DIR26(-1,+1,+1)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ);
+    //真裏は同じなので、 VAM_POS_BEHIND_ZRIGHT の定義を VAM_POS_FRONT_ZLEFT にコピー
+    memcpy(&VamSysCamWorker2::vp_hosei_fov_[VAM_POS_FRONT_ZLEFT][DIR26(-1,-1,-1)],
+           &VamSysCamWorker2::vp_hosei_fov_[VAM_POS_BEHIND_ZRIGHT][DIR26(-1,-1,-1)],
+           sizeof(FovInfo)*3*3*3);
+    //                                 CAM                  UP                x_axis_fov       y_axis_fov       z_axis_fov
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_FRONT_UP][DIR26(-1,+1, 0)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ, VP_HOSEI_FOVX  );
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_FRONT_UP][DIR26(-1,+1,+1)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_FRONT_UP][DIR26( 0, 0,+1)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ, VP_HOSEI_FOVY  );
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_FRONT_UP][DIR26(+1,-1,+1)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_FRONT_UP][DIR26(+1,-1, 0)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ, VP_HOSEI_FOVX  );
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_FRONT_UP][DIR26(+1,-1,-1)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_FRONT_UP][DIR26( 0, 0,-1)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ, VP_HOSEI_FOVY  );
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_FRONT_UP][DIR26(-1,+1,-1)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ);
+    //真裏は同じなので、 VAM_POS_FRONT_UP の定義を VAM_POS_BEHIND_DOWN にコピー
+    memcpy(&VamSysCamWorker2::vp_hosei_fov_[VAM_POS_BEHIND_DOWN][DIR26(-1,-1,-1)],
+           &VamSysCamWorker2::vp_hosei_fov_[VAM_POS_FRONT_UP][DIR26(-1,-1,-1)],
+           sizeof(FovInfo)*3*3*3);
+    //                                 CAM                  UP                 x_axis_fov       y_axis_fov       z_axis_fov
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_FRONT_DOWN][DIR26(+1,+1, 0)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ, VP_HOSEI_FOVX  );
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_FRONT_DOWN][DIR26(+1,+1,+1)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_FRONT_DOWN][DIR26( 0, 0,+1)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ, VP_HOSEI_FOVY  );
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_FRONT_DOWN][DIR26(-1,-1,+1)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_FRONT_DOWN][DIR26(-1,-1, 0)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ, VP_HOSEI_FOVX  );
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_FRONT_DOWN][DIR26(-1,-1,-1)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ);
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_FRONT_DOWN][DIR26( 0, 0,-1)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ, VP_HOSEI_FOVY  );
+    VamSysCamWorker2::vp_hosei_fov_[VAM_POS_FRONT_DOWN][DIR26(+1,+1,-1)].set(VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ, VP_HOSEI_FOVXYZ);
+    //真裏は同じなので、 VAM_POS_FRONT_DOWN の定義を VAM_POS_BEHIND_UP にコピー
+    memcpy(&VamSysCamWorker2::vp_hosei_fov_[VAM_POS_BEHIND_UP][DIR26(-1,-1,-1)],
+           &VamSysCamWorker2::vp_hosei_fov_[VAM_POS_FRONT_DOWN][DIR26(-1,-1,-1)],
+           sizeof(FovInfo)*3*3*3);
+
+
+    VamSysCamWorker2::mv_ang_ = (2*PI) * (2.0/360.0); //2度
+    VamSysCamWorker2::mv_ang_sinHalf_ = sin(VamSysCamWorker2::mv_ang_/2);
+    VamSysCamWorker2::mv_ang_cosHalf_ = cos(VamSysCamWorker2::mv_ang_/2);
+
+    _TRACE_("VamSysCamWorker2::initStatic() 初期化OK");
+    return true;
+}
+
+VamSysCamWorker2::VamSysCamWorker2(const char* prm_name, Camera* prm_pCamera) : CameraWorker(prm_name, (DefaultCamera*)prm_pCamera) {
+    _class_name = "VamSysCamWorker2";
+
+    static volatile bool is_init = VamSysCamWorker2::initStatic(prm_pCamera); //静的メンバ初期化
+
+    pMyShip_ = nullptr; //MyShipSceneに設定してもらう
+
+    pos_vam_camera_ = VAM_POS_ZRIGHT;
+    pos_vam_camera_prev_ = VAM_POS_NON;
+    is_just_changed_pos_vam_cam_ = false;
+
+    returning_cam_pos_ = false;
+    returning_cam_pos_frames_ = 0;
+
+    pos_vam_up_ = DIR26(0,1,0);
+    pSe_ = NEW GgafDxSeTransmitter();
+    pSe_->set(SE_RETURNNING_CAM_POS, "WAVE_MY_RETURNNING_CAM_POS" ,0);
 
     mv_t_x_vUP_  = 0;
     mv_t_y_vUP_  = DX_C(1);
@@ -365,7 +627,13 @@ VamSysCamWorker2::VamSysCamWorker2(const char* prm_name, Camera* prm_pCamera) : 
     mv_t_y_vCAM_ = 0;
     mv_t_z_vCAM_ = -cam_radius_;
 
-    static volatile bool is_init = VamSysCamWorker2::initStatic(); //静的メンバ初期化
+    cam_sgn_x_ = 0;
+    cam_sgn_y_ = 0;
+    cam_sgn_z_ = -1;
+
+    cam_sgn_x_ = 0;
+    cam_sgn_y_ = 1;
+    cam_sgn_z_ = 0;
 }
 
 
@@ -385,12 +653,12 @@ void VamSysCamWorker2::processBehavior() {
     coord pMyShip_x = pMyShip_->_x;
     coord pMyShip_y = pMyShip_->_y;
     coord pMyShip_z = pMyShip_->_z;
-    frame cam_mv_frame = 20;
+    frame cam_mv_frame = 40;
 
-    bool isPressed_VB_VIEW_UP    = pVbPlay->isPressed(VB_VIEW_UP);
-    bool isPressed_VB_VIEW_DOWN  = pVbPlay->isPressed(VB_VIEW_DOWN);
-    bool isPressed_VB_VIEW_LEFT  = pVbPlay->isPressed(VB_VIEW_LEFT);
-    bool isPressed_VB_VIEW_RIGHT = pVbPlay->isPressed(VB_VIEW_RIGHT);
+    const bool isPressed_VB_VIEW_UP    = pVbPlay->isPressed(VB_VIEW_UP);
+    const bool isPressed_VB_VIEW_DOWN  = pVbPlay->isPressed(VB_VIEW_DOWN);
+    const bool isPressed_VB_VIEW_LEFT  = pVbPlay->isPressed(VB_VIEW_LEFT);
+    const bool isPressed_VB_VIEW_RIGHT = pVbPlay->isPressed(VB_VIEW_RIGHT);
 
     if (returning_cam_pos_) {
         if (returning_cam_pos_frames_ == 0) {
@@ -404,8 +672,8 @@ void VamSysCamWorker2::processBehavior() {
         if (pVbPlay->arePushedDownAtOnce(VB_VIEW_UP, VB_VIEW_DOWN) ) {
             pSe_->play(SE_RETURNNING_CAM_POS);
             coord dcam = UTIL::getDistance(mv_t_x_vCAM_, mv_t_y_vCAM_, mv_t_z_vCAM_,
-                                           (coord)0, (coord)0,-cam_radius_);
-            returning_cam_pos_frames_ = (1.0 * dcam / cam_radius_) * 30; //真反対にいたら30*2=60フレーム
+                                           (coord)0, (coord)0,-VamSysCamWorker2::cam_radius_);
+            returning_cam_pos_frames_ = (1.0 * dcam /VamSysCamWorker2:: cam_radius_) * 50; //真反対にいたら50*2=100フレーム
             if (returning_cam_pos_frames_ < 10) {
                 returning_cam_pos_frames_ = 10;
             }
@@ -417,7 +685,7 @@ void VamSysCamWorker2::processBehavior() {
 
             mv_t_x_vCAM_ = 0;
             mv_t_y_vCAM_ = 0;
-            mv_t_z_vCAM_ = -cam_radius_;
+            mv_t_z_vCAM_ = -VamSysCamWorker2::cam_radius_;
             cam_mv_frame = returning_cam_pos_frames_;
         }
     }
@@ -439,7 +707,6 @@ void VamSysCamWorker2::processBehavior() {
         (isPressed_VB_VIEW_UP || isPressed_VB_VIEW_DOWN || isPressed_VB_VIEW_LEFT || isPressed_VB_VIEW_RIGHT)
     ) {
         double vx, vy, vz;
-        vx = vy = vz = 0;
         if (isPressed_VB_VIEW_UP) {
             vx = 1;
         }
@@ -452,8 +719,7 @@ void VamSysCamWorker2::processBehavior() {
         if (isPressed_VB_VIEW_RIGHT) {
             vy = 1;
         }
-        double d = sqrt(vx * vx + vy * vy);
-        double t = 1.0 / d;
+        double t = 1.0 / sqrt(vx * vx + vy * vy);
         vx = t * vx;
         vy = t * vy;
         vz = 0;
@@ -474,7 +740,7 @@ void VamSysCamWorker2::processBehavior() {
         //平面回転軸(vx,vy)をVPのワールド空間軸に変換
         //VP→CAMのワールド空間方向ベクトルを法線とする平面上に回転軸ベクトルは存在する
         D3DXMATRIX InvView;
-        D3DXMatrixInverse( &InvView, nullptr, &matView);
+        D3DXMatrixInverse(&InvView, nullptr, &matView);
         //(vx,vy,vz) * InvView
         // 11_, 12_, 13_, 14_
         // 21_, 22_, 23_, 24_
@@ -483,11 +749,11 @@ void VamSysCamWorker2::processBehavior() {
         //方向ベクトル(0,0,0)->(vx,vy,vz) を逆ビュー変換
         //変換後方向ベクトル = (vx,vy,vz)変換後座標 - (0,0,0)変換後座標
         //               <------------  (vx,vy,vz)変換後座標-------------------------->    <-- (0,0,0)変換後座標 -->
-        double vX_axis = vx*InvView._11 + vy*InvView._21 + vz*InvView._31 + InvView._41  -    InvView._41;
-        double vY_axis = vx*InvView._12 + vy*InvView._22 + vz*InvView._32 + InvView._42  -    InvView._42;
-        double vZ_axis = vx*InvView._13 + vy*InvView._23 + vz*InvView._33 + InvView._43  -    InvView._43;
+        double vX_axis = vx*InvView._11 + vy*InvView._21 + vz*InvView._31 + InvView._41  - InvView._41;
+        double vY_axis = vx*InvView._12 + vy*InvView._22 + vz*InvView._32 + InvView._42  - InvView._42;
+        double vZ_axis = vx*InvView._13 + vy*InvView._23 + vz*InvView._33 + InvView._43  - InvView._43;
         //正規化
-        double t2 = 1.0 / sqrt(vX_axis * vX_axis + vY_axis * vY_axis + vZ_axis * vZ_axis);
+        double t2 = 1.0 / sqrt(vX_axis*vX_axis + vY_axis*vY_axis + vZ_axis*vZ_axis);
         vX_axis = t2 * vX_axis;
         vY_axis = t2 * vY_axis;
         vZ_axis = t2 * vZ_axis;
@@ -503,10 +769,8 @@ void VamSysCamWorker2::processBehavior() {
         //(x, y, z) は CAM か VP か UP
 
         //回転させたい角度
-        const double ang = (2*PI) * (2.0/360.0); //2度
-
-        double sinHalf = sin(ang/2);
-        double cosHalf = cos(ang/2);
+        double sinHalf = VamSysCamWorker2::mv_ang_sinHalf_;
+        double cosHalf = VamSysCamWorker2::mv_ang_cosHalf_;
         GgafDxQuaternion qu(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
         GgafDxQuaternion qu2 = qu;
         GgafDxQuaternion Q(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf);
@@ -524,51 +788,63 @@ void VamSysCamWorker2::processBehavior() {
             mv_t_z_vUP_ = DX_C(qu2.k);
         }
     }
+    const FovInfo* pFovInfo_cam = (&VamSysCamWorker2::cam_hosei_fov_[pos_vam_camera_][pos_vam_up_]);
+    const coord cam_x_hosei_fov = pFovInfo_cam->x_fov;
+    const coord cam_y_hosei_fov = pFovInfo_cam->y_fov;
+    const coord cam_z_hosei_fov = pFovInfo_cam->z_fov;
+    const FovInfo* pFovInfo_vp = (&VamSysCamWorker2::vp_hosei_fov_[pos_vam_camera_][pos_vam_up_]);
+    const coord vp_x_hosei_fov = pFovInfo_vp->x_fov;
+    const coord vp_y_hosei_fov = pFovInfo_vp->y_fov;
+    const coord vp_z_hosei_fov = pFovInfo_vp->z_fov;
+#ifdef MY_DEBUG
+    if (cam_x_hosei_fov == 0 || cam_y_hosei_fov == 0 || cam_z_hosei_fov == 0 ||
+        vp_x_hosei_fov == 0 || vp_y_hosei_fov == 0 || vp_z_hosei_fov == 0)
+    {
+        throwGgafCriticalException("VamSysCamWorker2::processBehavior() 想定外のCamとUp方向の組み合わせに遭遇。要調査。\n"<<
+                "pos_vam_camera_="<<pos_vam_camera_<<", pos_vam_up_="<<pos_vam_up_);
+    }
+#endif
+    const coord cam_x_hosei = RCNV(MyShip::lim_x_behaind_, MyShip::lim_x_infront_, pMyShip_x, -cam_x_hosei_fov, cam_x_hosei_fov);
+    const coord vp_x_hosei = RCNV(MyShip::lim_x_behaind_, MyShip::lim_x_infront_, pMyShip_x, -vp_x_hosei_fov, vp_x_hosei_fov);
+    const coord cam_y_hosei = RCNV(MyShip::lim_y_bottom_, MyShip::lim_y_top_, pMyShip_y, -cam_y_hosei_fov, cam_y_hosei_fov);
+    const coord vp_y_hosei = RCNV(MyShip::lim_y_bottom_, MyShip::lim_y_top_, pMyShip_y, -vp_y_hosei_fov, vp_y_hosei_fov);
+    const coord cam_z_hosei = RCNV(MyShip::lim_z_right_, MyShip::lim_z_left_, pMyShip_z, -cam_z_hosei_fov, cam_z_hosei_fov);
+    const coord vp_z_hosei = RCNV(MyShip::lim_z_right_, MyShip::lim_z_left_, pMyShip_z, -vp_z_hosei_fov, vp_z_hosei_fov);
 
-    coord cam_x_hosei = RCNV(MyShip::lim_x_behaind_, MyShip::lim_x_infront_, pMyShip_x, -CAM_HOSEI_DX_, CAM_HOSEI_DX_);
-    coord vp_x_hosei = RCNV(MyShip::lim_x_behaind_, MyShip::lim_x_infront_, pMyShip_x, -VP_HOSEI_DX_, VP_HOSEI_DX_);
-    coord cam_y_hosei = RCNV(MyShip::lim_y_bottom_, MyShip::lim_y_top_, pMyShip_y, -CAM_HOSEI_DY_, CAM_HOSEI_DY_);
-    coord vp_y_hosei = RCNV(MyShip::lim_y_bottom_, MyShip::lim_y_top_, pMyShip_y, -VP_HOSEI_DY_, VP_HOSEI_DY_);
-    coord cam_z_hosei = RCNV(MyShip::lim_z_right_, MyShip::lim_z_left_, pMyShip_z, -CAM_HOSEI_DZ_, CAM_HOSEI_DZ_);
-    coord vp_z_hosei = RCNV(MyShip::lim_z_right_, MyShip::lim_z_left_, pMyShip_z, -VP_HOSEI_DZ_, VP_HOSEI_DZ_);
-    //CAM_HOSEI_DY_ VP_HOSEI_DY_ がなんかでかい
-    coord mv_t_x_CAM = pMyShip_x + mv_t_x_vCAM_ - cam_x_hosei;
-    coord mv_t_y_CAM = pMyShip_y + mv_t_y_vCAM_ - cam_y_hosei;
-    coord mv_t_z_CAM = pMyShip_z + mv_t_z_vCAM_ - cam_z_hosei;
-    coord mv_t_x_VP = pMyShip_x - vp_x_hosei;
-    coord mv_t_y_VP = pMyShip_y - vp_y_hosei;
-    coord mv_t_z_VP = pMyShip_z - vp_z_hosei;
+    const coord mv_t_x_CAM = pMyShip_x + mv_t_x_vCAM_ - cam_x_hosei;
+    const coord mv_t_y_CAM = pMyShip_y + mv_t_y_vCAM_ - cam_y_hosei;
+    const coord mv_t_z_CAM = pMyShip_z + mv_t_z_vCAM_ - cam_z_hosei;
+    const coord mv_t_x_VP = pMyShip_x - vp_x_hosei;
+    const coord mv_t_y_VP = pMyShip_y - vp_y_hosei;
+    const coord mv_t_z_VP = pMyShip_z - vp_z_hosei;
 
     if (t_x_CAM_ != mv_t_x_CAM  || t_y_CAM_ != mv_t_y_CAM || t_z_CAM_ != mv_t_z_CAM ||
         t_x_VP_  != mv_t_x_VP   || t_y_VP_  != mv_t_y_VP  || t_z_VP_  != mv_t_z_VP
     ) {
         slideMvCamTo(mv_t_x_CAM, mv_t_y_CAM, mv_t_z_CAM, cam_mv_frame);
-        slideMvVpTo(mv_t_x_VP, mv_t_y_VP, mv_t_z_VP, cam_mv_frame);
+        slideMvVpTo(mv_t_x_VP, mv_t_y_VP, mv_t_z_VP, cam_mv_frame*0.8);
         slideMvUpVecTo(mv_t_x_vUP_, mv_t_y_vUP_, mv_t_z_vUP_, cam_mv_frame);
     }
-
-    int cam_sgn_x, cam_sgn_y, cam_sgn_z;
+    //18方向へ
     if (mv_t_x_vCAM_ == 0 && mv_t_y_vCAM_ == 0 && mv_t_z_vCAM_ == 0) {
         mv_t_z_vCAM_ = -C_PX(1); //0除算防止
     }
-    //18方向へ
-    VamSysCamWorker2::cnvVec2VamSgn(mv_t_x_vCAM_, mv_t_y_vCAM_, mv_t_z_vCAM_, cam_sgn_x, cam_sgn_y, cam_sgn_z);
-    pos_vam_camera_ = DIR26(cam_sgn_x, cam_sgn_y, cam_sgn_z);
+    VamSysCamWorker2::cnvVec2VamSgn(mv_t_x_vCAM_, mv_t_y_vCAM_, mv_t_z_vCAM_,
+                                    cam_sgn_x_, cam_sgn_y_, cam_sgn_z_);
+    pos_vam_camera_ = DIR26(cam_sgn_x_, cam_sgn_y_, cam_sgn_z_); //18方向へ
     if (pos_vam_camera_prev_ != pos_vam_camera_) {
         is_just_changed_pos_vam_cam_ = true;
         //UPも更新する
-        int up_sgn_x, up_sgn_y, up_sgn_z;
         if (mv_t_x_vUP_ == 0 && mv_t_y_vUP_ == 0 && mv_t_z_vUP_ == 0) {
             mv_t_y_vUP_ = C_PX(1); //0除算防止
         }
         VamSysCamWorker2::cnvVec2VamUpSgn(pos_vam_camera_,
                                           mv_t_x_vUP_, mv_t_y_vUP_, mv_t_z_vUP_,
-                                          up_sgn_x, up_sgn_y, up_sgn_z);
-        pos_vam_up_ = DIR26(up_sgn_x, up_sgn_y, up_sgn_z);
+                                          up_sgn_x_, up_sgn_y_, up_sgn_z_);
+        pos_vam_up_ = DIR26(up_sgn_x_, up_sgn_y_, up_sgn_z_);
     } else {
         is_just_changed_pos_vam_cam_ = false;
     }
-
     pos_vam_camera_prev_ = pos_vam_camera_;
 }
 

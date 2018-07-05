@@ -2,6 +2,7 @@
 
 #include "CameraUpVector.h"
 #include "CameraViewPoint.h"
+#include "jp/gecchi/VioletVreath/actor/camera/worker/VamSysCamWorker2.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -11,6 +12,9 @@ using namespace VioletVreath;
 Camera::Camera(const char* prm_name) :
         DefaultCamera(prm_name, 2*PI * 90.0 / 360.0) { //かなり横長画面なので視野角90～100度ぐらい
     _class_name = "Camera";
+    // VamSysCamWorker2::initStatic() を実行しておきたい・・・
+    VamSysCamWorker2* wk = NEW VamSysCamWorker2("WK",this);
+    GGAF_DELETE(wk);
 }
 
 GgafDxCameraViewPoint* Camera::createCameraViewPoint() {

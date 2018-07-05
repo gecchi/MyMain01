@@ -60,7 +60,7 @@ void DefaultCamera::processBehavior() {
 void DefaultCamera::slideMvTo(coord tx, coord ty, coord tz, frame t) {
     getAxesMover()->asst()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,
-                              0.3, 0.7, 0, true);
+                              0.3, 0.5, 0, true);
 }
 
 void DefaultCamera::slideMvTo(GgafDxGeometricActor* pTarget, frame t) {
