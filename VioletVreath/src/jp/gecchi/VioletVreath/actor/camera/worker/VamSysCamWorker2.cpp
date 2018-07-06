@@ -346,7 +346,7 @@ bool VamSysCamWorker2::initStatic(Camera* prm_pCamera) {
     coord VP_HOSEI_FOVZ = VP_HOSEI_FOVY/10;
 
     int CAM_HOSEI_FOVXY = CAM_HOSEI_FOVY * 0.7071067811865475; //1/√2
-    int VP_HOSEI_FOVXY = CAM_HOSEI_FOVY * 0.7071067811865475;  //1/√2
+    int VP_HOSEI_FOVXY = VP_HOSEI_FOVY * 0.7071067811865475;  //1/√2
 
     int CAM_HOSEI_FOVXYZ = CAM_HOSEI_FOVY * 0.5773502691896258; //1/√3
     int VP_HOSEI_FOVXYZ = VP_HOSEI_FOVY * 0.5773502691896258;   //1/√3
@@ -673,7 +673,7 @@ void VamSysCamWorker2::processBehavior() {
             pSe_->play(SE_RETURNNING_CAM_POS);
             coord dcam = UTIL::getDistance(mv_t_x_vCAM_, mv_t_y_vCAM_, mv_t_z_vCAM_,
                                            (coord)0, (coord)0,-VamSysCamWorker2::cam_radius_);
-            returning_cam_pos_frames_ = (1.0 * dcam /VamSysCamWorker2:: cam_radius_) * 50; //真反対にいたら50*2=100フレーム
+            returning_cam_pos_frames_ = (1.0 * dcam /VamSysCamWorker2:: cam_radius_) * 60; //真反対にいたら60*2=120フレーム
             if (returning_cam_pos_frames_ < 10) {
                 returning_cam_pos_frames_ = 10;
             }
@@ -706,24 +706,37 @@ void VamSysCamWorker2::processBehavior() {
     if (!returning_cam_pos_ &&
         (isPressed_VB_VIEW_UP || isPressed_VB_VIEW_DOWN || isPressed_VB_VIEW_LEFT || isPressed_VB_VIEW_RIGHT)
     ) {
-        double vx, vy, vz;
+        double vx = 0;
+        double vy = 0;
         if (isPressed_VB_VIEW_UP) {
-            vx = 1;
-        }
-        if (isPressed_VB_VIEW_DOWN) {
-            vx = -1;
-        }
-        if (isPressed_VB_VIEW_LEFT) {
+            if (isPressed_VB_VIEW_LEFT) {
+                vx = 0.7071067811865475;
+                vy = -0.7071067811865475;
+            } else if (isPressed_VB_VIEW_RIGHT) {
+                vx = 0.7071067811865475;
+                vy = 0.7071067811865475;
+            } else {
+                vx = 1;
+                vy = 0;
+            }
+        } else if (isPressed_VB_VIEW_DOWN) {
+            if (isPressed_VB_VIEW_LEFT) {
+                vx = -0.7071067811865475;
+                vy = -0.7071067811865475;
+            } else if (isPressed_VB_VIEW_RIGHT) {
+                vx = -0.7071067811865475;
+                vy = 0.7071067811865475;
+            } else {
+                vx = -1;
+                vy = 0;
+            }
+        } else if (isPressed_VB_VIEW_LEFT) {
+            vx = 0;
             vy = -1;
-        }
-        if (isPressed_VB_VIEW_RIGHT) {
+        } else if (isPressed_VB_VIEW_RIGHT) {
+            vx = 0;
             vy = 1;
         }
-        double t = 1.0 / sqrt(vx * vx + vy * vy);
-        vx = t * vx;
-        vy = t * vy;
-        vz = 0;
-
         const D3DXVECTOR3 vecCamFromPoint(f_mv_t_x_vCAM, f_mv_t_y_vCAM, f_mv_t_z_vCAM ); //位置
         const D3DXVECTOR3 vecCamLookatPoint( 0.0f, 0.0f, 0.0f ); //注視する方向
         const D3DXVECTOR3 vecCamUp(f_mv_t_x_vUP, f_mv_t_y_vUP, f_mv_t_z_vUP); //上方向
@@ -736,7 +749,6 @@ void VamSysCamWorker2::processBehavior() {
            &vecCamUp             // pUp  [in] カレント ワールドの上方、一般には [0, 1, 0] を定義する D3DXVECTOR3 構造体へのポインタ。
         );
 
-
         //平面回転軸(vx,vy)をVPのワールド空間軸に変換
         //VP→CAMのワールド空間方向ベクトルを法線とする平面上に回転軸ベクトルは存在する
         D3DXMATRIX InvView;
@@ -748,15 +760,14 @@ void VamSysCamWorker2::processBehavior() {
         // vx*11_ + vy*21_ + vz*31_ + 41_, vx*12_ + vy*22_ + vz*32_ + 42_, vx*13_ + vy*23_ + vz*33_ + 43_, vx*14_ + vy*24_ + vz*34_ + 44_
         //方向ベクトル(0,0,0)->(vx,vy,vz) を逆ビュー変換
         //変換後方向ベクトル = (vx,vy,vz)変換後座標 - (0,0,0)変換後座標
-        //               <------------  (vx,vy,vz)変換後座標-------------------------->    <-- (0,0,0)変換後座標 -->
-        double vX_axis = vx*InvView._11 + vy*InvView._21 + vz*InvView._31 + InvView._41  - InvView._41;
-        double vY_axis = vx*InvView._12 + vy*InvView._22 + vz*InvView._32 + InvView._42  - InvView._42;
-        double vZ_axis = vx*InvView._13 + vy*InvView._23 + vz*InvView._33 + InvView._43  - InvView._43;
+        double vX_axis = vx*InvView._11 + vy*InvView._21;
+        double vY_axis = vx*InvView._12 + vy*InvView._22;
+        double vZ_axis = vx*InvView._13 + vy*InvView._23;
         //正規化
-        double t2 = 1.0 / sqrt(vX_axis*vX_axis + vY_axis*vY_axis + vZ_axis*vZ_axis);
-        vX_axis = t2 * vX_axis;
-        vY_axis = t2 * vY_axis;
-        vZ_axis = t2 * vZ_axis;
+        const double t = 1.0 / sqrt(vX_axis*vX_axis + vY_axis*vY_axis + vZ_axis*vZ_axis);
+        vX_axis *= t;
+        vY_axis *= t;
+        vZ_axis *= t;
 
         //<==========  ワールド回転軸方向ベクトル、(vX_axis, vY_axis, vZ_axis) を計算 end
 
@@ -769,8 +780,8 @@ void VamSysCamWorker2::processBehavior() {
         //(x, y, z) は CAM か VP か UP
 
         //回転させたい角度
-        double sinHalf = VamSysCamWorker2::mv_ang_sinHalf_;
-        double cosHalf = VamSysCamWorker2::mv_ang_cosHalf_;
+        const double sinHalf = VamSysCamWorker2::mv_ang_sinHalf_;
+        const double cosHalf = VamSysCamWorker2::mv_ang_cosHalf_;
         GgafDxQuaternion qu(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
         GgafDxQuaternion qu2 = qu;
         GgafDxQuaternion Q(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf);
@@ -857,10 +868,9 @@ VamSysCamWorker2::~VamSysCamWorker2() {
 }
 
 
-void VamSysCamWorker2::cnvVec2VamUpSgn(dir26 prm_vam_cam_pos,
-                                       coord prm_vx, coord prm_vy, coord prm_vz,
+void VamSysCamWorker2::cnvVec2VamUpSgn(const dir26 prm_vam_cam_pos,
+                                       const coord prm_vx, const coord prm_vy, const coord prm_vz,
                                        int& out_sgn_x, int& out_sgn_y, int& out_sgn_z) {
-
     if (prm_vam_cam_pos == VAM_POS_ZRIGHT || prm_vam_cam_pos == VAM_POS_ZLEFT) {
         //Z要素を0にしてのXY平面上の8方向の直近
         GgafDx8DirectionUtil::cnvVec2Sgn(prm_vx, prm_vy,
@@ -916,7 +926,7 @@ void VamSysCamWorker2::cnvVec2VamUpSgn(dir26 prm_vam_cam_pos,
     }
 }
 
-void VamSysCamWorker2::cnvVec2VamSgn(coord prm_vx, coord prm_vy, coord prm_vz,
+void VamSysCamWorker2::cnvVec2VamSgn(const coord prm_vx, const coord prm_vy, const coord prm_vz,
                                      int& out_sgn_x, int& out_sgn_y, int& out_sgn_z) {
     //半径１に内接する正八角形の１辺は 2√2 - 2
     //                  y

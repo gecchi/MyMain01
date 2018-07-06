@@ -69,9 +69,12 @@ public:
     MyTorpedoController* pTorpedoCtrler_;
 
     /** ターボ中、移動方角 */
-    int way_;
-    int prev_way_;
-    bool is_just_change_way_;
+    dir26 mv_way_;
+    dir26 prev_mv_way_;
+    int mv_way_sgn_x_;
+    int mv_way_sgn_y_;
+    int mv_way_sgn_z_;
+    bool is_just_change_mv_way_;
     /** 移動スピードレベルに相応する移動スピード */
     velo mv_speed_;
 
@@ -182,6 +185,7 @@ public:
     coord mv_offset_y_;
     coord mv_offset_z_;
     bool is_move_;
+
 public:
     MyShip(const char* prm_name);
 
@@ -199,9 +203,9 @@ public:
 
     void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
 
-    void setMoveSpeed(velo prm_speed_velo);
+    dir26 checkMoveWay();
 
-    dir26 getMoveWay();
+    void setMoveSpeed(velo prm_speed_velo);
 
     void moveNomal(dir26 prm_way);
 

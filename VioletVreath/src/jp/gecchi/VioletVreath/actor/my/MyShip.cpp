@@ -282,9 +282,12 @@ MyShip::MyShip(const char* prm_name) :
     blown_veloX_ = 0;
     blown_veloY_ = 0;
     blown_veloZ_ = 0;
-    way_ = DIR26( 0, 0, 0);
-    prev_way_ = DIR26( 0, 0, 0);
-    is_just_change_way_ = true;
+    mv_way_sgn_x_ = 0;
+    mv_way_sgn_y_ = 0;
+    mv_way_sgn_z_ = 0;
+    mv_way_ = DIR26(mv_way_sgn_x_, mv_way_sgn_y_, mv_way_sgn_z_);
+    prev_mv_way_ = mv_way_;
+    is_just_change_mv_way_ = true;
 
     //MP初期値
     mp_ = MY_SHIP_START_MP;
@@ -367,9 +370,12 @@ void MyShip::onReset() {
     can_shoot_laser_ = false;
     frame_shot_pressed_ = 0;
     _x = _y = _z = 0;
-    way_ = DIR26( 0, 0, 0);
-    prev_way_ = DIR26( 0, 0, 0);
-//    way_switch_.reset();
+    mv_way_sgn_x_ = 0;
+    mv_way_sgn_y_ = 0;
+    mv_way_sgn_z_ = 0;
+    mv_way_ = DIR26(mv_way_sgn_x_, mv_way_sgn_y_, mv_way_sgn_z_);
+    prev_mv_way_ = mv_way_;
+//    mv_way_switch_.reset();
 
     mp_ = MY_SHIP_START_MP;
     getStatus()->reset();
@@ -403,14 +409,14 @@ void MyShip::processBehavior() {
         return;
     }
 
-    int prev_way = way_;
+    int prev_way = mv_way_;
 
-    way_ = getMoveWay();
+    mv_way_ = checkMoveWay();
 
-    if (prev_way != way_) {
-        is_just_change_way_ = true;
+    if (prev_way != mv_way_) {
+        is_just_change_mv_way_ = true;
     } else {
-        is_just_change_way_ = false;
+        is_just_change_mv_way_ = false;
     }
 
     if (getStatus()->get(STAT_Stamina) < 0) {
@@ -419,18 +425,18 @@ void MyShip::processBehavior() {
         if (pVbPlay->isPressed(VB_OPTION)) {
             int tmp = mv_speed_;
             mv_speed_ /= 8; //オプション操作中移動は遅い
-            moveNomal(way_);
+            moveNomal(mv_way_);
             mv_speed_ = tmp;
         } else {
-            moveNomal(way_);
+            moveNomal(mv_way_);
         }
 
         if (pVbPlay->isPushedDown(VB_TURBO)) {
             if (pAxesMover->_velo_vx_mv == 0 && pAxesMover->_velo_vy_mv == 0 && pAxesMover->_velo_vz_mv == 0) {
                 //ターボ移動完全に終了しないと次のターボは実行不可
-                moveTurbo(way_);
+                moveTurbo(mv_way_);
                 UTIL::activateProperEffect01Of(this); //ターボ開始のエフェクト
-//                (this->*funcTurbo_[way_])(); //方向値に応じたターボ開始処理メソッドを呼び出す
+//                (this->*funcTurbo_[mv_way_])(); //方向値に応じたターボ開始処理メソッドを呼び出す
                 getSeTransmitter()->play3D(SE_TURBO);
             } else {
                 //ターボ移動中
@@ -478,7 +484,7 @@ void MyShip::processBehavior() {
     }
 
     //旋回しない移動方向の場合、機体を水平にする（但し勢いよく回っていない場合に限る。setStopTargetFaceAngの第4引数より角速度がゆるい場合受け入れ）
-    if (pSenakai_[way_] == 0) {
+    if (pSenakai_[mv_way_] == 0) {
         angle dist = pKuroko->getFaceAngDistance(AXIS_X, 0, TURN_CLOSE_TO);
         if (0 <= dist && dist < D180ANG) {
             getKuroko()->setFaceAngAcce(AXIS_X, angRxAcce_MZ_);
@@ -1031,7 +1037,7 @@ void MyShip::setInvincibleFrames(int prm_frames) {
     setHitAble(false);
     invincible_frames_ = prm_frames;
 }
-dir26 MyShip::getMoveWay() {
+dir26 MyShip::checkMoveWay() {
     VirtualButton* pVbPlay = VB_PLAY;
 
     dir26 pos_camera = pVAM->getPosCam();
@@ -1045,9 +1051,9 @@ dir26 MyShip::getMoveWay() {
         }
     }
     //pa_dir8[up_idx] が上である
-    int mv_sgn_x = 0;
-    int mv_sgn_y = 0;
-    int mv_sgn_z = 0;
+    mv_way_sgn_x_ = 0;
+    mv_way_sgn_y_ = 0;
+    mv_way_sgn_z_ = 0;
     bool isPressed_VB_UP    = pVbPlay->isPressed(VB_UP);
     bool isPressed_VB_DOWN  = pVbPlay->isPressed(VB_DOWN);
     bool isPressed_VB_LEFT  = pVbPlay->isPressed(VB_LEFT);
@@ -1076,9 +1082,10 @@ dir26 MyShip::getMoveWay() {
     }
     if (mv_dir > -1) {
         int dir_8_idx = (up_idx + mv_dir) % 8;
-        GgafDx26DirectionUtil::cnvDirNo2Sgn(pa_dir8[dir_8_idx], mv_sgn_x, mv_sgn_y, mv_sgn_z);
+        GgafDx26DirectionUtil::cnvDirNo2Sgn(pa_dir8[dir_8_idx],
+                                            mv_way_sgn_x_, mv_way_sgn_y_, mv_way_sgn_z_);
     }
-    return DIR26(mv_sgn_x, mv_sgn_y, mv_sgn_z);
+    return DIR26(mv_way_sgn_x_, mv_way_sgn_y_, mv_way_sgn_z_);
 }
 
 void MyShip::moveNomal(dir26 prm_way) {
@@ -1087,7 +1094,7 @@ void MyShip::moveNomal(dir26 prm_way) {
     _x += mv_speed_ * vx;
     _y += mv_speed_ * vy;
     _z += mv_speed_ * vz;
-    if (is_just_change_way_) {
+    if (is_just_change_mv_way_) {
         angle rz, ry;
         GgafDx26DirectionUtil::cnvDirNo2RzRy(prm_way, rz, ry);
         getKuroko()->setRzRyMvAng(rz, ry);

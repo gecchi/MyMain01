@@ -67,7 +67,6 @@ public:
         }
     };
 
-
     /**  [現カメラ方向][UP方向] = 各軸のカメラ移動補正値 */
     static FovInfo cam_hosei_fov_entity_[3*3*3][3*3*3];
     static FovInfo (*cam_hosei_fov_)[3*3*3];
@@ -79,8 +78,6 @@ public:
     static double mv_ang_sinHalf_;
     static double mv_ang_cosHalf_;
 //////////////////////////////////////////
-
-
     coord mv_t_x_vUP_;
     coord mv_t_y_vUP_;
     coord mv_t_z_vUP_;
@@ -146,12 +143,12 @@ public:
      * @param out_sgn_y Y軸要素の正負 (-1 or 0 or 1)
      * @param out_sgn_z Z軸要素の正負 (-1 or 0 or 1)
      */
-    static void cnvVec2VamSgn(coord prm_vx, coord prm_vy, coord prm_vz,
+    static void cnvVec2VamSgn(const coord prm_vx, const coord prm_vy, const coord prm_vz,
                               int& out_sgn_x, int& out_sgn_y, int& out_sgn_z);
 
 
-    static void cnvVec2VamUpSgn(dir26 prm_vam_cam_pos,
-                                coord prm_vx, coord prm_vy, coord prm_vz,
+    static void cnvVec2VamUpSgn(const dir26 prm_vam_cam_pos,
+                                const coord prm_vx, const coord prm_vy, const coord prm_vz,
                                 int& out_sgn_x, int& out_sgn_y, int& out_sgn_z);
 };
 
