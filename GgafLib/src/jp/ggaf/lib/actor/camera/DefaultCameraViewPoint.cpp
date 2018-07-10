@@ -21,15 +21,15 @@ void DefaultCameraViewPoint::processBehavior() {
     getKuroko()->behave();
 }
 
-void DefaultCameraViewPoint::slideMvTo(coord tx, coord ty, coord tz, frame t) {
+void DefaultCameraViewPoint::slideMvTo(coord tx, coord ty, coord tz, frame t, float prm_p1, float prm_p2) {
     //ƒJƒƒ‰‚Ê‚é‚Á‚ÆˆÚ“®
     getAxesMover()->asst()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,
-                              0.3, 0.4, 0, true);
+                              prm_p1, prm_p2, 0, true);
 }
 
-void DefaultCameraViewPoint::slideMvTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t) {
-    slideMvTo(pTarget->_x, pTarget->_y, pTarget->_z, t);
+void DefaultCameraViewPoint::slideMvTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t, float prm_p1, float prm_p2) {
+    slideMvTo(pTarget->_x, pTarget->_y, pTarget->_z, t, prm_p1, prm_p2);
 }
 
 DefaultCameraViewPoint::~DefaultCameraViewPoint() {

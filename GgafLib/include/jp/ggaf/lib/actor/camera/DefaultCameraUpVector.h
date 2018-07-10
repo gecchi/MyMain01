@@ -51,7 +51,7 @@ public:
      * @param prm_face_no ƒJƒƒ‰‚ÌUP–Ê”Ô†
      */
 //    void moveTo(dir26 prm_dir_no, frame prm_spent);
-    void moveTo(coord tx, coord ty, coord tz, frame prm_spent);
+    void slideMvTo(coord tx, coord ty, coord tz, frame prm_spent, float prm_p1, float prm_p2);
 
     virtual ~DefaultCameraUpVector();
 };

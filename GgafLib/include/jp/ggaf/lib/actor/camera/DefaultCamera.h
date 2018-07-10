@@ -62,7 +62,7 @@ public:
      * @param tz
      * @param t 所要フレーム
      */
-    void slideMvTo(coord tx, coord ty, coord tz, frame t);
+    void slideMvTo(coord tx, coord ty, coord tz, frame t, float prm_p1, float prm_p2);
 
     void slideMvTo(coord tx, coord ty, coord tz, frame t,
                    float prm_x_p1, float prm_y_p1, float prm_z_p1);
@@ -71,7 +71,7 @@ public:
      * @param pTarget
      * @param t 所要フレーム
      */
-    void slideMvTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t);
+    void slideMvTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t, float prm_p1, float prm_p2);
     void slideMvTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t,
             float prm_x_p1, float prm_y_p1, float prm_z_p1);
 

@@ -668,7 +668,6 @@ void VamSysCamWorker2::processBehavior() {
     coord pMyShip_x = pMyShip_->_x;
     coord pMyShip_y = pMyShip_->_y;
     coord pMyShip_z = pMyShip_->_z;
-    frame cam_mv_frame = 60;
 
     const bool isPressed_VB_VIEW_UP    = pVbPlay->isPressed(VB_VIEW_UP);
     const bool isPressed_VB_VIEW_DOWN  = pVbPlay->isPressed(VB_VIEW_DOWN);
@@ -688,7 +687,7 @@ void VamSysCamWorker2::processBehavior() {
             pSe_->play(SE_RETURNNING_CAM_POS);
             coord dcam = UTIL::getDistance(mv_t_x_vCAM_, mv_t_y_vCAM_, mv_t_z_vCAM_,
                                            (coord)0, (coord)0,-VamSysCamWorker2::cam_radius_);
-            returning_cam_pos_frames_ = (1.0 * dcam /VamSysCamWorker2:: cam_radius_) * 60; //真反対にいたら60*2=120フレーム
+            returning_cam_pos_frames_ = (1.0 * dcam /VamSysCamWorker2:: cam_radius_) * 40; //真反対にいたら40*2=80フレーム
             if (returning_cam_pos_frames_ < 10) {
                 returning_cam_pos_frames_ = 10;
             }
@@ -702,12 +701,6 @@ void VamSysCamWorker2::processBehavior() {
             mv_t_y_vCAM_ = 0;
             mv_t_z_vCAM_ = -VamSysCamWorker2::cam_radius_;
 
-            //TODO:戻るときはslideMvCamTo()の
-            //            getAxesMover()->asst()->slideVxyzMvByDtTo(
-            //                                      tx, ty, tz, t,
-            //                                      0.3, 0.5, 0, true);
-            //の0.3, 0.5を、0.3 0.7にしたいかも
-            cam_mv_frame = returning_cam_pos_frames_;
         }
     }
 
@@ -837,11 +830,11 @@ void VamSysCamWorker2::processBehavior() {
     }
 #endif
     const coord cam_x_hosei = RCNV(MyShip::lim_x_behaind_, MyShip::lim_x_infront_, pMyShip_x, -cam_x_hosei_fov, cam_x_hosei_fov);
-    const coord vp_x_hosei = RCNV(MyShip::lim_x_behaind_, MyShip::lim_x_infront_, pMyShip_x, -vp_x_hosei_fov, vp_x_hosei_fov);
-    const coord cam_y_hosei = RCNV(MyShip::lim_y_bottom_, MyShip::lim_y_top_, pMyShip_y, -cam_y_hosei_fov, cam_y_hosei_fov);
-    const coord vp_y_hosei = RCNV(MyShip::lim_y_bottom_, MyShip::lim_y_top_, pMyShip_y, -vp_y_hosei_fov, vp_y_hosei_fov);
-    const coord cam_z_hosei = RCNV(MyShip::lim_z_right_, MyShip::lim_z_left_, pMyShip_z, -cam_z_hosei_fov, cam_z_hosei_fov);
-    const coord vp_z_hosei = RCNV(MyShip::lim_z_right_, MyShip::lim_z_left_, pMyShip_z, -vp_z_hosei_fov, vp_z_hosei_fov);
+    const coord vp_x_hosei  = RCNV(MyShip::lim_x_behaind_, MyShip::lim_x_infront_, pMyShip_x, -vp_x_hosei_fov , vp_x_hosei_fov );
+    const coord cam_y_hosei = RCNV(MyShip::lim_y_bottom_ , MyShip::lim_y_top_    , pMyShip_y, -cam_y_hosei_fov, cam_y_hosei_fov);
+    const coord vp_y_hosei  = RCNV(MyShip::lim_y_bottom_ , MyShip::lim_y_top_    , pMyShip_y, -vp_y_hosei_fov , vp_y_hosei_fov );
+    const coord cam_z_hosei = RCNV(MyShip::lim_z_right_  , MyShip::lim_z_left_   , pMyShip_z, -cam_z_hosei_fov, cam_z_hosei_fov);
+    const coord vp_z_hosei  = RCNV(MyShip::lim_z_right_  , MyShip::lim_z_left_   , pMyShip_z, -vp_z_hosei_fov , vp_z_hosei_fov );
 
     const coord mv_t_x_CAM = pMyShip_x + mv_t_x_vCAM_ - cam_x_hosei;
     const coord mv_t_y_CAM = pMyShip_y + mv_t_y_vCAM_ - cam_y_hosei;
@@ -853,10 +846,23 @@ void VamSysCamWorker2::processBehavior() {
     if (t_x_CAM_ != mv_t_x_CAM  || t_y_CAM_ != mv_t_y_CAM || t_z_CAM_ != mv_t_z_CAM ||
         t_x_VP_  != mv_t_x_VP   || t_y_VP_  != mv_t_y_VP  || t_z_VP_  != mv_t_z_VP
     ) {
-        slideMvCamTo(mv_t_x_CAM, mv_t_y_CAM, mv_t_z_CAM, cam_mv_frame);
-        slideMvVpTo(mv_t_x_VP, mv_t_y_VP, mv_t_z_VP, cam_mv_frame*0.8);
-        slideMvUpVecTo(mv_t_x_vUP_, mv_t_y_vUP_, mv_t_z_vUP_, cam_mv_frame);
+        if (returning_cam_pos_) {
+            slideMvCamTo(mv_t_x_CAM, mv_t_y_CAM, mv_t_z_CAM,
+                    returning_cam_pos_frames_, 0.3, 0.8);
+            slideMvVpTo(mv_t_x_VP, mv_t_y_VP, mv_t_z_VP,
+                    returning_cam_pos_frames_*0.8, 0.3, 0.8);
+            slideMvUpVecTo(mv_t_x_vUP_, mv_t_y_vUP_, mv_t_z_vUP_,
+                    returning_cam_pos_frames_, 0.3, 0.8);
+        } else {
+            slideMvCamTo(mv_t_x_CAM, mv_t_y_CAM, mv_t_z_CAM,
+                        60, 0.2, 0.5);
+            slideMvVpTo(mv_t_x_VP, mv_t_y_VP, mv_t_z_VP,
+                        60*0.8, 0.2, 0.5);
+            slideMvUpVecTo(mv_t_x_vUP_, mv_t_y_vUP_, mv_t_z_vUP_,
+                           60, 0.2, 0.5);
+        }
     }
+
     //18方向へ
     if (mv_t_x_vCAM_ == 0 && mv_t_y_vCAM_ == 0 && mv_t_z_vCAM_ == 0) {
         mv_t_z_vCAM_ = -C_PX(1); //0除算防止

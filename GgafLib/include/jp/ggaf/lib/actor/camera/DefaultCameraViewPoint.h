@@ -41,8 +41,9 @@ public:
     virtual void onHit(const GgafCore::GgafActor* prm_pOtherActor) override {
     }
 
-    void slideMvTo(coord tx, coord ty, coord tz, frame t);
-    void slideMvTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t);
+    void slideMvTo(coord tx, coord ty, coord tz, frame t, float prm_p1, float prm_p2);
+
+    void slideMvTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t, float prm_p1, float prm_p2);
 
     virtual ~DefaultCameraViewPoint(); //デストラクタ
 };

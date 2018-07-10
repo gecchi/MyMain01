@@ -27,8 +27,8 @@ void DefaultCameraUpVector::processBehavior() {
 //    up_dir_ = prm_dir_no;
 //}
 
-void DefaultCameraUpVector::moveTo(coord tx, coord ty, coord tz, frame prm_spent) {
-    getAxesMover()->asst()->slideVxyzMvByDtTo(tx, ty, tz, prm_spent, 0.3, 0.7, 0, true);
+void DefaultCameraUpVector::slideMvTo(coord tx, coord ty, coord tz, frame prm_spent, float prm_p1, float prm_p2) {
+    getAxesMover()->asst()->slideVxyzMvByDtTo(tx, ty, tz, prm_spent, prm_p1, prm_p2, 0, true);
     up_dir_ = GgafDx26DirectionUtil::cnvVec2DirNo(C_DX(tx), C_DX(ty), C_DX(tz));
 }
 
