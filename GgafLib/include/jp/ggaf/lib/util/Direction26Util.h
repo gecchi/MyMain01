@@ -1,12 +1,12 @@
-#ifndef GGAFDXCORE_GGAFDX26DIRECTIONUTIL_H_
-#define GGAFDXCORE_GGAFDX26DIRECTIONUTIL_H_
-#include "GgafDxCommonHeader.h"
+#ifndef GGAFLIB_DIRECTION26UTIL_H_
+#define GGAFLIB_DIRECTION26UTIL_H_
+#include "GgafLibCommonHeader.h"
 
 //-1,0,1 の3数の3進法 を 配列要素のため正の10進数に変換するマクロ(-13～+13)
 #define DIR26(X,Y,Z) (((3*3)*(X)) + (3*(Y)) + (Z))
 #define DIR26_NULL (999)
 
-namespace GgafDxCore {
+namespace GgafLib {
 
 /**
  * 斜方立方八面体の面（２６方向）ユーティリティ .
@@ -14,7 +14,7 @@ namespace GgafDxCore {
  * @since 2014/12/11
  * @author Masatoshi Tsuge
  */
-class GgafDx26DirectionUtil {
+class Direction26Util {
 private:
     struct FaceVec {
         float vx;
@@ -69,7 +69,7 @@ public:
 
     static void cnvVec2Sgn(coord prm_vx, coord prm_vy, coord prm_vz,
                            int& out_sgn_x, int& out_sgn_y, int& out_sgn_z) {
-        GgafDx26DirectionUtil::cnvVec2Sgn(C_DX(prm_vx), C_DX(prm_vy), C_DX(prm_vz),
+        Direction26Util::cnvVec2Sgn(C_DX(prm_vx), C_DX(prm_vy), C_DX(prm_vz),
                                           out_sgn_x, out_sgn_y, out_sgn_z);
     }
 
@@ -80,7 +80,7 @@ public:
     static void cnvVec2Sgn(coord prm_vx, coord prm_vy, coord prm_vz,
                            float& out_nvx, float& out_nvy, float& out_nvz,
                            int& out_sgn_x, int& out_sgn_y, int& out_sgn_z) {
-        GgafDx26DirectionUtil::cnvVec2Sgn(C_DX(prm_vx), C_DX(prm_vy), C_DX(prm_vz),
+        Direction26Util::cnvVec2Sgn(C_DX(prm_vx), C_DX(prm_vy), C_DX(prm_vz),
                                           out_nvx, out_nvy, out_nvz,
                                           out_sgn_x, out_sgn_y, out_sgn_z);
     }
@@ -114,4 +114,4 @@ public:
 };
 
 }
-#endif /*GGAFDXCORE_GGAFDX26DIRECTIONUTIL_H_*/
+#endif /*GGAFLIB_DIRECTION26UTIL_H_*/

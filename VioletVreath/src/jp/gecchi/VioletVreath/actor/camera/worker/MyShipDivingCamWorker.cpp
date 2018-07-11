@@ -1,7 +1,7 @@
 #include "MyShipDivingCamWorker.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 
-#include "jp/ggaf/dxcore/util/GgafDx26DirectionUtil.h"
+#include "jp/ggaf/lib/util/Direction26Util.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

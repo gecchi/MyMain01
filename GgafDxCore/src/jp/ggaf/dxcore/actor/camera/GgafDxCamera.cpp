@@ -273,11 +273,6 @@ bool GgafDxCamera::isMoving() {
     }
 }
 
-void GgafDxCamera::setCamUpVecByFaceNo(dir26 prm_face_no) {
-    GgafDxCameraUpVector* pUpv = getCameraUpVector();
-    pUpv->setPositionByFaceNo(prm_face_no);
-}
-
 GgafDxCamera::~GgafDxCamera() {
     GGAF_DELETE(_pVecCamFromPoint);
     GGAF_DELETE(_pVecCamLookatPoint);

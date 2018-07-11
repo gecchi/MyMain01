@@ -1,13 +1,12 @@
-#ifndef GGAFDXCORE_GGAFDX8DIRECTIONUTIL_H_
-#define GGAFDXCORE_GGAFDX8DIRECTIONUTIL_H_
-#include "GgafDxCommonHeader.h"
+#ifndef GGAFLIB_DIRECTION8UTIL_H_
+#define GGAFLIB_DIRECTION8UTIL_H_
+#include "GgafLibCommonHeader.h"
 
 //-1,0,1 の3数の3進法 を 配列要素のため正の10進数に変換するマクロ(-4～+4)
 #define DIR8(X,Y) ((3*(X)) + (Y))
 #define DIR8_NULL (999)
 
-
-namespace GgafDxCore {
+namespace GgafLib {
 
 /**
  * 八方向ユーティリティ .
@@ -15,7 +14,7 @@ namespace GgafDxCore {
  * @since 2015/09/16
  * @author Masatoshi Tsuge
  */
-class GgafDx8DirectionUtil {
+class Direction8Util {
 private:
     struct FaceVec {
         float vx;
@@ -64,7 +63,7 @@ public:
 
     static void cnvVec2Sgn(coord prm_vx, coord prm_vy,
                            int& out_sgn_x, int& out_sgn_y) {
-        GgafDx8DirectionUtil::cnvVec2Sgn(C_DX(prm_vx), C_DX(prm_vy),
+        Direction8Util::cnvVec2Sgn(C_DX(prm_vx), C_DX(prm_vy),
                                          out_sgn_x, out_sgn_y);
     }
 
@@ -98,4 +97,4 @@ public:
 };
 
 }
-#endif /*GGAFDXCORE_GGAFDX8DIRECTIONUTIL_H_*/
+#endif /*GGAFLIB_DIRECTION26UTIL_H_*/

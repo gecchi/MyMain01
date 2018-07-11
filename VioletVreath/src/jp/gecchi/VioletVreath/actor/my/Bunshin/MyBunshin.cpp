@@ -17,7 +17,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
-#include "jp/ggaf/dxcore/util/GgafDxQuaternion.h"
+#include "jp/ggaf/lib/util/Quaternion.hpp"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"

@@ -8,9 +8,9 @@
 #include "jp/gecchi/VioletVreath/actor/camera/Camera.h"
 #include "jp/gecchi/VioletVreath/actor/camera/CameraViewPoint.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"
-#include "jp/ggaf/dxcore/util/GgafDx26DirectionUtil.h"
-#include "jp/ggaf/dxcore/util/GgafDx8DirectionUtil.h"
-#include "jp/ggaf/dxcore/util/GgafDxQuaternion.h"
+#include "jp/ggaf/lib/util/Direction26Util.h"
+#include "jp/ggaf/lib/util/Direction8Util.h"
+#include "jp/ggaf/lib/util/Quaternion.hpp"
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
 
 #include "jp/gecchi/VioletVreath/actor/camera/CameraUpVector.h"
@@ -796,9 +796,9 @@ void VamSysCamWorker2::processBehavior() {
         //âÒì]Ç≥ÇπÇΩÇ¢äpìx
         const double sinHalf = VamSysCamWorker2::mv_ang_sinHalf_;
         const double cosHalf = VamSysCamWorker2::mv_ang_cosHalf_;
-        GgafDxQuaternion qu(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
-        GgafDxQuaternion qu2 = qu;
-        GgafDxQuaternion Q(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf);
+        Quaternion<double> qu(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
+        Quaternion<double> qu2 = qu;
+        Quaternion<double> Q(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf);
         qu.mul(0, f_mv_t_x_vCAM, f_mv_t_y_vCAM, f_mv_t_z_vCAM); //R*P
         qu.mul(Q); //R*P*Q
         mv_t_x_vCAM_ = DX_C(qu.i);
@@ -900,18 +900,18 @@ void VamSysCamWorker2::cnvVec2VamUpSgn(const dir26 prm_vam_cam_pos,
                                        int& out_sgn_x, int& out_sgn_y, int& out_sgn_z) {
     if (prm_vam_cam_pos == VAM_POS_ZRIGHT || prm_vam_cam_pos == VAM_POS_ZLEFT) {
         //ZóvëfÇ0Ç…ÇµÇƒÇÃXYïΩñ è„ÇÃ8ï˚å¸ÇÃíºãﬂ
-        GgafDx8DirectionUtil::cnvVec2Sgn(prm_vx, prm_vy,
-                                         out_sgn_x, out_sgn_y);
+        Direction8Util::cnvVec2Sgn(prm_vx, prm_vy,
+                                   out_sgn_x, out_sgn_y);
         out_sgn_z = 0;
     } else if (prm_vam_cam_pos == VAM_POS_BEHIND || prm_vam_cam_pos == VAM_POS_FRONT) {
         //XóvëfÇ0Ç…ÇµÇƒÇÃYZïΩñ è„ÇÃ8ï˚å¸ÇÃíºãﬂ (yÅ®x, zÅ®y)
-        GgafDx8DirectionUtil::cnvVec2Sgn(prm_vy, prm_vz,
-                                         out_sgn_y, out_sgn_z);
+        Direction8Util::cnvVec2Sgn(prm_vy, prm_vz,
+                                   out_sgn_y, out_sgn_z);
         out_sgn_x = 0;
     } else if (prm_vam_cam_pos == VAM_POS_BEHIND || prm_vam_cam_pos == VAM_POS_FRONT) {
         //YóvëfÇ0Ç…ÇµÇƒÇÃZXïΩñ è„ÇÃ8ï˚å¸ÇÃíºãﬂ (zÅ®x, xÅ®y)
-        GgafDx8DirectionUtil::cnvVec2Sgn(prm_vz, prm_vx,
-                                         out_sgn_z, out_sgn_x);
+        Direction8Util::cnvVec2Sgn(prm_vz, prm_vx,
+                                   out_sgn_z, out_sgn_x);
         out_sgn_y = 0;
     } else {
         //ÉJÉÅÉâÇÃà íuÇ™
@@ -920,9 +920,9 @@ void VamSysCamWorker2::cnvVec2VamUpSgn(const dir26 prm_vam_cam_pos,
         //VAM_POS_FRONT_UP, VAM_POS_BEHIND_DOWN, VAM_POS_FRONT_DOWN, VAM_POS_BEHIND_UP
         //ÇÃâΩÇÍÇ©
         float t_nvx, t_nvy, t_nvz; //ê≥ãKâªÇ≥ÇÍÇΩï˚å¸ÉxÉNÉgÉã
-        GgafDx26DirectionUtil::cnvVec2Sgn(prm_vx, prm_vy, prm_vz,
-                                          t_nvx, t_nvy, t_nvz,
-                                          out_sgn_x, out_sgn_y, out_sgn_z);
+        Direction26Util::cnvVec2Sgn(prm_vx, prm_vy, prm_vz,
+                                    t_nvx, t_nvy, t_nvz,
+                                    out_sgn_x, out_sgn_y, out_sgn_z);
         dir26 t_dir = DIR26(out_sgn_x, out_sgn_y, out_sgn_z);
         dir26* pa_dir8 = VamSysCamWorker2::cam_to_8dir_[prm_vam_cam_pos];
         bool is_match = false;
@@ -940,14 +940,14 @@ void VamSysCamWorker2::cnvVec2VamUpSgn(const dir26 prm_vam_cam_pos,
             dir26 nearest_dir = pa_dir8[0];
             for (int i = 0; i < 8; i++) {
                 float d_vx,d_vy,d_vz;
-                GgafDx26DirectionUtil::cnvDirNo2Vec(pa_dir8[i], d_vx, d_vy, d_vz);
+                Direction26Util::cnvDirNo2Vec(pa_dir8[i], d_vx, d_vy, d_vz);
                 float dot = t_nvx*d_vx + t_nvy*d_vy + t_nvz*d_vz;
                 if (max_dot < dot) { //ì‡êœÇ™ëÂÇ´Ç¢Ç‡ÇÃÇ…äÒÇπÇÈ
                     max_dot = dot;
                     nearest_dir = pa_dir8[i];
                 }
             }
-            GgafDx26DirectionUtil::cnvDirNo2Sgn(nearest_dir, out_sgn_x, out_sgn_y, out_sgn_z);
+            Direction26Util::cnvDirNo2Sgn(nearest_dir, out_sgn_x, out_sgn_y, out_sgn_z);
         }
 
     }
@@ -1012,13 +1012,13 @@ void VamSysCamWorker2::cnvVec2VamSgn(const coord prm_vx, const coord prm_vy, con
         dir26* pa_dir6 = VamSysCamWorker2::nbhd_dir_[td];
         for (int i = 0; i < 6; i++) {
             float d_vx,d_vy,d_vz;
-            GgafDx26DirectionUtil::cnvDirNo2Vec(pa_dir6[i], d_vx, d_vy, d_vz);
+            Direction26Util::cnvDirNo2Vec(pa_dir6[i], d_vx, d_vy, d_vz);
             float dot = nvx*d_vx + nvy*d_vy + nvz*d_vz;
             if (max_dot < dot) { //ì‡êœÇ™ëÂÇ´Ç¢Ç‡ÇÃÇ…äÒÇπÇÈ
                 max_dot = dot;
                 nearest_dir = pa_dir6[i];
             }
         }
-        GgafDx26DirectionUtil::cnvDirNo2Sgn(nearest_dir, out_sgn_x, out_sgn_y, out_sgn_z);
+        Direction26Util::cnvDirNo2Sgn(nearest_dir, out_sgn_x, out_sgn_y, out_sgn_z);
     }
 }

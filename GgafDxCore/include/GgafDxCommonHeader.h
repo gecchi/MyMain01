@@ -152,14 +152,8 @@ enum {
 };
 
 typedef int_fast32_t axis;
-typedef int_fast32_t dir26;
-typedef int_fast32_t dir8;
 
 #define MAX_SCALE (2147483647)
-
-
-
-
 
 /** 度数法 0 度に対応するアプリのアングル値定数 */
 #define D0ANG   (0)
@@ -421,10 +415,7 @@ class GgafDxScene;
 class GgafDxSpacetime;
 
 class GgafDxUtil;
-class GgafDx26DirectionUtil;
-
 class GgafDxSphereRadiusVectors;
-class GgafDxQuaternion;
 class GgafDxCollisionArea;
 class GgafDxCollisionPart;
 class GgafDxGeoElem;

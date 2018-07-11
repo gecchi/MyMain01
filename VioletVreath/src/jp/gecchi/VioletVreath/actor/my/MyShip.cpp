@@ -24,7 +24,7 @@
 #include "jp/gecchi/VioletVreath/Config.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/actor/my/Bunshin/MyBunshinBase.h"
-#include "jp/ggaf/dxcore/util/GgafDx26DirectionUtil.h"
+#include "jp/ggaf/lib/util/Direction26Util.h"
 #include "jp/ggaf/lib/util/ColliAAPrism.h"
 #include "jp/ggaf/lib/util/ColliAAPyramid.h"
 
@@ -1082,7 +1082,7 @@ dir26 MyShip::checkMoveWay() {
     }
     if (mv_dir > -1) {
         int dir_8_idx = (up_idx + mv_dir) % 8;
-        GgafDx26DirectionUtil::cnvDirNo2Sgn(pa_dir8[dir_8_idx],
+        Direction26Util::cnvDirNo2Sgn(pa_dir8[dir_8_idx],
                                             mv_way_sgn_x_, mv_way_sgn_y_, mv_way_sgn_z_);
     }
     return DIR26(mv_way_sgn_x_, mv_way_sgn_y_, mv_way_sgn_z_);
@@ -1090,13 +1090,13 @@ dir26 MyShip::checkMoveWay() {
 
 void MyShip::moveNomal(dir26 prm_way) {
     float vx,vy,vz;
-    GgafDx26DirectionUtil::cnvDirNo2Vec(prm_way, vx, vy, vz);
+    Direction26Util::cnvDirNo2Vec(prm_way, vx, vy, vz);
     _x += mv_speed_ * vx;
     _y += mv_speed_ * vy;
     _z += mv_speed_ * vz;
     if (is_just_change_mv_way_) {
         angle rz, ry;
-        GgafDx26DirectionUtil::cnvDirNo2RzRy(prm_way, rz, ry);
+        Direction26Util::cnvDirNo2RzRy(prm_way, rz, ry);
         getKuroko()->setRzRyMvAng(rz, ry);
         //ù‰ô
 
@@ -1115,13 +1115,13 @@ void MyShip::moveTurbo(dir26 prm_way) {
     GgafDxAxesMover* const pAxesMover = getAxesMover();
 
     float vx,vy,vz;
-    GgafDx26DirectionUtil::cnvDirNo2Vec(prm_way, vx, vy, vz);
+    Direction26Util::cnvDirNo2Vec(prm_way, vx, vy, vz);
     pAxesMover->addVxMvVelo(veloBeginMT_ * vx);
     pAxesMover->addVyMvVelo(veloBeginMT_ * vy);
     pAxesMover->addVzMvVelo(veloBeginMT_ * vz);
 
     angle rz, ry;
-    GgafDx26DirectionUtil::cnvDirNo2RzRy(prm_way, rz, ry);
+    Direction26Util::cnvDirNo2RzRy(prm_way, rz, ry);
     getKuroko()->setRzRyMvAng(rz, ry);
 
     //ù‰ô

@@ -11,8 +11,8 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoFaceAngAssistant.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAngAssistant.h"
 #include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
-#include "jp/ggaf/dxcore/util/GgafDxQuaternion.h"
-#include "jp/ggaf/dxcore/util/GgafDx26DirectionUtil.h"
+#include "jp/ggaf/lib/util/Quaternion.hpp"
+#include "jp/ggaf/lib/util/Direction26Util.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -335,7 +335,7 @@ void MyBunshinBase::processBehavior() {
 
             //LEFT RIGHT âÒì]é≤ = pos_up = (up_sgn_x, up_sgn_y, up_sgn_z)
             float up_vx, up_vy, up_vz;
-            GgafDx26DirectionUtil::cnvDirNo2Vec(pos_up, up_vx, up_vy, up_vz);
+            Direction26Util::cnvDirNo2Vec(pos_up, up_vx, up_vy, up_vz);
             //b = (vX, vY, vZ)
             //aÅ~b = (up_sgn_y*vZ-up_sgn_z*vY, up_sgn_z*vX-up_sgn_x*vZ, up_sgn_x*vY-up_sgn_y*vX)
             //Å¶ (a1,a2,a3)Å~(b1,b2,b3)=(a2*b3-a3*b2, a3*b1-a1*b3, a1*b2-a2*b1)
@@ -492,7 +492,7 @@ void MyBunshinBase::addTurnAngleAroundAx1(float prm_ax_x, float prm_ax_y, float 
     static const float p_sin_h = ANG_SIN(MyBunshinBase::ANGVELO_TURN/2);  //ANGVELO_TURN=âÒì]Ç≥ÇπÇΩÇ¢äpìx
     static const float p_cos_h = ANG_COS(MyBunshinBase::ANGVELO_TURN/2);
     GgafDxKuroko* pKuroko = getKuroko();
-    GgafDxQuaternion H(p_cos_h, -prm_ax_x*p_sin_h, -prm_ax_y*p_sin_h, -prm_ax_z*p_sin_h); //R
+    Quaternion<float> H(p_cos_h, -prm_ax_x*p_sin_h, -prm_ax_y*p_sin_h, -prm_ax_z*p_sin_h); //R
     H.mul(0, pKuroko->_vX, pKuroko->_vY, pKuroko->_vZ);                                   //R*P
     H.mul(p_cos_h, prm_ax_x*p_sin_h, prm_ax_y*p_sin_h, prm_ax_z*p_sin_h);                 //R*P*Q
     pKuroko->setRzRyMvAng(H.i, H.j, H.k, true);
@@ -502,8 +502,8 @@ void MyBunshinBase::addTurnAngleAroundAx2(float prm_ax_x, float prm_ax_y, float 
     static const float p_sin_h = ANG_SIN(MyBunshinBase::ANGVELO_TURN/2);  //ANGVELO_TURN=âÒì]Ç≥ÇπÇΩÇ¢äpìx
     static const float p_cos_h = ANG_COS(MyBunshinBase::ANGVELO_TURN/2);
     GgafDxKuroko* pKuroko = getKuroko();
-    GgafDxQuaternion H(p_cos_h, -prm_ax_x*p_sin_h, -prm_ax_y*p_sin_h, -prm_ax_z*p_sin_h); //R
-    GgafDxQuaternion H2 = H;
+    Quaternion<float> H(p_cos_h, -prm_ax_x*p_sin_h, -prm_ax_y*p_sin_h, -prm_ax_z*p_sin_h); //R
+    Quaternion<float> H2 = H;
     H.mul(0, pKuroko->_vX, pKuroko->_vY, pKuroko->_vZ);                                   //R*P
     H.mul(p_cos_h, prm_ax_x*p_sin_h, prm_ax_y*p_sin_h, prm_ax_z*p_sin_h);                 //R*P*Q
     pKuroko->setRzRyMvAng(H.i, H.j, H.k, true);

@@ -11,7 +11,7 @@
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "jp/ggaf/dxcore/sound/GgafDxSound.h"
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
-#include "jp/ggaf/dxcore/util/GgafDx26DirectionUtil.h"
+
 
 using namespace GgafCore;
 using namespace GgafDxCore;

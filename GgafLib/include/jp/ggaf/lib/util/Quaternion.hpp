@@ -1,5 +1,5 @@
-#ifndef GGAFDXCORE_GGAFDXQUATERNION_H_
-#define GGAFDXCORE_GGAFDXQUATERNION_H_
+#ifndef GGAFLIB_QUATERNION_HPP_
+#define GGAFLIB_QUATERNION_HPP_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/GgafObject.h"
 
@@ -11,26 +11,27 @@ namespace GgafDxCore {
  * @since 2009/04/07
  * @author Masatoshi Tsuge
  */
-class GgafDxQuaternion : public GgafCore::GgafObject {
+template<typename T>
+class Quaternion : public GgafCore::GgafObject {
 public:
     /** ŽÀ•” */
-    float   R;
+    T   R;
     /** ‹••” i */
-    float   i;
+    T   i;
     /** ‹••” j */
-    float   j;
+    T   j;
     /** ‹••” k */
-    float   k;
+    T   k;
 
 public:
-    GgafDxQuaternion() : GgafObject() {
+    Quaternion() : GgafObject() {
         R = 0;
         i = 0;
         j = 0;
         k = 0;
     }
 
-    GgafDxQuaternion(const float prm_R, const float prm_i, const float prm_j, const float prm_k) : GgafObject(),
+    Quaternion(const T prm_R, const T prm_i, const T prm_j, const T prm_k) : GgafObject(),
         R(prm_R),
         i(prm_i),
         j(prm_j),
@@ -38,7 +39,7 @@ public:
     }
 
 
-    inline void set(const float prm_R, const float prm_i, const float prm_j, const float prm_k) {
+    inline void set(const T prm_R, const T prm_i, const T prm_j, const T prm_k) {
         R = prm_R;
         i = prm_i;
         j = prm_j;
@@ -52,7 +53,7 @@ public:
      * @param y2
      * @param z2
      */
-    inline void mul(const float a2, const float b2, const float c2, const float d2) {
+    inline void mul(const T a2, const T b2, const T c2, const T d2) {
         float a1 = R;
         float b1 = i;
         float c1 = j;
@@ -63,13 +64,14 @@ public:
         k = a1*d2 + b1*c2 - c1*b2 + d1*a2;
     }
 
-    inline void mul(const GgafDxQuaternion& H) {
+    inline void mul(const Quaternion<T>& H) {
         mul(H.R, H.i, H.j, H.k);
     }
 
-    virtual ~GgafDxQuaternion();
+    virtual ~Quaternion() {
+    }
 };
 
 }
-#endif /*GGAFDXCORE_GGAFDXQUATERNION_H_*/
+#endif /*GGAFLIB_QUATERNION_HPP_*/
 

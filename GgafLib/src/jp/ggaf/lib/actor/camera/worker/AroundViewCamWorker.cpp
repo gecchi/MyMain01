@@ -3,7 +3,7 @@
 #include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
-#include "jp/ggaf/dxcore/util/GgafDxQuaternion.h"
+#include "jp/ggaf/lib/util/Quaternion.hpp"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAssistant.h"
 #include "jp/ggaf/lib/DefaultGod.h"
 #include "jp/ggaf/lib/GgafLibConfig.h"
@@ -134,9 +134,9 @@ void AroundViewCamWorker::processBehavior() {
             double ang = (PI) * (d/cd_);
             double sinHalf = sin(ang/2);
             double cosHalf = cos(ang/2);
-            GgafDxQuaternion qu(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
-            GgafDxQuaternion qu2 = qu;
-            GgafDxQuaternion Q(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf);
+            Quaternion<double> qu(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
+            Quaternion<double> qu2 = qu;
+            Quaternion<double> Q(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf);
             qu.mul(0, vx_eye, vy_eye, vz_eye); //R*P
             qu.mul(Q); //R*P*Q
             slideMvCamTo(qu.i + t_x_VP_, qu.j + t_y_VP_, qu.k + t_z_VP_, DEFAULT_CAMERA_SLIDE_FRAMES);
@@ -157,9 +157,9 @@ void AroundViewCamWorker::processBehavior() {
             double ang = (PI) * (d/cd_);
             double sinHalf = sin(ang/2);
             double cosHalf = cos(ang/2);
-            GgafDxQuaternion qu(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
-            GgafDxQuaternion qu2 = qu;
-            GgafDxQuaternion Q(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf);
+            Quaternion<float> qu(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
+            Quaternion<float> qu2 = qu;
+            Quaternion<float> Q(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf);
             qu.mul(0, vx_cam, vy_cam, vz_cam);//R*P 回転軸が現在の進行方向ベクトルとなる
             qu.mul(Q); //R*P*Q
             slideMvVpTo(qu.i + t_x_CAM_, qu.j + t_y_CAM_, qu.k + t_z_CAM_, DEFAULT_CAMERA_SLIDE_FRAMES);
@@ -184,7 +184,7 @@ void AroundViewCamWorker::processBehavior() {
             vx_cam = t3 * vx_cam;
             vy_cam = t3 * vy_cam;
             vz_cam = t3 * vz_cam;
-            GgafDxQuaternion qu(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
+            Quaternion<float> qu(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
             qu.mul(0, vx_cam, vy_cam, vz_cam); //R*P 回転軸が現在の進行方向ベクトルとなる
             qu.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
             double r = (d/cd_) * game_width;

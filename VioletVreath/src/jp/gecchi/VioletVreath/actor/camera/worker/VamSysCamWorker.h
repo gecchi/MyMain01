@@ -3,7 +3,7 @@
 #include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/camera/worker/CameraWorker.h"
 
-#include "jp/ggaf/dxcore/util/GgafDx26DirectionUtil.h"
+#include "jp/ggaf/lib/util/Direction26Util.h"
 
 
 #define VAM_POS_BEHIND              DIR26(-1, 0, 0)

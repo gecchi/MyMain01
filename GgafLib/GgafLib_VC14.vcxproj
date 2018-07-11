@@ -353,6 +353,8 @@
     <ClCompile Include="src\jp\ggaf\lib\util\CollisionChecker2D.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\CollisionChecker3D.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\ColliSphere.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\Direction26Util.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\Direction8Util.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\SceneProgress.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\spline\FixedFrameSplineKurokoLeader.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\spline\FixedFrameSplineManufacture.cpp" />
@@ -454,7 +456,10 @@
     <ClInclude Include="include\jp\ggaf\lib\util\CollisionChecker2D.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\CollisionChecker3D.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\ColliSphere.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\Direction26Util.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\Direction8Util.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\Quantity.hpp" />
+    <ClInclude Include="include\jp\ggaf\lib\util\Quaternion.hpp" />
     <ClInclude Include="include\jp\ggaf\lib\util\SceneProgress.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\spline\FixedFrameSplineKurokoLeader.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\spline\FixedFrameSplineManufacture.h" />

@@ -8,8 +8,8 @@
 #include "jp/gecchi/VioletVreath/actor/camera/Camera.h"
 #include "jp/gecchi/VioletVreath/actor/camera/CameraViewPoint.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"
-#include "jp/ggaf/dxcore/util/GgafDx26DirectionUtil.h"
-#include "jp/ggaf/dxcore/util/GgafDx8DirectionUtil.h"
+#include "jp/ggaf/lib/util/Direction26Util.h"
+#include "jp/ggaf/lib/util/Direction8Util.h"
 
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
 
@@ -164,7 +164,7 @@ void VamSysCamWorker::processBehavior() {
 /////////
     //ÉJÉÅÉâÇÃ pos_camera_ ê›íË
     int x_cam_sgn, y_cam_sgn;
-    GgafDx8DirectionUtil::cnvAng2Sgn(ang_cam_around_, x_cam_sgn, y_cam_sgn);
+    Direction8Util::cnvAng2Sgn(ang_cam_around_, x_cam_sgn, y_cam_sgn);
     pos_camera_ = DIR26(0, y_cam_sgn, x_cam_sgn); //8ï˚å¸ÇXç¿ïWÇÕ0Ç∆ÇµÇΩZXïΩñ Ç≈ÇÃ26ï˚å¸Ç…ïœä∑
     if (pos_camera_prev_ != pos_camera_) {
         is_just_changed_pos_cam_ = true;

@@ -20,7 +20,7 @@
 #include "actor/VvvGrid.h"
 #include "actor/VvvCamera.h"
 #include "actor/Font01.h"
-#include "jp/ggaf/dxcore/util/GgafDx26DirectionUtil.h"
+#include "jp/ggaf/lib/util/Direction26Util.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

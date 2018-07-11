@@ -1,5 +1,5 @@
-#ifndef GGAFLIB_QUANTITY_H_
-#define GGAFLIB_QUANTITY_H_
+#ifndef GGAFLIB_QUANTITY_HPP_
+#define GGAFLIB_QUANTITY_HPP_
 #include "GgafLibCommonHeader.h"
 #include "jp/ggaf/core/GgafObject.h"
 
@@ -97,5 +97,5 @@ public:
 };
 
 }
-#endif /*GGAFLIB_QUANTITY_H_*/
+#endif /*GGAFLIB_QUANTITY_HPP_*/
 

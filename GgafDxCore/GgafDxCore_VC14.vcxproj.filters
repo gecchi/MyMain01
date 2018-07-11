@@ -378,12 +378,6 @@
     <ClCompile Include="src\jp\ggaf\dxcore\util\XFile\Toolbox\ioModel_X.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\jp\ggaf\dxcore\util\GgafDx8DirectionUtil.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\ggaf\dxcore\util\GgafDx26DirectionUtil.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="src\jp\ggaf\dxcore\util\GgafDxAllocHierarchy.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -400,9 +394,6 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\ggaf\dxcore\util\GgafDxInput.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\ggaf\dxcore\util\GgafDxQuaternion.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\ggaf\dxcore\util\GgafDxSphereRadiusVectors.cpp">
@@ -827,12 +818,6 @@
     <ClInclude Include="include\jp\ggaf\dxcore\util\XFile\Toolbox\XFileStructs.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="include\jp\ggaf\dxcore\util\GgafDx8DirectionUtil.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\dxcore\util\GgafDx26DirectionUtil.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="include\jp\ggaf\dxcore\util\GgafDxAllocHierarchy.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -849,9 +834,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\dxcore\util\ggafdxinput.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\dxcore\util\ggafdxquaternion.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\dxcore\util\ggafdxsphereradiusvectors.h">

@@ -19,6 +19,9 @@
 #define Obj_MassWallActor           (0x8000000000ULL)    //0b 00000000 00000000 00001000 00000000 00000000 00000000 00000000 00000000
 #define Obj_CubeMapMassWallActor   (0x10000000000ULL)    //0b 00000000 00000000 00010000 00000000 00000000 00000000 00000000 00000000
 
+typedef int_fast32_t dir26;
+typedef int_fast32_t dir8;
+
 //‘O•ûéŒ¾(forward declaration)
 namespace GgafLib {
 

@@ -194,9 +194,6 @@ public:
         return _cameraZ_org;
     }
 
-    void setCamUpVecByFaceNo(dir26 prm_face_no);
-
-
     virtual ~GgafDxCamera(); //デストラクタ
 };
 
