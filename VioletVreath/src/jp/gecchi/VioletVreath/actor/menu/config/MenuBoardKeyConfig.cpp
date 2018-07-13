@@ -31,8 +31,8 @@ MenuBoardKeyConfig::MenuBoardKeyConfig(const char* prm_name) :
           "MOVE RIGHT",
           "VIEW UP",
           "VIEW DOWN",
-          //"VIEW LEFT",
-          //"VIEW RIGHT",
+          "VIEW LEFT",
+          "VIEW RIGHT",
           "MAIN SHOT BUTTON",
           "SUB SHOT BUTTON",
           "TURBO BUTTON",
@@ -108,8 +108,8 @@ void MenuBoardKeyConfig::onRise() {
     paVBConfig[ITEM_RIGHT     ].pKey->update(CONFIG::MY_KEY_RIGHT     .c_str());
     paVBConfig[ITEM_VIEW_UP   ].pKey->update(CONFIG::MY_KEY_VIEW_UP   .c_str());
     paVBConfig[ITEM_VIEW_DOWN ].pKey->update(CONFIG::MY_KEY_VIEW_DOWN .c_str());
-    //paVBConfig[ITEM_VIEW_LEFT ].pKey->update(CONFIG::MY_KEY_VIEW_LEFT .c_str());
-    //paVBConfig[ITEM_VIEW_RIGHT].pKey->update(CONFIG::MY_KEY_VIEW_RIGHT.c_str());
+    paVBConfig[ITEM_VIEW_LEFT ].pKey->update(CONFIG::MY_KEY_VIEW_LEFT .c_str());
+    paVBConfig[ITEM_VIEW_RIGHT].pKey->update(CONFIG::MY_KEY_VIEW_RIGHT.c_str());
     paVBConfig[ITEM_MAIN_SHOT ].pKey->update(CONFIG::MY_KEY_SHOT1     .c_str());
     paVBConfig[ITEM_SUB_SHOT  ].pKey->update(CONFIG::MY_KEY_SHOT2     .c_str());
     paVBConfig[ITEM_TURBO     ].pKey->update(CONFIG::MY_KEY_TURBO     .c_str());
@@ -124,8 +124,8 @@ void MenuBoardKeyConfig::onRise() {
     paVBConfig[ITEM_RIGHT     ].pJoy->update(CONFIG::MY_JOY_RIGHT     .c_str());
     paVBConfig[ITEM_VIEW_UP   ].pJoy->update(CONFIG::MY_JOY_VIEW_UP   .c_str());
     paVBConfig[ITEM_VIEW_DOWN ].pJoy->update(CONFIG::MY_JOY_VIEW_DOWN .c_str());
-    //paVBConfig[ITEM_VIEW_LEFT ].pJoy->update(CONFIG::MY_JOY_VIEW_LEFT .c_str());
-    //paVBConfig[ITEM_VIEW_RIGHT].pJoy->update(CONFIG::MY_JOY_VIEW_RIGHT.c_str());
+    paVBConfig[ITEM_VIEW_LEFT ].pJoy->update(CONFIG::MY_JOY_VIEW_LEFT .c_str());
+    paVBConfig[ITEM_VIEW_RIGHT].pJoy->update(CONFIG::MY_JOY_VIEW_RIGHT.c_str());
     paVBConfig[ITEM_MAIN_SHOT ].pJoy->update(CONFIG::MY_JOY_SHOT1     .c_str());
     paVBConfig[ITEM_SUB_SHOT  ].pJoy->update(CONFIG::MY_JOY_SHOT2     .c_str());
     paVBConfig[ITEM_TURBO     ].pJoy->update(CONFIG::MY_JOY_TURBO     .c_str());
@@ -157,8 +157,8 @@ void MenuBoardKeyConfig::processBehavior() {
         CONFIG::_properties.setValue("MY_KEY_RIGHT"     , paVBConfig[ITEM_RIGHT     ].pKey->getDrawString());
         CONFIG::_properties.setValue("MY_KEY_VIEW_UP"   , paVBConfig[ITEM_VIEW_UP   ].pKey->getDrawString());
         CONFIG::_properties.setValue("MY_KEY_VIEW_DOWN" , paVBConfig[ITEM_VIEW_DOWN ].pKey->getDrawString());
-        //CONFIG::_properties.setValue("MY_KEY_VIEW_LEFT" , paVBConfig[ITEM_VIEW_LEFT ].pKey->getDrawString());
-        //CONFIG::_properties.setValue("MY_KEY_VIEW_RIGHT", paVBConfig[ITEM_VIEW_RIGHT].pKey->getDrawString());
+        CONFIG::_properties.setValue("MY_KEY_VIEW_LEFT" , paVBConfig[ITEM_VIEW_LEFT ].pKey->getDrawString());
+        CONFIG::_properties.setValue("MY_KEY_VIEW_RIGHT", paVBConfig[ITEM_VIEW_RIGHT].pKey->getDrawString());
         CONFIG::_properties.setValue("MY_KEY_SHOT1"     , paVBConfig[ITEM_MAIN_SHOT ].pKey->getDrawString());
         CONFIG::_properties.setValue("MY_KEY_SHOT2"     , paVBConfig[ITEM_SUB_SHOT  ].pKey->getDrawString());
         CONFIG::_properties.setValue("MY_KEY_TURBO"     , paVBConfig[ITEM_TURBO     ].pKey->getDrawString());
@@ -173,8 +173,8 @@ void MenuBoardKeyConfig::processBehavior() {
         CONFIG::_properties.setValue("MY_JOY_RIGHT"     , paVBConfig[ITEM_RIGHT     ].pJoy->getDrawString());
         CONFIG::_properties.setValue("MY_JOY_VIEW_UP"   , paVBConfig[ITEM_VIEW_UP   ].pJoy->getDrawString());
         CONFIG::_properties.setValue("MY_JOY_VIEW_DOWN" , paVBConfig[ITEM_VIEW_DOWN ].pJoy->getDrawString());
-        //CONFIG::_properties.setValue("MY_JOY_VIEW_LEFT" , paVBConfig[ITEM_VIEW_LEFT ].pJoy->getDrawString());
-        //CONFIG::_properties.setValue("MY_JOY_VIEW_RIGHT", paVBConfig[ITEM_VIEW_RIGHT].pJoy->getDrawString());
+        CONFIG::_properties.setValue("MY_JOY_VIEW_LEFT" , paVBConfig[ITEM_VIEW_LEFT ].pJoy->getDrawString());
+        CONFIG::_properties.setValue("MY_JOY_VIEW_RIGHT", paVBConfig[ITEM_VIEW_RIGHT].pJoy->getDrawString());
         CONFIG::_properties.setValue("MY_JOY_SHOT1"     , paVBConfig[ITEM_MAIN_SHOT ].pJoy->getDrawString());
         CONFIG::_properties.setValue("MY_JOY_SHOT2"     , paVBConfig[ITEM_SUB_SHOT  ].pJoy->getDrawString());
         CONFIG::_properties.setValue("MY_JOY_TURBO"     , paVBConfig[ITEM_TURBO     ].pJoy->getDrawString());
