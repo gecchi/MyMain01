@@ -286,7 +286,6 @@ MyShip::MyShip(const char* prm_name) :
     mv_way_sgn_y_ = 0;
     mv_way_sgn_z_ = 0;
     mv_way_ = DIR26(mv_way_sgn_x_, mv_way_sgn_y_, mv_way_sgn_z_);
-    prev_mv_way_ = mv_way_;
     is_just_change_mv_way_ = true;
 
     //MP初期値
@@ -374,7 +373,6 @@ void MyShip::onReset() {
     mv_way_sgn_y_ = 0;
     mv_way_sgn_z_ = 0;
     mv_way_ = DIR26(mv_way_sgn_x_, mv_way_sgn_y_, mv_way_sgn_z_);
-    prev_mv_way_ = mv_way_;
 //    mv_way_switch_.reset();
 
     mp_ = MY_SHIP_START_MP;
@@ -400,43 +398,30 @@ void MyShip::onInactive() {
 }
 void MyShip::processBehavior() {
     VirtualButton* pVbPlay = VB_PLAY;
-//    int pos_camera = pVAM->getPosCam();
     GgafDxKuroko* const pKuroko = getKuroko();
     GgafDxAxesMover* const pAxesMover = getAxesMover();
-
     //操作拒否
     if (!can_control_) {
         return;
     }
-
-    int prev_way = mv_way_;
-
-    mv_way_ = checkMoveWay();
-
-    if (prev_way != mv_way_) {
-        is_just_change_mv_way_ = true;
-    } else {
-        is_just_change_mv_way_ = false;
-    }
-
+    updateMoveWay();
     if (getStatus()->get(STAT_Stamina) < 0) {
         //息切れ
     } else {
         if (pVbPlay->isPressed(VB_OPTION)) {
             int tmp = mv_speed_;
             mv_speed_ /= 8; //オプション操作中移動は遅い
-            moveNomal(mv_way_);
+            moveNomal();
             mv_speed_ = tmp;
         } else {
-            moveNomal(mv_way_);
+            moveNomal();
         }
 
         if (pVbPlay->isPushedDown(VB_TURBO)) {
             if (pAxesMover->_velo_vx_mv == 0 && pAxesMover->_velo_vy_mv == 0 && pAxesMover->_velo_vz_mv == 0) {
                 //ターボ移動完全に終了しないと次のターボは実行不可
-                moveTurbo(mv_way_);
+                moveTurbo();
                 UTIL::activateProperEffect01Of(this); //ターボ開始のエフェクト
-//                (this->*funcTurbo_[mv_way_])(); //方向値に応じたターボ開始処理メソッドを呼び出す
                 getSeTransmitter()->play3D(SE_TURBO);
             } else {
                 //ターボ移動中
@@ -741,8 +726,6 @@ void MyShip::processBehavior() {
         getSeTransmitter()->play3D(SE_EXPLOSION);
         throwEventUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_BEGIN);
     }
-
-
     if (prev_x_ == _x && prev_y_ == _y && prev_z_ == _z) {
         is_move_ = false;
     } else {
@@ -1037,7 +1020,7 @@ void MyShip::setInvincibleFrames(int prm_frames) {
     setHitAble(false);
     invincible_frames_ = prm_frames;
 }
-dir26 MyShip::checkMoveWay() {
+void MyShip::updateMoveWay() {
     VirtualButton* pVbPlay = VB_PLAY;
 
     dir26 pos_camera = pVAM->getPosCam();
@@ -1085,25 +1068,31 @@ dir26 MyShip::checkMoveWay() {
         Direction26Util::cnvDirNo2Sgn(pa_dir8[dir_8_idx],
                                             mv_way_sgn_x_, mv_way_sgn_y_, mv_way_sgn_z_);
     }
-    return DIR26(mv_way_sgn_x_, mv_way_sgn_y_, mv_way_sgn_z_);
+    int prev_way = mv_way_;
+    mv_way_ = DIR26(mv_way_sgn_x_, mv_way_sgn_y_, mv_way_sgn_z_);
+    if (prev_way != mv_way_) {
+        is_just_change_mv_way_ = true;
+    } else {
+        is_just_change_mv_way_ = false;
+    }
 }
 
-void MyShip::moveNomal(dir26 prm_way) {
+void MyShip::moveNomal() {
     float vx,vy,vz;
-    Direction26Util::cnvDirNo2Vec(prm_way, vx, vy, vz);
+    Direction26Util::cnvDirNo2Vec(mv_way_, vx, vy, vz);
     _x += mv_speed_ * vx;
     _y += mv_speed_ * vy;
     _z += mv_speed_ * vz;
     if (is_just_change_mv_way_) {
         angle rz, ry;
-        Direction26Util::cnvDirNo2RzRy(prm_way, rz, ry);
+        Direction26Util::cnvDirNo2RzRy(mv_way_, rz, ry);
         getKuroko()->setRzRyMvAng(rz, ry);
         //旋廻
 
-        int sgn_turn = SGN(pSenakai_[prm_way]);
+        int sgn_turn = SGN(pSenakai_[mv_way_]);
         if (sgn_turn != 0) {
             getKuroko()->setFaceAngAcce(AXIS_X, sgn_turn*angRxAcce_MZ_);
-            getKuroko()->setStopTargetFaceAng(AXIS_X, pSenakai_[prm_way],
+            getKuroko()->setStopTargetFaceAng(AXIS_X, pSenakai_[mv_way_],
                                               //sgn_turn > 0 ? TURN_COUNTERCLOCKWISE : TURN_CLOCKWISE,
                                               TURN_CLOSE_TO,
                                               angRxTopVelo_MZ_);
@@ -1111,21 +1100,21 @@ void MyShip::moveNomal(dir26 prm_way) {
     }
 }
 
-void MyShip::moveTurbo(dir26 prm_way) {
+void MyShip::moveTurbo() {
     GgafDxAxesMover* const pAxesMover = getAxesMover();
 
     float vx,vy,vz;
-    Direction26Util::cnvDirNo2Vec(prm_way, vx, vy, vz);
+    Direction26Util::cnvDirNo2Vec(mv_way_, vx, vy, vz);
     pAxesMover->addVxMvVelo(veloBeginMT_ * vx);
     pAxesMover->addVyMvVelo(veloBeginMT_ * vy);
     pAxesMover->addVzMvVelo(veloBeginMT_ * vz);
 
     angle rz, ry;
-    Direction26Util::cnvDirNo2RzRy(prm_way, rz, ry);
+    Direction26Util::cnvDirNo2RzRy(mv_way_, rz, ry);
     getKuroko()->setRzRyMvAng(rz, ry);
 
     //旋廻
-    angle senkai = pSenakai_[prm_way];
+    angle senkai = pSenakai_[mv_way_];
     if (senkai != 0) {
         double senkai_spin_speed_rate = (1.0 * D90ANG / senkai); //旋回時、90度-90度に傾く場合 1.0、1.0 となる。
         getKuroko()->setRollFaceAngVelo(angRxVelo_BeginMZT_ * senkai_spin_speed_rate);

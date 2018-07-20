@@ -70,7 +70,6 @@ public:
 
     /** ターボ中、移動方角 */
     dir26 mv_way_;
-    dir26 prev_mv_way_;
     int mv_way_sgn_x_;
     int mv_way_sgn_y_;
     int mv_way_sgn_z_;
@@ -203,13 +202,20 @@ public:
 
     void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
 
-    dir26 checkMoveWay();
+    /**
+     * 移動方向の状態を更新 .
+     * 入力方向に応じて mv_way_, mv_way_sgn_x_, mv_way_sgn_y_, mv_way_sgn_z_,is_just_change_mv_way_の状態を更新します .
+     */
+    void updateMoveWay();
+    dir26 getMoveWay() {
+        return mv_way_;
+    }
 
     void setMoveSpeed(velo prm_speed_velo);
 
-    void moveNomal(dir26 prm_way);
+    void moveNomal();
 
-    void moveTurbo(dir26 prm_way);
+    void moveTurbo();
 
 
     void onCatchEvent(hashval prm_no, void* prm_pSource) override;
