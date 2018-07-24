@@ -68,12 +68,19 @@ public:
     /** [r]魚雷コントローラー */
     MyTorpedoController* pTorpedoCtrler_;
 
-    /** ターボ中、移動方角 */
+    /** 現在移動方角 */
     dir26 mv_way_;
+    /** 現在移動方角のX軸正負 */
     int mv_way_sgn_x_;
+    /** 現在移動方角のY軸正負 */
     int mv_way_sgn_y_;
+    /** 現在移動方角のZ軸正負 */
     int mv_way_sgn_z_;
+    /** 前回移動方角 */
+    dir26 prev_way_;
+    /** 移動方角に変化があった場合 true となる */
     bool is_just_change_mv_way_;
+
     /** 移動スピードレベルに相応する移動スピード */
     velo mv_speed_;
 

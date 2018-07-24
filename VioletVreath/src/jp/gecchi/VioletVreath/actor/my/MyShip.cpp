@@ -286,7 +286,8 @@ MyShip::MyShip(const char* prm_name) :
     mv_way_sgn_y_ = 0;
     mv_way_sgn_z_ = 0;
     mv_way_ = DIR26(mv_way_sgn_x_, mv_way_sgn_y_, mv_way_sgn_z_);
-    is_just_change_mv_way_ = true;
+    prev_way_ = mv_way_;
+    is_just_change_mv_way_ = false;
 
     //MP初期値
     mp_ = MY_SHIP_START_MP;
@@ -437,9 +438,9 @@ void MyShip::processBehavior() {
                 pAxesMover->_velo_vz_mv *= 0.96;
             } else {
                 //ターボを離した場合、速度減衰。
-                pAxesMover->_velo_vx_mv *= 0.9;
-                pAxesMover->_velo_vy_mv *= 0.9;
-                pAxesMover->_velo_vz_mv *= 0.9;
+                pAxesMover->_velo_vx_mv *= 0.8;
+                pAxesMover->_velo_vy_mv *= 0.8;
+                pAxesMover->_velo_vz_mv *= 0.8;
             }
             if (ABS(pAxesMover->_velo_vx_mv) <= 2) {
                 pAxesMover->_velo_vx_mv = 0;
@@ -456,7 +457,6 @@ void MyShip::processBehavior() {
             pAxesMover->setZeroVxyzMvVelo(); //ターボ移動中でも停止する。（ターボキャンセル的になる！）
         }
     }
-
 
     //スピンが勢いよく回っているならば速度を弱める
     angvelo MZ = angRxTopVelo_MZ_-3000; //3000は通常旋回時に速度を弱めてangRxTopVelo_MZ_を超えないようにするため、やや手前で減速すると言う意味（TODO:要調整）。
@@ -479,8 +479,6 @@ void MyShip::processBehavior() {
         pKuroko->setMvAcce(0);
         pKuroko->setStopTargetFaceAng(AXIS_X, 0, TURN_BOTH, angRxTopVelo_MZ_);
     }
-
-
 
     ////////////////////////////////////////////////////
 
@@ -548,11 +546,8 @@ void MyShip::processBehavior() {
         }
     }
 
-
     //毎フレームの呼吸の消費
     getStatus()->minus(STAT_Stamina, MY_SHIP_VREATH_COST);
-
-
 
     //ショット関連処理
     is_shooting_laser_ = false;
@@ -1066,11 +1061,11 @@ void MyShip::updateMoveWay() {
     if (mv_dir > -1) {
         int dir_8_idx = (up_idx + mv_dir) % 8;
         Direction26Util::cnvDirNo2Sgn(pa_dir8[dir_8_idx],
-                                            mv_way_sgn_x_, mv_way_sgn_y_, mv_way_sgn_z_);
+                                      mv_way_sgn_x_, mv_way_sgn_y_, mv_way_sgn_z_);
     }
-    int prev_way = mv_way_;
+    prev_way_ = mv_way_;
     mv_way_ = DIR26(mv_way_sgn_x_, mv_way_sgn_y_, mv_way_sgn_z_);
-    if (prev_way != mv_way_) {
+    if (prev_way_ != mv_way_) {
         is_just_change_mv_way_ = true;
     } else {
         is_just_change_mv_way_ = false;
@@ -1088,12 +1083,10 @@ void MyShip::moveNomal() {
         Direction26Util::cnvDirNo2RzRy(mv_way_, rz, ry);
         getKuroko()->setRzRyMvAng(rz, ry);
         //旋廻
-
-        int sgn_turn = SGN(pSenakai_[mv_way_]);
+        int sgn_turn = pSenakai_[mv_way_] > pSenakai_[prev_way_] ? 1 : -1;
         if (sgn_turn != 0) {
             getKuroko()->setFaceAngAcce(AXIS_X, sgn_turn*angRxAcce_MZ_);
             getKuroko()->setStopTargetFaceAng(AXIS_X, pSenakai_[mv_way_],
-                                              //sgn_turn > 0 ? TURN_COUNTERCLOCKWISE : TURN_CLOCKWISE,
                                               TURN_CLOSE_TO,
                                               angRxTopVelo_MZ_);
         }
