@@ -364,11 +364,11 @@ GgafActorDepository* MyStgUtil::getDepositoryOf(GgafDxGeometricActor* prm_pActor
             break;
         }
         case DEPO_LASER001: {
-            pDepo = (GgafActorDepository*)(pCOMMON_SCENE->pStore_EnemyWateringLaser001_->dispatch());
+            pDepo = dispatchFromCommonDepositoryStore(EnemyWateringLaserChip001);
             break;
         }
         case DEPO_LASER002: {
-            pDepo = (GgafActorDepository*)(pCOMMON_SCENE->pStore_EnemyStraightLaser001_->dispatch());
+            pDepo = dispatchFromCommonDepositoryStore(EnemyStraightLaserChip001);
             break;
         }
         default: {

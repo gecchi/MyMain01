@@ -1,7 +1,7 @@
 #include "FormationIda.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
+#include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ida/EnemyIda.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"

@@ -7,7 +7,7 @@
 #include "jp/ggaf/core/util/GgafResourceConnection.hpp"
 #include "jp/ggaf/core/util/GgafXpm.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
+#include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/ggaf/lib/util/spline/SplineManufacture.h"
 #include "jp/ggaf/lib/util/spline/FixedFrameSplineManufacture.h"
 

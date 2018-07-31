@@ -11,10 +11,10 @@ namespace GgafLib {
  * スプライン曲線移動のための情報セット .
  * 全てのアクターに共通するスプラインの情報はここに集約。<BR>
  * オブジェクトの関係<BR>
- * SplineKurokoLeader 各アクター毎に生成される。
+ * SplineLeader 各アクター毎に生成される。
  *                    アクターに対する、スプライン曲線上の現在の補完点の位置・時間・距離等の管理を行い、
  *                    黒衣(Kuroko)に指示を出してアクターを移動させる。
- *                    １つの SplineManufacture オブジェクトに対して N 個の SplineKurokoLeaderオブジェクトが参照している。
+ *                    １つの SplineManufacture オブジェクトに対して N 個の SplineLeader オブジェクトが参照している。
  *                    スプラインの座標点間の距離に影響の無い情報はココで保持する。
  *                    つまりスプライン曲線の座標点の軸平行移動オフセット、
  *                    X,Y,Zの正負入れ替え情報。（TODO:将来は、回転情報もココに）
@@ -93,13 +93,15 @@ public:
     virtual void calculate();
 
     /**
-     * SplineKurokoLeader オブジェクトの生成 .
+     * SplineLeader オブジェクトの生成 .
      * 設定した黒衣を、操作しますので注意して下さい。<br>
-     * 本メソッドで作成した SplineKurokoLeader は、呼び元で deleteする必要があります。<br>
+     * 本メソッドで作成した SplineLeader は、呼び元で deleteする必要があります。<br>
      * @param prm_pKuroko 対象のアクターの黒衣
      * @return
      */
-    virtual SplineKurokoLeader* createKurokoLeader(GgafDxCore::GgafDxKuroko* const prm_pKuroko) = 0;
+    virtual SplineLeader* createKurokoLeader(GgafDxCore::GgafDxKuroko* prm_pKuroko);
+
+    virtual SplineLeader* createAxesMoverLeader(GgafDxCore::GgafDxAxesMover* prm_pAxesMover);
 
     virtual ~SplineManufacture();
 };

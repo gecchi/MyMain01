@@ -17,7 +17,7 @@ class EnemyHalia : public GgafLib::DefaultMassMorphMeshActor {
 public:
     velo veloTopMv_;
     /** 移動スプラインプログラム */
-    GgafLib::SplineKurokoLeader* pKurokoLeader_;
+    GgafLib::SplineLeader* pKurokoLeader_;
     /** 原点から初期カメラZ位置の距離 */
     coord dZ_camera_init_;
 
@@ -67,7 +67,7 @@ public:
      * initialize() までに設定して下さい。
      * @param prm_pKurokoLeader
      */
-    void setSplineKurokoLeader(GgafLib::SplineKurokoLeader* prm_pKurokoLeader) {
+    void setSplineKurokoLeader(GgafLib::SplineLeader* prm_pKurokoLeader) {
         pKurokoLeader_ = prm_pKurokoLeader;
     }
 

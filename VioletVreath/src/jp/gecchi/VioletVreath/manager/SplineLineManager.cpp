@@ -35,7 +35,7 @@ SplineLine* SplineLineManager::processCreateResource(const char* prm_idstr, void
                           {        0 ,        0 , -300000 },
                           {  -800000 ,        0 ,       0 }
                         };
-        pResource = NEW SplineLine(p, 17, 0.2);//—±“x 0.2
+        pResource = NEW SplineLine(p, 17, 0.5);//—±“x 0.2
     }
 
     if (strcmp("Spl_00201_", prm_idstr) == 0) {

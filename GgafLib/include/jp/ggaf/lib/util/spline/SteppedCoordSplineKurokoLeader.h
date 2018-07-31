@@ -1,7 +1,7 @@
 #ifndef GGAFLIB_STEPPEDCOORDSPLINEKUROKOLEADER_H_
 #define GGAFLIB_STEPPEDCOORDSPLINEKUROKOLEADER_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
+#include "jp/ggaf/lib/util/spline/SplineLeader.h"
 
 namespace GgafLib {
 
@@ -12,9 +12,10 @@ namespace GgafLib {
  * @since 2009/10/28
  * @author Masatoshi Tsuge
  */
-class SteppedCoordSplineKurokoLeader : public SplineKurokoLeader {
+class SteppedCoordSplineKurokoLeader : public SplineLeader {
 
 public:
+    GgafDxCore::GgafDxKuroko* _pKuroko_target;
     SteppedCoordSplineManufacture* _pSteppedSplManuf;
 
     /** [r]ï‚äÆì_(äÓèÄì_Ç‡ä‹Çﬁ)ÇÃêî */

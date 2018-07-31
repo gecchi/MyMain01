@@ -77,12 +77,14 @@ public:
     void recalculateBySpentFrame(frame prm_spent_frames);
 
     /**
-     * SplineKurokoLeaderオブジェクトの生成 .
+     * SplineLeader オブジェクトの生成 .
      * インスタンスは FixedFrameSplineManufacture です。
-     * @param prm_pKuroko スプライン移動させる対象アクター
-     * @return SplineKurokoLeaderオブジェクト
+     * @param prm_pKuroko スプライン移動するための操作するオブジェクト
+     * @return SplineLeader オブジェクト
      */
-    SplineKurokoLeader* createKurokoLeader(GgafDxCore::GgafDxKuroko* const prm_pKuroko) override;
+    SplineLeader* createKurokoLeader(GgafDxCore::GgafDxKuroko* prm_pKuroko) override;
+
+    SplineLeader* createAxesMoverLeader(GgafDxCore::GgafDxAxesMover* prm_pAxesMover) override;
 
     virtual ~FixedFrameSplineManufacture();
 };

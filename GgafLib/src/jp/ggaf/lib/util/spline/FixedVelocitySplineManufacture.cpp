@@ -89,7 +89,7 @@ void FixedVelocitySplineManufacture::calculate() {
     }
 }
 
-SplineKurokoLeader* FixedVelocitySplineManufacture::createKurokoLeader(GgafDxCore::GgafDxKuroko* const prm_pKuroko) {
+SplineLeader* FixedVelocitySplineManufacture::createKurokoLeader(GgafDxCore::GgafDxKuroko* prm_pKuroko) {
     return NEW FixedVelocitySplineKurokoLeader(this, prm_pKuroko);
 }
 

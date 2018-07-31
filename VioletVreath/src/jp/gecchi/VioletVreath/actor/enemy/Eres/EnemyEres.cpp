@@ -25,13 +25,13 @@ EnemyEres::EnemyEres(const char* prm_name, GgafActorDepository* prm_pDepo_EnemyE
         DefaultMeshSetActor(prm_name, "Eres", STATUS(EnemyEres)) {
     _class_name = "EnemyEres";
     iMovePatternNo_ = 0;
-    _x = -356000; //開始座標
+    _x = PX_C(100); //開始座標
     _y = 0;
-    _z = -680000;
+    _z = 0;
     X_turn_ = (PX_C(CONFIG::GAME_BUFFER_WIDTH) / 2) - 30000;
     Y_turn_ = -10000;
     Z_turn_ = 0;
-
+    frame_Active_ = 0;
     if (prm_pDepo_EnemyEresShots001 == nullptr) {
         //共有の弾が引数に未指定の場合
         //弾ストック作成
@@ -47,12 +47,11 @@ EnemyEres::EnemyEres(const char* prm_name, GgafActorDepository* prm_pDepo_EnemyE
         createGgafActorDepository_ = false;
     }
 
-    pSplLineConnection_ = connectToSplineLineManager("Spl_001");
+    pSplLineConnection_ = connectToSplineLineManager("Spl_HAN");
     pKurokoLeader_ = NEW FixedVelocitySplineKurokoLeader(getKuroko(), pSplLineConnection_->peek(), 5000); //移動速度固定
-
-//    pKurokoLeader_ = NEW FixedFrameSplineKurokoLeader(getKuroko(), pSplLineConnection_->peek(), 600, 5000); //移動フレーム数固定
     GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    getModel()->setSpecular(8.0, 2.0);
 }
 
 void EnemyEres::initialize() {
@@ -70,13 +69,12 @@ void EnemyEres::onActive() {
     pKuroko->linkFaceAngByMvAng(true);
     pKuroko->setRollFaceAngVelo(6000);
     pKuroko->setMvVelo(8000);
-    pKurokoLeader_->start(ABSOLUTE_COORD); //スプライン移動を開始
-    frame_Active_ = 0;
+    pKurokoLeader_->start(RELATIVE_COORD); //スプライン移動を開始
 }
 
 void EnemyEres::processBehavior() {
     //方向転換
-    if (iMovePatternNo_ == 0 && _x > 400000) {
+    if (iMovePatternNo_ == 0 && getBehaveingFrame() == 60*10) {
 
         angle way[32];
         //UTIL::getWayAngle2D(180000, 8, 10000, way);

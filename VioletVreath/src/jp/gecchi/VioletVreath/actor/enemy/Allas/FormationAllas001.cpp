@@ -6,7 +6,7 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/DefaultGod.h"
-#include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
+#include "jp/ggaf/lib/util/spline/SplineLeader.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -73,7 +73,7 @@ void FormationAllas001::processBehavior() {
                     EnemyAllas* pAllas = (EnemyAllas*)callUpMember();
                     if (pAllas) {
                         pAllas->getKuroko()->setMvVelo(velo_mv_);
-                        SplineKurokoLeader* pKurokoLeader = pConn_pSplManuf_->peek()->createKurokoLeader(pAllas->getKuroko());
+                        SplineLeader* pKurokoLeader = pConn_pSplManuf_->peek()->createKurokoLeader(pAllas->getKuroko());
                         pAllas->config(pKurokoLeader, nullptr, nullptr);
                         onCallUpAllas(pAllas);
                     }

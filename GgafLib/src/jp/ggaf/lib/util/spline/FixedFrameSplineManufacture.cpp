@@ -2,6 +2,7 @@
 
 #include "jp/ggaf/lib/util/spline/SplineLine.h"
 #include "jp/ggaf/lib/util/spline/FixedFrameSplineKurokoLeader.h"
+#include "jp/ggaf/lib/util/spline/FixedFrameSplineAxesMoverLeader.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -127,10 +128,12 @@ void FixedFrameSplineManufacture::recalculateBySpentFrame(frame prm_spent_frames
     _paSPMvVeloTo[0] = 0; //始点までの速度など分からない。
 }
 
-SplineKurokoLeader* FixedFrameSplineManufacture::createKurokoLeader(GgafDxCore::GgafDxKuroko* const prm_pKuroko) {
+SplineLeader* FixedFrameSplineManufacture::createKurokoLeader(GgafDxCore::GgafDxKuroko* prm_pKuroko) {
     return NEW FixedFrameSplineKurokoLeader(this, prm_pKuroko);
 }
-
+SplineLeader* FixedFrameSplineManufacture::createAxesMoverLeader(GgafDxCore::GgafDxAxesMover* prm_pAxesMover) {
+    return NEW FixedFrameSplineAxesMoverLeader(this, prm_pAxesMover);
+}
 FixedFrameSplineManufacture::~FixedFrameSplineManufacture() {
     //イニシャライズされる前に解放されるかもしれない
     GGAF_DELETEARR_NULLABLE(_paDistance_to);

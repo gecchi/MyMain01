@@ -9,7 +9,7 @@ class EnemyStraeaLaserChip003 : public GgafLib::WateringLaserChip {
 
 public:
     GgafLib::SplineManufactureConnection* pConn_pSplManuf_;
-    GgafLib::SplineKurokoLeader* pKurokoLeader_;
+    GgafLib::SplineLeader* pKurokoLeader_;
 
 public:
     EnemyStraeaLaserChip003(const char* prm_name);

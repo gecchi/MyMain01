@@ -9,7 +9,7 @@ class EnemyHisbeLaserChip002 : public GgafLib::RefractionLaserChip {
 
 public:
     GgafLib::SplineManufactureConnection* pConn_pSplManuf_;
-    GgafLib::SplineKurokoLeader* pKurokoLeader_;
+    GgafLib::SplineLeader* pKurokoLeader_;
     GgafLib::DefaultScene* pScrollingScene_;
 public:
     EnemyHisbeLaserChip002(const char* prm_name);

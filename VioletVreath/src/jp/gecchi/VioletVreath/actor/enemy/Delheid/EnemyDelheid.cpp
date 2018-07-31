@@ -4,7 +4,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxChecker.h"
-#include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
+#include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -66,7 +66,7 @@ void EnemyDelheid::nextFrame() {
     }
 }
 
-void EnemyDelheid::config(GgafLib::SplineKurokoLeader* prm_pKurokoLeader,
+void EnemyDelheid::config(GgafLib::SplineLeader* prm_pKurokoLeader,
                           GgafCore::GgafActorDepository* prm_pDepoShot  ) {
     GGAF_DELETE_NULLABLE(pKurokoLeader_);
     pKurokoLeader_ = prm_pKurokoLeader;

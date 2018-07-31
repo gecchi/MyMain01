@@ -1,5 +1,5 @@
-#ifndef GGAFLIB_SPLINEKUROKOLEADER_H_
-#define GGAFLIB_SPLINEKUROKOLEADER_H_
+#ifndef GGAFLIB_SPLINELEADER_H_
+#define GGAFLIB_SPLINELEADER_H_
 #include "GgafLibCommonHeader.h"
 #include "jp/ggaf/core/GgafObject.h"
 
@@ -18,7 +18,7 @@ enum SplinTraceOption {
  * @since 2009/10/27
  * @author Masatoshi Tsuge
  */
-class SplineKurokoLeader : public GgafCore::GgafObject {
+class SplineLeader : public GgafCore::GgafObject {
 
 public:
     /** スプライン情報セット */
@@ -63,7 +63,7 @@ public:
     bool _is_force_start_pos;
     bool _is_force_start_ang;
     bool _is_fix_pos;
-    bool _is_loop_ang_by_face;
+//    bool _is_loop_ang_by_face;
 
     float _sinRx_begin;
     float _cosRx_begin;
@@ -78,7 +78,7 @@ public:
      * @param prm_pManufacture
      * @param prm_pKuroko
      */
-    SplineKurokoLeader(SplineManufacture* prm_pManufacture,  GgafDxCore::GgafDxKuroko* prm_pKuroko);
+    SplineLeader(SplineManufacture* prm_pManufacture,  GgafDxCore::GgafDxGeometricActor* prm_pActor_target);
 
     /**
      * 各補完点を読み込み時、X軸方向、Y軸方向、Z軸方向それぞれに加算(平行移動)し、補正します .
@@ -285,22 +285,22 @@ public:
      */
     void setStartAngle(angle prm_rx, angle prm_ry, angle prm_rz);
 
-    /**
-     * スプライン移動の開始方向を、自分が向いている方向に対して開始する (デフォルト).
-     * start()時の対象アクターの向きの方向(_rz, _ry)に座標変換されて、スプラインの軌跡が構築される。
-     */
-    void setLoopAngleByFaceAng() {
-        _is_loop_ang_by_face = true;
-    }
-
-    /**
-     * スプライン移動の開始方向を、自分が移動している方向に対して開始する .
-     * start()時の対象アクター黒子Aの移動方向(getKuroko()->_rz_mv, getKuroko()->_ry_mv）
-     * に座標変換されて、スプラインの軌跡が構築される。
-     */
-    void setLoopAngleByMvAng() {
-        _is_loop_ang_by_face = false;
-    }
+//    /**
+//     * スプライン移動の開始方向を、自分が向いている方向に対して開始する (デフォルト).
+//     * start()時の対象アクターの向きの方向(_rz, _ry)に座標変換されて、スプラインの軌跡が構築される。
+//     */
+//    void setLoopAngleByFaceAng() {
+//        _is_loop_ang_by_face = true;
+//    }
+//
+//    /**
+//     * スプライン移動の開始方向を、自分が移動している方向に対して開始する .
+//     * start()時の対象アクター黒子Aの移動方向(getKuroko()->_rz_mv, getKuroko()->_ry_mv）
+//     * に座標変換されて、スプラインの軌跡が構築される。
+//     */
+//    void setLoopAngleByMvAng() {
+//        _is_loop_ang_by_face = false;
+//    }
 
 
 
@@ -322,8 +322,8 @@ public:
 //        _is_linked_start_ang = false;
 //    }
 
-    virtual ~SplineKurokoLeader();
+    virtual ~SplineLeader();
 };
 
 }
-#endif /*GGAFLIB_SPLINEKUROKOLEADER_H_*/
+#endif /*GGAFLIB_SPLINELEADER_H_*/

@@ -18,7 +18,7 @@ class EnemyOebius : public GgafLib::DefaultMassMeshActor {
 
 public:
     /** 移動スプラインプログラム */
-    GgafLib::SplineKurokoLeader* pKurokoLeader_;
+    GgafLib::SplineLeader* pKurokoLeader_;
 
     bool scatter_flg_;
 

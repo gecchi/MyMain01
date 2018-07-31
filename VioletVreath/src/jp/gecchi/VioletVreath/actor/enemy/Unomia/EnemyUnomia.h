@@ -16,7 +16,7 @@ class EnemyUnomia : public GgafLib::DefaultMassMeshActor {
 
 public:
     /** 移動スプラインのシークエンスプログラム */
-    GgafLib::SplineKurokoLeader* pKurokoLeader_;
+    GgafLib::SplineLeader* pKurokoLeader_;
     /** 弾ストック */
     GgafCore::GgafActorDepository* pDepo_shot_;
     /** 弾発射効果エフェクト */
@@ -73,7 +73,7 @@ public:
      * @param prm_pDepo_shotEffect
      */
     virtual void config(
-            GgafLib::SplineKurokoLeader* prm_pKurokoLeader,
+            GgafLib::SplineLeader* prm_pKurokoLeader,
             GgafCore::GgafActorDepository* prm_pDepo_shot,
             GgafCore::GgafActorDepository* prm_pDepo_shotEffect
             );

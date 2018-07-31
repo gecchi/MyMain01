@@ -20,8 +20,9 @@
 #define dispatchDelayFromCommon(X, F)      ( (X*)(getCommonDepository(X)->dispatch((F))) )
 #define dispatchForceFromCommon(X)         ( (X*)(getCommonDepository(X)->dispatchForce()) )
 
-#define pCOMMON_STORE(X)                   pStore_##X##_
-
+#define pCOMMON_DEPO_STORE(X)              pStore_##X##_
+#define getCommonStore(X)                  (pCOMMON_SCENE->pCOMMON_DEPO_STORE(X))
+#define dispatchFromCommonDepositoryStore(X)         ( (GgafCore::GgafActorDepository*)(getCommonStore(X)->dispatch()) )
 namespace VioletVreath {
 
 /**
@@ -65,8 +66,8 @@ public:
     GgafCore::GgafActorDepository* pCOMMON_DEPO(Shot004);
 
     /**  */
-    GgafCore::GgafActorDepositoryStore* pStore_EnemyWateringLaser001_;
-    GgafCore::GgafActorDepositoryStore* pStore_EnemyStraightLaser001_;
+    GgafCore::GgafActorDepositoryStore* pCOMMON_DEPO_STORE(EnemyWateringLaserChip001);
+    GgafCore::GgafActorDepositoryStore* pCOMMON_DEPO_STORE(EnemyStraightLaserChip001);
 
 public:
     CommonScene(const char* prm_name);

@@ -17,7 +17,7 @@ class EnemyDelheid : public GgafLib::DefaultMorphMeshActor {
 
 public:
     /** スプライン移動のシークエンス */
-    GgafLib::SplineKurokoLeader* pKurokoLeader_;
+    GgafLib::SplineLeader* pKurokoLeader_;
     /** ショットのデポジトリ */
     GgafCore::GgafActorDepository* pDepoShot_;
     /** ショット開始時間 */
@@ -37,7 +37,7 @@ public:
 
     void nextFrame() override;
 
-    void config(GgafLib::SplineKurokoLeader* prm_pKurokoLeader,
+    void config(GgafLib::SplineLeader* prm_pKurokoLeader,
                 GgafCore::GgafActorDepository* prm_pDepoShot);
 
     /**

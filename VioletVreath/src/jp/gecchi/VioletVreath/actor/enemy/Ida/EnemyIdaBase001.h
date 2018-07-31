@@ -15,7 +15,7 @@ class EnemyIdaBase001 : public EnemyIdaBase {
 
 public:
     GgafLib::SplineManufactureConnection* pConn_pSplManuf_;
-    GgafLib::SplineKurokoLeader* pKurokoLeader_;
+    GgafLib::SplineLeader* pKurokoLeader_;
 
 public:
     /**

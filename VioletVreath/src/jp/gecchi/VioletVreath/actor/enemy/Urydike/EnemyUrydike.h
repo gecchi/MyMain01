@@ -17,7 +17,7 @@ class EnemyUrydike : public GgafLib::DefaultMeshSetActor {
 
 public:
     /** 移動スプラインプログラム */
-    GgafLib::SplineKurokoLeader* pKurokoLeader_;
+    GgafLib::SplineLeader* pKurokoLeader_;
 
     bool scatter_flg_;
 

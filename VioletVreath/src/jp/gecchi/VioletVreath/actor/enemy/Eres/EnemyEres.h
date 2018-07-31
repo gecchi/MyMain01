@@ -19,7 +19,7 @@ public:
     /** 弾ストック */
     GgafCore::GgafActorDepository* pDepo_shot001_;
     /** スプラインプログラム */
-    GgafLib::SplineKurokoLeader* pKurokoLeader_;
+    GgafLib::SplineLeader* pKurokoLeader_;
 
     /** GgafActorDepositoryをコンストラクタで生成したか否か */
     bool createGgafActorDepository_;

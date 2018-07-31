@@ -1,7 +1,7 @@
 #ifndef GGAFLIB_FIXEDVELOCITYSPLINEKUROKOLEADER_H_
 #define GGAFLIB_FIXEDVELOCITYSPLINEKUROKOLEADER_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
+#include "jp/ggaf/lib/util/spline/SplineLeader.h"
 
 namespace GgafLib {
 
@@ -16,10 +16,11 @@ namespace GgafLib {
  * @since 2009/10/28
  * @author Masatoshi Tsuge
  */
-class FixedVelocitySplineKurokoLeader : public SplineKurokoLeader {
+class FixedVelocitySplineKurokoLeader : public SplineLeader {
 
 
 public:
+    GgafDxCore::GgafDxKuroko* _pKuroko_target;
     /** [r]スプライン情報セット(splファイルの情報に相当)  */
     FixedVelocitySplineManufacture* _pFixedVeloSplManuf;
     /** [r]現在向かっている最中の補完点(基準点も含む)の数 */
@@ -34,7 +35,7 @@ public:
      * @param prm_pManufacture calculate()済みのSplineManufactureを設定すること
      * @param prm_pKuroko 対象のアクターの黒衣
      */
-    FixedVelocitySplineKurokoLeader(SplineManufacture* prm_pManufacture,  GgafDxCore::GgafDxKuroko* prm_pKuroko);
+    FixedVelocitySplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxCore::GgafDxKuroko* prm_pKuroko_target);
 
     /**
      * コンストラクタ .

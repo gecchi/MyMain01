@@ -3,7 +3,7 @@
 #include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/ggaf/core/actor/ex/GgafActorDepositoryStore.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
-#include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
+#include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
 #include "jp/gecchi/VioletVreath/manager/DepositoryConnection.h"
 

@@ -15,7 +15,7 @@ class EnemyHisbeLaserChip001 : public GgafLib::HomingLaserChip {
 
 public:
     GgafLib::SplineManufactureConnection* pConn_pSplManuf_;
-    GgafLib::SplineKurokoLeader* pKurokoLeader_;
+    GgafLib::SplineLeader* pKurokoLeader_;
     GgafLib::DefaultScene* pScrollingScene_;
 
 public:

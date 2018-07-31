@@ -60,9 +60,19 @@ void SplineManufacture::calculate() {
         _total_distance += _paDistance_to[t];
     }
     _paDistance_to[0] = 0; //_paDistance_to[0] は最初の補完点までの距離となるべきだが、
-                           //SplineKurokoLeader::start() を行うまで距離が確定しない。ので使用不可。
-                           //最初の補完点までの距離は、SplineKurokoLeader メンバーの _distance_to_begin で
+                           //SplineLeader::start() を行うまで距離が確定しない。ので使用不可。
+                           //最初の補完点までの距離は、SplineLeader メンバーの _distance_to_begin で
                            //取得可能。
+}
+
+SplineLeader* SplineManufacture::createKurokoLeader(GgafDxKuroko* prm_pKuroko) {
+    throwGgafCriticalException("SplineManufacture::createKurokoLeader() 下位でオーバーライドして実装が必要です。");
+    return nullptr;
+}
+
+SplineLeader* SplineManufacture::createAxesMoverLeader(GgafDxAxesMover* prm_pAxesMover) {
+    throwGgafCriticalException("SplineManufacture::createAxesMoverLeader() 下位でオーバーライドして実装が必要です。");
+    return nullptr;
 }
 
 SplineManufacture::~SplineManufacture () {

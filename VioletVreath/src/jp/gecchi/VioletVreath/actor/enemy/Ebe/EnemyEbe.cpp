@@ -4,7 +4,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
+#include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
@@ -51,7 +51,7 @@ void EnemyEbe::initialize() {
 }
 
 void EnemyEbe::config(
-        SplineKurokoLeader* prm_pKurokoLeader,
+        SplineLeader* prm_pKurokoLeader,
         GgafActorDepository* prm_pDepo_shot,
         GgafActorDepository* prm_pDepo_shotEffect
         ) {

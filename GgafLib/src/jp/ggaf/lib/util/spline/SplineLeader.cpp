@@ -1,4 +1,4 @@
-#include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
+#include "jp/ggaf/lib/util/spline/SplineLeader.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
@@ -10,10 +10,10 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-SplineKurokoLeader::SplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxKuroko* prm_pKuroko) :
+SplineLeader::SplineLeader(SplineManufacture* prm_pManufacture, GgafDxGeometricActor* prm_pActor_target) :
         GgafObject() {
     _pManufacture = prm_pManufacture;
-    _pActor_target = prm_pKuroko->_pActor;
+    _pActor_target = prm_pActor_target;
     _option = ABSOLUTE_COORD;
     _x_start_in_loop = 0;
     _y_start_in_loop = 0;
@@ -44,10 +44,10 @@ SplineKurokoLeader::SplineKurokoLeader(SplineManufacture* prm_pManufacture, Ggaf
     _is_force_start_pos = false;
     _is_fix_pos = false;
     _is_force_start_ang = false;
-    _is_loop_ang_by_face = true;
+//    _is_loop_ang_by_face = true;
 }
 
-void SplineKurokoLeader::getPointCoord(int prm_point_index, coord& out_x, coord& out_y, coord& out_z) {
+void SplineLeader::getPointCoord(int prm_point_index, coord& out_x, coord& out_y, coord& out_z) {
 #ifdef MY_DEBUG
     if (prm_point_index >= _pManufacture->_sp->_rnum) {
         throwGgafCriticalException("ポイントのインデックスオーバー。"
@@ -131,7 +131,7 @@ void SplineKurokoLeader::getPointCoord(int prm_point_index, coord& out_x, coord&
     }
 }
 
-void SplineKurokoLeader::restart() {
+void SplineLeader::restart() {
     const SplineLine* const pSpl = _pManufacture->_sp;
     const double p0x = _flip_x * pSpl->_x_compute[0] * _pManufacture->_rate_x + _offset_x;
     const double p0y = _flip_y * pSpl->_y_compute[0] * _pManufacture->_rate_y + _offset_y;
@@ -172,8 +172,8 @@ void SplineKurokoLeader::restart() {
         _is_force_start_ang = false;
     } else {
         if (_cnt_loop == 1) {
-            if (_is_loop_ang_by_face) {
-                //setLoopAngleByFaceAng() 設定済みの場合（デフォルト)
+//            if (_is_loop_ang_by_face) {
+//                //setLoopAngleByFaceAng() 設定済みの場合（デフォルト)
                 //１週目はアクターが正に今向いている方向が開始移動方向
                 angle rx_mv_start = _pActor_target->_rx;
                 angle rz_mv_start = _pActor_target->_rz;
@@ -184,20 +184,20 @@ void SplineKurokoLeader::restart() {
                 _cosRz_begin = ANG_COS(rz_mv_start);
                 _sinRy_begin = ANG_SIN(ry_mv_start);
                 _cosRy_begin = ANG_COS(ry_mv_start);
-            } else {
-                //setLoopAngleByMvAng() 設定済みの場合
-                //１週目はアクターの移動方向が開始移動方向
-                GgafDxKuroko* _pActorKuroko = _pActor_target->getKuroko();
-                angle rx_mv_start = D0ANG;
-                angle rz_mv_start = _pActorKuroko->_rz_mv;
-                angle ry_mv_start = _pActorKuroko->_ry_mv;
-                _sinRx_begin = ANG_SIN(rx_mv_start);
-                _cosRx_begin = ANG_COS(rx_mv_start);
-                _sinRz_begin = ANG_SIN(rz_mv_start);
-                _cosRz_begin = ANG_COS(rz_mv_start);
-                _sinRy_begin = ANG_SIN(ry_mv_start);
-                _cosRy_begin = ANG_COS(ry_mv_start);
-            }
+//            } else {
+//                //setLoopAngleByMvAng() 設定済みの場合
+//                //１週目はアクターの移動方向が開始移動方向
+//                GgafDxKuroko* pActorKuroko = _pActor_target->getKuroko();
+//                angle rx_mv_start = D0ANG;
+//                angle rz_mv_start = pActorKuroko->_rz_mv;
+//                angle ry_mv_start = pActorKuroko->_ry_mv;
+//                _sinRx_begin = ANG_SIN(rx_mv_start);
+//                _cosRx_begin = ANG_COS(rx_mv_start);
+//                _sinRz_begin = ANG_SIN(rz_mv_start);
+//                _cosRz_begin = ANG_COS(rz_mv_start);
+//                _sinRy_begin = ANG_SIN(ry_mv_start);
+//                _cosRy_begin = ANG_COS(ry_mv_start);
+//            }
         } else {
             //２週目以降は、そのまま;
         }
@@ -229,7 +229,7 @@ void SplineKurokoLeader::restart() {
     }
 }
 
-void SplineKurokoLeader::setManufacture(SplineManufacture* prm_pManufacture) {
+void SplineLeader::setManufacture(SplineManufacture* prm_pManufacture) {
     _pManufacture = prm_pManufacture;
     _pActor_target = nullptr;
     _option = ABSOLUTE_COORD;
@@ -243,13 +243,13 @@ void SplineKurokoLeader::setManufacture(SplineManufacture* prm_pManufacture) {
     _is_leading = false;
 }
 
-void SplineKurokoLeader::adjustCoordOffset(coord prm_offset_x, coord prm_offset_y, coord prm_offset_z) {
+void SplineLeader::adjustCoordOffset(coord prm_offset_x, coord prm_offset_y, coord prm_offset_z) {
     _offset_x = prm_offset_x;
     _offset_y = prm_offset_y;
     _offset_z = prm_offset_z;
 }
 
-void SplineKurokoLeader::start(SplinTraceOption prm_option, int prm_max_loop) {
+void SplineLeader::start(SplinTraceOption prm_option, int prm_max_loop) {
     if (_pManufacture) {
         _was_started = true;
         _is_leading = true;
@@ -262,15 +262,15 @@ void SplineKurokoLeader::start(SplinTraceOption prm_option, int prm_max_loop) {
     }
 }
 
-void SplineKurokoLeader::stop() {
+void SplineLeader::stop() {
     _is_leading = false;
 }
 
-void SplineKurokoLeader::setAbsoluteBeginCoord() {
-    SplineKurokoLeader::getPointCoord(0, _pActor_target->_x, _pActor_target->_y, _pActor_target->_z);
+void SplineLeader::setAbsoluteBeginCoord() {
+    SplineLeader::getPointCoord(0, _pActor_target->_x, _pActor_target->_y, _pActor_target->_z);
 }
 
-coord SplineKurokoLeader::getSegmentDistance(int prm_index) {
+coord SplineLeader::getSegmentDistance(int prm_index) {
 #ifdef MY_DEBUG
     if (prm_index < 0 || prm_index > (_pManufacture->_sp->_rnum -1)) {
         throwGgafCriticalException("prm_index="<<prm_index<<" は、範囲外です._pActor_target="<< _pActor_target <<"["<< _pActor_target->getName() <<"]");
@@ -283,15 +283,15 @@ coord SplineKurokoLeader::getSegmentDistance(int prm_index) {
     }
 }
 
-coord SplineKurokoLeader::getTotalDistance() {
+coord SplineLeader::getTotalDistance() {
     return _pManufacture->_total_distance + _distance_to_begin;
 }
 
-int SplineKurokoLeader::getPointNum() {
+int SplineLeader::getPointNum() {
     return _pManufacture->_sp->_rnum;
 }
 
-void SplineKurokoLeader::setStartAngle(angle prm_rx, angle prm_ry, angle prm_rz) {
+void SplineLeader::setStartAngle(angle prm_rx, angle prm_ry, angle prm_rz) {
     _is_force_start_ang = true;
     angle rx_mv_start = UTIL::simplifyAng(prm_rx);
     angle rz_mv_start = UTIL::simplifyAng(prm_rz);
@@ -304,7 +304,7 @@ void SplineKurokoLeader::setStartAngle(angle prm_rx, angle prm_ry, angle prm_rz)
     _cosRy_begin = ANG_COS(ry_mv_start);
 }
 
-SplineKurokoLeader::~SplineKurokoLeader() {
+SplineLeader::~SplineLeader() {
     if (_is_created_pManufacture) {
         SplineSource* pSplSrc = _pManufacture->_pSplSrc;
         GGAF_DELETE(pSplSrc);

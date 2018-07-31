@@ -1,7 +1,7 @@
 #include "FormationErelman002.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
+#include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/ggaf/lib/util/spline/SplineManufacture.h"
 #include "jp/ggaf/lib/util/spline/FixedFrameSplineManufacture.h"
 #include "jp/gecchi/VioletVreath/God.h"

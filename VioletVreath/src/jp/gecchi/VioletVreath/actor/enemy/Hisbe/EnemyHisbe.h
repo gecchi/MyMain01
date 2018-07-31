@@ -17,7 +17,7 @@ class EnemyHisbe :  public GgafLib::DefaultMorphMeshActor {
 //class EnemyHisbe : public GgafLib::CubeMapMorphMeshActor {
 
     /** 移動スプラインプログラム */
-    GgafLib::SplineKurokoLeader* pKurokoLeader_;
+    GgafLib::SplineLeader* pKurokoLeader_;
     /** 弾ストック */
     GgafCore::GgafActorDepository* pDepo_shot_;
     /** 弾発射効果エフェクト */
@@ -81,7 +81,7 @@ public:
      * initialize() までに設定して下さい。
      * @param prm_pKurokoLeader
      */
-    void setSplineKurokoLeader(GgafLib::SplineKurokoLeader* prm_pKurokoLeader) {
+    void setSplineKurokoLeader(GgafLib::SplineLeader* prm_pKurokoLeader) {
         pKurokoLeader_ = prm_pKurokoLeader;
     }
 

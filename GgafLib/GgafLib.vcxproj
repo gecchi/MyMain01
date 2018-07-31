@@ -103,11 +103,12 @@
     <ClCompile Include="src\jp\ggaf\lib\util\Direction26Util.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\Direction8Util.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\SceneProgress.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\spline\FixedFrameSplineAxesMoverLeader.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\spline\FixedFrameSplineKurokoLeader.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\spline\FixedFrameSplineManufacture.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\spline\FixedVelocitySplineKurokoLeader.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\spline\FixedVelocitySplineManufacture.cpp" />
-    <ClCompile Include="src\jp\ggaf\lib\util\spline\SplineKurokoLeader.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\spline\SplineLeader.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\spline\SplineLine.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\spline\SplineManufacture.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\spline\SplineSource.cpp" />
@@ -208,11 +209,12 @@
     <ClInclude Include="include\jp\ggaf\lib\util\quantity.hpp" />
     <ClInclude Include="include\jp\ggaf\lib\util\quaternion.hpp" />
     <ClInclude Include="include\jp\ggaf\lib\util\SceneProgress.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\spline\FixedFrameSplineAxesMoverLeader.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\spline\FixedFrameSplineKurokoLeader.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\spline\FixedFrameSplineManufacture.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\spline\fixedvelocitysplinekurokoleader.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\spline\FixedVelocitySplineManufacture.h" />
-    <ClInclude Include="include\jp\ggaf\lib\util\spline\splinekurokoleader.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\spline\SplineLeader.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\spline\SplineLine.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\spline\SplineManufacture.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\spline\SplineSource.h" />

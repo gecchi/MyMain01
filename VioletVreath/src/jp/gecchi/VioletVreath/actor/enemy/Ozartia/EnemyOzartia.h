@@ -31,7 +31,7 @@ public:
     bool faceto_ship_;
 
     GgafLib::SplineManufactureConnection* pConn_pSplManuf_;
-    GgafLib::SplineKurokoLeader* pKurokoLeader01_;
+    GgafLib::SplineLeader* pKurokoLeader01_;
 
 public:
     /**

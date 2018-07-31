@@ -1,5 +1,5 @@
-#ifndef GGAFLIB_FIXEDFRAMESPLINEKUROKOLEADER_H_
-#define GGAFLIB_FIXEDFRAMESPLINEKUROKOLEADER_H_
+#ifndef GGAFLIB_FIXEDFRAMESPLINEAXESMOVERLEADER_H_
+#define GGAFLIB_FIXEDFRAMESPLINEAXESMOVERLEADER_H_
 #include "GgafLibCommonHeader.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 
@@ -11,15 +11,15 @@ namespace GgafLib {
  * 中間の補完点～次の補完点までを、均等に割った時間で移動します。<BR>
  * 補完点の密度が薄いところは移動速度増。<BR>
  * 補完点の密度が濃いところは移動速度減。<BR>
- * そのように動作するよう、黒衣(GgafDxCore::GgafDxKuroko)に指示を出して移動を実現します。<BR>
+ * そのように動作するよう、GgafDxCore::GgafDxAxesMover に指示を出して移動を実現します。<BR>
  * @version 1.00
- * @since 2009/10/28
+ * @since 2018/07/25
  * @author Masatoshi Tsuge
  */
-class FixedFrameSplineKurokoLeader : public SplineLeader {
+class FixedFrameSplineAxesMoverLeader : public SplineLeader {
 
 public:
-    GgafDxCore::GgafDxKuroko* _pKuroko_target;
+    GgafDxCore::GgafDxAxesMover* _pAxesMover_target;
     /** [r]スプライン情報セット(splファイルの情報に相当) */
     FixedFrameSplineManufacture* _pFixedFrameSplManuf;
     /** _leading_framesに加算される補正フレーム */
@@ -34,12 +34,12 @@ public:
     /**
      *
      * @param prm_pManufacture calculate()済みのSplineManufactureを設定すること
-     * @param prm_pKuroko
+     * @param prm_pAxesMover
      */
-    FixedFrameSplineKurokoLeader(SplineManufacture* prm_pManufacture,
-                                 GgafDxCore::GgafDxKuroko* prm_pKuroko_target);
+    FixedFrameSplineAxesMoverLeader(SplineManufacture* prm_pManufacture,
+                                 GgafDxCore::GgafDxAxesMover* prm_pAxesMover_target);
 
-    FixedFrameSplineKurokoLeader(GgafDxCore::GgafDxKuroko* prm_pKuroko_target,
+    FixedFrameSplineAxesMoverLeader(GgafDxCore::GgafDxAxesMover* prm_pAxesMover_target,
                                  SplineLine* prm_pSpl,
                                  frame prm_spent_frames,
                                  angvelo prm_angvelo_rzry_mv);
@@ -54,7 +54,7 @@ public:
     virtual void behave() override;
 
 
-    virtual ~FixedFrameSplineKurokoLeader();
+    virtual ~FixedFrameSplineAxesMoverLeader();
 };
 
 }

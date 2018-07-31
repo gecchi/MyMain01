@@ -1,7 +1,7 @@
 #include "FormationUnomia.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
+#include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Unomia/EnemyUnomia.h"
@@ -86,7 +86,7 @@ void FormationUnomia::processBehavior() {
                     for (int col = 0; col < num_formation_col_; col++) {
                         EnemyUnomia* pUnomia = (EnemyUnomia*)callUpMember();
                         if (pUnomia) {
-                            SplineKurokoLeader* pKurokoLeader = pConn_pSplManuf_->peek()->
+                            SplineLeader* pKurokoLeader = pConn_pSplManuf_->peek()->
                                                           createKurokoLeader(pUnomia->getKuroko());
                             pUnomia->config(pKurokoLeader, nullptr, nullptr);
                             pUnomia->getKuroko()->setMvVelo(mv_velo_);

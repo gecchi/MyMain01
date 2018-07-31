@@ -12,7 +12,8 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 
 SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxKuroko* prm_pKuroko_target) :
-        SplineKurokoLeader(prm_pManufacture, prm_pKuroko_target) {
+        SplineLeader(prm_pManufacture, prm_pKuroko_target->_pActor) {
+    _pKuroko_target = prm_pKuroko_target;
     _pSteppedSplManuf = (SteppedCoordSplineManufacture*)prm_pManufacture;
     _leading_frames = 0;
     _point_index = -1;
@@ -20,7 +21,8 @@ SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(SplineManufacture
 
 SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(GgafDxKuroko* prm_pKuroko_target,
                                                                SplineLine* prm_pSpl):
-        SplineKurokoLeader(nullptr, prm_pKuroko_target) { //nullptrで渡す事により、_is_created_pManufacture が falseになる
+        SplineLeader(nullptr, prm_pKuroko_target->_pActor) { //nullptrで渡す事により、_is_created_pManufacture が falseになる
+    _pKuroko_target = prm_pKuroko_target;
     _pSteppedSplManuf = NEW SteppedCoordSplineManufacture(NEW SplineSource(prm_pSpl));
     _pSteppedSplManuf->calculate(); //忘れないように。いずれこのタイプは消す
     _pManufacture = _pSteppedSplManuf; //基底メンバーセット。忘れないように。いずれこのタイプは消す
@@ -29,7 +31,7 @@ SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(GgafDxKuroko* prm
 }
 
 void SteppedCoordSplineKurokoLeader::restart() {
-    SplineKurokoLeader::restart();
+    SplineLeader::restart();
     _leading_frames = 0;
     //始点へ行く特別処理。
     if (ABS(_distance_to_begin) <= PX_C(1)) {

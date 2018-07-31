@@ -1017,7 +1017,6 @@ void MyShip::setInvincibleFrames(int prm_frames) {
 }
 void MyShip::updateMoveWay() {
     VirtualButton* pVbPlay = VB_PLAY;
-
     dir26 pos_camera = pVAM->getPosCam();
     dir26 pos_up = pVAM->getPosUp();
     dir26* pa_dir8 = VamSysCamWorker2::cam_to_8dir_[pos_camera]; //‚W•ûŒüƒQƒbƒg
@@ -1029,9 +1028,6 @@ void MyShip::updateMoveWay() {
         }
     }
     //pa_dir8[up_idx] ‚ªã‚Å‚ ‚é
-    mv_way_sgn_x_ = 0;
-    mv_way_sgn_y_ = 0;
-    mv_way_sgn_z_ = 0;
     bool isPressed_VB_UP    = pVbPlay->isPressed(VB_UP);
     bool isPressed_VB_DOWN  = pVbPlay->isPressed(VB_DOWN);
     bool isPressed_VB_LEFT  = pVbPlay->isPressed(VB_LEFT);
@@ -1058,35 +1054,34 @@ void MyShip::updateMoveWay() {
     } else if (isPressed_VB_LEFT) {
         mv_dir = 6;
     }
+    dir26 new_mv_way = DIR26(0, 0, 0);
     if (mv_dir > -1) {
         int dir_8_idx = (up_idx + mv_dir) % 8;
-        Direction26Util::cnvDirNo2Sgn(pa_dir8[dir_8_idx],
-                                      mv_way_sgn_x_, mv_way_sgn_y_, mv_way_sgn_z_);
+        new_mv_way = pa_dir8[dir_8_idx];
     }
     prev_way_ = mv_way_;
-    mv_way_ = DIR26(mv_way_sgn_x_, mv_way_sgn_y_, mv_way_sgn_z_);
-    if (prev_way_ != mv_way_) {
-        is_just_change_mv_way_ = true;
-    } else {
-        is_just_change_mv_way_ = false;
-    }
+    mv_way_ = new_mv_way;
+    Direction26Util::cnvDirNo2Sgn(mv_way_,
+                                  mv_way_sgn_x_, mv_way_sgn_y_, mv_way_sgn_z_);
+    is_just_change_mv_way_ = (prev_way_ != mv_way_ ? true : false);
 }
 
 void MyShip::moveNomal() {
+    const dir26 mv_way = mv_way_;
     float vx,vy,vz;
-    Direction26Util::cnvDirNo2Vec(mv_way_, vx, vy, vz);
+    Direction26Util::cnvDirNo2Vec(mv_way, vx, vy, vz);
     _x += mv_speed_ * vx;
     _y += mv_speed_ * vy;
     _z += mv_speed_ * vz;
     if (is_just_change_mv_way_) {
         angle rz, ry;
-        Direction26Util::cnvDirNo2RzRy(mv_way_, rz, ry);
+        Direction26Util::cnvDirNo2RzRy(mv_way, rz, ry);
         getKuroko()->setRzRyMvAng(rz, ry);
         //ù‰ô
-        int sgn_turn = pSenakai_[mv_way_] > pSenakai_[prev_way_] ? 1 : -1;
+        int sgn_turn = pSenakai_[mv_way] > pSenakai_[prev_way_] ? 1 : -1;
         if (sgn_turn != 0) {
             getKuroko()->setFaceAngAcce(AXIS_X, sgn_turn*angRxAcce_MZ_);
-            getKuroko()->setStopTargetFaceAng(AXIS_X, pSenakai_[mv_way_],
+            getKuroko()->setStopTargetFaceAng(AXIS_X, pSenakai_[mv_way],
                                               TURN_CLOSE_TO,
                                               angRxTopVelo_MZ_);
         }
@@ -1095,13 +1090,11 @@ void MyShip::moveNomal() {
 
 void MyShip::moveTurbo() {
     GgafDxAxesMover* const pAxesMover = getAxesMover();
-
     float vx,vy,vz;
     Direction26Util::cnvDirNo2Vec(mv_way_, vx, vy, vz);
     pAxesMover->addVxMvVelo(veloBeginMT_ * vx);
     pAxesMover->addVyMvVelo(veloBeginMT_ * vy);
     pAxesMover->addVzMvVelo(veloBeginMT_ * vz);
-
     angle rz, ry;
     Direction26Util::cnvDirNo2RzRy(mv_way_, rz, ry);
     getKuroko()->setRzRyMvAng(rz, ry);

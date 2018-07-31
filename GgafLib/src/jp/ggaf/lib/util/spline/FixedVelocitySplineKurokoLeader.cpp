@@ -12,7 +12,8 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 
 FixedVelocitySplineKurokoLeader::FixedVelocitySplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxKuroko* prm_pKuroko_target) :
-        SplineKurokoLeader(prm_pManufacture, prm_pKuroko_target) {
+        SplineLeader(prm_pManufacture, prm_pKuroko_target->_pActor) {
+    _pKuroko_target = prm_pKuroko_target;
     _pFixedVeloSplManuf = (FixedVelocitySplineManufacture*)prm_pManufacture;
     _leadning_float_frames = 0.0f;
     _float_frame_of_next = -0.00001f;
@@ -22,7 +23,8 @@ FixedVelocitySplineKurokoLeader::FixedVelocitySplineKurokoLeader(SplineManufactu
 FixedVelocitySplineKurokoLeader::FixedVelocitySplineKurokoLeader(GgafDxKuroko* prm_pKuroko_target,
                                                                  SplineLine* prm_pSpl,
                                                                  angvelo prm_angvelo_rzry_mv):
-        SplineKurokoLeader(nullptr, prm_pKuroko_target) { //nullptrで渡す事により、_is_created_pManufacture が falseになる
+        SplineLeader(nullptr, prm_pKuroko_target->_pActor) { //nullptrで渡す事により、_is_created_pManufacture が falseになる
+    _pKuroko_target = prm_pKuroko_target;
     _pFixedVeloSplManuf = NEW FixedVelocitySplineManufacture(NEW SplineSource(prm_pSpl), prm_angvelo_rzry_mv);
     _pFixedVeloSplManuf->calculate(); //忘れないように。いずれこのタイプは消す
     _pManufacture = _pFixedVeloSplManuf; //基底メンバーセット。忘れないように。いずれこのタイプは消す
@@ -32,7 +34,7 @@ FixedVelocitySplineKurokoLeader::FixedVelocitySplineKurokoLeader(GgafDxKuroko* p
 }
 
 void FixedVelocitySplineKurokoLeader::restart() {
-    SplineKurokoLeader::restart();
+    SplineLeader::restart();
     _leadning_float_frames = 0.0f;
     _float_frame_of_next = -0.00001f;
     _point_index = -1;//最初は始点[0]に向かうので、始点前の-1になる。
@@ -40,7 +42,7 @@ void FixedVelocitySplineKurokoLeader::restart() {
 
 void FixedVelocitySplineKurokoLeader::behave() {
     if (_is_leading) {
-        GgafDxKuroko* const pKuroko_target = _pActor_target->getKuroko();
+        GgafDxKuroko* pKuroko_target = _pKuroko_target;
         //変わり目
         const float leadning_float_frames_now = _leadning_float_frames;
         const int sp_rnum = _pFixedVeloSplManuf->_sp->_rnum;

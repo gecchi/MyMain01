@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/util/spline/SplineManufacture.h"
-#include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
+#include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Alisana/EnemyAlisana.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Delheid/EnemyDelheid.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -149,7 +149,7 @@ void FormationDelheid::processBehavior() {
                              pDelheid->setFaceAngAs(&geoLocate_);
                              pDelheid->getKuroko()->setRzRyMvAng(geoLocate_.rz, geoLocate_.ry);
                              pDelheid->pKurokoLeader_->setStartAngle(geoLocate_.rx, geoLocate_.ry, geoLocate_.rz);
-                             pDelheid->pKurokoLeader_->setLoopAngleByMvAng();
+//                             pDelheid->pKurokoLeader_->setLoopAngleByMvAng();
                              onCallUpDelheid(pDelheid); //下位フォーメーションクラス個別実装の処理
                          } else {
                              //招集おしまい

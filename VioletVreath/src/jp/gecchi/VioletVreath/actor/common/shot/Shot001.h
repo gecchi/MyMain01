@@ -16,7 +16,7 @@ class Shot001 : public GgafLib::DefaultMassMeshActor {
 
 public:
     /** 移動スプラインプログラム */
-    GgafLib::SplineKurokoLeader* pKurokoLeader_;
+    GgafLib::SplineLeader* pKurokoLeader_;
     /** スプライン定義資源への接続 */
     SplineLineConnection* pSplLineConnection_;
 

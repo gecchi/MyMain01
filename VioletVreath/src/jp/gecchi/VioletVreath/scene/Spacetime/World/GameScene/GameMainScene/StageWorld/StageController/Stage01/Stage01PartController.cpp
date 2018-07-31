@@ -32,11 +32,13 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,400};
-	_paFrame_NextEvent = new frame[2];
+	frame f[] = {1,300,400,500,19700,20300,39700,40300};
+	_paFrame_NextEvent = new frame[8];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 2;
+	_event_num = 8;
 	wantActor(10000000, EnemyErelmanController003, "EnemyErelmanController003-10000000");
+	wantActor(10000001, EnemyErmione, "EnemyErmione-10000001");
+	wantActor(10000004, FormationEres001, "FormationEres001-10000004");
     // gen01 end
     useProgress(PROG_BANPEI);
 }
@@ -54,16 +56,52 @@ void Stage01PartController::processBehavior() {
 			case 1: {
 				break;
 			}
+			case 300: {
+				EnemyErmione* pE = (EnemyErmione*)grantActor(10000001);
+				bringSceneMediator()->addSubGroup(pE);
+				pE->_x = RND(1000000,4000000);
+				pE->_y = RND(-6000000,6000000);
+				pE->_z = RND(-6000000,6000000);
+				break;
+			}
 			case 400: {
 				EnemyErelmanController003* p1 = (EnemyErelmanController003*)grantActor(10000000);
 				bringSceneMediator()->addSubGroup(p1);
 				p1->setPosition(PX_C(2400), PX_C(0), PX_C(0) );
 				break;
 			}
+			case 500: {
+				bringSceneMediator()->addSubGroup(grantActor(10000004));
+				break;
+			}
+			case 19700: {
+				wantActor(10000002, EnemyErmione, "EnemyErmione-10000002");
+				break;
+			}
+			case 20300: {
+				EnemyErmione* pE = (EnemyErmione*)grantActor(10000002);
+				bringSceneMediator()->addSubGroup(pE);
+				pE->_x = RND(1000000,4000000);
+				pE->_y = RND(-6000000,6000000);
+				pE->_z = RND(-6000000,6000000);
+				break;
+			}
+			case 39700: {
+				wantActor(10000003, EnemyErmione, "EnemyErmione-10000003");
+				break;
+			}
+			case 40300: {
+				EnemyErmione* pE = (EnemyErmione*)grantActor(10000003);
+				bringSceneMediator()->addSubGroup(pE);
+				pE->_x = RND(1000000,4000000);
+				pE->_y = RND(-6000000,6000000);
+				pE->_z = RND(-6000000,6000000);
+				break;
+			}
 			default :
 				break;
 		}
-		_cnt_event = (_cnt_event < 2-1 ? _cnt_event+1 : _cnt_event);
+		_cnt_event = (_cnt_event < 8-1 ? _cnt_event+1 : _cnt_event);
 	}
     // gen02 end
 

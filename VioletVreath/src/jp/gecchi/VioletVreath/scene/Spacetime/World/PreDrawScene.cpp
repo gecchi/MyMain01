@@ -113,7 +113,7 @@ void PreDrawScene::processBehavior() {
             break;
         }
         case PROG_CALM_DOWN: {
-            if ((pProg->getFrame() > 30 && pGOD->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX) ||
+            if ((pProg->getFrame() > 10 && pGOD->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX) ||
                  pProg->getFrame() > 60*60) {
                 fadeoutSceneWithBgmTree(120);
                 pProg->changeNext();

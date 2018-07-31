@@ -1,7 +1,7 @@
 #include "FormationUnomia001b.h"
 
 #include "jp/gecchi/VioletVreath/actor/enemy/Unomia/EnemyUnomia.h"
-#include "jp/ggaf/lib/util/spline/SplineKurokoLeader.h"
+#include "jp/ggaf/lib/util/spline/SplineLeader.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;

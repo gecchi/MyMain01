@@ -18,7 +18,7 @@ class EnemyThagoras : public GgafLib::DefaultMeshSetActor {
 
 public:
     /** 移動スプラインプログラム */
-    GgafLib::SplineKurokoLeader* pKurokoLeader_;
+    GgafLib::SplineLeader* pKurokoLeader_;
     /** 鼓動(スケール)を同期させる為のダミーアクター */
     GgafLib::DefaultGeometricActor* pActor4Sc_;
 
