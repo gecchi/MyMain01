@@ -1,6 +1,6 @@
 #include "jp/ggaf/lib/util/spline/SteppedCoordSplineManufacture.h"
 
-#include "jp/ggaf/lib/util/spline/SplineLine.h"
+#include "jp/ggaf/lib/util/spline/SplineSource.h"
 #include "jp/ggaf/lib/util/spline/SteppedCoordSplineKurokoLeader.h"
 
 using namespace GgafCore;
@@ -11,8 +11,8 @@ SteppedCoordSplineManufacture::SteppedCoordSplineManufacture(const char* prm_sou
         SplineManufacture(prm_source_file) {
 }
 
-SteppedCoordSplineManufacture::SteppedCoordSplineManufacture(SplineSource* prm_pSplSrc) :
-        SplineManufacture(prm_pSplSrc) {
+SteppedCoordSplineManufacture::SteppedCoordSplineManufacture(SplineSource* prm_pSpl) :
+        SplineManufacture(prm_pSpl) {
 }
 
 void SteppedCoordSplineManufacture::calculate() {

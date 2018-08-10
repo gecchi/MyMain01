@@ -5,9 +5,12 @@
 #include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/lib/util/spline/FixedVelocitySplineKurokoLeader.h"
+#include "jp/ggaf/lib/util/spline/FixedFrameSplineAxesMoverLeader.h"
+#include "jp/ggaf/lib/util/spline/FixedFrameSplineKurokoLeader.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Eres/EnemyEresShot001.h"
+#include "jp/ggaf/lib/util/spline/FixedFrameSplineManufacture.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/Config.h"
@@ -25,13 +28,9 @@ EnemyEres::EnemyEres(const char* prm_name, GgafActorDepository* prm_pDepo_EnemyE
         DefaultMeshSetActor(prm_name, "Eres", STATUS(EnemyEres)) {
     _class_name = "EnemyEres";
     iMovePatternNo_ = 0;
-    _x = PX_C(100); //開始座標
+    _x = PX_C(-100); //開始座標
     _y = 0;
     _z = 0;
-    X_turn_ = (PX_C(CONFIG::GAME_BUFFER_WIDTH) / 2) - 30000;
-    Y_turn_ = -10000;
-    Z_turn_ = 0;
-    frame_Active_ = 0;
     if (prm_pDepo_EnemyEresShots001 == nullptr) {
         //共有の弾が引数に未指定の場合
         //弾ストック作成
@@ -47,8 +46,15 @@ EnemyEres::EnemyEres(const char* prm_name, GgafActorDepository* prm_pDepo_EnemyE
         createGgafActorDepository_ = false;
     }
 
-    pSplLineConnection_ = connectToSplineLineManager("Spl_HAN");
-    pKurokoLeader_ = NEW FixedVelocitySplineKurokoLeader(getKuroko(), pSplLineConnection_->peek(), 5000); //移動速度固定
+    pSplSrcConnection_ = connectToSplineSourceManagerEx("Spl_HAN");
+    SplineSource* pSplineSource = pSplSrcConnection_->peek();
+//    SplineSource*  pSplineSource = NEW SplineSource(pSplineSource);
+    pSplManuf_ = NEW FixedFrameSplineManufacture(pSplineSource,
+                                                                   60*30);
+    pSplineLeader_ = NEW FixedFrameSplineAxesMoverLeader(pSplManuf_, getAxesMover());
+//    pSplineLeader_ = NEW FixedFrameSplineKurokoLeader(getKuroko(), pSplineSource, 60*30);
+//    pSplineLeader_ = NEW FixedFrameSplineAxesMoverLeader(getAxesMover(), pSplineSource, 60*30);
+
     GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     getModel()->setSpecular(8.0, 2.0);
@@ -64,17 +70,16 @@ void EnemyEres::onActive() {
     setHitAble(true);
     getStatus()->reset();
     iMovePatternNo_ = 0;
-    frame_Active_ = 0;
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->linkFaceAngByMvAng(true);
-    pKuroko->setRollFaceAngVelo(6000);
-    pKuroko->setMvVelo(8000);
-    pKurokoLeader_->start(RELATIVE_COORD); //スプライン移動を開始
+    pKuroko->setRollFaceAngVelo(2000);
+//    pKuroko->setMvVelo(3000);
+    pSplineLeader_->start(RELATIVE_COORD); //スプライン移動を開始
 }
 
 void EnemyEres::processBehavior() {
     //方向転換
-    if (iMovePatternNo_ == 0 && getBehaveingFrame() == 60*10) {
+    if (iMovePatternNo_ == 0 && getBehaveingFrame() == 60*30) {
 
         angle way[32];
         //UTIL::getWayAngle2D(180000, 8, 10000, way);
@@ -97,10 +102,10 @@ void EnemyEres::processBehavior() {
 
         iMovePatternNo_++;
     }
-    pKurokoLeader_->behave(); //スプライン移動を進める
+    pSplineLeader_->behave(); //スプライン移動を進める
+    getAxesMover()->behave();
     getKuroko()->behave(); //次の座標へ移動
     //getSeTransmitter()->behave();
-    frame_Active_++;
 }
 
 void EnemyEres::processJudgement() {
@@ -114,7 +119,7 @@ void EnemyEres::onHit(const GgafActor* prm_pOtherActor) {
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTransmitter()->play3D(SE_EXPLOSION);
-        sayonara();
+        //sayonara();
     } else {
         //破壊されなかった時(スタミナ > 0)
     }
@@ -139,7 +144,8 @@ bool EnemyEres::isOutOfSpacetime() const {
 
 EnemyEres::~EnemyEres() {
     //staticなので最初の１回だけ解放したい
-    pSplLineConnection_->close();
-    GGAF_DELETE_NULLABLE(pKurokoLeader_);
+    pSplSrcConnection_->close();
+    GGAF_DELETE_NULLABLE(pSplManuf_);
+    GGAF_DELETE_NULLABLE(pSplineLeader_);
 }
 

@@ -33,16 +33,11 @@ public:
 public:
     /**
      *
-     * @param prm_pManufacture calculate()çœÇ›ÇÃSplineManufactureÇê›íËÇ∑ÇÈÇ±Ç∆
+     * @param prm_pManufacture
      * @param prm_pKuroko
      */
     FixedFrameSplineKurokoLeader(SplineManufacture* prm_pManufacture,
                                  GgafDxCore::GgafDxKuroko* prm_pKuroko_target);
-
-    FixedFrameSplineKurokoLeader(GgafDxCore::GgafDxKuroko* prm_pKuroko_target,
-                                 SplineLine* prm_pSpl,
-                                 frame prm_spent_frames,
-                                 angvelo prm_angvelo_rzry_mv);
 
     virtual void restart() override;
 

@@ -49,7 +49,7 @@ void EnemyHisbeLaserChip003::processBehavior() {
     if (pScrollingScene_) {
         pKurokoLeader_->_x_start_in_loop -= pScrollingScene_->getScrollSpeed();
     }
-    if (sp_index_ > (pKurokoLeader_->_pManufacture->_sp->_rnum -1)) {
+    if (sp_index_ > (pKurokoLeader_->_pManufacture->_pSpl->_rnum -1)) {
 
     } else {
         pKuroko->setMvVelo(pKurokoLeader_->getSegmentDistance(sp_index_));

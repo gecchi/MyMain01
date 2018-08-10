@@ -29,8 +29,6 @@ public:
     bool _is_leading;
     /** 座標を操作する対象となるアクター */
     GgafDxCore::GgafDxGeometricActor* _pActor_target;
-    /** コンストラクタ内部でSplineLineを生成した場合true/コンストラクタ引数にSplineLineが渡された場合false。一時しのぎいずれ消す。*/
-    bool _is_created_pManufacture;
     /**
      * [r]オプション
      * ABSOLUTE_COORD     : 絶対座標移動。

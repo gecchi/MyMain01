@@ -3,7 +3,6 @@
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "jp/ggaf/lib/util/spline/SplineLine.h"
 #include "jp/ggaf/lib/util/spline/SplineSource.h"
 #include "jp/ggaf/lib/util/spline/SteppedCoordSplineManufacture.h"
 
@@ -15,17 +14,6 @@ SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(SplineManufacture
         SplineLeader(prm_pManufacture, prm_pKuroko_target->_pActor) {
     _pKuroko_target = prm_pKuroko_target;
     _pSteppedSplManuf = (SteppedCoordSplineManufacture*)prm_pManufacture;
-    _leading_frames = 0;
-    _point_index = -1;
-}
-
-SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(GgafDxKuroko* prm_pKuroko_target,
-                                                               SplineLine* prm_pSpl):
-        SplineLeader(nullptr, prm_pKuroko_target->_pActor) { //nullptrで渡す事により、_is_created_pManufacture が falseになる
-    _pKuroko_target = prm_pKuroko_target;
-    _pSteppedSplManuf = NEW SteppedCoordSplineManufacture(NEW SplineSource(prm_pSpl));
-    _pSteppedSplManuf->calculate(); //忘れないように。いずれこのタイプは消す
-    _pManufacture = _pSteppedSplManuf; //基底メンバーセット。忘れないように。いずれこのタイプは消す
     _leading_frames = 0;
     _point_index = -1;
 }
@@ -48,7 +36,7 @@ void SteppedCoordSplineKurokoLeader::behave() {
     if (_is_leading) {
         GgafDxKuroko* const pKuroko_target = _pActor_target->getKuroko();
         _point_index++;
-        if (_point_index == _pSteppedSplManuf->_sp->_rnum) {
+        if (_point_index == _pSteppedSplManuf->_pSpl->_rnum) {
             if (_cnt_loop == _max_loop) {
                 //終了
                 _is_leading = false;

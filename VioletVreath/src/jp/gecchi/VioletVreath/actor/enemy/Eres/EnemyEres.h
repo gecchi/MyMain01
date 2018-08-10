@@ -19,18 +19,13 @@ public:
     /** 弾ストック */
     GgafCore::GgafActorDepository* pDepo_shot001_;
     /** スプラインプログラム */
-    GgafLib::SplineLeader* pKurokoLeader_;
-
+    GgafLib::SplineLeader* pSplineLeader_;
+    GgafLib::SplineManufacture* pSplManuf_;
     /** GgafActorDepositoryをコンストラクタで生成したか否か */
     bool createGgafActorDepository_;
 
-    int X_turn_; // 折り返すX座標
-    int Y_turn_; // 折り返すY座標
-    int Z_turn_; // 折り返すZ座標
-
     int iMovePatternNo_;
-    frame frame_Active_;
-    SplineLineConnection* pSplLineConnection_;
+    GgafLib::SplineSourceConnection* pSplSrcConnection_;
 
 public:
     /**

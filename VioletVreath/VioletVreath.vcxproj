@@ -604,8 +604,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\manager\DepositoryConnection.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\manager\DepositoryManager.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\manager\EffectManager.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\manager\SplineLineConnection.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\manager\SplineLineManager.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\manager\SplineSourceManagerEx.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\manager\XpmConnection.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\manager\XpmManager.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime.cpp" />
@@ -979,8 +978,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\manager\DepositoryConnection.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\manager\DepositoryManager.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\manager\effectmanager.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\manager\SplineLineConnection.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\manager\SplineLineManager.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\manager\splinesourcemanagerex.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\manager\XpmConnection.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\manager\XpmManager.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime.h" />

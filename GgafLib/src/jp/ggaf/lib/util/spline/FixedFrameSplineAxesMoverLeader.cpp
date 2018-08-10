@@ -3,7 +3,6 @@
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "jp/ggaf/lib/util/spline/SplineLine.h"
 #include "jp/ggaf/lib/util/spline/SplineSource.h"
 #include "jp/ggaf/lib/util/spline/FixedFrameSplineManufacture.h"
 
@@ -15,20 +14,6 @@ FixedFrameSplineAxesMoverLeader::FixedFrameSplineAxesMoverLeader(SplineManufactu
         SplineLeader(prm_pManufacture, prm_pAxesMover_target->_pActor) {
     _pAxesMover_target = prm_pAxesMover_target;
     _pFixedFrameSplManuf = (FixedFrameSplineManufacture*)prm_pManufacture;
-    _leading_frames = 0;
-    _point_index = 0;
-    _prev_point_index = -1;
-    _hosei_frames = 0;
-}
-FixedFrameSplineAxesMoverLeader::FixedFrameSplineAxesMoverLeader(GgafDxAxesMover* prm_pAxesMover_target,
-                                                           SplineLine* prm_pSpl,
-                                                           frame prm_spent_frames,
-                                                           angvelo prm_angvelo_rzry_mv):
-        SplineLeader(nullptr, prm_pAxesMover_target->_pActor) {  //nullptrで渡す事により、_is_created_pManufacture が falseになる
-    _pAxesMover_target = prm_pAxesMover_target;
-    _pFixedFrameSplManuf = NEW FixedFrameSplineManufacture(NEW SplineSource(prm_pSpl), prm_spent_frames, prm_angvelo_rzry_mv);
-    _pFixedFrameSplManuf->calculate();//これも忘れないように。いずれこのタイプは消す
-    _pManufacture = _pFixedFrameSplManuf;
     _leading_frames = 0;
     _point_index = 0;
     _prev_point_index = -1;
@@ -74,7 +59,7 @@ void FixedFrameSplineAxesMoverLeader::behave() {
         const double frame_of_segment = _pFixedFrameSplManuf->_frame_of_segment;
         //現在の点INDEX
         _point_index = (_leading_frames+_hosei_frames) / frame_of_segment;
-        if ( _point_index == _pFixedFrameSplManuf->_sp->_rnum) {
+        if ( _point_index == _pFixedFrameSplManuf->_pSpl->_rnum) {
             if (_cnt_loop == _max_loop) {
                 //終了
                 _is_leading = false;
@@ -121,8 +106,10 @@ void FixedFrameSplineAxesMoverLeader::behave() {
                     mv_velo = _pFixedFrameSplManuf->_paSPMvVeloTo[_point_index];
                 }
             }
-            _pFixedFrameSplManuf->_paDistance_to[_point_index];
+            _TRACE_("calc_d="<<calc_d<<" mv_velo="<<mv_velo);
+            _TRACE_("execGrav("<<x<<","<<y<<","<<z<<","<<(mv_velo*2)<<","<<(mv_velo/10)<<","<<(calc_d/10));
             pAxesMover_target->execGravitationMvSequenceTwd(x, y, z, mv_velo*2, mv_velo/10, calc_d/10);
+//            pAxesMover_target->execGravitationMvSequenceTwd(x, y, z, 10000, 200, 2000);
         }
         _leading_frames++;
     }

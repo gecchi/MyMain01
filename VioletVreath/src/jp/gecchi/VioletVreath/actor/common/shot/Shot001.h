@@ -18,8 +18,8 @@ public:
     /** 移動スプラインプログラム */
     GgafLib::SplineLeader* pKurokoLeader_;
     /** スプライン定義資源への接続 */
-    SplineLineConnection* pSplLineConnection_;
-
+    GgafLib::SplineSourceConnection* pSplSrcConnection_;
+    GgafLib::SplineManufacture* pSplineManufacture_;
 public:
     Shot001(const char* prm_name);
 

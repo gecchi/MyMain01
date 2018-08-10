@@ -2,6 +2,7 @@
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/util/spline/FixedVelocitySplineKurokoLeader.h"
+#include "jp/ggaf/lib/util/spline/FixedVelocitySplineManufacture.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ris/EnemyRis.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -19,14 +20,14 @@ FormationRis002::FormationRis002(const char* prm_name) :
     interval_frames_ = RF_FormationRis002_LaunchInterval(G_RANK);   //リスの間隔(frame)
     velo_mv_         = RF_FormationRis002_MvVelo(G_RANK); //速度
     //スプライン移動の定義
-    pSplLineConnection_ = connectToSplineLineManager("Spl_00202_");
+    pSplSrcConnection_ = connectToSplineSourceManagerEx("Spl_00202_");
     pConn_depo_ = connectToDepositoryManager("Shot002");
+    pManufacture_ =  NEW FixedVelocitySplineManufacture(pSplSrcConnection_->peek(), 10000);
     //リス編隊作成
     for (int i = 0; i < num_Ris_; i++) {
         EnemyRis* pRis = NEW EnemyRis("Ris01");
         //スプライン移動プログラム設定
-        SplineLeader* pProgram = NEW FixedVelocitySplineKurokoLeader(
-                                         pRis->getKuroko(), pSplLineConnection_->peek(), 10000); //移動速度固定
+        SplineLeader* pProgram = NEW FixedVelocitySplineKurokoLeader(pManufacture_, pRis->getKuroko());
         pRis->config(pProgram, pConn_depo_->peek(), nullptr);
         addFormationMember(pRis);
     }
@@ -53,6 +54,7 @@ void FormationRis002::onDestroyAll(GgafCore::GgafActor* prm_pActor_last_destroye
 }
 
 FormationRis002::~FormationRis002() {
-    pSplLineConnection_->close();
+    GGAF_DELETE(pManufacture_);
+    pSplSrcConnection_->close();
     pConn_depo_->close();
 }

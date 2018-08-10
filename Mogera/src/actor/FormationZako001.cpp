@@ -3,7 +3,6 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/ggaf/lib/util/spline/SplineManufacture.h"
-#include "jp/ggaf/lib/util/spline/SplineLine.h"
 #include "jp/ggaf/lib/util/spline/SplineSource.h"
 
 #include "MgrGod.h"
@@ -48,7 +47,7 @@ void FormationZako001::onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, int p
                                      createKurokoLeader(pZako->getKuroko());
     }
     double rate_x = pZako->pKurokoLeader_->_pManufacture->_rate_x;
-    double d_col = -1.0 * papSplManufConn_[prm_col]->peek()->_sp->_rotmat._41; //‰¡‚Æ‚ÌŠÔŠu
+    double d_col = -1.0 * papSplManufConn_[prm_col]->peek()->_pSpl->_rotmat._41; //‰¡‚Æ‚ÌŠÔŠu
     float X = d_col*rate_x; //rate_x‚ğŠ|‚¯‚é‚±‚Æ‚É‚æ‚èA‚±‚±‚Å X ‚Ícoord‚Ì’PˆÊ‚Æ‚È‚éB
 
     float sinRz = ANG_SIN(entry_pos_.rz);

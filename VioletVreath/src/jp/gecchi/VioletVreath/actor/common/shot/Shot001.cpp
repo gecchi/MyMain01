@@ -4,11 +4,12 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/manager/SplineSourceConnection.h"
 #include "jp/ggaf/lib/util/spline/FixedVelocitySplineKurokoLeader.h"
+#include "jp/ggaf/lib/util/spline/FixedVelocitySplineManufacture.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/God.h"
-#include "jp/gecchi/VioletVreath/manager/SplineLineConnection.h"
-#include "jp/gecchi/VioletVreath/manager/SplineLineManager.h"
+#include "jp/gecchi/VioletVreath/manager/SplineSourceManagerEx.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 using namespace GgafCore;
@@ -23,8 +24,9 @@ Shot001::Shot001(const char* prm_name) :
     GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(0, "WAVE_EXPLOSION_002");
 
-    pSplLineConnection_ = connectToSplineLineManager("Spl_HAN"); //スプライン定義
-    pKurokoLeader_ = NEW FixedVelocitySplineKurokoLeader(getKuroko(), pSplLineConnection_->peek(), 10000); //移動速度固定
+    pSplSrcConnection_ = connectToSplineSourceManagerEx("Spl_HAN"); //スプライン定義
+    pSplineManufacture_ = NEW FixedVelocitySplineManufacture(pSplSrcConnection_->peek(), 10000);
+    pKurokoLeader_ = NEW FixedVelocitySplineKurokoLeader(pSplineManufacture_, getKuroko()); //移動速度固定
 }
 
 void Shot001::initialize() {
@@ -80,6 +82,7 @@ void Shot001::onInactive() {
 
 
 Shot001::~Shot001() {
+    GGAF_DELETE(pSplineManufacture_);
     GGAF_DELETE(pKurokoLeader_);
-    pSplLineConnection_->close();
+    pSplSrcConnection_->close();
 }

@@ -51,7 +51,7 @@ public:
      * @param prm_turn_way アクターの旋回方法 (デフォルト TURN_CLOSE_TO)
      * @param prm_turn_optimaize アクターの旋回の最適化オプション(デフォルト false)
      */
-    FixedFrameSplineManufacture(SplineSource* prm_pSplSrc,
+    FixedFrameSplineManufacture(SplineSource* prm_pSpl,
                                 frame prm_spent_frames,
                                 angvelo prm_angvelo_rzry_mv = (D90ANG/9),
                                 int prm_turn_way = TURN_CLOSE_TO,

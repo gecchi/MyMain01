@@ -15,7 +15,7 @@ void FormationUnomia002b::onCallUpUnomia(EnemyUnomia* pEnemyUnomia, int col) {
 //                                       -1.0 * MyShip::lim_y_top_,   //Y•ûŒü”{—¦
 //                                        MyShip::lim_z_left_  //Z•ûŒü”{—¦
 //                                    );
-//    pEnemyUnomia->setPosition(papSplLineConnection_[col]->peek()->pSp_->_Xbasepoint_[0], 0, 0);
+//    pEnemyUnomia->setPosition(papSplSrcConnection_[col]->peek()->pSp_->_Xbasepoint_[0], 0, 0);
 }
 
 FormationUnomia002b::~FormationUnomia002b() {

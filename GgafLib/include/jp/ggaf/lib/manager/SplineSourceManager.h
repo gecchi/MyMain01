@@ -28,9 +28,9 @@ public:
      * @param prm_p 自由パラメータ（未使用）
      * @return SplineSourceオブジェクト
      */
-    SplineSource* processCreateResource(const char* prm_idstr, void* prm_pConnector);
+    virtual SplineSource* processCreateResource(const char* prm_idstr, void* prm_pConnector) override;
 
-    GgafCore::GgafResourceConnection<SplineSource>* processCreateConnection(const char* prm_idstr, SplineSource* prm_pResource);
+    virtual GgafCore::GgafResourceConnection<SplineSource>* processCreateConnection(const char* prm_idstr, SplineSource* prm_pResource) override;
 
     virtual ~SplineSourceManager() {
     }

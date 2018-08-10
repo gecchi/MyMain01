@@ -1,6 +1,6 @@
 #include "jp/ggaf/lib/util/spline/FixedFrameSplineManufacture.h"
 
-#include "jp/ggaf/lib/util/spline/SplineLine.h"
+#include "jp/ggaf/lib/util/spline/SplineSource.h"
 #include "jp/ggaf/lib/util/spline/FixedFrameSplineKurokoLeader.h"
 #include "jp/ggaf/lib/util/spline/FixedFrameSplineAxesMoverLeader.h"
 
@@ -19,35 +19,35 @@ FixedFrameSplineManufacture::FixedFrameSplineManufacture(const char* prm_source_
     _turn_optimize = prm_turn_optimaize;
 
     //１区間の使用可能フレーム
-    _frame_of_segment = 1.0*_spent_frames / (_sp->_rnum-1);
+    _frame_of_segment = 1.0*_spent_frames / (_pSpl->_rnum-1);
     if (_frame_of_segment < 1.0) {
         _TRACE_("＜警告＞FixedFrameSplineManufacture ["<<prm_source_file<<"] _frame_of_segment="<<_frame_of_segment<<" < 1.0f です。"
-                "補完点数("<<(_sp->_rnum)<<")よりも、始点～終了点フレーム数("<<_spent_frames<<")が小さいので、補完点の飛びをなくすため、強制的に_frame_of_segmentは1.0に上書き。"
-                "従って移動には"<<(_sp->_rnum)<<"フレームかかります。ご了承下さい。");
+                "補完点数("<<(_pSpl->_rnum)<<")よりも、始点～終了点フレーム数("<<_spent_frames<<")が小さいので、補完点の飛びをなくすため、強制的に_frame_of_segmentは1.0に上書き。"
+                "従って移動には"<<(_pSpl->_rnum)<<"フレームかかります。ご了承下さい。");
         _frame_of_segment = 1.0;
     }
-    _paSPMvVeloTo = NEW velo[_sp->_rnum];
+    _paSPMvVeloTo = NEW velo[_pSpl->_rnum];
 }
 
-FixedFrameSplineManufacture::FixedFrameSplineManufacture(SplineSource* prm_pSplSrc,
+FixedFrameSplineManufacture::FixedFrameSplineManufacture(SplineSource* prm_pSpl,
                                                          frame prm_spent_frames,
                                                          angvelo prm_angvelo_rzry_mv,
                                                          int prm_turn_way,
-                                                         bool prm_turn_optimaize) : SplineManufacture(prm_pSplSrc) {
+                                                         bool prm_turn_optimaize) : SplineManufacture(prm_pSpl) {
     _spent_frames = prm_spent_frames;
     _angvelo_rzry_mv = prm_angvelo_rzry_mv;
     _turn_way = prm_turn_way;
     _turn_optimize = prm_turn_optimaize;
 
     //１区間の使用可能フレーム
-    _frame_of_segment = 1.0*_spent_frames / (_sp->_rnum-1);
+    _frame_of_segment = 1.0*_spent_frames / (_pSpl->_rnum-1);
     if (_frame_of_segment < 1.0) {
         _TRACE_("＜警告＞FixedFrameSplineManufacture  _frame_of_segment="<<_frame_of_segment<<" < 1.0f です。"
-                "補完点数("<<(_sp->_rnum)<<")よりも、始点～終了点フレーム数("<<_spent_frames<<")が小さいので、補完点の飛びをなくすため、強制的に_frame_of_segmentは1.0に上書き。"
-                "従って移動には"<<(_sp->_rnum)<<"フレームかかります。ご了承下さい。");
+                "補完点数("<<(_pSpl->_rnum)<<")よりも、始点～終了点フレーム数("<<_spent_frames<<")が小さいので、補完点の飛びをなくすため、強制的に_frame_of_segmentは1.0に上書き。"
+                "従って移動には"<<(_pSpl->_rnum)<<"フレームかかります。ご了承下さい。");
         _frame_of_segment = 1.0;
     }
-    _paSPMvVeloTo = NEW velo[_sp->_rnum];
+    _paSPMvVeloTo = NEW velo[_pSpl->_rnum];
 }
 
 
@@ -94,7 +94,7 @@ void FixedFrameSplineManufacture::calculate() {
     //                  <-->
     //                  _spent_frames = １区間は 120/8 Frame = _spent_frames / (sp._rnum-1);
     SplineManufacture::calculate();
-    int rnum = _sp->_rnum;
+    int rnum = _pSpl->_rnum;
     //_TRACE_("rnum="<<rnum);
     for (int t = 1; t < rnum; t++) {
         //距離 paDistanceTo[t] を、時間frm_segment で移動するために必要な速度を求める。
@@ -111,14 +111,14 @@ void FixedFrameSplineManufacture::calculate() {
 
 void FixedFrameSplineManufacture::recalculateBySpentFrame(frame prm_spent_frames) {
     _spent_frames = prm_spent_frames;
-    _frame_of_segment = 1.0*_spent_frames / (_sp->_rnum-1);
+    _frame_of_segment = 1.0*_spent_frames / (_pSpl->_rnum-1);
     if (_frame_of_segment < 1.0) {
         _TRACE_("＜警告＞FixedFrameSplineManufacture::setSpentFrames()  _frame_of_segment="<<_frame_of_segment<<" < 1.0f です。"
-                "補完点数("<<(_sp->_rnum)<<")よりも、始点～終了点フレーム数("<<_spent_frames<<")が小さいので、補完点の飛びをなくすため、強制的に_frame_of_segmentは1.0に上書き。"
-                "従って移動には"<<(_sp->_rnum)<<"フレームかかります。ご了承下さい。");
+                "補完点数("<<(_pSpl->_rnum)<<")よりも、始点～終了点フレーム数("<<_spent_frames<<")が小さいので、補完点の飛びをなくすため、強制的に_frame_of_segmentは1.0に上書き。"
+                "従って移動には"<<(_pSpl->_rnum)<<"フレームかかります。ご了承下さい。");
         _frame_of_segment = 1.0;
     }
-    int rnum = _sp->_rnum;
+    int rnum = _pSpl->_rnum;
     for (int t = 1; t < rnum; t++) {
         _paSPMvVeloTo[t] = ((velo)(_paDistance_to[t] / _frame_of_segment));
         if (_paSPMvVeloTo[t] == 0) {

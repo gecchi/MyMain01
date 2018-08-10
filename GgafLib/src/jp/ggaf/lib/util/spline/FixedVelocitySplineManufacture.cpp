@@ -1,6 +1,6 @@
 #include "jp/ggaf/lib/util/spline/FixedVelocitySplineManufacture.h"
 
-#include "jp/ggaf/lib/util/spline/SplineLine.h"
+#include "jp/ggaf/lib/util/spline/SplineSource.h"
 #include "jp/ggaf/lib/util/spline/FixedVelocitySplineKurokoLeader.h"
 
 using namespace GgafCore;
@@ -16,19 +16,19 @@ FixedVelocitySplineManufacture::FixedVelocitySplineManufacture(const char* prm_s
     _turn_way = prm_turn_way;
     _turn_optimize = prm_turn_optimaize;
     _velo_mvUnit = PX_C(1); //速度 PX_C(1) とした場合の各区間のフレーム数を基本とする
-    _paFrame_need_at = NEW float[_sp->_rnum];
+    _paFrame_need_at = NEW float[_pSpl->_rnum];
 }
 
-FixedVelocitySplineManufacture::FixedVelocitySplineManufacture(SplineSource* prm_pSplSrc,
+FixedVelocitySplineManufacture::FixedVelocitySplineManufacture(SplineSource* prm_pSpl,
                                                                angvelo prm_angvelo_rzry_mv,
                                                                int prm_turn_way,
                                                                bool prm_turn_optimaize) :
-        SplineManufacture(prm_pSplSrc) {
+        SplineManufacture(prm_pSpl) {
     _angvelo_rzry_mv = prm_angvelo_rzry_mv;
     _turn_way = prm_turn_way;
     _turn_optimize = prm_turn_optimaize;
     _velo_mvUnit = PX_C(1); //速度 PX_C(1) とした場合の各区間のフレーム数を基本とする
-    _paFrame_need_at = NEW float[_sp->_rnum];
+    _paFrame_need_at = NEW float[_pSpl->_rnum];
 }
 
 void FixedVelocitySplineManufacture::calculate() {
@@ -81,7 +81,7 @@ void FixedVelocitySplineManufacture::calculate() {
     //
     SplineManufacture::calculate();
     _paFrame_need_at[0] = 0; //始点に行くまでに必要なフレーム数は不明
-    int rnum = _sp->_rnum;
+    int rnum = _pSpl->_rnum;
     for (int t = 1; t < rnum; t ++) {
         //距離 paDistanceTo[t] を、速度 _velo_mvUnit(=1000) で移動するのに必要なフレーム数を求める。
         //時間＝距離÷速さ

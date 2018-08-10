@@ -21,8 +21,8 @@
 #define dispatchForceFromCommon(X)         ( (X*)(getCommonDepository(X)->dispatchForce()) )
 
 #define pCOMMON_DEPO_STORE(X)              pStore_##X##_
-#define getCommonStore(X)                  (pCOMMON_SCENE->pCOMMON_DEPO_STORE(X))
-#define dispatchFromCommonDepositoryStore(X)         ( (GgafCore::GgafActorDepository*)(getCommonStore(X)->dispatch()) )
+#define getCommonDepoStore(X)                  (pCOMMON_SCENE->pCOMMON_DEPO_STORE(X))
+#define dispatchFromCommonDepositoryStore(X)         ( (GgafCore::GgafActorDepository*)(getCommonDepoStore(X)->dispatch()) )
 namespace VioletVreath {
 
 /**

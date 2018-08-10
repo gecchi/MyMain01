@@ -1,6 +1,6 @@
-#include "SplineLineManager.h"
+#include "SplineSourceManagerEx.h"
 
-#include "jp/gecchi/VioletVreath/manager/SplineLineConnection.h"
+#include "jp/ggaf/lib/manager/SplineSourceConnection.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
 
 using namespace GgafCore;
@@ -8,12 +8,12 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-SplineLineManager::SplineLineManager(const char* prm_manager_name) :
-    GgafResourceManager<GgafLib::SplineLine> (prm_manager_name) {
+SplineSourceManagerEx::SplineSourceManagerEx(const char* prm_manager_name) :
+        SplineSourceManager(prm_manager_name) {
 }
 
-SplineLine* SplineLineManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) {
-    SplineLine* pResource = nullptr;
+SplineSource* SplineSourceManagerEx::processCreateResource(const char* prm_idstr, void* prm_pConnector) {
+    SplineSource* pResource = nullptr;
 
     if (strcmp("Spl_001", prm_idstr) == 0) {
         double p[][3] = { //        X ,        Y ,       Z
@@ -35,7 +35,7 @@ SplineLine* SplineLineManager::processCreateResource(const char* prm_idstr, void
                           {        0 ,        0 , -300000 },
                           {  -800000 ,        0 ,       0 }
                         };
-        pResource = NEW SplineLine(p, 17, 0.5);//粒度 0.2
+        pResource = NEW SplineSource(p, 17, 0.5);//粒度 0.2
     }
 
     if (strcmp("Spl_00201_", prm_idstr) == 0) {
@@ -47,7 +47,7 @@ SplineLine* SplineLineManager::processCreateResource(const char* prm_idstr, void
            {                          3000000 , MyShip::lim_y_top_ * 1.0 ,                        0.0 },
            {                          3000000 ,                      0.0 ,                        0.0 }
         };
-        pResource = NEW SplineLine(p, 5, 0.2); //粒度 0.2
+        pResource = NEW SplineSource(p, 5, 0.2); //粒度 0.2
     }
 
     if (strcmp("Spl_00202_", prm_idstr) == 0) {
@@ -59,7 +59,7 @@ SplineLine* SplineLineManager::processCreateResource(const char* prm_idstr, void
            { MyShip::lim_x_infront_ * 2.2        , MyShip::lim_y_bottom_ * 1.0 ,                        0.0 },
            { MyShip::lim_x_infront_ * 2.0        ,                         0.0 ,                        0.0 }
         };
-        pResource = NEW SplineLine(p, 5, 0.2); //粒度 0.2
+        pResource = NEW SplineSource(p, 5, 0.2); //粒度 0.2
     }
 
     if (strcmp("Spl_HAN", prm_idstr) == 0) {
@@ -86,7 +86,7 @@ SplineLine* SplineLineManager::processCreateResource(const char* prm_idstr, void
                           { 950000  ,     0.0 ,     0.0 },
                           {     0.0 ,     0.0 ,     0.0 }
         };
-        pResource = NEW SplineLine(p, 21, 0.2); //粒度 0.2
+        pResource = NEW SplineSource(p, 21, 0.2); //粒度 0.2
     }
 
     if (strcmp("Spl_Allas01", prm_idstr) == 0) {
@@ -118,18 +118,14 @@ SplineLine* SplineLineManager::processCreateResource(const char* prm_idstr, void
             p[i][2] = p[i][2] * MyShip::lim_z_left_;
 
         }
-        pResource = NEW SplineLine(p, 17, 0.2); //粒度 0.2
+        pResource = NEW SplineSource(p, 17, 0.2); //粒度 0.2
     }
     if (pResource == nullptr) {
-        throwGgafCriticalException("想定外のIDです。SplineLineが作成できません。");
+        SplineSourceManager::processCreateResource(prm_idstr, prm_pConnector);
     }
     return pResource;
 }
 
-GgafResourceConnection<GgafLib::SplineLine>* SplineLineManager::processCreateConnection(const char* prm_idstr, SplineLine* prm_pResource) {
-    _TRACE3_("prm_idstr="<<prm_idstr<<" を生成開始。");
-    SplineLineConnection* pConne = NEW SplineLineConnection(prm_idstr, prm_pResource);
-    _TRACE3_("prm_idstr="<<prm_idstr<<" を生成終了。");
-    return pConne;
-}
+
+
 

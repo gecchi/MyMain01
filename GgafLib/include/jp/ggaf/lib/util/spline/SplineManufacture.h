@@ -25,12 +25,10 @@ namespace GgafLib {
  *                    １つの SplineSource オブジェクトに対して N 個の SplineSourceオブジェクトが参照している。
  *                    (※splファイルの情報に相当する。)
  *
- * SplineSource       SplineLine オブジェクトを使いまわすためのSplineLineラッパークラス。
+ * SplineSource       スプライン曲線の座標点セットの情報を保持するオブジェクト。
  *                    SplineSource は生成と同時に、引数のファイル名の外部ファイルを読み込み、
  *                    座標の補完点を計算し、内部保持する。
  *                    (※datファイルの情報に相当する。)
- *
- * SplineLine         スプライン曲線の座標点セットの情報を保持するオブジェクト。
  *
  * @version 1.00
  * @since 2011/08/05
@@ -41,11 +39,9 @@ class SplineManufacture : public GgafCore::GgafObject {
 public:
     SplineSourceConnection* _pSplSrcCon;
     /** [r]座標情報(datファイル情報に相当)*/
-    SplineSource* _pSplSrc;
+    SplineSource* _pSpl;
     /** [r]スプライン座標情報ファイル名(splファイル) */
     std::string _source_file;
-    /** スプライン曲線の補完点生成、保持するクラス */
-    SplineLine* _sp;
     /** X軸方向補正割合 */
     double _rate_x;
     /** Y軸方向補正割合 */
@@ -56,7 +52,8 @@ public:
     coord* _paDistance_to;
     /** [r]距離の合計 _paDistance_to[0] ～ _paDistance_to[n]  */
     coord _total_distance;
-
+    /** [r]計算済みであるかどうか */
+    bool _is_calculated;
 public:
     /**
      * コンストラクタ .
@@ -68,7 +65,7 @@ public:
      * コンストラクタ .
      * @param prm_pSplSrc スプライン座標情報オブジェクト
      */
-    SplineManufacture(SplineSource* prm_pSplSrc);
+    SplineManufacture(SplineSource* prm_pSpl);
 
     /**
      * 各補完点を、X軸方向、Y軸方向、Z軸方向それぞれに割合を乗じ、補正します .

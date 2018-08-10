@@ -222,9 +222,6 @@
     <ClCompile Include="src\jp\ggaf\lib\util\spline\FixedVelocitySplineManufacture.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\jp\ggaf\lib\util\spline\SplineLine.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="src\jp\ggaf\lib\util\spline\SplineManufacture.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -530,9 +527,6 @@
     <ClInclude Include="include\jp\ggaf\lib\util\spline\SplineKurokoLeader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="include\jp\ggaf\lib\util\spline\SplineLine.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="include\jp\ggaf\lib\util\spline\SplineManufacture.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -621,6 +615,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\lib\util\spline\FixedFrameSplineAxesMoverLeader.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\lib\util\spline\SplineLeader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

@@ -26,21 +26,10 @@ public:
 public:
     /**
      * コンストラクタ .
-     * @param prm_pManufacture calculate()済みのSplineManufactureを設定すること
+     * @param prm_pManufacture
      * @param prm_pKuroko 対象のアクターの黒衣
      */
     SteppedCoordSplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxCore::GgafDxKuroko* prm_pKuroko);
-
-    /**
-     * コンストラクタ .
-     * 等速移動のための必要な情報を事前計算し、オブジェクトに溜め込みます。
-     * @param prm_pKuroko 対象のアクターの黒衣
-     * @param prm_sp 計算済みスプラインオブジェクト
-     * @return
-     */
-    SteppedCoordSplineKurokoLeader(GgafDxCore::GgafDxKuroko* prm_pKuroko,
-                                    SplineLine* prm_sp);
-
 
     virtual void restart() override;
     /**

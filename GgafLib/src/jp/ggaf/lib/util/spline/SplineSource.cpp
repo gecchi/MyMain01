@@ -1,23 +1,42 @@
 #include "jp/ggaf/lib/util/spline/SplineSource.h"
 
 #include <fstream>
-#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
-#include "jp/ggaf/lib/util/spline/SplineLine.h"
+#include "jp/ggaf/core/exception/GgafCriticalException.h"
 #include "jp/ggaf/lib/GgafLibConfig.h"
-#include "jp/ggaf/lib/DefaultGod.h"
+#include "jp/ggaf/lib/util/StgUtil.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-SplineSource::SplineSource(SplineLine* prm_pSp) : GgafObject() {
-    const char* idstr = "Nothing";
-    int len = strlen(idstr);
-    _idstr = NEW char[len+1];
-    strcpy(_idstr, idstr);
+SplineSource::SplineSource() : GgafObject() {
+    _x_basepoint = nullptr;
+    _y_basepoint = nullptr;
+    _z_basepoint = nullptr;
+    _num_basepoint = 0;
+    _x_compute = nullptr;
+    _y_compute = nullptr;
+    _z_compute = nullptr;
+    _rnum = 0;
+    _accuracy = 1.0;
+    _idstr = NEW char[13+1];
+    strcpy(_idstr, "nothing_idstr");
+    _idstr[13] = '\0';
+}
 
-    _pSp = prm_pSp;
-    _is_create_SplineLine = false;
+SplineSource::SplineSource(double prm_paaEstablish[][3], int prm_num, double prm_accuracy) : GgafObject() {
+    _idstr = NEW char[13+1];
+    strcpy(_idstr, "nothing_idstr");
+    _idstr[13] = '\0';
+    init(prm_paaEstablish, prm_num, prm_accuracy);
+}
+
+SplineSource::SplineSource(double prm_paaEstablish[][3], int prm_num, double prm_accuracy, RotMat& prm_rotmat) : GgafObject() {
+    _idstr = NEW char[13+1];
+    strcpy(_idstr, "nothing_idstr");
+    _idstr[13] = '\0';
+    _rotmat = prm_rotmat;
+    init(prm_paaEstablish, prm_num, prm_accuracy);
 }
 
 SplineSource::SplineSource(const char* prm_idstr)  : GgafObject() {
@@ -26,7 +45,6 @@ SplineSource::SplineSource(const char* prm_idstr)  : GgafObject() {
     strcpy(_idstr, prm_idstr);
 
     double accuracy = 1.0;
-    SplineLine::RotMat rotmat;
     std::string data_filename = CONFIG::DIR_SPLINE + _idstr;// + ".spls";
     std::ifstream ifs(data_filename.c_str());
     if (ifs.fail()) {
@@ -81,13 +99,13 @@ SplineSource::SplineSource(const char* prm_idstr)  : GgafObject() {
                 if (line.c_str()[0] == '[') goto LOOP_SPLFILE;
                 std::istringstream iss(line);
                 if (d == 0) {
-                    iss >> rotmat._11; iss >> rotmat._12; iss >> rotmat._13; iss >> rotmat._14;
+                    iss >> _rotmat._11; iss >> _rotmat._12; iss >> _rotmat._13; iss >> _rotmat._14;
                 } else if (d == 1) {
-                    iss >> rotmat._21; iss >> rotmat._22; iss >> rotmat._23; iss >> rotmat._24;
+                    iss >> _rotmat._21; iss >> _rotmat._22; iss >> _rotmat._23; iss >> _rotmat._24;
                 } else if (d == 2) {
-                    iss >> rotmat._31; iss >> rotmat._32; iss >> rotmat._33; iss >> rotmat._34;
+                    iss >> _rotmat._31; iss >> _rotmat._32; iss >> _rotmat._33; iss >> _rotmat._34;
                 } else if (d == 3) {
-                    iss >> rotmat._41; iss >> rotmat._42; iss >> rotmat._43; iss >> rotmat._44;
+                    iss >> _rotmat._41; iss >> _rotmat._42; iss >> _rotmat._43; iss >> _rotmat._44;
                 } else {
                     throwGgafCriticalException(_idstr<<" [ADJUST_MAT] のデータ数が多いです。４列４行の行列を設定してください。");
                 }
@@ -107,34 +125,91 @@ SplineSource::SplineSource(const char* prm_idstr)  : GgafObject() {
     if (d != 0 && d != 4) {
         throwGgafCriticalException(_idstr<<" [ADJUST_MAT] のデータ数が中途半端です。４列４行の行列を設定してください。");
     }
-//    DefaultSpacetime* pSpacetime =  pGOD->getSpacetime();
-//    for (int i = 0; i < n; i++) {
-//        if (p[i][0] > pSpacetime->_x_bound_right*0.9999) {
-//            p[i][0] = pSpacetime->_x_bound_right*0.9999;
-//        }
-//        if (p[i][0] < pSpacetime->_x_bound_left*0.9999) {
-//            p[i][0] = pSpacetime->_x_bound_left*0.9999;
-//        }
-//        if (p[i][1] > pSpacetime->_y_bound_top*0.9999) {
-//            p[i][1] = pSpacetime->_y_bound_top*0.9999;
-//        }
-//        if (p[i][1] < pSpacetime->_y_bound_bottom*0.9999) {
-//            p[i][1] = pSpacetime->_y_bound_bottom*0.9999;
-//        }
-//        if (p[i][2] > pSpacetime->_z_bound_far*0.9999) {
-//            p[i][2] = pSpacetime->_z_bound_far*0.9999;
-//        }
-//        if (p[i][2] < pSpacetime->_z_bound_near*0.9999) {
-//            p[i][2] = pSpacetime->_z_bound_near*0.9999;
-//        }
-//    }
-    if (d == 4) {
-        _pSp = NEW SplineLine(p, n, accuracy, rotmat);
-    } else {
-        _pSp = NEW SplineLine(p, n, accuracy);
-    }
-    _is_create_SplineLine = true;
+    init(p, n, accuracy);
 }
+
+
+
+void SplineSource::init(double prm_paaEstablish[][3], int prm_num, double prm_accuracy) {
+    _num_basepoint = prm_num;
+    _accuracy = prm_accuracy;
+    _x_basepoint = NEW double[prm_num];
+    _y_basepoint = NEW double[prm_num];
+    _z_basepoint = NEW double[prm_num];
+    double x,y,z;
+    for (int i = 0; i < prm_num; i++) {
+        //x*_11 + y*_21 + z*_31 + _41 , x*_12 + y*_22 + z*_32 + _42, x*_13 + y*_23 + z*_33 + _43
+        x = prm_paaEstablish[i][0];
+        y = prm_paaEstablish[i][1];
+        z = prm_paaEstablish[i][2];
+        _x_basepoint[i] = x*_rotmat._11 + y*_rotmat._21 + z*_rotmat._31 + _rotmat._41;
+        _y_basepoint[i] = x*_rotmat._12 + y*_rotmat._22 + z*_rotmat._32 + _rotmat._42;
+        _z_basepoint[i] = x*_rotmat._13 + y*_rotmat._23 + z*_rotmat._33 + _rotmat._43;
+    }
+    _xs.init(_x_basepoint, prm_num);
+    _ys.init(_y_basepoint, prm_num);
+    _zs.init(_z_basepoint, prm_num);
+    _x_compute = nullptr;
+    _y_compute = nullptr;
+    _z_compute = nullptr;
+    compute();
+}
+
+void SplineSource::compute() {
+    _rnum = _num_basepoint/_accuracy;
+    if (_x_compute) {
+        GGAF_DELETEARR(_x_compute);
+        GGAF_DELETEARR(_y_compute);
+        GGAF_DELETEARR(_z_compute);
+    }
+    _x_compute = NEW double[_rnum];
+    _y_compute = NEW double[_rnum];
+    _z_compute = NEW double[_rnum];
+
+    int index = 0;
+    for (double t = 0.0; t <= (_num_basepoint+0.000001) - 1.0; t += _accuracy) { //0.000001 は最後を成立させるため
+#ifdef MY_DEBUG
+        if (_rnum < index+1) {
+            throwGgafCriticalException("補間点配列の要素数の範囲外指定です。_rnum="<<_rnum<<" index="<<index<<" t="<<t);
+        }
+#endif
+        _x_compute[index] = _xs.compute(t);
+        _y_compute[index] = _ys.compute(t);
+        _z_compute[index] = _zs.compute(t);
+        index++;
+    }
+    _rnum = index;
+}
+
+void SplineSource::rotation(angle prm_rx, angle prm_ry, angle prm_rz) {
+    const double sinRx = ANG_SIN(prm_rx);
+    const double cosRx = ANG_COS(prm_rx);
+    const double sinRy = ANG_SIN(prm_ry);
+    const double cosRy = ANG_COS(prm_ry);
+    const double sinRz = ANG_SIN(prm_rz);
+    const double cosRz = ANG_COS(prm_rz);
+    for (int t = 0; t < _rnum; t ++) {
+        double x = _x_compute[t];
+        double y = _y_compute[t];
+        double z = _z_compute[t];
+        _x_compute[t] = x*cosRz*cosRy + y*(cosRx*-sinRz*cosRy + sinRx*sinRy) + z*(-sinRx*-sinRz*cosRy + cosRx*sinRy);
+        _y_compute[t] = x*sinRz + y*cosRx*cosRz + z*-sinRx*cosRz;
+        _z_compute[t] = x*cosRz*-sinRy + y*(cosRx*-sinRz*-sinRy + sinRx*cosRy) + z*(-sinRx*-sinRz*-sinRy + cosRx*cosRy);
+    }
+}
+
+SplineSource::~SplineSource() {
+    _TRACE_("SplineSource::~SplineSource() ");
+    GGAF_DELETEARR(_idstr);
+    GGAF_DELETEARR(_x_basepoint);
+    GGAF_DELETEARR(_y_basepoint);
+    GGAF_DELETEARR(_z_basepoint);
+    //イニシャライズされる前に解放されるかもしれない
+    GGAF_DELETEARR_NULLABLE(_x_compute);
+    GGAF_DELETEARR_NULLABLE(_y_compute);
+    GGAF_DELETEARR_NULLABLE(_z_compute);
+}
+
 
 //＜説明＞
 //コンストラクタで読み込む spl ファイルのフォーマット
@@ -195,11 +270,3 @@ SplineSource::SplineSource(const char* prm_idstr)  : GgafObject() {
 //0		1		0		0
 //0		0		1		0
 //0		0		0		1
-
-
-SplineSource::~SplineSource() {
-    if (_is_create_SplineLine) {
-        GGAF_DELETE(_pSp);
-    }
-    GGAF_DELETEARR(_idstr);
-}

@@ -24,7 +24,7 @@ public:
      * コンストラクタ .
      * @param prm_pSplSrc スプライン座標情報オブジェクト
      */
-    SteppedCoordSplineManufacture(SplineSource* prm_pSplSrc);
+    SteppedCoordSplineManufacture(SplineSource* prm_pSpl);
 
     /**
      * 初期化（計算）処理 .

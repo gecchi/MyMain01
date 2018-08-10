@@ -19,9 +19,9 @@ public:
     /**
      * コンストラクタ<BR>
      * @param prm_idstr 識別名
-     * @param prm_pSpl3D SplineLineオブジェクト
+     * @param prm_pResource GgafXpmオブジェクト
      */
-    XpmConnection(const char* prm_idstr, GgafCore::GgafXpm* prm_pSpl3D);
+    XpmConnection(const char* prm_idstr, GgafCore::GgafXpm* prm_pResource);
 
     void processReleaseResource(GgafCore::GgafXpm* prm_pResource);
 

@@ -110,7 +110,7 @@ void FormationOebius002::onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, int
 //    //(Z*sinRy, 0, Z*cosRy)
 //    float sinRy = ANG_SIN(geo_.ry);
 //    float cosRy = ANG_COS(geo_.ry);
-//    double d_col = -1.0 * papSplManufConn_[prm_col]->peek()->_sp->_rotmat._43;
+//    double d_col = -1.0 * papSplManufConn_[prm_col]->peek()->_pSpl->_rotmat._43;
 //    dxcoord Z = d_col*rate_z; //rate_zを掛けることにより、ここで Z はcoordの単位となる。(ようにMAG_X,MAG_Y,MAG_Zを設定してある）
 //    coord dx = Z*sinRy;
 //    coord dy = 0;

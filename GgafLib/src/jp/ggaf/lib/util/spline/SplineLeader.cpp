@@ -2,7 +2,6 @@
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "jp/ggaf/lib/util/spline/SplineLine.h"
 #include "jp/ggaf/lib/util/spline/SplineManufacture.h"
 #include "jp/ggaf/lib/util/spline/SplineSource.h"
 
@@ -13,6 +12,9 @@ using namespace GgafLib;
 SplineLeader::SplineLeader(SplineManufacture* prm_pManufacture, GgafDxGeometricActor* prm_pActor_target) :
         GgafObject() {
     _pManufacture = prm_pManufacture;
+    if (!_pManufacture->_is_calculated) {
+        _pManufacture->calculate();
+    }
     _pActor_target = prm_pActor_target;
     _option = ABSOLUTE_COORD;
     _x_start_in_loop = 0;
@@ -33,11 +35,6 @@ SplineLeader::SplineLeader(SplineManufacture* prm_pManufacture, GgafDxGeometricA
 
     _was_started = false;
     _is_leading = false;
-    if (prm_pManufacture) {
-        _is_created_pManufacture = false;
-    } else {
-        _is_created_pManufacture = true;
-    }
     _distance_to_begin = 0;
     _cnt_loop = 0;
     _max_loop = 1;
@@ -49,12 +46,12 @@ SplineLeader::SplineLeader(SplineManufacture* prm_pManufacture, GgafDxGeometricA
 
 void SplineLeader::getPointCoord(int prm_point_index, coord& out_x, coord& out_y, coord& out_z) {
 #ifdef MY_DEBUG
-    if (prm_point_index >= _pManufacture->_sp->_rnum) {
+    if (prm_point_index >= _pManufacture->_pSpl->_rnum) {
         throwGgafCriticalException("ポイントのインデックスオーバー。"
-                                   "補完点数="<<(_pManufacture->_sp->_rnum)<<" prm_point_index="<<prm_point_index);
+                                   "補完点数="<<(_pManufacture->_pSpl->_rnum)<<" prm_point_index="<<prm_point_index);
     }
 #endif
-    const SplineLine* const pSpl = _pManufacture->_sp;
+    const SplineSource* const pSpl = _pManufacture->_pSpl;
     const double dx = _flip_x*pSpl->_x_compute[prm_point_index]*_pManufacture->_rate_x + _offset_x;
     const double dy = _flip_y*pSpl->_y_compute[prm_point_index]*_pManufacture->_rate_y + _offset_y;
     const double dz = _flip_z*pSpl->_z_compute[prm_point_index]*_pManufacture->_rate_z + _offset_z;
@@ -132,7 +129,7 @@ void SplineLeader::getPointCoord(int prm_point_index, coord& out_x, coord& out_y
 }
 
 void SplineLeader::restart() {
-    const SplineLine* const pSpl = _pManufacture->_sp;
+    const SplineSource* const pSpl = _pManufacture->_pSpl;
     const double p0x = _flip_x * pSpl->_x_compute[0] * _pManufacture->_rate_x + _offset_x;
     const double p0y = _flip_y * pSpl->_y_compute[0] * _pManufacture->_rate_y + _offset_y;
     const double p0z = _flip_z * pSpl->_z_compute[0] * _pManufacture->_rate_z + _offset_z;
@@ -272,7 +269,7 @@ void SplineLeader::setAbsoluteBeginCoord() {
 
 coord SplineLeader::getSegmentDistance(int prm_index) {
 #ifdef MY_DEBUG
-    if (prm_index < 0 || prm_index > (_pManufacture->_sp->_rnum -1)) {
+    if (prm_index < 0 || prm_index > (_pManufacture->_pSpl->_rnum -1)) {
         throwGgafCriticalException("prm_index="<<prm_index<<" は、範囲外です._pActor_target="<< _pActor_target <<"["<< _pActor_target->getName() <<"]");
     }
 #endif
@@ -288,7 +285,7 @@ coord SplineLeader::getTotalDistance() {
 }
 
 int SplineLeader::getPointNum() {
-    return _pManufacture->_sp->_rnum;
+    return _pManufacture->_pSpl->_rnum;
 }
 
 void SplineLeader::setStartAngle(angle prm_rx, angle prm_ry, angle prm_rz) {
@@ -305,9 +302,9 @@ void SplineLeader::setStartAngle(angle prm_rx, angle prm_ry, angle prm_rz) {
 }
 
 SplineLeader::~SplineLeader() {
-    if (_is_created_pManufacture) {
-        SplineSource* pSplSrc = _pManufacture->_pSplSrc;
-        GGAF_DELETE(pSplSrc);
-        GGAF_DELETE(_pManufacture);
-    }
+//    if (_is_created_pManufacture) {
+//        SplineSource* pSplSrc = _pManufacture->_pSplSrc;
+//        GGAF_DELETE(pSplSrc);
+//        GGAF_DELETE(_pManufacture);
+//    }
 }

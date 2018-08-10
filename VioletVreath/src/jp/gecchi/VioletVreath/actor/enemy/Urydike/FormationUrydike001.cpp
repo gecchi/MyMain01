@@ -41,7 +41,7 @@ void FormationUrydike001::onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, in
                                      createKurokoLeader(pUrydike->getKuroko());
     }
     double rate_x = pUrydike->pKurokoLeader_->_pManufacture->_rate_x;
-    double d_col = -1.0 * papSplManufConn_[prm_col]->peek()->_sp->_rotmat._41; //‰¡‚Æ‚ÌŠÔŠu
+    double d_col = -1.0 * papSplManufConn_[prm_col]->peek()->_pSpl->_rotmat._41; //‰¡‚Æ‚ÌŠÔŠu
     float X = d_col*rate_x; //rate_x‚ğŠ|‚¯‚é‚±‚Æ‚É‚æ‚èA‚±‚±‚Å X ‚Ícoord‚Ì’PˆÊ‚Æ‚È‚éB
 
     float sinRz = ANG_SIN(entry_pos_.rz);

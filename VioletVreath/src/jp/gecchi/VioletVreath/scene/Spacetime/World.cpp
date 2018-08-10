@@ -317,13 +317,14 @@ void World::processBehavior() {
 
 
 #ifdef MY_DEBUG
-    sprintf(aBufDebug_, "%07uF, %06u/%06uACT, %06uDRAW, %06uCHK, %03.1fFPS, V%03d",
+    sprintf(aBufDebug_, "%07uF, %06u/%06uACT, %06uDRAW, %06uCHK, %03.1fFPS(%d), V%03d",
                             askGod()->_frame_of_God,
                             GgafGod::_num_active_actor,
                             GgafActor::_num_actors,
                             GgafGod::_num_drawing,
                             CollisionChecker::_num_check,
                             askGod()->_fps,
+                            askGod()->_slowdown_mode,
                             (GgafDxSound::getAppMasterVolume())
                             );
     pLabel_debug_->update(aBufDebug_);

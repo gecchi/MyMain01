@@ -33,16 +33,11 @@ public:
 public:
     /**
      *
-     * @param prm_pManufacture calculate()çœÇ›ÇÃSplineManufactureÇê›íËÇ∑ÇÈÇ±Ç∆
+     * @param prm_pManufacture
      * @param prm_pAxesMover
      */
     FixedFrameSplineAxesMoverLeader(SplineManufacture* prm_pManufacture,
-                                 GgafDxCore::GgafDxAxesMover* prm_pAxesMover_target);
-
-    FixedFrameSplineAxesMoverLeader(GgafDxCore::GgafDxAxesMover* prm_pAxesMover_target,
-                                 SplineLine* prm_pSpl,
-                                 frame prm_spent_frames,
-                                 angvelo prm_angvelo_rzry_mv);
+                                    GgafDxCore::GgafDxAxesMover* prm_pAxesMover_target);
 
     virtual void restart() override;
 

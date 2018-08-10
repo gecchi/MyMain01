@@ -3,7 +3,6 @@
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "jp/ggaf/lib/util/spline/SplineLine.h"
 #include "jp/ggaf/lib/util/spline/SplineSource.h"
 #include "jp/ggaf/lib/util/spline/FixedFrameSplineManufacture.h"
 
@@ -20,21 +19,6 @@ FixedFrameSplineKurokoLeader::FixedFrameSplineKurokoLeader(SplineManufacture* pr
     _prev_point_index = -1;
     _hosei_frames = 0;
 }
-FixedFrameSplineKurokoLeader::FixedFrameSplineKurokoLeader(GgafDxKuroko* prm_pKuroko_target,
-                                                           SplineLine* prm_pSpl,
-                                                           frame prm_spent_frames,
-                                                           angvelo prm_angvelo_rzry_mv):
-        SplineLeader(nullptr, prm_pKuroko_target->_pActor) {  //nullptrで渡す事により、_is_created_pManufacture が falseになる
-    _pKuroko_target = prm_pKuroko_target;
-    _pFixedFrameSplManuf = NEW FixedFrameSplineManufacture(NEW SplineSource(prm_pSpl), prm_spent_frames, prm_angvelo_rzry_mv);
-    _pFixedFrameSplManuf->calculate();//これも忘れないように。いずれこのタイプは消す
-    _pManufacture = _pFixedFrameSplManuf;
-    _leading_frames = 0;
-    _point_index = 0;
-    _prev_point_index = -1;
-    _hosei_frames = 0;
-}
-
 void FixedFrameSplineKurokoLeader::restart() {
     SplineLeader::restart();
     _leading_frames = 0;
@@ -74,7 +58,7 @@ void FixedFrameSplineKurokoLeader::behave() {
         const double frame_of_segment = _pFixedFrameSplManuf->_frame_of_segment;
         //現在の点INDEX
         _point_index = (_leading_frames+_hosei_frames) / frame_of_segment;
-        if ( _point_index == _pFixedFrameSplManuf->_sp->_rnum) {
+        if ( _point_index == _pFixedFrameSplManuf->_pSpl->_rnum) {
             if (_cnt_loop == _max_loop) {
                 //終了
                 _is_leading = false;

@@ -297,8 +297,6 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\manager\CameraWorkerManager.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\manager\DepositoryConnection.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\manager\DepositoryManager.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\manager\SplineLineConnection.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\manager\SplineLineManager.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\manager\XpmConnection.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\manager\XpmManager.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\RankUpStageController\RankUp001.cpp" />
@@ -370,6 +368,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanCore003.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\FormationErelman003.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\worker\VamSysCamWorker2.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\manager\SplineSourceManagerEx.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\_predrawer\CubeMapMeshSetTestActor.h" />
@@ -671,8 +670,6 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\manager\CameraWorkerManager.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\manager\DepositoryConnection.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\manager\DepositoryManager.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\manager\SplineLineConnection.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\manager\SplineLineManager.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\manager\XpmConnection.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\manager\XpmManager.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\RankUpStageController\RankUp001.h" />
@@ -746,6 +743,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanCore003.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\enemy\Erelman\FormationErelman003.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\camera\worker\vamsyscamworker2.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\manager\splinesourcemanagerex.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="VioletVreath.rc" />
