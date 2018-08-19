@@ -33,7 +33,8 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model, GgafStatus* pr
     _pDepo = nullptr; //LaserChipDepositoryに追加される時に設定される。通常LaserChipとLaserChipDepositoryはセット。
     _chip_kind = 0;
     _hitarea_edge_length = 0;
-//    _harf_hitarea_edge_length = 0;
+    _hitarea_edge_length_3 = 0;
+    _hitarea_edge_length_6 = 0;
     _hdx = _hdy = _hdz = 0;
     _can_chikei_hit = false;
 
@@ -216,7 +217,7 @@ void LaserChip::processSettlementBehavior() {
                         int cY = dY / 2;
                         int cZ = dZ / 2;
                         pChecker->setColliAABox(
-                                      1,
+                                      2,
                                       cX - _hdx,
                                       cY - _hdy,
                                       cZ - _hdz,
@@ -224,13 +225,48 @@ void LaserChip::processSettlementBehavior() {
                                       cY + _hdy,
                                       cZ + _hdz
                                       );
-                        pChecker->enable(1);
+                        if (abs_dx >= _hitarea_edge_length_6 ||
+                            abs_dy >= _hitarea_edge_length_6 ||
+                            abs_dz >= _hitarea_edge_length_6)
+                        {
+                            int cX2 = cX / 2;
+                            int cY2 = cY / 2;
+                            int cZ2 = cZ / 2;
+                            pChecker->setColliAABox(
+                                          1,
+                                          cX2 - _hdx,
+                                          cY2 - _hdy,
+                                          cZ2 - _hdz,
+                                          cX2 + _hdx,
+                                          cY2 + _hdy,
+                                          cZ2 + _hdz
+                                          );
+                            int cX3 = cX2 + cX;
+                            int cY3 = cY2 + cY;
+                            int cZ3 = cZ2 + cZ;
+                            pChecker->setColliAABox(
+                                          3,
+                                          cX3 - _hdx,
+                                          cY3 - _hdy,
+                                          cZ3 - _hdz,
+                                          cX3 + _hdx,
+                                          cY3 + _hdy,
+                                          cZ3 + _hdz
+                                          );
+                        } else {
+                            pChecker->disable(1);
+                            pChecker->disable(3);
+                        }
                     } else {
                         pChecker->disable(1);
+                        pChecker->disable(2);
+                        pChecker->disable(3);
                     }
                 }
             } else {
                 pChecker->disable(1);
+                pChecker->disable(2);
+                pChecker->disable(3);
             }
         }
     }
@@ -283,11 +319,17 @@ void LaserChip::registerHitAreaCube_AutoGenMidColli(int prm_edge_length) {
     _middle_colli_able = true;
     _hitarea_edge_length = prm_edge_length;
     _hitarea_edge_length_3 = _hitarea_edge_length*3;
+    _hitarea_edge_length_6 = _hitarea_edge_length_3*2;
     CollisionChecker* pChecker = getCollisionChecker();
-    pChecker->createCollisionArea(2);
+    pChecker->createCollisionArea(4);
     pChecker->setColliAACube(0, prm_edge_length);
     pChecker->setColliAACube(1, prm_edge_length);
+    pChecker->setColliAACube(2, prm_edge_length);
+    pChecker->setColliAACube(3, prm_edge_length);
+    pChecker->enable(0);
     pChecker->disable(1);
+    pChecker->disable(2);
+    pChecker->disable(3);
     setHitAble(true);
 }
 

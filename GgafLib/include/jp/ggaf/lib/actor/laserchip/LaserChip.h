@@ -34,6 +34,7 @@ private:
     /** registerHitAreaCube_AutoGenMidColli() ƒƒ\ƒbƒh‚É‚æ‚è“o˜^‚Ì“–‚½‚è”»’è—§•û‘Ì‚Ì‚P•Ó‚Ì’·‚³ */
     int _hitarea_edge_length;
     int _hitarea_edge_length_3;
+    int _hitarea_edge_length_6;
     /** registerHitAreaCube_AutoGenMidColli() ƒƒ\ƒbƒh‚É‚æ‚è“o˜^‚Ì“–‚½‚è”»’è—§•û‘Ì‚Ì‚P•Ó‚Ì’·‚³‚Ì”¼•ª */
 //    int _harf_hitarea_edge_length;
 
