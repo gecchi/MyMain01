@@ -18,7 +18,6 @@ namespace VioletVreath {
 class MyBunshinWateringLaserChip001 : public GgafLib::WateringLaserChip {
     /** 耐久力初期設定値 */
     int default_stamina_;
-
     /**
      * 的（ロックオン座標）へレーザーチップを移動させる為の座標を計算
      * @param vTx 目標X座標

@@ -20,7 +20,7 @@ FormationRis002::FormationRis002(const char* prm_name) :
     interval_frames_ = RF_FormationRis002_LaunchInterval(G_RANK);   //リスの間隔(frame)
     velo_mv_         = RF_FormationRis002_MvVelo(G_RANK); //速度
     //スプライン移動の定義
-    pSplSrcConnection_ = connectToSplineSourceManagerEx("Spl_00202_");
+    pSplSrcConnection_ = connectToSplineSourceManager("Spl_00202_");
     pConn_depo_ = connectToDepositoryManager("Shot002");
     pManufacture_ =  NEW FixedVelocitySplineManufacture(pSplSrcConnection_->peek(), 10000);
     //リス編隊作成

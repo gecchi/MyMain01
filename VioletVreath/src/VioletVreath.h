@@ -507,6 +507,7 @@ class SingleLaserTestActor;
 class SmileMagic;
 class Spacetime;
 class SpeedMagic;
+class SplineManufactureManagerEx;
 class SplineSourceManagerEx;
 class SpriteLabelBonus001;
 class SpriteLabelGecchi32Font;

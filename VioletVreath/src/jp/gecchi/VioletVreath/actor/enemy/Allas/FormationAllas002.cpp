@@ -21,8 +21,6 @@ FormationAllas002::FormationAllas002(const char* prm_name) :
     velo_mv_         = RF_FormationAllas002_MvVelo(G_RANK); //速度
     //アラス編隊作成
     pConn_pSplManuf_ = connectToSplineManufactureManager("Allas02");
-//    pSplSrcConnection_     = connectToSplineSourceManagerEx("Spl_Allas01"); //スプライン定義
-    //pConn_depo_ = connectToDepositoryManager("Shot002");
     pConn_depo_ = nullptr;
     papAllas_ = NEW EnemyAllas*[num_Allas_];
     for (int i = 0; i < num_Allas_; i++) {

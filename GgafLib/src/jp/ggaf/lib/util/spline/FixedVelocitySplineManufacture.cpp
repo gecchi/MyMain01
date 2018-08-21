@@ -7,11 +7,11 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-FixedVelocitySplineManufacture::FixedVelocitySplineManufacture(const char* prm_source_file,
+FixedVelocitySplineManufacture::FixedVelocitySplineManufacture(const char* prm_coord_data_file,
                                                                angvelo prm_angvelo_rzry_mv,
                                                                int prm_turn_way,
                                                                bool prm_turn_optimaize) :
-        SplineManufacture(prm_source_file) {
+        SplineManufacture(prm_coord_data_file) {
     _angvelo_rzry_mv = prm_angvelo_rzry_mv;
     _turn_way = prm_turn_way;
     _turn_optimize = prm_turn_optimaize;

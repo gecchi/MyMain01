@@ -19,7 +19,7 @@ FormationRis001::FormationRis001(const char* prm_name) : TreeFormation(prm_name)
     interval_frames_ = RF_FormationRis001_LaunchInterval(G_RANK);   //リスの間隔(frame)
     velo_mv_         = RF_FormationRis001_MvVelo(G_RANK); //速度
     //リス編隊作成
-    pSplSrcConnection_ = connectToSplineSourceManagerEx("Spl_00201_"); //スプライン定義
+    pSplSrcConnection_ = connectToSplineSourceManager("Spl_00201_"); //スプライン定義
     pConn_depo_ = connectToDepositoryManager("Shot001");
     pManufacture_ = NEW FixedVelocitySplineManufacture(pSplSrcConnection_->peek(), 10000);
 

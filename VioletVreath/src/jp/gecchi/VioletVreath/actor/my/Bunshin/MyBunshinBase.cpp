@@ -141,7 +141,10 @@ void MyBunshinBase::processBehavior() {
     }
     MyShip* pMyShip = pMYSHIP;
     VirtualButton* pVbPlay = VB_PLAY;
-    GgafProgress* const pProg = getProgress();
+    const bool is_pressed_VB_OPTION = pVbPlay->isPressed(VB_OPTION);
+    const bool is_pressed_VB_TURBO  = pVbPlay->isPressed(VB_TURBO);
+    const bool is_released_up_VB_TURBO = pVbPlay->isReleasedUp(VB_TURBO);
+    GgafProgress* pProg = getProgress();
 
     switch (pProg->get()) {
         case PROG_INIT: {
@@ -154,7 +157,11 @@ void MyBunshinBase::processBehavior() {
             }
             //初期位置から２０フレーム以内の動きは、TRACE_TWINBEEによって初期位置を維持させる
             if (pMyShip->is_move_) {
-                moving_frames_since_default_pos_++;
+                if (is_pressed_VB_OPTION) {
+                    moving_frames_since_default_pos_ = 0;
+                } else {
+                    moving_frames_since_default_pos_++;
+                }
             } else {
                 if (moving_frames_since_default_pos_ <= 20) {
                     moving_frames_since_default_pos_ = 0;
@@ -167,7 +174,7 @@ void MyBunshinBase::processBehavior() {
             if (pProg->hasJustChanged()) {
                 pBunshin_->effectFreeModeIgnited(); //点火エフェクト
             }
-            if (pVbPlay->isPressed(VB_OPTION | VB_TURBO) == (VB_OPTION | VB_TURBO)) {
+            if (is_pressed_VB_OPTION && is_pressed_VB_TURBO) {
                 if (pProg->getFrame() >= (((MyBunshinBase::now_bunshin_num_ - (no_-1) )*5) + 10) ) { //おしりのオプションから
                     pProg->change(PROG_BUNSHIN_FREE_MODE_READY);
                 }
@@ -189,8 +196,8 @@ void MyBunshinBase::processBehavior() {
                 //強制発射
                 pProg->change(PROG_BUNSHIN_FREE_MODE_MOVE);
             } else {
-                if (pVbPlay->isPressed(VB_OPTION)) {
-                    if(pVbPlay->isReleasedUp(VB_TURBO)) { //VB_TURBOだけ離すと即発射。
+                if (is_pressed_VB_OPTION) {
+                    if(is_released_up_VB_TURBO) { //VB_TURBOだけ離すと即発射。
                         //ハーフ発射！！
                         pProg->change(PROG_BUNSHIN_FREE_MODE_MOVE);
                     } else {
@@ -216,7 +223,7 @@ void MyBunshinBase::processBehavior() {
                 pAxesMover->setZeroVxyzMvVelo();
                 pAxesMover->setZeroVxyzMvAcce();
             }
-            if (pVbPlay->isPressed(VB_OPTION)) {
+            if (is_pressed_VB_OPTION) {
                 //分身フリーモードで移動中
                 //オプションの広がり角より、MyBunshinBaseの移動速度と、MyBunshin旋回半径増加速度にベクトル分解。
                 angvelo bunshin_angvelo_expance = pBunshin_->getExpanse();
@@ -282,15 +289,15 @@ void MyBunshinBase::processBehavior() {
     }
 
     //オプションフリーモードへの判断
-    if (pVbPlay->isPressed(VB_OPTION)) {
+    if (is_pressed_VB_OPTION) {
         if (pVbPlay->isDoublePushedDown(VB_TURBO)) { //VB_OPTION + VB_TURBOダブルプッシュ
             //分身フリーモード、点火！
             pProg->change(PROG_BUNSHIN_FREE_MODE_IGNITED);
         }
     }
 
-    if (pVbPlay->isDoublePushedDown(VB_OPTION,8,8)) {
-        if (pVbPlay->isPressed(VB_TURBO)) {
+    if (pVbPlay->isDoublePushedDown(VB_OPTION, 8, 8)) {
+        if (is_pressed_VB_TURBO) {
             //VB_OPTION ダブルプッシュ + VB_TURBO押しっぱなしの場合
             //ハーフセット
             //フリーモード維持、半径位置も維持、
@@ -300,19 +307,25 @@ void MyBunshinBase::processBehavior() {
             //オールリセット
             resetBunshin(0);
         }
-    } else if (pVbPlay->isPressed(VB_OPTION)) {
+    } else if (is_pressed_VB_OPTION) {
         //分身操作
-        if (pVbPlay->isPressed(VB_TURBO)) {
+        if (is_pressed_VB_TURBO) {
             trace_mode_ = TRACE_FREEZE;
             dir26 mv_way_MyShip = pMyShip->mv_way_;
             dir26 mv_way_sgn_x_MyShip = pMyShip->mv_way_sgn_x_;
             dir26 mv_way_sgn_y_MyShip = pMyShip->mv_way_sgn_y_;
             dir26 mv_way_sgn_z_MyShip = pMyShip->mv_way_sgn_z_;
             //分身広がり
-            if (mv_way_sgn_x_MyShip == 1 || mv_way_sgn_z_MyShip == 1) {
+            if (mv_way_sgn_x_MyShip == 1) {
                 pBunshin_->addExpanse(+MyBunshinBase::ANGVELO_EXPANSE);
-            } else if (mv_way_sgn_x_MyShip == -1 || mv_way_sgn_z_MyShip == -1) {
+            } else if (mv_way_sgn_x_MyShip == -1) {
                 pBunshin_->addExpanse(-MyBunshinBase::ANGVELO_EXPANSE);
+            } else {
+                if (mv_way_sgn_z_MyShip == 1) {
+                    pBunshin_->addExpanse(+MyBunshinBase::ANGVELO_EXPANSE);
+                } else if (mv_way_sgn_z_MyShip == -1) {
+                    pBunshin_->addExpanse(-MyBunshinBase::ANGVELO_EXPANSE);
+                }
             }
             //半径位置制御
             if (mv_way_sgn_y_MyShip == 1) {

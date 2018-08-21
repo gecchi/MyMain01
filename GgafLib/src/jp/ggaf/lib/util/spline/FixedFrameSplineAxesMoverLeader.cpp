@@ -78,11 +78,6 @@ void FixedFrameSplineAxesMoverLeader::behave() {
             _prev_point_index = _point_index;
             coord x, y, z;
             getPointCoord(_point_index, x, y, z);
-
-//            pAxesMover_target->turnMvAngTwd(x, y, z,
-//                                         _pFixedFrameSplManuf->_angvelo_rzry_mv, 0,
-//                                         _pFixedFrameSplManuf->_turn_way, _pFixedFrameSplManuf->_turn_optimize);
-
             velo mv_velo = 0;
             const coord calc_d = _pFixedFrameSplManuf->_paDistance_to[_point_index];
             if (_point_index == 0) {
@@ -106,14 +101,10 @@ void FixedFrameSplineAxesMoverLeader::behave() {
                     mv_velo = _pFixedFrameSplManuf->_paSPMvVeloTo[_point_index];
                 }
             }
-            _TRACE_("calc_d="<<calc_d<<" mv_velo="<<mv_velo);
-            _TRACE_("execGrav("<<x<<","<<y<<","<<z<<","<<(mv_velo*2)<<","<<(mv_velo/10)<<","<<(calc_d/10));
-            pAxesMover_target->execGravitationMvSequenceTwd(x, y, z, mv_velo*2, mv_velo/10, calc_d/10);
-//            pAxesMover_target->execGravitationMvSequenceTwd(x, y, z, 10000, 200, 2000);
+            pAxesMover_target->execGravitationMvSequenceTwd(x, y, z, mv_velo*1.5, mv_velo/20, calc_d/8);
         }
         _leading_frames++;
     }
-    //_TRACE_(_pActor_target->getBehaveingFrame()<<": "<<_leading_frames<<": _cnt_loop="<<_cnt_loop<<"  _point_index="<<_point_index<<" velo="<<_pActor_target->getAxesMover()->getMvVelo()<<" xyz="<<_pActor_target->_x<<","<<_pActor_target->_y<<","<<_pActor_target->_z);
 }
 FixedFrameSplineAxesMoverLeader::~FixedFrameSplineAxesMoverLeader() {
 

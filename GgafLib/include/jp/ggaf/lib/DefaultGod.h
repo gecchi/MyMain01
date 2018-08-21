@@ -23,6 +23,12 @@
  */
 #define connectToSplineManufactureManager(X) ((GgafLib::SplineManufactureConnection*)((pGOD)->_pSplManufManager->connect((X), this)))
 
+/**
+ * 神が保持する SplineSourceManager に接続し、コネクションを取得。
+ * X：識別文字列（SplineSourceManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) の prm_idstr に渡る)
+ */
+#define connectToSplineSourceManager(X)   ((GgafLib::SplineSourceConnection*)((pGOD)->_pSplSrcManager->connect((X), this)))
+
 namespace GgafLib {
 class DefaultGod : public GgafDxCore::GgafDxGod {
 
@@ -40,6 +46,10 @@ public:
 
     virtual void clean() override;
     virtual DefaultEffectManager* createEffectManager() override;  //共変の戻り値
+
+    virtual SplineSourceManager* createSplineSourceManager();
+    virtual SplineManufactureManager* createSplineManufactureManager();
+
     virtual ~DefaultGod();
 };
 

@@ -24,9 +24,8 @@ Shot001::Shot001(const char* prm_name) :
     GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(0, "WAVE_EXPLOSION_002");
 
-    pSplSrcConnection_ = connectToSplineSourceManagerEx("Spl_HAN"); //スプライン定義
-    pSplineManufacture_ = NEW FixedVelocitySplineManufacture(pSplSrcConnection_->peek(), 10000);
-    pKurokoLeader_ = NEW FixedVelocitySplineKurokoLeader(pSplineManufacture_, getKuroko()); //移動速度固定
+    pSplManufConn_ = connectToSplineManufactureManager("Shot001_spline");
+    pKurokoLeader_ = NEW FixedVelocitySplineKurokoLeader(pSplManufConn_->peek(), getKuroko()); //移動速度固定
 }
 
 void Shot001::initialize() {
@@ -82,7 +81,7 @@ void Shot001::onInactive() {
 
 
 Shot001::~Shot001() {
-    GGAF_DELETE(pSplineManufacture_);
+    pSplManufConn_->close();
     GGAF_DELETE(pKurokoLeader_);
-    pSplSrcConnection_->close();
+
 }

@@ -27,7 +27,7 @@ MyStraightLaserChip001::MyStraightLaserChip001(const char* prm_name) :
         StraightLaserChip(prm_name, "MyLaserChip001", STATUS(MyStraightLaserChip001)) {
     _class_name = "MyStraightLaserChip001";
     default_stamina_ = getStatus()->get(STAT_Stamina);
-    _velo_mv = 100000;
+    _velo_mv = PX_C(300);
     pOrg_ = nullptr;
     GgafDxModel* pModel = getModel();
     if (!MyStraightLaserChip001::pModel_) {
@@ -43,7 +43,7 @@ void MyStraightLaserChip001::initialize() {
     getKuroko()->setRzRyMvAng(0,0);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
-    pChecker->setColliAABox_WHD(0,120000,60000,60000);
+    pChecker->setColliAABox_WHD(0,PX_C(300),PX_C(80),PX_C(80));
 
     setHitAble(true);
     setScaleR(5.0);

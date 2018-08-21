@@ -46,14 +46,8 @@ EnemyEres::EnemyEres(const char* prm_name, GgafActorDepository* prm_pDepo_EnemyE
         createGgafActorDepository_ = false;
     }
 
-    pSplSrcConnection_ = connectToSplineSourceManagerEx("Spl_HAN");
-    SplineSource* pSplineSource = pSplSrcConnection_->peek();
-//    SplineSource*  pSplineSource = NEW SplineSource(pSplineSource);
-    pSplManuf_ = NEW FixedFrameSplineManufacture(pSplineSource,
-                                                                   60*30);
-    pSplineLeader_ = NEW FixedFrameSplineAxesMoverLeader(pSplManuf_, getAxesMover());
-//    pSplineLeader_ = NEW FixedFrameSplineKurokoLeader(getKuroko(), pSplineSource, 60*30);
-//    pSplineLeader_ = NEW FixedFrameSplineAxesMoverLeader(getAxesMover(), pSplineSource, 60*30);
+    pSplManufConn_ = connectToSplineManufactureManager("EnemyEres_spline");
+    pSplineLeader_ = NEW FixedFrameSplineAxesMoverLeader(pSplManufConn_->peek(), getAxesMover());
 
     GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
@@ -144,8 +138,7 @@ bool EnemyEres::isOutOfSpacetime() const {
 
 EnemyEres::~EnemyEres() {
     //static‚È‚Ì‚ÅÅ‰‚Ì‚P‰ñ‚¾‚¯‰ð•ú‚µ‚½‚¢
-    pSplSrcConnection_->close();
-    GGAF_DELETE_NULLABLE(pSplManuf_);
+    pSplManufConn_->close();
     GGAF_DELETE_NULLABLE(pSplineLeader_);
 }
 

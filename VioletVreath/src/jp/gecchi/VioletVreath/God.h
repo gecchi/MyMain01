@@ -10,6 +10,7 @@
 #include "jp/gecchi/VioletVreath/manager/DepositoryManager.h"
 #include "jp/gecchi/VioletVreath/manager/DepositoryConnection.h"
 #include "jp/gecchi/VioletVreath/manager/SplineSourceManagerEx.h"
+#include "jp/gecchi/VioletVreath/manager/SplineManufactureManagerEx.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime.h"
 #undef pGOD
 #define pGOD ((VioletVreath::God*)GgafCore::GgafGod::ask())
@@ -42,13 +43,6 @@ namespace VioletVreath {
  */
 #define connectToDepositoryManager(X) ((VioletVreath::DepositoryConnection*)(pGOD->pDepoManager_->connect((X), this)))
 
-/**
- * 神が保持する SplineSourceManagerEx に接続し、コネクションを取得。
- * X：識別文字列（SplineSourceManagerEx::processCreateResource(const char* prm_idstr, void* prm_pConnector) の prm_idstr に渡る)
- */
-#define connectToSplineSourceManagerEx(X)   ((GgafLib::SplineSourceConnection*)(pGOD->pSpl3DManager_->connect((X), this)))
-
-
 #define connectToXpmManager(X) ((VioletVreath::XpmConnection*)(pGOD->pXpmManager_->connect((X), this)))
 
 
@@ -62,7 +56,6 @@ class God : public GgafLib::DefaultGod {
 
 public:
     DepositoryManager* pDepoManager_;
-    SplineSourceManagerEx* pSpl3DManager_;
     XpmManager* pXpmManager_;
 
     static GgafLib::VirtualButton* pVbtn_PLAY_;
@@ -125,6 +118,9 @@ public:
     virtual void oops() override;
 
     virtual EffectManager* createEffectManager() override;  //共変の戻り値
+
+    virtual SplineSourceManagerEx* createSplineSourceManager() override;  //共変の戻り値
+    virtual SplineManufactureManagerEx* createSplineManufactureManager() override;  //共変の戻り値
 
     virtual ~God();
 };

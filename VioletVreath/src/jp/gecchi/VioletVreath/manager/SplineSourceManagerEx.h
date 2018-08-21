@@ -6,10 +6,9 @@
 namespace VioletVreath {
 
 /**
- * Spline 管理クラス .
- * 生成済み SplineLine オブジェクトを登録しておき、使いまわします。
+ * VioletVreath用 Spline 管理クラス .
  * @version 1.00
- * @since 2010/05/31
+ * @since 2018/08/10
  * @author Masatoshi Tsuge
  */
 class SplineSourceManagerEx : public GgafLib::SplineSourceManager {

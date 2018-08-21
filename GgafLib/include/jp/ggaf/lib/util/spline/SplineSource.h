@@ -137,7 +137,7 @@ public:
     /** 座標補正変換行列 */
     RotMat _rotmat;
 
-    char* _idstr;
+    char* _coord_data_file;
 public:
     /**
      * コンストラクタ .
@@ -178,9 +178,9 @@ public:
 
     /**
      * 定義ファイルからオブジェクト構築
-     * @param prm_idstr
+     * @param prm_coord_data_file
      */
-    SplineSource(const char* prm_idstr);
+    SplineSource(const char* prm_coord_data_file);
 
     /**
      * 初期化し補完点し補正変換行列を適用して、使用できる状態にします .

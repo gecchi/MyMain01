@@ -7,8 +7,8 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-SteppedCoordSplineManufacture::SteppedCoordSplineManufacture(const char* prm_source_file) :
-        SplineManufacture(prm_source_file) {
+SteppedCoordSplineManufacture::SteppedCoordSplineManufacture(const char* prm_coord_data_file) :
+        SplineManufacture(prm_coord_data_file) {
 }
 
 SteppedCoordSplineManufacture::SteppedCoordSplineManufacture(SplineSource* prm_pSpl) :

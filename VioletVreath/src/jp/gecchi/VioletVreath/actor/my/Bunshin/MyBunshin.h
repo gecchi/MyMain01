@@ -33,15 +33,16 @@ public:
     GgafDxCore::GgafDxColorist* pColorist_;
 public:
     struct AimInfo {
-        frame begining_frame_of_GameScene_;
-        MyBunshinWateringLaserChip001* pLeaderChip_;
+        MyBunshinWateringLaserChip001* pLeaderChip;
         GgafDxCore::GgafDxGeometricActor* pTarget;
         /** –Ú•W1 */
         coord t1_x, t1_y, t1_z;
-        frame _spent_frames_to_t1;
+        frame spent_frames_to_t1;
+        frame aim_time_out_t1;
         /** –Ú•W2 */
         coord t2_x, t2_y, t2_z;
-        frame _spent_frames_to_t2;
+        frame spent_frames_to_t2;
+
         void setT2(double r, double x1, double y1, double z1, double x2, double y2, double z2) {
             UTIL::getIntersectionSphereAndVec(r, x1, y1, z1, x2, y2, z2,
                                               t2_x,t2_y,t2_z);
@@ -55,17 +56,17 @@ public:
             pass_p_seq_ = 0;
         }
         AimInfo* ap = &(pass_p_[pass_p_seq_]);
-        ap->begining_frame_of_GameScene_ = pGAME_SCENE->getBehaveingFrame();
-        ap->pLeaderChip_ = nullptr;
+        ap->pLeaderChip = nullptr;
         ap->pTarget = nullptr;
         ap->t1_x = 0;
         ap->t1_y = 0;
         ap->t1_z = 0;
-        ap->_spent_frames_to_t1 = 0;
+        ap->spent_frames_to_t1 = 0;
+        ap->aim_time_out_t1 = 400;
         ap->t2_x = 0;
         ap->t2_y = 0;
         ap->t2_z = 0;
-        ap->_spent_frames_to_t2 = 0;
+        ap->spent_frames_to_t2 = 0;
         return ap;
     }
 

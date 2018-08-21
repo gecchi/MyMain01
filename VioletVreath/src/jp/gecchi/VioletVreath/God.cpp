@@ -3,7 +3,6 @@
 #include "jp/ggaf/lib/util/VirtualButton.h"
 #include "jp/ggaf/lib/util/VBReplayRecorder.h"
 #include "jp/gecchi/VioletVreath/manager/DepositoryManager.h"
-#include "jp/gecchi/VioletVreath/manager/SplineSourceManagerEx.h"
 #include "jp/gecchi/VioletVreath/manager/XpmManager.h"
 #include "jp/gecchi/VioletVreath/Config.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World.h"
@@ -23,7 +22,6 @@ bool God::g_should_reboot_ = false;
 God::God() :
       DefaultGod() {
     pDepoManager_ = NEW DepositoryManager("DepositoryManager");
-    pSpl3DManager_ = NEW SplineSourceManagerEx("SplineSourceManagerEx");
     pXpmManager_ = NEW XpmManager("XpmManager");
     God::pVbtn_PLAY_ = NEW VirtualButton(FILE_INPUT_PLAY_REPLAY);
     God::pVbtn_UI_   = NEW VirtualButton(FILE_INPUT_UI_REPLAY);
@@ -148,7 +146,6 @@ void God::clean() {
         GGAF_DELETE(pVbtn_PLAY_);
         GGAF_DELETE(pVbtn_UI_);
         GGAF_DELETE(pDepoManager_);
-        GGAF_DELETE(pSpl3DManager_);
         GGAF_DELETE(pXpmManager_);
         _TRACE_(FUNC_NAME<<" end");
     }
@@ -167,6 +164,14 @@ void God::oops() {
 
 EffectManager* God::createEffectManager() {
     EffectManager* p = NEW EffectManager("EffectManager");
+    return p;
+}
+SplineSourceManagerEx* God::createSplineSourceManager() {
+    SplineSourceManagerEx* p = NEW SplineSourceManagerEx("SplineSourceManagerEx");
+    return p;
+}
+SplineManufactureManagerEx* God::createSplineManufactureManager() {
+    SplineManufactureManagerEx* p = NEW SplineManufactureManagerEx("SplineManufactureManagerEx");
     return p;
 }
 

@@ -11,12 +11,14 @@ using namespace GgafLib;
 
 DefaultGod::DefaultGod() :
         GgafDxGod() {
-    _pSplSrcManager = NEW SplineSourceManager("SplineSourceManager");
-    _pSplManufManager = NEW SplineManufactureManager("SplineManufactureManager");
+    _pSplSrcManager = nullptr;
+    _pSplManufManager = nullptr;
 }
 
 HRESULT DefaultGod::initDevice() {
     StgUtil::init();  //ユーティリティ準備
+    _pSplSrcManager = createSplineSourceManager();
+    _pSplManufManager = createSplineManufactureManager();
     return GgafDxGod::initDevice();
 }
 
@@ -33,6 +35,15 @@ DefaultEffectManager* DefaultGod::createEffectManager() {
     DefaultEffectManager* p = NEW DefaultEffectManager("EffectManager");
     return p;
 }
+SplineSourceManager* DefaultGod::createSplineSourceManager() {
+    SplineSourceManager* p = NEW SplineSourceManager("SplineSourceManager");
+    return p;
+}
+SplineManufactureManager* DefaultGod::createSplineManufactureManager() {
+    SplineManufactureManager* p = NEW SplineManufactureManager("SplineManufactureManager");
+    return p;
+}
+
 DefaultGod::~DefaultGod() {
     clean();
     _was_cleaned = true;

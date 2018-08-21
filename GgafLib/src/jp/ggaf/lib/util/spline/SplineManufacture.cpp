@@ -9,9 +9,9 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-SplineManufacture::SplineManufacture(const char* prm_source_file) : GgafObject() {
-    _source_file = std::string(prm_source_file);
-    _pSplSrcCon = (SplineSourceConnection*)((pGOD)->_pSplSrcManager->connect(prm_source_file, this));
+SplineManufacture::SplineManufacture(const char* prm_coord_data_file) : GgafObject() {
+    _spl_file = std::string(prm_coord_data_file);
+    _pSplSrcCon = connectToSplineSourceManager(prm_coord_data_file);
     _pSpl = _pSplSrcCon->peek();
     _paDistance_to = NEW coord[_pSpl->_rnum];
     _rate_x = 1.0;
@@ -22,7 +22,7 @@ SplineManufacture::SplineManufacture(const char* prm_source_file) : GgafObject()
 }
 
 SplineManufacture::SplineManufacture(SplineSource* prm_pSpl) {
-    _source_file = "Nothing";
+    _spl_file = "Nothing";
     _pSplSrcCon = nullptr;
     _pSpl = prm_pSpl;
     _paDistance_to = NEW coord[_pSpl->_rnum];

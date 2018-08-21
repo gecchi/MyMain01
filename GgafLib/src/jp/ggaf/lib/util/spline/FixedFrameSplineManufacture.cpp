@@ -8,11 +8,11 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-FixedFrameSplineManufacture::FixedFrameSplineManufacture(const char* prm_source_file,
+FixedFrameSplineManufacture::FixedFrameSplineManufacture(const char* prm_coord_data_file,
                                                          frame prm_spent_frames,
                                                          angvelo prm_angvelo_rzry_mv,
                                                          int prm_turn_way,
-                                                         bool prm_turn_optimaize) : SplineManufacture(prm_source_file) {
+                                                         bool prm_turn_optimaize) : SplineManufacture(prm_coord_data_file) {
     _spent_frames = prm_spent_frames;
     _angvelo_rzry_mv = prm_angvelo_rzry_mv;
     _turn_way = prm_turn_way;
@@ -21,7 +21,7 @@ FixedFrameSplineManufacture::FixedFrameSplineManufacture(const char* prm_source_
     //１区間の使用可能フレーム
     _frame_of_segment = 1.0*_spent_frames / (_pSpl->_rnum-1);
     if (_frame_of_segment < 1.0) {
-        _TRACE_("＜警告＞FixedFrameSplineManufacture ["<<prm_source_file<<"] _frame_of_segment="<<_frame_of_segment<<" < 1.0f です。"
+        _TRACE_("＜警告＞FixedFrameSplineManufacture ["<<prm_coord_data_file<<"] _frame_of_segment="<<_frame_of_segment<<" < 1.0f です。"
                 "補完点数("<<(_pSpl->_rnum)<<")よりも、始点～終了点フレーム数("<<_spent_frames<<")が小さいので、補完点の飛びをなくすため、強制的に_frame_of_segmentは1.0に上書き。"
                 "従って移動には"<<(_pSpl->_rnum)<<"フレームかかります。ご了承下さい。");
         _frame_of_segment = 1.0;

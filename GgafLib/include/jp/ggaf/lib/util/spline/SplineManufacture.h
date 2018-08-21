@@ -41,7 +41,7 @@ public:
     /** [r]座標情報(datファイル情報に相当)*/
     SplineSource* _pSpl;
     /** [r]スプライン座標情報ファイル名(splファイル) */
-    std::string _source_file;
+    std::string _spl_file;
     /** X軸方向補正割合 */
     double _rate_x;
     /** Y軸方向補正割合 */
@@ -57,10 +57,9 @@ public:
 public:
     /**
      * コンストラクタ .
-     * @param prm_source_file スプライン座標情報ファイル(splファイル)
+     * @param prm_coord_data_file スプライン座標情報ファイル(splファイル)
      */
-    explicit SplineManufacture(const char* prm_source_file);
-
+    explicit SplineManufacture(const char* prm_coord_data_file);
     /**
      * コンストラクタ .
      * @param prm_pSplSrc スプライン座標情報オブジェクト

@@ -121,7 +121,7 @@ SplineSource* SplineSourceManagerEx::processCreateResource(const char* prm_idstr
         pResource = NEW SplineSource(p, 17, 0.2); //—±“x 0.2
     }
     if (pResource == nullptr) {
-        SplineSourceManager::processCreateResource(prm_idstr, prm_pConnector);
+        pResource = SplineSourceManager::processCreateResource(prm_idstr, prm_pConnector);
     }
     return pResource;
 }
