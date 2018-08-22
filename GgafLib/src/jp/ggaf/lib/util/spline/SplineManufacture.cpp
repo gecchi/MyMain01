@@ -41,13 +41,11 @@ void SplineManufacture::adjustAxisRate(double prm_rate_x, double prm_rate_y, dou
 }
 
 void SplineManufacture::calculate() {
-    coord x_from, y_from, z_from;
-    coord x_to, y_to, z_to;
-
-    x_to = _pSpl->_x_compute[0]*_rate_x;
-    y_to = _pSpl->_y_compute[0]*_rate_y;
-    z_to = _pSpl->_z_compute[0]*_rate_z;
+    coord x_to = _pSpl->_x_compute[0]*_rate_x;
+    coord y_to = _pSpl->_y_compute[0]*_rate_y;
+    coord z_to = _pSpl->_z_compute[0]*_rate_z;
     int rnum = _pSpl->_rnum;
+    coord x_from, y_from, z_from;
     for (int t = 1; t < rnum; t ++) {
         x_from = x_to;
         y_from = y_to;

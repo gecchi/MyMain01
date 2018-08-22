@@ -30,6 +30,9 @@ public:
     int _prev_point_index;
     /** start()‚©‚ç‚ÌŒo‰ßƒtƒŒ[ƒ€” */
     frame _leading_frames;
+
+    acce _mv_acce;
+    coord _stop_renge;
 public:
     /**
      *
@@ -48,7 +51,10 @@ public:
      */
     virtual void behave() override;
 
-
+    void setGravitationParam(acce prm_mv_acce, coord prm_stop_renge) {
+        _mv_acce = prm_mv_acce;
+        _stop_renge = prm_stop_renge;
+    }
     virtual ~FixedFrameSplineAxesMoverLeader();
 };
 

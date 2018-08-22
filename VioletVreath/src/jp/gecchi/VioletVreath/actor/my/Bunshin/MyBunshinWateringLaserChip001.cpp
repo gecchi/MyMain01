@@ -60,8 +60,12 @@ void MyBunshinWateringLaserChip001::initialize() {
     setScaleR(6.0);
     setAlpha(0.99);
     GgafDxAxesMover* const pAxesMover = getAxesMover();
-    pAxesMover->forceVxyzMvVeloRange(-MAX_VELO_RENGE, MAX_VELO_RENGE);
-    pAxesMover->forceVxyzMvAcceRange(-MAX_ACCE_RENGE, MAX_ACCE_RENGE);
+    pAxesMover->forceVxMvVeloRange(-MAX_VELO_RENGE, MAX_VELO_RENGE);
+    pAxesMover->forceVyMvVeloRange(-MAX_VELO_RENGE*1.5, MAX_VELO_RENGE*1.5);
+    pAxesMover->forceVzMvVeloRange(-MAX_VELO_RENGE*1.5, MAX_VELO_RENGE*1.5);
+    pAxesMover->forceVxMvAcceRange(-MAX_ACCE_RENGE, MAX_ACCE_RENGE);
+    pAxesMover->forceVyMvAcceRange(-MAX_ACCE_RENGE*1.5, MAX_ACCE_RENGE*1.5);
+    pAxesMover->forceVzMvAcceRange(-MAX_ACCE_RENGE*1.5, MAX_ACCE_RENGE*1.5);
 }
 
 void MyBunshinWateringLaserChip001::onCreateModel() {
@@ -111,7 +115,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                         aimChip(pAimInfo->t1_x,
                                 pAimInfo->t1_y,
                                 pAimInfo->t1_z );
-                        static const coord renge = MyBunshinWateringLaserChip001::INITIAL_VELO / 4;
+                        static const coord renge = MyBunshinWateringLaserChip001::INITIAL_VELO * 0.4;
                         if (_x >= pAimInfo->t1_x - renge) {
                             if (_x <= pAimInfo->t1_x + renge) {
                                 if (_y >= pAimInfo->t1_y - renge) {
@@ -245,22 +249,25 @@ void MyBunshinWateringLaserChip001::processSettlementBehavior() {
                 pAimInfo_->t1_x = pAimInfo_->pTarget->_x;
                 pAimInfo_->t1_y = pAimInfo_->pTarget->_y;
                 pAimInfo_->t1_z = pAimInfo_->pTarget->_z;
-                pAxesMover->forceVxyzMvVeloRange(-MAX_VELO_RENGE, MAX_VELO_RENGE);
                 // aim_time_out_t1 を概算で求めておく
                 coord t1_d = UTIL::getDistance(this, pLockonTarget);
-                pAimInfo_->aim_time_out_t1 = (t1_d / MyBunshinWateringLaserChip001::INITIAL_VELO)*1.2 + 7 + 20;
+                pAimInfo_->aim_time_out_t1 = (t1_d / MyBunshinWateringLaserChip001::INITIAL_VELO)*1.2 + 7 + 10;
             } else {
                 //先端でロックオンしていない
                 pAimInfo_ = pOrg_->getAimInfo();
                 pAimInfo_->pLeaderChip = this;
                 pAimInfo_->pTarget = nullptr;
-                pAxesMover->forceVxyzMvVeloRange(-MAX_VELO_RENGE, MAX_VELO_RENGE);
             }
+            pAxesMover->forceVxMvVeloRange(-MAX_VELO_RENGE, MAX_VELO_RENGE);
+            pAxesMover->forceVyMvVeloRange(-MAX_VELO_RENGE*1.5, MAX_VELO_RENGE*1.5);
+            pAxesMover->forceVzMvVeloRange(-MAX_VELO_RENGE*1.5, MAX_VELO_RENGE*1.5);
         } else {
             //先端以外は前のを受け継ぐ
             pAimInfo_ = pF->pAimInfo_; //受け継ぐ
             velo v = pF->getAxesMover()->_top_velo_vx_mv - PX_C(0.5); //レーザーが弛まないように PX_C(0.5) 遅くした
-            pAxesMover->forceVxyzMvVeloRange(-v, v);
+            pAxesMover->forceVxMvVeloRange(-v, v);
+            pAxesMover->forceVyMvVeloRange(-v*1.5, v*1.5);
+            pAxesMover->forceVzMvVeloRange(-v*1.5, v*1.5);
 #ifdef MY_DEBUG
 if (pAimInfo_ == nullptr) {
 throwGgafCriticalException("pAimInfo_ が引き継がれていません！"<<this<<

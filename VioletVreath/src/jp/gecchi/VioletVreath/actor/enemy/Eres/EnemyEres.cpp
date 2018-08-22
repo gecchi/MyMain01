@@ -47,7 +47,8 @@ EnemyEres::EnemyEres(const char* prm_name, GgafActorDepository* prm_pDepo_EnemyE
     }
 
     pSplManufConn_ = connectToSplineManufactureManager("EnemyEres_spline");
-    pSplineLeader_ = NEW FixedFrameSplineAxesMoverLeader(pSplManufConn_->peek(), getAxesMover());
+    pSplineLeader_ = pSplManufConn_->peek()->createAxesMoverLeader(getAxesMover());
+//    ((FixedFrameSplineAxesMoverLeader*)pSplineLeader_)->setGravitationParam(200, PX_C(100));
 
     GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
