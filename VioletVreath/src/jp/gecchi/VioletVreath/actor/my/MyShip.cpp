@@ -676,7 +676,7 @@ void MyShip::processBehavior() {
                     pShot->setPositionAt(this);
                     pShot->getKuroko()->setRzRyMvAng(_rz, _ry);
                     pShot->getKuroko()->setMvVelo(PX_C(70));
-                    pShot->getKuroko()->setMvAcce(100);
+                    pShot->getKuroko()->setMvAcce(80);
                 }
             }
 

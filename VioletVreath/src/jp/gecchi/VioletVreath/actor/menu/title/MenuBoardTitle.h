@@ -19,6 +19,7 @@ public:
         ITEM_KEY_CONFIG,
         ITEM_SOUND_CONFIG,
         ITEM_SCREEN_CONFIG,
+        ITEM_NAME_ENTRY,
         ITEM_REBOOT,
         ITEM_QUIT,
         ITEM_BANPEI,
@@ -28,6 +29,7 @@ public:
         MENU_KEY_CONFIG,
         MENU_SOUND_CONFIG,
         MENU_SCREEN_CONFIG,
+        MENU_NAME_ENTRY,
         MENU_BANPEI,
     };
 

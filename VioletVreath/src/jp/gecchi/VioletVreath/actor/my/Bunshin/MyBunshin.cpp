@@ -53,13 +53,13 @@ MyBunshin::MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase) :
     }
     addSubGroup(pDepo_MyBunshinShot_);
 
-    //自弾（スナイプ）ストック
-    pDepo_MySnipeBunshinShot_ = NEW GgafActorDepository("Depo_MySnipeBunshinShot");
-    for (int i = 0; i < 5; i++) {
-        std::string name = std::string(getName()) + "'s SnipeShot(" + XTOS(i) + ")";
-        pDepo_MySnipeBunshinShot_->put(NEW MyBunshinSnipeShot001(name.c_str()));
-    }
-    addSubGroup(pDepo_MySnipeBunshinShot_);
+//    //自弾（スナイプ）ストック
+//    pDepo_MySnipeBunshinShot_ = NEW GgafActorDepository("Depo_MySnipeBunshinShot");
+//    for (int i = 0; i < 5; i++) {
+//        std::string name = std::string(getName()) + "'s SnipeShot(" + XTOS(i) + ")";
+//        pDepo_MySnipeBunshinShot_->put(NEW MyBunshinSnipeShot001(name.c_str()));
+//    }
+//    addSubGroup(pDepo_MySnipeBunshinShot_);
 
     //レーザーストック
     pLaserChipDepo_ = NEW LaserChipDepository("DepoBunshinLaser");
@@ -136,14 +136,15 @@ void MyBunshin::processChangeGeoFinal() {
 
     if (pMyShip->is_just_shot_) {
         if (pMyShip->is_snipe_shot_) {
-            MyBunshinSnipeShot001* const pSnipeShot = (MyBunshinSnipeShot001*)pDepo_MySnipeBunshinShot_->dispatch();
-            if (pSnipeShot) {
-                getSeTransmitter()->play3D(SE_FIRE_SHOT);
-                pSnipeShot->setPositionAt(this);
-                pSnipeShot->getKuroko()->setRzRyMvAng(_rz, _ry);
-                pSnipeShot->getKuroko()->setMvVelo(PX_C(70));
-                pSnipeShot->getKuroko()->setMvAcce(100);
-            }
+            //分身はスナイプショットは撃たない。
+//            MyBunshinSnipeShot001* const pSnipeShot = (MyBunshinSnipeShot001*)pDepo_MySnipeBunshinShot_->dispatch();
+//            if (pSnipeShot) {
+//                getSeTransmitter()->play3D(SE_FIRE_SHOT);
+//                pSnipeShot->setPositionAt(this);
+//                pSnipeShot->getKuroko()->setRzRyMvAng(_rz, _ry);
+//                pSnipeShot->getKuroko()->setMvVelo(PX_C(70));
+//                pSnipeShot->getKuroko()->setMvAcce(100);
+//            }
         } else {
             if (pMyShip->shot_level_ >= 1) {
                 MyBunshinShot001* const  pShot = (MyBunshinShot001*)pDepo_MyBunshinShot_->dispatch();

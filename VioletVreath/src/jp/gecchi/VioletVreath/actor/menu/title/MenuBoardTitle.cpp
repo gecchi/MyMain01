@@ -3,6 +3,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 #include "CursorTitleMenu.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
+#include "jp/gecchi/VioletVreath/actor/label/SpriteLabelGecchi32Font.h"
 #include "jp/gecchi/VioletVreath/actor/menu/config/MenuBoardConfig.h"
 #include "jp/gecchi/VioletVreath/actor/menu/confirm/MenuBoardConfirm.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -10,6 +11,7 @@
 #include "jp/gecchi/VioletVreath/actor/menu/config/MenuBoardKeyConfig.h"
 #include "jp/gecchi/VioletVreath/actor/menu/config/MenuBoardScreenConfig.h"
 #include "jp/gecchi/VioletVreath/actor/menu/config/MenuBoardSoundConfig.h"
+#include "jp/gecchi/VioletVreath/actor/menu/name_entry/MenuBoardNameEntry.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -28,6 +30,7 @@ MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
           "KEY CONFIG",
           "SOUND CONFIG",
           "SCREEN CONFIG",
+          "NAME ENTRY(TEST)",
           "REBOOT",
           "QUIT",
     };
@@ -55,6 +58,14 @@ MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
     addSubMenu(NEW MenuBoardSoundConfig("sound_config"));   //MENU_SOUND_CONFIG,
     addSubMenu(NEW MenuBoardScreenConfig("screen_config")); //MENU_SCREEN_CONFIG,
 
+    FontSpriteActor* pLabelInputedName = NEW SpriteLabelGecchi32Font("InputedName");
+    FontSpriteActor*  pLabelSelectedChar = NEW SpriteLabelGecchi32Font("SelectedChar");
+    MenuBoardNameEntry* pNameEntryBoard = NEW MenuBoardNameEntry("pNameEntryBoard_");
+    pNameEntryBoard->setNameFontBoard(pLabelInputedName, pLabelSelectedChar);
+    pNameEntryBoard->addLabel(pLabelInputedName, PX_C(100), PX_C(0), -PX_C(10));
+    pLabelSelectedChar->getAlphaFader()->beat(60, 10, 0, 50, -1); //チカチカ点滅
+    pNameEntryBoard->addLabel(pLabelSelectedChar, PX_C(100), PX_C(0), -PX_C(10));
+    addSubMenu(pNameEntryBoard);       //MENU_NAME_ENTRY,
 }
 bool MenuBoardTitle::condSelectNext() {
     return VB->isAutoRepeat(VB_UI_DOWN);
@@ -100,6 +111,9 @@ void MenuBoardTitle::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, int pr
     } else if (prm_item_index == ITEM_SCREEN_CONFIG) {
         //画面設定メニュー起動
         riseSubMenu(MENU_SCREEN_CONFIG, PX_C(50), PX_C(10));
+    } else if (prm_item_index == ITEM_NAME_ENTRY) {
+        //ネームエントリー起動 TODO:TEST
+        riseSubMenu(MENU_NAME_ENTRY, PX_C(50), PX_C(10));
     } else if (prm_item_index == ITEM_REBOOT) {
         //確認メニュー起動
         riseSubMenu(MENU_CONFIRM, getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y);

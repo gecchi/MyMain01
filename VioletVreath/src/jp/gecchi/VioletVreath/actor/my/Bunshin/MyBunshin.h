@@ -20,8 +20,8 @@ public:
     MyBunshinBase* pBase_;
     /** [r]ショットのデポジトリ */
     GgafCore::GgafActorDepository* pDepo_MyBunshinShot_;
-    /** [r]スナイプショットのデポジトリ */
-    GgafCore::GgafActorDepository* pDepo_MySnipeBunshinShot_;
+//    /** [r]スナイプショットのデポジトリ */
+//    GgafCore::GgafActorDepository* pDepo_MySnipeBunshinShot_;
     /** [r]レーザーチップのデポジトリ */
     GgafLib::LaserChipDepository* pLaserChipDepo_;
     /** [r]ロックオンコントローラー */

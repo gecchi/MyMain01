@@ -250,8 +250,8 @@ void GgafGod::clean() {
             _TRACE_("GgafGod::~GgafGod() 神が落ち着くまで待つ・・・");
             for (int i = 0; _was_finished_flg == false; i++) {
                 Sleep(10); //神が落ち着くまで待つ
-                if (i > 10*100*60) {
-                    _TRACE_("GgafGod::~GgafGod() 10分待機しましたが、神から反応がありません。強制breakします。要調査");
+                if (i > 5*100*60) {
+                    _TRACE_("GgafGod::~GgafGod() 5分待機しましたが、神から反応がありません。もう知りません！、強制 break します。要調査");
                     break;
                 }
             }
@@ -260,7 +260,7 @@ void GgafGod::clean() {
             _TRACE_("GgafGod::~GgafGod()  WaitForSingleObject(_handle_god_love01, 120*1000) .....");
             DWORD r = WaitForSingleObject(_handle_god_love01, 120*1000);  //DeleteCriticalSectionを行うために必要
             if (r == WAIT_TIMEOUT) {
-                throwGgafCriticalException("神が落ち着いたにもかかわらず、２分たってもスレッドが残っています。");
+                throwGgafCriticalException("終わったはずなのに、たぶん神がまだ終わっていません・・・・（涙）。デバッグ放置しましたか？");
             }
             _TRACE_("GgafGod::~GgafGod()  CloseHandle(_handle_god_love01) .....");
             CloseHandle(_handle_god_love01);
@@ -302,13 +302,11 @@ void GgafGod::clean() {
     }
 }
 
-
 GgafGod::~GgafGod() {
     timeEndPeriod(1);
     clean();
     _was_cleaned = true;
 }
-
 
 GgafMainActor* GgafGod::receiveActor(uint64_t prm_cradle_no, GgafObject* prm_pReceiver) {
     return (GgafMainActor*)GgafGod::receive(prm_cradle_no, prm_pReceiver);

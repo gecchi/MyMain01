@@ -82,7 +82,6 @@ void HomingLaserChip::onInactive() {
     LaserChip* pChip_behind = _pChip_behind;
     GgafDxKuroko* pKuroko = getKuroko();
 
-
     if (pChip_behind) {
         //先頭しか動かしていないので、
         //何も考慮しないと、後方チップがその場で停止してしまう。

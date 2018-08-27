@@ -3,6 +3,7 @@
 #include "GgafLibCommonHeader.h"
 #include "jp/ggaf/core/exception/GgafCriticalException.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
+#include <string.h>
 
 namespace GgafLib {
 
@@ -25,7 +26,7 @@ public:
     /** [r]描画文字列 */
     int* _draw_string;
     /** [r]受け入れ可能な文字数(文字バッファの長さ) */
-    int _max_len;
+    int _max_buf;
     /** [r]文字バッファ */
     int* _buf;
     struct InstancePart {
@@ -51,9 +52,9 @@ public:
     pixcoord _px_total_height;
     /**
      * 内部バッファ数を引数の直近8の倍数の切り上げに変更 .
-     * @param prm_max_len 新しいバッファ数
+     * @param prm_max_buf 新しいバッファ数
      */
-    void chengeBufferLen(int prm_max_len);
+    void extendBuffer(int prm_max_buf);
 
 public:
     /**
@@ -112,7 +113,17 @@ public:
                         GgafDxAlign prm_align,
                         GgafDxValign prm_valign);
 
+    virtual void appendString(const char* prm_str);
+
+    /**
+     * TODO:作成中
+     * @param prm_delete_num
+     */
+    virtual void deleteString(int prm_delete_byte_num);
     virtual void prepare1(const char* prm_str);
+    virtual void prepare1_append(const char* prm_str);
+    virtual void prepare1_delete(int prm_delete_byte_num);
+
     virtual void prepare2();
     /**
      * 描画文字が更新された時に呼び出されるコールバック .
@@ -212,15 +223,15 @@ _pBaseActor(prm_pBaseActor),
 _chr_base_width_px(prm_chr_base_width_px),
 _chr_base_height_px(prm_chr_base_height_px)
 {
-    _max_len = 8;  //最初はバッファは8文字
+    _max_buf = 8;  //最初はバッファは8文字
     _chr_ptn_zero = (int)(' '); //GgafDxUvFlipper の パターン0番の文字。
     _chr_blank = (int)(' ');
     _chr_newline = (int)('\n');
     _len = 0;
     _draw_chr_num = 0;
-    _buf = NEW int[_max_len];
+    _buf = NEW int[_max_buf];
     _buf[0] = (int)('\0');
-    _paInstancePart = NEW InstancePart[_max_len];
+    _paInstancePart = NEW InstancePart[_max_buf];
     _draw_string = _buf;
     for (int i = 0; i < L; i++) {
         _px_row_width[i] = 0;
@@ -236,20 +247,20 @@ _chr_base_height_px(prm_chr_base_height_px)
 }
 
 template<class T, int N, int L>
-void ICharacterChip<T, N, L>::chengeBufferLen(int prm_max_len) {
-    _max_len = 8*((prm_max_len+8)/8); //直近８の倍数に切り上げ
+void ICharacterChip<T, N, L>::extendBuffer(int prm_max_buf) {
+    _max_buf = 8*((prm_max_buf+8)/8); //直近８の倍数に切り上げ
     GGAF_DELETEARR(_buf);
     GGAF_DELETEARR(_paInstancePart);
-    _buf = NEW int[_max_len];
+    _buf = NEW int[_max_buf];
     _buf[0] = (int)('\0');
-    _paInstancePart = NEW InstancePart[_max_len];
+    _paInstancePart = NEW InstancePart[_max_buf];
 }
 
 template<class T, int N, int L>
 void ICharacterChip<T, N, L>::prepare1(const char* prm_str) {
     _len = strlen(prm_str);
-    if (_len+1 > _max_len) {
-        chengeBufferLen(_len+1); //バッファ拡張
+    if (_len+1 > _max_buf) {
+        extendBuffer(_len+1); //バッファ拡張
     }
     onUpdate(); //コールバック
     _draw_string = _buf;
@@ -272,7 +283,7 @@ void ICharacterChip<T, N, L>::prepare1(const char* prm_str) {
         c = (int)(*p_prm_str);
 #ifdef MY_DEBUG
         if (0 > c || c > (N-1)) {
-            throwGgafCriticalException("範囲外の扱えない文字種がありました prm_str=["<<prm_str<<"] の中の値:"<<c<<"。 0～"<<(N-1)<<"の範囲にして下さい。this="<<this);
+            throwGgafCriticalException("ICharacterChip::prepare1() 範囲外の扱えない文字種がありました prm_str=["<<prm_str<<"] の中の値:"<<c<<"。 0～"<<(N-1)<<"の範囲にして下さい。this="<<this);
         }
 #endif
         if (c != (*p_draw_string)) {
@@ -306,9 +317,130 @@ void ICharacterChip<T, N, L>::prepare1(const char* prm_str) {
     }
 #ifdef MY_DEBUG
     if (_nn > L) {
-        throwGgafCriticalException("文字列の行数が"<<L<<"個を超えました。name="<<_pBaseActor->getName()<<" prm_str="<<prm_str);
+        throwGgafCriticalException("ICharacterChip::prepare1() 文字列の行数が"<<L<<"個を超えました。name="<<_pBaseActor->getName()<<" prm_str="<<prm_str);
     }
 #endif
+}
+
+template<class T, int N, int L>
+void ICharacterChip<T, N, L>::prepare1_append(const char* prm_append_str) {
+    int append_len = strlen(prm_append_str);
+    int new_buffer_size = _len+append_len+1;
+    if (new_buffer_size > _max_buf) {//バッファ拡張
+        _max_buf = 8*((new_buffer_size+8)/8); //直近８の倍数に切り上げ
+        int* tmp_buf = NEW int[_max_buf];
+        memcpy(tmp_buf, _buf, sizeof(int)*(_len+1));
+        InstancePart* tmp_paInstancePart = NEW InstancePart[_max_buf];
+        memcpy(tmp_paInstancePart, _paInstancePart, sizeof(InstancePart)*(_len+1));
+        GGAF_DELETEARR(_buf);
+        GGAF_DELETEARR(_paInstancePart);
+        _buf = tmp_buf;
+        _paInstancePart = tmp_paInstancePart;
+
+    }
+    onUpdate(); //コールバック
+    _draw_string = _buf;
+    //保持(_draw_string)する、しながら改行数(_nn)を求める、
+    //ついでに各行単位の幅も(_px_row_width)も求めておく
+    bool is_different = false;
+    const char* p_prm_append_str = prm_append_str;
+    int* p_draw_string = &_draw_string[_len-1 + 1]; //+1はappendする位置からという意味
+    _len += append_len;
+    if (_nn > 0) {
+        _nn--;//行は未確定状態になるので、 -1 する。
+    }
+    pixcoord* p_width_line_px = &_px_row_width[_nn];
+    pixcoord max_width_line_px = _px_total_width;
+
+//    *p_width_line_px = 0;
+//    _nn = 0;
+//    _draw_chr_num = 0;
+    int c;
+    const int chr_blank = _chr_blank;
+    const bool is_fixed_width = _is_fixed_width;
+    const pixcoord chr_base_width_px = _chr_base_width_px;
+    is_different = true;
+    while (true) {
+        c = (int)(*p_prm_append_str);
+#ifdef MY_DEBUG
+        if (0 > c || c > (N-1)) {
+            throwGgafCriticalException("ICharacterChip::prepare1_append() 範囲外の扱えない文字種がありました p_append_str=["<<p_prm_append_str<<"] の中の値:"<<c<<"。 0～"<<(N-1)<<"の範囲にして下さい。this="<<this);
+        }
+#endif
+        *p_draw_string = c; //保存
+        if (c == _chr_newline) {
+            if (_nn == 0 || max_width_line_px < *p_width_line_px) {
+                max_width_line_px = *p_width_line_px;
+            }
+            _nn++; //行数カウント
+            ++p_width_line_px;  *p_width_line_px = 0; //行の幅保持配列を次へ ＆ 0にリセット
+        } else if (c == '\0') {
+            if (_nn == 0 || max_width_line_px < *p_width_line_px) {
+                max_width_line_px = *p_width_line_px;
+            }
+            _nn++; //文字列最後を行数１としてカウント。文字列は改行で終わる必要がない。
+            break;
+        } else {
+            *p_width_line_px += (is_fixed_width ? chr_base_width_px : _px_chr_width[c]); //行の幅(px)を加算
+        }
+        if (c != chr_blank) { //ブランク
+            _draw_chr_num++; //描画文字数カウント
+        }
+        ++p_prm_append_str;  ++p_draw_string;
+    }
+    _px_total_width = max_width_line_px;
+    _px_total_height = _chr_base_height_px*_nn;
+    if (is_different) {
+        prepare2();
+    }
+#ifdef MY_DEBUG
+    if (_nn > L) {
+        throwGgafCriticalException("ICharacterChip::prepare1_append() 文字列の行数が"<<L<<"個を超えました。name="<<_pBaseActor->getName()<<" prm_str="<<prm_append_str);
+    }
+#endif
+}
+
+
+template<class T, int N, int L>
+void ICharacterChip<T, N, L>::prepare1_delete(int prm_delete_byte_num) {
+    onUpdate(); //コールバック
+    _len -= prm_delete_byte_num;
+    _draw_string[_len] = '\0';
+    int* p_draw_string = _draw_string;
+    pixcoord* p_width_line_px = _px_row_width;
+    pixcoord max_width_line_px = 0;
+    *p_width_line_px = 0;
+    _nn = 0;
+    _draw_chr_num = 0;
+    int c;
+    const int chr_blank = _chr_blank;
+    const bool is_fixed_width = _is_fixed_width;
+    const pixcoord chr_base_width_px = _chr_base_width_px;
+    while (true) {
+        c = *p_draw_string;
+        if (c == _chr_newline) {
+            if (_nn == 0 || max_width_line_px < *p_width_line_px) {
+                max_width_line_px = *p_width_line_px;
+            }
+            _nn++; //行数カウント
+            ++p_width_line_px;  *p_width_line_px = 0; //行の幅保持配列を次へ ＆ 0にリセット
+        } else if (c == '\0') {
+            if (_nn == 0 || max_width_line_px < *p_width_line_px) {
+                max_width_line_px = *p_width_line_px;
+            }
+            _nn++; //文字列最後を行数１としてカウント。文字列は改行で終わる必要がない。
+            break;
+        } else {
+            *p_width_line_px += (is_fixed_width ? chr_base_width_px : _px_chr_width[c]); //行の幅(px)を加算
+        }
+        if (c != chr_blank) { //ブランク
+            _draw_chr_num++; //描画文字数カウント
+        }
+        ++p_draw_string;
+    }
+    _px_total_width = max_width_line_px;
+    _px_total_height = _chr_base_height_px*_nn;
+    prepare2();
 }
 
 template<class T, int N, int L>
@@ -485,6 +617,22 @@ void ICharacterChip<T, N, L>::update(coord X, coord Y, coord Z, const char* prm_
 template<class T, int N, int L>
 void ICharacterChip<T, N, L>::update(const char* prm_str) {
     prepare1(prm_str);
+}
+
+template<class T, int N, int L>
+void ICharacterChip<T, N, L>::appendString(const char* prm_str) {
+    prepare1_append(prm_str);
+}
+
+template<class T, int N, int L>
+void ICharacterChip<T, N, L>::deleteString(int prm_delete_byte_num) {
+#ifdef MY_DEBUG
+    if (prm_delete_byte_num < 0 || prm_delete_byte_num > _len) {
+        throwGgafCriticalException("ICharacterChip::deleteString() 削除文字数の範囲外です。_len="<<_len<<" prm_delete_byte_num="<<prm_delete_byte_num<<
+                " name="<<_pBaseActor->getName());
+    }
+#endif
+    prepare1_delete(prm_delete_byte_num);
 }
 
 template<class T, int N, int L>

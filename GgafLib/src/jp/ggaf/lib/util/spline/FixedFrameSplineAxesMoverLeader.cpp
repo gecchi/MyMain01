@@ -20,8 +20,6 @@ FixedFrameSplineAxesMoverLeader::FixedFrameSplineAxesMoverLeader(
     _point_index = 0;
     _prev_point_index = -1;
     _hosei_frames = 0;
-    _mv_acce = 0;
-    _stop_renge = 0;
 }
 
 void FixedFrameSplineAxesMoverLeader::restart() {
@@ -105,9 +103,7 @@ void FixedFrameSplineAxesMoverLeader::behave() {
                     mv_velo = _pFixedFrameSplManuf->_paSPMvVeloTo[_point_index];
                 }
             }
-            acce mv_acce = _mv_acce == 0 ? mv_velo / 100 : _mv_acce;
-            coord stop_renge = _stop_renge == 0 ? calc_d / 100 : _stop_renge;
-            pAxesMover_target->execGravitationMvSequenceTwd(x, y, z, mv_velo*1.5, mv_acce, stop_renge);
+            pAxesMover_target->setVxyzMvVeloTwd(x, y, z, mv_velo);
         }
         _leading_frames++;
     }

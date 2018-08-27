@@ -21,8 +21,8 @@ void MySnipeShot001::initialize() {
     setAlpha(0.99);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
-    pChecker->setColliAABox(0, -PX_C(50), -PX_C(50), -PX_C(50),
-                              PX_C(50),  PX_C(50),  PX_C(50));
+    pChecker->setColliAABox(0, -PX_C(80), -PX_C(5), -PX_C(5),
+                                PX_C(80),  PX_C(5),  PX_C(5));
     getKuroko()->setRollFaceAngVelo(D_ANG(12));
     getKuroko()->linkFaceAngByMvAng(true);
 }
@@ -46,7 +46,7 @@ void MySnipeShot001::onHit(const GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     setHitAble(false);
     UTIL::activateExplosionEffectOf(this);
-    sayonara(); //•K‚¸ŠÑ’Ê‚µ‚È‚¢
+    sayonara(); //ŠÑ’Ê‚µ‚È‚¢
 }
 
 

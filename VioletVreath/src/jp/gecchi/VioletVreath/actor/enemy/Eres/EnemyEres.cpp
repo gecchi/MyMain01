@@ -47,7 +47,8 @@ EnemyEres::EnemyEres(const char* prm_name, GgafActorDepository* prm_pDepo_EnemyE
     }
 
     pSplManufConn_ = connectToSplineManufactureManager("EnemyEres_spline");
-    pSplineLeader_ = pSplManufConn_->peek()->createAxesMoverLeader(getAxesMover());
+    SplineManufacture* pSplManuf = pSplManufConn_->peek();
+    pSplineLeader_ = pSplManuf->createAxesMoverLeader(getAxesMover());
 //    ((FixedFrameSplineAxesMoverLeader*)pSplineLeader_)->setGravitationParam(200, PX_C(100));
 
     GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
@@ -83,14 +84,14 @@ void EnemyEres::processBehavior() {
         for (int i = 0; i < 16; i++) {
             pTama = (GgafDxFigureActor*)pDepo_shot001_->dispatch();
             if (pTama) {
-                pTama->setPosition(_x, _y, _z);
+                pTama->setPositionAt(this);
                 pTama->getKuroko()->setRzRyMvAng(-D90ANG + way[i], D90ANG);
             }
         }
         for (int i = 16; i < 32; i++) {
             pTama = (GgafDxFigureActor*)pDepo_shot001_->dispatch();
             if (pTama) {
-                pTama->setPosition(_x, _y, _z);
+                pTama->setPositionAt(this);
                 pTama->getKuroko()->setRzRyMvAng(-D90ANG - way[i], -D90ANG);
             }
         }

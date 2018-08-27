@@ -129,6 +129,7 @@ void MenuBoardNameEntry::selectNext() { //右の時
     }
     moveCursor();
 }
+
 void MenuBoardNameEntry::selectPrev() { //左の時
     getMainCursor()->setPositionAt(_lstItems.getCurrent());
     if (getSelectedIndex() == ITEM_INDEX_BS_) { //[BS]から左で戻る場合、
@@ -175,12 +176,41 @@ void MenuBoardNameEntry::selectExPrev() { //上の時
     }
 }
 
+#define KB(X)  { if (GgafDxInput::isPushedDownKey(DIK_##X)) { inputChar(#X); } }
+#define KB2(X,Y)  { if (GgafDxInput::isPushedDownKey(X)) { inputChar(Y); } }
+
 void MenuBoardNameEntry::processBehavior() {
 #ifdef MY_DEBUG
     if (pLabelInputedName_ == nullptr || pLabelSelectedChar_ == nullptr) {
         throwGgafCriticalException("事前に setNameFontBoard() してください。");
     }
 #endif
+
+//    KB2(DIK_MINUS, "-");
+//    KB2(DIK_COMMA , ",");
+//    KB2(DIK_PERIOD , ".");
+//    KB2(DIK_SLASH , "/");
+//    KB2(DIK_BACKSLASH , "\\");
+//    KB2(DIK_SEMICOLON , ";");
+    KB(0);  KB(1);  KB(2);  KB(3);  KB(4);  KB(5);  KB(6);  KB(7);  KB(8);  KB(9);
+    KB(A);  KB(B);
+//    KB(C);  KB(D);  KB(E);  KB(F);  KB(G);  KB(H);  KB(I);  KB(J);  KB(K);  KB(L);  KB(M);  KB(N);
+//    KB(O);  KB(P);  KB(Q);  KB(R);  KB(S);  KB(T);  KB(U);  KB(V);  KB(W);  KB(X);  KB(Y);  KB(Z);
+
+    if (GgafDxInput::isPushedDownKey(DIK_BACKSPACE)) {
+        //[BS]で決定（振る舞い）の処理
+        int len = pLabelInputedName_->_len;
+        if (len > 0) {
+            //１文字除去する。
+            pLabelInputedName_->deleteString(1);
+        } else {
+            //除去する文字はもう無い
+        }
+    }
+//    if (GgafDxInput::isPushedDownKey(DIK_RETURN)) {
+//        //確認サブメニュー起動
+//        riseSubMenu(getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y);
+//    }
     MenuBoard::processBehavior();
     if (getSelectedIndex() == ITEM_INDEX_OK_) {
         DefaultFramedBoardMenu* pMenuConfirm = getSubMenu();
@@ -255,7 +285,15 @@ void MenuBoardNameEntry::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, in
         }
     }
 }
-
+void MenuBoardNameEntry::inputChar(const char* prm_c) {
+    int len = pLabelInputedName_->_len;
+    if (len >= RANKINGTABLE_NAME_LEN) {
+        //10文字以上の場合
+        //何もしない
+    } else {
+        pLabelInputedName_->appendString(prm_c);
+    }
+}
 void MenuBoardNameEntry::onCancel(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
 //    if (prm_item_index == ITEM_BS) {
 //        //１文字除去
