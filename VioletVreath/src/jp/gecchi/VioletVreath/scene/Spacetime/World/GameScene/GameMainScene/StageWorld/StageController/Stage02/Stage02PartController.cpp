@@ -29,7 +29,7 @@ Stage02PartController::Stage02PartController(const char* prm_name) : StagePartCo
     _paFrame_NextEvent = new frame[4];
     memcpy(_paFrame_NextEvent, f, sizeof(f));
     _event_num = 4;
-    wantScene(70000000, Stage02_01, "Stage02_01-70000000");
+    requestScene(70000000, Stage02_01, "Stage02_01-70000000");
     // gen01 end
     useProgress(PROG_BANPEI);
 }
@@ -48,16 +48,16 @@ void Stage02PartController::processBehavior() {
                 break;
             }
             case 3: {
-                Stage02_01* pScene = (Stage02_01*)grantScene(70000000);
+                Stage02_01* pScene = (Stage02_01*)receiveScene(70000000);
                 addSubLast(pScene);
                 break;
             }
             case 2100: {
-                wantScene(70000001, Stage02_Climax, "Stage02_Climax-70000001");
+                requestScene(70000001, Stage02_Climax, "Stage02_Climax-70000001");
                 break;
             }
             case 3000: {
-                Stage02_Climax* pScene = (Stage02_Climax*)grantScene(70000001);
+                Stage02_Climax* pScene = (Stage02_Climax*)receiveScene(70000001);
                 addSubLast(pScene);
                 break;
             }
@@ -90,11 +90,11 @@ void Stage02PartController::processBehavior() {
 
 void Stage02PartController::onCatchEvent(hashval prm_no, void* prm_pSource) {
     SceneProgress* pProg = getProgress();
-    if (prm_no == EVENT_STG02_01_WAS_BROKEN) {
-        _TRACE_(FUNC_NAME<<" EVENT_STG02_01_WAS_BROKEN");
+    if (prm_no == EVENT_STG02_01_WAS_FINISHED) {
+        _TRACE_(FUNC_NAME<<" EVENT_STG02_01_WAS_FINISHED");
         ((Stage*)prm_pSource)->sayonara(60*60);
-    } else if (prm_no == EVENT_STG02_CLIMAX_WAS_BROKEN) {
-        _TRACE_(FUNC_NAME<<" EVENT_STG02_CLIMAX_WAS_BROKENキャッチした。STAGE02PARTCONTROLLER_ENDINGを投げる");
+    } else if (prm_no == EVENT_STG02_CLIMAX_WAS_FINISHED) {
+        _TRACE_(FUNC_NAME<<" EVENT_STG02_CLIMAX_WAS_FINISHEDキャッチした。STAGE02PARTCONTROLLER_ENDINGを投げる");
         ((Stage*)prm_pSource)->sayonara(60*60);
         pProg->change(PROG_FAINAL); //進捗をStage02PartController::PROG_FAINALに切り替える
     } else {

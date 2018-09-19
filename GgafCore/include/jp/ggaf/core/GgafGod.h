@@ -306,7 +306,7 @@ public:
      * @param   prm_pReceiver 受取人
      * @return	生成されたアクターのポインタ
      */
-    GgafMainActor* receiveActor(uint64_t prm_cradle_no, GgafObject* prm_pReceiver);
+    GgafMainActor* receive_Actor(uint64_t prm_cradle_no, GgafObject* prm_pReceiver);
 
     /**
      * 望んだシーンを受け取る。（メインスレッドが使用） .
@@ -316,7 +316,7 @@ public:
      * @param   prm_pReceiver 受取人
      * @return	生成されたシーンのポインタ
      */
-    GgafMainScene* receiveScene(uint64_t prm_cradle_no, GgafObject* prm_pReceiver);
+    GgafMainScene* receive_Scene(uint64_t prm_cradle_no, GgafObject* prm_pReceiver);
 
     /**
      * 望んで、祝福されるまで待って、すぐに受け取る。
@@ -351,7 +351,7 @@ public:
                          void* prm_pArg3,
                          GgafObject* prm_org) {
         createActorCradle(ORDER_ID_MAX, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pWisher, prm_pReceiver, prm_pArg1, prm_pArg2, prm_pArg3);
-        return (X*)(receiveActor(ORDER_ID_MAX, prm_org));
+        return (X*)(receive_Actor(ORDER_ID_MAX, prm_org));
     }
 
     template<class X>
@@ -363,7 +363,7 @@ public:
                          void* prm_pArg3,
                          GgafObject* prm_org) {
         createSceneCradle(ORDER_ID_MAX, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pWisher, prm_pReceiver, prm_pArg1, prm_pArg2, prm_pArg3);
-        return (X*)(receiveScene(ORDER_ID_MAX, prm_org));
+        return (X*)(receive_Scene(ORDER_ID_MAX, prm_org));
     }
 
     /**
@@ -464,37 +464,37 @@ public:
 };
 
 
-#define wantActor1(ID, CLASS)                   (pGOD->createActorCradle<CLASS>((ID),GgafCore::GgafGod::bless, this, this, (void*)(#CLASS "_" #ID),(void*)(nullptr),(void*)(nullptr)))
-#define wantActor2(ID, CLASS, NAME)             (pGOD->createActorCradle<CLASS>((ID),GgafCore::GgafGod::bless, this, this, (void*)(NAME),(void*)(nullptr),(void*)(nullptr)))
-#define wantActor3(ID, CLASS, NAME, ARG1)       (pGOD->createActorCradle<CLASS>((ID),GgafCore::GgafGod::bless2, this, this, (void*)(NAME),(void*)(ARG1),(void*)(nullptr)))
-#define wantActor4(ID, CLASS, NAME, ARG1, ARG2) (pGOD->createActorCradle<CLASS>((ID),GgafCore::GgafGod::bless3, this, this, (void*)(NAME),(void*)(ARG1),(void*)(ARG2)))
-#define selectWantActorMacro(_1,_2,_3,_4,MACRO,...) MACRO
+#define requestActor1(ID, CLASS)                   (GgafCore::GgafGod::_pGod->createActorCradle<CLASS>((ID),GgafCore::GgafGod::bless, this, this, (void*)(#CLASS "_" #ID),(void*)(nullptr),(void*)(nullptr)))
+#define requestActor2(ID, CLASS, NAME)             (GgafCore::GgafGod::_pGod->createActorCradle<CLASS>((ID),GgafCore::GgafGod::bless, this, this, (void*)(NAME),(void*)(nullptr),(void*)(nullptr)))
+#define requestActor3(ID, CLASS, NAME, ARG1)       (GgafCore::GgafGod::_pGod->createActorCradle<CLASS>((ID),GgafCore::GgafGod::bless2, this, this, (void*)(NAME),(void*)(ARG1),(void*)(nullptr)))
+#define requestActor4(ID, CLASS, NAME, ARG1, ARG2) (GgafCore::GgafGod::_pGod->createActorCradle<CLASS>((ID),GgafCore::GgafGod::bless3, this, this, (void*)(NAME),(void*)(ARG1),(void*)(ARG2)))
+#define selectRequestActorMacro(_1,_2,_3,_4,MACRO,...) MACRO
 
-#define wantScene1(ID, CLASS)                   (pGOD->createSceneCradle<CLASS>((ID),GgafCore::GgafGod::bless, this, this, (void*)(#CLASS "_" #ID),(void*)(nullptr),(void*)(nullptr)))
-#define wantScene2(ID, CLASS, NAME)             (pGOD->createSceneCradle<CLASS>((ID),GgafCore::GgafGod::bless, this, this, (void*)(NAME),(void*)(nullptr),(void*)(nullptr)))
-#define wantScene3(ID, CLASS, NAME, ARG1)       (pGOD->createSceneCradle<CLASS>((ID),GgafCore::GgafGod::bless2, this, this, (void*)(NAME),(void*)(ARG1),(void*)(nullptr)))
-#define wantScene4(ID, CLASS, NAME, ARG1, ARG2) (pGOD->createSceneCradle<CLASS>((ID),GgafCore::GgafGod::bless3, this, this, (void*)(NAME),(void*)(ARG1),(void*)(ARG2)))
-#define selectWantSceneMacro(_1,_2,_3,_4,MACRO,...) MACRO
+#define requestScene1(ID, CLASS)                   (GgafCore::GgafGod::_pGod->createSceneCradle<CLASS>((ID),GgafCore::GgafGod::bless, this, this, (void*)(#CLASS "_" #ID),(void*)(nullptr),(void*)(nullptr)))
+#define requestScene2(ID, CLASS, NAME)             (GgafCore::GgafGod::_pGod->createSceneCradle<CLASS>((ID),GgafCore::GgafGod::bless, this, this, (void*)(NAME),(void*)(nullptr),(void*)(nullptr)))
+#define requestScene3(ID, CLASS, NAME, ARG1)       (GgafCore::GgafGod::_pGod->createSceneCradle<CLASS>((ID),GgafCore::GgafGod::bless2, this, this, (void*)(NAME),(void*)(ARG1),(void*)(nullptr)))
+#define requestScene4(ID, CLASS, NAME, ARG1, ARG2) (GgafCore::GgafGod::_pGod->createSceneCradle<CLASS>((ID),GgafCore::GgafGod::bless3, this, this, (void*)(NAME),(void*)(ARG1),(void*)(ARG2)))
+#define selectRequestSceneMacro(_1,_2,_3,_4,MACRO,...) MACRO
 
-#define desireActor1(CLASS)                   (pGOD->makeActor<CLASS>(GgafCore::GgafGod::bless, this, this, (void*)(#CLASS),(void*)(nullptr),(void*)(nullptr),this))
-#define desireActor2(CLASS, NAME)             (pGOD->makeActor<CLASS>(GgafCore::GgafGod::bless, this, this, (void*)(NAME),(void*)(nullptr),(void*)(nullptr),this))
-#define desireActor3(CLASS, NAME, ARG1)       (pGOD->makeActor<CLASS>(GgafCore::GgafGod::bless2, this, this, (void*)(NAME),(void*)(ARG1),(void*)(nullptr),this))
-#define desireActor4(CLASS, NAME, ARG1, ARG2) (pGOD->makeActor<CLASS>(GgafCore::GgafGod::bless3, this, this, (void*)(NAME),(void*)(ARG1),(void*)(ARG2),this))
+#define desireActor1(CLASS)                   (GgafCore::GgafGod::_pGod->makeActor<CLASS>(GgafCore::GgafGod::bless, this, this, (void*)(#CLASS),(void*)(nullptr),(void*)(nullptr),this))
+#define desireActor2(CLASS, NAME)             (GgafCore::GgafGod::_pGod->makeActor<CLASS>(GgafCore::GgafGod::bless, this, this, (void*)(NAME),(void*)(nullptr),(void*)(nullptr),this))
+#define desireActor3(CLASS, NAME, ARG1)       (GgafCore::GgafGod::_pGod->makeActor<CLASS>(GgafCore::GgafGod::bless2, this, this, (void*)(NAME),(void*)(ARG1),(void*)(nullptr),this))
+#define desireActor4(CLASS, NAME, ARG1, ARG2) (GgafCore::GgafGod::_pGod->makeActor<CLASS>(GgafCore::GgafGod::bless3, this, this, (void*)(NAME),(void*)(ARG1),(void*)(ARG2),this))
 #define selectDesireActorMacro(_1,_2,_3,_4,MACRO,...) MACRO
 
-#define desireScene1(CLASS)                   (pGOD->makeScene<CLASS>(GgafCore::GgafGod::bless, this, this, (void*)(#CLASS),(void*)(nullptr),(void*)(nullptr),this))
-#define desireScene2(CLASS, NAME)             (pGOD->makeScene<CLASS>(GgafCore::GgafGod::bless, this, this, (void*)(NAME),(void*)(nullptr),(void*)(nullptr),this))
-#define desireScene3(CLASS, NAME, ARG1)       (pGOD->makeScene<CLASS>(GgafCore::GgafGod::bless2, this, this, (void*)(NAME),(void*)(ARG1),(void*)(nullptr),this))
-#define desireScene4(CLASS, NAME, ARG1, ARG2) (pGOD->makeScene<CLASS>(GgafCore::GgafGod::bless3, this, this, (void*)(NAME),(void*)(ARG1),(void*)(ARG2),this))
+#define desireScene1(CLASS)                   (GgafCore::GgafGod::_pGod->makeScene<CLASS>(GgafCore::GgafGod::bless, this, this, (void*)(#CLASS),(void*)(nullptr),(void*)(nullptr),this))
+#define desireScene2(CLASS, NAME)             (GgafCore::GgafGod::_pGod->makeScene<CLASS>(GgafCore::GgafGod::bless, this, this, (void*)(NAME),(void*)(nullptr),(void*)(nullptr),this))
+#define desireScene3(CLASS, NAME, ARG1)       (GgafCore::GgafGod::_pGod->makeScene<CLASS>(GgafCore::GgafGod::bless2, this, this, (void*)(NAME),(void*)(ARG1),(void*)(nullptr),this))
+#define desireScene4(CLASS, NAME, ARG1, ARG2) (GgafCore::GgafGod::_pGod->makeScene<CLASS>(GgafCore::GgafGod::bless3, this, this, (void*)(NAME),(void*)(ARG1),(void*)(ARG2),this))
 #define selectDesireSceneMacro(_1,_2,_3,_4,MACRO,...) MACRO
 
 #ifdef _MSC_VER
     //MSVCの場合
     #define ___EXPAND( X ) X
     /** アクターを神に望む */
-    #define wantActor(ID,...) ___EXPAND( selectWantActorMacro(__VA_ARGS__,wantActor4,wantActor3,wantActor2,wantActor1)(ID,__VA_ARGS__) )
+    #define requestActor(ID,...) ___EXPAND( selectRequestActorMacro(__VA_ARGS__,requestActor4,requestActor3,requestActor2,requestActor1)(ID,__VA_ARGS__) )
     /** シーンを神に望む */
-    #define wantScene(ID,...) ___EXPAND( selectWantSceneMacro(__VA_ARGS__,wantScene4,wantScene3,wantScene2,wantScene1)(ID,__VA_ARGS__) )
+    #define requestScene(ID,...) ___EXPAND( selectRequestSceneMacro(__VA_ARGS__,requestScene4,requestScene3,requestScene2,requestScene1)(ID,__VA_ARGS__) )
     /** シーンを神に望み、祝福され、受け取れるまで強欲に待つ */
     #define desireActor(...) ___EXPAND( selectDesireActorMacro(__VA_ARGS__,desireActor4,desireActor3,desireActor2,desireActor1)(__VA_ARGS__) )
     /** シーンを神に望み、祝福され、受け取れるまで強欲に待つ */
@@ -502,9 +502,9 @@ public:
 #else
     //GCCの場合
     /** アクターを神に望む */
-    #define wantActor(ID,...) selectWantActorMacro(__VA_ARGS__,wantActor4,wantActor3,wantActor2,wantActor1)(ID,__VA_ARGS__)
+    #define requestActor(ID,...) selectRequestActorMacro(__VA_ARGS__,requestActor4,requestActor3,requestActor2,requestActor1)(ID,__VA_ARGS__)
     /** シーンを神に望む */
-    #define wantScene(ID,...) selectWantSceneMacro(__VA_ARGS__,wantScene4,wantScene3,wantScene2,wantScene1)(ID,__VA_ARGS__)
+    #define requestScene(ID,...) selectRequestSceneMacro(__VA_ARGS__,requestScene4,requestScene3,requestScene2,requestScene1)(ID,__VA_ARGS__)
     /** シーンを神に望み、祝福され、受け取れるまで強欲に待つ */
     #define desireActor(...) selectDesireActorMacro(__VA_ARGS__,desireActor4,desireActor3,desireActor2,desireActor1)(__VA_ARGS__)
     /** シーンを神に望み、祝福され、受け取れるまで強欲に待つ */
@@ -512,8 +512,8 @@ public:
 #endif
 
 /** 望まれ祝福されたアクターを受け取る */
-#define grantActor(ID) (pGOD->receiveActor((ID),this))
+#define receiveActor(ID) (GgafCore::GgafGod::_pGod->receive_Actor((ID),this))
 /** 望まれ祝福されたシーンを受け取る */
-#define grantScene(ID) (pGOD->receiveScene((ID),this))
+#define receiveScene(ID) (GgafCore::GgafGod::_pGod->receive_Scene((ID),this))
 }
 #endif /*GGAFCORE_GGAFGOD_H_*/

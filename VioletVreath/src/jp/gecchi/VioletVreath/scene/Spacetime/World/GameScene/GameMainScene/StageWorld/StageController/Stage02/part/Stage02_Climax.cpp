@@ -17,7 +17,7 @@ Stage02_Climax::Stage02_Climax(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "Stage02_Climax";
     getBgmConductor()->ready(0, "OGG_BGM_01_02");
 
-    wantActor(11111111, EnemyStraea, "STG1BOSS");
+    requestActor(11111111, EnemyStraea, "STG1BOSS");
     // gen01 end
     waiting_ = false;
 }
@@ -37,7 +37,7 @@ void Stage02_Climax::processBehavior() {
         getBgmConductor()->performFromTheBegining(0);
     }
     if (getActiveFrame() == 60) {
-        pBoss_ = (EnemyStraea*)grantActor(11111111);
+        pBoss_ = (EnemyStraea*)receiveActor(11111111);
         pBoss_->_z = -1800000;
         pBoss_->_y = -100000;
         bringSceneMediator()->addSubGroup(pBoss_);
@@ -46,8 +46,8 @@ void Stage02_Climax::processBehavior() {
     if (getActiveFrame() > 60) {
         if (pBoss_->isDisappear()) {
             //isDisappear()‚É‚È‚è‚Á•ú‚µ‚ð‚È‚ñ‚Æ‚©‚·‚é
-            _TRACE_(FUNC_NAME<<" EVENT_STG02_CLIMAX_WAS_BROKEN!!!!");
-            throwEventUpperTree(EVENT_STG02_CLIMAX_WAS_BROKEN);
+            _TRACE_(FUNC_NAME<<" EVENT_STG02_CLIMAX_WAS_FINISHED!!!!");
+            throwEventUpperTree(EVENT_STG02_CLIMAX_WAS_FINISHED);
             waiting_ = true;
         }
     }

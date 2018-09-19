@@ -308,11 +308,11 @@ GgafGod::~GgafGod() {
     _was_cleaned = true;
 }
 
-GgafMainActor* GgafGod::receiveActor(uint64_t prm_cradle_no, GgafObject* prm_pReceiver) {
+GgafMainActor* GgafGod::receive_Actor(uint64_t prm_cradle_no, GgafObject* prm_pReceiver) {
     return (GgafMainActor*)GgafGod::receive(prm_cradle_no, prm_pReceiver);
 }
 
-GgafMainScene* GgafGod::receiveScene(uint64_t prm_cradle_no, GgafObject* prm_pReceiver) {
+GgafMainScene* GgafGod::receive_Scene(uint64_t prm_cradle_no, GgafObject* prm_pReceiver) {
     return (GgafMainScene*)receive(prm_cradle_no, prm_pReceiver);
 }
 

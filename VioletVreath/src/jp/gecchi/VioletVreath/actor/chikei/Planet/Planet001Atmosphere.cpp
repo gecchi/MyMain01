@@ -18,7 +18,7 @@ Planet001Atmosphere::Planet001Atmosphere(const char* prm_name) :
     setZEnableDraw(true);        //Zバッファは考慮
     setZWriteEnable(false);  //自身のZバッファを書き込みしない
     setSpecialRenderDepthIndex(RENDER_DEPTH_INDEX_HOSHIBOSHI-1);
-    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //XYZ軸ビルボード
+    defineRotMvWorldMatrix_Billboard(); //XYZ軸ビルボード
     drawAnyFar(true); //遠くても表示
 }
 void Planet001Atmosphere::onCreateModel() {

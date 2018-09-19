@@ -21,6 +21,7 @@ public:
     int ITEM_INDEX_BS_;
     GgafLib::FontSpriteActor* pLabelInputedName_;
     GgafLib::FontSpriteActor* pLabelSelectedChar_;
+    bool _is_input_keyboard;
 
 public:
     MenuBoardNameEntry(const char* prm_name);
@@ -42,6 +43,7 @@ public:
 
     void onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) override;
     void onCancel(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) override;
+    void moveCursor(bool prm_smooth = true) override;
     void processBehavior() override;
     void inputChar(const char* prm_c);
 

@@ -142,13 +142,22 @@ void TransitStage::ready(int prm_stage) {
 void TransitStage::processBehaviorProgPlaying() {
     SceneProgress* pProg = getProgress();
     switch (teansit_stage_) {
+        case 0: //DEBUGƒXƒe[ƒW
+            if (pProg->hasArrivedAt(5)*60) {
+                //‚T•bŒo‚Á‚½‚ç“n“‡Ž
+                pMessage_->update("DEBUG STAGE DONE!! NEXT STAGE 1????");
+                next_main_stage_ = 1;
+                _TRACE_(FUNC_NAME<<" GOTO NEXT STAGE="<<teansit_stage_<<"¨"<<next_main_stage_);
+                 pProg->change(Stage::PROG_END);
+            }
+            break;
+
         case 1:
              if (pProg->hasArrivedAt(5)*60) {
-
                 //‚T•bŒo‚Á‚½‚ç“n“‡Ž
                 pMessage_->update("OKOKOK!! NEXT STAGE 2");
                 next_main_stage_ = 2;
-                _TRACE_(FUNC_NAME<<" 1 GOTO NEXT STAGE="<<teansit_stage_<<"¨"<<next_main_stage_);
+                _TRACE_(FUNC_NAME<<" GOTO NEXT STAGE="<<teansit_stage_<<"¨"<<next_main_stage_);
                  pProg->change(Stage::PROG_END);
             }
             break;
@@ -158,7 +167,7 @@ void TransitStage::processBehaviorProgPlaying() {
                //‚T•bŒo‚Á‚½‚ç“n“‡Ž
                 pMessage_->update("OKOKOK!! NEXT STAGE 3?");
                next_main_stage_ = 3;
-               _TRACE_(FUNC_NAME<<" 2 GOTO NEXT STAGE="<<teansit_stage_<<"¨"<<next_main_stage_);
+               _TRACE_(FUNC_NAME<<" GOTO NEXT STAGE="<<teansit_stage_<<"¨"<<next_main_stage_);
                 pProg->change(Stage::PROG_END);
            }
             break;

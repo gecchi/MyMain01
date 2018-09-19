@@ -42,7 +42,7 @@ void RankUpStageController::startRunkUpStage(int prm_rank_up_level) {
     pSeConn_RankUpStageExec_->peek()->play(); //ランクアップステージ開始SE！
     ready(prm_rank_up_level);     //これはパスされるはずであるが、念のため。
     ready(prm_rank_up_level + 1); //次のシーンを先行予約
-    pNowRankUpStage_ = (RankUpStage*)grantScene(ORDER_ID_RANKUP+prm_rank_up_level);
+    pNowRankUpStage_ = (RankUpStage*)receiveScene(ORDER_ID_RANKUP+prm_rank_up_level);
     _TRACE_(FUNC_NAME<<" pNowRankUpStage_="<<pNowRankUpStage_);
     GgafScene* pRankUpStage = getSubFirst();
     if (pRankUpStage) {
@@ -71,19 +71,19 @@ void RankUpStageController::onReset() {
 void RankUpStageController::ready(int prm_rank_up_level) {
     switch (prm_rank_up_level) {
         case 1:
-            wantScene(ORDER_ID_RANKUP+prm_rank_up_level, RankUp001);
+            requestScene(ORDER_ID_RANKUP+prm_rank_up_level, RankUp001);
             break;
         case 2:
-            wantScene(ORDER_ID_RANKUP+prm_rank_up_level, RankUp002);
+            requestScene(ORDER_ID_RANKUP+prm_rank_up_level, RankUp002);
             break;
         case 3:
-            wantScene(ORDER_ID_RANKUP+prm_rank_up_level, RankUp003);
+            requestScene(ORDER_ID_RANKUP+prm_rank_up_level, RankUp003);
             break;
 //        case 100:
-//            wantScene(ORDER_ID_RANKUP+prm_rank_up_level, RankUp100);
+//            requestScene(ORDER_ID_RANKUP+prm_rank_up_level, RankUp100);
 //            break;
         default:
-            wantScene(ORDER_ID_RANKUP+prm_rank_up_level, RankUp100);
+            requestScene(ORDER_ID_RANKUP+prm_rank_up_level, RankUp100);
             break;
     }
 }

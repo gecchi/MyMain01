@@ -10,7 +10,6 @@
 #define COLLI_AAPYRAMID (0x8)  //0b 00000000 00000000 00000000 00001000
 
 #define Obj_DefaultScene  ( (0x40ULL) | Obj_SceneBit)    //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000000 01000000
-#define Obj_WalledScene   ( (0x80ULL) | Obj_SceneBit)    //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000000 10000000
 #define Obj_WallScene     ((0x100ULL) | Obj_SceneBit)    //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000001 00000000
 
 #define Obj_LaserChip               (0x1000000000ULL)    //0b 00000000 00000000 00000001 00000000 00000000 00000000 00000000 00000000
@@ -39,8 +38,6 @@ class VBReplayRecorder;
 class DefaultScene;
 class SceneProgress;
 class FormationTableScene;
-class WalledScene;
-class WalledSectionScene;
 class WallScene;
 class WallSectionScene;
 

@@ -18,7 +18,7 @@ using namespace VioletVreath;
 
 Stage01_Climax::Stage01_Climax(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "Stage01_Climax";
-    wantActor(11111111, EnemyStraea, "STG1BOSS");
+    requestActor(11111111, EnemyStraea, "STG1BOSS");
     // gen01 end
     waiting_ = false;
 
@@ -40,7 +40,7 @@ void Stage01_Climax::processBehavior() {
         getBgmConductor()->performFromTheBegining(0);
     }
     if (getBehaveingFrame() == 60) {
-        pBoss_ = (EnemyStraea*)grantActor(11111111);
+        pBoss_ = (EnemyStraea*)receiveActor(11111111);
         pBoss_->_z = -1800000;
         pBoss_->_y = -100000;
         bringSceneMediator()->addSubGroup(pBoss_);
@@ -49,8 +49,8 @@ void Stage01_Climax::processBehavior() {
     if (getBehaveingFrame() > 60) {
         if (pBoss_->hasJustChangedToInactive()) {
             getBgmConductor()->fadeoutStop(0, 120);
-            _TRACE_(FUNC_NAME<<" EVENT_STG01_CLIMAX_WAS_BROKEN!!!!");
-            throwEventUpperTree(EVENT_STG01_CLIMAX_WAS_BROKEN);
+            _TRACE_(FUNC_NAME<<" EVENT_STG01_CLIMAX_WAS_FINISHED!!!!");
+            throwEventUpperTree(EVENT_STG01_CLIMAX_WAS_FINISHED);
             waiting_ = true;
         }
     }

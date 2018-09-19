@@ -55,7 +55,10 @@ public:
      * @param prm_max_buf 新しいバッファ数
      */
     void extendBuffer(int prm_max_buf);
-
+    virtual void prepare1(const char* prm_str);
+    virtual void prepare1_append(const char* prm_str);
+    virtual void prepare1_delete(int prm_delete_byte_num);
+    virtual void prepare2();
 public:
     /**
      * 描画文字を更新設定 .
@@ -113,18 +116,21 @@ public:
                         GgafDxAlign prm_align,
                         GgafDxValign prm_valign);
 
-    virtual void appendString(const char* prm_str);
+    /**
+     * 描画文字を追加して更新設定  .
+     * update() より、幅計算等が追加分だけに限定するので、若干パフォーマンスが良い。
+     * @param prm_str 追加する文字列
+     */
+    virtual void appendUpdate(const char* prm_str);
 
     /**
-     * TODO:作成中
-     * @param prm_delete_num
+     * 描画文字を末尾から除去して更新設定  .
+     * update() より、若干パフォーマンスが良い。
+     * 改行も１文字として扱われる
+     * @param prm_delete_byte_num 削除文字数
      */
-    virtual void deleteString(int prm_delete_byte_num);
-    virtual void prepare1(const char* prm_str);
-    virtual void prepare1_append(const char* prm_str);
-    virtual void prepare1_delete(int prm_delete_byte_num);
+    virtual void deleteUpdate(int prm_delete_byte_num);
 
-    virtual void prepare2();
     /**
      * 描画文字が更新された時に呼び出されるコールバック .
      * 下位で実装してください。
@@ -351,10 +357,6 @@ void ICharacterChip<T, N, L>::prepare1_append(const char* prm_append_str) {
     }
     pixcoord* p_width_line_px = &_px_row_width[_nn];
     pixcoord max_width_line_px = _px_total_width;
-
-//    *p_width_line_px = 0;
-//    _nn = 0;
-//    _draw_chr_num = 0;
     int c;
     const int chr_blank = _chr_blank;
     const bool is_fixed_width = _is_fixed_width;
@@ -620,15 +622,15 @@ void ICharacterChip<T, N, L>::update(const char* prm_str) {
 }
 
 template<class T, int N, int L>
-void ICharacterChip<T, N, L>::appendString(const char* prm_str) {
+void ICharacterChip<T, N, L>::appendUpdate(const char* prm_str) {
     prepare1_append(prm_str);
 }
 
 template<class T, int N, int L>
-void ICharacterChip<T, N, L>::deleteString(int prm_delete_byte_num) {
+void ICharacterChip<T, N, L>::deleteUpdate(int prm_delete_byte_num) {
 #ifdef MY_DEBUG
     if (prm_delete_byte_num < 0 || prm_delete_byte_num > _len) {
-        throwGgafCriticalException("ICharacterChip::deleteString() 削除文字数の範囲外です。_len="<<_len<<" prm_delete_byte_num="<<prm_delete_byte_num<<
+        throwGgafCriticalException("ICharacterChip::deleteUpdate() 削除文字数の範囲外です。_len="<<_len<<" prm_delete_byte_num="<<prm_delete_byte_num<<
                 " name="<<_pBaseActor->getName());
     }
 #endif

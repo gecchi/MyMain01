@@ -3,16 +3,16 @@
 #include "VioletVreath.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld.h"
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld/StageController/Stage.h"
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld/StageController/TransitStage.h"
+#include "../StageWorld.h"
+#include "../StageWorld/StageController/Stage.h"
+#include "../StageWorld/StageController/TransitStage.h"
 
 #ifdef pSTAGE_WORLD
     #define pSTAGE_CTRLER (pSTAGE_WORLD->pStageCtrler_)
 #else
     #error pSTAGE_WORLD isnt define
 #endif
-
+DECLARE_HASHVAL(EVENT_STAGE_DEBUG_PART_WAS_END);
 DECLARE_HASHVAL(EVENT_STG01_WAS_END);
 DECLARE_HASHVAL(EVENT_STG02_WAS_END);
 DECLARE_HASHVAL(EVENT_STG03_WAS_END);

@@ -37,7 +37,7 @@ std::string GgafCradle::getDebuginfo() {
     }
     std::stringstream ss;
     ss << "‚ä‚è‚©‚²Žž:"<<_time_of_wants<<", "
-          "‚ä‚è‚©‚²”Ô†:"<<_cradle_no<<"/"<<_pReceiver<<", "
+          "‚ä‚è‚©‚²”Ô†:"<<_cradle_no<<"-"<<_pReceiver<<", "
           "i’»:"<<_progress<<", "<<
           "–½:"<<name_creation<<"("<<_pObject_creation<<")"<<", "
           "j•ŸŠJŽn:"<<_time_of_create_begin<<", "

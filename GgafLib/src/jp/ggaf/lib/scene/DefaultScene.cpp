@@ -85,6 +85,14 @@ WallScene* DefaultScene::getNearestWallScene() {
     }
 }
 
+frame DefaultScene::getLastEventFrame() {
+    if (_paFrame_NextEvent) {
+        return _paFrame_NextEvent[_event_num-1];
+    } else {
+        return 0;
+    }
+}
+
 DefaultScene::~DefaultScene() {
     //シーンにイベントが無いかもしれない
     GGAF_DELETEARR_NULLABLE(_paFrame_NextEvent);

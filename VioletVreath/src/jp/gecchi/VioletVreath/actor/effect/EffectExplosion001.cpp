@@ -14,7 +14,7 @@ EffectExplosion001::EffectExplosion001(const char* prm_name) :
         DefaultMassSpriteActor(prm_name, "EffectExplosion001", nullptr) {
     _class_name = "EffectExplosion001";
     effectBlendOne(); //加算合成Technique指定
-    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //XYZ軸ビルボード
+    defineRotMvWorldMatrix_Billboard(); //XYZ軸ビルボード
 }
 
 void EffectExplosion001::initialize() {

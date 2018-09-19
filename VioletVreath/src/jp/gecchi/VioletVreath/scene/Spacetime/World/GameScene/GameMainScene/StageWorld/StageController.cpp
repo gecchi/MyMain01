@@ -4,13 +4,15 @@
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld/StageController/Stage01.h"
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld/StageController/Stage01/Stage01PartController.h"
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld/StageController/Stage02.h"
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld/StageController/Stage02/Stage02PartController.h"
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld/StageController/Stage03.h"
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld/StageController/Stage04.h"
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld/StageController/Stage05.h"
+#include "StageController/StageDebug.h"
+#include "StageController/StageDebug/StageDebugPartController.h"
+#include "StageController/Stage01.h"
+#include "StageController/Stage01/Stage01PartController.h"
+#include "StageController/Stage02.h"
+#include "StageController/Stage02/Stage02PartController.h"
+#include "StageController/Stage03.h"
+#include "StageController/Stage04.h"
+#include "StageController/Stage05.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 using namespace GgafCore;
@@ -36,7 +38,7 @@ StageController::StageController(const char* prm_name) : DefaultScene(prm_name) 
     _TRACE_("StageController::StageController("<<prm_name<<")");
 //    had_ready_main_stage_ = false;
     loop_ = 1;
-    main_stage_ = 1;
+    main_stage_ = 0; //stage0はデバッグ
     pStageMainCannel_ = nullptr;
 
     pTransitStage_ = NEW TransitStage("TransitStage");
@@ -51,7 +53,7 @@ StageController::StageController(const char* prm_name) : DefaultScene(prm_name) 
 void StageController::onReset() {
     _TRACE_(FUNC_NAME<<" "<<NODE_INFO<<"");
     loop_ = 1;
-    main_stage_ = 1;
+    main_stage_ = 0; //stage0はデバッグ
     if (pStageMainCannel_) {
         pStageMainCannel_->inactivate();
     }
@@ -70,20 +72,23 @@ void StageController::onReset() {
 void StageController::readyStage(int prm_main_stage) {
     _TRACE_("StageController::readyStage("<<prm_main_stage<<")");
     switch (prm_main_stage) {
+        case 0:
+            requestScene(ORDER_ID_STAGE+prm_main_stage, StageDebug);
+            break;
         case 1:
-            wantScene(ORDER_ID_STAGE+prm_main_stage, Stage01);
+            requestScene(ORDER_ID_STAGE+prm_main_stage, Stage01);
             break;
         case 2:
-            wantScene(ORDER_ID_STAGE+prm_main_stage, Stage02);
+            requestScene(ORDER_ID_STAGE+prm_main_stage, Stage02);
             break;
         case 3:
-            wantScene(ORDER_ID_STAGE+prm_main_stage, Stage03);
+            requestScene(ORDER_ID_STAGE+prm_main_stage, Stage03);
             break;
         case 4:
-            wantScene(ORDER_ID_STAGE+prm_main_stage, Stage04);
+            requestScene(ORDER_ID_STAGE+prm_main_stage, Stage04);
             break;
         case 5:
-            wantScene(ORDER_ID_STAGE+prm_main_stage, Stage05);
+            requestScene(ORDER_ID_STAGE+prm_main_stage, Stage05);
             break;
         default:
             break;
@@ -107,8 +112,8 @@ void StageController::processBehavior() {
 
         case PROG_BEGIN: {
             if (pProg->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PROG_BEGIN)");
-                _TRACE_(FUNC_NAME<<" 直後 main_stage_="<<main_stage_);
+                _TRACE_(FUNC_NAME<<" Prog has Just Changed to PROG_BEGIN");
+                _TRACE_(FUNC_NAME<<" main_stage_="<<main_stage_);
             }
             if (pProg->hasArrivedAt(120)) { //２秒遊ぶ
                 pProg->change(PROG_PLAY_STAGE);
@@ -118,14 +123,14 @@ void StageController::processBehavior() {
 
         case PROG_PLAY_STAGE: {
             if (pProg->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PROG_PLAY_STAGE)");
-                _TRACE_(FUNC_NAME<<" 直後 main_stage_="<<main_stage_);
+                _TRACE_(FUNC_NAME<<" Prog has Just Changed to PROG_PLAY_STAGE");
+                _TRACE_(FUNC_NAME<<" main_stage_="<<main_stage_);
                 readyStage(main_stage_); //念のために呼ぶ。通常はもう準備できているハズ。
                 //ステージシーン追加
                 if (pStageMainCannel_) {
                     _TRACE_("いいのか！ PROG_PLAY_STAGE: 旧 pStageMainCannel_="<<pStageMainCannel_->getName()<<"");
                 }
-                pStageMainCannel_ = (Stage*)grantScene(ORDER_ID_STAGE+main_stage_);
+                pStageMainCannel_ = (Stage*)receiveScene(ORDER_ID_STAGE+main_stage_);
                 _TRACE_("PROG_PLAY_STAGE: 新 pStageMainCannel_="<<pStageMainCannel_->getName()<<"");
                 pStageMainCannel_->fadeoutSceneWithBgm(0);
 
@@ -137,8 +142,8 @@ void StageController::processBehavior() {
 
         case PROG_PLAY_TRANSIT: {
             if (pProg->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PROG_PLAY_TRANSIT)");
-                _TRACE_(FUNC_NAME<<" 直後 main_stage_="<<main_stage_);
+                _TRACE_(FUNC_NAME<<" Prog has Just Changed to PROG_PLAY_TRANSIT");
+                _TRACE_(FUNC_NAME<<" main_stage_="<<main_stage_);
                 pTransitStage_->fadeoutSceneWithBgmTree(0);
                 _TRACE_(FUNC_NAME<<" pTransitStage_->setStage("<<main_stage_<<")");
                 pTransitStage_->setStage(main_stage_);
@@ -152,8 +157,8 @@ void StageController::processBehavior() {
 
         case PROG_FINISH: {
             if (pProg->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PROG_FINISH)");
-                _TRACE_(FUNC_NAME<<" 直後 main_stage_="<<main_stage_);
+                _TRACE_(FUNC_NAME<<" Prog has Just Changed to PROG_FINISH");
+                _TRACE_(FUNC_NAME<<" main_stage_="<<main_stage_);
                 main_stage_ = pTransitStage_->next_main_stage_; //次のステージ
                 _TRACE_(FUNC_NAME<<" main_stage_ = pTransitStage_->next_main_stage_;");
                 _TRACE_(FUNC_NAME<<" 更新された main_stage_="<<main_stage_);
@@ -202,6 +207,13 @@ void StageController::onCatchEvent(hashval prm_no, void* prm_pSource) {
 //        }
     }
     SceneProgress* pProg = getProgress();
+    if (prm_no == EVENT_STAGE_DEBUG_PART_WAS_END) {
+        _TRACE_("StageController::onCatchEvent(EVENT_STAGE_DEBUG_PART_WAS_END)");
+        pStageMainCannel_->sayonara(180);
+        pStageMainCannel_->fadeoutSceneWithBgmTree(180);
+        pProg->change(PROG_PLAY_TRANSIT);
+    }
+
     if (prm_no == EVENT_STG01_WAS_END) {
         _TRACE_("StageController::onCatchEvent(EVENT_STG01_WAS_END)");
         pStageMainCannel_->sayonara(180);

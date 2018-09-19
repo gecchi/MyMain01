@@ -8,18 +8,21 @@
 #include "jp/ggaf/core/util/GgafLinearTreeRounder.hpp"
 #include "jp/gecchi/VioletVreath/actor/menu/pause/MenuBoardPause.h"
 #include "jp/gecchi/VioletVreath/God.h"
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameBeginningScene.h"
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameDemoScene.h"
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameEndingScene.h"
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene.h"
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld.h"
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameOverScene.h"
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GamePreTitleScene.h"
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameTitleScene.h"
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/PreDrawScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+
+#include "PreDrawScene.h"
+#include "GameScene/CommonScene.h"
+#include "GameScene/GameBeginningScene.h"
+#include "GameScene/GameDemoScene.h"
+#include "GameScene/GameEndingScene.h"
+#include "GameScene/GameMainScene.h"
+#include "GameScene/GameMainScene/StageWorld.h"
+#include "GameScene/GameOverScene.h"
+#include "GameScene/GamePreTitleScene.h"
+#include "GameScene/GameTitleScene.h"
+#include "GameScene/MyShipScene.h"
+
+
 
 using namespace GgafCore;
 using namespace GgafDxCore;

@@ -21,34 +21,34 @@ RankUp001::RankUp001(const char* prm_name) : RankUpStage(prm_name) {
     _paFrame_NextEvent = new frame[35];
     memcpy(_paFrame_NextEvent, f, sizeof(f));
     _event_num = 35;
-    wantActor(90000000, EnemyIrce, "EnemyIrce-90000000");
-    wantActor(90000001, EnemyIrce, "EnemyIrce-90000001");
-    wantActor(90000002, EnemyIrce, "EnemyIrce-90000002");
-    wantActor(90000003, EnemyIrce, "EnemyIrce-90000003");
-    wantActor(90000004, EnemyIrce, "EnemyIrce-90000004");
-    wantActor(90000005, EnemyIrce, "EnemyIrce-90000005");
-    wantActor(90000006, EnemyIrce, "EnemyIrce-90000006");
-    wantActor(90000007, EnemyIrce, "EnemyIrce-90000007");
-    wantActor(90000008, EnemyIrce, "EnemyIrce-90000008");
-    wantActor(90000009, EnemyIrce, "EnemyIrce-90000009");
-    wantActor(90000010, EnemyIrce, "EnemyIrce-90000010");
-    wantActor(90000011, EnemyIrce, "EnemyIrce-90000011");
-    wantActor(90000012, EnemyIrce, "EnemyIrce-90000012");
-    wantActor(90000013, EnemyIrce, "EnemyIrce-90000013");
-    wantActor(90000014, EnemyIrce, "EnemyIrce-90000014");
-    wantActor(90000015, EnemyIrce, "EnemyIrce-90000015");
-    wantActor(90000016, EnemyIrce, "EnemyIrce-90000016");
-    wantActor(90000017, EnemyIrce, "EnemyIrce-90000017");
-    wantActor(90000018, EnemyIrce, "EnemyIrce-90000018");
-    wantActor(90000019, EnemyIrce, "EnemyIrce-90000019");
-    wantActor(90000020, EnemyIrce, "EnemyIrce-90000020");
-    wantActor(90000021, EnemyIrce, "EnemyIrce-90000021");
-    wantActor(90000022, EnemyIrce, "EnemyIrce-90000022");
-    wantActor(90000023, EnemyIrce, "EnemyIrce-90000023");
-    wantActor(90000024, EnemyIrce, "EnemyIrce-90000024");
-    wantActor(90000025, EnemyIrce, "EnemyIrce-90000025");
-    wantActor(90000026, EnemyIrce, "EnemyIrce-90000026");
-    wantActor(90000031, FormationThagoras001, "FormationThagoras001-90000031");
+    requestActor(90000000, EnemyIrce, "EnemyIrce-90000000");
+    requestActor(90000001, EnemyIrce, "EnemyIrce-90000001");
+    requestActor(90000002, EnemyIrce, "EnemyIrce-90000002");
+    requestActor(90000003, EnemyIrce, "EnemyIrce-90000003");
+    requestActor(90000004, EnemyIrce, "EnemyIrce-90000004");
+    requestActor(90000005, EnemyIrce, "EnemyIrce-90000005");
+    requestActor(90000006, EnemyIrce, "EnemyIrce-90000006");
+    requestActor(90000007, EnemyIrce, "EnemyIrce-90000007");
+    requestActor(90000008, EnemyIrce, "EnemyIrce-90000008");
+    requestActor(90000009, EnemyIrce, "EnemyIrce-90000009");
+    requestActor(90000010, EnemyIrce, "EnemyIrce-90000010");
+    requestActor(90000011, EnemyIrce, "EnemyIrce-90000011");
+    requestActor(90000012, EnemyIrce, "EnemyIrce-90000012");
+    requestActor(90000013, EnemyIrce, "EnemyIrce-90000013");
+    requestActor(90000014, EnemyIrce, "EnemyIrce-90000014");
+    requestActor(90000015, EnemyIrce, "EnemyIrce-90000015");
+    requestActor(90000016, EnemyIrce, "EnemyIrce-90000016");
+    requestActor(90000017, EnemyIrce, "EnemyIrce-90000017");
+    requestActor(90000018, EnemyIrce, "EnemyIrce-90000018");
+    requestActor(90000019, EnemyIrce, "EnemyIrce-90000019");
+    requestActor(90000020, EnemyIrce, "EnemyIrce-90000020");
+    requestActor(90000021, EnemyIrce, "EnemyIrce-90000021");
+    requestActor(90000022, EnemyIrce, "EnemyIrce-90000022");
+    requestActor(90000023, EnemyIrce, "EnemyIrce-90000023");
+    requestActor(90000024, EnemyIrce, "EnemyIrce-90000024");
+    requestActor(90000025, EnemyIrce, "EnemyIrce-90000025");
+    requestActor(90000026, EnemyIrce, "EnemyIrce-90000026");
+    requestActor(90000031, FormationThagoras001, "FormationThagoras001-90000031");
     // gen01 end
 
     getBgmConductor()->ready(0, "OGG_RANKUP001_THEMA");
@@ -70,173 +70,173 @@ void RankUp001::processBehavior() {
                 break;
             }
             case 20: {
-                wantActor(90000027, EnemyIrce, "EnemyIrce-90000027");
+                requestActor(90000027, EnemyIrce, "EnemyIrce-90000027");
                 break;
             }
             case 80: {
-                wantActor(90000028, EnemyIrce, "EnemyIrce-90000028");
+                requestActor(90000028, EnemyIrce, "EnemyIrce-90000028");
                 break;
             }
             case 140: {
-                wantActor(90000029, EnemyIrce, "EnemyIrce-90000029");
+                requestActor(90000029, EnemyIrce, "EnemyIrce-90000029");
                 break;
             }
             case 200: {
-                EnemyIrce* p = (EnemyIrce*)grantActor(90000000);
+                EnemyIrce* p = (EnemyIrce*)receiveActor(90000000);
                 bringSceneMediator()->addSubGroup(p);
-                wantActor(90000030, EnemyIrce, "EnemyIrce-90000030");
-                FormationThagoras001* pF1 = (FormationThagoras001*)grantActor(90000031);
+                requestActor(90000030, EnemyIrce, "EnemyIrce-90000030");
+                FormationThagoras001* pF1 = (FormationThagoras001*)receiveActor(90000031);
                 bringSceneMediator()->addSubGroup(pF1);
                 pF1->setPosition(PX_C(-200), PX_C(  0), PX_C(500));
                 break;
             }
             case 260: {
-                EnemyIrce* p = (EnemyIrce*)grantActor(90000001);
+                EnemyIrce* p = (EnemyIrce*)receiveActor(90000001);
                 bringSceneMediator()->addSubGroup(p);
                 break;
             }
             case 320: {
-                EnemyIrce* p = (EnemyIrce*)grantActor(90000002);
+                EnemyIrce* p = (EnemyIrce*)receiveActor(90000002);
                 bringSceneMediator()->addSubGroup(p);
                 break;
             }
             case 380: {
-                EnemyIrce* p = (EnemyIrce*)grantActor(90000003);
+                EnemyIrce* p = (EnemyIrce*)receiveActor(90000003);
                 bringSceneMediator()->addSubGroup(p);
                 break;
             }
             case 440: {
-                EnemyIrce* p = (EnemyIrce*)grantActor(90000004);
+                EnemyIrce* p = (EnemyIrce*)receiveActor(90000004);
                 bringSceneMediator()->addSubGroup(p);
                 break;
             }
             case 500: {
-                EnemyIrce* p = (EnemyIrce*)grantActor(90000005);
+                EnemyIrce* p = (EnemyIrce*)receiveActor(90000005);
                 bringSceneMediator()->addSubGroup(p);
                 break;
             }
             case 560: {
-                EnemyIrce* p = (EnemyIrce*)grantActor(90000006);
+                EnemyIrce* p = (EnemyIrce*)receiveActor(90000006);
                 bringSceneMediator()->addSubGroup(p);
                 break;
             }
             case 620: {
-                EnemyIrce* p = (EnemyIrce*)grantActor(90000007);
+                EnemyIrce* p = (EnemyIrce*)receiveActor(90000007);
                 bringSceneMediator()->addSubGroup(p);
                 break;
             }
             case 680: {
-                EnemyIrce* p = (EnemyIrce*)grantActor(90000008);
+                EnemyIrce* p = (EnemyIrce*)receiveActor(90000008);
                 bringSceneMediator()->addSubGroup(p);
                 break;
             }
             case 740: {
-                EnemyIrce* p = (EnemyIrce*)grantActor(90000009);
+                EnemyIrce* p = (EnemyIrce*)receiveActor(90000009);
                 bringSceneMediator()->addSubGroup(p);
                 break;
             }
             case 800: {
-                EnemyIrce* p = (EnemyIrce*)grantActor(90000010);
+                EnemyIrce* p = (EnemyIrce*)receiveActor(90000010);
                 bringSceneMediator()->addSubGroup(p);
                 break;
             }
             case 860: {
-                EnemyIrce* p = (EnemyIrce*)grantActor(90000011);
+                EnemyIrce* p = (EnemyIrce*)receiveActor(90000011);
                 bringSceneMediator()->addSubGroup(p);
                 break;
             }
             case 920: {
-                EnemyIrce* p = (EnemyIrce*)grantActor(90000012);
+                EnemyIrce* p = (EnemyIrce*)receiveActor(90000012);
                 bringSceneMediator()->addSubGroup(p);
                 break;
             }
             case 980: {
-                EnemyIrce* p = (EnemyIrce*)grantActor(90000013);
+                EnemyIrce* p = (EnemyIrce*)receiveActor(90000013);
                 bringSceneMediator()->addSubGroup(p);
                 break;
             }
             case 1040: {
-                EnemyIrce* p = (EnemyIrce*)grantActor(90000014);
+                EnemyIrce* p = (EnemyIrce*)receiveActor(90000014);
                 bringSceneMediator()->addSubGroup(p);
                 break;
             }
             case 1100: {
-                EnemyIrce* p = (EnemyIrce*)grantActor(90000015);
+                EnemyIrce* p = (EnemyIrce*)receiveActor(90000015);
                 bringSceneMediator()->addSubGroup(p);
                 break;
             }
             case 1160: {
-                EnemyIrce* p = (EnemyIrce*)grantActor(90000016);
+                EnemyIrce* p = (EnemyIrce*)receiveActor(90000016);
                 bringSceneMediator()->addSubGroup(p);
                 break;
             }
             case 1220: {
-                EnemyIrce* p = (EnemyIrce*)grantActor(90000017);
+                EnemyIrce* p = (EnemyIrce*)receiveActor(90000017);
                 bringSceneMediator()->addSubGroup(p);
                 break;
             }
             case 1280: {
-                EnemyIrce* p = (EnemyIrce*)grantActor(90000018);
+                EnemyIrce* p = (EnemyIrce*)receiveActor(90000018);
                 bringSceneMediator()->addSubGroup(p);
                 break;
             }
             case 1340: {
-                EnemyIrce* p = (EnemyIrce*)grantActor(90000019);
+                EnemyIrce* p = (EnemyIrce*)receiveActor(90000019);
                 bringSceneMediator()->addSubGroup(p);
                 break;
             }
             case 1400: {
-                EnemyIrce* p = (EnemyIrce*)grantActor(90000020);
+                EnemyIrce* p = (EnemyIrce*)receiveActor(90000020);
                 bringSceneMediator()->addSubGroup(p);
                 break;
             }
             case 1460: {
-                EnemyIrce* p = (EnemyIrce*)grantActor(90000021);
+                EnemyIrce* p = (EnemyIrce*)receiveActor(90000021);
                 bringSceneMediator()->addSubGroup(p);
                 break;
             }
             case 1520: {
-                EnemyIrce* p = (EnemyIrce*)grantActor(90000022);
+                EnemyIrce* p = (EnemyIrce*)receiveActor(90000022);
                 bringSceneMediator()->addSubGroup(p);
                 break;
             }
             case 1580: {
-                EnemyIrce* p = (EnemyIrce*)grantActor(90000023);
+                EnemyIrce* p = (EnemyIrce*)receiveActor(90000023);
                 bringSceneMediator()->addSubGroup(p);
                 break;
             }
             case 1640: {
-                EnemyIrce* p = (EnemyIrce*)grantActor(90000024);
+                EnemyIrce* p = (EnemyIrce*)receiveActor(90000024);
                 bringSceneMediator()->addSubGroup(p);
                 break;
             }
             case 1700: {
-                EnemyIrce* p = (EnemyIrce*)grantActor(90000025);
+                EnemyIrce* p = (EnemyIrce*)receiveActor(90000025);
                 bringSceneMediator()->addSubGroup(p);
                 break;
             }
             case 1760: {
-                EnemyIrce* p = (EnemyIrce*)grantActor(90000026);
+                EnemyIrce* p = (EnemyIrce*)receiveActor(90000026);
                 bringSceneMediator()->addSubGroup(p);
                 break;
             }
             case 1820: {
-                EnemyIrce* p = (EnemyIrce*)grantActor(90000027);
+                EnemyIrce* p = (EnemyIrce*)receiveActor(90000027);
                 bringSceneMediator()->addSubGroup(p);
                 break;
             }
             case 1880: {
-                EnemyIrce* p = (EnemyIrce*)grantActor(90000028);
+                EnemyIrce* p = (EnemyIrce*)receiveActor(90000028);
                 bringSceneMediator()->addSubGroup(p);
                 break;
             }
             case 1940: {
-                EnemyIrce* p = (EnemyIrce*)grantActor(90000029);
+                EnemyIrce* p = (EnemyIrce*)receiveActor(90000029);
                 bringSceneMediator()->addSubGroup(p);
                 break;
             }
             case 2000: {
-                EnemyIrce* p = (EnemyIrce*)grantActor(90000030);
+                EnemyIrce* p = (EnemyIrce*)receiveActor(90000030);
                 bringSceneMediator()->addSubGroup(p);
                 break;
             }

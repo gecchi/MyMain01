@@ -16,7 +16,7 @@ EffectExplosion004::EffectExplosion004(const char* prm_name) :
     //加算合成Technique指定
     effectBlendOne();
     //ワールド変換行列はビルボード指定
-    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv);
+    defineRotMvWorldMatrix_Billboard();
 }
 
 void EffectExplosion004::initialize() {

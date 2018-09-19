@@ -9,9 +9,8 @@
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi8Font.h"
 #include "jp/gecchi/VioletVreath/Config.h"
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/PreDrawScene.h"
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene.h"
-#include "jp/gecchi/VioletVreath/actor/InnerTitleBar.h"
+#include "World/PreDrawScene.h"
+#include "World/GameScene.h"
 #include "Version.h"
 
 using namespace GgafCore;
@@ -203,8 +202,8 @@ void World::initialize() {
             );
         }
     }
-    wantScene(1, PreDrawScene);
-    wantScene(2, GameScene);
+    requestScene(1, PreDrawScene);
+    requestScene(2, GameScene);
     useProgress(PROG_BANPEI);
     getProgress()->reset(PROG_INIT);
 }
@@ -226,7 +225,7 @@ void World::processBehavior() {
     switch (pProg->get()) {
         case PROG_INIT: {
             if (pGOD->chkCradle(1) == 2) {
-                pPreDrawScene_ = (PreDrawScene*)grantScene(1);
+                pPreDrawScene_ = (PreDrawScene*)receiveScene(1);
                 addSubLast(pPreDrawScene_);
                 pProg->changeNext();
             }
@@ -246,7 +245,7 @@ void World::processBehavior() {
 
         case PROG_CALM2: {
             if ((pProg->getFrame() >= 30 && pGOD->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX && pGOD->_fps <= 64.0f) || pProg->getFrame() >= 60*60*5) {
-                pGameScene_ = (GameScene*)grantScene(2);
+                pGameScene_ = (GameScene*)receiveScene(2);
                 pProg->changeNext();
             }
             pLabel_aster_->getAlphaFader()->behave(); //右上＊チカチカ
@@ -317,7 +316,7 @@ void World::processBehavior() {
 
 
 #ifdef MY_DEBUG
-    sprintf(aBufDebug_, "%07uF, %06u/%06uACT, %06uDRAW, %06uCHK, %03.1fFPS(%d), V%03d",
+    sprintf(aBufDebug_, "%07uF, %06u/%06uACT, %06uDRAW, %06uCHK, %03.1fFPS(SLOW%d), V%03d",
                             askGod()->_frame_of_God,
                             GgafGod::_num_active_actor,
                             GgafActor::_num_actors,

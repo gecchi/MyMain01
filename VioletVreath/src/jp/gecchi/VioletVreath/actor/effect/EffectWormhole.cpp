@@ -14,7 +14,7 @@ EffectWormhole::EffectWormhole(const char* prm_name, const char* prm_model_id) :
     _class_name = "EffectWormhole";
     inactivate();
     effectBlendOne(); //加算合成
-    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //ビルボードRz回転
+    defineRotMvWorldMatrix_Billboard(); //ビルボードRz回転
     setHitAble(false); //当たり判定無し
 }
 

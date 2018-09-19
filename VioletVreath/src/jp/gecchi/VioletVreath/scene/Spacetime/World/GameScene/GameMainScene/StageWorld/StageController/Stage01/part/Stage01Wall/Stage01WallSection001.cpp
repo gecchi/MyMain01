@@ -3,12 +3,12 @@
 #include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/ggaf/dxcore/sound/GgafDxBgmConductor.h"
 #include "jp/ggaf/lib/scene/FormationTableScene.h"
-#include "../Stage01PartController.h"
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "../../Stage01PartController.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -48,12 +48,12 @@ void Stage01WallSection001::processBehavior() {
 }
 
 void Stage01WallSection001::onBlockLaunch(int prm_loop_count, int prm_wall_count, coord prm_wall_x) {
-    if (prm_wall_count == 1) {
-        EnemyHisbe* p = desireActor(EnemyHisbe);
-        p->setPosition(pGOD->getSpacetime()->_x_bound_right, -PX_C(900), -PX_C(900));
-        p->setRyFaceAng(-D90ANG);
-        bringSceneMediator()->addSubGroup(p);
-    }
+//    if (prm_wall_count == 1) {
+//        EnemyHisbe* p = desireActor(EnemyHisbe);
+//        p->setPosition(pGOD->getSpacetime()->_x_bound_right, -PX_C(900), -PX_C(900));
+//        p->setRyFaceAng(-D90ANG);
+//        bringSceneMediator()->addSubGroup(p);
+//    }
 }
 
 Stage01WallSection001::~Stage01WallSection001() {

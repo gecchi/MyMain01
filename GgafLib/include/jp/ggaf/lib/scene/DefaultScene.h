@@ -71,7 +71,7 @@ public:
      * スクロール関数を設定する。
      * 設定されたスクロール関数を配下ツリーシーンの全アクターに実行を行う。<BR>
      * 第１引数には、対象アクター、第２引数には、スクロールスピード(_scroll_speedへのポインタ)が渡される。<BR>
-     * シーンが WalledSceneの場合に限り、標準で WalledScene::scrollX(GgafObject*, void*, void*, void*) が設定されている。<BR>
+     * シーンが WallSceneの場合に限り、標準で WallScene::scrollX(GgafObject*, void*, void*, void*) が設定されている。<BR>
      * @param prm_pFuncScrolling 引数が(GgafObject*, void*, void*, void*) となる関数ポインタ
      */
     void setScrollingFunction(void (*prm_pFuncScrolling)(GgafCore::GgafObject*, void*, void*, void*)) {
@@ -105,6 +105,13 @@ public:
      * @return 直近のWallScene
      */
     WallScene* getNearestWallScene();
+
+    /**
+     * 最後のシーンイベントフレームを返します。
+     * シーンイベントがない場合は 0 を返す。
+     * @return 最後のシーンイベントフレーム
+     */
+    frame getLastEventFrame();
 
     virtual ~DefaultScene();
 };

@@ -16,7 +16,7 @@ EffectMyShipExplosion::EffectMyShipExplosion(const char* prm_name) :
         DefaultSpriteSetActor(prm_name, "EffectExplosion001", nullptr) {
     _class_name = "EffectMyShipExplosion";
     effectBlendOne(); //â¡éZçáê¨
-    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv);
+    defineRotMvWorldMatrix_Billboard();
 }
 
 void EffectMyShipExplosion::initialize() {

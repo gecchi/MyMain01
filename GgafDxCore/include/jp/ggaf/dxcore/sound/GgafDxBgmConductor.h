@@ -40,7 +40,7 @@ public:
     GgafDxBgmConductor();
 
     /**
-     * BGMを準備する。
+     * BGMを準備する .
      * 演奏前に必ず実行しておく必要があります。
      * @param prm_bgm_no BGM番号(0 ～ )
      * @param prm_bgm_name プロパティファイルkey文字列
@@ -48,7 +48,14 @@ public:
     virtual void ready(int prm_bgm_no, const char* prm_bgm_name);
 
     /**
-     * ボリューム値を設定する。
+     * BGMを演奏する準備が整っているか .
+     * @param prm_bgm_no  BGM番号(0 ～ )
+     * @return true:演奏できる／false:演奏できない
+     */
+    virtual bool isReady(int prm_bgm_no);
+
+    /**
+     * ボリューム値を設定する .
      * BGMマスターボリュームも考慮された音量に設定される。
      * @param prm_bgm_no BGM番号(0 ～ )
      * @param prm_volume ボリューム値(0 ～ 1000)
@@ -94,6 +101,7 @@ public:
 
     /**
      * 演奏する .
+     * 一時停止してい他場合は、続きから演奏される。曲の最初からとは限らない。
      * @param prm_bgm_no  BGM番号(0 ～ )
      * @param prm_is_loop  ループするかどうか（true:ループ再生する／false:ループ再生しない）
      */

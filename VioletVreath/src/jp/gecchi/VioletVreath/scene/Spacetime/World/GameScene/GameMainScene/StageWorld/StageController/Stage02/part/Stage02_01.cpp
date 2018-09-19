@@ -23,7 +23,7 @@ Stage02_01::Stage02_01(const char* prm_name) : DefaultScene(prm_name) {
     _paFrame_NextEvent = new frame[4];
     memcpy(_paFrame_NextEvent, f, sizeof(f));
     _event_num = 4;
-    wantActor(80000000, FormationGeria001, "FormationGeria001-80000000");
+    requestActor(80000000, FormationGeria001, "FormationGeria001-80000000");
     // gen01 end
 }
 
@@ -41,17 +41,17 @@ void Stage02_01::processBehavior() {
                 break;
             }
             case 100: {
-                FormationGeria001* pF = (FormationGeria001*)grantActor(80000000);
+                FormationGeria001* pF = (FormationGeria001*)receiveActor(80000000);
                 bringSceneMediator()->addSubGroup(pF);
                 break;
             }
             case 400: {
-                wantActor(80000002, FormationRis001, "FormationRis001-80000002");
-                wantActor(80000003, FormationRis002, "FormationRis002-80000003");
-                wantActor(80000004, FormationRis001, "FormationRis001-80000004");
-                wantActor(80000005, FormationRis002, "FormationRis002-80000005");
-                wantActor(80000006, FormationRis001, "FormationRis001-80000006");
-                wantActor(80000007, FormationRis002, "FormationRis002-80000007");
+                requestActor(80000002, FormationRis001, "FormationRis001-80000002");
+                requestActor(80000003, FormationRis002, "FormationRis002-80000003");
+                requestActor(80000004, FormationRis001, "FormationRis001-80000004");
+                requestActor(80000005, FormationRis002, "FormationRis002-80000005");
+                requestActor(80000006, FormationRis001, "FormationRis001-80000006");
+                requestActor(80000007, FormationRis002, "FormationRis002-80000007");
                 break;
             }
             case 1000: {
@@ -59,12 +59,12 @@ void Stage02_01::processBehavior() {
                 FormationTableScene* ta = NEW FormationTableScene("FormationTableScene-1");
                 ta->setMaxPerformFrame(2000);
                 addSubLast(ta);
-                ta->addToTable(((FormationRis001*)grantActor(80000002)), 400);
-                ta->addToTable(((FormationRis002*)grantActor(80000003)), 400);
-                ta->addToTable(((FormationRis001*)grantActor(80000004)), 400);
-                ta->addToTable(((FormationRis002*)grantActor(80000005)), 400);
-                ta->addToTable(((FormationRis001*)grantActor(80000006)), 400);
-                ta->addToTable(((FormationRis002*)grantActor(80000007)), 400);
+                ta->addToTable(((FormationRis001*)receiveActor(80000002)), 400);
+                ta->addToTable(((FormationRis002*)receiveActor(80000003)), 400);
+                ta->addToTable(((FormationRis001*)receiveActor(80000004)), 400);
+                ta->addToTable(((FormationRis002*)receiveActor(80000005)), 400);
+                ta->addToTable(((FormationRis001*)receiveActor(80000006)), 400);
+                ta->addToTable(((FormationRis002*)receiveActor(80000007)), 400);
                 }
                 break;
             }
@@ -83,7 +83,7 @@ void Stage02_01::processBehavior() {
     }
     //シーン終了のイベントを通知
     if (getActiveFrame() == _paFrame_NextEvent[_event_num-1] + 60*60) {
-        throwEventUpperTree(EVENT_STG02_01_WAS_BROKEN);
+        throwEventUpperTree(EVENT_STG02_01_WAS_FINISHED);
     }
 
 }

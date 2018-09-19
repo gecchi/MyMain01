@@ -8,7 +8,6 @@
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/ggaf/lib/manager/SplineManufactureConnection.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
-#include "jp/ggaf/lib/scene/WalledScene.h"
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;

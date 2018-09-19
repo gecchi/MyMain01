@@ -2,14 +2,13 @@
 
 #include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/ggaf/dxcore/sound/GgafDxBgmConductor.h"
-#include "jp/ggaf/lib/actor/WallAABActor.h"
 #include "jp/ggaf/lib/scene/FormationTableScene.h"
-#include "Stage01WallSection001.h"
 #include "jp/gecchi/VioletVreath/actor/chikei/wall/Wall01.h"
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
+#include "Stage01Wall/Stage01WallSection001.h"
 #include "../Stage01PartController.h"
 
 using namespace GgafCore;
@@ -82,7 +81,7 @@ Stage01WallScene::Stage01WallScene(const char* prm_name) : WallScene(prm_name) {
     _paFrame_NextEvent = new frame[6];
     memcpy(_paFrame_NextEvent, f, sizeof(f));
     _event_num = 6;
-    wantActor(60000002, EnemyHisbe, "EnemyHisbe-60000002");
+    requestActor(60000002, EnemyHisbe, "EnemyHisbe-60000002");
     // gen01 end
 }
 
@@ -110,7 +109,7 @@ void Stage01WallScene::processBehavior() {
                 break;
             }
             case 100: {
-                EnemyHisbe* p = (EnemyHisbe*)grantActor(60000002);
+                EnemyHisbe* p = (EnemyHisbe*)receiveActor(60000002);
                 bringSceneMediator()->addSubGroup(p);
                 p->_x = PX_C(2000);
                 p->_y = 0;
@@ -119,19 +118,19 @@ void Stage01WallScene::processBehavior() {
                 break;
             }
             case 1400: {
-                wantActor(60000000, FormationUnomia001a, "FormationUnomia001a-60000000");
+                requestActor(60000000, FormationUnomia001a, "FormationUnomia001a-60000000");
                 break;
             }
             case 2000: {
-                bringSceneMediator()->addSubGroup(grantActor(60000000));
+                bringSceneMediator()->addSubGroup(receiveActor(60000000));
                 break;
             }
             case 5400: {
-                wantActor(60000001, FormationUnomia001b, "FormationUnomia001b-60000001");
+                requestActor(60000001, FormationUnomia001b, "FormationUnomia001b-60000001");
                 break;
             }
             case 6000: {
-                bringSceneMediator()->addSubGroup(grantActor(60000001));
+                bringSceneMediator()->addSubGroup(receiveActor(60000001));
                 break;
             }
             default :
@@ -157,7 +156,7 @@ void Stage01WallScene::onFinishedAllSection() {
     _TRACE_(" Stage01WallScene::onFinishedAllSection()  CommonScene のスクロールを解除します。");
     pCOMMON_SCENE->setScrollingFunction(nullptr);
     pCOMMON_SCENE->setScrollSpeed(0);
-    throwEventUpperTree(EVENT_STG01_WALLED_WAS_BROKEN);
+    throwEventUpperTree(EVENT_STG01_WALL_WAS_FINISHED);
 }
 
 Stage01WallScene::~Stage01WallScene() {

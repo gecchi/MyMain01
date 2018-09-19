@@ -3,7 +3,7 @@
 #include "VioletVreath.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene.h"
+#include "../../GameScene.h"
 
 namespace VioletVreath {
 

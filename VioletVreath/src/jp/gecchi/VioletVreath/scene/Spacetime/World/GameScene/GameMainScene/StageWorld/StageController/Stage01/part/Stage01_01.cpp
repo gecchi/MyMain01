@@ -27,18 +27,18 @@ Stage01_01::Stage01_01(const char* prm_name) : DefaultScene(prm_name) {
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
 	_event_num = 43;
 	
-	wantActor(20000001, FormationAllas001a, "FormationAllas001a-20000001");
-	wantActor(20000002, FormationAllas001b, "FormationAllas001b-20000002");
-	wantActor(20000003, FormationAllas001c, "FormationAllas001c-20000003");
-	wantActor(20000004, FormationAllas001d, "FormationAllas001d-20000004");
-	wantActor(20000005, FormationAllas001a, "FormationAllas001a-20000005");
-	wantActor(20000006, FormationAllas001d, "FormationAllas001d-20000006");
-	wantActor(20000007, FormationAllas001b, "FormationAllas001b-20000007");
-	wantActor(20000008, FormationAllas001c, "FormationAllas001c-20000008");
-	wantActor(20000009, FormationAllas001a, "FormationAllas001a-20000009");
-	wantActor(20000010, FormationAllas001d, "FormationAllas001d-20000010");
-	wantActor(20000011, FormationAllas001b, "FormationAllas001b-20000011");
-	wantActor(20000012, FormationAllas001c, "FormationAllas001c-20000012");
+	requestActor(20000001, FormationAllas001a, "FormationAllas001a-20000001");
+	requestActor(20000002, FormationAllas001b, "FormationAllas001b-20000002");
+	requestActor(20000003, FormationAllas001c, "FormationAllas001c-20000003");
+	requestActor(20000004, FormationAllas001d, "FormationAllas001d-20000004");
+	requestActor(20000005, FormationAllas001a, "FormationAllas001a-20000005");
+	requestActor(20000006, FormationAllas001d, "FormationAllas001d-20000006");
+	requestActor(20000007, FormationAllas001b, "FormationAllas001b-20000007");
+	requestActor(20000008, FormationAllas001c, "FormationAllas001c-20000008");
+	requestActor(20000009, FormationAllas001a, "FormationAllas001a-20000009");
+	requestActor(20000010, FormationAllas001d, "FormationAllas001d-20000010");
+	requestActor(20000011, FormationAllas001b, "FormationAllas001b-20000011");
+	requestActor(20000012, FormationAllas001c, "FormationAllas001c-20000012");
     // gen01 end
 
     getBgmConductor()->ready(0, "OGG_BGM_01_01");
@@ -63,224 +63,224 @@ void Stage01_01::processBehavior() {
 				FormationTableScene* ta = NEW FormationTableScene("FormationTableScene-1");
 				ta->setMaxPerformFrame(2000);
 				addSubLast(ta);
-				ta->addToTable(((FormationAllas001a*)grantActor(20000001)), 400);
-				ta->addToTable(((FormationAllas001b*)grantActor(20000002)), 400);
-				ta->addToTable(((FormationAllas001c*)grantActor(20000003)), 400);
-				ta->addToTable(((FormationAllas001d*)grantActor(20000004)), 400);
-				ta->addToTable(((FormationAllas001a*)grantActor(20000005)), 1);
-				ta->addToTable(((FormationAllas001d*)grantActor(20000006)), 400);
-				ta->addToTable(((FormationAllas001b*)grantActor(20000007)), 1);
-				ta->addToTable(((FormationAllas001c*)grantActor(20000008)), 400);
-				ta->addToTable(((FormationAllas001a*)grantActor(20000009)), 1);
-				ta->addToTable(((FormationAllas001d*)grantActor(20000010)), 1);
-				ta->addToTable(((FormationAllas001b*)grantActor(20000011)), 1);
-				ta->addToTable(((FormationAllas001c*)grantActor(20000012)), 400);
+				ta->addToTable(((FormationAllas001a*)receiveActor(20000001)), 400);
+				ta->addToTable(((FormationAllas001b*)receiveActor(20000002)), 400);
+				ta->addToTable(((FormationAllas001c*)receiveActor(20000003)), 400);
+				ta->addToTable(((FormationAllas001d*)receiveActor(20000004)), 400);
+				ta->addToTable(((FormationAllas001a*)receiveActor(20000005)), 1);
+				ta->addToTable(((FormationAllas001d*)receiveActor(20000006)), 400);
+				ta->addToTable(((FormationAllas001b*)receiveActor(20000007)), 1);
+				ta->addToTable(((FormationAllas001c*)receiveActor(20000008)), 400);
+				ta->addToTable(((FormationAllas001a*)receiveActor(20000009)), 1);
+				ta->addToTable(((FormationAllas001d*)receiveActor(20000010)), 1);
+				ta->addToTable(((FormationAllas001b*)receiveActor(20000011)), 1);
+				ta->addToTable(((FormationAllas001c*)receiveActor(20000012)), 400);
 				}
 				break;
 			}
 			case 1900: {
-				wantActor(20000013, FormationUnomia001a, "FormationUnomia001a-20000013");
-				wantActor(20000017, VarietyRatislavia001, "VarietyRatislavia001-20000017");
-				wantActor(20000019, FormationAppho001a, "FormationAppho001a-20000019");
+				requestActor(20000013, FormationUnomia001a, "FormationUnomia001a-20000013");
+				requestActor(20000017, VarietyRatislavia001, "VarietyRatislavia001-20000017");
+				requestActor(20000019, FormationAppho001a, "FormationAppho001a-20000019");
 				break;
 			}
 			case 2400: {
-				wantActor(20000015, FormationUnomia001b, "FormationUnomia001b-20000015");
-				wantActor(20000018, VarietyRatislavia002, "VarietyRatislavia002-20000018");
-				wantActor(20000027, FormationAppho001b, "FormationAppho001b-20000027");
+				requestActor(20000015, FormationUnomia001b, "FormationUnomia001b-20000015");
+				requestActor(20000018, VarietyRatislavia002, "VarietyRatislavia002-20000018");
+				requestActor(20000027, FormationAppho001b, "FormationAppho001b-20000027");
 				break;
 			}
 			case 2500: {
-				bringSceneMediator()->addSubGroup(grantActor(20000013));
-				VarietyRatislavia001* pRatislavia = (VarietyRatislavia001*)grantActor(20000017);
+				bringSceneMediator()->addSubGroup(receiveActor(20000013));
+				VarietyRatislavia001* pRatislavia = (VarietyRatislavia001*)receiveActor(20000017);
 				bringSceneMediator()->addSubGroup(pRatislavia);
-				bringSceneMediator()->addSubGroup(grantActor(20000019));
+				bringSceneMediator()->addSubGroup(receiveActor(20000019));
 				break;
 			}
 			case 2900: {
-				wantActor(20000020, FormationAppho001a, "FormationAppho001a-20000020");
+				requestActor(20000020, FormationAppho001a, "FormationAppho001a-20000020");
 				break;
 			}
 			case 3000: {
-				bringSceneMediator()->addSubGroup(grantActor(20000015));
-				VarietyRatislavia002* pRatislavia = (VarietyRatislavia002*)grantActor(20000018);
+				bringSceneMediator()->addSubGroup(receiveActor(20000015));
+				VarietyRatislavia002* pRatislavia = (VarietyRatislavia002*)receiveActor(20000018);
 				bringSceneMediator()->addSubGroup(pRatislavia);
-				bringSceneMediator()->addSubGroup(grantActor(20000027));
+				bringSceneMediator()->addSubGroup(receiveActor(20000027));
 				break;
 			}
 			case 3400: {
-				wantActor(20000028, FormationAppho001b, "FormationAppho001b-20000028");
+				requestActor(20000028, FormationAppho001b, "FormationAppho001b-20000028");
 				break;
 			}
 			case 3500: {
-				bringSceneMediator()->addSubGroup(grantActor(20000020));
+				bringSceneMediator()->addSubGroup(receiveActor(20000020));
 				break;
 			}
 			case 3900: {
-				wantActor(20000021, FormationAppho001a, "FormationAppho001a-20000021");
+				requestActor(20000021, FormationAppho001a, "FormationAppho001a-20000021");
 				break;
 			}
 			case 4000: {
-				bringSceneMediator()->addSubGroup(grantActor(20000028));
+				bringSceneMediator()->addSubGroup(receiveActor(20000028));
 				break;
 			}
 			case 4400: {
-				wantActor(20000029, FormationAppho001b, "FormationAppho001b-20000029");
-				wantActor(20000035, FormationDelheid001, "FormationDelheid001-20000035");
+				requestActor(20000029, FormationAppho001b, "FormationAppho001b-20000029");
+				requestActor(20000035, FormationDelheid001, "FormationDelheid001-20000035");
 				break;
 			}
 			case 4500: {
-				bringSceneMediator()->addSubGroup(grantActor(20000021));
-				wantActor(20000036, FormationDelheid001, "FormationDelheid001-20000036");
+				bringSceneMediator()->addSubGroup(receiveActor(20000021));
+				requestActor(20000036, FormationDelheid001, "FormationDelheid001-20000036");
 				break;
 			}
 			case 4600: {
-				wantActor(20000037, FormationDelheid001, "FormationDelheid001-20000037");
+				requestActor(20000037, FormationDelheid001, "FormationDelheid001-20000037");
 				break;
 			}
 			case 4700: {
-				wantActor(20000038, FormationDelheid001, "FormationDelheid001-20000038");
+				requestActor(20000038, FormationDelheid001, "FormationDelheid001-20000038");
 				break;
 			}
 			case 4800: {
-				wantActor(20000039, FormationDelheid001, "FormationDelheid001-20000039");
+				requestActor(20000039, FormationDelheid001, "FormationDelheid001-20000039");
 				break;
 			}
 			case 4900: {
-				wantActor(20000022, FormationAppho001a, "FormationAppho001a-20000022");
-				wantActor(20000040, FormationDelheid001, "FormationDelheid001-20000040");
+				requestActor(20000022, FormationAppho001a, "FormationAppho001a-20000022");
+				requestActor(20000040, FormationDelheid001, "FormationDelheid001-20000040");
 				break;
 			}
 			case 5000: {
-				bringSceneMediator()->addSubGroup(grantActor(20000029));
-				FormationDelheid001* pF = (FormationDelheid001*)grantActor(20000035);
+				bringSceneMediator()->addSubGroup(receiveActor(20000029));
+				FormationDelheid001* pF = (FormationDelheid001*)receiveActor(20000035);
 				bringSceneMediator()->addSubGroup(pF);
 				pF->setPosition(PX_C(-200), PX_C(-400), PX_C(500), D_ANG(0), D_ANG(-40), D_ANG(0));
-				wantActor(20000041, FormationDelheid001, "FormationDelheid001-20000041");
+				requestActor(20000041, FormationDelheid001, "FormationDelheid001-20000041");
 				break;
 			}
 			case 5100: {
-				FormationDelheid001* pF = (FormationDelheid001*)grantActor(20000036);
+				FormationDelheid001* pF = (FormationDelheid001*)receiveActor(20000036);
 				bringSceneMediator()->addSubGroup(pF);
 				pF->setPosition(PX_C(-200), PX_C(-300), PX_C(500), D_ANG(0), D_ANG(-30), D_ANG(0));
-				wantActor(20000042, FormationDelheid001, "FormationDelheid001-20000042");
+				requestActor(20000042, FormationDelheid001, "FormationDelheid001-20000042");
 				break;
 			}
 			case 5200: {
-				FormationDelheid001* pF = (FormationDelheid001*)grantActor(20000037);
+				FormationDelheid001* pF = (FormationDelheid001*)receiveActor(20000037);
 				bringSceneMediator()->addSubGroup(pF);
 				pF->setPosition(PX_C(-200), PX_C(-200), PX_C(500), D_ANG(0), D_ANG(-20), D_ANG(0));
-				wantActor(20000043, FormationDelheid001, "FormationDelheid001-20000043");
+				requestActor(20000043, FormationDelheid001, "FormationDelheid001-20000043");
 				break;
 			}
 			case 5300: {
-				FormationDelheid001* pF = (FormationDelheid001*)grantActor(20000038);
+				FormationDelheid001* pF = (FormationDelheid001*)receiveActor(20000038);
 				bringSceneMediator()->addSubGroup(pF);
 				pF->setPosition(PX_C(-200), PX_C(-100), PX_C(500), D_ANG(0), D_ANG(-10), D_ANG(0));
 				break;
 			}
 			case 5400: {
-				wantActor(20000030, FormationAppho001b, "FormationAppho001b-20000030");
-				FormationDelheid001* pF = (FormationDelheid001*)grantActor(20000039);
+				requestActor(20000030, FormationAppho001b, "FormationAppho001b-20000030");
+				FormationDelheid001* pF = (FormationDelheid001*)receiveActor(20000039);
 				bringSceneMediator()->addSubGroup(pF);
 				pF->setPosition(PX_C(-200), PX_C(   0), PX_C(500), D_ANG(0), D_ANG(  0), D_ANG(0));
 				break;
 			}
 			case 5500: {
-				bringSceneMediator()->addSubGroup(grantActor(20000022));
-				FormationDelheid001* pF = (FormationDelheid001*)grantActor(20000040);
+				bringSceneMediator()->addSubGroup(receiveActor(20000022));
+				FormationDelheid001* pF = (FormationDelheid001*)receiveActor(20000040);
 				bringSceneMediator()->addSubGroup(pF);
 				pF->setPosition(PX_C(-200), PX_C( 100), PX_C(500), D_ANG(0), D_ANG( 10), D_ANG(0));
 				break;
 			}
 			case 5600: {
-				FormationDelheid001* pF = (FormationDelheid001*)grantActor(20000041);
+				FormationDelheid001* pF = (FormationDelheid001*)receiveActor(20000041);
 				bringSceneMediator()->addSubGroup(pF);
 				pF->setPosition(PX_C(-200), PX_C( 200), PX_C(500), D_ANG(0), D_ANG( 20), D_ANG(0));
 				break;
 			}
 			case 5700: {
-				FormationDelheid001* pF = (FormationDelheid001*)grantActor(20000042);
+				FormationDelheid001* pF = (FormationDelheid001*)receiveActor(20000042);
 				bringSceneMediator()->addSubGroup(pF);
 				pF->setPosition(PX_C(-200), PX_C( 300), PX_C(500), D_ANG(0), D_ANG( 30), D_ANG(0));
 				break;
 			}
 			case 5800: {
-				FormationDelheid001* pF = (FormationDelheid001*)grantActor(20000043);
+				FormationDelheid001* pF = (FormationDelheid001*)receiveActor(20000043);
 				bringSceneMediator()->addSubGroup(pF);
 				pF->setPosition(PX_C(-200), PX_C( 400), PX_C(500), D_ANG(0), D_ANG( 40), D_ANG(0));
 				break;
 			}
 			case 5900: {
-				wantActor(20000014, FormationUnomia001a, "FormationUnomia001a-20000014");
-				wantActor(20000023, FormationAppho001a, "FormationAppho001a-20000023");
+				requestActor(20000014, FormationUnomia001a, "FormationUnomia001a-20000014");
+				requestActor(20000023, FormationAppho001a, "FormationAppho001a-20000023");
 				break;
 			}
 			case 6000: {
-				bringSceneMediator()->addSubGroup(grantActor(20000030));
+				bringSceneMediator()->addSubGroup(receiveActor(20000030));
 				break;
 			}
 			case 6400: {
-				wantActor(20000016, FormationUnomia001b, "FormationUnomia001b-20000016");
-				wantActor(20000031, FormationAppho001b, "FormationAppho001b-20000031");
+				requestActor(20000016, FormationUnomia001b, "FormationUnomia001b-20000016");
+				requestActor(20000031, FormationAppho001b, "FormationAppho001b-20000031");
 				break;
 			}
 			case 6500: {
-				bringSceneMediator()->addSubGroup(grantActor(20000014));
-				bringSceneMediator()->addSubGroup(grantActor(20000023));
+				bringSceneMediator()->addSubGroup(receiveActor(20000014));
+				bringSceneMediator()->addSubGroup(receiveActor(20000023));
 				break;
 			}
 			case 6900: {
-				wantActor(20000024, FormationAppho001a, "FormationAppho001a-20000024");
+				requestActor(20000024, FormationAppho001a, "FormationAppho001a-20000024");
 				break;
 			}
 			case 7000: {
-				bringSceneMediator()->addSubGroup(grantActor(20000016));
-				bringSceneMediator()->addSubGroup(grantActor(20000031));
+				bringSceneMediator()->addSubGroup(receiveActor(20000016));
+				bringSceneMediator()->addSubGroup(receiveActor(20000031));
 				break;
 			}
 			case 7400: {
-				wantActor(20000032, FormationAppho001b, "FormationAppho001b-20000032");
+				requestActor(20000032, FormationAppho001b, "FormationAppho001b-20000032");
 				break;
 			}
 			case 7500: {
-				bringSceneMediator()->addSubGroup(grantActor(20000024));
+				bringSceneMediator()->addSubGroup(receiveActor(20000024));
 				break;
 			}
 			case 7900: {
-				wantActor(20000025, FormationAppho001a, "FormationAppho001a-20000025");
+				requestActor(20000025, FormationAppho001a, "FormationAppho001a-20000025");
 				break;
 			}
 			case 8000: {
-				bringSceneMediator()->addSubGroup(grantActor(20000032));
+				bringSceneMediator()->addSubGroup(receiveActor(20000032));
 				break;
 			}
 			case 8400: {
-				wantActor(20000033, FormationAppho001b, "FormationAppho001b-20000033");
+				requestActor(20000033, FormationAppho001b, "FormationAppho001b-20000033");
 				break;
 			}
 			case 8500: {
-				bringSceneMediator()->addSubGroup(grantActor(20000025));
+				bringSceneMediator()->addSubGroup(receiveActor(20000025));
 				break;
 			}
 			case 8900: {
-				wantActor(20000026, FormationAppho001a, "FormationAppho001a-20000026");
+				requestActor(20000026, FormationAppho001a, "FormationAppho001a-20000026");
 				break;
 			}
 			case 9000: {
-				bringSceneMediator()->addSubGroup(grantActor(20000033));
+				bringSceneMediator()->addSubGroup(receiveActor(20000033));
 				break;
 			}
 			case 9400: {
-				wantActor(20000034, FormationAppho001b, "FormationAppho001b-20000034");
+				requestActor(20000034, FormationAppho001b, "FormationAppho001b-20000034");
 				break;
 			}
 			case 9500: {
-				bringSceneMediator()->addSubGroup(grantActor(20000026));
+				bringSceneMediator()->addSubGroup(receiveActor(20000026));
 				break;
 			}
 			case 10000: {
-				bringSceneMediator()->addSubGroup(grantActor(20000034));
+				bringSceneMediator()->addSubGroup(receiveActor(20000034));
 				break;
 			}
 			default :
@@ -300,7 +300,7 @@ void Stage01_01::processBehavior() {
     if (getBehaveingFrame() == _paFrame_NextEvent[_event_num-1] + 60*60) {
         getBgmConductor()->fadeoutStop(0, 120);
         //シーン終了のイベントを通知
-        throwEventUpperTree(EVENT_STG01_01_WAS_BROKEN);
+        throwEventUpperTree(EVENT_STG01_01_WAS_FINISHED);
     }
 }
 

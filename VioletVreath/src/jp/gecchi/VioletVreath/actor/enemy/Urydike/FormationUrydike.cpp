@@ -67,12 +67,12 @@ void FormationUrydike::processBehavior() {
         case PROG_READY_MEMBER: {
             if (pProg->hasJustChanged()) {
                 for (int i = 0; i < num_Urydike_; i++) {
-                    wantActor(i, EnemyUrydike, "EnemyUrydike");
+                    requestActor(i, EnemyUrydike, "EnemyUrydike");
                 }
             }
             if (pProg->hasArrivedAt(120)) {
                 for (int i = 0; i < num_Urydike_; i++) {
-                    addFormationMember(grantActor(i));
+                    addFormationMember(receiveActor(i));
                 }
                 pProg->changeNext();
             }

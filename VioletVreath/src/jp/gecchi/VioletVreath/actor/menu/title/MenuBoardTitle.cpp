@@ -62,9 +62,9 @@ MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
     FontSpriteActor*  pLabelSelectedChar = NEW SpriteLabelGecchi32Font("SelectedChar");
     MenuBoardNameEntry* pNameEntryBoard = NEW MenuBoardNameEntry("pNameEntryBoard_");
     pNameEntryBoard->setNameFontBoard(pLabelInputedName, pLabelSelectedChar);
-    pNameEntryBoard->addLabel(pLabelInputedName, PX_C(100), PX_C(0), -PX_C(10));
-    pLabelSelectedChar->getAlphaFader()->beat(60, 10, 0, 50, -1); //チカチカ点滅
-    pNameEntryBoard->addLabel(pLabelSelectedChar, PX_C(100), PX_C(0), -PX_C(10));
+    pNameEntryBoard->addLabel(pLabelInputedName, PX_C(100), PX_C(-200), 0);
+    pLabelSelectedChar->setMaterialColor(1.0, 1.0, 0);
+    pNameEntryBoard->addLabel(pLabelSelectedChar, PX_C(100), PX_C(-200), 0);
     addSubMenu(pNameEntryBoard);       //MENU_NAME_ENTRY,
 }
 bool MenuBoardTitle::condSelectNext() {

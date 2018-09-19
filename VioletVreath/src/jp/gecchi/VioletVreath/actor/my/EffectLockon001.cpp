@@ -13,7 +13,7 @@ EffectLockon001::EffectLockon001(const char* prm_name, const char* prm_model_id)
     _class_name = "EffectLockon001";
     pTarget_ = nullptr;
     inactivate();
-    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //ワールド変換はビルボードでRz回転に強制
+    defineRotMvWorldMatrix_Billboard(); //ワールド変換はビルボードでRz回転に強制
     effectBlendOne(); //エフェクトテクニックは加算合成に強制
     setZEnableDraw(false);      //Zバッファは考慮無しに強制
     setZWriteEnable(false); //自身のZバッファを書き込みしないに強制

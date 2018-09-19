@@ -67,7 +67,7 @@ void GameOverScene::processBehavior() {
                 if (G_RANKING_TABLE.isRankIn(G_SCORE)) {
                     _TRACE_("ランクイン!!!!");
                     //ランクインのため、ネームエントリーシーン準備
-                    wantScene(ORDER_ID_NAMEENTRYSCENE, NameEntryScene);
+                    requestScene(ORDER_ID_NAMEENTRYSCENE, NameEntryScene);
                     need_name_entry_ = true;
                 } else {
                     _TRACE_("ランクインではない!!!!");
@@ -88,7 +88,7 @@ void GameOverScene::processBehavior() {
 
         case PROG_NAMEENTRY: {
              if (pProg->hasJustChanged()) {
-                 pNameEntryScene_ = (NameEntryScene*)grantScene(ORDER_ID_NAMEENTRYSCENE);
+                 pNameEntryScene_ = (NameEntryScene*)receiveScene(ORDER_ID_NAMEENTRYSCENE);
                  addSubLast(pNameEntryScene_);
              }
              //EVENT_NAMEENTRYSCENE_FINISH イベント待ち

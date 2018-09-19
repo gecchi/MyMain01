@@ -62,6 +62,7 @@ MenuBoardNameEntry::MenuBoardNameEntry(const char* prm_name) :
     setTransition(30, PX_C(0), -PX_C(100)); //トランジションを上から下へ少しスライド
     relateAllItemToCancel(ITEM_INDEX_BS_);       //キャンセル押下時は、[BS]へ移動
     addSubMenu(NEW MenuBoardConfirm("confirm")); //Yes No 問い合わせメニューを生成
+    _is_input_keyboard = false;
 }
 
 void MenuBoardNameEntry::setNameFontBoard(FontSpriteActor* prm_pInputedName,
@@ -175,9 +176,14 @@ void MenuBoardNameEntry::selectExPrev() { //上の時
     } else {
     }
 }
+void MenuBoardNameEntry::moveCursor(bool prm_smooth) {
+    MenuBoard::moveCursor(prm_smooth);
+    _is_input_keyboard = false;
+}
 
-#define KB(X)  { if (GgafDxInput::isPushedDownKey(DIK_##X)) { inputChar(#X); } }
-#define KB2(X,Y)  { if (GgafDxInput::isPushedDownKey(X)) { inputChar(Y); } }
+
+#define KB(X)  { if (GgafDxInput::isPushedDownKey(DIK_##X)) { _is_input_keyboard=true; inputChar(#X); } }
+#define KB2(X,Y)  { if (GgafDxInput::isPushedDownKey(X)) { _is_input_keyboard=true; inputChar(Y); } }
 
 void MenuBoardNameEntry::processBehavior() {
 #ifdef MY_DEBUG
@@ -185,33 +191,23 @@ void MenuBoardNameEntry::processBehavior() {
         throwGgafCriticalException("事前に setNameFontBoard() してください。");
     }
 #endif
+    MenuBoard::processBehavior();
 
-//    KB2(DIK_MINUS, "-");
-//    KB2(DIK_COMMA , ",");
-//    KB2(DIK_PERIOD , ".");
-//    KB2(DIK_SLASH , "/");
-//    KB2(DIK_BACKSLASH , "\\");
-//    KB2(DIK_SEMICOLON , ";");
     KB(0);  KB(1);  KB(2);  KB(3);  KB(4);  KB(5);  KB(6);  KB(7);  KB(8);  KB(9);
-    KB(A);  KB(B);
-//    KB(C);  KB(D);  KB(E);  KB(F);  KB(G);  KB(H);  KB(I);  KB(J);  KB(K);  KB(L);  KB(M);  KB(N);
-//    KB(O);  KB(P);  KB(Q);  KB(R);  KB(S);  KB(T);  KB(U);  KB(V);  KB(W);  KB(X);  KB(Y);  KB(Z);
-
+    KB(A);  KB(B);  KB(C);  KB(D);  KB(E);  KB(F);  KB(G);  KB(H);  KB(I);  KB(J);  KB(K);  KB(L);  KB(M);  KB(N);
+    KB(O);  KB(P);  KB(Q);  KB(R);  KB(S);  KB(T);  KB(U);  KB(V);  KB(W);  KB(X);  KB(Y);  KB(Z);
+    KB2(DIK_SPACE," ");
     if (GgafDxInput::isPushedDownKey(DIK_BACKSPACE)) {
         //[BS]で決定（振る舞い）の処理
         int len = pLabelInputedName_->_len;
         if (len > 0) {
             //１文字除去する。
-            pLabelInputedName_->deleteString(1);
+            pLabelInputedName_->deleteUpdate(1);
         } else {
             //除去する文字はもう無い
         }
     }
-//    if (GgafDxInput::isPushedDownKey(DIK_RETURN)) {
-//        //確認サブメニュー起動
-//        riseSubMenu(getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y);
-//    }
-    MenuBoard::processBehavior();
+
     if (getSelectedIndex() == ITEM_INDEX_OK_) {
         DefaultFramedBoardMenu* pMenuConfirm = getSubMenu();
         if (pMenuConfirm->hasJustDecided()) { //サブメニューで「決定（振る舞い）」の時
@@ -229,59 +225,72 @@ void MenuBoardNameEntry::processBehavior() {
     }
 
     //カーソル文字表示
-    int item_index = getSelectedIndex();
+    pixcoord name_width = pLabelInputedName_->_px_row_width[0];
     int len = pLabelInputedName_->_len;
-    if (0 <= item_index && item_index <= (input_item_num_-1)) {
+    pLabelSelectedChar_->_x = pLabelInputedName_->_x + PX_C(name_width);
+    if (_is_input_keyboard) {
         if (len >= RANKINGTABLE_NAME_LEN) {
             //10文字以上の場合カーソル文字表示無し
             pLabelSelectedChar_->update("");
         } else {
-            //10文字未満の場合カーソル文字表示として、選択文字を表示
-            std::string s = " " + std::string(len, ' ') + std::string(apInputItemStr_[item_index]);
-            pLabelSelectedChar_->update(s.c_str());
+            pLabelSelectedChar_->update("_");
         }
-    } else if (item_index == ITEM_INDEX_BS_) {
-        //[BS]時の表示
-        std::string s = "      " + std::string(len, ' ') + "<<[BS]";
-        pLabelSelectedChar_->update(s.c_str());
-    } else if (item_index == ITEM_INDEX_OK_) {
-        //[OK]時の表示
-        std::string s = "      " + std::string(len, ' ') + " [OK]?";
-        pLabelSelectedChar_->update(s.c_str());
+    } else {
+        int item_index = getSelectedIndex();
+
+        if (0 <= item_index && item_index <= (input_item_num_-1)) {
+            if (len >= RANKINGTABLE_NAME_LEN) {
+                //10文字以上の場合カーソル文字表示無し
+                pLabelSelectedChar_->update("");
+            } else {
+                //10文字未満の場合カーソル文字表示として、選択文字を表示
+                pLabelSelectedChar_->update(apInputItemStr_[item_index]);
+            }
+        } else if (item_index == ITEM_INDEX_BS_) {
+            //[BS]時の表示
+            pLabelSelectedChar_->update("<<[BS]");
+        } else if (item_index == ITEM_INDEX_OK_) {
+            //[OK]時の表示
+            pLabelSelectedChar_->update(" [OK]?");
+        }
     }
-    //pLabelSelectedChar_->_x = pLabelInputedName_->_x + PX_C(pLabelInputedName_->_chr_base_width_px * len);
 }
 
 void MenuBoardNameEntry::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
-    //決定（振る舞い）の処理
-    int item_index = getSelectedIndex();
-    int len = pLabelInputedName_->_len;
-    if (prm_item_index == ITEM_INDEX_BS_) {
-        //[BS]で決定（振る舞い）の処理
-        if (len > 0) {
-            //１文字除去する。
-            char cstr[RANKINGTABLE_NAME_LEN+1];
-            pLabelInputedName_->getDrawString(cstr);
-            cstr[len-1] = '\0';
-            pLabelInputedName_->update(cstr);
-        } else {
-            //除去する文字はもう無い
-        }
-    } else if (prm_item_index == ITEM_INDEX_OK_) {
-        //[OK]で決定（振る舞い）の処理終了
-        //確認サブメニュー起動
+    if (_is_input_keyboard) {
+        //キー入力中ならば確認サブメニュー起動
         riseSubMenu(getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y);
     } else {
-        //その他アイテム（入力文字）で決定（振る舞い）の処理
-        if (len >= RANKINGTABLE_NAME_LEN) {
-            //10文字以上の場合
-            //何もしない
+        //決定（振る舞い）の処理
+        int item_index = getSelectedIndex();
+        int len = pLabelInputedName_->_len;
+        if (prm_item_index == ITEM_INDEX_BS_) {
+            //[BS]で決定（振る舞い）の処理
+            if (len > 0) {
+                //１文字除去する。
+                char cstr[RANKINGTABLE_NAME_LEN+1];
+                pLabelInputedName_->getDrawString(cstr);
+                cstr[len-1] = '\0';
+                pLabelInputedName_->update(cstr);
+            } else {
+                //除去する文字はもう無い
+            }
+        } else if (prm_item_index == ITEM_INDEX_OK_) {
+            //[OK]で決定（振る舞い）の処理終了
+            //確認サブメニュー起動
+            riseSubMenu(getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y);
         } else {
-            //文字入力する
-            char cstr[RANKINGTABLE_NAME_LEN+1];
-            pLabelInputedName_->getDrawString(cstr);
-            std::string s = std::string(cstr) + std::string(apInputItemStr_[item_index]);
-            pLabelInputedName_->update(s.c_str());
+            //その他アイテム（入力文字）で決定（振る舞い）の処理
+            if (len >= RANKINGTABLE_NAME_LEN) {
+                //10文字以上の場合
+                //何もしない
+            } else {
+                //文字入力する
+                char cstr[RANKINGTABLE_NAME_LEN+1];
+                pLabelInputedName_->getDrawString(cstr);
+                std::string s = std::string(cstr) + std::string(apInputItemStr_[item_index]);
+                pLabelInputedName_->update(s.c_str());
+            }
         }
     }
 }
@@ -291,7 +300,7 @@ void MenuBoardNameEntry::inputChar(const char* prm_c) {
         //10文字以上の場合
         //何もしない
     } else {
-        pLabelInputedName_->appendString(prm_c);
+        pLabelInputedName_->appendUpdate(prm_c);
     }
 }
 void MenuBoardNameEntry::onCancel(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {

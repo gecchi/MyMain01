@@ -227,7 +227,6 @@ void GgafDxPointSpriteModel::release() {
         }
     }
     GGAF_DELETEARR(_papTextureConnection);
-    //TODO:親クラスメンバをDELETEするのはややきたないか
     GGAF_DELETEARR(_paMaterial_default);
     GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);
     _TRACE3_("_model_name=" << _model_name << " end");

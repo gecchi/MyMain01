@@ -18,7 +18,7 @@ TestEnemy::TestEnemy(const char* prm_name,
                      GgafStatus* prm_pStat) : DefaultMeshActor(prm_name, prm_model, prm_pStat) {
 
     pMoji_ = NEW SpriteLabelTest("stamina");
-    pMoji_->defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //XYZ軸ビルボード
+    pMoji_->defineRotMvWorldMatrix_Billboard(); //XYZ軸ビルボード
     addSubGroup(pMoji_);
 }
 

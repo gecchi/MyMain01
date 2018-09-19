@@ -527,15 +527,12 @@ void GgafDxMorphMeshModel::restore() {
         _pIndexBuffer->Unlock();
     }
 
-
-
     //マテリアル設定
     //マテリアルはプライマリメッシュのマテリアル情報を、
     //プライマリ及び全モーフターゲットのマテリアルとする。
     //よってpapMeshesFront[0]だけ使う、残りは使わない。
     //TODO:将来的にはモーフターゲット別にマテリアル設定できれば表現が増す。いつかしようか、多分だいぶ先。
     setMaterial(papMeshesFront[0]);
-
 
     if (!_papTextureConnection) {
         _papTextureConnection = NEW GgafDxTextureConnection*[_num_materials];
@@ -603,8 +600,6 @@ void GgafDxMorphMeshModel::release() {
     _papMeshesFront = nullptr;
     GGAF_DELETEARR(_paIndexBuffer_data);
     GGAF_DELETEARR(_paIndexParam);
-
-    //TODO:親クラスメンバをDELETEするのはややきたないか
     GGAF_DELETEARR(_paMaterial_default);
     GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);
     _TRACE3_("_model_name=" << _model_name << " end");

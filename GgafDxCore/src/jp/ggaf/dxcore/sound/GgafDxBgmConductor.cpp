@@ -49,6 +49,19 @@ void GgafDxBgmConductor::ready(int prm_bgm_no, const char* prm_bgm_name) {
     pBgm->setPan(_vec_pan[prm_bgm_no]);
 }
 
+bool GgafDxBgmConductor::isReady(int prm_bgm_no) {
+    int bgm_num = _vecBgmConnection.size();
+    if (prm_bgm_no < 0 || prm_bgm_no >= bgm_num) {
+        return false; //�͈͊O
+    } else {
+        if (_vecBgmConnection[prm_bgm_no]) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
 void GgafDxBgmConductor::performFromTheBegining(int prm_bgm_no, bool prm_is_loop) {
 #ifdef MY_DEBUG
     if (prm_bgm_no < 0 || prm_bgm_no >= _bgm_num) {

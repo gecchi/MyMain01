@@ -16,7 +16,7 @@ EffectSpeedMagic::EffectSpeedMagic(const char* prm_name) :
     effectBlendOne(); //加算合成Technique
     setZEnableDraw(true);       //描画時、Zバッファ値は考慮される
     setZWriteEnable(false); //自身のZバッファを書き込みしない
-    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //変換行列をビルボードに
+    defineRotMvWorldMatrix_Billboard(); //変換行列をビルボードに
     setHitAble(false);
 }
 

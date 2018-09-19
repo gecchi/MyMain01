@@ -3,7 +3,7 @@
 #include "VioletVreath.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene.h"
+#include "../GameScene.h"
 
 #ifdef pGAME_SCENE
     #define pCOMMON_SCENE (pGAME_SCENE->pCommonScene_)

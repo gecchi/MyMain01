@@ -21,33 +21,33 @@ RankUp002::RankUp002(const char* prm_name) : RankUpStage(prm_name) {
     _paFrame_NextEvent = new frame[35];
     memcpy(_paFrame_NextEvent, f, sizeof(f));
     _event_num = 35;
-    wantActor(100000000, EnemyTamago01, "EnemyTamago01-100000000");
-    wantActor(100000001, EnemyTamago01, "EnemyTamago01-100000001");
-    wantActor(100000002, EnemyTamago01, "EnemyTamago01-100000002");
-    wantActor(100000003, EnemyTamago01, "EnemyTamago01-100000003");
-    wantActor(100000004, EnemyTamago01, "EnemyTamago01-100000004");
-    wantActor(100000005, EnemyTamago01, "EnemyTamago01-100000005");
-    wantActor(100000006, EnemyTamago01, "EnemyTamago01-100000006");
-    wantActor(100000007, EnemyTamago01, "EnemyTamago01-100000007");
-    wantActor(100000008, EnemyTamago01, "EnemyTamago01-100000008");
-    wantActor(100000009, EnemyTamago01, "EnemyTamago01-100000009");
-    wantActor(100000010, EnemyTamago01, "EnemyTamago01-100000010");
-    wantActor(100000011, EnemyTamago01, "EnemyTamago01-100000011");
-    wantActor(100000012, EnemyTamago01, "EnemyTamago01-100000012");
-    wantActor(100000013, EnemyTamago01, "EnemyTamago01-100000013");
-    wantActor(100000014, EnemyTamago01, "EnemyTamago01-100000014");
-    wantActor(100000015, EnemyTamago01, "EnemyTamago01-100000015");
-    wantActor(100000016, EnemyTamago01, "EnemyTamago01-100000016");
-    wantActor(100000017, EnemyTamago01, "EnemyTamago01-100000017");
-    wantActor(100000018, EnemyTamago01, "EnemyTamago01-100000018");
-    wantActor(100000019, EnemyTamago01, "EnemyTamago01-100000019");
-    wantActor(100000020, EnemyTamago01, "EnemyTamago01-100000020");
-    wantActor(100000021, EnemyTamago01, "EnemyTamago01-100000021");
-    wantActor(100000022, EnemyTamago01, "EnemyTamago01-100000022");
-    wantActor(100000023, EnemyTamago01, "EnemyTamago01-100000023");
-    wantActor(100000024, EnemyTamago01, "EnemyTamago01-100000024");
-    wantActor(100000025, EnemyTamago01, "EnemyTamago01-100000025");
-    wantActor(100000026, EnemyTamago01, "EnemyTamago01-100000026");
+    requestActor(100000000, EnemyTamago01, "EnemyTamago01-100000000");
+    requestActor(100000001, EnemyTamago01, "EnemyTamago01-100000001");
+    requestActor(100000002, EnemyTamago01, "EnemyTamago01-100000002");
+    requestActor(100000003, EnemyTamago01, "EnemyTamago01-100000003");
+    requestActor(100000004, EnemyTamago01, "EnemyTamago01-100000004");
+    requestActor(100000005, EnemyTamago01, "EnemyTamago01-100000005");
+    requestActor(100000006, EnemyTamago01, "EnemyTamago01-100000006");
+    requestActor(100000007, EnemyTamago01, "EnemyTamago01-100000007");
+    requestActor(100000008, EnemyTamago01, "EnemyTamago01-100000008");
+    requestActor(100000009, EnemyTamago01, "EnemyTamago01-100000009");
+    requestActor(100000010, EnemyTamago01, "EnemyTamago01-100000010");
+    requestActor(100000011, EnemyTamago01, "EnemyTamago01-100000011");
+    requestActor(100000012, EnemyTamago01, "EnemyTamago01-100000012");
+    requestActor(100000013, EnemyTamago01, "EnemyTamago01-100000013");
+    requestActor(100000014, EnemyTamago01, "EnemyTamago01-100000014");
+    requestActor(100000015, EnemyTamago01, "EnemyTamago01-100000015");
+    requestActor(100000016, EnemyTamago01, "EnemyTamago01-100000016");
+    requestActor(100000017, EnemyTamago01, "EnemyTamago01-100000017");
+    requestActor(100000018, EnemyTamago01, "EnemyTamago01-100000018");
+    requestActor(100000019, EnemyTamago01, "EnemyTamago01-100000019");
+    requestActor(100000020, EnemyTamago01, "EnemyTamago01-100000020");
+    requestActor(100000021, EnemyTamago01, "EnemyTamago01-100000021");
+    requestActor(100000022, EnemyTamago01, "EnemyTamago01-100000022");
+    requestActor(100000023, EnemyTamago01, "EnemyTamago01-100000023");
+    requestActor(100000024, EnemyTamago01, "EnemyTamago01-100000024");
+    requestActor(100000025, EnemyTamago01, "EnemyTamago01-100000025");
+    requestActor(100000026, EnemyTamago01, "EnemyTamago01-100000026");
     // gen01 end
 
     getBgmConductor()->ready(0, "OGG_RANKUP002_THEMA");
@@ -69,170 +69,170 @@ void RankUp002::processBehavior() {
                 break;
             }
             case 20: {
-                wantActor(100000027, EnemyTamago01, "EnemyTamago01-100000027");
+                requestActor(100000027, EnemyTamago01, "EnemyTamago01-100000027");
                 break;
             }
             case 80: {
-                wantActor(100000028, EnemyTamago01, "EnemyTamago01-100000028");
+                requestActor(100000028, EnemyTamago01, "EnemyTamago01-100000028");
                 break;
             }
             case 140: {
-                wantActor(100000029, EnemyTamago01, "EnemyTamago01-100000029");
+                requestActor(100000029, EnemyTamago01, "EnemyTamago01-100000029");
                 break;
             }
             case 200: {
-                EnemyTamago01* pActor = (EnemyTamago01*)grantActor(100000000);
+                EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000000);
                 bringSceneMediator()->addSubGroup(pActor);
-                wantActor(100000030, EnemyTamago01, "EnemyTamago01-100000030");
+                requestActor(100000030, EnemyTamago01, "EnemyTamago01-100000030");
                 break;
             }
             case 260: {
-                EnemyTamago01* pActor = (EnemyTamago01*)grantActor(100000001);
+                EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000001);
                 bringSceneMediator()->addSubGroup(pActor);
                 break;
             }
             case 320: {
-                EnemyTamago01* pActor = (EnemyTamago01*)grantActor(100000002);
+                EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000002);
                 bringSceneMediator()->addSubGroup(pActor);
                 break;
             }
             case 380: {
-                EnemyTamago01* pActor = (EnemyTamago01*)grantActor(100000003);
+                EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000003);
                 bringSceneMediator()->addSubGroup(pActor);
                 break;
             }
             case 440: {
-                EnemyTamago01* pActor = (EnemyTamago01*)grantActor(100000004);
+                EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000004);
                 bringSceneMediator()->addSubGroup(pActor);
                 break;
             }
             case 500: {
-                EnemyTamago01* pActor = (EnemyTamago01*)grantActor(100000005);
+                EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000005);
                 bringSceneMediator()->addSubGroup(pActor);
                 break;
             }
             case 560: {
-                EnemyTamago01* pActor = (EnemyTamago01*)grantActor(100000006);
+                EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000006);
                 bringSceneMediator()->addSubGroup(pActor);
                 break;
             }
             case 620: {
-                EnemyTamago01* pActor = (EnemyTamago01*)grantActor(100000007);
+                EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000007);
                 bringSceneMediator()->addSubGroup(pActor);
                 break;
             }
             case 680: {
-                EnemyTamago01* pActor = (EnemyTamago01*)grantActor(100000008);
+                EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000008);
                 bringSceneMediator()->addSubGroup(pActor);
                 break;
             }
             case 740: {
-                EnemyTamago01* pActor = (EnemyTamago01*)grantActor(100000009);
+                EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000009);
                 bringSceneMediator()->addSubGroup(pActor);
                 break;
             }
             case 800: {
-                EnemyTamago01* pActor = (EnemyTamago01*)grantActor(100000010);
+                EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000010);
                 bringSceneMediator()->addSubGroup(pActor);
                 break;
             }
             case 860: {
-                EnemyTamago01* pActor = (EnemyTamago01*)grantActor(100000011);
+                EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000011);
                 bringSceneMediator()->addSubGroup(pActor);
                 break;
             }
             case 920: {
-                EnemyTamago01* pActor = (EnemyTamago01*)grantActor(100000012);
+                EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000012);
                 bringSceneMediator()->addSubGroup(pActor);
                 break;
             }
             case 980: {
-                EnemyTamago01* pActor = (EnemyTamago01*)grantActor(100000013);
+                EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000013);
                 bringSceneMediator()->addSubGroup(pActor);
                 break;
             }
             case 1040: {
-                EnemyTamago01* pActor = (EnemyTamago01*)grantActor(100000014);
+                EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000014);
                 bringSceneMediator()->addSubGroup(pActor);
                 break;
             }
             case 1100: {
-                EnemyTamago01* pActor = (EnemyTamago01*)grantActor(100000015);
+                EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000015);
                 bringSceneMediator()->addSubGroup(pActor);
                 break;
             }
             case 1160: {
-                EnemyTamago01* pActor = (EnemyTamago01*)grantActor(100000016);
+                EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000016);
                 bringSceneMediator()->addSubGroup(pActor);
                 break;
             }
             case 1220: {
-                EnemyTamago01* pActor = (EnemyTamago01*)grantActor(100000017);
+                EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000017);
                 bringSceneMediator()->addSubGroup(pActor);
                 break;
             }
             case 1280: {
-                EnemyTamago01* pActor = (EnemyTamago01*)grantActor(100000018);
+                EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000018);
                 bringSceneMediator()->addSubGroup(pActor);
                 break;
             }
             case 1340: {
-                EnemyTamago01* pActor = (EnemyTamago01*)grantActor(100000019);
+                EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000019);
                 bringSceneMediator()->addSubGroup(pActor);
                 break;
             }
             case 1400: {
-                EnemyTamago01* pActor = (EnemyTamago01*)grantActor(100000020);
+                EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000020);
                 bringSceneMediator()->addSubGroup(pActor);
                 break;
             }
             case 1460: {
-                EnemyTamago01* pActor = (EnemyTamago01*)grantActor(100000021);
+                EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000021);
                 bringSceneMediator()->addSubGroup(pActor);
                 break;
             }
             case 1520: {
-                EnemyTamago01* pActor = (EnemyTamago01*)grantActor(100000022);
+                EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000022);
                 bringSceneMediator()->addSubGroup(pActor);
                 break;
             }
             case 1580: {
-                EnemyTamago01* pActor = (EnemyTamago01*)grantActor(100000023);
+                EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000023);
                 bringSceneMediator()->addSubGroup(pActor);
                 break;
             }
             case 1640: {
-                EnemyTamago01* pActor = (EnemyTamago01*)grantActor(100000024);
+                EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000024);
                 bringSceneMediator()->addSubGroup(pActor);
                 break;
             }
             case 1700: {
-                EnemyTamago01* pActor = (EnemyTamago01*)grantActor(100000025);
+                EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000025);
                 bringSceneMediator()->addSubGroup(pActor);
                 break;
             }
             case 1760: {
-                EnemyTamago01* pActor = (EnemyTamago01*)grantActor(100000026);
+                EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000026);
                 bringSceneMediator()->addSubGroup(pActor);
                 break;
             }
             case 1820: {
-                EnemyTamago01* pActor = (EnemyTamago01*)grantActor(100000027);
+                EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000027);
                 bringSceneMediator()->addSubGroup(pActor);
                 break;
             }
             case 1880: {
-                EnemyTamago01* pActor = (EnemyTamago01*)grantActor(100000028);
+                EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000028);
                 bringSceneMediator()->addSubGroup(pActor);
                 break;
             }
             case 1940: {
-                EnemyTamago01* pActor = (EnemyTamago01*)grantActor(100000029);
+                EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000029);
                 bringSceneMediator()->addSubGroup(pActor);
                 break;
             }
             case 2000: {
-                EnemyTamago01* pActor = (EnemyTamago01*)grantActor(100000030);
+                EnemyTamago01* pActor = (EnemyTamago01*)receiveActor(100000030);
                 bringSceneMediator()->addSubGroup(pActor);
                 break;
             }
