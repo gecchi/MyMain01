@@ -1,16 +1,16 @@
 #include "Stage01.h"
 
+#include "jp/ggaf/core/actor/GgafSceneMediator.h"
+#include "jp/ggaf/core/util/CmRandomNumberGenerator.h"
 #include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshi001.h"
 #include "jp/gecchi/VioletVreath/actor/background/WorldBound/WorldBound001.h"
 #include "jp/gecchi/VioletVreath/actor/chikei/Planet/Planet001.h"
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld/StageController.h"
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld/StageController/Stage01/Stage01PartController.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/core/actor/GgafSceneMediator.h"
-#include "jp/ggaf/core/util/CmRandomNumberGenerator.h"
-#include "jp/gecchi/VioletVreath/actor/chikei/Horizon/Horizon001.h"
+#include "../StageController.h"
+#include "Stage01/Stage01PartController.h"
+
 
 #include "jp/ggaf/core/util/GgafUtil.h"
 
@@ -81,10 +81,10 @@ void Stage01::processBehavior() {
         }
         case Stage::PROG_PLAYING: {
             if (pProg->hasArrivedAt(60)) { //ステージ１開始！
-                pMessage_->update(PX_C(300), PX_C(300), "SCENE 01 START!");
+                pMessage_->update(PX_C(300), PX_C(300), "SCENE DEBUG START!");
                 pMessage_->inactivateDelay(240);
             }
-            //EVENT_STG01_CTRLER_WAS_ENDイベント待ち
+            //EVENT_STAGE01_PART_CTRLER_WAS_ENDイベント待ち
             break;
         }
         case Stage::PROG_END: {
@@ -95,12 +95,12 @@ void Stage01::processBehavior() {
 
             if (pProg->hasArrivedAt(60)) {
                 pMessage_->activateImmed();
-                pMessage_->update(PX_C(300), PX_C(300), "SCENE 01 CLEAR!!");
+                pMessage_->update(PX_C(300), PX_C(300), "SCENE DEBUG CLEAR!!");
                 pMessage_->inactivateDelay(120);
                 fadeoutSceneWithBgm(300);
             }
             if (pProg->hasArrivedAt(300)) {
-                throwEventUpperTree(EVENT_STG01_WAS_END);
+                throwEventUpperTree(EVENT_STAGE01_WAS_FINISHED);
             }
             break;
         }
@@ -116,8 +116,8 @@ void Stage01::processJudgement() {
 
 void Stage01::onCatchEvent(hashval prm_no, void* prm_pSource) {
     SceneProgress* pProg = getProgress();
-    if (prm_no == EVENT_STG01_CTRLER_WAS_END ) {
-        _TRACE_(FUNC_NAME<<" EVENT_STG01_CTRLER_WAS_END をキャッチ。ステータスをStage::PROG_ENDへ");
+    if (prm_no == EVENT_STAGE01_PART_CTRLER_WAS_END ) {
+        _TRACE_(FUNC_NAME<<" EVENT_STAGE01_PART_CTRLER_WAS_END をキャッチ。ステータスをStage::PROG_ENDへ");
         pScene_StagePartCtrler_->sayonara(60*60);
         pProg->change(Stage::PROG_END);
     } else {

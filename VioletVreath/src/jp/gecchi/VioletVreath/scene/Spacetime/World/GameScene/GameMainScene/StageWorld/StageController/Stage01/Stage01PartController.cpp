@@ -1,18 +1,16 @@
 #include "Stage01PartController.h"
 
-
 #include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/ggaf/dxcore/sound/GgafDxBgmConductor.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "../Stage01.h"
-#include "part/Stage01_01.h"
-#include "part/Stage01_02.h"
-#include "part/Stage01_03.h"
-#include "part/Stage01_Climax.h"
-#include "part/Stage01WallScene.h"
-#include "jp/gecchi/VioletVreath/actor/_predrawer/DefaultMeshTestActor.h"
+#include "part/Stage01Part01.h"
+#include "part/Stage01Part02.h"
+#include "part/Stage01Part03.h"
+#include "part/Stage01PartClimax.h"
+#include "part/Stage01PartWall.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -31,11 +29,20 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-    frame f[] = {1,300};
-    _paFrame_NextEvent = new frame[2];
-    memcpy(_paFrame_NextEvent, f, sizeof(f));
-    _event_num = 2;
-    requestScene(10000000, Stage01WallScene, "Stage01WallScene-10000000");
+	frame f[] = {1,5,100,105,205,300,305,400,405,500,505,605,705,805,905,1005,1105,3200,4100,7200,8100,9000,19700,20300,39700,40300};
+	_paFrame_NextEvent = new frame[26];
+	memcpy(_paFrame_NextEvent, f, sizeof(f));
+	_event_num = 26;
+	requestScene(10000000, Stage01Part01, "Stage01Part01-10000000");
+	requestActor(10000004, EnemyOebiusController001, "EnemyOebiusController001-10000004");
+	requestActor(10000005, EnemyErelmanController003, "EnemyErelmanController003-10000005");
+	requestActor(10000006, EnemyErmione, "EnemyErmione-10000006");
+	requestActor(10000009, EnemyEtis, "EnemyEtis-10000009");
+	requestActor(10000010, EnemyEtis, "EnemyEtis-10000010");
+	requestActor(10000011, EnemyEtis, "EnemyEtis-10000011");
+	requestActor(10000012, EnemyEtis, "EnemyEtis-10000012");
+	requestActor(10000013, EnemyEtis, "EnemyEtis-10000013");
+	requestActor(10000014, EnemyEtis, "EnemyEtis-10000014");
     // gen01 end
     useProgress(PROG_BANPEI);
 }
@@ -48,33 +55,164 @@ void Stage01PartController::processBehavior() {
     // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen02 start
-    if (getBehaveingFrame() == _paFrame_NextEvent[_cnt_event]) {
-        switch (getBehaveingFrame()) {
-            case 1: {
-                break;
-            }
-            case 300: {
-                addSubLast(receiveScene(10000000));
-                break;
-            }
-            default :
-                break;
-        }
-        _cnt_event = (_cnt_event < 2-1 ? _cnt_event+1 : _cnt_event);
-    }
+	if (getBehaveingFrame() == _paFrame_NextEvent[_cnt_event]) {
+		switch (getBehaveingFrame()) {
+			case 1: {
+				break;
+			}
+			case 5: {
+				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000009);
+				bringSceneMediator()->addSubGroup(pEtis);
+				requestActor(10000015, EnemyEtis, "EnemyEtis-10000015");
+				break;
+			}
+			case 100: {
+				addSubLast(receiveScene(10000000));
+				break;
+			}
+			case 105: {
+				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000010);
+				bringSceneMediator()->addSubGroup(pEtis);
+				requestActor(10000016, EnemyEtis, "EnemyEtis-10000016");
+				break;
+			}
+			case 205: {
+				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000011);
+				bringSceneMediator()->addSubGroup(pEtis);
+				requestActor(10000017, EnemyEtis, "EnemyEtis-10000017");
+				break;
+			}
+			case 300: {
+				EnemyErmione* pE = (EnemyErmione*)receiveActor(10000006);
+				bringSceneMediator()->addSubGroup(pE);
+				pE->_x = RND(1000000,4000000);
+				pE->_y = RND(-6000000,6000000);
+				pE->_z = RND(-6000000,6000000);
+				break;
+			}
+			case 305: {
+				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000012);
+				bringSceneMediator()->addSubGroup(pEtis);
+				requestActor(10000018, EnemyEtis, "EnemyEtis-10000018");
+				break;
+			}
+			case 400: {
+				EnemyErelmanController003* p1 = (EnemyErelmanController003*)receiveActor(10000005);
+				bringSceneMediator()->addSubGroup(p1);
+				p1->setPosition(PX_C(2400), PX_C(0), PX_C(0) );
+				break;
+			}
+			case 405: {
+				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000013);
+				bringSceneMediator()->addSubGroup(pEtis);
+				requestActor(10000019, EnemyEtis, "EnemyEtis-10000019");
+				break;
+			}
+			case 500: {
+				EnemyOebiusController001* p1 = (EnemyOebiusController001*)receiveActor(10000004);
+				bringSceneMediator()->addSubGroup(p1);
+				p1->setPosition(PX_C(1400), PX_C(500), PX_C(500) );
+				break;
+			}
+			case 505: {
+				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000014);
+				bringSceneMediator()->addSubGroup(pEtis);
+				requestActor(10000020, EnemyEtis, "EnemyEtis-10000020");
+				break;
+			}
+			case 605: {
+				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000015);
+				bringSceneMediator()->addSubGroup(pEtis);
+				break;
+			}
+			case 705: {
+				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000016);
+				bringSceneMediator()->addSubGroup(pEtis);
+				break;
+			}
+			case 805: {
+				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000017);
+				bringSceneMediator()->addSubGroup(pEtis);
+				break;
+			}
+			case 905: {
+				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000018);
+				bringSceneMediator()->addSubGroup(pEtis);
+				break;
+			}
+			case 1005: {
+				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000019);
+				bringSceneMediator()->addSubGroup(pEtis);
+				break;
+			}
+			case 1105: {
+				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000020);
+				bringSceneMediator()->addSubGroup(pEtis);
+				break;
+			}
+			case 3200: {
+				requestScene(10000001, Stage01Part02, "Stage01Part02-10000001");
+				break;
+			}
+			case 4100: {
+				addSubLast(receiveScene(10000001));
+				break;
+			}
+			case 7200: {
+				requestScene(10000002, Stage01Part03, "Stage01Part03-10000002");
+				break;
+			}
+			case 8100: {
+				addSubLast(receiveScene(10000002));
+				requestScene(10000003, Stage01PartClimax, "Stage01PartClimax-10000003");
+				break;
+			}
+			case 9000: {
+				addSubLast(receiveScene(10000003));
+				break;
+			}
+			case 19700: {
+				requestActor(10000007, EnemyErmione, "EnemyErmione-10000007");
+				break;
+			}
+			case 20300: {
+				EnemyErmione* pE = (EnemyErmione*)receiveActor(10000007);
+				bringSceneMediator()->addSubGroup(pE);
+				pE->_x = RND(1000000,4000000);
+				pE->_y = RND(-6000000,6000000);
+				pE->_z = RND(-6000000,6000000);
+				break;
+			}
+			case 39700: {
+				requestActor(10000008, EnemyErmione, "EnemyErmione-10000008");
+				break;
+			}
+			case 40300: {
+				EnemyErmione* pE = (EnemyErmione*)receiveActor(10000008);
+				bringSceneMediator()->addSubGroup(pE);
+				pE->_x = RND(1000000,4000000);
+				pE->_y = RND(-6000000,6000000);
+				pE->_z = RND(-6000000,6000000);
+				break;
+			}
+			default :
+				break;
+		}
+		_cnt_event = (_cnt_event < 26-1 ? _cnt_event+1 : _cnt_event);
+	}
     // gen02 end
 
     SceneProgress* pProg = getProgress();
     switch (pProg->get()) {
         case PROG_FAINAL: {
             if (pProg->hasJustChanged()) {
-                //STG01Climax_終焉の処理
-                _TRACE_("STG01Climax_終焉のStage01PartController::PROG_FAINALきた");
+                //STGDBGClimax_終焉の処理
+                _TRACE_("STGDBGClimax_終焉のStage01PartController::PROG_FAINALきた");
             }
 
             if (pProg->hasArrivedAt(60)) {
                 fadeoutSceneWithBgm(300);
-                throwEventUpperTree(EVENT_STG01_CTRLER_WAS_END); //ステージエンドを上位に伝える
+                throwEventUpperTree(EVENT_STAGE01_PART_CTRLER_WAS_END); //ステージエンドを上位に伝える
             }
             //イベント発生待ち
             break;
@@ -86,20 +224,20 @@ void Stage01PartController::processBehavior() {
 
 void Stage01PartController::onCatchEvent(hashval prm_no, void* prm_pSource) {
     SceneProgress* pProg = getProgress();
-    if (prm_no == EVENT_STG01_01_WAS_FINISHED) {
-        _TRACE_(FUNC_NAME<<" EVENT_STG01_01_WAS_FINISHED");
+    if (prm_no == EVENT_STAGE01_PART_01_WAS_FINISHED) {
+        _TRACE_(FUNC_NAME<<" EVENT_STAGE01_PART_01_WAS_FINISHED");
         ((DefaultScene*)prm_pSource)->sayonara(60*60);
-    } else if (prm_no == EVENT_STG01_02_WAS_FINISHED) {
-        _TRACE_(FUNC_NAME<<" EVENT_STG01_02_WAS_FINISHED");
+    } else if (prm_no == EVENT_STAGE01_PART_02_WAS_FINISHED) {
+        _TRACE_(FUNC_NAME<<" EVENT_STAGE01_PART_02_WAS_FINISHED");
         ((DefaultScene*)prm_pSource)->sayonara(60*60);
-    } else if (prm_no == EVENT_STG01_03_WAS_FINISHED) {
-        _TRACE_(FUNC_NAME<<" EVENT_STG01_03_WAS_FINISHED");
+    } else if (prm_no == EVENT_STAGE01_PART_03_WAS_FINISHED) {
+        _TRACE_(FUNC_NAME<<" EVENT_STAGE01_PART_03_WAS_FINISHED");
         ((DefaultScene*)prm_pSource)->sayonara(60*60);
-    } else if (prm_no == EVENT_STG01_WALL_WAS_FINISHED) {
-        _TRACE_(FUNC_NAME<<" EVENT_STG01_WALL_WAS_FINISHED");
+    } else if (prm_no == EVENT_STAGE01_PART_WALL_WAS_FINISHED) {
+        _TRACE_(FUNC_NAME<<" EVENT_STAGE01_PART_WALL_WAS_FINISHED");
         ((DefaultScene*)prm_pSource)->sayonara(60*60);
-    } else if (prm_no == EVENT_STG01_CLIMAX_WAS_FINISHED) {
-        _TRACE_(FUNC_NAME<<" EVENT_STG01_CLIMAX_WAS_FINISHEDキャッチした");
+    } else if (prm_no == EVENT_STAGE01_PART_CLIMAX_WAS_FINISHED) {
+        _TRACE_(FUNC_NAME<<" EVENT_STAGE01_PART_CLIMAX_WAS_FINISHED");
         ((DefaultScene*)prm_pSource)->sayonara(60*60);
         pProg->change(PROG_FAINAL); //進捗をStage01PartController::PROG_FAINALに切り替える
     } else {

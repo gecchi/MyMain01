@@ -1,23 +1,18 @@
-#include "Stage01_01.h"
+#include "Stage01Part01.h"
 
 #include "jp/ggaf/core/actor/GgafSceneMediator.h"
-#include "jp/ggaf/dxcore/sound/GgafDxBgmConductor.h"
+#include "jp/ggaf/lib/scene/FormationTableScene.h"
+#include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
-#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "../Stage01PartController.h"
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld/StageController.h"
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld/StageController/Stage/StagePartController.h"
-#include "jp/ggaf/core/util/GgafResourceConnection.hpp"
-#include "jp/ggaf/dxcore/manager/GgafDxBgmConnection.h"
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-Stage01_01::Stage01_01(const char* prm_name) : DefaultScene(prm_name) {
-    _class_name = "Stage01_01";
+Stage01Part01::Stage01Part01(const char* prm_name) :
+        Stage01Part<GgafLib::DefaultScene>(prm_name, EVENT_STAGE01_PART_01_WAS_FINISHED) {
+    _class_name = "Stage01Part01";
 
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
@@ -45,11 +40,11 @@ Stage01_01::Stage01_01(const char* prm_name) : DefaultScene(prm_name) {
 
 }
 
-void Stage01_01::initialize() {
+void Stage01Part01::initialize() {
 
 }
 
-void Stage01_01::processBehavior() {
+void Stage01Part01::processBehavior() {
     // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen02 start
@@ -290,20 +285,8 @@ void Stage01_01::processBehavior() {
 	}
     // gen02 end
 
-
-    if (getBehaveingFrame() == 1 && pGAME_SCENE->getProgress()->get() == GameScene::PROG_MAIN) {
-        //兄弟シーンのBGMを全てフェードアウトし、自分のシーンBGMをフェードイン
-        StagePartController* pStagePartController = (StagePartController*)(getParent());
-        pStagePartController->fadeoutBgmTree(300);
-        getBgmConductor()->performFromTheBegining(0);
-    }
-    if (getBehaveingFrame() == _paFrame_NextEvent[_event_num-1] + 60*60) {
-        getBgmConductor()->fadeoutStop(0, 120);
-        //シーン終了のイベントを通知
-        throwEventUpperTree(EVENT_STG01_01_WAS_FINISHED);
-    }
 }
 
-Stage01_01::~Stage01_01() {
+Stage01Part01::~Stage01Part01() {
 
 }

@@ -327,11 +327,6 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\RankUpStageController\RankUp100.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\RankUpStageController\RankUpStage.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage\StagePartController.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01_01.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01_02.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01_03.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01_Climax.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01WallScene.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\Stage01PartController.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage02\part\Stage02_01.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage02\part\Stage02_Climax.h" />
@@ -367,7 +362,6 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\GameGlobal.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\God.h" />
     <ClInclude Include="src\VioletVreath.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01Wall\Stage01WallSection001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\part\StageDebugPartWall\StageDebugPartWallSection001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\part\StageDebugPart.hpp" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\part\StageDebugPart01.h" />
@@ -377,6 +371,13 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\part\StageDebugPartWall.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\StageDebugPartController.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01PartWall\Stage01PartWallSection001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\spacetime\world\gamescene\gamemainscene\stageworld\stagecontroller\stage01\part\stage01part.hpp" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\spacetime\world\gamescene\gamemainscene\stageworld\stagecontroller\stage01\part\stage01part01.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\spacetime\world\gamescene\gamemainscene\stageworld\stagecontroller\stage01\part\stage01part02.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\spacetime\world\gamescene\gamemainscene\stageworld\stagecontroller\stage01\part\stage01part03.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\spacetime\world\gamescene\gamemainscene\stageworld\stagecontroller\stage01\part\stage01partclimax.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\scene\spacetime\world\gamescene\gamemainscene\stageworld\stagecontroller\stage01\part\stage01partwall.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="VioletVreath.rc" />
@@ -706,11 +707,6 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\RankUpStageController\RankUp100.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\RankUpStageController\RankUpStage.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage\StagePartController.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01_01.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01_02.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01_03.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01_Climax.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01WallScene.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\Stage01PartController.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage02\part\Stage02_01.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage02\part\Stage02_Climax.cpp" />
@@ -746,7 +742,6 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\GameGlobal.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\God.cpp" />
     <ClCompile Include="src\VioletVreath.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01Wall\Stage01WallSection001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\part\StageDebugPartWall\StageDebugPartWallSection001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\part\StageDebugPart01.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\part\StageDebugPart02.cpp" />
@@ -755,5 +750,11 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\part\StageDebugPartWall.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\StageDebugPartController.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01PartWall\Stage01PartWallSection001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01Part01.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01Part02.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01Part03.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01PartClimax.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01PartWall.cpp" />
   </ItemGroup>
 </Project>

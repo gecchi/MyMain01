@@ -1,10 +1,10 @@
-#ifndef STAGEDEBUGPART_H_
-#define STAGEDEBUGPART_H_
+#ifndef STAGE01PART_H_
+#define STAGE01PART_H_
 #include "VioletVreath.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 #include "jp/ggaf/dxcore/sound/GgafDxBgmConductor.h"
-#include "../StageDebugPartController.h"
+#include "../Stage01PartController.h"
 namespace VioletVreath {
 
 /**
@@ -14,12 +14,22 @@ namespace VioletVreath {
  * @author Masatoshi Tsuge
  */
 template<class T>
-class StageDebugPart :  public T {
+class Stage01Part :  public T {
+
+
 
 public:
+    enum {
+        PROG_INIT    ,
+        PROG_BEGIN   ,
+        PROG_PLAYING ,
+        PROG_END     ,
+        PROG_BANPEI,
+    };
+
     hashval event_part_finish_;
 public:
-    StageDebugPart(const char* prm_name, hashval prm_event_part_finish): T(prm_name) {
+    Stage01Part(const char* prm_name, hashval prm_event_part_finish): T(prm_name) {
         event_part_finish_ = prm_event_part_finish;
     }
 
@@ -31,7 +41,7 @@ public:
         if (frame_of_behaving == 1) {
             if (pBgm->isReady(0)) {
                 //兄弟シーンのBGMを全てフェードアウト
-                StageDebugPartController* pStagePartController = (StageDebugPartController*)(this->getParent());
+                Stage01PartController* pStagePartController = (Stage01PartController*)(this->getParent());
                 pStagePartController->fadeoutBgmTree(300);
                 //自分のシーンBGMを演奏開始！
                 pBgm->performFromTheBegining(0);
@@ -49,7 +59,7 @@ public:
     }
 
 
-    virtual ~StageDebugPart() {
+    virtual ~Stage01Part() {
 
     }
 };

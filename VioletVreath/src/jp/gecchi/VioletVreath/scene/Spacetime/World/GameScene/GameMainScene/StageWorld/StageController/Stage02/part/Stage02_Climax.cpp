@@ -46,8 +46,8 @@ void Stage02_Climax::processBehavior() {
     if (getActiveFrame() > 60) {
         if (pBoss_->isDisappear()) {
             //isDisappear()‚É‚È‚è‚Á•ú‚µ‚ð‚È‚ñ‚Æ‚©‚·‚é
-            _TRACE_(FUNC_NAME<<" EVENT_STG02_CLIMAX_WAS_FINISHED!!!!");
-            throwEventUpperTree(EVENT_STG02_CLIMAX_WAS_FINISHED);
+            _TRACE_(FUNC_NAME<<" EVENT_STAGE02_CLIMAX_WAS_FINISHED!!!!");
+            throwEventUpperTree(EVENT_STAGE02_CLIMAX_WAS_FINISHED);
             waiting_ = true;
         }
     }

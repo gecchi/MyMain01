@@ -1,11 +1,11 @@
-#ifndef StageDebugPartH_
-#define StageDebugPartH_
+#ifndef STAGEDEBUG_H_
+#define STAGEDEBUG_H_
 #include "VioletVreath.h"
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld/StageController/Stage.h"
+#include "Stage.h"
 
 namespace VioletVreath {
 
-DECLARE_HASHVAL(EVENT_STAGE_DEBUG_PART_CTRLER_WAS_END);
+DECLARE_HASHVAL(EVENT_STAGEDEBUG_PART_CTRLER_WAS_END);
 
 /**
  * ステージ01 .
@@ -37,4 +37,4 @@ public:
 };
 
 }
-#endif /*STAGE01_H_*/
+#endif /*STAGEDEBUG_H_*/

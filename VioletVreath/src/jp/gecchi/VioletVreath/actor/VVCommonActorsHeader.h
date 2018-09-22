@@ -52,4 +52,6 @@
 #include "jp/gecchi/VioletVreath/actor/label/SpriteLabelGecchi32Font.h"
 #include "jp/gecchi/VioletVreath/actor/label/SpriteLabelTest.h"
 
+#include "jp/gecchi/VioletVreath/actor/chikei/wall/Wall01.h"
+
 #endif /*VVCOMMONACTORSHEADER_H_*/

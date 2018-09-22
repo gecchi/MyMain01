@@ -17,6 +17,8 @@ echo '' >> ${CommonHeader}
 echo '' >> ${CommonHeader} 
 /bin/find . -name '*.h' | grep '.*\/actor\/label\/.*' | sed 's/^\.\/src\//#include "/g' | sed 's/$/"/g' >> ${CommonHeader}
 echo '' >> ${CommonHeader} 
+/bin/find . -name '*.h' | grep '.*\/actor\/chikei\/wall\/.*' | sed 's/^\.\/src\//#include "/g' | sed 's/$/"/g' >> ${CommonHeader}
+echo '' >> ${CommonHeader} 
 echo '#endif /*VVCOMMONACTORSHEADER_H_*/' >> ${CommonHeader}
 
 

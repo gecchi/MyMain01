@@ -1,14 +1,10 @@
 #include "StageDebugPart03.h"
 
 #include "jp/ggaf/core/actor/GgafSceneMediator.h"
-#include "jp/ggaf/dxcore/sound/GgafDxBgmConductor.h"
 #include "jp/ggaf/lib/scene/FormationTableScene.h"
+#include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
-#include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "../StageDebugPartController.h"
-#include "jp/ggaf/core/util/GgafResourceConnection.hpp"
-#include "jp/ggaf/dxcore/manager/GgafDxBgmConnection.h"
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene.h"
+
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -16,7 +12,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 StageDebugPart03::StageDebugPart03(const char* prm_name) :
-        StageDebugPart<GgafLib::DefaultScene>(prm_name, EVENT_STAGE_DEBUG_PART_03_WAS_FINISHED) {
+        StageDebugPart<GgafLib::DefaultScene>(prm_name, EVENT_STAGEDEBUG_PART_03_WAS_FINISHED) {
     _class_name = "StageDebugPart03";
 
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。

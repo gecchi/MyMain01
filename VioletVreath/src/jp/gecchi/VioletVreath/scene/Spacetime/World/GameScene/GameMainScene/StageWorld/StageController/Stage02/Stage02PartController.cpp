@@ -77,7 +77,7 @@ void Stage02PartController::processBehavior() {
             }
             if (pProg->hasArrivedAt(60)) {
                 fadeoutSceneWithBgm(300);
-                throwEventUpperTree(EVENT_STG02_CTRLER_WAS_END); //ステージエンドを上位に伝える
+                throwEventUpperTree(EVENT_STAGE02_CTRLER_WAS_END); //ステージエンドを上位に伝える
             }
             break;
         }
@@ -90,11 +90,11 @@ void Stage02PartController::processBehavior() {
 
 void Stage02PartController::onCatchEvent(hashval prm_no, void* prm_pSource) {
     SceneProgress* pProg = getProgress();
-    if (prm_no == EVENT_STG02_01_WAS_FINISHED) {
-        _TRACE_(FUNC_NAME<<" EVENT_STG02_01_WAS_FINISHED");
+    if (prm_no == EVENT_STAGE02_01_WAS_FINISHED) {
+        _TRACE_(FUNC_NAME<<" EVENT_STAGE02_01_WAS_FINISHED");
         ((Stage*)prm_pSource)->sayonara(60*60);
-    } else if (prm_no == EVENT_STG02_CLIMAX_WAS_FINISHED) {
-        _TRACE_(FUNC_NAME<<" EVENT_STG02_CLIMAX_WAS_FINISHEDキャッチした。STAGE02PARTCONTROLLER_ENDINGを投げる");
+    } else if (prm_no == EVENT_STAGE02_CLIMAX_WAS_FINISHED) {
+        _TRACE_(FUNC_NAME<<" EVENT_STAGE02_CLIMAX_WAS_FINISHEDキャッチした。STAGE02PARTCONTROLLER_ENDINGを投げる");
         ((Stage*)prm_pSource)->sayonara(60*60);
         pProg->change(PROG_FAINAL); //進捗をStage02PartController::PROG_FAINALに切り替える
     } else {

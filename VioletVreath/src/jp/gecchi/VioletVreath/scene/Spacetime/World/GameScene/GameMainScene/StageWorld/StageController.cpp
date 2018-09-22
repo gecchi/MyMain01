@@ -207,21 +207,21 @@ void StageController::onCatchEvent(hashval prm_no, void* prm_pSource) {
 //        }
     }
     SceneProgress* pProg = getProgress();
-    if (prm_no == EVENT_STAGE_DEBUG_PART_WAS_END) {
-        _TRACE_("StageController::onCatchEvent(EVENT_STAGE_DEBUG_PART_WAS_END)");
+    if (prm_no == EVENT_STAGEDEBUG_WAS_FINISHED) {
+        _TRACE_("StageController::onCatchEvent(EVENT_STAGEDEBUG_WAS_FINISHED)");
         pStageMainCannel_->sayonara(180);
         pStageMainCannel_->fadeoutSceneWithBgmTree(180);
         pProg->change(PROG_PLAY_TRANSIT);
     }
 
-    if (prm_no == EVENT_STG01_WAS_END) {
-        _TRACE_("StageController::onCatchEvent(EVENT_STG01_WAS_END)");
+    if (prm_no == EVENT_STAGE01_WAS_FINISHED) {
+        _TRACE_("StageController::onCatchEvent(EVENT_STAGE01_WAS_FINISHED)");
         pStageMainCannel_->sayonara(180);
         pStageMainCannel_->fadeoutSceneWithBgmTree(180);
         pProg->change(PROG_PLAY_TRANSIT);
     }
-    if (prm_no == EVENT_STG02_WAS_END) {
-        _TRACE_("StageController::onCatchEvent(EVENT_STG02_WAS_END)");
+    if (prm_no == EVENT_STAGE02_WAS_FINISHED) {
+        _TRACE_("StageController::onCatchEvent(EVENT_STAGE02_WAS_FINISHED)");
         pStageMainCannel_->sayonara(180);
         pStageMainCannel_->fadeoutSceneWithBgmTree(180);
         pProg->change(PROG_PLAY_TRANSIT);

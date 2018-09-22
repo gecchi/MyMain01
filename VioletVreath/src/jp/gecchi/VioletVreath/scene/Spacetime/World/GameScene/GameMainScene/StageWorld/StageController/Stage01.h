@@ -1,16 +1,16 @@
 #ifndef STAGE01_H_
 #define STAGE01_H_
 #include "VioletVreath.h"
-#include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld/StageController/Stage.h"
+#include "Stage.h"
 
 namespace VioletVreath {
 
-DECLARE_HASHVAL(EVENT_STG01_CTRLER_WAS_END);
+DECLARE_HASHVAL(EVENT_STAGE01_PART_CTRLER_WAS_END);
 
 /**
  * ステージ01 .
  * @version 1.00
- * @since 2008/09/08
+ * @since 2018/09/08
  * @author Masatoshi Tsuge
  */
 class Stage01 : public Stage {

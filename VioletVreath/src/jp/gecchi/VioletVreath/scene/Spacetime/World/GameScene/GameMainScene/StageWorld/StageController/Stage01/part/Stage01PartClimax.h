@@ -1,17 +1,18 @@
-#ifndef STAGE01_CLIMAX_H_
-#define STAGE01_CLIMAX_H_
+#ifndef STAGE01PARTCLIMAX_H_
+#define STAGE01PARTCLIMAX_H_
 #include "VioletVreath.h"
+#include "Stage01Part.hpp"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 namespace VioletVreath {
 
 /**
- * ステージ１－最後 .
+ * ステージデバッグ－最後 .
  * @version 1.00
- * @since 2010/08/23
+ * @since 2018/09/18
  * @author Masatoshi Tsuge
  */
-class Stage01_Climax : public GgafLib::DefaultScene {
+class Stage01PartClimax : public Stage01Part<GgafLib::DefaultScene> {
 
 
 public:
@@ -20,7 +21,7 @@ public:
     EnemyStraea* pBoss_;
 
 public:
-    Stage01_Climax(const char* prm_name);
+    Stage01PartClimax(const char* prm_name);
     /**
      * 初期処理
      */
@@ -28,8 +29,8 @@ public:
 
     virtual void processBehavior() override;
 
-    virtual ~Stage01_Climax();
+    virtual ~Stage01PartClimax();
 };
 
 }
-#endif /*STAGE01_CLIMAX_H_*/
+#endif /*STAGE01PARTCLIMAX_H_*/

@@ -1,21 +1,22 @@
-#ifndef STAGE01_01_H_
-#define STAGE01_01_H_
+#ifndef STAGE01PART03_H_
+#define STAGE01PART03_H_
 #include "VioletVreath.h"
+#include "Stage01Part.hpp"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 namespace VioletVreath {
 
 /**
- * ステージ１－１ .
+ * ステージデバッグ－３ .
  * @version 1.00
- * @since 2010/08/18
+ * @since 2018/09/18
  * @author Masatoshi Tsuge
  */
-class Stage01_01 : public GgafLib::DefaultScene {
+class Stage01Part03 : public Stage01Part<GgafLib::DefaultScene> {
 
 
 public:
-    Stage01_01(const char* prm_name);
+    Stage01Part03(const char* prm_name);
     /**
      * 初期処理
      */
@@ -23,8 +24,8 @@ public:
 
     virtual void processBehavior() override;
 
-    virtual ~Stage01_01();
+    virtual ~Stage01Part03();
 };
 
 }
-#endif /*STAGE01_01_H_*/
+#endif /*STAGE01PART03_H_*/

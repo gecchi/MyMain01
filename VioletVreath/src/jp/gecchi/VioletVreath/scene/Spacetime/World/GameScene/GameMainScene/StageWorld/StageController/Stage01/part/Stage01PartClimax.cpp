@@ -1,4 +1,4 @@
-#include "StageDebugPartClimax.h"
+#include "Stage01PartClimax.h"
 
 #include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "jp/ggaf/lib/scene/FormationTableScene.h"
@@ -10,9 +10,9 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-StageDebugPartClimax::StageDebugPartClimax(const char* prm_name) :
-        StageDebugPart<GgafLib::DefaultScene>(prm_name, EVENT_STAGEDEBUG_PART_CLIMAX_WAS_FINISHED) {
-    _class_name = "StageDebugPartClimax";
+Stage01PartClimax::Stage01PartClimax(const char* prm_name) :
+        Stage01Part<GgafLib::DefaultScene>(prm_name, EVENT_STAGE01_PART_CLIMAX_WAS_FINISHED) {
+    _class_name = "Stage01PartClimax";
     requestActor(11111110, EnemyStraea, "STG1BOSS");
     requestActor(11111111, EnemyEmus, "111");
     requestActor(11111112, EnemyEmus, "222");
@@ -22,12 +22,12 @@ StageDebugPartClimax::StageDebugPartClimax(const char* prm_name) :
     getBgmConductor()->ready(0, "OGG_BGM_01_CLIMAX");
 }
 
-void StageDebugPartClimax::initialize() {
+void Stage01PartClimax::initialize() {
 }
 
-void StageDebugPartClimax::processBehavior() {
+void Stage01PartClimax::processBehavior() {
     if (waiting_) {
-        //StageDebugPartController ‚ª EVENT_STAGEDEBUG_PART_CLIMAX_WAS_FINISHED ‚ðE‚Á‚Ä‚­‚ê‚Ä‚¢‚éB
+        //Stage01PartController ‚ª EVENT_STAGE01_PART_CLIMAX_WAS_FINISHED ‚ðE‚Á‚Ä‚­‚ê‚Ä‚¢‚éB
         //‚³‚æ‚È‚ç‚ð‘Ò‚Â
         return;
     }
@@ -49,13 +49,13 @@ void StageDebugPartClimax::processBehavior() {
     if (getBehaveingFrame() > 60) {
         if (pBoss_->hasJustChangedToInactive()) {
             getBgmConductor()->fadeoutStop(0, 120);
-            _TRACE_(FUNC_NAME<<" EVENT_STAGEDEBUG_PART_CLIMAX_WAS_FINISHED!!!!");
-            throwEventUpperTree(EVENT_STAGEDEBUG_PART_CLIMAX_WAS_FINISHED);
+            _TRACE_(FUNC_NAME<<" EVENT_STAGE01_PART_CLIMAX_WAS_FINISHED!!!!");
+            throwEventUpperTree(EVENT_STAGE01_PART_CLIMAX_WAS_FINISHED);
             waiting_ = true;
         }
     }
 }
 
-StageDebugPartClimax::~StageDebugPartClimax() {
+Stage01PartClimax::~Stage01PartClimax() {
 
 }

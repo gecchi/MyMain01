@@ -83,7 +83,7 @@ void Stage02_01::processBehavior() {
     }
     //シーン終了のイベントを通知
     if (getActiveFrame() == _paFrame_NextEvent[_event_num-1] + 60*60) {
-        throwEventUpperTree(EVENT_STG02_01_WAS_FINISHED);
+        throwEventUpperTree(EVENT_STAGE02_01_WAS_FINISHED);
     }
 
 }
