@@ -57,6 +57,7 @@ public:
     void extendBuffer(int prm_max_buf);
     virtual void prepare1(const char* prm_str);
     virtual void prepare1_append(const char* prm_str);
+    virtual void prepare1_append(const int prm_append_chr);
     virtual void prepare1_delete(int prm_delete_byte_num);
     virtual void prepare2();
 public:
@@ -122,6 +123,13 @@ public:
      * @param prm_str 追加する文字列
      */
     virtual void appendUpdate(const char* prm_str);
+
+    /**
+    * 描画文字を追加して更新設定  .
+     * update() より、幅計算等が追加分だけに限定するので、若干パフォーマンスが良い。
+     * @param prm_c 追加するASCII文字列(0～255)
+     */
+    virtual void appendUpdate(const int prm_c);
 
     /**
      * 描画文字を末尾から除去して更新設定  .
@@ -329,8 +337,57 @@ void ICharacterChip<T, N, L>::prepare1(const char* prm_str) {
 }
 
 template<class T, int N, int L>
+void ICharacterChip<T, N, L>::prepare1_append(const int prm_append_chr) {
+    int new_buffer_size = _len+1+1;
+    if (new_buffer_size > _max_buf) {//バッファ拡張
+        _max_buf = 8*((new_buffer_size+8)/8); //直近８の倍数に切り上げ
+        int* tmp_buf = NEW int[_max_buf];
+        memcpy(tmp_buf, _buf, sizeof(int)*(_len+1));
+        InstancePart* tmp_paInstancePart = NEW InstancePart[_max_buf];
+        memcpy(tmp_paInstancePart, _paInstancePart, sizeof(InstancePart)*(_len+1));
+        GGAF_DELETEARR(_buf);
+        GGAF_DELETEARR(_paInstancePart);
+        _buf = tmp_buf;
+        _paInstancePart = tmp_paInstancePart;
+    }
+    onUpdate(); //コールバック
+    _draw_string = _buf;
+    const pixcoord chr_base_width_px = _chr_base_width_px;
+#ifdef MY_DEBUG
+    if (0 > prm_append_chr || prm_append_chr > (N-1)) {
+        throwGgafCriticalException("ICharacterChip::prepare1_append() 範囲外の扱えない文字種がありました prm_append_chr="<<prm_append_chr<<"。 0～"<<(N-1)<<"の範囲にして下さい。this="<<this);
+    }
+#endif
+    _draw_string[_len-1 + 1] = prm_append_chr; //保存
+    _draw_string[_len-1 + 1+1] = '\0';//保存
+    _len += 1;
+    if (_nn > 0) {
+        _nn--;//行は未確定状態になるので、 -1 する。
+    }
+    if (prm_append_chr == _chr_newline) {
+        _nn++; //行数カウント
+    } else {
+        _px_row_width[_nn] += (_is_fixed_width ? chr_base_width_px : _px_chr_width[prm_append_chr]); //行の幅(px)を加算
+        if (_nn == 0 || _px_total_width < _px_row_width[_nn]) {
+            _px_total_width = _px_row_width[_nn];
+        }
+        _nn++; //１文字追加は行数１としてカウント。
+    }
+    if (prm_append_chr != _chr_blank) { //ブランク
+        _draw_chr_num++; //描画文字数カウント
+    }
+    _px_total_height = _chr_base_height_px*_nn;
+    prepare2();
+#ifdef MY_DEBUG
+    if (_nn > L) {
+        throwGgafCriticalException("ICharacterChip::prepare1_append() 文字列の行数が"<<L<<"個を超えました。name="<<_pBaseActor->getName()<<" prm_append_chr="<<prm_append_chr);
+    }
+#endif
+}
+
+template<class T, int N, int L>
 void ICharacterChip<T, N, L>::prepare1_append(const char* prm_append_str) {
-    int append_len = strlen(prm_append_str);
+    int append_len = (int)strlen(prm_append_str);
     int new_buffer_size = _len+append_len+1;
     if (new_buffer_size > _max_buf) {//バッファ拡張
         _max_buf = 8*((new_buffer_size+8)/8); //直近８の倍数に切り上げ
@@ -361,7 +418,6 @@ void ICharacterChip<T, N, L>::prepare1_append(const char* prm_append_str) {
     const int chr_blank = _chr_blank;
     const bool is_fixed_width = _is_fixed_width;
     const pixcoord chr_base_width_px = _chr_base_width_px;
-    is_different = true;
     while (true) {
         c = (int)(*p_prm_append_str);
 #ifdef MY_DEBUG
@@ -392,9 +448,7 @@ void ICharacterChip<T, N, L>::prepare1_append(const char* prm_append_str) {
     }
     _px_total_width = max_width_line_px;
     _px_total_height = _chr_base_height_px*_nn;
-    if (is_different) {
-        prepare2();
-    }
+    prepare2();
 #ifdef MY_DEBUG
     if (_nn > L) {
         throwGgafCriticalException("ICharacterChip::prepare1_append() 文字列の行数が"<<L<<"個を超えました。name="<<_pBaseActor->getName()<<" prm_str="<<prm_append_str);
@@ -619,6 +673,11 @@ void ICharacterChip<T, N, L>::update(coord X, coord Y, coord Z, const char* prm_
 template<class T, int N, int L>
 void ICharacterChip<T, N, L>::update(const char* prm_str) {
     prepare1(prm_str);
+}
+
+template<class T, int N, int L>
+void ICharacterChip<T, N, L>::appendUpdate(const int prm_c) {
+    prepare1_append(prm_c);
 }
 
 template<class T, int N, int L>

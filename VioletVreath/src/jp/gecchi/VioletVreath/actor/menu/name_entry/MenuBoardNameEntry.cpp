@@ -2,6 +2,7 @@
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "CursorNameEntryMenu.h"
+#include "jp/ggaf/lib/util/WMKeyInput.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
 #include "jp/gecchi/VioletVreath/actor/menu/confirm/MenuBoardConfirm.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -181,11 +182,11 @@ void MenuBoardNameEntry::moveCursor(bool prm_smooth) {
     _is_input_keyboard = false;
 }
 
-
-#define KB(X)  { if (GgafDxInput::isPushedDownKey(DIK_##X)) { _is_input_keyboard=true; inputChar(#X); } }
-#define KB2(X,Y)  { if (GgafDxInput::isPushedDownKey(X)) { _is_input_keyboard=true; inputChar(Y); } }
-
+void MenuBoardNameEntry::onActive() {
+    WMKeyInput::init(); //状態クリア
+}
 void MenuBoardNameEntry::processBehavior() {
+
 #ifdef MY_DEBUG
     if (pLabelInputedName_ == nullptr || pLabelSelectedChar_ == nullptr) {
         throwGgafCriticalException("事前に setNameFontBoard() してください。");
@@ -193,10 +194,13 @@ void MenuBoardNameEntry::processBehavior() {
 #endif
     MenuBoard::processBehavior();
 
-    KB(0);  KB(1);  KB(2);  KB(3);  KB(4);  KB(5);  KB(6);  KB(7);  KB(8);  KB(9);
-    KB(A);  KB(B);  KB(C);  KB(D);  KB(E);  KB(F);  KB(G);  KB(H);  KB(I);  KB(J);  KB(K);  KB(L);  KB(M);  KB(N);
-    KB(O);  KB(P);  KB(Q);  KB(R);  KB(S);  KB(T);  KB(U);  KB(V);  KB(W);  KB(X);  KB(Y);  KB(Z);
-    KB2(DIK_SPACE," ");
+    WMKeyInput::updateState();
+    const int c = WMKeyInput::getPushedDownKey();
+    if (c > 0) {
+        _is_input_keyboard = true;
+        inputChar(c);
+    }
+
     if (GgafDxInput::isPushedDownKey(DIK_BACKSPACE)) {
         //[BS]で決定（振る舞い）の処理
         int len = pLabelInputedName_->_len;
@@ -294,13 +298,15 @@ void MenuBoardNameEntry::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, in
         }
     }
 }
-void MenuBoardNameEntry::inputChar(const char* prm_c) {
+void MenuBoardNameEntry::inputChar(const int prm_c) {
     int len = pLabelInputedName_->_len;
     if (len >= RANKINGTABLE_NAME_LEN) {
         //10文字以上の場合
         //何もしない
     } else {
-        pLabelInputedName_->appendUpdate(prm_c);
+        if (32 <= prm_c && prm_c <= 255) {
+            pLabelInputedName_->appendUpdate(prm_c);
+        }
     }
 }
 void MenuBoardNameEntry::onCancel(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {

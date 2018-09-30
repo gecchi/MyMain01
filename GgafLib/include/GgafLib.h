@@ -10,7 +10,7 @@
 #include "jp/ggaf/dxcore/util/GgafDxInput.h"
 #include "jp/ggaf/lib/GgafLibConfig.h"
 #include "jp/ggaf/lib/DefaultGod.h"
-
+#include "jp/ggaf/lib/util/WMKeyInput.h"
 
 HINSTANCE WinMain_hInstance;
 HINSTANCE WinMain_hPrevInstance;
@@ -69,6 +69,10 @@ void GgafLibWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLi
  */
 void GgafLibWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
     switch (message) {
+        case WM_CHAR: {
+            GgafLib::WMKeyInput::catchWmChar(wParam);
+            break;
+        }
         case WM_SIZE:
             if (pGOD && GgafDxCore::GgafDxGod::_pHWndPrimary) {
                 if (!CONFIG::FULL_SCREEN) {

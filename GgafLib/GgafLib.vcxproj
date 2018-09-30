@@ -110,6 +110,7 @@
     <ClCompile Include="src\jp\ggaf\lib\util\StgUtil.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\VBReplayRecorder.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\VirtualButton.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\WMKeyInput.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GgafLib.h" />
@@ -209,6 +210,7 @@
     <ClInclude Include="include\jp\ggaf\lib\util\StgUtil.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\VBReplayRecorder.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\VirtualButton.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\WMKeyInput.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{55C018DB-2586-4F20-ADDB-8DA23932824C}</ProjectGuid>

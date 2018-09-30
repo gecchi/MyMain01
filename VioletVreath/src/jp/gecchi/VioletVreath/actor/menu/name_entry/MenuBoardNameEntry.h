@@ -44,8 +44,9 @@ public:
     void onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) override;
     void onCancel(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) override;
     void moveCursor(bool prm_smooth = true) override;
+    void onActive() override;
     void processBehavior() override;
-    void inputChar(const char* prm_c);
+    void inputChar(const int prm_c);
 
     virtual ~MenuBoardNameEntry();
 };
