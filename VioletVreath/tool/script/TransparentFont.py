@@ -4,15 +4,15 @@ from PIL import Image
 from PIL import ImageOps
 
 print "start"
-INPUT_FILE = "msmincho.png"
-#フォント幅ピクセルを指定
-CHIP_W = 64
-#フォント高さピクセルを指定
-CHIP_H = 64
+INPUT_FILE = "MeiryoKe_Gothic_CD_16x32.png"
+#入力のEXCELのセル幅ピクセルを指定
+CHIP_W = 16
+#入力のEXCELのセル高さピクセルを指定
+CHIP_H = 32
 #結果テクスチャの幅を指定
-DEST_WIDTH = 1024
+DEST_WIDTH = 256
 #結果テクスチャの高さを指定
-DEST_HEIGHT = 1024
+DEST_HEIGHT = 256
 FONT_COLOR = (255, 255, 255)
 #TRNS_COLOR = (0, 0, 0)
 
@@ -28,8 +28,8 @@ for i in range(256):
     b = int(FONT_COLOR[2] * m)
     col_level.append( (r, g, b) )
 
-for i in range(256):
-    print "col_level[" +str(i) +"] = ", col_level[i]
+# for i in range(256):
+#     print "col_level[" +str(i) +"] = ", col_level[i]
 
 imgOrg = Image.open(INPUT_FILE)
 imgDest = Image.new('RGBA', imgOrg.size, (0, 0, 0, 0))
@@ -53,6 +53,11 @@ for y in range(img_h):
                 break
 src_x_chip_num = img_w // CHIP_W;
 src_y_chip_num = img_h // CHIP_H;
+
+print "src : " + INPUT_FILE + "(" + str(img_w) + "x" + str(img_h) + " px)"
+print "src chip size : " + str(CHIP_W) + "x" + str(CHIP_H) + " px"
+print "src chip num : " + str(src_x_chip_num) + "x" + str(src_y_chip_num) + " = " + str(src_x_chip_num*src_y_chip_num)
+
 #チップの倍数の大きさにリサイズ。1,1 からなのは、EXCELを罫線を消すため
 imgResize = imgDest.crop((1, 1, src_x_chip_num*CHIP_W, src_y_chip_num*CHIP_H))
 
@@ -95,6 +100,8 @@ for y in range(dest_y_chip_num):
 #for num in range(src_x_chip_num*src_y_chip_num):
 #    chip[num].save(str(num)+'.png', 'PNG')
 
+print "dest : " + INPUT_FILE + ".dest.png" + "(" + str(DEST_WIDTH) + "x" + str(DEST_HEIGHT) + " px)"
+print "dest chip num : " + str(dest_x_chip_num) + "x" + str(dest_y_chip_num) + " = " + str(dest_x_chip_num*dest_y_chip_num)
 
 dest_texture.save(INPUT_FILE + ".dest.png")
 print "finish"

@@ -483,6 +483,9 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\item\VreathItem.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\item\VreathItem001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelFix16Font01.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\label\labelfont16x32.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\label\labelfont32x64.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\label\labelfont8x16.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelGecchi16Font.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelGecchi32Font.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelGecchi8Font.h" />
@@ -492,6 +495,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelRankingFont.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelSceneSymbol.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelScoreFont.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\label\spritefont32x64.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\SpriteLabelBonus001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\SpriteLabelGecchi32Font.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\SpriteLabelTest.h" />
@@ -866,6 +870,9 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\item\VreathItem.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\item\VreathItem001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\LabelFix16Font01.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\LabelFont16x32.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\LabelFont32x64.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\LabelFont8x16.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\LabelGecchi16Font.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\LabelGecchi32Font.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\LabelGecchi8Font.cpp" />
@@ -875,6 +882,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\LabelRankingFont.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\LabelSceneSymbol.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\LabelScoreFont.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\SpriteFont32x64.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\SpriteLabelBonus001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\SpriteLabelGecchi32Font.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\SpriteLabelTest.cpp" />

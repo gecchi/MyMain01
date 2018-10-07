@@ -68,8 +68,6 @@ void GameTitleScene::onReset() {
 }
 
 void GameTitleScene::onActive() {
-    pWorldBound_->inactivate();
-    pHoshiBoshi_->inactivate();
     pWorldBound_->activate();
     pHoshiBoshi_->activate();
     pWorldBound_->fadein();

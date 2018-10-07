@@ -378,6 +378,10 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\scene\spacetime\world\gamescene\gamemainscene\stageworld\stagecontroller\stage01\part\stage01part03.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\scene\spacetime\world\gamescene\gamemainscene\stageworld\stagecontroller\stage01\part\stage01partclimax.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\scene\spacetime\world\gamescene\gamemainscene\stageworld\stagecontroller\stage01\part\stage01partwall.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\label\labelfont16x32.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\label\labelfont32x64.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\label\labelfont8x16.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\label\spritefont32x64.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="VioletVreath.rc" />
@@ -756,5 +760,9 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01Part03.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01PartClimax.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01PartWall.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\LabelFont16x32.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\LabelFont32x64.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\LabelFont8x16.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\SpriteFont32x64.cpp" />
   </ItemGroup>
 </Project>

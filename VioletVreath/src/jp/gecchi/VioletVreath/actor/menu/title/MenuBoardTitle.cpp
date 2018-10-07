@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 #include "CursorTitleMenu.h"
-#include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
+#include "jp/gecchi/VioletVreath/actor/label/SpriteFont32x64.h"
 #include "jp/gecchi/VioletVreath/actor/label/SpriteLabelGecchi32Font.h"
 #include "jp/gecchi/VioletVreath/actor/menu/config/MenuBoardConfig.h"
 #include "jp/gecchi/VioletVreath/actor/menu/confirm/MenuBoardConfirm.h"
@@ -58,8 +58,8 @@ MenuBoardTitle::MenuBoardTitle(const char* prm_name) :
     addSubMenu(NEW MenuBoardSoundConfig("sound_config"));   //MENU_SOUND_CONFIG,
     addSubMenu(NEW MenuBoardScreenConfig("screen_config")); //MENU_SCREEN_CONFIG,
 
-    FontSpriteActor* pLabelInputedName = NEW SpriteLabelGecchi32Font("InputedName");
-    FontSpriteActor*  pLabelSelectedChar = NEW SpriteLabelGecchi32Font("SelectedChar");
+    FontSpriteActor* pLabelInputedName = NEW SpriteFont32x64("InputedName");
+    FontSpriteActor*  pLabelSelectedChar = NEW SpriteFont32x64("SelectedChar");
     MenuBoardNameEntry* pNameEntryBoard = NEW MenuBoardNameEntry("pNameEntryBoard_");
     pNameEntryBoard->setNameFontBoard(pLabelInputedName, pLabelSelectedChar);
     pNameEntryBoard->addLabel(pLabelInputedName, PX_C(100), PX_C(-200), 0);
@@ -152,6 +152,16 @@ void MenuBoardTitle::processBehavior() {
 //        getSelectedItem()->setAlpha(1.0); //点滅を停止して明るく！
 //    }
 
+}
+
+void MenuBoardTitle::onCatchEvent(hashval prm_no, void* prm_pSource) {
+    //デバッグ
+    GgafProgress* const pProg = getProgress();
+    if (prm_no == EVENT_MENU_NAMEENTRY_DONE) {
+        _TRACE_("MenuBoardTitle::onCatchEvent(EVENT_MENU_NAMEENTRY_DONE)");
+        getSubMenu(MENU_NAME_ENTRY)->sinkMe(); //ネームエントリー板消去
+    }
+    //デバッグ
 }
 MenuBoardTitle::~MenuBoardTitle() {
 }

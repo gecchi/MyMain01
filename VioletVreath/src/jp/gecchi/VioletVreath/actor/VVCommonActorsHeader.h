@@ -39,6 +39,9 @@
 #include "jp/gecchi/VioletVreath/actor/item/VreathItem001.h"
 
 #include "jp/gecchi/VioletVreath/actor/label/LabelFix16Font01.h"
+#include "jp/gecchi/VioletVreath/actor/label/LabelFont16x32.h"
+#include "jp/gecchi/VioletVreath/actor/label/LabelFont32x64.h"
+#include "jp/gecchi/VioletVreath/actor/label/LabelFont8x16.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi32Font.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi8Font.h"
@@ -48,6 +51,7 @@
 #include "jp/gecchi/VioletVreath/actor/label/LabelRankingFont.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelSceneSymbol.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelScoreFont.h"
+#include "jp/gecchi/VioletVreath/actor/label/SpriteFont32x64.h"
 #include "jp/gecchi/VioletVreath/actor/label/SpriteLabelBonus001.h"
 #include "jp/gecchi/VioletVreath/actor/label/SpriteLabelGecchi32Font.h"
 #include "jp/gecchi/VioletVreath/actor/label/SpriteLabelTest.h"

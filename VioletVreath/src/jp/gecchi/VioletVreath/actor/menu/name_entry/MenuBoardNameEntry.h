@@ -3,6 +3,7 @@
 #include "VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/menu/MenuBoard.h"
 
+DECLARE_HASHVAL(EVENT_MENU_NAMEENTRY_DONE);
 
 namespace VioletVreath {
 
@@ -16,6 +17,7 @@ class MenuBoardNameEntry : public MenuBoard {
 
 public:
     static const char* apInputItemStr_[];
+
     static int input_item_num_;
     int ITEM_INDEX_OK_;
     int ITEM_INDEX_BS_;

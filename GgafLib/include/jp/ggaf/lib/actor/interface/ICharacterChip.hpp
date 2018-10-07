@@ -56,6 +56,7 @@ public:
      */
     void extendBuffer(int prm_max_buf);
     virtual void prepare1(const char* prm_str);
+    virtual void prepare1(const int prm_append_chr);
     virtual void prepare1_append(const char* prm_str);
     virtual void prepare1_append(const int prm_append_chr);
     virtual void prepare1_delete(int prm_delete_byte_num);
@@ -68,7 +69,7 @@ public:
      * @param prm_str 描画文字列
      */
     virtual void update(coord X, coord Y, const char* prm_str);
-
+    virtual void update(coord X, coord Y, const int prm_chr);
     /**
      * 描画文字を更新設定  .
      * @param X X座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
@@ -77,11 +78,14 @@ public:
      * @param prm_str 描画文字列
      */
     virtual void update(coord X, coord Y, coord Z, const char* prm_str);
+    virtual void update(coord X, coord Y, coord Z, const int prm_chr);
+
     /**
      * 描画文字を更新設定  .
      * @param prm_str 描画文字列
      */
     virtual void update(const char* prm_str);
+    virtual void update(const int prm_chr);
 
     /**
      * 描画文字を更新設定 .
@@ -334,6 +338,36 @@ void ICharacterChip<T, N, L>::prepare1(const char* prm_str) {
         throwGgafCriticalException("ICharacterChip::prepare1() 文字列の行数が"<<L<<"個を超えました。name="<<_pBaseActor->getName()<<" prm_str="<<prm_str);
     }
 #endif
+}
+
+template<class T, int N, int L>
+void ICharacterChip<T, N, L>::prepare1(const int prm_chr) {
+    onUpdate(); //コールバック
+    _draw_string = _buf;
+    bool is_different = false;
+    if (_draw_string[0] != prm_chr) {
+        is_different = true;
+        _draw_string[0] = prm_chr; //保存
+        _draw_string[1] = '\0'; //保存
+    }
+    if (prm_chr == _chr_newline) {
+        _len = 0;
+        _px_total_width = 0;
+        _draw_chr_num = 0;
+    } else if (prm_chr == '\0') {
+        _len = 1;
+        _px_total_width = 0;
+        _draw_chr_num = 0;
+    } else {
+        _len = 1;
+        _px_total_width = (_is_fixed_width ? _chr_base_width_px : _px_chr_width[prm_chr]); //行の幅(px)を加算
+        _draw_chr_num = 1;
+    }
+    _nn = 1;
+    _px_total_height = _chr_base_height_px*_nn;
+    if (is_different) {
+        prepare2();
+    }
 }
 
 template<class T, int N, int L>
@@ -664,6 +698,11 @@ void ICharacterChip<T, N, L>::update(coord X, coord Y, const char* prm_str) {
     update(prm_str);
     _pBaseActor->setPosition(X, Y);
 }
+template<class T, int N, int L>
+void ICharacterChip<T, N, L>::update(coord X, coord Y, const int prm_chr) {
+    update(prm_chr);
+    _pBaseActor->setPosition(X, Y);
+}
 
 template<class T, int N, int L>
 void ICharacterChip<T, N, L>::update(coord X, coord Y, coord Z, const char* prm_str) {
@@ -671,10 +710,20 @@ void ICharacterChip<T, N, L>::update(coord X, coord Y, coord Z, const char* prm_
     _pBaseActor->setPosition(X, Y, Z);
 }
 template<class T, int N, int L>
+void ICharacterChip<T, N, L>::update(coord X, coord Y, coord Z, const int prm_chr) {
+    update(prm_chr);
+    _pBaseActor->setPosition(X, Y, Z);
+}
+
+
+template<class T, int N, int L>
 void ICharacterChip<T, N, L>::update(const char* prm_str) {
     prepare1(prm_str);
 }
-
+template<class T, int N, int L>
+void ICharacterChip<T, N, L>::update(const int prm_chr) {
+    prepare1(prm_chr);
+}
 template<class T, int N, int L>
 void ICharacterChip<T, N, L>::appendUpdate(const int prm_c) {
     prepare1_append(prm_c);

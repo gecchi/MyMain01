@@ -3,7 +3,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "CursorNameEntryMenu.h"
 #include "jp/ggaf/lib/util/WMKeyInput.h"
-#include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
+#include "jp/gecchi/VioletVreath/actor/label/LabelFont16x32.h"
 #include "jp/gecchi/VioletVreath/actor/menu/confirm/MenuBoardConfirm.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -17,9 +17,11 @@ const char* MenuBoardNameEntry::apInputItemStr_[] = {
      " ", "!", "\"","#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/",
      "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ":", ";", "<", "=", ">", "?",
      "@", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O",
-     "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "[", "\\","]", "^", "_"
+     "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "[", "\\","]", "^", "_",
+     "`", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o",
+     "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "{", "|", "}", "~"
 };
-int MenuBoardNameEntry::input_item_num_ = 16*4;
+int MenuBoardNameEntry::input_item_num_ = (16*6) - 1;
 
 MenuBoardNameEntry::MenuBoardNameEntry(const char* prm_name) :
         MenuBoard(prm_name, "board_bg01") {
@@ -28,25 +30,28 @@ MenuBoardNameEntry::MenuBoardNameEntry(const char* prm_name) :
     setHeight(PX_C(9*32));
     //メニューアイテム（入力文字盤）設定
     for (int i = 0; i < input_item_num_; i++) {
-        LabelGecchi16Font* pLabel = NEW LabelGecchi16Font("item");
+        LabelFont16x32* pLabel = NEW LabelFont16x32("item");
         pLabel->update(apInputItemStr_[i], ALIGN_CENTER, VALIGN_MIDDLE);
-        addItem(pLabel, PX_C(10  + ((i%16)*(pLabel->_chr_base_width_px )*2)),
-                        PX_C(100 + ((i/16)*(pLabel->_chr_base_height_px)*2))  );
+        addItem(pLabel, PX_C(10  + ((i%16)*(pLabel->_chr_base_width_px )*1.2)),
+                        PX_C(100 + ((i/16)*(pLabel->_chr_base_height_px)*1.2))  );
     }
 
-    LabelGecchi16Font* pBS = NEW LabelGecchi16Font("[BS]"); //バックスペース(キャンセル扱い)
+    LabelFont16x32* pBS = NEW LabelFont16x32("[BS]"); //バックスペース(キャンセル扱い)
     pBS->update("[BS]", ALIGN_CENTER, VALIGN_MIDDLE);
     addItem(pBS, PX_C(650), PX_C(100 + (pBS->_chr_base_height_px * 3 * 2)));
     ITEM_INDEX_BS_ = (input_item_num_+1) - 1; //indexなので-1
 
-    LabelGecchi16Font* pOK = NEW LabelGecchi16Font("[OK]"); //OK
+    LabelFont16x32* pOK = NEW LabelFont16x32("[OK]"); //OK
     pOK->update("[OK]", ALIGN_CENTER, VALIGN_MIDDLE);
     addItem(pOK, PX_C(300), PX_C(300));
     ITEM_INDEX_OK_ = (input_item_num_+2) - 1;
 
     //上下オーダーを追加
     for (int i = 0; i < 16; i++) {
-        relateItemToExNext(i, i+16, i+32, i+48, ITEM_INDEX_OK_); //最下段は↓でOKへ行く
+        relateItemToExNext(i, i+16, i+32, i+48, i+64, i+60);
+    }
+    for (int i = 0; i < 15; i++) {
+        relateItemToExNext(i+60, ITEM_INDEX_OK_); //最下段は↓でOKへ行く
     }
     relateItemToExNext(ITEM_INDEX_BS_, ITEM_INDEX_OK_); //[BS]から↓もOKへ行く
 
@@ -179,14 +184,14 @@ void MenuBoardNameEntry::selectExPrev() { //上の時
 }
 void MenuBoardNameEntry::moveCursor(bool prm_smooth) {
     MenuBoard::moveCursor(prm_smooth);
-    _is_input_keyboard = false;
+    _is_input_keyboard = false; //上下左右で文字を選んでいる。RETEUN押下の挙動は文字決定
 }
 
 void MenuBoardNameEntry::onActive() {
     WMKeyInput::init(); //状態クリア
 }
-void MenuBoardNameEntry::processBehavior() {
 
+void MenuBoardNameEntry::processBehavior() {
 #ifdef MY_DEBUG
     if (pLabelInputedName_ == nullptr || pLabelSelectedChar_ == nullptr) {
         throwGgafCriticalException("事前に setNameFontBoard() してください。");
@@ -195,12 +200,11 @@ void MenuBoardNameEntry::processBehavior() {
     MenuBoard::processBehavior();
 
     WMKeyInput::updateState();
-    const int c = WMKeyInput::getPushedDownKey();
-    if (c > 0) {
-        _is_input_keyboard = true;
-        inputChar(c);
+    int push_down_char[3];
+    const int push_down_num = WMKeyInput::getPushedDownKey(3, push_down_char);
+    for (int i = 0; i < push_down_num; i++) {
+        inputChar(push_down_char[i]);
     }
-
     if (GgafDxInput::isPushedDownKey(DIK_BACKSPACE)) {
         //[BS]で決定（振る舞い）の処理
         int len = pLabelInputedName_->_len;
@@ -263,6 +267,7 @@ void MenuBoardNameEntry::processBehavior() {
 void MenuBoardNameEntry::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
     if (_is_input_keyboard) {
         //キー入力中ならば確認サブメニュー起動
+        selectItem(ITEM_INDEX_OK_);
         riseSubMenu(getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y);
     } else {
         //決定（振る舞い）の処理
@@ -298,7 +303,9 @@ void MenuBoardNameEntry::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, in
         }
     }
 }
+
 void MenuBoardNameEntry::inputChar(const int prm_c) {
+    _is_input_keyboard = true;
     int len = pLabelInputedName_->_len;
     if (len >= RANKINGTABLE_NAME_LEN) {
         //10文字以上の場合
@@ -322,72 +329,3 @@ void MenuBoardNameEntry::onCancel(GgafDxCore::GgafDxFigureActor* prm_pItem, int 
 MenuBoardNameEntry::~MenuBoardNameEntry() {
 }
 
-
-/*
-    mapDIK2CHR_[DIK_SPACE     ] =  ' ';
-//    mapDIK2CHR_[              ] =  '!';
-//    mapDIK2CHR_[              ] =  '"';
-//    mapDIK2CHR_[              ] =  '#';
-//    mapDIK2CHR_[              ] =  '$';
-//    mapDIK2CHR_[              ] =  '%';
-//    mapDIK2CHR_[              ] =  '&';
-    mapDIK2CHR_[DIK_APOSTROPHE] =  '\'';
-//    mapDIK2CHR_[              ] =  '(';
-//    mapDIK2CHR_[              ] =  ')';
-//    mapDIK2CHR_[              ] =  '*';
-//    mapDIK2CHR_[              ] =  '+';
-    mapDIK2CHR_[DIK_COMMA     ] =  ',';
-    mapDIK2CHR_[DIK_MINUS     ] =  '-';
-    mapDIK2CHR_[DIK_PERIOD    ] =  '.';
-    mapDIK2CHR_[DIK_SLASH     ] =  '/';
-    mapDIK2CHR_[DIK_0         ] =  '0';
-    mapDIK2CHR_[DIK_1         ] =  '1';
-    mapDIK2CHR_[DIK_2         ] =  '2';
-    mapDIK2CHR_[DIK_3         ] =  '3';
-    mapDIK2CHR_[DIK_4         ] =  '4';
-    mapDIK2CHR_[DIK_5         ] =  '5';
-    mapDIK2CHR_[DIK_6         ] =  '6';
-    mapDIK2CHR_[DIK_7         ] =  '7';
-    mapDIK2CHR_[DIK_8         ] =  '8';
-    mapDIK2CHR_[DIK_9         ] =  '9';
-    mapDIK2CHR_[DIK_SEMICOLON ] =  ':';
-//    mapDIK2CHR_[              ] =  ';';
-//    mapDIK2CHR_[              ] =  '<';
-    mapDIK2CHR_[DIK_EQUALS    ] =  '=';
-//    mapDIK2CHR_[              ] =  '>';
-//    mapDIK2CHR_[              ] =  '?';
-//    mapDIK2CHR_[              ] =  '@';
-    mapDIK2CHR_[DIK_A         ] =  'A';
-    mapDIK2CHR_[DIK_B         ] =  'B';
-    mapDIK2CHR_[DIK_C         ] =  'C';
-    mapDIK2CHR_[DIK_D         ] =  'D';
-    mapDIK2CHR_[DIK_E         ] =  'E';
-    mapDIK2CHR_[DIK_F         ] =  'F';
-    mapDIK2CHR_[DIK_G         ] =  'G';
-    mapDIK2CHR_[DIK_H         ] =  'H';
-    mapDIK2CHR_[DIK_I         ] =  'I';
-    mapDIK2CHR_[DIK_J         ] =  'J';
-    mapDIK2CHR_[DIK_K         ] =  'K';
-    mapDIK2CHR_[DIK_L         ] =  'L';
-    mapDIK2CHR_[DIK_M         ] =  'M';
-    mapDIK2CHR_[DIK_N         ] =  'N';
-    mapDIK2CHR_[DIK_O         ] =  'O';
-    mapDIK2CHR_[DIK_P         ] =  'P';
-    mapDIK2CHR_[DIK_Q         ] =  'Q';
-    mapDIK2CHR_[DIK_R         ] =  'R';
-    mapDIK2CHR_[DIK_S         ] =  'S';
-    mapDIK2CHR_[DIK_T         ] =  'T';
-    mapDIK2CHR_[DIK_U         ] =  'U';
-    mapDIK2CHR_[DIK_V         ] =  'V';
-    mapDIK2CHR_[DIK_W         ] =  'W';
-    mapDIK2CHR_[DIK_X         ] =  'X';
-    mapDIK2CHR_[DIK_Y         ] =  'Y';
-    mapDIK2CHR_[DIK_Z         ] =  'Z';
-    mapDIK2CHR_[DIK_LBRACKET  ] =  '[';
-    mapDIK2CHR_[DIK_BACKSLASH ] =  '\\';
-//    mapDIK2CHR_[              ] =  ']';
-//    mapDIK2CHR_[              ] =  '^';
-    mapDIK2CHR_[DIK_UNDERLINE ] =  '_';
-
-
-*/

@@ -23,8 +23,8 @@ void WMKeyInput::catchWmChar(WPARAM wParam) {
 }
 
 void WMKeyInput::updateState() {
-    WMKeyInput::_flip = !WMKeyInput::_flip;
-    int* input_state = (int*)(&(WMKeyInput::_input_char_state[_flip]));
+    WMKeyInput::_flip ^= 1;
+    int* input_state = (int*)(&(WMKeyInput::_input_char_state[WMKeyInput::_flip]));
     int* wm_state = &WMKeyInput::_wm_char_state[0];
     for (int i = 0; i < 256; i++) {
         *input_state = *wm_state;
@@ -47,18 +47,21 @@ bool WMKeyInput::isPushedDownKey(int prm_c) {
         return false;
     }
 }
-int WMKeyInput::getPushedDownKey() {
-    int pressed = WMKeyInput::getPressedKey();
-    if (pressed >= 0) { //今は押している
-        if (WMKeyInput::_input_char_state[!WMKeyInput::_flip][pressed] == 1) {
-            //前回セット[!WMKeyInput::_flip]も押されている。押しっぱなし
-            return -1;
-        } else {
+int WMKeyInput::getPushedDownKey(int prm_num, int* prm_pa_char) {
+    int pressed_num = WMKeyInput::getPressedKey(prm_num, prm_pa_char);
+    int n = 0;
+    for (int pressed_index = 0; pressed_index < pressed_num; pressed_index++) {
+        if (WMKeyInput::_input_char_state[!WMKeyInput::_flip][prm_pa_char[pressed_index]] != 1) {
             //前回セット[!GgafDxInput::_flip_ks]は押されていないのでOK
-            return pressed;
+            if (n < prm_num) {
+                prm_pa_char[n] = prm_pa_char[pressed_index];
+                n++;
+                continue;
+            } else {
+                break;
+            }
         }
-    } else {
-        return -1;
     }
+    return n;
 }
 

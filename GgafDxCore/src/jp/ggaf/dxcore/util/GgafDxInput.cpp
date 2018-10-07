@@ -311,7 +311,7 @@ void GgafDxInput::updateMouseState() {
         return;
     }
 #endif
-    GgafDxInput::_flip_ms = !GgafDxInput::_flip_ms; //ステートセットフリップ
+    GgafDxInput::_flip_ms ^= 1; //ステートセットフリップ
     HRESULT hr;
 again:
     hr = GgafDxInput::_pMouseInputDevice->Poll(); //マウスは通常Poll不用と思うが呼び出しても無害と書いてあるので呼ぶ。
@@ -395,7 +395,7 @@ void GgafDxInput::updateKeyboardState() {
         return;
     }
 #endif
-    GgafDxInput::_flip_ks = !GgafDxInput::_flip_ks; //ステートセットフリップ
+    GgafDxInput::_flip_ks ^= 1;
     HRESULT hr;
 again:
     hr = GgafDxInput::_pKeyboardInputDevice->Poll(); //キーボードは通常Poll不用と思うが、必要なキーボードもあるかもしれない。
@@ -465,7 +465,7 @@ void GgafDxInput::updateJoystickState() {
     if (GgafDxInput::_pJoystickInputDevice == nullptr) {
         return;
     }
-    GgafDxInput::_flip_js = !GgafDxInput::_flip_js; //ステートセットフリップ
+    GgafDxInput::_flip_js ^= 1;
     // ジョイスティックの状態を取得
     HRESULT hr;
 

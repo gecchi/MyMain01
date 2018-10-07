@@ -422,32 +422,23 @@ public:
                                     int prm_index_of_item2,
                                     int prm_index_of_item3 );
 
-    /**
-     * メニューアイテム間のオーダー連結を拡張設定(item1 ⇔ item2  ⇔ item3 ⇔ item4) .
-     * @param prm_index_of_item1 拡張連結するメニューアイテムのインデックス1
-     * @param prm_index_of_item2 拡張連結するメニューアイテムのインデックス2
-     * @param prm_index_of_item3 拡張連結するメニューアイテムのインデックス3
-     * @param prm_index_of_item4 拡張連結するメニューアイテムのインデックス4
-     */
     virtual void relateItemToExNext(int prm_index_of_item1,
                                     int prm_index_of_item2,
                                     int prm_index_of_item3,
                                     int prm_index_of_item4 );
 
-    /**
-     * メニューアイテム間のオーダー連結を拡張設定(item1 ⇔ item2  ⇔ item3 ⇔ item4 ⇔ item5).
-     * @param prm_index_of_item1 拡張連結するメニューアイテムのインデックス1
-     * @param prm_index_of_item2 拡張連結するメニューアイテムのインデックス2
-     * @param prm_index_of_item3 拡張連結するメニューアイテムのインデックス3
-     * @param prm_index_of_item4 拡張連結するメニューアイテムのインデックス4
-     * @param prm_index_of_item5 拡張連結するメニューアイテムのインデックス5
-     */
     virtual void relateItemToExNext(int prm_index_of_item1,
                                     int prm_index_of_item2,
                                     int prm_index_of_item3,
                                     int prm_index_of_item4,
                                     int prm_index_of_item5 );
 
+    virtual void relateItemToExNext(int prm_index_of_item1,
+                                    int prm_index_of_item2,
+                                    int prm_index_of_item3,
+                                    int prm_index_of_item4,
+                                    int prm_index_of_item5,
+                                    int prm_index_of_item6 );
 
 //    virtual void relateItemToExNext(int prm_index_of_fromitem, ...);
 
@@ -1043,18 +1034,28 @@ void MenuActor<T>::setPositionLabel(int prm_index_of_label, coord prm_x_local, c
 
 template<class T>
 void MenuActor<T>::relateItemToExNext(int prm_index_of_fromitem, int prm_index_of_toitem) {
-    _lstItems.getElemFromFirst(prm_index_of_fromitem)->connect(
-            ITEM_RELATION_EX_NEXT, _lstItems.getElemFromFirst(prm_index_of_toitem));
-    _lstItems.getElemFromFirst(prm_index_of_toitem)->connect(
-            ITEM_RELATION_EX_PREV, _lstItems.getElemFromFirst(prm_index_of_fromitem));
+    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxFigureActor>::Elem* pElemFrom =
+            _lstItems.getElemFromFirst(prm_index_of_fromitem);
+    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxFigureActor>::Elem* pElemTo =
+            _lstItems.getElemFromFirst(prm_index_of_fromitem);
+    pElemFrom->connect(ITEM_RELATION_EX_NEXT, pElemTo);
+    pElemTo->connect(ITEM_RELATION_EX_PREV, pElemFrom);
 }
 
 template<class T>
 void MenuActor<T>::relateItemToExNext(int prm_index_of_item1,
                                       int prm_index_of_item2,
                                       int prm_index_of_item3 ) {
-    relateItemToExNext(prm_index_of_item1, prm_index_of_item2);
-    relateItemToExNext(prm_index_of_item2, prm_index_of_item3);
+    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxFigureActor>::Elem* pElem1 =
+            _lstItems.getElemFromFirst(prm_index_of_item1);
+    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxFigureActor>::Elem* pElem2 =
+            _lstItems.getElemFromFirst(prm_index_of_item2);
+    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxFigureActor>::Elem* pElem3 =
+            _lstItems.getElemFromFirst(prm_index_of_item3);
+    pElem1->connect(ITEM_RELATION_EX_NEXT, pElem2);
+    pElem2->connect(ITEM_RELATION_EX_NEXT, pElem3);
+    pElem3->connect(ITEM_RELATION_EX_PREV, pElem2);
+    pElem2->connect(ITEM_RELATION_EX_PREV, pElem1);
 }
 
 template<class T>
@@ -1072,8 +1073,20 @@ void MenuActor<T>::relateItemToExNext(int prm_index_of_item1,
                                       int prm_index_of_item3,
                                       int prm_index_of_item4,
                                       int prm_index_of_item5 ) {
-    relateItemToExNext(prm_index_of_item1, prm_index_of_item2, prm_index_of_item3, prm_index_of_item4);
-    relateItemToExNext(prm_index_of_item4, prm_index_of_item5);
+    relateItemToExNext(prm_index_of_item1, prm_index_of_item2, prm_index_of_item3);
+    relateItemToExNext(prm_index_of_item3, prm_index_of_item4, prm_index_of_item5);
+}
+
+template<class T>
+void MenuActor<T>::relateItemToExNext(int prm_index_of_item1,
+                                      int prm_index_of_item2,
+                                      int prm_index_of_item3,
+                                      int prm_index_of_item4,
+                                      int prm_index_of_item5,
+                                      int prm_index_of_item6 ) {
+    relateItemToExNext(prm_index_of_item1, prm_index_of_item2, prm_index_of_item3);
+    relateItemToExNext(prm_index_of_item3, prm_index_of_item4, prm_index_of_item5);
+    relateItemToExNext(prm_index_of_item5, prm_index_of_item6);
 }
 
 
