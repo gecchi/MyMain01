@@ -48,10 +48,10 @@ MenuBoardNameEntry::MenuBoardNameEntry(const char* prm_name) :
 
     //上下オーダーを追加
     for (int i = 0; i < 16; i++) {
-        relateItemToExNext(i, i+16, i+32, i+48, i+64, i+60);
+        relateItemToExNext(i, i+16, i+32, i+48, i+64, i+80);
     }
     for (int i = 0; i < 15; i++) {
-        relateItemToExNext(i+60, ITEM_INDEX_OK_); //最下段は↓でOKへ行く
+        relateItemToExNext(i+80, ITEM_INDEX_OK_); //最下段は↓でOKへ行く
     }
     relateItemToExNext(ITEM_INDEX_BS_, ITEM_INDEX_OK_); //[BS]から↓もOKへ行く
 

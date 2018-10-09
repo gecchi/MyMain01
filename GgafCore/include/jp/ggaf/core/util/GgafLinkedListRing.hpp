@@ -114,7 +114,6 @@ public:
             _is_delete_value = prm_is_delete_value;
             _idx = -1;
         }
-
         /**
          * 要素の値を返す。
          * @return 値
@@ -123,29 +122,12 @@ public:
             return (T*) _pValue;
         }
         /**
-         * 要素を互いに関連付ける .
-         * @param prm_connection_index 要素関連接続番号
-         * @param prm_pOppElem 被関連要素
-         */
-        void connectEachOther(int prm_connection_index, Elem* prm_pOppElem) {
-            _papRelation[prm_connection_index] = prm_pOppElem;
-            prm_pOppElem[prm_connection_index] = this;
-        }
-        /**
          * 要素を一方的に関連付ける .
          * @param prm_connection_index 要素関連接続番号
          * @param prm_pOppElem 被関連要素
          */
         void connect(int prm_connection_index, Elem* prm_pOppElem) {
             _papRelation[prm_connection_index] = prm_pOppElem;
-        }
-        /**
-         * 相手要素から自分へ、一方的に関連付けてもらう .
-         * @param prm_pOppElem 相手の要素
-         * @param prm_opp_connection_index 相手要素から自分への要素関連接続番号
-         */
-        void gotConnected(Elem* prm_pOppElem, int prm_opp_connection_index) {
-            prm_pOppElem[prm_opp_connection_index] = this;
         }
         /**
          * デストラクタ.

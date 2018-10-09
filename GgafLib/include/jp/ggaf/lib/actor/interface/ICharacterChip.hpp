@@ -179,8 +179,8 @@ public:
      * デフォルトは ' ' が設定されている。
      * @param prm_c 空白文字
      */
-    inline void setBlankChr(char prm_c) {
-        _chr_blank = (int)prm_c;
+    inline void setBlankChr(int prm_c) {
+        _chr_blank = prm_c;
     }
 
     /**
@@ -188,8 +188,8 @@ public:
      * デフォルトは '\n' が設定されている。
      * @param prm_c
      */
-    inline void setNewlineChr(char prm_c) {
-        _chr_newline = (int)prm_c;
+    inline void setNewlineChr(int prm_c) {
+        _chr_newline = prm_c;
     }
 
     /**
@@ -197,8 +197,8 @@ public:
      * デフォルトは ' ' が設定されている。
      * @param prm_c
      */
-    inline void setPatternZeroChr(char prm_c) {
-        _chr_ptn_zero = (int)prm_c;
+    inline void setPatternZeroChr(int prm_c) {
+        _chr_ptn_zero = prm_c;
     }
 
     inline void getDrawString(char* out_paCh) {
@@ -439,7 +439,6 @@ void ICharacterChip<T, N, L>::prepare1_append(const char* prm_append_str) {
     _draw_string = _buf;
     //保持(_draw_string)する、しながら改行数(_nn)を求める、
     //ついでに各行単位の幅も(_px_row_width)も求めておく
-    bool is_different = false;
     const char* p_prm_append_str = prm_append_str;
     int* p_draw_string = &_draw_string[_len-1 + 1]; //+1はappendする位置からという意味
     _len += append_len;

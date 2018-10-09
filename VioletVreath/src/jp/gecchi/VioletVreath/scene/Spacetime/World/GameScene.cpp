@@ -125,9 +125,6 @@ void GameScene::processBehavior() {
             if ((pProg->hasArrivedAt(120))) {
                 _TRACE_("pGOD->_fps = "<<pGOD->_fps);
                 pProg->changeWithSceneCrossfading(PROG_PRE_TITLE);
-                World* pWorld = pSpacetime->getWorld();
-                pWorld->pPreDrawScene_->inactivateTree();
-                pWorld->pPreDrawScene_->pauseTree();
                 getBgmConductor()->stop();
             }
             break;

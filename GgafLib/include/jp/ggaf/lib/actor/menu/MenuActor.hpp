@@ -406,11 +406,11 @@ public:
      * このメソッドはそれとは別にメニューアイテム間の「次」、「前」、の関係を追加設定する。<BR>
      * 例えば、「→」キーで「次」、「←」キーで「戻る」という動作になっているところに、
      * さらに「↑」「↓」の移動先を別途設定するといった使用方法を想定。<BR>
-     * @param prm_index_of_fromitem 連結元のメニューアイテムのインデックス
-     * @param prm_index_of_toitem 連結元のメニューアイテムのインデックスから
+     * @param prm_index_of_from_item 連結元のメニューアイテムのインデックス
+     * @param prm_index_of_to_item 連結元のメニューアイテムのインデックスから
      *                            「次」に対応する連結先のメニューアイテムのインデックス
      */
-    virtual void relateItemToExNext(int prm_index_of_fromitem, int prm_index_of_toitem);
+    virtual void relateItemToExNext(int prm_index_of_from_item, int prm_index_of_to_item);
 
     /**
      * メニューアイテム間のオーダー連結を拡張設定(item1 ⇔ item2  ⇔ item3) .
@@ -1033,11 +1033,11 @@ void MenuActor<T>::setPositionLabel(int prm_index_of_label, coord prm_x_local, c
 }
 
 template<class T>
-void MenuActor<T>::relateItemToExNext(int prm_index_of_fromitem, int prm_index_of_toitem) {
+void MenuActor<T>::relateItemToExNext(int prm_index_of_from_item, int prm_index_of_to_item) {
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxFigureActor>::Elem* pElemFrom =
-            _lstItems.getElemFromFirst(prm_index_of_fromitem);
+            _lstItems.getElemFromFirst(prm_index_of_from_item);
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxFigureActor>::Elem* pElemTo =
-            _lstItems.getElemFromFirst(prm_index_of_fromitem);
+            _lstItems.getElemFromFirst(prm_index_of_to_item);
     pElemFrom->connect(ITEM_RELATION_EX_NEXT, pElemTo);
     pElemTo->connect(ITEM_RELATION_EX_PREV, pElemFrom);
 }

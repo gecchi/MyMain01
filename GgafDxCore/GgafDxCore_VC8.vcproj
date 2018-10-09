@@ -197,22 +197,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\util\GgafDx26DirectionUtil.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\dxcore\util\GgafDx26DirectionUtil.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\dxcore\util\GgafDx8DirectionUtil.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\dxcore\util\GgafDx8DirectionUtil.h"
-			>
-		</File>
-		<File
 			RelativePath=".\src\jp\ggaf\dxcore\actor\ex\GgafDxAABActor.cpp"
 			>
 		</File>
@@ -301,6 +285,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\jp\ggaf\dxcore\sound\GgafDxBgmConductor.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dxcore\sound\GgafDxBgmConductor.h"
+			>
+		</File>
+		<File
 			RelativePath=".\src\jp\ggaf\dxcore\manager\GgafDxBgmConnection.cpp"
 			>
 		</File>
@@ -314,22 +306,6 @@
 		</File>
 		<File
 			RelativePath=".\include\jp\ggaf\dxcore\manager\GgafDxBgmManager.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\dxcore\sound\GgafDxBgmPerformer.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\dxcore\sound\GgafDxBgmPerformer.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\dxcore\scene\supporter\GgafDxBgmPerformerForScene.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\dxcore\scene\supporter\GgafDxBgmPerformerForScene.h"
 			>
 		</File>
 		<File
@@ -438,6 +414,14 @@
 		</File>
 		<File
 			RelativePath=".\include\GgafDxCommonHeader.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dxcore\GgafDxConfig.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dxcore\GgafDxConfig.h"
 			>
 		</File>
 		<File
@@ -606,6 +590,30 @@
 		</File>
 		<File
 			RelativePath=".\include\jp\ggaf\dxcore\actor\ex\GgafDxFkFormation.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dxcore\actor\GgafDxFramedBoardActor.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dxcore\actor\GgafDxFramedBoardActor.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dxcore\effect\GgafDxFramedBoardEffect.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dxcore\effect\GgafDxFramedBoardEffect.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dxcore\model\GgafDxFramedBoardModel.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dxcore\model\GgafDxFramedBoardModel.h"
 			>
 		</File>
 		<File
@@ -785,6 +793,30 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\jp\ggaf\dxcore\actor\GgafDxMassPointSpriteActor.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dxcore\actor\GgafDxMassPointSpriteActor.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dxcore\effect\GgafDxMassPointSpriteEffect.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dxcore\effect\GgafDxMassPointSpriteEffect.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dxcore\model\GgafDxMassPointSpriteModel.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dxcore\model\GgafDxMassPointSpriteModel.h"
+			>
+		</File>
+		<File
 			RelativePath=".\src\jp\ggaf\dxcore\actor\GgafDxMassSpriteActor.cpp"
 			>
 		</File>
@@ -937,11 +969,27 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\GgafDxProperties.cpp"
+			RelativePath=".\src\jp\ggaf\dxcore\actor\GgafDxPointSpriteSetActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\GgafDxProperties.h"
+			RelativePath=".\include\jp\ggaf\dxcore\actor\GgafDxPointSpriteSetActor.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dxcore\effect\GgafDxPointSpriteSetEffect.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dxcore\effect\GgafDxPointSpriteSetEffect.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dxcore\model\GgafDxPointSpriteSetModel.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dxcore\model\GgafDxPointSpriteSetModel.h"
 			>
 		</File>
 		<File
@@ -950,14 +998,6 @@
 		</File>
 		<File
 			RelativePath=".\include\jp\ggaf\dxcore\actor\supporter\GgafDxPuppeteer.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\dxcore\util\GgafDxQuaternion.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\dxcore\util\GgafDxQuaternion.h"
 			>
 		</File>
 		<File
@@ -974,6 +1014,22 @@
 		</File>
 		<File
 			RelativePath=".\include\jp\ggaf\dxcore\scene\GgafDxScene.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dxcore\scene\supporter\GgafDxSceneCurtain.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dxcore\scene\supporter\GgafDxSceneCurtain.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dxcore\actor\GgafDxSceneMediator.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dxcore\actor\GgafDxSceneMediator.h"
 			>
 		</File>
 		<File

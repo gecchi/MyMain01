@@ -244,7 +244,7 @@ void World::processBehavior() {
         }
 
         case PROG_CALM2: {
-            if ((pProg->getFrame() >= 30 && pGOD->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX && pGOD->_fps <= 64.0f) || pProg->getFrame() >= 60*60*5) {
+            if ((pProg->getFrame() >= 30 && pGOD->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX && pGOD->_fps <= 64.0f) || pProg->getFrame() >= 60*60*3) {
                 pGameScene_ = (GameScene*)receiveScene(2);
                 pProg->changeNext();
             }
@@ -255,7 +255,7 @@ void World::processBehavior() {
         case PROG_CALM3: {
             if (pProg->hasJustChanged()) {
             }
-            if ((pProg->getFrame() >= 30 && pGOD->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX && pGOD->_fps <= 64.0f) || pProg->getFrame() >= 60*60*5) {
+            if ((pProg->getFrame() >= 30 && pGOD->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX && pGOD->_fps <= 64.0f) || pProg->getFrame() >= 60*60*3) {
                 pProg->changeNext();
             }
             pLabel_aster_->getAlphaFader()->behave(); //右上＊チカチカ

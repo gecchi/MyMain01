@@ -267,6 +267,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\Config.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\Config.h"
+			>
+		</File>
+		<File
 			RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\CostDispBar.cpp"
 			>
 		</File>
@@ -651,6 +659,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\manager\EffectManager.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\manager\EffectManager.h"
+			>
+		</File>
+		<File
 			RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\EffectMyShipExplosion.cpp"
 			>
 		</File>
@@ -872,6 +888,78 @@
 		</File>
 		<File
 			RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Emus\EnemyEmusLaserChip001.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelman.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelman.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanController.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanController.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanController001.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanController001.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanController002.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanController002.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanController003.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanController003.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanCore.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanCore.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanCore001.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanCore001.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanCore002.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanCore002.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanCore003.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Erelman\EnemyErelmanCore003.h"
 			>
 		</File>
 		<File
@@ -1407,6 +1495,38 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Erelman\FormationErelman.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Erelman\FormationErelman.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Erelman\FormationErelman001.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Erelman\FormationErelman001.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Erelman\FormationErelman002.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Erelman\FormationErelman002.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Erelman\FormationErelman003.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Erelman\FormationErelman003.h"
+			>
+		</File>
+		<File
 			RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Eres\FormationEres001.cpp"
 			>
 		</File>
@@ -1759,6 +1879,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\effect\HoshiboshiEffect.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\effect\HoshiboshiEffect.h"
+			>
+		</File>
+		<File
 			RelativePath=".\src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshiRankUp.cpp"
 			>
 		</File>
@@ -1791,14 +1919,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\InnerTitleBar.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\InnerTitleBar.h"
-			>
-		</File>
-		<File
 			RelativePath=".\src\jp\gecchi\VioletVreath\actor\item\Item.cpp"
 			>
 		</File>
@@ -1812,6 +1932,30 @@
 		</File>
 		<File
 			RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\LabelFix16Font01.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\LabelFont16x32.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\LabelFont16x32.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\LabelFont32x64.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\LabelFont32x64.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\LabelFont8x16.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\LabelFont8x16.h"
 			>
 		</File>
 		<File
@@ -2087,14 +2231,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\MenuSelectSub.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\menu\MenuSelectSub.h"
-			>
-		</File>
-		<File
 			RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MpBar.cpp"
 			>
 		</File>
@@ -2311,14 +2447,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\Properties.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\Properties.h"
-			>
-		</File>
-		<File
 			RelativePath=".\src\jp\gecchi\VioletVreath\util\RankingTable.cpp"
 			>
 		</File>
@@ -2372,10 +2500,6 @@
 		</File>
 		<File
 			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\RankUpStageController.h"
-			>
-		</File>
-		<File
-			RelativePath=".\resource.h"
 			>
 		</File>
 		<File
@@ -2483,19 +2607,27 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\manager\SplineLineConnection.cpp"
+			RelativePath=".\src\jp\gecchi\VioletVreath\manager\SplineManufactureManagerEx.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\manager\SplineLineConnection.h"
+			RelativePath=".\src\jp\gecchi\VioletVreath\manager\SplineManufactureManagerEx.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\manager\SplineLineManager.cpp"
+			RelativePath=".\src\jp\gecchi\VioletVreath\manager\SplineSourceManagerEx.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\manager\SplineLineManager.h"
+			RelativePath=".\src\jp\gecchi\VioletVreath\manager\SplineSourceManagerEx.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\SpriteFont32x64.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\SpriteFont32x64.h"
 			>
 		</File>
 		<File
@@ -2555,35 +2687,39 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01_01.cpp"
+			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01Part.hpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01_01.h"
+			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01Part01.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01_02.cpp"
+			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01Part01.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01_02.h"
+			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01Part02.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01_03.cpp"
+			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01Part02.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01_03.h"
+			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01Part03.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01_Climax.cpp"
+			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01Part03.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01_Climax.h"
+			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01PartClimax.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01PartClimax.h"
 			>
 		</File>
 		<File
@@ -2595,35 +2731,19 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01WalledScene.cpp"
+			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01PartWall.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01WalledScene.h"
+			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01PartWall.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01WalledSection001.cpp"
+			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01PartWall\Stage01PartWallSection001.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01WalledSection001.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01WallScene.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01WallScene.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01WallSection001.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01WallSection001.h"
+			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\Stage01\part\Stage01PartWall\Stage01PartWallSection001.h"
 			>
 		</File>
 		<File
@@ -2688,6 +2808,74 @@
 		</File>
 		<File
 			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\part\StageDebugPart.hpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\part\StageDebugPart01.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\part\StageDebugPart01.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\part\StageDebugPart02.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\part\StageDebugPart02.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\part\StageDebugPart03.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\part\StageDebugPart03.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\part\StageDebugPartClimax.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\part\StageDebugPartClimax.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\StageDebugPartController.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\StageDebugPartController.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\part\StageDebugPartWall.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\part\StageDebugPartWall.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\part\StageDebugPartWall\StageDebugPartWallSection001.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController\StageDebug\part\StageDebugPartWall\StageDebugPartWallSection001.h"
 			>
 		</File>
 		<File
@@ -2843,19 +3031,19 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\util\VamSysCamPosition.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\util\VamSysCamPosition.h"
-			>
-		</File>
-		<File
 			RelativePath=".\src\jp\gecchi\VioletVreath\actor\camera\worker\VamSysCamWorker.cpp"
 			>
 		</File>
 		<File
 			RelativePath=".\src\jp\gecchi\VioletVreath\actor\camera\worker\VamSysCamWorker.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\camera\worker\VamSysCamWorker2.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\camera\worker\VamSysCamWorker2.h"
 			>
 		</File>
 		<File
@@ -2888,6 +3076,10 @@
 		</File>
 		<File
 			RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\VarietyRatislavia004.h"
+			>
+		</File>
+		<File
+			RelativePath=".\Version.h"
 			>
 		</File>
 		<File
@@ -2951,43 +3143,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\wall\Wall001.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\wall\Wall001.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\wall\Wall001Prism.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\wall\Wall001Prism.h"
-			>
-		</File>
-		<File
 			RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\wall\Wall01.cpp"
 			>
 		</File>
 		<File
 			RelativePath=".\src\jp\gecchi\VioletVreath\actor\chikei\wall\Wall01.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\WallAABTestActor.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\WallAABTestActor.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\WallAAPrismTestActor.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\WallAAPrismTestActor.h"
 			>
 		</File>
 		<File

@@ -208,6 +208,22 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\jp\ggaf\core\GgafConfig.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\core\GgafConfig.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\core\GgafCradle.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\core\GgafCradle.h"
+			>
+		</File>
+		<File
 			RelativePath=".\src\jp\ggaf\core\exception\GgafCriticalException.cpp"
 			>
 		</File>
@@ -216,11 +232,7 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\core\util\GgafCurtain.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\core\util\GgafCurtain.h"
+			RelativePath=".\include\jp\ggaf\core\util\GgafCurtain.hpp"
 			>
 		</File>
 		<File
@@ -264,14 +276,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\core\GgafFactory.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\core\GgafFactory.h"
-			>
-		</File>
-		<File
 			RelativePath=".\src\jp\ggaf\core\actor\ex\GgafFormation.cpp"
 			>
 		</File>
@@ -312,19 +316,15 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\core\util\GgafLinearOctreeElem.cpp"
+			RelativePath=".\src\jp\ggaf\core\util\GgafLinearQuadtree.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\util\GgafLinearOctreeElem.h"
+			RelativePath=".\include\jp\ggaf\core\util\GgafLinearQuadtree.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\core\util\GgafLinearOctreeOctant.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\core\util\GgafLinearOctreeOctant.h"
+			RelativePath=".\include\jp\ggaf\core\util\GgafLinearTreeRounder.hpp"
 			>
 		</File>
 		<File
@@ -365,14 +365,6 @@
 		</File>
 		<File
 			RelativePath=".\include\jp\ggaf\core\GgafObject.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\core\GgafOrder.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\core\GgafOrder.h"
 			>
 		</File>
 		<File
@@ -424,11 +416,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\core\actor\GgafSceneDirector.cpp"
+			RelativePath=".\src\jp\ggaf\core\actor\GgafSceneMediator.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\actor\GgafSceneDirector.h"
+			RelativePath=".\include\jp\ggaf\core\actor\GgafSceneMediator.h"
 			>
 		</File>
 		<File
@@ -456,11 +448,19 @@
 			>
 		</File>
 		<File
+			RelativePath=".\include\jp\ggaf\core\util\GgafTreeElem.hpp"
+			>
+		</File>
+		<File
 			RelativePath=".\src\jp\ggaf\core\actor\ex\GgafTreeFormation.cpp"
 			>
 		</File>
 		<File
 			RelativePath=".\include\jp\ggaf\core\actor\ex\GgafTreeFormation.h"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\core\util\GgafTreeSpace.hpp"
 			>
 		</File>
 		<File
