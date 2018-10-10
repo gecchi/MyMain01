@@ -12,7 +12,7 @@ using namespace VioletVreath;
 EnemyOzartiaLaserChip01::EnemyOzartiaLaserChip01(const char* prm_name) :
         StraightLaserChip(prm_name, "EnemyOzartiaLaserChip01", STATUS(EnemyOzartiaLaserChip01)) {
     _class_name = "EnemyOzartiaLaserChip01";
-    _velo_mv = 100000;
+    setMvVelo(100000);
 }
 
 void EnemyOzartiaLaserChip01::initialize() {

@@ -29,7 +29,9 @@ private:
     angle _tmp_source_rx;
     angle _tmp_source_ry;
     angle _tmp_source_rz;
-
+    /** [r/w]移動速度 */
+    velo _velo_mv;
+    dxcoord _view_bound;
 public:
     /** レーザーの位置を同期するための、X座標変数場所 */
     int* _pSource_x;
@@ -43,9 +45,6 @@ public:
     angle* _pSource_ry;
     /** レーザーの向き方向のを同期するための、Z軸回転アングル値変数場所 */
     angle* _pSource_rz;
-
-    /** [r/w]移動速度 */
-    velo _velo_mv;
 
     GgafDxGeometricActor* _pSourceActor;
 
@@ -106,9 +105,11 @@ public:
         _pSource_rz = &prm_pGeoActor->_rz;
         _pSourceActor = prm_pGeoActor;
     }
-
+    virtual int isOutOfView() override;
     void setMvVelo(coord prm_velo);
-
+    coord getMvVelo() {
+        return _velo_mv;
+    }
     virtual ~StraightLaserChip();
 };
 

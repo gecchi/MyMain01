@@ -21,6 +21,7 @@ StraightLaserChip::StraightLaserChip(const char* prm_name, const char* prm_model
     _pSource_ry = &_ry;
     _pSource_rz = &_rz;
     _velo_mv = 100000;
+    _view_bound = PX_DX(_velo_mv) * 3;
 }
 
 void StraightLaserChip::processSettlementBehavior() {
@@ -79,8 +80,48 @@ void StraightLaserChip::processSettlementBehavior() {
     }
 }
 
+int StraightLaserChip::isOutOfView() {
+    if (_offscreen_kind == -1) {
+        const dxcoord bound = _view_bound;
+        if (_dest_from_vppln_top < bound) {
+            if (_dest_from_vppln_bottom < bound) {
+                if (_dest_from_vppln_left < bound) {
+                    if (_dest_from_vppln_right < bound) {
+                        if (_dest_from_vppln_infront < bound) {
+                            if (_dest_from_vppln_back < bound) {
+                                //Viewport範囲内
+                                _offscreen_kind = 0;
+                            } else {
+                                //奥平面より奥で範囲外
+                                _offscreen_kind = 6;
+                            }
+                        } else {
+                            //手前平面より手前で範囲外
+                            _offscreen_kind = 5;
+                        }
+                    } else {
+                        //右平面より右で範囲外
+                        _offscreen_kind = 4;
+                    }
+                } else {
+                    //左平面より左で範囲外
+                    _offscreen_kind = 3;
+                }
+            } else {
+                //下平面より下で範囲外
+                _offscreen_kind = 2;
+            }
+        } else {
+            //上平面より上で範囲外
+            _offscreen_kind = 1;
+        }
+    }
+    return _offscreen_kind;
+}
+
 void StraightLaserChip::setMvVelo(coord prm_velo) {
     _velo_mv = prm_velo;
+    _view_bound = PX_DX(_velo_mv) * 3;
 }
 
 StraightLaserChip::~StraightLaserChip() {

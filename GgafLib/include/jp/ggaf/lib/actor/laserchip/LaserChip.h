@@ -74,6 +74,7 @@ public:
     /** [r]trueならば、前方チップと離れすぎた場合に中間当たり判定自動生成 */
     bool _middle_colli_able;
 
+    float _rate_of_length;
 public:
     LaserChip(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
 
@@ -98,7 +99,7 @@ public:
     virtual void onInactive() override;
 
     virtual void drawHitArea() override;
-
+    virtual int isOutOfView() override;
     /**
      * レーザーチップ用当たり判定立方体をセット .
      * レーザーチップ間の距離が離れ、当たり判定のすり抜けを防止するため、<BR>

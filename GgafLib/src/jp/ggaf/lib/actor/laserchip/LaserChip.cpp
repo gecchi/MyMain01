@@ -42,7 +42,7 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model, GgafStatus* pr
     setZWriteEnable(false);  //自身のZバッファを書き込みしない
     setAlpha(0.99);
     _middle_colli_able = false;
-
+    _rate_of_length = 1.0f;
     _pMassMeshModel->registerCallback_VertexInstanceDataInfo(LaserChip::createVertexInstanceData);
     //モデル単位でセットすれば事足りるのだが、めんどうなので、アクター毎にセット
     static volatile bool is_init = LaserChip::initStatic(this); //静的メンバ初期化
@@ -253,20 +253,24 @@ void LaserChip::processSettlementBehavior() {
                                           cY3 + _hdy,
                                           cZ3 + _hdz
                                           );
+                            _rate_of_length = 16.0f;
                         } else {
                             pChecker->disable(1);
                             pChecker->disable(3);
+                            _rate_of_length = 8.0f;
                         }
                     } else {
                         pChecker->disable(1);
                         pChecker->disable(2);
                         pChecker->disable(3);
+                        _rate_of_length = 4.0f;
                     }
                 }
             } else {
                 pChecker->disable(1);
                 pChecker->disable(2);
                 pChecker->disable(3);
+                _rate_of_length = 4.0f;
             }
         }
     }
@@ -312,6 +316,45 @@ void LaserChip::onInactive() {
         _pChip_behind->_pChip_infront = nullptr;
     }
     _pChip_behind = nullptr;
+}
+
+int LaserChip::isOutOfView() {
+    if (_offscreen_kind == -1) {
+        const dxcoord bound = getModel()->_bounding_sphere_radius * _rate_of_bounding_sphere_radius*_rate_of_length*2.0f;//掛ける2は境界球を大きくして、画面境界のチラツキを抑える
+        if (_dest_from_vppln_top < bound) {
+            if (_dest_from_vppln_bottom < bound) {
+                if (_dest_from_vppln_left < bound) {
+                    if (_dest_from_vppln_right < bound) {
+                        if (_dest_from_vppln_infront < bound) {
+                            if (_dest_from_vppln_back < bound) {
+                                //Viewport範囲内
+                                _offscreen_kind = 0;
+                            } else {
+                                //奥平面より奥で範囲外
+                                _offscreen_kind = 6;
+                            }
+                        } else {
+                            //手前平面より手前で範囲外
+                            _offscreen_kind = 5;
+                        }
+                    } else {
+                        //右平面より右で範囲外
+                        _offscreen_kind = 4;
+                    }
+                } else {
+                    //左平面より左で範囲外
+                    _offscreen_kind = 3;
+                }
+            } else {
+                //下平面より下で範囲外
+                _offscreen_kind = 2;
+            }
+        } else {
+            //上平面より上で範囲外
+            _offscreen_kind = 1;
+        }
+    }
+    return _offscreen_kind;
 }
 
 void LaserChip::registerHitAreaCube_AutoGenMidColli(int prm_edge_length) {

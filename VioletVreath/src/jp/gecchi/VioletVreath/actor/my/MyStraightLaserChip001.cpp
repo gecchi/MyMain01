@@ -27,7 +27,7 @@ MyStraightLaserChip001::MyStraightLaserChip001(const char* prm_name) :
         StraightLaserChip(prm_name, "MyLaserChip001", STATUS(MyStraightLaserChip001)) {
     _class_name = "MyStraightLaserChip001";
     default_stamina_ = getStatus()->get(STAT_Stamina);
-    _velo_mv = PX_C(300);
+    setMvVelo(PX_C(300));
     pOrg_ = nullptr;
     GgafDxModel* pModel = getModel();
     if (!MyStraightLaserChip001::pModel_) {
