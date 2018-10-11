@@ -21,7 +21,6 @@ CollisionChecker2D::CollisionChecker2D(GgafDxGeometricActor* prm_pActor) : Colli
         _pLinearQuadtree(pGOD->getSpacetime()->getLinearQuadtree()),
         _pElem(NEW GgafTreeElem<2u>(_pLinearQuadtree->_paQuadrant, prm_pActor))
 {
-    _need_update_aabb = true;
 }
 
 void CollisionChecker2D::updateHitArea() {

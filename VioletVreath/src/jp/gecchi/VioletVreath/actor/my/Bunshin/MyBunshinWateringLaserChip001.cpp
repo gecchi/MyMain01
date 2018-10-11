@@ -275,7 +275,6 @@ throwGgafCriticalException("pAimInfo_ が引き継がれていません！"<<this<<
 }
 #endif
         }
-
         //活動開始初回フレーム、チップの速度と向きの初期設定
         setFaceAngAs(pOrg_);
         setPositionAt(pOrg_);
@@ -288,7 +287,7 @@ throwGgafCriticalException("pAimInfo_ が引き継がれていません！"<<this<<
     //本来は processBehaviorAfter() 的な意味の処理であるが、全レーザーチップが移動後でないと意味がないので
     //仕方ないのでprocessSettlementBehavior()に食い込んでいます。
     //したがって本クラスを継承した場合、継承クラスのprocessSettlementBehavior()では、先頭で呼び出した方が良い。
-    if (getActiveFrame() > 4) { //FKオブジェクトからのレーザー発射も考慮すると、_tmpXYZ が埋まるのは3フレーム以降。
+    if (getActiveFrame() > 5) { //FKオブジェクトからのレーザー発射も考慮すると、_tmpXYZ が埋まるのは3フレーム以降。
         MyBunshinWateringLaserChip001* pF = (MyBunshinWateringLaserChip001*)getInfrontChip();
         MyBunshinWateringLaserChip001* pB = (MyBunshinWateringLaserChip001*)getBehindChip();
         if (pF && pB && pF->isActive() && pB->isActive()) {
@@ -296,12 +295,12 @@ throwGgafCriticalException("pAimInfo_ が引き継がれていません！"<<this<<
             //なぜなら dispatch の瞬間に_pChip_behind != nullptr となるが、active()により有効になるのは次フレームだから
             //_x,_y,_z にはまだ変な値が入っている。
             //中間座標に再設定
-            _x = ((pF->tmp_x_ + pB->tmp_x_)/2 + tmp_x_)/2;
-            _y = ((pF->tmp_y_ + pB->tmp_y_)/2 + tmp_y_)/2;
-            _z = ((pF->tmp_z_ + pB->tmp_z_)/2 + tmp_z_)/2;
-            pAxesMover->setVxyzMvAcce( ( ((pF->tmp_acc_vx_ + pB->tmp_acc_vx_)/2) + tmp_acc_vx_)/2,
-                                       ( ((pF->tmp_acc_vy_ + pB->tmp_acc_vy_)/2) + tmp_acc_vy_)/2,
-                                       ( ((pF->tmp_acc_vz_ + pB->tmp_acc_vz_)/2) + tmp_acc_vz_)/2 );
+            _x = (pF->tmp_x_ + pB->tmp_x_ + tmp_x_)/3;
+            _y = (pF->tmp_y_ + pB->tmp_y_ + tmp_y_)/3;
+            _z = (pF->tmp_z_ + pB->tmp_z_ + tmp_z_)/3;
+            pAxesMover->setVxyzMvAcce( (pF->tmp_acc_vx_ + pB->tmp_acc_vx_ + tmp_acc_vx_)/3,
+                                       (pF->tmp_acc_vy_ + pB->tmp_acc_vy_ + tmp_acc_vy_)/3,
+                                       (pF->tmp_acc_vz_ + pB->tmp_acc_vz_ + tmp_acc_vz_)/3 );
         }
     }
     WateringLaserChip::processSettlementBehavior();
@@ -314,7 +313,6 @@ void MyBunshinWateringLaserChip001::processJudgement() {
             pAimInfo_->t2_y = _y;
             pAimInfo_->t2_z = _z;
             pAimInfo_->spent_frames_to_t2 = getActiveFrame();
-
             if (pAimInfo_->spent_frames_to_t1 == 0) {
                 pAimInfo_->t1_x = pAimInfo_->t2_x;
                 pAimInfo_->t1_y = pAimInfo_->t2_y;

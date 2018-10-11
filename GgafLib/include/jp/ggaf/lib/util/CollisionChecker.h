@@ -21,8 +21,6 @@ namespace GgafLib {
 class CollisionChecker : public GgafDxCore::GgafDxChecker {
 
 public:
-    /** 当たり判定領域の境界領域(AABB)を再計算するかどうかのフラグ */
-    bool _need_update_aabb;
 #ifdef MY_DEBUG
     /** １フレームの当たり判定要素同士の判定回数 */
     static unsigned int _num_check;

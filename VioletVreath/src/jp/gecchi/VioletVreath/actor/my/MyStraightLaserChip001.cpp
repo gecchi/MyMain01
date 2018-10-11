@@ -59,14 +59,11 @@ void MyStraightLaserChip001::onActive() {
     default_stamina_ = getStatus()->get(STAT_Stamina);
     StraightLaserChip::onActive();
 
-    GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrler_->pRingTarget_->getCurrent();
     getKuroko()->setMvVelo(100000);
     getKuroko()->setMvAcce(1000);
 }
 
 void MyStraightLaserChip001::processBehavior() {
-    const GgafDxGeometricActor* const pMainLockOnTarget = pOrg_->pLockonCtrler_->pRingTarget_->getCurrent();
-
     if (getInfrontChip() == nullptr) {
         getSeTransmitter()->behave();
     }
@@ -85,7 +82,6 @@ void MyStraightLaserChip001::processJudgement() {
 
 void MyStraightLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
     GgafDxGeometricActor* pOther = (GgafDxGeometricActor*) prm_pOtherActor;
-    GgafDxGeometricActor* pMainLockOnTarget = pOrg_->pLockonCtrler_->pRingTarget_->getCurrent();
     //ヒットエフェクト
     UTIL::activateExplosionEffectOf(this); //爆発エフェクト出現
 

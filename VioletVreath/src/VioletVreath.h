@@ -562,7 +562,6 @@ class TorpedoMagic;
 class TractorMagic;
 class TransitStage;
 class VamSysCamWorker;
-class VamSysCamWorker2;
 class VarietyRatislavia001;
 class VarietyRatislavia002;
 class VarietyRatislavia003;

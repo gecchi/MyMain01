@@ -21,7 +21,7 @@ StraightLaserChip::StraightLaserChip(const char* prm_name, const char* prm_model
     _pSource_ry = &_ry;
     _pSource_rz = &_rz;
     _velo_mv = 100000;
-    _view_bound = PX_DX(_velo_mv) * 3;
+    _view_bound = C_DX(_velo_mv) * 3;
 }
 
 void StraightLaserChip::processSettlementBehavior() {
@@ -121,7 +121,7 @@ int StraightLaserChip::isOutOfView() {
 
 void StraightLaserChip::setMvVelo(coord prm_velo) {
     _velo_mv = prm_velo;
-    _view_bound = PX_DX(_velo_mv) * 3;
+    _view_bound = C_DX(_velo_mv) * 3;
 }
 
 StraightLaserChip::~StraightLaserChip() {

@@ -40,11 +40,12 @@ void CollisionChecker3D::updateHitArea() {
             }
 #endif
             pColliPart = pCollisionArea->_papColliPart[i];
-            if (pColliPart->_rot) {
+            if (pColliPart->_rot && pColliPart->_is_valid_flg) {
                 pColliPart->rotateRxRzRy(pActor->_rx, pActor->_ry, pActor->_rz);
                 _need_update_aabb = true;
             }
         }
+
         if (_need_update_aabb) {
             pCollisionArea->updateAABB(); //最外域の境界AABB更新
             _need_update_aabb = false;
@@ -77,7 +78,7 @@ bool CollisionChecker3D::isHit(const GgafDxCore::GgafDxChecker* const prm_pOppCh
 
     //複数の当たり判定要素をもつアクター同士の場合、
     //まず最外境界AABoxで当たり判定を行って、ヒットすれば厳密に当たり判定を行う。
-    if (colli_part_num > 1 && opp_colli_part_num > 1) {
+    if (colli_part_num > 2 && opp_colli_part_num > 2) {
 #ifdef MY_DEBUG
         CollisionChecker::_num_check++;
 #endif

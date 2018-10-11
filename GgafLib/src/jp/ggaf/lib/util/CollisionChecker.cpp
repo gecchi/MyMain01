@@ -28,7 +28,6 @@ unsigned int CollisionChecker::_num_check = 0;
 #endif
 
 CollisionChecker::CollisionChecker(GgafDxGeometricActor* prm_pActor) : GgafDxChecker(prm_pActor) {
-    _need_update_aabb = true;
 }
 
 void CollisionChecker::setColliSphere(int prm_index, coord x, coord y, coord z, coord r, bool rot_x, bool rot_y, bool rot_z) {
@@ -58,6 +57,7 @@ void CollisionChecker::setColliSphere(int prm_index, coord x, coord y, coord z, 
     pSphere->_is_valid_flg = true;
     pSphere->set(x, y, z, r, rot_x, rot_y, rot_z);
     _need_update_aabb = true;
+//    _is_enable = true;
 }
 
 
@@ -92,6 +92,7 @@ void CollisionChecker::setColliAABox(int prm_index,
     pAABox->_is_valid_flg = true;
     pAABox->set(x1, y1, z1, x2, y2, z2, rot_x, rot_y, rot_z);
     _need_update_aabb = true;
+//    _is_enable = true;
 }
 
 void CollisionChecker::setColliAAPrism(int prm_index,
@@ -120,6 +121,7 @@ void CollisionChecker::setColliAAPrism(int prm_index,
     pAAPrism->_is_valid_flg = true;
     pAAPrism->set(x1, y1, z1, x2, y2, z2, pos_info, rot_x, rot_y, rot_z);
     _need_update_aabb = true;
+//    _is_enable = true;
 }
 
 void CollisionChecker::setColliAAPyramid(int prm_index,
@@ -148,6 +150,7 @@ void CollisionChecker::setColliAAPyramid(int prm_index,
     pAAPyramid->_is_valid_flg = true;
     pAAPyramid->set(x1, y1, z1, x2, y2, z2, pos_info, rot_x, rot_y, rot_z);
     _need_update_aabb = true;
+//    _is_enable = true;
 }
 
 
