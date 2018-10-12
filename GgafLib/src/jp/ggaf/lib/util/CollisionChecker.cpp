@@ -53,10 +53,13 @@ void CollisionChecker::setColliSphere(int prm_index, coord x, coord y, coord z, 
     }
 #endif
     ColliSphere* pSphere = (ColliSphere*)_pCollisionArea->_papColliPart[prm_index];
+    bool rot_before = pSphere->_rot;
     pSphere->_shape_kind = COLLI_SPHERE;
     pSphere->_is_valid_flg = true;
     pSphere->set(x, y, z, r, rot_x, rot_y, rot_z);
-    _need_update_aabb = true;
+    _pCollisionArea->_need_update_aabb = true;
+    _pCollisionArea->_rotate_part_num += (rot_before ? (pSphere->_rot ?  0 : -1)
+                                                     : (pSphere->_rot ?  1 :  0) ) ;
 //    _is_enable = true;
 }
 
@@ -88,10 +91,13 @@ void CollisionChecker::setColliAABox(int prm_index,
     }
 #endif
     ColliAABox* pAABox = (ColliAABox*)_pCollisionArea->_papColliPart[prm_index];
+    bool rot_before = pAABox->_rot;
     pAABox->_shape_kind = COLLI_AABOX;
     pAABox->_is_valid_flg = true;
     pAABox->set(x1, y1, z1, x2, y2, z2, rot_x, rot_y, rot_z);
-    _need_update_aabb = true;
+    _pCollisionArea->_need_update_aabb = true;
+    _pCollisionArea->_rotate_part_num += (rot_before ? (pAABox->_rot ?  0 : -1)
+                                                     : (pAABox->_rot ?  1 :  0) ) ;
 //    _is_enable = true;
 }
 
@@ -117,10 +123,13 @@ void CollisionChecker::setColliAAPrism(int prm_index,
     }
 #endif
     ColliAAPrism* pAAPrism = (ColliAAPrism*)_pCollisionArea->_papColliPart[prm_index];
+    bool rot_before = pAAPrism->_rot;
     pAAPrism->_shape_kind = COLLI_AAPRISM;
     pAAPrism->_is_valid_flg = true;
     pAAPrism->set(x1, y1, z1, x2, y2, z2, pos_info, rot_x, rot_y, rot_z);
-    _need_update_aabb = true;
+    _pCollisionArea->_need_update_aabb = true;
+    _pCollisionArea->_rotate_part_num += (rot_before ? (pAAPrism->_rot ?  0 : -1)
+                                                     : (pAAPrism->_rot ?  1 :  0) ) ;
 //    _is_enable = true;
 }
 
@@ -146,10 +155,13 @@ void CollisionChecker::setColliAAPyramid(int prm_index,
     }
 #endif
     ColliAAPyramid* pAAPyramid = (ColliAAPyramid*)_pCollisionArea->_papColliPart[prm_index];
+    bool rot_before = pAAPyramid->_rot;
     pAAPyramid->_shape_kind = COLLI_AAPYRAMID;
     pAAPyramid->_is_valid_flg = true;
     pAAPyramid->set(x1, y1, z1, x2, y2, z2, pos_info, rot_x, rot_y, rot_z);
-    _need_update_aabb = true;
+    _pCollisionArea->_need_update_aabb = true;
+    _pCollisionArea->_rotate_part_num += (rot_before ? (pAAPyramid->_rot ?  0 : -1)
+                                                     : (pAAPyramid->_rot ?  1 :  0) ) ;
 //    _is_enable = true;
 }
 

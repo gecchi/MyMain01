@@ -10,7 +10,7 @@ using namespace GgafDxCore;
 GgafDxChecker::GgafDxChecker(GgafDxGeometricActor* prm_pActor) : GgafObject(),
 _pActor(prm_pActor) {
     _pCollisionArea = nullptr;
-    _need_update_aabb = true;
+//    _need_update_aabb = true;
 //    _is_enable = false;
 }
 
@@ -28,7 +28,7 @@ void GgafDxChecker::enable(int prm_index) {
         //å≥ÅX enable
     } else {
         pPart->_is_valid_flg = true;
-        _need_update_aabb = true;
+        _pCollisionArea->_need_update_aabb = true;
     }
 }
 //void GgafDxChecker::disable(int prm_index) {
@@ -108,7 +108,7 @@ void GgafDxChecker::disable(int prm_index) {
     GgafDxCollisionPart* pPart = _pCollisionArea->_papColliPart[prm_index];
     if (pPart->_is_valid_flg) {
         pPart->_is_valid_flg = false;
-        _need_update_aabb = true;
+        _pCollisionArea->_need_update_aabb = true;
     } else {
          //å≥ÅX disable
     }

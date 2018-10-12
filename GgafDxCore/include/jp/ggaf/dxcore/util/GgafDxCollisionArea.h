@@ -28,7 +28,10 @@ public:
     int _colli_part_num;
     /** ヒットチェックでヒットしたパートインデックスが入る(isHit で設定) */
     int _hit_colli_part_index;
+    /** 当たり判定領域の境界領域(AABB)を再計算するかどうかのフラグ */
+    bool _need_update_aabb;
 
+    int _rotate_part_num;
 public:
     /**
      * コンストラクタ .
@@ -40,8 +43,7 @@ public:
     /**
      * 全当たり判定要素含む最外域の軸平行境界直方体を再計算 .
      */
-    void updateAABB();
-
+    void updateAABB(angle prm_rx, angle prm_ry, angle prm_rz);
 
     inline GgafDxCollisionPart* getPart(int prm_index) {
         return _papColliPart[prm_index];

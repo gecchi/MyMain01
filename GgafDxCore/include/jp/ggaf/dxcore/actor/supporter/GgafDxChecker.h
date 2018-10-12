@@ -15,8 +15,8 @@ namespace GgafDxCore {
 class GgafDxChecker : public GgafCore::GgafObject {
 
 public:
-    /** 当たり判定領域の境界領域(AABB)を再計算するかどうかのフラグ */
-    bool _need_update_aabb;
+//    /** 当たり判定領域の境界領域(AABB)を再計算するかどうかのフラグ */
+//    bool _need_update_aabb;
     /** 対象アクター */
     GgafDxGeometricActor* const _pActor;
     /** 当たり判定領域 */

@@ -21,7 +21,7 @@ CollisionChecker3D::CollisionChecker3D(GgafDxGeometricActor* prm_pActor) : Colli
         _pLinearOctree(pGOD->getSpacetime()->getLinearOctree()),
         _pElem(NEW GgafTreeElem<3u>(_pLinearOctree->_paOctant, prm_pActor))
 {
-    _need_update_aabb = true;
+//    _need_update_aabb = true;
 }
 
 void CollisionChecker3D::updateHitArea() {
@@ -31,33 +31,35 @@ void CollisionChecker3D::updateHitArea() {
     }
     GgafDxGeometricActor* const pActor = _pActor;
     if (pActor->isActiveInTheTree()) {
-        GgafDxCollisionPart* pColliPart;
-        int colli_part_num = pCollisionArea->_colli_part_num;
-        for (int i = 0; i < colli_part_num; i++) {
-#ifdef MY_DEBUG
-            if (_pCollisionArea->_papColliPart[i] == nullptr) {
-                throwGgafCriticalException("["<<getTargetActor()->getName()<<"]  _papColliPart["<<i<<"]がnullptrです。");
-            }
-#endif
-            pColliPart = pCollisionArea->_papColliPart[i];
-            if (pColliPart->_rot && pColliPart->_is_valid_flg) {
-                pColliPart->rotateRxRzRy(pActor->_rx, pActor->_ry, pActor->_rz);
-                _need_update_aabb = true;
-            }
-        }
-
-        if (_need_update_aabb) {
-            pCollisionArea->updateAABB(); //最外域の境界AABB更新
-            _need_update_aabb = false;
-            _pElem->_kind = pActor->lookUpKind();
-        }
+//        GgafDxCollisionPart* pColliPart;
+//        int colli_part_num = pCollisionArea->_colli_part_num;
+//        for (int i = 0; i < colli_part_num; i++) {
+//#ifdef MY_DEBUG
+//            if (_pCollisionArea->_papColliPart[i] == nullptr) {
+//                throwGgafCriticalException("["<<getTargetActor()->getName()<<"]  _papColliPart["<<i<<"]がnullptrです。");
+//            }
+//#endif
+//            pColliPart = pCollisionArea->_papColliPart[i];
+//            if (pColliPart->_rot && pColliPart->_is_valid_flg) {
+//                pColliPart->rotateRxRzRy(pActor->_rx, pActor->_ry, pActor->_rz);
+//                _need_update_aabb = true;
+//            }
+//        }
+//
+//        if (_need_update_aabb) {
+//            pCollisionArea->updateAABB(); //最外域の境界AABB更新
+//            _need_update_aabb = false;
+//            _pElem->_kind = pActor->lookUpKind();
+//        }
 
         //八分木に登録！
+        _pElem->_kind = pActor->lookUpKind();
 #ifdef MY_DEBUG
         if (_pElem->_kind == 0) {
             _TRACE_("＜警告＞ CollisionChecker3D::updateHitArea() pActor="<<pActor->getName()<<"("<<pActor<<")の種別が0にもかかわらず、八分木に登録しようとしています。なぜですか？。");
         }
 #endif
+        pCollisionArea->updateAABB(pActor->_rx, pActor->_ry, pActor->_rz); //最外域の境界AABB更新
         _pLinearOctree->registerElem(_pElem, pActor->_x + pCollisionArea->_aabb_x1,
                                              pActor->_y + pCollisionArea->_aabb_y1,
                                              pActor->_z + pCollisionArea->_aabb_z1,

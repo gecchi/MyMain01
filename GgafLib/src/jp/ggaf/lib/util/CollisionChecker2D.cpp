@@ -30,31 +30,33 @@ void CollisionChecker2D::updateHitArea() {
     }
     GgafDxGeometricActor* const pActor = _pActor;
     if (pActor->isActiveInTheTree()) {
-        GgafDxCollisionPart* pColliPart;
-        for (int i = 0; i < pCollisionArea->_colli_part_num; i++) {
-#ifdef MY_DEBUG
-            if (_pCollisionArea->_papColliPart[i] == nullptr) {
-                throwGgafCriticalException("["<<getTargetActor()->getName()<<"]  _papColliPart["<<i<<"]Ç™nullptrÇ≈Ç∑ÅB");
-            }
-#endif
-            pColliPart = pCollisionArea->_papColliPart[i];
-            if (pColliPart->_rot) {
-                pColliPart->rotateRxRzRy(pActor->_rx, pActor->_ry, pActor->_rz);
-                _need_update_aabb = true;
-            }
-        }
-        if (_need_update_aabb) {
-            pCollisionArea->updateAABB(); //ç≈äOàÊÇÃã´äEAABBçXêV
-            _need_update_aabb = false;
-            _pElem->_kind = pActor->lookUpKind();
-        }
+//        GgafDxCollisionPart* pColliPart;
+//        for (int i = 0; i < pCollisionArea->_colli_part_num; i++) {
+//#ifdef MY_DEBUG
+//            if (_pCollisionArea->_papColliPart[i] == nullptr) {
+//                throwGgafCriticalException("["<<getTargetActor()->getName()<<"]  _papColliPart["<<i<<"]Ç™nullptrÇ≈Ç∑ÅB");
+//            }
+//#endif
+//            pColliPart = pCollisionArea->_papColliPart[i];
+//            if (pColliPart->_rot) {
+//                pColliPart->rotateRxRzRy(pActor->_rx, pActor->_ry, pActor->_rz);
+//                _need_update_aabb = true;
+//            }
+//        }
+//        if (_need_update_aabb) {
+//            pCollisionArea->updateAABB(); //ç≈äOàÊÇÃã´äEAABBçXêV
+//            _need_update_aabb = false;
+//            _pElem->_kind = pActor->lookUpKind();
+//        }
 
-        //î™ï™ñÿÇ…ìoò^ÅI
+        //élï™ñÿÇ…ìoò^ÅI
+        _pElem->_kind = pActor->lookUpKind();
 #ifdef MY_DEBUG
         if (_pElem->_kind == 0) {
             _TRACE_("ÅÉåxçêÅÑ CollisionChecker2D::updateHitArea() pActor="<<pActor->getName()<<"("<<pActor<<")ÇÃéÌï Ç™0Ç…Ç‡Ç©Ç©ÇÌÇÁÇ∏ÅAî™ï™ñÿÇ…ìoò^ÇµÇÊÇ§Ç∆ÇµÇƒÇ¢Ç‹Ç∑ÅBÇ»Ç∫Ç≈Ç∑Ç©ÅHÅB");
         }
 #endif
+        pCollisionArea->updateAABB(pActor->_rx, pActor->_ry, pActor->_rz); //ç≈äOàÊÇÃã´äEAABBçXêV
         _pLinearQuadtree->registerElem(_pElem, pActor->_x + pCollisionArea->_aabb_x1,
                                                pActor->_y + pCollisionArea->_aabb_y1,
                                                pActor->_x + pCollisionArea->_aabb_x2,
