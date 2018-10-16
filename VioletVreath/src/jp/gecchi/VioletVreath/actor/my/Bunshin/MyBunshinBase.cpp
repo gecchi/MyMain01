@@ -311,7 +311,6 @@ void MyBunshinBase::processBehavior() {
         //分身操作
         if (is_pressed_VB_TURBO) {
             trace_mode_ = TRACE_FREEZE;
-            dir26 mv_way_MyShip = pMyShip->mv_way_;
             dir26 mv_way_sgn_x_MyShip = pMyShip->mv_way_sgn_x_;
             dir26 mv_way_sgn_y_MyShip = pMyShip->mv_way_sgn_y_;
             dir26 mv_way_sgn_z_MyShip = pMyShip->mv_way_sgn_z_;
@@ -338,12 +337,10 @@ void MyBunshinBase::processBehavior() {
             //分身の向き(this土台の向き)操作
             trace_mode_ = TRACE_FREEZE;
             //カメラ位置によって上下左右の操作割当を変える
-            const dir26 pos_camera = pVAM->getPosCam();
             const dir26 pos_up = pVAM->getPosUp();
             const float vX = pKuroko->_vX;
             const float vY = pKuroko->_vY;
             const float vZ = pKuroko->_vZ;
-            static const float ONE_OVER_ROOT2 = 1.0 / sqrt(2.0);
             bool update_updown_rot_axis_timing = (pKuroko->isTurningMvAng() || pVbPlay->isPushedDown(VB_OPTION) || pVAM->isJustChangedPosCam());
 
             //LEFT RIGHT 回転軸 = pos_up = (up_sgn_x, up_sgn_y, up_sgn_z)
@@ -425,7 +422,7 @@ void MyBunshinBase::processBehavior() {
         }
     } else {
         //通常時は trace_mode_ の動き
-        setPositionAt(pPosTrace_->getNext()); //環状なのでgetNext()が末尾座標情報。
+        setPosAt(pPosTrace_->getNext()); //環状なのでgetNext()が末尾座標情報。
         if (trace_mode_ == TRACE_GRADIUS) {
             //TRACE_GRADIUS で 土台が移動するならば、半径位置を土台の中心に寄せる
             Pos* p = pPosTrace_->get2Next();

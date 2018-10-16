@@ -65,7 +65,7 @@ private:
             GGAF_DELETEARR(_paPos);
         }
     };
-    inline void setPositionAt(Pos *pPos) {
+    inline void setPosAt(Pos *pPos) {
          setPosition(pPos->x, pPos->y, pPos->z);
     }
 

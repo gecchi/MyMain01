@@ -30,25 +30,6 @@ void CollisionChecker2D::updateHitArea() {
     }
     GgafDxGeometricActor* const pActor = _pActor;
     if (pActor->isActiveInTheTree()) {
-//        GgafDxCollisionPart* pColliPart;
-//        for (int i = 0; i < pCollisionArea->_colli_part_num; i++) {
-//#ifdef MY_DEBUG
-//            if (_pCollisionArea->_papColliPart[i] == nullptr) {
-//                throwGgafCriticalException("["<<getTargetActor()->getName()<<"]  _papColliPart["<<i<<"]‚ªnullptr‚Å‚·B");
-//            }
-//#endif
-//            pColliPart = pCollisionArea->_papColliPart[i];
-//            if (pColliPart->_rot) {
-//                pColliPart->rotateRxRzRy(pActor->_rx, pActor->_ry, pActor->_rz);
-//                _need_update_aabb = true;
-//            }
-//        }
-//        if (_need_update_aabb) {
-//            pCollisionArea->updateAABB(); //ÅŠOˆæ‚Ì‹«ŠEAABBXV
-//            _need_update_aabb = false;
-//            _pElem->_kind = pActor->lookUpKind();
-//        }
-
         //Žl•ª–Ø‚É“o˜^I
         _pElem->_kind = pActor->lookUpKind();
 #ifdef MY_DEBUG

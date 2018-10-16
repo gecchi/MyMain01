@@ -21,7 +21,6 @@ CollisionChecker3D::CollisionChecker3D(GgafDxGeometricActor* prm_pActor) : Colli
         _pLinearOctree(pGOD->getSpacetime()->getLinearOctree()),
         _pElem(NEW GgafTreeElem<3u>(_pLinearOctree->_paOctant, prm_pActor))
 {
-//    _need_update_aabb = true;
 }
 
 void CollisionChecker3D::updateHitArea() {
@@ -31,27 +30,6 @@ void CollisionChecker3D::updateHitArea() {
     }
     GgafDxGeometricActor* const pActor = _pActor;
     if (pActor->isActiveInTheTree()) {
-//        GgafDxCollisionPart* pColliPart;
-//        int colli_part_num = pCollisionArea->_colli_part_num;
-//        for (int i = 0; i < colli_part_num; i++) {
-//#ifdef MY_DEBUG
-//            if (_pCollisionArea->_papColliPart[i] == nullptr) {
-//                throwGgafCriticalException("["<<getTargetActor()->getName()<<"]  _papColliPart["<<i<<"]がnullptrです。");
-//            }
-//#endif
-//            pColliPart = pCollisionArea->_papColliPart[i];
-//            if (pColliPart->_rot && pColliPart->_is_valid_flg) {
-//                pColliPart->rotateRxRzRy(pActor->_rx, pActor->_ry, pActor->_rz);
-//                _need_update_aabb = true;
-//            }
-//        }
-//
-//        if (_need_update_aabb) {
-//            pCollisionArea->updateAABB(); //最外域の境界AABB更新
-//            _need_update_aabb = false;
-//            _pElem->_kind = pActor->lookUpKind();
-//        }
-
         //八分木に登録！
         _pElem->_kind = pActor->lookUpKind();
 #ifdef MY_DEBUG
@@ -84,26 +62,23 @@ bool CollisionChecker3D::isHit(const GgafDxCore::GgafDxChecker* const prm_pOppCh
 #ifdef MY_DEBUG
         CollisionChecker::_num_check++;
 #endif
-        bool is_hit_bound_aabb = false;
         if (pActor->_x + pCollisionArea->_aabb_x2 >= pOppActor->_x + pOppCollisionArea->_aabb_x1) {
             if (pActor->_x + pCollisionArea->_aabb_x1 <= pOppActor->_x + pOppCollisionArea->_aabb_x2) {
                 if (pActor->_z + pCollisionArea->_aabb_z2 >= pOppActor->_z + pOppCollisionArea->_aabb_z1) {
                     if (pActor->_z + pCollisionArea->_aabb_z1 <= pOppActor->_z + pOppCollisionArea->_aabb_z2) {
                         if (pActor->_y + pCollisionArea->_aabb_y2 >= pOppActor->_y + pOppCollisionArea->_aabb_y1) {
                             if (pActor->_y + pCollisionArea->_aabb_y1 <= pOppActor->_y + pOppCollisionArea->_aabb_y2) {
-                                is_hit_bound_aabb = true;
+                                goto CNT;
                             }
                         }
                     }
                 }
             }
         }
-        if (!is_hit_bound_aabb) {
-            //最外境界AABoxでヒットしていない
-            return false;
-        }
+        return false;
     }
 
+CNT:
     for (int i = 0; i < colli_part_num; i++) {
         const GgafDxCollisionPart* const pColliPart = pCollisionArea->_papColliPart[i];
         if (!pColliPart->_is_valid_flg) { continue; }

@@ -68,7 +68,6 @@ void EnemyEsperiaLaserChip001::onActive() {
 }
 
 void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
-    MyShip* pMyShip = pMYSHIP;
     GgafDxKuroko* const pKuroko = getKuroko();
     GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {

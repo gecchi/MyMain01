@@ -446,7 +446,11 @@ public:
     static inline double _rcnv_(double min_a, double max_a, double x, double min_b, double max_b) {
         return ( (min_b-max_b)*x - (max_a*min_b) + (max_b*min_a) ) / (min_a-max_a);
     }
-
+    /**
+     * ‚Ræª‚ğ‹‚ß‚é .
+     * @param x
+     * @return
+     */
     static double _cbrt_(double x);
     /**
      * int32_tƒ‰ƒ“ƒ_ƒ€ŠÖ” .

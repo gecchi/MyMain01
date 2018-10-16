@@ -62,10 +62,12 @@ pStageWorld_(nullptr) {
     was_paused_flg_GameMainScene_prev_frame_ = false;
 
     getBgmConductor()->ready(BGM_DEMO, "OGG_BGM_DEMO");
+    pHitCheckRounder_ = nullptr;
 }
 
 void GameScene::initialize() {
     _TRACE_(FUNC_NAME<<" いきますよDemoSceneさん");
+    pHitCheckRounder_ = pGOD->getSpacetime()->getLinearOctreeHitCheckRounder();
 }
 
 void GameScene::onReset() {
@@ -355,37 +357,32 @@ void GameScene::processJudgement() {
 #ifdef MY_DEBUG
         CollisionChecker::_num_check = 0;
 #endif
-
-
         //本シーンの所属シーンの所属アクター全てについて当たり判定チェックを行う。
         //空間分割(八分木)アルゴリズムにより、チェック回数の最適化を行っています。
         //詳細は 「種別相関定義コピペツール.xls」 の 「種別相関」 シート参照
 
-        OctreeRounder* pHitCheckRounder = pGOD->getSpacetime()->getLinearOctreeHitCheckRounder();
+        OctreeRounder* pHitCheckRounder = pHitCheckRounder_;
 #ifdef MY_DEBUG
         if (GgafDxInput::isPushedDownKey(DIK_I)) {
             pGOD->getSpacetime()->getLinearOctree()->putTree();
         }
 #endif
         //八分木アルゴリズムでヒットチェック
-        pHitCheckRounder->executeAll(
-            KIND_CHIKEI,
-            KIND_MY_CHIKEI_HIT|KIND_ENEMY_CHIKEI_HIT|KIND_ITEM_CHIKEI_HIT|KIND_CHIKEI_CHIKEI_HIT
-        );
-        pHitCheckRounder->executeAll(
-            KIND_ITEM,
-            KIND_MY_BODY_CHIKEI_HIT
-        );
-        pHitCheckRounder->executeAll(
-            KIND_MY,
-            KIND_ENEMY_BODY
-        );
-        pHitCheckRounder->executeAll(
-            KIND_ENEMY_SHOT,
-            KIND_MY_BODY
-        );
+        static const kind_t group_A1 = KIND_CHIKEI;
+        static const kind_t group_B1 = KIND_MY_CHIKEI_HIT|KIND_ENEMY_CHIKEI_HIT|KIND_ITEM_CHIKEI_HIT|KIND_CHIKEI_CHIKEI_HIT;
+        pHitCheckRounder->executeAll(group_A1, group_B1);
 
+        static const kind_t group_A2 = KIND_ITEM;
+        static const kind_t group_B2 = KIND_MY_BODY_CHIKEI_HIT;
+        pHitCheckRounder->executeAll(group_A2, group_B2);
 
+        static const kind_t group_A3 = KIND_MY;
+        static const kind_t group_B3 = KIND_ENEMY_BODY;
+        pHitCheckRounder->executeAll(group_A3, group_B3);
+
+        static const kind_t group_A4 = KIND_ENEMY_SHOT;
+        static const kind_t group_B4 = KIND_MY_BODY;
+        pHitCheckRounder->executeAll(group_A4, group_B4);
     }
 }
 void GameScene::pauseGame() {

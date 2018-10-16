@@ -40,6 +40,7 @@ char* GgafUtil::getFileText(std::string prm_filename) {
         return pa_char;
     }
 }
+int g_count=0;
 
 int32_t GgafUtil::_rnd_int32_(int32_t prm_from, int32_t prm_to) {
 #ifdef MY_DEBUG
@@ -63,7 +64,7 @@ double GgafUtil::_cbrt_(double x) {
     double stv, dx, last, diff, v3;
     stv = x >= 0.0 ? sqrt(x) : -sqrt(-x);
     dx = stv / 10.0;
-    if (x == 0.0) return 0.0;
+    if (x == 0.0) return 0.0; // i knnow comparing float
     if (x < stv * stv * stv) dx = -dx;
     while (1) {
         last = stv;
