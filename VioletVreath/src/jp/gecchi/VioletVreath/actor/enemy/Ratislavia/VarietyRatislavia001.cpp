@@ -18,13 +18,13 @@ VarietyRatislavia001::VarietyRatislavia001(const char* prm_name) :
     for (angle ang1 = 0; ang1 < D360ANG;  ang1 += (D_ANG(60))) {
         for (angle ang2 = 0; ang2 < D360ANG;  ang2 += (D_ANG(60))) {
             std::string name = "Omulus(" + XTOS(ang1) + "," + XTOS(ang2) + ")";
-            addSubGroupAsFkOnSurface(NEW EnemyOmulus(name.c_str()), ang1, ang2);
+            appendGroupChildAsFkOnSurface(NEW EnemyOmulus(name.c_str()), ang1, ang2);
             Sleep(1);
         }
     }
 
     pEnemyRatislaviaEye_ = NEW EnemyRatislaviaEye("EnemyRatislaviaEye", this);
-    addSubGroup(pEnemyRatislaviaEye_);
+    appendGroupChild(pEnemyRatislaviaEye_);
 }
 
 void VarietyRatislavia001::initialize() {

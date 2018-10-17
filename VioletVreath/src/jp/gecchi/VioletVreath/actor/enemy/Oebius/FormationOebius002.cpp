@@ -34,7 +34,7 @@ FormationOebius002::FormationOebius002(const char* prm_name, EnemyOebiusControll
     num_Oebius_ = pXpM->getPixelNum();
     for (int i = 0; i < num_Oebius_; i++) {
         std::string name = "Oebius("+XTOS(i)+")";
-        addFormationMember(NEW EnemyOebius(name.c_str()));
+        appendFormationMember(NEW EnemyOebius(name.c_str()));
         Sleep(1);
     }
 

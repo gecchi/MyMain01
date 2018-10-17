@@ -17,17 +17,17 @@ StageWorld::StageWorld(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "StageWorld";
     can_rank_up_ = true;
     pStageCtrler_ = NEW StageController("StageController");
-    addSubLast(pStageCtrler_);
+    appendChild(pStageCtrler_);
     pRankUpStageCtrler_ = NEW RankUpStageController("RankUpStageController");
-    addSubLast(pRankUpStageCtrler_);
+    appendChild(pRankUpStageCtrler_);
 }
 
 void StageWorld::onReset() {
     _TRACE_(FUNC_NAME<<" "<<NODE_INFO<<" GOD="<<pGOD->_frame_of_God);
-    _TRACE_("MyShipScene ÇÅAÉXÉçÅ[ÇÃâeãøÇó^Ç¶Ç»Ç¢ÇΩÇﬂÇ…àÍÇ¬è„Ç…à¯Ç´è„Ç∞Ç‹Ç∑ addSubLast(pMYSHIP_SCENE->extract()); ");
+    _TRACE_("MyShipScene ÇÅAÉXÉçÅ[ÇÃâeãøÇó^Ç¶Ç»Ç¢ÇΩÇﬂÇ…àÍÇ¬è„Ç…à¯Ç´è„Ç∞Ç‹Ç∑ appendChild(pMYSHIP_SCENE->extract()); ");
     pMYSHIP_SCENE->resetTree();
     pMYSHIP_SCENE->activateImmed();
-    addSubLast(pMYSHIP_SCENE->extract()); //ÉXÉçÅ[ÇÃâeãøÇó^Ç¶Ç»Ç¢ÇΩÇﬂÇ…àÍÇ¬è„
+    appendChild(pMYSHIP_SCENE->extract()); //ÉXÉçÅ[ÇÃâeãøÇó^Ç¶Ç»Ç¢ÇΩÇﬂÇ…àÍÇ¬è„
     pStageCtrler_->setRunFrameOnce(1); //ÉXÉçÅ[Ç»ÇµÇ…
 }
 

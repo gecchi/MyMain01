@@ -49,7 +49,7 @@ void Stage02PartController::processBehavior() {
             }
             case 3: {
                 Stage02_01* pScene = (Stage02_01*)receiveScene(70000000);
-                addSubLast(pScene);
+                appendChild(pScene);
                 break;
             }
             case 2100: {
@@ -58,7 +58,7 @@ void Stage02PartController::processBehavior() {
             }
             case 3000: {
                 Stage02_Climax* pScene = (Stage02_Climax*)receiveScene(70000001);
-                addSubLast(pScene);
+                appendChild(pScene);
                 break;
             }
             default :

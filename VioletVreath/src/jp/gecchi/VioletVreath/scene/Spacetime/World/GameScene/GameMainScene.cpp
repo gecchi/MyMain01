@@ -35,17 +35,17 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     pLabel_SCORE_ = NEW LabelScoreFont("SCORE");
     pLabel_SCORE_->setAlign(ALIGN_RIGHT, VALIGN_TOP);
     pLabel_SCORE_->setPosition(PX_C(CONFIG::GAME_BUFFER_WIDTH), PX_C(1));
-    bringSceneMediator()->addSubGroup(pLabel_SCORE_);
+    bringSceneMediator()->appendGroupChild(pLabel_SCORE_);
 
     pLabel_RANK_ = NEW LabelGecchi16Font("RANK");
     pLabel_RANK_->setAlign(ALIGN_RIGHT, VALIGN_TOP);
     pLabel_RANK_->setPosition(PX_C(CONFIG::GAME_BUFFER_WIDTH), PX_C(30));
-    bringSceneMediator()->addSubGroup(pLabel_RANK_);
+    bringSceneMediator()->appendGroupChild(pLabel_RANK_);
 
     pLabel_STAMINA_ = NEW LabelGecchi16Font("STAMINA");
     pLabel_STAMINA_->setAlign(ALIGN_RIGHT, VALIGN_TOP);
     pLabel_STAMINA_->setPosition(PX_C(CONFIG::GAME_BUFFER_WIDTH), PX_C(50));
-    bringSceneMediator()->addSubGroup(pLabel_STAMINA_);
+    bringSceneMediator()->appendGroupChild(pLabel_STAMINA_);
 
     pLabel_JIKI_x_ = NEW LabelGecchi8Font("JIKI_x");
     pLabel_JIKI_y_ = NEW LabelGecchi8Font("JIKI_y");
@@ -53,13 +53,13 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     pLabel_JIKI_x_->setPosition(PX_C(1), PX_C(CONFIG::GAME_BUFFER_HEIGHT - 8*3-1));
     pLabel_JIKI_y_->setPosition(PX_C(1), PX_C(CONFIG::GAME_BUFFER_HEIGHT - 8*2-1));
     pLabel_JIKI_z_->setPosition(PX_C(1), PX_C(CONFIG::GAME_BUFFER_HEIGHT - 8*1-1));
-    bringSceneMediator()->addSubGroup(pLabel_JIKI_x_);
-    bringSceneMediator()->addSubGroup(pLabel_JIKI_y_);
-    bringSceneMediator()->addSubGroup(pLabel_JIKI_z_);
+    bringSceneMediator()->appendGroupChild(pLabel_JIKI_x_);
+    bringSceneMediator()->appendGroupChild(pLabel_JIKI_y_);
+    bringSceneMediator()->appendGroupChild(pLabel_JIKI_z_);
 
     pRankFont_ = NEW LabelRankFont("RankFont"); //LabelRankFont‚Í ALIGN_RIGHT,VALIGN_BOTTOM ŒÅ’è
     pRankFont_->setPosition(PX_C(CONFIG::GAME_BUFFER_WIDTH), PX_C(CONFIG::GAME_BUFFER_HEIGHT));
-    bringSceneMediator()->addSubGroup(pRankFont_);
+    bringSceneMediator()->appendGroupChild(pRankFont_);
     useProgress(PROG_BANPEI);
 }
 
@@ -93,7 +93,7 @@ void GameMainScene::processBehavior() {
     switch (pProg->get()) {
         case PROG_INIT: {
             _TRACE_(FUNC_NAME<<" Prog is PROG_INIT");
-            addSubLast(pSTAGE_WORLD->extract());
+            appendChild(pSTAGE_WORLD->extract());
             pSTAGE_WORLD->resetTree();
             pSTAGE_WORLD->inactivateImmed();
             pSTAGE_WORLD->activate();

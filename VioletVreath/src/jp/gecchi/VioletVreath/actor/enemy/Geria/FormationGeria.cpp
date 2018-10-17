@@ -23,7 +23,7 @@ FormationGeria::FormationGeria(
         pEnemyGeria->getKuroko()->linkFaceAngByMvAng(true);
         pDepo_->put(pEnemyGeria);
     }
-    addSubGroup(pDepo_);
+    appendGroupChild(pDepo_);
 }
 
 EnemyGeria* FormationGeria::summonGeria() {

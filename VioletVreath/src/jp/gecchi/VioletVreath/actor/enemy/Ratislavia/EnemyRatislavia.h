@@ -63,12 +63,12 @@ protected:
     void createCollisionAreaArea(int prm_nSphere);
 
     /**
-     * ラティスラヴィアの表面にサブボーンを追加
+     * ラティスラヴィアの表面に子ボーンを追加
      * @param prm_pGeoActor 追加するアクター
      * @param prm_ang1 輪の角度位置
      * @param prm_ang2 輪周りの角度位置
      */
-    void addSubGroupAsFkOnSurface(GgafDxCore::GgafDxGeometricActor* prm_pGeoActor, angle prm_ang1, angle prm_ang2);
+    void appendGroupChildAsFkOnSurface(GgafDxCore::GgafDxGeometricActor* prm_pGeoActor, angle prm_ang1, angle prm_ang2);
 
 };
 

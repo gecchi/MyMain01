@@ -31,7 +31,7 @@ LaserMagic::LaserMagic(const char* prm_name, int* prm_pMP)
 
     pEffect_ = NEW EffectLaserMagic("EffectLaserMagic");
     pEffect_->inactivate();
-    addSubGroup(pEffect_);
+    appendGroupChild(pEffect_);
 }
 
 void LaserMagic::onReset() {

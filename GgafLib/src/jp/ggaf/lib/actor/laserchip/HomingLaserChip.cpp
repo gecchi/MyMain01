@@ -106,7 +106,7 @@ void HomingLaserChip::processBehavior() {
     GgafDxKuroko* pKuroko = getKuroko();
     if (getActiveFrame() > 1) {
         //GgafActorDepository::dispatch() は
-        //取得できる場合、ポインタを返すと共に、そのアクターはアクター発送者のサブの一番後ろに移動される。
+        //取得できる場合、ポインタを返すと共に、そのアクターはアクター発送者の子の一番後ろに移動される。
         //したがって、レーザーの先頭から順番にprocessBehavior() が呼ばれるため、以下のようにすると
         //数珠繋ぎになる。
         if (pChip_infront == nullptr) {

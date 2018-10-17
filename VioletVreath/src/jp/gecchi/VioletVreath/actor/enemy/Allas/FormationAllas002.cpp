@@ -29,7 +29,7 @@ FormationAllas002::FormationAllas002(const char* prm_name) :
         SplineLeader* pProgram = pConn_pSplManuf_->peek()->createKurokoLeader(papAllas_[i]->getKuroko()); //à⁄ìÆë¨ìxå≈íË
         papAllas_[i]->config(pProgram, nullptr, nullptr);
         //papAllas_[i]->setDepository_Shot(pConn_depo_->peek()); //íeê›íË
-        addFormationMember(papAllas_[i]);
+        appendFormationMember(papAllas_[i]);
     }
 }
 

@@ -38,25 +38,25 @@ pStageWorld_(nullptr) {
     useProgress(PROG_BANPEI);
     pCommonScene_ = NEW CommonScene("Common");
     pCommonScene_->inactivate();
-    addSubLast(pCommonScene_);
+    appendChild(pCommonScene_);
     pMyShipScene_ = NEW MyShipScene("MyShipScene");
     pMyShipScene_->inactivate();
-    addSubLast(pMyShipScene_);
+    appendChild(pMyShipScene_);
     pStageWorld_ = new StageWorld("StageWorld");
     pStageWorld_->inactivate();
-    addSubLast(pStageWorld_);
+    appendChild(pStageWorld_);
 
     pMenuBoardPause_ = NEW MenuBoardPause("MenuBoardPause");
-    bringSceneMediator()->addSubGroup(pMenuBoardPause_);
+    bringSceneMediator()->appendGroupChild(pMenuBoardPause_);
 
-    addSubLast(NEW GamePreTitleScene("PreGameTitle"));
-    addSubLast(NEW GameTitleScene("GameTitle"));
-    addSubLast(NEW GameDemoScene("GameDemo"));
-    addSubLast(NEW GameBeginningScene("GameBeginning"));
-    addSubLast(NEW GameMainScene("GameMain"));
-    addSubLast(NEW GameEndingScene("GameEnding"));
-    addSubLast(NEW GameOverScene("GameOver"));
-    getProgress()->relateSubScene(PROG_PRE_TITLE, PROG_GAME_OVER,  "PreGameTitle");
+    appendChild(NEW GamePreTitleScene("PreGameTitle"));
+    appendChild(NEW GameTitleScene("GameTitle"));
+    appendChild(NEW GameDemoScene("GameDemo"));
+    appendChild(NEW GameBeginningScene("GameBeginning"));
+    appendChild(NEW GameMainScene("GameMain"));
+    appendChild(NEW GameEndingScene("GameEnding"));
+    appendChild(NEW GameOverScene("GameOver"));
+    getProgress()->relateChildScene(PROG_PRE_TITLE, PROG_GAME_OVER,  "PreGameTitle");
     is_frame_advance_ = false;
 
     was_paused_flg_GameMainScene_prev_frame_ = false;
@@ -73,14 +73,14 @@ void GameScene::initialize() {
 void GameScene::onReset() {
     VB_UI->clear();
     pGOD->setVB(VB_UI);
-    DefaultScene* pSubScene;
+    DefaultScene* pChildScene;
     SceneProgress* pProg = getProgress();
     for (ProgSceneMap::const_iterator it = pProg->_mapProg2Scene.begin(); it != pProg->_mapProg2Scene.end(); ++it) {
-        pSubScene = it->second;
-        if (pSubScene) {
-            pSubScene->resetTree();
-            pSubScene->fadeinScene(0);
-            pSubScene->inactivate();
+        pChildScene = it->second;
+        if (pChildScene) {
+            pChildScene->resetTree();
+            pChildScene->fadeinScene(0);
+            pChildScene->inactivate();
         }
     }
     pGOD->getSpacetime()->resetCamWorker();
@@ -257,12 +257,12 @@ void GameScene::processBehavior() {
             //##########  ゲームシーン終了  ##########
             if (pProg->hasJustChanged()) {
                 _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PROG_FINISH)");
-                DefaultScene* pSubScene;
+                DefaultScene* pChildScene;
                 for (ProgSceneMap::const_iterator it = pProg->_mapProg2Scene.begin(); it != pProg->_mapProg2Scene.end(); ++it) {
-                    pSubScene = it->second;
-                    if (pSubScene) {
-                        pSubScene->fadeoutSceneWithBgmTree(FADE_FRAMES);
-                        pSubScene->inactivateDelay(FADE_FRAMES+10);
+                    pChildScene = it->second;
+                    if (pChildScene) {
+                        pChildScene->fadeoutSceneWithBgmTree(FADE_FRAMES);
+                        pChildScene->inactivateDelay(FADE_FRAMES+10);
                     }
                 }
             }
@@ -297,8 +297,8 @@ void GameScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
         _TRACE_("GameScene::onCatchEvent(EVENT_GOD_WILL_DEMISE) CommonSceneを拾い上げて後に解放されるようにします。");
         //神が死んでしまう前に
         //CommonSceneを拾い上げ、解放順序が後になるように操作する。(共有デポジトリとかあるし)
-        addSubLast(pMYSHIP_SCENE->extract());
-        addSubLast(pCOMMON_SCENE->extract());
+        appendChild(pMYSHIP_SCENE->extract());
+        appendChild(pCOMMON_SCENE->extract());
         pMYSHIP_SCENE->moveFirst();
         pCOMMON_SCENE->moveFirst();
         //moveFirst()する理由は、解放は末尾ノードから行われるため。

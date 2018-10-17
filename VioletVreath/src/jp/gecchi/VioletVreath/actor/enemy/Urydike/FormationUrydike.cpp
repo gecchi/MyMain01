@@ -72,7 +72,7 @@ void FormationUrydike::processBehavior() {
             }
             if (pProg->hasArrivedAt(120)) {
                 for (int i = 0; i < num_Urydike_; i++) {
-                    addFormationMember(receiveActor(i));
+                    appendFormationMember(receiveActor(i));
                 }
                 pProg->changeNext();
             }
@@ -118,7 +118,7 @@ void FormationUrydike::processBehavior() {
 }
 
 void FormationUrydike::scatterMember() {
-    EnemyUrydike* pUrydike = (EnemyUrydike*)getSubFirst();
+    EnemyUrydike* pUrydike = (EnemyUrydike*)getChildFirst();
     while (pUrydike) {
         pUrydike->scatter();
         if (pUrydike->isLast()) {

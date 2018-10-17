@@ -32,7 +32,7 @@ void FormationErelman::processBehavior() {
 }
 
 void FormationErelman::scatterMember() {
-    EnemyErelman* pErelman = (EnemyErelman*)getSubFirst();
+    EnemyErelman* pErelman = (EnemyErelman*)getChildFirst();
     while (pErelman) {
         pErelman->scatter();
         if (pErelman->isLast()) {

@@ -29,7 +29,7 @@ FormationRis002::FormationRis002(const char* prm_name) :
         //スプライン移動プログラム設定
         SplineLeader* pProgram = NEW FixedVelocitySplineKurokoLeader(pManufacture_, pRis->getKuroko());
         pRis->config(pProgram, pConn_depo_->peek(), nullptr);
-        addFormationMember(pRis);
+        appendFormationMember(pRis);
     }
 }
 

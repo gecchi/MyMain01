@@ -19,7 +19,7 @@ namespace GgafLib {
  * ・あるSceneのprocessBehavior()等で次のコードを書いたとすると。
  *
  *     FormationTableScene* ftbl = NEW FormationTableScene("TableScene_9");
- *     addSubLast(ftbl);               //子シーンとして登録
+ *     appendChild(ftbl);               //子シーンとして登録
  *     ftbl->setMaxPerformFrame(280);  //編隊テーブル全体フレーム数設定
  *     ftbl->addToTable(((FormationAllas001a*)receiveActor(21047100)), 100);   //編隊a。次の 編隊b は 編隊a が全消滅した場合即出現。全消滅しなくとも、100フレーム後出現。
  *     ftbl->addToTable(((FormationAllas001b*)receiveActor(21057100)), 100);   //編隊b。次の 編隊c は 編隊b が全消滅した場合即出現。全消滅しなくとも、100フレーム後出現。

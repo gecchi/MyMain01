@@ -55,7 +55,7 @@ EnemyHalia::EnemyHalia(const char* prm_name) :
         pChip->setSource(this); //ˆÊ’uŒü‚«“¯Šú
         pLaserChipDepo_->put(pChip);
     }
-    addSubGroup(pLaserChipDepo_);
+    appendGroupChild(pLaserChipDepo_);
     GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     pSeTx->set(SE_UNDAMAGED, "WAVE_ENEMY_UNDAMAGED_001");

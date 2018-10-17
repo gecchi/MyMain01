@@ -16,7 +16,7 @@ FormationAppho001::FormationAppho001(const char* prm_name) :
     interval_frames_ = RF_FormationAppho001_LaunchInterval(G_RANK);  //ƒAƒ‰ƒX‚ÌŠÔŠu(frame)
     for (int i = 0; i < num_Appho_; i++) {
         std::string name = "Appho("+XTOS(i)+")";
-        addFormationMember(NEW EnemyAppho(name.c_str()));
+        appendFormationMember(NEW EnemyAppho(name.c_str()));
     }
     cnt_call_up_ = 0;
 }

@@ -28,7 +28,7 @@ FormationOebius001::FormationOebius001(const char* prm_name, EnemyOebiusControll
     num_Oebius_ = formation_col_num_  * formation_row_num_;
     for (int i = 0; i < num_Oebius_; i++) {
         std::string name = "Oebius("+XTOS(i)+")";
-        addFormationMember(NEW EnemyOebius(name.c_str()));
+        appendFormationMember(NEW EnemyOebius(name.c_str()));
     }
 
     call_up_row_idx_ = 0;

@@ -25,7 +25,7 @@ GgafGroupHead* FormationTableScene::addToTable(GgafFormation* prm_pFormationActo
     prm_pFormationActor->inactivate();
     _table.addLast(NEW TblElem(prm_pFormationActor, prm_max_delay_offset), true);
 
-    return bringSceneMediator()->addSubGroup(prm_pFormationActor);
+    return bringSceneMediator()->appendGroupChild(prm_pFormationActor);
 }
 
 void FormationTableScene::onActive() {
@@ -48,7 +48,7 @@ void FormationTableScene::processBehavior() {
         //I—¹‚ð‘Ò‚Â‚Ì‚Ý
     } else {
 
-        if (!bringSceneMediator()->getSubFirst()) {
+        if (!bringSceneMediator()->getChildFirst()) {
             sayonara(FORMATION_END_DELAY);
             return;
         }

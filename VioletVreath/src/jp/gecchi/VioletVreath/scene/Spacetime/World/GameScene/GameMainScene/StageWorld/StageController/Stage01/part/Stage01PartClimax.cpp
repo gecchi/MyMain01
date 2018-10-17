@@ -37,13 +37,13 @@ void Stage01PartClimax::processBehavior() {
         EnemyEmus* p1 = (EnemyEmus*)receiveActor(11111111);
         EnemyEmus* p2 = (EnemyEmus*)receiveActor(11111112);
 
-        pBoss_->addSubGroupAsFk(p1,
+        pBoss_->appendGroupChildAsFk(p1,
                 PX_C(100),PX_C(100),PX_C(100),    0,0,0);
-        pBoss_->addSubGroupAsFk(p2,
+        pBoss_->appendGroupChildAsFk(p2,
                 PX_C(-100),PX_C(-100),PX_C(-100), 0,0,0);
         pBoss_->_z = -1800000;
         pBoss_->_y = -100000;
-        bringSceneMediator()->addSubGroup(pBoss_);
+        bringSceneMediator()->appendGroupChild(pBoss_);
     }
 
     if (getBehaveingFrame() > 60) {

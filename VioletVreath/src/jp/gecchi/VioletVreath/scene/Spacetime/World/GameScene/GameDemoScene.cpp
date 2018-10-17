@@ -31,16 +31,16 @@ GameDemoScene::GameDemoScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameDemoScene";
     useProgress(PROG_BANPEI);
     pLabel01_ = NEW LabelGecchi16Font("STR01");
-    bringSceneMediator()->addSubGroup(pLabel01_);
+    bringSceneMediator()->appendGroupChild(pLabel01_);
     pLabel02_ = NEW LabelGecchi16Font("STR02");
-    bringSceneMediator()->addSubGroup(pLabel02_);
+    bringSceneMediator()->appendGroupChild(pLabel02_);
     demo_stage_ = 1;
 
     papLabel_ranking_ = NEW LabelRankingFont*[G_RANKING_TABLE.getCount()];
     int cnt = (int)(G_RANKING_TABLE.getCount());
     for (int i = 0; i < cnt; i++) {
         papLabel_ranking_[i] = NEW LabelRankingFont("RANK_INFO");
-        bringSceneMediator()->addSubGroup(papLabel_ranking_[i]);
+        bringSceneMediator()->appendGroupChild(papLabel_ranking_[i]);
     }
 
 }
@@ -67,7 +67,7 @@ void GameDemoScene::processBehavior() {
     switch (pProg->get()) {
         case PROG_INIT: {
             _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PROG_INIT)");
-            addSubLast(pSTAGE_WORLD->extract());
+            appendChild(pSTAGE_WORLD->extract());
             pSTAGE_WORLD->resetTree();
             pSTAGE_WORLD->inactivateImmed();
             pSTAGE_WORLD->activate();

@@ -68,30 +68,30 @@ public:
     /**
      * 新たに種別を設定し、アクターを配下に追加する。
      * 種別はアクターが保持する種別を無視し、引数の種別を優先する。<BR>
-     * 自身と種別が異なる場合はサブに団長(GgafGroupHead)を挟んでそのまたサブに引数のアクターを追加します。<BR>
-     * 自身と種別が同じ場合は、単にサブに引数のアクターを追加します。<BR>
+     * 自身と種別が異なる場合は子に団長(GgafGroupHead)を挟んでそのまた子に引数のアクターを追加します。<BR>
+     * 自身と種別が同じ場合は、単に子に引数のアクターを追加します。<BR>
      * @param prm_kind 種別
      * @param prm_pMainActor 種別と共に追加したいアクター
      * @return 引数アクターの団長(GgafGroupHead)
      */
-    GgafGroupHead* addSubGroup(kind_t prm_kind, GgafMainActor* prm_pMainActor);
+    GgafGroupHead* appendGroupChild(kind_t prm_kind, GgafMainActor* prm_pMainActor);
 
     /**
      * 新たに種別を設定し、アクターを配下に追加する。 .
      * ただし、種別はアクターが保持する種別を採用する。<BR>
-     * 自身と種別が異なる場合はサブに団長(GgafGroupHead)を挟んでそのまたサブに引数のアクターを追加します。<BR>
-     * 自身と種別が同じ場合は、単にサブに引数のアクターを追加します。<BR>
+     * 自身と種別が異なる場合は子に団長(GgafGroupHead)を挟んでそのまた子に引数のアクターを追加します。<BR>
+     * 自身と種別が同じ場合は、単に子に引数のアクターを追加します。<BR>
      * @param prm_pMainActor 種別と共に追加したいアクター
      * @return 引数アクターの団長(GgafGroupHead)
      */
-    GgafGroupHead* addSubGroup(GgafMainActor* prm_pMainActor);
+    GgafGroupHead* appendGroupChild(GgafMainActor* prm_pMainActor);
 
     /**
      * 配下の生存可能な団長を探す。
      * @param prm_kind 探したい団長の種別
      * @return 団長、或いは存在しなければ nullptr
      */
-    GgafGroupHead* searchSubGroupHead(kind_t prm_kind);
+    GgafGroupHead* searchChildGroupHead(kind_t prm_kind);
 
     /**
      * 神に謁見 .

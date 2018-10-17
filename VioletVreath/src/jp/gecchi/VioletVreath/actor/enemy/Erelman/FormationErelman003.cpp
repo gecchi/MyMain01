@@ -34,7 +34,7 @@ FormationErelman003::FormationErelman003(const char* prm_name, EnemyErelmanContr
 
     for (int i = 0; i < num_Erelman_; i++) {
         std::string name = "Erelman("+XTOS(i)+")";
-        addFormationMember(NEW EnemyErelman(name.c_str()));
+        appendFormationMember(NEW EnemyErelman(name.c_str()));
     }
 
     for (int col = 0; col < formation_col_num_; col++) {
@@ -157,7 +157,7 @@ void FormationErelman003::onFinshLeading(GgafDxCore::GgafDxFigureActor* prm_pAct
 }
 
 void FormationErelman003::freeMenber(frame prm_free_interval) {
-    EnemyErelman* pErelman = (EnemyErelman*)getSubFirst();
+    EnemyErelman* pErelman = (EnemyErelman*)getChildFirst();
     while (pErelman) {
         pErelman->setFreeInterval(prm_free_interval);
         if (pErelman->isLast()) {

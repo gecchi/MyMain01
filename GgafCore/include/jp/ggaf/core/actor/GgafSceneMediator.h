@@ -12,7 +12,7 @@ namespace GgafCore {
  * シーンクラスとシーン仲介者は普通のhasAの関係です。（仲介者と団長は階層関係になっています）<BR>
  * 全てのシーン(GgafSceaneオブジェクト)に必ず１人シーン仲介者が居ます。<BR>
  * 仲介者は、アクター達ツリーの最も頂点に位置します。<BR>
- * 仲介者(GgafSceneMediator)のサブアクターは必ず団長(GgafGroupHead)になっています。<BR>
+ * 仲介者(GgafSceneMediator)の子アクターは必ず団長(GgafGroupHead)になっています。<BR>
  * さらに団長の下に普通のアクターが居ます。<BR>
  * 仲介者へのメソッド実行は、その配下全ての団長＋アクターへの指示となります。<BR>
  * 団長(GgafGroupHead)の解説もあわせて参照して下さい。
@@ -107,16 +107,16 @@ public:
     }
 
     /**
-     * グループとして引数のアクターをサブアクターに追加します .
+     * グループとして引数のアクターを子アクターに追加します .
      * これは自動でGgafGroupHeadオブジェクトが間に挿入されます。<BR>
      * したがってグループ種別と共に登録が必要です。<BR>
      * 種別とは、内部で生成される GgafGroupHead名 にも使用されます。<BR>
      * GgafGroupHeadオブジェクト は初回種別登録時だけ生成され、２回目以降の同一種別登録は、<BR>
-     * 既存の GgafGroupHeadオブジェクトのサブに追加されます。<BR>
+     * 既存の GgafGroupHeadオブジェクトの子に追加されます。<BR>
      * <pre>
      * ＜使用例１＞
      *
-     *  addSubGroup(KIND_XXX, pActor);
+     *  appendGroupChild(KIND_XXX, pActor);
      *
      *  とした場合、階層構造は次のようになる。
      *
@@ -129,9 +129,9 @@ public:
      *
      * ＜使用例２＞
      *
-     * addSubGroup(KIND_AAA, pActor01);
-     * addSubGroup(KIND_BBB, pActor02);
-     * addSubGroup(KIND_AAA, pActor03);
+     * appendGroupChild(KIND_AAA, pActor01);
+     * appendGroupChild(KIND_BBB, pActor02);
+     * appendGroupChild(KIND_AAA, pActor03);
      *
      * とした場合、階層構造は次のようになる。
      *
@@ -149,7 +149,7 @@ public:
      * @param   prm_kind    種別名（＝GgafGroupHead名）
      * @param   prm_pMainActor   登録するアクター
      */
-    GgafGroupHead* addSubGroup(kind_t prm_kind, GgafMainActor* prm_pMainActor);
+    GgafGroupHead* appendGroupChild(kind_t prm_kind, GgafMainActor* prm_pMainActor);
 
     /**
      * 単独GgafActor、或いはGgafDestructActorが単独親となるGgafActor連続体を<BR>
@@ -158,14 +158,14 @@ public:
      * 本関数はの部的処理は prm_pActor を GgafGroupHead の子アクターとしているだけである。<BR>
      * @param   prm_pMainActor   登録するアクター
      */
-    GgafGroupHead* addSubGroup(GgafMainActor* prm_pMainActor);
+    GgafGroupHead* appendGroupChild(GgafMainActor* prm_pMainActor);
 
     /**
-     * サブの団長アクターを取得、無ければnullptrを帰す
+     * 子の団長アクターを取得、無ければnullptrを帰す
      * @param prm_kind
      * @return
      */
-    GgafGroupHead* searchSubGroupHead(kind_t prm_kind);
+    GgafGroupHead* searchChildGroupHead(kind_t prm_kind);
 
     void updateActiveInTheTree() override;
 
@@ -175,7 +175,13 @@ public:
      */
     GgafGod* askGod();
 
-    GgafActor* bring(hashval prm_name_hash);
+    /**
+     * 配下ツリーアクターから、引数の名前を持つアクターを探す .
+     * 引数は、アクター名を GgafUtil::easy_hash(const char* str) でHASH値に変換した値を渡す。
+     * @param prm_name_hash アクター名HASH値
+     * @return 最初に発見したアクター／発見できない場合は nullptr
+     */
+    GgafActor* search(hashval prm_name_hash);
 
     virtual ~GgafSceneMediator();
 };

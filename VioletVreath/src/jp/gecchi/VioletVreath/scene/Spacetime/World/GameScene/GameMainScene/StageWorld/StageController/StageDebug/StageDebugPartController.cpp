@@ -60,78 +60,78 @@ void StageDebugPartController::processBehavior() {
 			}
 			case 5: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000002);
-				bringSceneMediator()->addSubGroup(pEtis);
+				bringSceneMediator()->appendGroupChild(pEtis);
 				requestActor(10000008, EnemyEtis, "EnemyEtis-10000008");
 				break;
 			}
 			case 105: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000003);
-				bringSceneMediator()->addSubGroup(pEtis);
+				bringSceneMediator()->appendGroupChild(pEtis);
 				requestActor(10000009, EnemyEtis, "EnemyEtis-10000009");
 				break;
 			}
 			case 205: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000004);
-				bringSceneMediator()->addSubGroup(pEtis);
+				bringSceneMediator()->appendGroupChild(pEtis);
 				requestActor(10000010, EnemyEtis, "EnemyEtis-10000010");
 				break;
 			}
 			case 305: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000005);
-				bringSceneMediator()->addSubGroup(pEtis);
+				bringSceneMediator()->appendGroupChild(pEtis);
 				requestActor(10000011, EnemyEtis, "EnemyEtis-10000011");
 				break;
 			}
 			case 400: {
 				EnemyErelmanController003* p1 = (EnemyErelmanController003*)receiveActor(10000001);
-				bringSceneMediator()->addSubGroup(p1);
+				bringSceneMediator()->appendGroupChild(p1);
 				p1->setPosition(PX_C(2400), PX_C(0), PX_C(0) );
 				break;
 			}
 			case 405: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000006);
-				bringSceneMediator()->addSubGroup(pEtis);
+				bringSceneMediator()->appendGroupChild(pEtis);
 				requestActor(10000012, EnemyEtis, "EnemyEtis-10000012");
 				break;
 			}
 			case 500: {
-				addSubLast(receiveScene(10000000));
+				appendChild(receiveScene(10000000));
 				break;
 			}
 			case 505: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000007);
-				bringSceneMediator()->addSubGroup(pEtis);
+				bringSceneMediator()->appendGroupChild(pEtis);
 				requestActor(10000013, EnemyEtis, "EnemyEtis-10000013");
 				break;
 			}
 			case 605: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000008);
-				bringSceneMediator()->addSubGroup(pEtis);
+				bringSceneMediator()->appendGroupChild(pEtis);
 				break;
 			}
 			case 705: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000009);
-				bringSceneMediator()->addSubGroup(pEtis);
+				bringSceneMediator()->appendGroupChild(pEtis);
 				break;
 			}
 			case 805: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000010);
-				bringSceneMediator()->addSubGroup(pEtis);
+				bringSceneMediator()->appendGroupChild(pEtis);
 				break;
 			}
 			case 905: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000011);
-				bringSceneMediator()->addSubGroup(pEtis);
+				bringSceneMediator()->appendGroupChild(pEtis);
 				break;
 			}
 			case 1005: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000012);
-				bringSceneMediator()->addSubGroup(pEtis);
+				bringSceneMediator()->appendGroupChild(pEtis);
 				break;
 			}
 			case 1105: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000013);
-				bringSceneMediator()->addSubGroup(pEtis);
+				bringSceneMediator()->appendGroupChild(pEtis);
 				break;
 			}
 			default :

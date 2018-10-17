@@ -34,7 +34,7 @@ TorpedoMagic::TorpedoMagic(const char* prm_name, int* prm_pMP)
 
     pEffect_ = NEW EffectTorpedoMagic("EffectTorpedoMagic");
     pEffect_->inactivate();
-    addSubGroup(pEffect_);
+    appendGroupChild(pEffect_);
 }
 
 void TorpedoMagic::onReset() {

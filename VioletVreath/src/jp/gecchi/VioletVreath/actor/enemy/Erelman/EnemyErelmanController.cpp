@@ -28,11 +28,11 @@ EnemyErelmanController::EnemyErelmanController(const char* prm_name, EnemyErelma
 
     pErelmanCore_ = prm_pCore;
     pErelmanCore_->inactivate();
-    addSubGroup(pErelmanCore_);
+    appendGroupChild(pErelmanCore_);
 
     pFormationErelman_ = prm_pFormation;
     pFormationErelman_->inactivate();
-    addSubGroup(pFormationErelman_);
+    appendGroupChild(pFormationErelman_);
 }
 
 void EnemyErelmanController::initialize() {

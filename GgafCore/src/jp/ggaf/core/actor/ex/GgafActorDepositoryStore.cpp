@@ -8,28 +8,28 @@ GgafActorDepositoryStore::GgafActorDepositoryStore(const char* prm_name, GgafSta
     setHitAble(false);
 }
 
-void GgafActorDepositoryStore::put(GgafActor* prm_pSub) {
+void GgafActorDepositoryStore::put(GgafActor* prm_pChild) {
 #ifdef MY_DEBUG
-    if (prm_pSub->instanceOf(Obj_GgafActorDepository)) {
+    if (prm_pChild->instanceOf(Obj_GgafActorDepository)) {
         //OK
     } else {
-        throwGgafCriticalException("this="<<getName()<<" 引数 prm_pSub("<<prm_pSub->getName()<<") は デポジトリでなければいけません");
+        throwGgafCriticalException("this="<<getName()<<" 引数 prm_pChild("<<prm_pChild->getName()<<") は デポジトリでなければいけません");
     }
-    if (_pSubFirst == nullptr) {
-        if (prm_pSub->getDefaultKind() == 0U) {
-            _TRACE_("＜警告＞ GgafActorDepositoryStore::addSubLast 引数 this="<<getName()<<" prm_pSub("<<prm_pSub->getName()<<") は の種別が0ですが意図していますか？");
+    if (_pChildFirst == nullptr) {
+        if (prm_pChild->getDefaultKind() == 0U) {
+            _TRACE_("＜警告＞ GgafActorDepositoryStore::appendChild 引数 this="<<getName()<<" prm_pChild("<<prm_pChild->getName()<<") は の種別が0ですが意図していますか？");
         }
     }
 #endif
-    GgafActorDepository::put(prm_pSub);
+    GgafActorDepository::put(prm_pChild);
 }
 
 void GgafActorDepositoryStore::processFinal() {
-    GgafActor* pSubDepository = getSubFirst(); //子はデポジトリのはず
-    while (pSubDepository) {
-        if (pSubDepository->_is_active_flg && !(pSubDepository->willInactivateAfter())) {
+    GgafActor* pChildDepository = getChildFirst(); //子はデポジトリのはず
+    while (pChildDepository) {
+        if (pChildDepository->_is_active_flg && !(pChildDepository->willInactivateAfter())) {
             bool is_inactive_all = false; //全メンバーが非活動の場合true
-            GgafActor* pActor = pSubDepository->getSubFirst()->getPrev(); //お尻から見る(アクティブは後ろに回されているためブレイク確立が高い）
+            GgafActor* pActor = pChildDepository->getChildFirst()->getPrev(); //お尻から見る(アクティブは後ろに回されているためブレイク確立が高い）
             while (true) {
                 if (pActor->_is_active_flg || pActor->willActivateAfter()) {
                     //dispatch の
@@ -45,13 +45,13 @@ void GgafActorDepositoryStore::processFinal() {
             }
 
             if (is_inactive_all) {
-                pSubDepository->inactivate();
+                pChildDepository->inactivate();
             }
         }
-        if (pSubDepository->_is_last_flg) {
+        if (pChildDepository->_is_last_flg) {
             break;
         }
-        pSubDepository = pSubDepository->getNext();
+        pChildDepository = pChildDepository->getNext();
     }
 }
 

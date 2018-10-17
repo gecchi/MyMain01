@@ -44,7 +44,7 @@ void RankUpStageController::startRunkUpStage(int prm_rank_up_level) {
     ready(prm_rank_up_level + 1); //次のシーンを先行予約
     pNowRankUpStage_ = (RankUpStage*)receiveScene(ORDER_ID_RANKUP+prm_rank_up_level);
     _TRACE_(FUNC_NAME<<" pNowRankUpStage_="<<pNowRankUpStage_);
-    GgafScene* pRankUpStage = getSubFirst();
+    GgafScene* pRankUpStage = getChildFirst();
     if (pRankUpStage) {
         //他のランクアップ中
         //既存ランクアップシーンをさらにスローにする
@@ -57,7 +57,7 @@ void RankUpStageController::startRunkUpStage(int prm_rank_up_level) {
             }
         }
     }
-    addSubLast(pNowRankUpStage_);
+    appendChild(pNowRankUpStage_);
     pNowRankUpStage_->fadeoutSceneWithBgm(0);
     pNowRankUpStage_->fadeinScene(240);
     apRankUpStage_[prm_rank_up_level-1] = pNowRankUpStage_;
@@ -125,7 +125,7 @@ void RankUpStageController::onCatchEvent(hashval prm_no, void* prm_pSource) {
         pScene->sayonara(240);
 
         //スロー回復
-        GgafScene* pRankUpStage = getSubFirst();
+        GgafScene* pRankUpStage = getChildFirst();
         if (pRankUpStage) {
             //他のランクアップ中
             //既存ランクアップシーンをスロー回復
@@ -139,20 +139,20 @@ void RankUpStageController::onCatchEvent(hashval prm_no, void* prm_pSource) {
                 }
             }
         } else {
-            throwGgafCriticalException("EVENT_RANKUP_WAS_END サブがnullptr。"
+            throwGgafCriticalException("EVENT_RANKUP_WAS_END 子がnullptr。"
                                        "this="<<NODE_INFO<<" prm_pSource="<<prm_pSource);
         }
     }
 }
 
 void RankUpStageController::sayonaraRankUpStages() {
-    if (getSubFirst()) {
-        GgafScene* pRankUpStage = getSubFirst()->getPrev();//last
+    if (getChildFirst()) {
+        GgafScene* pRankUpStage = getChildFirst()->getPrev();//last
         if (pRankUpStage) {
             while (1) {
                 _TRACE_(FUNC_NAME<<" pRankUpStage("<<pRankUpStage->getName()<<")->sayonara()");
                 pRankUpStage->sayonara();
-                if (pRankUpStage == getSubFirst()) {
+                if (pRankUpStage == getChildFirst()) {
                     break;
                 } else {
                     pRankUpStage = pRankUpStage->getPrev();

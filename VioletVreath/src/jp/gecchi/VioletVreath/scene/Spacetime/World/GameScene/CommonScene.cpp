@@ -13,7 +13,7 @@ using namespace VioletVreath;
 #define REGISTER_DEPO(TYPE, NUM)   do { \
         pCOMMON_DEPO(TYPE) = NEW GgafActorDepository("CommonDepo_" #TYPE); \
         pCOMMON_DEPO(TYPE)->put<TYPE>(NUM); \
-        bringSceneMediator()->addSubGroup(pCOMMON_DEPO(TYPE)); \
+        bringSceneMediator()->appendGroupChild(pCOMMON_DEPO(TYPE)); \
 }while(0)
 #define REGISTER_LASERDEPO_STORE(TYPE, SET_NUM, LASER_NUM) do { \
     pCOMMON_DEPO_STORE(TYPE) = NEW GgafActorDepositoryStore("CommonDepoStore_" #TYPE); \
@@ -24,7 +24,7 @@ using namespace VioletVreath;
         pLaserChipDepo->put<TYPE>(LASER_NUM); \
         pCOMMON_DEPO_STORE(TYPE)->put(pLaserChipDepo); \
     } \
-    bringSceneMediator()->addSubGroup(pCOMMON_DEPO_STORE(TYPE)); \
+    bringSceneMediator()->appendGroupChild(pCOMMON_DEPO_STORE(TYPE)); \
 }while(0)
 
 

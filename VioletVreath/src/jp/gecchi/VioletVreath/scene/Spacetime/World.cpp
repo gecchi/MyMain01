@@ -33,7 +33,7 @@ World::World(const char* prm_name) : DefaultScene(prm_name) {
     _TRACE_("World::World");
 
     pLabel_aster_ = NEW LabelGecchi16Font("ASTER");
-    bringSceneMediator()->addSubGroup(pLabel_aster_);
+    bringSceneMediator()->appendGroupChild(pLabel_aster_);
     pLabel_aster_->update(PX_C(CONFIG::GAME_BUFFER_WIDTH), 0, "*", ALIGN_RIGHT, VALIGN_TOP);
     pLabel_aster_->getAlphaFader()->beat(30, 15, 0, 15, -1); //チカチカ点滅
 
@@ -67,7 +67,7 @@ void World::initialize() {
     std::ostringstream os;
     os << "[ VIOLET VREATH ]\n" << VERSION << "\n" << "PLEASE WAIT A MOMENT ...";
     pLabel_title_ = desireActor(LabelGecchi16Font, "STR01");
-    bringSceneMediator()->addSubGroup(pLabel_title_);
+    bringSceneMediator()->appendGroupChild(pLabel_title_);
     pLabel_title_->update(PX_C(cx), PX_C(cy/2),
                           os.str().c_str(),
                           ALIGN_CENTER, VALIGN_MIDDLE);
@@ -77,28 +77,28 @@ void World::initialize() {
 #endif
     pLabel_debug_ = desireActor(LabelGecchi16Font, "DebugStr");
     pLabel_debug_->update(PX_C(1), PX_C(1), "");
-    bringSceneMediator()->addSubGroup(pLabel_debug_);
+    bringSceneMediator()->appendGroupChild(pLabel_debug_);
 
     pLabel_resolution1_ = desireActor(VioletVreath::LabelGecchi16Font, "RESOLUTION1");
     pLabel_resolution1_->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
-    bringSceneMediator()->addSubGroup(pLabel_resolution1_);
+    bringSceneMediator()->appendGroupChild(pLabel_resolution1_);
     pLabel_resolution2_ = desireActor(VioletVreath::LabelGecchi16Font, "RESOLUTION2");
     pLabel_resolution2_->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
-    bringSceneMediator()->addSubGroup(pLabel_resolution2_);
+    bringSceneMediator()->appendGroupChild(pLabel_resolution2_);
 
     pLabel_warn1_ = desireActor(VioletVreath::LabelGecchi8Font, "WARN1");
     pLabel_warn1_->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
-    bringSceneMediator()->addSubGroup(pLabel_warn1_);
+    bringSceneMediator()->appendGroupChild(pLabel_warn1_);
     pLabel_warn2_ = desireActor(VioletVreath::LabelGecchi8Font, "WARN2");
     pLabel_warn2_->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
-    bringSceneMediator()->addSubGroup(pLabel_warn2_);
+    bringSceneMediator()->appendGroupChild(pLabel_warn2_);
 
     pLabel_warn_dual_view_ = desireActor(VioletVreath::LabelGecchi8Font, "WARN_DUAL_VIEW");
     pLabel_warn_dual_view_->setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
-    bringSceneMediator()->addSubGroup(pLabel_warn_dual_view_);
+    bringSceneMediator()->appendGroupChild(pLabel_warn_dual_view_);
 
     pLabel_need_reboot_ = desireActor(VioletVreath::LabelGecchi16Font, "reboot");
-    bringSceneMediator()->addSubGroup(pLabel_need_reboot_);
+    bringSceneMediator()->appendGroupChild(pLabel_need_reboot_);
     pLabel_need_reboot_->update(PX_C(cx), PX_C(cy/2), "", ALIGN_CENTER, VALIGN_MIDDLE);
 
     std::string fix_str = CONFIG::FIXED_GAME_VIEW_ASPECT ? "ASPECT FIX" : "VIEW STRETCH";
@@ -226,7 +226,7 @@ void World::processBehavior() {
         case PROG_INIT: {
             if (pGOD->chkCradle(1) == 2) {
                 pPreDrawScene_ = (PreDrawScene*)receiveScene(1);
-                addSubLast(pPreDrawScene_);
+                appendChild(pPreDrawScene_);
                 pProg->changeNext();
             }
             pLabel_aster_->getAlphaFader()->behave(); //右上＊チカチカ
@@ -281,7 +281,7 @@ void World::processBehavior() {
 
         case PROG_MAINLOOP: { //世界のメインループ
             if (pProg->hasJustChanged()) {
-                addSubLast(pGameScene_);
+                appendChild(pGameScene_);
             }
 
             VB->update(); //入力情報更新

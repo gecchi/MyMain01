@@ -32,7 +32,7 @@ StageDebugPartWall::StageDebugPartWall(const char* prm_name) :
         pWall->setScaleR(scale_r);
         pDepo_wall->put(pWall);
     }
-    bringSceneMediator()->addSubGroup(pDepo_wall);
+    bringSceneMediator()->appendGroupChild(pDepo_wall);
 
 
 //    //シーンセクション生成
@@ -107,7 +107,7 @@ void StageDebugPartWall::processBehavior() {
             }
             case 100: {
                 EnemyHisbe* p = (EnemyHisbe*)receiveActor(50000002);
-                bringSceneMediator()->addSubGroup(p);
+                bringSceneMediator()->appendGroupChild(p);
                 p->_x = PX_C(2000);
                 p->_y = 0;
                 p->_z = 1000000;
@@ -119,7 +119,7 @@ void StageDebugPartWall::processBehavior() {
                 break;
             }
             case 2000: {
-                bringSceneMediator()->addSubGroup(receiveActor(50000000));
+                bringSceneMediator()->appendGroupChild(receiveActor(50000000));
                 break;
             }
             case 5400: {
@@ -127,7 +127,7 @@ void StageDebugPartWall::processBehavior() {
                 break;
             }
             case 6000: {
-                bringSceneMediator()->addSubGroup(receiveActor(50000001));
+                bringSceneMediator()->appendGroupChild(receiveActor(50000001));
                 break;
             }
             default :

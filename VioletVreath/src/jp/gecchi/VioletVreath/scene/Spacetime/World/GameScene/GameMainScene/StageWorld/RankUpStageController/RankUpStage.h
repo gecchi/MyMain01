@@ -45,8 +45,8 @@ public:
             hit_enemy_num_ = 0;
         }
 
-        GgafCore::GgafGroupHead* addSubGroup(kind_t prm_kind, GgafCore::GgafMainActor* prm_pMainActor) {
-            GgafCore::GgafGroupHead* pGroupHead = GgafLib::DefaultSceneMediator::addSubGroup(prm_kind, prm_pMainActor);
+        GgafCore::GgafGroupHead* appendGroupChild(kind_t prm_kind, GgafCore::GgafMainActor* prm_pMainActor) {
+            GgafCore::GgafGroupHead* pGroupHead = GgafLib::DefaultSceneMediator::appendGroupChild(prm_kind, prm_pMainActor);
             if (prm_pMainActor->instanceOf(Obj_GgafFormation)) {
                 GgafCore::GgafFormation* pF = (GgafCore::GgafFormation*)prm_pMainActor;
                 all_hit_num_ += pF->getMemberNum();
@@ -55,8 +55,8 @@ public:
             }
             return pGroupHead;
         }
-        GgafCore::GgafGroupHead* addSubGroup(GgafCore::GgafMainActor* prm_pMainActor) {
-            return Medietor::addSubGroup(prm_pMainActor->getDefaultKind(), prm_pMainActor);
+        GgafCore::GgafGroupHead* appendGroupChild(GgafCore::GgafMainActor* prm_pMainActor) {
+            return Medietor::appendGroupChild(prm_pMainActor->getDefaultKind(), prm_pMainActor);
         }
     };
 

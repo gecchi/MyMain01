@@ -12,24 +12,24 @@ SceneProgress::SceneProgress(DefaultScene* prm_pScene, int prm_num_progress)  : 
     _count_next_promise = 0;
 }
 
-void SceneProgress::relateSubScene(progress prm_FirstProgress, progress prm_EndProgress, const char* prm_FirstSubSceneName) {
-    relateSubScene(prm_FirstProgress, prm_EndProgress, (DefaultScene*)(_pScene->getSubByName(prm_FirstSubSceneName)));
+void SceneProgress::relateChildScene(progress prm_FirstProgress, progress prm_EndProgress, const char* prm_FirstChildSceneName) {
+    relateChildScene(prm_FirstProgress, prm_EndProgress, (DefaultScene*)(_pScene->getChildByName(prm_FirstChildSceneName)));
 }
 
-void SceneProgress::relateSubScene(progress prm_FirstProgress, progress prm_EndProgress, DefaultScene* prm_pFirstSubScene) {
-    DefaultScene* pSub = prm_pFirstSubScene;
+void SceneProgress::relateChildScene(progress prm_FirstProgress, progress prm_EndProgress, DefaultScene* prm_pFirstChildScene) {
+    DefaultScene* pChild = prm_pFirstChildScene;
     int num = 1;
-    _TRACE_(FUNC_NAME<<" シーン("<<_pScene->getName()<<")は、SceneProgressの進捗番号とサブシーンを関連付けて操作します。対応は以下の通り。");
+    _TRACE_(FUNC_NAME<<" シーン("<<_pScene->getName()<<")は、SceneProgressの進捗番号と子シーンを関連付けて操作します。対応は以下の通り。");
     for (progress prog = prm_FirstProgress; prog <= prm_EndProgress; prog++, num++) {
-        _mapProg2Scene[prog] = pSub;
-        if (pSub->isLast() && prog < prm_EndProgress) {
+        _mapProg2Scene[prog] = pChild;
+        if (pChild->isLast() && prog < prm_EndProgress) {
             throwGgafCriticalException("_pScene("<<_pScene->getName()<<")の"
-                                       "サブシーン("<<prm_pFirstSubScene->getName()<<")から数えてのサブシーンの数が足りません(サブシーンが一周しました)。\n"
+                                       "子シーン("<<prm_pFirstChildScene->getName()<<")から数えての子シーンの数が足りません(子シーンが一周しました)。\n"
                                        "進捗番号数は "<<prm_FirstProgress<<"～"<<prm_EndProgress<<" の "<<(prm_EndProgress-prm_FirstProgress)<<" 個に対し、\n"
-                                       "サブシーン数は "<<prm_pFirstSubScene->getName()<<"～"<<pSub->getName()<<" の "<<num<<"個でした。");
+                                       "子シーン数は "<<prm_pFirstChildScene->getName()<<"～"<<pChild->getName()<<" の "<<num<<"個でした。");
         }
-        _TRACE_("   進捗番号:"<<prog<<" ==> シーン:"<<pSub->getName()<<"");
-        pSub = (DefaultScene*)(pSub->getNext());
+        _TRACE_("   進捗番号:"<<prog<<" ==> シーン:"<<pChild->getName()<<"");
+        pChild = (DefaultScene*)(pChild->getNext());
     }
 }
 
@@ -37,7 +37,7 @@ void SceneProgress::changeWithSceneFadein(progress prm_progress, frame prm_fade_
     _TRACE_("SceneProgress::changeWithSceneFadein("<<prm_progress<<","<<prm_fade_in<<")  進捗シーン:"<<get()<<"->"<<prm_progress<<" ");
     if (_mapProg2Scene.find(prm_progress) == _mapProg2Scene.end()) {
                 _TRACE_("＜警告＞SceneProgress::changeWithSceneFadein シーン("<<_pScene->getName()<<")で、"
-            "サブシーンと関連付けされていない遷移先進捗(prm_progress="<<prm_progress<<") だった為、activate() ができませんでした。");
+            "子シーンと関連付けされていない遷移先進捗(prm_progress="<<prm_progress<<") だった為、activate() ができませんでした。");
     } else {
         _mapProg2Scene[prm_progress]->reset();
         _mapProg2Scene[prm_progress]->activate();
@@ -51,14 +51,14 @@ void SceneProgress::changeWithSceneFlipping(progress prm_progress) {
 
     if (_mapProg2Scene.find(get()) == _mapProg2Scene.end()) {
         _TRACE_("＜警告＞SceneProgress::changeWithSceneFlipping シーン("<<_pScene->getName()<<")で、"
-            "サブシーンと関連付けされていない遷移元進捗(get()="<<get()<<")だった為、inactivate() ができませんでした。");
+            "子シーンと関連付けされていない遷移元進捗(get()="<<get()<<")だった為、inactivate() ができませんでした。");
     } else {
         _mapProg2Scene[get()]->fadeoutBgmTree(0);
         _mapProg2Scene[get()]->inactivate();
     }
     if (_mapProg2Scene.find(prm_progress) == _mapProg2Scene.end()) {
         _TRACE_("＜警告＞SceneProgress::changeWithSceneFlipping シーン("<<_pScene->getName()<<")で、"
-            "サブシーンと関連付けされていない遷移先進捗(prm_progress="<<prm_progress<<") だった為、activate() ができませんでした。");
+            "子シーンと関連付けされていない遷移先進捗(prm_progress="<<prm_progress<<") だった為、activate() ができませんでした。");
     } else {
         _mapProg2Scene[prm_progress]->reset();
         _mapProg2Scene[prm_progress]->activate();
@@ -71,14 +71,14 @@ void SceneProgress::changeWithSceneCrossfading(progress prm_progress, frame prm_
     _TRACE_("SceneProgress::changeWithSceneCrossfading("<<prm_progress<<","<<prm_cross_fade_frames<<")  進捗シーン:"<<get()<<"->"<<prm_progress<<" ");
     if (_mapProg2Scene.find(get()) == _mapProg2Scene.end()) {
         _TRACE_("＜警告＞SceneProgress::changeWithSceneCrossfading シーン("<<_pScene->getName()<<")で、"
-            "サブシーンと関連付けされていない遷移元進捗(get()="<<get()<<")だった為、inactivateDelay() ができませんでした。");
+            "子シーンと関連付けされていない遷移元進捗(get()="<<get()<<")だった為、inactivateDelay() ができませんでした。");
     } else {
         _mapProg2Scene[get()]->fadeoutSceneWithBgmTree(prm_cross_fade_frames);
         _mapProg2Scene[get()]->inactivateDelay(prm_cross_fade_frames); //フェード完了後、非活動に
     }
     if (_mapProg2Scene.find(prm_progress) == _mapProg2Scene.end()) {
         _TRACE_("＜警告＞SceneProgress::changeWithSceneCrossfading シーン("<<_pScene->getName()<<")で、"
-            "サブシーンと関連付けされていない遷移先進捗(prm_progress="<<prm_progress<<") だった為、activate() ができませんでした。");
+            "子シーンと関連付けされていない遷移先進捗(prm_progress="<<prm_progress<<") だった為、activate() ができませんでした。");
     } else {
         _mapProg2Scene[prm_progress]->reset();
         _mapProg2Scene[prm_progress]->activate();
@@ -92,14 +92,14 @@ void SceneProgress::changeWithSceneFadeoutFadein(progress prm_progress, frame pr
     _TRACE_("SceneProgress::changeWithSceneFadeoutFadein("<<prm_progress<<","<<prm_fade_out<<","<<prm_fade_in<<")  進捗シーン:"<<get()<<"->"<<prm_progress<<" ");
     if (_mapProg2Scene.find(get()) == _mapProg2Scene.end()) {
         _TRACE_("＜警告＞SceneProgress::changeWithSceneFadeoutFadein シーン("<<_pScene->getName()<<")で、"
-            "サブシーンと関連付けされていない遷移元進捗(get()="<<get()<<")だった為、inactivateDelay() ができませんでした。");
+            "子シーンと関連付けされていない遷移元進捗(get()="<<get()<<")だった為、inactivateDelay() ができませんでした。");
     } else {
         _mapProg2Scene[get()]->fadeoutSceneWithBgmTree(prm_fade_out);
         _mapProg2Scene[get()]->inactivateDelay(prm_fade_out);
     }
     if (_mapProg2Scene.find(prm_progress) == _mapProg2Scene.end()) {
         _TRACE_("＜警告＞SceneProgress::changeWithSceneFadeoutFadein シーン("<<_pScene->getName()<<")で、"
-            "サブシーンと関連付けされていない遷移先進捗(prm_progress="<<prm_progress<<") だった為、activateDelay() ができませんでした。");
+            "子シーンと関連付けされていない遷移先進捗(prm_progress="<<prm_progress<<") だった為、activateDelay() ができませんでした。");
     } else {
         _mapProg2Scene[prm_progress]->reset();
         _mapProg2Scene[prm_progress]->activateDelay(prm_fade_out);   //活動予約
@@ -113,13 +113,13 @@ void SceneProgress::changeWithSceneOverlapping(progress prm_progress, frame prm_
     _TRACE_("SceneProgress::changeWithSceneOverlapping("<<prm_progress<<","<<prm_overlapping_frames<<")  進捗シーン:"<<get()<<"->"<<prm_progress<<" ");
     if (_mapProg2Scene.find(get()) == _mapProg2Scene.end()) {
         _TRACE_("＜警告＞SceneProgress::changeWithSceneOverlapping シーン("<<_pScene->getName()<<")で、"
-            "サブシーンと関連付けされていない遷移元進捗(get()="<<get()<<")だった為、inactivateDelay() ができませんでした。");
+            "子シーンと関連付けされていない遷移元進捗(get()="<<get()<<")だった為、inactivateDelay() ができませんでした。");
     } else {
         _mapProg2Scene[get()]->inactivateDelay(prm_overlapping_frames);
     }
     if (_mapProg2Scene.find(prm_progress) == _mapProg2Scene.end()) {
         _TRACE_("＜警告＞SceneProgress::changeWithSceneOverlapping シーン("<<_pScene->getName()<<")で、"
-            "サブシーンと関連付けされていない遷移先進捗(prm_progress="<<prm_progress<<") だった為、activate() ができませんでした。");
+            "子シーンと関連付けされていない遷移先進捗(prm_progress="<<prm_progress<<") だった為、activate() ができませんでした。");
     } else {
         _mapProg2Scene[prm_progress]->reset();
         _mapProg2Scene[prm_progress]->activate();
@@ -156,7 +156,7 @@ void SceneProgress::change(progress prm_progress) {
             //_progress_next_promiseの activateDelay() を取り消す。
             if (_mapProg2Scene.find(_progress_next_promise) == _mapProg2Scene.end()) {
                 _TRACE_("＜情報＞SceneProgress::change("<<prm_progress<<")  シーン("<<_pScene->getName()<<")で、"
-                    "遷移先予約進捗(_progress_next_promise="<<_progress_next_promise<<")が存在しましたが、サブシーンと関連付けされていないため、"
+                    "遷移先予約進捗(_progress_next_promise="<<_progress_next_promise<<")が存在しましたが、子シーンと関連付けされていないため、"
                     "活動予約を取り消しの措置は行いません。");
             } else {
                 _TRACE_("＜情報＞SceneProgress::change("<<prm_progress<<")  シーン("<<_pScene->getName()<<")で、"
@@ -177,7 +177,7 @@ void SceneProgress::changeNothing() {
         //_progress_next_promiseの activateDelay() を取り消す。
         if (_mapProg2Scene.find(_progress_next_promise) == _mapProg2Scene.end()) {
             _TRACE_("＜情報＞SceneProgress::changeNothing() シーン("<<_pScene->getName()<<")で、"
-                "遷移先予約進捗(_progress_next_promise="<<_progress_next_promise<<")が存在しましたが、サブシーンと関連付けされていないため、"
+                "遷移先予約進捗(_progress_next_promise="<<_progress_next_promise<<")が存在しましたが、子シーンと関連付けされていないため、"
                 "活動予約を取り消しの措置は行いません。");
         } else {
             _TRACE_("＜情報＞SceneProgress::changeNothing()  シーン("<<_pScene->getName()<<")で、"
@@ -203,7 +203,7 @@ void SceneProgress::changeNext() {
             //_progress_next_promiseの activateDelay() を取り消す。
             if (_mapProg2Scene.find(_progress_next_promise) == _mapProg2Scene.end()) {
                 _TRACE_("＜情報＞SceneProgress::changeNext() _progress+1="<<(_progress+1)<<" シーン("<<_pScene->getName()<<")で、"
-                "遷移先予約進捗(_progress_next_promise="<<_progress_next_promise<<")が存在しましたが、サブシーンと関連付けされていないため、"
+                "遷移先予約進捗(_progress_next_promise="<<_progress_next_promise<<")が存在しましたが、子シーンと関連付けされていないため、"
                 "活動予約を取り消しの措置は行いません。");
             } else {
                 _TRACE_("＜情報＞SceneProgress::changeNext() _progress+1="<<(_progress+1)<<" シーン("<<_pScene->getName()<<")で、"

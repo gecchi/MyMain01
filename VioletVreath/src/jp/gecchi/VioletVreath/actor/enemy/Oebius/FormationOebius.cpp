@@ -24,7 +24,7 @@ FormationOebius::FormationOebius(const char* prm_name, EnemyOebiusController* pr
 }
 
 void FormationOebius::scatterMember() {
-    EnemyOebius* pOebius = (EnemyOebius*)getSubFirst();
+    EnemyOebius* pOebius = (EnemyOebius*)getChildFirst();
     while (pOebius) {
         pOebius->scatter();
         if (pOebius->isLast()) {

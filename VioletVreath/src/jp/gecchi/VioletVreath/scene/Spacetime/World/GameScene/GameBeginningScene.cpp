@@ -23,9 +23,9 @@ GameBeginningScene::GameBeginningScene(const char* prm_name) : DefaultScene(prm_
     _class_name = "GameBeginningScene";
 
     pLabel01_ = NEW LabelGecchi16Font("STR01");
-    bringSceneMediator()->addSubGroup(KIND_EFFECT, pLabel01_);
+    bringSceneMediator()->appendGroupChild(KIND_EFFECT, pLabel01_);
     pLabel02_ = NEW LabelGecchi16Font("STR02");
-    bringSceneMediator()->addSubGroup(KIND_EFFECT, pLabel02_);
+    bringSceneMediator()->appendGroupChild(KIND_EFFECT, pLabel02_);
     selected_stage_ = 0;
     useProgress(PROG_BANPEI);
 }

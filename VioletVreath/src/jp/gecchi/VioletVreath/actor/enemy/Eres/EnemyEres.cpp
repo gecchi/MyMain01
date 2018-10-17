@@ -38,7 +38,7 @@ EnemyEres::EnemyEres(const char* prm_name, GgafActorDepository* prm_pDepo_EnemyE
         for (int i = 0; i < 32; i++) {
             pDepo_shot001_->put(NEW EnemyEresShot001("EnemyEresShot"));
         }
-        addSubGroup(pDepo_shot001_);
+        appendGroupChild(pDepo_shot001_);
         createGgafActorDepository_ = true;
     } else {
         //‹¤—L‚Ì’e‚ªŽw’è‚³‚ê‚Ä‚é‚Ìê‡
@@ -75,7 +75,7 @@ void EnemyEres::onActive() {
 
 void EnemyEres::processBehavior() {
     //•ûŒü“]Š·
-    if (iMovePatternNo_ == 0 && getBehaveingFrame() == 60*30) {
+    if (iMovePatternNo_ == 0 && getActiveFrame() == 60*30) {
 
         angle way[32];
         //UTIL::getWayAngle2D(180000, 8, 10000, way);
@@ -124,7 +124,7 @@ void EnemyEres::onHit(const GgafActor* prm_pOtherActor) {
 void EnemyEres::onInactive() {
     if (createGgafActorDepository_) {
         //’e‚Í’x‚ê‚ÄŠJ•ú‚³‚¹‚é‚æ‚¤‚ÉA“®‚«‚ðŒp‘±‚³‚¹‚é‚½‚ßˆÚ“®
-        getMySceneMediator()->addSubLast(pDepo_shot001_->getMyGroupHead()->extract());
+        getMySceneMediator()->appendChild(pDepo_shot001_->getMyGroupHead()->extract());
         pDepo_shot001_->sayonara(60 * 5);//‰ð•ú—\–ñ
     }
     sayonara();

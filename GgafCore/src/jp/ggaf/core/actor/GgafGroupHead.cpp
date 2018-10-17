@@ -67,7 +67,7 @@ GgafSceneMediator* GgafGroupHead::getMySceneMediator() {
 
 void GgafGroupHead::setMySceneMediator(GgafSceneMediator* prm_pSceneMediator) {
     _pSceneMediator = prm_pSceneMediator;
-    GgafActor* pActor = getSubFirst();
+    GgafActor* pActor = getChildFirst();
     while (pActor) {
         if (pActor->instanceOf(Obj_GgafMainActor)) {
             ((GgafMainActor*)(pActor))->setMySceneMediator(prm_pSceneMediator);

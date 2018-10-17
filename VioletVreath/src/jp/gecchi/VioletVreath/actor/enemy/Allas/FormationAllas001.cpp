@@ -58,7 +58,7 @@ void FormationAllas001::processBehavior() {
             }
             if (pProg->hasArrivedAt(60)) {
                 for (int i = 0; i < num_Allas_; i++) {
-                    addFormationMember(receiveActor(i));
+                    appendFormationMember(receiveActor(i));
                 }
                 pProg->changeNext();
             }

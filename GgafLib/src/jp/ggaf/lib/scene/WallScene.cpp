@@ -30,10 +30,10 @@ void WallScene::buildWallScene(
     if (_pDepo_wall->getMySceneMediator()) {
         //既に所属しているならばOK
     } else {
-        bringSceneMediator()->addSubGroup(_pDepo_wall); //仮所属 initialize() で本所属
+        bringSceneMediator()->appendGroupChild(_pDepo_wall); //仮所属 initialize() で本所属
     }
     for (int i = 0; i < prm_section_num; i++) {
-        addSubLast(prm_papSection[i]); //配下シーンに所属
+        appendChild(prm_papSection[i]); //配下シーンに所属
         prm_papSection[i]->config(_pDepo_wall,
                                   prm_wall_start_x,
                                   prm_wall_dep, prm_wall_width, prm_wall_height);
@@ -88,7 +88,7 @@ void WallScene::initialize() {
     //壁デポジトリの所属シーンは世界シーン所属になっている可能性がある。、
     //スクロール制御を行うためにも、壁デポジトリ は this の配下に置く必要があるため、以下の様に
     //配下シーンに再設定する。
-    bringSceneMediator()->addSubGroup(_pDepo_wall->extract());
+    bringSceneMediator()->appendGroupChild(_pDepo_wall->extract());
 }
 
 void WallScene::onActive() {

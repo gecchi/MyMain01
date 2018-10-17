@@ -19,7 +19,7 @@ TestEnemy::TestEnemy(const char* prm_name,
 
     pMoji_ = NEW SpriteLabelTest("stamina");
     pMoji_->defineRotMvWorldMatrix_Billboard(); //XYZ軸ビルボード
-    addSubGroup(pMoji_);
+    appendGroupChild(pMoji_);
 }
 
 void TestEnemy::initialize() {

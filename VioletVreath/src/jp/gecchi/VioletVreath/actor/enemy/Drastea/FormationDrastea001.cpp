@@ -10,7 +10,7 @@ using namespace VioletVreath;
 FormationDrastea001::FormationDrastea001(const char* prm_name) : TreeFormation(prm_name) {
     _class_name = "FormationDrastea001";
     for (int i = 0; i < 10; i++) {
-        addFormationMember(NEW EnemyDrastea("Drastea01"));
+        appendFormationMember(NEW EnemyDrastea("Drastea01"));
     }
 }
 

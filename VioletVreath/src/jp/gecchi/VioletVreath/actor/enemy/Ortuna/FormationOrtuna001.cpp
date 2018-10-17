@@ -16,7 +16,7 @@ FormationOrtuna001::FormationOrtuna001(const char* prm_name) :
     interval_frames_ = RF_FormationOrtuna001_LaunchInterval(G_RANK);  //ƒIƒ‹ƒgƒDƒi‚ÌŠÔŠu(frame)
     for (int i = 0; i < num_Ortuna_; i++) {
         std::string name = "Ortuna("+XTOS(i)+")";
-        addFormationMember(NEW EnemyOrtuna(name.c_str()));
+        appendFormationMember(NEW EnemyOrtuna(name.c_str()));
     }
     index_call_up_ = 0;
 }

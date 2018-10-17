@@ -502,9 +502,11 @@ void* GgafGod::receive(uint64_t prm_cradle_no, GgafObject* prm_pReceiver) {
             }
         }
     }
+#ifdef MY_DEBUG
     if (_pException_god) {
         throw *(_pException_god);
     }
+#endif
     return nullptr;
 }
 

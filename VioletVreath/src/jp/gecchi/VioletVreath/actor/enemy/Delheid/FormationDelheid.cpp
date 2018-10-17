@@ -31,17 +31,17 @@ FormationDelheid::FormationDelheid(const char* prm_name)
 
     pAlisana_start = NEW EnemyAlisana("Alisana_START");
     pAlisana_start->inactivate(); //生成直後は非活動なので、これで onInactive() は発生しません。
-    addSubGroup(pAlisana_start);
+    appendGroupChild(pAlisana_start);
 
     pAlisana_goal = NEW EnemyAlisana("Alisana_GOAL");
     pAlisana_goal->inactivate();
-    addSubGroup(pAlisana_goal);
+    appendGroupChild(pAlisana_goal);
 
     //軌道計算用のダミー
     pDummy_ = NEW EnemyDelheid("DammyEnemyDelheid");
     pDummy_->pKurokoLeader_ = nullptr;
     pDummy_->inactivate();
-    addSubGroup(pDummy_);
+    appendGroupChild(pDummy_);
 
     //編隊隊員デポジトリセット
     pConn_pDelheidDepo_ = connectToDepositoryManager("EnemyDelheid4Formation");

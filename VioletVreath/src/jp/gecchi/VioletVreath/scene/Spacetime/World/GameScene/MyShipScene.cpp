@@ -37,14 +37,14 @@ papBunshinBase_(nullptr) {
     _class_name = "MyShipScene";
     pMyShip_ = NEW MyShip("MYSHIP");
     pMyShip_->inactivate(); //îzâ∫Ç…âºìoò^ÇÃÉAÉNÉ^Å[î≠ëóé“Ç∆Ç©Ç†ÇÈÇµ
-    bringSceneMediator()->addSubGroup(pMyShip_);
+    bringSceneMediator()->appendGroupChild(pMyShip_);
 
     papBunshinBase_ = NEW MyBunshinBase*[MyBunshinBase::MAX_BUNSHIN_NUM];
     for (int i = 0; i < MyBunshinBase::MAX_BUNSHIN_NUM; i ++) {
         std::string name = "BunshinBase("+XTOS(i)+")";
         papBunshinBase_[i] = NEW MyBunshinBase(name.c_str(), i+1);
         papBunshinBase_[i]->inactivate();
-        bringSceneMediator()->addSubGroup(papBunshinBase_[i]);
+        bringSceneMediator()->appendGroupChild(papBunshinBase_[i]);
     }
     /*
     papBunshinBase_[0]->pBunshin_->setMaterialColor(1.0, 1.0, 1.0);
@@ -61,13 +61,13 @@ papBunshinBase_(nullptr) {
 
     pEffectMyShipExplosion_ = NEW EffectMyShipExplosion("EffectMyShipExplosion");
     pEffectMyShipExplosion_->inactivate();
-    bringSceneMediator()->addSubGroup(pEffectMyShipExplosion_);
+    bringSceneMediator()->appendGroupChild(pEffectMyShipExplosion_);
     pVamSysCamWorker_ = nullptr;
     //z_ = 0.99;//ÇΩÇ‘ÇÒç≈îwñ  Åi0 <= z_ < 1.0ÅjZ=(0Å`+1)
     //z_ = 0.9999999f;
 
     pLabelZanki_ = NEW LabelGecchi16Font("zankdisp");
-    bringSceneMediator()->addSubGroup(pLabelZanki_);
+    bringSceneMediator()->appendGroupChild(pLabelZanki_);
     useProgress(PROG_BANPEI);
 }
 

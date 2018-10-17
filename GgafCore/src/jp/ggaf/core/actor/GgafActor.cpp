@@ -54,7 +54,7 @@ void GgafActor::setHitAble(bool prm_can_hit_flg) {
 void GgafActor::setHitAbleTree(bool prm_can_hit_flg, bool prm_can_hit_out_of_view_flg) {
     _can_hit_flg = prm_can_hit_flg;
     _can_hit_out_of_view = prm_can_hit_out_of_view_flg;
-    GgafActor* pActor_tmp = _pSubFirst;
+    GgafActor* pActor_tmp = _pChildFirst;
     while (pActor_tmp) {
         pActor_tmp->setHitAble(prm_can_hit_flg, prm_can_hit_out_of_view_flg);
         if (pActor_tmp->_is_last_flg) {
@@ -67,7 +67,7 @@ void GgafActor::setHitAbleTree(bool prm_can_hit_flg, bool prm_can_hit_out_of_vie
 
 void GgafActor::setHitAbleTree(bool prm_can_hit_flg) {
     _can_hit_flg = prm_can_hit_flg;
-    GgafActor* pActor_tmp = _pSubFirst;
+    GgafActor* pActor_tmp = _pChildFirst;
     while (pActor_tmp) {
         pActor_tmp->setHitAble(prm_can_hit_flg);
         if (pActor_tmp->_is_last_flg) {
@@ -84,7 +84,7 @@ void GgafActor::sayonara(frame prm_offset_frames) {
     } else {
         end(prm_offset_frames);
     }
-    GgafActor* pActor = _pSubFirst;
+    GgafActor* pActor = _pChildFirst;
     while (pActor) {
         pActor->sayonara(prm_offset_frames);
         if (pActor->_is_last_flg) {
@@ -104,7 +104,7 @@ void GgafActor::notifyDestroyedToFormation() {
 void GgafActor::dump() {
     _TRACE_("\t\t\t\t\t\t\t\t"<<NODE_INFO<<DUMP_FLGS);
 
-    GgafActor* pActor_tmp = _pSubFirst;
+    GgafActor* pActor_tmp = _pChildFirst;
     while (pActor_tmp) {
         pActor_tmp->dump("\t\t\t\t\t\t\t\tb");
         if (pActor_tmp->_pNext) {
@@ -122,7 +122,7 @@ void GgafActor::dump() {
 
 void GgafActor::dump(std::string prm_parent) {
     _TRACE_(prm_parent <<NODE_INFO<<DUMP_FLGS);
-    GgafActor* pActor_tmp = _pSubFirst;
+    GgafActor* pActor_tmp = _pChildFirst;
     while (pActor_tmp) {
         pActor_tmp->dump(prm_parent + "b");
         if (pActor_tmp->_pNext) {

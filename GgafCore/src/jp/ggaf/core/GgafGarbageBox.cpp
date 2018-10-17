@@ -41,7 +41,7 @@ void GgafGarbageBox::add(GgafActor* prm_pActor) {
     GgafGarbageBox::_wait = true;
     prm_pActor->inactivateTreeImmed();
     prm_pActor->_can_live_flg = false;
-    _pDisusedActor->addSubFirst(prm_pActor->extract()); //addSubFirstです！addSubLastに非ず
+    _pDisusedActor->prependChild(prm_pActor->extract()); //prependChildです！appendChildに非ず
     _TRACE_("ゴミ箱(Actor) GgafGarbageBox::add("<<NODE_INFO_P(prm_pActor)<<")");
     GgafGarbageBox::_wait = false;
 }
@@ -69,10 +69,10 @@ void GgafGarbageBox::add(GgafScene* prm_pScene) {
         //GgafGarbageBox::add(GgafActor* prm_pActor) と同じ処理を記述すること
         pSceneMediator->inactivateTreeImmed();
         pSceneMediator->_can_live_flg = false;
-        _pDisusedActor->addSubFirst(pSceneMediator); //addSubFirstです！addSubLastに非ず
+        _pDisusedActor->prependChild(pSceneMediator); //prependChildです！appendChildに非ず
         _TRACE_("ゴミ箱(Actor) GgafGarbageBox::add( "<<NODE_INFO_P(prm_pScene)<<"の仲介者の"<<NODE_INFO_P(pSceneMediator)<<")");
     }
-    _pDisusedScene->addSubFirst(prm_pScene->extract()); //addSubFirstです！addSubLastに非ず
+    _pDisusedScene->prependChild(prm_pScene->extract()); //prependChildです！appendChildに非ず
     _TRACE_("ゴミ箱(Scene) GgafGarbageBox::add("<<NODE_INFO_P(prm_pScene)<<")");
     GgafGarbageBox::_wait = false;
 }

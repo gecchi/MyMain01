@@ -43,10 +43,10 @@ StageController::StageController(const char* prm_name) : DefaultScene(prm_name) 
 
     pTransitStage_ = NEW TransitStage("TransitStage");
     pTransitStage_->inactivate();
-    addSubLast(pTransitStage_);
+    appendChild(pTransitStage_);
 
     _pSceneSymbol = NEW LabelSceneSymbol("LabelSceneSymbol");
-    bringSceneMediator()->addSubGroup(_pSceneSymbol);
+    bringSceneMediator()->appendGroupChild(_pSceneSymbol);
     useProgress(PROG_BANPEI);
 }
 
@@ -60,7 +60,7 @@ void StageController::onReset() {
     //共通シーン、自機シーンを配下に引っ張ってくる
     pCOMMON_SCENE->resetTree();
     pCOMMON_SCENE->activateImmed();
-    addSubLast(pCOMMON_SCENE->extract());
+    appendChild(pCOMMON_SCENE->extract());
     getProgress()->reset(PROG_INIT);
 }
 //void StageController::readyNextStage() {
@@ -134,7 +134,7 @@ void StageController::processBehavior() {
                 _TRACE_("PROG_PLAY_STAGE: 新 pStageMainCannel_="<<pStageMainCannel_->getName()<<"");
                 pStageMainCannel_->fadeoutSceneWithBgm(0);
 
-                addSubLast(pStageMainCannel_);
+                appendChild(pStageMainCannel_);
                 pStageMainCannel_->fadeinScene(180);
             }
             break;

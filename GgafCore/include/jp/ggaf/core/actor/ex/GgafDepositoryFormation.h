@@ -64,7 +64,7 @@ public:
      * setFormationMembersitory() の事前実行が必要。<BR>
      * 本メソッドを呼び出すと、デポジトリに管理されたメンバーが一つ dispatch() されます。(同時に activate() もされる)
      * デポジトリのメンバーがすべて活動中で、枯渇している場合 nullptr が返ります。<BR>
-     * また、引数の prm_formation_sub_num は最大編隊構成要員数で、この数以上の呼び出しでも nullptr が返ります。<BR>
+     * また、引数の prm_formation_child_num は最大編隊構成要員数で、この数以上の呼び出しでも nullptr が返ります。<BR>
      * 一度でも nullptr が返されると、内部フラグ _can_call_up が false になり、以降本フォーメーションオブジェクトは
      * メンバー呼び出しできないようになります。と同時に(_can_call_up==falseを受けて)processFinal() 内では、
      * 全ての編隊メンバーが非活動時、本フォーメーションオブジェクトが自動的に sayonara(_offset_frames_end) が実行されるようになります。<BR>
@@ -74,12 +74,12 @@ public:
      * 【ハマったメモ２】callUpMember() して取得したメンバーは sayonara() (内部的にはinactive()) することにより、編隊から離脱したことになります。
      * 従って、callUpMember() したメンバーを、inactive() して、内部一時保有し確保することは、その瞬間に編隊から離脱したこと同意になりますので、
      * できません。そのようにしたい場合は GgafTreeFormation を使うしかありません。<BR>
-     * @param prm_formation_sub_num 本フォーメーションの最大編隊構成要員数
+     * @param prm_formation_child_num 本フォーメーションの最大編隊構成要員数
      * @return 編隊構成要員のアクター。
      *         最大編隊構成要員数をオーバーして呼び出した場合、或いは
      *         デポジトリに構成要員がもういない場合は nullptr
      */
-    GgafActor* callUpMember(int prm_formation_sub_num = INT_MAX);
+    GgafActor* callUpMember(int prm_formation_child_num = INT_MAX);
 
     /**
      * まだ、編隊隊員確保が不十分で、callUpMember() をする余地があるかどうか。 .

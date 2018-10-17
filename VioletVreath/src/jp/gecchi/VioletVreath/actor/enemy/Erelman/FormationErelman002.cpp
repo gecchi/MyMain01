@@ -34,7 +34,7 @@ FormationErelman002::FormationErelman002(const char* prm_name, EnemyErelmanContr
 
     for (int i = 0; i < num_Erelman_; i++) {
         std::string name = "Erelman("+XTOS(i)+")";
-        addFormationMember(NEW EnemyErelman(name.c_str()));
+        appendFormationMember(NEW EnemyErelman(name.c_str()));
     }
 
     for (int col = 0; col < formation_col_num_; col++) {

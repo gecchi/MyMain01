@@ -41,7 +41,7 @@ private:
      * @param pFunc 再帰呼び出しするメソッド
      */
     inline void callRecursive(void (GgafElement<T>::*pFunc)()) const {
-        T* pElementTemp = GgafNode<T>::_pSubFirst;
+        T* pElementTemp = GgafNode<T>::_pChildFirst;
         while (pElementTemp) {
             (pElementTemp->*pFunc)(); //実行
             if (pElementTemp->_is_last_flg) {
@@ -58,7 +58,7 @@ private:
      * @param prm_frame pFuncの引数であるframe
      */
     inline void callRecursive(void (GgafElement<T>::*pFunc)(frame), frame prm_frame) const {
-        T* pElementTemp = GgafNode<T>::_pSubFirst;
+        T* pElementTemp = GgafNode<T>::_pChildFirst;
         while (pElementTemp) {
             (pElementTemp->*pFunc)(prm_frame); //実行
             if (pElementTemp->_is_last_flg) {
@@ -75,9 +75,9 @@ public:
     GgafGod* _pGod;
     /** [r]initializeが行われたどうかのフラグ(true=行われた) */
     bool _was_initialize_flg;
-    /** [r]ノードが誕生(addSubされた）時からのフレーム数総計(但し、_was_paused_flg = true 時は加算され無い) */
+    /** [r]ノードが誕生(appendChildされた）時からのフレーム数総計(但し、_was_paused_flg = true 時は加算され無い) */
     frame _frame_of_life;
-    /** [r]ノードが誕生(addSubされた）時から、振舞ったフレーム数総計(但し、_was_paused_flg = true 又は _is_active_flg = false 時は加算され無い) */
+    /** [r]ノードが誕生(appendChildされた）時から、振舞ったフレーム数総計(但し、_was_paused_flg = true 又は _is_active_flg = false 時は加算され無い) */
     frame _frame_of_behaving;
     /** [r]ノードが活動開始(onActive())時からの振舞ったフレーム数総計(但し、_was_paused_flg = true 又は _is_active_flg = false 時は加算され無い) */
     frame _frame_of_behaving_since_onActive;
@@ -158,7 +158,7 @@ public:
      *         ↓                              ↓
      * (Ｈ)⇔③Ｆ⇔④Ｇ⇔⑤Ｈ⇔(Ｆ)    (Ｌ)⇔⑦Ｉ⇔⑧Ｊ⇔⑨Ｋ⇔⑩Ｌ⇔(Ｉ)
      *
-     * ※基本は先頭→末尾の順、但しサブが存在すれば先に実行、存在しなければ次(隣)を実行。
+     * ※基本は先頭→末尾の順、但し子が存在すれば先に実行、存在しなければ次(隣)を実行。
      * </pre>
      * メソッド説明に『(実行対象：自ツリー全て)』と記述されている場合は、全て上記の順序で実行される。
      */
@@ -958,7 +958,7 @@ void GgafElement<T>::nextFrame() {
     }
     //再帰
     //配下の全ノードに再帰的にnextFrame()実行
-    T* pElement = GgafNode<T>::_pSubFirst; //一つ配下の先頭ノード。潜れる場合は先に潜る。
+    T* pElement = GgafNode<T>::_pChildFirst; //一つ配下の先頭ノード。潜れる場合は先に潜る。
     if (pElement) {
         while (!pElement->_is_last_flg) {
             //配下の先頭 ～ 末尾-1 ノードに nextFrame()
@@ -1306,7 +1306,7 @@ void GgafElement<T>::end(frame prm_offset_frames) {
     inactivateDelay(prm_offset_frames);
     //指定フレーム時には、まずinactivateが行われ、+GGAF_END_DELAY フレーム後 _can_live_flg = falseになる。
     //onEnd()は _can_live_flg = false 時発生
-    T* pElementTemp = GgafNode<T>::_pSubFirst;
+    T* pElementTemp = GgafNode<T>::_pChildFirst;
     while (pElementTemp) {
         pElementTemp->end(prm_offset_frames);
         if (pElementTemp->_is_last_flg) {
@@ -1329,15 +1329,15 @@ void GgafElement<T>::end(frame prm_offset_frames) {
 
 template<class T>
 void GgafElement<T>::clean(int prm_num_cleaning) {
-    if (GgafNode<T>::_pSubFirst == nullptr) {
+    if (GgafNode<T>::_pChildFirst == nullptr) {
         return;
     }
 
-    T* pElementTemp = GgafNode<T>::_pSubFirst->_pPrev;
+    T* pElementTemp = GgafNode<T>::_pChildFirst->_pPrev;
     T* pWk;
 
     while (GgafGarbageBox::_cnt_cleaned < prm_num_cleaning) {
-        if (pElementTemp->_pSubFirst) {
+        if (pElementTemp->_pChildFirst) {
             //子の子がまだのっている場合さらにもぐる
             pElementTemp->clean(prm_num_cleaning);
             if (GgafGarbageBox::_cnt_cleaned >= prm_num_cleaning) {
@@ -1345,7 +1345,7 @@ void GgafElement<T>::clean(int prm_num_cleaning) {
             }
         }
         if (pElementTemp->_is_first_flg) { //最後の一つ
-            if (pElementTemp->_pSubFirst) {
+            if (pElementTemp->_pChildFirst) {
                 //子の子がまだのっている場合さらにもぐる
                 pElementTemp->clean(prm_num_cleaning);
                 if (GgafGarbageBox::_cnt_cleaned >= prm_num_cleaning) {
@@ -1360,7 +1360,7 @@ void GgafElement<T>::clean(int prm_num_cleaning) {
             break;
         } else {
             pWk = pElementTemp;
-            if (pWk->_pSubFirst) {
+            if (pWk->_pChildFirst) {
                 //子の子がまだのっている場合さらにもぐる
                 pWk->clean(prm_num_cleaning);
                 if (GgafGarbageBox::_cnt_cleaned >= prm_num_cleaning) {
@@ -1381,7 +1381,7 @@ template<class T>
 void GgafElement<T>::executeFuncLowerTree(void (*pFunc)(GgafObject*, void*, void*, void*), void* prm1, void* prm2, void* prm3) {
     if (_can_live_flg && _is_active_flg) {
         pFunc(this, prm1, prm2, prm3);
-        T* pElementTemp = GgafNode<T>::_pSubFirst;
+        T* pElementTemp = GgafNode<T>::_pChildFirst;
         while (pElementTemp) {
             pElementTemp->executeFuncLowerTree(pFunc, prm1, prm2, prm3);
             if (pElementTemp->_is_last_flg) {
@@ -1397,7 +1397,7 @@ template<class T>
 void GgafElement<T>::throwEventLowerTree(hashval prm_no, void* prm_pSource) {
     if (_can_live_flg) {
         onCatchEvent(prm_no, prm_pSource);
-        T* pElementTemp = GgafNode<T>::_pSubFirst;
+        T* pElementTemp = GgafNode<T>::_pChildFirst;
         while (pElementTemp) {
             pElementTemp->throwEventLowerTree(prm_no, prm_pSource);
             if (pElementTemp->_is_last_flg) {

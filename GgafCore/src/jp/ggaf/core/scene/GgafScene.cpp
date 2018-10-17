@@ -52,9 +52,9 @@ void GgafScene::addRunFrameOnce(int prm_once_in_n_time) {
     }
 }
 
-void GgafScene::addSubLast(GgafScene* prm_pScene) {
+void GgafScene::appendChild(GgafScene* prm_pScene) {
 //    prm_pScene->_once_in_n_time = _once_in_n_time;
-    GgafElement<GgafScene>::addSubLast(prm_pScene);
+    GgafElement<GgafScene>::appendChild(prm_pScene);
 }
 
 void GgafScene::nextFrame() {
@@ -218,7 +218,7 @@ void GgafScene::executeFuncLowerTree(void (*pFunc)(GgafObject*, void*, void*, vo
 void GgafScene::executeFuncLowerSceneTree(void (*pFunc)(GgafObject*, void*, void*, void*), void* prm1, void* prm2, void* prm3) {
     if (_can_live_flg && _is_active_flg) {
         pFunc(this, prm1, prm2, prm3);
-        GgafScene* pScene = _pSubFirst;
+        GgafScene* pScene = _pChildFirst;
         while (pScene) {
             pScene->executeFuncLowerSceneTree(pFunc, prm1, prm2, prm3);
             if (pScene->_is_last_flg) {
@@ -259,7 +259,7 @@ void GgafScene::sayonara(frame prm_offset_frames) {
     } else {
         GgafElement<GgafScene>::end(prm_offset_frames);
     }
-    GgafScene* pScene = _pSubFirst;
+    GgafScene* pScene = _pChildFirst;
     while (pScene) {
         pScene->sayonara(prm_offset_frames);
         if (pScene->_is_last_flg) {
@@ -276,7 +276,7 @@ void GgafScene::clean(int prm_num_cleaning) {
     }
     if (_pSceneMediator) {
         _pSceneMediator->clean(prm_num_cleaning);
-        if (_pSceneMediator->_pSubFirst == nullptr) {
+        if (_pSceneMediator->_pChildFirst == nullptr) {
             GGAF_DELETE(_pSceneMediator);
         }
     } else {
@@ -295,7 +295,7 @@ void GgafScene::dump() {
     _TRACE_("Åú"<<NODE_INFO<<DUMP_FLGS);
     if (_pSceneMediator) {
         _pSceneMediator->dump();
-        GgafScene* pScene_tmp = _pSubFirst;
+        GgafScene* pScene_tmp = _pChildFirst;
         while (pScene_tmp) {
             pScene_tmp->dump("\t");
             if (pScene_tmp->_pNext) {
@@ -315,7 +315,7 @@ void GgafScene::dump(std::string prm_parent) {
     _TRACE_(prm_parent+"Åú"<<NODE_INFO<<DUMP_FLGS);
     if (_pSceneMediator) {
         _pSceneMediator->dump(prm_parent + "\t\t\t\t\t\t\t\t");
-        GgafScene* pScene_tmp = _pSubFirst;
+        GgafScene* pScene_tmp = _pChildFirst;
         while (pScene_tmp) {
             pScene_tmp->dump(prm_parent + "\t");
             if (pScene_tmp->_pNext) {

@@ -1397,7 +1397,7 @@ GgafLinkedListRing<T>::~GgafLinkedListRing() {
             while (true) {
                 GGAF_DELETE(pLast); //––”ö‚©‚çdelete
                 if (pLastPrev->_is_first_flg) {
-                    GGAF_DELETE(_pElem_first); //pSubLastPrev == _pSubFirst ‚Å‚ ‚é
+                    GGAF_DELETE(_pElem_first); //pChildLastPrev == _pChildFirst ‚Å‚ ‚é
                     _pElem_first = nullptr;
                     _pElemActive = nullptr;
                     _num_elem = 0;

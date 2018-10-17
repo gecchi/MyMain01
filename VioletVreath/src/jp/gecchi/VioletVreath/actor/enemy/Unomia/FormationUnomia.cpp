@@ -47,7 +47,7 @@ void FormationUnomia::initialize() {
     getProgress()->reset(PROG_INIT);
 //    if (pConn_depo_Unomia_->chkFirstConnectionIs(this)) {
 //        _TRACE_("pConn_depo_Unomia_ は、ワシ(this="<<NODE_INFO<<")が育てたエヘン！")
-//        getPlatformScene()->bringSceneMediator()->addSubGroup(
+//        getPlatformScene()->bringSceneMediator()->appendGroupChild(
 //                pConn_depo_Unomia_->peek()->extract()
 //                );
 //    }
@@ -76,7 +76,7 @@ void FormationUnomia::processBehavior() {
         }
         case PROG_READY_MEMBER_OBTAIN: {
             uint64_t order_no = pProg->getFrame();
-            addFormationMember(receiveActor(order_no));
+            appendFormationMember(receiveActor(order_no));
             pProg->changeNextWhenArrivedAt(num_formation_member_);
             break;
         }
@@ -105,7 +105,7 @@ void FormationUnomia::processBehavior() {
         }
         case PROG_SHOT: {
             MyShip* pMy = pMYSHIP;
-            GgafActor* pFollower = getSubFirst();
+            GgafActor* pFollower = getChildFirst();
             while(true) {
                 EnemyUnomia* pUnomia =  (EnemyUnomia*)pFollower;
                 if (pUnomia->isActive()) {

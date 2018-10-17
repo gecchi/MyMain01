@@ -27,12 +27,12 @@ namespace GgafCore {
  * <TD>「自シーン」「自」</TD>
  * <TD>自分自身のインスタンス(this相当)。或いは、文脈の話題の中心となっているシーンが自シーンになる時もあります。</TD>
  * </TR><TR>
- * <TD>「サブシーン」「サブ」「子」</TD>
+ * <TD>「子シーン」「子」「子」</TD>
  * <TD>シーン同士のツリー階層構造上において、自シーンに<B>直に</B>ぶら下がる１階層下のシーン達を指しています。<BR>
  * シーンクラスを継承したクラスという意味では無いこととします。</TD>
  * </TR><TR>
  * <TD>「シーン配下」「配下」</TD>
- * <TD>シーン同士のツリー階層構造上において、自シーン<B>に</B>ぶら下がる全てのシーン達を指しています。サブシーンも当然含まれます。<BR>
+ * <TD>シーン同士のツリー階層構造上において、自シーン<B>に</B>ぶら下がる全てのシーン達を指しています。子シーンも当然含まれます。<BR>
  * シーンクラスを継承元クラスという意味では無いこととします。</TD>
  * </TR><TR>
  * <TD>「親シーン」「親」</TD>
@@ -58,8 +58,8 @@ namespace GgafCore {
  * </TR><TR>
  * <TD>「上位クラス」「下位クラス」</TD>
  * <TD>シーンクラスのクラスの継承関係を表しています。
- * クラス継承関係の表現は「スーパー」「サブ」又は「親」「子」は使わずに<B>「上位」「下位」</B>で統一することにします。<BR>
- * 「スーパー」「サブ」又は「親」「子」と言った場合はツリー階層構造のことを言っています。</TD>
+ * クラス継承関係の表現は「スーパー」「子」又は「親」「子」は使わずに<B>「上位」「下位」</B>で統一することにします。<BR>
+ * 「スーパー」「子」又は「親」「子」と言った場合はツリー階層構造のことを言っています。</TD>
  * </TR>
  * </TABLE>
  * <BR>
@@ -124,7 +124,7 @@ public:
     virtual void setRunFrameOnce(int prm_once_in_n_time);
     virtual void addRunFrameOnce(int prm_once_in_n_time);
 
-    virtual void addSubLast(GgafScene* prm_pScene) override;
+    virtual void appendChild(GgafScene* prm_pScene) override;
 
     virtual void nextFrame() override;
 //    virtual void update_last_frame_of_god() override;

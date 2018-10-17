@@ -112,8 +112,8 @@ void GgafDxGeometricActor::processSettlementBehavior() {
         //デフォルトでは、_matWorldRotMv = 回転変換行列 × 平行移動変換行列
         //                _matWorld      = 拡大縮小変換行列 × _matWorldRotMv となるようにしている。
         //つまり _matWorld = 拡大縮小＞回転＞平行移動
-        //_matWorldRotMv は addSubGroupAsFk() 実行時に使用されるために作成している。
-        //従って addSubGroupAsFk() を絶対使用しないならば、_matWorldRotMvの計算は不要。
+        //_matWorldRotMv は appendGroupChildAsFk() 実行時に使用されるために作成している。
+        //従って appendGroupChildAsFk() を絶対使用しないならば、_matWorldRotMvの計算は不要。
         //processSettlementBehavior() をオーバーライドし、
         //変換行列作成をもっと単純化することで、少し最適化が可能。
 
@@ -268,7 +268,7 @@ void GgafDxGeometricActor::changeGeoFinal() {
 //void GgafDxGeometricActor::updateGeoFinalFromLocal() {
 //
 //}
-GgafGroupHead* GgafDxGeometricActor::addSubGroupAsFk(kind_t prm_kind,
+GgafGroupHead* GgafDxGeometricActor::appendGroupChildAsFk(kind_t prm_kind,
                                                      GgafDxGeometricActor* prm_pGeoActor,
                                                      coord prm_x_init_local,
                                                      coord prm_y_init_local,
@@ -284,7 +284,7 @@ GgafGroupHead* GgafDxGeometricActor::addSubGroupAsFk(kind_t prm_kind,
                                    "this="<<NODE_INFO<<" は、_pFunc_calc_rot_mv_world_matrix が nullptrの為、FKベースとなる資格がありません");
     }
 #endif
-    GgafGroupHead* pGroupHead = addSubGroup(prm_kind, prm_pGeoActor);
+    GgafGroupHead* pGroupHead = appendGroupChild(prm_kind, prm_pGeoActor);
     prm_pGeoActor->_pActor_base = this;
     prm_pGeoActor->changeGeoLocal();
     prm_pGeoActor->_x = prm_x_init_local;
@@ -300,14 +300,14 @@ GgafGroupHead* GgafDxGeometricActor::addSubGroupAsFk(kind_t prm_kind,
     return pGroupHead;
 }
 
-GgafGroupHead* GgafDxGeometricActor::addSubGroupAsFk(GgafDxGeometricActor* prm_pGeoActor,
+GgafGroupHead* GgafDxGeometricActor::appendGroupChildAsFk(GgafDxGeometricActor* prm_pGeoActor,
                                                      coord prm_x_init_local,
                                                      coord prm_y_init_local,
                                                      coord prm_z_init_local,
                                                      coord prm_rx_init_local,
                                                      coord prm_ry_init_local,
                                                      coord prm_rz_init_local) {
-    return addSubGroupAsFk(prm_pGeoActor->getDefaultKind(),
+    return appendGroupChildAsFk(prm_pGeoActor->getDefaultKind(),
                            prm_pGeoActor,
                            prm_x_init_local,
                            prm_y_init_local,
@@ -485,7 +485,7 @@ GgafDxGeometricActor::~GgafDxGeometricActor() {
 
 void GgafDxGeometricActor::dump() {
     _TRACE_("\t\t\t\t\t\t\t\t"<<NODE_INFO<<"("<<_x<<","<<_y<<","<<_z<<")"<<DUMP_FLGS);
-    GgafActor* pActor_tmp = _pSubFirst;
+    GgafActor* pActor_tmp = _pChildFirst;
     while (pActor_tmp) {
         pActor_tmp->dump("\t\t\t\t\t\t\t\t｜");
         if (pActor_tmp->getNext()) {
@@ -503,7 +503,7 @@ void GgafDxGeometricActor::dump() {
 
 void GgafDxGeometricActor::dump(std::string prm_parent) {
     _TRACE_(prm_parent <<NODE_INFO<<"("<<_x<<","<<_y<<","<<_z<<")"<<DUMP_FLGS);
-    GgafActor* pActor_tmp = _pSubFirst;
+    GgafActor* pActor_tmp = _pChildFirst;
     while (pActor_tmp) {
         pActor_tmp->dump(prm_parent + "｜");
         if (pActor_tmp->getNext()) {

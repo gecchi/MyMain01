@@ -25,7 +25,7 @@ Planet001::Planet001(const char* prm_name) :
     drawAnyFar(true);//遠くても表示
     //大気圏エフェクトスプライト
     pAtmosphere_ = NEW Planet001Atmosphere("P001ATMOS");
-    addSubLast(pAtmosphere_);
+    appendChild(pAtmosphere_);
 }
 
 void Planet001::onCreateModel() {

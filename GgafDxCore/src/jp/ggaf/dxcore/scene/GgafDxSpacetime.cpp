@@ -93,7 +93,7 @@ _z_bound_far   (+DX_C(prm_pCamera->getZFar()))
     _pCamera = prm_pCamera;
     GgafDxUtil::_pCam = prm_pCamera;
 
-    bringSceneMediator()->addSubGroup(_pCamera);
+    bringSceneMediator()->appendGroupChild(_pCamera);
 
     _pRing_pSeArray = NEW GgafLinkedListRing<SeArray>();
     for (int i = 0; i < CONFIG::MAX_SE_DELAY; i++) { //GGAF_END_DELAYは最大解放遅れフレームだが、遠方SEの遅延の最高フレーム数としても使う
@@ -340,7 +340,7 @@ int GgafDxSpacetime::registerFigureActor2D(GgafDxFigureActor* prm_pActor) {
             _papLastActor_in_render_depth[render_depth_index] = prm_pActor;
         } else {
             //2Dで同一深度で2Dの場合、連結リストのお尻に追加していく
-            //つまり、最後に addSubLast() すればするほど、描画順が後になり、プライオリティが高いくなる。
+            //つまり、最後に appendChild() すればするほど、描画順が後になり、プライオリティが高いくなる。
             GgafDxFigureActor* pActorTmp = _papLastActor_in_render_depth[render_depth_index];
             pActorTmp->_pNextRenderActor = prm_pActor;
             prm_pActor->_pNextRenderActor = nullptr;

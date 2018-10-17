@@ -26,7 +26,7 @@ VvSpacetime::VvSpacetime(const char* prm_name, VvCamera* prm_pCam) :
 
 void VvSpacetime::initialize() {
     pWorld_ = desireScene(VioletVrain::World);
-    addSubLast(pWorld_);
+    appendChild(pWorld_);
 }
 
 void VvSpacetime::processBehavior() {

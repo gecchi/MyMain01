@@ -36,8 +36,8 @@ void EnemyErmioneArmWeak::onHit(const GgafActor* prm_pOtherActor) {
         if (getParent()) {
             getParent()->throwEventUpperTree(EVENT_ERMIONE_SAYONARA);
         }
-        if (getSubFirst()) {
-            getSubFirst()->throwEventLowerTree(EVENT_ERMIONE_SAYONARA);
+        if (getChildFirst()) {
+            getChildFirst()->throwEventLowerTree(EVENT_ERMIONE_SAYONARA);
         }
         //↑本体(EnemyErmione) に EVENT_ERMIONE_SAYONARA のイベント処理は無いので
         //この処理で、腕のみ爆発となる。

@@ -42,7 +42,7 @@ void Stage02_01::processBehavior() {
             }
             case 100: {
                 FormationGeria001* pF = (FormationGeria001*)receiveActor(80000000);
-                bringSceneMediator()->addSubGroup(pF);
+                bringSceneMediator()->appendGroupChild(pF);
                 break;
             }
             case 400: {
@@ -58,7 +58,7 @@ void Stage02_01::processBehavior() {
                 {
                 FormationTableScene* ta = NEW FormationTableScene("FormationTableScene-1");
                 ta->setMaxPerformFrame(2000);
-                addSubLast(ta);
+                appendChild(ta);
                 ta->addToTable(((FormationRis001*)receiveActor(80000002)), 400);
                 ta->addToTable(((FormationRis002*)receiveActor(80000003)), 400);
                 ta->addToTable(((FormationRis001*)receiveActor(80000004)), 400);

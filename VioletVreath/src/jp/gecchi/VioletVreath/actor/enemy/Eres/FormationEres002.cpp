@@ -16,7 +16,7 @@ FormationEres002::FormationEres002(const char* prm_name) : TreeFormation(prm_nam
         EnemyEres* pEres = NEW EnemyEres("Eres");
 //        pEres->Y_turn_ = PX_C(-1*(CONFIG::GAME_BUFFER_HEIGHT*LEN_UNIT/2) + (i * ((CONFIG::GAME_BUFFER_HEIGHT*LEN_UNIT)/30)));
         pEres->_z = -1500000;
-        addFormationMember(pEres);
+        appendFormationMember(pEres);
     }
 }
 

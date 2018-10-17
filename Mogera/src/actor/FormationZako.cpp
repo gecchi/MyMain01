@@ -34,7 +34,7 @@ void FormationZako::addMember(int prm_formation_col_num, int prm_formation_row_n
     num_Zako_ = prm_formation_col_num  * prm_formation_row_num;
     for (int i = 0; i < num_Zako_; i++) {
         std::string name = "Zako("+XTOS(i)+")";
-        addFormationMember(NEW Zako(name.c_str()));
+        appendFormationMember(NEW Zako(name.c_str()));
     }
     call_up_interval_ = prm_call_up_interval; //oŒ»ŠÔŠu
     call_up_row_idx_ = 0;

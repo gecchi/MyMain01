@@ -9,7 +9,7 @@ namespace GgafLib {
 
 /**
  * レーザ１本分(レーザーチップ使いまわし管理クラス。) .
- * new した後 addSubLast メソッドで LaserChipインスタンスを好きな個数登録してください。<BR>
+ * new した後 appendChild メソッドで LaserChipインスタンスを好きな個数登録してください。<BR>
  * new から initialize()まで、又は随時変更が有効なパラメータ<BR>
  * ・_num_chip_interval ・・・弾切れフレーム数（デフォルト:20）<BR>
  * ・_pSeConnection_Laser ・・・ レーザーチップ発射時SE（デフォルト:nullptr）<BR>
@@ -23,10 +23,10 @@ namespace GgafLib {
  * for (int i = 0; i < 60; i++) {                 //1本を60個のチップで構成
  *     pChip = new MyStraightLaserChip("chip");   //LaserChip クラスを継承・実装したオブジェクト作成
  *     pChip->setSource(this);                    //継承 LaserChip 固有の設定を施す。左の例はワインダーのための発射元設定。
- *     pLaserDepo->addSubLast(pChip);             //本デポジトリに LaserChip オブジェクトを登録(サブに所属させる)
+ *     pLaserDepo->appendChild(pChip);             //本デポジトリに LaserChip オブジェクトを登録(子に所属させる)
  * }
  * pLaserDepo->config(40, 25);                    //LaserChip の最大連結数、弾切れフレーム数を設定。
- * addSubGroup(_pLaserChipDepo);                  //デポジトリ自体を活動可能にさせるため、何処かに所属させる。
+ * appendGroupChild(_pLaserChipDepo);                  //デポジトリ自体を活動可能にさせるため、何処かに所属させる。
  *
  *
  * ----- 発射処理（Zキー押しっぱなしで発射例） --------------
@@ -56,7 +56,7 @@ public:
     /** [r]レーザーチップ連続未取得カウント(読み取り専用) */
     int _num_interval_frame_count;
 
-    /** [r/w]弾切れに移行するチップの連続取得数。（読み書き可／デフォルト：addSubLast()完了後 _num_chip_max と同じになっている。 */
+    /** [r/w]弾切れに移行するチップの連続取得数。（読み書き可／デフォルト：appendChild()完了後 _num_chip_max と同じになっている。 */
     int _num_continual_dispatch_max;
     /** [r/w]弾切れフレーム数（読み書き可／デフォルト=20） */
     int _num_chip_interval;
@@ -97,10 +97,10 @@ public:
      * レーザーチップストックの追加 .
      * 好きなだけ追加して下さい。
      * 追加すればするほど玉切れがおきにくい。<br>
-     * (※上位の GgafActorDepository::put(GgafActor* prm_pSub) を隠蔽)<br>
+     * (※上位の GgafActorDepository::put(GgafActor* prm_pChild) を隠蔽)<br>
      * @param prm_pLaserChip レーザーチップ
      */
-    void put(LaserChip* prm_pLaserChip); //hiding です。void GgafActorDepository::put(GgafActor* prm_pSub) 反変引数の為 override したいけどできない。
+    void put(LaserChip* prm_pLaserChip); //hiding です。void GgafActorDepository::put(GgafActor* prm_pChild) 反変引数の為 override したいけどできない。
 
     template <typename T>
     void put(const int prm_num) {

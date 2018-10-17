@@ -53,57 +53,57 @@ void TrialAndErrScene::processBehavior() {
 
     if (getActiveFrame() == 100) {
         SmpActor1* pSmpActor1 = (SmpActor1*)receiveActor(1111);
-        bringSceneMediator()->addSubGroup(MGR_MIKATA, pSmpActor1);
+        bringSceneMediator()->appendGroupChild(MGR_MIKATA, pSmpActor1);
         pSmpActor1->setPosition(PX_C(50), PX_C(+200), PX_C(50));
 
         SmpActor2* pSmpActor2 = (SmpActor2*)receiveActor(2222);
-        bringSceneMediator()->addSubGroup(MGR_TEKI, pSmpActor2);
+        bringSceneMediator()->appendGroupChild(MGR_TEKI, pSmpActor2);
         pSmpActor2->setPosition(PX_C(50), PX_C(50), PX_C(50));
 
 //        BoardTest* pBoardTest = (BoardTest*)receiveActor(20000);
 //        pBoardTest->setPosition(PX_C(100), PX_C(50));
-//        bringSceneMediator()->addSubGroup(pBoardTest);
+//        bringSceneMediator()->appendGroupChild(pBoardTest);
 
 
 //        for (int id = 0; id < 17; id++) {
 //            PointSpriteTest* pTest = (PointSpriteTest*)receiveActor(900+id);
 //            pTest->setPosition(PX_C(100*id), PX_C(100*id), PX_C(100*id));
-//            bringSceneMediator()->addSubGroup(pTest);
+//            bringSceneMediator()->appendGroupChild(pTest);
 //        }
     }
 //    if (getActiveFrame() == 120) {
 //        PointSpriteTest* pTest1 = (PointSpriteTest*)receiveActor(990);
-//        bringSceneMediator()->addSubGroup(pTest1);
+//        bringSceneMediator()->appendGroupChild(pTest1);
 //        pTest1->setPosition(0,0,0);
 //    }
 //    if (getActiveFrame() == 140) {
 //        PointSpriteTest* pTest2 = (PointSpriteTest*)receiveActor(991);
-//        bringSceneMediator()->addSubGroup(pTest2);
+//        bringSceneMediator()->appendGroupChild(pTest2);
 //        pTest2->setPosition(PX_C(200), PX_C(200), PX_C(200));
 //    }
 //    if (getActiveFrame() == 160) {
 //        Zako* pZako = (Zako*)receiveActor(10000);
-//        bringSceneMediator()->addSubGroup(pZako);
+//        bringSceneMediator()->appendGroupChild(pZako);
 //        pZako->setPosition(PX_C(400), PX_C(400), PX_C(400));
 //    }
 //    if (getActiveFrame() == 180) {
 //        PointSpriteTest* pTest4 = (PointSpriteTest*)receiveActor(993);
-//        bringSceneMediator()->addSubGroup(pTest4);
+//        bringSceneMediator()->appendGroupChild(pTest4);
 //        pTest4->setPosition(PX_C(600), PX_C(600), PX_C(600));
 //    }
 //    if (getActiveFrame() == 200) {
 //        PointSpriteTest* pTest5 = (PointSpriteTest*)receiveActor(994);
-//        bringSceneMediator()->addSubGroup(pTest5);
+//        bringSceneMediator()->appendGroupChild(pTest5);
 //        pTest5->setPosition(PX_C(800), PX_C(800), PX_C(800));
 //    }
 //    if (getActiveFrame() == 220) {
 //        PointSpriteTest* pTest6 = (PointSpriteTest*)receiveActor(995);
-//        bringSceneMediator()->addSubGroup(pTest6);
+//        bringSceneMediator()->appendGroupChild(pTest6);
 //        pTest6->setPosition(PX_C(1000), PX_C(1000), PX_C(1000));
 //    }
 //    if (getActiveFrame() == 240) {
 //        PointSpriteTest* pTest7 = (PointSpriteTest*)receiveActor(996);
-//        bringSceneMediator()->addSubGroup(pTest7);
+//        bringSceneMediator()->appendGroupChild(pTest7);
 //        pTest7->setPosition(PX_C(1200), PX_C(1200), PX_C(1200));
 //    }
 }

@@ -51,7 +51,7 @@ MyBunshin::MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase) :
         std::string name = std::string(getName()) + "'s Shot(" + XTOS(i) + ")";
         pDepo_MyBunshinShot_->put(NEW MyBunshinShot001(name.c_str()));
     }
-    addSubGroup(pDepo_MyBunshinShot_);
+    appendGroupChild(pDepo_MyBunshinShot_);
 
 //    //自弾（スナイプ）ストック
 //    pDepo_MySnipeBunshinShot_ = NEW GgafActorDepository("Depo_MySnipeBunshinShot");
@@ -59,7 +59,7 @@ MyBunshin::MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase) :
 //        std::string name = std::string(getName()) + "'s SnipeShot(" + XTOS(i) + ")";
 //        pDepo_MySnipeBunshinShot_->put(NEW MyBunshinSnipeShot001(name.c_str()));
 //    }
-//    addSubGroup(pDepo_MySnipeBunshinShot_);
+//    appendGroupChild(pDepo_MySnipeBunshinShot_);
 
     //レーザーストック
     pLaserChipDepo_ = NEW LaserChipDepository("DepoBunshinLaser");
@@ -68,15 +68,15 @@ MyBunshin::MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase) :
         pLaserChipDepo_->put(NEW MyBunshinWateringLaserChip001(name.c_str()));
     }
     pLaserChipDepo_->config(80, 25, nullptr);
-    addSubGroup(pLaserChipDepo_);
+    appendGroupChild(pLaserChipDepo_);
 
     //ロックオンコントローラー
     pLockonCtrler_ = NEW MyLockonController("LockonController");
-    addSubGroup(pLockonCtrler_);
+    appendGroupChild(pLockonCtrler_);
 
     //フォトンコントローラー
     pTorpedoCtrler_ = NEW MyTorpedoController("TorpedoController", this, pLockonCtrler_);
-    addSubGroup(pTorpedoCtrler_);
+    appendGroupChild(pTorpedoCtrler_);
 
     pColorist_ = NEW GgafDxColorist(this);
     GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
@@ -99,7 +99,7 @@ void MyBunshin::onReset() {
 }
 
 void MyBunshin::onActive() {
-    //レーザーやロックンターゲットや魚雷がサブにいるため
+    //レーザーやロックンターゲットや魚雷が子にいるため
     //個別に呼び出す
     pLockonCtrler_->onActive();
     pTorpedoCtrler_->onActive();
@@ -206,7 +206,7 @@ void MyBunshin::processJudgement() {
 }
 
 void MyBunshin::onInactive() {
-    //レーザーやロックンターゲットや魚雷がサブにいるため
+    //レーザーやロックンターゲットや魚雷が子にいるため
     //個別に呼び出す
     pLockonCtrler_->onInactive();
     pTorpedoCtrler_->onInactive();

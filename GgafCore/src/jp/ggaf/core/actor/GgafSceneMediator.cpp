@@ -27,45 +27,45 @@ void GgafSceneMediator::remove() {
     throwGgafCriticalException("Error! GgafSceneMediatorはremove()によって削除は行えません！");
 }
 
-GgafGroupHead* GgafSceneMediator::addSubGroup(kind_t prm_kind, GgafMainActor* prm_pMainActor) {
+GgafGroupHead* GgafSceneMediator::appendGroupChild(kind_t prm_kind, GgafMainActor* prm_pMainActor) {
     if (prm_pMainActor->_pSceneMediator) {
-        throwGgafCriticalException("Error! GgafSceneMediator::addSubGroup 所属済みを無理やり移動させようとしています。\n"
+        throwGgafCriticalException("Error! GgafSceneMediator::appendGroupChild 所属済みを無理やり移動させようとしています。\n"
                 " extract() を行ってから出来ないですか？ prm_pMainActor="<<NODE_INFO_P(prm_pMainActor)<<"/this="<<NODE_INFO);
     }
-    GgafGroupHead* pSubGroupActor = searchSubGroupHead(prm_kind); //サブに同じ種別団長が居るか探す
-    if (!pSubGroupActor) {
-        //サブに同じ種別団長がいない場合、団長を新たに作成
-        pSubGroupActor = NEW GgafGroupHead(prm_kind);
-        addSubLast(pSubGroupActor);
-        pSubGroupActor->setMySceneMediator(this);
+    GgafGroupHead* pChildGroupActor = searchChildGroupHead(prm_kind); //子に同じ種別団長が居るか探す
+    if (!pChildGroupActor) {
+        //子に同じ種別団長がいない場合、団長を新たに作成
+        pChildGroupActor = NEW GgafGroupHead(prm_kind);
+        appendChild(pChildGroupActor);
+        pChildGroupActor->setMySceneMediator(this);
     }
-    pSubGroupActor->addSubLast(prm_pMainActor);
-    prm_pMainActor->setMyGroupHead(pSubGroupActor);
+    pChildGroupActor->appendChild(prm_pMainActor);
+    prm_pMainActor->setMyGroupHead(pChildGroupActor);
     prm_pMainActor->setMySceneMediator(this);
-    return pSubGroupActor;
+    return pChildGroupActor;
 }
 
-GgafGroupHead* GgafSceneMediator::addSubGroup(GgafMainActor* prm_pMainActor) {
-    return addSubGroup(prm_pMainActor->getDefaultKind(), prm_pMainActor);
+GgafGroupHead* GgafSceneMediator::appendGroupChild(GgafMainActor* prm_pMainActor) {
+    return appendGroupChild(prm_pMainActor->getDefaultKind(), prm_pMainActor);
 }
 
-GgafGroupHead* GgafSceneMediator::searchSubGroupHead(kind_t prm_kind) {
-    if (_pSubFirst == nullptr) {
+GgafGroupHead* GgafSceneMediator::searchChildGroupHead(kind_t prm_kind) {
+    if (_pChildFirst == nullptr) {
         return nullptr;
     } else {
-        GgafActor* pSubActor = _pSubFirst;
-        GgafGroupHead* pSubGroupHead_ret = nullptr;
+        GgafActor* pChildActor = _pChildFirst;
+        GgafGroupHead* pChildGroupHead_ret = nullptr;
         do {
-            if (pSubActor->instanceOf(Obj_GgafGroupHead)) {
-                pSubGroupHead_ret = (GgafGroupHead*)pSubActor;
-                if (pSubGroupHead_ret->_kind == prm_kind && pSubGroupHead_ret->_frame_of_life_when_end == 0) {
-                    return pSubGroupHead_ret;
+            if (pChildActor->instanceOf(Obj_GgafGroupHead)) {
+                pChildGroupHead_ret = (GgafGroupHead*)pChildActor;
+                if (pChildGroupHead_ret->_kind == prm_kind && pChildGroupHead_ret->_frame_of_life_when_end == 0) {
+                    return pChildGroupHead_ret;
                 }
             }
-            if (pSubActor->_is_last_flg) {
+            if (pChildActor->_is_last_flg) {
                 break;
             } else {
-                pSubActor = pSubActor->_pNext;
+                pChildActor = pChildActor->_pNext;
             }
         } while (true);
 
@@ -74,8 +74,9 @@ GgafGroupHead* GgafSceneMediator::searchSubGroupHead(kind_t prm_kind) {
 }
 
 void GgafSceneMediator::updateActiveInTheTree() {
-    if (getPlatformScene()) {
-        if (_pScene_platform->_is_active_in_the_tree_flg) {
+    GgafScene* pPlatform = getPlatformScene();
+    if (pPlatform) {
+        if (pPlatform->_is_active_in_the_tree_flg) {
             _is_active_in_the_tree_flg = _is_active_flg;
         } else {
             _is_active_in_the_tree_flg = false;
@@ -96,12 +97,13 @@ GgafGod* GgafSceneMediator::askGod() {
     }
     return _pGod;
 }
-GgafActor* GgafSceneMediator::bring(hashval prm_name_hash) {
-    if (_pSubFirst == nullptr) {
+
+GgafActor* GgafSceneMediator::search(hashval prm_name_hash) {
+    if (_pChildFirst == nullptr) {
         return nullptr;
     } else {
         GgafActor* pPrev = this;
-        GgafActor* pCur = getSubFirst();
+        GgafActor* pCur = getChildFirst();
 
         while (pCur != this) {
             if (pCur->_name_hash == prm_name_hash) {
@@ -129,8 +131,8 @@ GgafActor* GgafSceneMediator::bring(hashval prm_name_hash) {
             }
 susume:
             //降りれるならば降りる
-            if (pCur->getSubFirst()) {
-                pCur = pCur->getSubFirst();
+            if (pCur->getChildFirst()) {
+                pCur = pCur->getChildFirst();
             } else {
                 //降りれない場合は右へ行く事を試みる
                 if (pCur->_is_last_flg) {

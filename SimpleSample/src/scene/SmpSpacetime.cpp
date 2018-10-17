@@ -13,12 +13,12 @@ SmpSpacetime::SmpSpacetime(const char* prm_name, SmpCamera* prm_pCam) :
     //SmpWorldシーンの作成
     requestScene(0, SmpWorld);
     //この世(Spacetime)コンストラクタ内で、
-    //他のシーンの所属( addSubLast(GgafScene*) )は実行しないでください。
+    //他のシーンの所属( appendChild(GgafScene*) )は実行しないでください。
 }
 
 void SmpSpacetime::initialize() {
     //世界シーン(SmpWorld)を配下に所属させる
-    addSubLast(receiveScene(0));
+    appendChild(receiveScene(0));
 }
 
 void SmpSpacetime::processBehavior() {

@@ -239,7 +239,7 @@ public:
 
     /**
      * 選択可能なメニューアイテムを追加し、メニューアイテム間のオーダーも連結追加する .
-     * 追加されたメニューアイテムはメニューアイテム(this)のサブに登録されるため、
+     * 追加されたメニューアイテムはメニューアイテム(this)の子に登録されるため、
      * メニューアイテムがタスクツリーに登録されるならば delete する必要はない。
      * 【注意】<BR>
      * 同一Z座標ならば、後に addItem() した方が、より手前に表示となる。<BR>
@@ -253,7 +253,7 @@ public:
 
     /**
      * 選択可能メニューアイテム追加し、メニューアイテム間のオーダーも連結追加する .
-     * 追加されたメニューアイテムはメニューアイテム(this)のサブに登録されるため、
+     * 追加されたメニューアイテムはメニューアイテム(this)の子に登録されるため、
      * メニューアイテムがタスクツリーに登録されるならば delete する必要はない。<BR>
      * 【注意】<BR>
      * 同一Z座標ならば、後に addItem() した方が、より手前に表示となる。<BR>
@@ -1001,7 +1001,7 @@ void MenuActor<T>::addItem(GgafDxCore::GgafDxFigureActor* prm_pItem,
     prm_pItem->setAlpha(T::_alpha); //半透明αを共有させる。
     prm_pItem->inactivate();
     _lstItems.addLast(prm_pItem, false);
-    T::addSubLast(prm_pItem);
+    T::appendChild(prm_pItem);
 }
 
 template<class T>
@@ -1021,7 +1021,7 @@ void MenuActor<T>::addLabel(GgafDxCore::GgafDxFigureActor* prm_pLabel,
     prm_pLabel->setAlpha(T::_alpha); //半透明αを共有させる。
     prm_pLabel->inactivate();
     _lstLabelActors.addLast(prm_pLabel, false);
-    T::addSubLast(prm_pLabel);
+    T::appendChild(prm_pLabel);
 }
 
 template<class T>
@@ -1216,7 +1216,7 @@ void MenuActor<T>::setMainCursor(GgafDxCore::GgafDxFigureActor* prm_pCursorActor
     _pCursorActor = prm_pCursorActor;
     _pCursorActor->setAlpha(T::_alpha);
     _pCursorActor->inactivate();
-    T::addSubLast(_pCursorActor);
+    T::appendChild(_pCursorActor);
     _x_cursor_adjust = prm_x_cursor_adjust;
     _y_cursor_adjust = prm_y_cursor_adjust;
     _z_cursor_adjust = prm_z_cursor_adjust;
@@ -1246,7 +1246,7 @@ void MenuActor<T>::addSubCursor(GgafDxCore::GgafDxFigureActor* prm_pCursorActor,
     pSubCursor->_move_p1 = prm_cursor_move_p1;
     pSubCursor->_move_p2 = prm_cursor_move_p2;
     _lstSubCursor.addLast(pSubCursor, true);
-    T::addSubLast(pSubCursor->_pActor);
+    T::appendChild(pSubCursor->_pActor);
     selectItemBySubCursor(0, _lstSubCursor.length()-1);
 }
 
@@ -1790,12 +1790,12 @@ void MenuActor<T>::onSinkDone() {
 template<class T>
 void MenuActor<T>::addSubMenu(MenuActor<T>* prm_pSubMenu) {
     _lstSubMenu.addLast(prm_pSubMenu, false);
-    T::addSubLast(prm_pSubMenu); //サブに追加
+    T::appendChild(prm_pSubMenu); //子に追加
 }
 
 template<class T>
 MenuActor<T>* MenuActor<T>::getParentMenu() {
-    GgafCore::GgafActor* pActor = T::getParent(); //サブに追加
+    GgafCore::GgafActor* pActor = T::getParent(); //子に追加
 #ifdef MY_DEBUG
     MenuActor<T>* pMenuActor = dynamic_cast<MenuActor<T>*>(pActor);
     if (pMenuActor == nullptr) {
@@ -1817,10 +1817,10 @@ MenuActor<T>* MenuActor<T>::getSubMenu(int prm_index) {
 
 template<class T>
 MenuActor<T>* MenuActor<T>::getRisingSubMenu() {
-    MenuActor<T>* pSub = _lstSubMenu.getCurrent();
-    if (pSub) {
-        if (pSub->isActiveInTheTree()) {
-            return pSub;
+    MenuActor<T>* pChild = _lstSubMenu.getCurrent();
+    if (pChild) {
+        if (pChild->isActiveInTheTree()) {
+            return pChild;
         } else {
             return nullptr;
         }

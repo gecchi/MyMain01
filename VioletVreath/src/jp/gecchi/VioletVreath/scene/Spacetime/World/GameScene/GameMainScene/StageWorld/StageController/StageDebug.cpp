@@ -24,30 +24,30 @@ StageDebug::StageDebug(const char* prm_name) : Stage(prm_name) {
 
     pScene_StagePartCtrler_ = NEW StageDebugPartController("StageDebugPartController");
     pScene_StagePartCtrler_->inactivate();
-    addSubLast(pScene_StagePartCtrler_);
+    appendChild(pScene_StagePartCtrler_);
     Sleep(2);
     pWorldBound_  = NEW WorldBound001("BG_SPACE");
-    bringSceneMediator()->addSubGroup(pWorldBound_);
+    bringSceneMediator()->appendGroupChild(pWorldBound_);
 
     pHoshiBoshi_ = NEW HoshiBoshi001("HoshiBoshi001");
-    bringSceneMediator()->addSubGroup(pHoshiBoshi_);
+    bringSceneMediator()->appendGroupChild(pHoshiBoshi_);
 
     pMessage_ = NEW LabelGecchi16Font("StageDebugMsg");
-    bringSceneMediator()->addSubGroup(pMessage_);
+    bringSceneMediator()->appendGroupChild(pMessage_);
     pMessage_->inactivate();
 
 
     pPlanet_ = NEW Planet001("Planet001");
-    bringSceneMediator()->addSubGroup(KIND_EFFECT, pPlanet_);
+    bringSceneMediator()->appendGroupChild(KIND_EFFECT, pPlanet_);
 //    pHorizon_ = NEW Horizon001("Horizon001");
-//    bringSceneMediator()->addSubGroup(KIND_CHIKEI, pHorizon_);
+//    bringSceneMediator()->appendGroupChild(KIND_CHIKEI, pHorizon_);
 
     //debug ---->
 //    EnemyHisbe* pTest = NEW EnemyHisbe("tst");
 //    pTest->setPosition(PX_C(0),PX_C(0), PX_C(100));
 //    pTest->setFaceAngTwd(PX_C(100), PX_C(100), PX_C(100));
 //    pTest->getKuroko()->behave();
-//    bringSceneMediator()->addSubGroup(pTest);
+//    bringSceneMediator()->appendGroupChild(pTest);
     //<-----debug
 
     fadeoutSceneWithBgm(0); //Å‰‚Í”ñ•\Ž¦

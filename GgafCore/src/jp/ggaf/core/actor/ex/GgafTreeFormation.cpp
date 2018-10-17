@@ -12,24 +12,24 @@ GgafTreeFormation::GgafTreeFormation(const char* prm_name, frame prm_offset_fram
     _class_name = "GgafTreeFormation";
     _pIte = nullptr;
     _can_call_up = true;
-    _is_addmember_experienced = false;
+    _is_append_member_experienced = false;
 }
 
-void GgafTreeFormation::addFormationMember(GgafActor* prm_pSub) {
+void GgafTreeFormation::appendFormationMember(GgafActor* prm_pChild) {
 #ifdef MY_DEBUG
     if (wasDeclaredEnd()) {
         //終了を待つのみ
-        _TRACE_("＜警告＞ GgafTreeFormation::addSubLast("<<NODE_INFO_P(prm_pSub)<<") 既に死にゆく定めのFormationです。サブに追加することはおかしいのではないか？いいのか？。this="<<NODE_INFO);
+        _TRACE_("＜警告＞ GgafTreeFormation::appendChild("<<NODE_INFO_P(prm_pChild)<<") 既に死にゆく定めのFormationです。子に追加することはおかしいのではないか？いいのか？。this="<<NODE_INFO);
     }
 #endif
     _num_formation_member++;
-    if (_pSubFirst == nullptr) {
+    if (_pChildFirst == nullptr) {
         //団長に種別を正しく伝えるために、初回追加の種別を、自身の種別に上書（GgafTreeFormation）きする
-        kind_t kind = prm_pSub->getDefaultKind();
+        kind_t kind = prm_pChild->getDefaultKind();
         getStatus()->set(STAT_DEFAULT_ACTOR_KIND, kind);
-        //メンバー無しの GgafTreeFormation を、addSubGroup した後に addFormationMember を行った場合、
-        //まずメンバー無しの GgafTreeFormation を、addSubGroup した直後は、種別=0なので、作成された団長の種別も0で作成されてしまう。
-        //その後にaddFormationMemberを行っても、種別0に属してしまうという問題が有る。
+        //メンバー無しの GgafTreeFormation を、appendGroupChild した後に appendFormationMember を行った場合、
+        //まずメンバー無しの GgafTreeFormation を、appendGroupChild した直後は、種別=0なので、作成された団長の種別も0で作成されてしまう。
+        //その後にappendFormationMemberを行っても、種別0に属してしまうという問題が有る。
         //そこで、団長の種別0だった場合、種別を無理やり更新する。
         GgafGroupHead* myGroupHead = getMyGroupHead(); //団長
         if (myGroupHead) {
@@ -56,30 +56,30 @@ void GgafTreeFormation::addFormationMember(GgafActor* prm_pSub) {
         }
     } else {
 #ifdef MY_DEBUG
-        if (getDefaultKind() != prm_pSub->getDefaultKind()) {
+        if (getDefaultKind() != prm_pChild->getDefaultKind()) {
             throwGgafCriticalException("異なる種別のアクターを登録しようとしています。 \n"
-                                       "想定="<<getDefaultKind()<<"[_pSubFirst="<<_pSubFirst->getName()<<"] \n"
-                                       "引数="<<prm_pSub->getDefaultKind()<<"["<<prm_pSub->getName()<<"]");
+                                       "想定="<<getDefaultKind()<<"[_pChildFirst="<<_pChildFirst->getName()<<"] \n"
+                                       "引数="<<prm_pChild->getDefaultKind()<<"["<<prm_pChild->getName()<<"]");
         }
 #endif
     }
-    prm_pSub->_pFormation = this; //メンバーへフォーメーションを設定
-    GgafFormation::addSubLast(prm_pSub);
-    prm_pSub->inactivate(); //フォーメーションなのでcallUpまで非活動。
-    _is_addmember_experienced = true;
+    prm_pChild->_pFormation = this; //メンバーへフォーメーションを設定
+    GgafFormation::appendChild(prm_pChild);
+    prm_pChild->inactivate(); //フォーメーションなのでcallUpまで非活動。
+    _is_append_member_experienced = true;
 }
 
 void GgafTreeFormation::processFinal() {
     if (_was_all_sayonara || wasDeclaredEnd() || willInactivateAfter()) {
         //終了を待つのみ
     } else {
-        if (getSubFirst() == nullptr) {  //配下がない場合、フォーメーションはなかったことになり、自身を終了かな？
-            if (_is_addmember_experienced) {
+        if (getChildFirst() == nullptr) {  //配下がない場合、フォーメーションはなかったことになり、自身を終了かな？
+            if (_is_append_member_experienced) {
                 onSayonaraAll(); //コールバック
                 sayonara(_offset_frames_end);
                 _was_all_sayonara = true;
             } else {
-                //だがしかし、まだ一回もaddFormationMember()を経験していないので終了しない。
+                //だがしかし、まだ一回もappendFormationMember()を経験していないので終了しない。
                 //TreeFormationとしての役割を果たすまでは死ねない。
             }
         }
@@ -98,15 +98,15 @@ GgafActor* GgafTreeFormation::callUpMember() {
     if (_can_call_up) {
         if (_pIte) {
             _pIte = _pIte->getNext();
-            if (_pIte == getSubFirst()) { //１周した
+            if (_pIte == getChildFirst()) { //１周した
                 _can_call_up = false;
                 return nullptr;
             }
         } else {
-            _pIte = getSubFirst(); //初回はサブ先頭
+            _pIte = getChildFirst(); //初回は子先頭
         }
         _pIte->activate();
-        if (_pIte->getNext() == getSubFirst()) {
+        if (_pIte->getNext() == getChildFirst()) {
             //最後の１つ
             _can_call_up = false;
         }

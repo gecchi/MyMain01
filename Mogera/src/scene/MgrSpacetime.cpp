@@ -27,7 +27,7 @@ MgrSpacetime::MgrSpacetime(const char* prm_name, MgrCamera* prm_pCam) :
     UTIL::center_y_ = PX_C(CONFIG::RENDER_TARGET_BUFFER_HEIGHT / 2);
 
     pActiveCamWorker_ = NEW MgrCameraWorker("MgrCameraWorker", prm_pCam);
-    bringSceneMediator()->addSubGroup(pActiveCamWorker_); //基底デフォルトカメラワーク
+    bringSceneMediator()->appendGroupChild(pActiveCamWorker_); //基底デフォルトカメラワーク
 
     pVb_ = NEW VirtualButton();
     pVb_->remapK(VB_UI_DEBUG, VBK_Q     );
@@ -43,7 +43,7 @@ MgrSpacetime::MgrSpacetime(const char* prm_name, MgrCamera* prm_pCam) :
 void MgrSpacetime::initialize() {
     //世界シーン生成し、自シーンの配下に所属させる
     pWorld_ = desireScene(Mogera::MgrWorld);
-    addSubLast(pWorld_);
+    appendChild(pWorld_);
 
 
 //    angle rz,ry;

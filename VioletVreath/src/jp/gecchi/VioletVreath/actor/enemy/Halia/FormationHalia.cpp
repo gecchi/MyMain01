@@ -26,7 +26,7 @@ FormationHalia::FormationHalia(const char* prm_name) :
         papHalia_[i] = NEW EnemyHalia("Halia01");
         //スプライン移動プログラム設定
         papHalia_[i]->setSplineKurokoLeader(nullptr);
-        addFormationMember(papHalia_[i]);
+        appendFormationMember(papHalia_[i]);
     }
 }
 

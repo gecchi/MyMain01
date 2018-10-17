@@ -62,29 +62,29 @@ void Stage01PartController::processBehavior() {
 			}
 			case 5: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000009);
-				bringSceneMediator()->addSubGroup(pEtis);
+				bringSceneMediator()->appendGroupChild(pEtis);
 				requestActor(10000015, EnemyEtis, "EnemyEtis-10000015");
 				break;
 			}
 			case 100: {
-				addSubLast(receiveScene(10000000));
+				appendChild(receiveScene(10000000));
 				break;
 			}
 			case 105: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000010);
-				bringSceneMediator()->addSubGroup(pEtis);
+				bringSceneMediator()->appendGroupChild(pEtis);
 				requestActor(10000016, EnemyEtis, "EnemyEtis-10000016");
 				break;
 			}
 			case 205: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000011);
-				bringSceneMediator()->addSubGroup(pEtis);
+				bringSceneMediator()->appendGroupChild(pEtis);
 				requestActor(10000017, EnemyEtis, "EnemyEtis-10000017");
 				break;
 			}
 			case 300: {
 				EnemyErmione* pE = (EnemyErmione*)receiveActor(10000006);
-				bringSceneMediator()->addSubGroup(pE);
+				bringSceneMediator()->appendGroupChild(pE);
 				pE->_x = RND(1000000,4000000);
 				pE->_y = RND(-6000000,6000000);
 				pE->_z = RND(-6000000,6000000);
@@ -92,62 +92,62 @@ void Stage01PartController::processBehavior() {
 			}
 			case 305: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000012);
-				bringSceneMediator()->addSubGroup(pEtis);
+				bringSceneMediator()->appendGroupChild(pEtis);
 				requestActor(10000018, EnemyEtis, "EnemyEtis-10000018");
 				break;
 			}
 			case 400: {
 				EnemyErelmanController003* p1 = (EnemyErelmanController003*)receiveActor(10000005);
-				bringSceneMediator()->addSubGroup(p1);
+				bringSceneMediator()->appendGroupChild(p1);
 				p1->setPosition(PX_C(2400), PX_C(0), PX_C(0) );
 				break;
 			}
 			case 405: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000013);
-				bringSceneMediator()->addSubGroup(pEtis);
+				bringSceneMediator()->appendGroupChild(pEtis);
 				requestActor(10000019, EnemyEtis, "EnemyEtis-10000019");
 				break;
 			}
 			case 500: {
 				EnemyOebiusController001* p1 = (EnemyOebiusController001*)receiveActor(10000004);
-				bringSceneMediator()->addSubGroup(p1);
+				bringSceneMediator()->appendGroupChild(p1);
 				p1->setPosition(PX_C(1400), PX_C(500), PX_C(500) );
 				break;
 			}
 			case 505: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000014);
-				bringSceneMediator()->addSubGroup(pEtis);
+				bringSceneMediator()->appendGroupChild(pEtis);
 				requestActor(10000020, EnemyEtis, "EnemyEtis-10000020");
 				break;
 			}
 			case 605: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000015);
-				bringSceneMediator()->addSubGroup(pEtis);
+				bringSceneMediator()->appendGroupChild(pEtis);
 				break;
 			}
 			case 705: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000016);
-				bringSceneMediator()->addSubGroup(pEtis);
+				bringSceneMediator()->appendGroupChild(pEtis);
 				break;
 			}
 			case 805: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000017);
-				bringSceneMediator()->addSubGroup(pEtis);
+				bringSceneMediator()->appendGroupChild(pEtis);
 				break;
 			}
 			case 905: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000018);
-				bringSceneMediator()->addSubGroup(pEtis);
+				bringSceneMediator()->appendGroupChild(pEtis);
 				break;
 			}
 			case 1005: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000019);
-				bringSceneMediator()->addSubGroup(pEtis);
+				bringSceneMediator()->appendGroupChild(pEtis);
 				break;
 			}
 			case 1105: {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000020);
-				bringSceneMediator()->addSubGroup(pEtis);
+				bringSceneMediator()->appendGroupChild(pEtis);
 				break;
 			}
 			case 3200: {
@@ -155,7 +155,7 @@ void Stage01PartController::processBehavior() {
 				break;
 			}
 			case 4100: {
-				addSubLast(receiveScene(10000001));
+				appendChild(receiveScene(10000001));
 				break;
 			}
 			case 7200: {
@@ -163,12 +163,12 @@ void Stage01PartController::processBehavior() {
 				break;
 			}
 			case 8100: {
-				addSubLast(receiveScene(10000002));
+				appendChild(receiveScene(10000002));
 				requestScene(10000003, Stage01PartClimax, "Stage01PartClimax-10000003");
 				break;
 			}
 			case 9000: {
-				addSubLast(receiveScene(10000003));
+				appendChild(receiveScene(10000003));
 				break;
 			}
 			case 19700: {
@@ -177,7 +177,7 @@ void Stage01PartController::processBehavior() {
 			}
 			case 20300: {
 				EnemyErmione* pE = (EnemyErmione*)receiveActor(10000007);
-				bringSceneMediator()->addSubGroup(pE);
+				bringSceneMediator()->appendGroupChild(pE);
 				pE->_x = RND(1000000,4000000);
 				pE->_y = RND(-6000000,6000000);
 				pE->_z = RND(-6000000,6000000);
@@ -189,7 +189,7 @@ void Stage01PartController::processBehavior() {
 			}
 			case 40300: {
 				EnemyErmione* pE = (EnemyErmione*)receiveActor(10000008);
-				bringSceneMediator()->addSubGroup(pE);
+				bringSceneMediator()->appendGroupChild(pE);
 				pE->_x = RND(1000000,4000000);
 				pE->_y = RND(-6000000,6000000);
 				pE->_z = RND(-6000000,6000000);

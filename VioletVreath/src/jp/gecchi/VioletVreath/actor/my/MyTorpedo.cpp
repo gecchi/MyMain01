@@ -36,7 +36,7 @@ MyTorpedo::MyTorpedo(const char* prm_name, MyTorpedoController* prm_pTorpedoCont
         pTailEffectDepository_->put(NEW MyTorpedoTail(name.c_str(), this));
     }
     move_section_ = 0;
-    addSubGroup(pTailEffectDepository_);
+    appendGroupChild(pTailEffectDepository_);
     effectBlendOne(); //加算合成するTechnique指定
     setZEnableDraw(true);        //描画時、Zバッファ値は考慮される
     setZWriteEnable(false);  //自身のZバッファを書き込みしない
@@ -216,7 +216,7 @@ void MyTorpedo::processJudgement() {
     if (isOutOfSpacetime() && pProg->get() == MyTorpedo_IN_FIRE) {
         setHitAble(false);
         pProg->change(MyTorpedo_RELEASE);
-        GgafMainActor* pTailEffect = (GgafMainActor*)pTailEffectDepository_->getSubFirst();
+        GgafMainActor* pTailEffect = (GgafMainActor*)pTailEffectDepository_->getChildFirst();
         for (int i = 0; i < length_TailEffect_; i++) {
             pTailEffect->inactivateDelay(i+1); //軌跡エフェクトが順々に消えるように予約
             pTailEffect = pTailEffect->getNext();
@@ -239,7 +239,7 @@ void MyTorpedo::onHit(const GgafActor* prm_pOtherActor) {
 
     GgafProgress* const pProg = getProgress();
     pProg->change(MyTorpedo_RELEASE);
-    GgafMainActor* pTailEffect = (GgafMainActor*)pTailEffectDepository_->getSubFirst();
+    GgafMainActor* pTailEffect = (GgafMainActor*)pTailEffectDepository_->getChildFirst();
     for (int i = 0; i < length_TailEffect_; i++) {
         pTailEffect->inactivateDelay(i+1); //軌跡エフェクトが順々に消えるように予約
         pTailEffect = pTailEffect->getNext();

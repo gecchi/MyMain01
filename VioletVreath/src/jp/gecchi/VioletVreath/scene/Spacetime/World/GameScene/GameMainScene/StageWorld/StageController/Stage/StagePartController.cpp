@@ -13,7 +13,7 @@ StagePartController::StagePartController(const char* prm_name) : DefaultScene(pr
 
 //void StagePartController::fadeout_stop_AllPartSceneBgm() {
 //    _TRACE_(FUNC_NAME<<" ----->begin");
-//    GgafDxScene* pScene = (GgafDxScene*)(getSubFirst());
+//    GgafDxScene* pScene = (GgafDxScene*)(getChildFirst());
 //    while (pScene) {
 //        if (pScene->isLast()) {
 //            if (pScene->getBgmConductor()) {

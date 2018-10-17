@@ -8,7 +8,7 @@ namespace GgafCore {
 
 /**
  * アクター保管所（人材バンク）クラス .
- * 自アクターのサブに予め幾つかアクターを登録(addSubLast)してストックする。<BR>
+ * 自アクターの子に予め幾つかアクターを登録(appendChild)してストックする。<BR>
  * dispatch() メソッドが呼び出されると、デポジトリ内の活動していないアクター探して提供する。<BR>
  * アクターは使い終わったらinactivate()すると、ストックに戻ったことになる。<BR>
  * 弾など何度も使いまわしたいアクターや、出現数制限したい場合等に有効となるハズである。<BR>
@@ -23,7 +23,7 @@ namespace GgafCore {
 class GgafActorDepository : public GgafDestructActor {
 private:
     //使用不可
-    void addSubLast(GgafActor* prm_pSub) override {
+    void appendChild(GgafActor* prm_pChild) override {
     }
 
 public:
@@ -37,13 +37,13 @@ public:
     /**
      * 貸出メンバー(GgafActor)を追加登録します.
      * ストックの追加的なイメージです。<BR>
-     * GgafNode<T>::addSubLast() を実行する前に、アクター種別のを引き継ぎを行います。
+     * GgafNode<T>::appendChild() を実行する前に、アクター種別のを引き継ぎを行います。
      * 最初に登録したアクターの種別が、本デポジトリの種別となります。
      * それ以降は同じ種別のアクターを登録する制限があります。<BR>
      * また、引数のアクターには inactivateImmed() が実行され、メンバーは非活動状態に強制されます。<BR>
-     * @param prm_pSub 貸出メンバーアクター
+     * @param prm_pChild 貸出メンバーアクター
      */
-    virtual void put(GgafActor* prm_pSub);
+    virtual void put(GgafActor* prm_pChild);
 
     template <typename T>
     void put(const int prm_num) {
@@ -76,7 +76,7 @@ public:
      * 取得し、活動状態にする（遅延設定可）。<BR>
      * 暇なメンバーが居ない場合 nullptr が返ります。<BR>
      * 取得できる場合、アクターに activate()が実行され、ポインタを返すと共に、
-     * そのアクターはアクター発送者のサブの一番後ろに移動されます。<BR>
+     * そのアクターはアクター発送者の子の一番後ろに移動されます。<BR>
      * 一時的にキャラを派遣するようなイメージ<BR>
      * ＜使用例＞
      * <pre><code>
@@ -93,7 +93,7 @@ public:
      */
     virtual GgafCore::GgafMainActor* dispatch(int prm_offset_frames = 1) {
 #ifdef MY_DEBUG
-        if (_pSubFirst == nullptr) {
+        if (_pChildFirst == nullptr) {
             throwGgafCriticalException("this="<<NODE_INFO<<" の子がありません");
         }
         if (_is_active_flg || _frame_of_life+1 == _frame_of_life_when_activation) {
@@ -108,7 +108,7 @@ public:
         }
 #endif
         frame offset_frames = (prm_offset_frames < 1 ? 1 : prm_offset_frames);
-        GgafMainActor* pActor = (GgafMainActor*)_pSubFirst;
+        GgafMainActor* pActor = (GgafMainActor*)_pChildFirst;
         while (true) {
             if (pActor->_is_active_flg == false && pActor->willActivateAfter() == false) {
                 //取得！
@@ -130,7 +130,7 @@ public:
 
     /**
      * 強制的にアクター取り出し .
-     * アクター発送者の暇そうなサブメンバー（active中、またはactive予約されていない）が
+     * アクター発送者の暇そうな子メンバー（active中、またはactive予約されていない）が
      * 居ない場合は、活動中のメンバーを無理やり横取りして取得する。<BR>
      * dispatch() を試みて取り出せない場合、強制的にメンバー達の先頭メンバーを返します。<BR>
      * <b>＜注意＞</b><BR>
@@ -154,7 +154,7 @@ public:
     virtual GgafMainActor* dispatchForce() {
         GgafMainActor* pActor = dispatch(1);
         if (pActor == nullptr) {
-            pActor = (GgafMainActor*)getSubFirst();
+            pActor = (GgafMainActor*)getChildFirst();
             pActor->moveLast(); //お尻に回す
         }
         return pActor;

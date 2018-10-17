@@ -52,11 +52,11 @@ EnemyRatislaviaEye::EnemyRatislaviaEye(const char* prm_name, EnemyRatislavia* pr
         pChip->setSource(this); //ˆÊ’uŒü‚«“¯Šú
         pLaserChipDepo_->put(pChip);
     }
-    addSubGroup(pLaserChipDepo_);
+    appendGroupChild(pLaserChipDepo_);
 
     pEffect_ = NEW EffectRatislaviaEye001("EffectRatislaviaEye001");
     pEffect_->inactivate();
-    addSubGroup(pEffect_);
+    appendGroupChild(pEffect_);
     GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");

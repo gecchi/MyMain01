@@ -21,7 +21,7 @@ class SceneProgress : public GgafCore::GgafProgress {
 public:
     /** [r]進捗管理対象シーン */
     DefaultScene* _pScene;
-    /** [r]進捗番号 対 サブシーン */
+    /** [r]進捗番号 対 子シーン */
     ProgSceneMap _mapProg2Scene;
 
     progress _progress_next_promise;
@@ -36,7 +36,7 @@ public:
     SceneProgress(DefaultScene* prm_pScene, int prm_num_progress);
 
     /**
-     * 進捗状態とサブシーンを関連付け連動させる.
+     * 進捗状態と子シーンを関連付け連動させる.
      * このメソッドにより、関連付けを行うと、以下のメソッドが使用可能（効果あり）となります。<BR>
      * <code>
      * changeWithSceneFlipping(progress)
@@ -45,13 +45,13 @@ public:
      * </code>
      * @param prm_FirstProgress 先頭の進捗状態
      * @param prm_EndProgress 末尾の進捗状態
-     * @param prm_FirstSubSceneName 先頭の進捗状態(prm_FirstProgress)に対応するサブシーンの名称
+     * @param prm_FirstChildSceneName 先頭の進捗状態(prm_FirstProgress)に対応する子シーンの名称
      */
-    void relateSubScene(progress prm_FirstProgress, progress prm_EndProgress, const char* prm_FirstSubSceneName);
+    void relateChildScene(progress prm_FirstProgress, progress prm_EndProgress, const char* prm_FirstChildSceneName);
 
 
     /**
-     * 進捗状態とサブシーンを関連付け連動させる.
+     * 進捗状態と子シーンを関連付け連動させる.
      * このメソッドにより、関連付けを行うと、以下のメソッドが使用可能（効果あり）となります。<BR>
      * <code>
      * changeWithSceneFlipping(progress)
@@ -60,39 +60,39 @@ public:
      * </code>
      * @param prm_FirstProgress 先頭の進捗状態
      * @param prm_EndProgress   末尾の進捗状態
-     * @param prm_pFirstSubScene 先頭の進捗状態(prm_FirstProgress)に対応するサブシーン
+     * @param prm_pFirstChildScene 先頭の進捗状態(prm_FirstProgress)に対応する子シーン
      */
-    void relateSubScene(progress prm_FirstProgress, progress prm_EndProgress, DefaultScene* prm_pFirstSubScene);
+    void relateChildScene(progress prm_FirstProgress, progress prm_EndProgress, DefaultScene* prm_pFirstChildScene);
 
     /**
-     * 新しい進捗状態を切り替えると同時に、関連付いたサブシーンを活動状態にする .
-     * 現在の進捗状態に紐付くサブシーンはそのまま（非活動にしません） .
-     * ※本メソッドの効果を得るには relateSubScene() を予め実行し、シーンを関連付ける必要があります。
+     * 新しい進捗状態を切り替えると同時に、関連付いた子シーンを活動状態にする .
+     * 現在の進捗状態に紐付く子シーンはそのまま（非活動にしません） .
+     * ※本メソッドの効果を得るには relateChildScene() を予め実行し、シーンを関連付ける必要があります。
      * @param prm_progress 新しい進捗状態
      */
     void changeWithSceneFadein(progress prm_progress, frame prm_fade_in = 120);
 
     /**
-     * 新しい進捗状態を切り替えると同時に、関連付いたサブシーンに切り替え .
-     * 現在の進捗状態に紐付くサブシーンは非活動状態にし、引数の進捗状態に紐付くサブシーンを活動状態にします。
-     * ※本メソッドの効果を得るには relateSubScene() を予め実行し、シーンを関連付ける必要があります。
+     * 新しい進捗状態を切り替えると同時に、関連付いた子シーンに切り替え .
+     * 現在の進捗状態に紐付く子シーンは非活動状態にし、引数の進捗状態に紐付く子シーンを活動状態にします。
+     * ※本メソッドの効果を得るには relateChildScene() を予め実行し、シーンを関連付ける必要があります。
      * @param prm_progress 新しい進捗状態
      */
     void changeWithSceneFlipping(progress prm_progress);
 
     /**
-     * 新しい進捗状態を切り替えると同時に、関連付いたサブシーンを活動状態に切り替え .
-     * 活動状態サブシーンは非活動状態にする際、指定フレーム間同時進行（オーバーラッピング）しながらフェードアウト・フェードイン効果を行う .
-     * ※本メソッドの効果を得るには relateSubScene() を予め実行し、シーンを関連付ける必要があります。
+     * 新しい進捗状態を切り替えると同時に、関連付いた子シーンを活動状態に切り替え .
+     * 活動状態子シーンは非活動状態にする際、指定フレーム間同時進行（オーバーラッピング）しながらフェードアウト・フェードイン効果を行う .
+     * ※本メソッドの効果を得るには relateChildScene() を予め実行し、シーンを関連付ける必要があります。
      * @param prm_progress 新しい進捗状態
      * @param prm_cross_fade_frames フェードイン & フェードアウトを行う時間
      */
     void changeWithSceneCrossfading(progress prm_progress, frame prm_cross_fade_frames = 300);
 
     /**
-     * 現進捗状態に紐付くサブシーンはフェードアウト→非活動状態にし、
-     * その後直ぐに次の新しい進捗状態に紐付くサブシーンを、フェードイン→活動状態にする。 .
-     * ※本メソッドの効果を得るには relateSubScene() を予め実行し、シーンを関連付ける必要があります。
+     * 現進捗状態に紐付く子シーンはフェードアウト→非活動状態にし、
+     * その後直ぐに次の新しい進捗状態に紐付く子シーンを、フェードイン→活動状態にする。 .
+     * ※本メソッドの効果を得るには relateChildScene() を予め実行し、シーンを関連付ける必要があります。
      * @param prm_progress 新しい進捗状態
      * @param prm_fade_out フェードアウト時間
      * @param prm_fade_in フェードイン時間
@@ -100,9 +100,9 @@ public:
     void changeWithSceneFadeoutFadein(progress prm_progress, frame prm_fade_out=120, frame prm_fade_in = 120);
 
     /**
-     * 新しい進捗状態を切り替えると同時に、関連付いたサブシーンを活動状態に切り替え、
-     * 活動状態サブシーンは非活動状態にする。その際、指定フレーム間、同時進行（オーバーラッピング）させる .
-     * ※本メソッドの効果を得るには relateSubScene() を予め実行し、シーンを関連付ける必要があります。
+     * 新しい進捗状態を切り替えると同時に、関連付いた子シーンを活動状態に切り替え、
+     * 活動状態子シーンは非活動状態にする。その際、指定フレーム間、同時進行（オーバーラッピング）させる .
+     * ※本メソッドの効果を得るには relateChildScene() を予め実行し、シーンを関連付ける必要があります。
      * @param prm_progress 新しい進捗状態
      * @param prm_overlapping_frames 同時進行させるフレーム数
      */
@@ -111,7 +111,7 @@ public:
     /**
      * 現在のアクティブな進捗状態に関連づいているシーンを取得 .
      * 取得できない場合は nullptr
-     * ※本メソッドの効果を得るには relateSubScene() を予め実行し、シーンを関連付ける必要があります。
+     * ※本メソッドの効果を得るには relateChildScene() を予め実行し、シーンを関連付ける必要があります。
      * @return
      */
     DefaultScene* getGazedScene();
@@ -119,7 +119,7 @@ public:
     /**
      * 引数の進捗状態に関連づいているシーンを取得 .
      * 取得できない場合は nullptr
-     * ※本メソッドの効果を得るには relateSubScene() を予め実行し、シーンを関連付ける必要があります。
+     * ※本メソッドの効果を得るには relateChildScene() を予め実行し、シーンを関連付ける必要があります。
      * @param prm_progress 進捗状態
      * @return
      */

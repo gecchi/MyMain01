@@ -33,7 +33,7 @@ FormationErelman001::FormationErelman001(const char* prm_name, EnemyErelmanContr
     num_Erelman_ = formation_col_num_  * formation_row_num_;
     for (int i = 0; i < num_Erelman_; i++) {
         std::string name = "Erelman("+XTOS(i)+")";
-        addFormationMember(NEW EnemyErelman(name.c_str()));
+        appendFormationMember(NEW EnemyErelman(name.c_str()));
     }
 
     papSplManufConn_ = NEW SplineManufactureConnection*[formation_col_num_];

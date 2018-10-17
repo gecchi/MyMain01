@@ -125,7 +125,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
 
     MSG msg;
     VioletVreath::God god;
+#ifdef MY_DEBUG
     try {
+#endif
         //神の誕生
         god.createWindow(wcex1, wcex2, szTitle, "secondary", dwStyle, dwStyle, hWnd1, hWnd2);
         // ループ・ザ・ループ
@@ -189,6 +191,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
                 god.be(); //be() で、この世が動く
             }
         }
+#ifdef MY_DEBUG
     } catch (GgafCore::GgafException& e) {
         //異常終了時
         _TRACE_("＜例外＞"<<e.getMsg());
@@ -210,19 +213,19 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
         VB_UI->_pRpy->outputFile("VB_UI_LAST_exception.rep");
         return EXIT_FAILURE;
     }
-
-#ifndef MY_DEBUG
-    //以下のキャッチはDEBUG時であっても、メモリ違反をつぶす可能性があるため、DEBUG時は無効とする。
-    catch( ... ) {
-        _TRACE_("＜致命的な謎例外＞");
-        std::string message = "恐れ入りますが、不明な内部エラーが発生しました。\n誠に申し訳ございません。\n";
-        std::string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
-        MessageBox(nullptr, message_dialog.c_str(),"下記の致命的な謎例外が発生してしまいました", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
-        VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_UNKNOWN_ERROR.rep");
-        VB_UI->_pRpy->outputFile("VB_UI_LAST_UNKNOWN_ERROR.rep");
-        return EXIT_FAILURE;
-    }
 #endif
+//#ifndef MY_DEBUG
+//    //以下のキャッチはDEBUG時であっても、メモリ違反をつぶす可能性があるため、DEBUG時は無効とする。
+//    catch( ... ) {
+//        _TRACE_("＜致命的な謎例外＞");
+//        std::string message = "恐れ入りますが、不明な内部エラーが発生しました。\n誠に申し訳ございません。\n";
+//        std::string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
+//        MessageBox(nullptr, message_dialog.c_str(),"下記の致命的な謎例外が発生してしまいました", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
+//        VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_UNKNOWN_ERROR.rep");
+//        VB_UI->_pRpy->outputFile("VB_UI_LAST_UNKNOWN_ERROR.rep");
+//        return EXIT_FAILURE;
+//    }
+//#endif
     return (int) msg.wParam;
 }
 

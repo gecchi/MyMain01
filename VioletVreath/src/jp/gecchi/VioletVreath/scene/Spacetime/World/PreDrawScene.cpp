@@ -96,7 +96,7 @@ void PreDrawScene::processBehavior() {
                 } else {
                     GgafDxGeometricActor* pActor = (GgafDxGeometricActor*)receiveActor(_id_+order_id_begin_);
                     pActor->setPosition(PX_C(_id_*70 - 700), PX_C(-100), 0);
-                    bringSceneMediator()->addSubGroup(pActor);  _id_++;
+                    bringSceneMediator()->appendGroupChild(pActor);  _id_++;
                 }
             }
             if (pProg->getFrame() > 60*120) {
@@ -123,22 +123,22 @@ void PreDrawScene::processBehavior() {
 //
 //    if (getActiveFrame() == 1) {
 ////
-////        bringSceneMediator()->addSubGroup(receiveActor(_id_));  _id_++;     //CubeMapMeshTestActor
-////        bringSceneMediator()->addSubGroup(receiveActor(_id_));  _id_++;     //CubeMapMeshSetTestActor
-////        bringSceneMediator()->addSubGroup(receiveActor(_id_));  _id_++;     //CubeMapMorphMeshTestActor
-//        bringSceneMediator()->addSubGroup(receiveActor(_id_));  _id_++;     //DefaultD3DXAniMeshTestActor
-//////        bringSceneMediator()->addSubGroup(receiveActor(_id_));  _id_++;     //DefaultBoardTestActor
-//////        bringSceneMediator()->addSubGroup(receiveActor(_id_));  _id_++;     //DefaultBoardSetTestActor
-////        bringSceneMediator()->addSubGroup(receiveActor(_id_));  _id_++;     //DefaultMeshTestActor
-////        bringSceneMediator()->addSubGroup(receiveActor(_id_));  _id_++;     //DefaultMeshSetTestActor
-////        bringSceneMediator()->addSubGroup(receiveActor(_id_));  _id_++;     //DefaultMorphMeshTestActor
-//////        bringSceneMediator()->addSubGroup(receiveActor(_id_));  _id_++;     //DefaultPointSpriteTestActor
-//////        bringSceneMediator()->addSubGroup(receiveActor(_id_));  _id_++;     //DefaultSpriteTestActor
-//////        bringSceneMediator()->addSubGroup(receiveActor(_id_));  _id_++;     //DefaultSpriteSetTestActor
-////        bringSceneMediator()->addSubGroup(receiveActor(_id_));  _id_++;     //LaserChipTestActor
-////        bringSceneMediator()->addSubGroup(receiveActor(_id_));  _id_++;     //SingleLaserTestActor
-////        bringSceneMediator()->addSubGroup(receiveActor(_id_));  _id_++;     //SpriteMeshTestActor
-////        bringSceneMediator()->addSubGroup(receiveActor(_id_));  _id_++;     //SpriteMeshSetTestActor
+////        bringSceneMediator()->appendGroupChild(receiveActor(_id_));  _id_++;     //CubeMapMeshTestActor
+////        bringSceneMediator()->appendGroupChild(receiveActor(_id_));  _id_++;     //CubeMapMeshSetTestActor
+////        bringSceneMediator()->appendGroupChild(receiveActor(_id_));  _id_++;     //CubeMapMorphMeshTestActor
+//        bringSceneMediator()->appendGroupChild(receiveActor(_id_));  _id_++;     //DefaultD3DXAniMeshTestActor
+//////        bringSceneMediator()->appendGroupChild(receiveActor(_id_));  _id_++;     //DefaultBoardTestActor
+//////        bringSceneMediator()->appendGroupChild(receiveActor(_id_));  _id_++;     //DefaultBoardSetTestActor
+////        bringSceneMediator()->appendGroupChild(receiveActor(_id_));  _id_++;     //DefaultMeshTestActor
+////        bringSceneMediator()->appendGroupChild(receiveActor(_id_));  _id_++;     //DefaultMeshSetTestActor
+////        bringSceneMediator()->appendGroupChild(receiveActor(_id_));  _id_++;     //DefaultMorphMeshTestActor
+//////        bringSceneMediator()->appendGroupChild(receiveActor(_id_));  _id_++;     //DefaultPointSpriteTestActor
+//////        bringSceneMediator()->appendGroupChild(receiveActor(_id_));  _id_++;     //DefaultSpriteTestActor
+//////        bringSceneMediator()->appendGroupChild(receiveActor(_id_));  _id_++;     //DefaultSpriteSetTestActor
+////        bringSceneMediator()->appendGroupChild(receiveActor(_id_));  _id_++;     //LaserChipTestActor
+////        bringSceneMediator()->appendGroupChild(receiveActor(_id_));  _id_++;     //SingleLaserTestActor
+////        bringSceneMediator()->appendGroupChild(receiveActor(_id_));  _id_++;     //SpriteMeshTestActor
+////        bringSceneMediator()->appendGroupChild(receiveActor(_id_));  _id_++;     //SpriteMeshSetTestActor
 //    }
 
 }

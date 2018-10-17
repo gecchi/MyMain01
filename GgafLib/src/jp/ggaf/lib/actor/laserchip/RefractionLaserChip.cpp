@@ -181,7 +181,7 @@ void RefractionLaserChip::processBehavior() {
     RefractionLaserChip* pChip_infront =  (RefractionLaserChip*)_pChip_infront;
     if (getActiveFrame() > 1) { //１フレーム目は、設定座標で表示させるため。移動させない
         //GgafActorDepository::dispatch() は
-        //取得できる場合、ポインタを返すと共に、そのアクターはアクター発送者のサブの一番後ろに移動される。
+        //取得できる場合、ポインタを返すと共に、そのアクターはアクター発送者の子の一番後ろに移動される。
         //したがって、レーザーの先頭から順番にprocessBehavior() が呼ばれるため、以下のようにすると
         //数珠繋ぎになる。
         if (pChip_infront == nullptr) {

@@ -28,7 +28,7 @@ FormationRis001::FormationRis001(const char* prm_name) : TreeFormation(prm_name)
         //スプライン移動プログラム設定
         SplineLeader* pProgram = NEW FixedVelocitySplineKurokoLeader(pManufacture_, pRis->getKuroko()); //移動速度固定
         pRis->config(pProgram, pConn_depo_->peek(), nullptr);
-        addFormationMember(pRis);
+        appendFormationMember(pRis);
     }
 }
 

@@ -20,7 +20,7 @@ MyMagicEnergyCore::MyMagicEnergyCore(const char* prm_name) :
         DefaultMeshActor(prm_name, "MagicEnergyCore", STATUS(MyMagicEnergyCore)) {
     _class_name = "MyMagicEnergyCore";
     MyMagicEnergy* p = NEW MyMagicEnergy("MyMagicEnergy", this);
-    addSubLast(p);
+    appendChild(p);
     setAlpha(0.7);
 }
 

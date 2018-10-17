@@ -39,7 +39,7 @@ private:
      * 使用不可のため、privateでoverride
      * @return
      */
-    GgafCore::GgafGroupHead* addSubGroupAsFk(kind_t prm_kind,
+    GgafCore::GgafGroupHead* appendGroupChildAsFk(kind_t prm_kind,
                                              GgafDxGeometricActor* prm_pGeoActor,
                                              int prm_x_init_local,
                                              int prm_y_init_local,
@@ -55,7 +55,7 @@ private:
      * 使用不可のため、privateでoverride
      * @return
      */
-    GgafCore::GgafGroupHead* addSubGroupAsFk(GgafDxGeometricActor* prm_pGeoActor,
+    GgafCore::GgafGroupHead* appendGroupChildAsFk(GgafDxGeometricActor* prm_pGeoActor,
                                              int prm_x_init_local,
                                              int prm_y_init_local,
                                              int prm_z_init_local,

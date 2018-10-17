@@ -28,7 +28,7 @@ void EffectLockon001_Sub::initialize() {
 void EffectLockon001_Sub::onActive() {
     EffectLockon001::onActive();
 //    _TRACE_(FUNC_NAME<<" "<<getActiveFrame()<<", this="<<NODE_INFO<<" pTarget_="<<pTarget_);
-    pEffectLockon001_Main_ = (EffectLockon001_Main*)getParent()->getSubFirst();
+    pEffectLockon001_Main_ = (EffectLockon001_Main*)getParent()->getChildFirst();
     getUvFlipper()->setActivePtnToTop();
     setAlpha(0.01);
     _sx = _sy = _sz = pEffectLockon001_Main_->_sx;

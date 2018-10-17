@@ -90,8 +90,8 @@ EffectLockon001::~EffectLockon001() {
 //                                                                               will_mv_last_in_next_frame_flg_
 //                                                                               );
 //
-//    GgafActor* pActor_tmp = pSubFirst_;
-//    if (pSubFirst_) {
+//    GgafActor* pActor_tmp = pChildFirst_;
+//    if (pChildFirst_) {
 //        while (true) {
 //            pActor_tmp->dump("\t\t\t\t\t\t\t\tb");
 //            if (pActor_tmp->_pNext) {
@@ -139,8 +139,8 @@ EffectLockon001::~EffectLockon001() {
 //                                                                         will_mv_last_in_next_frame_flg_
 //                                                                         );
 //
-//    GgafActor* pActor_tmp = pSubFirst_;
-//    if (pSubFirst_) {
+//    GgafActor* pActor_tmp = pChildFirst_;
+//    if (pChildFirst_) {
 //        while (true) {
 //            pActor_tmp->dump(prm_parent + "b");
 //            if (pActor_tmp->_pNext) {

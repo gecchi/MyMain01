@@ -8,7 +8,7 @@ namespace GgafDxCore {
 /**
  * 配下ツリー管理のフォーメーション管理クラス .
  * 編隊メンバーは使い捨てのフォーメーション。
- * 使用する場合は、本クラスを継承し、addFormationMember(GgafActor*) により
+ * 使用する場合は、本クラスを継承し、appendFormationMember(GgafActor*) により
  * 編隊メンバーを追加していってください。
  * processFinal()を実装済みですので、オーバーライドする場合は注意して下さい。
  * @version 1.00
@@ -19,9 +19,9 @@ class GgafDxFkFormation : public GgafCore::GgafFormation {
 private:
     /**
      * 使用不可 .
-     * @param prm_pSub
+     * @param prm_pChild
      */
-    virtual void addSubLast(GgafCore::GgafActor* prm_pSub) override {
+    virtual void appendChild(GgafCore::GgafActor* prm_pChild) override {
         throwGgafCriticalException("使用不可です。");
     }
 
@@ -38,7 +38,7 @@ public:
     GgafDxFkFormation(const char* prm_name, frame prm_offset_frames_end);
 
     /**
-     * サブが無ければ本オブジェクト解放という処理 .
+     * 子が無ければ本オブジェクト解放という処理 .
      * 構成メンバーが全て sayonara() した場合、本フォーメーションオブジェクトが自動解放される
      * ようにするために実装済みです。
      * 下位で processFinal() の処理が必要な場合は、
@@ -56,24 +56,24 @@ public:
      * 複数可。移動制御用ダミーなどを想定。
      * もちろん実アクターでも良い。その場合本フォーメーションオブジェクトの種別を１つするため、
      * ２つ目以降は追加同じ種別である必要がある。
-     * ベースのFKの追加するアクターの種別は、内部でaddSubGroupAsFkを使用し、団長が挟まっているので、
+     * ベースのFKの追加するアクターの種別は、内部でappendGroupChildAsFkを使用し、団長が挟まっているので、
      * ここで追加するベースと同じ種別であるかどうかを気にする必要がない。
      * @param prm_pFkBase
      */
     virtual void registerFormationFkBase(GgafDxGeometricActor* prm_pFkBase);
 
     virtual GgafDxGeometricActor* getFkBase() {
-        return (GgafDxGeometricActor*)(getSubFirst());
+        return (GgafDxGeometricActor*)(getChildFirst());
     }
 
     /**
      * 編隊のメンバーを登録。姿勢をフォワードキネマティクスで設定する。
      * 編隊を構成するために、本メソッドを実行し、メンバーを予め配下アクターに設定する必要がある。<BR>
-     * 最初に登録したアクターが、フォーメーションの種別となるため、同じ種別をaddFormationMember する必要がある。<BR>
+     * 最初に登録したアクターが、フォーメーションの種別となるため、同じ種別をappendFormationMember する必要がある。<BR>
      * 構成メンバーを活動させるには、callUpMember() を使用。<BR>
      * 構成メンバーを活動終了時は、sayonara() を使用。解放対象になる。<BR>
      * 編隊メンバーは使い捨てである。<BR>
-     * 内部的には、引数 prm_fkbase_index 番目のサブアクターをベースとし、そのベースアクターが addSubGroupAsFk により
+     * 内部的には、引数 prm_fkbase_index 番目の子アクターをベースとし、そのベースアクターが appendGroupChildAsFk により
      * prm_pMemberを配下に登録します。<BR>
      * <BR>
      * 引数の編隊メンバーアクターは、次の２つのメソッドの使用が可能となります。 <BR>
@@ -90,7 +90,7 @@ public:
      * @param prm_ry_init_local 従属アクターのローカル(this)回転からのY軸回転値
      * @param prm_rz_init_local 従属アクターのローカル(this)回転からのZ軸回転値
      */
-    virtual void addFormationMember(GgafDxGeometricActor* prm_pMember,
+    virtual void appendFormationMember(GgafDxGeometricActor* prm_pMember,
                                     int prm_x_init_local,
                                     int prm_y_init_local,
                                     int prm_z_init_local,
@@ -100,7 +100,7 @@ public:
 
     /**
      * 登録した編隊のメンバーを順番に取得します.
-     * addSubLast(GgafCore::GgafActor*) により、登録した編隊メンバーを順番に取り出します。
+     * appendChild(GgafCore::GgafActor*) により、登録した編隊メンバーを順番に取り出します。
      * 全て編隊メンバーを取得してしまった場合、nullptr を返します。
      * @return 未活動の編隊登録メンバー。又は nullptr、未活動の編隊登録メンバーはもう無い。
      */

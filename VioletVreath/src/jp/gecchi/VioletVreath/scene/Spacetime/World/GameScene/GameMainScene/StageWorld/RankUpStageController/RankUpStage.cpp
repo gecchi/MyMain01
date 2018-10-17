@@ -27,18 +27,18 @@ RankUpStage::RankUpStage(const char* prm_name) : DefaultScene(prm_name, NEW Rank
 
     pWorldBound_  = NEW WorldBoundRankUp("BG_RankUp");
     pWorldBound_->inactivate();
-    bringSceneMediator()->addSubGroup(pWorldBound_);
+    bringSceneMediator()->appendGroupChild(pWorldBound_);
     pHoshiBoshi_ = NEW HoshiBoshiRankUp("HoshiBoshiRankUp");
-    bringSceneMediator()->addSubGroup( pHoshiBoshi_);
+    bringSceneMediator()->appendGroupChild( pHoshiBoshi_);
     pMessage1_ = NEW LabelGecchi16Font("RankUpMsg1");
     pMessage1_->setPosition(PX_C(400), PX_C(200));
-    bringSceneMediator()->addSubGroup(pMessage1_);
+    bringSceneMediator()->appendGroupChild(pMessage1_);
     pMessage2_ = NEW LabelGecchi16Font("RankUpMsg2");
     pMessage2_->setPosition(PX_C(400), PX_C(230));
-    bringSceneMediator()->addSubGroup(pMessage2_);
+    bringSceneMediator()->appendGroupChild(pMessage2_);
     pMessage3_ = NEW LabelGecchi16Font("RankUpMsg2");
     pMessage3_->setPosition(PX_C(400), PX_C(260));
-    bringSceneMediator()->addSubGroup(pMessage3_);
+    bringSceneMediator()->appendGroupChild(pMessage3_);
 
 
     useProgress(PROG_BANPEI);

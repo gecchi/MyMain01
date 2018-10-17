@@ -14,7 +14,7 @@ VvvSpacetime::VvvSpacetime(const char* prm_name, VvvCamera* prm_pCam) :
 void VvvSpacetime::initialize() {
     //世界シーン生成し、自シーンの配下に所属させる
     pWorld_ = desireScene(VVViewer::VvvWorld);
-    addSubLast(pWorld_);
+    appendChild(pWorld_);
 }
 
 VvvSpacetime::~VvvSpacetime() {

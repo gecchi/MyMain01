@@ -52,7 +52,7 @@ MyBunshinBase::MyBunshinBase(const char* prm_name, unsigned int prm_no) :
     delay_r_ = RCNV(1,MyBunshinBase::MAX_BUNSHIN_NUM,no_,0.4,1.0);
     std::string bunshin_name = "Bunshin" + XTOS(no_);
     pBunshin_ = NEW MyBunshin(bunshin_name.c_str(), this);
-    this->addSubGroupAsFk(pBunshin_,
+    this->appendGroupChildAsFk(pBunshin_,
                           0, PX_C(80), 0,
                           D0ANG, D0ANG, D0ANG);
 

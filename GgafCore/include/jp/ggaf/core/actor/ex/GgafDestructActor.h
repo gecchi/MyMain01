@@ -40,7 +40,7 @@ public:
     }
 
     virtual void processFinal() override {
-        if (getSubFirst() == nullptr) {
+        if (getChildFirst() == nullptr) {
             sayonara(1); //1ƒtƒŒ[ƒ€Œã
         }
     }

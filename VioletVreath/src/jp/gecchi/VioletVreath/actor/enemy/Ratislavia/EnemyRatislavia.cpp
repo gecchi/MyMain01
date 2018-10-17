@@ -35,7 +35,7 @@ EnemyRatislavia::EnemyRatislavia(const char* prm_name, const char* prm_model, co
     useProgress(PROG_BANPEI);
 }
 
-void EnemyRatislavia::addSubGroupAsFkOnSurface(GgafDxGeometricActor* prm_pGeoActor, angle prm_ang1, angle prm_ang2) {
+void EnemyRatislavia::appendGroupChildAsFkOnSurface(GgafDxGeometricActor* prm_pGeoActor, angle prm_ang1, angle prm_ang2) {
     //トーラスモデルはZY平面に円
     //位置を求める
     //平行移動( +r2_, +0, +0) > ang2のY軸回転 > 平行移動( +0, +0, -r1_) > ang1のX軸回転 変換行列の dx, dy, dz が欲しい
@@ -63,7 +63,7 @@ void EnemyRatislavia::addSubGroupAsFkOnSurface(GgafDxGeometricActor* prm_pGeoAct
     UTIL::convVectorToRzRy((int)(X - X2), (int)(Y - Y2), (int)(Z - Z2),
                             rz, ry);
     //ボーンとして追加
-    this->addSubGroupAsFk(prm_pGeoActor, X, Y, Z, D0ANG, ry, rz);
+    this->appendGroupChildAsFk(prm_pGeoActor, X, Y, Z, D0ANG, ry, rz);
 }
 
 void EnemyRatislavia::createCollisionAreaArea(int prm_nSphere) {

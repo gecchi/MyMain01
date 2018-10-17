@@ -25,10 +25,10 @@ void GgafDepositoryFormation::setFormationMember(GgafActorDepository* prm_pDepo)
         throwGgafCriticalException("不正なデポジトリです。\n"
                                    "this="<<NODE_INFO<<" prm_pDepo="<<NODE_INFO_P(prm_pDepo)<<"");
     }
-    if (prm_pDepo->getSubFirst()) {
+    if (prm_pDepo->getChildFirst()) {
         //OK
     } else {
-        throwGgafCriticalException("引数デポジトリのサブが存在しません。\n"
+        throwGgafCriticalException("引数デポジトリの子が存在しません。\n"
                                    "this="<<NODE_INFO<<" prm_pDepo="<<NODE_INFO_P(prm_pDepo)<<"");
     }
     if (prm_pDepo->getMySceneMediator()) {
@@ -122,7 +122,7 @@ void GgafDepositoryFormation::processFinal() {
 //    }
 }
 
-GgafActor* GgafDepositoryFormation::callUpMember(int prm_formation_sub_num) {
+GgafActor* GgafDepositoryFormation::callUpMember(int prm_formation_child_num) {
     if (_can_call_up == false || wasDeclaredEnd() || willInactivateAfter()) {
         //終了を待つのみ
         return nullptr;
@@ -134,7 +134,7 @@ GgafActor* GgafDepositoryFormation::callUpMember(int prm_formation_sub_num) {
     }
 #endif
 
-    if (prm_formation_sub_num <= _num_formation_member) {
+    if (prm_formation_child_num <= _num_formation_member) {
         _can_call_up = false;
         return nullptr; //もうこれ以上callUpUntil不可
     } else {

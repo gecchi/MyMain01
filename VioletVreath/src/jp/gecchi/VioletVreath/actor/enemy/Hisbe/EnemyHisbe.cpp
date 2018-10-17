@@ -47,7 +47,7 @@ EnemyHisbe::EnemyHisbe(const char* prm_name) :
 //        pEffect = NEW EffectLaserRefraction001(name.c_str());
 //        pDepoEffect->put(pEffect);
 //    }
-//    addSubGroup(pDepoEffect);
+//    appendGroupChild(pDepoEffect);
 //
 //    pLaserChipDepo_ = NEW LaserChipDepository("HisbeLaser");
 //    pLaserChipDepo_->config(100, 1, nullptr); //Hisbeは弾切れフレームを1にしないとパクパクしちゃいます。
@@ -58,7 +58,7 @@ EnemyHisbe::EnemyHisbe(const char* prm_name) :
 //        pChip->config(num_refraction, 1, 1, false, pDepoEffect);
 //        pLaserChipDepo_->put(pChip);
 //    }
-//    addSubGroup(pLaserChipDepo_);
+//    appendGroupChild(pLaserChipDepo_);
 //    //<---------------------
 
 //    //ホーミング------>
@@ -68,9 +68,9 @@ EnemyHisbe::EnemyHisbe(const char* prm_name) :
 //        std::string name = "EnemyHisbeLaserChip001["+XTOS(i)+"]";
 //        EnemyHisbeLaserChip001* pChip = NEW EnemyHisbeLaserChip001(name.c_str());
 //        pChip->_is_fix_begin_pos = false;
-//        pLaserChipDepo_->addSubLast(pChip);
+//        pLaserChipDepo_->appendChild(pChip);
 //    }
-//    addSubGroup(pLaserChipDepo_);
+//    appendGroupChild(pLaserChipDepo_);
 //    //<---------------------
 
 //    //水------>
@@ -79,9 +79,9 @@ EnemyHisbe::EnemyHisbe(const char* prm_name) :
 //    for (int i = 0; i < 100; i++) { //レーザーストック
 //        std::string name = "EnemyHisbeLaserChip003["+XTOS(i)+"]";
 //        EnemyHisbeLaserChip003* pChip = NEW EnemyHisbeLaserChip003(name.c_str());
-//        pLaserChipDepo_->addSubLast(pChip);
+//        pLaserChipDepo_->appendChild(pChip);
 //    }
-//    addSubGroup(pLaserChipDepo_);
+//    appendGroupChild(pLaserChipDepo_);
 //    //<---------------------
 
 
@@ -117,7 +117,7 @@ void EnemyHisbe::initialize() {
 
 //    if (pConn_pDepoStore_laser_set->chkFirstConnectionIs(this)) {
 //        _TRACE_("pConn_pDepoStore_laser_setは、ワシ"<<NODE_INFO<<"が育てたエヘン！")
-//        getPlatformScene()->bringSceneMediator()->addSubGroup(
+//        getPlatformScene()->bringSceneMediator()->appendGroupChild(
 //                pConn_pDepoStore_laser_set->peek()->extract()
 //                );
 //    }

@@ -16,7 +16,7 @@ namespace VioletVreath {
  * 『この世(Spacetime)の、とある世界(World)で、ゲームが行なわれている場面(GameScene)がありました。』<BR>
  * といった概念の元に設計を行いました。<BR>
  * 本クラスは、ゲームの全体的な振る舞いを実装しています。<BR>
- * 主に、サブシーンの切り替え等を行います。<BR>
+ * 主に、子シーンの切り替え等を行います。<BR>
  * @version 1.00
  * @since 2007/11/16
  * @author Masatoshi Tsuge

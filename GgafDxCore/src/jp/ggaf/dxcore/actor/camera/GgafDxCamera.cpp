@@ -239,7 +239,7 @@ GgafDxCameraViewPoint* GgafDxCamera::getCameraViewPoint() {
     } else {
         _pCameraViewPoint = createCameraViewPoint();
         _pCameraViewPoint->setPosition(0, 0, 0);
-        addSubGroup(_pCameraViewPoint);
+        appendGroupChild(_pCameraViewPoint);
         return _pCameraViewPoint;
     }
 }
@@ -250,7 +250,7 @@ GgafDxCameraUpVector* GgafDxCamera::getCameraUpVector() {
     } else {
         _pCameraUpVector = createCameraUpVector();
         _pCameraUpVector->setPosition(0, DX_C(1), 0);
-        addSubGroup(_pCameraUpVector);
+        appendGroupChild(_pCameraUpVector);
         return _pCameraUpVector;
     }
 }

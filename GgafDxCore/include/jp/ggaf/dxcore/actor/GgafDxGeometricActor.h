@@ -538,7 +538,7 @@ public:
     }
 
     /**
-     * 引数のアクターを、自身のサブアクターとして追加し、姿勢をフォワードキネマティクスで設定する .
+     * 引数のアクターを、自身の子アクターとして追加し、姿勢をフォワードキネマティクスで設定する .
      * 引数の従属アクターは、次の２つのメソッドの使用が可能となります。 <BR>
      * _x,_y,_z,_rx,_ry,_rz をローカル（thisからの相対）に切り替える・・・changeGeoLocal()<BR>
      * _x,_y,_z,_rx,_ry,_rz 絶対座標に切り替える                    ・・・changeGeoFinal()<BR>
@@ -555,7 +555,7 @@ public:
      * @param prm_rz_init_local 従属アクターのローカル(this)回転からのZ軸回転値
      * @return 種別トップの団長
      */
-    virtual GgafCore::GgafGroupHead* addSubGroupAsFk(kind_t prm_kind,
+    virtual GgafCore::GgafGroupHead* appendGroupChildAsFk(kind_t prm_kind,
                                                      GgafDxGeometricActor* prm_pGeoActor,
                                                      int prm_x_init_local,
                                                      int prm_y_init_local,
@@ -565,7 +565,7 @@ public:
                                                      int prm_rz_init_local);
 
     /**
-     * 引数のアクターを、自身のサブアクターとして追加し、姿勢をフォワードキネマティクスで設定する .
+     * 引数のアクターを、自身の子アクターとして追加し、姿勢をフォワードキネマティクスで設定する .
      * 引数の従属アクターは、次の２つのメソッドの使用が可能となります。 <BR>
      * _x,_y,_z,_rx,_ry,_rz をローカル（thisからの相対）に切り替える・・・changeGeoLocal()<BR>
      * _x,_y,_z,_rx,_ry,_rz 絶対座標に切り替える                    ・・・changeGeoFinal()<BR>
@@ -581,7 +581,7 @@ public:
      * @param prm_rz_init_local 従属アクターのローカル(this)回転からのZ軸回転値
      * @return 種別トップの団長
      */
-    virtual GgafCore::GgafGroupHead* addSubGroupAsFk(GgafDxGeometricActor* prm_pGeoActor,
+    virtual GgafCore::GgafGroupHead* appendGroupChildAsFk(GgafDxGeometricActor* prm_pGeoActor,
                                                      int prm_x_init_local,
                                                      int prm_y_init_local,
                                                      int prm_z_init_local,
@@ -644,8 +644,8 @@ public:
 
     /**
      * 土台となるアクターを取得 .
-     * 土台とは、addSubGroupAsFk() によって追加された側のオブジェクトが、
-     * addSubGroupAsFk()を実行したアクターを指す。
+     * 土台とは、appendGroupChildAsFk() によって追加された側のオブジェクトが、
+     * appendGroupChildAsFk()を実行したアクターを指す。
      * @return 土台となるアクター
      */
     inline GgafDxGeometricActor* getBaseActor() const {

@@ -74,7 +74,7 @@ Spacetime::Spacetime(const char* prm_name, Camera* prm_pCamera) : DefaultSpaceti
     CameraWorkerConnection* pCamWorkerCon = (CameraWorkerConnection*)pCamWorkerManager_->connect("DefaultCamWorker", prm_pCamera);
     stack_CamWorkerConnection_.push(pCamWorkerCon);
     pActiveCamWorker_ = pCamWorkerCon->peek();
-    bringSceneMediator()->addSubGroup(pActiveCamWorker_); //基底デフォルトカメラワーク
+    bringSceneMediator()->appendGroupChild(pActiveCamWorker_); //基底デフォルトカメラワーク
     //【めも】
     //ここでActorやSceneのNEWをしてはならない。
     //まずはこの世を作ることを優先しないと、いろいろと不都合がある。
@@ -82,7 +82,7 @@ Spacetime::Spacetime(const char* prm_name, Camera* prm_pCamera) : DefaultSpaceti
 
 void Spacetime::initialize() {
     pWorld_ = desireScene(VioletVreath::World);
-    addSubLast(pWorld_);
+    appendChild(pWorld_);
     _TRACE_(FUNC_NAME<<"");
 }
 
@@ -135,10 +135,10 @@ CameraWorker* Spacetime::changeCameraWork(const char* prm_pID) {
         //パラメータの CameraWork を活動へ
         pCamWorker->activate();
         pCamWorker->frame_of_behaving_since_onSwitch_ = 0; //switch後フレームカウンタリセット
-        if (bringSceneMediator()->getSubFirst()->getSub(pCamWorker)) {
+        if (bringSceneMediator()->getChildFirst()->getChild(pCamWorker)) {
             //２回目以降の
         } else {
-            bringSceneMediator()->addSubGroup(pCamWorker); //初回はツリーに追加
+            bringSceneMediator()->appendGroupChild(pCamWorker); //初回はツリーに追加
         }
         //スタックに積む
         stack_CamWorkerConnection_.push(pCon);

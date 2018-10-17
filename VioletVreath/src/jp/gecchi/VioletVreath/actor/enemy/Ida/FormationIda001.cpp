@@ -23,7 +23,7 @@ FormationIda001::FormationIda001(const char* prm_name) :
             coord X = ANG_COS(ry) * r2;
             coord Z = ANG_SIN(ry) * r2;
             EnemyIda* pIda = NEW EnemyIda("Ida01");
-            addFormationMember(pIda,X,Y,Z,0,0,0);
+            appendFormationMember(pIda,X,Y,Z,0,0,0);
         }
 
     }

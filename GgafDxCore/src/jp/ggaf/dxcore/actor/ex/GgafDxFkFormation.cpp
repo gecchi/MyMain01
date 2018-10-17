@@ -13,7 +13,7 @@ GgafDxFkFormation::GgafDxFkFormation(const char* prm_name, frame prm_offset_fram
     _can_call_up = true;
 }
 void GgafDxFkFormation::registerFormationFkBase(GgafDxGeometricActor* prm_pFkBase) {
-    if (_pSubFirst == nullptr) { //最初の１つ目
+    if (_pChildFirst == nullptr) { //最初の１つ目
         //本フォーメーションオブジェクト自体の種別を確定
         getStatus()->set(STAT_DEFAULT_ACTOR_KIND,
                       prm_pFkBase->getDefaultKind());
@@ -21,15 +21,15 @@ void GgafDxFkFormation::registerFormationFkBase(GgafDxGeometricActor* prm_pFkBas
 #ifdef MY_DEBUG
         if (getDefaultKind() != prm_pFkBase->getDefaultKind()) {
             throwGgafCriticalException("異なる種別のFKベースアクターを登録しようとしています。 \n"
-                                       "想定="<<getDefaultKind()<<"[_pSubFirst="<<_pSubFirst->getName()<<"] \n"
+                                       "想定="<<getDefaultKind()<<"[_pChildFirst="<<_pChildFirst->getName()<<"] \n"
                                        "引数="<<prm_pFkBase->getDefaultKind()<<"["<<prm_pFkBase->getName()<<"]");
         }
 #endif
     }
-    GgafFormation::addSubLast(prm_pFkBase);
+    GgafFormation::appendChild(prm_pFkBase);
 }
 
-void GgafDxFkFormation::addFormationMember(GgafDxGeometricActor* prm_pMember,
+void GgafDxFkFormation::appendFormationMember(GgafDxGeometricActor* prm_pMember,
                                            int prm_x_init_local,
                                            int prm_y_init_local,
                                            int prm_z_init_local,
@@ -40,16 +40,16 @@ void GgafDxFkFormation::addFormationMember(GgafDxGeometricActor* prm_pMember,
 #ifdef MY_DEBUG
     if (wasDeclaredEnd() || willInactivateAfter()) {
         //終了を待つのみ
-        throwGgafCriticalException(": 既に死にゆく定めのFormationです。サブに追加することはおかしいでしょう。this="<<getName());
+        throwGgafCriticalException(": 既に死にゆく定めのFormationです。子に追加することはおかしいでしょう。this="<<getName());
     }
-    if (getSubFirst() == nullptr) {
+    if (getChildFirst() == nullptr) {
         throwGgafCriticalException(": FKベースアクターがいません。addFormationBase() してください。this="<<getName());
     }
 #endif
-    GgafDxGeometricActor* pFkBase = (GgafDxGeometricActor*)(getSubFirst());
+    GgafDxGeometricActor* pFkBase = (GgafDxGeometricActor*)(getChildFirst());
     _num_formation_member++;
     prm_pMember->_pFormation = this; //メンバーへフォーメーションを設定
-    pFkBase->addSubGroupAsFk(prm_pMember,
+    pFkBase->appendGroupChildAsFk(prm_pMember,
                              prm_x_init_local,
                              prm_y_init_local,
                              prm_z_init_local,
@@ -63,9 +63,9 @@ void GgafDxFkFormation::processFinal() {
     if (_was_all_sayonara || wasDeclaredEnd() || willInactivateAfter()) {
         //終了を待つのみ
     } else {
-        GgafMainActor* pFkBase = (GgafMainActor*)(getSubFirst()); //FKベース
+        GgafMainActor* pFkBase = (GgafMainActor*)(getChildFirst()); //FKベース
         if (pFkBase) {
-            if (pFkBase->getSubFirst() == nullptr) { //FKベースの配下がなければ
+            if (pFkBase->getChildFirst() == nullptr) { //FKベースの配下がなければ
                 pFkBase->sayonara(); //FKベースを開放
             }
         } else {
@@ -88,7 +88,7 @@ GgafDxGeometricActor* GgafDxFkFormation::callUpMember() {
     }
     if (_can_call_up) {
                                  //FkBase     -> GroupHead   ->Actor
-        GgafActor* pFirstActor = getSubFirst()->getSubFirst()->getSubFirst(); //今の先頭アクター
+        GgafActor* pFirstActor = getChildFirst()->getChildFirst()->getChildFirst(); //今の先頭アクター
         if (_pIte) {
             _pIte = _pIte->getNext();
             if (_pIte == pFirstActor) { //１周した

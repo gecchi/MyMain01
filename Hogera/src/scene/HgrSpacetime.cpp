@@ -28,7 +28,7 @@ HgrSpacetime::HgrSpacetime(const char* prm_name, HgrCamera* prm_pCam) :
 void HgrSpacetime::initialize() {
     //世界シーン生成し、自シーンの配下に所属させる
     pWorld_ = desireScene(Hogera::HgrWorld);
-    addSubLast(pWorld_);
+    appendChild(pWorld_);
 }
 
 void HgrSpacetime::processBehavior() {

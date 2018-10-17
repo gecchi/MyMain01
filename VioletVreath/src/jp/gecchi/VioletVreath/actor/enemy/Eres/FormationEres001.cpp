@@ -11,7 +11,7 @@ using namespace VioletVreath;
 FormationEres001::FormationEres001(const char* prm_name) : TreeFormation(prm_name) {
     _class_name = "FormationEres001";
     for (int i = 0; i < 1; i++) {
-        addFormationMember(NEW EnemyEres("Eres"));
+        appendFormationMember(NEW EnemyEres("Eres"));
     }
 }
 
