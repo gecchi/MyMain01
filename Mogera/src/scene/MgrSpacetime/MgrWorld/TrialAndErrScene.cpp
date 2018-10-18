@@ -8,6 +8,7 @@
 #include "actor/Zako.h"
 #include "actor/SmpActor1.h"
 #include "actor/SmpActor2.h"
+#include "actor/SmpSprite.h"
 #include "scene/MgrSpacetime/MgrWorld.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 
@@ -28,9 +29,9 @@ TrialAndErrScene::TrialAndErrScene(const char* prm_name) : DefaultScene(prm_name
     pTest_ = nullptr;
 
 
-    requestActor(1111, SmpActor1, "SmpActor1");
-    requestActor(2222, SmpActor2, "SmpActor2");
-
+//    requestActor(1111, SmpActor1, "SmpActor1");
+//    requestActor(2222, SmpActor2, "SmpActor2");
+    requestActor(3333, SmpSprite);
 //    for (int id = 0; id < 17; id++) {
 //        requestActor(900+id, PointSpriteTest, "PointSpriteTest");
 //    }
@@ -52,18 +53,21 @@ void TrialAndErrScene::initialize() {
 void TrialAndErrScene::processBehavior() {
 
     if (getActiveFrame() == 100) {
-        SmpActor1* pSmpActor1 = (SmpActor1*)receiveActor(1111);
-        bringSceneMediator()->appendGroupChild(MGR_MIKATA, pSmpActor1);
-        pSmpActor1->setPosition(PX_C(50), PX_C(+200), PX_C(50));
-
-        SmpActor2* pSmpActor2 = (SmpActor2*)receiveActor(2222);
-        bringSceneMediator()->appendGroupChild(MGR_TEKI, pSmpActor2);
-        pSmpActor2->setPosition(PX_C(50), PX_C(50), PX_C(50));
+//        SmpActor1* pSmpActor1 = (SmpActor1*)receiveActor(1111);
+//        bringSceneMediator()->appendGroupChild(MGR_MIKATA, pSmpActor1);
+//        pSmpActor1->setPosition(PX_C(50), PX_C(+200), PX_C(50));
+//
+//        SmpActor2* pSmpActor2 = (SmpActor2*)receiveActor(2222);
+//        bringSceneMediator()->appendGroupChild(MGR_TEKI, pSmpActor2);
+//        pSmpActor2->setPosition(PX_C(50), PX_C(50), PX_C(50));
 
 //        BoardTest* pBoardTest = (BoardTest*)receiveActor(20000);
 //        pBoardTest->setPosition(PX_C(100), PX_C(50));
 //        bringSceneMediator()->appendGroupChild(pBoardTest);
 
+        SmpSprite* pSmpSprite = (SmpSprite*)receiveActor(3333);
+        bringSceneMediator()->appendGroupChild(MGR_TEKI, pSmpSprite);
+        pSmpSprite->setPosition(PX_C(50), PX_C(50), 0);
 
 //        for (int id = 0; id < 17; id++) {
 //            PointSpriteTest* pTest = (PointSpriteTest*)receiveActor(900+id);
@@ -107,6 +111,7 @@ void TrialAndErrScene::processBehavior() {
 //        pTest7->setPosition(PX_C(1200), PX_C(1200), PX_C(1200));
 //    }
 }
+
 
 TrialAndErrScene::~TrialAndErrScene() {
 }

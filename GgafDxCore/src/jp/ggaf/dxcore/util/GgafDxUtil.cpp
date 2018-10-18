@@ -91,7 +91,7 @@ void GgafDxUtil::init() {
     }
 
     for (s_ang ang = 0; ang < D360SANG+1; ang++) {
-        double rad = (PI * 2.0 * ang) / D360SANG;
+        double rad = (PI2 * ang) / D360SANG;
 
         GgafDxUtil::COS[ang] = (float)(cos(rad));
         GgafDxUtil::SIN[ang] = (float)(sin(rad));

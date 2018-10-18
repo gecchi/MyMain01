@@ -62,7 +62,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
                 god.be();
             }
         }
-
     } catch (std::exception& e2) {
         std::string what(e2.what());
         MessageBox(nullptr, what.c_str(), "Mogera Error", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND);

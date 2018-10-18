@@ -41,6 +41,7 @@
 #include "jp/ggaf/dxcore/model/GgafDxMassPointSpriteModel.h"
 #include "jp/ggaf/dxcore/model/GgafDxPointSpriteSetModel.h"
 #include "jp/ggaf/dxcore/model/GgafDxFramedBoardModel.h"
+#include "jp/ggaf/dxcore/model/GgafDxRegularPolygonSpriteModel.h"
 #include "jp/ggaf/dxcore/model/ex/GgafDxCubeMapMeshModel.h"
 #include "jp/ggaf/dxcore/model/ex/GgafDxCubeMapMeshSetModel.h"
 #include "jp/ggaf/dxcore/model/ex/GgafDxCubeMapMorphMeshModel.h"
@@ -205,6 +206,9 @@ GgafDxModel* GgafDxModelManager::processCreateResource(const char* prm_idstr, vo
         case TYPE_FRAMEDBOARD_MODEL:
             pResourceModel = createFramedBoardModel(model_name);
             break;
+        case TYPE_REGULAR_POLYGON_SPRITE_MODEL:
+            pResourceModel = createRegularPolygonSpriteModel(model_name);
+            break;
         default:
             throwGgafCriticalException("prm_idstr="<<prm_idstr<<" の '"<<model_type<<"' ・・・そんなモデル種別は知りません");
             pResourceModel = nullptr;
@@ -340,6 +344,12 @@ GgafDxFramedBoardModel* GgafDxModelManager::createFramedBoardModel(const char* p
     GgafDxFramedBoardModel* pFramedBoardModel_new = NEW GgafDxFramedBoardModel(prm_model_name);
     pFramedBoardModel_new->restore();
     return pFramedBoardModel_new;
+}
+
+GgafDxRegularPolygonSpriteModel* GgafDxModelManager::createRegularPolygonSpriteModel(const char* prm_model_name) {
+    GgafDxRegularPolygonSpriteModel* pRegularPolygonSpriteModel_new = NEW GgafDxRegularPolygonSpriteModel(prm_model_name);
+    pRegularPolygonSpriteModel_new->restore();
+    return pRegularPolygonSpriteModel_new;
 }
 
 std::string GgafDxModelManager::getMeshFileName(std::string prm_model_name) {

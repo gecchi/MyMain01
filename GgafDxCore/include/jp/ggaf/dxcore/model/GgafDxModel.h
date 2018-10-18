@@ -14,28 +14,29 @@
 #endif
 
 //#define Obj_GgafDxDynaD3DXMeshModel      (0x1U)          //0b 00000000 00000000 00000000 00000001
-#define Obj_GgafDxD3DXAniMeshModel       (0x2U)            //0b 00000000 00000000 00000000 00000010
-#define Obj_GgafDxD3DXMeshModel          (0x4U)            //0b 00000000 00000000 00000000 00000100
-#define Obj_GgafDxSpriteModel            (0x8U)            //0b 00000000 00000000 00000000 00001000
-#define Obj_GgafDxSpriteSetModel         (0x10U)           //0b 00000000 00000000 00000000 00010000
-#define Obj_GgafDxBoardModel             (0x20U)           //0b 00000000 00000000 00000000 00100000
-#define Obj_GgafDxBoardSetModel          (0x40U)           //0b 00000000 00000000 00000000 01000000
-#define Obj_GgafDxMeshModel              (0x80U)           //0b 00000000 00000000 00000000 10000000
-#define Obj_GgafDxMeshSetModel           (0x100U)          //0b 00000000 00000000 00000001 00000000
-#define Obj_GgafDxCubeMapMeshModel       (0x200U)          //0b 00000000 00000000 00000010 00000000
-#define Obj_GgafDxCubeMapMeshSetModel    (0x400U)          //0b 00000000 00000000 00000100 00000000
-#define Obj_GgafDxMorphMeshModel         (0x800U)          //0b 00000000 00000000 00001000 00000000
-#define Obj_GgafDxCubeMapMorphMeshModel  (0x1000U)         //0b 00000000 00000000 00010000 00000000
-#define Obj_GgafDxWorldBoundModel        (0x2000U)         //0b 00000000 00000000 00100000 00000000
-#define Obj_GgafDxPointSpriteModel       (0x4000U)         //0b 00000000 00000000 01000000 00000000
-#define Obj_GgafDxMassModel              (0x8000U)         //0b 00000000 00000000 10000000 00000000
-#define Obj_GgafDxMassMeshModel          (0x10000U)        //0b 00000000 00000001 00000000 00000000
-#define Obj_GgafDxMassBoardModel         (0x20000U)        //0b 00000000 00000010 00000000 00000000
-#define Obj_GgafDxMassSpriteModel        (0x40000U)        //0b 00000000 00000100 00000000 00000000
-#define Obj_GgafDxMassMorphMeshModel     (0x80000U)        //0b 00000000 00001000 00000000 00000000
-#define Obj_GgafDxMassPointSpriteModel   (0x100000U)       //0b 00000000 00010000 00000000 00000000
-#define Obj_GgafDxPointSpriteSetModel    (0x200000U)       //0b 00000000 00100000 00000000 00000000
-#define Obj_GgafDxFramedBoardModel     (0x400000U)       //0b 00000000 01000000 00000000 00000000
+#define Obj_GgafDxD3DXAniMeshModel            (0x2U)            //0b 00000000 00000000 00000000 00000010
+#define Obj_GgafDxD3DXMeshModel               (0x4U)            //0b 00000000 00000000 00000000 00000100
+#define Obj_GgafDxSpriteModel                 (0x8U)            //0b 00000000 00000000 00000000 00001000
+#define Obj_GgafDxSpriteSetModel              (0x10U)           //0b 00000000 00000000 00000000 00010000
+#define Obj_GgafDxBoardModel                  (0x20U)           //0b 00000000 00000000 00000000 00100000
+#define Obj_GgafDxBoardSetModel               (0x40U)           //0b 00000000 00000000 00000000 01000000
+#define Obj_GgafDxMeshModel                   (0x80U)           //0b 00000000 00000000 00000000 10000000
+#define Obj_GgafDxMeshSetModel                (0x100U)          //0b 00000000 00000000 00000001 00000000
+#define Obj_GgafDxCubeMapMeshModel            (0x200U)          //0b 00000000 00000000 00000010 00000000
+#define Obj_GgafDxCubeMapMeshSetModel         (0x400U)          //0b 00000000 00000000 00000100 00000000
+#define Obj_GgafDxMorphMeshModel              (0x800U)          //0b 00000000 00000000 00001000 00000000
+#define Obj_GgafDxCubeMapMorphMeshModel       (0x1000U)         //0b 00000000 00000000 00010000 00000000
+#define Obj_GgafDxWorldBoundModel             (0x2000U)         //0b 00000000 00000000 00100000 00000000
+#define Obj_GgafDxPointSpriteModel            (0x4000U)         //0b 00000000 00000000 01000000 00000000
+#define Obj_GgafDxMassModel                   (0x8000U)         //0b 00000000 00000000 10000000 00000000
+#define Obj_GgafDxMassMeshModel               (0x10000U)        //0b 00000000 00000001 00000000 00000000
+#define Obj_GgafDxMassBoardModel              (0x20000U)        //0b 00000000 00000010 00000000 00000000
+#define Obj_GgafDxMassSpriteModel             (0x40000U)        //0b 00000000 00000100 00000000 00000000
+#define Obj_GgafDxMassMorphMeshModel          (0x80000U)        //0b 00000000 00001000 00000000 00000000
+#define Obj_GgafDxMassPointSpriteModel        (0x100000U)       //0b 00000000 00010000 00000000 00000000
+#define Obj_GgafDxPointSpriteSetModel         (0x200000U)       //0b 00000000 00100000 00000000 00000000
+#define Obj_GgafDxFramedBoardModel            (0x400000U)       //0b 00000000 01000000 00000000 00000000
+#define Obj_GgafDxRegularPolygonSpriteModel   (0x800000U)       //0b 00000000 10000000 00000000 00000000
 
 namespace GgafDxCore {
 

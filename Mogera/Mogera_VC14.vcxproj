@@ -330,6 +330,7 @@
     <ClCompile Include="src\actor\PointSpriteTest.cpp" />
     <ClCompile Include="src\actor\SmpActor1.cpp" />
     <ClCompile Include="src\actor\SmpActor2.cpp" />
+    <ClCompile Include="src\actor\SmpSprite.cpp" />
     <ClCompile Include="src\actor\Zako.cpp" />
     <ClCompile Include="src\actor\Zakoko.cpp" />
     <ClCompile Include="src\MgrGod.cpp" />
@@ -350,6 +351,7 @@
     <ClInclude Include="src\actor\PointSpriteTest.h" />
     <ClInclude Include="src\actor\SmpActor1.h" />
     <ClInclude Include="src\actor\SmpActor2.h" />
+    <ClInclude Include="src\actor\SmpSprite.h" />
     <ClInclude Include="src\actor\Zako.h" />
     <ClInclude Include="src\actor\Zakoko.h" />
     <ClInclude Include="src\MgrGod.h" />
