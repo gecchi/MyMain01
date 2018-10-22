@@ -21,7 +21,7 @@ void EnemyWateringLaserChip001::initialize() {
     registerHitAreaCube_AutoGenMidColli(50000);
     setHitAble(true);
     setScaleR(6.0);
-    setAlpha(0.99);
+    setCullingDraw(false);
 }
 
 void EnemyWateringLaserChip001::onCreateModel() {

@@ -1,7 +1,7 @@
-#include "jp/ggaf/lib/util/spline/FixedFrameSplineAxesMoverLeader.h"
+#include "jp/ggaf/lib/util/spline/FixedFrameSplineTruckerLeader.h"
 
 #include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/spline/SplineSource.h"
 #include "jp/ggaf/lib/util/spline/FixedFrameSplineManufacture.h"
@@ -10,11 +10,11 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-FixedFrameSplineAxesMoverLeader::FixedFrameSplineAxesMoverLeader(
+FixedFrameSplineTruckerLeader::FixedFrameSplineTruckerLeader(
                                        SplineManufacture* prm_pManufacture,
-                                       GgafDxAxesMover* prm_pAxesMover_target) :
-        SplineLeader(prm_pManufacture, prm_pAxesMover_target->_pActor) {
-    _pAxesMover_target = prm_pAxesMover_target;
+                                       GgafDxTrucker* prm_pTrucker_target) :
+        SplineLeader(prm_pManufacture, prm_pTrucker_target->_pActor) {
+    _pTrucker_target = prm_pTrucker_target;
     _pFixedFrameSplManuf = (FixedFrameSplineManufacture*)prm_pManufacture;
     _leading_frames = 0;
     _point_index = 0;
@@ -22,7 +22,7 @@ FixedFrameSplineAxesMoverLeader::FixedFrameSplineAxesMoverLeader(
     _hosei_frames = 0;
 }
 
-void FixedFrameSplineAxesMoverLeader::restart() {
+void FixedFrameSplineTruckerLeader::restart() {
     SplineLeader::restart();
     _leading_frames = 0;
     _hosei_frames = 0;
@@ -41,12 +41,12 @@ void FixedFrameSplineAxesMoverLeader::restart() {
     //そうでなければ仕方ないので、費やされるフレーム合計の誤差を認める仕様とする。
     if (ABS(_distance_to_begin) <= PX_C(1)) {
         //始点への距離が無い、間引く。
-        //_TRACE_("＜警告＞FixedFrameSplineAxesMoverLeader::start("<<prm_option<<") _pActor_target="<<_pActor_target->getName()<<
+        //_TRACE_("＜警告＞FixedFrameSplineTruckerLeader::start("<<prm_option<<") _pActor_target="<<_pActor_target->getName()<<
         //    " 現座標～始点[0]への距離は 0 であるため、現座標～始点への移動プロセスはカットされます。");
         _hosei_frames = _pFixedFrameSplManuf->_frame_of_segment;
         //これにより、_point_index は、初回いきなり1から始まる。
     } else {
-        _TRACE_("＜警告＞FixedFrameSplineAxesMoverLeader::restart("<<_option<<") _pActor_target="<<_pActor_target->getName()<<
+        _TRACE_("＜警告＞FixedFrameSplineTruckerLeader::restart("<<_option<<") _pActor_target="<<_pActor_target->getName()<<
             " 現座標～始点[0]への距離("<<_distance_to_begin<<" coord)が離れているため、現座標～始点への移動プロセスとしてセグメントが＋１されます。"<<
             "そのため、合計移動フレーム時間に誤差(+"<<_pFixedFrameSplManuf->_frame_of_segment<<"フレーム)が生じます。ご了承くださいませ。");
         _hosei_frames = 0;
@@ -55,9 +55,9 @@ void FixedFrameSplineAxesMoverLeader::restart() {
 
 }
 
-void FixedFrameSplineAxesMoverLeader::behave() {
+void FixedFrameSplineTruckerLeader::behave() {
     if (_is_leading) {
-        GgafDxAxesMover* const pAxesMover_target = _pAxesMover_target;
+        GgafDxTrucker* const pTrucker_target = _pTrucker_target;
         const double frame_of_segment = _pFixedFrameSplManuf->_frame_of_segment;
         //現在の点INDEX
         _point_index = (_leading_frames+_hosei_frames) / frame_of_segment;
@@ -65,7 +65,7 @@ void FixedFrameSplineAxesMoverLeader::behave() {
             if (_cnt_loop == _max_loop) {
                 //終了
                 _is_leading = false;
-                pAxesMover_target->stopGravitationMvSequence();
+                pTrucker_target->stopGravitationMvSequence();
                 return;
             } else {
                 //ループ
@@ -103,11 +103,11 @@ void FixedFrameSplineAxesMoverLeader::behave() {
                     mv_velo = _pFixedFrameSplManuf->_paSPMvVeloTo[_point_index];
                 }
             }
-            pAxesMover_target->setVxyzMvVeloTwd(x, y, z, mv_velo);
+            pTrucker_target->setVxyzMvVeloTwd(x, y, z, mv_velo);
         }
         _leading_frames++;
     }
 }
-FixedFrameSplineAxesMoverLeader::~FixedFrameSplineAxesMoverLeader() {
+FixedFrameSplineTruckerLeader::~FixedFrameSplineTruckerLeader() {
 
 }

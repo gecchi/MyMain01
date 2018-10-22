@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -77,7 +77,7 @@ void EnemyGeria::onActive() {
 
 void EnemyGeria::processBehavior() {
     GgafDxKuroko* const pKuroko = getKuroko();
-    GgafDxAxesMover* const pAxesMover = getAxesMover();
+    GgafDxTrucker* const pTrucker = getTrucker();
     GgafDxAlphaFader* pAlphaFader = getAlphaFader();
     GgafProgress* const pProg = getProgress();
 
@@ -170,7 +170,7 @@ void EnemyGeria::processBehavior() {
         default :
             break;
     }
-    pAxesMover->behave();
+    pTrucker->behave();
     pKuroko->behave();
     pAlphaFader->behave();
     mvd_ += pKuroko->getMvVelo();

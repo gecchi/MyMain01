@@ -19,7 +19,7 @@ void EnemyEmusLaserChip001::initialize() {
     registerHitAreaCube_AutoGenMidColli(20000);
     setHitAble(true, false);
     setScaleR(5.0);
-    setAlpha(0.9);
+    setCullingDraw(false);
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setMvVelo(300000);
     pKuroko->linkFaceAngByMvAng(true);

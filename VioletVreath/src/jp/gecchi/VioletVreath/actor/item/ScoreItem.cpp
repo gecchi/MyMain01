@@ -1,7 +1,7 @@
 #include "ScoreItem.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/TractorMagic.h"
@@ -26,7 +26,7 @@ ScoreItem::ScoreItem(const char* prm_name, const char* prm_model, GgafCore::Ggaf
     effectBlendOne(); //加算合成するTechnique指定
     setZEnableDraw(true);        //描画時、Zバッファ値は考慮される
     setZWriteEnable(false);  //自身のZバッファを書き込みしない
-    setAlpha(0.9);
+    setCullingDraw(false);
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setFaceAngVelo(AXIS_X, D_ANG(3));
     pKuroko->setFaceAngVelo(AXIS_Y, D_ANG(5));
@@ -48,11 +48,11 @@ void ScoreItem::initialize() {
 void ScoreItem::onActive() {
     // _x, _y, _z は発生元座標に設定済み
     setHitAble(true, false);
-    GgafDxAxesMover* const pAxesMover = getAxesMover();
-    pAxesMover->forceVxyzMvVeloRange(-30000, 30000);
-    pAxesMover->setZeroVxyzMvVelo();
-    pAxesMover->setZeroVxyzMvAcce();
-    pAxesMover->stopGravitationMvSequence();
+    GgafDxTrucker* const pTrucker = getTrucker();
+    pTrucker->forceVxyzMvVeloRange(-30000, 30000);
+    pTrucker->setZeroVxyzMvVelo();
+    pTrucker->setZeroVxyzMvAcce();
+    pTrucker->stopGravitationMvSequence();
 
     //初期方向設定
     MyShip* pMyShip = pMYSHIP;
@@ -84,7 +84,7 @@ void ScoreItem::onActive() {
 void ScoreItem::processBehavior() {
     //通常移動
     GgafDxKuroko* const pKuroko = getKuroko();
-    GgafDxAxesMover* const pAxesMover = getAxesMover();
+    GgafDxTrucker* const pTrucker = getTrucker();
     GgafProgress* const pProg = getProgress();
     if (pProg->get() == PROG_DRIFT) {
         //TractorMagic発動中はPROG_ATTACHへ移行
@@ -101,10 +101,10 @@ void ScoreItem::processBehavior() {
         MyShip* pMyShip = pMYSHIP;
         if (pProg->hasJustChanged()) {
             //自機に引力で引き寄せられるような動き設定
-            pAxesMover->setVxyzMvVelo(pKuroko->_vX * pKuroko->_velo_mv,
+            pTrucker->setVxyzMvVelo(pKuroko->_vX * pKuroko->_velo_mv,
                                      pKuroko->_vY * pKuroko->_velo_mv,
                                      pKuroko->_vZ * pKuroko->_velo_mv);
-            pAxesMover->execGravitationMvSequenceTwd(pMyShip,
+            pTrucker->execGravitationMvSequenceTwd(pMyShip,
                                                     PX_C(20), 200, PX_C(100));
             pKuroko->stopMv();
         }
@@ -126,9 +126,9 @@ void ScoreItem::processBehavior() {
     if (pProg->get() == PROG_ABSORB) {
         MyShip* pMyShip = pMYSHIP;
         if (pProg->hasJustChanged()) {
-            pAxesMover->setZeroVxyzMvVelo();
-            pAxesMover->setZeroVxyzMvAcce();
-            pAxesMover->stopGravitationMvSequence();
+            pTrucker->setZeroVxyzMvVelo();
+            pTrucker->setZeroVxyzMvAcce();
+            pTrucker->stopGravitationMvSequence();
         }
         _x = pMyShip->_x + kDX_;
         _y = pMyShip->_y + kDY_;
@@ -144,7 +144,7 @@ void ScoreItem::processBehavior() {
         G_SCORE += 100;
     }
     pKuroko->behave();
-    pAxesMover->behave();
+    pTrucker->behave();
 }
 
 void ScoreItem::processJudgement() {

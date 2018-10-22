@@ -116,7 +116,7 @@ void GgafDxPointSpriteModel::restore() {
     GgafDxModelManager* pModelManager = pGOD->_pModelManager;
     _papTextureConnection = nullptr;
     HRESULT hr;
-    std::string xfile_name = GgafDxModelManager::getPointSpriteFileName(_model_name);
+    std::string xfile_name = GgafDxModelManager::getSpriteFileName(_model_name, "psprx");
     GgafDxModelManager::PointSpriteXFileFmt pointsprite_info;
     pModelManager->obtainPointSpriteInfo(&pointsprite_info, xfile_name);
     //‘Þ”ð

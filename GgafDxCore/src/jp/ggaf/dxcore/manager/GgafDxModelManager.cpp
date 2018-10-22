@@ -56,14 +56,12 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxModel* GgafDxModelManager::_pModelLastDraw = nullptr;
-//ID3DXFile* GgafDxModelManager::_pID3DXFile_sprx = nullptr;
-//ID3DXFile* GgafDxModelManager::_pID3DXFile_psprx = nullptr;
-//GgafDxTextureManager* GgafDxModelManager::_pModelTextureManager = nullptr;
 
 GgafDxModelManager::GgafDxModelManager(const char* prm_manager_name) :
     GgafResourceManager<GgafDxModel> (prm_manager_name) {
     //テクスチャマネジャー
     _pModelTextureManager = NEW GgafDxTextureManager("GgafDxTextureManager");
+
     //板ポリゴンモデル定義ファイル(拡張子sprx)のフォーマット定義
     HRESULT hr;
     D3DXFileCreate( &_pID3DXFile_sprx );
@@ -77,11 +75,33 @@ GgafDxModelManager::GgafDxModelManager(const char* prm_manager_name) :
     "   DWORD  TextureSplitRows;" \
     "   DWORD  TextureSplitCols;" \
     "}";
-
     hr = _pID3DXFile_sprx->RegisterTemplates(sprite_model_xfile_template, (DWORD)(strlen(sprite_model_xfile_template)));
 #ifdef MY_DEBUG
     if(hr != S_OK) {
         throwGgafCriticalException("RegisterTemplatesに失敗しました。sprite_model_xfile_template を確認して下さい。");
+    }
+#endif
+
+    //正多角形板ポリゴンモデル定義ファイル(拡張子sprx)のフォーマット定義
+    D3DXFileCreate( &_pID3DXFile_rsprx );
+    static const char* regular_polygon_sprite_model_xfile_template =
+    "xof 0303txt 0032\n" \
+    "template SpriteDef {" \
+    "   <E4EECE4C-E106-11DC-9B62-346D55D89593>" \
+    "   FLOAT  Width;" \
+    "   FLOAT  Height;" \
+    "   STRING TextureFile;" \
+    "   DWORD  TextureSplitRows;" \
+    "   DWORD  TextureSplitCols;" \
+    "   FLOAT  CircumferenceBeginPosition;" \
+    "   DWORD  DrawingOrder;" \
+    "}";
+    hr = _pID3DXFile_rsprx->RegisterTemplates(
+            regular_polygon_sprite_model_xfile_template,
+            (DWORD)(strlen(regular_polygon_sprite_model_xfile_template)));
+#ifdef MY_DEBUG
+    if(hr != S_OK) {
+        throwGgafCriticalException("RegisterTemplatesに失敗しました。regular_polygon_sprite_model_xfile_template を確認して下さい。");
     }
 #endif
 
@@ -347,9 +367,9 @@ GgafDxFramedBoardModel* GgafDxModelManager::createFramedBoardModel(const char* p
 }
 
 GgafDxRegularPolygonSpriteModel* GgafDxModelManager::createRegularPolygonSpriteModel(const char* prm_model_name) {
-    GgafDxRegularPolygonSpriteModel* pRegularPolygonSpriteModel_new = NEW GgafDxRegularPolygonSpriteModel(prm_model_name);
-    pRegularPolygonSpriteModel_new->restore();
-    return pRegularPolygonSpriteModel_new;
+    GgafDxRegularPolygonSpriteModel* pRglrPlygnSpriteModel_new = NEW GgafDxRegularPolygonSpriteModel(prm_model_name);
+    pRglrPlygnSpriteModel_new->restore();
+    return pRglrPlygnSpriteModel_new;
 }
 
 std::string GgafDxModelManager::getMeshFileName(std::string prm_model_name) {
@@ -376,51 +396,30 @@ std::string GgafDxModelManager::getMeshFileName(std::string prm_model_name) {
         }
     }
 }
-std::string GgafDxModelManager::getSpriteFileName(std::string prm_model_name) {
-    std::string xfile_name = CONFIG::DIR_SPRITE_MODEL[2] + "/" + prm_model_name + ".sprx";
+
+std::string GgafDxModelManager::getSpriteFileName(std::string prm_model_name, std::string prm_ext){
+    std::string xfile_name = CONFIG::DIR_SPRITE_MODEL[2] + "/" + prm_model_name + "." + prm_ext;
     UTIL::strReplace(xfile_name, "//", "/");
     if (PathFileExists(xfile_name.c_str()) ) {
         return xfile_name;
     } else {
-        xfile_name = CONFIG::DIR_SPRITE_MODEL[1] + "/" +  prm_model_name + ".sprx";
+        xfile_name = CONFIG::DIR_SPRITE_MODEL[1] + "/" +  prm_model_name + "." + prm_ext;
         UTIL::strReplace(xfile_name, "//", "/");
         if (PathFileExists(xfile_name.c_str()) ) {
             return xfile_name; //ユーザースキンに存在すればそれを優先
         } else {
-            xfile_name = CONFIG::DIR_SPRITE_MODEL[0] + "/" +  prm_model_name + ".sprx";
+            xfile_name = CONFIG::DIR_SPRITE_MODEL[0] + "/" +  prm_model_name + "." + prm_ext;
             UTIL::strReplace(xfile_name, "//", "/");
             if (PathFileExists(xfile_name.c_str()) ) {
                 return xfile_name;
             } else {
-                throwGgafCriticalException("スプライトファイル(*.sprx)が見つかりません。xfile_name="<<xfile_name);
+                throwGgafCriticalException("スプライトモデル定義ファイルが見つかりません。xfile_name="<<xfile_name);
             }
         }
     }
 }
 
-std::string GgafDxModelManager::getPointSpriteFileName(std::string prm_model_name) {
-    std::string xfile_name = CONFIG::DIR_SPRITE_MODEL[2] + "/" + prm_model_name + ".psprx";
-    UTIL::strReplace(xfile_name, "//", "/");
-    if (PathFileExists(xfile_name.c_str()) ) {
-        return xfile_name;
-    } else {
-        xfile_name = CONFIG::DIR_SPRITE_MODEL[1] + "/" +  prm_model_name + ".psprx";
-        UTIL::strReplace(xfile_name, "//", "/");
-        if (PathFileExists(xfile_name.c_str()) ) {
-            return xfile_name;  //ユーザースキンに存在すればそれを優先
-        } else {
-            xfile_name = CONFIG::DIR_SPRITE_MODEL[0] + "/" +  prm_model_name + ".psprx";
-            UTIL::strReplace(xfile_name, "//", "/");
-            if (PathFileExists(xfile_name.c_str()) ) {
-                return xfile_name;
-            } else {
-                throwGgafCriticalException("ポイントスプライトファイル(*.psprx)が見つかりません。xfile_name="<<xfile_name);
-            }
-        }
-    }
-}
-
-void GgafDxModelManager::obtainSpriteInfo(SpriteXFileFmt* pSpriteFmt_out, std::string prm_sprite_x_filename) {
+void GgafDxModelManager::obtainSpriteInfo(SpriteXFileFmt* prm_pSpriteFmt_out, std::string prm_sprite_x_filename) {
     //スプライト情報読込み
     // xof 0303txt 0032
     // template SpriteDef {
@@ -453,15 +452,69 @@ void GgafDxModelManager::obtainSpriteInfo(SpriteXFileFmt* pSpriteFmt_out, std::s
     }
     //    GUID* pGuid;
     //    pID3DXFileData->GetType(pGuid);
-    memcpy(&(pSpriteFmt_out->width), pXData, sizeof(float));           pXData += sizeof(float);
-    memcpy(&(pSpriteFmt_out->height), pXData, sizeof(float));          pXData += sizeof(float);
-    strcpy(pSpriteFmt_out->texture_file, pXData);                      pXData += (sizeof(char) * (strlen(pSpriteFmt_out->texture_file)+1));
-    memcpy(&(pSpriteFmt_out->row_texture_split), pXData, sizeof(int)); pXData += sizeof(int);
-    memcpy(&(pSpriteFmt_out->col_texture_split), pXData, sizeof(int)); pXData += sizeof(int);
+    memcpy(&(prm_pSpriteFmt_out->width), pXData, sizeof(FLOAT));
+    pXData += sizeof(FLOAT);
+    memcpy(&(prm_pSpriteFmt_out->height), pXData, sizeof(FLOAT));
+    pXData += sizeof(FLOAT);
+    strcpy(prm_pSpriteFmt_out->texture_file, pXData);
+    pXData += (sizeof(char) * (strlen(prm_pSpriteFmt_out->texture_file)+1));
+    memcpy(&(prm_pSpriteFmt_out->row_texture_split), pXData, sizeof(DWORD));
+    pXData += sizeof(DWORD);
+    memcpy(&(prm_pSpriteFmt_out->col_texture_split), pXData, sizeof(DWORD));
     pID3DXFileData->Unlock();
     GGAF_RELEASE_BY_FROCE(pID3DXFileData);
     GGAF_RELEASE(pID3DXFileEnumObject);
 }
+
+void GgafDxModelManager::obtainRegularPolygonSpriteSpriteInfo(RegularPolygonSpriteXFileFmt* prm_pRglrPlygnSpriteFmt_out, std::string prm_sprite_x_filename) {
+    //スプライト情報読込み
+    // xof 0303txt 0032
+    // template SpriteDef {
+    //    <E4EECE4C-E106-11DC-9B62-346D55D89593>
+    //    FLOAT  Width;
+    //    FLOAT  Height;
+    //    STRING TextureFile;
+    //    DWORD  TextureSplitRows;
+    //    DWORD  TextureSplitCols;
+    //    FLOAT  CircumferenceBeginPosition;
+    //    DWORD  DrawingOrder;
+    // }
+    ID3DXFileEnumObject* pID3DXFileEnumObject;
+    HRESULT hr = _pID3DXFile_rsprx->CreateEnumObject(
+                                     (void*)prm_sprite_x_filename.c_str(),
+                                     D3DXF_FILELOAD_FROMFILE,
+                                     &pID3DXFileEnumObject);
+    checkDxException(hr, S_OK, "'"<<prm_sprite_x_filename<<"' のCreateEnumObjectに失敗しました。sprxファイルのフォーマットを確認して下さい。");
+    ID3DXFileData* pID3DXFileData = nullptr;
+    SIZE_T nChildren;
+    pID3DXFileEnumObject->GetChildren(&nChildren);
+    for (SIZE_T childCount = 0; childCount < nChildren; childCount++) {
+        pID3DXFileEnumObject->GetChild(childCount, &pID3DXFileData);
+    } //ループしているが、child は一つだけです。
+    SIZE_T xsize = 0;
+    char* pXData = nullptr;
+    pID3DXFileData->Lock(&xsize, (const void**)&pXData);
+    if (pXData == nullptr) {
+        throwGgafCriticalException(prm_sprite_x_filename<<" のフォーマットエラー。");
+    }
+    memcpy(&(prm_pRglrPlygnSpriteFmt_out->width), pXData, sizeof(FLOAT));
+    pXData += sizeof(FLOAT);
+    memcpy(&(prm_pRglrPlygnSpriteFmt_out->height), pXData, sizeof(FLOAT));
+    pXData += sizeof(FLOAT);
+    strcpy(prm_pRglrPlygnSpriteFmt_out->texture_file, pXData);
+    pXData += (sizeof(char) * (strlen(prm_pRglrPlygnSpriteFmt_out->texture_file)+1));
+    memcpy(&(prm_pRglrPlygnSpriteFmt_out->row_texture_split), pXData, sizeof(DWORD));
+    pXData += sizeof(DWORD);
+    memcpy(&(prm_pRglrPlygnSpriteFmt_out->col_texture_split), pXData, sizeof(DWORD));
+    pXData += sizeof(DWORD);
+    memcpy(&(prm_pRglrPlygnSpriteFmt_out->circumference_begin_position), pXData, sizeof(FLOAT));
+    pXData += sizeof(FLOAT);
+    memcpy(&(prm_pRglrPlygnSpriteFmt_out->drawing_order), pXData, sizeof(DWORD));
+    pID3DXFileData->Unlock();
+    GGAF_RELEASE_BY_FROCE(pID3DXFileData);
+    GGAF_RELEASE(pID3DXFileEnumObject);
+}
+
 void GgafDxModelManager::obtainPointSpriteInfo(PointSpriteXFileFmt* pPointSpriteFmt_out, std::string prm_point_sprite_x_filename) {
     //スプライト情報読込みテンプレートの登録(初回実行時のみ)
     ID3DXFileEnumObject* pID3DXFileEnumObject;
@@ -511,17 +564,17 @@ void GgafDxModelManager::obtainPointSpriteInfo(PointSpriteXFileFmt* pPointSprite
     //    pID3DXFileData->GetType(pGuid);
     //    XFILE_FMT_HD xDataHd;
     //"  FLOAT  SquareSize;\n"
-    memcpy(&(pPointSpriteFmt_out->SquareSize), pXData, sizeof(float));
-    pXData += sizeof(float);
+    memcpy(&(pPointSpriteFmt_out->SquareSize), pXData, sizeof(FLOAT));
+    pXData += sizeof(FLOAT);
     //"  STRING TextureFile;\n"
     strcpy(pPointSpriteFmt_out->TextureFile, pXData);
     pXData += (sizeof(char) * (strlen(pPointSpriteFmt_out->TextureFile)+1));
     //"  DWORD  TextureSplitRowCol;\n"
-    memcpy(&(pPointSpriteFmt_out->TextureSplitRowCol), pXData, sizeof(int));
-    pXData += sizeof(int);
+    memcpy(&(pPointSpriteFmt_out->TextureSplitRowCol), pXData, sizeof(DWORD));
+    pXData += sizeof(DWORD);
     //"  DWORD  VerticesNum;\n"
-    memcpy(&(pPointSpriteFmt_out->VerticesNum), pXData, sizeof(int));
-    pXData += sizeof(int);
+    memcpy(&(pPointSpriteFmt_out->VerticesNum), pXData, sizeof(DWORD));
+    pXData += sizeof(DWORD);
 
     int vaetexs_num = pPointSpriteFmt_out->VerticesNum;
 
@@ -534,13 +587,13 @@ void GgafDxModelManager::obtainPointSpriteInfo(PointSpriteXFileFmt* pPointSprite
     memcpy(pPointSpriteFmt_out->paD3DVECTOR_VertexColors, pXData, sizeof(D3DCOLORVALUE)*vaetexs_num);
     pXData += sizeof(D3DCOLORVALUE)*vaetexs_num;
     //"  array  DWORD     InitUvPtnNo[VerticesNum];\n"
-    pPointSpriteFmt_out->paInt_InitUvPtnNo = NEW int[vaetexs_num];
-    memcpy(pPointSpriteFmt_out->paInt_InitUvPtnNo, pXData, sizeof(int)*vaetexs_num);
-    pXData += sizeof(int)*vaetexs_num;
+    pPointSpriteFmt_out->paInt_InitUvPtnNo = NEW DWORD[vaetexs_num];
+    memcpy(pPointSpriteFmt_out->paInt_InitUvPtnNo, pXData, sizeof(DWORD)*vaetexs_num);
+    pXData += sizeof(DWORD)*vaetexs_num;
     //"  array  FLOAT     InitScale[VerticesNum];\n"
-    pPointSpriteFmt_out->paFLOAT_InitScale = NEW float[vaetexs_num];
-    memcpy(pPointSpriteFmt_out->paFLOAT_InitScale, pXData, sizeof(float)*vaetexs_num);
-    pXData += sizeof(float)*vaetexs_num;
+    pPointSpriteFmt_out->paFLOAT_InitScale = NEW FLOAT[vaetexs_num];
+    memcpy(pPointSpriteFmt_out->paFLOAT_InitScale, pXData, sizeof(FLOAT)*vaetexs_num);
+    pXData += sizeof(FLOAT)*vaetexs_num;
 
     pID3DXFileData->Unlock();
     GGAF_RELEASE_BY_FROCE(pID3DXFileData);
@@ -557,6 +610,7 @@ GgafResourceConnection<GgafDxModel>* GgafDxModelManager::processCreateConnection
 GgafDxModelManager::~GgafDxModelManager() {
     _TRACE3_("start-->");
     GGAF_RELEASE(_pID3DXFile_sprx);
+    GGAF_RELEASE(_pID3DXFile_rsprx);
     GGAF_RELEASE(_pID3DXFile_psprx);
     GGAF_DELETE(_pModelTextureManager);
     _TRACE3_("するけども、ここでは既に何も解放するものがないはずです");

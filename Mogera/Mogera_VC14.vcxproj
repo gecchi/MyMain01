@@ -325,11 +325,13 @@
     <ClCompile Include="src\actor\camera\MgrCameraUpVector.cpp" />
     <ClCompile Include="src\actor\camera\MgrCameraViewPoint.cpp" />
     <ClCompile Include="src\actor\camera\MgrCameraWorker.cpp" />
+    <ClCompile Include="src\actor\EffectExplosion004.cpp" />
     <ClCompile Include="src\actor\FormationZako.cpp" />
     <ClCompile Include="src\actor\FormationZako001.cpp" />
     <ClCompile Include="src\actor\PointSpriteTest.cpp" />
     <ClCompile Include="src\actor\SmpActor1.cpp" />
     <ClCompile Include="src\actor\SmpActor2.cpp" />
+    <ClCompile Include="src\actor\SmpPieGraphSprite.cpp" />
     <ClCompile Include="src\actor\SmpSprite.cpp" />
     <ClCompile Include="src\actor\Zako.cpp" />
     <ClCompile Include="src\actor\Zakoko.cpp" />
@@ -346,11 +348,13 @@
     <ClInclude Include="src\actor\camera\MgrCameraUpVector.h" />
     <ClInclude Include="src\actor\camera\MgrCameraViewPoint.h" />
     <ClInclude Include="src\actor\camera\MgrCameraWorker.h" />
+    <ClInclude Include="src\actor\EffectExplosion004.h" />
     <ClInclude Include="src\actor\FormationZako.h" />
     <ClInclude Include="src\actor\FormationZako001.h" />
     <ClInclude Include="src\actor\PointSpriteTest.h" />
     <ClInclude Include="src\actor\SmpActor1.h" />
     <ClInclude Include="src\actor\SmpActor2.h" />
+    <ClInclude Include="src\actor\SmpPieGraphSprite.h" />
     <ClInclude Include="src\actor\SmpSprite.h" />
     <ClInclude Include="src\actor\Zako.h" />
     <ClInclude Include="src\actor\Zakoko.h" />

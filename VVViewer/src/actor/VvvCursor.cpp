@@ -42,7 +42,7 @@ void VvvCursor::processBehavior() {
             break;
         }
         case CUR_ON_MOVE: {
-            setAlpha(0.9);
+            setCullingDraw(false);
             _pProg->change(CUR_STAY);
             break;
         }

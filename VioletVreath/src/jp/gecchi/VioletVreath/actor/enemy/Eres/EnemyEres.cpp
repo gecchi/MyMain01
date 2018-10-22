@@ -5,9 +5,9 @@
 #include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/lib/util/spline/FixedFrameSplineAxesMoverLeader.h"
+#include "jp/ggaf/lib/util/spline/FixedFrameSplineTruckerLeader.h"
 #include "jp/ggaf/lib/util/spline/FixedFrameSplineKurokoLeader.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Eres/EnemyEresShot001.h"
 #include "jp/ggaf/lib/util/spline/FixedFrameSplineManufacture.h"
@@ -48,8 +48,8 @@ EnemyEres::EnemyEres(const char* prm_name, GgafActorDepository* prm_pDepo_EnemyE
 
     pSplManufConn_ = connectToSplineManufactureManager("EnemyEres_spline");
     SplineManufacture* pSplManuf = pSplManufConn_->peek();
-    pSplineLeader_ = pSplManuf->createAxesMoverLeader(getAxesMover());
-//    ((FixedFrameSplineAxesMoverLeader*)pSplineLeader_)->setGravitationParam(200, PX_C(100));
+    pSplineLeader_ = pSplManuf->createTruckerLeader(getTrucker());
+//    ((FixedFrameSplineTruckerLeader*)pSplineLeader_)->setGravitationParam(200, PX_C(100));
 
     GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
@@ -99,7 +99,7 @@ void EnemyEres::processBehavior() {
         iMovePatternNo_++;
     }
     pSplineLeader_->behave(); //スプライン移動を進める
-    getAxesMover()->behave();
+    getTrucker()->behave();
     getKuroko()->behave(); //次の座標へ移動
     //getSeTransmitter()->behave();
 }

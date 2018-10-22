@@ -41,7 +41,7 @@ void ShotMagic::onReset() {
 void ShotMagic::processCastBegin(int prm_now_level, int prm_new_level) {
     if (prm_new_level > prm_now_level) {
         pEffect_->setPositionAt(pMYSHIP->pMyMagicEnergyCore_);
-        pEffect_->setAlpha(0.9);
+        pEffect_->setCullingDraw(false);
         pEffect_->getKuroko()->setFaceAngVelo(AXIS_Z, 100);
         pEffect_->setScale(1000);
         pEffect_->activate();

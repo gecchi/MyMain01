@@ -69,7 +69,7 @@ void EnemyGlajaLance001::onActive() {
     pScaler->reset();
     pScaler->behave();
     getStatus()->reset();
-    setAlpha(0.99);
+    setCullingDraw(false);
     getProgress()->reset(PROG_INIT);
 }
 

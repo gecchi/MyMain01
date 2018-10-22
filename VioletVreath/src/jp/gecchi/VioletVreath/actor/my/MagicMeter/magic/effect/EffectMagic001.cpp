@@ -1,6 +1,6 @@
 #include "EffectMagic001.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -16,7 +16,7 @@ EffectMagic001::EffectMagic001(const char* prm_name)
 }
 
 void EffectMagic001::initialize() {
-    setAlpha(0.9);
+    setCullingDraw(false);
 //    getUvFlipper()->setFlipPtnRange(0, 63);
     setHitAble(false);
 }
@@ -30,9 +30,6 @@ void EffectMagic001::processBehavior() {
 }
 
 void EffectMagic001::processJudgement() {
-//    if (_alpha < 0) {
-//        sayonara();
-//    }
 }
 
 void EffectMagic001::onInactive() {

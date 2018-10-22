@@ -41,6 +41,7 @@ _pUvFlipper(NEW GgafDxUvFlipper(getModel()->getDefaultTextureConnection()->peek(
     _far_rate = -1.0f;
 
     _draw_fan_num = _pRegularPolygonSpriteModel->_angle_num;
+    _cull_mode = _pRegularPolygonSpriteModel->_drawing_order == 1 ?  D3DCULL_CCW : D3DCULL_CW;
 }
 
 void GgafDxRegularPolygonSpriteActor::processDraw() {

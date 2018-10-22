@@ -60,7 +60,7 @@ void EnemyEsperiaLaserChip001::onActive() {
     } else {
         getProgress()->reset(PROG_NOTHING);
     }
-    setAlpha(0.99);
+    setCullingDraw(false);
     //次のメンバーは EnemyEsperia 本体側から設定済みが前提
     //turn_dy_;
     //tx1_, ty1_, tz1_;

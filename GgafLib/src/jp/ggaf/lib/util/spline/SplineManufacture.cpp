@@ -69,8 +69,8 @@ SplineLeader* SplineManufacture::createKurokoLeader(GgafDxKuroko* prm_pKuroko) {
     return nullptr;
 }
 
-SplineLeader* SplineManufacture::createAxesMoverLeader(GgafDxAxesMover* prm_pAxesMover) {
-    throwGgafCriticalException("SplineManufacture::createAxesMoverLeader() 下位でオーバーライドして実装が必要です。");
+SplineLeader* SplineManufacture::createTruckerLeader(GgafDxTrucker* prm_pTrucker) {
+    throwGgafCriticalException("SplineManufacture::createTruckerLeader() 下位でオーバーライドして実装が必要です。");
     return nullptr;
 }
 

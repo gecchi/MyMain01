@@ -1,6 +1,6 @@
 #include "EffectBunshinMagic001.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 
 using namespace GgafCore;
@@ -17,7 +17,7 @@ EffectBunshinMagic001::EffectBunshinMagic001(const char* prm_name)
 }
 
 void EffectBunshinMagic001::initialize() {
-    setAlpha(0.9);
+    setCullingDraw(false);
     getScaler()->setRange(0, R_SC(4.0));
 }
 
@@ -33,9 +33,6 @@ void EffectBunshinMagic001::processBehavior() {
 
 void EffectBunshinMagic001::processJudgement() {
     EffectBlink::processJudgement();
-//    if (_alpha < 0) {
-//        sayonara();
-//    }
 }
 
 void EffectBunshinMagic001::onInactive() {

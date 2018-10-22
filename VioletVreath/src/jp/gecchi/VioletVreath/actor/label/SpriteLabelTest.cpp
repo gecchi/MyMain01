@@ -79,7 +79,7 @@ void SpriteLabelTest::onCreateModel() {
 }
 
 void SpriteLabelTest::initialize() {
-    setAlpha(0.9);
+    setCullingDraw(false);
 }
 
 void SpriteLabelTest::processBehavior() {

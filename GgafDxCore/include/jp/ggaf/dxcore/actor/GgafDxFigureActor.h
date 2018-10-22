@@ -56,6 +56,10 @@ public:
     GgafDxFigureActor* _pNextRenderActor;
     /** [r/w]現在のマテリアルのα値 (0.0 <= _alpha <= 1.0) */
     float _alpha;
+    /** [r/w]カリング有り表示の場合 true */
+    bool _cull_enable;
+    /** [r/w]カリング有り表示の場合のカリング方向 D3DCULL_CCW(default) or D3DCULL_CW */
+    DWORD _cull_mode;
     /** [r]現在描画に使用しているシェーダーテクニック名 */
     char* _technique;
     /** [r]現在描画に使用しているのシェーダーテクニックのハッシュコード */
@@ -73,6 +77,7 @@ public:
     bool _is_first_model_connector;
     /** [r]自身がエフェクトオブジェクトの最初のコネクターである場合true */
     bool _is_first_effect_connector;
+
 public:
     /**
      * コンストラクタ .
@@ -266,6 +271,13 @@ public:
 
     virtual GgafDxEffect* getEffect() const {
         return _pEffect;
+    }
+    /**
+     * カリング描画するかどうか。
+     * @param prm_bool true:カリング描画あり(default) / false:カリング無し、裏面も描画
+     */
+    inline void setCullingDraw(bool prm_bool) {
+        _cull_enable = prm_bool;
     }
 
     /**

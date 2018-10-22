@@ -319,6 +319,7 @@
     <ClCompile Include="src\jp\ggaf\lib\actor\laserchip\RefractionLaserChip.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\laserchip\StraightLaserChip.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\laserchip\WateringLaserChip.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\PieGraphSpriteActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\SingleLaser.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\SpriteMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\SpriteMeshSetActor.cpp" />
@@ -351,9 +352,9 @@
     <ClCompile Include="src\jp\ggaf\lib\util\Direction26Util.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\Direction8Util.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\SceneProgress.cpp" />
-    <ClCompile Include="src\jp\ggaf\lib\util\spline\FixedFrameSplineAxesMoverLeader.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\spline\FixedFrameSplineKurokoLeader.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\spline\FixedFrameSplineManufacture.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\spline\FixedFrameSplineTruckerLeader.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\spline\FixedVelocitySplineKurokoLeader.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\spline\FixedVelocitySplineManufacture.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\spline\SplineLeader.cpp" />
@@ -418,6 +419,7 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\StraightLaserChip.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\WateringLaserChip.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\menu\MenuActor.hpp" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\PieGraphSpriteActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\SingleLaser.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\SpriteMeshActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\SpriteMeshSetActor.h" />
@@ -452,9 +454,9 @@
     <ClInclude Include="include\jp\ggaf\lib\util\Quantity.hpp" />
     <ClInclude Include="include\jp\ggaf\lib\util\Quaternion.hpp" />
     <ClInclude Include="include\jp\ggaf\lib\util\SceneProgress.h" />
-    <ClInclude Include="include\jp\ggaf\lib\util\spline\FixedFrameSplineAxesMoverLeader.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\spline\FixedFrameSplineKurokoLeader.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\spline\FixedFrameSplineManufacture.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\spline\FixedFrameSplineTruckerLeader.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\spline\FixedVelocitySplineKurokoLeader.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\spline\FixedVelocitySplineManufacture.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\spline\SplineKurokoLeader.h" />

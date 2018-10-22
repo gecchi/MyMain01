@@ -140,7 +140,7 @@ void GgafDxFramedBoardModel::restore() {
     _papTextureConnection = nullptr;
     HRESULT hr;
 
-    std::string xfile_name = GgafDxModelManager::getSpriteFileName(_model_name);
+    std::string xfile_name = GgafDxModelManager::getSpriteFileName(_model_name, "sprx");
     GgafDxModelManager::SpriteXFileFmt xdata;
     pModelManager->obtainSpriteInfo(&xdata, xfile_name);
     _model_width_px  = xdata.width;
@@ -148,7 +148,7 @@ void GgafDxFramedBoardModel::restore() {
     _row_texture_split = xdata.row_texture_split;
     _col_texture_split = xdata.col_texture_split;
 
-    std::string xfile_name_frame = GgafDxModelManager::getSpriteFileName(std::string(_model_name)+"_frame");
+    std::string xfile_name_frame = GgafDxModelManager::getSpriteFileName(std::string(_model_name)+"_frame", "sprx");
     GgafDxModelManager::SpriteXFileFmt xdata_frame;
     pModelManager->obtainSpriteInfo(&xdata_frame, xfile_name_frame);
     _model_frame_width_px  = xdata_frame.width;

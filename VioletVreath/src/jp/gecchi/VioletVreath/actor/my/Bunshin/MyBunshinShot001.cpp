@@ -20,7 +20,7 @@ void MyBunshinShot001::initialize() {
     _sx = R_SC(45);
     _sy = _sz = R_SC(35);
     setBoundingSphereRadiusRate(45.0f);
-    setAlpha(0.99);
+    setCullingDraw(false);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAABox(0, -PX_C(50), -PX_C(50), -PX_C(50),

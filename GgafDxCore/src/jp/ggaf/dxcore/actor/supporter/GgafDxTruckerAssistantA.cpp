@@ -1,13 +1,13 @@
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxTruckerAssistantA.h"
 
 #include "jp/ggaf/core/util/GgafValueAccelerator.hpp"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
 
-GgafDxAxesMoverAssistantA::GgafDxAxesMoverAssistantA(GgafDxAxesMover* prm_pMaster) : GgafObject(),
+GgafDxTruckerAssistantA::GgafDxTruckerAssistantA(GgafDxTrucker* prm_pMaster) : GgafObject(),
         _pMaster(prm_pMaster) {
     _smthVxMv._t_velo = _pMaster->_velo_vx_mv;
     _smthVxMv._t_acce = _pMaster->_acce_vx_mv;
@@ -16,7 +16,7 @@ GgafDxAxesMoverAssistantA::GgafDxAxesMoverAssistantA(GgafDxAxesMover* prm_pMaste
     _smthVzMv._t_velo = _pMaster->_velo_vz_mv;
     _smthVzMv._t_acce = _pMaster->_acce_vz_mv;
 }
-void GgafDxAxesMoverAssistantA::behave() {
+void GgafDxTruckerAssistantA::behave() {
     if (_smthVxMv.isAccelerating()) {
         _smthVxMv.behave();
         _pMaster->setVxMvVelo(_smthVxMv._t_velo - _smthVxMv._t_acce);
@@ -35,7 +35,7 @@ void GgafDxAxesMoverAssistantA::behave() {
 
 }
 
-void GgafDxAxesMoverAssistantA::slideVxMvByDt(coord prm_target_distance, int prm_target_frames,
+void GgafDxTruckerAssistantA::slideVxMvByDt(coord prm_target_distance, int prm_target_frames,
                                               float prm_p1, float prm_p2, velo prm_end_velo,
                                               bool prm_zero_acc_end_flg) {
     _smthVxMv._t_value = 0;
@@ -46,7 +46,7 @@ void GgafDxAxesMoverAssistantA::slideVxMvByDt(coord prm_target_distance, int prm
                              prm_zero_acc_end_flg);
 }
 
-void GgafDxAxesMoverAssistantA::slideVyMvByDt(coord prm_target_distance, int prm_target_frames,
+void GgafDxTruckerAssistantA::slideVyMvByDt(coord prm_target_distance, int prm_target_frames,
                                               float prm_p1, float prm_p2, velo prm_end_velo,
                                               bool prm_zero_acc_end_flg) {
     _smthVyMv._t_value = 0;
@@ -57,7 +57,7 @@ void GgafDxAxesMoverAssistantA::slideVyMvByDt(coord prm_target_distance, int prm
                              prm_zero_acc_end_flg);
 }
 
-void GgafDxAxesMoverAssistantA::slideVzMvByDt(coord prm_target_distance, int prm_target_frames,
+void GgafDxTruckerAssistantA::slideVzMvByDt(coord prm_target_distance, int prm_target_frames,
                                               float prm_p1, float prm_p2, velo prm_end_velo,
                                               bool prm_zero_acc_end_flg) {
     _smthVzMv._t_value = 0;
@@ -68,7 +68,7 @@ void GgafDxAxesMoverAssistantA::slideVzMvByDt(coord prm_target_distance, int prm
                              prm_zero_acc_end_flg);
 }
 
-void GgafDxAxesMoverAssistantA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_target, coord prm_z_target,
+void GgafDxTruckerAssistantA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_target, coord prm_z_target,
                                                   int prm_target_frames,
                                                   float prm_p1, float prm_p2, velo prm_end_velo,
                                                   bool prm_zero_acc_end_flg) {
@@ -80,7 +80,7 @@ void GgafDxAxesMoverAssistantA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_
                      prm_zero_acc_end_flg);
 }
 
-void GgafDxAxesMoverAssistantA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_target, coord prm_z_target,
+void GgafDxTruckerAssistantA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_target, coord prm_z_target,
                                                   int prm_target_frames,
                                                   float prm_x_p1, float prm_x_p2, velo prm_x_end_velo,
                                                   float prm_y_p1, float prm_y_p2, velo prm_y_end_velo,
@@ -96,7 +96,7 @@ void GgafDxAxesMoverAssistantA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_
                      prm_zero_acc_end_flg);
 }
 
-void GgafDxAxesMoverAssistantA::slideVxMvByVd(velo prm_top_velo, coord prm_target_distance,
+void GgafDxTruckerAssistantA::slideVxMvByVd(velo prm_top_velo, coord prm_target_distance,
                                               float prm_p1, float prm_p2, velo prm_end_velo,
                                               bool prm_zero_acc_end_flg) {
     _smthVxMv._t_value = 0;
@@ -107,7 +107,7 @@ void GgafDxAxesMoverAssistantA::slideVxMvByVd(velo prm_top_velo, coord prm_targe
                              prm_zero_acc_end_flg);
 }
 
-void GgafDxAxesMoverAssistantA::slideVyMvByVd(velo prm_top_velo, coord prm_target_distance,
+void GgafDxTruckerAssistantA::slideVyMvByVd(velo prm_top_velo, coord prm_target_distance,
                                               float prm_p1, float prm_p2, velo prm_end_velo,
                                               bool prm_zero_acc_end_flg) {
     _smthVyMv._t_value = 0;
@@ -118,7 +118,7 @@ void GgafDxAxesMoverAssistantA::slideVyMvByVd(velo prm_top_velo, coord prm_targe
                              prm_zero_acc_end_flg);
 }
 
-void GgafDxAxesMoverAssistantA::slideVzMvByVd(velo prm_top_velo, coord prm_target_distance,
+void GgafDxTruckerAssistantA::slideVzMvByVd(velo prm_top_velo, coord prm_target_distance,
                                               float prm_p1, float prm_p2, velo prm_end_velo,
                                               bool prm_zero_acc_end_flg) {
     _smthVzMv._t_value = 0;
@@ -129,7 +129,7 @@ void GgafDxAxesMoverAssistantA::slideVzMvByVd(velo prm_top_velo, coord prm_targe
                              prm_zero_acc_end_flg);
 }
 
-void GgafDxAxesMoverAssistantA::slideVxyzMvByVd(velo prm_top_velo,
+void GgafDxTruckerAssistantA::slideVxyzMvByVd(velo prm_top_velo,
                                                 coord prm_x_target_distance, coord prm_y_target_distance, coord prm_z_target_distance,
                                                 float prm_p1, float prm_p2, velo prm_end_velo,
                                                 bool prm_zero_acc_end_flg) {
@@ -147,7 +147,7 @@ void GgafDxAxesMoverAssistantA::slideVxyzMvByVd(velo prm_top_velo,
     }
 }
 
-void GgafDxAxesMoverAssistantA::slideVxyzMvByVdTo(velo prm_top_velo,
+void GgafDxTruckerAssistantA::slideVxyzMvByVdTo(velo prm_top_velo,
                                                   coord prm_x_target, coord prm_y_target, coord prm_z_target,
                                                   float prm_p1, float prm_p2, velo prm_end_velo,
                                                   bool prm_zero_acc_end_flg) {
@@ -159,7 +159,7 @@ void GgafDxAxesMoverAssistantA::slideVxyzMvByVdTo(velo prm_top_velo,
                     prm_zero_acc_end_flg);
 }
 
-GgafDxAxesMoverAssistantA::~GgafDxAxesMoverAssistantA() {
+GgafDxTruckerAssistantA::~GgafDxTruckerAssistantA() {
 }
 
 

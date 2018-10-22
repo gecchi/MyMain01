@@ -330,8 +330,19 @@ public:
      */
     void exec(GgafDxUvFlippingMethod prm_method, int prm_interval = 1);
 
-    void stopFlip() {
+    /**
+     * アニメーションを停止 .
+     */
+    void stop() {
         exec(NOT_ANIMATED);
+    }
+
+    /**
+     * アニメーション中であるか .
+     * @return true : アニメーション中 / false : アニメーション中ではない
+     */
+    bool isFlipping() {
+        return _uvflip_method == NOT_ANIMATED ? false : true;
     }
 
 };

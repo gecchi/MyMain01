@@ -313,8 +313,6 @@
     <ClCompile Include="src\jp\ggaf\dxcore\actor\interface\GgafDxIBumpMapActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\interface\GgafDxICubeMapActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxAlphaFader.cpp" />
-    <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxAxesMover.cpp" />
-    <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxAxesMoverAssistantA.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxChecker.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxColorist.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxKuroko.cpp" />
@@ -324,6 +322,8 @@
     <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxPuppeteer.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxScaler.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxSeTransmitterForActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxTrucker.cpp" />
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxTruckerAssistantA.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxUvFlipper.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\effect\ex\GgafDxCubeMapMeshEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dxcore\effect\ex\GgafDxCubeMapMeshSetEffect.cpp" />
@@ -458,7 +458,6 @@
     <ClInclude Include="include\jp\ggaf\dxcore\actor\interface\ggafdxicubemapactor.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxalphafader.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxaxesmover.h" />
-    <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxaxesmoverassistanta.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxchecker.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxcolorist.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxkuroko.h" />
@@ -470,6 +469,8 @@
     <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxpuppeteer.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxscaler.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxsetransmitterforactor.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\GgafDxTrucker.h" />
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\GgafDxTruckerAssistantA.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxuvflipper.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\effect\ex\GgafDxCubeMapMeshEffect.h" />
     <ClInclude Include="include\jp\ggaf\dxcore\effect\ex\GgafDxCubeMapMeshSetEffect.h" />

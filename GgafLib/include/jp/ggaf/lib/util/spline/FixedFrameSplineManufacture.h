@@ -84,7 +84,7 @@ public:
      */
     SplineLeader* createKurokoLeader(GgafDxCore::GgafDxKuroko* prm_pKuroko) override;
 
-    SplineLeader* createAxesMoverLeader(GgafDxCore::GgafDxAxesMover* prm_pAxesMover) override;
+    SplineLeader* createTruckerLeader(GgafDxCore::GgafDxTrucker* prm_pTrucker) override;
 
     virtual ~FixedFrameSplineManufacture();
 };

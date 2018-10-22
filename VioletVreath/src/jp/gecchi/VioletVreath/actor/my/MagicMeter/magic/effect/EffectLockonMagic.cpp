@@ -21,7 +21,7 @@ EffectLockonMagic::EffectLockonMagic(const char* prm_name) :
 }
 
 void EffectLockonMagic::initialize() {
-    setAlpha(0.9);
+    setCullingDraw(false);
     getUvFlipper()->exec(FLIP_ORDER_LOOP, 1);
 }
 

@@ -66,12 +66,6 @@
     <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxAlphaFader.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxAxesMover.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxAxesMoverAssistantA.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxChecker.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -438,6 +432,12 @@
     <ClCompile Include="src\jp\ggaf\dxcore\model\GgafDxRegularPolygonSpriteModel.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxTrucker.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\ggaf\dxcore\actor\supporter\GgafDxTruckerAssistantA.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\jp\ggaf\dxcore\actor\camera\ggafdxcamera.h">
@@ -492,9 +492,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxaxesmover.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxaxesmoverassistanta.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\ggafdxchecker.h">
@@ -888,6 +885,12 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\dxcore\model\GgafDxRegularPolygonSpriteModel.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\GgafDxTrucker.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\dxcore\actor\supporter\GgafDxTruckerAssistantA.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

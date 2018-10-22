@@ -76,23 +76,33 @@ private:
 public:
 
     struct SpriteXFileFmt {
-        float width;
-        float height;
+        FLOAT width;
+        FLOAT height;
         char texture_file[256];
-        int row_texture_split;
-        int col_texture_split;
+        DWORD row_texture_split;
+        DWORD col_texture_split;
+    };
+
+    struct RegularPolygonSpriteXFileFmt {
+        FLOAT width;
+        FLOAT height;
+        char texture_file[256];
+        DWORD row_texture_split;
+        DWORD col_texture_split;
+        FLOAT circumference_begin_position; //FAN描画の円周開始位置
+        DWORD drawing_order;   //FAN描画順方向
     };
 
     class PointSpriteXFileFmt {
     public:
-        float SquareSize;
+        FLOAT SquareSize;
         char TextureFile[256];
-        int TextureSplitRowCol;
-        int VerticesNum;
+        DWORD TextureSplitRowCol;
+        DWORD VerticesNum;
         D3DVECTOR* paD3DVECTOR_Vertices;
         D3DCOLORVALUE* paD3DVECTOR_VertexColors;
-        int* paInt_InitUvPtnNo;
-        float* paFLOAT_InitScale;
+        DWORD* paInt_InitUvPtnNo;
+        FLOAT* paFLOAT_InitScale;
         PointSpriteXFileFmt() {
             SquareSize = 1;
             TextureSplitRowCol = 1;
@@ -113,12 +123,12 @@ public:
     GgafDxTextureManager* _pModelTextureManager;
     /** カスタムテンプレートXファイル読み込み用の ID3DXFile のポインタ */
     ID3DXFile* _pID3DXFile_sprx;
+    ID3DXFile* _pID3DXFile_rsprx; //RegularPolygonSprite 用
     ID3DXFile* _pID3DXFile_psprx;
     static std::string getMeshFileName(std::string prm_model_name);
-    static std::string getSpriteFileName(std::string prm_model_name);
-    static std::string getPointSpriteFileName(std::string prm_model_name);
-
-    void obtainSpriteInfo(SpriteXFileFmt* pSpriteFmt_out, std::string prm_sprite_x_filename);
+    static std::string getSpriteFileName(std::string prm_model_name, std::string prm_ext);
+    void obtainSpriteInfo(SpriteXFileFmt* prm_pSpriteFmt_out, std::string prm_sprite_x_filename);
+    void obtainRegularPolygonSpriteSpriteInfo(RegularPolygonSpriteXFileFmt* prm_pRglrPlygnSpriteFmt_out, std::string prm_sprite_x_filename);
     void obtainPointSpriteInfo(PointSpriteXFileFmt* pPointSpriteFmt_out, std::string prm_point_sprite_x_filename);
 public:
     /**

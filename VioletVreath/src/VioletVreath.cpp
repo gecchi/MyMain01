@@ -122,7 +122,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
         //“Á‚É‰½‚à–³‚µ
     #endif
 #endif
-
     MSG msg;
     VioletVreath::God god;
 #ifdef MY_DEBUG

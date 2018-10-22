@@ -47,7 +47,7 @@ void MyStraightLaserChip001::initialize() {
 
     setHitAble(true);
     setScaleR(5.0);
-    setAlpha(0.99);
+    setCullingDraw(false);
 }
 
 void MyStraightLaserChip001::onCreateModel() {

@@ -52,7 +52,7 @@ void MagicLvCursor003::processAfterDraw() {
 }
 
 void MagicLvCursor003::markOff() {
-    getUvFlipper()->stopFlip();
+    getUvFlipper()->stop();
     getAlphaFader()->reset();
     setAlpha(0);
 }

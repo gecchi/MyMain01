@@ -18,7 +18,7 @@ MySnipeShot001::MySnipeShot001(const char* prm_name) :
 void MySnipeShot001::initialize() {
     setHitAble(false);
     setScaleR(4.0);
-    setAlpha(0.99);
+    setCullingDraw(false);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAABox(0, -PX_C(80), -PX_C(5), -PX_C(5),

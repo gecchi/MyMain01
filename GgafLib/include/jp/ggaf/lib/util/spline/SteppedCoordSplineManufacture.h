@@ -36,7 +36,7 @@ public:
     /**
      * SplineLeader オブジェクトの生成 .
      * インスタンスは SteppedCoordSplineKurokoLeader です。
-     * @param GgafDxAxesMover スプライン移動するための操作するオブジェクト
+     * @param GgafDxTrucker スプライン移動するための操作するオブジェクト
      * @return SplineLeader オブジェクト
      */
     SplineLeader* createKurokoLeader(GgafDxCore::GgafDxKuroko* prm_pKuroko) override;

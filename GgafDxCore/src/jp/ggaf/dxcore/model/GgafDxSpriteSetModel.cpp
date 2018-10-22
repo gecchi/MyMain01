@@ -173,11 +173,11 @@ void GgafDxSpriteSetModel::restore() {
     std::string xfile_name; //読み込むスプライト定義ファイル名（Xファイル形式）
     //"12/Bomb" or "8/Bomb" or "Bomb" から "Bomb" だけ取とりだしてフルパス名取得
     if (*(_model_name + 1) == '/') {
-        xfile_name = GgafDxModelManager::getSpriteFileName(std::string(_model_name + 2));
+        xfile_name = GgafDxModelManager::getSpriteFileName(std::string(_model_name + 2), "sprx");
     } else if (*(_model_name + 2) == '/') {
-        xfile_name = GgafDxModelManager::getSpriteFileName(std::string(_model_name + 3));
+        xfile_name = GgafDxModelManager::getSpriteFileName(std::string(_model_name + 3), "sprx");
     } else {
-        xfile_name = GgafDxModelManager::getSpriteFileName(std::string(_model_name));
+        xfile_name = GgafDxModelManager::getSpriteFileName(std::string(_model_name), "sprx");
     }
     GgafDxModelManager::SpriteXFileFmt xdata;
     pModelManager->obtainSpriteInfo(&xdata, xfile_name);

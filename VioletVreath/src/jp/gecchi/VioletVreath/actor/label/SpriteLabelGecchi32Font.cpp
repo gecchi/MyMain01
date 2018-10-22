@@ -16,7 +16,7 @@ void SpriteLabelGecchi32Font::onCreateModel() {
 }
 
 void SpriteLabelGecchi32Font::initialize() {
-    setAlpha(0.9);
+    setCullingDraw(false);
 }
 
 void SpriteLabelGecchi32Font::processBehavior() {

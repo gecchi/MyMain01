@@ -1,8 +1,8 @@
 #include "jp/ggaf/lib/actor/camera/worker/CameraWorker.h"
 
 #include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxTruckerAssistantA.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAssistant.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoFaceAngAssistant.h"
@@ -125,11 +125,11 @@ void CameraWorker::setUpVec(coord tx, coord ty, coord tz) {
     pUp_->setPosition(tx,ty,tz);
 }
 void CameraWorker::stopMvCam() {
-    pCam_->getAxesMover()->stopMv();
+    pCam_->getTrucker()->stopMv();
 }
 
 void CameraWorker::stopMvVp() {
-    pVp_->getAxesMover()->stopMv();
+    pVp_->getTrucker()->stopMv();
 }
 
 CameraWorker::~CameraWorker() {

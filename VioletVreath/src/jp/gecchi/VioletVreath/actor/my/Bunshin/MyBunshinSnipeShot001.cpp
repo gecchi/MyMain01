@@ -18,7 +18,7 @@ MyBunshinSnipeShot001::MyBunshinSnipeShot001(const char* prm_name) :
 void MyBunshinSnipeShot001::initialize() {
     setHitAble(false);
     setScaleR(4.0);
-    setAlpha(0.99);
+    setCullingDraw(false);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAABox(0, -PX_C(50), -PX_C(50), -PX_C(50),

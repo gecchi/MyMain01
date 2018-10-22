@@ -1,9 +1,9 @@
 #include "jp/ggaf/lib/actor/camera/DefaultCameraViewPoint.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAssistant.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxTruckerAssistantA.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -17,13 +17,13 @@ void DefaultCameraViewPoint::initialize() {
 }
 
 void DefaultCameraViewPoint::processBehavior() {
-    getAxesMover()->behave();
+    getTrucker()->behave();
     getKuroko()->behave();
 }
 
 void DefaultCameraViewPoint::slideMvTo(coord tx, coord ty, coord tz, frame t, float prm_p1, float prm_p2) {
     //ƒJƒƒ‰‚Ê‚é‚Á‚ÆˆÚ“®
-    getAxesMover()->asst()->slideVxyzMvByDtTo(
+    getTrucker()->asst()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,
                               prm_p1, prm_p2, 0, true);
 }

@@ -153,11 +153,11 @@ void GgafDxBoardSetModel::restore() {
     //"12/Moji" or "8/Moji" or "Moji" から "Moji" だけ取とりだしてフルパス名取得。
     //TODO:数値3桁("123/Moji"とか)が来たら困る。
     if (*(_model_name + 1) == '/') {
-        xfile_name = GgafDxModelManager::getSpriteFileName(std::string(_model_name + 2));
+        xfile_name = GgafDxModelManager::getSpriteFileName(std::string(_model_name + 2), "sprx");
     } else if (*(_model_name + 2) == '/') {
-        xfile_name = GgafDxModelManager::getSpriteFileName(std::string(_model_name + 3));
+        xfile_name = GgafDxModelManager::getSpriteFileName(std::string(_model_name + 3), "sprx");
     } else {
-        xfile_name = GgafDxModelManager::getSpriteFileName(std::string(_model_name));
+        xfile_name = GgafDxModelManager::getSpriteFileName(std::string(_model_name), "sprx");
     }
     GgafDxModelManager::SpriteXFileFmt xdata;
     pModelManager->obtainSpriteInfo(&xdata, xfile_name);

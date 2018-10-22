@@ -44,9 +44,6 @@ void EffectWormhole001::processBehavior() {
 }
 
 void EffectWormhole001::processJudgement() {
-//    if (_alpha < 0) {
-//        sayonara();
-//    }
 }
 
 void EffectWormhole001::onInactive() {

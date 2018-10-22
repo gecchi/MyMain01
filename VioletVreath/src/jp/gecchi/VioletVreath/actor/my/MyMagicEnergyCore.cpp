@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/dxcore/actor/GgafDxFigureActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
@@ -37,7 +37,7 @@ void MyMagicEnergyCore::initialize() {
 }
 
 void MyMagicEnergyCore::onActive() {
-    getAxesMover()->execGravitationMvSequenceTwd(
+    getTrucker()->execGravitationMvSequenceTwd(
                       pMYSHIP,
                       +PX_C(90), 0, 0,
                       PX_C(10), 1000, PX_C(20));
@@ -59,7 +59,7 @@ void MyMagicEnergyCore::processBehavior() {
         pChecker->disable(0);
     }
     getScaler()->behave();
-    getAxesMover()->behave();
+    getTrucker()->behave();
     pKuroko->behave();
 }
 

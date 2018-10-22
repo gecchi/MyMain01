@@ -20,7 +20,7 @@ void EnemyStraightLaserChip001::initialize() {
     registerHitAreaCube_AutoGenMidColli(15000);
     setHitAble(true);
     setScaleR(6.0);
-    setAlpha(0.99);
+    setCullingDraw(false);
 }
 
 void EnemyStraightLaserChip001::onActive() {

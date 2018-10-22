@@ -1,9 +1,9 @@
 #include "jp/ggaf/lib/actor/camera/DefaultCamera.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAssistant.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMoverAssistantA.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxTruckerAssistantA.h"
 #include "jp/ggaf/lib/util/Direction26Util.h"
 #include "jp/ggaf/dxcore/util/GgafDxUtil.h"
 #include "jp/ggaf/lib/actor/camera/DefaultCameraViewPoint.h"
@@ -52,13 +52,13 @@ void DefaultCamera::initialize() {
 }
 
 void DefaultCamera::processBehavior() {
-    getAxesMover()->behave();
+    getTrucker()->behave();
     getKuroko()->behave();
     GgafDxCamera::processBehavior();
 }
 
 void DefaultCamera::slideMvTo(coord tx, coord ty, coord tz, frame t, float prm_p1, float prm_p2) {
-    getAxesMover()->asst()->slideVxyzMvByDtTo(
+    getTrucker()->asst()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,
                               prm_p1, prm_p2, 0, true);
 }
@@ -69,7 +69,7 @@ void DefaultCamera::slideMvTo(GgafDxGeometricActor* pTarget, frame t, float prm_
 
 void DefaultCamera::slideMvTo(coord tx, coord ty, coord tz, frame t,
                        float prm_x_p1, float prm_y_p1, float prm_z_p1) {
-    getAxesMover()->asst()->slideVxyzMvByDtTo(
+    getTrucker()->asst()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,
                               prm_x_p1, prm_x_p1, 0,
                               prm_y_p1, prm_y_p1, 0,
@@ -94,7 +94,7 @@ dir26 DefaultCamera::getVpDirNo() {
 }
 
 bool DefaultCamera::isSliding() {
-    return getAxesMover()->asst()->isSliding();
+    return getTrucker()->asst()->isSliding();
 }
 
 DefaultCamera::~DefaultCamera() {

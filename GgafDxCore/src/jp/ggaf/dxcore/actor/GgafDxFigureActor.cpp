@@ -63,6 +63,8 @@ _pAlphaFader(nullptr)
         _paMaterial[i] = _pModel->_paMaterial_default[i];
     }
     _alpha = 1.0f;
+    _cull_enable = true;
+    _cull_mode = D3DCULL_CCW;
     //Å‘å‹——£’¸“_
     _now_drawdepth = 0;
     _specal_render_depth_index = -1;
@@ -127,6 +129,8 @@ _pAlphaFader(nullptr)
         _paMaterial[i] = _pModel->_paMaterial_default[i];
     }
     _alpha = 1.0f;
+    _cull_enable = true;
+    _cull_mode = D3DCULL_CCW;
     _now_drawdepth = 0;
     _specal_render_depth_index = -1;
     _zenable = true;

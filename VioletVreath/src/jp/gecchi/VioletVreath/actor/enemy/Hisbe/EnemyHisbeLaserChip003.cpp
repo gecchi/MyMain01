@@ -27,7 +27,7 @@ void EnemyHisbeLaserChip003::initialize() {
     registerHitAreaCube_AutoGenMidColli(20000);
     setHitAble(true, false);
     setScaleR(5.0);
-    setAlpha(0.9);
+    setCullingDraw(false);
 
     getKuroko()->linkFaceAngByMvAng(true);
     sp_index_ = 0;

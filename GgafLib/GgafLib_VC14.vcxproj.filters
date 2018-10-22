@@ -282,9 +282,6 @@
     <ClCompile Include="src\jp\ggaf\lib\util\Direction26Util.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\jp\ggaf\lib\util\spline\FixedFrameSplineAxesMoverLeader.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="src\jp\ggaf\lib\util\spline\SplineLeader.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -292,6 +289,12 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultRegularPolygonSpriteActor.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\ggaf\lib\actor\PieGraphSpriteActor.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\ggaf\lib\util\spline\FixedFrameSplineTruckerLeader.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -584,9 +587,6 @@
     <ClInclude Include="include\jp\ggaf\lib\util\Quaternion.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="include\jp\ggaf\lib\util\spline\FixedFrameSplineAxesMoverLeader.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="include\jp\ggaf\lib\util\spline\SplineLeader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -594,6 +594,12 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultRegularPolygonSpriteActor.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\lib\actor\PieGraphSpriteActor.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\lib\util\spline\FixedFrameSplineTruckerLeader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

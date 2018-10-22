@@ -97,7 +97,7 @@ public:
      */
     virtual SplineLeader* createKurokoLeader(GgafDxCore::GgafDxKuroko* prm_pKuroko);
 
-    virtual SplineLeader* createAxesMoverLeader(GgafDxCore::GgafDxAxesMover* prm_pAxesMover);
+    virtual SplineLeader* createTruckerLeader(GgafDxCore::GgafDxTrucker* prm_pTrucker);
 
     virtual ~SplineManufacture();
 };

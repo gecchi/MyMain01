@@ -17,7 +17,7 @@ TestNomalShot::TestNomalShot(const char* prm_name) :
 
 void TestNomalShot::initialize() {
     setHitAble(false);
-    setAlpha(0.99);
+    setCullingDraw(false);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAABox(0, -PX_C(30), -PX_C(30), -PX_C(30),

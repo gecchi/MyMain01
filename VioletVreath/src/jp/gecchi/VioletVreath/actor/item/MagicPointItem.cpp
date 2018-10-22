@@ -1,7 +1,7 @@
 #include "MagicPointItem.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/item/Item.h"
@@ -31,7 +31,7 @@ MagicPointItem::MagicPointItem(const char* prm_name, const char* prm_model, Ggaf
     effectBlendOne(); //加算合成するTechnique指定
     setZEnableDraw(true);        //描画時、Zバッファ値は考慮される
     setZWriteEnable(false);  //自身のZバッファを書き込みしない
-    setAlpha(0.9);
+    setCullingDraw(false);
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setRollPitchYawFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
     pKuroko->linkFaceAngByMvAng(true);
@@ -51,11 +51,11 @@ void MagicPointItem::initialize() {
 void MagicPointItem::onActive() {
     // _x, _y, _z は発生元座標に設定済み
     setHitAble(true, false);
-    GgafDxAxesMover* const pAxesMover = getAxesMover();
-    pAxesMover->forceVxyzMvVeloRange(-30000, 30000);
-    pAxesMover->setZeroVxyzMvVelo();
-    pAxesMover->setZeroVxyzMvAcce();
-    pAxesMover->stopGravitationMvSequence();
+    GgafDxTrucker* const pTrucker = getTrucker();
+    pTrucker->forceVxyzMvVeloRange(-30000, 30000);
+    pTrucker->setZeroVxyzMvVelo();
+    pTrucker->setZeroVxyzMvAcce();
+    pTrucker->stopGravitationMvSequence();
 
     //初期方向設定
     MyShip* pMyShip = pMYSHIP;
@@ -87,7 +87,7 @@ void MagicPointItem::onActive() {
 void MagicPointItem::processBehavior() {
     MyShip* pMyShip = pMYSHIP;
     GgafDxKuroko* const pKuroko = getKuroko();
-    GgafDxAxesMover* const pAxesMover = getAxesMover();
+    GgafDxTrucker* const pTrucker = getTrucker();
     GgafProgress* const pProg = getProgress();
     //通常移動
     if (pProg->get() == PROG_DRIFT) {
@@ -105,10 +105,10 @@ void MagicPointItem::processBehavior() {
         MyMagicEnergyCore* pE = pMyShip->pMyMagicEnergyCore_;
         if (pProg->hasJustChanged()) {
             //自機に引力で引き寄せられるような動き設定
-            pAxesMover->setVxyzMvVelo(pKuroko->_vX * pKuroko->_velo_mv,
+            pTrucker->setVxyzMvVelo(pKuroko->_vX * pKuroko->_velo_mv,
                                      pKuroko->_vY * pKuroko->_velo_mv,
                                      pKuroko->_vZ * pKuroko->_velo_mv);
-            pAxesMover->execGravitationMvSequenceTwd(pE,
+            pTrucker->execGravitationMvSequenceTwd(pE,
                                                     PX_C(50), 300, PX_C(300));
             pKuroko->stopMv();
         }
@@ -129,9 +129,9 @@ void MagicPointItem::processBehavior() {
     if (pProg->get() == PROG_ABSORB) {
         MyMagicEnergyCore* pE = pMyShip->pMyMagicEnergyCore_;
         if (pProg->hasJustChanged()) {
-            pAxesMover->setZeroVxyzMvVelo();
-            pAxesMover->setZeroVxyzMvAcce();
-            pAxesMover->stopGravitationMvSequence();
+            pTrucker->setZeroVxyzMvVelo();
+            pTrucker->setZeroVxyzMvAcce();
+            pTrucker->stopGravitationMvSequence();
         }
         _x = pE->_x + kDX_;
         _y = pE->_y + kDY_;
@@ -146,7 +146,7 @@ void MagicPointItem::processBehavior() {
         }
     }
     pKuroko->behave();
-    pAxesMover->behave();
+    pTrucker->behave();
 }
 
 void MagicPointItem::processJudgement() {

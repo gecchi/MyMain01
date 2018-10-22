@@ -22,7 +22,7 @@ void AliceShot::initialize() {
     pChecker->setColliAACube(0, PX_C(16));
 }
 void AliceShot::onReset() {
-    setAlpha(0.99); //”¼“§–¾‚É‚·‚é‚±‚Æ‚Å—¼–ÊƒŒƒ“ƒ_ƒŠƒ“ƒO
+    setCullingDraw(false);
     GgafDxKuroko* const pKuroko = getKuroko();
     pKuroko->setRollFaceAngVelo(D_ANG(3));
     pKuroko->linkFaceAngByMvAng(true);

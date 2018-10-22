@@ -20,7 +20,7 @@ void EnemyOzartiaLaserChip01::initialize() {
     registerHitAreaCube_AutoGenMidColli(20000);
     setHitAble(true, false); //‰æ–ÊŠO“–‚½‚è”»’è‚Í–³‚µ
     setScaleR(5.0);
-    setAlpha(0.9);
+    setCullingDraw(false);
 }
 
 void EnemyOzartiaLaserChip01::onActive() {

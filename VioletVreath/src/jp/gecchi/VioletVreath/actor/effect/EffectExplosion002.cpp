@@ -17,14 +17,14 @@ EffectExplosion002::EffectExplosion002(const char* prm_name) :
 
 void EffectExplosion002::initialize() {
     setHitAble(false);
-
 }
 
 void EffectExplosion002::onActive() {
     GgafDxUvFlipper* pUvFlipper = getUvFlipper();
     pUvFlipper->setActivePtnToTop();
     pUvFlipper->exec(FLIP_ORDER_NOLOOP, 1); //パラパラアニメ無し
-    setAlpha(0.99);
+    setCullingDraw(false);
+    setAlpha(1.0);
     _sx = _sy = _sz = 1000;
 }
 
@@ -38,7 +38,8 @@ void EffectExplosion002::processBehavior() {
 }
 
 void EffectExplosion002::processJudgement() {
-    if (_alpha < 0) {
+    if (!getUvFlipper()->isFlipping()) {
+        //アニメーションが終わったら終了
         sayonara();
     }
 }

@@ -19,7 +19,7 @@ MyMagicEnergy::MyMagicEnergy(const char* prm_name, MyMagicEnergyCore* prm_pCore)
     setZEnableDraw(true);        //Zバッファは考慮して描画
     setZWriteEnable(false);  //自身のZバッファを書き込みしない
     setHitAble(false);
-    setAlpha(0.9);
+    setCullingDraw(false);
 }
 
 void MyMagicEnergy::onCreateModel() {

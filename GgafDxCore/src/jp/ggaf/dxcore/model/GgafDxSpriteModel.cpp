@@ -133,7 +133,7 @@ void GgafDxSpriteModel::restore() {
     GgafDxModelManager* pModelManager = pGOD->_pModelManager;
     _papTextureConnection = nullptr;
     HRESULT hr;
-    std::string xfile_name = GgafDxModelManager::getSpriteFileName(_model_name);
+    std::string xfile_name = GgafDxModelManager::getSpriteFileName(_model_name, "sprx");
     GgafDxModelManager::SpriteXFileFmt xdata;
     pModelManager->obtainSpriteInfo(&xdata, xfile_name);
     _model_width_px = xdata.width;

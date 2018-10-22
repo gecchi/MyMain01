@@ -38,9 +38,9 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model, GgafStatus* pr
     _hdx = _hdy = _hdz = 0;
     _can_chikei_hit = false;
 
-    setZEnableDraw(true);        //描画時、Zバッファ値は考慮される
+    setZEnableDraw(true);    //描画時、Zバッファ値は考慮される
     setZWriteEnable(false);  //自身のZバッファを書き込みしない
-    setAlpha(0.99);
+    setCullingDraw(false);
     _middle_colli_able = false;
     _rate_of_length = 1.0f;
     _pMassMeshModel->registerCallback_VertexInstanceDataInfo(LaserChip::createVertexInstanceData);

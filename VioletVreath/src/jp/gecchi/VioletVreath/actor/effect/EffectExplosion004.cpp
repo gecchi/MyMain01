@@ -30,7 +30,8 @@ void EffectExplosion004::onActive() {
     pUvFlipper->exec(FLIP_ORDER_NOLOOP, 1);
     setScale(500);
     getScaler()->transitionLinearUntil(2000, 64);
-    setAlpha(0.99);
+    setCullingDraw(false);
+    setAlpha(1.0);
 }
 
 void EffectExplosion004::processBehavior() {
@@ -41,7 +42,8 @@ void EffectExplosion004::processBehavior() {
 }
 
 void EffectExplosion004::processJudgement() {
-    if (_alpha < 0) {
+    if (!getUvFlipper()->isFlipping()) {
+        //アニメーションが終わったら終了
         sayonara();
     }
 }

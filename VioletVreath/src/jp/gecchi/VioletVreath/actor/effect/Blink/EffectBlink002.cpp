@@ -18,7 +18,7 @@ EffectBlink002::EffectBlink002(const char* prm_name) :
 void EffectBlink002::initialize() {
     EffectBlink::initialize();
     //getUvFlipper()->exec(FLIP_ORDER_LOOP, 1);
-    setAlpha(0.99);
+    setCullingDraw(false);
 }
 
 void EffectBlink002::onActive() {

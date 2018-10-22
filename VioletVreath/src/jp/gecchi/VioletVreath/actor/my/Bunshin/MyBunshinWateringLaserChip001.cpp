@@ -6,7 +6,7 @@
 #include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
 #include "jp/ggaf/core/util/GgafResourceConnection.hpp"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
@@ -58,14 +58,14 @@ void MyBunshinWateringLaserChip001::initialize() {
     registerHitAreaCube_AutoGenMidColli(PX_C(80));
     setHitAble(true);
     setScaleR(6.0);
-    setAlpha(0.99);
-    GgafDxAxesMover* const pAxesMover = getAxesMover();
-    pAxesMover->forceVxMvVeloRange(-MAX_VELO_RENGE, MAX_VELO_RENGE);
-    pAxesMover->forceVyMvVeloRange(-MAX_VELO_RENGE*1.5, MAX_VELO_RENGE*1.5);
-    pAxesMover->forceVzMvVeloRange(-MAX_VELO_RENGE*1.5, MAX_VELO_RENGE*1.5);
-    pAxesMover->forceVxMvAcceRange(-MAX_ACCE_RENGE, MAX_ACCE_RENGE);
-    pAxesMover->forceVyMvAcceRange(-MAX_ACCE_RENGE*1.5, MAX_ACCE_RENGE*1.5);
-    pAxesMover->forceVzMvAcceRange(-MAX_ACCE_RENGE*1.5, MAX_ACCE_RENGE*1.5);
+    setCullingDraw(false);
+    GgafDxTrucker* const pTrucker = getTrucker();
+    pTrucker->forceVxMvVeloRange(-MAX_VELO_RENGE, MAX_VELO_RENGE);
+    pTrucker->forceVyMvVeloRange(-MAX_VELO_RENGE*1.5, MAX_VELO_RENGE*1.5);
+    pTrucker->forceVzMvVeloRange(-MAX_VELO_RENGE*1.5, MAX_VELO_RENGE*1.5);
+    pTrucker->forceVxMvAcceRange(-MAX_ACCE_RENGE, MAX_ACCE_RENGE);
+    pTrucker->forceVyMvAcceRange(-MAX_ACCE_RENGE*1.5, MAX_ACCE_RENGE*1.5);
+    pTrucker->forceVzMvAcceRange(-MAX_ACCE_RENGE*1.5, MAX_ACCE_RENGE*1.5);
 }
 
 void MyBunshinWateringLaserChip001::onCreateModel() {
@@ -85,7 +85,7 @@ void MyBunshinWateringLaserChip001::onActive() {
 }
 
 void MyBunshinWateringLaserChip001::processBehavior() {
-    GgafDxAxesMover* const pAxesMover = getAxesMover();
+    GgafDxTrucker* const pTrucker = getTrucker();
     frame active_frame = getActiveFrame();
     MyBunshin::AimInfo* pAimInfo = pAimInfo_;
 
@@ -166,9 +166,9 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                                 pAimInfo->t2_y,
                                 pAimInfo->t2_z );
                     } else {
-                        aimChip(_x + pAxesMover->_velo_vx_mv*4+1,
-                                _y + pAxesMover->_velo_vy_mv*4+1,
-                                _z + pAxesMover->_velo_vz_mv*4+1 );
+                        aimChip(_x + pTrucker->_velo_vx_mv*4+1,
+                                _y + pTrucker->_velo_vy_mv*4+1,
+                                _z + pTrucker->_velo_vz_mv*4+1 );
                     }
                 }
 
@@ -193,9 +193,9 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                                     pAimLeaderChip->_y,
                                     pAimLeaderChip->_z );
                         } else {
-                            aimChip(_x + pAxesMover->_velo_vx_mv*4+1,
-                                    _y + pAxesMover->_velo_vy_mv*4+1,
-                                    _z + pAxesMover->_velo_vz_mv*4+1 );
+                            aimChip(_x + pTrucker->_velo_vx_mv*4+1,
+                                    _y + pTrucker->_velo_vy_mv*4+1,
+                                    _z + pTrucker->_velo_vz_mv*4+1 );
                         }
                     } else if (active_frame < pAimInfo->spent_frames_to_t2) {
                         //●その後 Leader以外が t2 が定まって、t2に向かうまでの動き
@@ -209,9 +209,9 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                                     pAimLeaderChip->_y,
                                     pAimLeaderChip->_z );
                         } else {
-                            aimChip(_x + pAxesMover->_velo_vx_mv*4+1,
-                                    _y + pAxesMover->_velo_vy_mv*4+1,
-                                    _z + pAxesMover->_velo_vz_mv*4+1 );
+                            aimChip(_x + pTrucker->_velo_vx_mv*4+1,
+                                    _y + pTrucker->_velo_vy_mv*4+1,
+                                    _z + pTrucker->_velo_vz_mv*4+1 );
                         }
                     }
                 }
@@ -221,19 +221,19 @@ void MyBunshinWateringLaserChip001::processBehavior() {
 
     }
 
-    pAxesMover->behave();
+    pTrucker->behave();
     WateringLaserChip::processBehavior();
     tmp_x_ = _x;
     tmp_y_ = _y;
     tmp_z_ = _z;
-    tmp_acc_vx_ =  pAxesMover->_acce_vx_mv;
-    tmp_acc_vy_ =  pAxesMover->_acce_vy_mv;
-    tmp_acc_vz_ =  pAxesMover->_acce_vz_mv;
+    tmp_acc_vx_ =  pTrucker->_acce_vx_mv;
+    tmp_acc_vy_ =  pTrucker->_acce_vy_mv;
+    tmp_acc_vz_ =  pTrucker->_acce_vz_mv;
 }
 
 void MyBunshinWateringLaserChip001::processSettlementBehavior() {
     //分身はFKなので、絶対座標の確定が processSettlementBehavior() 以降となるため、ここで初期設定が必要
-    GgafDxAxesMover* const pAxesMover = getAxesMover();
+    GgafDxTrucker* const pTrucker = getTrucker();
     if (hasJustChangedToActive()) {
         //チップの初期設定
         //ロックオン情報の引き継ぎ
@@ -258,16 +258,16 @@ void MyBunshinWateringLaserChip001::processSettlementBehavior() {
                 pAimInfo_->pLeaderChip = this;
                 pAimInfo_->pTarget = nullptr;
             }
-            pAxesMover->forceVxMvVeloRange(-MAX_VELO_RENGE, MAX_VELO_RENGE);
-            pAxesMover->forceVyMvVeloRange(-MAX_VELO_RENGE*1.5, MAX_VELO_RENGE*1.5);
-            pAxesMover->forceVzMvVeloRange(-MAX_VELO_RENGE*1.5, MAX_VELO_RENGE*1.5);
+            pTrucker->forceVxMvVeloRange(-MAX_VELO_RENGE, MAX_VELO_RENGE);
+            pTrucker->forceVyMvVeloRange(-MAX_VELO_RENGE*1.5, MAX_VELO_RENGE*1.5);
+            pTrucker->forceVzMvVeloRange(-MAX_VELO_RENGE*1.5, MAX_VELO_RENGE*1.5);
         } else {
             //先端以外は前のを受け継ぐ
             pAimInfo_ = pF->pAimInfo_; //受け継ぐ
-            velo v = pF->getAxesMover()->_top_velo_vx_mv - PX_C(0.5); //レーザーが弛まないように PX_C(0.5) 遅くした
-            pAxesMover->forceVxMvVeloRange(-v, v);
-            pAxesMover->forceVyMvVeloRange(-v*1.5, v*1.5);
-            pAxesMover->forceVzMvVeloRange(-v*1.5, v*1.5);
+            velo v = pF->getTrucker()->_top_velo_vx_mv - PX_C(0.5); //レーザーが弛まないように PX_C(0.5) 遅くした
+            pTrucker->forceVxMvVeloRange(-v, v);
+            pTrucker->forceVyMvVeloRange(-v*1.5, v*1.5);
+            pTrucker->forceVzMvVeloRange(-v*1.5, v*1.5);
 #ifdef MY_DEBUG
 if (pAimInfo_ == nullptr) {
 throwGgafCriticalException("pAimInfo_ が引き継がれていません！"<<this<<
@@ -278,8 +278,8 @@ throwGgafCriticalException("pAimInfo_ が引き継がれていません！"<<this<<
         //活動開始初回フレーム、チップの速度と向きの初期設定
         setFaceAngAs(pOrg_);
         setPositionAt(pOrg_);
-        pAxesMover->setVxyzMvVeloTwd(_rz, _ry, INITIAL_VELO); //初速はここで
-        pAxesMover->setZeroVxyzMvAcce();
+        pTrucker->setVxyzMvVeloTwd(_rz, _ry, INITIAL_VELO); //初速はここで
+        pTrucker->setZeroVxyzMvAcce();
     }
 
     //平均曲線座標設定。(レーザーを滑らかにするノーマライズ）
@@ -298,7 +298,7 @@ throwGgafCriticalException("pAimInfo_ が引き継がれていません！"<<this<<
             _x = (pF->tmp_x_ + pB->tmp_x_ + tmp_x_)/3;
             _y = (pF->tmp_y_ + pB->tmp_y_ + tmp_y_)/3;
             _z = (pF->tmp_z_ + pB->tmp_z_ + tmp_z_)/3;
-            pAxesMover->setVxyzMvAcce( (pF->tmp_acc_vx_ + pB->tmp_acc_vx_ + tmp_acc_vx_)/3,
+            pTrucker->setVxyzMvAcce( (pF->tmp_acc_vx_ + pB->tmp_acc_vx_ + tmp_acc_vx_)/3,
                                        (pF->tmp_acc_vy_ + pB->tmp_acc_vy_ + tmp_acc_vy_)/3,
                                        (pF->tmp_acc_vz_ + pB->tmp_acc_vz_ + tmp_acc_vz_)/3 );
         }
@@ -350,7 +350,7 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
         throwGgafCriticalException("おかしい");
     }
 #endif
-    GgafDxAxesMover* pAxesMover = getAxesMover();
+    GgafDxTrucker* pTrucker = getTrucker();
 
     //自→的
     const int vTx = tX - _x;
@@ -358,9 +358,9 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
     const int vTz = tZ - _z;
 
     //自→仮自。
-    const int vVMx = pAxesMover->_velo_vx_mv;
-    const int vVMy = pAxesMover->_velo_vy_mv;
-    const int vVMz = pAxesMover->_velo_vz_mv;
+    const int vVMx = pTrucker->_velo_vx_mv;
+    const int vVMy = pTrucker->_velo_vy_mv;
+    const int vVMz = pTrucker->_velo_vz_mv;
     //|仮自| = lVM * 5
     const int lVM = MAX3(ABS(vVMx), ABS(vVMy), ABS(vVMz)); //仮自ベクトル大きさ簡易版
     //|的|
@@ -375,7 +375,7 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
     const double accY = ((vTy * r) - vVMy*5) * RR_MAX_ACCE;
     const double accZ = ((vTz * r) - vVMz*5) * RR_MAX_ACCE;
 
-    pAxesMover->setVxyzMvAcce(accX + SGN(accX)*3.0,
+    pTrucker->setVxyzMvAcce(accX + SGN(accX)*3.0,
                               accY + SGN(accY)*3.0,
                               accZ + SGN(accZ)*3.0);
 }

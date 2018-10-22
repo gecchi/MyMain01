@@ -3,7 +3,7 @@
 #include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxChecker.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
@@ -348,9 +348,9 @@ void MyShip::initialize() {
 
     //setMaterialColor(1.0, 0.5, 0.5);
     setAlpha(1.0);
-    GgafDxAxesMover* const pAxesMover = getAxesMover();
-    pAxesMover->forceVxyzMvVeloRange(-veloTurboTop_, veloTurboTop_);
-    pAxesMover->setZeroVxyzMvAcce();
+    GgafDxTrucker* const pTrucker = getTrucker();
+    pTrucker->forceVxyzMvVeloRange(-veloTurboTop_, veloTurboTop_);
+    pTrucker->setZeroVxyzMvAcce();
 
     getKuroko()->setRollFaceAngVelo(300);
 }
@@ -400,7 +400,7 @@ void MyShip::onInactive() {
 void MyShip::processBehavior() {
     VirtualButton* pVbPlay = VB_PLAY;
     GgafDxKuroko* const pKuroko = getKuroko();
-    GgafDxAxesMover* const pAxesMover = getAxesMover();
+    GgafDxTrucker* const pTrucker = getTrucker();
     //操作拒否
     if (!can_control_) {
         return;
@@ -419,7 +419,7 @@ void MyShip::processBehavior() {
         }
 
         if (pVbPlay->isPushedDown(VB_TURBO)) {
-            if (pAxesMover->_velo_vx_mv == 0 && pAxesMover->_velo_vy_mv == 0 && pAxesMover->_velo_vz_mv == 0) {
+            if (pTrucker->_velo_vx_mv == 0 && pTrucker->_velo_vy_mv == 0 && pTrucker->_velo_vz_mv == 0) {
                 //ターボ移動完全に終了しないと次のターボは実行不可
                 moveTurbo();
                 UTIL::activateProperEffect01Of(this); //ターボ開始のエフェクト
@@ -433,28 +433,28 @@ void MyShip::processBehavior() {
             if (pVbPlay->isPressed(VB_TURBO)) {
                 //ターボボタンを押し続けることで、速度減衰がゆるやかになり、
                 //移動距離を伸ばす
-                pAxesMover->_velo_vx_mv *= 0.96;
-                pAxesMover->_velo_vy_mv *= 0.96;
-                pAxesMover->_velo_vz_mv *= 0.96;
+                pTrucker->_velo_vx_mv *= 0.96;
+                pTrucker->_velo_vy_mv *= 0.96;
+                pTrucker->_velo_vz_mv *= 0.96;
             } else {
                 //ターボを離した場合、速度減衰。
-                pAxesMover->_velo_vx_mv *= 0.8;
-                pAxesMover->_velo_vy_mv *= 0.8;
-                pAxesMover->_velo_vz_mv *= 0.8;
+                pTrucker->_velo_vx_mv *= 0.8;
+                pTrucker->_velo_vy_mv *= 0.8;
+                pTrucker->_velo_vz_mv *= 0.8;
             }
-            if (ABS(pAxesMover->_velo_vx_mv) <= 2) {
-                pAxesMover->_velo_vx_mv = 0;
+            if (ABS(pTrucker->_velo_vx_mv) <= 2) {
+                pTrucker->_velo_vx_mv = 0;
             }
-            if (ABS(pAxesMover->_velo_vy_mv) <= 2) {
-                pAxesMover->_velo_vy_mv = 0;
+            if (ABS(pTrucker->_velo_vy_mv) <= 2) {
+                pTrucker->_velo_vy_mv = 0;
             }
-            if (ABS(pAxesMover->_velo_vz_mv) <= 2) {
-                pAxesMover->_velo_vz_mv = 0;
+            if (ABS(pTrucker->_velo_vz_mv) <= 2) {
+                pTrucker->_velo_vz_mv = 0;
             }
         }
 
         if (pVbPlay->isDoublePushedDown(VB_OPTION,8,8) ) {
-            pAxesMover->setZeroVxyzMvVelo(); //ターボ移動中でも停止する。（ターボキャンセル的になる！）
+            pTrucker->setZeroVxyzMvVelo(); //ターボ移動中でも停止する。（ターボキャンセル的になる！）
         }
     }
 
@@ -484,7 +484,7 @@ void MyShip::processBehavior() {
 
     //座標に反映
     pKuroko->behave();
-    pAxesMover->behave();
+    pTrucker->behave();
     getSeTransmitter()->behave();
 
     if (invincible_frames_ > 0) {
@@ -1089,12 +1089,12 @@ void MyShip::moveNomal() {
 }
 
 void MyShip::moveTurbo() {
-    GgafDxAxesMover* const pAxesMover = getAxesMover();
+    GgafDxTrucker* const pTrucker = getTrucker();
     float vx,vy,vz;
     Direction26Util::cnvDirNo2Vec(mv_way_, vx, vy, vz);
-    pAxesMover->addVxMvVelo(veloBeginMT_ * vx);
-    pAxesMover->addVyMvVelo(veloBeginMT_ * vy);
-    pAxesMover->addVzMvVelo(veloBeginMT_ * vz);
+    pTrucker->addVxMvVelo(veloBeginMT_ * vx);
+    pTrucker->addVyMvVelo(veloBeginMT_ * vy);
+    pTrucker->addVzMvVelo(veloBeginMT_ * vz);
     angle rz, ry;
     Direction26Util::cnvDirNo2RzRy(mv_way_, rz, ry);
     getKuroko()->setRzRyMvAng(rz, ry);

@@ -3,7 +3,7 @@
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
 #include "jp/ggaf/dxcore/model/GgafDxModel.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -89,10 +89,10 @@ void EnemyDrastea::initialize() {
 void EnemyDrastea::onActive() {
     getStatus()->reset();
     GgafDxKuroko* const pKuroko = getKuroko();
-    GgafDxAxesMover* const pAxesMover = getAxesMover();
+    GgafDxTrucker* const pTrucker = getTrucker();
     pKuroko->setMvVelo(0);
     pKuroko->setRollPitchYawFaceAngVelo(700, 1100, 300);
-    pAxesMover->setVxMvVelo(-3000);
+    pTrucker->setVxMvVelo(-3000);
     const coord appearances_renge_z = (MyShip::lim_z_left_ - MyShip::lim_z_right_) * 4;
     const coord appearances_renge_y = (MyShip::lim_y_top_ - MyShip::lim_y_bottom_) * 4;
     Spacetime* pSpacetime =  pGOD->getSpacetime();
@@ -105,7 +105,7 @@ void EnemyDrastea::onActive() {
 void EnemyDrastea::processBehavior() {
     //À•W‚É”½‰f
     getKuroko()->behave();
-    getAxesMover()->behave();
+    getTrucker()->behave();
     getSeTransmitter()->behave();
 }
 

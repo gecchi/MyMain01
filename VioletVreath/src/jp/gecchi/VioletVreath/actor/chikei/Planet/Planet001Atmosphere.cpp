@@ -25,7 +25,7 @@ void Planet001Atmosphere::onCreateModel() {
 }
 
 void Planet001Atmosphere::initialize() {
-    setAlpha(0.9);
+    setCullingDraw(false);
     getKuroko()->setFaceAngVelo(AXIS_Z, 1000);
 }
 

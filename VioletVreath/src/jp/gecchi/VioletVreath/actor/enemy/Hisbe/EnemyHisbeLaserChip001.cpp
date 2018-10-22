@@ -28,7 +28,7 @@ void EnemyHisbeLaserChip001::initialize() {
     registerHitAreaCube_AutoGenMidColli(20000);
     setHitAble(true, false);
     setScaleR(5.0);
-    setAlpha(0.9);
+    setCullingDraw(false);
 }
 
 void EnemyHisbeLaserChip001::onActive() {

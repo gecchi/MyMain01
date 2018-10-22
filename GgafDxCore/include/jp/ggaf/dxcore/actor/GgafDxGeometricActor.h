@@ -28,7 +28,7 @@ private:
     /** [r]黒衣 */
     GgafDxKuroko* _pKuroko;
     /** [r]平行移動支援 */
-    GgafDxAxesMover* _pAxesMover;
+    GgafDxTrucker* _pTrucker;
     /** [r]拡大縮小支援 */
     GgafDxScaler* _pScaler;
     /** [r]効果音発生管理オブジェクト */
@@ -176,7 +176,7 @@ public:
      * 本アクターの平行移動支援オブジェクトを取得 .
      * @return 平行移動支援オブジェクト
      */
-    GgafDxAxesMover* getAxesMover();
+    GgafDxTrucker* getTrucker();
 
     /**
      * 本アクターの拡大縮小支援オブジェクトを取得 .

@@ -3,7 +3,7 @@
 #include "jp/ggaf/dxcore/GgafDxGod.h"
 #include "jp/ggaf/core/util/GgafStatus.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxChecker.h"
@@ -17,7 +17,7 @@ GgafDxGeometricActor::GgafDxGeometricActor(const char* prm_name,
                                            GgafStatus* prm_pStat,
                                            GgafDxChecker* prm_pChecker) : GgafDxBaseActor(prm_name, prm_pStat),
 _pKuroko(NEW GgafDxKuroko(this)),
-_pAxesMover(nullptr),
+_pTrucker(nullptr),
 _pScaler(nullptr),
 _pSeTransmitter(nullptr),
 _is_2D(false),
@@ -54,8 +54,8 @@ GgafDxKuroko* GgafDxGeometricActor::getKuroko() {
     return _pKuroko;
 }
 
-GgafDxAxesMover* GgafDxGeometricActor::getAxesMover() {
-    return _pAxesMover ? _pAxesMover : _pAxesMover = NEW GgafDxAxesMover(this);
+GgafDxTrucker* GgafDxGeometricActor::getTrucker() {
+    return _pTrucker ? _pTrucker : _pTrucker = NEW GgafDxTrucker(this);
 }
 
 GgafDxSeTransmitterForActor* GgafDxGeometricActor::getSeTransmitter() {
@@ -478,7 +478,7 @@ void GgafDxGeometricActor::onEnd() {
 
 GgafDxGeometricActor::~GgafDxGeometricActor() {
     GGAF_DELETE(_pKuroko);
-    GGAF_DELETE_NULLABLE(_pAxesMover);
+    GGAF_DELETE_NULLABLE(_pTrucker);
     GGAF_DELETE_NULLABLE(_pScaler);
     GGAF_DELETE_NULLABLE(_pSeTransmitter);
 }

@@ -28,7 +28,8 @@ GgafDxRegularPolygonSpriteModel::GgafDxRegularPolygonSpriteModel(const char* prm
     _size_vertices = 0;
     _size_vertex_unit = 0;
     _angle_num = 3;
-    _start_angle = D0ANG;
+    _drawing_order = 0;
+    _circumference_begin_position = 0;
 
     // prm_model_name には "8/XXXX" が、渡ってくる。
     // これは正8角形というパラメータ
@@ -149,13 +150,15 @@ void GgafDxRegularPolygonSpriteModel::restore() {
 
     std::string model_name = std::string(_model_name); //_model_name は "8/XXXX"
     std::vector<std::string> names = UTIL::split(model_name, "/", 1);
-    std::string xfile_name = GgafDxModelManager::getSpriteFileName(names[1]);
-    GgafDxModelManager::SpriteXFileFmt xdata;
-    pModelManager->obtainSpriteInfo(&xdata, xfile_name);
+    std::string xfile_name = GgafDxModelManager::getSpriteFileName(names[1], "rsprx");
+    GgafDxModelManager::RegularPolygonSpriteXFileFmt xdata;
+    pModelManager->obtainRegularPolygonSpriteSpriteInfo(&xdata, xfile_name);
     _model_width_px = xdata.width;
     _model_height_px =  xdata.height;
     _row_texture_split = xdata.row_texture_split;
     _col_texture_split = xdata.col_texture_split;
+    _circumference_begin_position = xdata.circumference_begin_position; //FAN描画の円周開始位置
+    _drawing_order = xdata.drawing_order;   //FAN描画順方向 1:時計回り/1以外:反時計回り
 
     //テクスチャ取得しモデルに保持させる
     GgafDxTextureConnection* model_pTextureConnection = (GgafDxTextureConnection*)(pModelManager->_pModelTextureManager->connect(xdata.texture_file, this));
@@ -178,24 +181,44 @@ void GgafDxRegularPolygonSpriteModel::restore() {
     paVertex[0].z = 0.0f;
     paVertex[0].nx = 0.0f;
     paVertex[0].ny = 0.0f;
-    paVertex[0].nz = -1.0f;
+    paVertex[0].nz = 1.0f;
     paVertex[0].color = D3DCOLOR_ARGB(255,255,255,255);
     paVertex[0].tu = tu_rate * 0.5;
     paVertex[0].tv = tv_rate * 0.5;
 
-    for (int ang = 0; ang < _angle_num; ang++) {
-        double rad = (PI2 * ang) / _angle_num;
-        paVertex[ang+1].x = (float)(cos(rad) * model_width * 0.5);
-        paVertex[ang+1].y = (float)(sin(-rad) * model_height * 0.5);
-        paVertex[ang+1].z = 0.0f;
-        paVertex[ang+1].nx = 0.0f;
-        paVertex[ang+1].ny = 0.0f;
-        paVertex[ang+1].nz = -1.0f;
-        paVertex[ang+1].color = D3DCOLOR_ARGB(255,255,255,255);
-        paVertex[ang+1].tu = paVertex[0].tu + (cos(rad) * tu_rate * 0.5);
-        paVertex[ang+1].tv = paVertex[0].tv + (sin(rad) * tv_rate * 0.5);
+    if (_drawing_order == 1) {
+        //時計回り
+        double begin_rad = _circumference_begin_position;
+        for (int ang = 0; ang < _angle_num; ang++) {
+            double rad = PI2 - ((PI2 * ang) / _angle_num);
+            paVertex[ang+1].x = (float)(cos(rad+begin_rad) * model_width * 0.5);
+            paVertex[ang+1].y = (float)(sin(rad+begin_rad) * model_height * 0.5);
+            paVertex[ang+1].z = 0.0f;
+            paVertex[ang+1].nx = 0.0f;
+            paVertex[ang+1].ny = 0.0f;
+            paVertex[ang+1].nz = 1.0f;
+            paVertex[ang+1].color = D3DCOLOR_ARGB(255,255,255,255);
+            paVertex[ang+1].tu = paVertex[0].tu + (cos(rad+begin_rad) * tu_rate * 0.5);
+            paVertex[ang+1].tv = paVertex[0].tv - (sin(rad+begin_rad) * tv_rate * 0.5);
+        }
+        paVertex[_angle_num+1] = paVertex[1];
+    } else {
+        //反計回り
+        double begin_rad = _circumference_begin_position;
+        for (int ang = 0; ang < _angle_num; ang++) {
+            double rad = (PI2 * ang) / _angle_num;
+            paVertex[ang+1].x = (float)(cos(rad+begin_rad) * model_width * 0.5);
+            paVertex[ang+1].y = (float)(sin(rad+begin_rad) * model_height * 0.5);
+            paVertex[ang+1].z = 0.0f;
+            paVertex[ang+1].nx = 0.0f;
+            paVertex[ang+1].ny = 0.0f;
+            paVertex[ang+1].nz = 1.0f;
+            paVertex[ang+1].color = D3DCOLOR_ARGB(255,255,255,255);
+            paVertex[ang+1].tu = paVertex[0].tu + (cos(rad+begin_rad) * tu_rate * 0.5);
+            paVertex[ang+1].tv = paVertex[0].tv - (sin(rad+begin_rad) * tv_rate * 0.5);
+        }
+        paVertex[_angle_num+1] = paVertex[1];
     }
-    paVertex[_angle_num+1] = paVertex[1];
 
     //距離
     _bounding_sphere_radius = paVertex[1].x;

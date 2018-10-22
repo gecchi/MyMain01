@@ -34,12 +34,12 @@ public:
     float _model_height_px;
     int _row_texture_split;
     int _col_texture_split;
-
-
+    /** FAN描画の円周開始位置(rad) */
+    float _circumference_begin_position;
+    /** FAN描画順方向 1:時計回り/1以外:反時計回り */
+    int _drawing_order;
     /** 正何角形か */
     int _angle_num;
-    /** 多角形の開始角度(D_ANG(0)～D_ANG(360)、0はXY平面原点中心半径１の場合(1,0)から開始することを表す) */
-    angle _start_angle;
 
 public:
     /**
@@ -55,6 +55,30 @@ public:
     virtual void onDeviceLost() override;
 
     void release() override;
+
+    /**
+     * FAN描画順方向を取得。
+     * @return 1:時計回り/1以外:反時計回り
+     */
+    int getDrawingOrder() {
+        return _drawing_order;
+    }
+
+    /**
+     * 正何角形の描画かを返す
+     * @return 正何角形の描画か(=FANの数)
+     */
+    int getAngleNum() {
+        return _angle_num;
+    }
+
+    /**
+     * FAN描画の円周開始位置(rad)を取得
+     * @return FAN描画の円周開始位置(rad)
+     */
+    angle getCircumferenceBeginPosition() {
+        return _circumference_begin_position;
+    }
 
     /**
      * デストラクタ<BR>

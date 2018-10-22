@@ -1,7 +1,7 @@
 #include "BunshinMagic.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectMagic001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectBunshinMagic001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyMagicEnergyCore.h"
@@ -61,20 +61,20 @@ void BunshinMagic::processCastBegin(int prm_now_level, int prm_new_level) {
         MyMagicEnergyCore* pCore = pMyShip->pMyMagicEnergyCore_;
         angle* paAng_way = NEW angle[prm_new_level-prm_now_level];
         UTIL::getRadialAngle2D(0, prm_new_level-prm_now_level, paAng_way);
-        GgafDxAxesMover* const pCoreAxesMover = pCore->getAxesMover();
-        velo veloVxMv = pCoreAxesMover->_velo_vx_mv;
-        velo veloVyMv = pCoreAxesMover->_velo_vy_mv;
-        velo veloVzMv = pCoreAxesMover->_velo_vz_mv;
+        GgafDxTrucker* const pCoreTrucker = pCore->getTrucker();
+        velo veloVxMv = pCoreTrucker->_velo_vx_mv;
+        velo veloVyMv = pCoreTrucker->_velo_vy_mv;
+        velo veloVzMv = pCoreTrucker->_velo_vz_mv;
         EffectBunshinMagic001* pEffect;
         for (int lv = prm_now_level+1, n = 0; lv <= prm_new_level; lv++, n++) {
             pEffect = papEffect_[lv-1];
             pEffect->setPositionAt(pCore);
-            GgafDxAxesMover* const pEffectAxesMover = pEffect->getAxesMover();
-            pEffectAxesMover->resetMv();
-            pEffectAxesMover->setVxyzMvVelo(veloVxMv*0.8,
+            GgafDxTrucker* const pEffectTrucker = pEffect->getTrucker();
+            pEffectTrucker->resetMv();
+            pEffectTrucker->setVxyzMvVelo(veloVxMv*0.8,
                                             veloVyMv + (ANG_SIN(paAng_way[n]) * PX_C(3)),
                                             veloVzMv + (ANG_COS(paAng_way[n]) * PX_C(3)) ); //放射状にエフェクト放出
-            pEffectAxesMover->execGravitationMvSequenceTwd(pMYSHIP, 10000, 200, 2000);
+            pEffectTrucker->execGravitationMvSequenceTwd(pMYSHIP, 10000, 200, 2000);
             _TRACE_(getBehaveingFrame()<<":BunshinMagic::processCastBegin("<<prm_now_level<<","<<prm_new_level<<") papEffect_["<<(lv-1)<<"]->activate();");
             pEffect->activate();
             pEffect->blink(10, MAX_FRAME, 0, nullptr, false);
@@ -107,7 +107,7 @@ void BunshinMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
         //レベルアップ時
         for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
             MyBunshinBase* p = pMYSHIP_SCENE->papBunshinBase_[lv-1];
-            papEffect_[lv-1]->getAxesMover()->execGravitationMvSequenceTwd(
+            papEffect_[lv-1]->getTrucker()->execGravitationMvSequenceTwd(
                                              pMYSHIP,
                                              40000, 400, 200000
                                          );
@@ -125,7 +125,7 @@ void BunshinMagic::processInvokingBehavior(int prm_now_level, int prm_new_level)
         //レベルアップ時
         for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
             MyBunshinBase* p = pMYSHIP_SCENE->papBunshinBase_[lv-1];
-            papEffect_[lv-1]->getAxesMover()->setGravitationTwd(pMYSHIP);
+            papEffect_[lv-1]->getTrucker()->setGravitationTwd(pMYSHIP);
         }
     }
 }

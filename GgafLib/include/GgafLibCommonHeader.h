@@ -85,6 +85,7 @@ class GraphBarActor;
 class CappedGraphBarActor;
 class MassWallActor;
 class FramedHorizontalBarActor;
+class PieGraphSpriteActor;
 
 class SpriteMeshWorldBoundActor;
 class WorldBoundActor;

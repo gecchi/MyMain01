@@ -18,7 +18,7 @@ Shot003::Shot003(const char* prm_name) :
 void Shot003::initialize() {
     setHitAble(false);
     _sx = _sy = _sz = R_SC(50);
-    setAlpha(0.99); //半透明にすることで両面レンダリング
+    setCullingDraw(false);
     setZEnableDraw(true);   //描画時、Zバッファ値は考慮される
     setZWriteEnable(false); //自身のZバッファを書き込みしない
     effectBlendOne();       //加算合成

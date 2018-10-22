@@ -22,7 +22,11 @@ public:
     VAL* _pVal;
     /** [r]実値に関わる数量 */
     QTY _qty;
-    /** [r]メーター値とピクセルの割合、 */
+    /** 実値ズレ */
+    VAL _offset_val;
+    /** [r]実値に関わる数量ズレ */
+    QTY _offset_qty;
+    /** [r]実値と数量の増加割合、 */
     double _rate_val;
 
     bool _is_link;
@@ -37,18 +41,33 @@ public:
         _rate_val = 1.0;
         _pVal = NEW VAL();
         *_pVal = (VAL)0;
+        _offset_val = (VAL)0;
+        _offset_qty = (QTY)0;
         _is_link = false;
     }
 
     /**
-     * 割合を定義 .
+     * 実値と数量との関係を定義 .
+     * オフセットは無し
      * @param prm_val 割合1.0(100%) の場合に実値が取る値をセット
      * @param prm_qty 割合1.0(100%) の場合に数量が取る値をセット
      */
     void graduate(VAL prm_val, QTY prm_qty) {
-        _rate_val = 1.0 * prm_qty / prm_val;
+        graduate(0.0, prm_val, 0.0, prm_qty);
     }
 
+    /**
+     * 実値と数量との関係を定義 .
+     * @param prm_min_val 実値最小値を設定
+     * @param prm_max_val 実値最大値を設定
+     * @param prm_min_qty 実値最小値に対応する数量最小値を設定
+     * @param prm_max_qty 実値最大値に対応する数量最大値を設定
+     */
+    inline void graduate(VAL prm_min_val, VAL prm_max_val, QTY prm_min_qty, QTY prm_max_qty) {
+        _rate_val = 1.0 *  (prm_max_qty - prm_min_qty) / (prm_max_val - prm_min_val);
+        _offset_val = prm_min_val;
+        _offset_qty = prm_min_qty;
+    }
 
     /**
      * 実値の変数（のポインタ）を設定 .
@@ -72,7 +91,9 @@ public:
      */
     inline void setVal(VAL prm_val) {
         *_pVal = prm_val;
-        _qty = (QTY)((*_pVal) * _rate_val);
+        if (!_is_link) {
+            _qty = (QTY)((((*_pVal) - _offset_val) * _rate_val ) + _offset_qty);
+        }
     }
 
     /**
@@ -86,7 +107,7 @@ public:
      * 値を実値に関わる数量で取得 .
      */
     inline QTY getQty() {
-        return _is_link ? (QTY)((*_pVal) * _rate_val) : _qty;
+        return _is_link ? (QTY)((((*_pVal) - _offset_val) * _rate_val ) + _offset_qty) : _qty;
     }
 
     virtual ~Quantity() {

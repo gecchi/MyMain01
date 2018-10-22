@@ -23,7 +23,7 @@ EffectTurbo001::EffectTurbo001(const char* prm_name) :
 void EffectTurbo001::initialize() {
     GgafDxUvFlipper* pUvFlipper = getUvFlipper();
     pUvFlipper->exec(FLIP_ORDER_LOOP, 1); //ƒAƒjƒ‡˜
-    setAlpha(0.99);
+    setCullingDraw(false);
 }
 
 void EffectTurbo001::onActive() {

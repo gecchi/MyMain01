@@ -28,7 +28,7 @@ void Horizon001::onCreateModel() {
 }
 
 void Horizon001::initialize() {
-    setAlpha(0.99);
+    setCullingDraw(false);
     setPosition(0, PX_C(-100), 0);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);

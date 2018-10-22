@@ -9,7 +9,7 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
 using namespace GgafCore;
@@ -79,10 +79,10 @@ void EnemyDuna::processBehavior() {
 
     MyShip* pMyShip = pMYSHIP;
     GgafDxKuroko* const pKuroko = getKuroko();
-    GgafDxAxesMover* const pAxesMover = getAxesMover();
+    GgafDxTrucker* const pTrucker = getTrucker();
     GgafProgress* const pProg = getProgress();
     if (pProg->hasJustChanged()) {
-        pAxesMover->execGravitationMvSequenceTwd(pMyShip, PX_C(3), 30, PX_C(1));
+        pTrucker->execGravitationMvSequenceTwd(pMyShip, PX_C(3), 30, PX_C(1));
     }
 
     switch (pProg->get()) {
@@ -387,7 +387,7 @@ void EnemyDuna::processBehavior() {
      }
 
     pKuroko->behave();
-    pAxesMover->behave();
+    pTrucker->behave();
     getMorpher()->behave();
     getAlphaFader()->behave();
 //_TRACE_("EnemyDuna f:"<<getBehaveingFrame()<<"  pProg="<<pProg->get()<<"   X,Y,Z="<<_x<<","<<_y<<","<<_z<<" ");

@@ -135,10 +135,10 @@ void GgafDxPointSpriteSetModel::restore() {
         if (names.size() == 1) {
             _TRACE_(FUNC_NAME<<" "<<_model_name<<" の最大同時描画オブジェクト数は、デフォルトの15が設定されました。");
             _set_num = 15;
-            xfile_name = GgafDxModelManager::getPointSpriteFileName(names[0]);
+            xfile_name = GgafDxModelManager::getSpriteFileName(names[0], "psprx");
         } else if (names.size() == 2) {
             _set_num = STOI(names[0]);
-            xfile_name = GgafDxModelManager::getPointSpriteFileName(names[1]);
+            xfile_name = GgafDxModelManager::getSpriteFileName(names[1], "psprx");
         } else {
             throwGgafCriticalException("_model_name には \"xxxxxx\" or \"8/xxxxx\" 形式を指定してください。 \n"
                     "実際は、_model_name="<<_model_name<<" でした。");

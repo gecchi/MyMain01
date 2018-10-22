@@ -3,7 +3,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
@@ -54,7 +54,7 @@ void EnemyAntiope::onActive() {
 
 void EnemyAntiope::processBehavior() {
     GgafDxKuroko* const pKuroko = getKuroko();
-    GgafDxAxesMover* const pAxesMover = getAxesMover();
+    GgafDxTrucker* const pTrucker = getTrucker();
     GgafDxAlphaFader* pAlphaFader = getAlphaFader();
 
     GgafProgress* const pProg = getProgress();
@@ -64,7 +64,7 @@ void EnemyAntiope::processBehavior() {
              setAlpha(0);
              pKuroko->stopMv();
              pKuroko->setRollFaceAngVelo(D_ANG(10));
-             pAxesMover->setZeroVxyzMvVelo();
+             pTrucker->setZeroVxyzMvVelo();
              pProg->changeNext();
              break;
          }
@@ -90,16 +90,16 @@ void EnemyAntiope::processBehavior() {
                  pKuroko->setMvVelo(PX_C(30));
                  pKuroko->setMvAcce(-1000);
                  //平行移動速度の方向ベクトル mv_velo_twd_ はフォーメーションが設定
-                 pAxesMover->setVxyzMvVelo(mv_velo_twd_.x, mv_velo_twd_.y, mv_velo_twd_.z);
+                 pTrucker->setVxyzMvVelo(mv_velo_twd_.x, mv_velo_twd_.y, mv_velo_twd_.z);
              }
 
              if (pKuroko->_velo_mv <= (-PX_C(30) + 1000)) {
                  if (pP_) {
                      pKuroko->stopMv();
-                     pAxesMover->setZeroVxyzMvVelo();
+                     pTrucker->setZeroVxyzMvVelo();
                      pProg->change(PROG_LEAVE);
                  } else {
-                     pAxesMover->setVxyzMvVelo(
+                     pTrucker->setVxyzMvVelo(
                                   mv_velo_twd_.x + (pKuroko->_vX * pKuroko->_velo_mv),
                                   mv_velo_twd_.y + (pKuroko->_vY * pKuroko->_velo_mv),
                                   mv_velo_twd_.z + (pKuroko->_vZ * pKuroko->_velo_mv)
@@ -126,7 +126,7 @@ void EnemyAntiope::processBehavior() {
          case PROG_RUSH: {
              //相方がいなくなった場合
              if (pProg->hasJustChanged()) {
-                 pAxesMover->execGravitationMvSequenceTwd(pMYSHIP, PX_C(30), 200, PX_C(50));
+                 pTrucker->execGravitationMvSequenceTwd(pMYSHIP, PX_C(30), 200, PX_C(50));
                  pKuroko->keepOnTurningFaceAngTwd(pMYSHIP, D_ANG(2), 0, TURN_CLOSE_TO, false);
              }
              break;
@@ -139,7 +139,7 @@ void EnemyAntiope::processBehavior() {
 
 //    _TRACE_(this<<":"<<getActiveFrame()<<" "<<_x<<","<<_y<<","<<_z<<"  ("<<_pKuroko->_velo_mv<<") "<<_pKuroko->_vX<<","<<_pKuroko->_vY<<","<<_pKuroko->_vZ<<"");
     pKuroko->behave();
-    pAxesMover->behave();
+    pTrucker->behave();
     pAlphaFader->behave();
 }
 

@@ -52,9 +52,6 @@ void EffectCondensation001::processBehavior() {
 }
 
 void EffectCondensation001::processJudgement() {
-//    if (_alpha < 0) {
-//        sayonara();
-//    }
 }
 
 void EffectCondensation001::onInactive() {

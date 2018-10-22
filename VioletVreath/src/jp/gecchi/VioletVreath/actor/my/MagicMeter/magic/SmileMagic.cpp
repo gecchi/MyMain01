@@ -44,7 +44,7 @@ void SmileMagic::processCastBegin(int prm_now_level, int prm_new_level) {
     _TRACE_("SmileMagic::processCastBegin(prm_now_level="<<prm_now_level<<",prm_new_level="<<prm_new_level<<")");
     if (prm_new_level > prm_now_level) {
         pMoji_->setPositionAt(pMYSHIP);
-        pMoji_->setAlpha(0.9);
+        pMoji_->setCullingDraw(false);
         //ニコニコビーム発射
         std::string s = "";
         for (int i = 0; i < prm_new_level; i++) {

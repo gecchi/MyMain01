@@ -1,5 +1,5 @@
-#ifndef GGAFDXCORE_GGAFDXAXESMOVER_H_
-#define GGAFDXCORE_GGAFDXAXESMOVER_H_
+#ifndef GGAFDXCORE_GGAFDXTRUCKER_H_
+#define GGAFDXCORE_GGAFDXTRUCKER_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/GgafObject.h"
 
@@ -16,7 +16,7 @@ namespace GgafDxCore {
  * @since 2008/08/20
  * @author Masatoshi Tsuge
  */
-class GgafDxAxesMover : public GgafCore::GgafObject {
+class GgafDxTrucker : public GgafCore::GgafObject {
 
 public:
     /** [r]対象アクター */
@@ -67,20 +67,20 @@ public:
     coord _grv_mv_stop_renge;
     bool _grv_mv_flg;
     /** [r]黒衣Bの助手A */
-    GgafDxAxesMoverAssistantA* _pAsstMv;
+    GgafDxTruckerAssistantA* _pAsstMv;
 
 public:
     /**
      * コンストラクタ<BR>
      * @param   prm_pActor  適用Actor
      */
-    explicit GgafDxAxesMover(GgafDxGeometricActor* prm_pActor);
+    explicit GgafDxTrucker(GgafDxGeometricActor* prm_pActor);
 
     /**
      * 黒衣Bの助手(滑らか移動担当)を取得 .
      * @return 黒衣Bの助手
      */
-    GgafDxAxesMoverAssistantA* asst();
+    GgafDxTruckerAssistantA* asst();
 
     int dot(int prm_vX, int prm_vY, int prm_vZ);
     /**
@@ -406,13 +406,13 @@ public:
 
     /**
      * 平行移動支援の仕事を引継ぐ .
-     * 他の GgafDxAxesMover オブジェクトを状態を自身に引継ぐ .
+     * 他の GgafDxTrucker オブジェクトを状態を自身に引継ぐ .
      * @param prm_pAxsMver 引継元
      */
-    void takeoverMvFrom(GgafDxAxesMover* const prm_pAxsMver);
+    void takeoverMvFrom(GgafDxTrucker* const prm_pAxsMver);
 
     /**
-     * GgafDxAxesMoverによるアクター移動を停止する。
+     * GgafDxTruckerによるアクター移動を停止する。
      */
     void stopMv();
 
@@ -428,9 +428,9 @@ public:
      */
     virtual void behave();
 
-    virtual ~GgafDxAxesMover();
+    virtual ~GgafDxTrucker();
 };
 
 }
-#endif /*GGAFDXCORE_GGAFDXAXESMOVER_H_*/
+#endif /*GGAFDXCORE_GGAFDXTRUCKER_H_*/
 

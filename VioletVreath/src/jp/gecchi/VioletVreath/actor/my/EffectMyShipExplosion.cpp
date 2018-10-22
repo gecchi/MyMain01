@@ -29,7 +29,7 @@ void EffectMyShipExplosion::onActive() {
     pUvFlipper->setActivePtnToTop();
     pUvFlipper->exec(FLIP_ORDER_NOLOOP, 20);
     setPositionAt(pMYSHIP);
-    setAlpha(0.99);
+    setCullingDraw(false);
     setScale(8000);
     getKuroko()->setFaceAngVelo(AXIS_Z, 2000);
 }

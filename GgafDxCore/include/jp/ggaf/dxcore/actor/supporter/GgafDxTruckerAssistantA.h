@@ -1,5 +1,5 @@
-#ifndef GGAFDXCORE_GGAFDXAXESMOVERASSISTANT_H_
-#define GGAFDXCORE_GGAFDXAXESMOVERASSISTANT_H_
+#ifndef GGAFDXCORE_GGAFDXTRUCKERASSISTANT_H_
+#define GGAFDXCORE_GGAFDXTRUCKERASSISTANT_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/GgafObject.h"
 #include "jp/ggaf/core/util/GgafValueAccelerator.hpp"
@@ -14,12 +14,12 @@ namespace GgafDxCore {
  * @since 2013/12/16
  * @author Masatoshi Tsuge
  */
-class GgafDxAxesMoverAssistantA : public GgafCore::GgafObject {
-	friend class GgafDxAxesMover;
+class GgafDxTruckerAssistantA : public GgafCore::GgafObject {
+	friend class GgafDxTrucker;
 
 private:
     /** [r]師匠 */
-    GgafDxAxesMover* _pMaster;
+    GgafDxTrucker* _pMaster;
     /** X軸方向加速装置 */
     GgafCore::GgafValueAccelerator<coord> _smthVxMv;
     /** Y軸方向加速装置 */
@@ -34,7 +34,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pMaster  師匠
      */
-    explicit GgafDxAxesMoverAssistantA(GgafDxAxesMover* prm_pMaster);
+    explicit GgafDxTruckerAssistantA(GgafDxTrucker* prm_pMaster);
 
     /**
      * X軸方向でなめらかな移動速度を変化させるシークエンスを実行(時間・距離指定、速度変動) .
@@ -290,9 +290,9 @@ public:
         _smthVzMv.stopAccelerating();
     }
 
-    virtual ~GgafDxAxesMoverAssistantA();
+    virtual ~GgafDxTruckerAssistantA();
 };
 
 }
-#endif /*GGAFDXCORE_GGAFDXAXESMOVERASSISTANT_H_*/
+#endif /*GGAFDXCORE_GGAFDXTRUCKERASSISTANT_H_*/
 

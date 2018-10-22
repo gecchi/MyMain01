@@ -32,7 +32,7 @@ void Planet001::onCreateModel() {
 }
 
 void Planet001::initialize() {
-    setAlpha(0.99);
+    setCullingDraw(false);
     Spacetime* pSpacetime = pGOD->getSpacetime();
     _x = pSpacetime->_x_bound_right*10;
     setScale(1000*1000);

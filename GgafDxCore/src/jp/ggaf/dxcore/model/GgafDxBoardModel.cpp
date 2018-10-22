@@ -117,7 +117,7 @@ void GgafDxBoardModel::restore() {
     _TRACE3_("_model_name=" << _model_name << " start");
     HRESULT hr;
     GgafDxModelManager* pModelManager = pGOD->_pModelManager;
-    std::string xfile_name = GgafDxModelManager::getSpriteFileName(_model_name);
+    std::string xfile_name = GgafDxModelManager::getSpriteFileName(_model_name, "sprx");
     GgafDxModelManager::SpriteXFileFmt xdata;
     pModelManager->obtainSpriteInfo(&xdata, xfile_name);
     _model_width_px  = xdata.width;

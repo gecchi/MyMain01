@@ -16,7 +16,7 @@ void SpriteFont32x64::onCreateModel() {
 }
 
 void SpriteFont32x64::initialize() {
-    setAlpha(0.9);
+    setCullingDraw(false);
 }
 
 void SpriteFont32x64::processBehavior() {

@@ -231,61 +231,35 @@ void GgafDxSpacetime::draw() {
                                     ((GgafDxScene*)pPlatformScene)->_scene_alpha_from_top
                                  );
 
-        if (pDrawActor->_alpha < 1.0f) {
-            //半透明要素ありの場合カリングを一時OFF
-            pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-            if (!pDrawActor->_zenable) {
-                //Zバッファを考慮無効設定
-                pDevice->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
-                if (!pDrawActor->_zwriteenable) {
-                    // Zバッファ書き込み不可設定
-                    pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
-                    pDrawActor->processDraw();
-                    // Zバッファ書き込み可に戻す
-                    pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
-                } else {
-                    pDrawActor->processDraw();
-                }
-                //Zバッファを考慮有りに戻す
-                pDevice->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
-            } else {
-                if (!pDrawActor->_zwriteenable) {
-                    // Zバッファ書き込み不可設定
-                    pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
-                    pDrawActor->processDraw();
-                    // Zバッファ書き込み可に戻す
-                    pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
-                } else {
-                    pDrawActor->processDraw();
-                }
-            }
-            //カリング有りに戻す
-            pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+        if (pDrawActor->_cull_enable) {
+             pDevice->SetRenderState(D3DRS_CULLMODE, pDrawActor->_cull_mode);
         } else {
-            if (!pDrawActor->_zenable) {
-                //Zバッファを考慮無効設定
-                pDevice->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
-                if (!pDrawActor->_zwriteenable) {
-                    // Zバッファ書き込み不可設定
-                    pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
-                    pDrawActor->processDraw();
-                    // Zバッファ書き込み可に戻す
-                    pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
-                } else {
-                    pDrawActor->processDraw();
-                }
-                //Zバッファを考慮有りに戻す
-                pDevice->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
+            //カリングをOFF
+            pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+        }
+        if (!pDrawActor->_zenable) {
+            //Zバッファを考慮無効設定
+            pDevice->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
+            if (!pDrawActor->_zwriteenable) {
+                // Zバッファ書き込み不可設定
+                pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
+                pDrawActor->processDraw();
+                // Zバッファ書き込み可に戻す
+                pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
             } else {
-                if (!pDrawActor->_zwriteenable) {
-                    // Zバッファ書き込み不可設定
-                    pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
-                    pDrawActor->processDraw();
-                    // Zバッファ書き込み可に戻す
-                    pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
-                } else {
-                    pDrawActor->processDraw();
-                }
+                pDrawActor->processDraw();
+            }
+            //Zバッファを考慮有りに戻す
+            pDevice->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
+        } else {
+            if (!pDrawActor->_zwriteenable) {
+                // Zバッファ書き込み不可設定
+                pDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
+                pDrawActor->processDraw();
+                // Zバッファ書き込み可に戻す
+                pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+            } else {
+                pDrawActor->processDraw();
             }
         }
 

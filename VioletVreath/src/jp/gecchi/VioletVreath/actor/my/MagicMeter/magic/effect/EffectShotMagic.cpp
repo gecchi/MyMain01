@@ -24,7 +24,7 @@ EffectShotMagic::EffectShotMagic(const char* prm_name) :
 
 void EffectShotMagic::initialize() {
     setMaterialColor(0.1, 1.0, 0.1);
-    setAlpha(0.9);
+    setCullingDraw(false);
     getUvFlipper()->exec(FLIP_ORDER_LOOP, 1);
 }
 

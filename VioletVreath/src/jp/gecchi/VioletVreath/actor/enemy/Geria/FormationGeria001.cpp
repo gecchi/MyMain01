@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAxesMover.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Geria/EnemyGeria.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -18,7 +18,7 @@ FormationGeria001::FormationGeria001(const char* prm_name) :
 
     setPosition(PX_C(5000), 0, PX_C(5000));
     setFaceAngTwd(PX_C(5000), 0, -PX_C(5000));
-    getAxesMover()->setVxyzMvVelo(-2000, 0, 0);
+    getTrucker()->setVxyzMvVelo(-2000, 0, 0);
 }
 
 void FormationGeria001::processBehavior() {
@@ -31,7 +31,7 @@ void FormationGeria001::processBehavior() {
             pGeria->setMigrationLength(PX_C(10000));
         }
     }
-    getAxesMover()->behave();
+    getTrucker()->behave();
 }
 
 void FormationGeria001::processJudgement() {
