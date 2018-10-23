@@ -263,6 +263,11 @@ GgafDxFigureActor* MyStgUtil::activateExplosionEffectOf(GgafDxGeometricActor* pr
         case EF_EXPLOSION001: {
             pE = dispatchForceFromCommon(EffectExplosion001);
             if (pE) {
+                if (pE->isActiveInTheTree()) {
+                    pE->onInactive();
+                    pE->_frame_of_behaving_since_onActive = 1;
+                    pE->onActive();
+                }
                 pE->setPositionAt(prm_pActor);
                 pE->getKuroko()->takeoverMvFrom(prm_pActor->getKuroko());
             }

@@ -23,6 +23,11 @@ public:
     D3DXHANDLE _h_offset_u;
     D3DXHANDLE _h_offset_v;
     D3DXHANDLE _h_far_rate;
+    D3DXHANDLE _h_sin_rz;
+    D3DXHANDLE _h_cos_rz;
+
+    D3DXHANDLE _h_u_center;
+    D3DXHANDLE _h_v_center;
 
 public:
     /**

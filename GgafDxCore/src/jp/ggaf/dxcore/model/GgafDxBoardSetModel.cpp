@@ -31,7 +31,7 @@ GgafDxBoardSetModel::GgafDxBoardSetModel(const char* prm_model_name) : GgafDxMod
     _obj_model |= Obj_GgafDxBoardSetModel;
 
     std::string model_name = std::string(prm_model_name);
-    std::vector<std::string> names = UTIL::split(model_name, "/", 1);
+    std::vector<std::string> names = UTIL::split(model_name, "/");
     if (names.size() > 2) {
         throwGgafCriticalException("prm_model_name には \"xxxxxx\" or \"8/xxxxx\" 形式を指定してください。 \n"
                                    "実際の引数は、prm_idstr="<<prm_model_name);

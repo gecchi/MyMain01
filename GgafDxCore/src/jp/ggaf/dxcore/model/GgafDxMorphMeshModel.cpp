@@ -27,7 +27,7 @@ GgafDxMorphMeshModel::GgafDxMorphMeshModel(const char* prm_model_name) : GgafDxM
     _TRACE_("GgafDxMorphMeshModel prm_model_name="<<prm_model_name);
 
     std::string model_name = std::string(prm_model_name);
-    std::vector<std::string> names = UTIL::split(model_name, "/", 1);
+    std::vector<std::string> names = UTIL::split(model_name, "/");
     if (names.size() != 2) {
         throwGgafCriticalException("モデルIDにモーフターゲット数が指定されてません。prm_model_name="<<prm_model_name);
     } else {

@@ -16,7 +16,10 @@ float g_tex_blink_threshold;
 float g_alpha_master;
 float g_zf;
 float g_far_rate;
-
+float g_sin_rz;
+float g_cos_rz;
+float g_u_center;
+float g_v_center;
 //soレジスタのサンプラを使う(固定パイプラインにセットされたテクスチャをシェーダーで使う)
 sampler MyTextureSampler : register(s0);
 
@@ -36,7 +39,10 @@ OUT_VS GgafDxVS_DefaultRegularPolygonSprite(
       float2 prm_uv     : TEXCOORD0     // モデルの頂点のUV
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
-
+	float x = prm_posModel_Local.x;
+	float y = prm_posModel_Local.y;
+	prm_posModel_Local.x = (x*g_cos_rz + y*-g_sin_rz);
+	prm_posModel_Local.y = (x*g_sin_rz + y*g_cos_rz);
 	//頂点計算
 	const float4 posModel_World = mul(prm_posModel_Local, g_matWorld ); // World変換
 	const float4 posModel_View = mul(posModel_World, g_matView );       // View変換
@@ -49,16 +55,15 @@ OUT_VS GgafDxVS_DefaultRegularPolygonSprite(
     }
 	//dot by dot考慮
 	out_vs.posModel_Proj = adjustDotByDot(out_vs.posModel_Proj);
-	
 	//UVのオフセット(パターン番号による増分)加算
-	out_vs.uv.x = prm_uv.x + g_offset_u;
-	out_vs.uv.y = prm_uv.y + g_offset_v;
-//    if (out_vs.posModel_Proj.z > g_zf*0.98) {   
-//        out_vs.posModel_Proj.z = g_zf*0.98; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
-//    }
+	x = prm_uv.x - g_u_center;
+	y = prm_uv.y - g_v_center;
+	out_vs.uv.x = (x*g_cos_rz + y*g_sin_rz);
+	out_vs.uv.y = (x*-g_sin_rz + y*g_cos_rz);
+	out_vs.uv.x += (g_u_center + g_offset_u);
+	out_vs.uv.y += (g_v_center + g_offset_v);
 	return out_vs;
 }
-
 
 //スプライト標準ピクセルシェーダー
 float4 GgafDxPS_DefaultRegularPolygonSprite(

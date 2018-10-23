@@ -15,7 +15,7 @@ using namespace GgafLib;
 using namespace Mogera;
 
 SmpPieGraphSprite::SmpPieGraphSprite(const char* prm_name) :
-        GgafLib::PieGraphSpriteActor(prm_name, "8/RegularPolygon") {
+        GgafLib::PieGraphSpriteActor(prm_name, "9/CCW/RegularPolygon") { //正９角形で反時計回り描画
     //座標設定
     int angle_num = ((GgafDxRegularPolygonSpriteModel*)getModel())->getAngleNum();
     linkVariable(&_x);
@@ -28,14 +28,18 @@ SmpPieGraphSprite::SmpPieGraphSprite(const char* prm_name) :
 
 void SmpPieGraphSprite::initialize() {
     getUvFlipper()->exec(FLIP_ORDER_LOOP, 30);
-
 }
 
 void SmpPieGraphSprite::processBehavior() {
     VirtualButton* pVb = P_GOD->getSpacetime()->pVb_;
     if (GgafDxInput::isPressedKey(DIK_Z)) {
-        _x += PX_C(2); //右
+        setBeginAngPos(getBeginAngPos() + D_ANG(1));
     }
+
+    if (GgafDxInput::isPressedKey(DIK_X)) {
+        setBeginAngPos(getBeginAngPos() - D_ANG(1));
+    }
+
     if (pVb->isPressed(VB_BUTTON1)) {
         //ボタン１（スペースキー）を押しながらの場合
         if (pVb->isPressed(VB_UP)) {

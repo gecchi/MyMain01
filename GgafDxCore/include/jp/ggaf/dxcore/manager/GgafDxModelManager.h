@@ -83,16 +83,6 @@ public:
         DWORD col_texture_split;
     };
 
-    struct RegularPolygonSpriteXFileFmt {
-        FLOAT width;
-        FLOAT height;
-        char texture_file[256];
-        DWORD row_texture_split;
-        DWORD col_texture_split;
-        FLOAT circumference_begin_position; //FAN描画の円周開始位置
-        DWORD drawing_order;   //FAN描画順方向
-    };
-
     class PointSpriteXFileFmt {
     public:
         FLOAT SquareSize;
@@ -123,12 +113,10 @@ public:
     GgafDxTextureManager* _pModelTextureManager;
     /** カスタムテンプレートXファイル読み込み用の ID3DXFile のポインタ */
     ID3DXFile* _pID3DXFile_sprx;
-    ID3DXFile* _pID3DXFile_rsprx; //RegularPolygonSprite 用
     ID3DXFile* _pID3DXFile_psprx;
     static std::string getMeshFileName(std::string prm_model_name);
     static std::string getSpriteFileName(std::string prm_model_name, std::string prm_ext);
     void obtainSpriteInfo(SpriteXFileFmt* prm_pSpriteFmt_out, std::string prm_sprite_x_filename);
-    void obtainRegularPolygonSpriteSpriteInfo(RegularPolygonSpriteXFileFmt* prm_pRglrPlygnSpriteFmt_out, std::string prm_sprite_x_filename);
     void obtainPointSpriteInfo(PointSpriteXFileFmt* pPointSpriteFmt_out, std::string prm_point_sprite_x_filename);
 public:
     /**

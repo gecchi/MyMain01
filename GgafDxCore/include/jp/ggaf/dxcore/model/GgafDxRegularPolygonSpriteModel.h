@@ -34,12 +34,14 @@ public:
     float _model_height_px;
     int _row_texture_split;
     int _col_texture_split;
-    /** FAN描画の円周開始位置(rad) */
-    float _circumference_begin_position;
     /** FAN描画順方向 1:時計回り/1以外:反時計回り */
     int _drawing_order;
     /** 正何角形か */
     int _angle_num;
+    /** 最初の頂点の u 座標 */
+    float _u_center;
+    /** 最初の頂点の v 座標 */
+    float _v_center;
 
 public:
     /**
@@ -70,14 +72,6 @@ public:
      */
     int getAngleNum() {
         return _angle_num;
-    }
-
-    /**
-     * FAN描画の円周開始位置(rad)を取得
-     * @return FAN描画の円周開始位置(rad)
-     */
-    angle getCircumferenceBeginPosition() {
-        return _circumference_begin_position;
     }
 
     /**

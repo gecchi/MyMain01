@@ -7,7 +7,7 @@ namespace GgafDxCore {
 
 /**
  * AAプリズム.
- * GgafDxGeometricActor を継承し、プリズムを表示するためのアクターです。<BR>
+ * GgafDxMeshActor を継承し、プリズムを表示するためのアクターです。<BR>
  * Xファイルは、長さ１px相当の立方体(中心は(0,0,0))のプリズムを読み込ませてください。
  * @version 1.00
  * @since 2010/12/29

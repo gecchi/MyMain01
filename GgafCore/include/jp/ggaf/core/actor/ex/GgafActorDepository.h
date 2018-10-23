@@ -141,7 +141,7 @@ public:
      * <pre><code>
      * GgafMainActor* pActor = pDepository->dispatchForce();
      * if (pActor->isActiveInTheTree()) {
-     *     pActor->onInctive();
+     *     pActor->onInactive();
      *     pActor->_frame_of_behaving_since_onActive = 1;
      *     pActor->onActive();
      * }

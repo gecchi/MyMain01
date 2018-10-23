@@ -6,12 +6,12 @@
 namespace GgafDxCore {
 
 /**
- * スプライトアクター.
- * GgafDxGeometricActor を継承し、板ポリゴンにテクスチャを貼り付けた<BR>
+ * 正多角形疑似スプライトアクター .
+ * GgafDxFigureActor を継承し、板ポリゴンにテクスチャを貼り付けた<BR>
  * 擬似スプライト機能を追加したアクターです。<BR>
  * いわゆる板ポリ<BR>
  * @version 1.00
- * @since 2007/11/14
+ * @since 2010/10/18
  * @author Masatoshi Tsuge
  */
 class GgafDxRegularPolygonSpriteActor : public GgafDxFigureActor {
@@ -27,6 +27,8 @@ public:
     float _far_rate;
     /** 何枚扇を描画するか */
     int _draw_fan_num;
+    /** 多角形描画を開始する最初の頂点の角度位置 */
+    angle _circumference_begin_position;
 
 public:
     /**
@@ -62,12 +64,31 @@ public:
         }
     }
 
+    /**
+     * 描画するFAN(扇型)の枚数を指定する .
+     * @param prm_draw_fan_num 描画するFAN(扇型)の枚数
+     */
     void setDrawFanNum(int prm_draw_fan_num) {
         _draw_fan_num = prm_draw_fan_num;
     }
 
     inline GgafDxUvFlipper* getUvFlipper() {
         return _pUvFlipper;
+    }
+    /**
+     * 多角形描画を開始する最初の頂点の角度位置を設定する .
+     * @param prm_ang 最初の頂点の角度位置
+     */
+    void setBeginAngPos(angle prm_ang) {
+        _circumference_begin_position = prm_ang;
+    }
+
+    /**
+     * 現在の多角形描画を開始する最初の頂点の角度位置を取得
+     * @return 最初の頂点の角度位置
+     */
+    angle getBeginAngPos() {
+        return _circumference_begin_position;
     }
 };
 

@@ -28,6 +28,10 @@ GgafDxRegularPolygonSpriteEffect::GgafDxRegularPolygonSpriteEffect(const char* p
     _h_tex_blink_power = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_power" );
     _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_threshold" );
     _h_far_rate = _pID3DXEffect->GetParameterByName( nullptr, "g_far_rate" );
+    _h_sin_rz = _pID3DXEffect->GetParameterByName( nullptr, "g_sin_rz" );
+    _h_cos_rz = _pID3DXEffect->GetParameterByName( nullptr, "g_cos_rz" );
+    _h_u_center = _pID3DXEffect->GetParameterByName( nullptr, "g_u_center" );
+    _h_v_center = _pID3DXEffect->GetParameterByName( nullptr, "g_v_center" );
 }
 
 void GgafDxRegularPolygonSpriteEffect::setParamPerFrame() {

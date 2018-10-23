@@ -63,7 +63,7 @@ void TrialAndErrScene::processBehavior() {
 
     if (getActiveFrame() == 100) {
         SmpPieGraphSprite* pSmpPieGraphSprite = (SmpPieGraphSprite*)receiveActor(6666);
-        pSmpPieGraphSprite->setPosition(PX_C(50), 0, 0);
+        pSmpPieGraphSprite->setPosition(0, 0, 0);
         bringSceneMediator()->appendGroupChild(MGR_TEKI, pSmpPieGraphSprite);
 
 

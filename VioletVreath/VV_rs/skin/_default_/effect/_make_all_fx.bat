@@ -1,6 +1,6 @@
 ECHO OFF
 REM 更新されていればコンパイル
-FOR /F %%X IN ('dir /b *.fx') DO CALL :_EXECUTE_RUBY_ %%X
+FOR /F %%X IN ('dir /o-d /b *.fx') DO CALL :_EXECUTE_RUBY_ %%X
 EXIT /B
 
 :_EXECUTE_RUBY_

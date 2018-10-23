@@ -7,7 +7,7 @@ namespace GgafDxCore {
 
 /**
  * スプライトアクター.
- * GgafDxGeometricActor を継承し、板ポリゴンにテクスチャを貼り付けた<BR>
+ * GgafDxFigureActor を継承し、板ポリゴンにテクスチャを貼り付けた<BR>
  * 擬似スプライト機能を追加したアクターです。<BR>
  * いわゆる板ポリ<BR>
  * @version 1.00

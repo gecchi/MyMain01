@@ -27,7 +27,7 @@ GgafDxMeshSetModel::GgafDxMeshSetModel(const char* prm_model_name) : GgafDxModel
     // モーフターゲット数が違うモデルは、別モデルという扱いにするため、モデル名に数値を残そうかな。
     // モデル名から同時描画セット数指定があれば取り出す。無ければ8
     std::string model_name = std::string(prm_model_name);
-    std::vector<std::string> names = UTIL::split(model_name, "/", 1);
+    std::vector<std::string> names = UTIL::split(model_name, "/");
     if (names.size() > 2) {
         throwGgafCriticalException("prm_model_name には \"xxxxxx\" or \"8/xxxxx\" 形式を指定してください。 \n"
                 "実際の引数は、prm_idstr="<<prm_model_name);

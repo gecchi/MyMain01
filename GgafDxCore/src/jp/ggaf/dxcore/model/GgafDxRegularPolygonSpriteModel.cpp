@@ -29,18 +29,29 @@ GgafDxRegularPolygonSpriteModel::GgafDxRegularPolygonSpriteModel(const char* prm
     _size_vertex_unit = 0;
     _angle_num = 3;
     _drawing_order = 0;
-    _circumference_begin_position = 0;
+    _u_center = 0.5;
+    _v_center = 0.5;
 
-    // prm_model_name には "8/XXXX" が、渡ってくる。
-    // これは正8角形というパラメータ
+    // prm_model_name には "8/XXXX" or "8/CW/XXXX" が、渡ってくる。
+    // "8/CW/XXXX" : 正8角形で時計回り描画
+    // "8/XXXX"    : 正8角形(デフォルトの反時計回り描画)
     std::string model_name = std::string(prm_model_name);
-    std::vector<std::string> names = UTIL::split(model_name, "/", 1);
-    if (names.size() != 2) {
-        throwGgafCriticalException("モデルIDに何角形か指定されてません。prm_model_name="<<prm_model_name);
+    std::vector<std::string> names = UTIL::split(model_name, "/");
+    if (names.size() == 1) {
+        throwGgafCriticalException("モデルIDに情報が足りません。[8/XXXX] or [8/CW/XXXX] 形式で指定して下さい。prm_model_name="<<prm_model_name);
     } else {
         _angle_num = STOI(names[0]);
+        if (names.size() == 2) {
+            _drawing_order = 0;
+        } else if (names.size() == 3) {
+            if (names[1] == "CW" ||  names[1] == "cw" || names[1] == "1") {
+                //時計回り描画
+                _drawing_order = 1;
+            } else {
+                _drawing_order = 0;
+            }
+        }
     }
-
     _obj_model |= Obj_GgafDxRegularPolygonSpriteModel;
 }
 
@@ -54,9 +65,6 @@ HRESULT GgafDxRegularPolygonSpriteModel::draw(GgafDxFigureActor* prm_pActor_targ
     //対象エフェクト
     ID3DXEffect* const pID3DXEffect = pSpriteEffect->_pID3DXEffect;
 
-    //今回描画のUV
-    float u,v;
-    pTargetActor->_pUvFlipper->getUV(u,v);
     HRESULT hr;
     GgafDxModel* pModelLastDraw = GgafDxModelManager::_pModelLastDraw;
     if (pModelLastDraw != this) {
@@ -71,11 +79,12 @@ HRESULT GgafDxRegularPolygonSpriteModel::draw(GgafDxFigureActor* prm_pActor_targ
         checkDxException(hr, D3D_OK, "SetFloat(_h_tex_blink_power) に失敗しました。");
         hr = pID3DXEffect->SetFloat(pSpriteEffect->_h_tex_blink_threshold, _blink_threshold);
         checkDxException(hr, D3D_OK, "SetFloat(_h_tex_blink_threshold) に失敗しました。");
+
+        hr = pID3DXEffect->SetFloat(pSpriteEffect->_h_u_center, _u_center);
+        checkDxException(hr, D3D_OK, "SetFloat(_h_u_center) に失敗しました。");
+        hr = pID3DXEffect->SetFloat(pSpriteEffect->_h_v_center, _v_center);
+        checkDxException(hr, D3D_OK, "SetFloat(_h_v_center) に失敗しました。");
     }
-    hr = pID3DXEffect->SetFloat(pSpriteEffect->_h_offset_u, u);
-    checkDxException(hr, D3D_OK, "SetFloat(_h_offset_u) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(pSpriteEffect->_h_offset_v, v);
-    checkDxException(hr, D3D_OK, "SetFloat(_h_offset_v) に失敗しました。");
     GgafDxEffect* pEffect_active = GgafDxEffectManager::_pEffect_active;
     if (GgafDxFigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique)  {
         if (pEffect_active) {
@@ -149,16 +158,20 @@ void GgafDxRegularPolygonSpriteModel::restore() {
     HRESULT hr;
 
     std::string model_name = std::string(_model_name); //_model_name は "8/XXXX"
-    std::vector<std::string> names = UTIL::split(model_name, "/", 1);
-    std::string xfile_name = GgafDxModelManager::getSpriteFileName(names[1], "rsprx");
-    GgafDxModelManager::RegularPolygonSpriteXFileFmt xdata;
-    pModelManager->obtainRegularPolygonSpriteSpriteInfo(&xdata, xfile_name);
+    std::vector<std::string> names = UTIL::split(model_name, "/");
+    std::string filenamae = "";
+    if (names.size() == 2) {
+        filenamae = names[1];
+    } else if (names.size() == 3) {
+        filenamae = names[2];
+    }
+    std::string xfile_name = GgafDxModelManager::getSpriteFileName(filenamae, "sprx");
+    GgafDxModelManager::SpriteXFileFmt xdata;
+    pModelManager->obtainSpriteInfo(&xdata, xfile_name);
     _model_width_px = xdata.width;
     _model_height_px =  xdata.height;
     _row_texture_split = xdata.row_texture_split;
     _col_texture_split = xdata.col_texture_split;
-    _circumference_begin_position = xdata.circumference_begin_position; //FAN描画の円周開始位置
-    _drawing_order = xdata.drawing_order;   //FAN描画順方向 1:時計回り/1以外:反時計回り
 
     //テクスチャ取得しモデルに保持させる
     GgafDxTextureConnection* model_pTextureConnection = (GgafDxTextureConnection*)(pModelManager->_pModelTextureManager->connect(xdata.texture_file, this));
@@ -174,7 +187,8 @@ void GgafDxRegularPolygonSpriteModel::restore() {
     dxcoord model_height = PX_DX(_model_height_px);
     float tu_rate = 1.0 / _col_texture_split;
     float tv_rate = 1.0 / _row_texture_split;
-
+    _u_center = tu_rate * 0.5;
+    _v_center = tv_rate * 0.5;
     //中心
     paVertex[0].x = 0.0f;
     paVertex[0].y = 0.0f;
@@ -183,39 +197,36 @@ void GgafDxRegularPolygonSpriteModel::restore() {
     paVertex[0].ny = 0.0f;
     paVertex[0].nz = 1.0f;
     paVertex[0].color = D3DCOLOR_ARGB(255,255,255,255);
-    paVertex[0].tu = tu_rate * 0.5;
-    paVertex[0].tv = tv_rate * 0.5;
+    paVertex[0].tu = _u_center;
+    paVertex[0].tv = _v_center;
 
-    if (_drawing_order == 1) {
-        //時計回り
-        double begin_rad = _circumference_begin_position;
+    if (_drawing_order == 0) {        //反計回り
         for (int ang = 0; ang < _angle_num; ang++) {
-            double rad = PI2 - ((PI2 * ang) / _angle_num);
-            paVertex[ang+1].x = (float)(cos(rad+begin_rad) * model_width * 0.5);
-            paVertex[ang+1].y = (float)(sin(rad+begin_rad) * model_height * 0.5);
+            double rad = (PI2 * ang) / _angle_num;
+            paVertex[ang+1].x = (float)(cos(rad) * model_width * 0.5);
+            paVertex[ang+1].y = (float)(sin(rad) * model_height * 0.5);
             paVertex[ang+1].z = 0.0f;
             paVertex[ang+1].nx = 0.0f;
             paVertex[ang+1].ny = 0.0f;
             paVertex[ang+1].nz = 1.0f;
             paVertex[ang+1].color = D3DCOLOR_ARGB(255,255,255,255);
-            paVertex[ang+1].tu = paVertex[0].tu + (cos(rad+begin_rad) * tu_rate * 0.5);
-            paVertex[ang+1].tv = paVertex[0].tv - (sin(rad+begin_rad) * tv_rate * 0.5);
+            paVertex[ang+1].tu = paVertex[0].tu + (cos(rad) * tu_rate * 0.5);
+            paVertex[ang+1].tv = paVertex[0].tv - (sin(rad) * tv_rate * 0.5);
         }
         paVertex[_angle_num+1] = paVertex[1];
     } else {
-        //反計回り
-        double begin_rad = _circumference_begin_position;
+        //時計回り
         for (int ang = 0; ang < _angle_num; ang++) {
-            double rad = (PI2 * ang) / _angle_num;
-            paVertex[ang+1].x = (float)(cos(rad+begin_rad) * model_width * 0.5);
-            paVertex[ang+1].y = (float)(sin(rad+begin_rad) * model_height * 0.5);
+            double rad = PI2 - ((PI2 * ang) / _angle_num);
+            paVertex[ang+1].x = (float)(cos(rad) * model_width * 0.5);
+            paVertex[ang+1].y = (float)(sin(rad) * model_height * 0.5);
             paVertex[ang+1].z = 0.0f;
             paVertex[ang+1].nx = 0.0f;
             paVertex[ang+1].ny = 0.0f;
             paVertex[ang+1].nz = 1.0f;
             paVertex[ang+1].color = D3DCOLOR_ARGB(255,255,255,255);
-            paVertex[ang+1].tu = paVertex[0].tu + (cos(rad+begin_rad) * tu_rate * 0.5);
-            paVertex[ang+1].tv = paVertex[0].tv - (sin(rad+begin_rad) * tv_rate * 0.5);
+            paVertex[ang+1].tu = paVertex[0].tu + (cos(rad) * tu_rate * 0.5);
+            paVertex[ang+1].tv = paVertex[0].tv - (sin(rad) * tv_rate * 0.5);
         }
         paVertex[_angle_num+1] = paVertex[1];
     }
