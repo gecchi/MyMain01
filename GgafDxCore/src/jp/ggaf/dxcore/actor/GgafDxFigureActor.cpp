@@ -13,6 +13,7 @@
 #include "jp/ggaf/dxcore/scene/GgafDxScene.h"
 #include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
 #include "jp/ggaf/dxcore/scene/supporter/GgafDxAlphaCurtain.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxColorist.h"
 #include "jp/ggaf/dxcore/GgafDxConfig.h"
 
 using namespace GgafCore;
@@ -46,7 +47,8 @@ _pEffectCon(
     )
 ),
 _pEffect((GgafDxEffect*)_pEffectCon->peek()),
-_pAlphaFader(nullptr)
+_pAlphaFader(nullptr),
+_pColorist(nullptr)
 {
     _obj_class |= Obj_GgafDxFigureActor;
     _class_name = "GgafDxFigureActor";
@@ -111,7 +113,8 @@ _pEffectCon(
     )
 ),
 _pEffect((GgafDxEffect*)_pEffectCon->peek()),
-_pAlphaFader(nullptr)
+_pAlphaFader(nullptr),
+_pColorist(nullptr)
 {
     _class_name = "GgafDxFigureActor";
 
@@ -149,6 +152,10 @@ _pAlphaFader(nullptr)
 
 GgafDxAlphaFader* GgafDxFigureActor::getAlphaFader() {
     return _pAlphaFader ? _pAlphaFader : _pAlphaFader = NEW GgafDxAlphaFader(this);
+}
+
+GgafDxColorist* GgafDxFigureActor::getColorist() {
+    return _pColorist ? _pColorist : _pColorist = NEW GgafDxColorist(this);
 }
 
 void GgafDxFigureActor::processPreDraw() {
@@ -375,6 +382,7 @@ GgafDxFigureActor::~GgafDxFigureActor() {
     GGAF_DELETEARR(_temp_technique);
     GGAF_DELETEARR(_paMaterial);
     GGAF_DELETE_NULLABLE(_pAlphaFader);
+    GGAF_DELETE_NULLABLE(_pColorist);
     _pEffectCon->close();
     _pModelCon->close();
 }

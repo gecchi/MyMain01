@@ -11,10 +11,15 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
+enum {
+    RED = 0,
+    GREEN = 1,
+    BLUE = 2,
+};
+
 EffectShotMagic::EffectShotMagic(const char* prm_name) :
         DefaultSpriteActor(prm_name, "EffectShotMagic", nullptr) {
     _class_name = "EffectShotMagic";
-    pColorist_ = NEW GgafDxColorist(this);
     effectBlendOne(); //加算合成Technique
     setZEnableDraw(true);       //描画時、Zバッファ値は考慮される
     setZWriteEnable(false); //自身のZバッファを書き込みしない
@@ -29,15 +34,15 @@ void EffectShotMagic::initialize() {
 }
 
 void EffectShotMagic::onActive() {
-    pColorist_->beat(GgafDxColorist::RED  ,  60, 15, 15, 15, -1);
-    pColorist_->beat(GgafDxColorist::GREEN,  70, 15, 15, 15, -1);
-    pColorist_->beat(GgafDxColorist::BLUE ,  80, 15, 15, 15, -1);
+    GgafDxColorist* pColorist = getColorist();
+    pColorist->beat(RED  ,  60, 15, 15, 15, -1);
+    pColorist->beat(GREEN,  70, 15, 15, 15, -1);
+    pColorist->beat(BLUE ,  80, 15, 15, 15, -1);
 }
 
 void EffectShotMagic::processBehavior() {
     getUvFlipper()->behave();
     getKuroko()->behave();
-    pColorist_->behave();
     getScaler()->behave();
 }
 
@@ -48,5 +53,4 @@ void EffectShotMagic::onInactive() {
 }
 
 EffectShotMagic::~EffectShotMagic() {
-    GGAF_DELETE(pColorist_);
 }

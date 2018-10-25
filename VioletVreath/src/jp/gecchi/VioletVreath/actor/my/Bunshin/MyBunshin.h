@@ -29,8 +29,6 @@ public:
     /** [r]魚雷コントローラー */
     MyTorpedoController* pTorpedoCtrler_;
 
-    /** [r]カラーリストさん */
-    GgafDxCore::GgafDxColorist* pColorist_;
 public:
     struct AimInfo {
         MyBunshinWateringLaserChip001* pLeaderChip;

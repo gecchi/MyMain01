@@ -30,18 +30,18 @@ void PCMDecoder::setLooping(bool prm_is_looping) {
     _is_looping = prm_is_looping;
 }
 
-bool PCMDecoder::getWaveFormatEx(WAVEFORMATEX& out_waveFormatEx) {
+bool PCMDecoder::getWaveFormatEx(WAVEFORMATEX* out_waveFormatEx) {
     if (isReady() == false) {
         return false;
     }
 
-    out_waveFormatEx.wFormatTag = WAVE_FORMAT_PCM;
-    out_waveFormatEx.nChannels = _num_channel;
-    out_waveFormatEx.nSamplesPerSec = _sampling_rate;
-    out_waveFormatEx.wBitsPerSample = _bit_rate;
-    out_waveFormatEx.nBlockAlign = _num_channel * _bit_rate / 8;
-    out_waveFormatEx.nAvgBytesPerSec = out_waveFormatEx.nSamplesPerSec * out_waveFormatEx.nBlockAlign;
-    out_waveFormatEx.cbSize = 0;
+    out_waveFormatEx->wFormatTag = WAVE_FORMAT_PCM;
+    out_waveFormatEx->nChannels = _num_channel;
+    out_waveFormatEx->nSamplesPerSec = _sampling_rate;
+    out_waveFormatEx->wBitsPerSample = _bit_rate;
+    out_waveFormatEx->nBlockAlign = _num_channel * _bit_rate / 8;
+    out_waveFormatEx->nAvgBytesPerSec = out_waveFormatEx->nSamplesPerSec * out_waveFormatEx->nBlockAlign;
+    out_waveFormatEx->cbSize = 0;
 
     return true;
 }

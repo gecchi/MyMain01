@@ -1,5 +1,22 @@
 #include "jp/ggaf/dxcore/sound/GgafDxSe.h"
 
+#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+#include "jp/ggaf/dxcore/GgafDxConfig.h"
+#include "jp/ggaf/dxcore/sound/GgafDxSound.h"
+#include "jp/ggaf/dxcore/sound/CWaveDecorder.h"
+#include "jp/ggaf/dxcore/manager/GgafDxSeManager.h"
+#ifdef __GNUG__
+    #define __null
+    #define NULL    0
+    #define __in
+    #define __out
+#endif
+#include <dsound.h>  //Å©sal.h Ç include Ç∑ÇÈ
+#ifdef __GNUG__
+    #undef __null
+    #undef __in
+    #undef __out
+#endif
 #include <Shlwapi.h>
 #include <d3d9.h>
 #ifdef __GNUG__
@@ -7,11 +24,7 @@
     #undef __out
 #endif
 
-#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
-#include "jp/ggaf/dxcore/GgafDxConfig.h"
-#include "jp/ggaf/dxcore/sound/GgafDxSound.h"
-#include "jp/ggaf/dxcore/sound/CWaveDecorder.h"
-#include "jp/ggaf/dxcore/manager/GgafDxSeManager.h"
+
 
 using namespace GgafCore;
 using namespace GgafDxCore;

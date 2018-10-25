@@ -430,11 +430,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 // システムメニューをカスタマイズします。
 BOOL CustmizeSysMenu(HWND hWnd)
 {
-//    for (i = 0; i <= 5; i++)
-//        //システムメニューの項目を消去
-//        DeleteMenu(hMenu, 0, MF_BYPOSITION);
-//    //システムメニューの項目を追加
-
     HMENU menu_vp = CreateMenu();
     InsertMenu(menu_vp,  0, MF_STRING | MF_BYPOSITION, MY_IDM_VPOS_7, "7");
     InsertMenu(menu_vp,  1, MF_BYPOSITION | MF_SEPARATOR, (UINT_PTR)0, "");

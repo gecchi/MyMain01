@@ -42,29 +42,22 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     VvvGod god;
     //ゲームループ
     MSG msg;
-    try {
-        god.createWindow(wcex1, wcex2,
-                         "VVViewer[1]", "VVViewer[2]", //タイトル文字列
-                         dwStyle, dwStyle,
-                         hWnd1, hWnd2);
-        DragAcceptFiles(hWnd1, TRUE);
-        //ループ本体
-        while (true) {
-            if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
-                if (msg.message == WM_QUIT) {
-                    return EXIT_SUCCESS; //アプリ終了
-                }
-                TranslateMessage(&msg);
-                DispatchMessage(&msg);
-            } else {
-                god.be();
+    god.createWindow(wcex1, wcex2,
+                     "VVViewer[1]", "VVViewer[2]", //タイトル文字列
+                     dwStyle, dwStyle,
+                     hWnd1, hWnd2);
+    DragAcceptFiles(hWnd1, TRUE);
+    //ループ本体
+    while (true) {
+        if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
+            if (msg.message == WM_QUIT) {
+                return EXIT_SUCCESS; //アプリ終了
             }
+            TranslateMessage(&msg);
+            DispatchMessage(&msg);
+        } else {
+            god.be();
         }
-    } catch (std::exception& e2) {
-        std::string what(e2.what());
-        MessageBox(nullptr, what.c_str(), "VVViewer Error", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
-        _TRACE_("[エラー]:"<<what); //_TRACE_() はデバッグモード時のみ標準出力に出力されます。
-        return EXIT_FAILURE; //異常終了
     }
     return (int)msg.wParam;
 }
@@ -82,7 +75,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             CustmizeSysMenu(hWnd);
             break;
         }
-        case WM_DROPFILES: {/* ファイルがドロップされた時の処理 */
+        case WM_DROPFILES: { // ファイルがドロップされた時の処理
             HDROP hDrop = (HDROP)wParam;
             UINT uFileNo = DragQueryFile((HDROP)wParam, 0xFFFFFFFF, nullptr, 0);
             for (int i = 0; i < (int)uFileNo; i++) {

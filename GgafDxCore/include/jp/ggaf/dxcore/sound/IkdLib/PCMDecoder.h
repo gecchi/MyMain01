@@ -49,7 +49,7 @@ public:
     void setLooping(bool prm_is_looping);
 
     //! WAVEFORMATEX\‘¢‘Ì‚ğæ“¾
-    bool getWaveFormatEx(WAVEFORMATEX& out_waveFormatEx);
+    bool getWaveFormatEx(WAVEFORMATEX* out_waveFormatEx);
 
 protected:
     //! €”õƒtƒ‰ƒOİ’è

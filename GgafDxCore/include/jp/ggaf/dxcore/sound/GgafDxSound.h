@@ -3,18 +3,18 @@
 #include "GgafDxCommonHeader.h"
 #include <sstream>
 
-#ifdef __GNUG__
-    #define __null
-    #define NULL    0
-    #define __in
-    #define __out
-#endif
-#include <dsound.h>  //←sal.h を include する
-#ifdef __GNUG__
-    #undef __null
-    #undef __in
-    #undef __out
-#endif
+//#ifdef __GNUG__
+//    #define __null
+//    #define NULL    0
+//    #define __in
+//    #define __out
+//#endif
+//#include <dsound.h>  //←sal.h を include する
+//#ifdef __GNUG__
+//    #undef __null
+//    #undef __in
+//    #undef __out
+//#endif
 
 #include "jp/ggaf/dxcore/manager/GgafDxSeManager.h"
 
@@ -31,6 +31,8 @@
  */
 #define connectToBgmManager(X) ((GgafDxCore::GgafDxBgmConnection*)GgafDxCore::GgafDxSound::_pBgmManager->connect((X), this))
 
+struct IDirectSound8;
+typedef struct _DSCAPS DSCAPS;
 
 namespace GgafDxCore {
 
@@ -59,7 +61,7 @@ public:
     /** IDirectSound8インターフェイス */
     static IDirectSound8* _pIDirectSound8;
     /** [r]DSCAPS */
-    static DSCAPS _dsCaps;
+    static DSCAPS* _dsCaps;
     /** [r]GgafDxSe 管理クラス */
     static GgafDxSeManager* _pSeManager;
     /** [r]GgafDxBgm 管理クラス */

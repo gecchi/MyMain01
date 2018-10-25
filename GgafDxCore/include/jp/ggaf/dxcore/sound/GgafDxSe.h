@@ -4,19 +4,21 @@
 #include "jp/ggaf/core/GgafObject.h"
 
 #include <sstream>
+#include <windows.h>
+//#ifdef __GNUG__
+//    #define __null
+//    #define NULL    0
+//    #define __in
+//    #define __out
+//#endif
+//#include <dsound.h>  //←sal.h を include する
+//#ifdef __GNUG__
+//    #undef __null
+//    #undef __in
+//    #undef __out
+//#endif
 
-#ifdef __GNUG__
-    #define __null
-    #define NULL    0
-    #define __in
-    #define __out
-#endif
-#include <dsound.h>  //←sal.h を include する
-#ifdef __GNUG__
-    #undef __null
-    #undef __in
-    #undef __out
-#endif
+struct IDirectSoundBuffer;
 
 namespace GgafDxCore {
 
@@ -34,7 +36,7 @@ class GgafDxSe : public GgafCore::GgafObject {
     int writeBuffer(CWaveDecorder& WaveFile);
 public:
     /** [r]サウンドバッファ */
-    LPDIRECTSOUNDBUFFER _pIDirectSoundBuffer;
+    IDirectSoundBuffer* _pIDirectSoundBuffer;
 
     char* _wave_key;
 

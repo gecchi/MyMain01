@@ -4,6 +4,7 @@
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoFaceAngAssistant.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAngAssistant.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
+#include "jp/ggaf/dxcore/actor/supporter/GgafDxColorist.h"
 #include "jp/ggaf/dxcore/model/GgafDxRegularPolygonSpriteModel.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "MgrGod.h"
@@ -14,8 +15,14 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace Mogera;
 
+enum {
+    RED = 0,
+    GREEN = 1,
+    BLUE = 2,
+};
+
 SmpPieGraphSprite::SmpPieGraphSprite(const char* prm_name) :
-        GgafLib::PieGraphSpriteActor(prm_name, "9/CCW/RegularPolygon") { //正９角形で反時計回り描画
+        GgafLib::PieGraphSpriteActor(prm_name, "36/CCW/RegularPolygon") { //正９角形で反時計回り描画
     //座標設定
     int angle_num = ((GgafDxRegularPolygonSpriteModel*)getModel())->getAngleNum();
     linkVariable(&_x);
@@ -28,6 +35,7 @@ SmpPieGraphSprite::SmpPieGraphSprite(const char* prm_name) :
 
 void SmpPieGraphSprite::initialize() {
     getUvFlipper()->exec(FLIP_ORDER_LOOP, 30);
+    getColorist()->beat(RED,120,50,5,50,-1);
 }
 
 void SmpPieGraphSprite::processBehavior() {
@@ -35,7 +43,6 @@ void SmpPieGraphSprite::processBehavior() {
     if (GgafDxInput::isPressedKey(DIK_Z)) {
         setBeginAngPos(getBeginAngPos() + D_ANG(1));
     }
-
     if (GgafDxInput::isPressedKey(DIK_X)) {
         setBeginAngPos(getBeginAngPos() - D_ANG(1));
     }
@@ -63,7 +70,7 @@ void SmpPieGraphSprite::processBehavior() {
             _y -= PX_C(2); //下
         }
     }
-
+    getColorist()->behave();
     getUvFlipper()->behave();
     getKuroko()->behave(); //黒衣を活動させる（Z軸回転する）
 }

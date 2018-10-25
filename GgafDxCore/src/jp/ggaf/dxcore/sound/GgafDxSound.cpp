@@ -8,6 +8,19 @@
 #include "jp/ggaf/dxcore/sound/GgafDxSe.h"
 #include "jp/ggaf/dxcore/sound/GgafDxBgm.h"
 
+#ifdef __GNUG__
+    #define __null
+    #define NULL    0
+    #define __in
+    #define __out
+#endif
+#include <dsound.h>  //Å©sal.h Ç include Ç∑ÇÈ
+#ifdef __GNUG__
+    #undef __null
+    #undef __in
+    #undef __out
+#endif
+
 using namespace GgafCore;
 using namespace GgafDxCore;
 
@@ -17,7 +30,7 @@ GgafDxBgmManager* GgafDxSound::_pBgmManager = nullptr;
 GgafDxSeManager* GgafDxSound::_pSeManager = nullptr;
 double GgafDxSound::_a_db_volume[GGAF_MAX_VOLUME+1];
 
-DSCAPS GgafDxSound::_dsCaps;
+DSCAPS* GgafDxSound::_dsCaps = nullptr;
 int GgafDxSound::_app_master_volume = GGAF_MAX_VOLUME;
 int GgafDxSound::_bgm_master_volume = GGAF_MAX_VOLUME;
 int GgafDxSound::_se_master_volume = GGAF_MAX_VOLUME;
@@ -33,8 +46,9 @@ void GgafDxSound::init() {
     if (hr != D3D_OK) {
         throwGgafCriticalException("SetCooperativeLevelé∏îsÅB");
     }
-    GgafDxSound::_dsCaps.dwSize = sizeof(GgafDxSound::_dsCaps);
-    hr = GgafDxSound::_pIDirectSound8->GetCaps(&GgafDxSound::_dsCaps);
+    GgafDxSound::_dsCaps = NEW DSCAPS;
+    GgafDxSound::_dsCaps->dwSize = sizeof(DSCAPS);
+    hr = GgafDxSound::_pIDirectSound8->GetCaps(GgafDxSound::_dsCaps);
     if (hr != D3D_OK) {
         throwGgafCriticalException("GetCapsé∏îsÅB");
     }
@@ -68,6 +82,7 @@ void GgafDxSound::init() {
 
 void GgafDxSound::release() {
     _TRACE_(FUNC_NAME<<" begin");
+    GGAF_DELETE(GgafDxSound::_dsCaps);
     _TRACE_("GGAF_DELETE(GgafDxSound::_pBgmManager);");
     GGAF_DELETE(GgafDxSound::_pBgmManager);
     _TRACE_("GGAF_DELETE(GgafDxSound::_pSeManager);");

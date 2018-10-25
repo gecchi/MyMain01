@@ -12,8 +12,6 @@ namespace VioletVreath {
  * @author Masatoshi Tsuge
  */
 class EffectShotMagic : public GgafLib::DefaultSpriteActor {
-
-    GgafDxCore::GgafDxColorist* pColorist_;
 public:
     EffectShotMagic(const char* prm_name);
 

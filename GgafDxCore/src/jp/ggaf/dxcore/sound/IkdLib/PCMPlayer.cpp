@@ -12,6 +12,19 @@
 #include "jp/ggaf/dxcore/sound/IkdLib/PCMDecoder.h"
 #include "jp/ggaf/dxcore/GgafDxGod.h"
 
+#ifdef __GNUG__
+    #define __null
+    #define NULL    0
+    #define __in
+    #define __out
+#endif
+#include <dsound.h>  //←sal.h を include する
+#ifdef __GNUG__
+    #undef __null
+    #undef __in
+    #undef __out
+#endif
+
 using namespace IkdLib;
 
 
@@ -26,19 +39,19 @@ double playTime_g = 1; // 1 sec.
 }
 
 PCMPlayer::PCMPlayer() :
-        _pDS8(nullptr), _pDSBuffer(nullptr), _pPCMDecoder(nullptr), _wave_format(), _buffer_desc(), _is_ready(false), _hnd_thread(0), _is_terminate(false), _is_looping(true), _state(STATE_NONE)
+        _pDS8(nullptr), _pDSBuffer(nullptr), _pPCMDecoder(nullptr), _wave_format(NEW WAVEFORMATEX), _buffer_desc(NEW DSBUFFERDESC), _is_ready(false), _hnd_thread(0), _is_terminate(false), _is_looping(true), _state(STATE_NONE)
 {
     clear();
 }
 
 PCMPlayer::PCMPlayer(IDirectSound8* prm_pDS8) :
-        _pDS8(prm_pDS8), _pDSBuffer(nullptr), _pPCMDecoder(nullptr), _wave_format(), _buffer_desc(), _is_ready(false), _hnd_thread(0), _is_terminate(false), _is_looping(true), _state(STATE_NONE)
+        _pDS8(prm_pDS8), _pDSBuffer(nullptr), _pPCMDecoder(nullptr), _wave_format(NEW WAVEFORMATEX), _buffer_desc(NEW DSBUFFERDESC), _is_ready(false), _hnd_thread(0), _is_terminate(false), _is_looping(true), _state(STATE_NONE)
 {
     clear();
 }
 
 PCMPlayer::PCMPlayer(IDirectSound8* prm_pDS8, PCMDecoder* prm_pDecoder) :
-        _pDS8(prm_pDS8), _pDSBuffer(nullptr), _pPCMDecoder(nullptr), _wave_format(), _buffer_desc(), _is_ready(false), _hnd_thread(0), _is_terminate(false), _is_looping(true), _state(STATE_NONE)
+        _pDS8(prm_pDS8), _pDSBuffer(nullptr), _pPCMDecoder(nullptr), _wave_format(NEW WAVEFORMATEX), _buffer_desc(NEW DSBUFFERDESC), _is_ready(false), _hnd_thread(0), _is_terminate(false), _is_looping(true), _state(STATE_NONE)
 {
     clear();
     setDecoder(prm_pDecoder);
@@ -50,6 +63,9 @@ PCMPlayer::~PCMPlayer() {
     _TRACE_("PCMPlayer::~PCMPlayer() begin");
     _TRACE_("terminateThread();");
     terminateThread();
+    GGAF_DELETE(_wave_format);
+    GGAF_DELETE(_buffer_desc);
+
     _TRACE_("GGAF_RELEASE(_pDSBuffer);");
     GGAF_RELEASE(_pDSBuffer);
     _TRACE_("GGAF_DELETE(_pPCMDecoder);");
@@ -60,8 +76,8 @@ PCMPlayer::~PCMPlayer() {
 //! クリア
 void PCMPlayer::clear() {
     terminateThread();
-    memset(&_buffer_desc, 0, sizeof(_buffer_desc));
-    memset(&_wave_format, 0, sizeof(_wave_format));
+    memset(_buffer_desc, 0, sizeof(DSBUFFERDESC));
+    memset(_wave_format, 0, sizeof(WAVEFORMATEX));
     if (_pDSBuffer) {
         GGAF_RELEASE(_pDSBuffer);
         _pDSBuffer = nullptr;
@@ -135,12 +151,12 @@ bool PCMPlayer::setDecoder(PCMDecoder* prm_pPcmDecoder) {
         return false;
     }
 
-    _buffer_desc.dwSize = sizeof(DSBUFFERDESC);
-    _buffer_desc.dwFlags = DSBCAPS_CTRLPAN | DSBCAPS_CTRLVOLUME | DSBCAPS_CTRLFREQUENCY | DSBCAPS_GLOBALFOCUS | DSBCAPS_CTRLPOSITIONNOTIFY;
-    _buffer_desc.dwBufferBytes = _wave_format.nAvgBytesPerSec * playTime_g;
-    _buffer_desc.dwReserved = 0;
-    _buffer_desc.lpwfxFormat = &_wave_format;
-    _buffer_desc.guid3DAlgorithm = GUID_NULL;
+    _buffer_desc->dwSize = sizeof(DSBUFFERDESC);
+    _buffer_desc->dwFlags = DSBCAPS_CTRLPAN | DSBCAPS_CTRLVOLUME | DSBCAPS_CTRLFREQUENCY | DSBCAPS_GLOBALFOCUS | DSBCAPS_CTRLPOSITIONNOTIFY;
+    _buffer_desc->dwBufferBytes = _wave_format->nAvgBytesPerSec * playTime_g;
+    _buffer_desc->dwReserved = 0;
+    _buffer_desc->lpwfxFormat = _wave_format;
+    _buffer_desc->guid3DAlgorithm = GUID_NULL;
 
     // クローンを保存
     _pPCMDecoder = prm_pPcmDecoder->createClone();
@@ -148,7 +164,7 @@ bool PCMPlayer::setDecoder(PCMDecoder* prm_pPcmDecoder) {
     // セカンダリバッファがまだ無い場合は作成
     if (_pDSBuffer == nullptr) {
         IDirectSoundBuffer* ptmpBuf = 0;
-        if (SUCCEEDED(_pDS8->CreateSoundBuffer(&_buffer_desc, &ptmpBuf, nullptr))) {
+        if (SUCCEEDED(_pDS8->CreateSoundBuffer(_buffer_desc, &ptmpBuf, nullptr))) {
             ptmpBuf->QueryInterface(IID_IDirectSoundBuffer8, (void**)&_pDSBuffer);
         } else {
             clear();
@@ -231,7 +247,7 @@ bool PCMPlayer::initializeBuffer() {
 //! ストリーム再生スレッド生成
 unsigned __stdcall PCMPlayer::streamThread(void* playerPtr) {
     PCMPlayer* player = (PCMPlayer*)playerPtr;
-    unsigned int size = player->_buffer_desc.dwBufferBytes / 2;
+    unsigned int size = player->_buffer_desc->dwBufferBytes / 2;
     unsigned int flag = 0;
     DWORD point = 0;
     void* AP1 = 0, *AP2 = 0;

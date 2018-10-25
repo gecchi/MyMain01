@@ -42,7 +42,8 @@ protected:
     frame _frame_of_behaving_temp_technique_end;
     /** [r]αフェーディング支援 */
     GgafDxAlphaFader* _pAlphaFader;
-
+    /** [r]カラリストさん */
+    GgafDxColorist* _pColorist;
 public:
     /** [r/w]描画時、Zバッファを考慮して描画を行うか否か。true:考慮する／false:Zバッファを無視して描画  */
     bool _zenable;
@@ -132,6 +133,12 @@ public:
      * @return αフェーディング支援オブジェクト
      */
     GgafDxAlphaFader* getAlphaFader();
+
+    /**
+     * カラリストさんを取得 .
+     * @return カラリストさん
+     */
+    GgafDxColorist* getColorist();
 
     /**
      * シェーダーのテクニックを変更する .

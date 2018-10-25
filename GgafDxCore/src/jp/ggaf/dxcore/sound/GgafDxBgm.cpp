@@ -6,6 +6,19 @@
 #include "jp/ggaf/dxcore/sound/IkdLib/OggDecoder.h"
 #include "jp/ggaf/dxcore/sound/IkdLib/PCMPlayer.h"
 #include "jp/ggaf/dxcore/manager/GgafDxBgmManager.h"
+
+#ifdef __GNUG__
+    #define __null
+    #define NULL    0
+    #define __in
+    #define __out
+#endif
+#include <dsound.h>  //Å©sal.h Ç include Ç∑ÇÈ
+#ifdef __GNUG__
+    #undef __null
+    #undef __in
+    #undef __out
+#endif
 #include "Shlwapi.h"
 #ifdef __GNUG__
     #undef __in

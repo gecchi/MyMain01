@@ -3,18 +3,24 @@
 #include "GgafDxCommonHeader.h"
 #include <sstream>
 
-#ifdef __GNUG__
-    #define __null
-    #define NULL    0
-    #define __in
-    #define __out
-#endif
-#include <dsound.h>  //←sal.h を include する
-#ifdef __GNUG__
-    #undef __null
-    #undef __in
-    #undef __out
-#endif
+//#ifdef __GNUG__
+//    #define __null
+//    #define NULL    0
+//    #define __in
+//    #define __out
+//#endif
+//#include <dsound.h>  //←sal.h を include する
+//#ifdef __GNUG__
+//    #undef __null
+//    #undef __in
+//    #undef __out
+//#endif
+
+struct IDirectSound8;
+struct IDirectSoundBuffer8;
+typedef struct tWAVEFORMATEX WAVEFORMATEX;
+typedef struct _DSBUFFERDESC DSBUFFERDESC;
+typedef void *HANDLE;
 
 namespace IkdLib {
 
@@ -91,8 +97,8 @@ public:
     IDirectSound8* _pDS8; //!< サウンドデバイス
     IDirectSoundBuffer8* _pDSBuffer; //!< セカンダリバッファ
     PCMDecoder* _pPCMDecoder;
-    WAVEFORMATEX _wave_format; //!< WAVEFORMATEX構造体
-    DSBUFFERDESC _buffer_desc; //!< DSBUFFERDESC構造体
+    WAVEFORMATEX* _wave_format; //!< WAVEFORMATEX構造体
+    DSBUFFERDESC* _buffer_desc; //!< DSBUFFERDESC構造体
     bool _is_ready; //!< 準備できた？
     HANDLE _hnd_thread; //!< ストリーム再生スレッドハンドル
     bool _is_terminate; //!< スレッド停止

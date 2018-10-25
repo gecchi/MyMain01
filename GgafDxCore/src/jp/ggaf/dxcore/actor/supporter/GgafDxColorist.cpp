@@ -7,6 +7,13 @@
 using namespace GgafCore;
 using namespace GgafDxCore;
 
+
+enum {
+    RED = 0,
+    GREEN = 1,
+    BLUE = 2,
+};
+
 GgafDxColorist::GgafDxColorist(GgafDxFigureActor* prm_pActor) : GgafValueEnveloper<float, 3 > (),
 _pActor(prm_pActor) {
     _pa_diffuse[RED]   = &(_pActor->_paMaterial[0].Diffuse.r);

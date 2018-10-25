@@ -69,10 +69,9 @@ void GgafLibWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLi
  */
 void GgafLibWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
     switch (message) {
-        case WM_CHAR: {
+        case WM_CHAR:
             GgafLib::WMKeyInput::catchWmChar(wParam);
             break;
-        }
         case WM_SIZE:
             if (pGOD && GgafDxCore::GgafDxGod::_pHWndPrimary) {
                 if (!CONFIG::FULL_SCREEN) {
@@ -102,7 +101,7 @@ void GgafLibWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
                 }
                 if (GgafDxCore::GgafDxInput::_pJoystickInputDevice) {
                     // ゲームスティック協調レベルを設定する
-                    hr = GgafDxCore::GgafDxInput::_pJoystickInputDevice->SetCooperativeLevel(hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE );
+                    hr = GgafDxCore::GgafDxInput::_pJoystickInputDevice->SetCooperativeLevel(hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
                     if (hr != D3D_OK) {
                         _TRACE_("GgafLibWndProc() ジョイスティックSetCooperativeLevelに失敗しました");
                         // ゲームスティックデバイスの初期化を試みる

@@ -72,7 +72,6 @@ void GgafDxRegularPolygonSpriteActor::processDraw() {
     _pRegularPolygonSpriteModel->GgafDxRegularPolygonSpriteModel::draw(this);
 }
 
-
 GgafDxRegularPolygonSpriteActor::~GgafDxRegularPolygonSpriteActor() {
     delete _pUvFlipper;
 }

@@ -78,7 +78,6 @@ MyBunshin::MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase) :
     pTorpedoCtrler_ = NEW MyTorpedoController("TorpedoController", this, pLockonCtrler_);
     appendGroupChild(pTorpedoCtrler_);
 
-    pColorist_ = NEW GgafDxColorist(this);
     GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_FIRE_LASER,   "WAVE_MY_FIRE_LASER_002");
     pSeTx->set(SE_FIRE_SHOT,    "WAVE_MY_FIRE_SHOT_002");
@@ -118,7 +117,7 @@ void MyBunshin::processBehavior() {
     pKuroko->behave();
     getScaler()->behave();
     getAlphaFader()->behave();
-    pColorist_->behave();
+    getColorist()->behave();
     changeGeoFinal();
 }
 
@@ -217,7 +216,7 @@ void MyBunshin::onHit(const GgafActor* prm_pOtherActor) {
 
 void MyBunshin::effectFreeModeIgnited() {
     getKuroko()->setRollFaceAngVelo(pBase_->bunshin_default_angvelo_mv_*2); //•ªg‚Ì‘¬‚¢ƒNƒ‹ƒNƒ‹
-    pColorist_->flush(1.0, 5, 5, 3);
+    getColorist()->flush(1.0, 5, 5, 3);
 }
 
 void MyBunshin::effectFreeModeReady() {
@@ -311,6 +310,5 @@ void MyBunshin::turnExpanse(coord prm_target_ang_expanse, frame prm_spent_frames
 }
 
 MyBunshin::~MyBunshin() {
-    GGAF_DELETE(pColorist_);
 }
 

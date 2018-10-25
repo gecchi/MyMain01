@@ -18,12 +18,6 @@ public:
     GgafDxFigureActor* const _pActor;
     float* _pa_diffuse[3];
 
-    enum {
-        RED = 0,
-        GREEN = 1,
-        BLUE = 2,
-    };
-
 public:
     /**
      * コンストラクタ<BR>
