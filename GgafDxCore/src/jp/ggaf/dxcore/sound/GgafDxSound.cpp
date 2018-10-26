@@ -30,7 +30,7 @@ GgafDxBgmManager* GgafDxSound::_pBgmManager = nullptr;
 GgafDxSeManager* GgafDxSound::_pSeManager = nullptr;
 double GgafDxSound::_a_db_volume[GGAF_MAX_VOLUME+1];
 
-DSCAPS* GgafDxSound::_dsCaps = nullptr;
+DSCAPS* GgafDxSound::_pDsCaps = nullptr;
 int GgafDxSound::_app_master_volume = GGAF_MAX_VOLUME;
 int GgafDxSound::_bgm_master_volume = GGAF_MAX_VOLUME;
 int GgafDxSound::_se_master_volume = GGAF_MAX_VOLUME;
@@ -46,9 +46,9 @@ void GgafDxSound::init() {
     if (hr != D3D_OK) {
         throwGgafCriticalException("SetCooperativeLevelé∏îsÅB");
     }
-    GgafDxSound::_dsCaps = NEW DSCAPS;
-    GgafDxSound::_dsCaps->dwSize = sizeof(DSCAPS);
-    hr = GgafDxSound::_pIDirectSound8->GetCaps(GgafDxSound::_dsCaps);
+    GgafDxSound::_pDsCaps = NEW DSCAPS;
+    GgafDxSound::_pDsCaps->dwSize = sizeof(DSCAPS);
+    hr = GgafDxSound::_pIDirectSound8->GetCaps(GgafDxSound::_pDsCaps);
     if (hr != D3D_OK) {
         throwGgafCriticalException("GetCapsé∏îsÅB");
     }
@@ -82,7 +82,7 @@ void GgafDxSound::init() {
 
 void GgafDxSound::release() {
     _TRACE_(FUNC_NAME<<" begin");
-    GGAF_DELETE(GgafDxSound::_dsCaps);
+    GGAF_DELETE(GgafDxSound::_pDsCaps);
     _TRACE_("GGAF_DELETE(GgafDxSound::_pBgmManager);");
     GGAF_DELETE(GgafDxSound::_pBgmManager);
     _TRACE_("GGAF_DELETE(GgafDxSound::_pSeManager);");

@@ -97,8 +97,8 @@ public:
     IDirectSound8* _pDS8; //!< サウンドデバイス
     IDirectSoundBuffer8* _pDSBuffer; //!< セカンダリバッファ
     PCMDecoder* _pPCMDecoder;
-    WAVEFORMATEX* _wave_format; //!< WAVEFORMATEX構造体
-    DSBUFFERDESC* _buffer_desc; //!< DSBUFFERDESC構造体
+    WAVEFORMATEX* _pWaveFormat; //!< WAVEFORMATEX構造体
+    DSBUFFERDESC* _pBufferDesc; //!< DSBUFFERDESC構造体
     bool _is_ready; //!< 準備できた？
     HANDLE _hnd_thread; //!< ストリーム再生スレッドハンドル
     bool _is_terminate; //!< スレッド停止

@@ -61,7 +61,7 @@ public:
     /** IDirectSound8インターフェイス */
     static IDirectSound8* _pIDirectSound8;
     /** [r]DSCAPS */
-    static DSCAPS* _dsCaps;
+    static DSCAPS* _pDsCaps;
     /** [r]GgafDxSe 管理クラス */
     static GgafDxSeManager* _pSeManager;
     /** [r]GgafDxBgm 管理クラス */
