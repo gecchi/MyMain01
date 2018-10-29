@@ -1057,7 +1057,7 @@ void GgafDxGod::createWindow(WNDCLASSEX& prm_wndclass1,
     WNDCLASSEX wcex2 = prm_wndclass1;
     wcex2.lpszClassName = "Gecchi Game App Framework (window[1])";
     createWindow( prm_wndclass1, wcex2,
-                  prm_title1,    "window02",
+                  prm_title1,    "Window_02",
                   prm_dwStyle1,  WS_OVERLAPPEDWINDOW | WS_VISIBLE,
                   out_hWnd1,     hWnd2   );
 }
@@ -1093,11 +1093,12 @@ void GgafDxGod::createWindow(WNDPROC prm_WndProc,
 }
 
 void GgafDxGod::createWindow(WNDPROC prm_WndProc,
-                             const char* prm_title1, const char* prm_title2) {
-    HWND hWnd1, hWnd2;
+                             const char* prm_title1,
+                             HWND& out_hWnd1) {
+    HWND hWnd2;
     createWindow(prm_WndProc,
-                 prm_title1, prm_title2,
-                 hWnd1, hWnd2);
+                 prm_title1, "Window_02",
+                 out_hWnd1, hWnd2);
 }
 
 HRESULT GgafDxGod::initDevice() {

@@ -28,9 +28,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     //神の誕生
     SmpGod god;
     //ウィンドウ作成
-    god.createWindow(WndProc, "SimpleSampleWindow");
-    //ループ本体
-    //メイン処理
+    HWND hWnd1;
+    god.createWindow(WndProc, "SimpleSampleWindow", hWnd1);
+    //メインループ処理
     MSG msg;
     while (true) {
         if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {

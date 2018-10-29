@@ -264,10 +264,11 @@ public:
      * 標準的なウィンドウを作成します。
      * @param prm_WndProc ウィンドウプロシージャ関数
      * @param prm_title1 １画面目のタイトル
-     * @param prm_title2 ２画面目のタイトル
+     * @param out_hWnd1 （戻り値）１画面目のウィンドウハンドル
      */
     void createWindow(WNDPROC prm_WndProc,
-                      const char* prm_title1, const char* prm_title2 = "window02");
+                      const char* prm_title1,
+                      HWND& out_hWnd1);
 
     /**
      * ウィンドウ生成処理 .

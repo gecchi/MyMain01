@@ -32,8 +32,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
 
     VvGod god;
     MSG msg;
+    HWND hWnd1;
     try {
-        god.createWindow(WndProc, "VioletVrain");
+        god.createWindow(WndProc, "VioletVrain", hWnd1);
         while (true) {
             if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
                 if (msg.message == WM_QUIT) {

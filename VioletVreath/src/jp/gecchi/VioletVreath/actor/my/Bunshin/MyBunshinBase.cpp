@@ -546,9 +546,9 @@ void MyBunshinBase::setBunshinNum(int prm_num) {
         }
     }
 
-    const angvelo ROT = D_ANG(0.5);
-    const coord INNER_RADIUS = PX_C(60);
-    const coord OUTER_RADIUS = PX_C(120);
+    const angvelo ROT = D_ANG(1.5);       //分身がぐるぐる旋回している速度
+    const coord INNER_RADIUS = PX_C(60);  //内側分身の中心からの距離
+    const coord OUTER_RADIUS = PX_C(120); //外側分身の中心からの距離
     switch (MyBunshinBase::now_bunshin_num_) {
         case 1: {
             papBase[0]->config(INNER_RADIUS, D0ANG, 0, ROT);
