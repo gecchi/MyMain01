@@ -30,9 +30,12 @@ protected:
 public:
     /** 衝突判定支援オブジェクト */
     CollisionChecker* _pColliChecker;
-    virtual void setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign) override;
-    virtual void setAlign(GgafDxAlign prm_align) override;
-    virtual void setValign(GgafDxValign prm_valign) override;
+    GgafDxAlign _align;
+    GgafDxValign _valign;
+
+    virtual void setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign);
+    virtual void setAlign(GgafDxAlign prm_align);
+    virtual void setValign(GgafDxValign prm_valign);
 public:
     FontSpriteActor(const char* prm_name, const char* prm_model_id, GgafCore::GgafStatus* prm_pStat = nullptr);
 

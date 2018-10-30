@@ -25,6 +25,10 @@ public:
     GgafDxUvFlipper* const _pUvFlipper;
 
     float _far_rate;
+
+    GgafDxAlign _align;
+
+    GgafDxValign _valign;
     /** ‰½–‡î‚ğ•`‰æ‚·‚é‚© */
     int _draw_fan_num;
     /** ‘½ŠpŒ`•`‰æ‚ğŠJn‚·‚éÅ‰‚Ì’¸“_‚ÌŠp“xˆÊ’u */
@@ -64,6 +68,21 @@ public:
         }
     }
 
+//    virtual void setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign);
+//    virtual void setAlign(GgafDxAlign prm_align);
+//    virtual void setValign(GgafDxValign prm_valign);
+
+    inline GgafDxUvFlipper* getUvFlipper() {
+        return _pUvFlipper;
+    }
+    /**
+     * •`‰æ‚·‚éFAN(îŒ^)‚Ì–‡”‚ğæ“¾
+     * @return •`‰æ‚·‚éFAN(îŒ^)‚Ì–‡”
+     */
+    int getDrawFanNum() {
+        return _draw_fan_num;
+    }
+
     /**
      * •`‰æ‚·‚éFAN(îŒ^)‚Ì–‡”‚ğw’è‚·‚é .
      * @param prm_draw_fan_num •`‰æ‚·‚éFAN(îŒ^)‚Ì–‡”
@@ -72,9 +91,6 @@ public:
         _draw_fan_num = prm_draw_fan_num;
     }
 
-    inline GgafDxUvFlipper* getUvFlipper() {
-        return _pUvFlipper;
-    }
     /**
      * ‘½ŠpŒ`•`‰æ‚ğŠJn‚·‚éÅ‰‚Ì’¸“_‚ÌŠp“xˆÊ’u‚ğİ’è‚·‚é .
      * @param prm_ang Å‰‚Ì’¸“_‚ÌŠp“xˆÊ’u

@@ -14,14 +14,13 @@ using namespace GgafLib;
 using namespace Mogera;
 
 SmpSprite::SmpSprite(const char* prm_name) :
-        GgafLib::DefaultRegularPolygonSpriteActor(prm_name, "360/RegularPolygon") {
+        GgafLib::DefaultRegularPolygonSpriteActor(prm_name, "36/CCW/BoardTest2") {
     //座標設定
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliSphere(0, PX_C(20));
     setHitAble(true);
 }
-
 
 void SmpSprite::initialize() {
     getUvFlipper()->exec(FLIP_ORDER_LOOP, 30);
@@ -30,9 +29,46 @@ void SmpSprite::initialize() {
 
 void SmpSprite::processBehavior() {
     VirtualButton* pVb = P_GOD->getSpacetime()->pVb_;
-    if (GgafDxInput::isPressedKey(DIK_Z)) {
-        _x += PX_C(2); //右
+    if (GgafDxInput::isPressedKey(DIK_C)) {
+        setDrawFanNum(getDrawFanNum() + 1);
     }
+    if (GgafDxInput::isPressedKey(DIK_V)) {
+        setDrawFanNum(getDrawFanNum() - 1);
+    }
+    if (GgafDxInput::isPressedKey(DIK_Z)) {
+        setBeginAngPos(getBeginAngPos() + D_ANG(1));
+    }
+    if (GgafDxInput::isPressedKey(DIK_X)) {
+        setBeginAngPos(getBeginAngPos() - D_ANG(1));
+    }
+    if (GgafDxInput::isPressedKey(DIK_B)) {
+        addRzFaceAng(D_ANG(1));
+    }
+    if (GgafDxInput::isPressedKey(DIK_N)) {
+        addRzFaceAng(D_ANG(-1));
+    }
+
+//    if (GgafDxInput::isPressedKey(DIK_Q)) {
+//        setAlign(ALIGN_LEFT);
+//    }
+//    if (GgafDxInput::isPressedKey(DIK_W)) {
+//        setAlign(ALIGN_CENTER);
+//    }
+//    if (GgafDxInput::isPressedKey(DIK_E)) {
+//        setAlign(ALIGN_RIGHT);
+//    }
+//
+//    if (GgafDxInput::isPressedKey(DIK_A)) {
+//        setValign(VALIGN_TOP);
+//    }
+//    if (GgafDxInput::isPressedKey(DIK_S)) {
+//        setValign(VALIGN_MIDDLE);
+//    }
+//    if (GgafDxInput::isPressedKey(DIK_D)) {
+//        setValign(VALIGN_BOTTOM);
+//    }
+
+
     if (pVb->isPressed(VB_BUTTON1)) {
         //ボタン１（スペースキー）を押しながらの場合
         if (pVb->isPressed(VB_UP)) {
@@ -50,14 +86,12 @@ void SmpSprite::processBehavior() {
             _x -= PX_C(2); //左
         }
         if (pVb->isPressed(VB_UP)) {
-            _y += PX_C(2); //上
+            _y -= PX_C(2); //上
         }
         if (pVb->isPressed(VB_DOWN)) {
-            _y -= PX_C(2); //下
+            _y += PX_C(2); //下
         }
     }
-    int fan = getBehaveingFrame() % 360;
-    setDrawFanNum(fan);
     getUvFlipper()->behave();
     getKuroko()->behave(); //黒衣を活動させる（Z軸回転する）
 }

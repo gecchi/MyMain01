@@ -26,7 +26,8 @@
 #define TYPE_MASSPOINTSPRITE_EFFECT          'p'
 #define TYPE_POINTSPRITESET_EFFECT           'o'
 #define TYPE_FRAMEDBOARD_EFFECT              'E'
-#define TYPE_REGULAR_POLYGON_SPRITE_EFFECT   'R'
+#define TYPE_REGULARPOLYGONSPRITE_EFFECT     'R'
+#define TYPE_REGULARPOLYGONBOARD_EFFECT      'r'
 
 namespace GgafDxCore {
 
@@ -56,22 +57,6 @@ public:
      * prm_idstrは、
      * 『エフェクトタイプ  + "/" + fxファイル名(拡張子 .fx を除いたもの)』
      * という文字列になっている。エフェクトタイプは以下の通り
-     * 'D': GgafDxMeshEffect オブジェクト
-     * 'd': GgafDxMeshEffect オブジェクト
-     * 'X': GgafDxMeshEffect オブジェクト
-     * 'x': GgafDxMeshSetEffect オブジェクト
-     * 't': GgafDxMassMeshEffect オブジェクト
-     * 'A': GgafDxD3DXAniMeshEffect オブジェクト
-     * 'M': GgafDxMorphMeshEffect オブジェクト
-     * 'S': GgafDxSpriteEffect オブジェクト
-     * 's': GgafDxSpriteSetEffect オブジェクト
-     * 'B': GgafDxBoardEffect オブジェクト
-     * 'b': GgafDxBoardSetEffect オブジェクト
-     * 'w': GgafDxMassBoardEffect オブジェクト
-     * 'P': GgafDxPointSpriteEffect オブジェクト
-     * 'p': GgafDxMassPointSpriteEffect オブジェクト (未完成。利用できない)
-     * 'o': GgafDxPointSpriteSetEffect オブジェクト
-     * 'E': GgafDxFramedBoardEffect オブジェクト
      *
      * 例："x/LaserChipEffect" の場合。
      * "LaserChipEffect.fx"を読み込む GgafDxMeshSetEffectインスタンス を返す。

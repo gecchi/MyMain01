@@ -42,6 +42,7 @@
 #include "jp/ggaf/dxcore/model/GgafDxPointSpriteSetModel.h"
 #include "jp/ggaf/dxcore/model/GgafDxFramedBoardModel.h"
 #include "jp/ggaf/dxcore/model/GgafDxRegularPolygonSpriteModel.h"
+#include "jp/ggaf/dxcore/model/GgafDxRegularPolygonBoardModel.h"
 #include "jp/ggaf/dxcore/model/ex/GgafDxCubeMapMeshModel.h"
 #include "jp/ggaf/dxcore/model/ex/GgafDxCubeMapMeshSetModel.h"
 #include "jp/ggaf/dxcore/model/ex/GgafDxCubeMapMorphMeshModel.h"
@@ -137,74 +138,77 @@ GgafDxModel* GgafDxModelManager::processCreateResource(const char* prm_idstr, vo
             pResourceModel = createD3DXMeshModel(model_name, D3DXMESH_DYNAMIC);
             break;
         case TYPE_D3DXANIMESH_MODEL:
-            pResourceModel = createD3DXAniMeshModel(model_name);
+            pResourceModel = createModel<GgafDxD3DXAniMeshModel>(model_name);
             break;
         case TYPE_MESH_MODEL:
-            pResourceModel = createMeshModel(model_name);
+            pResourceModel = createModel<GgafDxMeshModel>(model_name);
             break;
         case TYPE_MESHSET_MODEL:
-            pResourceModel = createMeshSetModel(model_name);
+            pResourceModel = createModel<GgafDxMeshSetModel>(model_name);
             break;
         case TYPE_MASSMESH_MODEL:
-            pResourceModel = createMassMeshModel(model_name);
+            pResourceModel = createModel<GgafDxMassMeshModel>(model_name);
             break;
         case TYPE_CUBEMAPMESH_MODEL:
-            pResourceModel = createCubeMapMeshModel(model_name);
+            pResourceModel = createModel<GgafDxCubeMapMeshModel>(model_name);
             break;
         case TYPE_CUBEMAPMESHSET_MODEL:
-            pResourceModel = createCubeMapMeshSetModel(model_name);
+            pResourceModel = createModel<GgafDxCubeMapMeshSetModel>(model_name);
             break;
         case TYPE_MORPHMESH_MODEL:
             // "M/4/xxxxx" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
-            pResourceModel = createMorphMeshModel(model_name);
+            pResourceModel = createModel<GgafDxMorphMeshModel>(model_name);
             break;
         case TYPE_MASSMORPHMESH_MODEL:
             //"m/4/xxxxx_2" の場合、セットが４プライマリのメッシュが1、モーフターゲットのメッシュが2つという意味
-            pResourceModel = createMassMorphMeshModel(model_name);
+            pResourceModel = createModel<GgafDxMassMorphMeshModel>(model_name);
             break;
         case TYPE_CUBEMAPMORPHMESH_MODEL:
             //"H/4/xxxxx" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
-            pResourceModel = createCubeMapMorphMeshModel(model_name);
+            pResourceModel = createModel<GgafDxCubeMapMorphMeshModel>(model_name);
             break;
         case TYPE_WORLDBOUND_MODEL:
             // "W/4/xxxxx" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
-            pResourceModel = createWorldBoundModel(model_name);
+            pResourceModel = createModel<GgafDxWorldBoundModel>(model_name);
             break;
         case TYPE_SPRITE_MODEL:
-            pResourceModel = createSpriteModel(model_name);
+            pResourceModel = createModel<GgafDxSpriteModel>(model_name);
             break;
         case TYPE_SPRITESET_MODEL:
-            pResourceModel = createSpriteSetModel(model_name);
+            pResourceModel = createModel<GgafDxSpriteSetModel>(model_name);
             break;
-        case TYPE_MESHSPRITE_MODEL:
-            pResourceModel = createMassSpriteModel(model_name);
+        case TYPE_MASSSPRITE_MODEL:
+            pResourceModel = createModel<GgafDxMassSpriteModel>(model_name);
             break;
         case TYPE_BOARD_MODEL:
-            pResourceModel = createBoardModel(model_name);
+            pResourceModel = createModel<GgafDxBoardModel>(model_name);
             break;
         case TYPE_BOARDSET_MODEL:
-            pResourceModel = createBoardSetModel(model_name);
+            pResourceModel = createModel<GgafDxBoardSetModel>(model_name);
             break;
         case TYPE_MASSBOARD_MODEL:
-            pResourceModel = createMassBoardModel(model_name);
+            pResourceModel = createModel<GgafDxMassBoardModel>(model_name);
             break;
         case TYPE_CUBE_MODEL:
             pResourceModel = createD3DXMeshModel(const_cast<char*>("cube"), D3DXMESH_SYSTEMMEM);
             break;
         case TYPE_POINTSPRITE_MODEL:
-            pResourceModel = createPointSpriteModel(model_name);
+            pResourceModel = createModel<GgafDxPointSpriteModel>(model_name);
             break;
         case TYPE_MASSPOINTSPRITE_MODEL:
-            pResourceModel = createMassPointSpriteModel(model_name);
+            pResourceModel = createModel<GgafDxMassPointSpriteModel>(model_name);
             break;
         case TYPE_POINTSPRITESET_MODEL:
-            pResourceModel = createPointSpriteSetModel(model_name);
+            pResourceModel = createModel<GgafDxPointSpriteSetModel>(model_name);
             break;
         case TYPE_FRAMEDBOARD_MODEL:
-            pResourceModel = createFramedBoardModel(model_name);
+            pResourceModel = createModel<GgafDxFramedBoardModel>(model_name);
             break;
-        case TYPE_REGULAR_POLYGON_SPRITE_MODEL:
-            pResourceModel = createRegularPolygonSpriteModel(model_name);
+        case TYPE_REGULARPOLYGONSPRITE_MODEL:
+            pResourceModel = createModel<GgafDxRegularPolygonSpriteModel>(model_name);
+            break;
+        case TYPE_REGULARPOLYGONBOARD_MODEL:
+            pResourceModel = createModel<GgafDxRegularPolygonBoardModel>(model_name);
             break;
         default:
             throwGgafCriticalException("prm_idstr="<<prm_idstr<<" の '"<<model_type<<"' ・・・そんなモデル種別は知りません");
@@ -214,139 +218,17 @@ GgafDxModel* GgafDxModelManager::processCreateResource(const char* prm_idstr, vo
     return pResourceModel;
 }
 
+template <typename T>
+T* GgafDxModelManager::createModel(const char* prm_model_name) {
+    T* pModel_new = NEW T(prm_model_name);
+    pModel_new->restore();
+    return pModel_new;
+}
+
 GgafDxD3DXMeshModel* GgafDxModelManager::createD3DXMeshModel(const char* prm_model_name, DWORD prm_dwOptions) {
     GgafDxD3DXMeshModel* pD3DXMeshModel_new = NEW GgafDxD3DXMeshModel(prm_model_name, prm_dwOptions);
     pD3DXMeshModel_new->restore();
     return pD3DXMeshModel_new;
-}
-
-GgafDxD3DXAniMeshModel* GgafDxModelManager::createD3DXAniMeshModel(const char* prm_model_name) {
-    GgafDxD3DXAniMeshModel* pD3DXAniMeshModel_new = NEW GgafDxD3DXAniMeshModel(prm_model_name);
-    pD3DXAniMeshModel_new->restore();
-    return pD3DXAniMeshModel_new;
-}
-
-GgafDxSpriteModel* GgafDxModelManager::createSpriteModel(const char* prm_model_name) {
-    GgafDxSpriteModel* pSpriteModel_new = NEW GgafDxSpriteModel(prm_model_name);
-    pSpriteModel_new->restore();
-    return pSpriteModel_new;
-}
-
-GgafDxSpriteSetModel* GgafDxModelManager::createSpriteSetModel(const char* prm_model_name) {
-    GgafDxSpriteSetModel* pSpriteSetModel_new = NEW GgafDxSpriteSetModel(prm_model_name);
-    pSpriteSetModel_new->restore();
-    return pSpriteSetModel_new;
-}
-
-GgafDxMassSpriteModel* GgafDxModelManager::createMassSpriteModel(const char* prm_model_name) {
-    GgafDxMassSpriteModel* pMassSpriteModel_new = NEW GgafDxMassSpriteModel(prm_model_name);
-    pMassSpriteModel_new->restore();
-    return pMassSpriteModel_new;
-}
-
-GgafDxBoardModel* GgafDxModelManager::createBoardModel(const char* prm_model_name) {
-    GgafDxBoardModel* pBoardModel_new = NEW GgafDxBoardModel(prm_model_name);
-    pBoardModel_new->restore();
-    return pBoardModel_new;
-}
-
-GgafDxBoardSetModel* GgafDxModelManager::createBoardSetModel(const char* prm_model_name) {
-    GgafDxBoardSetModel* pBoardSetModel_new = NEW GgafDxBoardSetModel(prm_model_name);
-    pBoardSetModel_new->restore();
-    return pBoardSetModel_new;
-}
-
-GgafDxMassBoardModel* GgafDxModelManager::createMassBoardModel(const char* prm_model_name) {
-    GgafDxMassBoardModel* pMassBoardModel_new = NEW GgafDxMassBoardModel(prm_model_name);
-    pMassBoardModel_new->restore();
-    return pMassBoardModel_new;
-}
-
-GgafDxMeshModel* GgafDxModelManager::createMeshModel(const char* prm_model_name) {
-    GgafDxMeshModel* pMeshModel_new = NEW GgafDxMeshModel(prm_model_name);
-    pMeshModel_new->restore();
-    return pMeshModel_new;
-}
-
-GgafDxMeshSetModel* GgafDxModelManager::createMeshSetModel(const char* prm_model_name) {
-    GgafDxMeshSetModel* pMeshSetModel_new = NEW GgafDxMeshSetModel(prm_model_name);
-    pMeshSetModel_new->restore();
-    return pMeshSetModel_new;
-}
-
-GgafDxMassMeshModel* GgafDxModelManager::createMassMeshModel(const char* prm_model_name) {
-    GgafDxMassMeshModel* pMassMeshModel_new = NEW GgafDxMassMeshModel(prm_model_name);
-    pMassMeshModel_new->restore();
-    return pMassMeshModel_new;
-}
-
-GgafDxCubeMapMeshModel* GgafDxModelManager::createCubeMapMeshModel(const char* prm_model_name) {
-    GgafDxCubeMapMeshModel* pMeshCubeMapModel_new = NEW GgafDxCubeMapMeshModel(prm_model_name);
-    pMeshCubeMapModel_new->restore();
-    return pMeshCubeMapModel_new;
-}
-
-GgafDxCubeMapMeshSetModel* GgafDxModelManager::createCubeMapMeshSetModel(const char* prm_model_name) {
-    GgafDxCubeMapMeshSetModel* pMeshCubeMapSetModel_new = NEW GgafDxCubeMapMeshSetModel(prm_model_name);
-    pMeshCubeMapSetModel_new->restore();
-    return pMeshCubeMapSetModel_new;
-}
-
-GgafDxMorphMeshModel* GgafDxModelManager::createMorphMeshModel(const char* prm_model_name) {
-    // "M/4/xxxxx" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
-    // ここでprm_model_name は "4/xxxxx" という文字列になっている。
-    // モーフターゲット数が違うモデルは、別モデルという扱いにするため、モデル名に数値を残す。
-    GgafDxMorphMeshModel* pMorphMeshModel_new = NEW GgafDxMorphMeshModel(prm_model_name);
-    pMorphMeshModel_new->restore();
-    return pMorphMeshModel_new;
-}
-
-GgafDxMassMorphMeshModel* GgafDxModelManager::createMassMorphMeshModel(const char* prm_model_name) {
-    GgafDxMassMorphMeshModel* pMassMorphMeshModel_new = NEW GgafDxMassMorphMeshModel(prm_model_name);
-    pMassMorphMeshModel_new->restore();
-    return pMassMorphMeshModel_new;
-}
-
-GgafDxCubeMapMorphMeshModel* GgafDxModelManager::createCubeMapMorphMeshModel(const char* prm_model_name) {
-    GgafDxCubeMapMorphMeshModel* pCubeMapMorphMeshModel_new = NEW GgafDxCubeMapMorphMeshModel(prm_model_name);
-    pCubeMapMorphMeshModel_new->restore();
-    return pCubeMapMorphMeshModel_new;
-}
-
-GgafDxWorldBoundModel* GgafDxModelManager::createWorldBoundModel(const char* prm_model_name) {
-    GgafDxWorldBoundModel* pWorldBoundModel_new = NEW GgafDxWorldBoundModel(prm_model_name);
-    pWorldBoundModel_new->restore();
-    return pWorldBoundModel_new;
-}
-
-GgafDxPointSpriteModel* GgafDxModelManager::createPointSpriteModel(const char* prm_model_name) {
-    GgafDxPointSpriteModel* pPointSpriteModel_new = NEW GgafDxPointSpriteModel(prm_model_name);
-    pPointSpriteModel_new->restore();
-    return pPointSpriteModel_new;
-}
-
-GgafDxMassPointSpriteModel* GgafDxModelManager::createMassPointSpriteModel(const char* prm_model_name) {
-    GgafDxMassPointSpriteModel* pMassPointSpriteModel_new = NEW GgafDxMassPointSpriteModel(prm_model_name);
-    pMassPointSpriteModel_new->restore();
-    return pMassPointSpriteModel_new;
-}
-
-GgafDxPointSpriteSetModel* GgafDxModelManager::createPointSpriteSetModel(const char* prm_model_name) {
-    GgafDxPointSpriteSetModel* pPointSpriteSetModel_new = NEW GgafDxPointSpriteSetModel(prm_model_name);
-    pPointSpriteSetModel_new->restore();
-    return pPointSpriteSetModel_new;
-}
-
-GgafDxFramedBoardModel* GgafDxModelManager::createFramedBoardModel(const char* prm_model_name) {
-    GgafDxFramedBoardModel* pFramedBoardModel_new = NEW GgafDxFramedBoardModel(prm_model_name);
-    pFramedBoardModel_new->restore();
-    return pFramedBoardModel_new;
-}
-
-GgafDxRegularPolygonSpriteModel* GgafDxModelManager::createRegularPolygonSpriteModel(const char* prm_model_name) {
-    GgafDxRegularPolygonSpriteModel* pRglrPlygnSpriteModel_new = NEW GgafDxRegularPolygonSpriteModel(prm_model_name);
-    pRglrPlygnSpriteModel_new->restore();
-    return pRglrPlygnSpriteModel_new;
 }
 
 std::string GgafDxModelManager::getMeshFileName(std::string prm_model_name) {

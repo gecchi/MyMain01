@@ -37,16 +37,15 @@ OUT_VS GgafDxVS_DefaultMassSprite(
       float4 prm_world1           : TEXCOORD2,
       float4 prm_world2           : TEXCOORD3,
       float4 prm_world3           : TEXCOORD4,
-      float2 prm_local            : TEXCOORD5,     // local_x, local_y 
-      float2 prm_offset_uv        : TEXCOORD6,     // offset_u, offset_v 
-      float4 prm_color            : TEXCOORD7      // r, g, b, a 
+      float2 prm_offset_uv        : TEXCOORD5,     // offset_u, offset_v 
+      float4 prm_color            : TEXCOORD6      // r, g, b, a 
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
 	//í∏ì_åvéZ
 	float4x4 matWorld = {prm_world0, prm_world1, prm_world2, prm_world3};
 
-    prm_posModel_Local.x += prm_local.x;
-    prm_posModel_Local.y += prm_local.y;
+ //   prm_posModel_Local.x += prm_local.x;
+ //   prm_posModel_Local.y += prm_local.y;
 
 	//World*View*éÀâeïœä∑
 	out_vs.posModel_Proj = mul(mul(mul( prm_posModel_Local, matWorld ), g_matView ), g_matProj);  // èoóÕÇ…ê›íË

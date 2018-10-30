@@ -22,6 +22,7 @@
     <ClCompile Include="src\actor\SmpSprite.cpp" />
     <ClCompile Include="src\actor\EffectExplosion004.cpp" />
     <ClCompile Include="src\actor\SmpPieGraphSprite.cpp" />
+    <ClCompile Include="src\actor\BoardTest2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\actor\camera\MgrCamera.h" />
@@ -45,5 +46,6 @@
     <ClInclude Include="src\actor\smpsprite.h" />
     <ClInclude Include="src\actor\effectexplosion004.h" />
     <ClInclude Include="src\actor\smppiegraphsprite.h" />
+    <ClInclude Include="src\actor\boardtest2.h" />
   </ItemGroup>
 </Project>

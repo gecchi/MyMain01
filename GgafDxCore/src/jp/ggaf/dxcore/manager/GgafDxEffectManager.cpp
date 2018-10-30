@@ -17,11 +17,12 @@
 #include "jp/ggaf/dxcore/effect/GgafDxMassPointSpriteEffect.h"
 #include "jp/ggaf/dxcore/effect/GgafDxPointSpriteSetEffect.h"
 #include "jp/ggaf/dxcore/effect/GgafDxFramedBoardEffect.h"
+#include "jp/ggaf/dxcore/effect/GgafDxRegularPolygonSpriteEffect.h"
+#include "jp/ggaf/dxcore/effect/GgafDxRegularPolygonBoardEffect.h"
 #include "jp/ggaf/dxcore/effect/ex/GgafDxCubeMapMeshEffect.h"
 #include "jp/ggaf/dxcore/effect/ex/GgafDxCubeMapMeshSetEffect.h"
 #include "jp/ggaf/dxcore/effect/ex/GgafDxCubeMapMorphMeshEffect.h"
 #include "jp/ggaf/dxcore/effect/ex/GgafDxWorldBoundEffect.h"
-#include "jp/ggaf/dxcore/effect/GgafDxRegularPolygonSpriteEffect.h"
 
 using namespace GgafCore;
 using namespace GgafDxCore;
@@ -103,8 +104,11 @@ GgafDxEffect* GgafDxEffectManager::processCreateResource(const char* prm_idstr, 
         case TYPE_FRAMEDBOARD_EFFECT:
             pResourceEffect = NEW GgafDxFramedBoardEffect(effect_name);
             break;
-        case TYPE_REGULAR_POLYGON_SPRITE_EFFECT:
+        case TYPE_REGULARPOLYGONSPRITE_EFFECT:
             pResourceEffect = NEW GgafDxRegularPolygonSpriteEffect(effect_name);
+            break;
+        case TYPE_REGULARPOLYGONBOARD_EFFECT:
+            pResourceEffect = NEW GgafDxRegularPolygonBoardEffect(effect_name);
             break;
         default:
             throwGgafCriticalException("prm_idstr="<<prm_idstr<<" の '"<<effect_type<<"' ・・・そんなエッフェクト種別は知りません");

@@ -284,6 +284,8 @@ enum GgafDxValign {
 #define Obj_GgafDxPointSpriteSetActor         (0x800000000ULL)  //0b 00000000 00000000 00000000 00001000 00000000 00000000 00000000 00000000
 #define Obj_GgafDxFramedBoardActor           (0x1000000000ULL)  //0b 00000000 00000000 00000000 00010000 00000000 00000000 00000000 00000000
 #define Obj_GgafDxRegularPolygonSpriteActor  (0x2000000000ULL)  //0b 00000000 00000000 00000000 00100000 00000000 00000000 00000000 00000000
+#define Obj_GgafDxRegularPolygonBoardActor   (0x4000000000ULL)  //0b 00000000 00000000 00000000 01000000 00000000 00000000 00000000 00000000
+
 
 //ëOï˚êÈåæ(forward declaration)
 namespace IkdLib {
@@ -363,6 +365,7 @@ class GgafDxMassPointSpriteActor;
 class GgafDxPointSpriteSetActor;
 class GgafDxFramedBoardActor;
 class GgafDxRegularPolygonSpriteActor;
+class GgafDxRegularPolygonBoardActor;
 
 class GgafDxModel;
 class GgafDxMassModel;
@@ -388,6 +391,8 @@ class GgafDxMassPointSpriteModel;
 class GgafDxPointSpriteSetModel;
 class GgafDxFramedBoardModel;
 class GgafDxRegularPolygonSpriteModel;
+class GgafDxRegularPolygonBoardModel;
+
 
 class GgafDxEffect;
 class GgafDxMassEffect;
@@ -412,6 +417,7 @@ class GgafDxMassPointSpriteEffect;
 class GgafDxPointSpriteSetEffect;
 class GgafDxFramedBoardEffect;
 class GgafDxRegularPolygonSpriteEffect;
+class GgafDxRegularPolygonBoardEffect;
 
 class GgafDxTexture;
 

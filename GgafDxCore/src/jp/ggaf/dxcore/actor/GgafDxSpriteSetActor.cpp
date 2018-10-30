@@ -38,8 +38,8 @@ _pUvFlipper(NEW GgafDxUvFlipper(getModel()->getDefaultTextureConnection()->peek(
     _pUvFlipper->exec(NOT_ANIMATED, 1);
 
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //ƒfƒtƒHƒ‹ƒg‚Ì‰ñ“]~ˆÚ“®‚Ì•ÏŠ·s—ñ
-    _align = ALIGN_CENTER;
-    _valign = VALIGN_MIDDLE;
+//    _align = ALIGN_CENTER;
+//    _valign = VALIGN_MIDDLE;
 }
 
 void GgafDxSpriteSetActor::processDraw() {
@@ -56,22 +56,22 @@ void GgafDxSpriteSetActor::processDraw() {
     while (pDrawActor) {
         if (pDrawActor->getModel() == _pSpriteSetModel && pDrawActor->_hash_technique == _hash_technique) {
             pSpriteSetActor = (GgafDxSpriteSetActor*)pDrawActor;
-            if (_align == ALIGN_CENTER) {
-                //do nothing
-            } else if (_align == ALIGN_LEFT) {
-                pSpriteSetActor->_matWorld._41 += PX_DX(_pSpriteSetModel->_model_width_px/2);
-            } else {
-                //ALIGN_RIGHT
-                pSpriteSetActor->_matWorld._41 -= PX_DX(_pSpriteSetModel->_model_width_px/2);
-            }
-            if (_valign == VALIGN_MIDDLE) {
-                //do nothing
-            } else if (_valign == VALIGN_TOP) {
-                pSpriteSetActor->_matWorld._42 -= PX_DX(_pSpriteSetModel->_model_height_px/2);
-            } else {
-                //VALIGN_BOTTOM
-                pSpriteSetActor->_matWorld._42 += (_pSpriteSetModel->_model_height_px/2);
-            }
+//            if (_align == ALIGN_CENTER) {
+//                //do nothing
+//            } else if (_align == ALIGN_LEFT) {
+//                pSpriteSetActor->_matWorld._41 += PX_DX(_pSpriteSetModel->_model_width_px/2);
+//            } else {
+//                //ALIGN_RIGHT
+//                pSpriteSetActor->_matWorld._41 -= PX_DX(_pSpriteSetModel->_model_width_px/2);
+//            }
+//            if (_valign == VALIGN_MIDDLE) {
+//                //do nothing
+//            } else if (_valign == VALIGN_TOP) {
+//                pSpriteSetActor->_matWorld._42 -= PX_DX(_pSpriteSetModel->_model_height_px/2);
+//            } else {
+//                //VALIGN_BOTTOM
+//                pSpriteSetActor->_matWorld._42 += PX_DX(_pSpriteSetModel->_model_height_px/2);
+//            }
             hr = pID3DXEffect->SetMatrix(pSpriteSetEffect->_ah_matWorld[draw_set_num], &(pSpriteSetActor->_matWorld) );
             checkDxException(hr, D3D_OK, "SetMatrix(_h_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
             pSpriteSetActor->_pUvFlipper->getUV(u,v);
@@ -95,18 +95,18 @@ void GgafDxSpriteSetActor::processDraw() {
     _pSpriteSetModel->GgafDxSpriteSetModel::draw(this, draw_set_num);
 }
 
-void GgafDxSpriteSetActor::setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign) {
-    _align = prm_align;
-    _valign = prm_valign;
-}
-
-void GgafDxSpriteSetActor::setAlign(GgafDxAlign prm_align) {
-    _align = prm_align;
-}
-
-void GgafDxSpriteSetActor::setValign(GgafDxValign prm_valign) {
-    _valign = prm_valign;
-}
+//void GgafDxSpriteSetActor::setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign) {
+//    _align = prm_align;
+//    _valign = prm_valign;
+//}
+//
+//void GgafDxSpriteSetActor::setAlign(GgafDxAlign prm_align) {
+//    _align = prm_align;
+//}
+//
+//void GgafDxSpriteSetActor::setValign(GgafDxValign prm_valign) {
+//    _valign = prm_valign;
+//}
 
 GgafDxSpriteSetActor::~GgafDxSpriteSetActor() {
     delete _pUvFlipper;

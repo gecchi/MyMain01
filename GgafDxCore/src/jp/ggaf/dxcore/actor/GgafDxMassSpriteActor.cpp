@@ -20,7 +20,7 @@ GgafDxMassSpriteActor::GgafDxMassSpriteActor(const char* prm_name,
 
                                                    GgafDxMassActor(prm_name,
                                                                    prm_model_id,
-                                                                   TYPE_MESHSPRITE_MODEL,
+                                                                   TYPE_MASSSPRITE_MODEL,
                                                                    prm_effect_id,
                                                                    TYPE_MASSSPRITE_EFFECT,
                                                                    prm_technique,
@@ -38,22 +38,22 @@ _pUvFlipper(NEW GgafDxUvFlipper(getModel()->getDefaultTextureConnection()->peek(
     _pUvFlipper->exec(NOT_ANIMATED, 1);
 
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列
-    _align = ALIGN_CENTER;
-    _valign = VALIGN_MIDDLE;
+//    _align = ALIGN_CENTER;
+//    _valign = VALIGN_MIDDLE;
 }
 
-void GgafDxMassSpriteActor::setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign) {
-    _align = prm_align;
-    _valign = prm_valign;
-}
-
-void GgafDxMassSpriteActor::setAlign(GgafDxAlign prm_align) {
-    _align = prm_align;
-}
-
-void GgafDxMassSpriteActor::setValign(GgafDxValign prm_valign) {
-    _valign = prm_valign;
-}
+//void GgafDxMassSpriteActor::setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign) {
+//    _align = prm_align;
+//    _valign = prm_valign;
+//}
+//
+//void GgafDxMassSpriteActor::setAlign(GgafDxAlign prm_align) {
+//    _align = prm_align;
+//}
+//
+//void GgafDxMassSpriteActor::setValign(GgafDxValign prm_valign) {
+//    _valign = prm_valign;
+//}
 
 GgafDxMassSpriteActor::~GgafDxMassSpriteActor() {
     delete _pUvFlipper;

@@ -5,6 +5,7 @@
 #include "jp/ggaf/core/actor/GgafSceneMediator.h"
 #include "actor/PointSpriteTest.h"
 #include "actor/BoardTest.h"
+#include "actor/BoardTest2.h"
 #include "actor/Zako.h"
 #include "actor/SmpActor1.h"
 #include "actor/SmpActor2.h"
@@ -33,7 +34,7 @@ TrialAndErrScene::TrialAndErrScene(const char* prm_name) : DefaultScene(prm_name
 
 //    requestActor(1111, SmpActor1, "SmpActor1");
 //    requestActor(2222, SmpActor2, "SmpActor2");
-//    requestActor(3333, SmpSprite);
+    requestActor(3333, SmpSprite);
       requestActor(6666, SmpPieGraphSprite);
 
 //    for (int id = 0; id < 17; id++) {
@@ -47,7 +48,9 @@ TrialAndErrScene::TrialAndErrScene(const char* prm_name) : DefaultScene(prm_name
 //    requestActor(995, PointSpriteTest, "PointSpriteTest6");
 //    requestActor(996, PointSpriteTest, "PointSpriteTest7");
 //    requestActor(20000, BoardTest, "BoardTest");
+      requestActor(20000, BoardTest2, "BoardTest2");
 }
+
 
 void TrialAndErrScene::initialize() {
     GgafDxInput::updateMouseState();
@@ -66,6 +69,9 @@ void TrialAndErrScene::processBehavior() {
         pSmpPieGraphSprite->setPosition(0, 0, 0);
         bringSceneMediator()->appendGroupChild(MGR_TEKI, pSmpPieGraphSprite);
 
+        BoardTest2* pBoardTest2 = (BoardTest2*)receiveActor(20000);
+        pBoardTest2->setPosition(PX_C(50), PX_C(50), 0);
+        bringSceneMediator()->appendGroupChild(MGR_TEKI, pBoardTest2);
 
 //        SmpActor1* pSmpActor1 = (SmpActor1*)receiveActor(1111);
 //        bringSceneMediator()->appendGroupChild(MGR_MIKATA, pSmpActor1);
@@ -79,9 +85,9 @@ void TrialAndErrScene::processBehavior() {
 //        pBoardTest->setPosition(PX_C(100), PX_C(50));
 //        bringSceneMediator()->appendGroupChild(pBoardTest);
 
-//        SmpSprite* pSmpSprite = (SmpSprite*)receiveActor(3333);
-//        bringSceneMediator()->appendGroupChild(MGR_TEKI, pSmpSprite);
-//        pSmpSprite->setPosition(PX_C(50), PX_C(50), 0);
+        SmpSprite* pSmpSprite = (SmpSprite*)receiveActor(3333);
+        bringSceneMediator()->appendGroupChild(MGR_TEKI, pSmpSprite);
+        pSmpSprite->setPosition(PX_C(50), PX_C(-50), 0);
 
 //        for (int id = 0; id < 17; id++) {
 //            PointSpriteTest* pTest = (PointSpriteTest*)receiveActor(900+id);

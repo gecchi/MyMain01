@@ -34,6 +34,7 @@ class SmpActor1;
 class SmpActor2;
 class SmpSprite;
 class BoardTest;
+class BoardTest2;
 class PointSpriteTest;
 class EffectExplosion004;
 class SmpPieGraphSprite;

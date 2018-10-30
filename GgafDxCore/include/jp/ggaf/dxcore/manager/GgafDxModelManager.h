@@ -24,7 +24,7 @@
 #define TYPE_WORLDBOUND_MODEL             'W'
 #define TYPE_SPRITE_MODEL                 'S'
 #define TYPE_SPRITESET_MODEL              's'
-#define TYPE_MESHSPRITE_MODEL             'z'
+#define TYPE_MASSSPRITE_MODEL             'z'
 #define TYPE_BOARD_MODEL                  'B'
 #define TYPE_BOARDSET_MODEL               'b'
 #define TYPE_MASSBOARD_MODEL              'w'
@@ -33,7 +33,8 @@
 #define TYPE_MASSPOINTSPRITE_MODEL        'p'
 #define TYPE_POINTSPRITESET_MODEL         'o'
 #define TYPE_FRAMEDBOARD_MODEL            'E'
-#define TYPE_REGULAR_POLYGON_SPRITE_MODEL 'R'
+#define TYPE_REGULARPOLYGONSPRITE_MODEL   'R'
+#define TYPE_REGULARPOLYGONBOARD_MODEL    'r'
 
 namespace GgafDxCore {
 
@@ -49,30 +50,8 @@ namespace GgafDxCore {
 class GgafDxModelManager : public GgafCore::GgafResourceManager<GgafDxModel> {
 
 private:
-    GgafDxD3DXMeshModel*             createD3DXMeshModel(const char* prm_model_name, DWORD prm_dwOptions);
-    GgafDxD3DXAniMeshModel*          createD3DXAniMeshModel(const char* prm_model_name);
-    GgafDxD3DXMeshModel*             createDynaMeshModel(const char* prm_model_name);
-    GgafDxSpriteModel*               createSpriteModel(const char* prm_model_name);
-    GgafDxSpriteSetModel*            createSpriteSetModel(const char* prm_model_name);
-    GgafDxMassSpriteModel*           createMassSpriteModel(const char* prm_model_name);
-    GgafDxBoardModel*                createBoardModel(const char* prm_model_name);
-    GgafDxBoardSetModel*             createBoardSetModel(const char* prm_model_name);
-    GgafDxMassBoardModel*            createMassBoardModel(const char* prm_model_name);
-    GgafDxMeshModel*                 createMeshModel(const char* prm_model_name);
-    GgafDxMeshSetModel*              createMeshSetModel(const char* prm_model_name);
-    GgafDxMassMeshModel*             createMassMeshModel(const char* prm_model_name);
-    GgafDxCubeMapMeshModel*          createCubeMapMeshModel(const char* prm_model_name);
-    GgafDxCubeMapMeshSetModel*       createCubeMapMeshSetModel(const char* prm_model_name);
-    GgafDxMorphMeshModel*            createMorphMeshModel(const char* prm_model_name);
-    GgafDxMassMorphMeshModel*        createMassMorphMeshModel(const char* prm_model_name);
-    GgafDxCubeMapMorphMeshModel*     createCubeMapMorphMeshModel(const char* prm_model_name);
-    GgafDxWorldBoundModel*           createWorldBoundModel(const char* prm_model_name);
-    GgafDxPointSpriteModel*          createPointSpriteModel(const char* prm_model_name);
-    GgafDxMassPointSpriteModel*      createMassPointSpriteModel(const char* prm_model_name);
-    GgafDxPointSpriteSetModel*       createPointSpriteSetModel(const char* prm_model_name);
-    GgafDxFramedBoardModel*          createFramedBoardModel(const char* prm_model_name);
-    GgafDxRegularPolygonSpriteModel* createRegularPolygonSpriteModel(const char* prm_model_name);
-
+    template <typename T> T* createModel(const char* prm_model_name);
+    GgafDxD3DXMeshModel*     createD3DXMeshModel(const char* prm_model_name, DWORD prm_dwOptions);
 public:
 
     struct SpriteXFileFmt {

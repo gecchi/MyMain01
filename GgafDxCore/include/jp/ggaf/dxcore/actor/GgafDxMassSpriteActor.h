@@ -25,8 +25,8 @@ public:
     /** [r]UVフリッパー(パラパラアニメ) */
     GgafDxUvFlipper* const _pUvFlipper;
 
-    GgafDxAlign _align;
-    GgafDxValign _valign;
+//    GgafDxAlign _align;
+//    GgafDxValign _valign;
 
 public:
     /**
@@ -46,9 +46,9 @@ public:
                           GgafCore::GgafStatus* prm_pStat,
                           GgafDxChecker* prm_pChecker );
 
-    virtual void setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign);
-    virtual void setAlign(GgafDxAlign prm_align);
-    virtual void setValign(GgafDxValign prm_valign);
+//    virtual void setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign);
+//    virtual void setAlign(GgafDxAlign prm_align);
+//    virtual void setValign(GgafDxValign prm_valign);
 
     inline GgafDxUvFlipper* getUvFlipper() {
         return _pUvFlipper;

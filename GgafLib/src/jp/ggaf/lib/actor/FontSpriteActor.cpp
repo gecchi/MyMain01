@@ -23,6 +23,8 @@ FontSpriteActor::FontSpriteActor(const char* prm_name, const char* prm_model_id,
 {
     _class_name = "FontSpriteActor";
     _pColliChecker = (CollisionChecker*)_pChecker;
+    _align = ALIGN_CENTER;
+    _valign = VALIGN_MIDDLE;
     _pMassSpriteModel->registerCallback_VertexInstanceDataInfo(FontSpriteActor::createVertexInstanceData);
 }
 

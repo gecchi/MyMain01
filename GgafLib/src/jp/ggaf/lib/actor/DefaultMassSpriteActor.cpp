@@ -32,7 +32,7 @@ void DefaultMassSpriteActor::drawHitArea() {
 }
 
 void DefaultMassSpriteActor::createVertexInstanceData(void* prm, GgafDxMassModel::VertexInstanceDataInfo* out_info) {
-    int element_num = 7;
+    int element_num = 6;
     out_info->paElement = NEW D3DVERTEXELEMENT9[element_num];
     // Stream = 1 ---->
     WORD st1_offset_next = 0;
@@ -68,7 +68,7 @@ void DefaultMassSpriteActor::createVertexInstanceData(void* prm, GgafDxMassModel
     out_info->paElement[3].Usage  = D3DDECLUSAGE_TEXCOORD;
     out_info->paElement[3].UsageIndex = 4;
     st1_offset_next += sizeof(float)*4;
-    //float local_x, local_y;     // : TEXCOORD5  ローカル座標オフセット
+    //float offset_u, offset_v;   // : TEXCOORD5  テクスチャオフセット
     out_info->paElement[4].Stream = 1;
     out_info->paElement[4].Offset = st1_offset_next;
     out_info->paElement[4].Type   = D3DDECLTYPE_FLOAT2;
@@ -76,21 +76,13 @@ void DefaultMassSpriteActor::createVertexInstanceData(void* prm, GgafDxMassModel
     out_info->paElement[4].Usage  = D3DDECLUSAGE_TEXCOORD;
     out_info->paElement[4].UsageIndex = 5;
     st1_offset_next += sizeof(float)*2;
-    //float offset_u, offset_v;   // : TEXCOORD6  テクスチャオフセット
+    //float r, g, b, a;           // : TEXCOORD6  マテリアルカラー
     out_info->paElement[5].Stream = 1;
     out_info->paElement[5].Offset = st1_offset_next;
-    out_info->paElement[5].Type   = D3DDECLTYPE_FLOAT2;
+    out_info->paElement[5].Type   = D3DDECLTYPE_FLOAT4;
     out_info->paElement[5].Method = D3DDECLMETHOD_DEFAULT;
     out_info->paElement[5].Usage  = D3DDECLUSAGE_TEXCOORD;
     out_info->paElement[5].UsageIndex = 6;
-    st1_offset_next += sizeof(float)*2;
-    //float r, g, b, a;           // : TEXCOORD7  マテリアルカラー
-    out_info->paElement[6].Stream = 1;
-    out_info->paElement[6].Offset = st1_offset_next;
-    out_info->paElement[6].Type   = D3DDECLTYPE_FLOAT4;
-    out_info->paElement[6].Method = D3DDECLMETHOD_DEFAULT;
-    out_info->paElement[6].Usage  = D3DDECLUSAGE_TEXCOORD;
-    out_info->paElement[6].UsageIndex = 7;
     st1_offset_next += sizeof(float)*4;
     // <---- Stream = 1
 
@@ -117,24 +109,24 @@ void DefaultMassSpriteActor::processDraw() {
     while (pDrawActor) {
         if (pDrawActor->getModel() == pMassSpriteModel && pDrawActor->_hash_technique == hash_technique) {
             pDefaultMassSpriteActor = (DefaultMassSpriteActor*)pDrawActor;
-            GgafDxAlign align = pDefaultMassSpriteActor->_align;
-            GgafDxValign valign = pDefaultMassSpriteActor->_valign;
+//            GgafDxAlign align = pDefaultMassSpriteActor->_align;
+//            GgafDxValign valign = pDefaultMassSpriteActor->_valign;
 
             memcpy(paInstancedata, &(pDrawActor->_matWorld), size_of_D3DXMATRIX);
-            if (align == ALIGN_CENTER) {
-                paInstancedata->local_x = 0;
-            } else if (align == ALIGN_LEFT) {
-                paInstancedata->local_x = model_half_width;
-            } else { //ALIGN_RIGHT
-                paInstancedata->local_x = -model_half_width;
-            }
-            if (valign == VALIGN_MIDDLE) {
-                paInstancedata->local_y = 0;
-            } else if (valign == VALIGN_TOP) {
-                paInstancedata->local_y = -model_half_height;
-            } else {  //VALIGN_BOTTOM
-                paInstancedata->local_y = model_half_height;
-            }
+//            if (align == ALIGN_CENTER) {
+//                paInstancedata->local_x = 0;
+//            } else if (align == ALIGN_LEFT) {
+//                paInstancedata->local_x = model_half_width;
+//            } else { //ALIGN_RIGHT
+//                paInstancedata->local_x = -model_half_width;
+//            }
+//            if (valign == VALIGN_MIDDLE) {
+//                paInstancedata->local_y = 0;
+//            } else if (valign == VALIGN_TOP) {
+//                paInstancedata->local_y = -model_half_height;
+//            } else {  //VALIGN_BOTTOM
+//                paInstancedata->local_y = model_half_height;
+//            }
             pDefaultMassSpriteActor->getUvFlipper()->getUV(u,v);
             paInstancedata->offset_u = u;
             paInstancedata->offset_v = v;

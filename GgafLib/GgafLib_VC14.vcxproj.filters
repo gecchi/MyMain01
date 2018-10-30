@@ -297,6 +297,9 @@
     <ClCompile Include="src\jp\ggaf\lib\util\spline\FixedFrameSplineTruckerLeader.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="src\jp\ggaf\lib\actor\DefaultRegularPolygonBoardActor.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\jp\ggaf\lib\actor\camera\worker\AroundViewCamWorker.h">
@@ -600,6 +603,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\lib\util\spline\FixedFrameSplineTruckerLeader.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\lib\actor\DefaultRegularPolygonBoardActor.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

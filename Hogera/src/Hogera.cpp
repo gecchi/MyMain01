@@ -89,6 +89,26 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             DeleteObject(hRgn2);
             break;
         }
+        // クライアント領域をクリックされた場合、HTCAPTIONを返す
+        case WM_NCHITTEST: {
+            // クライアント領域をマウスでドラッグしてウィンドウを移動できるように
+            // キャプションバーの振りをさせる
+            RECT rcClient;
+            POINT poClient;
+            poClient.x = LOWORD ( lParam );
+            poClient.y = HIWORD ( lParam );
+            GetClientRect ( hWnd, &rcClient );
+            ScreenToClient ( hWnd, &poClient );
+            if ( PtInRect ( &rcClient, poClient )
+                && GetAsyncKeyState ( VK_LBUTTON ) < 0 ) {
+                return HTCAPTION;
+            }
+            break;
+        }
+        // フォームがダブルクリックされた場合最大化しない
+        case WM_NCLBUTTONDBLCLK: {
+            break;
+        }
     }
     //必要があれば、メッセージ処理をココに追加記述
     return DefWindowProc(hWnd, message, wParam, lParam);

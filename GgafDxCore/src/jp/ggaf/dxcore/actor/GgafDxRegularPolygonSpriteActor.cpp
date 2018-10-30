@@ -20,9 +20,9 @@ GgafDxRegularPolygonSpriteActor::GgafDxRegularPolygonSpriteActor(const char* prm
 
                                          GgafDxFigureActor(prm_name,
                                                            prm_model_id,
-                                                           TYPE_REGULAR_POLYGON_SPRITE_MODEL,
+                                                           TYPE_REGULARPOLYGONSPRITE_MODEL,
                                                            prm_effect_id,
-                                                           TYPE_REGULAR_POLYGON_SPRITE_EFFECT,
+                                                           TYPE_REGULARPOLYGONSPRITE_EFFECT,
                                                            prm_technique,
                                                            prm_pStat,
                                                            prm_pChecker),
@@ -42,8 +42,9 @@ _pUvFlipper(NEW GgafDxUvFlipper(getModel()->getDefaultTextureConnection()->peek(
 
     _draw_fan_num = _pRegularPolygonSpriteModel->_angle_num;
     _cull_mode = _pRegularPolygonSpriteModel->_drawing_order == 1 ?  D3DCULL_CCW : D3DCULL_CW;
-
     _circumference_begin_position = 0;
+    _align = ALIGN_CENTER;
+    _valign = VALIGN_MIDDLE;
 }
 
 void GgafDxRegularPolygonSpriteActor::processDraw() {
@@ -52,6 +53,22 @@ void GgafDxRegularPolygonSpriteActor::processDraw() {
     angle a = UTIL::simplifyAng(_circumference_begin_position);
     float sin_rz = ANG_SIN(a);
     float cos_rz = ANG_COS(a);
+//    if (_align == ALIGN_CENTER) {
+//        //do nothing
+//    } else if (_align == ALIGN_LEFT) {
+//        _matWorld._41 += PX_DX(_pRegularPolygonSpriteModel->_model_width_px/2);
+//    } else {
+//        //ALIGN_RIGHT
+//        _matWorld._41 -= PX_DX(_pRegularPolygonSpriteModel->_model_width_px/2);
+//    }
+//    if (_valign == VALIGN_MIDDLE) {
+//        //do nothing
+//    } else if (_valign == VALIGN_TOP) {
+//        _matWorld._42 -= PX_DX(_pRegularPolygonSpriteModel->_model_height_px/2);
+//    } else {
+//        //VALIGN_BOTTOM
+//        _matWorld._42 += PX_DX(_pRegularPolygonSpriteModel->_model_height_px/2);
+//    }
     hr = pID3DXEffect->SetMatrix(_pRegularPolygonSpriteEffect->_h_matWorld, &_matWorld );
     checkDxException(hr, D3D_OK, "SetMatrix(_h_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetValue(_pRegularPolygonSpriteEffect->_h_colMaterialDiffuse, &(_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
@@ -71,6 +88,19 @@ void GgafDxRegularPolygonSpriteActor::processDraw() {
     checkDxException(hr, D3D_OK, "SetFloat(_h_offset_v) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     _pRegularPolygonSpriteModel->GgafDxRegularPolygonSpriteModel::draw(this);
 }
+
+//void GgafDxRegularPolygonSpriteActor::setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign) {
+//    _align = prm_align;
+//    _valign = prm_valign;
+//}
+//
+//void GgafDxRegularPolygonSpriteActor::setAlign(GgafDxAlign prm_align) {
+//    _align = prm_align;
+//}
+//
+//void GgafDxRegularPolygonSpriteActor::setValign(GgafDxValign prm_valign) {
+//    _valign = prm_valign;
+//}
 
 GgafDxRegularPolygonSpriteActor::~GgafDxRegularPolygonSpriteActor() {
     delete _pUvFlipper;

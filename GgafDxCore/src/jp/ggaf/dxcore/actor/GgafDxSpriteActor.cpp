@@ -47,22 +47,22 @@ _pUvFlipper(NEW GgafDxUvFlipper(getModel()->getDefaultTextureConnection()->peek(
 void GgafDxSpriteActor::processDraw() {
     ID3DXEffect* const pID3DXEffect = _pSpriteEffect->_pID3DXEffect;
     HRESULT hr;
-    if (_align == ALIGN_CENTER) {
-        //do nothing
-    } else if (_align == ALIGN_LEFT) {
-        _matWorld._41 += PX_C(_pSpriteModel->_model_width_px*0.5f);
-    } else {
-        //ALIGN_RIGHT
-        _matWorld._41 -= PX_C(_pSpriteModel->_model_width_px*0.5f);
-    }
-    if (_valign == VALIGN_MIDDLE) {
-        //do nothing
-    } else if (_valign == VALIGN_TOP) {
-        _matWorld._42 -= PX_C(_pSpriteModel->_model_height_px*0.5f);
-    } else {
-        //VALIGN_BOTTOM
-        _matWorld._42 += PX_C(_pSpriteModel->_model_height_px*0.5f);
-    }
+//    if (_align == ALIGN_CENTER) {
+//        //do nothing
+//    } else if (_align == ALIGN_LEFT) {
+//        _matWorld._41 += PX_DX(_pSpriteModel->_model_width_px/2);
+//    } else {
+//        //ALIGN_RIGHT
+//        _matWorld._41 -= PX_DX(_pSpriteModel->_model_width_px/2);
+//    }
+//    if (_valign == VALIGN_MIDDLE) {
+//        //do nothing
+//    } else if (_valign == VALIGN_TOP) {
+//        _matWorld._42 -= PX_DX(_pSpriteModel->_model_height_px/2);
+//    } else {
+//        //VALIGN_BOTTOM
+//        _matWorld._42 += PX_DX(_pSpriteModel->_model_height_px/2);
+//    }
     hr = pID3DXEffect->SetMatrix(_pSpriteEffect->_h_matWorld, &_matWorld );
     checkDxException(hr, D3D_OK, "SetMatrix(_h_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetValue(_pSpriteEffect->_h_colMaterialDiffuse, &(_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
@@ -72,18 +72,18 @@ void GgafDxSpriteActor::processDraw() {
     _pSpriteModel->GgafDxSpriteModel::draw(this);
 }
 
-void GgafDxSpriteActor::setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign) {
-    _align = prm_align;
-    _valign = prm_valign;
-}
-
-void GgafDxSpriteActor::setAlign(GgafDxAlign prm_align) {
-    _align = prm_align;
-}
-
-void GgafDxSpriteActor::setValign(GgafDxValign prm_valign) {
-    _valign = prm_valign;
-}
+//void GgafDxSpriteActor::setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign) {
+//    _align = prm_align;
+//    _valign = prm_valign;
+//}
+//
+//void GgafDxSpriteActor::setAlign(GgafDxAlign prm_align) {
+//    _align = prm_align;
+//}
+//
+//void GgafDxSpriteActor::setValign(GgafDxValign prm_valign) {
+//    _valign = prm_valign;
+//}
 
 GgafDxSpriteActor::~GgafDxSpriteActor() {
     delete _pUvFlipper;

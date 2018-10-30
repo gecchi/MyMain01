@@ -37,6 +37,7 @@
 #define Obj_GgafDxPointSpriteSetModel         (0x200000U)       //0b 00000000 00100000 00000000 00000000
 #define Obj_GgafDxFramedBoardModel            (0x400000U)       //0b 00000000 01000000 00000000 00000000
 #define Obj_GgafDxRegularPolygonSpriteModel   (0x800000U)       //0b 00000000 10000000 00000000 00000000
+#define Obj_GgafDxRegularPolygonBoardModel    (0x1000000U)      //0b 00000001 00000000 00000000 00000000
 
 namespace GgafDxCore {
 
