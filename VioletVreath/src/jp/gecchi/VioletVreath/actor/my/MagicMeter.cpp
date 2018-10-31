@@ -50,7 +50,7 @@ enum {
 };
 
 MagicMeter::MagicMeter(const char* prm_name, int* prm_pMP_MyShip, int* prm_pVreath_MyShip)
-      : DefaultMassBoardActor(prm_name, "128/MagicMeter"),
+      : DefaultMassBoardActor(prm_name, "128,MagicMeter"),
 width_px_(_pMassBoardModel->_model_width_px),
 height_px_(_pMassBoardModel->_model_height_px),
 width_(PX_C(width_px_)),

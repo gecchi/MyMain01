@@ -320,6 +320,12 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ResourceCompile Include="VioletVreath.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="VioletVreath.ico" />
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshi.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshi001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshiRankUp.cpp" />
@@ -610,24 +616,6 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\title\Cursor001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\title\TitleBoard.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\ViewPointGuide.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\CubeMapMeshSetTestActor.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\CubeMapMeshTestActor.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\CubeMapMorphMeshTestActor.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultBoardSetTestActor.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultBoardTestActor.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultD3DXAniMeshTestActor.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultD3DXMeshTestActor.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultMeshSetTestActor.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultMeshTestActor.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultMorphMeshTestActor.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultPointSpriteTestActor.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultSpriteSetTestActor.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultSpriteTestActor.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\HoshiBoshiTestActor.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\LaserChipTestActor.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\SingleLaserTestActor.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\SpriteMeshSetTestActor.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\_predrawer\SpriteMeshTestActor.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\Config.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\effect\HoshiboshiEffect.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\GameGlobal.cpp" />
@@ -695,7 +683,6 @@
     <ClCompile Include="src\VioletVreath.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="resource.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshi.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshi001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshiRankUp.h" />
@@ -989,24 +976,6 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\ViewPointGuide.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VVCommonActorsHeader.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VVEnemysHeader.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\_predrawer\CubeMapMeshSetTestActor.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\_predrawer\CubeMapMeshTestActor.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\_predrawer\CubeMapMorphMeshTestActor.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultBoardSetTestActor.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultBoardTestActor.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultD3DXAniMeshTestActor.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultD3DXMeshTestActor.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultMeshSetTestActor.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultMeshTestActor.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultMorphMeshTestActor.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultPointSpriteTestActor.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultSpriteSetTestActor.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultSpriteTestActor.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\_predrawer\HoshiBoshiTestActor.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\_predrawer\LaserChipTestActor.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\_predrawer\SingleLaserTestActor.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\_predrawer\SpriteMeshSetTestActor.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\_predrawer\SpriteMeshTestActor.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\Config.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\effect\HoshiboshiEffect.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\GameGlobal.h" />
@@ -1074,13 +1043,6 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\util\MyStgUtil.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\util\RankingTable.h" />
     <ClInclude Include="src\VioletVreath.h" />
-    <ClInclude Include="Version.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="VioletVreath.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="VioletVreath.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

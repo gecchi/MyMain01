@@ -38,7 +38,7 @@ FormationErelman001::FormationErelman001(const char* prm_name, EnemyErelmanContr
 
     papSplManufConn_ = NEW SplineManufactureConnection*[formation_col_num_];
     for (int col = 0; col < formation_col_num_; col++) {
-        papSplManufConn_[col] = connectToSplineManufactureManager(("FormationErelman001/"+XTOS(col)).c_str());
+        papSplManufConn_[col] = connectToSplineManufactureManager(("FormationErelman001,"+XTOS(col)).c_str());
     }
 
     FixedFrameSplineManufacture* Manuf =  ((FixedFrameSplineManufacture*)(papSplManufConn_[0])->peek());

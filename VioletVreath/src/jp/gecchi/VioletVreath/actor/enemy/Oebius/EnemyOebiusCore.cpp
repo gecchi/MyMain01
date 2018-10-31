@@ -35,7 +35,7 @@ enum {
 };
 
 EnemyOebiusCore::EnemyOebiusCore(const char* prm_name, EnemyOebiusController* prm_pController) :
-        DefaultMorphMeshActor(prm_name, "1/OebiusCore", STATUS(EnemyOebiusCore)) {
+        DefaultMorphMeshActor(prm_name, "OebiusCore_1", STATUS(EnemyOebiusCore)) {
     _class_name = "EnemyOebiusCore";
     pController_ = prm_pController;
 

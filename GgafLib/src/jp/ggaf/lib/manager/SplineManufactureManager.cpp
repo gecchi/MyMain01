@@ -27,7 +27,7 @@ SplineManufacture* SplineManufactureManager::processCreateResource(const char* p
     double rate_z = 1.0f;
 
     std::string id_str = std::string(prm_idstr);
-    std::vector<std::string> spline_id = UTIL::split(id_str, "/"); // "FormationUrydike001/3"のようにスラッシュ区切りがあるか
+    std::vector<std::string> spline_id = UTIL::split(id_str, ","); // "FormationUrydike001,3"のようにスラッシュ区切りがあるか
 
 
     std::string spl_data_file="";
@@ -47,7 +47,7 @@ SplineManufacture* SplineManufactureManager::processCreateResource(const char* p
 #endif
             spl_data_file = vecSplineData[0];
         } else {
-            //prm_idstr = "FormationUrydike001/3"
+            //prm_idstr = "FormationUrydike001,3"
             //のように、区切りがある場合、
             //splファイルの SPLINEは
             //SPLINE=mobius1.dat,mobius2.dat,mobius3.dat,mobius4.dat

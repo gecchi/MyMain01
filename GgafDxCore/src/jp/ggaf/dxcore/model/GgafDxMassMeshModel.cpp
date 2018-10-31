@@ -69,10 +69,10 @@ void GgafDxMassMeshModel::restore() {
     GgafDxModelManager* pModelManager = pGOD->_pModelManager;
     HRESULT hr;
     if (!_paVtxBuffer_data_model) {
-        // _model_name には "xxxxxx" or "8/xxxxx" が、渡ってくる。
+        // _model_name には "xxxxxx" or "8,xxxxx" が、渡ってくる。
         // 同時描画セット数が8という意味です。
         // モデル名から同時描画セット数指定があれば取り出す
-        std::vector<std::string> names = UTIL::split(std::string(_model_name), "/");
+        std::vector<std::string> names = UTIL::split(std::string(_model_name), ",");
         std::string xfile_name = ""; //読み込むXファイル名
         if (names.size() == 1) {
             _TRACE_(FUNC_NAME<<" "<<_model_name<<" の最大同時描画オブジェクト数は、デフォルトの"<<GGAFDXMASS_MAX_INSTANCE_NUM<<" が設定されました。");
@@ -82,7 +82,7 @@ void GgafDxMassMeshModel::restore() {
             _set_num = STOI(names[0]);
             xfile_name = GgafDxModelManager::getMeshFileName(names[1]);
         } else {
-            throwGgafCriticalException("_model_name には \"xxxxxx\" or \"8/xxxxx\" 形式を指定してください。 \n"
+            throwGgafCriticalException("_model_name には \"xxxxxx\" or \"8,xxxxx\" 形式を指定してください。 \n"
                     "実際は、_model_name="<<_model_name<<" でした。");
         }
         if (_set_num < 1 || _set_num > GGAFDXMASS_MAX_INSTANCE_NUM) {

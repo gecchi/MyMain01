@@ -20,8 +20,8 @@ void TestGuShot::initialize() {
     setCullingDraw(false);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
-    pChecker->setColliAABox(0, -PX_C(30), -PX_C(30), -PX_C(30),
-                                    PX_C(30),  PX_C(30),  PX_C(30));
+    pChecker->setColliAACube(0, PX_C(60));
+
 }
 
 void TestGuShot::onActive() {
@@ -41,7 +41,6 @@ void TestGuShot::processJudgement() {
 }
 
 void TestGuShot::onHit(const GgafActor* prm_pOtherActor) {
-    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     setHitAble(false);
     UTIL::activateExplosionEffectOf(this);
     sayonara();

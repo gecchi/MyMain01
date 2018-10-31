@@ -9,7 +9,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 WorldBoundNameEntry::WorldBoundNameEntry(const char* prm_name) :
-        WorldBoundActor(prm_name, "0/WorldBoundNameEntry") {
+        WorldBoundActor(prm_name, "WorldBoundNameEntry_0") {
     _class_name = "WorldBoundNameEntry";
     //setCubeMapTexture("BkSky_cubemap.dds");
     setCubeMapTexture("BkSky_cubemap.dds");

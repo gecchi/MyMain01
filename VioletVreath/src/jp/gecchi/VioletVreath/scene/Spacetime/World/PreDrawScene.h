@@ -17,6 +17,7 @@ class PreDrawScene : public GgafLib::DefaultScene {
 
 public:
     enum {
+        PROG_READY ,
         PROG_DISP ,
         PROG_CALM_DOWN ,
         PROG_WAIT ,

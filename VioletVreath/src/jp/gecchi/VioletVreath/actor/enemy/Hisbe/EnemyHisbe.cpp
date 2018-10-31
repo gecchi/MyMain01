@@ -31,8 +31,8 @@ enum {
 };
 
 EnemyHisbe::EnemyHisbe(const char* prm_name) :
-        DefaultMorphMeshActor(prm_name, "1/Hisbe", STATUS(EnemyHisbe)) {
-        //CubeMapMorphMeshActor(prm_name, "1/HisbeCM", STATUS(EnemyHisbe)) {
+        DefaultMorphMeshActor(prm_name, "Hisbe_1", STATUS(EnemyHisbe)) {
+        //CubeMapMorphMeshActor(prm_name, "HisbeCM_1", STATUS(EnemyHisbe)) {
 
     _class_name = "EnemyHisbe";
     pKurokoLeader_ = nullptr;

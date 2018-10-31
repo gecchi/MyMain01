@@ -122,9 +122,9 @@ GgafDxModelManager::GgafDxModelManager(const char* prm_manager_name) :
 
 GgafDxModel* GgafDxModelManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) {
     std::string idstr = std::string(prm_idstr);
-    std::vector<std::string> names = UTIL::split(idstr, "/", 1); //最初のスラッシュで分割
+    std::vector<std::string> names = UTIL::split(idstr, ",", 1); //最初のスラッシュで分割
     if (names.size() != 2) {
-        throwGgafCriticalException("引数は、主に次の形式で与えてください。『モデルタイプ1文字  + \"/\" + モデル定義名(拡張子 .x を除いたもの)』\n"
+        throwGgafCriticalException("引数は、主に次の形式で与えてください。『モデルタイプ1文字  + \",\" + モデル定義名(拡張子 .x を除いたもの)』\n"
                 "実際の引数は、prm_idstr="<<prm_idstr);
     }
     char model_type = (names[0])[0];
@@ -156,19 +156,19 @@ GgafDxModel* GgafDxModelManager::processCreateResource(const char* prm_idstr, vo
             pResourceModel = createModel<GgafDxCubeMapMeshSetModel>(model_name);
             break;
         case TYPE_MORPHMESH_MODEL:
-            // "M/4/xxxxx" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
+            // "M,4,xxxxx" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
             pResourceModel = createModel<GgafDxMorphMeshModel>(model_name);
             break;
         case TYPE_MASSMORPHMESH_MODEL:
-            //"m/4/xxxxx_2" の場合、セットが４プライマリのメッシュが1、モーフターゲットのメッシュが2つという意味
+            //"m,4,xxxxx_2" の場合、セットが４プライマリのメッシュが1、モーフターゲットのメッシュが2つという意味
             pResourceModel = createModel<GgafDxMassMorphMeshModel>(model_name);
             break;
         case TYPE_CUBEMAPMORPHMESH_MODEL:
-            //"H/4/xxxxx" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
+            //"H,4,xxxxx" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
             pResourceModel = createModel<GgafDxCubeMapMorphMeshModel>(model_name);
             break;
         case TYPE_WORLDBOUND_MODEL:
-            // "W/4/xxxxx" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
+            // "W,4,xxxxx" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
             pResourceModel = createModel<GgafDxWorldBoundModel>(model_name);
             break;
         case TYPE_SPRITE_MODEL:

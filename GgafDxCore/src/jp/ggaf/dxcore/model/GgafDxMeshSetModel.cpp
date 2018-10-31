@@ -22,14 +22,14 @@ GgafDxMeshSetModel::GgafDxMeshSetModel(const char* prm_model_name) : GgafDxModel
     _TRACE3_("_model_name="<<_model_name);
     _pModel3D = nullptr;
     _pMeshesFront = nullptr;
-    // prm_model_name には "xxxxxx" or "8/xxxxx" が、渡ってくる。
+    // prm_model_name には "xxxxxx" or "8,xxxxx" が、渡ってくる。
     // 同時描画セット数が8という意味です。
     // モーフターゲット数が違うモデルは、別モデルという扱いにするため、モデル名に数値を残そうかな。
     // モデル名から同時描画セット数指定があれば取り出す。無ければ8
     std::string model_name = std::string(prm_model_name);
-    std::vector<std::string> names = UTIL::split(model_name, "/");
+    std::vector<std::string> names = UTIL::split(model_name, ",");
     if (names.size() > 2) {
-        throwGgafCriticalException("prm_model_name には \"xxxxxx\" or \"8/xxxxx\" 形式を指定してください。 \n"
+        throwGgafCriticalException("prm_model_name には \"xxxxxx\" or \"8,xxxxx\" 形式を指定してください。 \n"
                 "実際の引数は、prm_idstr="<<prm_model_name);
     }
     if (names.size() == 2) {
@@ -194,11 +194,11 @@ void GgafDxMeshSetModel::restore() {
 
     GgafDxModelManager* pModelManager = pGOD->_pModelManager;
     std::string xfile_name; //読み込むXファイル名
-    //"12/Eres" or "8/Celes" or "Celes" から "Celes" だけ取とりだしてフルパス名取得
+    //"12,Eres" or "8,Celes" or "Celes" から "Celes" だけ取とりだしてフルパス名取得
     //TODO:数値３桁以上の時はだめ
-    if (*(_model_name + 1) == '/') {
+    if (*(_model_name + 1) == ',') {
         xfile_name = GgafDxModelManager::getMeshFileName(std::string(_model_name + 2));
-    } else if (*(_model_name + 2) == '/') {
+    } else if (*(_model_name + 2) == ',') {
         xfile_name = GgafDxModelManager::getMeshFileName(std::string(_model_name + 3));
     } else {
         xfile_name = GgafDxModelManager::getMeshFileName(std::string(_model_name));

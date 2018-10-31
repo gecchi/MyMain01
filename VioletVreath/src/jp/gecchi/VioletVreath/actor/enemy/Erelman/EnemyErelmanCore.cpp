@@ -35,7 +35,7 @@ enum {
 };
 
 EnemyErelmanCore::EnemyErelmanCore(const char* prm_name, EnemyErelmanController* prm_pController) :
-        DefaultMorphMeshActor(prm_name, "1/ErelmanCore", STATUS(EnemyErelmanCore)) {
+        DefaultMorphMeshActor(prm_name, "ErelmanCore_1", STATUS(EnemyErelmanCore)) {
     _class_name = "EnemyErelmanCore";
     pController_ = prm_pController;
 

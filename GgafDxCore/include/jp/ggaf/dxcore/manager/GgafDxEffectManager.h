@@ -55,10 +55,10 @@ public:
      * <pre>
      * ＜prm_idstrの形式＞メモ
      * prm_idstrは、
-     * 『エフェクトタイプ  + "/" + fxファイル名(拡張子 .fx を除いたもの)』
+     * 『エフェクトタイプ  + "," + fxファイル名(拡張子 .fx を除いたもの)』
      * という文字列になっている。エフェクトタイプは以下の通り
      *
-     * 例："x/LaserChipEffect" の場合。
+     * 例："x,LaserChipEffect" の場合。
      * "LaserChipEffect.fx"を読み込む GgafDxMeshSetEffectインスタンス を返す。
      * </pre>
      * @param prm_idstr エフェクト識別ID

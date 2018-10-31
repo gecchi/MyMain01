@@ -36,7 +36,7 @@ enum {
 };
 
 EnemyGlaja::EnemyGlaja(const char* prm_name) :
-        DefaultMorphMeshActor(prm_name, "1/Glaja", STATUS(EnemyGlaja)) {
+        DefaultMorphMeshActor(prm_name, "Glaja_1", STATUS(EnemyGlaja)) {
     _class_name = "EnemyGlaja";
     GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");

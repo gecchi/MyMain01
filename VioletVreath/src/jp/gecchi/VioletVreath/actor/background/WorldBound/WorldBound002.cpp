@@ -9,7 +9,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 WorldBound002::WorldBound002(const char* prm_name) :
-        WorldBoundActor(prm_name, "0/WorldBound002") {
+        WorldBoundActor(prm_name, "WorldBound002_0") {
     _class_name = "WorldBound002";
     base_u_ = 0;
     base_v_ = 0;

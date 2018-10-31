@@ -40,8 +40,8 @@ enum {
 };
 
 EnemyHalia::EnemyHalia(const char* prm_name) :
-        DefaultMassMorphMeshActor(prm_name, "20/Halia_1", STATUS(EnemyHalia)) {
-        //CubeMapMassMorphMeshActor(prm_name, "1/HaliaCM", STATUS(EnemyHalia)) {
+        DefaultMassMorphMeshActor(prm_name, "20,Halia_1", STATUS(EnemyHalia)) {
+        //CubeMapMassMorphMeshActor(prm_name, "1,HaliaCM", STATUS(EnemyHalia)) {
 
     _class_name = "EnemyHalia";
     veloTopMv_ = 20000;

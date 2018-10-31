@@ -20,14 +20,14 @@ FormationZako001::FormationZako001(const char* prm_name) :
     int col = 1;
 
     papSplManufConn_ = NEW SplineManufactureConnection*[col];
-    papSplManufConn_[0] = connectToSplineManufactureManager("FormationZako001_STEP/0");
-//    papSplManufConn_[1] = connectToSplineManufactureManager("FormationZako001/1");
-//    papSplManufConn_[2] = connectToSplineManufactureManager("FormationZako001/2");
-//    papSplManufConn_[3] = connectToSplineManufactureManager("FormationZako001/3");
-//    papSplManufConn_[4] = connectToSplineManufactureManager("FormationZako001/4");
-//    papSplManufConn_[5] = connectToSplineManufactureManager("FormationZako001/5");
-//    papSplManufConn_[6] = connectToSplineManufactureManager("FormationZako001/6");
-//    papSplManufConn_[7] = connectToSplineManufactureManager("FormationZako001/7");
+    papSplManufConn_[0] = connectToSplineManufactureManager("FormationZako001_STEP,0");
+//    papSplManufConn_[1] = connectToSplineManufactureManager("FormationZako001,1");
+//    papSplManufConn_[2] = connectToSplineManufactureManager("FormationZako001,2");
+//    papSplManufConn_[3] = connectToSplineManufactureManager("FormationZako001,3");
+//    papSplManufConn_[4] = connectToSplineManufactureManager("FormationZako001,4");
+//    papSplManufConn_[5] = connectToSplineManufactureManager("FormationZako001,5");
+//    papSplManufConn_[6] = connectToSplineManufactureManager("FormationZako001,6");
+//    papSplManufConn_[7] = connectToSplineManufactureManager("FormationZako001,7");
 //    papSplManufConn_[8] = connectToSplineManufactureManager("FormationZako001");
 
     int num = 1;//papSplManufConn_[0]->peek()->_pSplSrc->_pSp->_rnum;

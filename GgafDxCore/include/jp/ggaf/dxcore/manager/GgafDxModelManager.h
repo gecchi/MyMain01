@@ -108,24 +108,24 @@ public:
      * モデル識別IDにより、モデルオブジェクトを生成する .
      * <pre>
      * ＜モデル識別IDの形式＞メモ
-     * 『モデルタイプ  + "/" + モデル定義名』となっている。
-     *  "D/MyShip"   --> GgafDxD3DXMeshModel のモデル。読み込むファイルは "MyShip.x"
-     *  "d/MyShip"   --> GgafDxD3DXMeshModel のモデル。読み込むファイルは "MyShip.x"（D3DXMESH_DYNAMIC オプションだけ異なる）
-     *  "A/Hone"     --> GgafDxD3DXAniMeshModel のモデル。読み込むファイルは "Hone.x"
-     *  "X/Enemy"    --> GgafDxMeshModel のモデル。読み込むファイルは "Enemy.x"
-     *  "x/12/Enemy"- -> GgafDxMeshSetModel のモデル。読み込むファイルは "Enemy.x"。同時描画オブジェクト数は 12 セット
-     *  "x/Enemy"    --> GgafDxMeshSetModel のモデル(セット数省略表記)。読み込むファイルは "Enemy.x"。セット数省略時は最大の 15 セット
-     *  "t/12/Enemy"- -> GgafDxMassMeshModel のモデル。読み込むファイルは "Enemy.x"。同時描画オブジェクト数は 12 セット
-     *  "t/Enemy"    --> GgafDxMassMeshModel のモデル(セット数省略表記)。読み込むファイルは "Enemy.x"。セット数省略時は最大の 15 セット
-     *  "M/3/MyShip" --> GgafDxMorphMeshModel のモデル。読み込むファイルは "MyShip_0.x", "MyShip_1.x", "MyShip_2.x", "MyShip_3.x"。数値部分省略不可。
+     * 『モデルタイプ  + "," + モデル定義名』となっている。
+     *  "D,MyShip"   --> GgafDxD3DXMeshModel のモデル。読み込むファイルは "MyShip.x"
+     *  "d,MyShip"   --> GgafDxD3DXMeshModel のモデル。読み込むファイルは "MyShip.x"（D3DXMESH_DYNAMIC オプションだけ異なる）
+     *  "A,Hone"     --> GgafDxD3DXAniMeshModel のモデル。読み込むファイルは "Hone.x"
+     *  "X,Enemy"    --> GgafDxMeshModel のモデル。読み込むファイルは "Enemy.x"
+     *  "x,12,Enemy"- -> GgafDxMeshSetModel のモデル。読み込むファイルは "Enemy.x"。同時描画オブジェクト数は 12 セット
+     *  "x,Enemy"    --> GgafDxMeshSetModel のモデル(セット数省略表記)。読み込むファイルは "Enemy.x"。セット数省略時は最大の 15 セット
+     *  "t,12,Enemy"- -> GgafDxMassMeshModel のモデル。読み込むファイルは "Enemy.x"。同時描画オブジェクト数は 12 セット
+     *  "t,Enemy"    --> GgafDxMassMeshModel のモデル(セット数省略表記)。読み込むファイルは "Enemy.x"。セット数省略時は最大の 15 セット
+     *  "M,3,MyShip" --> GgafDxMorphMeshModel のモデル。読み込むファイルは "MyShip_0.x", "MyShip_1.x", "MyShip_2.x", "MyShip_3.x"。数値部分省略不可。
      *                   プライマリモデルは"MyShip_0.x"、モーフターゲット1～3が"MyShip_1.x", "MyShip_2.x", "MyShip_3.x"
-     *  "S/Bomb"     --> GgafDxSpriteModel のモデル。読み込むファイルは "Bomb.sprx"。
-     *  "s/5/Bomb"   --> GgafDxSpriteSetModel のモデル。読み込むファイルは "Bomb.sprx"。同時描画オブジェクト数は 5 セット
-     *  "s/Bomb"     --> GgafDxSpriteSetModel のモデル(セット数省略表記)。読み込むファイルは "Bomb.sprx"。セット数省略時は最大の 18 セット
-     *  "B/Font"     --> GgafDxBoardModel のモデル。読み込むファイルは "Font.sprx"。
-     *  "b/10/Font"  --> GgafDxBoardSetModel のモデル。読み込むファイルは "Font.sprx"。同時描画オブジェクト数は 10 セット
-     *  "b/Font"     --> GgafDxBoardSetModel のモデル。読み込むファイルは "Font.sprx"。セット数省略時は最大の 28 セット
-     *  "P/Star"     --> GgafDxPointSpriteModel のモデル。読み込むファイルは "Star.psprx"。同時描画セット数は8
+     *  "S,Bomb"     --> GgafDxSpriteModel のモデル。読み込むファイルは "Bomb.sprx"。
+     *  "s,5,Bomb"   --> GgafDxSpriteSetModel のモデル。読み込むファイルは "Bomb.sprx"。同時描画オブジェクト数は 5 セット
+     *  "s,Bomb"     --> GgafDxSpriteSetModel のモデル(セット数省略表記)。読み込むファイルは "Bomb.sprx"。セット数省略時は最大の 18 セット
+     *  "B,Font"     --> GgafDxBoardModel のモデル。読み込むファイルは "Font.sprx"。
+     *  "b,10,Font"  --> GgafDxBoardSetModel のモデル。読み込むファイルは "Font.sprx"。同時描画オブジェクト数は 10 セット
+     *  "b,Font"     --> GgafDxBoardSetModel のモデル。読み込むファイルは "Font.sprx"。セット数省略時は最大の 28 セット
+     *  "P,Star"     --> GgafDxPointSpriteModel のモデル。読み込むファイルは "Star.psprx"。同時描画セット数は8
      *  "C"          --> GgafDxD3DXMeshModel のモデル。読み込むファイルは "cube.x"
      *  </pre>
      * @param prm_idstr モデル識別ID

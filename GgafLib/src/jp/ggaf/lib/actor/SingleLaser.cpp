@@ -14,7 +14,7 @@ using namespace GgafLib;
 
 SingleLaser::SingleLaser(const char* prm_name, const char* prm_model_id, GgafStatus* prm_pStat) :
              GgafDxMeshSetActor(prm_name,
-                                 std::string("26/" + std::string(prm_model_id)).c_str(),
+                                 std::string("26," + std::string(prm_model_id)).c_str(),
                                  TYPE_MESHSET_MODEL,
                                  "SingleLaserEffect",
                                  TYPE_SINGLELASER_EFFECT,

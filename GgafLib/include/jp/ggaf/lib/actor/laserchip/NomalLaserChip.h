@@ -21,7 +21,7 @@ public:
 
     virtual void initialize() override {}
 
-    virtual void processBehavior() override;
+    virtual void processBehavior() override {}
 
     virtual void processJudgement() override {}
 

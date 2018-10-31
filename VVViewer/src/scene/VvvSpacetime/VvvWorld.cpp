@@ -495,7 +495,7 @@ void VvvWorld::processBehavior() {
                     }
                 }
                 pActor = desireActor(GgafLib::DefaultMorphMeshActor, "actor",
-                                          string(XTOS(targetnum) + "/" +model_part).c_str());
+                                          string(model_part+"_"+XTOS(targetnum)).c_str());
             } else {
 //            if (model_id.find("WORLDBOUND") == string::npos) {
 //                pActor = desireActor(GgafLib::WorldBoundActor, "actor", filename);

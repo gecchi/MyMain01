@@ -35,7 +35,7 @@ FormationOebius001::FormationOebius001(const char* prm_name, EnemyOebiusControll
 
     papSplManufConn_ = NEW SplineManufactureConnection*[formation_col_num_];
     for (int col = 0; col < formation_col_num_; col++) {
-        papSplManufConn_[col] = connectToSplineManufactureManager(("FormationOebius001/"+XTOS(col)).c_str());
+        papSplManufConn_[col] = connectToSplineManufactureManager(("FormationOebius001,"+XTOS(col)).c_str());
     }
     FixedFrameSplineManufacture* Manuf =  ((FixedFrameSplineManufacture*)(papSplManufConn_[0])->peek());
     frame spent_frames = Manuf->getSpentFrames();

@@ -14,7 +14,7 @@ using namespace GgafLib;
 using namespace Mogera;
 
 SmpSprite::SmpSprite(const char* prm_name) :
-        GgafLib::DefaultRegularPolygonSpriteActor(prm_name, "36/CCW/BoardTest2") {
+        GgafLib::DefaultRegularPolygonSpriteActor(prm_name, "36,CCW,BoardTest2") {
     //À•WÝ’è
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);

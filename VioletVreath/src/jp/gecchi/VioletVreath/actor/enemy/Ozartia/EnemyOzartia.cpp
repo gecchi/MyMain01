@@ -68,13 +68,15 @@ enum {
 #define D_MOVE (PX_C(500))
 #define ASOBI (RND(-30,30))
 EnemyOzartia::EnemyOzartia(const char* prm_name) :
-        DefaultMorphMeshActor(prm_name, "1/Ozartia", STATUS(EnemyOzartia)) {
+        DefaultMorphMeshActor(prm_name, "Ozartia_1", STATUS(EnemyOzartia)) {
     _class_name = "EnemyOzartia";
     GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI1_-1);
     pProg2_ = createProgress(PROG2_BANPEI);
     is_hit_ = false;
+    pDepo_shot01_ = nullptr;
+    pDepo_shot02_ = nullptr;
     pConn_pSplManuf_ = connectToSplineManufactureManager("EnemyOzartia01_TTT");
     pKurokoLeader01_ = pConn_pSplManuf_->peek()->createKurokoLeader(getKuroko());
 //    //バリアブロック

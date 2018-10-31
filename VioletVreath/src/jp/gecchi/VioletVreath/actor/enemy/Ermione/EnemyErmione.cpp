@@ -30,7 +30,7 @@ enum {
 };
 
 EnemyErmione::EnemyErmione(const char* prm_name) :
-        DefaultMorphMeshActor(prm_name, "1/Ermione", STATUS(EnemyErmione)) {
+        DefaultMorphMeshActor(prm_name, "Ermione_1", STATUS(EnemyErmione)) {
     _class_name = "EnemyErmione";
 
 //    num_arm_ = 6; //òrÇÃçáåvñ{êî

@@ -35,8 +35,8 @@ enum {
 };
 
 EnemyRatislaviaEye::EnemyRatislaviaEye(const char* prm_name, EnemyRatislavia* prm_pRatislavia) :
-        DefaultMorphMeshActor(prm_name, "1/RatislaviaEye", STATUS(EnemyRatislaviaEye)) {
-        //CubeMapMorphMeshActor(prm_name, "1/HaliaCM", STATUS(EnemyRatislaviaEye)) {
+        DefaultMorphMeshActor(prm_name, "RatislaviaEye_1", STATUS(EnemyRatislaviaEye)) {
+        //CubeMapMorphMeshActor(prm_name, "HaliaCM_1", STATUS(EnemyRatislaviaEye)) {
 
     _class_name = "EnemyRatislaviaEye";
     setScaleR(0.3*10);

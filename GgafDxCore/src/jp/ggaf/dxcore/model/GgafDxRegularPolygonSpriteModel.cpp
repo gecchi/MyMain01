@@ -32,13 +32,13 @@ GgafDxRegularPolygonSpriteModel::GgafDxRegularPolygonSpriteModel(const char* prm
     _u_center = 0.5;
     _v_center = 0.5;
 
-    // prm_model_name には "8/XXXX" or "8/CW/XXXX" が、渡ってくる。
-    // "8/CW/XXXX" : 正8角形で時計回り描画
-    // "8/XXXX"    : 正8角形(デフォルトの反時計回り描画)
+    // prm_model_name には "8,XXXX" or "8,CW,XXXX" が、渡ってくる。
+    // "8,CW,XXXX" : 正8角形で時計回り描画
+    // "8,XXXX"    : 正8角形(デフォルトの反時計回り描画)
     std::string model_name = std::string(prm_model_name);
-    std::vector<std::string> names = UTIL::split(model_name, "/");
+    std::vector<std::string> names = UTIL::split(model_name, ",");
     if (names.size() == 1) {
-        throwGgafCriticalException("モデルIDに情報が足りません。[8/XXXX] or [8/CW/XXXX] 形式で指定して下さい。prm_model_name="<<prm_model_name);
+        throwGgafCriticalException("モデルIDに情報が足りません。[8,XXXX] or [8,CW,XXXX] 形式で指定して下さい。prm_model_name="<<prm_model_name);
     } else {
         _angle_num = STOI(names[0]);
         if (names.size() == 2) {
@@ -157,8 +157,8 @@ void GgafDxRegularPolygonSpriteModel::restore() {
     _papTextureConnection = nullptr;
     HRESULT hr;
 
-    std::string model_name = std::string(_model_name); //_model_name は "8/CW/XXXX" or "8/XXXX"
-    std::vector<std::string> names = UTIL::split(model_name, "/");
+    std::string model_name = std::string(_model_name); //_model_name は "8,CW,XXXX" or "8,XXXX"
+    std::vector<std::string> names = UTIL::split(model_name, ",");
     std::string filenamae = "";
     if (names.size() == 2) {
         filenamae = names[1];

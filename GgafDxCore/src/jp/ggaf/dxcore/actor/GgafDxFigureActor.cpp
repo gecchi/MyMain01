@@ -100,7 +100,7 @@ GgafDxFigureActor::GgafDxFigureActor(const char* prm_name,
 _pModelCon(
     (GgafDxModelConnection*)(
         pGOD->_pModelManager->connect(
-            (std::string(1, prm_model_type) + "/" + std::string(prm_model_id)).c_str(), this
+            (std::string(1, prm_model_type) + "," + std::string(prm_model_id)).c_str(), this
         )
     )
 ),
@@ -108,7 +108,7 @@ _pModel((GgafDxModel*)_pModelCon->peek()),
 _pEffectCon(
     (GgafDxEffectConnection*)(
         pGOD->_pEffectManager->connect(
-            (std::string(1, prm_effect_type) + "/" + std::string(prm_effect_id)).c_str(), this
+            (std::string(1, prm_effect_type) + "," + std::string(prm_effect_id)).c_str(), this
         )
     )
 ),

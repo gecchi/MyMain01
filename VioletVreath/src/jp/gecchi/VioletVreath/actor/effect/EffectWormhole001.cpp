@@ -10,7 +10,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EffectWormhole001::EffectWormhole001(const char* prm_name) :
-        EffectWormhole(prm_name, "8/EffectWormhole001") {
+        EffectWormhole(prm_name, "EffectWormhole001_8") {
     _class_name = "EffectWormhole001";
     inactivate();
     effectBlendOne(); //â¡éZçáê¨

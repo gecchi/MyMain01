@@ -9,7 +9,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 WorldBoundRankUp::WorldBoundRankUp(const char* prm_name) :
-        WorldBoundActor(prm_name, "0/WorldBoundRankUp") {
+        WorldBoundActor(prm_name, "WorldBoundRankUp_0") {
     _class_name = "WorldBoundRankUp";
     setCubeMapTexture("Ratislavia_cubemap.dds");
 }

@@ -13,7 +13,7 @@ GgafDxBgmManager::GgafDxBgmManager(const char* prm_manager_name) :
 GgafDxBgm* GgafDxBgmManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) {
     GgafDxBgm* pResource = nullptr;
     std::string idstr = std::string(prm_idstr);
-    std::vector<std::string> names = UTIL::split(idstr, "/", 1); //最初のスラッシュで分割
+    std::vector<std::string> names = UTIL::split(idstr, ",", 1); //最初のカンマで分割
     if (names.size() == 2) {
         pResource = NEW GgafDxBgm(names[1].c_str());
     } else {

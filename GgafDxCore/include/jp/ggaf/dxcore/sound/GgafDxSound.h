@@ -21,7 +21,7 @@
 /**
  * 神が保持する GgafDxSeManager に接続し、コネクションを取得。
  * @param X  SE定義識別文字列。プロパティ DIR_WAVE[0] 配下の「X + ".wave"」というファイル名を使用する。
- *           チャンネル指定時は、スラッシュを挿入 ("1/click" 等）
+ *           チャンネル指定時は、スラッシュを挿入 ("1,click" 等）
  */
 #define connectToSeManager(X)  ((GgafDxCore::GgafDxSeConnection*)GgafDxCore::GgafDxSound::_pSeManager->connect((X), this))
 

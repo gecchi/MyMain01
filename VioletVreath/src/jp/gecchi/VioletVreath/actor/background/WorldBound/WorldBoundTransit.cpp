@@ -9,7 +9,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 WorldBoundTransit::WorldBoundTransit(const char* prm_name) :
-        WorldBoundActor(prm_name, "0/WorldBoundTransit") {
+        WorldBoundActor(prm_name, "WorldBoundTransit_0") {
     _class_name = "WorldBoundTransit";
     setCubeMapTexture("Default_reflection_cubemap.dds");
 }

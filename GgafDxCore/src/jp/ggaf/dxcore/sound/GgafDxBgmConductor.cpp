@@ -41,7 +41,7 @@ void GgafDxBgmConductor::ready(int prm_bgm_no, const char* prm_bgm_name) {
         _vec_inc_volume[prm_bgm_no] = 0;
     }
 
-    std::string idstr =  XTOS(getId()) + "/" + prm_bgm_name;
+    std::string idstr =  XTOS(getId()) + "," + prm_bgm_name;
     _vecBgmConnection[prm_bgm_no] = connectToBgmManager(idstr.c_str());
     GgafDxBgm* pBgm = _vecBgmConnection[prm_bgm_no]->peek();
     pBgm->stop();

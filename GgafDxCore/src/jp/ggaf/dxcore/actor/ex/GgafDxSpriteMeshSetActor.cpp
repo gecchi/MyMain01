@@ -63,7 +63,7 @@ void GgafDxSpriteMeshSetActor::processDraw() {
 #endif
             //[MEMO]
             //GgafDxSpriteMeshSetActor は、GgafDxMeshSetActor から派生しているため、モデルクラスは同じGgafDxMeshSetModelである。
-            //GgafDxSpriteMeshSetActorが使用するモデル名("x/10/Flora"等)と、GgafDxMeshSetActorが使用するモデル名が
+            //GgafDxSpriteMeshSetActorが使用するモデル名("x,10,Flora"等)と、GgafDxMeshSetActorが使用するモデル名が
             //同じものが存在する場合、pDrawActor は、GgafDxMeshSetActor の可能性もある。
             //これは、draw_set_num を求めるロジックは同一深度で連続の同一(アドレス)モデルである。という判定しか行っていないため。
             //実はここで、GgafDxSpriteMeshSetActor と GgafDxMeshSetActor で同一モデル名を使用することは禁止にしたいのである。

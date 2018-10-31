@@ -31,7 +31,7 @@ enum {
 };
 
 EnemyOrtuna::EnemyOrtuna(const char* prm_name) :
-        DefaultMorphMeshActor(prm_name, "1/Ortuna", STATUS(EnemyOrtuna)) {
+        DefaultMorphMeshActor(prm_name, "Ortuna_1", STATUS(EnemyOrtuna)) {
     _class_name = "EnemyOrtuna";
     _sx=_sy=_sz=100;
     stagnating_pos_frames_ = 1;

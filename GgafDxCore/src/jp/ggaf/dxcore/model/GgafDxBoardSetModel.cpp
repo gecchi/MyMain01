@@ -31,9 +31,9 @@ GgafDxBoardSetModel::GgafDxBoardSetModel(const char* prm_model_name) : GgafDxMod
     _obj_model |= Obj_GgafDxBoardSetModel;
 
     std::string model_name = std::string(prm_model_name);
-    std::vector<std::string> names = UTIL::split(model_name, "/");
+    std::vector<std::string> names = UTIL::split(model_name, ",");
     if (names.size() > 2) {
-        throwGgafCriticalException("prm_model_name には \"xxxxxx\" or \"8/xxxxx\" 形式を指定してください。 \n"
+        throwGgafCriticalException("prm_model_name には \"xxxxxx\" or \"8,xxxxx\" 形式を指定してください。 \n"
                                    "実際の引数は、prm_idstr="<<prm_model_name);
     }
     if (names.size() == 2) {
@@ -150,11 +150,11 @@ void GgafDxBoardSetModel::restore() {
 
     HRESULT hr;
     std::string xfile_name; //読み込むスプライト定義ファイル名（Xファイル形式）
-    //"12/Moji" or "8/Moji" or "Moji" から "Moji" だけ取とりだしてフルパス名取得。
-    //TODO:数値3桁("123/Moji"とか)が来たら困る。
-    if (*(_model_name + 1) == '/') {
+    //"12,Moji" or "8,Moji" or "Moji" から "Moji" だけ取とりだしてフルパス名取得。
+    //TODO:数値3桁("123,Moji"とか)が来たら困る。
+    if (*(_model_name + 1) == ',') {
         xfile_name = GgafDxModelManager::getSpriteFileName(std::string(_model_name + 2), "sprx");
-    } else if (*(_model_name + 2) == '/') {
+    } else if (*(_model_name + 2) == ',') {
         xfile_name = GgafDxModelManager::getSpriteFileName(std::string(_model_name + 3), "sprx");
     } else {
         xfile_name = GgafDxModelManager::getSpriteFileName(std::string(_model_name), "sprx");

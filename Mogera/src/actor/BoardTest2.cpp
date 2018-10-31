@@ -21,7 +21,7 @@ using namespace Mogera;
 
 
 BoardTest2::BoardTest2(const char* prm_name) :
-        DefaultRegularPolygonBoardActor(prm_name, "12/CW/BoardTest2") {
+        DefaultRegularPolygonBoardActor(prm_name, "12,CW,BoardTest2") {
     _class_name = "BoardTest2";
 }
 

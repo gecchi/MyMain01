@@ -28,7 +28,7 @@ void GgafDxSeTransmitter::set(int prm_se_no, const char* prm_se_key, int prm_can
     if (strlen(prm_se_key) > 128) {
         throwGgafCriticalException("SE識別IDが長過ぎます。128文字に抑えて下さい。prm_se_key="<<prm_se_key);
     }
-    std::string idstr =  XTOS(prm_cannel) + "/" + prm_se_key; //資源コネクションの識別ID名を 「チャンネル番号 + "/" + wave識別名」
+    std::string idstr =  XTOS(prm_cannel) + "," + prm_se_key; //資源コネクションの識別ID名を 「チャンネル番号 + "," + wave識別名」
                                                               //とすることにより、チャンネル番号が同じならば new されない。
     if (_vecSeConnection[prm_se_no]) {
         _TRACE_("＜警告＞ 既にID="<<prm_se_no<<" にはSE("<<(_vecSeConnection[prm_se_no]->getIdStr())<<")が設定済みでした。資源接続を close 後、新しいSE("<<idstr<<")を上書きします。意図してますか？");

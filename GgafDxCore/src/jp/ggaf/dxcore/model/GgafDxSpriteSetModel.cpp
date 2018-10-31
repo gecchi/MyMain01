@@ -19,9 +19,9 @@ DWORD GgafDxSpriteSetModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_PSIZE | D
 GgafDxSpriteSetModel::GgafDxSpriteSetModel(const char* prm_model_name) : GgafDxModel(prm_model_name) {
     _TRACE3_("_model_name="<<_model_name);
     std::string model_name = std::string(prm_model_name);
-    std::vector<std::string> names = UTIL::split(model_name, "/");
+    std::vector<std::string> names = UTIL::split(model_name, ",");
     if (names.size() > 2) {
-        throwGgafCriticalException("prm_model_name には \"xxxxxx\" or \"8/xxxxx\" 形式を指定してください。 \n"
+        throwGgafCriticalException("prm_model_name には \"xxxxxx\" or \"8,xxxxx\" 形式を指定してください。 \n"
                 "実際の引数は、prm_idstr="<<prm_model_name);
     }
     if (names.size() == 2) {
@@ -171,10 +171,10 @@ void GgafDxSpriteSetModel::restore() {
 //    ID3DXFileEnumObject* pID3DXFileEnumObject;
 //    ID3DXFileData* pID3DXFileData;
     std::string xfile_name; //読み込むスプライト定義ファイル名（Xファイル形式）
-    //"12/Bomb" or "8/Bomb" or "Bomb" から "Bomb" だけ取とりだしてフルパス名取得
-    if (*(_model_name + 1) == '/') {
+    //"12,Bomb" or "8,Bomb" or "Bomb" から "Bomb" だけ取とりだしてフルパス名取得
+    if (*(_model_name + 1) == ',') {
         xfile_name = GgafDxModelManager::getSpriteFileName(std::string(_model_name + 2), "sprx");
-    } else if (*(_model_name + 2) == '/') {
+    } else if (*(_model_name + 2) == ',') {
         xfile_name = GgafDxModelManager::getSpriteFileName(std::string(_model_name + 3), "sprx");
     } else {
         xfile_name = GgafDxModelManager::getSpriteFileName(std::string(_model_name), "sprx");

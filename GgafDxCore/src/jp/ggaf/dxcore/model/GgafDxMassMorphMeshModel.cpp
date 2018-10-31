@@ -96,21 +96,21 @@ void GgafDxMassMorphMeshModel::restore() {
     _TRACE3_("_model_name=" << _model_name << " start");
     GgafDxModelManager* pModelManager = pGOD->_pModelManager;
     if (!_paVtxBuffer_data_model) {
-        // _model_name には "8/xxx_4" or "xxx_4" という文字列が渡ってくる。 (/と_は区切り文字)
+        // _model_name には "8,xxx_4" or "xxx_4" という文字列が渡ってくる。 (/と_は区切り文字)
         // 8   ：同時描画セット数(省略時 GGAFDXMASS_MAX_INSTANCE_NUM)
         // xxx ：モデル名
         // 4   ：モーフターゲット数
-        std::vector<std::string> names = UTIL::split(std::string(_model_name), "/");
+        std::vector<std::string> names = UTIL::split(std::string(_model_name), ",");
         std::string xname = "";
         if (names.size() == 1) {
             _TRACE_(FUNC_NAME<<" "<<_model_name<<" の最大同時描画オブジェクト数は、デフォルトの"<<GGAFDXMASS_MAX_INSTANCE_NUM<<" が設定されました。");
             _set_num = GGAFDXMASS_MAX_INSTANCE_NUM;
             xname = names[0];
         } else if (names.size() == 2) {
-            _set_num = STOI(names[0]);  // "8/xxx_4" の 8 が入る
-            xname = names[1];            // "8/xxx_4" の xxx_4 が入る
+            _set_num = STOI(names[0]);  // "8,xxx_4" の 8 が入る
+            xname = names[1];            // "8,xxx_4" の xxx_4 が入る
         } else {
-            throwGgafCriticalException("_model_name には \"8/xxx_4\" or \"xxx_4\" 形式を指定してください。 \n"
+            throwGgafCriticalException("_model_name には \"8,xxx_4\" or \"xxx_4\" 形式を指定してください。 \n"
                     "実際は、_model_name="<<_model_name<<" でした。");
         }
         if (_set_num < 1 || _set_num > GGAFDXMASS_MAX_INSTANCE_NUM) {
@@ -119,11 +119,11 @@ void GgafDxMassMorphMeshModel::restore() {
 
         std::string::size_type pos = xname.find_last_of('_');
         if (pos == std::string::npos) {
-            throwGgafCriticalException("_model_name には \"8/xxx_4\" or \"xxx_4\" 形式を指定してください。 \n"
+            throwGgafCriticalException("_model_name には \"8,xxx_4\" or \"xxx_4\" 形式を指定してください。 \n"
                     "実際は、_model_name="<<_model_name<<" でした。(2)");
         }
-        std::string str_model = xname.substr(0, pos);  // "8/xxx_4" の xxx が入る
-        std::string str_t_num = xname.substr(pos + 1); // "8/xxx_4" の 4 が入る
+        std::string str_model = xname.substr(0, pos);  // "8,xxx_4" の xxx が入る
+        std::string str_t_num = xname.substr(pos + 1); // "8,xxx_4" の 4 が入る
         _morph_target_num = STOI(str_t_num);
 
         std::string* xfile_names = NEW std::string[_morph_target_num+1];

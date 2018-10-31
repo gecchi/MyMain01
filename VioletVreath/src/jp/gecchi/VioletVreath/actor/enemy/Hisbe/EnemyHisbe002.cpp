@@ -27,14 +27,13 @@ enum {
 };
 
 EnemyHisbe002::EnemyHisbe002(const char* prm_name) :
-        DefaultMorphMeshActor(prm_name, "1/Hisbe002", STATUS(EnemyHisbe002)) {
-        //CubeMapMorphMeshActor(prm_name, "1/HisbeCM", STATUS(EnemyHisbe002)) {
+        DefaultMorphMeshActor(prm_name, "Hisbe002_1", STATUS(EnemyHisbe002)) {
+        //CubeMapMorphMeshActor(prm_name, "1HisbeCM_1", STATUS(EnemyHisbe002)) {
 
     _class_name = "EnemyHisbe002";
     pKurokoLeader_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;
-
     pLaserChipDepo_ = NEW LaserChipDepository("HisbeLaser");
     EnemyHisbeLaserChip003* pChip;
     for (int i = 0; i < 240; i++) { //レーザーストック

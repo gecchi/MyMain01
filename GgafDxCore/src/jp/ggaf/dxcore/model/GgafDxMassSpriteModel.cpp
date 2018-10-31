@@ -206,7 +206,7 @@ void GgafDxMassSpriteModel::restore() {
     HRESULT hr;
     if (!_paVtxBuffer_data_model) {
         //静的な情報設定
-        std::vector<std::string> names = UTIL::split(std::string(_model_name), "/");
+        std::vector<std::string> names = UTIL::split(std::string(_model_name), ",");
         std::string xfile_name = ""; //読み込むXファイル名
         if (names.size() == 1) {
             _TRACE_(FUNC_NAME<<" "<<_model_name<<" の最大同時描画オブジェクト数は、デフォルトの"<<GGAFDXMASS_MAX_INSTANCE_NUM<<" が設定されました。");

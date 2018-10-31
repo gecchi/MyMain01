@@ -16,7 +16,7 @@
 /**
  * 神が保持する SplineManufactureManager に接続し、コネクションを取得。
  * @param X：スプライン定義識別文字列。プロパティ DIR_SPLINE 配下の「X + ".spl"」というファイル名を使用する
- * "FormationOebius002/1" の意味。読み込むファイル=FormationOebius002.spl
+ * "FormationOebius002,1" の意味。読み込むファイル=FormationOebius002.spl
  * 1 は採用するスプラインのインデックス(0～)をあらわす。
  * SPLINE=mobius1.dat,mobius3.dat,mobius5.dat
  * 定義されていた場合 1=mobius3.dat のデータを採用

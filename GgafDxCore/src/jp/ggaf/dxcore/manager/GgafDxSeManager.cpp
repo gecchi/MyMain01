@@ -12,14 +12,14 @@ GgafDxSeManager::GgafDxSeManager(const char* prm_manager_name) :
 }
 
 GgafDxSe* GgafDxSeManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) {
-    // prm_idstr = "1/laser" の場合、モデルマネージャーのキーには"1/laser"で登録されることになる。
+    // prm_idstr = "1,laser" の場合、モデルマネージャーのキーには"1,laser"で登録されることになる。
     // しかし、読み込むwaveファイルは"laser.wav"とする。
     // これは、同一waveを複数チャンネルで鳴らしたい場合等、最初の数値を変化されば、資源が複数
     // 確保されると事を意味する。
 
     GgafDxSe* pResource = nullptr;
     std::string idstr = std::string(prm_idstr);
-    std::vector<std::string> names = UTIL::split(idstr, "/", 1); //最初のスラッシュで分割
+    std::vector<std::string> names = UTIL::split(idstr, ",", 1); //最初のスラッシュで分割
     if (names.size() == 2) {
         pResource = NEW GgafDxSe(names[1].c_str());
     } else {

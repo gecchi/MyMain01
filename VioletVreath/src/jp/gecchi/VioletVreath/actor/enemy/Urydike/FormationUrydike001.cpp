@@ -17,14 +17,14 @@ FormationUrydike001::FormationUrydike001(const char* prm_name) :
     _class_name = "FormationUrydike001";
 
     papSplManufConn_ = NEW SplineManufactureConnection*[getFormationColNum()];
-    papSplManufConn_[0] = connectToSplineManufactureManager("FormationUrydike001_STEP/0");
-//    papSplManufConn_[1] = connectToSplineManufactureManager("FormationUrydike001/1");
-//    papSplManufConn_[2] = connectToSplineManufactureManager("FormationUrydike001/2");
-//    papSplManufConn_[3] = connectToSplineManufactureManager("FormationUrydike001/3");
-//    papSplManufConn_[4] = connectToSplineManufactureManager("FormationUrydike001/4");
-//    papSplManufConn_[5] = connectToSplineManufactureManager("FormationUrydike001/5");
-//    papSplManufConn_[6] = connectToSplineManufactureManager("FormationUrydike001/6");
-//    papSplManufConn_[7] = connectToSplineManufactureManager("FormationUrydike001/7");
+    papSplManufConn_[0] = connectToSplineManufactureManager("FormationUrydike001_STEP,0");
+//    papSplManufConn_[1] = connectToSplineManufactureManager("FormationUrydike001,1");
+//    papSplManufConn_[2] = connectToSplineManufactureManager("FormationUrydike001,2");
+//    papSplManufConn_[3] = connectToSplineManufactureManager("FormationUrydike001,3");
+//    papSplManufConn_[4] = connectToSplineManufactureManager("FormationUrydike001,4");
+//    papSplManufConn_[5] = connectToSplineManufactureManager("FormationUrydike001,5");
+//    papSplManufConn_[6] = connectToSplineManufactureManager("FormationUrydike001,6");
+//    papSplManufConn_[7] = connectToSplineManufactureManager("FormationUrydike001,7");
 //    papSplManufConn_[8] = connectToSplineManufactureManager("FormationUrydike001");
 }
 

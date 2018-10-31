@@ -15,7 +15,7 @@ using namespace VioletVreath;
 
 Shot004Yellow::Shot004Yellow(const char* prm_name) :
         DefaultMassMeshActor(prm_name, "Shot004Yellow", STATUS(Shot004)) { //SingleLaserは最大27セットである
-        //SingleLaser(prm_name, "27/laser_single") { //SingleLaserは最大27セットである
+        //SingleLaser(prm_name, "27,laser_single") { //SingleLaserは最大27セットである
     _class_name = "Shot004Yellow";
     view_in_ = false;
 }

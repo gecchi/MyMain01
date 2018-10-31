@@ -16,27 +16,29 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 
 GgafDxMorphMeshModel::GgafDxMorphMeshModel(const char* prm_model_name) : GgafDxModel(prm_model_name) {
+    _obj_model |= Obj_GgafDxMorphMeshModel;
     _TRACE3_("_model_name="<<_model_name);
-    _TRACE_("GgafDxMorphMeshModel::GgafDxMorphMeshModel(" << _model_name << ") Begin");
-    // 下位実装クラスが指定するモデル名は"M/4/xxxxx"という形式で、GgafDxModelManagerは
-    // "M"からGgafDxMorphMeshModelと判断し、"M"を取り除いた"4/XXXX"をモデル名として扱う。
-    // prm_model_name には "4/XXXX" が、渡ってくる。
-    // プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
-    // モーフターゲット数が違うモデルは、別モデルという扱いにするため、モデル名に数値を残そう
-    // モデル名からフターゲット数を取得
-    _TRACE_("GgafDxMorphMeshModel prm_model_name="<<prm_model_name);
-
-    std::string model_name = std::string(prm_model_name);
-    std::vector<std::string> names = UTIL::split(model_name, "/");
-    if (names.size() != 2) {
-        throwGgafCriticalException("モデルIDにモーフターゲット数が指定されてません。prm_model_name="<<prm_model_name);
-    } else {
-        _morph_target_num = STOI(names[0]);
-        _TRACE_("GgafDxMorphMeshModel モーフターゲット数は指定あり、_morph_target_num="<<_morph_target_num);
-        if (_morph_target_num > 6) {
-            _TRACE_(FUNC_NAME<<" モーフターゲット数が最大6個以上指定されてます。意図していますか？ _morph_target_num="<<_morph_target_num<<"/_model_name="<<_model_name);
-        }
-    }
+//    _TRACE_("GgafDxMorphMeshModel::GgafDxMorphMeshModel(" << _model_name << ") Begin");
+//    // 下位実装クラスが指定するモデル名は"M,4,xxxxx"という形式で、GgafDxModelManagerは
+//    // "M"からGgafDxMorphMeshModelと判断し、"M"を取り除いた"4,XXXX"をモデル名として扱う。
+//    // prm_model_name には "4,XXXX" が、渡ってくる。
+//    // プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
+//    // モーフターゲット数が違うモデルは、別モデルという扱いにするため、モデル名に数値を残そう
+//    // モデル名からフターゲット数を取得
+//    _TRACE_("GgafDxMorphMeshModel prm_model_name="<<prm_model_name);
+//
+//    std::string model_name = std::string(prm_model_name);
+//    std::vector<std::string> names = UTIL::split(model_name, ",");
+//    if (names.size() != 2) {
+//        throwGgafCriticalException("モデルIDにモーフターゲット数が指定されてません。prm_model_name="<<prm_model_name);
+//    } else {
+//        _morph_target_num = STOI(names[0]);
+//        _TRACE_("GgafDxMorphMeshModel モーフターゲット数は指定あり、_morph_target_num="<<_morph_target_num);
+//        if (_morph_target_num > 6) {
+//            _TRACE_(FUNC_NAME<<" モーフターゲット数が最大6個以上指定されてます。意図していますか？ _morph_target_num="<<_morph_target_num<<"/_model_name="<<_model_name);
+//        }
+//    }
+    _morph_target_num = 0;
 
     _papModel3D = nullptr;
     _papMeshesFront = nullptr;
@@ -191,15 +193,30 @@ void GgafDxMorphMeshModel::restore() {
     //　　　　・テクスチャ配列(要素数＝マテリアル数。プライマリメッシュのみ)
     //　　　　・DrawIndexedPrimitive用引数配列(要素数＝マテリアルリストが変化した数。プライマリメッシュのみ)
     GgafDxModelManager* pModelManager = pGOD->_pModelManager;
-    int morph_target_num = _morph_target_num;
-    std::string* paXfileName = NEW std::string[morph_target_num+1];
-    for (int i = 0; i < morph_target_num+1; i++) {
-        char* xfilename_base = _model_name + 2; //２文字目以降  "2/ceres" → "ceres"
-        paXfileName[i] = GgafDxModelManager::getMeshFileName(std::string(xfilename_base) + "_" + (char)('0'+i));
-        if (paXfileName[i] == "") {
-             throwGgafCriticalException("メッシュファイル(*.x)が見つかりません。model_name="<<(std::string(xfilename_base) + "_" + (char)('0'+i)));
-        }
+    std::string model_name = std::string(_model_name);
+
+    std::string::size_type pos = model_name.find_last_of('_');
+    if (pos == std::string::npos) {
+        throwGgafCriticalException("_model_name には  \"xxx_4\" の形式で、モーフターゲット数を含むモデル名を指定してください。 \n"
+                "実際は、_model_name="<<_model_name<<" でした。(1)");
     }
+    std::string str_model = model_name.substr(0, pos);  // "xxx_4" の xxx が入る
+    std::string str_t_num = model_name.substr(pos + 1); // "xxx_4" の 4 が入る
+    int morph_target_num  = STOI(str_t_num);
+    _morph_target_num = morph_target_num;
+    std::string* paXfileName = NEW std::string[_morph_target_num+1];
+    for (int i = 0; i < _morph_target_num+1; i++) {
+        paXfileName[i] = GgafDxModelManager::getMeshFileName(str_model + "_" + XTOS(i));
+    }
+//    int morph_target_num = _morph_target_num;
+//    std::string* paXfileName = NEW std::string[morph_target_num+1];
+//    for (int i = 0; i < morph_target_num+1; i++) {
+//        char* xfilename_base = _model_name + 2; //２文字目以降  "2,ceres" → "ceres"
+//        paXfileName[i] = GgafDxModelManager::getMeshFileName(std::string(xfilename_base) + "_" + (char)('0'+i));
+//        if (paXfileName[i] == "") {
+//             throwGgafCriticalException("メッシュファイル(*.x)が見つかりません。model_name="<<(std::string(xfilename_base) + "_" + (char)('0'+i)));
+//        }
+//    }
     HRESULT hr;
     //流し込む頂点バッファデータ作成
     ToolBox::IO_Model_X* paIOX = nullptr;

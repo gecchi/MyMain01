@@ -22,7 +22,7 @@ enum {
 };
 
 SmpPieGraphSprite::SmpPieGraphSprite(const char* prm_name) :
-        GgafLib::PieGraphSpriteActor(prm_name, "36/CCW/RegularPolygon") { //³‚XŠpŒ`‚Å”½ŽžŒv‰ñ‚è•`‰æ
+        GgafLib::PieGraphSpriteActor(prm_name, "36,CCW,RegularPolygon") { //³‚XŠpŒ`‚Å”½ŽžŒv‰ñ‚è•`‰æ
     //À•WÝ’è
     int angle_num = ((GgafDxRegularPolygonSpriteModel*)getModel())->getAngleNum();
     linkVariable(&_x);

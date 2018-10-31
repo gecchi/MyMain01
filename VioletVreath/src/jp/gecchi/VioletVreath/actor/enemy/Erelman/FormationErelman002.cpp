@@ -40,7 +40,7 @@ FormationErelman002::FormationErelman002(const char* prm_name, EnemyErelmanContr
     for (int col = 0; col < formation_col_num_; col++) {
         papa_frame_of_call_up_[col] = NEW frame[formation_row_num_];
         pa_call_up_row_idx_[col] = 0;
-        papSplManufConn_[col] = connectToSplineManufactureManager(("FormationErelman002/"+XTOS(col)).c_str());
+        papSplManufConn_[col] = connectToSplineManufactureManager(("FormationErelman002,"+XTOS(col)).c_str());
         FixedFrameSplineManufacture* Manuf =  ((FixedFrameSplineManufacture*)(papSplManufConn_[col])->peek());
         pa_spent_frames_[col] = Manuf->getSpentFrames();
     }
