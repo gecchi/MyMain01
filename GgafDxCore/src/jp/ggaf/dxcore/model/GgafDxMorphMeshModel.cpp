@@ -18,26 +18,6 @@ using namespace GgafDxCore;
 GgafDxMorphMeshModel::GgafDxMorphMeshModel(const char* prm_model_name) : GgafDxModel(prm_model_name) {
     _obj_model |= Obj_GgafDxMorphMeshModel;
     _TRACE3_("_model_name="<<_model_name);
-//    _TRACE_("GgafDxMorphMeshModel::GgafDxMorphMeshModel(" << _model_name << ") Begin");
-//    // 下位実装クラスが指定するモデル名は"M,4,xxxxx"という形式で、GgafDxModelManagerは
-//    // "M"からGgafDxMorphMeshModelと判断し、"M"を取り除いた"4,XXXX"をモデル名として扱う。
-//    // prm_model_name には "4,XXXX" が、渡ってくる。
-//    // プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
-//    // モーフターゲット数が違うモデルは、別モデルという扱いにするため、モデル名に数値を残そう
-//    // モデル名からフターゲット数を取得
-//    _TRACE_("GgafDxMorphMeshModel prm_model_name="<<prm_model_name);
-//
-//    std::string model_name = std::string(prm_model_name);
-//    std::vector<std::string> names = UTIL::split(model_name, ",");
-//    if (names.size() != 2) {
-//        throwGgafCriticalException("モデルIDにモーフターゲット数が指定されてません。prm_model_name="<<prm_model_name);
-//    } else {
-//        _morph_target_num = STOI(names[0]);
-//        _TRACE_("GgafDxMorphMeshModel モーフターゲット数は指定あり、_morph_target_num="<<_morph_target_num);
-//        if (_morph_target_num > 6) {
-//            _TRACE_(FUNC_NAME<<" モーフターゲット数が最大6個以上指定されてます。意図していますか？ _morph_target_num="<<_morph_target_num<<"/_model_name="<<_model_name);
-//        }
-//    }
     _morph_target_num = 0;
 
     _papModel3D = nullptr;
@@ -57,7 +37,6 @@ GgafDxMorphMeshModel::GgafDxMorphMeshModel(const char* prm_model_name) : GgafDxM
     _size_vertices_morph = 0;
     _size_vertex_unit_morph = 0;
 
-    _obj_model |= Obj_GgafDxMorphMeshModel;
 }
 
 HRESULT GgafDxMorphMeshModel::draw(GgafDxFigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
@@ -208,15 +187,6 @@ void GgafDxMorphMeshModel::restore() {
     for (int i = 0; i < _morph_target_num+1; i++) {
         paXfileName[i] = GgafDxModelManager::getMeshFileName(str_model + "_" + XTOS(i));
     }
-//    int morph_target_num = _morph_target_num;
-//    std::string* paXfileName = NEW std::string[morph_target_num+1];
-//    for (int i = 0; i < morph_target_num+1; i++) {
-//        char* xfilename_base = _model_name + 2; //２文字目以降  "2,ceres" → "ceres"
-//        paXfileName[i] = GgafDxModelManager::getMeshFileName(std::string(xfilename_base) + "_" + (char)('0'+i));
-//        if (paXfileName[i] == "") {
-//             throwGgafCriticalException("メッシュファイル(*.x)が見つかりません。model_name="<<(std::string(xfilename_base) + "_" + (char)('0'+i)));
-//        }
-//    }
     HRESULT hr;
     //流し込む頂点バッファデータ作成
     ToolBox::IO_Model_X* paIOX = nullptr;
@@ -227,9 +197,6 @@ void GgafDxMorphMeshModel::restore() {
     GgafDxMorphMeshModel::VERTEX_PRIMARY* paVtxBuffer_data_primary = nullptr;
     GgafDxMorphMeshModel::VERTEX_MORPH**  papaVtxBuffer_data_morph = nullptr;
     WORD*                                 paIdxBuffer_data = nullptr;
-    D3DMATERIAL9*                         paMaterial = nullptr;
-
-    GgafDxTextureConnection** model_papTextureConnection = nullptr;
 
     if (_papModel3D == nullptr) {
         paIOX = NEW ToolBox::IO_Model_X[morph_target_num+1];
@@ -327,7 +294,6 @@ void GgafDxMorphMeshModel::restore() {
                            papModel3D[pattern], paNumVertices);
             }
             GGAF_DELETE(paNumVertices);
-
         }
 
         //インデックスバッファ取得
@@ -563,12 +529,12 @@ void GgafDxMorphMeshModel::restore() {
     GGAF_DELETEARR(paXfileName);
 
     //モデルに保持させる
-    _papModel3D              = papModel3D;
-    _papMeshesFront          = papMeshesFront;
-    _paIndexBuffer_data         = paIdxBuffer_data;
+    _papModel3D               = papModel3D;
+    _papMeshesFront           = papMeshesFront;
+    _paIndexBuffer_data       = paIdxBuffer_data;
     _paVtxBuffer_data_primary = paVtxBuffer_data_primary;
     _papaVtxBuffer_data_morph = papaVtxBuffer_data_morph;
-    _paIndexParam            = paIndexParam;
+    _paIndexParam             = paIndexParam;
 
     _TRACE3_("_model_name=" << _model_name << " end");
 }

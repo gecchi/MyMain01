@@ -116,8 +116,7 @@ public:
      */
     virtual void onReset() override;
 
-
-     virtual ~LaserChipDepository();
+    virtual ~LaserChipDepository();
 
 };
 

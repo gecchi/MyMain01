@@ -177,12 +177,8 @@ void GgafDxFigureActor::processPreDraw() {
     _pNextRenderActor = nullptr;
     if (isActiveInTheTree()) {
         GgafGod::_num_active_actor++;
-        if (_alpha > 0.0f &&  ((GgafDxScene*)pPlatformScene)->_scene_alpha > 0.0f) { //isActiveInTheTree() ‚Å”»’è‚·‚é‚ÆA
-            if (_is_2D) {
-                _now_drawdepth = pSpacetime->registerFigureActor2D(this);
-            } else {
-                _now_drawdepth = pSpacetime->registerFigureActor3D(this);
-            }
+        if (_alpha > 0.0f &&  ((GgafDxScene*)pPlatformScene)->_scene_alpha > 0.0f) { //isActiveInTheTree() ‚Å”»’è‚·‚é‚±‚Æ
+            _now_drawdepth = _is_2D ? pSpacetime->registerFigureActor2D(this) : pSpacetime->registerFigureActor3D(this);
         }
     }
 

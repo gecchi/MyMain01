@@ -156,7 +156,7 @@ GgafDxModel* GgafDxModelManager::processCreateResource(const char* prm_idstr, vo
             pResourceModel = createModel<GgafDxCubeMapMeshSetModel>(model_name);
             break;
         case TYPE_MORPHMESH_MODEL:
-            // "M,4,xxxxx" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
+            // "M,xxxxx_4" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
             pResourceModel = createModel<GgafDxMorphMeshModel>(model_name);
             break;
         case TYPE_MASSMORPHMESH_MODEL:
@@ -164,11 +164,11 @@ GgafDxModel* GgafDxModelManager::processCreateResource(const char* prm_idstr, vo
             pResourceModel = createModel<GgafDxMassMorphMeshModel>(model_name);
             break;
         case TYPE_CUBEMAPMORPHMESH_MODEL:
-            //"H,4,xxxxx" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
+            //"H,xxxxx_4" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
             pResourceModel = createModel<GgafDxCubeMapMorphMeshModel>(model_name);
             break;
         case TYPE_WORLDBOUND_MODEL:
-            // "W,4,xxxxx" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
+            // "W,xxxxx_4" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
             pResourceModel = createModel<GgafDxWorldBoundModel>(model_name);
             break;
         case TYPE_SPRITE_MODEL:
@@ -339,30 +339,6 @@ void GgafDxModelManager::obtainPointSpriteInfo(PointSpriteXFileFmt* pPointSprite
     for (SIZE_T childCount = 0; childCount < nChildren; childCount++) {
         pID3DXFileEnumObject->GetChild(childCount, &pID3DXFileData);
     }
-
-//    "template PointSpriteDef { "
-//    "  <E4EECE4C-E106-11DC-9B62-346D55D89593> "
-//    "  FLOAT  SquareSize; "
-//    "  STRING TextureFile; "
-//    "  DWORD  TextureSplitRowCol; "
-//    "  DWORD  VerticesNum; "
-//    "  array  Vector    Vertices[VerticesNum]; "
-//    "  array  ColorRGBA VertexColors[VerticesNum]; "
-//    "  array  DWORD     InitUvPtnNo[VerticesNum]; "
-//    "  array  FLOAT     InitScale[VerticesNum]; "
-//    "} "
-
-//    class PointSpriteXFileFmt {
-//    public:
-//        float SquareSize;
-//        char TextureFile[256];
-//        int TextureSplitRowCol;
-//        int VerticesNum;
-//        D3DVECTOR* paD3DVECTOR_Vertices;
-//        D3DCOLORVALUE* paD3DVECTOR_VertexColors;
-//        int* paInt_InitUvPtnNo;
-//        float* paFLOAT_InitScale;
-//    };
 
     SIZE_T xsize = 0;
     char* pXData = nullptr;

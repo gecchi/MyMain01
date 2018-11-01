@@ -1,9 +1,9 @@
 xof 0303txt 0032
 
 PointSpriteDef mogera {
-  16.0;
-  "HoshiBoshi001.png";
-  4;
+  32.0;
+  "test_tile.png";
+  8;
 
   8000;
 0.922420;0.674822;0.244418;,
