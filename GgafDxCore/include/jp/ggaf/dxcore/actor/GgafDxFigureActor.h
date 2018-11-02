@@ -61,6 +61,7 @@ public:
     bool _cull_enable;
     /** [r/w]カリング有り表示の場合のカリング方向 D3DCULL_CCW(default) or D3DCULL_CW */
     DWORD _cull_mode;
+    DWORD _cull_mode_default;
     /** [r]現在描画に使用しているシェーダーテクニック名 */
     char* _technique;
     /** [r]現在描画に使用しているのシェーダーテクニックのハッシュコード */
@@ -285,6 +286,16 @@ public:
      */
     inline void setCullingDraw(bool prm_bool) {
         _cull_enable = prm_bool;
+        if (_cull_enable) {
+            _cull_mode = _cull_mode_default;
+        } else {
+            _cull_mode = D3DCULL_NONE;
+        }
+    }
+
+    inline void setCullingMode(DWORD prm__cull_mode) {
+        _cull_mode_default = prm__cull_mode;
+        _cull_mode = _cull_mode_default;
     }
 
     /**

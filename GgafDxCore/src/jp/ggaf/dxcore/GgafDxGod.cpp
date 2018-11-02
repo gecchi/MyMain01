@@ -1395,6 +1395,17 @@ HRESULT GgafDxGod::initDx9Device() {
 
     //GgafDxGod::_d3dlight9_default.Range = 1000.0f;
 
+
+    //【注意】本フレームワークのデフォルトのRenderStateを設定。
+    //変更時は以下に影響がないか確認。
+    // void GgafDxSpacetime::draw() の描画時
+    //GgafDxFigureActor コンストラクタの以下のメンバの初期値
+    // _zenable = true;
+    // _zwriteenable = true;
+    // _cull_enable = true;
+    // _cull_mode_default = D3DCULL_CCW;
+    // _cull_mode = _cull_mode_default
+
     //ライトをセット
     //    GgafDxGod::_pID3DDevice9->SetLight(0, &GgafDxGod::_d3dlight9_default);
     //ライトスイッチON
@@ -1411,6 +1422,7 @@ HRESULT GgafDxGod::initDx9Device() {
     GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
     // Zバッファを無効に
     //GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
+
     //Zバッファ書き込み可
     GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
     //Zバッファ書き込み不可

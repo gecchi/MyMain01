@@ -40,7 +40,7 @@ _pUvFlipper(NEW GgafDxUvFlipper(getModel()->getDefaultTextureConnection()->peek(
     _pFunc_calc_rot_mv_world_matrix = nullptr;
     _z = 0;
     _draw_fan_num = _pRegularPolygonBoardModel->_angle_num;
-    _cull_mode = _pRegularPolygonBoardModel->_drawing_order == 1 ?  D3DCULL_CCW : D3DCULL_CW;
+    setCullingMode(_pRegularPolygonBoardModel->_drawing_order == 1 ?  D3DCULL_CCW : D3DCULL_CW);
     _circumference_begin_position = 0;
     setZEnableDraw(false);
     setZWriteEnable(false);

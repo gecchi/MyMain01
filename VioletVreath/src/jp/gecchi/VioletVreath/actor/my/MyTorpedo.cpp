@@ -24,7 +24,7 @@ MyTorpedo::MyTorpedo(const char* prm_name, MyTorpedoController* prm_pTorpedoCont
                : DefaultMeshSetActor(prm_name, "EffectLaserRefraction001", STATUS(MyTorpedo)) {
     _class_name = "MyTorpedo";
     pTorpedoCtrler_ = prm_pTorpedoController;
-    length_TailEffect_ = 16;
+    length_TailEffect_ = 5;
     begin_x_ = _x;
     begin_y_ = _y;
     begin_z_ = _z;

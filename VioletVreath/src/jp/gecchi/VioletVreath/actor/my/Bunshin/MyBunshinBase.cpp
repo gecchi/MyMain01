@@ -19,10 +19,10 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-const int MyBunshinBase::MAX_BUNSHIN_NUM = 9;
-const frame MyBunshinBase::BUNSHIN_D = 16;
-const angvelo MyBunshinBase::ANGVELO_TURN = D_ANG(2.7);        //分身の向きの角速度
-const angvelo MyBunshinBase::ANGVELO_EXPANSE = D_ANG(2.7);     //分身広がり回転角速度
+const int MyBunshinBase::MAX_BUNSHIN_NUM = 10;               //最大分身数
+const frame MyBunshinBase::BUNSHIN_D = 16;                  //トレース時の分身と分身の間隔
+const angvelo MyBunshinBase::ANGVELO_TURN = D_ANG(2.7);     //分身の向きの角速度
+const angvelo MyBunshinBase::ANGVELO_EXPANSE = D_ANG(2.7);  //分身広がり回転角速度
 const int MyBunshinBase::RENGE = PX_C(70);                  //分身が戻ってくる時のMAX速さ
 const velo MyBunshinBase::VELO_BUNSHIN_FREE_MV = PX_C(20);  //分身フリー移動時の分身の移動速度
 int MyBunshinBase::now_bunshin_num_ = 0;
@@ -546,80 +546,94 @@ void MyBunshinBase::setBunshinNum(int prm_num) {
         }
     }
 
-    const angvelo ROT = D_ANG(1.5);       //分身がぐるぐる旋回している速度
-    const coord INNER_RADIUS = PX_C(60);  //内側分身の中心からの距離
+    const angvelo INNER_ROT = D_ANG(1.5);   //分身がぐるぐる旋回している速度
+    const angvelo OUTER_ROT = -D_ANG(2);
+    const coord INNER_RADIUS = PX_C(50);  //内側分身の中心からの距離
     const coord OUTER_RADIUS = PX_C(120); //外側分身の中心からの距離
     switch (MyBunshinBase::now_bunshin_num_) {
         case 1: {
-            papBase[0]->config(INNER_RADIUS, D0ANG, 0, ROT);
+            papBase[0]->config(INNER_RADIUS, D0ANG, 0, INNER_ROT);
             break;
         }
         case 2: {
-            papBase[0]->config(INNER_RADIUS, D0ANG  , 0, ROT);
-            papBase[1]->config(INNER_RADIUS, D180ANG, 0, ROT);
+            papBase[0]->config(INNER_RADIUS, D0ANG  , 0, INNER_ROT);
+            papBase[1]->config(INNER_RADIUS, D180ANG, 0, INNER_ROT);
             break;
         }
         case 3: {
-            papBase[0]->config(INNER_RADIUS, D_ANG(120*0), 0, ROT);
-            papBase[1]->config(INNER_RADIUS, D_ANG(120*1), 0, ROT);
-            papBase[2]->config(INNER_RADIUS, D_ANG(120*2), 0, ROT);
+            papBase[0]->config(INNER_RADIUS, D_ANG(120*0), 0, INNER_ROT);
+            papBase[1]->config(INNER_RADIUS, D_ANG(120*1), 0, INNER_ROT);
+            papBase[2]->config(INNER_RADIUS, D_ANG(120*2), 0, INNER_ROT);
             break;
         }
         case 4: {
-            papBase[0]->config(INNER_RADIUS, D_ANG(90*0), 0, ROT);
-            papBase[1]->config(INNER_RADIUS, D_ANG(90*1), 0, ROT);
-            papBase[2]->config(INNER_RADIUS, D_ANG(90*2), 0, ROT);
-            papBase[3]->config(INNER_RADIUS, D_ANG(90*3), 0, ROT);
+            papBase[0]->config(INNER_RADIUS, D_ANG(90*0), 0, INNER_ROT);
+            papBase[1]->config(INNER_RADIUS, D_ANG(90*1), 0, INNER_ROT);
+            papBase[2]->config(INNER_RADIUS, D_ANG(90*2), 0, INNER_ROT);
+            papBase[3]->config(INNER_RADIUS, D_ANG(90*3), 0, INNER_ROT);
             break;
         }
         case 5: {
-            papBase[0]->config(INNER_RADIUS, D_ANG(90*0), 0, ROT);
-            papBase[1]->config(INNER_RADIUS, D_ANG(90*1), 0, ROT);
-            papBase[2]->config(INNER_RADIUS, D_ANG(90*2), 0, ROT);
-            papBase[3]->config(INNER_RADIUS, D_ANG(90*3), 0, ROT);
-            papBase[4]->config(OUTER_RADIUS, D0ANG, 0, -ROT);
+            papBase[0]->config(INNER_RADIUS, D_ANG(90*0), 0, INNER_ROT);
+            papBase[1]->config(INNER_RADIUS, D_ANG(90*1), 0, INNER_ROT);
+            papBase[2]->config(INNER_RADIUS, D_ANG(90*2), 0, INNER_ROT);
+            papBase[3]->config(INNER_RADIUS, D_ANG(90*3), 0, INNER_ROT);
+            papBase[4]->config(OUTER_RADIUS, D0ANG, 0, OUTER_ROT);
             break;
         }
         case 6: {
-            papBase[0]->config(INNER_RADIUS, D_ANG(90*0), 0, ROT);
-            papBase[1]->config(INNER_RADIUS, D_ANG(90*1), 0, ROT);
-            papBase[2]->config(INNER_RADIUS, D_ANG(90*2), 0, ROT);
-            papBase[3]->config(INNER_RADIUS, D_ANG(90*3), 0, ROT);
-            papBase[4]->config(OUTER_RADIUS, D0ANG  , 0, -ROT);
-            papBase[5]->config(OUTER_RADIUS, D180ANG, 0, -ROT);
+            papBase[0]->config(INNER_RADIUS, D_ANG(90*0), 0, INNER_ROT);
+            papBase[1]->config(INNER_RADIUS, D_ANG(90*1), 0, INNER_ROT);
+            papBase[2]->config(INNER_RADIUS, D_ANG(90*2), 0, INNER_ROT);
+            papBase[3]->config(INNER_RADIUS, D_ANG(90*3), 0, INNER_ROT);
+            papBase[4]->config(OUTER_RADIUS, D0ANG  , 0, OUTER_ROT);
+            papBase[5]->config(OUTER_RADIUS, D180ANG, 0, OUTER_ROT);
             break;
         }
         case 7: {
-            papBase[0]->config(INNER_RADIUS, D_ANG(90*0), 0, ROT);
-            papBase[1]->config(INNER_RADIUS, D_ANG(90*1), 0, ROT);
-            papBase[2]->config(INNER_RADIUS, D_ANG(90*2), 0, ROT);
-            papBase[3]->config(INNER_RADIUS, D_ANG(90*3), 0, ROT);
-            papBase[4]->config(OUTER_RADIUS, D_ANG(120* 0), 0, -ROT);
-            papBase[5]->config(OUTER_RADIUS, D_ANG(120*-1), 0, -ROT);
-            papBase[6]->config(OUTER_RADIUS, D_ANG(120*-2), 0, -ROT);
+            papBase[0]->config(INNER_RADIUS, D_ANG(90*0), 0, INNER_ROT);
+            papBase[1]->config(INNER_RADIUS, D_ANG(90*1), 0, INNER_ROT);
+            papBase[2]->config(INNER_RADIUS, D_ANG(90*2), 0, INNER_ROT);
+            papBase[3]->config(INNER_RADIUS, D_ANG(90*3), 0, INNER_ROT);
+            papBase[4]->config(OUTER_RADIUS, D_ANG(120* 0), 0, OUTER_ROT);
+            papBase[5]->config(OUTER_RADIUS, D_ANG(120*-1), 0, OUTER_ROT);
+            papBase[6]->config(OUTER_RADIUS, D_ANG(120*-2), 0, OUTER_ROT);
             break;
         }
         case 8: {
-            papBase[0]->config(INNER_RADIUS, D_ANG(90*0), 0, ROT);
-            papBase[1]->config(INNER_RADIUS, D_ANG(90*1), 0, ROT);
-            papBase[2]->config(INNER_RADIUS, D_ANG(90*2), 0, ROT);
-            papBase[3]->config(INNER_RADIUS, D_ANG(90*3), 0, ROT);
-            papBase[4]->config(OUTER_RADIUS, D_ANG(90* 0), 0, -ROT);
-            papBase[5]->config(OUTER_RADIUS, D_ANG(90*-1), 0, -ROT);
-            papBase[6]->config(OUTER_RADIUS, D_ANG(90*-2), 0, -ROT);
-            papBase[7]->config(OUTER_RADIUS, D_ANG(90*-3), 0, -ROT);
+            papBase[0]->config(INNER_RADIUS, D_ANG(90*0), 0, INNER_ROT);
+            papBase[1]->config(INNER_RADIUS, D_ANG(90*1), 0, INNER_ROT);
+            papBase[2]->config(INNER_RADIUS, D_ANG(90*2), 0, INNER_ROT);
+            papBase[3]->config(INNER_RADIUS, D_ANG(90*3), 0, INNER_ROT);
+            papBase[4]->config(OUTER_RADIUS, D_ANG(90* 0), 0, OUTER_ROT);
+            papBase[5]->config(OUTER_RADIUS, D_ANG(90*-1), 0, OUTER_ROT);
+            papBase[6]->config(OUTER_RADIUS, D_ANG(90*-2), 0, OUTER_ROT);
+            papBase[7]->config(OUTER_RADIUS, D_ANG(90*-3), 0, OUTER_ROT);
             break;
         }
         case 9: {
-            papBase[0]->config(INNER_RADIUS, D_ANG(90*0), 0, ROT);
-            papBase[1]->config(INNER_RADIUS, D_ANG(90*1), 0, ROT);
-            papBase[2]->config(INNER_RADIUS, D_ANG(90*2), 0, ROT);
-            papBase[3]->config(INNER_RADIUS, D_ANG(90*3), 0, ROT);
-            papBase[4]->config(OUTER_RADIUS, D_ANG(72* 0), 0, -ROT);
-            papBase[5]->config(OUTER_RADIUS, D_ANG(72*-1), 0, -ROT);
-            papBase[6]->config(OUTER_RADIUS, D_ANG(72*-2), 0, -ROT);
-            papBase[7]->config(OUTER_RADIUS, D_ANG(72*-3), 0, -ROT);
-            papBase[8]->config(OUTER_RADIUS, D_ANG(72*-4), 0, -ROT);
+            papBase[0]->config(INNER_RADIUS, D_ANG(90*0), 0, INNER_ROT);
+            papBase[1]->config(INNER_RADIUS, D_ANG(90*1), 0, INNER_ROT);
+            papBase[2]->config(INNER_RADIUS, D_ANG(90*2), 0, INNER_ROT);
+            papBase[3]->config(INNER_RADIUS, D_ANG(90*3), 0, INNER_ROT);
+            papBase[4]->config(OUTER_RADIUS, D_ANG(72* 0), 0, OUTER_ROT);
+            papBase[5]->config(OUTER_RADIUS, D_ANG(72*-1), 0, OUTER_ROT);
+            papBase[6]->config(OUTER_RADIUS, D_ANG(72*-2), 0, OUTER_ROT);
+            papBase[7]->config(OUTER_RADIUS, D_ANG(72*-3), 0, OUTER_ROT);
+            papBase[8]->config(OUTER_RADIUS, D_ANG(72*-4), 0, OUTER_ROT);
+            break;
+        }
+        case 10: {
+            papBase[0]->config(INNER_RADIUS, D_ANG(90*0), 0, INNER_ROT);
+            papBase[1]->config(INNER_RADIUS, D_ANG(90*1), 0, INNER_ROT);
+            papBase[2]->config(INNER_RADIUS, D_ANG(90*2), 0, INNER_ROT);
+            papBase[3]->config(INNER_RADIUS, D_ANG(90*3), 0, INNER_ROT);
+            papBase[4]->config(OUTER_RADIUS, D_ANG(45* 0), 0, OUTER_ROT);
+            papBase[5]->config(OUTER_RADIUS, D_ANG(45*-1), 0, OUTER_ROT);
+            papBase[6]->config(OUTER_RADIUS, D_ANG(45*-2), 0, OUTER_ROT);
+            papBase[7]->config(OUTER_RADIUS, D_ANG(45*-3), 0, OUTER_ROT);
+            papBase[8]->config(OUTER_RADIUS, D_ANG(45*-4), 0, OUTER_ROT);
+            papBase[9]->config(OUTER_RADIUS, D_ANG(45*-5), 0, OUTER_ROT);
             break;
         }
         default :

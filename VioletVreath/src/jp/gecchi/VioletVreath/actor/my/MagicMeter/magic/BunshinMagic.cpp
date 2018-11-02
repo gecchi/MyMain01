@@ -18,7 +18,7 @@ using namespace VioletVreath;
 
 BunshinMagic::BunshinMagic(const char* prm_name, int* prm_pMP)
     : Magic(prm_name, prm_pMP,
-            9,                    //max_level
+            10,                   //max_level
             10000   , 1.15, 0.95, //基本魔法コスト, ＋１レベル毎のコスト増加率  , 飛びレベル時のコスト削減率
             60      , 1.12, 0.95, //基本詠唱時間  , ＋１レベル毎の詠唱時間増加率, 飛びレベル時の詠唱時間削減率
             30      , 1.1 , 0.95, //基本発動時間  , ＋１レベル毎の発動時間増加率, 飛びレベル時の発動時間削減率
@@ -27,6 +27,7 @@ BunshinMagic::BunshinMagic(const char* prm_name, int* prm_pMP)
            ) {
 
     //数値の意味は VreathMagic.cpp のコメント参照
+    lvinfo_[10].pno_ =  40;
     lvinfo_[9].pno_ =  48;
     lvinfo_[8].pno_ =  56;
     lvinfo_[7].pno_ =  64;

@@ -65,8 +65,6 @@ _pColorist(nullptr)
         _paMaterial[i] = _pModel->_paMaterial_default[i];
     }
     _alpha = 1.0f;
-    _cull_enable = true;
-    _cull_mode = D3DCULL_CCW;
     //ç≈ëÂãóó£í∏ì_
     _now_drawdepth = 0;
     _specal_render_depth_index = -1;
@@ -82,7 +80,9 @@ _pColorist(nullptr)
     } else {
         _is_first_effect_connector = false;
     }
-
+    _cull_enable = true;
+    _cull_mode_default = D3DCULL_CCW;
+    _cull_mode = _cull_mode_default;
 }
 
 GgafDxFigureActor::GgafDxFigureActor(const char* prm_name,
@@ -133,7 +133,8 @@ _pColorist(nullptr)
     }
     _alpha = 1.0f;
     _cull_enable = true;
-    _cull_mode = D3DCULL_CCW;
+    _cull_mode_default = D3DCULL_CCW;
+    _cull_mode = _cull_mode_default;
     _now_drawdepth = 0;
     _specal_render_depth_index = -1;
     _zenable = true;
