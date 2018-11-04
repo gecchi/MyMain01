@@ -276,7 +276,7 @@ void ICharacterChip<T, N, L>::extendBuffer(int prm_max_buf) {
 
 template<class T, int N, int L>
 void ICharacterChip<T, N, L>::prepare1(const char* prm_str) {
-    _len = strlen(prm_str);
+    _len = (int)strlen(prm_str);
     if (_len+1 > _max_buf) {
         extendBuffer(_len+1); //バッファ拡張
     }
@@ -589,8 +589,8 @@ void ICharacterChip<T, N, L>::prepare2() {
             }
             //情報更新
             if (draw_chr != chr_blank) {
-                pInstancePart->px_local_x = px_x;
-                pInstancePart->px_local_y = px_y;
+                pInstancePart->px_local_x = (float)px_x;
+                pInstancePart->px_local_y = (float)px_y;
                 pUvFlipper->getUV(draw_chr-chr_ptn_zero, u, v);
                 pInstancePart->offset_u = u;
                 pInstancePart->offset_v = v;
@@ -636,8 +636,8 @@ void ICharacterChip<T, N, L>::prepare2() {
 
                 //情報更新
                 if (draw_chr != chr_blank) {
-                    pInstancePart->px_local_x = px_x;
-                    pInstancePart->px_local_y = px_y;
+                    pInstancePart->px_local_x = (float)px_x;
+                    pInstancePart->px_local_y = (float)px_y;
                     pUvFlipper->getUV(draw_chr-chr_ptn_zero, u, v);
                     pInstancePart->offset_u = u;
                     pInstancePart->offset_v = v;
@@ -676,11 +676,11 @@ void ICharacterChip<T, N, L>::prepare2() {
                 x_tmp = px_x + w;
                 //情報更新
                 if (draw_chr != chr_blank) {
-                    pInstancePart->px_local_x = px_x;
-                    pInstancePart->px_local_y = px_y;
+                    pInstancePart->px_local_x = (float)px_x;
+                    pInstancePart->px_local_y = (float)px_y;
                     pUvFlipper->getUV(draw_chr-chr_ptn_zero, u, v);
-                    pInstancePart->offset_u = u;
-                    pInstancePart->offset_v = v;
+                    pInstancePart->offset_u = (float)u;
+                    pInstancePart->offset_v = (float)v;
                     pInstancePart--;
                 }
                 if (p_chr == _draw_string) { //一番左に到達

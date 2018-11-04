@@ -15,7 +15,7 @@ using namespace GgafDxCore;
 GgafDxModel::GgafDxModel(const char* prm_model_name) : GgafObject(),
 _pTexBlinker(new GgafDxTextureBlinker(this)) {
     _TRACE3_("_model_name=" << prm_model_name << " _id=" << _id);
-    int len = strlen(prm_model_name);
+    int len = (int)strlen(prm_model_name);
     _model_name = NEW char[len+1];
     strcpy(_model_name, prm_model_name);
     _paMaterial_default = nullptr;

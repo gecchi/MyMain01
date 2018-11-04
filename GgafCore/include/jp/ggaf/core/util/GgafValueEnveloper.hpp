@@ -438,15 +438,15 @@ public:
         if (prm_beat_num < 0) {
             p->_beat_target_frames = MAX_FRAME;
         } else {
-            p->_beat_target_frames = prm_cycle_frames * prm_beat_num;
+            p->_beat_target_frames = (frame)(prm_cycle_frames * prm_beat_num);
         }
         if (prm_is_to_top) {
-            p->_velo = 1.0*(p->_top - val) / ((int)prm_cycle_frames / 2.0);
+            p->_velo = (VAL_TYPE)(1.0*(p->_top - val) / ((int)prm_cycle_frames / 2.0));
             if (ZEROd_EQ(p->_velo)) {
                 p->_velo = 1; //正であればよい
             }
         } else {
-            p->_velo = 1.0*(p->_bottom - val) / ((int)prm_cycle_frames / 2.0);
+            p->_velo = (VAL_TYPE)(1.0*(p->_bottom - val) / ((int)prm_cycle_frames / 2.0));
             if (ZEROd_EQ(p->_velo)) {
                 p->_velo = -1; //負であればよい
             }
@@ -535,7 +535,7 @@ public:
         if (prm_beat_num < 0) {
             p->_beat_target_frames = MAX_FRAME;
         } else {
-            p->_beat_target_frames = p->_beat_cycle_frames * prm_beat_num;
+            p->_beat_target_frames = (frame)(p->_beat_cycle_frames * prm_beat_num);
         }
         //最初のアタックまでの速度
         const VAL_TYPE val = getValue(prm_idx);
@@ -631,7 +631,7 @@ public:
         if (prm_beat_num < 0) {
             p->_beat_target_frames = MAX_FRAME;
         } else {
-            p->_beat_target_frames = p->_beat_cycle_frames * prm_beat_num;
+            p->_beat_target_frames = (frame)(p->_beat_cycle_frames * prm_beat_num);
         }
         //最初のアタックまでの速度
         const VAL_TYPE val = getValue(prm_idx);

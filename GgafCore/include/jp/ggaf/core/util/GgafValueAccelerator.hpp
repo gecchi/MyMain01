@@ -700,7 +700,7 @@ public:
                                 const double V = (2.0*D-Te*Ve)/Te;
                                 //_TRACE_("D = "<<D);
                                 //_TRACE_("V = "<<V);
-                                _t_velo = V;
+                                _t_velo = (VAL_TYPE)V;
                                 //_TRACE_("‘¬“x _t_velo = "<<_t_velo<<" ‚É•â³");
                                 _t_acce = (VAL_TYPE)(UTIL::getAcceByTv(Te, _t_velo, Ve));
                                 //_TRACE_("‰Á‘¬“x _t_acce = "<<_t_acce<<" ‚É•â³");
