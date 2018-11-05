@@ -88,7 +88,7 @@ void MyBunshinBase::config(
     bunshin_default_ang_pos_    = UTIL::simplifyAng(prm_ang_pos);
     bunshin_default_expanse_    = UTIL::simplifyAng(prm_expanse);
     bunshin_default_angvelo_mv_ = prm_angvelo_mv;
-    bunshin_velo_mv_radius_pos_ = 3000 * (bunshin_default_radius_pos_/60000);
+    bunshin_velo_mv_radius_pos_ = (velo)(3000.0 * (bunshin_default_radius_pos_/60000.0));
     bunshin_radius_pos_         = bunshin_default_radius_pos_;
 }
 

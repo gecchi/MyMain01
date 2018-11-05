@@ -29,18 +29,11 @@ StageDebugPartController::StageDebugPartController(const char* prm_name) : Stage
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start
-	frame f[] = {1,5,105,205,305,400,405,500,505,605,705,805,905,1005,1105};
-	_paFrame_NextEvent = new frame[15];
+	frame f[] = {1,100,3200,4100,7200,8100,11100,12000};
+	_paFrame_NextEvent = new frame[8];
 	memcpy(_paFrame_NextEvent, f, sizeof(f));
-	_event_num = 15;
-	requestScene(10000000, StageDebugPartClimax, "StageDebugPartClimax-10000000");
-	requestActor(10000001, EnemyErelmanController003, "EnemyErelmanController003-10000001");
-	requestActor(10000002, EnemyEtis, "EnemyEtis-10000002");
-	requestActor(10000003, EnemyEtis, "EnemyEtis-10000003");
-	requestActor(10000004, EnemyEtis, "EnemyEtis-10000004");
-	requestActor(10000005, EnemyEtis, "EnemyEtis-10000005");
-	requestActor(10000006, EnemyEtis, "EnemyEtis-10000006");
-	requestActor(10000007, EnemyEtis, "EnemyEtis-10000007");
+	_event_num = 8;
+	requestScene(10000000, StageDebugPart01, "StageDebugPart01-10000000");
     // gen01 end
     useProgress(PROG_BANPEI);
 }
@@ -58,86 +51,38 @@ void StageDebugPartController::processBehavior() {
 			case 1: {
 				break;
 			}
-			case 5: {
-				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000002);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000008, EnemyEtis, "EnemyEtis-10000008");
-				break;
-			}
-			case 105: {
-				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000003);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000009, EnemyEtis, "EnemyEtis-10000009");
-				break;
-			}
-			case 205: {
-				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000004);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000010, EnemyEtis, "EnemyEtis-10000010");
-				break;
-			}
-			case 305: {
-				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000005);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000011, EnemyEtis, "EnemyEtis-10000011");
-				break;
-			}
-			case 400: {
-				EnemyErelmanController003* p1 = (EnemyErelmanController003*)receiveActor(10000001);
-				bringSceneMediator()->appendGroupChild(p1);
-				p1->setPosition(PX_C(2400), PX_C(0), PX_C(0) );
-				break;
-			}
-			case 405: {
-				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000006);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000012, EnemyEtis, "EnemyEtis-10000012");
-				break;
-			}
-			case 500: {
+			case 100: {
 				appendChild(receiveScene(10000000));
 				break;
 			}
-			case 505: {
-				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000007);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				requestActor(10000013, EnemyEtis, "EnemyEtis-10000013");
+			case 3200: {
+				requestScene(10000001, StageDebugPart02, "StageDebugPart02-10000001");
 				break;
 			}
-			case 605: {
-				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000008);
-				bringSceneMediator()->appendGroupChild(pEtis);
+			case 4100: {
+				appendChild(receiveScene(10000001));
 				break;
 			}
-			case 705: {
-				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000009);
-				bringSceneMediator()->appendGroupChild(pEtis);
+			case 7200: {
+				requestScene(10000002, StageDebugPart03, "StageDebugPart03-10000002");
 				break;
 			}
-			case 805: {
-				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000010);
-				bringSceneMediator()->appendGroupChild(pEtis);
+			case 8100: {
+				appendChild(receiveScene(10000002));
 				break;
 			}
-			case 905: {
-				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000011);
-				bringSceneMediator()->appendGroupChild(pEtis);
+			case 11100: {
+				requestScene(10000003, StageDebugPartClimax, "StageDebugPartClimax-10000003");
 				break;
 			}
-			case 1005: {
-				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000012);
-				bringSceneMediator()->appendGroupChild(pEtis);
-				break;
-			}
-			case 1105: {
-				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(10000013);
-				bringSceneMediator()->appendGroupChild(pEtis);
+			case 12000: {
+				appendChild(receiveScene(10000003));
 				break;
 			}
 			default :
 				break;
 		}
-		_cnt_event = (_cnt_event < 15-1 ? _cnt_event+1 : _cnt_event);
+		_cnt_event = (_cnt_event < 8-1 ? _cnt_event+1 : _cnt_event);
 	}
     // gen02 end
 

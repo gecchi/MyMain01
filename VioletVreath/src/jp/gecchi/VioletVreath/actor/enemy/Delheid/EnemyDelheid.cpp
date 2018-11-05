@@ -41,7 +41,7 @@ enum {
 };
 
 EnemyDelheid::EnemyDelheid(const char* prm_name) :
-        DefaultMorphMeshActor(prm_name, "Delheid_1", STATUS(EnemyDelheid)) {
+        DefaultMassMorphMeshActor(prm_name, "Delheid_1", STATUS(EnemyDelheid)) {
     _class_name = "EnemyDelheid";
     GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
@@ -60,7 +60,7 @@ void EnemyDelheid::onCreateModel() {
 }
 
 void EnemyDelheid::nextFrame() {
-    DefaultMorphMeshActor::nextFrame();
+    DefaultMassMorphMeshActor::nextFrame();
     if (!_was_paused_flg && _is_active_in_the_tree_flg) {
         pProg2_->update();
     }
@@ -98,7 +98,7 @@ void EnemyDelheid::processBehavior() {
     GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
-            pKurokoLeader_->start(RELATIVE_COORD_DIRECTION);
+            pKurokoLeader_->start(RELATIVE_COORD_DIRECTION, 3); //最高で３回ループする予定
             getKuroko()->setMvAcce(0);
             getKuroko()->keepOnTurningFaceAngTwd(pMYSHIP,
                                                  D_ANG(1), 0, TURN_CLOSE_TO, false);
@@ -114,10 +114,6 @@ void EnemyDelheid::processBehavior() {
 
         //ゴールのアリサナがいない場合、その後の移動
         case PROG_AFTER_LEAD: {
-            if (pProg->hasJustChanged()) {
-                //もう2回だけ同じスプライン移動する
-                pKurokoLeader_->start(RELATIVE_COORD_DIRECTION, 2);
-            }
             //processJudgement() で pKurokoLeader_->isFinished() 成立待ち
             break;
         }
@@ -192,9 +188,9 @@ void EnemyDelheid::processSettlementBehavior() {
     GgafProgress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_SPLINE_MOVING: {
-            if (pKurokoLeader_->isFinished()) {
+            if (pKurokoLeader_->_cnt_loop >= 2) {
                 if (((FormationDelheid*)getFormation())->pAlisana_goal) {
-                    //ゴールが存在する場合、そこでさよなら。
+                    //ゴールが存在する場合、１ループでさよなら。
                     pProg->changeNothing();
                     sayonara();
                 } else {
@@ -207,13 +203,13 @@ void EnemyDelheid::processSettlementBehavior() {
         //ゴールのアリサナがいない場合、その後の移動
         case PROG_AFTER_LEAD: {
             if (pKurokoLeader_->isFinished()) {
-                //もう2回のスプライン移動も終わった場合
+                //スプライン移動も終わった場合
                 pProg->change(PROG_AFTER_LEAD_MOVING);
             }
             break;
         }
     }
-    DefaultMorphMeshActor::processSettlementBehavior();
+    DefaultMassMorphMeshActor::processSettlementBehavior();
 }
 
 void EnemyDelheid::processJudgement() {

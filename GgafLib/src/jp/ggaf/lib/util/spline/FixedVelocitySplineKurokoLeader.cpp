@@ -30,9 +30,8 @@ void FixedVelocitySplineKurokoLeader::behave() {
     if (_is_leading) {
         GgafDxKuroko* pKuroko_target = _pKuroko_target;
         //•Ï‚í‚è–Ú
-        const float leadning_float_frames_now = _leadning_float_frames;
         const int sp_rnum = _pFixedVeloSplManuf->_pSpl->_rnum;
-        if (leadning_float_frames_now >= _float_frame_of_next) {
+        if (_leadning_float_frames >= _float_frame_of_next) {
 again:
             _point_index++;
             if (_point_index == sp_rnum) {
@@ -58,7 +57,7 @@ again:
                                      _pFixedVeloSplManuf->_paFrame_need_at[_point_index];
             }
         }
-        if (leadning_float_frames_now >= _float_frame_of_next) {
+        if (_leadning_float_frames >= _float_frame_of_next) {
             //_float_frame_of_next‚ğŸ‚Éi‚ß‚Ä‚à‘«‚è‚È‚¢ê‡A‚à‚¤ˆê‚Â_point_index‚ği‚ß‚é
             goto again;
         }

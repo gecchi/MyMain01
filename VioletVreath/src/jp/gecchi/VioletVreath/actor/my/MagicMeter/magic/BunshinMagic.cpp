@@ -73,8 +73,8 @@ void BunshinMagic::processCastBegin(int prm_now_level, int prm_new_level) {
             GgafDxTrucker* const pEffectTrucker = pEffect->getTrucker();
             pEffectTrucker->resetMv();
             pEffectTrucker->setVxyzMvVelo(veloVxMv*0.8,
-                                            veloVyMv + (ANG_SIN(paAng_way[n]) * PX_C(3)),
-                                            veloVzMv + (ANG_COS(paAng_way[n]) * PX_C(3)) ); //放射状にエフェクト放出
+                                          veloVyMv + (ANG_SIN(paAng_way[n]) * PX_C(3)),
+                                          veloVzMv + (ANG_COS(paAng_way[n]) * PX_C(3)) ); //放射状にエフェクト放出
             pEffectTrucker->execGravitationMvSequenceTwd(pMYSHIP, 10000, 200, 2000);
             _TRACE_(getBehaveingFrame()<<":BunshinMagic::processCastBegin("<<prm_now_level<<","<<prm_new_level<<") papEffect_["<<(lv-1)<<"]->activate();");
             pEffect->activate();

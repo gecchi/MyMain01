@@ -29,6 +29,7 @@ void EffectBunshinMagic001::onActive() {
 void EffectBunshinMagic001::processBehavior() {
     EffectBlink::processBehavior();
     getKuroko()->behave();
+    getTrucker()->behave();
 }
 
 void EffectBunshinMagic001::processJudgement() {
