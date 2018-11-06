@@ -68,11 +68,11 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     //プロパティファイル読込み
     if (PathFileExists(VV_DEFAULT_CONFIG_FILE)) {
         if (PathFileExists(VV_CONFIG_FILE)) {
-            VioletVreath::Config::loadProperties(VV_CONFIG_FILE);
+            CONFIG::loadProperties(VV_CONFIG_FILE);
             _TRACE_("config.properties を load しました");
         } else {
-            VioletVreath::Config::loadProperties(VV_DEFAULT_CONFIG_FILE);
-            VioletVreath::Config::_properties.write(VV_CONFIG_FILE);
+            CONFIG::loadProperties(VV_DEFAULT_CONFIG_FILE);
+            CONFIG::_properties.write(VV_CONFIG_FILE);
             _TRACE_("＜警告＞config.properties が存在しないので、既定の '" <<VV_DEFAULT_CONFIG_FILE << "' を load しました。");
         }
     } else {

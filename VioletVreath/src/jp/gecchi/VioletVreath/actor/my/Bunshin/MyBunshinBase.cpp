@@ -536,10 +536,12 @@ void MyBunshinBase::setBunshinNum(int prm_num) {
     for (int i = 0; i < MyBunshinBase::MAX_BUNSHIN_NUM; i++) {
         MyBunshinBase* p = papBase[i];
         if (i+1 <= prm_num) {
+            //Šˆ“®‚µ‚Ä–³‚¢ê‡Šˆ“®‚³‚¹‚éBŠˆ“®’†‚¾‚Á‚½‚ç‰½‚à‚µ‚È‚¢B
             if (!(p->isActive())) {
                 p->activate();
             }
         } else {
+            //ˆø”‚ð’´‚¦‚é•ªg‚Í”ñŠˆ“®
             if (p->isActive()) {
                 p->inactivate();
             }

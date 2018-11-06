@@ -118,6 +118,16 @@ void EffectBlink::blink(frame prm_scale_in_frames, frame prm_duration_frames, fr
     getProgress()->reset(PROG_INIT);
 }
 
+void EffectBlink::blink2(frame prm_scale_in_frames, frame prm_duration_frames, frame prm_scale_out_frames,
+                        const GgafDxCore::GgafDxGeometricActor* prm_pFollowTarget, bool prm_sayonara_end) {
+    pTarget_ = prm_pFollowTarget;
+    scale_in_frames_ = prm_scale_in_frames;
+    duration_frames_ = prm_duration_frames;
+    scale_out_frames_ = prm_scale_out_frames;
+    sayonara_end_ = prm_sayonara_end;
+    getProgress()->reset(PROG_INIT);
+}
+
 bool EffectBlink::isBlinking() {
     return getProgress()->isNothing();
 }

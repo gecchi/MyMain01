@@ -28,7 +28,6 @@ public:
     MyLockonController* pLockonCtrler_;
     /** [r]魚雷コントローラー */
     MyTorpedoController* pTorpedoCtrler_;
-
 public:
     struct AimInfo {
         MyBunshinWateringLaserChip001* pLeaderChip;

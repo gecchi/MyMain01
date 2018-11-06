@@ -133,72 +133,74 @@ void MyBunshin::processChangeGeoFinal() {
     MyShip* const pMyShip = pMYSHIP;
     const VirtualButton* pVbPlay = VB_PLAY;
 
-    if (pMyShip->is_just_shot_) {
-        if (pMyShip->is_snipe_shot_) {
-            //分身はスナイプショットは撃たない。
-//            MyBunshinSnipeShot001* const pSnipeShot = (MyBunshinSnipeShot001*)pDepo_MySnipeBunshinShot_->dispatch();
-//            if (pSnipeShot) {
-//                getSeTransmitter()->play3D(SE_FIRE_SHOT);
-//                pSnipeShot->setPositionAt(this);
-//                pSnipeShot->getKuroko()->setRzRyMvAng(_rz, _ry);
-//                pSnipeShot->getKuroko()->setMvVelo(PX_C(70));
-//                pSnipeShot->getKuroko()->setMvAcce(100);
-//            }
-        } else {
-            if (pMyShip->shot_level_ >= 1) {
-                MyBunshinShot001* const  pShot = (MyBunshinShot001*)pDepo_MyBunshinShot_->dispatch();
-                if (pShot) {
-                    getSeTransmitter()->play3D(SE_FIRE_SHOT);
-                    pShot->setPositionAt(this);
-                    pShot->getKuroko()->setRzRyMvAng(_rz, _ry);
-                    pShot->getKuroko()->setMvVelo(PX_C(70));
-                    pShot->getKuroko()->setMvAcce(100);
+    if (getAlpha() > 0.99f) {
+        if (pMyShip->is_just_shot_) {
+            if (pMyShip->is_snipe_shot_) {
+                //分身はスナイプショットは撃たない。
+    //            MyBunshinSnipeShot001* const pSnipeShot = (MyBunshinSnipeShot001*)pDepo_MySnipeBunshinShot_->dispatch();
+    //            if (pSnipeShot) {
+    //                getSeTransmitter()->play3D(SE_FIRE_SHOT);
+    //                pSnipeShot->setPositionAt(this);
+    //                pSnipeShot->getKuroko()->setRzRyMvAng(_rz, _ry);
+    //                pSnipeShot->getKuroko()->setMvVelo(PX_C(70));
+    //                pSnipeShot->getKuroko()->setMvAcce(100);
+    //            }
+            } else {
+                if (pMyShip->shot_level_ >= 1) {
+                    MyBunshinShot001* const  pShot = (MyBunshinShot001*)pDepo_MyBunshinShot_->dispatch();
+                    if (pShot) {
+                        getSeTransmitter()->play3D(SE_FIRE_SHOT);
+                        pShot->setPositionAt(this);
+                        pShot->getKuroko()->setRzRyMvAng(_rz, _ry);
+                        pShot->getKuroko()->setMvVelo(PX_C(70));
+                        pShot->getKuroko()->setMvAcce(100);
+                    }
+                }
+                if (pMyShip->shot_level_ == 2) {
+                    uint32_t i = pMyShip->soft_rapidshot_shot_count_ % 4;
+                    UTIL::shotWay003(this,
+                                     pDepo_MyBunshinShot_, MyShip::shot2_matrix_[i],
+                                     nullptr, nullptr,
+                                     nullptr, nullptr,
+                                     PX_C(1),
+                                     MYSHIP_SHOT_MATRIX, MYSHIP_SHOT_MATRIX,
+                                     D_ANG(5), D_ANG(5),
+                                     PX_C(70), 100,
+                                     1, 0, 1.0);
+                } else if (pMyShip->shot_level_ >= 3) {
+                    uint32_t i = pMyShip->soft_rapidshot_shot_count_ % 2;
+                    UTIL::shotWay003(this,
+                                     pDepo_MyBunshinShot_, MyShip::shot3_matrix_[i],
+                                     nullptr, nullptr,
+                                     nullptr, nullptr,
+                                     PX_C(1),
+                                     MYSHIP_SHOT_MATRIX, MYSHIP_SHOT_MATRIX,
+                                     D_ANG(5), D_ANG(5),
+                                     PX_C(70), 100,
+                                     1, 0, 1.0);
                 }
             }
-            if (pMyShip->shot_level_ == 2) {
-                uint32_t i = pMyShip->soft_rapidshot_shot_count_ % 4;
-                UTIL::shotWay003(this,
-                                 pDepo_MyBunshinShot_, MyShip::shot2_matrix_[i],
-                                 nullptr, nullptr,
-                                 nullptr, nullptr,
-                                 PX_C(1),
-                                 MYSHIP_SHOT_MATRIX, MYSHIP_SHOT_MATRIX,
-                                 D_ANG(5), D_ANG(5),
-                                 PX_C(70), 100,
-                                 1, 0, 1.0);
-            } else if (pMyShip->shot_level_ >= 3) {
-                uint32_t i = pMyShip->soft_rapidshot_shot_count_ % 2;
-                UTIL::shotWay003(this,
-                                 pDepo_MyBunshinShot_, MyShip::shot3_matrix_[i],
-                                 nullptr, nullptr,
-                                 nullptr, nullptr,
-                                 PX_C(1),
-                                 MYSHIP_SHOT_MATRIX, MYSHIP_SHOT_MATRIX,
-                                 D_ANG(5), D_ANG(5),
-                                 PX_C(70), 100,
-                                 1, 0, 1.0);
-            }
         }
-    }
 
-    //レーザー発射。
-    if (pMyShip->is_shooting_laser_ && pVbPlay->isPressed(VB_SHOT1)) {
-        MyBunshinWateringLaserChip001* pLaserChip = (MyBunshinWateringLaserChip001*)pLaserChipDepo_->dispatch();
-        if (pLaserChip) {
-            pLaserChip->setOrg(this);
-            if (pLaserChip->getInfrontChip() == nullptr) {
-                getSeTransmitter()->play3D(SE_FIRE_LASER);
+        //レーザー発射。
+        if (pMyShip->is_shooting_laser_ && pVbPlay->isPressed(VB_SHOT1)) {
+            MyBunshinWateringLaserChip001* pLaserChip = (MyBunshinWateringLaserChip001*)pLaserChipDepo_->dispatch();
+            if (pLaserChip) {
+                pLaserChip->setOrg(this);
+                if (pLaserChip->getInfrontChip() == nullptr) {
+                    getSeTransmitter()->play3D(SE_FIRE_LASER);
+                }
+            }
+        } else {
+            pLockonCtrler_->releaseAllLockon(); //ロックオン解除
+        }
+        //光子魚雷発射
+        if (pVbPlay->isPushedDown(VB_SHOT2)) {
+            if (pTorpedoCtrler_->fire()) {
+                getSeTransmitter()->play3D(SE_FIRE_TORPEDO);
             }
         }
-    } else {
-        pLockonCtrler_->releaseAllLockon(); //ロックオン解除
-    }
-    //光子魚雷発射
-    if (pVbPlay->isPushedDown(VB_SHOT2)) {
-        if (pTorpedoCtrler_->fire()) {
-            getSeTransmitter()->play3D(SE_FIRE_TORPEDO);
-        }
-    }
+    } //getAlpha() > 0.5
 }
 
 void MyBunshin::processJudgement() {

@@ -343,7 +343,9 @@ public:
     virtual int invoke(int prm_new_level);
 
     /**
-     * 魔法発動開始コールバック。ここまでくると詠唱キャンセルは不可とする。(１回だけコールバック) .
+     * 魔法発動開始コールバック .
+     * ここまでくると詠唱キャンセルは不可とする。(１回だけコールバック)
+     * レベルダウン時も呼び出されます。
      * @param prm_now_level 現在のレベル(0～ )
      * @param prm_new_level 発動させようとしている新しいレベル(1～ )
      */
@@ -357,9 +359,18 @@ public:
      */
     virtual void processInvokingBehavior(int prm_now_level, int prm_new_level) = 0;
 
+    /**
+     * 魔法発動中、発動キャンセル時のコールバック .
+     * 通常は魔法発動時にキャンセルはできないが、やむを得ないに事情により強制キャンセルされる場合に
+     * 呼び出される。
+     * 例えば、発動中にMPが枯渇してしまったとか、死んだとか。
+     * @param prm_now_level 現在のレベル(0～ )
+     */
     virtual void processInvokingCancel(int prm_now_level) = 0;
+
     /**
      * 魔法発動終了コールバック(１回だけコールバック) .
+     * レベルダウン時も呼び出されます。
      * @param prm_now_level 魔法発動終了直前の、現在のレベル。(0～ )
      * @param prm_new_level 魔法発動終了直後の、昇格すべき新しいレベル。(1～ )
      * @param prm_result_effect invoke()の結果

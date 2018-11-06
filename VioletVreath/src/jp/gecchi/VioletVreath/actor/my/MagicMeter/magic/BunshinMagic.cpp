@@ -104,12 +104,14 @@ void BunshinMagic::processCastFinish(int prm_now_level, int prm_new_level, int p
 
 void BunshinMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
     _TRACE_(getBehaveingFrame()<<":BunshinMagic::processInvokeBegin("<<prm_now_level<<","<<prm_new_level<<")");
+    MyBunshinBase::setBunshinNum(prm_new_level); //分身設定
     if (prm_new_level > prm_now_level) {
-        //レベルアップ時
+        //レベルアップ時はエフェクトが分身へ移動
         for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
-            MyBunshinBase* p = pMYSHIP_SCENE->papBunshinBase_[lv-1];
+            MyBunshin* pMyBunshin = pMYSHIP_SCENE->papBunshinBase_[lv-1]->pBunshin_;
+            pMyBunshin->setAlpha(0); //操作不可に設定
             papEffect_[lv-1]->getTrucker()->execGravitationMvSequenceTwd(
-                                             pMYSHIP,
+                                             pMyBunshin,
                                              40000, 400, 200000
                                          );
         }
@@ -118,15 +120,17 @@ void BunshinMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
 
 void BunshinMagic::processInvokingCancel(int prm_now_level) {
     _TRACE_(getBehaveingFrame()<<":BunshinMagic::processInvokingCancel("<<prm_now_level<<")");
+    MyBunshinBase::setBunshinNum(prm_now_level);
     turnoffBunshinEffect();
 }
 
 void BunshinMagic::processInvokingBehavior(int prm_now_level, int prm_new_level)  {
     if (prm_new_level > prm_now_level) {
         //レベルアップ時
+        float a = (float)getProgress()->getFrame() / (float)time_of_next_state_;
         for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
-            MyBunshinBase* p = pMYSHIP_SCENE->papBunshinBase_[lv-1];
-            papEffect_[lv-1]->getTrucker()->setGravitationTwd(pMYSHIP);
+            MyBunshin* pMyBunshin = pMYSHIP_SCENE->papBunshinBase_[lv-1]->pBunshin_;
+            pMyBunshin->setAlpha(a);
         }
     }
 }
@@ -137,12 +141,15 @@ void BunshinMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int
 
 void BunshinMagic::processEffectBegin(int prm_last_level, int prm_now_level)  {
     _TRACE_(getBehaveingFrame()<<":BunshinMagic::processEffectBegin("<<prm_last_level<<","<<prm_now_level<<")");
-    MyBunshinBase::setBunshinNum(prm_now_level);
+    //レベルアップ・レベルダウン時
+//    MyBunshinBase::setBunshinNum(prm_now_level);
+
     if (prm_now_level > prm_last_level) {
         //レベルアップ時、エフェクトの処理
         for (int lv = prm_last_level+1; lv <= prm_now_level; lv++) {
-            MyBunshin* pBunshin = pMYSHIP_SCENE->papBunshinBase_[lv-1]->pBunshin_;
-            papEffect_[lv-1]->blink(0, 2, 120, pBunshin, false);
+            MyBunshin* pMyBunshin = pMYSHIP_SCENE->papBunshinBase_[lv-1]->pBunshin_;
+            pMyBunshin->setAlpha(1.0); //操作可に
+            papEffect_[lv-1]->blink2(0, 2, 120, pMyBunshin, false);
         }
     }
 }

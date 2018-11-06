@@ -68,6 +68,19 @@ public:
                const GgafDxCore::GgafDxGeometricActor* prm_pFollowTarget, bool prm_sayonara_end = true);
 
     /**
+     * 瞬く .
+     * 上記 blink() と同じだが、最初のスケールが現在のスケールでそのまま開始する。
+     * @param prm_scale_in_frames
+     * @param prm_duration_frames
+     * @param prm_scale_out_frames
+     * @param prm_pFollowTarget
+     * @param prm_sayonara_end
+     */
+    void blink2(frame prm_scale_in_frames, frame prm_duration_frames, frame prm_scale_out_frames,
+                const GgafDxCore::GgafDxGeometricActor* prm_pFollowTarget, bool prm_sayonara_end = true);
+
+
+    /**
      * 今瞬いてるか .
      * @return
      */
