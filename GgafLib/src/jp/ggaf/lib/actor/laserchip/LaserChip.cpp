@@ -33,8 +33,11 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model, GgafStatus* pr
     _pDepo = nullptr; //LaserChipDepositoryに追加される時に設定される。通常LaserChipとLaserChipDepositoryはセット。
     _chip_kind = 0;
     _hitarea_edge_length = 0;
-    _hitarea_edge_length_3 = 0;
-    _hitarea_edge_length_6 = 0;
+    _hitarea_edge_length_2   = _hitarea_edge_length * 2;
+    _hitarea_edge_length_3   = _hitarea_edge_length * 3;
+    _hitarea_edge_length_3_2 = _hitarea_edge_length_3 * 2;
+    _hitarea_edge_length_6   = _hitarea_edge_length_3 * 2;
+    _hitarea_edge_length_6_2 = _hitarea_edge_length_6 * 2;
     _hdx = _hdy = _hdz = 0;
     _can_chikei_hit = false;
 
@@ -197,25 +200,27 @@ void LaserChip::processSettlementBehavior() {
                 coord dX = pChip_infront->_x - _x;
                 coord dY = pChip_infront->_y - _y;
                 coord dZ = pChip_infront->_z - _z;
-                coord abs_dx = ABS(dX);
-                coord abs_dy = ABS(dY);
-                coord abs_dz = ABS(dZ);
+//                coord abs_dx = ABS(dX);
+//                coord abs_dy = ABS(dY);
+//                coord abs_dz = ABS(dZ);
 
-                if (abs_dx < _hitarea_edge_length &&
-                    abs_dy < _hitarea_edge_length &&
-                    abs_dz < _hitarea_edge_length) {
+                if ((ucoord)(dX+_hitarea_edge_length) < _hitarea_edge_length_2 &&
+                    (ucoord)(dY+_hitarea_edge_length) < _hitarea_edge_length_2 &&
+                    (ucoord)(dZ+_hitarea_edge_length) < _hitarea_edge_length_2)
+                {
                     //前方チップとくっつきすぎた場合に、判定領域を一時的に無効化
                     setHitAble(false);
                 } else {
                     setHitAble(true);
-                    if (abs_dx >= _hitarea_edge_length_3 ||
-                        abs_dy >= _hitarea_edge_length_3 ||
-                        abs_dz >= _hitarea_edge_length_3) {
+                    if ((ucoord)(dX+_hitarea_edge_length_3) < _hitarea_edge_length_3_2 &&
+                        (ucoord)(dY+_hitarea_edge_length_3) < _hitarea_edge_length_3_2 &&
+                        (ucoord)(dZ+_hitarea_edge_length_3) < _hitarea_edge_length_3_2)
+                    {
                         //前方チップと離れすぎた場合に、中間に当たり判定領域を一時的に有効化
                         //自身と前方チップの中間に当たり判定を作り出す
-                        int cX = dX / 2;
-                        int cY = dY / 2;
-                        int cZ = dZ / 2;
+                        coord cX = dX / 2;
+                        coord cY = dY / 2;
+                        coord cZ = dZ / 2;
                         pChecker->setColliAABox(
                                       2,
                                       cX - _hdx,
@@ -225,13 +230,13 @@ void LaserChip::processSettlementBehavior() {
                                       cY + _hdy,
                                       cZ + _hdz
                                       );
-                        if (abs_dx >= _hitarea_edge_length_6 ||
-                            abs_dy >= _hitarea_edge_length_6 ||
-                            abs_dz >= _hitarea_edge_length_6)
+                        if ((ucoord)(dX+_hitarea_edge_length_6) < _hitarea_edge_length_6_2 &&
+                            (ucoord)(dY+_hitarea_edge_length_6) < _hitarea_edge_length_6_2 &&
+                            (ucoord)(dZ+_hitarea_edge_length_6) < _hitarea_edge_length_6_2)
                         {
-                            int cX2 = cX / 2;
-                            int cY2 = cY / 2;
-                            int cZ2 = cZ / 2;
+                            coord cX2 = cX / 2;
+                            coord cY2 = cY / 2;
+                            coord cZ2 = cZ / 2;
                             pChecker->setColliAABox(
                                           1,
                                           cX2 - _hdx,
@@ -241,9 +246,9 @@ void LaserChip::processSettlementBehavior() {
                                           cY2 + _hdy,
                                           cZ2 + _hdz
                                           );
-                            int cX3 = cX2 + cX;
-                            int cY3 = cY2 + cY;
-                            int cZ3 = cZ2 + cZ;
+                            coord cX3 = cX2 + cX;
+                            coord cY3 = cY2 + cY;
+                            coord cZ3 = cZ2 + cZ;
                             pChecker->setColliAABox(
                                           3,
                                           cX3 - _hdx,
@@ -361,8 +366,11 @@ void LaserChip::registerHitAreaCube_AutoGenMidColli(int prm_edge_length) {
     //下位レーザーチップでオーバーライトされている可能性あり
     _middle_colli_able = true;
     _hitarea_edge_length = prm_edge_length;
-    _hitarea_edge_length_3 = _hitarea_edge_length*3;
-    _hitarea_edge_length_6 = _hitarea_edge_length_3*2;
+    _hitarea_edge_length_2   = _hitarea_edge_length * 2;
+    _hitarea_edge_length_3   = _hitarea_edge_length * 3;
+    _hitarea_edge_length_3_2 = _hitarea_edge_length_3 * 2;
+    _hitarea_edge_length_6   = _hitarea_edge_length_3 * 2;
+    _hitarea_edge_length_6_2 = _hitarea_edge_length_6 * 2;
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(4);
     pChecker->setColliAACube(0, prm_edge_length);

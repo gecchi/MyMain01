@@ -35,7 +35,7 @@ public:
     GgafActorDepository(const char* prm_name, GgafStatus* prm_pStat = nullptr);
 
     /**
-     * 貸出メンバー(GgafActor)を追加登録します.
+     * 貸出メンバー(GgafActor)を追加登録します .
      * ストックの追加的なイメージです。<BR>
      * GgafNode<T>::appendChild() を実行する前に、アクター種別のを引き継ぎを行います。
      * 最初に登録したアクターの種別が、本デポジトリの種別となります。
@@ -45,8 +45,12 @@ public:
      */
     virtual void put(GgafActor* prm_pChild);
 
+    /**
+     * 貸出メンバー(同じ型)を一気に追加登録します.
+     * @param prm_num メンバー数
+     */
     template <typename T>
-    void put(const int prm_num) {
+    void putn(const int prm_num) {
         const char* type = typeid(T).name();
         for (int i = 0; i < prm_num; i++) {
             std::string name = std::string(type) + "("+XTOS(i)+")";

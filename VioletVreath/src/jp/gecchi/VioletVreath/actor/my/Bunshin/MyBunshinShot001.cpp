@@ -45,7 +45,6 @@ void MyBunshinShot001::processJudgement() {
 }
 
 void MyBunshinShot001::onHit(const GgafActor* prm_pOtherActor) {
-    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     setHitAble(false);
     UTIL::activateExplosionEffectOf(this);
     sayonara();

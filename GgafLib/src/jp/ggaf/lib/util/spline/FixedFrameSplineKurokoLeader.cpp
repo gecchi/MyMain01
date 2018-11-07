@@ -36,7 +36,8 @@ void FixedFrameSplineKurokoLeader::restart() {
     //計算で求めているので、補完点数が少ない場合、費やされるフレーム合計の誤差が大きい。
     //そこで始点への距離0とみなせる場合には、現座標～始点 をなかったコトにする。
     //そうでなければ仕方ないので、費やされるフレーム合計の誤差を認める仕様とする。
-    if (ABS(_distance_to_begin) <= PX_C(1)) {
+//    if (ABS(_distance_to_begin) <= PX_C(1)) {
+    if ( (ucoord)(_distance_to_begin + PX_C(1)) <= (ucoord)(PX_C(2)) ) {
         //始点への距離が無い、間引く。
         //_TRACE_("＜警告＞FixedFrameSplineKurokoLeader::start("<<prm_option<<") _pActor_target="<<_pActor_target->getName()<<
         //    " 現座標～始点[0]への距離は 0 であるため、現座標～始点への移動プロセスはカットされます。");

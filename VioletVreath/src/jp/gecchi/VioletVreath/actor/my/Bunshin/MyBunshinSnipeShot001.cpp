@@ -43,7 +43,6 @@ void MyBunshinSnipeShot001::processJudgement() {
 }
 
 void MyBunshinSnipeShot001::onHit(const GgafActor* prm_pOtherActor) {
-    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
     setHitAble(false);
     UTIL::activateExplosionEffectOf(this);
     sayonara();

@@ -114,13 +114,18 @@ void LaserChipDepository::processFinal() {
         }
     }
 }
-
-void LaserChipDepository::put(LaserChip* prm_pLaserChip) {
+void LaserChipDepository::put(GgafActor* prm_pChild) {
+#ifdef MY_DEBUG
+    if (!prm_pChild->instanceOf(Obj_LaserChip)) {
+        throwGgafCriticalException("LaserChipDepository::put() ˆø”‚É‚Í LaserChip ‚ğ“n‚µ‚Ä‚­‚¾‚³‚¢Bprm_pChild="<<prm_pChild->getName()<<"("<<prm_pChild<<")");
+    }
+#endif
+    LaserChip* pLaserChip = (LaserChip*)prm_pChild;
     _num_chip_max ++;
     _num_continual_dispatch_max++;
     _num_chip_dispatch_able = _num_chip_max/4; //’eØ‚ê‚Ì _num_chip_max/4 —­‚Ü‚Á‚Ä‚©‚ç”­Ë
-    prm_pLaserChip->_pDepo = this;
-    GgafActorDepository::put(prm_pLaserChip);
+    pLaserChip->_pDepo = this;
+    GgafActorDepository::put(pLaserChip);
 }
 
 void LaserChipDepository::onReset() {

@@ -97,19 +97,10 @@ public:
      * レーザーチップストックの追加 .
      * 好きなだけ追加して下さい。
      * 追加すればするほど玉切れがおきにくい。<br>
-     * (※上位の GgafActorDepository::put(GgafActor* prm_pChild) を隠蔽)<br>
-     * @param prm_pLaserChip レーザーチップ
+     * @param prm_pChild レーザーチップ
      */
-    void put(LaserChip* prm_pLaserChip); //hiding です。void GgafActorDepository::put(GgafActor* prm_pChild) 反変引数の為 override したいけどできない。
+    virtual void put(GgafActor* prm_pChild) override;
 
-    template <typename T>
-    void put(const int prm_num) {
-        const char* type = typeid(T).name();
-        for (int i = 0; i < prm_num; i++) {
-            std::string name = std::string(type) + "("+XTOS(i)+")";
-            LaserChipDepository::put(NEW T(name.c_str()));
-        }
-    }
     /**
      * リセット時の処理 .
      * メンバーを全てinactivateImmed()します。

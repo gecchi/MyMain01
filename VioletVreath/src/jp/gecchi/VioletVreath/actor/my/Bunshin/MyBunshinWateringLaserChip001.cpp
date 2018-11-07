@@ -116,19 +116,30 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                                 pAimInfo->t1_y,
                                 pAimInfo->t1_z );
                         static const coord renge = MyBunshinWateringLaserChip001::INITIAL_VELO * 0.4;
-                        if (_x >= pAimInfo->t1_x - renge) {
-                            if (_x <= pAimInfo->t1_x + renge) {
-                                if (_y >= pAimInfo->t1_y - renge) {
-                                    if (_y <= pAimInfo->t1_y + renge) {
-                                        if (_z >= pAimInfo->t1_z - renge) {
-                                            if (_z <= pAimInfo->t1_z + renge) {
-                                                 pAimInfo_->spent_frames_to_t1 = getActiveFrame(); //Aim t1 終了
-                                            }
-                                        }
-                                    }
+                        static const ucoord renge2 = renge*2;
+//                        if (_x >= pAimInfo->t1_x - renge) {
+//                            if (_x <= pAimInfo->t1_x + renge) {
+//                                if (_y >= pAimInfo->t1_y - renge) {
+//                                    if (_y <= pAimInfo->t1_y + renge) {
+//                                        if (_z >= pAimInfo->t1_z - renge) {
+//                                            if (_z <= pAimInfo->t1_z + renge) {
+//                                                 pAimInfo_->spent_frames_to_t1 = getActiveFrame(); //Aim t1 終了
+//                                            }
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                        }
+//                        if (ABS(_x - pAimInfo->t1_x) <= renge) {
+//                        }
+                        if ( (ucoord)(_x - pAimInfo->t1_x + renge) <= renge2) {
+                            if ( (ucoord)(_y - pAimInfo->t1_y + renge) <= renge2) {
+                                if ( (ucoord)(_z - pAimInfo->t1_z + renge) <= renge2) {
+                                    pAimInfo_->spent_frames_to_t1 = getActiveFrame(); //Aim t1 終了
                                 }
                             }
                         }
+
                     } else {
                         //初めは pAimTarget があったのに、途中で消えた。
                         pAimInfo_->spent_frames_to_t1 = getActiveFrame(); //Aim t1 終了
@@ -299,8 +310,8 @@ throwGgafCriticalException("pAimInfo_ が引き継がれていません！"<<this<<
             _y = (pF->tmp_y_ + pB->tmp_y_ + tmp_y_)/3;
             _z = (pF->tmp_z_ + pB->tmp_z_ + tmp_z_)/3;
             pTrucker->setVxyzMvAcce( (pF->tmp_acc_vx_ + pB->tmp_acc_vx_ + tmp_acc_vx_)/3,
-                                       (pF->tmp_acc_vy_ + pB->tmp_acc_vy_ + tmp_acc_vy_)/3,
-                                       (pF->tmp_acc_vz_ + pB->tmp_acc_vz_ + tmp_acc_vz_)/3 );
+                                      (pF->tmp_acc_vy_ + pB->tmp_acc_vy_ + tmp_acc_vy_)/3,
+                                      (pF->tmp_acc_vz_ + pB->tmp_acc_vz_ + tmp_acc_vz_)/3 );
         }
     }
     WateringLaserChip::processSettlementBehavior();

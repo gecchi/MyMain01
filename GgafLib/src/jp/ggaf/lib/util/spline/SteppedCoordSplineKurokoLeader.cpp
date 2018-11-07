@@ -22,7 +22,8 @@ void SteppedCoordSplineKurokoLeader::restart() {
     SplineLeader::restart();
     _leading_frames = 0;
     //始点へ行く特別処理。
-    if (ABS(_distance_to_begin) <= PX_C(1)) {
+//    if (ABS(_distance_to_begin) <= PX_C(1)) {
+    if ( (ucoord)(_distance_to_begin + PX_C(1)) <= (ucoord)(PX_C(2)) ) {
         //始点との距離が無い場合(PX_C(1)以下)の場合、
         //スプライン補間点の第１点目を間引いて、始点の次の補間点からスタート
         _point_index = 0;

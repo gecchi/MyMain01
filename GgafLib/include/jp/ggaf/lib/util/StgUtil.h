@@ -56,16 +56,33 @@ public:
                                const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox* const pAABox02 ) {
         //＜AAB と AAB＞
         //軸が一致しない確率が高そうな順番(X>Z>Y)に判定
-        if (pActor01->_x + pAABox01->_x2 >= pActor02->_x + pAABox02->_x1) {
-            if (pActor01->_x + pAABox01->_x1 <= pActor02->_x + pAABox02->_x2) {
-                if (pActor01->_z + pAABox01->_z2 >= pActor02->_z + pAABox02->_z1) {
-                    if (pActor01->_z + pAABox01->_z1 <= pActor02->_z + pAABox02->_z2) {
-                        if (pActor01->_y + pAABox01->_y2 >= pActor02->_y + pAABox02->_y1) {
-                            if (pActor01->_y + pAABox01->_y1 <= pActor02->_y + pAABox02->_y2) {
-                                return true;
-                            }
-                        }
-                    }
+//        if (pActor01->_x + pAABox01->_x2 >= pActor02->_x + pAABox02->_x1) {
+//            if (pActor01->_x + pAABox01->_x1 <= pActor02->_x + pAABox02->_x2) {
+//                if (pActor01->_z + pAABox01->_z2 >= pActor02->_z + pAABox02->_z1) {
+//                    if (pActor01->_z + pAABox01->_z1 <= pActor02->_z + pAABox02->_z2) {
+//                        if (pActor01->_y + pAABox01->_y2 >= pActor02->_y + pAABox02->_y1) {
+//                            if (pActor01->_y + pAABox01->_y1 <= pActor02->_y + pAABox02->_y2) {
+//                                return true;
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+
+//        coord max_dx = pAABox01->_hdx + pAABox02->_hdx;
+//        if (ABS(pActor02->_x + pAABox02->_cx) - (pActor01->_x + pAABox01->_cx)) < max_dx) ) {
+//        }
+//    	を変形。
+
+        coord max_dx = pAABox01->_hdx + pAABox02->_hdx;
+        if ((ucoord)( (pActor02->_x + pAABox02->_cx) - (pActor01->_x + pAABox01->_cx) + max_dx ) < (ucoord)(2*max_dx)) {
+            //↑左辺計算が0より小さい場合 unsigned キャストにより正の大きな数になるので条件成立しない事を利用し、ABSの判定を一つ除去してる。
+            coord max_dz = pAABox01->_hdz + pAABox02->_hdz;
+            if ((ucoord)( (pActor02->_z + pAABox02->_cz) - (pActor01->_z + pAABox01->_cz) + max_dz ) < (ucoord)(2*max_dz)) {
+                coord max_dy = pAABox01->_hdy + pAABox02->_hdy;
+                if ((ucoord)( (pActor02->_y + pAABox02->_cy) - (pActor01->_y + pAABox01->_cy) + max_dy ) < (ucoord)(2*max_dy)) {
+                    return true;
                 }
             }
         }
@@ -150,16 +167,25 @@ public:
     static inline bool isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAABox* const pAABox01,
                                const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox* const pAABox02 ) {
         //＜AAB と AAB＞
-        //軸が一致しない確率が高そうな順番(X>Z>Y)に判定
-        if (pActor01->_x + pAABox01->_x2 >= pActor02->_x + pAABox02->_x1) {
-            if (pActor01->_x + pAABox01->_x1 <= pActor02->_x + pAABox02->_x2) {
-                if (pActor01->_y + pAABox01->_y2 >= pActor02->_y + pAABox02->_y1) {
-                    if (pActor01->_y + pAABox01->_y1 <= pActor02->_y + pAABox02->_y2) {
-                        return true;
-                    }
-                }
+//        //軸が一致しない確率が高そうな順番(X>Y)に判定
+//        if (pActor01->_x + pAABox01->_x2 >= pActor02->_x + pAABox02->_x1) {
+//            if (pActor01->_x + pAABox01->_x1 <= pActor02->_x + pAABox02->_x2) {
+//                if (pActor01->_y + pAABox01->_y2 >= pActor02->_y + pAABox02->_y1) {
+//                    if (pActor01->_y + pAABox01->_y1 <= pActor02->_y + pAABox02->_y2) {
+//                        return true;
+//                    }
+//                }
+//            }
+//        }
+
+        coord max_dx = pAABox01->_hdx + pAABox02->_hdx;
+        if ((ucoord)( (pActor02->_x + pAABox02->_cx) - (pActor01->_x + pAABox01->_cx) + max_dx ) < (ucoord)(2*max_dx)) {
+            coord max_dy = pAABox01->_hdy + pAABox02->_hdy;
+            if ((ucoord)( (pActor02->_y + pAABox02->_cy) - (pActor01->_y + pAABox01->_cy) + max_dy ) < (ucoord)(2*max_dy)) {
+                return true;
             }
         }
+
         return false;
     }
 

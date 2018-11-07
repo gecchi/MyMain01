@@ -32,9 +32,12 @@ private:
     /** 自身を管理してるアクター発送者 */
     LaserChipDepository* _pDepo;
     /** registerHitAreaCube_AutoGenMidColli() メソッドにより登録時の当たり判定立方体の１辺の長さ */
-    int _hitarea_edge_length;
-    int _hitarea_edge_length_3;
-    int _hitarea_edge_length_6;
+    coord _hitarea_edge_length;
+    ucoord _hitarea_edge_length_2;
+    coord _hitarea_edge_length_3;
+    ucoord _hitarea_edge_length_3_2;
+    coord _hitarea_edge_length_6;
+    ucoord _hitarea_edge_length_6_2;
     /** registerHitAreaCube_AutoGenMidColli() メソッドにより登録時の当たり判定立方体の１辺の長さの半分 */
 //    int _harf_hitarea_edge_length;
 

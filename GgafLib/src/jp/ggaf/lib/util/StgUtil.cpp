@@ -69,18 +69,17 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     //球1 ： 中心点の座標P1(x1, y1, z1), 半径r1
     //球2 ： 中心点の座標P2(x2, y2, z2), 半径r2
     //(x2-x1)^2 + (y2-y1)^2 + (z2-z1)^2 <= (r1+r2)^2
-    double d2 = ((double)(pActor02->_x+pSphere02->_cx) - (pActor01->_x+pSphere01->_cx)) * ((double)(pActor02->_x+pSphere02->_cx) - (pActor01->_x+pSphere01->_cx)) +
-                ((double)(pActor02->_y+pSphere02->_cy) - (pActor01->_y+pSphere01->_cy)) * ((double)(pActor02->_y+pSphere02->_cy) - (pActor01->_y+pSphere01->_cy)) +
-                ((double)(pActor02->_z+pSphere02->_cz) - (pActor01->_z+pSphere01->_cz)) * ((double)(pActor02->_z+pSphere02->_cz) - (pActor01->_z+pSphere01->_cz));
-    if (d2 <= (double)(pSphere02->_r + pSphere01->_r) * (double)(pSphere02->_r + pSphere01->_r)
+    double dx = (double)( (pActor02->_x+pSphere02->_cx) - (pActor01->_x+pSphere01->_cx) );
+    double dy = (double)( (pActor02->_y+pSphere02->_cy) - (pActor01->_y+pSphere01->_cy) );
+    double dz = (double)( (pActor02->_z+pSphere02->_cz) - (pActor01->_z+pSphere01->_cz) );
+    double dd = dx*dx + dy*dy + dz*dz;
+    if (dd <= (double)(pSphere02->_r + pSphere01->_r) * (double)(pSphere02->_r + pSphere01->_r)
     ) {
         return true;
     } else {
         return false;
     }
 }
-
-
 
 bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAABox*  pAABox01,
                       const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere* pSphere02) {

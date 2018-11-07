@@ -116,6 +116,7 @@ typedef uint_fast32_t pos_t;
 
 /** アプリケーション座標単位 (目安： 1 coord  =  0.001 pixcoord  =  0.0001 dxcoord  ) */
 typedef int_fast32_t coord;
+typedef uint_fast32_t ucoord;
 /** アプリケーション座標単位系の速度 */
 typedef int_fast32_t velo;
 /**  アプリケーション座標単位系の加速度 */
