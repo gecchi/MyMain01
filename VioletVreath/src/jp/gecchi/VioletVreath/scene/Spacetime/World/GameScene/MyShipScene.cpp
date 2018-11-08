@@ -136,13 +136,11 @@ void MyShipScene::processBehavior() {
                 } else {
                     throwGgafCriticalException("VreathMagic‚ª‚ ‚è‚Ü‚¹‚ñB");
                 }
-                Spacetime* pSpacetime =  pGOD->getSpacetime();
                 pMyShip_->_x = pSpacetime->_x_bound_left;
                 pMyShip_->can_control_ = true;
                 pMyShip_->is_diving_ = true;
                 pMyShip_->activate();
-                MyShipDivingCamWorker* pCamWorker =
-                        (MyShipDivingCamWorker*)(pSpacetime->changeCameraWork("MyShipDivingCamWorker"));
+                pSpacetime->changeCameraWork("MyShipDivingCamWorker");
             }
             pMyShip_->_x += PX_C(30); //30000;
             if (pMyShip_->_x > 0) {

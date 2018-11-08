@@ -71,16 +71,16 @@ public:
      */
     virtual void rise(coord prm_target_x, coord prm_target_y);
 
-    /**
-     * 表示完了位置を指定してサブメニューを起動 .
-     * 引数座標はサブメニューがスライドが完了して落ち着く座標を指定。
-     * (※ void MenuActor<T>::riseSubMenu(int prm_index) を隠蔽)
-     * @param prm_index サブメニューインデックス(追加した順番。0～)
-     * @param prm_target_x サブメニュー表示完了X座標
-     * @param prm_target_y サブメニュー表示完了Y座標
-     */
-    virtual void riseSubMenu(int prm_index, coord prm_target_x, coord prm_target_y);
-    virtual void riseSubMenu(coord prm_target_x, coord prm_target_y);
+//    /**
+//     * 表示完了位置を指定してサブメニューを起動 .
+//     * 引数座標はサブメニューがスライドが完了して落ち着く座標を指定。
+//     * (※ void MenuActor<T>::riseSubMenu(int prm_index) を隠蔽)
+//     * @param prm_index サブメニューインデックス(追加した順番。0～)
+//     * @param prm_target_x サブメニュー表示完了X座標
+//     * @param prm_target_y サブメニュー表示完了Y座標
+//     */
+//    virtual void riseSubMenu(int prm_index, coord prm_target_x, coord prm_target_y);
+//    virtual void riseSubMenu(coord prm_target_x, coord prm_target_y);
     virtual void onRise() override;
     virtual void processBehavior() override;
     virtual void processJudgement() override;

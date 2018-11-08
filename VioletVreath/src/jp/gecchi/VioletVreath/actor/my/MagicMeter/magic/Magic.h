@@ -29,7 +29,7 @@ typedef frame magic_time;
 #define MAGIC_EFFECT_OK_LEVELUP     (1)
 #define MAGIC_EFFECT_OK_LEVELDOWN   (2)
 
-#define MMETER_MAX_LEVEL 9
+#define MMETER_MAX_LEVEL 10
 
 /**
  * íäè€ñÇñ@ÉNÉâÉX .

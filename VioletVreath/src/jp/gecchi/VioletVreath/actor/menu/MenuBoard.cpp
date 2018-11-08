@@ -94,13 +94,13 @@ void MenuBoard::rise(coord prm_target_x, coord prm_target_y) {
     DefaultFramedBoardMenu::riseMe();
 }
 
-void MenuBoard::riseSubMenu(int prm_index, coord prm_target_x, coord prm_target_y) {
-    DefaultFramedBoardMenu::getSubMenu(prm_index)->setPosition(prm_target_x, prm_target_y); //←によりvoid MenuBoard::riseMe() に来た時にターゲット設定される
-    DefaultFramedBoardMenu::riseSubMenu(prm_index);
-}
-void MenuBoard::riseSubMenu(coord prm_target_x, coord prm_target_y) {
-    riseSubMenu(0, prm_target_x, prm_target_y);
-}
+//void MenuBoard::riseSubMenu(int prm_index, coord prm_target_x, coord prm_target_y) {
+//    DefaultFramedBoardMenu::getSubMenu(prm_index)->setPosition(prm_target_x, prm_target_y); //←によりvoid MenuBoard::riseMe() に来た時にターゲット設定される
+//    DefaultFramedBoardMenu::riseSubMenu(prm_index);
+//}
+//void MenuBoard::riseSubMenu(coord prm_target_x, coord prm_target_y) {
+//    riseSubMenu(0, prm_target_x, prm_target_y);
+//}
 
 void MenuBoard::moveCursor(bool prm_smooth) {
     DefaultFramedBoardMenu::moveCursor(prm_smooth);

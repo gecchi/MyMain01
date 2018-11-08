@@ -75,7 +75,7 @@ void BunshinMagic::processCastBegin(int prm_now_level, int prm_new_level) {
             pEffectTrucker->setVxyzMvVelo(veloVxMv*0.8,
                                           veloVyMv + (ANG_SIN(paAng_way[n]) * PX_C(3)),
                                           veloVzMv + (ANG_COS(paAng_way[n]) * PX_C(3)) ); //放射状にエフェクト放出
-            pEffectTrucker->execGravitationMvSequenceTwd(pMYSHIP, 10000, 200, 2000);
+            pEffectTrucker->execGravitationMvSequenceTwd(pMYSHIP, PX_C(10), PX_C(0.2), PX_C(2));
             _TRACE_(getBehaveingFrame()<<":BunshinMagic::processCastBegin("<<prm_now_level<<","<<prm_new_level<<") papEffect_["<<(lv-1)<<"]->activate();");
             pEffect->activate();
             pEffect->blink(10, MAX_FRAME, 0, nullptr, false);
@@ -112,7 +112,7 @@ void BunshinMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
             pMyBunshin->setAlpha(0); //操作不可に設定
             papEffect_[lv-1]->getTrucker()->execGravitationMvSequenceTwd(
                                              pMyBunshin,
-                                             40000, 400, 200000
+                                             PX_C(40), PX_C(0.4), PX_C(200)
                                          );
         }
     }
@@ -141,14 +141,13 @@ void BunshinMagic::processInvokeFinish(int prm_now_level, int prm_new_level, int
 
 void BunshinMagic::processEffectBegin(int prm_last_level, int prm_now_level)  {
     _TRACE_(getBehaveingFrame()<<":BunshinMagic::processEffectBegin("<<prm_last_level<<","<<prm_now_level<<")");
-    //レベルアップ・レベルダウン時
-//    MyBunshinBase::setBunshinNum(prm_now_level);
-
     if (prm_now_level > prm_last_level) {
         //レベルアップ時、エフェクトの処理
         for (int lv = prm_last_level+1; lv <= prm_now_level; lv++) {
             MyBunshin* pMyBunshin = pMYSHIP_SCENE->papBunshinBase_[lv-1]->pBunshin_;
             pMyBunshin->setAlpha(1.0); //操作可に
+            papEffect_[lv-1]->getTrucker()->stopGravitationMvSequence();
+            papEffect_[lv-1]->getTrucker()->resetMv();
             papEffect_[lv-1]->blink2(0, 2, 120, pMyBunshin, false);
         }
     }

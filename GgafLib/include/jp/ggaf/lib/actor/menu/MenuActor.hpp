@@ -898,8 +898,9 @@ public:
      * サブメニューを表示すると、サブメニューを閉じる(sinkCurrentSubMenu()) まで、
      * 呼び出し元メニューは操作不可能になります。
      * @param prm_index アクティブにするサブメニューのインデックス
+     * @return そのサブメニュー
      */
-    virtual void riseSubMenu(int prm_index = 0);
+    virtual MenuActor<T>* riseSubMenu(int prm_index = 0);
 
     /**
      * 現在アクティブなサブメニューを閉じて終了させる .
@@ -1817,10 +1818,10 @@ MenuActor<T>* MenuActor<T>::getSubMenu(int prm_index) {
 
 template<class T>
 MenuActor<T>* MenuActor<T>::getRisingSubMenu() {
-    MenuActor<T>* pChild = _lstSubMenu.getCurrent();
-    if (pChild) {
-        if (pChild->isActiveInTheTree()) {
-            return pChild;
+    MenuActor<T>* pSubMenu = _lstSubMenu.getCurrent();
+    if (pSubMenu) {
+        if (pSubMenu->isActiveInTheTree()) {
+            return pSubMenu;
         } else {
             return nullptr;
         }
@@ -1831,13 +1832,15 @@ MenuActor<T>* MenuActor<T>::getRisingSubMenu() {
 
 
 template<class T>
-void MenuActor<T>::riseSubMenu(int prm_index) {
+MenuActor<T>* MenuActor<T>::riseSubMenu(int prm_index) {
 #ifdef MY_DEBUG
     if (_lstSubMenu.length() < prm_index+1) {
         throwGgafCriticalException("MenuActor<T>::riseSubMenu() サブメニューアイテム要素数オーバー name="<<T::getName()<<" _lstSubMenu.length()="<<_lstSubMenu.length()<<" prm_index="<<prm_index);
     }
 #endif
-    _lstSubMenu.current(prm_index)->riseMe();
+    MenuActor<T>* pSubMenu = _lstSubMenu.current(prm_index);
+    pSubMenu->riseMe();
+    return pSubMenu;
 }
 
 template<class T>

@@ -12,7 +12,7 @@ using namespace VioletVreath;
 EnemyStraightLaserChip001::EnemyStraightLaserChip001(const char* prm_name) :
         StraightLaserChip(prm_name, "EnemyStraightLaserChip001", STATUS(EnemyStraightLaserChip001)) {
     _class_name = "EnemyStraightLaserChip001";
-    setMvVelo(PX_C(100));
+    setMvVelo(PX_C(200));
 }
 
 void EnemyStraightLaserChip001::initialize() {

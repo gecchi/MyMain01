@@ -62,7 +62,7 @@ public:
         float _f_31, _f_32, _f_33, _f_34;   // : TEXCOORD7  前方チップWorld変換行列、３行目
         float _f_41, _f_42, _f_43, _f_44;   // : TEXCOORD8  前方チップWorld変換行列、４行目
 
-        float _chip_kind, _force_alpha;   // : TEXCOORD9  チップ種別、強制α
+        float _chip_kind, _force_alpha, _power;   // : TEXCOORD9  チップ種別、強制α、火力
     };
 
     static VERTEX_instancedata _aInstancedata[];
@@ -78,6 +78,8 @@ public:
     bool _middle_colli_able;
 
     float _rate_of_length;
+    /** [r] 火力率、攻撃力に乗じられる値 */
+    float _power;
 public:
     LaserChip(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
 

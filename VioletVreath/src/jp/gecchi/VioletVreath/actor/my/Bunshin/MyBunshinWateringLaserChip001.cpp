@@ -23,7 +23,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 const velo MyBunshinWateringLaserChip001::MAX_VELO_RENGE = PX_C(300); //この値を大きくすると、最高速度が早くなる。
-const int MyBunshinWateringLaserChip001::R_MAX_ACCE = 17; //この値を大きくすると、カーブが緩くなる
+const int MyBunshinWateringLaserChip001::R_MAX_ACCE = 15; //この値を大きくすると、カーブが緩くなる
 const velo MyBunshinWateringLaserChip001::INITIAL_VELO = MAX_VELO_RENGE*0.7; //レーザー発射時の初期速度
 const double MyBunshinWateringLaserChip001::RR_MAX_ACCE = 1.0 / R_MAX_ACCE; //計算簡素化用
 const float MyBunshinWateringLaserChip001::MAX_ACCE_RENGE = MAX_VELO_RENGE/R_MAX_ACCE;
@@ -117,21 +117,6 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                                 pAimInfo->t1_z );
                         static const coord renge = MyBunshinWateringLaserChip001::INITIAL_VELO * 0.4;
                         static const ucoord renge2 = renge*2;
-//                        if (_x >= pAimInfo->t1_x - renge) {
-//                            if (_x <= pAimInfo->t1_x + renge) {
-//                                if (_y >= pAimInfo->t1_y - renge) {
-//                                    if (_y <= pAimInfo->t1_y + renge) {
-//                                        if (_z >= pAimInfo->t1_z - renge) {
-//                                            if (_z <= pAimInfo->t1_z + renge) {
-//                                                 pAimInfo_->spent_frames_to_t1 = getActiveFrame(); //Aim t1 終了
-//                                            }
-//                                        }
-//                                    }
-//                                }
-//                            }
-//                        }
-//                        if (ABS(_x - pAimInfo->t1_x) <= renge) {
-//                        }
                         if ( (ucoord)(_x - pAimInfo->t1_x + renge) <= renge2) {
                             if ( (ucoord)(_y - pAimInfo->t1_y + renge) <= renge2) {
                                 if ( (ucoord)(_z - pAimInfo->t1_z + renge) <= renge2) {
@@ -144,8 +129,6 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                         //初めは pAimTarget があったのに、途中で消えた。
                         pAimInfo_->spent_frames_to_t1 = getActiveFrame(); //Aim t1 終了
                     }
-
-
                 } else if (pAimInfo->spent_frames_to_t2 == 0) {
                     //●Leader が t1 へ Aim し終わったあと
                     //t2を決める
@@ -231,7 +214,6 @@ void MyBunshinWateringLaserChip001::processBehavior() {
         }
 
     }
-
     pTrucker->behave();
     WateringLaserChip::processBehavior();
     tmp_x_ = _x;
@@ -262,7 +244,7 @@ void MyBunshinWateringLaserChip001::processSettlementBehavior() {
                 pAimInfo_->t1_z = pAimInfo_->pTarget->_z;
                 // aim_time_out_t1 を概算で求めておく
                 coord t1_d = UTIL::getDistance(this, pLockonTarget);
-                pAimInfo_->aim_time_out_t1 = (t1_d / MyBunshinWateringLaserChip001::INITIAL_VELO)*1.2 + 7 + 10;
+                pAimInfo_->aim_time_out_t1 = (t1_d / MyBunshinWateringLaserChip001::INITIAL_VELO)*1.2;
             } else {
                 //先端でロックオンしていない
                 pAimInfo_ = pOrg_->getAimInfo();
@@ -310,8 +292,8 @@ throwGgafCriticalException("pAimInfo_ が引き継がれていません！"<<this<<
             _y = (pF->tmp_y_ + pB->tmp_y_ + tmp_y_)/3;
             _z = (pF->tmp_z_ + pB->tmp_z_ + tmp_z_)/3;
             pTrucker->setVxyzMvAcce( (pF->tmp_acc_vx_ + pB->tmp_acc_vx_ + tmp_acc_vx_)/3,
-                                      (pF->tmp_acc_vy_ + pB->tmp_acc_vy_ + tmp_acc_vy_)/3,
-                                      (pF->tmp_acc_vz_ + pB->tmp_acc_vz_ + tmp_acc_vz_)/3 );
+                                     (pF->tmp_acc_vy_ + pB->tmp_acc_vy_ + tmp_acc_vy_)/3,
+                                     (pF->tmp_acc_vz_ + pB->tmp_acc_vz_ + tmp_acc_vz_)/3 );
         }
     }
     WateringLaserChip::processSettlementBehavior();
@@ -369,11 +351,29 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
     const int vTz = tZ - _z;
 
     //自→仮自。
-    const int vVMx = pTrucker->_velo_vx_mv;
-    const int vVMy = pTrucker->_velo_vy_mv;
-    const int vVMz = pTrucker->_velo_vz_mv;
+    int vVMx = pTrucker->_velo_vx_mv;
+    int vVMy = pTrucker->_velo_vy_mv;
+    int vVMz = pTrucker->_velo_vz_mv;
+
     //|仮自| = lVM * 5
     const int lVM = MAX3(ABS(vVMx), ABS(vVMy), ABS(vVMz)); //仮自ベクトル大きさ簡易版
+
+    static const velo min_velo = MyBunshinWateringLaserChip001::INITIAL_VELO*0.5;
+    if  (lVM < min_velo) { //縮こまらないように
+        if (lVM != 0) {
+            double r = (1.0*min_velo/lVM);
+            pTrucker->setVxyzMvVelo(vVMx*r, vVMy*r, vVMz*r);
+            vVMx = pTrucker->_velo_vx_mv;
+            vVMy = pTrucker->_velo_vy_mv;
+            vVMz = pTrucker->_velo_vz_mv;
+        } else {
+            pTrucker->setVxyzMvVelo(min_velo, 0, 0);
+            vVMx = pTrucker->_velo_vx_mv;
+            vVMy = pTrucker->_velo_vy_mv;
+            vVMz = pTrucker->_velo_vz_mv;
+        }
+    }
+
     //|的|
     const int lT =  MAX3(ABS(vTx), ABS(vTy), ABS(vTz)); //的ベクトル大きさ簡易版
     //|仮自|/|的|      vT の何倍が vVT 仮的 になるのかを求める。
@@ -387,8 +387,8 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
     const double accZ = ((vTz * r) - vVMz*5) * RR_MAX_ACCE;
 
     pTrucker->setVxyzMvAcce(accX + SGN(accX)*3.0,
-                              accY + SGN(accY)*3.0,
-                              accZ + SGN(accZ)*3.0);
+                            accY + SGN(accY)*3.0,
+                            accZ + SGN(accZ)*3.0);
 }
 
 void MyBunshinWateringLaserChip001::onHit(const GgafActor* prm_pOtherActor) {

@@ -151,7 +151,7 @@ void MenuBoardSoundConfig::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, 
         GgafDxSound::setAppMasterVolume(CONFIG::MASTER_VOLUME);
         sinkMe();
     } else if (prm_item_index == ITEM_INDEX_OK_) {
-        riseSubMenu(getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y - PX_C(50)); //確認メニュー起動
+        riseSubMenu()->setPosition(getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y - PX_C(50)); //確認メニュー起動
     } else {
 
     }

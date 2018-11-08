@@ -67,6 +67,7 @@ enum {
     STAT_AddRankPoint_Reduction,          //”j‰ó‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
     STAT_Stamina,                         //‘Ì—Í
     STAT_Attack,                          //UŒ‚—Í
+    STAT_AttackPowerRate,                 //UŒ‚—Í‚Éæ‚¶‚ç‚ê‚é—¦
     STAT_DefaultDefenceRate,              //Šî€–hŒä—¦
     STAT_DominantDefenceRate,             //—D«‚Ì–hŒä—¦
     STAT_RecessiveDefenceRate,            //—ò«‚Ì–hŒä—¦

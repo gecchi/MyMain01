@@ -64,6 +64,14 @@ void MyStraightLaserChip001::onActive() {
 }
 
 void MyStraightLaserChip001::processBehavior() {
+
+
+    //y = 3/x+1
+//    double x = getActiveFrame() / 5.0; //’¼Œã‚Í3.0
+//    double y = (3.0 / (x+1))+0.5;
+//    _power = (float)y;
+//    getStatus()->set(STAT_AttackPowerRate, y);
+
     if (getInfrontChip() == nullptr) {
         getSeTransmitter()->behave();
     }

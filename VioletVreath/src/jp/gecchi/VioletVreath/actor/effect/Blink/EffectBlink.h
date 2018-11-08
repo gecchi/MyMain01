@@ -64,8 +64,8 @@ public:
      * @param prm_pFollowTarget エフェクト座標を引数のアクターと同じ座標に同期をとる(追従させる)。 不要の場合は nullptr .
      * @param prm_sayonara_end true:瞬き終わったら sayonara() する/false: 瞬き終っても sayonara() しない。省略時true
      */
-    void blink(frame prm_scale_in_frames, frame prm_duration_frames, frame prm_scale_out_frames,
-               const GgafDxCore::GgafDxGeometricActor* prm_pFollowTarget, bool prm_sayonara_end = true);
+    virtual void blink(frame prm_scale_in_frames, frame prm_duration_frames, frame prm_scale_out_frames,
+                       const GgafDxCore::GgafDxGeometricActor* prm_pFollowTarget, bool prm_sayonara_end = true);
 
     /**
      * 瞬く .
@@ -76,8 +76,8 @@ public:
      * @param prm_pFollowTarget
      * @param prm_sayonara_end
      */
-    void blink2(frame prm_scale_in_frames, frame prm_duration_frames, frame prm_scale_out_frames,
-                const GgafDxCore::GgafDxGeometricActor* prm_pFollowTarget, bool prm_sayonara_end = true);
+    virtual void blink2(frame prm_scale_in_frames, frame prm_duration_frames, frame prm_scale_out_frames,
+                        const GgafDxCore::GgafDxGeometricActor* prm_pFollowTarget, bool prm_sayonara_end = true);
 
 
     /**

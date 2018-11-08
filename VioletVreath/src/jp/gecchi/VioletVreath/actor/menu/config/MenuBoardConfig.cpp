@@ -82,11 +82,11 @@ void MenuBoardConfig::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, int p
     if (prm_item_index == ITEM_BACK) {
         sinkMe();
     } else if (prm_item_index == ITEM_KEY_CONFIG) {
-        riseSubMenu(0, PX_C(50), PX_C(10)); //key configメニュー起動
+        riseSubMenu(0)->setPosition(PX_C(50), PX_C(10)); //key configメニュー起動
     } else if (prm_item_index == ITEM_SOUND_CONFIG) {
-        riseSubMenu(1,  PX_C(50), PX_C(10)); //sound configメニュー起動
+        riseSubMenu(1)->setPosition(PX_C(50), PX_C(10)); //sound configメニュー起動
     } else if (prm_item_index == ITEM_SCREEN_CONFIG) {
-        riseSubMenu(2,  PX_C(50), PX_C(10)); //screen configメニュー起動
+        riseSubMenu(2)->setPosition(PX_C(50), PX_C(10)); //screen configメニュー起動
     }
 }
 

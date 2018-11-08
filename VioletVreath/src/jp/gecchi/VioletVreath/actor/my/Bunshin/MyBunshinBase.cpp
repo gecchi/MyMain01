@@ -630,12 +630,12 @@ void MyBunshinBase::setBunshinNum(int prm_num) {
             papBase[1]->config(INNER_RADIUS, D_ANG(90*1), 0, INNER_ROT);
             papBase[2]->config(INNER_RADIUS, D_ANG(90*2), 0, INNER_ROT);
             papBase[3]->config(INNER_RADIUS, D_ANG(90*3), 0, INNER_ROT);
-            papBase[4]->config(OUTER_RADIUS, D_ANG(45* 0), 0, OUTER_ROT);
-            papBase[5]->config(OUTER_RADIUS, D_ANG(45*-1), 0, OUTER_ROT);
-            papBase[6]->config(OUTER_RADIUS, D_ANG(45*-2), 0, OUTER_ROT);
-            papBase[7]->config(OUTER_RADIUS, D_ANG(45*-3), 0, OUTER_ROT);
-            papBase[8]->config(OUTER_RADIUS, D_ANG(45*-4), 0, OUTER_ROT);
-            papBase[9]->config(OUTER_RADIUS, D_ANG(45*-5), 0, OUTER_ROT);
+            papBase[4]->config(OUTER_RADIUS, D_ANG(60* 0), 0, OUTER_ROT);
+            papBase[5]->config(OUTER_RADIUS, D_ANG(60*-1), 0, OUTER_ROT);
+            papBase[6]->config(OUTER_RADIUS, D_ANG(60*-2), 0, OUTER_ROT);
+            papBase[7]->config(OUTER_RADIUS, D_ANG(60*-3), 0, OUTER_ROT);
+            papBase[8]->config(OUTER_RADIUS, D_ANG(60*-4), 0, OUTER_ROT);
+            papBase[9]->config(OUTER_RADIUS, D_ANG(60*-5), 0, OUTER_ROT);
             break;
         }
         default :

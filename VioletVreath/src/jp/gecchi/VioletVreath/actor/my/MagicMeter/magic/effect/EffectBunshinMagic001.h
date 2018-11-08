@@ -17,18 +17,7 @@ class EffectBunshinMagic001 : public EffectBlink {
 public:
     EffectBunshinMagic001(const char* prm_name);
 
-    void onCreateModel() override {
-    }
-
-    void initialize() override;
-
-    void onActive() override;
-
     void processBehavior() override;
-
-    void processJudgement() override;
-
-    void onInactive() override;
 
     int isOutOfView() override {
         //画面外判定無し
@@ -39,6 +28,12 @@ public:
         //ゲーム座標範囲外判定無し
         return false;
     }
+
+    void blink(frame prm_scale_in_frames, frame prm_duration_frames, frame prm_scale_out_frames,
+               const GgafDxCore::GgafDxGeometricActor* prm_pFollowTarget, bool prm_sayonara_end = true) override;
+
+    void blink2(frame prm_scale_in_frames, frame prm_duration_frames, frame prm_scale_out_frames,
+                const GgafDxCore::GgafDxGeometricActor* prm_pFollowTarget, bool prm_sayonara_end = true) override;
 
     virtual ~EffectBunshinMagic001();
 };

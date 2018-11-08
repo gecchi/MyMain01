@@ -40,17 +40,15 @@ void MyMagicEnergyCore::onActive() {
     getTrucker()->execGravitationMvSequenceTwd(
                       pMYSHIP,
                       +PX_C(90), 0, 0,
-                      PX_C(10), 1000, PX_C(20));
+                      PX_C(10), PX_C(1), PX_C(20));
+    getScaler()->beat(40, 5,32,3, -1); //ŒÛ“®‚Á‚Û‚¢‚à‚Ì
 }
 
 void MyMagicEnergyCore::processBehavior() {
-    double s = (pMYSHIP->mp_ * (1.0 / MY_SHIP_MAX_MP));
-    GgafDxKuroko* const pKuroko = getKuroko();
+    static const double max_mp_rate = 1.0 / MY_SHIP_MAX_MP;
+    double s = pMYSHIP->mp_ * max_mp_rate;
     //MP‚É˜A“®‚µ‚Ä‘å‚«‚­‚È‚é
-    getScaler()->transitionLinearStep(
-                s * MAX_SCALSE_MagicEnergyCore,
-                100
-             );
+    getScaler()->setRange(s*MAX_SCALSE_MagicEnergyCore*0.7, s*MAX_SCALSE_MagicEnergyCore);
     CollisionChecker* pChecker = getCollisionChecker();
     if (s > 0.0) {
         pChecker->enable(0);
@@ -60,7 +58,6 @@ void MyMagicEnergyCore::processBehavior() {
     }
     getScaler()->behave();
     getTrucker()->behave();
-    pKuroko->behave();
 }
 
 void MyMagicEnergyCore::processJudgement() {

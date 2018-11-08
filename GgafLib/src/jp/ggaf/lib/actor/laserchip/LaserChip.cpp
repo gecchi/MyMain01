@@ -46,6 +46,7 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model, GgafStatus* pr
     setCullingDraw(false);
     _middle_colli_able = false;
     _rate_of_length = 1.0f;
+    _power = 1.0f;
     _pMassMeshModel->registerCallback_VertexInstanceDataInfo(LaserChip::createVertexInstanceData);
     //モデル単位でセットすれば事足りるのだが、めんどうなので、アクター毎にセット
     static volatile bool is_init = LaserChip::initStatic(this); //静的メンバ初期化
@@ -455,14 +456,14 @@ void LaserChip::createVertexInstanceData(void* prm, GgafDxMassMeshModel::VertexI
     out_info->paElement[7].UsageIndex = 8;
     st1_offset_next += sizeof(float)*4;
 
-    //float _chip_kind, _force_alpha;   // : TEXCOORD9  チップ種別、強制α
+    //float _chip_kind, _force_alpha, _power;   // : TEXCOORD9  チップ種別、強制α、火力率
     out_info->paElement[8].Stream = 1;
     out_info->paElement[8].Offset = st1_offset_next;
-    out_info->paElement[8].Type   = D3DDECLTYPE_FLOAT2;
+    out_info->paElement[8].Type   = D3DDECLTYPE_FLOAT3;
     out_info->paElement[8].Method = D3DDECLMETHOD_DEFAULT;
     out_info->paElement[8].Usage  = D3DDECLUSAGE_TEXCOORD;
     out_info->paElement[8].UsageIndex = 9;
-    st1_offset_next += sizeof(float)*2;
+    st1_offset_next += sizeof(float)*3;
     // <---- Stream = 1
 
     out_info->element_num = 9;
@@ -487,7 +488,8 @@ void LaserChip::processDraw() {
                 memcpy(paInstancedata, &(pChip->_matWorld), size_of_D3DXMATRIX);
                 memcpy(&(paInstancedata->_f_11), &(pChip->_pChip_infront->_matWorld), size_of_D3DXMATRIX);
                 paInstancedata->_chip_kind = pChip->_chip_kind;
-                paInstancedata->_force_alpha =  pChip->_force_alpha;
+                paInstancedata->_force_alpha = pChip->_force_alpha;
+                paInstancedata->_power = pChip->_power;
                 ++paInstancedata;
                 draw_set_num++;
             }

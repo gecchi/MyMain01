@@ -268,7 +268,7 @@ void MenuBoardNameEntry::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, in
     if (_is_input_keyboard) {
         //キー入力中ならば確認サブメニュー起動
         selectItem(ITEM_INDEX_OK_);
-        riseSubMenu(getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y);
+        riseSubMenu()->setPosition(getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y);
     } else {
         //決定（振る舞い）の処理
         int item_index = getSelectedIndex();
@@ -287,7 +287,7 @@ void MenuBoardNameEntry::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, in
         } else if (prm_item_index == ITEM_INDEX_OK_) {
             //[OK]で決定（振る舞い）の処理終了
             //確認サブメニュー起動
-            riseSubMenu(getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y);
+            riseSubMenu()->setPosition(getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y);
         } else {
             //その他アイテム（入力文字）で決定（振る舞い）の処理
             if (len >= RANKINGTABLE_NAME_LEN) {
