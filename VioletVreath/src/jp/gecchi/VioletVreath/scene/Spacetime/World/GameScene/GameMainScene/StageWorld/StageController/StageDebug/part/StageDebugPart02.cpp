@@ -131,8 +131,9 @@ void StageDebugPart02::processBehavior() {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(30000010);
 				bringSceneMediator()->appendGroupChild(pEtis);
 				requestActor(30000030, EnemyEtis, "EnemyEtis-30000030");
-				requestActor(30001017, FormationHalia, "FormationHalia-30001017");
-				requestActor(30001028, FormationEbe001, "FormationEbe001-30001028");
+				requestActor(30000997, VarietyRatislavia001, "VarietyRatislavia001-30000997");
+				requestActor(30001014, FormationHalia, "FormationHalia-30001014");
+				requestActor(30001025, FormationEbe001, "FormationEbe001-30001025");
 				break;
 			}
 			case 430: {
@@ -253,9 +254,11 @@ void StageDebugPart02::processBehavior() {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(30000030);
 				bringSceneMediator()->appendGroupChild(pEtis);
 				requestActor(30000050, EnemyEtis, "EnemyEtis-30000050");
-				FormationHalia* pF = (FormationHalia*)receiveActor(30001017);
+				VarietyRatislavia001* pRatislavia = (VarietyRatislavia001*)receiveActor(30000997);
+				bringSceneMediator()->appendGroupChild(pRatislavia);
+				FormationHalia* pF = (FormationHalia*)receiveActor(30001014);
 				bringSceneMediator()->appendGroupChild(pF);
-				FormationEbe001* pF1 = (FormationEbe001*)receiveActor(30001028);
+				FormationEbe001* pF1 = (FormationEbe001*)receiveActor(30001025);
 				bringSceneMediator()->appendGroupChild(pF1);
 				break;
 			}
@@ -398,7 +401,7 @@ void StageDebugPart02::processBehavior() {
 				break;
 			}
 			case 1700: {
-				requestActor(30000997, EnemyStraea, "EnemyStraea-30000997");
+				requestActor(30000998, EnemyStraea, "EnemyStraea-30000998");
 				break;
 			}
 			case 1720: {
@@ -441,7 +444,7 @@ void StageDebugPart02::processBehavior() {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(30000060);
 				bringSceneMediator()->appendGroupChild(pEtis);
 				requestActor(30000080, EnemyEtis, "EnemyEtis-30000080");
-				requestActor(30000998, FormationEmilia, "FormationEmilia-30000998");
+				requestActor(30000999, FormationEmilia, "FormationEmilia-30000999");
 				break;
 			}
 			case 1930: {
@@ -481,18 +484,18 @@ void StageDebugPart02::processBehavior() {
 				break;
 			}
 			case 2100: {
-				requestActor(30001000, FormationAllas001a, "FormationAllas001a-30001000");
-				requestActor(30001001, FormationAllas001b, "FormationAllas001b-30001001");
-				requestActor(30001002, FormationAllas001c, "FormationAllas001c-30001002");
-				requestActor(30001003, FormationAllas001d, "FormationAllas001d-30001003");
-				requestActor(30001004, FormationAllas001a, "FormationAllas001a-30001004");
-				requestActor(30001005, FormationAllas001d, "FormationAllas001d-30001005");
-				requestActor(30001006, FormationAllas001b, "FormationAllas001b-30001006");
-				requestActor(30001007, FormationAllas001c, "FormationAllas001c-30001007");
-				requestActor(30001008, FormationAllas001a, "FormationAllas001a-30001008");
-				requestActor(30001009, FormationAllas001d, "FormationAllas001d-30001009");
-				requestActor(30001010, FormationAllas001b, "FormationAllas001b-30001010");
-				requestActor(30001011, FormationAllas001c, "FormationAllas001c-30001011");
+				requestActor(30001001, FormationAllas001a, "FormationAllas001a-30001001");
+				requestActor(30001002, FormationAllas001b, "FormationAllas001b-30001002");
+				requestActor(30001003, FormationAllas001c, "FormationAllas001c-30001003");
+				requestActor(30001004, FormationAllas001d, "FormationAllas001d-30001004");
+				requestActor(30001005, FormationAllas001a, "FormationAllas001a-30001005");
+				requestActor(30001006, FormationAllas001d, "FormationAllas001d-30001006");
+				requestActor(30001007, FormationAllas001b, "FormationAllas001b-30001007");
+				requestActor(30001008, FormationAllas001c, "FormationAllas001c-30001008");
+				requestActor(30001009, FormationAllas001a, "FormationAllas001a-30001009");
+				requestActor(30001010, FormationAllas001d, "FormationAllas001d-30001010");
+				requestActor(30001011, FormationAllas001b, "FormationAllas001b-30001011");
+				requestActor(30001012, FormationAllas001c, "FormationAllas001c-30001012");
 				break;
 			}
 			case 2110: {
@@ -538,7 +541,7 @@ void StageDebugPart02::processBehavior() {
 				break;
 			}
 			case 2300: {
-				EnemyStraea* pStraea2 = (EnemyStraea*)receiveActor(30000997);
+				EnemyStraea* pStraea2 = (EnemyStraea*)receiveActor(30000998);
 				bringSceneMediator()->appendGroupChild(pStraea2);
 				pStraea2->_z = 1800000;
 				pStraea2->_y = -100000;
@@ -563,7 +566,7 @@ void StageDebugPart02::processBehavior() {
 				break;
 			}
 			case 2400: {
-				requestActor(30001012, FormationGeria001, "FormationGeria001-30001012");
+				requestActor(30001013, FormationGeria001, "FormationGeria001-30001013");
 				break;
 			}
 			case 2410: {
@@ -588,7 +591,7 @@ void StageDebugPart02::processBehavior() {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(30000080);
 				bringSceneMediator()->appendGroupChild(pEtis);
 				requestActor(30000100, EnemyEtis, "EnemyEtis-30000100");
-				FormationEmilia* pFormationEmilia = (FormationEmilia*)receiveActor(30000998);
+				FormationEmilia* pFormationEmilia = (FormationEmilia*)receiveActor(30000999);
 				bringSceneMediator()->appendGroupChild(pFormationEmilia);
 				break;
 			}
@@ -633,18 +636,18 @@ void StageDebugPart02::processBehavior() {
 				FormationTableScene* ta = NEW FormationTableScene("FormationTableScene-2");
 				ta->setMaxPerformFrame(2500);
 				appendChild(ta);
-				ta->addToTable(((FormationAllas001a*)receiveActor(30001000)), 400);
-				ta->addToTable(((FormationAllas001b*)receiveActor(30001001)), 400);
-				ta->addToTable(((FormationAllas001c*)receiveActor(30001002)), 400);
-				ta->addToTable(((FormationAllas001d*)receiveActor(30001003)), 400);
-				ta->addToTable(((FormationAllas001a*)receiveActor(30001004)), 1);
-				ta->addToTable(((FormationAllas001d*)receiveActor(30001005)), 400);
-				ta->addToTable(((FormationAllas001b*)receiveActor(30001006)), 1);
-				ta->addToTable(((FormationAllas001c*)receiveActor(30001007)), 400);
-				ta->addToTable(((FormationAllas001a*)receiveActor(30001008)), 1);
-				ta->addToTable(((FormationAllas001d*)receiveActor(30001009)), 1);
-				ta->addToTable(((FormationAllas001b*)receiveActor(30001010)), 1);
-				ta->addToTable(((FormationAllas001c*)receiveActor(30001011)), 400);
+				ta->addToTable(((FormationAllas001a*)receiveActor(30001001)), 400);
+				ta->addToTable(((FormationAllas001b*)receiveActor(30001002)), 400);
+				ta->addToTable(((FormationAllas001c*)receiveActor(30001003)), 400);
+				ta->addToTable(((FormationAllas001d*)receiveActor(30001004)), 400);
+				ta->addToTable(((FormationAllas001a*)receiveActor(30001005)), 1);
+				ta->addToTable(((FormationAllas001d*)receiveActor(30001006)), 400);
+				ta->addToTable(((FormationAllas001b*)receiveActor(30001007)), 1);
+				ta->addToTable(((FormationAllas001c*)receiveActor(30001008)), 400);
+				ta->addToTable(((FormationAllas001a*)receiveActor(30001009)), 1);
+				ta->addToTable(((FormationAllas001d*)receiveActor(30001010)), 1);
+				ta->addToTable(((FormationAllas001b*)receiveActor(30001011)), 1);
+				ta->addToTable(((FormationAllas001c*)receiveActor(30001012)), 400);
 				}
 				break;
 			}
@@ -709,7 +712,7 @@ void StageDebugPart02::processBehavior() {
 				break;
 			}
 			case 3000: {
-				FormationGeria001* pF3 = (FormationGeria001*)receiveActor(30001012);
+				FormationGeria001* pF3 = (FormationGeria001*)receiveActor(30001013);
 				bringSceneMediator()->appendGroupChild(pF3);
 				break;
 			}
@@ -795,7 +798,6 @@ void StageDebugPart02::processBehavior() {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(30000110);
 				bringSceneMediator()->appendGroupChild(pEtis);
 				requestActor(30000130, EnemyEtis, "EnemyEtis-30000130");
-				requestActor(30001013, VarietyRatislavia001, "VarietyRatislavia001-30001013");
 				break;
 			}
 			case 3430: {
@@ -916,8 +918,6 @@ void StageDebugPart02::processBehavior() {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(30000130);
 				bringSceneMediator()->appendGroupChild(pEtis);
 				requestActor(30000150, EnemyEtis, "EnemyEtis-30000150");
-				VarietyRatislavia001* pRatislavia = (VarietyRatislavia001*)receiveActor(30001013);
-				bringSceneMediator()->appendGroupChild(pRatislavia);
 				break;
 			}
 			case 4030: {
@@ -999,9 +999,8 @@ void StageDebugPart02::processBehavior() {
 				break;
 			}
 			case 4400: {
-				requestActor(30001014, VarietyRatislavia002, "VarietyRatislavia002-30001014");
-				requestActor(30001018, FormationHalia, "FormationHalia-30001018");
-				requestActor(30001029, EnemyEsperia, "EnemyEsperia-30001029");
+				requestActor(30001015, FormationHalia, "FormationHalia-30001015");
+				requestActor(30001026, EnemyEsperia, "EnemyEsperia-30001026");
 				break;
 			}
 			case 4420: {
@@ -1125,11 +1124,9 @@ void StageDebugPart02::processBehavior() {
 				break;
 			}
 			case 5000: {
-				VarietyRatislavia002* pRatislaviaA = (VarietyRatislavia002*)receiveActor(30001014);
-				bringSceneMediator()->appendGroupChild(pRatislaviaA);
-				FormationHalia* pF = (FormationHalia*)receiveActor(30001018);
+				FormationHalia* pF = (FormationHalia*)receiveActor(30001015);
 				bringSceneMediator()->appendGroupChild(pF);
-				bringSceneMediator()->appendGroupChild(receiveActor(30001029));
+				bringSceneMediator()->appendGroupChild(receiveActor(30001026));
 				break;
 			}
 			case 5020: {
@@ -1211,8 +1208,7 @@ void StageDebugPart02::processBehavior() {
 				break;
 			}
 			case 5400: {
-				requestActor(30001015, VarietyRatislavia003, "VarietyRatislavia003-30001015");
-				requestActor(30001030, EnemyEsperia, "EnemyEsperia-30001030");
+				requestActor(30001027, EnemyEsperia, "EnemyEsperia-30001027");
 				break;
 			}
 			case 5410: {
@@ -1336,9 +1332,7 @@ void StageDebugPart02::processBehavior() {
 				break;
 			}
 			case 6000: {
-				VarietyRatislavia003* pRatislaviaB = (VarietyRatislavia003*)receiveActor(30001015);
-				bringSceneMediator()->appendGroupChild(pRatislaviaB);
-				bringSceneMediator()->appendGroupChild(receiveActor(30001030));
+				bringSceneMediator()->appendGroupChild(receiveActor(30001027));
 				break;
 			}
 			case 6010: {
@@ -1423,8 +1417,7 @@ void StageDebugPart02::processBehavior() {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(30000210);
 				bringSceneMediator()->appendGroupChild(pEtis);
 				requestActor(30000230, EnemyEtis, "EnemyEtis-30000230");
-				requestActor(30001016, VarietyRatislavia004, "VarietyRatislavia004-30001016");
-				requestActor(30001031, EnemyEsperia, "EnemyEsperia-30001031");
+				requestActor(30001028, EnemyEsperia, "EnemyEsperia-30001028");
 				break;
 			}
 			case 6430: {
@@ -1545,9 +1538,7 @@ void StageDebugPart02::processBehavior() {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(30000230);
 				bringSceneMediator()->appendGroupChild(pEtis);
 				requestActor(30000250, EnemyEtis, "EnemyEtis-30000250");
-				VarietyRatislavia004* pRatislavia = (VarietyRatislavia004*)receiveActor(30001016);
-				bringSceneMediator()->appendGroupChild(pRatislavia);
-				bringSceneMediator()->appendGroupChild(receiveActor(30001031));
+				bringSceneMediator()->appendGroupChild(receiveActor(30001028));
 				break;
 			}
 			case 7030: {
@@ -1629,7 +1620,7 @@ void StageDebugPart02::processBehavior() {
 				break;
 			}
 			case 7400: {
-				requestActor(30001032, EnemyEsperia, "EnemyEsperia-30001032");
+				requestActor(30001029, EnemyEsperia, "EnemyEsperia-30001029");
 				break;
 			}
 			case 7420: {
@@ -1753,7 +1744,7 @@ void StageDebugPart02::processBehavior() {
 				break;
 			}
 			case 8000: {
-				bringSceneMediator()->appendGroupChild(receiveActor(30001032));
+				bringSceneMediator()->appendGroupChild(receiveActor(30001029));
 				break;
 			}
 			case 8020: {
@@ -1835,8 +1826,8 @@ void StageDebugPart02::processBehavior() {
 				break;
 			}
 			case 8400: {
-				requestActor(30001019, FormationHalia, "FormationHalia-30001019");
-				requestActor(30001033, EnemyEsperia, "EnemyEsperia-30001033");
+				requestActor(30001016, FormationHalia, "FormationHalia-30001016");
+				requestActor(30001030, EnemyEsperia, "EnemyEsperia-30001030");
 				break;
 			}
 			case 8410: {
@@ -1882,12 +1873,12 @@ void StageDebugPart02::processBehavior() {
 				break;
 			}
 			case 8600: {
+				requestActor(30001018, FormationRis002, "FormationRis002-30001018");
+				requestActor(30001019, FormationRis001, "FormationRis001-30001019");
+				requestActor(30001020, FormationRis001, "FormationRis001-30001020");
 				requestActor(30001021, FormationRis002, "FormationRis002-30001021");
 				requestActor(30001022, FormationRis001, "FormationRis001-30001022");
-				requestActor(30001023, FormationRis001, "FormationRis001-30001023");
-				requestActor(30001024, FormationRis002, "FormationRis002-30001024");
-				requestActor(30001025, FormationRis001, "FormationRis001-30001025");
-				requestActor(30001026, FormationRis002, "FormationRis002-30001026");
+				requestActor(30001023, FormationRis002, "FormationRis002-30001023");
 				break;
 			}
 			case 8620: {
@@ -1951,7 +1942,7 @@ void StageDebugPart02::processBehavior() {
 				break;
 			}
 			case 8900: {
-				requestActor(30001027, EnemyIrce, "EnemyIrce-30001027");
+				requestActor(30001024, EnemyIrce, "EnemyIrce-30001024");
 				break;
 			}
 			case 8920: {
@@ -1973,9 +1964,9 @@ void StageDebugPart02::processBehavior() {
 				break;
 			}
 			case 9000: {
-				FormationHalia* pF = (FormationHalia*)receiveActor(30001019);
+				FormationHalia* pF = (FormationHalia*)receiveActor(30001016);
 				bringSceneMediator()->appendGroupChild(pF);
-				bringSceneMediator()->appendGroupChild(receiveActor(30001033));
+				bringSceneMediator()->appendGroupChild(receiveActor(30001030));
 				break;
 			}
 			case 9010: {
@@ -2025,12 +2016,12 @@ void StageDebugPart02::processBehavior() {
 				FormationTableScene* ta = NEW FormationTableScene("FormationTableScene-4");
 				ta->setMaxPerformFrame(2000);
 				appendChild(ta);
+				ta->addToTable(((FormationRis002*)receiveActor(30001018)), 400);
+				ta->addToTable(((FormationRis001*)receiveActor(30001019)), 400);
+				ta->addToTable(((FormationRis001*)receiveActor(30001020)), 400);
 				ta->addToTable(((FormationRis002*)receiveActor(30001021)), 400);
 				ta->addToTable(((FormationRis001*)receiveActor(30001022)), 400);
-				ta->addToTable(((FormationRis001*)receiveActor(30001023)), 400);
-				ta->addToTable(((FormationRis002*)receiveActor(30001024)), 400);
-				ta->addToTable(((FormationRis001*)receiveActor(30001025)), 400);
-				ta->addToTable(((FormationRis002*)receiveActor(30001026)), 400);
+				ta->addToTable(((FormationRis002*)receiveActor(30001023)), 400);
 				}
 				break;
 			}
@@ -2074,7 +2065,7 @@ void StageDebugPart02::processBehavior() {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(30000310);
 				bringSceneMediator()->appendGroupChild(pEtis);
 				requestActor(30000330, EnemyEtis, "EnemyEtis-30000330");
-				requestActor(30001034, EnemyEsperia, "EnemyEsperia-30001034");
+				requestActor(30001031, EnemyEsperia, "EnemyEsperia-30001031");
 				break;
 			}
 			case 9430: {
@@ -2096,7 +2087,7 @@ void StageDebugPart02::processBehavior() {
 				break;
 			}
 			case 9500: {
-				EnemyIrce* p5 = (EnemyIrce*)receiveActor(30001027);
+				EnemyIrce* p5 = (EnemyIrce*)receiveActor(30001024);
 				bringSceneMediator()->appendGroupChild(p5);
 				break;
 			}
@@ -2200,7 +2191,7 @@ void StageDebugPart02::processBehavior() {
 				EnemyEtis* pEtis = (EnemyEtis*)receiveActor(30000330);
 				bringSceneMediator()->appendGroupChild(pEtis);
 				requestActor(30000350, EnemyEtis, "EnemyEtis-30000350");
-				bringSceneMediator()->appendGroupChild(receiveActor(30001034));
+				bringSceneMediator()->appendGroupChild(receiveActor(30001031));
 				break;
 			}
 			case 10030: {

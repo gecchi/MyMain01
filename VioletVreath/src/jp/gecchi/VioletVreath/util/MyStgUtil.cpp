@@ -22,6 +22,7 @@ using namespace VioletVreath;
 bool MyStgUtil::_was_MyStgUtil_inited_flg = false;
 double MyStgUtil::SMOOTH_DV[3600+1];
 angle MyStgUtil::GOLDEN_ANG[1000];
+double MyStgUtil::SHOT_POWER[300+1];
 
 void MyStgUtil::init() {
     StgUtil::init();
@@ -57,6 +58,12 @@ void MyStgUtil::init() {
         //D = 1 - cos(2ƒÎt)
         SMOOTH_DV[i] = 1.0 - cos(2.0*PI*t);
     }
+
+    for (int f = 0; f <= 300; f++) {
+        double x = (double)f;
+        SHOT_POWER[f] = (3.0 / ( (x/5.0) + 1 ) ) + 0.5;
+    }
+
 
     MyStgUtil::_was_MyStgUtil_inited_flg = true;
 }

@@ -85,13 +85,18 @@ void MyBunshinWateringLaserChip001::onActive() {
 }
 
 void MyBunshinWateringLaserChip001::processBehavior() {
+    frame active_frames = getActiveFrame();
+    double power = active_frames <= 300 ? UTIL::SHOT_POWER[active_frames] : UTIL::SHOT_POWER[300];
+    getStatus()->set(STAT_AttackPowerRate, power);
+    _power = power;
+
     GgafDxTrucker* const pTrucker = getTrucker();
     frame active_frame = getActiveFrame();
     MyBunshin::AimInfo* pAimInfo = pAimInfo_;
 
     if (active_frame >= 60*20) {
         sayonara(); //保険のタイムアウト20秒
-    } else if (active_frame < 7) {
+    } else if (active_frame < 5) {
         //なにもしない
     } else if (pAimInfo && pAimInfo->pTarget == nullptr) {
         //なにもしない

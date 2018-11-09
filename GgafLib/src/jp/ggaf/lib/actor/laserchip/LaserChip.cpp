@@ -456,14 +456,14 @@ void LaserChip::createVertexInstanceData(void* prm, GgafDxMassMeshModel::VertexI
     out_info->paElement[7].UsageIndex = 8;
     st1_offset_next += sizeof(float)*4;
 
-    //float _chip_kind, _force_alpha, _power;   // : TEXCOORD9  チップ種別、強制α、火力率
+    //float _chip_kind, _force_alpha, _power, _front_chip_power;   // : TEXCOORD9  チップ種別、強制α、火力率、前方チップ火力率
     out_info->paElement[8].Stream = 1;
     out_info->paElement[8].Offset = st1_offset_next;
-    out_info->paElement[8].Type   = D3DDECLTYPE_FLOAT3;
+    out_info->paElement[8].Type   = D3DDECLTYPE_FLOAT4;
     out_info->paElement[8].Method = D3DDECLMETHOD_DEFAULT;
     out_info->paElement[8].Usage  = D3DDECLUSAGE_TEXCOORD;
     out_info->paElement[8].UsageIndex = 9;
-    st1_offset_next += sizeof(float)*3;
+    st1_offset_next += sizeof(float)*4;
     // <---- Stream = 1
 
     out_info->element_num = 9;
@@ -490,6 +490,7 @@ void LaserChip::processDraw() {
                 paInstancedata->_chip_kind = pChip->_chip_kind;
                 paInstancedata->_force_alpha = pChip->_force_alpha;
                 paInstancedata->_power = pChip->_power;
+                paInstancedata->_infront_chip_power = pChip->_pChip_infront->_power;
                 ++paInstancedata;
                 draw_set_num++;
             }

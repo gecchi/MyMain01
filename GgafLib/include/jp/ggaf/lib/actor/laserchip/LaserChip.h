@@ -62,7 +62,7 @@ public:
         float _f_31, _f_32, _f_33, _f_34;   // : TEXCOORD7  前方チップWorld変換行列、３行目
         float _f_41, _f_42, _f_43, _f_44;   // : TEXCOORD8  前方チップWorld変換行列、４行目
 
-        float _chip_kind, _force_alpha, _power;   // : TEXCOORD9  チップ種別、強制α、火力
+        float _chip_kind, _force_alpha, _power, _infront_chip_power;   // : TEXCOORD9  チップ種別、強制α、火力率、前方チップ火力率
     };
 
     static VERTEX_instancedata _aInstancedata[];
