@@ -107,12 +107,13 @@ void BunshinMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
     MyBunshinBase::setBunshinNum(prm_new_level); //分身設定
     if (prm_new_level > prm_now_level) {
         //レベルアップ時はエフェクトが分身へ移動
+        MyBunshinBase** papBunshinBase = pMYSHIP_SCENE->papBunshinBase_;
         for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
-            MyBunshin* pMyBunshin = pMYSHIP_SCENE->papBunshinBase_[lv-1]->pBunshin_;
+            MyBunshin* pMyBunshin = papBunshinBase[lv-1]->pBunshin_;
             pMyBunshin->setAlpha(0); //操作不可に設定
             papEffect_[lv-1]->getTrucker()->execGravitationMvSequenceTwd(
                                              pMyBunshin,
-                                             PX_C(40), PX_C(0.4), PX_C(200)
+                                             PX_C(40), PX_C(2), PX_C(200)
                                          );
         }
     }
@@ -128,8 +129,9 @@ void BunshinMagic::processInvokingBehavior(int prm_now_level, int prm_new_level)
     if (prm_new_level > prm_now_level) {
         //レベルアップ時
         float a = (float)getProgress()->getFrame() / (float)time_of_next_state_;
+        MyBunshinBase** papBunshinBase = pMYSHIP_SCENE->papBunshinBase_;
         for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
-            MyBunshin* pMyBunshin = pMYSHIP_SCENE->papBunshinBase_[lv-1]->pBunshin_;
+            MyBunshin* pMyBunshin = papBunshinBase[lv-1]->pBunshin_;
             pMyBunshin->setAlpha(a);
         }
     }
@@ -143,8 +145,9 @@ void BunshinMagic::processEffectBegin(int prm_last_level, int prm_now_level)  {
     _TRACE_(getBehaveingFrame()<<":BunshinMagic::processEffectBegin("<<prm_last_level<<","<<prm_now_level<<")");
     if (prm_now_level > prm_last_level) {
         //レベルアップ時、エフェクトの処理
+        MyBunshinBase** papBunshinBase = pMYSHIP_SCENE->papBunshinBase_;
         for (int lv = prm_last_level+1; lv <= prm_now_level; lv++) {
-            MyBunshin* pMyBunshin = pMYSHIP_SCENE->papBunshinBase_[lv-1]->pBunshin_;
+            MyBunshin* pMyBunshin = papBunshinBase[lv-1]->pBunshin_;
             pMyBunshin->setAlpha(1.0); //操作可に
             papEffect_[lv-1]->getTrucker()->stopGravitationMvSequence();
             papEffect_[lv-1]->getTrucker()->resetMv();

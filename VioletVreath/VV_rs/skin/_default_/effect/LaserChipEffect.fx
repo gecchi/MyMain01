@@ -178,22 +178,32 @@ OUT_VS GgafDxVS_LaserChip(
     //    <--><--><--><--><-->^
     //    ^   ^   ^   ^   ^   |
     //    |   |   |   |   |   |
-    //    |   |   |   |   |    `----- 4:先端チップ(非表示で、中間先頭チップを表示するためだけに存在)
-    //    |   |   |   |    `----- 3:中間先頭チップ(表示される実質の先頭)
-    //    |   |   |    `----- 2:中間チップ
-    //    |   |    `----- 2:中間チップ
-    //    |    `----- 2:中間チップ
+    //    |   |   |   |   |    `----- 5:先端チップ(非表示で、中間先頭チップを表示するためだけに存在)
+    //    |   |   |   |    `----- 4:中間先頭チップ(表示される実質の先頭)
+    //    |   |   |    `----- 3:中間チップ
+    //    |   |    `----- 3:中間チップ
+    //    |    `----- 3:中間チップ
     //     `----- 1:末尾チップ
     //
     //先頭と先端という言葉で区別しています。
-    if (kind_t == 2) {
+    if (kind_t == 3) {
         //中間チップ
         out_vs.uv = prm_uv;
+    } else if (kind_t == 2) {
+        //末尾チップ（先が丸い）
+        if (prm_uv.x < 0.51f) {
+            out_vs.uv.x = 0.0f;
+        } else if (prm_uv.x > 0.51f) {
+            out_vs.uv.x = 1.0f;
+        } else {
+            out_vs.uv.x = prm_uv.x;
+        }
+        out_vs.uv.y = prm_uv.y;
     } else if (kind_t == 1) {
         //末尾チップ
         out_vs.uv.x = prm_uv.x < 0.51f ? 0.0f : prm_uv.x;
         out_vs.uv.y = prm_uv.y;
-    } else if (kind_t == 3) {
+    } else if (kind_t == 4) {
         //中間先頭チップ
         out_vs.uv.x = prm_uv.x > 0.51f ? 1.0f : prm_uv.x;
         out_vs.uv.y = prm_uv.y;
@@ -204,8 +214,8 @@ OUT_VS GgafDxVS_LaserChip(
         out_vs.uv.y = 1;
     }
     //αフォグ
-	const float c = (1.25-(((out_vs.posModel_Proj.z)/g_zf)*2));
-	out_vs.color = (c < 0.2  ? 0.2 : c) ; //powerが大きいほど白く輝く
+    const float c = (1.25-(((out_vs.posModel_Proj.z)/g_zf)*2));
+    out_vs.color = (c < 0.2  ? 0.2 : c) ; //powerが大きいほど白く輝く
     if (force_alpha > out_vs.color.a) {
         out_vs.color.a = force_alpha*g_alpha_master;
     } else {
