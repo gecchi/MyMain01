@@ -528,6 +528,8 @@ void LaserChip::processDraw() {
                 paInstancedata->_infront_chip_power = pChip->_pChip_infront->_power;
                 ++paInstancedata;
                 draw_set_num++;
+            } else {
+                //前方チップが無い場合
             }
             GgafDxSpacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
             if (draw_set_num >= model_max_set_num) {

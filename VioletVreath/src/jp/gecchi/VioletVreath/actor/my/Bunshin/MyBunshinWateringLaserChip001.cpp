@@ -324,23 +324,24 @@ void MyBunshinWateringLaserChip001::processJudgement() {
 
 
 void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
-    //    |                            vVT 仮的                        |
-    //    |                                ^ ┌                        |
-    //    |                 |仮的| > 5*vM /    ＼  vVP 仮自→仮的      |      仮的
-    //    |                 となるような /       ＼                    |       ↑
-    //    |                 vVTを設定   /         ┐                   |      仮自
-    //    |                            /        ／vVM  仮自            |       ↑
-    //    |                           /       ／  (vVMx,vVMy,vVMz)     |       ｜
-    //    |                          /      ／                         |       ｜
-    //    |                         /     ／                           |       ｜
-    //    |                        /    ／ |仮自| = lVM * 5            |       ｜
-    //    |                   vT 的   ／                               |       的
-    //    |             ┌       ^  ／                                 |       ↑
-    //    |               ＼    / ┐vM 現在の移動方向ベクトル          |       ｜
-    //    | vVP 仮自→仮的  ＼ /／ (veloVxMv_,veloVyMv_,veloVzMv_)     |       ｜
-    //    |                   自                                       |       自
-    // ---+------------------------------------------               ---+---------------------------
-    //    |                                                            |
+    //    |                            vVT 仮的                              |
+    //    |                                ^ ┌                              |
+    //    |                 |仮的| > 5*vM /    ＼  vVP 仮自→仮的            |      仮的
+    //    |                 となるような /       ＼                          |       ↑
+    //    |                 vVTを設定   /         ┐                         |      仮自
+    //    |                            /        ／vVM  仮自                  |       ↑
+    //    |                           /       ／  (vVMx*5,vVMy*5,vVMz*5)     |       ｜
+    //    |                          /      ／                               |       ｜
+    //    |                         /     ／                                 |       ｜
+    //    |                        /    ／ |仮自| = lVM * 5                  |       ｜
+    //    |                      的 vT(tX,tY,tZ)                             |       的
+    //    |             ┌       ^  ／                                       |       ↑
+    //    |               ＼    / ┐vM 現在の移動方向ベクトル                |       ｜
+    //    | vVP 仮自→仮的  ＼ /／ (vVMx,vVMy,vVMz)                          |       ｜
+    //    |                   自                                             |       自
+    //    |                     (_x,_y,_z)                                   |
+    // ---+------------------------------------------                     ---+---------------------------
+    //    |                                                                  |
     //
     // vVP が動きたい方向。vVPを求める！
 #ifdef MY_DEBUG
@@ -356,40 +357,42 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
     const int vTz = tZ - _z;
 
     //自→仮自。
-    int vVMx = pTrucker->_velo_vx_mv;
-    int vVMy = pTrucker->_velo_vy_mv;
-    int vVMz = pTrucker->_velo_vz_mv;
+    int vMx = pTrucker->_velo_vx_mv;
+    int vMy = pTrucker->_velo_vy_mv;
+    int vMz = pTrucker->_velo_vz_mv;
 
     //|仮自| = lVM * 5
-    const int lVM = MAX3(ABS(vVMx), ABS(vVMy), ABS(vVMz)); //仮自ベクトル大きさ簡易版
+    int lVM = MAX3(ABS(vMx), ABS(vMy), ABS(vMz)); //仮自ベクトル大きさ簡易版
 
-    static const velo min_velo = MyBunshinWateringLaserChip001::INITIAL_VELO*0.5;
+    static const velo min_velo = MyBunshinWateringLaserChip001::INITIAL_VELO/2; // ÷2 は、最低移動する各軸のINITIAL_VELOの割合
     if  (lVM < min_velo) { //縮こまらないように
         if (lVM != 0) {
             double r = (1.0*min_velo/lVM);
-            pTrucker->setVxyzMvVelo(vVMx*r, vVMy*r, vVMz*r);
-            vVMx = pTrucker->_velo_vx_mv;
-            vVMy = pTrucker->_velo_vy_mv;
-            vVMz = pTrucker->_velo_vz_mv;
+            pTrucker->setVxyzMvVelo(vMx*r, vMy*r, vMz*r);
+            vMx = pTrucker->_velo_vx_mv;
+            vMy = pTrucker->_velo_vy_mv;
+            vMz = pTrucker->_velo_vz_mv;
         } else {
             pTrucker->setVxyzMvVelo(min_velo, 0, 0);
-            vVMx = pTrucker->_velo_vx_mv;
-            vVMy = pTrucker->_velo_vy_mv;
-            vVMz = pTrucker->_velo_vz_mv;
+            vMx = pTrucker->_velo_vx_mv;
+            vMy = pTrucker->_velo_vy_mv;
+            vMz = pTrucker->_velo_vz_mv;
         }
+        lVM = min_velo;
     }
 
     //|的|
-    const int lT =  MAX3(ABS(vTx), ABS(vTy), ABS(vTz)); //的ベクトル大きさ簡易版
+    const int lT = MAX3(ABS(vTx), ABS(vTy), ABS(vTz)); //的ベクトル大きさ簡易版
     //|仮自|/|的|      vT の何倍が vVT 仮的 になるのかを求める。
     const double r = (lVM*5 * 1.5) / lT;
     //* 1.5は 右上図のように一直線に並んだ際も、進行方向を維持するために、
     //|仮的| > |仮自| という関係を維持するためにかけた適当な割合
 
     //vVP 仮自→仮的 の加速度設定
-    const double accX = ((vTx * r) - vVMx*5) * RR_MAX_ACCE;
-    const double accY = ((vTy * r) - vVMy*5) * RR_MAX_ACCE;
-    const double accZ = ((vTz * r) - vVMz*5) * RR_MAX_ACCE;
+    //求めた vVP=( (vTx*r)-vMx*5), (vTy*r)-vMy*5), (vTz*r)-vMz*5) )
+    const double accX = ((vTx * r) - vMx*5) * RR_MAX_ACCE;
+    const double accY = ((vTy * r) - vMy*5) * RR_MAX_ACCE;
+    const double accZ = ((vTz * r) - vMz*5) * RR_MAX_ACCE;
 
     pTrucker->setVxyzMvAcce(accX + SGN(accX)*3.0,
                             accY + SGN(accY)*3.0,

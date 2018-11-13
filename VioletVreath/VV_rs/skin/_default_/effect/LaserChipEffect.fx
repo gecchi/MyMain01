@@ -125,48 +125,7 @@ OUT_VS GgafDxVS_LaserChip(
     float force_alpha = prm_info.y;
     float power;
     float4 posModel_World;
-    if (prm_posModel_Local.x > 0.0) {
-//TODO:20090806アイディア
-//現在先頭のチップは何も表示されないので
-//２倍して90度回転して、先頭専用テクスチャをを張れば、先を丸く見せれるのではないか
-//・・・単に２倍90度回転してだめだった、風車になるだけ
 
-//		if (kind_t == 4) {  //3ではないよ
-//         x =  cos90*_Xorg + sin90*_Yorg  = 0*_Xorg + 1*_Yorg   =  Y
-//         y = -sin90*_Xorg + cos90*_Yorg  = -1*_Xorg + 0*_Yorg  = -X
-
-//			sin
-//		   ナインか
-//		}
-        //頂点計算
-//		if (kind_t == 4) {  //3ではないよ
-//			float tmpy = prm_posModel_Local.y;
-//			prm_posModel_Local.y = -8.0 * prm_posModel_Local.z;
-//			prm_posModel_Local.z = 8.0 * tmpy;
-//		}
-
-        prm_posModel_Local.x = 0;
-        if (kind_t == 4) {  //3ではないよ
-            prm_posModel_Local.y = 0;
-            prm_posModel_Local.z = 0;
-        }
-        // 一つ前方のチップ座標へくっつける
-        posModel_World = mul( prm_posModel_Local, matWorld_infront );      // World変換
-        power = prm_info.w;
-    } else {
-//		if (kind_t == 1) {
-//			prm_posModel_Local.x = 0;
-//			prm_posModel_Local.y = 0;
-//			prm_posModel_Local.z = 0;
-//		}
-        //頂点計算
-        posModel_World = mul( prm_posModel_Local, matWorld );        // World変換
-        out_vs.posModel_Proj = mul(mul(posModel_World, g_matView), g_matProj);  // View変換射影変換
-        power = prm_info.z;
-    }
-    out_vs.posModel_Proj = mul(mul(posModel_World, g_matView), g_matProj);  // View変換射影変換
-
-    //UV設定
     //レーザーチップ種別 について。
     //
     //      -==========<>            レーザーは
@@ -186,6 +145,24 @@ OUT_VS GgafDxVS_LaserChip(
     //     `----- 1:末尾チップ
     //
     //先頭と先端という言葉で区別しています。
+    if (prm_posModel_Local.x > 0.0) {
+        prm_posModel_Local.x = 0;
+        if (kind_t == 5) {  //4ではないよ
+            prm_posModel_Local.y = 0;
+            prm_posModel_Local.z = 0;
+        }
+        // 一つ前方のチップ座標へくっつける
+        posModel_World = mul( prm_posModel_Local, matWorld_infront );  //一つ前方のチップのWorld変換
+        power = prm_info.w;
+    } else { // prm_posModel_Local.x <= 0.0
+        //頂点計算
+        prm_posModel_Local.x = 0;
+        posModel_World = mul( prm_posModel_Local, matWorld );  // World変換
+        power = prm_info.z;
+    }
+    out_vs.posModel_Proj = mul(mul(posModel_World, g_matView), g_matProj);  // View変換・射影変換
+
+    //UV設定
     if (kind_t == 3) {
         //中間チップ
         out_vs.uv = prm_uv;
@@ -222,7 +199,6 @@ OUT_VS GgafDxVS_LaserChip(
         out_vs.color.a = out_vs.color.a*g_alpha_master;
     }
     out_vs.color.rgb *= power;
-//	out_vs.color = c < 0.2  ? 2.0 : c;//1.0-((out_vs.posModel_Proj.z/g_zf)*2) ;//float4((out_vs.posModel_Proj.z/g_zf), (out_vs.posModel_Proj.z/g_zf), (out_vs.posModel_Proj.z/g_zf), 1.0-(out_vs.posModel_Proj.z/g_zf));
 //    if (out_vs.posModel_Proj.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
 //        out_vs.color.a *= (-3.0*(out_vs.posModel_Proj.z/g_zf) + 3.0);
 //    }
