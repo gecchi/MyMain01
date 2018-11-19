@@ -96,7 +96,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
 
     if (active_frame >= 60*20) {
         sayonara(); //保険のタイムアウト20秒
-    } else if (active_frame < 5) {
+    } else if (active_frame < 7) {
         //なにもしない
     } else if (pAimInfo && pAimInfo->pTarget == nullptr) {
         //なにもしない
@@ -125,14 +125,14 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                         if ( (ucoord)(_x - pAimInfo->t1_x + renge) <= renge2) {
                             if ( (ucoord)(_y - pAimInfo->t1_y + renge) <= renge2) {
                                 if ( (ucoord)(_z - pAimInfo->t1_z + renge) <= renge2) {
-                                    pAimInfo_->spent_frames_to_t1 = getActiveFrame(); //Aim t1 終了
+                                    pAimInfo_->spent_frames_to_t1 = active_frame; //Aim t1 終了
                                 }
                             }
                         }
 
                     } else {
                         //初めは pAimTarget があったのに、途中で消えた。
-                        pAimInfo_->spent_frames_to_t1 = getActiveFrame(); //Aim t1 終了
+                        pAimInfo_->spent_frames_to_t1 = active_frame; //Aim t1 終了
                     }
                 } else if (pAimInfo->spent_frames_to_t2 == 0) {
                     //●Leader が t1 へ Aim し終わったあと
@@ -144,7 +144,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                                                       (double)(pSpaceTime->_y_bound_top),
                                                       (double)(pSpaceTime->_z_bound_far)
                                                      ) * 1.2;
-                    MyBunshinWateringLaserChip001* pB = (MyBunshinWateringLaserChip001*)getBehindChip();
+                    LaserChip* pB = getBehindChip();
                     if (pB) {
                         pAimInfo->setT2(zf_r, pB->_x, pB->_y, pB->_z, _x, _y, _z);
                     } else {
@@ -154,7 +154,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                                                    pAimInfo->t2_x,
                                                    pAimInfo->t2_y,
                                                    pAimInfo->t2_z);
-                    pAimInfo->spent_frames_to_t2 = active_frame + (t2_d/MyBunshinWateringLaserChip001::MAX_VELO_RENGE);
+                    pAimInfo->spent_frames_to_t2 = active_frame + (t2_d/MyBunshinWateringLaserChip001::MAX_VELO_RENGE); //t2到達時間概算
                     aimChip(pAimInfo->t2_x,
                             pAimInfo->t2_y,
                             pAimInfo->t2_z );
@@ -170,7 +170,6 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                                 _z + pTrucker->_velo_vz_mv*4+1 );
                     }
                 }
-
             } else {
                 //●Leader以外
                 if (pAimInfo->spent_frames_to_t1 == 0) {
@@ -178,12 +177,12 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                     aimChip(pAimInfo->t1_x,
                             pAimInfo->t1_y,
                             pAimInfo->t1_z );
-                } else if (active_frame < pAimInfo->spent_frames_to_t1) {
+                } else if (active_frame <= pAimInfo->spent_frames_to_t1) {
                     //●Leader以外が t1 が定まってから t1 到達までの動き
                     aimChip(pAimInfo->t1_x,
                             pAimInfo->t1_y,
                             pAimInfo->t1_z );
-                } else if (active_frame >= pAimInfo->spent_frames_to_t1) {
+                } else if (active_frame > pAimInfo->spent_frames_to_t1) {
                     //●Leader以外が t1 を通過
                     if (pAimInfo->spent_frames_to_t2 == 0) {
                         //●その後 Leader以外が t2 が定まるまでの動き
@@ -196,12 +195,12 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                                     _y + pTrucker->_velo_vy_mv*4+1,
                                     _z + pTrucker->_velo_vz_mv*4+1 );
                         }
-                    } else if (active_frame < pAimInfo->spent_frames_to_t2) {
+                    } else if (active_frame <= pAimInfo->spent_frames_to_t2) {
                         //●その後 Leader以外が t2 が定まって、t2に向かうまでの動き
                         aimChip(pAimInfo->t2_x,
                                 pAimInfo->t2_y,
                                 pAimInfo->t2_z );
-                    } else if (active_frame >= pAimInfo->spent_frames_to_t2) {
+                    } else if (active_frame > pAimInfo->spent_frames_to_t2) {
                         //●その後 Leader以外が t2 を通過した後の動き
                         if (pAimLeaderChip) {
                             aimChip(pAimLeaderChip->_x,
@@ -285,20 +284,45 @@ throwGgafCriticalException("pAimInfo_ が引き継がれていません！"<<this<<
     //本来は processBehaviorAfter() 的な意味の処理であるが、全レーザーチップが移動後でないと意味がないので
     //仕方ないのでprocessSettlementBehavior()に食い込んでいます。
     //したがって本クラスを継承した場合、継承クラスのprocessSettlementBehavior()では、先頭で呼び出した方が良い。
-    if (getActiveFrame() > 5) { //FKオブジェクトからのレーザー発射も考慮すると、_tmpXYZ が埋まるのは3フレーム以降。
+//    if (getActiveFrame() > 4) { //FKオブジェクトからのレーザー発射も考慮すると、_tmpXYZ が埋まるのは3フレーム以降。
+//        MyBunshinWateringLaserChip001* pF = (MyBunshinWateringLaserChip001*)getInfrontChip();
+//        MyBunshinWateringLaserChip001* pB = (MyBunshinWateringLaserChip001*)getBehindChip();
+//        if (pF && pB && pF->isActive() && pB->isActive()) {
+//            //_pChip_behind == nullptr の判定だけではだめ。_pChip_behind->_is_active_flg と判定すること
+//            //なぜなら dispatch の瞬間に_pChip_behind != nullptr となるが、active()により有効になるのは次フレームだから
+//            //_x,_y,_z にはまだ変な値が入っている。
+//            //中間座標に再設定
+//            _x = (pF->tmp_x_ + pB->tmp_x_ + tmp_x_)/3;
+//            _y = (pF->tmp_y_ + pB->tmp_y_ + tmp_y_)/3;
+//            _z = (pF->tmp_z_ + pB->tmp_z_ + tmp_z_)/3;
+//            pTrucker->setVxyzMvAcce( (pF->tmp_acc_vx_ + pB->tmp_acc_vx_ + tmp_acc_vx_)/3,
+//                                     (pF->tmp_acc_vy_ + pB->tmp_acc_vy_ + tmp_acc_vy_)/3,
+//                                     (pF->tmp_acc_vz_ + pB->tmp_acc_vz_ + tmp_acc_vz_)/3 );
+//        }
+//    }
+    if (getActiveFrame() > 3) { //FKオブジェクトからのレーザー発射も考慮すると、_tmpXYZ が埋まるのは3フレーム以降。
         MyBunshinWateringLaserChip001* pF = (MyBunshinWateringLaserChip001*)getInfrontChip();
-        MyBunshinWateringLaserChip001* pB = (MyBunshinWateringLaserChip001*)getBehindChip();
-        if (pF && pB && pF->isActive() && pB->isActive()) {
-            //_pChip_behind == nullptr の判定だけではだめ。_pChip_behind->_is_active_flg と判定すること
-            //なぜなら dispatch の瞬間に_pChip_behind != nullptr となるが、active()により有効になるのは次フレームだから
-            //_x,_y,_z にはまだ変な値が入っている。
-            //中間座標に再設定
-            _x = (pF->tmp_x_ + pB->tmp_x_ + tmp_x_)/3;
-            _y = (pF->tmp_y_ + pB->tmp_y_ + tmp_y_)/3;
-            _z = (pF->tmp_z_ + pB->tmp_z_ + tmp_z_)/3;
-            pTrucker->setVxyzMvAcce( (pF->tmp_acc_vx_ + pB->tmp_acc_vx_ + tmp_acc_vx_)/3,
-                                     (pF->tmp_acc_vy_ + pB->tmp_acc_vy_ + tmp_acc_vy_)/3,
-                                     (pF->tmp_acc_vz_ + pB->tmp_acc_vz_ + tmp_acc_vz_)/3 );
+        if (pF && pF->isActive()) {
+            MyBunshinWateringLaserChip001* pB = (MyBunshinWateringLaserChip001*)getBehindChip();
+            if (pB && pB->isActive()) {
+                //_pChip_behind == nullptr の判定だけではだめ。_pChip_behind->_is_active_flg と判定すること
+                //なぜなら dispatch の瞬間に_pChip_behind != nullptr となるが、active()により有効になるのは次フレームだから
+                //_x,_y,_z にはまだ変な値が入っている。
+                //中間座標に再設定
+                _x = (pF->tmp_x_ + pB->tmp_x_ + tmp_x_)/3;
+                _y = (pF->tmp_y_ + pB->tmp_y_ + tmp_y_)/3;
+                _z = (pF->tmp_z_ + pB->tmp_z_ + tmp_z_)/3;
+                pTrucker->setVxyzMvAcce( (pF->tmp_acc_vx_ + pB->tmp_acc_vx_ + tmp_acc_vx_)/3,
+                                         (pF->tmp_acc_vy_ + pB->tmp_acc_vy_ + tmp_acc_vy_)/3,
+                                         (pF->tmp_acc_vz_ + pB->tmp_acc_vz_ + tmp_acc_vz_)/3 );
+            } else {
+                _x = (pF->tmp_x_ + tmp_x_)/2;
+                _y = (pF->tmp_y_ + tmp_y_)/2;
+                _z = (pF->tmp_z_ + tmp_z_)/2;
+                pTrucker->setVxyzMvAcce( (pF->tmp_acc_vx_ + tmp_acc_vx_)/2,
+                                         (pF->tmp_acc_vy_ + tmp_acc_vy_)/2,
+                                         (pF->tmp_acc_vz_ + tmp_acc_vz_)/2 );
+            }
         }
     }
     WateringLaserChip::processSettlementBehavior();
