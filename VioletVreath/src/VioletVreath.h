@@ -47,7 +47,7 @@
 #define VB_SHOT1    VB_BUTTON1
 #define VB_SHOT2    VB_BUTTON2
 #define VB_OPTION   VB_BUTTON3
-//#define VB_VIEW     VB_BUTTON4
+#define VB_VIEW     VB_BUTTON4
 #define VB_TURBO    VB_BUTTON5
 #define VB_POWERUP  VB_BUTTON6
 
@@ -249,9 +249,6 @@ class EffectExplosion003;
 class EffectExplosion004;
 class EffectLaserMagic;
 class EffectLaserRefraction001;
-class EffectLockon001;
-class EffectLockon001_Main;
-class EffectLockon001_Sub;
 class EffectLockonMagic;
 class EffectMagic001;
 class EffectManager;
@@ -425,6 +422,9 @@ class LabelRankingFont;
 class LabelSceneSymbol;
 class LabelScoreFont;
 class LaserMagic;
+class LockonCursor001;
+class LockonCursor001_Main;
+class LockonCursor001_Sub;
 class LockonMagic;
 class Magic;
 class MagicLvCursor;

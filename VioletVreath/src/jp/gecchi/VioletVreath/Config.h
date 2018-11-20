@@ -15,7 +15,7 @@ public:
     static std::string MY_KEY_SHOT1;
     static std::string MY_KEY_SHOT2;
     static std::string MY_KEY_OPTION;
-//    static std::string MY_KEY_VIEW;
+    static std::string MY_KEY_VIEW;
     static std::string MY_KEY_TURBO;
     static std::string MY_KEY_POWERUP;
     static std::string MY_KEY_BUTTON7;
@@ -39,7 +39,7 @@ public:
     static std::string MY_JOY_SHOT1;
     static std::string MY_JOY_SHOT2;
     static std::string MY_JOY_OPTION;
-//    static std::string MY_JOY_VIEW;
+    static std::string MY_JOY_VIEW;
     static std::string MY_JOY_TURBO;
     static std::string MY_JOY_POWERUP;
     static std::string MY_JOY_BUTTON7;

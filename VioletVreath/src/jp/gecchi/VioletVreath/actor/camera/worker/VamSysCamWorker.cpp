@@ -669,11 +669,16 @@ void VamSysCamWorker::processBehavior() {
     coord pMyShip_y = pMyShip_->_y;
     coord pMyShip_z = pMyShip_->_z;
 
-    const bool isPressed_VB_VIEW_UP    = pVbPlay->isPressed(VB_VIEW_UP);
-    const bool isPressed_VB_VIEW_DOWN  = pVbPlay->isPressed(VB_VIEW_DOWN);
-    const bool isPressed_VB_VIEW_LEFT  = pVbPlay->isPressed(VB_VIEW_LEFT);
-    const bool isPressed_VB_VIEW_RIGHT = pVbPlay->isPressed(VB_VIEW_RIGHT);
-    const bool isPressed_VB_TURBO = pVbPlay->isPressed(VB_TURBO);
+    const bool isPressed_VB_UP    = pVbPlay->isPressed(VB_UP);
+    const bool isPressed_VB_DOWN  = pVbPlay->isPressed(VB_DOWN);
+    const bool isPressed_VB_LEFT  = pVbPlay->isPressed(VB_LEFT);
+    const bool isPressed_VB_RIGHT = pVbPlay->isPressed(VB_RIGHT);
+
+    const bool isPressed_VB_VIEW = pVbPlay->isPressed(VB_VIEW);
+    const bool isPressed_VB_VIEW_UP    = pVbPlay->isPressed(VB_VIEW_UP)    ||  (isPressed_VB_VIEW && isPressed_VB_UP   );
+    const bool isPressed_VB_VIEW_DOWN  = pVbPlay->isPressed(VB_VIEW_DOWN)  ||  (isPressed_VB_VIEW && isPressed_VB_DOWN );
+    const bool isPressed_VB_VIEW_LEFT  = pVbPlay->isPressed(VB_VIEW_LEFT)  ||  (isPressed_VB_VIEW && isPressed_VB_LEFT );
+    const bool isPressed_VB_VIEW_RIGHT = pVbPlay->isPressed(VB_VIEW_RIGHT) ||  (isPressed_VB_VIEW && isPressed_VB_RIGHT);
 
     if (returning_cam_pos_) {
         if (returning_cam_pos_frames_ == 0) {
@@ -683,46 +688,45 @@ void VamSysCamWorker::processBehavior() {
         }
     }
 
-    if (isPressed_VB_TURBO) {
-        const bool isPushedDown_VB_VIEW_UP    = pVbPlay->isPushedDown(VB_VIEW_UP);
-        const bool isPushedDown_VB_VIEW_DOWN  = pVbPlay->isPushedDown(VB_VIEW_DOWN);
-        const bool isPushedDown_VB_VIEW_LEFT  = pVbPlay->isPushedDown(VB_VIEW_LEFT);
-        const bool isPushedDown_VB_VIEW_RIGHT = pVbPlay->isPushedDown(VB_VIEW_RIGHT);
-        if (isPushedDown_VB_VIEW_UP || isPushedDown_VB_VIEW_DOWN || isPushedDown_VB_VIEW_LEFT || isPushedDown_VB_VIEW_RIGHT) {
-            //プリセット位置に移動
-            pSe_->play(SE_RETURNNING_CAM_POS);
-            mv_t_x_vUP_  = 0;
-            mv_t_y_vUP_  = DX_C(1);
-            mv_t_z_vUP_  = 0;
-            coord mv_t_x_vCAM_from = mv_t_x_vCAM_;
-            coord mv_t_y_vCAM_from = mv_t_y_vCAM_;
-            coord mv_t_z_vCAM_from = mv_t_z_vCAM_;
-            if (isPushedDown_VB_VIEW_DOWN) {
-                mv_t_x_vCAM_ = -VamSysCamWorker::cam_radius_;
-                mv_t_y_vCAM_ = 0;
-                mv_t_z_vCAM_ = 0;
-            } else if (isPushedDown_VB_VIEW_RIGHT) {
-                mv_t_x_vCAM_ = 0;
-                mv_t_y_vCAM_ = 0;
-                mv_t_z_vCAM_ = -VamSysCamWorker::cam_radius_;
-            } else if (isPushedDown_VB_VIEW_LEFT) {
-                mv_t_x_vCAM_ = 0;
-                mv_t_y_vCAM_ = 0;
-                mv_t_z_vCAM_ = VamSysCamWorker::cam_radius_;
-            } else if (isPushedDown_VB_VIEW_UP) {
-                mv_t_x_vCAM_ = VamSysCamWorker::cam_radius_;
-                mv_t_y_vCAM_ = 0;
-                mv_t_z_vCAM_ = 0;
-            }
-
-            coord dcam = UTIL::getDistance(mv_t_x_vCAM_from, mv_t_y_vCAM_from, mv_t_z_vCAM_from,
-                                           mv_t_x_vCAM_, mv_t_y_vCAM_, mv_t_z_vCAM_);
-            returning_cam_pos_frames_ = (1.0 * dcam /VamSysCamWorker:: cam_radius_) * 40; //真反対にいたら2倍フレーム
-            if (returning_cam_pos_frames_ < 20) {
-                returning_cam_pos_frames_ = 20;
-            }
-            returning_cam_pos_ = true;
+    if (pVbPlay->isDoublePushedDown(VB_VIEW)) {
+        //プリセット位置に移動
+        pSe_->play(SE_RETURNNING_CAM_POS);
+        mv_t_x_vUP_  = 0;
+        mv_t_y_vUP_  = DX_C(1);
+        mv_t_z_vUP_  = 0;
+        coord mv_t_x_vCAM_from = mv_t_x_vCAM_;
+        coord mv_t_y_vCAM_from = mv_t_y_vCAM_;
+        coord mv_t_z_vCAM_from = mv_t_z_vCAM_;
+        if (isPressed_VB_DOWN) {
+            mv_t_x_vCAM_ = -VamSysCamWorker::cam_radius_;
+            mv_t_y_vCAM_ = 0;
+            mv_t_z_vCAM_ = 0;
+        } else if (isPressed_VB_RIGHT) {
+            mv_t_x_vCAM_ = 0;
+            mv_t_y_vCAM_ = 0;
+            mv_t_z_vCAM_ = -VamSysCamWorker::cam_radius_;
+        } else if (isPressed_VB_LEFT) {
+            mv_t_x_vCAM_ = 0;
+            mv_t_y_vCAM_ = 0;
+            mv_t_z_vCAM_ = VamSysCamWorker::cam_radius_;
+        } else if (isPressed_VB_UP) {
+            mv_t_x_vCAM_ = VamSysCamWorker::cam_radius_;
+            mv_t_y_vCAM_ = 0;
+            mv_t_z_vCAM_ = 0;
+        } else {
+            //デフォルトはRIGHT
+            mv_t_x_vCAM_ = 0;
+            mv_t_y_vCAM_ = 0;
+            mv_t_z_vCAM_ = -VamSysCamWorker::cam_radius_;
         }
+
+        coord dcam = UTIL::getDistance(mv_t_x_vCAM_from, mv_t_y_vCAM_from, mv_t_z_vCAM_from,
+                                       mv_t_x_vCAM_, mv_t_y_vCAM_, mv_t_z_vCAM_);
+        returning_cam_pos_frames_ = (1.0 * dcam /VamSysCamWorker:: cam_radius_) * 40; //真反対にいたら2倍フレーム
+        if (returning_cam_pos_frames_ < 20) {
+            returning_cam_pos_frames_ = 20;
+        }
+        returning_cam_pos_ = true;
     }
 
     //注視点→カメラ の方向ベクトル(vx, vy, vz)

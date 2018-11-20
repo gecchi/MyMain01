@@ -1,5 +1,5 @@
-#ifndef EFFECTLOCKON001_H_
-#define EFFECTLOCKON001_H_
+#ifndef LOCKONCURSOR001_H_
+#define LOCKONCURSOR001_H_
 #include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultMassSpriteActor.h"
 
@@ -13,7 +13,7 @@ namespace VioletVreath {
  * @since 2010/01/28
  * @author Masatoshi Tsuge
  */
-class EffectLockon001 : public GgafLib::DefaultMassSpriteActor {
+class LockonCursor001 : public GgafLib::DefaultMassSpriteActor {
 
 public:
     enum {
@@ -27,7 +27,7 @@ public:
     GgafDxCore::GgafDxGeometricActor* pTarget_;
 
 public:
-    EffectLockon001(const char* prm_name, const char* prm_model_id);
+    LockonCursor001(const char* prm_name, const char* prm_model_id);
 
     virtual void initialize() override;
 
@@ -45,7 +45,7 @@ public:
 
     virtual void lockon(GgafDxGeometricActor* prm_pTarget) = 0;
 
-    virtual ~EffectLockon001();
+    virtual ~LockonCursor001();
 
 
 //DEBUGモードアプリ終了時のツリー表示時、
@@ -64,5 +64,5 @@ public:
 };
 
 }
-#endif /*EFFECTLOCKON001_H_*/
+#endif /*LOCKONCURSOR001_H_*/
 

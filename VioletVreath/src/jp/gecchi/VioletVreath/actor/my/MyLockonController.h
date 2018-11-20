@@ -24,7 +24,7 @@ public:
     static int lockon_num_;
 
     /** メインロックオンエフェクト */
-    EffectLockon001_Main* pMainLockonEffect_;
+    LockonCursor001_Main* pMainLockonEffect_;
     /** ロックオンターゲットリストリング */
     GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeometricActor>* pRingTarget_;
 

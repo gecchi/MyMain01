@@ -1,10 +1,10 @@
-#include "EffectLockon001_Sub.h"
+#include "LockonCursor001_Sub.h"
 
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
 #include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
-#include "EffectLockon001_Main.h"
+#include "LockonCursor001_Main.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyLockonController.h"
 
 using namespace GgafCore;
@@ -12,26 +12,26 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-EffectLockon001_Sub::EffectLockon001_Sub(const char* prm_name) :
-        EffectLockon001(prm_name, "10,Lockon001_Sub") {
-    _class_name = "EffectLockon001_Sub";
-    pEffectLockon001_Main_ = nullptr;
+LockonCursor001_Sub::LockonCursor001_Sub(const char* prm_name) :
+        LockonCursor001(prm_name, "10,Lockon001_Sub") {
+    _class_name = "LockonCursor001_Sub";
+    pLockonCursor001_Main_ = nullptr;
 }
 
-void EffectLockon001_Sub::initialize() {
-    EffectLockon001::initialize();
+void LockonCursor001_Sub::initialize() {
+    LockonCursor001::initialize();
     GgafDxUvFlipper* pUvFlipper = getUvFlipper();
     pUvFlipper->setFlipPtnRange(0, 3);   //アニメ範囲を０～１５
     pUvFlipper->exec(FLIP_ORDER_LOOP, 5); //アニメ順序
 }
 
-void EffectLockon001_Sub::onActive() {
-    EffectLockon001::onActive();
+void LockonCursor001_Sub::onActive() {
+    LockonCursor001::onActive();
 //    _TRACE_(FUNC_NAME<<" "<<getActiveFrame()<<", this="<<NODE_INFO<<" pTarget_="<<pTarget_);
-    pEffectLockon001_Main_ = (EffectLockon001_Main*)getParent()->getChildFirst();
+    pLockonCursor001_Main_ = (LockonCursor001_Main*)getParent()->getChildFirst();
     getUvFlipper()->setActivePtnToTop();
     setAlpha(0.01);
-    _sx = _sy = _sz = pEffectLockon001_Main_->_sx;
+    _sx = _sy = _sz = pLockonCursor001_Main_->_sx;
     getKuroko()->setFaceAngVelo(AXIS_Z, 1000);        //右回転
     //getSeTransmitter()->play3D(0); //ロックオンSE
     if (pTarget_) {
@@ -43,23 +43,23 @@ void EffectLockon001_Sub::onActive() {
     }
 }
 
-void EffectLockon001_Sub::processBehavior() {
-    EffectLockon001::processBehavior();
+void LockonCursor001_Sub::processBehavior() {
+    LockonCursor001::processBehavior();
     GgafDxKuroko* const pKuroko = getKuroko();
     GgafProgress* const pProg = getProgress();
     if (pProg->get() == LOCKON001_PROG_LOCK) {
         if (getAlpha() < 0.7) {
-            if (pEffectLockon001_Main_->getProgress()->get() == LOCKON001_PROG_LOCK) {
+            if (pLockonCursor001_Main_->getProgress()->get() == LOCKON001_PROG_LOCK) {
                 addAlpha(0.07);
-            } else if (pEffectLockon001_Main_->getProgress()->get() == LOCKON001_PROG_FIRST_LOCK) {
+            } else if (pLockonCursor001_Main_->getProgress()->get() == LOCKON001_PROG_FIRST_LOCK) {
                 addAlpha(0.01);
             } else {
                 addAlpha(0.01);
             }
         }
         //縮小完了後、Mainのビートに合わせる
-        _sx = _sy = _sz = pEffectLockon001_Main_->_sx;
-        pKuroko->_angvelo_face[AXIS_Z] = pEffectLockon001_Main_->getKuroko()->_angvelo_face[AXIS_Z];
+        _sx = _sy = _sz = pLockonCursor001_Main_->_sx;
+        pKuroko->_angvelo_face[AXIS_Z] = pLockonCursor001_Main_->getKuroko()->_angvelo_face[AXIS_Z];
         if (pTarget_) {
             if (pTarget_->isActiveInTheTree() || pTarget_->willActivateAfter()) {
                 if (ABS(pTarget_->_x-_x) <= PX_C(200) &&
@@ -82,8 +82,8 @@ void EffectLockon001_Sub::processBehavior() {
     if (pProg->get() == LOCKON001_PROG_RELEASE) {
         pTarget_ = nullptr;
         addAlpha(-0.05);
-        _sx = _sy = _sz = pEffectLockon001_Main_->_sx;
-        pKuroko->_angvelo_face[AXIS_Z] = pEffectLockon001_Main_->getKuroko()->_angvelo_face[AXIS_Z];
+        _sx = _sy = _sz = pLockonCursor001_Main_->_sx;
+        pKuroko->_angvelo_face[AXIS_Z] = pLockonCursor001_Main_->getKuroko()->_angvelo_face[AXIS_Z];
         if ( getAlpha() < 0.0f) {
             inactivate();
         }
@@ -93,15 +93,15 @@ void EffectLockon001_Sub::processBehavior() {
     pKuroko->behave();
 }
 
-void EffectLockon001_Sub::processJudgement() {
-    EffectLockon001::processJudgement();
+void LockonCursor001_Sub::processJudgement() {
+    LockonCursor001::processJudgement();
 }
 
-void EffectLockon001_Sub::onInactive() {
-    EffectLockon001::onInactive();
+void LockonCursor001_Sub::onInactive() {
+    LockonCursor001::onInactive();
 }
 
-void EffectLockon001_Sub::lockon(GgafDxGeometricActor* prm_pTarget) {
+void LockonCursor001_Sub::lockon(GgafDxGeometricActor* prm_pTarget) {
 
     if (prm_pTarget == nullptr || pTarget_ == prm_pTarget || MyLockonController::lockon_num_ == 0) {
         return;
@@ -116,7 +116,7 @@ void EffectLockon001_Sub::lockon(GgafDxGeometricActor* prm_pTarget) {
     }
 
 }
-void EffectLockon001_Sub::releaseLockon() {
+void LockonCursor001_Sub::releaseLockon() {
 
     if (isActiveInTheTree()) {
         GgafDxKuroko* const pKuroko = getKuroko();
@@ -131,6 +131,6 @@ void EffectLockon001_Sub::releaseLockon() {
     pTarget_ = nullptr;
 }
 
-EffectLockon001_Sub::~EffectLockon001_Sub() {
+LockonCursor001_Sub::~LockonCursor001_Sub() {
 }
 

@@ -1,7 +1,7 @@
-#ifndef EFFECTLOCKON001MAIN_H_
-#define EFFECTLOCKON001MAIN_H_
+#ifndef LOCKONCURSOR001MAIN_H_
+#define LOCKONCURSOR001MAIN_H_
 #include "VioletVreath.h"
-#include "jp/gecchi/VioletVreath/actor/my/EffectLockon001.h"
+#include "jp/gecchi/VioletVreath/actor/my/LockonCursor001.h"
 
 namespace VioletVreath {
 
@@ -11,10 +11,10 @@ namespace VioletVreath {
  * @since 2010/01/28
  * @author Masatoshi Tsuge
  */
-class EffectLockon001_Main : public EffectLockon001 {
+class LockonCursor001_Main : public LockonCursor001 {
 
 public:
-    EffectLockon001_Main(const char* prm_name);
+    LockonCursor001_Main(const char* prm_name);
 
     void initialize() override;
 
@@ -30,9 +30,9 @@ public:
 
     void lockon(GgafDxGeometricActor* prm_pTarget) override;
 
-    virtual ~EffectLockon001_Main();
+    virtual ~LockonCursor001_Main();
 };
 
 }
-#endif /*EFFECTLOCKON001MAIN_H_*/
+#endif /*LOCKONCURSOR001MAIN_H_*/
 

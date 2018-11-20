@@ -13,7 +13,7 @@
 #include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
 #include "jp/ggaf/lib/actor/laserchip/WateringLaserChip.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/LaserMagic.h"
-#include "jp/gecchi/VioletVreath/actor/my/EffectLockon001_Main.h"
+#include "jp/gecchi/VioletVreath/actor/my/LockonCursor001_Main.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime.h"
 
@@ -37,7 +37,7 @@ MyBunshinWateringLaserChip001::MyBunshinWateringLaserChip001(const char* prm_nam
     _class_name = "MyBunshinWateringLaserChip001";
     default_stamina_ = getStatus()->get(STAT_Stamina);
     pOrg_ = nullptr;
-    pLockon_ = nullptr;
+    pLockonCursor_ = nullptr;
     is_lockon_ = false;
     GgafDxModel* pModel = getModel();
     if (!MyBunshinWateringLaserChip001::pModel_) {
@@ -74,7 +74,7 @@ void MyBunshinWateringLaserChip001::onCreateModel() {
 
 void MyBunshinWateringLaserChip001::setOrg(MyBunshin* prm_pOrg) {
     pOrg_ = prm_pOrg;
-    pLockon_ = pOrg_->pLockonCtrler_->pMainLockonEffect_;
+    pLockonCursor_ = pOrg_->pLockonCtrler_->pMainLockonEffect_;
 }
 
 void MyBunshinWateringLaserChip001::onActive() {
@@ -96,16 +96,14 @@ void MyBunshinWateringLaserChip001::processBehavior() {
 
     if (active_frame >= 60*20) {
         sayonara(); //保険のタイムアウト20秒
-    } else if (active_frame < 7) {
-        //なにもしない
-    } else if (pAimInfo && pAimInfo->pTarget == nullptr) {
+    } else if (pAimInfo == nullptr || active_frame < 7) {
         //なにもしない
     } else {
         GgafDxGeometricActor* pAimTarget = pAimInfo->pTarget;
-        frame aim_time_out_t1 = pAimInfo->aim_time_out_t1;
         if (pAimTarget) {
+            frame aim_time_out_t1 = pAimInfo->aim_time_out_t1;
             //先端チップ時（消える可能性のあるLeaderChipにあらず！）、T1が相変わらずロックオンターゲットならば更新
-            if (getInfrontChip() == nullptr && pAimTarget == pLockon_->pTarget_ && pAimInfo_->spent_frames_to_t1 < aim_time_out_t1) {
+            if (getInfrontChip() == nullptr && pAimTarget == pLockonCursor_->pTarget_ && pAimInfo_->spent_frames_to_t1 < aim_time_out_t1) {
                 pAimInfo->t1_x = pAimTarget->_x; //t1更新
                 pAimInfo->t1_y = pAimTarget->_y;
                 pAimInfo->t1_z = pAimTarget->_z;
@@ -215,7 +213,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                 }
             }
 
-        }
+        } //if (pAimTarget)
 
     }
     pTrucker->behave();
@@ -237,7 +235,7 @@ void MyBunshinWateringLaserChip001::processSettlementBehavior() {
         MyBunshinWateringLaserChip001* pF = (MyBunshinWateringLaserChip001*) getInfrontChip();
         if (pF == nullptr) {
             //先端チップ
-            GgafDxGeometricActor* pLockonTarget = pLockon_->pTarget_;
+            GgafDxGeometricActor* pLockonTarget = pLockonCursor_->pTarget_;
             if (pLockonTarget && pLockonTarget->isActiveInTheTree()) {
                 //先端でロックオン中
                 pAimInfo_ = pOrg_->getAimInfo();
@@ -491,7 +489,7 @@ void MyBunshinWateringLaserChip001::onInactive() {
         pAimInfo->pLeaderChip = nullptr;
     }
     pOrg_ = nullptr;
-    pLockon_ = nullptr;
+    pLockonCursor_ = nullptr;
     pAimInfo_ = nullptr;
 
     WateringLaserChip::onInactive();

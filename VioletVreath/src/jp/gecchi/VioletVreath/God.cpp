@@ -70,7 +70,7 @@ void God::initVB() {
     God::pVbtn_PLAY_->remap(VB_BUTTON1   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_SHOT1      ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_SHOT1      ]);
     God::pVbtn_PLAY_->remap(VB_BUTTON2   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_SHOT2      ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_SHOT2      ]);
     God::pVbtn_PLAY_->remap(VB_BUTTON3   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_OPTION     ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_OPTION     ]);
-//    God::pVbtn_PLAY_->remap_VB_BUTTON4   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_VIEW       ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_VIEW       ]);
+    God::pVbtn_PLAY_->remap(VB_BUTTON4   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_VIEW       ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_VIEW       ]);
     God::pVbtn_PLAY_->remap(VB_BUTTON5   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_TURBO      ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_TURBO      ]);
     God::pVbtn_PLAY_->remap(VB_BUTTON6   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_POWERUP    ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_POWERUP    ]);
     God::pVbtn_PLAY_->remap(VB_BUTTON7   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_BUTTON7    ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_BUTTON7    ]);
@@ -95,7 +95,7 @@ void God::initVB() {
     God::pVbtn_UI_->remap(VB_BUTTON1   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_SHOT1      ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_SHOT1      ]);
     God::pVbtn_UI_->remap(VB_BUTTON2   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_SHOT2      ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_SHOT2      ]);
     God::pVbtn_UI_->remap(VB_BUTTON3   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_OPTION     ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_OPTION     ]);
-//    God::pVbtn_UI_->remap_VB_BUTTON4  , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_VIEW       ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_VIEW       ]);
+    God::pVbtn_UI_->remap(VB_BUTTON4   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_VIEW       ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_VIEW       ]);
     God::pVbtn_UI_->remap(VB_BUTTON5   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_TURBO      ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_TURBO      ]);
     God::pVbtn_UI_->remap(VB_BUTTON6   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_POWERUP    ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_POWERUP    ]);
     God::pVbtn_UI_->remap(VB_BUTTON7   , VirtualButton::_mapStr2VBK[ CONFIG::MY_KEY_BUTTON7    ], VirtualButton::_mapStr2VBJ[ CONFIG::MY_JOY_BUTTON7    ]);

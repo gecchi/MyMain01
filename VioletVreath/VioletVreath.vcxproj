@@ -523,10 +523,10 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinShot001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinSnipeShot001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinWateringLaserChip001.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\EffectLockon001.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\EffectLockon001_Main.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\EffectLockon001_Sub.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\EffectMyShipExplosion.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\lockoncursor001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\lockoncursor001_main.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\lockoncursor001_sub.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\CostDispBar.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\DamageDispBar.h" />
@@ -891,10 +891,10 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinShot001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinSnipeShot001.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\Bunshin\MyBunshinWateringLaserChip001.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\EffectLockon001.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\EffectLockon001_Main.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\EffectLockon001_Sub.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\EffectMyShipExplosion.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\LockonCursor001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\LockonCursor001_Main.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\LockonCursor001_Sub.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\CostDispBar.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\DamageDispBar.cpp" />

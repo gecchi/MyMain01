@@ -38,7 +38,7 @@ MenuBoardKeyConfig::MenuBoardKeyConfig(const char* prm_name) :
           "TURBO BUTTON",
           "CONTROLL BUTTON",
           "MAGIC BUTTON",
-//          "VAM BUTTON",
+          "VIEW BUTTON",
           "PAUSE BUTTON"
     };
 
@@ -180,7 +180,7 @@ void MenuBoardKeyConfig::processBehavior() {
         CONFIG::_properties.setValue("MY_JOY_TURBO"     , paVBConfig[ITEM_TURBO     ].pJoy->getDrawString());
         CONFIG::_properties.setValue("MY_JOY_OPTION"    , paVBConfig[ITEM_CONTROLL  ].pJoy->getDrawString());
         CONFIG::_properties.setValue("MY_JOY_POWERUP"   , paVBConfig[ITEM_MAGIC     ].pJoy->getDrawString());
-//        CONFIG::_properties.setValue("MY_JOY_VIEW"      , paVBConfig[ITEM_VAM       ].pJoy->getDrawString());
+        CONFIG::_properties.setValue("MY_JOY_VIEW"      , paVBConfig[ITEM_VAM       ].pJoy->getDrawString());
         CONFIG::_properties.setValue("MY_JOY_PAUSE"     , paVBConfig[ITEM_PAUSE     ].pJoy->getDrawString());
         CONFIG::_properties.write(VV_CONFIG_FILE);
         CONFIG::loadProperties(VV_CONFIG_FILE); //çƒîΩâf

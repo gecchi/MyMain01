@@ -273,9 +273,6 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicMeterStatus.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MpBar.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\VreathBar.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\EffectLockon001.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\EffectLockon001_Main.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\EffectLockon001_Sub.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\EffectMyShipExplosion.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyLockonController.h" />
@@ -363,6 +360,9 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\GameGlobal.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\God.h" />
     <ClInclude Include="src\VioletVreath.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\lockoncursor001.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\lockoncursor001_main.h" />
+    <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\lockoncursor001_sub.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="VioletVreath.rc" />
@@ -640,9 +640,6 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicMeterStatus.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MpBar.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\VreathBar.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\EffectLockon001.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\EffectLockon001_Main.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\EffectLockon001_Sub.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\EffectMyShipExplosion.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MyLockonController.cpp" />
@@ -726,5 +723,8 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\GameGlobal.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\God.cpp" />
     <ClCompile Include="src\VioletVreath.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\LockonCursor001.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\LockonCursor001_Main.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\LockonCursor001_Sub.cpp" />
   </ItemGroup>
 </Project>

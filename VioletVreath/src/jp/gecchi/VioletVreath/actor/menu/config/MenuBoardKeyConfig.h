@@ -28,7 +28,7 @@ public:
         ITEM_TURBO     ,
         ITEM_CONTROLL  ,
         ITEM_MAGIC     ,
-    //        ITEM_VAM       ,
+        ITEM_VAM       ,
         ITEM_PAUSE     ,
         ITEM_BANPEI    ,
     };

@@ -34,7 +34,7 @@ public:
     /** [r]レーザー発射元 */
     MyBunshin* pOrg_;
 
-    const EffectLockon001_Main* pLockon_;
+    const LockonCursor001_Main* pLockonCursor_;
 
 
     /** [r/w]速度範囲（この値を大きくすると、最高速度が早くなる。） */

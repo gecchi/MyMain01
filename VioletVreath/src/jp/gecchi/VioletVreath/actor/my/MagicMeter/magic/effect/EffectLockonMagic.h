@@ -1,5 +1,5 @@
-#ifndef EFFECTLOCKONMAGIC_H_
-#define EFFECTLOCKONMAGIC_H_
+#ifndef LOCKONCURSORMAGIC_H_
+#define LOCKONCURSORMAGIC_H_
 #include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultSpriteActor.h"
 
@@ -30,5 +30,5 @@ public:
 };
 
 }
-#endif /*EFFECTLOCKONMAGIC_H_*/
+#endif /*LOCKONCURSORMAGIC_H_*/
 
