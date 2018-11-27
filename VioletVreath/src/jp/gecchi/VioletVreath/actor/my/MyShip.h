@@ -17,9 +17,9 @@ namespace VioletVreath {
 //無呼吸時 10000/5/60 = 約33.3秒で死ぬ
 
 /** 最大MP */
-#define MY_SHIP_MAX_MP (1000000)
+#define MY_SHIP_MAX_MP   (500000)
 /** 初期MP */
-#define MY_SHIP_START_MP (1000000)
+#define MY_SHIP_START_MP (500000)
 /** 自機の移動が停止しても、トレースな状態を維持できるフレーム数 */
 #define TRACE_DELAY_WAIT_FRAME (0x7fffffff)
 

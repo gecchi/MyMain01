@@ -79,7 +79,7 @@ void MyShipScene::initialize() {
 
 void MyShipScene::onReset() {
     _TRACE_("MyShipScene onReset() "<<NODE_INFO<<"");
-    G_ZANKI = 15;
+    G_ZANKI = 3;
     std::string z(G_ZANKI, '*');
     pLabelZanki_->update(z.c_str());
 

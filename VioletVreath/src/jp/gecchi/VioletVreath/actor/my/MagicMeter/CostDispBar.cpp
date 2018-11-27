@@ -21,13 +21,13 @@ void CostDispBar::initialize() {
 
 void CostDispBar::onReset() {
     setPositionAt(pSourceBar_);
-    _sx = pSourceBar_->_sx;
+    _sy = pSourceBar_->_sy;
     setVal(0);
 }
 
 void CostDispBar::onActive() {
     setPositionAt(pSourceBar_);
-    _sx = pSourceBar_->_sx;
+    _sy = pSourceBar_->_sy;
     setVal(0);
 }
 
@@ -40,7 +40,7 @@ void CostDispBar::processJudgement() {
 
 void CostDispBar::processPreDraw() {
     _x = pSourceBar_->_x + pSourceBar_->getWidth(); //pSourceBar_æ’[‚ÌÀ•W
-    pixcoord bar_width = (pixcoord)(_pPxQty->getQty());
+    pixcoord bar_width = getPix();
     if (bar_width >= 0) {
         getUvFlipper()->setActivePtn(4);//Â
         setAlign(ALIGN_LEFT);

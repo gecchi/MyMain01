@@ -19,7 +19,7 @@ using namespace GgafDxCore;
 using namespace GgafLib;
 using namespace VioletVreath;
 
-const int MyBunshinBase::MAX_BUNSHIN_NUM = 10;               //最大分身数
+const int MyBunshinBase::MAX_BUNSHIN_NUM = 10;              //最大分身数
 const frame MyBunshinBase::BUNSHIN_D = 16;                  //トレース時の分身と分身の間隔
 const angvelo MyBunshinBase::ANGVELO_TURN = D_ANG(2.7);     //分身の向きの角速度
 const angvelo MyBunshinBase::ANGVELO_EXPANSE = D_ANG(2.7);  //分身広がり回転角速度
@@ -260,12 +260,12 @@ void MyBunshinBase::processBehavior() {
                 const float sinRz = ANG_SIN(_rz);
                 const float cosRz = ANG_COS(_rz);
                 pTrucker->setVxyzMvVelo((cosRx*-sinRz*cosRy + sinRx*sinRy)  * MyBunshinBase::VELO_BUNSHIN_FREE_MV,
-                                          (cosRx*cosRz)                       * MyBunshinBase::VELO_BUNSHIN_FREE_MV,
-                                          (cosRx*-sinRz*-sinRy + sinRx*cosRy) * MyBunshinBase::VELO_BUNSHIN_FREE_MV );
+                                        (cosRx*cosRz)                       * MyBunshinBase::VELO_BUNSHIN_FREE_MV,
+                                        (cosRx*-sinRz*-sinRy + sinRx*cosRy) * MyBunshinBase::VELO_BUNSHIN_FREE_MV );
             } else if (pProg->getFrame() > 3*(no_-1)) { //ばらつかせ
                 pTrucker->setVxyzMvAcce( (tx - (_x + pTrucker->_velo_vx_mv*6)),
-                                           (ty - (_y + pTrucker->_velo_vy_mv*6)),
-                                           (tz - (_z + pTrucker->_velo_vz_mv*6)) );
+                                         (ty - (_y + pTrucker->_velo_vy_mv*6)),
+                                         (tz - (_z + pTrucker->_velo_vz_mv*6)) );
             }
             if (ABS(_x - tx) < 10000 &&
                 ABS(_y - ty) < 10000 &&

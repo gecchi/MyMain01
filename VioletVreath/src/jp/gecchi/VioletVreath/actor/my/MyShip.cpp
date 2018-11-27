@@ -714,13 +714,7 @@ void MyShip::processBehavior() {
         }
     }
 
-    //TODO:自爆 TEST
-    if (GgafDxInput::isPushedDownKey(DIK_0)) {
-        //自機爆発開催
-        setHitAble(false);
-        getSeTransmitter()->play3D(SE_EXPLOSION);
-        throwEventUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_BEGIN);
-    }
+
     if (prev_x_ == _x && prev_y_ == _y && prev_z_ == _z) {
         is_move_ = false;
     } else {
@@ -735,6 +729,22 @@ void MyShip::processBehavior() {
 }
 
 void MyShip::processJudgement() {
+    //TODO:自爆 TEST
+    if (GgafDxInput::isPushedDownKey(DIK_0)) {
+        //自機爆発開催
+        setHitAble(false);
+        getSeTransmitter()->play3D(SE_EXPLOSION);
+        throwEventUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_BEGIN);
+    }
+    //TODO:ダメージテスト TEST
+    if (GgafDxInput::isPushedDownKey(DIK_9)) {
+        int vreath = getStatus()->get(STAT_Stamina);
+        getStatus()->minus(STAT_Stamina, 10000);
+        int damage = vreath - getStatus()->get(STAT_Stamina);
+        if (damage > 0) {
+            pMagicMeter_->pDamageDispBar_->dispDamage(vreath+damage, vreath);
+        }
+    }
 }
 
 void MyShip::onHit(const GgafActor* prm_pOtherActor) {
@@ -749,7 +759,7 @@ void MyShip::onHit(const GgafActor* prm_pOtherActor) {
     }
     int damage = vreath - getStatus()->get(STAT_Stamina);
     if (damage > 0) {
-        pMagicMeter_->pDamageDispBar_->addDamage(damage > vreath ? vreath : damage);
+        pMagicMeter_->pDamageDispBar_->dispDamage(vreath+damage, vreath);
     }
 
     //壁の場合特別な処理

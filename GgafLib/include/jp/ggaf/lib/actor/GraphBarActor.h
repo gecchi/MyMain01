@@ -91,7 +91,7 @@ public:
      * バーの現在値に対応するピクセル値を取得
      * @return ピクセル値
      */
-    inline pixcoord getBarPx() {
+    inline pixcoord getPix() {
         return _pPxQty->getQty();
     }
 

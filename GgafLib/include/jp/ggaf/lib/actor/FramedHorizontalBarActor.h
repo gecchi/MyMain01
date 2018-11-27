@@ -62,7 +62,7 @@ public:
 
     /**
      * バーの値を設定 .
-     * linkしている場合、リンク元の値も変更されるので注意 .
+     * linkしている場合、リンク元の値も変更される .
      * @param prm_val メーター値
      */
     inline void setVal(int prm_val) {
@@ -87,7 +87,7 @@ public:
      * バーの現在値に対応するピクセル値を取得
      * @return ピクセル値
      */
-    inline pixcoord getBarPx() {
+    inline pixcoord getPix() {
         return _pPxQty->getQty();
     }
 
@@ -108,6 +108,24 @@ public:
     inline void decVal(int prm_val) {
         setVal(_pPxQty->getVal() - prm_val);
     }
+
+    /**
+     * バーの値に対応するピクセル値を計算して取得（設定はされない） .
+     * @param prm_val 仮のバーの値
+     * @return 仮のバーの値に対応するピクセル値
+     */
+    inline pixcoord cnvVal2Pix(int prm_val) {
+        return _pPxQty->cnvVal2Qty(prm_val);
+    }
+
+    inline int cnvPix2Val(pixcoord prm_pix) {
+        return _pPxQty->cnvQty2Val(prm_pix);
+    }
+
+    inline void setValByPix(pixcoord prm_pix) {
+        setVal(cnvPix2Val(prm_pix));
+    }
+
 
     virtual void processPreDraw() override;
 

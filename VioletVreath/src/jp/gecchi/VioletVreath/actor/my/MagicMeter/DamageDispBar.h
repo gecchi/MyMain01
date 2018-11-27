@@ -9,7 +9,6 @@ class DamageDispBar : public GgafLib::FramedHorizontalBarActor {
 public:
     /** 内容量 */
     GgafLib::FramedHorizontalBarActor* pSourceBar_;
-    int velo_clear_damege_;
     frame damege_disp_timer_;
     bool is_damege_disp_;
 public:
@@ -34,9 +33,10 @@ public:
 
     /**
      * 赤のばーでダメージ表示
-     * @param prm_val ダメージ有りで正の数
+     * @param prm_before_val ダメージ前の数
+     * @param prm_after_val ダメージ後の数
      */
-    void addDamage(int prm_val);
+    void dispDamage(int prm_before_val, int prm_after_val);
 
 
     virtual ~DamageDispBar();

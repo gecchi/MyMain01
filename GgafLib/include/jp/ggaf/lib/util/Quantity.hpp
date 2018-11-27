@@ -86,7 +86,7 @@ public:
 
     /**
      * 実値を設定 .
-     * 設定すると、現在のメーターの長さ(_qty) も更新される
+     * 設定すると、内部数量も連動しても更新される
      * @param prm_val 実値
      */
     inline void setVal(VAL prm_val) {
@@ -94,6 +94,15 @@ public:
         if (!_is_link) {
             _qty = (QTY)((((*_pVal) - _offset_val) * _rate_val ) + _offset_qty);
         }
+    }
+
+    /**
+     * 実値を数量で指定して設定 .
+     * 設定すると、内部数量も連動しても更新される
+     * @param prm_qty 数量
+     */
+    inline void setValByQty(QTY prm_qty) {
+        setVal(cnvQty2Val(prm_qty));
     }
 
     /**
@@ -108,6 +117,24 @@ public:
      */
     inline QTY getQty() {
         return _is_link ? (QTY)((((*_pVal) - _offset_val) * _rate_val ) + _offset_qty) : _qty;
+    }
+
+    /**
+     * 実値に対しての数量を求める(実値量及び数量は、内部設定されません) .
+     * @param prm_val 実値
+     * @return 数量
+     */
+    inline QTY cnvVal2Qty(VAL prm_val) {
+        return (QTY)(((prm_val - _offset_val) * _rate_val ) + _offset_qty);
+    }
+
+    /**
+     * 数量に対しての実値を求める(実値量及び数量は、内部設定されません) .
+     * @param prm_qty
+     * @return
+     */
+    inline VAL cnvQty2Val(QTY prm_qty) {
+        return (VAL)((_offset_val * _rate_val - _offset_qty + prm_qty) / (1.0*_rate_val));
     }
 
     virtual ~Quantity() {
