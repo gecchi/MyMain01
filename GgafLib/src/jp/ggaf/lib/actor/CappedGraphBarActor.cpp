@@ -10,8 +10,8 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-CappedGraphBarActor::CappedGraphBarActor(const char* prm_name, const char* prm_model, Quantity<int, pixcoord>* prm_pPxQty)
-      : GraphBarActor(prm_name, prm_model, prm_pPxQty) {
+CappedGraphBarActor::CappedGraphBarActor(const char* prm_name, const char* prm_model, Quantity<int, pixcoord>* prm_pQty)
+      : GraphBarActor(prm_name, prm_model, prm_pQty) {
     _class_name = "CappedGraphBarActor";
 }
 
@@ -21,7 +21,7 @@ CappedGraphBarActor::CappedGraphBarActor(const char* prm_name, const char* prm_m
 }
 
 void CappedGraphBarActor::processDraw() {
-    float bar_width = (float)(_pPxQty->getQty());
+    float bar_width = (float)(_pQty->getQty());
     if (bar_width == 0.0f) { //I know float ==
         return;
     }

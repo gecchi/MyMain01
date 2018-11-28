@@ -18,15 +18,15 @@ public:
      * コンストラクタ
      * @param prm_name
      * @param prm_model
-     * @param prm_pPxQty
+     * @param prm_pQty
      */
-    CappedGraphBarActor(const char* prm_name, const char* prm_model, Quantity<int, pixcoord>* prm_pPxQty);
+    CappedGraphBarActor(const char* prm_name, const char* prm_model, Quantity<int, pixcoord>* prm_pQty);
 
     /**
      * コンストラクタ
      * @param prm_name
      * @param prm_model
-     * @param prm_pPxQty
+     * @param prm_pQty
      */
     CappedGraphBarActor(const char* prm_name, const char* prm_model);
 

@@ -10,12 +10,12 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-GraphBarActor::GraphBarActor(const char* prm_name, const char* prm_model, Quantity<int, pixcoord>* prm_pPxQty)
+GraphBarActor::GraphBarActor(const char* prm_name, const char* prm_model, Quantity<int, pixcoord>* prm_pQty)
       : DefaultBoardActor(prm_name, prm_model) ,
 _chip_width(_pBoardModel->_model_width_px),
 _rate_org_chip_width(1.0 / _chip_width) {
     _class_name = "GraphBarActor";
-    _pPxQty = prm_pPxQty;
+    _pQty = prm_pQty;
     _is_new_Quantity = false;
     _min_val = INT_MIN;
     _max_val = INT_MAX;
@@ -26,28 +26,28 @@ GraphBarActor::GraphBarActor(const char* prm_name, const char* prm_model)
 _chip_width(_pBoardModel->_model_width_px),
 _rate_org_chip_width(1.0 / _chip_width) {
     _class_name = "GraphBarActor";
-    _pPxQty = NEW Quantity<int, pixcoord>();
+    _pQty = NEW Quantity<int, pixcoord>();
     _is_new_Quantity = true;
     _min_val = INT_MIN;
     _max_val = INT_MAX;
 }
 
-void GraphBarActor::linkQty(Quantity<int, pixcoord>* prm_pPxQty) {
-    if (_pPxQty) {
+void GraphBarActor::linkQty(Quantity<int, pixcoord>* prm_pQty) {
+    if (_pQty) {
         if (_is_new_Quantity) {
-            GGAF_DELETE(_pPxQty);
+            GGAF_DELETE(_pQty);
         }
     }
-    _pPxQty = prm_pPxQty;
+    _pQty = prm_pQty;
     _is_new_Quantity = false;
 }
 
 void GraphBarActor::linkVariable(int* prm_pVariable) {
-    _pPxQty->link(prm_pVariable);
+    _pQty->link(prm_pVariable);
 }
 
 void GraphBarActor::processDraw() {
-    float bar_width = (float)(_pPxQty->getQty());
+    float bar_width = (float)(_pQty->getQty());
     if (bar_width == 0.0f) { //I know float ==
         return;
     }
@@ -88,6 +88,6 @@ void GraphBarActor::processDraw() {
 
 GraphBarActor::~GraphBarActor() {
     if (_is_new_Quantity) {
-        GGAF_DELETE(_pPxQty);
+        GGAF_DELETE(_pQty);
     }
 }

@@ -113,31 +113,32 @@ height_(PX_C(height_px_)) {
         appendGroupChild(papLvTgtMvCur_[i]); //メータ補助カーソル
     }
 
-    pixcoord mp_px = 800;
-    int vreath_val = *prm_pVreath_MyShip; //最初が満タンだからこれを使用
-    pixcoord vreath_px = mp_px;
+    const int mp_max_val = MY_SHIP_MAX_MP;
+    const coord mp_disp_width = PX_C(800); //画面表示上の横幅800ピクセル。
+    const int vreath_max_val = *prm_pVreath_MyShip; //最初が満タンだからこれを使用
+    const coord vreath_disp_width = PX_C(800);  //画面表示上の横幅ピクセル数。
     //MPバー設置
     pMpBar_ = NEW MpBar("MpBar");
     pMpBar_->linkVariable(prm_pMP_MyShip);
-    pMpBar_->graduate(0, MY_SHIP_MAX_MP, mp_px); //現在値で画面表示は600pxとする。
+    pMpBar_->scale(0, mp_max_val, mp_disp_width);
     appendGroupChild(pMpBar_);
     //Vreathバー設置
     pVreathBar_ = NEW VreathBar("VreathBar");
     pVreathBar_->linkVariable(prm_pVreath_MyShip);
-    pVreathBar_->graduate(0, vreath_val, vreath_px); //現在値で画面表示は600pxとする。
+    pVreathBar_->scale(0, vreath_max_val, vreath_disp_width);
     appendGroupChild(pVreathBar_);
 
     //エネルギーバーのコスト表示バー
     pMpCostDispBar_ = NEW CostDispBar("CostDispBar", pMpBar_);
-    pMpCostDispBar_->graduate(-MY_SHIP_MAX_MP, +MY_SHIP_MAX_MP, mp_px*2);
+    pMpCostDispBar_->scale(-mp_max_val, +mp_max_val, mp_disp_width*2);
     appendGroupChild(pMpCostDispBar_);
     //Vreathバー、コスト表示バー
     pVreathCostDispBar_ = NEW CostDispBar("CostDispBar2", pVreathBar_);
-    pVreathCostDispBar_->graduate(-vreath_val, +vreath_val, vreath_px*2);
+    pVreathCostDispBar_->scale(-vreath_max_val, +vreath_max_val, vreath_disp_width*2);
     appendGroupChild(pVreathCostDispBar_);
     //Vreathバー、ダメージ表示バー
     pDamageDispBar_ = NEW DamageDispBar("DamageDispBar", pVreathBar_);
-    pDamageDispBar_->graduate(-vreath_val, +vreath_val, vreath_px*2);
+    pDamageDispBar_->scale(-vreath_max_val, +vreath_max_val, vreath_disp_width*2);
     appendGroupChild(pDamageDispBar_);
 
     //残魔法効果持続時間表示

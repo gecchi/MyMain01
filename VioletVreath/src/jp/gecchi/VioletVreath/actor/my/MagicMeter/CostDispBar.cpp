@@ -39,18 +39,18 @@ void CostDispBar::processJudgement() {
 }
 
 void CostDispBar::processPreDraw() {
-    _x = pSourceBar_->_x + pSourceBar_->getWidth(); //pSourceBar_先端の座標
-    pixcoord bar_width = getPix();
+    _x = pSourceBar_->_x + pSourceBar_->getCoordWidth(); //pSourceBar_先端の座標
+    coord bar_width = getCoordWidth();
     if (bar_width >= 0) {
         getUvFlipper()->setActivePtn(4);//青
         setAlign(ALIGN_LEFT);
-        setWidth(PX_C(bar_width));
+        setValByCoordWidth(bar_width);
     } else {
         getUvFlipper()->setActivePtn(0);//赤
         setAlign(ALIGN_RIGHT);
-        setWidth(PX_C(-bar_width));
+        setValByCoordWidth(-bar_width);
     }
-    DefaultFramedBoardActor::processPreDraw();
+    FramedHorizontalBarActor::processPreDraw();
 }
 void CostDispBar::onInactive() {
 }

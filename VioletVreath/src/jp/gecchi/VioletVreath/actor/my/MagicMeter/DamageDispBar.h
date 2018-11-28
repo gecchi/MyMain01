@@ -11,12 +11,8 @@ public:
     GgafLib::FramedHorizontalBarActor* pSourceBar_;
     frame damege_disp_timer_;
     bool is_damege_disp_;
+
 public:
-    /**
-     *
-     * @param prm_name
-     * @param prm_pPxQty config済みの PxQuantityオブジェクトの参照
-     */
     DamageDispBar(const char* prm_name, GgafLib::FramedHorizontalBarActor* prm_pTargetSourceBar);
 
     void initialize() override;

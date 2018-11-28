@@ -55,10 +55,10 @@ public:
      * @param prm_min_fan_num prm_min_val‚É‘Î‰ž‚·‚éFAN‚Ì”
      * @param prm_max_fan_num prm_max_val‚É‘Î‰ž‚·‚éFAN‚Ì”
      */
-    inline void graduate(int prm_min_val, int prm_max_val, int prm_min_fan_num, int prm_max_fan_num) {
+    inline void scale(int prm_min_val, int prm_max_val, int prm_min_fan_num, int prm_max_fan_num) {
         _min_val = prm_min_val;
         _max_val = prm_max_val;
-        _pFanQty->graduate(prm_min_val, prm_max_val, prm_min_fan_num, prm_max_fan_num);
+        _pFanQty->scale(prm_min_val, prm_max_val, prm_min_fan_num, prm_max_fan_num);
     }
 
     /**

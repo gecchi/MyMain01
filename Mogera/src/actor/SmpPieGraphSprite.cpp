@@ -26,7 +26,7 @@ SmpPieGraphSprite::SmpPieGraphSprite(const char* prm_name) :
     //座標設定
     int angle_num = ((GgafDxRegularPolygonSpriteModel*)getModel())->getAngleNum();
     linkVariable(&_x);
-    graduate(-PX_C(50), PX_C(50), 0, angle_num); //現在値で画面表示は600pxとする。
+    scale(-PX_C(50), PX_C(50), 0, angle_num); //現在値で画面表示は600pxとする。
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliSphere(0, PX_C(20));

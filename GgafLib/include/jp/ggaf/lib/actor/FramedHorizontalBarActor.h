@@ -15,12 +15,13 @@ namespace GgafLib {
 class FramedHorizontalBarActor : public DefaultFramedBoardActor {
 
 protected:
+    /** [r]数量バー内容値 */
+    Quantity<int, coord>* _pQty;
     /** [r]コンストラクタでPxQuantity をnewした場合 true */
     bool _is_new_Quantity;
 
 public:
-    /** [r]数量バー内容値 */
-    Quantity<int, pixcoord>* _pPxQty;
+
     /** [r]数量バー最大値 */
     int _min_val;
     /** [r]数量バー最小値 */
@@ -30,17 +31,17 @@ public:
     /**
      *
      * @param prm_name
-     * @param prm_pPxQty config済みの PxQuantityオブジェクトの参照
+     * @param prm_pQty config済みの PxQuantityオブジェクトの参照
      */
-    FramedHorizontalBarActor(const char* prm_name, const char* prm_model, Quantity<int, pixcoord>* prm_pPxQty);
+    FramedHorizontalBarActor(const char* prm_name, const char* prm_model, Quantity<int, coord>* prm_pQty);
 
     FramedHorizontalBarActor(const char* prm_name, const char* prm_model);
 
     /**
      * 内部のバーの値を保持する Quantity を置き換える .
-     * @param prm_pPxQty
+     * @param prm_pQty
      */
-    void linkQty(Quantity<int, pixcoord>* prm_pPxQty);
+    void linkQty(Quantity<int, coord>* prm_pQty);
 
     /**
      * 内部のバーの値を保持する Quantity の参照変数を変更 .
@@ -52,12 +53,12 @@ public:
      * バーの値に対するピクセルの目盛りを付ける。
      * @param prm_min_val バー最小値を設定（これ以下の値はセットできなくなる）
      * @param prm_max_val バー最大値を設定（これ以上の値はセットできなくなる）
-     * @param prm_px_from_min_to_max 最小値～最大値の画面上のピクセル幅を設定
+     * @param prm_coord_width 最小値～最大値の画面上のピクセル幅を設定
      */
-    inline void graduate(int prm_min_val, int prm_max_val, pixcoord prm_px_from_min_to_max ) {
+    inline void scale(int prm_min_val, int prm_max_val, coord prm_coord_width ) {
         _min_val = prm_min_val;
         _max_val = prm_max_val;
-        _pPxQty->graduate(prm_max_val - prm_min_val, prm_px_from_min_to_max);
+        _pQty->scale(prm_max_val - prm_min_val, prm_coord_width);
     }
 
     /**
@@ -67,11 +68,11 @@ public:
      */
     inline void setVal(int prm_val) {
         if (_max_val < prm_val) {
-            _pPxQty->setVal(_max_val);
+            _pQty->setVal(_max_val);
         } else if (_min_val > prm_val) {
-            _pPxQty->setVal(_min_val);
+            _pQty->setVal(_min_val);
         } else {
-            _pPxQty->setVal(prm_val);
+            _pQty->setVal(prm_val);
         }
     }
 
@@ -80,15 +81,15 @@ public:
      * @return バーの値
      */
     inline int getVal() {
-        return _pPxQty->getVal();
+        return _pQty->getVal();
     }
 
     /**
      * バーの現在値に対応するピクセル値を取得
      * @return ピクセル値
      */
-    inline pixcoord getPix() {
-        return _pPxQty->getQty();
+    inline coord getCoordWidth() {
+        return _pQty->getQty();
     }
 
     /**
@@ -97,7 +98,7 @@ public:
      * @param prm_val バーの加算値
      */
     inline void incVal(int prm_val) {
-        setVal(_pPxQty->getVal() + prm_val);
+        setVal(_pQty->getVal() + prm_val);
     }
 
     /**
@@ -106,7 +107,7 @@ public:
      * @param prm_val バーの減算値
      */
     inline void decVal(int prm_val) {
-        setVal(_pPxQty->getVal() - prm_val);
+        setVal(_pQty->getVal() - prm_val);
     }
 
     /**
@@ -114,16 +115,16 @@ public:
      * @param prm_val 仮のバーの値
      * @return 仮のバーの値に対応するピクセル値
      */
-    inline pixcoord cnvVal2Pix(int prm_val) {
-        return _pPxQty->cnvVal2Qty(prm_val);
+    inline coord cnvVal2CoordWidth(int prm_val) {
+        return _pQty->cnvVal2Qty(prm_val);
     }
 
-    inline int cnvPix2Val(pixcoord prm_pix) {
-        return _pPxQty->cnvQty2Val(prm_pix);
+    inline int cnvCoordWidth2Val(coord prm_coord_width) {
+        return _pQty->cnvQty2Val(prm_coord_width);
     }
 
-    inline void setValByPix(pixcoord prm_pix) {
-        setVal(cnvPix2Val(prm_pix));
+    inline void setValByCoordWidth(coord prm_coord_width) {
+        setVal(cnvCoordWidth2Val(prm_coord_width));
     }
 
 

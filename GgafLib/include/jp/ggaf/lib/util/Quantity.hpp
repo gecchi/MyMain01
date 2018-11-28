@@ -7,13 +7,13 @@ namespace GgafLib {
 
 /**
  * 数量 .
- * 内部に実値(val)とそれに関わる数量(qty)を持つ。
+ * 内部に実値(VAL)とそれに関わる数量(QTY)を持つ。
  * 実値を操作（計算）すると、それに伴って数量が割合変化する。
  * @version 1.00
  * @since 2011/02/02
  * @author Masatoshi Tsuge
  */
-template<typename QTY, typename VAL>
+template<typename VAL, typename QTY>
 class Quantity : public GgafCore::GgafObject {
 
 public:
@@ -52,8 +52,8 @@ public:
      * @param prm_val 割合1.0(100%) の場合に実値が取る値をセット
      * @param prm_qty 割合1.0(100%) の場合に数量が取る値をセット
      */
-    void graduate(VAL prm_val, QTY prm_qty) {
-        graduate(0.0, prm_val, 0.0, prm_qty);
+    void scale(VAL prm_val, QTY prm_qty) {
+        scale(0.0, prm_val, 0.0, prm_qty);
     }
 
     /**
@@ -63,7 +63,7 @@ public:
      * @param prm_min_qty 実値最小値に対応する数量最小値を設定
      * @param prm_max_qty 実値最大値に対応する数量最大値を設定
      */
-    inline void graduate(VAL prm_min_val, VAL prm_max_val, QTY prm_min_qty, QTY prm_max_qty) {
+    inline void scale(VAL prm_min_val, VAL prm_max_val, QTY prm_min_qty, QTY prm_max_qty) {
         _rate_val = 1.0 *  (prm_max_qty - prm_min_qty) / (prm_max_val - prm_min_val);
         _offset_val = prm_min_val;
         _offset_qty = prm_min_qty;

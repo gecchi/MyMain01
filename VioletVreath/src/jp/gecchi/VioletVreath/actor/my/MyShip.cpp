@@ -742,7 +742,7 @@ void MyShip::processJudgement() {
         getStatus()->minus(STAT_Stamina, 10000);
         int damage = vreath - getStatus()->get(STAT_Stamina);
         if (damage > 0) {
-            pMagicMeter_->pDamageDispBar_->dispDamage(vreath+damage, vreath);
+            pMagicMeter_->pDamageDispBar_->dispDamage(vreath, vreath-damage);
         }
     }
 }
@@ -759,7 +759,7 @@ void MyShip::onHit(const GgafActor* prm_pOtherActor) {
     }
     int damage = vreath - getStatus()->get(STAT_Stamina);
     if (damage > 0) {
-        pMagicMeter_->pDamageDispBar_->dispDamage(vreath+damage, vreath);
+        pMagicMeter_->pDamageDispBar_->dispDamage(vreath, vreath-damage);
     }
 
     //•Ç‚Ìê‡“Á•Ê‚Èˆ—
