@@ -48,7 +48,12 @@ void DamageDispBar::processBehavior() {
             setAlpha(0);
         } else {
             coord damage_width = _x - (pSourceBar_->_x + pSourceBar_->getCoordWidth());
-            setValByCoordWidth(damage_width);
+            if (damage_width > 0) {
+                setValByCoordWidth(damage_width);
+            } else {
+                setVal(0);
+                setAlpha(0);
+            }
         }
     }
 }
@@ -65,17 +70,21 @@ void DamageDispBar::dispDamage(int prm_before_val, int prm_after_val) {
     setAlpha(1.0);
     if (is_damege_disp_) {
         if (damege_disp_timer_ <= 20) {
-            damege_disp_timer_ = 20; //赤表示時間(ほぼ連続ダメージ)
+            damege_disp_timer_ = 20; //20F以内は連続ダメージと考えて加算表示する
         }
+        coord total_damage_width = cnvVal2CoordWidth(prm_before_val - prm_after_val + getVal());
+        setValByCoordWidth(total_damage_width);
     } else {
         damege_disp_timer_ = 60; //赤表示時間(間隔が開いてから)
         //ALIGN_RIGHT であるので、右端の x 座標を求め更新。
         coord before_bar_width = cnvVal2CoordWidth(prm_before_val);
         _x = pSourceBar_->_x + before_bar_width;
         is_damege_disp_ = true;
+        //初回のみこの表示で良い
+        coord damage_width = cnvVal2CoordWidth(prm_before_val - prm_after_val);
+        setValByCoordWidth(damage_width);
     }
-    coord damage_width = _x - cnvVal2CoordWidth(prm_before_val - prm_after_val);
-    setValByCoordWidth(damage_width);
+
 }
 
 DamageDispBar::~DamageDispBar() {
