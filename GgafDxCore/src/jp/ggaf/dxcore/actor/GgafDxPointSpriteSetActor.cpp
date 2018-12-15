@@ -34,7 +34,7 @@ _pUvFlipper(NEW GgafDxUvFlipper(getModel()->getDefaultTextureConnection()->peek(
     _obj_class |= Obj_GgafDxPointSpriteSetActor;
     _class_name = "GgafDxPointSpriteSetActor";
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列
-    _pUvFlipper->setRotation(_pPointSpriteSetModel->_texture_split_rowcol,
+    _pUvFlipper->locatePatternNo(_pPointSpriteSetModel->_texture_split_rowcol,
                              _pPointSpriteSetModel->_texture_split_rowcol );
     _pUvFlipper->setActivePtn(0);
     _pUvFlipper->exec(NOT_ANIMATED, 1);
@@ -66,7 +66,7 @@ _pUvFlipper(NEW GgafDxUvFlipper(getModel()->getDefaultTextureConnection()->peek(
     _obj_class |= Obj_GgafDxPointSpriteSetActor;
     _class_name = "GgafDxPointSpriteSetActor";
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列
-    _pUvFlipper->setRotation(_pPointSpriteSetModel->_texture_split_rowcol,
+    _pUvFlipper->locatePatternNo(_pPointSpriteSetModel->_texture_split_rowcol,
                              _pPointSpriteSetModel->_texture_split_rowcol );
     _pUvFlipper->setActivePtn(0);
     _pUvFlipper->exec(NOT_ANIMATED, 1);

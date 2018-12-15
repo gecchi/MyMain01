@@ -30,7 +30,7 @@ _pUvFlipper(NEW GgafDxUvFlipper(getModel()->getDefaultTextureConnection()->peek(
 
     _obj_class |= Obj_GgafDxBoardSetActor;
     _class_name = "GgafDxBoardSetActor";
-    _pUvFlipper->setRotation(_pBoardSetModel->_col_texture_split,
+    _pUvFlipper->locatePatternNo(_pBoardSetModel->_col_texture_split,
                              _pBoardSetModel->_row_texture_split
                             );
     _pUvFlipper->setActivePtn(0);

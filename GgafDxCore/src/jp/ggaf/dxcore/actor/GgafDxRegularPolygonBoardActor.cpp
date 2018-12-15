@@ -29,7 +29,7 @@ _pUvFlipper(NEW GgafDxUvFlipper(getModel()->getDefaultTextureConnection()->peek(
 
     _obj_class |= Obj_GgafDxRegularPolygonBoardActor;
     _class_name = "GgafDxRegularPolygonBoardActor";
-    _pUvFlipper->setRotation(_pRegularPolygonBoardModel->_col_texture_split,
+    _pUvFlipper->locatePatternNo(_pRegularPolygonBoardModel->_col_texture_split,
                              _pRegularPolygonBoardModel->_row_texture_split );
     _pUvFlipper->setActivePtn(0);
     _pUvFlipper->exec(NOT_ANIMATED, 1);

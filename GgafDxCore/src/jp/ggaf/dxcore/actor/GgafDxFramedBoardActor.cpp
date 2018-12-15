@@ -39,13 +39,13 @@ _lim_center_sy(R_SC( (_model_frame_height_px * 2.0) / _model_total_height_px )) 
 
     _obj_class |= Obj_GgafDxFramedBoardActor;
     _class_name = "GgafDxFramedBoardActor";
-    _pUvFlipper->setRotation(_pFramedBoardModel->_col_texture_split,
+    _pUvFlipper->locatePatternNo(_pFramedBoardModel->_col_texture_split,
                             _pFramedBoardModel->_row_texture_split );
     _pUvFlipper->setActivePtn(0);
     _pUvFlipper->exec(NOT_ANIMATED, 1);
 
-    _pUvFlipper_frame->setRotation(_pFramedBoardModel->_col_frame_texture_split,
-                                   _pFramedBoardModel->_row_frame_texture_split );
+    _pUvFlipper_frame->locatePatternNo(_pFramedBoardModel->_col_frame_texture_split,
+                                       _pFramedBoardModel->_row_frame_texture_split );
     _pUvFlipper_frame->setActivePtn(0);
     _pUvFlipper_frame->exec(NOT_ANIMATED, 1);
 
@@ -212,7 +212,7 @@ void GgafDxFramedBoardActor::processDraw() {
     hr = pID3DXEffect->SetFloat(pFramedBoardEffect->_h_alpha, _alpha);
     checkDxException(hr, D3D_OK, "SetFloat(_h_alpha) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
-    int active_ptn_no = _pUvFlipper_frame->getActivePtn();
+    int active_frame_ptn_no = _pUvFlipper_frame->getActivePtn();
     for (int i = 0; i < 9; i++) {
         if (i == 4) {
             _pUvFlipper->getUV(u, v);
@@ -221,12 +221,12 @@ void GgafDxFramedBoardActor::processDraw() {
             hr = pID3DXEffect->SetFloat(pFramedBoardEffect->_ah_offset_v[4], v);
             checkDxException(hr, D3D_OK, "SetFloat(_h_offset_v) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         } else {
-            _pUvFlipper_frame->getUV(active_ptn_no, u, v);
+            _pUvFlipper_frame->getUV(active_frame_ptn_no, u, v);
             hr = pID3DXEffect->SetFloat(pFramedBoardEffect->_ah_offset_u[i], u);
             checkDxException(hr, D3D_OK, "SetFloat(_h_offset_u) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             hr = pID3DXEffect->SetFloat(pFramedBoardEffect->_ah_offset_v[i], v);
             checkDxException(hr, D3D_OK, "SetFloat(_h_offset_v) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-            active_ptn_no++;
+            active_frame_ptn_no++;
         }
     }
 

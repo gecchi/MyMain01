@@ -8,13 +8,17 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 VreathBar::VreathBar(const char* prm_name)
-      : FramedHorizontalBarActor(prm_name, "TurboMeter") {
+      : FramedHorizontalBarActor(prm_name, "VreathBar") {
     _class_name = "VreathBar";
+    getUvFlipper()->setActivePtn(5);
+    getFrameUvFlipper()->remapPatternNoUv(8,
+                                          0 , 1 , 2 ,
+                                          4 ,     6 ,
+                                          8 , 9 , 10  );
+    setHeight(PX_C(16));
 }
 
 void VreathBar::initialize() {
-    setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
-//    getUvFlipper()->exec(FLIP_ORDER_LOOP, 10); //ƒAƒjƒ‡˜
 }
 
 VreathBar::~VreathBar() {

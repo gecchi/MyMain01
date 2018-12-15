@@ -28,9 +28,9 @@ _pTexture(prm_pTexture) {
     _paUV = nullptr;
 }
 
-void GgafDxUvFlipper::setRotation(float prm_base_u, float prm_base_v,
-                                  float prm_one_ptn_tex_width, float prm_one_ptn_tex_height,
-                                  int prm_ptn_col_num, int prm_num_of_max_patterns) {
+void GgafDxUvFlipper::locatePatternNo(float prm_base_u, float prm_base_v,
+                                      float prm_one_ptn_tex_width, float prm_one_ptn_tex_height,
+                                      int prm_ptn_col_num, int prm_num_of_max_patterns) {
 #ifdef MY_DEBUG
     if (prm_ptn_col_num < 0) {
         throwGgafCriticalException("prm_ptn_col_numは0より大きい数で設定して下さい。Texture="<<_pTexture->_texture_name);
@@ -59,13 +59,29 @@ void GgafDxUvFlipper::setRotation(float prm_base_u, float prm_base_v,
         }
     }
 }
-void GgafDxUvFlipper::setRotation(int prm_ptn_col_num, int prm_ptn_row_num) {
-    setRotation(0, 0,
-                1.0 / prm_ptn_col_num, 1.0 / prm_ptn_row_num,
-                prm_ptn_col_num, prm_ptn_col_num*prm_ptn_row_num
-                );
+void GgafDxUvFlipper::locatePatternNo(int prm_ptn_col_num, int prm_ptn_row_num) {
+    locatePatternNo(0, 0,
+                    1.0 / prm_ptn_col_num, 1.0 / prm_ptn_row_num,
+                    prm_ptn_col_num, prm_ptn_col_num*prm_ptn_row_num);
 }
 
+void GgafDxUvFlipper::remapPatternNoUv(int prm_ptn_num, ...) {
+    UV* paUV_temp = NEW UV[_pattno_uvflip_max+1];
+    for (int row = 0; row < _ptn_row_num; row++) {
+        for (int col = 0; col < _ptn_col_num; col++) {
+            int pattno_uvflip = row*_ptn_col_num + col;
+            paUV_temp[pattno_uvflip] = _paUV[pattno_uvflip];
+        }
+    }
+    va_list ap;
+    va_start(ap, prm_ptn_num);
+    for (int i = 0; i < prm_ptn_num; i++ ) {
+        int new_ptn_no = va_arg(ap, int);
+        _paUV[i] = paUV_temp[new_ptn_no];
+    }
+    va_end(ap);
+    GGAF_DELETEARR(paUV_temp);
+}
 
 void GgafDxUvFlipper::setActivePtn(int prm_pattno_uvflip) {
 #ifdef MY_DEBUG
@@ -106,7 +122,7 @@ void GgafDxUvFlipper::behave() {
 //    _TRACE_(getName()<<":_pattno_uvflip_now="<<_pattno_uvflip_now<<"/_pattno_uvflip_bottom="<<_pattno_uvflip_bottom<<"/_pattno_uvflip_top="<<_pattno_uvflip_top<<"/_is_reverse_order_in_oscillate_animation_flg="<<_is_reverse_order_in_oscillate_animation_flg<<"");
 #ifdef MY_DEBUG
     if (_paUV == nullptr) {
-        throwGgafCriticalException("事前にsetRotation()でパターンしてください。_pTexture="<<_pTexture->getName());
+        throwGgafCriticalException("事前にlocatePatternNo()でパターンしてください。_pTexture="<<_pTexture->getName());
     }
 #endif
     _frame_counter_uvflip++;

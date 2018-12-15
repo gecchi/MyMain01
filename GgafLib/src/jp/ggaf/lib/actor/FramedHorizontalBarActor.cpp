@@ -30,20 +30,6 @@ FramedHorizontalBarActor::FramedHorizontalBarActor(const char* prm_name, const c
     _max_val = INT_MAX;
 }
 
-void FramedHorizontalBarActor::linkQty(Quantity<int, coord>* prm_pQty) {
-    if (_pQty) {
-        if (_is_new_Quantity) {
-            GGAF_DELETE(_pQty);
-        }
-    }
-    _pQty = prm_pQty;
-    _is_new_Quantity = false;
-}
-
-void FramedHorizontalBarActor::linkVariable(int* prm_pVariable) {
-    _pQty->link(prm_pVariable);
-}
-
 void FramedHorizontalBarActor::processPreDraw() {
     coord bar_width = getCoordWidth();
     setWidth(bar_width);

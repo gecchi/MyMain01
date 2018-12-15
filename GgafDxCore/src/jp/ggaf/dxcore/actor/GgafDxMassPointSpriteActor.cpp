@@ -33,7 +33,7 @@ _pUvFlipper(NEW GgafDxUvFlipper(getModel()->getDefaultTextureConnection()->peek(
     _obj_class |= Obj_GgafDxMassPointSpriteActor;
     _class_name = "GgafDxMassPointSpriteActor";
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列
-    _pUvFlipper->setRotation(_pMassPointSpriteModel->_texture_split_rowcol,
+    _pUvFlipper->locatePatternNo(_pMassPointSpriteModel->_texture_split_rowcol,
                              _pMassPointSpriteModel->_texture_split_rowcol );
     _pUvFlipper->setActivePtn(0);
     _pUvFlipper->exec(NOT_ANIMATED, 1);

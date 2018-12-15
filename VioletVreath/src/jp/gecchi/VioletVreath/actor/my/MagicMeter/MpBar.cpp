@@ -9,13 +9,18 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 MpBar::MpBar(const char* prm_name)
-      : FramedHorizontalBarActor(prm_name, "TurboMeter") {
+      : FramedHorizontalBarActor(prm_name, "MpBar") {
     _class_name = "MpBar";
+    getUvFlipper()->setActivePtn(5);
+    getFrameUvFlipper()->remapPatternNoUv(8,
+                                          0 , 1 , 2 ,
+                                          4 ,     6 ,
+                                          8 , 9 , 10  );
+    setHeight(PX_C(16));
 }
 
 void MpBar::initialize() {
-    setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
-//    getUvFlipper()->exec(FLIP_ORDER_LOOP, 10); //ƒAƒjƒ‡˜
+
 }
 
 MpBar::~MpBar() {

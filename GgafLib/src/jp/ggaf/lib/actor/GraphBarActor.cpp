@@ -10,7 +10,7 @@ using namespace GgafCore;
 using namespace GgafDxCore;
 using namespace GgafLib;
 
-GraphBarActor::GraphBarActor(const char* prm_name, const char* prm_model, Quantity<int, pixcoord>* prm_pQty)
+GraphBarActor::GraphBarActor(const char* prm_name, const char* prm_model, Quantity<int, coord>* prm_pQty)
       : DefaultBoardActor(prm_name, prm_model) ,
 _chip_width(_pBoardModel->_model_width_px),
 _rate_org_chip_width(1.0 / _chip_width) {
@@ -26,24 +26,10 @@ GraphBarActor::GraphBarActor(const char* prm_name, const char* prm_model)
 _chip_width(_pBoardModel->_model_width_px),
 _rate_org_chip_width(1.0 / _chip_width) {
     _class_name = "GraphBarActor";
-    _pQty = NEW Quantity<int, pixcoord>();
+    _pQty = NEW Quantity<int, coord>();
     _is_new_Quantity = true;
     _min_val = INT_MIN;
     _max_val = INT_MAX;
-}
-
-void GraphBarActor::linkQty(Quantity<int, pixcoord>* prm_pQty) {
-    if (_pQty) {
-        if (_is_new_Quantity) {
-            GGAF_DELETE(_pQty);
-        }
-    }
-    _pQty = prm_pQty;
-    _is_new_Quantity = false;
-}
-
-void GraphBarActor::linkVariable(int* prm_pVariable) {
-    _pQty->link(prm_pVariable);
 }
 
 void GraphBarActor::processDraw() {

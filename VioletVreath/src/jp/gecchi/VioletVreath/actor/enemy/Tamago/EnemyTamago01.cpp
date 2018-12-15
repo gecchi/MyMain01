@@ -80,7 +80,7 @@ void EnemyTamago01::onActive() {
         pProgram_Tamago01Move_->start(ABSOLUTE_COORD); //スプライン移動をプログラムしておく
     }
 
-//    getUvFlipper()->setRotation(16, 1/16.0, 1/16.0);
+//    getUvFlipper()->locatePatternNo(16, 1/16.0, 1/16.0);
 //    getUvFlipper()->exec(FLIP_ORDER_LOOP, 5);
 //    getUvFlipper()->setFlipPtnRange(0, 16*16-1);
 //    getUvFlipper()->setActivePtn(0);

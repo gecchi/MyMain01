@@ -15,7 +15,6 @@ CostDispBar::CostDispBar(const char* prm_name, FramedHorizontalBarActor* prm_pTa
 }
 
 void CostDispBar::initialize() {
-    setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
     setAlpha(0.7); //•‰‚Ì’l‚àŽg‚¤
 }
 

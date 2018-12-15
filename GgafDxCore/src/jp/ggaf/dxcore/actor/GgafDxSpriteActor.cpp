@@ -32,7 +32,7 @@ _pUvFlipper(NEW GgafDxUvFlipper(getModel()->getDefaultTextureConnection()->peek(
 
     _obj_class |= Obj_GgafDxSpriteActor;
     _class_name = "GgafDxSpriteActor";
-    _pUvFlipper->setRotation(_pSpriteModel->_col_texture_split,
+    _pUvFlipper->locatePatternNo(_pSpriteModel->_col_texture_split,
                              _pSpriteModel->_row_texture_split );
     _pUvFlipper->setActivePtn(0);
     _pUvFlipper->exec(NOT_ANIMATED, 1);

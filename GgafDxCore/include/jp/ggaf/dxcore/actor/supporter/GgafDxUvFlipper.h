@@ -86,7 +86,7 @@ public:
      * <pre>
      * ＜例＞
      *
-     *   _pUvFlipper->setRotation(0, 0, 1.0/5, 1.0/4, 3, 10);
+     *   _pUvFlipper->locatePatternNo(0, 0, 1.0/5, 1.0/4, 3, 10);
      *   _pUvFlipper->setActivePtn(5);
      *
      * を実行時のパターン概念図
@@ -140,7 +140,7 @@ public:
      *       コンストラクタで以下の初期処理を実行している。
      *       ----------------------------------------------------------
      *       _pUvFlipper = NEW GgafDxUvFlipper(this);
-     *       _pUvFlipper->setRotation(縦分割数, 横分割数);
+     *       _pUvFlipper->locatePatternNo(縦分割数, 横分割数);
      *       _pUvFlipper->setActivePtn(0);
      *       _pUvFlipper->exec(NOT_ANIMATED, 1);
      *       ----------------------------------------------------------
@@ -148,10 +148,10 @@ public:
      *
      * ・GgafDxSpriteMeshActor
      *   GgafDxSpriteMeshSetActor  について・・・
-     *       コンストラクタで以下の初期処理を実行している。必要に応じて下位実装クラスで setRotation() を再実行可能。
+     *       コンストラクタで以下の初期処理を実行している。必要に応じて下位実装クラスで locatePatternNo() を再実行可能。
      *       ----------------------------------------------------------
      *       _pUvFlipper = NEW GgafDxUvFlipper(this);
-     *       _pUvFlipper->setRotation(1, 1);
+     *       _pUvFlipper->locatePatternNo(1, 1);
      *       _pUvFlipper->setActivePtn(0);
      *       _pUvFlipper->exec(NOT_ANIMATED, 1);
      *       ----------------------------------------------------------
@@ -167,15 +167,15 @@ public:
      * @param prm_ptn_col_num パターンのカラム数(横に並ぶパターン数)
      * @param prm_num_of_max_patterns 最大パターン数 (1～)
      */
-    virtual void setRotation(float prm_base_u, float prm_base_v,
-                             float prm_one_ptn_tex_width, float prm_one_ptn_tex_height,
-                             int prm_ptn_col_num, int prm_num_of_max_patterns);
+    virtual void locatePatternNo(float prm_base_u, float prm_base_v,
+                                 float prm_one_ptn_tex_width, float prm_one_ptn_tex_height,
+                                 int prm_ptn_col_num, int prm_num_of_max_patterns);
 
     /**
      * テクスチャのフリッピングパターンの番号に対応するUV座標のズレるオフセットを定義する。 .
-     * setRotation(float, float, float, float, int, int); <BR>
+     * locatePatternNo(float, float, float, float, int, int); <BR>
      * の簡易設定版。内部で他の引数の値が自動計算されて実行される。 <BR>
-     * setRotation(5, 4); とした場合以下のようになる。 <BR>
+     * locatePatternNo(5, 4); とした場合以下のようになる。 <BR>
      * <pre>
      *     prm_base_u = 0
      *     prm_base_v = 0
@@ -202,7 +202,9 @@ public:
      * @param prm_ptn_col_num テクスチャ縦分割数
      * @param prm_ptn_row_num テクスチャ横分割数
      */
-    virtual void setRotation(int prm_ptn_col_num, int prm_ptn_row_num);
+    virtual void locatePatternNo(int prm_ptn_col_num, int prm_ptn_row_num);
+
+    void remapPatternNoUv(int prm_ptn_num, ...);
 
     virtual void setBaseUv(float prm_base_u, float prm_base_v) {
         _base_u = prm_base_u;
@@ -219,7 +221,7 @@ public:
 
     /**
      * 現在のアニメーションパターン番号(_pattno_uvflip_now)に対応する左上のUV座標を取得する。 .
-     * 事前に setRotation() の呼び出を行ってく必要がある。
+     * 事前に locatePatternNo() の呼び出を行ってく必要がある。
      * @param out_u[out] 座標U
      * @param out_v[out] 座標V
      */

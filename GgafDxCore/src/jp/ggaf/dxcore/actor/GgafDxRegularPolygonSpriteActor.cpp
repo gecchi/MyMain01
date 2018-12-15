@@ -32,7 +32,7 @@ _pUvFlipper(NEW GgafDxUvFlipper(getModel()->getDefaultTextureConnection()->peek(
 
     _obj_class |= Obj_GgafDxRegularPolygonSpriteActor;
     _class_name = "GgafDxRegularPolygonSpriteActor";
-    _pUvFlipper->setRotation(_pRegularPolygonSpriteModel->_col_texture_split,
+    _pUvFlipper->locatePatternNo(_pRegularPolygonSpriteModel->_col_texture_split,
                              _pRegularPolygonSpriteModel->_row_texture_split );
     _pUvFlipper->setActivePtn(0);
     _pUvFlipper->exec(NOT_ANIMATED, 1);

@@ -41,14 +41,23 @@ public:
      * 内部のバーの値を保持する Quantity を置き換える .
      * @param prm_pQty
      */
-    void linkQty(Quantity<int, coord>* prm_pQty);
+    void linkQty(Quantity<int, coord>* prm_pQty) {
+        if (_pQty) {
+            if (_is_new_Quantity) {
+                GGAF_DELETE(_pQty);
+            }
+        }
+        _pQty = prm_pQty;
+        _is_new_Quantity = false;
+    }
 
     /**
      * 内部のバーの値を保持する Quantity の参照変数を変更 .
      * @param prm_pVariable
      */
-    void linkVariable(int* prm_pVariable);
-
+    void linkVariable(int* prm_pVariable) {
+        _pQty->link(prm_pVariable);
+    }
     /**
      * バーの値に対するピクセルの目盛りを付ける。
      * @param prm_min_val バー最小値を設定（これ以下の値はセットできなくなる）
