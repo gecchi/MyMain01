@@ -79,15 +79,15 @@ void EnemyErmioneArm::processBehavior() {
                     //「土台まで」の行列の積（_pActor_base->_matWorldRotMv) を b_mat_xx とする。
                     //現在の最終座標から自機への向きのベクトルを、(mvx, mvy, mvz) とすると、
                     //
-                    //                | b_mat_11 b_mat_12 b_mat_13 |
-                    //| tvx tvy tvz | | b_mat_21 b_mat_22 b_mat_23 | = | mvx mvy mvz |
-                    //                | b_mat_31 b_mat_32 b_mat_33 |
+                    // | b_mat_11 b_mat_12 b_mat_13 | |tvx|   |mvx|
+                    // | b_mat_21 b_mat_22 b_mat_23 | |tvy| = |mvy|
+                    // | b_mat_31 b_mat_32 b_mat_33 | |tvz|   |mvz|
                     //
                     //となるはずだ。(tvx, tvy, tvz)について解く。逆行列を掛けて求めれば良い。
                     //
-                    //                                   | b_mat_11 b_mat_12 b_mat_13 | -1
-                    // | tvx tvy tvz | = | mvx mvy mvz | | b_mat_21 b_mat_22 b_mat_23 |
-                    //                                   | b_mat_31 b_mat_32 b_mat_33 |
+                    // |tvx|   | b_mat_11 b_mat_12 b_mat_13 | -1  |mvx|
+                    // |tvy| = | b_mat_21 b_mat_22 b_mat_23 |     |mvy|
+                    // |tvz|   | b_mat_31 b_mat_32 b_mat_33 |     |mvz|
                     //
                     //mvx mvy mvz は、自機への方向ベクトルである
                     int mvx,mvy,mvz;
