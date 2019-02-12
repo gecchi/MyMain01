@@ -1,17 +1,17 @@
 #include "EnemyEtis.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/model/GgafDxModel.h"
-#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Trucker.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/model/Model.h"
+#include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -26,13 +26,13 @@ EnemyEtis::EnemyEtis(const char* prm_name) :
     width_x_ = 220*2*LEN_UNIT;
     height_z_ = 220*2*LEN_UNIT;
     depth_y_ = 36*2*LEN_UNIT;
-    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
 }
 
 void EnemyEtis::onCreateModel() {
-    GgafDxModel* pModel = getModel();
+    GgafDx::Model* pModel = getModel();
     pModel->setSpecular(5.0, 1.0);
 }
 
@@ -54,7 +54,7 @@ void EnemyEtis::initialize() {
 void EnemyEtis::onActive() {
     getStatus()->reset();
     setAlpha(1.0);
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->setFaceAngVelo(AXIS_Z, D_ANG(1));
     pKuroko->setRzRyMvAng(D0ANG, D180ANG);
     pKuroko->setMvVelo(PX_C(3));
@@ -78,8 +78,8 @@ void EnemyEtis::processJudgement() {
     }
 }
 
-void EnemyEtis::onHit(const GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+void EnemyEtis::onHit(const GgafCore::Actor* prm_pOtherActor) {
+    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTransmitter()->play3D(SE_EXPLOSION);

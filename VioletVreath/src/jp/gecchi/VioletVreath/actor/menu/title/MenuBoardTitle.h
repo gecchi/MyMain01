@@ -40,8 +40,8 @@ public:
     bool condSelectExNext() override;
     bool condSelectExPrev() override;
     void onSelect(int prm_from_index, int prm_selected_index) override;
-    void onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) override;
-    void onCancel(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) override;
+    void onDecision(GgafDx::FigureActor* prm_pItem, int prm_item_index) override;
+    void onCancel(GgafDx::FigureActor* prm_pItem, int prm_item_index) override;
 
     void processBehavior() override;
     virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override;

@@ -1,23 +1,23 @@
 #include "MyTorpedoController.h"
 
-#include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/core/actor/ex/ActorDepository.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "MyTorpedo.h"
 #include "MyTorpedoBlast.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyLockonController.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 int MyTorpedoController::max_torpedo_num_ = 8;
 int MyTorpedoController::torpedo_num_ = 0;
 
 MyTorpedoController::MyTorpedoController(const char* prm_name,
-                                         GgafDxCore::GgafDxGeometricActor* prm_pOrg,
+                                         GgafDx::GeometricActor* prm_pOrg,
                                          MyLockonController* prm_pLockonCtrler) :
-        GgafDestructActor(prm_name, nullptr) {
+        GgafCore::DestructActor(prm_name, nullptr) {
     _class_name = "MyTorpedoController";
     firing_num_ = 0;
     in_firing_ = false;
@@ -31,7 +31,7 @@ MyTorpedoController::MyTorpedoController(const char* prm_name,
         appendGroupChild(papTorpedo_[i]);
     }
 
-    pDepo_TorpedoBlast_ = NEW GgafActorDepository("DP_TorpedoBlast");
+    pDepo_TorpedoBlast_ = NEW GgafCore::ActorDepository("DP_TorpedoBlast");
     for (int i = 0; i < max_torpedo_num_*2; i++) {
         std::string name = std::string(prm_pOrg->getName())+"'s TorpedoBlast("+XTOS(i)+")";
         pDepo_TorpedoBlast_->put(NEW MyTorpedoBlast(name.c_str()));

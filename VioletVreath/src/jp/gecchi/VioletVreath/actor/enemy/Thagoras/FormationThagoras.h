@@ -3,7 +3,7 @@
 #include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/TreeFormation.h"
 
-#include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
+#include "jp/ggaf/dx/util/GeoElem.h"
 
 namespace VioletVreath {
 
@@ -20,9 +20,9 @@ public:
     frame call_up_interval_;
 
     /** [r]出現座標(シーンが設定) */
-    GgafDxCore::GgafDxGeoElem entry_pos_;
+    GgafDx::GeoElem entry_pos_;
 
-    GgafDxCore::GgafDxScaler* pScaler4Sc_;
+    GgafDx::Scaler* pScaler4Sc_;
     GgafLib::DefaultGeometricActor* pActor4Sc_;
 
     XpmConnection* pXpmConnection_;
@@ -39,9 +39,9 @@ public:
 
     virtual void processBehavior() override;
 
-    virtual void onDestroyAll(GgafCore::GgafActor* prm_pActor_last_destroyed) override;
+    virtual void onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) override;
 
-    virtual void onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, int prm_row, int prm_col) = 0;
+    virtual void onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) = 0;
 
     /**
      * 出現座標を設定。
@@ -55,7 +55,7 @@ public:
         entry_pos_.z = z;
     }
 
-    GgafCore::GgafXpm* getXpm();
+    GgafCore::Xpm* getXpm();
 
     virtual ~FormationThagoras();
 };

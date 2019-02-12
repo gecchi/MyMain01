@@ -2,8 +2,8 @@
 
 #include "jp/ggaf/lib/util/StgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
 #define V3E (0.57735026918963)    // 斜めの単位ベクトル各要素(t = (1.0 / √(1*1+1*1+1*1)) * 1 )

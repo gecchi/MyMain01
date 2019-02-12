@@ -11,8 +11,8 @@
 #include "jp/gecchi/VioletVreath/actor/menu/config/MenuBoardKeyConfig.h"
 #include "jp/gecchi/VioletVreath/actor/menu/config/MenuBoardSoundConfig.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -125,7 +125,7 @@ void MenuBoardPause::processBehavior() {
     }
 }
 
-void MenuBoardPause::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
+void MenuBoardPause::onDecision(GgafDx::FigureActor* prm_pItem, int prm_item_index) {
     if (prm_item_index == ITEM_BACK_TO_GAME) {
         sinkMe();
     } else if (prm_item_index == ITEM_KEY_CONFIG) {
@@ -149,7 +149,7 @@ void MenuBoardPause::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, int pr
     }
 }
 
-void MenuBoardPause::onCancel(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
+void MenuBoardPause::onCancel(GgafDx::FigureActor* prm_pItem, int prm_item_index) {
 }
 
 MenuBoardPause::~MenuBoardPause() {

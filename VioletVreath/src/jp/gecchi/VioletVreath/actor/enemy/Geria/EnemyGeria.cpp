@@ -1,9 +1,9 @@
 #include "EnemyGeria.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Trucker.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
@@ -11,8 +11,8 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -39,7 +39,7 @@ EnemyGeria::EnemyGeria(const char* prm_name) :
     will_shot_ = false;
     velo_mv_begin_ = 0;
     frame_when_shot_ = 0;
-    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
     pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_SHOT_001");     //発射
     useProgress(PROG_BANPEI);
@@ -55,7 +55,7 @@ void EnemyGeria::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 45000);
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->setFaceAngVelo(AXIS_Z, -7000);
 }
 
@@ -66,7 +66,7 @@ void EnemyGeria::onActive() {
     can_Shot_ = true;
     shot_num_ = 0;
     frame_when_shot_ = 0;
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     velo_mv_begin_ = pKuroko->getMvVelo(); //初期移動速度を保存
     pKuroko->setMvVelo(0);
     setRzFaceAng(0);
@@ -76,10 +76,10 @@ void EnemyGeria::onActive() {
 }
 
 void EnemyGeria::processBehavior() {
-    GgafDxKuroko* const pKuroko = getKuroko();
-    GgafDxTrucker* const pTrucker = getTrucker();
-    GgafDxAlphaFader* pAlphaFader = getAlphaFader();
-    GgafProgress* const pProg = getProgress();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafDx::Trucker* const pTrucker = getTrucker();
+    GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
+    GgafCore::Progress* const pProg = getProgress();
 
     switch (pProg->get()) {
         case PROG_INIT: {
@@ -136,7 +136,7 @@ void EnemyGeria::processBehavior() {
 
             if (!pKuroko->isTurningFaceAng()) {
                 MyShip* pM = pMYSHIP;
-                GgafDxGeometricActor* pLast =
+                GgafDx::GeometricActor* pLast =
                       UTIL::shotWay001(_x, _y, _z,
                                        pM->_x, pM->_y, pM->_z,
                                        getCommonDepository(Shot004),
@@ -189,8 +189,8 @@ void EnemyGeria::onInactive() {
     setHitAble(false);
 }
 
-void EnemyGeria::onHit(const GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+void EnemyGeria::onHit(const GgafCore::Actor* prm_pOtherActor) {
+    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTransmitter()->play3D(SE_EXPLOSION);
@@ -203,6 +203,6 @@ void EnemyGeria::onHit(const GgafActor* prm_pOtherActor) {
 EnemyGeria::~EnemyGeria() {
 }
 
-void EnemyGeria::callbackDispatched(GgafDxFigureActor* prm_pDispatched, int prm_dispatched_seq, int prm_set_seq) {
+void EnemyGeria::callbackDispatched(GgafDx::FigureActor* prm_pDispatched, int prm_dispatched_seq, int prm_set_seq) {
 }
 

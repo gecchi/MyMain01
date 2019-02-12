@@ -6,7 +6,7 @@
 		<project>_Ogg</project>
 		<project>_Vorbis</project>
 		<project>GgafCore</project>
-		<project>GgafDxCore</project>
+		<project>GgafDx</project>
 		<project>GgafLib</project>
 	</projects>
 	<buildSpec>

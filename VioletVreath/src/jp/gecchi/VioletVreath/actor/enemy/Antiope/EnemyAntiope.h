@@ -3,7 +3,7 @@
 #include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
 
-#include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
+#include "jp/ggaf/dx/util/GeoElem.h"
 
 namespace VioletVreath {
 
@@ -19,7 +19,7 @@ class EnemyAntiope :
 
 public:
     /** 平行移動速度ベクトル */
-    GgafDxCore::GgafDxGeoElem mv_velo_twd_;
+    GgafDx::GeoElem mv_velo_twd_;
     /** 相方 */
     EnemyAntiope* pP_;
 
@@ -29,7 +29,7 @@ public:
      * @param prm_name
      * @return
      */
-    EnemyAntiope(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);
+    EnemyAntiope(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat);
 
     void onCreateModel() override;
 
@@ -57,7 +57,7 @@ public:
      * アンティオペの衝突時処理 .
      * @param prm_pOtherActor 衝突対象
      */
-    void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
+    void onHit(const GgafCore::Actor* prm_pOtherActor) override;
 
     void onInactive() override;
 

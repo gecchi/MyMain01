@@ -45,14 +45,14 @@ void myTerminateHandler();
  * GNU GCC ならばエントリポイント
  */
 int main(int argc, char *argv[]) {
-    return GgafLibMain(argc, argv);
+    return LibMain(argc, argv);
 }
 
 /**
  * VCならばエントリポイント
  */
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow) {
-    GgafLibWinMain(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
+    LibWinMain(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
     TCHAR current_dir[MAX_PATH];
     GetCurrentDirectory(MAX_PATH, current_dir);
     LPTSTR command_line = GetCommandLine();
@@ -82,7 +82,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     }
 
     hInst = hInstance; // グローバル変数にインスタンス処理を格納します。
-    GgafCore::GgafRgb rgb = GgafCore::GgafRgb(CONFIG::BORDER_COLOR);
+    GgafCore::Rgb rgb = GgafCore::Rgb(CONFIG::BORDER_COLOR);
     WNDCLASSEX wcex1;
     wcex1.cbSize = sizeof(WNDCLASSEX);
     wcex1.style = CS_HREDRAW | CS_VREDRAW | CS_CLASSDC | CS_DBLCLKS ;
@@ -191,15 +191,15 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
             }
         }
 #ifdef MY_DEBUG
-    } catch (GgafCore::GgafException& e) {
+    } catch (GgafCore::Exception& e) {
         //異常終了時
         _TRACE_("＜例外＞"<<e.getMsg());
         std::string message = "\n・"+e.getMsg()+"  \n\nエラーにお心あたりが無い場合、本アプリのバグの可能性が高いです。\n誠に申し訳ございません。\n";
         std::string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
         MessageBox(nullptr, message_dialog.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
-        VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_GgafException.rep");
-        VB_UI->_pRpy->outputFile("VB_UI_LAST_GgafException.rep");
-        _TRACE_("[GgafCriticalException]:"<<e.getMsg());
+        VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_ggaf_Exception.rep");
+        VB_UI->_pRpy->outputFile("VB_UI_LAST_ggaf_Exception.rep");
+        _TRACE_("[GgafCore::CriticalException]:"<<e.getMsg());
         return EXIT_FAILURE;
     } catch (std::exception& e2) {
         std::string what(e2.what());
@@ -243,7 +243,7 @@ void myTerminateHandler() {
 }
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
-    GgafLibWndProc(hWnd, message, wParam, lParam);
+    LibWndProc(hWnd, message, wParam, lParam);
 
     switch (message) {
         case WM_CREATE: {
@@ -270,10 +270,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             LONG lStyle = GetWindowLong( hWnd, GWL_STYLE );
             if (lStyle & WS_POPUP) {
                 //現在ボーダレスフルスクリーンウィンドウであるので戻す。
-                GgafDxCore::GgafDxGod::backToNomalWindow(hWnd);
+                GgafDx::God::backToNomalWindow(hWnd);
             } else {
                 //現在通常ウィンドウであるので、ボーダレスフルスクリーンウィンドウに切り替える。
-                GgafDxCore::GgafDxGod::chengeToBorderlessFullWindow(hWnd);
+                GgafDx::God::chengeToBorderlessFullWindow(hWnd);
             }
             break;
         }
@@ -283,10 +283,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
                 LONG lStyle = GetWindowLong( hWnd, GWL_STYLE );
                 if (lStyle & WS_POPUP) {
                     //現在ボーダレスフルスクリーンウィンドウであるので戻す。
-                    GgafDxCore::GgafDxGod::backToNomalWindow(hWnd);
+                    GgafDx::God::backToNomalWindow(hWnd);
                 } else {
                     //現在通常ウィンドウであるので、ボーダレスフルスクリーンウィンドウに切り替える。
-                    GgafDxCore::GgafDxGod::chengeToBorderlessFullWindow(hWnd);
+                    GgafDx::God::chengeToBorderlessFullWindow(hWnd);
                 }
             }
             break;
@@ -303,49 +303,49 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
                 LONG lStyle  = GetWindowLong( hWnd, GWL_STYLE );
                 if (lStyle & WS_POPUP) {
                     //現在ボーダレスフルスクリーンウィンドウであるので戻す。
-                    GgafDxCore::GgafDxGod::backToNomalWindow(hWnd);
+                    GgafDx::God::backToNomalWindow(hWnd);
                 } else {
                     //現在通常ウィンドウであるので、ボーダレスフルスクリーンウィンドウに切り替える。
-                    GgafDxCore::GgafDxGod::chengeToBorderlessFullWindow(hWnd);
+                    GgafDx::God::chengeToBorderlessFullWindow(hWnd);
                 }
             } else if(wParam == MY_IDM_RESET_WINDOW_SIZE) {
                 //初期ウィンドウサイズにリセット
                 if (!CONFIG::FULL_SCREEN) {
                     if (CONFIG::DUAL_VIEW) {
-                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, CONFIG::DUAL_VIEW_WINDOW1_WIDTH, CONFIG::DUAL_VIEW_WINDOW1_HEIGHT);
-                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd2, CONFIG::DUAL_VIEW_WINDOW2_WIDTH, CONFIG::DUAL_VIEW_WINDOW2_HEIGHT);
+                        GgafDx::God::resetWindowsize(hWnd1, CONFIG::DUAL_VIEW_WINDOW1_WIDTH, CONFIG::DUAL_VIEW_WINDOW1_HEIGHT);
+                        GgafDx::God::resetWindowsize(hWnd2, CONFIG::DUAL_VIEW_WINDOW2_WIDTH, CONFIG::DUAL_VIEW_WINDOW2_HEIGHT);
                     } else {
-                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, CONFIG::SINGLE_VIEW_WINDOW_WIDTH, CONFIG::SINGLE_VIEW_WINDOW_HEIGHT);
+                        GgafDx::God::resetWindowsize(hWnd1, CONFIG::SINGLE_VIEW_WINDOW_WIDTH, CONFIG::SINGLE_VIEW_WINDOW_HEIGHT);
                     }
                 }
             } else if(wParam == MY_IDM_RESET_PIXEL_BY_DOT_WINDOW_SIZE) {
                 //pixel by dot ウィンドウサイズにリセット
                 if (!CONFIG::FULL_SCREEN) {
                     if (CONFIG::DUAL_VIEW) {
-                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, CONFIG::RENDER_TARGET_BUFFER_WIDTH/2, CONFIG::RENDER_TARGET_BUFFER_HEIGHT);
-                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd2, CONFIG::RENDER_TARGET_BUFFER_WIDTH/2, CONFIG::RENDER_TARGET_BUFFER_HEIGHT);
+                        GgafDx::God::resetWindowsize(hWnd1, CONFIG::RENDER_TARGET_BUFFER_WIDTH/2, CONFIG::RENDER_TARGET_BUFFER_HEIGHT);
+                        GgafDx::God::resetWindowsize(hWnd2, CONFIG::RENDER_TARGET_BUFFER_WIDTH/2, CONFIG::RENDER_TARGET_BUFFER_HEIGHT);
                     } else {
-                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, CONFIG::RENDER_TARGET_BUFFER_WIDTH, CONFIG::RENDER_TARGET_BUFFER_HEIGHT);
+                        GgafDx::God::resetWindowsize(hWnd1, CONFIG::RENDER_TARGET_BUFFER_WIDTH, CONFIG::RENDER_TARGET_BUFFER_HEIGHT);
                     }
                 }
             } else if(wParam == MY_IDM_RESET_PIXEL_BY_2DOT_WINDOW_SIZE) {
                 //pixel by 2*2dot ウィンドウサイズにリセット
                 if (!CONFIG::FULL_SCREEN) {
                     if (CONFIG::DUAL_VIEW) {
-                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, CONFIG::RENDER_TARGET_BUFFER_WIDTH/2*2, CONFIG::RENDER_TARGET_BUFFER_HEIGHT*2);
-                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd2, CONFIG::RENDER_TARGET_BUFFER_WIDTH/2*2, CONFIG::RENDER_TARGET_BUFFER_HEIGHT*2);
+                        GgafDx::God::resetWindowsize(hWnd1, CONFIG::RENDER_TARGET_BUFFER_WIDTH/2*2, CONFIG::RENDER_TARGET_BUFFER_HEIGHT*2);
+                        GgafDx::God::resetWindowsize(hWnd2, CONFIG::RENDER_TARGET_BUFFER_WIDTH/2*2, CONFIG::RENDER_TARGET_BUFFER_HEIGHT*2);
                     } else {
-                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, CONFIG::RENDER_TARGET_BUFFER_WIDTH*2, CONFIG::RENDER_TARGET_BUFFER_HEIGHT*2);
+                        GgafDx::God::resetWindowsize(hWnd1, CONFIG::RENDER_TARGET_BUFFER_WIDTH*2, CONFIG::RENDER_TARGET_BUFFER_HEIGHT*2);
                     }
                 }
             } else if(wParam == MY_IDM_RESET_PIXEL_BY_3DOT_WINDOW_SIZE) {
                 //pixel by 3*3dot ウィンドウサイズにリセット
                 if (!CONFIG::FULL_SCREEN) {
                     if (CONFIG::DUAL_VIEW) {
-                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, CONFIG::RENDER_TARGET_BUFFER_WIDTH/2*3, CONFIG::RENDER_TARGET_BUFFER_HEIGHT*3);
-                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd2, CONFIG::RENDER_TARGET_BUFFER_WIDTH/2*3, CONFIG::RENDER_TARGET_BUFFER_HEIGHT*3);
+                        GgafDx::God::resetWindowsize(hWnd1, CONFIG::RENDER_TARGET_BUFFER_WIDTH/2*3, CONFIG::RENDER_TARGET_BUFFER_HEIGHT*3);
+                        GgafDx::God::resetWindowsize(hWnd2, CONFIG::RENDER_TARGET_BUFFER_WIDTH/2*3, CONFIG::RENDER_TARGET_BUFFER_HEIGHT*3);
                     } else {
-                        GgafDxCore::GgafDxGod::resetWindowsize(hWnd1, CONFIG::RENDER_TARGET_BUFFER_WIDTH*3, CONFIG::RENDER_TARGET_BUFFER_HEIGHT*3);
+                        GgafDx::God::resetWindowsize(hWnd1, CONFIG::RENDER_TARGET_BUFFER_WIDTH*3, CONFIG::RENDER_TARGET_BUFFER_HEIGHT*3);
                     }
                 }
             } else if(wParam == MY_IDM_SAVE) {
@@ -395,27 +395,27 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
                     PostQuitMessage(0);
                 }
             } else if(wParam == MY_IDM_VPOS_1) {
-                GgafDxCore::GgafDxGod::chengeViewPos(hWnd, 1);
+                GgafDx::God::chengeViewPos(hWnd, 1);
             } else if(wParam == MY_IDM_VPOS_2) {
-                GgafDxCore::GgafDxGod::chengeViewPos(hWnd, 2);
+                GgafDx::God::chengeViewPos(hWnd, 2);
             } else if(wParam == MY_IDM_VPOS_3) {
-                GgafDxCore::GgafDxGod::chengeViewPos(hWnd, 3);
+                GgafDx::God::chengeViewPos(hWnd, 3);
             } else if(wParam == MY_IDM_VPOS_4) {
-                GgafDxCore::GgafDxGod::chengeViewPos(hWnd, 4);
+                GgafDx::God::chengeViewPos(hWnd, 4);
             } else if(wParam == MY_IDM_VPOS_5) {
-                GgafDxCore::GgafDxGod::chengeViewPos(hWnd, 5);
+                GgafDx::God::chengeViewPos(hWnd, 5);
             } else if(wParam == MY_IDM_VPOS_6) {
-                GgafDxCore::GgafDxGod::chengeViewPos(hWnd, 6);
+                GgafDx::God::chengeViewPos(hWnd, 6);
             } else if(wParam == MY_IDM_VPOS_7) {
-                GgafDxCore::GgafDxGod::chengeViewPos(hWnd, 7);
+                GgafDx::God::chengeViewPos(hWnd, 7);
             } else if(wParam == MY_IDM_VPOS_8) {
-                GgafDxCore::GgafDxGod::chengeViewPos(hWnd, 8);
+                GgafDx::God::chengeViewPos(hWnd, 8);
             } else if(wParam == MY_IDM_VPOS_9) {
-                GgafDxCore::GgafDxGod::chengeViewPos(hWnd, 9);
+                GgafDx::God::chengeViewPos(hWnd, 9);
             } else if(wParam == MY_IDM_ASPECT_FIXED) {
-                GgafDxCore::GgafDxGod::chengeViewAspect(true);
+                GgafDx::God::chengeViewAspect(true);
             } else if(wParam == MY_IDM_ASPECT_STRETCH) {
-                GgafDxCore::GgafDxGod::chengeViewAspect(false);
+                GgafDx::God::chengeViewAspect(false);
             }
             break;
         }

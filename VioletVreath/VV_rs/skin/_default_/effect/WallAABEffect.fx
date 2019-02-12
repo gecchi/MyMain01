@@ -81,7 +81,7 @@ struct OUT_VS
 ///////////////////////////////////////////////////////////////////////////
 
 //頂点シェーダー
-OUT_VS GgafDxVS_WallAAB(
+OUT_VS VS_WallAAB(
     float4 prm_posModel_Local  : POSITION, // モデルの頂点
     float  prm_object_index    : PSIZE ,   // モデルのインデックス（何個目のオブジェクトか）
     float3 prm_vecNormal_Local : NORMAL,   // モデルの頂点の法線
@@ -281,7 +281,7 @@ OUT_VS GgafDxVS_WallAAB(
 }
 
 //メッシュ標準ピクセルシェーダー（テクスチャ有り）
-float4 GgafDxPS_WallAAB(
+float4 PS_WallAAB(
 	float2 prm_uv	 : TEXCOORD0,
 	float4 prm_color : COLOR0
 ) : COLOR  {
@@ -322,8 +322,8 @@ technique WallAABTechnique
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default
-		VertexShader = compile VS_VERSION GgafDxVS_WallAAB();
-		PixelShader  = compile PS_VERSION GgafDxPS_WallAAB();
+		VertexShader = compile VS_VERSION VS_WallAAB();
+		PixelShader  = compile PS_VERSION PS_WallAAB();
 	}
 }
 
@@ -337,8 +337,8 @@ technique DestBlendOne
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default
-		VertexShader = compile VS_VERSION GgafDxVS_WallAAB();
-		PixelShader  = compile PS_VERSION GgafDxPS_WallAAB();
+		VertexShader = compile VS_VERSION VS_WallAAB();
+		PixelShader  = compile PS_VERSION PS_WallAAB();
 	}
 }
 
@@ -352,7 +352,7 @@ technique Flush
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default
-		VertexShader = compile VS_VERSION GgafDxVS_WallAAB();
+		VertexShader = compile VS_VERSION VS_WallAAB();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}
 }

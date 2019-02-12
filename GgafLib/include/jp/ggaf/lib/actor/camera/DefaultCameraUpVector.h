@@ -1,7 +1,7 @@
-#ifndef GGAFLIB_DEFAULTCAMERAUPVECTOR_H_
-#define GGAFLIB_DEFAULTCAMERAUPVECTOR_H_
+#ifndef GGAF_LIB_DEFAULTCAMERAUPVECTOR_H_
+#define GGAF_LIB_DEFAULTCAMERAUPVECTOR_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/dxcore/actor/camera/GgafDxCameraUpVector.h"
+#include "jp/ggaf/dx/actor/camera/CameraUpVector.h"
 
 namespace GgafLib {
 
@@ -12,7 +12,7 @@ namespace GgafLib {
  * @since 2014/12/22
  * @author Masatoshi Tsuge
  */
-class DefaultCameraUpVector : public GgafDxCore::GgafDxCameraUpVector {
+class DefaultCameraUpVector : public GgafDx::CameraUpVector {
 
 public:
     dir26 up_dir_;
@@ -43,7 +43,7 @@ public:
     virtual void processFinal() override {
     }
 
-    virtual void onHit(const GgafCore::GgafActor* prm_pOtherActor) override {
+    virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override {
     }
 
     /**
@@ -57,4 +57,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_DEFAULTCAMERAUPVECTOR_H_*/
+#endif /*GGAF_LIB_DEFAULTCAMERAUPVECTOR_H_*/

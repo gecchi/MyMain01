@@ -1,0 +1,91 @@
+#ifndef GGAF_DX_CHECKER_H_
+#define GGAF_DX_CHECKER_H_
+#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/core/Object.h"
+
+namespace GgafDx {
+
+/**
+ * チェックに関する色々な機能を持ったクラス .
+ * （旧GeometryChecker）
+ * @version 1.00
+ * @since 2008/08/20
+ * @author Masatoshi Tsuge
+ */
+class Checker : public GgafCore::Object {
+
+public:
+//    /** 当たり判定領域の境界領域(AABB)を再計算するかどうかのフラグ */
+//    bool _need_update_aabb;
+    /** 対象アクター */
+    GeometricActor* const _pActor;
+    /** 当たり判定領域 */
+    CollisionArea* _pCollisionArea;
+//    /** 実質当たり判定が必要かどうか。パートの少なくとも一つが _is_valid_flg == true の場合 true */
+//    bool _is_enable;
+public:
+    /**
+     * コンストラクタ<BR>
+     * @param	prm_pActor	適用Actor
+     */
+    explicit Checker(GeometricActor* prm_pActor);
+
+    /**
+     * 当たり判定領域を更新し、その領域をツリーに登録 .
+     */
+    virtual void updateHitArea() = 0;
+
+    /**
+     * 当たり判定領域を作成する（＝当たり判定領域要素の配列を作成する） .
+     * 内部で領域の配列を生成します。
+     * 最初に必ず実行してください。
+     * @param prm_colli_part_num 当たり判定領域の当たり判定領域要素数(1～n)
+     */
+    virtual void createCollisionArea(int prm_colli_part_num);
+
+    /**
+     * ヒットしているかどうか
+     * @param prm_pOtherChecker 相手のチェッカー
+     * @return
+     */
+    virtual bool isHit(const Checker* const prm_pOtherChecker) = 0;
+
+    virtual GeometricActor* getTargetActor() {
+        if (_pActor == nullptr) {
+            _TRACE_(FUNC_NAME<<" nullptrであるがよいのか！");
+        }
+        return _pActor;
+    }
+
+    inline CollisionArea* getArea() {
+        return _pCollisionArea;
+    }
+
+    /**
+     * 当たり判定領域の要素を有効にする。
+     * デフォルトは有効状態になっています。
+     * @param prm_index 有効にする当たり判定領域の要素番号
+     */
+    virtual void enable(int prm_index);
+
+    /**
+     * 当たり判定領域の要素を無効にする。
+     * @param prm_index 無効にする当たり判定領域の要素番号
+     */
+    virtual void disable(int prm_index);
+//    virtual void disable(int prm_index1, int prm_index2);
+//    virtual void disable(int prm_index1, int prm_index2, int prm_index3);
+
+    /**
+     * 当たり判定領域の要素が有効か調べる。
+     * @param prm_index 調べたい当たり判定領域の要素番号
+     * @return true:有効 / false:無効
+     */
+    virtual bool isEnable(int prm_index);
+
+    virtual ~Checker();
+};
+
+}
+#endif /*GGAF_DX_CHECKER_H_*/
+

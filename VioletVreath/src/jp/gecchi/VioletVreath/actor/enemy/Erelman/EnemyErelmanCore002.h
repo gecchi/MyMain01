@@ -3,7 +3,7 @@
 #include "VioletVreath.h"
 #include "EnemyErelmanCore.h"
 
-#include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
+#include "jp/ggaf/dx/util/GeoElem.h"
 
 namespace VioletVreath {
 

@@ -2,17 +2,17 @@
 
 #include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
-#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
+#include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
+#include "jp/ggaf/dx/scene/Spacetime.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
 DefaultMassSpriteActor::VERTEX_instancedata DefaultMassSpriteActor::_aInstancedata[GGAFDXMASS_MAX_INSTANCE_NUM];
 
-DefaultMassSpriteActor::DefaultMassSpriteActor(const char* prm_name, const char* prm_model_id, GgafStatus* prm_pStat) :
-    GgafDxMassSpriteActor(prm_name,
+DefaultMassSpriteActor::DefaultMassSpriteActor(const char* prm_name, const char* prm_model_id, GgafCore::Status* prm_pStat) :
+    GgafDx::MassSpriteActor(prm_name,
                           prm_model_id,
                           "DefaultMassSpriteEffect",
                           "DefaultMassSpriteTechnique",
@@ -31,7 +31,7 @@ void DefaultMassSpriteActor::drawHitArea() {
 #endif
 }
 
-void DefaultMassSpriteActor::createVertexInstanceData(void* prm, GgafDxMassModel::VertexInstanceDataInfo* out_info) {
+void DefaultMassSpriteActor::createVertexInstanceData(void* prm, GgafDx::MassModel::VertexInstanceDataInfo* out_info) {
     int element_num = 6;
     out_info->paElement = NEW D3DVERTEXELEMENT9[element_num];
     // Stream = 1 ---->
@@ -92,13 +92,13 @@ void DefaultMassSpriteActor::createVertexInstanceData(void* prm, GgafDxMassModel
 }
 
 void DefaultMassSpriteActor::processDraw() {
-    int draw_set_num = 0; //GgafDxMassSpriteActorの同じモデルで同じテクニックが
+    int draw_set_num = 0; //MassSpriteActorの同じモデルで同じテクニックが
                           //連続しているカウント数。同一描画深度は一度に描画する。
-    GgafDxMassSpriteModel* pMassSpriteModel = _pMassSpriteModel;
+    GgafDx::MassSpriteModel* pMassSpriteModel = _pMassSpriteModel;
     const int model_max_set_num = pMassSpriteModel->_set_num;
     const hashval hash_technique = _hash_technique;
     VERTEX_instancedata* paInstancedata = DefaultMassSpriteActor::_aInstancedata;
-    GgafDxFigureActor* pDrawActor = this;
+    GgafDx::FigureActor* pDrawActor = this;
     static const size_t size_of_D3DXMATRIX = sizeof(D3DXMATRIX);
     static const size_t size_of_D3DCOLORVALUE = sizeof(D3DCOLORVALUE);
     static const dxcoord model_half_width = PX_DX(pMassSpriteModel->_model_half_width_px);
@@ -109,8 +109,8 @@ void DefaultMassSpriteActor::processDraw() {
     while (pDrawActor) {
         if (pDrawActor->getModel() == pMassSpriteModel && pDrawActor->_hash_technique == hash_technique) {
             pDefaultMassSpriteActor = (DefaultMassSpriteActor*)pDrawActor;
-//            GgafDxAlign align = pDefaultMassSpriteActor->_align;
-//            GgafDxValign valign = pDefaultMassSpriteActor->_valign;
+//            Align align = pDefaultMassSpriteActor->_align;
+//            Valign valign = pDefaultMassSpriteActor->_valign;
 
             memcpy(paInstancedata, &(pDrawActor->_matWorld), size_of_D3DXMATRIX);
 //            if (align == ALIGN_CENTER) {
@@ -134,7 +134,7 @@ void DefaultMassSpriteActor::processDraw() {
             ++paInstancedata;
 
             draw_set_num++;
-            GgafDxSpacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
+            GgafDx::Spacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
             if (draw_set_num >= model_max_set_num) {
                 break;
             } else {
@@ -144,7 +144,7 @@ void DefaultMassSpriteActor::processDraw() {
             break;
         }
     }
-    pMassSpriteModel->GgafDxMassSpriteModel::draw(this, draw_set_num);
+    pMassSpriteModel->GgafDx::MassSpriteModel::draw(this, draw_set_num);
 }
 
 DefaultMassSpriteActor::~DefaultMassSpriteActor() {

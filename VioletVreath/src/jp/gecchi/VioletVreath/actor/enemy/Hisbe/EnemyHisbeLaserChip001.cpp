@@ -1,16 +1,16 @@
 #include "EnemyHisbeLaserChip001.h"
 
-#include "jp/ggaf/core/actor/GgafSceneMediator.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
+#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -67,8 +67,8 @@ void EnemyHisbeLaserChip001::processJudgement() {
     }
 }
 
-void EnemyHisbeLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+void EnemyHisbeLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor) {
+    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         sayonara();

@@ -1,14 +1,14 @@
 #include "FormationOebius001.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/ggaf/lib/util/spline/SplineManufacture.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Oebius/EnemyOebius.h"
 #include "jp/ggaf/lib/util/spline/FixedFrameSplineManufacture.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -52,7 +52,7 @@ void FormationOebius001::onActive() {
     getProgress()->reset(PROG_INIT);
 }
 void FormationOebius001::processBehavior() {
-    GgafProgress* const pProg = getProgress();
+    GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             pProg->changeNext();
@@ -86,10 +86,10 @@ void FormationOebius001::processBehavior() {
     }
 }
 
-void FormationOebius001::onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, int prm_row, int prm_col) {
+void FormationOebius001::onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) {
     EnemyOebius* pOebius = (EnemyOebius*)prm_pActor;
     if (pOebius->pKurokoLeader_) {
-        throwGgafCriticalException("pOebius->pKurokoLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpOebius="<<pOebius<<"("<<pOebius->getName()<<")");
+        throwCriticalException("pOebius->pKurokoLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpOebius="<<pOebius<<"("<<pOebius->getName()<<")");
     } else {
         pOebius->pKurokoLeader_ = papSplManufConn_[prm_col]->peek()->
                                       createKurokoLeader(pOebius->getKuroko());
@@ -135,7 +135,7 @@ void FormationOebius001::onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, int
     pOebius->setMaterialColor(r, g, b);
 }
 
-void FormationOebius001::onFinshLeading(GgafDxCore::GgafDxFigureActor* prm_pActor) {
+void FormationOebius001::onFinshLeading(GgafDx::FigureActor* prm_pActor) {
 
 }
 

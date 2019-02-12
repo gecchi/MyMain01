@@ -1,13 +1,13 @@
 #include "EnemyStraeaLaserChip002.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -28,7 +28,7 @@ void EnemyStraeaLaserChip002::onActive() {
     RefractionLaserChip::onActive();
     //ステータスリセット
     getStatus()->reset();
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->setMvVelo(80000);
     //_pKuroko->setMvAcce(300);
     //_pKuroko->forceRyMvAngVeloRange(-90000, 90000);
@@ -43,7 +43,7 @@ void EnemyStraeaLaserChip002::onRefractionOutOf(int prm_num_refraction)  {
     if (prm_num_refraction == 0) {
 
     } else {
-        GgafDxKuroko* const pKuroko = getKuroko();
+        GgafDx::Kuroko* const pKuroko = getKuroko();
         angle out_rz_Target;
         angle out_ry_Target;
         angle out_d_rz;
@@ -72,8 +72,8 @@ void EnemyStraeaLaserChip002::processJudgement() {
     }
 }
 
-void EnemyStraeaLaserChip002::onHit(const GgafActor* prm_pOtherActor) {
-//    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
+void EnemyStraeaLaserChip002::onHit(const GgafCore::Actor* prm_pOtherActor) {
+//    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)prm_pOtherActor;
 //    //ヒット時
 //
 //    //体力計算

@@ -1,22 +1,22 @@
 #include "EnemyStraea.h"
 
-#include "jp/ggaf/dxcore/model/GgafDxModel.h"
-#include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
-#include "jp/ggaf/core/actor/ex/GgafActorDepositoryStore.h"
+#include "jp/ggaf/dx/model/Model.h"
+#include "jp/ggaf/dx/model/supporter/TextureBlinker.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
+#include "jp/ggaf/core/actor/ex/ActorDepositoryStore.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
-#include "jp/ggaf/dxcore/util/GgafDxInput.h"
+#include "jp/ggaf/dx/util/Input.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -80,7 +80,7 @@ EnemyStraea::EnemyStraea(const char* prm_name) :
         }
     }
     GGAF_DELETEARR(paAng_way);
-    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
     pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
 
@@ -90,7 +90,7 @@ EnemyStraea::EnemyStraea(const char* prm_name) :
 }
 
 void EnemyStraea::onCreateModel() {
-    GgafDxModel* pModel = getModel();
+    GgafDx::Model* pModel = getModel();
     pModel->setBlinkPower(1.0, 0.97);
     pModel->getTexBlinker()->setRange(0.5, 12.0);
     pModel->getTexBlinker()->beat(60*6, 60*2, 0, 60*2, -1);
@@ -100,7 +100,7 @@ void EnemyStraea::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliSphere(0, PX_C(200));
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->setRzRyMvAng(0, D180ANG);
 }
 
@@ -113,8 +113,8 @@ void EnemyStraea::onActive() {
 }
 
 void EnemyStraea::processBehavior() {
-    GgafDxKuroko* const pKuroko = getKuroko();
-    GgafProgress* const pProg = getProgress();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             setHitAble(false);
@@ -173,8 +173,8 @@ void EnemyStraea::processBehavior() {
         case PROG_FIRE: {
             if (pProg->hasJustChanged()) {
                 //レーザーセット、借入
-                GgafActorDepositoryStore* pLaserChipDepoStore =
-                        (GgafActorDepositoryStore*)(pConn_pDepoStore_laser_set->peek());
+                GgafCore::ActorDepositoryStore* pLaserChipDepoStore =
+                        (GgafCore::ActorDepositoryStore*)(pConn_pDepoStore_laser_set->peek());
                 bool can_fire = false;
                 for (int i = 0; i < laser_way_; i++) {
                     for (int j = 0; j < laser_way_; j++) {
@@ -244,7 +244,7 @@ void EnemyStraea::processJudgement() {
     }
 }
 
-void EnemyStraea::onHit(const GgafActor* prm_pOtherActor) {
+void EnemyStraea::onHit(const GgafCore::Actor* prm_pOtherActor) {
     static uint32_t spritedoller[24] = {
                                      6144      ,       //  000000000001100000000000
                                      14336     ,       //  000000000011100000000000
@@ -314,7 +314,7 @@ void EnemyStraea::onHit(const GgafActor* prm_pOtherActor) {
         };
 
 
-    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTransmitter()->play3D(SE_EXPLOSION);

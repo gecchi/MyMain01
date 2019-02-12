@@ -1,10 +1,10 @@
-#ifndef GGAFLIB_SPLINESOURCE_H_
-#define GGAFLIB_SPLINESOURCE_H_
+#ifndef GGAF_LIB_SPLINESOURCE_H_
+#define GGAF_LIB_SPLINESOURCE_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/core/GgafObject.h"
+#include "jp/ggaf/core/Object.h"
 
 #include <math.h>
-#include "jp/ggaf/core/exception/GgafCriticalException.h"
+#include "jp/ggaf/core/exception/CriticalException.h"
 
 #define MaxSplineSize 1001
 
@@ -26,7 +26,7 @@ namespace GgafLib {
  * @since 2009/10/16
  * @author Masatoshi Tsuge
  */
-class SplineSource : public GgafCore::GgafObject {
+class SplineSource : public GgafCore::Object {
 
 public:
     /**
@@ -42,7 +42,7 @@ public:
         }
         void init(double *sp, int spnum) {
             if (spnum >= MaxSplineSize) {
-                throwGgafCriticalException("SplineSource::BSpline::init() MaxSplineSizeÇí¥Ç¶ÇƒÇ¢Ç‹Ç∑ÅBspnum="<<spnum);
+                throwCriticalException("SplineSource::BSpline::init() MaxSplineSizeÇí¥Ç¶ÇƒÇ¢Ç‹Ç∑ÅBspnum="<<spnum);
             }
             double tmp, w[MaxSplineSize + 1];
             int i;
@@ -212,5 +212,5 @@ public:
 };
 
 }
-#endif /*GGAFLIB_SPLINESOURCE_H_*/
+#endif /*GGAF_LIB_SPLINESOURCE_H_*/
 

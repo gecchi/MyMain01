@@ -1,13 +1,13 @@
 #include "MyTorpedoBlast.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Scaler.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -35,13 +35,13 @@ void MyTorpedoBlast::onReset() {
     getCollisionChecker()->setColliSphere(0, PX_C(10));
     getKuroko()->setMvVelo(0);
     setScale(R_SC(1));
-    GgafDxScaler* const pScaler = getScaler();
+    GgafDx::Scaler* const pScaler = getScaler();
     pScaler->setRange(R_SC(1), R_SC(400));
     pScaler->beat(120, 120/2, 0, 120/2, 1); //1‰ñ–c‚ç‚ñ‚Å‚µ‚Ú‚Ş
 }
 
 void MyTorpedoBlast::processBehavior() {
-    GgafDxScaler* const pScaler = getScaler();
+    GgafDx::Scaler* const pScaler = getScaler();
     if (!pScaler->isTransitioning()) {
         sayonara();//–c‚ç‚ñ‚Å‚µ‚Ú‚Ş‚ªI—¹
     } else {
@@ -54,8 +54,8 @@ void MyTorpedoBlast::processBehavior() {
 void MyTorpedoBlast::processJudgement() {
 }
 
-void MyTorpedoBlast::onHit(const GgafActor* prm_pOtherActor) {
-    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
+void MyTorpedoBlast::onHit(const GgafCore::Actor* prm_pOtherActor) {
+    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)prm_pOtherActor;
     //ƒqƒbƒg‚µ‚Ä‚àÁ–Å‚µ‚Ü‚¹‚ñ
     int sta = UTIL::calcMyStamina(this, pOther);
 }

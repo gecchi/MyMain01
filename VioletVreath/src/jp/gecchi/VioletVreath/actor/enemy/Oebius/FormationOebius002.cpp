@@ -4,15 +4,15 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/manager/XpmConnection.h"
 #include "jp/gecchi/VioletVreath/manager/XpmManager.h"
-#include "jp/ggaf/core/util/GgafResourceConnection.hpp"
-#include "jp/ggaf/core/util/GgafXpm.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/core/util/ResourceConnection.hpp"
+#include "jp/ggaf/core/util/Xpm.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/ggaf/lib/util/spline/SplineManufacture.h"
 #include "jp/ggaf/lib/util/spline/FixedFrameSplineManufacture.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -28,7 +28,7 @@ FormationOebius002::FormationOebius002(const char* prm_name, EnemyOebiusControll
     _class_name = "FormationOebius002";
 
     pXpmConnection_ = connectToXpmManager("FormationOebius002_Xpm");
-    GgafXpm* pXpM = pXpmConnection_->peek();
+    GgafCore::Xpm* pXpM = pXpmConnection_->peek();
     formation_col_num_ = pXpM->getWidth();
     formation_row_num_ = pXpM->getHeight();
     num_Oebius_ = pXpM->getPixelNum();
@@ -58,7 +58,7 @@ void FormationOebius002::onActive() {
     getProgress()->reset(PROG_INIT);
 }
 void FormationOebius002::processBehavior() {
-    GgafProgress* const pProg = getProgress();
+    GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             pProg->changeNext();
@@ -95,10 +95,10 @@ void FormationOebius002::processBehavior() {
     }
 }
 
-void FormationOebius002::onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, int prm_row, int prm_col) {
+void FormationOebius002::onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) {
     EnemyOebius* pOebius = (EnemyOebius*)prm_pActor;
     if (pOebius->pKurokoLeader_) {
-        throwGgafCriticalException("pOebius->pKurokoLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpOebius="<<pOebius<<"("<<pOebius->getName()<<")");
+        throwCriticalException("pOebius->pKurokoLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpOebius="<<pOebius<<"("<<pOebius->getName()<<")");
     } else {
         pOebius->pKurokoLeader_ = papSplManufConn_[prm_col]->peek()->
                                       createKurokoLeader(pOebius->getKuroko());
@@ -129,11 +129,11 @@ void FormationOebius002::onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, int
     pOebius->getKuroko()->setMvAcce(80);
 
     //F‚ğİ’è
-    GgafXpm* pXpM = pXpmConnection_->peek();
+    GgafCore::Xpm* pXpM = pXpmConnection_->peek();
     pOebius->setMaterialColor(pXpM->getColor(prm_row, prm_col));
 }
 
-void FormationOebius002::onFinshLeading(GgafDxCore::GgafDxFigureActor* prm_pActor) {
+void FormationOebius002::onFinshLeading(GgafDx::FigureActor* prm_pActor) {
 
 }
 

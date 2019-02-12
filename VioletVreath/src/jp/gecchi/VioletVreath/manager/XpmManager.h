@@ -1,19 +1,19 @@
 #ifndef XPMMANAGER_H_
 #define XPMMANAGER_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/core/util/GgafResourceManager.hpp"
+#include "jp/ggaf/core/util/ResourceManager.hpp"
 
-#include "jp/ggaf/core/util/GgafXpm.h"
+#include "jp/ggaf/core/util/Xpm.h"
 namespace VioletVreath {
 
 /**
- * Pixmap(GgafCore::GgafXpm)資源管理クラス .
- * 生成済み GgafXpm オブジェクトを登録しておき、使いまわします。
+ * Pixmap(GgafCore::Xpm)資源管理クラス .
+ * 生成済み GgafCore::Xpm オブジェクトを登録しておき、使いまわします。
  * @version 1.00
  * @since 2014/10/06
  * @author Masatoshi Tsuge
  */
-class XpmManager : public GgafCore::GgafResourceManager<GgafCore::GgafXpm> {
+class XpmManager : public GgafCore::ResourceManager<GgafCore::Xpm> {
 
 public:
     /**
@@ -22,9 +22,9 @@ public:
      */
     XpmManager(const char* prm_manager_name);
 
-    GgafCore::GgafXpm* processCreateResource(const char* prm_idstr, void* prm_pConnector) override;
+    GgafCore::Xpm* processCreateResource(const char* prm_idstr, void* prm_pConnector) override;
 
-    GgafCore::GgafResourceConnection<GgafCore::GgafXpm>* processCreateConnection(const char* prm_idstr, GgafCore::GgafXpm* prm_pResource) override;
+    GgafCore::ResourceConnection<GgafCore::Xpm>* processCreateConnection(const char* prm_idstr, GgafCore::Xpm* prm_pResource) override;
 
 
     virtual ~XpmManager() {

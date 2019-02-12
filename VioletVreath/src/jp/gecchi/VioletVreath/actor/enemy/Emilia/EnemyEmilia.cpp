@@ -1,16 +1,16 @@
 #include "EnemyEmilia.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
 
 #include "jp/gecchi/VioletVreath/actor/enemy/Emilia/FormationEmilia.h"
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -45,7 +45,7 @@ void EnemyEmilia::onActive() {
     //ステータスリセット
     UTIL::resetEnemyEmiliaStatus(getStatus());
     setHitAble(true);
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->setMvAngTwd(0, D180ANG);
     pKuroko->addRyMvAng(RND(D_ANG(-5), D_ANG(+5)));
     pKuroko->addRzMvAng(RND(D_ANG(-5), D_ANG(+5)));
@@ -55,7 +55,7 @@ void EnemyEmilia::onInactive() {
     sayonara();
 }
 
-void EnemyEmilia::processStaminaEnd(const GgafDxGeometricActor* prm_pOther) {
+void EnemyEmilia::processStaminaEnd(const GgafDx::GeometricActor* prm_pOther) {
     pFormationEmilia_->appearFragment(this);
 }
 

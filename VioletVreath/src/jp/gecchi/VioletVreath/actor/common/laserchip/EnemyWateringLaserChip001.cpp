@@ -1,10 +1,10 @@
 #include "EnemyWateringLaserChip001.h"
 #include "jp/ggaf/lib/actor/laserchip/WateringLaserChip.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -42,7 +42,7 @@ void EnemyWateringLaserChip001::processBehavior() {
         //黒衣の活動を行うと、ずれるので、最初だけはそのままの座標で表示。
         //とはいうものの、発射元は１フレーム分移動してるので、ピッタリには見えないかもしれない。
     } else {
-        GgafDxKuroko* const pKuroko = getKuroko();
+        GgafDx::Kuroko* const pKuroko = getKuroko();
         pKuroko->behave();
     }
     WateringLaserChip::processBehavior();//座標を移動させてから呼び出すこと
@@ -79,8 +79,8 @@ void EnemyWateringLaserChip001::processJudgement() {
     }
 }
 
-void EnemyWateringLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
-    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
+void EnemyWateringLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor) {
+    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)prm_pOtherActor;
     if (getActiveFrame() <= 2 && (pOther->lookUpKind() & KIND_CHIKEI)) {
         //出現2フレーム以内でヒット相手が地形ならば無視（出現即地形による破壊されを回避）
         return;

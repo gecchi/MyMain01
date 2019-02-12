@@ -2,8 +2,8 @@
 
 #include "MyTorpedo.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 

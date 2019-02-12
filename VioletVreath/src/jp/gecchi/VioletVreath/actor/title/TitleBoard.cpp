@@ -1,10 +1,10 @@
 #include "TitleBoard.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxColorist.h"
+#include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
+#include "jp/ggaf/dx/actor/supporter/Colorist.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -17,7 +17,7 @@ TitleBoard::TitleBoard(const char* prm_name) : DefaultMassBoardActor(prm_name, "
 
     //インスタンスデータ初期化
     static const size_t size_of_D3DCOLORVALUE = sizeof(D3DCOLORVALUE);
-    GgafDxUvFlipper* pUvFlipper = getUvFlipper();
+    GgafDx::UvFlipper* pUvFlipper = getUvFlipper();
     float u, v;
     aInstancedata_title_[0].px_x = C_PX(_x);
     aInstancedata_title_[0].px_y = C_PX(_y);
@@ -60,7 +60,7 @@ void TitleBoard::processDraw() {
     aInstancedata_title_[0].px_y = C_PX(_y);
     aInstancedata_title_[1].px_x = C_PX(_x + PX_C(600));
     aInstancedata_title_[1].px_y = C_PX(_y);
-    _pMassBoardModel->GgafDxMassBoardModel::draw(this, 2, aInstancedata_title_);
+    _pMassBoardModel->GgafDx::MassBoardModel::draw(this, 2, aInstancedata_title_);
 }
 
 TitleBoard::~TitleBoard() {

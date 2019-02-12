@@ -3,7 +3,7 @@
 #include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
 
-#include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
+#include "jp/ggaf/dx/util/GeoElem.h"
 
 namespace VioletVreath {
 
@@ -56,7 +56,7 @@ public:
      * ƒ^ƒSƒ‰ƒX‚ÌÕ“Ëˆ— .
      * @param prm_pOtherActor Õ“Ë‘ÎÛ
      */
-    void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
+    void onHit(const GgafCore::Actor* prm_pOtherActor) override;
 
 
     void onInactive() override;

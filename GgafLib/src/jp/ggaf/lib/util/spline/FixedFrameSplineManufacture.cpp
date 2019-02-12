@@ -4,8 +4,8 @@
 #include "jp/ggaf/lib/util/spline/FixedFrameSplineKurokoLeader.h"
 #include "jp/ggaf/lib/util/spline/FixedFrameSplineTruckerLeader.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
 FixedFrameSplineManufacture::FixedFrameSplineManufacture(const char* prm_coord_data_file,
@@ -128,10 +128,10 @@ void FixedFrameSplineManufacture::recalculateBySpentFrame(frame prm_spent_frames
     _paSPMvVeloTo[0] = 0; //始点までの速度など分からない。
 }
 
-SplineLeader* FixedFrameSplineManufacture::createKurokoLeader(GgafDxCore::GgafDxKuroko* prm_pKuroko) {
+SplineLeader* FixedFrameSplineManufacture::createKurokoLeader(GgafDx::Kuroko* prm_pKuroko) {
     return NEW FixedFrameSplineKurokoLeader(this, prm_pKuroko);
 }
-SplineLeader* FixedFrameSplineManufacture::createTruckerLeader(GgafDxCore::GgafDxTrucker* prm_pTrucker) {
+SplineLeader* FixedFrameSplineManufacture::createTruckerLeader(GgafDx::Trucker* prm_pTrucker) {
     return NEW FixedFrameSplineTruckerLeader(this, prm_pTrucker);
 }
 FixedFrameSplineManufacture::~FixedFrameSplineManufacture() {

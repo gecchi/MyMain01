@@ -1,13 +1,13 @@
 #include "EnemyIdaBase001.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "jp/ggaf/lib/DefaultGod.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/ggaf/lib/manager/SplineManufactureConnection.h"
 #include "jp/ggaf/lib/util/spline/SplineManufacture.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -27,7 +27,7 @@ EnemyIdaBase001::EnemyIdaBase001(const char* prm_name) :
 
 void EnemyIdaBase001::initialize() {
     EnemyIdaBase::initialize();
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->linkFaceAngByMvAng(true);
     pKuroko->setRollPitchYawFaceAngVelo(D_ANG(2), D0ANG, D_ANG(0.4));
 }
@@ -39,8 +39,8 @@ void EnemyIdaBase001::onActive() {
 
 void EnemyIdaBase001::processBehavior() {
     EnemyIdaBase::processBehavior();
-    GgafDxKuroko* const pKuroko = getKuroko();
-    GgafProgress* const pProg = getProgress();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             pKurokoLeader_->start(RELATIVE_COORD, 3);

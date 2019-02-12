@@ -1,13 +1,13 @@
 #include "World.h"
 
-#include "jp/ggaf/core/util/GgafLinearQuadtree.h"
-#include "jp/ggaf/dxcore/util/GgafDxInput.h"
+#include "jp/ggaf/core/util/LinearQuadtree.h"
+#include "jp/ggaf/dx/util/Input.h"
 #include "jp/gecchi/VioletVrain/scene/VvSpacetime/World/TrialAndErrScene.h"
 #include "jp/gecchi/VioletVrain/scene/VvSpacetime.h"
 #include "jp/gecchi/VioletVrain/VvGod.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVrain;
 
@@ -34,7 +34,7 @@ void World::processBehavior() {
 
 void World::processJudgement() {
     //当たり判定チェック
-    if (GgafDxInput::isPushedDownKey(DIK_I)) {
+    if (GgafDx::Input::isPushedDownKey(DIK_I)) {
         _TRACE_("----------------------------------");
         P_GOD->getSpacetime()->getLinearQuadtree()->putTree();
         _TRACE_("----------------------------------");

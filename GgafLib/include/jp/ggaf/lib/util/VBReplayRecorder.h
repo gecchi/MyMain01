@@ -1,8 +1,8 @@
-#ifndef GGAFLIB_VBREPLAYRECORDER_H_
-#define GGAFLIB_VBREPLAYRECORDER_H_
+#ifndef GGAF_LIB_VBREPLAYRECORDER_H_
+#define GGAF_LIB_VBREPLAYRECORDER_H_
 #include "GgafLibCommonHeader.h"
 
-#include "jp/ggaf/core/GgafObject.h"
+#include "jp/ggaf/core/Object.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 #include <fstream>
 
@@ -16,7 +16,7 @@ namespace GgafLib {
  * @since 2010/04/20
  * @author Masatoshi Tsuge
  */
-class VBReplayRecorder : public GgafCore::GgafObject {
+class VBReplayRecorder : public GgafCore::Object {
 
 public:
     /**
@@ -116,4 +116,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_FONTSPRITESTRING_H_*/
+#endif /*GGAF_LIB_FONTSPRITESTRING_H_*/

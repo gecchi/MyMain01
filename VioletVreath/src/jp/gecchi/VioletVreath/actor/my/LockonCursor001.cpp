@@ -1,10 +1,10 @@
 #include "LockonCursor001.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -21,7 +21,7 @@ LockonCursor001::LockonCursor001(const char* prm_name, const char* prm_model_id)
     setCullingDraw(false);  //α部分があるため、カリングをOFFするため透明オブジェクト扱いにする。
 
     setHitAble(false); //当たり判定無し
-    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(0, "WAVE_LOCKON_001"); //効果音定義
     useProgress(PROG_BANPEI);
 }

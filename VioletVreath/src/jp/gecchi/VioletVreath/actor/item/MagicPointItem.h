@@ -17,7 +17,7 @@ public:
     /** 吸着差分座標 */
     int kDX_, kDY_, kDZ_;
 public:
-    MagicPointItem(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);
+    MagicPointItem(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat);
 
     virtual void onCreateModel() override {
     }
@@ -41,7 +41,7 @@ public:
 //        //ゲーム座標範囲外判定無し
 //        return false;
 //    }
-    virtual void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
+    virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override;
 
     virtual ~MagicPointItem();
 };

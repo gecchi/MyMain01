@@ -3,7 +3,7 @@
 #include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
 
-#include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
+#include "jp/ggaf/dx/util/GeoElem.h"
 
 namespace VioletVreath {
 
@@ -20,11 +20,11 @@ class EnemyAppho : public GgafLib::DefaultMeshSetActor {
 
 public:
     /** [r]出現座標(フォーメーションオブジェクトが設定) */
-    GgafDxCore::GgafDxGeoElem entry_pos_;
+    GgafDx::GeoElem entry_pos_;
     /** [r]ウロウロする座標(フォーメーションオブジェクトが設定) */
-    GgafDxCore::GgafDxGeoElem stagnating_pos_;
+    GgafDx::GeoElem stagnating_pos_;
     /** [r]退出座標(フォーメーションオブジェクトが設定) */
-    GgafDxCore::GgafDxGeoElem leave_pos_;
+    GgafDx::GeoElem leave_pos_;
 
 public:
     /**
@@ -60,7 +60,7 @@ public:
      * アッポーの衝突時処理 .
      * @param prm_pOtherActor 衝突対象
      */
-    void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
+    void onHit(const GgafCore::Actor* prm_pOtherActor) override;
 
 
     void onInactive() override;

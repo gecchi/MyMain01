@@ -1,20 +1,20 @@
 #include "EnemyGlaja.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/model/GgafDxModel.h"
+#include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Glaja/EnemyGlajaLance001.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/KurokoMvAssistant.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -38,7 +38,7 @@ enum {
 EnemyGlaja::EnemyGlaja(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "Glaja_1", STATUS(EnemyGlaja)) {
     _class_name = "EnemyGlaja";
-    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     pConn_pShot_ = connectToDepositoryManager("GlajaLance001");
     effectBlendOne(); //加算合成
@@ -48,7 +48,7 @@ EnemyGlaja::EnemyGlaja(const char* prm_name) :
 }
 
 void EnemyGlaja::onCreateModel() {
-    GgafDxModel* pModel = getModel();
+    GgafDx::Model* pModel = getModel();
     pModel->setSpecular(5.0, 1.0);
 }
 
@@ -65,8 +65,8 @@ void EnemyGlaja::onActive() {
 
 void EnemyGlaja::processBehavior() {
     MyShip* pMyShip = pMYSHIP;
-    GgafDxKuroko* const pKuroko = getKuroko();
-    GgafProgress* const pProg = getProgress();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
          case PROG_INIT: {
              setHitAble(false);
@@ -180,8 +180,8 @@ void EnemyGlaja::processJudgement() {
     }
 }
 
-void EnemyGlaja::onHit(const GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+void EnemyGlaja::onHit(const GgafCore::Actor* prm_pOtherActor) {
+    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTransmitter()->play3D(SE_EXPLOSION);
@@ -194,7 +194,7 @@ void EnemyGlaja::onHit(const GgafActor* prm_pOtherActor) {
 void EnemyGlaja::onInactive() {
 }
 
-void EnemyGlaja::onDispatchedShot(GgafDxCore::GgafDxFigureActor* prm_pActor, int prm_dispatch_num, int prm_set_index, int prm_way_index) {
+void EnemyGlaja::onDispatchedShot(GgafDx::FigureActor* prm_pActor, int prm_dispatch_num, int prm_set_index, int prm_way_index) {
     prm_pActor->activateDelay(prm_way_index*5 + 1); //activate 上書き。num_fire_*5 の 5 と同じ値にすること
 }
 

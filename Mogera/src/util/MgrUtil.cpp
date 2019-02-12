@@ -1,9 +1,9 @@
 #include "MgrUtil.h"
-#include "jp/ggaf/lib/GgafLibConfig.h"
+#include "jp/ggaf/lib/LibConfig.h"
 #include "MgrGod.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace Mogera;
 coord Mogera::MgrUtil::left_top_x_ = 0;

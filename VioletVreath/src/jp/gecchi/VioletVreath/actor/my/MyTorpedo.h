@@ -27,7 +27,7 @@ public:
     /** [r]魚雷発射時の座標 */
     int begin_x_,begin_y_,begin_z_;
     /** [r]到達目標のアクター。nullptrの場合は自機前方のゲーム領域境界点を目標とする仕組み */
-    GgafDxCore::GgafDxGeometricActor* pTarget_;
+    GgafDx::GeometricActor* pTarget_;
 
     int move_section_;
 
@@ -57,7 +57,7 @@ public:
 
     void onInactive() override;
 
-    void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
+    void onHit(const GgafCore::Actor* prm_pOtherActor) override;
 
     virtual ~MyTorpedo();
 };

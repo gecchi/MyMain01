@@ -1,17 +1,17 @@
 #include "EnemyRis.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/model/GgafDxModel.h"
-#include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/model/Model.h"
+#include "jp/ggaf/dx/model/supporter/TextureBlinker.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -26,12 +26,12 @@ EnemyRis::EnemyRis(const char* prm_name)
     pKurokoLeader_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;
-    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
 }
 
 void EnemyRis::onCreateModel() {
-    GgafDxModel* pModel = getModel();
+    GgafDx::Model* pModel = getModel();
     pModel->setBlinkPower(0.5, 0.9);
     pModel->getTexBlinker()->setRange(0.5, 2.0);
     pModel->getTexBlinker()->beat(60, 3, 0, 57, -1);
@@ -39,7 +39,7 @@ void EnemyRis::onCreateModel() {
 
 void EnemyRis::initialize() {
     setHitAble(true);
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->linkFaceAngByMvAng(true);
     pKuroko->setRollFaceAngVelo(5000);
     CollisionChecker* pChecker = getCollisionChecker();
@@ -53,7 +53,7 @@ void EnemyRis::onActive() {
 }
 
 void EnemyRis::processBehavior() {
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     switch (iMovePatternNo_) {
         case 0:  //【パターン０：スプライン移動開始】
             if (pKurokoLeader_) {
@@ -87,7 +87,7 @@ void EnemyRis::processBehavior() {
                                  nullptr );
                 //ショット発射エフェクト
                 if (pDepo_effect_) {
-                    GgafDxFigureActor* pTestActor_Shot = (GgafDxFigureActor*)pDepo_effect_->dispatch();
+                    GgafDx::FigureActor* pTestActor_Shot = (GgafDx::FigureActor*)pDepo_effect_->dispatch();
                     if (pTestActor_Shot) {
                         pTestActor_Shot->setPositionAt(this);
                     }
@@ -130,8 +130,8 @@ void EnemyRis::processJudgement() {
     }
 }
 
-void EnemyRis::onHit(const GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+void EnemyRis::onHit(const GgafCore::Actor* prm_pOtherActor) {
+    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTransmitter()->play3D(SE_EXPLOSION);

@@ -1,16 +1,16 @@
 #ifndef GROUNDMESHACTOR_H_
 #define GROUNDMESHACTOR_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/dxcore/actor/GgafDxMeshActor.h"
+#include "jp/ggaf/dx/actor/MeshActor.h"
 
 namespace VioletVreath {
 
 /**
  * メッシュアクターの具象クラス.
- * GgafDxCore::GgafDxMeshActor を空実装した具象アクターです。
+ * GgafDx::MeshActor を空実装した具象アクターです。
  * （現在未使用）
  */
-class GroundMeshActor : public GgafDxCore::GgafDxMeshActor {
+class GroundMeshActor : public GgafDx::MeshActor {
 
 public:
     frame offset_frames_;
@@ -18,7 +18,7 @@ public:
     GgafLib::CollisionChecker* _pColliChecker;
 
 public:
-    GroundMeshActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);
+    GroundMeshActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat);
     virtual void onCreateModel() override {
     }
     virtual void initialize() override {
@@ -39,7 +39,7 @@ public:
     virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {
     }
 
-    virtual void onHit(const GgafCore::GgafActor* prm_pOtherActor) override {
+    virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override {
     }
 
     virtual void drawHitArea() override;

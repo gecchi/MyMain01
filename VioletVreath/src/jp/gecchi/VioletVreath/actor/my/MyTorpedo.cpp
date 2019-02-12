@@ -1,18 +1,18 @@
 #include "MyTorpedo.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-#include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
+#include "jp/ggaf/dx/actor/supporter/Scaler.h"
+#include "jp/ggaf/dx/actor/GeometricActor.h"
 #include "MyTorpedoBlast.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyTorpedoController.h"
 #include "MyTorpedoTail.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -43,7 +43,7 @@ MyTorpedo::MyTorpedo(const char* prm_name, MyTorpedoController* prm_pTorpedoCont
     pTarget_ = nullptr;
     useProgress(10);
     trz_ = try_ = 0;
-    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_TORPEDO");
 }
 
@@ -63,7 +63,7 @@ void MyTorpedo::onActive() {
     _sx = _sy = _sz = 100;
     setScale(100);
     getScaler()->transitionLinearStep(7000, 500);
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->setRollPitchYawFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
     if (pTarget_) {
         pKuroko->forceMvVeloRange(4000, 100000);
@@ -91,8 +91,8 @@ void MyTorpedo::onActive() {
 }
 
 void MyTorpedo::processBehavior() {
-    GgafDxKuroko* const pKuroko = getKuroko();
-    GgafProgress* const pProg = getProgress();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafCore::Progress* const pProg = getProgress();
     if (pProg->get() == MyTorpedo_RELEASE) {
         if (pTailEffectDepository_->_num_chip_active == 0) {
             //軌跡エフェクトが全て非活動になった場合
@@ -212,11 +212,11 @@ void MyTorpedo::processBehavior() {
 }
 
 void MyTorpedo::processJudgement() {
-    GgafProgress* const pProg = getProgress();
+    GgafCore::Progress* const pProg = getProgress();
     if (isOutOfSpacetime() && pProg->get() == MyTorpedo_IN_FIRE) {
         setHitAble(false);
         pProg->change(MyTorpedo_RELEASE);
-        GgafMainActor* pTailEffect = (GgafMainActor*)pTailEffectDepository_->getChildFirst();
+        GgafCore::MainActor* pTailEffect = (GgafCore::MainActor*)pTailEffectDepository_->getChildFirst();
         for (int i = 0; i < length_TailEffect_; i++) {
             pTailEffect->inactivateDelay(i+1); //軌跡エフェクトが順々に消えるように予約
             pTailEffect = pTailEffect->getNext();
@@ -231,15 +231,15 @@ void MyTorpedo::processJudgement() {
 void MyTorpedo::onInactive() {
 }
 
-void MyTorpedo::onHit(const GgafActor* prm_pOtherActor) {
-    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
+void MyTorpedo::onHit(const GgafCore::Actor* prm_pOtherActor) {
+    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)prm_pOtherActor;
     //ヒット時通貫はしません
     int sta = UTIL::calcMyStamina(this, pOther);
     setHitAble(false);
 
-    GgafProgress* const pProg = getProgress();
+    GgafCore::Progress* const pProg = getProgress();
     pProg->change(MyTorpedo_RELEASE);
-    GgafMainActor* pTailEffect = (GgafMainActor*)pTailEffectDepository_->getChildFirst();
+    GgafCore::MainActor* pTailEffect = (GgafCore::MainActor*)pTailEffectDepository_->getChildFirst();
     for (int i = 0; i < length_TailEffect_; i++) {
         pTailEffect->inactivateDelay(i+1); //軌跡エフェクトが順々に消えるように予約
         pTailEffect = pTailEffect->getNext();

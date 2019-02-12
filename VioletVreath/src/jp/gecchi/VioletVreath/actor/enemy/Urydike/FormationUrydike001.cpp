@@ -1,13 +1,13 @@
 #include "FormationUrydike001.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/ggaf/lib/util/spline/SplineManufacture.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Urydike/EnemyUrydike.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -32,10 +32,10 @@ void FormationUrydike001::processBehavior() {
     FormationUrydike::processBehavior();
 }
 
-void FormationUrydike001::onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, int prm_row, int prm_col) {
+void FormationUrydike001::onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) {
     EnemyUrydike* pUrydike = (EnemyUrydike*)prm_pActor;
     if (pUrydike->pKurokoLeader_) {
-        throwGgafCriticalException("pUrydike->pKurokoLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpUrydike="<<pUrydike<<"("<<pUrydike->getName()<<")");
+        throwCriticalException("pUrydike->pKurokoLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpUrydike="<<pUrydike<<"("<<pUrydike->getName()<<")");
     } else {
         pUrydike->pKurokoLeader_ = papSplManufConn_[prm_col]->peek()->
                                      createKurokoLeader(pUrydike->getKuroko());
@@ -76,7 +76,7 @@ void FormationUrydike001::onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, in
 //    pUrydike->setMaterialColor(r, g, b);
 }
 
-void FormationUrydike001::onFinshLeading(GgafDxCore::GgafDxFigureActor* prm_pActor) {
+void FormationUrydike001::onFinshLeading(GgafDx::FigureActor* prm_pActor) {
 
 }
 

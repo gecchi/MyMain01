@@ -29,7 +29,7 @@ public:
     frame frame_of_morph_interval_;
 
     /** [r/w]ハッチから発射されるアクターをメンバーに持つデポジトリ */
-    GgafCore::GgafActorDepository* pDepo_Fired_;
+    GgafCore::ActorDepository* pDepo_Fired_;
     DepositoryConnection* pConn_depo_;
 
 public:
@@ -68,7 +68,7 @@ public:
      * オムルスの衝突時処理 .
      * @param prm_pOtherActor 衝突対象
      */
-    void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
+    void onHit(const GgafCore::Actor* prm_pOtherActor) override;
 
 
     void onInactive() override;

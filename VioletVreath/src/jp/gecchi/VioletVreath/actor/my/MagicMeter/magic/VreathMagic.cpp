@@ -1,15 +1,15 @@
 #include "VreathMagic.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectVreathMagic001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -199,7 +199,7 @@ void VreathMagic::processEffectingBehavior(int prm_last_level, int prm_now_level
         frame f = getActiveFrame() % beat_time_[prm_now_level];
 #ifdef MY_DEBUG
         if (f > beat_time_[prm_now_level]) {
-            throwGgafCriticalException("範囲外です。 f="<<f<<" beat_time_["<<prm_now_level<<"]");
+            throwCriticalException("範囲外です。 f="<<f<<" beat_time_["<<prm_now_level<<"]");
         }
 #endif
         int add_vreath = apaInt_vreath_per_frame_[prm_now_level][f] * r_add_vreath_[prm_now_level];

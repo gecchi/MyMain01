@@ -2,7 +2,7 @@
 #define FORMATIONOEBIUS002_H_
 #include "VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Oebius/FormationOebius.h"
-#include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
+#include "jp/ggaf/dx/util/GeoElem.h"
 
 namespace VioletVreath {
 
@@ -29,9 +29,9 @@ public:
     virtual void onActive() override;
     virtual void processBehavior() override;
 
-    virtual void onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, int prm_row, int prm_col) override;
+    virtual void onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) override;
 
-    virtual void onFinshLeading(GgafDxCore::GgafDxFigureActor* prm_pActor) override;
+    virtual void onFinshLeading(GgafDx::FigureActor* prm_pActor) override;
 
     virtual ~FormationOebius002();
 };

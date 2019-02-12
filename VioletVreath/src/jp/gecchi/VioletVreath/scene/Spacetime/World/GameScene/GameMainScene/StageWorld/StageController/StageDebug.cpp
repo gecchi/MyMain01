@@ -1,6 +1,6 @@
 #include "StageDebug.h"
 
-#include "jp/ggaf/core/actor/GgafSceneMediator.h"
+#include "jp/ggaf/core/actor/SceneMediator.h"
 #include "jp/ggaf/core/util/CmRandomNumberGenerator.h"
 #include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshi001.h"
 #include "jp/gecchi/VioletVreath/actor/background/WorldBound/WorldBound001.h"
@@ -12,10 +12,10 @@
 #include "StageDebug/StageDebugPartController.h"
 
 
-#include "jp/ggaf/core/util/GgafUtil.h"
+#include "jp/ggaf/core/util/Util.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 

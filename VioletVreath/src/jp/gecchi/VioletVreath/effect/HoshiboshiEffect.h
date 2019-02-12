@@ -1,7 +1,7 @@
 #ifndef HOSHIBOSHIEFFECT_H_
 #define HOSHIBOSHIEFFECT_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/dxcore/effect/GgafDxPointSpriteEffect.h"
+#include "jp/ggaf/dx/effect/PointSpriteEffect.h"
 
 namespace VioletVreath {
 
@@ -11,8 +11,8 @@ namespace VioletVreath {
  * @since 2018/04/26
  * @author Masatoshi Tsuge
  */
-class HoshiboshiEffect : public GgafDxCore::GgafDxPointSpriteEffect {
-    friend class GgafDxEffectManager;
+class HoshiboshiEffect : public GgafDx::PointSpriteEffect {
+    friend class EffectManager;
 
 public:
     D3DXHANDLE h_fX_MyShip_;

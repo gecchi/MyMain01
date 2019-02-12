@@ -1,25 +1,25 @@
-#ifndef GGAFLIB_DEFAULTDYNAD3DXMESHACTOR_H_
-#define GGAFLIB_DEFAULTDYNAD3DXMESHACTOR_H_
+#ifndef GGAF_LIB_DEFAULTDYNAD3DXMESHACTOR_H_
+#define GGAF_LIB_DEFAULTDYNAD3DXMESHACTOR_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/dxcore/actor/GgafDxDynaD3DXMeshActor.h"
+#include "jp/ggaf/dx/actor/DynaD3DXMeshActor.h"
 
 namespace GgafLib {
 
 /**
  * メッシュアクターの具象クラス.
- * GgafDxCore::GgafDxDynaD3DXMeshActor を空実装した具象アクターです。
+ * GgafDx::DynaD3DXMeshActor を空実装した具象アクターです。
  * @version 1.00
  * @since 2008/11/17
  * @author Masatoshi Tsuge
  */
-class DefaultDynaD3DXMeshActor : public GgafDxCore::GgafDxDynaD3DXMeshActor {
+class DefaultDynaD3DXMeshActor : public GgafDx::DynaD3DXMeshActor {
 
 public:
     /** 衝突判定支援オブジェクト */
     CollisionChecker* _pColliChecker;
 
 public:
-    DefaultDynaD3DXMeshActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
+    DefaultDynaD3DXMeshActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat=nullptr);
 
     virtual void onCreateModel() override {
     }
@@ -36,7 +36,7 @@ public:
     virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {
     }
 
-    virtual void onHit(const GgafCore::GgafActor* prm_pOtherActor) override {
+    virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override {
     }
 
     virtual void drawHitArea() override;
@@ -49,4 +49,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_DEFAULTDYNAD3DXMESHACTOR_H_*/
+#endif /*GGAF_LIB_DEFAULTDYNAD3DXMESHACTOR_H_*/

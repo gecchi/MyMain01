@@ -1,24 +1,24 @@
 #include "jp/ggaf/lib/actor/FontBoardActor.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
-#include "jp/ggaf/dxcore/effect/GgafDxMassBoardEffect.h"
-#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
+#include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
+#include "jp/ggaf/dx/effect/MassBoardEffect.h"
+#include "jp/ggaf/dx/scene/Spacetime.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
 FontBoardActor::VERTEX_instancedata FontBoardActor::_aInstancedata[GGAFDXMASS_MAX_INSTANCE_NUM];
 
-FontBoardActor::FontBoardActor(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
-          GgafDxMassBoardActor(prm_name, prm_model, "FontBoardEffect", "FontBoardTechnique"),
+FontBoardActor::FontBoardActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat) :
+          GgafDx::MassBoardActor(prm_name, prm_model, "FontBoardEffect", "FontBoardTechnique"),
           ICharacterChip<FontBoardActor, 256, 1024>(this, (int)(_pMassBoardModel->_model_width_px), (int)(_pMassBoardModel->_model_height_px))
 {
     _class_name = "FontBoardActor";
     _pMassBoardModel->registerCallback_VertexInstanceDataInfo(FontBoardActor::createVertexInstanceData);
 }
 
-void FontBoardActor::setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign) {
+void FontBoardActor::setAlign(Align prm_align, Valign prm_valign) {
     if (_align != prm_align || _valign != prm_valign) {
         _align = prm_align;
         _valign = prm_valign;
@@ -26,21 +26,21 @@ void FontBoardActor::setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign) {
     }
 }
 
-void FontBoardActor::setAlign(GgafDxAlign prm_align) {
+void FontBoardActor::setAlign(Align prm_align) {
     if (_align != prm_align) {
         _align = prm_align;
         prepare2();
     }
 }
 
-void FontBoardActor::setValign(GgafDxValign prm_valign) {
+void FontBoardActor::setValign(Valign prm_valign) {
     if (_valign != prm_valign) {
         _valign = prm_valign;
         prepare2();
     }
 }
 
-void FontBoardActor::createVertexInstanceData(void* prm, GgafDxMassModel::VertexInstanceDataInfo* out_info) {
+void FontBoardActor::createVertexInstanceData(void* prm, GgafDx::MassModel::VertexInstanceDataInfo* out_info) {
     int element_num = 2;
     out_info->paElement = NEW D3DVERTEXELEMENT9[element_num];
     // Stream = 1 ---->
@@ -69,10 +69,10 @@ void FontBoardActor::createVertexInstanceData(void* prm, GgafDxMassModel::Vertex
 }
 
 void FontBoardActor::processDraw() {
-    int draw_set_num = 0; //GgafDxMassBoardActorの同じモデルで同じテクニックが
+    int draw_set_num = 0; //MassBoardActorの同じモデルで同じテクニックが
                        //連続しているカウント数。同一描画深度は一度に描画する。
     VERTEX_instancedata* paInstancedata = FontBoardActor::_aInstancedata;
-    GgafDxFigureActor* pDrawActor = this;
+    GgafDx::FigureActor* pDrawActor = this;
     FontBoardActor* pFontBoardActor = nullptr;
     int model_set_num = _pMassBoardModel->_set_num;
     while (pDrawActor) {
@@ -84,7 +84,7 @@ void FontBoardActor::processDraw() {
             pixcoord z = C_PX(pFontBoardActor->_z);
             InstancePart* pInstancePart = pFontBoardActor->_paInstancePart;
             float alpha = pFontBoardActor->_alpha;
-            GgafDxSpacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
+            GgafDx::Spacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
 
             for (int i = 0; i < n; i++) {
                 paInstancedata->px_x = (float)(x + pInstancePart->px_local_x);
@@ -98,7 +98,7 @@ void FontBoardActor::processDraw() {
 
                 draw_set_num++;
                 if (draw_set_num >= model_set_num) {
-                   _pMassBoardModel->GgafDxMassBoardModel::draw(this, draw_set_num);
+                   _pMassBoardModel->GgafDx::MassBoardModel::draw(this, draw_set_num);
                    paInstancedata = FontBoardActor::_aInstancedata;
                    draw_set_num = 0;
                 }
@@ -109,7 +109,7 @@ void FontBoardActor::processDraw() {
         }
     }
     if (draw_set_num > 0) {
-        _pMassBoardModel->GgafDxMassBoardModel::draw(this, draw_set_num);
+        _pMassBoardModel->GgafDx::MassBoardModel::draw(this, draw_set_num);
     }
 }
 

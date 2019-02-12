@@ -4,8 +4,8 @@
 #include "jp/ggaf/lib/actor/DefaultD3DXMeshActor.h"
 
 #include "jp/ggaf/lib/util/Quantity.hpp"
-#include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
-#include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
+#include "jp/ggaf/core/util/LinkedListRing.hpp"
+#include "jp/ggaf/dx/util/GeoElem.h"
 
 namespace VioletVreath {
 
@@ -111,17 +111,17 @@ public:
     angvelo angRxVelo_BeginMZT_; //Rotation axisX angle Velo when I Begin To Move Z with Turbo
     //ã‚Ìê‡‚Í³A‰º‚Ìê‡‚Í‚±‚ê‚É -1 ‚ðæ‚¸‚é
 
-    GgafCore::GgafActorDepository* pDepo_MyShots001_;
-    GgafCore::GgafActorDepository* pDepo_MySnipeShots001_;
+    GgafCore::ActorDepository* pDepo_MyShots001_;
+    GgafCore::ActorDepository* pDepo_MySnipeShots001_;
     GgafLib::LaserChipDepository* pLaserChipDepo_;
 
     EffectTurbo001* pEffectTurbo001_;
     MyMagicEnergyCore* pMyMagicEnergyCore_;
 //    //debug ---->
-//    GgafCore::GgafActorDepository* pDepo_TestGuShot_;
-//    GgafCore::GgafActorDepository* pDepo_TestChokiShot_;
-//    GgafCore::GgafActorDepository* pDepo_TestPaShot_;
-//    GgafCore::GgafActorDepository* pDepo_TestNomalShot_;
+//    GgafCore::ActorDepository* pDepo_TestGuShot_;
+//    GgafCore::ActorDepository* pDepo_TestChokiShot_;
+//    GgafCore::ActorDepository* pDepo_TestPaShot_;
+//    GgafCore::ActorDepository* pDepo_TestNomalShot_;
 //    //<---- debug
 
 
@@ -207,7 +207,7 @@ public:
 
     void processJudgement() override;
 
-    void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
+    void onHit(const GgafCore::Actor* prm_pOtherActor) override;
 
     /**
      * ˆÚ“®•ûŒü‚Ìó‘Ô‚ðXV .

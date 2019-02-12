@@ -23,7 +23,7 @@ public:
      * @param prm_name
      * @return
      */
-    TestEnemy(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
+    TestEnemy(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat=nullptr);
 
     void initialize() override;
 

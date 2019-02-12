@@ -1,14 +1,14 @@
 #include "MyShip.h"
 
-#include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxChecker.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/model/GgafDxModel.h"
-#include "jp/ggaf/dxcore/util/GgafDxCollisionArea.h"
-#include "jp/ggaf/dxcore/util/GgafDxCollisionPart.h"
+#include "jp/ggaf/core/actor/ex/ActorDepository.h"
+#include "jp/ggaf/dx/actor/supporter/Checker.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Trucker.h"
+#include "jp/ggaf/dx/actor/supporter/Scaler.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/model/Model.h"
+#include "jp/ggaf/dx/util/CollisionArea.h"
+#include "jp/ggaf/dx/util/CollisionPart.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectTurbo001.h"
@@ -28,8 +28,8 @@
 #include "jp/ggaf/lib/util/ColliAAPrism.h"
 #include "jp/ggaf/lib/util/ColliAAPyramid.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -154,22 +154,22 @@ MyShip::MyShip(const char* prm_name) :
 
 
 //    //debug ---->
-//    pDepo_TestGuShot_ = NEW GgafActorDepository("Depo_TestGuShot");
+//    pDepo_TestGuShot_ = NEW GgafCore::ActorDepository("Depo_TestGuShot");
 //    for (int i = 0; i < 25; i++) { //テストグー弾ストック
 //        pDepo_TestGuShot_->appendChild(NEW TestGuShot("TestGuShot"));
 //    }
 //    appendGroupChild(pDepo_TestGuShot_);
-//    pDepo_TestChokiShot_ = NEW GgafActorDepository("Depo_TestChokiShot");
+//    pDepo_TestChokiShot_ = NEW GgafCore::ActorDepository("Depo_TestChokiShot");
 //    for (int i = 0; i < 25; i++) { //テストチョキ弾ストック
 //        pDepo_TestChokiShot_->appendChild(NEW TestChokiShot("TestChokiShot"));
 //    }
 //    appendGroupChild(pDepo_TestChokiShot_);
-//    pDepo_TestPaShot_ = NEW GgafActorDepository("Depo_TestPaShot");
+//    pDepo_TestPaShot_ = NEW GgafCore::ActorDepository("Depo_TestPaShot");
 //    for (int i = 0; i < 25; i++) { //テストパー弾ストック
 //        pDepo_TestPaShot_->appendChild(NEW TestPaShot("TestPaShot"));
 //    }
 //    appendGroupChild(pDepo_TestPaShot_);
-//    pDepo_TestNomalShot_ = NEW GgafActorDepository("Depo_TestNomalShot");
+//    pDepo_TestNomalShot_ = NEW GgafCore::ActorDepository("Depo_TestNomalShot");
 //    for (int i = 0; i < 25; i++) { //テストノーマル弾ストック
 //        pDepo_TestNomalShot_->appendChild(NEW TestNomalShot("TestNomalShot"));
 //    }
@@ -177,7 +177,7 @@ MyShip::MyShip(const char* prm_name) :
 //    //<---- debug
 
 
-    pDepo_MyShots001_ = NEW GgafActorDepository("RotShot001");
+    pDepo_MyShots001_ = NEW GgafCore::ActorDepository("RotShot001");
     MyShot001* pShot;
     for (int i = 0; i < 50; i++) { //自弾ストック
         pShot = NEW MyShot001("MY_MyShot001");
@@ -186,7 +186,7 @@ MyShip::MyShip(const char* prm_name) :
     }
     appendGroupChild(pDepo_MyShots001_);
 
-    pDepo_MySnipeShots001_ = NEW GgafActorDepository("RotShot001");
+    pDepo_MySnipeShots001_ = NEW GgafCore::ActorDepository("RotShot001");
     MySnipeShot001* pSnipeShot;
     for (int i = 0; i < 5; i++) { //自弾ストック
         pSnipeShot = NEW MySnipeShot001("MY_MySnipeShot001");
@@ -252,7 +252,7 @@ MyShip::MyShip(const char* prm_name) :
     pSenakai_[DIR26( 1, 1, 0)] =  0;
     pSenakai_[DIR26( 1, 1, 1)] =  D_ANG(30);
 
-    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_DAMAGED     , "WAVE_MY_DAMAGED_001");
     pSeTx->set(SE_EXPLOSION   , "WAVE_MY_SE_EXPLOSION_001");
     pSeTx->set(SE_TURBO       , "WAVE_MY_TURBO_001");
@@ -317,7 +317,7 @@ MyShip::MyShip(const char* prm_name) :
 }
 
 void MyShip::onCreateModel() {
-    GgafDxModel* pModel = getModel();
+    GgafDx::Model* pModel = getModel();
     pModel->setSpecular(5.0, 1.0);
 }
 
@@ -343,12 +343,12 @@ void MyShip::initialize() {
 /////////////TEST
       pChecker->setColliAACube(0, PX_C(120));
 
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->setMvVelo(0);
 
     //setMaterialColor(1.0, 0.5, 0.5);
     setAlpha(1.0);
-    GgafDxTrucker* const pTrucker = getTrucker();
+    GgafDx::Trucker* const pTrucker = getTrucker();
     pTrucker->forceVxyzMvVeloRange(-veloTurboTop_, veloTurboTop_);
     pTrucker->setZeroVxyzMvAcce();
 
@@ -399,8 +399,8 @@ void MyShip::onInactive() {
 }
 void MyShip::processBehavior() {
     VirtualButton* pVbPlay = VB_PLAY;
-    GgafDxKuroko* const pKuroko = getKuroko();
-    GgafDxTrucker* const pTrucker = getTrucker();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafDx::Trucker* const pTrucker = getTrucker();
     //操作拒否
     if (!can_control_) {
         return;
@@ -730,14 +730,14 @@ void MyShip::processBehavior() {
 
 void MyShip::processJudgement() {
     //TODO:自爆 TEST
-    if (GgafDxInput::isPushedDownKey(DIK_0)) {
+    if (GgafDx::Input::isPushedDownKey(DIK_0)) {
         //自機爆発開催
         setHitAble(false);
         getSeTransmitter()->play3D(SE_EXPLOSION);
         throwEventUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_BEGIN);
     }
     //TODO:ダメージテスト TEST
-    if (GgafDxInput::isPushedDownKey(DIK_9)) {
+    if (GgafDx::Input::isPushedDownKey(DIK_9)) {
         int vreath = getStatus()->get(STAT_Stamina);
         getStatus()->minus(STAT_Stamina, 10000);
         int damage = vreath - getStatus()->get(STAT_Stamina);
@@ -747,8 +747,8 @@ void MyShip::processJudgement() {
     }
 }
 
-void MyShip::onHit(const GgafActor* prm_pOtherActor) {
-    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
+void MyShip::onHit(const GgafCore::Actor* prm_pOtherActor) {
+    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)prm_pOtherActor;
     //ここにヒットエフェクト
     int vreath = getStatus()->get(STAT_Stamina);
     if (UTIL::calcMyStamina(this, pOther) <= 0) {
@@ -779,7 +779,7 @@ void MyShip::onHit(const GgafActor* prm_pOtherActor) {
         float vx2, vy2, vz2;
         coord dX2,dY2,dZ2;
         if ( pOther->instanceOf(Obj_MassWallActor)) {
-            GgafDxCollisionPart** papColli = pOther->_pChecker->_pCollisionArea->_papColliPart;
+            GgafDx::CollisionPart** papColli = pOther->_pChecker->_pCollisionArea->_papColliPart;
 
             ColliAABox* pBox = (ColliAABox*)(papColli[0]); //[0]BOX,[1]プリズム,[2]ピラミッド
             ColliAAPrism* pPrism = (ColliAAPrism*)(papColli[1]); //[0]BOX,[1]プリズム,[2]ピラミッド
@@ -969,9 +969,9 @@ void MyShip::onHit(const GgafActor* prm_pOtherActor) {
             }
         } else {
             //壁じゃない場合は中心座標で吹っ飛ぶ方向決定
-            GgafDxCollisionArea* pCollisionArea = pOther->_pChecker->_pCollisionArea;
+            GgafDx::CollisionArea* pCollisionArea = pOther->_pChecker->_pCollisionArea;
             if (pCollisionArea->_hit_colli_part_index >= 0) {
-                GgafDxCollisionPart* pPart = pCollisionArea->_papColliPart[pCollisionArea->_hit_colli_part_index];
+                GgafDx::CollisionPart* pPart = pCollisionArea->_papColliPart[pCollisionArea->_hit_colli_part_index];
                 dX2 = (_x - (pOther->_x + pPart->_cx));
                 dY2 = (_y - (pOther->_y + pPart->_cy));
                 dZ2 = (_z - (pOther->_z + pPart->_cz));
@@ -1099,7 +1099,7 @@ void MyShip::moveNomal() {
 }
 
 void MyShip::moveTurbo() {
-    GgafDxTrucker* const pTrucker = getTrucker();
+    GgafDx::Trucker* const pTrucker = getTrucker();
     float vx,vy,vz;
     Direction26Util::cnvDirNo2Vec(mv_way_, vx, vy, vz);
     pTrucker->addVxMvVelo(veloBeginMT_ * vx);

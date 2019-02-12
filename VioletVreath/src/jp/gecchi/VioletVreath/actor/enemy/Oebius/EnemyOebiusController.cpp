@@ -1,13 +1,13 @@
 #include "EnemyOebiusController.h"
 
-#include "jp/ggaf/core/GgafElement.hpp"
-#include "jp/ggaf/core/GgafProgress.h"
+#include "jp/ggaf/core/Element.hpp"
+#include "jp/ggaf/core/Progress.h"
 #include "FormationOebius001.h"
 #include "FormationOebius002.h"
 #include "EnemyOebiusCore.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -22,7 +22,7 @@ enum {
 
 EnemyOebiusController::EnemyOebiusController(const char* prm_name, EnemyOebiusCore* prm_pCore,
                                                                    FormationOebius* prm_pFormation) :
-  GgafDestructActor(prm_name, nullptr) {
+  GgafCore::DestructActor(prm_name, nullptr) {
     _class_name = "EnemyOebiusController";
     useProgress(PROG_BANPEI);
 
@@ -54,7 +54,7 @@ void EnemyOebiusController::processBehavior() {
         }
     }
 
-    GgafProgress* const pProg = getProgress();
+    GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             pProg->changeNext();

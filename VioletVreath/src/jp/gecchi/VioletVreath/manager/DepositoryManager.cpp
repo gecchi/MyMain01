@@ -1,7 +1,7 @@
 #include "DepositoryManager.h"
 
-#include "jp/ggaf/core/actor/GgafSceneMediator.h"
-#include "jp/ggaf/core/actor/ex/GgafActorDepositoryStore.h"
+#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/ex/ActorDepositoryStore.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
@@ -9,20 +9,20 @@
 
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
 DepositoryManager::DepositoryManager(const char* prm_manager_name) :
-    GgafResourceManager<GgafActorDepository> (prm_manager_name) {
+    GgafCore::ResourceManager<GgafCore::ActorDepository> (prm_manager_name) {
 }
 
-GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) {
-    GgafActorDepository* pResource = nullptr;
+GgafCore::ActorDepository* DepositoryManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) {
+    GgafCore::ActorDepository* pResource = nullptr;
 
     if (strcmp("Shot001", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("MgrDepo_Shot001Stock");
+        pResource = NEW GgafCore::ActorDepository("MgrDepo_Shot001Stock");
         for (int i = 0; i < 100; i++) {
             pResource->put(NEW Shot001("Shot001"));
             Sleep(1);
@@ -30,7 +30,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
         pCOMMON_SCENE->bringSceneMediator()->appendGroupChild(pResource); //最後にappendGroupChildすべし（さもないと直ぐに削除対象になる）
 
     } else if (strcmp("Shot002", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("MgrDepo_Shot002Stock");
+        pResource = NEW GgafCore::ActorDepository("MgrDepo_Shot002Stock");
         for (int i = 0; i < 100; i++) { //ストック100個
             pResource->put(NEW Shot002("Shot002"));
             Sleep(1);
@@ -38,14 +38,14 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
         pCOMMON_SCENE->bringSceneMediator()->appendGroupChild(pResource);
 
     } else if (strcmp("Shot003", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("MgrDepo_Shot003Stock");
+        pResource = NEW GgafCore::ActorDepository("MgrDepo_Shot003Stock");
         for (int i = 0; i < 100; i++) {
             pResource->put(NEW Shot003("Shot003"));
             Sleep(1);
         }
         pCOMMON_SCENE->bringSceneMediator()->appendGroupChild(pResource);
     } else if (strcmp("Shot004Blue", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("MgrDepo_Shot004BlueStock");
+        pResource = NEW GgafCore::ActorDepository("MgrDepo_Shot004BlueStock");
         for (int i = 0; i < 100; i++) {
             pResource->put(NEW Shot004Blue("Shot004Blue"));
             Sleep(1);
@@ -53,7 +53,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
         pCOMMON_SCENE->bringSceneMediator()->appendGroupChild(pResource);
 
     } else if (strcmp("Shot004Yellow", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("MgrDepo_Shot004YellowStock");
+        pResource = NEW GgafCore::ActorDepository("MgrDepo_Shot004YellowStock");
         for (int i = 0; i < 100; i++) {
             pResource->put(NEW Shot004Yellow("Shot004Yellow"));
             Sleep(1);
@@ -61,7 +61,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
         pCOMMON_SCENE->bringSceneMediator()->appendGroupChild(pResource);
 
     } else if (strcmp("EffRefraction001", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("MgrDepo_EffRefraction001");
+        pResource = NEW GgafCore::ActorDepository("MgrDepo_EffRefraction001");
         for (int i = 0; i < 100; i++) {
             pResource->put(NEW EffectLaserRefraction001("EffRefraction001"));
             Sleep(1);
@@ -69,7 +69,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
         pCOMMON_SCENE->bringSceneMediator()->appendGroupChild(pResource);
 
     } else if (strcmp("EnemyStraeaLaserChip001DepoStore", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepositoryStore("EnemyStraeaLaserChip001DepoStore");
+        pResource = NEW GgafCore::ActorDepositoryStore("EnemyStraeaLaserChip001DepoStore");
         LaserChipDepository* pLaserChipDepo;
         for (int nLaser = 0; nLaser < 27; nLaser++) {
             std::string name1 = "LaserChipDepository["+XTOS(nLaser)+"]";
@@ -84,7 +84,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
         pCOMMON_SCENE->bringSceneMediator()->appendGroupChild(pResource);
 
     } else if (strcmp("EnemyStraeaLaserChip002DepoStore", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepositoryStore("EnemyStraeaLaserChip002DepoStore");
+        pResource = NEW GgafCore::ActorDepositoryStore("EnemyStraeaLaserChip002DepoStore");
         LaserChipDepository* pLaserChipDepo;
         EnemyStraeaLaserChip002* pChip;
         for (int nLaser = 0; nLaser < 27; nLaser++) {
@@ -103,7 +103,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
         pCOMMON_SCENE->bringSceneMediator()->appendGroupChild(pResource);
 
     } else if (strcmp("EnemyStraeaLaserChip003DepoStore", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepositoryStore("EnemyStraeaLaserChip001DepoStore");
+        pResource = NEW GgafCore::ActorDepositoryStore("EnemyStraeaLaserChip001DepoStore");
         LaserChipDepository* pLaserChipDepo;
         for (int nLaser = 0; nLaser < 30; nLaser++) {
             std::string name1 = "LaserChipDepository["+XTOS(nLaser)+"]";
@@ -118,7 +118,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
         pCOMMON_SCENE->bringSceneMediator()->appendGroupChild(pResource);
 
     } else if (strcmp("EnemyStraeaLaserChip004DepoStore", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepositoryStore("EnemyStraeaLaserChip004DepoStore");
+        pResource = NEW GgafCore::ActorDepositoryStore("EnemyStraeaLaserChip004DepoStore");
         LaserChipDepository* pLaserChipDepo;
         for (int nLaser = 0; nLaser < 50; nLaser++) {
             std::string name1 = "LaserChipDepository["+XTOS(nLaser)+"]";
@@ -133,7 +133,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
         pCOMMON_SCENE->bringSceneMediator()->appendGroupChild(pResource);
 
     } else if (strcmp("Emilia", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("Deop_Emilia");
+        pResource = NEW GgafCore::ActorDepository("Deop_Emilia");
         for (int i = 0; i < 200; i++) {
             pResource->put(NEW EnemyEmilia("EnemyEmilia"));
             Sleep(1);
@@ -141,7 +141,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
         pCOMMON_SCENE->bringSceneMediator()->appendGroupChild(pResource);
 
     } else if (strcmp("EmiliaFragment", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("Deop_EmiliaFragment");
+        pResource = NEW GgafCore::ActorDepository("Deop_EmiliaFragment");
         for (int i = 0; i < 200; i++) {
             pResource->put(NEW EnemyEmiliaFragment("EMF"));
             Sleep(1);
@@ -149,7 +149,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
         pCOMMON_SCENE->bringSceneMediator()->appendGroupChild(pResource);
 
     } else if (strcmp("EmiliaFragment2", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("Deop_EmiliaFragment2");
+        pResource = NEW GgafCore::ActorDepository("Deop_EmiliaFragment2");
         for (int i = 0; i < 300; i++) {
             pResource->put(NEW EnemyEmiliaFragment2("EMF2"));
             Sleep(1);
@@ -157,7 +157,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
         pCOMMON_SCENE->bringSceneMediator()->appendGroupChild(pResource);
 
     } else if (strcmp("EmiliaFragment3", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("Deop_EmiliaFragment3");
+        pResource = NEW GgafCore::ActorDepository("Deop_EmiliaFragment3");
         for (int i = 0; i < 400; i++) {
             pResource->put(NEW EnemyEmiliaFragment3("EMF3"));
             Sleep(1);
@@ -165,7 +165,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
         pCOMMON_SCENE->bringSceneMediator()->appendGroupChild(pResource);
 
     } else if (strcmp("EnemyEbe4Formation", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("Deop_Ebe");
+        pResource = NEW GgafCore::ActorDepository("Deop_Ebe");
         for (int i = 0; i < RF_FormationEbe_Num(2.0); i++) {
             pResource->put(NEW EnemyEbe("EnemyEmilia"));
             Sleep(1);
@@ -173,7 +173,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
         pCOMMON_SCENE->bringSceneMediator()->appendGroupChild(pResource);
 
     } else if (strcmp("EnemyEsperiaLaserChip001DepoStore", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepositoryStore("EnemyEsperiaLaserChip0014DepoStore");
+        pResource = NEW GgafCore::ActorDepositoryStore("EnemyEsperiaLaserChip0014DepoStore");
         LaserChipDepository* pLaserChipDepo;
         for (int nLaser = 0; nLaser < RF_EnemyEsperia_ShotWay(1.0)*5; nLaser++) {
             std::string name1 = "LaserChipDepo["+XTOS(nLaser)+"]";
@@ -188,7 +188,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
         pCOMMON_SCENE->bringSceneMediator()->appendGroupChild(pResource);
 
     } else if (strcmp("Talante", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("Depo_TalanteStock");
+        pResource = NEW GgafCore::ActorDepository("Depo_TalanteStock");
         for (int i = 0; i < 2000; i++) {
             std::string name = "EnemyTalante("+XTOS(i)+")";
             pResource->put(NEW EnemyTalante(name.c_str()));
@@ -197,7 +197,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
         pCOMMON_SCENE->bringSceneMediator()->appendGroupChild(pResource);
 
     } else if (strcmp("EnemyEmusLaserChip001DepoStore", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepositoryStore("EnemyEmusLaserChip001DepoStore");
+        pResource = NEW GgafCore::ActorDepositoryStore("EnemyEmusLaserChip001DepoStore");
         LaserChipDepository* pLaserChipDepo;
         for (int nLaser = 0; nLaser < 20; nLaser++) { //２０本
             std::string name1 = "LaserChipDepo["+XTOS(nLaser)+"]";
@@ -212,7 +212,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
         pCOMMON_SCENE->bringSceneMediator()->appendGroupChild(pResource);
 
     } else if (strcmp("EnemyHisbeLaserChip001DepoStore", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepositoryStore("EnemyEmusLaserChip001DepoStore");
+        pResource = NEW GgafCore::ActorDepositoryStore("EnemyEmusLaserChip001DepoStore");
         LaserChipDepository* pLaserChipDepo;
         for (int nLaser = 0; nLaser < 3; nLaser++) { //２本
             std::string name2 = "LaserChipDepo["+XTOS(nLaser)+"]";
@@ -229,7 +229,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
         pCOMMON_SCENE->bringSceneMediator()->appendGroupChild(pResource);
 
     } else if (strcmp("EnemyHisbeLaserChip002DepoStore", prm_idstr) == 0) {
-        GgafActorDepository* pDepoEffect = NEW GgafActorDepository("HisbeLaser");
+        GgafCore::ActorDepository* pDepoEffect = NEW GgafCore::ActorDepository("HisbeLaser");
         EffectLaserRefraction001* pEffect;
         for (int i = 0; i < 300; i++) {
             std::string name = "EffectLaserRefraction001["+XTOS(i)+"]";
@@ -239,7 +239,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
         }
         pCOMMON_SCENE->bringSceneMediator()->appendGroupChild(pDepoEffect);
 
-        pResource = NEW GgafActorDepositoryStore("EnemyHisbeLaserChip002DepoStore");
+        pResource = NEW GgafCore::ActorDepositoryStore("EnemyHisbeLaserChip002DepoStore");
         LaserChipDepository* pLaserChipDepo;
         for (int nLaser = 0; nLaser < 8; nLaser++) { //4本
             std::string name1 = "LaserChipDepo["+XTOS(nLaser)+"]";
@@ -257,7 +257,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
         pCOMMON_SCENE->bringSceneMediator()->appendGroupChild(pResource);
 
     } else if (strcmp("AntiopeP", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("Depo_AntiopeP");
+        pResource = NEW GgafCore::ActorDepository("Depo_AntiopeP");
         for (int i = 0; i < 120; i++) {
             std::string name = "AntiopeP("+XTOS(i)+")";
             pResource->put(NEW EnemyAntiopeP(name.c_str()));
@@ -266,7 +266,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
         pCOMMON_SCENE->bringSceneMediator()->appendGroupChild(pResource);
 
     } else if (strcmp("AntiopeN", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("Depo_AntiopeN");
+        pResource = NEW GgafCore::ActorDepository("Depo_AntiopeN");
         for (int i = 0; i < 120; i++) {
             std::string name = "AntiopeN("+XTOS(i)+")";
             pResource->put(NEW EnemyAntiopeN(name.c_str()));
@@ -275,7 +275,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
         pCOMMON_SCENE->bringSceneMediator()->appendGroupChild(pResource);
 
     } else if (strcmp("EnemyDelheid4Formation", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("Depo_DelheidStock");
+        pResource = NEW GgafCore::ActorDepository("Depo_DelheidStock");
         for (int i = 0; i < 300; i++) {
             std::string name = "EnemyDelheid("+XTOS(i)+")";
             pResource->put(NEW EnemyDelheid(name.c_str()));
@@ -284,7 +284,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
         pCOMMON_SCENE->bringSceneMediator()->appendGroupChild(pResource);
 
     } else if (strcmp("EnemyDelheidShot", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("MgrDepo_DelheidShotStock");
+        pResource = NEW GgafCore::ActorDepository("MgrDepo_DelheidShotStock");
         for (int i = 0; i < 400; i++) {
             pResource->put(NEW Shot004Yellow("Shot004Yellow"));
             Sleep(1);
@@ -292,7 +292,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
         pCOMMON_SCENE->bringSceneMediator()->appendGroupChild(pResource);
 
     } else if (strcmp("RingShot", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("MgrDepo_DelheidShotStock");
+        pResource = NEW GgafCore::ActorDepository("MgrDepo_DelheidShotStock");
         for (int i = 0; i < 400; i++) {
             pResource->put(NEW Shot004Yellow("Shot004Yellow"));
             Sleep(1);
@@ -300,7 +300,7 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
         pCOMMON_SCENE->bringSceneMediator()->appendGroupChild(pResource);
 
     } else if (strcmp("GlajaLance001", prm_idstr) == 0) {
-        pResource = NEW GgafActorDepository("Depo_EnemyGlajaLance001");
+        pResource = NEW GgafCore::ActorDepository("Depo_EnemyGlajaLance001");
         for (int i = 0; i < 40; i++) {
             std::string name = "GlajaLance001("+XTOS(i)+")";
             pResource->put(NEW EnemyGlajaLance001(name.c_str()));
@@ -310,12 +310,12 @@ GgafActorDepository* DepositoryManager::processCreateResource(const char* prm_id
     }
 
     if (pResource == nullptr) {
-        throwGgafCriticalException("想定外のIDです。Depositoryが作成できません。");
+        throwCriticalException("想定外のIDです。Depositoryが作成できません。");
     }
     return pResource;
 }
 
-GgafResourceConnection<GgafActorDepository>* DepositoryManager::processCreateConnection(const char* prm_idstr, GgafActorDepository* prm_pResource) {
+GgafCore::ResourceConnection<GgafCore::ActorDepository>* DepositoryManager::processCreateConnection(const char* prm_idstr, GgafCore::ActorDepository* prm_pResource) {
     _TRACE3_("prm_idstr="<<prm_idstr<<" を生成開始。");
     DepositoryConnection* pConne = NEW DepositoryConnection(prm_idstr, prm_pResource);
     _TRACE3_("prm_idstr="<<prm_idstr<<" を生成終了。");

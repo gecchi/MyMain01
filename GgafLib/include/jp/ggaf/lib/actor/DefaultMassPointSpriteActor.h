@@ -1,14 +1,14 @@
-#ifndef GGAFLIB_DEFAULTMASSPOINTSPRITEACTOR_H_
-#define GGAFLIB_DEFAULTMASSPOINTSPRITEACTOR_H_
+#ifndef GGAF_LIB_DEFAULTMASSPOINTSPRITEACTOR_H_
+#define GGAF_LIB_DEFAULTMASSPOINTSPRITEACTOR_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/dxcore/actor/GgafDxMassPointSpriteActor.h"
+#include "jp/ggaf/dx/actor/MassPointSpriteActor.h"
 
 namespace GgafLib {
 
 /**
  * TODO: 使えません、環境依存すぎる.
  */
-class DefaultMassPointSpriteActor : public GgafDxCore::GgafDxMassPointSpriteActor {
+class DefaultMassPointSpriteActor : public GgafDx::MassPointSpriteActor {
 
 private:
     struct VERTEX_instancedata {
@@ -21,13 +21,13 @@ private:
 
     };
     static VERTEX_instancedata _aInstancedata[];
-    static void createVertexInstanceData(void* prm, GgafDxCore::GgafDxMassModel::VertexInstanceDataInfo* out_info);
+    static void createVertexInstanceData(void* prm, GgafDx::MassModel::VertexInstanceDataInfo* out_info);
 
 public:
     /** 衝突判定支援オブジェクト */
     CollisionChecker* _pColliChecker;
 
-    DefaultMassPointSpriteActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
+    DefaultMassPointSpriteActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat=nullptr);
 
     virtual void onCreateModel() override {
     }
@@ -46,7 +46,7 @@ public:
     virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {
     }
 
-    virtual void onHit(const GgafCore::GgafActor* prm_pOtherActor) override {
+    virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override {
     }
 
     virtual void drawHitArea() override;
@@ -59,4 +59,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_DEFAULTMASSMESHACTOR_H_*/
+#endif /*GGAF_LIB_DEFAULTMASSMESHACTOR_H_*/

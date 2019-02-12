@@ -1,9 +1,9 @@
 #include "EnemyRatislavia.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/util/GgafDxCollisionArea.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/util/CollisionArea.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion004.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -11,8 +11,8 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -35,7 +35,7 @@ EnemyRatislavia::EnemyRatislavia(const char* prm_name, const char* prm_model, co
     useProgress(PROG_BANPEI);
 }
 
-void EnemyRatislavia::appendGroupChildAsFkOnSurface(GgafDxGeometricActor* prm_pGeoActor, angle prm_ang1, angle prm_ang2) {
+void EnemyRatislavia::appendGroupChildAsFkOnSurface(GgafDx::GeometricActor* prm_pGeoActor, angle prm_ang1, angle prm_ang2) {
     //トーラスモデルはZY平面に円
     //位置を求める
     //平行移動( +r2_, +0, +0) > ang2のY軸回転 > 平行移動( +0, +0, -r1_) > ang1のX軸回転 変換行列の dx, dy, dz が欲しい
@@ -97,8 +97,8 @@ void EnemyRatislavia::onActive() {
 }
 
 void EnemyRatislavia::processBehavior() {
-    GgafDxKuroko* const pKuroko = getKuroko();
-    GgafProgress* const pProg = getProgress();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             setAlpha(0);
@@ -119,8 +119,8 @@ void EnemyRatislavia::processBehavior() {
             if (pProg->getFrame() % 16U == 0) {
                 //沸々爆発
                 //当たり判定球付近に爆発エフェクトを散乱させる
-                GgafDxCollisionPart* pPart;
-                GgafDxFigureActor* pE;
+                GgafDx::CollisionPart* pPart;
+                GgafDx::FigureActor* pE;
                 CollisionChecker* pChecker = getCollisionChecker();
                 for (int j = 0; j < colli_part_num_; j++) {
                     pPart = pChecker->getArea()->getPart(j);
@@ -137,8 +137,8 @@ void EnemyRatislavia::processBehavior() {
             if (pProg->hasArrivedAt(480)) {
                 //ここで大きい爆発
                 //当たり判定球付近に爆発エフェクトを散乱させる
-                GgafDxCollisionPart* pPart;
-                GgafDxFigureActor* pE;
+                GgafDx::CollisionPart* pPart;
+                GgafDx::FigureActor* pE;
                 CollisionChecker* pChecker = getCollisionChecker();
                 for (int j = 0; j < colli_part_num_; j++) {
                     pPart = pChecker->getArea()->getPart(j);
@@ -170,7 +170,7 @@ void EnemyRatislavia::processJudgement() {
     }
 }
 
-void EnemyRatislavia::onHit(const GgafActor* prm_pOtherActor) {
+void EnemyRatislavia::onHit(const GgafCore::Actor* prm_pOtherActor) {
 
 }
 

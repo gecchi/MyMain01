@@ -1,17 +1,17 @@
 #include "EnemyIrce.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-#include "jp/ggaf/dxcore/model/GgafDxModel.h"
-#include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Scaler.h"
+#include "jp/ggaf/dx/model/Model.h"
+#include "jp/ggaf/dx/model/supporter/TextureBlinker.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -23,12 +23,12 @@ EnemyIrce::EnemyIrce(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Eres", STATUS(EnemyIrce)) { //8/をいれとかないとユニークにならない
     _class_name = "EnemyIrce";
     iMovePatternNo_ = 0;
-    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
 }
 
 void EnemyIrce::onCreateModel() {
-    GgafDxModel* pModel = getModel();
+    GgafDx::Model* pModel = getModel();
     pModel->setBlinkPower(0.1, 0.9);
     pModel->getTexBlinker()->setRange(0.1, 1.0);
     pModel->getTexBlinker()->beat(120, 60, 0, 60, -1);
@@ -37,7 +37,7 @@ void EnemyIrce::onCreateModel() {
 void EnemyIrce::initialize() {
     setHitAble(true);
     setScale(1000);
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->linkFaceAngByMvAng(true);
     pKuroko->setMvVelo(3000);
     CollisionChecker* pChecker = getCollisionChecker();
@@ -52,7 +52,7 @@ void EnemyIrce::onActive() {
 }
 
 void EnemyIrce::processBehavior() {
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->turnMvAngTwd(pMYSHIP,
                           50, 0, TURN_CLOSE_TO, true);
     pKuroko->behave();
@@ -67,8 +67,8 @@ void EnemyIrce::processJudgement() {
 //    }
 }
 
-void EnemyIrce::onHit(const GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+void EnemyIrce::onHit(const GgafCore::Actor* prm_pOtherActor) {
+    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTransmitter()->play3D(SE_EXPLOSION);

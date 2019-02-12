@@ -1,15 +1,15 @@
 #include "jp/ggaf/lib/actor/camera/DefaultCameraViewPoint.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAssistant.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxTruckerAssistantA.h"
+#include "jp/ggaf/dx/actor/supporter/Trucker.h"
+#include "jp/ggaf/dx/actor/supporter/KurokoMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/TruckerAssistantA.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
-DefaultCameraViewPoint::DefaultCameraViewPoint(const char* prm_name) : GgafDxCameraViewPoint(prm_name) {
+DefaultCameraViewPoint::DefaultCameraViewPoint(const char* prm_name) : GgafDx::CameraViewPoint(prm_name) {
     _class_name = "DefaultCameraViewPoint";
 }
 
@@ -28,7 +28,7 @@ void DefaultCameraViewPoint::slideMvTo(coord tx, coord ty, coord tz, frame t, fl
                               prm_p1, prm_p2, 0, true);
 }
 
-void DefaultCameraViewPoint::slideMvTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t, float prm_p1, float prm_p2) {
+void DefaultCameraViewPoint::slideMvTo(GgafDx::GeometricActor* pTarget, frame t, float prm_p1, float prm_p2) {
     slideMvTo(pTarget->_x, pTarget->_y, pTarget->_z, t, prm_p1, prm_p2);
 }
 

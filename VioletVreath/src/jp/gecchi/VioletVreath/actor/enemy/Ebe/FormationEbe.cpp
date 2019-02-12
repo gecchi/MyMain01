@@ -1,14 +1,14 @@
 #include "FormationEbe.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ebe/EnemyEbe.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -41,7 +41,7 @@ void FormationEbe::processBehavior() {
         EnemyEbe* pEbe = (EnemyEbe*)callUpMember(RV_Num_);
         if (pEbe) {
             SplineLeader* pKurokoLeader = getSplManuf()->createKurokoLeader(pEbe->getKuroko());
-            GgafActorDepository* pDepo_shot = pConn_pShotDepo_ ? pConn_pShotDepo_->peek() : nullptr;
+            GgafCore::ActorDepository* pDepo_shot = pConn_pShotDepo_ ? pConn_pShotDepo_->peek() : nullptr;
             pEbe->config(pKurokoLeader, pDepo_shot, nullptr);
             pEbe->getKuroko()->setMvVelo(RV_MvVelo_);
             onCallUpEbe(pEbe); //下位フォーメーションクラス個別実装の処理
@@ -49,8 +49,8 @@ void FormationEbe::processBehavior() {
     }
 }
 
-void FormationEbe::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
-    UTIL::performFormationDestroyAll((GgafDxFigureActor*)prm_pActor_last_destroyed);
+void FormationEbe::onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) {
+    UTIL::performFormationDestroyAll((GgafDx::FigureActor*)prm_pActor_last_destroyed);
 }
 
 FormationEbe::~FormationEbe() {

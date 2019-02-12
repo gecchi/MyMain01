@@ -1,11 +1,11 @@
 #include "jp/ggaf/lib/actor/DefaultBoardActor.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
-DefaultBoardActor::DefaultBoardActor(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
-    GgafDxBoardActor(prm_name, prm_model, "DefaultBoardEffect", "DefaultBoardTechnique") {  //prm_pStat–³Ž‹
+DefaultBoardActor::DefaultBoardActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat) :
+    GgafDx::BoardActor(prm_name, prm_model, "DefaultBoardEffect", "DefaultBoardTechnique") {  //prm_pStat–³Ž‹
     _class_name = "DefaultBoardActor";
 }
 

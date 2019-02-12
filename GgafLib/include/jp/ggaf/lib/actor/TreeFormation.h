@@ -1,7 +1,7 @@
-#ifndef GGAFLIB_TREEFORMATION_H_
-#define GGAFLIB_TREEFORMATION_H_
+#ifndef GGAF_LIB_TREEFORMATION_H_
+#define GGAF_LIB_TREEFORMATION_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/core/actor/ex/GgafTreeFormation.h"
+#include "jp/ggaf/core/actor/ex/TreeFormation.h"
 
 namespace GgafLib {
 
@@ -12,7 +12,7 @@ namespace GgafLib {
  * @since 2008/08/08
  * @author Masatoshi Tsuge
  */
-class TreeFormation : public GgafCore::GgafTreeFormation {
+class TreeFormation : public GgafCore::TreeFormation {
 
 public:
     /**
@@ -37,4 +37,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_TREEFORMATION_H_*/
+#endif /*GGAF_LIB_TREEFORMATION_H_*/

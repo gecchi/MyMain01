@@ -1,12 +1,12 @@
 #include "jp/ggaf/lib/scene/WallScene.h"
 
-#include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
-#include "jp/ggaf/core/actor/GgafSceneMediator.h"
+#include "jp/ggaf/core/actor/ex/ActorDepository.h"
+#include "jp/ggaf/core/actor/SceneMediator.h"
 #include "jp/ggaf/lib/scene/WallSectionScene.h"
 #include "jp/ggaf/lib/actor/wall/MassWallActor.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
 WallScene::WallScene(const char* prm_name) : DefaultScene(prm_name) {
@@ -22,7 +22,7 @@ void WallScene::buildWallScene(
         coord prm_wall_dep, coord prm_wall_width, coord prm_wall_height,
         coord prm_wall_start_x,
         WallSectionScene** prm_papSection, int prm_section_num,
-        GgafActorDepository* prm_pDepo_wall) {
+        GgafCore::ActorDepository* prm_pDepo_wall) {
     _TRACE_(FUNC_NAME<<" ["<<getName()<<"] build...");
     setScrollingFunction(WallScene::scrollX); //X軸方向スクロール関数
 
@@ -82,7 +82,7 @@ void WallScene::buildWallScene(
 
 void WallScene::initialize() {
     if (_pDepo_wall == nullptr) {
-        throwGgafCriticalException("WallScene["<<getName()<<"] オブジェクトが未完成です。buildWallScene()を実行し構築してください。");
+        throwCriticalException("WallScene["<<getName()<<"] オブジェクトが未完成です。buildWallScene()を実行し構築してください。");
     }
     //buildWallScene が継承クラスのコンストラクタで実行された場合、bringSceneMediator() は世界シーンを返すため
     //壁デポジトリの所属シーンは世界シーン所属になっている可能性がある。、
@@ -148,11 +148,11 @@ void WallScene::processBehavior() {
 void WallScene::processFinal() {
 }
 
-void WallScene::scrollX(GgafObject* pThat, void* p1, void* p2, void* p3) {
-    if (pThat->instanceOf(Obj_GgafDxGeometricActor)) {
-        GgafDxGeometricActor* pActor = (GgafDxGeometricActor*)pThat;
+void WallScene::scrollX(GgafCore::Object* pThat, void* p1, void* p2, void* p3) {
+    if (pThat->instanceOf(Obj_GgafDx_GeometricActor)) {
+        GgafDx::GeometricActor* pActor = (GgafDx::GeometricActor*)pThat;
         if (!pActor->_was_paused_flg) {
-            // _is_active_flg と、_can_live_flg は、GgafElement<T>::executeFuncLowerTree()でチェック済み
+            // _is_active_flg と、_can_live_flg は、GgafCore::Element<T>::executeFuncLowerTree()でチェック済み
             pActor->_x -= (*((coord*)p1));
         }
     }

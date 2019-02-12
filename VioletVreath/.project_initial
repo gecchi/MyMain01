@@ -4,7 +4,7 @@
 	<comment></comment>
 	<projects>
 		<project>GgafCore</project>
-		<project>GgafDxCore</project>
+		<project>GgafDx</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -1,6 +1,6 @@
 #include "GgafEffectConst.fxh"
 ////////////////////////////////////////////////////////////////////////////////
-// Ggafライブラリ、FontBoardActor用シェーダー
+// ggaf ライブラリ、FontBoardActor用シェーダー
 //
 // author : Masatoshi Tsuge
 // date:2016/03/14
@@ -27,7 +27,7 @@ struct OUT_VS
 ///////////////////////////////////////////////////////////////////////////
 
 //FontBoardActor標準頂点シェーダー
-OUT_VS GgafDxVS_FontBoard(
+OUT_VS VS_FontBoard(
       float4 prm_posModel_Local   : POSITION,      // モデルの頂点
       float3 prm_vecNormal_Local  : NORMAL,        // モデルの頂点の法線(未使用)
       float2 prm_uv               : TEXCOORD0,     // モデルの頂点のUV
@@ -59,7 +59,7 @@ OUT_VS GgafDxVS_FontBoard(
 
 
 //FontBoardActor標準ピクセルシェーダー
-float4 GgafDxPS_FontBoard(
+float4 PS_FontBoard(
     float2 prm_uv	  : TEXCOORD0,
     float4 prm_color  : COLOR0
 ) : COLOR  {
@@ -117,8 +117,8 @@ technique FontBoardTechnique
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default
-        VertexShader = compile VS_VERSION GgafDxVS_FontBoard();
-        PixelShader  = compile PS_VERSION GgafDxPS_FontBoard();
+        VertexShader = compile VS_VERSION VS_FontBoard();
+        PixelShader  = compile PS_VERSION PS_FontBoard();
     }
 }
 
@@ -132,8 +132,8 @@ technique DestBlendOne
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default
-        VertexShader = compile VS_VERSION GgafDxVS_FontBoard();
-        PixelShader  = compile PS_VERSION GgafDxPS_FontBoard();
+        VertexShader = compile VS_VERSION VS_FontBoard();
+        PixelShader  = compile PS_VERSION PS_FontBoard();
     }
 }
 
@@ -147,7 +147,7 @@ technique Flush
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default
-        VertexShader = compile VS_VERSION GgafDxVS_FontBoard();
+        VertexShader = compile VS_VERSION VS_FontBoard();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 }

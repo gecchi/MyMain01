@@ -1,14 +1,14 @@
 #include "TransitStage.h"
 
-#include "jp/ggaf/core/actor/GgafSceneMediator.h"
+#include "jp/ggaf/core/actor/SceneMediator.h"
 #include "../StageController.h"
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
 #include "jp/gecchi/VioletVreath/actor/background/WorldBound/WorldBoundTransit.h"
 #include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshiTransit.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 

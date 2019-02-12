@@ -2,7 +2,7 @@
 #define FORMATIONTHAGORAS002_H_
 #include "VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Thagoras/FormationThagoras.h"
-#include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
+#include "jp/ggaf/dx/util/GeoElem.h"
 
 namespace VioletVreath {
 
@@ -21,7 +21,7 @@ public:
 
     virtual void processBehavior() override;
 
-    virtual void onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, int prm_row, int prm_col) override;
+    virtual void onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) override;
 
     virtual ~FormationThagoras002();
 };

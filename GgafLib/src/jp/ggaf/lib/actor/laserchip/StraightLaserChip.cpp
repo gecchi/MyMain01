@@ -1,11 +1,11 @@
 #include "jp/ggaf/lib/actor/laserchip/StraightLaserChip.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
-StraightLaserChip::StraightLaserChip(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
+StraightLaserChip::StraightLaserChip(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat) :
             LaserChip(prm_name, prm_model, prm_pStat) {
     _pSourceActor = nullptr;
     _tmp_source_x = _x;
@@ -74,7 +74,7 @@ void StraightLaserChip::processSettlementBehavior() {
     }
 
     if (_was_paused_flg) {
-        GgafDxGeometricActor::processSettlementBehavior();
+        GgafDx::GeometricActor::processSettlementBehavior();
     } else {
         LaserChip::processSettlementBehavior();
     }

@@ -3,8 +3,8 @@
 #include "jp/ggaf/lib/util/spline/SplineSource.h"
 #include "jp/ggaf/lib/util/spline/FixedVelocitySplineKurokoLeader.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
 FixedVelocitySplineManufacture::FixedVelocitySplineManufacture(const char* prm_coord_data_file,
@@ -89,7 +89,7 @@ void FixedVelocitySplineManufacture::calculate() {
     }
 }
 
-SplineLeader* FixedVelocitySplineManufacture::createKurokoLeader(GgafDxCore::GgafDxKuroko* prm_pKuroko) {
+SplineLeader* FixedVelocitySplineManufacture::createKurokoLeader(GgafDx::Kuroko* prm_pKuroko) {
     return NEW FixedVelocitySplineKurokoLeader(this, prm_pKuroko);
 }
 

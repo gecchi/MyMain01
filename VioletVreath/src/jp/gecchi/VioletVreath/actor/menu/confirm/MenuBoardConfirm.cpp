@@ -4,8 +4,8 @@
 #include "CursorConfirmMenu.h"
 #include "jp/gecchi/VioletVreath/God.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -48,9 +48,9 @@ void MenuBoardConfirm::onRise() {
     selectItem(ITEM_OK); //初期選択をリセット
     MenuBoard::onRise();
 }
-void MenuBoardConfirm::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
+void MenuBoardConfirm::onDecision(GgafDx::FigureActor* prm_pItem, int prm_item_index) {
 }
-void MenuBoardConfirm::onCancel(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
+void MenuBoardConfirm::onCancel(GgafDx::FigureActor* prm_pItem, int prm_item_index) {
 }
 
 bool MenuBoardConfirm::hasJustDecidedOk() {

@@ -1,5 +1,5 @@
-#ifndef GGAFLIB_REFRACTIONLASERCHIP_H_
-#define GGAFLIB_REFRACTIONLASERCHIP_H_
+#ifndef GGAF_LIB_REFRACTIONLASERCHIP_H_
+#define GGAF_LIB_REFRACTIONLASERCHIP_H_
 #include "GgafLibCommonHeader.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChip.h"
 
@@ -13,7 +13,7 @@ namespace GgafLib {
  * ・移動方向は直進、但し一定間隔で移動方向が変化 <BR>
  * と言うべきか、ダライアスのボスの多段レーザーと言うべきか、そんな感じ。<BR>
  * デポジトリ登録前にconfig()で設定してください。<BR>
- * 先頭チップは  GgafDxKuroko#behave() で移動します。<BR>
+ * 先頭チップは  GgafDx::Kuroko#behave() で移動します。<BR>
  * dispatch() したら、初期座標と Kuroko（速度・方向）を設定して下さい。<BR>
  * @version 1.00
  * @since 2010/01/19
@@ -52,11 +52,11 @@ private:
     velo _prev_velo_mv;
 
     bool _prev_is_refracting;
-    GgafDxCore::GgafDxFigureActor* _prev_pRefractionEffect;
+    GgafDx::FigureActor* _prev_pRefractionEffect;
 
     /** 屈折エフェクトアクターのデポジトリ（シーン所属済みであること） */
-    GgafCore::GgafActorDepository* _pDepo_refraction_effect;
-    GgafDxCore::GgafDxFigureActor* _pRefractionEffect;
+    GgafCore::ActorDepository* _pDepo_refraction_effect;
+    GgafDx::FigureActor* _pRefractionEffect;
     /** 屈折終了までのフレーム数 */
     frame _refraction_end_frames;
 public:
@@ -72,7 +72,7 @@ public:
     bool _is_fix_begin_pos;
 
 public:
-    RefractionLaserChip(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
+    RefractionLaserChip(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat=nullptr);
 
     /**
      * リフレクションレーザーを定義 .
@@ -86,7 +86,7 @@ public:
                         frame prm_frame_between_refraction,
                         frame prm_frame_standstill_refraction,
                         bool prm_is_fix_begin_pos,
-                        GgafCore::GgafActorDepository* prm_pDepo_refraction_effect);
+                        GgafCore::ActorDepository* prm_pDepo_refraction_effect);
 
     virtual void onCreateModel() override {}
 
@@ -97,8 +97,8 @@ public:
      * 独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
      * その際、本クラスの processBehavior() メソッドも呼び出してください。
      * 内部処理は、
-     * 先頭チップは、GgafDxKuroko#behave() を実行により移動を行います。
-     * 屈折中は GgafDxKuroko#behave() による移動は行いません。
+     * 先頭チップは、GgafDx::Kuroko#behave() を実行により移動を行います。
+     * 屈折中は GgafDx::Kuroko#behave() による移動は行いません。
      * 先頭以外のチップ以外は、先頭チップに追従するという処理を行います。
      */
     virtual void processBehavior() override;
@@ -154,5 +154,5 @@ public:
 };
 
 }
-#endif /*GGAFLIB_HOMINGLASERCHIP_H_*/
+#endif /*GGAF_LIB_HOMINGLASERCHIP_H_*/
 

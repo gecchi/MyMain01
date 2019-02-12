@@ -1,7 +1,7 @@
-#ifndef GGAFLIB_SPLINELEADER_H_
-#define GGAFLIB_SPLINELEADER_H_
+#ifndef GGAF_LIB_SPLINELEADER_H_
+#define GGAF_LIB_SPLINELEADER_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/core/GgafObject.h"
+#include "jp/ggaf/core/Object.h"
 
 namespace GgafLib {
 
@@ -18,7 +18,7 @@ enum SplinTraceOption {
  * @since 2009/10/27
  * @author Masatoshi Tsuge
  */
-class SplineLeader : public GgafCore::GgafObject {
+class SplineLeader : public GgafCore::Object {
 
 public:
     /** スプライン情報セット */
@@ -28,7 +28,7 @@ public:
     /** 現在先導中であるかどうか */
     bool _is_leading;
     /** 座標を操作する対象となるアクター */
-    GgafDxCore::GgafDxGeometricActor* _pActor_target;
+    GgafDx::GeometricActor* _pActor_target;
     /**
      * [r]オプション
      * ABSOLUTE_COORD     : 絶対座標移動。
@@ -76,7 +76,7 @@ public:
      * @param prm_pManufacture
      * @param prm_pKuroko
      */
-    SplineLeader(SplineManufacture* prm_pManufacture,  GgafDxCore::GgafDxGeometricActor* prm_pActor_target);
+    SplineLeader(SplineManufacture* prm_pManufacture,  GgafDx::GeometricActor* prm_pActor_target);
 
     /**
      * 各補完点を読み込み時、X軸方向、Y軸方向、Z軸方向それぞれに加算(平行移動)し、補正します .
@@ -147,7 +147,7 @@ public:
      * start() を行った同一フレームに実行を避けるといったことは不要。<BR>
      * start() を行った最初のbehave()は、現在の座標～ポイント[0] が離れていればその移動処理、
      * もし、現在の座標とポイント[0]が重なっていれば、現在の座標～ポイント[1]への移動処理となります。<BR>
-     * 黒衣(GgafDxCore::GgafDxKuroko)のbehave();より先に実行して下さい。
+     * 黒衣(GgafDx::Kuroko)のbehave();より先に実行して下さい。
      */
     virtual void behave() = 0;
 
@@ -324,4 +324,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_SPLINELEADER_H_*/
+#endif /*GGAF_LIB_SPLINELEADER_H_*/

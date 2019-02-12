@@ -1,11 +1,11 @@
 #include "EnemyHalia.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAssistant.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/model/GgafDxModel.h"
-#include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
+#include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/KurokoMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/model/Model.h"
+#include "jp/ggaf/dx/model/supporter/TextureBlinker.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
@@ -16,8 +16,8 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -56,7 +56,7 @@ EnemyHalia::EnemyHalia(const char* prm_name) :
         pLaserChipDepo_->put(pChip);
     }
     appendGroupChild(pLaserChipDepo_);
-    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     pSeTx->set(SE_UNDAMAGED, "WAVE_ENEMY_UNDAMAGED_001");
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
@@ -69,7 +69,7 @@ EnemyHalia::EnemyHalia(const char* prm_name) :
 }
 
 void EnemyHalia::onCreateModel() {
-    GgafDxModel* pModel = getModel();
+    GgafDx::Model* pModel = getModel();
     pModel->setBlinkPower(0.1, 0.9);
     pModel->getTexBlinker()->setRange(0.1, 1.0);
     pModel->getTexBlinker()->beat(120, 60, 0, 60, -1);
@@ -89,15 +89,15 @@ void EnemyHalia::onActive() {
     getStatus()->reset();
     setMorphWeight(0.0);
     getProgress()->reset(PROG_INIT);
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->setRollFaceAngVelo(1000);
     pKuroko->setMvVelo(0);
     pKuroko->setMvAcce(0);
 }
 
 void EnemyHalia::processBehavior() {
-    GgafDxKuroko* const pKuroko = getKuroko();
-    GgafProgress* const pProg = getProgress();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             setHitAble(false);
@@ -206,9 +206,9 @@ void EnemyHalia::processJudgement() {
     }
 }
 
-void EnemyHalia::onHit(const GgafActor* prm_pOtherActor) {
+void EnemyHalia::onHit(const GgafCore::Actor* prm_pOtherActor) {
     if (getMorphWeight(1) > 0.3) { //口が空いてたら
-        bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+        bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
         if (was_destroyed) {
             //破壊された時(スタミナ <= 0)
             getSeTransmitter()->play3D(SE_EXPLOSION);

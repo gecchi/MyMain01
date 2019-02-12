@@ -1,19 +1,19 @@
 #include "jp/ggaf/lib/actor/ColliSphereActor.h"
 
-#include "jp/ggaf/core/GgafGod.h"
-#include "jp/ggaf/dxcore/effect/GgafDxEffect.h"
-#include "jp/ggaf/dxcore/util/GgafDxCollisionArea.h"
-#include "jp/ggaf/dxcore/util/GgafDxCollisionPart.h"
+#include "jp/ggaf/core/God.h"
+#include "jp/ggaf/dx/effect/Effect.h"
+#include "jp/ggaf/dx/util/CollisionArea.h"
+#include "jp/ggaf/dx/util/CollisionPart.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/util/ColliSphere.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
 ColliSphereActor* ColliSphereActor::_pObj = nullptr;
 
-ColliSphereActor::ColliSphereActor(const char* prm_name, GgafStatus* prm_pStat) : GgafDxSphereActor(prm_name, prm_pStat, nullptr) {
+ColliSphereActor::ColliSphereActor(const char* prm_name, GgafCore::Status* prm_pStat) : GgafDx::SphereActor(prm_name, prm_pStat, nullptr) {
     _class_name = "ColliSphereActor";
     setAlpha(0.8);
 }
@@ -35,8 +35,8 @@ void ColliSphereActor::drawHitarea(CollisionChecker* prm_pColliChecker) {
         prm_pColliChecker->_pCollisionArea != nullptr &&
         prm_pColliChecker->getTargetActor()->canHit() &&
         prm_pColliChecker->getTargetActor()->isActiveInTheTree()) {
-        GgafDxGeometricActor* pActor = prm_pColliChecker->getTargetActor();
-        GgafDxCollisionArea* pCollisionArea = prm_pColliChecker->_pCollisionArea;
+        GgafDx::GeometricActor* pActor = prm_pColliChecker->getTargetActor();
+        GgafDx::CollisionArea* pCollisionArea = prm_pColliChecker->_pCollisionArea;
 
         int iAreaNum = pCollisionArea->_colli_part_num;
         if (iAreaNum > 0) {
@@ -49,7 +49,7 @@ void ColliSphereActor::drawHitarea(CollisionChecker* prm_pColliChecker) {
                                pActor->_z + sphere->_cz,
                                sphere->_r);
 #ifdef MY_DEBUG
-                    GgafGod::_num_drawing--; //当たり判定表示は表示オブジェクト数にカウントしない
+                    GgafCore::God::_num_drawing--; //当たり判定表示は表示オブジェクト数にカウントしない
 #endif
                 }
             }

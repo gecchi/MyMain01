@@ -100,7 +100,7 @@ struct OUT_VS
 ///////////////////////////////////////////////////////////////////////////
 
 //レーザーチップ頂点シェーダー
-OUT_VS GgafDxVS_LaserChip(
+OUT_VS VS_LaserChip(
       float4 prm_posModel_Local  : POSITION,  // モデルの頂点
       float  prm_index           : PSIZE ,    // PSIZEではなくてなんとモデルの頂点番号
       float3 prm_vecNormal_Local : NORMAL,
@@ -226,7 +226,7 @@ OUT_VS GgafDxVS_LaserChip(
     return out_vs;
 }
 
-float4 GgafDxPS_LaserChip_ZERO(
+float4 PS_LaserChip_ZERO(
     float2 prm_uv	  : TEXCOORD0,
     float4 prm_color    : COLOR0
 ) : COLOR  {
@@ -234,7 +234,7 @@ float4 GgafDxPS_LaserChip_ZERO(
     return colOut;
 }
 
-//float4 GgafDxPS_LaserChip_SHADOW(
+//float4 PS_LaserChip_SHADOW(
 //	float2 prm_uv	  : TEXCOORD0,
 //	float4 prm_color    : COLOR0
 //) : COLOR  {
@@ -251,7 +251,7 @@ float4 GgafDxPS_LaserChip_ZERO(
 //	return colOut;
 //}
 
-float4 GgafDxPS_LaserChip(
+float4 PS_LaserChip(
     float2 prm_uv	  : TEXCOORD0,
     float4 prm_color    : COLOR0
 ) : COLOR  {
@@ -265,8 +265,8 @@ technique LaserChipTechnique
         SrcBlend  = SrcAlpha;
         DestBlend = One;
         //BlendOp = Add;    //default
-        VertexShader = compile VS_VERSION GgafDxVS_LaserChip();
-        PixelShader  = compile PS_VERSION GgafDxPS_LaserChip();
+        VertexShader = compile VS_VERSION VS_LaserChip();
+        PixelShader  = compile PS_VERSION PS_LaserChip();
     }
 
 // 	pass P1 {
@@ -275,8 +275,8 @@ technique LaserChipTechnique
 //		SrcBlend  = Zero;
 //        DestBlend = DestAlpha;
 //		BlendOp = Add;       //default
-//		VertexShader = compile VS_VERSION GgafDxVS_LaserChip();
-//		PixelShader  = compile PS_VERSION GgafDxPS_LaserChip();
+//		VertexShader = compile VS_VERSION VS_LaserChip();
+//		PixelShader  = compile PS_VERSION PS_LaserChip();
 //    }
 //
 //
@@ -288,8 +288,8 @@ technique LaserChipTechnique
 //        //SrcBlendAlpha = One;      //default
 //        DestBlendAlpha = One;    //default
 //		BlendOpAlpha = Revsubtract;       //default
-//		VertexShader = compile VS_VERSION GgafDxVS_LaserChip();
-//		PixelShader  = compile PS_VERSION GgafDxPS_LaserChip_SHADOW();
+//		VertexShader = compile VS_VERSION VS_LaserChip();
+//		PixelShader  = compile PS_VERSION PS_LaserChip_SHADOW();
 //   }
 //
 
@@ -297,22 +297,22 @@ technique LaserChipTechnique
 //    	AlphaBlendEnable = true;
 //    	SrcBlend  = SrcAlpha;
 //          DestBlend = DestAlpha;
-//    	VertexShader = compile VS_VERSION GgafDxVS_LaserChip();
-//    	PixelShader  = compile PS_VERSION GgafDxPS_LaserChip();
+//    	VertexShader = compile VS_VERSION VS_LaserChip();
+//    	PixelShader  = compile PS_VERSION PS_LaserChip();
 //    }
 //	pass P3 {
 //		AlphaBlendEnable = true;
 //		SrcBlend  = InvDestColor;
 //        DestBlend = ZERO;
-//		VertexShader = compile VS_VERSION GgafDxVS_LaserChip();
-//		PixelShader  = compile PS_VERSION GgafDxPS_LaserChip_ONE();
+//		VertexShader = compile VS_VERSION VS_LaserChip();
+//		PixelShader  = compile PS_VERSION PS_LaserChip_ONE();
 //	}
 //	pass P4 {
 //		AlphaBlendEnable = true;
 //		SrcBlend  = SrcAlpha;
 //        DestBlend = One;
-//		VertexShader = compile VS_VERSION GgafDxVS_LaserChip();
-//		PixelShader  = compile PS_VERSION GgafDxPS_LaserChip();
+//		VertexShader = compile VS_VERSION VS_LaserChip();
+//		PixelShader  = compile PS_VERSION PS_LaserChip();
 //	}
 
 
@@ -325,10 +325,10 @@ technique LaserChipTechnique
 //        BlendFactor = {1,1,1,1};
 //		DestBlend =  BlendFactor;
 //
-//		VertexShader = compile VS_VERSION GgafDxVS_LaserChip();
-//		PixelShader  = compile PS_VERSION GgafDxPS_LaserChip_SHADOW();
-////		VertexShader = compile VS_VERSION GgafDxVS_LaserChip();
-////		PixelShader  = compile PS_VERSION GgafDxPS_LaserChip_SHADOW();
+//		VertexShader = compile VS_VERSION VS_LaserChip();
+//		PixelShader  = compile PS_VERSION PS_LaserChip_SHADOW();
+////		VertexShader = compile VS_VERSION VS_LaserChip();
+////		PixelShader  = compile PS_VERSION PS_LaserChip_SHADOW();
 //	}
 //	pass P1 {
 //		AlphaBlendEnable = true;
@@ -353,8 +353,8 @@ technique LaserChipTechnique
 // //BlendOpAlpha = Add;
 ////BlendOp=Max ;       BlendOpとBlendOpAlphaはおなじようだ
 ////BlendOpAlpha= Add ;
-//		VertexShader = compile VS_VERSION GgafDxVS_LaserChip();
-//		PixelShader  = compile PS_VERSION GgafDxPS_LaserChip();
+//		VertexShader = compile VS_VERSION VS_LaserChip();
+//		PixelShader  = compile PS_VERSION PS_LaserChip();
 //	}
 //BlendOpにMin,Maxはきかない？
 //BlendOp=REVSUBTRACT, SrcBlend=SRCALPHA, DestBlend=ON

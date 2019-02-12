@@ -1,7 +1,7 @@
 #include "HgrCamera.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace Hogera;
 

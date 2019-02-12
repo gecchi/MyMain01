@@ -1,7 +1,7 @@
 #include "MyVreath.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -19,7 +19,7 @@ void MyVreath::processBehavior() {
 void MyVreath::processJudgement() {
 }
 
-void MyVreath::onHit(const GgafActor* prm_pOtherActor) {
+void MyVreath::onHit(const GgafCore::Actor* prm_pOtherActor) {
     sayonara();
 }
 

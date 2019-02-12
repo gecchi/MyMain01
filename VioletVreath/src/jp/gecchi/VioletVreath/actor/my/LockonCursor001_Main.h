@@ -28,7 +28,7 @@ public:
 
     void releaseLockon() override;
 
-    void lockon(GgafDxGeometricActor* prm_pTarget) override;
+    void lockon(GgafDx::GeometricActor* prm_pTarget) override;
 
     virtual ~LockonCursor001_Main();
 };

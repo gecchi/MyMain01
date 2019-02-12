@@ -1,18 +1,18 @@
 #include "EnemyAppho.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/KurokoMvAssistant.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -32,7 +32,7 @@ enum {
 EnemyAppho::EnemyAppho(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Appho", STATUS(EnemyAppho)) {
     _class_name = "EnemyAppho";
-    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);
 }
@@ -54,8 +54,8 @@ void EnemyAppho::onActive() {
 }
 
 void EnemyAppho::processBehavior() {
-    GgafDxKuroko* const pKuroko = getKuroko();
-    GgafProgress* const pProg = getProgress();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafCore::Progress* const pProg = getProgress();
 
     switch (pProg->get()) {
 
@@ -131,10 +131,10 @@ void EnemyAppho::processBehavior() {
                  int shot_num   = RF_EnemyAppho_ShotWay(G_RANK);    //弾数、ランク変動
                  velo shot_velo = RF_EnemyAppho_ShotMvVelo(G_RANK); //弾速、ランク変動
                  for (int i = 0; i < shot_num; i++) {
-                     GgafDxFigureActor* pShot = UTIL::activateAttackShotOf(this);
+                     GgafDx::FigureActor* pShot = UTIL::activateAttackShotOf(this);
                      if (pShot) {
                          pShot->activateDelay(1+(i*10)); //ばらつかせ。activate タイミング上書き！
-                         GgafDxKuroko* pShot_pKuroko = pShot->getKuroko();
+                         GgafDx::Kuroko* pShot_pKuroko = pShot->getKuroko();
                          pShot_pKuroko->setRzRyMvAng(_rz, _ry);
                          pShot_pKuroko->setMvVelo(shot_velo);
                          pShot_pKuroko->setMvAcce(100);
@@ -194,8 +194,8 @@ void EnemyAppho::processJudgement() {
     }
 }
 
-void EnemyAppho::onHit(const GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+void EnemyAppho::onHit(const GgafCore::Actor* prm_pOtherActor) {
+    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTransmitter()->play3D(SE_EXPLOSION);

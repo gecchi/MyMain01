@@ -1,15 +1,15 @@
 #include "EnemyHisbeLaserChip003.h"
 
-#include "jp/ggaf/core/actor/GgafSceneMediator.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/ggaf/lib/manager/SplineManufactureConnection.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -43,7 +43,7 @@ void EnemyHisbeLaserChip003::onActive() {
 }
 
 void EnemyHisbeLaserChip003::processBehavior() {
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
 
     if (pScrollingScene_) {
         pKurokoLeader_->_x_start_in_loop -= pScrollingScene_->getScrollSpeed();
@@ -63,7 +63,7 @@ void EnemyHisbeLaserChip003::processBehavior() {
 void EnemyHisbeLaserChip003::processSettlementBehavior() {
     //角を丸めたくないのでオーバーライド
     if (_was_paused_flg) {
-        GgafDxGeometricActor::processSettlementBehavior();
+        GgafDx::GeometricActor::processSettlementBehavior();
     } else {
         LaserChip::processSettlementBehavior();
     }
@@ -78,8 +78,8 @@ void EnemyHisbeLaserChip003::processJudgement() {
     }
 }
 
-void EnemyHisbeLaserChip003::onHit(const GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+void EnemyHisbeLaserChip003::onHit(const GgafCore::Actor* prm_pOtherActor) {
+    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         sayonara();

@@ -1,7 +1,7 @@
 #include "SpriteLabelTest.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -87,31 +87,31 @@ void SpriteLabelTest::processBehavior() {
 //    pKuroko->setFaceAngVelo(AXIS_Z, D_ANG(1));
 //    pKuroko->behave();
 
-//    if (GgafDxInput::isPressedKey(DIK_P)) {
+//    if (GgafDx::Input::isPressedKey(DIK_P)) {
 //        addScale(100);
 //    }
 
 //    //入力で移動
-//    if (GgafDxInput::isPressedKey(DIK_SPACE)) {
+//    if (GgafDx::Input::isPressedKey(DIK_SPACE)) {
 //        //ボタン１（スペースキー）を押しながらの場合
-//        if (GgafDxInput::isPressedKey(DIK_UP)) {
+//        if (GgafDx::Input::isPressedKey(DIK_UP)) {
 //            _z += PX_C(2); //奥
 //        }
-//        if (GgafDxInput::isPressedKey(DIK_DOWN)) {
+//        if (GgafDx::Input::isPressedKey(DIK_DOWN)) {
 //            _z -= PX_C(2); //手前
 //        }
 //    } else {
 //        //ボタン１（スペースキー）を離している場合
-//        if (GgafDxInput::isPressedKey(DIK_RIGHT)) {
+//        if (GgafDx::Input::isPressedKey(DIK_RIGHT)) {
 //            _x += PX_C(2); //右
 //        }
-//        if (GgafDxInput::isPressedKey(DIK_LEFT)) {
+//        if (GgafDx::Input::isPressedKey(DIK_LEFT)) {
 //            _x -= PX_C(2); //左
 //        }
-//        if (GgafDxInput::isPressedKey(DIK_UP)) {
+//        if (GgafDx::Input::isPressedKey(DIK_UP)) {
 //            _y += PX_C(2); //上
 //        }
-//        if (GgafDxInput::isPressedKey(DIK_DOWN)) {
+//        if (GgafDx::Input::isPressedKey(DIK_DOWN)) {
 //            _y -= PX_C(2); //下
 //        }
 //    }

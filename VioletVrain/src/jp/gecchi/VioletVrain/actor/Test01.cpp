@@ -1,15 +1,15 @@
 #include "Test01.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
-#include "jp/ggaf/dxcore/util/GgafDxInput.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
+#include "jp/ggaf/dx/util/Input.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/gecchi/VioletVrain/VvGod.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVrain;
 
@@ -34,7 +34,7 @@ Test01::Test01(const char* prm_name) :
 }
 
 void Test01::initialize() {
-    GgafDxUvFlipper* pUvFlipper = getUvFlipper();
+    GgafDx::UvFlipper* pUvFlipper = getUvFlipper();
     pUvFlipper->setFlipPtnRange(0, 3);   //ƒAƒjƒ”ÍˆÍ‚ğ‚O`‚P‚T
     pUvFlipper->exec(FLIP_ORDER_LOOP, 5); //ƒAƒjƒ‡˜
 
@@ -67,19 +67,19 @@ void Test01::onActive() {
 }
 
 void Test01::processBehavior() {
-    GgafDxKuroko* const pKuroko = getKuroko();
-    GgafProgress* const pProg = getProgress();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafCore::Progress* const pProg = getProgress();
 
-    if (GgafDxInput::isPressedKey(DIK_D)) {
+    if (GgafDx::Input::isPressedKey(DIK_D)) {
         _x += PX_C(2); //‰E
     }
-    if (GgafDxInput::isPressedKey(DIK_A)) {
+    if (GgafDx::Input::isPressedKey(DIK_A)) {
         _x -= PX_C(2); //¶
     }
-    if (GgafDxInput::isPressedKey(DIK_W)) {
+    if (GgafDx::Input::isPressedKey(DIK_W)) {
         _y += PX_C(2); //ã
     }
-    if (GgafDxInput::isPressedKey(DIK_S)) {
+    if (GgafDx::Input::isPressedKey(DIK_S)) {
         _y -= PX_C(2); //‰º
     }
     getUvFlipper()->behave();

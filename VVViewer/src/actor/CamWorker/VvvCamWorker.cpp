@@ -1,7 +1,7 @@
 #include "VvvCamWorker.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VVViewer;
 

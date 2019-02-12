@@ -1,6 +1,6 @@
 #include "GgafEffectConst.fxh" 
 ////////////////////////////////////////////////////////////////////////////////
-// Ggafライブラリ、GgafDxBoardSetModel用シェーダー
+// ggaf ライブラリ、GgafDx::BoardSetModel用シェーダー
 //
 // author : Masatoshi Tsuge
 // date:2009/03/06 
@@ -206,8 +206,8 @@ struct OUT_VS
 
 ///////////////////////////////////////////////////////////////////////////
 
-//GgafDxBoardSetModel標準頂点シェーダー
-OUT_VS GgafDxVS_DefaultBoardSet(
+//BoardSetModel標準頂点シェーダー
+OUT_VS VS_DefaultBoardSet(
       float4 prm_posModel_Local    : POSITION,     // モデルの頂点
 	  float  prm_index  : PSIZE ,    // モデル番号
       float2 prm_uv     : TEXCOORD0     // モデルの頂点のUV
@@ -438,8 +438,8 @@ OUT_VS GgafDxVS_DefaultBoardSet(
 }
 
 
-//GgafDxBoardSetModel標準ピクセルシェーダー
-float4 GgafDxPS_DefaultBoardSet(
+//BoardSetModel標準ピクセルシェーダー
+float4 PS_DefaultBoardSet(
 	float2 prm_uv	  : TEXCOORD0,
 	float4 prm_color    : COLOR0 
 ) : COLOR  {
@@ -467,7 +467,7 @@ float4 PS_Flush(
 
 //＜テクニック：DefaultBoardSetTechnique＞
 //【機能】
-//GgafDxBoardSetModel用標準シェーダー
+//BoardSetModel用標準シェーダー
 //【概要】
 //D3DFVF_XYZRHW で描画したような仕様で２Ｄ表示します。
 //画面左上隅が(0,0)で画面右下隅が（画面幅(px), 画面高さ(px))となる座標系で
@@ -498,8 +498,8 @@ technique DefaultBoardSetTechnique
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-		VertexShader = compile VS_VERSION GgafDxVS_DefaultBoardSet();
-		PixelShader  = compile PS_VERSION GgafDxPS_DefaultBoardSet();
+		VertexShader = compile VS_VERSION VS_DefaultBoardSet();
+		PixelShader  = compile PS_VERSION PS_DefaultBoardSet();
 	}
 }
 
@@ -513,8 +513,8 @@ technique DestBlendOne
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-		VertexShader = compile VS_VERSION GgafDxVS_DefaultBoardSet();
-		PixelShader  = compile PS_VERSION GgafDxPS_DefaultBoardSet();
+		VertexShader = compile VS_VERSION VS_DefaultBoardSet();
+		PixelShader  = compile PS_VERSION PS_DefaultBoardSet();
 	}
 }
 
@@ -528,7 +528,7 @@ technique Flush
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-		VertexShader = compile VS_VERSION GgafDxVS_DefaultBoardSet();
+		VertexShader = compile VS_VERSION VS_DefaultBoardSet();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}
 }

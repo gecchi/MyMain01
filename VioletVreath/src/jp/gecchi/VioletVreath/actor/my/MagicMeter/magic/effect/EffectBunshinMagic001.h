@@ -30,10 +30,10 @@ public:
     }
 
     void blink(frame prm_scale_in_frames, frame prm_duration_frames, frame prm_scale_out_frames,
-               const GgafDxCore::GgafDxGeometricActor* prm_pFollowTarget, bool prm_sayonara_end = true) override;
+               const GgafDx::GeometricActor* prm_pFollowTarget, bool prm_sayonara_end = true) override;
 
     void blink2(frame prm_scale_in_frames, frame prm_duration_frames, frame prm_scale_out_frames,
-                const GgafDxCore::GgafDxGeometricActor* prm_pFollowTarget, bool prm_sayonara_end = true) override;
+                const GgafDx::GeometricActor* prm_pFollowTarget, bool prm_sayonara_end = true) override;
 
     virtual ~EffectBunshinMagic001();
 };

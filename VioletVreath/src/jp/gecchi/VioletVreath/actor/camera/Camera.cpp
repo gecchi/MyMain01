@@ -4,8 +4,8 @@
 #include "CameraViewPoint.h"
 #include "jp/gecchi/VioletVreath/actor/camera/worker/VamSysCamWorker.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -17,18 +17,18 @@ Camera::Camera(const char* prm_name) :
     GGAF_DELETE(wk);
 }
 
-GgafDxCameraViewPoint* Camera::createCameraViewPoint() {
+GgafDx::CameraViewPoint* Camera::createCameraViewPoint() {
     CameraViewPoint* pVP = NEW CameraViewPoint("CameraViewPoint");
-    return (GgafDxCameraViewPoint*)pVP;
+    return (GgafDx::CameraViewPoint*)pVP;
 }
 
 void Camera::processBehavior() {
     DefaultCamera::processBehavior();
 }
 
-GgafDxCameraUpVector* Camera::createCameraUpVector() {
+GgafDx::CameraUpVector* Camera::createCameraUpVector() {
     CameraUpVector* pUp = NEW CameraUpVector("CameraUpVector");
-    return (GgafDxCameraUpVector*)pUp;
+    return (GgafDx::CameraUpVector*)pUp;
 }
 
 Camera::~Camera() {

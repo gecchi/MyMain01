@@ -15,7 +15,7 @@ namespace VioletVreath {
 class GameTitleScene : public GgafLib::DefaultScene {
 
 public:
-    GgafDxCore::GgafDxSeConnection* pSeConnection_exec_;
+    GgafDx::SeConnection* pSeConnection_exec_;
 
     LabelGecchi16Font* pLabel01_;
     LabelGecchi16Font* pLabel02_;

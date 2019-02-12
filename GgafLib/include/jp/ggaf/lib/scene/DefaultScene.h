@@ -1,7 +1,7 @@
-#ifndef GGAFLIB_DEFAULTSCENE_H_
-#define GGAFLIB_DEFAULTSCENE_H_
+#ifndef GGAF_LIB_DEFAULTSCENE_H_
+#define GGAF_LIB_DEFAULTSCENE_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/dxcore/scene/GgafDxScene.h"
+#include "jp/ggaf/dx/scene/Scene.h"
 
 #include "jp/ggaf/lib/util/SceneProgress.h"
 
@@ -9,12 +9,12 @@ namespace GgafLib {
 
 /**
  * シーンの具象クラス .
- * GgafDxCore::GgafDxScene を継承し、空実装した具象シーンです。
+ * GgafDx::Scene を継承し、空実装した具象シーンです。
  * @version 1.00
  * @since 2007/12/06
  * @author Masatoshi Tsuge
  */
-class DefaultScene : public GgafDxCore::GgafDxScene {
+class DefaultScene : public GgafDx::Scene {
 
 public:
     /** [r]シーンイベント用のフレーム値の配列(※「シーンCreater.xls」マクロの生成PGに組み込まれる） */
@@ -27,10 +27,10 @@ public:
     /** スクロール速度 */
     velo _scroll_speed;
     /** [r/w]スクロール関数へのポインタ */
-    void (*_pFuncScrolling)(GgafCore::GgafObject*, void*, void*, void*);
+    void (*_pFuncScrolling)(GgafCore::Object*, void*, void*, void*);
 
 public:
-    DefaultScene(const char* prm_name, GgafCore::GgafSceneMediator* prm_pSceneMediator = nullptr);
+    DefaultScene(const char* prm_name, GgafCore::SceneMediator* prm_pSceneMediator = nullptr);
 
     virtual void useProgress(int prm_num = 10) override;
 
@@ -71,10 +71,10 @@ public:
      * スクロール関数を設定する。
      * 設定されたスクロール関数を配下ツリーシーンの全アクターに実行を行う。<BR>
      * 第１引数には、対象アクター、第２引数には、スクロールスピード(_scroll_speedへのポインタ)が渡される。<BR>
-     * シーンが WallSceneの場合に限り、標準で WallScene::scrollX(GgafObject*, void*, void*, void*) が設定されている。<BR>
-     * @param prm_pFuncScrolling 引数が(GgafObject*, void*, void*, void*) となる関数ポインタ
+     * シーンが WallSceneの場合に限り、標準で WallScene::scrollX(GgafCore::Object*, void*, void*, void*) が設定されている。<BR>
+     * @param prm_pFuncScrolling 引数が(GgafCore::Object*, void*, void*, void*) となる関数ポインタ
      */
-    void setScrollingFunction(void (*prm_pFuncScrolling)(GgafCore::GgafObject*, void*, void*, void*)) {
+    void setScrollingFunction(void (*prm_pFuncScrolling)(GgafCore::Object*, void*, void*, void*)) {
         _pFuncScrolling = prm_pFuncScrolling;
     }
 
@@ -117,4 +117,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_DEFAULTSCENE_H_*/
+#endif /*GGAF_LIB_DEFAULTSCENE_H_*/

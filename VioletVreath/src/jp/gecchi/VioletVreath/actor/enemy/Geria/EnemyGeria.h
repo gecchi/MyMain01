@@ -34,14 +34,14 @@ public:
 
     void onInactive() override;
 
-    void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
+    void onHit(const GgafCore::Actor* prm_pOtherActor) override;
 
     virtual ~EnemyGeria();
 
     void setMigrationLength(coord prm_migration_length) {
         migration_length_ = prm_migration_length;
     }
-    static void callbackDispatched(GgafDxCore::GgafDxFigureActor* prm_pDispatched,
+    static void callbackDispatched(GgafDx::FigureActor* prm_pDispatched,
                                    int prm_dispatched_seq,
                                    int prm_set_seq);
 };

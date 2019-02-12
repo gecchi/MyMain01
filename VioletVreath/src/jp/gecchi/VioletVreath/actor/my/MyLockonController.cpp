@@ -4,8 +4,8 @@
 #include "LockonCursor001_Sub.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyLockonController.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -14,9 +14,9 @@ const int MyLockonController::max_lockon_num_ = 8;
 int MyLockonController::lockon_num_ = 0;
 
 MyLockonController::MyLockonController(const char* prm_name) :
-        GgafDestructActor(prm_name, nullptr) {
+        GgafCore::DestructActor(prm_name, nullptr) {
     _class_name = "MyLockonController";
-    pRingTarget_ = NEW GgafLinkedListRing<GgafDxCore::GgafDxGeometricActor>();
+    pRingTarget_ = NEW GgafCore::LinkedListRing<GgafDx::GeometricActor>();
     pMainLockonEffect_ = NEW LockonCursor001_Main("MAIN");
     pMainLockonEffect_->inactivate();
     appendChild(pMainLockonEffect_);
@@ -49,9 +49,9 @@ void MyLockonController::onActive() {
 
 void MyLockonController::processBehavior() {
     //ロックオンターゲット生存確認
-    GgafDxGeometricActor* pMainLockonTarget = pRingTarget_->getCurrent(); //メインロックオンのターゲット
-    GgafDxGeometricActor* pTarget = pRingTarget_->getCurrent();  //ターゲットカーソル
-    GgafMainActor* pLockonEffect_Active = (GgafMainActor*)getChildFirst();         //ロックオンエフェクトカーソル
+    GgafDx::GeometricActor* pMainLockonTarget = pRingTarget_->getCurrent(); //メインロックオンのターゲット
+    GgafDx::GeometricActor* pTarget = pRingTarget_->getCurrent();  //ターゲットカーソル
+    GgafCore::MainActor* pLockonEffect_Active = (GgafCore::MainActor*)getChildFirst();         //ロックオンエフェクトカーソル
     int n = pRingTarget_->length();
     for (int i = 0; i < n; i++) {
         if (pTarget->isActiveInTheTree() && pTarget->getStatus()->get(STAT_Stamina) > 0) {
@@ -103,7 +103,7 @@ void MyLockonController::onInactive() {
     onReset();
 }
 
-void MyLockonController::lockon(GgafDxGeometricActor* prm_pTarget) {
+void MyLockonController::lockon(GgafDx::GeometricActor* prm_pTarget) {
     if (MyLockonController::lockon_num_ == 0) {
         return; //現在のロックオン可能数が0
     }
@@ -124,7 +124,7 @@ void MyLockonController::lockon(GgafDxGeometricActor* prm_pTarget) {
             //ロックオンエフェクト
             if (pRingTarget_->length() == 1) {
                 //最初のロックオンターゲット追加時（メインロックオンターゲット）
-                GgafMainActor* pLockonEffect = (GgafMainActor*)getChildFirst(); //メインロックオエフェクト
+                GgafCore::MainActor* pLockonEffect = (GgafCore::MainActor*)getChildFirst(); //メインロックオエフェクト
                 pLockonEffect->activate();
                 ((LockonCursor001*)pLockonEffect)->lockon(prm_pTarget);
 
@@ -135,16 +135,16 @@ void MyLockonController::lockon(GgafDxGeometricActor* prm_pTarget) {
                     //３個目の以降ターゲット追加時（２個目以降のサブロックオンターゲット追加時）
                     //ロックオンエフェクトの特殊なローテートを行う。（※最後のコメント＜追加の場合＞参照）
                     //Lastを切り出す
-                    GgafMainActor* pLockonEffect = (GgafMainActor*)getChildFirst()->getPrev(); //Last
-                    GgafMainActor* pLockonEffect_Next = pLockonEffect->getNext(); //Mainロックオンとなる
-                    GgafMainActor* pLockonEffect_Prev = pLockonEffect->getPrev();
+                    GgafCore::MainActor* pLockonEffect = (GgafCore::MainActor*)getChildFirst()->getPrev(); //Last
+                    GgafCore::MainActor* pLockonEffect_Next = pLockonEffect->getNext(); //Mainロックオンとなる
+                    GgafCore::MainActor* pLockonEffect_Prev = pLockonEffect->getPrev();
                     pLockonEffect_Prev->_pNext = pLockonEffect_Next;
                     pLockonEffect_Next->_pPrev = pLockonEffect_Prev;
                     pLockonEffect_Prev->_is_last_flg = true;
                     pLockonEffect->_is_last_flg = false;
                     //First->Next の間に入れる
-                    GgafMainActor* pMainLockonEffect = (GgafMainActor*)getChildFirst();
-                    GgafMainActor* pMainLockonEffect_Next = (GgafMainActor*)getChildFirst()->getNext();
+                    GgafCore::MainActor* pMainLockonEffect = (GgafCore::MainActor*)getChildFirst();
+                    GgafCore::MainActor* pMainLockonEffect_Next = (GgafCore::MainActor*)getChildFirst()->getNext();
                     pMainLockonEffect->_pNext = pLockonEffect;
                     pLockonEffect->_pPrev = pMainLockonEffect;
                     pLockonEffect->_pNext = pMainLockonEffect_Next;
@@ -154,7 +154,7 @@ void MyLockonController::lockon(GgafDxGeometricActor* prm_pTarget) {
                     ((LockonCursor001*)pLockonEffect)->lockon(pRingTarget_->getNext());
                 } else {
                     //２個目のターゲット追加時（最初のサブロックオンターゲット追加時）
-                    GgafMainActor* pLockonEffect = (GgafMainActor*)getChildFirst()->getPrev(); //２つなので結局Nextの位置
+                    GgafCore::MainActor* pLockonEffect = (GgafCore::MainActor*)getChildFirst()->getPrev(); //２つなので結局Nextの位置
                     pLockonEffect->activate(); //サブロックオン有効に
                     ((LockonCursor001*)pLockonEffect)->lockon(pRingTarget_->getNext());
                 }
@@ -171,7 +171,7 @@ void MyLockonController::releaseAllLockon() {
     }
     pRingTarget_->removeAll();
     //ロックオンエフェクトをインアクティブにする
-    GgafMainActor* pLockonEffect = (GgafMainActor*)getChildFirst();
+    GgafCore::MainActor* pLockonEffect = (GgafCore::MainActor*)getChildFirst();
     while (pLockonEffect) {
         ((LockonCursor001*)pLockonEffect)->releaseLockon();
         if (pLockonEffect->isLast()) {
@@ -186,7 +186,7 @@ MyLockonController::~MyLockonController() {
     GGAF_DELETE(pRingTarget_);
 }
 
-void MyLockonController::dumpTarget(GgafDxGeometricActor* pMain) {
+void MyLockonController::dumpTarget(GgafDx::GeometricActor* pMain) {
     if (pRingTarget_->getFromFirst(0) == nullptr) {
         _TRACE_N_("nullptr\n");
         return;

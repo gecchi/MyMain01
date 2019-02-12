@@ -3,8 +3,8 @@
 #include "jp/ggaf/lib/util/spline/SplineSource.h"
 #include "jp/ggaf/lib/util/spline/SteppedCoordSplineKurokoLeader.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
 SteppedCoordSplineManufacture::SteppedCoordSplineManufacture(const char* prm_coord_data_file) :
@@ -19,7 +19,7 @@ void SteppedCoordSplineManufacture::calculate() {
     SplineManufacture::calculate();
 }
 
-SplineLeader* SteppedCoordSplineManufacture::createKurokoLeader(GgafDxCore::GgafDxKuroko* prm_pKuroko) {
+SplineLeader* SteppedCoordSplineManufacture::createKurokoLeader(GgafDx::Kuroko* prm_pKuroko) {
     return NEW SteppedCoordSplineKurokoLeader(this, prm_pKuroko);
 }
 

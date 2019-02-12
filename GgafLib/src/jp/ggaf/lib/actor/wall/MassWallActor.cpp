@@ -1,17 +1,17 @@
 #include "jp/ggaf/lib/actor/wall/MassWallActor.h"
 
-#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
-#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
+#include "jp/ggaf/dx/exception/CriticalException.h"
+#include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/scene/WallSectionScene.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChip.h"
-#include "jp/ggaf/dxcore/model/GgafDxModel.h"
+#include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/lib/DefaultGod.h"
-#include "jp/ggaf/dxcore/effect/GgafDxEffect.h"
+#include "jp/ggaf/dx/effect/Effect.h"
 #include "jp/ggaf/lib/effect/MassWallEffect.h"
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
 
@@ -20,9 +20,9 @@ MassWallActor::VERTEX_instancedata MassWallActor::_aInstancedata[GGAFDXMASS_MAX_
 
 MassWallActor::MassWallActor(const char* prm_name,
                              const char* prm_model,
-                             GgafStatus* prm_pStat) :
+                             GgafCore::Status* prm_pStat) :
 
-                                 GgafDxMassMeshActor(prm_name,
+                                 GgafDx::MassMeshActor(prm_name,
                                                      prm_model,
                                                      TYPE_MASSMESH_MODEL,
                                                      "MassWallEffect",
@@ -38,9 +38,9 @@ MassWallActor::MassWallActor(const char* prm_name,
                              const char* prm_model,
                              const char* prm_effect,
                              const char* prm_technique,
-                             GgafStatus* prm_pStat) :
+                             GgafCore::Status* prm_pStat) :
 
-                                 GgafDxMassMeshActor(prm_name,
+                                 GgafDx::MassMeshActor(prm_name,
                                                      prm_model,
                                                      TYPE_MASSMESH_MODEL,
                                                      prm_effect,
@@ -140,7 +140,7 @@ bool MassWallActor::initStatic(MassWallActor* prm_pMassWallActor) {
     return true;
 }
 
-void MassWallActor::createVertexInstanceData(void* prm, GgafDxMassModel::VertexInstanceDataInfo* out_info) {
+void MassWallActor::createVertexInstanceData(void* prm, GgafDx::MassModel::VertexInstanceDataInfo* out_info) {
     int element_num = 6;
     out_info->paElement = NEW D3DVERTEXELEMENT9[element_num];
     // Stream = 1 ---->
@@ -202,17 +202,17 @@ void MassWallActor::createVertexInstanceData(void* prm, GgafDxMassModel::VertexI
 }
 
 
-void MassWallActor::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
+void MassWallActor::executeHitChk_MeAnd(GgafCore::Actor* prm_pOtherActor) {
     if (prm_pOtherActor->instanceOf(Obj_LaserChip)) { //相手がレーザー
         LaserChip* pLaserChip = (LaserChip*)prm_pOtherActor;
         if (pLaserChip->getInfrontChip() == nullptr || pLaserChip->_can_chikei_hit) {
             //相手が先端チップか、1/16 の地形当たり判定有りチップ
-            GgafDxFigureActor::executeHitChk_MeAnd(prm_pOtherActor);
+            GgafDx::FigureActor::executeHitChk_MeAnd(prm_pOtherActor);
         } else {
             return;
         }
     } else {
-        GgafDxFigureActor::executeHitChk_MeAnd(prm_pOtherActor);
+        GgafDx::FigureActor::executeHitChk_MeAnd(prm_pOtherActor);
     }
 }
 
@@ -234,7 +234,7 @@ void MassWallActor::processJudgement() {
 void MassWallActor::processPreDraw() {
     if (_wall_draw_face > 0) {
         //描画面がある場合は表示対象にする
-        GgafDxFigureActor::processPreDraw();
+        GgafDx::FigureActor::processPreDraw();
     }
 }
 
@@ -277,9 +277,9 @@ void MassWallActor::processDraw() {
     hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_fh_POS_XY, wall_dep/2.0f);
     checkDxException(hr, D3D_OK, "SetFloat(_h_fh_POS_XY) に失敗しました。");
 
-    int draw_set_num = 0; //GgafDxMassMeshActorの同じモデルで同じテクニックが
+    int draw_set_num = 0; //MassMeshActorの同じモデルで同じテクニックが
                           //連続しているカウント数。同一描画深度は一度に描画する。
-    GgafDxMassMeshModel* pMassMeshModel = _pMassMeshModel;
+    GgafDx::MassMeshModel* pMassMeshModel = _pMassMeshModel;
     const int model_max_set_num = pMassMeshModel->_set_num;
     const hashval hash_technique = _hash_technique;
 
@@ -287,7 +287,7 @@ void MassWallActor::processDraw() {
     static const size_t size_of_D3DCOLORVALUE = sizeof(D3DCOLORVALUE);
     VERTEX_instancedata* paInstancedata = MassWallActor::_aInstancedata;
     MassWallActor* pMassWallActor = nullptr;
-    GgafDxFigureActor* pDrawActor = this;
+    GgafDx::FigureActor* pDrawActor = this;
     while (pDrawActor) {
         if (pDrawActor->getModel() == pMassMeshModel && pDrawActor->_hash_technique == hash_technique) {
             pMassWallActor = (MassWallActor*)pDrawActor;
@@ -297,7 +297,7 @@ void MassWallActor::processDraw() {
             paInstancedata->_pos_info =  pMassWallActor->_pos_info;            //TEXCOORD6
             ++paInstancedata;
             draw_set_num++;
-            GgafDxSpacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
+            GgafDx::Spacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
             if (draw_set_num >= model_max_set_num) {
                 break;
             } else {
@@ -307,11 +307,11 @@ void MassWallActor::processDraw() {
             break;
         }
     }
-    ((GgafDxMassMeshModel*)_pMassMeshModel)->GgafDxMassMeshModel::draw(this, draw_set_num);
+    ((GgafDx::MassMeshModel*)_pMassMeshModel)->GgafDx::MassMeshModel::draw(this, draw_set_num);
 }
 
 bool MassWallActor::isOutOfSpacetime() const {
-    GgafDxSpacetime* pSpacetime =  pGOD->getSpacetime();
+    GgafDx::Spacetime* pSpacetime =  pGOD->getSpacetime();
     if (pSpacetime->_x_bound_left <= _x+_wall_dep) {
         return false;
     }

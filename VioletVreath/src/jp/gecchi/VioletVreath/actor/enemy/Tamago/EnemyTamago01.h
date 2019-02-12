@@ -19,9 +19,9 @@ public:
     /** 移動スプラインプログラム */
     GgafLib::SplineLeader* pProgram_Tamago01Move_;
     /** 弾ストック */
-    GgafCore::GgafActorDepository* pDepo_shot_;
+    GgafCore::ActorDepository* pDepo_shot_;
     /** 弾発射効果エフェクト */
-    GgafCore::GgafActorDepository* pDepo_effect_;
+    GgafCore::ActorDepository* pDepo_effect_;
 
     DepositoryConnection* pConn_depo_;
 
@@ -61,24 +61,24 @@ public:
      * たまごの衝突時処理 .
      * @param prm_pOtherActor 衝突対象
      */
-    void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
+    void onHit(const GgafCore::Actor* prm_pOtherActor) override;
 
 
     void onInactive() override;
 
     /**
      * 発射弾設定 .
-     * @param prm_pDepo (GgafDxFigureActor*)にキャスト可能なアクターを子に持つデポジトリのポインタ
+     * @param prm_pDepo (GgafDx::FigureActor*)にキャスト可能なアクターを子に持つデポジトリのポインタ
      */
-    void setDepository_Shot(GgafCore::GgafActorDepository* prm_pDepo) {
+    void setDepository_Shot(GgafCore::ActorDepository* prm_pDepo) {
         pDepo_shot_ = prm_pDepo;
     }
 
     /**
      * 効果エフェクト設定 .
-     * @param prm_pDepo (GgafDxFigureActor*)にキャスト可能なアクターを子に持つデポジトリのポインタ
+     * @param prm_pDepo (GgafDx::FigureActor*)にキャスト可能なアクターを子に持つデポジトリのポインタ
      */
-    void setDepository_ShotEffect(GgafCore::GgafActorDepository* prm_pDepo) {
+    void setDepository_ShotEffect(GgafCore::ActorDepository* prm_pDepo) {
         pDepo_effect_ = prm_pDepo;
     }
 

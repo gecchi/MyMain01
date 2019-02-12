@@ -1,24 +1,24 @@
 #include "jp/ggaf/lib/actor/laserchip/LaserChip.h"
 
-#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
-#include "jp/ggaf/dxcore/model/GgafDxMeshSetModel.h"
-#include "jp/ggaf/dxcore/effect/GgafDxMeshSetEffect.h"
-#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
+#include "jp/ggaf/dx/exception/CriticalException.h"
+#include "jp/ggaf/dx/model/MeshSetModel.h"
+#include "jp/ggaf/dx/effect/MeshSetEffect.h"
+#include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
-#include "jp/ggaf/dxcore/util/GgafDxCollisionPart.h"
-#include "jp/ggaf/dxcore/util/GgafDxCollisionArea.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxChecker.h"
+#include "jp/ggaf/dx/util/CollisionPart.h"
+#include "jp/ggaf/dx/util/CollisionArea.h"
+#include "jp/ggaf/dx/actor/supporter/Checker.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
 LaserChip::VERTEX_instancedata LaserChip::_aInstancedata[GGAFDXMASS_MAX_INSTANCE_NUM];
 
-LaserChip::LaserChip(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
-        GgafDxMassMeshActor(prm_name,
+LaserChip::LaserChip(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat) :
+        GgafDx::MassMeshActor(prm_name,
                          std::string(prm_model).c_str(),
                          "LaserChipEffect",
                          "LaserChipTechnique",
@@ -56,15 +56,15 @@ bool LaserChip::initStatic(LaserChip* prm_pLaserChip) {
     return true;
 }
 
-void LaserChip::executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
+void LaserChip::executeHitChk_MeAnd(GgafCore::Actor* prm_pOtherActor) {
      if (prm_pOtherActor->instanceOf(Obj_MassWallActor)) {   //相手が地形ブロック
         if (_pChip_infront == nullptr || _can_chikei_hit) {  //先端チップ か、1/16の地形当たり判定有りチップ
-            GgafDxFigureActor::executeHitChk_MeAnd(prm_pOtherActor);
+            GgafDx::FigureActor::executeHitChk_MeAnd(prm_pOtherActor);
         } else {
             return;
         }
     } else {
-        GgafDxFigureActor::executeHitChk_MeAnd(prm_pOtherActor);
+        GgafDx::FigureActor::executeHitChk_MeAnd(prm_pOtherActor);
     }
 }
 
@@ -78,7 +78,7 @@ void LaserChip::onActive() {
     }
     _force_alpha = 1.00; //最初は奥でもハッキリ映る。
 
-    GgafDxCollisionArea* pArea = pChecker->getArea();
+    GgafDx::CollisionArea* pArea = pChecker->getArea();
     if (pArea) {
         if (_middle_colli_able) {
             pChecker->disable(1);
@@ -86,7 +86,7 @@ void LaserChip::onActive() {
             pChecker->disable(3);
         }
 
-        GgafDxCollisionPart* p = pArea->_papColliPart[0];
+        GgafDx::CollisionPart* p = pArea->_papColliPart[0];
         _hdx = p->_hdx;
         _hdy = p->_hdy;
         _hdz = p->_hdz;
@@ -321,7 +321,7 @@ void LaserChip::processSettlementBehavior() {
     if (getActiveFrame() > 60 && _force_alpha > 0) {
         _force_alpha -= 0.01;
     }
-    GgafDxMassMeshActor::processSettlementBehavior(); //八分木登録
+    GgafDx::MassMeshActor::processSettlementBehavior(); //八分木登録
     //TODO:八分木登録だけならprocessSettlementBehavior()を呼び出すのは少し効率が悪かもしれない。
     //当たり判定領域を更新してからprocessSettlementBehaviorで八分木登録すること。
 }
@@ -329,7 +329,7 @@ void LaserChip::processSettlementBehavior() {
 void LaserChip::processPreDraw() {
     if (0 < _chip_kind && _chip_kind < 5) {
         //1~3を表示対象にする
-        GgafDxFigureActor::processPreDraw();
+        GgafDx::FigureActor::processPreDraw();
     }
 }
 
@@ -345,7 +345,7 @@ void LaserChip::onInactive() {
         _pDepo->_num_chip_active--;
         if (_pDepo->_num_chip_active < 0) {
             _pDepo->_num_chip_active = 0;
-            //GgafActorDepository::onReset() による onInactive() があるので、負になる時を免れない
+            //ActorDepository::onReset() による onInactive() があるので、負になる時を免れない
         }
     }
     //前後の繋がりを切断
@@ -421,7 +421,7 @@ void LaserChip::registerHitAreaCube_AutoGenMidColli(int prm_edge_length) {
 }
 
 
-void LaserChip::createVertexInstanceData(void* prm, GgafDxMassMeshModel::VertexInstanceDataInfo* out_info) {
+void LaserChip::createVertexInstanceData(void* prm, GgafDx::MassMeshModel::VertexInstanceDataInfo* out_info) {
     out_info->paElement = NEW D3DVERTEXELEMENT9[9];
     // Stream = 1 ---->
     WORD st1_offset_next = 0;
@@ -507,14 +507,14 @@ void LaserChip::createVertexInstanceData(void* prm, GgafDxMassMeshModel::VertexI
 }
 
 void LaserChip::processDraw() {
-    int draw_set_num = 0; //GgafDxMassMeshActorの同じモデルで同じテクニックが
+    int draw_set_num = 0; //MassMeshActorの同じモデルで同じテクニックが
                        //連続しているカウント数。同一描画深度は一度に描画する。
-    GgafDxMassMeshModel* pMassMeshModel = _pMassMeshModel;
+    GgafDx::MassMeshModel* pMassMeshModel = _pMassMeshModel;
     const int model_max_set_num = pMassMeshModel->_set_num;
     const hashval hash_technique = _hash_technique;
     VERTEX_instancedata* paInstancedata = LaserChip::_aInstancedata;
     static const size_t size_of_D3DXMATRIX = sizeof(D3DXMATRIX);
-    GgafDxFigureActor* pDrawActor = this;
+    GgafDx::FigureActor* pDrawActor = this;
     LaserChip* pChip = nullptr;
     while (pDrawActor) {
         if (pDrawActor->getModel() == pMassMeshModel && pDrawActor->_hash_technique == hash_technique) {
@@ -531,7 +531,7 @@ void LaserChip::processDraw() {
             } else {
                 //前方チップが無い場合
             }
-            GgafDxSpacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
+            GgafDx::Spacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
             if (draw_set_num >= model_max_set_num) {
                 break;
             } else {
@@ -541,7 +541,7 @@ void LaserChip::processDraw() {
             break;
         }
     }
-    ((GgafDxMassMeshModel*)_pMassMeshModel)->GgafDxMassMeshModel::draw(this, draw_set_num);
+    ((GgafDx::MassMeshModel*)_pMassMeshModel)->GgafDx::MassMeshModel::draw(this, draw_set_num);
 }
 
 

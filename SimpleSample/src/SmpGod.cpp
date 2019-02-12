@@ -13,7 +13,7 @@ SmpGod::SmpGod() : GgafLib::DefaultGod() {
     vb_.remap(VB_BUTTON1, VBK_SPACE, VBJ_BUTTON_01  );  //VB_BUTTON1 = スペースキー または ジョイスティックボタン１ とする。
 }
 
-GgafCore::GgafSpacetime* SmpGod::createSpacetime() {
+GgafCore::Spacetime* SmpGod::createSpacetime() {
     //「この世」の作成処理をオーバーライドし、実装してください。
     SmpCamera* pCam = new SmpCamera("SMP_CAM"); //カメラ作成し、
     SmpSpacetime* pSpacetime = new SmpSpacetime("SMP_SPACETIME", pCam); //カメラを引数に「この世」を生成し、

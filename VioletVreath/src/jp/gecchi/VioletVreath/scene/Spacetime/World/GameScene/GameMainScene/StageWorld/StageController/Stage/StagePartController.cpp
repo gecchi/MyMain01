@@ -1,9 +1,9 @@
 #include "StagePartController.h"
-#include "jp/ggaf/dxcore/scene/GgafDxScene.h"
-#include "jp/ggaf/dxcore/sound/GgafDxBgmConductor.h"
+#include "jp/ggaf/dx/scene/Scene.h"
+#include "jp/ggaf/dx/sound/BgmConductor.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -13,7 +13,7 @@ StagePartController::StagePartController(const char* prm_name) : DefaultScene(pr
 
 //void StagePartController::fadeout_stop_AllPartSceneBgm() {
 //    _TRACE_(FUNC_NAME<<" ----->begin");
-//    GgafDxScene* pScene = (GgafDxScene*)(getChildFirst());
+//    GgafDx::Scene* pScene = (GgafDx::Scene*)(getChildFirst());
 //    while (pScene) {
 //        if (pScene->isLast()) {
 //            if (pScene->getBgmConductor()) {
@@ -24,7 +24,7 @@ StagePartController::StagePartController(const char* prm_name) : DefaultScene(pr
 //            if (pScene->getBgmConductor()) {
 //                pScene->getBgmConductor()->fadeoutStopAll(120);
 //            }
-//            pScene = (GgafDxScene*)(pScene->getNext());
+//            pScene = (GgafDx::Scene*)(pScene->getNext());
 //        }
 //    }
 //    _TRACE_(FUNC_NAME<<" <---- end");

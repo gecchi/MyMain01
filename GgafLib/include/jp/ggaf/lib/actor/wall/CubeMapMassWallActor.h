@@ -1,8 +1,8 @@
-#ifndef GGAFLIB_CUBEMAPMASSWALLACTOR_H_
-#define GGAFLIB_CUBEMAPMASSWALLACTOR_H_
+#ifndef GGAF_LIB_CUBEMAPMASSWALLACTOR_H_
+#define GGAF_LIB_CUBEMAPMASSWALLACTOR_H_
 #include "GgafLibCommonHeader.h"
 #include "MassWallActor.h"
-#include "jp/ggaf/dxcore/actor/interface/GgafDxICubeMapActor.h"
+#include "jp/ggaf/dx/actor/interface/ICubeMapActor.h"
 
 namespace GgafLib {
 
@@ -13,10 +13,10 @@ namespace GgafLib {
  * @since 2016/04/04
  * @author Masatoshi Tsuge
  */
-class CubeMapMassWallActor : public MassWallActor, public GgafDxCore::GgafDxICubeMapActor {
+class CubeMapMassWallActor : public MassWallActor, public GgafDx::ICubeMapActor {
 
 public:
-    CubeMapMassWallActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
+    CubeMapMassWallActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat=nullptr);
 
     virtual void processDraw() override;
 
@@ -24,4 +24,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_CUBEMAPMASSWALLACTOR_H_*/
+#endif /*GGAF_LIB_CUBEMAPMASSWALLACTOR_H_*/

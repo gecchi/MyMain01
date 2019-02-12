@@ -7,13 +7,13 @@
 #endif
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
 
-RankingTable::RankingTable() : GgafTable() {
+RankingTable::RankingTable() : GgafCore::Table() {
 }
 
 void RankingTable::init() {
@@ -29,11 +29,11 @@ void RankingTable::init() {
 }
 
 void RankingTable::addRow(std::string& prm_name, int prm_score) {
-    GgafRecord* r = NEW GgafRecord();
+    GgafCore::Record* r = NEW GgafCore::Record();
     (*r)["NAME"]    = prm_name;
     (*r)["SCORE"]   = UTIL::padZeroStr(prm_score, RANKINGTABLE_SCORELEN);
     (*r)["REGDATE"] = UTIL::getSystemDateTimeStr();
-    GgafTable::addRow(r);
+    GgafCore::Table::addRow(r);
 }
 
 void RankingTable::sort() {

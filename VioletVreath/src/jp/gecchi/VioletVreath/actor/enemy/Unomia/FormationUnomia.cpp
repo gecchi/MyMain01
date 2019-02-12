@@ -1,6 +1,6 @@
 #include "FormationUnomia.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -8,8 +8,8 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -57,12 +57,12 @@ void FormationUnomia::onActive() {
     updateRankParameter();
 }
 
-void FormationUnomia::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
-    UTIL::performFormationDestroyAll((GgafDxFigureActor*)prm_pActor_last_destroyed);
+void FormationUnomia::onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) {
+    UTIL::performFormationDestroyAll((GgafDx::FigureActor*)prm_pActor_last_destroyed);
 }
 
 void FormationUnomia::processBehavior() {
-   GgafProgress* const pProg = getProgress();
+   GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             pProg->changeNext();
@@ -105,14 +105,14 @@ void FormationUnomia::processBehavior() {
         }
         case PROG_SHOT: {
             MyShip* pMy = pMYSHIP;
-            GgafActor* pFollower = getChildFirst();
+            GgafCore::Actor* pFollower = getChildFirst();
             while(true) {
                 EnemyUnomia* pUnomia =  (EnemyUnomia*)pFollower;
                 if (pUnomia->isActive()) {
-                    GgafDxGeometricActor* pShot = (GgafDxGeometricActor*)pDepo_shot_->dispatch();
+                    GgafDx::GeometricActor* pShot = (GgafDx::GeometricActor*)pDepo_shot_->dispatch();
                     if (pShot) {
                         pShot->setPositionAt(pUnomia);
-                        GgafDxKuroko* pShot_pKuroko = pShot->getKuroko();
+                        GgafDx::Kuroko* pShot_pKuroko = pShot->getKuroko();
                         pShot_pKuroko->setMvAngTwd(pMy);
                         pShot_pKuroko->setMvVelo(PX_C(10));
                         pShot_pKuroko->setMvAcce(0);

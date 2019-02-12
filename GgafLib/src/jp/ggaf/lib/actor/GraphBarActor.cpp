@@ -1,13 +1,13 @@
 #include "jp/ggaf/lib/actor/GraphBarActor.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
-#include "jp/ggaf/dxcore/effect/GgafDxBoardEffect.h"
-#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
-#include "jp/ggaf/dxcore/model/GgafDxBoardModel.h"
-#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
+#include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
+#include "jp/ggaf/dx/effect/BoardEffect.h"
+#include "jp/ggaf/dx/exception/CriticalException.h"
+#include "jp/ggaf/dx/model/BoardModel.h"
+#include "jp/ggaf/dx/util/Util.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
 GraphBarActor::GraphBarActor(const char* prm_name, const char* prm_model, Quantity<int, coord>* prm_pQty)
@@ -41,7 +41,7 @@ void GraphBarActor::processDraw() {
     HRESULT hr;
 #ifdef MY_DEBUG
     if (_align != ALIGN_LEFT) {
-        throwGgafCriticalException("X座標アライメントは ALIGN_LEFT 以外出来ません。this="<<NODE_INFO);
+        throwCriticalException("X座標アライメントは ALIGN_LEFT 以外出来ません。this="<<NODE_INFO);
     }
 #endif
     if (_valign == VALIGN_BOTTOM) {
@@ -69,7 +69,7 @@ void GraphBarActor::processDraw() {
     checkDxException(hr, D3D_OK, "SetFloat(_sx) に失敗しました。");
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_h_sy, SC_R(_sy));
     checkDxException(hr, D3D_OK, "SetFloat(_sy) に失敗しました。");
-    _pBoardModel->GgafDxBoardModel::draw(this);
+    _pBoardModel->GgafDx::BoardModel::draw(this);
 }
 
 GraphBarActor::~GraphBarActor() {

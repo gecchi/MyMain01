@@ -1,7 +1,7 @@
-#ifndef GGAFLIB_WORLDBOUNDACTOR_H_
-#define GGAFLIB_WORLDBOUNDACTOR_H_
+#ifndef GGAF_LIB_WORLDBOUNDACTOR_H_
+#define GGAF_LIB_WORLDBOUNDACTOR_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/dxcore/actor/ex/GgafDxWorldBoundActor.h"
+#include "jp/ggaf/dx/actor/ex/WorldBoundActor.h"
 
 #define RENDER_DEPTH_INDEX_WORLDBOUND (RENDER_DEPTH_INDEX_SP_BACK(4))
 
@@ -13,7 +13,7 @@ namespace GgafLib {
  * @since 2010/06/16
  * @author Masatoshi Tsuge
  */
-class WorldBoundActor : public GgafDxCore::GgafDxWorldBoundActor {
+class WorldBoundActor : public GgafDx::WorldBoundActor {
 
 public:
     frame _offset_frames;
@@ -34,7 +34,7 @@ public:
     virtual void processJudgement() override {
     }
 
-    virtual void onHit(const GgafCore::GgafActor* prm_pOtherActor) override {
+    virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override {
     }
 
     virtual void drawHitArea() override {
@@ -53,4 +53,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_WORLDBOUNDACTOR_H_*/
+#endif /*GGAF_LIB_WORLDBOUNDACTOR_H_*/

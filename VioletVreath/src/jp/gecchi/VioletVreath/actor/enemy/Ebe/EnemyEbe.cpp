@@ -1,16 +1,16 @@
 #include "EnemyEbe.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/model/GgafDxModel.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -32,7 +32,7 @@ EnemyEbe::EnemyEbe(const char* prm_name) :
     pKurokoLeader_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;
-    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
     getKuroko()->linkFaceAngByMvAng(true);
@@ -40,7 +40,7 @@ EnemyEbe::EnemyEbe(const char* prm_name) :
 }
 
 void EnemyEbe::onCreateModel() {
-    GgafDxModel* pModel = getModel();
+    GgafDx::Model* pModel = getModel();
     pModel->setSpecular(5.0, 1.0);
 }
 
@@ -52,8 +52,8 @@ void EnemyEbe::initialize() {
 
 void EnemyEbe::config(
         SplineLeader* prm_pKurokoLeader,
-        GgafActorDepository* prm_pDepo_shot,
-        GgafActorDepository* prm_pDepo_shotEffect
+        GgafCore::ActorDepository* prm_pDepo_shot,
+        GgafCore::ActorDepository* prm_pDepo_shotEffect
         ) {
     GGAF_DELETE_NULLABLE(pKurokoLeader_);
     pKurokoLeader_ = prm_pKurokoLeader;
@@ -63,7 +63,7 @@ void EnemyEbe::config(
 
 void EnemyEbe::onActive() {
     if (pKurokoLeader_ == nullptr) {
-        throwGgafCriticalException("EnemyEbeはスプライン必須ですconfigして下さい");
+        throwCriticalException("EnemyEbeはスプライン必須ですconfigして下さい");
     }
     getStatus()->reset();
     setHitAble(true);
@@ -72,8 +72,8 @@ void EnemyEbe::onActive() {
 }
 
 void EnemyEbe::processBehavior() {
-    GgafDxKuroko* const pKuroko = getKuroko();
-    GgafProgress* const pProg = getProgress();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_MOVE01_1: {
             if ((int)(pProg->getFrame()) > (int)(PX_C(300) / ABS(pKuroko->_velo_mv))) {
@@ -113,8 +113,8 @@ void EnemyEbe::processJudgement() {
     }
 }
 
-void EnemyEbe::onHit(const GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+void EnemyEbe::onHit(const GgafCore::Actor* prm_pOtherActor) {
+    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTransmitter()->play3D(SE_EXPLOSION);

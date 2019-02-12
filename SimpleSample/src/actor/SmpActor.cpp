@@ -1,13 +1,13 @@
 #include "SmpActor.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 #include "SmpGod.h"
 #include "scene/SmpSpacetime.h"
 
 using GgafLib::DefaultMeshActor;
 using GgafLib::VirtualButton;
-using GgafDxCore::GgafDxKuroko;
+using GgafDx::Kuroko;
 using namespace SimpleSample;
 
 SmpActor::SmpActor(const char* prm_name) :
@@ -19,7 +19,7 @@ void SmpActor::initialize() {
     setPosition(0, 0, 0);
 
     //黒衣にキャラのZ軸回転の角速度を設定(毎フレーム2度)
-    GgafDxKuroko* kuroko = getKuroko();
+    Kuroko* kuroko = getKuroko();
     kuroko->setFaceAngVelo(AXIS_Z, D_ANG(2));
 }
 

@@ -1,7 +1,7 @@
-#ifndef GGAFLIB_DEFAULTGOD_H_
-#define GGAFLIB_DEFAULTGOD_H_
+#ifndef GGAF_LIB_DEFAULTGOD_H_
+#define GGAF_LIB_DEFAULTGOD_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/dxcore/GgafDxGod.h"
+#include "jp/ggaf/dx/God.h"
 
 #include "jp/ggaf/lib/manager/SplineSourceManager.h"
 #include "jp/ggaf/lib/manager/SplineSourceConnection.h"
@@ -11,7 +11,7 @@
 #include "jp/ggaf/lib/scene/DefaultSpacetime.h"
 
 #undef pGOD
-#define pGOD ((GgafLib::DefaultGod*)GgafCore::GgafGod::ask())
+#define pGOD ((GgafLib::DefaultGod*)GgafCore::God::ask())
 
 /**
  * 神が保持する SplineManufactureManager に接続し、コネクションを取得。
@@ -30,7 +30,7 @@
 #define connectToSplineSourceManager(X)   ((GgafLib::SplineSourceConnection*)((pGOD)->_pSplSrcManager->connect((X), this)))
 
 namespace GgafLib {
-class DefaultGod : public GgafDxCore::GgafDxGod {
+class DefaultGod : public GgafDx::God {
 
 public:
     SplineSourceManager* _pSplSrcManager;
@@ -54,4 +54,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_DEFAULTGOD_H_*/
+#endif /*GGAF_LIB_DEFAULTGOD_H_*/

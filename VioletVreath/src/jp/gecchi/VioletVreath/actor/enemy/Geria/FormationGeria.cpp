@@ -1,13 +1,13 @@
 #include "FormationGeria.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
-#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Trucker.h"
+#include "jp/ggaf/dx/util/Util.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Geria/EnemyGeria.h"
 #include "jp/gecchi/VioletVreath/God.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -16,7 +16,7 @@ FormationGeria::FormationGeria(
             int prm_nGeriaStock
             ) : DefaultGeometricActor(prm_name, nullptr) {
     _class_name = "FormationGeria";
-    pDepo_ = NEW GgafActorDepository("RotEnemyGeria");
+    pDepo_ = NEW GgafCore::ActorDepository("RotEnemyGeria");
     for (int i = 0; i < prm_nGeriaStock; i++) {
         std::string name = "Geria"+XTOS(i);
         EnemyGeria* pEnemyGeria = NEW EnemyGeria(name.c_str());

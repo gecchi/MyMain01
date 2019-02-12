@@ -1,5 +1,5 @@
-#ifndef GGAFLIB_FRAMEDGRAPHBARACTOR_H_
-#define GGAFLIB_FRAMEDGRAPHBARACTOR_H_
+#ifndef GGAF_LIB_FRAMEDGRAPHBARACTOR_H_
+#define GGAF_LIB_FRAMEDGRAPHBARACTOR_H_
 #include "jp/ggaf/lib/actor/DefaultFramedBoardActor.h"
 #include "jp/ggaf/lib/util/Quantity.hpp"
 
@@ -143,5 +143,5 @@ public:
 };
 
 }
-#endif /*GGAFLIB_FRAMEDGRAPHBARACTOR_H_*/
+#endif /*GGAF_LIB_FRAMEDGRAPHBARACTOR_H_*/
 

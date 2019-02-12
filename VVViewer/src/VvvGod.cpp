@@ -11,7 +11,7 @@ VvvGod::VvvGod() :
         GgafLib::DefaultGod() {
 }
 
-GgafCore::GgafSpacetime* VvvGod::createSpacetime() {
+GgafCore::Spacetime* VvvGod::createSpacetime() {
     //この世の作成のサンプル
     VvvCamera* pCam = new VvvCamera("SIMPLE_CAMERA");                  //カメラ作成し、
     VvvSpacetime* pSpacetime = new VvvSpacetime("SIMPLE_SPACETIME", pCam); //この世を生成。

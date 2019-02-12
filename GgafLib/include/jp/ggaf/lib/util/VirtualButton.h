@@ -1,11 +1,11 @@
-#ifndef GGAFLIB_VIRTUALBUTTON_H_
-#define GGAFLIB_VIRTUALBUTTON_H_
+#ifndef GGAF_LIB_VIRTUALBUTTON_H_
+#define GGAF_LIB_VIRTUALBUTTON_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/core/GgafObject.h"
+#include "jp/ggaf/core/Object.h"
 
 #include <string>
 #include <map>
-#include "jp/ggaf/dxcore/util/GgafDxInput.h"
+#include "jp/ggaf/dx/util/Input.h"
 
 typedef int_fast32_t vbk;
 typedef int_fast32_t vbj;
@@ -257,7 +257,7 @@ namespace GgafLib {
  * @since 2008/09/08
  * @author Masatoshi Tsuge
  */
-class VirtualButton : public GgafCore::GgafObject {
+class VirtualButton : public GgafCore::Object {
 
 public:
     /**
@@ -654,4 +654,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_VIRTUALBUTTON_H_*/
+#endif /*GGAF_LIB_VIRTUALBUTTON_H_*/

@@ -2,8 +2,8 @@
 
 #include "jp/gecchi/VioletVreath/actor/enemy/Etis/EnemyEtis.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 

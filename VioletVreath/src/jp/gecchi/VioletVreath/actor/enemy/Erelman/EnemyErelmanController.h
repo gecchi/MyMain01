@@ -1,9 +1,9 @@
 #ifndef ENEMYERELMANCONTROLLER_H_
 #define ENEMYERELMANCONTROLLER_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/core/actor/ex/GgafDestructActor.h"
+#include "jp/ggaf/core/actor/ex/DestructActor.h"
 
-#include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
+#include "jp/ggaf/dx/util/GeoElem.h"
 
 namespace VioletVreath {
 
@@ -13,12 +13,12 @@ namespace VioletVreath {
  * @since 2018/06/11
  * @author Masatoshi Tsuge
  */
-class EnemyErelmanController : public GgafCore::GgafDestructActor {
+class EnemyErelmanController : public GgafCore::DestructActor {
 
 public:
     EnemyErelmanCore* pErelmanCore_;
     FormationErelman* pFormationErelman_;
-    GgafDxCore::GgafDxGeoElem entry_pos_;
+    GgafDx::GeoElem entry_pos_;
 
 public:
     /**

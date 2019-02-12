@@ -1,11 +1,11 @@
 #include "EnemyEres.h"
 
-#include "jp/ggaf/core/actor/GgafSceneMediator.h"
-#include "jp/ggaf/core/actor/GgafGroupHead.h"
-#include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
+#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/GroupHead.h"
+#include "jp/ggaf/core/actor/ex/ActorDepository.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Trucker.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/util/spline/FixedFrameSplineTruckerLeader.h"
 #include "jp/ggaf/lib/util/spline/FixedFrameSplineKurokoLeader.h"
@@ -15,8 +15,8 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/Config.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -24,7 +24,7 @@ enum {
     SE_EXPLOSION ,
 };
 
-EnemyEres::EnemyEres(const char* prm_name, GgafActorDepository* prm_pDepo_EnemyEresShots001) :
+EnemyEres::EnemyEres(const char* prm_name, GgafCore::ActorDepository* prm_pDepo_EnemyEresShots001) :
         DefaultMeshSetActor(prm_name, "Eres", STATUS(EnemyEres)) {
     _class_name = "EnemyEres";
     iMovePatternNo_ = 0;
@@ -34,16 +34,16 @@ EnemyEres::EnemyEres(const char* prm_name, GgafActorDepository* prm_pDepo_EnemyE
     if (prm_pDepo_EnemyEresShots001 == nullptr) {
         //共有の弾が引数に未指定の場合
         //弾ストック作成
-        pDepo_shot001_ = NEW GgafActorDepository("Depo_EnemyEresShots");
+        pDepo_shot001_ = NEW GgafCore::ActorDepository("Depo_EnemyEresShots");
         for (int i = 0; i < 32; i++) {
             pDepo_shot001_->put(NEW EnemyEresShot001("EnemyEresShot"));
         }
         appendGroupChild(pDepo_shot001_);
-        createGgafActorDepository_ = true;
+        createActorDepository_ = true;
     } else {
         //共有の弾が指定されてるの場合
         pDepo_shot001_ = prm_pDepo_EnemyEresShots001;
-        createGgafActorDepository_ = false;
+        createActorDepository_ = false;
     }
 
     pSplManufConn_ = connectToSplineManufactureManager("EnemyEres_spline");
@@ -51,7 +51,7 @@ EnemyEres::EnemyEres(const char* prm_name, GgafActorDepository* prm_pDepo_EnemyE
     pSplineLeader_ = pSplManuf->createTruckerLeader(getTrucker());
 //    ((FixedFrameSplineTruckerLeader*)pSplineLeader_)->setGravitationParam(200, PX_C(100));
 
-    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     getModel()->setSpecular(8.0, 2.0);
 }
@@ -66,7 +66,7 @@ void EnemyEres::onActive() {
     setHitAble(true);
     getStatus()->reset();
     iMovePatternNo_ = 0;
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->linkFaceAngByMvAng(true);
     pKuroko->setRollFaceAngVelo(2000);
 //    pKuroko->setMvVelo(3000);
@@ -80,16 +80,16 @@ void EnemyEres::processBehavior() {
         angle way[32];
         //UTIL::getWayAngle2D(180000, 8, 10000, way);
         UTIL::getRadialAngle2D(0, 32, way); //TODO:毎回求めるのは無駄
-        GgafDxFigureActor* pTama;
+        GgafDx::FigureActor* pTama;
         for (int i = 0; i < 16; i++) {
-            pTama = (GgafDxFigureActor*)pDepo_shot001_->dispatch();
+            pTama = (GgafDx::FigureActor*)pDepo_shot001_->dispatch();
             if (pTama) {
                 pTama->setPositionAt(this);
                 pTama->getKuroko()->setRzRyMvAng(-D90ANG + way[i], D90ANG);
             }
         }
         for (int i = 16; i < 32; i++) {
-            pTama = (GgafDxFigureActor*)pDepo_shot001_->dispatch();
+            pTama = (GgafDx::FigureActor*)pDepo_shot001_->dispatch();
             if (pTama) {
                 pTama->setPositionAt(this);
                 pTama->getKuroko()->setRzRyMvAng(-D90ANG - way[i], -D90ANG);
@@ -110,8 +110,8 @@ void EnemyEres::processJudgement() {
     }
 }
 
-void EnemyEres::onHit(const GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+void EnemyEres::onHit(const GgafCore::Actor* prm_pOtherActor) {
+    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTransmitter()->play3D(SE_EXPLOSION);
@@ -122,7 +122,7 @@ void EnemyEres::onHit(const GgafActor* prm_pOtherActor) {
 }
 
 void EnemyEres::onInactive() {
-    if (createGgafActorDepository_) {
+    if (createActorDepository_) {
         //弾は遅れて開放させるように、動きを継続させるため移動
         getMySceneMediator()->appendChild(pDepo_shot001_->getMyGroupHead()->extract());
         pDepo_shot001_->sayonara(60 * 5);//解放予約

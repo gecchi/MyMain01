@@ -1,12 +1,12 @@
 #include "MenuBoard.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/gecchi/VioletVreath/God.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/KurokoMvAssistant.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -17,7 +17,7 @@ MenuBoard::MenuBoard(const char* prm_name, const char* prm_model) :
     slide_from_offset_y_ = 0;
     target_x_ = _x;
     target_y_ = _y;
-    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_ON_RISEN      , "WAVE_MENU_ON_RISEN");
     pSeTx->set(SE_MOVE_CURSOR   , "WAVE_MENU_MOVE_CURSOR");
     pSeTx->set(SE_DECIDED_OK    , "WAVE_MENU_DECIDED_OK");
@@ -125,7 +125,7 @@ void MenuBoard::onRise() {
     //スライドイントランジション
     setPosition(target_x_ + slide_from_offset_x_,
                 target_y_ + slide_from_offset_y_);
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->setMvAngTwd(target_x_, target_y_);
     pKuroko->asstMv()->slideByDt(UTIL::getDistance(_x, _y, target_x_, target_y_), _fade_frames,
                                  0.2, 0.3, 0, true);
@@ -133,7 +133,7 @@ void MenuBoard::onRise() {
 }
 
 void MenuBoard::processBehavior() {
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     if (pKuroko->asstMv()->hasJustFinishedSliding()) {
         //スライド終了時、目的の座標へ補正
         setPosition(target_x_, target_y_);
@@ -150,7 +150,7 @@ void MenuBoard::processJudgement() {
 
 void MenuBoard::onSink() {
     //スライドアウトトランジション
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->setMvAngTwd(target_x_ + slide_from_offset_x_,
                          target_y_ + slide_from_offset_y_);
     pKuroko->asstMv()->slideByDt(

@@ -1,8 +1,8 @@
 #include "jp/ggaf/lib/util/ColliAAPyramid.h"
 
 #include "jp/ggaf/lib/util/StgUtil.h"
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
 ColliAAPyramid::ColliAAPyramid() : ColliAABox() {
@@ -13,7 +13,7 @@ void ColliAAPyramid::set(int prm_x1, int prm_y1, int prm_z1, int prm_x2, int prm
 #ifdef MY_DEBUG
     if (prm_rot_x || prm_rot_y || prm_rot_z) {
         //TODO:ひまなら実装
-        throwGgafCriticalException("当たり判定の直角三角錐要素は回転平行移動は未対応です。");
+        throwCriticalException("当たり判定の直角三角錐要素は回転平行移動は未対応です。");
     }
 #endif
     ColliAABox::set(prm_x1, prm_y1, prm_z1, prm_x2, prm_y2, prm_z2, prm_rot_x, prm_rot_y, prm_rot_z);
@@ -134,7 +134,7 @@ void ColliAAPyramid::set(int prm_x1, int prm_y1, int prm_z1, int prm_x2, int prm
              break;
          }
          default: {
-             throwGgafCriticalException("ColliAAPyramid::set() prm_pos_info が不正です。prm_pos_info="<<prm_pos_info);
+             throwCriticalException("ColliAAPyramid::set() prm_pos_info が不正です。prm_pos_info="<<prm_pos_info);
              break;
          }
      }

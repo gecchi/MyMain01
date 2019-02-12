@@ -1,17 +1,17 @@
 #include "EnemyDrastea.h"
 
-#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
-#include "jp/ggaf/dxcore/model/GgafDxModel.h"
+#include "jp/ggaf/dx/scene/Spacetime.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Trucker.h"
+#include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
 #include "jp/gecchi/VioletVreath/God.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -30,13 +30,13 @@ enum {
 EnemyDrastea::EnemyDrastea(const char* prm_name) :
         CubeMapMeshSetActor(prm_name, "Drastea", STATUS(EnemyDrastea)) {
     _class_name = "EnemyDrastea";
-    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
 }
 
 void EnemyDrastea::onCreateModel() {
-    GgafDxModel* pModel = getModel();
+    GgafDx::Model* pModel = getModel();
     pModel->setSpecular(5.0, 1.0);
 }
 
@@ -88,8 +88,8 @@ void EnemyDrastea::initialize() {
 
 void EnemyDrastea::onActive() {
     getStatus()->reset();
-    GgafDxKuroko* const pKuroko = getKuroko();
-    GgafDxTrucker* const pTrucker = getTrucker();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafDx::Trucker* const pTrucker = getTrucker();
     pKuroko->setMvVelo(0);
     pKuroko->setRollPitchYawFaceAngVelo(700, 1100, 300);
     pTrucker->setVxMvVelo(-3000);
@@ -115,8 +115,8 @@ void EnemyDrastea::processJudgement() {
     }
 }
 
-void EnemyDrastea::onHit(const GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+void EnemyDrastea::onHit(const GgafCore::Actor* prm_pOtherActor) {
+    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTransmitter()->play3D(SE_EXPLOSION);

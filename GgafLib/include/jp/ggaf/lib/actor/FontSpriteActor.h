@@ -1,8 +1,8 @@
-#ifndef GGAFLIB_FONTSPRITEACTOR_H_
-#define GGAFLIB_FONTSPRITEACTOR_H_
+#ifndef GGAF_LIB_FONTSPRITEACTOR_H_
+#define GGAF_LIB_FONTSPRITEACTOR_H_
 #include "GgafLibCommonHeader.h"
 
-#include "jp/ggaf/dxcore/actor/GgafDxMassSpriteActor.h"
+#include "jp/ggaf/dx/actor/MassSpriteActor.h"
 #include "interface/ICharacterChip.hpp"
 
 namespace GgafLib {
@@ -13,7 +13,7 @@ namespace GgafLib {
  * @since 2016/02/25
  * @author Masatoshi Tsuge
  */
-class FontSpriteActor : public GgafDxCore::GgafDxMassSpriteActor , public ICharacterChip<FontSpriteActor, 256, 1024> {
+class FontSpriteActor : public GgafDx::MassSpriteActor , public ICharacterChip<FontSpriteActor, 256, 1024> {
 
 protected:
     struct VERTEX_instancedata {
@@ -26,18 +26,18 @@ protected:
         float r, g, b, a;           // : TEXCOORD7  マテリアルカラー
     };
     static VERTEX_instancedata _aInstancedata[];
-    static void createVertexInstanceData(void* prm, GgafDxCore::GgafDxMassModel::VertexInstanceDataInfo* out_info);
+    static void createVertexInstanceData(void* prm, GgafDx::MassModel::VertexInstanceDataInfo* out_info);
 public:
     /** 衝突判定支援オブジェクト */
     CollisionChecker* _pColliChecker;
-    GgafDxAlign _align;
-    GgafDxValign _valign;
+    Align _align;
+    Valign _valign;
 
-    virtual void setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign);
-    virtual void setAlign(GgafDxAlign prm_align);
-    virtual void setValign(GgafDxValign prm_valign);
+    virtual void setAlign(Align prm_align, Valign prm_valign);
+    virtual void setAlign(Align prm_align);
+    virtual void setValign(Valign prm_valign);
 public:
-    FontSpriteActor(const char* prm_name, const char* prm_model_id, GgafCore::GgafStatus* prm_pStat = nullptr);
+    FontSpriteActor(const char* prm_name, const char* prm_model_id, GgafCore::Status* prm_pStat = nullptr);
 
     virtual void onCreateModel() override {
     }
@@ -62,11 +62,11 @@ public:
     virtual void onInactive() override {
     }
 
-    virtual bool processHitChkLogic(GgafCore::GgafActor* prm_pOtherActor) override {
+    virtual bool processHitChkLogic(GgafCore::Actor* prm_pOtherActor) override {
         return false;
     }
 
-    virtual void onHit(const GgafCore::GgafActor* prm_pOtherActor) override {
+    virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override {
     }
 
     virtual ~FontSpriteActor();
@@ -74,4 +74,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_FIXEDFONTSPRITEACTOR_H_*/
+#endif /*GGAF_LIB_FIXEDFONTSPRITEACTOR_H_*/

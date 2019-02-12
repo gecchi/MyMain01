@@ -1,14 +1,14 @@
 #include "MagicLvCursor003.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
+#include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
+#include "jp/ggaf/dx/actor/supporter/Scaler.h"
+#include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/Magic.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -20,14 +20,14 @@ MagicLvCursor003::MagicLvCursor003(const char* prm_name, MagicMeter* prm_pMagicM
     pMagic_ = prm_pMagic;
     magic_index_ = pMagicMeter_->lstMagic_.indexOf(pMagic_);
     if (magic_index_ < 0) {
-        throwGgafCriticalException("prm_pMagic("<<prm_pMagic->getName()<<")‚Í"<<
+        throwCriticalException("prm_pMagic("<<prm_pMagic->getName()<<")‚Í"<<
                                    "MagicMeter‚É“o˜^‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB");
     }
 }
 
 void MagicLvCursor003::initialize() {
     MagicLvCursor::initialize();
-    GgafDxUvFlipper* pUvFlipper = getUvFlipper();
+    GgafDx::UvFlipper* pUvFlipper = getUvFlipper();
     pUvFlipper->setFlipPtnRange(0, 3);
     pUvFlipper->exec(NOT_ANIMATED);
     getScaler()->setRange(1000, 10000);
@@ -61,7 +61,7 @@ void MagicLvCursor003::markOnLevelUpCast(int prm_lv) {
     setAlpha(0);
     getAlphaFader()->transitionLinearUntil(1.0, 20);
     moveTo(prm_lv);
-    GgafDxUvFlipper* pUvFlipper = getUvFlipper();
+    GgafDx::UvFlipper* pUvFlipper = getUvFlipper();
     pUvFlipper->setFlipPtnRange(0,3);
     pUvFlipper->setActivePtnToTop();
     pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
@@ -75,7 +75,7 @@ void MagicLvCursor003::markOnLevelDownCast(int prm_lv) {
     setAlpha(1.0);
     getAlphaFader()->transitionLinearUntil(0, 20);
     moveTo(prm_lv);
-    GgafDxUvFlipper* pUvFlipper = getUvFlipper();
+    GgafDx::UvFlipper* pUvFlipper = getUvFlipper();
     pUvFlipper->setFlipPtnRange(8, 11);
     pUvFlipper->setActivePtnToTop();
     pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
@@ -85,7 +85,7 @@ void MagicLvCursor003::markOnLevelDownCast(int prm_lv) {
 
 void MagicLvCursor003::markOnInvoke(int prm_lv) {
     moveTo(prm_lv);
-    GgafDxUvFlipper* pUvFlipper = getUvFlipper();
+    GgafDx::UvFlipper* pUvFlipper = getUvFlipper();
     pUvFlipper->setFlipPtnRange(4, 7);
     pUvFlipper->setActivePtnToTop();
     pUvFlipper->exec(FLIP_ORDER_LOOP, 1);
@@ -95,7 +95,7 @@ void MagicLvCursor003::markOnEffect(int prm_lv) {
     setAlpha(1.0);
     getAlphaFader()->transitionLinearUntil(0, 20);
     moveTo(prm_lv);
-    GgafDxUvFlipper* pUvFlipper = getUvFlipper();
+    GgafDx::UvFlipper* pUvFlipper = getUvFlipper();
     pUvFlipper->setFlipPtnRange(8, 11);
     pUvFlipper->setActivePtnToTop();
     pUvFlipper->exec(FLIP_ORDER_LOOP, 1);

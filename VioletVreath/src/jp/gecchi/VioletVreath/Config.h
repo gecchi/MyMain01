@@ -1,7 +1,7 @@
 #ifndef CONFIG_H_
 #define CONFIG_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/lib/GgafLibConfig.h"
+#include "jp/ggaf/lib/LibConfig.h"
 
 #ifdef CONFIG
     #undef CONFIG
@@ -10,7 +10,7 @@
 
 namespace VioletVreath {
 
-class Config: public GgafLib::GgafLibConfig {
+class Config: public GgafLib::LibConfig {
 public:
     static std::string MY_KEY_SHOT1;
     static std::string MY_KEY_SHOT2;

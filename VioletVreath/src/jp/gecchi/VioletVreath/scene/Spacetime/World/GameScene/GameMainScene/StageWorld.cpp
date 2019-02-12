@@ -8,8 +8,8 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld/StageController/Stage.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -38,7 +38,7 @@ void StageWorld::processBehavior() {
 
     //debug ---->
 //#ifdef MY_DEBUG
-    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_P)) {
+    if (GgafDx::Input::isPushedDownKey(DIK_P)) {
         G_RANK += (1.0/G_RANK_R);
         _TRACE_(FUNC_NAME<<" G_RANK="<<G_RANK<<"/G_RANK_DISP="<<G_RANK_DISP<<"");
     }

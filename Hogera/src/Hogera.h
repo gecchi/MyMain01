@@ -3,7 +3,7 @@
 #include "Hogera.h"
 
 //「Gecchi Game App Freamework ライブラリ」を利用する場合
-//次のように"GgafLibCommonHeader.h" をインクルードします。
+//次のように"GgafLib::LibCommonHeader.h" をインクルードします。
 #include "GgafLibCommonHeader.h"
 
 //その他のヘッダファイルはこの様に記述

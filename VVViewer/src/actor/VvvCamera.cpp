@@ -3,8 +3,8 @@
 #include "VvvCameraViewPoint.h"
 #include "VvvCameraUpVector.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VVViewer;
 
@@ -13,14 +13,14 @@ VvvCamera::VvvCamera(const char* prm_name) :
     _class_name = "VvvCamera";
 }
 
-GgafDxCameraViewPoint* VvvCamera::createCameraViewPoint() {
+GgafDx::CameraViewPoint* VvvCamera::createCameraViewPoint() {
     VvvCameraViewPoint* pVP = NEW VvvCameraViewPoint("VvvCameraViewPoint");
-    return (GgafDxCameraViewPoint*)pVP;
+    return (GgafDx::CameraViewPoint*)pVP;
 }
 
-GgafDxCameraUpVector* VvvCamera::createCameraUpVector() {
+GgafDx::CameraUpVector* VvvCamera::createCameraUpVector() {
     VvvCameraUpVector* pUp = NEW VvvCameraUpVector("VvvCameraUpVector");
-    return (GgafDxCameraUpVector*)pUp;
+    return (GgafDx::CameraUpVector*)pUp;
 }
 
 VvvCamera::~VvvCamera() {

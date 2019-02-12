@@ -3,7 +3,7 @@
 #include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
 
-#include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
+#include "jp/ggaf/dx/util/GeoElem.h"
 
 namespace VioletVreath {
 
@@ -18,9 +18,9 @@ class EnemyOrtuna : public GgafLib::DefaultMorphMeshActor {
 
 public:
     /** [r]出現座標(フォーメーションオブジェクトが設定) */
-    GgafDxCore::GgafDxGeoElem entry_pos_;
+    GgafDx::GeoElem entry_pos_;
     /** [r]折り返し座標(フォーメーションオブジェクトが設定) */
-    GgafDxCore::GgafDxGeoElem stagnating_pos_;
+    GgafDx::GeoElem stagnating_pos_;
 
     frame stagnating_pos_frames_;
 
@@ -58,7 +58,7 @@ public:
      * オルトゥナの衝突時処理 .
      * @param prm_pOtherActor 衝突対象
      */
-    void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
+    void onHit(const GgafCore::Actor* prm_pOtherActor) override;
 
 
     void onInactive() override;

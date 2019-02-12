@@ -1,7 +1,7 @@
-#ifndef GGAFLIB_SCENEPROGRESS_H_
-#define GGAFLIB_SCENEPROGRESS_H_
+#ifndef GGAF_LIB_SCENEPROGRESS_H_
+#define GGAF_LIB_SCENEPROGRESS_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/core/GgafProgress.h"
+#include "jp/ggaf/core/Progress.h"
 
 #include <map>
 namespace GgafLib {
@@ -10,13 +10,13 @@ typedef std::map<progress, GgafLib::DefaultScene*> ProgSceneMap;
 
 /**
  * 状態遷移進捗管理(シーン用)クラス .
- * 基底のGgafProgressクラスに、シーンにまつわる便利な機能を追加した
+ * 基底のGgafCore::Progressクラスに、シーンにまつわる便利な機能を追加した
  * シーン専用の状態遷移進捗管理クラスです。
  * @version 1.00
  * @since 2011/07/15
  * @author Masatoshi Tsuge
  */
-class SceneProgress : public GgafCore::GgafProgress {
+class SceneProgress : public GgafCore::Progress {
 
 public:
     /** [r]進捗管理対象シーン */
@@ -162,4 +162,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_SCENEPROGRESS_H_*/
+#endif /*GGAF_LIB_SCENEPROGRESS_H_*/

@@ -1,7 +1,7 @@
 #include "FormationUrydike.h"
 
-#include "jp/ggaf/core/util/GgafRgb.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
+#include "jp/ggaf/core/util/Rgb.h"
+#include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Urydike/EnemyUrydike.h"
@@ -9,10 +9,10 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/manager/XpmManager.h"
 #include "jp/gecchi/VioletVreath/manager/XpmConnection.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -40,7 +40,7 @@ FormationUrydike::FormationUrydike(const char* prm_name, const char* prm_xpm_id,
             TreeFormation(prm_name) {
     _class_name = "FormationUrydike";
     pXpmConnection_ = connectToXpmManager(prm_xpm_id);
-    GgafXpm* pXpM = pXpmConnection_->peek();
+    GgafCore::Xpm* pXpM = pXpmConnection_->peek();
     formation_col_num_ = pXpM->getWidth();
     formation_row_num_ = pXpM->getHeight();
     num_Urydike_ = pXpM->getPixelNum();
@@ -58,7 +58,7 @@ void FormationUrydike::onActive() {
 }
 
 void FormationUrydike::processBehavior() {
-    GgafProgress* const pProg = getProgress();
+    GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             pProg->changeNext();
@@ -129,8 +129,8 @@ void FormationUrydike::scatterMember() {
     }
 }
 
-void FormationUrydike::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
-    UTIL::performFormationDestroyAll((GgafDxFigureActor*)prm_pActor_last_destroyed);
+void FormationUrydike::onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) {
+    UTIL::performFormationDestroyAll((GgafDx::FigureActor*)prm_pActor_last_destroyed);
 }
 
 void FormationUrydike::onSayonaraAll() {

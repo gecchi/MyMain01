@@ -63,7 +63,7 @@ struct OUT_VS
 	float4 uv_ps         : COLOR1;  //スペキュラを潰して表示したいUV座標左上の情報をPSに渡す
 };
 
-OUT_VS GgafDxVS_DefaultPointSpriteSet(
+OUT_VS VS_DefaultPointSpriteSet(
     float4 prm_posModel_Local : POSITION,  //ポイントスプライトのポイント群
     float  prm_psize_rate     : PSIZE,     //PSIZEでは無くて、スケールの率(0.0～N (1.0=等倍)) が入ってくる
     float4 prm_color          : COLOR0,    //オブジェクトのカラー
@@ -151,7 +151,7 @@ OUT_VS GgafDxVS_DefaultPointSpriteSet(
 	return out_vs;
 }
 
-float4 GgafDxPS_DefaultPointSpriteSet(
+float4 PS_DefaultPointSpriteSet(
 	float2 prm_uv_pointsprite	  : TEXCOORD0,   //(0.F, 0.F), (0.F, 1.F), (1.F, 0.F), (1.F, 1.F)が来る   
 	float4 prm_color              : COLOR0,
 	float4 prm_uv_ps              : COLOR1  //スペキュラでは無くて、表示したいUV座標左上の情報が入っている
@@ -187,8 +187,8 @@ technique DefaultPointSpriteSetTechnique
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-		VertexShader = compile VS_VERSION GgafDxVS_DefaultPointSpriteSet();
-		PixelShader  = compile PS_VERSION GgafDxPS_DefaultPointSpriteSet();
+		VertexShader = compile VS_VERSION VS_DefaultPointSpriteSet();
+		PixelShader  = compile PS_VERSION PS_DefaultPointSpriteSet();
 	}
 }
 
@@ -202,8 +202,8 @@ technique DestBlendOne
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-		VertexShader = compile VS_VERSION GgafDxVS_DefaultPointSpriteSet();
-		PixelShader  = compile PS_VERSION GgafDxPS_DefaultPointSpriteSet();
+		VertexShader = compile VS_VERSION VS_DefaultPointSpriteSet();
+		PixelShader  = compile PS_VERSION PS_DefaultPointSpriteSet();
 	}
 }
 
@@ -217,7 +217,7 @@ technique Flush
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-		VertexShader = compile VS_VERSION GgafDxVS_DefaultPointSpriteSet();
+		VertexShader = compile VS_VERSION VS_DefaultPointSpriteSet();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}
 }

@@ -1,6 +1,6 @@
 #include "GgafEffectConst.fxh" 
 ////////////////////////////////////////////////////////////////////////////////
-// Ggafライブラリ、GgafDxRegularPolygonBoardModel用シェーダー
+// ggaf ライブラリ、GgafDx::RegularPolygonBoardModel用シェーダー
 //【概要】
 // D3DFVF_XYZRHW で描画したような仕様で２Ｄ表示します。
 // 画面左上隅が(0,0)で画面右下隅が（画面幅(px), 画面高さ(px))となる座標系で
@@ -43,8 +43,8 @@ struct OUT_VS
 
 ///////////////////////////////////////////////////////////////////////////
 
-//GgafDxRegularPolygonBoardModel標準頂点シェーダー
-OUT_VS GgafDxVS_DefaultRegularPolygonBoard(
+//RegularPolygonBoardModel標準頂点シェーダー
+OUT_VS VS_DefaultRegularPolygonBoard(
       float4 prm_posModel_Local : POSITION,  // モデルの頂点
       float2 prm_uv             : TEXCOORD0  // モデルの頂点のUV
 ) {
@@ -91,7 +91,7 @@ OUT_VS GgafDxVS_DefaultRegularPolygonBoard(
 }
 
 
-float4 GgafDxPS_DefaultRegularPolygonBoard(
+float4 PS_DefaultRegularPolygonBoard(
     float2 prm_uv      : TEXCOORD0
 ) : COLOR  {
     float4 colOut = tex2D( MyTextureSampler, prm_uv); 
@@ -116,7 +116,7 @@ float4 PS_Flush(
 }
 
 //＜テクニック：DefaultRegularPolygonBoardTechnique＞
-//GgafDxRegularPolygonBoardModel用標準シェーダー
+//RegularPolygonBoardModel用標準シェーダー
 technique DefaultRegularPolygonBoardTechnique
 {
     pass P0 {
@@ -127,8 +127,8 @@ technique DefaultRegularPolygonBoardTechnique
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default  
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultRegularPolygonBoard();
-        PixelShader  = compile PS_VERSION GgafDxPS_DefaultRegularPolygonBoard();
+        VertexShader = compile VS_VERSION VS_DefaultRegularPolygonBoard();
+        PixelShader  = compile PS_VERSION PS_DefaultRegularPolygonBoard();
     }
 }
 
@@ -142,8 +142,8 @@ technique DestBlendOne
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default  
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultRegularPolygonBoard();
-        PixelShader  = compile PS_VERSION GgafDxPS_DefaultRegularPolygonBoard();
+        VertexShader = compile VS_VERSION VS_DefaultRegularPolygonBoard();
+        PixelShader  = compile PS_VERSION PS_DefaultRegularPolygonBoard();
     }
 }
 
@@ -157,7 +157,7 @@ technique Flush
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default  
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultRegularPolygonBoard();
+        VertexShader = compile VS_VERSION VS_DefaultRegularPolygonBoard();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 }

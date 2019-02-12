@@ -6,7 +6,7 @@ template<class T>
 class VvActor : public T {
 
 public:
-    VvActor(const char* prm_name, const char* prm_model_id, GgafCore::GgafStatus* prm_pStat)
+    VvActor(const char* prm_name, const char* prm_model_id, GgafCore::Status* prm_pStat)
         : T(prm_name, prm_model_id, prm_pStat) {
 
     }

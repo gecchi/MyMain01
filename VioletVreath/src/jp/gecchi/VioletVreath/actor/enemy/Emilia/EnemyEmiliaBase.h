@@ -15,14 +15,14 @@ namespace VioletVreath {
 class EnemyEmiliaBase : public GgafLib::DefaultMassMeshActor {
 
 protected:
-    virtual void processStaminaEnd(const GgafDxCore::GgafDxGeometricActor* prm_pOther) = 0;
+    virtual void processStaminaEnd(const GgafDx::GeometricActor* prm_pOther) = 0;
 public:
     /** 編隊メンバーの初期移動速度(RANK変動) */
     velo R_mv_velo_;
     EnemyEmiliaBase* pOrg_;
     FormationEmilia* pFormationEmilia_;
 public:
-    EnemyEmiliaBase(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
+    EnemyEmiliaBase(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat=nullptr);
 
     /**
      * エミリアがでポジトリから取得された際に呼び出されるコールバック .
@@ -43,7 +43,7 @@ public:
     virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {
     }
 
-    virtual void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
+    virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override;
 
     virtual void onInactive() override;
 

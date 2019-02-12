@@ -1,11 +1,11 @@
 #include "EnemyEsperia.h"
 
-#include "jp/ggaf/core/actor/ex/GgafActorDepositoryStore.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/model/GgafDxModel.h"
-#include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
+#include "jp/ggaf/core/actor/ex/ActorDepositoryStore.h"
+#include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/model/Model.h"
+#include "jp/ggaf/dx/model/supporter/TextureBlinker.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Esperia/EnemyEsperiaLaserChip001.h"
@@ -14,8 +14,8 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -52,16 +52,16 @@ EnemyEsperia::EnemyEsperia(const char* prm_name) :
     }
 
     pConn_pDepoStore_laser_set = connectToDepositoryManager("EnemyEsperiaLaserChip001DepoStore");
-    pDepoStore_laser_set = (GgafActorDepositoryStore*)(pConn_pDepoStore_laser_set->peek());
+    pDepoStore_laser_set = (GgafCore::ActorDepositoryStore*)(pConn_pDepoStore_laser_set->peek());
 
-    paLocalPos_laser_ = NEW GgafDxGeoElem[max_laser_way_];
-    paPos_target_ = NEW GgafDxGeoElem[max_laser_way_];
+    paLocalPos_laser_ = NEW GgafDx::GeoElem[max_laser_way_];
+    paPos_target_ = NEW GgafDx::GeoElem[max_laser_way_];
     coord dX = PX_C(10); //レーザー発射口の間隔
     for (int i = 0; i < max_laser_way_; i++) {
         paLocalPos_laser_[i].set(PX_C(-40) + (i*dX),  PX_C(10), 0); //レーザー発射元のローカル座標
     }
 
-    GgafDxSeTransmitterForActor* pSetx = getSeTransmitter();
+    GgafDx::SeTransmitterForActor* pSetx = getSeTransmitter();
     pSetx->set(SE_EXPLOSION  , "WAVE_EXPLOSION_MIDDLE_001");
     pSetx->set(SE_DAMAGED    , "WAVE_ENEMY_DAMAGED_001");
     pSetx->set(SE_HATCH_OPEN , "WAVE_HATCH_OPEN_001");
@@ -72,7 +72,7 @@ EnemyEsperia::EnemyEsperia(const char* prm_name) :
 }
 
 void EnemyEsperia::onCreateModel() {
-    GgafDxModel* pModel = getModel();
+    GgafDx::Model* pModel = getModel();
     pModel->setBlinkPower(1.0, 0.97);
     pModel->getTexBlinker()->setRange(0.5, 12.0);
     pModel->getTexBlinker()->beat(60*6, 60*2, 0, 60*2, -1);
@@ -87,7 +87,7 @@ void EnemyEsperia::initialize() {
 void EnemyEsperia::onActive() {
     getStatus()->reset();
     setHitAble(false);
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->setRzRyMvAng(0, D180ANG);
     pKuroko->setMvVelo(1000);
 
@@ -109,8 +109,8 @@ void EnemyEsperia::onActive() {
 
 void EnemyEsperia::processBehavior() {
     MyShip* pMyShip = pMYSHIP;
-    GgafDxKuroko* const pKuroko = getKuroko();
-    GgafProgress* const pProg = getProgress();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             setHitAble(false);
@@ -283,7 +283,7 @@ void EnemyEsperia::processBehavior() {
             if (cnt_laserchip_ < laser_length_) {
                 cnt_laserchip_++;
                 EnemyEsperiaLaserChip001* pLaserChip;
-                GgafDxGeoElem* p;
+                GgafDx::GeoElem* p;
                 coord turn_dy = getTurnDY(this, pMyShip, (dX_ > dZ_ ? dX_ : dZ_) );
                 //↑turn_dy の 引数は EnemyEsperiaLaserChip001::turn_dy_と同期を取る事
                 for (int i = 0; i < max_laser_way_; i++) {
@@ -361,8 +361,8 @@ void EnemyEsperia::processJudgement() {
     }
 }
 
-void EnemyEsperia::onHit(const GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+void EnemyEsperia::onHit(const GgafCore::Actor* prm_pOtherActor) {
+    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTransmitter()->play3D(SE_EXPLOSION);
@@ -383,8 +383,8 @@ void EnemyEsperia::onInactive() {
     sayonara();
 }
 
-coord EnemyEsperia::getTurnDY(GgafDxCore::GgafDxGeometricActor* pThis,
-                              GgafDxCore::GgafDxGeometricActor* pMyShip,
+coord EnemyEsperia::getTurnDY(GgafDx::GeometricActor* pThis,
+                              GgafDx::GeometricActor* pMyShip,
                               coord DT) {
     //                        ^ Y
     //                        |

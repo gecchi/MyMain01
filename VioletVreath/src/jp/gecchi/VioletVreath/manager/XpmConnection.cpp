@@ -1,15 +1,15 @@
 #include "XpmConnection.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
-XpmConnection::XpmConnection(const char* prm_idstr, GgafCore::GgafXpm* prm_pResource) :
-    GgafResourceConnection<GgafCore::GgafXpm> (prm_idstr, prm_pResource) {
+XpmConnection::XpmConnection(const char* prm_idstr, GgafCore::Xpm* prm_pResource) :
+    GgafCore::ResourceConnection<GgafCore::Xpm> (prm_idstr, prm_pResource) {
 }
 
-void XpmConnection::processReleaseResource(GgafCore::GgafXpm* prm_pResource) {
+void XpmConnection::processReleaseResource(GgafCore::Xpm* prm_pResource) {
     _TRACE_("XpmConnection::processReleaseResourceÇ≈äJï˙(Ç±Ç±Ç≈Ç‘Ç¡âÛÇÍÇΩÇÁclose()òRÇÍÇÃâ¬î\ê´Ç†ÇË)");
     GGAF_DELETE(prm_pResource);
 }

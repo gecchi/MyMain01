@@ -1,19 +1,19 @@
 #include "jp/ggaf/lib/actor/SingleLaser.h"
 
-#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
-#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
-#include "jp/ggaf/dxcore/effect/GgafDxMeshSetEffect.h"
-#include "jp/ggaf/dxcore/model/GgafDxMeshSetModel.h"
+#include "jp/ggaf/dx/scene/Spacetime.h"
+#include "jp/ggaf/dx/exception/CriticalException.h"
+#include "jp/ggaf/dx/effect/MeshSetEffect.h"
+#include "jp/ggaf/dx/model/MeshSetModel.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/effect/SingleLaserEffect.h"
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
 
-SingleLaser::SingleLaser(const char* prm_name, const char* prm_model_id, GgafStatus* prm_pStat) :
-             GgafDxMeshSetActor(prm_name,
+SingleLaser::SingleLaser(const char* prm_name, const char* prm_model_id, GgafCore::Status* prm_pStat) :
+             GgafDx::MeshSetActor(prm_name,
                                  std::string("26," + std::string(prm_model_id)).c_str(),
                                  TYPE_MESHSET_MODEL,
                                  "SingleLaserEffect",
@@ -32,13 +32,13 @@ SingleLaser::SingleLaser(const char* prm_name, const char* prm_model_id, GgafSta
 }
 
 void SingleLaser::processDraw() {
-    int draw_set_num = 0; //GgafDxMeshSetActorの同じモデルで同じテクニックが
+    int draw_set_num = 0; //MeshSetActorの同じモデルで同じテクニックが
                           //連続しているカウント数。同一描画深度は一度に描画する。
     SingleLaserEffect* pSingleLaserEffect = (SingleLaserEffect*)_pMeshSetEffect;
     ID3DXEffect* const pID3DXEffect = pSingleLaserEffect->_pID3DXEffect;
     HRESULT hr;
     //基本モデル頂点数
-    GgafDxFigureActor* pDrawActor = this;
+    GgafDx::FigureActor* pDrawActor = this;
     SingleLaser* pSingleLaserChip = nullptr;
     int model_Set_num = _pMeshSetModel->_set_num;
 
@@ -56,8 +56,8 @@ void SingleLaser::processDraw() {
             break;
         }
     }
-    GgafDxSpacetime::_pActor_draw_active = pSingleLaserChip; //描画セットの最後アクターをセット
-    _pMeshSetModel->GgafDxMeshSetModel::draw(this, draw_set_num);
+    GgafDx::Spacetime::_pActor_draw_active = pSingleLaserChip; //描画セットの最後アクターをセット
+    _pMeshSetModel->GgafDx::MeshSetModel::draw(this, draw_set_num);
 }
 
 void SingleLaser::drawHitArea() {

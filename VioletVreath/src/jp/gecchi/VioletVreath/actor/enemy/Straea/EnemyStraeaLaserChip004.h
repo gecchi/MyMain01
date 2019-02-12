@@ -10,8 +10,8 @@ class EnemyStraeaLaserChip004 : public GgafLib::HomingLaserChip {
 public:
     GgafLib::SplineManufactureConnection* pConn_pSplManuf_;
     GgafLib::SplineLeader* pKurokoLeader_;
-//    static GgafDxCore::GgafDxTextureConnection* pTexCon1_;
-//    static GgafDxCore::GgafDxTextureConnection* pTexCon2_;
+//    static GgafDx::TextureConnection* pTexCon1_;
+//    static GgafDx::TextureConnection* pTexCon2_;
 
 public:
     EnemyStraeaLaserChip004(const char* prm_name);
@@ -29,7 +29,7 @@ public:
 
     void processJudgement() override;
 
-    void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
+    void onHit(const GgafCore::Actor* prm_pOtherActor) override;
 
 
     virtual ~EnemyStraeaLaserChip004();

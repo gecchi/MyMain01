@@ -1,10 +1,10 @@
 #include "jp/ggaf/lib/scene/FormationTableScene.h"
 
-#include "jp/ggaf/core/actor/GgafSceneMediator.h"
-#include "jp/ggaf/core/actor/ex/GgafFormation.h"
+#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/actor/ex/Formation.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
 FormationTableScene::FormationTableScene(const char* prm_name) :
@@ -15,11 +15,11 @@ FormationTableScene::FormationTableScene(const char* prm_name) :
 }
 
 
-GgafGroupHead* FormationTableScene::addToTable(GgafFormation* prm_pFormationActor, frame prm_max_delay_offset) {
-    if (prm_pFormationActor->instanceOf(Obj_GgafFormation)) {
+GgafCore::GroupHead* FormationTableScene::addToTable(GgafCore::Formation* prm_pFormationActor, frame prm_max_delay_offset) {
+    if (prm_pFormationActor->instanceOf(Obj_ggaf_Formation)) {
         //OK
     } else {
-        throwGgafCriticalException("GgafFormation 以外が登録されています。");
+        throwCriticalException("GgafCore::Formation 以外が登録されています。");
     }
     prm_pFormationActor->_offset_frames_end = FORMATION_END_DELAY;
     prm_pFormationActor->inactivate();
@@ -37,7 +37,7 @@ void FormationTableScene::onActive() {
         //_frame_of_current_part_began = getActiveFrame(); todo:絶対に０になるし。相対フレームでいいっか・・・
         _TRACE_(FUNC_NAME<<" ["<<getName()<<"] 来ました。");
     } else {
-        throwGgafCriticalException("["<<getName()<<"] テーブルにアクターが未だありません");
+        throwCriticalException("["<<getName()<<"] テーブルにアクターが未だありません");
     }
 }
 
@@ -54,7 +54,7 @@ void FormationTableScene::processBehavior() {
         }
 
         TblElem* e = _table.getCurrent();
-        GgafFormation* pF = e->_pFormationActor;
+        GgafCore::Formation* pF = e->_pFormationActor;
         //全滅判定
         if (pF->_was_all_destroyed) {
             //全滅の場合

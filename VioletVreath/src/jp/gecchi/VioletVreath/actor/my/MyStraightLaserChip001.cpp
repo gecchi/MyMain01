@@ -1,10 +1,10 @@
 #include "MyStraightLaserChip001.h"
 
-#include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
-#include "jp/ggaf/dxcore/model/GgafDxModel.h"
+#include "jp/ggaf/core/util/LinkedListRing.hpp"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/manager/TextureConnection.h"
+#include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyLockonController.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
@@ -13,13 +13,13 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/LaserMagic.h"
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
 
-GgafDxCore::GgafDxModel* MyStraightLaserChip001::pModel_  = nullptr;
+GgafDx::Model* MyStraightLaserChip001::pModel_  = nullptr;
 int MyStraightLaserChip001::tex_no_ = 0;
 
 
@@ -29,10 +29,10 @@ MyStraightLaserChip001::MyStraightLaserChip001(const char* prm_name) :
     default_stamina_ = getStatus()->get(STAT_Stamina);
     setMvVelo(PX_C(300));
     pOrg_ = nullptr;
-    GgafDxModel* pModel = getModel();
+    GgafDx::Model* pModel = getModel();
     if (!MyStraightLaserChip001::pModel_) {
         if (pModel->_num_materials != MAX_LASER_LEVEL) {
-            throwGgafCriticalException("MyStraightLaserChip001モデルは、テクスチャ（マテリアル）が"<<MAX_LASER_LEVEL<<"つ必要です。");
+            throwCriticalException("MyStraightLaserChip001モデルは、テクスチャ（マテリアル）が"<<MAX_LASER_LEVEL<<"つ必要です。");
         }
         MyStraightLaserChip001::pModel_ = pModel;
     }
@@ -85,8 +85,8 @@ void MyStraightLaserChip001::processJudgement() {
     }
 }
 
-void MyStraightLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
-    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*) prm_pOtherActor;
+void MyStraightLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor) {
+    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*) prm_pOtherActor;
     //ヒットエフェクト
     UTIL::activateExplosionEffectOf(this); //爆発エフェクト出現
 

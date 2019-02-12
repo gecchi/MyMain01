@@ -1,13 +1,13 @@
 #include "EnemyErelmanCore001.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -32,10 +32,10 @@ EnemyErelmanCore001::EnemyErelmanCore001(const char* prm_name, EnemyErelmanContr
 }
 
 void EnemyErelmanCore001::processBehavior() {
-    GgafDxKuroko* const pKuroko = getKuroko();
-    GgafDxAlphaFader* pAlphaFader = getAlphaFader();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
 
-    GgafProgress* const pProg = getProgress();
+    GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             setHitAble(false);

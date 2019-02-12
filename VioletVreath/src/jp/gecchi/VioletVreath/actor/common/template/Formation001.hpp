@@ -11,10 +11,10 @@ namespace VioletVreath {
 template<class T>
 class Formation001 : public GgafLib::TreeFormation {
 
-    GgafCore::GgafActorDepository* pDepo_;
+    GgafCore::ActorDepository* pDepo_;
     bool was_create_dispatcher_;
 public:
-    Formation001(const char* prm_name, GgafCore::GgafActorDepository* prm_pDepo = nullptr);
+    Formation001(const char* prm_name, GgafCore::ActorDepository* prm_pDepo = nullptr);
 
     virtual void initialize() override;
 
@@ -23,11 +23,11 @@ public:
 
 
 template<class T>
-Formation001<T>::Formation001(const char* prm_name, GgafCore::GgafActorDepository* prm_pDepo) : GgafLib::TreeFormation(prm_name) {
+Formation001<T>::Formation001(const char* prm_name, GgafCore::ActorDepository* prm_pDepo) : GgafLib::TreeFormation(prm_name) {
     _class_name = "Formation001";
     if (prm_pDepo == nullptr) {
         was_create_dispatcher_ = true;
-        pDepo_ = NEW GgafCore::GgafActorDepository("Depository_Formation001");
+        pDepo_ = NEW GgafCore::ActorDepository("Depository_Formation001");
         T* pActor;
         for (int i = 0; i < ACTOR_NUM_FORMATION001; i++) {
             pActor = NEW T("Actor_Formation001");

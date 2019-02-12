@@ -1,5 +1,5 @@
-#ifndef GGAFLIB_WMKEYINPUT_H_
-#define GGAFLIB_WMKEYINPUT_H_
+#ifndef GGAF_LIB_WMKEYINPUT_H_
+#define GGAF_LIB_WMKEYINPUT_H_
 #include "GgafLibCommonHeader.h"
 
 #include <windows.h>
@@ -92,4 +92,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_WMKEYINPUT_H_*/
+#endif /*GGAF_LIB_WMKEYINPUT_H_*/

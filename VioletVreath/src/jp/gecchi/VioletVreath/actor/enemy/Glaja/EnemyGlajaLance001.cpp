@@ -1,18 +1,18 @@
 #include "EnemyGlajaLance001.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion001.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/Scaler.h"
+#include "jp/ggaf/dx/actor/supporter/KurokoFaceAngAssistant.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -54,7 +54,7 @@ void EnemyGlajaLance001::onReset() {
 }
 
 void EnemyGlajaLance001::onActive() {
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->setMvAcce(0);
     pKuroko->setMvVelo(PX_C(3));
     setRollPitchYawFaceAng(0, RND(D_ANG(0), D_ANG(360)),
@@ -65,7 +65,7 @@ void EnemyGlajaLance001::onActive() {
     pChecker->disable(1);
     pChecker->disable(2);
     setScale(R_SC(1));
-    GgafDxScaler* const pScaler = getScaler();
+    GgafDx::Scaler* const pScaler = getScaler();
     pScaler->reset();
     pScaler->behave();
     getStatus()->reset();
@@ -75,9 +75,9 @@ void EnemyGlajaLance001::onActive() {
 
 void EnemyGlajaLance001::processBehavior() {
     MyShip* pMyShip = pMYSHIP;
-    GgafDxKuroko* const pKuroko = getKuroko();
-    GgafDxScaler* const pScaler = getScaler();
-    GgafProgress* const pProg = getProgress();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafDx::Scaler* const pScaler = getScaler();
+    GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             setHitAble(true, false);
@@ -169,8 +169,8 @@ void EnemyGlajaLance001::processJudgement() {
     }
 }
 
-void EnemyGlajaLance001::onHit(const GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+void EnemyGlajaLance001::onHit(const GgafCore::Actor* prm_pOtherActor) {
+    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getKuroko()->stopMv();

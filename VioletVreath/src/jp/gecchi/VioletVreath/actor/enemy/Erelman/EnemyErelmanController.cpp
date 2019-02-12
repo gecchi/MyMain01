@@ -1,13 +1,13 @@
 #include "EnemyErelmanController.h"
 
-#include "jp/ggaf/core/GgafElement.hpp"
-#include "jp/ggaf/core/GgafProgress.h"
+#include "jp/ggaf/core/Element.hpp"
+#include "jp/ggaf/core/Progress.h"
 #include "FormationErelman001.h"
 #include "FormationErelman002.h"
 #include "EnemyErelmanCore.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -22,7 +22,7 @@ enum {
 
 EnemyErelmanController::EnemyErelmanController(const char* prm_name, EnemyErelmanCore* prm_pCore,
                                                                    FormationErelman* prm_pFormation) :
-  GgafDestructActor(prm_name, nullptr) {
+  GgafCore::DestructActor(prm_name, nullptr) {
     _class_name = "EnemyErelmanController";
     useProgress(PROG_BANPEI);
 
@@ -54,7 +54,7 @@ void EnemyErelmanController::processBehavior() {
         }
     }
 
-    GgafProgress* const pProg = getProgress();
+    GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             pProg->changeNext();

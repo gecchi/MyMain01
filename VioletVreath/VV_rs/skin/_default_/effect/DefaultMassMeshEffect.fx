@@ -1,6 +1,6 @@
 #include "GgafEffectConst.fxh"
 ////////////////////////////////////////////////////////////////////////////////
-// Ggafライブラリ、GgafDxMassMeshModel用シェーダー
+// ggaf ライブラリ、GgafDx::MassMeshModel用シェーダー
 // author : Masatoshi Tsuge
 // date:2016/02/17
 ////////////////////////////////////////////////////////////////////////////////
@@ -45,7 +45,7 @@ struct OUT_VS
 ///////////////////////////////////////////////////////////////////////////
 
 //頂点シェーダー
-OUT_VS GgafDxVS_DefaultMassMesh(
+OUT_VS VS_DefaultMassMesh(
       float4 prm_posModel_Local   : POSITION,      // モデルの頂点
       float3 prm_vecNormal_Local  : NORMAL,        // モデルの頂点の法線
       float2 prm_uv               : TEXCOORD0,     // モデルの頂点のUV
@@ -86,7 +86,7 @@ OUT_VS GgafDxVS_DefaultMassMesh(
 }
 
 //メッシュ標準ピクセルシェーダー（テクスチャ有り）
-float4 GgafDxPS_DefaultMassMesh(
+float4 PS_DefaultMassMesh(
     float2 prm_uv              : TEXCOORD0,
     float4 prm_color           : COLOR0,
     float3 prm_vecNormal_World : TEXCOORD6,
@@ -134,8 +134,8 @@ technique DefaultMassMeshTechnique
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMassMesh();
-        PixelShader  = compile PS_VERSION GgafDxPS_DefaultMassMesh();
+        VertexShader = compile VS_VERSION VS_DefaultMassMesh();
+        PixelShader  = compile PS_VERSION PS_DefaultMassMesh();
     }
 }
 
@@ -149,8 +149,8 @@ technique DestBlendOne
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMassMesh();
-        PixelShader  = compile PS_VERSION GgafDxPS_DefaultMassMesh();
+        VertexShader = compile VS_VERSION VS_DefaultMassMesh();
+        PixelShader  = compile PS_VERSION PS_DefaultMassMesh();
     }
 }
 
@@ -164,7 +164,7 @@ technique Flush
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMassMesh();
+        VertexShader = compile VS_VERSION VS_DefaultMassMesh();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 }

@@ -6,7 +6,7 @@
 #include "scene/VvvSpacetime.h"
 
 #undef pGOD
-#define pGOD ((VVViewer::VvvGod*)GgafCore::GgafGod::ask())
+#define pGOD ((VVViewer::VvvGod*)GgafCore::God::ask())
 
 namespace VVViewer {
 
@@ -36,7 +36,7 @@ public:
      * 神クラスを作成するには、「この世」の生成方法を実装する必要があります。
      * @return 生成した「この世」
      */
-    GgafCore::GgafSpacetime* createSpacetime() override;
+    GgafCore::Spacetime* createSpacetime() override;
 
     virtual VvvSpacetime* getSpacetime() override {  //共変の戻り値
         return (VvvSpacetime*)_pSpacetime;

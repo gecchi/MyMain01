@@ -1,8 +1,8 @@
-#ifndef GGAFLIB_DEFAULTEFFECTMANAGER_H_
-#define GGAFLIB_DEFAULTEFFECTMANAGER_H_
+#ifndef GGAF_LIB_DEFAULTEFFECTMANAGER_H_
+#define GGAF_LIB_DEFAULTEFFECTMANAGER_H_
 #include "GgafLibCommonHeader.h"
 
-#include "jp/ggaf/dxcore/manager/GgafDxEffectManager.h"
+#include "jp/ggaf/dx/manager/EffectManager.h"
 
 #define TYPE_MASSWALL_EFFECT      '@'
 #define TYPE_SINGLELASER_EFFECT   '-'
@@ -15,7 +15,7 @@ namespace GgafLib {
  * @since 2018/04/26
  * @author Masatoshi Tsuge
  */
-class DefaultEffectManager : public GgafDxCore::GgafDxEffectManager {
+class DefaultEffectManager : public GgafDx::EffectManager {
 
 public:
     /**
@@ -24,11 +24,11 @@ public:
      */
     DefaultEffectManager(const char* prm_manager_name);
 
-    GgafDxCore::GgafDxEffect* processCreateResource(const char* prm_idstr, void* prm_pConnector) override;
+    GgafDx::Effect* processCreateResource(const char* prm_idstr, void* prm_pConnector) override;
 
     virtual ~DefaultEffectManager() {
     }
 };
 
 }
-#endif /*GGAFLIB_DEFAULTEFFECTMANAGER_H_*/
+#endif /*GGAF_LIB_DEFAULTEFFECTMANAGER_H_*/

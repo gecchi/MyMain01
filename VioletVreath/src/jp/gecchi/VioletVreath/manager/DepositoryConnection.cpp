@@ -1,15 +1,15 @@
 #include "DepositoryConnection.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
-DepositoryConnection::DepositoryConnection(const char* prm_idstr, GgafActorDepository* prm_pResource) :
-    GgafResourceConnection<GgafActorDepository> (prm_idstr, prm_pResource) {
+DepositoryConnection::DepositoryConnection(const char* prm_idstr, GgafCore::ActorDepository* prm_pResource) :
+    GgafCore::ResourceConnection<GgafCore::ActorDepository> (prm_idstr, prm_pResource) {
 }
 
-void DepositoryConnection::processReleaseResource(GgafActorDepository* prm_pResource) {
+void DepositoryConnection::processReleaseResource(GgafCore::ActorDepository* prm_pResource) {
     _TRACE_("DepositoryConnection::processReleaseResourceで、"<<prm_pResource->getName()<<"開放というかend()(ここでぶっ壊れたらclose()漏れの可能性あり)");
     prm_pResource->end();
     //本メソッドはActorやSceneのデストラクタでコネクションクローズによりリソース解放が行われたならば、

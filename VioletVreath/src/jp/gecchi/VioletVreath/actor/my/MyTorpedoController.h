@@ -1,7 +1,7 @@
 #ifndef MYTORPEDOCONTROLLER_H_
 #define MYTORPEDOCONTROLLER_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/core/actor/ex/GgafDestructActor.h"
+#include "jp/ggaf/core/actor/ex/DestructActor.h"
 
 namespace VioletVreath {
 
@@ -12,7 +12,7 @@ namespace VioletVreath {
  * @since 2010/09/15
  * @author Masatoshi Tsuge
  */
-class MyTorpedoController : public GgafCore::GgafDestructActor {
+class MyTorpedoController : public GgafCore::DestructActor {
 
 public:
     /** [r]１オプション当たりの最大魚雷発射可能数 */
@@ -21,12 +21,12 @@ public:
     static int torpedo_num_;
 
     /** [r]親アクターとなるオプション */
-    GgafDxCore::GgafDxGeometricActor* pOrg_;
+    GgafDx::GeometricActor* pOrg_;
     MyLockonController* pLockonCtrler_;
     /** [r]保持する魚雷配列（要素数は max_torpedo_num_ 個） */
     MyTorpedo** papTorpedo_;
     /** [r]保持する魚雷爆風デポジトリ */
-    GgafCore::GgafActorDepository* pDepo_TorpedoBlast_;
+    GgafCore::ActorDepository* pDepo_TorpedoBlast_;
     /** 同時発射魚雷数 */
     int firing_num_;
     /** 現在魚雷発射中かどうか true:いづれかの魚雷が活動中/false:全ての魚雷が非活動状態 */
@@ -39,7 +39,7 @@ public:
      * @param prm_pOrg 親となるオプション
      * @return
      */
-    MyTorpedoController(const char* prm_name, GgafDxCore::GgafDxGeometricActor* prm_pOrg, MyLockonController* prm_pLockonCtrler);
+    MyTorpedoController(const char* prm_name, GgafDx::GeometricActor* prm_pOrg, MyLockonController* prm_pLockonCtrler);
 
     void initialize() override;
 

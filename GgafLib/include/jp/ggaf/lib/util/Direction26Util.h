@@ -1,5 +1,5 @@
-#ifndef GGAFLIB_DIRECTION26UTIL_H_
-#define GGAFLIB_DIRECTION26UTIL_H_
+#ifndef GGAF_LIB_DIRECTION26UTIL_H_
+#define GGAF_LIB_DIRECTION26UTIL_H_
 #include "GgafLibCommonHeader.h"
 
 //-1,0,1 の3数の3進法 を 配列要素のため正の10進数に変換するマクロ(-13～+13)
@@ -114,4 +114,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_DIRECTION26UTIL_H_*/
+#endif /*GGAF_LIB_DIRECTION26UTIL_H_*/

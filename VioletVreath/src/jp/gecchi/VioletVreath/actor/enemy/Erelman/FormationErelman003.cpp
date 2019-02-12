@@ -1,14 +1,14 @@
 #include "FormationErelman003.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/ggaf/lib/util/spline/SplineManufacture.h"
 #include "jp/ggaf/lib/util/spline/FixedFrameSplineManufacture.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Erelman/EnemyErelman.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -82,7 +82,7 @@ void FormationErelman003::onActive() {
 void FormationErelman003::processBehavior() {
     FormationErelman::processBehavior();
 
-    GgafProgress* const pProg = getProgress();
+    GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             pProg->changeNext();
@@ -118,10 +118,10 @@ void FormationErelman003::processBehavior() {
     }
 }
 
-void FormationErelman003::onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, int prm_row, int prm_col) {
+void FormationErelman003::onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) {
     EnemyErelman* pErelman = (EnemyErelman*)prm_pActor;
     if (pErelman->pKurokoLeader_) {
-        throwGgafCriticalException("pErelman->pKurokoLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpErelman="<<pErelman<<"("<<pErelman->getName()<<")");
+        throwCriticalException("pErelman->pKurokoLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpErelman="<<pErelman<<"("<<pErelman->getName()<<")");
     } else {
         pErelman->pKurokoLeader_ = papSplManufConn_[prm_col]->peek()->
                                       createKurokoLeader(pErelman->getKuroko());
@@ -152,7 +152,7 @@ void FormationErelman003::onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, in
     pErelman->setMaterialColor(r, g, b);
 }
 
-void FormationErelman003::onFinshLeading(GgafDxCore::GgafDxFigureActor* prm_pActor) {
+void FormationErelman003::onFinshLeading(GgafDx::FigureActor* prm_pActor) {
 
 }
 

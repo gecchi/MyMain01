@@ -1,15 +1,15 @@
 #include "EnemyTalante.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/model/GgafDxModel.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -31,7 +31,7 @@ EnemyTalante::EnemyTalante(const char* prm_name) :
         DefaultMassMeshActor(prm_name, "Talante", STATUS(EnemyTalante)) {
     _class_name = "EnemyTalante";
     pDepo_shot_ = nullptr;
-    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
     Z_ok_ = Y_ok_ = false;
@@ -39,12 +39,12 @@ EnemyTalante::EnemyTalante(const char* prm_name) :
 }
 
 void EnemyTalante::onCreateModel() {
-    GgafDxModel* pModel = getModel();
+    GgafDx::Model* pModel = getModel();
     pModel->setSpecular(5.0, 1.0);
 }
 
 void EnemyTalante::initialize() {
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->linkFaceAngByMvAng(true);
     pKuroko->setRollFaceAngVelo(5000);
     CollisionChecker* pChecker = getCollisionChecker();
@@ -53,7 +53,7 @@ void EnemyTalante::initialize() {
 }
 
 void EnemyTalante::config(
-        GgafCore::GgafActorDepository* prm_pDepo_shot
+        GgafCore::ActorDepository* prm_pDepo_shot
         ) {
     pDepo_shot_ = prm_pDepo_shot;
 }
@@ -62,7 +62,7 @@ void EnemyTalante::onActive() {
     getStatus()->reset();
     setHitAble(true);
     Z_ok_ = Y_ok_ = false;
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->setMvAcce(0);
     pKuroko->setMvVelo(4000);
     pKuroko->forceMvVeloRange(50000);
@@ -71,8 +71,8 @@ void EnemyTalante::onActive() {
 
 void EnemyTalante::processBehavior() {
     MyShip* pMyShip = pMYSHIP;
-    GgafDxKuroko* const pKuroko = getKuroko();
-    GgafProgress* const pProg = getProgress();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             pProg->changeNext();
@@ -172,8 +172,8 @@ void EnemyTalante::processJudgement() {
     }
 }
 
-void EnemyTalante::onHit(const GgafActor* prm_pOtherActor) {
-    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
+void EnemyTalante::onHit(const GgafCore::Actor* prm_pOtherActor) {
+    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)prm_pOtherActor;
     if (getActiveFrame() < 30 && (pOther->lookUpKind() & KIND_CHIKEI)) {
          //出現30フレーム以内でヒット相手が地形ならば無視（出現即地形による破壊されを回避）
          return;

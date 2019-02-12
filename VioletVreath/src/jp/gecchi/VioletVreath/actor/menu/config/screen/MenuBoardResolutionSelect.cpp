@@ -4,8 +4,8 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "CursorResolutionSelect.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -48,9 +48,9 @@ void MenuBoardResolutionSelect::onRise() {
     selectItem(ITEM_OK); //初期選択をリセット
     MenuBoard::onRise();
 }
-void MenuBoardResolutionSelect::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
+void MenuBoardResolutionSelect::onDecision(GgafDx::FigureActor* prm_pItem, int prm_item_index) {
 }
-void MenuBoardResolutionSelect::onCancel(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
+void MenuBoardResolutionSelect::onCancel(GgafDx::FigureActor* prm_pItem, int prm_item_index) {
 }
 
 bool MenuBoardResolutionSelect::hasJustDecidedOk() {

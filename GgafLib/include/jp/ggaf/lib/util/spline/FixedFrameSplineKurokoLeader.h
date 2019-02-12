@@ -1,5 +1,5 @@
-#ifndef GGAFLIB_FIXEDFRAMESPLINEKUROKOLEADER_H_
-#define GGAFLIB_FIXEDFRAMESPLINEKUROKOLEADER_H_
+#ifndef GGAF_LIB_FIXEDFRAMESPLINEKUROKOLEADER_H_
+#define GGAF_LIB_FIXEDFRAMESPLINEKUROKOLEADER_H_
 #include "GgafLibCommonHeader.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 
@@ -11,7 +11,7 @@ namespace GgafLib {
  * 中間の補完点～次の補完点までを、均等に割った時間で移動します。<BR>
  * 補完点の密度が薄いところは移動速度増。<BR>
  * 補完点の密度が濃いところは移動速度減。<BR>
- * そのように動作するよう、黒衣(GgafDxCore::GgafDxKuroko)に指示を出して移動を実現します。<BR>
+ * そのように動作するよう、黒衣(GgafDx::Kuroko)に指示を出して移動を実現します。<BR>
  * @version 1.00
  * @since 2009/10/28
  * @author Masatoshi Tsuge
@@ -19,7 +19,7 @@ namespace GgafLib {
 class FixedFrameSplineKurokoLeader : public SplineLeader {
 
 public:
-    GgafDxCore::GgafDxKuroko* _pKuroko_target;
+    GgafDx::Kuroko* _pKuroko_target;
     /** [r]スプライン情報セット(splファイルの情報に相当) */
     FixedFrameSplineManufacture* _pFixedFrameSplManuf;
     /** _leading_framesに加算される補正フレーム */
@@ -37,7 +37,7 @@ public:
      * @param prm_pKuroko
      */
     FixedFrameSplineKurokoLeader(SplineManufacture* prm_pManufacture,
-                                 GgafDxCore::GgafDxKuroko* prm_pKuroko_target);
+                                 GgafDx::Kuroko* prm_pKuroko_target);
 
     virtual void restart() override;
 
@@ -53,4 +53,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_FIXEDFRAMESPLINEKUROKOLEADER_H_*/
+#endif /*GGAF_LIB_FIXEDFRAMESPLINEKUROKOLEADER_H_*/

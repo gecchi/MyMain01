@@ -1,15 +1,15 @@
 #include "Zako.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "actor/Zakoko.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace Mogera;
 
@@ -47,7 +47,7 @@ void Zako::onCreateModel() {
 }
 
 void Zako::initialize() {
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->linkFaceAngByMvAng(true);
     pKuroko->setRollFaceAngVelo(D_ANG(2));
     pKuroko->setMvVelo(PX_C(1));
@@ -66,8 +66,8 @@ void Zako::onActive() {
 }
 
 void Zako::processBehavior() {
-    GgafDxKuroko* const pKuroko = getKuroko();
-//    GgafProgress* const pProg = getProgress();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
+//    GgafCore::Progress* const pProg = getProgress();
 //    switch (pProg->get()) {
 //        case PROG_INIT: {
 //            pProg->changeNext();
@@ -106,7 +106,7 @@ void Zako::processJudgement() {
 //    }
 }
 
-void Zako::onHit(const GgafActor* prm_pOtherActor) {
+void Zako::onHit(const GgafCore::Actor* prm_pOtherActor) {
 }
 
 void Zako::onInactive() {

@@ -1,7 +1,7 @@
 #include "FormationErelman.h"
 
-#include "jp/ggaf/core/util/GgafRgb.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
+#include "jp/ggaf/core/util/Rgb.h"
+#include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Erelman/EnemyErelman.h"
@@ -11,10 +11,10 @@
 #include "jp/gecchi/VioletVreath/manager/XpmConnection.h"
 #include "EnemyErelmanCore.h"
 #include "EnemyErelmanController.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -43,8 +43,8 @@ void FormationErelman::scatterMember() {
     }
 }
 
-void FormationErelman::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
-    UTIL::performFormationDestroyAll((GgafDxFigureActor*)prm_pActor_last_destroyed);
+void FormationErelman::onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) {
+    UTIL::performFormationDestroyAll((GgafDx::FigureActor*)prm_pActor_last_destroyed);
 }
 void FormationErelman::onSayonaraAll() {
     pController_->pFormationErelman_ = nullptr;

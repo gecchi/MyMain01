@@ -23,7 +23,7 @@ public:
      */
     EffectManager(const char* prm_manager_name);
 
-    GgafDxCore::GgafDxEffect* processCreateResource(const char* prm_idstr, void* prm_pConnector) override;
+    GgafDx::Effect* processCreateResource(const char* prm_idstr, void* prm_pConnector) override;
 
     virtual ~EffectManager() {
     }

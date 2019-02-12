@@ -17,7 +17,7 @@ public:
     /** ãzíÖç∑ï™ç¿ïW */
     int kDX_, kDY_, kDZ_;
 public:
-    ScoreItem(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);
+    ScoreItem(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat);
 
     virtual void onCreateModel() override {
     }
@@ -32,7 +32,7 @@ public:
 
     virtual void onInactive() override;
 
-    virtual void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
+    virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override;
 
     virtual ~ScoreItem();
 };

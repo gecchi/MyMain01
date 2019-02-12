@@ -1,10 +1,10 @@
 #include "GameDemoScene.h"
 
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
-#include "jp/ggaf/core/actor/GgafSceneMediator.h"
+#include "jp/ggaf/core/actor/SceneMediator.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
+#include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld/StageController.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -13,8 +13,8 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld/RankUpStageController.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld/RankUpStageController/RankUpStage.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -161,7 +161,7 @@ void GameDemoScene::onInactive() {
         pSTAGE_CTRLER->pStageMainCannel_->sayonara();
         pSTAGE_CTRLER->pStageMainCannel_ = nullptr;
     } else {
-        //throwGgafCriticalException("デモシーンのシーンが無い。あり得ないよ");
+        //throwCriticalException("デモシーンのシーンが無い。あり得ないよ");
     }
 
     if (pRANKUP_CONTROLLER->pNowRankUpStage_) {

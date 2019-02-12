@@ -1,6 +1,6 @@
 #include "GgafEffectConst.fxh"
 ////////////////////////////////////////////////////////////////////////////////
-// Ggafライブラリ、GgafDxMassMorphMeshModel用シェーダー
+// ggaf ライブラリ、GgafDx::MassMorphMeshModel用シェーダー
 // author : Masatoshi Tsuge
 // date:2016/03/18
 ////////////////////////////////////////////////////////////////////////////////
@@ -46,7 +46,7 @@ struct OUT_VS
 
 ///////////////////////////////////////////////////////////////////////////
 
-OUT_VS GgafDxVS_DefaultMassMorphMesh(
+OUT_VS VS_DefaultMassMorphMesh(
     float4 prm_posPrimary_Local      ,  // モデルの頂点
     float3 prm_vecNormalPrimary_Local,  // モデルの頂点の法線
     float2 prm_uv0                   ,  // モデルの頂点のUV
@@ -89,7 +89,7 @@ OUT_VS GgafDxVS_DefaultMassMorphMesh(
 
 
 //モーフターゲットなし
-OUT_VS GgafDxVS_DefaultMassMorphMesh0(
+OUT_VS VS_DefaultMassMorphMesh0(
     //vertex model
     float4 prm_posPrimary_Local       : POSITION0,  // モデルの頂点
     float3 prm_vecNormalPrimary_Local : NORMAL0,    // モデルの頂点の法線
@@ -103,7 +103,7 @@ OUT_VS GgafDxVS_DefaultMassMorphMesh0(
 ) {
     float4 posModel_Local = prm_posPrimary_Local;
     float3 vecNormal_Local = prm_vecNormalPrimary_Local;
-    return GgafDxVS_DefaultMassMorphMesh(posModel_Local, vecNormal_Local, prm_uv0,
+    return VS_DefaultMassMorphMesh(posModel_Local, vecNormal_Local, prm_uv0,
                                          prm_world0,
                                          prm_world1,
                                          prm_world2,
@@ -113,7 +113,7 @@ OUT_VS GgafDxVS_DefaultMassMorphMesh0(
 
 
 //モーフターゲット１つ
-OUT_VS GgafDxVS_DefaultMassMorphMesh1(
+OUT_VS VS_DefaultMassMorphMesh1(
     //vertex model
     float4 prm_posPrimary_Local       : POSITION0,  // モデルの頂点
     float3 prm_vecNormalPrimary_Local : NORMAL0,    // モデルの頂点の法線
@@ -138,7 +138,7 @@ OUT_VS GgafDxVS_DefaultMassMorphMesh1(
         vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal1_Local     , weight1);
     }
 
-    return GgafDxVS_DefaultMassMorphMesh(posModel_Local, vecNormal_Local, prm_uv0,
+    return VS_DefaultMassMorphMesh(posModel_Local, vecNormal_Local, prm_uv0,
                                          prm_world0,
                                          prm_world1,
                                          prm_world2,
@@ -148,7 +148,7 @@ OUT_VS GgafDxVS_DefaultMassMorphMesh1(
 
 
 //モーフターゲット２つ
-OUT_VS GgafDxVS_DefaultMassMorphMesh2(
+OUT_VS VS_DefaultMassMorphMesh2(
     //vertex model
     float4 prm_posPrimary_Local       : POSITION0,  // モデルの頂点
     float3 prm_vecNormalPrimary_Local : NORMAL0,    // モデルの頂点の法線
@@ -180,7 +180,7 @@ OUT_VS GgafDxVS_DefaultMassMorphMesh2(
         posModel_Local  = lerp(posModel_Local , prm_posMorphTarget2_Local, weight2);
         vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal2_Local     , weight2);
     }
-    return GgafDxVS_DefaultMassMorphMesh(posModel_Local, vecNormal_Local, prm_uv0,
+    return VS_DefaultMassMorphMesh(posModel_Local, vecNormal_Local, prm_uv0,
                                          prm_world0,
                                          prm_world1,
                                          prm_world2,
@@ -190,7 +190,7 @@ OUT_VS GgafDxVS_DefaultMassMorphMesh2(
 
 
 //モーフターゲット３つ
-OUT_VS GgafDxVS_DefaultMassMorphMesh3(
+OUT_VS VS_DefaultMassMorphMesh3(
     //vertex model
     float4 prm_posPrimary_Local       : POSITION0,  // モデルの頂点
     float3 prm_vecNormalPrimary_Local : NORMAL0,    // モデルの頂点の法線
@@ -230,7 +230,7 @@ OUT_VS GgafDxVS_DefaultMassMorphMesh3(
         posModel_Local  = lerp(posModel_Local , prm_posMorphTarget3_Local, weight3);
         vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal3_Local     , weight3);
     }
-    return GgafDxVS_DefaultMassMorphMesh(posModel_Local, vecNormal_Local, prm_uv0,
+    return VS_DefaultMassMorphMesh(posModel_Local, vecNormal_Local, prm_uv0,
                                          prm_world0,
                                          prm_world1,
                                          prm_world2,
@@ -240,7 +240,7 @@ OUT_VS GgafDxVS_DefaultMassMorphMesh3(
 
 
 //モーフターゲット４つ
-OUT_VS GgafDxVS_DefaultMassMorphMesh4(
+OUT_VS VS_DefaultMassMorphMesh4(
     //vertex model
     float4 prm_posPrimary_Local       : POSITION0,  // モデルの頂点
     float3 prm_vecNormalPrimary_Local : NORMAL0,    // モデルの頂点の法線
@@ -288,7 +288,7 @@ OUT_VS GgafDxVS_DefaultMassMorphMesh4(
         posModel_Local  = lerp(posModel_Local , prm_posMorphTarget4_Local, weight4);
         vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal4_Local     , weight4);
     }
-    return GgafDxVS_DefaultMassMorphMesh(posModel_Local, vecNormal_Local, prm_uv0,
+    return VS_DefaultMassMorphMesh(posModel_Local, vecNormal_Local, prm_uv0,
                                          prm_world0,
                                          prm_world1,
                                          prm_world2,
@@ -297,7 +297,7 @@ OUT_VS GgafDxVS_DefaultMassMorphMesh4(
 }
 
 
-float4 GgafDxPS_DefaultMassMorphMesh(
+float4 PS_DefaultMassMorphMesh(
     float2 prm_uv	           : TEXCOORD0,
     float4 prm_color           : COLOR0,
     float3 prm_vecNormal_World : TEXCOORD1,
@@ -340,8 +340,8 @@ technique DefaultMassMorphMeshTechnique0
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMassMorphMesh0();
-        PixelShader  = compile PS_VERSION GgafDxPS_DefaultMassMorphMesh();
+        VertexShader = compile VS_VERSION VS_DefaultMassMorphMesh0();
+        PixelShader  = compile PS_VERSION PS_DefaultMassMorphMesh();
     }
 }
 
@@ -352,8 +352,8 @@ technique DefaultMassMorphMeshTechnique1
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMassMorphMesh1();
-        PixelShader  = compile PS_VERSION GgafDxPS_DefaultMassMorphMesh();
+        VertexShader = compile VS_VERSION VS_DefaultMassMorphMesh1();
+        PixelShader  = compile PS_VERSION PS_DefaultMassMorphMesh();
     }
 }
 
@@ -364,8 +364,8 @@ technique DefaultMassMorphMeshTechnique2
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMassMorphMesh2();
-        PixelShader  = compile PS_VERSION GgafDxPS_DefaultMassMorphMesh();
+        VertexShader = compile VS_VERSION VS_DefaultMassMorphMesh2();
+        PixelShader  = compile PS_VERSION PS_DefaultMassMorphMesh();
     }
 }
 
@@ -376,8 +376,8 @@ technique DefaultMassMorphMeshTechnique3
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMassMorphMesh3();
-        PixelShader  = compile PS_VERSION GgafDxPS_DefaultMassMorphMesh();
+        VertexShader = compile VS_VERSION VS_DefaultMassMorphMesh3();
+        PixelShader  = compile PS_VERSION PS_DefaultMassMorphMesh();
     }
 }
 
@@ -388,8 +388,8 @@ technique DefaultMassMorphMeshTechnique4
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMassMorphMesh4();
-        PixelShader  = compile PS_VERSION GgafDxPS_DefaultMassMorphMesh();
+        VertexShader = compile VS_VERSION VS_DefaultMassMorphMesh4();
+        PixelShader  = compile PS_VERSION PS_DefaultMassMorphMesh();
     }
 }
 
@@ -401,8 +401,8 @@ technique DestBlendOne0
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMassMorphMesh0();
-        PixelShader  = compile PS_VERSION GgafDxPS_DefaultMassMorphMesh();
+        VertexShader = compile VS_VERSION VS_DefaultMassMorphMesh0();
+        PixelShader  = compile PS_VERSION PS_DefaultMassMorphMesh();
     }
 }
 
@@ -413,8 +413,8 @@ technique DestBlendOne1
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMassMorphMesh1();
-        PixelShader  = compile PS_VERSION GgafDxPS_DefaultMassMorphMesh();
+        VertexShader = compile VS_VERSION VS_DefaultMassMorphMesh1();
+        PixelShader  = compile PS_VERSION PS_DefaultMassMorphMesh();
     }
 }
 
@@ -425,8 +425,8 @@ technique DestBlendOne2
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMassMorphMesh2();
-        PixelShader  = compile PS_VERSION GgafDxPS_DefaultMassMorphMesh();
+        VertexShader = compile VS_VERSION VS_DefaultMassMorphMesh2();
+        PixelShader  = compile PS_VERSION PS_DefaultMassMorphMesh();
     }
 }
 
@@ -437,8 +437,8 @@ technique DestBlendOne3
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMassMorphMesh3();
-        PixelShader  = compile PS_VERSION GgafDxPS_DefaultMassMorphMesh();
+        VertexShader = compile VS_VERSION VS_DefaultMassMorphMesh3();
+        PixelShader  = compile PS_VERSION PS_DefaultMassMorphMesh();
     }
 }
 
@@ -449,8 +449,8 @@ technique DestBlendOne4
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMassMorphMesh4();
-        PixelShader  = compile PS_VERSION GgafDxPS_DefaultMassMorphMesh();
+        VertexShader = compile VS_VERSION VS_DefaultMassMorphMesh4();
+        PixelShader  = compile PS_VERSION PS_DefaultMassMorphMesh();
     }
 }
 
@@ -462,7 +462,7 @@ technique Flush0
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMassMorphMesh0();
+        VertexShader = compile VS_VERSION VS_DefaultMassMorphMesh0();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 }
@@ -474,7 +474,7 @@ technique Flush1
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMassMorphMesh1();
+        VertexShader = compile VS_VERSION VS_DefaultMassMorphMesh1();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 }
@@ -486,7 +486,7 @@ technique Flush2
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMassMorphMesh2();
+        VertexShader = compile VS_VERSION VS_DefaultMassMorphMesh2();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 }
@@ -498,7 +498,7 @@ technique Flush3
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMassMorphMesh3();
+        VertexShader = compile VS_VERSION VS_DefaultMassMorphMesh3();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 }
@@ -510,7 +510,7 @@ technique Flush4
         AlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMassMorphMesh4();
+        VertexShader = compile VS_VERSION VS_DefaultMassMorphMesh4();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 }

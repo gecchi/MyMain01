@@ -1,10 +1,10 @@
 #include "jp/ggaf/lib/util/StgUtil.h"
 
-#include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
-#include "jp/ggaf/dxcore/actor/GgafDxFigureActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/util/GgafDxInput.h"
-#include "jp/ggaf/lib/GgafLibConfig.h"
+#include "jp/ggaf/core/actor/ex/ActorDepository.h"
+#include "jp/ggaf/dx/actor/FigureActor.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/util/Input.h"
+#include "jp/ggaf/lib/LibConfig.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker2D.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
@@ -12,8 +12,8 @@
 #include "jp/ggaf/lib/util/ColliAAPrism.h"
 #include "jp/ggaf/lib/util/ColliAAPyramid.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
 bool StgUtil::_was_StgUtil_inited_flg = false;
@@ -27,7 +27,7 @@ std::map<pos_t,pos_t> StgUtil::POS_R_TRIANGLE_inv_Y;
 
 
 void StgUtil::init() {
-    GgafDxUtil::init();
+    GgafDx::Util::init();
     if (StgUtil::_was_StgUtil_inited_flg) {
         return;
     }
@@ -55,7 +55,7 @@ void StgUtil::init() {
     StgUtil::_was_StgUtil_inited_flg = true;
 }
 
-GgafDxChecker* StgUtil::createChecker(GgafDxGeometricActor* prm_pActor) {
+GgafDx::Checker* StgUtil::createChecker(GgafDx::GeometricActor* prm_pActor) {
     if (CONFIG::IS_HIT_CHECK_3D) {
         return NEW CollisionChecker3D(prm_pActor);
     } else {
@@ -63,8 +63,8 @@ GgafDxChecker* StgUtil::createChecker(GgafDxGeometricActor* prm_pActor) {
     }
 }
 
-bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliSphere* const pSphere01 ,
-                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere* const pSphere02 ) {
+bool StgUtil::isHit3D(const GgafDx::GeometricActor* const pActor01, const ColliSphere* const pSphere01 ,
+                      const GgafDx::GeometricActor* const pActor02, const ColliSphere* const pSphere02 ) {
     //＜球 と 球＞
     //球1 ： 中心点の座標P1(x1, y1, z1), 半径r1
     //球2 ： 中心点の座標P2(x2, y2, z2), 半径r2
@@ -81,8 +81,8 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     }
 }
 
-bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAABox*  pAABox01,
-                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere* pSphere02) {
+bool StgUtil::isHit3D(const GgafDx::GeometricActor* const pActor01, const ColliAABox*  pAABox01,
+                      const GgafDx::GeometricActor* const pActor02, const ColliSphere* pSphere02) {
     //＜AAB と 球＞
     const coord o_scx = pActor02->_x + pSphere02->_cx;
     const coord o_scy = pActor02->_y + pSphere02->_cy;
@@ -127,8 +127,8 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
 }
 
 
-bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
-                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox*   const pAABox02     ) {
+bool StgUtil::isHit3D(const GgafDx::GeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
+                      const GgafDx::GeometricActor* const pActor02, const ColliAABox*   const pAABox02     ) {
     //＜プリズム と AAB＞
     const coord aX = pActor01->_x;
     const coord aY = pActor01->_y;
@@ -385,8 +385,8 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
 }
 
 
-bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
-                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere*  const pSphere02  ) {
+bool StgUtil::isHit3D(const GgafDx::GeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
+                      const GgafDx::GeometricActor* const pActor02, const ColliSphere*  const pSphere02  ) {
     //＜プリズム と 球＞
     //MEMO:厳密な当たり判定計算は行っていません。
     //まず、球 対 AAB の判定を行う
@@ -719,8 +719,8 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     return false;
 }
 
-bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPyramid* const pAAPyramid01,
-                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox*     const pAABox02     ) {
+bool StgUtil::isHit3D(const GgafDx::GeometricActor* const pActor01, const ColliAAPyramid* const pAAPyramid01,
+                      const GgafDx::GeometricActor* const pActor02, const ColliAABox*     const pAABox02     ) {
     //ピラミッドとBOX
     const coord aX1 = pActor01->_x + pAAPyramid01->_x1;
     const coord aY1 = pActor01->_y + pAAPyramid01->_y1;
@@ -823,8 +823,8 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     return false;
 }
 
-bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPyramid* const pAAPyramid01,
-                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere*    const pSphere02  ) {
+bool StgUtil::isHit3D(const GgafDx::GeometricActor* const pActor01, const ColliAAPyramid* const pAAPyramid01,
+                      const GgafDx::GeometricActor* const pActor02, const ColliSphere*    const pSphere02  ) {
     //三直角三角錐の三直角頂点の座標を原点(0,0,0)におき、
     //A(ex,0,0), B(0,ey,0), C(0,0,ez) の三直角三角錐で当たり判定を考えたいので、
     //球の位置(o_cx, o_cy, o_cz)を座標変換する。
@@ -1138,8 +1138,8 @@ bool StgUtil::isHit3D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     return false;
 }
 
-bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliSphere* const pSphere01 ,
-                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere* const pSphere02 ) {
+bool StgUtil::isHit2D(const GgafDx::GeometricActor* const pActor01, const ColliSphere* const pSphere01 ,
+                      const GgafDx::GeometricActor* const pActor02, const ColliSphere* const pSphere02 ) {
     //＜球 と 球＞
     //球1 ： 中心点の座標P1(x1, y1, z1), 半径r1
     //球2 ： 中心点の座標P2(x2, y2, z2), 半径r2
@@ -1155,8 +1155,8 @@ bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
 }
 
 
-bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAABox*  pAABox01,
-                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere* pSphere02) {
+bool StgUtil::isHit2D(const GgafDx::GeometricActor* const pActor01, const ColliAABox*  pAABox01,
+                      const GgafDx::GeometricActor* const pActor02, const ColliSphere* pSphere02) {
     //＜AAB と 球＞
     const coord o_scx = pActor02->_x + pSphere02->_cx;
     const coord o_scy = pActor02->_y + pSphere02->_cy;
@@ -1186,8 +1186,8 @@ bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
         return false;
     }
 }
-bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
-                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAABox*   const pAABox02   ) {
+bool StgUtil::isHit2D(const GgafDx::GeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
+                      const GgafDx::GeometricActor* const pActor02, const ColliAABox*   const pAABox02   ) {
     const coord aX1 = pActor01->_x + pAAPrism01->_x1;
     const coord aY1 = pActor01->_y + pAAPrism01->_y1;
     const coord aX2 = pActor01->_x + pAAPrism01->_x2;
@@ -1277,8 +1277,8 @@ bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     }
     return false;
 }
-bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
-                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliSphere*  const pSphere02  ) {
+bool StgUtil::isHit2D(const GgafDx::GeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
+                      const GgafDx::GeometricActor* const pActor02, const ColliSphere*  const pSphere02  ) {
     //＜プリズム と 球＞
     //MEMO:厳密な当たり判定計算は行っていません。
 
@@ -1392,8 +1392,8 @@ bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     return false;
 }
 
-bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
-                      const GgafDxCore::GgafDxGeometricActor* const pActor02, const ColliAAPrism* const pAAPrism02  ) {
+bool StgUtil::isHit2D(const GgafDx::GeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
+                      const GgafDx::GeometricActor* const pActor02, const ColliAAPrism* const pAAPrism02  ) {
     const coord aX = pActor01->_x;
     const coord aY = pActor01->_y;
     const coord bX = pActor02->_x;
@@ -1778,25 +1778,25 @@ bool StgUtil::isHit2D(const GgafDxCore::GgafDxGeometricActor* const pActor01, co
     return false;
 }
 
-GgafDxFigureActor* StgUtil::shotWay001(coord prm_x, coord prm_y, coord prm_z,
+GgafDx::FigureActor* StgUtil::shotWay001(coord prm_x, coord prm_y, coord prm_z,
                                        angle prm_rz, angle prm_ry,
-                                       GgafActorDepository* prm_pDepo_shot,
+                                       GgafCore::ActorDepository* prm_pDepo_shot,
                                        coord prm_r,
                                        velo prm_velo_first, acce prm_acce,
                                        int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                       void (*pFunc_call_back_dispatched)(GgafDxFigureActor*, int, int)) {
+                                       void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int)) {
     if (prm_set_num <= 0) {  return nullptr;  }
     float vx, vy, vz;
-    GgafDxUtil::convRzRyToVector(prm_rz, prm_ry, vx, vy, vz);
+    GgafDx::Util::convRzRyToVector(prm_rz, prm_ry, vx, vy, vz);
     coord x = vx * prm_r;
     coord y = vy * prm_r;
     coord z = vz * prm_r;
-    GgafDxFigureActor* pActor_shot = nullptr;
+    GgafDx::FigureActor* pActor_shot = nullptr;
     velo now_velo = prm_velo_first;
     acce now_acce = prm_acce;
     int dispatch_num = 0;
     for (int n = 0; n < prm_set_num; n++) {
-        pActor_shot = (GgafDxFigureActor*)prm_pDepo_shot->dispatch(n*prm_interval_frames+1);
+        pActor_shot = (GgafDx::FigureActor*)prm_pDepo_shot->dispatch(n*prm_interval_frames+1);
         if (pActor_shot) {
             dispatch_num++;
             pActor_shot->setPosition(prm_x + x,
@@ -1814,12 +1814,12 @@ GgafDxFigureActor* StgUtil::shotWay001(coord prm_x, coord prm_y, coord prm_z,
     return pActor_shot;
 }
 
-GgafDxFigureActor* StgUtil::shotWay001(const GgafDxGeometricActor* prm_pFrom,
-                                       GgafActorDepository* prm_pDepo_shot,
+GgafDx::FigureActor* StgUtil::shotWay001(const GgafDx::GeometricActor* prm_pFrom,
+                                       GgafCore::ActorDepository* prm_pDepo_shot,
                                        coord prm_r,
                                        velo prm_velo_first, acce prm_acce,
                                        int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                       void (*pFunc_call_back_dispatched)(GgafDxFigureActor*, int, int)) {
+                                       void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int)) {
     return shotWay001(prm_pFrom->_x, prm_pFrom->_y, prm_pFrom->_z,
                       prm_pFrom->_rz, prm_pFrom->_ry,
                       prm_pDepo_shot,
@@ -1829,15 +1829,15 @@ GgafDxFigureActor* StgUtil::shotWay001(const GgafDxGeometricActor* prm_pFrom,
                       pFunc_call_back_dispatched);
 }
 
-GgafDxFigureActor* StgUtil::shotWay001(coord prm_from_x, coord prm_from_y, coord prm_from_z,
+GgafDx::FigureActor* StgUtil::shotWay001(coord prm_from_x, coord prm_from_y, coord prm_from_z,
                                        coord prm_to_x, coord prm_to_y, coord prm_to_z,
-                                       GgafActorDepository* prm_pDepo_shot,
+                                       GgafCore::ActorDepository* prm_pDepo_shot,
                                        coord prm_r,
                                        velo prm_velo_first, acce prm_acce,
                                        int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                       void (*pFunc_call_back_dispatched)(GgafDxFigureActor*, int, int)) {
+                                       void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int)) {
     angle rz,ry;
-    GgafDxUtil::convVectorToRzRy(prm_to_x - prm_from_x,
+    GgafDx::Util::convVectorToRzRy(prm_to_x - prm_from_x,
                                  prm_to_y - prm_from_y,
                                  prm_to_z - prm_from_z,
                                  rz, ry);
@@ -1850,44 +1850,44 @@ GgafDxFigureActor* StgUtil::shotWay001(coord prm_from_x, coord prm_from_y, coord
                       pFunc_call_back_dispatched);
 }
 
-GgafDxFigureActor* StgUtil::shotWay002(coord prm_x, coord prm_y, coord prm_z,
+GgafDx::FigureActor* StgUtil::shotWay002(coord prm_x, coord prm_y, coord prm_z,
                                        angle prm_rx, angle prm_rz, angle prm_ry,
-                                       GgafActorDepository* prm_pDepo_shot,
+                                       GgafCore::ActorDepository* prm_pDepo_shot,
                                        coord prm_r,
                                        int prm_way_N,
                                        angle prm_ang_clearance_N,
                                        velo prm_velo_first, acce prm_acce,
                                        int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                       void (*pFunc_call_back_dispatched)(GgafDxFigureActor*, int, int, int)) {
+                                       void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int)) {
     if (prm_way_N <= 0 || prm_set_num <= 0) {  return nullptr;  }
     angle* paAng_way_N = NEW angle[prm_way_N];
-    GgafDxUtil::getWayAngle2D(0, prm_way_N, prm_ang_clearance_N, paAng_way_N);
-    GgafDxGeoElem* paGeo = NEW GgafDxGeoElem[prm_way_N];
+    GgafDx::Util::getWayAngle2D(0, prm_way_N, prm_ang_clearance_N, paAng_way_N);
+    GgafDx::GeoElem* paGeo = NEW GgafDx::GeoElem[prm_way_N];
     float vx, vy, vz;
     float tx, ty, tz; //最終方向の絶対座標の単位ベクトル
     angle rz,ry;
     D3DXMATRIX matWorldRot;
-    GgafDxUtil::setWorldMatrix_RxRzRy(prm_rx, prm_rz, prm_ry, matWorldRot);
+    GgafDx::Util::setWorldMatrix_RxRzRy(prm_rx, prm_rz, prm_ry, matWorldRot);
     for (int i = 0; i < prm_way_N; i++) {
-        rz = GgafDxUtil::simplifyAng(paAng_way_N[i]);
+        rz = GgafDx::Util::simplifyAng(paAng_way_N[i]);
         ry = D0ANG;
-        GgafDxUtil::convRzRyToVector(rz, ry, vx, vy, vz);
+        GgafDx::Util::convRzRyToVector(rz, ry, vx, vy, vz);
         tx = vx*matWorldRot._11 + vy*matWorldRot._21 + vz*matWorldRot._31;
         ty = vx*matWorldRot._12 + vy*matWorldRot._22 + vz*matWorldRot._32;
         tz = vx*matWorldRot._13 + vy*matWorldRot._23 + vz*matWorldRot._33;
         paGeo[i].x = (coord)(tx * prm_r);
         paGeo[i].y = (coord)(ty * prm_r);
         paGeo[i].z = (coord)(tz * prm_r);
-        GgafDxUtil::convVectorToRzRy(tx, ty, tz,
+        GgafDx::Util::convVectorToRzRy(tx, ty, tz,
                                      paGeo[i].rz, paGeo[i].ry);
     }
-    GgafDxFigureActor* pActor_shot = nullptr;
+    GgafDx::FigureActor* pActor_shot = nullptr;
     velo now_velo = prm_velo_first;
     acce now_acce = prm_acce;
     int dispatch_num = 0;
     for (int n = 0; n < prm_set_num; n++) {
         for (int i = 0; i < prm_way_N; i++) {
-            pActor_shot = (GgafDxFigureActor*)prm_pDepo_shot->dispatch(n*prm_interval_frames+1);
+            pActor_shot = (GgafDx::FigureActor*)prm_pDepo_shot->dispatch(n*prm_interval_frames+1);
             if (pActor_shot) {
                 dispatch_num++;
                 pActor_shot->setPosition(prm_x + paGeo[i].x,
@@ -1908,14 +1908,14 @@ GgafDxFigureActor* StgUtil::shotWay002(coord prm_x, coord prm_y, coord prm_z,
     return pActor_shot;
 }
 
-GgafDxCore::GgafDxFigureActor* StgUtil::shotWay002(const GgafDxCore::GgafDxGeometricActor* prm_pFrom,
-                                                   GgafCore::GgafActorDepository* prm_pDepo_shot,
+GgafDx::FigureActor* StgUtil::shotWay002(const GgafDx::GeometricActor* prm_pFrom,
+                                                   GgafCore::ActorDepository* prm_pDepo_shot,
                                                    coord prm_r,
                                                    int prm_way_N,
                                                    angle prm_ang_clearance_N,
                                                    velo prm_velo_first, acce prm_acce,
                                                    int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                   void (*pFunc_call_back_dispatched)(GgafDxCore::GgafDxFigureActor*, int, int, int)) {
+                                                   void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int)) {
     return shotWay002(prm_pFrom->_x, prm_pFrom->_y, prm_pFrom->_z,
                       prm_pFrom->_rx, prm_pFrom->_rz, prm_pFrom->_ry,
                       prm_pDepo_shot,
@@ -1927,29 +1927,29 @@ GgafDxCore::GgafDxFigureActor* StgUtil::shotWay002(const GgafDxCore::GgafDxGeome
                       pFunc_call_back_dispatched);
 }
 
-GgafDxFigureActor* StgUtil::shotWay003(coord prm_x, coord prm_y, coord prm_z,
+GgafDx::FigureActor* StgUtil::shotWay003(coord prm_x, coord prm_y, coord prm_z,
                                        angle prm_rx, angle prm_rz, angle prm_ry,
-                                       GgafActorDepository* prm_pDepo_shot1, uint32_t* prm_paUint32_dotmat1,
-                                       GgafActorDepository* prm_pDepo_shot2, uint32_t* prm_paUint32_dotmat2,
-                                       GgafActorDepository* prm_pDepo_shot3, uint32_t* prm_paUint32_dotmat3,
+                                       GgafCore::ActorDepository* prm_pDepo_shot1, uint32_t* prm_paUint32_dotmat1,
+                                       GgafCore::ActorDepository* prm_pDepo_shot2, uint32_t* prm_paUint32_dotmat2,
+                                       GgafCore::ActorDepository* prm_pDepo_shot3, uint32_t* prm_paUint32_dotmat3,
                                        coord prm_r,
                                        int prm_way_N, int prm_way_M,
                                        angle prm_ang_clearance_N, angle prm_ang_clearance_M,
                                        velo prm_velo_first, acce prm_acce,
                                        int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                       void (*pFunc_call_back_dispatched)(GgafDxFigureActor*, int, int, int, int, int)) {
+                                       void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int, int, int)) {
     if (prm_way_N <= 0 || prm_way_M <= 0 || prm_set_num <= 0) {  return nullptr;  }
     angle* paAng_way_N = NEW angle[prm_way_N];
     angle* paAng_way_M = NEW angle[prm_way_M];
     uint32_t* paUint32_dotmat = NEW uint32_t[prm_way_N];
-    GgafDxUtil::getWayAngle2D(0, prm_way_N, prm_ang_clearance_N, paAng_way_N);
-    GgafDxUtil::getWayAngle2D(0, prm_way_M, prm_ang_clearance_M, paAng_way_M);
-    GgafDxGeoElem** papaGeo = NEW GgafDxGeoElem*[prm_way_N];
+    GgafDx::Util::getWayAngle2D(0, prm_way_N, prm_ang_clearance_N, paAng_way_N);
+    GgafDx::Util::getWayAngle2D(0, prm_way_M, prm_ang_clearance_M, paAng_way_M);
+    GgafDx::GeoElem** papaGeo = NEW GgafDx::GeoElem*[prm_way_N];
     float vx, vy, vz;
     float tx, ty, tz; //最終方向の絶対座標の単位ベクトル
     angle rz,ry;
     D3DXMATRIX matWorldRot;
-    GgafDxUtil::setWorldMatrix_RxRzRy(prm_rx, prm_rz, prm_ry, matWorldRot);
+    GgafDx::Util::setWorldMatrix_RxRzRy(prm_rx, prm_rz, prm_ry, matWorldRot);
     uint32_t dot1,dot2,dot3;
     for (int i = 0; i < prm_way_N; i++) {
         dot1 = prm_paUint32_dotmat1 ? prm_paUint32_dotmat1[i] : 0;
@@ -1960,24 +1960,24 @@ GgafDxFigureActor* StgUtil::shotWay003(coord prm_x, coord prm_y, coord prm_z,
             papaGeo[i] = nullptr;
             continue;
         }
-        rz = GgafDxUtil::simplifyAng(paAng_way_N[i]);
-        papaGeo[i] = NEW GgafDxGeoElem[prm_way_M];
+        rz = GgafDx::Util::simplifyAng(paAng_way_N[i]);
+        papaGeo[i] = NEW GgafDx::GeoElem[prm_way_M];
         for (int j = 0; j < prm_way_M; j++) {
             if (paUint32_dotmat[i] & UTIL::BITNUM[prm_way_M-j]) {
-                ry = GgafDxUtil::simplifyAng(paAng_way_M[j]);
-                GgafDxUtil::convRzRyToVector(rz, ry, vx, vy, vz);
+                ry = GgafDx::Util::simplifyAng(paAng_way_M[j]);
+                GgafDx::Util::convRzRyToVector(rz, ry, vx, vy, vz);
                 tx = vx*matWorldRot._11 + vy*matWorldRot._21 + vz*matWorldRot._31;
                 ty = vx*matWorldRot._12 + vy*matWorldRot._22 + vz*matWorldRot._32;
                 tz = vx*matWorldRot._13 + vy*matWorldRot._23 + vz*matWorldRot._33;
                 papaGeo[i][j].x = (coord)(tx * prm_r);
                 papaGeo[i][j].y = (coord)(ty * prm_r);
                 papaGeo[i][j].z = (coord)(tz * prm_r);
-                GgafDxUtil::convVectorToRzRy(tx, ty, tz,
+                GgafDx::Util::convVectorToRzRy(tx, ty, tz,
                                              papaGeo[i][j].rz, papaGeo[i][j].ry);
             }
         }
     }
-    GgafDxFigureActor* pActor_shot = nullptr;
+    GgafDx::FigureActor* pActor_shot = nullptr;
     velo now_velo = prm_velo_first;
     acce now_acce = prm_acce;
     int dispatch_num = 0;
@@ -1990,13 +1990,13 @@ GgafDxFigureActor* StgUtil::shotWay003(coord prm_x, coord prm_y, coord prm_z,
             for (int j = 0; j < prm_way_M; j++) {
                 if (paUint32_dotmat[i] & UTIL::BITNUM[prm_way_M-j]) {
                     if (prm_paUint32_dotmat1 && (prm_paUint32_dotmat1[i] & UTIL::BITNUM[prm_way_M-j])) {
-                        pActor_shot = (GgafDxFigureActor*)prm_pDepo_shot1->dispatch(n*prm_interval_frames+1);
+                        pActor_shot = (GgafDx::FigureActor*)prm_pDepo_shot1->dispatch(n*prm_interval_frames+1);
                         depo_no = 1;
                     } else if (prm_paUint32_dotmat2 && (prm_paUint32_dotmat2[i] & UTIL::BITNUM[prm_way_M-j])) {
-                        pActor_shot = (GgafDxFigureActor*)prm_pDepo_shot2->dispatch(n*prm_interval_frames+1);
+                        pActor_shot = (GgafDx::FigureActor*)prm_pDepo_shot2->dispatch(n*prm_interval_frames+1);
                         depo_no = 2;
                     } else if (prm_paUint32_dotmat3 && (prm_paUint32_dotmat3[i] & UTIL::BITNUM[prm_way_M-j])) {
-                        pActor_shot = (GgafDxFigureActor*)prm_pDepo_shot3->dispatch(n*prm_interval_frames+1);
+                        pActor_shot = (GgafDx::FigureActor*)prm_pDepo_shot3->dispatch(n*prm_interval_frames+1);
                         depo_no = 3;
                     } else {
                         pActor_shot = nullptr;
@@ -2037,16 +2037,16 @@ GgafDxFigureActor* StgUtil::shotWay003(coord prm_x, coord prm_y, coord prm_z,
 }
 
 
-GgafDxFigureActor* StgUtil::shotWay003(const GgafDxGeometricActor* prm_pFrom,
-                                       GgafActorDepository* prm_pDepo_shot1, uint32_t* prm_paUint32_dotmat1,
-                                       GgafActorDepository* prm_pDepo_shot2, uint32_t* prm_paUint32_dotmat2,
-                                       GgafActorDepository* prm_pDepo_shot3, uint32_t* prm_paUint32_dotmat3,
+GgafDx::FigureActor* StgUtil::shotWay003(const GgafDx::GeometricActor* prm_pFrom,
+                                       GgafCore::ActorDepository* prm_pDepo_shot1, uint32_t* prm_paUint32_dotmat1,
+                                       GgafCore::ActorDepository* prm_pDepo_shot2, uint32_t* prm_paUint32_dotmat2,
+                                       GgafCore::ActorDepository* prm_pDepo_shot3, uint32_t* prm_paUint32_dotmat3,
                                        coord prm_r,
                                        int prm_way_N, int prm_way_M,
                                        angle prm_ang_clearance_N, angle prm_ang_clearance_M,
                                        velo prm_velo_first, acce prm_acce,
                                        int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                       void (*pFunc_call_back_dispatched)(GgafDxFigureActor*, int, int, int, int, int)) {
+                                       void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int, int, int)) {
     return shotWay003(prm_pFrom->_x, prm_pFrom->_y, prm_pFrom->_z,
                       prm_pFrom->_rx, prm_pFrom->_rz, prm_pFrom->_ry,
                       prm_pDepo_shot1, prm_paUint32_dotmat1,
@@ -2061,43 +2061,43 @@ GgafDxFigureActor* StgUtil::shotWay003(const GgafDxGeometricActor* prm_pFrom,
 }
 
 
-GgafDxFigureActor* StgUtil::shotWay004(coord prm_x, coord prm_y, coord prm_z,
+GgafDx::FigureActor* StgUtil::shotWay004(coord prm_x, coord prm_y, coord prm_z,
                                        angle prm_rz, angle prm_ry,
-                                       GgafActorDepository* prm_pDepo_shot,
+                                       GgafCore::ActorDepository* prm_pDepo_shot,
                                        coord prm_r,
                                        int prm_radial_way_num, angle prm_expanse_angle,
                                        velo prm_velo_first, acce prm_acce,
                                        int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                       void (*pFunc_call_back_dispatched)(GgafDxFigureActor*, int, int, int)) {
+                                       void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int)) {
     if (prm_radial_way_num <= 0 || prm_set_num <= 0) {  return nullptr;  }
     angle* paAng_way = NEW angle[prm_radial_way_num];
-    GgafDxUtil::getRadialAngle2D(0, prm_radial_way_num, paAng_way);
-    GgafDxGeoElem* paGeo = NEW GgafDxGeoElem[prm_radial_way_num];
+    GgafDx::Util::getRadialAngle2D(0, prm_radial_way_num, paAng_way);
+    GgafDx::GeoElem* paGeo = NEW GgafDx::GeoElem[prm_radial_way_num];
     angle expanse_rz = (D180ANG - prm_expanse_angle)/2;
 
     D3DXMATRIX matWorldRot;
-    GgafDxUtil::setWorldMatrix_RzRy(GgafDxUtil::simplifyAng(prm_rz-D90ANG), prm_ry, matWorldRot);
+    GgafDx::Util::setWorldMatrix_RzRy(GgafDx::Util::simplifyAng(prm_rz-D90ANG), prm_ry, matWorldRot);
 
     float vx, vy, vz;
     float tx, ty, tz; //最終方向の絶対座標の単位ベクトル
     for (int i = 0; i < prm_radial_way_num; i++) {
-        GgafDxUtil::convRzRyToVector(expanse_rz, paAng_way[i], vx, vy, vz);
+        GgafDx::Util::convRzRyToVector(expanse_rz, paAng_way[i], vx, vy, vz);
         tx = vx*matWorldRot._11 + vy*matWorldRot._21 + vz*matWorldRot._31;
         ty = vx*matWorldRot._12 + vy*matWorldRot._22 + vz*matWorldRot._32;
         tz = vx*matWorldRot._13 + vy*matWorldRot._23 + vz*matWorldRot._33;
         paGeo[i].x = (coord)(tx * prm_r);
         paGeo[i].y = (coord)(ty * prm_r);
         paGeo[i].z = (coord)(tz * prm_r);
-        GgafDxUtil::convVectorToRzRy(tx, ty, tz,
+        GgafDx::Util::convVectorToRzRy(tx, ty, tz,
                                      paGeo[i].rz, paGeo[i].ry);
     }
-    GgafDxFigureActor* pActor_shot = nullptr;
+    GgafDx::FigureActor* pActor_shot = nullptr;
     velo now_velo = prm_velo_first;
     acce now_acce = prm_acce;
     int dispatch_num = 0;
     for (int n = 0; n < prm_set_num; n++) {
         for (int i = 0; i < prm_radial_way_num; i++) {
-            pActor_shot = (GgafDxFigureActor*)prm_pDepo_shot->dispatch(n*prm_interval_frames+1);
+            pActor_shot = (GgafDx::FigureActor*)prm_pDepo_shot->dispatch(n*prm_interval_frames+1);
             if (pActor_shot) {
                 dispatch_num++;
                 pActor_shot->setPosition(prm_x + paGeo[i].x,
@@ -2120,13 +2120,13 @@ GgafDxFigureActor* StgUtil::shotWay004(coord prm_x, coord prm_y, coord prm_z,
     return pActor_shot;
 }
 
-GgafDxFigureActor* StgUtil::shotWay004(const GgafDxGeometricActor* prm_pFrom,
-                                       GgafActorDepository* prm_pDepo_shot,
+GgafDx::FigureActor* StgUtil::shotWay004(const GgafDx::GeometricActor* prm_pFrom,
+                                       GgafCore::ActorDepository* prm_pDepo_shot,
                                        coord prm_r,
                                        int prm_way, angle prm_expanse_angle,
                                        velo prm_velo_first, acce prm_acce,
                                        int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                       void (*pFunc_call_back_dispatched)(GgafDxFigureActor*, int, int, int)) {
+                                       void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int)) {
     return shotWay004(prm_pFrom->_x, prm_pFrom->_y, prm_pFrom->_z,
                       prm_pFrom->_rz, prm_pFrom->_ry,
                       prm_pDepo_shot,

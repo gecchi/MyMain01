@@ -1,10 +1,10 @@
 #include "TestDepository.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
-TestDepository::TestDepository(const char* prm_name, GgafStatus* prm_pStat) : GgafActorDepository(prm_name, prm_pStat) {
+TestDepository::TestDepository(const char* prm_name, GgafCore::Status* prm_pStat) : GgafCore::ActorDepository(prm_name, prm_pStat) {
     _class_name = "TestDepository";
 }

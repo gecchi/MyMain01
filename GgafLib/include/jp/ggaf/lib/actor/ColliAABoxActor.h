@@ -1,18 +1,18 @@
-#ifndef GGAFLIB_COLLIAABACTOR_H_
-#define GGAFLIB_COLLIAABACTOR_H_
+#ifndef GGAF_LIB_COLLIAABACTOR_H_
+#define GGAF_LIB_COLLIAABACTOR_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/dxcore/actor/ex/GgafDxAABActor.h"
+#include "jp/ggaf/dx/actor/ex/AABActor.h"
 
 namespace GgafLib {
 
 /**
  * 当たり判定表示用キューブクラス
- * GgafDxAABActor を継承し、当たり判定領域表示機能を追加したアクターです。
+ * GgafDx::AABActor を継承し、当たり判定領域表示機能を追加したアクターです。
  * @version 1.00
  * @since 2009/08/25
  * @author Masatoshi Tsuge
  */
-class ColliAABoxActor : public GgafDxCore::GgafDxAABActor {
+class ColliAABoxActor : public GgafDx::AABActor {
     static ColliAABoxActor* _pObj;
 
 public:
@@ -20,7 +20,7 @@ public:
     static void release();
 
 public:
-    ColliAABoxActor(const char* prm_name, GgafCore::GgafStatus* prm_pStat = nullptr);
+    ColliAABoxActor(const char* prm_name, GgafCore::Status* prm_pStat = nullptr);
 
     virtual void onCreateModel() override {
     }
@@ -37,11 +37,11 @@ public:
     virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {
     }
 
-    virtual bool processHitChkLogic(GgafCore::GgafActor* prm_pOtherActor) override {
+    virtual bool processHitChkLogic(GgafCore::Actor* prm_pOtherActor) override {
         return false;
     }
 
-    virtual void onHit(const GgafCore::GgafActor* prm_pOtherActor) override {
+    virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override {
     }
 
     void drawHitarea(CollisionChecker* prm_pColliChecker);
@@ -51,4 +51,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_COLLIAABACTOR_H_*/
+#endif /*GGAF_LIB_COLLIAABACTOR_H_*/

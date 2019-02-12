@@ -1,7 +1,7 @@
-#ifndef GGAFLIB_SPLINEPROGRAMMANAGER_H_
-#define GGAFLIB_SPLINEPROGRAMMANAGER_H_
+#ifndef GGAF_LIB_SPLINEPROGRAMMANAGER_H_
+#define GGAF_LIB_SPLINEPROGRAMMANAGER_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/core/util/GgafResourceManager.hpp"
+#include "jp/ggaf/core/util/ResourceManager.hpp"
 
 namespace GgafLib {
 
@@ -12,7 +12,7 @@ namespace GgafLib {
  * @since 2010/12/14
  * @author Masatoshi Tsuge
  */
-class SplineSourceManager : public GgafCore::GgafResourceManager<SplineSource> {
+class SplineSourceManager : public GgafCore::ResourceManager<SplineSource> {
 
 public:
     /**
@@ -30,11 +30,11 @@ public:
      */
     virtual SplineSource* processCreateResource(const char* prm_idstr, void* prm_pConnector) override;
 
-    virtual GgafCore::GgafResourceConnection<SplineSource>* processCreateConnection(const char* prm_idstr, SplineSource* prm_pResource) override;
+    virtual GgafCore::ResourceConnection<SplineSource>* processCreateConnection(const char* prm_idstr, SplineSource* prm_pResource) override;
 
     virtual ~SplineSourceManager() {
     }
 };
 
 }
-#endif /*GGAFLIB_SPLINEPROGRAMMANAGER_H_*/
+#endif /*GGAF_LIB_SPLINEPROGRAMMANAGER_H_*/

@@ -1,12 +1,12 @@
 #include "EnemyEmiliaFragment3.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -17,7 +17,7 @@ EnemyEmiliaFragment3::EnemyEmiliaFragment3(const char* prm_name) :
 void EnemyEmiliaFragment3::onDispatched(EnemyEmiliaBase* prm_pOrg, FormationEmilia* prm_pFormationEmilia) {
     EnemyEmiliaBase::onDispatched(prm_pOrg, prm_pFormationEmilia);
     setPositionAt(prm_pOrg);
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDx::Kuroko* pKuroko = getKuroko();
     pKuroko->takeoverMvFrom(prm_pOrg->getKuroko());
     pKuroko->setMvVelo(pKuroko->_velo_mv/2); //半分のスピードへ
     pKuroko->addRyMvAng(RND(D_ANG(-90), D_ANG(+90)));
@@ -46,7 +46,7 @@ void EnemyEmiliaFragment3::onInactive() {
     sayonara();
 }
 
-void EnemyEmiliaFragment3::processStaminaEnd(const GgafDxGeometricActor* prm_pOther) {
+void EnemyEmiliaFragment3::processStaminaEnd(const GgafDx::GeometricActor* prm_pOther) {
     //おしまし
 }
 

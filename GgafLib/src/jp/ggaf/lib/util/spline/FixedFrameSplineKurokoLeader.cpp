@@ -1,16 +1,16 @@
 #include "jp/ggaf/lib/util/spline/FixedFrameSplineKurokoLeader.h"
 
-#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dx/exception/CriticalException.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/spline/SplineSource.h"
 #include "jp/ggaf/lib/util/spline/FixedFrameSplineManufacture.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
-FixedFrameSplineKurokoLeader::FixedFrameSplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxKuroko* prm_pKuroko_target) :
+FixedFrameSplineKurokoLeader::FixedFrameSplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDx::Kuroko* prm_pKuroko_target) :
         SplineLeader(prm_pManufacture, prm_pKuroko_target->_pActor) {
     _pKuroko_target = prm_pKuroko_target;
     _pFixedFrameSplManuf = (FixedFrameSplineManufacture*)prm_pManufacture;
@@ -55,7 +55,7 @@ void FixedFrameSplineKurokoLeader::restart() {
 
 void FixedFrameSplineKurokoLeader::behave() {
     if (_is_leading) {
-        GgafDxKuroko* const pKuroko_target = _pKuroko_target;
+        GgafDx::Kuroko* const pKuroko_target = _pKuroko_target;
         const double frame_of_segment = _pFixedFrameSplManuf->_frame_of_segment;
         //åªç›ÇÃì_INDEX
         _point_index = (_leading_frames+_hosei_frames) / frame_of_segment;

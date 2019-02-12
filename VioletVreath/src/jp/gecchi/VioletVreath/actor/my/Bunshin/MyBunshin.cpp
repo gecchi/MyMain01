@@ -10,24 +10,24 @@
 #include "jp/gecchi/VioletVreath/actor/my/MyTorpedoController.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAssistant.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoFaceAngAssistant.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/model/GgafDxModel.h"
+#include "jp/ggaf/dx/actor/supporter/Trucker.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/KurokoMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/KurokoFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/Scaler.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/lib/util/Quaternion.hpp"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
-#include "jp/ggaf/core/util/GgafValueEnveloper.hpp"
+#include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
+#include "jp/ggaf/core/util/ValueEnveloper.hpp"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxColorist.h"
+#include "jp/ggaf/dx/actor/supporter/Colorist.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectTurbo002.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -46,7 +46,7 @@ MyBunshin::MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase) :
     pBase_ = prm_pBase;
 
     //自弾ストック
-    pDepo_MyBunshinShot_ = NEW GgafActorDepository("Depo_MyBunshinShot");
+    pDepo_MyBunshinShot_ = NEW GgafCore::ActorDepository("Depo_MyBunshinShot");
     for (int i = 0; i < 40; i++) {
         std::string name = std::string(getName()) + "'s Shot(" + XTOS(i) + ")";
         pDepo_MyBunshinShot_->put(NEW MyBunshinShot001(name.c_str()));
@@ -54,7 +54,7 @@ MyBunshin::MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase) :
     appendGroupChild(pDepo_MyBunshinShot_);
 
 //    //自弾（スナイプ）ストック
-//    pDepo_MySnipeBunshinShot_ = NEW GgafActorDepository("Depo_MySnipeBunshinShot");
+//    pDepo_MySnipeBunshinShot_ = NEW GgafCore::ActorDepository("Depo_MySnipeBunshinShot");
 //    for (int i = 0; i < 5; i++) {
 //        std::string name = std::string(getName()) + "'s SnipeShot(" + XTOS(i) + ")";
 //        pDepo_MySnipeBunshinShot_->put(NEW MyBunshinSnipeShot001(name.c_str()));
@@ -78,7 +78,7 @@ MyBunshin::MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase) :
     pTorpedoCtrler_ = NEW MyTorpedoController("TorpedoController", this, pLockonCtrler_);
     appendGroupChild(pTorpedoCtrler_);
 
-    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_FIRE_LASER,   "WAVE_MY_FIRE_LASER_002");
     pSeTx->set(SE_FIRE_SHOT,    "WAVE_MY_FIRE_SHOT_002");
     pSeTx->set(SE_FIRE_TORPEDO, "WAVE_MY_FIRE_TORPEDO_002");
@@ -105,14 +105,14 @@ void MyBunshin::onActive() {
     setAlpha(0);
     getAlphaFader()->transitionLinearToTop(120);
     resetMaterialColor();
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDx::Kuroko* pKuroko = getKuroko();
     pKuroko->setRollFaceAngVelo(pBase_->bunshin_default_angvelo_mv_); //分身のクルクル速度
 }
 
 void MyBunshin::processBehavior() {
     changeGeoLocal(); //ローカル座標の操作とする。
 
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDx::Kuroko* pKuroko = getKuroko();
 
     pKuroko->behave();
     getScaler()->behave();
@@ -213,7 +213,7 @@ void MyBunshin::onInactive() {
     pTorpedoCtrler_->onInactive();
 }
 
-void MyBunshin::onHit(const GgafActor* prm_pOtherActor) {
+void MyBunshin::onHit(const GgafCore::Actor* prm_pOtherActor) {
 }
 
 void MyBunshin::effectFreeModeIgnited() {

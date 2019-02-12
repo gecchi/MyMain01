@@ -1,7 +1,7 @@
-#ifndef GGAFLIB_COLIAABOX_H_
-#define GGAFLIB_COLIAABOX_H_
+#ifndef GGAF_LIB_COLIAABOX_H_
+#define GGAF_LIB_COLIAABOX_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/dxcore/util/GgafDxCollisionPart.h"
+#include "jp/ggaf/dx/util/CollisionPart.h"
 
 namespace GgafLib {
 
@@ -11,7 +11,7 @@ namespace GgafLib {
  * @since 2008/03/13
  * @author Masatoshi Tsuge
  */
-class ColliAABox : public GgafDxCore::GgafDxCollisionPart {
+class ColliAABox : public GgafDx::CollisionPart {
 public:
     /** É|ÉWÉVÉáÉìèÓïÒ */
     pos_t _pos_info;
@@ -38,4 +38,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_COLIAABOX_H_*/
+#endif /*GGAF_LIB_COLIAABOX_H_*/

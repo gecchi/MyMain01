@@ -1,7 +1,7 @@
-#ifndef GGAFLIB_LASERCHIPDEPOSITORY_H_
-#define GGAFLIB_LASERCHIPDEPOSITORY_H_
+#ifndef GGAF_LIB_LASERCHIPDEPOSITORY_H_
+#define GGAF_LIB_LASERCHIPDEPOSITORY_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
+#include "jp/ggaf/core/actor/ex/ActorDepository.h"
 
 #include "jp/ggaf/lib/actor/laserchip/LaserChip.h"
 
@@ -31,13 +31,13 @@ namespace GgafLib {
  *
  * ----- 発射処理（Zキー押しっぱなしで発射例） --------------
  *
- * if (GgafDxInput::isPressedKey(DIK_Z)) {   //Zキー判定
+ * if (GgafDx::Input::isPressedKey(DIK_Z)) {   //Zキー判定
  *     pLaserDepo->dispatch();                    //dispatch()することで、登録されたMyStraightLaserChip達が活動する。
  * }
  *
  * </pre></code>
  */
-class LaserChipDepository : public GgafCore::GgafActorDepository {
+class LaserChipDepository : public GgafCore::ActorDepository {
     friend class LaserChip;
 
 public:
@@ -63,10 +63,10 @@ public:
     /** [r]弾切れの時、何発溜まったら発射(dispatch()) 出来るようにするか */
     int _num_chip_dispatch_able;
     /** [r/w]レーザー発射時エフェクト。不要の場合はnullptrを設定する */
-    GgafDxCore::GgafDxFigureActor* _pEffectActor;
+    GgafDx::FigureActor* _pEffectActor;
 
 public:
-    LaserChipDepository(const char* prm_name, GgafCore::GgafStatus* prm_pStat = nullptr);
+    LaserChipDepository(const char* prm_name, GgafCore::Status* prm_pStat = nullptr);
 
     /**
      * レーザーを設定する .
@@ -77,7 +77,7 @@ public:
      */
     virtual void config(int prm_num_continual_dispatch_max,
                         uint32_t prm_num_chip_interval,
-                        GgafDxCore::GgafDxFigureActor* prm_pEffectActor = nullptr);
+                        GgafDx::FigureActor* prm_pEffectActor = nullptr);
 
     virtual void processBehavior() override {
     }
@@ -99,7 +99,7 @@ public:
      * 追加すればするほど玉切れがおきにくい。<br>
      * @param prm_pChild レーザーチップ
      */
-    virtual void put(GgafActor* prm_pChild) override;
+    virtual void put(GgafCore::Actor* prm_pChild) override;
 
     /**
      * リセット時の処理 .
@@ -112,4 +112,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_LASERCHIPDEPOSITORY_H_*/
+#endif /*GGAF_LIB_LASERCHIPDEPOSITORY_H_*/

@@ -1,16 +1,16 @@
 #include "jp/ggaf/lib/util/spline/FixedVelocitySplineKurokoLeader.h"
 
-#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dx/exception/CriticalException.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/spline/SplineSource.h"
 #include "jp/ggaf/lib/util/spline/FixedVelocitySplineManufacture.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
-FixedVelocitySplineKurokoLeader::FixedVelocitySplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxKuroko* prm_pKuroko_target) :
+FixedVelocitySplineKurokoLeader::FixedVelocitySplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDx::Kuroko* prm_pKuroko_target) :
         SplineLeader(prm_pManufacture, prm_pKuroko_target->_pActor) {
     _pKuroko_target = prm_pKuroko_target;
     _pFixedVeloSplManuf = (FixedVelocitySplineManufacture*)prm_pManufacture;
@@ -28,7 +28,7 @@ void FixedVelocitySplineKurokoLeader::restart() {
 
 void FixedVelocitySplineKurokoLeader::behave() {
     if (_is_leading) {
-        GgafDxKuroko* pKuroko_target = _pKuroko_target;
+        GgafDx::Kuroko* pKuroko_target = _pKuroko_target;
         //•Ï‚í‚è–Ú
         const int sp_rnum = _pFixedVeloSplManuf->_pSpl->_rnum;
         if (_leadning_float_frames >= _float_frame_of_next) {

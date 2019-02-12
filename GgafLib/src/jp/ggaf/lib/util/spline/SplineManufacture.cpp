@@ -5,11 +5,11 @@
 #include "jp/ggaf/lib/manager/SplineSourceConnection.h"
 #include "jp/ggaf/lib/manager/SplineSourceManager.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
-SplineManufacture::SplineManufacture(const char* prm_coord_data_file) : GgafObject() {
+SplineManufacture::SplineManufacture(const char* prm_coord_data_file) : GgafCore::Object() {
     _spl_file = std::string(prm_coord_data_file);
     _pSplSrcCon = connectToSplineSourceManager(prm_coord_data_file);
     _pSpl = _pSplSrcCon->peek();
@@ -64,13 +64,13 @@ void SplineManufacture::calculate() {
     _is_calculated = true;
 }
 
-SplineLeader* SplineManufacture::createKurokoLeader(GgafDxKuroko* prm_pKuroko) {
-    throwGgafCriticalException("SplineManufacture::createKurokoLeader() 下位でオーバーライドして実装が必要です。");
+SplineLeader* SplineManufacture::createKurokoLeader(GgafDx::Kuroko* prm_pKuroko) {
+    throwCriticalException("SplineManufacture::createKurokoLeader() 下位でオーバーライドして実装が必要です。");
     return nullptr;
 }
 
-SplineLeader* SplineManufacture::createTruckerLeader(GgafDxTrucker* prm_pTrucker) {
-    throwGgafCriticalException("SplineManufacture::createTruckerLeader() 下位でオーバーライドして実装が必要です。");
+SplineLeader* SplineManufacture::createTruckerLeader(GgafDx::Trucker* prm_pTrucker) {
+    throwCriticalException("SplineManufacture::createTruckerLeader() 下位でオーバーライドして実装が必要です。");
     return nullptr;
 }
 

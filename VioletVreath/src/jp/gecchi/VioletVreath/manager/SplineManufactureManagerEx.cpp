@@ -3,8 +3,8 @@
 #include "jp/ggaf/lib/util/spline/FixedFrameSplineManufacture.h"
 #include "jp/ggaf/lib/util/spline/FixedVelocitySplineManufacture.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 

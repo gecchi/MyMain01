@@ -1,34 +1,34 @@
-#ifndef GGAFLIB_CUBEMAPMESHSETACTOR_H_
-#define GGAFLIB_CUBEMAPMESHSETACTOR_H_
+#ifndef GGAF_LIB_CUBEMAPMESHSETACTOR_H_
+#define GGAF_LIB_CUBEMAPMESHSETACTOR_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/dxcore/actor/ex/GgafDxCubeMapMeshSetActor.h"
+#include "jp/ggaf/dx/actor/ex/CubeMapMeshSetActor.h"
 
 namespace GgafLib {
 
 /**
  * 環境マップメッシュセットアクター の具象クラス .
- * GgafDxCore::GgafDxCubeMapMeshSetActor を空実装した具象アクターです。
+ * GgafDx::CubeMapMeshSetActor を空実装した具象アクターです。
  * 本クラスを継承してキャラクターを作成しましょう。<BR>
  * 以下に使用可能な支援オブジェクトを記す。<BR>
  * <TABLE border=1>
  * <TR bgcolor="#AABBCC"><TH>オブジェクトへのアクセス</TH><TH>概要</TH><TH>CLASS名</TH></TR>
- * <TR><TD>getProgress()</TD><TD>進捗管理</TD><TD>GgafCore::GgafProgress</TD></TR>
- * <TR><TD>getKuroko()</TD><TD>黒衣。移動回転支援</TD><TD>GgafDxCore::GgafDxKuroko</TD></TR>
- * <TR><TD>getSeTransmitter()</TD><TD>効果音発生管理</TD><TD>GgafDxCore::GgafDxSeTransmitter</TD></TR>
+ * <TR><TD>getProgress()</TD><TD>進捗管理</TD><TD>GgafCore::Progress</TD></TR>
+ * <TR><TD>getKuroko()</TD><TD>黒衣。移動回転支援</TD><TD>GgafDx::Kuroko</TD></TR>
+ * <TR><TD>getSeTransmitter()</TD><TD>効果音発生管理</TD><TD>GgafDx::SeTransmitter</TD></TR>
  * <TR><TD>getCollisionChecker()</TD><TD>衝突判定支援</TD><TD>GgafLib::CollisionChecker3D</TD></TR>
  * </TABLE>
  * @version 1.00
  * @since 2010/12/24
  * @author Masatoshi Tsuge
  */
-class CubeMapMeshSetActor : public GgafDxCore::GgafDxCubeMapMeshSetActor {
+class CubeMapMeshSetActor : public GgafDx::CubeMapMeshSetActor {
 
 public:
     /** 衝突判定支援オブジェクト */
     CollisionChecker* _pColliChecker;
 
 public:
-    CubeMapMeshSetActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
+    CubeMapMeshSetActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat=nullptr);
 
     virtual void onCreateModel() override {
     }
@@ -42,7 +42,7 @@ public:
     virtual void processJudgement() override {
     }
 
-    virtual void onHit(const GgafCore::GgafActor* prm_pOtherActor) override {
+    virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override {
     }
 
     virtual void drawHitArea() override;
@@ -55,4 +55,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_CUBEMAPMESHSETACTOR_H_*/
+#endif /*GGAF_LIB_CUBEMAPMESHSETACTOR_H_*/

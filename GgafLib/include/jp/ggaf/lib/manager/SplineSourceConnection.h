@@ -1,7 +1,7 @@
-#ifndef GGAFLIB_SPLINEPROGRAMCONNECTION_H_
-#define GGAFLIB_SPLINEPROGRAMCONNECTION_H_
+#ifndef GGAF_LIB_SPLINEPROGRAMCONNECTION_H_
+#define GGAF_LIB_SPLINEPROGRAMCONNECTION_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/core/util/GgafResourceConnection.hpp"
+#include "jp/ggaf/core/util/ResourceConnection.hpp"
 
 #include "jp/ggaf/lib/util/spline/SplineSource.h"
 
@@ -13,7 +13,7 @@ namespace GgafLib {
  * @since 2010/12/14
  * @author Masatoshi Tsuge
  */
-class SplineSourceConnection : public GgafCore::GgafResourceConnection<SplineSource> {
+class SplineSourceConnection : public GgafCore::ResourceConnection<SplineSource> {
 
 public:
     /**
@@ -30,4 +30,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_SPLINEPROGRAMCONNECTION_H_*/
+#endif /*GGAF_LIB_SPLINEPROGRAMCONNECTION_H_*/

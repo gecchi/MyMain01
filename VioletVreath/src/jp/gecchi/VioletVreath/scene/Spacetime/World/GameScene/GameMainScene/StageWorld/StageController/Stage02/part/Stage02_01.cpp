@@ -1,15 +1,15 @@
 #include "Stage02_01.h"
 
-#include "jp/ggaf/core/actor/GgafSceneMediator.h"
-#include "jp/ggaf/dxcore/sound/GgafDxBgmConductor.h"
+#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/dx/sound/BgmConductor.h"
 #include "jp/ggaf/lib/scene/FormationTableScene.h"
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "../Stage02PartController.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 

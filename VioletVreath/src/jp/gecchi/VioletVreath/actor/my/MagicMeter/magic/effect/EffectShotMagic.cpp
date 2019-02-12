@@ -1,13 +1,13 @@
 #include "EffectShotMagic.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Scaler.h"
+#include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxColorist.h"
+#include "jp/ggaf/dx/actor/supporter/Colorist.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -34,7 +34,7 @@ void EffectShotMagic::initialize() {
 }
 
 void EffectShotMagic::onActive() {
-    GgafDxColorist* pColorist = getColorist();
+    GgafDx::Colorist* pColorist = getColorist();
     pColorist->beat(RED  ,  60, 15, 15, 15, -1);
     pColorist->beat(GREEN,  70, 15, 15, 15, -1);
     pColorist->beat(BLUE ,  80, 15, 15, 15, -1);

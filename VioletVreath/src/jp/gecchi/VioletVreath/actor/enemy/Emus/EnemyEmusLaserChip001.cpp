@@ -1,11 +1,11 @@
 #include "EnemyEmusLaserChip001.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -20,7 +20,7 @@ void EnemyEmusLaserChip001::initialize() {
     setHitAble(true, false);
     setScaleR(5.0);
     setCullingDraw(false);
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->setMvVelo(300000);
     pKuroko->linkFaceAngByMvAng(true);
 }
@@ -41,8 +41,8 @@ void EnemyEmusLaserChip001::processJudgement() {
     }
 }
 
-void EnemyEmusLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
-    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
+void EnemyEmusLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor) {
+    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)prm_pOtherActor;
     if (getActiveFrame() < 30 && (pOther->lookUpKind() & KIND_CHIKEI)) {
         //出現30フレーム以内でヒット相手が地形ならば無視（出現即地形による破壊されを回避）
         return;

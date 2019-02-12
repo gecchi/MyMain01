@@ -1,11 +1,11 @@
 #include "EnemyStraightLaserChip001.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -34,8 +34,8 @@ void EnemyStraightLaserChip001::processJudgement() {
     }
 }
 
-void EnemyStraightLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
-    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
+void EnemyStraightLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor) {
+    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)prm_pOtherActor;
     if (getActiveFrame() <= 2 && (pOther->lookUpKind() & KIND_CHIKEI)) {
         //出現2フレーム以内でヒット相手が地形ならば無視（出現即地形による破壊されを回避）
         return;

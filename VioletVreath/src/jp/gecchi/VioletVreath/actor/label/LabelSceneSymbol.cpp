@@ -2,8 +2,8 @@
 
 #include "jp/gecchi/VioletVreath/Config.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 

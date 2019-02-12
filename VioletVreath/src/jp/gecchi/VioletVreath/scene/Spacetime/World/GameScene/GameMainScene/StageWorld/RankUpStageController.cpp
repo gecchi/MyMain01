@@ -1,7 +1,7 @@
 #include "RankUpStageController.h"
 
-#include "jp/ggaf/core/util/GgafResourceConnection.hpp"
-#include "jp/ggaf/dxcore/sound/GgafDxSound.h"
+#include "jp/ggaf/core/util/ResourceConnection.hpp"
+#include "jp/ggaf/dx/sound/Sound.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld/RankUpStageController/RankUp001.h"
@@ -10,10 +10,10 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld/RankUpStageController/RankUp100.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld/RankUpStageController/RankUpStage.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dxcore/manager/GgafDxSeConnection.h"
+#include "jp/ggaf/dx/manager/SeConnection.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -44,7 +44,7 @@ void RankUpStageController::startRunkUpStage(int prm_rank_up_level) {
     ready(prm_rank_up_level + 1); //次のシーンを先行予約
     pNowRankUpStage_ = (RankUpStage*)receiveScene(ORDER_ID_RANKUP+prm_rank_up_level);
     _TRACE_(FUNC_NAME<<" pNowRankUpStage_="<<pNowRankUpStage_);
-    GgafScene* pRankUpStage = getChildFirst();
+    GgafCore::Scene* pRankUpStage = getChildFirst();
     if (pRankUpStage) {
         //他のランクアップ中
         //既存ランクアップシーンをさらにスローにする
@@ -125,7 +125,7 @@ void RankUpStageController::onCatchEvent(hashval prm_no, void* prm_pSource) {
         pScene->sayonara(240);
 
         //スロー回復
-        GgafScene* pRankUpStage = getChildFirst();
+        GgafCore::Scene* pRankUpStage = getChildFirst();
         if (pRankUpStage) {
             //他のランクアップ中
             //既存ランクアップシーンをスロー回復
@@ -139,7 +139,7 @@ void RankUpStageController::onCatchEvent(hashval prm_no, void* prm_pSource) {
                 }
             }
         } else {
-            throwGgafCriticalException("EVENT_RANKUP_WAS_END 子がnullptr。"
+            throwCriticalException("EVENT_RANKUP_WAS_END 子がnullptr。"
                                        "this="<<NODE_INFO<<" prm_pSource="<<prm_pSource);
         }
     }
@@ -147,7 +147,7 @@ void RankUpStageController::onCatchEvent(hashval prm_no, void* prm_pSource) {
 
 void RankUpStageController::sayonaraRankUpStages() {
     if (getChildFirst()) {
-        GgafScene* pRankUpStage = getChildFirst()->getPrev();//last
+        GgafCore::Scene* pRankUpStage = getChildFirst()->getPrev();//last
         if (pRankUpStage) {
             while (1) {
                 _TRACE_(FUNC_NAME<<" pRankUpStage("<<pRankUpStage->getName()<<")->sayonara()");

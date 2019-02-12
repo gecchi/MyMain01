@@ -2,17 +2,17 @@
 
 #include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/dxcore/model/GgafDxMassMorphMeshModel.h"
-#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
+#include "jp/ggaf/dx/model/MassMorphMeshModel.h"
+#include "jp/ggaf/dx/scene/Spacetime.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
 DefaultMassMorphMeshActor::VERTEX_instancedata DefaultMassMorphMeshActor::_aInstancedata[GGAFDXMASS_MAX_INSTANCE_NUM];
 
-DefaultMassMorphMeshActor::DefaultMassMorphMeshActor(const char* prm_name, const char* prm_model_id, GgafStatus* prm_pStat) :
-    GgafDxMassMorphMeshActor(prm_name,
+DefaultMassMorphMeshActor::DefaultMassMorphMeshActor(const char* prm_name, const char* prm_model_id, GgafCore::Status* prm_pStat) :
+    GgafDx::MassMorphMeshActor(prm_name,
                          prm_model_id,
                          "DefaultMassMorphMeshEffect",
                          "DefaultMassMorphMeshTechnique",
@@ -23,8 +23,8 @@ DefaultMassMorphMeshActor::DefaultMassMorphMeshActor(const char* prm_name, const
     _pMassMorphMeshModel->registerCallback_VertexInstanceDataInfo(DefaultMassMorphMeshActor::createVertexInstanceData);
 }
 
-void DefaultMassMorphMeshActor::createVertexInstanceData(void* prm, GgafDxMassModel::VertexInstanceDataInfo* out_info) {
-    GgafDxMassMorphMeshModel* pModel = (GgafDxMassMorphMeshModel*)prm;
+void DefaultMassMorphMeshActor::createVertexInstanceData(void* prm, GgafDx::MassModel::VertexInstanceDataInfo* out_info) {
+    GgafDx::MassMorphMeshModel* pModel = (GgafDx::MassMorphMeshModel*)prm;
     int morph_target_num = pModel->_morph_target_num;
     int s = morph_target_num + 1;
 
@@ -79,16 +79,16 @@ void DefaultMassMorphMeshActor::createVertexInstanceData(void* prm, GgafDxMassMo
 }
 
 void DefaultMassMorphMeshActor::processDraw() {
-    int draw_set_num = 0; //GgafDxMassMorphMeshActorの同じモデルで同じテクニックが
+    int draw_set_num = 0; //MassMorphMeshActorの同じモデルで同じテクニックが
                           //連続しているカウント数。同一描画深度は一度に描画する。
-    GgafDxMassMorphMeshModel* pMassMorphMeshModel = _pMassMorphMeshModel;
+    GgafDx::MassMorphMeshModel* pMassMorphMeshModel = _pMassMorphMeshModel;
     const int model_max_set_num = pMassMorphMeshModel->_set_num;
     const hashval hash_technique = _hash_technique;
     int morph_target_num = pMassMorphMeshModel->_morph_target_num;
     static const size_t size_of_D3DXMATRIX = sizeof(D3DXMATRIX);
     static const size_t size_of_D3DCOLORVALUE = sizeof(D3DCOLORVALUE);
     VERTEX_instancedata* paInstancedata = DefaultMassMorphMeshActor::_aInstancedata;
-    GgafDxFigureActor* pDrawActor = this;
+    GgafDx::FigureActor* pDrawActor = this;
     while (pDrawActor) {
         if (pDrawActor->getModel() == pMassMorphMeshModel && pDrawActor->_hash_technique == hash_technique) {
             //_hash_techniqueが同じだと、モーフターゲット数も同じである
@@ -113,7 +113,7 @@ void DefaultMassMorphMeshActor::processDraw() {
 
             ++paInstancedata;
             draw_set_num++;
-            GgafDxSpacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
+            GgafDx::Spacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
             if (draw_set_num >= model_max_set_num) {
                 break;
             } else {
@@ -123,7 +123,7 @@ void DefaultMassMorphMeshActor::processDraw() {
             break;
         }
     }
-    ((GgafDxMassMorphMeshModel*)_pMassMorphMeshModel)->GgafDxMassMorphMeshModel::draw(this, draw_set_num);
+    ((GgafDx::MassMorphMeshModel*)_pMassMorphMeshModel)->GgafDx::MassMorphMeshModel::draw(this, draw_set_num);
 }
 void DefaultMassMorphMeshActor::drawHitArea() {
 #ifdef MY_DEBUG

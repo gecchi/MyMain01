@@ -13,7 +13,7 @@
 #include "jp/gecchi/VioletVreath/manager/SplineManufactureManagerEx.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime.h"
 #undef pGOD
-#define pGOD ((VioletVreath::God*)GgafCore::GgafGod::ask())
+#define pGOD ((VioletVreath::God*)GgafCore::God::ask())
 
 namespace VioletVreath {
 
@@ -102,7 +102,7 @@ public:
     /**
      * Worldシーンを作成。を実装
      */
-    GgafCore::GgafSpacetime* createSpacetime() override;
+    GgafCore::Spacetime* createSpacetime() override;
 
     virtual Spacetime* getSpacetime() override {  //共変の戻り値
         return (Spacetime*)_pSpacetime;

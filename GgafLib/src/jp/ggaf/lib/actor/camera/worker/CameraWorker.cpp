@@ -1,23 +1,23 @@
 #include "jp/ggaf/lib/actor/camera/worker/CameraWorker.h"
 
-#include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxTruckerAssistantA.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAssistant.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/GeometricActor.h"
+#include "jp/ggaf/dx/actor/supporter/Trucker.h"
+#include "jp/ggaf/dx/actor/supporter/TruckerAssistantA.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/KurokoMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/KurokoFaceAngAssistant.h"
 #include "jp/ggaf/lib/util/Direction26Util.h"
-#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
+#include "jp/ggaf/dx/util/Util.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/ggaf/lib/actor/camera/DefaultCamera.h"
 #include "jp/ggaf/lib/actor/camera/DefaultCameraUpVector.h"
 #include "jp/ggaf/lib/actor/camera/DefaultCameraViewPoint.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
-CameraWorker::CameraWorker(const char* prm_name, DefaultCamera* prm_pCamera) : GgafMainActor(prm_name, nullptr) {
+CameraWorker::CameraWorker(const char* prm_name, DefaultCamera* prm_pCamera) : GgafCore::MainActor(prm_name, nullptr) {
     _class_name = "CameraWorker";
     t_x_VP_ =  0;
     t_y_VP_ =  0;
@@ -69,16 +69,16 @@ void CameraWorker::onSwitchCameraWork() {
 void CameraWorker::onChangedToOtherCameraWork() {
 }
 
-void CameraWorker::slideMvCamTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t) {
+void CameraWorker::slideMvCamTo(GgafDx::GeometricActor* pTarget, frame t) {
     slideMvCamTo(pTarget->_x, pTarget->_y, pTarget->_z, t);
 }
 
-void CameraWorker::slideMvCamTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t,
+void CameraWorker::slideMvCamTo(GgafDx::GeometricActor* pTarget, frame t,
                                 float prm_x_p1, float prm_y_p1, float prm_z_p1) {
     slideMvCamTo(pTarget->_x, pTarget->_y, pTarget->_z, t, prm_x_p1, prm_y_p1, prm_z_p1);
 }
 
-void CameraWorker::slideMvVpTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t) {
+void CameraWorker::slideMvVpTo(GgafDx::GeometricActor* pTarget, frame t) {
     slideMvVpTo(pTarget->_x, pTarget->_y, pTarget->_z, t);
 }
 

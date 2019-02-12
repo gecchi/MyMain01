@@ -49,7 +49,7 @@ public:
     static const double RR_MAX_ACCE;
 
     static int tex_no_;
-    static GgafDxCore::GgafDxModel* pModel_;
+    static GgafDx::Model* pModel_;
 
     MyBunshin::AimInfo* pAimInfo_;
 
@@ -73,7 +73,7 @@ public:
 
     void processJudgement() override;
 
-    void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
+    void onHit(const GgafCore::Actor* prm_pOtherActor) override;
 
     void setOrg(MyBunshin* prm_pOrg);
 

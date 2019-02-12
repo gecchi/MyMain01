@@ -19,9 +19,9 @@ class EnemyHisbe002 :  public GgafLib::DefaultMorphMeshActor {
     /** 移動スプラインプログラム */
     GgafLib::SplineLeader* pKurokoLeader_;
     /** 弾ストック */
-    GgafCore::GgafActorDepository* pDepo_shot_;
+    GgafCore::ActorDepository* pDepo_shot_;
     /** 弾発射効果エフェクト */
-    GgafCore::GgafActorDepository* pDepo_effect_;
+    GgafCore::ActorDepository* pDepo_effect_;
 
 public:
     GgafLib::LaserChipDepository* pLaserChipDepo_;
@@ -60,7 +60,7 @@ public:
      * ヒズビーの衝突時処理 .
      * @param prm_pOtherActor 衝突対象
      */
-    void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
+    void onHit(const GgafCore::Actor* prm_pOtherActor) override;
 
 
     void onInactive() override;
@@ -70,7 +70,7 @@ public:
      * initialize() までに設定して下さい。
      * @param prm_pDepo
      */
-    void setDepository_Shot(GgafCore::GgafActorDepository* prm_pDepo) {
+    void setDepository_Shot(GgafCore::ActorDepository* prm_pDepo) {
         pDepo_shot_ = prm_pDepo;
     }
 
@@ -87,7 +87,7 @@ public:
      * ショット発射効果エフェクト設定 .
      * @param prm_pDepo
      */
-    void setDepository_ShotEffect(GgafCore::GgafActorDepository* prm_pDepo) {
+    void setDepository_ShotEffect(GgafCore::ActorDepository* prm_pDepo) {
         pDepo_effect_ = prm_pDepo;
     }
 

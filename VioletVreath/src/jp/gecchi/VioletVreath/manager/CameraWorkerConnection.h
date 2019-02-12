@@ -1,7 +1,7 @@
 #ifndef CAMERAWORKERCONNECTION_H_
 #define CAMERAWORKERCONNECTION_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/core/util/GgafResourceConnection.hpp"
+#include "jp/ggaf/core/util/ResourceConnection.hpp"
 #include "jp/ggaf/lib/actor/camera/worker/CameraWorker.h"
 
 namespace VioletVreath {
@@ -12,7 +12,7 @@ namespace VioletVreath {
  * @since 2009/01/30
  * @author Masatoshi Tsuge
  */
-class CameraWorkerConnection : public GgafCore::GgafResourceConnection<GgafLib::CameraWorker> {
+class CameraWorkerConnection : public GgafCore::ResourceConnection<GgafLib::CameraWorker> {
 
 public:
     /**

@@ -1,14 +1,14 @@
 #include "FormationIda.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ida/EnemyIda.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
+#include "jp/ggaf/dx/util/GeoElem.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -25,8 +25,8 @@ void FormationIda::onActive() {
     }
 }
 
-void FormationIda::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
-    UTIL::performFormationDestroyAll((GgafDxFigureActor*)prm_pActor_last_destroyed);
+void FormationIda::onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) {
+    UTIL::performFormationDestroyAll((GgafDx::FigureActor*)prm_pActor_last_destroyed);
 }
 
 FormationIda::~FormationIda() {

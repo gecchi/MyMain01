@@ -1,5 +1,5 @@
-#ifndef GGAFLIB_STRAIGHTLASERCHIP_H_
-#define GGAFLIB_STRAIGHTLASERCHIP_H_
+#ifndef GGAF_LIB_STRAIGHTLASERCHIP_H_
+#define GGAF_LIB_STRAIGHTLASERCHIP_H_
 #include "GgafLibCommonHeader.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChip.h"
 
@@ -46,10 +46,10 @@ public:
     /** レーザーの向き方向のを同期するための、Z軸回転アングル値変数場所 */
     angle* _pSource_rz;
 
-    GgafDxGeometricActor* _pSourceActor;
+    GgafDx::GeometricActor* _pSourceActor;
 
 public:
-    StraightLaserChip(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
+    StraightLaserChip(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat=nullptr);
 
     virtual void onCreateModel() override {}
 
@@ -72,7 +72,7 @@ public:
      * 発射元の移動と回転について、同期をとる発射アクターを設定 .
      * @param prm_pGeoActor 発射元アクター
      */
-    void setSource(GgafDxCore::GgafDxGeometricActor* prm_pGeoActor) {
+    void setSource(GgafDx::GeometricActor* prm_pGeoActor) {
         _pSource_x = &prm_pGeoActor->_x;
         _pSource_y = &prm_pGeoActor->_y;
         _pSource_z = &prm_pGeoActor->_z;
@@ -87,7 +87,7 @@ public:
      * どっちを向いてても同じ方向に発射。
      * @param prm_pGeoActor 発射元アクター
      */
-    void setPositionSource(GgafDxCore::GgafDxGeometricActor* prm_pGeoActor) {
+    void setPositionSource(GgafDx::GeometricActor* prm_pGeoActor) {
         _pSource_x = &prm_pGeoActor->_x;
         _pSource_y = &prm_pGeoActor->_y;
         _pSource_z = &prm_pGeoActor->_z;
@@ -99,7 +99,7 @@ public:
      * 複数本同時発射などに使用するかな・・・。
      * @param prm_pGeoActor 発射元アクター
      */
-    void setAngleSource(GgafDxCore::GgafDxGeometricActor* prm_pGeoActor) {
+    void setAngleSource(GgafDx::GeometricActor* prm_pGeoActor) {
         _pSource_rx = &prm_pGeoActor->_rx;
         _pSource_ry = &prm_pGeoActor->_ry;
         _pSource_rz = &prm_pGeoActor->_rz;
@@ -114,5 +114,5 @@ public:
 };
 
 }
-#endif /*GGAFLIB_STRAIGHTLASERCHIP_H_*/
+#endif /*GGAF_LIB_STRAIGHTLASERCHIP_H_*/
 

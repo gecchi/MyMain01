@@ -1,9 +1,9 @@
 #include "MagicLvCursor002.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
+#include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -14,7 +14,7 @@ MagicLvCursor002::MagicLvCursor002(const char* prm_name, MagicMeter* prm_pMagicM
 }
 void MagicLvCursor002::initialize() {
     MagicLvCursor::initialize();
-    GgafDxUvFlipper* pUvFlipper = getUvFlipper();
+    GgafDx::UvFlipper* pUvFlipper = getUvFlipper();
     pUvFlipper->setFlipPtnRange(0, 2);
     pUvFlipper->setActivePtnToTop();
 }
@@ -24,14 +24,14 @@ void MagicLvCursor002::moveSmoothTo(int prm_lv, frame prm_spent) {
 }
 
 void MagicLvCursor002::dispDisable() {
-    GgafDxUvFlipper* pUvFlipper = getUvFlipper();
+    GgafDx::UvFlipper* pUvFlipper = getUvFlipper();
     int lock_ptn_no = 3; //最後のパターンの次はロック表示
     pUvFlipper->setFlipPtnRange(lock_ptn_no,lock_ptn_no); //ロック表示
     pUvFlipper->setActivePtn(lock_ptn_no);
 }
 
 void MagicLvCursor002::dispEnable() {
-    GgafDxUvFlipper* pUvFlipper = getUvFlipper();
+    GgafDx::UvFlipper* pUvFlipper = getUvFlipper();
     pUvFlipper->setFlipPtnRange(0, 2);
     pUvFlipper->setActivePtnToTop();
 }

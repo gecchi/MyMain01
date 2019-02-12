@@ -1,5 +1,5 @@
-#ifndef GGAFLIB_FIXEDFRAMESPLINETRUCKERLEADER_H_
-#define GGAFLIB_FIXEDFRAMESPLINETRUCKERLEADER_H_
+#ifndef GGAF_LIB_FIXEDFRAMESPLINETRUCKERLEADER_H_
+#define GGAF_LIB_FIXEDFRAMESPLINETRUCKERLEADER_H_
 #include "GgafLibCommonHeader.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 
@@ -11,7 +11,7 @@ namespace GgafLib {
  * 中間の補完点～次の補完点までを、均等に割った時間で移動します。<BR>
  * 補完点の密度が薄いところは移動速度増。<BR>
  * 補完点の密度が濃いところは移動速度減。<BR>
- * そのように動作するよう、GgafDxCore::GgafDxTrucker に指示を出して移動を実現します。<BR>
+ * そのように動作するよう、GgafDx::Trucker に指示を出して移動を実現します。<BR>
  * @version 1.00
  * @since 2018/07/25
  * @author Masatoshi Tsuge
@@ -19,7 +19,7 @@ namespace GgafLib {
 class FixedFrameSplineTruckerLeader : public SplineLeader {
 
 public:
-    GgafDxCore::GgafDxTrucker* _pTrucker_target;
+    GgafDx::Trucker* _pTrucker_target;
     /** [r]スプライン情報セット(splファイルの情報に相当) */
     FixedFrameSplineManufacture* _pFixedFrameSplManuf;
     /** _leading_framesに加算される補正フレーム */
@@ -38,7 +38,7 @@ public:
      * @param prm_pTrucker
      */
     FixedFrameSplineTruckerLeader(SplineManufacture* prm_pManufacture,
-                                    GgafDxCore::GgafDxTrucker* prm_pTrucker_target);
+                                    GgafDx::Trucker* prm_pTrucker_target);
 
     virtual void restart() override;
 
@@ -53,4 +53,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_FIXEDFRAMESPLINEKUROKOLEADER_H_*/
+#endif /*GGAF_LIB_FIXEDFRAMESPLINEKUROKOLEADER_H_*/

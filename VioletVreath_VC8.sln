@@ -42,7 +42,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimpleSample", "SimpleSampl
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VVViewer", "VVViewer\VVViewer_VC8.vcproj", "{566E30F1-CD36-4B9E-92DE-B9DD87F84F66}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GgafDxCore", "GgafDxCore\GgafDxCore_VC8.vcproj", "{8611E43A-1303-40E3-B8C6-3747D2F45836}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GgafDx", "GgafDx\GgafDx_VC8.vcproj", "{8611E43A-1303-40E3-B8C6-3747D2F45836}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

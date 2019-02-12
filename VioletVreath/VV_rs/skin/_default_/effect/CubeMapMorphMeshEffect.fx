@@ -1,6 +1,6 @@
 #include "GgafEffectConst.fxh"
 ////////////////////////////////////////////////////////////////////////////////
-// Ggafライブラリ、GgafDxMorphMeshModel用シェーダー
+// ggaf ライブラリ、GgafDx::MorphMeshModel用シェーダー
 // author : Masatoshi Tsuge
 // date:2009/05/12
 ////////////////////////////////////////////////////////////////////////////////
@@ -52,7 +52,7 @@ struct OUT_VS {
 ///////////////////////////////////////////////////////////////////////////
 
 //モーフターゲットなし
-OUT_VS GgafDxVS_CubeMapMorphMesh0(
+OUT_VS VS_CubeMapMorphMesh0(
      float4 prm_posPrimary_Local       : POSITION0,      // モデルの頂点
      float3 prm_vecNormalPrimary_Local : NORMAL0,        // モデルの頂点の法線
      float2 prm_uv0                    : TEXCOORD0       // モデルの頂点のUV
@@ -86,7 +86,7 @@ OUT_VS GgafDxVS_CubeMapMorphMesh0(
 }
 
 //モーフターゲット１つ
-OUT_VS GgafDxVS_CubeMapMorphMesh1(
+OUT_VS VS_CubeMapMorphMesh1(
      float4 prm_posPrimary_Local       : POSITION0,      // モデルの頂点
      float3 prm_vecNormalPrimary_Local : NORMAL0,        // モデルの頂点の法線
      float2 prm_uv0                    : TEXCOORD0,      // モデルの頂点のUV
@@ -100,12 +100,12 @@ OUT_VS GgafDxVS_CubeMapMorphMesh1(
         posModel_Local += ((prm_posMorphTarget1_Local - prm_posPrimary_Local) * g_weight1);
         vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal1_Local, g_weight1);
     }
-    return GgafDxVS_CubeMapMorphMesh0(posModel_Local, vecNormal_Local, prm_uv0);
+    return VS_CubeMapMorphMesh0(posModel_Local, vecNormal_Local, prm_uv0);
 }
 
 
 //モーフターゲット２つ
-OUT_VS GgafDxVS_CubeMapMorphMesh2(
+OUT_VS VS_CubeMapMorphMesh2(
      float4 prm_posPrimary_Local       : POSITION0,      // モデルの頂点
      float3 prm_vecNormalPrimary_Local : NORMAL0,        // モデルの頂点の法線
      float2 prm_uv0                    : TEXCOORD0,      // モデルの頂点のUV
@@ -125,11 +125,11 @@ OUT_VS GgafDxVS_CubeMapMorphMesh2(
         posModel_Local += ((prm_posMorphTarget2_Local - prm_posPrimary_Local) * g_weight2);
         vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal2_Local, g_weight2);
     }
-    return GgafDxVS_CubeMapMorphMesh0(posModel_Local, vecNormal_Local, prm_uv0);
+    return VS_CubeMapMorphMesh0(posModel_Local, vecNormal_Local, prm_uv0);
 }
 
 //モーフターゲット３つ
-OUT_VS GgafDxVS_CubeMapMorphMesh3(
+OUT_VS VS_CubeMapMorphMesh3(
      float4 prm_posPrimary_Local       : POSITION0,      // モデルの頂点
      float3 prm_vecNormalPrimary_Local : NORMAL0,        // モデルの頂点の法線
      float2 prm_uv0                    : TEXCOORD0,      // モデルの頂点のUV
@@ -155,11 +155,11 @@ OUT_VS GgafDxVS_CubeMapMorphMesh3(
         posModel_Local += ((prm_posMorphTarget3_Local - prm_posPrimary_Local) * g_weight3);
         vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal3_Local, g_weight3);
     }
-    return GgafDxVS_CubeMapMorphMesh0(posModel_Local, vecNormal_Local, prm_uv0);
+    return VS_CubeMapMorphMesh0(posModel_Local, vecNormal_Local, prm_uv0);
 }
 
 //モーフターゲット４つ
-OUT_VS GgafDxVS_CubeMapMorphMesh4(
+OUT_VS VS_CubeMapMorphMesh4(
      float4 prm_posPrimary_Local       : POSITION0,      // モデルの頂点
      float3 prm_vecNormalPrimary_Local : NORMAL0,        // モデルの頂点の法線
      float2 prm_uv0                    : TEXCOORD0,      // モデルの頂点のUV
@@ -191,11 +191,11 @@ OUT_VS GgafDxVS_CubeMapMorphMesh4(
         posModel_Local += ((prm_posMorphTarget4_Local - prm_posPrimary_Local) * g_weight4);
         vecNormal_Local = lerp(vecNormal_Local, prm_vecvecNormal4_Local, g_weight4);
     }
-    return GgafDxVS_CubeMapMorphMesh0(posModel_Local, vecNormal_Local, prm_uv0);
+    return VS_CubeMapMorphMesh0(posModel_Local, vecNormal_Local, prm_uv0);
 }
 
 //モーフターゲット５つ
-OUT_VS GgafDxVS_CubeMapMorphMesh5(
+OUT_VS VS_CubeMapMorphMesh5(
      float4 prm_posPrimary_Local       : POSITION0,      // モデルの頂点
      float3 prm_vecNormalPrimary_Local : NORMAL0,        // モデルの頂点の法線
      float2 prm_uv0                    : TEXCOORD0,      // モデルの頂点のUV
@@ -233,11 +233,11 @@ OUT_VS GgafDxVS_CubeMapMorphMesh5(
         posModel_Local += ((prm_posMorphTarget5_Local - prm_posPrimary_Local) * g_weight5);
         vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal5_Local, g_weight5);
     }
-    return GgafDxVS_CubeMapMorphMesh0(posModel_Local, vecNormal_Local, prm_uv0);
+    return VS_CubeMapMorphMesh0(posModel_Local, vecNormal_Local, prm_uv0);
 }
 
 //モーフターゲット６つ
-OUT_VS GgafDxVS_CubeMapMorphMesh6(
+OUT_VS VS_CubeMapMorphMesh6(
      float4 prm_posPrimary_Local       : POSITION0,      // モデルの頂点
      float3 prm_vecNormalPrimary_Local : NORMAL0,        // モデルの頂点の法線
      float2 prm_uv0                    : TEXCOORD0,      // モデルの頂点のUV
@@ -281,11 +281,11 @@ OUT_VS GgafDxVS_CubeMapMorphMesh6(
         posModel_Local += ((prm_posMorphTarget6_Local - prm_posPrimary_Local) * g_weight6);
         vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal6_Local, g_weight6);
     }
-    return GgafDxVS_CubeMapMorphMesh0(posModel_Local, vecNormal_Local, prm_uv0);
+    return VS_CubeMapMorphMesh0(posModel_Local, vecNormal_Local, prm_uv0);
 }
 
 
-float4 GgafDxPS_CubeMapMorphMesh(       
+float4 PS_CubeMapMorphMesh(       
 	float2 prm_uv	           : TEXCOORD0,
 	float4 prm_color           : COLOR0,
     float3 prm_vecNormal_World : TEXCOORD1,
@@ -333,8 +333,8 @@ technique CubeMapMorphMeshTechnique
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh0();
-        PixelShader  = compile PS_VERSION GgafDxPS_CubeMapMorphMesh();
+        VertexShader = compile VS_VERSION VS_CubeMapMorphMesh0();
+        PixelShader  = compile PS_VERSION PS_CubeMapMorphMesh();
     }
 
     //モーフターゲット１つ
@@ -346,8 +346,8 @@ technique CubeMapMorphMeshTechnique
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh1();
-        PixelShader  = compile PS_VERSION GgafDxPS_CubeMapMorphMesh();
+        VertexShader = compile VS_VERSION VS_CubeMapMorphMesh1();
+        PixelShader  = compile PS_VERSION PS_CubeMapMorphMesh();
     }
 
     //モーフターゲット２つ
@@ -359,8 +359,8 @@ technique CubeMapMorphMeshTechnique
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh2();
-        PixelShader  = compile PS_VERSION GgafDxPS_CubeMapMorphMesh();
+        VertexShader = compile VS_VERSION VS_CubeMapMorphMesh2();
+        PixelShader  = compile PS_VERSION PS_CubeMapMorphMesh();
     }
 
     //モーフターゲット３つ
@@ -372,8 +372,8 @@ technique CubeMapMorphMeshTechnique
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh3();
-        PixelShader  = compile PS_VERSION GgafDxPS_CubeMapMorphMesh();
+        VertexShader = compile VS_VERSION VS_CubeMapMorphMesh3();
+        PixelShader  = compile PS_VERSION PS_CubeMapMorphMesh();
     }
 
     //モーフターゲット４つ
@@ -385,8 +385,8 @@ technique CubeMapMorphMeshTechnique
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh4();
-        PixelShader  = compile PS_VERSION GgafDxPS_CubeMapMorphMesh();
+        VertexShader = compile VS_VERSION VS_CubeMapMorphMesh4();
+        PixelShader  = compile PS_VERSION PS_CubeMapMorphMesh();
     }
 
     //モーフターゲット５つ
@@ -398,8 +398,8 @@ technique CubeMapMorphMeshTechnique
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh5();
-        PixelShader  = compile PS_VERSION GgafDxPS_CubeMapMorphMesh();
+        VertexShader = compile VS_VERSION VS_CubeMapMorphMesh5();
+        PixelShader  = compile PS_VERSION PS_CubeMapMorphMesh();
     }
 
     //モーフターゲット６つ
@@ -411,8 +411,8 @@ technique CubeMapMorphMeshTechnique
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh6();
-        PixelShader  = compile PS_VERSION GgafDxPS_CubeMapMorphMesh();
+        VertexShader = compile VS_VERSION VS_CubeMapMorphMesh6();
+        PixelShader  = compile PS_VERSION PS_CubeMapMorphMesh();
     }
 
 //	//モーフターゲット７つ
@@ -420,8 +420,8 @@ technique CubeMapMorphMeshTechnique
 //		AlphaBlendEnable = true;
 //		SrcBlend  = SrcAlpha;
 //		DestBlend = InvSrcAlpha;
-//		VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh7();
-//		PixelShader  = compile PS_VERSION GgafDxPS_CubeMapMorphMesh();
+//		VertexShader = compile VS_VERSION VS_CubeMapMorphMesh7();
+//		PixelShader  = compile PS_VERSION PS_CubeMapMorphMesh();
 //	}
 }
 
@@ -437,8 +437,8 @@ technique DestBlendOne
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh0();
-        PixelShader  = compile PS_VERSION GgafDxPS_CubeMapMorphMesh();
+        VertexShader = compile VS_VERSION VS_CubeMapMorphMesh0();
+        PixelShader  = compile PS_VERSION PS_CubeMapMorphMesh();
     }
 
     //モーフターゲット１つ
@@ -450,8 +450,8 @@ technique DestBlendOne
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh1();
-        PixelShader  = compile PS_VERSION GgafDxPS_CubeMapMorphMesh();
+        VertexShader = compile VS_VERSION VS_CubeMapMorphMesh1();
+        PixelShader  = compile PS_VERSION PS_CubeMapMorphMesh();
     }
 
     //モーフターゲット２つ
@@ -463,8 +463,8 @@ technique DestBlendOne
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh2();
-        PixelShader  = compile PS_VERSION GgafDxPS_CubeMapMorphMesh();
+        VertexShader = compile VS_VERSION VS_CubeMapMorphMesh2();
+        PixelShader  = compile PS_VERSION PS_CubeMapMorphMesh();
     }
 
     //モーフターゲット３つ
@@ -476,8 +476,8 @@ technique DestBlendOne
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh3();
-        PixelShader  = compile PS_VERSION GgafDxPS_CubeMapMorphMesh();
+        VertexShader = compile VS_VERSION VS_CubeMapMorphMesh3();
+        PixelShader  = compile PS_VERSION PS_CubeMapMorphMesh();
     }
 
     //モーフターゲット４つ
@@ -489,8 +489,8 @@ technique DestBlendOne
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh4();
-        PixelShader  = compile PS_VERSION GgafDxPS_CubeMapMorphMesh();
+        VertexShader = compile VS_VERSION VS_CubeMapMorphMesh4();
+        PixelShader  = compile PS_VERSION PS_CubeMapMorphMesh();
     }
 
     //モーフターゲット５つ
@@ -502,8 +502,8 @@ technique DestBlendOne
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh5();
-        PixelShader  = compile PS_VERSION GgafDxPS_CubeMapMorphMesh();
+        VertexShader = compile VS_VERSION VS_CubeMapMorphMesh5();
+        PixelShader  = compile PS_VERSION PS_CubeMapMorphMesh();
     }
 
     //モーフターゲット６つ
@@ -515,8 +515,8 @@ technique DestBlendOne
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh6();
-        PixelShader  = compile PS_VERSION GgafDxPS_CubeMapMorphMesh();
+        VertexShader = compile VS_VERSION VS_CubeMapMorphMesh6();
+        PixelShader  = compile PS_VERSION PS_CubeMapMorphMesh();
     }
 }
 
@@ -531,7 +531,7 @@ technique Flush
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh0();
+        VertexShader = compile VS_VERSION VS_CubeMapMorphMesh0();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 
@@ -544,7 +544,7 @@ technique Flush
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh1();
+        VertexShader = compile VS_VERSION VS_CubeMapMorphMesh1();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 
@@ -557,7 +557,7 @@ technique Flush
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh2();
+        VertexShader = compile VS_VERSION VS_CubeMapMorphMesh2();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 
@@ -570,7 +570,7 @@ technique Flush
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh3();
+        VertexShader = compile VS_VERSION VS_CubeMapMorphMesh3();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 
@@ -583,7 +583,7 @@ technique Flush
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh4();
+        VertexShader = compile VS_VERSION VS_CubeMapMorphMesh4();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 
@@ -596,7 +596,7 @@ technique Flush
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh5();
+        VertexShader = compile VS_VERSION VS_CubeMapMorphMesh5();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 
@@ -609,7 +609,7 @@ technique Flush
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMorphMesh6();
+        VertexShader = compile VS_VERSION VS_CubeMapMorphMesh6();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 

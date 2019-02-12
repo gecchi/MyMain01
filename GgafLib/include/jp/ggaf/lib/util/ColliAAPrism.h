@@ -1,5 +1,5 @@
-#ifndef GGAFLIB_COLLIAAPRISM_H_
-#define GGAFLIB_COLLIAAPRISM_H_
+#ifndef GGAF_LIB_COLLIAAPRISM_H_
+#define GGAF_LIB_COLLIAAPRISM_H_
 #include "GgafLibCommonHeader.h"
 #include "jp/ggaf/lib/util/ColliAABox.h"
 
@@ -33,4 +33,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_COLLIAAPRISM_H_*/
+#endif /*GGAF_LIB_COLLIAAPRISM_H_*/

@@ -2,15 +2,15 @@
 
 #include "jp/ggaf/lib/actor/DefaultSceneMediator.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/core/util/GgafLinearOctree.h"
-#include "jp/ggaf/core/util/GgafLinearQuadtree.h"
+#include "jp/ggaf/core/util/LinearOctree.h"
+#include "jp/ggaf/core/util/LinearQuadtree.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
 DefaultSpacetime::DefaultSpacetime(const char* prm_name, DefaultCamera* prm_pCamera) :
-        GgafDxSpacetime(prm_name, prm_pCamera) {
+        GgafDx::Spacetime(prm_name, prm_pCamera) {
     _class_name = "DefaultSpacetime";
     _pLinearOctree = nullptr;
     _pLinearQuadtree = nullptr;
@@ -20,22 +20,22 @@ DefaultSpacetime::DefaultSpacetime(const char* prm_name, DefaultCamera* prm_pCam
     if (CONFIG::IS_HIT_CHECK_3D) {
         //八分木作成
         _TRACE_("八分木作成開始");
-        _pLinearOctree = NEW GgafLinearOctree(CONFIG::OCTREE_LEVEL,
+        _pLinearOctree = NEW GgafCore::LinearOctree(CONFIG::OCTREE_LEVEL,
                                               _x_bound_left  ,_y_bound_bottom, _z_bound_near ,
                                               _x_bound_right ,_y_bound_top   , _z_bound_far   );
         _pLinearOctreeHitCheckRounder = NEW OctreeRounder(_pLinearOctree->_paOctant,
                                                           _pLinearOctree->_num_space,
-                                                          &GgafActor::executeHitChk_MeAnd);
+                                                          &GgafCore::Actor::executeHitChk_MeAnd);
         _TRACE_("八分木作成終了");
     } else {
         //四分木作成
         _TRACE_("四分木作成開始");
-        _pLinearQuadtree = NEW GgafLinearQuadtree(CONFIG::QUADTREE_LEVEL,
+        _pLinearQuadtree = NEW GgafCore::LinearQuadtree(CONFIG::QUADTREE_LEVEL,
                                                   _x_bound_left  ,_y_bound_bottom,
                                                   _x_bound_right ,_y_bound_top    );
         _pLinearQuadtreeHitCheckRounder = NEW QuadtreeRounder(_pLinearQuadtree->_paQuadrant,
                                                               _pLinearQuadtree->_num_space,
-                                                              &GgafActor::executeHitChk_MeAnd);
+                                                              &GgafCore::Actor::executeHitChk_MeAnd);
         _TRACE_("四分木作成終了");
     }
 }

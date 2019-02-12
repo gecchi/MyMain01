@@ -1,21 +1,21 @@
 #include "TestEnemy.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/gecchi/VioletVreath/actor/label/SpriteLabelTest.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include <stdio.h>
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
 
 TestEnemy::TestEnemy(const char* prm_name,
                      const char* prm_model,
-                     GgafStatus* prm_pStat) : DefaultMeshActor(prm_name, prm_model, prm_pStat) {
+                     GgafCore::Status* prm_pStat) : DefaultMeshActor(prm_name, prm_model, prm_pStat) {
 
     pMoji_ = NEW SpriteLabelTest("stamina");
     pMoji_->defineRotMvWorldMatrix_Billboard(); //XYZ軸ビルボード

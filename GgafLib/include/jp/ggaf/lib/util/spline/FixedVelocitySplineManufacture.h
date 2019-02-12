@@ -1,5 +1,5 @@
-#ifndef GGAFLIB_FIXEDVELOCITYSPLINEMANUFACTURE_H_
-#define GGAFLIB_FIXEDVELOCITYSPLINEMANUFACTURE_H_
+#ifndef GGAF_LIB_FIXEDVELOCITYSPLINEMANUFACTURE_H_
+#define GGAF_LIB_FIXEDVELOCITYSPLINEMANUFACTURE_H_
 #include "GgafLibCommonHeader.h"
 #include "jp/ggaf/lib/util/spline/SplineManufacture.h"
 
@@ -64,10 +64,10 @@ public:
      * @param prm_pKuroko スプライン移動するための操作するオブジェクト
      * @return SplineLeader オブジェクト
      */
-    SplineLeader* createKurokoLeader(GgafDxCore::GgafDxKuroko* prm_pKuroko) override;
+    SplineLeader* createKurokoLeader(GgafDx::Kuroko* prm_pKuroko) override;
 
     virtual ~FixedVelocitySplineManufacture();
 };
 
 }
-#endif /*GGAFLIB_FIXEDVELOCITYSPLINEMANUFACTURE_H_*/
+#endif /*GGAF_LIB_FIXEDVELOCITYSPLINEMANUFACTURE_H_*/

@@ -1,6 +1,6 @@
 #include "FormationDelheid.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "jp/ggaf/lib/util/spline/SplineManufacture.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Alisana/EnemyAlisana.h"
@@ -8,8 +8,8 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -81,7 +81,7 @@ void FormationDelheid::processBehavior() {
             pAlisana_goal = nullptr;
         }
     }
-    GgafProgress* const pProg = getProgress();
+    GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
          case PROG_INIT: {
              updateRankParameter();
@@ -227,14 +227,14 @@ void FormationDelheid::processBehavior() {
      }
 }
 
-void FormationDelheid::order1(GgafCore::GgafActor* prm_pDelheid, void* prm1, void* prm2, void* prm3) {
+void FormationDelheid::order1(GgafCore::Actor* prm_pDelheid, void* prm1, void* prm2, void* prm3) {
     //各メンバー減速
     EnemyDelheid* pMember = (EnemyDelheid*)prm_pDelheid;
     FormationDelheid* pFormation = (FormationDelheid*)prm1;
     pMember->getKuroko()->setMvAcceByT(120, -(pFormation->RV_MvVelo_/8));
 }
 
-void FormationDelheid::order2(GgafCore::GgafActor* prm_pDelheid, void* prm1, void* prm2, void* prm3) {
+void FormationDelheid::order2(GgafCore::Actor* prm_pDelheid, void* prm1, void* prm2, void* prm3) {
     //各メンバー停滞&発射
     EnemyDelheid* pMember = (EnemyDelheid*)prm_pDelheid;
     FormationDelheid* pFormation = (FormationDelheid*)prm1;
@@ -242,7 +242,7 @@ void FormationDelheid::order2(GgafCore::GgafActor* prm_pDelheid, void* prm1, voi
     pMember->open_shot(); //ショット発射！
 }
 
-void FormationDelheid::order3(GgafCore::GgafActor* prm_pDelheid, void* prm1, void* prm2, void* prm3) {
+void FormationDelheid::order3(GgafCore::Actor* prm_pDelheid, void* prm1, void* prm2, void* prm3) {
     //各メンバー再始動
     EnemyDelheid* pMember = (EnemyDelheid*)prm_pDelheid;
     FormationDelheid* pFormation = (FormationDelheid*)prm1;
@@ -256,8 +256,8 @@ void FormationDelheid::onSayonaraAll() {
     //解放を待つ
 }
 
-void FormationDelheid::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
-    UTIL::performFormationDestroyAll((GgafDxFigureActor*)prm_pActor_last_destroyed);
+void FormationDelheid::onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) {
+    UTIL::performFormationDestroyAll((GgafDx::FigureActor*)prm_pActor_last_destroyed);
 }
 
 FormationDelheid::~FormationDelheid() {

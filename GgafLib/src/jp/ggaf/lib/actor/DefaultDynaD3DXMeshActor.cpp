@@ -3,12 +3,12 @@
 #include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
-DefaultDynaD3DXMeshActor::DefaultDynaD3DXMeshActor(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
-    GgafDxDynaD3DXMeshActor(prm_name,
+DefaultDynaD3DXMeshActor::DefaultDynaD3DXMeshActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat) :
+    GgafDx::DynaD3DXMeshActor(prm_name,
                              prm_model,
                              "DefaultMeshEffect",
                              "DefaultMeshTechnique",

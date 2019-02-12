@@ -1,7 +1,7 @@
-#ifndef GGAFLIB_SPLINEMANUFACTUREMANAGER_H_
-#define GGAFLIB_SPLINEMANUFACTUREMANAGER_H_
+#ifndef GGAF_LIB_SPLINEMANUFACTUREMANAGER_H_
+#define GGAF_LIB_SPLINEMANUFACTUREMANAGER_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/core/util/GgafResourceManager.hpp"
+#include "jp/ggaf/core/util/ResourceManager.hpp"
 
 namespace GgafLib {
 /**
@@ -11,7 +11,7 @@ namespace GgafLib {
  * @since 2010/12/14
  * @author Masatoshi Tsuge
  */
-class SplineManufactureManager : public GgafCore::GgafResourceManager<SplineManufacture> {
+class SplineManufactureManager : public GgafCore::ResourceManager<SplineManufacture> {
 
 public:
     /**
@@ -22,11 +22,11 @@ public:
 
     SplineManufacture* processCreateResource(const char* prm_idstr, void* prm_pConnector) override;
 
-    GgafCore::GgafResourceConnection<SplineManufacture>* processCreateConnection(const char* prm_idstr, SplineManufacture* prm_pResource) override;
+    GgafCore::ResourceConnection<SplineManufacture>* processCreateConnection(const char* prm_idstr, SplineManufacture* prm_pResource) override;
 
     virtual ~SplineManufactureManager() {
     }
 };
 
 }
-#endif /*GGAFLIB_SPLINEMANUFACTUREMANAGER_H_*/
+#endif /*GGAF_LIB_SPLINEMANUFACTUREMANAGER_H_*/

@@ -1,10 +1,10 @@
 #include "EffectBunshinMagic001.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Trucker.h"
+#include "jp/ggaf/dx/actor/supporter/Scaler.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -25,13 +25,13 @@ void EffectBunshinMagic001::processBehavior() {
 }
 
 void EffectBunshinMagic001::blink(frame prm_scale_in_frames, frame prm_duration_frames, frame prm_scale_out_frames,
-           const GgafDxCore::GgafDxGeometricActor* prm_pFollowTarget, bool prm_sayonara_end) {
+           const GgafDx::GeometricActor* prm_pFollowTarget, bool prm_sayonara_end) {
     getScaler()->setRange(0, R_SC(4.0));
     EffectBlink::blink(prm_scale_in_frames, prm_duration_frames, prm_scale_out_frames, prm_pFollowTarget, prm_sayonara_end);
 }
 
 void EffectBunshinMagic001::blink2(frame prm_scale_in_frames, frame prm_duration_frames, frame prm_scale_out_frames,
-            const GgafDxCore::GgafDxGeometricActor* prm_pFollowTarget, bool prm_sayonara_end) {
+            const GgafDx::GeometricActor* prm_pFollowTarget, bool prm_sayonara_end) {
     getScaler()->setRange(0, R_SC(6.0));
     EffectBlink::blink2(prm_scale_in_frames, prm_duration_frames, prm_scale_out_frames, prm_pFollowTarget, prm_sayonara_end);
 }

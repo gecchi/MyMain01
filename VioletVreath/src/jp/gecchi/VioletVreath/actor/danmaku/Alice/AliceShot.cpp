@@ -1,11 +1,11 @@
 #include "AliceShot.h"
 
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -23,14 +23,14 @@ void AliceShot::initialize() {
 }
 void AliceShot::onReset() {
     setCullingDraw(false);
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->setRollFaceAngVelo(D_ANG(3));
     pKuroko->linkFaceAngByMvAng(true);
 }
 
 void AliceShot::onActive() {
     setHitAble(true, false);
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->setRyMvAng(D90ANG);
     pKuroko->setRzMvAngVelo(D_ANG(1));
 }
@@ -46,8 +46,8 @@ void AliceShot::processJudgement() {
     }
 }
 
-void AliceShot::onHit(const GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+void AliceShot::onHit(const GgafCore::Actor* prm_pOtherActor) {
+    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         sayonara();
     } else {

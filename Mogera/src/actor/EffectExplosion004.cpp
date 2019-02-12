@@ -1,11 +1,11 @@
 #include "EffectExplosion004.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
+#include "jp/ggaf/dx/actor/supporter/Scaler.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace Mogera;
 
@@ -24,7 +24,7 @@ void EffectExplosion004::initialize() {
 }
 
 void EffectExplosion004::onActive() {
-    GgafDxUvFlipper* pUvFlipper = getUvFlipper();
+    GgafDx::UvFlipper* pUvFlipper = getUvFlipper();
     pUvFlipper->setActivePtnToTop();
     pUvFlipper->exec(FLIP_ORDER_NOLOOP, 1);
     setScale(500);

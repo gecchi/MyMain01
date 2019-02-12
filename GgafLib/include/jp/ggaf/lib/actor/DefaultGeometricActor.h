@@ -1,7 +1,7 @@
-#ifndef GGAFLIB_DEFAULTGEOMETRICACTOR_H_
-#define GGAFLIB_DEFAULTGEOMETRICACTOR_H_
+#ifndef GGAF_LIB_DEFAULTGEOMETRICACTOR_H_
+#define GGAF_LIB_DEFAULTGEOMETRICACTOR_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
+#include "jp/ggaf/dx/actor/GeometricActor.h"
 
 namespace GgafLib {
 
@@ -11,10 +11,10 @@ namespace GgafLib {
  * @since 2010/09/08
  * @author Masatoshi Tsuge
  */
-class DefaultGeometricActor : public GgafDxCore::GgafDxGeometricActor {
+class DefaultGeometricActor : public GgafDx::GeometricActor {
 
 public:
-    DefaultGeometricActor(const char* prm_name, GgafCore::GgafStatus* prm_pStat = nullptr, GgafDxCore::GgafDxChecker* prm_pChecker = nullptr);
+    DefaultGeometricActor(const char* prm_name, GgafCore::Status* prm_pStat = nullptr, GgafDx::Checker* prm_pChecker = nullptr);
 
     virtual void initialize() override {}
 
@@ -26,15 +26,15 @@ public:
 
     virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {}
 
-    virtual bool processHitChkLogic(GgafCore::GgafActor* prm_pOtherActor) override {
+    virtual bool processHitChkLogic(GgafCore::Actor* prm_pOtherActor) override {
         return false;
     }
 
-    virtual void onHit(const GgafCore::GgafActor* prm_pOtherActor) override {}
+    virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override {}
 
     virtual ~DefaultGeometricActor();
 
 };
 
 }
-#endif /*GGAFLIB_DEFAULTGEOMETRICACTOR_H_*/
+#endif /*GGAF_LIB_DEFAULTGEOMETRICACTOR_H_*/

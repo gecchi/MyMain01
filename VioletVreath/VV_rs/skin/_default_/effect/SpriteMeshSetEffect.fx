@@ -107,7 +107,7 @@ struct OUT_VS
 ///////////////////////////////////////////////////////////////////////////
 
 //頂点シェーダー
-OUT_VS GgafDxVS_SpriteMeshSet(
+OUT_VS VS_SpriteMeshSet(
     float4 prm_posModel_Local  : POSITION,  // モデルの頂点
     float  prm_index           : PSIZE ,    // モデルのインデックス（何個目のオブジェクトか？）
     float3 prm_vecNormal_Local : NORMAL,    // モデルの頂点の法線
@@ -231,7 +231,7 @@ OUT_VS GgafDxVS_SpriteMeshSet(
 }
 
 //メッシュ標準ピクセルシェーダー（テクスチャ有り）
-float4 GgafDxPS_SpriteMeshSet(
+float4 PS_SpriteMeshSet(
 	float2 prm_uv	 : TEXCOORD0,
 	float4 prm_color : COLOR0
 ) : COLOR  {
@@ -268,8 +268,8 @@ technique SpriteMeshSetTechnique
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default
-		VertexShader = compile VS_VERSION GgafDxVS_SpriteMeshSet();
-		PixelShader  = compile PS_VERSION GgafDxPS_SpriteMeshSet();
+		VertexShader = compile VS_VERSION VS_SpriteMeshSet();
+		PixelShader  = compile PS_VERSION PS_SpriteMeshSet();
 	}
 }
 
@@ -283,8 +283,8 @@ technique DestBlendOne
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default
-		VertexShader = compile VS_VERSION GgafDxVS_SpriteMeshSet();
-		PixelShader  = compile PS_VERSION GgafDxPS_SpriteMeshSet();
+		VertexShader = compile VS_VERSION VS_SpriteMeshSet();
+		PixelShader  = compile PS_VERSION PS_SpriteMeshSet();
 	}
 }
 
@@ -298,7 +298,7 @@ technique Flush
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default
-		VertexShader = compile VS_VERSION GgafDxVS_SpriteMeshSet();
+		VertexShader = compile VS_VERSION VS_SpriteMeshSet();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}
 }

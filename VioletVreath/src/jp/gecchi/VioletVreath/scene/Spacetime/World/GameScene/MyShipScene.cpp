@@ -1,6 +1,6 @@
 #include "MyShipScene.h"
 
-#include "jp/ggaf/core/actor/GgafSceneMediator.h"
+#include "jp/ggaf/core/actor/SceneMediator.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/camera/worker/MyShipDivingCamWorker.h"
 #include "jp/gecchi/VioletVreath/actor/camera/worker/VamSysCamWorker.h"
@@ -17,8 +17,8 @@
 #include "jp/gecchi/VioletVreath/actor/my/Bunshin/MyBunshinBase.h"
 #include "jp/gecchi/VioletVreath/actor/my/Bunshin/MyBunshin.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -134,7 +134,7 @@ void MyShipScene::processBehavior() {
                     pMM->papLvTgtMvCur_[idx]->moveSmoothTo(1); //カーソル
                     pMM->papLvNowCur_[idx]->moveSmoothTo(1); //カーソル
                 } else {
-                    throwGgafCriticalException("VreathMagicがありません。");
+                    throwCriticalException("VreathMagicがありません。");
                 }
                 pMyShip_->_x = pSpacetime->_x_bound_left;
                 pMyShip_->can_control_ = true;

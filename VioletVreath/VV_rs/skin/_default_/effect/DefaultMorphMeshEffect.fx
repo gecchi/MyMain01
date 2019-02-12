@@ -1,6 +1,6 @@
 #include "GgafEffectConst.fxh"
 ////////////////////////////////////////////////////////////////////////////////
-// Ggafライブラリ、GgafDxMorphMeshModel用シェーダー
+// ggaf ライブラリ、GgafDx::MorphMeshModel用シェーダー
 // author : Masatoshi Tsuge
 // date:2009/05/12
 ////////////////////////////////////////////////////////////////////////////////
@@ -58,7 +58,7 @@ struct OUT_VS
 ///////////////////////////////////////////////////////////////////////////
 
 //モーフターゲットなし
-OUT_VS GgafDxVS_DefaultMorphMesh0(
+OUT_VS VS_DefaultMorphMesh0(
     float4 prm_posPrimary_Local       : POSITION0,  // モデルの頂点
     float3 prm_vecNormalPrimary_Local : NORMAL0,    // モデルの頂点の法線
     float2 prm_uv0                    : TEXCOORD0   // モデルの頂点のUV
@@ -92,7 +92,7 @@ OUT_VS GgafDxVS_DefaultMorphMesh0(
 }
 
 //モーフターゲット１つ
-OUT_VS GgafDxVS_DefaultMorphMesh1(
+OUT_VS VS_DefaultMorphMesh1(
     float4 prm_posPrimary_Local       : POSITION0,  // モデルの頂点
     float3 prm_vecNormalPrimary_Local : NORMAL0,    // モデルの頂点の法線
     float2 prm_uv0                    : TEXCOORD0,  // モデルの頂点のUV
@@ -109,12 +109,12 @@ OUT_VS GgafDxVS_DefaultMorphMesh1(
         vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal1_Local     , g_weight1);
     }
 
-    return GgafDxVS_DefaultMorphMesh0(posModel_Local, vecNormal_Local, prm_uv0);
+    return VS_DefaultMorphMesh0(posModel_Local, vecNormal_Local, prm_uv0);
 }
 
 
 //モーフターゲット２つ
-OUT_VS GgafDxVS_DefaultMorphMesh2(
+OUT_VS VS_DefaultMorphMesh2(
     float4 prm_posPrimary_Local       : POSITION0,  // モデルの頂点
     float3 prm_vecNormalPrimary_Local : NORMAL0,    // モデルの頂点の法線
     float2 prm_uv0                    : TEXCOORD0,  // モデルの頂点のUV
@@ -136,11 +136,11 @@ OUT_VS GgafDxVS_DefaultMorphMesh2(
         posModel_Local  = lerp(posModel_Local , prm_posMorphTarget2_Local, g_weight2);
         vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal2_Local     , g_weight2);
     }
-    return GgafDxVS_DefaultMorphMesh0(posModel_Local, vecNormal_Local, prm_uv0);
+    return VS_DefaultMorphMesh0(posModel_Local, vecNormal_Local, prm_uv0);
 }
 
 //モーフターゲット３つ
-OUT_VS GgafDxVS_DefaultMorphMesh3(
+OUT_VS VS_DefaultMorphMesh3(
     float4 prm_posPrimary_Local       : POSITION0,  // モデルの頂点
     float3 prm_vecNormalPrimary_Local : NORMAL0,    // モデルの頂点の法線
     float2 prm_uv0                    : TEXCOORD0,  // モデルの頂点のUV
@@ -167,11 +167,11 @@ OUT_VS GgafDxVS_DefaultMorphMesh3(
         vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal3_Local     , g_weight3);
     }
 
-    return GgafDxVS_DefaultMorphMesh0(posModel_Local, vecNormal_Local, prm_uv0);
+    return VS_DefaultMorphMesh0(posModel_Local, vecNormal_Local, prm_uv0);
 }
 
 //モーフターゲット４つ
-OUT_VS GgafDxVS_DefaultMorphMesh4(
+OUT_VS VS_DefaultMorphMesh4(
     float4 prm_posPrimary_Local       : POSITION0,  // モデルの頂点
     float3 prm_vecNormalPrimary_Local : NORMAL0,    // モデルの頂点の法線
     float2 prm_uv0                    : TEXCOORD0,  // モデルの頂点のUV
@@ -203,11 +203,11 @@ OUT_VS GgafDxVS_DefaultMorphMesh4(
         posModel_Local  = lerp(posModel_Local , prm_posMorphTarget4_Local, g_weight4);
         vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal4_Local     , g_weight4);
     }
-    return GgafDxVS_DefaultMorphMesh0(posModel_Local, vecNormal_Local, prm_uv0);
+    return VS_DefaultMorphMesh0(posModel_Local, vecNormal_Local, prm_uv0);
 }
 
 //モーフターゲット５つ
-OUT_VS GgafDxVS_DefaultMorphMesh5(
+OUT_VS VS_DefaultMorphMesh5(
     float4 prm_posPrimary_Local       : POSITION0,  // モデルの頂点
     float3 prm_vecNormalPrimary_Local : NORMAL0,    // モデルの頂点の法線
     float2 prm_uv0                    : TEXCOORD0,  // モデルの頂点のUV
@@ -245,11 +245,11 @@ OUT_VS GgafDxVS_DefaultMorphMesh5(
         posModel_Local  = lerp(posModel_Local , prm_posMorphTarget5_Local, g_weight5);
         vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal5_Local     , g_weight5);
     }
-    return GgafDxVS_DefaultMorphMesh0(posModel_Local, vecNormal_Local, prm_uv0);
+    return VS_DefaultMorphMesh0(posModel_Local, vecNormal_Local, prm_uv0);
 }
 
 //モーフターゲット６つ
-OUT_VS GgafDxVS_DefaultMorphMesh6(
+OUT_VS VS_DefaultMorphMesh6(
     float4 prm_posPrimary_Local       : POSITION0,  // モデルの頂点
     float3 prm_vecNormalPrimary_Local : NORMAL0,    // モデルの頂点の法線
     float2 prm_uv0                    : TEXCOORD0,  // モデルの頂点のUV
@@ -293,11 +293,11 @@ OUT_VS GgafDxVS_DefaultMorphMesh6(
         posModel_Local  = lerp(posModel_Local , prm_posMorphTarget6_Local, g_weight6);
         vecNormal_Local = lerp(vecNormal_Local, prm_vecNormal6_Local     , g_weight6);
     }
-    return GgafDxVS_DefaultMorphMesh0(posModel_Local, vecNormal_Local, prm_uv0);
+    return VS_DefaultMorphMesh0(posModel_Local, vecNormal_Local, prm_uv0);
 }
 
 
-float4 GgafDxPS_DefaultMorphMesh(
+float4 PS_DefaultMorphMesh(
     float2 prm_uv	  : TEXCOORD0,
     float4 prm_color  : COLOR0,
     float3 prm_vecNormal_World : TEXCOORD1,
@@ -343,8 +343,8 @@ technique DefaultMorphMeshTechnique
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh0();
-        PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
+        VertexShader = compile VS_VERSION VS_DefaultMorphMesh0();
+        PixelShader  = compile PS_VERSION PS_DefaultMorphMesh();
     }
 
     //モーフターゲット１つ
@@ -356,8 +356,8 @@ technique DefaultMorphMeshTechnique
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh1();
-        PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
+        VertexShader = compile VS_VERSION VS_DefaultMorphMesh1();
+        PixelShader  = compile PS_VERSION PS_DefaultMorphMesh();
     }
 
     //モーフターゲット２つ
@@ -369,8 +369,8 @@ technique DefaultMorphMeshTechnique
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh2();
-        PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
+        VertexShader = compile VS_VERSION VS_DefaultMorphMesh2();
+        PixelShader  = compile PS_VERSION PS_DefaultMorphMesh();
     }
 
     //モーフターゲット３つ
@@ -382,8 +382,8 @@ technique DefaultMorphMeshTechnique
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh3();
-        PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
+        VertexShader = compile VS_VERSION VS_DefaultMorphMesh3();
+        PixelShader  = compile PS_VERSION PS_DefaultMorphMesh();
     }
 
     //モーフターゲット４つ
@@ -395,8 +395,8 @@ technique DefaultMorphMeshTechnique
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh4();
-        PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
+        VertexShader = compile VS_VERSION VS_DefaultMorphMesh4();
+        PixelShader  = compile PS_VERSION PS_DefaultMorphMesh();
     }
 
     //モーフターゲット５つ
@@ -408,8 +408,8 @@ technique DefaultMorphMeshTechnique
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh5();
-        PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
+        VertexShader = compile VS_VERSION VS_DefaultMorphMesh5();
+        PixelShader  = compile PS_VERSION PS_DefaultMorphMesh();
     }
 
     //モーフターゲット６つ
@@ -421,8 +421,8 @@ technique DefaultMorphMeshTechnique
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh6();
-        PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
+        VertexShader = compile VS_VERSION VS_DefaultMorphMesh6();
+        PixelShader  = compile PS_VERSION PS_DefaultMorphMesh();
     }
 }
 
@@ -438,8 +438,8 @@ technique DestBlendOne
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh0();
-        PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
+        VertexShader = compile VS_VERSION VS_DefaultMorphMesh0();
+        PixelShader  = compile PS_VERSION PS_DefaultMorphMesh();
     }
 
     //モーフターゲット１つ
@@ -451,8 +451,8 @@ technique DestBlendOne
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh1();
-        PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
+        VertexShader = compile VS_VERSION VS_DefaultMorphMesh1();
+        PixelShader  = compile PS_VERSION PS_DefaultMorphMesh();
     }
 
     //モーフターゲット２つ
@@ -464,8 +464,8 @@ technique DestBlendOne
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh2();
-        PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
+        VertexShader = compile VS_VERSION VS_DefaultMorphMesh2();
+        PixelShader  = compile PS_VERSION PS_DefaultMorphMesh();
     }
 
     //モーフターゲット３つ
@@ -477,8 +477,8 @@ technique DestBlendOne
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh3();
-        PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
+        VertexShader = compile VS_VERSION VS_DefaultMorphMesh3();
+        PixelShader  = compile PS_VERSION PS_DefaultMorphMesh();
     }
 
     //モーフターゲット４つ
@@ -490,8 +490,8 @@ technique DestBlendOne
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh4();
-        PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
+        VertexShader = compile VS_VERSION VS_DefaultMorphMesh4();
+        PixelShader  = compile PS_VERSION PS_DefaultMorphMesh();
     }
 
     //モーフターゲット５つ
@@ -503,8 +503,8 @@ technique DestBlendOne
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh5();
-        PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
+        VertexShader = compile VS_VERSION VS_DefaultMorphMesh5();
+        PixelShader  = compile PS_VERSION PS_DefaultMorphMesh();
     }
 
     //モーフターゲット６つ
@@ -516,8 +516,8 @@ technique DestBlendOne
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh6();
-        PixelShader  = compile PS_VERSION GgafDxPS_DefaultMorphMesh();
+        VertexShader = compile VS_VERSION VS_DefaultMorphMesh6();
+        PixelShader  = compile PS_VERSION PS_DefaultMorphMesh();
     }
 
 //	//モーフターゲット７つ
@@ -525,7 +525,7 @@ technique DestBlendOne
 //		AlphaBlendEnable = true;
 //		SrcBlend  = SrcAlpha;
 //		DestBlend = One; //加算合成
-//		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh7();
+//		VertexShader = compile VS_VERSION VS_DefaultMorphMesh7();
 //		PixelShader  = compile PS_VERSION PS_DestBlendOne();
 //	}
 
@@ -541,7 +541,7 @@ technique Flush
         DestBlend = One; //加算合成
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh0();
+        VertexShader = compile VS_VERSION VS_DefaultMorphMesh0();
         //BlendOpAlpha = Add;       //default
         PixelShader  = compile PS_VERSION PS_Flush();
     }
@@ -555,7 +555,7 @@ technique Flush
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh1();
+        VertexShader = compile VS_VERSION VS_DefaultMorphMesh1();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 
@@ -568,7 +568,7 @@ technique Flush
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh2();
+        VertexShader = compile VS_VERSION VS_DefaultMorphMesh2();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 
@@ -581,7 +581,7 @@ technique Flush
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh3();
+        VertexShader = compile VS_VERSION VS_DefaultMorphMesh3();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 
@@ -594,7 +594,7 @@ technique Flush
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh4();
+        VertexShader = compile VS_VERSION VS_DefaultMorphMesh4();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 
@@ -607,7 +607,7 @@ technique Flush
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh5();
+        VertexShader = compile VS_VERSION VS_DefaultMorphMesh5();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 
@@ -620,7 +620,7 @@ technique Flush
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh6();
+        VertexShader = compile VS_VERSION VS_DefaultMorphMesh6();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 
@@ -629,7 +629,7 @@ technique Flush
 //		AlphaBlendEnable = true;
 //		SrcBlend  = SrcAlpha;
 //		DestBlend = One; //加算合成
-//		VertexShader = compile VS_VERSION GgafDxVS_DefaultMorphMesh7();
+//		VertexShader = compile VS_VERSION VS_DefaultMorphMesh7();
 //		PixelShader  = compile PS_VERSION PS_Flush();
 //	}
 

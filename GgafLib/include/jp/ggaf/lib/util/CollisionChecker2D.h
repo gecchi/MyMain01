@@ -1,9 +1,9 @@
-#ifndef GGAFLIB_COLLISIONCHECKER2D_H_
-#define GGAFLIB_COLLISIONCHECKER2D_H_
+#ifndef GGAF_LIB_COLLISIONCHECKER2D_H_
+#define GGAF_LIB_COLLISIONCHECKER2D_H_
 #include "GgafLibCommonHeader.h"
 #include "CollisionChecker.h"
 
-#include "jp/ggaf/core/util/GgafTreeElem.hpp"
+#include "jp/ggaf/core/util/TreeElem.hpp"
 namespace GgafLib {
 
 /**
@@ -14,24 +14,24 @@ namespace GgafLib {
  */
 class CollisionChecker2D : public CollisionChecker {
 
-    GgafCore::GgafLinearQuadtree* const _pLinearQuadtree; //TODO:どこに持たせようか悩むがとりあえずココに
+    GgafCore::LinearQuadtree* const _pLinearQuadtree; //TODO:どこに持たせようか悩むがとりあえずココに
 
 public:
     /** 線形八分木登録用要素 */
-    GgafCore::GgafTreeElem<2u>* const _pElem;
+    GgafCore::TreeElem<2u>* const _pElem;
 
 public:
     /**
      * コンストラクタ<BR>
      * @param   prm_pActor  当たり判定機能を追加するActor
      */
-    explicit CollisionChecker2D(GgafDxCore::GgafDxGeometricActor* prm_pActor);
+    explicit CollisionChecker2D(GgafDx::GeometricActor* prm_pActor);
 
     /**
      * 当たり判定領域BOXの回転平行移動と、八分木登録を行います .
      * 当たり判定機能を使用するには、このメソッドを毎フレーム実行する必要があります。<br>
      * しかし、フレームワークに組み込まれているため、実装者は特に気にする必要がない。<br>
-     * 現在は GgafDxGeometricActor::processSettlementBehavior から毎フレームコールされている。<br>
+     * 現在は GgafDx::GeometricActor::processSettlementBehavior から毎フレームコールされている。<br>
      * もし processSettlementBehavior() を下位でオーバーライドする場合は気を付けるべし！<br>
      */
     virtual void updateHitArea() override;
@@ -41,11 +41,11 @@ public:
      * @param prm_pOppChecker 他の当たり判定領域
      * @return true:当たっている / false:当たっていない
      */
-    bool isHit(const GgafDxCore::GgafDxChecker* const prm_pOppChecker) override;
+    bool isHit(const GgafDx::Checker* const prm_pOppChecker) override;
 
     virtual ~CollisionChecker2D();
 };
 
 }
-#endif /*GGAFLIB_COLLISIONCHECKER2D_H_*/
+#endif /*GGAF_LIB_COLLISIONCHECKER2D_H_*/
 

@@ -1,7 +1,7 @@
-#ifndef GGAFLIB_SINGLELASEREFFECT_H_
-#define GGAFLIB_SINGLELASEREFFECT_H_
+#ifndef GGAF_LIB_SINGLELASEREFFECT_H_
+#define GGAF_LIB_SINGLELASEREFFECT_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/dxcore/effect/GgafDxMeshSetEffect.h"
+#include "jp/ggaf/dx/effect/MeshSetEffect.h"
 
 namespace GgafLib {
 
@@ -11,7 +11,7 @@ namespace GgafLib {
  * @since 2018/04/26
  * @author Masatoshi Tsuge
  */
-class SingleLaserEffect : public GgafDxCore::GgafDxMeshSetEffect {
+class SingleLaserEffect : public GgafDx::MeshSetEffect {
     friend class DefaultEffectManager;
 
 public:
@@ -29,4 +29,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_SINGLELASEREFFECT_H_*/
+#endif /*GGAF_LIB_SINGLELASEREFFECT_H_*/

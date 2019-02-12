@@ -1,5 +1,5 @@
-#ifndef GGAFLIB_STEPPEDCOORDSPLINEMANUFACTURE_H_
-#define GGAFLIB_STEPPEDCOORDSPLINEMANUFACTURE_H_
+#ifndef GGAF_LIB_STEPPEDCOORDSPLINEMANUFACTURE_H_
+#define GGAF_LIB_STEPPEDCOORDSPLINEMANUFACTURE_H_
 #include "GgafLibCommonHeader.h"
 #include "jp/ggaf/lib/util/spline/SplineManufacture.h"
 
@@ -36,13 +36,13 @@ public:
     /**
      * SplineLeader オブジェクトの生成 .
      * インスタンスは SteppedCoordSplineKurokoLeader です。
-     * @param GgafDxTrucker スプライン移動するための操作するオブジェクト
+     * @param GgafDx::Trucker スプライン移動するための操作するオブジェクト
      * @return SplineLeader オブジェクト
      */
-    SplineLeader* createKurokoLeader(GgafDxCore::GgafDxKuroko* prm_pKuroko) override;
+    SplineLeader* createKurokoLeader(GgafDx::Kuroko* prm_pKuroko) override;
 
     virtual ~SteppedCoordSplineManufacture();
 };
 
 }
-#endif /*GGAFLIB_FIXEDVELOCITYSPLINEMANUFACTURE_H_*/
+#endif /*GGAF_LIB_FIXEDVELOCITYSPLINEMANUFACTURE_H_*/

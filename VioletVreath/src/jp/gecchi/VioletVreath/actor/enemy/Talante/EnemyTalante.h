@@ -16,7 +16,7 @@ class EnemyTalante : public GgafLib::DefaultMassMeshActor {
 
 public:
     /** 弾ストック */
-    GgafCore::GgafActorDepository* pDepo_shot_;
+    GgafCore::ActorDepository* pDepo_shot_;
 
     /** Y軸揃ったよフラグ */
     bool Y_ok_;
@@ -58,7 +58,7 @@ public:
      * タランテの衝突時処理 .
      * @param prm_pOtherActor 衝突対象
      */
-    void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
+    void onHit(const GgafCore::Actor* prm_pOtherActor) override;
 
 
     void onInactive() override;
@@ -68,7 +68,7 @@ public:
      * @param prm_pDepo_shot
      */
     virtual void config(
-            GgafCore::GgafActorDepository* prm_pDepo_shot
+            GgafCore::ActorDepository* prm_pDepo_shot
             );
 
 

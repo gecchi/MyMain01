@@ -1,5 +1,5 @@
-#ifndef GGAFLIB_PIEGRAPHSPRITEACTOR_H_
-#define GGAFLIB_PIEGRAPHSPRITEACTOR_H_
+#ifndef GGAF_LIB_PIEGRAPHSPRITEACTOR_H_
+#define GGAF_LIB_PIEGRAPHSPRITEACTOR_H_
 #include "jp/ggaf/lib/actor/DefaultRegularPolygonSpriteActor.h"
 #include "jp/ggaf/lib/util/Quantity.hpp"
 
@@ -116,5 +116,5 @@ public:
 };
 
 }
-#endif /*GGAFLIB_PIEGRAPHSPRITEACTOR_H_*/
+#endif /*GGAF_LIB_PIEGRAPHSPRITEACTOR_H_*/
 

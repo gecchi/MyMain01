@@ -1,16 +1,16 @@
 #include "EnemyUnomia.h"
 
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/model/GgafDxModel.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/model/Model.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -32,18 +32,18 @@ EnemyUnomia::EnemyUnomia(const char* prm_name) :
     pKurokoLeader_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;
-    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
     useProgress(PROG_BANPEI);
 }
 
 void EnemyUnomia::onCreateModel() {
-    GgafDxModel* pModel = getModel();
+    GgafDx::Model* pModel = getModel();
     pModel->setSpecular(5.0, 1.0);
 }
 
 void EnemyUnomia::initialize() {
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->linkFaceAngByMvAng(true);
     pKuroko->setRollFaceAngVelo(-4000);
     CollisionChecker* pChecker = getCollisionChecker();
@@ -56,8 +56,8 @@ void EnemyUnomia::onReset() {
 
 void EnemyUnomia::config(
         GgafLib::SplineLeader* prm_pKurokoLeader,
-        GgafCore::GgafActorDepository* prm_pDepo_shot,
-        GgafCore::GgafActorDepository* prm_pDepo_shotEffect
+        GgafCore::ActorDepository* prm_pDepo_shot,
+        GgafCore::ActorDepository* prm_pDepo_shotEffect
         ) {
     GGAF_DELETE_NULLABLE(pKurokoLeader_);
     pKurokoLeader_ = prm_pKurokoLeader;
@@ -68,7 +68,7 @@ void EnemyUnomia::config(
 
 void EnemyUnomia::onActive() {
     if (pKurokoLeader_ == nullptr) {
-        throwGgafCriticalException("EnemyUnomiaはスプライン必須ですconfigして下さい");
+        throwCriticalException("EnemyUnomiaはスプライン必須ですconfigして下さい");
     }
     getStatus()->reset();
     setHitAble(true);
@@ -77,8 +77,8 @@ void EnemyUnomia::onActive() {
 }
 
 void EnemyUnomia::processBehavior() {
-    GgafDxKuroko* const pKuroko = getKuroko();
-    GgafProgress* const pProg = getProgress();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_ENTRY: {
             pKurokoLeader_->start(ABSOLUTE_COORD);
@@ -107,9 +107,9 @@ void EnemyUnomia::processBehavior() {
 //                int way = RF_EnemyUnomia_ShotWay(G_RANK); //ショットWAY数
 //                angle* paAng_way = NEW angle[way];
 //                UTIL::getRadialAngle2D(0, way, paAng_way);
-//                GgafDxFigureActor* pActor_shot;
+//                GgafDx::FigureActor* pActor_shot;
 //                for (int i = 0; i < way; i++) {
-//                    pActor_shot = (GgafDxFigureActor*)pDepo_shot_->dispatch();
+//                    pActor_shot = (GgafDx::FigureActor*)pDepo_shot_->dispatch();
 //                    if (pActor_shot) {
 //                        pActor_shot->setPositionAt(this);
 //                        pActor_shot->getKuroko()->setRzRyMvAng(paAng_way[i], D90ANG);
@@ -118,7 +118,7 @@ void EnemyUnomia::processBehavior() {
 //                GGAF_DELETEARR(paAng_way);
 //                //ショット発射エフェクト
 //                if (pDepo_effect_) {
-//                    GgafDxFigureActor* pTestActor_Shot = (GgafDxFigureActor*)pDepo_effect_->dispatch();
+//                    GgafDx::FigureActor* pTestActor_Shot = (GgafDx::FigureActor*)pDepo_effect_->dispatch();
 //                    if (pTestActor_Shot) {
 //                        pTestActor_Shot->setPositionAt(this);
 //                    }
@@ -140,8 +140,8 @@ void EnemyUnomia::processJudgement() {
     }
 }
 
-void EnemyUnomia::onHit(const GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+void EnemyUnomia::onHit(const GgafCore::Actor* prm_pOtherActor) {
+    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTransmitter()->play3D(SE_EXPLOSION);

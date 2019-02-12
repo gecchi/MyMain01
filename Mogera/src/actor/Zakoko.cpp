@@ -1,14 +1,14 @@
 #include "Zakoko.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace Mogera;
 
@@ -23,7 +23,7 @@ void Zakoko::onCreateModel() {
 }
 
 void Zakoko::initialize() {
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->linkFaceAngByMvAng(true);
 
     CollisionChecker* pChecker = getCollisionChecker();
@@ -39,7 +39,7 @@ void Zakoko::onActive() {
 }
 
 void Zakoko::processBehavior() {
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->behave();
 }
 
@@ -49,7 +49,7 @@ void Zakoko::processJudgement() {
     }
 }
 
-void Zakoko::onHit(const GgafActor* prm_pOtherActor) {
+void Zakoko::onHit(const GgafCore::Actor* prm_pOtherActor) {
 }
 
 void Zakoko::onInactive() {

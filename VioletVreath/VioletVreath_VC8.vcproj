@@ -48,7 +48,7 @@
 				OmitFramePointers="false"
 				EnableFiberSafeOptimizations="true"
 				WholeProgramOptimization="true"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)&quot;;&quot;$(ProjectDir)\src&quot;;..\_Ogg\include;..\_Vorbis\include;..\GgafCore\include;..\GgafDxCore\include;..\GgafLib\include"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)&quot;;&quot;$(ProjectDir)\src&quot;;..\_Ogg\include;..\_Vorbis\include;..\GgafCore\include;..\GgafDx\include;..\GgafLib\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="false"
 				ExceptionHandling="2"
@@ -72,7 +72,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				UseLibraryDependencyInputs="false"
-				AdditionalDependencies="GgafCore.lib GgafDxCore.lib GgafLib.lib _Ogg.lib _Vorbis.lib Shlwapi.lib d3d9.lib d3dx9.lib dinput8.lib dsound.lib dxguid.lib d3dxof.lib dxerr.lib winmm.lib"
+				AdditionalDependencies="GgafCore.lib GgafDx.lib GgafLib.lib _Ogg.lib _Vorbis.lib Shlwapi.lib d3d9.lib d3dx9.lib dinput8.lib dsound.lib dxguid.lib d3dxof.lib dxerr.lib winmm.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\VioletVreath\lib;..\debug"
 				GenerateDebugInformation="true"
@@ -139,7 +139,7 @@
 				OmitFramePointers="true"
 				EnableFiberSafeOptimizations="true"
 				WholeProgramOptimization="true"
-				AdditionalIncludeDirectories="&quot;$(ProjectDir)&quot;;&quot;$(ProjectDir)\src&quot;;..\_Ogg\include;..\_Vorbis\include;..\GgafCore\include;..\GgafDxCore\include;..\GgafLib\include"
+				AdditionalIncludeDirectories="&quot;$(ProjectDir)&quot;;&quot;$(ProjectDir)\src&quot;;..\_Ogg\include;..\_Vorbis\include;..\GgafCore\include;..\GgafDx\include;..\GgafLib\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="2"
 				BufferSecurityCheck="false"
@@ -161,7 +161,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="GgafCore.lib GgafDxCore.lib GgafLib.lib _Ogg.lib _Vorbis.lib Shlwapi.lib d3d9.lib d3dx9.lib dinput8.lib dsound.lib dxguid.lib d3dxof.lib dxerr.lib winmm.lib"
+				AdditionalDependencies="GgafCore.lib GgafDx.lib GgafLib.lib _Ogg.lib _Vorbis.lib Shlwapi.lib d3d9.lib d3dx9.lib dinput8.lib dsound.lib dxguid.lib d3dxof.lib dxerr.lib winmm.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\release"
 				GenerateDebugInformation="false"

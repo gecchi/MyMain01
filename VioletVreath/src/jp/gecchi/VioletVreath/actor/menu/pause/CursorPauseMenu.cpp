@@ -1,10 +1,10 @@
 #include "CursorPauseMenu.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
-#include "jp/ggaf/dxcore/util/GgafDxInput.h"
+#include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
+#include "jp/ggaf/dx/util/Input.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -20,7 +20,7 @@ void CursorPauseMenu::onActive() {
 }
 
 void CursorPauseMenu::processBehavior() {
-    if (GgafDxCore::GgafDxInput::isPressedKey(DIK_P)) {
+    if (GgafDx::Input::isPressedKey(DIK_P)) {
         _TRACE_("Cursor:"<<getBehaveingFrame()<<":_x,_y,_z="<<_x<<","<<_y<<","<<_z<<"");
     }
     getUvFlipper()->behave();

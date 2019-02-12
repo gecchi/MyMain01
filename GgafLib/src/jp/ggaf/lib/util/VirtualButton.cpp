@@ -1,13 +1,13 @@
 #include "jp/ggaf/lib/util/VirtualButton.h"
 
-#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+#include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/lib/util/VBReplayRecorder.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
-VirtualButton::VirtualButton(const char* prm_replay_file) : GgafObject() {
+VirtualButton::VirtualButton(const char* prm_replay_file) : GgafCore::Object() {
     _keyboardmap.BUTTON1     = VBK_Z;
     _keyboardmap.BUTTON2     = VBK_X;
     _keyboardmap.BUTTON3     = VBK_C;
@@ -586,37 +586,37 @@ bool VirtualButton::initStatic() {
     VirtualButton::_mapVBJ2Str[VBJ_POV_LEFT   ] = "VBJ_POV_LEFT";
     VirtualButton::_mapVBJ2Str[VBJ_POV_RIGHT  ] = "VBJ_POV_RIGHT";
 
-    VirtualButton::_mapVBJ2Func[VBJ_X_POS_MINUS] = GgafDxCore::GgafDxInput::isPressedJoyXAxisMinus;
-    VirtualButton::_mapVBJ2Func[VBJ_X_POS_PLUS ] = GgafDxCore::GgafDxInput::isPressedJoyXAxisPlus;
-    VirtualButton::_mapVBJ2Func[VBJ_Y_POS_MINUS] = GgafDxCore::GgafDxInput::isPressedJoyYAxisMinus;
-    VirtualButton::_mapVBJ2Func[VBJ_Y_POS_PLUS ] = GgafDxCore::GgafDxInput::isPressedJoyYAxisPlus;
-    VirtualButton::_mapVBJ2Func[VBJ_Z_POS_MINUS] = GgafDxCore::GgafDxInput::isPressedJoyZAxisMinus;
-    VirtualButton::_mapVBJ2Func[VBJ_Z_POS_PLUS ] = GgafDxCore::GgafDxInput::isPressedJoyZAxisPlus;
-    VirtualButton::_mapVBJ2Func[VBJ_X_ROT_MINUS] = GgafDxCore::GgafDxInput::isPressedJoyRxMinus;
-    VirtualButton::_mapVBJ2Func[VBJ_X_ROT_PLUS ] = GgafDxCore::GgafDxInput::isPressedJoyRxPlus;
-    VirtualButton::_mapVBJ2Func[VBJ_Y_ROT_MINUS] = GgafDxCore::GgafDxInput::isPressedJoyRyMinus;
-    VirtualButton::_mapVBJ2Func[VBJ_Y_ROT_PLUS ] = GgafDxCore::GgafDxInput::isPressedJoyRyPlus;
-    VirtualButton::_mapVBJ2Func[VBJ_Z_ROT_MINUS] = GgafDxCore::GgafDxInput::isPressedJoyRzMinus;
-    VirtualButton::_mapVBJ2Func[VBJ_Z_ROT_PLUS ] = GgafDxCore::GgafDxInput::isPressedJoyRzPlus;
-    VirtualButton::_mapVBJ2Func[VBJ_POV_UP     ] = GgafDxCore::GgafDxInput::isPressedPovUp;
-    VirtualButton::_mapVBJ2Func[VBJ_POV_DOWN   ] = GgafDxCore::GgafDxInput::isPressedPovDown;
-    VirtualButton::_mapVBJ2Func[VBJ_POV_LEFT   ] = GgafDxCore::GgafDxInput::isPressedPovLeft;
-    VirtualButton::_mapVBJ2Func[VBJ_POV_RIGHT  ] = GgafDxCore::GgafDxInput::isPressedPovRight;
+    VirtualButton::_mapVBJ2Func[VBJ_X_POS_MINUS] = GgafDx::Input::isPressedJoyXAxisMinus;
+    VirtualButton::_mapVBJ2Func[VBJ_X_POS_PLUS ] = GgafDx::Input::isPressedJoyXAxisPlus;
+    VirtualButton::_mapVBJ2Func[VBJ_Y_POS_MINUS] = GgafDx::Input::isPressedJoyYAxisMinus;
+    VirtualButton::_mapVBJ2Func[VBJ_Y_POS_PLUS ] = GgafDx::Input::isPressedJoyYAxisPlus;
+    VirtualButton::_mapVBJ2Func[VBJ_Z_POS_MINUS] = GgafDx::Input::isPressedJoyZAxisMinus;
+    VirtualButton::_mapVBJ2Func[VBJ_Z_POS_PLUS ] = GgafDx::Input::isPressedJoyZAxisPlus;
+    VirtualButton::_mapVBJ2Func[VBJ_X_ROT_MINUS] = GgafDx::Input::isPressedJoyRxMinus;
+    VirtualButton::_mapVBJ2Func[VBJ_X_ROT_PLUS ] = GgafDx::Input::isPressedJoyRxPlus;
+    VirtualButton::_mapVBJ2Func[VBJ_Y_ROT_MINUS] = GgafDx::Input::isPressedJoyRyMinus;
+    VirtualButton::_mapVBJ2Func[VBJ_Y_ROT_PLUS ] = GgafDx::Input::isPressedJoyRyPlus;
+    VirtualButton::_mapVBJ2Func[VBJ_Z_ROT_MINUS] = GgafDx::Input::isPressedJoyRzMinus;
+    VirtualButton::_mapVBJ2Func[VBJ_Z_ROT_PLUS ] = GgafDx::Input::isPressedJoyRzPlus;
+    VirtualButton::_mapVBJ2Func[VBJ_POV_UP     ] = GgafDx::Input::isPressedPovUp;
+    VirtualButton::_mapVBJ2Func[VBJ_POV_DOWN   ] = GgafDx::Input::isPressedPovDown;
+    VirtualButton::_mapVBJ2Func[VBJ_POV_LEFT   ] = GgafDx::Input::isPressedPovLeft;
+    VirtualButton::_mapVBJ2Func[VBJ_POV_RIGHT  ] = GgafDx::Input::isPressedPovRight;
     return true;
 }
 
 void VirtualButton::remap(vb_sta prm_VB, vbk prm_VBK, vbj prm_VBJ) {
     if (_mapVB2keyboardmap.count(prm_VB) == 0) {
-        throwGgafCriticalException("VirtualButton::remap _mapVB2keyboardmapに、キーが存在しません。prm_VB="<<prm_VB);
+        throwCriticalException("VirtualButton::remap _mapVB2keyboardmapに、キーが存在しません。prm_VB="<<prm_VB);
     }
     if (prm_VBK == 0) {
-        throwGgafCriticalException("VirtualButton::remap prm_VB="<<prm_VB<<"に、割り当てる値が不正です。prm_VBK="<<prm_VBK);
+        throwCriticalException("VirtualButton::remap prm_VB="<<prm_VB<<"に、割り当てる値が不正です。prm_VBK="<<prm_VBK);
     }
     if (_mapVB2joystickmap.count(prm_VB) == 0) {
-        throwGgafCriticalException("VirtualButton::remap _mapVB2joystickmap、キーが存在しません。prm_VB="<<prm_VB);
+        throwCriticalException("VirtualButton::remap _mapVB2joystickmap、キーが存在しません。prm_VB="<<prm_VB);
     }
     if (prm_VBJ == 0) {
-        throwGgafCriticalException("VirtualButton::remap prm_VB="<<prm_VB<<"に、割り当てる値が不正です。prm_VBJ="<<prm_VBJ);
+        throwCriticalException("VirtualButton::remap prm_VB="<<prm_VB<<"に、割り当てる値が不正です。prm_VBJ="<<prm_VBJ);
     }
 
     *_mapVB2keyboardmap[prm_VB] = prm_VBK;
@@ -625,20 +625,20 @@ void VirtualButton::remap(vb_sta prm_VB, vbk prm_VBK, vbj prm_VBJ) {
 
 void VirtualButton::remapK(vb_sta prm_VB, vbk prm_VBK)  {
     if (_mapVB2keyboardmap.count(prm_VB) == 0) {
-        throwGgafCriticalException("VirtualButton::remap _mapVB2keyboardmapに、キーが存在しません。prm_VB="<<prm_VB);
+        throwCriticalException("VirtualButton::remap _mapVB2keyboardmapに、キーが存在しません。prm_VB="<<prm_VB);
     }
     if (prm_VBK == 0) {
-        throwGgafCriticalException("VirtualButton::remap prm_VB="<<prm_VB<<"に、割り当てる値が不正です。prm_VBK="<<prm_VBK);
+        throwCriticalException("VirtualButton::remap prm_VB="<<prm_VB<<"に、割り当てる値が不正です。prm_VBK="<<prm_VBK);
     }
     *_mapVB2keyboardmap[prm_VB] = prm_VBK;
 }
 
 void VirtualButton::remapJ(vb_sta prm_VB, vbj prm_VBJ)  {
     if (_mapVB2joystickmap.count(prm_VB) == 0) {
-        throwGgafCriticalException("VirtualButton::remap _mapVB2joystickmap、キーが存在しません。prm_VB="<<prm_VB);
+        throwCriticalException("VirtualButton::remap _mapVB2joystickmap、キーが存在しません。prm_VB="<<prm_VB);
     }
     if (prm_VBJ == 0) {
-        throwGgafCriticalException("VirtualButton::remap prm_VB="<<prm_VB<<"に、割り当てる値が不正です。prm_VBJ="<<prm_VBJ);
+        throwCriticalException("VirtualButton::remap prm_VB="<<prm_VB<<"に、割り当てる値が不正です。prm_VBJ="<<prm_VBJ);
     }
     *_mapVB2joystickmap[prm_VB] = prm_VBJ;
 }
@@ -953,12 +953,12 @@ bool VirtualButton::isScrewPushDown(vb_sta prm_VB, frame prm_frame_delay) const 
 void VirtualButton::update() {
 #ifdef MY_DEBUG
     if (_pVBRecord_active == nullptr) {
-        throwGgafCriticalException("利用前に一度 init() を呼び出して下さい。");
+        throwCriticalException("利用前に一度 init() を呼び出して下さい。");
     }
 #endif
-    GgafDxInput::updateKeyboardState();
-    GgafDxInput::updateJoystickState();
-    GgafDxInput::updateMouseState();
+    GgafDx::Input::updateKeyboardState();
+    GgafDx::Input::updateJoystickState();
+    GgafDx::Input::updateMouseState();
 
     _pVBRecord_active = _pVBRecord_active->_next;
     if (_is_replaying) {
@@ -976,7 +976,7 @@ void VirtualButton::update() {
     const KEYBOARDMAP& kmap = _keyboardmap;
     const JOYSTICKMAP& jmap = _joystickmap;
 
-    BYTE* kst = GgafDxInput::_keyboard_state[GgafDxInput::_flip_ks];
+    BYTE* kst = GgafDx::Input::_keyboard_state[GgafDx::Input::_flip_ks];
     state |= ( VB_BUTTON1    *  ((kst[kmap.BUTTON1] & 0x80)    == 0x80) );
     state |= ( VB_BUTTON2    *  ((kst[kmap.BUTTON2] & 0x80)    == 0x80) );
     state |= ( VB_BUTTON3    *  ((kst[kmap.BUTTON3] & 0x80)    == 0x80) );
@@ -1014,7 +1014,7 @@ void VirtualButton::update() {
     state |= ( VB_UI_CANCEL  *  ((kst[kmap.UI_CANCEL] & 0x80)  == 0x80) );
     state |= ( VB_UI_DEBUG   *  ((kst[kmap.UI_DEBUG] & 0x80)   == 0x80) );
 
-    if (GgafDxInput::_pJoystickInputDevice) {
+    if (GgafDx::Input::_pJoystickInputDevice) {
 
         state |= (VB_BUTTON1  * VirtualButton::isPressedVirtualJoyButton(jmap.BUTTON1));
         state |= (VB_BUTTON2  * VirtualButton::isPressedVirtualJoyButton(jmap.BUTTON2));
@@ -1046,10 +1046,10 @@ void VirtualButton::update() {
         state |= (VB_S2_LEFT  * VirtualButton::isPressedVirtualJoyButton(jmap.S2_LEFT));
         state |= (VB_S2_RIGHT * VirtualButton::isPressedVirtualJoyButton(jmap.S2_RIGHT));
         if (_with_pov) {
-            state |= (VB_UI_UP    * (VirtualButton::isPressedVirtualJoyButton(jmap.UI_UP)    ||  GgafDxInput::isPressedPovUp()    ));
-            state |= (VB_UI_DOWN  * (VirtualButton::isPressedVirtualJoyButton(jmap.UI_DOWN)  ||  GgafDxInput::isPressedPovDown()  ));
-            state |= (VB_UI_LEFT  * (VirtualButton::isPressedVirtualJoyButton(jmap.UI_LEFT)  ||  GgafDxInput::isPressedPovLeft()  ));
-            state |= (VB_UI_RIGHT * (VirtualButton::isPressedVirtualJoyButton(jmap.UI_RIGHT) ||  GgafDxInput::isPressedPovRight() ));
+            state |= (VB_UI_UP    * (VirtualButton::isPressedVirtualJoyButton(jmap.UI_UP)    ||  GgafDx::Input::isPressedPovUp()    ));
+            state |= (VB_UI_DOWN  * (VirtualButton::isPressedVirtualJoyButton(jmap.UI_DOWN)  ||  GgafDx::Input::isPressedPovDown()  ));
+            state |= (VB_UI_LEFT  * (VirtualButton::isPressedVirtualJoyButton(jmap.UI_LEFT)  ||  GgafDx::Input::isPressedPovLeft()  ));
+            state |= (VB_UI_RIGHT * (VirtualButton::isPressedVirtualJoyButton(jmap.UI_RIGHT) ||  GgafDx::Input::isPressedPovRight() ));
         } else {
             state |= (VB_UI_UP    * VirtualButton::isPressedVirtualJoyButton(jmap.UI_UP)   );
             state |= (VB_UI_DOWN  * VirtualButton::isPressedVirtualJoyButton(jmap.UI_DOWN) );
@@ -1075,7 +1075,7 @@ void VirtualButton::clear() {
 
  bool VirtualButton::isPressedVirtualJoyButton(vbj prm_VBJ) {
     if (VBJ_BUTTON_01 <= prm_VBJ && prm_VBJ <= VBJ_BUTTON_MAX) {
-        return GgafDxCore::GgafDxInput::isPressedJoyButton(prm_VBJ); //rgb_buttonの場合
+        return GgafDx::Input::isPressedJoyButton(prm_VBJ); //rgb_buttonの場合
     } else if ( VBJ_X_POS_MINUS <= prm_VBJ && prm_VBJ <= VBJ_POV_RIGHT ) {
         return (VirtualButton::_mapVBJ2Func[prm_VBJ])(); //XYZ軸上下か、XYZ軸回転＋ーか、POVの方向の場合
     } else {
@@ -1084,39 +1084,39 @@ void VirtualButton::clear() {
 }
 
 int VirtualButton::getPushedDownVirtualJoyButton() {
-    int VBJ_pushed = GgafDxInput::getPushedDownJoyRgbButton();
+    int VBJ_pushed = GgafDx::Input::getPushedDownJoyRgbButton();
     if (VBJ_pushed == -1) {
-        if (GgafDxInput::isPressedJoyXAxisMinus()) {
+        if (GgafDx::Input::isPressedJoyXAxisMinus()) {
             return VBJ_X_POS_MINUS;
-        } else if (GgafDxInput::isPressedJoyXAxisPlus()) {
+        } else if (GgafDx::Input::isPressedJoyXAxisPlus()) {
             return VBJ_X_POS_PLUS;
-        } else if (GgafDxInput::isPressedJoyYAxisMinus()) {
+        } else if (GgafDx::Input::isPressedJoyYAxisMinus()) {
             return VBJ_Y_POS_MINUS;
-        } else if (GgafDxInput::isPressedJoyYAxisPlus()) {
+        } else if (GgafDx::Input::isPressedJoyYAxisPlus()) {
             return VBJ_Y_POS_PLUS;
-        } else if (GgafDxInput::isPressedJoyZAxisMinus()) {
+        } else if (GgafDx::Input::isPressedJoyZAxisMinus()) {
             return VBJ_Z_POS_MINUS;
-        } else if (GgafDxInput::isPressedJoyZAxisPlus()) {
+        } else if (GgafDx::Input::isPressedJoyZAxisPlus()) {
             return VBJ_Z_POS_PLUS;
-        } else if (GgafDxInput::isPressedJoyRxMinus()) {
+        } else if (GgafDx::Input::isPressedJoyRxMinus()) {
             return VBJ_X_ROT_MINUS;
-        } else if (GgafDxInput::isPressedJoyRxPlus()) {
+        } else if (GgafDx::Input::isPressedJoyRxPlus()) {
             return VBJ_X_ROT_PLUS;
-        } else if (GgafDxInput::isPressedJoyRyMinus()) {
+        } else if (GgafDx::Input::isPressedJoyRyMinus()) {
             return VBJ_Y_ROT_MINUS;
-        } else if (GgafDxInput::isPressedJoyRyPlus()) {
+        } else if (GgafDx::Input::isPressedJoyRyPlus()) {
             return VBJ_Y_ROT_PLUS;
-        } else if (GgafDxInput::isPressedJoyRzMinus()) {
+        } else if (GgafDx::Input::isPressedJoyRzMinus()) {
             return VBJ_Z_ROT_MINUS;
-        } else if (GgafDxInput::isPressedJoyRzPlus()) {
+        } else if (GgafDx::Input::isPressedJoyRzPlus()) {
             return VBJ_Z_ROT_PLUS;
-        } else if (GgafDxInput::isPressedPovUp()) {
+        } else if (GgafDx::Input::isPressedPovUp()) {
             return VBJ_POV_UP;
-        } else if (GgafDxInput::isPressedPovDown()) {
+        } else if (GgafDx::Input::isPressedPovDown()) {
             return VBJ_POV_DOWN;
-        } else if (GgafDxInput::isPressedPovLeft()) {
+        } else if (GgafDx::Input::isPressedPovLeft()) {
             return VBJ_POV_LEFT;
-        } else if (GgafDxInput::isPressedPovRight()) {
+        } else if (GgafDx::Input::isPressedPovRight()) {
             return VBJ_POV_RIGHT;
         } else {
             return -1;

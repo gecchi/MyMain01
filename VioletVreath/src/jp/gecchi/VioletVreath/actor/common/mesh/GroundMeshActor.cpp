@@ -1,18 +1,18 @@
 #include "GroundMeshActor.h"
 
-#include "jp/ggaf/dxcore/effect/GgafDxMeshEffect.h"
-#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
-#include "jp/ggaf/dxcore/model/GgafDxMeshModel.h"
+#include "jp/ggaf/dx/effect/MeshEffect.h"
+#include "jp/ggaf/dx/exception/CriticalException.h"
+#include "jp/ggaf/dx/model/MeshModel.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
-GroundMeshActor::GroundMeshActor(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
-    GgafDxMeshActor(prm_name,
+GroundMeshActor::GroundMeshActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat) :
+    GgafDx::MeshActor(prm_name,
                      prm_model,
                      "GroundMeshEffect",
                      "GroundMeshTechnique",
@@ -35,7 +35,7 @@ GroundMeshActor::GroundMeshActor(const char* prm_name, const char* prm_model, Gg
 //    pNext_TheSameRenderDepthIndexLevel_ = nullptr;
 //    if (is_active_flg_ && can_live_flg_) {
 //        //”wŒi‚È‚Ì‚Å”w–Ê‚Å•`‰æ
-//        GgafDxSpacetime::setRenderDepthIndexMaxLevel(this);
+//        GgafDx::Spacetime::setRenderDepthIndexMaxLevel(this);
 //    }
 //}
 
@@ -46,7 +46,7 @@ void GroundMeshActor::processDraw() {
     hr = pID3DXEffect->SetMatrix(_pMeshEffect->_h_matWorld, &_matWorld );
     checkDxException(hr, D3D_OK, "SetMatrix(g_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
-    _pMeshModel->GgafDxMeshModel::draw(this);
+    _pMeshModel->GgafDx::MeshModel::draw(this);
 }
 
 void GroundMeshActor::drawHitArea() {

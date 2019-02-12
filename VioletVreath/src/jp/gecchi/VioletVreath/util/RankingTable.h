@@ -1,7 +1,7 @@
 #ifndef RANKINGTABLE_H_
 #define RANKINGTABLE_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/core/util/GgafTable.h"
+#include "jp/ggaf/core/util/Table.h"
 
 namespace VioletVreath {
 
@@ -16,7 +16,7 @@ namespace VioletVreath {
  * @since 2012/10/15
  * @author Masatoshi Tsuge
  */
-class RankingTable : public GgafCore::GgafTable {
+class RankingTable : public GgafCore::Table {
 
 public:
     RankingTable();

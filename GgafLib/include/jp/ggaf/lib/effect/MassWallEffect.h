@@ -1,7 +1,7 @@
-#ifndef GGAFLIB_MASSWALLEFFECT_H_
-#define GGAFLIB_MASSWALLEFFECT_H_
+#ifndef GGAF_LIB_MASSWALLEFFECT_H_
+#define GGAF_LIB_MASSWALLEFFECT_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/dxcore/effect/GgafDxMassMeshEffect.h"
+#include "jp/ggaf/dx/effect/MassMeshEffect.h"
 
 namespace GgafLib {
 
@@ -11,7 +11,7 @@ namespace GgafLib {
  * @since 2018/04/26
  * @author Masatoshi Tsuge
  */
-class MassWallEffect : public GgafDxCore::GgafDxMassMeshEffect {
+class MassWallEffect : public GgafDx::MassMeshEffect {
     friend class DefaultEffectManager;
 
 public:
@@ -40,4 +40,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_MASSWALLEFFECT_H_*/
+#endif /*GGAF_LIB_MASSWALLEFFECT_H_*/

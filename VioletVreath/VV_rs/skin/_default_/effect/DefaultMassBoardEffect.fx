@@ -1,6 +1,6 @@
 #include "GgafEffectConst.fxh" 
 ////////////////////////////////////////////////////////////////////////////////
-// Ggafライブラリ、GgafDxMassBoardModel用シェーダー
+// ggaf ライブラリ、GgafDx::MassBoardModel用シェーダー
 //
 // author : Masatoshi Tsuge
 // date:2009/03/06 
@@ -26,8 +26,8 @@ struct OUT_VS
 
 ///////////////////////////////////////////////////////////////////////////
 
-//GgafDxMassBoardModel標準頂点シェーダー
-OUT_VS GgafDxVS_DefaultMassBoard(
+//MassBoardModel標準頂点シェーダー
+OUT_VS VS_DefaultMassBoard(
       float4 prm_posModel_Local   : POSITION,      // モデルの頂点
       float3 prm_vecNormal_Local  : NORMAL,        // モデルの頂点の法線(未使用)
       float2 prm_uv               : TEXCOORD0,     // モデルの頂点のUV
@@ -73,8 +73,8 @@ OUT_VS GgafDxVS_DefaultMassBoard(
 }
 
 
-//GgafDxMassBoardModel標準ピクセルシェーダー
-float4 GgafDxPS_DefaultMassBoard(
+//MassBoardModel標準ピクセルシェーダー
+float4 PS_DefaultMassBoard(
 	float2 prm_uv	  : TEXCOORD0,
 	float4 prm_color  : COLOR0 
 ) : COLOR  {
@@ -100,7 +100,7 @@ float4 PS_Flush(
 
 //＜テクニック：DefaultMassBoardTechnique＞
 //【機能】
-//GgafDxMassBoardModel用標準シェーダー
+//MassBoardModel用標準シェーダー
 //【概要】
 //D3DFVF_XYZRHW で描画したような仕様で２Ｄ表示します。
 //画面左上隅が(0,0)で画面右下隅が（画面幅(px), 画面高さ(px))となる座標系で
@@ -121,8 +121,8 @@ technique DefaultMassBoardTechnique
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-		VertexShader = compile VS_VERSION GgafDxVS_DefaultMassBoard();
-		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMassBoard();
+		VertexShader = compile VS_VERSION VS_DefaultMassBoard();
+		PixelShader  = compile PS_VERSION PS_DefaultMassBoard();
 	}
 }
 
@@ -136,8 +136,8 @@ technique DestBlendOne
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-		VertexShader = compile VS_VERSION GgafDxVS_DefaultMassBoard();
-		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMassBoard();
+		VertexShader = compile VS_VERSION VS_DefaultMassBoard();
+		PixelShader  = compile PS_VERSION PS_DefaultMassBoard();
 	}
 }
 
@@ -151,7 +151,7 @@ technique Flush
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-		VertexShader = compile VS_VERSION GgafDxVS_DefaultMassBoard();
+		VertexShader = compile VS_VERSION VS_DefaultMassBoard();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}
 }

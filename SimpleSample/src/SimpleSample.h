@@ -2,7 +2,7 @@
 #define SIMPLESAMPLE_H_
 
 //「Gecchi Game App Freamework ライブラリ」を利用する場合
-//次のように"GgafLibCommonHeader.h" をインクルードします。
+//次のように"GgafLib::LibCommonHeader.h" をインクルードします。
 #include "GgafLibCommonHeader.h"
 
 //前方宣言

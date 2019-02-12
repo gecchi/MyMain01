@@ -1,7 +1,7 @@
 #include "PreDrawScene.h"
 
-#include "jp/ggaf/core/actor/GgafSceneMediator.h"
-#include "jp/ggaf/dxcore/util/GgafDxInput.h"
+#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/dx/util/Input.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/Config.h"
 #include "jp/ggaf/lib/actor/CappedGraphBarActor.h"
@@ -56,8 +56,8 @@
 #include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshi.h"
 
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -91,8 +91,8 @@ void PreDrawScene::ready() {
 }
 
 void PreDrawScene::initialize() {
-    GgafDxInput::updateMouseState();
-    GgafDxInput::updateMouseState(); //マウス座標の相対座標を0にするため２回呼び出す
+    GgafDx::Input::updateMouseState();
+    GgafDx::Input::updateMouseState(); //マウス座標の相対座標を0にするため２回呼び出す
     _id_ = 0;
 }
 
@@ -148,7 +148,7 @@ void PreDrawScene::processBehavior() {
                 if (_id_ > order_id_end_-order_id_begin_) {
                     pProg->changeNext();
                 } else {
-                    GgafDxGeometricActor* pActor = (GgafDxGeometricActor*)receiveActor(_id_+order_id_begin_);
+                    GgafDx::GeometricActor* pActor = (GgafDx::GeometricActor*)receiveActor(_id_+order_id_begin_);
                     if (pActor->_pFunc_calc_rot_mv_world_matrix) {
                         pActor->setPosition(PX_C(_id_*60 - 800), PX_C(-100), 0);
                     } else {

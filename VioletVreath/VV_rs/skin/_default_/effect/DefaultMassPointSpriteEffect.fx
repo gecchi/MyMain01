@@ -34,7 +34,7 @@ struct OUT_VS
 	float4 uv_pos        : COLOR1;  //スペキュラを潰して表示したいUV座標左上の情報をPSに渡す
 };
 
-OUT_VS GgafDxVS_DefaultMassPointSprite(
+OUT_VS VS_DefaultMassPointSprite(
     float4 prm_posModel_Local : POSITION,  //ポイントスプライトのポイント群
     float  prm_psize_rate     : PSIZE,     //PSIZEでは無くて、スケールの率(0.0～N (1.0=等倍)) が入ってくる
     float4 prm_p_color        : COLOR0,     //オブジェクトのカラー
@@ -73,7 +73,7 @@ OUT_VS GgafDxVS_DefaultMassPointSprite(
 	return out_vs;
 }
 
-float4 GgafDxPS_DefaultMassPointSprite (
+float4 PS_DefaultMassPointSprite (
 	float2 prm_uv_pointsprite	  : TEXCOORD0,  //(0.0, 0.0), (0.0, 1.0), (1.0, 0.0), (1.0, 1.0) の範囲で来る   
 	float4 prm_color              : COLOR0,
 	float4 prm_uv_pos             : COLOR1      //スペキュラでは無くて、表示したいUV座標左上の情報が入っている
@@ -109,8 +109,8 @@ technique DefaultMassPointSpriteTechnique
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-		VertexShader = compile VS_VERSION GgafDxVS_DefaultMassPointSprite();
-		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMassPointSprite();
+		VertexShader = compile VS_VERSION VS_DefaultMassPointSprite();
+		PixelShader  = compile PS_VERSION PS_DefaultMassPointSprite();
 	}
 }
 
@@ -124,8 +124,8 @@ technique DestBlendOne
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-		VertexShader = compile VS_VERSION GgafDxVS_DefaultMassPointSprite();
-		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMassPointSprite();
+		VertexShader = compile VS_VERSION VS_DefaultMassPointSprite();
+		PixelShader  = compile PS_VERSION PS_DefaultMassPointSprite();
 	}
 }
 
@@ -139,7 +139,7 @@ technique Flush
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-		VertexShader = compile VS_VERSION GgafDxVS_DefaultMassPointSprite();
+		VertexShader = compile VS_VERSION VS_DefaultMassPointSprite();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}
 }

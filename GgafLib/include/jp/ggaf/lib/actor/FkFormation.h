@@ -1,7 +1,7 @@
-#ifndef GGAFLIB_FKFORMATION_H_
-#define GGAFLIB_FKFORMATION_H_
+#ifndef GGAF_LIB_FKFORMATION_H_
+#define GGAF_LIB_FKFORMATION_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/dxcore/actor/ex/GgafDxFkFormation.h"
+#include "jp/ggaf/dx/actor/ex/FkFormation.h"
 
 namespace GgafLib {
 
@@ -11,7 +11,7 @@ namespace GgafLib {
  * @since 2013/06/21
  * @author Masatoshi Tsuge
  */
-class FkFormation : public GgafDxCore::GgafDxFkFormation {
+class FkFormation : public GgafDx::FkFormation {
 
 public:
     /**
@@ -36,4 +36,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_FKFORMATION_H_*/
+#endif /*GGAF_LIB_FKFORMATION_H_*/

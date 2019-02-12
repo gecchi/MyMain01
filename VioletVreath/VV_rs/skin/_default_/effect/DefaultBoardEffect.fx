@@ -1,6 +1,6 @@
 #include "GgafEffectConst.fxh" 
 ////////////////////////////////////////////////////////////////////////////////
-// Ggafライブラリ、GgafDxBoardModel用シェーダー
+// ggaf ライブラリ、GgafDx::BoardModel用シェーダー
 //【概要】
 // D3DFVF_XYZRHW で描画したような仕様で２Ｄ表示します。
 // 画面左上隅が(0,0)で画面右下隅が（画面幅(px), 画面高さ(px))となる座標系で
@@ -37,8 +37,8 @@ struct OUT_VS
 
 ///////////////////////////////////////////////////////////////////////////
 
-//GgafDxBoardModel標準頂点シェーダー
-OUT_VS GgafDxVS_DefaultBoard(
+//BoardModel標準頂点シェーダー
+OUT_VS VS_DefaultBoard(
       float4 prm_posModel_Local : POSITION,  // モデルの頂点
       float2 prm_uv             : TEXCOORD0  // モデルの頂点のUV
 ) {
@@ -68,7 +68,7 @@ OUT_VS GgafDxVS_DefaultBoard(
 }
 
 
-float4 GgafDxPS_DefaultBoard(
+float4 PS_DefaultBoard(
     float2 prm_uv      : TEXCOORD0
 ) : COLOR  {
     float4 colOut = tex2D( MyTextureSampler, prm_uv); 
@@ -93,7 +93,7 @@ float4 PS_Flush(
 }
 
 //＜テクニック：DefaultBoardTechnique＞
-//GgafDxBoardModel用標準シェーダー
+//BoardModel用標準シェーダー
 technique DefaultBoardTechnique
 {
     pass P0 {
@@ -104,8 +104,8 @@ technique DefaultBoardTechnique
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default  
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultBoard();
-        PixelShader  = compile PS_VERSION GgafDxPS_DefaultBoard();
+        VertexShader = compile VS_VERSION VS_DefaultBoard();
+        PixelShader  = compile PS_VERSION PS_DefaultBoard();
     }
 }
 
@@ -119,8 +119,8 @@ technique DestBlendOne
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default  
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultBoard();
-        PixelShader  = compile PS_VERSION GgafDxPS_DefaultBoard();
+        VertexShader = compile VS_VERSION VS_DefaultBoard();
+        PixelShader  = compile PS_VERSION PS_DefaultBoard();
     }
 }
 
@@ -134,7 +134,7 @@ technique Flush
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default  
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultBoard();
+        VertexShader = compile VS_VERSION VS_DefaultBoard();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 }

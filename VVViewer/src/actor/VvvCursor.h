@@ -39,7 +39,7 @@ public:
      * ƒLƒƒƒ‰‚ÌU‚é•‘‚¢ˆ— .
      */
     void processBehavior() override;
-    void moveTo(GgafDxCore::GgafDxGeometricActor* pT) {
+    void moveTo(GgafDx::GeometricActor* pT) {
         moveTo(pT->_x,pT->_y,pT->_z);
     }
     void moveTo(coord X, coord Y, coord Z);

@@ -10,7 +10,7 @@ using namespace VioletVrain;
  * ウィンドウプロシージャ
  */
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
-    GgafLibWndProc(hWnd, message, wParam, lParam);
+    LibWndProc(hWnd, message, wParam, lParam);
     return DefWindowProc(hWnd, message, wParam, lParam);
 }
 
@@ -18,14 +18,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
  * GCC のエントリポイント
  */
 int main(int argc, char *argv[]) {
-    return GgafLibMain(argc, argv); //直後に、この様に呼び出して下さい。
+    return LibMain(argc, argv); //直後に、この様に呼び出して下さい。
 }
 
 /**
  * MSVC のエントリポイント
  */
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow) {
-    GgafLibWinMain(hInstance, hPrevInstance, lpCmdLine, nCmdShow); //直後に、この様に呼び出して下さい。
+    LibWinMain(hInstance, hPrevInstance, lpCmdLine, nCmdShow); //直後に、この様に呼び出して下さい。
 
     //プロパティファイル読込み
     CONFIG::loadProperties(".\\config.properties");

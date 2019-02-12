@@ -1,5 +1,5 @@
-#ifndef GGAFLIB_H_
-#define GGAFLIB_H_
+#ifndef GGAF_LIB_H_
+#define GGAF_LIB_H_
 #include "GgafLibCommonHeader.h"
 
 #include <windows.h>
@@ -7,8 +7,8 @@
     #undef __in
     #undef __out
 #endif
-#include "jp/ggaf/dxcore/util/GgafDxInput.h"
-#include "jp/ggaf/lib/GgafLibConfig.h"
+#include "jp/ggaf/dx/util/Input.h"
+#include "jp/ggaf/lib/LibConfig.h"
 #include "jp/ggaf/lib/DefaultGod.h"
 #include "jp/ggaf/lib/util/WMKeyInput.h"
 
@@ -23,7 +23,7 @@ int WinMain_nCmdShow;
  * @param argv
  * @return
  */
-int GgafLibMain(int argc, char *argv[]) {
+int LibMain(int argc, char *argv[]) {
     STARTUPINFO StatUpInfo;
     HINSTANCE hInstance;
     HANDLE hPrevInstance;
@@ -51,7 +51,7 @@ int GgafLibMain(int argc, char *argv[]) {
  * @param lpCmdLine
  * @param nCmdShow
  */
-void GgafLibWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow) {
+void LibWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow) {
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
     WinMain_hInstance = hInstance;
@@ -61,55 +61,55 @@ void GgafLibWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLi
 }
 
 /**
- * Ggafフレームワークのウィンドウプロシージャ処理 .
+ * GgafCore::フレームワークのウィンドウプロシージャ処理 .
  * @param hWnd
  * @param message
  * @param wParam
  * @param lParam
  */
-void GgafLibWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
+void LibWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
     switch (message) {
         case WM_CHAR:
             GgafLib::WMKeyInput::catchWmChar(wParam);
             break;
         case WM_SIZE:
-            if (pGOD && GgafDxCore::GgafDxGod::_pHWndPrimary) {
+            if (pGOD && GgafDx::God::_pHWndPrimary) {
                 if (!CONFIG::FULL_SCREEN) {
-                    _TRACE_("GgafLibWndProc WM_SIZE");
-                    GgafDxCore::GgafDxGod::_adjustGameWindow = true;
-                    GgafDxCore::GgafDxGod::_pHWnd_adjustScreen = hWnd;
+                    _TRACE_("LibWndProc WM_SIZE");
+                    GgafDx::God::_adjustGameWindow = true;
+                    GgafDx::God::_pHWnd_adjustScreen = hWnd;
                 }
             }
             break;
         case WM_SETFOCUS:
-            if (GgafDxCore::GgafDxGod::_pHWndPrimary) {
+            if (GgafDx::God::_pHWndPrimary) {
                 HRESULT hr;
                 // マウス強調レベル設定
-                if (GgafDxCore::GgafDxInput::_pMouseInputDevice) {
-                    hr = GgafDxCore::GgafDxInput::_pMouseInputDevice->SetCooperativeLevel(hWnd, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
+                if (GgafDx::Input::_pMouseInputDevice) {
+                    hr = GgafDx::Input::_pMouseInputDevice->SetCooperativeLevel(hWnd, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
                     if (hr != D3D_OK) {
-                        _TRACE_("GgafLibWndProc() _pHWndSecondaryマウスのSetCooperativeLevelに失敗しました");
+                        _TRACE_("LibWndProc() _pHWndSecondaryマウスのSetCooperativeLevelに失敗しました");
                     }
                 }
                     // キーボード強調レベル設定
-                if (GgafDxCore::GgafDxInput::_pKeyboardInputDevice) {
-                    hr = GgafDxCore::GgafDxInput::_pKeyboardInputDevice->SetCooperativeLevel(hWnd, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
+                if (GgafDx::Input::_pKeyboardInputDevice) {
+                    hr = GgafDx::Input::_pKeyboardInputDevice->SetCooperativeLevel(hWnd, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
                     if (hr != D3D_OK) {
-                        MessageBox(hWnd, "GgafLibWndProc() キーボードのSetCooperativeLevelに失敗しました",
+                        MessageBox(hWnd, "LibWndProc() キーボードのSetCooperativeLevelに失敗しました",
                                    "ERROR", MB_OK | MB_ICONSTOP | MB_SETFOREGROUND | MB_TOPMOST);
                     }
                 }
-                if (GgafDxCore::GgafDxInput::_pJoystickInputDevice) {
+                if (GgafDx::Input::_pJoystickInputDevice) {
                     // ゲームスティック協調レベルを設定する
-                    hr = GgafDxCore::GgafDxInput::_pJoystickInputDevice->SetCooperativeLevel(hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
+                    hr = GgafDx::Input::_pJoystickInputDevice->SetCooperativeLevel(hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
                     if (hr != D3D_OK) {
-                        _TRACE_("GgafLibWndProc() ジョイスティックSetCooperativeLevelに失敗しました");
+                        _TRACE_("LibWndProc() ジョイスティックSetCooperativeLevelに失敗しました");
                         // ゲームスティックデバイスの初期化を試みる
-                        GgafDxCore::GgafDxInput::initJoyStick();
+                        GgafDx::Input::initJoyStick();
                     }
                 } else {
                     // ゲームスティックデバイスの初期化を試みる
-                    GgafDxCore::GgafDxInput::initJoyStick();
+                    GgafDx::Input::initJoyStick();
                 }
             }
             break;
@@ -170,5 +170,5 @@ void GgafLibWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 //}
 
 
-#endif /*GGAFLIB_H_*/
+#endif /*GGAF_LIB_H_*/
 

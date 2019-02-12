@@ -19,11 +19,11 @@ public:
     /** スプライン移動のシークエンス */
     GgafLib::SplineLeader* pKurokoLeader_;
     /** ショットのデポジトリ */
-    GgafCore::GgafActorDepository* pDepoShot_;
+    GgafCore::ActorDepository* pDepoShot_;
     /** ショット開始時間 */
     frame shot_begin_frame_;
     /** ショット関連の進捗状態 */
-    GgafCore::GgafProgress* pProg2_;
+    GgafCore::Progress* pProg2_;
 
 public:
     /**
@@ -38,7 +38,7 @@ public:
     void nextFrame() override;
 
     void config(GgafLib::SplineLeader* prm_pKurokoLeader,
-                GgafCore::GgafActorDepository* prm_pDepoShot);
+                GgafCore::ActorDepository* prm_pDepoShot);
 
     /**
      * デルヘイドの初期処理（インスタンス生成後保証）
@@ -64,7 +64,7 @@ public:
      * デルヘイドの衝突時処理 .
      * @param prm_pOtherActor 衝突対象
      */
-    void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
+    void onHit(const GgafCore::Actor* prm_pOtherActor) override;
 
 
     void onInactive() override;

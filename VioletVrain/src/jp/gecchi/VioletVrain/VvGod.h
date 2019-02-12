@@ -6,7 +6,7 @@
 #include "scene/VvSpacetime.h"
 
 #undef P_GOD
-#define P_GOD ((VioletVrain::VvGod*)GgafCore::GgafGod::_pGod)
+#define P_GOD ((VioletVrain::VvGod*)GgafCore::God::_pGod)
 
 namespace VioletVrain {
 
@@ -29,7 +29,7 @@ public:
      * 神クラスを作成するには、「この世」の生成方法を実装する必要があります。
      * @return 生成した「この世」
      */
-    GgafCore::GgafSpacetime* createSpacetime() override;
+    GgafCore::Spacetime* createSpacetime() override;
 
     virtual VvSpacetime* getSpacetime() override {  //共変の戻り値
         return (VvSpacetime*)_pSpacetime;

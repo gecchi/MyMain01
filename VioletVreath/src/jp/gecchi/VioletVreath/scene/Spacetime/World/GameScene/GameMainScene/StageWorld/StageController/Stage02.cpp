@@ -1,6 +1,6 @@
 #include "Stage02.h"
 
-#include "jp/ggaf/core/actor/GgafSceneMediator.h"
+#include "jp/ggaf/core/actor/SceneMediator.h"
 #include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshi001.h"
 #include "jp/gecchi/VioletVreath/actor/background/WorldBound/WorldBound002.h"
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
@@ -8,8 +8,8 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld/StageController/Stage02/Stage02PartController.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 

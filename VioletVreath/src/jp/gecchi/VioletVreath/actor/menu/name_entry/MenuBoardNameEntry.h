@@ -43,8 +43,8 @@ public:
     void selectExNext() override;
     void selectExPrev() override;
 
-    void onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) override;
-    void onCancel(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) override;
+    void onDecision(GgafDx::FigureActor* prm_pItem, int prm_item_index) override;
+    void onCancel(GgafDx::FigureActor* prm_pItem, int prm_item_index) override;
     void moveCursor(bool prm_smooth = true) override;
     void onActive() override;
     void processBehavior() override;

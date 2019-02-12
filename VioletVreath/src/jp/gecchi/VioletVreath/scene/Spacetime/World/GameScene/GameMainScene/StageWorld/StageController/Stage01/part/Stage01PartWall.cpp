@@ -1,14 +1,14 @@
 #include "Stage01PartWall.h"
 
-#include "jp/ggaf/core/actor/GgafSceneMediator.h"
+#include "jp/ggaf/core/actor/SceneMediator.h"
 #include "jp/ggaf/lib/scene/FormationTableScene.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
 #include "Stage01PartWall/Stage01PartWallSection001.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -25,7 +25,7 @@ Stage01PartWall::Stage01PartWall(const char* prm_name) :
 
     //壁ブロック(直方体)デポジトリ生成
     MassWallActor* pWall;
-    GgafActorDepository* pDepo_wall = NEW GgafActorDepository("Depo_Wall");
+    GgafCore::ActorDepository* pDepo_wall = NEW GgafCore::ActorDepository("Depo_Wall");
     for (int i = 0; i < 2000; i++) {
         std::string name = "Wall01_"+XTOS(i);
         pWall = NEW Wall01(name.c_str());
@@ -138,11 +138,11 @@ void Stage01PartWall::processBehavior() {
     // gen02 end
 
 ///////////////デバッグ///////////////////////////////
-    if (GgafDxInput::isPressedKey(DIK_PGUP)) {
+    if (GgafDx::Input::isPressedKey(DIK_PGUP)) {
         addScrollSpeed(PX_C(1));
         pCOMMON_SCENE->addScrollSpeed(PX_C(1));
     }
-    if (GgafDxInput::isPressedKey(DIK_PGDN)) {
+    if (GgafDx::Input::isPressedKey(DIK_PGDN)) {
         addScrollSpeed(PX_C(-1));
         pCOMMON_SCENE->addScrollSpeed(PX_C(-1));
     }

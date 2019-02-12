@@ -30,11 +30,11 @@ float4 g_colLightAmbient;
 float4 g_colLightDiffuse;
 /** モデルのマテリアル色（表面色）。いわゆる拡散光反射色で環境光反射色も兼ねる */
 float4 g_colMaterialDiffuse;
-/** モデルのテクスチャ点滅機能(GgafDxTextureBlinker参照)の点滅強度 */
+/** モデルのテクスチャ点滅機能(GgafDx::TextureBlinker参照)の点滅強度 */
 float g_tex_blink_power;
-/** モデルのテクスチャ点滅機能(GgafDxTextureBlinker参照)の対象となるRGBのしきい値(0.0～1.0) */
+/** モデルのテクスチャ点滅機能(GgafDx::TextureBlinker参照)の対象となるRGBのしきい値(0.0～1.0) */
 float g_tex_blink_threshold;
-/** アルファカーテン(フェードイン・アウト)機能(GgafDxAlphaCurtain参照)のマスターアルファ値(0.0～1.0) */
+/** アルファカーテン(フェードイン・アウト)機能(GgafDx::AlphaCurtain参照)のマスターアルファ値(0.0～1.0) */
 float g_alpha_master;
 /** 現在の射影変換行列要素のzf。カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn */
 float g_zf;
@@ -75,7 +75,7 @@ struct OUT_VS_BM {
  * @param prm_vecNormal_Local モデル頂点の法線
  * @param prm_vecNormal_Local モデル頂点のUV座標
  */
-OUT_VS GgafDxVS_CubeMapMesh(
+OUT_VS VS_CubeMapMesh(
       float4 prm_posModel_Local  : POSITION,
       float3 prm_vecNormal_Local : NORMAL,
       float2 prm_uv              : TEXCOORD0
@@ -111,7 +111,7 @@ OUT_VS GgafDxVS_CubeMapMesh(
 /**
  * 通常ピクセルシェーダー（テクスチャ有り）
  */
-float4 GgafDxPS_CubeMapMesh(
+float4 PS_CubeMapMesh(
     float2 prm_uv     : TEXCOORD0,
     float4 prm_color    : COLOR0,
     float3 prm_vecNormal_World : TEXCOORD1,
@@ -163,7 +163,7 @@ float4x4 getInvTangentMatrix(
 }
 
 
-OUT_VS_BM GgafDxVS_BumpMapping(
+OUT_VS_BM VS_BumpMapping(
       float4 prm_posModel_Local    : POSITION,
       float3 prm_vecNormal_Local : NORMAL,
       float2 prm_uv     : TEXCOORD0,
@@ -220,7 +220,7 @@ OUT_VS_BM GgafDxVS_BumpMapping(
  * @param prm_vecLight_Tangent 拡散光方向ベクトル(接空間座標系)
  * @param prm_vecHarf_Tangent  ハーフベクトル(接空間座標系)
  */
-float4 GgafDxPS_BumpMapping(
+float4 PS_BumpMapping(
     float2 prm_uv     : TEXCOORD0,
     float4 prm_color  : COLOR0,
     float3 prm_vecNormal_World  : TEXCOORD1,
@@ -288,8 +288,8 @@ technique CubeMapMeshTechnique
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default
-        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMesh();
-        PixelShader  = compile PS_VERSION GgafDxPS_CubeMapMesh();
+        VertexShader = compile VS_VERSION VS_CubeMapMesh();
+        PixelShader  = compile PS_VERSION PS_CubeMapMesh();
     }
 }
 
@@ -305,8 +305,8 @@ technique BumpMapping
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default
-        VertexShader = compile VS_VERSION GgafDxVS_BumpMapping();
-        PixelShader  = compile PS_VERSION GgafDxPS_BumpMapping();
+        VertexShader = compile VS_VERSION VS_BumpMapping();
+        PixelShader  = compile PS_VERSION PS_BumpMapping();
     }
 }
 
@@ -321,8 +321,8 @@ technique DestBlendOne
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default
-        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMesh();
-        PixelShader  = compile PS_VERSION GgafDxPS_CubeMapMesh();
+        VertexShader = compile VS_VERSION VS_CubeMapMesh();
+        PixelShader  = compile PS_VERSION PS_CubeMapMesh();
     }
 }
 
@@ -336,7 +336,7 @@ technique Flush
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default
-        VertexShader = compile VS_VERSION GgafDxVS_CubeMapMesh();
+        VertexShader = compile VS_VERSION VS_CubeMapMesh();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 }

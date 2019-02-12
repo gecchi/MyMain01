@@ -3,8 +3,8 @@
 #include "jp/ggaf/lib/manager/SplineSourceConnection.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 

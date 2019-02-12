@@ -5,9 +5,9 @@
 #include "jp/gecchi/VioletVreath/actor/enemy/Thagoras/EnemyThagoras.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 
-#include "jp/ggaf/core/util/GgafXpm.h"
-using namespace GgafCore;
-using namespace GgafDxCore;
+#include "jp/ggaf/core/util/Xpm.h"
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -26,10 +26,10 @@ void FormationThagoras001::processBehavior() {
     FormationThagoras::processBehavior();
 }
 
-void FormationThagoras001::onCallUp(GgafDxFigureActor* prm_pActor, int prm_row, int prm_col) {
+void FormationThagoras001::onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) {
     EnemyThagoras* pThagoras = (EnemyThagoras*)prm_pActor;
     if (pThagoras->pKurokoLeader_) {
-        throwGgafCriticalException("pThagoras->pKurokoLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpThagoras="<<pThagoras<<"("<<pThagoras->getName()<<")");
+        throwCriticalException("pThagoras->pKurokoLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpThagoras="<<pThagoras<<"("<<pThagoras->getName()<<")");
     } else {
         pThagoras->pKurokoLeader_ = papSplManufConn_[prm_col]->peek()->
                                       createKurokoLeader(pThagoras->getKuroko());

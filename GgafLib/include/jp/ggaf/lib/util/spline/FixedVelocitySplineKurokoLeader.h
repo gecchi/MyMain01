@@ -1,5 +1,5 @@
-#ifndef GGAFLIB_FIXEDVELOCITYSPLINEKUROKOLEADER_H_
-#define GGAFLIB_FIXEDVELOCITYSPLINEKUROKOLEADER_H_
+#ifndef GGAF_LIB_FIXEDVELOCITYSPLINEKUROKOLEADER_H_
+#define GGAF_LIB_FIXEDVELOCITYSPLINEKUROKOLEADER_H_
 #include "GgafLibCommonHeader.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 
@@ -11,7 +11,7 @@ namespace GgafLib {
  * 次の補完点までの距離を測り、現在の移動速度から、測った距離を減算し「残り移動距離」を求める。
  * 残り移動距離が0になれば、次の補完点に向きを変えながらまた距離を測る・・・を繰り返します。<BR>
  * 補完点の密度が薄いところでも濃いところでも移動速度に影響はありません。<BR>
- * そのように動作するよう、黒衣(GgafDxCore::GgafDxKuroko)に指示を出して移動を実現します。<BR>
+ * そのように動作するよう、黒衣(GgafDx::Kuroko)に指示を出して移動を実現します。<BR>
  * @version 1.00
  * @since 2009/10/28
  * @author Masatoshi Tsuge
@@ -20,7 +20,7 @@ class FixedVelocitySplineKurokoLeader : public SplineLeader {
 
 
 public:
-    GgafDxCore::GgafDxKuroko* _pKuroko_target;
+    GgafDx::Kuroko* _pKuroko_target;
     /** [r]スプライン情報セット(splファイルの情報に相当)  */
     FixedVelocitySplineManufacture* _pFixedVeloSplManuf;
     /** [r]現在向かっている最中の補完点(基準点も含む)の数 */
@@ -35,7 +35,7 @@ public:
      * @param prm_pManufacture
      * @param prm_pKuroko 対象のアクターの黒衣
      */
-    FixedVelocitySplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxCore::GgafDxKuroko* prm_pKuroko_target);
+    FixedVelocitySplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDx::Kuroko* prm_pKuroko_target);
 
     virtual void restart() override;
 
@@ -51,4 +51,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_FIXEDVELOCITYSPLINEKUROKOLEADER_H_*/
+#endif /*GGAF_LIB_FIXEDVELOCITYSPLINEKUROKOLEADER_H_*/

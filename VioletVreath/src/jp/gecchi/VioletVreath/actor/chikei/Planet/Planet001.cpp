@@ -1,16 +1,16 @@
 #include "Planet001.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/scene/Spacetime.h"
 #include "Planet001Atmosphere.h"
-#include "jp/ggaf/dxcore/util/GgafDxInput.h"
+#include "jp/ggaf/dx/util/Input.h"
 #include "jp/ggaf/lib/actor/WorldBoundActor.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime.h"
 #include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshi.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -44,49 +44,49 @@ void Planet001::initialize() {
     pAtmosphere_->setPositionAt(this);
 }
 void Planet001::processBehavior() {
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
 
 //    //巨大オブジェクト移動テスト
-//    if (GgafDxInput::isPressedKey(DIK_I)) {
+//    if (GgafDx::Input::isPressedKey(DIK_I)) {
 //        _x += PX_C(100);
 //    }
-//    if (GgafDxInput::isPressedKey(DIK_O)) {
+//    if (GgafDx::Input::isPressedKey(DIK_O)) {
 //        _x += PX_C(1000);
 //    }
-//    if (GgafDxInput::isPressedKey(DIK_U)) {
+//    if (GgafDx::Input::isPressedKey(DIK_U)) {
 //        _x -= PX_C(100);
 //    }
-//    if (GgafDxInput::isPressedKey(DIK_Y)) {
+//    if (GgafDx::Input::isPressedKey(DIK_Y)) {
 //        _x -= PX_C(1000);
 //    }
 //
-//    if (GgafDxInput::isPressedKey(DIK_8)) {
+//    if (GgafDx::Input::isPressedKey(DIK_8)) {
 //        _y += PX_C(100);
 //    }
-//    if (GgafDxInput::isPressedKey(DIK_J)) {
+//    if (GgafDx::Input::isPressedKey(DIK_J)) {
 //        _y -= PX_C(100);
 //    }
 //
-//    if (GgafDxInput::isPressedKey(DIK_M)) {
+//    if (GgafDx::Input::isPressedKey(DIK_M)) {
 //        _y -= PX_C(1000);
 //    }
 //
 //
-//    if (GgafDxInput::isPressedKey(DIK_9)) {
+//    if (GgafDx::Input::isPressedKey(DIK_9)) {
 //        _z += PX_C(100);
 //    }
-//    if (GgafDxInput::isPressedKey(DIK_K)) {
+//    if (GgafDx::Input::isPressedKey(DIK_K)) {
 //        _z -= PX_C(100);
 //    }
 //
-//    if (GgafDxInput::isPressedKey(DIK_0)) {
+//    if (GgafDx::Input::isPressedKey(DIK_0)) {
 //        addScale(10000);
 //    }
-//    if (GgafDxInput::isPressedKey(DIK_L)) {
+//    if (GgafDx::Input::isPressedKey(DIK_L)) {
 //        addScale(-10000);
 //    }
 //
-//    if (GgafDxInput::isPushedDownKey(DIK_O)) {
+//    if (GgafDx::Input::isPushedDownKey(DIK_O)) {
 //        _TRACE_("Planet001  "<<_x<<","<<_y<<","<<_z<<" scale="<<_rx);
 //    }
     //_x = _x - PX_C(1);

@@ -1,6 +1,6 @@
 #include "GgafEffectConst.fxh" 
 ////////////////////////////////////////////////////////////////////////////////
-// Ggafライブラリ、GgafDxMassSpriteModel用シェーダー
+// ggaf ライブラリ、GgafDx::MassSpriteModel用シェーダー
 //
 // author : Masatoshi Tsuge
 // date:2016/02/25 
@@ -28,7 +28,7 @@ struct OUT_VS
 ///////////////////////////////////////////////////////////////////////////
 
 //スプライト標準頂点シェーダー
-OUT_VS GgafDxVS_DefaultMassSprite(                              
+OUT_VS VS_DefaultMassSprite(                              
       float4 prm_posModel_Local   : POSITION,      // モデルの頂点
       float3 prm_vecNormal_Local  : NORMAL,        // モデルの頂点の法線
       float2 prm_uv               : TEXCOORD0,     // モデルの頂点のUV
@@ -63,7 +63,7 @@ OUT_VS GgafDxVS_DefaultMassSprite(
 }
 
 //スプライト標準ピクセルシェーダー
-float4 GgafDxPS_DefaultMassSprite(
+float4 PS_DefaultMassSprite(
 	float2 prm_uv	  : TEXCOORD0 ,
 	float4 prm_color  : COLOR0 
 ) : COLOR  {
@@ -90,7 +90,7 @@ float4 PS_Flush(
 
 //＜テクニック：DefaultMassSpriteTechnique＞
 //【機能】
-//GgafDxMassSpriteModel用標準シェーダー
+//MassSpriteModel用標準シェーダー
 //【概要】
 //板ポリ（擬似スプライト）を描画する。ライトなどの陰影は無し。
 technique DefaultMassSpriteTechnique
@@ -103,8 +103,8 @@ technique DefaultMassSpriteTechnique
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default
-		VertexShader = compile VS_VERSION GgafDxVS_DefaultMassSprite();
-		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMassSprite();
+		VertexShader = compile VS_VERSION VS_DefaultMassSprite();
+		PixelShader  = compile PS_VERSION PS_DefaultMassSprite();
 	}
 }
 
@@ -118,8 +118,8 @@ technique DestBlendOne
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default
-		VertexShader = compile VS_VERSION GgafDxVS_DefaultMassSprite();
-		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMassSprite();
+		VertexShader = compile VS_VERSION VS_DefaultMassSprite();
+		PixelShader  = compile PS_VERSION PS_DefaultMassSprite();
 	}
 }
 
@@ -133,7 +133,7 @@ technique Flush
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default
-		VertexShader = compile VS_VERSION GgafDxVS_DefaultMassSprite();
+		VertexShader = compile VS_VERSION VS_DefaultMassSprite();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}
 }

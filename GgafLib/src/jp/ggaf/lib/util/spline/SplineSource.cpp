@@ -1,15 +1,15 @@
 #include "jp/ggaf/lib/util/spline/SplineSource.h"
 
 #include <fstream>
-#include "jp/ggaf/core/exception/GgafCriticalException.h"
-#include "jp/ggaf/lib/GgafLibConfig.h"
+#include "jp/ggaf/core/exception/CriticalException.h"
+#include "jp/ggaf/lib/LibConfig.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
-SplineSource::SplineSource() : GgafObject() {
+SplineSource::SplineSource() : GgafCore::Object() {
     _x_basepoint = nullptr;
     _y_basepoint = nullptr;
     _z_basepoint = nullptr;
@@ -24,14 +24,14 @@ SplineSource::SplineSource() : GgafObject() {
     _coord_data_file[13] = '\0';
 }
 
-SplineSource::SplineSource(double prm_paaEstablish[][3], int prm_num, double prm_accuracy) : GgafObject() {
+SplineSource::SplineSource(double prm_paaEstablish[][3], int prm_num, double prm_accuracy) : GgafCore::Object() {
     _coord_data_file = NEW char[13+1];
     strcpy(_coord_data_file, "nothing_idstr");
     _coord_data_file[13] = '\0';
     init(prm_paaEstablish, prm_num, prm_accuracy);
 }
 
-SplineSource::SplineSource(double prm_paaEstablish[][3], int prm_num, double prm_accuracy, RotMat& prm_rotmat) : GgafObject() {
+SplineSource::SplineSource(double prm_paaEstablish[][3], int prm_num, double prm_accuracy, RotMat& prm_rotmat) : GgafCore::Object() {
     _coord_data_file = NEW char[13+1];
     strcpy(_coord_data_file, "nothing_idstr");
     _coord_data_file[13] = '\0';
@@ -39,7 +39,7 @@ SplineSource::SplineSource(double prm_paaEstablish[][3], int prm_num, double prm
     init(prm_paaEstablish, prm_num, prm_accuracy);
 }
 
-SplineSource::SplineSource(const char* prm_coord_data_file) : GgafObject() {
+SplineSource::SplineSource(const char* prm_coord_data_file) : GgafCore::Object() {
     int len = strlen(prm_coord_data_file);
     _coord_data_file = NEW char[len+1];
     strcpy(_coord_data_file, prm_coord_data_file);
@@ -48,7 +48,7 @@ SplineSource::SplineSource(const char* prm_coord_data_file) : GgafObject() {
     std::string data_filename = CONFIG::DIR_SPLINE + _coord_data_file;// + ".spls";
     std::ifstream ifs(data_filename.c_str());
     if (ifs.fail()) {
-        throwGgafCriticalException(data_filename<<" が開けません");
+        throwCriticalException(data_filename<<" が開けません");
     }
     double p[MaxSplineSize][3];
     std::string line;
@@ -72,11 +72,11 @@ SplineSource::SplineSource(const char* prm_coord_data_file) : GgafObject() {
                 iss >> p[n][1];
                 iss >> p[n][2];
                 if (iss.fail()) {
-                    throwGgafCriticalException(_coord_data_file<<" [BASEPOINT]不正な数値データです line=["<<line<<"]");
+                    throwCriticalException(_coord_data_file<<" [BASEPOINT]不正な数値データです line=["<<line<<"]");
                 }
                 n++;
                 if (n >= MaxSplineSize) {
-                    throwGgafCriticalException(_coord_data_file<<" ポイントが"<<MaxSplineSize<<"を超えました。");
+                    throwCriticalException(_coord_data_file<<" ポイントが"<<MaxSplineSize<<"を超えました。");
                 }
             }
         }
@@ -88,7 +88,7 @@ SplineSource::SplineSource(const char* prm_coord_data_file) : GgafObject() {
                 std::istringstream iss(line);
                 iss >> accuracy;
                 if (iss.fail()) {
-                    throwGgafCriticalException(_coord_data_file<<" [ACCURACY]不正な数値データです line=["<<line<<"]");
+                    throwCriticalException(_coord_data_file<<" [ACCURACY]不正な数値データです line=["<<line<<"]");
                 }
             }
         }
@@ -107,23 +107,23 @@ SplineSource::SplineSource(const char* prm_coord_data_file) : GgafObject() {
                 } else if (d == 3) {
                     iss >> _rotmat._41; iss >> _rotmat._42; iss >> _rotmat._43; iss >> _rotmat._44;
                 } else {
-                    throwGgafCriticalException(_coord_data_file<<" [ADJUST_MAT] のデータ数が多いです。４列４行の行列を設定してください。");
+                    throwCriticalException(_coord_data_file<<" [ADJUST_MAT] のデータ数が多いです。４列４行の行列を設定してください。");
                 }
                 if (iss.fail()) {
-                    throwGgafCriticalException(_coord_data_file<<" [ADJUST_MAT] 不正な数値データです line=["<<line<<"]");
+                    throwCriticalException(_coord_data_file<<" [ADJUST_MAT] 不正な数値データです line=["<<line<<"]");
                 }
                 d++;
             }
         }
     }
     if (int(accuracy*100000000) == 0) {
-        throwGgafCriticalException(_coord_data_file<<" [ACCURACY] が指定されてません。");
+        throwCriticalException(_coord_data_file<<" [ACCURACY] が指定されてません。");
     }
     if (n == 0) {
-        throwGgafCriticalException(_coord_data_file<<" [BASEPOINT] に座標がありません。");
+        throwCriticalException(_coord_data_file<<" [BASEPOINT] に座標がありません。");
     }
     if (d != 0 && d != 4) {
-        throwGgafCriticalException(_coord_data_file<<" [ADJUST_MAT] のデータ数が中途半端です。４列４行の行列を設定してください。");
+        throwCriticalException(_coord_data_file<<" [ADJUST_MAT] のデータ数が中途半端です。４列４行の行列を設定してください。");
     }
     init(p, n, accuracy);
 }
@@ -170,7 +170,7 @@ void SplineSource::compute() {
     for (double t = 0.0; t <= (_num_basepoint+0.000001) - 1.0; t += _accuracy) { //0.000001 は最後を成立させるため
 #ifdef MY_DEBUG
         if (_rnum < index+1) {
-            throwGgafCriticalException("補間点配列の要素数の範囲外指定です。_rnum="<<_rnum<<" index="<<index<<" t="<<t);
+            throwCriticalException("補間点配列の要素数の範囲外指定です。_rnum="<<_rnum<<" index="<<index<<" t="<<t);
         }
 #endif
         _x_compute[index] = _xs.compute(t);

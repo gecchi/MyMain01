@@ -29,7 +29,7 @@ public:
 
     void moveTo(coord tx, coord ty);
 
-    void moveTo(GgafDxCore::GgafDxGeometricActor* prm_pActor) {
+    void moveTo(GgafDx::GeometricActor* prm_pActor) {
         moveTo(prm_pActor->_x, prm_pActor->_y);
     }
     virtual ~Cursor001();

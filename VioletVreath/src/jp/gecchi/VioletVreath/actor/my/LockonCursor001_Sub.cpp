@@ -1,14 +1,14 @@
 #include "LockonCursor001_Sub.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Scaler.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "LockonCursor001_Main.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyLockonController.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -20,7 +20,7 @@ LockonCursor001_Sub::LockonCursor001_Sub(const char* prm_name) :
 
 void LockonCursor001_Sub::initialize() {
     LockonCursor001::initialize();
-    GgafDxUvFlipper* pUvFlipper = getUvFlipper();
+    GgafDx::UvFlipper* pUvFlipper = getUvFlipper();
     pUvFlipper->setFlipPtnRange(0, 3);   //ƒAƒjƒ”ÍˆÍ‚ð‚O`‚P‚T
     pUvFlipper->exec(FLIP_ORDER_LOOP, 5); //ƒAƒjƒ‡˜
 }
@@ -45,8 +45,8 @@ void LockonCursor001_Sub::onActive() {
 
 void LockonCursor001_Sub::processBehavior() {
     LockonCursor001::processBehavior();
-    GgafDxKuroko* const pKuroko = getKuroko();
-    GgafProgress* const pProg = getProgress();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafCore::Progress* const pProg = getProgress();
     if (pProg->get() == LOCKON001_PROG_LOCK) {
         if (getAlpha() < 0.7) {
             if (pLockonCursor001_Main_->getProgress()->get() == LOCKON001_PROG_LOCK) {
@@ -101,14 +101,14 @@ void LockonCursor001_Sub::onInactive() {
     LockonCursor001::onInactive();
 }
 
-void LockonCursor001_Sub::lockon(GgafDxGeometricActor* prm_pTarget) {
+void LockonCursor001_Sub::lockon(GgafDx::GeometricActor* prm_pTarget) {
 
     if (prm_pTarget == nullptr || pTarget_ == prm_pTarget || MyLockonController::lockon_num_ == 0) {
         return;
     }
     pTarget_ = prm_pTarget;
-    GgafDxKuroko* const pKuroko = getKuroko();
-    GgafProgress* const pProg = getProgress();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafCore::Progress* const pProg = getProgress();
     if (pProg->get() == LOCKON001_PROG_LOCK) {
     } else if (pProg->get() == LOCKON001_PROG_RELEASE) {
         pKuroko->setFaceAngVelo(AXIS_Z, 1000);   //‰E‰ñ“]
@@ -119,8 +119,8 @@ void LockonCursor001_Sub::lockon(GgafDxGeometricActor* prm_pTarget) {
 void LockonCursor001_Sub::releaseLockon() {
 
     if (isActiveInTheTree()) {
-        GgafDxKuroko* const pKuroko = getKuroko();
-        GgafProgress* const pProg = getProgress();
+        GgafDx::Kuroko* const pKuroko = getKuroko();
+        GgafCore::Progress* const pProg = getProgress();
         if (pProg->get() == LOCKON001_PROG_LOCK) {
             pKuroko->setFaceAngVelo(AXIS_Z, pKuroko->_angvelo_face[AXIS_Z]*-3); //‘¬‚­‹t‰ñ“]
             pProg->change(LOCKON001_PROG_RELEASE);

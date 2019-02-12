@@ -1,19 +1,19 @@
 #include "jp/ggaf/lib/actor/ColliAABoxActor.h"
 
-#include "jp/ggaf/core/GgafGod.h"
-#include "jp/ggaf/dxcore/effect/GgafDxEffect.h"
-#include "jp/ggaf/dxcore/util/GgafDxCollisionArea.h"
-#include "jp/ggaf/dxcore/util/GgafDxCollisionPart.h"
+#include "jp/ggaf/core/God.h"
+#include "jp/ggaf/dx/effect/Effect.h"
+#include "jp/ggaf/dx/util/CollisionArea.h"
+#include "jp/ggaf/dx/util/CollisionPart.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/util/ColliAABox.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
 ColliAABoxActor* ColliAABoxActor::_pObj = nullptr;
 
-ColliAABoxActor::ColliAABoxActor(const char* prm_name, GgafStatus* prm_pStat) : GgafDxAABActor(prm_name, prm_pStat, nullptr) {
+ColliAABoxActor::ColliAABoxActor(const char* prm_name, GgafCore::Status* prm_pStat) : GgafDx::AABActor(prm_name, prm_pStat, nullptr) {
     _class_name = "ColliAABoxActor";
     setAlpha(0.8);
 }
@@ -36,12 +36,12 @@ void ColliAABoxActor::drawHitarea(CollisionChecker* prm_pColliChecker) {
         prm_pColliChecker->getTargetActor()->canHit() &&
         prm_pColliChecker->getTargetActor()->isActiveInTheTree()) {
 
-        GgafDxGeometricActor* pActor = prm_pColliChecker->getTargetActor();
-        GgafDxCollisionArea* pCollisionArea = prm_pColliChecker->_pCollisionArea;
+        GgafDx::GeometricActor* pActor = prm_pColliChecker->getTargetActor();
+        GgafDx::CollisionArea* pCollisionArea = prm_pColliChecker->_pCollisionArea;
         int iAreaNum = pCollisionArea->_colli_part_num;
         if (iAreaNum > 0) {
             getEffect()->setAlphaMaster(1.0); //シーンに所属しないので固定値の設定が必要
-            GgafDxCollisionPart** papColliPart = pCollisionArea->_papColliPart;
+            GgafDx::CollisionPart** papColliPart = pCollisionArea->_papColliPart;
             for (int i = 0; i < iAreaNum; i++) {
                 if (papColliPart[i]->_is_valid_flg && papColliPart[i]->_shape_kind == COLLI_AABOX) {
                     ColliAABox* box = (ColliAABox*)papColliPart[i];
@@ -52,7 +52,7 @@ void ColliAABoxActor::drawHitarea(CollisionChecker* prm_pColliChecker) {
                             pActor->_y + box->_y2,
                             pActor->_z + box->_z2);
 #ifdef MY_DEBUG
-                    GgafGod::_num_drawing--; //当たり判定表示は表示オブジェクト数にカウントしない
+                    GgafCore::God::_num_drawing--; //当たり判定表示は表示オブジェクト数にカウントしない
 #endif
                 }
             }

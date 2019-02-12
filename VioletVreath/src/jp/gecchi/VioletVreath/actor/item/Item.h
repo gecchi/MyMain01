@@ -17,7 +17,7 @@ public:
     TractorMagic* pTractorMagic_;
 
 public:
-    Item(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat);
+    Item(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat);
 
   TractorMagic* getTractorMagic();
 

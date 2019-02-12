@@ -1,7 +1,7 @@
 #ifndef HOSHIBOSHI_H_
 #define HOSHIBOSHI_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/dxcore/actor/GgafDxPointSpriteActor.h"
+#include "jp/ggaf/dx/actor/PointSpriteActor.h"
 #include "jp/ggaf/lib/actor/WorldBoundActor.h"
 
 namespace VioletVreath {
@@ -17,14 +17,14 @@ namespace VioletVreath {
  * @since 2010/02/28
  * @author Masatoshi Tsuge
  */
-class HoshiBoshi : public GgafDxCore::GgafDxPointSpriteActor {
+class HoshiBoshi : public GgafDx::PointSpriteActor {
 
 public:
     float far_rate_;
 
     coord space_distance_;
 
-    GgafDxCore::GgafDxGeometricActor* pCriteria_;
+    GgafDx::GeometricActor* pCriteria_;
 
     static coord CAM_ZF_;
 
@@ -49,7 +49,7 @@ public:
      * 設定されたアクターの周りは、星々は滑らかに非表示（アルファで透明）となる。
      * @param prm_pCriteria 基準アクター
      */
-    void setCriteriaActor(GgafDxCore::GgafDxGeometricActor* prm_pCriteria);
+    void setCriteriaActor(GgafDx::GeometricActor* prm_pCriteria);
 
     virtual void onCreateModel() override {
     }
@@ -65,7 +65,7 @@ public:
     virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {
     }
 
-    virtual void onHit(const GgafCore::GgafActor* prm_pOtherActor) override {
+    virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override {
     }
 
     virtual void drawHitArea() override;
@@ -80,7 +80,7 @@ public:
 
 
 
-    static void setWorldMatrix_HoshiBoshi(const GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
+    static void setWorldMatrix_HoshiBoshi(const GgafDx::GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
 };
 
 }

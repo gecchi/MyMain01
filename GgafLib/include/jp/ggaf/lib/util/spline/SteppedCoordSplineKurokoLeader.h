@@ -1,5 +1,5 @@
-#ifndef GGAFLIB_STEPPEDCOORDSPLINEKUROKOLEADER_H_
-#define GGAFLIB_STEPPEDCOORDSPLINEKUROKOLEADER_H_
+#ifndef GGAF_LIB_STEPPEDCOORDSPLINEKUROKOLEADER_H_
+#define GGAF_LIB_STEPPEDCOORDSPLINEKUROKOLEADER_H_
 #include "GgafLibCommonHeader.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 
@@ -15,7 +15,7 @@ namespace GgafLib {
 class SteppedCoordSplineKurokoLeader : public SplineLeader {
 
 public:
-    GgafDxCore::GgafDxKuroko* _pKuroko_target;
+    GgafDx::Kuroko* _pKuroko_target;
     SteppedCoordSplineManufacture* _pSteppedSplManuf;
 
     /** [r]補完点(基準点も含む)の数 */
@@ -29,7 +29,7 @@ public:
      * @param prm_pManufacture
      * @param prm_pKuroko 対象のアクターの黒衣
      */
-    SteppedCoordSplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxCore::GgafDxKuroko* prm_pKuroko);
+    SteppedCoordSplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDx::Kuroko* prm_pKuroko);
 
     virtual void restart() override;
     /**
@@ -42,4 +42,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_FIXEDVELOCITYSPLINEKUROKOLEADER_H_*/
+#endif /*GGAF_LIB_FIXEDVELOCITYSPLINEKUROKOLEADER_H_*/

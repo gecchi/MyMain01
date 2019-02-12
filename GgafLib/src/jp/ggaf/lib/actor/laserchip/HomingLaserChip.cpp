@@ -1,12 +1,12 @@
 #include "jp/ggaf/lib/actor/laserchip/HomingLaserChip.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
-HomingLaserChip::HomingLaserChip(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
+HomingLaserChip::HomingLaserChip(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat) :
             LaserChip(prm_name, prm_model, prm_pStat) {
     _class_name = "HomingLaserChip";
     _is_leader = false;
@@ -36,7 +36,7 @@ void HomingLaserChip::onActive() {
     //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
     //その際 は、本クラスの onActive() メソッドも呼び出してください。
     LaserChip::onActive();
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDx::Kuroko* pKuroko = getKuroko();
     HomingLaserChip* pChip_infront =  (HomingLaserChip*)_pChip_infront;
     //レーザーチップ出現時処理
     if (pChip_infront == nullptr) {
@@ -80,14 +80,14 @@ void HomingLaserChip::onActive() {
 void HomingLaserChip::onInactive() {
     //_TRACE_("A HomingLaserChip::onInactive() _chip_kind ="<<_chip_kind <<")");
     LaserChip* pChip_behind = _pChip_behind;
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDx::Kuroko* pKuroko = getKuroko();
 
     if (pChip_behind) {
         //先頭しか動かしていないので、
         //何も考慮しないと、後方チップがその場で停止してしまう。
         //後方チップへ移動のための情報を無理やり設定して移動を継続させる。
         //先端チップ Mover 内部パラメータの移動方向と移動速度の情報をコピーすることでOK
-        GgafDxKuroko* pChip_behind_pKuroko = pChip_behind->getKuroko();
+        GgafDx::Kuroko* pChip_behind_pKuroko = pChip_behind->getKuroko();
         pChip_behind->_rx = _rx;
         pChip_behind->_ry = _ry;
         pChip_behind->_rz = _rz;
@@ -103,9 +103,9 @@ void HomingLaserChip::processBehavior() {
     //その際 は、本クラスの processBehavior() メソッドも呼び出してください。
     //座標に反映
     const HomingLaserChip* const pChip_infront =  (HomingLaserChip*)_pChip_infront;
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDx::Kuroko* pKuroko = getKuroko();
     if (getActiveFrame() > 1) {
-        //GgafActorDepository::dispatch() は
+        //ActorDepository::dispatch() は
         //取得できる場合、ポインタを返すと共に、そのアクターはアクター発送者の子の一番後ろに移動される。
         //したがって、レーザーの先頭から順番にprocessBehavior() が呼ばれるため、以下のようにすると
         //数珠繋ぎになる。
@@ -146,7 +146,7 @@ void HomingLaserChip::processBehavior() {
 
 void HomingLaserChip::processSettlementBehavior() {
     if (_was_paused_flg) {
-        GgafDxGeometricActor::processSettlementBehavior();
+        GgafDx::GeometricActor::processSettlementBehavior();
     } else {
         LaserChip::processSettlementBehavior();
     }

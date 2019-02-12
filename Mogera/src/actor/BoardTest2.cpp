@@ -1,21 +1,21 @@
 #include "BoardTest2.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
+#include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
+#include "jp/ggaf/dx/actor/supporter/Scaler.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
-#include "jp/ggaf/dxcore/util/GgafDxInput.h"
+#include "jp/ggaf/dx/util/Input.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 #include "actor/BoardTest2.h"
 #include "MgrGod.h"
 
-#include "jp/ggaf/core/util/GgafValueEnveloper.hpp"
-using namespace GgafCore;
-using namespace GgafDxCore;
+#include "jp/ggaf/core/util/ValueEnveloper.hpp"
+
+
 using namespace GgafLib;
 using namespace Mogera;
 
@@ -30,7 +30,7 @@ void BoardTest2::onCreateModel() {
 
 void BoardTest2::initialize() {
     getUvFlipper()->exec(FLIP_ORDER_LOOP, 40);
-//    GgafDxScaler* const pScaler = getScaler();
+//    GgafDx::Scaler* const pScaler = getScaler();
 //    pScaler->setRange(R_SC(0.1), R_SC(1.5));
 //    pScaler->beat(300, 100, 100, 100, -1);
 //    setWidth(PX_C(32*4));
@@ -42,42 +42,42 @@ void BoardTest2::onActive() {
 
 void BoardTest2::processBehavior() {
      VirtualButton* pVb = P_GOD->getSpacetime()->pVb_;
-    if (GgafDxInput::isPressedKey(DIK_C)) {
+    if (GgafDx::Input::isPressedKey(DIK_C)) {
         setDrawFanNum(getDrawFanNum() + 1);
     }
-    if (GgafDxInput::isPressedKey(DIK_V)) {
+    if (GgafDx::Input::isPressedKey(DIK_V)) {
         setDrawFanNum(getDrawFanNum() - 1);
     }
-    if (GgafDxInput::isPressedKey(DIK_Z)) {
+    if (GgafDx::Input::isPressedKey(DIK_Z)) {
         setBeginAngPos(getBeginAngPos() + D_ANG(1));
     }
-    if (GgafDxInput::isPressedKey(DIK_X)) {
+    if (GgafDx::Input::isPressedKey(DIK_X)) {
         setBeginAngPos(getBeginAngPos() - D_ANG(1));
     }
-    if (GgafDxInput::isPressedKey(DIK_B)) {
+    if (GgafDx::Input::isPressedKey(DIK_B)) {
         addRzFaceAng(D_ANG(1));
     }
-    if (GgafDxInput::isPressedKey(DIK_N)) {
+    if (GgafDx::Input::isPressedKey(DIK_N)) {
         addRzFaceAng(D_ANG(-1));
     }
 
-    if (GgafDxInput::isPressedKey(DIK_Q)) {
+    if (GgafDx::Input::isPressedKey(DIK_Q)) {
         setAlign(ALIGN_LEFT);
     }
-    if (GgafDxInput::isPressedKey(DIK_W)) {
+    if (GgafDx::Input::isPressedKey(DIK_W)) {
         setAlign(ALIGN_CENTER);
     }
-    if (GgafDxInput::isPressedKey(DIK_E)) {
+    if (GgafDx::Input::isPressedKey(DIK_E)) {
         setAlign(ALIGN_RIGHT);
     }
 
-    if (GgafDxInput::isPressedKey(DIK_A)) {
+    if (GgafDx::Input::isPressedKey(DIK_A)) {
         setValign(VALIGN_TOP);
     }
-    if (GgafDxInput::isPressedKey(DIK_S)) {
+    if (GgafDx::Input::isPressedKey(DIK_S)) {
         setValign(VALIGN_MIDDLE);
     }
-    if (GgafDxInput::isPressedKey(DIK_D)) {
+    if (GgafDx::Input::isPressedKey(DIK_D)) {
         setValign(VALIGN_BOTTOM);
     }
 
@@ -113,7 +113,7 @@ void BoardTest2::processBehavior() {
 void BoardTest2::processJudgement() {
 }
 
-void BoardTest2::onHit(const GgafActor* prm_pOtherActor) {
+void BoardTest2::onHit(const GgafCore::Actor* prm_pOtherActor) {
 }
 
 void BoardTest2::onInactive() {

@@ -3,8 +3,8 @@
 #include "FormationErelman003.h"
 #include "EnemyErelmanCore003.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 

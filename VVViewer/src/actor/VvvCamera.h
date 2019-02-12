@@ -15,8 +15,8 @@ class VvvCamera : public GgafLib::DefaultCamera {
 public:
     VvvCamera(const char* prm_name);
 
-    GgafDxCore::GgafDxCameraUpVector* createCameraUpVector() override;
-    GgafDxCore::GgafDxCameraViewPoint* createCameraViewPoint() override;
+    GgafDx::CameraUpVector* createCameraUpVector() override;
+    GgafDx::CameraViewPoint* createCameraViewPoint() override;
 
     virtual ~VvvCamera();
 };

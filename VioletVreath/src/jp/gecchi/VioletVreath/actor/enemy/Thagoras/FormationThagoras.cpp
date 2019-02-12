@@ -6,13 +6,13 @@
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/core/util/GgafResourceConnection.hpp"
-#include "jp/ggaf/core/util/GgafRgb.h"
-#include "jp/ggaf/core/util/GgafXpm.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
+#include "jp/ggaf/core/util/ResourceConnection.hpp"
+#include "jp/ggaf/core/util/Rgb.h"
+#include "jp/ggaf/core/util/Xpm.h"
+#include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -31,7 +31,7 @@ FormationThagoras::FormationThagoras(const char* prm_name,
     call_up_interval_ = 20;
 
     pActor4Sc_ = NEW DefaultGeometricActor("Actor4Sc");
-    pScaler4Sc_ = NEW GgafDxScaler(pActor4Sc_);
+    pScaler4Sc_ = NEW GgafDx::Scaler(pActor4Sc_);
 
 }
 void FormationThagoras::initialize() {
@@ -44,7 +44,7 @@ void FormationThagoras::onActive() {
 
 void FormationThagoras::processBehavior() {
     if (canCallUp() && getActiveFrame() % call_up_interval_ == 0) {
-        GgafXpm* pXpm = getXpm();
+        GgafCore::Xpm* pXpm = getXpm();
         for (int col = 0; col < pXpm->getWidth(); col++) {
             if (!pXpm->isNonColor(cnt_call_up_row_, col)) {
                 EnemyThagoras* pThagoras = (EnemyThagoras*)callUpMember();
@@ -59,11 +59,11 @@ void FormationThagoras::processBehavior() {
     pScaler4Sc_->behave();
 }
 
-void FormationThagoras::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
-    UTIL::performFormationDestroyAll((GgafDxFigureActor*)prm_pActor_last_destroyed);
+void FormationThagoras::onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) {
+    UTIL::performFormationDestroyAll((GgafDx::FigureActor*)prm_pActor_last_destroyed);
 }
 
-GgafXpm* FormationThagoras::getXpm() {
+GgafCore::Xpm* FormationThagoras::getXpm() {
     return pXpmConnection_->peek();
 }
 

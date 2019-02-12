@@ -1,9 +1,9 @@
 #include "EnemyAllas.h"
 
-#include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/model/GgafDxModel.h"
+#include "jp/ggaf/core/actor/ex/ActorDepository.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
@@ -11,8 +11,8 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/God.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -27,19 +27,19 @@ EnemyAllas::EnemyAllas(const char* prm_name) :
     pKurokoLeader_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;
-    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
     useProgress(10);
 }
 
 void EnemyAllas::onCreateModel() {
-    GgafDxModel* pModel = getModel();
+    GgafDx::Model* pModel = getModel();
     pModel->setSpecular(5.0, 1.0);
 }
 
 void EnemyAllas::initialize() {
     setHitAble(true);
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->setFaceAngVelo(AXIS_Z, -7000);
     pKuroko->linkFaceAngByMvAng(true);
     CollisionChecker* pChecker = getCollisionChecker();
@@ -49,7 +49,7 @@ void EnemyAllas::initialize() {
 
 void EnemyAllas::onActive() {
     if (pKurokoLeader_ == nullptr) {
-        throwGgafCriticalException("EnemyAllasはスプライン必須ですconfigして下さい");
+        throwCriticalException("EnemyAllasはスプライン必須ですconfigして下さい");
     }
 
     getStatus()->reset();
@@ -58,8 +58,8 @@ void EnemyAllas::onActive() {
 }
 
 void EnemyAllas::processBehavior() {
-    GgafDxKuroko* const pKuroko = getKuroko();
-    GgafProgress* const pProg = getProgress();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafCore::Progress* const pProg = getProgress();
     //【パターン1：スプライン移動】
     if (pProg->hasJustChangedTo(1)) {
         pKurokoLeader_->start(ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
@@ -97,9 +97,9 @@ void EnemyAllas::processBehavior() {
                 int way = RF_EnemyAllas_ShotWay(G_RANK); //ショットWAY数
                 angle* paAng_way = NEW angle[way];
                 UTIL::getRadialAngle2D(0, way, paAng_way);
-                GgafDxFigureActor* pActor_shot;
+                GgafDx::FigureActor* pActor_shot;
                 for (int i = 0; i < way; i++) {
-                    pActor_shot = (GgafDxFigureActor*)pDepo_shot_->dispatch();
+                    pActor_shot = (GgafDx::FigureActor*)pDepo_shot_->dispatch();
                     if (pActor_shot) {
                         pActor_shot->setPositionAt(this);
                         pActor_shot->getKuroko()->setRzRyMvAng(paAng_way[i], D90ANG);
@@ -109,7 +109,7 @@ void EnemyAllas::processBehavior() {
                 GGAF_DELETEARR(paAng_way);
                 //ショット発射エフェクト
                 if (pDepo_effect_) {
-                    GgafDxFigureActor* pTestActor_Shot = (GgafDxFigureActor*)pDepo_effect_->dispatch();
+                    GgafDx::FigureActor* pTestActor_Shot = (GgafDx::FigureActor*)pDepo_effect_->dispatch();
                     if (pTestActor_Shot) {
                         pTestActor_Shot->setPositionAt(this);
                     }
@@ -142,8 +142,8 @@ void EnemyAllas::processJudgement() {
     }
 }
 
-void EnemyAllas::onHit(const GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+void EnemyAllas::onHit(const GgafCore::Actor* prm_pOtherActor) {
+    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTransmitter()->play3D(SE_EXPLOSION);

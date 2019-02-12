@@ -1,11 +1,11 @@
 #include "Wall01.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -36,7 +36,7 @@ void Wall01::processBehavior() {
 //    _TRACE_(getName()<<":"<<_x<<","<<_y<<","<<_z);
 }
 //bool Wall01::isOutOfSpacetime() const {
-//    if (GgafDxSpacetime::_x_bound_left/2 <= _x) {
+//    if (GgafDx::Spacetime::_x_bound_left/2 <= _x) {
 //        return false;
 //    }
 //    return true;

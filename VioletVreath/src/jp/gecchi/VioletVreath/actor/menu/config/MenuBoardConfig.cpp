@@ -10,8 +10,8 @@
 #include "jp/gecchi/VioletVreath/actor/label/LabelMenuItemFont01.h"
 #include "jp/gecchi/VioletVreath/God.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -78,7 +78,7 @@ void MenuBoardConfig::processBehavior() {
     MenuBoard::processBehavior();
 }
 
-void MenuBoardConfig::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
+void MenuBoardConfig::onDecision(GgafDx::FigureActor* prm_pItem, int prm_item_index) {
     if (prm_item_index == ITEM_BACK) {
         sinkMe();
     } else if (prm_item_index == ITEM_KEY_CONFIG) {
@@ -90,7 +90,7 @@ void MenuBoardConfig::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, int p
     }
 }
 
-void MenuBoardConfig::onCancel(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
+void MenuBoardConfig::onCancel(GgafDx::FigureActor* prm_pItem, int prm_item_index) {
 }
 
 void MenuBoardConfig::onSinkDone() {

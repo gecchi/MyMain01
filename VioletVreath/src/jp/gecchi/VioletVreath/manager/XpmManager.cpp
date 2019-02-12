@@ -3,18 +3,18 @@
 #include "jp/gecchi/VioletVreath/manager/XpmConnection.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
 
-#include "jp/ggaf/core/util/GgafXpm.h"
-using namespace GgafCore;
-using namespace GgafDxCore;
+#include "jp/ggaf/core/util/Xpm.h"
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
 XpmManager::XpmManager(const char* prm_manager_name) :
-    GgafResourceManager<GgafCore::GgafXpm> (prm_manager_name) {
+    GgafCore::ResourceManager<GgafCore::Xpm> (prm_manager_name) {
 }
 
-GgafXpm* XpmManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) {
-    GgafXpm* pResource = nullptr;
+GgafCore::Xpm* XpmManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) {
+    GgafCore::Xpm* pResource = nullptr;
 
     if (strcmp("jiki", prm_idstr) == 0) {
         /* XPM */
@@ -130,7 +130,7 @@ GgafXpm* XpmManager::processCreateResource(const char* prm_idstr, void* prm_pCon
             "8888888888.88888888.8888888888"
         };
 
-        pResource = NEW GgafXpm(jiki);
+        pResource = NEW GgafCore::Xpm(jiki);
     }
     if (strcmp("jikir", prm_idstr) == 0) {
         /* XPM */
@@ -246,7 +246,7 @@ GgafXpm* XpmManager::processCreateResource(const char* prm_idstr, void* prm_pCon
                 "8888888888.88888888.8888888888"
         };
 
-        pResource = NEW GgafXpm(jikir);
+        pResource = NEW GgafCore::Xpm(jikir);
     }
 
     if (strcmp("FormationOebius002_Xpm", prm_idstr) == 0) {
@@ -297,7 +297,7 @@ GgafXpm* XpmManager::processCreateResource(const char* prm_idstr, void* prm_pCon
                 "Q .    .",
                 "Q       "};
 
-        pResource = NEW GgafXpm(xpm_FormationOebius002);
+        pResource = NEW GgafCore::Xpm(xpm_FormationOebius002);
     }
 
     if (strcmp("FormationUrydike002_Xpm", prm_idstr) == 0) {
@@ -328,15 +328,15 @@ GgafXpm* XpmManager::processCreateResource(const char* prm_idstr, void* prm_pCon
                 "Q.     .Q",
                 "Q       Q"};
 
-        pResource = NEW GgafXpm(xpm_FormationUrydike002);
+        pResource = NEW GgafCore::Xpm(xpm_FormationUrydike002);
     }
     if (pResource == nullptr) {
-        throwGgafCriticalException("想定外のIDです。GgafXpmが作成できません。");
+        throwCriticalException("想定外のIDです。GgafCore::Xpmが作成できません。");
     }
     return pResource;
 }
 
-GgafResourceConnection<GgafCore::GgafXpm>* XpmManager::processCreateConnection(const char* prm_idstr, GgafXpm* prm_pResource) {
+GgafCore::ResourceConnection<GgafCore::Xpm>* XpmManager::processCreateConnection(const char* prm_idstr, GgafCore::Xpm* prm_pResource) {
     _TRACE3_("prm_idstr="<<prm_idstr<<" を生成開始。");
     XpmConnection* pConne = NEW XpmConnection(prm_idstr, prm_pResource);
     _TRACE3_("prm_idstr="<<prm_idstr<<" を生成終了。");

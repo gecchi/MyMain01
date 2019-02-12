@@ -1,7 +1,7 @@
-#ifndef GGAFLIB_SPLINEMANUFACTURE_H_
-#define GGAFLIB_SPLINEMANUFACTURE_H_
+#ifndef GGAF_LIB_SPLINEMANUFACTURE_H_
+#define GGAF_LIB_SPLINEMANUFACTURE_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/core/GgafObject.h"
+#include "jp/ggaf/core/Object.h"
 
 #include <string>
 
@@ -34,7 +34,7 @@ namespace GgafLib {
  * @since 2011/08/05
  * @author Masatoshi Tsuge
  */
-class SplineManufacture : public GgafCore::GgafObject {
+class SplineManufacture : public GgafCore::Object {
 
 public:
     SplineSourceConnection* _pSplSrcCon;
@@ -95,12 +95,12 @@ public:
      * @param prm_pKuroko 対象のアクターの黒衣
      * @return
      */
-    virtual SplineLeader* createKurokoLeader(GgafDxCore::GgafDxKuroko* prm_pKuroko);
+    virtual SplineLeader* createKurokoLeader(GgafDx::Kuroko* prm_pKuroko);
 
-    virtual SplineLeader* createTruckerLeader(GgafDxCore::GgafDxTrucker* prm_pTrucker);
+    virtual SplineLeader* createTruckerLeader(GgafDx::Trucker* prm_pTrucker);
 
     virtual ~SplineManufacture();
 };
 
 }
-#endif /*GGAFLIB_SPLINEMANUFACTURE_H_*/
+#endif /*GGAF_LIB_SPLINEMANUFACTURE_H_*/

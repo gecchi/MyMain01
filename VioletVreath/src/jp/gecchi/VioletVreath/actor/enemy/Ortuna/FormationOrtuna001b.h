@@ -2,7 +2,7 @@
 #define FORMATIONORTUNA001B_H_
 #include "VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ortuna/FormationOrtuna001.h"
-#include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
+#include "jp/ggaf/dx/util/GeoElem.h"
 
 namespace VioletVreath {
 
@@ -16,7 +16,7 @@ class FormationOrtuna001b : public FormationOrtuna001 {
 
 public:
     /** フォーメーション基点座標 */
-    GgafDxCore::GgafDxGeoElem pos_;
+    GgafDx::GeoElem pos_;
 
 public:
     FormationOrtuna001b(const char* prm_name);

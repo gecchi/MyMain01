@@ -1,12 +1,12 @@
 #include "EnemyOzartiaPillar01.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
+#include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -37,9 +37,9 @@ void EnemyOzartiaPillar01::onActive() {
 
 void EnemyOzartiaPillar01::processBehavior() {
     //本体移動系の処理 ここから --->
-    GgafDxKuroko* const pKuroko = getKuroko();
-    GgafDxAlphaFader* pAlphaFader = getAlphaFader();
-    GgafProgress* const pProg = getProgress();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
+    GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             setHitAble(false);
@@ -95,8 +95,8 @@ void EnemyOzartiaPillar01::processJudgement() {
     }
 }
 
-void EnemyOzartiaPillar01::onHit(const GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+void EnemyOzartiaPillar01::onHit(const GgafCore::Actor* prm_pOtherActor) {
+    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         sayonara();

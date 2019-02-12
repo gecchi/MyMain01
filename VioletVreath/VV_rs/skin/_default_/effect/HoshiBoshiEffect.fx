@@ -1,6 +1,6 @@
 #include "GgafEffectConst.fxh" 
 ////////////////////////////////////////////////////////////////////////////////
-// Ggafライブラリ、MeshModel用シェーダー
+// ggaf ライブラリ、MeshModel用シェーダー
 //
 // author : Masatoshi Tsuge
 // date:2009/03/06 

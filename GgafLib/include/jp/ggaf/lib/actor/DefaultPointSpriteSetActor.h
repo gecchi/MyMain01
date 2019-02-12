@@ -1,7 +1,7 @@
-#ifndef GGAFLIB_DEFAULTPOINTSPRITESETACTOR_H_
-#define GGAFLIB_DEFAULTPOINTSPRITESETACTOR_H_
+#ifndef GGAF_LIB_DEFAULTPOINTSPRITESETACTOR_H_
+#define GGAF_LIB_DEFAULTPOINTSPRITESETACTOR_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/dxcore/actor/GgafDxPointSpriteSetActor.h"
+#include "jp/ggaf/dx/actor/PointSpriteSetActor.h"
 
 namespace GgafLib {
 
@@ -10,14 +10,14 @@ namespace GgafLib {
  * @since 2016/06/09
  * @author Masatoshi Tsuge
  */
-class DefaultPointSpriteSetActor : public GgafDxCore::GgafDxPointSpriteSetActor {
+class DefaultPointSpriteSetActor : public GgafDx::PointSpriteSetActor {
 
 public:
     /** 衝突判定支援オブジェクト */
     CollisionChecker* _pColliChecker;
 
 public:
-    DefaultPointSpriteSetActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
+    DefaultPointSpriteSetActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat=nullptr);
 
     virtual void onCreateModel() override {
     }
@@ -34,7 +34,7 @@ public:
     virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {
     }
 
-    virtual void onHit(const GgafCore::GgafActor* prm_pOtherActor) override {
+    virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override {
     }
 
     virtual void drawHitArea() override;
@@ -47,4 +47,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_DEFAULTMESHSETACTOR_H_*/
+#endif /*GGAF_LIB_DEFAULTMESHSETACTOR_H_*/

@@ -19,9 +19,9 @@ class MyBunshin : public GgafLib::DefaultMeshSetActor {
 public:
     MyBunshinBase* pBase_;
     /** [r]ショットのデポジトリ */
-    GgafCore::GgafActorDepository* pDepo_MyBunshinShot_;
+    GgafCore::ActorDepository* pDepo_MyBunshinShot_;
 //    /** [r]スナイプショットのデポジトリ */
-//    GgafCore::GgafActorDepository* pDepo_MySnipeBunshinShot_;
+//    GgafCore::ActorDepository* pDepo_MySnipeBunshinShot_;
     /** [r]レーザーチップのデポジトリ */
     GgafLib::LaserChipDepository* pLaserChipDepo_;
     /** [r]ロックオンコントローラー */
@@ -31,7 +31,7 @@ public:
 public:
     struct AimInfo {
         MyBunshinWateringLaserChip001* pLeaderChip;
-        GgafDxCore::GgafDxGeometricActor* pTarget;
+        GgafDx::GeometricActor* pTarget;
         /** 目標1 */
         coord t1_x, t1_y, t1_z;
         frame spent_frames_to_t1;
@@ -86,7 +86,7 @@ public:
 
     void onInactive() override;
 
-    void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
+    void onHit(const GgafCore::Actor* prm_pOtherActor) override;
 
     virtual ~MyBunshin();
 

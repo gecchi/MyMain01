@@ -32,8 +32,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/MSVC_include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/MSVC_include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 								</option>
@@ -58,8 +58,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/MSVC_include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/MSVC_include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 								</option>
@@ -78,7 +78,7 @@
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.link.option.libs.643623027" name="ライブラリー (-l)" superClass="gnu.cpp.link.option.libs" useByScannerDiscovery="false" valueType="libs">
 									<listOptionValue builtIn="false" value="GgafLib"/>
 									<listOptionValue builtIn="false" value="Shlwapi"/>
-									<listOptionValue builtIn="false" value="GgafDxCore"/>
+									<listOptionValue builtIn="false" value="GgafDx"/>
 									<listOptionValue builtIn="false" value="GgafCore"/>
 									<listOptionValue builtIn="false" value="dxguid"/>
 									<listOptionValue builtIn="false" value="dinput"/>
@@ -94,7 +94,7 @@
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.link.option.paths.674200419" name="ライブラリー検索パス (-L)" superClass="gnu.cpp.link.option.paths" useByScannerDiscovery="false" valueType="libPaths">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Vorbis/DebugCdt}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Lib\x86&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/DebugCdt}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/DebugCdt}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/DebugCdt}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/DebugCdt}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Ogg/DebugCdt}&quot;"/>
@@ -159,8 +159,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/MSVC_include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/MSVC_include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 								</option>
@@ -185,8 +185,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/MSVC_include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/MSVC_include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 								</option>
@@ -207,7 +207,7 @@
 								<option id="gnu.cpp.link.option.libs.1278178660" name="ライブラリー (-l)" superClass="gnu.cpp.link.option.libs" useByScannerDiscovery="false" valueType="libs">
 									<listOptionValue builtIn="false" value="GgafLib"/>
 									<listOptionValue builtIn="false" value="Shlwapi"/>
-									<listOptionValue builtIn="false" value="GgafDxCore"/>
+									<listOptionValue builtIn="false" value="GgafDx"/>
 									<listOptionValue builtIn="false" value="GgafCore"/>
 									<listOptionValue builtIn="false" value="dxguid"/>
 									<listOptionValue builtIn="false" value="dinput"/>
@@ -223,7 +223,7 @@
 								<option id="gnu.cpp.link.option.paths.1816202992" name="ライブラリー検索パス (-L)" superClass="gnu.cpp.link.option.paths" useByScannerDiscovery="false" valueType="libPaths">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Vorbis/ReleaseCdt}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Lib\x86&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/ReleaseCdt}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/ReleaseCdt}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/ReleaseCdt}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/ReleaseCdt}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Ogg/ReleaseCdt}&quot;"/>
@@ -287,8 +287,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/MSVC_include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/MSVC_include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 								</option>
@@ -313,8 +313,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/MSVC_include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/MSVC_include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 								</option>
@@ -335,7 +335,7 @@
 								<option id="gnu.cpp.link.option.libs.1682290101" name="ライブラリー (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
 									<listOptionValue builtIn="false" value="GgafLib"/>
 									<listOptionValue builtIn="false" value="Shlwapi"/>
-									<listOptionValue builtIn="false" value="GgafDxCore"/>
+									<listOptionValue builtIn="false" value="GgafDx"/>
 									<listOptionValue builtIn="false" value="GgafCore"/>
 									<listOptionValue builtIn="false" value="dxguid"/>
 									<listOptionValue builtIn="false" value="dinput"/>
@@ -351,7 +351,7 @@
 								<option id="gnu.cpp.link.option.paths.1319535778" name="ライブラリー検索パス (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Vorbis/GprofCdt}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Lib\x86&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/GprofCdt}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/GprofCdt}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/GprofCdt}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/GprofCdt}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Ogg/GprofCdt}&quot;"/>
@@ -418,8 +418,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/MSVC_include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/MSVC_include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 								</option>
@@ -444,8 +444,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/MSVC_include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/MSVC_include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 								</option>
@@ -466,7 +466,7 @@
 								<option id="gnu.cpp.link.option.libs.373416784" name="ライブラリー (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
 									<listOptionValue builtIn="false" value="GgafLib"/>
 									<listOptionValue builtIn="false" value="Shlwapi"/>
-									<listOptionValue builtIn="false" value="GgafDxCore"/>
+									<listOptionValue builtIn="false" value="GgafDx"/>
 									<listOptionValue builtIn="false" value="GgafCore"/>
 									<listOptionValue builtIn="false" value="dxguid"/>
 									<listOptionValue builtIn="false" value="dinput"/>
@@ -482,7 +482,7 @@
 								<option id="gnu.cpp.link.option.paths.923170997" name="ライブラリー検索パス (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
 									<listOptionValue builtIn="false" value="&quot;C:\pleiades\eclipse\mingw\x86_64-w64-mingw32\lib&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Vorbis/ReleaseCdt_x64}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/ReleaseCdt_x64}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/ReleaseCdt_x64}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/ReleaseCdt_x64}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/ReleaseCdt_x64}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Ogg/ReleaseCdt_x64}&quot;"/>
@@ -546,8 +546,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/MSVC_include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/MSVC_include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 								</option>
@@ -572,8 +572,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/MSVC_include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/MSVC_include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 								</option>
@@ -594,7 +594,7 @@
 								<option id="gnu.cpp.link.option.libs.716658282" name="ライブラリー (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
 									<listOptionValue builtIn="false" value="GgafLib"/>
 									<listOptionValue builtIn="false" value="Shlwapi"/>
-									<listOptionValue builtIn="false" value="GgafDxCore"/>
+									<listOptionValue builtIn="false" value="GgafDx"/>
 									<listOptionValue builtIn="false" value="GgafCore"/>
 									<listOptionValue builtIn="false" value="dxguid"/>
 									<listOptionValue builtIn="false" value="dinput"/>
@@ -610,7 +610,7 @@
 								<option id="gnu.cpp.link.option.paths.1443588105" name="ライブラリー検索パス (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Vorbis/ReleaseCdt_sse}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Lib\x86&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/ReleaseCdt_sse}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/ReleaseCdt_sse}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/ReleaseCdt_sse}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/ReleaseCdt_sse}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Ogg/ReleaseCdt_sse}&quot;"/>
@@ -674,8 +674,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/MSVC_include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/MSVC_include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 								</option>
@@ -700,8 +700,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/MSVC_include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/MSVC_include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 								</option>
@@ -720,7 +720,7 @@
 								<option id="gnu.cpp.link.option.libs.25497177" name="ライブラリー (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
 									<listOptionValue builtIn="false" value="GgafLib"/>
 									<listOptionValue builtIn="false" value="Shlwapi"/>
-									<listOptionValue builtIn="false" value="GgafDxCore"/>
+									<listOptionValue builtIn="false" value="GgafDx"/>
 									<listOptionValue builtIn="false" value="GgafCore"/>
 									<listOptionValue builtIn="false" value="dxguid"/>
 									<listOptionValue builtIn="false" value="dinput"/>
@@ -736,7 +736,7 @@
 								<option id="gnu.cpp.link.option.paths.1791826811" name="ライブラリー検索パス (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Vorbis/DebugCdt_sse}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Lib\x86&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/DebugCdt_sse}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/DebugCdt_sse}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/DebugCdt_sse}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/DebugCdt_sse}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Ogg/DebugCdt_sse}&quot;"/>
@@ -801,8 +801,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/MSVC_include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/MSVC_include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 								</option>
@@ -829,8 +829,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/MSVC_include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/MSVC_include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 								</option>
@@ -851,7 +851,7 @@
 								<option id="gnu.cpp.link.option.libs.983441239" name="ライブラリー (-l)" superClass="gnu.cpp.link.option.libs" useByScannerDiscovery="false" valueType="libs">
 									<listOptionValue builtIn="false" value="GgafLib"/>
 									<listOptionValue builtIn="false" value="Shlwapi"/>
-									<listOptionValue builtIn="false" value="GgafDxCore"/>
+									<listOptionValue builtIn="false" value="GgafDx"/>
 									<listOptionValue builtIn="false" value="GgafCore"/>
 									<listOptionValue builtIn="false" value="dxguid"/>
 									<listOptionValue builtIn="false" value="dinput"/>
@@ -867,7 +867,7 @@
 								<option id="gnu.cpp.link.option.paths.925795155" name="ライブラリー検索パス (-L)" superClass="gnu.cpp.link.option.paths" useByScannerDiscovery="false" valueType="libPaths">
 									<listOptionValue builtIn="false" value="&quot;C:\pleiades\eclipse\mingw\x86_64-w64-mingw32\lib&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Vorbis/DebugCdt_x64}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDxCore/DebugCdt_x64}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx/DebugCdt_x64}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafLib/DebugCdt_x64}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/DebugCdt_x64}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/_Ogg/DebugCdt_x64}&quot;"/>

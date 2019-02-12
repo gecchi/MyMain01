@@ -1,18 +1,18 @@
 #include "jp/ggaf/lib/util/spline/FixedFrameSplineTruckerLeader.h"
 
-#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
+#include "jp/ggaf/dx/exception/CriticalException.h"
+#include "jp/ggaf/dx/actor/supporter/Trucker.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/spline/SplineSource.h"
 #include "jp/ggaf/lib/util/spline/FixedFrameSplineManufacture.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
 FixedFrameSplineTruckerLeader::FixedFrameSplineTruckerLeader(
                                        SplineManufacture* prm_pManufacture,
-                                       GgafDxTrucker* prm_pTrucker_target) :
+                                       GgafDx::Trucker* prm_pTrucker_target) :
         SplineLeader(prm_pManufacture, prm_pTrucker_target->_pActor) {
     _pTrucker_target = prm_pTrucker_target;
     _pFixedFrameSplManuf = (FixedFrameSplineManufacture*)prm_pManufacture;
@@ -58,7 +58,7 @@ void FixedFrameSplineTruckerLeader::restart() {
 
 void FixedFrameSplineTruckerLeader::behave() {
     if (_is_leading) {
-        GgafDxTrucker* const pTrucker_target = _pTrucker_target;
+        GgafDx::Trucker* const pTrucker_target = _pTrucker_target;
         const double frame_of_segment = _pFixedFrameSplManuf->_frame_of_segment;
         //åªç›ÇÃì_INDEX
         _point_index = (_leading_frames+_hosei_frames) / frame_of_segment;

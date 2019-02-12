@@ -1,11 +1,11 @@
 #include "RankUpStage.h"
 
 #include <stdio.h>
-#include "jp/ggaf/core/actor/GgafSceneMediator.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
-#include "jp/ggaf/dxcore/manager/GgafDxSeConnection.h"
-#include "jp/ggaf/dxcore/sound/GgafDxBgmConductor.h"
-#include "jp/ggaf/dxcore/sound/GgafDxSound.h"
+#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
+#include "jp/ggaf/dx/manager/SeConnection.h"
+#include "jp/ggaf/dx/sound/BgmConductor.h"
+#include "jp/ggaf/dx/sound/Sound.h"
 #include "../RankUpStageController.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshiRankUp.h"
@@ -14,8 +14,8 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -88,7 +88,7 @@ void RankUpStage::processBehavior() {
                 }
 #ifdef MY_DEBUG
                 if (pProg->hasArrivedAt(_paFrame_NextEvent[_event_num-1]+(10*60*60))) { //最終のアクター出現から10分。
-                    throwGgafCriticalException(NODE_INFO<<" ランクアップシーンが終わらないのではないだろうか？？");
+                    throwCriticalException(NODE_INFO<<" ランクアップシーンが終わらないのではないだろうか？？");
                 }
 #endif
                 //その他の終了は、下位実装の各RankUpクラスに任せる。

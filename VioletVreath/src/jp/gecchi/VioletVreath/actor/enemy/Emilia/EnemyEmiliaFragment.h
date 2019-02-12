@@ -19,7 +19,7 @@ protected:
      * 破壊された時の処理コールバック .
      * @param prm_pOther 破壊された相手のアクター
      */
-    void processStaminaEnd(const GgafDxCore::GgafDxGeometricActor* prm_pOther) override;
+    void processStaminaEnd(const GgafDx::GeometricActor* prm_pOther) override;
 
 public:
     EnemyEmiliaFragment(const char* prm_name);

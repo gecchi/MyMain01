@@ -1,12 +1,12 @@
 #include "HoshiBoshi.h"
 
-#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+#include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/gecchi/VioletVreath/effect/HoshiboshiEffect.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -14,7 +14,7 @@ coord HoshiBoshi::CAM_ZF_;
 
 HoshiBoshi::HoshiBoshi(const char* prm_name, const char* prm_model_id) :
 
-                                        GgafDxPointSpriteActor(prm_name,
+                                        GgafDx::PointSpriteActor(prm_name,
                                                                prm_model_id,
                                                                TYPE_POINTSPRITE_MODEL,
                                                                "HoshiBoshiEffect",
@@ -51,7 +51,7 @@ int HoshiBoshi::isOutOfView() {
     return 0;
 }
 
-void HoshiBoshi::setCriteriaActor(GgafDxGeometricActor* prm_pCriteria) {
+void HoshiBoshi::setCriteriaActor(GgafDx::GeometricActor* prm_pCriteria) {
     pCriteria_ = prm_pCriteria;
 }
 
@@ -84,7 +84,7 @@ void HoshiBoshi::processSettlementBehavior() {
     }
 
     //‰æ–ÊŠO”»’è–³‚µ‚É”º‚È‚¢ˆ—ŠÈ—ª‰»
-    //GgafDxGeometricActor::processSettlementBehavior() ‚Æ“¯Šú‚ğæ‚é–I
+    //GeometricActor::processSettlementBehavior() ‚Æ“¯Šú‚ğæ‚é–I
     _fX = C_DX(_x);
     _fY = C_DX(_y);
     _fZ = C_DX(_z);
@@ -106,7 +106,7 @@ void HoshiBoshi::processDraw() {
     checkDxException(hr, D3D_OK, "SetFloat(h_fZ_MyShip_) ‚É¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(pHoshiboshiEffect->h_far_rate_, far_rate_);
     checkDxException(hr, D3D_OK, "SetFloat(h_far_rate_) ‚É¸”s‚µ‚Ü‚µ‚½B");
-    GgafDxPointSpriteActor::processDraw();
+    GgafDx::PointSpriteActor::processDraw();
 }
 
 
@@ -116,7 +116,7 @@ void HoshiBoshi::drawHitArea() {
 HoshiBoshi::~HoshiBoshi() {
 }
 
-void HoshiBoshi::setWorldMatrix_HoshiBoshi(const GgafDxGeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+void HoshiBoshi::setWorldMatrix_HoshiBoshi(const GgafDx::GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //World•ÏŠ·
     //Šg‘åk¬ ~ X²‰ñ“] ~ Z²‰ñ“] ~ Y²‰ñ“] ~ •½sˆÚ“® ‚Ì•ÏŠ·s—ñ‚ğİ’è<BR>
     //¦XYZ‚Ì‡‚Å‚È‚¢‚±‚Æ‚É’ˆÓ

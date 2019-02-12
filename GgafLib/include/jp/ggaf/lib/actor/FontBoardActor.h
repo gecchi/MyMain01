@@ -1,8 +1,8 @@
-#ifndef GGAFLIB_FONTBOARDACTOR_H_
-#define GGAFLIB_FONTBOARDACTOR_H_
+#ifndef GGAF_LIB_FONTBOARDACTOR_H_
+#define GGAF_LIB_FONTBOARDACTOR_H_
 #include "GgafLibCommonHeader.h"
 
-#include "jp/ggaf/dxcore/actor/GgafDxMassBoardActor.h"
+#include "jp/ggaf/dx/actor/MassBoardActor.h"
 #include "interface/ICharacterChip.hpp"
 
 namespace GgafLib {
@@ -13,7 +13,7 @@ namespace GgafLib {
  * @since 2016/02/25
  * @author Masatoshi Tsuge
  */
-class FontBoardActor : public GgafDxCore::GgafDxMassBoardActor , public ICharacterChip<FontBoardActor, 256, 1024> {
+class FontBoardActor : public GgafDx::MassBoardActor , public ICharacterChip<FontBoardActor, 256, 1024> {
 
 protected:
     struct VERTEX_instancedata {
@@ -21,13 +21,13 @@ protected:
         float offset_u, offset_v, alpha;   // : TEXCOORD2
     };
     static VERTEX_instancedata _aInstancedata[];
-    static void createVertexInstanceData(void* prm, GgafDxCore::GgafDxMassModel::VertexInstanceDataInfo* out_info);
+    static void createVertexInstanceData(void* prm, GgafDx::MassModel::VertexInstanceDataInfo* out_info);
 public:
-    virtual void setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign) override;
-    virtual void setAlign(GgafDxAlign prm_align) override;
-    virtual void setValign(GgafDxValign prm_valign) override;
+    virtual void setAlign(Align prm_align, Valign prm_valign) override;
+    virtual void setAlign(Align prm_align) override;
+    virtual void setValign(Valign prm_valign) override;
 public:
-    FontBoardActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat = nullptr);
+    FontBoardActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat = nullptr);
 
     virtual void onCreateModel() override {
     }
@@ -52,11 +52,11 @@ public:
     virtual void onInactive() override {
     }
 
-    virtual bool processHitChkLogic(GgafCore::GgafActor* prm_pOtherActor) override {
+    virtual bool processHitChkLogic(GgafCore::Actor* prm_pOtherActor) override {
         return false;
     }
 
-    virtual void onHit(const GgafCore::GgafActor* prm_pOtherActor) override {
+    virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override {
     }
 
     virtual ~FontBoardActor();
@@ -64,4 +64,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_FONTBOARDACTOR_H_*/
+#endif /*GGAF_LIB_FONTBOARDACTOR_H_*/

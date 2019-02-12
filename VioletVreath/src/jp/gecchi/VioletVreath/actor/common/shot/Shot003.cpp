@@ -1,12 +1,12 @@
 #include "Shot003.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -36,7 +36,7 @@ void Shot003::onActive() {
 void Shot003::processBehavior() {
     //加算ランクポイントを減少
     //座標に反映
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->behave();
 }
 
@@ -46,8 +46,8 @@ void Shot003::processJudgement() {
     }
 }
 
-void Shot003::onHit(const GgafActor* prm_pOtherActor) {
-//    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
+void Shot003::onHit(const GgafCore::Actor* prm_pOtherActor) {
+//    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)prm_pOtherActor;
 //    //・・・ココにヒットされたエフェクト
 //    if (MyStgUtil::calcEnemyStamina(this, pOther) <= 0) {
 //        //破壊された場合

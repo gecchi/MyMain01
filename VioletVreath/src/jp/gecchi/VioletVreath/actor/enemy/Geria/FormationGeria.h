@@ -14,7 +14,7 @@ class FormationGeria : public GgafLib::DefaultGeometricActor {
 
 public:
     /** ゲリアストック */
-    GgafCore::GgafActorDepository* pDepo_;
+    GgafCore::ActorDepository* pDepo_;
 
 public:
 

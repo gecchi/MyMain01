@@ -3,7 +3,7 @@
 #include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
 
-#include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
+#include "jp/ggaf/dx/util/GeoElem.h"
 
 namespace VioletVreath {
 
@@ -17,7 +17,7 @@ namespace VioletVreath {
 class EnemyDuna : public GgafLib::DefaultMorphMeshActor {
 
 public:
-    GgafDxCore::GgafDxGeoElem next_pos_;
+    GgafDx::GeoElem next_pos_;
     int nprog_;
 public:
     /**
@@ -53,11 +53,11 @@ public:
      * ÉhÉDÅ[ÉiÇÃè’ìÀéûèàóù .
      * @param prm_pOtherActor è’ìÀëŒè€
      */
-    void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
+    void onHit(const GgafCore::Actor* prm_pOtherActor) override;
 
     void onInactive() override;
 
-    static void onDispatchedShot(GgafDxCore::GgafDxFigureActor* prm_pActor, int prm_dispatch_num, int prm_set_index, int prm_way_index);
+    static void onDispatchedShot(GgafDx::FigureActor* prm_pActor, int prm_dispatch_num, int prm_set_index, int prm_way_index);
 
     virtual ~EnemyDuna();
 };

@@ -1,9 +1,9 @@
 #include "EnemyDelheid.h"
 
-#include "jp/ggaf/dxcore/model/GgafDxModel.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxChecker.h"
+#include "jp/ggaf/dx/model/Model.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Checker.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -11,8 +11,8 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Delheid/FormationDelheid.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -43,7 +43,7 @@ enum {
 EnemyDelheid::EnemyDelheid(const char* prm_name) :
         DefaultMassMorphMeshActor(prm_name, "Delheid_1", STATUS(EnemyDelheid)) {
     _class_name = "EnemyDelheid";
-    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     pSeTx->set(SE_UNDAMAGED, "WAVE_ENEMY_UNDAMAGED_001");
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
@@ -55,7 +55,7 @@ EnemyDelheid::EnemyDelheid(const char* prm_name) :
 }
 
 void EnemyDelheid::onCreateModel() {
-    GgafDxModel* pModel = getModel();
+    GgafDx::Model* pModel = getModel();
     pModel->setSpecular(5.0, 1.0);
 }
 
@@ -67,7 +67,7 @@ void EnemyDelheid::nextFrame() {
 }
 
 void EnemyDelheid::config(GgafLib::SplineLeader* prm_pKurokoLeader,
-                          GgafCore::GgafActorDepository* prm_pDepoShot  ) {
+                          GgafCore::ActorDepository* prm_pDepoShot  ) {
     GGAF_DELETE_NULLABLE(pKurokoLeader_);
     pKurokoLeader_ = prm_pKurokoLeader;
     pDepoShot_ = prm_pDepoShot;
@@ -82,7 +82,7 @@ void EnemyDelheid::initialize() {
 
 void EnemyDelheid::onActive() {
     if (pKurokoLeader_ == nullptr) {
-        throwGgafCriticalException("EnemyDelheidはスプライン必須ですconfigして下さい。this="<<NODE_INFO);
+        throwCriticalException("EnemyDelheidはスプライン必須ですconfigして下さい。this="<<NODE_INFO);
     }
     getStatus()->reset();
     setHitAble(true);
@@ -95,7 +95,7 @@ void EnemyDelheid::processBehavior() {
     MyShip* pMyShip = pMYSHIP;
 
     //移動の状態遷移------------------------------
-    GgafProgress* const pProg = getProgress();
+    GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             pKurokoLeader_->start(RELATIVE_COORD_DIRECTION, 3); //最高で３回ループする予定
@@ -177,7 +177,7 @@ void EnemyDelheid::processBehavior() {
         }
     }
     //-----------------------------------------------
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->_angvelo_face[AXIS_X] = pKuroko->_velo_mv/2;
     pKurokoLeader_->behave(); //スプライン移動を振る舞い
     pKuroko->behave();
@@ -185,7 +185,7 @@ void EnemyDelheid::processBehavior() {
 }
 
 void EnemyDelheid::processSettlementBehavior() {
-    GgafProgress* const pProg = getProgress();
+    GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_SPLINE_MOVING: {
             if (pKurokoLeader_->_cnt_loop >= 2) {
@@ -218,9 +218,9 @@ void EnemyDelheid::processJudgement() {
     }
 }
 
-void EnemyDelheid::onHit(const GgafActor* prm_pOtherActor) {
+void EnemyDelheid::onHit(const GgafCore::Actor* prm_pOtherActor) {
     if (getMorphWeight(MPH_OPEN) > 0.1) {
-        bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+        bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
         if (was_destroyed) {
             //破壊された時(スタミナ <= 0)
             getSeTransmitter()->play3D(SE_EXPLOSION);

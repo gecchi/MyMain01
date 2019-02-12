@@ -1,24 +1,24 @@
 #include "VamSysCamWorker.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Trucker.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/Config.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/actor/camera/Camera.h"
 #include "jp/gecchi/VioletVreath/actor/camera/CameraViewPoint.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxTruckerAssistantA.h"
+#include "jp/ggaf/dx/actor/supporter/TruckerAssistantA.h"
 #include "jp/ggaf/lib/util/Direction26Util.h"
 #include "jp/ggaf/lib/util/Direction8Util.h"
 #include "jp/ggaf/lib/util/Quaternion.hpp"
-#include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
+#include "jp/ggaf/dx/actor/GeometricActor.h"
 
 #include "jp/gecchi/VioletVreath/actor/camera/CameraUpVector.h"
-#include "jp/ggaf/dxcore/sound/GgafDxSeTransmitter.h"
+#include "jp/ggaf/dx/sound/SeTransmitter.h"
 #include <math.h>
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -631,7 +631,7 @@ VamSysCamWorker::VamSysCamWorker(const char* prm_name, Camera* prm_pCamera) : Ca
     returning_cam_pos_frames_ = 0;
 
     pos_vam_up_ = DIR26(0,1,0);
-    pSe_ = NEW GgafDxSeTransmitter();
+    pSe_ = NEW GgafDx::SeTransmitter();
     pSe_->set(SE_RETURNNING_CAM_POS, "WAVE_MY_RETURNNING_CAM_POS" ,0);
 
     mv_t_x_vUP_  = 0;
@@ -850,7 +850,7 @@ void VamSysCamWorker::processBehavior() {
     if (cam_x_hosei_fov == 0 || cam_y_hosei_fov == 0 || cam_z_hosei_fov == 0 ||
         vp_x_hosei_fov == 0 || vp_y_hosei_fov == 0 || vp_z_hosei_fov == 0)
     {
-        throwGgafCriticalException("VamSysCamWorker::processBehavior() 想定外のCamとUp方向の組み合わせに遭遇。要調査。\n"<<
+        throwCriticalException("VamSysCamWorker::processBehavior() 想定外のCamとUp方向の組み合わせに遭遇。要調査。\n"<<
                 "pos_vam_camera_="<<pos_vam_camera_<<", pos_vam_up_="<<pos_vam_up_);
     }
 #endif

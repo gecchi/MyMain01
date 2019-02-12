@@ -4,8 +4,8 @@
 #include "jp/gecchi/VioletVreath/actor/enemy/Appho/EnemyAppho.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -37,8 +37,8 @@ void FormationAppho001::processBehavior() {
     }
 }
 
-void FormationAppho001::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
-    UTIL::performFormationDestroyAll((GgafDxFigureActor*)prm_pActor_last_destroyed);
+void FormationAppho001::onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) {
+    UTIL::performFormationDestroyAll((GgafDx::FigureActor*)prm_pActor_last_destroyed);
 }
 
 FormationAppho001::~FormationAppho001() {

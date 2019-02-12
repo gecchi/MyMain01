@@ -17,11 +17,11 @@ class EnemyEres : public GgafLib::DefaultMeshSetActor {
 
 public:
     /** 弾ストック */
-    GgafCore::GgafActorDepository* pDepo_shot001_;
+    GgafCore::ActorDepository* pDepo_shot001_;
     /** スプラインプログラム */
     GgafLib::SplineLeader* pSplineLeader_;
-    /** GgafActorDepositoryをコンストラクタで生成したか否か */
-    bool createGgafActorDepository_;
+    /** GgafCore::ActorDepositoryをコンストラクタで生成したか否か */
+    bool createActorDepository_;
 
     int iMovePatternNo_;
     GgafLib::SplineManufactureConnection* pSplManufConn_;
@@ -33,7 +33,7 @@ public:
      * @param prm_pDepo_EnemyEresShots001 発射弾ストックのアクター発送者
      * @return
      */
-    EnemyEres(const char* prm_name, GgafCore::GgafActorDepository* prm_pDepo_EnemyEresShots001 = nullptr);
+    EnemyEres(const char* prm_name, GgafCore::ActorDepository* prm_pDepo_EnemyEresShots001 = nullptr);
 
     void initialize() override;
 
@@ -43,7 +43,7 @@ public:
 
     void processJudgement() override;
 
-    void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
+    void onHit(const GgafCore::Actor* prm_pOtherActor) override;
 
     bool isOutOfSpacetime() const override;
 

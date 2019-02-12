@@ -1,14 +1,14 @@
 #include "VvvCursor.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Scaler.h"
+#include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
+#include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/KurokoMvAssistant.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VVViewer;
 
@@ -30,7 +30,7 @@ void VvvCursor::initialize() {
     //座標設定
     _x = _y = _z = 0; //(0,0,0) は画面の中心
     getKuroko()->_angvelo_face[AXIS_Z] = 1000;
-    GgafDxScaler* const pScaler = getScaler();
+    GgafDx::Scaler* const pScaler = getScaler();
     pScaler->setRange(2000, 4000);
     pScaler->beat(30, 2, 0, 28, -1); //無限ループ
     setAlpha(0);

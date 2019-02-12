@@ -3,8 +3,8 @@
 #include "MgrCameraUpVector.h"
 #include "MgrCameraViewPoint.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace Mogera;
 
@@ -13,13 +13,13 @@ MgrCamera::MgrCamera(const char* prm_name) :
     _class_name = "MgrCamera";
 }
 
-GgafDxCameraViewPoint* MgrCamera::createCameraViewPoint() {
+GgafDx::CameraViewPoint* MgrCamera::createCameraViewPoint() {
     MgrCameraViewPoint* pVP = NEW MgrCameraViewPoint("MgrCameraViewPoint");
-    return (GgafDxCameraViewPoint*)pVP;
+    return (GgafDx::CameraViewPoint*)pVP;
 }
-GgafDxCameraUpVector* MgrCamera::createCameraUpVector() {
+GgafDx::CameraUpVector* MgrCamera::createCameraUpVector() {
     MgrCameraUpVector* pUp = NEW MgrCameraUpVector("MgrCameraUpVector");
-    return (GgafDxCameraUpVector*)pUp;
+    return (GgafDx::CameraUpVector*)pUp;
 }
 
 MgrCamera::~MgrCamera() {

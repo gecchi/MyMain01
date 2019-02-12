@@ -1,9 +1,9 @@
 #include "EnemyHisbe.h"
 
-#include "jp/ggaf/core/actor/GgafSceneMediator.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
+#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
@@ -12,8 +12,8 @@
 #include "jp/gecchi/VioletVreath/actor/effect/EffectLaserRefraction001.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Hisbe/EnemyHisbeLaserChip002.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -40,7 +40,7 @@ EnemyHisbe::EnemyHisbe(const char* prm_name) :
     pDepo_effect_ = nullptr;
 
 //    //リフレクション------>
-//    GgafActorDepository* pDepoEffect = NEW GgafActorDepository("HisbeLaser");
+//    GgafCore::ActorDepository* pDepoEffect = NEW GgafCore::ActorDepository("HisbeLaser");
 //    EffectLaserRefraction001* pEffect;
 //    for (int i = 0; i < 100; i++) {
 //        std::string name = "EffectLaserRefraction001["+XTOS(i)+"]";
@@ -98,7 +98,7 @@ EnemyHisbe::EnemyHisbe(const char* prm_name) :
     //普通のレーザー
 
 
-    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
@@ -130,7 +130,7 @@ void EnemyHisbe::onActive() {
 }
 
 void EnemyHisbe::processBehavior() {
-    GgafProgress* const pProg = getProgress();
+    GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_WAIT: {
             if (pLaserChipDepo_) {
@@ -202,8 +202,8 @@ void EnemyHisbe::processJudgement() {
     }
 }
 
-void EnemyHisbe::onHit(const GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+void EnemyHisbe::onHit(const GgafCore::Actor* prm_pOtherActor) {
+    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTransmitter()->play3D(SE_EXPLOSION);

@@ -1,15 +1,15 @@
 #include "ScoreItem.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Trucker.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/TractorMagic.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -20,14 +20,14 @@ enum {
     PROG_BANPEI,
 };
 
-ScoreItem::ScoreItem(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat)
+ScoreItem::ScoreItem(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat)
                : Item(prm_name, prm_model, prm_pStat) {
     _class_name = "ScoreItem";
     effectBlendOne(); //加算合成するTechnique指定
     setZEnableDraw(true);        //描画時、Zバッファ値は考慮される
     setZWriteEnable(false);  //自身のZバッファを書き込みしない
     setCullingDraw(false);
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->setFaceAngVelo(AXIS_X, D_ANG(3));
     pKuroko->setFaceAngVelo(AXIS_Y, D_ANG(5));
     pKuroko->setFaceAngVelo(AXIS_Z, D_ANG(7));
@@ -38,7 +38,7 @@ ScoreItem::ScoreItem(const char* prm_name, const char* prm_model, GgafCore::Ggaf
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 400000);
-    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(0, "WAVE_GET_ITEM_001");
 }
 
@@ -48,7 +48,7 @@ void ScoreItem::initialize() {
 void ScoreItem::onActive() {
     // _x, _y, _z は発生元座標に設定済み
     setHitAble(true, false);
-    GgafDxTrucker* const pTrucker = getTrucker();
+    GgafDx::Trucker* const pTrucker = getTrucker();
     pTrucker->forceVxyzMvVeloRange(-30000, 30000);
     pTrucker->setZeroVxyzMvVelo();
     pTrucker->setZeroVxyzMvAcce();
@@ -61,7 +61,7 @@ void ScoreItem::onActive() {
 //    //発生地点から、自機への方向への散らばり範囲正方形領域が位置する距離（scattered_distance > (scattered_renge/2) であること)
 ////    int scattered_distance = scattered_renge/2 + 400000;
 //    //従って、scattered_distance 離れていても、自機は動かなくてもぎりぎり全て回収できる。
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->forceMvVeloRange(0, 20000);
     float vX, vY, vZ;
     UTIL::getNormalizedVector(
@@ -83,9 +83,9 @@ void ScoreItem::onActive() {
 
 void ScoreItem::processBehavior() {
     //通常移動
-    GgafDxKuroko* const pKuroko = getKuroko();
-    GgafDxTrucker* const pTrucker = getTrucker();
-    GgafProgress* const pProg = getProgress();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafDx::Trucker* const pTrucker = getTrucker();
+    GgafCore::Progress* const pProg = getProgress();
     if (pProg->get() == PROG_DRIFT) {
         //TractorMagic発動中はPROG_ATTACHへ移行
         if (getTractorMagic()->is_tracting_) {
@@ -169,11 +169,11 @@ void ScoreItem::processJudgement() {
 void ScoreItem::onInactive() {
 }
 
-void ScoreItem::onHit(const GgafActor* prm_pOtherActor) {
-    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
+void ScoreItem::onHit(const GgafCore::Actor* prm_pOtherActor) {
+    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)prm_pOtherActor;
     //ここにヒットエフェクト
 
-    GgafProgress* const pProg = getProgress();
+    GgafCore::Progress* const pProg = getProgress();
     if (pProg->get() == PROG_DRIFT && (pOther->lookUpKind() & KIND_MY_BODY))  {
         setHitAble(false);
         pProg->change(PROG_ATTACH);

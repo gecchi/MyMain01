@@ -1,18 +1,18 @@
 #include "EnemyStraeaLaserChip004.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
-//GgafDxCore::GgafDxTextureConnection* EnemyStraeaLaserChip004::pTexCon1_ = nullptr;
-//GgafDxCore::GgafDxTextureConnection* EnemyStraeaLaserChip004::pTexCon2_ = nullptr;
+//GgafDx::TextureConnection* EnemyStraeaLaserChip004::pTexCon1_ = nullptr;
+//GgafDx::TextureConnection* EnemyStraeaLaserChip004::pTexCon2_ = nullptr;
 
 EnemyStraeaLaserChip004::EnemyStraeaLaserChip004(const char* prm_name) :
         HomingLaserChip(prm_name, "StraeaLaserChip001", STATUS(EnemyStraeaLaserChip004)) {
@@ -43,7 +43,7 @@ void EnemyStraeaLaserChip004::onActive() {
     HomingLaserChip::onActive();
     //ステータスリセット
     getStatus()->reset();
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->setMvVelo(10000);
     pKuroko->setMvAcce(300);
     //pKuroko->forceMvVeloRange(0, 70000);
@@ -54,13 +54,13 @@ void EnemyStraeaLaserChip004::onActive() {
 
 void EnemyStraeaLaserChip004::processBehaviorHeadChip() {
 //    //--->debug
-//    if (GgafDxInput::isPressedKey(DIK_N)) {
-//        GgafDxTextureConnection* a = pModel->_papTextureConnection[0];
-//        GgafDxTextureConnection* b = pModel->_papTextureConnection[1];
+//    if (GgafDx::Input::isPressedKey(DIK_N)) {
+//        GgafDx::TextureConnection* a = pModel->_papTextureConnection[0];
+//        GgafDx::TextureConnection* b = pModel->_papTextureConnection[1];
 //        pModel->_papTextureConnection[0] = b;
 //        pModel->_papTextureConnection[1] = a;
 //    }
-//    if (GgafDxInput::isPressedKey(DIK_M)) {
+//    if (GgafDx::Input::isPressedKey(DIK_M)) {
 //        pModel->setMaterialTexture(0, pTexCon2_);
 //    }
 //    //<--debug
@@ -78,8 +78,8 @@ void EnemyStraeaLaserChip004::processJudgement() {
     }
 }
 
-void EnemyStraeaLaserChip004::onHit(const GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+void EnemyStraeaLaserChip004::onHit(const GgafCore::Actor* prm_pOtherActor) {
+    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         sayonara();

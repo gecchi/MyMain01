@@ -1,9 +1,9 @@
 #include "jp/ggaf/lib/util/CollisionChecker2D.h"
 
-#include "jp/ggaf/core/actor/GgafGroupHead.h"
-#include "jp/ggaf/core/util/GgafLinearQuadtree.h"
-#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
-#include "jp/ggaf/dxcore/util/GgafDxCollisionArea.h"
+#include "jp/ggaf/core/actor/GroupHead.h"
+#include "jp/ggaf/core/util/LinearQuadtree.h"
+#include "jp/ggaf/dx/exception/CriticalException.h"
+#include "jp/ggaf/dx/util/CollisionArea.h"
 #include "jp/ggaf/lib/DefaultGod.h"
 #include "jp/ggaf/lib/scene/DefaultSpacetime.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
@@ -13,22 +13,22 @@
 #include "jp/ggaf/lib/util/ColliAAPyramid.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
-CollisionChecker2D::CollisionChecker2D(GgafDxGeometricActor* prm_pActor) : CollisionChecker(prm_pActor) ,
+CollisionChecker2D::CollisionChecker2D(GgafDx::GeometricActor* prm_pActor) : CollisionChecker(prm_pActor) ,
         _pLinearQuadtree(pGOD->getSpacetime()->getLinearQuadtree()),
-        _pElem(NEW GgafTreeElem<2u>(_pLinearQuadtree->_paQuadrant, prm_pActor))
+        _pElem(NEW GgafCore::TreeElem<2u>(_pLinearQuadtree->_paQuadrant, prm_pActor))
 {
 }
 
 void CollisionChecker2D::updateHitArea() {
-    GgafDxCollisionArea* const pCollisionArea = _pCollisionArea;
+    GgafDx::CollisionArea* const pCollisionArea = _pCollisionArea;
     if (pCollisionArea == nullptr) {
         return;
     }
-    GgafDxGeometricActor* const pActor = _pActor;
+    GgafDx::GeometricActor* const pActor = _pActor;
     if (pActor->isActiveInTheTree()) {
         //四分木に登録！
         _pElem->_kind = pActor->lookUpKind();
@@ -46,11 +46,11 @@ void CollisionChecker2D::updateHitArea() {
     }
 }
 
-bool CollisionChecker2D::isHit(const GgafDxCore::GgafDxChecker* const prm_pOppChecker) {
-    GgafDxCollisionArea* const pCollisionArea = _pCollisionArea;
-    GgafDxCollisionArea* const pOppCollisionArea = prm_pOppChecker->_pCollisionArea; //相手の当たり判定領域
-    const GgafDxGeometricActor* const pActor = _pActor;                //相手のアクター
-    const GgafDxGeometricActor* const pOppActor = prm_pOppChecker->_pActor;                //相手のアクター
+bool CollisionChecker2D::isHit(const GgafDx::Checker* const prm_pOppChecker) {
+    GgafDx::CollisionArea* const pCollisionArea = _pCollisionArea;
+    GgafDx::CollisionArea* const pOppCollisionArea = prm_pOppChecker->_pCollisionArea; //相手の当たり判定領域
+    const GgafDx::GeometricActor* const pActor = _pActor;                //相手のアクター
+    const GgafDx::GeometricActor* const pOppActor = prm_pOppChecker->_pActor;                //相手のアクター
     const int colli_part_num = pCollisionArea->_colli_part_num;
     const int opp_colli_part_num = pOppCollisionArea->_colli_part_num; //相手の当たり判定要素数
 
@@ -77,11 +77,11 @@ bool CollisionChecker2D::isHit(const GgafDxCore::GgafDxChecker* const prm_pOppCh
     }
 
     for (int i = 0; i < colli_part_num; i++) {
-        const GgafDxCollisionPart* const pColliPart = pCollisionArea->_papColliPart[i];
+        const GgafDx::CollisionPart* const pColliPart = pCollisionArea->_papColliPart[i];
         if (!pColliPart->_is_valid_flg) { continue; }
         const int shape_kind = pColliPart->_shape_kind;
         for (int j = 0; j < opp_colli_part_num; j++) {
-            const GgafDxCollisionPart* const pOppColliPart = pOppCollisionArea->_papColliPart[j];
+            const GgafDx::CollisionPart* const pOppColliPart = pOppCollisionArea->_papColliPart[j];
             if (!pOppColliPart->_is_valid_flg) { continue; }
             const int opp_shape_kind = pOppColliPart->_shape_kind;
 #ifdef MY_DEBUG

@@ -8,8 +8,8 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -119,10 +119,10 @@ void God::initVB() {
 
 }
 
-GgafSpacetime* God::createSpacetime() {
+GgafCore::Spacetime* God::createSpacetime() {
     Camera* pCamera = NEW Camera("CAMERA");
     Spacetime* pSpacetime = NEW Spacetime("MYSPACETIME", pCamera);
-    return (GgafSpacetime*)pSpacetime;
+    return (GgafCore::Spacetime*)pSpacetime;
 }
 
 void God::clean() {

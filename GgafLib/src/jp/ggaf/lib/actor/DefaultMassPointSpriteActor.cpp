@@ -3,19 +3,19 @@
 #include "jp/ggaf/lib/DefaultGod.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
-#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
-#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+#include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
+#include "jp/ggaf/dx/scene/Spacetime.h"
+#include "jp/ggaf/dx/exception/CriticalException.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
 
 DefaultMassPointSpriteActor::VERTEX_instancedata DefaultMassPointSpriteActor::_aInstancedata[GGAFDXMASS_MAX_INSTANCE_NUM];
 
-DefaultMassPointSpriteActor::DefaultMassPointSpriteActor(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
-    GgafDxMassPointSpriteActor(prm_name,
+DefaultMassPointSpriteActor::DefaultMassPointSpriteActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat) :
+    GgafDx::MassPointSpriteActor(prm_name,
                         prm_model,
                         "DefaultMassPointSpriteEffect",
                         "DefaultMassPointSpriteTechnique",
@@ -32,7 +32,7 @@ void DefaultMassPointSpriteActor::drawHitArea() {
 #endif
 }
 
-void DefaultMassPointSpriteActor::createVertexInstanceData(void* prm, GgafDxMassModel::VertexInstanceDataInfo* out_info) {
+void DefaultMassPointSpriteActor::createVertexInstanceData(void* prm, GgafDx::MassModel::VertexInstanceDataInfo* out_info) {
     int element_num = 6;
     out_info->paElement = NEW D3DVERTEXELEMENT9[element_num];
     // Stream = 1 ---->
@@ -96,13 +96,13 @@ void DefaultMassPointSpriteActor::createVertexInstanceData(void* prm, GgafDxMass
 void DefaultMassPointSpriteActor::processDraw() {
 
 
-    HRESULT hr = GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, TRUE); //ポイントスプライトON！
+    HRESULT hr = GgafDx::God::_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, TRUE); //ポイントスプライトON！
     checkDxException(hr, D3D_OK, " D3DRS_POINTSPRITEENABLE TRUE に失敗しました。");
 
 
-    int draw_set_num = 0; //GgafDxMassPointSpriteActorの同じモデルで同じテクニックが
+    int draw_set_num = 0; //MassPointSpriteActorの同じモデルで同じテクニックが
                           //連続しているカウント数。同一描画深度は一度に描画する。
-    GgafDxMassPointSpriteModel* pMassPointSpriteModel = _pMassPointSpriteModel;
+    GgafDx::MassPointSpriteModel* pMassPointSpriteModel = _pMassPointSpriteModel;
     const int model_max_set_num = pMassPointSpriteModel->_set_num;
     const hashval hash_technique = _hash_technique;
 
@@ -110,7 +110,7 @@ void DefaultMassPointSpriteActor::processDraw() {
     static const size_t size_of_D3DCOLORVALUE = sizeof(D3DCOLORVALUE);
     DefaultMassPointSpriteActor::VERTEX_instancedata* paInstancedata = DefaultMassPointSpriteActor::_aInstancedata;
 
-    GgafDxFigureActor* pDrawActor = this;
+    GgafDx::FigureActor* pDrawActor = this;
     while (pDrawActor) {
         if (pDrawActor->getModel() == pMassPointSpriteModel && pDrawActor->_hash_technique == hash_technique) {
             memcpy(paInstancedata, &(pDrawActor->_matWorld), size_of_D3DXMATRIX);
@@ -118,7 +118,7 @@ void DefaultMassPointSpriteActor::processDraw() {
             paInstancedata->pattno_uvflip_now = ((DefaultMassPointSpriteActor*)pDrawActor)->getUvFlipper()->_pattno_uvflip_now;
             ++paInstancedata;
             draw_set_num++;
-            GgafDxSpacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
+            GgafDx::Spacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
             if (draw_set_num >= model_max_set_num) {
                 break;
             } else {
@@ -129,9 +129,9 @@ void DefaultMassPointSpriteActor::processDraw() {
         }
     }
 
-    ((GgafDxMassPointSpriteModel*)_pMassPointSpriteModel)->GgafDxMassPointSpriteModel::draw(this, draw_set_num);
+    ((GgafDx::MassPointSpriteModel*)_pMassPointSpriteModel)->GgafDx::MassPointSpriteModel::draw(this, draw_set_num);
 
-    hr = GgafDxGod::_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, FALSE); //ポイントスプライトOFF
+    hr = GgafDx::God::_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, FALSE); //ポイントスプライトOFF
     checkDxException(hr, D3D_OK, " D3DRS_POINTSPRITEENABLE FALSE に失敗しました。");
 }
 

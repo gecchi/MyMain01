@@ -1,7 +1,7 @@
-#ifndef GGAFLIB_CAMERAWORKER_H_
-#define GGAFLIB_CAMERAWORKER_H_
+#ifndef GGAF_LIB_CAMERAWORKER_H_
+#define GGAF_LIB_CAMERAWORKER_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/core/actor/GgafMainActor.h"
+#include "jp/ggaf/core/actor/MainActor.h"
 
 
 #define DEFAULT_CAMERA_SLIDE_FRAMES (60)
@@ -16,7 +16,7 @@ namespace GgafLib {
  * @since 2010/10/25
  * @author Masatoshi Tsuge
  */
-class CameraWorker : public GgafCore::GgafMainActor {
+class CameraWorker : public GgafCore::MainActor {
 
 public:
     /** [r]ÉJÉÅÉâÇ÷ÇÃéQè∆ */
@@ -72,7 +72,7 @@ public:
     virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {
     }
 
-    virtual bool processHitChkLogic(GgafCore::GgafActor* prm_pOtherActor) override {
+    virtual bool processHitChkLogic(GgafCore::Actor* prm_pOtherActor) override {
         return false;
     }
 
@@ -80,8 +80,8 @@ public:
         return frame_of_behaving_since_onSwitch_;
     }
 
-    void slideMvCamTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t);
-    void slideMvCamTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t,
+    void slideMvCamTo(GgafDx::GeometricActor* pTarget, frame t);
+    void slideMvCamTo(GgafDx::GeometricActor* pTarget, frame t,
                       float prm_x_p1, float prm_y_p1, float prm_z_p1);
     void slideMvCamTo(coord tx, coord ty, coord tz, frame t, float prm_p1=0.3f, float prm_p2=0.7f);
     void slideMvCamTo(coord tx, coord ty, coord tz, frame t,
@@ -89,7 +89,7 @@ public:
     void mvCamTo(coord tx, coord ty, coord tz);
 
     bool isCamSliding();
-    void slideMvVpTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t);
+    void slideMvVpTo(GgafDx::GeometricActor* pTarget, frame t);
     void slideMvVpTo(coord tx, coord ty, coord tz, frame t, float prm_p1=0.3f, float prm_p2=0.7f);
 
     void slideMvUpVecTo(coord tx, coord ty, coord tz, frame t, float prm_p1=0.3f, float prm_p2=0.7f);

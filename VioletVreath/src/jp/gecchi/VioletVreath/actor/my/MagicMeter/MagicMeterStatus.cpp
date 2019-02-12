@@ -1,12 +1,12 @@
 #include "MagicMeterStatus.h"
 
 #include <stdio.h>
-#include "jp/ggaf/dxcore/effect/GgafDxBoardSetEffect.h"
+#include "jp/ggaf/dx/effect/BoardSetEffect.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/Magic.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 

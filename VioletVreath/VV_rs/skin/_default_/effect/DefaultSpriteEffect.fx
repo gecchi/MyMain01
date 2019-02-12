@@ -1,6 +1,6 @@
 #include "GgafEffectConst.fxh" 
 ////////////////////////////////////////////////////////////////////////////////
-// Ggafライブラリ、GgafDxSpriteModel用シェーダー
+// ggaf ライブラリ、GgafDx::SpriteModel用シェーダー
 //
 // author : Masatoshi Tsuge
 // date:2009/03/06 
@@ -31,7 +31,7 @@ struct OUT_VS
 ///////////////////////////////////////////////////////////////////////////
 
 //スプライト標準頂点シェーダー
-OUT_VS GgafDxVS_DefaultSprite(
+OUT_VS VS_DefaultSprite(
       float4 prm_posModel_Local    : POSITION,     // モデルの頂点
       float2 prm_uv     : TEXCOORD0     // モデルの頂点のUV
 ) {
@@ -61,7 +61,7 @@ OUT_VS GgafDxVS_DefaultSprite(
 
 
 //スプライト標準ピクセルシェーダー
-float4 GgafDxPS_DefaultSprite(
+float4 PS_DefaultSprite(
 	float2 prm_uv	  : TEXCOORD0
 ) : COLOR  {
 	//求める色
@@ -85,7 +85,7 @@ float4 PS_Flush(
 
 //＜テクニック：DefaultSpriteTechnique＞
 //【機能】
-//GgafDxSpriteModel用標準シェーダー
+//SpriteModel用標準シェーダー
 //【概要】
 //板ポリ（擬似スプライト）を描画する。ライトなどの陰影は無し。
 technique DefaultSpriteTechnique
@@ -98,8 +98,8 @@ technique DefaultSpriteTechnique
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		BlendOpAlpha = Add;
-		VertexShader = compile VS_VERSION GgafDxVS_DefaultSprite();
-		PixelShader  = compile PS_VERSION GgafDxPS_DefaultSprite();
+		VertexShader = compile VS_VERSION VS_DefaultSprite();
+		PixelShader  = compile PS_VERSION PS_DefaultSprite();
 	}
 }
 
@@ -113,8 +113,8 @@ technique DestBlendOne
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		BlendOpAlpha = Add;
-		VertexShader = compile VS_VERSION GgafDxVS_DefaultSprite();
-		PixelShader  = compile PS_VERSION GgafDxPS_DefaultSprite();
+		VertexShader = compile VS_VERSION VS_DefaultSprite();
+		PixelShader  = compile PS_VERSION PS_DefaultSprite();
 	}
 }
 
@@ -128,7 +128,7 @@ technique Flush
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		BlendOpAlpha = Add;
-		VertexShader = compile VS_VERSION GgafDxVS_DefaultSprite();
+		VertexShader = compile VS_VERSION VS_DefaultSprite();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}
 }

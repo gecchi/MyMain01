@@ -26,7 +26,7 @@ public:
      * SpriteLabelBonus001 の活動を開始サせるには本メソッドを呼び出してください。
      * @param prm_pOrgActor
      */
-    void onDispatched(GgafDxCore::GgafDxGeometricActor* prm_pOrgActor);
+    void onDispatched(GgafDx::GeometricActor* prm_pOrgActor);
 
     virtual ~SpriteLabelBonus001();
 

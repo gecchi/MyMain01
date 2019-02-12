@@ -4,7 +4,7 @@
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 #include "VvvGod.h"
-#include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
+#include "jp/ggaf/core/util/LinkedListRing.hpp"
 
 namespace VVViewer {
 
@@ -20,15 +20,15 @@ public:
     /** 表示中モデルのリスト */
     class ActorInfo {
     public:
-        GgafDxCore::GgafDxFigureActor* pActor_;
+        GgafDx::FigureActor* pActor_;
         std::string modelfile_;
-        ActorInfo(GgafDxCore::GgafDxFigureActor* pActor, std::string modelfile) {
+        ActorInfo(GgafDx::FigureActor* pActor, std::string modelfile) {
             pActor_ = pActor;
             modelfile_ = modelfile;
         }
     };
 
-    GgafCore::GgafLinkedListRing<ActorInfo> listActorInfo_;
+    GgafCore::LinkedListRing<ActorInfo> listActorInfo_;
     /** 入力受付 */
     GgafLib::VirtualButton* vb_;
     /** カーソル */

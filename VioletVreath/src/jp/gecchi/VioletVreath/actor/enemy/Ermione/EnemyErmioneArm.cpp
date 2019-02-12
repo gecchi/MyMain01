@@ -1,27 +1,27 @@
 #include "EnemyErmioneArm.h"
 #include "EnemyErmione.h"
 
-#include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dx/actor/GeometricActor.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/KurokoFaceAngAssistant.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
-EnemyErmioneArm::EnemyErmioneArm(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat) :
+EnemyErmioneArm::EnemyErmioneArm(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat) :
         DefaultMeshSetActor(prm_name, prm_model, prm_pStat) {
     _class_name = "EnemyErmioneArm";
 
     aiming_ang_velo_ = 0;
     aiming_movable_limit_ang_ = 0;
-    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001"); //腕破壊
     useProgress(PROG_BANPEI);
@@ -42,8 +42,8 @@ void EnemyErmioneArm::onActive() {
 void EnemyErmioneArm::processBehavior() {
 
     changeGeoLocal(); //ローカル座標の操作とする。
-    GgafDxKuroko* const pKuroko = getKuroko();
-    GgafProgress* const pProg = getProgress();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             pProg->change(PROG_WAITING);
@@ -93,13 +93,13 @@ void EnemyErmioneArm::processBehavior() {
                     int mvx,mvy,mvz;
                     if (RND(1, 1000) < 960 || arm_part_no_ >= 9) {
                         //絶対座標系で通常の自機を狙う方向ベクトル
-                        GgafDxGeometricActor* pTargetActor = pMYSHIP;
+                        GgafDx::GeometricActor* pTargetActor = pMYSHIP;
                         mvx = pTargetActor->_x - _x_final; //ここで自身の _x, _y, _z は絶対座標(_x_final)であることがポイント
                         mvy = (pTargetActor->_y + PX_C(50)) - _y_final; //自機のやや上を狙う
                         mvz = pTargetActor->_z - _z_final;
                     } else {
                         //たま～に逆方向を目標にして、触手に動きを強要する
-                        GgafDxGeometricActor* pTargetActor = pMYSHIP;
+                        GgafDx::GeometricActor* pTargetActor = pMYSHIP;
                         mvx = _x_final - pTargetActor->_x;
                         mvy = _y_final - pTargetActor->_y;
                         mvz = _z_final - pTargetActor->_z;
@@ -150,7 +150,7 @@ void EnemyErmioneArm::processBehavior() {
     changeGeoFinal();
     //pScaler_->behave();
     if (_pActor_base) {
-        setAlpha(((GgafDxFigureActor*)_pActor_base)->getAlpha());
+        setAlpha(((GgafDx::FigureActor*)_pActor_base)->getAlpha());
     }
 }
 

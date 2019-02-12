@@ -1,5 +1,5 @@
-#ifndef GGAFLIB_HOMINGLASERCHIP_H_
-#define GGAFLIB_HOMINGLASERCHIP_H_
+#ifndef GGAF_LIB_HOMINGLASERCHIP_H_
+#define GGAF_LIB_HOMINGLASERCHIP_H_
 #include "GgafLibCommonHeader.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChip.h"
 
@@ -47,7 +47,7 @@ public:
     bool _is_fix_begin_pos;
 
 public:
-    HomingLaserChip(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
+    HomingLaserChip(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat=nullptr);
 
     virtual void onCreateModel() override {}
 
@@ -93,5 +93,5 @@ public:
 };
 
 }
-#endif /*GGAFLIB_HOMINGLASERCHIP_H_*/
+#endif /*GGAF_LIB_HOMINGLASERCHIP_H_*/
 

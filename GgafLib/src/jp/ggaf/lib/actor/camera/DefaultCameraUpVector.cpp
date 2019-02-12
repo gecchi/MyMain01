@@ -1,15 +1,15 @@
 #include "jp/ggaf/lib/actor/camera/DefaultCameraUpVector.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxTruckerAssistantA.h"
+#include "jp/ggaf/dx/actor/supporter/Trucker.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/TruckerAssistantA.h"
 #include "jp/ggaf/lib/util/Direction26Util.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
-DefaultCameraUpVector::DefaultCameraUpVector(const char* prm_name) : GgafDxCameraUpVector(prm_name) {
+DefaultCameraUpVector::DefaultCameraUpVector(const char* prm_name) : GgafDx::CameraUpVector(prm_name) {
     _class_name = "DefaultCameraUpVector";
     up_dir_ = DIR26(0,1,0);
 }

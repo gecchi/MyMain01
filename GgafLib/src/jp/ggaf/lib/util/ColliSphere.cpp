@@ -2,11 +2,11 @@
 
 #include "jp/ggaf/lib/util/StgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
-ColliSphere::ColliSphere() : GgafDxCollisionPart() {
+ColliSphere::ColliSphere() : GgafDx::CollisionPart() {
     _r = 0;
     _rr = 0.0;
     _shape_kind = COLLI_SPHERE;

@@ -1,14 +1,14 @@
 #include "EnemyEsperiaLaserChip001.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -31,7 +31,7 @@ EnemyEsperiaLaserChip001::EnemyEsperiaLaserChip001(const char* prm_name) :
     tx2_ = ty2_ = tz2_ = 0;
     begin_y_ = 0;
     turn_dy_ = 0;
-    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_FIRE , "WAVE_ENEMY_FIRE_LASER_001");
 }
 
@@ -41,7 +41,7 @@ void EnemyEsperiaLaserChip001::initialize() {
     pChecker->setColliAACube(0, 20000);
     setHitAble(true, false);
     setScaleR(5.0);
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->forceMvVeloRange(PX_C(100));
     pKuroko->linkFaceAngByMvAng(true);
     useProgress(PROG_BANPEI);
@@ -52,7 +52,7 @@ void EnemyEsperiaLaserChip001::onActive() {
     //ステータスリセット
     getStatus()->reset();
     begin_y_ = _y;
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->stopTurningMvAng();
     if (getInfrontChip() == nullptr) {
         pKuroko->setMvAngTwd(tx1_, ty1_, tz1_);
@@ -68,8 +68,8 @@ void EnemyEsperiaLaserChip001::onActive() {
 }
 
 void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
-    GgafDxKuroko* const pKuroko = getKuroko();
-    GgafProgress* const pProg = getProgress();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_MOVE_UP: {
             //レーザー上昇
@@ -145,8 +145,8 @@ void EnemyEsperiaLaserChip001::processJudgement() {
     }
 }
 
-void EnemyEsperiaLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+void EnemyEsperiaLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor) {
+    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         sayonara();

@@ -43,11 +43,11 @@ float4 g_colMaterialDiffuse;
 float g_specular;
 /** スペキュラーの強度 */
 float g_specular_power;
-/** モデルのテクスチャ色点滅機能(GgafDxTextureBlinker参照)の点滅強度 */
+/** モデルのテクスチャ色点滅機能(GgafDx::TextureBlinker参照)の点滅強度 */
 float g_tex_blink_power;
-/** モデルのテクスチャ色点滅機能(GgafDxTextureBlinker参照)の対象となるRGBのしきい値(0.0～1.0) */
+/** モデルのテクスチャ色点滅機能(GgafDx::TextureBlinker参照)の対象となるRGBのしきい値(0.0～1.0) */
 float g_tex_blink_threshold;
-/** フェードイン・アウト機能(GgafDxAlphaCurtain参照)のためのマスターアルファ値(0.0～1.0) */
+/** フェードイン・アウト機能(GgafDx::AlphaCurtain参照)のためのマスターアルファ値(0.0～1.0) */
 float g_alpha_master;
 /** 現在の射影変換行列要素のzf。カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn */
 float g_zf;
@@ -92,7 +92,7 @@ struct OUT_VS_BM {
  * @param prm_vecNormal_Local ローカル頂点での法線ベクトル
  * @param prm_uv              頂点のUV座標
  */
-OUT_VS GgafDxVS_DefaultMesh(
+OUT_VS VS_DefaultMesh(
       float4 prm_posModel_Local  : POSITION,
       float3 prm_vecNormal_Local : NORMAL,
       float2 prm_uv              : TEXCOORD0
@@ -147,7 +147,7 @@ OUT_VS GgafDxVS_DefaultMesh(
  * @param prm_vecNormal_World 法線ベクトル(ワールド座標系)
  * @param prm_vecEye_World    視線(頂点 -> 視点)ベクトル(ワールド座標系)
  */
-float4 GgafDxPS_DefaultMesh(
+float4 PS_DefaultMesh(
     float2 prm_uv              : TEXCOORD0,
     float4 prm_color           : COLOR0,
     float3 prm_vecNormal_World : TEXCOORD1,
@@ -211,7 +211,7 @@ float4x4 getInvTangentMatrix(
  * @param prm_vecTangent_Local  頂点の接ベクトル(u方向単位ベクトル)(ローカル座標系)
  * @param prm_vecBinormal_Local 頂点の従法線ベクトル(v方向単位ベクトル)(ローカル座標系)
  */
-OUT_VS_BM GgafDxVS_BumpMapping(
+OUT_VS_BM VS_BumpMapping(
       float4 prm_posModel_Local    : POSITION,
       float3 prm_vecNormal_Local   : NORMAL,
       float2 prm_uv                : TEXCOORD0,
@@ -275,7 +275,7 @@ OUT_VS_BM GgafDxVS_BumpMapping(
  * @param prm_vecLight_Tangent 拡散光方向ベクトル(接空間座標系)
  * @param prm_vecHarf_Tangent  ハーフベクトル(接空間座標系)
  */
-float4 GgafDxPS_BumpMapping(
+float4 PS_BumpMapping(
     float2 prm_uv               : TEXCOORD0,
     float4 prm_color            : COLOR0,
     float3 prm_vecNormal_World  : TEXCOORD1,
@@ -342,8 +342,8 @@ technique DefaultMeshTechnique
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMesh();
-        PixelShader  = compile PS_VERSION GgafDxPS_DefaultMesh();
+        VertexShader = compile VS_VERSION VS_DefaultMesh();
+        PixelShader  = compile PS_VERSION PS_DefaultMesh();
     }
 }
 
@@ -357,8 +357,8 @@ technique BumpMapping
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default
-        VertexShader = compile VS_VERSION GgafDxVS_BumpMapping();
-        PixelShader  = compile PS_VERSION GgafDxPS_BumpMapping();
+        VertexShader = compile VS_VERSION VS_BumpMapping();
+        PixelShader  = compile PS_VERSION PS_BumpMapping();
     }
 }
 
@@ -375,8 +375,8 @@ technique DestBlendOne
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMesh();
-        PixelShader  = compile PS_VERSION GgafDxPS_DefaultMesh();
+        VertexShader = compile VS_VERSION VS_DefaultMesh();
+        PixelShader  = compile PS_VERSION PS_DefaultMesh();
     }
 }
 
@@ -393,7 +393,7 @@ technique Flush
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default
-        VertexShader = compile VS_VERSION GgafDxVS_DefaultMesh();
+        VertexShader = compile VS_VERSION VS_DefaultMesh();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 }

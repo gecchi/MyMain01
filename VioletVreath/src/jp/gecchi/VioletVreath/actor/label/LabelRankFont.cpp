@@ -1,13 +1,13 @@
 #include "LabelRankFont.h"
 
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
-#include "jp/ggaf/dxcore/model/GgafDxModel.h"
-#include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
+#include "jp/ggaf/dx/model/Model.h"
+#include "jp/ggaf/dx/model/supporter/TextureBlinker.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -92,7 +92,7 @@ LabelRankFont::LabelRankFont(const char* prm_name) :
     tmp_rank_ = 0;
     getAlphaFader()->setRange(0.0, 1.0);
     setAlign(ALIGN_RIGHT, VALIGN_BOTTOM);
-    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_RANK_UP, "WAVE_RANK_UP");
 }
 

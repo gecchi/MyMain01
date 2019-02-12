@@ -1,7 +1,7 @@
 #include "GameMainScene.h"
 
-#include "jp/ggaf/core/actor/GgafSceneMediator.h"
-#include "jp/ggaf/core/scene/GgafScene.h"
+#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/scene/Scene.h"
 #include <stdio.h>
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -12,8 +12,8 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld/RankUpStageController/RankUpStage.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelScoreFont.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 

@@ -5,8 +5,8 @@
 #include "scene/MgrSpacetime.h"
 #include "MgrGod.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace Mogera;
 
@@ -26,10 +26,10 @@ void MgrWorld::processBehavior() {
     VirtualButton* pVb = P_GOD->getSpacetime()->pVb_;
     //ワイヤフレーム表示切替
     if (pVb->isPushedDown(VB_UI_DEBUG)) {
-        if (GgafDxGod::_d3dfillmode == D3DFILL_WIREFRAME) {
-            GgafDxGod::_d3dfillmode = D3DFILL_SOLID;
+        if (GgafDx::God::_d3dfillmode == D3DFILL_WIREFRAME) {
+            GgafDx::God::_d3dfillmode = D3DFILL_SOLID;
         } else {
-            GgafDxGod::_d3dfillmode = D3DFILL_WIREFRAME;
+            GgafDx::God::_d3dfillmode = D3DFILL_WIREFRAME;
         }
     }
 

@@ -5,12 +5,12 @@
 
 #include "jp/ggaf/lib/util/StgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
 DefaultGod::DefaultGod() :
-        GgafDxGod() {
+        GgafDx::God() {
     _pSplSrcManager = nullptr;
     _pSplManufManager = nullptr;
 }
@@ -19,13 +19,13 @@ HRESULT DefaultGod::initDevice() {
     StgUtil::init();  //ユーティリティ準備
     _pSplSrcManager = createSplineSourceManager();
     _pSplManufManager = createSplineManufactureManager();
-    return GgafDxGod::initDevice();
+    return GgafDx::God::initDevice();
 }
 
 void DefaultGod::clean() {
     if (!_was_cleaned) {
         _TRACE_(FUNC_NAME<<" begin");
-        GgafDxGod::clean();
+        GgafDx::God::clean();
         GGAF_DELETE(_pSplSrcManager);
         GGAF_DELETE(_pSplManufManager);
         _TRACE_(FUNC_NAME<<" end");

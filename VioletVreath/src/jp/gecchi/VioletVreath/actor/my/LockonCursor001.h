@@ -24,7 +24,7 @@ public:
     };
 
 
-    GgafDxCore::GgafDxGeometricActor* pTarget_;
+    GgafDx::GeometricActor* pTarget_;
 
 public:
     LockonCursor001(const char* prm_name, const char* prm_model_id);
@@ -43,7 +43,7 @@ public:
 
     virtual void releaseLockon() = 0;
 
-    virtual void lockon(GgafDxGeometricActor* prm_pTarget) = 0;
+    virtual void lockon(GgafDx::GeometricActor* prm_pTarget) = 0;
 
     virtual ~LockonCursor001();
 

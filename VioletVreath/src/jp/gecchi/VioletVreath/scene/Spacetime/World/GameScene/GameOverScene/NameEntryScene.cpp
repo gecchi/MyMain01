@@ -1,7 +1,7 @@
 #include "NameEntryScene.h"
 
-#include "jp/ggaf/core/actor/GgafSceneMediator.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
+#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
 #include "jp/gecchi/VioletVreath/actor/background/WorldBound/WorldBoundNameEntry.h"
 #include "jp/gecchi/VioletVreath/actor/menu/name_entry/MenuBoardNameEntry.h"
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
@@ -9,8 +9,8 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/util/RankingTable.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -146,7 +146,7 @@ void NameEntryScene::processBehavior() {
 }
 
 void NameEntryScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
-    GgafProgress* const pProg = getProgress();
+    GgafCore::Progress* const pProg = getProgress();
     if (prm_no == EVENT_MENU_NAMEENTRY_DONE) {
         _TRACE_("NameEntryScene::onCatchEvent(EVENT_MENU_NAMEENTRY_DONE)");
         pProg->change(PROG_DONE_DISP);

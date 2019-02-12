@@ -1,6 +1,6 @@
 #include "MenuBoardKeyConfig.h"
 
-#include "jp/ggaf/dxcore/util/GgafDxInput.h"
+#include "jp/ggaf/dx/util/Input.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 #include "CursorConfig002.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelFix16Font01.h"
@@ -10,11 +10,11 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/Config.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelMenuItemFont01.h"
-#include "jp/ggaf/core/util/GgafValueEnveloper.hpp"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
+#include "jp/ggaf/core/util/ValueEnveloper.hpp"
+#include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -141,8 +141,8 @@ void MenuBoardKeyConfig::onRise() {
 }
 void MenuBoardKeyConfig::processBehavior() {
     if (getBehaveingFrame() % 60 == 0) {
-        if (GgafDxInput::_pJoystickInputDevice == nullptr) {
-            GgafDxInput::initJoyStick();
+        if (GgafDx::Input::_pJoystickInputDevice == nullptr) {
+            GgafDx::Input::initJoyStick();
         }
     }
     MenuBoard::processBehavior();
@@ -207,7 +207,7 @@ void MenuBoardKeyConfig::processBehavior() {
             paVBConfig[index].pKey->getAlphaFader()->transitionLinearToTop(5);
             paVBConfig[index].pJoy->getAlphaFader()->transitionLinearToTop(5);
         } else {
-            int DIK_pushed = GgafDxInput::getPushedDownKey();
+            int DIK_pushed = GgafDx::Input::getPushedDownKey();
             if (DIK_pushed != -1 && 0x00 <= DIK_pushed && DIK_pushed <= 0xD1) {
                 paVBConfig[index].pKey->update(VirtualButton::_mapVBK2Str[DIK_pushed].c_str());
                 paVBConfig[index].pKey->getAlphaFader()->beat(10, 5, 0, 5, 6.5);
@@ -227,7 +227,7 @@ void MenuBoardKeyConfig::processBehavior() {
 
 }
 
-void MenuBoardKeyConfig::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
+void MenuBoardKeyConfig::onDecision(GgafDx::FigureActor* prm_pItem, int prm_item_index) {
     if (prm_item_index == ITEM_INDEX_CANCEL_) {
         input_mode_ = 0;
         sinkMe();
@@ -241,7 +241,7 @@ void MenuBoardKeyConfig::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, in
         paVBConfig[prm_item_index].pJoy->getAlphaFader()->beat(30, 15, 0, 15, -1);
     }
 }
-void MenuBoardKeyConfig::onCancel(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
+void MenuBoardKeyConfig::onCancel(GgafDx::FigureActor* prm_pItem, int prm_item_index) {
 
 }
 

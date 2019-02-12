@@ -1,10 +1,10 @@
 #include "jp/ggaf/lib/effect/MassWallEffect.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
-MassWallEffect::MassWallEffect(const char* prm_effect_name) : GgafDxMassMeshEffect(prm_effect_name) {
+MassWallEffect::MassWallEffect(const char* prm_effect_name) : GgafDx::MassMeshEffect(prm_effect_name) {
     _h_distance_AlphaTarget = _pID3DXEffect->GetParameterByName( nullptr, "g_distance_AlphaTarget" );
     _h_wall_dep    = _pID3DXEffect->GetParameterByName( nullptr, "g_wall_dep" );
     _h_wall_height = _pID3DXEffect->GetParameterByName( nullptr, "g_wall_height" );

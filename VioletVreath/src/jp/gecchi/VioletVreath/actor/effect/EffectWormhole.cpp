@@ -1,11 +1,11 @@
 #include "EffectWormhole.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Scaler.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -30,7 +30,7 @@ void EffectWormhole::onActive() {
 }
 
 void EffectWormhole::processBehavior() {
-    GgafDxScaler* const pScaler = getScaler();
+    GgafDx::Scaler* const pScaler = getScaler();
 
     if (getAlpha() < 1.0) {
         addAlpha(0.05);

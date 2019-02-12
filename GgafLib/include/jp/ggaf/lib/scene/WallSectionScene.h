@@ -1,5 +1,5 @@
-#ifndef GGAFLIB_WALLSECTIONSCENE_H_
-#define GGAFLIB_WALLSECTIONSCENE_H_
+#ifndef GGAF_LIB_WALLSECTIONSCENE_H_
+#define GGAF_LIB_WALLSECTIONSCENE_H_
 #include "GgafLibCommonHeader.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
@@ -64,9 +64,9 @@ public:
     /** [r]全壁ブロック(MassWallActor)の配置情報の、外壁の壁ブロック数。要素＝何ブロック目か(_area_lenインデックス) */
     int* _paWallNum;
     /** [r]壁ブロック(MassWallActor)デポジトリ */
-    GgafCore::GgafActorDepository* _pDepo_wall;
+    GgafCore::ActorDepository* _pDepo_wall;
     /** [r]手前ブロックの透過機能有効時の基準となるアクター */
-    GgafDxCore::GgafDxGeometricActor* _pActor_infront_alpha_target;
+    GgafDx::GeometricActor* _pActor_infront_alpha_target;
     /** セクションシーン繰り返しフラグ */
     bool _is_loop_end;
     MassWallActor* _pWallLast;
@@ -93,7 +93,7 @@ public:
      * @param prm_wall_height 壁ブロックの高さ（１つのMassWallActorオブジェクトのZ座標軸長さ）
      */
     virtual void config(
-            GgafCore::GgafActorDepository* prm_pDepo_wall,
+            GgafCore::ActorDepository* prm_pDepo_wall,
             coord prm_wall_start_x,
             coord prm_wall_dep, coord prm_wall_width, coord prm_wall_height);
 
@@ -122,7 +122,7 @@ public:
      * 無効にしたい場合は nullptr を設定する
      * @param prm_pActor_infront_alpha_target 手前の基準になるアクター
      */
-    void enableInfrontAlpha(GgafDxCore::GgafDxGeometricActor* prm_pActor_infront_alpha_target) {
+    void enableInfrontAlpha(GgafDx::GeometricActor* prm_pActor_infront_alpha_target) {
         _pActor_infront_alpha_target = prm_pActor_infront_alpha_target;
     }
 
@@ -139,4 +139,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_WALLSECTIONSCENE_H_*/
+#endif /*GGAF_LIB_WALLSECTIONSCENE_H_*/

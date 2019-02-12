@@ -1,14 +1,14 @@
 #include "TamagoActor.h"
 
-#include "jp/ggaf/dxcore/util/GgafDxInput.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxPuppeteer.h"
+#include "jp/ggaf/dx/util/Input.h"
+#include "jp/ggaf/dx/actor/supporter/Puppeteer.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
-TamagoActor::TamagoActor(const char* prm_name, GgafStatus* prm_pStat) :
+TamagoActor::TamagoActor(const char* prm_name, GgafCore::Status* prm_pStat) :
         DefaultD3DXAniMeshActor(prm_name, "anibox", nullptr) {
     _class_name = "TamagoActor";
 }
@@ -18,7 +18,7 @@ void TamagoActor::initialize() {
 }
 
 void TamagoActor::processBehavior() {
-//    if (GgafDxInput::isPushedDownKey(DIK_0)) {
+//    if (GgafDx::Input::isPushedDownKey(DIK_0)) {
 //        _pPuppeteer->play(LEFT_HAND,
 //                            0,          //UINT   prm_performance_no,
 //                            -1,         //double prm_loopnum,
@@ -28,7 +28,7 @@ void TamagoActor::processBehavior() {
 //                            0    );     //frame  prm_shift_weight_frames
 //
 //    }
-//    if (GgafDxInput::isPushedDownKey(DIK_9)) {
+//    if (GgafDx::Input::isPushedDownKey(DIK_9)) {
 //        _pPuppeteer->exchangPerformance();
 //        _pPuppeteer->play(LEFT_HAND,
 //                            1,          //UINT   prm_performance_no,
@@ -38,20 +38,20 @@ void TamagoActor::processBehavior() {
 //                            1.0,        //double prm_target_weight,
 //                            0    );     //frame  prm_shift_weight_frames
 //    }
-//    if (GgafDxInput::isPushedDownKey(DIK_8)) {
+//    if (GgafDx::Input::isPushedDownKey(DIK_8)) {
 ////        _pPuppeteer->play(1, 1.0, LOOP_MOTION_LINEAR);
 //    }
-//    if (GgafDxInput::isPushedDownKey(DIK_7)) {
+//    if (GgafDx::Input::isPushedDownKey(DIK_7)) {
 ////        _pPuppeteer->play(1, -1.0, LOOP_MOTION_LINEAR);
 //    }
-//    if (GgafDxInput::isPushedDownKey(DIK_6)) {
+//    if (GgafDx::Input::isPushedDownKey(DIK_6)) {
 ////        _pPuppeteer->exchangStick();
 //    }
 //
-//    if (GgafDxInput::isPushedDownKey(DIK_E)) {
+//    if (GgafDx::Input::isPushedDownKey(DIK_E)) {
 //    }
 //
-//    if (GgafDxInput::isPushedDownKey(DIK_R)) {
+//    if (GgafDx::Input::isPushedDownKey(DIK_R)) {
 //    }
 
     _pPuppeteer->behave();
@@ -61,7 +61,7 @@ void TamagoActor::processBehavior() {
 void TamagoActor::processJudgement() {
 }
 
-void TamagoActor::onHit(const GgafActor* prm_pOtherActor) {
+void TamagoActor::onHit(const GgafCore::Actor* prm_pOtherActor) {
     _TRACE_("TamagoActorÉqÉbÉgÇµÇ‹ÇµÇΩÅB("<<_x<<","<<_y<<","<<_z<<")");
 }
 

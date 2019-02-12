@@ -1,24 +1,24 @@
 #include "jp/ggaf/lib/actor/wall/CubeMapMassWallActor.h"
 
-#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+#include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/dxcore/effect/GgafDxEffect.h"
+#include "jp/ggaf/dx/effect/Effect.h"
 #include "jp/ggaf/lib/scene/WallSectionScene.h"
 #include "jp/ggaf/lib/effect/MassWallEffect.h"
 #include "jp/ggaf/lib/DefaultGod.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
 
-CubeMapMassWallActor::CubeMapMassWallActor(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
+CubeMapMassWallActor::CubeMapMassWallActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat) :
         MassWallActor(prm_name,
                       prm_model,
                       "CubeMapMassWallEffect",
                       "CubeMapMassWallTechnique",
                       prm_pStat ) ,
-        GgafDxICubeMapActor() {
+        GgafDx::ICubeMapActor() {
     _class_name = "CubeMapMassWallActor";
     _obj_class |= Obj_CubeMapMassWallActor;
 }
@@ -65,12 +65,12 @@ void CubeMapMassWallActor::processDraw() {
 
     hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_reflectance, getCubeMapReflectance());
     checkDxException(hr, D3D_OK, "SetFloat(_h_reflectances) に失敗しました。");
-    hr = GgafDxGod::_pID3DDevice9->SetTexture(1, getCubeMapTexture());
+    hr = GgafDx::God::_pID3DDevice9->SetTexture(1, getCubeMapTexture());
     checkDxException(hr, D3D_OK, "SetTexture に失敗しました");
 
-    int draw_set_num = 0; //GgafDxMassMeshActorの同じモデルで同じテクニックが
+    int draw_set_num = 0; //MassMeshActorの同じモデルで同じテクニックが
                           //連続しているカウント数。同一描画深度は一度に描画する。
-    GgafDxMassMeshModel* pMassMeshModel = _pMassMeshModel;
+    GgafDx::MassMeshModel* pMassMeshModel = _pMassMeshModel;
     const int model_max_set_num = pMassMeshModel->_set_num;
     const hashval hash_technique = _hash_technique;
 
@@ -78,7 +78,7 @@ void CubeMapMassWallActor::processDraw() {
     static const size_t size_of_D3DCOLORVALUE = sizeof(D3DCOLORVALUE);
     MassWallActor::VERTEX_instancedata* paInstancedata = MassWallActor::_aInstancedata;
     CubeMapMassWallActor* pCubeMapMassWallActor = nullptr;
-    GgafDxFigureActor* pDrawActor = this;
+    GgafDx::FigureActor* pDrawActor = this;
     while (pDrawActor) {
         if (pDrawActor->getModel() == pMassMeshModel && pDrawActor->_hash_technique == hash_technique) {
             pCubeMapMassWallActor = (CubeMapMassWallActor*)pDrawActor;
@@ -88,7 +88,7 @@ void CubeMapMassWallActor::processDraw() {
             paInstancedata->_pos_info =  pCubeMapMassWallActor->_pos_info;
             ++paInstancedata;
             draw_set_num++;
-            GgafDxSpacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
+            GgafDx::Spacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
             if (draw_set_num >= model_max_set_num) {
                 break;
             } else {
@@ -98,7 +98,7 @@ void CubeMapMassWallActor::processDraw() {
             break;
         }
     }
-    ((GgafDxMassMeshModel*)_pMassMeshModel)->GgafDxMassMeshModel::draw(this, draw_set_num);
+    ((GgafDx::MassMeshModel*)_pMassMeshModel)->GgafDx::MassMeshModel::draw(this, draw_set_num);
 }
 
 

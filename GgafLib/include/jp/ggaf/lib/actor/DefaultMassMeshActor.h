@@ -1,7 +1,7 @@
-#ifndef GGAFLIB_DEFAULTMASSMESHACTOR_H_
-#define GGAFLIB_DEFAULTMASSMESHACTOR_H_
+#ifndef GGAF_LIB_DEFAULTMASSMESHACTOR_H_
+#define GGAF_LIB_DEFAULTMASSMESHACTOR_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/dxcore/actor/GgafDxMassMeshActor.h"
+#include "jp/ggaf/dx/actor/MassMeshActor.h"
 
 namespace GgafLib {
 
@@ -11,7 +11,7 @@ namespace GgafLib {
  * @since 2016/02/09
  * @author Masatoshi Tsuge
  */
-class DefaultMassMeshActor : public GgafDxCore::GgafDxMassMeshActor {
+class DefaultMassMeshActor : public GgafDx::MassMeshActor {
 
 private:
     struct VERTEX_instancedata {
@@ -22,13 +22,13 @@ private:
         float r, g, b, a;           // : TEXCOORD5  マテリアルカラー
     };
     static VERTEX_instancedata _aInstancedata[];
-    static void createVertexInstanceData(void* prm, GgafDxCore::GgafDxMassModel::VertexInstanceDataInfo* out_info);
+    static void createVertexInstanceData(void* prm, GgafDx::MassModel::VertexInstanceDataInfo* out_info);
 
 public:
     /** 衝突判定支援オブジェクト */
     CollisionChecker* _pColliChecker;
 
-    DefaultMassMeshActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
+    DefaultMassMeshActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat=nullptr);
 
     virtual void onCreateModel() override {
     }
@@ -47,7 +47,7 @@ public:
     virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {
     }
 
-    virtual void onHit(const GgafCore::GgafActor* prm_pOtherActor) override {
+    virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override {
     }
 
     virtual void drawHitArea() override;
@@ -60,4 +60,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_DEFAULTMASSMESHACTOR_H_*/
+#endif /*GGAF_LIB_DEFAULTMASSMESHACTOR_H_*/

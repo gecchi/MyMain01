@@ -1,10 +1,10 @@
 #include "jp/ggaf/lib/actor/laserchip/WateringLaserChip.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
-WateringLaserChip::WateringLaserChip(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
+WateringLaserChip::WateringLaserChip(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat) :
             LaserChip(prm_name, prm_model, prm_pStat) {
     _class_name = "WateringLaserChip";
 }
@@ -21,7 +21,7 @@ void WateringLaserChip::processBehavior() {
 
 void WateringLaserChip::processSettlementBehavior() {
     if (_was_paused_flg) {
-        GgafDxGeometricActor::processSettlementBehavior();
+        GgafDx::GeometricActor::processSettlementBehavior();
     } else {
         LaserChip::processSettlementBehavior();
     }

@@ -1,10 +1,10 @@
 #include "DanmakuAlice.h"
 #include "AliceShot.h"
 
-#include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
+#include "jp/ggaf/core/actor/ex/ActorDepository.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -17,7 +17,7 @@ enum {
 DanmakuAlice::DanmakuAlice(const char* prm_name, const char* prm_shot_model_id) :
         DefaultGeometricActor(prm_name) {
 
-    pShotDepo_ = NEW GgafActorDepository("AliceShotDepo");
+    pShotDepo_ = NEW GgafCore::ActorDepository("AliceShotDepo");
     for (int i = 0; i < 300; i++) {
         std::string name = "AliceShot["+XTOS(i)+"]";
         pShotDepo_->put(NEW AliceShot(name.c_str(), prm_shot_model_id));
@@ -36,8 +36,8 @@ void DanmakuAlice::onActive() {
 }
 
 void DanmakuAlice::processBehavior() {
-    GgafDxKuroko* const pKuroko = getKuroko();
-    GgafProgress* const pProg = getProgress();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafCore::Progress* const pProg = getProgress();
 
     switch (pProg->get()) {
 

@@ -3,7 +3,7 @@
 #include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/DepositoryFormation.h"
 
-#include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
+#include "jp/ggaf/dx/util/GeoElem.h"
 
 namespace VioletVreath {
 
@@ -28,7 +28,7 @@ public:
     /** 終点のアリサナ */
     EnemyAlisana* pAlisana_goal;
     /** [r]設置座標と向き */
-    GgafDxCore::GgafDxGeoElem geoLocate_;
+    GgafDx::GeoElem geoLocate_;
 
     /** 編隊数(RANK変動) */
     int RV_Num_;
@@ -56,7 +56,7 @@ public:
      * 編隊が全て自機側の攻撃で殲滅させられた場合の処理実装 .
      * @param prm_pActor_last_destroyed  最後に破壊されたアクター
      */
-    virtual void onDestroyAll(GgafCore::GgafActor* prm_pActor_last_destroyed) override;
+    virtual void onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) override;
 
     virtual void processBehavior() override;
     /**
@@ -69,11 +69,11 @@ public:
     virtual void onSayonaraAll() override;
 
 
-    static void order1(GgafCore::GgafActor* prm_pDelheid, void* prm1, void* prm2, void* prm3);
+    static void order1(GgafCore::Actor* prm_pDelheid, void* prm1, void* prm2, void* prm3);
 
-    static void order2(GgafCore::GgafActor* prm_pDelheid, void* prm1, void* prm2, void* prm3);
+    static void order2(GgafCore::Actor* prm_pDelheid, void* prm1, void* prm2, void* prm3);
 
-    static void order3(GgafCore::GgafActor* prm_pDelheid, void* prm1, void* prm2, void* prm3);
+    static void order3(GgafCore::Actor* prm_pDelheid, void* prm1, void* prm2, void* prm3);
 
     /**
      * 設置座標と向きをセット .

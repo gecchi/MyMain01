@@ -3,7 +3,7 @@
 #include "VioletVreath.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
-#include "jp/ggaf/dxcore/sound/GgafDxBgmConductor.h"
+#include "jp/ggaf/dx/sound/BgmConductor.h"
 #include "../Stage01PartController.h"
 namespace VioletVreath {
 
@@ -36,7 +36,7 @@ public:
     virtual void processJudgement() override {
         frame frame_of_behaving = this->getBehaveingFrame();
         frame frame_of_last_event = this->getLastEventFrame();
-        GgafDxCore::GgafDxBgmConductor* pBgm = this->getBgmConductor();
+        GgafDx::BgmConductor* pBgm = this->getBgmConductor();
 
         if (frame_of_behaving == 1) {
             if (pBgm->isReady(0)) {

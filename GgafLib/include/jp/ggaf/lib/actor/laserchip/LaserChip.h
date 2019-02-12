@@ -1,7 +1,7 @@
-#ifndef GGAFLIB_LASERCHIP_H_
-#define GGAFLIB_LASERCHIP_H_
+#ifndef GGAF_LIB_LASERCHIP_H_
+#define GGAF_LIB_LASERCHIP_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/dxcore/actor/GgafDxMassMeshActor.h"
+#include "jp/ggaf/dx/actor/MassMeshActor.h"
 
 namespace GgafLib {
 
@@ -16,7 +16,7 @@ namespace GgafLib {
  * @since 2008/11/24
  * @author Masatoshi Tsuge
  */
-class LaserChip : public GgafDxCore::GgafDxMassMeshActor {
+class LaserChip : public GgafDx::MassMeshActor {
     friend class WateringLaserChip;
     friend class HomingLaserChip;
     friend class RefractionLaserChip;
@@ -81,11 +81,11 @@ public:
     /** [r] âŒóÕó¶ÅAçUåÇóÕÇ…èÊÇ∂ÇÁÇÍÇÈíl */
     float _power;
 public:
-    LaserChip(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
+    LaserChip(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat=nullptr);
 
     static bool initStatic(LaserChip* prm_pLaserChip);
 
-    virtual void executeHitChk_MeAnd(GgafActor* prm_pOtherActor) override;
+    virtual void executeHitChk_MeAnd(GgafCore::Actor* prm_pOtherActor) override;
 
     virtual void onActive() override;
     /**
@@ -143,12 +143,12 @@ public:
         return _pChip_behind;
     }
 
-    static void createVertexInstanceData(void* prm, GgafDxCore::GgafDxMassMeshModel::VertexInstanceDataInfo* out_info);
+    static void createVertexInstanceData(void* prm, GgafDx::MassMeshModel::VertexInstanceDataInfo* out_info);
 
     virtual ~LaserChip();
 
 };
 
 }
-#endif /*GGAFLIB_LASERCHIP_H_*/
+#endif /*GGAF_LIB_LASERCHIP_H_*/
 

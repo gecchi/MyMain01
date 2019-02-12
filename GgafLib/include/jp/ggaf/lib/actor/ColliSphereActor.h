@@ -1,7 +1,7 @@
-#ifndef GGAFLIB_COLLISPHEREACTOR_H_
-#define GGAFLIB_COLLISPHEREACTOR_H_
+#ifndef GGAF_LIB_COLLISPHEREACTOR_H_
+#define GGAF_LIB_COLLISPHEREACTOR_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/dxcore/actor/ex/GgafDxSphereActor.h"
+#include "jp/ggaf/dx/actor/ex/SphereActor.h"
 
 namespace GgafLib {
 
@@ -12,7 +12,7 @@ namespace GgafLib {
  * @since 2010/01/21
  * @author Masatoshi Tsuge
  */
-class ColliSphereActor : public GgafDxCore::GgafDxSphereActor {
+class ColliSphereActor : public GgafDx::SphereActor {
     static ColliSphereActor* _pObj;
 
 public:
@@ -20,7 +20,7 @@ public:
     static void release();
 
 public:
-    ColliSphereActor(const char* prm_name, GgafCore::GgafStatus* prm_pStat = nullptr);
+    ColliSphereActor(const char* prm_name, GgafCore::Status* prm_pStat = nullptr);
 
     virtual void onCreateModel() override {
     }
@@ -37,11 +37,11 @@ public:
     virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {
     }
 
-    virtual bool processHitChkLogic(GgafCore::GgafActor* prm_pOtherActor) override {
+    virtual bool processHitChkLogic(GgafCore::Actor* prm_pOtherActor) override {
         return false;
     }
 
-    virtual void onHit(const GgafCore::GgafActor* prm_pOtherActor) override {
+    virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override {
     }
 
 
@@ -52,4 +52,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_COLLISPHEREACTOR_H_*/
+#endif /*GGAF_LIB_COLLISPHEREACTOR_H_*/

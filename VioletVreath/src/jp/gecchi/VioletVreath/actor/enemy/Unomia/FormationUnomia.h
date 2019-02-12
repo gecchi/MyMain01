@@ -15,7 +15,7 @@ class FormationUnomia : public GgafLib::TreeFormation {
 
 public:
     /** ウーノミアの玉、借り入れ元Depository資源への接続 */
-    GgafCore::GgafActorDepository* pDepo_shot_;
+    GgafCore::ActorDepository* pDepo_shot_;
 
     /** スプライン定義資源への接続 */
     GgafLib::SplineManufactureConnection* pConn_pSplManuf_;
@@ -50,7 +50,7 @@ public:
      * 編隊が全て自機側の攻撃で殲滅させられた場合の処理実装 .
      * @param prm_pActor_last_destroyed  最後に破壊されたアクター
      */
-    virtual void onDestroyAll(GgafCore::GgafActor* prm_pActor_last_destroyed) override;
+    virtual void onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) override;
 
     virtual void processBehavior() override;
 

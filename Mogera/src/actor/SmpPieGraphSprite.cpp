@@ -1,17 +1,17 @@
 #include "SmpPieGraphSprite.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoFaceAngAssistant.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAngAssistant.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxColorist.h"
-#include "jp/ggaf/dxcore/model/GgafDxRegularPolygonSpriteModel.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/KurokoFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/KurokoMvAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
+#include "jp/ggaf/dx/actor/supporter/Colorist.h"
+#include "jp/ggaf/dx/model/RegularPolygonSpriteModel.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "MgrGod.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace Mogera;
 
@@ -24,7 +24,7 @@ enum {
 SmpPieGraphSprite::SmpPieGraphSprite(const char* prm_name) :
         GgafLib::PieGraphSpriteActor(prm_name, "36,CCW,RegularPolygon") { //正９角形で反時計回り描画
     //座標設定
-    int angle_num = ((GgafDxRegularPolygonSpriteModel*)getModel())->getAngleNum();
+    int angle_num = ((GgafDx::RegularPolygonSpriteModel*)getModel())->getAngleNum();
     linkVariable(&_x);
     scale(-PX_C(50), PX_C(50), 0, angle_num); //現在値で画面表示は600pxとする。
     CollisionChecker* pChecker = getCollisionChecker();
@@ -40,10 +40,10 @@ void SmpPieGraphSprite::initialize() {
 
 void SmpPieGraphSprite::processBehavior() {
     VirtualButton* pVb = P_GOD->getSpacetime()->pVb_;
-    if (GgafDxInput::isPressedKey(DIK_Z)) {
+    if (GgafDx::Input::isPressedKey(DIK_Z)) {
         setBeginAngPos(getBeginAngPos() + D_ANG(1));
     }
-    if (GgafDxInput::isPressedKey(DIK_X)) {
+    if (GgafDx::Input::isPressedKey(DIK_X)) {
         setBeginAngPos(getBeginAngPos() - D_ANG(1));
     }
 
@@ -75,7 +75,7 @@ void SmpPieGraphSprite::processBehavior() {
     getKuroko()->behave(); //黒衣を活動させる（Z軸回転する）
 }
 
-void SmpPieGraphSprite::onHit(const GgafActor* prm_pOtherActor) {
+void SmpPieGraphSprite::onHit(const GgafCore::Actor* prm_pOtherActor) {
 }
 
 SmpPieGraphSprite::~SmpPieGraphSprite() {

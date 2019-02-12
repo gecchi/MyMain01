@@ -1,16 +1,16 @@
 #include "EnemyAntiope.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
+#include "jp/ggaf/dx/actor/supporter/Trucker.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -27,17 +27,17 @@ enum {
 };
 
 
-EnemyAntiope::EnemyAntiope(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
+EnemyAntiope::EnemyAntiope(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat) :
         DefaultMeshSetActor(prm_name, prm_model, prm_pStat) {
     _class_name = "EnemyAntiope";
-    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);
     pP_ = nullptr;
 }
 
 void EnemyAntiope::onCreateModel() {
-//    GgafDxModel* pModel = getModel();
+//    GgafDx::Model* pModel = getModel();
 //    pModel->setSpecular(5.0, 1.0);
 }
 
@@ -53,11 +53,11 @@ void EnemyAntiope::onActive() {
 }
 
 void EnemyAntiope::processBehavior() {
-    GgafDxKuroko* const pKuroko = getKuroko();
-    GgafDxTrucker* const pTrucker = getTrucker();
-    GgafDxAlphaFader* pAlphaFader = getAlphaFader();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafDx::Trucker* const pTrucker = getTrucker();
+    GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
 
-    GgafProgress* const pProg = getProgress();
+    GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
          case PROG_INIT: {
              setHitAble(false);
@@ -150,8 +150,8 @@ void EnemyAntiope::processJudgement() {
     }
 }
 
-void EnemyAntiope::onHit(const GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+void EnemyAntiope::onHit(const GgafCore::Actor* prm_pOtherActor) {
+    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTransmitter()->play3D(SE_EXPLOSION);

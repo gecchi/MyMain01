@@ -5,17 +5,17 @@
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
-#include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoFaceAngAssistant.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAngAssistant.h"
-#include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
+#include "jp/ggaf/dx/actor/GeometricActor.h"
+#include "jp/ggaf/dx/actor/supporter/Trucker.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/KurokoFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/KurokoMvAngAssistant.h"
+#include "jp/ggaf/dx/util/GeoElem.h"
 #include "jp/ggaf/lib/util/Quaternion.hpp"
 #include "jp/ggaf/lib/util/Direction26Util.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -59,7 +59,7 @@ MyBunshinBase::MyBunshinBase(const char* prm_name, unsigned int prm_no) :
     pPosTrace_ = NEW PosTrace(MyBunshinBase::BUNSHIN_D * prm_no);
     trace_mode_ = TRACE_GRADIUS;
     return_default_pos_frames_ = 0;
-    GgafDxTrucker* const pTrucker = getTrucker();
+    GgafDx::Trucker* const pTrucker = getTrucker();
     pTrucker->forceVxyzMvVeloRange(-MyBunshinBase::RENGE, MyBunshinBase::RENGE);
     pTrucker->forceVxyzMvAcceRange(-MyBunshinBase::RENGE / 30, MyBunshinBase::RENGE / 30);
 
@@ -131,8 +131,8 @@ void MyBunshinBase::onInactive() {
 }
 
 void MyBunshinBase::processBehavior() {
-    GgafDxKuroko* pKuroko = getKuroko();
-    GgafDxTrucker* const pTrucker = getTrucker();
+    GgafDx::Kuroko* pKuroko = getKuroko();
+    GgafDx::Trucker* const pTrucker = getTrucker();
 
     if (is_isolate_mode_) {
         pKuroko->behave();
@@ -144,7 +144,7 @@ void MyBunshinBase::processBehavior() {
     const bool is_pressed_VB_OPTION = pVbPlay->isPressed(VB_OPTION);
     const bool is_pressed_VB_TURBO  = pVbPlay->isPressed(VB_TURBO);
     const bool is_released_up_VB_TURBO = pVbPlay->isReleasedUp(VB_TURBO);
-    GgafProgress* pProg = getProgress();
+    GgafCore::Progress* pProg = getProgress();
 
     switch (pProg->get()) {
         case PROG_INIT: {
@@ -446,8 +446,8 @@ void MyBunshinBase::resetBunshin(int prm_mode) {
     }
 
     is_isolate_mode_ = false;
-    GgafDxKuroko* pKuroko = getKuroko();
-    GgafProgress* const pProg = getProgress();
+    GgafDx::Kuroko* pKuroko = getKuroko();
+    GgafCore::Progress* const pProg = getProgress();
     //完全にデフォルト状態に元に戻ために、最低限必要なフレーム数基準値
     return_default_pos_frames_ = MyBunshinBase::BUNSHIN_D * (MyBunshinBase::MAX_BUNSHIN_NUM+1); //少しばらつかせる演出
     //エフェクト
@@ -501,7 +501,7 @@ void MyBunshinBase::addTurnAngleAroundAx1(float prm_ax_x, float prm_ax_y, float 
     //θ回転した後の座標は (x2, y2, z2)
     static const float p_sin_h = ANG_SIN(MyBunshinBase::ANGVELO_TURN/2);  //ANGVELO_TURN=回転させたい角度
     static const float p_cos_h = ANG_COS(MyBunshinBase::ANGVELO_TURN/2);
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDx::Kuroko* pKuroko = getKuroko();
     Quaternion<float> H(p_cos_h, -prm_ax_x*p_sin_h, -prm_ax_y*p_sin_h, -prm_ax_z*p_sin_h); //R
     H.mul(0, pKuroko->_vX, pKuroko->_vY, pKuroko->_vZ);                                   //R*P
     H.mul(p_cos_h, prm_ax_x*p_sin_h, prm_ax_y*p_sin_h, prm_ax_z*p_sin_h);                 //R*P*Q
@@ -511,7 +511,7 @@ void MyBunshinBase::addTurnAngleAroundAx1(float prm_ax_x, float prm_ax_y, float 
 void MyBunshinBase::addTurnAngleAroundAx2(float prm_ax_x, float prm_ax_y, float prm_ax_z) {
     static const float p_sin_h = ANG_SIN(MyBunshinBase::ANGVELO_TURN/2);  //ANGVELO_TURN=回転させたい角度
     static const float p_cos_h = ANG_COS(MyBunshinBase::ANGVELO_TURN/2);
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDx::Kuroko* pKuroko = getKuroko();
     Quaternion<float> H(p_cos_h, -prm_ax_x*p_sin_h, -prm_ax_y*p_sin_h, -prm_ax_z*p_sin_h); //R
     Quaternion<float> H2 = H;
     H.mul(0, pKuroko->_vX, pKuroko->_vY, pKuroko->_vZ);                                   //R*P

@@ -1,11 +1,11 @@
 #include "MagicMeter.h"
 
-#include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
-#include "jp/ggaf/dxcore/effect/GgafDxMassBoardEffect.h"
-#include "jp/ggaf/dxcore/model/GgafDxMassBoardModel.h"
-#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
+#include "jp/ggaf/core/util/LinkedListRing.hpp"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
+#include "jp/ggaf/dx/effect/MassBoardEffect.h"
+#include "jp/ggaf/dx/model/MassBoardModel.h"
+#include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/CostDispBar.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/DamageDispBar.h"
@@ -26,11 +26,11 @@
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/MagicMeterStatus.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/VreathBar.h"
 #include "jp/gecchi/VioletVreath/God.h"
-#include "jp/ggaf/dxcore/sound/GgafDxSe.h"
+#include "jp/ggaf/dx/sound/Se.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/BunshinMagic.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -149,7 +149,7 @@ height_(PX_C(height_px_)) {
     pMainCur_ = NEW MagicMeterCursor001("MagicCursor", this);
     appendGroupChild(pMainCur_);
 
-    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_CURSOR_MOVE_METER             , "WAVE_MM_CURSOR_MOVE_METER");  //主メーターカーソル移動時
     pSeTx->set(SE_CURSOR_MOVE_LEVEL             , "WAVE_MM_CURSOR_MOVE_LEVEL");  //上下レベル移動時
     pSeTx->set(SE_CURSOR_MOVE_LEVEL_CANCEL      , "WAVE_MM_CURSOR_MOVE_LEVEL_CANCEL");  //上下レベル移動キャンセル（）
@@ -163,8 +163,8 @@ height_(PX_C(height_px_)) {
     pSeTx->set(SE_NOTICE_LEVELDOWN_MAGIC        , "WAVE_MM_NOTICE_LEVELDOWN_MAGIC");  //レベルダウン発生予告
     pSeTx->set(SE_BAD_OPERATION                 , "WAVE_MM_BAD_OPERATION");  //操作ミス。出来ない入力、ブブー
 
-    pSeTx4Cast_ = NEW GgafDxSeTransmitterForActor(this);
-    pSeTx4Invoke_ = NEW GgafDxSeTransmitterForActor(this);
+    pSeTx4Cast_ = NEW GgafDx::SeTransmitterForActor(this);
+    pSeTx4Invoke_ = NEW GgafDx::SeTransmitterForActor(this);
     for (int i = 0; i < magic_num; i++) {
         pSeTx4Cast_->set(i, "WAVE_MM_CASTING", i); //詠唱中SE。チャンネル明示指定
         pSeTx4Invoke_->set(i, "WAVE_MM_INVOKING", i); //発動中SE。チャンネル明示指定
@@ -277,7 +277,7 @@ void MagicMeter::onActive() {
 
 void MagicMeter::processBehavior() {
     ////////////////////////各魔法についての処理//////////////////////////
-    GgafProgress* pMagicProg;
+    GgafCore::Progress* pMagicProg;
     Magic* pMagic = nullptr;
     int pMagic_level, pMagic_new_level;
     MagicLvCursor001* pLvTgtMvCur;
@@ -352,7 +352,7 @@ void MagicMeter::processBehavior() {
                     break;
                 }
                 default: {
-                    throwGgafCriticalException("["<<pMagic->getName()<<"] おかしい。来るはずがない。pMagic->last_cast_="<<(pMagic->last_cast_));
+                    throwCriticalException("["<<pMagic->getName()<<"] おかしい。来るはずがない。pMagic->last_cast_="<<(pMagic->last_cast_));
                     break;
                 }
             }
@@ -393,7 +393,7 @@ void MagicMeter::processBehavior() {
                     break;
                 }
                 default: {
-                    throwGgafCriticalException("["<<pMagic->getName()<<"] おかしい。来るはずがない。pMagic->last_invoke_="<<(pMagic->last_invoke_));
+                    throwCriticalException("["<<pMagic->getName()<<"] おかしい。来るはずがない。pMagic->last_invoke_="<<(pMagic->last_invoke_));
                     break;
                 }
             }
@@ -450,7 +450,7 @@ void MagicMeter::processBehavior() {
                     break;
                 }
                 default: {
-                    throwGgafCriticalException("["<<pMagic->getName()<<"] おかしい。来るはずがない。pMagic->last_effect_="<<(pMagic->last_effect_));
+                    throwCriticalException("["<<pMagic->getName()<<"] おかしい。来るはずがない。pMagic->last_effect_="<<(pMagic->last_effect_));
                     break;
                 }
             }
@@ -493,11 +493,11 @@ void MagicMeter::processBehavior() {
     }
 
 //    //debug -------------->
-//    if (GgafDxInput::isPushedDownKey(DIK_K)) {
+//    if (GgafDx::Input::isPushedDownKey(DIK_K)) {
 //        _TRACE_("MagicMeter saveStatus(0)!!!!");
 //        saveStatus(0);
 //    }
-//    if (GgafDxInput::isPushedDownKey(DIK_L)) {
+//    if (GgafDx::Input::isPushedDownKey(DIK_L)) {
 //        _TRACE_("MagicMeter loadStatus(0)!!!!");
 //        loadStatus(0);
 //    }
@@ -663,9 +663,9 @@ void MagicMeter::onInactive() {
 }
 
 void MagicMeter::processDraw() {
-    GgafDxMassBoardEffect* const pMassBoardEffect = _pMassBoardEffect;
+    GgafDx::MassBoardEffect* const pMassBoardEffect = _pMassBoardEffect;
     ID3DXEffect* pID3DXEffect = pMassBoardEffect->_pID3DXEffect;
-    GgafDxUvFlipper* pUvFlipper = getUvFlipper();
+    GgafDx::UvFlipper* pUvFlipper = getUvFlipper();
 
     HRESULT hr;
     //パワーメーター
@@ -744,7 +744,7 @@ void MagicMeter::processDraw() {
         }
         pElem = pElem->_pNext;
     }
-    _pMassBoardModel->GgafDxMassBoardModel::draw(this, n, paInstancedata_MM_);
+    _pMassBoardModel->GgafDx::MassBoardModel::draw(this, n, paInstancedata_MM_);
 }
 
 void MagicMeter::rollOpen(int prm_meter_index) {

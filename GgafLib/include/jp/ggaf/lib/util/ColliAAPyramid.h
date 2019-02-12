@@ -1,5 +1,5 @@
-#ifndef GGAFLIB_COLLIAAPYRAMID_H_
-#define GGAFLIB_COLLIAAPYRAMID_H_
+#ifndef GGAF_LIB_COLLIAAPYRAMID_H_
+#define GGAF_LIB_COLLIAAPYRAMID_H_
 #include "GgafLibCommonHeader.h"
 #include "jp/ggaf/lib/util/ColliAABox.h"
 
@@ -29,4 +29,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_COLLIAAPYRAMID_H_*/
+#endif /*GGAF_LIB_COLLIAAPYRAMID_H_*/

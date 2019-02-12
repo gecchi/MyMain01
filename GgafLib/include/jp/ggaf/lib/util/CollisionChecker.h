@@ -1,7 +1,7 @@
-#ifndef GGAFLIB_COLLISIONCHECKER_H_
-#define GGAFLIB_COLLISIONCHECKER_H_
+#ifndef GGAF_LIB_COLLISIONCHECKER_H_
+#define GGAF_LIB_COLLISIONCHECKER_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxChecker.h"
+#include "jp/ggaf/dx/actor/supporter/Checker.h"
 
 namespace GgafLib {
 
@@ -18,7 +18,7 @@ namespace GgafLib {
  * @since 2008/09/08
  * @author Masatoshi Tsuge
  */
-class CollisionChecker : public GgafDxCore::GgafDxChecker {
+class CollisionChecker : public GgafDx::Checker {
 
 public:
 #ifdef MY_DEBUG
@@ -30,7 +30,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pActor  当たり判定機能を追加するActor
      */
-    explicit CollisionChecker(GgafDxCore::GgafDxGeometricActor* prm_pActor);
+    explicit CollisionChecker(GgafDx::GeometricActor* prm_pActor);
 
     /**
      * 当たり判定領域要素を球として定義 .
@@ -224,7 +224,7 @@ public:
      * @param x2 当たり判定プリズム型の境界直方体の右上奥X座標（Actorローカル座標）
      * @param y2 当たり判定プリズム型の境界直方体の右上奥Y座標（Actorローカル座標）
      * @param z2 当たり判定プリズム型の境界直方体の右上奥Z座標（Actorローカル座標）
-     * @param pos_info プリズム位置（GgafDxAAPrismActor の #define 定義参照)
+     * @param pos_info プリズム位置（GgafDx::AAPrismActor の #define 定義参照)
      */
     void setColliAAPrism(int prm_index, coord x1, coord y1, coord z1, coord x2, coord y2, coord z2, pos_t pos_info) {
         setColliAAPrism(prm_index, x1, y1, z1, x2, y2, z2, pos_info, false, false, false);
@@ -242,7 +242,7 @@ public:
      * @param prm_width 当たり判定プリズム型の境界直方体の幅（X軸方向の長さ）
      * @param prm_height 当たり判定プリズム型の境界直方体の高さ（Y軸方向の長さ）
      * @param prm_depth 当たり判定プリズム型の境界直方体の深さ（奥行・Z軸方向の長さ）
-     * @param pos_info プリズム位置（GgafDxAAPrismActor の #define 定義参照)
+     * @param pos_info プリズム位置（GgafDx::AAPrismActor の #define 定義参照)
      */
     void setColliAAPrism_WHD(int prm_index, coord x, coord y, coord z, coord prm_width, coord prm_height, coord prm_depth, pos_t pos_info) {
         int hw = prm_width  / 2;
@@ -261,7 +261,7 @@ public:
      * @param prm_width 当たり判定プリズム型の境界直方体の幅（X軸方向の長さ）
      * @param prm_height 当たり判定プリズム型の境界直方体の高さ（Y軸方向の長さ）
      * @param prm_depth 当たり判定プリズム型の境界直方体の深さ（奥行・Z軸方向の長さ）
-     * @param pos_info プリズム位置（GgafDxAAPrismActor の #define 定義参照)
+     * @param pos_info プリズム位置（GgafDx::AAPrismActor の #define 定義参照)
      */
     void setColliAAPrism_WHD(int prm_index, coord prm_width, coord prm_height, coord prm_depth, pos_t pos_info) {
         setColliAAPrism_WHD(prm_index, 0, 0, 0, prm_width, prm_height, prm_depth, pos_info);
@@ -278,7 +278,7 @@ public:
      * @param rot_x 当たり判定のプリズム型を、Actorの向きに伴ってActorローカルX軸を中心に回転平行移動を行う場合 true
      * @param rot_y 当たり判定のプリズム型を、Actorの向きに伴ってActorローカルY軸を中心に回転平行移動を行う場合 true
      * @param rot_z 当たり判定のプリズム型を、Actorの向きに伴ってActorローカルZ軸を中心に回転平行移動を行う場合 true
-     * @param pos_info プリズム位置（GgafDxAAPrismActor の #define 定義参照)
+     * @param pos_info プリズム位置（GgafDx::AAPrismActor の #define 定義参照)
      */
     void setColliAAPrism_Cube(int prm_index, coord x, coord y, coord z, coord prm_edge, pos_t pos_info, bool rot_x, bool rot_y, bool rot_z) {
         int h = prm_edge / 2;
@@ -294,7 +294,7 @@ public:
      * @param y 当たり判定プリズム型の境界立方体の中心Y座標（Actorローカル座標）
      * @param z 当たり判定プリズム型の境界立方体の中心Z座標（Actorローカル座標）
      * @param prm_edge 当たり判定プリズム型の境界立方体の１辺の長さ
-     * @param pos_info プリズム位置（GgafDxAAPrismActor の #define 定義参照)
+     * @param pos_info プリズム位置（GgafDx::AAPrismActor の #define 定義参照)
      */
     void setColliAAPrism_Cube(int prm_index, coord x, coord y, coord z, coord prm_edge, pos_t pos_info) {
         setColliAAPrism_Cube(prm_index, x, y, z, prm_edge, pos_info, false, false, false);
@@ -308,7 +308,7 @@ public:
      * Actorの向きに伴って当たり判定の回転平行移動機能は無し。
      * @param prm_index 当たり判定領域の要素番号
      * @param prm_edge 当たり判定プリズム型の境界立方体の１辺の長さ
-     * @param pos_info プリズム位置（GgafDxAAPrismActor.h の、捕捉コメント参照)
+     * @param pos_info プリズム位置（GgafDx::AAPrismActor.h の、捕捉コメント参照)
      */
     void setColliAAPrism_Cube(int prm_index, coord prm_edge, pos_t pos_info) {
         setColliAAPrism_Cube(prm_index, 0, 0, 0, prm_edge, pos_info);
@@ -376,7 +376,7 @@ public:
      * @param prm_width 当たり三直角三角錐の境界直方体の幅（X軸方向の長さ）
      * @param prm_height 当たり三直角三角錐の境界直方体の高さ（Y軸方向の長さ）
      * @param prm_depth 当たり三直角三角錐の境界直方体の深さ（奥行・Z軸方向の長さ）
-     * @param pos_info プリズム位置（GgafDxAAPrismActor の #define 定義参照)
+     * @param pos_info プリズム位置（GgafDx::AAPrismActor の #define 定義参照)
      */
     void setColliAAPyramid_WHD(int prm_index, coord prm_width, coord prm_height, coord prm_depth, pos_t pos_info) {
         setColliAAPyramid_WHD(prm_index, 0, 0, 0, prm_width, prm_height, prm_depth, pos_info);
@@ -393,7 +393,7 @@ public:
      * @param rot_x 当たり判定の三直角三角錐を、Actorの向きに伴ってActorローカルX軸を中心に回転平行移動を行う場合 true
      * @param rot_y 当たり判定の三直角三角錐を、Actorの向きに伴ってActorローカルY軸を中心に回転平行移動を行う場合 true
      * @param rot_z 当たり判定の三直角三角錐を、Actorの向きに伴ってActorローカルZ軸を中心に回転平行移動を行う場合 true
-     * @param pos_info ピラミッド位置（GgafDxAAPyramidActor の #define 定義参照)
+     * @param pos_info ピラミッド位置（GgafDx::AAPyramidActor の #define 定義参照)
      */
     void setColliAAPyramid_Cube(int prm_index, coord x, coord y, coord z, coord prm_edge, pos_t pos_info, bool rot_x, bool rot_y, bool rot_z) {
         int h = prm_edge / 2;
@@ -409,7 +409,7 @@ public:
      * @param y 当たり判定三直角三角錐の境界立方体の中心Y座標（Actorローカル座標）
      * @param z 当たり判定三直角三角錐の境界立方体の中心Z座標（Actorローカル座標）
      * @param prm_edge 当たり判定三直角三角錐の境界立方体の１辺の長さ
-     * @param pos_info ピラミッド位置（GgafDxAAPyramidActor の #define 定義参照)
+     * @param pos_info ピラミッド位置（GgafDx::AAPyramidActor の #define 定義参照)
      */
     void setColliAAPyramid_Cube(int prm_index, coord x, coord y, coord z, coord prm_edge, pos_t pos_info) {
         setColliAAPyramid_Cube(prm_index, x, y, z, prm_edge, pos_info, false, false, false);
@@ -423,7 +423,7 @@ public:
      * Actorの向きに伴って当たり判定の回転平行移動機能は無し。
      * @param prm_index 当たり判定領域の要素番号
      * @param prm_edge 当たり三直角三角錐型の境界立方体の１辺の長さ
-     * @param pos_info ピラミッド位置（GgafDxAAPyramidActor.h の、捕捉コメント参照)
+     * @param pos_info ピラミッド位置（GgafDx::AAPyramidActor.h の、捕捉コメント参照)
      */
     void setColliAAPyramid_Cube(int prm_index, coord prm_edge, pos_t pos_info) {
         setColliAAPyramid_Cube(prm_index, 0, 0, 0, prm_edge, pos_info);
@@ -598,5 +598,5 @@ public:
 };
 
 }
-#endif /*GGAFLIB_COLLISIONCHECKER_H_*/
+#endif /*GGAF_LIB_COLLISIONCHECKER_H_*/
 

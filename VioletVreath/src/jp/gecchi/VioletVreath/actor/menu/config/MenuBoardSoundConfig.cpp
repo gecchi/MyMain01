@@ -1,6 +1,6 @@
 #include "MenuBoardSoundConfig.h"
 
-#include "jp/ggaf/dxcore/sound/GgafDxSound.h"
+#include "jp/ggaf/dx/sound/Sound.h"
 #include "CursorConfig004.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelFix16Font01.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
@@ -10,8 +10,8 @@
 #include "jp/gecchi/VioletVreath/Config.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelMenuItemFont01.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -84,9 +84,9 @@ bool MenuBoardSoundConfig::condSelectPrev() {
 }
 void MenuBoardSoundConfig::onRise() {
     selectItem(ITEM_SE_VOL); //カーソルの初期選択アイテムを設定
-    pLabel_SeVol_->update(XTOS(GgafDxSound::getSeMasterVolume()).c_str());
-    pLabel_BgmVol_->update(XTOS(GgafDxSound::getBgmMasterVolume()).c_str());
-    pLabel_MasterVol_->update(XTOS(GgafDxSound::getAppMasterVolume()).c_str());
+    pLabel_SeVol_->update(XTOS(GgafDx::Sound::getSeMasterVolume()).c_str());
+    pLabel_BgmVol_->update(XTOS(GgafDx::Sound::getBgmMasterVolume()).c_str());
+    pLabel_MasterVol_->update(XTOS(GgafDx::Sound::getAppMasterVolume()).c_str());
     MenuBoard::onRise();
 }
 void MenuBoardSoundConfig::processBehavior() {
@@ -97,15 +97,15 @@ void MenuBoardSoundConfig::processBehavior() {
         MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu();
         if (pSubConfirm->hasJustDecidedOk()) { //SAVE確認OK!
             //現プロパティへ書き込み
-            CONFIG::_properties.setValue("SE_VOLUME", GgafDxSound::getSeMasterVolume());
-            CONFIG::_properties.setValue("BGM_VOLUME", GgafDxSound::getBgmMasterVolume());
-            CONFIG::_properties.setValue("MASTER_VOLUME", GgafDxSound::getAppMasterVolume());
+            CONFIG::_properties.setValue("SE_VOLUME", GgafDx::Sound::getSeMasterVolume());
+            CONFIG::_properties.setValue("BGM_VOLUME", GgafDx::Sound::getBgmMasterVolume());
+            CONFIG::_properties.setValue("MASTER_VOLUME", GgafDx::Sound::getAppMasterVolume());
             CONFIG::_properties.write(VV_CONFIG_FILE); //プロパティ保存
 //            CONFIG::loadProperties(VV_CONFIG_FILE); //プロパティ再反映
 //            //実行中アプリへも即時反映
-//            GgafDxSound::setSeMasterVolume(CONFIG::SE_VOLUME);
-//            GgafDxSound::setBgmMasterVolume(CONFIG::BGM_VOLUME);
-//            GgafDxSound::setAppMasterVolume(CONFIG::MASTER_VOLUME);
+//            GgafDx::Sound::setSeMasterVolume(CONFIG::SE_VOLUME);
+//            GgafDx::Sound::setBgmMasterVolume(CONFIG::BGM_VOLUME);
+//            GgafDx::Sound::setAppMasterVolume(CONFIG::MASTER_VOLUME);
 
             sinkCurrentSubMenu();
             sinkMe();
@@ -121,34 +121,34 @@ void MenuBoardSoundConfig::processBehavior() {
     int index = getSelectedIndex();
     if (index == ITEM_SE_VOL) {
         if (pVB->isAutoRepeat(VB_UI_RIGHT)) {
-            GgafDxSound::addSeMasterVolume(+10);
+            GgafDx::Sound::addSeMasterVolume(+10);
         } else if (pVB->isAutoRepeat(VB_UI_LEFT)) {
-            GgafDxSound::addSeMasterVolume(-10);
+            GgafDx::Sound::addSeMasterVolume(-10);
         }
     } else if (index == ITEM_BGM_VOL) {
         if (pVB->isAutoRepeat(VB_UI_RIGHT)) {
-            GgafDxSound::addBgmMasterVolume(+10);
+            GgafDx::Sound::addBgmMasterVolume(+10);
         } else if (pVB->isAutoRepeat(VB_UI_LEFT)) {
-            GgafDxSound::addBgmMasterVolume(-10);
+            GgafDx::Sound::addBgmMasterVolume(-10);
         }
     } else if (index == ITEM_MASTER_VOL) {
         if (pVB->isAutoRepeat(VB_UI_RIGHT)) {
-            GgafDxSound::addAppMasterVolume(+10);
+            GgafDx::Sound::addAppMasterVolume(+10);
         } else if (pVB->isAutoRepeat(VB_UI_LEFT)) {
-            GgafDxSound::addAppMasterVolume(-10);
+            GgafDx::Sound::addAppMasterVolume(-10);
         }
     }
-    pLabel_SeVol_->update(XTOS(GgafDxSound::getSeMasterVolume()).c_str());
-    pLabel_BgmVol_->update(XTOS(GgafDxSound::getBgmMasterVolume()).c_str());
-    pLabel_MasterVol_->update(XTOS(GgafDxSound::getAppMasterVolume()).c_str());
+    pLabel_SeVol_->update(XTOS(GgafDx::Sound::getSeMasterVolume()).c_str());
+    pLabel_BgmVol_->update(XTOS(GgafDx::Sound::getBgmMasterVolume()).c_str());
+    pLabel_MasterVol_->update(XTOS(GgafDx::Sound::getAppMasterVolume()).c_str());
 }
 
-void MenuBoardSoundConfig::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
+void MenuBoardSoundConfig::onDecision(GgafDx::FigureActor* prm_pItem, int prm_item_index) {
     if (prm_item_index == ITEM_INDEX_CANCEL_) {
         //音量を元に戻す
-        GgafDxSound::setSeMasterVolume(CONFIG::SE_VOLUME);
-        GgafDxSound::setBgmMasterVolume(CONFIG::BGM_VOLUME);
-        GgafDxSound::setAppMasterVolume(CONFIG::MASTER_VOLUME);
+        GgafDx::Sound::setSeMasterVolume(CONFIG::SE_VOLUME);
+        GgafDx::Sound::setBgmMasterVolume(CONFIG::BGM_VOLUME);
+        GgafDx::Sound::setAppMasterVolume(CONFIG::MASTER_VOLUME);
         sinkMe();
     } else if (prm_item_index == ITEM_INDEX_OK_) {
         riseSubMenu()->setPosition(getSelectedItem()->_x + PX_C(50), getSelectedItem()->_y - PX_C(50)); //確認メニュー起動
@@ -156,7 +156,7 @@ void MenuBoardSoundConfig::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, 
 
     }
 }
-void MenuBoardSoundConfig::onCancel(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
+void MenuBoardSoundConfig::onCancel(GgafDx::FigureActor* prm_pItem, int prm_item_index) {
 }
 
 MenuBoardSoundConfig::~MenuBoardSoundConfig() {

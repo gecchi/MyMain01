@@ -1,22 +1,22 @@
 #include "CommonScene.h"
 
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
-#include "jp/ggaf/core/actor/GgafSceneMediator.h"
+#include "jp/ggaf/core/actor/SceneMediator.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
-#include "jp/ggaf/core/actor/ex/GgafActorDepositoryStore.h"
+#include "jp/ggaf/core/actor/ex/ActorDepositoryStore.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
 #define REGISTER_DEPO(TYPE, NUM)   do { \
-        pCOMMON_DEPO(TYPE) = NEW GgafActorDepository("CommonDepo_" #TYPE); \
+        pCOMMON_DEPO(TYPE) = NEW GgafCore::ActorDepository("CommonDepo_" #TYPE); \
         pCOMMON_DEPO(TYPE)->putn<TYPE>(NUM); \
         bringSceneMediator()->appendGroupChild(pCOMMON_DEPO(TYPE)); \
 }while(0)
 #define REGISTER_LASERDEPO_STORE(TYPE, SET_NUM, LASER_NUM) do { \
-    pCOMMON_DEPO_STORE(TYPE) = NEW GgafActorDepositoryStore("CommonDepoStore_" #TYPE); \
+    pCOMMON_DEPO_STORE(TYPE) = NEW GgafCore::ActorDepositoryStore("CommonDepoStore_" #TYPE); \
     LaserChipDepository* pLaserChipDepo; \
     for (int laser_set = 0; laser_set < SET_NUM; laser_set++) { \
         std::string name_depo = "LaserChipDepo["+XTOS(laser_set)+"]"; \
@@ -79,9 +79,9 @@ void CommonScene::processBehavior() {
 
 }
 
-void CommonScene::scrollX(GgafObject* pThat, void* p1, void* p2, void* p3) {
-    if (pThat->instanceOf(Obj_GgafDxGeometricActor)) {
-        GgafDxGeometricActor* pActor = (GgafDxGeometricActor*)pThat;
+void CommonScene::scrollX(GgafCore::Object* pThat, void* p1, void* p2, void* p3) {
+    if (pThat->instanceOf(Obj_GgafDx_GeometricActor)) {
+        GgafDx::GeometricActor* pActor = (GgafDx::GeometricActor*)pThat;
         if (!pActor->_was_paused_flg) {
             if (pActor->lookUpKind() & KIND_ITEM) {
                 //ItemÇÕÉXÉNÉçÅ[ÉãÇÃâeãøÇéÛÇØÇ»Ç¢

@@ -2,11 +2,11 @@
 
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
-SceneProgress::SceneProgress(DefaultScene* prm_pScene, int prm_num_progress)  : GgafProgress(&(prm_pScene->_frame_of_behaving), prm_num_progress) {
+SceneProgress::SceneProgress(DefaultScene* prm_pScene, int prm_num_progress)  : GgafCore::Progress(&(prm_pScene->_frame_of_behaving), prm_num_progress) {
     _pScene = prm_pScene;
     _progress_next_promise = 0;
     _count_next_promise = 0;
@@ -23,7 +23,7 @@ void SceneProgress::relateChildScene(progress prm_FirstProgress, progress prm_En
     for (progress prog = prm_FirstProgress; prog <= prm_EndProgress; prog++, num++) {
         _mapProg2Scene[prog] = pChild;
         if (pChild->isLast() && prog < prm_EndProgress) {
-            throwGgafCriticalException("_pScene("<<_pScene->getName()<<")の"
+            throwCriticalException("_pScene("<<_pScene->getName()<<")の"
                                        "子シーン("<<prm_pFirstChildScene->getName()<<")から数えての子シーンの数が足りません(子シーンが一周しました)。\n"
                                        "進捗番号数は "<<prm_FirstProgress<<"～"<<prm_EndProgress<<" の "<<(prm_EndProgress-prm_FirstProgress)<<" 個に対し、\n"
                                        "子シーン数は "<<prm_pFirstChildScene->getName()<<"～"<<pChild->getName()<<" の "<<num<<"個でした。");
@@ -168,7 +168,7 @@ void SceneProgress::change(progress prm_progress) {
         _progress_next_promise = 0;
         _count_next_promise = 0;
     }
-    GgafProgress::change(prm_progress);
+    GgafCore::Progress::change(prm_progress);
 }
 
 void SceneProgress::changeNothing() {
@@ -188,7 +188,7 @@ void SceneProgress::changeNothing() {
         _progress_next_promise = 0;
         _count_next_promise = 0;
     }
-    GgafProgress::changeNothing();
+    GgafCore::Progress::changeNothing();
 }
 
 void SceneProgress::changeNext() {
@@ -215,7 +215,7 @@ void SceneProgress::changeNext() {
         _progress_next_promise = 0;
         _count_next_promise = 0;
     }
-    GgafProgress::changeNext();
+    GgafCore::Progress::changeNext();
 }
 
 void SceneProgress::changeDelay(progress prm_progress, frame prm_delay) {
@@ -231,7 +231,7 @@ void SceneProgress::update() {
             _count_next_promise = 0;
         }
     }
-    GgafProgress::update();
+    GgafCore::Progress::update();
 }
 
 SceneProgress::~SceneProgress() {

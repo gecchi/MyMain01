@@ -1,13 +1,13 @@
 #include "jp/ggaf/lib/actor/FramedHorizontalBarActor.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
-#include "jp/ggaf/dxcore/effect/GgafDxBoardEffect.h"
-#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
-#include "jp/ggaf/dxcore/model/GgafDxBoardModel.h"
-#include "jp/ggaf/dxcore/util/GgafDxUtil.h"
+#include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
+#include "jp/ggaf/dx/effect/BoardEffect.h"
+#include "jp/ggaf/dx/exception/CriticalException.h"
+#include "jp/ggaf/dx/model/BoardModel.h"
+#include "jp/ggaf/dx/util/Util.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
 FramedHorizontalBarActor::FramedHorizontalBarActor(const char* prm_name, const char* prm_model, Quantity<int, coord>* prm_pQty)

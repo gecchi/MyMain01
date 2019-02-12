@@ -3,7 +3,7 @@
 #include "VioletVreath.h"
 #include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
 
-#include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
+#include "jp/ggaf/dx/util/GeoElem.h"
 
 
 namespace VioletVreath {
@@ -19,14 +19,14 @@ class EnemyOzartia : public GgafLib::DefaultMorphMeshActor {
 
 public:
     /** ショット関連の進捗状態 */
-    GgafCore::GgafProgress* pProg2_;
+    GgafCore::Progress* pProg2_;
 
     bool is_hit_;
 
-    GgafCore::GgafActorDepository* pDepo_shot01_;
+    GgafCore::ActorDepository* pDepo_shot01_;
     GgafLib::LaserChipDepository*  pDepo_shot02_;
 
-    GgafDxCore::GgafDxGeoElem posMvTarget_;
+    GgafDx::GeoElem posMvTarget_;
 
     bool faceto_ship_;
 
@@ -67,7 +67,7 @@ public:
      * オーツァルティアの衝突時処理 .
      * @param prm_pOtherActor 衝突対象
      */
-    void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
+    void onHit(const GgafCore::Actor* prm_pOtherActor) override;
 
 
     void onInactive() override;

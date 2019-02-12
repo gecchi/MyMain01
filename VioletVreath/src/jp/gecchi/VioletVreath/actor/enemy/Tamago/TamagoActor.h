@@ -17,7 +17,7 @@ class TamagoActor : public  GgafLib::DefaultD3DXAniMeshActor {
     double last_time_;
 
 public:
-    TamagoActor(const char* prm_name, GgafCore::GgafStatus* prm_pStat);
+    TamagoActor(const char* prm_name, GgafCore::Status* prm_pStat);
 
     void initialize() override;
 
@@ -25,7 +25,7 @@ public:
 
     void processJudgement() override;
 
-    void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
+    void onHit(const GgafCore::Actor* prm_pOtherActor) override;
 
     int isOutOfView() override {
         return 0;

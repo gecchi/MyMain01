@@ -3,13 +3,13 @@
 #include "scene/MgrSpacetime/MgrWorld.h"
 #include "util/MgrUtil.h"
 #include "MgrGod.h"
-#include "jp/ggaf/core/scene/GgafScene.h"
-#include "jp/ggaf/core/actor/GgafSceneMediator.h"
+#include "jp/ggaf/core/scene/Scene.h"
+#include "jp/ggaf/core/actor/SceneMediator.h"
 #include "actor/camera/MgrCameraWorker.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace Mogera;
 

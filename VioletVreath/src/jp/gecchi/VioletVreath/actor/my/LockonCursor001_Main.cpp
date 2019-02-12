@@ -1,13 +1,13 @@
 #include "LockonCursor001_Main.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Scaler.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyLockonController.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -18,7 +18,7 @@ LockonCursor001_Main::LockonCursor001_Main(const char* prm_name) :
 
 void LockonCursor001_Main::initialize() {
     LockonCursor001::initialize();
-    GgafDxUvFlipper* pUvFlipper = getUvFlipper();
+    GgafDx::UvFlipper* pUvFlipper = getUvFlipper();
     pUvFlipper->setFlipPtnRange(0, 3);   //アニメ範囲を０～１５
     pUvFlipper->exec(FLIP_ORDER_LOOP, 5); //アニメ順序
     getScaler()->setRange(60000, 2000); //スケーリング・範囲
@@ -50,9 +50,9 @@ void LockonCursor001_Main::onActive() {
 
 void LockonCursor001_Main::processBehavior() {
     LockonCursor001::processBehavior();
-    GgafDxKuroko* const pKuroko = getKuroko();
-    GgafDxScaler* const pScaler = getScaler();
-    GgafProgress* const pProg = getProgress();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafDx::Scaler* const pScaler = getScaler();
+    GgafCore::Progress* const pProg = getProgress();
     if (pProg->get() == LOCKON001_PROG_LOCK || pProg->get() == LOCKON001_PROG_FIRST_LOCK) {
         if (getAlpha() < 1.0) {
             addAlpha(0.01);
@@ -107,14 +107,14 @@ void LockonCursor001_Main::onInactive() {
     LockonCursor001::onInactive();
 }
 
-void LockonCursor001_Main::lockon(GgafDxGeometricActor* prm_pTarget) {
+void LockonCursor001_Main::lockon(GgafDx::GeometricActor* prm_pTarget) {
     if (prm_pTarget == nullptr || pTarget_ == prm_pTarget || MyLockonController::lockon_num_ == 0) {
         return;
     }
     pTarget_ = prm_pTarget;
-    GgafDxKuroko* const pKuroko = getKuroko();
-    GgafDxScaler* const pScaler = getScaler();
-    GgafProgress* const pProg = getProgress();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafDx::Scaler* const pScaler = getScaler();
+    GgafCore::Progress* const pProg = getProgress();
     if (pProg->get() == LOCKON001_PROG_FIRST_LOCK) {
 
     } else if (pProg->get() == LOCKON001_PROG_LOCK) {
@@ -129,9 +129,9 @@ void LockonCursor001_Main::lockon(GgafDxGeometricActor* prm_pTarget) {
 }
 void LockonCursor001_Main::releaseLockon() {
     if (isActiveInTheTree()) {
-        GgafDxKuroko* const pKuroko = getKuroko();
-        GgafDxScaler* const pScaler = getScaler();
-        GgafProgress* const pProg = getProgress();
+        GgafDx::Kuroko* const pKuroko = getKuroko();
+        GgafDx::Scaler* const pScaler = getScaler();
+        GgafCore::Progress* const pProg = getProgress();
         if (pProg->get() == LOCKON001_PROG_FIRST_LOCK) {
             pScaler->setRange(60000, 2000); //スケーリング・範囲
             pScaler->transitionLinearUntil(60000, 60);//スケーリング

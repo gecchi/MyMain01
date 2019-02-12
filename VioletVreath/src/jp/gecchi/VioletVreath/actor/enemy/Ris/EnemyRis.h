@@ -19,9 +19,9 @@ class EnemyRis : public GgafLib::DefaultMeshSetActor {
     /** 移動スプラインプログラム */
     GgafLib::SplineLeader* pKurokoLeader_;
     /** 弾ストック */
-    GgafCore::GgafActorDepository* pDepo_shot_;
+    GgafCore::ActorDepository* pDepo_shot_;
     /** 弾発射効果エフェクト */
-    GgafCore::GgafActorDepository* pDepo_effect_;
+    GgafCore::ActorDepository* pDepo_effect_;
 
 public:
     /** 行動パターン番号 */
@@ -61,7 +61,7 @@ public:
      * リスの衝突時処理 .
      * @param prm_pOtherActor 衝突対象
      */
-    void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
+    void onHit(const GgafCore::Actor* prm_pOtherActor) override;
 
 
     void onInactive() override;
@@ -69,8 +69,8 @@ public:
 
     virtual void config(
             GgafLib::SplineLeader* prm_pKurokoLeader,
-            GgafCore::GgafActorDepository* prm_pDepo_shot,
-            GgafCore::GgafActorDepository* prm_pDepo_shotEffect
+            GgafCore::ActorDepository* prm_pDepo_shot,
+            GgafCore::ActorDepository* prm_pDepo_shotEffect
             ) {
         pKurokoLeader_ = prm_pKurokoLeader;
         pDepo_shot_ = prm_pDepo_shot;

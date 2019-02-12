@@ -1,10 +1,10 @@
 #include "jp/ggaf/lib/util/VBReplayRecorder.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
-VBReplayRecorder::VBReplayRecorder() : GgafObject() {
+VBReplayRecorder::VBReplayRecorder() : GgafCore::Object() {
     _pFirstVBNote = nullptr;
     _pRecNote = nullptr;
     _pRecNote_read_prev = nullptr;

@@ -1,7 +1,7 @@
 #ifndef GGAFCOMMONHEADER_H_
 #define GGAFCOMMONHEADER_H_
 /**
- * Ggafライブラリヘッダー郡ヘッダー
+ * ライブラリヘッダー郡ヘッダー
  * @version 1.00
  * @since 2007/11/14
  * @author Masatoshi Tsuge
@@ -87,7 +87,7 @@
     //#define PFUNC std::cout << __PRETTY_FUNCTION__ << std::endl
 
     //メモリ解放用マクロ
-    #include "jp/ggaf/core/util/GgafLogger.h"
+    #include "jp/ggaf/core/util/Logger.h"
     /** nullptr はありえない、普通の delete */
     #define GGAF_DELETE(POINTER) do { \
         if (POINTER) { \
@@ -98,7 +98,7 @@
             std::stringstream ss; \
             ss << "＜警告＞GGAF_DELETE(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にnullptrであるため "<< \
                   #POINTER << " の解放をやむなく無視しました。本来は、ここで nullptr になってこと自体おかしいのでは？。調査せよ！"; \
-            GgafCore::GgafLogger::writeln(ss); \
+            GgafCore::Logger::writeln(ss); \
             (POINTER) = nullptr; \
         } \
     }while(0)
@@ -113,7 +113,7 @@
             std::stringstream ss; \
             ss << "＜警告＞GGAF_DELETEARR(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にnullptrであるため "<< \
                   #POINTER << "の解放をやむなく無視しました。本来は、ここで nullptr になってこと自体おかしいのでは？。調査せよ！"; \
-            GgafCore::GgafLogger::writeln(ss); \
+            GgafCore::Logger::writeln(ss); \
             (POINTER) = nullptr; \
         } \
     }while(0)
@@ -149,14 +149,14 @@
                 std::stringstream ss; \
                 ss << "＜警告＞GGAF_RELEASE_NULLABLE(file:"<<__FILE__<<" line:"<<__LINE__<<") "<< \
                       #POINTER << "は、既に参照カウンタ0です。Release() は行いませんでした。調査が必要です！"; \
-                GgafCore::GgafLogger::writeln(ss); \
+                GgafCore::Logger::writeln(ss); \
             } else { \
                 rc = (POINTER)->Release(); \
                 if (rc > 0) { \
                     std::stringstream ss; \
                     ss << "＜情報＞GGAF_RELEASE_NULLABLE(file:"<<__FILE__<<" line:"<<__LINE__<<") "<< \
                           #POINTER << "は、まだ解放されません。参照カウンタ="<<rc; \
-                    GgafCore::GgafLogger::writeln(ss); \
+                    GgafCore::Logger::writeln(ss); \
                 } \
             } \
             (POINTER) = nullptr; \
@@ -174,14 +174,14 @@
                 std::stringstream ss; \
                 ss << "＜警告＞GGAF_RELEASE(file:"<<__FILE__<<" line:"<<__LINE__<<") "<< \
                       #POINTER << "は、既に参照カウンタ0です。リリースをやむなく無視しました。調査が必要です！"; \
-                GgafCore::GgafLogger::writeln(ss); \
+                GgafCore::Logger::writeln(ss); \
             } else { \
                 rc = (POINTER)->Release(); \
                 if (rc > 0) { \
                     std::stringstream ss; \
                     ss << "＜情報＞GGAF_RELEASE(file:"<<__FILE__<<" line:"<<__LINE__<<") "<< \
                           #POINTER << "は、まだ解放されません。参照カウンタ="<<rc; \
-                    GgafCore::GgafLogger::writeln(ss); \
+                    GgafCore::Logger::writeln(ss); \
                 } \
             } \
             (POINTER) = nullptr; \
@@ -189,7 +189,7 @@
             std::stringstream ss; \
             ss << "GGAF_RELEASE(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にnullptrであるため "<< \
                   #POINTER << "のリリースをやむなく無視しました。本来は、ここでnullptrになってこと自体おかしいのでは？。調査せよ。"; \
-            GgafCore::GgafLogger::writeln(ss); \
+            GgafCore::Logger::writeln(ss); \
             (POINTER) = nullptr; \
         } \
     }while(0)
@@ -242,33 +242,33 @@
 
 #ifdef MY_DEBUG
     /** デバッグ用通常ログ */
-    #define _TRACE_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss); }
+    #define _TRACE_(X) { std::stringstream ss; ss << X; GgafCore::Logger::writeln(ss); }
     //#define _TRACE_(X)
-    #define _TRACE_N_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss); }
+    #define _TRACE_N_(X) { std::stringstream ss; ss << X; GgafCore::Logger::write(ss); }
     //#define _TRACE_N_(X)
 
     /** 愛関連関連ログ */
-    //#define _TRACE2_(X) {std::stringstream ss; ss << "[祝福愛]" << FUNC_NAME << " " << X; GgafCore::GgafLogger::writeln(ss); }
+    //#define _TRACE2_(X) {std::stringstream ss; ss << "[祝福愛]" << FUNC_NAME << " " << X; GgafCore::Logger::writeln(ss); }
     #define _TRACE2_(X)
 
     /** 資源マネージャ、コネクション関連ログ */
-    //#define _TRACE3_(X) {std::stringstream ss; ss << FUNC_NAME << " " << X; GgafCore::GgafLogger::writeln(ss); }
+    //#define _TRACE3_(X) {std::stringstream ss; ss << FUNC_NAME << " " << X; GgafCore::Logger::writeln(ss); }
     #define _TRACE3_(X)
 
     /** エフェクト、パス、Draw関連ログ */
-    //#define _TRACE4_(X) {std::stringstream ss; ss << FUNC_NAME << " " << X; GgafCore::GgafLogger::writeln(ss); }
+    //#define _TRACE4_(X) {std::stringstream ss; ss << FUNC_NAME << " " << X; GgafCore::Logger::writeln(ss); }
     #define _TRACE4_(X)
 
     /** 八分木、あたり判定関連ログ */
-    //#define _TRACE5_(X) {std::stringstream ss; ss << FUNC_NAME << " " << X; GgafCore::GgafLogger::writeln(ss); }
+    //#define _TRACE5_(X) {std::stringstream ss; ss << FUNC_NAME << " " << X; GgafCore::Logger::writeln(ss); }
     #define _TRACE5_(X)
-    //#define _TRACE5_N_(X) {std::stringstream ss; ss << FUNC_NAME << " " << X; GgafCore::GgafLogger::write(ss); }
+    //#define _TRACE5_N_(X) {std::stringstream ss; ss << FUNC_NAME << " " << X; GgafCore::Logger::write(ss); }
     #define _TRACE5_N_(X)
 
 # else
-    //#define _TRACE_(X) { std::stringstream ss; ss << FUNC_NAME << " " << X; GgafCore::GgafLogger::writeln(ss); }
+    //#define _TRACE_(X) { std::stringstream ss; ss << FUNC_NAME << " " << X; GgafCore::Logger::writeln(ss); }
     #define _TRACE_(X)
-    //#define _TRACE_N_(X) { std::stringstream ss; ss << FUNC_NAME << " " << X; GgafCore::GgafLogger::write(ss); }
+    //#define _TRACE_N_(X) { std::stringstream ss; ss << FUNC_NAME << " " << X; GgafCore::Logger::write(ss); }
     #define _TRACE_N_(X)
 
     #define _TRACE2_(X)
@@ -331,100 +331,99 @@ typedef uint_fast32_t frame;
 
 #define Obj_SceneBit              (0x8000000000000000ULL)       //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
 
-#define Obj_GgafScene             ((0x1ULL) | Obj_SceneBit)     //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000000 00000001
-#define Obj_GgafMainScene         ((0x2ULL) | Obj_SceneBit)     //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000000 00000010
-#define Obj_GgafDisusedScene      ((0x4ULL) | Obj_SceneBit)     //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000000 00000100
-#define Obj_GgafSpacetime         ((0x8ULL) | Obj_SceneBit)     //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000000 00001000
+#define Obj_ggaf_Scene             ((0x1ULL) | Obj_SceneBit)     //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000000 00000001
+#define Obj_ggaf_MainScene         ((0x2ULL) | Obj_SceneBit)     //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000000 00000010
+#define Obj_ggaf_DisusedScene      ((0x4ULL) | Obj_SceneBit)     //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000000 00000100
+#define Obj_ggaf_Spacetime         ((0x8ULL) | Obj_SceneBit)     //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000000 00001000
 
-#define Obj_GgafActor              (0x1ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000001
-#define Obj_GgafMainActor          (0x2ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000010
-#define Obj_GgafDestructActor      (0x4ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000100
-#define Obj_GgafSceneMediator      (0x8ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00001000
-#define Obj_GgafGroupHead         (0x10ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00010000
-#define Obj_GgafDisusedActor      (0x20ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00100000
-#define Obj_GgafActorDepository   (0x40ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 01000000
-#define Obj_GgafFormation         (0x80ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 10000000
+#define Obj_ggaf_Actor              (0x1ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000001
+#define Obj_ggaf_MainActor          (0x2ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000010
+#define Obj_ggaf_DestructActor      (0x4ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000100
+#define Obj_ggaf_SceneMediator      (0x8ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00001000
+#define Obj_ggaf_GroupHead         (0x10ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00010000
+#define Obj_ggaf_DisusedActor      (0x20ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00100000
+#define Obj_ggaf_ActorDepository   (0x40ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 01000000
+#define Obj_ggaf_Formation         (0x80ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 10000000
 
 
 //前方宣言(forward declaration)
 namespace GgafCore {
 
-class GgafUtil;
-class GgafRepeatSeq;
-class GgafObject;
-class GgafException;
-class GgafCriticalException;
-class GgafLogger;
-class GgafGod;
+class Util;
+class RepeatSeq;
+class Object;
+class Exception;
+class CriticalException;
+class Logger;
+class God;
 
 class CmRandomNumberGenerator;
 
 template<class T>
-class GgafResourceConnection;
+class ResourceConnection;
 
 template<class T>
-class GgafResourceManager;
+class ResourceManager;
 
 template<class T>
-class GgafNode;
+class Node;
 
 template<class T>
-class GgafElement;
+class Element;
 
 template<class T>
-class GgafLinkedListRing;
+class LinkedListRing;
 
 template<class VAL_TYPE>
-class GgafValueAccelerator;
+class ValueAccelerator;
 
 template<class VAL_TYPE, int N>
-class GgafValueEnveloper;
+class ValueEnveloper;
 
-class GgafGarbageBox;
-class GgafProgress;
-class GgafScene;
-class GgafDisusedScene;
-class GgafActor;
-class GgafStatus;
-class GgafDisusedActor;
-class GgafMainActor;
-class GgafDestructActor;
-class GgafSpacetime;
-class GgafMainScene;
-class GgafSceneMediator;
-class GgafGroupHead;
+class GarbageBox;
+class Progress;
+class Scene;
+class DisusedScene;
+class Actor;
+class Status;
+class DisusedActor;
+class MainActor;
+class DestructActor;
+class Spacetime;
+class MainScene;
+class SceneMediator;
+class GroupHead;
 
-class GgafFormation;
-class GgafTreeFormation;
-class GgafDepositoryFormation;
-class GgafActorDepository;
-class GgafActorDepositoryStore;
+class Formation;
+class TreeFormation;
+class DepositoryFormation;
+class ActorDepository;
+class ActorDepositoryStore;
 
-class GgafCradle;
-class GgafRgb;
+class Cradle;
+class Rgb;
 
-class GgafConfig;
-class GgafProperties;
-class GgafLinearOctree;
-
-template<uint32_t DIMENSION>
-class GgafTreeSpace;
+class Config;
+class Properties;
+class LinearOctree;
 
 template<uint32_t DIMENSION>
-class GgafTreeElem;
+class TreeSpace;
 
-class GgafLinearQuadtree;
+template<uint32_t DIMENSION>
+class TreeElem;
 
-//class GgafCurtain;
-class GgafTable;
+class LinearQuadtree;
 
-class GgafEnumIndex;
+//class Curtain;
+class Table;
 
-class GgafXpm;
+class EnumIndex;
+
+class Xpm;
 
 template<class T, uint32_t DIMENSION>
-class GgafLinearTreeRounder;
-
+class LinearTreeRounder;
 
 }
 

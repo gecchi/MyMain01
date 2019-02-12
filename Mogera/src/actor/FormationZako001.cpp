@@ -1,6 +1,6 @@
 #include "FormationZako001.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/ggaf/lib/util/spline/SplineManufacture.h"
 #include "jp/ggaf/lib/util/spline/SplineSource.h"
@@ -8,8 +8,8 @@
 #include "MgrGod.h"
 #include "Zako.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace Mogera;
 
@@ -38,10 +38,10 @@ void FormationZako001::processBehavior() {
     FormationZako::processBehavior();
 }
 
-void FormationZako001::onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, int prm_row, int prm_col) {
+void FormationZako001::onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) {
     Zako* pZako = (Zako*)prm_pActor;
     if (pZako->pKurokoLeader_) {
-        throwGgafCriticalException("pZako->pKurokoLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpZako="<<pZako<<"("<<pZako->getName()<<")");
+        throwCriticalException("pZako->pKurokoLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpZako="<<pZako<<"("<<pZako->getName()<<")");
     } else {
         pZako->pKurokoLeader_ = papSplManufConn_[prm_col]->peek()->
                                      createKurokoLeader(pZako->getKuroko());
@@ -74,7 +74,7 @@ void FormationZako001::onCallUp(GgafDxCore::GgafDxFigureActor* prm_pActor, int p
     pZako->getKuroko()->setMvAngByFaceAng();
 }
 
-void FormationZako001::onFinshLeading(GgafDxCore::GgafDxFigureActor* prm_pActor) {
+void FormationZako001::onFinshLeading(GgafDx::FigureActor* prm_pActor) {
 
 }
 

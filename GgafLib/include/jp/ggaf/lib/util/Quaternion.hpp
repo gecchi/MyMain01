@@ -1,9 +1,9 @@
-#ifndef GGAFLIB_QUATERNION_HPP_
-#define GGAFLIB_QUATERNION_HPP_
+#ifndef GGAF_LIB_QUATERNION_HPP_
+#define GGAF_LIB_QUATERNION_HPP_
 #include "GgafDxCommonHeader.h"
-#include "jp/ggaf/core/GgafObject.h"
+#include "jp/ggaf/core/Object.h"
 
-namespace GgafDxCore {
+namespace GgafLib {
 
 /**
  * 四元数(クォータニオン)クラス .
@@ -12,7 +12,7 @@ namespace GgafDxCore {
  * @author Masatoshi Tsuge
  */
 template<typename T>
-class Quaternion : public GgafCore::GgafObject {
+class Quaternion : public GgafCore::Object {
 public:
     /** 実部 */
     T   R;
@@ -24,14 +24,14 @@ public:
     T   k;
 
 public:
-    Quaternion() : GgafObject() {
+    Quaternion() : GgafCore::Object() {
         R = 0;
         i = 0;
         j = 0;
         k = 0;
     }
 
-    Quaternion(const T prm_R, const T prm_i, const T prm_j, const T prm_k) : GgafObject(),
+    Quaternion(const T prm_R, const T prm_i, const T prm_j, const T prm_k) : GgafCore::Object(),
         R(prm_R),
         i(prm_i),
         j(prm_j),
@@ -73,5 +73,5 @@ public:
 };
 
 }
-#endif /*GGAFLIB_QUATERNION_HPP_*/
+#endif /*GGAF_LIB_QUATERNION_HPP_*/
 

@@ -1,17 +1,17 @@
 #include "EnemyErmioneArmHead.h"
 #include "EnemyErmione.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
+#include "jp/ggaf/dx/actor/supporter/Trucker.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/lib/actor/laserchip/StraightLaserChip.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -32,7 +32,7 @@ void EnemyErmioneArmHead::initialize() {
 }
 
 void EnemyErmioneArmHead::processBehavior() {
-    GgafProgress* const pProg = getProgress();
+    GgafCore::Progress* const pProg = getProgress();
     if (pProg->get() == PROG_NOTHING || pProg->get() == PROG_AIMING) { //èoåªä‘äu
         if (!pDepo_laser_chip_) {
             pDepo_laser_chip_ = (LaserChipDepository*)UTIL::getDepositoryOf(this);
@@ -59,11 +59,11 @@ void  EnemyErmioneArmHead::processChangeGeoFinal() {
     }
 }
 
-void EnemyErmioneArmHead::onHit(const GgafActor* prm_pOtherActor) {
+void EnemyErmioneArmHead::onHit(const GgafCore::Actor* prm_pOtherActor) {
 
 
 
-    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*)prm_pOtherActor;
+    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)prm_pOtherActor;
 //    if (UTIL::calcEnemyStamina(this, pOther) <= 0) {
 //        setHitAble(false);
 //        //îöî≠å¯â 

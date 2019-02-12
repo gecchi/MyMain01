@@ -1,11 +1,11 @@
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
-DefaultGeometricActor::DefaultGeometricActor(const char* prm_name, GgafStatus* prm_pStat, GgafDxChecker* prm_pChecker) :
-    GgafDxGeometricActor(prm_name, prm_pStat, prm_pChecker)
+DefaultGeometricActor::DefaultGeometricActor(const char* prm_name, GgafCore::Status* prm_pStat, GgafDx::Checker* prm_pChecker) :
+    GgafDx::GeometricActor(prm_name, prm_pStat, prm_pChecker)
 {
     _class_name = "DefaultGeometricActor";
 }

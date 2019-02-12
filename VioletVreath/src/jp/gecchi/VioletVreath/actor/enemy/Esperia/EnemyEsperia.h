@@ -31,11 +31,11 @@ public:
     /** [r]レーザー発射時のZ軸方向の自機との距離 */
     coord dZ_;
     /** [r]レーザー発射位置の座標（エスペリアのローカル座標） */
-    GgafDxCore::GgafDxGeoElem* paLocalPos_laser_;
+    GgafDx::GeoElem* paLocalPos_laser_;
     /** [r]レーザー発射時、目標すだれ位置の差分座標（自機からの相対座標） */
-    GgafDxCore::GgafDxGeoElem* paPos_target_;
+    GgafDx::GeoElem* paPos_target_;
     /** [r]レーザーセットのストアー(レーザーチップのデポジトリのデポジトリ) */
-    GgafCore::GgafActorDepositoryStore* pDepoStore_laser_set;
+    GgafCore::ActorDepositoryStore* pDepoStore_laser_set;
     /** [r]デポジトリマネージャーへの接続 */
     DepositoryConnection* pConn_pDepoStore_laser_set;
     /** [r]レーザーセット(レーザーチップのデポジトリ) */
@@ -57,7 +57,7 @@ public:
     void onCatchEvent(hashval prm_no, void* prm_pSource) override {
     }
 
-    void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
+    void onHit(const GgafCore::Actor* prm_pOtherActor) override;
 
     void onInactive() override;
 
@@ -85,8 +85,8 @@ public:
      * @param DT
      * @return 上昇Y軸距離（DY）
      */
-    static coord getTurnDY(GgafDxCore::GgafDxGeometricActor* pThis,
-                           GgafDxCore::GgafDxGeometricActor* pMyShip,
+    static coord getTurnDY(GgafDx::GeometricActor* pThis,
+                           GgafDx::GeometricActor* pMyShip,
                            coord DT);
 
     virtual ~EnemyEsperia();

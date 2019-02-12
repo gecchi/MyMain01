@@ -1,6 +1,6 @@
 #include "GgafEffectConst.fxh"
 ////////////////////////////////////////////////////////////////////////////////
-// Ggafライブラリ、GgafDx9MorphMeshModel用シェーダー
+// ggaf ライブラリ、MorphMeshModel用シェーダー
 // author : Masatoshi Tsuge
 // date:2009/05/12
 ////////////////////////////////////////////////////////////////////////////////
@@ -50,7 +50,7 @@ sampler CubeMapTextureSampler : register(s0);
 
 struct OUT_VS {
     float4 posModel_Proj    : POSITION;
-	float4 color  : COLOR0;
+    float4 color  : COLOR0;
     float3 vecNormal_World : TEXCOORD0;   // ワールド変換した法線
     //float3 viewVecW: TEXCOORD1;  	// ワールド空間での視線ベクトル
 };
@@ -59,7 +59,7 @@ struct OUT_VS {
 ///////////////////////////////////////////////////////////////////////////
 
 //モーフターゲットなし
-OUT_VS GgafDx9VS_WorldBound0(
+OUT_VS VS_WorldBound0(
       float4 prm_posPrimary_Local    : POSITION0,      // モデルの頂点
       float3 prm_vecNormalPrimary_Local : NORMAL0//, //,        // モデルの頂点の法線
       //float2 prm_uv0     : TEXCOORD0       // モデルの頂点のUV
@@ -67,32 +67,32 @@ OUT_VS GgafDx9VS_WorldBound0(
 ) {
     OUT_VS out_vs = (OUT_VS)0;
 
-	//頂点計算
+    //頂点計算
     const float4 posModel_World = mul(prm_posPrimary_Local, g_matWorld);
     out_vs.posModel_Proj = mul( mul( posModel_World, g_matView), g_matProj);  //World*View*射影
     //UV計算
     //out_vs.uv = prm_uv0;  //そのまま
     //頂点カラー計算
     //法線を World 変換して正規化
-    out_vs.vecNormal_World = normalize(mul(prm_vecNormalPrimary_Local, g_matWorld));     
+    out_vs.vecNormal_World = normalize(mul(prm_vecNormalPrimary_Local, g_matWorld));
     out_vs.color = g_colMaterialDiffuse;
     //法線と、拡散光方向の内積からライト入射角を求め、面に対する拡散光の減衰率を求める。
-    //float power = max(dot(out_vs.vecNormal_World, -g_vecLightFrom_World ), 0);      
+    //float power = max(dot(out_vs.vecNormal_World, -g_vecLightFrom_World ), 0);
     //拡散光色に減衰率を乗じ、環境光色を加算し、全体をマテリアル色を掛ける。
     //out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*power)) * g_colMaterialDiffuse;
-    //「頂点→カメラ視点」方向ベクトル                                                        
+    //「頂点→カメラ視点」方向ベクトル
     //out_vs.vecEye_World = normalize(g_posCam_World.xyz - posModel_World.xyz);
     //αはマテリアルαを最優先とする（上書きする）
     //out_vs.color.a = g_colMaterialDiffuse.a;
     //αフォグ
 //    if (out_vs.posModel_Proj.z > (g_zf*0.9)*0.5) { // 最遠の 1/2 より奥の場合徐々に透明に
 //        out_vs.color.a *= (-1.0/((g_zf*0.9)*0.5)*out_vs.posModel_Proj.z + 2.0);
-//    } 
-	return out_vs;
+//    }
+    return out_vs;
 }
 
 //モーフターゲット１つ
-OUT_VS GgafDx9VS_WorldBound1(
+OUT_VS VS_WorldBound1(
       float4 prm_posPrimary_Local    : POSITION0,      // モデルの頂点
       float3 prm_vecNormalPrimary_Local : NORMAL0,        // モデルの頂点の法線
       float2 prm_uv0     : TEXCOORD0,      // モデルの頂点のUV
@@ -109,12 +109,12 @@ OUT_VS GgafDx9VS_WorldBound1(
         posModel_Proj += ((prm_posMorphTarget1_Local - prm_posPrimary_Local) * g_weight1);
         vecNormal_World = lerp(vecNormal_World, prm_vecNormal1_Local, g_weight1);
     }
-    return GgafDx9VS_WorldBound0(posModel_Proj, vecNormal_World);
+    return VS_WorldBound0(posModel_Proj, vecNormal_World);
 }
 
 
 //モーフターゲット２つ
-OUT_VS GgafDx9VS_WorldBound2(
+OUT_VS VS_WorldBound2(
       float4 prm_posPrimary_Local    : POSITION0,      // モデルの頂点
       float3 prm_vecNormalPrimary_Local : NORMAL0,        // モデルの頂点の法線
       float2 prm_uv0     : TEXCOORD0,      // モデルの頂点のUV
@@ -136,11 +136,11 @@ OUT_VS GgafDx9VS_WorldBound2(
         posModel_Proj += ((prm_posMorphTarget2_Local - prm_posPrimary_Local) * g_weight2);
         vecNormal_World = lerp(vecNormal_World, prm_vecNormal2_Local, g_weight2);
     }
-    return GgafDx9VS_WorldBound0(posModel_Proj, vecNormal_World);
+    return VS_WorldBound0(posModel_Proj, vecNormal_World);
 }
 
 //モーフターゲット３つ
-OUT_VS GgafDx9VS_WorldBound3(
+OUT_VS VS_WorldBound3(
       float4 prm_posPrimary_Local    : POSITION0,      // モデルの頂点
       float3 prm_vecNormalPrimary_Local : NORMAL0,        // モデルの頂点の法線
       float2 prm_uv0     : TEXCOORD0,      // モデルの頂点のUV
@@ -168,11 +168,11 @@ OUT_VS GgafDx9VS_WorldBound3(
         posModel_Proj += ((prm_posMorphTarget3_Local - prm_posPrimary_Local) * g_weight3);
         vecNormal_World = lerp(vecNormal_World, prm_vecNormal3_Local, g_weight3);
     }
-    return GgafDx9VS_WorldBound0(posModel_Proj, vecNormal_World);
+    return VS_WorldBound0(posModel_Proj, vecNormal_World);
 }
 
 //モーフターゲット４つ
-OUT_VS GgafDx9VS_WorldBound4(
+OUT_VS VS_WorldBound4(
       float4 prm_posPrimary_Local    : POSITION0,      // モデルの頂点
       float3 prm_vecNormalPrimary_Local : NORMAL0,        // モデルの頂点の法線
       float2 prm_uv0     : TEXCOORD0,      // モデルの頂点のUV
@@ -206,11 +206,11 @@ OUT_VS GgafDx9VS_WorldBound4(
         posModel_Proj += ((prm_posMorphTarget4_Local - prm_posPrimary_Local) * g_weight4);
         vecNormal_World = lerp(vecNormal_World, prm_vecvecNormal4_Local, g_weight4);
     }
-    return GgafDx9VS_WorldBound0(posModel_Proj, vecNormal_World);
+    return VS_WorldBound0(posModel_Proj, vecNormal_World);
 }
 
 //モーフターゲット５つ
-OUT_VS GgafDx9VS_WorldBound5(
+OUT_VS VS_WorldBound5(
       float4 prm_posPrimary_Local    : POSITION0,      // モデルの頂点
       float3 prm_vecNormalPrimary_Local : NORMAL0,        // モデルの頂点の法線
       float2 prm_uv0     : TEXCOORD0,      // モデルの頂点のUV
@@ -250,11 +250,11 @@ OUT_VS GgafDx9VS_WorldBound5(
         posModel_Proj += ((prm_posMorphTarget5_Local - prm_posPrimary_Local) * g_weight5);
         vecNormal_World = lerp(vecNormal_World, prm_vecNormal5_Local, g_weight5);
     }
-    return GgafDx9VS_WorldBound0(posModel_Proj, vecNormal_World);
+    return VS_WorldBound0(posModel_Proj, vecNormal_World);
 }
 
 //モーフターゲット６つ
-OUT_VS GgafDx9VS_WorldBound6(
+OUT_VS VS_WorldBound6(
       float4 prm_posPrimary_Local    : POSITION0,      // モデルの頂点
       float3 prm_vecNormalPrimary_Local : NORMAL0,        // モデルの頂点の法線
       float2 prm_uv0     : TEXCOORD0,      // モデルの頂点のUV
@@ -301,18 +301,18 @@ OUT_VS GgafDx9VS_WorldBound6(
         posModel_Proj += ((prm_posMorphTarget6_Local - prm_posPrimary_Local) * g_weight6);
         vecNormal_World = lerp(vecNormal_World, prm_vecNormal6_Local, g_weight6);
     }
-    return GgafDx9VS_WorldBound0(posModel_Proj, vecNormal_World);
+    return VS_WorldBound0(posModel_Proj, vecNormal_World);
 }
 
 
-float4 GgafDx9PS_WorldBound(       
-	//float2 prm_uv	  : TEXCOORD0,
-	float4 prm_color  : COLOR0,
-    float3 prm_vecNormal_World : TEXCOORD0 
+float4 PS_WorldBound(
+    //float2 prm_uv	  : TEXCOORD0,
+    float4 prm_color  : COLOR0,
+    float3 prm_vecNormal_World : TEXCOORD0
     //float3 prm_vecEye_World    : TEXCOORD2   //頂点 -> 視点 ベクトル
 ) : COLOR  {
-	//float4 colTexCube = texCUBE(CubeMapTextureSampler, reflect(-prm_vecEye_World, -prm_vecNormal_World));
-	const float4 colTexCube = texCUBE(CubeMapTextureSampler, -prm_vecNormal_World);
+    //float4 colTexCube = texCUBE(CubeMapTextureSampler, reflect(-prm_vecEye_World, -prm_vecNormal_World));
+    const float4 colTexCube = texCUBE(CubeMapTextureSampler, -prm_vecNormal_World);
 
 //    float4 colTex2D   = tex2D( MyTextureSampler, prm_uv);
 
@@ -326,18 +326,18 @@ float4 GgafDx9PS_WorldBound(
 
     float4 colOut = (colTexCube * prm_color);// colTexCube; //(colTex2D * prm_color) + (colTexCube*0.2); // + s;
 //    //Blinkerを考慮
-	if (colTexCube.r >= g_tex_blink_threshold || colTexCube.g >= g_tex_blink_threshold || colTexCube.b >= g_tex_blink_threshold) {
-		colOut *= g_tex_blink_power; //+ (colTex2D * g_tex_blink_power);
-	} 
+    if (colTexCube.r >= g_tex_blink_threshold || colTexCube.g >= g_tex_blink_threshold || colTexCube.b >= g_tex_blink_threshold) {
+        colOut *= g_tex_blink_power; //+ (colTex2D * g_tex_blink_power);
+    }
 //
-//    colOut.a = prm_color.a; 
+//    colOut.a = prm_color.a;
     //マスターα
     colOut.a *= g_alpha_master;
-	return colOut;
+    return colOut;
 }
-float4 PS_Flush(       
-	float4 prm_color  : COLOR0,
-    float3 prm_vecNormal_Local : TEXCOORD0 
+float4 PS_Flush(
+    float4 prm_color  : COLOR0,
+    float3 prm_vecNormal_Local : TEXCOORD0
 //	float2 prm_uv	  : TEXCOORD0,
 //	float4 prm_color    : COLOR0,
 //    float3 prm_vecNormal_Local : TEXCOORD1,
@@ -345,10 +345,10 @@ float4 PS_Flush(
 ) : COLOR  {
 
 //	float4 colTexCube = texCUBE(CubeMapTextureSampler, reflect(-prm_vecEye_World, -prm_vecNormal_Local));
-	const float4 colTexCube = texCUBE(CubeMapTextureSampler, -prm_vecNormal_Local);
+    const float4 colTexCube = texCUBE(CubeMapTextureSampler, -prm_vecNormal_Local);
     float4 colOut = colTexCube * prm_color * FLUSH_COLOR;
     colOut.a *= g_alpha_master;
-	return 	colOut;
+    return 	colOut;
 }
 
 technique WorldBoundTechnique
@@ -361,9 +361,9 @@ technique WorldBoundTechnique
         DestBlend = InvSrcAlpha;
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		BlendOpAlpha = Add;
-        VertexShader = compile VS_VERSION GgafDx9VS_WorldBound0();
-        PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
+        BlendOpAlpha = Add;
+        VertexShader = compile VS_VERSION VS_WorldBound0();
+        PixelShader  = compile PS_VERSION PS_WorldBound();
     }
 
     //モーフターゲット１つ
@@ -374,9 +374,9 @@ technique WorldBoundTechnique
         DestBlend = InvSrcAlpha;
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		BlendOpAlpha = Add;
-        VertexShader = compile VS_VERSION GgafDx9VS_WorldBound1();
-        PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
+        BlendOpAlpha = Add;
+        VertexShader = compile VS_VERSION VS_WorldBound1();
+        PixelShader  = compile PS_VERSION PS_WorldBound();
     }
 
     //モーフターゲット２つ
@@ -387,9 +387,9 @@ technique WorldBoundTechnique
         DestBlend = InvSrcAlpha;
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		BlendOpAlpha = Add;
-        VertexShader = compile VS_VERSION GgafDx9VS_WorldBound2();
-        PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
+        BlendOpAlpha = Add;
+        VertexShader = compile VS_VERSION VS_WorldBound2();
+        PixelShader  = compile PS_VERSION PS_WorldBound();
     }
 
     //モーフターゲット３つ
@@ -400,9 +400,9 @@ technique WorldBoundTechnique
         DestBlend = InvSrcAlpha;
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		BlendOpAlpha = Add;
-        VertexShader = compile VS_VERSION GgafDx9VS_WorldBound3();
-        PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
+        BlendOpAlpha = Add;
+        VertexShader = compile VS_VERSION VS_WorldBound3();
+        PixelShader  = compile PS_VERSION PS_WorldBound();
     }
 
     //モーフターゲット４つ
@@ -413,9 +413,9 @@ technique WorldBoundTechnique
         DestBlend = InvSrcAlpha;
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		BlendOpAlpha = Add;
-        VertexShader = compile VS_VERSION GgafDx9VS_WorldBound4();
-        PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
+        BlendOpAlpha = Add;
+        VertexShader = compile VS_VERSION VS_WorldBound4();
+        PixelShader  = compile PS_VERSION PS_WorldBound();
     }
 
     //モーフターゲット５つ
@@ -426,9 +426,9 @@ technique WorldBoundTechnique
         DestBlend = InvSrcAlpha;
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		BlendOpAlpha = Add;
-        VertexShader = compile VS_VERSION GgafDx9VS_WorldBound5();
-        PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
+        BlendOpAlpha = Add;
+        VertexShader = compile VS_VERSION VS_WorldBound5();
+        PixelShader  = compile PS_VERSION PS_WorldBound();
     }
 
     //モーフターゲット６つ
@@ -439,9 +439,9 @@ technique WorldBoundTechnique
         DestBlend = InvSrcAlpha;
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		BlendOpAlpha = Add;
-        VertexShader = compile VS_VERSION GgafDx9VS_WorldBound6();
-        PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
+        BlendOpAlpha = Add;
+        VertexShader = compile VS_VERSION VS_WorldBound6();
+        PixelShader  = compile PS_VERSION PS_WorldBound();
     }
 
 //	//モーフターゲット７つ
@@ -449,8 +449,8 @@ technique WorldBoundTechnique
 //		AlphaBlendEnable = true;
 //		SrcBlend  = SrcAlpha;
 //		DestBlend = InvSrcAlpha;
-//		VertexShader = compile VS_VERSION GgafDx9VS_WorldBound7();
-//		PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
+//		VertexShader = compile VS_VERSION VS_WorldBound7();
+//		PixelShader  = compile PS_VERSION PS_WorldBound();
 //	}
 }
 
@@ -465,9 +465,9 @@ technique DestBlendOne
         DestBlend = One; //加算合成
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		BlendOpAlpha = Add;
-        VertexShader = compile VS_VERSION GgafDx9VS_WorldBound0();
-        PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
+        BlendOpAlpha = Add;
+        VertexShader = compile VS_VERSION VS_WorldBound0();
+        PixelShader  = compile PS_VERSION PS_WorldBound();
     }
 
     //モーフターゲット１つ
@@ -478,9 +478,9 @@ technique DestBlendOne
         DestBlend = One; //加算合成
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		BlendOpAlpha = Add;
-        VertexShader = compile VS_VERSION GgafDx9VS_WorldBound1();
-        PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
+        BlendOpAlpha = Add;
+        VertexShader = compile VS_VERSION VS_WorldBound1();
+        PixelShader  = compile PS_VERSION PS_WorldBound();
     }
 
     //モーフターゲット２つ
@@ -491,9 +491,9 @@ technique DestBlendOne
         DestBlend = One; //加算合成
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		BlendOpAlpha = Add;
-        VertexShader = compile VS_VERSION GgafDx9VS_WorldBound2();
-        PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
+        BlendOpAlpha = Add;
+        VertexShader = compile VS_VERSION VS_WorldBound2();
+        PixelShader  = compile PS_VERSION PS_WorldBound();
     }
 
     //モーフターゲット３つ
@@ -504,9 +504,9 @@ technique DestBlendOne
         DestBlend = One; //加算合成
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		BlendOpAlpha = Add;
-        VertexShader = compile VS_VERSION GgafDx9VS_WorldBound3();
-        PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
+        BlendOpAlpha = Add;
+        VertexShader = compile VS_VERSION VS_WorldBound3();
+        PixelShader  = compile PS_VERSION PS_WorldBound();
     }
 
     //モーフターゲット４つ
@@ -517,9 +517,9 @@ technique DestBlendOne
         DestBlend = One; //加算合成
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		BlendOpAlpha = Add;
-        VertexShader = compile VS_VERSION GgafDx9VS_WorldBound4();
-        PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
+        BlendOpAlpha = Add;
+        VertexShader = compile VS_VERSION VS_WorldBound4();
+        PixelShader  = compile PS_VERSION PS_WorldBound();
     }
 
     //モーフターゲット５つ
@@ -530,9 +530,9 @@ technique DestBlendOne
         DestBlend = One; //加算合成
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		BlendOpAlpha = Add;
-        VertexShader = compile VS_VERSION GgafDx9VS_WorldBound5();
-        PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
+        BlendOpAlpha = Add;
+        VertexShader = compile VS_VERSION VS_WorldBound5();
+        PixelShader  = compile PS_VERSION PS_WorldBound();
     }
 
     //モーフターゲット６つ
@@ -543,9 +543,9 @@ technique DestBlendOne
         DestBlend = One; //加算合成
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		BlendOpAlpha = Add;
-        VertexShader = compile VS_VERSION GgafDx9VS_WorldBound6();
-        PixelShader  = compile PS_VERSION GgafDx9PS_WorldBound();
+        BlendOpAlpha = Add;
+        VertexShader = compile VS_VERSION VS_WorldBound6();
+        PixelShader  = compile PS_VERSION PS_WorldBound();
     }
 }
 
@@ -559,8 +559,8 @@ technique Flush
         DestBlend = One; //加算合成
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		BlendOpAlpha = Add;
-        VertexShader = compile VS_VERSION GgafDx9VS_WorldBound0();
+        BlendOpAlpha = Add;
+        VertexShader = compile VS_VERSION VS_WorldBound0();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 
@@ -572,8 +572,8 @@ technique Flush
         DestBlend = One; //加算合成
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		BlendOpAlpha = Add;
-        VertexShader = compile VS_VERSION GgafDx9VS_WorldBound1();
+        BlendOpAlpha = Add;
+        VertexShader = compile VS_VERSION VS_WorldBound1();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 
@@ -585,8 +585,8 @@ technique Flush
         //SrcBlendAlpha = One;      //default
         //SeparateAlphaBlendEnable = true;
         //DestBlendAlpha = Zero;    //default
-		BlendOpAlpha = Add;
-        VertexShader = compile VS_VERSION GgafDx9VS_WorldBound2();
+        BlendOpAlpha = Add;
+        VertexShader = compile VS_VERSION VS_WorldBound2();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 
@@ -598,8 +598,8 @@ technique Flush
         DestBlend = One; //加算合成
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		BlendOpAlpha = Add;
-        VertexShader = compile VS_VERSION GgafDx9VS_WorldBound3();
+        BlendOpAlpha = Add;
+        VertexShader = compile VS_VERSION VS_WorldBound3();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 
@@ -611,8 +611,8 @@ technique Flush
         DestBlend = One; //加算合成
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		BlendOpAlpha = Add;
-        VertexShader = compile VS_VERSION GgafDx9VS_WorldBound4();
+        BlendOpAlpha = Add;
+        VertexShader = compile VS_VERSION VS_WorldBound4();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 
@@ -624,8 +624,8 @@ technique Flush
         DestBlend = One; //加算合成
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		BlendOpAlpha = Add;
-        VertexShader = compile VS_VERSION GgafDx9VS_WorldBound5();
+        BlendOpAlpha = Add;
+        VertexShader = compile VS_VERSION VS_WorldBound5();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 
@@ -637,8 +637,8 @@ technique Flush
         DestBlend = One; //加算合成
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		BlendOpAlpha = Add;
-        VertexShader = compile VS_VERSION GgafDx9VS_WorldBound6();
+        BlendOpAlpha = Add;
+        VertexShader = compile VS_VERSION VS_WorldBound6();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 

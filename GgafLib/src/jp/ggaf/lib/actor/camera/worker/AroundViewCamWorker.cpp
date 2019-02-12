@@ -1,18 +1,18 @@
 #include "jp/ggaf/lib/actor/camera/worker/AroundViewCamWorker.h"
 
-#include "jp/ggaf/core/actor/GgafSceneMediator.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/util/GgafDxInput.h"
+#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/util/Input.h"
 #include "jp/ggaf/lib/util/Quaternion.hpp"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/KurokoMvAssistant.h"
 #include "jp/ggaf/lib/DefaultGod.h"
-#include "jp/ggaf/lib/GgafLibConfig.h"
+#include "jp/ggaf/lib/LibConfig.h"
 #include "jp/ggaf/lib/actor/camera/DefaultCamera.h"
 #include "jp/ggaf/lib/actor/camera/DefaultCameraViewPoint.h"
 #include "jp/ggaf/lib/actor/camera/DefaultCameraUpVector.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
 AroundViewCamWorker::AroundViewCamWorker(const char* prm_name, DefaultCamera* prm_pCamera) : CameraWorker(prm_name, prm_pCamera) {
@@ -40,20 +40,20 @@ void AroundViewCamWorker::processBehavior() {
     //TODO:精度を上げるアイディア
     //マウスポイントの履歴を取り、mdx,mdy,mdzは、３フレームほど過去との差にすると回転軸が安定するだろう
     long mx,my,mz,mdx,mdy,mdz;
-    GgafDxInput::getMousePointer(&mx, &my, &mz);
-    GgafDxInput::getMousePointer_REL(&mdx, &mdy, &mdz);
+    GgafDx::Input::getMousePointer(&mx, &my, &mz);
+    GgafDx::Input::getMousePointer_REL(&mdx, &mdy, &mdz);
     mdy = -mdy; //Yはインバーズ
-    bool isPressedMouseButton0 = GgafDxInput::isPressedMouseButton(0);
-    bool isPressedMouseButton1 = GgafDxInput::isPressedMouseButton(1);
-    bool isPressedMouseButton2 = GgafDxInput::isPressedMouseButton(2);
-    bool isPushedMouseButton0 = GgafDxInput::isPushedDownMouseButton(0);
-    bool isPushedMouseButton1 = GgafDxInput::isPushedDownMouseButton(1);
-    bool isPushedMouseButton2 = GgafDxInput::isPushedDownMouseButton(2);
+    bool isPressedMouseButton0 = GgafDx::Input::isPressedMouseButton(0);
+    bool isPressedMouseButton1 = GgafDx::Input::isPressedMouseButton(1);
+    bool isPressedMouseButton2 = GgafDx::Input::isPressedMouseButton(2);
+    bool isPushedMouseButton0 = GgafDx::Input::isPushedDownMouseButton(0);
+    bool isPushedMouseButton1 = GgafDx::Input::isPushedDownMouseButton(1);
+    bool isPushedMouseButton2 = GgafDx::Input::isPushedDownMouseButton(2);
 
 
 //    if (isPushedMouseButton0 || isPushedMouseButton1 || isPushedMouseButton2) {
 //        pVPGuide_->activate(); //ガイドON
-//    } else if(GgafDxInput::isReleasedUpMouseButton(0) || GgafDxInput::isReleasedUpMouseButton(1) || GgafDxInput::isReleasedUpMouseButton(2)) {
+//    } else if(GgafDx::Input::isReleasedUpMouseButton(0) || GgafDx::Input::isReleasedUpMouseButton(1) || GgafDx::Input::isReleasedUpMouseButton(2)) {
 //        pVPGuide_->inactivate(); //ガイドOFF
 //    }
 
@@ -61,7 +61,7 @@ void AroundViewCamWorker::processBehavior() {
         RECT cRect; // クライアント領域の矩形
         int cw, ch; // クライアント領域の幅、高さ
         // クライアント領域の幅・高さを計算
-        GetClientRect(GgafDxGod::_pHWndPrimary, &cRect);
+        GetClientRect(GgafDx::God::_pHWndPrimary, &cRect);
         cw = cRect.right - cRect.left;
         ch = cRect.bottom - cRect.top;
         if (cw > ch) {

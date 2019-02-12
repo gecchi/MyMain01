@@ -1,0 +1,46 @@
+#ifndef GGAF_DX_MASSMESHMODEL_H_
+#define GGAF_DX_MASSMESHMODEL_H_
+#include "GgafDxCommonHeader.h"
+#include "jp/ggaf/dx/model/MassModel.h"
+
+namespace GgafDx {
+
+
+/**
+ * Massメッシュモデルクラス(MeshActor用) .
+ * @version 1.00
+ * @since 2016/02/09
+ * @author Masatoshi Tsuge
+ */
+class MassMeshModel : public MassModel {
+    friend class ModelManager;
+
+public:
+    struct VERTEX_model : public Model::VERTEX_3D_BASE {
+        D3DCOLOR color;   // 頂点の色（オブジェクトのマテリアルカラーとして使用予定）
+        float tu, tv;     // テクスチャ座標
+    };
+    VERTEX_model* _paVtxBuffer_data_model;
+    WORD* _paIndexBuffer_data;
+
+public:
+    /**
+     * コンストラクタ<BR>
+     * @param prm_model_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
+     */
+    MassMeshModel(const char* prm_model_name);
+
+    static void createVertexModel(void* prm, MassModel::VertexModelInfo* out_info);
+
+    virtual HRESULT draw(FigureActor* prm_pActor_target, int prm_draw_set_num = 1, void* prm_pPrm = nullptr) override;
+
+    virtual void restore() override;
+
+    /**
+     * デストラクタ<BR>
+     */
+    virtual ~MassMeshModel(); //デストラクタ
+};
+
+}
+#endif /*GGAF_DX_MESHSETMODEL_H_*/

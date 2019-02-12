@@ -1,14 +1,14 @@
 #include "VarietyRatislavia003.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Omulus/EnemyOmulus.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ratislavia/EnemyRatislaviaEye.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -29,7 +29,7 @@ void VarietyRatislavia003::initialize() {
     _x = pSpacetime->_x_bound_right + r1_*2 + r2_*2;
     _y = 0;
     _z = MyShip::lim_z_right_;
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->setRzRyMvAng(D180ANG, 0);
     pKuroko->setMvVelo(3000);
     pKuroko->setFaceAngVelo(AXIS_Z, -20);

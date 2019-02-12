@@ -22,7 +22,7 @@ public:
     /** [r]エフェクト持続完了～消滅までのフレーム数 */
     frame scale_out_frames_;
     /** [r]エフェクト対象のアクター */
-    const GgafDxCore::GgafDxGeometricActor* pTarget_;
+    const GgafDx::GeometricActor* pTarget_;
     /** [r]エフェクト終了時にsayonara()するか否か */
     bool sayonara_end_;
 
@@ -65,7 +65,7 @@ public:
      * @param prm_sayonara_end true:瞬き終わったら sayonara() する/false: 瞬き終っても sayonara() しない。省略時true
      */
     virtual void blink(frame prm_scale_in_frames, frame prm_duration_frames, frame prm_scale_out_frames,
-                       const GgafDxCore::GgafDxGeometricActor* prm_pFollowTarget, bool prm_sayonara_end = true);
+                       const GgafDx::GeometricActor* prm_pFollowTarget, bool prm_sayonara_end = true);
 
     /**
      * 瞬く .
@@ -77,7 +77,7 @@ public:
      * @param prm_sayonara_end
      */
     virtual void blink2(frame prm_scale_in_frames, frame prm_duration_frames, frame prm_scale_out_frames,
-                        const GgafDxCore::GgafDxGeometricActor* prm_pFollowTarget, bool prm_sayonara_end = true);
+                        const GgafDx::GeometricActor* prm_pFollowTarget, bool prm_sayonara_end = true);
 
 
     /**

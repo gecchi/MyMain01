@@ -1,15 +1,15 @@
 #include "SmpSprite.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoFaceAngAssistant.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAngAssistant.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/KurokoFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/KurokoMvAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "MgrGod.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace Mogera;
 
@@ -29,42 +29,42 @@ void SmpSprite::initialize() {
 
 void SmpSprite::processBehavior() {
     VirtualButton* pVb = P_GOD->getSpacetime()->pVb_;
-    if (GgafDxInput::isPressedKey(DIK_C)) {
+    if (GgafDx::Input::isPressedKey(DIK_C)) {
         setDrawFanNum(getDrawFanNum() + 1);
     }
-    if (GgafDxInput::isPressedKey(DIK_V)) {
+    if (GgafDx::Input::isPressedKey(DIK_V)) {
         setDrawFanNum(getDrawFanNum() - 1);
     }
-    if (GgafDxInput::isPressedKey(DIK_Z)) {
+    if (GgafDx::Input::isPressedKey(DIK_Z)) {
         setBeginAngPos(getBeginAngPos() + D_ANG(1));
     }
-    if (GgafDxInput::isPressedKey(DIK_X)) {
+    if (GgafDx::Input::isPressedKey(DIK_X)) {
         setBeginAngPos(getBeginAngPos() - D_ANG(1));
     }
-    if (GgafDxInput::isPressedKey(DIK_B)) {
+    if (GgafDx::Input::isPressedKey(DIK_B)) {
         addRzFaceAng(D_ANG(1));
     }
-    if (GgafDxInput::isPressedKey(DIK_N)) {
+    if (GgafDx::Input::isPressedKey(DIK_N)) {
         addRzFaceAng(D_ANG(-1));
     }
 
-//    if (GgafDxInput::isPressedKey(DIK_Q)) {
+//    if (GgafDx::Input::isPressedKey(DIK_Q)) {
 //        setAlign(ALIGN_LEFT);
 //    }
-//    if (GgafDxInput::isPressedKey(DIK_W)) {
+//    if (GgafDx::Input::isPressedKey(DIK_W)) {
 //        setAlign(ALIGN_CENTER);
 //    }
-//    if (GgafDxInput::isPressedKey(DIK_E)) {
+//    if (GgafDx::Input::isPressedKey(DIK_E)) {
 //        setAlign(ALIGN_RIGHT);
 //    }
 //
-//    if (GgafDxInput::isPressedKey(DIK_A)) {
+//    if (GgafDx::Input::isPressedKey(DIK_A)) {
 //        setValign(VALIGN_TOP);
 //    }
-//    if (GgafDxInput::isPressedKey(DIK_S)) {
+//    if (GgafDx::Input::isPressedKey(DIK_S)) {
 //        setValign(VALIGN_MIDDLE);
 //    }
-//    if (GgafDxInput::isPressedKey(DIK_D)) {
+//    if (GgafDx::Input::isPressedKey(DIK_D)) {
 //        setValign(VALIGN_BOTTOM);
 //    }
 
@@ -96,7 +96,7 @@ void SmpSprite::processBehavior() {
     getKuroko()->behave(); //•ˆß‚ğŠˆ“®‚³‚¹‚éiZ²‰ñ“]‚·‚éj
 }
 
-void SmpSprite::onHit(const GgafActor* prm_pOtherActor) {
+void SmpSprite::onHit(const GgafCore::Actor* prm_pOtherActor) {
     _TRACE_("SmpSprite::onHit!!!! ‘Šè"<<prm_pOtherActor->getName()<<"");
 }
 

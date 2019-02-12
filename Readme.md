@@ -1,7 +1,7 @@
 # Ggaf
 __Ggaf__ is C++ Game Apprication Framework. (DirectX9)
 
-*GgafCore*, *GgafDxCore*, *GgafLib* are part of framework project.
+*GgafCore*, *GgafDx*, *GgafLib* are part of framework project.
 
 ## VioletVreath
 *VioletVreath* is shooter game for Windows (XP, Vista, 7, 8, 10), using my framework.

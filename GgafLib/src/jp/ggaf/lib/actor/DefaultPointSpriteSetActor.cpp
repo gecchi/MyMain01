@@ -3,12 +3,12 @@
 #include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
-DefaultPointSpriteSetActor::DefaultPointSpriteSetActor(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
-    GgafDxPointSpriteSetActor(prm_name,
+DefaultPointSpriteSetActor::DefaultPointSpriteSetActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat) :
+    GgafDx::PointSpriteSetActor(prm_name,
                               prm_model,
                               "DefaultPointSpriteSetEffect",
                               "DefaultPointSpriteSetTechnique",

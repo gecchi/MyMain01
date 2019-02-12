@@ -3,22 +3,22 @@
 #include "jp/gecchi/VioletVreath/actor/my/MyLockonController.h"
 #include "jp/gecchi/VioletVreath/actor/my/Bunshin/MyBunshin.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
-#include "jp/ggaf/core/util/GgafResourceConnection.hpp"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/manager/GgafDxTextureConnection.h"
-#include "jp/ggaf/dxcore/model/GgafDxModel.h"
-#include "jp/ggaf/dxcore/texture/GgafDxTexture.h"
+#include "jp/ggaf/core/util/LinkedListRing.hpp"
+#include "jp/ggaf/core/util/ResourceConnection.hpp"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Trucker.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/manager/TextureConnection.h"
+#include "jp/ggaf/dx/model/Model.h"
+#include "jp/ggaf/dx/texture/Texture.h"
 #include "jp/ggaf/lib/actor/laserchip/WateringLaserChip.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/LaserMagic.h"
 #include "jp/gecchi/VioletVreath/actor/my/LockonCursor001_Main.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -28,7 +28,7 @@ const velo MyBunshinWateringLaserChip001::INITIAL_VELO = MAX_VELO_RENGE*0.7; //ƒ
 const double MyBunshinWateringLaserChip001::RR_MAX_ACCE = 1.0 / R_MAX_ACCE; //ŒvZŠÈ‘f‰»—p
 const float MyBunshinWateringLaserChip001::MAX_ACCE_RENGE = MAX_VELO_RENGE/R_MAX_ACCE;
 
-GgafDxCore::GgafDxModel* MyBunshinWateringLaserChip001::pModel_  = nullptr;
+GgafDx::Model* MyBunshinWateringLaserChip001::pModel_  = nullptr;
 int MyBunshinWateringLaserChip001::tex_no_ = 0;
 
 
@@ -39,10 +39,10 @@ MyBunshinWateringLaserChip001::MyBunshinWateringLaserChip001(const char* prm_nam
     pOrg_ = nullptr;
     pLockonCursor_ = nullptr;
     is_lockon_ = false;
-    GgafDxModel* pModel = getModel();
+    GgafDx::Model* pModel = getModel();
     if (!MyBunshinWateringLaserChip001::pModel_) {
         if (pModel->_num_materials != MAX_LASER_LEVEL) {
-            throwGgafCriticalException("MyBunshinWateringLaserChip001ƒ‚ƒfƒ‹‚ÍAƒeƒNƒXƒ`ƒƒiƒ}ƒeƒŠƒAƒ‹j‚ª"<<MAX_LASER_LEVEL<<"‚Â•K—v‚Å‚·B");
+            throwCriticalException("MyBunshinWateringLaserChip001ƒ‚ƒfƒ‹‚ÍAƒeƒNƒXƒ`ƒƒiƒ}ƒeƒŠƒAƒ‹j‚ª"<<MAX_LASER_LEVEL<<"‚Â•K—v‚Å‚·B");
         }
         MyBunshinWateringLaserChip001::pModel_ = pModel;
     }
@@ -59,7 +59,7 @@ void MyBunshinWateringLaserChip001::initialize() {
     setHitAble(true);
     setScaleR(6.0);
     setCullingDraw(false);
-    GgafDxTrucker* const pTrucker = getTrucker();
+    GgafDx::Trucker* const pTrucker = getTrucker();
     pTrucker->forceVxMvVeloRange(-MAX_VELO_RENGE, MAX_VELO_RENGE);
     pTrucker->forceVyMvVeloRange(-MAX_VELO_RENGE*1.5, MAX_VELO_RENGE*1.5);
     pTrucker->forceVzMvVeloRange(-MAX_VELO_RENGE*1.5, MAX_VELO_RENGE*1.5);
@@ -90,7 +90,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
     getStatus()->set(STAT_AttackPowerRate, power);
     _power = power;
 
-    GgafDxTrucker* const pTrucker = getTrucker();
+    GgafDx::Trucker* const pTrucker = getTrucker();
     frame active_frame = getActiveFrame();
     MyBunshin::AimInfo* pAimInfo = pAimInfo_;
 
@@ -99,7 +99,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
     } else if (pAimInfo == nullptr || active_frame < 7) {
         //‚È‚É‚à‚µ‚È‚¢
     } else {
-        GgafDxGeometricActor* pAimTarget = pAimInfo->pTarget;
+        GgafDx::GeometricActor* pAimTarget = pAimInfo->pTarget;
         if (pAimTarget) {
             frame aim_time_out_t1 = pAimInfo->aim_time_out_t1;
             //æ’[ƒ`ƒbƒviÁ‚¦‚é‰Â”\«‚Ì‚ ‚éLeaderChip‚É‚ ‚ç‚¸IjAT1‚ª‘Š•Ï‚í‚ç‚¸ƒƒbƒNƒIƒ“ƒ^[ƒQƒbƒg‚È‚ç‚ÎXV
@@ -228,14 +228,14 @@ void MyBunshinWateringLaserChip001::processBehavior() {
 
 void MyBunshinWateringLaserChip001::processSettlementBehavior() {
     //•ªg‚ÍFK‚È‚Ì‚ÅAâ‘ÎÀ•W‚ÌŠm’è‚ª processSettlementBehavior() ˆÈ~‚Æ‚È‚é‚½‚ßA‚±‚±‚Å‰Šúİ’è‚ª•K—v
-    GgafDxTrucker* const pTrucker = getTrucker();
+    GgafDx::Trucker* const pTrucker = getTrucker();
     if (hasJustChangedToActive()) {
         //ƒ`ƒbƒv‚Ì‰Šúİ’è
         //ƒƒbƒNƒIƒ“î•ñ‚Ìˆø‚«Œp‚¬
         MyBunshinWateringLaserChip001* pF = (MyBunshinWateringLaserChip001*) getInfrontChip();
         if (pF == nullptr) {
             //æ’[ƒ`ƒbƒv
-            GgafDxGeometricActor* pLockonTarget = pLockonCursor_->pTarget_;
+            GgafDx::GeometricActor* pLockonTarget = pLockonCursor_->pTarget_;
             if (pLockonTarget && pLockonTarget->isActiveInTheTree()) {
                 //æ’[‚ÅƒƒbƒNƒIƒ“’†
                 pAimInfo_ = pOrg_->getAimInfo();
@@ -265,7 +265,7 @@ void MyBunshinWateringLaserChip001::processSettlementBehavior() {
             pTrucker->forceVzMvVeloRange(-v*1.5, v*1.5);
 #ifdef MY_DEBUG
 if (pAimInfo_ == nullptr) {
-throwGgafCriticalException("pAimInfo_ ‚ªˆø‚«Œp‚ª‚ê‚Ä‚¢‚Ü‚¹‚ñI"<<this<<
+throwCriticalException("pAimInfo_ ‚ªˆø‚«Œp‚ª‚ê‚Ä‚¢‚Ü‚¹‚ñI"<<this<<
                            " _frame_of_life_when_activation="<<_frame_of_life_when_activation);
 }
 #endif
@@ -368,10 +368,10 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
     // vVP ‚ª“®‚«‚½‚¢•ûŒüBvVP‚ğ‹‚ß‚éI
 #ifdef MY_DEBUG
     if (tX == INT_MAX) {
-        throwGgafCriticalException("‚¨‚©‚µ‚¢");
+        throwCriticalException("‚¨‚©‚µ‚¢");
     }
 #endif
-    GgafDxTrucker* pTrucker = getTrucker();
+    GgafDx::Trucker* pTrucker = getTrucker();
 
     //©¨“I
     const int vTx = tX - _x;
@@ -421,8 +421,8 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
                             accZ + SGN(accZ)*3.0);
 }
 
-void MyBunshinWateringLaserChip001::onHit(const GgafActor* prm_pOtherActor) {
-    GgafDxGeometricActor* pOther = (GgafDxGeometricActor*) prm_pOtherActor;
+void MyBunshinWateringLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor) {
+    GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*) prm_pOtherActor;
     //ƒqƒbƒgƒGƒtƒFƒNƒg
     UTIL::activateExplosionEffectOf(this); //”š”­ƒGƒtƒFƒNƒgoŒ»
 

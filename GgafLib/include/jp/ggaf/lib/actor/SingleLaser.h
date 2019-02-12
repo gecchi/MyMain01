@@ -1,29 +1,29 @@
-#ifndef GGAFLIB_SINGLELASER_H_
-#define GGAFLIB_SINGLELASER_H_
+#ifndef GGAF_LIB_SINGLELASER_H_
+#define GGAF_LIB_SINGLELASER_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/dxcore/actor/GgafDxMeshSetActor.h"
+#include "jp/ggaf/dx/actor/MeshSetActor.h"
 #include "jp/ggaf/lib/manager/DefaultEffectManager.h"
 
 namespace GgafLib {
 
 /**
  * 単発レーザー .
- * GgafDxCore::GgafDxMeshSetActorと同様に複数モデル描画により、高速化を目論む。 <BR>
+ * GgafDx::MeshSetActorと同様に複数モデル描画により、高速化を目論む。 <BR>
  * 但し表示時に、マテリアルカラー、スペキュラーの計算を行わない。<BR>
- * その代わりに、GgafDxCore::GgafDxMeshSetActor よりもさらに多くのセット数（現在26）をサポート。<BR>
+ * その代わりに、GgafDx::MeshSetActor よりもさらに多くのセット数（現在26）をサポート。<BR>
  * 大量表示用に最適化されている。<BR>
  * @version 1.00
  * @since 2009/12/28
  * @author Masatoshi Tsuge
  */
-class SingleLaser : public GgafDxCore::GgafDxMeshSetActor {
+class SingleLaser : public GgafDx::MeshSetActor {
 
 public:
     /** 衝突判定支援オブジェクト */
     CollisionChecker* _pColliChecker;
 
 public:
-    SingleLaser(const char* prm_name, const char* prm_model_id, GgafCore::GgafStatus* prm_pStat=nullptr);
+    SingleLaser(const char* prm_name, const char* prm_model_id, GgafCore::Status* prm_pStat=nullptr);
 
     virtual void onCreateModel() override {}
 
@@ -42,5 +42,5 @@ public:
 };
 
 }
-#endif /*GGAFLIB_SINGLELASER_H_*/
+#endif /*GGAF_LIB_SINGLELASER_H_*/
 

@@ -1,5 +1,5 @@
-#ifndef GGAFLIB_AROUNDVIEWCAMWORKER_H_
-#define GGAFLIB_AROUNDVIEWCAMWORKER_H_
+#ifndef GGAF_LIB_AROUNDVIEWCAMWORKER_H_
+#define GGAF_LIB_AROUNDVIEWCAMWORKER_H_
 #include "GgafLibCommonHeader.h"
 #include "CameraWorker.h"
 
@@ -35,4 +35,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_AROUNDVIEWCAMWORKER_H_*/
+#endif /*GGAF_LIB_AROUNDVIEWCAMWORKER_H_*/

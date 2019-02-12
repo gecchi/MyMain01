@@ -1,7 +1,7 @@
 #include "StageDebugPartController.h"
 
-#include "jp/ggaf/core/actor/GgafSceneMediator.h"
-#include "jp/ggaf/dxcore/sound/GgafDxBgmConductor.h"
+#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/dx/sound/BgmConductor.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -12,8 +12,8 @@
 #include "part/StageDebugPartClimax.h"
 #include "part/StageDebugPartWall.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 

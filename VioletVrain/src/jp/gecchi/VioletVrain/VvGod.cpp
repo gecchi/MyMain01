@@ -9,7 +9,7 @@ VvGod::VvGod() :
         GgafLib::DefaultGod() {
 }
 
-GgafCore::GgafSpacetime* VvGod::createSpacetime() {
+GgafCore::Spacetime* VvGod::createSpacetime() {
     VvCamera* pCam = NEW VvCamera("CAMERA");
     VvSpacetime* pSpacetime = NEW VvSpacetime("SPACETIME", pCam);
     return pSpacetime;

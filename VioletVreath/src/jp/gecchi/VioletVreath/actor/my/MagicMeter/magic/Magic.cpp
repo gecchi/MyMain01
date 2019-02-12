@@ -3,8 +3,8 @@
 #include "jp/ggaf/lib/util/Quantity.hpp"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -14,7 +14,7 @@ Magic::Magic(const char* prm_name, int* prm_pMP,
              magic_time  prm_casting_frames_base  , double prm_r_every_lv_casting_frames  , double prm_r_casting_frames_lv_diff_base,
              magic_time  prm_invoking_frames_base , double prm_r_every_lv_invoking_frames , double prm_r_invoking_frames_lv_diff_base,
              magic_time  prm_effecting_frames_base, double prm_r_every_lv_effecting_frames,
-             magic_point prm_keep_cost_base       , double prm_r_each_lv_keep_cost) : GgafMainActor(prm_name, nullptr),
+             magic_point prm_keep_cost_base       , double prm_r_each_lv_keep_cost) : GgafCore::MainActor(prm_name, nullptr),
 pMP_(prm_pMP),
 cost_base_(prm_cost_base),
 casting_frames_base_(prm_casting_frames_base),
@@ -179,7 +179,7 @@ void Magic::loadProperties(std::stringstream& sts) {
 }
 
 int Magic::chkCastAble(int prm_new_level) {
-    GgafProgress* const pProg = getProgress();
+    GgafCore::Progress* const pProg = getProgress();
     if (pProg->get() == STATE_INVOKING) {
         return MAGIC_CAST_NG_INVOKING_NOW; //発動中のため実行不可
     } else if (pProg->get() == STATE_CASTING) {
@@ -217,7 +217,7 @@ int Magic::chkCastAble(int prm_new_level) {
 }
 
 int Magic::cast(int prm_new_level) {
-    GgafProgress* const pProg = getProgress();
+    GgafCore::Progress* const pProg = getProgress();
 
     int last_cast = chkCastAble(prm_new_level);
     switch (last_cast) {
@@ -292,7 +292,7 @@ int Magic::cast(int prm_new_level) {
 }
 
 int Magic::chkInvokeAble(int prm_new_level) {
-    GgafProgress* const pProg = getProgress();
+    GgafCore::Progress* const pProg = getProgress();
     if (pProg->get() == STATE_INVOKING) {
         //発動中のため実行不可
         return MAGIC_INVOKE_NG_INVOKING_NOW;
@@ -327,12 +327,12 @@ int Magic::chkEffectAble(int prm_level) {
 }
 
 int Magic::invoke(int prm_new_level) {
-    GgafProgress* const pProg = getProgress();
+    GgafCore::Progress* const pProg = getProgress();
     int last_invoke = chkInvokeAble(prm_new_level);
     switch (last_invoke) {
         case MAGIC_INVOKE_NG_INVOKING_NOW: {
             //あり得ない
-            throwGgafCriticalException("prm_new_level="<<prm_new_level<<" "<<getName()<<" が MAGIC_INVOKE_NG_INVOKING_NOW は、このタイミングであり得ないはずです。");
+            throwCriticalException("prm_new_level="<<prm_new_level<<" "<<getName()<<" が MAGIC_INVOKE_NG_INVOKING_NOW は、このタイミングであり得ないはずです。");
             break;
         }
         case MAGIC_INVOKE_NG_MP_IS_SHORT: {
@@ -363,7 +363,7 @@ int Magic::invoke(int prm_new_level) {
         }
         case MAGIC_INVOKE_NOTHING: {
             //あり得ない
-            throwGgafCriticalException("prm_new_level="<<prm_new_level<<" "<<getName()<<" が MAGIC_INVOKE_NOTHING は、このタイミングであり得ないはずです。");
+            throwCriticalException("prm_new_level="<<prm_new_level<<" "<<getName()<<" が MAGIC_INVOKE_NOTHING は、このタイミングであり得ないはずです。");
             break;
         }
     }
@@ -372,12 +372,12 @@ int Magic::invoke(int prm_new_level) {
 }
 
 int Magic::effect(int prm_level) {
-    GgafProgress* const pProg = getProgress();
+    GgafCore::Progress* const pProg = getProgress();
 
     int last_effect = chkEffectAble(prm_level);
     switch (last_effect) {
         case MAGIC_EFFECT_NG_MP_IS_SHORT: {
-            //throwGgafCriticalException("Magic::effect("<<prm_level<<") "<<getName()<<" が MAGIC_EFFECT_NG_MP_IS_SHORT は、このタイミングであり得ないはずです。");
+            //throwCriticalException("Magic::effect("<<prm_level<<") "<<getName()<<" が MAGIC_EFFECT_NG_MP_IS_SHORT は、このタイミングであり得ないはずです。");
             //ありうる
             _TRACE_("Magic::effect("<<prm_level<<") ["<<getName()<<"] 判定→MAGIC_EFFECT_NG_MP_IS_SHORT、change(STATE_NOTHING)");
             pProg->change(STATE_NOTHING);
@@ -390,7 +390,7 @@ int Magic::effect(int prm_level) {
             if (prm_level == 0) {
                 _TRACE_("Magic::effect("<<prm_level<<") ["<<getName()<<"] 判定→MAGIC_EFFECT_NOTHING、なにもしません");
             } else {
-                throwGgafCriticalException("prm_level="<<prm_level<<" "<<getName()<<" が MAGIC_EFFECT_NOTHING は、このタイミングであり得ないはずです。");
+                throwCriticalException("prm_level="<<prm_level<<" "<<getName()<<" が MAGIC_EFFECT_NOTHING は、このタイミングであり得ないはずです。");
             }
             break;
         }
@@ -422,7 +422,7 @@ int Magic::effect(int prm_level) {
     return last_effect_;
 }
 void Magic::nextFrame() {
-    GgafMainActor::nextFrame();
+    GgafCore::MainActor::nextFrame();
     prev_frame_level_ = level_;
 
     level_ = level_nextframe_;
@@ -430,7 +430,7 @@ void Magic::nextFrame() {
     last_level_ =  last_level_nextframe_;
 }
 void Magic::processBehavior() {
-    GgafProgress* const pProg = getProgress();
+    GgafCore::Progress* const pProg = getProgress();
     progress prog = pProg->get();
     switch (prog) {
         /////////////////////////////////////// 待機
@@ -537,7 +537,7 @@ void Magic::processBehavior() {
                     //level_の効果持続時間は前の続き
                 } else {
                     //last_level_ == level_
-                    throwGgafCriticalException("["<<getName()<<"] 新旧同じレベルでの発動はあり得ないはずです。level_="<<level_<<" last_level_="<<last_level_<<"");
+                    throwCriticalException("["<<getName()<<"] 新旧同じレベルでの発動はあり得ないはずです。level_="<<level_<<" last_level_="<<last_level_<<"");
                 }
 
             }

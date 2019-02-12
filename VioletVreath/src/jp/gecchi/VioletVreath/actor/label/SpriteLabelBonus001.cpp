@@ -1,11 +1,11 @@
 #include "SpriteLabelBonus001.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -36,9 +36,9 @@ void SpriteLabelBonus001::initialize() {
 
 }
 
-void SpriteLabelBonus001::onDispatched(GgafDxGeometricActor* prm_pOrgActor) {
+void SpriteLabelBonus001::onDispatched(GgafDx::GeometricActor* prm_pOrgActor) {
     setPositionAt(prm_pOrgActor);
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->takeoverMvFrom(prm_pOrgActor->getKuroko());
     pKuroko->setMvAcce(300);
     setAlpha(0.7);
@@ -47,8 +47,8 @@ void SpriteLabelBonus001::onDispatched(GgafDxGeometricActor* prm_pOrgActor) {
 
 void SpriteLabelBonus001::processBehavior() {
     const Camera* const pCam = pGOD->getSpacetime()->getCamera();
-    GgafDxKuroko* const pKuroko = getKuroko();
-    GgafProgress* const pProg = getProgress();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             pProg->changeNext();

@@ -1,7 +1,7 @@
-#ifndef GGAFLIB_SPRITEMESHWORLDBOUNDACTOR_H_
-#define GGAFLIB_SPRITEMESHWORLDBOUNDACTOR_H_
+#ifndef GGAF_LIB_SPRITEMESHWORLDBOUNDACTOR_H_
+#define GGAF_LIB_SPRITEMESHWORLDBOUNDACTOR_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/dxcore/actor/ex/GgafDxSpriteMeshActor.h"
+#include "jp/ggaf/dx/actor/ex/SpriteMeshActor.h"
 
 namespace GgafLib {
 
@@ -11,12 +11,12 @@ namespace GgafLib {
  * @since 2010/06/16
  * @author Masatoshi Tsuge
  */
-class SpriteMeshWorldBoundActor : public GgafDxCore::GgafDxSpriteMeshActor {
+class SpriteMeshWorldBoundActor : public GgafDx::SpriteMeshActor {
 
 public:
     SpriteMeshWorldBoundActor(const char* prm_name,
                               const char* prm_model,
-                              GgafCore::GgafStatus* prm_pStat=nullptr);
+                              GgafCore::Status* prm_pStat=nullptr);
 
     virtual void onCreateModel() override {
     }
@@ -29,7 +29,7 @@ public:
     virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {
     }
 
-    virtual void onHit(const GgafCore::GgafActor* prm_pOtherActor) override {
+    virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override {
     }
 
     virtual void drawHitArea() override {
@@ -48,4 +48,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_WORLDBOUNDACTOR_H_*/
+#endif /*GGAF_LIB_WORLDBOUNDACTOR_H_*/

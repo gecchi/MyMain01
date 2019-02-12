@@ -1,5 +1,5 @@
-#ifndef GGAFLIB_NOMALLASERCHIP_H_
-#define GGAFLIB_NOMALLASERCHIP_H_
+#ifndef GGAF_LIB_NOMALLASERCHIP_H_
+#define GGAF_LIB_NOMALLASERCHIP_H_
 #include "GgafLibCommonHeader.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChip.h"
 
@@ -15,7 +15,7 @@ class NomalLaserChip : public LaserChip {
     friend class LaserChipDepository;
 
 public:
-    NomalLaserChip(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
+    NomalLaserChip(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat=nullptr);
 
     virtual void onCreateModel() override {}
 
@@ -34,5 +34,5 @@ public:
 };
 
 }
-#endif /*GGAFLIB_NOMALLASERCHIP_H_*/
+#endif /*GGAF_LIB_NOMALLASERCHIP_H_*/
 

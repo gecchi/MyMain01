@@ -1,9 +1,9 @@
 #ifndef ENEMYOEBIUSCONTROLLER_H_
 #define ENEMYOEBIUSCONTROLLER_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/core/actor/ex/GgafDestructActor.h"
+#include "jp/ggaf/core/actor/ex/DestructActor.h"
 
-#include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
+#include "jp/ggaf/dx/util/GeoElem.h"
 
 
 namespace VioletVreath {
@@ -14,12 +14,12 @@ namespace VioletVreath {
  * @since 2015/01/19
  * @author Masatoshi Tsuge
  */
-class EnemyOebiusController : public GgafCore::GgafDestructActor {
+class EnemyOebiusController : public GgafCore::DestructActor {
 
 public:
     EnemyOebiusCore* pOebiusCore_;
     FormationOebius* pFormationOebius_;
-    GgafDxCore::GgafDxGeoElem entry_pos_;
+    GgafDx::GeoElem entry_pos_;
 
 public:
     /**

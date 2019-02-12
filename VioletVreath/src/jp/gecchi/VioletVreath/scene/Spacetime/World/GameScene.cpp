@@ -1,11 +1,11 @@
 #include "GameScene.h"
 
-#include "jp/ggaf/core/actor/GgafSceneMediator.h"
-#include "jp/ggaf/dxcore/sound/GgafDxBgmConductor.h"
+#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/dx/sound/BgmConductor.h"
 
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
-#include "jp/ggaf/core/util/GgafLinearOctree.h"
-#include "jp/ggaf/core/util/GgafLinearTreeRounder.hpp"
+#include "jp/ggaf/core/util/LinearOctree.h"
+#include "jp/ggaf/core/util/LinearTreeRounder.hpp"
 #include "jp/gecchi/VioletVreath/actor/menu/pause/MenuBoardPause.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -24,8 +24,8 @@
 
 
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -97,11 +97,11 @@ void GameScene::processBehavior() {
     Spacetime* pSpacetime = pGOD->getSpacetime();
 #ifdef MY_DEBUG
     //ワイヤフレーム表示切替
-    if (VB->isPushedDown(VB_UI_DEBUG) || GgafDxInput::isPushedDownKey(DIK_Q)) {
-        if (GgafDxGod::_d3dfillmode == D3DFILL_WIREFRAME) {
-            GgafDxGod::_d3dfillmode = D3DFILL_SOLID;
+    if (VB->isPushedDown(VB_UI_DEBUG) || GgafDx::Input::isPushedDownKey(DIK_Q)) {
+        if (GgafDx::God::_d3dfillmode == D3DFILL_WIREFRAME) {
+            GgafDx::God::_d3dfillmode = D3DFILL_SOLID;
         } else {
-            GgafDxGod::_d3dfillmode = D3DFILL_WIREFRAME;
+            GgafDx::God::_d3dfillmode = D3DFILL_WIREFRAME;
         }
     }
 #endif
@@ -198,7 +198,7 @@ void GameScene::processBehavior() {
                 //通常進行時処理はココ
                 //
 #ifdef MY_DEBUG
-                if (VB->isPushedDown(VB_PAUSE) || GgafDxInput::isPushedDownKey(DIK_ESCAPE) || is_frame_advance_) {
+                if (VB->isPushedDown(VB_PAUSE) || GgafDx::Input::isPushedDownKey(DIK_ESCAPE) || is_frame_advance_) {
                     //ポーズではないときに、ポーズキーを押して離した場合の処理
                     //ポーズ発生時直後の初期処理はココへ
                     pauseGame();
@@ -216,8 +216,8 @@ void GameScene::processBehavior() {
                 if (was_paused_flg_GameMainScene_prev_frame_ == false) {
                     //現フレームポーズで、前フレームポーズではない場合
                     //ポーズ発生後の、最初のフレーム処理はココへ
-                    GgafDxInput::updateMouseState();
-                    GgafDxInput::updateMouseState(); //マウス座標の相対座標を0にリセットするため
+                    GgafDx::Input::updateMouseState();
+                    GgafDx::Input::updateMouseState(); //マウス座標の相対座標を0にリセットするため
                                                      //連続２回呼び出す
                     pSpacetime->changeCameraWork("PauseCamWorker");
                 }
@@ -303,7 +303,7 @@ void GameScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
         pCOMMON_SCENE->moveFirst();
         //moveFirst()する理由は、解放は末尾ノードから行われるため。
         //先にCommonSceneが解放されないようにするため。
-        //GgafCore::template<class T> GgafNode<T>::~GgafNode() のコメントを参照
+        //template<class T> GgafCore::Node<T>::~GgafCore::Node() のコメントを参照
     } else if (prm_no == EVENT_PREGAMETITLESCENE_FINISH) {
         //プレタイトルシーン終了
         _TRACE_("GameScene::onCatchEvent(EVENT_PREGAMETITLESCENE_FINISH)");
@@ -363,7 +363,7 @@ void GameScene::processJudgement() {
 
         OctreeRounder* pHitCheckRounder = pHitCheckRounder_;
 #ifdef MY_DEBUG
-        if (GgafDxInput::isPushedDownKey(DIK_I)) {
+        if (GgafDx::Input::isPushedDownKey(DIK_I)) {
             pGOD->getSpacetime()->getLinearOctree()->putTree();
         }
 #endif

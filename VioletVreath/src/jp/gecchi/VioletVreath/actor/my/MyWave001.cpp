@@ -1,13 +1,13 @@
 #include "MyWave001.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -18,7 +18,7 @@ MyWave001::MyWave001(const char* prm_name) :
 
 void MyWave001::initialize() {
     //exec(FLIP_OSCILLATE_LOOP, 2);
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->setRzMvAngVelo(0);
     //_pKuroko->setFaceAngVelo(AXIS_Z, 2*1000);
     //_pKuroko->setRzMvAng(0);
@@ -50,8 +50,8 @@ void MyWave001::initialize() {
 }
 
 void MyWave001::processBehavior() {
-    GgafDxKuroko* const pKuroko = getKuroko();
-    GgafDxScaler* const pScaler = getScaler();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafDx::Scaler* const pScaler = getScaler();
 
     if (hasJustChangedToActive()) {
         //出現時共通処理
@@ -83,12 +83,12 @@ void MyWave001::processJudgement() {
 }
 
 /*
- bool MyWave001::processHitChkLogic(GgafDxGeometricActor* prm_pOtherActor) {
+ bool MyWave001::processHitChkLogic(GgafDx::GeometricActor* prm_pOtherActor) {
  return false;
  }
  */
 
-void MyWave001::onHit(const GgafActor* prm_pOtherActor) {
+void MyWave001::onHit(const GgafCore::Actor* prm_pOtherActor) {
     //_TRACE_(FUNC_NAME<<" ショットがヒットしました");
     //_TRACE_("MyWave001ヒットしました。("<<_x<<","<<_y<<")");
     sayonara();

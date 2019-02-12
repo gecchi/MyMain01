@@ -7,13 +7,13 @@
 #include "jp/gecchi/VioletVreath/actor/camera/worker/MyShipDivingCamWorker.h"
 #include "jp/gecchi/VioletVreath/actor/camera/worker/TestCamWorker.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
 CameraWorkerManager::CameraWorkerManager(const char* prm_manager_name) :
-    GgafResourceManager<CameraWorker> (prm_manager_name) {
+    GgafCore::ResourceManager<CameraWorker> (prm_manager_name) {
 }
 
 CameraWorker* CameraWorkerManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) {
@@ -40,14 +40,14 @@ CameraWorker* CameraWorkerManager::processCreateResource(const char* prm_idstr, 
     }
 
     if (pResource == nullptr) {
-        throwGgafCriticalException("想定外のIDです。CameraWorkerが作成できません。");
+        throwCriticalException("想定外のIDです。CameraWorkerが作成できません。");
     }
 
     pResource->inactivate();
     return pResource;
 }
 
-GgafResourceConnection<CameraWorker>* CameraWorkerManager::processCreateConnection(const char* prm_idstr, CameraWorker* prm_pResource) {
+GgafCore::ResourceConnection<CameraWorker>* CameraWorkerManager::processCreateConnection(const char* prm_idstr, CameraWorker* prm_pResource) {
     _TRACE3_("prm_idstr="<<prm_idstr<<" を生成開始。");
     CameraWorkerConnection* pConne = NEW CameraWorkerConnection(prm_idstr, prm_pResource);
     _TRACE3_("prm_idstr="<<prm_idstr<<" を生成終了。");

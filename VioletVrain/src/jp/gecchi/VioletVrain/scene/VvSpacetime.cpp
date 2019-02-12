@@ -3,8 +3,8 @@
 #include "jp/gecchi/VioletVrain/scene/VvSpacetime/World.h"
 #include "jp/gecchi/VioletVrain/util/VvUtil.h"
 #include "jp/gecchi/VioletVrain/VvGod.h"
-#include "jp/ggaf/core/scene/GgafScene.h"
-#include "jp/ggaf/core/actor/GgafSceneMediator.h"
+#include "jp/ggaf/core/scene/Scene.h"
+#include "jp/ggaf/core/actor/SceneMediator.h"
 using namespace VioletVrain;
 
 #define PRIMARY_VIEW 0

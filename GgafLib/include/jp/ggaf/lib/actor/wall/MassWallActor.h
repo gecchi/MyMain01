@@ -1,7 +1,7 @@
-#ifndef GGAFLIB_MASSWALLACTOR_H_
-#define GGAFLIB_MASSWALLACTOR_H_
+#ifndef GGAF_LIB_MASSWALLACTOR_H_
+#define GGAF_LIB_MASSWALLACTOR_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/dxcore/actor/GgafDxMassMeshActor.h"
+#include "jp/ggaf/dx/actor/MassMeshActor.h"
 
 #define FACE_A_IDX 5
 #define FACE_B_IDX 4
@@ -26,8 +26,8 @@ namespace GgafLib {
  * @since 2016/03/08
  * @author Masatoshi Tsuge
  */
-class MassWallActor : public GgafDxCore::GgafDxMassMeshActor {
-    friend class GgafDxEffectManager;
+class MassWallActor : public GgafDx::MassMeshActor {
+    friend class EffectManager;
 
 protected:
     struct VERTEX_instancedata {
@@ -39,7 +39,7 @@ protected:
         float _wall_draw_face, _pos_info;  // : TEXCOORD6 壁ブロックプリズム位置情報, 壁ブロック表示面
     };
     static VERTEX_instancedata _aInstancedata[];
-    static void createVertexInstanceData(void* prm, GgafDxCore::GgafDxMassModel::VertexInstanceDataInfo* out_info);
+    static void createVertexInstanceData(void* prm, GgafDx::MassModel::VertexInstanceDataInfo* out_info);
 
 public:
     /** プリズム無条件追加描画不要面テーブル */
@@ -57,29 +57,29 @@ public:
     coord _wall_width;
 //    /** [r]壁ブロック移動スピード(値は正、但し移動方向はX軸負の方向) */
 //    int _scroll_speed;
-    GgafLib::CollisionChecker* _pColliChecker;
+    CollisionChecker* _pColliChecker;
     /** [r]外壁シーン */
     WallSectionScene* _pWallSectionScene;
 
 public:
-    MassWallActor(const char* prm_name, const char* prm_model, GgafCore::GgafStatus* prm_pStat=nullptr);
+    MassWallActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat=nullptr);
     MassWallActor(const char* prm_name,
                   const char* prm_model,
                   const char* prm_effect,
                   const char* prm_technique,
-                  GgafCore::GgafStatus* prm_pStat=nullptr);
+                  GgafCore::Status* prm_pStat=nullptr);
 //    MassWallActor(const char* prm_name,
 //                  const char* prm_model_id,
 //                  const char* prm_effect_id,
 //                  const char* prm_technique,
-//                  GgafCore::GgafStatus* prm_pStat,
-//                  GgafDxCore::GgafDxChecker* prm_pChecker);
+//                  GgafCore::Status* prm_pStat,
+//                  GgafDx::Checker* prm_pChecker);
 
     void init();
 
     static bool initStatic(MassWallActor* prm_pMassWallActor);
 
-    virtual void executeHitChk_MeAnd(GgafActor* prm_pOtherActor) override;
+    virtual void executeHitChk_MeAnd(GgafCore::Actor* prm_pOtherActor) override;
 
     virtual void onCreateModel() override {
     }
@@ -102,7 +102,7 @@ public:
     virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {
     }
 
-    virtual void onHit(const GgafCore::GgafActor* prm_pOtherActor) override {
+    virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override {
     }
 
     virtual void drawHitArea() override;
@@ -125,4 +125,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_WALLPARTSACTOR_H_*/
+#endif /*GGAF_LIB_WALLPARTSACTOR_H_*/

@@ -1,7 +1,7 @@
 #include "FormationOebius.h"
 
-#include "jp/ggaf/core/util/GgafRgb.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
+#include "jp/ggaf/core/util/Rgb.h"
+#include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Oebius/EnemyOebius.h"
@@ -12,8 +12,8 @@
 #include "EnemyOebiusCore.h"
 #include "EnemyOebiusController.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -35,8 +35,8 @@ void FormationOebius::scatterMember() {
     }
 }
 
-void FormationOebius::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
-    UTIL::performFormationDestroyAll((GgafDxFigureActor*)prm_pActor_last_destroyed);
+void FormationOebius::onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) {
+    UTIL::performFormationDestroyAll((GgafDx::FigureActor*)prm_pActor_last_destroyed);
 }
 void FormationOebius::onSayonaraAll() {
     pController_->pFormationOebius_ = nullptr;

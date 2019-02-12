@@ -1,12 +1,12 @@
 #include "MagicMeterCursor001.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/KurokoMvAssistant.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -31,7 +31,7 @@ void MagicMeterCursor001::onActive() {
 }
 
 void MagicMeterCursor001::processBehavior() {
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     setAlpha(pMagicMeter_->getAlpha());
     pKuroko->behave();
     if (pKuroko->asstMv()->hasJustFinishedSliding()) {
@@ -48,7 +48,7 @@ void MagicMeterCursor001::processJudgement() {
 void MagicMeterCursor001::moveTo(int prm_magic_mater_index) {
     tx_ = pMagicMeter_->_x + pMagicMeter_->width_*prm_magic_mater_index + (pMagicMeter_->width_/2);
     ty_ = pMagicMeter_->_y + (pMagicMeter_->height_/2);
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->setMvAngTwd(tx_, ty_);
     pKuroko->asstMv()->slideByDt(UTIL::getDistance(_x, _y, tx_, ty_), 12,
                                   0.2, 0.4, 0, true);

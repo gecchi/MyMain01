@@ -107,7 +107,7 @@
       <IntrinsicFunctions>false</IntrinsicFunctions>
       <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>.\src;..\GgafLib\include;..\GgafDxCore\include;..\GgafCore\include;..\_Vorbis\include;..\_Ogg\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\src;..\GgafLib\include;..\GgafDx\include;..\GgafCore\include;..\_Vorbis\include;..\_Ogg\include;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -125,7 +125,7 @@
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
     <Link>
-      <AdditionalDependencies>GgafCore.lib;GgafDxCore.lib;GgafLib.lib;_Ogg.lib;_Vorbis.lib;Shlwapi.lib;d3d9.lib;d3dx9.lib;dinput8.lib;dsound.lib;dxguid.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>GgafCore.lib;GgafDx.lib;GgafLib.lib;_Ogg.lib;_Vorbis.lib;Shlwapi.lib;d3d9.lib;d3dx9.lib;dinput8.lib;dsound.lib;dxguid.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\$(Configuration)\$(Platform)\$(PlatformToolset)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug>true</AssemblyDebug>
@@ -150,7 +150,7 @@
       <IntrinsicFunctions>false</IntrinsicFunctions>
       <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>.\src;..\GgafLib\include;..\GgafDxCore\include;..\GgafCore\include;..\_Vorbis\include;..\_Ogg\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\src;..\GgafLib\include;..\GgafDx\include;..\GgafCore\include;..\_Vorbis\include;..\_Ogg\include;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN64;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -168,7 +168,7 @@
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
     <Link>
-      <AdditionalDependencies>GgafCore.lib;GgafDxCore.lib;GgafLib.lib;_Ogg.lib;_Vorbis.lib;Shlwapi.lib;d3d9.lib;d3dx9.lib;dinput8.lib;dsound.lib;dxguid.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>GgafCore.lib;GgafDx.lib;GgafLib.lib;_Ogg.lib;_Vorbis.lib;Shlwapi.lib;d3d9.lib;d3dx9.lib;dinput8.lib;dsound.lib;dxguid.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\$(Configuration)\$(Platform)\$(PlatformToolset)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug>true</AssemblyDebug>
@@ -191,7 +191,7 @@
       <OmitFramePointers>true</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>.\src;..\GgafLib\include;..\GgafDxCore\include;..\GgafCore\include;..\_Vorbis\include;..\_Ogg\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\src;..\GgafLib\include;..\GgafDx\include;..\GgafCore\include;..\_Vorbis\include;..\_Ogg\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <BufferSecurityCheck>true</BufferSecurityCheck>
@@ -205,7 +205,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>GgafCore.lib;GgafDxCore.lib;GgafLib.lib;_Ogg.lib;_Vorbis.lib;Shlwapi.lib;d3d9.lib;d3dx9.lib;dinput8.lib;dsound.lib;dxguid.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>GgafCore.lib;GgafDx.lib;GgafLib.lib;_Ogg.lib;_Vorbis.lib;Shlwapi.lib;d3d9.lib;d3dx9.lib;dinput8.lib;dsound.lib;dxguid.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\$(Configuration)\$(Platform)\$(PlatformToolset)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -231,7 +231,7 @@
       <OmitFramePointers>true</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>.\src;..\GgafLib\include;..\GgafDxCore\include;..\GgafCore\include;..\_Vorbis\include;..\_Ogg\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\src;..\GgafLib\include;..\GgafDx\include;..\GgafCore\include;..\_Vorbis\include;..\_Ogg\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN64;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <BufferSecurityCheck>true</BufferSecurityCheck>
@@ -245,7 +245,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>GgafCore.lib;GgafDxCore.lib;GgafLib.lib;_Ogg.lib;_Vorbis.lib;Shlwapi.lib;d3d9.lib;d3dx9.lib;dinput8.lib;dsound.lib;dxguid.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>GgafCore.lib;GgafDx.lib;GgafLib.lib;_Ogg.lib;_Vorbis.lib;Shlwapi.lib;d3d9.lib;d3dx9.lib;dinput8.lib;dsound.lib;dxguid.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\$(Configuration)\$(Platform)\$(PlatformToolset)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -275,7 +275,7 @@
       <Project>{4cd46674-bb16-4b83-b01e-d6daf7fb6c81}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-    <ProjectReference Include="..\GgafDxCore\GgafDxCore.vcxproj">
+    <ProjectReference Include="..\GgafDx\GgafDx.vcxproj">
       <Project>{f04b2bae-f007-4de8-a91f-ea7e9ddcb6f2}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>

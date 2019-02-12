@@ -1,8 +1,8 @@
 #include "GameTitleScene.h"
 
-#include "jp/ggaf/core/actor/GgafSceneMediator.h"
-#include "jp/ggaf/dxcore/manager/GgafDxSeConnection.h"
-#include "jp/ggaf/dxcore/sound/GgafDxSound.h"
+#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/dx/manager/SeConnection.h"
+#include "jp/ggaf/dx/sound/Sound.h"
 #include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshiTitle.h"
 #include "jp/gecchi/VioletVreath/actor/background/WorldBound/WorldBoundTitle.h"
 #include "jp/gecchi/VioletVreath/actor/menu/title/MenuBoardTitle.h"
@@ -12,8 +12,8 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameTitleScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -125,10 +125,10 @@ void GameTitleScene::processBehavior() {
                 }
             }
 
-            if (GgafDxInput::getPressedJoyRgbButton() != -1) {
+            if (GgafDx::Input::getPressedJoyRgbButton() != -1) {
                 frame_of_noinput_ = pProg->getFrame();
             }
-            if (GgafDxInput::getPushedDownKey() != -1) {
+            if (GgafDx::Input::getPushedDownKey() != -1) {
                 frame_of_noinput_ = pProg->getFrame();
             }
             if (pMenu_->getRisingSubMenu()) {

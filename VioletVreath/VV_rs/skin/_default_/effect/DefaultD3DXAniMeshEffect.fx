@@ -1,6 +1,6 @@
 #include "GgafEffectConst.fxh" 
 ////////////////////////////////////////////////////////////////////////////////
-// Ggafライブラリ、GgafDxAniMeshModel用シェーダー
+// ggaf ライブラリ、GgafDx::AniMeshModel用シェーダー
 //
 // author : Masatoshi Tsuge
 // date:2009/03/06 
@@ -34,7 +34,7 @@ struct OUT_VS
 ///////////////////////////////////////////////////////////////////////////
 
 //メッシュ標準頂点シェーダー
-OUT_VS GgafDxVS_DefaultD3DXAniMesh(
+OUT_VS VS_DefaultD3DXAniMesh(
       float4 prm_posModel_Local    : POSITION,      // モデルの頂点
       float3 prm_vecNormal_Local : NORMAL,        // モデルの頂点の法線
       float2 prm_uv     : TEXCOORD0      // モデルの頂点のUV
@@ -67,7 +67,7 @@ OUT_VS GgafDxVS_DefaultD3DXAniMesh(
 }
 
 //メッシュ標準ピクセルシェーダー（テクスチャ有り）
-float4 GgafDxPS_DefaultD3DXAniMesh(
+float4 PS_DefaultD3DXAniMesh(
 	float2 prm_uv	  : TEXCOORD0,
     float4 prm_color    : COLOR0
 ) : COLOR  {
@@ -84,7 +84,7 @@ float4 GgafDxPS_DefaultD3DXAniMesh(
 	return colOut;
 }
 
-float4 GgafDxPS_DefaultD3DXAniMesh2(
+float4 PS_DefaultD3DXAniMesh2(
 	float2 prm_uv	  : TEXCOORD0,
     float4 prm_color    : COLOR0
 ) : COLOR  {
@@ -136,8 +136,8 @@ technique DefaultD3DXAniMeshTechnique
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-		VertexShader = compile VS_VERSION GgafDxVS_DefaultD3DXAniMesh();
-		PixelShader  = compile PS_VERSION GgafDxPS_DefaultD3DXAniMesh();
+		VertexShader = compile VS_VERSION VS_DefaultD3DXAniMesh();
+		PixelShader  = compile PS_VERSION PS_DefaultD3DXAniMesh();
 	}
 }
 
@@ -151,8 +151,8 @@ technique DefaultD3DXAniMeshTechnique2
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-		VertexShader = compile VS_VERSION GgafDxVS_DefaultD3DXAniMesh();
-		PixelShader  = compile PS_VERSION GgafDxPS_DefaultD3DXAniMesh2();
+		VertexShader = compile VS_VERSION VS_DefaultD3DXAniMesh();
+		PixelShader  = compile PS_VERSION PS_DefaultD3DXAniMesh2();
 	}
 }
 

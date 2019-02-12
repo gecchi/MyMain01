@@ -2,8 +2,8 @@
 
 #include "jp/ggaf/lib/util/StgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
 #define V2E (0.70710678118655)    // t = (1.0 / Å„(1*1+1*1)) * 1

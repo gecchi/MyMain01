@@ -45,7 +45,7 @@ public:
 
     virtual void processJudgement() override;
 
-    virtual void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
+    virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override;
 
     virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override;
 
@@ -68,7 +68,7 @@ protected:
      * @param prm_ang1 —Ö‚ÌŠp“xˆÊ’u
      * @param prm_ang2 —ÖŽü‚è‚ÌŠp“xˆÊ’u
      */
-    void appendGroupChildAsFkOnSurface(GgafDxCore::GgafDxGeometricActor* prm_pGeoActor, angle prm_ang1, angle prm_ang2);
+    void appendGroupChildAsFkOnSurface(GgafDx::GeometricActor* prm_pGeoActor, angle prm_ang1, angle prm_ang2);
 
 };
 

@@ -3,21 +3,21 @@
 #include "EnemyOzartiaShot01.h"
 #include "EnemyOzartiaLaserChip01.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
-#include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
+#include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
+#include "jp/ggaf/core/actor/ex/ActorDepository.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
-#include "jp/ggaf/dxcore/model/GgafDxModel.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAssistant.h"
+#include "jp/ggaf/dx/model/Model.h"
+#include "jp/ggaf/dx/actor/supporter/KurokoMvAssistant.h"
 
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -70,7 +70,7 @@ enum {
 EnemyOzartia::EnemyOzartia(const char* prm_name) :
         DefaultMorphMeshActor(prm_name, "Ozartia_1", STATUS(EnemyOzartia)) {
     _class_name = "EnemyOzartia";
-    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI1_-1);
     pProg2_ = createProgress(PROG2_BANPEI);
@@ -80,7 +80,7 @@ EnemyOzartia::EnemyOzartia(const char* prm_name) :
     pConn_pSplManuf_ = connectToSplineManufactureManager("EnemyOzartia01_TTT");
     pKurokoLeader01_ = pConn_pSplManuf_->peek()->createKurokoLeader(getKuroko());
 //    //バリアブロック
-//    pDepo_shot01_ = NEW GgafActorDepository("Depo_OzartiaBlock");
+//    pDepo_shot01_ = NEW GgafCore::ActorDepository("Depo_OzartiaBlock");
 //    for (int i = 0; i < 9; i++) {
 //        std::string name = "EnemyOzartiaShot01["+XTOS(i)+"]";
 //        pDepo_shot01_->put(NEW EnemyOzartiaShot01(name.c_str()));
@@ -103,7 +103,7 @@ EnemyOzartia::EnemyOzartia(const char* prm_name) :
 }
 
 void EnemyOzartia::onCreateModel() {
-    GgafDxModel* pModel = getModel();
+    GgafDx::Model* pModel = getModel();
     pModel->setSpecular(5.0, 1.0);
 }
 
@@ -111,7 +111,7 @@ void EnemyOzartia::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDx::Kuroko* pKuroko = getKuroko();
     pKuroko->forceMvVeloRange(PX_C(1), PX_C(30));
     pKuroko->linkFaceAngByMvAng(false); //独立
     setHitAble(false);
@@ -127,9 +127,9 @@ void EnemyOzartia::onActive() {
 void EnemyOzartia::processBehavior() {
     MyShip* pMyShip = pMYSHIP;
     //本体移動系の処理 ここから --->
-    GgafDxKuroko* const pKuroko = getKuroko();
-    GgafDxAlphaFader* pAlphaFader = getAlphaFader();
-    GgafProgress* const pProg = getProgress();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
+    GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG1_INIT: {
             setHitAble(false);
@@ -325,8 +325,8 @@ void EnemyOzartia::processJudgement() {
     }
 }
 
-void EnemyOzartia::onHit(const GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+void EnemyOzartia::onHit(const GgafCore::Actor* prm_pOtherActor) {
+    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTransmitter()->play3D(SE_EXPLOSION);

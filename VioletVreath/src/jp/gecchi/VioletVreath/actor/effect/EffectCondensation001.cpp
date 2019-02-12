@@ -1,12 +1,12 @@
 #include "EffectCondensation001.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Scaler.h"
+#include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -20,7 +20,7 @@ EffectCondensation001::EffectCondensation001(const char* prm_name) :
 }
 
 void EffectCondensation001::initialize() {
-    GgafDxUvFlipper* pUvFlipper = getUvFlipper();
+    GgafDx::UvFlipper* pUvFlipper = getUvFlipper();
     pUvFlipper->setFlipPtnRange(0, 3);   //ÉAÉjÉÅîÕàÕÇÇOÅ`ÇPÇT
     pUvFlipper->exec(FLIP_ORDER_LOOP, 5); //ÉAÉjÉÅèáèò
 }
@@ -35,7 +35,7 @@ void EffectCondensation001::onActive() {
 }
 
 void EffectCondensation001::processBehavior() {
-    GgafDxScaler* const pScaler = getScaler();
+    GgafDx::Scaler* const pScaler = getScaler();
 
     if (getAlpha() < 1.0) {
         addAlpha(0.05);

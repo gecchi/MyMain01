@@ -1,7 +1,7 @@
-#ifndef GGAFLIB_COLLISPHERE_H_
-#define GGAFLIB_COLLISPHERE_H_
+#ifndef GGAF_LIB_COLLISPHERE_H_
+#define GGAF_LIB_COLLISPHERE_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/dxcore/util/GgafDxCollisionPart.h"
+#include "jp/ggaf/dx/util/CollisionPart.h"
 
 namespace GgafLib {
 
@@ -11,7 +11,7 @@ namespace GgafLib {
  * @since 2010/01/17
  * @author Masatoshi Tsuge
  */
-class ColliSphere : public GgafDxCore::GgafDxCollisionPart {
+class ColliSphere : public GgafDx::CollisionPart {
 
 public:
     /** ”¼Œa */
@@ -40,4 +40,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_COLLISPHERE_H_*/
+#endif /*GGAF_LIB_COLLISPHERE_H_*/

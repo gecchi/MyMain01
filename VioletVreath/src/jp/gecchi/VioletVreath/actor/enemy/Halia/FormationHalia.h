@@ -33,7 +33,7 @@ public:
 
     virtual void onActive() override;
 
-    virtual void onDestroyAll(GgafCore::GgafActor* prm_pActor_last_destroyed) override;
+    virtual void onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) override;
 
     virtual ~FormationHalia();
 };

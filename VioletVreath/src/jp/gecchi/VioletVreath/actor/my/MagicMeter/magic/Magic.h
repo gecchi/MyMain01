@@ -1,7 +1,7 @@
 #ifndef MAGIC_H_
 #define MAGIC_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/core/actor/GgafMainActor.h"
+#include "jp/ggaf/core/actor/MainActor.h"
 
 namespace VioletVreath {
 
@@ -60,7 +60,7 @@ typedef frame magic_time;
  * @since 2009/05/19
  * @author Masatoshi Tsuge
  */
-class Magic : public GgafCore::GgafMainActor {
+class Magic : public GgafCore::MainActor {
 public:
     enum {
         STATE_NOTHING     ,

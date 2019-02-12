@@ -1,10 +1,10 @@
 #ifndef MYLOCKONCONTROLLER_H_
 #define MYLOCKONCONTROLLER_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/core/actor/ex/GgafDestructActor.h"
+#include "jp/ggaf/core/actor/ex/DestructActor.h"
 
-#include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
-#include "jp/ggaf/dxcore/actor/GgafDxGeometricActor.h"
+#include "jp/ggaf/core/util/LinkedListRing.hpp"
+#include "jp/ggaf/dx/actor/GeometricActor.h"
 
 namespace VioletVreath {
 
@@ -15,7 +15,7 @@ namespace VioletVreath {
  * @since 2010/09/08
  * @author Masatoshi Tsuge
  */
-class MyLockonController : public GgafCore::GgafDestructActor {
+class MyLockonController : public GgafCore::DestructActor {
 
 public:
     /** [r]１オプション当たりの最大可能ロックオン数 */
@@ -26,7 +26,7 @@ public:
     /** メインロックオンエフェクト */
     LockonCursor001_Main* pMainLockonEffect_;
     /** ロックオンターゲットリストリング */
-    GgafCore::GgafLinkedListRing<GgafDxCore::GgafDxGeometricActor>* pRingTarget_;
+    GgafCore::LinkedListRing<GgafDx::GeometricActor>* pRingTarget_;
 
 public:
     MyLockonController(const char* prm_name);
@@ -45,14 +45,14 @@ public:
 
     void releaseAllLockon();
 
-    void lockon(GgafDxCore::GgafDxGeometricActor* prm_pTarget);
+    void lockon(GgafDx::GeometricActor* prm_pTarget);
 
     virtual ~MyLockonController();
     /**
      * pRingTarget_内容表示(デバッグ用) .
      * @param pMain
      */
-    void dumpTarget(GgafDxCore::GgafDxGeometricActor* pMain);
+    void dumpTarget(GgafDx::GeometricActor* pMain);
 
 };
 

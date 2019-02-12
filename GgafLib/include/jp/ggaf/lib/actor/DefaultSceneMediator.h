@@ -1,7 +1,7 @@
-#ifndef GGAFLIB_DEFAULTSCENEMEDIATOR_H_
-#define GGAFLIB_DEFAULTSCENEMEDIATOR_H_
+#ifndef GGAF_LIB_DEFAULTSCENEMEDIATOR_H_
+#define GGAF_LIB_DEFAULTSCENEMEDIATOR_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/dxcore/actor/GgafDxSceneMediator.h"
+#include "jp/ggaf/dx/actor/SceneMediator.h"
 
 namespace GgafLib {
 
@@ -11,7 +11,7 @@ namespace GgafLib {
  * @since 2017/12/07
  * @author Masatoshi Tsuge
  */
-class DefaultSceneMediator : public GgafDxCore::GgafDxSceneMediator {
+class DefaultSceneMediator : public GgafDx::SceneMediator {
 
 public:
     DefaultSceneMediator(DefaultScene* prm_pScene_platform);
@@ -55,4 +55,4 @@ public:
 };
 
 }
-#endif /**GGAFLIB_DEFAULTSCENEMEDIATOR_H_*/
+#endif /**GGAF_LIB_DEFAULTSCENEMEDIATOR_H_*/

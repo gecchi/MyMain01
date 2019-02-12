@@ -18,7 +18,7 @@ DECLARE_HASHVAL(EVENT_STAGE02_CLIMAX_WAS_FINISHED);
  */
 class Stage02PartController : public StagePartController {
 
-    GgafDxCore::GgafDxBgm* bgm_st1_;
+    GgafDx::Bgm* bgm_st1_;
 
 public:
     frame frame_prog_fainal_;

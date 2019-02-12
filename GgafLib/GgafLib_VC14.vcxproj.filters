@@ -96,6 +96,9 @@
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultDynaD3DXMeshActor.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="src\jp\ggaf\lib\actor\DefaultFramedBoardActor.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultGeometricActor.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -129,6 +132,15 @@
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultPointSpriteSetActor.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="src\jp\ggaf\lib\actor\DefaultRegularPolygonBoardActor.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\ggaf\lib\actor\DefaultRegularPolygonSpriteActor.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\ggaf\lib\actor\DefaultSceneMediator.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultSpriteActor.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -147,7 +159,13 @@
     <ClCompile Include="src\jp\ggaf\lib\actor\FontSpriteActor.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="src\jp\ggaf\lib\actor\FramedHorizontalBarActor.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
     <ClCompile Include="src\jp\ggaf\lib\actor\GraphBarActor.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\ggaf\lib\actor\PieGraphSpriteActor.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\ggaf\lib\actor\SingleLaser.cpp">
@@ -168,6 +186,15 @@
     <ClCompile Include="src\jp\ggaf\lib\actor\WorldBoundActor.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="src\jp\ggaf\lib\effect\MassWallEffect.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\ggaf\lib\effect\SingleLaserEffect.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\ggaf\lib\manager\DefaultEffectManager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
     <ClCompile Include="src\jp\ggaf\lib\manager\SplineManufactureConnection.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -181,6 +208,9 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\ggaf\lib\scene\DefaultScene.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\ggaf\lib\scene\DefaultSpacetime.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\ggaf\lib\scene\FormationTableScene.cpp">
@@ -198,10 +228,16 @@
     <ClCompile Include="src\jp\ggaf\lib\util\spline\FixedFrameSplineManufacture.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="src\jp\ggaf\lib\util\spline\FixedFrameSplineTruckerLeader.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
     <ClCompile Include="src\jp\ggaf\lib\util\spline\FixedVelocitySplineKurokoLeader.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\ggaf\lib\util\spline\FixedVelocitySplineManufacture.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\ggaf\lib\util\spline\SplineLeader.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\ggaf\lib\util\spline\SplineManufacture.cpp">
@@ -225,10 +261,22 @@
     <ClCompile Include="src\jp\ggaf\lib\util\ColliAAPyramid.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="src\jp\ggaf\lib\util\CollisionChecker.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\ggaf\lib\util\CollisionChecker2D.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
     <ClCompile Include="src\jp\ggaf\lib\util\CollisionChecker3D.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\ggaf\lib\util\ColliSphere.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\ggaf\lib\util\Direction8Util.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\ggaf\lib\util\Direction26Util.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\ggaf\lib\util\SceneProgress.cpp">
@@ -243,61 +291,13 @@
     <ClCompile Include="src\jp\ggaf\lib\util\VirtualButton.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\jp\ggaf\lib\DefaultGod.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\ggaf\lib\util\CollisionChecker.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\ggaf\lib\util\CollisionChecker2D.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\ggaf\lib\actor\DefaultFramedBoardActor.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\ggaf\lib\actor\FramedHorizontalBarActor.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\ggaf\lib\actor\DefaultSceneMediator.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\ggaf\lib\scene\DefaultSpacetime.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\ggaf\lib\GgafLibConfig.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\ggaf\lib\effect\MassWallEffect.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\ggaf\lib\effect\SingleLaserEffect.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\ggaf\lib\manager\DefaultEffectManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\ggaf\lib\util\Direction8Util.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\ggaf\lib\util\Direction26Util.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\ggaf\lib\util\spline\SplineLeader.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="src\jp\ggaf\lib\util\WMKeyInput.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\jp\ggaf\lib\actor\DefaultRegularPolygonSpriteActor.cpp">
+    <ClCompile Include="src\jp\ggaf\lib\DefaultGod.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\jp\ggaf\lib\actor\PieGraphSpriteActor.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\ggaf\lib\util\spline\FixedFrameSplineTruckerLeader.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\ggaf\lib\actor\DefaultRegularPolygonBoardActor.cpp">
+    <ClCompile Include="src\jp\ggaf\lib\LibConfig.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -389,6 +389,9 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultDynaD3DXMeshActor.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="include\jp\ggaf\lib\actor\DefaultFramedBoardActor.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultGeometricActor.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -422,6 +425,15 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultPointSpriteSetActor.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="include\jp\ggaf\lib\actor\DefaultRegularPolygonBoardActor.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\lib\actor\DefaultRegularPolygonSpriteActor.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\lib\actor\DefaultSceneMediator.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultSpriteActor.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -440,7 +452,13 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\FontSpriteActor.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="include\jp\ggaf\lib\actor\FramedHorizontalBarActor.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
     <ClInclude Include="include\jp\ggaf\lib\actor\GraphBarActor.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\lib\actor\PieGraphSpriteActor.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\lib\actor\SingleLaser.h">
@@ -459,6 +477,15 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\lib\actor\WorldBoundActor.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\lib\effect\MassWallEffect.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\lib\effect\SingleLaserEffect.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\lib\manager\DefaultEffectManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\lib\manager\SplineManufactureConnection.h">
@@ -494,13 +521,16 @@
     <ClInclude Include="include\jp\ggaf\lib\util\spline\FixedFrameSplineManufacture.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="include\jp\ggaf\lib\util\spline\FixedFrameSplineTruckerLeader.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
     <ClInclude Include="include\jp\ggaf\lib\util\spline\FixedVelocitySplineKurokoLeader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\lib\util\spline\FixedVelocitySplineManufacture.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="include\jp\ggaf\lib\util\spline\SplineKurokoLeader.h">
+    <ClInclude Include="include\jp\ggaf\lib\util\spline\SplineLeader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\lib\util\spline\SplineManufacture.h">
@@ -524,13 +554,28 @@
     <ClInclude Include="include\jp\ggaf\lib\util\ColliAAPyramid.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="include\jp\ggaf\lib\util\CollisionChecker.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\lib\util\CollisionChecker2D.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
     <ClInclude Include="include\jp\ggaf\lib\util\CollisionChecker3D.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\lib\util\ColliSphere.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="include\jp\ggaf\lib\util\Direction8Util.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\lib\util\Direction26Util.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
     <ClInclude Include="include\jp\ggaf\lib\util\Quantity.hpp">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\lib\util\Quaternion.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\lib\util\SceneProgress.h">
@@ -545,67 +590,19 @@
     <ClInclude Include="include\jp\ggaf\lib\util\VirtualButton.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="include\jp\ggaf\lib\util\WMKeyInput.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
     <ClInclude Include="include\jp\ggaf\lib\DefaultGod.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="include\GgafLibCommonHeader.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\lib\util\CollisionChecker.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\lib\util\CollisionChecker2D.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\lib\actor\DefaultFramedBoardActor.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\lib\actor\FramedHorizontalBarActor.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\lib\actor\DefaultSceneMediator.h">
+    <ClInclude Include="include\jp\ggaf\lib\LibConfig.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\GgafLib.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="include\jp\ggaf\lib\GgafLibConfig.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\lib\effect\MassWallEffect.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\lib\effect\SingleLaserEffect.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\lib\manager\DefaultEffectManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\lib\util\Direction8Util.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\lib\util\Direction26Util.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\lib\util\Quaternion.hpp">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\lib\util\spline\SplineLeader.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\lib\util\WMKeyInput.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\lib\actor\DefaultRegularPolygonSpriteActor.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\lib\actor\PieGraphSpriteActor.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\lib\util\spline\FixedFrameSplineTruckerLeader.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\lib\actor\DefaultRegularPolygonBoardActor.h">
+    <ClInclude Include="include\GgafLibCommonHeader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

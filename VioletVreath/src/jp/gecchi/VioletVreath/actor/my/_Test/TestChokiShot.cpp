@@ -1,12 +1,12 @@
 #include "TestChokiShot.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -39,7 +39,7 @@ void TestChokiShot::processJudgement() {
     }
 }
 
-void TestChokiShot::onHit(const GgafActor* prm_pOtherActor) {
+void TestChokiShot::onHit(const GgafCore::Actor* prm_pOtherActor) {
     setHitAble(false);
     UTIL::activateExplosionEffectOf(this);
     sayonara();

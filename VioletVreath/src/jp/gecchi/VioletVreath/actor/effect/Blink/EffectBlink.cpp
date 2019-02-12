@@ -1,10 +1,10 @@
 #include "EffectBlink.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Scaler.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -49,8 +49,8 @@ void EffectBlink::processBehavior() {
         }
     }
 
-    GgafDxScaler* const pScaler = getScaler();
-    GgafProgress* const pProg = getProgress();
+    GgafDx::Scaler* const pScaler = getScaler();
+    GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             pScaler->transitionLinearToTop(scale_in_frames_);
@@ -108,7 +108,7 @@ void EffectBlink::onInactive() {
 }
 
 void EffectBlink::blink(frame prm_scale_in_frames, frame prm_duration_frames, frame prm_scale_out_frames,
-                        const GgafDxCore::GgafDxGeometricActor* prm_pFollowTarget, bool prm_sayonara_end) {
+                        const GgafDx::GeometricActor* prm_pFollowTarget, bool prm_sayonara_end) {
     pTarget_ = prm_pFollowTarget;
     scale_in_frames_ = prm_scale_in_frames;
     duration_frames_ = prm_duration_frames;
@@ -119,7 +119,7 @@ void EffectBlink::blink(frame prm_scale_in_frames, frame prm_duration_frames, fr
 }
 
 void EffectBlink::blink2(frame prm_scale_in_frames, frame prm_duration_frames, frame prm_scale_out_frames,
-                        const GgafDxCore::GgafDxGeometricActor* prm_pFollowTarget, bool prm_sayonara_end) {
+                        const GgafDx::GeometricActor* prm_pFollowTarget, bool prm_sayonara_end) {
     pTarget_ = prm_pFollowTarget;
     scale_in_frames_ = prm_scale_in_frames;
     duration_frames_ = prm_duration_frames;

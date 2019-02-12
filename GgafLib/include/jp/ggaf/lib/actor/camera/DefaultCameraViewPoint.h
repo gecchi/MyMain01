@@ -1,7 +1,7 @@
-#ifndef GGAFLIB_DEFAULTCAMERAVIEWPOINT_H_
-#define GGAFLIB_DEFAULTCAMERAVIEWPOINT_H_
+#ifndef GGAF_LIB_DEFAULTCAMERAVIEWPOINT_H_
+#define GGAF_LIB_DEFAULTCAMERAVIEWPOINT_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/dxcore/actor/camera/GgafDxCameraViewPoint.h"
+#include "jp/ggaf/dx/actor/camera/CameraViewPoint.h"
 
 namespace GgafLib {
 
@@ -11,7 +11,7 @@ namespace GgafLib {
  * @since 2010/10/22
  * @author Masatoshi Tsuge
  */
-class DefaultCameraViewPoint : public GgafDxCore::GgafDxCameraViewPoint {
+class DefaultCameraViewPoint : public GgafDx::CameraViewPoint {
 
 public:
     DefaultCameraViewPoint(const char* prm_name);
@@ -38,15 +38,15 @@ public:
     virtual void processFinal() override {
     }
 
-    virtual void onHit(const GgafCore::GgafActor* prm_pOtherActor) override {
+    virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override {
     }
 
     void slideMvTo(coord tx, coord ty, coord tz, frame t, float prm_p1, float prm_p2);
 
-    void slideMvTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t, float prm_p1, float prm_p2);
+    void slideMvTo(GgafDx::GeometricActor* pTarget, frame t, float prm_p1, float prm_p2);
 
     virtual ~DefaultCameraViewPoint(); //デストラクタ
 };
 
 }
-#endif /*GGAFLIB_DEFAULTCAMERAVIEWPOINT_H_*/
+#endif /*GGAF_LIB_DEFAULTCAMERAVIEWPOINT_H_*/

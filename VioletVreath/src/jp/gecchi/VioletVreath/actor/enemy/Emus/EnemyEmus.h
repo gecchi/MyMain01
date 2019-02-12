@@ -25,11 +25,11 @@ public:
     frame frame_of_morph_interval_;
 
 //    /** [r]レーザーセットのストアー(レーザーチップのデポジトリのデポジトリ) */
-//    GgafCore::GgafActorDepositoryStore* pDepoStore_laser_set;
+//    GgafCore::ActorDepositoryStore* pDepoStore_laser_set;
 //    /** [r]デポジトリマネージャーへの接続 */
 //    DepositoryConnection* pConn_pDepoStore_laser_set;
     /** [r]レーザーセット(レーザーチップのデポジトリ) */
-    GgafCore::GgafActorDepository* pDepo_;
+    GgafCore::ActorDepository* pDepo_;
 
     frame ini_wait_;
 public:
@@ -68,7 +68,7 @@ public:
      * エムスの衝突時処理 .
      * @param prm_pOtherActor 衝突対象
      */
-    void onHit(const GgafCore::GgafActor* prm_pOtherActor) override;
+    void onHit(const GgafCore::Actor* prm_pOtherActor) override;
 
 
     void onInactive() override;

@@ -1,16 +1,16 @@
 #include "Jiki.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 #include "scene/HgrSpacetime.h"
 #include "scene/HgrSpacetime/HgrWorld.h"
 #include "HgrGod.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace Hogera;
 
@@ -34,7 +34,7 @@ Jiki::Jiki(const char* prm_name) :
 }
 
 void Jiki::initialize() {
-    GgafDxUvFlipper* pUvFlipper = getUvFlipper();
+    GgafDx::UvFlipper* pUvFlipper = getUvFlipper();
     pUvFlipper->setFlipPtnRange(0, 3);   //アニメ範囲を０～１５
     pUvFlipper->exec(FLIP_ORDER_LOOP, 5); //アニメ順序
     CollisionChecker* pChecker = getCollisionChecker();
@@ -64,8 +64,8 @@ void Jiki::onActive() {
 }
 
 void Jiki::processBehavior() {
-    GgafDxKuroko* const pKuroko = getKuroko();
-    GgafProgress* const pProg = getProgress();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafCore::Progress* const pProg = getProgress();
     VirtualButton* pVb = &(P_GOD->getSpacetime()->getWorld()->vb_);
     if (pVb->isPressed(VB_BUTTON1)) {
         //ボタン１（スペースキー）を押しながらの場合
@@ -100,7 +100,7 @@ void Jiki::processJudgement() {
 void Jiki::onInactive() {
 }
 
-void Jiki::onHit(const GgafActor* prm_pOtherActor) {
+void Jiki::onHit(const GgafCore::Actor* prm_pOtherActor) {
     _TRACE_("Jiki::onHit!!!! 相手＝"<<prm_pOtherActor->getName()<<"");
 }
 

@@ -1,6 +1,6 @@
 #include "GgafEffectConst.fxh"
 ////////////////////////////////////////////////////////////////////////////////
-// Ggafライブラリ、GgafDxMassSpriteModel用シェーダー
+// ggaf ライブラリ、GgafDx::MassSpriteModel用シェーダー
 //
 // author : Masatoshi Tsuge
 // date:2016/03/30
@@ -27,7 +27,7 @@ struct OUT_VS
 ///////////////////////////////////////////////////////////////////////////
 
 //スプライト標準頂点シェーダー
-OUT_VS GgafDxVS_FontSprite(
+OUT_VS VS_FontSprite(
       float4 prm_posModel_Local   : POSITION,      // モデルの頂点
       float3 prm_vecNormal_Local  : NORMAL,        // モデルの頂点の法線
       float2 prm_uv               : TEXCOORD0,     // モデルの頂点のUV
@@ -62,7 +62,7 @@ OUT_VS GgafDxVS_FontSprite(
 }
 
 //スプライト標準ピクセルシェーダー
-float4 GgafDxPS_FontSprite(
+float4 PS_FontSprite(
     float2 prm_uv	  : TEXCOORD0 ,
     float4 prm_color  : COLOR0
 ) : COLOR  {
@@ -89,7 +89,7 @@ float4 PS_Flush(
 
 //＜テクニック：FontSpriteTechnique＞
 //【機能】
-//GgafDxMassSpriteModel用標準シェーダー
+//MassSpriteModel用標準シェーダー
 //【概要】
 //板ポリ（擬似スプライト）を描画する。ライトなどの陰影は無し。
 technique FontSpriteTechnique
@@ -102,8 +102,8 @@ technique FontSpriteTechnique
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default
-        VertexShader = compile VS_VERSION GgafDxVS_FontSprite();
-        PixelShader  = compile PS_VERSION GgafDxPS_FontSprite();
+        VertexShader = compile VS_VERSION VS_FontSprite();
+        PixelShader  = compile PS_VERSION PS_FontSprite();
     }
 }
 
@@ -117,8 +117,8 @@ technique DestBlendOne
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default
-        VertexShader = compile VS_VERSION GgafDxVS_FontSprite();
-        PixelShader  = compile PS_VERSION GgafDxPS_FontSprite();
+        VertexShader = compile VS_VERSION VS_FontSprite();
+        PixelShader  = compile PS_VERSION PS_FontSprite();
     }
 }
 
@@ -132,7 +132,7 @@ technique Flush
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
         //BlendOpAlpha = Add;       //default
-        VertexShader = compile VS_VERSION GgafDxVS_FontSprite();
+        VertexShader = compile VS_VERSION VS_FontSprite();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
 }

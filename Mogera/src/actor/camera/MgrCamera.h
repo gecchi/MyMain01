@@ -20,9 +20,9 @@ public:
 
     MgrCamera(const char* prm_name);
 
-    GgafDxCore::GgafDxCameraViewPoint* createCameraViewPoint() override;
+    GgafDx::CameraViewPoint* createCameraViewPoint() override;
 
-    GgafDxCore::GgafDxCameraUpVector* createCameraUpVector() override;
+    GgafDx::CameraUpVector* createCameraUpVector() override;
 
     virtual ~MgrCamera(); //デストラクタ
 };

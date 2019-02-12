@@ -3,7 +3,7 @@
 #include "VioletVreath.h"
 
 //「DirectXライブラリ」を利用する（利用者は俺！）場合
-//次の"GgafLibCommonHeader.h"ヘッダをインクルードします。
+//次の"GgafLib::LibCommonHeader.h"ヘッダをインクルードします。
 
 #include "GgafLibCommonHeader.h"
 

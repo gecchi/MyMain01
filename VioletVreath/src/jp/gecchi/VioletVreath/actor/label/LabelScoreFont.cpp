@@ -1,11 +1,11 @@
 #include "LabelScoreFont.h"
-#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
-#include "jp/ggaf/dxcore/model/GgafDxBoardSetModel.h"
-#include "jp/ggaf/dxcore/effect/GgafDxBoardSetEffect.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
+#include "jp/ggaf/dx/exception/CriticalException.h"
+#include "jp/ggaf/dx/model/BoardSetModel.h"
+#include "jp/ggaf/dx/effect/BoardSetEffect.h"
+#include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 

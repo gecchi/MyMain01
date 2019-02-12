@@ -1,15 +1,15 @@
 #include "Spacetime.h"
 
-#include "jp/ggaf/core/exception/GgafCriticalException.h"
-#include "jp/ggaf/core/actor/GgafSceneMediator.h"
-#include "jp/ggaf/dxcore/actor/camera/GgafDxCameraViewPoint.h"
+#include "jp/ggaf/core/exception/CriticalException.h"
+#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/dx/actor/camera/CameraViewPoint.h"
 #include "jp/gecchi/VioletVreath/manager/CameraWorkerConnection.h"
 #include "jp/gecchi/VioletVreath/manager/CameraWorkerManager.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -41,7 +41,7 @@ CameraWorkerConnection* Spacetime::CameraWorkerHistory::pop() {
     CameraWorkerConnection* r = apCamWorkerConnection_[p_];
 #ifdef MY_DEBUG
     if (r == nullptr) {
-        throwGgafCriticalException("Spacetime::CameraWorkerHistory::pop() POP‚µ‚·‚¬‚Å‚·");
+        throwCriticalException("Spacetime::CameraWorkerHistory::pop() POP‚µ‚·‚¬‚Å‚·");
     }
 #endif
     apCamWorkerConnection_[p_] = nullptr;
@@ -177,7 +177,7 @@ CameraWorker* Spacetime::undoCameraWork() {
                 pActiveCamWorker_->activate();
             } else {
                 stack_CamWorkerConnection_.dump();
-                throwGgafCriticalException("stack_CameraWorker_ ‚©‚ç pop() ‚µ‚·‚¬B");
+                throwCriticalException("stack_CameraWorker_ ‚©‚ç pop() ‚µ‚·‚¬B");
             }
             pConn_now->close();
 //            _TRACE_("undoCameraWork end---");
@@ -193,7 +193,7 @@ CameraWorker* Spacetime::undoCameraWork() {
         }
     } else {
         stack_CamWorkerConnection_.dump();
-        throwGgafCriticalException("stack_CameraWorker_ ‚©‚ç pop() ‚µ‚·‚¬‚É‚à’ö‚ª‚ ‚é");
+        throwCriticalException("stack_CameraWorker_ ‚©‚ç pop() ‚µ‚·‚¬‚É‚à’ö‚ª‚ ‚é");
     }
 }
 

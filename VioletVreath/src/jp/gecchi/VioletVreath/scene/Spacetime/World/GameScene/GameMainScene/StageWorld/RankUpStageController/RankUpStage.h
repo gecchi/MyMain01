@@ -2,8 +2,8 @@
 #define RANKUPSTAGE_H_
 #include "VioletVreath.h"
 
-#include "jp/ggaf/core/actor/GgafMainActor.h"
-#include "jp/ggaf/core/actor/ex/GgafFormation.h"
+#include "jp/ggaf/core/actor/MainActor.h"
+#include "jp/ggaf/core/actor/ex/Formation.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 #include "jp/ggaf/lib/actor/DefaultSceneMediator.h"
 
@@ -23,7 +23,7 @@ public:
     };
 
     static bool pause_;
-    GgafDxCore::GgafDxSeConnection* pSeConnection_all_hit_;
+    GgafDx::SeConnection* pSeConnection_all_hit_;
 
     char buff[80];
     WorldBoundRankUp* pWorldBound_;
@@ -45,17 +45,17 @@ public:
             hit_enemy_num_ = 0;
         }
 
-        GgafCore::GgafGroupHead* appendGroupChild(kind_t prm_kind, GgafCore::GgafMainActor* prm_pMainActor) {
-            GgafCore::GgafGroupHead* pGroupHead = GgafLib::DefaultSceneMediator::appendGroupChild(prm_kind, prm_pMainActor);
-            if (prm_pMainActor->instanceOf(Obj_GgafFormation)) {
-                GgafCore::GgafFormation* pF = (GgafCore::GgafFormation*)prm_pMainActor;
+        GgafCore::GroupHead* appendGroupChild(kind_t prm_kind, GgafCore::MainActor* prm_pMainActor) {
+            GgafCore::GroupHead* pGroupHead = GgafLib::DefaultSceneMediator::appendGroupChild(prm_kind, prm_pMainActor);
+            if (prm_pMainActor->instanceOf(Obj_ggaf_Formation)) {
+                GgafCore::Formation* pF = (GgafCore::Formation*)prm_pMainActor;
                 all_hit_num_ += pF->getMemberNum();
             } else if (prm_pMainActor->lookUpKind() & KIND_ENEMY_BODY) {
                 all_hit_num_ ++;
             }
             return pGroupHead;
         }
-        GgafCore::GgafGroupHead* appendGroupChild(GgafCore::GgafMainActor* prm_pMainActor) {
+        GgafCore::GroupHead* appendGroupChild(GgafCore::MainActor* prm_pMainActor) {
             return Medietor::appendGroupChild(prm_pMainActor->getDefaultKind(), prm_pMainActor);
         }
     };
@@ -81,7 +81,7 @@ public:
     virtual RankUpStage::Medietor* bringSceneMediator() const override {
         return (RankUpStage::Medietor*)_pSceneMediator;
     }
-    void onDestroyedEnemy(GgafDxCore::GgafDxFigureActor* prm_this, const GgafDxCore::GgafDxGeometricActor* const prm_pOther) {
+    void onDestroyedEnemy(GgafDx::FigureActor* prm_this, const GgafDx::GeometricActor* const prm_pOther) {
         bringSceneMediator()->hit_enemy_num_ ++; //ランクアップステージの敵倒したよ！カウントアップ
     }
 

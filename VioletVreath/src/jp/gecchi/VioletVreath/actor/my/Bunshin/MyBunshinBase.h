@@ -3,7 +3,7 @@
 #include "VioletVreath.h"
 
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
-#include "jp/ggaf/dxcore/util/GgafDxGeoElem.h"
+#include "jp/ggaf/dx/util/GeoElem.h"
 
 namespace VioletVreath {
 
@@ -23,7 +23,7 @@ private:
         void set(coord prm_x, coord prm_y, coord prm_z) {
             x = prm_x;   y = prm_y;   z = prm_z;
         }
-        void set(const GgafDxCore::GgafDxGeometricActor* p) {
+        void set(const GgafDx::GeometricActor* p) {
             x = p->_x;   y = p->_y;   z = p->_z;
         }
         void add(coord prm_x, coord prm_y, coord prm_z) {
@@ -116,7 +116,7 @@ public:
     /** 分身用のトレース座標の歴史（絶対座標）。カレントが自機座標。 */
     PosTrace* pPosTrace_;
     /** 自機トレースの座標からのオフセット(フリーでない場合は0) */
-    GgafDxCore::GgafDxGeoElem trace_offset_;
+    GgafDx::GeoElem trace_offset_;
     /** 分身番号(1～) */
     unsigned int no_;
     /** 分身番号1～MAXによって、バラける演出のための乗ずる割合が入る */
@@ -181,12 +181,12 @@ public:
     virtual void processJudgement() override {}
 
 //DefaultMeshActor等で表示したい場合はコメントにすること
-//GgafDxGeometricActorの場合はコメントを外すこと
+//GeometricActorの場合はコメントを外すこと
     //virtual void processDraw() override {}
 
     virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {}
 
-    virtual void onHit(const GgafCore::GgafActor* prm_pOtherActor) override {}
+    virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override {}
 
     virtual ~MyBunshinBase();
 

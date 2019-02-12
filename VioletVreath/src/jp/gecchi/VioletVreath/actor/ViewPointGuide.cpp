@@ -1,10 +1,10 @@
 #include "ViewPointGuide.h"
 
-#include "jp/ggaf/dxcore/actor/camera/GgafDxCameraViewPoint.h"
+#include "jp/ggaf/dx/actor/camera/CameraViewPoint.h"
 #include "jp/gecchi/VioletVreath/God.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -34,7 +34,7 @@ void ViewPointGuide::processJudgement() {
 void ViewPointGuide::onInactive() {
 }
 
-void ViewPointGuide::onHit(const GgafActor* prm_pOtherActor) {
+void ViewPointGuide::onHit(const GgafCore::Actor* prm_pOtherActor) {
 }
 
 ViewPointGuide::~ViewPointGuide() {

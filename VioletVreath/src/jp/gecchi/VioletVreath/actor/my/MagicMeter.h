@@ -5,7 +5,7 @@
 
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/Magic.h"
-#include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
+#include "jp/ggaf/core/util/LinkedListRing.hpp"
 
 namespace VioletVreath {
 
@@ -16,7 +16,7 @@ namespace VioletVreath {
 #endif
 
 
-typedef GgafCore::GgafLinkedListRing<Magic> MagicList;
+typedef GgafCore::LinkedListRing<Magic> MagicList;
 
 /**
  * 魔法メーター .
@@ -90,9 +90,9 @@ public:
     std::stringstream st_[10];
 
     /** [r]詠唱中効果音発生管理 */
-    GgafDxCore::GgafDxSeTransmitterForActor* pSeTx4Cast_;
+    GgafDx::SeTransmitterForActor* pSeTx4Cast_;
     /** [r]発動中効果音発生管理 */
-    GgafDxCore::GgafDxSeTransmitterForActor* pSeTx4Invoke_;
+    GgafDx::SeTransmitterForActor* pSeTx4Invoke_;
     /** 予告発生の残り時間を設定 */
     frame fraeme_of_notice_remaind_;
 

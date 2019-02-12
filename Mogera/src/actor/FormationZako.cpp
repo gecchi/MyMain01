@@ -1,12 +1,12 @@
 #include "FormationZako.h"
 
-#include "jp/ggaf/core/util/GgafRgb.h"
+#include "jp/ggaf/core/util/Rgb.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "Zako.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace Mogera;
 
@@ -48,7 +48,7 @@ void FormationZako::onActive() {
 }
 
 void FormationZako::processBehavior() {
-    GgafProgress* const pProg = getProgress();
+    GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             pProg->changeNext();
@@ -82,7 +82,7 @@ void FormationZako::processBehavior() {
     }
 }
 
-void FormationZako::onDestroyAll(GgafActor* prm_pActor_last_destroyed) {
+void FormationZako::onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) {
 }
 
 void FormationZako::onSayonaraAll() {

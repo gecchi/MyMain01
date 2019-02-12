@@ -1,7 +1,7 @@
 #include "BunshinMagic.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Trucker.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectMagic001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectBunshinMagic001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyMagicEnergyCore.h"
@@ -11,8 +11,8 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -62,7 +62,7 @@ void BunshinMagic::processCastBegin(int prm_now_level, int prm_new_level) {
         MyMagicEnergyCore* pCore = pMyShip->pMyMagicEnergyCore_;
         angle* paAng_way = NEW angle[prm_new_level-prm_now_level];
         UTIL::getRadialAngle2D(0, prm_new_level-prm_now_level, paAng_way);
-        GgafDxTrucker* const pCoreTrucker = pCore->getTrucker();
+        GgafDx::Trucker* const pCoreTrucker = pCore->getTrucker();
         velo veloVxMv = pCoreTrucker->_velo_vx_mv;
         velo veloVyMv = pCoreTrucker->_velo_vy_mv;
         velo veloVzMv = pCoreTrucker->_velo_vz_mv;
@@ -70,7 +70,7 @@ void BunshinMagic::processCastBegin(int prm_now_level, int prm_new_level) {
         for (int lv = prm_now_level+1, n = 0; lv <= prm_new_level; lv++, n++) {
             pEffect = papEffect_[lv-1];
             pEffect->setPositionAt(pCore);
-            GgafDxTrucker* const pEffectTrucker = pEffect->getTrucker();
+            GgafDx::Trucker* const pEffectTrucker = pEffect->getTrucker();
             pEffectTrucker->resetMv();
             pEffectTrucker->setVxyzMvVelo(veloVxMv*0.8,
                                           veloVyMv + (ANG_SIN(paAng_way[n]) * PX_C(3)),

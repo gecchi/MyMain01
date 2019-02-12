@@ -1,9 +1,9 @@
-#ifndef GGAFLIB_WALLSCENE_H_
-#define GGAFLIB_WALLSCENE_H_
+#ifndef GGAF_LIB_WALLSCENE_H_
+#define GGAF_LIB_WALLSCENE_H_
 #include "GgafLibCommonHeader.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
-#include "jp/ggaf/core/util/GgafLinkedListRing.hpp"
+#include "jp/ggaf/core/util/LinkedListRing.hpp"
 #include "jp/ggaf/lib/scene/WallSectionScene.h"
 
 namespace GgafLib {
@@ -19,11 +19,11 @@ class WallScene : public DefaultScene {
 
 public:
     /** セクションシーンの保持リスト */
-    GgafCore::GgafLinkedListRing<GgafLib::WallSectionScene> _ringHoldSection;
+    GgafCore::LinkedListRing<GgafLib::WallSectionScene> _ringHoldSection;
     /** 完了したセクションシーンの保持リスト */
-    GgafCore::GgafLinkedListRing<GgafLib::WallSectionScene> _ringLoopEndSection;
+    GgafCore::LinkedListRing<GgafLib::WallSectionScene> _ringLoopEndSection;
     /** 壁ブロックを供給するデポジトリ(buildWallScene()で設定される) */
-    GgafCore::GgafActorDepository* _pDepo_wall;
+    GgafCore::ActorDepository* _pDepo_wall;
     WallSectionScene* _pLastSectionScene;
     bool _is_all_active_section_scenes;
     bool _is_finished;
@@ -55,7 +55,7 @@ public:
             coord prm_wall_dep, coord prm_wall_width, coord prm_wall_height,
             coord prm_wall_start_x,
             WallSectionScene** prm_papSection, int prm_section_num,
-            GgafCore::GgafActorDepository* prm_pDepo_wallox);
+            GgafCore::ActorDepository* prm_pDepo_wallox);
 
     /**
      * 処理実装済み。下位でオーバーライドする場合は、上位initialize()を呼び出して下さい。
@@ -88,11 +88,11 @@ public:
      * @param p2 nullptr
      * @param p3 nullptr
      */
-    static void scrollX(GgafObject* pThat, void* p1, void* p2, void* p3);
+    static void scrollX(GgafCore::Object* pThat, void* p1, void* p2, void* p3);
 
 
     virtual ~WallScene();
 };
 
 }
-#endif /*GGAFLIB_WALLSCENE_H_*/
+#endif /*GGAF_LIB_WALLSCENE_H_*/

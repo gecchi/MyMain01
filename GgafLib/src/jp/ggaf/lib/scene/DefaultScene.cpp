@@ -2,12 +2,12 @@
 
 #include "jp/ggaf/lib/actor/DefaultSceneMediator.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
-DefaultScene::DefaultScene(const char* prm_name, GgafSceneMediator* prm_pSceneMediator) :
-        GgafDxScene(prm_name, prm_pSceneMediator ? prm_pSceneMediator : NEW DefaultSceneMediator(this)) {
+DefaultScene::DefaultScene(const char* prm_name, GgafCore::SceneMediator* prm_pSceneMediator) :
+        GgafDx::Scene(prm_name, prm_pSceneMediator ? prm_pSceneMediator : NEW DefaultSceneMediator(this)) {
     _obj_class |= Obj_DefaultScene;
     _class_name = "DefaultScene";
     _paFrame_NextEvent = nullptr;
@@ -18,8 +18,8 @@ DefaultScene::DefaultScene(const char* prm_name, GgafSceneMediator* prm_pSceneMe
 }
 
 void DefaultScene::useProgress(int prm_num) {
-    if (GgafScene::_pProg == nullptr) {
-        GgafScene::_pProg = createProgress(prm_num);
+    if (GgafCore::Scene::_pProg == nullptr) {
+        GgafCore::Scene::_pProg = createProgress(prm_num);
     } else {
         _TRACE_("＜警告＞["<<getName()<<"] は既に useProgress しています。prm_num="<<prm_num);
     }
@@ -30,16 +30,16 @@ SceneProgress* DefaultScene::createProgress(int prm_num) {
 }
 
 SceneProgress* DefaultScene::getProgress() const {
-    return (SceneProgress*)(GgafScene::getProgress());
+    return (SceneProgress*)(GgafCore::Scene::getProgress());
 }
 
 void DefaultScene::processSettlementBehavior() {
-    GgafDxScene::processSettlementBehavior();
+    GgafDx::Scene::processSettlementBehavior();
     if (_pFuncScrolling && _is_active_flg && !_was_paused_flg && _can_live_flg) {
         executeFuncLowerTree(_pFuncScrolling, &_scroll_speed, nullptr, nullptr); //配下アクターにスクロール実行！！
         //ここの executeFuncLowerTree の第2,3,4引数は、
         //このメソッドのエディタ上の直ぐ上に記述してある DefaultScene::scroll_x の受取り引数 p1 ,p2, p3 と対応する
-        //  this           → GgafObject* pThat
+        //  this           → GgafCore::Object* pThat
         //  &_scroll_speed → void* p1
         //  nullptr        → void* p2
         //  nullptr        → void* p3
@@ -50,7 +50,7 @@ DefaultScene* DefaultScene::getNearestScrollingScene() {
     if (_pFuncScrolling) {
         return this;
     } else {
-        GgafScene* pScene = this;
+        GgafCore::Scene* pScene = this;
         while (true) {
             pScene = pScene->getParent();
             if (pScene) {
@@ -71,7 +71,7 @@ WallScene* DefaultScene::getNearestWallScene() {
     if (instanceOf(Obj_WallScene)) {
         return (WallScene*)this;
     } else {
-        GgafScene* pScene = this;
+        GgafCore::Scene* pScene = this;
         while (true) {
             pScene = pScene->getParent();
             if (pScene) {

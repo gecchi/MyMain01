@@ -2,17 +2,17 @@
 
 #include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
+#include "jp/ggaf/dx/scene/Spacetime.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
 DefaultMassMeshActor::VERTEX_instancedata DefaultMassMeshActor::_aInstancedata[GGAFDXMASS_MAX_INSTANCE_NUM];
 
 
-DefaultMassMeshActor::DefaultMassMeshActor(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
-    GgafDxMassMeshActor(prm_name,
+DefaultMassMeshActor::DefaultMassMeshActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat) :
+    GgafDx::MassMeshActor(prm_name,
                         prm_model,
                         "DefaultMassMeshEffect",
                         "DefaultMassMeshTechnique",
@@ -29,7 +29,7 @@ void DefaultMassMeshActor::drawHitArea() {
 #endif
 }
 
-void DefaultMassMeshActor::createVertexInstanceData(void* prm, GgafDxMassModel::VertexInstanceDataInfo* out_info) {
+void DefaultMassMeshActor::createVertexInstanceData(void* prm, GgafDx::MassModel::VertexInstanceDataInfo* out_info) {
     int element_num = 5;
     out_info->paElement = NEW D3DVERTEXELEMENT9[element_num];
     // Stream = 1 ---->
@@ -83,9 +83,9 @@ void DefaultMassMeshActor::createVertexInstanceData(void* prm, GgafDxMassModel::
 
 
 void DefaultMassMeshActor::processDraw() {
-    int draw_set_num = 0; //GgafDxMassMeshActorの同じモデルで同じテクニックが
+    int draw_set_num = 0; //MassMeshActorの同じモデルで同じテクニックが
                           //連続しているカウント数。同一描画深度は一度に描画する。
-    GgafDxMassMeshModel* pMassMeshModel = _pMassMeshModel;
+    GgafDx::MassMeshModel* pMassMeshModel = _pMassMeshModel;
     const int model_max_set_num = pMassMeshModel->_set_num;
     const hashval hash_technique = _hash_technique;
 
@@ -93,14 +93,14 @@ void DefaultMassMeshActor::processDraw() {
     static const size_t size_of_D3DCOLORVALUE = sizeof(D3DCOLORVALUE);
     VERTEX_instancedata* paInstancedata = DefaultMassMeshActor::_aInstancedata;
 
-    GgafDxFigureActor* pDrawActor = this;
+    GgafDx::FigureActor* pDrawActor = this;
     while (pDrawActor) {
         if (pDrawActor->getModel() == pMassMeshModel && pDrawActor->_hash_technique == hash_technique) {
             memcpy(paInstancedata, &(pDrawActor->_matWorld), size_of_D3DXMATRIX);
             memcpy(&(paInstancedata->r), &(pDrawActor->_paMaterial[0].Diffuse), size_of_D3DCOLORVALUE);
             ++paInstancedata;
             draw_set_num++;
-            GgafDxSpacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
+            GgafDx::Spacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
             if (draw_set_num >= model_max_set_num) {
                 break;
             } else {
@@ -110,7 +110,7 @@ void DefaultMassMeshActor::processDraw() {
             break;
         }
     }
-    ((GgafDxMassMeshModel*)_pMassMeshModel)->GgafDxMassMeshModel::draw(this, draw_set_num);
+    ((GgafDx::MassMeshModel*)_pMassMeshModel)->GgafDx::MassMeshModel::draw(this, draw_set_num);
 }
 
 DefaultMassMeshActor::~DefaultMassMeshActor() {

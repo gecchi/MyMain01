@@ -1,8 +1,8 @@
 #include "Shot001.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Scaler.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/manager/SplineSourceConnection.h"
 #include "jp/ggaf/lib/util/spline/FixedVelocitySplineKurokoLeader.h"
@@ -12,8 +12,8 @@
 #include "jp/gecchi/VioletVreath/manager/SplineSourceManagerEx.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -21,7 +21,7 @@ Shot001::Shot001(const char* prm_name) :
         DefaultMassMeshActor(prm_name, "Flora", STATUS(Shot001)) {
     _class_name = "Shot001";
 
-    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(0, "WAVE_EXPLOSION_002");
 
     pSplManufConn_ = connectToSplineManufactureManager("Shot001_spline");
@@ -39,7 +39,7 @@ void Shot001::initialize() {
 void Shot001::onActive() {
     getStatus()->reset();
     setHitAble(true);
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->linkFaceAngByMvAng(true);
     pKuroko->setMvVelo(RF_Shot001_MvVelo(G_RANK));    //移動速度
     pKuroko->setRollFaceAngVelo(RF_Shot001_AngVelo(G_RANK)); //きりもみ具合
@@ -50,7 +50,7 @@ void Shot001::onActive() {
 
 void Shot001::processBehavior() {
 //    _TRACE_(FUNC_NAME<<" before id=["<<getId()<<"]("<<getActiveFrame()<<") → = \t"<<getKuroko()->_rz_mv<<"\t"<<getKuroko()->_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     //座標に反映
     pKurokoLeader_->behave(); //スプライン移動を振る舞い
     pKuroko->behave();
@@ -64,8 +64,8 @@ void Shot001::processJudgement() {
     }
 }
 
-void Shot001::onHit(const GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+void Shot001::onHit(const GgafCore::Actor* prm_pOtherActor) {
+    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTransmitter()->play3D(0);

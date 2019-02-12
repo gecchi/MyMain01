@@ -1,14 +1,14 @@
 #include "TrialAndErrScene.h"
 
-#include "jp/ggaf/dxcore/util/GgafDxInput.h"
-#include "jp/ggaf/core/actor/GgafSceneMediator.h"
+#include "jp/ggaf/dx/util/Input.h"
+#include "jp/ggaf/core/actor/SceneMediator.h"
 #include "scene/HgrSpacetime/HgrWorld.h"
 #include "actor/Test01.h"
 #include "actor/Jiki.h"
 #include "HgrGod.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace Hogera;
 
@@ -26,8 +26,8 @@ TrialAndErrScene::TrialAndErrScene(const char* prm_name) : DefaultScene(prm_name
 }
 
 void TrialAndErrScene::initialize() {
-    GgafDxInput::updateMouseState();
-    GgafDxInput::updateMouseState(); //マウス座標の相対座標を0にするため２回呼び出す
+    GgafDx::Input::updateMouseState();
+    GgafDx::Input::updateMouseState(); //マウス座標の相対座標を0にするため２回呼び出す
 }
 
 void TrialAndErrScene::processBehavior() {
@@ -53,11 +53,11 @@ void TrialAndErrScene::processBehavior() {
 
 #ifdef MY_DEBUG
     //ワイヤフレーム表示切替
-    if (GgafDxInput::isPushedDownKey(DIK_Q)) {
-        if (GgafDxGod::_d3dfillmode == D3DFILL_WIREFRAME) {
-            GgafDxGod::_d3dfillmode = D3DFILL_SOLID;
+    if (GgafDx::Input::isPushedDownKey(DIK_Q)) {
+        if (GgafDx::God::_d3dfillmode == D3DFILL_WIREFRAME) {
+            GgafDx::God::_d3dfillmode = D3DFILL_SOLID;
         } else {
-            GgafDxGod::_d3dfillmode = D3DFILL_WIREFRAME;
+            GgafDx::God::_d3dfillmode = D3DFILL_WIREFRAME;
         }
     }
 #endif

@@ -1,11 +1,11 @@
 #include "EffectWormhole001.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Scaler.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -33,7 +33,7 @@ void EffectWormhole001::processBehavior() {
     if (getAlpha() < 1.0) {
         addAlpha(0.05);
     }
-    GgafDxScaler* pScaler = getScaler();
+    GgafDx::Scaler* pScaler = getScaler();
     if (!pScaler->isTransitioning()) {
         //k¬Š®—¹ŒãABeat
         pScaler->setRange(1000, 2000);

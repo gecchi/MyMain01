@@ -14,7 +14,7 @@ namespace VioletVreath {
  */
 class DanmakuAlice : public GgafLib::DefaultGeometricActor {
 
-    GgafCore::GgafActorDepository* pShotDepo_;
+    GgafCore::ActorDepository* pShotDepo_;
 
 public:
     DanmakuAlice(const char* prm_name, const char* prm_shot_model_id);
@@ -31,7 +31,7 @@ public:
 
     virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {}
 
-    virtual void onHit(const GgafCore::GgafActor* prm_pOtherActor) override {}
+    virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override {}
 
     virtual ~DanmakuAlice();
 

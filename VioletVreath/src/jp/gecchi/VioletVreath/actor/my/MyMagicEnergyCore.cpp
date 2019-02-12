@@ -1,17 +1,17 @@
 #include "MyMagicEnergyCore.h"
 
-#include "jp/ggaf/dxcore/actor/GgafDxFigureActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxTrucker.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-#include "jp/ggaf/dxcore/model/GgafDxModel.h"
+#include "jp/ggaf/dx/actor/FigureActor.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Trucker.h"
+#include "jp/ggaf/dx/actor/supporter/Scaler.h"
+#include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyMagicEnergy.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -25,7 +25,7 @@ MyMagicEnergyCore::MyMagicEnergyCore(const char* prm_name) :
 }
 
 void MyMagicEnergyCore::onCreateModel() {
-    GgafDxModel* pModel = getModel();
+    GgafDx::Model* pModel = getModel();
     pModel->setSpecular(5.0, 1.0);
 }
 
@@ -41,7 +41,7 @@ void MyMagicEnergyCore::onActive() {
                       pMYSHIP,
                       +PX_C(90), 0, 0,
                       PX_C(10), PX_C(1), PX_C(20));
-    getScaler()->beat(40, 5,32,3, -1); //ŒÛ“®‚Á‚Û‚¢‚à‚Ì
+    getScaler()->beat(40, 5, 32, 3, -1); //ŒÛ“®‚Á‚Û‚¢‚à‚Ì
 }
 
 void MyMagicEnergyCore::processBehavior() {

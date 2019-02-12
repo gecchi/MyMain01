@@ -4,10 +4,10 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Antiope/EnemyAntiopeP.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Antiope/EnemyAntiopeN.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -35,11 +35,11 @@ void FormationAntiope001::processBehavior() {
         if (getActiveFrame() % interval_frames_ == 0) {
             MyShip* pMyShip = pMYSHIP;
             coord renge = PX_C(1200);
-            GgafDxCore::GgafDxGeoElem entry_pos(RND(pMyShip->_x - (renge*0.5), pMyShip->_x + (renge*1.5)),
+            GgafDx::GeoElem entry_pos(RND(pMyShip->_x - (renge*0.5), pMyShip->_x + (renge*1.5)),
                                                 RND_ABOUT(pMyShip->_y, renge),
                                                 RND_ABOUT(pMyShip->_z, renge) );
 
-            GgafDxCore::GgafDxGeoElem twd_pos_p(RND_ABOUT(entry_pos.x, renge),
+            GgafDx::GeoElem twd_pos_p(RND_ABOUT(entry_pos.x, renge),
                                                 RND_ABOUT(entry_pos.y, renge),
                                                 RND_ABOUT(entry_pos.z, renge) );
 

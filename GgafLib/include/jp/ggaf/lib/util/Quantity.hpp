@@ -1,7 +1,7 @@
-#ifndef GGAFLIB_QUANTITY_HPP_
-#define GGAFLIB_QUANTITY_HPP_
+#ifndef GGAF_LIB_QUANTITY_HPP_
+#define GGAF_LIB_QUANTITY_HPP_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/core/GgafObject.h"
+#include "jp/ggaf/core/Object.h"
 
 namespace GgafLib {
 
@@ -14,7 +14,7 @@ namespace GgafLib {
  * @author Masatoshi Tsuge
  */
 template<typename VAL, typename QTY>
-class Quantity : public GgafCore::GgafObject {
+class Quantity : public GgafCore::Object {
 
 public:
 
@@ -36,7 +36,7 @@ public:
      * コンストラクタ .
      * @return
      */
-    Quantity() : GgafCore::GgafObject() {
+    Quantity() : GgafCore::Object() {
         _qty = (QTY)0;
         _rate_val = 1.0;
         _pVal = NEW VAL();
@@ -145,5 +145,5 @@ public:
 };
 
 }
-#endif /*GGAFLIB_QUANTITY_HPP_*/
+#endif /*GGAF_LIB_QUANTITY_HPP_*/
 

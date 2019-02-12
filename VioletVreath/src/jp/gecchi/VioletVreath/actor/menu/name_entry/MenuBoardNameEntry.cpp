@@ -1,6 +1,6 @@
 #include "MenuBoardNameEntry.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "CursorNameEntryMenu.h"
 #include "jp/ggaf/lib/util/WMKeyInput.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelFont16x32.h"
@@ -8,8 +8,8 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -194,7 +194,7 @@ void MenuBoardNameEntry::onActive() {
 void MenuBoardNameEntry::processBehavior() {
 #ifdef MY_DEBUG
     if (pLabelInputedName_ == nullptr || pLabelSelectedChar_ == nullptr) {
-        throwGgafCriticalException("事前に setNameFontBoard() してください。");
+        throwCriticalException("事前に setNameFontBoard() してください。");
     }
 #endif
     MenuBoard::processBehavior();
@@ -205,7 +205,7 @@ void MenuBoardNameEntry::processBehavior() {
     for (int i = 0; i < push_down_num; i++) {
         inputChar(push_down_char[i]);
     }
-    if (GgafDxInput::isPushedDownKey(DIK_BACKSPACE)) {
+    if (GgafDx::Input::isPushedDownKey(DIK_BACKSPACE)) {
         //[BS]で決定（振る舞い）の処理
         int len = pLabelInputedName_->_len;
         if (len > 0) {
@@ -264,7 +264,7 @@ void MenuBoardNameEntry::processBehavior() {
     }
 }
 
-void MenuBoardNameEntry::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
+void MenuBoardNameEntry::onDecision(GgafDx::FigureActor* prm_pItem, int prm_item_index) {
     if (_is_input_keyboard) {
         //キー入力中ならば確認サブメニュー起動
         selectItem(ITEM_INDEX_OK_);
@@ -316,7 +316,7 @@ void MenuBoardNameEntry::inputChar(const int prm_c) {
         }
     }
 }
-void MenuBoardNameEntry::onCancel(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
+void MenuBoardNameEntry::onCancel(GgafDx::FigureActor* prm_pItem, int prm_item_index) {
 //    if (prm_item_index == ITEM_BS) {
 //        //１文字除去
 //        std::string s = getDrawString();

@@ -1,8 +1,8 @@
 #include "EnemyThagoras.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -13,8 +13,8 @@
 #include "jp/gecchi/VioletVreath/actor/enemy/Thagoras/FormationThagoras.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -32,7 +32,7 @@ enum {
 EnemyThagoras::EnemyThagoras(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Thagoras", STATUS(EnemyThagoras)) {
     _class_name = "EnemyThagoras";
-    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);
     pKurokoLeader_ = nullptr; //フォーメーションオブジェクトが設定する
@@ -47,7 +47,7 @@ void EnemyThagoras::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->linkFaceAngByMvAng(true);
     pKuroko->setRollFaceAngVelo(2000);
     pKuroko->forceMvVeloRange(PX_C(15));
@@ -60,9 +60,9 @@ void EnemyThagoras::onActive() {
 }
 
 void EnemyThagoras::processBehavior() {
-    GgafDxAlphaFader* pAlphaFader = getAlphaFader();
+    GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
 
-    GgafProgress* const pProg = getProgress();
+    GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             setHitAble(false);
@@ -124,8 +124,8 @@ void EnemyThagoras::processJudgement() {
     }
 }
 
-void EnemyThagoras::onHit(const GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+void EnemyThagoras::onHit(const GgafCore::Actor* prm_pOtherActor) {
+    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTransmitter()->play3D(SE_EXPLOSION);

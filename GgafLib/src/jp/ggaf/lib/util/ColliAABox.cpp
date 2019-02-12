@@ -2,11 +2,11 @@
 
 #include "jp/ggaf/lib/util/StgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
-ColliAABox::ColliAABox() : GgafDxCollisionPart() {
+ColliAABox::ColliAABox() : GgafDx::CollisionPart() {
     _shape_kind = COLLI_AABOX;
     _pos_info = 0;
 }

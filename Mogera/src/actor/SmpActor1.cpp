@@ -1,13 +1,13 @@
 #include "actor/SmpActor1.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoFaceAngAssistant.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKurokoMvAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/KurokoFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/KurokoMvAngAssistant.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "MgrGod.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace Mogera;
 
@@ -27,7 +27,7 @@ void SmpActor1::initialize() {
 
 void SmpActor1::processBehavior() {
     VirtualButton* pVb = P_GOD->getSpacetime()->pVb_;
-    if (GgafDxInput::isPressedKey(DIK_Z)) {
+    if (GgafDx::Input::isPressedKey(DIK_Z)) {
         _x += PX_C(2); //‰E
     }
     if (pVb->isPressed(VB_BUTTON1)) {
@@ -56,7 +56,7 @@ void SmpActor1::processBehavior() {
     getKuroko()->behave(); //•ˆß‚ğŠˆ“®‚³‚¹‚éiZ²‰ñ“]‚·‚éj
 }
 
-void SmpActor1::onHit(const GgafActor* prm_pOtherActor) {
+void SmpActor1::onHit(const GgafCore::Actor* prm_pOtherActor) {
     _TRACE_("SmpActor1::onHit!!!! ‘Šè"<<prm_pOtherActor->getName()<<"");
 }
 

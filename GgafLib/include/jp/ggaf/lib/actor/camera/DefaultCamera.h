@@ -1,7 +1,7 @@
-#ifndef GGAFLIB_DEFAULTCAMERA_H_
-#define GGAFLIB_DEFAULTCAMERA_H_
+#ifndef GGAF_LIB_DEFAULTCAMERA_H_
+#define GGAF_LIB_DEFAULTCAMERA_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/dxcore/actor/camera/GgafDxCamera.h"
+#include "jp/ggaf/dx/actor/camera/Camera.h"
 
 namespace GgafLib {
 
@@ -11,7 +11,7 @@ namespace GgafLib {
  * @since 2010/10/22
  * @author Masatoshi Tsuge
  */
-class DefaultCamera : public GgafDxCore::GgafDxCamera {
+class DefaultCamera : public GgafDx::Camera {
 
 public:
     coord tx_, ty_, tz_;
@@ -39,12 +39,12 @@ public:
     virtual void processFinal() override {
     }
 
-    virtual void onHit(const GgafCore::GgafActor* prm_pOtherActor) override {
+    virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override {
     }
 
-    virtual GgafDxCore::GgafDxCameraViewPoint* createCameraViewPoint() override;
+    virtual GgafDx::CameraViewPoint* createCameraViewPoint() override;
 
-    virtual GgafDxCore::GgafDxCameraUpVector* createCameraUpVector() override;
+    virtual GgafDx::CameraUpVector* createCameraUpVector() override;
     virtual void initialize() override;
 
     virtual void processBehavior() override;
@@ -71,8 +71,8 @@ public:
      * @param pTarget
      * @param t èäóvÉtÉåÅ[ÉÄ
      */
-    void slideMvTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t, float prm_p1, float prm_p2);
-    void slideMvTo(GgafDxCore::GgafDxGeometricActor* pTarget, frame t,
+    void slideMvTo(GgafDx::GeometricActor* pTarget, frame t, float prm_p1, float prm_p2);
+    void slideMvTo(GgafDx::GeometricActor* pTarget, frame t,
             float prm_x_p1, float prm_y_p1, float prm_z_p1);
 
     bool isSliding();
@@ -81,4 +81,4 @@ public:
 };
 
 }
-#endif /*GGAFLIB_DEFAULTCAMERA_H_*/
+#endif /*GGAF_LIB_DEFAULTCAMERA_H_*/

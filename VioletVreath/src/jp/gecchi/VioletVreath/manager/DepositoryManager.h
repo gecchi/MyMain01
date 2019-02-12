@@ -1,9 +1,9 @@
 #ifndef DEPOSITORYMANAGER_H_
 #define DEPOSITORYMANAGER_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/core/util/GgafResourceManager.hpp"
+#include "jp/ggaf/core/util/ResourceManager.hpp"
 
-#include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
+#include "jp/ggaf/core/actor/ex/ActorDepository.h"
 
 namespace VioletVreath {
 
@@ -14,7 +14,7 @@ namespace VioletVreath {
  * @since 2008/09/08
  * @author Masatoshi Tsuge
  */
-class DepositoryManager : public GgafCore::GgafResourceManager<GgafCore::GgafActorDepository> {
+class DepositoryManager : public GgafCore::ResourceManager<GgafCore::ActorDepository> {
 
 public:
     /**
@@ -23,9 +23,9 @@ public:
      */
     DepositoryManager(const char* prm_manager_name);
 
-    GgafCore::GgafActorDepository* processCreateResource(const char* prm_idstr, void* prm_pConnector) override;
+    GgafCore::ActorDepository* processCreateResource(const char* prm_idstr, void* prm_pConnector) override;
 
-    GgafCore::GgafResourceConnection<GgafCore::GgafActorDepository>* processCreateConnection(const char* prm_idstr, GgafCore::GgafActorDepository* prm_pResource) override;
+    GgafCore::ResourceConnection<GgafCore::ActorDepository>* processCreateConnection(const char* prm_idstr, GgafCore::ActorDepository* prm_pResource) override;
 
     virtual ~DepositoryManager() {
     }

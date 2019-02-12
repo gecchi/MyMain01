@@ -1,13 +1,13 @@
 #include "HgrWorld.h"
 
-#include "jp/ggaf/core/util/GgafLinearQuadtree.h"
-#include "jp/ggaf/dxcore/util/GgafDxInput.h"
+#include "jp/ggaf/core/util/LinearQuadtree.h"
+#include "jp/ggaf/dx/util/Input.h"
 #include "scene/HgrSpacetime/HgrWorld/TrialAndErrScene.h"
 #include "scene/HgrSpacetime.h"
 #include "HgrGod.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace Hogera;
 
@@ -34,7 +34,7 @@ void HgrWorld::processBehavior() {
 
 void HgrWorld::processJudgement() {
     //当たり判定チェック
-    if (GgafDxInput::isPushedDownKey(DIK_I)) {
+    if (GgafDx::Input::isPushedDownKey(DIK_I)) {
         _TRACE_("----------------------------------");
         P_GOD->getSpacetime()->getLinearQuadtree()->putTree();
         _TRACE_("----------------------------------");

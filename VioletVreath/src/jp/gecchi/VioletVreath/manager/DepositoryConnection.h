@@ -1,9 +1,9 @@
 #ifndef DEPOSITORYCONNECTION_H_
 #define DEPOSITORYCONNECTION_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/core/util/GgafResourceConnection.hpp"
+#include "jp/ggaf/core/util/ResourceConnection.hpp"
 
-#include "jp/ggaf/core/actor/ex/GgafActorDepository.h"
+#include "jp/ggaf/core/actor/ex/ActorDepository.h"
 
 namespace VioletVreath {
 
@@ -13,7 +13,7 @@ namespace VioletVreath {
  * @since 2009/01/30
  * @author Masatoshi Tsuge
  */
-class DepositoryConnection : public GgafCore::GgafResourceConnection<GgafCore::GgafActorDepository> {
+class DepositoryConnection : public GgafCore::ResourceConnection<GgafCore::ActorDepository> {
 
 public:
     /**
@@ -21,9 +21,9 @@ public:
      * @param prm_idstr 識別名
      * @param prm_pDepo デポジトリ
      */
-    DepositoryConnection(const char* prm_idstr, GgafCore::GgafActorDepository* prm_pDepo);
+    DepositoryConnection(const char* prm_idstr, GgafCore::ActorDepository* prm_pDepo);
 
-    void processReleaseResource(GgafCore::GgafActorDepository* prm_pResource);
+    void processReleaseResource(GgafCore::ActorDepository* prm_pResource);
 
     virtual ~DepositoryConnection() {
     }

@@ -1,16 +1,16 @@
 #include "jp/ggaf/lib/util/spline/SteppedCoordSplineKurokoLeader.h"
 
-#include "jp/ggaf/dxcore/exception/GgafDxCriticalException.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dx/exception/CriticalException.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/spline/SplineSource.h"
 #include "jp/ggaf/lib/util/spline/SteppedCoordSplineManufacture.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
-SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDxKuroko* prm_pKuroko_target) :
+SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDx::Kuroko* prm_pKuroko_target) :
         SplineLeader(prm_pManufacture, prm_pKuroko_target->_pActor) {
     _pKuroko_target = prm_pKuroko_target;
     _pSteppedSplManuf = (SteppedCoordSplineManufacture*)prm_pManufacture;
@@ -35,7 +35,7 @@ void SteppedCoordSplineKurokoLeader::restart() {
 
 void SteppedCoordSplineKurokoLeader::behave() {
     if (_is_leading) {
-        GgafDxKuroko* const pKuroko_target = _pActor_target->getKuroko();
+        GgafDx::Kuroko* const pKuroko_target = _pActor_target->getKuroko();
         _point_index++;
         if (_point_index == _pSteppedSplManuf->_pSpl->_rnum) {
             if (_cnt_loop == _max_loop) {

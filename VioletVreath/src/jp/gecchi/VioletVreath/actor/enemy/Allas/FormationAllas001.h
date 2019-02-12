@@ -37,7 +37,7 @@ public:
 
     virtual void processBehavior() override;
 
-    virtual void onDestroyAll(GgafCore::GgafActor* prm_pActor_last_destroyed) override;
+    virtual void onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) override;
 
     virtual void onCallUpAllas(EnemyAllas* prm_pAllas) = 0;
 

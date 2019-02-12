@@ -1,11 +1,11 @@
 #include "HgrSpacetime.h"
 
 #include "scene/HgrSpacetime/HgrWorld.h"
-#include "jp/ggaf/lib/GgafLibConfig.h"
+#include "jp/ggaf/lib/LibConfig.h"
 #include "util/HgrUtil.h"
 #include "HgrGod.h"
-#include "jp/ggaf/core/scene/GgafScene.h"
-#include "jp/ggaf/core/actor/GgafSceneMediator.h"
+#include "jp/ggaf/core/scene/Scene.h"
+#include "jp/ggaf/core/actor/SceneMediator.h"
 using namespace Hogera;
 
 #define PRIMARY_VIEW 0

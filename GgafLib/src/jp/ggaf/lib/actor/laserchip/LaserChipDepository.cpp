@@ -1,11 +1,11 @@
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
-LaserChipDepository::LaserChipDepository(const char* prm_name, GgafStatus* prm_pStat) :
-        GgafActorDepository(prm_name, prm_pStat) {
+LaserChipDepository::LaserChipDepository(const char* prm_name, GgafCore::Status* prm_pStat) :
+        GgafCore::ActorDepository(prm_name, prm_pStat) {
     _class_name = "LaserChipDepository";
     _num_continual_dispatch_count = 0;
     _num_chip_active = 0;
@@ -23,7 +23,7 @@ LaserChipDepository::LaserChipDepository(const char* prm_name, GgafStatus* prm_p
 
 void LaserChipDepository::config(int prm_num_continual_dispatch_max,
                                  uint32_t prm_num_chip_interval,
-                                 GgafDxCore::GgafDxFigureActor* prm_pEffectActor) {
+                                 GgafDx::FigureActor* prm_pEffectActor) {
     _num_continual_dispatch_max = prm_num_continual_dispatch_max;
     _num_chip_interval = prm_num_chip_interval;
     _pEffectActor = prm_pEffectActor;
@@ -52,7 +52,7 @@ LaserChip* LaserChipDepository::dispatch(int prm_offset_frames) {
         _num_interval_frame_count++;
         return nullptr;
     } else {
-        LaserChip* const pChip = (LaserChip*)GgafActorDepository::dispatch(prm_offset_frames);
+        LaserChip* const pChip = (LaserChip*)GgafCore::ActorDepository::dispatch(prm_offset_frames);
         if (pChip) {
             if (_pChip_prev_dispatch) {
                 //以前のdispatch()したチップ
@@ -114,10 +114,10 @@ void LaserChipDepository::processFinal() {
         }
     }
 }
-void LaserChipDepository::put(GgafActor* prm_pChild) {
+void LaserChipDepository::put(GgafCore::Actor* prm_pChild) {
 #ifdef MY_DEBUG
     if (!prm_pChild->instanceOf(Obj_LaserChip)) {
-        throwGgafCriticalException("LaserChipDepository::put() 引数には LaserChip を渡してください。prm_pChild="<<prm_pChild->getName()<<"("<<prm_pChild<<")");
+        throwCriticalException("LaserChipDepository::put() 引数には LaserChip を渡してください。prm_pChild="<<prm_pChild->getName()<<"("<<prm_pChild<<")");
     }
 #endif
     LaserChip* pLaserChip = (LaserChip*)prm_pChild;
@@ -125,7 +125,7 @@ void LaserChipDepository::put(GgafActor* prm_pChild) {
     _num_continual_dispatch_max++;
     _num_chip_dispatch_able = _num_chip_max/4; //弾切れの時 _num_chip_max/4 溜まってから発射
     pLaserChip->_pDepo = this;
-    GgafActorDepository::put(pLaserChip);
+    GgafCore::ActorDepository::put(pLaserChip);
 }
 
 void LaserChipDepository::onReset() {
@@ -133,7 +133,7 @@ void LaserChipDepository::onReset() {
     _num_continual_dispatch_count = 0;
     _num_chip_active = 0;
     _frame_of_behaving_prev_dispatch = 0;
-    GgafActorDepository::onReset();
+    GgafCore::ActorDepository::onReset();
 }
 
 LaserChipDepository::~LaserChipDepository() {

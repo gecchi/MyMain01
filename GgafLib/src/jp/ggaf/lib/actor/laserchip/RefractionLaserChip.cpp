@@ -1,13 +1,13 @@
 #include "jp/ggaf/lib/actor/laserchip/RefractionLaserChip.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
-RefractionLaserChip::RefractionLaserChip(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
+RefractionLaserChip::RefractionLaserChip(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat) :
         LaserChip(prm_name, prm_model, prm_pStat) {
     _class_name = "RefractionLaserChip";
     _is_leader = false;
@@ -51,13 +51,13 @@ void RefractionLaserChip::config(int prm_num_refraction,
                                  frame prm_frame_between_refraction,
                                  frame prm_frame_standstill_refraction,
                                  bool prm_is_fix_begin_pos,
-                                 GgafActorDepository* prm_pDepo_refraction_effect) {
+                                 GgafCore::ActorDepository* prm_pDepo_refraction_effect) {
 #ifdef MY_DEBUG
     if (prm_frame_between_refraction == 0) {
-        throwGgafCriticalException("直進間隔フレーム数が0は設定不可です。name="<<getName());
+        throwCriticalException("直進間隔フレーム数が0は設定不可です。name="<<getName());
     }
     if (prm_frame_standstill_refraction == 0) {
-        throwGgafCriticalException("屈折溜フレーム数が0は設定不可です。name="<<getName());
+        throwCriticalException("屈折溜フレーム数が0は設定不可です。name="<<getName());
     }
 #endif
     _num_refraction = prm_num_refraction;
@@ -73,7 +73,7 @@ void RefractionLaserChip::onActive() {
     //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
     //その際 は、本クラスの onActive() メソッドも呼び出してください。
     LaserChip::onActive();
-    GgafDxKuroko* pKuroko = getKuroko();
+    GgafDx::Kuroko* pKuroko = getKuroko();
     RefractionLaserChip* pChip_infront =  (RefractionLaserChip*)_pChip_infront;
     //レーザーチップ出現時処理
     if (pChip_infront == nullptr) {
@@ -137,8 +137,8 @@ void RefractionLaserChip::onInactive() {
     //RefractionLaser はそこに溜まり込んでしまう。これは回避すること。
     if (_pChip_behind) {
         RefractionLaserChip* const pChip_behind = (RefractionLaserChip*)_pChip_behind;
-        GgafDxKuroko* const pChip_behind_pKuroko = pChip_behind->getKuroko();
-        GgafDxKuroko* const pKuroko = getKuroko();
+        GgafDx::Kuroko* const pChip_behind_pKuroko = pChip_behind->getKuroko();
+        GgafDx::Kuroko* const pKuroko = getKuroko();
         pChip_behind->_rx = _rx;
         pChip_behind->_ry = _ry;
         pChip_behind->_rz = _rz;
@@ -177,10 +177,10 @@ void RefractionLaserChip::processBehavior() {
     //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
     //その際 は、本クラスの processBehavior() メソッドも呼び出してください。
     //座標に反映
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     RefractionLaserChip* pChip_infront =  (RefractionLaserChip*)_pChip_infront;
     if (getActiveFrame() > 1) { //１フレーム目は、設定座標で表示させるため。移動させない
-        //GgafActorDepository::dispatch() は
+        //ActorDepository::dispatch() は
         //取得できる場合、ポインタを返すと共に、そのアクターはアクター発送者の子の一番後ろに移動される。
         //したがって、レーザーの先頭から順番にprocessBehavior() が呼ばれるため、以下のようにすると
         //数珠繋ぎになる。
@@ -208,7 +208,7 @@ void RefractionLaserChip::processBehavior() {
                         _is_refracting = true;
 
                         if (_pDepo_refraction_effect) {
-                            _pRefractionEffect = (GgafDxFigureActor*)_pDepo_refraction_effect->dispatch();
+                            _pRefractionEffect = (GgafDx::FigureActor*)_pDepo_refraction_effect->dispatch();
                             if (_pRefractionEffect) {
                                 _pRefractionEffect->setPositionAt(this);
                                 //最長時間の解除予約。
@@ -275,7 +275,7 @@ void RefractionLaserChip::processBehavior() {
 
 void RefractionLaserChip::processSettlementBehavior() {
     if (_was_paused_flg) {
-        GgafDxGeometricActor::processSettlementBehavior();
+        GgafDx::GeometricActor::processSettlementBehavior();
     } else {
         LaserChip::processSettlementBehavior();
     }

@@ -1,8 +1,8 @@
 #include "EnemyErelmanCore.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -12,11 +12,11 @@
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Erelman/FormationErelman001.h"
 #include "EnemyErelmanController.h"
-#include "jp/ggaf/dxcore/util/GgafDxInput.h"
+#include "jp/ggaf/dx/util/Input.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -39,7 +39,7 @@ EnemyErelmanCore::EnemyErelmanCore(const char* prm_name, EnemyErelmanController*
     _class_name = "EnemyErelmanCore";
     pController_ = prm_pController;
 
-    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     pSeTx->set(SE_UNDAMAGED, "WAVE_ENEMY_UNDAMAGED_001");
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_002");
@@ -57,7 +57,7 @@ void EnemyErelmanCore::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->linkFaceAngByMvAng(true);
     pKuroko->forceMvVeloRange(PX_C(15));
 }
@@ -68,10 +68,10 @@ void EnemyErelmanCore::onActive() {
 }
 
 void EnemyErelmanCore::processBehavior() {
-    GgafDxKuroko* const pKuroko = getKuroko();
-    GgafDxAlphaFader* pAlphaFader = getAlphaFader();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
 
-    GgafProgress* const pProg = getProgress();
+    GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             setHitAble(false);
@@ -132,8 +132,8 @@ void EnemyErelmanCore::processJudgement() {
     }
 }
 
-void EnemyErelmanCore::onHit(const GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+void EnemyErelmanCore::onHit(const GgafCore::Actor* prm_pOtherActor) {
+    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     pController_->onCoreHit();
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)

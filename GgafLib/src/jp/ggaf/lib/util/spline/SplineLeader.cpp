@@ -1,16 +1,16 @@
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/spline/SplineManufacture.h"
 #include "jp/ggaf/lib/util/spline/SplineSource.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
-SplineLeader::SplineLeader(SplineManufacture* prm_pManufacture, GgafDxGeometricActor* prm_pActor_target) :
-        GgafObject() {
+SplineLeader::SplineLeader(SplineManufacture* prm_pManufacture, GgafDx::GeometricActor* prm_pActor_target) :
+        GgafCore::Object() {
     _pManufacture = prm_pManufacture;
     if (!_pManufacture->_is_calculated) {
         _pManufacture->calculate();
@@ -47,7 +47,7 @@ SplineLeader::SplineLeader(SplineManufacture* prm_pManufacture, GgafDxGeometricA
 void SplineLeader::getPointCoord(int prm_point_index, coord& out_x, coord& out_y, coord& out_z) {
 #ifdef MY_DEBUG
     if (prm_point_index >= _pManufacture->_pSpl->_rnum) {
-        throwGgafCriticalException("ポイントのインデックスオーバー。"
+        throwCriticalException("ポイントのインデックスオーバー。"
                                    "補完点数="<<(_pManufacture->_pSpl->_rnum)<<" prm_point_index="<<prm_point_index);
     }
 #endif
@@ -184,7 +184,7 @@ void SplineLeader::restart() {
 //            } else {
 //                //setLoopAngleByMvAng() 設定済みの場合
 //                //１週目はアクターの移動方向が開始移動方向
-//                GgafDxKuroko* pActorKuroko = _pActor_target->getKuroko();
+//                GgafDx::Kuroko* pActorKuroko = _pActor_target->getKuroko();
 //                angle rx_mv_start = D0ANG;
 //                angle rz_mv_start = pActorKuroko->_rz_mv;
 //                angle ry_mv_start = pActorKuroko->_ry_mv;
@@ -255,7 +255,7 @@ void SplineLeader::start(SplinTraceOption prm_option, int prm_max_loop) {
         _cnt_loop = 1;
         restart();
     } else {
-        throwGgafCriticalException("Manufactureがありません。_pActor_target="<<_pActor_target->getName());
+        throwCriticalException("Manufactureがありません。_pActor_target="<<_pActor_target->getName());
     }
 }
 
@@ -270,7 +270,7 @@ void SplineLeader::setAbsoluteBeginCoord() {
 coord SplineLeader::getSegmentDistance(int prm_index) {
 #ifdef MY_DEBUG
     if (prm_index < 0 || prm_index > (_pManufacture->_pSpl->_rnum -1)) {
-        throwGgafCriticalException("prm_index="<<prm_index<<" は、範囲外です._pActor_target="<< _pActor_target <<"["<< _pActor_target->getName() <<"]");
+        throwCriticalException("prm_index="<<prm_index<<" は、範囲外です._pActor_target="<< _pActor_target <<"["<< _pActor_target->getName() <<"]");
     }
 #endif
     if (prm_index == 0) {

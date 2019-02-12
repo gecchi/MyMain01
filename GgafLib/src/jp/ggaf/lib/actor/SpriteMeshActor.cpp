@@ -3,12 +3,12 @@
 #include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
-SpriteMeshActor::SpriteMeshActor(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
-    GgafDxSpriteMeshActor(prm_name,
+SpriteMeshActor::SpriteMeshActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat) :
+    GgafDx::SpriteMeshActor(prm_name,
                           prm_model,
                           prm_pStat,
                           UTIL::createChecker(this) ) {

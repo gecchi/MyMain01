@@ -1,11 +1,11 @@
 #include "EnemyTamago01.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxSeTransmitterForActor.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
-#include "jp/ggaf/dxcore/model/GgafDxModel.h"
-#include "jp/ggaf/dxcore/model/supporter/GgafDxTextureBlinker.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Scaler.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
+#include "jp/ggaf/dx/model/Model.h"
+#include "jp/ggaf/dx/model/supporter/TextureBlinker.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion001.h"
@@ -15,8 +15,8 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -32,12 +32,12 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) :
     pConn_depo_ = connectToDepositoryManager("Shot001");
     //pDepo_shot_ = pConn_depo_->peek();
     pDepo_shot_ = nullptr;
-    GgafDxSeTransmitterForActor* pSeTx = getSeTransmitter();
+    GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(0, "WAVE_EXPLOSION_001");
 }
 
 void EnemyTamago01::onCreateModel() {
-    GgafDxModel* pModel = getModel();
+    GgafDx::Model* pModel = getModel();
     pModel->setBlinkPower(0.1, 0.9);
     pModel->getTexBlinker()->setRange(0.1, 1.0);
     pModel->getTexBlinker()->beat(120, 60, 0, 60, -1);
@@ -45,7 +45,7 @@ void EnemyTamago01::onCreateModel() {
 
 void EnemyTamago01::initialize() {
     setHitAble(true);
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->linkFaceAngByMvAng(true);
     pKuroko->setRollFaceAngVelo(1000);
     pKuroko->setMvAngTwd(900000, 300000, 300000);
@@ -89,37 +89,37 @@ void EnemyTamago01::onActive() {
 
 void EnemyTamago01::processBehavior() {
 
-//    if (GgafDxInput::isPressedKey(DIK_Q)) {
+//    if (GgafDx::Input::isPressedKey(DIK_Q)) {
 //        addScale(500);
 //    }
-//    if (GgafDxInput::isPressedKey(DIK_W)) {
+//    if (GgafDx::Input::isPressedKey(DIK_W)) {
 //        addScale(-500);
 //    }
-//    if (GgafDxInput::isPressedKey(DIK_1)) {
+//    if (GgafDx::Input::isPressedKey(DIK_1)) {
 //        pModel->getTexBlinker()->->addScale(2000);
 //    }
-//    if (GgafDxInput::isPressedKey(DIK_2)) {
+//    if (GgafDx::Input::isPressedKey(DIK_2)) {
 //        pModel->getTexBlinker()->->addScale(-2000);
 //    }
-//    if (GgafDxInput::isPressedKey(DIK_3)) {
+//    if (GgafDx::Input::isPressedKey(DIK_3)) {
 //        pModel->getTexBlinker()->->transitionAcceUntil(3000, 0, 3);
 //    }
-//    if (GgafDxInput::isPressedKey(DIK_4)) {
+//    if (GgafDx::Input::isPressedKey(DIK_4)) {
 //        pModel->getTexBlinker()->->transitionLinearLoop(20, -1);
 //    }
-//    if (GgafDxInput::isPressedKey(DIK_5)) {
+//    if (GgafDx::Input::isPressedKey(DIK_5)) {
 //        pModel->getTexBlinker()->->transitionLinearLoop(10, 5);
 //    }
-//    if (GgafDxInput::isPressedKey(DIK_6)) {
+//    if (GgafDx::Input::isPressedKey(DIK_6)) {
 //        pModel->getTexBlinker()->->beat(20, 2 ,5, -1);
 //    }
-//    if (GgafDxInput::isPressedKey(DIK_7)) {
+//    if (GgafDx::Input::isPressedKey(DIK_7)) {
 //        pModel->getTexBlinker()->->stopImmed();
 //    }
-//    if (GgafDxInput::isPressedKey(DIK_0)) {
+//    if (GgafDx::Input::isPressedKey(DIK_0)) {
 //        pModel->getTexBlinker()->->setScaleToBottom();
 //    }
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
 
     if (iMovePatternNo_ == 0) {
         //スプライン移動中
@@ -157,9 +157,9 @@ void EnemyTamago01::processBehavior() {
             angle target_RyRz_Ry, target_RyRz_Rz;
             UTIL::convRzRyToRyRz(target_RzRy_Rz, target_RzRy_Ry, target_RyRz_Ry, target_RyRz_Rz);
             UTIL::getWayAngle2D(target_RyRz_Ry, way, 10000, paAng_way);
-            GgafDxFigureActor* pActor;
+            GgafDx::FigureActor* pActor;
             for (int i = 0; i < way; i++) {
-                pActor = (GgafDxFigureActor*)pDepo_shot_->dispatch();
+                pActor = (GgafDx::FigureActor*)pDepo_shot_->dispatch();
                 if (pActor) {
                     pActor->getKuroko()->linkFaceAngByMvAng(true);
                     pActor->getKuroko()->setRzRyMvAng_by_RyRz(paAng_way[i], target_RyRz_Rz);
@@ -169,7 +169,7 @@ void EnemyTamago01::processBehavior() {
             GGAF_DELETEARR(paAng_way);
             //ショット発射エフェクト
             if (pDepo_effect_) {
-                pActor = (GgafDxFigureActor*)pDepo_shot_->dispatch();
+                pActor = (GgafDx::FigureActor*)pDepo_shot_->dispatch();
                 if (pActor) {
                     pActor->setPositionAt(this);
                 }
@@ -192,8 +192,8 @@ void EnemyTamago01::processJudgement() {
     }
 }
 
-void EnemyTamago01::onHit(const GgafActor* prm_pOtherActor) {
-    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDxGeometricActor*)prm_pOtherActor);
+void EnemyTamago01::onHit(const GgafCore::Actor* prm_pOtherActor) {
+    bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
         getSeTransmitter()->play3D(0);

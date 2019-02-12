@@ -3,8 +3,8 @@
 #include "FormationOebius002.h"
 #include "EnemyOebiusCore.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 

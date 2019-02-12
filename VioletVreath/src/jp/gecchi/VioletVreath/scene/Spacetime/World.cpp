@@ -1,9 +1,9 @@
 #include "World.h"
 
 #include <stdio.h>
-#include "jp/ggaf/core/actor/GgafSceneMediator.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
-#include "jp/ggaf/dxcore/sound/GgafDxSound.h"
+#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
+#include "jp/ggaf/dx/sound/Sound.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
@@ -13,8 +13,8 @@
 #include "World/GameScene.h"
 #include "Version.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -211,7 +211,7 @@ void World::initialize() {
 void World::processBehavior() {
 
 #ifdef MY_DEBUG
-    if (GgafDxCore::GgafDxInput::isPushedDownKey(DIK_T)) {
+    if (GgafDx::Input::isPushedDownKey(DIK_T)) {
         _TRACE_("-------------------- World dump() start --------------------------------");
         dump();
         _TRACE_("-------------------- World dump() end   --------------------------------");
@@ -287,12 +287,12 @@ void World::processBehavior() {
             VB->update(); //入力情報更新
 
             //1キーが音量下げ
-            if (GgafDxInput::isPressedKey(DIK_1)) {
-                GgafDxSound::addAppMasterVolume(-10);
+            if (GgafDx::Input::isPressedKey(DIK_1)) {
+                GgafDx::Sound::addAppMasterVolume(-10);
             }
             //2キーが音量上げ
-            if (GgafDxInput::isPressedKey(DIK_2)) {
-                GgafDxSound::addAppMasterVolume(10);
+            if (GgafDx::Input::isPressedKey(DIK_2)) {
+                GgafDx::Sound::addAppMasterVolume(10);
             }
 
             break;
@@ -301,7 +301,7 @@ void World::processBehavior() {
     if (CONFIG::FULL_SCREEN) {
         //しばらくカーソルを動かさなければ消す。
         long mdx, mdy, mdz;
-        GgafDxInput::getMousePointer_REL(&mdx, &mdy, &mdz);
+        GgafDx::Input::getMousePointer_REL(&mdx, &mdy, &mdz);
         if (mdx == 0 && mdy == 0 && mdz == 0) {
             hide_cursor_cnt_++;
             if (hide_cursor_cnt_ == 3*60) {
@@ -318,13 +318,13 @@ void World::processBehavior() {
 #ifdef MY_DEBUG
     sprintf(aBufDebug_, "%07uF, %06u/%06uACT, %06uDRAW, %06uCHK, %03.1fFPS(SLOW%d), V%03d",
                             askGod()->_frame_of_God,
-                            GgafGod::_num_active_actor,
-                            GgafActor::_num_actors,
-                            GgafGod::_num_drawing,
+                            GgafCore::God::_num_active_actor,
+                            GgafCore::Actor::_num_actors,
+                            GgafCore::God::_num_drawing,
                             CollisionChecker::_num_check,
                             askGod()->_fps,
                             askGod()->_slowdown_mode,
-                            (GgafDxSound::getAppMasterVolume())
+                            (GgafDx::Sound::getAppMasterVolume())
                             );
     pLabel_debug_->update(aBufDebug_);
     if (getActiveFrame() % 60U == 0) {

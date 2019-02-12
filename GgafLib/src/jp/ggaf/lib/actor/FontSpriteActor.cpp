@@ -1,19 +1,19 @@
 #include "jp/ggaf/lib/actor/FontSpriteActor.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
-#include "jp/ggaf/dxcore/effect/GgafDxMassSpriteEffect.h"
-#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
+#include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
+#include "jp/ggaf/dx/effect/MassSpriteEffect.h"
+#include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
 FontSpriteActor::VERTEX_instancedata FontSpriteActor::_aInstancedata[GGAFDXMASS_MAX_INSTANCE_NUM];
 
-FontSpriteActor::FontSpriteActor(const char* prm_name, const char* prm_model_id, GgafStatus* prm_pStat) :
-            GgafDxMassSpriteActor(prm_name,
+FontSpriteActor::FontSpriteActor(const char* prm_name, const char* prm_model_id, GgafCore::Status* prm_pStat) :
+            GgafDx::MassSpriteActor(prm_name,
                                   prm_model_id,
                                   "FontSpriteEffect",
                                   "FontSpriteTechnique",
@@ -29,7 +29,7 @@ FontSpriteActor::FontSpriteActor(const char* prm_name, const char* prm_model_id,
 }
 
 
-void FontSpriteActor::setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign) {
+void FontSpriteActor::setAlign(Align prm_align, Valign prm_valign) {
     if (_align != prm_align || _valign != prm_valign) {
         _align = prm_align;
         _valign = prm_valign;
@@ -37,14 +37,14 @@ void FontSpriteActor::setAlign(GgafDxAlign prm_align, GgafDxValign prm_valign) {
     }
 }
 
-void FontSpriteActor::setAlign(GgafDxAlign prm_align) {
+void FontSpriteActor::setAlign(Align prm_align) {
     if (_align != prm_align) {
         _align = prm_align;
         prepare2();
     }
 }
 
-void FontSpriteActor::setValign(GgafDxValign prm_valign) {
+void FontSpriteActor::setValign(Valign prm_valign) {
     if (_valign != prm_valign) {
         _valign = prm_valign;
         prepare2();
@@ -52,7 +52,7 @@ void FontSpriteActor::setValign(GgafDxValign prm_valign) {
 }
 
 
-void FontSpriteActor::createVertexInstanceData(void* prm, GgafDxMassModel::VertexInstanceDataInfo* out_info) {
+void FontSpriteActor::createVertexInstanceData(void* prm, GgafDx::MassModel::VertexInstanceDataInfo* out_info) {
     int element_num = 7;
     out_info->paElement = NEW D3DVERTEXELEMENT9[element_num];
     // Stream = 1 ---->
@@ -122,11 +122,11 @@ void FontSpriteActor::createVertexInstanceData(void* prm, GgafDxMassModel::Verte
 }
 
 void FontSpriteActor::processDraw() {
-    int draw_set_num = 0; //GgafDxMassSpriteActorの同じモデルで同じテクニックが
+    int draw_set_num = 0; //MassSpriteActorの同じモデルで同じテクニックが
                        //連続しているカウント数。同一描画深度は一度に描画する。
     static const size_t size_of_D3DXMATRIX = sizeof(D3DXMATRIX);
     static const size_t size_of_D3DCOLORVALUE = sizeof(D3DCOLORVALUE);
-    GgafDxFigureActor* pDrawActor = this;
+    GgafDx::FigureActor* pDrawActor = this;
     FontSpriteActor* pFontSpriteActor = nullptr;
     int model_set_num = _pMassSpriteModel->_set_num;
     float u,v;
@@ -136,7 +136,7 @@ void FontSpriteActor::processDraw() {
             pFontSpriteActor = (FontSpriteActor*)pDrawActor;
             int n = pFontSpriteActor->_draw_chr_num;
             InstancePart* pInstancePart = pFontSpriteActor->_paInstancePart;
-            GgafDxSpacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
+            GgafDx::Spacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
 
             for (int i = 0; i < n; i++) {
                 memcpy(paInstancedata, &(pFontSpriteActor->_matWorld), size_of_D3DXMATRIX);
@@ -151,7 +151,7 @@ void FontSpriteActor::processDraw() {
 
                 draw_set_num++;
                 if (draw_set_num >= model_set_num) {
-                   _pMassSpriteModel->GgafDxMassSpriteModel::draw(this, draw_set_num);
+                   _pMassSpriteModel->GgafDx::MassSpriteModel::draw(this, draw_set_num);
                    paInstancedata = FontSpriteActor::_aInstancedata;
                    draw_set_num = 0;
                 }
@@ -162,7 +162,7 @@ void FontSpriteActor::processDraw() {
         }
     }
     if (draw_set_num > 0) {
-        _pMassSpriteModel->GgafDxMassSpriteModel::draw(this, draw_set_num);
+        _pMassSpriteModel->GgafDx::MassSpriteModel::draw(this, draw_set_num);
     }
 }
 

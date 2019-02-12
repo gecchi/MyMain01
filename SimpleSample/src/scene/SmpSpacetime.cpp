@@ -13,7 +13,7 @@ SmpSpacetime::SmpSpacetime(const char* prm_name, SmpCamera* prm_pCam) :
     //SmpWorldシーンの作成
     requestScene(0, SmpWorld);
     //この世(Spacetime)コンストラクタ内で、
-    //他のシーンの所属( appendChild(GgafScene*) )は実行しないでください。
+    //他のシーンの所属( appendChild(GgafCore::Scene*) )は実行しないでください。
 }
 
 void SmpSpacetime::initialize() {

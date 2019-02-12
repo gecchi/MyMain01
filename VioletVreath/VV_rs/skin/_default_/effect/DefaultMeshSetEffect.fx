@@ -1,6 +1,6 @@
 #include "GgafEffectConst.fxh" 
 ////////////////////////////////////////////////////////////////////////////////
-// Ggafライブラリ、GgafDxMeshSetModel用シェーダー
+// ggaf ライブラリ、GgafDx::MeshSetModel用シェーダー
 // 【概要】
 // 頂点バッファに、同じモデルキャラの頂点情報が、複数個分繰り返し詰め込んである。
 // ステートやレジスタの更新を行わず、１回の 描画で、最大
@@ -86,7 +86,7 @@ struct OUT_VS
 ///////////////////////////////////////////////////////////////////////////
 
 //頂点シェーダー
-OUT_VS GgafDxVS_DefaultMeshSet(
+OUT_VS VS_DefaultMeshSet(
       float4 prm_posModel_Local  : POSITION,      // モデルの頂点
       float  prm_index           : PSIZE ,        // モデルのインデックス（何個目のオブジェクトか？）
       float3 prm_vecNormal_Local : NORMAL,        // モデルの頂点の法線
@@ -175,7 +175,7 @@ OUT_VS GgafDxVS_DefaultMeshSet(
 }
 
 //メッシュ標準ピクセルシェーダー（テクスチャ有り）
-float4 GgafDxPS_DefaultMeshSet(
+float4 PS_DefaultMeshSet(
 	float2 prm_uv              : TEXCOORD0,
 	float4 prm_color           : COLOR0,
     float3 prm_vecNormal_World : TEXCOORD1,
@@ -223,8 +223,8 @@ technique DefaultMeshSetTechnique
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-		VertexShader = compile VS_VERSION GgafDxVS_DefaultMeshSet();
-		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMeshSet();
+		VertexShader = compile VS_VERSION VS_DefaultMeshSet();
+		PixelShader  = compile PS_VERSION PS_DefaultMeshSet();
 	}
 }
 
@@ -238,8 +238,8 @@ technique DestBlendOne
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-		VertexShader = compile VS_VERSION GgafDxVS_DefaultMeshSet();
-		PixelShader  = compile PS_VERSION GgafDxPS_DefaultMeshSet();
+		VertexShader = compile VS_VERSION VS_DefaultMeshSet();
+		PixelShader  = compile PS_VERSION PS_DefaultMeshSet();
 	}
 }
 
@@ -253,7 +253,7 @@ technique Flush
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-		VertexShader = compile VS_VERSION GgafDxVS_DefaultMeshSet();
+		VertexShader = compile VS_VERSION VS_DefaultMeshSet();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}
 }

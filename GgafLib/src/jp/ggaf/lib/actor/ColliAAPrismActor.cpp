@@ -1,19 +1,19 @@
 #include "jp/ggaf/lib/actor/ColliAAPrismActor.h"
 
-#include "jp/ggaf/core/GgafGod.h"
-#include "jp/ggaf/dxcore/effect/GgafDxEffect.h"
-#include "jp/ggaf/dxcore/util/GgafDxCollisionArea.h"
-#include "jp/ggaf/dxcore/util/GgafDxCollisionPart.h"
+#include "jp/ggaf/core/God.h"
+#include "jp/ggaf/dx/effect/Effect.h"
+#include "jp/ggaf/dx/util/CollisionArea.h"
+#include "jp/ggaf/dx/util/CollisionPart.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/util/ColliAAPrism.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
 ColliAAPrismActor* ColliAAPrismActor::_pObj = nullptr;
 
-ColliAAPrismActor::ColliAAPrismActor(const char* prm_name, GgafStatus* prm_pStat) : GgafDxAAPrismActor(prm_name, prm_pStat, nullptr) {
+ColliAAPrismActor::ColliAAPrismActor(const char* prm_name, GgafCore::Status* prm_pStat) : GgafDx::AAPrismActor(prm_name, prm_pStat, nullptr) {
     _class_name = "ColliAAPrismActor";
     setAlpha(0.8);
 }
@@ -36,8 +36,8 @@ void ColliAAPrismActor::drawHitarea(CollisionChecker* prm_pColliChecker) {
         prm_pColliChecker->getTargetActor()->canHit() &&
         prm_pColliChecker->getTargetActor()->isActiveInTheTree()) {
 
-        GgafDxGeometricActor* pActor = prm_pColliChecker->getTargetActor();
-        GgafDxCollisionArea* pCollisionArea = prm_pColliChecker->_pCollisionArea;
+        GgafDx::GeometricActor* pActor = prm_pColliChecker->getTargetActor();
+        GgafDx::CollisionArea* pCollisionArea = prm_pColliChecker->_pCollisionArea;
         int iAreaNum = pCollisionArea->_colli_part_num;
         if (iAreaNum > 0) {
             getEffect()->setAlphaMaster(1.0); //シーンに所属しないので固定値の設定が必要
@@ -56,7 +56,7 @@ void ColliAAPrismActor::drawHitarea(CollisionChecker* prm_pColliChecker) {
                                   prism->_pos_info); //TODO:prism->_pos_info が 0 で pos2r[pos_info]._ry がおかしな値で落ちる
                     }
 #ifdef MY_DEBUG
-                    GgafGod::_num_drawing--; //当たり判定表示は表示オブジェクト数にカウントしない
+                    GgafCore::God::_num_drawing--; //当たり判定表示は表示オブジェクト数にカウントしない
 #endif
                 }
             }

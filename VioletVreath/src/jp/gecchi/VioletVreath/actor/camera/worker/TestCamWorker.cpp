@@ -1,11 +1,11 @@
 #include "TestCamWorker.h"
 
-#include "jp/ggaf/dxcore/actor/camera/GgafDxCameraViewPoint.h"
+#include "jp/ggaf/dx/actor/camera/CameraViewPoint.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/God.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -20,13 +20,13 @@ void TestCamWorker::onActive() {
 void TestCamWorker::onSwitchCameraWork() {
     Camera* pCam = pGOD->getSpacetime()->getCamera();
     pCam->setPositionAt(pMYSHIP);
-    GgafDxGeometricActor* pVP = pCam->getCameraViewPoint();
+    GgafDx::GeometricActor* pVP = pCam->getCameraViewPoint();
     pVP->setPositionAt(pMYSHIP);
 }
 
 void TestCamWorker::processBehavior() {
     Camera* pCam = pGOD->getSpacetime()->getCamera();
-    GgafDxGeometricActor* pVP = pCam->getCameraViewPoint();
+    GgafDx::GeometricActor* pVP = pCam->getCameraViewPoint();
     pVP->setPositionAt(pMYSHIP);
     pCam->_x += 2000;
     pCam->_y += 2000;

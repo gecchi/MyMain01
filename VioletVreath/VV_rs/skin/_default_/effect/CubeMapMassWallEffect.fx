@@ -100,7 +100,7 @@ struct OUT_VS
 ///////////////////////////////////////////////////////////////////////////
 
 //頂点シェーダー
-OUT_VS GgafDxVS_CubeMapMassWall(
+OUT_VS VS_CubeMapMassWall(
       float4 prm_posModel_Local   : POSITION,      // モデルの頂点
       float3 prm_vecNormal_Local  : NORMAL,        // モデルの頂点の法線
       float2 prm_uv               : TEXCOORD0 ,    // モデルの頂点のUV
@@ -393,7 +393,7 @@ OUT_VS GgafDxVS_CubeMapMassWall(
 }
 
 //メッシュ標準ピクセルシェーダー（テクスチャ有り）
-float4 GgafDxPS_CubeMapMassWall(
+float4 PS_CubeMapMassWall(
 	float2 prm_uv              : TEXCOORD0,
     float4 prm_color           : COLOR0,
     float3 prm_vecNormal_World : TEXCOORD1,
@@ -448,8 +448,8 @@ technique CubeMapMassWallTechnique
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default
-		VertexShader = compile VS_VERSION GgafDxVS_CubeMapMassWall();
-		PixelShader  = compile PS_VERSION GgafDxPS_CubeMapMassWall();
+		VertexShader = compile VS_VERSION VS_CubeMapMassWall();
+		PixelShader  = compile PS_VERSION PS_CubeMapMassWall();
 	}
 }
 
@@ -463,8 +463,8 @@ technique DestBlendOne
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default
-		VertexShader = compile VS_VERSION GgafDxVS_CubeMapMassWall();
-		PixelShader  = compile PS_VERSION GgafDxPS_CubeMapMassWall();
+		VertexShader = compile VS_VERSION VS_CubeMapMassWall();
+		PixelShader  = compile PS_VERSION PS_CubeMapMassWall();
 	}
 }
 
@@ -478,7 +478,7 @@ technique Flush
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default
-		VertexShader = compile VS_VERSION GgafDxVS_CubeMapMassWall();
+		VertexShader = compile VS_VERSION VS_CubeMapMassWall();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}
 }

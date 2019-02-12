@@ -1,23 +1,23 @@
 #include "jp/ggaf/lib/actor/DefaultMassBoardActor.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxUvFlipper.h"
+#include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "jp/ggaf/dxcore/scene/GgafDxSpacetime.h"
+#include "jp/ggaf/dx/scene/Spacetime.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
 DefaultMassBoardActor::VERTEX_instancedata DefaultMassBoardActor::_aInstancedata[GGAFDXMASS_MAX_INSTANCE_NUM];
 
-DefaultMassBoardActor::DefaultMassBoardActor(const char* prm_name, const char* prm_model, GgafStatus* prm_pStat) :
-    GgafDxMassBoardActor(prm_name, prm_model, "DefaultMassBoardEffect", "DefaultMassBoardTechnique")
+DefaultMassBoardActor::DefaultMassBoardActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat) :
+    GgafDx::MassBoardActor(prm_name, prm_model, "DefaultMassBoardEffect", "DefaultMassBoardTechnique")
 {
     _class_name = "DefaultMassBoardActor";
     _pMassBoardModel->registerCallback_VertexInstanceDataInfo(DefaultMassBoardActor::createVertexInstanceData);
 }
 
-void DefaultMassBoardActor::createVertexInstanceData(void* prm, GgafDxMassModel::VertexInstanceDataInfo* out_info) {
+void DefaultMassBoardActor::createVertexInstanceData(void* prm, GgafDx::MassModel::VertexInstanceDataInfo* out_info) {
     int element_num = 5;
     out_info->paElement = NEW D3DVERTEXELEMENT9[element_num];
     // Stream = 1 ---->
@@ -69,9 +69,9 @@ void DefaultMassBoardActor::createVertexInstanceData(void* prm, GgafDxMassModel:
     out_info->pInstancedata = DefaultMassBoardActor::_aInstancedata;
 }
 void DefaultMassBoardActor::processDraw() {
-    int draw_set_num = 0; //GgafDxMassBoardActorの同じモデルで同じテクニックが
+    int draw_set_num = 0; //MassBoardActorの同じモデルで同じテクニックが
                        //連続しているカウント数。同一描画深度は一度に描画する。
-    GgafDxFigureActor* pDrawActor = this;
+    GgafDx::FigureActor* pDrawActor = this;
     DefaultMassBoardActor* pDefaultMassBoardActor = nullptr;
     int model_set_num = _pMassBoardModel->_set_num;
     float u,v;
@@ -81,8 +81,8 @@ void DefaultMassBoardActor::processDraw() {
         if (pDrawActor->getModel() == _pMassBoardModel && pDrawActor->_hash_technique == _hash_technique) {
             pDefaultMassBoardActor = (DefaultMassBoardActor*)pDrawActor;
 
-            GgafDxAlign align = pDefaultMassBoardActor->_align;
-            GgafDxValign valign = pDefaultMassBoardActor->_valign;
+            Align align = pDefaultMassBoardActor->_align;
+            Valign valign = pDefaultMassBoardActor->_valign;
 
             paInstancedata->px_x = C_PX(pDefaultMassBoardActor->_x);
             paInstancedata->px_y = C_PX(pDefaultMassBoardActor->_y);
@@ -111,7 +111,7 @@ void DefaultMassBoardActor::processDraw() {
             ++paInstancedata;
 
             draw_set_num++;
-            GgafDxSpacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
+            GgafDx::Spacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
             if (draw_set_num >= model_set_num) {
                 break;
             } else {
@@ -121,7 +121,7 @@ void DefaultMassBoardActor::processDraw() {
             break;
         }
     }
-    _pMassBoardModel->GgafDxMassBoardModel::draw(this, draw_set_num);
+    _pMassBoardModel->GgafDx::MassBoardModel::draw(this, draw_set_num);
 }
 
 DefaultMassBoardActor::~DefaultMassBoardActor() {

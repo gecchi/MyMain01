@@ -1,7 +1,7 @@
 #include "jp/ggaf/lib/util/WMKeyInput.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 
 int WMKeyInput::_input_char_state[2][256];
@@ -52,7 +52,7 @@ int WMKeyInput::getPushedDownKey(int prm_num, int* prm_pa_char) {
     int n = 0;
     for (int pressed_index = 0; pressed_index < pressed_num; pressed_index++) {
         if (WMKeyInput::_input_char_state[!WMKeyInput::_flip][prm_pa_char[pressed_index]] != 1) {
-            //前回セット[!GgafDxInput::_flip_ks]は押されていないのでOK
+            //前回セット[!GgafDx::Input::_flip_ks]は押されていないのでOK
             if (n < prm_num) {
                 prm_pa_char[n] = prm_pa_char[pressed_index];
                 n++;

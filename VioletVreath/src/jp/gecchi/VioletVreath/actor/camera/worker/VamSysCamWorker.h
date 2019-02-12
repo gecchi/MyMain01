@@ -105,7 +105,7 @@ public:
 
 public:
     MyShip* pMyShip_;
-    GgafDxCore::GgafDxSeTransmitter* pSe_;
+    GgafDx::SeTransmitter* pSe_;
 
 public:
     VamSysCamWorker(const char* prm_name, Camera* prm_pCamera);

@@ -1,6 +1,6 @@
 #include "MenuBoardTitle.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxAlphaFader.h"
+#include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
 #include "CursorTitleMenu.h"
 #include "jp/gecchi/VioletVreath/actor/label/SpriteFont32x64.h"
 #include "jp/gecchi/VioletVreath/actor/label/SpriteLabelGecchi32Font.h"
@@ -13,8 +13,8 @@
 #include "jp/gecchi/VioletVreath/actor/menu/config/MenuBoardSoundConfig.h"
 #include "jp/gecchi/VioletVreath/actor/menu/name_entry/MenuBoardNameEntry.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -83,15 +83,15 @@ bool MenuBoardTitle::condSelectExPrev() {
 void MenuBoardTitle::onSelect(int prm_from_index, int prm_selected_index) {
     if (prm_from_index > -1) {
         //非選択項目は点滅させない
-        GgafDxFigureActor* pItem = getItem(prm_from_index);
+        GgafDx::FigureActor* pItem = getItem(prm_from_index);
         pItem->getAlphaFader()->transitionLinearToTop(1);
     }
     //選択項目を点滅
     if (prm_selected_index > -1) {
-        GgafDxFigureActor* pItem = getItem(prm_selected_index);
+        GgafDx::FigureActor* pItem = getItem(prm_selected_index);
         pItem->getAlphaFader()->beat(20, 10, 0, 10, -1);
 
-//        GgafDxFigureActor* pMainCursor = getMainCursor();
+//        GgafDx::FigureActor* pMainCursor = getMainCursor();
 //        pixcoord w = ((FontBoardActor*)pItem)->getTotalWidth();
         //TODO: wによってカーソルの大きさ変えてみる？
     }
@@ -99,7 +99,7 @@ void MenuBoardTitle::onSelect(int prm_from_index, int prm_selected_index) {
 
 }
 
-void MenuBoardTitle::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
+void MenuBoardTitle::onDecision(GgafDx::FigureActor* prm_pItem, int prm_item_index) {
     if (prm_item_index == ITEM_GAME_START) {
         //GameTitleSceneクラス側でイベント実行
     } else if (prm_item_index == ITEM_KEY_CONFIG) {
@@ -123,7 +123,7 @@ void MenuBoardTitle::onDecision(GgafDxCore::GgafDxFigureActor* prm_pItem, int pr
     }
 }
 
-void MenuBoardTitle::onCancel(GgafDxCore::GgafDxFigureActor* prm_pItem, int prm_item_index) {
+void MenuBoardTitle::onCancel(GgafDx::FigureActor* prm_pItem, int prm_item_index) {
 }
 
 void MenuBoardTitle::processBehavior() {
@@ -156,7 +156,7 @@ void MenuBoardTitle::processBehavior() {
 
 void MenuBoardTitle::onCatchEvent(hashval prm_no, void* prm_pSource) {
     //デバッグ
-    GgafProgress* const pProg = getProgress();
+    GgafCore::Progress* const pProg = getProgress();
     if (prm_no == EVENT_MENU_NAMEENTRY_DONE) {
         _TRACE_("MenuBoardTitle::onCatchEvent(EVENT_MENU_NAMEENTRY_DONE)");
         getSubMenu(MENU_NAME_ENTRY)->sinkMe(); //ネームエントリー板消去

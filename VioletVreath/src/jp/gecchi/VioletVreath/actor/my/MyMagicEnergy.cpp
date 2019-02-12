@@ -1,13 +1,13 @@
 #include "MyMagicEnergy.h"
 
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxKuroko.h"
-#include "jp/ggaf/dxcore/actor/supporter/GgafDxScaler.h"
-#include "jp/ggaf/dxcore/model/GgafDxModel.h"
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Scaler.h"
+#include "jp/ggaf/dx/model/Model.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyMagicEnergyCore.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-using namespace GgafCore;
-using namespace GgafDxCore;
+
+
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -23,7 +23,7 @@ MyMagicEnergy::MyMagicEnergy(const char* prm_name, MyMagicEnergyCore* prm_pCore)
 }
 
 void MyMagicEnergy::onCreateModel() {
-    GgafDxModel* pModel = getModel();
+    GgafDx::Model* pModel = getModel();
     pModel->setSpecular(5.0, 1.0);
 }
 
@@ -35,10 +35,10 @@ void MyMagicEnergy::onActive() {
 }
 
 void MyMagicEnergy::processBehavior() {
-    GgafDxKuroko* const pKuroko = getKuroko();
+    GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->behave();
     setPositionAt(pCore_);
-    setScale(pCore_->_sx);
+    setScaleAt(pCore_);
 }
 
 void MyMagicEnergy::processJudgement() {

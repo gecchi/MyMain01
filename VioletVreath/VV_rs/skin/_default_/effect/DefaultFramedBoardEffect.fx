@@ -1,6 +1,6 @@
 #include "GgafEffectConst.fxh" 
 ////////////////////////////////////////////////////////////////////////////////
-// Ggafライブラリ、GgafDxFramedBoardModel用シェーダー
+// ggaf ライブラリ、GgafDx::FramedBoardModel用シェーダー
 //
 // author : Masatoshi Tsuge
 // date:2017/08/21
@@ -67,8 +67,8 @@ struct OUT_VS
 
 ///////////////////////////////////////////////////////////////////////////
 
-//GgafDxFramedBoardModel標準頂点シェーダー
-OUT_VS GgafDxVS_DefaultFramedBoard(
+//FramedBoardModel標準頂点シェーダー
+OUT_VS VS_DefaultFramedBoard(
       float4 prm_posModel_Local    : POSITION,     // モデルの頂点
 	  float  prm_index             : PSIZE ,       // モデル番号
       float2 prm_uv                : TEXCOORD0     // モデルの頂点のUV
@@ -154,8 +154,8 @@ OUT_VS GgafDxVS_DefaultFramedBoard(
 }
 
 
-//GgafDxFramedBoardModel標準ピクセルシェーダー
-float4 GgafDxPS_DefaultFramedBoard(
+//FramedBoardModel標準ピクセルシェーダー
+float4 PS_DefaultFramedBoard(
 	float2 prm_uv    : TEXCOORD0,
 	float4 prm_color : COLOR0
 ) : COLOR  {
@@ -202,8 +202,8 @@ technique DefaultFramedBoardTechnique
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-		VertexShader = compile VS_VERSION GgafDxVS_DefaultFramedBoard();
-		PixelShader  = compile PS_VERSION GgafDxPS_DefaultFramedBoard();
+		VertexShader = compile VS_VERSION VS_DefaultFramedBoard();
+		PixelShader  = compile PS_VERSION PS_DefaultFramedBoard();
 	}
 }
 
@@ -217,8 +217,8 @@ technique DestBlendOne
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-		VertexShader = compile VS_VERSION GgafDxVS_DefaultFramedBoard();
-		PixelShader  = compile PS_VERSION GgafDxPS_DefaultFramedBoard();
+		VertexShader = compile VS_VERSION VS_DefaultFramedBoard();
+		PixelShader  = compile PS_VERSION PS_DefaultFramedBoard();
 	}
 }
 
@@ -232,7 +232,7 @@ technique Flush
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
 		//BlendOpAlpha = Add;       //default  
-		VertexShader = compile VS_VERSION GgafDxVS_DefaultFramedBoard();
+		VertexShader = compile VS_VERSION VS_DefaultFramedBoard();
 		PixelShader  = compile PS_VERSION PS_Flush();
 	}
 }
