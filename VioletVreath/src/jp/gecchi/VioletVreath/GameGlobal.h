@@ -4,13 +4,13 @@
 
 #include "jp/gecchi/VioletVreath/util/RankingTable.h"
 
-#define G_MIN_RANK (0.0)
-#define G_MAX_RANK (1.0)
-/** ランク (0.0 ～ 1.0) */
+/** 現在のランク値 (G_MIN_RANK ～ G_MAX_RANK) */
 #define G_RANK (VioletVreath::GameGlobal::rank_)
+#define G_MIN_RANK (VioletVreath::GameGlobal::min_rank_)
+#define G_MAX_RANK (VioletVreath::GameGlobal::max_rank_)
 /** ランク→表示用ランクレート */
 #define G_RANK_R (1000.0)
-/** 表示用ランク値 */
+/** 画面表示用ランク値 */
 #define G_RANK_DISP ((int)(G_RANK*G_RANK_R))
 
 /** ランクアップレベル値。StageWorld::processBehavior()でG_RANKに追従 */
@@ -28,37 +28,35 @@
 /**
  * ランク用関数(上限下限無し) .
  * 引数のランク値(RANK_VAL)が、
- * G_MIN_RANK ～ G_MAX_RANK に推移するに伴って MIN_VAL～MAX_VAL に推移する値を取得。
+ * G_RANKが、0.0 ～ 1.0 に推移するに伴って RANK_0_VAL～RANK_1_VAL に推移する値を取得。
+ * ランク値(RANK_VAL)が 0.0 を下回っても制限無し。
+ * ランク値(RANK_VAL)が 1.0 を上回っても制限無し。
  */
-#define RF(RANK_VAL, MIN_VAL, MAX_VAL)  ( RCNV( (G_MIN_RANK), (G_MAX_RANK), (RANK_VAL), (MIN_VAL), (MAX_VAL) ) )
+#define RF(RANK_VAL, RANK_0_VAL, RANK_1_VAL)  ( RCNV_0_to_1( (RANK_VAL), (RANK_0_VAL), (RANK_1_VAL) ) )
 
 /**
  * ランク用関数(上限下限有り) .
- * 引数のランク値(RANK_VAL)が、G_MIN_RANK ～ G_MAX_RANK に推移するに伴って MIN_VAL～MAX_VAL に推移する値を取得。
- * 但し、定義域(RANK_VAL)：G_MIN_RANK <= RANK_VAL <= G_MIN_RANK  に対して、
- *         値域(N)       ：   MIN_VAL <=    N     <= MAX_VAL     を返す。
- * ランク値(RANK_VAL)がG_MIN_RANKを下回る場合は、MIN_VALに固定。
- * ランク値(RANK_VAL)がG_MAX_RANKを上回る場合は、MAX_VALに固定。
+ * 引数のランク値(RANK_VAL)が、G_RANKが、0.0 ～ 1.0 に推移するに伴って RANK_0_VAL～RANK_1_VAL に推移する値を取得。
+ * ランク値(RANK_VAL)が 0.0 を下回る場合は、RANK_0_VALに固定。
+ * ランク値(RANK_VAL)が 1.0 を上回る場合は、RANK_1_VALに固定。
  */
-#define RF_ULL(RANK_VAL, MIN_VAL, MAX_VAL)  ( ((RANK_VAL) < (G_MIN_RANK)) ? (MIN_VAL) : ( ((RANK_VAL) > (G_MAX_RANK)) ? (MAX_VAL) : (RCNV((G_MIN_RANK), (G_MAX_RANK), (RANK_VAL), (MIN_VAL), (MAX_VAL))) ) )
+#define RF_ULL(RANK_VAL, RANK_0_VAL, RANK_1_VAL)  ( ((RANK_VAL) < 0) ? (RANK_0_VAL) : ( ((RANK_VAL) > 1) ? (RANK_1_VAL) : (RCNV_0_to_1((RANK_VAL),(RANK_0_VAL),(RANK_1_VAL))) ) )
 
 /**
  * ランク用関数(下限のみ有り) .
- * 引数のランク値(RANK_VAL)が、G_MIN_RANK ～ G_MAX_RANK に推移するに伴って MIN_VAL～MAX_VAL に推移する値を取得。
- * 但し、定義域(RANK_VAL)：G_MIN_RANK <= RANK_VAL  に対して、
- *         値域(N)       ：   MIN_VAL <=    N      を返す。
- * ランク値(RANK_VAL)がG_MIN_RANKを下回る場合は、MIN_VALに固定。
+ * 引数のランク値(RANK_VAL)が、G_RANKが、0.0 ～ 1.0 に推移するに伴って RANK_0_VAL～RANK_1_VAL に推移する値を取得。
+ * ランク値(RANK_VAL)が 0.0 を下回る場合は、RANK_0_VALに固定。
+ * ランク値(RANK_VAL)が 1.0 を上回っても制限無し。
  */
-#define RF_LL(RANK_VAL, MIN_VAL, MAX_VAL)  ( ((RANK_VAL) < (G_MIN_RANK)) ? (MIN_VAL) : (RCNV((G_MIN_RANK), (G_MAX_RANK), (RANK_VAL), (MIN_VAL), (MAX_VAL))) )
+#define RF_LL(RANK_VAL, RANK_0_VAL, RANK_1_VAL)  ( ((RANK_VAL) < 0) ? (RANK_0_VAL) : (RCNV_0_to_1((RANK_VAL),(RANK_0_VAL),(RANK_1_VAL))) )
 
 /**
  * ランク用関数(上限のみ有り) .
- * 引数のランク値(RANK_VAL)が、G_MIN_RANK ～ G_MAX_RANK に推移するに伴って MIN_VAL～MAX_VAL に推移する値を取得。
- * 但し、定義域(RANK_VAL)：RANK_VAL <= G_MIN_RANK  に対して、
- *         値域(N)       ：   N     <= MAX_VAL     を返す。
- * ランク値(RANK_VAL)がG_MAX_RANKを上回る場合は、MAX_VALに固定。
+ * 引数のランク値(RANK_VAL)が、G_RANKが、0.0 ～ 1.0 に推移するに伴って RANK_0_VAL～RANK_1_VAL に推移する値を取得。
+ * ランク値(RANK_VAL)が 0.0 を下回っても制限無し。
+ * ランク値(RANK_VAL)が 1.0 を上回る場合は、RANK_1_VALに固定。
  */
-#define RF_UL(RANK_VAL, MIN_VAL, MAX_VAL)  ( ((RANK_VAL) > (G_MAX_RANK)) ? (MAX_VAL) : (RCNV((G_MIN_RANK), (G_MAX_RANK), (RANK_VAL), (MIN_VAL), (MAX_VAL))) )
+#define RF_UL(RANK_VAL, RANK_0_VAL, RANK_1_VAL)  ( ((RANK_VAL) > 1) ? (RANK_1_VAL) : (RCNV_0_to_1((RANK_VAL),(RANK_0_VAL),(RANK_1_VAL))) )
 
 
 namespace VioletVreath {
@@ -68,8 +66,12 @@ public:
     static bool is_init_;
     /** 現スコア */
     static int score_;
-    /** 現ランク値（0.0 ～ 1.0。 1.0がMAXランクとする) */
+    /** 現ランク値（デフォルトは、0.0 ～ 1.0。 1.0がMAXランクとする) */
     static double rank_;
+    /** ランク下限値 */
+    static double min_rank_;
+    /** ランク上限値 */
+    static double max_rank_;
     /** 現残機 */
     static int zanki_;
     /** 現ランクレベル値 */

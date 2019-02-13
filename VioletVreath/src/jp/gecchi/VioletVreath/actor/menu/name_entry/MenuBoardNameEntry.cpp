@@ -309,10 +309,12 @@ void MenuBoardNameEntry::inputChar(const int prm_c) {
     int len = pLabelInputedName_->_len;
     if (len >= RANKINGTABLE_NAME_LEN) {
         //10•¶ŽšˆÈã‚Ìê‡
-        //‰½‚à‚µ‚È‚¢
+        getSeTransmitter()->play(SE_WRONG);
     } else {
         if (32 <= prm_c && prm_c <= 255) {
             pLabelInputedName_->appendUpdate(prm_c);
+        } else {
+            getSeTransmitter()->play(SE_WRONG);
         }
     }
 }

@@ -33,6 +33,12 @@
  * y = ( (min_b-max_b)*x - (max_a*min_b) + (max_b*min_a) ) / (min_a-max_a)
  */
 #define RCNV(MIN_A,MAX_A,X,MIN_B,MAX_B) (GgafCore::Util::_rcnv_((double)(MIN_A),(double)(MAX_A),(double)(X),(double)(MIN_B),(double)(MAX_B)))
+/**
+ * 0 ～ 1 の範囲のある値について、範囲を変換した場合の相対値を取得 .
+ * 範囲 0 ～ 1 の X の値を、範囲 MIN_B ～ MAX_B に変換した場合の値を得る<br>
+ * y = ( (max_b-min_b)*x + min_b)
+ */
+#define RCNV_0_to_1(X,MIN_B,MAX_B) (GgafCore::Util::_rcnv_0_to_1_((double)(X),(double)(MIN_B),(double)(MAX_B)))
 
 /**
  * 整数の乱数を得る .
@@ -445,6 +451,10 @@ public:
 
     static inline double _rcnv_(double min_a, double max_a, double x, double min_b, double max_b) {
         return ( (min_b-max_b)*x - (max_a*min_b) + (max_b*min_a) ) / (min_a-max_a);
+    }
+
+    static inline double _rcnv_0_to_1_(double x, double min_b, double max_b) {
+        return ( (max_b-min_b)*x + min_b);
     }
     /**
      * ３乗根を求める .
