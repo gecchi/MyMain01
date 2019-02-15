@@ -33,8 +33,9 @@ int MyBunshinWateringLaserChip001::tex_no_ = 0;
 
 
 MyBunshinWateringLaserChip001::MyBunshinWateringLaserChip001(const char* prm_name) :
-        WateringLaserChip(prm_name, "MyLaserChip001", STATUS(MyBunshinWateringLaserChip001)) {
+        WateringLaserChip(prm_name, "MyLaserChip001") {
     _class_name = "MyBunshinWateringLaserChip001";
+    getStatus()->reset(statusResetFunction(MyBunshinWateringLaserChip001));
     default_stamina_ = getStatus()->get(STAT_Stamina);
     pOrg_ = nullptr;
     pLockonCursor_ = nullptr;

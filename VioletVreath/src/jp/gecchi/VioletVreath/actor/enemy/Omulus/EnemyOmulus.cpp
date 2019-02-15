@@ -29,8 +29,9 @@ enum {
 };
 
 EnemyOmulus::EnemyOmulus(const char* prm_name) :
-        DefaultMassMorphMeshActor(prm_name, "Omulus_1", STATUS(EnemyOmulus)) {
+        DefaultMassMorphMeshActor(prm_name, "Omulus_1") {
     _class_name = "EnemyOmulus";
+    getStatus()->reset(statusResetFunction(EnemyOmulus));
     is_open_hatch_ = false;
     frame_of_open_interval_  = 3*60;
     frame_of_close_interval_ = 20*60;

@@ -14,7 +14,7 @@ using namespace VioletVreath;
 
 
 Horizon001::Horizon001(const char* prm_name) :
-        DefaultMeshActor(prm_name, "Horizon001", nullptr) {
+        DefaultMeshActor(prm_name, "Horizon001") {
     _class_name = "Horizon001";
     setHitAble(false);
     setZEnableDraw(true);        //Zバッファは考慮

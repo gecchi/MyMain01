@@ -8,13 +8,11 @@
 using namespace GgafLib;
 
 DefaultMeshActor::DefaultMeshActor(const char* prm_name,
-                                   const char* prm_model,
-                                   GgafCore::Status* prm_pStat) :
+                                   const char* prm_model) :
     GgafDx::MeshActor(prm_name,
                      prm_model,
                      "DefaultMeshEffect",
                      "DefaultMeshTechnique",
-                     prm_pStat,
                      UTIL::createChecker(this) ) {
     _class_name = "DefaultMeshActor";
     _pColliChecker = (CollisionChecker*)_pChecker;

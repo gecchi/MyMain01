@@ -28,8 +28,9 @@ enum {
 };
 
 EnemyTalante::EnemyTalante(const char* prm_name) :
-        DefaultMassMeshActor(prm_name, "Talante", STATUS(EnemyTalante)) {
+        DefaultMassMeshActor(prm_name, "Talante") {
     _class_name = "EnemyTalante";
+    getStatus()->reset(statusResetFunction(EnemyErmione));
     pDepo_shot_ = nullptr;
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");

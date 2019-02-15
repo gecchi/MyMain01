@@ -17,8 +17,9 @@ enum {
 };
 
 EnemyEresShot001::EnemyEresShot001(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "myvic", STATUS(EnemyEresShot001)) {
+        DefaultMeshSetActor(prm_name, "myvic") {
     _class_name = "EnemyEresShot001";
+    getStatus()->reset(statusResetFunction(EnemyEresShot001));
     inactivateTree();
 
     /** oŒ»‚Ì‰‘¬ */

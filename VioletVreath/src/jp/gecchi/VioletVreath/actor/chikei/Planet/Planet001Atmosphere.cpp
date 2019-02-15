@@ -12,7 +12,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 Planet001Atmosphere::Planet001Atmosphere(const char* prm_name) :
-        DefaultMeshActor(prm_name, "Planet001Atmosphere", nullptr) {
+        DefaultMeshActor(prm_name, "Planet001Atmosphere") {
     _class_name = "Planet001Atmosphere";
     setHitAble(false);
     setZEnableDraw(true);        //Zバッファは考慮

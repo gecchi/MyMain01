@@ -10,11 +10,9 @@
 using namespace GgafLib;
 
 SpriteMeshWorldBoundActor::SpriteMeshWorldBoundActor(const char* prm_name,
-                                                     const char* prm_model,
-                                                     GgafCore::Status* prm_pStat) :
+                                                     const char* prm_model) :
         GgafDx::SpriteMeshActor(prm_name,
                                prm_model,
-                               prm_pStat,
                                nullptr) {
 
     _class_name = "SpriteMeshWorldBoundActor";

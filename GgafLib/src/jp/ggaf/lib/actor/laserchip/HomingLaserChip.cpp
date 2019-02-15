@@ -6,8 +6,8 @@
 
 using namespace GgafLib;
 
-HomingLaserChip::HomingLaserChip(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat) :
-            LaserChip(prm_name, prm_model, prm_pStat) {
+HomingLaserChip::HomingLaserChip(const char* prm_name, const char* prm_model) :
+            LaserChip(prm_name, prm_model) {
     _class_name = "HomingLaserChip";
     _is_leader = false;
 

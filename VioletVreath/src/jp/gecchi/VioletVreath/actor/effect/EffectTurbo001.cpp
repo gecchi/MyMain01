@@ -12,7 +12,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EffectTurbo001::EffectTurbo001(const char* prm_name) :
-        DefaultSpriteActor(prm_name, "Turbo001", nullptr) {
+        DefaultSpriteActor(prm_name, "Turbo001") {
     _class_name = "EffectTurbo001";
     inactivate();
     effectBlendOne(); //â¡éZçáê¨

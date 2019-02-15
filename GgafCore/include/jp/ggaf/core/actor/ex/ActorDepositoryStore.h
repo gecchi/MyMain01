@@ -29,9 +29,8 @@ public:
     /**
      * コンストラクタ .
      * @param prm_name
-     * @param prm_pStat
      */
-    ActorDepositoryStore(const char* prm_name, Status* prm_pStat = nullptr);
+    ActorDepositoryStore(const char* prm_name);
 
     /**
      * デポジトリを登録します.

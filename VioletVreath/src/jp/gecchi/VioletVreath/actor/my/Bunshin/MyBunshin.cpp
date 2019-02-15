@@ -40,10 +40,11 @@ enum {
 //MyBunshin::MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase) : DefaultMorphMeshActor(prm_name, "Eres_4") {
 //MyBunshin::MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase) : CubeMapMeshSetActor(prm_name, "4,Core4cm_") {
 MyBunshin::MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase) :
-        DefaultMeshSetActor(prm_name, "8,myvic", STATUS(MyBunshin)) {
+        DefaultMeshSetActor(prm_name, "8,myvic") {
 
     _class_name = "MyBunshin";
     pBase_ = prm_pBase;
+    getStatus()->reset(statusResetFunction(MyBunshin));
 
     //自弾ストック
     pDepo_MyBunshinShot_ = NEW GgafCore::ActorDepository("Depo_MyBunshinShot");
@@ -67,7 +68,7 @@ MyBunshin::MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase) :
         std::string name = std::string(getName()) + "'s LaserChip(" + XTOS(i) + ")";
         pLaserChipDepo_->put(NEW MyBunshinWateringLaserChip001(name.c_str()));
     }
-    pLaserChipDepo_->config(80, 25, nullptr);
+    pLaserChipDepo_->config(80, 25);
     appendGroupChild(pLaserChipDepo_);
 
     //ロックオンコントローラー

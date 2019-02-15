@@ -14,8 +14,7 @@ using namespace VioletVreath;
 
 
 TestEnemy::TestEnemy(const char* prm_name,
-                     const char* prm_model,
-                     GgafCore::Status* prm_pStat) : DefaultMeshActor(prm_name, prm_model, prm_pStat) {
+                     const char* prm_model) : DefaultMeshActor(prm_name, prm_model) {
 
     pMoji_ = NEW SpriteLabelTest("stamina");
     pMoji_->defineRotMvWorldMatrix_Billboard(); //XYZ軸ビルボード

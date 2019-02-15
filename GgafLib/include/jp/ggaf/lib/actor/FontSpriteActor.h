@@ -37,7 +37,7 @@ public:
     virtual void setAlign(Align prm_align);
     virtual void setValign(Valign prm_valign);
 public:
-    FontSpriteActor(const char* prm_name, const char* prm_model_id, GgafCore::Status* prm_pStat = nullptr);
+    FontSpriteActor(const char* prm_name, const char* prm_model_id);
 
     virtual void onCreateModel() override {
     }

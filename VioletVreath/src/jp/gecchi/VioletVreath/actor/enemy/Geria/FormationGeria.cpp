@@ -14,7 +14,7 @@ using namespace VioletVreath;
 FormationGeria::FormationGeria(
             const char* prm_name,
             int prm_nGeriaStock
-            ) : DefaultGeometricActor(prm_name, nullptr) {
+            ) : DefaultGeometricActor(prm_name) {
     _class_name = "FormationGeria";
     pDepo_ = NEW GgafCore::ActorDepository("RotEnemyGeria");
     for (int i = 0; i < prm_nGeriaStock; i++) {

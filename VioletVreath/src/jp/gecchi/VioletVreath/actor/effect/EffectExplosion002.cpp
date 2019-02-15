@@ -10,7 +10,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EffectExplosion002::EffectExplosion002(const char* prm_name) :
-        DefaultMassSpriteActor(prm_name, "EffectExplosion002", nullptr) {
+        DefaultMassSpriteActor(prm_name, "EffectExplosion002") {
     _class_name = "EffectExplosion002";
     effectBlendOne(); //â¡éZçáê¨Ç∑ÇÈTechniqueéwíË
 }

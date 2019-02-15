@@ -7,12 +7,11 @@
 
 using namespace GgafLib;
 
-DefaultSpriteActor::DefaultSpriteActor(const char* prm_name, const char* prm_model_id, GgafCore::Status* prm_pStat) :
+DefaultSpriteActor::DefaultSpriteActor(const char* prm_name, const char* prm_model_id) :
     GgafDx::SpriteActor(prm_name,
                       prm_model_id,
                       "DefaultSpriteEffect",
                       "DefaultSpriteTechnique",
-                      prm_pStat,
                       UTIL::createChecker(this) ) {
     _class_name = "DefaultSpriteActor";
     _pColliChecker = (CollisionChecker*)_pChecker;

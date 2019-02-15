@@ -44,7 +44,7 @@ public:
     CollisionChecker* _pColliChecker;
 
 public:
-    DefaultMassMorphMeshActor(const char* prm_name, const char* prm_model_id, GgafCore::Status* prm_pStat=nullptr);
+    DefaultMassMorphMeshActor(const char* prm_name, const char* prm_model_id);
 
     virtual void onCreateModel() override {
     }

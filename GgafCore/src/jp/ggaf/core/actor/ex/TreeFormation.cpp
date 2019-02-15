@@ -31,7 +31,7 @@ void TreeFormation::appendFormationMember(Actor* prm_pChild) {
         //まずメンバー無しの TreeFormation を、appendGroupChild した直後は、種別=0なので、作成された団長の種別も0で作成されてしまう。
         //その後にappendFormationMemberを行っても、種別0に属してしまうという問題が有る。
         //そこで、団長の種別0だった場合、種別を無理やり更新する。
-        GroupHead* myGroupHead = getMyGroupHead(); //団長
+        GroupHead* myGroupHead = getGroupHead(); //団長
         if (myGroupHead) {
             //既に所属してしまっている。（シーンに属している）
             if (myGroupHead->_kind == kind) {

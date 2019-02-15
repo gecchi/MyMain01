@@ -10,8 +10,9 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 MagicPointItem002::MagicPointItem002(const char* prm_name)
-               : MagicPointItem(prm_name, "32,MagicPointItem002", STATUS(MagicPointItem002)) {
+               : MagicPointItem(prm_name, "32,MagicPointItem002") {
     _class_name = "MagicPointItem002";
+    getStatus()->reset(statusResetFunction(MagicPointItem002));
 }
 
 void MagicPointItem002::initialize() {

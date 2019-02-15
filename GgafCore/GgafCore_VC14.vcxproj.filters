@@ -227,9 +227,6 @@
     <ClCompile Include="src\jp\ggaf\core\util\Rgb.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\jp\ggaf\core\util\Stasus.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="src\jp\ggaf\core\util\Table.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -258,6 +255,9 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\ggaf\core\Properties.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\ggaf\core\util\Status.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

@@ -32,8 +32,9 @@ enum {
 };
 
 EnemyOebius::EnemyOebius(const char* prm_name) :
-        DefaultMassMeshActor(prm_name, "Oebius", STATUS(EnemyOebius)) {
+        DefaultMassMeshActor(prm_name, "Oebius") {
     _class_name = "EnemyOebius";
+    getStatus()->reset(statusResetFunction(EnemyOebius));
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);

@@ -7,12 +7,11 @@
 
 using namespace GgafLib;
 
-DefaultPointSpriteSetActor::DefaultPointSpriteSetActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat) :
+DefaultPointSpriteSetActor::DefaultPointSpriteSetActor(const char* prm_name, const char* prm_model) :
     GgafDx::PointSpriteSetActor(prm_name,
                               prm_model,
                               "DefaultPointSpriteSetEffect",
                               "DefaultPointSpriteSetTechnique",
-                              prm_pStat,
                               UTIL::createChecker(this) ) {
     _class_name = "DefaultPointSpriteSetActor";
     _pColliChecker = (CollisionChecker*)_pChecker;

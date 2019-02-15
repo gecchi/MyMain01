@@ -14,12 +14,11 @@ using namespace GgafLib;
 
 DefaultMassPointSpriteActor::VERTEX_instancedata DefaultMassPointSpriteActor::_aInstancedata[GGAFDXMASS_MAX_INSTANCE_NUM];
 
-DefaultMassPointSpriteActor::DefaultMassPointSpriteActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat) :
+DefaultMassPointSpriteActor::DefaultMassPointSpriteActor(const char* prm_name, const char* prm_model) :
     GgafDx::MassPointSpriteActor(prm_name,
                         prm_model,
                         "DefaultMassPointSpriteEffect",
                         "DefaultMassPointSpriteTechnique",
-                        prm_pStat,
                         UTIL::createChecker(this) ) {
     _class_name = "DefaultMassPointSpriteActor";
     _pColliChecker = (CollisionChecker*)_pChecker;

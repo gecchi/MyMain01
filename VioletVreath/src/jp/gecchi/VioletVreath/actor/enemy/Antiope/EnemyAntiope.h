@@ -29,7 +29,7 @@ public:
      * @param prm_name
      * @return
      */
-    EnemyAntiope(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat);
+    EnemyAntiope(const char* prm_name, const char* prm_model);
 
     void onCreateModel() override;
 

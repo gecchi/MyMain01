@@ -46,8 +46,9 @@ enum {
 };
 
 EnemyDuna::EnemyDuna(const char* prm_name) :
-        DefaultMorphMeshActor(prm_name, "Duna_1", STATUS(EnemyDuna)) {
+        DefaultMorphMeshActor(prm_name, "Duna_1") {
     _class_name = "EnemyDuna";
+    getStatus()->reset(statusResetFunction(EnemyDuna));
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     effectBlendOne(); //â¡éZçáê¨

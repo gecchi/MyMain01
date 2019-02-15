@@ -12,8 +12,9 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EnemyStraeaLaserChip001::EnemyStraeaLaserChip001(const char* prm_name) :
-        HomingLaserChip(prm_name, "StraeaLaserChip001", STATUS(EnemyStraeaLaserChip001)) {
+        HomingLaserChip(prm_name, "StraeaLaserChip001") {
     _class_name = "EnemyStraeaLaserChip001";
+    getStatus()->reset(statusResetFunction(EnemyStraeaLaserChip001));
 }
 
 void EnemyStraeaLaserChip001::initialize() {

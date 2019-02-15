@@ -13,7 +13,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EffectMyShipExplosion::EffectMyShipExplosion(const char* prm_name) :
-        DefaultSpriteSetActor(prm_name, "EffectExplosion001", nullptr) {
+        DefaultSpriteSetActor(prm_name, "EffectExplosion001") {
     _class_name = "EffectMyShipExplosion";
     effectBlendOne(); //â¡éZçáê¨
     defineRotMvWorldMatrix_Billboard();

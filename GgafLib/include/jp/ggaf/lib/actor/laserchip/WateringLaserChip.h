@@ -21,7 +21,7 @@ class WateringLaserChip : public LaserChip {
     friend class LaserChipDepository;
 
 public:
-    WateringLaserChip(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat=nullptr);
+    WateringLaserChip(const char* prm_name, const char* prm_model);
 
     virtual void onCreateModel() override {}
 

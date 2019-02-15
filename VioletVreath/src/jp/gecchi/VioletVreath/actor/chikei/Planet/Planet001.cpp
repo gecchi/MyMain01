@@ -16,7 +16,7 @@ using namespace VioletVreath;
 
 
 Planet001::Planet001(const char* prm_name) :
-        DefaultMeshActor(prm_name, "Planet001", nullptr) {
+        DefaultMeshActor(prm_name, "Planet001") {
     _class_name = "Planet001";
     setHitAble(false);
     setZEnableDraw(true);        //Zバッファは考慮

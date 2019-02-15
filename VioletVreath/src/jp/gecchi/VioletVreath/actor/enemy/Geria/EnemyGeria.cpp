@@ -30,8 +30,9 @@ enum {
 };
 
 EnemyGeria::EnemyGeria(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "Geria", STATUS(EnemyGeria)) {
+        DefaultMeshSetActor(prm_name, "Geria") {
     _class_name = "EnemyGeria";
+    getStatus()->reset(statusResetFunction(EnemyGeria));
     iMovePatternNo_ = 0;
     max_shots_ = 1;
     shot_num_ = 0;

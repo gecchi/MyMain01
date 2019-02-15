@@ -25,8 +25,6 @@
 #endif
 
 
-
-
 using namespace GgafDx;
 
 Se::Se(const char* prm_wave_key) : GgafCore::Object() {
@@ -71,9 +69,9 @@ Se::Se(const char* prm_wave_key) : GgafCore::Object() {
     checkDxException(hr, D3D_OK, "prm_wave_key="<<prm_wave_key<<" GetFrequency に失敗しました。サウンドカードは有効ですか？");
 
     _pActor_last_played = nullptr;
-    _volume = GGAF_MAX_VOLUME;
-    _pan = 0.0f;
-    _frequency_rate = 1.0;
+    setVolume(GGAF_MAX_VOLUME);
+    setPan(0.0f);
+    setFrequencyRate(1.0);
     _TRACE_("Se::Se("<<prm_wave_key<<") _wave_file_name="<<_wave_file_name<<" this="<<this<<" _id="<<getId());
 }
 

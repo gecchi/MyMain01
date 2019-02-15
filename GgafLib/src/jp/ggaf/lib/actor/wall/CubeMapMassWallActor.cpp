@@ -12,12 +12,11 @@
 using namespace GgafLib;
 
 
-CubeMapMassWallActor::CubeMapMassWallActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat) :
+CubeMapMassWallActor::CubeMapMassWallActor(const char* prm_name, const char* prm_model) :
         MassWallActor(prm_name,
                       prm_model,
                       "CubeMapMassWallEffect",
-                      "CubeMapMassWallTechnique",
-                      prm_pStat ) ,
+                      "CubeMapMassWallTechnique") ,
         GgafDx::ICubeMapActor() {
     _class_name = "CubeMapMassWallActor";
     _obj_class |= Obj_CubeMapMassWallActor;

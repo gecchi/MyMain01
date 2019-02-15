@@ -30,9 +30,9 @@ enum {
 };
 
 EnemyErmione::EnemyErmione(const char* prm_name) :
-        DefaultMorphMeshActor(prm_name, "Ermione_1", STATUS(EnemyErmione)) {
+        DefaultMorphMeshActor(prm_name, "Ermione_1") {
     _class_name = "EnemyErmione";
-
+    getStatus()->reset(statusResetFunction(EnemyErmione));
 //    num_arm_ = 6; //腕の合計本数
 //    num_arm_part_ = 11;  //各腕の節数（3以上）
 //    angle pos_rz[] = {D_ANG(0),   D_ANG(90),   D_ANG(180),  D_ANG(270), D_ANG(0) , D_ANG(0)   }; //生やす場所

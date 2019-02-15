@@ -8,9 +8,8 @@ template<class T>
 class VvMikataActor : public VvActor<T> {
 
 public:
-    VvMikataActor(const char* prm_name, const char* prm_model_id, GgafCore::Status* prm_pStat)
-        : VvActor<T>(prm_name, prm_model_id, prm_pStat) {
-
+    VvMikataActor(const char* prm_name, const char* prm_model_id)
+        : VvActor<T>(prm_name, prm_model_id) {
     }
 
     virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override {

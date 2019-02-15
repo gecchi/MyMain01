@@ -10,7 +10,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EffectWormhole::EffectWormhole(const char* prm_name, const char* prm_model_id) :
-        DefaultMorphMeshActor(prm_name, prm_model_id, nullptr) {
+        DefaultMorphMeshActor(prm_name, prm_model_id) {
     _class_name = "EffectWormhole";
     inactivate();
     effectBlendOne(); //â¡éZçáê¨

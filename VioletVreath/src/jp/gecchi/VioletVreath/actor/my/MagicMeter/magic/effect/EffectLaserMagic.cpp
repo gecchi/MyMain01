@@ -11,7 +11,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EffectLaserMagic::EffectLaserMagic(const char* prm_name) :
-        DefaultSpriteActor(prm_name, "EffectLaserMagic", nullptr) {
+        DefaultSpriteActor(prm_name, "EffectLaserMagic") {
     _class_name = "EffectLaserMagic";
     effectBlendOne(); //加算合成Technique
     setZEnableDraw(true);       //描画時、Zバッファ値は考慮される

@@ -30,8 +30,9 @@ enum {
 };
 
 EnemyAppho::EnemyAppho(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "Appho", STATUS(EnemyAppho)) {
+        DefaultMeshSetActor(prm_name, "Appho") {
     _class_name = "EnemyAppho";
+    getStatus()->reset(statusResetFunction(EnemyAppho));
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);

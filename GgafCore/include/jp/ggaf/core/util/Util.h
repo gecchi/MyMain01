@@ -57,8 +57,6 @@
 #define dRND(__FROM__,__TO__) (GgafCore::Util::_rnd_double_((__FROM__),(__TO__)))
 
 typedef std::map<std::string, std::string> StrMap;
-/** ハッシュ数値 */
-typedef uint64_t hashval;
 
 #ifdef UTIL
     #undef UTIL

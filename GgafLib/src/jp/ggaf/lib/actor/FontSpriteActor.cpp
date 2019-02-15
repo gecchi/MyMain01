@@ -12,12 +12,11 @@ using namespace GgafLib;
 
 FontSpriteActor::VERTEX_instancedata FontSpriteActor::_aInstancedata[GGAFDXMASS_MAX_INSTANCE_NUM];
 
-FontSpriteActor::FontSpriteActor(const char* prm_name, const char* prm_model_id, GgafCore::Status* prm_pStat) :
+FontSpriteActor::FontSpriteActor(const char* prm_name, const char* prm_model_id) :
             GgafDx::MassSpriteActor(prm_name,
                                   prm_model_id,
                                   "FontSpriteEffect",
                                   "FontSpriteTechnique",
-                                  prm_pStat,
                                   UTIL::createChecker(this) ) ,
             ICharacterChip<FontSpriteActor, 256, 1024>(this, (int)(_pMassSpriteModel->_model_width_px), (int)(_pMassSpriteModel->_model_height_px))
 {

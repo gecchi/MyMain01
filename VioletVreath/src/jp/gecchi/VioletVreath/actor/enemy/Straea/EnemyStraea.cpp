@@ -34,7 +34,8 @@ enum {
 };
 
 EnemyStraea::EnemyStraea(const char* prm_name) :
-        DefaultMeshActor(prm_name, "Straea", STATUS(EnemyStraea)) {
+        DefaultMeshActor(prm_name, "Straea") {
+    getStatus()->reset(statusResetFunction(EnemyErmione));
     //ƒŒ[ƒU[
     laser_way_ = 5;
     cnt_laserchip_ = 0;

@@ -13,7 +13,6 @@ CubeMapMeshActor::CubeMapMeshActor(const char* prm_name,
                                    const char* prm_model_id,
                                    const char* prm_effect_id,
                                    const char* prm_technique,
-                                   GgafCore::Status* prm_pStat,
                                    Checker* prm_pChecker) :
                                            MeshActor(prm_name,
                                                            prm_model_id,
@@ -21,7 +20,6 @@ CubeMapMeshActor::CubeMapMeshActor(const char* prm_name,
                                                            prm_effect_id,
                                                            TYPE_CUBEMAPMESH_EFFECT,
                                                            prm_technique,
-                                                           prm_pStat,
                                                            prm_pChecker) ,
                                             ICubeMapActor() {
     _obj_class |= Obj_GgafDx_CubeMapMeshActor;

@@ -22,7 +22,7 @@ enum {
 
 EnemyErelmanController::EnemyErelmanController(const char* prm_name, EnemyErelmanCore* prm_pCore,
                                                                    FormationErelman* prm_pFormation) :
-  GgafCore::DestructActor(prm_name, nullptr) {
+  GgafCore::DestructActor(prm_name) {
     _class_name = "EnemyErelmanController";
     useProgress(PROG_BANPEI);
 

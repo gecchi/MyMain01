@@ -7,14 +7,12 @@
 using namespace GgafDx;
 
 SphereActor::SphereActor(const char* prm_name,
-                                     GgafCore::Status* prm_pStat,
                                      Checker* prm_pChecker) :
 
                                      MeshActor(prm_name,
                                                      CONFIG::COLI_SPHERE_MODEL.c_str(),
                                                      "DefaultMeshEffect",
                                                      "DefaultMeshTechnique",
-                                                     prm_pStat,
                                                      prm_pChecker) {
     _class_name = "SphereActor";
 }

@@ -24,7 +24,6 @@ public:
 public:
     SpriteMeshSetActor(const char* prm_name,
                              const char* prm_model,
-                             GgafCore::Status* prm_pStat,
                              Checker* prm_pChecker );
 
     virtual void processDraw() override;

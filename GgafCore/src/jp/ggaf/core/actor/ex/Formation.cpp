@@ -3,7 +3,7 @@
 using namespace GgafCore;
 
 Formation::Formation(const char* prm_name, frame prm_offset_frames_end) :
-        MainActor(prm_name, nullptr)
+        MainActor(prm_name)
 {
     _obj_class |= Obj_ggaf_Formation;
     _class_name = "Formation";

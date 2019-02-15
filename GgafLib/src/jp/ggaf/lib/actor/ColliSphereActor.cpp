@@ -13,14 +13,14 @@ using namespace GgafLib;
 
 ColliSphereActor* ColliSphereActor::_pObj = nullptr;
 
-ColliSphereActor::ColliSphereActor(const char* prm_name, GgafCore::Status* prm_pStat) : GgafDx::SphereActor(prm_name, prm_pStat, nullptr) {
+ColliSphereActor::ColliSphereActor(const char* prm_name) : GgafDx::SphereActor(prm_name, nullptr) {
     _class_name = "ColliSphereActor";
     setAlpha(0.8);
 }
 
 ColliSphereActor* ColliSphereActor::get() {
     if (ColliSphereActor::_pObj == nullptr) {
-        ColliSphereActor::_pObj = NEW ColliSphereActor("HITAREA", nullptr);
+        ColliSphereActor::_pObj = NEW ColliSphereActor("HITAREA");
     }
     return ColliSphereActor::_pObj;
 }

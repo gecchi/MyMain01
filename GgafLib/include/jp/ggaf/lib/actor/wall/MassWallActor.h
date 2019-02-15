@@ -62,17 +62,15 @@ public:
     WallSectionScene* _pWallSectionScene;
 
 public:
-    MassWallActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat=nullptr);
+    MassWallActor(const char* prm_name, const char* prm_model);
     MassWallActor(const char* prm_name,
                   const char* prm_model,
                   const char* prm_effect,
-                  const char* prm_technique,
-                  GgafCore::Status* prm_pStat=nullptr);
+                  const char* prm_technique);
 //    MassWallActor(const char* prm_name,
 //                  const char* prm_model_id,
 //                  const char* prm_effect_id,
 //                  const char* prm_technique,
-//                  GgafCore::Status* prm_pStat,
 //                  GgafDx::Checker* prm_pChecker);
 
     void init();

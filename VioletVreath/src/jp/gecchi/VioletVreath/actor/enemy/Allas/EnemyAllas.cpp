@@ -21,8 +21,9 @@ enum {
 };
 
 EnemyAllas::EnemyAllas(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "Allas", STATUS(EnemyAllas)) {
+        DefaultMeshSetActor(prm_name, "Allas") {
     _class_name = "EnemyAllas";
+    getStatus()->reset(statusResetFunction(EnemyAllas));
     iMovePatternNo_ = 0;
     pKurokoLeader_ = nullptr;
     pDepo_shot_ = nullptr;

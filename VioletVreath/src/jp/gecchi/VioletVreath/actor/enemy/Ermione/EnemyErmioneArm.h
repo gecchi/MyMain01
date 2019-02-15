@@ -38,7 +38,7 @@ public:
      * @param prm_name
      * @return
      */
-    EnemyErmioneArm(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat);
+    EnemyErmioneArm(const char* prm_name, const char* prm_model);
 
     /**
      * 初期処理（インスタンス生成後保証）

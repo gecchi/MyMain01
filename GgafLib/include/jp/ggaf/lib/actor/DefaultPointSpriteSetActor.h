@@ -17,7 +17,7 @@ public:
     CollisionChecker* _pColliChecker;
 
 public:
-    DefaultPointSpriteSetActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat=nullptr);
+    DefaultPointSpriteSetActor(const char* prm_name, const char* prm_model);
 
     virtual void onCreateModel() override {
     }

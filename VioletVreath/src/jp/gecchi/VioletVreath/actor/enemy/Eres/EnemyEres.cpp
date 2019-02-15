@@ -25,8 +25,9 @@ enum {
 };
 
 EnemyEres::EnemyEres(const char* prm_name, GgafCore::ActorDepository* prm_pDepo_EnemyEresShots001) :
-        DefaultMeshSetActor(prm_name, "Eres", STATUS(EnemyEres)) {
+        DefaultMeshSetActor(prm_name, "Eres") {
     _class_name = "EnemyEres";
+    getStatus()->reset(statusResetFunction(EnemyEres));
     iMovePatternNo_ = 0;
     _x = PX_C(-100); //ŠJŽnÀ•W
     _y = 0;
@@ -124,7 +125,7 @@ void EnemyEres::onHit(const GgafCore::Actor* prm_pOtherActor) {
 void EnemyEres::onInactive() {
     if (createActorDepository_) {
         //’e‚Í’x‚ê‚ÄŠJ•ú‚³‚¹‚é‚æ‚¤‚ÉA“®‚«‚ðŒp‘±‚³‚¹‚é‚½‚ßˆÚ“®
-        getMySceneMediator()->appendChild(pDepo_shot001_->getMyGroupHead()->extract());
+        getSceneMediator()->appendChild(pDepo_shot001_->getGroupHead()->extract());
         pDepo_shot001_->sayonara(60 * 5);//‰ð•ú—\–ñ
     }
     sayonara();

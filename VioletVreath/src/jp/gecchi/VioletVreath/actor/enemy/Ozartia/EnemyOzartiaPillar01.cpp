@@ -19,8 +19,9 @@ enum {
 };
 
 EnemyOzartiaPillar01::EnemyOzartiaPillar01(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "myvic", STATUS(EnemyOzartiaPillar01)) {
+        DefaultMeshSetActor(prm_name, "myvic") {
     _class_name = "EnemyOzartiaPillar01";
+    getStatus()->reset(statusResetFunction(EnemyOzartiaPillar01));
 }
 
 void EnemyOzartiaPillar01::initialize() {

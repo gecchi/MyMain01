@@ -41,7 +41,8 @@ int EnemyEsperia::max_laser_way_ = RF_EnemyEsperia_ShotWay(1.0);
 //RF_EnemyEsperia_ShotWayƒ‰ƒ“ƒNŽ®‚Í 1.0‚ÅÅ‘å‚ðŽæ‚é‚æ‚¤‚É‚µ‚È‚¯‚ê‚Î‚È‚ç‚È‚¢
 
 EnemyEsperia::EnemyEsperia(const char* prm_name) :
-        DefaultMorphMeshActor(prm_name, "Esperia_1", STATUS(EnemyEsperia)) {
+        DefaultMorphMeshActor(prm_name, "Esperia_1") {
+    getStatus()->reset(statusResetFunction(EnemyEsperia));
     cnt_laserchip_ = 0;
     laser_length_ = 40;
     now_laser_way_ = 0;

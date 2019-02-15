@@ -10,8 +10,9 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 ScoreItem001::ScoreItem001(const char* prm_name)
-               : ScoreItem(prm_name, "ScoreItem001", STATUS(ScoreItem001)) {
+               : ScoreItem(prm_name, "ScoreItem001") {
     _class_name = "ScoreItem001";
+    getStatus()->reset(statusResetFunction(ScoreItem001));
 }
 
 void ScoreItem001::initialize() {

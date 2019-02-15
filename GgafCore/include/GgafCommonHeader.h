@@ -327,6 +327,9 @@
 typedef uint32_t kind_t;
 /** フレーム(アプリケーション時間) */
 typedef uint_fast32_t frame;
+/** ハッシュ数値 */
+typedef uint64_t hashval;
+
 #define MAX_FRAME (0xffffffff)
 
 #define Obj_SceneBit              (0x8000000000000000ULL)       //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000

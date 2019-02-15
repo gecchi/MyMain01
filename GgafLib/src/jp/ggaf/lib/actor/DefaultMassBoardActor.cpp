@@ -10,7 +10,7 @@ using namespace GgafLib;
 
 DefaultMassBoardActor::VERTEX_instancedata DefaultMassBoardActor::_aInstancedata[GGAFDXMASS_MAX_INSTANCE_NUM];
 
-DefaultMassBoardActor::DefaultMassBoardActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat) :
+DefaultMassBoardActor::DefaultMassBoardActor(const char* prm_name, const char* prm_model) :
     GgafDx::MassBoardActor(prm_name, prm_model, "DefaultMassBoardEffect", "DefaultMassBoardTechnique")
 {
     _class_name = "DefaultMassBoardActor";

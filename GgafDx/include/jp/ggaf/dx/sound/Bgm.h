@@ -88,7 +88,7 @@ public:
      * ただし、内部で実際に設定される音量は、BGMマスター音量率が乗じられた値となります。
      * @param volume 0～1000
      */
-    virtual void setVolume(int volume);
+    void setVolume(int volume);
 
     /**
      * BGMのボリュームを取得 .
@@ -104,7 +104,7 @@ public:
      * BGMのパン設定 .
      * @param pan 左 -1.0 ～ 0 ～ 1.0 右
      */
-    virtual void setPan(float pan);
+    void setPan(float pan);
 
     virtual int getPan() {
         return _pan;

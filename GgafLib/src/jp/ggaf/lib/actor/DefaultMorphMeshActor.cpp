@@ -7,12 +7,11 @@
 
 using namespace GgafLib;
 
-DefaultMorphMeshActor::DefaultMorphMeshActor(const char* prm_name, const char* prm_model_id, GgafCore::Status* prm_pStat) :
+DefaultMorphMeshActor::DefaultMorphMeshActor(const char* prm_name, const char* prm_model_id) :
     GgafDx::MorphMeshActor(prm_name,
                          prm_model_id,
                          "DefaultMorphMeshEffect",
                          "DefaultMorphMeshTechnique",
-                         prm_pStat,
                          UTIL::createChecker(this) ) {
 
     _class_name = "DefaultMorphMeshActor";

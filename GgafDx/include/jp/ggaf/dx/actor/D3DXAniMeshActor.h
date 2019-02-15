@@ -33,7 +33,6 @@ public:
                              const char* prm_model_id,
                              const char* prm_effect_id,
                              const char* prm_technique,
-                             GgafCore::Status* prm_pStat,
                              Checker* prm_pChecker);
 
     virtual void processDraw() override;

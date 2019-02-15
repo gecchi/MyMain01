@@ -17,7 +17,7 @@ class TamagoActor : public  GgafLib::DefaultD3DXAniMeshActor {
     double last_time_;
 
 public:
-    TamagoActor(const char* prm_name, GgafCore::Status* prm_pStat);
+    TamagoActor(const char* prm_name);
 
     void initialize() override;
 

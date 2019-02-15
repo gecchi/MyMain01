@@ -11,12 +11,11 @@ using namespace GgafLib;
 
 DefaultMassSpriteActor::VERTEX_instancedata DefaultMassSpriteActor::_aInstancedata[GGAFDXMASS_MAX_INSTANCE_NUM];
 
-DefaultMassSpriteActor::DefaultMassSpriteActor(const char* prm_name, const char* prm_model_id, GgafCore::Status* prm_pStat) :
+DefaultMassSpriteActor::DefaultMassSpriteActor(const char* prm_name, const char* prm_model_id) :
     GgafDx::MassSpriteActor(prm_name,
                           prm_model_id,
                           "DefaultMassSpriteEffect",
                           "DefaultMassSpriteTechnique",
-                          prm_pStat,
                           UTIL::createChecker(this) ) {
 
     _class_name = "DefaultMassSpriteActor";

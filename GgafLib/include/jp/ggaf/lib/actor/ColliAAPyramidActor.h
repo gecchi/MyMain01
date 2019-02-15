@@ -20,7 +20,7 @@ public:
     static void release();
 
 public:
-    ColliAAPyramidActor(const char* prm_name, GgafCore::Status* prm_pStat = nullptr);
+    ColliAAPyramidActor(const char* prm_name);
 
     //void processDraw() {} //オーバーライド未実装にする。
     virtual void onCreateModel() override {

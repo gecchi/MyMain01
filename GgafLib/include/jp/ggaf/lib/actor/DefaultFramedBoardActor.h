@@ -16,7 +16,7 @@ namespace GgafLib {
 class DefaultFramedBoardActor : public GgafDx::FramedBoardActor {
 
 public:
-    DefaultFramedBoardActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat = nullptr);
+    DefaultFramedBoardActor(const char* prm_name, const char* prm_model);
 
     virtual void onCreateModel() override {
     }

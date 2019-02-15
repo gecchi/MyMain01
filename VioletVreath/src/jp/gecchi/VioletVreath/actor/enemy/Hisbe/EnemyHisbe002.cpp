@@ -27,10 +27,11 @@ enum {
 };
 
 EnemyHisbe002::EnemyHisbe002(const char* prm_name) :
-        DefaultMorphMeshActor(prm_name, "Hisbe002_1", STATUS(EnemyHisbe002)) {
-        //CubeMapMorphMeshActor(prm_name, "1HisbeCM_1", STATUS(EnemyHisbe002)) {
+        DefaultMorphMeshActor(prm_name, "Hisbe002_1") {
+        //CubeMapMorphMeshActor(prm_name, "1HisbeCM_1") {
 
     _class_name = "EnemyHisbe002";
+    getStatus()->reset(statusResetFunction(EnemyHisbe002));
     pKurokoLeader_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;
@@ -42,7 +43,7 @@ EnemyHisbe002::EnemyHisbe002(const char* prm_name) :
         pChip = NEW EnemyHisbeLaserChip003(name.str().c_str());
         pLaserChipDepo_->put(pChip);
     }
-    pLaserChipDepo_->config(240, 1, nullptr); //Hisbeは弾切れフレームを1にしないとパクパクしちゃいます。
+    pLaserChipDepo_->config(240, 1); //Hisbeは弾切れフレームを1にしないとパクパクしちゃいます。
     appendGroupChild(pLaserChipDepo_);
 
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();

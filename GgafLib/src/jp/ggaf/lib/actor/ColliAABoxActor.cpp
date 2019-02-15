@@ -13,14 +13,14 @@ using namespace GgafLib;
 
 ColliAABoxActor* ColliAABoxActor::_pObj = nullptr;
 
-ColliAABoxActor::ColliAABoxActor(const char* prm_name, GgafCore::Status* prm_pStat) : GgafDx::AABActor(prm_name, prm_pStat, nullptr) {
+ColliAABoxActor::ColliAABoxActor(const char* prm_name) : GgafDx::AABActor(prm_name, nullptr) {
     _class_name = "ColliAABoxActor";
     setAlpha(0.8);
 }
 
 ColliAABoxActor* ColliAABoxActor::get() {
     if (ColliAABoxActor::_pObj == nullptr) {
-        ColliAABoxActor::_pObj = NEW ColliAABoxActor("HITAREA", nullptr);
+        ColliAABoxActor::_pObj = NEW ColliAABoxActor("HITAREA");
     }
     return (ColliAABoxActor::_pObj);
 }

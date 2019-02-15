@@ -35,16 +35,16 @@ enum {
 };
 
 EnemyRatislaviaEye::EnemyRatislaviaEye(const char* prm_name, EnemyRatislavia* prm_pRatislavia) :
-        DefaultMorphMeshActor(prm_name, "RatislaviaEye_1", STATUS(EnemyRatislaviaEye)) {
-        //CubeMapMorphMeshActor(prm_name, "HaliaCM_1", STATUS(EnemyRatislaviaEye)) {
-
+        DefaultMorphMeshActor(prm_name, "RatislaviaEye_1") {
+        //CubeMapMorphMeshActor(prm_name, "HaliaCM_1") {
+    getStatus()->reset(statusResetFunction(EnemyRatislaviaEye));
     _class_name = "EnemyRatislaviaEye";
     setScaleR(0.3*10);
     pRatislavia_ = prm_pRatislavia;
     setPositionAt(pRatislavia_);
 
     pLaserChipDepo_ = NEW LaserChipDepository("DepoLaserChip");
-    pLaserChipDepo_->config(60, 1, nullptr); //Haliaは弾切れフレームを1にしないとパクパクしちゃいます。
+    pLaserChipDepo_->config(60, 1); //Haliaは弾切れフレームを1にしないとパクパクしちゃいます。
     EnemyRatislaviaEyeStraightLaserChip001* pChip;
     for (int i = 0; i < 60; i++) { //レーザーストック
         std::string name = "LaserChip("+ XTOS(i) + ")";

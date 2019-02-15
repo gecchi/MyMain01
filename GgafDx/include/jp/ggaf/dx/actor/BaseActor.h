@@ -16,7 +16,7 @@ namespace GgafDx {
 class BaseActor : public GgafCore::MainActor {
 
 public:
-    BaseActor(const char* prm_name, GgafCore::Status* prm_pStat);
+    BaseActor(const char* prm_name);
 
     virtual ~BaseActor(); //デストラクタ
 

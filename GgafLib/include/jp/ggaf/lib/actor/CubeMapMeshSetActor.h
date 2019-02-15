@@ -28,7 +28,7 @@ public:
     CollisionChecker* _pColliChecker;
 
 public:
-    CubeMapMeshSetActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat=nullptr);
+    CubeMapMeshSetActor(const char* prm_name, const char* prm_model);
 
     virtual void onCreateModel() override {
     }

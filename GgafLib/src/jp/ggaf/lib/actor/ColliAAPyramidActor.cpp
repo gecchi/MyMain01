@@ -13,14 +13,14 @@ using namespace GgafLib;
 
 ColliAAPyramidActor* ColliAAPyramidActor::_pObj = nullptr;
 
-ColliAAPyramidActor::ColliAAPyramidActor(const char* prm_name, GgafCore::Status* prm_pStat) : GgafDx::AAPyramidActor(prm_name, prm_pStat, nullptr) {
+ColliAAPyramidActor::ColliAAPyramidActor(const char* prm_name) : GgafDx::AAPyramidActor(prm_name, nullptr) {
     _class_name = "ColliAAPyramidActor";
     setAlpha(0.8);
 }
 
 ColliAAPyramidActor* ColliAAPyramidActor::get() {
     if (ColliAAPyramidActor::_pObj == nullptr) {
-        ColliAAPyramidActor::_pObj = NEW ColliAAPyramidActor("HITAREA", nullptr);
+        ColliAAPyramidActor::_pObj = NEW ColliAAPyramidActor("HITAREA");
     }
     return ColliAAPyramidActor::_pObj;
 }

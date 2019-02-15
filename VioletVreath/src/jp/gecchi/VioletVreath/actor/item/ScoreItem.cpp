@@ -20,8 +20,8 @@ enum {
     PROG_BANPEI,
 };
 
-ScoreItem::ScoreItem(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat)
-               : Item(prm_name, prm_model, prm_pStat) {
+ScoreItem::ScoreItem(const char* prm_name, const char* prm_model)
+               : Item(prm_name, prm_model) {
     _class_name = "ScoreItem";
     effectBlendOne(); //加算合成するTechnique指定
     setZEnableDraw(true);        //描画時、Zバッファ値は考慮される

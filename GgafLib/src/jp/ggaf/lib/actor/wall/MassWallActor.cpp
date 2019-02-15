@@ -19,8 +19,7 @@ std::map<int, UINT> MassWallActor::_draw_face;
 MassWallActor::VERTEX_instancedata MassWallActor::_aInstancedata[GGAFDXMASS_MAX_INSTANCE_NUM];
 
 MassWallActor::MassWallActor(const char* prm_name,
-                             const char* prm_model,
-                             GgafCore::Status* prm_pStat) :
+                             const char* prm_model) :
 
                                  GgafDx::MassMeshActor(prm_name,
                                                      prm_model,
@@ -28,7 +27,6 @@ MassWallActor::MassWallActor(const char* prm_name,
                                                      "MassWallEffect",
                                                      TYPE_MASSWALL_EFFECT,
                                                      "MassWallTechnique",
-                                                     prm_pStat,
                                                      UTIL::createChecker(this))
 {
     init();
@@ -37,8 +35,7 @@ MassWallActor::MassWallActor(const char* prm_name,
 MassWallActor::MassWallActor(const char* prm_name,
                              const char* prm_model,
                              const char* prm_effect,
-                             const char* prm_technique,
-                             GgafCore::Status* prm_pStat) :
+                             const char* prm_technique) :
 
                                  GgafDx::MassMeshActor(prm_name,
                                                      prm_model,
@@ -46,7 +43,6 @@ MassWallActor::MassWallActor(const char* prm_name,
                                                      prm_effect,
                                                      TYPE_MASSWALL_EFFECT,
                                                      prm_technique,
-                                                     prm_pStat,
                                                      UTIL::createChecker(this))
 {
     init();

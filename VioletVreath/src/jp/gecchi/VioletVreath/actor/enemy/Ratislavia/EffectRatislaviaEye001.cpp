@@ -7,7 +7,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EffectRatislaviaEye001::EffectRatislaviaEye001(const char* prm_name) :
-        DefaultSpriteActor(prm_name, "EffectRatislaviaEye001", nullptr) {
+        DefaultSpriteActor(prm_name, "EffectRatislaviaEye001") {
     _class_name = "EffectRatislaviaEye001";
     inactivate();
     effectBlendOne(); //â¡éZçáê¨

@@ -14,7 +14,6 @@ DynaD3DXMeshActor::DynaD3DXMeshActor(const char* prm_name,
                                                  const char* prm_model_id,
                                                  const char* prm_effect_id,
                                                  const char* prm_technique,
-                                                 GgafCore::Status* prm_pStat,
                                                  Checker* prm_pChecker) :
 
                                                      FigureActor(prm_name,
@@ -23,7 +22,6 @@ DynaD3DXMeshActor::DynaD3DXMeshActor(const char* prm_name,
                                                                        prm_effect_id,
                                                                        TYPE_MESH_EFFECT,
                                                                        prm_technique,
-                                                                       prm_pStat,
                                                                        prm_pChecker) {
     _obj_class |= Obj_GgafDx_DynaD3DXMeshActor;
     _class_name = "DynaD3DXMeshActor";

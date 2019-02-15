@@ -17,12 +17,11 @@ using namespace GgafLib;
 
 LaserChip::VERTEX_instancedata LaserChip::_aInstancedata[GGAFDXMASS_MAX_INSTANCE_NUM];
 
-LaserChip::LaserChip(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat) :
+LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
         GgafDx::MassMeshActor(prm_name,
                          std::string(prm_model).c_str(),
                          "LaserChipEffect",
                          "LaserChipTechnique",
-                         prm_pStat,
                          UTIL::createChecker(this) ) {
 //    _pMeshSetModel->_set_num = 11; //現在のレーザーの最大セット数は11。
     _obj_class |= Obj_LaserChip;

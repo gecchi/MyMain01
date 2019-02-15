@@ -11,7 +11,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EffectLockonMagic::EffectLockonMagic(const char* prm_name) :
-        DefaultSpriteActor(prm_name, "EffectLockonMagic", nullptr) {
+        DefaultSpriteActor(prm_name, "EffectLockonMagic") {
     _class_name = "EffectLockonMagic";
     effectBlendOne(); //加算合成Technique
     setZEnableDraw(true);       //描画時、Zバッファ値は考慮される

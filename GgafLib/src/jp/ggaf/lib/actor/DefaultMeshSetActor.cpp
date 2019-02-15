@@ -7,12 +7,11 @@
 
 using namespace GgafLib;
 
-DefaultMeshSetActor::DefaultMeshSetActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat) :
+DefaultMeshSetActor::DefaultMeshSetActor(const char* prm_name, const char* prm_model) :
     GgafDx::MeshSetActor(prm_name,
                        prm_model,
                        "DefaultMeshSetEffect",
                        "DefaultMeshSetTechnique",
-                       prm_pStat,
                        UTIL::createChecker(this) ) {
     _class_name = "DefaultMeshSetActor";
     _pColliChecker = (CollisionChecker*)_pChecker;

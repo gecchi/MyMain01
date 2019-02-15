@@ -6,7 +6,7 @@
 using namespace GgafDx;
 
 CameraViewPoint::CameraViewPoint(const char* prm_name) :
-        GeometricActor(prm_name, nullptr, nullptr) {
+        GeometricActor(prm_name, nullptr) {
     _class_name = "CameraViewPoint";
 }
 

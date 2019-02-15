@@ -22,7 +22,7 @@ public:
     SceneMediator* _pSceneMediator;
 
 public:
-    MainActor(const char* prm_name, Status* prm_pStat);
+    MainActor(const char* prm_name);
 
     virtual MainActor* getNext() const override { //共変戻り値
         return (MainActor*)Actor::getNext();
@@ -46,24 +46,24 @@ public:
     /**
      * シーン仲介者を設定する。 .
      */
-    virtual void setMySceneMediator(SceneMediator* prm_pSceneMediator);
+    virtual void setSceneMediator(SceneMediator* prm_pSceneMediator);
 
     /**
      * 団長を設定する。<BR>
      */
-    virtual void setMyGroupHead(GroupHead* prm_pGroupHead);
+    virtual void setGroupHead(GroupHead* prm_pGroupHead);
 
     /**
      * 所属シーンのシーン仲介者取得。但しシーンに所属していない場合は、この世(Spacetime)のシーン仲介者を返す .
      * @return 所属シーン仲介者の仲介者。(いない場合 この世(Spacetime)の仲介者)
      */
-    SceneMediator* getMySceneMediator();
+    SceneMediator* getSceneMediator();
 
     /**
      * シーン団長を取得する。 .
      * @return 団長 ／ いない場合 nullptr
      */
-    virtual GroupHead* getMyGroupHead();
+    virtual GroupHead* getGroupHead();
 
     /**
      * 新たに種別を設定し、アクターを配下に追加する。

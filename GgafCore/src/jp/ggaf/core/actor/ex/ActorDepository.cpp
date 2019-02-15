@@ -4,7 +4,7 @@
 
 using namespace GgafCore;
 
-ActorDepository::ActorDepository(const char* prm_name, Status* prm_pStat) : DestructActor(prm_name, prm_pStat) {
+ActorDepository::ActorDepository(const char* prm_name) : DestructActor(prm_name) {
     _obj_class |= Obj_ggaf_ActorDepository;
     _class_name = "ActorDepository";
     setHitAble(false);

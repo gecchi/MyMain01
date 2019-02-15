@@ -820,7 +820,7 @@ bool MyStgUtil::performEnemyHit(GgafDx::FigureActor* prm_this, const GgafDx::Geo
             prm_this->notifyDestroyedToFormation();     //編隊全滅判定に有効な破壊のされ方でしたよ、と通知
             UTIL::activateItemOf(prm_this);             //アイテム出現
             UTIL::activateDestroyedEffectOf(prm_this);  //やられたエフェクト
-            GgafCore::Scene* pThisPlatformScene = prm_this->getMySceneMediator()->getPlatformScene();
+            GgafCore::Scene* pThisPlatformScene = prm_this->getSceneMediator()->getPlatformScene();
             if (pThisPlatformScene->instanceOf(Obj_RankUpStage)) {
                 //ランクアップステージの敵ならば、
                 RankUpStage* pRankUpStage = (RankUpStage*)(pThisPlatformScene);

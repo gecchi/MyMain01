@@ -81,7 +81,7 @@ public:
     /** [r] ‰Î—Í—¦AUŒ‚—Í‚Éæ‚¶‚ç‚ê‚é’l */
     float _power;
 public:
-    LaserChip(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat=nullptr);
+    LaserChip(const char* prm_name, const char* prm_model);
 
     static bool initStatic(LaserChip* prm_pLaserChip);
 

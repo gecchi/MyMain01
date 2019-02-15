@@ -28,7 +28,7 @@ public:
     CollisionChecker* _pColliChecker;
 
 public:
-    DefaultD3DXMeshActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat=nullptr);
+    DefaultD3DXMeshActor(const char* prm_name, const char* prm_model);
 
     virtual void onCreateModel() override {
     }

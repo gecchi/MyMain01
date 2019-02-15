@@ -10,7 +10,7 @@ using namespace GgafLib;
 
 FontBoardActor::VERTEX_instancedata FontBoardActor::_aInstancedata[GGAFDXMASS_MAX_INSTANCE_NUM];
 
-FontBoardActor::FontBoardActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat) :
+FontBoardActor::FontBoardActor(const char* prm_name, const char* prm_model) :
           GgafDx::MassBoardActor(prm_name, prm_model, "FontBoardEffect", "FontBoardTechnique"),
           ICharacterChip<FontBoardActor, 256, 1024>(this, (int)(_pMassBoardModel->_model_width_px), (int)(_pMassBoardModel->_model_height_px))
 {

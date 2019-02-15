@@ -30,9 +30,8 @@ public:
     /**
      * コンストラクタ .
      * @param prm_name
-     * @param prm_pStat
      */
-    ActorDepository(const char* prm_name, Status* prm_pStat = nullptr);
+    ActorDepository(const char* prm_name);
 
     /**
      * 貸出メンバー(Actor)を追加登録します .

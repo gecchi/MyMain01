@@ -9,7 +9,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 LockonCursor001::LockonCursor001(const char* prm_name, const char* prm_model_id) :
-        DefaultMassSpriteActor(prm_name, prm_model_id, nullptr) {
+        DefaultMassSpriteActor(prm_name, prm_model_id) {
     _class_name = "LockonCursor001";
     pTarget_ = nullptr;
     inactivate();

@@ -21,8 +21,8 @@ enum {
     PROG_BANPEI,
 };
 
-VreathItem::VreathItem(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat)
-               : Item(prm_name, prm_model, prm_pStat) {
+VreathItem::VreathItem(const char* prm_name, const char* prm_model)
+               : Item(prm_name, prm_model) {
     _class_name = "VreathItem";
     effectBlendOne(); //加算合成するTechnique指定
     setZEnableDraw(true);        //描画時、Zバッファ値は考慮される

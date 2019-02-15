@@ -10,7 +10,7 @@
 using namespace GgafDx;
 
 Camera::Camera(const char* prm_name, double prm_rad_fovX, double prm_dep) :
-        GeometricActor(prm_name, nullptr, nullptr),
+        GeometricActor(prm_name, nullptr),
 _rad_fovX(prm_rad_fovX),      //‘S‚Ä‚ÌŠî€‚ÍfovX‚©‚çl‚¦‚é
 _dep(prm_dep),
 _rad_half_fovX(_rad_fovX / 2.0),

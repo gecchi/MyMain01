@@ -47,7 +47,7 @@ public:
     bool _is_fix_begin_pos;
 
 public:
-    HomingLaserChip(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat=nullptr);
+    HomingLaserChip(const char* prm_name, const char* prm_model);
 
     virtual void onCreateModel() override {}
 

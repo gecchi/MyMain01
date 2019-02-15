@@ -4,8 +4,8 @@
 
 using namespace GgafLib;
 
-DefaultGeometricActor::DefaultGeometricActor(const char* prm_name, GgafCore::Status* prm_pStat, GgafDx::Checker* prm_pChecker) :
-    GgafDx::GeometricActor(prm_name, prm_pStat, prm_pChecker)
+DefaultGeometricActor::DefaultGeometricActor(const char* prm_name, GgafDx::Checker* prm_pChecker) :
+    GgafDx::GeometricActor(prm_name, prm_pChecker)
 {
     _class_name = "DefaultGeometricActor";
 }

@@ -31,8 +31,9 @@ enum {
 };
 
 EnemyOrtuna::EnemyOrtuna(const char* prm_name) :
-        DefaultMorphMeshActor(prm_name, "Ortuna_1", STATUS(EnemyOrtuna)) {
+        DefaultMorphMeshActor(prm_name, "Ortuna_1") {
     _class_name = "EnemyOrtuna";
+    getStatus()->reset(statusResetFunction(EnemyOrtuna));
     _sx=_sy=_sz=100;
     stagnating_pos_frames_ = 1;
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();

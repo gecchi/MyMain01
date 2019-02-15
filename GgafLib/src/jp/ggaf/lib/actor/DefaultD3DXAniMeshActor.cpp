@@ -7,12 +7,11 @@
 
 using namespace GgafLib;
 
-DefaultD3DXAniMeshActor::DefaultD3DXAniMeshActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat) :
+DefaultD3DXAniMeshActor::DefaultD3DXAniMeshActor(const char* prm_name, const char* prm_model) :
     GgafDx::D3DXAniMeshActor(prm_name,
                            prm_model,
                            "DefaultD3DXAniMeshEffect",
                            "DefaultD3DXAniMeshTechnique",
-                           prm_pStat,
                            UTIL::createChecker(this) ) {
     _class_name = "DefaultD3DXAniMeshActor";
     _pColliChecker = (CollisionChecker*)_pChecker;

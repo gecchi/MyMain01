@@ -17,7 +17,7 @@ public:
     /** ‹z’…·•ªÀ•W */
     int kDX_, kDY_, kDZ_;
 public:
-    MagicPointItem(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat);
+    MagicPointItem(const char* prm_name, const char* prm_model);
 
     virtual void onCreateModel() override {
     }

@@ -12,8 +12,9 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EnemyStraeaLaserChip002::EnemyStraeaLaserChip002(const char* prm_name) :
-        RefractionLaserChip(prm_name, "StraeaLaserChip001", STATUS(EnemyStraeaLaserChip002)) {
+        RefractionLaserChip(prm_name, "StraeaLaserChip001") {
     _class_name = "EnemyStraeaLaserChip002";
+    getStatus()->reset(statusResetFunction(EnemyStraeaLaserChip002));
     pConn_pRefractionEffectDepository_ = nullptr;
 }
 

@@ -32,8 +32,9 @@ enum {
 };
 
 EnemyUrydike::EnemyUrydike(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "Urydike", STATUS(EnemyUrydike)) {
+        DefaultMeshSetActor(prm_name, "Urydike") {
     _class_name = "EnemyUrydike";
+    getStatus()->reset(statusResetFunction(EnemyUrydike));
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);

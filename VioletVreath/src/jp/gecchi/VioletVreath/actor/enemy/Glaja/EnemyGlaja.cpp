@@ -36,8 +36,9 @@ enum {
 };
 
 EnemyGlaja::EnemyGlaja(const char* prm_name) :
-        DefaultMorphMeshActor(prm_name, "Glaja_1", STATUS(EnemyGlaja)) {
+        DefaultMorphMeshActor(prm_name, "Glaja_1") {
     _class_name = "EnemyGlaja";
+    getStatus()->reset(statusResetFunction(EnemyGlaja));
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     pConn_pShot_ = connectToDepositoryManager("GlajaLance001");

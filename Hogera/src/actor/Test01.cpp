@@ -21,7 +21,7 @@ enum {
 };
 
 Test01::Test01(const char* prm_name) :
-        DefaultSpriteActor(prm_name, "Lockon001", nullptr) {
+        DefaultSpriteActor(prm_name, "Lockon001") {
     _class_name = "Test01";
 //    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //ワールド変換はビルボードでRz回転に強制
     effectBlendOne(); //エフェクトテクニックは加算合成に強制

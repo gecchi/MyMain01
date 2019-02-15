@@ -27,7 +27,7 @@ public:
     virtual void setAlign(Align prm_align) override;
     virtual void setValign(Valign prm_valign) override;
 public:
-    FontBoardActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat = nullptr);
+    FontBoardActor(const char* prm_name, const char* prm_model);
 
     virtual void onCreateModel() override {
     }

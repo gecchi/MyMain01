@@ -12,8 +12,9 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EnemyStraeaLaserChip003::EnemyStraeaLaserChip003(const char* prm_name) :
-        WateringLaserChip(prm_name, "StraeaLaserChip001", STATUS(EnemyStraeaLaserChip003)) {
+        WateringLaserChip(prm_name, "StraeaLaserChip001") {
     _class_name = "EnemyStraeaLaserChip003";
+    getStatus()->reset(statusResetFunction(EnemyStraeaLaserChip003));
     pConn_pSplManuf_ = connectToSplineManufactureManager("GURUGURU");
     pKurokoLeader_ = pConn_pSplManuf_->peek()->createKurokoLeader(getKuroko());
 }

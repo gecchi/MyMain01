@@ -41,8 +41,9 @@ enum {
 };
 
 EnemyDelheid::EnemyDelheid(const char* prm_name) :
-        DefaultMassMorphMeshActor(prm_name, "Delheid_1", STATUS(EnemyDelheid)) {
+        DefaultMassMorphMeshActor(prm_name, "Delheid_1") {
     _class_name = "EnemyDelheid";
+    getStatus()->reset(statusResetFunction(EnemyDelheid));
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     pSeTx->set(SE_UNDAMAGED, "WAVE_ENEMY_UNDAMAGED_001");

@@ -17,8 +17,9 @@ using namespace VioletVreath;
 
 
 EnemyHisbeLaserChip002::EnemyHisbeLaserChip002(const char* prm_name) :
-        RefractionLaserChip(prm_name, "HisbeLaserChip002", STATUS(EnemyHisbeLaserChip002)) {
+        RefractionLaserChip(prm_name, "HisbeLaserChip002") {
     _class_name = "EnemyHisbeLaserChip002";
+    getStatus()->reset(statusResetFunction(EnemyHisbeLaserChip002));
     pConn_pSplManuf_ = connectToSplineManufactureManager("EnemyHisbeLaserChip002"); //ヒルベルト曲線
     pKurokoLeader_ = pConn_pSplManuf_->peek()->createKurokoLeader(getKuroko());
     pKurokoLeader_->adjustCoordOffset(PX_C(100), 0, 0);
@@ -38,7 +39,7 @@ void EnemyHisbeLaserChip002::onActive() {
     RefractionLaserChip::onActive();
     //ステータスリセット
     getStatus()->reset();
-    pScrollingScene_ = ((DefaultScene*)(getMySceneMediator()->getPlatformScene()))->getNearestScrollingScene();
+    pScrollingScene_ = ((DefaultScene*)(getSceneMediator()->getPlatformScene()))->getNearestScrollingScene();
 }
 
 void EnemyHisbeLaserChip002::onRefractionInto(int prm_num_refraction)  {

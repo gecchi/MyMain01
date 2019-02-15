@@ -86,7 +86,7 @@ public:
      * ただし、内部で実際に設定される音量は、BGMマスター音量率が乗じられた値となります。
      * @param prm_volume ボリューム(0 ～ 1000)
      */
-    virtual void setVolume(int prm_volume);
+    void setVolume(int prm_volume);
 
     /**
      * SEボリュームを取得 .
@@ -103,7 +103,7 @@ public:
      * play()実行後、SEが再生中に使用することを想定 .
      * @param prm_pan パン(left:-1.0 ～ center:0 ～ right:1.0)
      */
-    virtual void setPan(float prm_pan);
+    void setPan(float prm_pan);
 
     virtual int getPan() {
         return _pan;

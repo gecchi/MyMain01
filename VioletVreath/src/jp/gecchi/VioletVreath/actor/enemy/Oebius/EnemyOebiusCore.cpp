@@ -35,10 +35,10 @@ enum {
 };
 
 EnemyOebiusCore::EnemyOebiusCore(const char* prm_name, EnemyOebiusController* prm_pController) :
-        DefaultMorphMeshActor(prm_name, "OebiusCore_1", STATUS(EnemyOebiusCore)) {
+        DefaultMorphMeshActor(prm_name, "OebiusCore_1") {
     _class_name = "EnemyOebiusCore";
     pController_ = prm_pController;
-
+    getStatus()->reset(statusResetFunction(EnemyOebiusCore));
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     pSeTx->set(SE_UNDAMAGED, "WAVE_ENEMY_UNDAMAGED_001");

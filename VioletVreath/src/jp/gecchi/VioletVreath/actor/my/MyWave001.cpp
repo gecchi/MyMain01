@@ -12,7 +12,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 MyWave001::MyWave001(const char* prm_name) :
-        DefaultMeshActor(prm_name, "wave", nullptr) {
+        DefaultMeshActor(prm_name, "wave") {
     _class_name = "MyWave001";
 }
 

@@ -7,12 +7,11 @@
 
 using namespace GgafLib;
 
-DefaultDynaD3DXMeshActor::DefaultDynaD3DXMeshActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat) :
+DefaultDynaD3DXMeshActor::DefaultDynaD3DXMeshActor(const char* prm_name, const char* prm_model) :
     GgafDx::DynaD3DXMeshActor(prm_name,
                              prm_model,
                              "DefaultMeshEffect",
                              "DefaultMeshTechnique",
-                             prm_pStat,
                              UTIL::createChecker(this) ) {
     _class_name = "DefaultDynaD3DXMeshActor";
     _pColliChecker = (CollisionChecker*)_pChecker;

@@ -120,11 +120,12 @@ enum {
 
 
 MyShip::MyShip(const char* prm_name) :
-        DefaultD3DXMeshActor(prm_name, "VicViper", STATUS(MyShip)) {
-//DefaultMeshActor(prm_name, "jiki", STATUS(MyShip)) {
-//CubeMapMeshActor(prm_name, "wakka", STATUS(MyShip)) {
-//DefaultD3DXAniMeshActor(prm_name, "AnimatedSkelton", STATUS(MyShip)) {
+        DefaultD3DXMeshActor(prm_name, "VicViper") {
+//DefaultMeshActor(prm_name, "jiki") {
+//CubeMapMeshActor(prm_name, "wakka") {
+//DefaultD3DXAniMeshActor(prm_name, "AnimatedSkelton") {
     _class_name = "MyShip";
+    getStatus()->reset(statusResetFunction(MyShip));
 
     //effectBlendOne(); //加算合成Technique指定
 
@@ -203,7 +204,7 @@ MyShip::MyShip(const char* prm_name) :
         pChip->setPositionSource(this); //位置だけ同期
         pLaserChipDepo_->put(pChip);
     }
-    pLaserChipDepo_->config(80, 25, nullptr);
+    pLaserChipDepo_->config(80, 25);
     appendGroupChild(pLaserChipDepo_);
 
     //ロックオンコントローラー
@@ -298,7 +299,7 @@ MyShip::MyShip(const char* prm_name) :
     //STAT_Staminaが減れば、vreath_ が変化し、それを内部参照する VreathBar の表示が連動して変わる
 
     //魔法メーター設置
-    pMagicMeter_ = NEW MagicMeter("MagicMeter", &mp_, &(getStatus()->_paValue[STAT_Stamina]._int_val) );
+    pMagicMeter_ = NEW MagicMeter("MagicMeter", &mp_, &(getStatus()->_value[STAT_Stamina]._int_val) );
     pMagicMeter_->setPosition(PX_C(100), PX_C(CONFIG::GAME_BUFFER_HEIGHT) - (pMagicMeter_->height_) - PX_C(16+16+16));
     appendGroupChild(pMagicMeter_);
 

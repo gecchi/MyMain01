@@ -43,7 +43,7 @@ protected:
     static void createVertexInstanceData(void* prm, GgafDx::MassModel::VertexInstanceDataInfo* out_info);
 
 public:
-    DefaultMassBoardActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat = nullptr);
+    DefaultMassBoardActor(const char* prm_name, const char* prm_model);
 
     virtual void onCreateModel() override {
     }

@@ -21,9 +21,10 @@ enum {
 };
 
 MyTorpedo::MyTorpedo(const char* prm_name, MyTorpedoController* prm_pTorpedoController)
-               : DefaultMeshSetActor(prm_name, "EffectLaserRefraction001", STATUS(MyTorpedo)) {
+               : DefaultMeshSetActor(prm_name, "EffectLaserRefraction001") {
     _class_name = "MyTorpedo";
     pTorpedoCtrler_ = prm_pTorpedoController;
+    getStatus()->reset(statusResetFunction(MyTorpedo));
     length_TailEffect_ = 5;
     begin_x_ = _x;
     begin_y_ = _y;

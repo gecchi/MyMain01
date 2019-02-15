@@ -4,7 +4,7 @@
 
 using namespace GgafLib;
 
-DefaultBoardSetActor::DefaultBoardSetActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat) :
+DefaultBoardSetActor::DefaultBoardSetActor(const char* prm_name, const char* prm_model) :
     GgafDx::BoardSetActor(prm_name, prm_model, "DefaultBoardSetEffect", "DefaultBoardSetTechnique")
 {
     _class_name = "DefaultBoardSetActor";

@@ -27,8 +27,9 @@ enum {
 };
 
 EnemyEbe::EnemyEbe(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "Ebe", STATUS(EnemyEbe)) {
+        DefaultMeshSetActor(prm_name, "Ebe") {
     _class_name = "EnemyEbe";
+    getStatus()->reset(statusResetFunction(EnemyEbe));
     pKurokoLeader_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;

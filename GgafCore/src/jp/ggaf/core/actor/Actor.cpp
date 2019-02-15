@@ -7,20 +7,17 @@ using namespace GgafCore;
 #ifdef MY_DEBUG
 unsigned int Actor::_num_actors = 0;
 #endif
-Actor::Actor(const char* prm_name, Status* prm_pStat) :
+Actor::Actor(const char* prm_name) :
 Element<Actor>(prm_name),
 _pDependenceDepository(nullptr),
 _pFormation(nullptr),
 _can_hit_flg(false),
-_can_hit_out_of_view(true),
-_pStatus(prm_pStat)
+_can_hit_out_of_view(true)
 {
     _class_name = "Actor";
     _obj_class = Obj_ggaf_Actor;
-    if (_pStatus == nullptr) {
-        _pStatus = NEW Status(1, nullptr);
-        getStatus()->set(0, 0);
-    }
+    _pStatus = NEW Status();
+    getStatus()->set(STAT_DEFAULT_ACTOR_KIND, 0);
 #ifdef MY_DEBUG
     Actor::_num_actors++;
 #endif

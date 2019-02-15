@@ -149,12 +149,10 @@ public:
     /**
      * コンストラクタ .
      * @param prm_name アクター名
-     * @param prm_pStat ステータス(使用しない時 nullptr)
      * @param prm_pChecker チェッカー(使用しない時 nullptr)
      * @return
      */
     GeometricActor(const char* prm_name,
-                         GgafCore::Status* prm_pStat,
                          Checker* prm_pChecker);
 
     virtual GeometricActor* getPrev() const override { //共変の戻り値

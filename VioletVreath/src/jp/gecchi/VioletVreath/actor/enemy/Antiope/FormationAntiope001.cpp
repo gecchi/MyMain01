@@ -12,7 +12,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 FormationAntiope001::FormationAntiope001(const char* prm_name) :
-        DefaultGeometricActor(prm_name, nullptr) {
+        DefaultGeometricActor(prm_name) {
     _class_name = "FormationAntiope001";
     num_Antiope_ = 0;
     cnt_Antiope_ = 0;

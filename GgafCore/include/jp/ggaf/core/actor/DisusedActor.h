@@ -19,7 +19,7 @@ class DisusedActor : public Actor {
 
 public:
     DisusedActor() :
-        Actor("DisusedActor", nullptr) {
+        Actor("DisusedActor") {
     }
     void initialize() override {
     }

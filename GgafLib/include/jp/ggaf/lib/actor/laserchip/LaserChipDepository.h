@@ -66,7 +66,7 @@ public:
     GgafDx::FigureActor* _pEffectActor;
 
 public:
-    LaserChipDepository(const char* prm_name, GgafCore::Status* prm_pStat = nullptr);
+    LaserChipDepository(const char* prm_name);
 
     /**
      * ƒŒ[ƒU[‚ğİ’è‚·‚é .

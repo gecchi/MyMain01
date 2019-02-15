@@ -14,7 +14,7 @@ namespace GgafLib {
 class DefaultGeometricActor : public GgafDx::GeometricActor {
 
 public:
-    DefaultGeometricActor(const char* prm_name, GgafCore::Status* prm_pStat = nullptr, GgafDx::Checker* prm_pChecker = nullptr);
+    DefaultGeometricActor(const char* prm_name, GgafDx::Checker* prm_pChecker = nullptr);
 
     virtual void initialize() override {}
 

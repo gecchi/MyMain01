@@ -15,8 +15,9 @@ enum {
 };
 
 TestNomal::TestNomal(const char* prm_name)
-      : TestEnemy(prm_name, "TestNomal", STATUS(TestNomal)) {
+      : TestEnemy(prm_name, "TestNomal") {
     _class_name = "TestNomal";
+    getStatus()->reset(statusResetFunction(TestNomal));
 
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");

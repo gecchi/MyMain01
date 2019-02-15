@@ -21,8 +21,9 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EnemyTamago01::EnemyTamago01(const char* prm_name) :
-        SpriteMeshSetActor(prm_name, "8,tamago", STATUS(EnemyTamago01)) { //8/をいれとかないとユニークにならない
+        SpriteMeshSetActor(prm_name, "8,tamago") { //8/をいれとかないとユニークにならない
     _class_name = "EnemyTamago01";
+    getStatus()->reset(statusResetFunction(EnemyTamago01));
     iMovePatternNo_ = 0;
     pProgram_Tamago01Move_ = nullptr;
     pConn_depo_ = nullptr;

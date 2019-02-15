@@ -27,7 +27,7 @@ public:
     /** 衝突判定支援オブジェクト */
     CollisionChecker* _pColliChecker;
 public:
-    SpriteMeshActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat=nullptr);
+    SpriteMeshActor(const char* prm_name, const char* prm_model);
 
     virtual void onCreateModel() override {
     }

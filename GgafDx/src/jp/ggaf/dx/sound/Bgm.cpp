@@ -46,8 +46,8 @@ Bgm::Bgm(const char* prm_bgm_key) : GgafCore::Object() {
     _pOggResource = NEW OggVorbisFile( full_ogg_file_name.c_str() );
     _pOggDecoder =  NEW OggDecoder( _pOggResource );
     _pPcmPlayer = NEW PCMPlayer(Sound::_pIDirectSound8 , _pOggDecoder);
-    _volume = GGAF_MAX_VOLUME;
-    _pan = 0.0f;
+    setVolume(GGAF_MAX_VOLUME);
+    setPan(0.0f);
 }
 
 std::string Bgm::getOggFileName(std::string prm_file) {

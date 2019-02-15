@@ -25,11 +25,9 @@ FigureActor::FigureActor(const char* prm_name,
                                      const char* prm_model,
                                      const char* prm_effect,
                                      const char* prm_technique,
-                                     GgafCore::Status* prm_pStat,
                                      Checker* prm_pChecker) :
 
                                          GeometricActor(prm_name,
-                                                              prm_pStat,
                                                               prm_pChecker),
 _pModelCon(
     (ModelConnection*)(
@@ -91,11 +89,9 @@ FigureActor::FigureActor(const char* prm_name,
                                      const char* prm_effect_id,
                                      const char prm_effect_type,
                                      const char* prm_technique,
-                                     GgafCore::Status* prm_pStat,
                                      Checker* prm_pChecker) :
 
                                          GeometricActor(prm_name,
-                                                              prm_pStat,
                                                               prm_pChecker),
 _pModelCon(
     (ModelConnection*)(
@@ -161,7 +157,7 @@ Colorist* FigureActor::getColorist() {
 
 void FigureActor::processPreDraw() {
     Spacetime* pSpacetime = pGOD->getSpacetime();
-    GgafCore::Scene* pPlatformScene = getMySceneMediator()->getPlatformScene();
+    GgafCore::Scene* pPlatformScene = getSceneMediator()->getPlatformScene();
 #ifdef MY_DEBUG
     if (pPlatformScene->instanceOf(Obj_GgafDx_Scene)) {
         //OK

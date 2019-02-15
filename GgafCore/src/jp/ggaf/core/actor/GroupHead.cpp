@@ -5,7 +5,7 @@
 
 using namespace GgafCore;
 
-GroupHead::GroupHead(kind_t prm_kind, Status* prm_pStat) : Actor("GROUP", prm_pStat) {
+GroupHead::GroupHead(kind_t prm_kind) : Actor("GroupHead") {
     _obj_class |= Obj_ggaf_GroupHead;
     _class_name = "GroupHead";
     _kind = prm_kind;
@@ -45,16 +45,16 @@ void GroupHead::setKind(kind_t prm_kind) {
 #endif
 }
 
-SceneMediator* GroupHead::getMySceneMediator() {
+SceneMediator* GroupHead::getSceneMediator() {
     if (_pSceneMediator == nullptr) {
         if (_pParent == nullptr) {
             _TRACE_("【警告】GroupHead::getSceneMediator 所属していないため、Mediatorがとれません！("<<getName()<<")。そこで勝手にこの世(Spacetime)所属のMediatorを返しました");
             _pSceneMediator = God::_pGod->_pSpacetime->bringSceneMediator();
         } else {
             if (_pParent->instanceOf(Obj_ggaf_MainActor)) {
-                _pSceneMediator = ((MainActor*)(_pParent))->getMySceneMediator();
+                _pSceneMediator = ((MainActor*)(_pParent))->getSceneMediator();
             } else if (_pParent->instanceOf(Obj_ggaf_GroupHead)) {
-                _pSceneMediator = ((GroupHead*)(_pParent))->getMySceneMediator();
+                _pSceneMediator = ((GroupHead*)(_pParent))->getSceneMediator();
             } else if (_pParent->instanceOf(Obj_ggaf_SceneMediator)) {
                 return (SceneMediator*)_pParent; //Actorツリー頂点
             }
@@ -65,14 +65,14 @@ SceneMediator* GroupHead::getMySceneMediator() {
     return _pSceneMediator;
 }
 
-void GroupHead::setMySceneMediator(SceneMediator* prm_pSceneMediator) {
+void GroupHead::setSceneMediator(SceneMediator* prm_pSceneMediator) {
     _pSceneMediator = prm_pSceneMediator;
     Actor* pActor = getChildFirst();
     while (pActor) {
         if (pActor->instanceOf(Obj_ggaf_MainActor)) {
-            ((MainActor*)(pActor))->setMySceneMediator(prm_pSceneMediator);
+            ((MainActor*)(pActor))->setSceneMediator(prm_pSceneMediator);
         } else if (pActor->instanceOf(Obj_ggaf_GroupHead)) {
-            ((GroupHead*)(pActor))->setMySceneMediator(prm_pSceneMediator);
+            ((GroupHead*)(pActor))->setSceneMediator(prm_pSceneMediator);
         }
         if (pActor->_is_last_flg) {
             break;

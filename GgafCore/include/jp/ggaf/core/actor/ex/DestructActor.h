@@ -16,7 +16,7 @@ namespace GgafCore {
 class DestructActor : public MainActor {
 
 public:
-    DestructActor(const char* prm_name, Status* prm_pStat = nullptr);
+    DestructActor(const char* prm_name);
 
     virtual void initialize() override {
     }

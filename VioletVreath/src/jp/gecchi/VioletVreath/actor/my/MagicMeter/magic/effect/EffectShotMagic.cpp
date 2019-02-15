@@ -18,7 +18,7 @@ enum {
 };
 
 EffectShotMagic::EffectShotMagic(const char* prm_name) :
-        DefaultSpriteActor(prm_name, "EffectShotMagic", nullptr) {
+        DefaultSpriteActor(prm_name, "EffectShotMagic") {
     _class_name = "EffectShotMagic";
     effectBlendOne(); //加算合成Technique
     setZEnableDraw(true);       //描画時、Zバッファ値は考慮される

@@ -29,8 +29,9 @@ enum {
 };
 
 EnemyIda::EnemyIda(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "Ida", STATUS(EnemyIda)) {
+        DefaultMeshSetActor(prm_name, "Ida") {
     _class_name = "EnemyIda";
+    getStatus()->reset(statusResetFunction(EnemyIda));
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­

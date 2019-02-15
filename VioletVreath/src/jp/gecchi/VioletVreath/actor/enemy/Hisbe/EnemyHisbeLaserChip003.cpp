@@ -14,8 +14,9 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EnemyHisbeLaserChip003::EnemyHisbeLaserChip003(const char* prm_name) :
-        WateringLaserChip(prm_name, "HisbeLaserChip003", STATUS(EnemyHisbeLaserChip003)) {
+        WateringLaserChip(prm_name, "HisbeLaserChip003") {
     _class_name = "EnemyHisbeLaserChip003";
+    getStatus()->reset(statusResetFunction(EnemyHisbeLaserChip003));
     pConn_pSplManuf_ = connectToSplineManufactureManager("EnemyHisbeLaserChip003"); //ゴスパー曲線
     pKurokoLeader_ = pConn_pSplManuf_->peek()->createKurokoLeader(getKuroko());
     pKurokoLeader_->adjustCoordOffset(PX_C(100), 0, 0);
@@ -39,7 +40,7 @@ void EnemyHisbeLaserChip003::onActive() {
     getStatus()->reset();
     pKurokoLeader_->start(RELATIVE_COORD_DIRECTION); //向てる方向にスプライン座標をワールド変換
     sp_index_ = 0;
-    pScrollingScene_ = ((DefaultScene*)(getMySceneMediator()->getPlatformScene()))->getNearestScrollingScene();
+    pScrollingScene_ = ((DefaultScene*)(getSceneMediator()->getPlatformScene()))->getNearestScrollingScene();
 }
 
 void EnemyHisbeLaserChip003::processBehavior() {

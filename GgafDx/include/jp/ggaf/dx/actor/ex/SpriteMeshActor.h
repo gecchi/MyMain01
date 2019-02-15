@@ -26,12 +26,10 @@ public:
      * SpriteMeshSetActor で使用するモデルIDは避けて下さい。
      * @param prm_name
      * @param prm_model
-     * @param prm_pStat
      * @param prm_pChecker
      */
     SpriteMeshActor(const char* prm_name,
                            const char* prm_model,
-                           GgafCore::Status* prm_pStat,
                            Checker* prm_pChecker );
 
     virtual void processDraw() override;

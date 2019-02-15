@@ -215,7 +215,7 @@ void Spacetime::draw() {
 
     while (pDrawActor) {
         Spacetime::_pActor_draw_active = pDrawActor;
-        GgafCore::Scene* pPlatformScene = pDrawActor->getMySceneMediator()->getPlatformScene();
+        GgafCore::Scene* pPlatformScene = pDrawActor->getSceneMediator()->getPlatformScene();
 
 #ifdef MY_DEBUG
         if (pPlatformScene->instanceOf(Obj_GgafDx_Scene)) {

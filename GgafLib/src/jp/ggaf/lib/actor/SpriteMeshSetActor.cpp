@@ -7,10 +7,9 @@
 
 using namespace GgafLib;
 
-SpriteMeshSetActor::SpriteMeshSetActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat) :
+SpriteMeshSetActor::SpriteMeshSetActor(const char* prm_name, const char* prm_model) :
     GgafDx::SpriteMeshSetActor(prm_name,
                              prm_model,
-                             prm_pStat,
                              UTIL::createChecker(this) ) {
 
     _class_name = "SpriteMeshSetActor";

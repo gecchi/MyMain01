@@ -12,14 +12,13 @@
 using namespace GgafLib;
 
 
-SingleLaser::SingleLaser(const char* prm_name, const char* prm_model_id, GgafCore::Status* prm_pStat) :
+SingleLaser::SingleLaser(const char* prm_name, const char* prm_model_id) :
              GgafDx::MeshSetActor(prm_name,
                                  std::string("26," + std::string(prm_model_id)).c_str(),
                                  TYPE_MESHSET_MODEL,
                                  "SingleLaserEffect",
                                  TYPE_SINGLELASER_EFFECT,
                                  "SingleLaserTechnique",
-                                 prm_pStat,
                                  UTIL::createChecker(this) ) {
 
     _pMeshSetModel->_set_num = 26; //現在のシングルレーザーの最大セット数強制上書き。

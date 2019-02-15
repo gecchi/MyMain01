@@ -11,12 +11,11 @@ using namespace GgafLib;
 
 DefaultMassMorphMeshActor::VERTEX_instancedata DefaultMassMorphMeshActor::_aInstancedata[GGAFDXMASS_MAX_INSTANCE_NUM];
 
-DefaultMassMorphMeshActor::DefaultMassMorphMeshActor(const char* prm_name, const char* prm_model_id, GgafCore::Status* prm_pStat) :
+DefaultMassMorphMeshActor::DefaultMassMorphMeshActor(const char* prm_name, const char* prm_model_id) :
     GgafDx::MassMorphMeshActor(prm_name,
                          prm_model_id,
                          "DefaultMassMorphMeshEffect",
                          "DefaultMassMorphMeshTechnique",
-                         prm_pStat,
                          UTIL::createChecker(this) ) {
     _class_name = "DefaultMassMorphMeshActor";
     _pColliChecker = (CollisionChecker*)_pChecker;

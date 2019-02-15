@@ -40,14 +40,15 @@ enum {
 };
 
 EnemyHalia::EnemyHalia(const char* prm_name) :
-        DefaultMassMorphMeshActor(prm_name, "20,Halia_1", STATUS(EnemyHalia)) {
-        //CubeMapMassMorphMeshActor(prm_name, "1,HaliaCM", STATUS(EnemyHalia)) {
+        DefaultMassMorphMeshActor(prm_name, "20,Halia_1") {
+        //CubeMapMassMorphMeshActor(prm_name, "1,HaliaCM") {
 
     _class_name = "EnemyHalia";
+    getStatus()->reset(statusResetFunction(EnemyHalia));
     veloTopMv_ = 20000;
     pKurokoLeader_ = nullptr;
     pLaserChipDepo_ = NEW LaserChipDepository("MyRotLaser");
-    pLaserChipDepo_->config(60, 1, nullptr); //Haliaは弾切れフレームを1にしないとパクパクしちゃいます。
+    pLaserChipDepo_->config(60, 1); //Haliaは弾切れフレームを1にしないとパクパクしちゃいます。
     EnemyStraightLaserChip001* pChip;
     for (int i = 0; i < 65; i++) { //レーザーストック
         std::string name = "EnemyStraightLaserChip001["+XTOS(i)+"]";

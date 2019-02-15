@@ -14,8 +14,7 @@
 using namespace GgafDx;
 
 GeometricActor::GeometricActor(const char* prm_name,
-                                           GgafCore::Status* prm_pStat,
-                                           Checker* prm_pChecker) : BaseActor(prm_name, prm_pStat),
+                               Checker* prm_pChecker) : BaseActor(prm_name),
 _pKuroko(NEW Kuroko(this)),
 _pTrucker(nullptr),
 _pScaler(nullptr),

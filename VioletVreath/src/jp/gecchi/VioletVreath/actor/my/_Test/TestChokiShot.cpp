@@ -11,8 +11,9 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 TestChokiShot::TestChokiShot(const char* prm_name) :
-        SingleLaser(prm_name, "TestChokiShot", STATUS(TestChokiShot)) {
+        SingleLaser(prm_name, "TestChokiShot") {
     _class_name = "TestChokiShot";
+    getStatus()->reset(statusResetFunction(TestChokiShot));
 }
 
 void TestChokiShot::initialize() {

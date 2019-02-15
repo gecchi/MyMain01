@@ -17,7 +17,7 @@
 
 using namespace GgafLib;
 
-CameraWorker::CameraWorker(const char* prm_name, DefaultCamera* prm_pCamera) : GgafCore::MainActor(prm_name, nullptr) {
+CameraWorker::CameraWorker(const char* prm_name, DefaultCamera* prm_pCamera) : GgafCore::MainActor(prm_name) {
     _class_name = "CameraWorker";
     t_x_VP_ =  0;
     t_y_VP_ =  0;

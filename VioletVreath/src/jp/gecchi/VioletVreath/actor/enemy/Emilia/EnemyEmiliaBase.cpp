@@ -15,8 +15,8 @@ enum {
     SE_EXPLOSION ,
 };
 
-EnemyEmiliaBase::EnemyEmiliaBase(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat) :
-        DefaultMassMeshActor(prm_name, prm_model, prm_pStat) {
+EnemyEmiliaBase::EnemyEmiliaBase(const char* prm_name, const char* prm_model) :
+        DefaultMassMeshActor(prm_name, prm_model) {
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­

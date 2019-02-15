@@ -27,7 +27,7 @@ void WallScene::buildWallScene(
     setScrollingFunction(WallScene::scrollX); //X軸方向スクロール関数
 
     _pDepo_wall = prm_pDepo_wall;
-    if (_pDepo_wall->getMySceneMediator()) {
+    if (_pDepo_wall->getSceneMediator()) {
         //既に所属しているならばOK
     } else {
         bringSceneMediator()->appendGroupChild(_pDepo_wall); //仮所属 initialize() で本所属

@@ -27,8 +27,9 @@ enum {
 };
 
 EnemyUnomia::EnemyUnomia(const char* prm_name) :
-        DefaultMassMeshActor(prm_name, "Unomia", STATUS(EnemyUnomia)) {
+        DefaultMassMeshActor(prm_name, "Unomia") {
     _class_name = "EnemyUnomia";
+    getStatus()->reset(statusResetFunction(EnemyUnomia));
     pKurokoLeader_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;

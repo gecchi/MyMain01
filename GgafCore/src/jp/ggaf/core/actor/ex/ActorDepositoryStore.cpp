@@ -3,7 +3,7 @@
 
 using namespace GgafCore;
 
-ActorDepositoryStore::ActorDepositoryStore(const char* prm_name, Status* prm_pStat) : ActorDepository(prm_name, prm_pStat) {
+ActorDepositoryStore::ActorDepositoryStore(const char* prm_name) : ActorDepository(prm_name) {
     _class_name = "ActorDepositoryStore";
     setHitAble(false);
 }

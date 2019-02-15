@@ -31,10 +31,11 @@ enum {
 };
 
 EnemyHisbe::EnemyHisbe(const char* prm_name) :
-        DefaultMorphMeshActor(prm_name, "Hisbe_1", STATUS(EnemyHisbe)) {
-        //CubeMapMorphMeshActor(prm_name, "HisbeCM_1", STATUS(EnemyHisbe)) {
+        DefaultMorphMeshActor(prm_name, "Hisbe_1") {
+        //CubeMapMorphMeshActor(prm_name, "HisbeCM_1") {
 
     _class_name = "EnemyHisbe";
+    getStatus()->reset(statusResetFunction(EnemyHisbe));
     pKurokoLeader_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;
@@ -50,7 +51,7 @@ EnemyHisbe::EnemyHisbe(const char* prm_name) :
 //    appendGroupChild(pDepoEffect);
 //
 //    pLaserChipDepo_ = NEW LaserChipDepository("HisbeLaser");
-//    pLaserChipDepo_->config(100, 1, nullptr); //Hisbeは弾切れフレームを1にしないとパクパクしちゃいます。
+//    pLaserChipDepo_->config(100, 1); //Hisbeは弾切れフレームを1にしないとパクパクしちゃいます。
 //    for (int i = 0; i < 100; i++) { //レーザーストック
 //        std::string name = "EnemyHisbeLaserChip002["+XTOS(i)+"]";
 //        EnemyHisbeLaserChip002* pChip = NEW EnemyHisbeLaserChip002(name.c_str());
@@ -63,7 +64,7 @@ EnemyHisbe::EnemyHisbe(const char* prm_name) :
 
 //    //ホーミング------>
 //    pLaserChipDepo_ = NEW LaserChipDepository("HisbeLaser");
-//    pLaserChipDepo_->config(300, 1, nullptr); //Hisbeは弾切れフレームを1にしないとパクパクしちゃいます。
+//    pLaserChipDepo_->config(300, 1); //Hisbeは弾切れフレームを1にしないとパクパクしちゃいます。
 //    for (int i = 0; i < 300; i++) { //レーザーストック
 //        std::string name = "EnemyHisbeLaserChip001["+XTOS(i)+"]";
 //        EnemyHisbeLaserChip001* pChip = NEW EnemyHisbeLaserChip001(name.c_str());
@@ -75,7 +76,7 @@ EnemyHisbe::EnemyHisbe(const char* prm_name) :
 
 //    //水------>
 //    pLaserChipDepo_ = NEW LaserChipDepository("HisbeLaser");
-//    pLaserChipDepo_->config(100, 1, nullptr); //Hisbeは弾切れフレームを1にしないとパクパクしちゃいます。
+//    pLaserChipDepo_->config(100, 1); //Hisbeは弾切れフレームを1にしないとパクパクしちゃいます。
 //    for (int i = 0; i < 100; i++) { //レーザーストック
 //        std::string name = "EnemyHisbeLaserChip003["+XTOS(i)+"]";
 //        EnemyHisbeLaserChip003* pChip = NEW EnemyHisbeLaserChip003(name.c_str());

@@ -14,8 +14,10 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 Shot002::Shot002(const char* prm_name) :
-        DefaultMassMeshActor(prm_name, "Flora", STATUS(Shot002)) {
+        DefaultMassMeshActor(prm_name, "Flora") {
     _class_name = "Shot002";
+    getStatus()->reset(statusResetFunction(Shot002));
+
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(0, "WAVE_EXPLOSION_002");
 }

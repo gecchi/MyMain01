@@ -7,12 +7,11 @@
 
 using namespace GgafLib;
 
-CubeMapMeshSetActor::CubeMapMeshSetActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat) :
+CubeMapMeshSetActor::CubeMapMeshSetActor(const char* prm_name, const char* prm_model) :
     GgafDx::CubeMapMeshSetActor(prm_name,
                               prm_model,
                               "CubeMapMeshSetEffect",
                               "CubeMapMeshSetTechnique",
-                              prm_pStat,
                               UTIL::createChecker(this) ) {
     _class_name = "CubeMapMeshSetActor";
     _pColliChecker = (CollisionChecker*)_pChecker;

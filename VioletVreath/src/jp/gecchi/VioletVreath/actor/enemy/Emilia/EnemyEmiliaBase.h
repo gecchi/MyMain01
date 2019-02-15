@@ -22,7 +22,7 @@ public:
     EnemyEmiliaBase* pOrg_;
     FormationEmilia* pFormationEmilia_;
 public:
-    EnemyEmiliaBase(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat=nullptr);
+    EnemyEmiliaBase(const char* prm_name, const char* prm_model);
 
     /**
      * エミリアがでポジトリから取得された際に呼び出されるコールバック .

@@ -7,12 +7,11 @@
 
 using namespace GgafLib;
 
-DefaultRegularPolygonSpriteActor::DefaultRegularPolygonSpriteActor(const char* prm_name, const char* prm_model_id, GgafCore::Status* prm_pStat) :
+DefaultRegularPolygonSpriteActor::DefaultRegularPolygonSpriteActor(const char* prm_name, const char* prm_model_id) :
     GgafDx::RegularPolygonSpriteActor(prm_name,
                                   prm_model_id,
                                   "DefaultRegularPolygonSpriteEffect",
                                   "DefaultRegularPolygonSpriteTechnique",
-                                  prm_pStat,
                                   UTIL::createChecker(this) ) {
     _class_name = "DefaultRegularPolygonSpriteActor";
     _pColliChecker = (CollisionChecker*)_pChecker;

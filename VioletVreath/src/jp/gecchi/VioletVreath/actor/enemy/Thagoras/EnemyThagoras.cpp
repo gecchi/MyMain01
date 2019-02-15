@@ -30,8 +30,9 @@ enum {
 };
 
 EnemyThagoras::EnemyThagoras(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "Thagoras", STATUS(EnemyThagoras)) {
+        DefaultMeshSetActor(prm_name, "Thagoras") {
     _class_name = "EnemyThagoras";
+    getStatus()->reset(statusResetFunction(EnemyThagoras));
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);

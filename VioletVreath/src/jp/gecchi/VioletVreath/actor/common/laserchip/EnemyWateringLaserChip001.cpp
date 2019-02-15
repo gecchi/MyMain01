@@ -9,8 +9,9 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EnemyWateringLaserChip001::EnemyWateringLaserChip001(const char* prm_name) :
-        WateringLaserChip(prm_name, "EnemyWateringLaserChip001", STATUS(EnemyWateringLaserChip001)) {
+        WateringLaserChip(prm_name, "EnemyWateringLaserChip001") {
     _class_name = "EnemyWateringLaserChip001";
+    getStatus()->reset(statusResetFunction(EnemyWateringLaserChip001));
     tmp_x_ = _x;
     tmp_y_ = _y;
     tmp_z_ = _z;

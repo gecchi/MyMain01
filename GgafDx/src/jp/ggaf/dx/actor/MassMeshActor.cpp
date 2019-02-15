@@ -14,7 +14,6 @@ MassMeshActor::MassMeshActor(const char* prm_name,
                                          const char* prm_model_id,
                                          const char* prm_effect_id,
                                          const char* prm_technique,
-                                         GgafCore::Status* prm_pStat,
                                          Checker* prm_pChecker) :
 
                                              MassActor(prm_name,
@@ -23,7 +22,6 @@ MassMeshActor::MassMeshActor(const char* prm_name,
                                                              prm_effect_id,
                                                              TYPE_MASSMESH_EFFECT,
                                                              prm_technique,
-                                                             prm_pStat,
                                                              prm_pChecker),
 _pMassMeshModel((MassMeshModel*)_pModel),
 _pMassMeshEffect((MassMeshEffect*)_pEffect)
@@ -39,7 +37,6 @@ MassMeshActor::MassMeshActor(const char* prm_name,
                                          const char* prm_effect_id,
                                          const char prm_effect_type,
                                          const char* prm_technique,
-                                         GgafCore::Status* prm_pStat,
                                          Checker* prm_pChecker) :
 
                                              MassActor(prm_name,
@@ -48,7 +45,6 @@ MassMeshActor::MassMeshActor(const char* prm_name,
                                                              prm_effect_id,
                                                              prm_effect_type,
                                                              prm_technique,
-                                                             prm_pStat,
                                                              prm_pChecker),
 _pMassMeshModel((MassMeshModel*)_pModel),
 _pMassMeshEffect((MassMeshEffect*)_pEffect) {

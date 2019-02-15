@@ -40,12 +40,16 @@ class GroupHead : public Actor {
 public:
     /** [r]シーン仲介者 */
     SceneMediator* _pSceneMediator;
-    /** [r/w]本グループの種別 */
+    /** [r/w]配下アクターグループの種別 */
     kind_t _kind;
 
 public:
-    GroupHead(kind_t prm_kind, Status* prm_pStat = nullptr);
+    GroupHead(kind_t prm_kind);
 
+    /**
+     * 配下アクターグループの種別を設定 .
+     * @param prm_kind アクターグループの種別
+     */
     void setKind(kind_t prm_kind);
 
     /**
@@ -100,13 +104,13 @@ public:
      * 自身が管理されているシーンの仲介者を取得 .
      * @return シーン仲介者
      */
-    SceneMediator* getMySceneMediator();
+    SceneMediator* getSceneMediator();
 
     /**
      * シーン仲介者(SceneMediator)を設定 .
      * @param prm_pSceneMediator 仲介者
      */
-    void setMySceneMediator(SceneMediator* prm_pSceneMediator);
+    void setSceneMediator(SceneMediator* prm_pSceneMediator);
 
     /**
      * 神に謁見 .

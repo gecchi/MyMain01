@@ -6,8 +6,8 @@
 
 using namespace GgafCore;
 
-MainActor::MainActor(const char* prm_name, Status* prm_pStat) :
-    Actor(prm_name, prm_pStat),
+MainActor::MainActor(const char* prm_name) :
+    Actor(prm_name),
     _pGroupHead(nullptr),
     _pSceneMediator(nullptr)
 {
@@ -18,8 +18,8 @@ MainActor::MainActor(const char* prm_name, Status* prm_pStat) :
 
 MainActor* MainActor::extract() {
     MainActor* pActor = (MainActor*)Actor::extract();
-    pActor->setMySceneMediator(nullptr);
-    pActor->setMyGroupHead(nullptr);
+    pActor->setSceneMediator(nullptr);
+    pActor->setGroupHead(nullptr);
     return pActor;
 }
 
@@ -37,14 +37,14 @@ void MainActor::updateActiveInTheTree() {
 
 }
 
-void MainActor::setMySceneMediator(SceneMediator* prm_pSceneMediator) {
+void MainActor::setSceneMediator(SceneMediator* prm_pSceneMediator) {
     _pSceneMediator = prm_pSceneMediator;
     Actor* pActor = getChildFirst();
     while (pActor) {
         if (pActor->instanceOf(Obj_ggaf_MainActor)) {
-            ((MainActor*)(pActor))->setMySceneMediator(prm_pSceneMediator);
+            ((MainActor*)(pActor))->setSceneMediator(prm_pSceneMediator);
         } else if (pActor->instanceOf(Obj_ggaf_GroupHead)) {
-            ((GroupHead*)(pActor))->setMySceneMediator(prm_pSceneMediator);
+            ((GroupHead*)(pActor))->setSceneMediator(prm_pSceneMediator);
         }
         if (pActor->_is_last_flg) {
             break;
@@ -54,12 +54,12 @@ void MainActor::setMySceneMediator(SceneMediator* prm_pSceneMediator) {
     }
 }
 
-void MainActor::setMyGroupHead(GroupHead* prm_pGroupHead) {
+void MainActor::setGroupHead(GroupHead* prm_pGroupHead) {
     _pGroupHead = prm_pGroupHead;
     Actor* pActor = getChildFirst();
     while (pActor) {
         if (pActor->instanceOf(Obj_ggaf_MainActor)) {
-            ((MainActor*)(pActor))->setMyGroupHead(prm_pGroupHead);
+            ((MainActor*)(pActor))->setGroupHead(prm_pGroupHead);
         } else if (pActor->instanceOf(Obj_ggaf_GroupHead)) {
             //スルーする
             //下位ツリーにGroupHeadがあれば、そのツリーには影響させないこととする
@@ -73,14 +73,14 @@ void MainActor::setMyGroupHead(GroupHead* prm_pGroupHead) {
 }
 
 
-GroupHead* MainActor::getMyGroupHead() {
+GroupHead* MainActor::getGroupHead() {
     if (_pGroupHead) {
         return _pGroupHead;
     } else {
         if (_pParent == nullptr) {
             return nullptr;
         } else if (_pParent->instanceOf(Obj_ggaf_MainActor)) {
-            _pGroupHead = ((MainActor*)(_pParent))->getMyGroupHead();
+            _pGroupHead = ((MainActor*)(_pParent))->getGroupHead();
             return _pGroupHead;
         } else if (_pParent->instanceOf(Obj_ggaf_GroupHead)) {
             return (GroupHead*)_pParent;
@@ -91,16 +91,16 @@ GroupHead* MainActor::getMyGroupHead() {
 }
 
 
-SceneMediator* MainActor::getMySceneMediator() {
+SceneMediator* MainActor::getSceneMediator() {
     if (_pSceneMediator) {
         return _pSceneMediator;
     } else {
         if (_pParent) {
             if (_pParent->instanceOf(Obj_ggaf_MainActor)) {
-                _pSceneMediator = ((MainActor*)(_pParent))->getMySceneMediator();
+                _pSceneMediator = ((MainActor*)(_pParent))->getSceneMediator();
                 return _pSceneMediator;
             } else if (_pParent->instanceOf(Obj_ggaf_GroupHead)) {
-                _pSceneMediator = ((GroupHead*)(_pParent))->getMySceneMediator();
+                _pSceneMediator = ((GroupHead*)(_pParent))->getSceneMediator();
                 return _pSceneMediator;
             } else if (_pParent->instanceOf(Obj_ggaf_SceneMediator)) { //ありえんかな
                 _pSceneMediator = (SceneMediator*)_pParent;
@@ -122,12 +122,12 @@ GroupHead* MainActor::appendGroupChild(kind_t prm_kind, MainActor* prm_pMainActo
         //_TRACE_("【警告】SceneMediator::appendGroupChild("<<getName()<<") すでに"<<prm_pMainActor->_pSceneMediator->_pScene_platform->getName()<<"シーンの仲介者に所属しています。が、"<<_pScene_platform->getName()<<"シーンの仲介者に乗り換えます");
         prm_pMainActor->extract();
     }
-    GroupHead* pMyGroupHead = getMyGroupHead();
+    GroupHead* pMyGroupHead = getGroupHead();
     if (pMyGroupHead != nullptr && pMyGroupHead->_kind == prm_kind) {
         //自身の所属済み団長種別と引数のアクターの種別が同じ場合
         appendChild(prm_pMainActor); //単純に自分の子に追加でOK
-        prm_pMainActor->setMyGroupHead(pMyGroupHead);             //団長を反映
-        prm_pMainActor->setMySceneMediator(getMySceneMediator()); //仲介者を反映
+        prm_pMainActor->setGroupHead(pMyGroupHead);             //団長を反映
+        prm_pMainActor->setSceneMediator(getSceneMediator()); //仲介者を反映
         return pMyGroupHead;
     } else {
         //自身の所属済み団長種別と引数のアクターの種別が異なる場合
@@ -135,8 +135,8 @@ GroupHead* MainActor::appendGroupChild(kind_t prm_kind, MainActor* prm_pMainActo
         if (pChildGroupActor) {
             //子に同じ種別団長がいた場合、その団長の子へ
             pChildGroupActor->appendChild(prm_pMainActor);                //子に居る既存団長の配下に追加
-            prm_pMainActor->setMyGroupHead(pChildGroupActor);            //団長を反映
-            prm_pMainActor->setMySceneMediator(getMySceneMediator());  //仲介者を反映
+            prm_pMainActor->setGroupHead(pChildGroupActor);            //団長を反映
+            prm_pMainActor->setSceneMediator(getSceneMediator());  //仲介者を反映
             return pChildGroupActor;
         } else {
             //子に同じ種別団長がいない場合、団長を新たに作成し自身の子へ、
@@ -144,8 +144,8 @@ GroupHead* MainActor::appendGroupChild(kind_t prm_kind, MainActor* prm_pMainActo
             GroupHead* pNewChildGroupActor = NEW GroupHead(prm_kind);
             appendChild(pNewChildGroupActor);                          //自身の配下に新団長を追加し
             pNewChildGroupActor->appendChild(prm_pMainActor);          //新団長の配下に引数のアクター
-            prm_pMainActor->setMyGroupHead(pNewChildGroupActor);            //団長を反映
-            pNewChildGroupActor->setMySceneMediator(getMySceneMediator());  //新団長配下に仲介者を反映
+            prm_pMainActor->setGroupHead(pNewChildGroupActor);            //団長を反映
+            pNewChildGroupActor->setSceneMediator(getSceneMediator());  //新団長配下に仲介者を反映
             return pNewChildGroupActor;
         }
     }
@@ -189,7 +189,7 @@ God* MainActor::askGod() {
 }
 
 kind_t MainActor::lookUpKind() {
-    GroupHead* pMyGroupHead = getMyGroupHead();
+    GroupHead* pMyGroupHead = getGroupHead();
 #ifdef MY_DEBUG
     if (pMyGroupHead == nullptr) {
         throwCriticalException("MainActor::lookUpKind() GroupHeadに所属していないので 種別がわかりません。this="<<NODE_INFO);

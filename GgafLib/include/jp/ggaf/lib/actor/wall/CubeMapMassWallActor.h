@@ -16,7 +16,7 @@ namespace GgafLib {
 class CubeMapMassWallActor : public MassWallActor, public GgafDx::ICubeMapActor {
 
 public:
-    CubeMapMassWallActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat=nullptr);
+    CubeMapMassWallActor(const char* prm_name, const char* prm_model);
 
     virtual void processDraw() override;
 

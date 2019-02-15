@@ -28,8 +28,9 @@ enum {
 };
 
 EnemyGlajaLance001::EnemyGlajaLance001(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "GlajaLance001", STATUS(EnemyGlajaLance001)) {
+        DefaultMeshSetActor(prm_name, "GlajaLance001") {
     _class_name = "EnemyGlajaLance001";
+    getStatus()->reset(statusResetFunction(EnemyGlajaLance001));
     effectBlendOne(); //‰ÁZ‡¬
     setZEnableDraw(true);
     setZWriteEnable(false);

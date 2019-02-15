@@ -11,8 +11,9 @@ using namespace VioletVreath;
 
 
 EnemyEmusLaserChip001::EnemyEmusLaserChip001(const char* prm_name) :
-        WateringLaserChip(prm_name, "EmusLaserChip001", STATUS(EnemyEmusLaserChip001)) {
+        WateringLaserChip(prm_name, "EmusLaserChip001") {
     _class_name = "EnemyEmusLaserChip001";
+    getStatus()->reset(statusResetFunction(EnemyEmusLaserChip001));
 }
 
 void EnemyEmusLaserChip001::initialize() {

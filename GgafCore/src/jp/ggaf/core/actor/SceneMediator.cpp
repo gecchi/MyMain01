@@ -7,7 +7,7 @@
 
 using namespace GgafCore;
 
-SceneMediator::SceneMediator(Scene* prm_pScene_platform) : Actor("SceneMediator", nullptr),
+SceneMediator::SceneMediator(Scene* prm_pScene_platform) : Actor("SceneMediator"),
 _pScene_platform(nullptr)
 {
     _obj_class |= Obj_ggaf_SceneMediator;
@@ -37,11 +37,11 @@ GroupHead* SceneMediator::appendGroupChild(kind_t prm_kind, MainActor* prm_pMain
         //Žq‚É“¯‚¶Ží•Ê’c’·‚ª‚¢‚È‚¢ê‡A’c’·‚ðV‚½‚Éì¬
         pChildGroupActor = NEW GroupHead(prm_kind);
         appendChild(pChildGroupActor);
-        pChildGroupActor->setMySceneMediator(this);
+        pChildGroupActor->setSceneMediator(this);
     }
     pChildGroupActor->appendChild(prm_pMainActor);
-    prm_pMainActor->setMyGroupHead(pChildGroupActor);
-    prm_pMainActor->setMySceneMediator(this);
+    prm_pMainActor->setGroupHead(pChildGroupActor);
+    prm_pMainActor->setSceneMediator(this);
     return pChildGroupActor;
 }
 

@@ -10,7 +10,7 @@ using namespace GgafLib;
 using namespace Mogera;
 
 EffectExplosion004::EffectExplosion004(const char* prm_name) :
-        DefaultMassSpriteActor(prm_name, "EffectExplosion004", nullptr) {
+        DefaultMassSpriteActor(prm_name, "EffectExplosion004") {
     _class_name = "EffectExplosion004";
     //â¡éZçáê¨TechniqueéwíË
 //    effectBlendOne();

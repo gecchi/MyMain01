@@ -27,8 +27,8 @@ enum {
 };
 
 
-EnemyAntiope::EnemyAntiope(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat) :
-        DefaultMeshSetActor(prm_name, prm_model, prm_pStat) {
+EnemyAntiope::EnemyAntiope(const char* prm_name, const char* prm_model) :
+        DefaultMeshSetActor(prm_name, prm_model) {
     _class_name = "EnemyAntiope";
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");

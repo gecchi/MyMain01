@@ -15,8 +15,8 @@
 using namespace GgafLib;
 using namespace VioletVreath;
 
-EnemyErmioneArm::EnemyErmioneArm(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat) :
-        DefaultMeshSetActor(prm_name, prm_model, prm_pStat) {
+EnemyErmioneArm::EnemyErmioneArm(const char* prm_name, const char* prm_model) :
+        DefaultMeshSetActor(prm_name, prm_model) {
     _class_name = "EnemyErmioneArm";
 
     aiming_ang_velo_ = 0;

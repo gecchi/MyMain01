@@ -66,9 +66,8 @@ public:
     /**
      * コンストラクタ .
      * @param prm_name アクターの名前
-     * @param prm_pStat アクターのステータス（nullptrの場合は自動生成される）
      */
-    Actor(const char* prm_name, Status* prm_pStat);
+    Actor(const char* prm_name);
 
     /**
      * デストラクタ .
@@ -224,6 +223,10 @@ public:
         return _pStatus;
     }
 
+    /**
+     * アクターのデフォルトの種別を取得 .
+     * @return アクターのデフォルトの種別
+     */
     inline kind_t getDefaultKind() const {
         return (kind_t)getStatus()->getUint(STAT_DEFAULT_ACTOR_KIND);
     }

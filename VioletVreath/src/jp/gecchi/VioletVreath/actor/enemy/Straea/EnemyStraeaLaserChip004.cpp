@@ -15,8 +15,9 @@ using namespace VioletVreath;
 //GgafDx::TextureConnection* EnemyStraeaLaserChip004::pTexCon2_ = nullptr;
 
 EnemyStraeaLaserChip004::EnemyStraeaLaserChip004(const char* prm_name) :
-        HomingLaserChip(prm_name, "StraeaLaserChip001", STATUS(EnemyStraeaLaserChip004)) {
+        HomingLaserChip(prm_name, "StraeaLaserChip001") {
     _class_name = "EnemyStraeaLaserChip004";
+    getStatus()->reset(statusResetFunction(EnemyStraeaLaserChip004));
     pConn_pSplManuf_ = connectToSplineManufactureManager("GURUGURU");
     pKurokoLeader_ = pConn_pSplManuf_->peek()->createKurokoLeader(getKuroko());
 //    if (pTexCon1_ == nullptr) {

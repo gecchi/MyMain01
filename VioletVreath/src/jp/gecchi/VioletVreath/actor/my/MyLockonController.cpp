@@ -14,7 +14,7 @@ const int MyLockonController::max_lockon_num_ = 8;
 int MyLockonController::lockon_num_ = 0;
 
 MyLockonController::MyLockonController(const char* prm_name) :
-        GgafCore::DestructActor(prm_name, nullptr) {
+        GgafCore::DestructActor(prm_name) {
     _class_name = "MyLockonController";
     pRingTarget_ = NEW GgafCore::LinkedListRing<GgafDx::GeometricActor>();
     pMainLockonEffect_ = NEW LockonCursor001_Main("MAIN");

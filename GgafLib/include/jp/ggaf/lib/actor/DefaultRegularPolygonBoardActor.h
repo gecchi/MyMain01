@@ -24,7 +24,7 @@ namespace GgafLib {
 class DefaultRegularPolygonBoardActor : public GgafDx::RegularPolygonBoardActor {
 
 public:
-    DefaultRegularPolygonBoardActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat = nullptr);
+    DefaultRegularPolygonBoardActor(const char* prm_name, const char* prm_model);
 
     virtual void onCreateModel() override {
     }

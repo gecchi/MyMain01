@@ -28,8 +28,9 @@ enum {
 };
 
 EnemyDrastea::EnemyDrastea(const char* prm_name) :
-        CubeMapMeshSetActor(prm_name, "Drastea", STATUS(EnemyDrastea)) {
+        CubeMapMeshSetActor(prm_name, "Drastea") {
     _class_name = "EnemyDrastea";
+    getStatus()->reset(statusResetFunction(EnemyDrastea));
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");

@@ -16,7 +16,6 @@ MassActor::MassActor(const char* prm_name,
                                  const char* prm_effect_id,
                                  const char prm_effect_type,
                                  const char* prm_technique,
-                                 GgafCore::Status* prm_pStat,
                                  Checker* prm_pChecker) :
 
                                    FigureActor(prm_name,
@@ -25,7 +24,6 @@ MassActor::MassActor(const char* prm_name,
                                                      prm_effect_id,
                                                      prm_effect_type,
                                                      prm_technique,
-                                                     prm_pStat,
                                                      prm_pChecker),
 _pMassModel((MassModel*)_pModel),
 _pMassEffect((MassEffect*)_pEffect) {

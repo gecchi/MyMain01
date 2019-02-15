@@ -35,10 +35,10 @@ enum {
 };
 
 EnemyErelmanCore::EnemyErelmanCore(const char* prm_name, EnemyErelmanController* prm_pController) :
-        DefaultMorphMeshActor(prm_name, "ErelmanCore_1", STATUS(EnemyErelmanCore)) {
+        DefaultMorphMeshActor(prm_name, "ErelmanCore_1") {
     _class_name = "EnemyErelmanCore";
     pController_ = prm_pController;
-
+    getStatus()->reset(statusResetFunction(EnemyErelmanCore));
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     pSeTx->set(SE_UNDAMAGED, "WAVE_ENEMY_UNDAMAGED_001");

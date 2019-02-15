@@ -1,6 +1,7 @@
 #ifndef GGAF_CORE_STATUS_H_
 #define GGAF_CORE_STATUS_H_
 #include "GgafCommonHeader.h"
+#include <map>
 #include "jp/ggaf/core/Object.h"
 
 #include "jp/ggaf/core/exception/CriticalException.h"
@@ -17,7 +18,7 @@ namespace GgafCore {
 class Status : public Object {
 
     /**
-     * ステータス値を表す .
+     * ステータス値 .
      */
     union VALUE {
       uint64_t _v;
@@ -28,10 +29,8 @@ class Status : public Object {
     };
 
 public:
-    /** ステータス数 */
-    int _len;
-    /** ステータス値配列 */
-    VALUE* _paValue;
+    /** ステータス値リスト */
+    std::map<int, VALUE> _value;
 
     /** リセットメソッド */
     Status* (*_pFunc_reset)(Status*);
@@ -40,155 +39,156 @@ public:
     /**
      * ステータスセットを作成 .
      * リセットメソッドを実行しステータス初期化を行います。
-     * @param prm_max_status_kind 最大ステータス要素数。
      * @param prm_pFunc_reset ステータスリセットメソッド
      */
-    Status(int prm_max_status_kind, Status* (*prm_pFunc_reset)(Status*) = nullptr);
+    Status(Status* (*prm_pFunc_reset)(Status*) = nullptr);
 
     inline void set(const int prm_status_kind, const int val) {
-#ifdef MY_DEBUG
-        if (_len < prm_status_kind) {
-            throwCriticalException("配列要素数オーバー");
-        }
-#endif
-        _paValue[prm_status_kind]._int_val = val;
+        _value[prm_status_kind]._int_val = val;
     }
 
     inline void set(const int prm_status_kind, const unsigned int val) {
-#ifdef MY_DEBUG
-        if (_len < prm_status_kind) {
-            throwCriticalException("配列要素数オーバー");
-        }
-#endif
-        _paValue[prm_status_kind]._uint_val = val;
+        _value[prm_status_kind]._uint_val = val;
     }
 
     inline void set(const int prm_status_kind, const double val) {
-#ifdef MY_DEBUG
-        if (_len < prm_status_kind) {
-            throwCriticalException("配列要素数オーバー");
-        }
-#endif
-        _paValue[prm_status_kind]._double_val = val;
+        _value[prm_status_kind]._double_val = val;
     }
 
     inline void set(const int prm_status_kind, void* p) {
-#ifdef MY_DEBUG
-        if (_len < prm_status_kind) {
-            throwCriticalException("配列要素数オーバー");
-        }
-#endif
-        _paValue[prm_status_kind]._ptr = p;
+        _value[prm_status_kind]._ptr = p;
     }
 
     inline int plus(const int prm_status_kind, const int val) {
+        std::map<int, VALUE>::iterator pos = _value.find(prm_status_kind);
 #ifdef MY_DEBUG
-        if (_len < prm_status_kind) {
-            throwCriticalException("配列要素数オーバー");
+        if (pos == _value.end()) {
+            throwCriticalException("不明な要素、prm_status_kind="<<prm_status_kind);
         }
 #endif
-        return _paValue[prm_status_kind]._int_val += val;
+        return pos->second._int_val += val;
     }
 
     inline double plus(const int prm_status_kind, const double val) {
+        std::map<int, VALUE>::iterator pos = _value.find(prm_status_kind);
 #ifdef MY_DEBUG
-        if (_len < prm_status_kind) {
-            throwCriticalException("配列要素数オーバー");
+        if (pos == _value.end()) {
+            throwCriticalException("不明な要素、prm_status_kind="<<prm_status_kind);
         }
 #endif
-        return _paValue[prm_status_kind]._double_val += val;
+        return pos->second._double_val += val;
     }
 
     inline int minus(const int prm_status_kind, const int val) {
+        std::map<int, VALUE>::iterator pos = _value.find(prm_status_kind);
 #ifdef MY_DEBUG
-        if (_len < prm_status_kind) {
-            throwCriticalException("配列要素数オーバー");
+        if (pos == _value.end()) {
+            throwCriticalException("不明な要素、prm_status_kind="<<prm_status_kind);
         }
 #endif
-        return _paValue[prm_status_kind]._int_val -= val;
+        return pos->second._int_val -= val;
     }
 
     inline double minus(const int prm_status_kind, const double val) {
+        std::map<int, VALUE>::iterator pos = _value.find(prm_status_kind);
 #ifdef MY_DEBUG
-        if (_len < prm_status_kind) {
-            throwCriticalException("配列要素数オーバー");
+        if (pos == _value.end()) {
+            throwCriticalException("不明な要素、prm_status_kind="<<prm_status_kind);
         }
 #endif
-        return _paValue[prm_status_kind]._double_val -= val;
+        return pos->second._double_val -= val;
     }
 
     inline int mul(const int prm_status_kind, const int val) {
+        std::map<int, VALUE>::iterator pos = _value.find(prm_status_kind);
 #ifdef MY_DEBUG
-        if (_len < prm_status_kind) {
-            throwCriticalException("配列要素数オーバー");
+        if (pos == _value.end()) {
+            throwCriticalException("不明な要素、prm_status_kind="<<prm_status_kind);
         }
 #endif
-        return _paValue[prm_status_kind]._int_val *= val;
+        return pos->second._int_val *= val;
     }
 
     inline double mul(const int prm_status_kind, const double val) {
+        std::map<int, VALUE>::iterator pos = _value.find(prm_status_kind);
 #ifdef MY_DEBUG
-        if (_len < prm_status_kind) {
-            throwCriticalException("配列要素数オーバー");
+        if (pos == _value.end()) {
+            throwCriticalException("不明な要素、prm_status_kind="<<prm_status_kind);
         }
 #endif
-        return _paValue[prm_status_kind]._double_val *= val;
+        return pos->second._double_val *= val;
     }
 
     inline int get(const int prm_status_kind) const {
-        if (_len < prm_status_kind) {
-            _TRACE_("＜警告＞配列要素数オーバー。意図していますか？");
-            return 0;
-        } else {
-            return _paValue[prm_status_kind]._int_val;
+        std::map<int, VALUE>::const_iterator pos = _value.find(prm_status_kind);
+#ifdef MY_DEBUG
+        if (pos == _value.end()) {
+            throwCriticalException("不明な要素、prm_status_kind="<<prm_status_kind);
         }
+#endif
+        return pos->second._int_val;
     }
 
     inline int getInt(const int prm_status_kind) const {
-        if (_len < prm_status_kind) {
-            _TRACE_("＜警告＞配列要素数オーバー。意図していますか？");
-            return 0;
-        } else {
-            return _paValue[prm_status_kind]._int_val;
+        std::map<int, VALUE>::const_iterator pos = _value.find(prm_status_kind);
+#ifdef MY_DEBUG
+        if (pos == _value.end()) {
+            throwCriticalException("不明な要素、prm_status_kind="<<prm_status_kind);
         }
+#endif
+        return pos->second._int_val;
     }
 
     inline unsigned int getUint(const int prm_status_kind) const {
-        if (_len < prm_status_kind) {
-            _TRACE_("＜警告＞配列要素数オーバー。意図していますか？");
-            return 0;
-        } else {
-            return _paValue[prm_status_kind]._uint_val;
+        std::map<int, VALUE>::const_iterator pos = _value.find(prm_status_kind);
+#ifdef MY_DEBUG
+        if (pos == _value.end()) {
+            throwCriticalException("不明な要素、prm_status_kind="<<prm_status_kind);
         }
+#endif
+        return pos->second._uint_val;
     }
 
     inline double getDouble(const int prm_status_kind) const {
-        if (_len < prm_status_kind) {
-            _TRACE_("＜警告＞配列要素数オーバー。意図していますか？");
-            return 0.0;
-        } else {
-            return _paValue[prm_status_kind]._double_val;
+        std::map<int, VALUE>::const_iterator pos = _value.find(prm_status_kind);
+#ifdef MY_DEBUG
+        if (pos == _value.end()) {
+            throwCriticalException("不明な要素、prm_status_kind="<<prm_status_kind);
         }
+#endif
+        return pos->second._double_val;
     }
 
     inline void* getPtr(const int prm_status_kind) const {
-        if (_len < prm_status_kind) {
-            _TRACE_("＜警告＞配列要素数オーバー。意図していますか？");
-            return nullptr;
-        } else {
-            return _paValue[prm_status_kind]._ptr;
+        std::map<int, VALUE>::const_iterator pos = _value.find(prm_status_kind);
+#ifdef MY_DEBUG
+        if (pos == _value.end()) {
+            throwCriticalException("不明な要素、prm_status_kind="<<prm_status_kind);
         }
+#endif
+        return pos->second._ptr;
     }
 
     /**
-     * ステータスをリセットします。
+     * リセット関数を設定してステータスをリセットします。
+     * @return
+     */
+    inline Status* reset(Status* (*prm_pFunc_reset)(Status*)) {
+       _pFunc_reset = prm_pFunc_reset;
+       return reset();
+    }
+
+    /**
+     * 前回使用のリセット関数を使用してステータスをリセットします。
      * @return
      */
     Status* reset() {
         if (_pFunc_reset) {
             return (*_pFunc_reset)(this);
         } else {
+#ifdef MY_DEBUG
             throwCriticalException("リセット用メソッドがnullptrです。");
+#endif
         }
     }
 

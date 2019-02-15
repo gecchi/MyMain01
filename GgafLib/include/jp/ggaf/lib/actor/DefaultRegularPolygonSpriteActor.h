@@ -29,7 +29,7 @@ public:
     CollisionChecker* _pColliChecker;
 
 public:
-    DefaultRegularPolygonSpriteActor(const char* prm_name, const char* prm_model_id, GgafCore::Status* prm_pStat=nullptr);
+    DefaultRegularPolygonSpriteActor(const char* prm_name, const char* prm_model_id);
 
     virtual void onCreateModel() override {
     }

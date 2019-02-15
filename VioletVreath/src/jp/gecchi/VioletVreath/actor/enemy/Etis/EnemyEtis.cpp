@@ -21,8 +21,9 @@ enum {
 };
 
 EnemyEtis::EnemyEtis(const char* prm_name) :
-        DefaultMassMeshActor(prm_name, "Etis", STATUS(EnemyEtis)) {
+        DefaultMassMeshActor(prm_name, "Etis") {
     _class_name = "EnemyEtis";
+    getStatus()->reset(statusResetFunction(EnemyEtis));
     width_x_ = 220*2*LEN_UNIT;
     height_z_ = 220*2*LEN_UNIT;
     depth_y_ = 36*2*LEN_UNIT;

@@ -7,12 +7,11 @@
 
 using namespace GgafLib;
 
-DefaultPointSpriteActor::DefaultPointSpriteActor(const char* prm_name, const char* prm_model_id, GgafCore::Status* prm_pStat) :
+DefaultPointSpriteActor::DefaultPointSpriteActor(const char* prm_name, const char* prm_model_id) :
     GgafDx::PointSpriteActor(prm_name,
                            prm_model_id,
                            "DefaultPointSpriteEffect",
                            "DefaultPointSpriteTechnique",
-                           prm_pStat,
                            UTIL::createChecker(this) ) {
 
     _class_name = "DefaultPointSpriteActor";

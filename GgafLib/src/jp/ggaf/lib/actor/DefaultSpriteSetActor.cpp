@@ -7,12 +7,11 @@
 
 using namespace GgafLib;
 
-DefaultSpriteSetActor::DefaultSpriteSetActor(const char* prm_name, const char* prm_model_id, GgafCore::Status* prm_pStat) :
+DefaultSpriteSetActor::DefaultSpriteSetActor(const char* prm_name, const char* prm_model_id) :
     GgafDx::SpriteSetActor(prm_name,
                          prm_model_id,
                          "DefaultSpriteSetEffect",
                          "DefaultSpriteSetTechnique",
-                         prm_pStat,
                          UTIL::createChecker(this) ) {
 
     _class_name = "DefaultSpriteSetActor";

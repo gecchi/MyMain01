@@ -4,11 +4,11 @@
 
 using namespace GgafLib;
 
-DefaultRegularPolygonBoardActor::DefaultRegularPolygonBoardActor(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat) :
+DefaultRegularPolygonBoardActor::DefaultRegularPolygonBoardActor(const char* prm_name, const char* prm_model) :
         GgafDx::RegularPolygonBoardActor(prm_name,
                                        prm_model,
                                        "DefaultRegularPolygonBoardEffect",
-                                       "DefaultRegularPolygonBoardTechnique") {  //prm_pStat–³Ž‹
+                                       "DefaultRegularPolygonBoardTechnique") {  
     _class_name = "DefaultRegularPolygonBoardActor";
 }
 

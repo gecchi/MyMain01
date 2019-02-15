@@ -20,7 +20,6 @@ HoshiBoshi::HoshiBoshi(const char* prm_name, const char* prm_model_id) :
                                                                "HoshiBoshiEffect",
                                                                TYPE_HOSHIBOSHI_EFFECT,
                                                                "HoshiBoshiTechnique",
-                                                               nullptr,
                                                                nullptr) {
     _class_name = "HoshiBoshi";
     effectBlendOne(); //â¡éZçáê¨

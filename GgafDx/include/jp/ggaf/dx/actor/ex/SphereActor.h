@@ -17,7 +17,6 @@ class SphereActor : public MeshActor {
 
 public:
     SphereActor(const char* prm_name,
-                       GgafCore::Status* prm_pStat,
                        Checker* prm_pChecker);
 
     void drawSphere(coord prm_x, coord prm_y, coord prm_z, coord prm_r);

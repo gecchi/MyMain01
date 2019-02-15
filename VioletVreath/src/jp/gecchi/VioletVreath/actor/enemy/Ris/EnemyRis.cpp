@@ -20,8 +20,9 @@ enum {
 };
 
 EnemyRis::EnemyRis(const char* prm_name)
-      : DefaultMeshSetActor(prm_name, "Ris", STATUS(EnemyRis)) {
+      : DefaultMeshSetActor(prm_name, "Ris") {
     _class_name = "EnemyRis";
+    getStatus()->reset(statusResetFunction(EnemyRis));
     iMovePatternNo_ = 0;
     pKurokoLeader_ = nullptr;
     pDepo_shot_ = nullptr;

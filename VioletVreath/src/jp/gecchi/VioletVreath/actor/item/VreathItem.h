@@ -18,7 +18,7 @@ public:
     int kDX_, kDY_, kDZ_;
 
 public:
-    VreathItem(const char* prm_name, const char* prm_model, GgafCore::Status* prm_pStat);
+    VreathItem(const char* prm_name, const char* prm_model);
 
     virtual void onCreateModel() override {
     }

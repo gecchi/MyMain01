@@ -114,7 +114,7 @@
     <ClCompile Include="src\jp\ggaf\core\util\Logger.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\RepeatSeq.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\Rgb.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\Stasus.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\util\Status.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\Table.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\Util.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\Xpm.cpp" />

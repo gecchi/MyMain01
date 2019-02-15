@@ -8,7 +8,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 MyTorpedoTail::MyTorpedoTail(const char* prm_name, MyTorpedo* prm_pTorpedo) :
-        HomingLaserChip(prm_name, "StraeaLaserChip001", nullptr) {
+        HomingLaserChip(prm_name, "StraeaLaserChip001") {
     _class_name = "MyTorpedoTail";
     pTorpedo_ = prm_pTorpedo;
 }
