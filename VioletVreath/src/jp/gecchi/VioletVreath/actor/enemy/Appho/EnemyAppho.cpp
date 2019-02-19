@@ -11,8 +11,6 @@
 #include "jp/ggaf/dx/actor/supporter/KurokoMvAssistant.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -30,9 +28,8 @@ enum {
 };
 
 EnemyAppho::EnemyAppho(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "Appho") {
+        VvEnemyActor<DefaultMeshSetActor>(prm_name, "Appho", StatusReset(EnemyAppho)) {
     _class_name = "EnemyAppho";
-    getStatus()->reset(statusResetFunction(EnemyAppho));
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);

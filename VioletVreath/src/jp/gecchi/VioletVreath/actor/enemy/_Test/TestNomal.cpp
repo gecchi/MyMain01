@@ -4,8 +4,6 @@
 #include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -15,9 +13,8 @@ enum {
 };
 
 TestNomal::TestNomal(const char* prm_name)
-      : TestEnemy(prm_name, "TestNomal") {
+      : TestEnemy(prm_name, "TestNomal", StatusReset(TestNomal)) {
     _class_name = "TestNomal";
-    getStatus()->reset(statusResetFunction(TestNomal));
 
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");

@@ -7,8 +7,6 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -17,9 +15,8 @@ enum {
 };
 
 EnemyEresShot001::EnemyEresShot001(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "myvic") {
+        VvEnemyActor<DefaultMeshSetActor>(prm_name, "myvic", StatusReset(EnemyEresShot001)) {
     _class_name = "EnemyEresShot001";
-    getStatus()->reset(statusResetFunction(EnemyEresShot001));
     inactivateTree();
 
     /** èoåªéûÇÃèâë¨ */

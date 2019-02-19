@@ -12,8 +12,6 @@
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -29,9 +27,8 @@ enum {
 };
 
 EnemyIda::EnemyIda(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "Ida") {
+        VvEnemyActor<DefaultMeshSetActor>(prm_name, "Ida", StatusReset(EnemyIda)) {
     _class_name = "EnemyIda";
-    getStatus()->reset(statusResetFunction(EnemyIda));
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­

@@ -7,14 +7,11 @@
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include <stdio.h>
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
-
-TestEnemy::TestEnemy(const char* prm_name,
-                     const char* prm_model) : DefaultMeshActor(prm_name, prm_model) {
+TestEnemy::TestEnemy(const char* prm_name, const char* prm_model, void* prm_pStatusReset) :
+        VvEnemyActor<DefaultMeshActor>(prm_name, prm_model, prm_pStatusReset) {
 
     pMoji_ = NEW SpriteLabelTest("stamina");
     pMoji_->defineRotMvWorldMatrix_Billboard(); //XYZ軸ビルボード

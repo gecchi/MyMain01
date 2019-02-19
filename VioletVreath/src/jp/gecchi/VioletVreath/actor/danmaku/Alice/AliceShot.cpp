@@ -4,16 +4,13 @@
 #include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
 AliceShot::AliceShot(const char* prm_name, const char* prm_model_id) :
-        SingleLaser(prm_name, prm_model_id) { //SingleLaserは最大27セットである
+        VvEnemyActor<SingleLaser>(prm_name, prm_model_id, StatusReset(AliceShot)) { //SingleLaserは最大27セットである
         //SingleLaser(prm_name, "27,laser_single") { //SingleLaserは最大27セットである
     _class_name = "AliceShot";
-    getStatus()->reset(statusResetFunction(EnemyErmione));
 }
 
 void AliceShot::initialize() {
@@ -31,6 +28,7 @@ void AliceShot::onReset() {
 
 void AliceShot::onActive() {
     setHitAble(true, false);
+    getStatus()->reset();
     GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->setRyMvAng(D90ANG);
     pKuroko->setRzMvAngVelo(D_ANG(1));

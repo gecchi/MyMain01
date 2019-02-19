@@ -12,8 +12,6 @@
 #include "jp/gecchi/VioletVreath/actor/effect/EffectLaserRefraction001.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Hisbe/EnemyHisbeLaserChip002.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -31,11 +29,9 @@ enum {
 };
 
 EnemyHisbe::EnemyHisbe(const char* prm_name) :
-        DefaultMorphMeshActor(prm_name, "Hisbe_1") {
-        //CubeMapMorphMeshActor(prm_name, "HisbeCM_1") {
-
+        VvEnemyActor<DefaultMorphMeshActor>(prm_name, "Hisbe_1", StatusReset(EnemyHisbe)) {
+        //VvEnemyActor<CubeMapMorphMeshActor>(prm_name, "HisbeCM_1", StatusReset(EnemyHisbe)) {
     _class_name = "EnemyHisbe";
-    getStatus()->reset(statusResetFunction(EnemyHisbe));
     pKurokoLeader_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;

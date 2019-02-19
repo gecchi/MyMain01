@@ -13,8 +13,6 @@
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -35,9 +33,8 @@ enum {
 };
 
 EnemyRatislaviaEye::EnemyRatislaviaEye(const char* prm_name, EnemyRatislavia* prm_pRatislavia) :
-        DefaultMorphMeshActor(prm_name, "RatislaviaEye_1") {
+        VvEnemyActor<DefaultMorphMeshActor>(prm_name, "RatislaviaEye_1", StatusReset(EnemyRatislaviaEye)) {
         //CubeMapMorphMeshActor(prm_name, "HaliaCM_1") {
-    getStatus()->reset(statusResetFunction(EnemyRatislaviaEye));
     _class_name = "EnemyRatislaviaEye";
     setScaleR(0.3*10);
     pRatislavia_ = prm_pRatislavia;

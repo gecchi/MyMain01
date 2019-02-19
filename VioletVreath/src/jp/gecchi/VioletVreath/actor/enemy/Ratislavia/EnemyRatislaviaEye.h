@@ -1,6 +1,7 @@
 #ifndef ENEMYRATISLAVIAEYE_H_
 #define ENEMYRATISLAVIAEYE_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
 
 namespace VioletVreath {
@@ -11,7 +12,7 @@ namespace VioletVreath {
  * @since 2012/10/16
  * @author Masatoshi Tsuge
  */
-class EnemyRatislaviaEye : public GgafLib::DefaultMorphMeshActor {
+class EnemyRatislaviaEye : public VvEnemyActor<GgafLib::DefaultMorphMeshActor> {
     /** 弾発射前溜め効果エフェクト */
     EffectRatislaviaEye001* pEffect_;
 

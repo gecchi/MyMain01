@@ -11,7 +11,7 @@
 #define UTIL VioletVreath::MyStgUtil
 
 #define STATUS(X) (NEW GgafCore::Status(VioletVreath::MyStgUtil::reset##X##Status))
-#define statusResetFunction(X) (VioletVreath::MyStgUtil::reset##X##Status)
+#define StatusReset(X) ((void*)(VioletVreath::MyStgUtil::reset##X##Status))
 
 //イベント用 hashval 数値宣言
 DECLARE_HASHVAL(EVENT_GOD_WILL_DEMISE);

@@ -8,8 +8,6 @@
 #include "jp/ggaf/lib/DefaultGod.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 

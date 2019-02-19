@@ -1,6 +1,7 @@
 #ifndef ENEMYAPPHO_H_
 #define ENEMYAPPHO_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
 
 #include "jp/ggaf/dx/util/GeoElem.h"
@@ -16,7 +17,7 @@ namespace VioletVreath {
  * @since 2013/03/18
  * @author Masatoshi Tsuge
  */
-class EnemyAppho : public GgafLib::DefaultMeshSetActor {
+class EnemyAppho : public VvEnemyActor<GgafLib::DefaultMeshSetActor> {
 
 public:
     /** [r]出現座標(フォーメーションオブジェクトが設定) */

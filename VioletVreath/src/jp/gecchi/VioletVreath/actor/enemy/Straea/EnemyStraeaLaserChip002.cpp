@@ -6,15 +6,12 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
 EnemyStraeaLaserChip002::EnemyStraeaLaserChip002(const char* prm_name) :
-        RefractionLaserChip(prm_name, "StraeaLaserChip001") {
+        VvEnemyActor<RefractionLaserChip>(prm_name, "StraeaLaserChip001", StatusReset(EnemyStraeaLaserChip002)) {
     _class_name = "EnemyStraeaLaserChip002";
-    getStatus()->reset(statusResetFunction(EnemyStraeaLaserChip002));
     pConn_pRefractionEffectDepository_ = nullptr;
 }
 

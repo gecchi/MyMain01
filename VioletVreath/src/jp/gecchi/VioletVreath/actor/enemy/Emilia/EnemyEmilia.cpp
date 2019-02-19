@@ -15,8 +15,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EnemyEmilia::EnemyEmilia(const char* prm_name) :
-        EnemyEmiliaBase(prm_name, "Emilia") {
-    getStatus()->reset(statusResetFunction(EnemyEmilia));
+        EnemyEmiliaBase(prm_name, "Emilia", StatusReset(EnemyEmilia)) {
 }
 
 void EnemyEmilia::onDispatched(EnemyEmiliaBase* prm_pOrg, FormationEmilia* prm_pFormationEmilia) {
@@ -44,7 +43,7 @@ void EnemyEmilia::initialize() {
 
 void EnemyEmilia::onActive() {
     //ステータスリセット
-    UTIL::resetEnemyEmiliaStatus(getStatus());
+    getStatus()->reset();
     setHitAble(true);
     GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->setMvAngTwd(0, D180ANG);

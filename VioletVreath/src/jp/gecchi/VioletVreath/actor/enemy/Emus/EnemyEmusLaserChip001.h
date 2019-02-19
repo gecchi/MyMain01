@@ -1,6 +1,7 @@
 #ifndef ENEMYEMUSLASERCHIP001_H_
 #define ENEMYEMUSLASERCHIP001_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/laserchip/WateringLaserChip.h"
 
 namespace VioletVreath {
@@ -9,7 +10,7 @@ namespace VioletVreath {
  * エムス用レーザーチップ .
  * 汎用レーザーに切り替えたので現在未使用
  */
-class EnemyEmusLaserChip001 : public GgafLib::WateringLaserChip {
+class EnemyEmusLaserChip001 : public VvEnemyActor<GgafLib::WateringLaserChip> {
 
 public:
     EnemyEmusLaserChip001(const char* prm_name);

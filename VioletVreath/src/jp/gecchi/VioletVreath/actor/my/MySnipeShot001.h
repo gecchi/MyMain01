@@ -1,6 +1,7 @@
 #ifndef MYSNIPESHOT001_H_
 #define MYSNIPESHOT001_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvMyActor.hpp"
 #include "jp/ggaf/lib/actor/SingleLaser.h"
 
 namespace VioletVreath {
@@ -11,7 +12,7 @@ namespace VioletVreath {
  * @since 2014/13/06
  * @author Masatoshi Tsuge
  */
-class MySnipeShot001 : public GgafLib::SingleLaser {
+class MySnipeShot001 : public VvMyActor<GgafLib::SingleLaser> {
 
 public:
     MySnipeShot001(const char* prm_name);

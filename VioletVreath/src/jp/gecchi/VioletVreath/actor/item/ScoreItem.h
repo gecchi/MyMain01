@@ -17,7 +17,7 @@ public:
     /** ‹z’…·•ªÀ•W */
     int kDX_, kDY_, kDZ_;
 public:
-    ScoreItem(const char* prm_name, const char* prm_model);
+    ScoreItem(const char* prm_name, const char* prm_model, void* prm_pFuncStatusReset);
 
     virtual void onCreateModel() override {
     }

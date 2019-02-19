@@ -40,11 +40,10 @@ enum {
 //MyBunshin::MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase) : DefaultMorphMeshActor(prm_name, "Eres_4") {
 //MyBunshin::MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase) : CubeMapMeshSetActor(prm_name, "4,Core4cm_") {
 MyBunshin::MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase) :
-        DefaultMeshSetActor(prm_name, "8,myvic") {
+        VvEffectActor<DefaultMeshSetActor>(prm_name, "8,myvic", StatusReset(MyBunshin)) {
 
     _class_name = "MyBunshin";
     pBase_ = prm_pBase;
-    getStatus()->reset(statusResetFunction(MyBunshin));
 
     //自弾ストック
     pDepo_MyBunshinShot_ = NEW GgafCore::ActorDepository("Depo_MyBunshinShot");

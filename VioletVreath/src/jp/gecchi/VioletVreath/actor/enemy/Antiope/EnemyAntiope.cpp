@@ -9,8 +9,6 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -27,8 +25,8 @@ enum {
 };
 
 
-EnemyAntiope::EnemyAntiope(const char* prm_name, const char* prm_model) :
-        DefaultMeshSetActor(prm_name, prm_model) {
+EnemyAntiope::EnemyAntiope(const char* prm_name, const char* prm_model, void* prm_pFuncStatusReset) :
+        VvEnemyActor<DefaultMeshSetActor>(prm_name, prm_model, prm_pFuncStatusReset) {
     _class_name = "EnemyAntiope";
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");

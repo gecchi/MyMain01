@@ -14,9 +14,8 @@ enum {
     SE_EXPLOSION ,
 };
 
-TestChoki::TestChoki(const char* prm_name) : TestEnemy(prm_name, "TestChoki") {
+TestChoki::TestChoki(const char* prm_name) : TestEnemy(prm_name, "TestChoki", StatusReset(TestChoki)) {
     _class_name = "TestChoki";
-    getStatus()->reset(statusResetFunction(EnemyErmione));
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");

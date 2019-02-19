@@ -12,9 +12,8 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EnemyErmioneArmWeak::EnemyErmioneArmWeak(const char* prm_name) :
-        EnemyErmioneArm(prm_name, "ErmioneArmWeak") {
+        EnemyErmioneArm(prm_name, "ErmioneArmWeak", StatusReset(EnemyErmioneArmWeak)) {
     _class_name = "EnemyErmioneArmWeak";
-    getStatus()->reset(statusResetFunction(EnemyErmioneArmWeak));
 }
 
 void EnemyErmioneArmWeak::onCreateModel() {

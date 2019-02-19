@@ -11,8 +11,6 @@
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/KurokoFaceAngAssistant.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -28,9 +26,8 @@ enum {
 };
 
 EnemyGlajaLance001::EnemyGlajaLance001(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "GlajaLance001") {
+        VvEnemyActor<DefaultMeshSetActor>(prm_name, "GlajaLance001", StatusReset(EnemyGlajaLance001)) {
     _class_name = "EnemyGlajaLance001";
-    getStatus()->reset(statusResetFunction(EnemyGlajaLance001));
     effectBlendOne(); //â¡éZçáê¨
     setZEnableDraw(true);
     setZWriteEnable(false);

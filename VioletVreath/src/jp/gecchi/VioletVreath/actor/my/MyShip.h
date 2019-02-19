@@ -1,6 +1,7 @@
 #ifndef MYSHIP_H_
 #define MYSHIP_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvMyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultD3DXMeshActor.h"
 
 #include "jp/ggaf/lib/util/Quantity.hpp"
@@ -33,7 +34,7 @@ namespace VioletVreath {
  * @since 2006/06/22
  * @author Masatoshi Tsuge
  */
-class MyShip : public GgafLib::DefaultD3DXMeshActor {
+class MyShip : public VvMyActor<GgafLib::DefaultD3DXMeshActor> {
 //class MyShip : public GgafLib::DefaultMeshActor {
 //class MyShip : public GgafLib::CubeMapMeshActor {
 //class MyShip : public GgafLib::DefaultD3DXAniMeshActor {

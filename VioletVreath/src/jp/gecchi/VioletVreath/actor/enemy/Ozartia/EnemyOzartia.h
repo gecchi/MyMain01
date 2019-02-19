@@ -1,6 +1,7 @@
 #ifndef ENEMYOZARTIA_H_
 #define ENEMYOZARTIA_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
 
 #include "jp/ggaf/dx/util/GeoElem.h"
@@ -15,7 +16,7 @@ namespace VioletVreath {
  * @since 2013/10/01
  * @author Masatoshi Tsuge
  */
-class EnemyOzartia : public GgafLib::DefaultMorphMeshActor {
+class EnemyOzartia : public VvEnemyActor<GgafLib::DefaultMorphMeshActor> {
 
 public:
     /** ショット関連の進捗状態 */

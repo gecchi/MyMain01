@@ -1,6 +1,7 @@
 #ifndef ENEMYUNOMIA_H_
 #define ENEMYUNOMIA_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMassMeshActor.h"
 
 namespace VioletVreath {
@@ -12,7 +13,7 @@ namespace VioletVreath {
  * @since 2011/02/14
  * @author Masatoshi Tsuge
  */
-class EnemyUnomia : public GgafLib::DefaultMassMeshActor {
+class EnemyUnomia : public VvEnemyActor<GgafLib::DefaultMassMeshActor> {
 
 public:
     /** 移動スプラインのシークエンスプログラム */

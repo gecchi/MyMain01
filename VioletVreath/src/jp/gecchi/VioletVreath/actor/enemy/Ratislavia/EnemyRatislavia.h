@@ -1,6 +1,7 @@
 #ifndef ENEMYRATISLAVIA_H_
 #define ENEMYRATISLAVIA_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvChikeiActor.hpp"
 #include "jp/ggaf/lib/actor/CubeMapMeshActor.h"
 
 namespace VioletVreath {
@@ -15,8 +16,7 @@ DECLARE_HASHVAL(RATISLAVIA_EXPLOSION);
  * @since 2010/05/08
  * @author Masatoshi Tsuge
  */
-//class EnemyRatislavia : public GroundMeshActor {
-class EnemyRatislavia : public GgafLib::CubeMapMeshActor {
+class EnemyRatislavia : public VvChikeiActor<GgafLib::CubeMapMeshActor> {
 
 public:
     /** ÉgÅ[ÉâÉXÇÃîºåa1(ó÷ÇÃîºåa) */

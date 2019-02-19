@@ -10,13 +10,11 @@
 #include "jp/ggaf/dx/actor/supporter/KurokoFaceAngAssistant.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
-EnemyErmioneArm::EnemyErmioneArm(const char* prm_name, const char* prm_model) :
-        DefaultMeshSetActor(prm_name, prm_model) {
+EnemyErmioneArm::EnemyErmioneArm(const char* prm_name, const char* prm_model, void* prm_pFuncStatusReset) :
+        VvEnemyActor<DefaultMeshSetActor>(prm_name, prm_model, prm_pFuncStatusReset) {
     _class_name = "EnemyErmioneArm";
 
     aiming_ang_velo_ = 0;

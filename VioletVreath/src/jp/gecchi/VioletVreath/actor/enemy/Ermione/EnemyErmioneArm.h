@@ -1,6 +1,7 @@
 #ifndef ENEMYERMIONEARM_H_
 #define ENEMYERMIONEARM_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
 
 namespace VioletVreath {
@@ -11,7 +12,7 @@ namespace VioletVreath {
  * @since 2012/11/06
  * @author Masatoshi Tsuge
  */
-class EnemyErmioneArm : public GgafLib::DefaultMeshSetActor {
+class EnemyErmioneArm : public VvEnemyActor<GgafLib::DefaultMeshSetActor> {
 public:
     enum {
         PROG_INIT   ,
@@ -38,7 +39,7 @@ public:
      * @param prm_name
      * @return
      */
-    EnemyErmioneArm(const char* prm_name, const char* prm_model);
+    EnemyErmioneArm(const char* prm_name, const char* prm_model, void* prm_pFuncStatusReset);
 
     /**
      * 初期処理（インスタンス生成後保証）

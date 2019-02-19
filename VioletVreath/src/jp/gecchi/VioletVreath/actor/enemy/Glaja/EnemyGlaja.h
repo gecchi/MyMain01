@@ -1,6 +1,7 @@
 #ifndef ENEMYGLAJA_H_
 #define ENEMYGLAJA_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
 
 #include "jp/ggaf/dx/util/GeoElem.h"
@@ -15,7 +16,7 @@ namespace VioletVreath {
  * @since 2013/08/19
  * @author Masatoshi Tsuge
  */
-class EnemyGlaja : public GgafLib::DefaultMorphMeshActor {
+class EnemyGlaja : public VvEnemyActor<GgafLib::DefaultMorphMeshActor> {
 
 public:
     DepositoryConnection* pConn_pShot_;

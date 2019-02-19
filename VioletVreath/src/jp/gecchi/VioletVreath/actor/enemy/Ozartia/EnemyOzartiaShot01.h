@@ -1,6 +1,7 @@
 #ifndef ENEMYOZARTIASHOT01_H_
 #define ENEMYOZARTIASHOT01_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
 
 namespace VioletVreath {
@@ -8,7 +9,7 @@ namespace VioletVreath {
 /**
  * 3D“G’e001 .
  */
-class EnemyOzartiaShot01 : public GgafLib::DefaultMeshSetActor {
+class EnemyOzartiaShot01 : public VvEnemyActor<GgafLib::DefaultMeshSetActor> {
 
 public:
     EnemyOzartiaShot01(const char* prm_name);

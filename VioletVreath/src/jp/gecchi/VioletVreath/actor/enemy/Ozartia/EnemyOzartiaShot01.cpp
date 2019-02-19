@@ -6,8 +6,6 @@
 
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -20,9 +18,8 @@ enum {
 };
 
 EnemyOzartiaShot01::EnemyOzartiaShot01(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "myvic") {
+        VvEnemyActor<DefaultMeshSetActor>(prm_name, "myvic", StatusReset(EnemyOzartiaShot01)) {
     _class_name = "EnemyOzartiaShot01";
-    getStatus()->reset(statusResetFunction(EnemyOzartiaShot01));
 }
 
 void EnemyOzartiaShot01::initialize() {

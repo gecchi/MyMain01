@@ -20,9 +20,8 @@ enum {
 };
 
 EnemyIrce::EnemyIrce(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "Eres") { //8/ÇÇ¢ÇÍÇ∆Ç©Ç»Ç¢Ç∆ÉÜÉjÅ[ÉNÇ…Ç»ÇÁÇ»Ç¢
+        VvEnemyActor<DefaultMeshSetActor>(prm_name, "Eres", StatusReset(EnemyErmione)) {
     _class_name = "EnemyIrce";
-    getStatus()->reset(statusResetFunction(EnemyErmione));
     iMovePatternNo_ = 0;
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");

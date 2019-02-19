@@ -11,9 +11,8 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 TestPaShot::TestPaShot(const char* prm_name) :
-        SingleLaser(prm_name, "TestPaShot") {
+        VvMyActor<SingleLaser>(prm_name, "TestPaShot", StatusReset(TestPaShot)) {
     _class_name = "TestPaShot";
-    getStatus()->reset(statusResetFunction(TestPaShot));
 }
 
 void TestPaShot::initialize() {

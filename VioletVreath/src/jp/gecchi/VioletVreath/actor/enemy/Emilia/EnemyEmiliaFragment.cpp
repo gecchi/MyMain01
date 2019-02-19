@@ -12,8 +12,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EnemyEmiliaFragment::EnemyEmiliaFragment(const char* prm_name) :
-        EnemyEmiliaBase(prm_name, "Emilia") {
-    getStatus()->reset(statusResetFunction(EnemyEmiliaFragment));
+        EnemyEmiliaBase(prm_name, "Emilia", StatusReset(EnemyEmiliaFragment)) {
 }
 
 void EnemyEmiliaFragment::onDispatched(EnemyEmiliaBase* prm_pOrg, FormationEmilia* prm_pFormationEmilia) {

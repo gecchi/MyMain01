@@ -11,9 +11,8 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 MyShot001::MyShot001(const char* prm_name) :
-        SingleLaser(prm_name, "MyShot001") { //SingleLaserは最大27セットである
+        VvMyActor<SingleLaser>(prm_name, "MyShot001", StatusReset(MyShot001)) { //SingleLaserは最大27セットである
     _class_name = "MyShot001";
-    getStatus()->reset(statusResetFunction(MyShot001));
 }
 
 void MyShot001::initialize() {

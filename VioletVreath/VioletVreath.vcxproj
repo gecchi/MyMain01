@@ -481,6 +481,12 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\item\ScoreItem001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\item\VreathItem.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\item\VreathItem001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\kind\VvActor.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\kind\VvChikeiActor.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\kind\VvEffectActor.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\kind\VvEnemyActor.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\kind\VvItemActor.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\kind\VvMyActor.hpp" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelFix16Font01.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelFont16x32.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelFont32x64.h" />

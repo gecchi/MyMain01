@@ -1,6 +1,7 @@
 #ifndef ENEMYRIS_H_
 #define ENEMYRIS_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
 
 namespace VioletVreath {
@@ -12,7 +13,7 @@ namespace VioletVreath {
  * @since 2009/12/22
  * @author Masatoshi Tsuge
  */
-class EnemyRis : public GgafLib::DefaultMeshSetActor {
+class EnemyRis : public VvEnemyActor<GgafLib::DefaultMeshSetActor> {
 
 //    /** フォーメーション(非フォーメーション時はnullptr) */
 //    GgafLib::TreeFormation* pFormation_;

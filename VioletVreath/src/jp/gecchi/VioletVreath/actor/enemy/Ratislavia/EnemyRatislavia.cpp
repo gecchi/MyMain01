@@ -11,8 +11,6 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -24,11 +22,9 @@ enum {
     PROG_BANPEI,
 };
 
-
 EnemyRatislavia::EnemyRatislavia(const char* prm_name, const char* prm_model, coord prm_r1, coord prm_r2) :
-        CubeMapMeshActor(prm_name, prm_model) {
+        VvChikeiActor<CubeMapMeshActor>(prm_name, prm_model, StatusReset(EnemyRatislavia)) {
     _class_name = "EnemyRatislavia";
-    getStatus()->reset(statusResetFunction(EnemyRatislavia));
     setCubeMap("BkSky_cubemap.dds", 0.4);
     r1_ = prm_r1;
     r2_ = prm_r2;

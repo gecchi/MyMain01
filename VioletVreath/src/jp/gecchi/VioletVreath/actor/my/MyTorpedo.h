@@ -1,8 +1,8 @@
 #ifndef MYTORPEDO_H_
 #define MYTORPEDO_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvMyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
-
 
 #define MyTorpedo_IN_FIRE 1
 #define MyTorpedo_RELEASE 2
@@ -15,7 +15,7 @@ namespace VioletVreath {
  * @since 2010/09/21
  * @author Masatoshi Tsuge
  */
-class MyTorpedo : public GgafLib::DefaultMeshSetActor {
+class MyTorpedo : public VvMyActor<GgafLib::DefaultMeshSetActor> {
 
 public:
     /** [r]親アクターとなる魚雷コンローラー */

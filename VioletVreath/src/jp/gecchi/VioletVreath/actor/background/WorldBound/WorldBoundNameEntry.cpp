@@ -3,8 +3,6 @@
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
 #include "jp/gecchi/VioletVreath/God.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 

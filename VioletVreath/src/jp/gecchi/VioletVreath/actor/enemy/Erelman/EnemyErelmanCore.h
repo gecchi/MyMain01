@@ -1,6 +1,7 @@
 #ifndef ENEMYERELMANCORE_H_
 #define ENEMYERELMANCORE_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
 
 #include "jp/ggaf/dx/util/GeoElem.h"
@@ -13,7 +14,7 @@ namespace VioletVreath {
  * @since 2018/06/11
  * @author Masatoshi Tsuge
  */
-class EnemyErelmanCore : public GgafLib::DefaultMorphMeshActor {
+class EnemyErelmanCore : public VvEnemyActor<GgafLib::DefaultMorphMeshActor> {
 
 public:
     EnemyErelmanController* pController_;

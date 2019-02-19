@@ -11,9 +11,8 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 MyBunshinSnipeShot001::MyBunshinSnipeShot001(const char* prm_name) :
-        SingleLaser(prm_name, "MyBunshinSnipeShot001") { //SingleLaserは最大27セットである
+        VvMyActor<SingleLaser>(prm_name, "MyBunshinSnipeShot001", StatusReset(MyBunshinSnipeShot001)) { //SingleLaserは最大27セットである
     _class_name = "MyBunshinSnipeShot001";
-    getStatus()->reset(statusResetFunction(MyBunshinSnipeShot001));
 }
 
 void MyBunshinSnipeShot001::initialize() {

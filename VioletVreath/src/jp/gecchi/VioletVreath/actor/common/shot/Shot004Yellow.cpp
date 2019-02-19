@@ -14,10 +14,9 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 Shot004Yellow::Shot004Yellow(const char* prm_name) :
-        DefaultMassMeshActor(prm_name, "Shot004Yellow") { //SingleLaserは最大27セットである
+        VvEnemyActor<DefaultMassMeshActor>(prm_name, "Shot004Yellow", StatusReset(Shot004)) { //SingleLaserは最大27セットである
         //SingleLaser(prm_name, "27,laser_single") { //SingleLaserは最大27セットである
     _class_name = "Shot004Yellow";
-    getStatus()->reset(statusResetFunction(Shot004));
     view_in_ = false;
 }
 
@@ -31,6 +30,7 @@ void Shot004Yellow::initialize() {
     pChecker->setColliAACube(0, PX_C(16));
 }
 void Shot004Yellow::onReset() {
+    getStatus()->reset();
     setScaleR(3.0);
     setCullingDraw(false);
     GgafDx::Kuroko* const pKuroko = getKuroko();

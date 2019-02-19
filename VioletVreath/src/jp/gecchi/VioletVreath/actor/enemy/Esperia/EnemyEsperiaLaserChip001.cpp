@@ -7,8 +7,6 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -25,9 +23,8 @@ enum {
 };
 
 EnemyEsperiaLaserChip001::EnemyEsperiaLaserChip001(const char* prm_name) :
-        HomingLaserChip(prm_name, "EsperiaLaserChip001") {
+        VvEnemyActor<HomingLaserChip>(prm_name, "EsperiaLaserChip001", StatusReset(EnemyEsperiaLaserChip001)) {
     _class_name = "EnemyEsperiaLaserChip001";
-    getStatus()->reset(statusResetFunction(EnemyEsperiaLaserChip001));
     tx1_ = ty1_ = tz1_ = 0;
     tx2_ = ty2_ = tz2_ = 0;
     begin_y_ = 0;

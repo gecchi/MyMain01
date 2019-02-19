@@ -1,6 +1,7 @@
 #ifndef ENEMYSTRAEA_H_
 #define ENEMYSTRAEA_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMeshActor.h"
 
 namespace VioletVreath {
@@ -12,7 +13,7 @@ namespace VioletVreath {
  * @since 2009/04/23
  * @author Masatoshi Tsuge
  */
-class EnemyStraea : public GgafLib::DefaultMeshActor {
+class EnemyStraea : public VvEnemyActor<GgafLib::DefaultMeshActor> {
 
 private:
     /** 発射済みレーザーチップ数 */

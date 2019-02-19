@@ -1,6 +1,7 @@
 #ifndef ENEMYOEBIUS_H_
 #define ENEMYOEBIUS_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMassMeshActor.h"
 
 #include "jp/ggaf/dx/util/GeoElem.h"
@@ -14,7 +15,7 @@ namespace VioletVreath {
  * @since 2014/09/17
  * @author Masatoshi Tsuge
  */
-class EnemyOebius : public GgafLib::DefaultMassMeshActor {
+class EnemyOebius : public VvEnemyActor<GgafLib::DefaultMassMeshActor> {
 
 public:
     /** 移動スプラインプログラム */

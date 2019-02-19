@@ -173,18 +173,21 @@ public:
      * リセット関数を設定してステータスをリセットします。
      * @return
      */
-    inline Status* reset(Status* (*prm_pFunc_reset)(Status*)) {
+    inline void reset(Status* (*prm_pFunc_reset)(Status*)) {
        _pFunc_reset = prm_pFunc_reset;
-       return reset();
+       reset();
     }
-
+    inline void reset(void* prm_pFunc_reset) {
+        _pFunc_reset = (Status* (*)(Status*))prm_pFunc_reset;
+        reset();
+    }
     /**
      * 前回使用のリセット関数を使用してステータスをリセットします。
      * @return
      */
-    Status* reset() {
+    void reset() {
         if (_pFunc_reset) {
-            return (*_pFunc_reset)(this);
+            (*_pFunc_reset)(this);
         } else {
 #ifdef MY_DEBUG
             throwCriticalException("リセット用メソッドがnullptrです。");

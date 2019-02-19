@@ -9,8 +9,6 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -27,9 +25,8 @@ enum {
 };
 
 EnemyUnomia::EnemyUnomia(const char* prm_name) :
-        DefaultMassMeshActor(prm_name, "Unomia") {
+        VvEnemyActor<DefaultMassMeshActor>(prm_name, "Unomia", StatusReset(EnemyUnomia)) {
     _class_name = "EnemyUnomia";
-    getStatus()->reset(statusResetFunction(EnemyUnomia));
     pKurokoLeader_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;

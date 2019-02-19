@@ -1,6 +1,7 @@
 #ifndef ENEMYASSALIABASE_H_
 #define ENEMYASSALIABASE_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMassMeshActor.h"
 
 namespace VioletVreath {
@@ -12,7 +13,7 @@ namespace VioletVreath {
  * @since 2011/10/15
  * @author Masatoshi Tsuge
  */
-class EnemyEmiliaBase : public GgafLib::DefaultMassMeshActor {
+class EnemyEmiliaBase : public VvEnemyActor<GgafLib::DefaultMassMeshActor> {
 
 protected:
     virtual void processStaminaEnd(const GgafDx::GeometricActor* prm_pOther) = 0;
@@ -22,7 +23,7 @@ public:
     EnemyEmiliaBase* pOrg_;
     FormationEmilia* pFormationEmilia_;
 public:
-    EnemyEmiliaBase(const char* prm_name, const char* prm_model);
+    EnemyEmiliaBase(const char* prm_name, const char* prm_model, void* prm_pFuncStatusReset);
 
     /**
      * エミリアがでポジトリから取得された際に呼び出されるコールバック .

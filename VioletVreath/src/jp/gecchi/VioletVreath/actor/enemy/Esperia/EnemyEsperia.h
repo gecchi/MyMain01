@@ -1,6 +1,7 @@
 #ifndef ENEMYESPERIA_H_
 #define ENEMYESPERIA_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
 
 namespace VioletVreath {
@@ -12,7 +13,7 @@ namespace VioletVreath {
  * @since 2012/08/29
  * @author Masatoshi Tsuge
  */
-class EnemyEsperia : public GgafLib::DefaultMorphMeshActor {
+class EnemyEsperia : public VvEnemyActor<GgafLib::DefaultMorphMeshActor> {
 
 private:
     /** 発射済みレーザーチップ数 */

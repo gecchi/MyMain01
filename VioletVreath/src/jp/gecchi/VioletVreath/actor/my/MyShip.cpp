@@ -120,12 +120,11 @@ enum {
 
 
 MyShip::MyShip(const char* prm_name) :
-        DefaultD3DXMeshActor(prm_name, "VicViper") {
+        VvMyActor<DefaultD3DXMeshActor>(prm_name, "VicViper", StatusReset(MyShip)) {
 //DefaultMeshActor(prm_name, "jiki") {
 //CubeMapMeshActor(prm_name, "wakka") {
 //DefaultD3DXAniMeshActor(prm_name, "AnimatedSkelton") {
     _class_name = "MyShip";
-    getStatus()->reset(statusResetFunction(MyShip));
 
     //effectBlendOne(); //â¡éZçáê¨TechniqueéwíË
 

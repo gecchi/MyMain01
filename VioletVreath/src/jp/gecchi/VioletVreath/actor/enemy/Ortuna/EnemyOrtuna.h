@@ -1,6 +1,7 @@
 #ifndef ENEMYORTUNA_H_
 #define ENEMYORTUNA_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
 
 #include "jp/ggaf/dx/util/GeoElem.h"
@@ -14,7 +15,7 @@ namespace VioletVreath {
  * @since 2013/08/05
  * @author Masatoshi Tsuge
  */
-class EnemyOrtuna : public GgafLib::DefaultMorphMeshActor {
+class EnemyOrtuna : public VvEnemyActor<GgafLib::DefaultMorphMeshActor> {
 
 public:
     /** [r]出現座標(フォーメーションオブジェクトが設定) */

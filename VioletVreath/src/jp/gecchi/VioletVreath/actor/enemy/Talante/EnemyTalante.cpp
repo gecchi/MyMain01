@@ -8,8 +8,6 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -28,9 +26,8 @@ enum {
 };
 
 EnemyTalante::EnemyTalante(const char* prm_name) :
-        DefaultMassMeshActor(prm_name, "Talante") {
+        VvEnemyActor<DefaultMassMeshActor>(prm_name, "Talante", StatusReset(EnemyErmione)) {
     _class_name = "EnemyTalante";
-    getStatus()->reset(statusResetFunction(EnemyErmione));
     pDepo_shot_ = nullptr;
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");

@@ -1,9 +1,9 @@
 #ifndef JIKI_H_
 #define JIKI_H_
+#include "jp/gecchi/VioletVrain/actor/kind/VvMyActor.h"
 #include "VioletVrain.h"
 
 #include "jp/ggaf/lib/actor/DefaultSpriteActor.h"
-#include "jp/gecchi/VioletVrain/actor/kind/VvMikataActor.hpp"
 
 namespace VioletVrain {
 
@@ -11,7 +11,7 @@ namespace VioletVrain {
  * ƒeƒXƒg
  * @author Masatoshi Tsuge
  */
-class Jiki : public VvMikataActor<GgafLib::DefaultSpriteActor> {
+class Jiki : public VvMyActor<GgafLib::DefaultSpriteActor> {
 
 public:
     Jiki(const char* prm_name);
@@ -29,6 +29,11 @@ public:
     void processJudgement() override;
 
     virtual ~Jiki();
+
+    static GgafCore::Status* resetJikiStatus(GgafCore::Status* p) {
+        _TRACE_("‚¤‚Ð‚å‚Ð‚å");
+        return nullptr;
+    }
 
 };
 

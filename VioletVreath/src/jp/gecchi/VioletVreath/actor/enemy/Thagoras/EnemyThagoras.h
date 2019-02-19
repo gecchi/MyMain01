@@ -1,6 +1,7 @@
 #ifndef ENEMYTHAGORAS_H_
 #define ENEMYTHAGORAS_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
 
 #include "jp/ggaf/dx/util/GeoElem.h"
@@ -14,7 +15,7 @@ namespace VioletVreath {
  * @since 2013/07/10
  * @author Masatoshi Tsuge
  */
-class EnemyThagoras : public GgafLib::DefaultMeshSetActor {
+class EnemyThagoras : public VvEnemyActor<GgafLib::DefaultMeshSetActor> {
 
 public:
     /** 移動スプラインプログラム */

@@ -10,8 +10,6 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -20,9 +18,8 @@ enum {
 };
 
 EnemyRis::EnemyRis(const char* prm_name)
-      : DefaultMeshSetActor(prm_name, "Ris") {
+      : VvEnemyActor<DefaultMeshSetActor>(prm_name, "Ris", StatusReset(EnemyRis)) {
     _class_name = "EnemyRis";
-    getStatus()->reset(statusResetFunction(EnemyRis));
     iMovePatternNo_ = 0;
     pKurokoLeader_ = nullptr;
     pDepo_shot_ = nullptr;

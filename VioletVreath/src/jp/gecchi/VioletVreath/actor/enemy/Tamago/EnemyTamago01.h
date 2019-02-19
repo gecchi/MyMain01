@@ -1,6 +1,7 @@
 #ifndef ENEMYTAMAGO01_H_
 #define ENEMYTAMAGO01_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/SpriteMeshSetActor.h"
 
 namespace VioletVreath {
@@ -11,7 +12,7 @@ namespace VioletVreath {
  * @since 2009/01/22
  * @author Masatoshi Tsuge
  */
-class EnemyTamago01 : public GgafLib::SpriteMeshSetActor {
+class EnemyTamago01 : public VvEnemyActor<GgafLib::SpriteMeshSetActor> {
 
 public:
     /** 行動パターン番号 */

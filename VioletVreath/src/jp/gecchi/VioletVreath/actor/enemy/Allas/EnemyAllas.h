@@ -1,6 +1,7 @@
 #ifndef ENEMYALLAS_H_
 #define ENEMYALLAS_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
 
 namespace VioletVreath {
@@ -12,7 +13,7 @@ namespace VioletVreath {
  * @since 2010/06/13
  * @author Masatoshi Tsuge
  */
-class EnemyAllas : public GgafLib::DefaultMeshSetActor {
+class EnemyAllas : public VvEnemyActor<GgafLib::DefaultMeshSetActor> {
 
 public:
     /** 移動スプラインプログラム */

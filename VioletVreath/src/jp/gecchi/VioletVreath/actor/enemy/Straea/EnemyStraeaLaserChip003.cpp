@@ -6,15 +6,12 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
 EnemyStraeaLaserChip003::EnemyStraeaLaserChip003(const char* prm_name) :
-        WateringLaserChip(prm_name, "StraeaLaserChip001") {
+        VvEnemyActor<WateringLaserChip>(prm_name, "StraeaLaserChip001", StatusReset(EnemyStraeaLaserChip003)) {
     _class_name = "EnemyStraeaLaserChip003";
-    getStatus()->reset(statusResetFunction(EnemyStraeaLaserChip003));
     pConn_pSplManuf_ = connectToSplineManufactureManager("GURUGURU");
     pKurokoLeader_ = pConn_pSplManuf_->peek()->createKurokoLeader(getKuroko());
 }

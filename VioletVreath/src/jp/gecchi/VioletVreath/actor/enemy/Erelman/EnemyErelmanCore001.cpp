@@ -28,7 +28,6 @@ enum {
 EnemyErelmanCore001::EnemyErelmanCore001(const char* prm_name, EnemyErelmanController* prm_pController) :
         EnemyErelmanCore(prm_name, prm_pController) {
     _class_name = "EnemyErelmanCore001";
-
 }
 
 void EnemyErelmanCore001::processBehavior() {

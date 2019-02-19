@@ -18,7 +18,7 @@ public:
     int kDX_, kDY_, kDZ_;
 
 public:
-    VreathItem(const char* prm_name, const char* prm_model);
+    VreathItem(const char* prm_name, const char* prm_model, void* prm_pFuncStatusReset);
 
     virtual void onCreateModel() override {
     }

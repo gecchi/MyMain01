@@ -1,6 +1,7 @@
 #ifndef ENEMYERES_H_
 #define ENEMYERES_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
 
 namespace VioletVreath {
@@ -13,7 +14,7 @@ namespace VioletVreath {
  * ・X_turn_, Y_turn_ 折り返し目標XY座標。初期位置からこのこの地点を目指すッス。<BR>
  *
  */
-class EnemyEres : public GgafLib::DefaultMeshSetActor {
+class EnemyEres : public VvEnemyActor<GgafLib::DefaultMeshSetActor> {
 
 public:
     /** 弾ストック */

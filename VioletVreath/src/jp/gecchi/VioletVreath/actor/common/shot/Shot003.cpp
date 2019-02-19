@@ -5,15 +5,12 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
 Shot003::Shot003(const char* prm_name) :
-        DefaultMassMeshActor(prm_name, "laser_single") {
+        VvEnemyActor<DefaultMassMeshActor>(prm_name, "laser_single", StatusReset(Shot003)) {
     _class_name = "Shot003";
-    getStatus()->reset(statusResetFunction(Shot003));
 }
 
 void Shot003::initialize() {
@@ -29,6 +26,7 @@ void Shot003::initialize() {
 }
 
 void Shot003::onActive() {
+    getStatus()->reset();
     setHitAble(true);
     getKuroko()->setMvVelo(20000);
 

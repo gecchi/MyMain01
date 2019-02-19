@@ -5,15 +5,12 @@
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
 MyBunshinShot001::MyBunshinShot001(const char* prm_name) :
-        SingleLaser(prm_name, "MyBunshinShot001") { //SingleLaserは最大27セットである
+        VvMyActor<SingleLaser>(prm_name, "MyBunshinShot001", StatusReset(MyBunshinShot001)) { //SingleLaserは最大27セットである
     _class_name = "MyBunshinShot001";
-    getStatus()->reset(statusResetFunction(MyBunshinShot001));
 }
 
 void MyBunshinShot001::initialize() {

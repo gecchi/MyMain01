@@ -1,8 +1,8 @@
 #ifndef ENEMYURYDIKE_H_
 #define ENEMYURYDIKE_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
-
 
 namespace VioletVreath {
 
@@ -13,7 +13,7 @@ namespace VioletVreath {
  * @since 2015/01/23
  * @author Masatoshi Tsuge
  */
-class EnemyUrydike : public GgafLib::DefaultMeshSetActor {
+class EnemyUrydike : public VvEnemyActor<GgafLib::DefaultMeshSetActor> {
 
 public:
     /** 移動スプラインプログラム */

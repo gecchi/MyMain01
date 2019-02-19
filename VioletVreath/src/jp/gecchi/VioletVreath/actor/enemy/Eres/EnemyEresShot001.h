@@ -1,6 +1,7 @@
 #ifndef ENEMYCELESSHOT001_H_
 #define ENEMYCELESSHOT001_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
 
 namespace VioletVreath {
@@ -13,7 +14,7 @@ namespace VioletVreath {
  * 【上書き可能なメンバー】
  *
  */
-class EnemyEresShot001 : public GgafLib::DefaultMeshSetActor {
+class EnemyEresShot001 : public VvEnemyActor<GgafLib::DefaultMeshSetActor> {
 
 public:
     //本Actorのカスタムプロパティ --->

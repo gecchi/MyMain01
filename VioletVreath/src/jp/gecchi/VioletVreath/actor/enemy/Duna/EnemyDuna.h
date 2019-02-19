@@ -1,6 +1,7 @@
 #ifndef ENEMYDUNA_H_
 #define ENEMYDUNA_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
 
 #include "jp/ggaf/dx/util/GeoElem.h"
@@ -14,7 +15,7 @@ namespace VioletVreath {
  * @since 2013/08/22
  * @author Masatoshi Tsuge
  */
-class EnemyDuna : public GgafLib::DefaultMorphMeshActor {
+class EnemyDuna : public VvEnemyActor<GgafLib::DefaultMorphMeshActor> {
 
 public:
     GgafDx::GeoElem next_pos_;

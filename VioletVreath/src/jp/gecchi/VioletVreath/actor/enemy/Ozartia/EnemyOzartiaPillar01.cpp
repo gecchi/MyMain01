@@ -5,8 +5,6 @@
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -19,9 +17,8 @@ enum {
 };
 
 EnemyOzartiaPillar01::EnemyOzartiaPillar01(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "myvic") {
+        VvEnemyActor<DefaultMeshSetActor>(prm_name, "myvic", StatusReset(EnemyOzartiaPillar01)) {
     _class_name = "EnemyOzartiaPillar01";
-    getStatus()->reset(statusResetFunction(EnemyOzartiaPillar01));
 }
 
 void EnemyOzartiaPillar01::initialize() {

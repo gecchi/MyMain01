@@ -1,6 +1,7 @@
 #ifndef ENEMYHALIA_H_
 #define ENEMYHALIA_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMassMorphMeshActor.h"
 
 namespace VioletVreath {
@@ -12,8 +13,7 @@ namespace VioletVreath {
  * @since 2010/08/03
  * @author Masatoshi Tsuge
  */
-class EnemyHalia : public GgafLib::DefaultMassMorphMeshActor {
-//class EnemyHalia : public GgafLib::CubeMapMorphMeshActor {
+class EnemyHalia : public VvEnemyActor<GgafLib::DefaultMassMorphMeshActor> {
 public:
     velo veloTopMv_;
     /** 移動スプラインプログラム */

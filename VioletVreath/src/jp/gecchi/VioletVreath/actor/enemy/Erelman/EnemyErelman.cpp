@@ -14,7 +14,6 @@
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 #include "FormationErelman.h"
 
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -32,9 +31,8 @@ enum {
 };
 
 EnemyErelman::EnemyErelman(const char* prm_name) :
-        DefaultMassMeshActor(prm_name, "Erelman") {
+        VvEnemyActor<DefaultMassMeshActor>(prm_name, "Erelman", StatusReset(EnemyErelman)) {
     _class_name = "EnemyErelman";
-    getStatus()->reset(statusResetFunction(EnemyErelman));
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);

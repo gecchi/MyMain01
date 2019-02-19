@@ -1,7 +1,7 @@
 #ifndef ENEMYDELHEID_H_
 #define ENEMYDELHEID_H_
-
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMassMorphMeshActor.h"
 
 namespace VioletVreath {
@@ -13,7 +13,7 @@ namespace VioletVreath {
  * @since 2013/04/15
  * @author Masatoshi Tsuge
  */
-class EnemyDelheid : public GgafLib::DefaultMassMorphMeshActor {
+class EnemyDelheid : public VvEnemyActor<GgafLib::DefaultMassMorphMeshActor> {
 
 public:
     /** スプライン移動のシークエンス */

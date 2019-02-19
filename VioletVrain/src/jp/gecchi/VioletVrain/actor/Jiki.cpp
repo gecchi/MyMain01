@@ -22,7 +22,7 @@ enum {
 };
 
 Jiki::Jiki(const char* prm_name) :
-        VvMikataActor<DefaultSpriteActor>(prm_name, "Lockon001") {
+        VvMyActor<DefaultSpriteActor>(prm_name, "Lockon001", (void*)Jiki::resetJikiStatus) {
     _class_name = "Jiki";
 //    defineRotMvWorldMatrix_Billboard(); //ワールド変換はビルボードでRz回転に強制
     effectBlendOne(); //エフェクトテクニックは加算合成に強制

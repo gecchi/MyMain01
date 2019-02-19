@@ -2,6 +2,7 @@
 #define WALL01_H_
 #include "VioletVreath.h"
 //#include "jp/ggaf/lib/actor/wall/MassWallActor.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvChikeiActor.hpp"
 #include "jp/ggaf/lib/actor/wall/CubeMapMassWallActor.h"
 
 namespace VioletVreath  {
@@ -12,7 +13,7 @@ namespace VioletVreath  {
  * @since 2010/11/08
  * @author Masatoshi Tsuge
  */
-class Wall01 : public GgafLib::CubeMapMassWallActor {
+class Wall01 : public VvChikeiActor<GgafLib::CubeMapMassWallActor> {
 //class Wall01 : public GgafLib::MassWallActor {
 public:
     Wall01(const char* prm_name);

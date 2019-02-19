@@ -1,6 +1,7 @@
 #ifndef ENEMYANTIOPE_H_
 #define ENEMYANTIOPE_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
 
 #include "jp/ggaf/dx/util/GeoElem.h"
@@ -15,7 +16,7 @@ namespace VioletVreath {
  * @author Masatoshi Tsuge
  */
 class EnemyAntiope :
-    public GgafLib::DefaultMeshSetActor {
+    public VvEnemyActor<GgafLib::DefaultMeshSetActor> {
 
 public:
     /** 平行移動速度ベクトル */
@@ -29,7 +30,7 @@ public:
      * @param prm_name
      * @return
      */
-    EnemyAntiope(const char* prm_name, const char* prm_model);
+    EnemyAntiope(const char* prm_name, const char* prm_model, void* prm_pFuncStatusReset);
 
     void onCreateModel() override;
 

@@ -13,8 +13,6 @@
 #include "jp/ggaf/dx/actor/supporter/KurokoMvAssistant.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -36,9 +34,8 @@ enum {
 };
 
 EnemyGlaja::EnemyGlaja(const char* prm_name) :
-        DefaultMorphMeshActor(prm_name, "Glaja_1") {
+        VvEnemyActor<DefaultMorphMeshActor>(prm_name, "Glaja_1", StatusReset(EnemyGlaja)) {
     _class_name = "EnemyGlaja";
-    getStatus()->reset(statusResetFunction(EnemyGlaja));
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     pConn_pShot_ = connectToDepositoryManager("GlajaLance001");

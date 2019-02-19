@@ -10,8 +10,8 @@
 using namespace GgafLib;
 using namespace VioletVreath;
 
-Item::Item(const char* prm_name, const char* prm_model)
-               : DefaultMassMeshActor(prm_name, prm_model) {
+Item::Item(const char* prm_name, const char* prm_model, void* prm_pFuncStatusReset)
+               : VvItemActor<DefaultMassMeshActor>(prm_name, prm_model, prm_pFuncStatusReset) {
     _class_name = "Item";
     pTractorMagic_ = nullptr;
 }

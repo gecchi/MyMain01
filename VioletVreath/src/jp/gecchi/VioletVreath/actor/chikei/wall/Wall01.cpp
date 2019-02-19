@@ -4,17 +4,14 @@
 #include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
 Wall01::Wall01(const char* prm_name) :
-        CubeMapMassWallActor(prm_name, "g_box001") {
+        VvChikeiActor<CubeMapMassWallActor>(prm_name, "g_box001", StatusReset(Wall01)) {
 //Wall01::Wall01(const char* prm_name) :
 //        MassWallActor(prm_name, "g_box001") {
     _class_name = "Wall01";
-    getStatus()->reset(statusResetFunction(Wall01));
     setCubeMap("uffizi_cross_cubemap.dds", 0.4);
     getModel()->setSpecular(5.0, 1.0);
 }

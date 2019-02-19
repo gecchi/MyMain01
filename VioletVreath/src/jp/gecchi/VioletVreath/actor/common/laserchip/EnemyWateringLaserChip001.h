@@ -1,6 +1,7 @@
 #ifndef ENEMYWATERINGLASERCHIP001_H_
 #define ENEMYWATERINGLASERCHIP001_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/laserchip/WateringLaserChip.h"
 
 namespace VioletVreath {
@@ -13,7 +14,7 @@ namespace VioletVreath {
  * @since 2010/10/6
  * @author Masatoshi Tsuge
  */
-class EnemyWateringLaserChip001 : public GgafLib::WateringLaserChip {
+class EnemyWateringLaserChip001 : public VvEnemyActor<GgafLib::WateringLaserChip> {
 
 public:
     coord tmp_x_, tmp_y_, tmp_z_;

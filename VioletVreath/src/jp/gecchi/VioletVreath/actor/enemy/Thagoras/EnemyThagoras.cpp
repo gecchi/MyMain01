@@ -13,8 +13,6 @@
 #include "jp/gecchi/VioletVreath/actor/enemy/Thagoras/FormationThagoras.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -30,9 +28,8 @@ enum {
 };
 
 EnemyThagoras::EnemyThagoras(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "Thagoras") {
+        VvEnemyActor<DefaultMeshSetActor>(prm_name, "Thagoras", StatusReset(EnemyThagoras)) {
     _class_name = "EnemyThagoras";
-    getStatus()->reset(statusResetFunction(EnemyThagoras));
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);

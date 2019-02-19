@@ -32,9 +32,8 @@ enum {
 };
 
 EnemyAlisana::EnemyAlisana(const char* prm_name) :
-        DefaultMorphMeshActor(prm_name, "Alisana_1") {
+        VvEnemyActor<DefaultMorphMeshActor>(prm_name, "Alisana_1", StatusReset(EnemyAlisana)) {
     _class_name = "EnemyAlisana";
-    getStatus()->reset(statusResetFunction(EnemyAlisana));
 
     frame_of_morph_interval_ = 120;
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();

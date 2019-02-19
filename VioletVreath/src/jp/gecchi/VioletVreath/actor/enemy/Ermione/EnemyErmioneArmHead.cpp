@@ -16,9 +16,8 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EnemyErmioneArmHead::EnemyErmioneArmHead(const char* prm_name) :
-        EnemyErmioneArm(prm_name, "ErmioneArmHead") {
+        EnemyErmioneArm(prm_name, "ErmioneArmHead", StatusReset(EnemyErmioneArmHead)) {
     _class_name = "EnemyErmioneArmHead";
-    getStatus()->reset(statusResetFunction(EnemyErmioneArmHead));
     pDepo_laser_chip_  = nullptr;
 }
 

@@ -9,15 +9,12 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
 EnemyHisbeLaserChip001::EnemyHisbeLaserChip001(const char* prm_name) :
-        HomingLaserChip(prm_name, "HisbeLaserChip001") {
+        VvEnemyActor<HomingLaserChip>(prm_name, "HisbeLaserChip001", StatusReset(EnemyHisbeLaserChip001)) {
     _class_name = "EnemyHisbeLaserChip001";
-    getStatus()->reset(statusResetFunction(EnemyHisbeLaserChip001));
     pConn_pSplManuf_ = connectToSplineManufactureManager("EnemyHisbeLaserChip002"); //ƒqƒ‹ƒxƒ‹ƒg‹Èü
     pKurokoLeader_ = pConn_pSplManuf_->peek()->createKurokoLeader(getKuroko());
     pScrollingScene_ = nullptr;

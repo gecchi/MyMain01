@@ -15,8 +15,6 @@
 #include "jp/ggaf/dx/util/Input.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -34,8 +32,7 @@ enum {
 };
 
 EnemyStraea::EnemyStraea(const char* prm_name) :
-        DefaultMeshActor(prm_name, "Straea") {
-    getStatus()->reset(statusResetFunction(EnemyErmione));
+        VvEnemyActor<DefaultMeshActor>(prm_name, "Straea", StatusReset(EnemyErmione)) {
     //ƒŒ[ƒU[
     laser_way_ = 5;
     cnt_laserchip_ = 0;

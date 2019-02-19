@@ -8,16 +8,13 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
 Shot004::Shot004(const char* prm_name) :
-        DefaultMassMeshActor(prm_name, "Shot004") { //SingleLaserは最大27セットである
+        VvEnemyActor<DefaultMassMeshActor>(prm_name, "Shot004", StatusReset(Shot004)) { //SingleLaserは最大27セットである
         //SingleLaser(prm_name, "27,laser_single") { //SingleLaserは最大27セットである
     _class_name = "Shot004";
-    getStatus()->reset(statusResetFunction(Shot004));
     view_in_ = false;
 }
 
@@ -41,6 +38,7 @@ void Shot004::onReset() {
 }
 
 void Shot004::onActive() {
+    getStatus()->reset();
     setHitAble(true, false);
     view_in_ = false;
 }

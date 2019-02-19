@@ -8,10 +8,9 @@ class VvActor : public T {
 public:
     VvActor(const char* prm_name, const char* prm_model_id)
         : T(prm_name, prm_model_id) {
-
     }
-    virtual ~VvActor() {
 
+    virtual ~VvActor() {
     }
 };
 

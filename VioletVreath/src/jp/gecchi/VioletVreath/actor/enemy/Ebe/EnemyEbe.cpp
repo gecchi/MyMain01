@@ -9,8 +9,6 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -27,9 +25,8 @@ enum {
 };
 
 EnemyEbe::EnemyEbe(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "Ebe") {
+        VvEnemyActor<DefaultMeshSetActor>(prm_name, "Ebe", StatusReset(EnemyEbe)) {
     _class_name = "EnemyEbe";
-    getStatus()->reset(statusResetFunction(EnemyEbe));
     pKurokoLeader_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;

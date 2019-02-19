@@ -363,6 +363,12 @@
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\lockoncursor001.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\lockoncursor001_main.h" />
     <ClInclude Include="src\jp\gecchi\violetvreath\actor\my\lockoncursor001_sub.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\kind\VvActor.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\kind\VvChikeiActor.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\kind\VvEffectActor.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\kind\VvEnemyActor.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\kind\VvItemActor.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\kind\VvMyActor.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="VioletVreath.rc" />

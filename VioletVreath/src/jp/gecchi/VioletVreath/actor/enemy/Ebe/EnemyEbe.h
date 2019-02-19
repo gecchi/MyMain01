@@ -1,6 +1,7 @@
 #ifndef ENEMYEBE_H_
 #define ENEMYEBE_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
 
 namespace VioletVreath {
@@ -12,10 +13,9 @@ namespace VioletVreath {
  * @since 2011/06/28
  * @author Masatoshi Tsuge
  */
-class EnemyEbe : public GgafLib::DefaultMeshSetActor {
+class EnemyEbe : public VvEnemyActor<GgafLib::DefaultMeshSetActor> {
 
 public:
-
     /** 移動スプラインのシークエンスプログラム */
     GgafLib::SplineLeader* pKurokoLeader_;
     /** 弾ストック */

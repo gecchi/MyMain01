@@ -15,8 +15,6 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/Config.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -25,9 +23,8 @@ enum {
 };
 
 EnemyEres::EnemyEres(const char* prm_name, GgafCore::ActorDepository* prm_pDepo_EnemyEresShots001) :
-        DefaultMeshSetActor(prm_name, "Eres") {
+        VvEnemyActor<DefaultMeshSetActor>(prm_name, "Eres", StatusReset(EnemyEres)) {
     _class_name = "EnemyEres";
-    getStatus()->reset(statusResetFunction(EnemyEres));
     iMovePatternNo_ = 0;
     _x = PX_C(-100); //äJénç¿ïW
     _y = 0;

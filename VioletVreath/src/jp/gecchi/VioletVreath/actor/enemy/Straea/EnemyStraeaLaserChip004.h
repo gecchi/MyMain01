@@ -1,11 +1,12 @@
 #ifndef ENEMYSTRAEALASERCHIP004_H_
 #define ENEMYSTRAEALASERCHIP004_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/laserchip/HomingLaserChip.h"
 
 namespace VioletVreath {
 
-class EnemyStraeaLaserChip004 : public GgafLib::HomingLaserChip {
+class EnemyStraeaLaserChip004 : public VvEnemyActor<GgafLib::HomingLaserChip> {
 
 public:
     GgafLib::SplineManufactureConnection* pConn_pSplManuf_;

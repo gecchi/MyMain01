@@ -10,8 +10,6 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -31,9 +29,8 @@ enum {
 };
 
 EnemyOrtuna::EnemyOrtuna(const char* prm_name) :
-        DefaultMorphMeshActor(prm_name, "Ortuna_1") {
+        VvEnemyActor<DefaultMorphMeshActor>(prm_name, "Ortuna_1", StatusReset(EnemyOrtuna)) {
     _class_name = "EnemyOrtuna";
-    getStatus()->reset(statusResetFunction(EnemyOrtuna));
     _sx=_sy=_sz=100;
     stagnating_pos_frames_ = 1;
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();

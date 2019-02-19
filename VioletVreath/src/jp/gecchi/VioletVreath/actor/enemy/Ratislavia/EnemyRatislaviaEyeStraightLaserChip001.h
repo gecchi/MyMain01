@@ -1,11 +1,12 @@
 #ifndef ENEMYRATISLAVIAEYESTRAIGHTLASERCHIP001_H_
 #define ENEMYRATISLAVIAEYESTRAIGHTLASERCHIP001_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/laserchip/StraightLaserChip.h"
 
 namespace VioletVreath {
 
-class EnemyRatislaviaEyeStraightLaserChip001 : public GgafLib::StraightLaserChip {
+class EnemyRatislaviaEyeStraightLaserChip001 : public VvEnemyActor<GgafLib::StraightLaserChip> {
 
 public:
     EnemyRatislaviaEyeStraightLaserChip001(const char* prm_name);

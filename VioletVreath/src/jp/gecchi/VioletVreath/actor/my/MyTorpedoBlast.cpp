@@ -6,15 +6,12 @@
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
 MyTorpedoBlast::MyTorpedoBlast(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "MyTorpedoBlast") {
+        VvMyActor<DefaultMeshSetActor>(prm_name, "MyTorpedoBlast", StatusReset(MyTorpedoBlast)) {
     _class_name = "MyTorpedoBlast";
-    getStatus()->reset(statusResetFunction(MyTorpedoBlast));
     effectBlendOne(); //加算合成するTechnique指定
     setAlpha(0.3);
     setZEnableDraw(true);        //描画時、Zバッファ値は考慮される

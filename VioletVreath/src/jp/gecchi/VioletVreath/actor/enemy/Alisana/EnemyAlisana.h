@@ -1,6 +1,7 @@
 #ifndef ENEMYALISANA_H_
 #define ENEMYALISANA_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
 
 namespace VioletVreath {
@@ -12,7 +13,7 @@ namespace VioletVreath {
  * @since 2014/04/16
  * @author Masatoshi Tsuge
  */
-class EnemyAlisana : public GgafLib::DefaultMorphMeshActor {
+class EnemyAlisana : public VvEnemyActor<GgafLib::DefaultMorphMeshActor> {
 
 public:
     /** [r/w]ハッチ開＞閉 及び、閉＞開 のモーフアニメーションフレーム数 */

@@ -10,16 +10,13 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
 #define MAX_SCALSE_MagicEnergyCore (R_SC(2))
 MyMagicEnergyCore::MyMagicEnergyCore(const char* prm_name) :
-        DefaultMeshActor(prm_name, "MagicEnergyCore") {
+        VvMyActor<DefaultMeshActor>(prm_name, "MagicEnergyCore", StatusReset(MyMagicEnergyCore)) {
     _class_name = "MyMagicEnergyCore";
-    getStatus()->reset(statusResetFunction(MyMagicEnergyCore));
     MyMagicEnergy* p = NEW MyMagicEnergy("MyMagicEnergy", this);
     appendChild(p);
     setAlpha(0.7);

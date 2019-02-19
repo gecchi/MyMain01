@@ -11,9 +11,8 @@ using namespace VioletVreath;
 
 
 EnemyRatislaviaEyeStraightLaserChip001::EnemyRatislaviaEyeStraightLaserChip001(const char* prm_name) :
-        StraightLaserChip(prm_name, "RatislaviaEyeStraightLaserChip001") {
+        VvEnemyActor<StraightLaserChip>(prm_name, "RatislaviaEyeStraightLaserChip001", StatusReset(EnemyRatislaviaEyeStraightLaserChip001)) {
     _class_name = "EnemyRatislaviaEyeStraightLaserChip001";
-    getStatus()->reset(statusResetFunction(EnemyRatislaviaEyeStraightLaserChip001));
     setMvVelo(500000);
 }
 

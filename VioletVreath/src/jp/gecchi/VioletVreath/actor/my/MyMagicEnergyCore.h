@@ -1,6 +1,7 @@
 #ifndef MYMAGICENERGYCORE_H_
 #define MYMAGICENERGYCORE_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvMyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMeshActor.h"
 
 namespace VioletVreath {
@@ -11,7 +12,7 @@ namespace VioletVreath {
  * @since 2013/10/23
  * @author Masatoshi Tsuge
  */
-class MyMagicEnergyCore : public GgafLib::DefaultMeshActor {
+class MyMagicEnergyCore : public VvMyActor<GgafLib::DefaultMeshActor> {
 
 public:
     MyMagicEnergyCore(const char* prm_name);

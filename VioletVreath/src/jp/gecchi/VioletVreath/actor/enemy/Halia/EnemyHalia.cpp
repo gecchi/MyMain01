@@ -16,8 +16,6 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -40,11 +38,9 @@ enum {
 };
 
 EnemyHalia::EnemyHalia(const char* prm_name) :
-        DefaultMassMorphMeshActor(prm_name, "20,Halia_1") {
-        //CubeMapMassMorphMeshActor(prm_name, "1,HaliaCM") {
-
+        VvEnemyActor<DefaultMassMorphMeshActor>(prm_name, "20,Halia_1", StatusReset(EnemyHalia)) {
+        //VvEnemyActor<CubeMapMassMorphMeshActor>(prm_name, "1,HaliaCM", StatusReset(EnemyHalia)) {
     _class_name = "EnemyHalia";
-    getStatus()->reset(statusResetFunction(EnemyHalia));
     veloTopMv_ = 20000;
     pKurokoLeader_ = nullptr;
     pLaserChipDepo_ = NEW LaserChipDepository("MyRotLaser");

@@ -5,15 +5,12 @@
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
 TestChokiShot::TestChokiShot(const char* prm_name) :
-        SingleLaser(prm_name, "TestChokiShot") {
+        VvMyActor<SingleLaser>(prm_name, "TestChokiShot", StatusReset(TestChokiShot)) {
     _class_name = "TestChokiShot";
-    getStatus()->reset(statusResetFunction(TestChokiShot));
 }
 
 void TestChokiShot::initialize() {

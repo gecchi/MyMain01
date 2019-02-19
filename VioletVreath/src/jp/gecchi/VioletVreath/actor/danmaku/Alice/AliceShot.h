@@ -1,6 +1,7 @@
 #ifndef ALICESHOT_H_
 #define ALICESHOT_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/SingleLaser.h"
 
 namespace VioletVreath {
@@ -11,7 +12,7 @@ namespace VioletVreath {
  * @since 2009/12/28
  * @author Masatoshi Tsuge
  */
-class AliceShot : public GgafLib::SingleLaser {
+class AliceShot : public VvEnemyActor<GgafLib::SingleLaser> {
 
 public:
     AliceShot(const char* prm_name, const char* prm_model_id);

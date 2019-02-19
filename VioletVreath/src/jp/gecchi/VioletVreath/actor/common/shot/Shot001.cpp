@@ -13,18 +13,14 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
 Shot001::Shot001(const char* prm_name) :
-        DefaultMassMeshActor(prm_name, "Flora") {
+        VvEnemyActor<DefaultMassMeshActor>(prm_name, "Flora", StatusReset(Shot001)) {
     _class_name = "Shot001";
-    getStatus()->reset(statusResetFunction(Shot001));
-
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(0, "WAVE_EXPLOSION_002");
-
     pSplManufConn_ = connectToSplineManufactureManager("Shot001_spline");
     pKurokoLeader_ = NEW FixedVelocitySplineKurokoLeader(pSplManufConn_->peek(), getKuroko()); //ˆÚ“®‘¬“xŒÅ’è
 }

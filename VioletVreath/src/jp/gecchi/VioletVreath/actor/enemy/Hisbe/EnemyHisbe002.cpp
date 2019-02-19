@@ -8,8 +8,6 @@
 #include "jp/gecchi/VioletVreath/actor/enemy/Hisbe/EnemyHisbeLaserChip003.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -27,11 +25,10 @@ enum {
 };
 
 EnemyHisbe002::EnemyHisbe002(const char* prm_name) :
-        DefaultMorphMeshActor(prm_name, "Hisbe002_1") {
-        //CubeMapMorphMeshActor(prm_name, "1HisbeCM_1") {
+        VvEnemyActor<DefaultMorphMeshActor>(prm_name, "Hisbe002_1", StatusReset(EnemyHisbe002)) {
+        //VvEnemyActor<CubeMapMorphMeshActor>(prm_name, "1HisbeCM_1", StatusReset(EnemyHisbe002)) {
 
     _class_name = "EnemyHisbe002";
-    getStatus()->reset(statusResetFunction(EnemyHisbe002));
     pKurokoLeader_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;

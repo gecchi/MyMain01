@@ -12,8 +12,6 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -34,9 +32,8 @@ enum {
 };
 
 EnemyEmus::EnemyEmus(const char* prm_name) :
-        DefaultMassMorphMeshActor(prm_name, "Emus_1") {
+        VvEnemyActor<DefaultMassMorphMeshActor>(prm_name, "Emus_1", StatusReset(EnemyEmus)) {
     _class_name = "EnemyEmus";
-    getStatus()->reset(statusResetFunction(EnemyEmus));
     is_open_hatch_ = false;
     frame_of_open_interval_  = 3*60;
     frame_of_close_interval_ = 5*60;

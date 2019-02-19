@@ -16,8 +16,6 @@
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -68,9 +66,8 @@ enum {
 #define D_MOVE (PX_C(500))
 #define ASOBI (RND(-30,30))
 EnemyOzartia::EnemyOzartia(const char* prm_name) :
-        DefaultMorphMeshActor(prm_name, "Ozartia_1") {
+        VvEnemyActor<DefaultMorphMeshActor>(prm_name, "Ozartia_1", StatusReset(EnemyOzartia)) {
     _class_name = "EnemyOzartia";
-    getStatus()->reset(statusResetFunction(EnemyOzartia));
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI1_-1);

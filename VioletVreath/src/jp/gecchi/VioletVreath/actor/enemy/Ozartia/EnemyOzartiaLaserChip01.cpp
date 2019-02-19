@@ -10,9 +10,8 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EnemyOzartiaLaserChip01::EnemyOzartiaLaserChip01(const char* prm_name) :
-        StraightLaserChip(prm_name, "EnemyOzartiaLaserChip01") {
+        VvEnemyActor<StraightLaserChip>(prm_name, "EnemyOzartiaLaserChip01", StatusReset(EnemyOzartiaLaserChip01)) {
     _class_name = "EnemyOzartiaLaserChip01";
-    getStatus()->reset(statusResetFunction(EnemyOzartiaLaserChip01));
     setMvVelo(100000);
 }
 

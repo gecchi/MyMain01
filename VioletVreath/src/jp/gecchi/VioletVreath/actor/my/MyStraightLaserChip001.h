@@ -1,12 +1,13 @@
 #ifndef MYSTRAIGHTLASERCHIP001_H_
 #define MYSTRAIGHTLASERCHIP001_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvMyActor.hpp"
 #include "jp/ggaf/lib/actor/laserchip/StraightLaserChip.h"
 
 namespace VioletVreath {
 
 
-class MyStraightLaserChip001 : public GgafLib::StraightLaserChip {
+class MyStraightLaserChip001 : public VvMyActor<GgafLib::StraightLaserChip> {
 
 public:
     MyShip* pOrg_;

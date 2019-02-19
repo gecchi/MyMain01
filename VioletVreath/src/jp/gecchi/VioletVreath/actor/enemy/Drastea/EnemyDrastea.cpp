@@ -10,8 +10,6 @@
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
 #include "jp/gecchi/VioletVreath/God.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -28,9 +26,8 @@ enum {
 };
 
 EnemyDrastea::EnemyDrastea(const char* prm_name) :
-        CubeMapMeshSetActor(prm_name, "Drastea") {
+        VvEnemyActor<CubeMapMeshSetActor>(prm_name, "Drastea", StatusReset(EnemyDrastea)) {
     _class_name = "EnemyDrastea";
-    getStatus()->reset(statusResetFunction(EnemyDrastea));
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");

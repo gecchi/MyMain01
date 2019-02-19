@@ -1,6 +1,7 @@
 #ifndef ENEMYEMUS_H_
 #define ENEMYEMUS_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMassMorphMeshActor.h"
 
 namespace VioletVreath {
@@ -12,7 +13,7 @@ namespace VioletVreath {
  * @since 2012/10/22
  * @author Masatoshi Tsuge
  */
-class EnemyEmus : public GgafLib::DefaultMassMorphMeshActor {
+class EnemyEmus : public VvEnemyActor<GgafLib::DefaultMassMorphMeshActor> {
 
 public:
     /** [r]èÛãµ */

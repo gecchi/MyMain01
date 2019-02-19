@@ -1,6 +1,7 @@
 #ifndef MYBUNSHINCURVELASERCHIP001_H_
 #define MYBUNSHINCURVELASERCHIP001_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvMyActor.hpp"
 #include "jp/ggaf/lib/actor/laserchip/WateringLaserChip.h"
 #include "MyBunshin.h"
 #include <fstream>
@@ -15,7 +16,7 @@ namespace VioletVreath {
  * @since 2010/10/6
  * @author Masatoshi Tsuge
  */
-class MyBunshinWateringLaserChip001 : public GgafLib::WateringLaserChip {
+class MyBunshinWateringLaserChip001 : public VvMyActor<GgafLib::WateringLaserChip> {
     /** ëœãvóÕèâä˙ê›íËíl */
     int default_stamina_;
     /**

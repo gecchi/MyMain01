@@ -1,6 +1,7 @@
 #ifndef ENEMYHISBE_H_
 #define ENEMYHISBE_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
 
 namespace VioletVreath {
@@ -13,8 +14,8 @@ namespace VioletVreath {
  * @since 2012/06/29
  * @author Masatoshi Tsuge
  */
-class EnemyHisbe :  public GgafLib::DefaultMorphMeshActor {
-//class EnemyHisbe : public GgafLib::CubeMapMorphMeshActor {
+class EnemyHisbe :  public VvEnemyActor<GgafLib::DefaultMorphMeshActor> {
+//class EnemyHisbe : public VvEnemyActor<GgafLib::CubeMapMorphMeshActor> {
 
     /** 移動スプラインプログラム */
     GgafLib::SplineLeader* pKurokoLeader_;

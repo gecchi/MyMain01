@@ -10,6 +10,11 @@
     <ClCompile Include="src\jp\gecchi\VioletVrain\util\VvUtil.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVrain\VvGod.cpp" />
     <ClCompile Include="src\VioletVrain.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\kind\VvChikeiActor.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\kind\VvEffectActor.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\kind\VvEnemyActor.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\kind\VvItemActor.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\kind\VvMyActor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\jp\gecchi\VioletVrain\actor\camera\VvCamera.h" />
@@ -24,5 +29,11 @@
     <ClInclude Include="src\jp\gecchi\violetvrain\actor\kind\vvactor.hpp" />
     <ClInclude Include="src\jp\gecchi\violetvrain\actor\kind\vvmikataactor.hpp" />
     <ClInclude Include="src\jp\gecchi\violetvrain\actor\kind\vvtekiactor.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvActor.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvChikeiActor.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvEffectActor.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvEnemyActor.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvItemActor.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvMyActor.h" />
   </ItemGroup>
 </Project>

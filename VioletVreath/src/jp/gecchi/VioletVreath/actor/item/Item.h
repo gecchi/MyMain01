@@ -1,6 +1,7 @@
 #ifndef ITEM_H_
 #define ITEM_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvItemActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMassMeshActor.h"
 
 namespace VioletVreath {
@@ -11,13 +12,13 @@ namespace VioletVreath {
  * @since 2011/02/04
  * @author Masatoshi Tsuge
  */
-class Item : public GgafLib::DefaultMassMeshActor {
+class Item : public VvItemActor<GgafLib::DefaultMassMeshActor> {
 
 public:
     TractorMagic* pTractorMagic_;
 
 public:
-    Item(const char* prm_name, const char* prm_model);
+    Item(const char* prm_name, const char* prm_model, void* prm_pFuncStatusReset);
 
   TractorMagic* getTractorMagic();
 

@@ -42,6 +42,21 @@
     <ClCompile Include="src\VioletVrain.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\kind\VvChikeiActor.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\kind\VvEffectActor.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\kind\VvEnemyActor.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\kind\VvItemActor.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\kind\VvMyActor.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\jp\gecchi\VioletVrain\actor\camera\VvCamera.h">
@@ -78,6 +93,24 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvTekiActor.hpp">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvActor.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvChikeiActor.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvEffectActor.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvEnemyActor.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvItemActor.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvMyActor.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

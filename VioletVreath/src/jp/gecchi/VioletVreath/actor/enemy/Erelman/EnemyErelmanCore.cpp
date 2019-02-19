@@ -15,8 +15,6 @@
 #include "jp/ggaf/dx/util/Input.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -35,10 +33,9 @@ enum {
 };
 
 EnemyErelmanCore::EnemyErelmanCore(const char* prm_name, EnemyErelmanController* prm_pController) :
-        DefaultMorphMeshActor(prm_name, "ErelmanCore_1") {
+        VvEnemyActor<DefaultMorphMeshActor>(prm_name, "ErelmanCore_1", StatusReset(EnemyErelmanCore)) {
     _class_name = "EnemyErelmanCore";
     pController_ = prm_pController;
-    getStatus()->reset(statusResetFunction(EnemyErelmanCore));
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     pSeTx->set(SE_UNDAMAGED, "WAVE_ENEMY_UNDAMAGED_001");

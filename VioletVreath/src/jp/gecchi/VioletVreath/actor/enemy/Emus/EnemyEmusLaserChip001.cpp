@@ -4,16 +4,13 @@
 #include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
 
 EnemyEmusLaserChip001::EnemyEmusLaserChip001(const char* prm_name) :
-        WateringLaserChip(prm_name, "EmusLaserChip001") {
+        VvEnemyActor<WateringLaserChip>(prm_name, "EmusLaserChip001", StatusReset(EnemyEmusLaserChip001)) {
     _class_name = "EnemyEmusLaserChip001";
-    getStatus()->reset(statusResetFunction(EnemyEmusLaserChip001));
 }
 
 void EnemyEmusLaserChip001::initialize() {

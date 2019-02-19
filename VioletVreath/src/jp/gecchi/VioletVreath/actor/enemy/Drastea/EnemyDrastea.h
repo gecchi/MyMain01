@@ -1,6 +1,7 @@
 #ifndef ENEMYDRASTEA_H_
 #define ENEMYDRASTEA_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/CubeMapMeshSetActor.h"
 
 namespace VioletVreath {
@@ -12,7 +13,7 @@ namespace VioletVreath {
  * @since 2012/08/06
  * @author Masatoshi Tsuge
  */
-class EnemyDrastea : public GgafLib::CubeMapMeshSetActor {
+class EnemyDrastea : public VvEnemyActor<GgafLib::CubeMapMeshSetActor> {
 
 public:
     EnemyDrastea(const char* prm_name);

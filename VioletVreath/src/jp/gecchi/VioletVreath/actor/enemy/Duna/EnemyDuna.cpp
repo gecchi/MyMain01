@@ -12,8 +12,6 @@
 #include "jp/ggaf/dx/actor/supporter/Trucker.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -46,9 +44,8 @@ enum {
 };
 
 EnemyDuna::EnemyDuna(const char* prm_name) :
-        DefaultMorphMeshActor(prm_name, "Duna_1") {
+        VvEnemyActor<DefaultMorphMeshActor>(prm_name, "Duna_1", StatusReset(EnemyDuna)) {
     _class_name = "EnemyDuna";
-    getStatus()->reset(statusResetFunction(EnemyDuna));
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     effectBlendOne(); //â¡éZçáê¨

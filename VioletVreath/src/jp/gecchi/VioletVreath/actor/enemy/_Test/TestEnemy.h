@@ -1,6 +1,7 @@
 #ifndef TESTENEMY_H_
 #define TESTENEMY_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMeshActor.h"
 
 namespace VioletVreath {
@@ -12,7 +13,7 @@ namespace VioletVreath {
  * @author Masatoshi Tsuge
  */
 class TestEnemy :
-  public GgafLib::DefaultMeshActor {
+  public VvEnemyActor<GgafLib::DefaultMeshActor> {
 
 public:
     SpriteLabelTest* pMoji_;
@@ -23,7 +24,7 @@ public:
      * @param prm_name
      * @return
      */
-    TestEnemy(const char* prm_name, const char* prm_model);
+    TestEnemy(const char* prm_name, const char* prm_model, void* prm_pStatusReset);
 
     void initialize() override;
 

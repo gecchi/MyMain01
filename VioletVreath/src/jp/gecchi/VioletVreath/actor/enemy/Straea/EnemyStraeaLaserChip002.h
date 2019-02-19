@@ -1,11 +1,12 @@
 #ifndef ENEMYSTRAEALASERCHIP002_H_
 #define ENEMYSTRAEALASERCHIP002_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/laserchip/RefractionLaserChip.h"
 
 namespace VioletVreath {
 
-class EnemyStraeaLaserChip002 : public GgafLib::RefractionLaserChip {
+class EnemyStraeaLaserChip002 : public VvEnemyActor<GgafLib::RefractionLaserChip> {
 
 public:
     /** 反射時エフェクトデポジトリへの接続 */

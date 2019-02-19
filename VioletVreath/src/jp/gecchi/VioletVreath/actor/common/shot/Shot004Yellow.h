@@ -1,6 +1,7 @@
 #ifndef SHOT004YELLOW_H_
 #define SHOT004YELLOW_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMassMeshActor.h"
 
 namespace VioletVreath {
@@ -12,7 +13,7 @@ namespace VioletVreath {
  * @since 2009/12/28
  * @author Masatoshi Tsuge
  */
-class Shot004Yellow : public GgafLib::DefaultMassMeshActor {
+class Shot004Yellow : public VvEnemyActor<GgafLib::DefaultMassMeshActor> {
 
 public:
     bool view_in_;

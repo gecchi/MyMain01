@@ -13,8 +13,6 @@
 #include "jp/gecchi/VioletVreath/actor/enemy/Urydike/FormationUrydike.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -32,9 +30,8 @@ enum {
 };
 
 EnemyUrydike::EnemyUrydike(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "Urydike") {
+        VvEnemyActor<DefaultMeshSetActor>(prm_name, "Urydike", StatusReset(EnemyUrydike)) {
     _class_name = "EnemyUrydike";
-    getStatus()->reset(statusResetFunction(EnemyUrydike));
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     useProgress(PROG_BANPEI);

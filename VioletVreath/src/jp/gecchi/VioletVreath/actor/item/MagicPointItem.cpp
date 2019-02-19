@@ -25,8 +25,8 @@ enum {
     SE_GET_ITEM ,
 };
 
-MagicPointItem::MagicPointItem(const char* prm_name, const char* prm_model)
-               : Item(prm_name, prm_model) {
+MagicPointItem::MagicPointItem(const char* prm_name, const char* prm_model, void* prm_pFuncStatusReset)
+               : Item(prm_name, prm_model, prm_pFuncStatusReset) {
     _class_name = "MagicPointItem";
     effectBlendOne(); //加算合成するTechnique指定
     setZEnableDraw(true);        //描画時、Zバッファ値は考慮される

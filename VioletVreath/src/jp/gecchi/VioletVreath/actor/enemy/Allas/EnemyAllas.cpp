@@ -11,8 +11,6 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/God.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -21,9 +19,8 @@ enum {
 };
 
 EnemyAllas::EnemyAllas(const char* prm_name) :
-        DefaultMeshSetActor(prm_name, "Allas") {
+        VvEnemyActor<DefaultMeshSetActor>(prm_name, "Allas", StatusReset(EnemyAllas)) {
     _class_name = "EnemyAllas";
-    getStatus()->reset(statusResetFunction(EnemyAllas));
     iMovePatternNo_ = 0;
     pKurokoLeader_ = nullptr;
     pDepo_shot_ = nullptr;

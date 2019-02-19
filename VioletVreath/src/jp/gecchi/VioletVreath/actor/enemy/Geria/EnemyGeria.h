@@ -1,12 +1,13 @@
 #ifndef ENEMYGERIA_H_
 #define ENEMYGERIA_H_
 #include "VioletVreath.h"
+#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
 
 namespace VioletVreath {
 
 //ÉQÉäÉA
-class EnemyGeria : public GgafLib::DefaultMeshSetActor {
+class EnemyGeria : public VvEnemyActor<GgafLib::DefaultMeshSetActor> {
 
 public:
     int iMovePatternNo_;

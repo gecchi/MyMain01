@@ -8,8 +8,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EnemyAntiopeN::EnemyAntiopeN(const char* prm_name) :
-        EnemyAntiope(prm_name, "Antiope") {
-    getStatus()->reset(statusResetFunction(EnemyAntiope));
+        EnemyAntiope(prm_name, "Antiope", StatusReset(EnemyAntiope)) {
     setMaterialColor(0.2,0.2,1.0);
 }
 

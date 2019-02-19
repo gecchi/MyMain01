@@ -14,9 +14,8 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EnemyHisbeLaserChip003::EnemyHisbeLaserChip003(const char* prm_name) :
-        WateringLaserChip(prm_name, "HisbeLaserChip003") {
+        VvEnemyActor<WateringLaserChip>(prm_name, "HisbeLaserChip003", StatusReset(EnemyHisbeLaserChip003)) {
     _class_name = "EnemyHisbeLaserChip003";
-    getStatus()->reset(statusResetFunction(EnemyHisbeLaserChip003));
     pConn_pSplManuf_ = connectToSplineManufactureManager("EnemyHisbeLaserChip003"); //ƒSƒXƒp[‹Èü
     pKurokoLeader_ = pConn_pSplManuf_->peek()->createKurokoLeader(getKuroko());
     pKurokoLeader_->adjustCoordOffset(PX_C(100), 0, 0);
