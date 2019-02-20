@@ -70,8 +70,7 @@ EnemyOzartia::EnemyOzartia(const char* prm_name) :
     _class_name = "EnemyOzartia";
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
-    useProgress(PROG_BANPEI1_-1);
-    pProg2_ = createProgress(PROG2_BANPEI);
+    pProg2_ = createProgress();
     is_hit_ = false;
     pDepo_shot01_ = nullptr;
     pDepo_shot02_ = nullptr;

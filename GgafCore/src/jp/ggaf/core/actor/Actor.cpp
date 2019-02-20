@@ -18,6 +18,7 @@ _can_hit_out_of_view(true)
     _obj_class = Obj_ggaf_Actor;
     _pStatus = NEW Status();
     getStatus()->set(STAT_DEFAULT_ACTOR_KIND, 0);
+    _pProg = Element<Actor>::createProgress();
 #ifdef MY_DEBUG
     Actor::_num_actors++;
 #endif

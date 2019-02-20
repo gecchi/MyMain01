@@ -31,9 +31,8 @@ public:
     /**
      * コンストラクタ .
      * @param prm_pScene       進捗を管理したい対象シーン
-     * @param prm_num_progress 最大進捗番号数(10を設定すると 0番～10番の11個の進捗状態が使用可能となる)
      */
-    SceneProgress(DefaultScene* prm_pScene, int prm_num_progress);
+    SceneProgress(DefaultScene* prm_pScene);
 
     /**
      * 進捗状態と子シーンを関連付け連動させる.

@@ -2,6 +2,7 @@
 #define GGAF_CORE_PROGRESS_H_
 #include "GgafCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
+#include <unordered_map>
 
 #define PROGRESS_NOTHING (-1)
 #define PROGRESS_NULL (-2)
@@ -29,11 +30,9 @@ public:
     /** [r]次の単位時間加算時に反映予定の進捗番号(-1, 0～) */
     progress _progress_next;
     /** [r]各進捗番号の進捗変更時の時間の保存 */
-    frame* _pa_frame_of_progress_changed;
+    std::unordered_map<progress, frame> _map_changed_frame;
     /** [r]時間カウンター(時間経過に伴い増加する何らかの変数)の参照 */
     frame* _p_frame_counter;
-    /** 管理される進捗番号の個数 */
-    int _num_progress;
 
 public:
     /**
@@ -42,10 +41,8 @@ public:
      * これは、どの進捗状態でも無い事を意味で設定している。<BR>
      * 通常の進捗状態は 0～ とする。<BR>
      * @param prm_p_frame_counter 時間カウンターの参照(何らか経過に伴いインクリメント(+1)されていく変数の参照)
-     * @param prm_num_progress 最大進捗番号数(10を設定すると 0番～10番の11個の進捗状態が使用可能となる)
      */
-    Progress(frame* prm_p_frame_counter, int prm_num_progress);
-
+    Progress(frame* prm_p_frame_counter);
 
     void reset();
 
@@ -55,10 +52,6 @@ public:
      */
     inline progress get() const {
         return _progress;
-    }
-
-    inline int getProgressNum() const {
-        return _num_progress;
     }
 
     /**
@@ -84,7 +77,7 @@ public:
      * @param prm_progress 進捗番号(0～)
      * @return 引数の進捗番号へ変更された時(直近)の時間
      */
-    frame getFrameWhenChanged(progress prm_progress) const;
+    frame getFrameWhenChanged(progress prm_progress);
 
     /**
      * 現在の進捗番号内で何フレームなのかを取得(0～) .
@@ -93,7 +86,8 @@ public:
      * @return 進捗内経過時間
      */
     inline frame getFrame() const {
-        return ((*_p_frame_counter) - _pa_frame_of_progress_changed[_progress+1]);
+        std::unordered_map<progress, frame>::const_iterator i = _map_changed_frame.find(_progress);
+        return ((*_p_frame_counter) - (i->second));
     }
 
     /**
@@ -102,7 +96,8 @@ public:
      * @return
      */
     inline bool hasArrivedAt(frame prm_frame) const {
-        return prm_frame == ((*_p_frame_counter) - _pa_frame_of_progress_changed[_progress+1]) ? true : false;
+        std::unordered_map<progress, frame>::const_iterator i = _map_changed_frame.find(_progress);
+        return prm_frame == ((*_p_frame_counter) - (i->second)) ? true : false;
     }
 
     /**

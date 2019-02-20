@@ -817,24 +817,8 @@ public:
     virtual void executeFuncLowerTree(void (*pFunc)(Object*, void*, void*, void*), void* prm1, void* prm2, void* prm3);
 
     /**
-     * 本オブジェクトの _frame_of_behaving に関連性を持った、進捗管理オブジェクト(Progress) の利用宣言をする .
-     * 本メソッド実行後、getProgress() メンバーが使用可能になり、自動で(nextFrame()内)進捗の更新が行われる。
-     * @param prm_num 進捗の場合の数
-     */
-    virtual void useProgress(int prm_num = 10) {
-        if (_pProg == nullptr) {
-            _pProg = createProgress(prm_num);
-        } else {
-            _TRACE_("＜警告＞useProgress() ["<<Node<T>::getName()<<"] は既に useProgress している。以前の進捗の場合の数="<<_pProg->getProgressNum()<<"。今回引数 prm_num="<<prm_num);
-            if (_pProg->getProgressNum() != prm_num) {
-                throwCriticalException("useProgress() ["<<Node<T>::getName()<<"] は既に useProgress している。ダメじゃないのか？！。\n以前の進捗の場合の数="<<_pProg->getProgressNum()<<"。今回引数 prm_num="<<prm_num);
-            }
-        }
-    }
-
-    /**
      * 進捗管理オブジェクト(Progress) を取得する。
-     * 事前に useProgress(n) で、進捗管理オブジェクトを使用宣言する必要がある。
+     * 事前に //useProgress(n) で、進捗管理オブジェクトを使用宣言する必要がある。
      * @return 進捗管理オブジェクト or nullptr
      */
     inline virtual Progress* getProgress() const {
@@ -847,8 +831,8 @@ public:
      * @param prm_num 進捗の場合の数
      * @return 新しい進捗管理オブジェクト
      */
-    virtual Progress* createProgress(int prm_num = 10) {
-        return NEW Progress(&_frame_of_behaving, prm_num);
+    virtual Progress* createProgress() {
+        return NEW Progress(&_frame_of_behaving);
     }
 
     /**

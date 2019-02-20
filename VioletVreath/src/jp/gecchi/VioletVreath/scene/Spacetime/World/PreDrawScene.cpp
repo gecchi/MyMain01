@@ -80,7 +80,7 @@ PreDrawScene::PreDrawScene(const char* prm_name) : DefaultScene(prm_name) {
     _id_ = 0;
     order_id_begin_ = ID_ORDER_BEGIN;
     order_id_end_ = 0;
-    useProgress();
+    //useProgress();
     getProgress()->reset(PROG_READY);
 }
 

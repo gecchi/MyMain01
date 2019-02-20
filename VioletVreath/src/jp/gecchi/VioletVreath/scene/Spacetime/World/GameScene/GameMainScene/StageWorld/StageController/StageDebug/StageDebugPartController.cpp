@@ -38,7 +38,6 @@ StageDebugPartController::StageDebugPartController(const char* prm_name) : Stage
 	requestActor(10000007, EnemyDrastea, "EnemyDrastea-10000007");
 	requestActor(10000037, VarietyRatislavia002, "VarietyRatislavia002-10000037");
     // gen01 end
-    useProgress(PROG_BANPEI);
 }
 
 void StageDebugPartController::initialize() {

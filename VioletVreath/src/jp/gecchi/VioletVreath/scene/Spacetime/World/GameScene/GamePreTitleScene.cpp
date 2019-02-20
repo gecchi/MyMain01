@@ -19,7 +19,6 @@ enum {
 
 GamePreTitleScene::GamePreTitleScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GamePreTitleScene";
-    useProgress(PROG_BANPEI);
     pLabel01_ = NEW LabelGecchi16Font("STR01");
     bringSceneMediator()->appendGroupChild(pLabel01_);
     pLabel02_ = NEW LabelGecchi16Font("STR02");

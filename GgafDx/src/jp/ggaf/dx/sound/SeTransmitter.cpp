@@ -12,6 +12,10 @@ using namespace GgafDx;
 
 SeTransmitter::SeTransmitter() : GgafCore::Object() {
     _se_num = 0;
+    //‘å‘Ì5ŒÂ‚®‚ç‚¢‚ÅG
+    _vecSeConnection.reserve(5);
+    _vec_volume.reserve(5);
+    _vec_pan.reserve(5);
 }
 
 void SeTransmitter::set(int prm_se_no, const char* prm_se_key, int prm_cannel) {

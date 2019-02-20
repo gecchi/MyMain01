@@ -27,7 +27,7 @@ EnemyAllas::EnemyAllas(const char* prm_name) :
     pDepo_effect_ = nullptr;
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­
-    useProgress(10);
+    //useProgress(10);
 }
 
 void EnemyAllas::onCreateModel() {

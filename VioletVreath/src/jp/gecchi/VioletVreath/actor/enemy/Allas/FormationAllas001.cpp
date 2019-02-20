@@ -28,7 +28,6 @@ FormationAllas001::FormationAllas001(const char* prm_name) :
     //ÉAÉâÉXï“ë‡çÏê¨
     pConn_pSplManuf_ = connectToSplineManufactureManager("Allas01");
     pConn_depo_ = nullptr;
-    useProgress(PROG_BANPEI);
 }
 
 void FormationAllas001::initialize() {

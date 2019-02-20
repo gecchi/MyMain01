@@ -2,11 +2,9 @@
 
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
-
-
 using namespace GgafLib;
 
-SceneProgress::SceneProgress(DefaultScene* prm_pScene, int prm_num_progress)  : GgafCore::Progress(&(prm_pScene->_frame_of_behaving), prm_num_progress) {
+SceneProgress::SceneProgress(DefaultScene* prm_pScene)  : GgafCore::Progress(&(prm_pScene->_frame_of_behaving)) {
     _pScene = prm_pScene;
     _progress_next_promise = 0;
     _count_next_promise = 0;

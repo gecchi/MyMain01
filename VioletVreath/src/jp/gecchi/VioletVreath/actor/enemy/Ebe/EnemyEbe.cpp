@@ -34,7 +34,6 @@ EnemyEbe::EnemyEbe(const char* prm_name) :
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­
     getKuroko()->linkFaceAngByMvAng(true);
-    useProgress(PROG_BANPEI);
 }
 
 void EnemyEbe::onCreateModel() {

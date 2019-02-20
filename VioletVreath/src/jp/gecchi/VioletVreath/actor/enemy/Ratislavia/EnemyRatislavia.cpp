@@ -29,7 +29,6 @@ EnemyRatislavia::EnemyRatislavia(const char* prm_name, const char* prm_model, co
     r1_ = prm_r1;
     r2_ = prm_r2;
     colli_part_num_ = 16; //“–‚½‚è”»’è‹…‚Ì”
-    useProgress(PROG_BANPEI);
 }
 
 void EnemyRatislavia::appendGroupChildAsFkOnSurface(GgafDx::GeometricActor* prm_pGeoActor, angle prm_ang1, angle prm_ang2) {

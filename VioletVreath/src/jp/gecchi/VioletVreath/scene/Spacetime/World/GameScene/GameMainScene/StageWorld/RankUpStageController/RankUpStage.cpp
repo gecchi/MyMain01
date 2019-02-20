@@ -41,7 +41,6 @@ RankUpStage::RankUpStage(const char* prm_name) : DefaultScene(prm_name, NEW Rank
     bringSceneMediator()->appendGroupChild(pMessage3_);
 
 
-    useProgress(PROG_BANPEI);
 
     pSeConnection_all_hit_ = connectToSeManager("WAVE_EXPLOSION_002"); //‘S–Å‚ÌÅŒã‚Ìˆê‹@”j‰óSE
 }

@@ -32,7 +32,6 @@ EnemyAppho::EnemyAppho(const char* prm_name) :
     _class_name = "EnemyAppho";
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
-    useProgress(PROG_BANPEI);
 }
 
 void EnemyAppho::onCreateModel() {

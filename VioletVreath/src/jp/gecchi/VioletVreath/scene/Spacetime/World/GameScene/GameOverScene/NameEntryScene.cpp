@@ -45,7 +45,6 @@ NameEntryScene::NameEntryScene(const char* prm_name) : DefaultScene(prm_name) {
     bringSceneMediator()->appendGroupChild(pNameEntryBoard_);
 
     inputed_name_ = "";
-    useProgress(PROG_BANPEI);
 }
 
 void NameEntryScene::onReset() {

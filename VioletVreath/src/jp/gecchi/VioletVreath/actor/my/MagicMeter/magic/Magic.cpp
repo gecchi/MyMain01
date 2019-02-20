@@ -111,7 +111,6 @@ r_invoking_frames_lv_diff_base_(prm_r_invoking_frames_lv_diff_base) {
 
     //レベルダウン時は利用率があるので、難しい
     time_of_next_state_ = 0;
-    useProgress(PROG_BANPEI);
     temp_hold_status_ = -1;
     temp_hold_new_level_ = 0;
     last_cast_ = MAGIC_CAST_NOTHING;

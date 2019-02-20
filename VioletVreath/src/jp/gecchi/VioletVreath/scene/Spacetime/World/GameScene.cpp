@@ -35,7 +35,6 @@ pMyShipScene_(nullptr),
 pStageWorld_(nullptr) {
 
     _class_name = "GameScene";
-    useProgress(PROG_BANPEI);
     pCommonScene_ = NEW CommonScene("Common");
     pCommonScene_->inactivate();
     appendChild(pCommonScene_);

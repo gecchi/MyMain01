@@ -50,7 +50,6 @@ EnemyDuna::EnemyDuna(const char* prm_name) :
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     effectBlendOne(); //â¡éZçáê¨
     setScaleR(0.3);
-    useProgress(PROG_BANPEI);
     nprog_ = 0;
 }
 

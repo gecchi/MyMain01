@@ -1,7 +1,7 @@
 #ifndef GGAF_CORE_STATUS_H_
 #define GGAF_CORE_STATUS_H_
 #include "GgafCommonHeader.h"
-#include <map>
+#include <unordered_map>
 #include "jp/ggaf/core/Object.h"
 
 #include "jp/ggaf/core/exception/CriticalException.h"
@@ -30,7 +30,7 @@ class Status : public Object {
 
 public:
     /** ステータス値リスト */
-    std::map<int, VALUE> _value;
+    std::unordered_map<int, VALUE> _value;
 
     /** リセットメソッド */
     Status* (*_pFunc_reset)(Status*);
@@ -60,7 +60,7 @@ public:
     }
 
     inline int plus(const int prm_status_kind, const int val) {
-        std::map<int, VALUE>::iterator pos = _value.find(prm_status_kind);
+        std::unordered_map<int, VALUE>::iterator pos = _value.find(prm_status_kind);
 #ifdef MY_DEBUG
         if (pos == _value.end()) {
             throwCriticalException("不明な要素、prm_status_kind="<<prm_status_kind);
@@ -70,7 +70,7 @@ public:
     }
 
     inline double plus(const int prm_status_kind, const double val) {
-        std::map<int, VALUE>::iterator pos = _value.find(prm_status_kind);
+        std::unordered_map<int, VALUE>::iterator pos = _value.find(prm_status_kind);
 #ifdef MY_DEBUG
         if (pos == _value.end()) {
             throwCriticalException("不明な要素、prm_status_kind="<<prm_status_kind);
@@ -80,7 +80,7 @@ public:
     }
 
     inline int minus(const int prm_status_kind, const int val) {
-        std::map<int, VALUE>::iterator pos = _value.find(prm_status_kind);
+        std::unordered_map<int, VALUE>::iterator pos = _value.find(prm_status_kind);
 #ifdef MY_DEBUG
         if (pos == _value.end()) {
             throwCriticalException("不明な要素、prm_status_kind="<<prm_status_kind);
@@ -90,7 +90,7 @@ public:
     }
 
     inline double minus(const int prm_status_kind, const double val) {
-        std::map<int, VALUE>::iterator pos = _value.find(prm_status_kind);
+        std::unordered_map<int, VALUE>::iterator pos = _value.find(prm_status_kind);
 #ifdef MY_DEBUG
         if (pos == _value.end()) {
             throwCriticalException("不明な要素、prm_status_kind="<<prm_status_kind);
@@ -100,7 +100,7 @@ public:
     }
 
     inline int mul(const int prm_status_kind, const int val) {
-        std::map<int, VALUE>::iterator pos = _value.find(prm_status_kind);
+        std::unordered_map<int, VALUE>::iterator pos = _value.find(prm_status_kind);
 #ifdef MY_DEBUG
         if (pos == _value.end()) {
             throwCriticalException("不明な要素、prm_status_kind="<<prm_status_kind);
@@ -110,7 +110,7 @@ public:
     }
 
     inline double mul(const int prm_status_kind, const double val) {
-        std::map<int, VALUE>::iterator pos = _value.find(prm_status_kind);
+        std::unordered_map<int, VALUE>::iterator pos = _value.find(prm_status_kind);
 #ifdef MY_DEBUG
         if (pos == _value.end()) {
             throwCriticalException("不明な要素、prm_status_kind="<<prm_status_kind);
@@ -120,7 +120,7 @@ public:
     }
 
     inline int get(const int prm_status_kind) const {
-        std::map<int, VALUE>::const_iterator pos = _value.find(prm_status_kind);
+        std::unordered_map<int, VALUE>::const_iterator pos = _value.find(prm_status_kind);
 #ifdef MY_DEBUG
         if (pos == _value.end()) {
             throwCriticalException("不明な要素、prm_status_kind="<<prm_status_kind);
@@ -130,7 +130,7 @@ public:
     }
 
     inline int getInt(const int prm_status_kind) const {
-        std::map<int, VALUE>::const_iterator pos = _value.find(prm_status_kind);
+        std::unordered_map<int, VALUE>::const_iterator pos = _value.find(prm_status_kind);
 #ifdef MY_DEBUG
         if (pos == _value.end()) {
             throwCriticalException("不明な要素、prm_status_kind="<<prm_status_kind);
@@ -140,7 +140,7 @@ public:
     }
 
     inline unsigned int getUint(const int prm_status_kind) const {
-        std::map<int, VALUE>::const_iterator pos = _value.find(prm_status_kind);
+        std::unordered_map<int, VALUE>::const_iterator pos = _value.find(prm_status_kind);
 #ifdef MY_DEBUG
         if (pos == _value.end()) {
             throwCriticalException("不明な要素、prm_status_kind="<<prm_status_kind);
@@ -150,7 +150,7 @@ public:
     }
 
     inline double getDouble(const int prm_status_kind) const {
-        std::map<int, VALUE>::const_iterator pos = _value.find(prm_status_kind);
+        std::unordered_map<int, VALUE>::const_iterator pos = _value.find(prm_status_kind);
 #ifdef MY_DEBUG
         if (pos == _value.end()) {
             throwCriticalException("不明な要素、prm_status_kind="<<prm_status_kind);
@@ -160,7 +160,7 @@ public:
     }
 
     inline void* getPtr(const int prm_status_kind) const {
-        std::map<int, VALUE>::const_iterator pos = _value.find(prm_status_kind);
+        std::unordered_map<int, VALUE>::const_iterator pos = _value.find(prm_status_kind);
 #ifdef MY_DEBUG
         if (pos == _value.end()) {
             throwCriticalException("不明な要素、prm_status_kind="<<prm_status_kind);

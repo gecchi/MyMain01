@@ -68,7 +68,6 @@ papBunshinBase_(nullptr) {
 
     pLabelZanki_ = NEW LabelGecchi16Font("zankdisp");
     bringSceneMediator()->appendGroupChild(pLabelZanki_);
-    useProgress(PROG_BANPEI);
 }
 
 void MyShipScene::initialize() {

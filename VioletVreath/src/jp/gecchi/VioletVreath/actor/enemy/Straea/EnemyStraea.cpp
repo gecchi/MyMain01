@@ -82,7 +82,6 @@ EnemyStraea::EnemyStraea(const char* prm_name) :
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
     pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
 
-    useProgress(PROG_BANPEI);
     pConn_pShotDepo2_ = connectToDepositoryManager("Shot004Yellow");
     pConn_pShotDepo3_ = connectToDepositoryManager("Shot004Blue");
 }

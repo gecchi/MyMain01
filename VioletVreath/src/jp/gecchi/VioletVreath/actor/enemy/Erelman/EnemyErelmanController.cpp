@@ -24,7 +24,6 @@ EnemyErelmanController::EnemyErelmanController(const char* prm_name, EnemyErelma
                                                                    FormationErelman* prm_pFormation) :
   GgafCore::DestructActor(prm_name) {
     _class_name = "EnemyErelmanController";
-    useProgress(PROG_BANPEI);
 
     pErelmanCore_ = prm_pCore;
     pErelmanCore_->inactivate();

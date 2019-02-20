@@ -60,7 +60,6 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     pRankFont_ = NEW LabelRankFont("RankFont"); //LabelRankFont‚Í ALIGN_RIGHT,VALIGN_BOTTOM ŒÅ’è
     pRankFont_->setPosition(PX_C(CONFIG::GAME_BUFFER_WIDTH), PX_C(CONFIG::GAME_BUFFER_HEIGHT));
     bringSceneMediator()->appendGroupChild(pRankFont_);
-    useProgress(PROG_BANPEI);
 }
 
 void GameMainScene::onReset() {

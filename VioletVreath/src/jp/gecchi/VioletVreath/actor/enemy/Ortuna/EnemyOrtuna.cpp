@@ -35,7 +35,6 @@ EnemyOrtuna::EnemyOrtuna(const char* prm_name) :
     stagnating_pos_frames_ = 1;
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
-    useProgress(PROG_BANPEI);
 }
 
 void EnemyOrtuna::onCreateModel() {

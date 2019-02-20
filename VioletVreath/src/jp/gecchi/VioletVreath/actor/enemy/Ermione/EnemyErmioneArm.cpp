@@ -22,7 +22,6 @@ EnemyErmioneArm::EnemyErmioneArm(const char* prm_name, const char* prm_model, vo
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001"); //˜r”j‰ó
-    useProgress(PROG_BANPEI);
     behave_frames_ = 0;
     arm_no_ = 0;
     arm_part_no_ = 0;

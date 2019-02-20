@@ -44,7 +44,6 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
 	requestActor(10000013, EnemyEtis, "EnemyEtis-10000013");
 	requestActor(10000014, EnemyEtis, "EnemyEtis-10000014");
     // gen01 end
-    useProgress(PROG_BANPEI);
 }
 
 void Stage01PartController::initialize() {

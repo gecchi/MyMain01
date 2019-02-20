@@ -30,7 +30,6 @@ enum {
 
 GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameTitleScene";
-    useProgress(PROG_BANPEI);
     getProgress()->reset(PROG_INIT);
 
     pLabel01_ = NEW LabelGecchi16Font("STR01");

@@ -32,7 +32,6 @@ EnemyIda::EnemyIda(const char* prm_name) :
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­
-    useProgress(PROG_BANPEI);
 }
 
 void EnemyIda::onCreateModel() {

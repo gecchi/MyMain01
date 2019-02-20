@@ -25,7 +25,6 @@ EffectBlink::EffectBlink(const char* prm_name, const char* prm_model) :
     duration_frames_ = 1;
     scale_out_frames_ = 1;
     sayonara_end_ = true;
-    useProgress(PROG_BANPEI);
     getScaler()->setRange(0, R_SC(1.0));
 }
 

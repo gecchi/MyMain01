@@ -25,7 +25,6 @@ GameOverScene::GameOverScene(const char* prm_name) : DefaultScene(prm_name) {
     pNameEntryScene_ = nullptr;
     pLabel01_ = NEW LabelGecchi16Font("STR01");
     bringSceneMediator()->appendGroupChild(pLabel01_);
-    useProgress(PROG_BANPEI);
     need_name_entry_ = false;
 }
 

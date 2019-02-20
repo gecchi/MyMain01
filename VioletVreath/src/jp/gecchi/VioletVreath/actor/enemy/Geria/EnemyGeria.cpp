@@ -42,7 +42,6 @@ EnemyGeria::EnemyGeria(const char* prm_name) :
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­
     pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_SHOT_001");     //”­ŽË
-    useProgress(PROG_BANPEI);
     migration_length_ = PX_C(10000);
     mvd_ = 0;
 }

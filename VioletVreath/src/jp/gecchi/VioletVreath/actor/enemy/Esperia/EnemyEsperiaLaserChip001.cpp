@@ -42,7 +42,6 @@ void EnemyEsperiaLaserChip001::initialize() {
     GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->forceMvVeloRange(PX_C(100));
     pKuroko->linkFaceAngByMvAng(true);
-    useProgress(PROG_BANPEI);
 }
 
 void EnemyEsperiaLaserChip001::onActive() {

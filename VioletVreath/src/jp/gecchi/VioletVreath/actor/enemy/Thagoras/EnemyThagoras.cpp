@@ -32,7 +32,6 @@ EnemyThagoras::EnemyThagoras(const char* prm_name) :
     _class_name = "EnemyThagoras";
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
-    useProgress(PROG_BANPEI);
     pKurokoLeader_ = nullptr; //フォーメーションオブジェクトが設定する
     pActor4Sc_ = nullptr;
 }

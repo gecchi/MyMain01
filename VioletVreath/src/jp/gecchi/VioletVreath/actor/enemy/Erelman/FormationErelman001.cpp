@@ -50,7 +50,6 @@ FormationErelman001::FormationErelman001(const char* prm_name, EnemyErelmanContr
 //        pa_frame_of_call_up_[row] = ((spent_frames / formation_row_num_) + (spent_frames / formation_row_num_)*row    ) + 1;
         pa_frame_of_call_up_[row] = (frame)( ( (1.0*spent_frames_*(1+row))  /  formation_row_num_)  ) + 1;
     }
-    useProgress(PROG_BANPEI);
 }
 void FormationErelman001::onActive() {
     getProgress()->reset(PROG_INIT);

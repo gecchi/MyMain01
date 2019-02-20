@@ -31,7 +31,6 @@ EnemyGlajaLance001::EnemyGlajaLance001(const char* prm_name) :
     effectBlendOne(); //â¡éZçáê¨
     setZEnableDraw(true);
     setZWriteEnable(false);
-    useProgress(PROG_BANPEI);
 }
 
 void EnemyGlajaLance001::initialize() {

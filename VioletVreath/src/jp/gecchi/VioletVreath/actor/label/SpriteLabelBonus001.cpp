@@ -26,7 +26,6 @@ SpriteLabelBonus001::SpriteLabelBonus001(const char* prm_name) :
     setSpecialRenderDepthIndex(1); //描画順序を最前面描画に強制。
     setHitAble(false);
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_BxyzMv); //XYZ軸ビルボード
-    useProgress(PROG_BANPEI);
 }
 
 void SpriteLabelBonus001::onCreateModel() {

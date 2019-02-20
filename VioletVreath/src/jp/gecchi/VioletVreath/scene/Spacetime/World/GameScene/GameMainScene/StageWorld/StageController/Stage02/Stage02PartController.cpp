@@ -31,7 +31,6 @@ Stage02PartController::Stage02PartController(const char* prm_name) : StagePartCo
     _event_num = 4;
     requestScene(70000000, Stage02_01, "Stage02_01-70000000");
     // gen01 end
-    useProgress(PROG_BANPEI);
 }
 
 void Stage02PartController::initialize() {

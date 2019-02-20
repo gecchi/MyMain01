@@ -95,7 +95,6 @@ void MyBunshinBase::config(
 void MyBunshinBase::initialize() {
     setScaleR(2.0);
     getKuroko()->linkFaceAngByMvAng(true);
-    useProgress(PROG_BANPEI);
 }
 
 void MyBunshinBase::onReset() {

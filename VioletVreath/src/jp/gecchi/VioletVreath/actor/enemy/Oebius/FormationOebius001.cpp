@@ -45,7 +45,6 @@ FormationOebius001::FormationOebius001(const char* prm_name, EnemyOebiusControll
         pa_frame_of_call_up_[row] = (frame)( ( (1.0*spent_frames*(1+row))  /  formation_row_num_)  ) + 1;
     }
 
-    useProgress(PROG_BANPEI);
 }
 void FormationOebius001::onActive() {
     call_up_row_idx_ = 0;

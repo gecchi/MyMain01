@@ -204,7 +204,6 @@ void World::initialize() {
     }
     requestScene(1, PreDrawScene);
     requestScene(2, GameScene);
-    useProgress(PROG_BANPEI);
     getProgress()->reset(PROG_INIT);
 }
 

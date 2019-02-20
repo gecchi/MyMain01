@@ -42,7 +42,6 @@ EnemyOebiusCore::EnemyOebiusCore(const char* prm_name, EnemyOebiusController* pr
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_002");
     pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
 
-    useProgress(PROG_BANPEI);
 
 }
 

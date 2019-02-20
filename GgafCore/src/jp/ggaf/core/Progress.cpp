@@ -6,58 +6,55 @@
 
 using namespace GgafCore;
 
-Progress::Progress(frame* prm_p_frame_counter, int prm_num_progress) :
+Progress::Progress(frame* prm_p_frame_counter) :
     Object() ,
     _progress(PROGRESS_NOTHING),       //ここと
     _progress_prev(PROGRESS_NULL),
     _progress_next(PROGRESS_NOTHING),  //ここは、合わせること。合わせないと、初回update時に配列インデックス範囲外になるため。
-    _p_frame_counter(prm_p_frame_counter),
-    _num_progress(prm_num_progress)
+    _p_frame_counter(prm_p_frame_counter)
 {
-    _pa_frame_of_progress_changed = NEW frame[_num_progress+1+1];
-    for (int i = 0; i < _num_progress+1+1; i++) {
-        _pa_frame_of_progress_changed[i] = (*_p_frame_counter);
-    }
+    _map_changed_frame[_progress] = (*_p_frame_counter);
 }
+
 void Progress::reset() {
     _progress_prev = PROGRESS_NULL;
     _progress = PROGRESS_NOTHING;
     _progress_next = PROGRESS_NOTHING;
-    _pa_frame_of_progress_changed[PROGRESS_NOTHING+1] = (*_p_frame_counter);
+    _map_changed_frame[_progress] = (*_p_frame_counter);
 }
 
 void Progress::reset(progress prm_progress) {
 #ifdef MY_DEBUG
-    if (prm_progress < 0 || prm_progress > _num_progress) {
-        throwCriticalException("進捗番号が範囲外です。reset(0～"<<_num_progress<<")です。引数：prm_progress="<<prm_progress<<"");
+    if (prm_progress < 0) {
+        throwCriticalException("進捗番号が負です。引数：prm_progress="<<prm_progress<<"");
     }
 #endif
     _progress_prev = PROGRESS_NULL;
     _progress = prm_progress;
     _progress_next = prm_progress;
-    _pa_frame_of_progress_changed[prm_progress+1] = (*_p_frame_counter);
+    _map_changed_frame[_progress] = (*_p_frame_counter);
 }
 
 void Progress::setNothing() {
     _progress_prev = _progress;
     _progress = PROGRESS_NOTHING;
     _progress_next = PROGRESS_NOTHING;
-    _pa_frame_of_progress_changed[PROGRESS_NOTHING+1] = (*_p_frame_counter);
+    _map_changed_frame[_progress] = (*_p_frame_counter);
 }
 
-frame Progress::getFrameWhenChanged(progress prm_progress) const {
+frame Progress::getFrameWhenChanged(progress prm_progress) {
 #ifdef MY_DEBUG
-    if (prm_progress < 0 || prm_progress > _num_progress) {
-        throwCriticalException("進捗番号が範囲外です。進捗番号範囲は(0～"<<_num_progress<<")です。引数：prm_progress="<<prm_progress<<"");
+    if (prm_progress < 0) {
+        throwCriticalException("進捗番号が負です。引数：prm_progress="<<prm_progress<<"");
     }
 #endif
-    return (_pa_frame_of_progress_changed[prm_progress+1]);
+    return (_map_changed_frame[prm_progress]);
 }
 
 void Progress::change(progress prm_progress) {
 #ifdef MY_DEBUG
-    if (prm_progress < 0 || prm_progress > _num_progress) {
-        throwCriticalException("進捗番号が範囲外です。使用可能な進捗番号は(0～"<<_num_progress<<")です。引数：prm_progress="<<prm_progress<<"");
+    if (prm_progress < 0) {
+        throwCriticalException("進捗番号が負です。引数：prm_progress="<<prm_progress<<"");
     }
 #endif
     _progress_next = prm_progress;
@@ -130,10 +127,10 @@ void Progress::changeNext() {
         throwCriticalException("既に _progress="<<_progress<<" _progress_next="<<_progress_next<<" です。連続で changeNext() していませんか？");
     }
 #endif
-    _progress_next = _progress+1;
+    _progress_next = _progress + 1;
 #ifdef MY_DEBUG
-    if (_progress_next < 0 || _progress_next > _num_progress) {
-        throwCriticalException("進捗番号が＋１で範囲外になりました。使用可能な進捗番号は(1～"<<_num_progress<<")です。_progress="<<_progress<<"");
+    if (_progress_next < 0) {
+        throwCriticalException("進捗番号が＋１で、なぜか負の数です範囲外になりました。_progress="<<_progress<<"");
     }
 #endif
 }
@@ -141,8 +138,8 @@ void Progress::changeNext() {
 
 bool Progress::hasJustChangedTo(progress prm_progress) const {
 #ifdef MY_DEBUG
-    if (prm_progress < 0 || prm_progress > _num_progress) {
-        throwCriticalException("進捗番号が範囲外です。\nhasJustChangedTo 引数の使用可能な進捗番号は(0～"<<_num_progress<<")です。引数：prm_progress="<<prm_progress<<"");
+    if (prm_progress < 0) {
+        throwCriticalException("進捗番号が負です。引数：prm_progress="<<prm_progress<<"");
     }
 #endif
     if (_progress != _progress_prev && _progress_prev >= PROGRESS_NOTHING) {
@@ -158,8 +155,8 @@ bool Progress::hasJustChangedTo(progress prm_progress) const {
 
 bool Progress::hasJustChangedFrom(progress prm_progress) const {
 #ifdef MY_DEBUG
-    if (prm_progress < 0 || prm_progress > _num_progress) {
-        throwCriticalException("進捗番号が範囲外です。\nhasJustChangedFrom 引数の使用可能な進捗番号は(0～"<<_num_progress<<")です。引数：prm_progress="<<prm_progress<<"");
+    if (prm_progress < 0) {
+        throwCriticalException("進捗番号が負です。引数：prm_progress="<<prm_progress<<"");
     }
 #endif
     if (_progress != _progress_prev && _progress_prev >= PROGRESS_NOTHING) {
@@ -208,13 +205,12 @@ progress Progress::getToProgWhenProgWillChange() const {
 void Progress::update() {
     //進捗を反映する
     if (_progress != _progress_next) {
-        _pa_frame_of_progress_changed[_progress_next+1] = (*_p_frame_counter) - 1;
+        _map_changed_frame[_progress_next] = (*_p_frame_counter) - 1;
     }
     _progress_prev = _progress;
     _progress = _progress_next;
 }
 
 Progress::~Progress() {
-    GGAF_DELETEARR(_pa_frame_of_progress_changed);
 }
 

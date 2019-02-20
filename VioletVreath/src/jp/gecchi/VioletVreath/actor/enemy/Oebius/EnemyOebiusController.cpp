@@ -24,7 +24,6 @@ EnemyOebiusController::EnemyOebiusController(const char* prm_name, EnemyOebiusCo
                                                                    FormationOebius* prm_pFormation) :
   GgafCore::DestructActor(prm_name) {
     _class_name = "EnemyOebiusController";
-    useProgress(PROG_BANPEI);
 
     pOebiusCore_ = prm_pCore;
     pOebiusCore_->inactivate();

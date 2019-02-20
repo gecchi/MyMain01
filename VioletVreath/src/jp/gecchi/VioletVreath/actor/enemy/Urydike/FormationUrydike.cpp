@@ -33,7 +33,6 @@ FormationUrydike::FormationUrydike(const char* prm_name, int prm_formation_col_n
     num_Urydike_ = prm_formation_col_num  * prm_formation_row_num;
     call_up_interval_ = prm_call_up_interval; //èoåªä‘äu
     call_up_row_idx_ = 0;
-    useProgress(PROG_BANPEI);
 }
 
 FormationUrydike::FormationUrydike(const char* prm_name, const char* prm_xpm_id, frame prm_call_up_interval)  :
@@ -46,7 +45,6 @@ FormationUrydike::FormationUrydike(const char* prm_name, const char* prm_xpm_id,
     num_Urydike_ = pXpM->getPixelNum();
     call_up_interval_ = prm_call_up_interval; //èoåªä‘äu
     call_up_row_idx_ = 0;
-    useProgress(PROG_BANPEI);
 }
 
 void FormationUrydike::initialize() {

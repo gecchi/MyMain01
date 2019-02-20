@@ -23,7 +23,6 @@ enum {
 Zako::Zako(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Zako") {
     _class_name = "Zako";
-    useProgress(PROG_BANPEI);
     pKurokoLeader_ = nullptr; //フォーメーションオブジェクトが設定する
     pOs_ = nullptr;
 

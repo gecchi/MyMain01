@@ -47,7 +47,6 @@ StageController::StageController(const char* prm_name) : DefaultScene(prm_name) 
 
     _pSceneSymbol = NEW LabelSceneSymbol("LabelSceneSymbol");
     bringSceneMediator()->appendGroupChild(_pSceneSymbol);
-    useProgress(PROG_BANPEI);
 }
 
 void StageController::onReset() {

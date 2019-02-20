@@ -25,7 +25,6 @@ FormationZako::FormationZako(const char* prm_name) :
     num_Zako_ = 0;
     call_up_interval_ = 0;
     call_up_row_idx_ = 0;
-    useProgress(PROG_BANPEI);
 }
 
 void FormationZako::addMember(int prm_formation_col_num, int prm_formation_row_num, frame prm_call_up_interval) {

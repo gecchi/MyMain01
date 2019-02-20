@@ -41,7 +41,6 @@ EnemyGlaja::EnemyGlaja(const char* prm_name) :
     pConn_pShot_ = connectToDepositoryManager("GlajaLance001");
     effectBlendOne(); //â¡éZçáê¨
     setScaleR(0.3);
-    useProgress(PROG_BANPEI);
     num_fire_ = 0;
 }
 

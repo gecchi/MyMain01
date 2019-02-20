@@ -17,13 +17,11 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
-const velo MyBunshinWateringLaserChip001::MAX_VELO_RENGE = PX_C(300); //この値を大きくすると、最高速度が早くなる。
-const int MyBunshinWateringLaserChip001::R_MAX_ACCE = 15; //この値を大きくすると、カーブが緩くなる
+const velo MyBunshinWateringLaserChip001::MAX_VELO_RENGE = PX_C(260); //この値を大きくすると、最高速度が早くなる。
+const int MyBunshinWateringLaserChip001::R_MAX_ACCE = 16; //この値を大きくすると、カーブが緩くなる
 const velo MyBunshinWateringLaserChip001::INITIAL_VELO = MAX_VELO_RENGE*0.7; //レーザー発射時の初期速度
 const double MyBunshinWateringLaserChip001::RR_MAX_ACCE = 1.0 / R_MAX_ACCE; //計算簡素化用
 const float MyBunshinWateringLaserChip001::MAX_ACCE_RENGE = MAX_VELO_RENGE/R_MAX_ACCE;
@@ -51,6 +49,7 @@ MyBunshinWateringLaserChip001::MyBunshinWateringLaserChip001(const char* prm_nam
     tmp_z_ = _z;
     tmp_acc_vx_ = tmp_acc_vy_ = tmp_acc_vz_ = 0;
     pAimInfo_ = nullptr;
+    inv_cnt_ = 0;
 }
 
 void MyBunshinWateringLaserChip001::initialize() {
@@ -60,12 +59,12 @@ void MyBunshinWateringLaserChip001::initialize() {
     setScaleR(6.0);
     setCullingDraw(false);
     GgafDx::Trucker* const pTrucker = getTrucker();
-    pTrucker->forceVxMvVeloRange(-MAX_VELO_RENGE, MAX_VELO_RENGE);
-    pTrucker->forceVyMvVeloRange(-MAX_VELO_RENGE*1.5, MAX_VELO_RENGE*1.5);
-    pTrucker->forceVzMvVeloRange(-MAX_VELO_RENGE*1.5, MAX_VELO_RENGE*1.5);
-    pTrucker->forceVxMvAcceRange(-MAX_ACCE_RENGE, MAX_ACCE_RENGE);
-    pTrucker->forceVyMvAcceRange(-MAX_ACCE_RENGE*1.5, MAX_ACCE_RENGE*1.5);
-    pTrucker->forceVzMvAcceRange(-MAX_ACCE_RENGE*1.5, MAX_ACCE_RENGE*1.5);
+    pTrucker->forceVxMvVeloRange(-MAX_VELO_RENGE*1.2, MAX_VELO_RENGE*1.2);
+    pTrucker->forceVyMvVeloRange(-MAX_VELO_RENGE, MAX_VELO_RENGE);
+    pTrucker->forceVzMvVeloRange(-MAX_VELO_RENGE, MAX_VELO_RENGE);
+    pTrucker->forceVxMvAcceRange(-MAX_ACCE_RENGE*1.2, MAX_ACCE_RENGE*1.2);
+    pTrucker->forceVyMvAcceRange(-MAX_ACCE_RENGE, MAX_ACCE_RENGE);
+    pTrucker->forceVzMvAcceRange(-MAX_ACCE_RENGE, MAX_ACCE_RENGE);
 }
 
 void MyBunshinWateringLaserChip001::onCreateModel() {
@@ -82,6 +81,7 @@ void MyBunshinWateringLaserChip001::onActive() {
     default_stamina_ = getStatus()->get(STAT_Stamina);
     WateringLaserChip::onActive();
     pAimInfo_ = nullptr;
+    inv_cnt_ = 0;
 }
 
 void MyBunshinWateringLaserChip001::processBehavior() {
@@ -115,15 +115,36 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                     //●Leader が t1 へ Aim
                     if (pAimTarget->isActiveInTheTree() && active_frame < aim_time_out_t1)  {
                         //pAimTarget が存命
+                        int sgn_vx1 = SGN(pTrucker->_acce_vx_mv);
+                        int sgn_vy1 = SGN(pTrucker->_acce_vy_mv);
+                        int sgn_vz1 = SGN(pTrucker->_acce_vz_mv);
+
                         aimChip(pAimInfo->t1_x,
                                 pAimInfo->t1_y,
                                 pAimInfo->t1_z );
-                        static const coord renge = MyBunshinWateringLaserChip001::INITIAL_VELO * 0.4;
-                        static const ucoord renge2 = renge*2;
-                        if ( (ucoord)(_x - pAimInfo->t1_x + renge) <= renge2) {
-                            if ( (ucoord)(_y - pAimInfo->t1_y + renge) <= renge2) {
-                                if ( (ucoord)(_z - pAimInfo->t1_z + renge) <= renge2) {
-                                    pAimInfo_->spent_frames_to_t1 = active_frame; //Aim t1 終了
+
+                        int sgn_vx2 = SGN(pTrucker->_acce_vx_mv);
+                        int sgn_vy2 = SGN(pTrucker->_acce_vy_mv);
+                        int sgn_vz2 = SGN(pTrucker->_acce_vz_mv);
+                        if (sgn_vx1 != sgn_vx2) {
+                           inv_cnt_++;
+                        }
+                        if (sgn_vy1 != sgn_vy2) {
+                           inv_cnt_++;
+                        }
+                        if (sgn_vz1 != sgn_vz2) {
+                           inv_cnt_++;
+                        }
+                        if (inv_cnt_ > 8) {
+                            pAimInfo_->spent_frames_to_t1 = active_frame; //Aim t1 終了
+                        } else {
+                            static const coord renge = MyBunshinWateringLaserChip001::INITIAL_VELO * 0.4;
+                            static const ucoord renge2 = renge*2;
+                            if ( (ucoord)(_x - pAimInfo->t1_x + renge) <= renge2) {
+                                if ( (ucoord)(_y - pAimInfo->t1_y + renge) <= renge2) {
+                                    if ( (ucoord)(_z - pAimInfo->t1_z + renge) <= renge2) {
+                                        pAimInfo_->spent_frames_to_t1 = active_frame; //Aim t1 終了
+                                    }
                                 }
                             }
                         }

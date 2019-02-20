@@ -22,7 +22,6 @@ EnemyIdaBase001::EnemyIdaBase001(const char* prm_name) :
 
     pConn_pSplManuf_ = connectToSplineManufactureManager("EnemyIdaBase001");
     pKurokoLeader_ = pConn_pSplManuf_->peek()->createKurokoLeader(getKuroko());
-    useProgress(PROG_BANPEI);
 }
 
 void EnemyIdaBase001::initialize() {

@@ -30,7 +30,6 @@ EnemyAntiope::EnemyAntiope(const char* prm_name, const char* prm_model, void* pr
     _class_name = "EnemyAntiope";
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
-    useProgress(PROG_BANPEI);
     pP_ = nullptr;
 }
 
