@@ -30,7 +30,6 @@ Test01::Test01(const char* prm_name) :
     setCullingDraw(false);
 
     setHitAble(true);
-    //useProgress(PROG_BANPEI);
 }
 
 void Test01::initialize() {

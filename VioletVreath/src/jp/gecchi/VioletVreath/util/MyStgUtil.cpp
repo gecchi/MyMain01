@@ -866,7 +866,7 @@ GgafCore::Status* MyStgUtil::resetMyShipStatus(GgafCore::Status* p) {
     p->set(STAT_FlushAble, 0 );  //ダメージ時フラッシュ要否
     p->set(STAT_AddRankPoint, 0.00000 );  //破壊時加算ランク初期値
     p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //フレーム毎ランク縮小倍率
-    p->set(STAT_Stamina, 60000 );  //体力
+    p->set(STAT_Stamina, 6000000 );  //体力
     p->set(STAT_Attack, 100 );  //基本攻撃力
     p->set(STAT_AttackPowerRate, 1.00000 );  //攻撃力に乗じられる率
     p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率

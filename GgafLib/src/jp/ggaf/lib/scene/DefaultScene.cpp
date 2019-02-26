@@ -18,14 +18,6 @@ DefaultScene::DefaultScene(const char* prm_name, GgafCore::SceneMediator* prm_pS
     _pProg = DefaultScene::createProgress();
 }
 
-//void DefaultScene:://useProgress(int prm_num) {
-//    if (GgafCore::Scene::_pProg == nullptr) {
-//        GgafCore::Scene::_pProg = createProgress(prm_num);
-//    } else {
-//        _TRACE_("ÅÉåxçêÅÑ["<<getName()<<"] ÇÕä˘Ç… useProgress ÇµÇƒÇ¢Ç‹Ç∑ÅBprm_num="<<prm_num);
-//    }
-//}
-
 SceneProgress* DefaultScene::createProgress() {
     return NEW SceneProgress(this);
 }

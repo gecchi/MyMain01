@@ -52,8 +52,6 @@ class Sound {
     static int _bgm_master_volume;
     /** [r]サウンドエフェクト・マスターボリューム値(0～1000) */
     static int _se_master_volume;
-
-
     /** 計算用定数 */
     static const int _MAXMAX_VOLUME = (GGAF_MAX_VOLUME * GGAF_MAX_VOLUME);
 

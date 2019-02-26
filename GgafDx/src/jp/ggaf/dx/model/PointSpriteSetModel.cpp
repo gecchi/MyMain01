@@ -26,6 +26,7 @@ PointSpriteSetModel::PointSpriteSetModel(const char* prm_model_name) : Model(prm
     _square_size_px = 0.0f;
     _texture_size_px = 0.0f;
     _texture_split_rowcol = 1;
+    _inv_texture_split_rowcol = 1.0f / _texture_split_rowcol;
     _size_vertices = 0;
     _size_vertex_unit= 0;
     _nVertices = 0;
@@ -70,6 +71,8 @@ HRESULT PointSpriteSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_s
         checkDxException(hr, D3D_OK, "SetFloat(_hTexSize) に失敗しました。");
         hr = pID3DXEffect->SetInt(pPointSpriteSetEffect->_hTextureSplitRowcol, _texture_split_rowcol);
         checkDxException(hr, D3D_OK, "SetInt(_hTextureSplitRowcol) に失敗しました。");
+        hr = pID3DXEffect->SetFloat(pPointSpriteSetEffect->_hInvTextureSplitRowcol, _inv_texture_split_rowcol);
+        checkDxException(hr, D3D_OK, "SetInt(_hInvTextureSplitRowcol) に失敗しました。");
     }
 
     Effect* pEffect_active = EffectManager::_pEffect_active;
@@ -172,7 +175,7 @@ void PointSpriteSetModel::restore() {
         }
         _square_size_px = xdata.SquareSize;
         _texture_split_rowcol = xdata.TextureSplitRowCol;
-
+        _inv_texture_split_rowcol = 1.0f / _texture_split_rowcol;
         _nVertices = xdata.VerticesNum;
         if (_nVertices*_set_num > 65535) {
             throwCriticalException("頂点が 65535を超えたかもしれません。\n対象Model："<<getName()<<"  _nVertices*_set_num:"<<_nVertices*_set_num);

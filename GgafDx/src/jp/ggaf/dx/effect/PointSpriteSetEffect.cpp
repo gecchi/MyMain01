@@ -89,6 +89,7 @@ PointSpriteSetEffect::PointSpriteSetEffect(const char* prm_effect_name) : Effect
     _ah_colMaterialDiffuse[31] = _pID3DXEffect->GetParameterByName( nullptr, "g_colMaterialDiffuse032" );
     _hTexSize = _pID3DXEffect->GetParameterByName( nullptr, "g_TexSize" );
     _hTextureSplitRowcol = _pID3DXEffect->GetParameterByName( nullptr, "g_TextureSplitRowcol" );
+    _hInvTextureSplitRowcol = _pID3DXEffect->GetParameterByName( nullptr, "g_InvTextureSplitRowcol" );
     _hUvFlipPtnNo = _pID3DXEffect->GetParameterByName( nullptr, "g_UvFlipPtnNo" );
 }
 

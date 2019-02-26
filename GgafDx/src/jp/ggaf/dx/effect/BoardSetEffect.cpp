@@ -18,6 +18,10 @@ BoardSetEffect::BoardSetEffect(const char* prm_effect_name) : Effect(prm_effect_
     hr = _pID3DXEffect->SetFloat("g_game_buffer_height", game_buffer_height);
     checkDxException(hr, D3D_OK, "SetFloat(g_game_buffer_height) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
+    hr = _pID3DXEffect->SetFloat("g_inv_game_buffer_width", 1.0f / game_buffer_width);
+    checkDxException(hr, D3D_OK, "SetFloat(g_inv_game_buffer_width) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    hr = _pID3DXEffect->SetFloat("g_inv_game_buffer_height", 1.0f / game_buffer_height);
+    checkDxException(hr, D3D_OK, "SetFloat(g_inv_game_buffer_height) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     //ƒnƒ“ƒhƒ‹
     _ah_alpha[0] = _pID3DXEffect->GetParameterByName( nullptr, "g_alpha001" );
     _ah_alpha[1] = _pID3DXEffect->GetParameterByName( nullptr, "g_alpha002" );

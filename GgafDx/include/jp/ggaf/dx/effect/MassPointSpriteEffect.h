@@ -19,7 +19,7 @@ public:
     D3DXHANDLE _h_matView;
     D3DXHANDLE _hTexSize;
     D3DXHANDLE _hTextureSplitRowcol;
-
+    D3DXHANDLE _hInvTextureSplitRowcol;
 public:
     /**
      * コンストラクタ<BR>

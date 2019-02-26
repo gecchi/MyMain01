@@ -18,7 +18,6 @@ enum {
 
 GameEndingScene::GameEndingScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "GameEndingScene";
-    //useProgress(PROG_BANPEI-1);
 }
 
 void GameEndingScene::onReset() {

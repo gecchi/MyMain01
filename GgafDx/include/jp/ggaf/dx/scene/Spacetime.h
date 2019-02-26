@@ -50,10 +50,11 @@ public:
         int _volume[64];
         float _pan[64];
         float _frequency_rate[64];
+        bool _can_looping[64];
         GeometricActor* _apActor[64];
         SeArray();
 
-        void add(Se* prm_pSe, int prm_volume, float prm_pan, float prm_frequency_rate, GeometricActor* prm_pActor);
+        void add(Se* prm_pSe, int prm_volume, float prm_pan, float prm_frequency_rate, bool prm_can_looping, GeometricActor* prm_pActor);
 
         void play(int index);
     };
@@ -137,6 +138,7 @@ public:
                     float prm_pan,
                     float prm_frequency_rate,
                     int prm_delay,
+                    bool prm_can_looping,
                     GeometricActor* prm_pActor);
 };
 

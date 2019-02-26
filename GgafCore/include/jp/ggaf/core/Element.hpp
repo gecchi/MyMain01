@@ -818,8 +818,7 @@ public:
 
     /**
      * 進捗管理オブジェクト(Progress) を取得する。
-     * 事前に //useProgress(n) で、進捗管理オブジェクトを使用宣言する必要がある。
-     * @return 進捗管理オブジェクト or nullptr
+     * @return 進捗管理オブジェクト
      */
     inline virtual Progress* getProgress() const {
         return _pProg;

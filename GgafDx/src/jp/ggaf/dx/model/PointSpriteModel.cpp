@@ -27,6 +27,7 @@ PointSpriteModel::PointSpriteModel(const char* prm_model_name) : Model(prm_model
     _square_size_px = 0.0f;
     _texture_size_px = 0.0f;
     _texture_split_rowcol = 1;
+    _inv_texture_split_rowcol = 1.0f / _texture_split_rowcol;
     _obj_model |= Obj_GgafDx_PointSpriteModel;
 }
 
@@ -56,6 +57,8 @@ HRESULT PointSpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
         checkDxException(hr, D3D_OK, "SetFloat(_hTexSize) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         hr = pID3DXEffect->SetInt(pPointSpriteEffect->_hTextureSplitRowcol, _texture_split_rowcol);
         checkDxException(hr, D3D_OK, "SetInt(_hTextureSplitRowcol) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        hr = pID3DXEffect->SetFloat(pPointSpriteEffect->_hInvTextureSplitRowcol, _inv_texture_split_rowcol);
+        checkDxException(hr, D3D_OK, "SetInt(_hInvTextureSplitRowcol) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         hr = pID3DXEffect->SetValue(pPointSpriteEffect->_h_colMaterialDiffuse, &(pTargetActor->_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
         checkDxException(hr, D3D_OK, "SetValue(g_colMaterialDiffuse) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     }
@@ -206,6 +209,7 @@ void PointSpriteModel::restore() {
     _size_vertex_unit       = size_vertex_unit;
     _paVtxBuffer_data        = paVtxBuffer_data;
     _bounding_sphere_radius = bounding_sphere_radius;
+    _inv_texture_split_rowcol = 1.0f / _texture_split_rowcol;
     _TRACE3_("_model_name=" << _model_name << " end");
 }
 

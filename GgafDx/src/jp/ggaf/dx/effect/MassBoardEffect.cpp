@@ -18,6 +18,11 @@ MassBoardEffect::MassBoardEffect(const char* prm_effect_name) : MassEffect(prm_e
     hr = _pID3DXEffect->SetFloat("g_game_buffer_height", game_buffer_height);
     checkDxException(hr, D3D_OK, "SetFloat(g_game_buffer_height) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
+    hr = _pID3DXEffect->SetFloat("g_inv_game_buffer_width", 1.0f / game_buffer_width);
+    checkDxException(hr, D3D_OK, "SetFloat(g_inv_game_buffer_width) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    hr = _pID3DXEffect->SetFloat("g_inv_game_buffer_height", 1.0f / game_buffer_height);
+    checkDxException(hr, D3D_OK, "SetFloat(g_inv_game_buffer_height) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+
     _h_tex_blink_power = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_power" );
     _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_threshold" );
 }

@@ -96,8 +96,10 @@ public:
     static int SE_VOLUME;
     /** [r/w] SE最大同時発声数(1～64) */
     static int MAX_SE_AT_ONCE;
-    /** [r/w] SE発声～解放までの、最低現必要なフレーム数 */
-    static int MAX_SE_DELAY;
+    /** [r/w] ゲーム空間でカメラからの最遠距離(zf)のに位置したアクターのSE発声遅延レーム数 */
+    static int SE_DELAY_MAX_DEPTH;
+    /** [r/w] ゲーム空間でカメラからの最遠距離(zf)のに位置したアクターのSE発声ボリュームの減衰割合 */
+    static double SE_VOLUME_RATE_MAX_DEPTH;
 
     /** [r] メッシュモデルの定義ファイル(Xファイル)の格納ディレクトリ名 */
     static std::string DIRNAME_RESOURCE_SKIN_XXX_MESH;

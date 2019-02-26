@@ -7,6 +7,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 float g_game_buffer_width; //画面幅(px)
 float g_game_buffer_height; //画面高さ(px)
+float g_inv_game_buffer_width; //画面幅(px)の逆数
+float g_inv_game_buffer_height; //画面高さ(px)の逆数
 float g_tex_blink_power;
 float g_tex_blink_threshold;
 float g_alpha_master;
@@ -44,12 +46,12 @@ OUT_VS VS_FontBoard(
     float alpha = prm_info.z; //α
 
     //X座標Y座標をを -1 ～ +1 に押し込める。
-    out_vs.posModel_Proj.x = - 1 + ((2*prm_posModel_Local.x + 2*px_x) / g_game_buffer_width);
-    out_vs.posModel_Proj.y =   1 - ((2*prm_posModel_Local.y + 2*px_y) / g_game_buffer_height);
+    out_vs.posModel_Proj.x = - 1 + ((2*prm_posModel_Local.x + 2*px_x) * g_inv_game_buffer_width);
+    out_vs.posModel_Proj.y =   1 - ((2*prm_posModel_Local.y + 2*px_y) * g_inv_game_buffer_height);
     out_vs.posModel_Proj.z = depthZ;
     out_vs.posModel_Proj.w = 1.0;
-	//dot by dot考慮
-	out_vs.posModel_Proj = adjustDotByDot(out_vs.posModel_Proj);
+    //dot by dot考慮
+    out_vs.posModel_Proj = adjustDotByDot(out_vs.posModel_Proj);
     //UVのオフセットを加算
     out_vs.uv.x = prm_uv.x + offset_u;
     out_vs.uv.y = prm_uv.y + offset_v;

@@ -189,8 +189,16 @@ void Se::setPan(float prm_pan) {
 void Se::setFrequencyRate(float prm_frequency_rate) {
     _frequency_rate = prm_frequency_rate;
     //TODO: ƒ}ƒXƒ^[ü”g”—¦‚Í‚Ü‚¾–³‚¢
-    HRESULT hr = _pIDirectSoundBuffer->SetFrequency((DWORD)(_default_frequency*prm_frequency_rate)); //Ä¶ü”g”İ’è
-    checkDxException(hr, DS_OK, "SetFrequency((DWORD)"<<(_default_frequency*prm_frequency_rate)<<") ‚ª¸”s‚µ‚Ü‚µ‚½B");
+    DWORD frequency = (DWORD)(_default_frequency*prm_frequency_rate);
+    static DWORD min_frequency = Sound::_pDsCaps->dwMinSecondarySampleRate; //ü”g”‰ºŒÀ
+    static DWORD max_frequency = Sound::_pDsCaps->dwMaxSecondarySampleRate; //ü”g”ãŒÀ
+    if (frequency < min_frequency) {
+        frequency = min_frequency;
+    } else if (frequency > max_frequency) {
+        frequency = max_frequency;
+    }
+    HRESULT hr = _pIDirectSoundBuffer->SetFrequency(frequency); //Ä¶ü”g”İ’è
+    checkDxException(hr, DS_OK, "SetFrequency("<<frequency<<") ‚ª¸”s‚µ‚Ü‚µ‚½B");
 }
 
 int Se::restore(void) {

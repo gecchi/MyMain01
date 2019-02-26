@@ -38,6 +38,7 @@ class BoardTest2;
 class PointSpriteTest;
 class EffectExplosion004;
 class SmpPieGraphSprite;
+class SeActor3;
 }
 
 #endif /*SIMPLEMOGERA_H_*/

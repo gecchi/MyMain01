@@ -30,7 +30,6 @@ Jiki::Jiki(const char* prm_name) :
     setZWriteEnable(false); //自身のZバッファを書き込みしないに強制
     setCullingDraw(false);
     setHitAble(true);
-    //useProgress(PROG_BANPEI);
 }
 
 void Jiki::initialize() {

@@ -22,7 +22,6 @@ VvvCursor::VvvCursor(const char* prm_name) :
     tx_ = _x;
     ty_ = _y;
     tz_ = _z;
-    //useProgress(10);
     _pProg->reset(CUR_SINK);
 }
 

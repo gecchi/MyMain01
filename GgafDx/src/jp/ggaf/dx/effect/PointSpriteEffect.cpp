@@ -27,6 +27,7 @@ PointSpriteEffect::PointSpriteEffect(const char* prm_effect_name) : Effect(prm_e
 //    _h_dist_VpInfrontPlane = _pID3DXEffect->GetParameterByName( nullptr, "g_dist_VpInfrontPlane" );
     _hTexSize = _pID3DXEffect->GetParameterByName( nullptr, "g_TexSize" );
     _hTextureSplitRowcol = _pID3DXEffect->GetParameterByName( nullptr, "g_TextureSplitRowcol" );
+    _hInvTextureSplitRowcol = _pID3DXEffect->GetParameterByName( nullptr, "g_InvTextureSplitRowcol" );
     _hUvFlipPtnNo = _pID3DXEffect->GetParameterByName( nullptr, "g_UvFlipPtnNo" );
 }
 

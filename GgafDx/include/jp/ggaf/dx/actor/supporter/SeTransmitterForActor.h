@@ -23,10 +23,17 @@ private:
 
 
 public:
-    /** [r/w]各SE（配列）は、擬似３D再生かどうかを保持 */
-    std::vector<bool> _vec_is_playing_3d;
+    /** [r/w]各SE（配列）の、擬似3D再生かどうかの情報を保持 */
+    std::vector<int> _vec_is_playing_3d;
+    //0:3D再生していない
+    //1:3D再生しているが、音がまだなっていない（遠距離演出の遅延中、サウンドバッファにデータがない）
+    //2:3D再生してるし、音が鳴っている。
+    frame _playing_3d_freames;
     /** [r]SE発生元アクター */
     GeometricActor* const _pActor;
+
+    /** [r]前回計算時のカメラからアクターの距離 */
+    double _px_d_cam_acter_prev;
 
 public:
     /**
@@ -68,7 +75,7 @@ public:
      * さらに behave() を毎フレーム呼び出しておくと、効果音発声中の移動も擬似３D効果を得る。<BR>
      * @param prm_se_no SE登録番号 ( 0 ～ SE数-1 )
      */
-    void play3D(int prm_se_no);
+    void play3D(int prm_se_no, bool prm_can_looping = false);
 
     /**
      * 擬似３D効果再生の毎フレームの処理 .

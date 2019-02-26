@@ -32,8 +32,6 @@ public:
 public:
     DefaultScene(const char* prm_name, GgafCore::SceneMediator* prm_pSceneMediator = nullptr);
 
-//    virtual void //useProgress(int prm_num = 10) override;
-
     virtual SceneProgress* createProgress() override; //‹¤•Ï–ß‚è’l
 
     virtual SceneProgress* getProgress() const override; //‹¤•Ï–ß‚è’l

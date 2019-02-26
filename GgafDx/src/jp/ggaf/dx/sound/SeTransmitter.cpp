@@ -78,10 +78,14 @@ void SeTransmitter::stop(int prm_se_no) {
 Se* SeTransmitter::getSe(int prm_se_no) const {
 #ifdef MY_DEBUG
     if (prm_se_no < 0 || prm_se_no >= _se_num) {
-        throwCriticalException("IDが範囲外です。0~"<<(_se_num-1)<<"でお願いします。prm_se_no="<<prm_se_no);
+        throwCriticalException("getSe() IDが範囲外です。0~"<<(_se_num-1)<<"でお願いします。prm_se_no="<<prm_se_no);
     }
 #endif
-    return _vecSeConnection[prm_se_no]->peek();
+    if (_vecSeConnection[prm_se_no]) {
+        return _vecSeConnection[prm_se_no]->peek();
+    } else {
+        throwCriticalException("_vecSeConnectionがありません。prm_se_no="<<prm_se_no);
+    }
 }
 
 

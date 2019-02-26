@@ -25,10 +25,11 @@ DWORD God::_aaTime_offset_of_next_view[3][60] = {
         {25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25},
         {33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34}
 };
+double God::_aTime_offset_of_next_view[3] = { 1.0/60.0, 1.5/60.0, 2.0/60.0};
 
 God::God() : Object(),
   _pSpacetime(nullptr),
-  _fps(0) {
+  _fps(0.0) {
     God::_pGod = this;
     timeBeginPeriod(1);
     _frame_of_God = 0;
@@ -187,8 +188,8 @@ void God::be() {
             if (d_visualize_frames == 0) {
                 _fps = 0;
             } else {
-                _fps = (float)(d_visualize_frames) *
-                              ((1.0f * _aaTime_offset_of_next_view[_slowdown_mode][0]) / (1.0f*_aaTime_offset_of_next_view[SLOWDOWN_MODE_DEFAULT][0]));
+                static const double inv_offset_default = 1.0f / _aTime_offset_of_next_view[SLOWDOWN_MODE_DEFAULT];
+                _fps = inv_offset_default * d_visualize_frames * _aTime_offset_of_next_view[_slowdown_mode];
             }
             _time_calc_fps_next += 1000;
             _prev_visualize_frames = _visualize_frames;

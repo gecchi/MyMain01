@@ -23,7 +23,6 @@ LockonCursor001::LockonCursor001(const char* prm_name, const char* prm_model_id)
     setHitAble(false); //“–‚½‚è”»’è–³‚µ
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(0, "WAVE_LOCKON_001"); //Œø‰Ê‰¹’è‹`
-    //useProgress(PROG_BANPEI);
 }
 
 void LockonCursor001::initialize() {

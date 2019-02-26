@@ -26,6 +26,7 @@ MassPointSpriteEffect::MassPointSpriteEffect(const char* prm_effect_name) : Mass
     _h_matView  = _pID3DXEffect->GetParameterByName( nullptr, "g_matView" );
     _hTexSize = _pID3DXEffect->GetParameterByName( nullptr, "g_TexSize" );
     _hTextureSplitRowcol = _pID3DXEffect->GetParameterByName( nullptr, "g_TextureSplitRowcol" );
+    _hInvTextureSplitRowcol = _pID3DXEffect->GetParameterByName( nullptr, "g_InvTextureSplitRowcol" );
 }
 
 void MassPointSpriteEffect::setParamPerFrame() {

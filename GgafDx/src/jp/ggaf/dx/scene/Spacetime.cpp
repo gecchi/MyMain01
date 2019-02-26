@@ -38,12 +38,13 @@ Spacetime::SeArray::SeArray() {
     }
 }
 
-void Spacetime::SeArray::add(Se* prm_pSe, int prm_volume, float prm_pan, float prm_frequency_rate, GeometricActor* prm_pActor) {
+void Spacetime::SeArray::add(Se* prm_pSe, int prm_volume, float prm_pan, float prm_frequency_rate, bool prm_can_looping, GeometricActor* prm_pActor) {
     if (_p < CONFIG::MAX_SE_AT_ONCE) {
         _apSe[_p] = prm_pSe;
         _frequency_rate[_p] = prm_frequency_rate;
         _volume[_p] = prm_volume;
         _pan[_p] = prm_pan;
+        _can_looping[_p] = prm_can_looping;
         _apActor[_p] = prm_pActor;
         _p++;
     }
@@ -59,7 +60,7 @@ void Spacetime::SeArray::play(int index) {
     _apSe[index]->setVolume(_volume[index] );
     _apSe[index]->setPan(_pan[index]);
     _apSe[index]->setFrequencyRate(_frequency_rate[index]);
-    _apSe[index]->play(false);
+    _apSe[index]->play(_can_looping[index]);
     _apSe[index]->_pActor_last_played = _apActor[index];
     _apActor[index] = nullptr;
     _apSe[index] = nullptr;
@@ -96,7 +97,7 @@ _z_bound_far   (+DX_C(prm_pCamera->getZFar()))
     bringSceneMediator()->appendGroupChild(_pCamera);
 
     _pRing_pSeArray = NEW GgafCore::LinkedListRing<SeArray>();
-    for (int i = 0; i < CONFIG::MAX_SE_DELAY; i++) { //GGAF_END_DELAYは最大解放遅れフレームだが、遠方SEの遅延の最高フレーム数としても使う
+    for (int i = 0; i < CONFIG::SE_DELAY_MAX_DEPTH; i++) { //GGAF_END_DELAYは最大解放遅れフレームだが、遠方SEの遅延の最高フレーム数としても使う
         _pRing_pSeArray->addLast(NEW SeArray(), true);
     }
     _pRing_pSeArray->createIndex();
@@ -137,11 +138,12 @@ _z_bound_far   (+DX_C(prm_pCamera->getZFar()))
 }
 
 void Spacetime::registerSe(Se* prm_pSe,
-                                 int prm_volume,
-                                 float prm_pan,
-                                 float prm_frequency_rate,
-                                 int prm_delay,
-                                 GeometricActor* prm_pActor) {
+                           int prm_volume,
+                           float prm_pan,
+                           float prm_frequency_rate,
+                           int prm_delay,
+                           bool prm_can_looping,
+                           GeometricActor* prm_pActor) {
 //    int bpm = BgmConductor::_active_bgm_bpm;
     //ズレフレーム数計算
     //1分間は60*60=3600フレーム
@@ -156,10 +158,10 @@ void Spacetime::registerSe(Se* prm_pSe,
 
     //SEの鳴るタイミングを 0～8フレームをずらしてバラつかせる
     int delay = prm_delay+1+(GgafCore::RepeatSeq::nextVal(_seqkey_se_delay));
-    if (delay > CONFIG::MAX_SE_DELAY-1) {
-        delay = CONFIG::MAX_SE_DELAY-1;
+    if (delay > CONFIG::SE_DELAY_MAX_DEPTH-1) {
+        delay = CONFIG::SE_DELAY_MAX_DEPTH-1;
     }
-    _pRing_pSeArray->getNext(delay)->add(prm_pSe, prm_volume, prm_pan, prm_frequency_rate, prm_pActor);
+    _pRing_pSeArray->getNext(delay)->add(prm_pSe, prm_volume, prm_pan, prm_frequency_rate, prm_can_looping, prm_pActor);
 }
 
 void Spacetime::processSettlementBehavior() {

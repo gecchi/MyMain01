@@ -21,7 +21,7 @@ MassPointSpriteModel::MassPointSpriteModel(const char* prm_model_name) : MassMod
     _square_size_px = 0.0f;
     _texture_size_px = 0.0f;
     _texture_split_rowcol = 1;
-
+    _inv_texture_split_rowcol = 1.0f / _texture_split_rowcol;
     _paVtxBuffer_data_model = nullptr;
 //    _paIndexBuffer_data = nullptr;
 
@@ -118,7 +118,7 @@ void MassPointSpriteModel::restore() {
         }
         _square_size_px = xdata.SquareSize;
         _texture_split_rowcol = xdata.TextureSplitRowCol;
-
+        _inv_texture_split_rowcol = 1.0f / _texture_split_rowcol;
         _nVertices = xdata.VerticesNum;
         if (_nVertices*_set_num > 65535) {
             throwCriticalException("頂点が 65535を超えたかもしれません。\n対象Model："<<getName()<<"  _nVertices*_set_num:"<<_nVertices*_set_num);
@@ -264,6 +264,8 @@ HRESULT MassPointSpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_
         checkDxException(hr, D3D_OK, "SetFloat(_hTexSize) に失敗しました。");
         hr = pID3DXEffect->SetInt(pMassPointSpriteEffect->_hTextureSplitRowcol, _texture_split_rowcol);
         checkDxException(hr, D3D_OK, "SetInt(_hTextureSplitRowcol) に失敗しました。");
+        hr = pID3DXEffect->SetFloat(pMassPointSpriteEffect->_hInvTextureSplitRowcol, _inv_texture_split_rowcol);
+        checkDxException(hr, D3D_OK, "SetInt(_hInvTextureSplitRowcol) に失敗しました。");
 
         if (_papTextureConnection[0]) {
             hr = pDevice->SetTexture(0, getDefaultTextureConnection()->peek()->_pIDirect3DBaseTexture9);

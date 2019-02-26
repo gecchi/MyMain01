@@ -36,6 +36,8 @@ public:
     float _texture_size_px;
     /** テクスチャ分割数(１で分割無し。２で４パターン、３で９パターン) */
     int _texture_split_rowcol;
+
+    float _inv_texture_split_rowcol;
 public:
     /**
      * コンストラクタ<BR>

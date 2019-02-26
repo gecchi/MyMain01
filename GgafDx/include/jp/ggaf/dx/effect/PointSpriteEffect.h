@@ -22,6 +22,7 @@ public:
 //    D3DXHANDLE _h_dist_VpInfrontPlane;
     D3DXHANDLE _hTexSize;
     D3DXHANDLE _hTextureSplitRowcol;
+    D3DXHANDLE _hInvTextureSplitRowcol;
     D3DXHANDLE _hUvFlipPtnNo;
 
 public:

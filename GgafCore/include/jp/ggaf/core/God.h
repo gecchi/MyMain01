@@ -56,7 +56,7 @@ public:
     static God* _pGod;
     /** [r] 次にこの世を活動させる時間のオフセット */
     static DWORD _aaTime_offset_of_next_view[3][60];
-
+    static double _aTime_offset_of_next_view[3];
     /** [r] 生成神(別スレッド)のエラー状態。nullptr＝正常稼働中／not nullptr＝異常発生 */
     CriticalException* _pException_god;
 
@@ -78,7 +78,7 @@ public:
     /** [r] この世 */
     Spacetime* _pSpacetime;
     /** [r] fps値（約1000ms毎に計算される） */
-    float _fps;
+    double _fps;
 
     DWORD _time_calc_fps_next;
     /** [r] 描画フレームカウンタ */
