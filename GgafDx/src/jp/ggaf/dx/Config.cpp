@@ -62,7 +62,7 @@ int Config::MASTER_VOLUME = 800;
 int Config::BGM_VOLUME = 800;
 int Config::SE_VOLUME = 800;
 int Config::MAX_SE_AT_ONCE = 16;
-int Config::SE_DELAY_MAX_DEPTH = 240;
+int Config::SE_DELAY_MAX_DEPTH = 180;
 double Config::SE_VOLUME_RATE_MAX_DEPTH=0.2;
 
 std::string Config::DIRNAME_RESOURCE_SKIN_XXX_MESH = "mesh";

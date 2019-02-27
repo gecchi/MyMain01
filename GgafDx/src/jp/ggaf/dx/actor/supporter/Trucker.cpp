@@ -102,8 +102,10 @@ void Trucker::behave() {
         if (z_acce > _grv_mv_acce) {
             z_acce = _grv_mv_acce;
         }
+
+        double inv_grv_mv_stop_renge = 1.0 / _grv_mv_stop_renge;
         const velo last_velo_vx_mv = _velo_vx_mv;
-        const velo new_velo_vx_mv = _grv_mv_max_velo * (dx * 1.0 / _grv_mv_stop_renge);
+        const velo new_velo_vx_mv = _grv_mv_max_velo * (dx * inv_grv_mv_stop_renge);
         if (last_velo_vx_mv - x_acce <= new_velo_vx_mv &&
                                         new_velo_vx_mv <= last_velo_vx_mv + x_acce) {
             _velo_vx_mv = new_velo_vx_mv;
@@ -116,7 +118,7 @@ void Trucker::behave() {
         }
 
         const velo last_velo_vy_mv = _velo_vy_mv;
-        const velo new_velo_vy_mv = _grv_mv_max_velo * (dy * 1.0 / _grv_mv_stop_renge);
+        const velo new_velo_vy_mv = _grv_mv_max_velo * (dy * inv_grv_mv_stop_renge);
         if (last_velo_vy_mv - y_acce <= new_velo_vy_mv &&
                                         new_velo_vy_mv <= last_velo_vy_mv + y_acce) {
             _velo_vy_mv = new_velo_vy_mv;
@@ -129,7 +131,7 @@ void Trucker::behave() {
         }
 
         const velo last_velo_vz_mv = _velo_vz_mv;
-        const velo new_velo_vz_mv = _grv_mv_max_velo * (dz * 1.0 / _grv_mv_stop_renge);
+        const velo new_velo_vz_mv = _grv_mv_max_velo * (dz * inv_grv_mv_stop_renge);
         if (last_velo_vz_mv - z_acce <= new_velo_vz_mv &&
                                         new_velo_vz_mv <= last_velo_vz_mv + z_acce) {
             _velo_vz_mv = new_velo_vz_mv;
