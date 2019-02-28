@@ -27,7 +27,7 @@ void Shot003::initialize() {
 
 void Shot003::onActive() {
     getStatus()->reset();
-    setHitAble(true);
+    setHitAble(true, false);
     getKuroko()->setMvVelo(20000);
 
 }

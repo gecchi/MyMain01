@@ -83,9 +83,9 @@ void GeometricActor::processSettlementBehavior() {
         _fZ = C_DX(_z);
         //World•ÏŠ·s—ñi_matWorldj‚ðXV
         if (_pFunc_calc_rot_mv_world_matrix) {
-            //‰ñ“]~ˆÚ“®‚Ì‚ÝŒvŽZ‚µ _matWorldRotMv ‚É•ÛŽ
+            //‰ñ“]~ˆÚ“®‚Ì‚ÝŒvŽZ‚µ _matWorldRotMv ‚É
             (*_pFunc_calc_rot_mv_world_matrix)(this, _matWorldRotMv);
-            _matWorld = _matWorldRotMv;
+            _matWorld = _matWorldRotMv; //ƒRƒs[‚µ‚Ä•ÛŽ
             //‰ñ“]~ˆÚ“® ‚Ì‘O‚É ƒXƒP[ƒ‹‚ðl—¶‚µ‚ÄA
             //ÅI“I‚È _matWorld  s—ñ(Šg‘å~‰ñ“]~ˆÚ“®)‚ð•ÛŽ
             if (_sx != LEN_UNIT) {
@@ -168,33 +168,33 @@ void GeometricActor::processSettlementBehavior() {
         const dxcoord fX = _fX;
         const dxcoord fY = _fY;
         const dxcoord fZ = _fZ;
-        Camera* pCam = pGOD->getSpacetime()->getCamera();
-        const D3DXPLANE* pPlnTop = &(pCam->_plnTop);
+        static Camera* pCam = pGOD->getSpacetime()->getCamera();
+        static const D3DXPLANE* pPlnTop = &(pCam->_plnTop);
         _dest_from_vppln_top     = pPlnTop->a * fX +
                                    pPlnTop->b * fY +
                                    pPlnTop->c * fZ +
                                    pPlnTop->d;
-        const D3DXPLANE* pPlnBottom = &(pCam->_plnBottom);
+        static const D3DXPLANE* pPlnBottom = &(pCam->_plnBottom);
         _dest_from_vppln_bottom  = pPlnBottom->a * fX +
                                    pPlnBottom->b * fY +
                                    pPlnBottom->c * fZ +
                                    pPlnBottom->d;
-        const D3DXPLANE* pPlnLeft = &(pCam->_plnLeft);
+        static const D3DXPLANE* pPlnLeft = &(pCam->_plnLeft);
         _dest_from_vppln_left    = pPlnLeft->a * fX +
                                    pPlnLeft->b * fY +
                                    pPlnLeft->c * fZ +
                                    pPlnLeft->d;
-        const D3DXPLANE* pPlnRight = &(pCam->_plnRight);
+        static const D3DXPLANE* pPlnRight = &(pCam->_plnRight);
         _dest_from_vppln_right   = pPlnRight->a * fX +
                                    pPlnRight->b * fY +
                                    pPlnRight->c * fZ +
                                    pPlnRight->d;
-        const D3DXPLANE* pPlnInfront = &(pCam->_plnInfront);
+        static const D3DXPLANE* pPlnInfront = &(pCam->_plnInfront);
         _dest_from_vppln_infront = pPlnInfront->a * fX +
                                    pPlnInfront->b * fY +
                                    pPlnInfront->c * fZ +
                                    pPlnInfront->d;
-       const D3DXPLANE* pPlnBack = &(pCam->_plnBack);
+        static const D3DXPLANE* pPlnBack = &(pCam->_plnBack);
         _dest_from_vppln_back    = pPlnBack->a * fX +
                                    pPlnBack->b * fY +
                                    pPlnBack->c * fZ +

@@ -35,7 +35,7 @@ void Shot001::initialize() {
 
 void Shot001::onActive() {
     getStatus()->reset();
-    setHitAble(true);
+    setHitAble(true, false);
     GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->linkFaceAngByMvAng(true);
     pKuroko->setMvVelo(RF_Shot001_MvVelo(G_RANK));    //ˆÚ“®‘¬“x

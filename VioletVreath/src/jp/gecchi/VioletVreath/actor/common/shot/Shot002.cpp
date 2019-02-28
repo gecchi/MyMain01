@@ -29,7 +29,7 @@ void Shot002::initialize() {
 
 void Shot002::onActive() {
     getStatus()->reset();
-    setHitAble(true);
+    setHitAble(true, false);
     setScale(2000);
     GgafDx::Kuroko* const pKuroko = getKuroko();
     pKuroko->linkFaceAngByMvAng(true);
