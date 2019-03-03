@@ -58,7 +58,7 @@ bool CollisionChecker3D::isHit(const GgafDx::Checker* const prm_pOppChecker) {
 
     //複数の当たり判定要素をもつアクター同士の場合、
     //まず最外境界AABoxで当たり判定を行って、ヒットすれば厳密に当たり判定を行う。
-    if (colli_part_num > 2 && opp_colli_part_num > 2) {
+    if (colli_part_num > 2 || opp_colli_part_num > 2) {
 #ifdef MY_DEBUG
         CollisionChecker::_num_check++;
 #endif
