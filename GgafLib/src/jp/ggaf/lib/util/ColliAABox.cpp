@@ -59,6 +59,25 @@ void ColliAABox::set(coord x1, coord y1, coord z1, coord x2, coord y2, coord z2,
     _is_valid_flg = true;
 }
 
+void ColliAABox::setWithChengePos(coord cx, coord cy, coord cz) {
+    coord dx = cx - _base_cx;
+    coord dy = cy - _base_cy;
+    coord dz = cz - _base_cz;
+    _x1 += dx;
+    _y1 += dy;
+    _z1 += dz;
+    _x2 += dx;
+    _y2 += dy;
+    _z2 += dz;
+    _cx += dx;
+    _cy += dy;
+    _cz += dz;
+    _base_cx += dx;
+    _base_cy += dy;
+    _base_cz += dz;
+    _is_valid_flg = true;
+}
+
 void ColliAABox::rotateRxRzRy(angle rx, angle ry, angle rz) {
     s_ang s_rx = rx * (1.0 / SANG_RATE);
     s_ang s_ry = ry * (1.0 / SANG_RATE);

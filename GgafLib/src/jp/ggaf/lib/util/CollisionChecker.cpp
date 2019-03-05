@@ -63,6 +63,11 @@ void CollisionChecker::setColliSphere(int prm_index, coord x, coord y, coord z, 
 //    _is_enable = true;
 }
 
+void CollisionChecker::setColliAABoxWithChengePos(int prm_index, coord cx, coord cy, coord cz) {
+    ColliAABox* pAABox = (ColliAABox*)_pCollisionArea->_papColliPart[prm_index];
+    pAABox->setWithChengePos(cx, cy, cz);
+    _pCollisionArea->_need_update_aabb = true;
+}
 
 void CollisionChecker::setColliAABox(int prm_index,
                                      coord x1,

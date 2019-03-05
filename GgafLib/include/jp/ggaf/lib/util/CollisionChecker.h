@@ -429,6 +429,9 @@ public:
         setColliAAPyramid_Cube(prm_index, 0, 0, 0, prm_edge, pos_info);
     }
 
+
+    void setColliAABoxWithChengePos(int prm_index, coord cx, coord cy, coord cz);
+
 /////////////////////////////////////////////////////////
 
     /**

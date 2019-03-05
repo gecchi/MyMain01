@@ -261,15 +261,16 @@ void LaserChip::processSettlementBehavior() {
                         coord cX = dX / 2;
                         coord cY = dY / 2;
                         coord cZ = dZ / 2;
-                        pChecker->setColliAABox(
-                                      2,
-                                      cX - _hdx,
-                                      cY - _hdy,
-                                      cZ - _hdz,
-                                      cX + _hdx,
-                                      cY + _hdy,
-                                      cZ + _hdz
-                                      );
+                        pChecker->setColliAABoxWithChengePos(2, cX, cY, cZ);
+//                        pChecker->setColliAABox(
+//                                      2,
+//                                      cX - _hdx,
+//                                      cY - _hdy,
+//                                      cZ - _hdz,
+//                                      cX + _hdx,
+//                                      cY + _hdy,
+//                                      cZ + _hdz
+//                                      );
                         if ((ucoord)(dX+_hitarea_edge_length_6) < _hitarea_edge_length_6_2 &&
                             (ucoord)(dY+_hitarea_edge_length_6) < _hitarea_edge_length_6_2 &&
                             (ucoord)(dZ+_hitarea_edge_length_6) < _hitarea_edge_length_6_2)
@@ -281,27 +282,29 @@ void LaserChip::processSettlementBehavior() {
                             coord cX2 = cX / 2;
                             coord cY2 = cY / 2;
                             coord cZ2 = cZ / 2;
-                            pChecker->setColliAABox(
-                                          1,
-                                          cX2 - _hdx,
-                                          cY2 - _hdy,
-                                          cZ2 - _hdz,
-                                          cX2 + _hdx,
-                                          cY2 + _hdy,
-                                          cZ2 + _hdz
-                                          );
+                            pChecker->setColliAABoxWithChengePos(1, cX2, cY2, cZ2);
+//                            pChecker->setColliAABox(
+//                                          1,
+//                                          cX2 - _hdx,
+//                                          cY2 - _hdy,
+//                                          cZ2 - _hdz,
+//                                          cX2 + _hdx,
+//                                          cY2 + _hdy,
+//                                          cZ2 + _hdz
+//                                          );
                             coord cX3 = cX2 + cX;
                             coord cY3 = cY2 + cY;
                             coord cZ3 = cZ2 + cZ;
-                            pChecker->setColliAABox(
-                                          3,
-                                          cX3 - _hdx,
-                                          cY3 - _hdy,
-                                          cZ3 - _hdz,
-                                          cX3 + _hdx,
-                                          cY3 + _hdy,
-                                          cZ3 + _hdz
-                                          );
+                            pChecker->setColliAABoxWithChengePos(3, cX3, cY3, cZ3);
+//                            pChecker->setColliAABox(
+//                                          3,
+//                                          cX3 - _hdx,
+//                                          cY3 - _hdy,
+//                                          cZ3 - _hdz,
+//                                          cX3 + _hdx,
+//                                          cY3 + _hdy,
+//                                          cZ3 + _hdz
+//                                          );
                             _rate_of_length = 16.0f;
                         }
                     }
