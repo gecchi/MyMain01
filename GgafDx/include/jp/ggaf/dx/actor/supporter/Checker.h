@@ -15,14 +15,10 @@ namespace GgafDx {
 class Checker : public GgafCore::Object {
 
 public:
-//    /** 当たり判定領域の境界領域(AABB)を再計算するかどうかのフラグ */
-//    bool _need_update_aabb;
     /** 対象アクター */
     GeometricActor* const _pActor;
     /** 当たり判定領域 */
     CollisionArea* _pCollisionArea;
-//    /** 実質当たり判定が必要かどうか。パートの少なくとも一つが _is_valid_flg == true の場合 true */
-//    bool _is_enable;
 public:
     /**
      * コンストラクタ<BR>
@@ -73,8 +69,6 @@ public:
      * @param prm_index 無効にする当たり判定領域の要素番号
      */
     virtual void disable(int prm_index);
-//    virtual void disable(int prm_index1, int prm_index2);
-//    virtual void disable(int prm_index1, int prm_index2, int prm_index3);
 
     /**
      * 当たり判定領域の要素が有効か調べる。

@@ -32,7 +32,7 @@ public:
      */
     void set(coord x1, coord y1, coord z1, coord x2, coord y2, coord z2, bool rot_x, bool rot_y, bool rot_z);
 
-    void setWithChengePos(coord cx, coord cy, coord cz);
+    void movePos(coord cx, coord cy, coord cz);
 
     void rotateRxRzRy(angle rx, angle ry, angle rz) override;
 

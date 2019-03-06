@@ -37,7 +37,6 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
     _hitarea_edge_length_3_2 = _hitarea_edge_length_3 * 2;
     _hitarea_edge_length_6   = _hitarea_edge_length_3 * 2;
     _hitarea_edge_length_6_2 = _hitarea_edge_length_6 * 2;
-    _hdx = _hdy = _hdz = 0;
     _can_chikei_hit = false;
 
     setZEnableDraw(true);    //描画時、Zバッファ値は考慮される
@@ -68,36 +67,16 @@ void LaserChip::executeHitChk_MeAnd(GgafCore::Actor* prm_pOtherActor) {
 }
 
 void LaserChip::onActive() {
-    CollisionChecker* pChecker = getCollisionChecker();
-
     //出現時
     _chip_kind = 0; //未だ不明
     if (_pDepo) {
         _pDepo->_num_chip_active++;
     }
     _force_alpha = 1.00; //最初は奥でもハッキリ映る。
-
+    CollisionChecker* pChecker = getCollisionChecker();
     GgafDx::CollisionArea* pArea = pChecker->getArea();
     if (pArea) {
-        if (_middle_colli_able) {
-            pChecker->disable(1);
-            pChecker->disable(2);
-            pChecker->disable(3);
-        }
-
-        GgafDx::CollisionPart* p = pArea->_papColliPart[0];
-        _hdx = p->_hdx;
-        _hdy = p->_hdy;
-        _hdz = p->_hdz;
-        pChecker->setColliAABox(
-                0,
-                -_hdx,
-                -_hdy,
-                -_hdz,
-                +_hdx,
-                +_hdy,
-                +_hdz
-                );
+        pChecker->moveColliAABoxPos(0, 0, 0, 0);
     }
 }
 
@@ -140,11 +119,11 @@ void LaserChip::processSettlementBehavior() {
                 } else {
                     if (pChip_infront->_chip_kind == 5) {
                         _chip_kind = 2; //先が丸い発射元の末端テクスチャチップ
+                        setHitAble(true);
                     } else {
                         _chip_kind = 1; //発射元の末端テクスチャチップ
+                        setHitAble(true);
                     }
-
-                    setHitAble(true);
                 }
             } else {
                 if (pChip_infront->_chip_kind == 5) {
@@ -179,143 +158,108 @@ void LaserChip::processSettlementBehavior() {
         }
     }
 
-    if (pChecker->getArea()) {
+    if (pChecker->getArea() && _can_hit_flg) {
         if (_chip_kind == 5) {
+            if (_middle_colli_able) {
+                pChecker->disable(1);
+                pChecker->disable(2);
+                pChecker->disable(3);
+            }
             //先端チップの当たり判定を、後ろチップとの中間の位置に凹ませる。
             if (pChip_behind) {
                 coord dX =  pChip_behind->_x - _x;
                 coord dY =  pChip_behind->_y - _y;
                 coord dZ =  pChip_behind->_z - _z;
-                int cX = dX / 2;
-                int cY = dY / 2;
-                int cZ = dZ / 2;
-                pChecker->setColliAABox(
-                          0,
-                          cX - _hdx,
-                          cY - _hdy,
-                          cZ - _hdz,
-                          cX + _hdx,
-                          cY + _hdy,
-                          cZ + _hdz
-                          );
-                setHitAble(true);
+                coord cX = dX / 2;
+                coord cY = dY / 2;
+                coord cZ = dZ / 2;
+                pChecker->moveColliAABoxPos(0, cX, cY, cZ);
             } else {
                 setHitAble(false);
             }
-        }
+        } else { //if (_chip_kind != 5)
+            //この処理はprocessBehavior()で行えない。なぜならば、_pChip_infront が座標移動済みの保証がないため。
+            if (_middle_colli_able) { //おそらく水撒きレーザーチップの場合
+                //レーザーチップの広がった間隔に当たり判定を生成して埋める
+                //
+                //              | -=|===|===|===|<> |
+                // _chip_kind : 1   3   3   3   4   5
+                //              2
+                //
+                //判定領域要素[0]        [1]        [2]        [3]        [0]
+                //             |                                           |
+                //          ┌-|-┐    ┌---┐    ┌---┐    ┌---┐    ┌-|-┐
+                //  +----------+----------+----------+----------+----------+-----------+-
+                //          └-|-┘    └---┘    └---┘    └---┘    └-|-┘
+                //             |                                           |
+                //             <------------------------------------------->
+                //                                  dX
+                //           <--->
+                //         _hitarea_edge_length
+                //
 
+                if (_chip_kind == 1 || _chip_kind == 2 || _chip_kind == 3) {
+                    coord dX = pChip_infront->_x - _x;
+                    coord dY = pChip_infront->_y - _y;
+                    coord dZ = pChip_infront->_z - _z;
 
-        //この処理はprocessBehavior()で行えない。なぜならば、_pChip_infront が座標移動済みの保証がないため。
-        if (_middle_colli_able) { //おそらく水撒きレーザーチップの場合
-            //レーザーチップの広がった間隔に当たり判定を生成して埋める
-            //
-            //              | -=|===|===|===|<> |
-            // _chip_kind : 1   3   3   3   4   5
-            //              2
-            //
-            //判定領域要素[0]        [1]        [2]        [3]        [0]
-            //             |                                           |
-            //          ┌-|-┐    ┌---┐    ┌---┐    ┌---┐    ┌-|-┐
-            //  +----------+----------+----------+----------+----------+-----------+-
-            //          └-|-┘    └---┘    └---┘    └---┘    └-|-┘
-            //             |                                           |
-            //             <------------------------------------------->
-            //                                  dX
-            //           <--->
-            //         _hitarea_edge_length
-            //
-
-            if (_chip_kind == 1 || _chip_kind == 2 || _chip_kind == 3) {
-                coord dX = pChip_infront->_x - _x;
-                coord dY = pChip_infront->_y - _y;
-                coord dZ = pChip_infront->_z - _z;
-
-//                if (ABS(dX) < _hitarea_edge_length &&
-//                    ABS(dY) < _hitarea_edge_length &&
-//                    ABS(dZ) < _hitarea_edge_length)
-//                {
-//              ↓の意味は、↑と同じ。ちょっと最適化。
-                if ((ucoord)(dX+_hitarea_edge_length) < _hitarea_edge_length_2 &&
-                    (ucoord)(dY+_hitarea_edge_length) < _hitarea_edge_length_2 &&
-                    (ucoord)(dZ+_hitarea_edge_length) < _hitarea_edge_length_2)
-                {
-                    //前方チップとくっつきすぎた場合に、判定領域を一時的に無効化
-//                    pChecker->disable(0);
-//                    pChecker->disable(1);
-//                    pChecker->disable(2);
-//                    pChecker->disable(3);
-                    setHitAble(false);
-                } else {
-                    setHitAble(true);
-                    if ((ucoord)(dX+_hitarea_edge_length_3) < _hitarea_edge_length_3_2 &&
-                        (ucoord)(dY+_hitarea_edge_length_3) < _hitarea_edge_length_3_2 &&
-                        (ucoord)(dZ+_hitarea_edge_length_3) < _hitarea_edge_length_3_2)
+    //                if (ABS(dX) < _hitarea_edge_length &&
+    //                    ABS(dY) < _hitarea_edge_length &&
+    //                    ABS(dZ) < _hitarea_edge_length)
+    //                {
+    //              ↓の意味は、↑と同じ。ちょっと最適化。
+                    if ((ucoord)(dX+_hitarea_edge_length) < _hitarea_edge_length_2 &&
+                        (ucoord)(dY+_hitarea_edge_length) < _hitarea_edge_length_2 &&
+                        (ucoord)(dZ+_hitarea_edge_length) < _hitarea_edge_length_2)
                     {
-                        pChecker->disable(1);
-                        pChecker->disable(2);
-                        pChecker->disable(3);
-                        _rate_of_length = 4.0f;
+                        //前方チップとくっつきすぎた場合に、判定領域を一時的に無効化
+                        setHitAble(false);
                     } else {
-                        //前方チップと離れすぎた場合に、中間に当たり判定領域を一時的に有効化
-                        //自身と前方チップの中間に当たり判定を作り出す
-                        coord cX = dX / 2;
-                        coord cY = dY / 2;
-                        coord cZ = dZ / 2;
-                        pChecker->setColliAABoxWithChengePos(2, cX, cY, cZ);
-//                        pChecker->setColliAABox(
-//                                      2,
-//                                      cX - _hdx,
-//                                      cY - _hdy,
-//                                      cZ - _hdz,
-//                                      cX + _hdx,
-//                                      cY + _hdy,
-//                                      cZ + _hdz
-//                                      );
-                        if ((ucoord)(dX+_hitarea_edge_length_6) < _hitarea_edge_length_6_2 &&
-                            (ucoord)(dY+_hitarea_edge_length_6) < _hitarea_edge_length_6_2 &&
-                            (ucoord)(dZ+_hitarea_edge_length_6) < _hitarea_edge_length_6_2)
+                        if ((ucoord)(dX+_hitarea_edge_length_3) < _hitarea_edge_length_3_2 &&
+                            (ucoord)(dY+_hitarea_edge_length_3) < _hitarea_edge_length_3_2 &&
+                            (ucoord)(dZ+_hitarea_edge_length_3) < _hitarea_edge_length_3_2)
                         {
                             pChecker->disable(1);
+                            pChecker->disable(2);
                             pChecker->disable(3);
-                            _rate_of_length = 8.0f;
+                            _rate_of_length = 4.0f;
                         } else {
-                            coord cX2 = cX / 2;
-                            coord cY2 = cY / 2;
-                            coord cZ2 = cZ / 2;
-                            pChecker->setColliAABoxWithChengePos(1, cX2, cY2, cZ2);
-//                            pChecker->setColliAABox(
-//                                          1,
-//                                          cX2 - _hdx,
-//                                          cY2 - _hdy,
-//                                          cZ2 - _hdz,
-//                                          cX2 + _hdx,
-//                                          cY2 + _hdy,
-//                                          cZ2 + _hdz
-//                                          );
-                            coord cX3 = cX2 + cX;
-                            coord cY3 = cY2 + cY;
-                            coord cZ3 = cZ2 + cZ;
-                            pChecker->setColliAABoxWithChengePos(3, cX3, cY3, cZ3);
-//                            pChecker->setColliAABox(
-//                                          3,
-//                                          cX3 - _hdx,
-//                                          cY3 - _hdy,
-//                                          cZ3 - _hdz,
-//                                          cX3 + _hdx,
-//                                          cY3 + _hdy,
-//                                          cZ3 + _hdz
-//                                          );
-                            _rate_of_length = 16.0f;
+                            //前方チップと離れすぎた場合に、中間に当たり判定領域を一時的に有効化
+                            //自身と前方チップの中間に当たり判定を作り出す
+                            coord cX = dX / 2;
+                            coord cY = dY / 2;
+                            coord cZ = dZ / 2;
+                            pChecker->moveColliAABoxPos(2, cX, cY, cZ);
+                            if ((ucoord)(dX+_hitarea_edge_length_6) < _hitarea_edge_length_6_2 &&
+                                (ucoord)(dY+_hitarea_edge_length_6) < _hitarea_edge_length_6_2 &&
+                                (ucoord)(dZ+_hitarea_edge_length_6) < _hitarea_edge_length_6_2)
+                            {
+                                pChecker->disable(1);
+                                pChecker->disable(3);
+                                _rate_of_length = 8.0f;
+                            } else {
+                                coord cX2 = cX / 2;
+                                coord cY2 = cY / 2;
+                                coord cZ2 = cZ / 2;
+                                pChecker->moveColliAABoxPos(1, cX2, cY2, cZ2);
+                                coord cX3 = cX2 + cX;
+                                coord cY3 = cY2 + cY;
+                                coord cZ3 = cZ2 + cZ;
+                                pChecker->moveColliAABoxPos(3, cX3, cY3, cZ3);
+                                _rate_of_length = 16.0f;
+                            }
                         }
                     }
+                } else { //if (_chip_kind == 1 || _chip_kind == 2 || _chip_kind == 3) 以外 _chip_kind = 4
+                    pChecker->disable(1);
+                    pChecker->disable(2);
+                    pChecker->disable(3);
+                    _rate_of_length = 4.0f;
                 }
-            } else {
-                pChecker->disable(1);
-                pChecker->disable(2);
-                pChecker->disable(3);
-                _rate_of_length = 4.0f;
+            } else { //if (_middle_colli_able) 以外
             }
-        }
+
+        } //if (_chip_kind != 5)
     }
 
     //最初は奥でもハッキリ映る。が

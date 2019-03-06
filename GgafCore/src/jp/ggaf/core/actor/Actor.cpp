@@ -45,10 +45,6 @@ void Actor::setHitAble(bool prm_can_hit_flg, bool prm_can_hit_out_of_view_flg) {
     _can_hit_out_of_view = prm_can_hit_out_of_view_flg;
 }
 
-void Actor::setHitAble(bool prm_can_hit_flg) {
-    _can_hit_flg = prm_can_hit_flg;
-}
-
 void Actor::setHitAbleTree(bool prm_can_hit_flg, bool prm_can_hit_out_of_view_flg) {
     _can_hit_flg = prm_can_hit_flg;
     _can_hit_out_of_view = prm_can_hit_out_of_view_flg;

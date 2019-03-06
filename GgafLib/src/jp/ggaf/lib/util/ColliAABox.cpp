@@ -59,7 +59,7 @@ void ColliAABox::set(coord x1, coord y1, coord z1, coord x2, coord y2, coord z2,
     _is_valid_flg = true;
 }
 
-void ColliAABox::setWithChengePos(coord cx, coord cy, coord cz) {
+void ColliAABox::movePos(coord cx, coord cy, coord cz) {
     coord dx = cx - _base_cx;
     coord dy = cy - _base_cy;
     coord dz = cz - _base_cz;

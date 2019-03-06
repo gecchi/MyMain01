@@ -41,9 +41,6 @@ private:
     /** registerHitAreaCube_AutoGenMidColli() メソッドにより登録時の当たり判定立方体の１辺の長さの半分 */
 //    int _harf_hitarea_edge_length;
 
-    int _hdx,_hdy,_hdz;
-
-
     /** 一つ前方のレーザーチップ */
     LaserChip* _pChip_infront;
     /** 一つ後方のレーザーチップ */

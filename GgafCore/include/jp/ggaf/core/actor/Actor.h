@@ -86,7 +86,9 @@ public:
      * 視野外衝突判定の有無は変化しない。
      * @param prm_can_hit_flg  衝突判定有無(true:衝突判定有り／false:衝突判定無し)
      */
-    void setHitAble(bool prm_can_hit_flg);
+    void setHitAble(bool prm_can_hit_flg) {
+        _can_hit_flg = prm_can_hit_flg;
+    }
     /**
      * 自ツリーアクターの衝突判定有無を設定する。 .
      * @param prm_can_hit_flg  衝突判定有無(true:衝突判定有り／false:衝突判定無し)

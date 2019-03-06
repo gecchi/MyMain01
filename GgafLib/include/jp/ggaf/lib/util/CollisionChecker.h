@@ -430,7 +430,7 @@ public:
     }
 
 
-    void setColliAABoxWithChengePos(int prm_index, coord cx, coord cy, coord cz);
+    void moveColliAABoxPos(int prm_index, coord cx, coord cy, coord cz);
 
 /////////////////////////////////////////////////////////
 
