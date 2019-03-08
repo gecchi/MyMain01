@@ -22,7 +22,6 @@ using namespace VioletVreath;
 GgafDx::Model* MyStraightLaserChip001::pModel_  = nullptr;
 int MyStraightLaserChip001::tex_no_ = 0;
 
-
 MyStraightLaserChip001::MyStraightLaserChip001(const char* prm_name) :
         VvMyActor<StraightLaserChip>(prm_name, "MyLaserChip001", StatusReset(MyStraightLaserChip001)) {
     _class_name = "MyStraightLaserChip001";
@@ -95,7 +94,6 @@ void MyStraightLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor) {
         if (pOther->getStatus()->get(STAT_LockonAble) == 1) {
             pOrg_->pLockonCtrler_->lockon(pOther);
         }
-
         const int stamina = UTIL::calcMyStamina(this, pOther);
         if (stamina <= 0) {
             //一撃でチップ消滅の攻撃力
@@ -109,7 +107,6 @@ void MyStraightLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor) {
         //地形相手は無条件さようなら
         sayonara();
     }
-
 }
 
 void MyStraightLaserChip001::onInactive() {

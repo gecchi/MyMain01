@@ -170,9 +170,9 @@ void LaserChip::processSettlementBehavior() {
                 coord dX =  pChip_behind->_x - _x;
                 coord dY =  pChip_behind->_y - _y;
                 coord dZ =  pChip_behind->_z - _z;
-                coord cX = dX / 2;
-                coord cY = dY / 2;
-                coord cZ = dZ / 2;
+                coord cX = dX * 0.25;
+                coord cY = dY * 0.25;
+                coord cZ = dZ * 0.25;
                 pChecker->moveColliAABoxPos(0, cX, cY, cZ);
             } else {
                 setHitAble(false);
@@ -198,7 +198,7 @@ void LaserChip::processSettlementBehavior() {
                 //         _hitarea_edge_length
                 //
 
-                if (_chip_kind == 1 || _chip_kind == 2 || _chip_kind == 3) {
+//                if (_chip_kind != 0) {
                     coord dX = pChip_infront->_x - _x;
                     coord dY = pChip_infront->_y - _y;
                     coord dZ = pChip_infront->_z - _z;
@@ -213,7 +213,9 @@ void LaserChip::processSettlementBehavior() {
                         (ucoord)(dZ+_hitarea_edge_length) < _hitarea_edge_length_2)
                     {
                         //前方チップとくっつきすぎた場合に、判定領域を一時的に無効化
-                        setHitAble(false);
+                        if (_chip_kind != 1) { //近くても末端だけは当たり判定あり
+                            setHitAble(false);
+                        }
                     } else {
                         if ((ucoord)(dX+_hitarea_edge_length_3) < _hitarea_edge_length_3_2 &&
                             (ucoord)(dY+_hitarea_edge_length_3) < _hitarea_edge_length_3_2 &&
@@ -250,12 +252,12 @@ void LaserChip::processSettlementBehavior() {
                             }
                         }
                     }
-                } else { //if (_chip_kind == 1 || _chip_kind == 2 || _chip_kind == 3) 以外 _chip_kind = 4
-                    pChecker->disable(1);
-                    pChecker->disable(2);
-                    pChecker->disable(3);
-                    _rate_of_length = 4.0f;
-                }
+//                } else { //if (_chip_kind == 1 || _chip_kind == 2 || _chip_kind == 3 || _chip_kind = 4) 以外
+//                    pChecker->disable(1);
+//                    pChecker->disable(2);
+//                    pChecker->disable(3);
+//                    _rate_of_length = 4.0f;
+//                }
             } else { //if (_middle_colli_able) 以外
             }
 

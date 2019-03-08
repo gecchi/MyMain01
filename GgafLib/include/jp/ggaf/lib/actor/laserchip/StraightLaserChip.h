@@ -55,7 +55,7 @@ public:
 
     virtual void initialize() override {}
 
-    virtual void processBehavior() override {}
+    virtual void processBehavior() override;
 
     /**
      * レーザーチップ座標計算等処理 .

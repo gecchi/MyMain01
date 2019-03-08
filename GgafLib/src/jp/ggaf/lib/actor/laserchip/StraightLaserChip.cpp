@@ -24,7 +24,7 @@ StraightLaserChip::StraightLaserChip(const char* prm_name, const char* prm_model
     _view_bound = C_DX(_velo_mv) * 3;
 }
 
-void StraightLaserChip::processSettlementBehavior() {
+void StraightLaserChip::processBehavior() {
     //各アクターの座標移動が完了した後に実行したい
     if (_pSourceActor) {
         //発射元アクターが消失する場合
@@ -73,6 +73,9 @@ void StraightLaserChip::processSettlementBehavior() {
         _z = _tmp_source_z + (vz * v );
     }
 
+}
+
+void StraightLaserChip::processSettlementBehavior() {
     if (_was_paused_flg) {
         GgafDx::GeometricActor::processSettlementBehavior();
     } else {

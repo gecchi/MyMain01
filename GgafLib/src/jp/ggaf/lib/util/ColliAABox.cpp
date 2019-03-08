@@ -72,9 +72,9 @@ void ColliAABox::movePos(coord cx, coord cy, coord cz) {
     _cx += dx;
     _cy += dy;
     _cz += dz;
-    _base_cx += dx;
-    _base_cy += dy;
-    _base_cz += dz;
+    _base_cx = cx;
+    _base_cy = cy;
+    _base_cz = cz;
     _is_valid_flg = true;
 }
 
