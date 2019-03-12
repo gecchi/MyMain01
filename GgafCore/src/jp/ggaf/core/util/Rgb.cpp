@@ -797,9 +797,9 @@ void Rgb::set(std::string prm_str_color) {
         _red = UTIL::hex2dec(_hex.substr(0, 2));
         _green = UTIL::hex2dec(_hex.substr(2, 2));
         _blue = UTIL::hex2dec(_hex.substr(4, 2));
-        _r = _red / 255.0f;
-        _g = _green / 255.0f;
-        _b = _blue / 255.0f;
+        _r = _red * 0.00392157f; // 0.00392157f = 1.0f / 255.0f （255で割るのと同じ)
+        _g = _green * 0.00392157f;
+        _b = _blue * 0.00392157f;
     } else {
         if (Rgb::_cname.find(prm_str_color) == Rgb::_cname.end()) {
             throwCriticalException("HEX値(色名)からRGBに変換出来ません。prm_str_color="<<prm_str_color);
@@ -812,9 +812,9 @@ void Rgb::set(std::string prm_str_color) {
             _red = UTIL::hex2dec(_hex.substr(0, 2));
             _green = UTIL::hex2dec(_hex.substr(2, 2));
             _blue = UTIL::hex2dec(_hex.substr(4, 2));
-            _r = _red / 255.0f;
-            _g = _green / 255.0f;
-            _b = _blue / 255.0f;
+            _r = _red * 0.00392157f; // 0.00392157f = 1.0f / 255.0f （255で割るのと同じ)
+            _g = _green * 0.00392157f;
+            _b = _blue * 0.00392157f;
         }
 
     }

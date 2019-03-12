@@ -50,7 +50,7 @@ void MyMagicEnergyCore::processBehavior() {
     CollisionChecker* pChecker = getCollisionChecker();
     if (s > 0.0) {
         pChecker->enable(0);
-        pChecker->setColliSphere(0, s*PX_C(100));
+        pChecker->changeColliSphereR(0, s*PX_C(100));
     } else {
         pChecker->disable(0);
     }

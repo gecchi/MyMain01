@@ -75,14 +75,6 @@ void StraightLaserChip::processBehavior() {
 
 }
 
-void StraightLaserChip::processSettlementBehavior() {
-    if (_was_paused_flg) {
-        GgafDx::GeometricActor::processSettlementBehavior();
-    } else {
-        LaserChip::processSettlementBehavior();
-    }
-}
-
 int StraightLaserChip::isOutOfView() {
     if (_offscreen_kind == -1) {
         const dxcoord bound = _view_bound;

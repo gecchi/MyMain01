@@ -34,6 +34,8 @@ public:
      */
     void set(coord x, coord y, coord z, coord r, bool rot_x, bool rot_y, bool rot_z);
 
+    void changeR(coord r);
+
     void rotateRxRzRy(angle rx, angle ry, angle rz) override;
 
     virtual ~ColliSphere();

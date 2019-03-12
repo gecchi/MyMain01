@@ -107,6 +107,20 @@ public:
         double cos_t = ((vx1*vx2)+(vy1*vy2)) / (sqrt((vx1*vx1)+(vy1*vy1)) *  sqrt((vx2*vx2)+(vy2*vy2)) );
         return acos(cos_t);
     }
+
+    /**
+     * 平面上のベクトル(vx, vy) が作る原点のなす角を返す。ただしvx>0,vy>0が事前にわかっている .
+     * @param prm_vx ベクトル x 要素
+     * @param prm_vy ベクトル y 要素
+     * @return なす角のアングル値 (0 ～ D90ANG)
+     */
+    static angle getAngle2D_ex(int prm_vx, int prm_vy) {
+        if (prm_vx >= prm_vy) {
+            return D0ANG  + SLANT2ANG[(int)(((double)prm_vy)/prm_vx*100000.0)];
+        } else {
+            return D90ANG - SLANT2ANG[(int)(((double)prm_vx)/prm_vy*100000.0)];
+        }
+    }
     /**
      * 平面上のベクトル(vx, vy) が作る原点のなす角を返す .
      * @param prm_vx ベクトル x 要素

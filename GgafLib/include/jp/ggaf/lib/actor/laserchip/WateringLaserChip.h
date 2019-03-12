@@ -43,11 +43,6 @@ public:
 
     virtual void processJudgement() override {}
 
-    /**
-     * 平均曲線座標設定。(レーザーを滑らかにするノーマライズ） .
-     */
-    virtual void processSettlementBehavior() override;
-
     virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {}
 
     virtual ~WateringLaserChip();

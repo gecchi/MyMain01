@@ -40,6 +40,8 @@ public:
 
     /** [r/w]速度範囲（この値を大きくすると、最高速度が早くなる。） */
     static const velo MAX_VELO_RENGE;
+    /** [r]計算用 */
+    static const double INV_MAX_VELO_RENGE;
     /** 加速度範囲(-MAX_ACCE_RENGE, MAX_ACCE_RENGE) */
     static const float MAX_ACCE_RENGE;
 

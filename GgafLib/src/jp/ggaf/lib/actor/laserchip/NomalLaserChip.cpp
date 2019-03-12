@@ -9,14 +9,6 @@ NomalLaserChip::NomalLaserChip(const char* prm_name, const char* prm_model) :
     _class_name = "NomalLaserChip";
 }
 
-void NomalLaserChip::processSettlementBehavior() {
-    if (_was_paused_flg) {
-        GgafDx::GeometricActor::processSettlementBehavior();
-    } else {
-        LaserChip::processSettlementBehavior();
-    }
-}
-
 NomalLaserChip::~NomalLaserChip() {
 }
 

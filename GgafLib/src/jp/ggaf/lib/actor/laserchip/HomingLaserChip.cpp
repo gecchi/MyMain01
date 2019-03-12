@@ -144,14 +144,6 @@ void HomingLaserChip::processBehavior() {
     }
 }
 
-void HomingLaserChip::processSettlementBehavior() {
-    if (_was_paused_flg) {
-        GgafDx::GeometricActor::processSettlementBehavior();
-    } else {
-        LaserChip::processSettlementBehavior();
-    }
-}
-
 HomingLaserChip::~HomingLaserChip() {
 }
 

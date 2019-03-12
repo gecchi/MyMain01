@@ -57,13 +57,6 @@ public:
 
     virtual void processBehavior() override;
 
-    /**
-     * レーザーチップ座標計算等処理 .
-     * 独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
-     * その際 は、本クラスの processSettlementBehavior() メソッドも呼び出してください。
-     */
-    virtual void processSettlementBehavior() override;
-
     virtual void processJudgement() override {}
 
     virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {}

@@ -893,13 +893,13 @@ template<class T>
 void Element<T>::nextFrame() {
     _was_paused_flg = _was_paused_flg_in_next_frame;
     if (!_was_paused_flg) {
-        _frame_of_life++;
+        const frame frame_of_life = (++_frame_of_life);
         _is_already_reset = false;
-        if (_frame_of_life == _frame_of_life_when_end) {
+        if (frame_of_life == _frame_of_life_when_end) {
             _can_live_flg = false; //終了の時だ
         } else {
             if (_is_active_flg) {  //現在activate
-                if (_frame_of_life == _frame_of_life_when_inactivation) { //現在 activate だが、今inactivateになる時が来た
+                if (frame_of_life == _frame_of_life_when_inactivation) { //現在 activate だが、今inactivateになる時が来た
                     _on_change_to = 1;
                     _is_active_flg = false; //活動フラグOFF
                     _is_active_in_the_tree_flg = false;
@@ -915,8 +915,8 @@ void Element<T>::nextFrame() {
                 }
 
             } else { //現在inactivate
-                if(_frame_of_life == _frame_of_life_when_activation) { //現在inactivate だが、今activateになる時が来た
-                    _on_change_to = 2;       //onActive処理
+                if(frame_of_life == _frame_of_life_when_activation) { //現在inactivate だが、今activateになる時が来た
+                    _on_change_to = 2;      //onActive処理
                     _is_active_flg = true;  //活動フラグON
                     updateActiveInTheTree();     //_is_active_in_the_tree_flg を更新
                     if (_is_active_in_the_tree_flg) {
@@ -941,26 +941,26 @@ void Element<T>::nextFrame() {
     }
     //再帰
     //配下の全ノードに再帰的にnextFrame()実行
-    T* pElement = Node<T>::_pChildFirst; //一つ配下の先頭ノード。潜れる場合は先に潜る。
-    if (pElement) {
-        while (!pElement->_is_last_flg) {
+    T* p = Node<T>::_pChildFirst; //一つ配下の先頭ノード。潜れる場合は先に潜る。
+    if (p) {
+        while (!p->_is_last_flg) {
             //配下の先頭 ～ 末尾-1 ノードに nextFrame()
-            pElement->nextFrame();  //再帰
-            if (pElement->_can_live_flg) {
-                pElement = pElement->_pNext;
+            p->nextFrame();  //再帰
+            if (p->_can_live_flg) {
+                p = p->_pNext;
             } else {
-                pElement->onEnd();
-                pElement = pElement->_pNext; //先に一個進ませて退避させてから
-                GarbageBox::_pGarbageBox->add(pElement->_pPrev); //一個前をゴミ箱へ(連結が切れる)
+                p->onEnd();
+                p = p->_pNext; //先に一個進ませて退避させてから
+                GarbageBox::_pGarbageBox->add(p->_pPrev); //一個前をゴミ箱へ(連結が切れる)
             }
         }
         //配下の最後の末尾ノードに nextFrame()
-        pElement->nextFrame(); //再帰
-        if (pElement->_can_live_flg) {
+        p->nextFrame(); //再帰
+        if (p->_can_live_flg) {
             //OK 次は無し→親ノードの処理へ
         } else {
-            pElement->onEnd();
-            GarbageBox::_pGarbageBox->add(pElement); //ゴミ箱へ
+            p->onEnd();
+            GarbageBox::_pGarbageBox->add(p); //ゴミ箱へ
         }
     }
 }

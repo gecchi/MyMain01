@@ -273,14 +273,6 @@ void RefractionLaserChip::processBehavior() {
     }
 }
 
-void RefractionLaserChip::processSettlementBehavior() {
-    if (_was_paused_flg) {
-        GgafDx::GeometricActor::processSettlementBehavior();
-    } else {
-        LaserChip::processSettlementBehavior();
-    }
-}
-
 RefractionLaserChip::~RefractionLaserChip() {
 }
 

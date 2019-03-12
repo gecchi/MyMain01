@@ -503,10 +503,10 @@ coord Util::getDistance(coord x1, coord y1, coord x2, coord y2) {
 
 
 void Util::convVectorToRzRy(coord vx,
-                                  coord vy,
-                                  coord vz,
-                                  angle& out_rz,
-                                  angle& out_ry ) {
+                            coord vy,
+                            coord vz,
+                            angle& out_rz,
+                            angle& out_ry ) {
     if (vz == 0) {
         out_rz = Util::getAngle2D(vx, vy);
         out_ry = 0;
@@ -518,20 +518,26 @@ void Util::convVectorToRzRy(coord vx,
     //TODO:0 Ç™óàÇƒÇ‡ëÂè‰ïvÇ…Ç∑ÇÈÅB
     vx = (vx == 0 ? 1 : vx);
     vy = (vy == 0 ? 1 : vy);
-    vz = (vz == 0 ? 1 : vz);
-
-    const angle prj_rXY = Util::getAngle2D(ABS(vx), ABS(vy)); //Rz
-    const angle prj_rXZ = Util::getAngle2D(ABS(vx), ABS(vz));
-    const angle prj_rZY = Util::getAngle2D(ABS(vz), ABS(vy)); //Rz
-    const angle prj_rZX = Util::getAngle2D(ABS(vz), ABS(vx));
+//    vz = (vz == 0 ? 1 : vz);
+    coord dx = ABS(vx);
+    coord dy = ABS(vy);
+    coord dz = ABS(vz);
+    const angle prj_rXY = Util::getAngle2D_ex(dx, dy); //Rz
+    const angle prj_rXZ = Util::getAngle2D_ex(dx, dz);
+    const angle prj_rZY = Util::getAngle2D_ex(dz, dy); //Rz
+    const angle prj_rZX = Util::getAngle2D_ex(dz, dz);
 
     angle rot_z, rot_y_rev;
     if (0 <= prj_rXZ && prj_rXZ <= D45ANG) {
-        rot_z = Util::PROJANG_XY_XZ_TO_ROTANG_z[(int)(prj_rXY*0.01)][(int)(prj_rXZ*0.01)];
-        rot_y_rev = Util::PROJANG_XY_XZ_TO_ROTANG_y_REV[(int)(prj_rXY*0.01)][(int)(prj_rXZ*0.01)];
+        int xy = (int)(prj_rXY*0.01);
+        int xz = (int)(prj_rXZ*0.01);
+        rot_z = Util::PROJANG_XY_XZ_TO_ROTANG_z[xy][xz];
+        rot_y_rev = Util::PROJANG_XY_XZ_TO_ROTANG_y_REV[xy][xz];
     } else if (D45ANG <= prj_rXZ && prj_rXZ <= D90ANG) {
-        rot_z = Util::PROJANG_ZY_ZX_TO_ROTANG_x_REV[(int)(prj_rZY*0.01)][(int)(prj_rZX*0.01)];
-        rot_y_rev = D90ANG - Util::PROJANG_ZY_ZX_TO_ROTANG_y[(int)(prj_rZY*0.01)][(int)(prj_rZX*0.01)];
+        int zy = (int)(prj_rZY*0.01);
+        int zx = (int)(prj_rZX*0.01);
+        rot_z = Util::PROJANG_ZY_ZX_TO_ROTANG_x_REV[zy][zx];
+        rot_y_rev = D90ANG - Util::PROJANG_ZY_ZX_TO_ROTANG_y[zy][zx];
     } else {
         throwCriticalException("îÕàÕÇ™îjí]ÇµÇƒÇ‹Ç∑ÅBprj_rXZ="<<prj_rXZ<<" à¯êî:"<<vx<<","<<vy<<","<<vz);
     }
@@ -602,28 +608,28 @@ void Util::convVectorToRzRy(coord vx,
 
 
 void Util::convVectorToRzRy(coord vx,
-                                  coord vy,
-                                  coord vz,
-                                  float& out_nvx,
-                                  float& out_nvy,
-                                  float& out_nvz,
-                                  angle& out_rz,
-                                  angle& out_ry) {
+                            coord vy,
+                            coord vz,
+                            float& out_nvx,
+                            float& out_nvy,
+                            float& out_nvz,
+                            angle& out_rz,
+                            angle& out_ry) {
 
     Util::convVectorToRzRy(vx, vy, vz,
-                                 out_rz, out_ry );
+                           out_rz, out_ry );
 
     Util::convRzRyToVector(out_rz, out_ry,
-                                 out_nvx, out_nvy, out_nvz);
+                           out_nvx, out_nvy, out_nvz);
 
 }
 
 
 void Util::convRzRyToVector(angle prm_rz,
-                                  angle prm_ry,
-                                  float& out_nvx,
-                                  float& out_nvy,
-                                  float& out_nvz) {
+                            angle prm_ry,
+                            float& out_nvx,
+                            float& out_nvy,
+                            float& out_nvz) {
     //void SphereRadiusVectors::getVectorClosely(int out_faceY, int prm_angZ, uint16_t& out_x, uint16_t& out_y, uint16_t& out_z) {
     //âÒì]äpÇ…ÇÊÇ¡ÇƒåTå¿Ççló∂ÇµÅAgetVectorCloselyÇÃÉpÉâÉÅÅ[É^äp(< 900)ÇèoÇ∑
     int xsign, ysign, zsign;
@@ -742,9 +748,9 @@ void Util::convRzRyToVector(angle prm_rz,
 }
 
 void Util::getPlaneNomalVec(float p1x, float p1y, float p1z,
-                                  float p2x, float p2y, float p2z,
-                                  float p3x, float p3y, float p3z,
-                                  float& out_nvx, float& out_nvy, float& out_nvz, float& out_d) {
+                            float p2x, float p2y, float p2z,
+                            float p3x, float p3y, float p3z,
+                            float& out_nvx, float& out_nvy, float& out_nvz, float& out_d) {
     //ñ ÇÃí∏ì_ÇRÇ¬
     D3DXVECTOR3 v1 = D3DXVECTOR3(p1x, p1y, p1z);
     D3DXVECTOR3 v2 = D3DXVECTOR3(p2x, p2y, p2z);

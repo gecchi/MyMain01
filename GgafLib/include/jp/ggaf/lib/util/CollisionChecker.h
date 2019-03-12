@@ -32,6 +32,9 @@ public:
      */
     explicit CollisionChecker(GgafDx::GeometricActor* prm_pActor);
 
+
+    void changeColliSphereR(int prm_index, coord r);
+
     /**
      * “–‚½‚è”»’è—Ìˆæ—v‘f‚ğ‹…‚Æ‚µ‚Ä’è‹` .
      * @param prm_index “–‚½‚è”»’è—Ìˆæ‚Ì—v‘f”Ô†

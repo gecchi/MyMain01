@@ -30,6 +30,12 @@ unsigned int CollisionChecker::_num_check = 0;
 CollisionChecker::CollisionChecker(GgafDx::GeometricActor* prm_pActor) : GgafDx::Checker(prm_pActor) {
 }
 
+void CollisionChecker::changeColliSphereR(int prm_index, coord r) {
+    ColliSphere* pSphere = (ColliSphere*)_pCollisionArea->_papColliPart[prm_index];
+    pSphere->changeR(r);
+    _pCollisionArea->_need_update_aabb = true;
+}
+
 void CollisionChecker::setColliSphere(int prm_index, coord x, coord y, coord z, coord r, bool rot_x, bool rot_y, bool rot_z) {
 #ifdef MY_DEBUG
     if (_pCollisionArea == nullptr) {

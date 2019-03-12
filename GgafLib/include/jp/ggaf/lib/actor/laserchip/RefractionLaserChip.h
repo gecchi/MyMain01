@@ -105,8 +105,6 @@ public:
 
     virtual void processJudgement() override {}
 
-    virtual void processSettlementBehavior() override;
-
     virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {}
 
     /**

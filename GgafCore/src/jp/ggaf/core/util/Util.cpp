@@ -63,7 +63,7 @@ double Util::_rnd_double_(double prm_from, double prm_to) {
 double Util::_cbrt_(double x) {
     double stv, dx, last, diff, v3;
     stv = x >= 0.0 ? sqrt(x) : -sqrt(-x);
-    dx = stv / 10.0;
+    dx = stv * 0.1;
     if (x == 0.0) return 0.0; // i knnow comparing float
     if (x < stv * stv * stv) dx = -dx;
     while (1) {
@@ -78,7 +78,7 @@ double Util::_cbrt_(double x) {
         }
         diff = stv - last;
         if ((diff > -0.0000001) && (diff < 0.0000001)) break;
-        dx = -dx / 10.0;
+        dx = -dx * 0.1;
     }
     return (stv);
 }

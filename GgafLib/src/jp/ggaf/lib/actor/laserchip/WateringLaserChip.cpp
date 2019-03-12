@@ -19,15 +19,6 @@ void WateringLaserChip::onActive() {
 void WateringLaserChip::processBehavior() {
 }
 
-void WateringLaserChip::processSettlementBehavior() {
-    if (_was_paused_flg) {
-        GgafDx::GeometricActor::processSettlementBehavior();
-    } else {
-        LaserChip::processSettlementBehavior();
-    }
-}
-
-
 WateringLaserChip::~WateringLaserChip() {
 }
 

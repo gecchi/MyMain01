@@ -441,12 +441,12 @@ public:
             p->_beat_target_frames = (frame)(prm_cycle_frames * prm_beat_num);
         }
         if (prm_is_to_top) {
-            p->_velo = (VAL_TYPE)(1.0*(p->_top - val) / ((int)prm_cycle_frames / 2.0));
+            p->_velo = (VAL_TYPE)(1.0*(p->_top - val) / ((int)prm_cycle_frames * 0.5));
             if (ZEROd_EQ(p->_velo)) {
                 p->_velo = 1; //³‚Å‚ ‚ê‚Î‚æ‚¢
             }
         } else {
-            p->_velo = (VAL_TYPE)(1.0*(p->_bottom - val) / ((int)prm_cycle_frames / 2.0));
+            p->_velo = (VAL_TYPE)(1.0*(p->_bottom - val) / ((int)prm_cycle_frames * 0.5));
             if (ZEROd_EQ(p->_velo)) {
                 p->_velo = -1; //•‰‚Å‚ ‚ê‚Î‚æ‚¢
             }

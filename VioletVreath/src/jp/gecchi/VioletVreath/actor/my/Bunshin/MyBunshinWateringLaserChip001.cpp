@@ -21,6 +21,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 const velo MyBunshinWateringLaserChip001::MAX_VELO_RENGE = PX_C(260); //この値を大きくすると、最高速度が早くなる。
+const double MyBunshinWateringLaserChip001::INV_MAX_VELO_RENGE = 1.0 / MAX_VELO_RENGE;
 const int MyBunshinWateringLaserChip001::R_MAX_ACCE = 16; //この値を大きくすると、カーブが緩くなる
 const velo MyBunshinWateringLaserChip001::INITIAL_VELO = MAX_VELO_RENGE*0.7; //レーザー発射時の初期速度
 const double MyBunshinWateringLaserChip001::RR_MAX_ACCE = 1.0 / R_MAX_ACCE; //計算簡素化用
@@ -173,7 +174,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                                                    pAimInfo->t2_x,
                                                    pAimInfo->t2_y,
                                                    pAimInfo->t2_z);
-                    pAimInfo->spent_frames_to_t2 = active_frame + (t2_d/MyBunshinWateringLaserChip001::MAX_VELO_RENGE); //t2到達時間概算
+                    pAimInfo->spent_frames_to_t2 = active_frame + (frame)(t2_d*MyBunshinWateringLaserChip001::INV_MAX_VELO_RENGE); //t2到達時間概算
                     aimChip(pAimInfo->t2_x,
                             pAimInfo->t2_y,
                             pAimInfo->t2_z );
@@ -328,12 +329,12 @@ throwCriticalException("pAimInfo_ が引き継がれていません！"<<this<<
                 //なぜなら dispatch の瞬間に_pChip_behind != nullptr となるが、active()により有効になるのは次フレームだから
                 //_x,_y,_z にはまだ変な値が入っている。
                 //中間座標に再設定
-                _x = (pF->tmp_x_ + pB->tmp_x_ + tmp_x_)/3;
-                _y = (pF->tmp_y_ + pB->tmp_y_ + tmp_y_)/3;
-                _z = (pF->tmp_z_ + pB->tmp_z_ + tmp_z_)/3;
-                pTrucker->setVxyzMvAcce( (pF->tmp_acc_vx_ + pB->tmp_acc_vx_ + tmp_acc_vx_)/3,
-                                         (pF->tmp_acc_vy_ + pB->tmp_acc_vy_ + tmp_acc_vy_)/3,
-                                         (pF->tmp_acc_vz_ + pB->tmp_acc_vz_ + tmp_acc_vz_)/3 );
+                _x = (coord)((pF->tmp_x_ + pB->tmp_x_ + tmp_x_)*0.333);
+                _y = (coord)((pF->tmp_y_ + pB->tmp_y_ + tmp_y_)*0.333);
+                _z = (coord)((pF->tmp_z_ + pB->tmp_z_ + tmp_z_)*0.333);
+                pTrucker->setVxyzMvAcce( (acce)((pF->tmp_acc_vx_ + pB->tmp_acc_vx_ + tmp_acc_vx_)*0.333),
+                                         (acce)((pF->tmp_acc_vy_ + pB->tmp_acc_vy_ + tmp_acc_vy_)*0.333),
+                                         (acce)((pF->tmp_acc_vz_ + pB->tmp_acc_vz_ + tmp_acc_vz_)*0.333) );
             } else {
                 _x = (pF->tmp_x_ + tmp_x_)/2;
                 _y = (pF->tmp_y_ + tmp_y_)/2;
