@@ -562,13 +562,13 @@ public:
      * @return 種別トップの団長
      */
     virtual GgafCore::GroupHead* appendGroupChildAsFk(kind_t prm_kind,
-                                                     GeometricActor* prm_pGeoActor,
-                                                     int prm_x_init_local,
-                                                     int prm_y_init_local,
-                                                     int prm_z_init_local,
-                                                     int prm_rx_init_local,
-                                                     int prm_ry_init_local,
-                                                     int prm_rz_init_local);
+                                                      GeometricActor* prm_pGeoActor,
+                                                      int prm_x_init_local,
+                                                      int prm_y_init_local,
+                                                      int prm_z_init_local,
+                                                      int prm_rx_init_local,
+                                                      int prm_ry_init_local,
+                                                      int prm_rz_init_local);
 
     /**
      * 引数のアクターを、自身の子アクターとして追加し、姿勢をフォワードキネマティクスで設定する .
@@ -588,12 +588,12 @@ public:
      * @return 種別トップの団長
      */
     virtual GgafCore::GroupHead* appendGroupChildAsFk(GeometricActor* prm_pGeoActor,
-                                                     int prm_x_init_local,
-                                                     int prm_y_init_local,
-                                                     int prm_z_init_local,
-                                                     int prm_rx_init_local,
-                                                     int prm_ry_init_local,
-                                                     int prm_rz_init_local);
+                                                      int prm_x_init_local,
+                                                      int prm_y_init_local,
+                                                      int prm_z_init_local,
+                                                      int prm_rx_init_local,
+                                                      int prm_ry_init_local,
+                                                      int prm_rz_init_local);
 
     /**
      * 座標と回転 _x,_y,_z,_rx,_ry,_rz を絶対座標系を退避して、ローカル座標(土台からの相対座標)に置き換える .

@@ -25,7 +25,7 @@ public:
 
     GgafLib::OctreeRounder* pHitCheckRounder_;
 
-    TrialAndErrScene* pTrialAndErrScene_;
+    DefaultScene* pTestScene_;
     /**
      * コンストラクタ .
      * @param prm_name 名称

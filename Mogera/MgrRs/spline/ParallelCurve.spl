@@ -1,0 +1,13 @@
+SPLINE=ParallelCurve.dat
+MAG_X=800000
+MAG_Y=800000
+MAG_Z=800000
+CLASS=FixedVelocitySpline
+#SPENT_FRAME=7200
+ANGLE_VELOCITY=1000
+TURN_WAY=TURN_CLOSE_TO
+TURN_OPTIMIZE=false
+
+#SteppedCoordSpline
+#FixedVelocitySpline
+#FixedFrameSpline

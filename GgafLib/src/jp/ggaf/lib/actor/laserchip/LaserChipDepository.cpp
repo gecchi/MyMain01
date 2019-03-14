@@ -80,12 +80,6 @@ LaserChip* LaserChipDepository::dispatch(int prm_offset_frames) {
             }
             _pChip_prev_dispatch = pChip;
             _frame_of_behaving_prev_dispatch = pChip->getBehaveingFrame();
-            //16回に一回は 地形 ヒットありのチップとする
-            if (_num_continual_dispatch_count % 16U == 0) {
-                pChip->_can_chikei_hit = true;
-            } else {
-                pChip->_can_chikei_hit = false;
-            }
             return pChip;
 
         } else {

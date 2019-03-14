@@ -300,20 +300,20 @@ GgafCore::GroupHead* GeometricActor::appendGroupChildAsFk(kind_t prm_kind,
 }
 
 GgafCore::GroupHead* GeometricActor::appendGroupChildAsFk(GeometricActor* prm_pGeoActor,
-                                                     coord prm_x_init_local,
-                                                     coord prm_y_init_local,
-                                                     coord prm_z_init_local,
-                                                     coord prm_rx_init_local,
-                                                     coord prm_ry_init_local,
-                                                     coord prm_rz_init_local) {
+                                                          coord prm_x_init_local,
+                                                          coord prm_y_init_local,
+                                                          coord prm_z_init_local,
+                                                          coord prm_rx_init_local,
+                                                          coord prm_ry_init_local,
+                                                          coord prm_rz_init_local) {
     return appendGroupChildAsFk(prm_pGeoActor->getDefaultKind(),
-                           prm_pGeoActor,
-                           prm_x_init_local,
-                           prm_y_init_local,
-                           prm_z_init_local,
-                           prm_rx_init_local,
-                           prm_ry_init_local,
-                           prm_rz_init_local);
+                                prm_pGeoActor,
+                                prm_x_init_local,
+                                prm_y_init_local,
+                                prm_z_init_local,
+                                prm_rx_init_local,
+                                prm_ry_init_local,
+                                prm_rz_init_local);
 }
 
 bool GeometricActor::processHitChkLogic(GgafCore::Actor* prm_pOtherActor) {

@@ -20,6 +20,7 @@ class MgrGod;
 class MgrSpacetime;
 class MgrWorld;
 class TrialAndErrScene;
+class ParallelCurveTestScene;
 class MgrCamera;
 class MgrCameraViewPoint;
 class MgrCameraUpVector;
@@ -39,6 +40,9 @@ class PointSpriteTest;
 class EffectExplosion004;
 class SmpPieGraphSprite;
 class SeActor3;
+class EnemyIda;
+class EnemyIdaBase;
+
 }
 
 #endif /*SIMPLEMOGERA_H_*/

@@ -146,7 +146,8 @@ public:
     void executeAll(kind_t prm_kind_groupA, kind_t prm_kind_groupB) {
         _kind_groupA = prm_kind_groupA;
         _kind_groupB = prm_kind_groupB;
-        if ( (_paTargetSpace[0]._kind_bit_field & prm_kind_groupA) && (_paTargetSpace[0]._kind_bit_field & prm_kind_groupB) ) {
+        kind_t k_bit = _paTargetSpace[0]._kind_bit_field;
+        if ( (k_bit & prm_kind_groupA) && (k_bit & prm_kind_groupB) ) {
             //‚Å‚ÍN•ª–Ø‚ğ„‚é—·‚Ös‚Á‚Ä‚ç‚Á‚µ‚á‚¢
             execute(0); //‚¢‚Á‚Ä‚«‚Ü‚·
             //‚Í‚¢‚¨‹A‚è‚È‚³‚¢B
@@ -168,11 +169,13 @@ public:
         if (pElem) {
             TreeElem<DIMENSION>* pElem_last = pOctant_this_level->_pElem_last;
             while (true) {
-                if (pElem->_kind & kind_groupA) {
-                    _stackGroupA_Current.push((T*)(pElem->_pObject));
+                kind_t kind = pElem->_kind;
+                T* pObject = (T*)(pElem->_pObject);
+                if (kind & kind_groupA) {
+                    _stackGroupA_Current.push(pObject);
                 }
-                if (pElem->_kind & kind_groupB) {
-                    _stackGroupB_Current.push((T*)(pElem->_pObject));
+                if (kind & kind_groupB) {
+                    _stackGroupB_Current.push(pObject);
                 }
                 if (pElem == pElem_last) {
                     break;

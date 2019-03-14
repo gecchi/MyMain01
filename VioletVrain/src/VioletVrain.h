@@ -15,6 +15,7 @@ namespace VioletVrain {
 //// forward declaration begin
 class Jiki;
 class Test01;
+class Zako;
 class TrialAndErrScene;
 class VvCamera;
 class VvGod;

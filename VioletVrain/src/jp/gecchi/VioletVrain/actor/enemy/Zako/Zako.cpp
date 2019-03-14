@@ -1,0 +1,97 @@
+#include "Zako.h"
+
+#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
+#include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
+#include "jp/ggaf/dx/util/Input.h"
+#include "jp/ggaf/lib/util/CollisionChecker.h"
+#include "jp/ggaf/lib/util/StgUtil.h"
+#include "jp/gecchi/VioletVrain/VvGod.h"
+
+
+
+using namespace GgafLib;
+using namespace VioletVrain;
+
+enum {
+    LOCKON001_PROG_FIRST_LOCK ,
+    LOCKON001_PROG_LOCK       ,
+    LOCKON001_PROG_RELEASE    ,
+    PROG_BANPEI,
+};
+
+Zako::Zako(const char* prm_name) :
+        VvEnemyActor<DefaultSpriteActor>(prm_name, "Lockon001", (void*)Zako::resetZakoStatus) {
+    _class_name = "Zako";
+//    defineRotMvWorldMatrix_Billboard(); //ワールド変換はビルボードでRz回転に強制
+    effectBlendOne(); //エフェクトテクニックは加算合成に強制
+    setZEnableDraw(false);      //Zバッファは考慮無しに強制
+    setZWriteEnable(false); //自身のZバッファを書き込みしないに強制
+    setCullingDraw(false);
+
+    setHitAble(true);
+}
+
+void Zako::initialize() {
+    GgafDx::UvFlipper* pUvFlipper = getUvFlipper();
+    pUvFlipper->setFlipPtnRange(0, 3);   //アニメ範囲を０～１５
+    pUvFlipper->exec(FLIP_ORDER_LOOP, 5); //アニメ順序
+
+    CollisionChecker* pChecker = getCollisionChecker();
+//    pChecker->createCollisionArea(1);
+//    pChecker->set2DColliRightTriangle_WH(0, PX_C(-10), PX_C(-20), PX_C(50), PX_C(100), POS_R_TRIANGLE_PP);
+//    pChecker->setColliSphere(0, PX_C(64));
+//    pChecker->setColliAABox(1, PX_C(-128), PX_C(-128), PX_C(-1), PX_C(-64), PX_C(-64), PX_C(1), false, false, true);
+//    pChecker->setColli2DRectangle(0, PX_C(-128), PX_C(-128), PX_C(-64), PX_C(-64), true);
+
+    pChecker->createCollisionArea(4);
+    coord ox = PX_C(10);
+    coord oy = PX_C(20);
+    coord w = PX_C(70);
+    coord h = PX_C(50);
+    pChecker->set2DColliRightTriangle_WH(0, ox - (w*2), oy - (h*2), w, h, POS_R_TRIANGLE_PP);
+    pChecker->set2DColliRightTriangle_WH(1, ox - (w*2), oy + (h*2), w, h, POS_R_TRIANGLE_PN);
+    pChecker->set2DColliRightTriangle_WH(2, ox + (w*2), oy - (h*2), w, h, POS_R_TRIANGLE_NP);
+    pChecker->set2DColliRightTriangle_WH(3, ox + (w*2), oy + (h*2), w, h, POS_R_TRIANGLE_NN);
+
+}
+
+void Zako::onReset() {
+    getProgress()->reset(LOCKON001_PROG_RELEASE);
+}
+
+void Zako::onActive() {
+    getUvFlipper()->setActivePtnToTop();
+    getKuroko()->setFaceAngVelo(AXIS_Z, 1000);        //回転
+}
+
+void Zako::processBehavior() {
+    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafCore::Progress* const pProg = getProgress();
+
+    if (GgafDx::Input::isPressedKey(DIK_D)) {
+        _x += PX_C(2); //右
+    }
+    if (GgafDx::Input::isPressedKey(DIK_A)) {
+        _x -= PX_C(2); //左
+    }
+    if (GgafDx::Input::isPressedKey(DIK_W)) {
+        _y += PX_C(2); //上
+    }
+    if (GgafDx::Input::isPressedKey(DIK_S)) {
+        _y -= PX_C(2); //下
+    }
+    getUvFlipper()->behave();
+    pKuroko->behave();
+}
+
+void Zako::processJudgement() {
+}
+
+void Zako::onInactive() {
+}
+
+Zako::~Zako() {
+}
+
+

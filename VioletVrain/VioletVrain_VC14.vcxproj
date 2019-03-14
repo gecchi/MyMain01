@@ -36,6 +36,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\jp\gecchi\VioletVrain\actor\camera\VvCamera.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVrain\actor\enemy\Zako\Zako.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVrain\actor\Jiki.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVrain\actor\kind\VvChikeiActor.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVrain\actor\kind\VvEffectActor.cpp" />
@@ -52,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\jp\gecchi\VioletVrain\actor\camera\VvCamera.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\actor\enemy\Zako\Zako.h" />
     <ClInclude Include="src\jp\gecchi\VioletVrain\actor\Jiki.h" />
     <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvActor.h" />
     <ClInclude Include="src\jp\gecchi\VioletVrain\actor\kind\VvActor.hpp" />

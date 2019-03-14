@@ -1,7 +1,7 @@
-#ifndef FORMATIONPARACURVE_H_
-#define FORMATIONPARACURVE_H_
+#ifndef FORMATIONZAKO_H_
+#define FORMATIONZAKO_H_
 #include "Mogera.h"
-#include "jp/ggaf/lib/actor/TreeFormation.h"
+#include "jp/ggaf/lib/actor/FkFormation.h"
 
 #include "jp/ggaf/dx/util/GeoElem.h"
 
@@ -13,7 +13,7 @@ namespace Mogera {
  * @since 2015/01/23
  * @author Masatoshi Tsuge
  */
-class FormationZako : public GgafLib::TreeFormation {
+class FormationParaCurve : public GgafLib::FkFormation {
 
 public:
     int num_Zako_;
@@ -29,7 +29,7 @@ public:
     void addMember(int prm_formation_col_num, int prm_formation_row_num, frame prm_call_up_interval);
 
 public:
-    FormationZako(const char* prm_name);
+    FormationParaCurve(const char* prm_name);
 
     virtual void initialize() override;
 
@@ -45,14 +45,6 @@ public:
 
     virtual void onSayonaraAll() override;
 
-    void scatterMember();
-
-    int getFormationColNum() {
-        return formation_col_num_;
-    }
-    int getFormationRowNum() {
-        return formation_row_num_;
-    }
 
     /**
      * èoåªç¿ïWÇê›íËÅB
@@ -76,7 +68,7 @@ public:
         entry_pos_.ry = ry;
     }
 
-    virtual ~FormationZako();
+    virtual ~FormationParaCurve();
 };
 
 }

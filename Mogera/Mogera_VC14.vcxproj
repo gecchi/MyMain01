@@ -327,6 +327,9 @@
     <ClCompile Include="src\actor\camera\MgrCameraViewPoint.cpp" />
     <ClCompile Include="src\actor\camera\MgrCameraWorker.cpp" />
     <ClCompile Include="src\actor\EffectExplosion004.cpp" />
+    <ClCompile Include="src\actor\EnemyIda.cpp" />
+    <ClCompile Include="src\actor\EnemyIdaBase.cpp" />
+    <ClCompile Include="src\actor\FormationParaCurve.cpp" />
     <ClCompile Include="src\actor\FormationZako.cpp" />
     <ClCompile Include="src\actor\FormationZako001.cpp" />
     <ClCompile Include="src\actor\PointSpriteTest.cpp" />
@@ -341,6 +344,7 @@
     <ClCompile Include="src\Mogera.cpp" />
     <ClCompile Include="src\scene\MgrSpacetime.cpp" />
     <ClCompile Include="src\scene\MgrSpacetime\MgrWorld.cpp" />
+    <ClCompile Include="src\scene\MgrSpacetime\MgrWorld\ParallelCurveTestScene.cpp" />
     <ClCompile Include="src\scene\MgrSpacetime\MgrWorld\TrialAndErrScene.cpp" />
     <ClCompile Include="src\util\MgrUtil.cpp" />
   </ItemGroup>
@@ -352,6 +356,9 @@
     <ClInclude Include="src\actor\camera\MgrCameraViewPoint.h" />
     <ClInclude Include="src\actor\camera\MgrCameraWorker.h" />
     <ClInclude Include="src\actor\EffectExplosion004.h" />
+    <ClInclude Include="src\actor\EnemyIda.h" />
+    <ClInclude Include="src\actor\EnemyIdaBase.h" />
+    <ClInclude Include="src\actor\FormationParaCurve.h" />
     <ClInclude Include="src\actor\FormationZako.h" />
     <ClInclude Include="src\actor\FormationZako001.h" />
     <ClInclude Include="src\actor\PointSpriteTest.h" />
@@ -366,6 +373,7 @@
     <ClInclude Include="src\Mogera.h" />
     <ClInclude Include="src\scene\MgrSpacetime.h" />
     <ClInclude Include="src\scene\MgrSpacetime\MgrWorld.h" />
+    <ClInclude Include="src\scene\MgrSpacetime\MgrWorld\ParallelCurveTestScene.h" />
     <ClInclude Include="src\scene\MgrSpacetime\MgrWorld\TrialAndErrScene.h" />
     <ClInclude Include="src\util\MgrUtil.h" />
   </ItemGroup>

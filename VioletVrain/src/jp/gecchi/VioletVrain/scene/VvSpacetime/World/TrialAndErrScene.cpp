@@ -3,11 +3,10 @@
 #include "jp/ggaf/dx/util/Input.h"
 #include "jp/ggaf/core/actor/SceneMediator.h"
 #include "jp/gecchi/VioletVrain/scene/VvSpacetime/World.h"
+#include "jp/gecchi/VioletVrain/actor/enemy/Zako/Zako.h"
 #include "jp/gecchi/VioletVrain/actor/Test01.h"
 #include "jp/gecchi/VioletVrain/actor/Jiki.h"
 #include "jp/gecchi/VioletVrain/VvGod.h"
-
-
 
 using namespace GgafLib;
 using namespace VioletVrain;
@@ -22,7 +21,9 @@ enum {
 TrialAndErrScene::TrialAndErrScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "TrialAndErrScene";
     requestActor(10000, Test01);
+    requestActor(10002, Zako);
     requestActor(10001, Jiki);
+
 }
 
 void TrialAndErrScene::initialize() {
@@ -43,8 +44,12 @@ void TrialAndErrScene::processBehavior() {
         pTest->setPosition(0,0,0);
         bringSceneMediator()->appendGroupChild(VV_MIKATA, pTest);
 
+        Zako* pZako = (Zako*)receiveActor(10002);
+        pZako->setPosition(PX_C(200), PX_C(200),0);
+        bringSceneMediator()->appendGroupChild(VV_TEKI, pZako);
+
         Jiki* pJiki = (Jiki*)receiveActor(10001);
-        pJiki->setPosition(PX_C(200), PX_C(200),0);
+        pJiki->setPosition(PX_C(200), PX_C(400),0);
         bringSceneMediator()->appendGroupChild(VV_TEKI, pJiki);
 
 

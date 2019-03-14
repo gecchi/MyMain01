@@ -37,7 +37,6 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
     _hitarea_edge_length_3_2 = _hitarea_edge_length_3 * 2;
     _hitarea_edge_length_6   = _hitarea_edge_length_3 * 2;
     _hitarea_edge_length_6_2 = _hitarea_edge_length_6 * 2;
-    _can_chikei_hit = false;
 
     setZEnableDraw(true);    //描画時、Zバッファ値は考慮される
     setZWriteEnable(false);  //自身のZバッファを書き込みしない
@@ -55,14 +54,15 @@ bool LaserChip::initStatic(LaserChip* prm_pLaserChip) {
 }
 
 void LaserChip::executeHitChk_MeAnd(GgafCore::Actor* prm_pOtherActor) {
-     if (prm_pOtherActor->instanceOf(Obj_MassWallActor)) {   //相手が地形ブロック
-        if (_pChip_infront == nullptr || _can_chikei_hit) {  //先端チップ か、1/16の地形当たり判定有りチップ
-            GgafDx::FigureActor::executeHitChk_MeAnd(prm_pOtherActor);
-        } else {
-            return;
-        }
-    } else {
+    if (_pChip_infront == nullptr) {  //先端チップ
         GgafDx::FigureActor::executeHitChk_MeAnd(prm_pOtherActor);
+    } else {
+        if ((prm_pOtherActor->_obj_class & Obj_MassWallActor) == Obj_MassWallActor) {
+            //相手が地形ブロックならば、先端だけしか判定しない
+            return;
+        } else {
+            GgafDx::FigureActor::executeHitChk_MeAnd(prm_pOtherActor);
+        }
     }
 }
 
