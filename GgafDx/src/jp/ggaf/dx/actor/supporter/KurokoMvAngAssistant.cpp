@@ -144,16 +144,16 @@ void KurokoMvAngAssistant::turnRyByVd(
 
 
 void KurokoMvAngAssistant::turnRzByDtTo(angle prm_rz_target, int prm_way, int prm_target_frames,
-                                              float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-                                              bool prm_zero_acc_end_flg) {
+                                        float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                        bool prm_zero_acc_end_flg) {
     angle distance = _pMaster->getRzMvAngDistance(prm_rz_target, prm_way);
     turnRzByDt(distance, prm_target_frames,
-                    prm_p1, prm_p2, prm_end_angvelo,
-                    prm_zero_acc_end_flg);
+               prm_p1, prm_p2, prm_end_angvelo,
+               prm_zero_acc_end_flg);
 }
 void KurokoMvAngAssistant::turnRyByDtTo(angle prm_ry_target, int prm_way, int prm_target_frames,
-                                              float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-                                              bool prm_zero_acc_end_flg) {
+                                        float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                        bool prm_zero_acc_end_flg) {
     angle distance = _pMaster->getRyMvAngDistance(prm_ry_target, prm_way);
     turnRyByDt(distance, prm_target_frames,
                prm_p1, prm_p2, prm_end_angvelo,
@@ -177,11 +177,11 @@ void KurokoMvAngAssistant::turnRzRyByDtTo(
     }
 
     turnRzByDt(out_rz_distance, prm_target_frames,
-                        prm_p1, prm_p2, prm_end_angvelo,
-                        prm_zero_acc_end_flg);
+               prm_p1, prm_p2, prm_end_angvelo,
+               prm_zero_acc_end_flg);
     turnRyByDt(out_ry_distance, prm_target_frames,
-                        prm_p1, prm_p2, prm_end_angvelo,
-                        prm_zero_acc_end_flg);
+               prm_p1, prm_p2, prm_end_angvelo,
+               prm_zero_acc_end_flg);
 }
 
 void KurokoMvAngAssistant::turnByDtTwd(

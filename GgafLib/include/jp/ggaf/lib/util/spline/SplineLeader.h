@@ -70,6 +70,8 @@ public:
     float _sinRy_begin;
     float _cosRy_begin;
 
+    bool _turn_smooth;
+
 public:
     /**
      * コンストラクタ .

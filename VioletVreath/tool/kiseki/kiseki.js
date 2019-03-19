@@ -25,7 +25,7 @@ function msOpInit()// 初期設定
    document.onmousedown = function(){ mouse_down=true };
    document.onmouseup = function(){
      mouse_down=false;
-     out_put "-------------------\n" += out_put;
+     out_put = "-------------------\n" + out_put;
      var mogera = document.getElementById("mogera");
      mogera.value=out_put;
      mogera.select();
@@ -49,7 +49,7 @@ function msOpMove(e)// マウスが動くとここが実行されます
   my=document.body.scrollTop+event.clientY;
   msWx=window.document.body.clientWidth+document.body.scrollLeft;
   msWy=window.document.body.clientHeight+document.body.scrollTop;
-   out_put += mx+","+my+"\n";
+   out_put += mx+"  "+my+"\n";
    msOMx[msOw]=mx;// マウスの座標を履歴に書き込み
    msOMy[msOw]=my;
    msOw++;// 書き込む位置の設定

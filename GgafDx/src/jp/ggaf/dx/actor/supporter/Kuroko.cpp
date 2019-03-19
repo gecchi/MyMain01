@@ -665,8 +665,8 @@ void Kuroko::forceRzMvAngVeloRange(angvelo prm_angvelo_rz_mv01,
 }
 
 void Kuroko::setStopTargetRzMvAng(angle prm_target_rz_mv,
-                                        int prm_allow_way,
-                                        angvelo prm_allow_angvelo) {
+                                  int prm_allow_way,
+                                  angvelo prm_allow_angvelo) {
     _is_targeting_rz_mv = true;
     _rz_mv_targeting_stop_flg = true;
     _target_rz_mv = UTIL::simplifyAng(prm_target_rz_mv);
@@ -1071,8 +1071,8 @@ void Kuroko::turnRzRyFaceAngTo(angle prm_rz_target, angle prm_ry_target,
 }
 
 void Kuroko::turnFaceAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
-                                  angvelo prm_angvelo, angacce prm_angacce,
-                                  int prm_way, bool prm_optimize_ang) {
+                            angvelo prm_angvelo, angacce prm_angacce,
+                            int prm_way, bool prm_optimize_ang) {
     coord vx = prm_tx - _pActor->_x;
     coord vy = prm_ty - _pActor->_y;
     coord vz = prm_tz - _pActor->_z;
@@ -1092,8 +1092,8 @@ void Kuroko::turnFaceAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
 
 
 void Kuroko::turnFaceAng(axis prm_axis,
-                               angle prm_distance,
-                               angvelo prm_angvelo, angacce prm_angacce) {
+                         angle prm_distance,
+                         angvelo prm_angvelo, angacce prm_angacce) {
     int s = SGN(prm_distance);
     setFaceAngVelo(prm_axis, ABS(prm_angvelo)*s);
     setFaceAngAcce(prm_axis, ABS(prm_angacce)*s);
@@ -1104,8 +1104,8 @@ void Kuroko::turnFaceAng(axis prm_axis,
 
 
 void Kuroko::turnRzFaceAngTo(angle prm_rz_target,
-                                    angvelo prm_angvelo, angacce prm_angacce,
-                                    int prm_way) {
+                             angvelo prm_angvelo, angacce prm_angacce,
+                             int prm_way) {
     if (getFaceAngDistance(AXIS_Z, prm_rz_target, prm_way) > 0) {
         setFaceAngVelo(AXIS_Z, prm_angvelo);
         setFaceAngAcce(AXIS_Z, prm_angacce);
@@ -1134,8 +1134,8 @@ void Kuroko::turnRyFaceAngTo(angle prm_ry_target,
 }
 
 void Kuroko::rollFaceAngTo(angle prm_rx_target,
-                                 angvelo prm_angvelo, angacce prm_angacce,
-                                 int prm_way) {
+                           angvelo prm_angvelo, angacce prm_angacce,
+                           int prm_way) {
     if (getFaceAngDistance(AXIS_X, prm_rx_target, prm_way) > 0) {
         setFaceAngVelo(AXIS_X, prm_angvelo);
         setFaceAngAcce(AXIS_X, prm_angacce);
@@ -1147,8 +1147,8 @@ void Kuroko::rollFaceAngTo(angle prm_rx_target,
 }
 
 void Kuroko::turnRzRyMvAngTo(angle prm_rz_target, angle prm_ry_target,
-                                   angvelo prm_angvelo, angacce prm_angacce,
-                                   int prm_way, bool prm_optimize_ang) {
+                             angvelo prm_angvelo, angacce prm_angacce,
+                             int prm_way, bool prm_optimize_ang) {
     angle out_d_rz;
     angle out_d_ry;
     if (prm_optimize_ang) {
@@ -1236,8 +1236,8 @@ void Kuroko::turnRzRyMvAngTo(angle prm_rz_target, angle prm_ry_target,
 }
 
 void Kuroko::turnMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
-                                angvelo prm_angvelo, angacce prm_angacce,
-                                int prm_way, bool prm_optimize_ang) {
+                          angvelo prm_angvelo, angacce prm_angacce,
+                          int prm_way, bool prm_optimize_ang) {
     coord vx = prm_tx - _pActor->_x;
     coord vy = prm_ty - _pActor->_y;
     coord vz = prm_tz - _pActor->_z;
@@ -1256,7 +1256,7 @@ void Kuroko::turnMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
 }
 
 void Kuroko::turnRzMvAng(angle prm_rz_distance,
-                               angvelo prm_angvelo, angacce prm_angacce) {
+                         angvelo prm_angvelo, angacce prm_angacce) {
     int s = SGN(prm_rz_distance);
     setRzMvAngVelo(ABS(prm_angvelo) * s);
     setRzMvAngAcce(ABS(prm_angacce) * s);
@@ -1264,7 +1264,7 @@ void Kuroko::turnRzMvAng(angle prm_rz_distance,
 }
 
 void Kuroko::turnRyMvAng(angle prm_ry_distance,
-                               angvelo prm_angvelo, angacce prm_angacce) {
+                         angvelo prm_angvelo, angacce prm_angacce) {
     int s = SGN(prm_ry_distance);
     setRyMvAngVelo(ABS(prm_angvelo) * s);
     setRyMvAngAcce(ABS(prm_angacce) * s);
@@ -1272,8 +1272,8 @@ void Kuroko::turnRyMvAng(angle prm_ry_distance,
 }
 
 void Kuroko::turnRzMvAngTo(angle prm_rz_target,
-                                 angvelo prm_angvelo, angacce prm_angacce,
-                                 int prm_way) {
+                           angvelo prm_angvelo, angacce prm_angacce,
+                           int prm_way) {
     if (getRzMvAngDistance(prm_rz_target, prm_way) > 0) {
         setRzMvAngVelo(prm_angvelo);
         setRzMvAngAcce(prm_angacce);
@@ -1285,8 +1285,8 @@ void Kuroko::turnRzMvAngTo(angle prm_rz_target,
 }
 
 void Kuroko::turnRyMvAngTo(angle prm_ry_target,
-                                 angvelo prm_angvelo, angacce prm_angacce,
-                                 int prm_way) {
+                           angvelo prm_angvelo, angacce prm_angacce,
+                           int prm_way) {
     if (getRyMvAngDistance(prm_ry_target, prm_way) > 0) {
         setRyMvAngVelo(prm_angvelo);
         setRyMvAngAcce(prm_angacce);

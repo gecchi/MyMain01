@@ -42,6 +42,7 @@ SplineLeader::SplineLeader(SplineManufacture* prm_pManufacture, GgafDx::Geometri
     _is_fix_pos = false;
     _is_force_start_ang = false;
 //    _is_loop_ang_by_face = true;
+    _turn_smooth = false;
 }
 
 void SplineLeader::getPointCoord(int prm_point_index, coord& out_x, coord& out_y, coord& out_z) {

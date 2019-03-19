@@ -18,7 +18,6 @@ namespace GgafLib {
  */
 class FixedVelocitySplineKurokoLeader : public SplineLeader {
 
-
 public:
     GgafDx::Kuroko* _pKuroko_target;
     /** [r]スプライン情報セット(splファイルの情報に相当)  */

@@ -2,6 +2,7 @@
 
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/KurokoMvAngAssistant.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/spline/SplineSource.h"
 #include "jp/ggaf/lib/util/spline/FixedVelocitySplineManufacture.h"
@@ -56,17 +57,25 @@ again:
                 _float_frame_of_next = (1.0*_distance_to_begin / _pFixedVeloSplManuf->_velo_mvUnit) +
                                      _pFixedVeloSplManuf->_paFrame_need_at[_point_index];
             }
+            if (_leadning_float_frames >= _float_frame_of_next) {
+                //_float_frame_of_nextを次に進めても足りない場合、もう一つ_point_indexを進める
+                goto again;
+            }
+            coord x, y, z;
+            getPointCoord(_point_index, x, y, z);
+            if (_turn_smooth) {
+                pKuroko_target->asstMvAng()->turnByVdTwd(
+                        _pFixedVeloSplManuf->_angvelo_rzry_mv,
+                        x, y, z, _pFixedVeloSplManuf->_turn_way, _pFixedVeloSplManuf->_turn_optimize,
+                        0.3, 0.7, 0,
+                        true);
+            } else {
+                pKuroko_target->turnMvAngTwd(x, y, z,
+                                             _pFixedVeloSplManuf->_angvelo_rzry_mv, 0,
+                                             _pFixedVeloSplManuf->_turn_way,
+                                             _pFixedVeloSplManuf->_turn_optimize);
+            }
         }
-        if (_leadning_float_frames >= _float_frame_of_next) {
-            //_float_frame_of_nextを次に進めても足りない場合、もう一つ_point_indexを進める
-            goto again;
-        }
-        coord x, y, z;
-        getPointCoord(_point_index, x, y, z);
-        pKuroko_target->turnMvAngTwd(x, y, z,
-                                     _pFixedVeloSplManuf->_angvelo_rzry_mv, 0,
-                                     _pFixedVeloSplManuf->_turn_way,
-                                     _pFixedVeloSplManuf->_turn_optimize);
         //キャラの速度が1000ならば、_leadning_float_frames ++;
         //キャラの速度が2000ならば  _leadning_float_frames += 2.0;
         //キャラの速度が500ならば、 _leadning_float_frames += 0.5
