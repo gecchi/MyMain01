@@ -10,18 +10,18 @@ using namespace GgafDx;
 
 DWORD D3DXAniMeshActor::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1);
 D3DXAniMeshActor::D3DXAniMeshActor(const char* prm_name,
-                                               const char* prm_model_id,
-                                               const char* prm_effect_id,
-                                               const char* prm_technique,
-                                               Checker* prm_pChecker) :
+                                   const char* prm_model_id,
+                                   const char* prm_effect_id,
+                                   const char* prm_technique,
+                                   Checker* prm_pChecker) :
 
-                                                   FigureActor(prm_name,
-                                                                     prm_model_id,
-                                                                     TYPE_D3DXANIMESH_MODEL,
-                                                                     prm_effect_id,
-                                                                     TYPE_D3DXANIMESH_EFFECT,
-                                                                     prm_technique,
-                                                                     prm_pChecker) {
+                                       FigureActor(prm_name,
+                                                   prm_model_id,
+                                                   TYPE_D3DXANIMESH_MODEL,
+                                                   prm_effect_id,
+                                                   TYPE_D3DXANIMESH_EFFECT,
+                                                   prm_technique,
+                                                   prm_pChecker) {
     _obj_class |= Obj_GgafDx_D3DXAniMeshActor;
     _class_name = "D3DXAniMeshActor";
     _pD3DXAniMeshModel = (D3DXAniMeshModel*)_pModel;

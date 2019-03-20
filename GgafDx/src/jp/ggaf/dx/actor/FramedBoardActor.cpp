@@ -12,17 +12,17 @@
 using namespace GgafDx;
 
 FramedBoardActor::FramedBoardActor(const char* prm_name,
-                                         const char* prm_model_id,
-                                         const char* prm_effect_id,
-                                         const char* prm_technique) :
+                                   const char* prm_model_id,
+                                   const char* prm_effect_id,
+                                   const char* prm_technique) :
 
-                                             FigureActor(prm_name,
-                                                               prm_model_id,
-                                                               TYPE_FRAMEDBOARD_MODEL,
-                                                               prm_effect_id,
-                                                               TYPE_FRAMEDBOARD_EFFECT,
-                                                               prm_technique,
-                                                               nullptr) ,
+                                       FigureActor(prm_name,
+                                                   prm_model_id,
+                                                   TYPE_FRAMEDBOARD_MODEL,
+                                                   prm_effect_id,
+                                                   TYPE_FRAMEDBOARD_EFFECT,
+                                                   prm_technique,
+                                                   nullptr) ,
 _pFramedBoardModel((FramedBoardModel*)_pModel),
 _pFramedBoardEffect((FramedBoardEffect*)_pEffect),
 _pUvFlipper(NEW UvFlipper(getModel()->_papTextureConnection[0]->peek())),

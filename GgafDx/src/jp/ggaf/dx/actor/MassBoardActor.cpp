@@ -12,17 +12,17 @@
 using namespace GgafDx;
 
 MassBoardActor::MassBoardActor(const char* prm_name,
-                                           const char* prm_model_id,
-                                           const char* prm_effect_id,
-                                           const char* prm_technique) :
+                               const char* prm_model_id,
+                               const char* prm_effect_id,
+                               const char* prm_technique) :
 
-                                               MassActor(prm_name,
-                                                               prm_model_id,
-                                                               TYPE_MASSBOARD_MODEL,
-                                                               prm_effect_id,
-                                                               TYPE_MASSBOARD_EFFECT,
-                                                               prm_technique,
-                                                               nullptr) ,
+                                   MassActor(prm_name,
+                                             prm_model_id,
+                                             TYPE_MASSBOARD_MODEL,
+                                             prm_effect_id,
+                                             TYPE_MASSBOARD_EFFECT,
+                                             prm_technique,
+                                             nullptr) ,
 _pMassBoardModel((MassBoardModel*)_pModel),
 _pMassBoardEffect((MassBoardEffect*)_pEffect),
 _pUvFlipper(NEW UvFlipper(getModel()->getDefaultTextureConnection()->peek()))

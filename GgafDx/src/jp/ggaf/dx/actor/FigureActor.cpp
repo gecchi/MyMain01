@@ -22,13 +22,13 @@ using namespace GgafDx;
 hashval FigureActor::_hash_technique_last_draw = 0;
 
 FigureActor::FigureActor(const char* prm_name,
-                                     const char* prm_model,
-                                     const char* prm_effect,
-                                     const char* prm_technique,
-                                     Checker* prm_pChecker) :
+                         const char* prm_model,
+                         const char* prm_effect,
+                         const char* prm_technique,
+                         Checker* prm_pChecker) :
 
-                                         GeometricActor(prm_name,
-                                                              prm_pChecker),
+                             GeometricActor(prm_name,
+                                            prm_pChecker),
 _pModelCon(
     (ModelConnection*)(
         pGOD->_pModelManager->connect(
@@ -84,15 +84,15 @@ _pColorist(nullptr)
 }
 
 FigureActor::FigureActor(const char* prm_name,
-                                     const char* prm_model_id,
-                                     const char prm_model_type,
-                                     const char* prm_effect_id,
-                                     const char prm_effect_type,
-                                     const char* prm_technique,
-                                     Checker* prm_pChecker) :
+                         const char* prm_model_id,
+                         const char prm_model_type,
+                         const char* prm_effect_id,
+                         const char prm_effect_type,
+                         const char* prm_technique,
+                         Checker* prm_pChecker) :
 
-                                         GeometricActor(prm_name,
-                                                              prm_pChecker),
+                             GeometricActor(prm_name,
+                                            prm_pChecker),
 _pModelCon(
     (ModelConnection*)(
         pGOD->_pModelManager->connect(

@@ -32,10 +32,10 @@ public:
      * @return
      */
     MassPointSpriteActor(const char* prm_name,
-                               const char* prm_model_id,
-                               const char* prm_effect_id,
-                               const char* prm_technique,
-                               Checker* prm_pChecker );
+                         const char* prm_model_id,
+                         const char* prm_effect_id,
+                         const char* prm_technique,
+                         Checker* prm_pChecker );
 
     inline UvFlipper* getUvFlipper() {
         return _pUvFlipper;

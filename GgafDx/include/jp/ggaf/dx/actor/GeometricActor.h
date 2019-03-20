@@ -153,7 +153,7 @@ public:
      * @return
      */
     GeometricActor(const char* prm_name,
-                         Checker* prm_pChecker);
+                   Checker* prm_pChecker);
 
     virtual GeometricActor* getPrev() const override { //‹¤•Ï‚Ì–ß‚è’l
         return (GeometricActor*)GgafCore::Actor::getPrev();

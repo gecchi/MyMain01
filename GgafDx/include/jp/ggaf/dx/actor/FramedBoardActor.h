@@ -35,13 +35,13 @@ private:
      * @return
      */
     GgafCore::GroupHead* appendGroupChildAsFk(kind_t prm_kind,
-                                             GeometricActor* prm_pGeoActor,
-                                             int prm_x_init_local,
-                                             int prm_y_init_local,
-                                             int prm_z_init_local,
-                                             int prm_rx_init_local,
-                                             int prm_ry_init_local,
-                                             int prm_rz_init_local) override {
+                                              GeometricActor* prm_pGeoActor,
+                                              int prm_x_init_local,
+                                              int prm_y_init_local,
+                                              int prm_z_init_local,
+                                              int prm_rx_init_local,
+                                              int prm_ry_init_local,
+                                              int prm_rz_init_local) override {
         throwCriticalException("使用不可です。");
         return nullptr;
     }
@@ -51,12 +51,12 @@ private:
      * @return
      */
     GgafCore::GroupHead* appendGroupChildAsFk(GeometricActor* prm_pGeoActor,
-                                             int prm_x_init_local,
-                                             int prm_y_init_local,
-                                             int prm_z_init_local,
-                                             int prm_rx_init_local,
-                                             int prm_ry_init_local,
-                                             int prm_rz_init_local) override {
+                                              int prm_x_init_local,
+                                              int prm_y_init_local,
+                                              int prm_z_init_local,
+                                              int prm_rx_init_local,
+                                              int prm_ry_init_local,
+                                              int prm_rz_init_local) override {
         throwCriticalException("使用不可です。");
         return nullptr;
     }
@@ -91,9 +91,9 @@ public:
     Valign _valign;
 public:
     FramedBoardActor(const char* prm_name,
-                        const char* prm_model_id,
-                        const char* prm_effect_id,
-                        const char* prm_technique );
+                     const char* prm_model_id,
+                     const char* prm_effect_id,
+                     const char* prm_technique );
 
     virtual void processDraw() override;
 

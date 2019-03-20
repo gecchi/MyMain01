@@ -11,17 +11,17 @@
 using namespace GgafDx;
 
 RegularPolygonBoardActor::RegularPolygonBoardActor(const char* prm_name,
-                                   const char* prm_model_id,
-                                   const char* prm_effect_id,
-                                   const char* prm_technique) :
+                                                   const char* prm_model_id,
+                                                   const char* prm_effect_id,
+                                                   const char* prm_technique) :
 
-                                       FigureActor(prm_name,
-                                                         prm_model_id,
-                                                         TYPE_REGULARPOLYGONBOARD_MODEL,
-                                                         prm_effect_id,
-                                                         TYPE_REGULARPOLYGONBOARD_EFFECT,
-                                                         prm_technique,
-                                                         nullptr),
+                                                       FigureActor(prm_name,
+                                                                   prm_model_id,
+                                                                   TYPE_REGULARPOLYGONBOARD_MODEL,
+                                                                   prm_effect_id,
+                                                                   TYPE_REGULARPOLYGONBOARD_EFFECT,
+                                                                   prm_technique,
+                                                                   nullptr),
 _pRegularPolygonBoardModel((RegularPolygonBoardModel*)_pModel),
 _pRegularPolygonBoardEffect((RegularPolygonBoardEffect*)_pEffect) ,
 _pUvFlipper(NEW UvFlipper(getModel()->getDefaultTextureConnection()->peek())) {

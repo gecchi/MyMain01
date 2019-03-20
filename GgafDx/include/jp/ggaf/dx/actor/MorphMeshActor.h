@@ -42,10 +42,10 @@ public:
      * @return
      */
     MorphMeshActor(const char* prm_name,
-                         const char* prm_model_id,
-                         const char* prm_effect_id,
-                         const char* prm_technique,
-                         Checker* prm_pChecker );
+                   const char* prm_model_id,
+                   const char* prm_effect_id,
+                   const char* prm_technique,
+                   Checker* prm_pChecker );
 
     /**
      * 下位継承用コンストラクタ
@@ -59,12 +59,12 @@ public:
      * @return
      */
     MorphMeshActor(const char* prm_name,
-                         const char* prm_model_id,
-                         const char prm_model_type,
-                         const char* prm_effect_id,
-                         const char prm_effect_type,
-                         const char* prm_technique,
-                         Checker* prm_pChecker);
+                   const char* prm_model_id,
+                   const char prm_model_type,
+                   const char* prm_effect_id,
+                   const char prm_effect_type,
+                   const char* prm_technique,
+                   Checker* prm_pChecker);
 
     virtual void processDraw() override;
 

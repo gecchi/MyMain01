@@ -5,8 +5,8 @@
 
 #include "scene/MgrSpacetime.h"
 
-#undef P_GOD
-#define P_GOD ((Mogera::MgrGod*)GgafCore::God::_pGod)
+#undef pGOD
+#define pGOD ((Mogera::MgrGod*)GgafCore::God::_pGod)
 
 namespace Mogera {
 

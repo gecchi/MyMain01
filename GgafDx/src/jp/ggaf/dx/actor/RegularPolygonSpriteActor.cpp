@@ -12,18 +12,18 @@
 using namespace GgafDx;
 
 RegularPolygonSpriteActor::RegularPolygonSpriteActor(const char* prm_name,
-                                     const char* prm_model_id,
-                                     const char* prm_effect_id,
-                                     const char* prm_technique,
-                                     Checker* prm_pChecker) :
+                                                     const char* prm_model_id,
+                                                     const char* prm_effect_id,
+                                                     const char* prm_technique,
+                                                     Checker* prm_pChecker) :
 
-                                         FigureActor(prm_name,
-                                                           prm_model_id,
-                                                           TYPE_REGULARPOLYGONSPRITE_MODEL,
-                                                           prm_effect_id,
-                                                           TYPE_REGULARPOLYGONSPRITE_EFFECT,
-                                                           prm_technique,
-                                                           prm_pChecker),
+                                                         FigureActor(prm_name,
+                                                                     prm_model_id,
+                                                                     TYPE_REGULARPOLYGONSPRITE_MODEL,
+                                                                     prm_effect_id,
+                                                                     TYPE_REGULARPOLYGONSPRITE_EFFECT,
+                                                                     prm_technique,
+                                                                     prm_pChecker),
 _pRegularPolygonSpriteModel( (RegularPolygonSpriteModel*)_pModel),
 _pRegularPolygonSpriteEffect( (RegularPolygonSpriteEffect*)_pEffect),
 _pUvFlipper(NEW UvFlipper(getModel()->getDefaultTextureConnection()->peek())) {

@@ -12,18 +12,18 @@
 using namespace GgafDx;
 
 MassSpriteActor::MassSpriteActor(const char* prm_name,
-                                             const char* prm_model_id,
-                                             const char* prm_effect_id,
-                                             const char* prm_technique,
-                                             Checker* prm_pChecker) :
+                                 const char* prm_model_id,
+                                 const char* prm_effect_id,
+                                 const char* prm_technique,
+                                 Checker* prm_pChecker) :
 
-                                                   MassActor(prm_name,
-                                                                   prm_model_id,
-                                                                   TYPE_MASSSPRITE_MODEL,
-                                                                   prm_effect_id,
-                                                                   TYPE_MASSSPRITE_EFFECT,
-                                                                   prm_technique,
-                                                                   prm_pChecker) ,
+                                       MassActor(prm_name,
+                                                 prm_model_id,
+                                                 TYPE_MASSSPRITE_MODEL,
+                                                 prm_effect_id,
+                                                 TYPE_MASSSPRITE_EFFECT,
+                                                 prm_technique,
+                                                 prm_pChecker) ,
 _pMassSpriteModel((MassSpriteModel*)_pModel),
 _pMassSpriteEffect((MassSpriteEffect*)_pEffect),
 _pUvFlipper(NEW UvFlipper(getModel()->getDefaultTextureConnection()->peek()))

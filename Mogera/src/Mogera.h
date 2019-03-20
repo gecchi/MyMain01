@@ -42,7 +42,7 @@ class SmpPieGraphSprite;
 class SeActor3;
 class EnemyIda;
 class EnemyIdaBase;
-
+class Box;
 }
 
 #endif /*SIMPLEMOGERA_H_*/

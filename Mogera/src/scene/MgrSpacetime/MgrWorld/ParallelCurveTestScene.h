@@ -5,13 +5,18 @@
 
 namespace Mogera {
 
+DECLARE_HASHVAL(EVENT_START_MOVING);
+
 class ParallelCurveTestScene : public GgafLib::DefaultScene {
 
 public:
     PointSpriteTest* pTest_;
-
+    GgafCore::ActorDepository* pDepoBox_;
+    EnemyIdaBase* pActor_;
 public:
     ParallelCurveTestScene(const char* prm_name);
+    void pset(coord x, coord y, coord z);
+    void psetAs(GgafDx::GeometricActor* pActor);
     virtual void initialize() override;
     virtual void processBehavior() override;
     virtual ~ParallelCurveTestScene();

@@ -1,6 +1,9 @@
 #ifndef ENEMYIDA_H_
 #define ENEMYIDA_H_
 #include "Mogera.h"
+
+#include <iostream>
+#include <fstream>
 #include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
 
 namespace Mogera {
@@ -16,6 +19,8 @@ namespace Mogera {
 class EnemyIda : public GgafLib::DefaultMeshSetActor {
 
 public:
+    std::ofstream* pOs_;
+
     /**
      * コンストラクタ
      * @param prm_name
@@ -44,12 +49,6 @@ public:
      * イーダの振る舞い後の判定処理 .
      */
     void processJudgement() override;
-
-    /**
-     * イーダの衝突時処理 .
-     * @param prm_pOtherActor 衝突対象
-     */
-    void onHit(const GgafCore::Actor* prm_pOtherActor) override;
 
     void onInactive() override;
 

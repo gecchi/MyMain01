@@ -11,17 +11,17 @@
 using namespace GgafDx;
 
 BoardActor::BoardActor(const char* prm_name,
-                                   const char* prm_model_id,
-                                   const char* prm_effect_id,
-                                   const char* prm_technique) :
+                       const char* prm_model_id,
+                       const char* prm_effect_id,
+                       const char* prm_technique) :
 
-                                       FigureActor(prm_name,
-                                                         prm_model_id,
-                                                         TYPE_BOARD_MODEL,
-                                                         prm_effect_id,
-                                                         TYPE_BOARD_EFFECT,
-                                                         prm_technique,
-                                                         nullptr) ,
+                           FigureActor(prm_name,
+                                       prm_model_id,
+                                       TYPE_BOARD_MODEL,
+                                       prm_effect_id,
+                                       TYPE_BOARD_EFFECT,
+                                       prm_technique,
+                                       nullptr) ,
 _pBoardModel((BoardModel*)_pModel),
 _pBoardEffect((BoardEffect*)_pEffect) ,
 _pUvFlipper(NEW UvFlipper(getModel()->getDefaultTextureConnection()->peek())) {

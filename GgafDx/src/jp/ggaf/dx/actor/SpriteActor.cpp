@@ -12,18 +12,18 @@
 using namespace GgafDx;
 
 SpriteActor::SpriteActor(const char* prm_name,
-                                     const char* prm_model_id,
-                                     const char* prm_effect_id,
-                                     const char* prm_technique,
-                                     Checker* prm_pChecker) :
+                         const char* prm_model_id,
+                         const char* prm_effect_id,
+                         const char* prm_technique,
+                         Checker* prm_pChecker) :
 
-                                         FigureActor(prm_name,
-                                                           prm_model_id,
-                                                           TYPE_SPRITE_MODEL,
-                                                           prm_effect_id,
-                                                           TYPE_SPRITE_EFFECT,
-                                                           prm_technique,
-                                                           prm_pChecker),
+                             FigureActor(prm_name,
+                                         prm_model_id,
+                                         TYPE_SPRITE_MODEL,
+                                         prm_effect_id,
+                                         TYPE_SPRITE_EFFECT,
+                                         prm_technique,
+                                         prm_pChecker),
 _pSpriteModel( (SpriteModel*)_pModel),
 _pSpriteEffect( (SpriteEffect*)_pEffect),
 _pUvFlipper(NEW UvFlipper(getModel()->getDefaultTextureConnection()->peek())) {

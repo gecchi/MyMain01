@@ -10,18 +10,18 @@
 using namespace GgafDx;
 
 MeshSetActor::MeshSetActor(const char* prm_name,
-                                       const char* prm_model_id,
-                                       const char* prm_effect_id,
-                                       const char* prm_technique,
-                                       Checker* prm_pChecker) :
+                           const char* prm_model_id,
+                           const char* prm_effect_id,
+                           const char* prm_technique,
+                           Checker* prm_pChecker) :
 
-                                           FigureActor(prm_name,
-                                                             prm_model_id,
-                                                             TYPE_MESHSET_MODEL,
-                                                             prm_effect_id,
-                                                             TYPE_MESHSET_EFFECT,
-                                                             prm_technique,
-                                                             prm_pChecker),
+                               FigureActor(prm_name,
+                                           prm_model_id,
+                                           TYPE_MESHSET_MODEL,
+                                           prm_effect_id,
+                                           TYPE_MESHSET_EFFECT,
+                                           prm_technique,
+                                           prm_pChecker),
 _pMeshSetModel((MeshSetModel*)_pModel),
 _pMeshSetEffect((MeshSetEffect*)_pEffect)
 {
@@ -31,20 +31,20 @@ _pMeshSetEffect((MeshSetEffect*)_pEffect)
 }
 
 MeshSetActor::MeshSetActor(const char* prm_name,
-                                       const char* prm_model_id,
-                                       const char prm_model_type,
-                                       const char* prm_effect_id,
-                                       const char prm_effect_type,
-                                       const char* prm_technique,
-                                       Checker* prm_pChecker) :
+                           const char* prm_model_id,
+                           const char prm_model_type,
+                           const char* prm_effect_id,
+                           const char prm_effect_type,
+                           const char* prm_technique,
+                           Checker* prm_pChecker) :
 
-                                           FigureActor(prm_name,
-                                                             prm_model_id,
-                                                             prm_model_type,
-                                                             prm_effect_id,
-                                                             prm_effect_type,
-                                                             prm_technique,
-                                                             prm_pChecker),
+                               FigureActor(prm_name,
+                                           prm_model_id,
+                                           prm_model_type,
+                                           prm_effect_id,
+                                           prm_effect_type,
+                                           prm_technique,
+                                           prm_pChecker),
 _pMeshSetModel((MeshSetModel*)_pModel),
 _pMeshSetEffect((MeshSetEffect*)_pEffect) {
 

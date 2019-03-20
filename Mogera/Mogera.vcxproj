@@ -233,6 +233,7 @@
   <ItemGroup>
     <ClCompile Include="src\actor\BoardTest.cpp" />
     <ClCompile Include="src\actor\BoardTest2.cpp" />
+    <ClCompile Include="src\actor\Box.cpp" />
     <ClCompile Include="src\actor\camera\MgrCamera.cpp" />
     <ClCompile Include="src\actor\camera\MgrCameraUpVector.cpp" />
     <ClCompile Include="src\actor\camera\MgrCameraViewPoint.cpp" />
@@ -262,6 +263,7 @@
   <ItemGroup>
     <ClInclude Include="src\actor\boardtest.h" />
     <ClInclude Include="src\actor\boardtest2.h" />
+    <ClInclude Include="src\actor\Box.h" />
     <ClInclude Include="src\actor\camera\MgrCamera.h" />
     <ClInclude Include="src\actor\camera\MgrCameraUpVector.h" />
     <ClInclude Include="src\actor\camera\MgrCameraViewPoint.h" />

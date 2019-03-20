@@ -12,18 +12,18 @@
 using namespace GgafDx;
 
 PointSpriteActor::PointSpriteActor(const char* prm_name,
-                                               const char* prm_model_id,
-                                               const char* prm_effect_id,
-                                               const char* prm_technique,
-                                               Checker* prm_pChecker) :
+                                   const char* prm_model_id,
+                                   const char* prm_effect_id,
+                                   const char* prm_technique,
+                                   Checker* prm_pChecker) :
 
-                                                   FigureActor(prm_name,
-                                                                     prm_model_id,
-                                                                     TYPE_POINTSPRITE_MODEL,
-                                                                     prm_effect_id,
-                                                                     TYPE_POINTSPRITE_EFFECT,
-                                                                     prm_technique,
-                                                                     prm_pChecker),
+                                       FigureActor(prm_name,
+                                                   prm_model_id,
+                                                   TYPE_POINTSPRITE_MODEL,
+                                                   prm_effect_id,
+                                                   TYPE_POINTSPRITE_EFFECT,
+                                                   prm_technique,
+                                                   prm_pChecker),
 _pPointSpriteModel((PointSpriteModel*)_pModel),
 _pPointSpriteEffect((PointSpriteEffect*)_pEffect),
 _pUvFlipper(NEW UvFlipper(getModel()->getDefaultTextureConnection()->peek())) {
@@ -40,20 +40,20 @@ _pUvFlipper(NEW UvFlipper(getModel()->getDefaultTextureConnection()->peek())) {
 }
 
 PointSpriteActor::PointSpriteActor(const char* prm_name,
-                                               const char* prm_model_id,
-                                               const char prm_model_type,
-                                               const char* prm_effect_id,
-                                               const char prm_effect_type,
-                                               const char* prm_technique,
-                                               Checker* prm_pChecker) :
+                                   const char* prm_model_id,
+                                   const char prm_model_type,
+                                   const char* prm_effect_id,
+                                   const char prm_effect_type,
+                                   const char* prm_technique,
+                                   Checker* prm_pChecker) :
 
-                                                   FigureActor(prm_name,
-                                                                     prm_model_id,
-                                                                     prm_model_type,
-                                                                     prm_effect_id,
-                                                                     prm_effect_type,
-                                                                     prm_technique,
-                                                                     prm_pChecker),
+                                       FigureActor(prm_name,
+                                                   prm_model_id,
+                                                   prm_model_type,
+                                                   prm_effect_id,
+                                                   prm_effect_type,
+                                                   prm_technique,
+                                                   prm_pChecker),
 _pPointSpriteModel((PointSpriteModel*)_pModel),
 _pPointSpriteEffect((PointSpriteEffect*)_pEffect),
 _pUvFlipper(NEW UvFlipper(getModel()->getDefaultTextureConnection()->peek())) {

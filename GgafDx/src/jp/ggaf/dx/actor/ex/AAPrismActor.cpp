@@ -9,13 +9,13 @@ using namespace GgafDx;
 std::map<int, AAPrismActor::RotPosPrism> AAPrismActor::pos2r;
 
 AAPrismActor::AAPrismActor(const char* prm_name,
-                                   Checker* prm_pChecker) :
+                           Checker* prm_pChecker) :
 
-                                   MeshActor(prm_name,
-                                                   CONFIG::COLI_AAPRISM_MODEL.c_str(),
-                                                   "DefaultMeshEffect",
-                                                   "DefaultMeshTechnique",
-                                                   prm_pChecker) {
+                           MeshActor(prm_name,
+                                     CONFIG::COLI_AAPRISM_MODEL.c_str(),
+                                     "DefaultMeshEffect",
+                                     "DefaultMeshTechnique",
+                                     prm_pChecker) {
     //_obj_class |= Obj_GgafDx_AAPrismActor;
     _class_name = "AAPrismActor";
     static volatile bool is_init = AAPrismActor::initStatic(); //ê√ìIÉÅÉìÉoèâä˙âª
