@@ -13,8 +13,6 @@ using namespace Mogera;
 Box::Box(const char* prm_name) :
         GgafLib::DefaultMassMeshActor(prm_name, "Box") {
     setScaleR(4);
-    setZEnableDraw(false);
-    setZWriteEnable(false);
 }
 
 void Box::initialize() {

@@ -72,7 +72,8 @@ void EnemyIdaBase::processBehavior() {
             break;
         }
         case PROG_END: {
-            getKuroko()->setMvVelo(PX_C(0));
+            getKuroko()->stopMv();
+            getKuroko()->stopTurningMvAng();
             break;
         }
     }
