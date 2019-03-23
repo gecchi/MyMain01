@@ -1,7 +1,5 @@
 #include "jp/ggaf/lib/manager/SplineManufactureConnection.h"
 
-
-
 using namespace GgafLib;
 
 SplineManufactureConnection::SplineManufactureConnection(const char* prm_idstr, SplineManufacture* prm_pResource) :

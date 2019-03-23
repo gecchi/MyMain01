@@ -27,7 +27,7 @@ void MyShipDivingCamWorker::processBehavior() {
         MyShip* pMyShip = pMYSHIP;
         coord dx = ABS(pMYSHIP->_x);
         static const coord dc = ABS(pSpacetime->_x_bound_left);
-        static const coord r = DX_C(ABS(pCam_->_cameraZ_org));
+        static const coord r = DX_C(ABS(_pCam->_cameraZ_org));
 
         double t = RCNV(dc, 0, dx, 0.0, 1.0);  // dx = dc ¨ 0 At = 0.0 ¨ 1.0
         angle a = UTIL::simplifyAng((D360ANG)*t); //ƒJƒƒ‰‚ª‚®‚é[‚ñ‚Æ‰ñ‚·

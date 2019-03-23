@@ -1,15 +1,16 @@
-#ifndef CAMERAWORKERCONNECTION_H_
-#define CAMERAWORKERCONNECTION_H_
-#include "VioletVreath.h"
+#ifndef GGAF_LIB_AMERAWORKERCONNECTION_H_
+#define GGAF_LIB_AMERAWORKERCONNECTION_H_
+#include "GgafLibCommonHeader.h"
+
 #include "jp/ggaf/core/util/ResourceConnection.hpp"
 #include "jp/ggaf/lib/actor/camera/worker/CameraWorker.h"
 
-namespace VioletVreath {
+namespace GgafLib {
 
 /**
  * CameraWorkerコネクション.
  * @version 1.00
- * @since 2009/01/30
+ * @since 2019/03/22
  * @author Masatoshi Tsuge
  */
 class CameraWorkerConnection : public GgafCore::ResourceConnection<GgafLib::CameraWorker> {
@@ -29,4 +30,4 @@ public:
 };
 
 }
-#endif /*DEPOSITORYCONNECTION_H_*/
+#endif /*GGAF_LIB_AMERAWORKERCONNECTION_H_*/

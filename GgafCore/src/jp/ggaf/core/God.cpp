@@ -318,12 +318,12 @@ MainScene* God::receive_Scene(uint64_t prm_cradle_no, Object* prm_pReceiver) {
 }
 
 void God::createCradle(uint64_t prm_cradle_no,
-                           Object* (*prm_pFunc)(void*, void*, void*),
-                           Object* prm_pWisher,
-                           Object* prm_pReceiver,
-                           void* prm_pArg1,
-                           void* prm_pArg2,
-                           void* prm_pArg3) {
+                       Object* (*prm_pFunc)(void*, void*, void*),
+                       Object* prm_pWisher,
+                       Object* prm_pReceiver,
+                       void* prm_pArg1,
+                       void* prm_pArg2,
+                       void* prm_pArg3) {
     _TRACE2_("＜依頼人:("<<prm_pWisher<<")＞ 別スレッドの神さん、 [" << prm_cradle_no << "-"<<prm_pReceiver<<"]を作っといてや～。");
     //既に祝福していないかチェック
     Cradle* pCradle = _pCradleRoot;

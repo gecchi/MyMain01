@@ -21,11 +21,13 @@
   <ItemGroup>
     <ClInclude Include="include\GgafLib.h" />
     <ClInclude Include="include\ggaflibcommonheader.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\camera\cameraworkerchanger.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\camera\defaultcamera.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\camera\defaultcameraupvector.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\camera\defaultcameraviewpoint.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\camera\worker\aroundviewcamworker.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\camera\worker\cameraworker.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\camera\worker\defaultcamworker.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\cappedgraphbaractor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\ColliAABoxActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\ColliAAPrismActor.h" />
@@ -84,6 +86,8 @@
     <ClInclude Include="include\jp\ggaf\lib\effect\MassWallEffect.h" />
     <ClInclude Include="include\jp\ggaf\lib\effect\SingleLaserEffect.h" />
     <ClInclude Include="include\jp\ggaf\lib\libconfig.h" />
+    <ClInclude Include="include\jp\ggaf\lib\manager\cameraworkerconnection.h" />
+    <ClInclude Include="include\jp\ggaf\lib\manager\cameraworkermanager.h" />
     <ClInclude Include="include\jp\ggaf\lib\manager\defaulteffectmanager.h" />
     <ClInclude Include="include\jp\ggaf\lib\manager\SplineManufactureConnection.h" />
     <ClInclude Include="include\jp\ggaf\lib\manager\SplineManufactureManager.h" />
@@ -122,11 +126,13 @@
     <ClInclude Include="include\jp\ggaf\lib\util\WMKeyInput.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\jp\ggaf\lib\actor\camera\CameraWorkerChanger.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\camera\DefaultCamera.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\camera\DefaultCameraUpVector.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\camera\DefaultCameraViewPoint.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\camera\worker\AroundViewCamWorker.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\camera\worker\CameraWorker.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\camera\worker\DefaultCamWorker.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\CappedGraphBarActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\ColliAABoxActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\ColliAAPrismActor.cpp" />
@@ -183,6 +189,8 @@
     <ClCompile Include="src\jp\ggaf\lib\effect\MassWallEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\effect\SingleLaserEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\LibConfig.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\manager\CameraWorkerConnection.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\manager\CameraWorkerManager.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\manager\DefaultEffectManager.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\manager\SplineManufactureConnection.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\manager\SplineManufactureManager.cpp" />

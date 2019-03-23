@@ -2,14 +2,13 @@
 
 #include "jp/ggaf/core/actor/SceneMediator.h"
 #include "jp/ggaf/dx/sound/BgmConductor.h"
-
+#include "jp/gecchi/VioletVreath/actor/camera/VVCameraWorkerChanger.h"
 #include "jp/ggaf/lib/util/CollisionChecker3D.h"
 #include "jp/ggaf/core/util/LinearOctree.h"
 #include "jp/ggaf/core/util/LinearTreeRounder.hpp"
 #include "jp/gecchi/VioletVreath/actor/menu/pause/MenuBoardPause.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-
 #include "PreDrawScene.h"
 #include "GameScene/CommonScene.h"
 #include "GameScene/GameBeginningScene.h"
@@ -82,7 +81,7 @@ void GameScene::onReset() {
             pChildScene->inactivate();
         }
     }
-    pGOD->getSpacetime()->resetCamWorker();
+    pGOD->getSpacetime()->getCameraWorkerChanger()->cleanCamWorker();
     G_RANK = 0.0;
     G_RANKUP_LEVEL = 0;
     G_SCORE = 0;
@@ -191,7 +190,7 @@ void GameScene::processBehavior() {
                 if (was_paused_flg_GameMainScene_prev_frame_)  {
                     //現フレームポーズではない、かつ前フレームポーズの場合。
                     //ポーズ解除から最初のフレーム処理はココへ
-                    pSpacetime->undoCameraWork();
+                    pSpacetime->getCameraWorkerChanger()->undoCameraWork();
                 }
 
                 //通常進行時処理はココ
@@ -218,7 +217,7 @@ void GameScene::processBehavior() {
                     GgafDx::Input::updateMouseState();
                     GgafDx::Input::updateMouseState(); //マウス座標の相対座標を0にリセットするため
                                                      //連続２回呼び出す
-                    pSpacetime->changeCameraWork("PauseCamWorker");
+                    pSpacetime->getCameraWorkerChanger()->changeCameraWork("PauseCamWorker");
                 }
 
                 //ポーズ進行時処理はココ

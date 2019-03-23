@@ -340,7 +340,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\Camera.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\CameraUpVector.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\CameraViewPoint.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\worker\DefaultCamWorker.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\VVCameraWorkerChanger.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\worker\MyShipDivingCamWorker.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\worker\PauseCamWorker.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\worker\TestCamWorker.cpp" />
@@ -620,8 +620,6 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\effect\HoshiboshiEffect.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\GameGlobal.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\God.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\manager\CameraWorkerConnection.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\manager\CameraWorkerManager.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\manager\DepositoryConnection.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\manager\DepositoryManager.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\manager\EffectManager.cpp" />
@@ -697,6 +695,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\Camera.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\CameraUpVector.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\CameraViewPoint.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\VVCameraWorkerChanger.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\worker\DefaultCamWorker.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\worker\MyShipDivingCamWorker.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\worker\PauseCamWorker.h" />
@@ -986,8 +985,6 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\effect\HoshiboshiEffect.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\GameGlobal.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\God.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\manager\CameraWorkerConnection.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\manager\CameraWorkerManager.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\manager\DepositoryConnection.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\manager\DepositoryManager.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\manager\EffectManager.h" />

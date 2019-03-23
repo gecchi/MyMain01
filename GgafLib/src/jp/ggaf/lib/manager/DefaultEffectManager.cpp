@@ -3,8 +3,6 @@
 #include "jp/ggaf/lib/effect/MassWallEffect.h"
 #include "jp/ggaf/lib/effect/SingleLaserEffect.h"
 
-
-
 using namespace GgafLib;
 
 

@@ -20,19 +20,19 @@ class CameraWorker : public GgafCore::MainActor {
 
 public:
     /** [r]カメラへの参照 */
-    DefaultCamera* pCam_;
+    DefaultCamera* _pCam;
     /** [r]視点への参照 */
-    DefaultCameraViewPoint* pVp_;
+    DefaultCameraViewPoint* _pVp;
     /** [r]カメラの上方向の位置ベクトル */
-    DefaultCameraUpVector*  pUp_;
+    DefaultCameraUpVector*  _pUp;
     /** カメラマンの移動目標座標 */
-    coord t_x_CAM_, t_y_CAM_, t_z_CAM_;
+    coord _t_x_CAM, _t_y_CAM, _t_z_CAM;
     /** カメラマンのビューポイントの移動目標座標 */
-    coord t_x_VP_, t_y_VP_, t_z_VP_;
+    coord _t_x_VP, _t_y_VP, _t_z_VP;
     /** UPベクトル目標 */
-    coord t_x_UP_, t_y_UP_, t_z_UP_;
+    coord _t_x_UP, _t_y_UP, _t_z_UP;
 
-    frame frame_of_behaving_since_onSwitch_;
+    frame _frame_of_behaving_since_onSwitch;
 
 public:
     CameraWorker(const char* prm_name, DefaultCamera* prm_pCamera);
@@ -77,7 +77,7 @@ public:
     }
 
     inline frame getSwitchedFrame() {
-        return frame_of_behaving_since_onSwitch_;
+        return _frame_of_behaving_since_onSwitch;
     }
 
     void slideMvCamTo(GgafDx::GeometricActor* pTarget, frame t);

@@ -14,10 +14,10 @@ namespace GgafLib {
 class AroundViewCamWorker : public CameraWorker {
 
 public:
-    int cd_;
-    bool mdz_flg_;
-    double mdz_vx_, mdz_vy_, mdz_vz_, mdz_t_;
-    int mdz_total_;
+    int _cd;
+    bool _mdz_flg;
+    double _mdz_vx, _mdz_vy, _mdz_vz, _mdz_t;
+    int _mdz_total;
 
 public:
     AroundViewCamWorker(const char* prm_name, DefaultCamera* prm_pCamera);

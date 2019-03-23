@@ -122,6 +122,12 @@ class LaserChipDepository;
 
 class DefaultEffectManager;
 class MassWallEffect;
+
+class CameraWorkerManager;
+class CameraWorkerConnection;
+class CameraWorkerChanger;
+class DefaultCamWorker;
+
 }
 
 #endif /*GGAFLIBHEADER_H_*/

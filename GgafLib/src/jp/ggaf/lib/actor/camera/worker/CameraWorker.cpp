@@ -19,22 +19,21 @@ using namespace GgafLib;
 
 CameraWorker::CameraWorker(const char* prm_name, DefaultCamera* prm_pCamera) : GgafCore::MainActor(prm_name) {
     _class_name = "CameraWorker";
-    t_x_VP_ =  0;
-    t_y_VP_ =  0;
-    t_z_VP_ =  0;
-    t_x_CAM_ =  0;
-    t_y_CAM_ =  0;
-    t_z_CAM_ =  0;
-    t_x_UP_ =  0;
-    t_y_UP_ =  0;
-    t_z_UP_ =  0;
-    frame_of_behaving_since_onSwitch_ = 0;
-    pCam_ = prm_pCamera;
-    pVp_ = (DefaultCameraViewPoint*)(pCam_->getCameraViewPoint());
-    pUp_ = (DefaultCameraUpVector*)(pCam_->getCameraUpVector());
+    _t_x_VP =  0;
+    _t_y_VP =  0;
+    _t_z_VP =  0;
+    _t_x_CAM =  0;
+    _t_y_CAM =  0;
+    _t_z_CAM =  0;
+    _t_x_UP =  0;
+    _t_y_UP =  0;
+    _t_z_UP =  0;
+    _frame_of_behaving_since_onSwitch = 0;
+    _pCam = prm_pCamera;
+    _pVp = (DefaultCameraViewPoint*)(_pCam->getCameraViewPoint());
+    _pUp = (DefaultCameraUpVector*)(_pCam->getCameraUpVector());
 
     static volatile bool is_init = CameraWorker::initStatic(); //静的メンバ初期化
-    //注意：Cameraはまだ生成されていないためここでP_CAMは使用不可
 }
 
 bool CameraWorker::initStatic() {
@@ -42,28 +41,28 @@ bool CameraWorker::initStatic() {
 }
 
 void CameraWorker::initialize() {
-    t_x_VP_ = pVp_->_x;
-    t_y_VP_ = pVp_->_y;
-    t_z_VP_ = pVp_->_z;
-    t_x_CAM_ = pCam_->_x;
-    t_y_CAM_ = pCam_->_y;
-    t_z_CAM_ = pCam_->_z;
-    t_x_UP_ =  pUp_->_x;
-    t_y_UP_ =  pUp_->_y;
-    t_z_UP_ =  pUp_->_z;
+    _t_x_VP = _pVp->_x;
+    _t_y_VP = _pVp->_y;
+    _t_z_VP = _pVp->_z;
+    _t_x_CAM = _pCam->_x;
+    _t_y_CAM = _pCam->_y;
+    _t_z_CAM = _pCam->_z;
+    _t_x_UP =  _pUp->_x;
+    _t_y_UP =  _pUp->_y;
+    _t_z_UP =  _pUp->_z;
 }
 void CameraWorker::onActive() {
     //現在のターゲットを再ターゲット
-    slideMvCamTo(t_x_CAM_, t_y_CAM_, t_z_CAM_, DEFAULT_CAMERA_SLIDE_FRAMES);
-    slideMvVpTo(t_x_VP_, t_y_VP_, t_z_VP_, DEFAULT_CAMERA_SLIDE_FRAMES);
-    slideMvUpVecTo(t_x_UP_, t_y_UP_, t_z_UP_, DEFAULT_CAMERA_SLIDE_FRAMES);
+    slideMvCamTo(_t_x_CAM, _t_y_CAM, _t_z_CAM, DEFAULT_CAMERA_SLIDE_FRAMES);
+    slideMvVpTo(_t_x_VP, _t_y_VP, _t_z_VP, DEFAULT_CAMERA_SLIDE_FRAMES);
+    slideMvUpVecTo(_t_x_UP, _t_y_UP, _t_z_UP, DEFAULT_CAMERA_SLIDE_FRAMES);
 }
 
 void CameraWorker::onSwitchCameraWork() {
     //現在のターゲットを再ターゲット
-    slideMvCamTo(t_x_CAM_, t_y_CAM_, t_z_CAM_, DEFAULT_CAMERA_SLIDE_FRAMES);
-    slideMvVpTo(t_x_VP_, t_y_VP_, t_z_VP_, DEFAULT_CAMERA_SLIDE_FRAMES);
-    slideMvUpVecTo(t_x_UP_, t_y_UP_, t_z_UP_, DEFAULT_CAMERA_SLIDE_FRAMES);
+    slideMvCamTo(_t_x_CAM, _t_y_CAM, _t_z_CAM, DEFAULT_CAMERA_SLIDE_FRAMES);
+    slideMvVpTo(_t_x_VP, _t_y_VP, _t_z_VP, DEFAULT_CAMERA_SLIDE_FRAMES);
+    slideMvUpVecTo(_t_x_UP, _t_y_UP, _t_z_UP, DEFAULT_CAMERA_SLIDE_FRAMES);
 }
 
 void CameraWorker::onChangedToOtherCameraWork() {
@@ -84,52 +83,52 @@ void CameraWorker::slideMvVpTo(GgafDx::GeometricActor* pTarget, frame t) {
 
 void CameraWorker::slideMvCamTo(coord tx, coord ty, coord tz, frame t,
                                 float prm_p1, float prm_p2) {
-    t_x_CAM_ = tx;
-    t_y_CAM_ = ty;
-    t_z_CAM_ = tz;
-    pCam_->slideMvTo(tx, ty, tz, t, prm_p1, prm_p2);
+    _t_x_CAM = tx;
+    _t_y_CAM = ty;
+    _t_z_CAM = tz;
+    _pCam->slideMvTo(tx, ty, tz, t, prm_p1, prm_p2);
 }
 
 void CameraWorker::slideMvCamTo(coord tx, coord ty, coord tz, frame t,
                                 float prm_x_p1, float prm_y_p1, float prm_z_p1) {
-    t_x_CAM_ = tx;
-    t_y_CAM_ = ty;
-    t_z_CAM_ = tz;
-    pCam_->slideMvTo(tx, ty, tz, t, prm_x_p1, prm_y_p1, prm_z_p1);
+    _t_x_CAM = tx;
+    _t_y_CAM = ty;
+    _t_z_CAM = tz;
+    _pCam->slideMvTo(tx, ty, tz, t, prm_x_p1, prm_y_p1, prm_z_p1);
 }
 
 void CameraWorker::mvCamTo(coord tx, coord ty, coord tz) {
-    t_x_CAM_ = tx;
-    t_y_CAM_ = ty;
-    t_z_CAM_ = tz;
-    pCam_->setPosition(tx, ty, tz);
+    _t_x_CAM = tx;
+    _t_y_CAM = ty;
+    _t_z_CAM = tz;
+    _pCam->setPosition(tx, ty, tz);
 }
 
 bool CameraWorker::isCamSliding() {
-    return pCam_->isSliding();
+    return _pCam->isSliding();
 }
 void CameraWorker::slideMvVpTo(coord tx, coord ty, coord tz, frame t, float prm_p1, float prm_p2)  {
-    t_x_VP_ = tx;
-    t_y_VP_ = ty;
-    t_z_VP_ = tz;
-    pVp_->slideMvTo(tx, ty, tz, t, prm_p1, prm_p2);
+    _t_x_VP = tx;
+    _t_y_VP = ty;
+    _t_z_VP = tz;
+    _pVp->slideMvTo(tx, ty, tz, t, prm_p1, prm_p2);
 }
 void CameraWorker::slideMvUpVecTo(coord tx, coord ty, coord tz, frame t, float prm_p1, float prm_p2)  {
-    t_x_UP_ = tx;
-    t_y_UP_ = ty;
-    t_z_UP_ = tz;
-    pUp_->slideMvTo(tx, ty, tz, t, prm_p1, prm_p2);
+    _t_x_UP = tx;
+    _t_y_UP = ty;
+    _t_z_UP = tz;
+    _pUp->slideMvTo(tx, ty, tz, t, prm_p1, prm_p2);
 }
 
 void CameraWorker::setUpVec(coord tx, coord ty, coord tz) {
-    pUp_->setPosition(tx,ty,tz);
+    _pUp->setPosition(tx,ty,tz);
 }
 void CameraWorker::stopMvCam() {
-    pCam_->getTrucker()->stopMv();
+    _pCam->getTrucker()->stopMv();
 }
 
 void CameraWorker::stopMvVp() {
-    pVp_->getTrucker()->stopMv();
+    _pVp->getTrucker()->stopMv();
 }
 
 CameraWorker::~CameraWorker() {

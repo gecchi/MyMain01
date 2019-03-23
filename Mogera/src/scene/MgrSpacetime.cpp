@@ -20,9 +20,9 @@ MgrSpacetime::MgrSpacetime(const char* prm_name, MgrCamera* prm_pCam) :
         GgafLib::DefaultSpacetime(prm_name, prm_pCam) {
     pWorld_ = nullptr;
     UTIL::left_top_x_ = CONFIG::DUAL_VIEW ? PX_C(P_GOD->_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].left) :
-                                              PX_C(P_GOD->_rectRenderTargetBuffer.left);
+                                            PX_C(P_GOD->_rectRenderTargetBuffer.left);
     UTIL::left_top_y_ = CONFIG::DUAL_VIEW ? PX_C(P_GOD->_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].top) :
-                                                      PX_C(P_GOD->_rectRenderTargetBuffer.top);
+                                            PX_C(P_GOD->_rectRenderTargetBuffer.top);
     UTIL::center_x_ = PX_C(CONFIG::RENDER_TARGET_BUFFER_WIDTH / 2);
     UTIL::center_y_ = PX_C(CONFIG::RENDER_TARGET_BUFFER_HEIGHT / 2);
 

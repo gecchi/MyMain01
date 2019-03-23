@@ -868,8 +868,8 @@ void VamSysCamWorker::processBehavior() {
     const coord mv_t_y_VP = pMyShip_y - vp_y_hosei;
     const coord mv_t_z_VP = pMyShip_z - vp_z_hosei;
 
-    if (t_x_CAM_ != mv_t_x_CAM  || t_y_CAM_ != mv_t_y_CAM || t_z_CAM_ != mv_t_z_CAM ||
-        t_x_VP_  != mv_t_x_VP   || t_y_VP_  != mv_t_y_VP  || t_z_VP_  != mv_t_z_VP
+    if (_t_x_CAM != mv_t_x_CAM  || _t_y_CAM != mv_t_y_CAM || _t_z_CAM != mv_t_z_CAM ||
+        _t_x_VP  != mv_t_x_VP   || _t_y_VP  != mv_t_y_VP  || _t_z_VP  != mv_t_z_VP
     ) {
         if (returning_cam_pos_) {
             slideMvCamTo(mv_t_x_CAM, mv_t_y_CAM, mv_t_z_CAM,

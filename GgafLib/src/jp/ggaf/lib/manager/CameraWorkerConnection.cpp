@@ -1,9 +1,6 @@
-#include "CameraWorkerConnection.h"
-
-
+#include "jp/ggaf/lib/manager/CameraWorkerConnection.h"
 
 using namespace GgafLib;
-using namespace VioletVreath;
 
 CameraWorkerConnection::CameraWorkerConnection(const char* prm_idstr, CameraWorker* prm_pResource) :
     GgafCore::ResourceConnection<CameraWorker> (prm_idstr, prm_pResource) {

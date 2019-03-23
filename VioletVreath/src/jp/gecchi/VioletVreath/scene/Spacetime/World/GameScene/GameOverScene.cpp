@@ -1,12 +1,12 @@
 #include "GameOverScene.h"
 
+#include "jp/gecchi/VioletVreath/actor/camera/VVCameraWorkerChanger.h"
 #include "jp/ggaf/core/actor/SceneMediator.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameOverScene/NameEntryScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-
 
 
 using namespace GgafLib;
@@ -74,7 +74,7 @@ void GameOverScene::processBehavior() {
                 }
             }
             if (pProg->hasArrivedAt(420)) {
-                pGOD->getSpacetime()->resetCamWorker();
+                pGOD->getSpacetime()->getCameraWorkerChanger()->cleanCamWorker();
                 if (need_name_entry_) {
                     _TRACE_("pProg->change(PROG_NAMEENTRY);");
                     pProg->change(PROG_NAMEENTRY);

@@ -17,10 +17,10 @@ using namespace GgafLib;
 
 AroundViewCamWorker::AroundViewCamWorker(const char* prm_name, DefaultCamera* prm_pCamera) : CameraWorker(prm_name, prm_pCamera) {
     _class_name = "AroundViewCamWorker";
-    cd_ = 0;
-    mdz_flg_ = false;
-    mdz_vx_ = mdz_vy_ = mdz_vz_ = mdz_t_ = 0.0;
-    mdz_total_ = 0;
+    _cd = 0;
+    _mdz_flg = false;
+    _mdz_vx = _mdz_vy = _mdz_vz = _mdz_t = 0.0;
+    _mdz_total = 0;
 }
 
 void AroundViewCamWorker::initialize() {
@@ -31,9 +31,9 @@ void AroundViewCamWorker::onActive() {
     CameraWorker::onActive();
     //CameraWorker::onActive(); を上書きして、
     //その場座標をターゲット座標に上書き
-    slideMvCamTo(pCam_->_x, pCam_->_y, pCam_->_z, DEFAULT_CAMERA_SLIDE_FRAMES);
-    slideMvVpTo(pVp_->_x, pVp_->_y, pVp_->_z, DEFAULT_CAMERA_SLIDE_FRAMES);
-    slideMvUpVecTo(pUp_->_x, pUp_->_y, pUp_->_z, DEFAULT_CAMERA_SLIDE_FRAMES);
+    slideMvCamTo(_pCam->_x, _pCam->_y, _pCam->_z, DEFAULT_CAMERA_SLIDE_FRAMES);
+    slideMvVpTo(_pVp->_x, _pVp->_y, _pVp->_z, DEFAULT_CAMERA_SLIDE_FRAMES);
+    slideMvUpVecTo(_pUp->_x, _pUp->_y, _pUp->_z, DEFAULT_CAMERA_SLIDE_FRAMES);
 }
 
 void AroundViewCamWorker::processBehavior() {
@@ -65,9 +65,9 @@ void AroundViewCamWorker::processBehavior() {
         cw = cRect.right - cRect.left;
         ch = cRect.bottom - cRect.top;
         if (cw > ch) {
-            cd_ = ch;
+            _cd = ch;
         } else {
-            cd_ = cw;
+            _cd = cw;
         }
     }
 
@@ -97,7 +97,7 @@ void AroundViewCamWorker::processBehavior() {
         //平面回転軸(vx,vy)をVPのワールド空間軸に変換
         //VP→CAMのワールド空間方向ベクトルを法線とする平面上に回転軸ベクトルは存在する
         D3DXMATRIX InvView;
-        D3DXMatrixInverse( &InvView, nullptr, pCam_->getViewMatrix());
+        D3DXMatrixInverse( &InvView, nullptr, _pCam->getViewMatrix());
         //(vx,vy,vz) * InvView
         // 11_, 12_, 13_, 14_
         // 21_, 22_, 23_, 24_
@@ -127,11 +127,11 @@ void AroundViewCamWorker::processBehavior() {
         //視点を中心にカメラが回転移動
         if (isPressedMouseButton0 && (mdx != 0 || mdy != 0)) {
             //注視点→カメラ の方向ベクトル(vx, vy, vz)
-            double vx_eye = t_x_CAM_ - t_x_VP_;
-            double vy_eye = t_y_CAM_ - t_y_VP_;
-            double vz_eye = t_z_CAM_ - t_z_VP_;
+            double vx_eye = _t_x_CAM - _t_x_VP;
+            double vy_eye = _t_y_CAM - _t_y_VP;
+            double vz_eye = _t_z_CAM - _t_z_VP;
             //回転させたい角度
-            double ang = (PI) * (d/cd_);
+            double ang = (PI) * (d/_cd);
             double sinHalf = sin(ang/2);
             double cosHalf = cos(ang/2);
             Quaternion<double> qu(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
@@ -139,10 +139,10 @@ void AroundViewCamWorker::processBehavior() {
             Quaternion<double> Q(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf);
             qu.mul(0, vx_eye, vy_eye, vz_eye); //R*P
             qu.mul(Q); //R*P*Q
-            slideMvCamTo(qu.i + t_x_VP_, qu.j + t_y_VP_, qu.k + t_z_VP_, DEFAULT_CAMERA_SLIDE_FRAMES);
+            slideMvCamTo(qu.i + _t_x_VP, qu.j + _t_y_VP, qu.k + _t_z_VP, DEFAULT_CAMERA_SLIDE_FRAMES);
             //UPもまわす
             {
-                qu2.mul(0, t_x_UP_, t_y_UP_, t_z_UP_);//R*P
+                qu2.mul(0, _t_x_UP, _t_y_UP, _t_z_UP);//R*P
                 qu2.mul(Q); //R*P*Q
                 slideMvUpVecTo(qu2.i, qu2.j, qu2.k, DEFAULT_CAMERA_SLIDE_FRAMES);
             }
@@ -150,11 +150,11 @@ void AroundViewCamWorker::processBehavior() {
         //カメラを中心に視点が回転移動
         if (isPressedMouseButton1 && (mdx != 0 || mdy != 0)) {
             //カメラ→注視点 の方向ベクトル(vx, vy, vz)
-            double vx_cam = t_x_VP_ - t_x_CAM_;
-            double vy_cam = t_y_VP_ - t_y_CAM_;
-            double vz_cam = t_z_VP_ - t_z_CAM_;
+            double vx_cam = _t_x_VP - _t_x_CAM;
+            double vy_cam = _t_y_VP - _t_y_CAM;
+            double vz_cam = _t_z_VP - _t_z_CAM;
             //回転させたい角度
-            double ang = (PI) * (d/cd_);
+            double ang = (PI) * (d/_cd);
             double sinHalf = sin(ang/2);
             double cosHalf = cos(ang/2);
             Quaternion<float> qu(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
@@ -162,10 +162,10 @@ void AroundViewCamWorker::processBehavior() {
             Quaternion<float> Q(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf);
             qu.mul(0, vx_cam, vy_cam, vz_cam);//R*P 回転軸が現在の進行方向ベクトルとなる
             qu.mul(Q); //R*P*Q
-            slideMvVpTo(qu.i + t_x_CAM_, qu.j + t_y_CAM_, qu.k + t_z_CAM_, DEFAULT_CAMERA_SLIDE_FRAMES);
+            slideMvVpTo(qu.i + _t_x_CAM, qu.j + _t_y_CAM, qu.k + _t_z_CAM, DEFAULT_CAMERA_SLIDE_FRAMES);
             //UPもまわす
             {
-                qu2.mul(0, t_x_UP_, t_y_UP_, t_z_UP_); //R*P
+                qu2.mul(0, _t_x_UP, _t_y_UP, _t_z_UP); //R*P
                 qu2.mul(Q);  //R*P*Q
                 slideMvUpVecTo(qu2.i, qu2.j, qu2.k, DEFAULT_CAMERA_SLIDE_FRAMES);
             }
@@ -176,9 +176,9 @@ void AroundViewCamWorker::processBehavior() {
             double sinHalf = sin(ang/2); //回転させたい角度
             double cosHalf = cos(ang/2);
             //カメラ→注視点 の方向ベクトル(vx, vy, vz)
-            double vx_cam = t_x_VP_ - t_x_CAM_;
-            double vy_cam = t_y_VP_ - t_y_CAM_;
-            double vz_cam = t_z_VP_ - t_z_CAM_;
+            double vx_cam = _t_x_VP - _t_x_CAM;
+            double vy_cam = _t_y_VP - _t_y_CAM;
+            double vz_cam = _t_z_VP - _t_z_CAM;
             //正規化
             double t3 = 1.0 / sqrt(vx_cam * vx_cam + vy_cam * vy_cam + vz_cam * vz_cam);
             vx_cam = t3 * vx_cam;
@@ -187,46 +187,46 @@ void AroundViewCamWorker::processBehavior() {
             Quaternion<float> qu(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
             qu.mul(0, vx_cam, vy_cam, vz_cam); //R*P 回転軸が現在の進行方向ベクトルとなる
             qu.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
-            double r = (d/cd_) * game_width;
-            slideMvCamTo(t_x_CAM_ + (qu.i*r),
-                         t_y_CAM_ + (qu.j*r),
-                         t_z_CAM_ + (qu.k*r) , DEFAULT_CAMERA_SLIDE_FRAMES);
-            slideMvVpTo(t_x_VP_ + (qu.i*r),
-                        t_y_VP_ + (qu.j*r),
-                        t_z_VP_ + (qu.k*r) , DEFAULT_CAMERA_SLIDE_FRAMES);
+            double r = (d/_cd) * game_width;
+            slideMvCamTo(_t_x_CAM + (qu.i*r),
+                         _t_y_CAM + (qu.j*r),
+                         _t_z_CAM + (qu.k*r) , DEFAULT_CAMERA_SLIDE_FRAMES);
+            slideMvVpTo(_t_x_VP + (qu.i*r),
+                        _t_y_VP + (qu.j*r),
+                        _t_z_VP + (qu.k*r) , DEFAULT_CAMERA_SLIDE_FRAMES);
         }
 
     } else if (mdz != 0 || (isPressedMouseButton0 && isPressedMouseButton1)) {
         //ウォークスルー
-        if (mdz_flg_ == false) {
+        if (_mdz_flg == false) {
             //ホイールした（両方押し）最初のフレーム
-            mdz_total_ = 0;
+            _mdz_total = 0;
             //カメラ → 注視点 の方向ベクトル
-            double vx_cam = pVp_->_x - pCam_->_x;
-            double vy_cam = pVp_->_y - pCam_->_y;
-            double vz_cam = pVp_->_z - pCam_->_z;
+            double vx_cam = _pVp->_x - _pCam->_x;
+            double vy_cam = _pVp->_y - _pCam->_y;
+            double vz_cam = _pVp->_z - _pCam->_z;
             double t = 1.0 / sqrt(vx_cam * vx_cam + vy_cam * vy_cam + vz_cam * vz_cam);
-            mdz_vx_ = t * vx_cam;
-            mdz_vy_ = t * vy_cam;
-            mdz_vz_ = t * vz_cam;
+            _mdz_vx = t * vx_cam;
+            _mdz_vy = t * vy_cam;
+            _mdz_vz = t * vz_cam;
         }
         double r = 0.0;
         if (mdz != 0) {
             r = (mdz*PX_UNIT*LEN_UNIT/10.0);
         } else if ((isPressedMouseButton0 && isPressedMouseButton1)) {
-            r = (1.0*mdy/cd_) * game_width;
+            r = (1.0*mdy/_cd) * game_width;
         }
         if (mdx != 0 || mdy != 0 || mdz != 0) {
-            slideMvCamTo(t_x_CAM_ + mdz_vx_*r,
-                         t_y_CAM_ + mdz_vy_*r,
-                         t_z_CAM_ + mdz_vz_*r , DEFAULT_CAMERA_SLIDE_FRAMES);
-            slideMvVpTo(t_x_VP_ + mdz_vx_*r,
-                        t_y_VP_ + mdz_vy_*r,
-                        t_z_VP_ + mdz_vz_*r , DEFAULT_CAMERA_SLIDE_FRAMES);
+            slideMvCamTo(_t_x_CAM + _mdz_vx*r,
+                         _t_y_CAM + _mdz_vy*r,
+                         _t_z_CAM + _mdz_vz*r , DEFAULT_CAMERA_SLIDE_FRAMES);
+            slideMvVpTo(_t_x_VP + _mdz_vx*r,
+                        _t_y_VP + _mdz_vy*r,
+                        _t_z_VP + _mdz_vz*r , DEFAULT_CAMERA_SLIDE_FRAMES);
         }
-        mdz_flg_ = true;
+        _mdz_flg = true;
     } else {
-        mdz_flg_ = false;
+        _mdz_flg = false;
     }
 }
 
