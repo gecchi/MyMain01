@@ -28,11 +28,11 @@ SphereRadiusVectors::SphereRadiusVectors() : GgafCore::Object() {
 }
 
 void SphereRadiusVectors::getFaceAngClosely(uint32_t prm_x,
-                                                  uint32_t prm_y,
-                                                  uint32_t prm_z,
-                                                  s_ang& out_faceZ,
-                                                  s_ang& out_faceY_rev,
-                                                  int s) {
+                                            uint32_t prm_y,
+                                            uint32_t prm_z,
+                                            s_ang& out_faceZ,
+                                            s_ang& out_faceY_rev,
+                                            int s) {
     static class COMPARE_ABLE_SR_VECTOR target;
     target.set(0, prm_y, 0);
 

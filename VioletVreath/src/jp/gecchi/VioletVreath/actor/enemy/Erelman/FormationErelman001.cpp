@@ -133,5 +133,6 @@ FormationErelman001::~FormationErelman001() {
         papSplManufConn_[col]->close();
     }
     GGAF_DELETEARR(papSplManufConn_);
+    GGAF_DELETEARR(pa_frame_of_call_up_);
 }
 

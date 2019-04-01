@@ -62,6 +62,14 @@ void Scene::nextFrame() {
     _is_next_frame = (_once_in_n_time == 1 || pGOD->_frame_of_God % _once_in_n_time == 0);
     if (_is_next_frame) {
         Element<Scene>::nextFrame();
+
+//        if (_pSceneMediator->_frame_of_life < _pSceneMediator->_frame_of_life_when_end) {
+//            //end‚È‚Ì‚ÅŽÀs‚µ‚È‚¢B
+//        } else {
+//            _pSceneMediator->nextFrame();
+//        }
+
+
         frame f = _pSceneMediator->_frame_of_life;
         if (b || _is_active_in_the_tree_flg ||
                 f <= _pSceneMediator->_frame_of_life_when_activation ||

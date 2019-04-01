@@ -8,8 +8,6 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyMagicEnergyCore.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -40,6 +38,7 @@ LockonMagic::LockonMagic(const char* prm_name, int* prm_pMP)
 
 void LockonMagic::onReset() {
     Magic::onReset();
+    pEffect_->inactivate();
     MyLockonController::lockon_num_ = 0;
 }
 

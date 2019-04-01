@@ -109,12 +109,13 @@ public:
     }
 
     /**
-     * 平面上のベクトル(vx, vy) が作る原点のなす角を返す。ただしvx>0,vy>0が事前にわかっている .
-     * @param prm_vx ベクトル x 要素
-     * @param prm_vy ベクトル y 要素
+     * 第一象限の平面上のベクトル(vx, vy) が作る原点のなす角を返す .
+     * この関数を使用する前提は、 vx > 0, vy > 0 が予め明らかであること。
+     * @param prm_vx ベクトル x 要素 (> 0)
+     * @param prm_vy ベクトル y 要素 (> 0)
      * @return なす角のアングル値 (0 ～ D90ANG)
      */
-    static angle getAngle2D_ex(int prm_vx, int prm_vy) {
+    static angle getAngle2D_first_quadrant(int prm_vx, int prm_vy) {
         if (prm_vx >= prm_vy) {
             return D0ANG  + SLANT2ANG[(int)(((double)prm_vy)/prm_vx*100000.0)];
         } else {
@@ -386,29 +387,6 @@ public:
                       )
                     );
     }
-
-    /**
-     * 原点からパラメータ座標を向く方向ベクトルの、Z軸回転アングル値とY軸回転アングル値を取得 .
-     * おまけで単位方向ベクトルもゲットできる。<BR>
-     * Z軸回転アングル値とY軸回転アングル値を取得する過程で、<BR>
-     * 方向ベクトルの正規化を行なわなければならないため、もったいないので戻り値に。<BR>
-     * @param x [in]X座標
-     * @param y [in]Y座標
-     * @param z [in]Z座標
-     * @param out_nvx [out]単位ベクトルX要素
-     * @param out_nvy [out]単位ベクトルY要素
-     * @param out_nvz [out]単位ベクトルZ要素
-     * @param out_rz [out]Z軸回転アングル値
-     * @param out_ry [out]Y軸回転アングル値
-     */
-    static void convVectorToRzRy(coord x,
-                                 coord y,
-                                 coord z,
-                                 float& out_nvx,
-                                 float& out_nvy,
-                                 float& out_nvz,
-                                 angle& out_rz,
-                                 angle& out_ry);
 
     /**
      * 原点(0,0,0) からパラメータ座標(vx,vy,vz) を向く方向ベクトルに対応する「Z軸回転のアングル値」と「Y軸回転のアングル値」を取得 .

@@ -136,7 +136,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                         if (sgn_vz1 != sgn_vz2) {
                            inv_cnt_++;
                         }
-                        if (inv_cnt_ > 8) {
+                        if (inv_cnt_ > 10) {
                             pAimInfo_->spent_frames_to_t1 = active_frame; //Aim t1 èIóπ
                         } else {
                             static const coord renge = MyBunshinWateringLaserChip001::INITIAL_VELO * 0.4;

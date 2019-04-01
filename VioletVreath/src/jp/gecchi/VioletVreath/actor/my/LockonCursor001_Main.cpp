@@ -7,12 +7,11 @@
 #include "jp/gecchi/VioletVreath/actor/my/MyLockonController.h"
 
 
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
 LockonCursor001_Main::LockonCursor001_Main(const char* prm_name) :
-        LockonCursor001(prm_name, "10,Lockon001") {
+        LockonCursor001(prm_name, "Lockon001") {
     _class_name = "LockonCursor001_Main";
 }
 
@@ -65,16 +64,16 @@ void LockonCursor001_Main::processBehavior() {
         }
         if (pTarget_) {
             if (pTarget_->isActiveInTheTree() || pTarget_->willActivateAfter()) {
-                if (ABS(pTarget_->_x-_x) <= PX_C(250) &&
-                    ABS(pTarget_->_y-_y) <= PX_C(250) &&
-                    ABS(pTarget_->_z-_z) <= PX_C(250)) {
+                if (ABS(pTarget_->_x-_x) <= PX_C(200) &&
+                    ABS(pTarget_->_y-_y) <= PX_C(200) &&
+                    ABS(pTarget_->_z-_z) <= PX_C(200)) {
                     setPositionAt(pTarget_);
                     pKuroko->setMvVelo(0);
                     pKuroko->_angvelo_face[AXIS_Z] = 1000;
                 } else {
                     pKuroko->_angvelo_face[AXIS_Z] = 3000; //‘¬Žü‚è
                     pKuroko->setMvAngTwd(pTarget_);
-                    pKuroko->setMvVelo(PX_C(250));
+                    pKuroko->setMvVelo(PX_C(200));
                 }
             } else {
                 pProg->change(LOCKON001_PROG_RELEASE);
@@ -96,7 +95,6 @@ void LockonCursor001_Main::processBehavior() {
     getUvFlipper()->behave();
     pKuroko->behave();
     pScaler->behave();
-
 }
 
 void LockonCursor001_Main::processJudgement() {

@@ -925,9 +925,10 @@ void Kuroko::setMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz) {
     if (vx == 0 && vy == 0 && vz == 0) {
         //アクターの座標に等しいので、何もしない。
     } else {
-        UTIL::convVectorToRzRy( vx,  vy,  vz,
-                               _vX, _vY, _vZ,
+        UTIL::convVectorToRzRy(vx, vy, vz,
                                _rz_mv, _ry_mv );
+        UTIL::getNormalizedVector(vx, vy, vz,
+                                  _vX, _vY, _vZ);
         if (_relate_RzFaceAng_with_RzMvAng_flg) {
             _pActor->_rz = _rz_mv;
         }
@@ -963,12 +964,8 @@ void Kuroko::setStopTargetMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz) {
         //アクターの座標に等しいので、何もしない。
     } else {
         angle rz_target, ry_target;
-        float dummy1, dummy2, dummy3;
-        UTIL::convVectorToRzRy(
-                       vx, vy, vz,
-                       dummy1, dummy2, dummy3,
-                       rz_target, ry_target
-                     );
+        UTIL::convVectorToRzRy(vx, vy, vz,
+                               rz_target, ry_target);
         setStopTargetRzMvAng(rz_target);
         setStopTargetRyMvAng(ry_target);
     }

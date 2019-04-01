@@ -11,8 +11,6 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 

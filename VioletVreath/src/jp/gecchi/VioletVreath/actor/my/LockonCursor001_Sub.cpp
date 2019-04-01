@@ -13,7 +13,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 LockonCursor001_Sub::LockonCursor001_Sub(const char* prm_name) :
-        LockonCursor001(prm_name, "10,Lockon001_Sub") {
+        LockonCursor001(prm_name, "Lockon001_Sub") {
     _class_name = "LockonCursor001_Sub";
     pLockonCursor001_Main_ = nullptr;
 }

@@ -522,11 +522,9 @@ void Util::convVectorToRzRy(coord vx,
     coord dx = ABS(vx);
     coord dy = ABS(vy);
     coord dz = ABS(vz);
-    const angle prj_rXY = Util::getAngle2D_ex(dx, dy); //Rz
-    const angle prj_rXZ = Util::getAngle2D_ex(dx, dz);
-    const angle prj_rZY = Util::getAngle2D_ex(dz, dy); //Rz
-    const angle prj_rZX = Util::getAngle2D_ex(dz, dz);
 
+    const angle prj_rXZ = Util::getAngle2D_first_quadrant(dx, dz);
+    const angle prj_rXY = Util::getAngle2D_first_quadrant(dx, dy); //Rz
     angle rot_z, rot_y_rev;
     if (0 <= prj_rXZ && prj_rXZ <= D45ANG) {
         int xy = (int)(prj_rXY*0.01);
@@ -534,6 +532,8 @@ void Util::convVectorToRzRy(coord vx,
         rot_z = Util::PROJANG_XY_XZ_TO_ROTANG_z[xy][xz];
         rot_y_rev = Util::PROJANG_XY_XZ_TO_ROTANG_y_REV[xy][xz];
     } else if (D45ANG <= prj_rXZ && prj_rXZ <= D90ANG) {
+        const angle prj_rZY = Util::getAngle2D_first_quadrant(dz, dy); //Rz
+        const angle prj_rZX = Util::getAngle2D_first_quadrant(dz, dx);
         int zy = (int)(prj_rZY*0.01);
         int zx = (int)(prj_rZX*0.01);
         rot_z = Util::PROJANG_ZY_ZX_TO_ROTANG_x_REV[zy][zx];
@@ -605,25 +605,6 @@ void Util::convVectorToRzRy(coord vx,
 //    out_rz = simplifyAng(out_rz);
 //    out_ry = simplifyAng(out_ry);
 }
-
-
-void Util::convVectorToRzRy(coord vx,
-                            coord vy,
-                            coord vz,
-                            float& out_nvx,
-                            float& out_nvy,
-                            float& out_nvz,
-                            angle& out_rz,
-                            angle& out_ry) {
-
-    Util::convVectorToRzRy(vx, vy, vz,
-                           out_rz, out_ry );
-
-    Util::convRzRyToVector(out_rz, out_ry,
-                           out_nvx, out_nvy, out_nvz);
-
-}
-
 
 void Util::convRzRyToVector(angle prm_rz,
                             angle prm_ry,

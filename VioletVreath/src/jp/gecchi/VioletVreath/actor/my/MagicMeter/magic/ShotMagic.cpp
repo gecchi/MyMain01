@@ -35,6 +35,7 @@ ShotMagic::ShotMagic(const char* prm_name, int* prm_pMP)
 
 void ShotMagic::onReset() {
     Magic::onReset();
+    pEffect_->inactivate();
     pMYSHIP->can_shoot_laser_ = false;
 }
 

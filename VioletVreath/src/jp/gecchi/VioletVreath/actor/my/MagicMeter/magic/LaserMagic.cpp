@@ -8,8 +8,6 @@
 #include "jp/ggaf/dx/actor/supporter/Kuroko.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -36,6 +34,7 @@ LaserMagic::LaserMagic(const char* prm_name, int* prm_pMP)
 
 void LaserMagic::onReset() {
     Magic::onReset();
+    pEffect_->inactivate();
     pMYSHIP->can_shoot_laser_ = false;
 }
 

@@ -39,6 +39,7 @@ SpeedMagic::SpeedMagic(const char* prm_name, int*prm_pMP)
 
 void SpeedMagic::onReset() {
     Magic::onReset();
+    pEffect_->inactivate();
     pMYSHIP->setMoveSpeed(PX_C((0+1)*2));
 }
 

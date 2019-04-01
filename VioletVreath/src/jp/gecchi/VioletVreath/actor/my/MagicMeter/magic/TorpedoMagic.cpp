@@ -39,6 +39,7 @@ TorpedoMagic::TorpedoMagic(const char* prm_name, int* prm_pMP)
 
 void TorpedoMagic::onReset() {
     Magic::onReset();
+    pEffect_->inactivate();
     MyTorpedoController::torpedo_num_ = 0;
 }
 
