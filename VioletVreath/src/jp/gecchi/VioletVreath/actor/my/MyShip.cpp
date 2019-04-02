@@ -28,11 +28,8 @@
 #include "jp/ggaf/lib/util/ColliAAPrism.h"
 #include "jp/ggaf/lib/util/ColliAAPyramid.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
-
 
 coord MyShip::lim_y_top_     =  0;
 coord MyShip::lim_y_bottom_  =  0;
@@ -40,7 +37,6 @@ coord MyShip::lim_x_infront_ =  0;
 coord MyShip::lim_x_behaind_ =  0;
 coord MyShip::lim_z_left_    =  0;
 coord MyShip::lim_z_right_   =  0;
-
 
 uint32_t MyShip::shot2_matrix_[4][MYSHIP_SHOT_MATRIX] = {
     {

@@ -76,7 +76,7 @@ void MyTorpedoController::onInactive() {
 bool MyTorpedoController::fire() {
     if (!in_firing_ && MyTorpedoController::torpedo_num_ > 0) {
         in_firing_ = true;
-        int target_num = pLockonCtrler_->pRingTarget_->length(); //ロックオン中のターゲット数
+        int target_num = pLockonCtrler_->listTarget_.length(); //ロックオン中のターゲット数
         firing_num_ = MyTorpedoController::torpedo_num_; //target_num < 4 ? 4 : target_num;
 
         static const coord r = PX_C(20);              //放射状魚雷出現時、オプションとの半径距離
@@ -91,7 +91,7 @@ bool MyTorpedoController::fire() {
             if (target_num == 0) {
                 papTorpedo_[0]->pTarget_ = nullptr;
             } else {
-                papTorpedo_[0]->pTarget_ = pLockonCtrler_->pRingTarget_->getNext(0);
+                papTorpedo_[0]->pTarget_ = pLockonCtrler_->listTarget_.getNext(0);
             }
             papTorpedo_[0]->getKuroko()->setRzRyMvAng(pOrg_->_rz, pOrg_->_ry); //飛ぶ方向
             papTorpedo_[0]->activate();
@@ -137,7 +137,7 @@ bool MyTorpedoController::fire() {
                 if (target_num == 0) {
                     papTorpedo_[i]->pTarget_ = nullptr;
                 } else {
-                    papTorpedo_[i]->pTarget_ = pLockonCtrler_->pRingTarget_->getNext(i);
+                    papTorpedo_[i]->pTarget_ = pLockonCtrler_->listTarget_.getNext(i);
                 }
                 UTIL::convVectorToRzRy(x2, y2, z2, rz, ry);
                 papTorpedo_[i]->getKuroko()->setRzRyMvAng(rz, ry); //飛ぶ方向

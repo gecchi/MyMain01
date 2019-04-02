@@ -26,8 +26,6 @@ namespace VioletVreath {
 
 #define MYSHIP_SHOT_MATRIX (7)
 
-
-
 /**
  * Ž©‹@ƒNƒ‰ƒX
  * @version 1.00

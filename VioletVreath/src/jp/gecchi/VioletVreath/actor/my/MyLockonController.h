@@ -26,7 +26,7 @@ public:
     /** メインロックオンエフェクト */
     LockonCursor001_Main* pMainLockonEffect_;
     /** ロックオンターゲットリストリング */
-    GgafCore::LinkedListRing<GgafDx::GeometricActor>* pRingTarget_;
+    GgafCore::LinkedListRing<GgafDx::GeometricActor> listTarget_;
 
 public:
     MyLockonController(const char* prm_name);

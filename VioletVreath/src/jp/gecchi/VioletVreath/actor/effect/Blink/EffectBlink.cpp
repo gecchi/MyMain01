@@ -52,8 +52,13 @@ void EffectBlink::processBehavior() {
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
-            pScaler->transitionLinearToTop(scale_in_frames_);
-            pProg->changeNext();
+            if (scale_in_frames_ > 0) {
+                pScaler->transitionLinearToTop(scale_in_frames_);
+                pProg->changeNext();
+            } else {
+                setScale(getScaler()->getTop());
+                pProg->change(PROG_STAY);
+            }
             break;
         }
 
