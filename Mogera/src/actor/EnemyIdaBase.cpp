@@ -96,6 +96,7 @@ void EnemyIdaBase::onCatchEvent(hashval prm_no, void* prm_pSource) {
 }
 
 EnemyIdaBase::~EnemyIdaBase() {
+    pConn_pSplManuf_->close();
     if (pOs_) {
         (*pOs_).close();
     }
