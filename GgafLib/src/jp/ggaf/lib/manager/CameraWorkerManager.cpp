@@ -13,11 +13,10 @@ CameraWorkerManager::CameraWorkerManager(const char* prm_manager_name, CameraWor
 }
 
 CameraWorker* CameraWorkerManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) {
-    DefaultCamera* pCamera = (DefaultCamera*)prm_pConnector;
     CameraWorker* pResource = nullptr;
     if (strcmp("DefaultCamWorker", prm_idstr) == 0) {
         //デフォルトの何もしないカメラマン
-        pResource = NEW DefaultCamWorker("DefaultCamWorker", pCamera);
+        pResource = NEW DefaultCamWorker("DefaultCamWorker", _pCameraWorkerChanger->_pCamera);
     } else {
         pResource = _pCameraWorkerChanger->createCameraWorker(prm_idstr, prm_pConnector);
     }

@@ -66,7 +66,7 @@ CameraWorkerChanger::CameraWorkerChanger(const char* prm_name, DefaultCamera* pr
     _pCamera = prm_pCamera;
     _pCamWorkerManager = NEW CameraWorkerManager("CameraWorkerManager", this);
 
-    CameraWorkerConnection* pCamWorkerCon = (CameraWorkerConnection*)_pCamWorkerManager->connect("DefaultCamWorker", _pCamera);
+    CameraWorkerConnection* pCamWorkerCon = (CameraWorkerConnection*)_pCamWorkerManager->connect("DefaultCamWorker", this);
     _stack_CamWorkerConnection.push(pCamWorkerCon);
     _pActiveCamWorker = pCamWorkerCon->peek();
     appendChild(_pActiveCamWorker); //基底デフォルトカメラワーク

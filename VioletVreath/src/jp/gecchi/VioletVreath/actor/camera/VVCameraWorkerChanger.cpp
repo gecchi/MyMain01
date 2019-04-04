@@ -17,10 +17,9 @@ VVCameraWorkerChanger::VVCameraWorkerChanger(const char* prm_name, Camera* prm_p
 GgafLib::CameraWorker* VVCameraWorkerChanger::createCameraWorker(const char* prm_idstr, void* prm_pConnector) {
     GgafLib::CameraWorker* pResource = nullptr;
 
-    Camera* pCamera = (Camera*)prm_pConnector;
-
+    Camera* pCamera = (Camera*)_pCamera;
 //    if (strcmp("DefaultCamWorker", prm_idstr) == 0) {
-//        pResource = NEW DefaultCamWorker("DefaultCamWorker", pCamera);
+//        pResource = NEW DefaultCamWorker("DefaultCamWorker", _pCamera);
 //    }
     if (strcmp("VamSysCamWorker", prm_idstr) == 0) {
         pResource = NEW VamSysCamWorker("VamSysCamWorker", pCamera);
