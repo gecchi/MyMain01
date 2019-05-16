@@ -1081,11 +1081,7 @@ T* LinkedListRing<T>::getNext(int n) const {
 #endif
     if (_papLinearVal) { //インデックスあり
         int i = _pElemActive->_idx + n;
-        if (i >= _num_elem) {
-            return (T*) _papLinearVal[(i % _num_elem)];
-        } else {
-            return (T*) _papLinearVal[i];
-        }
+        return (T*) _papLinearVal[(i >= _num_elem ? (i % _num_elem) : i)];
     } else { //インデックスなし
         Elem* pElem = _pElemActive;
         int x = n % _num_elem;
@@ -1140,11 +1136,7 @@ T* LinkedListRing<T>::getFromFirst(int n) const {
         return nullptr;
     }
     if (_papLinearVal) { //インデックスあり
-        if (n >= _num_elem) {
-            return (T*) _papLinearVal[(n % _num_elem)];
-        } else {
-            return (T*) _papLinearVal[n];
-        }
+        return (T*) _papLinearVal[(n >= _num_elem ? (n % _num_elem) : n)];
     } else { //インデックスなし
         int x = n % _num_elem;
         for (int i = 0; i < x; i++) {
@@ -1168,11 +1160,7 @@ T* LinkedListRing<T>::getPrev(int n) const {
 #endif
     if (_papLinearVal) { //インデックスあり
         int i = _pElemActive->_idx - (n % _num_elem);
-        if (i >= 0) {
-            return (T*) _papLinearVal[i];
-        } else {
-            return (T*) _papLinearVal[_num_elem + i];
-        }
+        return (T*) _papLinearVal[(i >= 0 ? i : _num_elem + i)];
     } else { //インデックスなし
         Elem* pElem = _pElemActive;
         int x = n % _num_elem;

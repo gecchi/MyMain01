@@ -515,6 +515,7 @@ void VvvWorld::processBehavior() {
             bringSceneMediator()->appendGroupChild(pActor);
             ActorInfo* pActorInfo = NEW ActorInfo(pActor, string(VvvGod::dropfiles_));
             listActorInfo_.addLast(pActorInfo);
+            listActorInfo_.createIndex();
             listActorInfo_.last(); //ƒJƒŒƒ“ƒg‚ðlast‚Ö
             VvvCamera* pCam = pGOD->getSpacetime()->getCamera();
 

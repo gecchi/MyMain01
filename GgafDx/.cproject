@@ -79,6 +79,9 @@
 							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.mingw.base.1272508264" name="MinGW C++ リンカー" superClass="cdt.managedbuild.tool.gnu.cpp.linker.mingw.base"/>
 						</toolChain>
 					</folderInfo>
+					<fileInfo id="cdt.managedbuild.config.gnu.mingw.lib.debug.1294883959.623263031" name="Trucker.cpp" rcbsApplicability="disable" resourcePath="src/jp/ggaf/dx/actor/supporter/Trucker.cpp" toolsToInvoke="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.lib.debug.1894484941.1147789384">
+						<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.lib.debug.1894484941.1147789384" name="GCC C++ コンパイラー" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.lib.debug.1894484941"/>
+					</fileInfo>
 				</configuration>
 			</storageModule>
 			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
@@ -763,6 +766,7 @@
 		</configuration>
 		<configuration configurationName="DebugCdt_x64"/>
 		<configuration configurationName="DebugCdt_sse"/>
+		<configuration configurationName="GprofCdt_x64"/>
 		<configuration configurationName="ReleaseCdt">
 			<resource resourceType="PROJECT" workspacePath="/GgafDx"/>
 		</configuration>

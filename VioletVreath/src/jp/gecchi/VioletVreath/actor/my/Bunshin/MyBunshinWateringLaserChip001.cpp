@@ -22,7 +22,7 @@ using namespace VioletVreath;
 
 const velo MyBunshinWateringLaserChip001::MAX_VELO_RENGE = PX_C(260); //この値を大きくすると、最高速度が早くなる。
 const double MyBunshinWateringLaserChip001::INV_MAX_VELO_RENGE = 1.0 / MAX_VELO_RENGE;
-const int MyBunshinWateringLaserChip001::R_MAX_ACCE = 16; //この値を大きくすると、カーブが緩くなる
+const int MyBunshinWateringLaserChip001::R_MAX_ACCE = 20; //この値を大きくすると、カーブが緩くなる
 const velo MyBunshinWateringLaserChip001::INITIAL_VELO = MAX_VELO_RENGE*0.7; //レーザー発射時の初期速度
 const double MyBunshinWateringLaserChip001::RR_MAX_ACCE = 1.0 / R_MAX_ACCE; //計算簡素化用
 const float MyBunshinWateringLaserChip001::MAX_ACCE_RENGE = MAX_VELO_RENGE/R_MAX_ACCE;
@@ -51,6 +51,7 @@ MyBunshinWateringLaserChip001::MyBunshinWateringLaserChip001(const char* prm_nam
     tmp_acc_vx_ = tmp_acc_vy_ = tmp_acc_vz_ = 0;
     pAimInfo_ = nullptr;
     inv_cnt_ = 0;
+    jerk_ = 1.0;
 }
 
 void MyBunshinWateringLaserChip001::initialize() {
@@ -59,13 +60,7 @@ void MyBunshinWateringLaserChip001::initialize() {
     setHitAble(true);
     setScaleR(6.0);
     setCullingDraw(false);
-    GgafDx::Trucker* const pTrucker = getTrucker();
-    pTrucker->forceVxMvVeloRange(-MAX_VELO_RENGE*1.2, MAX_VELO_RENGE*1.2);
-    pTrucker->forceVyMvVeloRange(-MAX_VELO_RENGE, MAX_VELO_RENGE);
-    pTrucker->forceVzMvVeloRange(-MAX_VELO_RENGE, MAX_VELO_RENGE);
-    pTrucker->forceVxMvAcceRange(-MAX_ACCE_RENGE*1.2, MAX_ACCE_RENGE*1.2);
-    pTrucker->forceVyMvAcceRange(-MAX_ACCE_RENGE, MAX_ACCE_RENGE);
-    pTrucker->forceVzMvAcceRange(-MAX_ACCE_RENGE, MAX_ACCE_RENGE);
+
 }
 
 void MyBunshinWateringLaserChip001::onCreateModel() {
@@ -83,6 +78,10 @@ void MyBunshinWateringLaserChip001::onActive() {
     WateringLaserChip::onActive();
     pAimInfo_ = nullptr;
     inv_cnt_ = 0;
+    GgafDx::Trucker* pTrucker = getTrucker();
+    pTrucker->forceVxyzMvVeloRange(-MAX_VELO_RENGE, MAX_VELO_RENGE);
+    pTrucker->forceVxyzMvAcceRange(-MAX_ACCE_RENGE, MAX_ACCE_RENGE);
+    jerk_ = 1.0;
 }
 
 void MyBunshinWateringLaserChip001::processBehavior() {
@@ -238,6 +237,9 @@ void MyBunshinWateringLaserChip001::processBehavior() {
         } //if (pAimTarget)
 
     }
+//    pTrucker->addVxMvAcce(pTrucker->_acce_vx_mv * 1.1);
+//    pTrucker->addVyMvAcce(pTrucker->_acce_vy_mv * 1.1);
+//    pTrucker->addVzMvAcce(pTrucker->_acce_vz_mv * 1.1);
     pTrucker->behave();
     WateringLaserChip::processBehavior();
     tmp_x_ = _x;
@@ -275,16 +277,12 @@ void MyBunshinWateringLaserChip001::processSettlementBehavior() {
                 pAimInfo_->pLeaderChip = this;
                 pAimInfo_->pTarget = nullptr;
             }
-            pTrucker->forceVxMvVeloRange(-MAX_VELO_RENGE, MAX_VELO_RENGE);
-            pTrucker->forceVyMvVeloRange(-MAX_VELO_RENGE*1.5, MAX_VELO_RENGE*1.5);
-            pTrucker->forceVzMvVeloRange(-MAX_VELO_RENGE*1.5, MAX_VELO_RENGE*1.5);
+            pTrucker->forceVxyzMvVeloRange(-MAX_VELO_RENGE, MAX_VELO_RENGE);
         } else {
             //先端以外は前のを受け継ぐ
             pAimInfo_ = pF->pAimInfo_; //受け継ぐ
-            velo v = pF->getTrucker()->_top_velo_vx_mv - PX_C(0.5); //レーザーが弛まないように PX_C(0.5) 遅くした
-            pTrucker->forceVxMvVeloRange(-v, v);
-            pTrucker->forceVyMvVeloRange(-v*1.5, v*1.5);
-            pTrucker->forceVzMvVeloRange(-v*1.5, v*1.5);
+            velo v = MAX_VELO_RENGE - PX_C(1); //レーザーが弛まないように PX_C(1) 遅くした
+            pTrucker->forceVxyzMvVeloRange(-v, v);
 #ifdef MY_DEBUG
 if (pAimInfo_ == nullptr) {
 throwCriticalException("pAimInfo_ が引き継がれていません！"<<this<<
@@ -332,17 +330,18 @@ throwCriticalException("pAimInfo_ が引き継がれていません！"<<this<<
                 _x = (coord)((pF->tmp_x_ + pB->tmp_x_ + tmp_x_)*0.333);
                 _y = (coord)((pF->tmp_y_ + pB->tmp_y_ + tmp_y_)*0.333);
                 _z = (coord)((pF->tmp_z_ + pB->tmp_z_ + tmp_z_)*0.333);
-                pTrucker->setVxyzMvAcce( (acce)((pF->tmp_acc_vx_ + pB->tmp_acc_vx_ + tmp_acc_vx_)*0.333),
-                                         (acce)((pF->tmp_acc_vy_ + pB->tmp_acc_vy_ + tmp_acc_vy_)*0.333),
-                                         (acce)((pF->tmp_acc_vz_ + pB->tmp_acc_vz_ + tmp_acc_vz_)*0.333) );
-            } else {
-                _x = (pF->tmp_x_ + tmp_x_)/2;
-                _y = (pF->tmp_y_ + tmp_y_)/2;
-                _z = (pF->tmp_z_ + tmp_z_)/2;
-                pTrucker->setVxyzMvAcce( (pF->tmp_acc_vx_ + tmp_acc_vx_)/2,
-                                         (pF->tmp_acc_vy_ + tmp_acc_vy_)/2,
-                                         (pF->tmp_acc_vz_ + tmp_acc_vz_)/2 );
+//                pTrucker->setVxyzMvAcce( (acce)((pF->tmp_acc_vx_ + pB->tmp_acc_vx_ + tmp_acc_vx_)*0.333),
+//                                         (acce)((pF->tmp_acc_vy_ + pB->tmp_acc_vy_ + tmp_acc_vy_)*0.333),
+//                                         (acce)((pF->tmp_acc_vz_ + pB->tmp_acc_vz_ + tmp_acc_vz_)*0.333) );
             }
+//            else {
+//                _x = (pF->tmp_x_ + tmp_x_)/2;
+//                _y = (pF->tmp_y_ + tmp_y_)/2;
+//                _z = (pF->tmp_z_ + tmp_z_)/2;
+//                pTrucker->setVxyzMvAcce( (pF->tmp_acc_vx_ + tmp_acc_vx_)/2,
+//                                         (pF->tmp_acc_vy_ + tmp_acc_vy_)/2,
+//                                         (pF->tmp_acc_vz_ + tmp_acc_vz_)/2 );
+//            }
         }
     }
     WateringLaserChip::processSettlementBehavior();
@@ -396,21 +395,24 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
     GgafDx::Trucker* pTrucker = getTrucker();
 
     //自→的
-    const int vTx = tX - _x;
-    const int vTy = tY - _y;
-    const int vTz = tZ - _z;
+    double vTx = tX - _x;
+    double vTy = tY - _y;
+    double vTz = tZ - _z;
 
     //自→仮自。
-    int vMx = pTrucker->_velo_vx_mv;
-    int vMy = pTrucker->_velo_vy_mv;
-    int vMz = pTrucker->_velo_vz_mv;
-
+//    int vMx = pTrucker->_velo_vx_mv;
+//    int vMy = pTrucker->_velo_vy_mv;
+//    int vMz = pTrucker->_velo_vz_mv;
+    double vMx = pTrucker->_velo_vx_mv;
+    double vMy = pTrucker->_velo_vy_mv;
+    double vMz = pTrucker->_velo_vz_mv;
+    double lVM = sqrt(vMx*vMx + vMy*vMy + vMz*vMz);
     //|仮自| = lVM * 5
-    int lVM = MAX3(ABS(vMx), ABS(vMy), ABS(vMz)); //仮自ベクトル大きさ簡易版
+//    int lVM = MAX3(ABS(vMx), ABS(vMy), ABS(vMz)); //仮自ベクトル大きさ簡易版
 
-    static const velo min_velo = MyBunshinWateringLaserChip001::INITIAL_VELO/2; // ÷2 は、最低移動する各軸のINITIAL_VELOの割合
+    static const double min_velo = MyBunshinWateringLaserChip001::INITIAL_VELO/2; // ÷2 は、最低移動する各軸のINITIAL_VELOの割合
     if  (lVM < min_velo) { //縮こまらないように
-        if (lVM != 0) {
+        if (ZEROd_EQ(lVM)) {
             double r = (1.0*min_velo/lVM);
             pTrucker->setVxyzMvVelo(vMx*r, vMy*r, vMz*r);
             vMx = pTrucker->_velo_vx_mv;
@@ -426,22 +428,79 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
     }
 
     //|的|
-    const int lT = MAX3(ABS(vTx), ABS(vTy), ABS(vTz)); //的ベクトル大きさ簡易版
+    double lT = sqrt(vTx*vTx + vTy*vTy + vTz*vTz);
     //|仮自|/|的|      vT の何倍が vVT 仮的 になるのかを求める。
-    const double r = (lVM*5 * 1.5) / lT;
-    //* 1.5は 右上図のように一直線に並んだ際も、進行方向を維持するために、
+    const double r = (lVM*5.0 * 1.2) / lT;
+    //* 1.2は 右上図のように一直線に並んだ際も、進行方向を維持するために、
     //|仮的| > |仮自| という関係を維持するためにかけた適当な割合
 
     //vVP 仮自→仮的 の加速度設定
     //求めた vVP=( (vTx*r)-vMx*5), (vTy*r)-vMy*5), (vTz*r)-vMz*5) )
-    const double accX = ((vTx * r) - vMx*5) * RR_MAX_ACCE;
-    const double accY = ((vTy * r) - vMy*5) * RR_MAX_ACCE;
-    const double accZ = ((vTz * r) - vMz*5) * RR_MAX_ACCE;
-
-    pTrucker->setVxyzMvAcce(accX + SGN(accX)*3.0,
-                            accY + SGN(accY)*3.0,
-                            accZ + SGN(accZ)*3.0);
+    const double accX = ((vTx * r) - vMx*5.0) * RR_MAX_ACCE;
+    const double accY = ((vTy * r) - vMy*5.0) * RR_MAX_ACCE;
+    const double accZ = ((vTz * r) - vMz*5.0) * RR_MAX_ACCE;
+    double top_acce_mv = pTrucker->_top_acce_vx_mv*1.05;
+    if (MAX_VELO_RENGE > top_acce_mv) {
+        pTrucker->forceVxyzMvAcceRange(-top_acce_mv, top_acce_mv);//徐々に加速度を大きくセットできるように
+    }
+    pTrucker->setVxyzMvAcce(accX*jerk_, accY*jerk_, accZ*jerk_);
+    jerk_ += 0.05;
 }
+
+
+//void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
+//    //    |                            vVT 仮的                              |
+//    //    |                                ^ ┌                              |
+//    //    |                 |仮的| > 5*vM /    ＼  vVP 仮自→仮的            |      仮的
+//    //    |                 となるような /       ＼                          |       ↑
+//    //    |                 vVTを設定   /         ┐                         |      仮自
+//    //    |                            /        ／vVM  仮自                  |       ↑
+//    //    |                           /       ／  (vVMx*5,vVMy*5,vVMz*5)     |       ｜
+//    //    |                          /      ／                               |       ｜
+//    //    |                         /     ／                                 |       ｜
+//    //    |                        /    ／ |仮自| = lVM * 5                  |       ｜
+//    //    |                      的 vT(tX,tY,tZ)                             |       的
+//    //    |             ┌       ^  ／                                       |       ↑
+//    //    |               ＼    / ┐vM 現在の移動方向ベクトル                |       ｜
+//    //    | vVP 仮自→仮的  ＼ /／ (vVMx,vVMy,vVMz)                          |       ｜
+//    //    |                   自                                             |       自
+//    //    |                     (_x,_y,_z)                                   |
+//    // ---+------------------------------------------                     ---+---------------------------
+//    //    |                                                                  |
+//    //
+//    // vVP が動きたい方向。vVPを求める！
+//#ifdef MY_DEBUG
+//    if (tX == INT_MAX) {
+//        throwCriticalException("おかしい");
+//    }
+//#endif
+//    GgafDx::Trucker* pTrucker = getTrucker();
+//
+//
+//
+//
+//    //自→的
+////    const int vTx = tX - _x;
+////    const int vTy = tY - _y;
+////    const int vTz = tZ - _z;
+//    float vTx, vTy, vTz;
+//    UTIL::getNormalizedVector(tX - _x, tY - _y, tZ - _z,
+//                              vTx, vTy, vTz);
+//
+//    //自
+//    double vMx = pTrucker->_velo_vx_mv;
+//    double vMy = pTrucker->_velo_vy_mv;
+//    double vMz = pTrucker->_velo_vz_mv;
+//    double dvm = sqrt(vMx*vMx + vMy*vMy + vMz*vMz);
+//    static const velo min_velo = MyBunshinWateringLaserChip001::INITIAL_VELO/2;
+//    if  (dvm < min_velo) { //縮こまらないように
+//        dvm = min_velo;
+//    }
+//    const double accX = vTx * dvm * RR_MAX_ACCE;
+//    const double accY = vTy * dvm * RR_MAX_ACCE;
+//    const double accZ = vTz * dvm * RR_MAX_ACCE;
+//    pTrucker->setVxyzMvAcce(accX, accY, accZ);
+//}
 
 void MyBunshinWateringLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor) {
     GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*) prm_pOtherActor;

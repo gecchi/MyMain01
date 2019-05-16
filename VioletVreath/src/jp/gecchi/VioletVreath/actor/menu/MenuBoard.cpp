@@ -119,6 +119,8 @@ void MenuBoard::initialize() {
     //インデックス作成
     _lstItems.createIndex();
     _lstLabelActors.createIndex();
+    _lstSubMenu.createIndex();
+    _lstSubCursor.createIndex();
 }
 
 void MenuBoard::onRise() {

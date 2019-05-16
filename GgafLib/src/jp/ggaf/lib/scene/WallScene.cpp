@@ -40,6 +40,7 @@ void WallScene::buildWallScene(
         prm_papSection[i]->inactivate();
         _ringHoldSection.addLast(prm_papSection[i], false);
     }
+    _ringHoldSection.createIndex();
     // 0b 00abcdef
     //
     //    c

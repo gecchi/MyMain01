@@ -948,6 +948,8 @@ MenuActor<T>::MenuActor(const char* prm_name, const char* prm_model) :
         _lstMvCursorHistory.addLast(new int(-1), true);
         _lstMvSelectHistory.addLast(new int(-1), true);
     }
+    _lstMvCursorHistory.createIndex();
+    _lstMvSelectHistory.createIndex();
     T::inactivate(); //メニューなので、初期状態は非活動状態をデフォルトとする
 }
 

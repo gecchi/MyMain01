@@ -41,6 +41,7 @@ EnemyIdaBase::EnemyIdaBase(const char* prm_name) :
         appendGroupChildAsFk(p2, 0, -D*(i + 1), 0, 0, 0, 0);
         _list_child.addLast(p2, false);
     }
+    _list_child.createIndex();
 }
 
 void EnemyIdaBase::initialize() {
