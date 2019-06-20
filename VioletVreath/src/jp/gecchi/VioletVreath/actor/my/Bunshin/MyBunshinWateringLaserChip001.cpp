@@ -135,7 +135,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                         if (sgn_vz1 != sgn_vz2) {
                            inv_cnt_++;
                         }
-                        if (inv_cnt_ > 10) {
+                        if (inv_cnt_ > 20) { //20回も速度の正負が入れ替わったら終了
                             pAimInfo_->spent_frames_to_t1 = active_frame; //Aim t1 終了
                         } else {
                             static const coord renge = MyBunshinWateringLaserChip001::INITIAL_VELO * 0.4;
@@ -318,32 +318,26 @@ throwCriticalException("pAimInfo_ が引き継がれていません！"<<this<<
 //                                     (pF->tmp_acc_vz_ + pB->tmp_acc_vz_ + tmp_acc_vz_)/3 );
 //        }
 //    }
-    if (getActiveFrame() > 3) { //FKオブジェクトからのレーザー発射も考慮すると、_tmpXYZ が埋まるのは3フレーム以降。
-        MyBunshinWateringLaserChip001* pF = (MyBunshinWateringLaserChip001*)getInfrontChip();
-        if (pF && pF->isActive()) {
-            MyBunshinWateringLaserChip001* pB = (MyBunshinWateringLaserChip001*)getBehindChip();
-            if (pB && pB->isActive()) {
-                //_pChip_behind == nullptr の判定だけではだめ。_pChip_behind->_is_active_flg と判定すること
-                //なぜなら dispatch の瞬間に_pChip_behind != nullptr となるが、active()により有効になるのは次フレームだから
-                //_x,_y,_z にはまだ変な値が入っている。
-                //中間座標に再設定
-                _x = (coord)((pF->tmp_x_ + pB->tmp_x_ + tmp_x_)*0.333);
-                _y = (coord)((pF->tmp_y_ + pB->tmp_y_ + tmp_y_)*0.333);
-                _z = (coord)((pF->tmp_z_ + pB->tmp_z_ + tmp_z_)*0.333);
-//                pTrucker->setVxyzMvAcce( (acce)((pF->tmp_acc_vx_ + pB->tmp_acc_vx_ + tmp_acc_vx_)*0.333),
-//                                         (acce)((pF->tmp_acc_vy_ + pB->tmp_acc_vy_ + tmp_acc_vy_)*0.333),
-//                                         (acce)((pF->tmp_acc_vz_ + pB->tmp_acc_vz_ + tmp_acc_vz_)*0.333) );
+//    if (getActiveFrame() > 3) { //FKオブジェクトからのレーザー発射も考慮すると、_tmpXYZ が埋まるのは3フレーム以降。
+        if (pAimInfo_->pTarget && getActiveFrame() > 3) {
+            MyBunshinWateringLaserChip001* pF = (MyBunshinWateringLaserChip001*)getInfrontChip();
+            if (pF && pF->isActive()) {
+                MyBunshinWateringLaserChip001* pB = (MyBunshinWateringLaserChip001*)getBehindChip();
+                if (pB && pB->isActive()) {
+                    //_pChip_behind == nullptr の判定だけではだめ。_pChip_behind->_is_active_flg と判定すること
+                    //なぜなら dispatch の瞬間に_pChip_behind != nullptr となるが、active()により有効になるのは次フレームだから
+                    //_x,_y,_z にはまだ変な値が入っている。
+                    //中間座標に再設定
+                    _x = (coord)((pF->tmp_x_*0.7  +  pB->tmp_x_*0.3  +  tmp_x_*2.0)*0.333);
+                    _y = (coord)((pF->tmp_y_*0.7  +  pB->tmp_y_*0.3  +  tmp_y_*2.0)*0.333);
+                    _z = (coord)((pF->tmp_z_*0.7  +  pB->tmp_z_*0.3  +  tmp_z_*2.0)*0.333);
+    //                pTrucker->setVxyzMvAcce( (acce)((pF->tmp_acc_vx_ + pB->tmp_acc_vx_ + tmp_acc_vx_)*0.333),
+    //                                         (acce)((pF->tmp_acc_vy_ + pB->tmp_acc_vy_ + tmp_acc_vy_)*0.333),
+    //                                         (acce)((pF->tmp_acc_vz_ + pB->tmp_acc_vz_ + tmp_acc_vz_)*0.333) );
+                }
             }
-//            else {
-//                _x = (pF->tmp_x_ + tmp_x_)/2;
-//                _y = (pF->tmp_y_ + tmp_y_)/2;
-//                _z = (pF->tmp_z_ + tmp_z_)/2;
-//                pTrucker->setVxyzMvAcce( (pF->tmp_acc_vx_ + tmp_acc_vx_)/2,
-//                                         (pF->tmp_acc_vy_ + tmp_acc_vy_)/2,
-//                                         (pF->tmp_acc_vz_ + tmp_acc_vz_)/2 );
-//            }
         }
-    }
+//    }
     WateringLaserChip::processSettlementBehavior();
 }
 
@@ -440,11 +434,12 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
     const double accY = ((vTy * r) - vMy*5.0) * RR_MAX_ACCE;
     const double accZ = ((vTz * r) - vMz*5.0) * RR_MAX_ACCE;
     double top_acce_mv = pTrucker->_top_acce_vx_mv*1.05;
-    if (MAX_VELO_RENGE > top_acce_mv) {
+    if (MAX_VELO_RENGE < top_acce_mv && top_acce_mv < MAX_VELO_RENGE) {
         pTrucker->forceVxyzMvAcceRange(-top_acce_mv, top_acce_mv);//徐々に加速度を大きくセットできるように
     }
-    pTrucker->setVxyzMvAcce(accX*jerk_, accY*jerk_, accZ*jerk_);
-    jerk_ += 0.05;
+    pTrucker->setVxyzMvAcce(accX, accY, accZ);
+//    pTrucker->setVxyzMvAcce(accX*jerk_, accY*jerk_, accZ*jerk_);
+//    jerk_ += 0.05;
 }
 
 
