@@ -1,6 +1,6 @@
 #include "Shot002.h"
 
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
@@ -31,27 +31,27 @@ void Shot002::onActive() {
     getStatus()->reset();
     setHitAble(true, false);
     setScale(2000);
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->linkFaceAngByMvAng(true);
-    pKuroko->setMvVelo(RF_Shot002_MvVelo(G_RANK));
-    pKuroko->setRollFaceAngVelo(RF_Shot002_AngVelo(G_RANK));
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->linkFaceAngByMvAng(true);
+    pRikisha->setMvVelo(RF_Shot002_MvVelo(G_RANK));
+    pRikisha->setRollFaceAngVelo(RF_Shot002_AngVelo(G_RANK));
 }
 
 void Shot002::processBehavior() {
-    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafDx::Rikisha* const pRikisha = callRikisha();
     if (getActiveFrame() == 70) {
-        pKuroko->turnMvAngTwd(pMYSHIP,
+        pRikisha->turnMvAngTwd(pMYSHIP,
                               3000, 0,
                               TURN_CLOSE_TO, true);
     }
 
-    if (getActiveFrame() > 70 && !pKuroko->isTurningMvAng()) {
-        pKuroko->turnMvAngTwd(pMYSHIP,
+    if (getActiveFrame() > 70 && !pRikisha->isTurningMvAng()) {
+        pRikisha->turnMvAngTwd(pMYSHIP,
                               100, 0,
                               TURN_CLOSE_TO, true);
     }
     //À•W‚É”½‰f
-    pKuroko->behave();
+    pRikisha->behave();
     getScaler()->behave();
     getSeTransmitter()->behave();
 }

@@ -1,7 +1,7 @@
 #include "EnemyIda.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
@@ -40,7 +40,7 @@ void EnemyIda::onCreateModel() {
 }
 
 void EnemyIda::initialize() {
-    getKuroko()->linkFaceAngByMvAng(true);
+    callRikisha()->linkFaceAngByMvAng(true);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
@@ -54,12 +54,12 @@ void EnemyIda::onActive() {
 void EnemyIda::processBehavior() {
     changeGeoLocal(); //ローカル座標系へ
 
-    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafDx::Rikisha* const pRikisha = callRikisha();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             setHitAble(false);
-            pKuroko->setRollFaceAngVelo(D_ANG(4));
+            pRikisha->setRollFaceAngVelo(D_ANG(4));
             setAlpha(0);
             pProg->changeNext();
             break;
@@ -97,13 +97,13 @@ void EnemyIda::processBehavior() {
 
             angle rz_target, ry_target;
             UTIL::convVectorToRzRy(tvx, tvy, tvz, rz_target, ry_target); //RzRyに置き換える
-            pKuroko->setRzRyMvAng(rz_target, ry_target);
+            pRikisha->setRzRyMvAng(rz_target, ry_target);
             break;
         }
     }
 
     getAlphaFader()->behave();
-    pKuroko->behave();
+    pRikisha->behave();
 
     changeGeoFinal(); //絶対座標系へ
 }

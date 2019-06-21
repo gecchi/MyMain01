@@ -1,7 +1,7 @@
 #include "EnemyIda.h"
 
 #include "jp/ggaf/core/actor/SceneMediator.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
@@ -25,7 +25,7 @@ void EnemyIda::onCreateModel() {
 }
 
 void EnemyIda::initialize() {
-    getKuroko()->linkFaceAngByMvAng(true);
+    callRikisha()->linkFaceAngByMvAng(true);
 }
 
 void EnemyIda::onActive() {
@@ -34,8 +34,8 @@ void EnemyIda::onActive() {
 void EnemyIda::processBehavior() {
     changeGeoLocal(); //ローカル座標系へ
 
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->behave();
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->behave();
 
     changeGeoFinal(); //絶対座標系へ
 }

@@ -19,7 +19,7 @@ class EnemyErelman : public VvEnemyActor<GgafLib::DefaultMassMeshActor> {
 
 public:
     /** 移動スプラインプログラム */
-    GgafLib::SplineLeader* pKurokoLeader_;
+    GgafLib::SplineLeader* pRikishaLeader_;
 
     bool scatter_flg_;
     frame free_interval_;

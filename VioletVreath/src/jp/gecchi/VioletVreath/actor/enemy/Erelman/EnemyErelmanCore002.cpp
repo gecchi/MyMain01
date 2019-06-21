@@ -1,7 +1,7 @@
 #include "EnemyErelmanCore002.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
@@ -31,7 +31,7 @@ EnemyErelmanCore002::EnemyErelmanCore002(const char* prm_name, EnemyErelmanContr
 }
 
 void EnemyErelmanCore002::processBehavior() {
-    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafDx::Rikisha* const pRikisha = callRikisha();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
 
     GgafCore::Progress* const pProg = getProgress();
@@ -39,7 +39,7 @@ void EnemyErelmanCore002::processBehavior() {
         case PROG_INIT: {
             setHitAble(false);
             setAlpha(0);
-            pKuroko->setRollFaceAngVelo(D_ANG(3));
+            pRikisha->setRollFaceAngVelo(D_ANG(3));
             pProg->changeNext();
             break;
         }
@@ -62,7 +62,7 @@ void EnemyErelmanCore002::processBehavior() {
 
         case PROG_WAIT01: {
             if (pProg->hasJustChanged()) {
-                pKuroko->setRollPitchYawFaceAngVelo(D_ANG(0.027), D_ANG(0.0031), D_ANG(0.0071));
+                pRikisha->setRollPitchYawFaceAngVelo(D_ANG(0.027), D_ANG(0.0031), D_ANG(0.0071));
             }
             if (pProg->hasArrivedAt(10*60*60)) {
                 pProg->changeNext();
@@ -86,7 +86,7 @@ void EnemyErelmanCore002::processBehavior() {
     }
 
     pAlphaFader->behave();
-    pKuroko->behave();
+    pRikisha->behave();
 }
 
 EnemyErelmanCore002::~EnemyErelmanCore002() {

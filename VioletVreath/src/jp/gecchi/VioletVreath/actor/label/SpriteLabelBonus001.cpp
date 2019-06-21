@@ -1,6 +1,6 @@
 #include "SpriteLabelBonus001.h"
 
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
 
@@ -37,16 +37,16 @@ void SpriteLabelBonus001::initialize() {
 
 void SpriteLabelBonus001::onDispatched(GgafDx::GeometricActor* prm_pOrgActor) {
     setPositionAt(prm_pOrgActor);
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->takeoverMvFrom(prm_pOrgActor->getKuroko());
-    pKuroko->setMvAcce(300);
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->takeoverMvFrom(prm_pOrgActor->callRikisha());
+    pRikisha->setMvAcce(300);
     setAlpha(0.7);
     getProgress()->reset(PROG_INIT);
 }
 
 void SpriteLabelBonus001::processBehavior() {
     const Camera* const pCam = pGOD->getSpacetime()->getCamera();
-    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafDx::Rikisha* const pRikisha = callRikisha();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
@@ -57,12 +57,12 @@ void SpriteLabelBonus001::processBehavior() {
             //‚µ‚Î‚ç‚­’¼i
             if (pProg->hasArrivedAt(60)) {
                 //ƒJƒƒ‰‚ÉŒü‚©‚Á‚Ä•ûŒü“]Š·1
-                pKuroko->turnMvAngTwd(pCam,
+                pRikisha->turnMvAngTwd(pCam,
                                       D_ANG(3), 0, TURN_CLOSE_TO, true);
             }
             if (pProg->hasArrivedAt(60+30)) {
                 //ƒJƒƒ‰‚ÉŒü‚©‚Á‚Ä•ûŒü“]Š·2
-                pKuroko->turnMvAngTwd(pCam,
+                pRikisha->turnMvAngTwd(pCam,
                                       D_ANG(1), 0, TURN_CLOSE_TO, true);
             }
 
@@ -91,7 +91,7 @@ void SpriteLabelBonus001::processBehavior() {
             break;
     }
 
-    pKuroko->behave();
+    pRikisha->behave();
 }
 
 SpriteLabelBonus001::~SpriteLabelBonus001() {

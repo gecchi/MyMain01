@@ -46,7 +46,7 @@ StageDebug::StageDebug(const char* prm_name) : Stage(prm_name) {
 //    EnemyHisbe* pTest = NEW EnemyHisbe("tst");
 //    pTest->setPosition(PX_C(0),PX_C(0), PX_C(100));
 //    pTest->setFaceAngTwd(PX_C(100), PX_C(100), PX_C(100));
-//    pTest->getKuroko()->behave();
+//    pTest->callRikisha()->behave();
 //    bringSceneMediator()->appendGroupChild(pTest);
     //<-----debug
 

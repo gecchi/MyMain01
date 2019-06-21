@@ -5,8 +5,8 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/core/util/LinkedListRing.hpp"
 #include "jp/ggaf/core/util/ResourceConnection.hpp"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
-#include "jp/ggaf/dx/actor/supporter/Trucker.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/Kago.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/manager/TextureConnection.h"
 #include "jp/ggaf/dx/model/Model.h"
@@ -22,7 +22,7 @@ using namespace VioletVreath;
 
 const velo MyBunshinWateringLaserChip001::MAX_VELO_RENGE = PX_C(260); //この値を大きくすると、最高速度が早くなる。
 const double MyBunshinWateringLaserChip001::INV_MAX_VELO_RENGE = 1.0 / MAX_VELO_RENGE;
-const int MyBunshinWateringLaserChip001::R_MAX_ACCE = 20; //この値を大きくすると、カーブが緩くなる
+const int MyBunshinWateringLaserChip001::R_MAX_ACCE = 16; //この値を大きくすると、カーブが緩くなる
 const velo MyBunshinWateringLaserChip001::INITIAL_VELO = MAX_VELO_RENGE*0.7; //レーザー発射時の初期速度
 const double MyBunshinWateringLaserChip001::RR_MAX_ACCE = 1.0 / R_MAX_ACCE; //計算簡素化用
 const float MyBunshinWateringLaserChip001::MAX_ACCE_RENGE = MAX_VELO_RENGE/R_MAX_ACCE;
@@ -55,7 +55,7 @@ MyBunshinWateringLaserChip001::MyBunshinWateringLaserChip001(const char* prm_nam
 }
 
 void MyBunshinWateringLaserChip001::initialize() {
-    getKuroko()->linkFaceAngByMvAng(true);
+    callRikisha()->linkFaceAngByMvAng(true);
     registerHitAreaCube_AutoGenMidColli(PX_C(80));
     setHitAble(true);
     setScaleR(6.0);
@@ -78,9 +78,9 @@ void MyBunshinWateringLaserChip001::onActive() {
     WateringLaserChip::onActive();
     pAimInfo_ = nullptr;
     inv_cnt_ = 0;
-    GgafDx::Trucker* pTrucker = getTrucker();
-    pTrucker->forceVxyzMvVeloRange(-MAX_VELO_RENGE, MAX_VELO_RENGE);
-    pTrucker->forceVxyzMvAcceRange(-MAX_ACCE_RENGE, MAX_ACCE_RENGE);
+    GgafDx::Kago* pKago = callKago();
+    pKago->forceVxyzMvVeloRange(-MAX_VELO_RENGE, MAX_VELO_RENGE);
+    pKago->forceVxyzMvAcceRange(-MAX_ACCE_RENGE, MAX_ACCE_RENGE);
     jerk_ = 1.0;
 }
 
@@ -90,7 +90,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
     getStatus()->set(STAT_AttackPowerRate, power);
     _power = power;
 
-    GgafDx::Trucker* const pTrucker = getTrucker();
+    GgafDx::Kago* const pKago = callKago();
     frame active_frame = getActiveFrame();
     MyBunshin::AimInfo* pAimInfo = pAimInfo_;
 
@@ -115,17 +115,17 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                     //●Leader が t1 へ Aim
                     if (pAimTarget->isActiveInTheTree() && active_frame < aim_time_out_t1)  {
                         //pAimTarget が存命
-                        int sgn_vx1 = SGN(pTrucker->_acce_vx_mv);
-                        int sgn_vy1 = SGN(pTrucker->_acce_vy_mv);
-                        int sgn_vz1 = SGN(pTrucker->_acce_vz_mv);
+                        int sgn_vx1 = SGN(pKago->_acce_vx_mv);
+                        int sgn_vy1 = SGN(pKago->_acce_vy_mv);
+                        int sgn_vz1 = SGN(pKago->_acce_vz_mv);
 
                         aimChip(pAimInfo->t1_x,
                                 pAimInfo->t1_y,
                                 pAimInfo->t1_z );
 
-                        int sgn_vx2 = SGN(pTrucker->_acce_vx_mv);
-                        int sgn_vy2 = SGN(pTrucker->_acce_vy_mv);
-                        int sgn_vz2 = SGN(pTrucker->_acce_vz_mv);
+                        int sgn_vx2 = SGN(pKago->_acce_vx_mv);
+                        int sgn_vy2 = SGN(pKago->_acce_vy_mv);
+                        int sgn_vz2 = SGN(pKago->_acce_vz_mv);
                         if (sgn_vx1 != sgn_vx2) {
                            inv_cnt_++;
                         }
@@ -184,9 +184,9 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                                 pAimInfo->t2_y,
                                 pAimInfo->t2_z );
                     } else {
-                        aimChip(_x + pTrucker->_velo_vx_mv*4+1,
-                                _y + pTrucker->_velo_vy_mv*4+1,
-                                _z + pTrucker->_velo_vz_mv*4+1 );
+                        aimChip(_x + pKago->_velo_vx_mv*4+1,
+                                _y + pKago->_velo_vy_mv*4+1,
+                                _z + pKago->_velo_vz_mv*4+1 );
                     }
                 }
             } else {
@@ -210,9 +210,9 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                                     pAimLeaderChip->_y,
                                     pAimLeaderChip->_z );
                         } else {
-                            aimChip(_x + pTrucker->_velo_vx_mv*4+1,
-                                    _y + pTrucker->_velo_vy_mv*4+1,
-                                    _z + pTrucker->_velo_vz_mv*4+1 );
+                            aimChip(_x + pKago->_velo_vx_mv*4+1,
+                                    _y + pKago->_velo_vy_mv*4+1,
+                                    _z + pKago->_velo_vz_mv*4+1 );
                         }
                     } else if (active_frame <= pAimInfo->spent_frames_to_t2) {
                         //●その後 Leader以外が t2 が定まって、t2に向かうまでの動き
@@ -226,9 +226,9 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                                     pAimLeaderChip->_y,
                                     pAimLeaderChip->_z );
                         } else {
-                            aimChip(_x + pTrucker->_velo_vx_mv*4+1,
-                                    _y + pTrucker->_velo_vy_mv*4+1,
-                                    _z + pTrucker->_velo_vz_mv*4+1 );
+                            aimChip(_x + pKago->_velo_vx_mv*4+1,
+                                    _y + pKago->_velo_vy_mv*4+1,
+                                    _z + pKago->_velo_vz_mv*4+1 );
                         }
                     }
                 }
@@ -237,22 +237,22 @@ void MyBunshinWateringLaserChip001::processBehavior() {
         } //if (pAimTarget)
 
     }
-//    pTrucker->addVxMvAcce(pTrucker->_acce_vx_mv * 1.1);
-//    pTrucker->addVyMvAcce(pTrucker->_acce_vy_mv * 1.1);
-//    pTrucker->addVzMvAcce(pTrucker->_acce_vz_mv * 1.1);
-    pTrucker->behave();
+//    pKago->addVxMvAcce(pKago->_acce_vx_mv * 1.1);
+//    pKago->addVyMvAcce(pKago->_acce_vy_mv * 1.1);
+//    pKago->addVzMvAcce(pKago->_acce_vz_mv * 1.1);
+    pKago->behave();
     WateringLaserChip::processBehavior();
     tmp_x_ = _x;
     tmp_y_ = _y;
     tmp_z_ = _z;
-    tmp_acc_vx_ =  pTrucker->_acce_vx_mv;
-    tmp_acc_vy_ =  pTrucker->_acce_vy_mv;
-    tmp_acc_vz_ =  pTrucker->_acce_vz_mv;
+    tmp_acc_vx_ =  pKago->_acce_vx_mv;
+    tmp_acc_vy_ =  pKago->_acce_vy_mv;
+    tmp_acc_vz_ =  pKago->_acce_vz_mv;
 }
 
 void MyBunshinWateringLaserChip001::processSettlementBehavior() {
     //分身はFKなので、絶対座標の確定が processSettlementBehavior() 以降となるため、ここで初期設定が必要
-    GgafDx::Trucker* const pTrucker = getTrucker();
+    GgafDx::Kago* const pKago = callKago();
     if (hasJustChangedToActive()) {
         //チップの初期設定
         //ロックオン情報の引き継ぎ
@@ -277,12 +277,12 @@ void MyBunshinWateringLaserChip001::processSettlementBehavior() {
                 pAimInfo_->pLeaderChip = this;
                 pAimInfo_->pTarget = nullptr;
             }
-            pTrucker->forceVxyzMvVeloRange(-MAX_VELO_RENGE, MAX_VELO_RENGE);
+            pKago->forceVxyzMvVeloRange(-MAX_VELO_RENGE, MAX_VELO_RENGE);
         } else {
             //先端以外は前のを受け継ぐ
             pAimInfo_ = pF->pAimInfo_; //受け継ぐ
             velo v = MAX_VELO_RENGE - PX_C(1); //レーザーが弛まないように PX_C(1) 遅くした
-            pTrucker->forceVxyzMvVeloRange(-v, v);
+            pKago->forceVxyzMvVeloRange(-v, v);
 #ifdef MY_DEBUG
 if (pAimInfo_ == nullptr) {
 throwCriticalException("pAimInfo_ が引き継がれていません！"<<this<<
@@ -293,8 +293,8 @@ throwCriticalException("pAimInfo_ が引き継がれていません！"<<this<<
         //活動開始初回フレーム、チップの速度と向きの初期設定
         setFaceAngAs(pOrg_);
         setPositionAt(pOrg_);
-        pTrucker->setVxyzMvVeloTwd(_rz, _ry, INITIAL_VELO); //初速はここで
-        pTrucker->setZeroVxyzMvAcce();
+        pKago->setVxyzMvVeloTwd(_rz, _ry, INITIAL_VELO); //初速はここで
+        pKago->setZeroVxyzMvAcce();
     }
 
     //平均曲線座標設定。(レーザーを滑らかにするノーマライズ）
@@ -302,42 +302,22 @@ throwCriticalException("pAimInfo_ が引き継がれていません！"<<this<<
     //本来は processBehaviorAfter() 的な意味の処理であるが、全レーザーチップが移動後でないと意味がないので
     //仕方ないのでprocessSettlementBehavior()に食い込んでいます。
     //したがって本クラスを継承した場合、継承クラスのprocessSettlementBehavior()では、先頭で呼び出した方が良い。
-//    if (getActiveFrame() > 4) { //FKオブジェクトからのレーザー発射も考慮すると、_tmpXYZ が埋まるのは3フレーム以降。
-//        MyBunshinWateringLaserChip001* pF = (MyBunshinWateringLaserChip001*)getInfrontChip();
-//        MyBunshinWateringLaserChip001* pB = (MyBunshinWateringLaserChip001*)getBehindChip();
-//        if (pF && pB && pF->isActive() && pB->isActive()) {
-//            //_pChip_behind == nullptr の判定だけではだめ。_pChip_behind->_is_active_flg と判定すること
-//            //なぜなら dispatch の瞬間に_pChip_behind != nullptr となるが、active()により有効になるのは次フレームだから
-//            //_x,_y,_z にはまだ変な値が入っている。
-//            //中間座標に再設定
-//            _x = (pF->tmp_x_ + pB->tmp_x_ + tmp_x_)/3;
-//            _y = (pF->tmp_y_ + pB->tmp_y_ + tmp_y_)/3;
-//            _z = (pF->tmp_z_ + pB->tmp_z_ + tmp_z_)/3;
-//            pTrucker->setVxyzMvAcce( (pF->tmp_acc_vx_ + pB->tmp_acc_vx_ + tmp_acc_vx_)/3,
-//                                     (pF->tmp_acc_vy_ + pB->tmp_acc_vy_ + tmp_acc_vy_)/3,
-//                                     (pF->tmp_acc_vz_ + pB->tmp_acc_vz_ + tmp_acc_vz_)/3 );
-//        }
-//    }
-//    if (getActiveFrame() > 3) { //FKオブジェクトからのレーザー発射も考慮すると、_tmpXYZ が埋まるのは3フレーム以降。
-        if (pAimInfo_->pTarget && getActiveFrame() > 3) {
-            MyBunshinWateringLaserChip001* pF = (MyBunshinWateringLaserChip001*)getInfrontChip();
-            if (pF && pF->isActive()) {
-                MyBunshinWateringLaserChip001* pB = (MyBunshinWateringLaserChip001*)getBehindChip();
-                if (pB && pB->isActive()) {
-                    //_pChip_behind == nullptr の判定だけではだめ。_pChip_behind->_is_active_flg と判定すること
-                    //なぜなら dispatch の瞬間に_pChip_behind != nullptr となるが、active()により有効になるのは次フレームだから
-                    //_x,_y,_z にはまだ変な値が入っている。
-                    //中間座標に再設定
-                    _x = (coord)((pF->tmp_x_*0.7  +  pB->tmp_x_*0.3  +  tmp_x_*2.0)*0.333);
-                    _y = (coord)((pF->tmp_y_*0.7  +  pB->tmp_y_*0.3  +  tmp_y_*2.0)*0.333);
-                    _z = (coord)((pF->tmp_z_*0.7  +  pB->tmp_z_*0.3  +  tmp_z_*2.0)*0.333);
-    //                pTrucker->setVxyzMvAcce( (acce)((pF->tmp_acc_vx_ + pB->tmp_acc_vx_ + tmp_acc_vx_)*0.333),
-    //                                         (acce)((pF->tmp_acc_vy_ + pB->tmp_acc_vy_ + tmp_acc_vy_)*0.333),
-    //                                         (acce)((pF->tmp_acc_vz_ + pB->tmp_acc_vz_ + tmp_acc_vz_)*0.333) );
-                }
+    if (pAimInfo_->pTarget && getActiveFrame() > 3) {//FKオブジェクトからのレーザー発射も考慮すると、_tmpXYZ が埋まるのは3フレーム以降。
+        MyBunshinWateringLaserChip001* pF = (MyBunshinWateringLaserChip001*)getInfrontChip();
+        if (pF && pF->isActive()) {
+            MyBunshinWateringLaserChip001* pB = (MyBunshinWateringLaserChip001*)getBehindChip();
+            if (pB && pB->isActive()) {
+                //_pChip_behind == nullptr の判定だけではだめ。_pChip_behind->_is_active_flg と判定すること
+                //なぜなら dispatch の瞬間に_pChip_behind != nullptr となるが、active()により有効になるのは次フレームだから
+                //_x,_y,_z にはまだ変な値が入っている。
+                //中間座標に再設定
+                //座標の重みは、（ひとつ前, 自身, 一つ先）＝ (0.2, 0.5, 0.3)
+                _x = (coord)(tmp_x_ + (pB->tmp_x_-tmp_x_)*0.2 + (pF->tmp_x_-tmp_x_)*0.3);
+                _y = (coord)(tmp_y_ + (pB->tmp_y_-tmp_y_)*0.2 + (pF->tmp_y_-tmp_y_)*0.3);
+                _z = (coord)(tmp_z_ + (pB->tmp_z_-tmp_z_)*0.2 + (pF->tmp_z_-tmp_z_)*0.3);
             }
         }
-//    }
+    }
     WateringLaserChip::processSettlementBehavior();
 }
 
@@ -386,7 +366,7 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
         throwCriticalException("おかしい");
     }
 #endif
-    GgafDx::Trucker* pTrucker = getTrucker();
+    GgafDx::Kago* pKago = callKago();
 
     //自→的
     double vTx = tX - _x;
@@ -394,12 +374,12 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
     double vTz = tZ - _z;
 
     //自→仮自。
-//    int vMx = pTrucker->_velo_vx_mv;
-//    int vMy = pTrucker->_velo_vy_mv;
-//    int vMz = pTrucker->_velo_vz_mv;
-    double vMx = pTrucker->_velo_vx_mv;
-    double vMy = pTrucker->_velo_vy_mv;
-    double vMz = pTrucker->_velo_vz_mv;
+//    int vMx = pKago->_velo_vx_mv;
+//    int vMy = pKago->_velo_vy_mv;
+//    int vMz = pKago->_velo_vz_mv;
+    double vMx = pKago->_velo_vx_mv;
+    double vMy = pKago->_velo_vy_mv;
+    double vMz = pKago->_velo_vz_mv;
     double lVM = sqrt(vMx*vMx + vMy*vMy + vMz*vMz);
     //|仮自| = lVM * 5
 //    int lVM = MAX3(ABS(vMx), ABS(vMy), ABS(vMz)); //仮自ベクトル大きさ簡易版
@@ -408,15 +388,15 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
     if  (lVM < min_velo) { //縮こまらないように
         if (ZEROd_EQ(lVM)) {
             double r = (1.0*min_velo/lVM);
-            pTrucker->setVxyzMvVelo(vMx*r, vMy*r, vMz*r);
-            vMx = pTrucker->_velo_vx_mv;
-            vMy = pTrucker->_velo_vy_mv;
-            vMz = pTrucker->_velo_vz_mv;
+            pKago->setVxyzMvVelo(vMx*r, vMy*r, vMz*r);
+            vMx = pKago->_velo_vx_mv;
+            vMy = pKago->_velo_vy_mv;
+            vMz = pKago->_velo_vz_mv;
         } else {
-            pTrucker->setVxyzMvVelo(min_velo, 0, 0);
-            vMx = pTrucker->_velo_vx_mv;
-            vMy = pTrucker->_velo_vy_mv;
-            vMz = pTrucker->_velo_vz_mv;
+            pKago->setVxyzMvVelo(min_velo, 0, 0);
+            vMx = pKago->_velo_vx_mv;
+            vMy = pKago->_velo_vy_mv;
+            vMz = pKago->_velo_vz_mv;
         }
         lVM = min_velo;
     }
@@ -433,12 +413,12 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
     const double accX = ((vTx * r) - vMx*5.0) * RR_MAX_ACCE;
     const double accY = ((vTy * r) - vMy*5.0) * RR_MAX_ACCE;
     const double accZ = ((vTz * r) - vMz*5.0) * RR_MAX_ACCE;
-    double top_acce_mv = pTrucker->_top_acce_vx_mv*1.05;
+    double top_acce_mv = pKago->_top_acce_vx_mv*1.05;
     if (MAX_VELO_RENGE < top_acce_mv && top_acce_mv < MAX_VELO_RENGE) {
-        pTrucker->forceVxyzMvAcceRange(-top_acce_mv, top_acce_mv);//徐々に加速度を大きくセットできるように
+        pKago->forceVxyzMvAcceRange(-top_acce_mv, top_acce_mv);//徐々に加速度を大きくセットできるように
     }
-    pTrucker->setVxyzMvAcce(accX, accY, accZ);
-//    pTrucker->setVxyzMvAcce(accX*jerk_, accY*jerk_, accZ*jerk_);
+    pKago->setVxyzMvAcce(accX, accY, accZ);
+//    pKago->setVxyzMvAcce(accX*jerk_, accY*jerk_, accZ*jerk_);
 //    jerk_ += 0.05;
 }
 
@@ -469,7 +449,7 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
 //        throwCriticalException("おかしい");
 //    }
 //#endif
-//    GgafDx::Trucker* pTrucker = getTrucker();
+//    GgafDx::Kago* pKago = callKago();
 //
 //
 //
@@ -483,9 +463,9 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
 //                              vTx, vTy, vTz);
 //
 //    //自
-//    double vMx = pTrucker->_velo_vx_mv;
-//    double vMy = pTrucker->_velo_vy_mv;
-//    double vMz = pTrucker->_velo_vz_mv;
+//    double vMx = pKago->_velo_vx_mv;
+//    double vMy = pKago->_velo_vy_mv;
+//    double vMz = pKago->_velo_vz_mv;
 //    double dvm = sqrt(vMx*vMx + vMy*vMy + vMz*vMz);
 //    static const velo min_velo = MyBunshinWateringLaserChip001::INITIAL_VELO/2;
 //    if  (dvm < min_velo) { //縮こまらないように
@@ -494,7 +474,7 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
 //    const double accX = vTx * dvm * RR_MAX_ACCE;
 //    const double accY = vTy * dvm * RR_MAX_ACCE;
 //    const double accZ = vTz * dvm * RR_MAX_ACCE;
-//    pTrucker->setVxyzMvAcce(accX, accY, accZ);
+//    pKago->setVxyzMvAcce(accX, accY, accZ);
 //}
 
 void MyBunshinWateringLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor) {

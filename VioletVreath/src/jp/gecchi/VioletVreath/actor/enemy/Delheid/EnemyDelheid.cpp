@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/dx/actor/supporter/Checker.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
@@ -47,7 +47,7 @@ EnemyDelheid::EnemyDelheid(const char* prm_name) :
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     pProg2_ = createProgress();
     shot_begin_frame_ = 0;
-    pKurokoLeader_ = nullptr;
+    pRikishaLeader_ = nullptr;
     pDepoShot_ = nullptr;
 }
 
@@ -63,10 +63,10 @@ void EnemyDelheid::nextFrame() {
     }
 }
 
-void EnemyDelheid::config(GgafLib::SplineLeader* prm_pKurokoLeader,
+void EnemyDelheid::config(GgafLib::SplineLeader* prm_pRikishaLeader,
                           GgafCore::ActorDepository* prm_pDepoShot  ) {
-    GGAF_DELETE_NULLABLE(pKurokoLeader_);
-    pKurokoLeader_ = prm_pKurokoLeader;
+    GGAF_DELETE_NULLABLE(pRikishaLeader_);
+    pRikishaLeader_ = prm_pRikishaLeader;
     pDepoShot_ = prm_pDepoShot;
 }
 
@@ -78,7 +78,7 @@ void EnemyDelheid::initialize() {
 }
 
 void EnemyDelheid::onActive() {
-    if (pKurokoLeader_ == nullptr) {
+    if (pRikishaLeader_ == nullptr) {
         throwCriticalException("EnemyDelheidはスプライン必須ですconfigして下さい。this="<<NODE_INFO);
     }
     getStatus()->reset();
@@ -95,9 +95,9 @@ void EnemyDelheid::processBehavior() {
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
-            pKurokoLeader_->start(RELATIVE_COORD_DIRECTION, 3); //最高で３回ループする予定
-            getKuroko()->setMvAcce(0);
-            getKuroko()->keepOnTurningFaceAngTwd(pMYSHIP,
+            pRikishaLeader_->start(RELATIVE_COORD_DIRECTION, 3); //最高で３回ループする予定
+            callRikisha()->setMvAcce(0);
+            callRikisha()->keepOnTurningFaceAngTwd(pMYSHIP,
                                                  D_ANG(1), 0, TURN_CLOSE_TO, false);
             pProg->changeNext();
             break;
@@ -105,13 +105,13 @@ void EnemyDelheid::processBehavior() {
         case PROG_SPLINE_MOVING: {
             if (pProg->hasJustChanged()) {
             }
-            //processJudgement() で pKurokoLeader_->isFinished() 成立待ち
+            //processJudgement() で pRikishaLeader_->isFinished() 成立待ち
             break;
         }
 
         //ゴールのアリサナがいない場合、その後の移動
         case PROG_AFTER_LEAD: {
-            //processJudgement() で pKurokoLeader_->isFinished() 成立待ち
+            //processJudgement() で pRikishaLeader_->isFinished() 成立待ち
             break;
         }
         case PROG_AFTER_LEAD_MOVING: {
@@ -174,10 +174,10 @@ void EnemyDelheid::processBehavior() {
         }
     }
     //-----------------------------------------------
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->_angvelo_face[AXIS_X] = pKuroko->_velo_mv/2;
-    pKurokoLeader_->behave(); //スプライン移動を振る舞い
-    pKuroko->behave();
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->_angvelo_face[AXIS_X] = pRikisha->_velo_mv/2;
+    pRikishaLeader_->behave(); //スプライン移動を振る舞い
+    pRikisha->behave();
     getMorpher()->behave();
 }
 
@@ -185,7 +185,7 @@ void EnemyDelheid::processSettlementBehavior() {
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_SPLINE_MOVING: {
-            if (pKurokoLeader_->_cnt_loop >= 2) {
+            if (pRikishaLeader_->_cnt_loop >= 2) {
                 if (((FormationDelheid*)getFormation())->pAlisana_goal) {
                     //ゴールが存在する場合、１ループでさよなら。
                     pProg->changeNothing();
@@ -199,7 +199,7 @@ void EnemyDelheid::processSettlementBehavior() {
 
         //ゴールのアリサナがいない場合、その後の移動
         case PROG_AFTER_LEAD: {
-            if (pKurokoLeader_->isFinished()) {
+            if (pRikishaLeader_->isFinished()) {
                 //スプライン移動も終わった場合
                 pProg->change(PROG_AFTER_LEAD_MOVING);
             }
@@ -240,7 +240,7 @@ void EnemyDelheid::open_shot() {
 }
 
 EnemyDelheid::~EnemyDelheid() {
-    GGAF_DELETE_NULLABLE(pKurokoLeader_);
+    GGAF_DELETE_NULLABLE(pRikishaLeader_);
     GGAF_DELETE(pProg2_);
 }
 

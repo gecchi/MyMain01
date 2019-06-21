@@ -5,7 +5,7 @@
 #include <jp/ggaf/core/Element.hpp>
 #include <jp/ggaf/core/Progress.h>
 #include <jp/ggaf/core/util/ResourceConnection.hpp>
-#include <jp/ggaf/dx/actor/supporter/Kuroko.h>
+#include <jp/ggaf/dx/actor/supporter/Rikisha.h>
 #include <jp/ggaf/lib/DefaultGod.h>
 #include <jp/ggaf/lib/manager/SplineManufactureConnection.h>
 #include <jp/ggaf/lib/util/spline/SplineLeader.h>
@@ -24,8 +24,8 @@ enum {
 EnemyIdaBase::EnemyIdaBase(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Ida") {
     pConn_pSplManuf_ = connectToSplineManufactureManager("FormationZako001_STEP");
-    pKurokoLeader_ = pConn_pSplManuf_->peek()->createKurokoLeader(getKuroko());
-    pKurokoLeader_->_turn_smooth = true;
+    pRikishaLeader_ = pConn_pSplManuf_->peek()->createRikishaLeader(callRikisha());
+    pRikishaLeader_->_turn_smooth = true;
     std::string filename = XTOS(getName()) + ".dat";
     pOs_ = NEW std::ofstream(filename.c_str());
     setScaleR(0.5);
@@ -45,8 +45,8 @@ EnemyIdaBase::EnemyIdaBase(const char* prm_name) :
 }
 
 void EnemyIdaBase::initialize() {
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->linkFaceAngByMvAng(true);
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->linkFaceAngByMvAng(true);
 }
 
 void EnemyIdaBase::onActive() {
@@ -54,7 +54,7 @@ void EnemyIdaBase::onActive() {
 }
 
 void EnemyIdaBase::processBehavior() {
-    GgafDx::Kuroko* pKuroko = getKuroko();
+    GgafDx::Rikisha* pRikisha = callRikisha();
     GgafCore::Progress* pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
@@ -63,22 +63,22 @@ void EnemyIdaBase::processBehavior() {
         }
         case PROG_MOVE: {
             if (pProg->hasJustChanged()) {
-                pKurokoLeader_->start(RELATIVE_COORD);
-                getKuroko()->setMvVelo(PX_C(2));
+                pRikishaLeader_->start(RELATIVE_COORD);
+                callRikisha()->setMvVelo(PX_C(2));
             }
-            pKurokoLeader_->behave();
-            if (pKurokoLeader_->isFinished()) {
+            pRikishaLeader_->behave();
+            if (pRikishaLeader_->isFinished()) {
                 pProg->changeNext();
             }
             break;
         }
         case PROG_END: {
-            getKuroko()->stopMv();
-            getKuroko()->stopTurningMvAng();
+            callRikisha()->stopMv();
+            callRikisha()->stopTurningMvAng();
             break;
         }
     }
-    pKuroko->behave();
+    pRikisha->behave();
 }
 
 void EnemyIdaBase::processJudgement() {

@@ -1,7 +1,7 @@
 #include "Zakoko.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
@@ -23,8 +23,8 @@ void Zakoko::onCreateModel() {
 }
 
 void Zakoko::initialize() {
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->linkFaceAngByMvAng(true);
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->linkFaceAngByMvAng(true);
 
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
@@ -39,8 +39,8 @@ void Zakoko::onActive() {
 }
 
 void Zakoko::processBehavior() {
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->behave();
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->behave();
 }
 
 void Zakoko::processJudgement() {

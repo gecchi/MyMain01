@@ -1,6 +1,6 @@
 #include "EnemyHisbe002.h"
 
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
@@ -29,7 +29,7 @@ EnemyHisbe002::EnemyHisbe002(const char* prm_name) :
         //VvEnemyActor<CubeMapMorphMeshActor>(prm_name, "1HisbeCM_1", StatusReset(EnemyHisbe002)) {
 
     _class_name = "EnemyHisbe002";
-    pKurokoLeader_ = nullptr;
+    pRikishaLeader_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;
     pLaserChipDepo_ = NEW LaserChipDepository("HisbeLaser");
@@ -54,9 +54,9 @@ void EnemyHisbe002::onCreateModel() {
 }
 
 void EnemyHisbe002::initialize() {
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->setFaceAngVelo(AXIS_Y, 500);
-    pKuroko->linkFaceAngByMvAng(true);
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->setFaceAngVelo(AXIS_Y, 500);
+    pRikisha->linkFaceAngByMvAng(true);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliSphere(0, 40000);
@@ -69,7 +69,7 @@ void EnemyHisbe002::onActive() {
 }
 
 void EnemyHisbe002::processBehavior() {
-    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafDx::Rikisha* const pRikisha = callRikisha();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_WAIT: {
@@ -93,7 +93,7 @@ void EnemyHisbe002::processBehavior() {
             LaserChip* pLaser = pLaserChipDepo_->dispatch();
             if (pLaser) {
                 pLaser->setPositionAt(this);
-                pLaser->getKuroko()->setRzRyMvAng(_rz, _ry);
+                pLaser->callRikisha()->setRzRyMvAng(_rz, _ry);
                                    //レーザーのスプラインがRELATIVE_COORD_DIRECTIONのためMvAngの設定が必要。
                 if (pLaser->getInfrontChip() == nullptr) {
                     getSeTransmitter()->play3D(SE_FIRE);
@@ -119,7 +119,7 @@ void EnemyHisbe002::processBehavior() {
         }
     }
 
-    pKuroko->behave();
+    pRikisha->behave();
     getMorpher()->behave();
     getSeTransmitter()->behave();
 }
@@ -147,5 +147,5 @@ void EnemyHisbe002::onInactive() {
 }
 
 EnemyHisbe002::~EnemyHisbe002() {
-    GGAF_DELETE_NULLABLE(pKurokoLeader_);
+    GGAF_DELETE_NULLABLE(pRikishaLeader_);
 }

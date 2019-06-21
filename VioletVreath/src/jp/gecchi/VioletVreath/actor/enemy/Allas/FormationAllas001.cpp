@@ -4,7 +4,7 @@
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/lib/DefaultGod.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 
@@ -69,9 +69,9 @@ void FormationAllas001::processBehavior() {
                 if (getActiveFrame() % interval_frames_ == 0) {
                     EnemyAllas* pAllas = (EnemyAllas*)callUpMember();
                     if (pAllas) {
-                        pAllas->getKuroko()->setMvVelo(velo_mv_);
-                        SplineLeader* pKurokoLeader = pConn_pSplManuf_->peek()->createKurokoLeader(pAllas->getKuroko());
-                        pAllas->config(pKurokoLeader, nullptr, nullptr);
+                        pAllas->callRikisha()->setMvVelo(velo_mv_);
+                        SplineLeader* pRikishaLeader = pConn_pSplManuf_->peek()->createRikishaLeader(pAllas->callRikisha());
+                        pAllas->config(pRikishaLeader, nullptr, nullptr);
                         onCallUpAllas(pAllas);
                     }
                 }

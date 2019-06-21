@@ -247,7 +247,7 @@ GgafCore::ActorDepository* DepositoryManager::processCreateResource(const char* 
             for (int nChip = 0; nChip < 200; nChip++) {
                 std::string name2 = "EnemyHisbeLaserChip002["+XTOS(nLaser)+"]["+XTOS(nChip)+"]";
                 EnemyHisbeLaserChip002* pChip = NEW EnemyHisbeLaserChip002(name2.c_str());
-                int num_refraction = pChip->pKurokoLeader_->getPointNum();
+                int num_refraction = pChip->pRikishaLeader_->getPointNum();
                 pChip->config(num_refraction, 1, 1, false, pDepoEffect);
                 pLaserChipDepo->put(pChip);
                 Sleep(1);

@@ -1,11 +1,11 @@
 #include "jp/ggaf/lib/actor/camera/worker/CameraWorker.h"
 
 #include "jp/ggaf/dx/actor/GeometricActor.h"
-#include "jp/ggaf/dx/actor/supporter/Trucker.h"
-#include "jp/ggaf/dx/actor/supporter/TruckerAssistantA.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
-#include "jp/ggaf/dx/actor/supporter/KurokoMvAssistant.h"
-#include "jp/ggaf/dx/actor/supporter/KurokoFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/Kago.h"
+#include "jp/ggaf/dx/actor/supporter/KagoAssistantA.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/RikishaMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/RikishaFaceAngAssistant.h"
 #include "jp/ggaf/lib/util/Direction26Util.h"
 #include "jp/ggaf/dx/util/Util.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
@@ -124,11 +124,11 @@ void CameraWorker::setUpVec(coord tx, coord ty, coord tz) {
     _pUp->setPosition(tx,ty,tz);
 }
 void CameraWorker::stopMvCam() {
-    _pCam->getTrucker()->stopMv();
+    _pCam->callKago()->stopMv();
 }
 
 void CameraWorker::stopMvVp() {
-    _pVp->getTrucker()->stopMv();
+    _pVp->callKago()->stopMv();
 }
 
 CameraWorker::~CameraWorker() {

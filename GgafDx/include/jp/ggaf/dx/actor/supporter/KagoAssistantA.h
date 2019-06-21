@@ -1,5 +1,5 @@
-#ifndef GGAF_DX_TRUCKERASSISTANT_H_
-#define GGAF_DX_TRUCKERASSISTANT_H_
+#ifndef GGAF_DX_KAGOASSISTANT_H_
+#define GGAF_DX_KAGOASSISTANT_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 #include "jp/ggaf/core/util/ValueAccelerator.hpp"
@@ -8,18 +8,18 @@
 namespace GgafDx {
 
 /**
- * 平行移動支援 の助手A .
- * 師匠(平行移動支援 )の補佐を行います。
+ * 駕籠(平行移動支援) の助手A .
+ * 師匠(駕籠(平行移動支援) )の補佐を行います。
  * @version 1.00
  * @since 2013/12/16
  * @author Masatoshi Tsuge
  */
-class TruckerAssistantA : public GgafCore::Object {
-	friend class Trucker;
+class KagoAssistantA : public GgafCore::Object {
+	friend class Kago;
 
 private:
     /** [r]師匠 */
-    Trucker* _pMaster;
+    Kago* _pMaster;
     /** X軸方向加速装置 */
     GgafCore::ValueAccelerator<coord> _smthVxMv;
     /** Y軸方向加速装置 */
@@ -34,7 +34,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pMaster  師匠
      */
-    explicit TruckerAssistantA(Trucker* prm_pMaster);
+    explicit KagoAssistantA(Kago* prm_pMaster);
 
     /**
      * X軸方向でなめらかな移動速度を変化させるシークエンスを実行(時間・距離指定、速度変動) .
@@ -290,9 +290,9 @@ public:
         _smthVzMv.stopAccelerating();
     }
 
-    virtual ~TruckerAssistantA();
+    virtual ~KagoAssistantA();
 };
 
 }
-#endif /*GGAF_DX_TRUCKERASSISTANT_H_*/
+#endif /*GGAF_DX_KAGOASSISTANT_H_*/
 

@@ -1,6 +1,6 @@
 #include "FormationZako001.h"
 
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/ggaf/lib/util/spline/SplineManufacture.h"
 #include "jp/ggaf/lib/util/spline/SplineSource.h"
@@ -40,13 +40,13 @@ void FormationZako001::processBehavior() {
 
 void FormationZako001::onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) {
     Zako* pZako = (Zako*)prm_pActor;
-    if (pZako->pKurokoLeader_) {
-        throwCriticalException("pZako->pKurokoLeader_が設定されてます。pZako="<<pZako<<"("<<pZako->getName()<<")");
+    if (pZako->pRikishaLeader_) {
+        throwCriticalException("pZako->pRikishaLeader_が設定されてます。pZako="<<pZako<<"("<<pZako->getName()<<")");
     } else {
-        pZako->pKurokoLeader_ = papSplManufConn_[prm_col]->peek()->
-                                     createKurokoLeader(pZako->getKuroko());
+        pZako->pRikishaLeader_ = papSplManufConn_[prm_col]->peek()->
+                                     createRikishaLeader(pZako->callRikisha());
     }
-    double rate_x = pZako->pKurokoLeader_->_pManufacture->_rate_x;
+    double rate_x = pZako->pRikishaLeader_->_pManufacture->_rate_x;
     double d_col = -1.0 * papSplManufConn_[prm_col]->peek()->_pSpl->_rotmat._41; //横との間隔
     float X = d_col*rate_x; //rate_xを掛けることにより、ここで X はcoordの単位となる。
 
@@ -60,10 +60,10 @@ void FormationZako001::onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row, in
     coord dx = X*cosRz*cosRy;
     coord dy = X*sinRz;
     coord dz = X*cosRz*-sinRy;
-    pZako->pKurokoLeader_->setStartPosition(entry_pos_.x + dx,
+    pZako->pRikishaLeader_->setStartPosition(entry_pos_.x + dx,
                                             entry_pos_.y + dy,
                                             entry_pos_.z + dz);
-    pZako->pKurokoLeader_->setStartAngle(0, entry_pos_.rz, entry_pos_.ry);
+    pZako->pRikishaLeader_->setStartAngle(0, entry_pos_.rz, entry_pos_.ry);
 
     pZako->setPosition(entry_pos_.x + dx,
                        entry_pos_.y + dy,
@@ -71,7 +71,7 @@ void FormationZako001::onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row, in
     pZako->setFaceAngTwd(entry_pos_.rz,
                          entry_pos_.ry,
                          0);
-    pZako->getKuroko()->setMvAngByFaceAng();
+    pZako->callRikisha()->setMvAngByFaceAng();
 }
 
 void FormationZako001::onFinshLeading(GgafDx::FigureActor* prm_pActor) {

@@ -3,7 +3,7 @@
 #include "VioletVreath.h"
 #include "jp/ggaf/core/util/Status.h"
 #include "jp/ggaf/dx/actor/FigureActor.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
 
@@ -34,7 +34,7 @@ public:
 //                        pE->onActive();
 //                    }
 //                    pE->setPositionAt(this);
-//                    pE->getKuroko()->takeoverMvFrom(this->getKuroko());
+//                    pE->callRikisha()->takeoverMvFrom(this->callRikisha());
 //                }
 //                break;
 //            }
@@ -42,7 +42,7 @@ public:
 //                pE = dispatchForceFromCommon(EffectExplosion002);
 //                if (pE) {
 //                    pE->setPositionAt(this);
-//                    pE->getKuroko()->takeoverMvFrom(this->getKuroko());
+//                    pE->callRikisha()->takeoverMvFrom(this->callRikisha());
 //                }
 //                break;
 //            }
@@ -50,7 +50,7 @@ public:
 //                pE = dispatchForceFromCommon(EffectExplosion003);
 //                if (pE) {
 //                    pE->setPositionAt(this);
-//                    pE->getKuroko()->takeoverMvFrom(this->getKuroko());
+//                    pE->callRikisha()->takeoverMvFrom(this->callRikisha());
 //                }
 //                break;
 //            }
@@ -58,8 +58,8 @@ public:
 //                pE = dispatchForceFromCommon(EffectExplosion001);
 //                if (pE) {
 //                    pE->setPositionAt(this);
-//                    pE->getKuroko()->setMvVelo(0);
-//                    pE->getKuroko()->setMvAcce(0);
+//                    pE->callRikisha()->setMvVelo(0);
+//                    pE->callRikisha()->setMvAcce(0);
 //                }
 //                break;
 //            }

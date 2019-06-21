@@ -2,7 +2,7 @@
 
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 
 
 
@@ -27,14 +27,14 @@ void WorldBound001::initialize() {
     dxcoord world_r = pCam->getZFar(); //¢ŠE‹«ŠE‹…”¼Œa
     dxcoord world_bound_model_r = 1.0f; //WorldBound001‚Ìƒ‚ƒfƒ‹‚Í”¼ŒaDIRECTX‹——£1‚Ì‹…‚Å‚ ‚é
     setScaleR((world_r*0.989)/world_bound_model_r);
-    //getKuroko()->setRollPitchYawFaceAngVelo(D_ANG(11),D_ANG(7),D_ANG(5)); //‰ñ‚µ‚Ä‚à‚ ‚ñ‚Ü‚èH
+    //callRikisha()->setRollPitchYawFaceAngVelo(D_ANG(11),D_ANG(7),D_ANG(5)); //‰ñ‚µ‚Ä‚à‚ ‚ñ‚Ü‚èH
 }
 
 void WorldBound001::onActive() {
 }
 
 void WorldBound001::processBehavior() {
-    //getKuroko()->behave();
+    //callRikisha()->behave();
 }
 
 void WorldBound001::processJudgement() {

@@ -1,9 +1,9 @@
 #include "jp/ggaf/lib/actor/camera/DefaultCameraViewPoint.h"
 
-#include "jp/ggaf/dx/actor/supporter/Trucker.h"
-#include "jp/ggaf/dx/actor/supporter/KurokoMvAssistant.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
-#include "jp/ggaf/dx/actor/supporter/TruckerAssistantA.h"
+#include "jp/ggaf/dx/actor/supporter/Kago.h"
+#include "jp/ggaf/dx/actor/supporter/RikishaMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/KagoAssistantA.h"
 
 
 
@@ -17,13 +17,13 @@ void DefaultCameraViewPoint::initialize() {
 }
 
 void DefaultCameraViewPoint::processBehavior() {
-    getTrucker()->behave();
-    getKuroko()->behave();
+    callKago()->behave();
+    callRikisha()->behave();
 }
 
 void DefaultCameraViewPoint::slideMvTo(coord tx, coord ty, coord tz, frame t, float prm_p1, float prm_p2) {
     //ƒJƒƒ‰‚Ê‚é‚Á‚ÆˆÚ“®
-    getTrucker()->asst()->slideVxyzMvByDtTo(
+    callKago()->asst()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,
                               prm_p1, prm_p2, 0, true);
 }

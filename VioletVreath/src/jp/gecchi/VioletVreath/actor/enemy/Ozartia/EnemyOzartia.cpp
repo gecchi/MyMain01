@@ -3,7 +3,7 @@
 #include "EnemyOzartiaShot01.h"
 #include "EnemyOzartiaLaserChip01.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
@@ -11,7 +11,7 @@
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/ggaf/dx/model/Model.h"
-#include "jp/ggaf/dx/actor/supporter/KurokoMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/RikishaMvAssistant.h"
 
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
@@ -75,7 +75,7 @@ EnemyOzartia::EnemyOzartia(const char* prm_name) :
     pDepo_shot01_ = nullptr;
     pDepo_shot02_ = nullptr;
     pConn_pSplManuf_ = connectToSplineManufactureManager("EnemyOzartia01_TTT");
-    pKurokoLeader01_ = pConn_pSplManuf_->peek()->createKurokoLeader(getKuroko());
+    pRikishaLeader01_ = pConn_pSplManuf_->peek()->createRikishaLeader(callRikisha());
 //    //バリアブロック
 //    pDepo_shot01_ = NEW GgafCore::ActorDepository("Depo_OzartiaBlock");
 //    for (int i = 0; i < 9; i++) {
@@ -108,9 +108,9 @@ void EnemyOzartia::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
-    GgafDx::Kuroko* pKuroko = getKuroko();
-    pKuroko->forceMvVeloRange(PX_C(1), PX_C(30));
-    pKuroko->linkFaceAngByMvAng(false); //独立
+    GgafDx::Rikisha* pRikisha = callRikisha();
+    pRikisha->forceMvVeloRange(PX_C(1), PX_C(30));
+    pRikisha->linkFaceAngByMvAng(false); //独立
     setHitAble(false);
 }
 
@@ -124,14 +124,14 @@ void EnemyOzartia::onActive() {
 void EnemyOzartia::processBehavior() {
     MyShip* pMyShip = pMYSHIP;
     //本体移動系の処理 ここから --->
-    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafDx::Rikisha* const pRikisha = callRikisha();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG1_INIT: {
             setHitAble(false);
             setAlpha(0);
-            pKuroko->setMvAngTwd(pMyShip);
+            pRikisha->setMvAngTwd(pMyShip);
             pProg->changeNext();
             break;
         }
@@ -154,8 +154,8 @@ void EnemyOzartia::processBehavior() {
         case PROG1_STAY: {
             if (pProg->hasJustChanged()) {
                 faceto_ship_ = true;
-                pKuroko->setMvAcce(0);
-                pKuroko->turnMvAngTwd(pMyShip, D_ANG(1), 0, TURN_CLOSE_TO, false);
+                pRikisha->setMvAcce(0);
+                pRikisha->turnMvAngTwd(pMyShip, D_ANG(1), 0, TURN_CLOSE_TO, false);
             }
             if (is_hit_ || pProg->hasArrivedAt(4*60)) {
                 //ヒットするか、しばらくボーっとしてると移動開始
@@ -222,11 +222,11 @@ void EnemyOzartia::processBehavior() {
             if (pProg->hasJustChanged()) {
                 //ターン
                 faceto_ship_ = false;
-                pKuroko->setMvVeloBottom();
-                pKuroko->setMvAcce(10); //微妙に加速
-                pKuroko->turnMvAngTwd(&posMvTarget_, D_ANG(2), 0, TURN_CLOSE_TO, false);
+                pRikisha->setMvVeloBottom();
+                pRikisha->setMvAcce(10); //微妙に加速
+                pRikisha->turnMvAngTwd(&posMvTarget_, D_ANG(2), 0, TURN_CLOSE_TO, false);
             }
-            if (!pKuroko->isTurningMvAng()) {
+            if (!pRikisha->isTurningMvAng()) {
                 //ターンしたら移動へ
                 pProg->change(PROG1_MOVING);
             }
@@ -235,10 +235,10 @@ void EnemyOzartia::processBehavior() {
         case PROG1_MOVING: {
             if (pProg->hasJustChanged()) {
                 //自機の正面付近へスイーっと行きます
-                pKuroko->asstMv()->slideByVd(pKuroko->getMvVeloTop(), UTIL::getDistance(this, &posMvTarget_),
-                                       0.3, 0.7, pKuroko->getMvVeloBottom(), true);
+                pRikisha->asstMv()->slideByVd(pRikisha->getMvVeloTop(), UTIL::getDistance(this, &posMvTarget_),
+                                       0.3, 0.7, pRikisha->getMvVeloBottom(), true);
             }
-            if (!pKuroko->asstMv()->isSliding()) {
+            if (!pRikisha->asstMv()->isSliding()) {
                 //到着したら終了
                 pProg->change(PROG1_STAY);
             }
@@ -247,10 +247,10 @@ void EnemyOzartia::processBehavior() {
         //////////// 特殊移動開始 ////////////
         case PROG1_SP_MV01: {
             if (pProg->hasJustChanged()) {
-                pKuroko->setMvAngTwd(pMyShip);
-                pKurokoLeader01_->start(RELATIVE_COORD_DIRECTION, 10); //10回
+                pRikisha->setMvAngTwd(pMyShip);
+                pRikishaLeader01_->start(RELATIVE_COORD_DIRECTION, 10); //10回
             }
-            if (pKurokoLeader01_->isFinished()) {
+            if (pRikishaLeader01_->isFinished()) {
                 pProg->change(PROG1_STAY);
             }
             break;
@@ -299,20 +299,20 @@ void EnemyOzartia::processBehavior() {
 
     if (faceto_ship_) {
         //自機向きモード
-        if (!pKuroko->isTurningFaceAng()) {
-            pKuroko->turnFaceAngTwd(pMyShip, D_ANG(5), 0, TURN_CLOSE_TO, false);
+        if (!pRikisha->isTurningFaceAng()) {
+            pRikisha->turnFaceAngTwd(pMyShip, D_ANG(5), 0, TURN_CLOSE_TO, false);
         }
     } else {
         //進行方向向きモード
-        if (!pKuroko->isTurningFaceAng()) {
-            pKuroko->turnRzRyFaceAngTo(pKuroko->_rz_mv,pKuroko->_ry_mv,
+        if (!pRikisha->isTurningFaceAng()) {
+            pRikisha->turnRzRyFaceAngTo(pRikisha->_rz_mv,pRikisha->_ry_mv,
                                           D_ANG(2), 0, TURN_CLOSE_TO, false);
         }
     }
 
     pAlphaFader->behave();
-    pKurokoLeader01_->behave();
-    pKuroko->behave();
+    pRikishaLeader01_->behave();
+    pRikisha->behave();
     is_hit_ = false;
 }
 
@@ -339,7 +339,7 @@ void EnemyOzartia::onInactive() {
 }
 
 EnemyOzartia::~EnemyOzartia() {
-    GGAF_DELETE(pKurokoLeader01_);
+    GGAF_DELETE(pRikishaLeader01_);
     pConn_pSplManuf_->close();
     GGAF_DELETE(pProg2_);
 }

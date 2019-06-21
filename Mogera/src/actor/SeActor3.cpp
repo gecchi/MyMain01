@@ -1,7 +1,7 @@
 #include "actor/SeActor3.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
-#include "jp/ggaf/dx/actor/supporter/KurokoFaceAngAssistant.h"
-#include "jp/ggaf/dx/actor/supporter/KurokoMvAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/RikishaFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/RikishaMvAngAssistant.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "MgrGod.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
@@ -65,7 +65,7 @@ void SeActor3::processBehavior() {
             _y -= PX_C(D); //‰º
         }
     }
-    getKuroko()->behave(); //•ˆß‚ðŠˆ“®‚³‚¹‚éiZŽ²‰ñ“]‚·‚éj
+    callRikisha()->behave(); //—ÍŽÔ‚ðŠˆ“®‚³‚¹‚éiZŽ²‰ñ“]‚·‚éj
     getSeTransmitter()->behave(); //‚RDŒø‰ÊŠˆ“®
 }
 

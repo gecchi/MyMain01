@@ -1,7 +1,7 @@
 #include "EnemyStraeaLaserChip003.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
@@ -13,7 +13,7 @@ EnemyStraeaLaserChip003::EnemyStraeaLaserChip003(const char* prm_name) :
         VvEnemyActor<WateringLaserChip>(prm_name, "StraeaLaserChip001", StatusReset(EnemyStraeaLaserChip003)) {
     _class_name = "EnemyStraeaLaserChip003";
     pConn_pSplManuf_ = connectToSplineManufactureManager("GURUGURU");
-    pKurokoLeader_ = pConn_pSplManuf_->peek()->createKurokoLeader(getKuroko());
+    pRikishaLeader_ = pConn_pSplManuf_->peek()->createRikishaLeader(callRikisha());
 }
 
 void EnemyStraeaLaserChip003::initialize() {
@@ -21,21 +21,21 @@ void EnemyStraeaLaserChip003::initialize() {
     setHitAble(true, false);
     setScaleR(5.0);
     setCullingDraw(false);
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->setMvVelo(30000);
-    pKuroko->linkFaceAngByMvAng(true);
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->setMvVelo(30000);
+    pRikisha->linkFaceAngByMvAng(true);
 }
 
 void EnemyStraeaLaserChip003::onActive() {
     WateringLaserChip::onActive();
     //ステータスリセット
     getStatus()->reset();
-    pKurokoLeader_->start(RELATIVE_COORD_DIRECTION); //向いた方向にワールド変換
+    pRikishaLeader_->start(RELATIVE_COORD_DIRECTION); //向いた方向にワールド変換
 }
 
 void EnemyStraeaLaserChip003::processBehavior() {
-    pKurokoLeader_->behave();
-    getKuroko()->behave();
+    pRikishaLeader_->behave();
+    callRikisha()->behave();
 }
 
 void EnemyStraeaLaserChip003::processJudgement() {
@@ -58,7 +58,7 @@ void EnemyStraeaLaserChip003::onInactive() {
 }
 
 EnemyStraeaLaserChip003::~EnemyStraeaLaserChip003() {
-    GGAF_DELETE(pKurokoLeader_);
+    GGAF_DELETE(pRikishaLeader_);
     pConn_pSplManuf_->close();
 }
 

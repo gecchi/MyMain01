@@ -1,6 +1,6 @@
 #include "EffectMagic001.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
-#include "jp/ggaf/dx/actor/supporter/Trucker.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/Kago.h"
 
 
 
@@ -22,11 +22,11 @@ void EffectMagic001::initialize() {
 }
 
 void EffectMagic001::onActive() {
-    getKuroko()->setRollPitchYawFaceAngVelo(PX_C(3), PX_C(5), PX_C(7));
+    callRikisha()->setRollPitchYawFaceAngVelo(PX_C(3), PX_C(5), PX_C(7));
 }
 
 void EffectMagic001::processBehavior() {
-    getKuroko()->behave();
+    callRikisha()->behave();
 }
 
 void EffectMagic001::processJudgement() {

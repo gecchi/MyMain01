@@ -1,6 +1,6 @@
-#include "jp/ggaf/dx/actor/supporter/Trucker.h"
+#include "jp/ggaf/dx/actor/supporter/Kago.h"
 
-#include "jp/ggaf/dx/actor/supporter/TruckerAssistantA.h"
+#include "jp/ggaf/dx/actor/supporter/KagoAssistantA.h"
 #include "jp/ggaf/dx/util/Util.h"
 
 
@@ -10,7 +10,7 @@ using namespace GgafDx;
 // 「X軸方向移動速度」「Y軸方向移動速度」「Z軸方向移動速度」を設定すると、毎フレーム(_x,_y,_z)にそれぞれの移動増分が
 // 加算される。
 
-Trucker::Trucker(GeometricActor* prm_pActor) : GgafCore::Object(),
+Kago::Kago(GeometricActor* prm_pActor) : GgafCore::Object(),
 _pActor(prm_pActor) {
     _pAsstMv = nullptr;
     //X軸方向移動速度（X移動座標増分）＝ 0 px/fream
@@ -57,11 +57,11 @@ _pActor(prm_pActor) {
 
 }
 
-TruckerAssistantA* Trucker::asst() {
-    return _pAsstMv ? _pAsstMv : _pAsstMv = NEW TruckerAssistantA(this);
+KagoAssistantA* Kago::asst() {
+    return _pAsstMv ? _pAsstMv : _pAsstMv = NEW KagoAssistantA(this);
 }
 
-void Trucker::behave() {
+void Kago::behave() {
     if (_pAsstMv) {
         _pAsstMv->behave();
     }
@@ -169,12 +169,12 @@ void Trucker::behave() {
     _pActor->_z += _velo_vz_mv;
 }
 
-int Trucker::dot(int prm_vX, int prm_vY, int prm_vZ) {
+int Kago::dot(int prm_vX, int prm_vY, int prm_vZ) {
     return (prm_vX * _velo_vx_mv) + (prm_vY *_velo_vy_mv) + (prm_vZ*_velo_vz_mv);
 }
 
 
-void Trucker::setVxMvVelo(velo prm_velo_vx_mv) {
+void Kago::setVxMvVelo(velo prm_velo_vx_mv) {
     if (prm_velo_vx_mv > _top_velo_vx_mv) {
         _velo_vx_mv = _top_velo_vx_mv;
     } else if (prm_velo_vx_mv < _bottom_velo_vx_mv) {
@@ -184,7 +184,7 @@ void Trucker::setVxMvVelo(velo prm_velo_vx_mv) {
     }
 }
 
-void Trucker::addVxMvVelo(velo prm_velo_vx_mv) {
+void Kago::addVxMvVelo(velo prm_velo_vx_mv) {
     _velo_vx_mv += prm_velo_vx_mv;
     if (_velo_vx_mv > _top_velo_vx_mv) {
         _velo_vx_mv = _top_velo_vx_mv;
@@ -193,7 +193,7 @@ void Trucker::addVxMvVelo(velo prm_velo_vx_mv) {
     }
 }
 
-void Trucker::forceVxMvVeloRange(velo prm_velo_vx_mv01, velo prm_velo_vx_mv02) {
+void Kago::forceVxMvVeloRange(velo prm_velo_vx_mv01, velo prm_velo_vx_mv02) {
     if (prm_velo_vx_mv01 < prm_velo_vx_mv02) {
         _top_velo_vx_mv = prm_velo_vx_mv02;
         _bottom_velo_vx_mv = prm_velo_vx_mv01;
@@ -204,7 +204,7 @@ void Trucker::forceVxMvVeloRange(velo prm_velo_vx_mv01, velo prm_velo_vx_mv02) {
     setVxMvVelo(_velo_vx_mv); //再設定して範囲内に補正
 }
 
-void Trucker::setVxMvAcce(acce prm_acce_vx_mv) {
+void Kago::setVxMvAcce(acce prm_acce_vx_mv) {
     if (prm_acce_vx_mv > _top_acce_vx_mv) {
         _acce_vx_mv = _top_acce_vx_mv;
     } else if (prm_acce_vx_mv < _bottom_acce_vx_mv) {
@@ -214,11 +214,11 @@ void Trucker::setVxMvAcce(acce prm_acce_vx_mv) {
     }
 }
 
-void Trucker::addVxMvAcce(acce prm_acce_vx_mv) {
+void Kago::addVxMvAcce(acce prm_acce_vx_mv) {
     setVxMvAcce(_acce_vx_mv + prm_acce_vx_mv);
 }
 
-void Trucker::forceVxMvAcceRange(acce prm_acce_vx_mv01, acce prm_acce_vx_mv02) {
+void Kago::forceVxMvAcceRange(acce prm_acce_vx_mv01, acce prm_acce_vx_mv02) {
     if (prm_acce_vx_mv01 < prm_acce_vx_mv02) {
         _top_acce_vx_mv = prm_acce_vx_mv02;
         _bottom_acce_vx_mv = prm_acce_vx_mv01;
@@ -230,7 +230,7 @@ void Trucker::forceVxMvAcceRange(acce prm_acce_vx_mv01, acce prm_acce_vx_mv02) {
 }
 
 
-void Trucker::setVyMvVelo(velo prm_velo_vy_mv) {
+void Kago::setVyMvVelo(velo prm_velo_vy_mv) {
     if (prm_velo_vy_mv > _top_velo_vy_mv) {
         _velo_vy_mv = _top_velo_vy_mv;
     } else if (prm_velo_vy_mv < _bottom_velo_vy_mv) {
@@ -240,7 +240,7 @@ void Trucker::setVyMvVelo(velo prm_velo_vy_mv) {
     }
 }
 
-void Trucker::addVyMvVelo(velo prm_velo_vy_mv) {
+void Kago::addVyMvVelo(velo prm_velo_vy_mv) {
     _velo_vy_mv += prm_velo_vy_mv;
     if (_velo_vy_mv > _top_velo_vy_mv) {
         _velo_vy_mv = _top_velo_vy_mv;
@@ -249,7 +249,7 @@ void Trucker::addVyMvVelo(velo prm_velo_vy_mv) {
     }
 }
 
-void Trucker::forceVyMvVeloRange(velo prm_velo_vy_mv01, velo prm_velo_vy_mv02) {
+void Kago::forceVyMvVeloRange(velo prm_velo_vy_mv01, velo prm_velo_vy_mv02) {
     if (prm_velo_vy_mv01 < prm_velo_vy_mv02) {
         _top_velo_vy_mv = prm_velo_vy_mv02;
         _bottom_velo_vy_mv = prm_velo_vy_mv01;
@@ -259,7 +259,7 @@ void Trucker::forceVyMvVeloRange(velo prm_velo_vy_mv01, velo prm_velo_vy_mv02) {
     }
     setVyMvVelo(_velo_vy_mv); //再設定して範囲内に補正
 }
-void Trucker::setVyMvAcce(acce prm_acce_vy_mv) {
+void Kago::setVyMvAcce(acce prm_acce_vy_mv) {
     if (prm_acce_vy_mv > _top_acce_vy_mv) {
         _acce_vy_mv = _top_acce_vy_mv;
     } else if (prm_acce_vy_mv < _bottom_acce_vy_mv) {
@@ -269,11 +269,11 @@ void Trucker::setVyMvAcce(acce prm_acce_vy_mv) {
     }
 }
 
-void Trucker::addVyMvAcce(acce prm_acce_vy_mv) {
+void Kago::addVyMvAcce(acce prm_acce_vy_mv) {
     setVyMvAcce(_acce_vy_mv + prm_acce_vy_mv);
 }
 
-void Trucker::forceVyMvAcceRange(acce prm_acce_vy_mv01, acce prm_acce_vy_mv02) {
+void Kago::forceVyMvAcceRange(acce prm_acce_vy_mv01, acce prm_acce_vy_mv02) {
     if (prm_acce_vy_mv01 < prm_acce_vy_mv02) {
         _top_acce_vy_mv = prm_acce_vy_mv02;
         _bottom_acce_vy_mv = prm_acce_vy_mv01;
@@ -285,7 +285,7 @@ void Trucker::forceVyMvAcceRange(acce prm_acce_vy_mv01, acce prm_acce_vy_mv02) {
 }
 
 
-void Trucker::setVzMvVelo(velo prm_velo_vz_mv) {
+void Kago::setVzMvVelo(velo prm_velo_vz_mv) {
     if (prm_velo_vz_mv > _top_velo_vz_mv) {
         _velo_vz_mv = _top_velo_vz_mv;
     } else if (prm_velo_vz_mv < _bottom_velo_vz_mv) {
@@ -295,7 +295,7 @@ void Trucker::setVzMvVelo(velo prm_velo_vz_mv) {
     }
 }
 
-void Trucker::addVzMvVelo(velo prm_velo_vz_mv) {
+void Kago::addVzMvVelo(velo prm_velo_vz_mv) {
     _velo_vz_mv += prm_velo_vz_mv;
     if (_velo_vz_mv > _top_velo_vz_mv) {
         _velo_vz_mv = _top_velo_vz_mv;
@@ -304,7 +304,7 @@ void Trucker::addVzMvVelo(velo prm_velo_vz_mv) {
     }
 }
 
-void Trucker::forceVzMvVeloRange(velo prm_velo_vz_mv01, velo prm_velo_vz_mv02) {
+void Kago::forceVzMvVeloRange(velo prm_velo_vz_mv01, velo prm_velo_vz_mv02) {
     if (prm_velo_vz_mv01 < prm_velo_vz_mv02) {
         _top_velo_vz_mv = prm_velo_vz_mv02;
         _bottom_velo_vz_mv = prm_velo_vz_mv01;
@@ -315,7 +315,7 @@ void Trucker::forceVzMvVeloRange(velo prm_velo_vz_mv01, velo prm_velo_vz_mv02) {
     setVzMvVelo(_velo_vz_mv); //再設定して範囲内に補正
 }
 
-void Trucker::setVzMvAcce(acce prm_acce_vz_mv) {
+void Kago::setVzMvAcce(acce prm_acce_vz_mv) {
     if (prm_acce_vz_mv > _top_acce_vz_mv) {
         _acce_vz_mv = _top_acce_vz_mv;
     } else if (prm_acce_vz_mv < _bottom_acce_vz_mv) {
@@ -325,11 +325,11 @@ void Trucker::setVzMvAcce(acce prm_acce_vz_mv) {
     }
 }
 
-void Trucker::addVzMvAcce(acce prm_acce_vz_mv) {
+void Kago::addVzMvAcce(acce prm_acce_vz_mv) {
     setVzMvAcce(_acce_vz_mv + prm_acce_vz_mv);
 }
 
-void Trucker::forceVzMvAcceRange(acce prm_acce_vz_mv01, acce prm_acce_vz_mv02) {
+void Kago::forceVzMvAcceRange(acce prm_acce_vz_mv01, acce prm_acce_vz_mv02) {
     if (prm_acce_vz_mv01 < prm_acce_vz_mv02) {
         _top_acce_vz_mv = prm_acce_vz_mv02;
         _bottom_acce_vz_mv = prm_acce_vz_mv01;
@@ -340,7 +340,7 @@ void Trucker::forceVzMvAcceRange(acce prm_acce_vz_mv01, acce prm_acce_vz_mv02) {
     setVzMvAcce(_acce_vz_mv); //再設定して範囲内に補正
 }
 
-void Trucker::forceVxyzMvVeloRange(velo prm_velo_vxyz_mv01, velo prm_velo_vxyz_mv02) {
+void Kago::forceVxyzMvVeloRange(velo prm_velo_vxyz_mv01, velo prm_velo_vxyz_mv02) {
     if (prm_velo_vxyz_mv01 < prm_velo_vxyz_mv02) {
         _top_velo_vx_mv    = _top_velo_vy_mv    = _top_velo_vz_mv    = prm_velo_vxyz_mv02;
         _bottom_velo_vx_mv = _bottom_velo_vy_mv = _bottom_velo_vz_mv = prm_velo_vxyz_mv01;
@@ -354,7 +354,7 @@ void Trucker::forceVxyzMvVeloRange(velo prm_velo_vxyz_mv01, velo prm_velo_vxyz_m
     setVzMvVelo(_velo_vz_mv);
 }
 
-void Trucker::forceVxyzMvAcceRange(acce prm_acce_vxyz_mv01, acce prm_acce_vxyz_mv02) {
+void Kago::forceVxyzMvAcceRange(acce prm_acce_vxyz_mv01, acce prm_acce_vxyz_mv02) {
     if (prm_acce_vxyz_mv01 < prm_acce_vxyz_mv02) {
         _top_acce_vx_mv    = _top_acce_vy_mv    = _top_acce_vz_mv    = prm_acce_vxyz_mv02;
         _bottom_acce_vx_mv = _bottom_acce_vy_mv = _bottom_acce_vz_mv = prm_acce_vxyz_mv01;
@@ -368,7 +368,7 @@ void Trucker::forceVxyzMvAcceRange(acce prm_acce_vxyz_mv01, acce prm_acce_vxyz_m
     setVzMvAcce(_acce_vz_mv);
 }
 
-void Trucker::setVxyzMvVelo(velo prm_velo_vx_mv, velo prm_velo_vy_mv, velo prm_velo_vz_mv) {
+void Kago::setVxyzMvVelo(velo prm_velo_vx_mv, velo prm_velo_vy_mv, velo prm_velo_vz_mv) {
     if (prm_velo_vx_mv > _top_velo_vx_mv) {
         _velo_vx_mv = _top_velo_vx_mv;
     } else if (prm_velo_vx_mv < _bottom_velo_vx_mv) {
@@ -392,19 +392,19 @@ void Trucker::setVxyzMvVelo(velo prm_velo_vx_mv, velo prm_velo_vy_mv, velo prm_v
     }
 }
 
-void Trucker::setVxyzMvVeloTwd(angle prm_rz, angle prm_ry, velo prm_velo) {
+void Kago::setVxyzMvVeloTwd(angle prm_rz, angle prm_ry, velo prm_velo) {
     float vx, vy, vz;
     UTIL::convRzRyToVector(prm_rz, prm_ry, vx, vy, vz);
     setVxyzMvVelo(vx*prm_velo, vy*prm_velo, vz*prm_velo);
 }
 
-void Trucker::setVxyzMvVeloTwd(coord prm_tx, coord prm_ty, coord prm_tz, velo prm_velo) {
+void Kago::setVxyzMvVeloTwd(coord prm_tx, coord prm_ty, coord prm_tz, velo prm_velo) {
     float vx, vy, vz;
     UTIL::getNormalizedVector(prm_tx, prm_ty, prm_tz, vx, vy, vz);
     setVxyzMvVelo(vx*prm_velo, vy*prm_velo, vz*prm_velo);
 }
 
-void Trucker::setVxyzMvAcce(acce prm_acce_vx_mv, acce prm_acce_vy_mv, acce prm_acce_vz_mv) {
+void Kago::setVxyzMvAcce(acce prm_acce_vx_mv, acce prm_acce_vy_mv, acce prm_acce_vz_mv) {
     if (prm_acce_vx_mv > _top_acce_vx_mv) {
         _acce_vx_mv = _top_acce_vx_mv;
     } else if (prm_acce_vx_mv < _bottom_acce_vx_mv) {
@@ -428,7 +428,7 @@ void Trucker::setVxyzMvAcce(acce prm_acce_vx_mv, acce prm_acce_vy_mv, acce prm_a
     }
 }
 
-coord Trucker::setVxAcceByT(frame prm_target_frames, velo prm_target_velo) {
+coord Kago::setVxAcceByT(frame prm_target_frames, velo prm_target_velo) {
     double acc = UTIL::getAcceByTv(prm_target_frames, _velo_vx_mv, prm_target_velo);
     if (acc > 0.0) {
         acc += 0.5;
@@ -440,7 +440,7 @@ coord Trucker::setVxAcceByT(frame prm_target_frames, velo prm_target_velo) {
     return ((_velo_vx_mv + prm_target_velo) * prm_target_frames) / 2 ;
 }
 
-coord Trucker::setVyAcceByT(frame prm_target_frames, velo prm_target_velo) {
+coord Kago::setVyAcceByT(frame prm_target_frames, velo prm_target_velo) {
     double acc = UTIL::getAcceByTv(prm_target_frames, _velo_vy_mv, prm_target_velo);
     if (acc > 0.0) {
         acc += 0.5;
@@ -452,7 +452,7 @@ coord Trucker::setVyAcceByT(frame prm_target_frames, velo prm_target_velo) {
     return ((_velo_vy_mv + prm_target_velo) * prm_target_frames) / 2 ;
 }
 
-coord Trucker::setVzAcceByT(frame prm_target_frames, velo prm_target_velo) {
+coord Kago::setVzAcceByT(frame prm_target_frames, velo prm_target_velo) {
     double acc = UTIL::getAcceByTv(prm_target_frames, _velo_vz_mv, prm_target_velo);
     if (acc > 0.0) {
         acc += 0.5;
@@ -464,7 +464,7 @@ coord Trucker::setVzAcceByT(frame prm_target_frames, velo prm_target_velo) {
     return ((_velo_vz_mv + prm_target_velo) * prm_target_frames) / 2 ;
 }
 
-void Trucker::execGravitationMvSequenceTwd(coord prm_tx, coord prm_ty, coord prm_tz,
+void Kago::execGravitationMvSequenceTwd(coord prm_tx, coord prm_ty, coord prm_tz,
                                                    velo prm_max_velo,
                                                    acce prm_acce,
                                                    int prm_stop_renge ) {
@@ -482,7 +482,7 @@ void Trucker::execGravitationMvSequenceTwd(coord prm_tx, coord prm_ty, coord prm
     forceVzMvVeloRange(-prm_max_velo, prm_max_velo);
 }
 
-void Trucker::execGravitationMvSequenceTwd(const GeometricActor* prm_pActor_target,
+void Kago::execGravitationMvSequenceTwd(const GeometricActor* prm_pActor_target,
                                            velo prm_max_velo,
                                            acce prm_acce,
                                            int prm_stop_renge ) {
@@ -500,7 +500,7 @@ void Trucker::execGravitationMvSequenceTwd(const GeometricActor* prm_pActor_targ
     forceVzMvVeloRange(-prm_max_velo, prm_max_velo);
 }
 
-void Trucker::execGravitationMvSequenceTwd(const GeometricActor* prm_pActor_target,
+void Kago::execGravitationMvSequenceTwd(const GeometricActor* prm_pActor_target,
                                            coord prm_local_offset_tx, coord prm_local_offset_ty, coord prm_local_offset_tz,
                                            velo prm_max_velo,
                                            acce prm_acce,
@@ -519,7 +519,7 @@ void Trucker::execGravitationMvSequenceTwd(const GeometricActor* prm_pActor_targ
     forceVzMvVeloRange(-prm_max_velo, prm_max_velo);
 }
 
-void Trucker::takeoverMvFrom(Trucker* const prm_pAxsMver) {
+void Kago::takeoverMvFrom(Kago* const prm_pAxsMver) {
     // X軸方向移動速度
     _velo_vx_mv = prm_pAxsMver->_velo_vx_mv;
     // X軸方向移動速度上限
@@ -558,7 +558,7 @@ void Trucker::takeoverMvFrom(Trucker* const prm_pAxsMver) {
     _bottom_acce_vz_mv = prm_pAxsMver->_bottom_acce_vz_mv;
 }
 
-void Trucker::stopMv() {
+void Kago::stopMv() {
     setZeroVxyzMvVelo();
     setZeroVxyzMvAcce();
     stopGravitationMvSequence();
@@ -567,7 +567,7 @@ void Trucker::stopMv() {
     }
 }
 
-void Trucker::resetMv() {
+void Kago::resetMv() {
     //X軸方向移動速度（X移動座標増分）＝ 0 px/fream
     _velo_vx_mv = 0;
     //X軸方向移動速度上限
@@ -604,6 +604,6 @@ void Trucker::resetMv() {
     _grv_mv_flg = false;
 }
 
-Trucker::~Trucker() {
+Kago::~Kago() {
     GGAF_DELETE_NULLABLE(_pAsstMv);
 }

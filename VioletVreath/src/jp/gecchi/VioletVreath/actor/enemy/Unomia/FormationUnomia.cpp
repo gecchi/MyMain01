@@ -1,6 +1,6 @@
 #include "FormationUnomia.h"
 
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -85,10 +85,10 @@ void FormationUnomia::processBehavior() {
                     for (int col = 0; col < num_formation_col_; col++) {
                         EnemyUnomia* pUnomia = (EnemyUnomia*)callUpMember();
                         if (pUnomia) {
-                            SplineLeader* pKurokoLeader = pConn_pSplManuf_->peek()->
-                                                          createKurokoLeader(pUnomia->getKuroko());
-                            pUnomia->config(pKurokoLeader, nullptr, nullptr);
-                            pUnomia->getKuroko()->setMvVelo(mv_velo_);
+                            SplineLeader* pRikishaLeader = pConn_pSplManuf_->peek()->
+                                                          createRikishaLeader(pUnomia->callRikisha());
+                            pUnomia->config(pRikishaLeader, nullptr, nullptr);
+                            pUnomia->callRikisha()->setMvVelo(mv_velo_);
                             onCallUpUnomia(pUnomia, col); //フォーメーション個別実装の処理
                         }
                     }
@@ -111,10 +111,10 @@ void FormationUnomia::processBehavior() {
                     GgafDx::GeometricActor* pShot = (GgafDx::GeometricActor*)pDepo_shot_->dispatch();
                     if (pShot) {
                         pShot->setPositionAt(pUnomia);
-                        GgafDx::Kuroko* pShot_pKuroko = pShot->getKuroko();
-                        pShot_pKuroko->setMvAngTwd(pMy);
-                        pShot_pKuroko->setMvVelo(PX_C(10));
-                        pShot_pKuroko->setMvAcce(0);
+                        GgafDx::Rikisha* pShot_pRikisha = pShot->callRikisha();
+                        pShot_pRikisha->setMvAngTwd(pMy);
+                        pShot_pRikisha->setMvVelo(PX_C(10));
+                        pShot_pRikisha->setMvAcce(0);
                     }
                 }
                 if (pFollower->isLast()) {

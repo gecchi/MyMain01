@@ -5,7 +5,7 @@
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/Magic.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 
 
 
@@ -68,7 +68,7 @@ void MagicLvCursor003::markOnLevelUpCast(int prm_lv) {
     setScale(10000);
     getScaler()->transitionLinearUntil(1000, 20);
     setRzFaceAng(D180ANG);
-    getKuroko()->turnRzFaceAngTo(0, D180ANG/20, 0, TURN_COUNTERCLOCKWISE);
+    callRikisha()->turnRzFaceAngTo(0, D180ANG/20, 0, TURN_COUNTERCLOCKWISE);
 }
 
 void MagicLvCursor003::markOnLevelDownCast(int prm_lv) {

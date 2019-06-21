@@ -13,13 +13,13 @@ namespace GgafLib {
  * オブジェクトの関係<BR>
  * SplineLeader 各アクター毎に生成される。
  *                    アクターに対する、スプライン曲線上の現在の補完点の位置・時間・距離等の管理を行い、
- *                    黒衣(Kuroko)に指示を出してアクターを移動させる。
+ *                    力車(Rikisha)に指示を出してアクターを移動させる。
  *                    １つの SplineManufacture オブジェクトに対して N 個の SplineLeader オブジェクトが参照している。
  *                    スプラインの座標点間の距離に影響の無い情報はココで保持する。
  *                    つまりスプライン曲線の座標点の軸平行移動オフセット、
  *                    X,Y,Zの正負入れ替え情報。（TODO:将来は、回転情報もココに）
  *
- * SplineManufacture  スプライン曲線の座標点セットの拡大縮小情報、またそれに伴うSplineKurokoLeaderの実装クラスの情報を保持。
+ * SplineManufacture  スプライン曲線の座標点セットの拡大縮小情報、またそれに伴うSplineRikishaLeaderの実装クラスの情報を保持。
  *                    拡大縮小により、各補完点毎の距離等の情報を予め計算して保持している。
  *                    拡大縮小率を変更する場合は、このオブジェクトのフィールドも再計算が必要となる。
  *                    １つの SplineSource オブジェクトに対して N 個の SplineSourceオブジェクトが参照している。
@@ -90,14 +90,14 @@ public:
 
     /**
      * SplineLeader オブジェクトの生成 .
-     * 設定した黒衣を、操作しますので注意して下さい。<br>
+     * 設定した力車を、操作しますので注意して下さい。<br>
      * 本メソッドで作成した SplineLeader は、呼び元で deleteする必要があります。<br>
-     * @param prm_pKuroko 対象のアクターの黒衣
+     * @param prm_pRikisha 対象のアクターの力車
      * @return
      */
-    virtual SplineLeader* createKurokoLeader(GgafDx::Kuroko* prm_pKuroko);
+    virtual SplineLeader* createRikishaLeader(GgafDx::Rikisha* prm_pRikisha);
 
-    virtual SplineLeader* createTruckerLeader(GgafDx::Trucker* prm_pTrucker);
+    virtual SplineLeader* createKagoLeader(GgafDx::Kago* prm_pKago);
 
     virtual ~SplineManufacture();
 };

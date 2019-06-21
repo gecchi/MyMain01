@@ -1,7 +1,7 @@
 #include "EnemyThagoras.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
@@ -32,7 +32,7 @@ EnemyThagoras::EnemyThagoras(const char* prm_name) :
     _class_name = "EnemyThagoras";
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
-    pKurokoLeader_ = nullptr; //フォーメーションオブジェクトが設定する
+    pRikishaLeader_ = nullptr; //フォーメーションオブジェクトが設定する
     pActor4Sc_ = nullptr;
 }
 
@@ -44,10 +44,10 @@ void EnemyThagoras::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->linkFaceAngByMvAng(true);
-    pKuroko->setRollFaceAngVelo(2000);
-    pKuroko->forceMvVeloRange(PX_C(15));
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->linkFaceAngByMvAng(true);
+    pRikisha->setRollFaceAngVelo(2000);
+    pRikisha->forceMvVeloRange(PX_C(15));
 }
 
 void EnemyThagoras::onActive() {
@@ -85,10 +85,10 @@ void EnemyThagoras::processBehavior() {
         }
         case PROG_MOVE01: {
             if (pProg->hasJustChanged()) {
-                pKurokoLeader_->start(RELATIVE_COORD,5);
+                pRikishaLeader_->start(RELATIVE_COORD,5);
             }
-            pKurokoLeader_->behave();
-            if (pKurokoLeader_->isFinished()) {
+            pRikishaLeader_->behave();
+            if (pRikishaLeader_->isFinished()) {
                 pProg->changeNext();
             }
             break;
@@ -108,7 +108,7 @@ void EnemyThagoras::processBehavior() {
             break;
     }
     pAlphaFader->behave();
-    getKuroko()->behave();
+    callRikisha()->behave();
     //鼓動を同期
     _sx = pActor4Sc_->_sx;
     _sy = pActor4Sc_->_sy;
@@ -137,5 +137,5 @@ void EnemyThagoras::onInactive() {
 }
 
 EnemyThagoras::~EnemyThagoras() {
-    GGAF_DELETE_NULLABLE(pKurokoLeader_);
+    GGAF_DELETE_NULLABLE(pRikishaLeader_);
 }

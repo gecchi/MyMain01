@@ -1,7 +1,7 @@
 #include "jp/ggaf/lib/util/spline/FixedVelocitySplineManufacture.h"
 
 #include "jp/ggaf/lib/util/spline/SplineSource.h"
-#include "jp/ggaf/lib/util/spline/FixedVelocitySplineKurokoLeader.h"
+#include "jp/ggaf/lib/util/spline/FixedVelocitySplineRikishaLeader.h"
 
 
 
@@ -89,8 +89,8 @@ void FixedVelocitySplineManufacture::calculate() {
     }
 }
 
-SplineLeader* FixedVelocitySplineManufacture::createKurokoLeader(GgafDx::Kuroko* prm_pKuroko) {
-    return NEW FixedVelocitySplineKurokoLeader(this, prm_pKuroko);
+SplineLeader* FixedVelocitySplineManufacture::createRikishaLeader(GgafDx::Rikisha* prm_pRikisha) {
+    return NEW FixedVelocitySplineRikishaLeader(this, prm_pRikisha);
 }
 
 FixedVelocitySplineManufacture::~FixedVelocitySplineManufacture() {

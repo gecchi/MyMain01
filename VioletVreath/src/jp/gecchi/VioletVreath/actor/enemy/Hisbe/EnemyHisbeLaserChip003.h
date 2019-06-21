@@ -10,7 +10,7 @@ class EnemyHisbeLaserChip003 : public VvEnemyActor<GgafLib::WateringLaserChip> {
 
 public:
     GgafLib::SplineManufactureConnection* pConn_pSplManuf_;
-    GgafLib::SplineLeader* pKurokoLeader_;
+    GgafLib::SplineLeader* pRikishaLeader_;
     int sp_index_;
     GgafLib::DefaultScene* pScrollingScene_;
 public:

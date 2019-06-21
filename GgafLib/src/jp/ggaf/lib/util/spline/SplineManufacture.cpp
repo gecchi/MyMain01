@@ -64,13 +64,13 @@ void SplineManufacture::calculate() {
     _is_calculated = true;
 }
 
-SplineLeader* SplineManufacture::createKurokoLeader(GgafDx::Kuroko* prm_pKuroko) {
-    throwCriticalException("SplineManufacture::createKurokoLeader() 下位でオーバーライドして実装が必要です。");
+SplineLeader* SplineManufacture::createRikishaLeader(GgafDx::Rikisha* prm_pRikisha) {
+    throwCriticalException("SplineManufacture::createRikishaLeader() 下位でオーバーライドして実装が必要です。");
     return nullptr;
 }
 
-SplineLeader* SplineManufacture::createTruckerLeader(GgafDx::Trucker* prm_pTrucker) {
-    throwCriticalException("SplineManufacture::createTruckerLeader() 下位でオーバーライドして実装が必要です。");
+SplineLeader* SplineManufacture::createKagoLeader(GgafDx::Kago* prm_pKago) {
+    throwCriticalException("SplineManufacture::createKagoLeader() 下位でオーバーライドして実装が必要です。");
     return nullptr;
 }
 

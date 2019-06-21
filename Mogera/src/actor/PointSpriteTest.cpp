@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
@@ -32,7 +32,7 @@ bool PointSpriteTest::isOutOfSpacetime() const {
     return false;
 }
 void PointSpriteTest::initialize() {
-    getKuroko()->setRollPitchYawFaceAngVelo(30, 50, 70);
+    callRikisha()->setRollPitchYawFaceAngVelo(30, 50, 70);
     setScale(0);
     getScaler()->transitionAcceUntilVelo(-R_SC(0.01) , R_SC(0.1), -R_SC(0.001));
 }
@@ -46,7 +46,7 @@ void PointSpriteTest::processBehavior() {
 //        sayonara();
 //    }
     getUvFlipper()->behave();
-    getKuroko()->behave();
+    callRikisha()->behave();
     getScaler()->behave();
 }
 

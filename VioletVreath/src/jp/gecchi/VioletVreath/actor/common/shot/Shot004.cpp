@@ -1,6 +1,6 @@
 #include "Shot004.h"
 
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion001.h"
@@ -30,11 +30,11 @@ void Shot004::initialize() {
 void Shot004::onReset() {
     setScaleR(3.0);
     setCullingDraw(false);
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->setRollFaceAngVelo(D_ANG(3));
-    pKuroko->setMvVelo(30000);
-    pKuroko->setMvAcce(1000);
-    pKuroko->linkFaceAngByMvAng(true);
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->setRollFaceAngVelo(D_ANG(3));
+    pRikisha->setMvVelo(30000);
+    pRikisha->setMvAcce(1000);
+    pRikisha->linkFaceAngByMvAng(true);
 }
 
 void Shot004::onActive() {
@@ -47,7 +47,7 @@ void Shot004::processBehavior() {
     //’e‚È‚Ì‚Å•s—v
 
     //À•W‚É”½‰f
-    getKuroko()->behave();
+    callRikisha()->behave();
 }
 
 void Shot004::processJudgement() {

@@ -32,7 +32,7 @@ public:
     bool faceto_ship_;
 
     GgafLib::SplineManufactureConnection* pConn_pSplManuf_;
-    GgafLib::SplineLeader* pKurokoLeader01_;
+    GgafLib::SplineLeader* pRikishaLeader01_;
 
 public:
     /**

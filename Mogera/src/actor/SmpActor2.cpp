@@ -1,8 +1,8 @@
 #include "SmpActor2.h"
 
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
-#include "jp/ggaf/dx/actor/supporter/KurokoFaceAngAssistant.h"
-#include "jp/ggaf/dx/actor/supporter/KurokoMvAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/RikishaFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/RikishaMvAngAssistant.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "MgrGod.h"
@@ -79,7 +79,7 @@ void SmpActor2::processBehavior() {
     if (GgafDx::Input::isPressedKey(DIK_F)) {
         _z += PX_C(2); //奥
     }
-    getKuroko()->behave(); //黒衣を活動させる（Z軸回転する）
+    callRikisha()->behave(); //力車を活動させる（Z軸回転する）
 }
 
 void SmpActor2::onHit(const GgafCore::Actor* prm_pOtherActor) {

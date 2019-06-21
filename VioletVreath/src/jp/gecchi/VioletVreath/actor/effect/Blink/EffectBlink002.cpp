@@ -1,6 +1,6 @@
 #include "EffectBlink002.h"
 
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 
 
 
@@ -24,12 +24,12 @@ void EffectBlink002::initialize() {
 void EffectBlink002::onActive() {
     EffectBlink::onActive();
     //getUvFlipper()->setActivePtnToTop();
-    getKuroko()->setFaceAngVelo(AXIS_Z, 4000);
+    callRikisha()->setFaceAngVelo(AXIS_Z, 4000);
 }
 
 void EffectBlink002::processBehavior() {
     EffectBlink::processBehavior();
-    getKuroko()->behave();
+    callRikisha()->behave();
 }
 
 EffectBlink002::~EffectBlink002() {

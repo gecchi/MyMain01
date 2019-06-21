@@ -19,7 +19,7 @@ class EnemyIdaBase : public GgafLib::DefaultMeshSetActor {
 
 public:
     GgafLib::SplineManufactureConnection* pConn_pSplManuf_;
-    GgafLib::SplineLeader* pKurokoLeader_;
+    GgafLib::SplineLeader* pRikishaLeader_;
     GgafCore::LinkedListRing<EnemyIda> _list_child;
     std::ofstream* pOs_;
     /**

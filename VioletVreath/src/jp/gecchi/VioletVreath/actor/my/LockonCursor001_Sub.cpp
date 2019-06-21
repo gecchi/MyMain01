@@ -1,6 +1,6 @@
 #include "LockonCursor001_Sub.h"
 
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
@@ -32,7 +32,7 @@ void LockonCursor001_Sub::onActive() {
     getUvFlipper()->setActivePtnToTop();
     setAlpha(0.01);
     _sx = _sy = _sz = pLockonCursor001_Main_->_sx;
-    getKuroko()->setFaceAngVelo(AXIS_Z, 1000);        //‰E‰ñ“]
+    callRikisha()->setFaceAngVelo(AXIS_Z, 1000);        //‰E‰ñ“]
     //getSeTransmitter()->play3D(0); //ƒƒbƒNƒIƒ“SE
     if (pTarget_) {
         setPositionAt(pTarget_);
@@ -45,7 +45,7 @@ void LockonCursor001_Sub::onActive() {
 
 void LockonCursor001_Sub::processBehavior() {
     LockonCursor001::processBehavior();
-    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafDx::Rikisha* const pRikisha = callRikisha();
     GgafCore::Progress* const pProg = getProgress();
     if (pProg->get() == LOCKON001_PROG_LOCK) {
         if (getAlpha() < 0.7) {
@@ -59,17 +59,17 @@ void LockonCursor001_Sub::processBehavior() {
         }
         //k¬Š®—¹ŒãAMain‚Ìƒr[ƒg‚É‡‚í‚¹‚é
         _sx = _sy = _sz = pLockonCursor001_Main_->_sx;
-        pKuroko->_angvelo_face[AXIS_Z] = pLockonCursor001_Main_->getKuroko()->_angvelo_face[AXIS_Z];
+        pRikisha->_angvelo_face[AXIS_Z] = pLockonCursor001_Main_->callRikisha()->_angvelo_face[AXIS_Z];
         if (pTarget_) {
             if (pTarget_->isActiveInTheTree() || pTarget_->willActivateAfter()) {
                 if (ABS(pTarget_->_x-_x) <= PX_C(200) &&
                     ABS(pTarget_->_y-_y) <= PX_C(200) &&
                     ABS(pTarget_->_z-_z) <= PX_C(200)) {
                     setPositionAt(pTarget_);
-                    pKuroko->setMvVelo(0);
+                    pRikisha->setMvVelo(0);
                 } else {
-                    pKuroko->setMvAngTwd(pTarget_);
-                    pKuroko->setMvVelo(PX_C(200));
+                    pRikisha->setMvAngTwd(pTarget_);
+                    pRikisha->setMvVelo(PX_C(200));
                 }
             } else {
                 pProg->change(LOCKON001_PROG_RELEASE);
@@ -83,14 +83,14 @@ void LockonCursor001_Sub::processBehavior() {
         pTarget_ = nullptr;
         addAlpha(-0.05);
         _sx = _sy = _sz = pLockonCursor001_Main_->_sx;
-        pKuroko->_angvelo_face[AXIS_Z] = pLockonCursor001_Main_->getKuroko()->_angvelo_face[AXIS_Z];
+        pRikisha->_angvelo_face[AXIS_Z] = pLockonCursor001_Main_->callRikisha()->_angvelo_face[AXIS_Z];
         if ( getAlpha() < 0.0f) {
             inactivate();
         }
     }
 
     getUvFlipper()->behave();
-    pKuroko->behave();
+    pRikisha->behave();
 }
 
 void LockonCursor001_Sub::processJudgement() {
@@ -107,11 +107,11 @@ void LockonCursor001_Sub::lockon(GgafDx::GeometricActor* prm_pTarget) {
         return;
     }
     pTarget_ = prm_pTarget;
-    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafDx::Rikisha* const pRikisha = callRikisha();
     GgafCore::Progress* const pProg = getProgress();
     if (pProg->get() == LOCKON001_PROG_LOCK) {
     } else if (pProg->get() == LOCKON001_PROG_RELEASE) {
-        pKuroko->setFaceAngVelo(AXIS_Z, 1000);   //‰E‰ñ“]
+        pRikisha->setFaceAngVelo(AXIS_Z, 1000);   //‰E‰ñ“]
         pProg->change(LOCKON001_PROG_LOCK);
     }
 
@@ -119,10 +119,10 @@ void LockonCursor001_Sub::lockon(GgafDx::GeometricActor* prm_pTarget) {
 void LockonCursor001_Sub::releaseLockon() {
 
     if (isActiveInTheTree()) {
-        GgafDx::Kuroko* const pKuroko = getKuroko();
+        GgafDx::Rikisha* const pRikisha = callRikisha();
         GgafCore::Progress* const pProg = getProgress();
         if (pProg->get() == LOCKON001_PROG_LOCK) {
-            pKuroko->setFaceAngVelo(AXIS_Z, pKuroko->_angvelo_face[AXIS_Z]*-3); //‘¬‚­‹t‰ñ“]
+            pRikisha->setFaceAngVelo(AXIS_Z, pRikisha->_angvelo_face[AXIS_Z]*-3); //‘¬‚­‹t‰ñ“]
             pProg->change(LOCKON001_PROG_RELEASE);
         } else if (pProg->get() == LOCKON001_PROG_RELEASE) {
             //‰½‚à–³‚µ

@@ -1,7 +1,7 @@
 #include "TestGu.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 using namespace GgafLib;
@@ -25,7 +25,7 @@ void TestGu::onActive() {
 }
 
 void TestGu::processBehavior() {
-    getKuroko()->behave();
+    callRikisha()->behave();
     //getSeTransmitter()->behave();
     dispStamina();
 }

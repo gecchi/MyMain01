@@ -1,7 +1,7 @@
 #include "jp/ggaf/lib/util/spline/SteppedCoordSplineManufacture.h"
 
 #include "jp/ggaf/lib/util/spline/SplineSource.h"
-#include "jp/ggaf/lib/util/spline/SteppedCoordSplineKurokoLeader.h"
+#include "jp/ggaf/lib/util/spline/SteppedCoordSplineRikishaLeader.h"
 
 
 
@@ -19,8 +19,8 @@ void SteppedCoordSplineManufacture::calculate() {
     SplineManufacture::calculate();
 }
 
-SplineLeader* SteppedCoordSplineManufacture::createKurokoLeader(GgafDx::Kuroko* prm_pKuroko) {
-    return NEW SteppedCoordSplineKurokoLeader(this, prm_pKuroko);
+SplineLeader* SteppedCoordSplineManufacture::createRikishaLeader(GgafDx::Rikisha* prm_pRikisha) {
+    return NEW SteppedCoordSplineRikishaLeader(this, prm_pRikisha);
 }
 
 SteppedCoordSplineManufacture::~SteppedCoordSplineManufacture() {

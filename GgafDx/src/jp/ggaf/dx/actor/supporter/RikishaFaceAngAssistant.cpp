@@ -1,13 +1,13 @@
-#include "jp/ggaf/dx/actor/supporter/KurokoFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/RikishaFaceAngAssistant.h"
 
 #include "jp/ggaf/core/util/ValueAccelerator.hpp"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/dx/util/Util.h"
 
 
 using namespace GgafDx;
 
-KurokoFaceAngAssistant::KurokoFaceAngAssistant(Kuroko* prm_pMaster) : GgafCore::Object(),
+RikishaFaceAngAssistant::RikishaFaceAngAssistant(Rikisha* prm_pMaster) : GgafCore::Object(),
         _pMaster(prm_pMaster) {
     for (int ax = 0; ax < 3; ax++) {
         _smthFaceAng[ax]._t_velo = _pMaster->_angvelo_face[ax];
@@ -28,11 +28,11 @@ KurokoFaceAngAssistant::KurokoFaceAngAssistant(Kuroko* prm_pMaster) : GgafCore::
     }
 }
 
-void KurokoFaceAngAssistant::behave() {
+void RikishaFaceAngAssistant::behave() {
     for (int ax = 0; ax < 3; ax++) {
         if (_smthFaceAng[ax].isAccelerating()) {
             _smthFaceAng[ax].behave();
-            _pMaster->setFaceAngVelo(ax, _smthFaceAng[ax]._t_velo - _smthFaceAng[ax]._t_acce); //‚±‚¤‚µ‚È‚¢‚Æ•ˆß‚Ìbehave‚Å‚Q‰ñ_acce‘«‚µž‚Ü‚ê‚é‚µ
+            _pMaster->setFaceAngVelo(ax, _smthFaceAng[ax]._t_velo - _smthFaceAng[ax]._t_acce); //‚±‚¤‚µ‚È‚¢‚Æ—ÍŽÔ‚Ìbehave‚Å‚Q‰ñ_acce‘«‚µž‚Ü‚ê‚é‚µ
             _pMaster->setFaceAngAcce(ax, _smthFaceAng[ax]._t_acce);
         } else {
             if (_tw[ax].target_num > 0) {
@@ -58,7 +58,7 @@ void KurokoFaceAngAssistant::behave() {
     }
 }
 
-void KurokoFaceAngAssistant::turnByDt(axis prm_axis,
+void RikishaFaceAngAssistant::turnByDt(axis prm_axis,
                                             angle prm_distance, int prm_target_frames,
                                             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
                                             bool prm_zero_acc_end_flg ) {
@@ -70,7 +70,7 @@ void KurokoFaceAngAssistant::turnByDt(axis prm_axis,
                                           prm_zero_acc_end_flg);
 }
 
-void KurokoFaceAngAssistant::turnByVd(axis prm_axis,
+void RikishaFaceAngAssistant::turnByVd(axis prm_axis,
                                             angvelo prm_top_angvelo, angle prm_distance,
                                             float prm_p1, float prm_p2, angvelo prm_end_angvelo,
                                             bool prm_zero_acc_end_flg) {
@@ -82,7 +82,7 @@ void KurokoFaceAngAssistant::turnByVd(axis prm_axis,
                                           prm_zero_acc_end_flg);
 }
 
-void KurokoFaceAngAssistant::turnRzByDtTo(angle prm_rz_target, int prm_way, int prm_target_frames,
+void RikishaFaceAngAssistant::turnRzByDtTo(angle prm_rz_target, int prm_way, int prm_target_frames,
                                                 float prm_p1, float prm_p2, angvelo prm_end_angvelo,
                                                 bool prm_zero_acc_end_flg) {
     angle distance = _pMaster->getFaceAngDistance(AXIS_Z, prm_rz_target, prm_way);
@@ -92,7 +92,7 @@ void KurokoFaceAngAssistant::turnRzByDtTo(angle prm_rz_target, int prm_way, int 
              prm_zero_acc_end_flg);
 }
 
-void KurokoFaceAngAssistant::turnRyByDtTo(angle prm_ry_target, int prm_way, int prm_target_frames,
+void RikishaFaceAngAssistant::turnRyByDtTo(angle prm_ry_target, int prm_way, int prm_target_frames,
                                                 float prm_p1, float prm_p2, angvelo prm_end_angvelo,
                                                 bool prm_zero_acc_end_flg) {
     angle distance = _pMaster->getFaceAngDistance(AXIS_Y, prm_ry_target, prm_way);
@@ -102,7 +102,7 @@ void KurokoFaceAngAssistant::turnRyByDtTo(angle prm_ry_target, int prm_way, int 
              prm_zero_acc_end_flg);
 }
 
-void KurokoFaceAngAssistant::rollFaceAngByDtTo(angle prm_ang_rx_target, int prm_way, int prm_target_frames,
+void RikishaFaceAngAssistant::rollFaceAngByDtTo(angle prm_ang_rx_target, int prm_way, int prm_target_frames,
                                                      float prm_p1, float prm_p2, angvelo prm_end_angvelo,
                                                      bool prm_zero_acc_end_flg) {
     angle distance = _pMaster->getFaceAngDistance(AXIS_X, prm_ang_rx_target, prm_way);
@@ -112,7 +112,7 @@ void KurokoFaceAngAssistant::rollFaceAngByDtTo(angle prm_ang_rx_target, int prm_
              prm_zero_acc_end_flg);
 }
 
-void KurokoFaceAngAssistant::turnRzRyByDtTo(
+void RikishaFaceAngAssistant::turnRzRyByDtTo(
                                  angle prm_rz_target, angle prm_ry_target, int prm_way, bool prm_optimize_ang,
                                  int prm_target_frames,
                                  float prm_p1, float prm_p2, angvelo prm_end_angvelo,
@@ -137,7 +137,7 @@ void KurokoFaceAngAssistant::turnRzRyByDtTo(
              prm_zero_acc_end_flg);
 }
 
-void KurokoFaceAngAssistant::turnByDtTwd(
+void RikishaFaceAngAssistant::turnByDtTwd(
                                  coord prm_tx, coord prm_ty, coord prm_tz, int prm_way, bool prm_optimize_ang,
                                  int prm_target_frames,
                                  float prm_p1, float prm_p2, angvelo prm_end_angvelo,
@@ -161,7 +161,7 @@ void KurokoFaceAngAssistant::turnByDtTwd(
     }
 }
 
-void KurokoFaceAngAssistant::turnByDtTwd(
+void RikishaFaceAngAssistant::turnByDtTwd(
                                  GeometricActor* prm_pActor_target, int prm_way, bool prm_optimize_ang,
                                  int prm_target_frames,
                                  float prm_p1, float prm_p2, angvelo prm_end_angvelo,
@@ -174,7 +174,7 @@ void KurokoFaceAngAssistant::turnByDtTwd(
 }
 
 
-void KurokoFaceAngAssistant::turnRzByVdTo(
+void RikishaFaceAngAssistant::turnRzByVdTo(
         angvelo prm_top_angvelo, angle prm_rz_target, int prm_way,
         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
         bool prm_zero_acc_end_flg) {
@@ -185,7 +185,7 @@ void KurokoFaceAngAssistant::turnRzByVdTo(
                  prm_zero_acc_end_flg);
 }
 
-void KurokoFaceAngAssistant::turnRyByVdTo(
+void RikishaFaceAngAssistant::turnRyByVdTo(
         angvelo prm_top_angvelo, angle prm_ry_target, int prm_way,
         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
         bool prm_zero_acc_end_flg) {
@@ -196,7 +196,7 @@ void KurokoFaceAngAssistant::turnRyByVdTo(
                  prm_zero_acc_end_flg);
 }
 
-void KurokoFaceAngAssistant::rollByVdTo(
+void RikishaFaceAngAssistant::rollByVdTo(
         angvelo prm_top_angvelo, angle prm_ang_rx_target, int prm_way,
         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
         bool prm_zero_acc_end_flg) {
@@ -207,7 +207,7 @@ void KurokoFaceAngAssistant::rollByVdTo(
                  prm_zero_acc_end_flg);
 }
 
-void KurokoFaceAngAssistant::turnRzRyByVdTo(
+void RikishaFaceAngAssistant::turnRzRyByVdTo(
                                  angvelo prm_top_angvelo,
                                  angle prm_rz_target, angle prm_ry_target, int prm_way, bool prm_optimize_ang,
                                  float prm_p1, float prm_p2, angvelo prm_end_angvelo,
@@ -255,7 +255,7 @@ void KurokoFaceAngAssistant::turnRzRyByVdTo(
     }
 }
 
-void KurokoFaceAngAssistant::turnByVdTwd(
+void RikishaFaceAngAssistant::turnByVdTwd(
                                  angvelo prm_top_angvelo,
                                  coord prm_tx, coord prm_ty, coord prm_tz, int prm_way, bool prm_optimize_ang,
                                  float prm_p1, float prm_p2, angvelo prm_end_angvelo,
@@ -279,7 +279,7 @@ void KurokoFaceAngAssistant::turnByVdTwd(
     }
 }
 
-void KurokoFaceAngAssistant::turnByVdTwd(
+void RikishaFaceAngAssistant::turnByVdTwd(
                                  angvelo prm_top_angvelo,
                                  GeometricActor* prm_pActor_target, int prm_way, bool prm_optimize_ang,
                                  float prm_p1, float prm_p2, angvelo prm_end_angvelo,
@@ -291,7 +291,7 @@ void KurokoFaceAngAssistant::turnByVdTwd(
             prm_zero_acc_end_flg);
 }
 
-void KurokoFaceAngAssistant::twist(axis prm_axis, angle prm_ang_target1, angle prm_ang_target2, int prm_twist_num,
+void RikishaFaceAngAssistant::twist(axis prm_axis, angle prm_ang_target1, angle prm_ang_target2, int prm_twist_num,
                                          int prm_first_way, int prm_target_frames,
                                          float prm_p1, float prm_p2, angvelo prm_end_angvelo,
                                          bool prm_zero_acc_end_flg) {
@@ -315,7 +315,7 @@ void KurokoFaceAngAssistant::twist(axis prm_axis, angle prm_ang_target1, angle p
 }
 
 
-KurokoFaceAngAssistant::~KurokoFaceAngAssistant() {
+RikishaFaceAngAssistant::~RikishaFaceAngAssistant() {
 }
 
 

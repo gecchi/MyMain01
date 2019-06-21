@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
@@ -10,7 +10,7 @@
 #include "jp/gecchi/VioletVreath/actor/enemy/Ermione/EnemyErmioneArmWeak.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ermione/EnemyErmioneArmHead.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ermione/EnemyErmioneArmBody.h"
-#include "jp/ggaf/dx/actor/supporter/KurokoFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/RikishaFaceAngAssistant.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
 
@@ -154,13 +154,13 @@ void EnemyErmione::onActive() {
 }
 
 void EnemyErmione::processBehavior() {
-    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafDx::Rikisha* const pRikisha = callRikisha();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             setHitAble(false);
             setAlpha(0);
-            pKuroko->setMvVelo(10);
+            pRikisha->setMvVelo(10);
             pProg->changeNext();
             break;
         }
@@ -178,9 +178,9 @@ void EnemyErmione::processBehavior() {
             if (pProg->hasArrivedAt(frame_of_entering)) {
                 setHitAble(true);
                 throwEventLowerTree(EVENT_ERMIONE_ENTRY_DONE);
-                pKuroko->setMvAngTwd(pMYSHIP);
-                pKuroko->setMvVelo(PX_C(2));
-                pKuroko->asstFaceAng()->turnByDtTwd(
+                pRikisha->setMvAngTwd(pMYSHIP);
+                pRikisha->setMvVelo(PX_C(2));
+                pRikisha->asstFaceAng()->turnByDtTwd(
                         pMYSHIP, TURN_CLOSE_TO, true, 60*30,
                         0.4, 0.6, 0, true);
 
@@ -191,9 +191,9 @@ void EnemyErmione::processBehavior() {
 
         case PROG_MOVE: {
             if (pProg->hasJustChanged()) {
-                pKuroko->setFaceAngVelo(AXIS_X, 55);
-                pKuroko->setFaceAngVelo(AXIS_Y, 53);
-                pKuroko->setFaceAngVelo(AXIS_Z, 51);
+                pRikisha->setFaceAngVelo(AXIS_X, 55);
+                pRikisha->setFaceAngVelo(AXIS_Y, 53);
+                pRikisha->setFaceAngVelo(AXIS_Z, 51);
             }
             break;
         }
@@ -203,7 +203,7 @@ void EnemyErmione::processBehavior() {
         }
     }
     getAlphaFader()->behave();
-    pKuroko->behave();
+    pRikisha->behave();
     getMorpher()->behave();
     getSeTransmitter()->behave();
 }

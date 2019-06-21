@@ -1,7 +1,7 @@
 #include "EnemyUrydike.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
@@ -34,7 +34,7 @@ EnemyUrydike::EnemyUrydike(const char* prm_name) :
     _class_name = "EnemyUrydike";
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
-    pKurokoLeader_ = nullptr; //フォーメーションオブジェクトが設定する
+    pRikishaLeader_ = nullptr; //フォーメーションオブジェクトが設定する
     scatter_flg_ = false;
     delay_ = 0;
 }
@@ -47,8 +47,8 @@ void EnemyUrydike::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->linkFaceAngByMvAng(true);
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->linkFaceAngByMvAng(true);
 }
 
 void EnemyUrydike::onActive() {
@@ -57,7 +57,7 @@ void EnemyUrydike::onActive() {
 }
 
 void EnemyUrydike::processBehavior() {
-    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafDx::Rikisha* const pRikisha = callRikisha();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
@@ -71,7 +71,7 @@ void EnemyUrydike::processBehavior() {
             EffectBlink* pEffectEntry = nullptr;
             if (pProg->hasJustChanged()) {
                 pEffectEntry = UTIL::activateEntryEffectOf(this);
-                pKuroko->setRollFaceAngVelo(D_ANG(3));
+                pRikisha->setRollFaceAngVelo(D_ANG(3));
             }
             static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
             static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
@@ -96,10 +96,10 @@ void EnemyUrydike::processBehavior() {
 
         case PROG_SPLINE: {
             if (pProg->hasJustChanged()) {
-                getKuroko()->setMvAcce(0); //加速度がある場合は切っておく
-                pKurokoLeader_->start(RELATIVE_COORD_DIRECTION, 1);
+                callRikisha()->setMvAcce(0); //加速度がある場合は切っておく
+                pRikishaLeader_->start(RELATIVE_COORD_DIRECTION, 1);
             }
-            pKurokoLeader_->behave(); //スプライン移動を振る舞い
+            pRikishaLeader_->behave(); //スプライン移動を振る舞い
 
             if (scatter_flg_) {
                 pProg->changeNext();
@@ -113,10 +113,10 @@ void EnemyUrydike::processBehavior() {
             }
             if (pProg->hasArrivedAt(delay_)) {
                 //散り散りになる
-                pKurokoLeader_->stop();
-                pKuroko->turnRzRyMvAngTo(RND_ABOUT(pKuroko->_rz_mv, D_ANG(90)), RND_ABOUT(pKuroko->_ry_mv, D_ANG(90)),
+                pRikishaLeader_->stop();
+                pRikisha->turnRzRyMvAngTo(RND_ABOUT(pRikisha->_rz_mv, D_ANG(90)), RND_ABOUT(pRikisha->_ry_mv, D_ANG(90)),
                                          D_ANG(2), 0, TURN_CLOSE_TO,false);
-                pKuroko->setMvAcce(100);
+                pRikisha->setMvAcce(100);
             }
 
             if (pProg->hasArrivedAt(delay_ + 200)) {
@@ -141,7 +141,7 @@ void EnemyUrydike::processBehavior() {
     }
 
     pAlphaFader->behave();
-    pKuroko->behave();
+    pRikisha->behave();
 }
 
 void EnemyUrydike::processJudgement() {
@@ -174,5 +174,5 @@ void EnemyUrydike::scatter() {
 }
 
 EnemyUrydike::~EnemyUrydike() {
-    GGAF_DELETE_NULLABLE(pKurokoLeader_);
+    GGAF_DELETE_NULLABLE(pRikishaLeader_);
 }

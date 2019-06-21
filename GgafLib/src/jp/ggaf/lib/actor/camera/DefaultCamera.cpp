@@ -1,10 +1,10 @@
 #include <jp/ggaf/lib/LibConfig.h>
 #include "jp/ggaf/lib/actor/camera/DefaultCamera.h"
 
-#include "jp/ggaf/dx/actor/supporter/Trucker.h"
-#include "jp/ggaf/dx/actor/supporter/KurokoMvAssistant.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
-#include "jp/ggaf/dx/actor/supporter/TruckerAssistantA.h"
+#include "jp/ggaf/dx/actor/supporter/Kago.h"
+#include "jp/ggaf/dx/actor/supporter/RikishaMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/KagoAssistantA.h"
 #include "jp/ggaf/lib/util/Direction26Util.h"
 #include "jp/ggaf/dx/util/Util.h"
 #include "jp/ggaf/lib/actor/camera/DefaultCameraViewPoint.h"
@@ -52,13 +52,13 @@ void DefaultCamera::initialize() {
 }
 
 void DefaultCamera::processBehavior() {
-    getTrucker()->behave();
-    getKuroko()->behave();
+    callKago()->behave();
+    callRikisha()->behave();
     GgafDx::Camera::processBehavior();
 }
 
 void DefaultCamera::slideMvTo(coord tx, coord ty, coord tz, frame t, float prm_p1, float prm_p2) {
-    getTrucker()->asst()->slideVxyzMvByDtTo(
+    callKago()->asst()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,
                               prm_p1, prm_p2, 0, true);
 }
@@ -69,7 +69,7 @@ void DefaultCamera::slideMvTo(GgafDx::GeometricActor* pTarget, frame t, float pr
 
 void DefaultCamera::slideMvTo(coord tx, coord ty, coord tz, frame t,
                        float prm_x_p1, float prm_y_p1, float prm_z_p1) {
-    getTrucker()->asst()->slideVxyzMvByDtTo(
+    callKago()->asst()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,
                               prm_x_p1, prm_x_p1, 0,
                               prm_y_p1, prm_y_p1, 0,
@@ -94,7 +94,7 @@ dir26 DefaultCamera::getVpDirNo() {
 }
 
 bool DefaultCamera::isSliding() {
-    return getTrucker()->asst()->isSliding();
+    return callKago()->asst()->isSliding();
 }
 
 DefaultCamera::~DefaultCamera() {

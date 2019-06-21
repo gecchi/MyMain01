@@ -1,5 +1,5 @@
 #include "EnemyOzartiaPillar01.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
@@ -35,7 +35,7 @@ void EnemyOzartiaPillar01::onActive() {
 
 void EnemyOzartiaPillar01::processBehavior() {
     //–{‘ÌˆÚ“®Œn‚Ìˆ— ‚±‚±‚©‚ç --->
-    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafDx::Rikisha* const pRikisha = callRikisha();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
@@ -84,7 +84,7 @@ void EnemyOzartiaPillar01::processBehavior() {
             break;
     }
     pAlphaFader->behave();
-    pKuroko->behave();
+    pRikisha->behave();
 }
 
 void EnemyOzartiaPillar01::processJudgement() {

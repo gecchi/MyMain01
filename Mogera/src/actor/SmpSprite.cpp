@@ -1,8 +1,8 @@
 #include "SmpSprite.h"
 
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
-#include "jp/ggaf/dx/actor/supporter/KurokoFaceAngAssistant.h"
-#include "jp/ggaf/dx/actor/supporter/KurokoMvAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/RikishaFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/RikishaMvAngAssistant.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "MgrGod.h"
@@ -93,7 +93,7 @@ void SmpSprite::processBehavior() {
         }
     }
     getUvFlipper()->behave();
-    getKuroko()->behave(); //黒衣を活動させる（Z軸回転する）
+    callRikisha()->behave(); //力車を活動させる（Z軸回転する）
 }
 
 void SmpSprite::onHit(const GgafCore::Actor* prm_pOtherActor) {

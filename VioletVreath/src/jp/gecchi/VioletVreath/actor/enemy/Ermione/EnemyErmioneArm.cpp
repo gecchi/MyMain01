@@ -3,11 +3,11 @@
 
 #include "jp/ggaf/dx/actor/GeometricActor.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
-#include "jp/ggaf/dx/actor/supporter/KurokoFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/RikishaFaceAngAssistant.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
 using namespace GgafLib;
@@ -39,7 +39,7 @@ void EnemyErmioneArm::onActive() {
 void EnemyErmioneArm::processBehavior() {
 
     changeGeoLocal(); //ローカル座標の操作とする。
-    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafDx::Rikisha* const pRikisha = callRikisha();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
@@ -124,13 +124,13 @@ void EnemyErmioneArm::processBehavior() {
                         ry_target = D360ANG - aiming_movable_limit_ang_;
                     }
 
-                    pKuroko->turnRzRyFaceAngTo(
+                    pRikisha->turnRzRyFaceAngTo(
                                     rz_target, ry_target,
                                     aiming_ang_velo_, aiming_ang_velo_*0.01,
                                     TURN_CLOSE_TO, false);
                 }
             }
-            if (pKuroko->isTurningFaceAng()) {
+            if (pRikisha->isTurningFaceAng()) {
                 // 待機
             } else {
                 pProg->change(PROG_NOTHING);
@@ -143,7 +143,7 @@ void EnemyErmioneArm::processBehavior() {
             break;
     }
 
-    pKuroko->behave();
+    pRikisha->behave();
     changeGeoFinal();
     //pScaler_->behave();
     if (_pActor_base) {

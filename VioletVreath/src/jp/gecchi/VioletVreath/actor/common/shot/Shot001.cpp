@@ -1,11 +1,11 @@
 #include "Shot001.h"
 
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/manager/SplineSourceConnection.h"
-#include "jp/ggaf/lib/util/spline/FixedVelocitySplineKurokoLeader.h"
+#include "jp/ggaf/lib/util/spline/FixedVelocitySplineRikishaLeader.h"
 #include "jp/ggaf/lib/util/spline/FixedVelocitySplineManufacture.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -22,7 +22,7 @@ Shot001::Shot001(const char* prm_name) :
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(0, "WAVE_EXPLOSION_002");
     pSplManufConn_ = connectToSplineManufactureManager("Shot001_spline");
-    pKurokoLeader_ = NEW FixedVelocitySplineKurokoLeader(pSplManufConn_->peek(), getKuroko()); //移動速度固定
+    pRikishaLeader_ = NEW FixedVelocitySplineRikishaLeader(pSplManufConn_->peek(), callRikisha()); //移動速度固定
 }
 
 void Shot001::initialize() {
@@ -36,23 +36,23 @@ void Shot001::initialize() {
 void Shot001::onActive() {
     getStatus()->reset();
     setHitAble(true, false);
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->linkFaceAngByMvAng(true);
-    pKuroko->setMvVelo(RF_Shot001_MvVelo(G_RANK));    //移動速度
-    pKuroko->setRollFaceAngVelo(RF_Shot001_AngVelo(G_RANK)); //きりもみ具合
-    pKurokoLeader_->start(RELATIVE_COORD_DIRECTION);
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->linkFaceAngByMvAng(true);
+    pRikisha->setMvVelo(RF_Shot001_MvVelo(G_RANK));    //移動速度
+    pRikisha->setRollFaceAngVelo(RF_Shot001_AngVelo(G_RANK)); //きりもみ具合
+    pRikishaLeader_->start(RELATIVE_COORD_DIRECTION);
     getScaler()->beat(30,5,0,2,-1);
-//    _TRACE_(FUNC_NAME<<" id=["<<getId()<<"]("<<getActiveFrame()<<") → = \t"<<getKuroko()->_rz_mv<<"\t"<<getKuroko()->_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");
+//    _TRACE_(FUNC_NAME<<" id=["<<getId()<<"]("<<getActiveFrame()<<") → = \t"<<callRikisha()->_rz_mv<<"\t"<<callRikisha()->_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");
 }
 
 void Shot001::processBehavior() {
-//    _TRACE_(FUNC_NAME<<" before id=["<<getId()<<"]("<<getActiveFrame()<<") → = \t"<<getKuroko()->_rz_mv<<"\t"<<getKuroko()->_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");
-    GgafDx::Kuroko* const pKuroko = getKuroko();
+//    _TRACE_(FUNC_NAME<<" before id=["<<getId()<<"]("<<getActiveFrame()<<") → = \t"<<callRikisha()->_rz_mv<<"\t"<<callRikisha()->_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");
+    GgafDx::Rikisha* const pRikisha = callRikisha();
     //座標に反映
-    pKurokoLeader_->behave(); //スプライン移動を振る舞い
-    pKuroko->behave();
+    pRikishaLeader_->behave(); //スプライン移動を振る舞い
+    pRikisha->behave();
     getScaler()->behave();
-//    _TRACE_(FUNC_NAME<<" after id=["<<getId()<<"]("<<getActiveFrame()<<") → = \t"<<getKuroko()->_rz_mv<<"\t"<<getKuroko()->_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");
+//    _TRACE_(FUNC_NAME<<" after id=["<<getId()<<"]("<<getActiveFrame()<<") → = \t"<<callRikisha()->_rz_mv<<"\t"<<callRikisha()->_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");
 }
 
 void Shot001::processJudgement() {
@@ -79,6 +79,6 @@ void Shot001::onInactive() {
 
 Shot001::~Shot001() {
     pSplManufConn_->close();
-    GGAF_DELETE(pKurokoLeader_);
+    GGAF_DELETE(pRikishaLeader_);
 
 }

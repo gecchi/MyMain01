@@ -100,9 +100,9 @@ class CollisionChecker3D;
 class CollisionChecker2D;
 
 class SplineLeader;
-class FixedFrameSplineKurokoLeader;
-class FixedVelocitySplineKurokoLeader;
-class SteppedCoordSplineKurokoLeader;
+class FixedFrameSplineRikishaLeader;
+class FixedVelocitySplineRikishaLeader;
+class SteppedCoordSplineRikishaLeader;
 class SplineManufacture;
 class SplineSource;
 class FixedFrameSplineManufacture;

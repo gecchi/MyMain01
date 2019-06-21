@@ -1,6 +1,6 @@
 #include "jp/ggaf/lib/actor/laserchip/RefractionLaserChip.h"
 
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 
 
@@ -30,18 +30,18 @@ RefractionLaserChip::RefractionLaserChip(const char* prm_name, const char* prm_m
     _begining_rx = _rx;
     _begining_ry = _ry;
     _begining_rz = _rz;
-    _begining_rz_mv = getKuroko()->_rz_mv;
-    _begining_ry_mv = getKuroko()->_ry_mv;
-    _begining_velo_mv   = getKuroko()->_velo_mv;
+    _begining_rz_mv = callRikisha()->_rz_mv;
+    _begining_ry_mv = callRikisha()->_ry_mv;
+    _begining_velo_mv   = callRikisha()->_velo_mv;
     _prev_x  = _x;
     _prev_y  = _y;
     _prev_z  = _z;
     _prev_rx = _rx;
     _prev_ry = _ry;
     _prev_rz = _rz;
-    _prev_rz_mv = getKuroko()->_rz_mv;
-    _prev_ry_mv = getKuroko()->_ry_mv;
-    _prev_velo_mv   = getKuroko()->_velo_mv;
+    _prev_rz_mv = callRikisha()->_rz_mv;
+    _prev_ry_mv = callRikisha()->_ry_mv;
+    _prev_velo_mv   = callRikisha()->_velo_mv;
     _prev_is_refracting = false;
     _is_fix_begin_pos = true;
     _refraction_end_frames = 0;
@@ -73,7 +73,7 @@ void RefractionLaserChip::onActive() {
     //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
     //その際 は、本クラスの onActive() メソッドも呼び出してください。
     LaserChip::onActive();
-    GgafDx::Kuroko* pKuroko = getKuroko();
+    GgafDx::Rikisha* pRikisha = callRikisha();
     RefractionLaserChip* pChip_infront =  (RefractionLaserChip*)_pChip_infront;
     //レーザーチップ出現時処理
     if (pChip_infront == nullptr) {
@@ -85,9 +85,9 @@ void RefractionLaserChip::onActive() {
         _begining_rx = _rx;
         _begining_ry = _ry;
         _begining_rz = _rz;
-        _begining_rz_mv = pKuroko->_rz_mv;
-        _begining_ry_mv = pKuroko->_ry_mv;
-        _begining_velo_mv   = pKuroko->_velo_mv;
+        _begining_rz_mv = pRikisha->_rz_mv;
+        _begining_ry_mv = pRikisha->_ry_mv;
+        _begining_velo_mv   = pRikisha->_velo_mv;
         _cnt_refraction = 0;
         _frame_refraction_enter = getBehaveingFrame() + _frame_between_refraction + 1;
         _frame_refraction_out = _frame_refraction_enter + _frame_standstill_refraction;
@@ -111,8 +111,8 @@ void RefractionLaserChip::onActive() {
             _rx = _begining_rx;
             _ry = _begining_ry;
             _rz = _begining_rz;
-            pKuroko->setRzRyMvAng(_begining_rz_mv, _begining_ry_mv);
-            pKuroko->setMvVelo(_begining_velo_mv);
+            pRikisha->setRzRyMvAng(_begining_rz_mv, _begining_ry_mv);
+            pRikisha->setMvVelo(_begining_velo_mv);
         }
         _cnt_refraction = 0;
         _frame_refraction_enter = INT_MAX;
@@ -137,13 +137,13 @@ void RefractionLaserChip::onInactive() {
     //RefractionLaser はそこに溜まり込んでしまう。これは回避すること。
     if (_pChip_behind) {
         RefractionLaserChip* const pChip_behind = (RefractionLaserChip*)_pChip_behind;
-        GgafDx::Kuroko* const pChip_behind_pKuroko = pChip_behind->getKuroko();
-        GgafDx::Kuroko* const pKuroko = getKuroko();
+        GgafDx::Rikisha* const pChip_behind_pRikisha = pChip_behind->callRikisha();
+        GgafDx::Rikisha* const pRikisha = callRikisha();
         pChip_behind->_rx = _rx;
         pChip_behind->_ry = _ry;
         pChip_behind->_rz = _rz;
-        pChip_behind_pKuroko->setRzRyMvAng(pKuroko->_rz_mv, pKuroko->_ry_mv);
-        pChip_behind_pKuroko->setMvVelo(pKuroko->_velo_mv);
+        pChip_behind_pRikisha->setRzRyMvAng(pRikisha->_rz_mv, pRikisha->_ry_mv);
+        pChip_behind_pRikisha->setMvVelo(pRikisha->_velo_mv);
         pChip_behind->_cnt_refraction = _cnt_refraction;
         pChip_behind->_frame_refraction_enter = _frame_refraction_enter;
         pChip_behind->_frame_refraction_out = _frame_refraction_out;
@@ -177,7 +177,7 @@ void RefractionLaserChip::processBehavior() {
     //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
     //その際 は、本クラスの processBehavior() メソッドも呼び出してください。
     //座標に反映
-    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafDx::Rikisha* const pRikisha = callRikisha();
     RefractionLaserChip* pChip_infront =  (RefractionLaserChip*)_pChip_infront;
     if (getActiveFrame() > 1) { //１フレーム目は、設定座標で表示させるため。移動させない
         //ActorDepository::dispatch() は
@@ -192,9 +192,9 @@ void RefractionLaserChip::processBehavior() {
             _prev_rx = _rx;
             _prev_ry = _ry;
             _prev_rz = _rz;
-            _prev_rz_mv = pKuroko->_rz_mv;
-            _prev_ry_mv = pKuroko->_ry_mv;
-            _prev_velo_mv   = pKuroko->_velo_mv;
+            _prev_rz_mv = pRikisha->_rz_mv;
+            _prev_ry_mv = pRikisha->_ry_mv;
+            _prev_velo_mv   = pRikisha->_velo_mv;
             _prev_is_refracting = _is_refracting;
             _prev_pRefractionEffect = _pRefractionEffect;
 
@@ -228,7 +228,7 @@ void RefractionLaserChip::processBehavior() {
                     //getBehaveingFrame() は次フレームで+1されるので+1しておく必要がある
                     //座標を変えず方向だけ転換
                     coord x = _x; coord y = _y; coord z = _z;
-                    pKuroko->behave(); //
+                    pRikisha->behave(); //
                     _x = x; _y = y; _z = z;
                     _is_refracting = false;
                     return;
@@ -236,9 +236,9 @@ void RefractionLaserChip::processBehavior() {
             }
 
             if (!_is_refracting) {
-                //_is_refracting中は停止しなくてはいけないためgetKuroko()->behave()を実行しない。
-                //pKuroko->behave();以外で座標を操作している場合は、完全な停止にならないので注意
-                pKuroko->behave();
+                //_is_refracting中は停止しなくてはいけないためcallRikisha()->behave()を実行しない。
+                //pRikisha->behave();以外で座標を操作している場合は、完全な停止にならないので注意
+                pRikisha->behave();
             }
 
         } else {
@@ -249,9 +249,9 @@ void RefractionLaserChip::processBehavior() {
             _prev_rx = _rx;
             _prev_ry = _ry;
             _prev_rz = _rz;
-            _prev_rz_mv = pKuroko->_rz_mv;
-            _prev_ry_mv = pKuroko->_ry_mv;
-            _prev_velo_mv   = pKuroko->_velo_mv;
+            _prev_rz_mv = pRikisha->_rz_mv;
+            _prev_ry_mv = pRikisha->_ry_mv;
+            _prev_velo_mv   = pRikisha->_velo_mv;
             _prev_is_refracting = _is_refracting;
             _prev_pRefractionEffect = _pRefractionEffect;
             _x  = pChip_infront->_prev_x;
@@ -260,8 +260,8 @@ void RefractionLaserChip::processBehavior() {
             _rx = pChip_infront->_prev_rx;
             _ry = pChip_infront->_prev_ry;
             _rz = pChip_infront->_prev_rz;
-            pKuroko->setRzRyMvAng(pChip_infront->_prev_rz_mv, pChip_infront->_prev_ry_mv);
-            pKuroko->setMvVelo(pChip_infront->_prev_velo_mv);
+            pRikisha->setRzRyMvAng(pChip_infront->_prev_rz_mv, pChip_infront->_prev_ry_mv);
+            pRikisha->setMvVelo(pChip_infront->_prev_velo_mv);
             _is_refracting =  pChip_infront->_prev_is_refracting;
             _pRefractionEffect = pChip_infront->_prev_pRefractionEffect;
             if (_pChip_behind == nullptr) {

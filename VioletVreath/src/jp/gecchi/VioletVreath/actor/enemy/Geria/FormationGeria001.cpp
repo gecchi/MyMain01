@@ -2,8 +2,8 @@
 
 #include "jp/ggaf/core/actor/ex/ActorDepository.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
-#include "jp/ggaf/dx/actor/supporter/Trucker.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Kago.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Geria/EnemyGeria.h"
 #include "jp/gecchi/VioletVreath/God.h"
 
@@ -18,7 +18,7 @@ FormationGeria001::FormationGeria001(const char* prm_name) :
 
     setPosition(PX_C(5000), 0, PX_C(5000));
     setFaceAngTwd(PX_C(5000), 0, -PX_C(5000));
-    getTrucker()->setVxyzMvVelo(-2000, 0, 0);
+    callKago()->setVxyzMvVelo(-2000, 0, 0);
 }
 
 void FormationGeria001::processBehavior() {
@@ -26,12 +26,12 @@ void FormationGeria001::processBehavior() {
         EnemyGeria* pGeria = summonGeria();
         if (pGeria) {
             pGeria->setPositionAroundAt(this, PX_C(800));
-            pGeria->getKuroko()->setRzRyMvAng(_rz, _ry); //Œü‚¢‚Ä‚é•ûŒü‚É”ò‚Î‚·
-            pGeria->getKuroko()->setMvVelo(PX_C(20));
+            pGeria->callRikisha()->setRzRyMvAng(_rz, _ry); //Œü‚¢‚Ä‚é•ûŒü‚É”ò‚Î‚·
+            pGeria->callRikisha()->setMvVelo(PX_C(20));
             pGeria->setMigrationLength(PX_C(10000));
         }
     }
-    getTrucker()->behave();
+    callKago()->behave();
 }
 
 void FormationGeria001::processJudgement() {

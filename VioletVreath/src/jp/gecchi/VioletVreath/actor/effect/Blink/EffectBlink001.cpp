@@ -1,7 +1,7 @@
 #include "EffectBlink001.h"
 
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 
 
 
@@ -24,12 +24,12 @@ void EffectBlink001::onActive() {
     getScaler()->setRange(1, R_SC(40.0));
     setScale(getScaler()->getBottom());
     setFaceAngZero();
-    getKuroko()->setRollPitchYawFaceAngVelo(3000, 11000, 7000);
+    callRikisha()->setRollPitchYawFaceAngVelo(3000, 11000, 7000);
 }
 
 void EffectBlink001::processBehavior() {
     EffectBlink::processBehavior();
-    getKuroko()->behave();
+    callRikisha()->behave();
 }
 
 EffectBlink001::~EffectBlink001() {

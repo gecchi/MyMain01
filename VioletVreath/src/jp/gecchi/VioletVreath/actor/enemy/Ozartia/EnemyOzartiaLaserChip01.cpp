@@ -1,7 +1,7 @@
 #include "EnemyOzartiaLaserChip01.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 
@@ -16,7 +16,7 @@ EnemyOzartiaLaserChip01::EnemyOzartiaLaserChip01(const char* prm_name) :
 }
 
 void EnemyOzartiaLaserChip01::initialize() {
-    getKuroko()->setRzRyMvAng(0,0);
+    callRikisha()->setRzRyMvAng(0,0);
     registerHitAreaCube_AutoGenMidColli(20000);
     setHitAble(true, false); //‰æ–ÊŠO“–‚½‚è”»’è‚Í–³‚µ
     setScaleR(5.0);
@@ -25,9 +25,9 @@ void EnemyOzartiaLaserChip01::initialize() {
 
 void EnemyOzartiaLaserChip01::onActive() {
     StraightLaserChip::onActive();
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->setMvVelo(100000);
-    pKuroko->setMvAcce(300);
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->setMvVelo(100000);
+    pRikisha->setMvAcce(300);
     getStatus()->reset();
 }
 

@@ -4,11 +4,11 @@
 #include "jp/ggaf/core/actor/GroupHead.h"
 #include "jp/ggaf/core/actor/ex/ActorDepository.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
-#include "jp/ggaf/dx/actor/supporter/Trucker.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/Kago.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/lib/util/spline/FixedFrameSplineTruckerLeader.h"
-#include "jp/ggaf/lib/util/spline/FixedFrameSplineKurokoLeader.h"
+#include "jp/ggaf/lib/util/spline/FixedFrameSplineKagoLeader.h"
+#include "jp/ggaf/lib/util/spline/FixedFrameSplineRikishaLeader.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Eres/EnemyEresShot001.h"
 #include "jp/ggaf/lib/util/spline/FixedFrameSplineManufacture.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -46,8 +46,8 @@ EnemyEres::EnemyEres(const char* prm_name, GgafCore::ActorDepository* prm_pDepo_
 
     pSplManufConn_ = connectToSplineManufactureManager("EnemyEres_spline");
     SplineManufacture* pSplManuf = pSplManufConn_->peek();
-    pSplineLeader_ = pSplManuf->createTruckerLeader(getTrucker());
-//    ((FixedFrameSplineTruckerLeader*)pSplineLeader_)->setGravitationParam(200, PX_C(100));
+    pSplineLeader_ = pSplManuf->createKagoLeader(callKago());
+//    ((FixedFrameSplineKagoLeader*)pSplineLeader_)->setGravitationParam(200, PX_C(100));
 
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
@@ -64,10 +64,10 @@ void EnemyEres::onActive() {
     setHitAble(true);
     getStatus()->reset();
     iMovePatternNo_ = 0;
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->linkFaceAngByMvAng(true);
-    pKuroko->setRollFaceAngVelo(2000);
-//    pKuroko->setMvVelo(3000);
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->linkFaceAngByMvAng(true);
+    pRikisha->setRollFaceAngVelo(2000);
+//    pRikisha->setMvVelo(3000);
     pSplineLeader_->start(RELATIVE_COORD); //スプライン移動を開始
 }
 
@@ -83,22 +83,22 @@ void EnemyEres::processBehavior() {
             pTama = (GgafDx::FigureActor*)pDepo_shot001_->dispatch();
             if (pTama) {
                 pTama->setPositionAt(this);
-                pTama->getKuroko()->setRzRyMvAng(-D90ANG + way[i], D90ANG);
+                pTama->callRikisha()->setRzRyMvAng(-D90ANG + way[i], D90ANG);
             }
         }
         for (int i = 16; i < 32; i++) {
             pTama = (GgafDx::FigureActor*)pDepo_shot001_->dispatch();
             if (pTama) {
                 pTama->setPositionAt(this);
-                pTama->getKuroko()->setRzRyMvAng(-D90ANG - way[i], -D90ANG);
+                pTama->callRikisha()->setRzRyMvAng(-D90ANG - way[i], -D90ANG);
             }
         }
 
         iMovePatternNo_++;
     }
     pSplineLeader_->behave(); //スプライン移動を進める
-    getTrucker()->behave();
-    getKuroko()->behave(); //次の座標へ移動
+    callKago()->behave();
+    callRikisha()->behave(); //次の座標へ移動
     //getSeTransmitter()->behave();
 }
 

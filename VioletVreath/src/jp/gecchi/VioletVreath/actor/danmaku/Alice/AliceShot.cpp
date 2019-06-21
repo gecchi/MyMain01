@@ -1,7 +1,7 @@
 #include "AliceShot.h"
 
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 
 using namespace GgafLib;
@@ -21,22 +21,22 @@ void AliceShot::initialize() {
 }
 void AliceShot::onReset() {
     setCullingDraw(false);
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->setRollFaceAngVelo(D_ANG(3));
-    pKuroko->linkFaceAngByMvAng(true);
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->setRollFaceAngVelo(D_ANG(3));
+    pRikisha->linkFaceAngByMvAng(true);
 }
 
 void AliceShot::onActive() {
     setHitAble(true, false);
     getStatus()->reset();
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->setRyMvAng(D90ANG);
-    pKuroko->setRzMvAngVelo(D_ANG(1));
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->setRyMvAng(D90ANG);
+    pRikisha->setRzMvAngVelo(D_ANG(1));
 }
 
 void AliceShot::processBehavior() {
     //À•W‚É”½‰f
-    getKuroko()->behave();
+    callRikisha()->behave();
 }
 
 void AliceShot::processJudgement() {

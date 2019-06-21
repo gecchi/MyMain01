@@ -1,7 +1,7 @@
 #include "EnemyErelmanCore.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
@@ -53,9 +53,9 @@ void EnemyErelmanCore::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->linkFaceAngByMvAng(true);
-    pKuroko->forceMvVeloRange(PX_C(15));
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->linkFaceAngByMvAng(true);
+    pRikisha->forceMvVeloRange(PX_C(15));
 }
 
 void EnemyErelmanCore::onActive() {
@@ -64,7 +64,7 @@ void EnemyErelmanCore::onActive() {
 }
 
 void EnemyErelmanCore::processBehavior() {
-    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafDx::Rikisha* const pRikisha = callRikisha();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
 
     GgafCore::Progress* const pProg = getProgress();
@@ -72,7 +72,7 @@ void EnemyErelmanCore::processBehavior() {
         case PROG_INIT: {
             setHitAble(false);
             setAlpha(0);
-//            pKuroko->setRollFaceAngVelo(D_ANG(3));
+//            pRikisha->setRollFaceAngVelo(D_ANG(3));
             pProg->changeNext();
             break;
         }
@@ -95,7 +95,7 @@ void EnemyErelmanCore::processBehavior() {
 
         case PROG_WAIT01: {
             if (pProg->hasJustChanged()) {
-//                pKuroko->setRollPitchYawFaceAngVelo(D_ANG(0.027), D_ANG(0.0031), D_ANG(0.0071));
+//                pRikisha->setRollPitchYawFaceAngVelo(D_ANG(0.027), D_ANG(0.0031), D_ANG(0.0071));
             }
             if (pProg->hasArrivedAt(10*60*60)) {
                 pProg->changeNext();
@@ -119,7 +119,7 @@ void EnemyErelmanCore::processBehavior() {
     }
 
     pAlphaFader->behave();
-    pKuroko->behave();
+    pRikisha->behave();
 }
 
 void EnemyErelmanCore::processJudgement() {

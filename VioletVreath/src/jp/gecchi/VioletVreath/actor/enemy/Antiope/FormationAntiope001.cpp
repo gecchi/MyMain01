@@ -4,7 +4,7 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Antiope/EnemyAntiopeP.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Antiope/EnemyAntiopeN.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 
 
 
@@ -58,18 +58,18 @@ void FormationAntiope001::processBehavior() {
 
             if (pP && pN) {
                 pP->setPositionAt(&entry_pos);
-                pP->getKuroko()->setMvAngTwd(&twd_pos_p);
-                pP->setRzFaceAng(pP->getKuroko()->_rz_mv);
-                pP->setRyFaceAng(pP->getKuroko()->_ry_mv);
-                pP->getKuroko()->stopMv();
+                pP->callRikisha()->setMvAngTwd(&twd_pos_p);
+                pP->setRzFaceAng(pP->callRikisha()->_rz_mv);
+                pP->setRyFaceAng(pP->callRikisha()->_ry_mv);
+                pP->callRikisha()->stopMv();
                 pP->mv_velo_twd_.set(vX*veloMv, vY*veloMv, vZ*veloMv);
 
                 pN->setPositionAt(&entry_pos);
-                pN->getKuroko()->setMvAngTwd(&twd_pos_p);
-                pN->getKuroko()->reverseMvAng(); //”½“]
-                pN->setRzFaceAng(pN->getKuroko()->_rz_mv);
-                pN->setRyFaceAng(pN->getKuroko()->_ry_mv);
-                pN->getKuroko()->stopMv();
+                pN->callRikisha()->setMvAngTwd(&twd_pos_p);
+                pN->callRikisha()->reverseMvAng(); //”½“]
+                pN->setRzFaceAng(pN->callRikisha()->_rz_mv);
+                pN->setRyFaceAng(pN->callRikisha()->_ry_mv);
+                pN->callRikisha()->stopMv();
                 pN->mv_velo_twd_.set(vX*veloMv, vY*veloMv, vZ*veloMv);
 
                 //ƒyƒAƒŠƒ“ƒO

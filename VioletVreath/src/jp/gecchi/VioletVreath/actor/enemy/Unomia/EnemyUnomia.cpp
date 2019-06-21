@@ -3,7 +3,7 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/model/Model.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -27,7 +27,7 @@ enum {
 EnemyUnomia::EnemyUnomia(const char* prm_name) :
         VvEnemyActor<DefaultMassMeshActor>(prm_name, "Unomia", StatusReset(EnemyUnomia)) {
     _class_name = "EnemyUnomia";
-    pKurokoLeader_ = nullptr;
+    pRikishaLeader_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
@@ -40,9 +40,9 @@ void EnemyUnomia::onCreateModel() {
 }
 
 void EnemyUnomia::initialize() {
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->linkFaceAngByMvAng(true);
-    pKuroko->setRollFaceAngVelo(-4000);
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->linkFaceAngByMvAng(true);
+    pRikisha->setRollFaceAngVelo(-4000);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
@@ -52,19 +52,19 @@ void EnemyUnomia::onReset() {
 }
 
 void EnemyUnomia::config(
-        GgafLib::SplineLeader* prm_pKurokoLeader,
+        GgafLib::SplineLeader* prm_pRikishaLeader,
         GgafCore::ActorDepository* prm_pDepo_shot,
         GgafCore::ActorDepository* prm_pDepo_shotEffect
         ) {
-    GGAF_DELETE_NULLABLE(pKurokoLeader_);
-    pKurokoLeader_ = prm_pKurokoLeader;
+    GGAF_DELETE_NULLABLE(pRikishaLeader_);
+    pRikishaLeader_ = prm_pRikishaLeader;
     pDepo_shot_ = prm_pDepo_shot;
     pDepo_effect_ = prm_pDepo_shotEffect;
 }
 
 
 void EnemyUnomia::onActive() {
-    if (pKurokoLeader_ == nullptr) {
+    if (pRikishaLeader_ == nullptr) {
         throwCriticalException("EnemyUnomiaはスプライン必須ですconfigして下さい");
     }
     getStatus()->reset();
@@ -74,17 +74,17 @@ void EnemyUnomia::onActive() {
 }
 
 void EnemyUnomia::processBehavior() {
-    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafDx::Rikisha* const pRikisha = callRikisha();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_ENTRY: {
-            pKurokoLeader_->start(ABSOLUTE_COORD);
+            pRikishaLeader_->start(ABSOLUTE_COORD);
             pProg->changeNext();
             break;
         }
         case PROG_SPLINE_MOVE: {
-            pKurokoLeader_->behave(); //スプライン移動を振る舞い
-            if (pKurokoLeader_->isFinished()) {
+            pRikishaLeader_->behave(); //スプライン移動を振る舞い
+            if (pRikishaLeader_->isFinished()) {
                 pProg->changeNext(); //次へ
             }
             break;
@@ -92,7 +92,7 @@ void EnemyUnomia::processBehavior() {
         case PROG_MOVE01_1: {
             if (pProg->hasJustChanged()) {
                 //自機へ方向転換
-                pKuroko->turnMvAngTwd(
+                pRikisha->turnMvAngTwd(
                                pMYSHIP->_x, _y, pMYSHIP->_z,
                                2000, 0,
                                TURN_CLOSE_TO, true
@@ -109,7 +109,7 @@ void EnemyUnomia::processBehavior() {
 //                    pActor_shot = (GgafDx::FigureActor*)pDepo_shot_->dispatch();
 //                    if (pActor_shot) {
 //                        pActor_shot->setPositionAt(this);
-//                        pActor_shot->getKuroko()->setRzRyMvAng(paAng_way[i], D90ANG);
+//                        pActor_shot->callRikisha()->setRzRyMvAng(paAng_way[i], D90ANG);
 //                    }
 //                }
 //                GGAF_DELETEARR(paAng_way);
@@ -128,7 +128,7 @@ void EnemyUnomia::processBehavior() {
         }
     }
 
-    pKuroko->behave();
+    pRikisha->behave();
 }
 
 void EnemyUnomia::processJudgement() {
@@ -149,11 +149,11 @@ void EnemyUnomia::onHit(const GgafCore::Actor* prm_pOtherActor) {
 }
 
 void EnemyUnomia::onInactive() {
-    GGAF_DELETE_NULLABLE(pKurokoLeader_);
+    GGAF_DELETE_NULLABLE(pRikishaLeader_);
 }
 
 EnemyUnomia::~EnemyUnomia() {
-    GGAF_DELETE_NULLABLE(pKurokoLeader_);
+    GGAF_DELETE_NULLABLE(pRikishaLeader_);
 }
 
 

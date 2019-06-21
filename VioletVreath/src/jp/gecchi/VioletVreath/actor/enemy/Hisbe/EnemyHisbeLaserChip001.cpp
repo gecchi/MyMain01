@@ -1,7 +1,7 @@
 #include "EnemyHisbeLaserChip001.h"
 
 #include "jp/ggaf/core/actor/SceneMediator.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
@@ -16,10 +16,10 @@ EnemyHisbeLaserChip001::EnemyHisbeLaserChip001(const char* prm_name) :
         VvEnemyActor<HomingLaserChip>(prm_name, "HisbeLaserChip001", StatusReset(EnemyHisbeLaserChip001)) {
     _class_name = "EnemyHisbeLaserChip001";
     pConn_pSplManuf_ = connectToSplineManufactureManager("EnemyHisbeLaserChip002"); //ヒルベルト曲線
-    pKurokoLeader_ = pConn_pSplManuf_->peek()->createKurokoLeader(getKuroko());
+    pRikishaLeader_ = pConn_pSplManuf_->peek()->createRikishaLeader(callRikisha());
     pScrollingScene_ = nullptr;
-    getKuroko()->setMvAngByFaceAng();
-    getKuroko()->linkFaceAngByMvAng(true);
+    callRikisha()->setMvAngByFaceAng();
+    callRikisha()->linkFaceAngByMvAng(true);
 }
 
 void EnemyHisbeLaserChip001::initialize() {
@@ -38,7 +38,7 @@ void EnemyHisbeLaserChip001::onActive() {
 
 void EnemyHisbeLaserChip001::onInactive() {
     HomingLaserChip::onInactive();
-    pKurokoLeader_->stop();
+    pRikishaLeader_->stop();
 }
 
 void EnemyHisbeLaserChip001::processBehaviorHeadChip() {
@@ -47,14 +47,14 @@ void EnemyHisbeLaserChip001::processBehaviorHeadChip() {
     }
 
     if (getActiveFrame() == 2) {
-        pKurokoLeader_->start(RELATIVE_COORD_DIRECTION); //向いた方向にワールド変換
+        pRikishaLeader_->start(RELATIVE_COORD_DIRECTION); //向いた方向にワールド変換
     }
     if (pScrollingScene_) {
-        pKurokoLeader_->_x_start_in_loop -= pScrollingScene_->getScrollSpeed();
+        pRikishaLeader_->_x_start_in_loop -= pScrollingScene_->getScrollSpeed();
     }
-    pKurokoLeader_->behave();
-    getKuroko()->behave();
-    if (pKurokoLeader_->isFinished()) {
+    pRikishaLeader_->behave();
+    callRikisha()->behave();
+    if (pRikishaLeader_->isFinished()) {
         sayonara();
     }
 }
@@ -76,7 +76,7 @@ void EnemyHisbeLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor) {
 }
 
 EnemyHisbeLaserChip001::~EnemyHisbeLaserChip001() {
-    GGAF_DELETE(pKurokoLeader_);
+    GGAF_DELETE(pRikishaLeader_);
     pConn_pSplManuf_->close();
 }
 

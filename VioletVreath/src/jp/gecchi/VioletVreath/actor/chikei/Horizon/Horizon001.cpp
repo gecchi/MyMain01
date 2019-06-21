@@ -1,6 +1,6 @@
 #include "Horizon001.h"
 
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/ggaf/dx/util/Input.h"
 #include "jp/ggaf/dx/actor/supporter/Checker.h"

@@ -1,13 +1,13 @@
-#include "jp/ggaf/dx/actor/supporter/KurokoMvAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/RikishaMvAngAssistant.h"
 
 #include "jp/ggaf/core/util/ValueAccelerator.hpp"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/dx/util/Util.h"
 
 
 using namespace GgafDx;
 
-KurokoMvAngAssistant::KurokoMvAngAssistant(Kuroko* prm_pMaster) : GgafCore::Object(),
+RikishaMvAngAssistant::RikishaMvAngAssistant(Rikisha* prm_pMaster) : GgafCore::Object(),
         _pMaster(prm_pMaster) {
     _smthMvRzAng._t_velo = _pMaster->_angvelo_rz_mv;
     _smthMvRzAng._t_acce = _pMaster->_angacce_rz_mv;
@@ -41,10 +41,10 @@ KurokoMvAngAssistant::KurokoMvAngAssistant(Kuroko* prm_pMaster) : GgafCore::Obje
     _pnd_ry.zero_acc_end_flg = 0;
 }
 
-void KurokoMvAngAssistant::behave() {
+void RikishaMvAngAssistant::behave() {
     if (_smthMvRzAng.isAccelerating()) {
         _smthMvRzAng.behave();
-        _pMaster->setRzMvAngVelo(_smthMvRzAng._t_velo - _smthMvRzAng._t_acce); //‚±‚¤‚µ‚È‚¢‚Æ•ˆß‚Ìbehave‚Å‚Q‰ñ_acce‘«‚µž‚Ü‚ê‚é‚µ
+        _pMaster->setRzMvAngVelo(_smthMvRzAng._t_velo - _smthMvRzAng._t_acce); //‚±‚¤‚µ‚È‚¢‚Æ—ÍŽÔ‚Ìbehave‚Å‚Q‰ñ_acce‘«‚µž‚Ü‚ê‚é‚µ
         _pMaster->setRzMvAngAcce(_smthMvRzAng._t_acce);
     } else {
         if (_pnd_rz.target_num > 0) {
@@ -69,7 +69,7 @@ void KurokoMvAngAssistant::behave() {
     }
     if (_smthMvRyAng.isAccelerating()) {
         _smthMvRyAng.behave();
-        _pMaster->setRyMvAngVelo(_smthMvRyAng._t_velo - _smthMvRyAng._t_acce); //‚±‚¤‚µ‚È‚¢‚Æ•ˆß‚Ìbehave‚Å‚Q‰ñ_acce‘«‚µž‚Ü‚ê‚é‚µ
+        _pMaster->setRyMvAngVelo(_smthMvRyAng._t_velo - _smthMvRyAng._t_acce); //‚±‚¤‚µ‚È‚¢‚Æ—ÍŽÔ‚Ìbehave‚Å‚Q‰ñ_acce‘«‚µž‚Ü‚ê‚é‚µ
         _pMaster->setRyMvAngAcce(_smthMvRyAng._t_acce);
     } else {
         if (_pnd_ry.target_num > 0) {
@@ -94,7 +94,7 @@ void KurokoMvAngAssistant::behave() {
     }
 }
 
-void KurokoMvAngAssistant::turnRzByDt(
+void RikishaMvAngAssistant::turnRzByDt(
                         angle prm_distance, int prm_target_frames,
                         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
                         bool prm_zero_acc_end_flg ) {
@@ -106,7 +106,7 @@ void KurokoMvAngAssistant::turnRzByDt(
                            prm_p1,prm_p2,prm_end_angvelo,
                            prm_zero_acc_end_flg);
 }
-void KurokoMvAngAssistant::turnRyByDt(
+void RikishaMvAngAssistant::turnRyByDt(
                         angle prm_distance, int prm_target_frames,
                         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
                         bool prm_zero_acc_end_flg ) {
@@ -119,7 +119,7 @@ void KurokoMvAngAssistant::turnRyByDt(
                            prm_zero_acc_end_flg);
 }
 
-void KurokoMvAngAssistant::turnRzByVd(
+void RikishaMvAngAssistant::turnRzByVd(
         angvelo prm_top_angvelo, angle prm_distance,
         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
         bool prm_zero_acc_end_flg) {
@@ -130,7 +130,7 @@ void KurokoMvAngAssistant::turnRzByVd(
                                 prm_p1,prm_p2, prm_end_angvelo,
                                 prm_zero_acc_end_flg);
 }
-void KurokoMvAngAssistant::turnRyByVd(
+void RikishaMvAngAssistant::turnRyByVd(
         angvelo prm_top_angvelo, angle prm_distance,
         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
         bool prm_zero_acc_end_flg) {
@@ -143,7 +143,7 @@ void KurokoMvAngAssistant::turnRyByVd(
 }
 
 
-void KurokoMvAngAssistant::turnRzByDtTo(angle prm_rz_target, int prm_way, int prm_target_frames,
+void RikishaMvAngAssistant::turnRzByDtTo(angle prm_rz_target, int prm_way, int prm_target_frames,
                                         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
                                         bool prm_zero_acc_end_flg) {
     angle distance = _pMaster->getRzMvAngDistance(prm_rz_target, prm_way);
@@ -151,7 +151,7 @@ void KurokoMvAngAssistant::turnRzByDtTo(angle prm_rz_target, int prm_way, int pr
                prm_p1, prm_p2, prm_end_angvelo,
                prm_zero_acc_end_flg);
 }
-void KurokoMvAngAssistant::turnRyByDtTo(angle prm_ry_target, int prm_way, int prm_target_frames,
+void RikishaMvAngAssistant::turnRyByDtTo(angle prm_ry_target, int prm_way, int prm_target_frames,
                                         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
                                         bool prm_zero_acc_end_flg) {
     angle distance = _pMaster->getRyMvAngDistance(prm_ry_target, prm_way);
@@ -160,7 +160,7 @@ void KurokoMvAngAssistant::turnRyByDtTo(angle prm_ry_target, int prm_way, int pr
                prm_zero_acc_end_flg);
 }
 
-void KurokoMvAngAssistant::turnRzRyByDtTo(
+void RikishaMvAngAssistant::turnRzRyByDtTo(
         angle prm_rz_target, angle prm_ry_target, int prm_way, bool prm_optimize_ang,
         int prm_target_frames,
         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
@@ -184,7 +184,7 @@ void KurokoMvAngAssistant::turnRzRyByDtTo(
                prm_zero_acc_end_flg);
 }
 
-void KurokoMvAngAssistant::turnByDtTwd(
+void RikishaMvAngAssistant::turnByDtTwd(
         coord prm_tx, coord prm_ty, coord prm_tz, int prm_way, bool prm_optimize_ang,
         int prm_target_frames,
         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
@@ -209,7 +209,7 @@ void KurokoMvAngAssistant::turnByDtTwd(
 
 }
 
-void KurokoMvAngAssistant::turnByDtTwd(
+void RikishaMvAngAssistant::turnByDtTwd(
                     GeometricActor* prm_pActor_target, int prm_way, bool prm_optimize_ang,
                     int prm_target_frames,
                     float prm_p1, float prm_p2, angvelo prm_end_angvelo,
@@ -222,7 +222,7 @@ void KurokoMvAngAssistant::turnByDtTwd(
 }
 
 
-void KurokoMvAngAssistant::turnRzByVdTo(
+void RikishaMvAngAssistant::turnRzByVdTo(
         angvelo prm_top_angvelo, angle prm_rz_target, int prm_way,
         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
         bool prm_zero_acc_end_flg) {
@@ -232,7 +232,7 @@ void KurokoMvAngAssistant::turnRzByVdTo(
                     prm_zero_acc_end_flg);
 }
 
-void KurokoMvAngAssistant::turnRyByVdTo(
+void RikishaMvAngAssistant::turnRyByVdTo(
         angvelo prm_top_angvelo, angle prm_ry_target, int prm_way,
         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
         bool prm_zero_acc_end_flg) {
@@ -242,7 +242,7 @@ void KurokoMvAngAssistant::turnRyByVdTo(
                     prm_zero_acc_end_flg);
 }
 
-void KurokoMvAngAssistant::turnRzRyByVdTo(
+void RikishaMvAngAssistant::turnRzRyByVdTo(
         angvelo prm_top_angvelo,
         angle prm_rz_target, angle prm_ry_target, int prm_way, bool prm_optimize_ang,
         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
@@ -284,7 +284,7 @@ void KurokoMvAngAssistant::turnRzRyByVdTo(
     }
 }
 
-void KurokoMvAngAssistant::turnByVdTwd(
+void RikishaMvAngAssistant::turnByVdTwd(
         angvelo prm_top_angvelo,
         coord prm_tx, coord prm_ty, coord prm_tz, int prm_way, bool prm_optimize_ang,
         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
@@ -309,7 +309,7 @@ void KurokoMvAngAssistant::turnByVdTwd(
     }
 }
 
-void KurokoMvAngAssistant::turnByVdTwd(
+void RikishaMvAngAssistant::turnByVdTwd(
         angvelo prm_top_angvelo,
         GeometricActor* prm_pActor_target, int prm_way, bool prm_optimize_ang,
         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
@@ -322,7 +322,7 @@ void KurokoMvAngAssistant::turnByVdTwd(
             prm_zero_acc_end_flg);
 }
 
-void KurokoMvAngAssistant::turnRzPendulum(coord prm_target1, coord prm_target2,
+void RikishaMvAngAssistant::turnRzPendulum(coord prm_target1, coord prm_target2,
                                                 int prm_twist_num,
                                                 int prm_first_way, int prm_target_frames,
                                                 float prm_p1, float prm_p2, angvelo prm_end_angvelo,
@@ -344,7 +344,7 @@ void KurokoMvAngAssistant::turnRzPendulum(coord prm_target1, coord prm_target2,
                  _pnd_rz.end_angvelo,
                  _pnd_rz.zero_acc_end_flg);
 }
-void KurokoMvAngAssistant::turnRyPendulum(coord prm_target1, coord prm_target2,
+void RikishaMvAngAssistant::turnRyPendulum(coord prm_target1, coord prm_target2,
                                                 int prm_twist_num,
                                                 int prm_first_way, int prm_target_frames,
                                                 float prm_p1, float prm_p2, angvelo prm_end_angvelo,
@@ -367,7 +367,7 @@ void KurokoMvAngAssistant::turnRyPendulum(coord prm_target1, coord prm_target2,
                  _pnd_ry.zero_acc_end_flg);
 }
 
-KurokoMvAngAssistant::~KurokoMvAngAssistant() {
+RikishaMvAngAssistant::~RikishaMvAngAssistant() {
 }
 
 

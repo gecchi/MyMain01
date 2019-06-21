@@ -1,6 +1,6 @@
 #include "VarietyRatislavia001.h"
 
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Omulus/EnemyOmulus.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ratislavia/EnemyRatislaviaEye.h"
@@ -33,11 +33,11 @@ void VarietyRatislavia001::initialize() {
     _x = pSpacetime->_x_bound_right + r1_*2 + r2_*2;
     _y = 0;
     _z = 0;
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->setRzRyMvAng(D180ANG, 0);
-    pKuroko->setMvVelo(2000);
-    pKuroko->setFaceAngVelo(AXIS_Z, 60);
-    pKuroko->setFaceAngVelo(AXIS_Y, 70);
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->setRzRyMvAng(D180ANG, 0);
+    pRikisha->setMvVelo(2000);
+    pRikisha->setFaceAngVelo(AXIS_Z, 60);
+    pRikisha->setFaceAngVelo(AXIS_Y, 70);
 }
 
 void VarietyRatislavia001::processBehavior() {

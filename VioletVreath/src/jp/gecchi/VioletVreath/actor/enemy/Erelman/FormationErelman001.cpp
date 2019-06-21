@@ -1,6 +1,6 @@
 #include "FormationErelman001.h"
 
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/ggaf/lib/util/spline/SplineManufacture.h"
 #include "jp/ggaf/lib/util/spline/FixedFrameSplineManufacture.h"
@@ -93,21 +93,21 @@ void FormationErelman001::processBehavior() {
 
 void FormationErelman001::onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) {
     EnemyErelman* pErelman = (EnemyErelman*)prm_pActor;
-    if (pErelman->pKurokoLeader_) {
-        throwCriticalException("pErelman->pKurokoLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpErelman="<<pErelman<<"("<<pErelman->getName()<<")");
+    if (pErelman->pRikishaLeader_) {
+        throwCriticalException("pErelman->pRikishaLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpErelman="<<pErelman<<"("<<pErelman->getName()<<")");
     } else {
-        pErelman->pKurokoLeader_ = papSplManufConn_[prm_col]->peek()->
-                                      createKurokoLeader(pErelman->getKuroko());
+        pErelman->pRikishaLeader_ = papSplManufConn_[prm_col]->peek()->
+                                      createRikishaLeader(pErelman->callRikisha());
     }
-    pErelman->pKurokoLeader_->setStartPosition(geo_.x, geo_.y, geo_.z);
-    pErelman->pKurokoLeader_->setStartAngle(geo_.rx, geo_.ry, geo_.rz);
+    pErelman->pRikishaLeader_->setStartPosition(geo_.x, geo_.y, geo_.z);
+    pErelman->pRikishaLeader_->setStartAngle(geo_.rx, geo_.ry, geo_.rz);
     pErelman->setPositionAround(geo_.x, geo_.y, geo_.z, PX_C(100));
     pErelman->setFaceAngTwd(pErelman->_x + (pErelman->_x - geo_.x),
                             pErelman->_y + (pErelman->_y - geo_.y),
                             pErelman->_z + (pErelman->_z - geo_.z) );
-    pErelman->getKuroko()->setMvAngByFaceAng();
-    pErelman->getKuroko()->setMvVelo(0);
-    pErelman->getKuroko()->setMvAcce(80);
+    pErelman->callRikisha()->setMvAngByFaceAng();
+    pErelman->callRikisha()->setMvVelo(0);
+    pErelman->callRikisha()->setMvAcce(80);
 
 //    float sr = ANG_SIN(RCNV(0, getFormationRowNum() , prm_row , D0ANG, D360ANG));
 //    float sg = ANG_COS(RCNV(0, getFormationRowNum() , prm_row , D0ANG, D360ANG));

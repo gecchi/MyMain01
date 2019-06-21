@@ -79,12 +79,12 @@ public:
     /**
      * SplineLeader オブジェクトの生成 .
      * インスタンスは FixedFrameSplineManufacture です。
-     * @param prm_pKuroko スプライン移動するための操作するオブジェクト
+     * @param prm_pRikisha スプライン移動するための操作するオブジェクト
      * @return SplineLeader オブジェクト
      */
-    SplineLeader* createKurokoLeader(GgafDx::Kuroko* prm_pKuroko) override;
+    SplineLeader* createRikishaLeader(GgafDx::Rikisha* prm_pRikisha) override;
 
-    SplineLeader* createTruckerLeader(GgafDx::Trucker* prm_pTrucker) override;
+    SplineLeader* createKagoLeader(GgafDx::Kago* prm_pKago) override;
 
     virtual ~FixedFrameSplineManufacture();
 };

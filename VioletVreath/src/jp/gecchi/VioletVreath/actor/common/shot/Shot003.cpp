@@ -1,7 +1,7 @@
 #include "Shot003.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 
@@ -28,15 +28,15 @@ void Shot003::initialize() {
 void Shot003::onActive() {
     getStatus()->reset();
     setHitAble(true, false);
-    getKuroko()->setMvVelo(20000);
+    callRikisha()->setMvVelo(20000);
 
 }
 
 void Shot003::processBehavior() {
     //加算ランクポイントを減少
     //座標に反映
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->behave();
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->behave();
 }
 
 void Shot003::processJudgement() {

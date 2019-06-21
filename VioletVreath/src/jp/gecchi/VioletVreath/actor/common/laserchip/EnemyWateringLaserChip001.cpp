@@ -1,7 +1,7 @@
 #include "EnemyWateringLaserChip001.h"
 #include "jp/ggaf/lib/actor/laserchip/WateringLaserChip.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 
 using namespace GgafLib;
 using namespace VioletVreath;
@@ -15,7 +15,7 @@ EnemyWateringLaserChip001::EnemyWateringLaserChip001(const char* prm_name) :
 }
 
 void EnemyWateringLaserChip001::initialize() {
-    getKuroko()->linkFaceAngByMvAng(true);
+    callRikisha()->linkFaceAngByMvAng(true);
     registerHitAreaCube_AutoGenMidColli(50000);
     setHitAble(true);
     setScaleR(6.0);
@@ -28,8 +28,8 @@ void EnemyWateringLaserChip001::onCreateModel() {
 
 void EnemyWateringLaserChip001::onActive() {
     WateringLaserChip::onActive();
-    getKuroko()->setMvVelo(PX_C(100));
-    getKuroko()->setMvAcce(PX_C(5));
+    callRikisha()->setMvVelo(PX_C(100));
+    callRikisha()->setMvAcce(PX_C(5));
     getStatus()->reset();
 }
 
@@ -37,11 +37,11 @@ void EnemyWateringLaserChip001::processBehavior() {
     if (hasJustChangedToActive()) {
         //アクティブになった瞬間は、
         //利用元アクターが指定した最初の座標で表示したい。
-        //黒衣の活動を行うと、ずれるので、最初だけはそのままの座標で表示。
+        //力車の活動を行うと、ずれるので、最初だけはそのままの座標で表示。
         //とはいうものの、発射元は１フレーム分移動してるので、ピッタリには見えないかもしれない。
     } else {
-        GgafDx::Kuroko* const pKuroko = getKuroko();
-        pKuroko->behave();
+        GgafDx::Rikisha* const pRikisha = callRikisha();
+        pRikisha->behave();
     }
     WateringLaserChip::processBehavior();//座標を移動させてから呼び出すこと
 

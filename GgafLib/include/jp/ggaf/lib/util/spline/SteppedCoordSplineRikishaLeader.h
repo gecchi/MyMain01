@@ -1,5 +1,5 @@
-#ifndef GGAF_LIB_STEPPEDCOORDSPLINEKUROKOLEADER_H_
-#define GGAF_LIB_STEPPEDCOORDSPLINEKUROKOLEADER_H_
+#ifndef GGAF_LIB_STEPPEDCOORDSPLINERIKISHALEADER_H_
+#define GGAF_LIB_STEPPEDCOORDSPLINERIKISHALEADER_H_
 #include "GgafLibCommonHeader.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 
@@ -12,10 +12,10 @@ namespace GgafLib {
  * @since 2009/10/28
  * @author Masatoshi Tsuge
  */
-class SteppedCoordSplineKurokoLeader : public SplineLeader {
+class SteppedCoordSplineRikishaLeader : public SplineLeader {
 
 public:
-    GgafDx::Kuroko* _pKuroko_target;
+    GgafDx::Rikisha* _pRikisha_target;
     SteppedCoordSplineManufacture* _pSteppedSplManuf;
 
     /** [r]補完点(基準点も含む)の数 */
@@ -27,9 +27,9 @@ public:
     /**
      * コンストラクタ .
      * @param prm_pManufacture
-     * @param prm_pKuroko 対象のアクターの黒衣
+     * @param prm_pRikisha 対象のアクターの力車
      */
-    SteppedCoordSplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDx::Kuroko* prm_pKuroko);
+    SteppedCoordSplineRikishaLeader(SplineManufacture* prm_pManufacture, GgafDx::Rikisha* prm_pRikisha);
 
     virtual void restart() override;
     /**
@@ -38,8 +38,8 @@ public:
      */
     virtual void behave() override;
 
-    virtual ~SteppedCoordSplineKurokoLeader();
+    virtual ~SteppedCoordSplineRikishaLeader();
 };
 
 }
-#endif /*GGAF_LIB_FIXEDVELOCITYSPLINEKUROKOLEADER_H_*/
+#endif /*GGAF_LIB_FIXEDVELOCITYSPLINERIKISHALEADER_H_*/

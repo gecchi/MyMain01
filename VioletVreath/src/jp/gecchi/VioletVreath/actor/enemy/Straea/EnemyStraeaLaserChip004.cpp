@@ -1,7 +1,7 @@
 #include "EnemyStraeaLaserChip004.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
@@ -18,7 +18,7 @@ EnemyStraeaLaserChip004::EnemyStraeaLaserChip004(const char* prm_name) :
         VvEnemyActor<HomingLaserChip>(prm_name, "StraeaLaserChip001", StatusReset(EnemyStraeaLaserChip004)) {
     _class_name = "EnemyStraeaLaserChip004";
     pConn_pSplManuf_ = connectToSplineManufactureManager("GURUGURU");
-    pKurokoLeader_ = pConn_pSplManuf_->peek()->createKurokoLeader(getKuroko());
+    pRikishaLeader_ = pConn_pSplManuf_->peek()->createRikishaLeader(callRikisha());
 //    if (pTexCon1_ == nullptr) {
 //        pTexCon1_ = connectToModelTextureManager("StraeaLaserChip001.png");
 //        pTexCon2_ = connectToModelTextureManager("EsperiaLaserChip001.png");
@@ -43,12 +43,12 @@ void EnemyStraeaLaserChip004::onActive() {
     HomingLaserChip::onActive();
     //ステータスリセット
     getStatus()->reset();
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->setMvVelo(10000);
-    pKuroko->setMvAcce(300);
-    //pKuroko->forceMvVeloRange(0, 70000);
-    pKuroko->linkFaceAngByMvAng(true);
-    pKurokoLeader_->stop();
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->setMvVelo(10000);
+    pRikisha->setMvAcce(300);
+    //pRikisha->forceMvVeloRange(0, 70000);
+    pRikisha->linkFaceAngByMvAng(true);
+    pRikishaLeader_->stop();
     _force_alpha = 1.50; //最初はちょっと明るめ
 }
 
@@ -66,10 +66,10 @@ void EnemyStraeaLaserChip004::processBehaviorHeadChip() {
 //    //<--debug
 
     if (getActiveFrame() == 2) {
-        pKurokoLeader_->start(RELATIVE_COORD_DIRECTION); //向いた方向にワールド変換
+        pRikishaLeader_->start(RELATIVE_COORD_DIRECTION); //向いた方向にワールド変換
     }
-    pKurokoLeader_->behave(); //←途中でちょんぎれたらだめじゃん
-    getKuroko()->behave();
+    pRikishaLeader_->behave(); //←途中でちょんぎれたらだめじゃん
+    callRikisha()->behave();
 }
 
 void EnemyStraeaLaserChip004::processJudgement() {
@@ -89,7 +89,7 @@ void EnemyStraeaLaserChip004::onHit(const GgafCore::Actor* prm_pOtherActor) {
 }
 
 EnemyStraeaLaserChip004::~EnemyStraeaLaserChip004() {
-    GGAF_DELETE(pKurokoLeader_);
+    GGAF_DELETE(pRikishaLeader_);
     pConn_pSplManuf_->close();
     //if (pTexCon1_) {
     //    pTexCon1_->close();

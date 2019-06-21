@@ -1,7 +1,7 @@
 #include "EnemyEmusLaserChip001.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 using namespace GgafLib;
@@ -18,9 +18,9 @@ void EnemyEmusLaserChip001::initialize() {
     setHitAble(true, false);
     setScaleR(5.0);
     setCullingDraw(false);
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->setMvVelo(300000);
-    pKuroko->linkFaceAngByMvAng(true);
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->setMvVelo(300000);
+    pRikisha->linkFaceAngByMvAng(true);
 }
 
 void EnemyEmusLaserChip001::onActive() {
@@ -30,7 +30,7 @@ void EnemyEmusLaserChip001::onActive() {
 }
 
 void EnemyEmusLaserChip001::processBehavior() {
-    getKuroko()->behave();
+    callRikisha()->behave();
 }
 
 void EnemyEmusLaserChip001::processJudgement() {

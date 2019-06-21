@@ -1,7 +1,7 @@
 #include "EnemyEresShot001.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -41,9 +41,9 @@ EnemyEresShot001::EnemyEresShot001(const char* prm_name) :
 }
 
 void EnemyEresShot001::initialize() {
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->forceMvVeloRange(veloTop_, veloBottom_);
-    pKuroko->linkFaceAngByMvAng(true);
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->forceMvVeloRange(veloTop_, veloBottom_);
+    pRikisha->linkFaceAngByMvAng(true);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, PX_C(60));
@@ -54,33 +54,33 @@ void EnemyEresShot001::onActive() {
     getStatus()->reset();
 
     //oŒ»
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->setMvVelo(velo1st_);
-    pKuroko->setMvAcce(iMoveAcce_1st_);
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->setMvVelo(velo1st_);
+    pRikisha->setMvAcce(iMoveAcce_1st_);
 
     setHitAble(true);
 }
 
 void EnemyEresShot001::processBehavior() {
-    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafDx::Rikisha* const pRikisha = callRikisha();
     //•ûŒü“]Š·ŠJn
     if (getActiveFrame() == frame_TurnBegin_) {
-        pKuroko->turnMvAngTwd(pMYSHIP,
+        pRikisha->turnMvAngTwd(pMYSHIP,
                               angVelo_Turn_, 0,
                               TURN_CLOSE_TO, true);
-        pKuroko->setMvAcce(iMoveAcce_2nd_);
+        pRikisha->setMvAcce(iMoveAcce_2nd_);
     }
 
     //•ûŒü“]Š·I—¹
     if (getActiveFrame() == frame_TurnBegin_ + frame_TurnInterval_) {
-        pKuroko->setRzRyMvAngVelo(0,0);
-        pKuroko->_is_targeting_ry_mv = false;
-        pKuroko->_is_targeting_rz_mv = false;
+        pRikisha->setRzRyMvAngVelo(0,0);
+        pRikisha->_is_targeting_ry_mv = false;
+        pRikisha->_is_targeting_rz_mv = false;
     }
 
     //behaveUvFlip();
     //À•W‚É”½‰f
-    pKuroko->behave();
+    pRikisha->behave();
     //getSeTransmitter()->behave();
 }
 

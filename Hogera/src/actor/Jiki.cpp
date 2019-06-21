@@ -1,6 +1,6 @@
 #include "Jiki.h"
 
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
@@ -59,11 +59,11 @@ void Jiki::onReset() {
 
 void Jiki::onActive() {
     getUvFlipper()->setActivePtnToTop();
-    getKuroko()->setFaceAngVelo(AXIS_Z, 1000);        //‰ñ“]
+    callRikisha()->setFaceAngVelo(AXIS_Z, 1000);        //‰ñ“]
 }
 
 void Jiki::processBehavior() {
-    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafDx::Rikisha* const pRikisha = callRikisha();
     GgafCore::Progress* const pProg = getProgress();
     VirtualButton* pVb = &(P_GOD->getSpacetime()->getWorld()->vb_);
     if (pVb->isPressed(VB_BUTTON1)) {
@@ -90,7 +90,7 @@ void Jiki::processBehavior() {
         }
     }
     getUvFlipper()->behave();
-    pKuroko->behave();
+    pRikisha->behave();
 }
 
 void Jiki::processJudgement() {

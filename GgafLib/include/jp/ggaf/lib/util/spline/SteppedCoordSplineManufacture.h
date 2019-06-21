@@ -35,11 +35,11 @@ public:
 
     /**
      * SplineLeader オブジェクトの生成 .
-     * インスタンスは SteppedCoordSplineKurokoLeader です。
-     * @param GgafDx::Trucker スプライン移動するための操作するオブジェクト
+     * インスタンスは SteppedCoordSplineRikishaLeader です。
+     * @param GgafDx::Kago スプライン移動するための操作するオブジェクト
      * @return SplineLeader オブジェクト
      */
-    SplineLeader* createKurokoLeader(GgafDx::Kuroko* prm_pKuroko) override;
+    SplineLeader* createRikishaLeader(GgafDx::Rikisha* prm_pRikisha) override;
 
     virtual ~SteppedCoordSplineManufacture();
 };

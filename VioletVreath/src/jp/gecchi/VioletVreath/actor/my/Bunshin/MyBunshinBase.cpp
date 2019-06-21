@@ -6,10 +6,10 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/ggaf/dx/actor/GeometricActor.h"
-#include "jp/ggaf/dx/actor/supporter/Trucker.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
-#include "jp/ggaf/dx/actor/supporter/KurokoFaceAngAssistant.h"
-#include "jp/ggaf/dx/actor/supporter/KurokoMvAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/Kago.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/RikishaFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/RikishaMvAngAssistant.h"
 #include "jp/ggaf/dx/util/GeoElem.h"
 #include "jp/ggaf/lib/util/Quaternion.hpp"
 #include "jp/ggaf/lib/util/Direction26Util.h"
@@ -59,9 +59,9 @@ MyBunshinBase::MyBunshinBase(const char* prm_name, unsigned int prm_no) :
     pPosTrace_ = NEW PosTrace(MyBunshinBase::BUNSHIN_D * prm_no);
     trace_mode_ = TRACE_GRADIUS;
     return_default_pos_frames_ = 0;
-    GgafDx::Trucker* const pTrucker = getTrucker();
-    pTrucker->forceVxyzMvVeloRange(-MyBunshinBase::RENGE, MyBunshinBase::RENGE);
-    pTrucker->forceVxyzMvAcceRange(-MyBunshinBase::RENGE / 30, MyBunshinBase::RENGE / 30);
+    GgafDx::Kago* const pKago = callKago();
+    pKago->forceVxyzMvVeloRange(-MyBunshinBase::RENGE, MyBunshinBase::RENGE);
+    pKago->forceVxyzMvAcceRange(-MyBunshinBase::RENGE / 30, MyBunshinBase::RENGE / 30);
 
     is_free_mode_ = false;
     is_isolate_mode_ = true;
@@ -94,7 +94,7 @@ void MyBunshinBase::config(
 
 void MyBunshinBase::initialize() {
     setScaleR(2.0);
-    getKuroko()->linkFaceAngByMvAng(true);
+    callRikisha()->linkFaceAngByMvAng(true);
 }
 
 void MyBunshinBase::onReset() {
@@ -102,7 +102,7 @@ void MyBunshinBase::onReset() {
     bunshin_radius_pos_ = bunshin_default_radius_pos_;
 
     setRollFaceAng(bunshin_default_ang_pos_);
-    getKuroko()->setRollFaceAngVelo(bunshin_default_angvelo_mv_);
+    callRikisha()->setRollFaceAngVelo(bunshin_default_angvelo_mv_);
     getProgress()->reset(PROG_INIT);
     trace_mode_ = TRACE_GRADIUS;
 }
@@ -130,12 +130,12 @@ void MyBunshinBase::onInactive() {
 }
 
 void MyBunshinBase::processBehavior() {
-    GgafDx::Kuroko* pKuroko = getKuroko();
-    GgafDx::Trucker* const pTrucker = getTrucker();
+    GgafDx::Rikisha* pRikisha = callRikisha();
+    GgafDx::Kago* const pKago = callKago();
 
     if (is_isolate_mode_) {
-        pKuroko->behave();
-        pTrucker->behave();
+        pRikisha->behave();
+        pKago->behave();
         return;
     }
     MyShip* pMyShip = pMYSHIP;
@@ -219,19 +219,19 @@ void MyBunshinBase::processBehavior() {
                 //分身フリーモード移動開始
                 pBunshin_->effectFreeModeLaunch(); //発射エフェクト
                 is_free_mode_ = true;
-                pTrucker->setZeroVxyzMvVelo();
-                pTrucker->setZeroVxyzMvAcce();
+                pKago->setZeroVxyzMvVelo();
+                pKago->setZeroVxyzMvAcce();
             }
             if (is_pressed_VB_OPTION) {
                 //分身フリーモードで移動中
                 //オプションの広がり角より、MyBunshinBaseの移動速度と、MyBunshin旋回半径増加速度にベクトル分解。
                 angvelo bunshin_angvelo_expance = pBunshin_->getExpanse();
-                pKuroko->setMvVelo(ANG_COS(bunshin_angvelo_expance) * MyBunshinBase::VELO_BUNSHIN_FREE_MV); //MyBunshinBase
+                pRikisha->setMvVelo(ANG_COS(bunshin_angvelo_expance) * MyBunshinBase::VELO_BUNSHIN_FREE_MV); //MyBunshinBase
                 pBunshin_->addRadiusPosition(ANG_SIN(bunshin_angvelo_expance) * MyBunshinBase::VELO_BUNSHIN_FREE_MV);
                 // VB_OPTION を離すまで待つ・・・
             } else {
                 //分身フリーモード、中断待機
-                pKuroko->setMvVelo(0);
+                pRikisha->setMvVelo(0);
                 pProg->change(PROG_BUNSHIN_FREE_MODE_STOP);
             }
             break;
@@ -258,24 +258,24 @@ void MyBunshinBase::processBehavior() {
                 const float cosRy = ANG_COS(_ry);
                 const float sinRz = ANG_SIN(_rz);
                 const float cosRz = ANG_COS(_rz);
-                pTrucker->setVxyzMvVelo((cosRx*-sinRz*cosRy + sinRx*sinRy)  * MyBunshinBase::VELO_BUNSHIN_FREE_MV,
+                pKago->setVxyzMvVelo((cosRx*-sinRz*cosRy + sinRx*sinRy)  * MyBunshinBase::VELO_BUNSHIN_FREE_MV,
                                         (cosRx*cosRz)                       * MyBunshinBase::VELO_BUNSHIN_FREE_MV,
                                         (cosRx*-sinRz*-sinRy + sinRx*cosRy) * MyBunshinBase::VELO_BUNSHIN_FREE_MV );
             } else if (pProg->getFrame() > 3*(no_-1)) { //ばらつかせ
-                pTrucker->setVxyzMvAcce( (tx - (_x + pTrucker->_velo_vx_mv*6)),
-                                         (ty - (_y + pTrucker->_velo_vy_mv*6)),
-                                         (tz - (_z + pTrucker->_velo_vz_mv*6)) );
+                pKago->setVxyzMvAcce( (tx - (_x + pKago->_velo_vx_mv*6)),
+                                         (ty - (_y + pKago->_velo_vy_mv*6)),
+                                         (tz - (_z + pKago->_velo_vz_mv*6)) );
             }
             if (ABS(_x - tx) < 10000 &&
                 ABS(_y - ty) < 10000 &&
                 ABS(_z - tz) < 10000 &&
-                ABS(pTrucker->_velo_vx_mv) <= MyBunshinBase::VELO_BUNSHIN_FREE_MV &&
-                ABS(pTrucker->_velo_vy_mv) <= MyBunshinBase::VELO_BUNSHIN_FREE_MV &&
-                ABS(pTrucker->_velo_vz_mv) <= MyBunshinBase::VELO_BUNSHIN_FREE_MV)
+                ABS(pKago->_velo_vx_mv) <= MyBunshinBase::VELO_BUNSHIN_FREE_MV &&
+                ABS(pKago->_velo_vy_mv) <= MyBunshinBase::VELO_BUNSHIN_FREE_MV &&
+                ABS(pKago->_velo_vz_mv) <= MyBunshinBase::VELO_BUNSHIN_FREE_MV)
             {
                 //もどった！
-                pTrucker->setZeroVxyzMvVelo();
-                pTrucker->setZeroVxyzMvAcce();
+                pKago->setZeroVxyzMvVelo();
+                pKago->setZeroVxyzMvAcce();
                 setPosition(tx, ty, tz);
                 moving_frames_since_default_pos_ = 0;
                 pProg->change(PROG_BUNSHIN_NOMAL_TRACE);
@@ -337,10 +337,10 @@ void MyBunshinBase::processBehavior() {
             trace_mode_ = TRACE_FREEZE;
             //カメラ位置によって上下左右の操作割当を変える
             const dir26 pos_up = pVAM->getPosUp();
-            const float vX = pKuroko->_vX;
-            const float vY = pKuroko->_vY;
-            const float vZ = pKuroko->_vZ;
-            bool update_updown_rot_axis_timing = (pKuroko->isTurningMvAng() || pVbPlay->isPushedDown(VB_OPTION) || pVAM->isJustChangedPosCam());
+            const float vX = pRikisha->_vX;
+            const float vY = pRikisha->_vY;
+            const float vZ = pRikisha->_vZ;
+            bool update_updown_rot_axis_timing = (pRikisha->isTurningMvAng() || pVbPlay->isPushedDown(VB_OPTION) || pVAM->isJustChangedPosCam());
 
             //LEFT RIGHT 回転軸 = pos_up = (up_sgn_x, up_sgn_y, up_sgn_z)
             float up_vx, up_vy, up_vz;
@@ -361,14 +361,14 @@ void MyBunshinBase::processBehavior() {
             if (pos_up == VAM_POS_UP) {
                 //高速
                 if (pVbPlay->isPressed(VB_LEFT)) {
-                    pKuroko->addRyMvAng(-MyBunshinBase::ANGVELO_TURN);
+                    pRikisha->addRyMvAng(-MyBunshinBase::ANGVELO_TURN);
                 } else if (pVbPlay->isPressed(VB_RIGHT)) {
-                    pKuroko->addRyMvAng(MyBunshinBase::ANGVELO_TURN);
+                    pRikisha->addRyMvAng(MyBunshinBase::ANGVELO_TURN);
                 }
                 if (pVbPlay->isPressed(VB_UP)) {
-                    pKuroko->addRzMvAng(MyBunshinBase::ANGVELO_TURN);
+                    pRikisha->addRzMvAng(MyBunshinBase::ANGVELO_TURN);
                 } else if (pVbPlay->isPressed(VB_DOWN)) {
-                    pKuroko->addRzMvAng(-MyBunshinBase::ANGVELO_TURN);
+                    pRikisha->addRzMvAng(-MyBunshinBase::ANGVELO_TURN);
                 }
             } else {
                 //重いが仕方ない
@@ -431,8 +431,8 @@ void MyBunshinBase::processBehavior() {
         }
     }
 
-    pKuroko->behave();
-    pTrucker->behave();
+    pRikisha->behave();
+    pKago->behave();
 }
 
 void MyBunshinBase::resetBunshin(int prm_mode) {
@@ -445,14 +445,14 @@ void MyBunshinBase::resetBunshin(int prm_mode) {
     }
 
     is_isolate_mode_ = false;
-    GgafDx::Kuroko* pKuroko = getKuroko();
+    GgafDx::Rikisha* pRikisha = callRikisha();
     GgafCore::Progress* const pProg = getProgress();
     //完全にデフォルト状態に元に戻ために、最低限必要なフレーム数基準値
     return_default_pos_frames_ = MyBunshinBase::BUNSHIN_D * (MyBunshinBase::MAX_BUNSHIN_NUM+1); //少しばらつかせる演出
     //エフェクト
 
     //土台がの向きが元に戻る（前方に向く）指示
-    pKuroko->asstMvAng()->turnRzRyByDtTo(D0ANG, D0ANG,
+    pRikisha->asstMvAng()->turnRzRyByDtTo(D0ANG, D0ANG,
                                          TURN_CLOSE_TO,
                                          false,
                                          return_default_pos_frames_ * delay_r_,
@@ -465,7 +465,7 @@ void MyBunshinBase::resetBunshin(int prm_mode) {
                    return_default_pos_frames_ * delay_r_
                );
     //分身の角度位置が元に戻る指示
-    pKuroko->asstFaceAng()->rollFaceAngByDtTo(
+    pRikisha->asstFaceAng()->rollFaceAngByDtTo(
                           bunshin_default_ang_pos_,
                           SGN(bunshin_default_angvelo_mv_) > 0 ? TURN_COUNTERCLOCKWISE : TURN_CLOCKWISE,
                           return_default_pos_frames_/2, //ばらつかせるとズレるので  * delay_r_ しません
@@ -500,22 +500,22 @@ void MyBunshinBase::addTurnAngleAroundAx1(float prm_ax_x, float prm_ax_y, float 
     //θ回転した後の座標は (x2, y2, z2)
     static const float p_sin_h = ANG_SIN(MyBunshinBase::ANGVELO_TURN/2);  //ANGVELO_TURN=回転させたい角度
     static const float p_cos_h = ANG_COS(MyBunshinBase::ANGVELO_TURN/2);
-    GgafDx::Kuroko* pKuroko = getKuroko();
+    GgafDx::Rikisha* pRikisha = callRikisha();
     Quaternion<float> H(p_cos_h, -prm_ax_x*p_sin_h, -prm_ax_y*p_sin_h, -prm_ax_z*p_sin_h); //R
-    H.mul(0, pKuroko->_vX, pKuroko->_vY, pKuroko->_vZ);                                   //R*P
+    H.mul(0, pRikisha->_vX, pRikisha->_vY, pRikisha->_vZ);                                   //R*P
     H.mul(p_cos_h, prm_ax_x*p_sin_h, prm_ax_y*p_sin_h, prm_ax_z*p_sin_h);                 //R*P*Q
-    pKuroko->setRzRyMvAng(H.i, H.j, H.k, true);
+    pRikisha->setRzRyMvAng(H.i, H.j, H.k, true);
 }
 
 void MyBunshinBase::addTurnAngleAroundAx2(float prm_ax_x, float prm_ax_y, float prm_ax_z) {
     static const float p_sin_h = ANG_SIN(MyBunshinBase::ANGVELO_TURN/2);  //ANGVELO_TURN=回転させたい角度
     static const float p_cos_h = ANG_COS(MyBunshinBase::ANGVELO_TURN/2);
-    GgafDx::Kuroko* pKuroko = getKuroko();
+    GgafDx::Rikisha* pRikisha = callRikisha();
     Quaternion<float> H(p_cos_h, -prm_ax_x*p_sin_h, -prm_ax_y*p_sin_h, -prm_ax_z*p_sin_h); //R
     Quaternion<float> H2 = H;
-    H.mul(0, pKuroko->_vX, pKuroko->_vY, pKuroko->_vZ);                                   //R*P
+    H.mul(0, pRikisha->_vX, pRikisha->_vY, pRikisha->_vZ);                                   //R*P
     H.mul(p_cos_h, prm_ax_x*p_sin_h, prm_ax_y*p_sin_h, prm_ax_z*p_sin_h);                 //R*P*Q
-    pKuroko->setRzRyMvAng(H.i, H.j, H.k, true);
+    pRikisha->setRzRyMvAng(H.i, H.j, H.k, true);
 
     //上下入力時の回転軸も回転させる
     H2.mul(0, c_ax_x_, c_ax_y_, c_ax_z_);                                                 //R*P

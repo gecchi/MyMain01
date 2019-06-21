@@ -1,33 +1,33 @@
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 
 #include <math.h>
 #include "jp/ggaf/dx/actor/FigureActor.h"
-#include "jp/ggaf/dx/actor/supporter/KurokoMvAssistant.h"
-#include "jp/ggaf/dx/actor/supporter/KurokoFaceAngAssistant.h"
-#include "jp/ggaf/dx/actor/supporter/KurokoMvAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/RikishaMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/RikishaFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/RikishaMvAngAssistant.h"
 #include "jp/ggaf/dx/util/Util.h"
 
 
 using namespace GgafDx;
 
-Kuroko::Kuroko(GeometricActor* prm_pActor) : GgafCore::Object(),
+Rikisha::Rikisha(GeometricActor* prm_pActor) : GgafCore::Object(),
 _pActor(prm_pActor) {
     _pAsstMv = nullptr;
     _pAsstFaceAng = nullptr;
     _pAsstMvAng = nullptr;
     reset();
 }
-KurokoMvAssistant* Kuroko::asstMv() {
-    return _pAsstMv ? _pAsstMv : _pAsstMv = NEW KurokoMvAssistant(this);
+RikishaMvAssistant* Rikisha::asstMv() {
+    return _pAsstMv ? _pAsstMv : _pAsstMv = NEW RikishaMvAssistant(this);
 }
-KurokoFaceAngAssistant* Kuroko::asstFaceAng() {
-    return _pAsstFaceAng ? _pAsstFaceAng : _pAsstFaceAng = NEW KurokoFaceAngAssistant(this);
+RikishaFaceAngAssistant* Rikisha::asstFaceAng() {
+    return _pAsstFaceAng ? _pAsstFaceAng : _pAsstFaceAng = NEW RikishaFaceAngAssistant(this);
 }
-KurokoMvAngAssistant* Kuroko::asstMvAng() {
-    return _pAsstMvAng ? _pAsstMvAng : _pAsstMvAng = NEW KurokoMvAngAssistant(this);
+RikishaMvAngAssistant* Rikisha::asstMvAng() {
+    return _pAsstMvAng ? _pAsstMvAng : _pAsstMvAng = NEW RikishaMvAngAssistant(this);
 }
 
-void Kuroko::reset() {
+void Rikisha::reset() {
     GGAF_DELETE_NULLABLE(_pAsstMv);
     GGAF_DELETE_NULLABLE(_pAsstFaceAng);
     GGAF_DELETE_NULLABLE(_pAsstMvAng);
@@ -135,7 +135,7 @@ void Kuroko::reset() {
     _taget_face_alltime_optimize_ang = true;
 }
 
-void Kuroko::behave() {
+void Rikisha::behave() {
     if (_pAsstMv) {
         _pAsstMv->behave();
     }
@@ -398,7 +398,7 @@ void Kuroko::behave() {
     _pActor->_z += (coord)(_vZ * _velo_mv);
 }
 
-void Kuroko::setFaceAngVelo(axis prm_axis, angvelo prm_angvelo) {
+void Rikisha::setFaceAngVelo(axis prm_axis, angvelo prm_angvelo) {
     if (prm_angvelo > _top_angvelo_face[prm_axis]) {
         _angvelo_face[prm_axis] = _top_angvelo_face[prm_axis];
     } else if (prm_angvelo < _bottom_angvelo_face[prm_axis]) {
@@ -408,7 +408,7 @@ void Kuroko::setFaceAngVelo(axis prm_axis, angvelo prm_angvelo) {
     }
 }
 
-void Kuroko::setRollPitchYawFaceAngVelo(angvelo prm_axis_x_angvelo,
+void Rikisha::setRollPitchYawFaceAngVelo(angvelo prm_axis_x_angvelo,
                                               angvelo prm_axis_z_angvelo,
                                               angvelo prm_axis_y_angvelo) {
     setFaceAngVelo(AXIS_X, prm_axis_x_angvelo);
@@ -416,7 +416,7 @@ void Kuroko::setRollPitchYawFaceAngVelo(angvelo prm_axis_x_angvelo,
     setFaceAngVelo(AXIS_Y, prm_axis_y_angvelo);
 }
 
-void Kuroko::forceFaceAngVeloRange(axis prm_axis,
+void Rikisha::forceFaceAngVeloRange(axis prm_axis,
                                          angvelo prm_angvelo01,
                                          angvelo prm_angvelo02) {
     if (prm_angvelo01 < prm_angvelo02) {
@@ -429,11 +429,11 @@ void Kuroko::forceFaceAngVeloRange(axis prm_axis,
     setFaceAngVelo(prm_axis, _angvelo_face[prm_axis]); //再設定して範囲内に補正
 }
 
-void Kuroko::setFaceAngAcce(axis prm_axis, angacce prm_angacce) {
+void Rikisha::setFaceAngAcce(axis prm_axis, angacce prm_angacce) {
     _angacce_face[prm_axis] = prm_angacce;
 }
 
-void Kuroko::setStopTargetFaceAngTwd(axis prm_axis,
+void Rikisha::setStopTargetFaceAngTwd(axis prm_axis,
                                            coord prm_tx,
                                            coord prm_ty,
                                            int prm_allow_way,
@@ -446,7 +446,7 @@ void Kuroko::setStopTargetFaceAngTwd(axis prm_axis,
     );
 }
 
-void Kuroko::setStopTargetFaceAng(axis prm_axis,
+void Rikisha::setStopTargetFaceAng(axis prm_axis,
                                         angle prm_target,
                                         int prm_allow_way,
                                         angvelo prm_allow_angvelo) {
@@ -457,22 +457,22 @@ void Kuroko::setStopTargetFaceAng(axis prm_axis,
     _face_stop_allow_angvelo[prm_axis] = prm_allow_angvelo;
 }
 
-angle Kuroko::getFaceAngDistance(axis prm_axis, coord prm_tx, coord prm_ty, int prm_way) {
+angle Rikisha::getFaceAngDistance(axis prm_axis, coord prm_tx, coord prm_ty, int prm_way) {
     return getFaceAngDistance(
                prm_axis,
                UTIL::getAngle2D(prm_tx-(_pActor->_x), prm_ty-(_pActor->_y)),
                prm_way);
 }
 
-angle Kuroko::getFaceAngDistance(axis prm_axis, angle prm_target, int prm_way) {
+angle Rikisha::getFaceAngDistance(axis prm_axis, angle prm_target, int prm_way) {
     return UTIL::getAngDiff( (*(_actor_face[prm_axis])),  prm_target, prm_way);
 }
 
-void Kuroko::forceMvVeloRange(velo prm_velo) {
+void Rikisha::forceMvVeloRange(velo prm_velo) {
     forceMvVeloRange(-prm_velo, prm_velo);
 }
 
-void Kuroko::forceMvVeloRange(velo prm_velo_mv01, velo prm_velo_mv02) {
+void Rikisha::forceMvVeloRange(velo prm_velo_mv01, velo prm_velo_mv02) {
     if (prm_velo_mv01 < prm_velo_mv02) {
         _top_velo_mv = prm_velo_mv02;
         _bottom_velo_mv = prm_velo_mv01;
@@ -483,7 +483,7 @@ void Kuroko::forceMvVeloRange(velo prm_velo_mv01, velo prm_velo_mv02) {
     setMvVelo(_velo_mv); //再設定して範囲内に補正
 }
 
-void Kuroko::setMvVelo(velo prm_velo_mv) {
+void Rikisha::setMvVelo(velo prm_velo_mv) {
     if (prm_velo_mv > _top_velo_mv) {
         _velo_mv = _top_velo_mv;
     } else if (prm_velo_mv < _bottom_velo_mv) {
@@ -493,15 +493,15 @@ void Kuroko::setMvVelo(velo prm_velo_mv) {
     }
 }
 
-void Kuroko::addMvVelo(velo prm_velo_mv_Offset) {
+void Rikisha::addMvVelo(velo prm_velo_mv_Offset) {
     setMvVelo(_velo_mv + prm_velo_mv_Offset);
 }
 
-void Kuroko::setMvAcce(int prm_acceMove) {
+void Rikisha::setMvAcce(int prm_acceMove) {
     _acc_mv = prm_acceMove;
 }
 
-frame Kuroko::setMvAcceToStop(coord prm_target_distance) {
+frame Rikisha::setMvAcceToStop(coord prm_target_distance) {
     double acc = UTIL::getAcceToStop(prm_target_distance, _velo_mv);
     if (acc > 0.0) {
         acc += 0.5;
@@ -512,7 +512,7 @@ frame Kuroko::setMvAcceToStop(coord prm_target_distance) {
     return (frame)((2.0*prm_target_distance) / _velo_mv); //使用フレーム数
 }
 
-frame Kuroko::setFaceAngAcceToStop(axis prm_axis, angle prm_target_distance) {
+frame Rikisha::setFaceAngAcceToStop(axis prm_axis, angle prm_target_distance) {
     double acc = UTIL::getAcceToStop(prm_target_distance, _angvelo_face[prm_axis]);
     if (acc > 0.0) {
         acc += 0.5;
@@ -523,7 +523,7 @@ frame Kuroko::setFaceAngAcceToStop(axis prm_axis, angle prm_target_distance) {
     return (frame)((2.0*prm_target_distance) / _angvelo_face[prm_axis]); //使用フレーム数
 }
 
-frame Kuroko::setMvAcceByD(coord prm_target_distance, velo prm_target_velo) {
+frame Rikisha::setMvAcceByD(coord prm_target_distance, velo prm_target_velo) {
     double acc = UTIL::getAcceByVd(_velo_mv, prm_target_velo, prm_target_distance);
     if (acc > 0.0) {
         acc += 0.5;
@@ -533,7 +533,7 @@ frame Kuroko::setMvAcceByD(coord prm_target_distance, velo prm_target_velo) {
     _acc_mv = acc;
     return (frame)((1.0*prm_target_velo - _velo_mv) / acc); //使用フレーム数
 }
-frame Kuroko::setFaceAngAcceByD(axis prm_axis, angle prm_target_distance, angvelo prm_target_angvelo) {
+frame Rikisha::setFaceAngAcceByD(axis prm_axis, angle prm_target_distance, angvelo prm_target_angvelo) {
     double acc = UTIL::getAcceByVd(prm_target_angvelo, prm_target_distance, _angvelo_face[prm_axis]);
     if (acc > 0.0) {
         acc += 0.5;
@@ -595,7 +595,7 @@ frame Kuroko::setFaceAngAcceByD(axis prm_axis, angle prm_target_distance, angvel
     //    結局 a = (Vt^2 - V0^2) / 2D となるので
     //    V0 <= 0  かつ  Vt <= 0 場合、あるいは  V0 >= 0  かつ  Vt >= 0  場合と同じである
 
-coord Kuroko::setMvAcceByT(frame prm_target_frames, velo prm_target_velo) {
+coord Rikisha::setMvAcceByT(frame prm_target_frames, velo prm_target_velo) {
     double acc = UTIL::getAcceByTv(prm_target_frames, _velo_mv, prm_target_velo);
     if (acc > 0.0) {
         acc += 0.5;
@@ -606,7 +606,7 @@ coord Kuroko::setMvAcceByT(frame prm_target_frames, velo prm_target_velo) {
     //  D = (1/2) (Vo + Vt) Te
     return ((_velo_mv + prm_target_velo) * prm_target_frames) / 2 ;
 }
-angle Kuroko::setFaceAngAcceByT(axis prm_axis, frame prm_target_frames, angvelo prm_target_angvelo) {
+angle Rikisha::setFaceAngAcceByT(axis prm_axis, frame prm_target_frames, angvelo prm_target_angvelo) {
     double acc = UTIL::getAcceByTv(prm_target_frames, _angvelo_face[prm_axis], prm_target_angvelo);
     if (acc > 0.0) {
         acc += 0.5;
@@ -618,7 +618,7 @@ angle Kuroko::setFaceAngAcceByT(axis prm_axis, frame prm_target_frames, angvelo 
     return ((_angvelo_face[prm_axis] + prm_target_angvelo) * prm_target_frames) / 2 ;
 }
 
-void Kuroko::setRzMvAng(angle prm_ang) {
+void Rikisha::setRzMvAng(angle prm_ang) {
     if (prm_ang !=  _rz_mv) {
         _rz_mv = UTIL::simplifyAng(prm_ang);
         UTIL::convRzRyToVector(_rz_mv, _ry_mv, _vX, _vY, _vZ);
@@ -628,7 +628,7 @@ void Kuroko::setRzMvAng(angle prm_ang) {
     }
 }
 
-void Kuroko::addRzMvAng(angle prm_ang) {
+void Rikisha::addRzMvAng(angle prm_ang) {
     angle ang_offset = prm_ang;
     if (_bottom_angvelo_rz_mv > prm_ang) {
         ang_offset = _bottom_angvelo_rz_mv;
@@ -638,7 +638,7 @@ void Kuroko::addRzMvAng(angle prm_ang) {
     setRzMvAng(_rz_mv + ang_offset);
 }
 
-void Kuroko::setRzMvAngVelo(angvelo prm_angvelo_rz_mv) {
+void Rikisha::setRzMvAngVelo(angvelo prm_angvelo_rz_mv) {
     if (prm_angvelo_rz_mv > _top_angvelo_rz_mv) {
         _angvelo_rz_mv = _top_angvelo_rz_mv;
     } else if (prm_angvelo_rz_mv < _bottom_angvelo_rz_mv) {
@@ -648,11 +648,11 @@ void Kuroko::setRzMvAngVelo(angvelo prm_angvelo_rz_mv) {
     }
 }
 
-void Kuroko::setRzMvAngAcce(angacce prm_angacce_rz_mv) {
+void Rikisha::setRzMvAngAcce(angacce prm_angacce_rz_mv) {
     _angacce_rz_mv = prm_angacce_rz_mv;
 }
 
-void Kuroko::forceRzMvAngVeloRange(angvelo prm_angvelo_rz_mv01,
+void Rikisha::forceRzMvAngVeloRange(angvelo prm_angvelo_rz_mv01,
                                          angvelo prm_angvelo_rz_mv02) {
     if (prm_angvelo_rz_mv01 < prm_angvelo_rz_mv02) {
         _top_angvelo_rz_mv = prm_angvelo_rz_mv02;
@@ -664,7 +664,7 @@ void Kuroko::forceRzMvAngVeloRange(angvelo prm_angvelo_rz_mv01,
     setRzMvAngVelo(_angvelo_rz_mv); //再設定して範囲内に補正
 }
 
-void Kuroko::setStopTargetRzMvAng(angle prm_target_rz_mv,
+void Rikisha::setStopTargetRzMvAng(angle prm_target_rz_mv,
                                   int prm_allow_way,
                                   angvelo prm_allow_angvelo) {
     _is_targeting_rz_mv = true;
@@ -674,20 +674,20 @@ void Kuroko::setStopTargetRzMvAng(angle prm_target_rz_mv,
     _rz_mv_stop_allow_angvelo = prm_allow_angvelo;
 }
 
-angle Kuroko::getRzMvAngDistanceTwd(coord prm_tx, coord prm_ty, int prm_way) {
+angle Rikisha::getRzMvAngDistanceTwd(coord prm_tx, coord prm_ty, int prm_way) {
     return getRzMvAngDistance(UTIL::getAngle2D(prm_tx - (_pActor->_x), prm_ty - (_pActor->_y)), prm_way);
 }
 
-angle Kuroko::getRzMvAngDistance(angle prm_target_rz_mv, int prm_way) {
+angle Rikisha::getRzMvAngDistance(angle prm_target_rz_mv, int prm_way) {
     return UTIL::getAngDiff(_rz_mv, prm_target_rz_mv, prm_way);
 }
 
 
-//void Kuroko::setRyMvAngTwd(coord prm_tx, coord prm_ty) {
+//void Rikisha::setRyMvAngTwd(coord prm_tx, coord prm_ty) {
 //    setRyMvAng(UTIL::getAngle2D(prm_tx - (_pActor->_x), prm_ty - (_pActor->_y)));
 //}
 
-void Kuroko::setRyMvAng(angle prm_ang) {
+void Rikisha::setRyMvAng(angle prm_ang) {
     if (prm_ang != _ry_mv) {
         _ry_mv = UTIL::simplifyAng(prm_ang);
         UTIL::convRzRyToVector(_rz_mv, _ry_mv, _vX, _vY, _vZ);
@@ -697,7 +697,7 @@ void Kuroko::setRyMvAng(angle prm_ang) {
     }
 }
 
-void Kuroko::addRyMvAng(angle prm_ang) {
+void Rikisha::addRyMvAng(angle prm_ang) {
     angle ang_offset = prm_ang;
     if (_bottom_angvelo_ry_mv > prm_ang) {
         ang_offset = _bottom_angvelo_ry_mv;
@@ -707,7 +707,7 @@ void Kuroko::addRyMvAng(angle prm_ang) {
     setRyMvAng(_ry_mv + ang_offset);
 }
 
-void Kuroko::setRyMvAngVelo(angvelo prm_angvelo_ry_mv) {
+void Rikisha::setRyMvAngVelo(angvelo prm_angvelo_ry_mv) {
     if (prm_angvelo_ry_mv > _top_angvelo_ry_mv) {
         _angvelo_ry_mv = _top_angvelo_ry_mv;
     } else if (prm_angvelo_ry_mv < _bottom_angvelo_ry_mv) {
@@ -717,11 +717,11 @@ void Kuroko::setRyMvAngVelo(angvelo prm_angvelo_ry_mv) {
     }
 }
 
-void Kuroko::setRyMvAngAcce(angacce prm_angacce_ry_mv) {
+void Rikisha::setRyMvAngAcce(angacce prm_angacce_ry_mv) {
     _angacce_ry_mv = prm_angacce_ry_mv;
 }
 
-void Kuroko::forceRyMvAngVeloRange(angvelo prm_angvelo_ry_mv01,
+void Rikisha::forceRyMvAngVeloRange(angvelo prm_angvelo_ry_mv01,
                                          angvelo prm_angvelo_ry_mv02) {
     if (prm_angvelo_ry_mv01 < prm_angvelo_ry_mv02) {
         _top_angvelo_ry_mv = prm_angvelo_ry_mv02;
@@ -733,7 +733,7 @@ void Kuroko::forceRyMvAngVeloRange(angvelo prm_angvelo_ry_mv01,
     setRyMvAngVelo(_angvelo_ry_mv); //再設定して範囲内に補正
 }
 
-void Kuroko::forceRzRyMvAngVeloRange(angvelo prm_angvelo_rzry_mv01, angvelo prm_angvelo_rzry_mv02) {
+void Rikisha::forceRzRyMvAngVeloRange(angvelo prm_angvelo_rzry_mv01, angvelo prm_angvelo_rzry_mv02) {
     if (prm_angvelo_rzry_mv01 < prm_angvelo_rzry_mv02) {
         _top_angvelo_rz_mv = prm_angvelo_rzry_mv02;
         _bottom_angvelo_rz_mv = prm_angvelo_rzry_mv01;
@@ -749,12 +749,12 @@ void Kuroko::forceRzRyMvAngVeloRange(angvelo prm_angvelo_rzry_mv01, angvelo prm_
     setRyMvAngVelo(_angvelo_ry_mv); //再設定して範囲内に補正
 }
 
-void Kuroko::setRzRyMvAngAcce(angacce prm_angacce_rz_mv, angacce prm_angacce_ry_mv) {
+void Rikisha::setRzRyMvAngAcce(angacce prm_angacce_rz_mv, angacce prm_angacce_ry_mv) {
     _angacce_rz_mv = prm_angacce_rz_mv;
     _angacce_ry_mv = prm_angacce_ry_mv;
 }
 
-void Kuroko::setRzRyMvAngVelo(angvelo prm_angvelo_rz_mv, angvelo prm_angvelo_ry_mv) {
+void Rikisha::setRzRyMvAngVelo(angvelo prm_angvelo_rz_mv, angvelo prm_angvelo_ry_mv) {
     if (prm_angvelo_rz_mv > _top_angvelo_rz_mv) {
         _angvelo_rz_mv = _top_angvelo_rz_mv;
     } else if (prm_angvelo_rz_mv < _bottom_angvelo_rz_mv) {
@@ -771,7 +771,7 @@ void Kuroko::setRzRyMvAngVelo(angvelo prm_angvelo_rz_mv, angvelo prm_angvelo_ry_
     }
 }
 
-void Kuroko::setStopTargetRyMvAng(angle prm_target_ry_mv,
+void Rikisha::setStopTargetRyMvAng(angle prm_target_ry_mv,
                                         int prm_allow_way,
                                         angvelo prm_allow_angvelo) {
     _is_targeting_ry_mv = true;
@@ -781,15 +781,15 @@ void Kuroko::setStopTargetRyMvAng(angle prm_target_ry_mv,
     _ry_mv_stop_allow_angvelo = prm_allow_angvelo;
 }
 
-angle Kuroko::getRyMvAngDistanceTwd(coord prm_tx, coord prm_ty, int prm_way) {
+angle Rikisha::getRyMvAngDistanceTwd(coord prm_tx, coord prm_ty, int prm_way) {
     return getRyMvAngDistance(UTIL::getAngle2D(prm_tx - (_pActor->_x), prm_ty - (_pActor->_y)), prm_way);
 }
 
-angle Kuroko::getRyMvAngDistance(angle prm_target_ry_mv, int prm_way) {
+angle Rikisha::getRyMvAngDistance(angle prm_target_ry_mv, int prm_way) {
     return UTIL::getAngDiff(_ry_mv, prm_target_ry_mv, prm_way);
 }
 
-void Kuroko::getRzRyMvAngDistanceTwd(angle prm_target_rz, angle prm_target_ry, int prm_way,
+void Rikisha::getRzRyMvAngDistanceTwd(angle prm_target_rz, angle prm_target_ry, int prm_way,
                                            angle& out_d_rz, angle& out_d_ry) {
     angle target_rz = UTIL::simplifyAng(prm_target_rz);
     angle target_ry = UTIL::simplifyAng(prm_target_ry);
@@ -820,7 +820,7 @@ void Kuroko::getRzRyMvAngDistanceTwd(angle prm_target_rz, angle prm_target_ry, i
     }
 }
 
-void Kuroko::getRzRyFaceAngDistanceTwd(angle prm_target_rz, angle prm_target_ry,int prm_way,
+void Rikisha::getRzRyFaceAngDistanceTwd(angle prm_target_rz, angle prm_target_ry,int prm_way,
                                              angle& out_d_rz, angle& out_d_ry) {
     angle target_rz = UTIL::simplifyAng(prm_target_rz);
     angle target_ry = UTIL::simplifyAng(prm_target_ry);
@@ -851,7 +851,7 @@ void Kuroko::getRzRyFaceAngDistanceTwd(angle prm_target_rz, angle prm_target_ry,
     }
 }
 
-void Kuroko::setRzRyMvAng(angle prm_rz, angle prm_ry) {
+void Rikisha::setRzRyMvAng(angle prm_rz, angle prm_ry) {
     if (prm_rz != _rz_mv || prm_ry !=_ry_mv ) {
         _rz_mv = UTIL::simplifyAng(prm_rz);
         _ry_mv = UTIL::simplifyAng(prm_ry);
@@ -865,7 +865,7 @@ void Kuroko::setRzRyMvAng(angle prm_rz, angle prm_ry) {
     }
 }
 
-void Kuroko::setRzRyMvAng(dxcoord prm_vx, dxcoord prm_vy, dxcoord prm_vz, bool prm_opt) {
+void Rikisha::setRzRyMvAng(dxcoord prm_vx, dxcoord prm_vy, dxcoord prm_vz, bool prm_opt) {
     if (prm_opt) {
         angle rz_mv1, ry_mv1;
         UTIL::convVectorToRzRy(prm_vx, prm_vy, prm_vz,
@@ -901,7 +901,7 @@ void Kuroko::setRzRyMvAng(dxcoord prm_vx, dxcoord prm_vy, dxcoord prm_vz, bool p
     }
 }
 
-void Kuroko::setRzRyMvAng_by_RyRz(angle prm_ryRz_Ry, angle prm_ryRz_Rz) {
+void Rikisha::setRzRyMvAng_by_RyRz(angle prm_ryRz_Ry, angle prm_ryRz_Rz) {
     angle RyRz_Ry = UTIL::simplifyAng(prm_ryRz_Ry);
     angle RyRz_Rz = UTIL::simplifyAng(prm_ryRz_Rz);
     float out_vY, out_vZ;
@@ -918,7 +918,7 @@ void Kuroko::setRzRyMvAng_by_RyRz(angle prm_ryRz_Ry, angle prm_ryRz_Rz) {
 }
 
 
-void Kuroko::setMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz) {
+void Rikisha::setMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz) {
     coord vx = prm_tx - _pActor->_x;
     coord vy = prm_ty - _pActor->_y;
     coord vz = prm_tz - _pActor->_z;
@@ -938,7 +938,7 @@ void Kuroko::setMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz) {
     }
 }
 
-void Kuroko::reverseMvAng() {
+void Rikisha::reverseMvAng() {
     _vX = -_vX;
     _vY = -_vY;
     _vZ = -_vZ;
@@ -948,7 +948,7 @@ void Kuroko::reverseMvAng() {
     }
 }
 
-void Kuroko::setStopTargetMvAngTwd(const GeometricActor* prm_pActor_target) {
+void Rikisha::setStopTargetMvAngTwd(const GeometricActor* prm_pActor_target) {
     setStopTargetMvAngTwd(
         prm_pActor_target->_x,
         prm_pActor_target->_y,
@@ -956,7 +956,7 @@ void Kuroko::setStopTargetMvAngTwd(const GeometricActor* prm_pActor_target) {
     );
 }
 
-void Kuroko::setStopTargetMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz) {
+void Rikisha::setStopTargetMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz) {
     coord vx = prm_tx - _pActor->_x;
     coord vy = prm_ty - _pActor->_y;
     coord vz = prm_tz - _pActor->_z;
@@ -971,7 +971,7 @@ void Kuroko::setStopTargetMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz) {
     }
 }
 
-void Kuroko::turnRzRyFaceAngTo(angle prm_rz_target, angle prm_ry_target,
+void Rikisha::turnRzRyFaceAngTo(angle prm_rz_target, angle prm_ry_target,
                                      angvelo prm_angvelo, angacce prm_angacce,
                                      int prm_way, bool prm_optimize_ang) {
     angle out_d_rz;
@@ -1067,7 +1067,7 @@ void Kuroko::turnRzRyFaceAngTo(angle prm_rz_target, angle prm_ry_target,
     _taget_face_alltime_flg = false;
 }
 
-void Kuroko::turnFaceAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
+void Rikisha::turnFaceAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
                             angvelo prm_angvelo, angacce prm_angacce,
                             int prm_way, bool prm_optimize_ang) {
     coord vx = prm_tx - _pActor->_x;
@@ -1088,7 +1088,7 @@ void Kuroko::turnFaceAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
 }
 
 
-void Kuroko::turnFaceAng(axis prm_axis,
+void Rikisha::turnFaceAng(axis prm_axis,
                          angle prm_distance,
                          angvelo prm_angvelo, angacce prm_angacce) {
     int s = SGN(prm_distance);
@@ -1100,7 +1100,7 @@ void Kuroko::turnFaceAng(axis prm_axis,
 }
 
 
-void Kuroko::turnRzFaceAngTo(angle prm_rz_target,
+void Rikisha::turnRzFaceAngTo(angle prm_rz_target,
                              angvelo prm_angvelo, angacce prm_angacce,
                              int prm_way) {
     if (getFaceAngDistance(AXIS_Z, prm_rz_target, prm_way) > 0) {
@@ -1115,7 +1115,7 @@ void Kuroko::turnRzFaceAngTo(angle prm_rz_target,
     _taget_face_alltime_flg = false;
 }
 
-void Kuroko::turnRyFaceAngTo(angle prm_ry_target,
+void Rikisha::turnRyFaceAngTo(angle prm_ry_target,
                                    angvelo prm_angvelo, angacce prm_angacce,
                                    int prm_way) {
     if (getFaceAngDistance(AXIS_Y, prm_ry_target, prm_way) > 0) {
@@ -1130,7 +1130,7 @@ void Kuroko::turnRyFaceAngTo(angle prm_ry_target,
     _taget_face_alltime_flg = false;
 }
 
-void Kuroko::rollFaceAngTo(angle prm_rx_target,
+void Rikisha::rollFaceAngTo(angle prm_rx_target,
                            angvelo prm_angvelo, angacce prm_angacce,
                            int prm_way) {
     if (getFaceAngDistance(AXIS_X, prm_rx_target, prm_way) > 0) {
@@ -1143,7 +1143,7 @@ void Kuroko::rollFaceAngTo(angle prm_rx_target,
     setStopTargetFaceAng(AXIS_X, prm_rx_target);
 }
 
-void Kuroko::turnRzRyMvAngTo(angle prm_rz_target, angle prm_ry_target,
+void Rikisha::turnRzRyMvAngTo(angle prm_rz_target, angle prm_ry_target,
                              angvelo prm_angvelo, angacce prm_angacce,
                              int prm_way, bool prm_optimize_ang) {
     angle out_d_rz;
@@ -1232,7 +1232,7 @@ void Kuroko::turnRzRyMvAngTo(angle prm_rz_target, angle prm_ry_target,
     setStopTargetRyMvAng(prm_ry_target);
 }
 
-void Kuroko::turnMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
+void Rikisha::turnMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
                           angvelo prm_angvelo, angacce prm_angacce,
                           int prm_way, bool prm_optimize_ang) {
     coord vx = prm_tx - _pActor->_x;
@@ -1252,7 +1252,7 @@ void Kuroko::turnMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
     }
 }
 
-void Kuroko::turnRzMvAng(angle prm_rz_distance,
+void Rikisha::turnRzMvAng(angle prm_rz_distance,
                          angvelo prm_angvelo, angacce prm_angacce) {
     int s = SGN(prm_rz_distance);
     setRzMvAngVelo(ABS(prm_angvelo) * s);
@@ -1260,7 +1260,7 @@ void Kuroko::turnRzMvAng(angle prm_rz_distance,
     setStopTargetRzMvAng(_rz_mv+prm_rz_distance);
 }
 
-void Kuroko::turnRyMvAng(angle prm_ry_distance,
+void Rikisha::turnRyMvAng(angle prm_ry_distance,
                          angvelo prm_angvelo, angacce prm_angacce) {
     int s = SGN(prm_ry_distance);
     setRyMvAngVelo(ABS(prm_angvelo) * s);
@@ -1268,7 +1268,7 @@ void Kuroko::turnRyMvAng(angle prm_ry_distance,
     setStopTargetRyMvAng(_ry_mv+prm_ry_distance);
 }
 
-void Kuroko::turnRzMvAngTo(angle prm_rz_target,
+void Rikisha::turnRzMvAngTo(angle prm_rz_target,
                            angvelo prm_angvelo, angacce prm_angacce,
                            int prm_way) {
     if (getRzMvAngDistance(prm_rz_target, prm_way) > 0) {
@@ -1281,7 +1281,7 @@ void Kuroko::turnRzMvAngTo(angle prm_rz_target,
     setStopTargetRzMvAng(prm_rz_target);
 }
 
-void Kuroko::turnRyMvAngTo(angle prm_ry_target,
+void Rikisha::turnRyMvAngTo(angle prm_ry_target,
                            angvelo prm_angvelo, angacce prm_angacce,
                            int prm_way) {
     if (getRyMvAngDistance(prm_ry_target, prm_way) > 0) {
@@ -1294,28 +1294,28 @@ void Kuroko::turnRyMvAngTo(angle prm_ry_target,
     setStopTargetRyMvAng(prm_ry_target);
 }
 
-void Kuroko::takeoverMvFrom(Kuroko* const prm_pKuroko) {
+void Rikisha::takeoverMvFrom(Rikisha* const prm_pRikisha) {
     // キャラの移動方角単位ベクトル
-    _vX = prm_pKuroko->_vX;
-    _vY = prm_pKuroko->_vY;
-    _vZ = prm_pKuroko->_vZ;
+    _vX = prm_pRikisha->_vX;
+    _vY = prm_pRikisha->_vY;
+    _vZ = prm_pRikisha->_vZ;
     // 移動方角のZ軸回転角
-    _rz_mv = prm_pKuroko->_rz_mv;
+    _rz_mv = prm_pRikisha->_rz_mv;
     // 移動方角のY軸回転角
-    _ry_mv = prm_pKuroko->_ry_mv;
+    _ry_mv = prm_pRikisha->_ry_mv;
     // 移動速度
-    _velo_mv = prm_pKuroko->_velo_mv;
+    _velo_mv = prm_pRikisha->_velo_mv;
     // 移動速度上限
-    _top_velo_mv = prm_pKuroko->_top_velo_mv;
+    _top_velo_mv = prm_pRikisha->_top_velo_mv;
     // 移動速度下限
-    _bottom_velo_mv = prm_pKuroko->_bottom_velo_mv;
+    _bottom_velo_mv = prm_pRikisha->_bottom_velo_mv;
     // 移動加速度
-    _acc_mv = prm_pKuroko->_acc_mv;
+    _acc_mv = prm_pRikisha->_acc_mv;
     // 移動躍度
-    //_jerkMv = prm_pKuroko->_jerkMv;
+    //_jerkMv = prm_pRikisha->_jerkMv;
 }
 
-void Kuroko::stopTurningMvAng() {
+void Rikisha::stopTurningMvAng() {
     _is_targeting_rz_mv = false;
     _rz_mv_targeting_stop_flg = false;
     _is_targeting_ry_mv = false;
@@ -1327,7 +1327,7 @@ void Kuroko::stopTurningMvAng() {
     setRzRyMvAngAcce(0, 0);
 }
 
-void Kuroko::stopTurningFaceAng() {
+void Rikisha::stopTurningFaceAng() {
     _is_targeting_face[AXIS_X] = false;
     _is_targeting_face[AXIS_Y] = false;
     _is_targeting_face[AXIS_Z] = false;
@@ -1342,7 +1342,7 @@ void Kuroko::stopTurningFaceAng() {
     setFaceAngAcce(AXIS_Y, 0);
 }
 
-bool Kuroko::isTurningFaceAng() const {
+bool Rikisha::isTurningFaceAng() const {
     if (_is_targeting_face[AXIS_X] ||
         _is_targeting_face[AXIS_Y] ||
         _is_targeting_face[AXIS_Z] ) {
@@ -1357,7 +1357,7 @@ bool Kuroko::isTurningFaceAng() const {
     }
 }
 
-bool Kuroko::isTurningMvAng() const {
+bool Rikisha::isTurningMvAng() const {
     if (_is_targeting_rz_mv || _is_targeting_ry_mv) {
         return true;
     } else {
@@ -1369,7 +1369,7 @@ bool Kuroko::isTurningMvAng() const {
     }
 }
 
-void Kuroko::stopMv() {
+void Rikisha::stopMv() {
    setMvAcce(0);
    setMvVelo(0);
    if (_pAsstMv) {
@@ -1377,7 +1377,7 @@ void Kuroko::stopMv() {
    }
 }
 
-Kuroko::~Kuroko() {
+Rikisha::~Rikisha() {
     GGAF_DELETE_NULLABLE(_pAsstMv);
     GGAF_DELETE_NULLABLE(_pAsstFaceAng);
     GGAF_DELETE_NULLABLE(_pAsstMvAng);
@@ -1488,7 +1488,7 @@ Kuroko::~Kuroko() {
 // 上記の移動体系とはまったく別に、独立して X軸、Y軸、Z軸に平行な移動指定ができる。
 // 「X軸方向移動速度」「Y軸方向移動速度」「Z軸方向移動速度」を設定すると、毎フレーム(_x,_y,_z)にそれぞれの移動増分が
 // 加算される。
-// （※→この機能は Trucker に集約され独立したクラスとなりました！）
+// （※→この機能は Kago に集約され独立したクラスとなりました！）
 
 //2010/02/19追記
 // ※たまに「RyRz」という表現が存在する（「RzRy」と異なる）が、これは「Y軸回転 → Z軸回転の順番の移動方角」を表しているので注意。
@@ -1501,5 +1501,5 @@ Kuroko::~Kuroko() {
 //TODO:
 //躍度（加加速度）の追加
 //任意軸回転（クォータニオン）
-//クラスの肥大化 → 平行移動支援を作った
+//クラスの肥大化 → 駕籠(平行移動支援)を作った
 //【メモ】を纏める

@@ -28,13 +28,13 @@ void FormationThagoras001::processBehavior() {
 
 void FormationThagoras001::onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) {
     EnemyThagoras* pThagoras = (EnemyThagoras*)prm_pActor;
-    if (pThagoras->pKurokoLeader_) {
-        throwCriticalException("pThagoras->pKurokoLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpThagoras="<<pThagoras<<"("<<pThagoras->getName()<<")");
+    if (pThagoras->pRikishaLeader_) {
+        throwCriticalException("pThagoras->pRikishaLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpThagoras="<<pThagoras<<"("<<pThagoras->getName()<<")");
     } else {
-        pThagoras->pKurokoLeader_ = papSplManufConn_[prm_col]->peek()->
-                                      createKurokoLeader(pThagoras->getKuroko());
+        pThagoras->pRikishaLeader_ = papSplManufConn_[prm_col]->peek()->
+                                      createRikishaLeader(pThagoras->callRikisha());
     }
-    pThagoras->pKurokoLeader_->setStartPosition(entry_pos_.x                      ,
+    pThagoras->pRikishaLeader_->setStartPosition(entry_pos_.x                      ,
                                                 entry_pos_.y + (prm_col*PX_C(30)) ,
                                                 entry_pos_.z                       );
 

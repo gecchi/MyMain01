@@ -10,7 +10,7 @@ class EnemyStraeaLaserChip004 : public VvEnemyActor<GgafLib::HomingLaserChip> {
 
 public:
     GgafLib::SplineManufactureConnection* pConn_pSplManuf_;
-    GgafLib::SplineLeader* pKurokoLeader_;
+    GgafLib::SplineLeader* pRikishaLeader_;
 //    static GgafDx::TextureConnection* pTexCon1_;
 //    static GgafDx::TextureConnection* pTexCon2_;
 

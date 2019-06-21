@@ -13,14 +13,14 @@ FormationUnomia001b::FormationUnomia001b(const char* prm_name) : FormationUnomia
 }
 
 void FormationUnomia001b::onCallUpUnomia(EnemyUnomia* pEnemyUnomia, int col) {
-//    pEnemyUnomia->pKurokoLeader_->adjustAxisRate(
+//    pEnemyUnomia->pRikishaLeader_->adjustAxisRate(
 //                                        MyShip::lim_x_infront_, //X•ûŒü”{—¦
 //                                       -1.0 * MyShip::lim_y_top_,   //Y•ûŒü”{—¦
 //                                        MyShip::lim_z_left_  //Z•ûŒü”{—¦
 //                                    );
-    pEnemyUnomia->pKurokoLeader_->adjustCoordOffset(PX_C(col*50), PX_C(col*50), PX_C(col*50));
-    pEnemyUnomia->pKurokoLeader_->adjustAxisYFlip();
-    pEnemyUnomia->pKurokoLeader_->setAbsoluteBeginCoord();
+    pEnemyUnomia->pRikishaLeader_->adjustCoordOffset(PX_C(col*50), PX_C(col*50), PX_C(col*50));
+    pEnemyUnomia->pRikishaLeader_->adjustAxisYFlip();
+    pEnemyUnomia->pRikishaLeader_->setAbsoluteBeginCoord();
 }
 
 FormationUnomia001b::~FormationUnomia001b() {

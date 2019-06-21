@@ -1,7 +1,7 @@
 #include "EnemyStraeaLaserChip001.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
@@ -27,32 +27,32 @@ void EnemyStraeaLaserChip001::onActive() {
     HomingLaserChip::onActive();
     //ステータスリセット
     getStatus()->reset();
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->setMvVelo(10000);
-    pKuroko->setMvAcce(400);
-    pKuroko->linkFaceAngByMvAng(true);
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->setMvVelo(10000);
+    pRikisha->setMvAcce(400);
+    pRikisha->linkFaceAngByMvAng(true);
 }
 
 void EnemyStraeaLaserChip001::processBehaviorHeadChip() {
-    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafDx::Rikisha* const pRikisha = callRikisha();
     if (getActiveFrame() == 40) {
-        pKuroko->turnMvAngTwd(pMYSHIP,
+        pRikisha->turnMvAngTwd(pMYSHIP,
                               7000, 0,
                               TURN_ANTICLOSE_TO, false);
     }
-    if (!pKuroko->isTurningMvAng()) {
-        pKuroko->turnMvAngTwd(pMYSHIP,
+    if (!pRikisha->isTurningMvAng()) {
+        pRikisha->turnMvAngTwd(pMYSHIP,
                               100, 0,
                               TURN_CLOSE_TO, false);
     }
 //
 //    if (frame_of_behaving_from_onActive_ == 35) {
-//        pKuroko->turnMvAngTwd(
+//        pRikisha->turnMvAngTwd(
 //                    pMYSHIP,
 //                    20000, TURN_ANTICLOSE_TO);
 //    }
 
-    pKuroko->behave();
+    pRikisha->behave();
 }
 
 void EnemyStraeaLaserChip001::processJudgement() {

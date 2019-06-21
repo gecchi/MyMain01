@@ -1,6 +1,6 @@
 #include "FormationUrydike001.h"
 
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 #include "jp/ggaf/lib/util/spline/SplineManufacture.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -34,13 +34,13 @@ void FormationUrydike001::processBehavior() {
 
 void FormationUrydike001::onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) {
     EnemyUrydike* pUrydike = (EnemyUrydike*)prm_pActor;
-    if (pUrydike->pKurokoLeader_) {
-        throwCriticalException("pUrydike->pKurokoLeader_が設定されてます。pUrydike="<<pUrydike<<"("<<pUrydike->getName()<<")");
+    if (pUrydike->pRikishaLeader_) {
+        throwCriticalException("pUrydike->pRikishaLeader_が設定されてます。pUrydike="<<pUrydike<<"("<<pUrydike->getName()<<")");
     } else {
-        pUrydike->pKurokoLeader_ = papSplManufConn_[prm_col]->peek()->
-                                     createKurokoLeader(pUrydike->getKuroko());
+        pUrydike->pRikishaLeader_ = papSplManufConn_[prm_col]->peek()->
+                                     createRikishaLeader(pUrydike->callRikisha());
     }
-    double rate_x = pUrydike->pKurokoLeader_->_pManufacture->_rate_x;
+    double rate_x = pUrydike->pRikishaLeader_->_pManufacture->_rate_x;
     double d_col = -1.0 * papSplManufConn_[prm_col]->peek()->_pSpl->_rotmat._41; //横との間隔
     float X = d_col*rate_x; //rate_xを掛けることにより、ここで X はcoordの単位となる。
 
@@ -54,10 +54,10 @@ void FormationUrydike001::onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row,
     coord dx = X*cosRz*cosRy;
     coord dy = X*sinRz;
     coord dz = X*cosRz*-sinRy;
-    pUrydike->pKurokoLeader_->setStartPosition(entry_pos_.x + dx,
+    pUrydike->pRikishaLeader_->setStartPosition(entry_pos_.x + dx,
                                                entry_pos_.y + dy,
                                                entry_pos_.z + dz);
-    pUrydike->pKurokoLeader_->setStartAngle(entry_pos_.rx, entry_pos_.ry, entry_pos_.rz);
+    pUrydike->pRikishaLeader_->setStartAngle(entry_pos_.rx, entry_pos_.ry, entry_pos_.rz);
 
 
     pUrydike->setPosition( RND_ABOUT(entry_pos_.x + dx, PX_C(700)),
@@ -66,9 +66,9 @@ void FormationUrydike001::onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row,
     pUrydike->setFaceAngTwd(entry_pos_.x + dx,
                             entry_pos_.y + dy,
                             entry_pos_.z + dz);
-    pUrydike->getKuroko()->setMvAngByFaceAng();
-    pUrydike->getKuroko()->setMvVelo(0);
-    pUrydike->getKuroko()->setMvAcce(80);
+    pUrydike->callRikisha()->setMvAngByFaceAng();
+    pUrydike->callRikisha()->setMvVelo(0);
+    pUrydike->callRikisha()->setMvAcce(80);
 
 //    double r = RCNV(0, getFormationColNum()                      , prm_col         , 0.3, 1.0);
 //    double g = RCNV(0, getFormationColNum()*getFormationRowNum() , prm_col*prm_row , 0.3, 1.0);

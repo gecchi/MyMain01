@@ -1,7 +1,7 @@
 #include "EnemyAllas.h"
 
 #include "jp/ggaf/core/actor/ex/ActorDepository.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
@@ -22,7 +22,7 @@ EnemyAllas::EnemyAllas(const char* prm_name) :
         VvEnemyActor<DefaultMeshSetActor>(prm_name, "Allas", StatusReset(EnemyAllas)) {
     _class_name = "EnemyAllas";
     iMovePatternNo_ = 0;
-    pKurokoLeader_ = nullptr;
+    pRikishaLeader_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
@@ -36,16 +36,16 @@ void EnemyAllas::onCreateModel() {
 
 void EnemyAllas::initialize() {
     setHitAble(true);
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->setFaceAngVelo(AXIS_Z, -7000);
-    pKuroko->linkFaceAngByMvAng(true);
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->setFaceAngVelo(AXIS_Z, -7000);
+    pRikisha->linkFaceAngByMvAng(true);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
 }
 
 void EnemyAllas::onActive() {
-    if (pKurokoLeader_ == nullptr) {
+    if (pRikishaLeader_ == nullptr) {
         throwCriticalException("EnemyAllasはスプライン必須ですconfigして下さい");
     }
 
@@ -55,31 +55,31 @@ void EnemyAllas::onActive() {
 }
 
 void EnemyAllas::processBehavior() {
-    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafDx::Rikisha* const pRikisha = callRikisha();
     GgafCore::Progress* const pProg = getProgress();
     //【パターン1：スプライン移動】
     if (pProg->hasJustChangedTo(1)) {
-        pKurokoLeader_->start(ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
+        pRikishaLeader_->start(ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
     }
     if (pProg->get() == 1) {
         //スプライン移動終了待ち
-        if (pKurokoLeader_->isFinished()) {
+        if (pRikishaLeader_->isFinished()) {
             pProg->changeNext(); //次のパターンへ
         }
     }
 
     switch (iMovePatternNo_) {
         case 0:  //【パターン０：スプライン移動開始】
-            if (pKurokoLeader_) {
-                pKurokoLeader_->start(ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
+            if (pRikishaLeader_) {
+                pRikishaLeader_->start(ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
             }
             iMovePatternNo_++; //次の行動パターンへ
             break;
 
         case 1:  //【パターン１：スプライン移動終了待ち】
-            if (pKurokoLeader_) {
+            if (pRikishaLeader_) {
                 //スプライン移動有り
-                if (pKurokoLeader_->isFinished()) {
+                if (pRikishaLeader_->isFinished()) {
                     iMovePatternNo_++; //スプライン移動が終了したら次の行動パターンへ
                 }
             } else {
@@ -99,7 +99,7 @@ void EnemyAllas::processBehavior() {
                     pActor_shot = (GgafDx::FigureActor*)pDepo_shot_->dispatch();
                     if (pActor_shot) {
                         pActor_shot->setPositionAt(this);
-                        pActor_shot->getKuroko()->setRzRyMvAng(paAng_way[i], D90ANG);
+                        pActor_shot->callRikisha()->setRzRyMvAng(paAng_way[i], D90ANG);
                         pActor_shot->activate();
                     }
                 }
@@ -113,7 +113,7 @@ void EnemyAllas::processBehavior() {
                 }
             }
 //            //自機へ方向転換
-            pKuroko->turnMvAngTwd(pMYSHIP->_x, _y, pMYSHIP->_z,
+            pRikisha->turnMvAngTwd(pMYSHIP->_x, _y, pMYSHIP->_z,
                                     2000, 0,
                                     TURN_CLOSE_TO, true);
             iMovePatternNo_++; //次の行動パターンへ
@@ -126,10 +126,10 @@ void EnemyAllas::processBehavior() {
             break;
     }
 
-    if (pKurokoLeader_) {
-        pKurokoLeader_->behave(); //スプライン移動を振る舞い
+    if (pRikishaLeader_) {
+        pRikishaLeader_->behave(); //スプライン移動を振る舞い
     }
-    pKuroko->behave();
+    pRikisha->behave();
     //getSeTransmitter()->behave();
 }
 
@@ -155,5 +155,5 @@ void EnemyAllas::onInactive() {
 }
 
 EnemyAllas::~EnemyAllas() {
-    GGAF_DELETE_NULLABLE(pKurokoLeader_);
+    GGAF_DELETE_NULLABLE(pRikishaLeader_);
 }

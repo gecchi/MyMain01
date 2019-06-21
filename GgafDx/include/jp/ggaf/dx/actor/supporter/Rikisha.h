@@ -1,5 +1,5 @@
-#ifndef GGAF_DX_KUROKOA_H_
-#define GGAF_DX_KUROKOA_H_
+#ifndef GGAF_DX_RIKISHA_H_
+#define GGAF_DX_RIKISHA_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 
@@ -9,33 +9,33 @@
 namespace GgafDx {
 
 /**
- * 黒衣 .
- * 黒衣は我々の目には触れませんが、演者(アクター)を持ち上げ、「移動」「向きの回転」を行わせる世話人です。<BR>
- * 演者(アクター)は自らの意思で動作せずとも、黒衣のおかげで舞台を飛び回まわることができます。<BR>
- * 基本的な動作は黒衣でほとんどカバーできてしまいます。そのお蔭で、演者は自身の演技に集中できるのです。<BR>
- * もちろん演者自身も協力して移動・回転を行うと、黒衣だけでは出来ない、より複雑な移動動作も可能でしょう。<BR>
- * 演者一人につき、黒衣が標準で一人付属しています。<BR>
+ * 力車 .
+ * 力車は我々の目には触れませんが、演者(アクター)を持ち上げ、「移動」「向きの回転」を行わせる世話人です。<BR>
+ * 演者(アクター)は自らの意思で動作せずとも、力車のおかげで舞台を飛び回まわることができます。<BR>
+ * 基本的な動作は力車でほとんどカバーできてしまいます。そのお蔭で、演者は自身の演技に集中できるのです。<BR>
+ * もちろん演者自身も協力して移動・回転を行うと、力車だけでは出来ない、より複雑な移動動作も可能でしょう。<BR>
+ * 演者一人につき、力車が標準で一人付属しています。<BR>
  * <BR>
  * それはさて置き、つまりは座標計算支援（共通化）クラスです。<BR>
  * GeometricActor のメンバの<BR>
  *  _x,  _y,  _z  ・・・ アクターの座標<BR>
  * _rx, _ry, _rz  ・・・ アクターの軸回転角度<BR>
  * を変化させます。方向ベクトル、速度、距離、時間、によって管理操作するために作成したクラス。<BR>
- * 共通の基本的な移動、回転は黒衣に任せて、<BR>
+ * 共通の基本的な移動、回転は力車に任せて、<BR>
  * アクター固有の特殊な移動回転動作を processBehave() に直接記述。という設計思想。<BR>
  * @version 1.00
  * @since 2008/08/20
  * @author Masatoshi Tsuge
  */
-class Kuroko : public GgafCore::Object {
+class Rikisha : public GgafCore::Object {
 
 private:
-    /** [r]黒衣の助手A(移動速度の補佐) */
-    KurokoMvAssistant* _pAsstMv;
-    /** [r]黒衣の助手B(軸回転方角角速度の補佐) */
-    KurokoFaceAngAssistant* _pAsstFaceAng;
-    /** [r]黒衣の助手C(移動方角角速度の補佐) */
-    KurokoMvAngAssistant* _pAsstMvAng;
+    /** [r]力車の助手A(移動速度の補佐) */
+    RikishaMvAssistant* _pAsstMv;
+    /** [r]力車の助手B(軸回転方角角速度の補佐) */
+    RikishaFaceAngAssistant* _pAsstFaceAng;
+    /** [r]力車の助手C(移動方角角速度の補佐) */
+    RikishaMvAngAssistant* _pAsstMvAng;
 
 public:
     /** [r]対象アクター */
@@ -46,25 +46,25 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pActor  適用Actor
      */
-    explicit Kuroko(GeometricActor* prm_pActor);
+    explicit Rikisha(GeometricActor* prm_pActor);
 
     /**
-     * 黒衣の助手A(移動速度の補佐)を取得 .
-     * @return 黒衣の助手A
+     * 力車の助手A(移動速度の補佐)を取得 .
+     * @return 力車の助手A
      */
-    KurokoMvAssistant* asstMv();
+    RikishaMvAssistant* asstMv();
 
     /**
-     * 黒衣の助手B(軸回転方角角速度の補佐)を取得 .
-     * @return 黒衣の助手B
+     * 力車の助手B(軸回転方角角速度の補佐)を取得 .
+     * @return 力車の助手B
      */
-    KurokoFaceAngAssistant* asstFaceAng();
+    RikishaFaceAngAssistant* asstFaceAng();
 
     /**
-     * 黒衣の助手C(移動方角角速度の補佐)を取得 .
-     * @return 黒衣の助手C
+     * 力車の助手C(移動方角角速度の補佐)を取得 .
+     * @return 力車の助手C
      */
-    KurokoMvAngAssistant* asstMvAng();
+    RikishaMvAngAssistant* asstMvAng();
 
     void reset();
 
@@ -1148,11 +1148,11 @@ public:
     }
 
     /**
-     * 黒衣の仕事を引継ぐ .
-     * 他の Kuroko オブジェクトを状態を自身に引継ぐ .
-     * @param prm_pKuroko 引継元
+     * 力車の仕事を引継ぐ .
+     * 他の Rikisha オブジェクトを状態を自身に引継ぐ .
+     * @param prm_pRikisha 引継元
      */
-    void takeoverMvFrom(Kuroko* const prm_pKuroko);
+    void takeoverMvFrom(Rikisha* const prm_pRikisha);
 
     /**
      * 移動を停止します。
@@ -1160,15 +1160,15 @@ public:
     void stopMv();
 
     /**
-     * 黒衣が振る舞う .
-     * 黒衣機能を利用する場合は、このメソッドを毎フレーム呼び出し実行してください。<BR>
-     * 逆に黒衣を必要としない場合は、このメソッドを呼び出さないことで、パフォーマンスに影響を与えません。<BR>
+     * 力車が振る舞う .
+     * 力車機能を利用する場合は、このメソッドを毎フレーム呼び出し実行してください。<BR>
+     * 逆に力車を必要としない場合は、このメソッドを呼び出さないことで、パフォーマンスに影響を与えません。<BR>
      */
     virtual void behave();
 
-    virtual ~Kuroko();
+    virtual ~Rikisha();
 };
 
 }
-#endif /*GGAF_DX_KUROKOA_H_*/
+#endif /*GGAF_DX_RIKISHA_H_*/
 

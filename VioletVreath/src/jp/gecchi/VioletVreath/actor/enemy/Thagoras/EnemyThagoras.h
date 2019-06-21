@@ -19,7 +19,7 @@ class EnemyThagoras : public VvEnemyActor<GgafLib::DefaultMeshSetActor> {
 
 public:
     /** 移動スプラインプログラム */
-    GgafLib::SplineLeader* pKurokoLeader_;
+    GgafLib::SplineLeader* pRikishaLeader_;
     /** 鼓動(スケール)を同期させる為のダミーアクター */
     GgafLib::DefaultGeometricActor* pActor4Sc_;
 

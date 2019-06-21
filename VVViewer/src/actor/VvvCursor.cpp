@@ -1,11 +1,11 @@
 #include "VvvCursor.h"
 
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "jp/ggaf/dx/actor/supporter/KurokoMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/RikishaMvAssistant.h"
 
 
 
@@ -28,7 +28,7 @@ VvvCursor::VvvCursor(const char* prm_name) :
 void VvvCursor::initialize() {
     //座標設定
     _x = _y = _z = 0; //(0,0,0) は画面の中心
-    getKuroko()->_angvelo_face[AXIS_Z] = 1000;
+    callRikisha()->_angvelo_face[AXIS_Z] = 1000;
     GgafDx::Scaler* const pScaler = getScaler();
     pScaler->setRange(2000, 4000);
     pScaler->beat(30, 2, 0, 28, -1); //無限ループ
@@ -58,8 +58,8 @@ void VvvCursor::processBehavior() {
     }
 
     _pUvFlipper->behave();
-    getKuroko()->behave();
-    if (getKuroko()->asstMv()->hasJustFinishedSliding()) {
+    callRikisha()->behave();
+    if (callRikisha()->asstMv()->hasJustFinishedSliding()) {
         //理想位置に補正
         _x = tx_;
         _y = ty_;
@@ -74,14 +74,14 @@ void VvvCursor::sinkMe() {
 }
 
 void VvvCursor::moveTo(coord X, coord Y, coord Z) {
-    getKuroko()->asstMv()->stopSliding();
-    getKuroko()->setMvVelo(0);
-    getKuroko()->setMvAcce(0);
+    callRikisha()->asstMv()->stopSliding();
+    callRikisha()->setMvVelo(0);
+    callRikisha()->setMvAcce(0);
     tx_ = X;
     ty_ = Y;
     tz_ = Z;
-    getKuroko()->setMvAngTwd(tx_, ty_, tz_);
-    getKuroko()->asstMv()->slideByDt( UTIL::getDistance(_x, _y, _z, tx_, ty_, tz_), 20, 0.3f, 0.7f, 0, true);
+    callRikisha()->setMvAngTwd(tx_, ty_, tz_);
+    callRikisha()->asstMv()->slideByDt( UTIL::getDistance(_x, _y, _z, tx_, ty_, tz_), 20, 0.3f, 0.7f, 0, true);
     _pProg->change(CUR_ON_MOVE);
 }
 

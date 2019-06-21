@@ -1,6 +1,6 @@
 #include "EnemyRis.h"
 
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/dx/model/supporter/TextureBlinker.h"
@@ -21,7 +21,7 @@ EnemyRis::EnemyRis(const char* prm_name)
       : VvEnemyActor<DefaultMeshSetActor>(prm_name, "Ris", StatusReset(EnemyRis)) {
     _class_name = "EnemyRis";
     iMovePatternNo_ = 0;
-    pKurokoLeader_ = nullptr;
+    pRikishaLeader_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
@@ -37,9 +37,9 @@ void EnemyRis::onCreateModel() {
 
 void EnemyRis::initialize() {
     setHitAble(true);
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->linkFaceAngByMvAng(true);
-    pKuroko->setRollFaceAngVelo(5000);
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->linkFaceAngByMvAng(true);
+    pRikisha->setRollFaceAngVelo(5000);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAABox(0, -30000, -30000, -30000, 30000, 30000, 30000);
@@ -51,19 +51,19 @@ void EnemyRis::onActive() {
 }
 
 void EnemyRis::processBehavior() {
-    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafDx::Rikisha* const pRikisha = callRikisha();
     switch (iMovePatternNo_) {
         case 0:  //【パターン０：スプライン移動開始】
-            if (pKurokoLeader_) {
-                pKurokoLeader_->start(ABSOLUTE_COORD); //スプライン移動を開始
+            if (pRikishaLeader_) {
+                pRikishaLeader_->start(ABSOLUTE_COORD); //スプライン移動を開始
             }
             iMovePatternNo_++; //次の行動パターンへ
             break;
 
         case 1:  //【パターン１：スプライン移動終了待ち】
-            if (pKurokoLeader_) {
+            if (pRikishaLeader_) {
                 //スプライン移動有り
-                if (pKurokoLeader_->isFinished()) {
+                if (pRikishaLeader_->isFinished()) {
                     iMovePatternNo_++; //スプライン移動が終了したら次の行動パターンへ
                 }
             } else {
@@ -92,7 +92,7 @@ void EnemyRis::processBehavior() {
                 }
             }
             //自機へ方向転換
-            pKuroko->turnMvAngTwd(pMYSHIP,
+            pRikisha->turnMvAngTwd(pMYSHIP,
                                   3000, 0,
                                   TURN_CLOSE_TO, true);
             iMovePatternNo_++; //次の行動パターンへ
@@ -101,10 +101,10 @@ void EnemyRis::processBehavior() {
         case 3:  //【行動パターン３：自機へグルッと逆回転で方向転換開始】
             if (_z-10000 < pMYSHIP->_z && pMYSHIP->_z < _z+10000) {
                 //自機とZ軸が接近したらグルッと逆回転で方向転換
-                pKuroko->turnMvAngTwd(MyShip::lim_x_behaind_ - 500000 , _y, _z,
+                pRikisha->turnMvAngTwd(MyShip::lim_x_behaind_ - 500000 , _y, _z,
                                       10000, 0,
                                       TURN_CLOSE_TO, true);
-                pKuroko->setMvAcce(100);
+                pRikisha->setMvAcce(100);
                 iMovePatternNo_++;
             } else {
                 //自機とZ軸が接近するまで待つ
@@ -115,10 +115,10 @@ void EnemyRis::processBehavior() {
     }
 
 
-    if (pKurokoLeader_) {
-        pKurokoLeader_->behave(); //スプライン移動を振る舞い
+    if (pRikishaLeader_) {
+        pRikishaLeader_->behave(); //スプライン移動を振る舞い
     }
-    pKuroko->behave();
+    pRikisha->behave();
     //getSeTransmitter()->behave();
 }
 
@@ -144,5 +144,5 @@ void EnemyRis::onInactive() {
 }
 
 EnemyRis::~EnemyRis() {
-    GGAF_DELETE_NULLABLE(pKurokoLeader_);
+    GGAF_DELETE_NULLABLE(pRikishaLeader_);
 }

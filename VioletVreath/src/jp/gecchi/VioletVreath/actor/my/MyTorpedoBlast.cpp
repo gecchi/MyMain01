@@ -1,6 +1,6 @@
 #include "MyTorpedoBlast.h"
 
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
@@ -21,7 +21,7 @@ MyTorpedoBlast::MyTorpedoBlast(const char* prm_name) :
 void MyTorpedoBlast::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
-    getKuroko()->setRollPitchYawFaceAngVelo(D_ANG(0), D_ANG(0), D_ANG(6));
+    callRikisha()->setRollPitchYawFaceAngVelo(D_ANG(0), D_ANG(0), D_ANG(6));
     setHitAble(true);
 }
 
@@ -31,7 +31,7 @@ void MyTorpedoBlast::onReset() {
     //onInactive() onActive()‚Å‚ÌÀ‘•‚ğ”ğ‚¯‚é
     getStatus()->reset();
     getCollisionChecker()->setColliSphere(0, PX_C(10));
-    getKuroko()->setMvVelo(0);
+    callRikisha()->setMvVelo(0);
     setScale(R_SC(1));
     GgafDx::Scaler* const pScaler = getScaler();
     pScaler->setRange(R_SC(1), R_SC(400));
@@ -44,7 +44,7 @@ void MyTorpedoBlast::processBehavior() {
         sayonara();//–c‚ç‚ñ‚Å‚µ‚Ú‚Ş‚ªI—¹
     } else {
         getCollisionChecker()->setColliSphere(0, _sx); //“–‚½‚è”»’è‚à•Ï‰»
-        getKuroko()->behave();
+        callRikisha()->behave();
         pScaler->behave();
     }
 }

@@ -1,8 +1,8 @@
 #include "jp/ggaf/lib/util/spline/FixedFrameSplineManufacture.h"
 
 #include "jp/ggaf/lib/util/spline/SplineSource.h"
-#include "jp/ggaf/lib/util/spline/FixedFrameSplineKurokoLeader.h"
-#include "jp/ggaf/lib/util/spline/FixedFrameSplineTruckerLeader.h"
+#include "jp/ggaf/lib/util/spline/FixedFrameSplineRikishaLeader.h"
+#include "jp/ggaf/lib/util/spline/FixedFrameSplineKagoLeader.h"
 
 
 
@@ -128,11 +128,11 @@ void FixedFrameSplineManufacture::recalculateBySpentFrame(frame prm_spent_frames
     _paSPMvVeloTo[0] = 0; //始点までの速度など分からない。
 }
 
-SplineLeader* FixedFrameSplineManufacture::createKurokoLeader(GgafDx::Kuroko* prm_pKuroko) {
-    return NEW FixedFrameSplineKurokoLeader(this, prm_pKuroko);
+SplineLeader* FixedFrameSplineManufacture::createRikishaLeader(GgafDx::Rikisha* prm_pRikisha) {
+    return NEW FixedFrameSplineRikishaLeader(this, prm_pRikisha);
 }
-SplineLeader* FixedFrameSplineManufacture::createTruckerLeader(GgafDx::Trucker* prm_pTrucker) {
-    return NEW FixedFrameSplineTruckerLeader(this, prm_pTrucker);
+SplineLeader* FixedFrameSplineManufacture::createKagoLeader(GgafDx::Kago* prm_pKago) {
+    return NEW FixedFrameSplineKagoLeader(this, prm_pKago);
 }
 FixedFrameSplineManufacture::~FixedFrameSplineManufacture() {
     //イニシャライズされる前に解放されるかもしれない

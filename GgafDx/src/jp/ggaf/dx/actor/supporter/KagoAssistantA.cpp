@@ -1,13 +1,13 @@
-#include "jp/ggaf/dx/actor/supporter/TruckerAssistantA.h"
+#include "jp/ggaf/dx/actor/supporter/KagoAssistantA.h"
 
 #include "jp/ggaf/core/util/ValueAccelerator.hpp"
-#include "jp/ggaf/dx/actor/supporter/Trucker.h"
+#include "jp/ggaf/dx/actor/supporter/Kago.h"
 #include "jp/ggaf/dx/util/Util.h"
 
 
 using namespace GgafDx;
 
-TruckerAssistantA::TruckerAssistantA(Trucker* prm_pMaster) : GgafCore::Object(),
+KagoAssistantA::KagoAssistantA(Kago* prm_pMaster) : GgafCore::Object(),
         _pMaster(prm_pMaster) {
     _smthVxMv._t_velo = _pMaster->_velo_vx_mv;
     _smthVxMv._t_acce = _pMaster->_acce_vx_mv;
@@ -16,7 +16,7 @@ TruckerAssistantA::TruckerAssistantA(Trucker* prm_pMaster) : GgafCore::Object(),
     _smthVzMv._t_velo = _pMaster->_velo_vz_mv;
     _smthVzMv._t_acce = _pMaster->_acce_vz_mv;
 }
-void TruckerAssistantA::behave() {
+void KagoAssistantA::behave() {
     if (_smthVxMv.isAccelerating()) {
         _smthVxMv.behave();
         _pMaster->setVxMvVelo(_smthVxMv._t_velo - _smthVxMv._t_acce);
@@ -35,7 +35,7 @@ void TruckerAssistantA::behave() {
 
 }
 
-void TruckerAssistantA::slideVxMvByDt(coord prm_target_distance, int prm_target_frames,
+void KagoAssistantA::slideVxMvByDt(coord prm_target_distance, int prm_target_frames,
                                               float prm_p1, float prm_p2, velo prm_end_velo,
                                               bool prm_zero_acc_end_flg) {
     _smthVxMv._t_value = 0;
@@ -46,7 +46,7 @@ void TruckerAssistantA::slideVxMvByDt(coord prm_target_distance, int prm_target_
                              prm_zero_acc_end_flg);
 }
 
-void TruckerAssistantA::slideVyMvByDt(coord prm_target_distance, int prm_target_frames,
+void KagoAssistantA::slideVyMvByDt(coord prm_target_distance, int prm_target_frames,
                                               float prm_p1, float prm_p2, velo prm_end_velo,
                                               bool prm_zero_acc_end_flg) {
     _smthVyMv._t_value = 0;
@@ -57,7 +57,7 @@ void TruckerAssistantA::slideVyMvByDt(coord prm_target_distance, int prm_target_
                              prm_zero_acc_end_flg);
 }
 
-void TruckerAssistantA::slideVzMvByDt(coord prm_target_distance, int prm_target_frames,
+void KagoAssistantA::slideVzMvByDt(coord prm_target_distance, int prm_target_frames,
                                               float prm_p1, float prm_p2, velo prm_end_velo,
                                               bool prm_zero_acc_end_flg) {
     _smthVzMv._t_value = 0;
@@ -68,7 +68,7 @@ void TruckerAssistantA::slideVzMvByDt(coord prm_target_distance, int prm_target_
                              prm_zero_acc_end_flg);
 }
 
-void TruckerAssistantA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_target, coord prm_z_target,
+void KagoAssistantA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_target, coord prm_z_target,
                                                   int prm_target_frames,
                                                   float prm_p1, float prm_p2, velo prm_end_velo,
                                                   bool prm_zero_acc_end_flg) {
@@ -80,7 +80,7 @@ void TruckerAssistantA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_target
                      prm_zero_acc_end_flg);
 }
 
-void TruckerAssistantA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_target, coord prm_z_target,
+void KagoAssistantA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_target, coord prm_z_target,
                                                   int prm_target_frames,
                                                   float prm_x_p1, float prm_x_p2, velo prm_x_end_velo,
                                                   float prm_y_p1, float prm_y_p2, velo prm_y_end_velo,
@@ -96,7 +96,7 @@ void TruckerAssistantA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_target
                      prm_zero_acc_end_flg);
 }
 
-void TruckerAssistantA::slideVxMvByVd(velo prm_top_velo, coord prm_target_distance,
+void KagoAssistantA::slideVxMvByVd(velo prm_top_velo, coord prm_target_distance,
                                               float prm_p1, float prm_p2, velo prm_end_velo,
                                               bool prm_zero_acc_end_flg) {
     _smthVxMv._t_value = 0;
@@ -107,7 +107,7 @@ void TruckerAssistantA::slideVxMvByVd(velo prm_top_velo, coord prm_target_distan
                              prm_zero_acc_end_flg);
 }
 
-void TruckerAssistantA::slideVyMvByVd(velo prm_top_velo, coord prm_target_distance,
+void KagoAssistantA::slideVyMvByVd(velo prm_top_velo, coord prm_target_distance,
                                               float prm_p1, float prm_p2, velo prm_end_velo,
                                               bool prm_zero_acc_end_flg) {
     _smthVyMv._t_value = 0;
@@ -118,7 +118,7 @@ void TruckerAssistantA::slideVyMvByVd(velo prm_top_velo, coord prm_target_distan
                              prm_zero_acc_end_flg);
 }
 
-void TruckerAssistantA::slideVzMvByVd(velo prm_top_velo, coord prm_target_distance,
+void KagoAssistantA::slideVzMvByVd(velo prm_top_velo, coord prm_target_distance,
                                               float prm_p1, float prm_p2, velo prm_end_velo,
                                               bool prm_zero_acc_end_flg) {
     _smthVzMv._t_value = 0;
@@ -129,7 +129,7 @@ void TruckerAssistantA::slideVzMvByVd(velo prm_top_velo, coord prm_target_distan
                              prm_zero_acc_end_flg);
 }
 
-void TruckerAssistantA::slideVxyzMvByVd(velo prm_top_velo,
+void KagoAssistantA::slideVxyzMvByVd(velo prm_top_velo,
                                                 coord prm_x_target_distance, coord prm_y_target_distance, coord prm_z_target_distance,
                                                 float prm_p1, float prm_p2, velo prm_end_velo,
                                                 bool prm_zero_acc_end_flg) {
@@ -147,7 +147,7 @@ void TruckerAssistantA::slideVxyzMvByVd(velo prm_top_velo,
     }
 }
 
-void TruckerAssistantA::slideVxyzMvByVdTo(velo prm_top_velo,
+void KagoAssistantA::slideVxyzMvByVdTo(velo prm_top_velo,
                                                   coord prm_x_target, coord prm_y_target, coord prm_z_target,
                                                   float prm_p1, float prm_p2, velo prm_end_velo,
                                                   bool prm_zero_acc_end_flg) {
@@ -159,7 +159,7 @@ void TruckerAssistantA::slideVxyzMvByVdTo(velo prm_top_velo,
                     prm_zero_acc_end_flg);
 }
 
-TruckerAssistantA::~TruckerAssistantA() {
+KagoAssistantA::~KagoAssistantA() {
 }
 
 

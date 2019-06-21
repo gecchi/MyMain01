@@ -1,7 +1,7 @@
 #include "EnemyIrce.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/dx/model/supporter/TextureBlinker.h"
@@ -37,9 +37,9 @@ void EnemyIrce::onCreateModel() {
 void EnemyIrce::initialize() {
     setHitAble(true);
     setScale(1000);
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->linkFaceAngByMvAng(true);
-    pKuroko->setMvVelo(3000);
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->linkFaceAngByMvAng(true);
+    pRikisha->setMvVelo(3000);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAABox(0, -10000, -10000, -10000, 10000, 10000, 10000);
@@ -52,10 +52,10 @@ void EnemyIrce::onActive() {
 }
 
 void EnemyIrce::processBehavior() {
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->turnMvAngTwd(pMYSHIP,
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->turnMvAngTwd(pMYSHIP,
                           50, 0, TURN_CLOSE_TO, true);
-    pKuroko->behave();
+    pRikisha->behave();
     getScaler()->behave();
     //getSeTransmitter()->behave();
 }

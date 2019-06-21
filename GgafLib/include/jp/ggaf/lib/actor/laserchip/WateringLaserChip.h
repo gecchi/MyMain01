@@ -12,7 +12,7 @@ namespace GgafLib {
  * ・各チップの移動方向、速度共に固定<BR>
  * ・しかし、隣接するチップとチップが手を取り合い、角がとれて滑らかになる。チップ間に当たり判定が発生<BR>
  * というべきか、グラディウスＶのディレクションレーザー(TYPE2)と言うべきか、そんな感じ。<BR>
- * Trucker で移動します。dispatch() したら、座標と Trucker（各軸の移動速度）を設定して下さい。<BR>
+ * Kago で移動します。dispatch() したら、座標と Kago（各軸の移動速度）を設定して下さい。<BR>
  * @version 1.00
  * @since 2009/08/27
  * @author Masatoshi Tsuge

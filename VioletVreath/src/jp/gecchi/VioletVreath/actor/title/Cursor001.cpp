@@ -1,8 +1,8 @@
 #include "Cursor001.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dx/actor/supporter/KurokoMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/RikishaMvAssistant.h"
 
 
 
@@ -23,7 +23,7 @@ void Cursor001::onActive() {
 }
 
 void Cursor001::processBehavior() {
-    getKuroko()->behave();
+    callRikisha()->behave();
     getUvFlipper()->behave();
 }
 
@@ -31,9 +31,9 @@ void Cursor001::processJudgement() {
 }
 
 void Cursor001::moveTo(coord tx, coord ty) {
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->setMvAngTwd(tx, ty);
-    pKuroko->asstMv()->slideByDt(UTIL::getDistance(_x, _y, tx, ty),
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->setMvAngTwd(tx, ty);
+    pRikisha->asstMv()->slideByDt(UTIL::getDistance(_x, _y, tx, ty),
                                   8, 0.2, 0.3, 0, true);
 }
 

@@ -1,7 +1,7 @@
-#include "jp/ggaf/lib/util/spline/SteppedCoordSplineKurokoLeader.h"
+#include "jp/ggaf/lib/util/spline/SteppedCoordSplineRikishaLeader.h"
 
 #include "jp/ggaf/dx/exception/CriticalException.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/spline/SplineSource.h"
 #include "jp/ggaf/lib/util/spline/SteppedCoordSplineManufacture.h"
@@ -10,15 +10,15 @@
 
 using namespace GgafLib;
 
-SteppedCoordSplineKurokoLeader::SteppedCoordSplineKurokoLeader(SplineManufacture* prm_pManufacture, GgafDx::Kuroko* prm_pKuroko_target) :
-        SplineLeader(prm_pManufacture, prm_pKuroko_target->_pActor) {
-    _pKuroko_target = prm_pKuroko_target;
+SteppedCoordSplineRikishaLeader::SteppedCoordSplineRikishaLeader(SplineManufacture* prm_pManufacture, GgafDx::Rikisha* prm_pRikisha_target) :
+        SplineLeader(prm_pManufacture, prm_pRikisha_target->_pActor) {
+    _pRikisha_target = prm_pRikisha_target;
     _pSteppedSplManuf = (SteppedCoordSplineManufacture*)prm_pManufacture;
     _leading_frames = 0;
     _point_index = -1;
 }
 
-void SteppedCoordSplineKurokoLeader::restart() {
+void SteppedCoordSplineRikishaLeader::restart() {
     SplineLeader::restart();
     _leading_frames = 0;
     //始点へ行く特別処理。
@@ -33,9 +33,9 @@ void SteppedCoordSplineKurokoLeader::restart() {
     }
 }
 
-void SteppedCoordSplineKurokoLeader::behave() {
+void SteppedCoordSplineRikishaLeader::behave() {
     if (_is_leading) {
-        GgafDx::Kuroko* const pKuroko_target = _pActor_target->getKuroko();
+        GgafDx::Rikisha* const pRikisha_target = _pActor_target->callRikisha();
         _point_index++;
         if (_point_index == _pSteppedSplManuf->_pSpl->_rnum) {
             if (_cnt_loop == _max_loop) {
@@ -52,11 +52,11 @@ void SteppedCoordSplineKurokoLeader::behave() {
         coord x, y, z;
         getPointCoord(_point_index, x, y, z);
         coord d = UTIL::getDistance(_pActor_target->_x, _pActor_target->_y, _pActor_target->_z, x, y, z);
-        pKuroko_target->setMvAngTwd(x, y, z);
-        pKuroko_target->setMvVelo(d);
+        pRikisha_target->setMvAngTwd(x, y, z);
+        pRikisha_target->setMvVelo(d);
         _leading_frames++;
     }
 }
 
-SteppedCoordSplineKurokoLeader::~SteppedCoordSplineKurokoLeader() {
+SteppedCoordSplineRikishaLeader::~SteppedCoordSplineRikishaLeader() {
 }

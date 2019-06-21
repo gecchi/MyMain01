@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/actor/camera/CameraViewPoint.h"
 
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 
 
 using namespace GgafDx;

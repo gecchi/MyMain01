@@ -18,7 +18,7 @@ class EnemyRis : public VvEnemyActor<GgafLib::DefaultMeshSetActor> {
 //    /** フォーメーション(非フォーメーション時はnullptr) */
 //    GgafLib::TreeFormation* pFormation_;
     /** 移動スプラインプログラム */
-    GgafLib::SplineLeader* pKurokoLeader_;
+    GgafLib::SplineLeader* pRikishaLeader_;
     /** 弾ストック */
     GgafCore::ActorDepository* pDepo_shot_;
     /** 弾発射効果エフェクト */
@@ -69,11 +69,11 @@ public:
 
 
     virtual void config(
-            GgafLib::SplineLeader* prm_pKurokoLeader,
+            GgafLib::SplineLeader* prm_pRikishaLeader,
             GgafCore::ActorDepository* prm_pDepo_shot,
             GgafCore::ActorDepository* prm_pDepo_shotEffect
             ) {
-        pKurokoLeader_ = prm_pKurokoLeader;
+        pRikishaLeader_ = prm_pRikishaLeader;
         pDepo_shot_ = prm_pDepo_shot;
         pDepo_effect_ = prm_pDepo_shotEffect;
     }

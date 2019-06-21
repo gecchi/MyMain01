@@ -1,6 +1,6 @@
 #include "jp/ggaf/lib/actor/laserchip/HomingLaserChip.h"
 
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 
 
 
@@ -17,18 +17,18 @@ HomingLaserChip::HomingLaserChip(const char* prm_name, const char* prm_model) :
     _begining_rx = _rx;
     _begining_ry = _ry;
     _begining_rz = _rz;
-    _begining_rz_mv = getKuroko()->_rz_mv;
-    _begining_ry_mv = getKuroko()->_ry_mv;
-    _begining_velo_mv   = getKuroko()->_velo_mv;
+    _begining_rz_mv = callRikisha()->_rz_mv;
+    _begining_ry_mv = callRikisha()->_ry_mv;
+    _begining_velo_mv   = callRikisha()->_velo_mv;
     _prev_x = _x;
     _prev_y = _y;
     _prev_z = _z;
     _prev_rx = _rx;
     _prev_ry = _ry;
     _prev_rz = _rz;
-    _prev_rz_mv = getKuroko()->_rz_mv;
-    _prev_ry_mv = getKuroko()->_ry_mv;
-    _prev_velo_mv   = getKuroko()->_velo_mv;
+    _prev_rz_mv = callRikisha()->_rz_mv;
+    _prev_ry_mv = callRikisha()->_ry_mv;
+    _prev_velo_mv   = callRikisha()->_velo_mv;
     _is_fix_begin_pos = true;
 }
 
@@ -36,7 +36,7 @@ void HomingLaserChip::onActive() {
     //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
     //その際 は、本クラスの onActive() メソッドも呼び出してください。
     LaserChip::onActive();
-    GgafDx::Kuroko* pKuroko = getKuroko();
+    GgafDx::Rikisha* pRikisha = callRikisha();
     HomingLaserChip* pChip_infront =  (HomingLaserChip*)_pChip_infront;
     //レーザーチップ出現時処理
     if (pChip_infront == nullptr) {
@@ -49,9 +49,9 @@ void HomingLaserChip::onActive() {
         _begining_rx = _rx;
         _begining_ry = _ry;
         _begining_rz = _rz;
-        _begining_rz_mv = pKuroko->_rz_mv;
-        _begining_ry_mv = pKuroko->_ry_mv;
-        _begining_velo_mv   = pKuroko->_velo_mv;
+        _begining_rz_mv = pRikisha->_rz_mv;
+        _begining_ry_mv = pRikisha->_ry_mv;
+        _begining_velo_mv   = pRikisha->_velo_mv;
     } else {
         _is_leader = false;
         //_TRACE_(FUNC_NAME<<" "<<getName()<<" pChip_infront =="<<(pChip_infront->getName()));
@@ -71,8 +71,8 @@ void HomingLaserChip::onActive() {
             _rx = _begining_rx;
             _ry = _begining_ry;
             _rz = _begining_rz;
-            pKuroko->setRzRyMvAng(_begining_rz_mv, _begining_ry_mv);
-            pKuroko->setMvVelo(_begining_velo_mv);
+            pRikisha->setRzRyMvAng(_begining_rz_mv, _begining_ry_mv);
+            pRikisha->setMvVelo(_begining_velo_mv);
         }
     }
 }
@@ -80,19 +80,19 @@ void HomingLaserChip::onActive() {
 void HomingLaserChip::onInactive() {
     //_TRACE_("A HomingLaserChip::onInactive() _chip_kind ="<<_chip_kind <<")");
     LaserChip* pChip_behind = _pChip_behind;
-    GgafDx::Kuroko* pKuroko = getKuroko();
+    GgafDx::Rikisha* pRikisha = callRikisha();
 
     if (pChip_behind) {
         //先頭しか動かしていないので、
         //何も考慮しないと、後方チップがその場で停止してしまう。
         //後方チップへ移動のための情報を無理やり設定して移動を継続させる。
         //先端チップ Mover 内部パラメータの移動方向と移動速度の情報をコピーすることでOK
-        GgafDx::Kuroko* pChip_behind_pKuroko = pChip_behind->getKuroko();
+        GgafDx::Rikisha* pChip_behind_pRikisha = pChip_behind->callRikisha();
         pChip_behind->_rx = _rx;
         pChip_behind->_ry = _ry;
         pChip_behind->_rz = _rz;
-        pChip_behind_pKuroko->setRzRyMvAng(pKuroko->_rz_mv, pKuroko->_ry_mv);
-        pChip_behind_pKuroko->setMvVelo(pKuroko->_velo_mv);
+        pChip_behind_pRikisha->setRzRyMvAng(pRikisha->_rz_mv, pRikisha->_ry_mv);
+        pChip_behind_pRikisha->setMvVelo(pRikisha->_velo_mv);
     }
 
     LaserChip::onInactive(); //つながりを切断処理
@@ -103,7 +103,7 @@ void HomingLaserChip::processBehavior() {
     //その際 は、本クラスの processBehavior() メソッドも呼び出してください。
     //座標に反映
     const HomingLaserChip* const pChip_infront =  (HomingLaserChip*)_pChip_infront;
-    GgafDx::Kuroko* pKuroko = getKuroko();
+    GgafDx::Rikisha* pRikisha = callRikisha();
     if (getActiveFrame() > 1) {
         //ActorDepository::dispatch() は
         //取得できる場合、ポインタを返すと共に、そのアクターはアクター発送者の子の一番後ろに移動される。
@@ -117,9 +117,9 @@ void HomingLaserChip::processBehavior() {
             _prev_rx = _rx;
             _prev_ry = _ry;
             _prev_rz = _rz;
-            _prev_rz_mv = pKuroko->_rz_mv;
-            _prev_ry_mv = pKuroko->_ry_mv;
-            _prev_velo_mv   = pKuroko->_velo_mv;
+            _prev_rz_mv = pRikisha->_rz_mv;
+            _prev_ry_mv = pRikisha->_ry_mv;
+            _prev_velo_mv   = pRikisha->_velo_mv;
             processBehaviorHeadChip(); //先頭チップのみ移動実装
         } else {
             //先頭以外のチップ数珠繋ぎ処理
@@ -129,17 +129,17 @@ void HomingLaserChip::processBehavior() {
             _prev_rx = _rx;
             _prev_ry = _ry;
             _prev_rz = _rz;
-            _prev_rz_mv = pKuroko->_rz_mv;
-            _prev_ry_mv = pKuroko->_ry_mv;
-            _prev_velo_mv   = pKuroko->_velo_mv;
+            _prev_rz_mv = pRikisha->_rz_mv;
+            _prev_ry_mv = pRikisha->_ry_mv;
+            _prev_velo_mv   = pRikisha->_velo_mv;
             _x  = pChip_infront->_prev_x;
             _y  = pChip_infront->_prev_y;
             _z  = pChip_infront->_prev_z;
             _rx = pChip_infront->_prev_rx;
             _ry = pChip_infront->_prev_ry;
             _rz = pChip_infront->_prev_rz;
-            pKuroko->setRzRyMvAng(pChip_infront->_prev_rz_mv, pChip_infront->_prev_ry_mv);
-            pKuroko->setMvVelo(pChip_infront->_prev_velo_mv);
+            pRikisha->setRzRyMvAng(pChip_infront->_prev_rz_mv, pChip_infront->_prev_ry_mv);
+            pRikisha->setMvVelo(pChip_infront->_prev_velo_mv);
         }
     }
 }

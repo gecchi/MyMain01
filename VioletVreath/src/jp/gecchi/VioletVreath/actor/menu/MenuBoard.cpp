@@ -1,9 +1,9 @@
 #include "MenuBoard.h"
 
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/gecchi/VioletVreath/God.h"
-#include "jp/ggaf/dx/actor/supporter/KurokoMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/RikishaMvAssistant.h"
 
 
 
@@ -127,20 +127,20 @@ void MenuBoard::onRise() {
     //スライドイントランジション
     setPosition(target_x_ + slide_from_offset_x_,
                 target_y_ + slide_from_offset_y_);
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->setMvAngTwd(target_x_, target_y_);
-    pKuroko->asstMv()->slideByDt(UTIL::getDistance(_x, _y, target_x_, target_y_), _fade_frames,
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->setMvAngTwd(target_x_, target_y_);
+    pRikisha->asstMv()->slideByDt(UTIL::getDistance(_x, _y, target_x_, target_y_), _fade_frames,
                                  0.2, 0.3, 0, true);
     getSeTransmitter()->play(SE_ON_RISEN);
 }
 
 void MenuBoard::processBehavior() {
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    if (pKuroko->asstMv()->hasJustFinishedSliding()) {
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    if (pRikisha->asstMv()->hasJustFinishedSliding()) {
         //スライド終了時、目的の座標へ補正
         setPosition(target_x_, target_y_);
     }
-    pKuroko->behave();
+    pRikisha->behave();
     DefaultFramedBoardMenu::processBehavior();
     //メニュー選択アイテム、表示アイテム、カーソルは、
     //ボード座標を基にしているため、自身の座標確定後に
@@ -152,10 +152,10 @@ void MenuBoard::processJudgement() {
 
 void MenuBoard::onSink() {
     //スライドアウトトランジション
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->setMvAngTwd(target_x_ + slide_from_offset_x_,
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->setMvAngTwd(target_x_ + slide_from_offset_x_,
                          target_y_ + slide_from_offset_y_);
-    pKuroko->asstMv()->slideByDt(
+    pRikisha->asstMv()->slideByDt(
                            UTIL::getDistance(
                                   _x, _y,
                                   target_x_+slide_from_offset_x_,

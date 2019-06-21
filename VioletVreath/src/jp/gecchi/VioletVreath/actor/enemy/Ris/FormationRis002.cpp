@@ -1,7 +1,7 @@
 #include "FormationRis002.h"
 
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
-#include "jp/ggaf/lib/util/spline/FixedVelocitySplineKurokoLeader.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/lib/util/spline/FixedVelocitySplineRikishaLeader.h"
 #include "jp/ggaf/lib/util/spline/FixedVelocitySplineManufacture.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ris/EnemyRis.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
@@ -27,7 +27,7 @@ FormationRis002::FormationRis002(const char* prm_name) :
     for (int i = 0; i < num_Ris_; i++) {
         EnemyRis* pRis = NEW EnemyRis("Ris01");
         //スプライン移動プログラム設定
-        SplineLeader* pProgram = NEW FixedVelocitySplineKurokoLeader(pManufacture_, pRis->getKuroko());
+        SplineLeader* pProgram = NEW FixedVelocitySplineRikishaLeader(pManufacture_, pRis->callRikisha());
         pRis->config(pProgram, pConn_depo_->peek(), nullptr);
         appendFormationMember(pRis);
     }
@@ -44,7 +44,7 @@ void FormationRis002::processBehavior() {
         EnemyRis* pRis = (EnemyRis*)callUpMember();
         if (pRis) {
             pRis->setPosition(MyShip::lim_x_behaind_ - 500000, 0, MyShip::lim_z_right_ * 0.8);
-            pRis->getKuroko()->setMvVelo(velo_mv_);
+            pRis->callRikisha()->setMvVelo(velo_mv_);
         }
     }
 }

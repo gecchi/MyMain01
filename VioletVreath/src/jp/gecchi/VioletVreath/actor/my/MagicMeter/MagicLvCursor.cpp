@@ -2,12 +2,12 @@
 
 #include "jp/ggaf/core/util/LinkedListRing.hpp"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/Magic.h"
-#include "jp/ggaf/dx/actor/supporter/KurokoMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/RikishaMvAssistant.h"
 
 
 
@@ -43,9 +43,9 @@ void MagicLvCursor::initialize() {
 }
 
 void MagicLvCursor::processBehavior() {
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->behave();
-    if (pKuroko->asstMv()->hasJustFinishedSliding()) {
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->behave();
+    if (pRikisha->asstMv()->hasJustFinishedSliding()) {
         //理想位置に補正
         _x = tx_;
         _y = ty_;
@@ -81,24 +81,24 @@ void MagicLvCursor::processAfterDraw() {
 }
 
 void MagicLvCursor::moveTo(int prm_lv) {
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->asstMv()->stopSliding();
-    pKuroko->stopMv();
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->asstMv()->stopSliding();
+    pRikisha->stopMv();
     point_lv_ = prm_lv;
     _x = tx_ = pMagicMeter_->_x + (pMagicMeter_->width_ * magic_index_) + (pMagicMeter_->width_ / 2);
     _y = ty_ = pMagicMeter_->_y - (pMagicMeter_->height_*(point_lv_+1)) + (pMagicMeter_->height_ / 2);
 }
 
 void MagicLvCursor::moveSmoothTo(int prm_lv, frame prm_target_frames, float prm_p1, float prm_p2) {
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->stopMv();
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->stopMv();
     //Y座標のロール（スライド表示）の分考慮せずにY座標のLVカーソル移動計算を行っている。
     //processPreDraw()でロール分を補正する。
     point_lv_ = prm_lv;
     tx_ = pMagicMeter_->_x + (pMagicMeter_->width_ * magic_index_) + (pMagicMeter_->width_ / 2);
     ty_ = pMagicMeter_->_y - (pMagicMeter_->height_*(point_lv_+1)) + (pMagicMeter_->height_ / 2);
-    pKuroko->setMvAngTwd(tx_, ty_);
-    pKuroko->asstMv()->slideByDt(UTIL::getDistance(_x, _y, tx_, ty_), (int)prm_target_frames,
+    pRikisha->setMvAngTwd(tx_, ty_);
+    pRikisha->asstMv()->slideByDt(UTIL::getDistance(_x, _y, tx_, ty_), (int)prm_target_frames,
                                   prm_p1, prm_p2, 0, true); //ロールを考慮せずにとりあえず移動
 }
 

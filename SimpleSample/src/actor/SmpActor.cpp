@@ -1,13 +1,13 @@
 #include "SmpActor.h"
 
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 #include "SmpGod.h"
 #include "scene/SmpSpacetime.h"
 
 using GgafLib::DefaultMeshActor;
 using GgafLib::VirtualButton;
-using GgafDx::Kuroko;
+using GgafDx::Rikisha;
 using namespace SimpleSample;
 
 SmpActor::SmpActor(const char* prm_name) :
@@ -18,8 +18,8 @@ void SmpActor::initialize() {
     //座標設定
     setPosition(0, 0, 0);
 
-    //黒衣にキャラのZ軸回転の角速度を設定(毎フレーム2度)
-    Kuroko* kuroko = getKuroko();
+    //力車にキャラのZ軸回転の角速度を設定(毎フレーム2度)
+    Rikisha* kuroko = callRikisha();
     kuroko->setFaceAngVelo(AXIS_Z, D_ANG(2));
 }
 
@@ -50,7 +50,7 @@ void SmpActor::processBehavior() {
             _y -= d; //下
         }
     }
-    getKuroko()->behave(); //黒衣を活動させる（Z軸回転する）
+    callRikisha()->behave(); //力車を活動させる（Z軸回転する）
 }
 
 SmpActor::~SmpActor() {

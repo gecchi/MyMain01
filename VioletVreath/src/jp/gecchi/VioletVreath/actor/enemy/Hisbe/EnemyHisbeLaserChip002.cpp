@@ -1,7 +1,7 @@
 #include "EnemyHisbeLaserChip002.h"
 
 #include "jp/ggaf/core/actor/SceneMediator.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/ggaf/lib/manager/SplineManufactureConnection.h"
@@ -17,11 +17,11 @@ EnemyHisbeLaserChip002::EnemyHisbeLaserChip002(const char* prm_name) :
         VvEnemyActor<RefractionLaserChip>(prm_name, "HisbeLaserChip002", StatusReset(EnemyHisbeLaserChip002)) {
     _class_name = "EnemyHisbeLaserChip002";
     pConn_pSplManuf_ = connectToSplineManufactureManager("EnemyHisbeLaserChip002"); //ヒルベルト曲線
-    pKurokoLeader_ = pConn_pSplManuf_->peek()->createKurokoLeader(getKuroko());
-    pKurokoLeader_->adjustCoordOffset(PX_C(100), 0, 0);
+    pRikishaLeader_ = pConn_pSplManuf_->peek()->createRikishaLeader(callRikisha());
+    pRikishaLeader_->adjustCoordOffset(PX_C(100), 0, 0);
     pScrollingScene_ = nullptr;
-    getKuroko()->setMvAngByFaceAng();
-    getKuroko()->linkFaceAngByMvAng(true);
+    callRikisha()->setMvAngByFaceAng();
+    callRikisha()->linkFaceAngByMvAng(true);
 }
 
 void EnemyHisbeLaserChip002::initialize() {
@@ -44,10 +44,10 @@ void EnemyHisbeLaserChip002::onRefractionInto(int prm_num_refraction)  {
 
 void EnemyHisbeLaserChip002::onRefractionOutOf(int prm_num_refraction)  {
     if (prm_num_refraction == 0) {
-        pKurokoLeader_->start(RELATIVE_COORD_DIRECTION); //向てる方向にスプライン座標をワールド変換
+        pRikishaLeader_->start(RELATIVE_COORD_DIRECTION); //向てる方向にスプライン座標をワールド変換
     }
-    pKurokoLeader_->behave();
-    if (pKurokoLeader_->isFinished()) {
+    pRikishaLeader_->behave();
+    if (pRikishaLeader_->isFinished()) {
         sayonara();
     }
 }
@@ -55,7 +55,7 @@ void EnemyHisbeLaserChip002::onRefractionOutOf(int prm_num_refraction)  {
 void EnemyHisbeLaserChip002::processBehavior() {
     if (_is_leader) {
         if (pScrollingScene_) {
-            pKurokoLeader_->_x_start_in_loop -= pScrollingScene_->getScrollSpeed();
+            pRikishaLeader_->_x_start_in_loop -= pScrollingScene_->getScrollSpeed();
         }
     }
     RefractionLaserChip::processBehavior();
@@ -81,7 +81,7 @@ void EnemyHisbeLaserChip002::onHit(const GgafCore::Actor* prm_pOtherActor) {
 }
 
 EnemyHisbeLaserChip002::~EnemyHisbeLaserChip002() {
-    GGAF_DELETE(pKurokoLeader_);
+    GGAF_DELETE(pRikishaLeader_);
     pConn_pSplManuf_->close();
 }
 

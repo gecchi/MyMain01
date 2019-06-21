@@ -1,6 +1,6 @@
 #include "EnemyEsperiaLaserChip001.h"
 
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -39,9 +39,9 @@ void EnemyEsperiaLaserChip001::initialize() {
     pChecker->setColliAACube(0, 20000);
     setHitAble(true, false);
     setScaleR(5.0);
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->forceMvVeloRange(PX_C(100));
-    pKuroko->linkFaceAngByMvAng(true);
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->forceMvVeloRange(PX_C(100));
+    pRikisha->linkFaceAngByMvAng(true);
 }
 
 void EnemyEsperiaLaserChip001::onActive() {
@@ -49,10 +49,10 @@ void EnemyEsperiaLaserChip001::onActive() {
     //ステータスリセット
     getStatus()->reset();
     begin_y_ = _y;
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->stopTurningMvAng();
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->stopTurningMvAng();
     if (getInfrontChip() == nullptr) {
-        pKuroko->setMvAngTwd(tx1_, ty1_, tz1_);
+        pRikisha->setMvAngTwd(tx1_, ty1_, tz1_);
         getProgress()->reset(PROG_MOVE_UP);
     } else {
         getProgress()->reset(PROG_NOTHING);
@@ -65,15 +65,15 @@ void EnemyEsperiaLaserChip001::onActive() {
 }
 
 void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
-    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafDx::Rikisha* const pRikisha = callRikisha();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_MOVE_UP: {
             //レーザー上昇
-            if (!pKuroko->isTurningMvAng()) {
+            if (!pRikisha->isTurningMvAng()) {
 
                 //補正
-                pKuroko->turnMvAngTwd(tx1_, ty1_, tz1_,
+                pRikisha->turnMvAngTwd(tx1_, ty1_, tz1_,
                                       D_ANG(5), 0,
                                       TURN_CLOSE_TO, false);
             }
@@ -86,12 +86,12 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
         case PROG_TURN1: {
             //自機より少し上の座標で屈折
             if (pProg->hasJustChanged()) {
-                pKuroko->setMvVelo(pKuroko->_velo_mv/3); //屈折時少しスローダウン
-                pKuroko->turnMvAngTwd(tx2_, ty2_, tz2_,
+                pRikisha->setMvVelo(pRikisha->_velo_mv/3); //屈折時少しスローダウン
+                pRikisha->turnMvAngTwd(tx2_, ty2_, tz2_,
                                       D_ANG(10), 0,
                                       TURN_CLOSE_TO, false);
             }
-            if (!pKuroko->isTurningMvAng() || pProg->getFrame() > 300) {
+            if (!pRikisha->isTurningMvAng() || pProg->getFrame() > 300) {
                 pProg->changeNext();
             }
             break;
@@ -100,10 +100,10 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
         case PROG_TURN2: {
             //屈折補正
             if (pProg->getFrame() % 8U == 0) {
-                pKuroko->turnMvAngTwd(tx2_, ty2_, tz2_,
+                pRikisha->turnMvAngTwd(tx2_, ty2_, tz2_,
                                       D_ANG(5), 0,
                                       TURN_CLOSE_TO, false);
-                pKuroko->setMvVelo(pKuroko->_velo_mv*2);
+                pRikisha->setMvVelo(pRikisha->_velo_mv*2);
             }
             if (pProg->getFrame() > 60) {
                 pProg->changeNext();
@@ -116,13 +116,13 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
                 getSeTransmitter()->play3D(SE_FIRE);
             }
             if (pProg->getFrame() % 16U == 0) {
-                pKuroko->turnMvAngTwd(tx2_, ty2_, tz2_,
+                pRikisha->turnMvAngTwd(tx2_, ty2_, tz2_,
                                       100, 0,
                                       TURN_CLOSE_TO, false);
             }
             if (pProg->getFrame() > 90) {
-                pKuroko->stopTurningMvAng();
-                pKuroko->setRzRyMvAngVelo(0,0);
+                pRikisha->stopTurningMvAng();
+                pRikisha->setRzRyMvAngVelo(0,0);
                 pProg->changeNext();
             }
             break;
@@ -131,7 +131,7 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
             break;
         }
     }
-    pKuroko->behave();
+    pRikisha->behave();
     getSeTransmitter()->behave();
 }
 

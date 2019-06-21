@@ -1,7 +1,7 @@
 #include "EnemyOebiusCore.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
@@ -53,9 +53,9 @@ void EnemyOebiusCore::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->linkFaceAngByMvAng(true);
-    pKuroko->forceMvVeloRange(PX_C(15));
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->linkFaceAngByMvAng(true);
+    pRikisha->forceMvVeloRange(PX_C(15));
 }
 
 void EnemyOebiusCore::onActive() {
@@ -64,7 +64,7 @@ void EnemyOebiusCore::onActive() {
 }
 
 void EnemyOebiusCore::processBehavior() {
-    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafDx::Rikisha* const pRikisha = callRikisha();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
 
     GgafCore::Progress* const pProg = getProgress();
@@ -72,7 +72,7 @@ void EnemyOebiusCore::processBehavior() {
         case PROG_INIT: {
             setHitAble(false);
             setAlpha(0);
-            pKuroko->setRollFaceAngVelo(D_ANG(3));
+            pRikisha->setRollFaceAngVelo(D_ANG(3));
             pProg->changeNext();
             break;
         }
@@ -95,8 +95,8 @@ void EnemyOebiusCore::processBehavior() {
 
         case PROG_WAIT01: {
             if (pProg->hasJustChanged()) {
-//                pKuroko->keepOnTurningFaceAngTwd(pMYSHIP, D_ANG(1), 0, TURN_CLOSE_TO, false);
-                pKuroko->setRollPitchYawFaceAngVelo(D_ANG(0.027), D_ANG(0.031), D_ANG(0.071));
+//                pRikisha->keepOnTurningFaceAngTwd(pMYSHIP, D_ANG(1), 0, TURN_CLOSE_TO, false);
+                pRikisha->setRollPitchYawFaceAngVelo(D_ANG(0.027), D_ANG(0.031), D_ANG(0.071));
             }
             if (pProg->hasArrivedAt(10*60*60)) {
                 pProg->changeNext();
@@ -120,7 +120,7 @@ void EnemyOebiusCore::processBehavior() {
     }
 
     pAlphaFader->behave();
-    pKuroko->behave();
+    pRikisha->behave();
 }
 
 void EnemyOebiusCore::processJudgement() {

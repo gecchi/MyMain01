@@ -1,7 +1,7 @@
 #include "EnemyEmus.h"
 
 #include "jp/ggaf/core/actor/ex/ActorDepositoryStore.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/model/Model.h"
@@ -60,7 +60,7 @@ void EnemyEmus::onCreateModel() {
 
 void EnemyEmus::initialize() {
     setHitAble(true);
-    getKuroko()->linkFaceAngByMvAng(true);
+    callRikisha()->linkFaceAngByMvAng(true);
     getMorpher()->setRange(MORPHTARGET_HATCH_OPEN, 0.0f, 1.0f);
     setMorphWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
     CollisionChecker* pChecker = getCollisionChecker();
@@ -81,7 +81,7 @@ void EnemyEmus::onActive() {
 
 void EnemyEmus::processBehavior() {
     changeGeoLocal(); //計算はローカル座標系
-    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafDx::Rikisha* const pRikisha = callRikisha();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
@@ -98,7 +98,7 @@ void EnemyEmus::processBehavior() {
             if (pProg->hasJustChanged()) {
                 getMorpher()->transitionLinearUntil(MORPHTARGET_HATCH_OPEN,
                                            0.0f, frame_of_morph_interval_);
-                pKuroko->setRollFaceAngVelo(0);
+                pRikisha->setRollFaceAngVelo(0);
             }
 
             //次へ
@@ -111,7 +111,7 @@ void EnemyEmus::processBehavior() {
             if (pProg->hasJustChanged()) {
                 getMorpher()->transitionLinearUntil(MORPHTARGET_HATCH_OPEN,
                                            1.0f, frame_of_morph_interval_);
-                pKuroko->setRollFaceAngVelo(3000);
+                pRikisha->setRollFaceAngVelo(3000);
             }
             if (pProg->hasArrivedAt(frame_of_morph_interval_/2)) {
                 //開くモーションが半分以上まで到達したなら
@@ -135,7 +135,7 @@ void EnemyEmus::processBehavior() {
             break;
     }
     getMorpher()->behave();
-    pKuroko->behave();
+    pRikisha->behave();
     changeGeoFinal(); //絶対座標系に戻す
 }
 
@@ -148,7 +148,7 @@ void EnemyEmus::processChangeGeoFinal() {
                 GgafDx::FigureActor* pChip = (GgafDx::FigureActor*)pDepo_->dispatch();
                 if (pChip) {
                     pChip->setPositionAt(this);
-                    pChip->getKuroko()->setRzRyMvAng(_rz, _ry); //絶対座標系での向き
+                    pChip->callRikisha()->setRzRyMvAng(_rz, _ry); //絶対座標系での向き
                 } else {
                     pDepo_ = nullptr;
                 }

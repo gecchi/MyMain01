@@ -1,7 +1,7 @@
 #include "EnemyOebius.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
@@ -35,7 +35,7 @@ EnemyOebius::EnemyOebius(const char* prm_name) :
     _class_name = "EnemyOebius";
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
-    pKurokoLeader_ = nullptr; //フォーメーションオブジェクトが設定する
+    pRikishaLeader_ = nullptr; //フォーメーションオブジェクトが設定する
     scatter_flg_ = false;
     delay_ = 0;
 }
@@ -48,9 +48,9 @@ void EnemyOebius::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->linkFaceAngByMvAng(true);
-    pKuroko->forceMvVeloRange(PX_C(15));
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->linkFaceAngByMvAng(true);
+    pRikisha->forceMvVeloRange(PX_C(15));
 }
 
 void EnemyOebius::onActive() {
@@ -59,14 +59,14 @@ void EnemyOebius::onActive() {
 }
 
 void EnemyOebius::processBehavior() {
-    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafDx::Rikisha* const pRikisha = callRikisha();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             setHitAble(false);
             setAlpha(0);
-            pKuroko->setRollFaceAngVelo(D_ANG(3));
+            pRikisha->setRollFaceAngVelo(D_ANG(3));
             pProg->changeNext();
             break;
         }
@@ -99,16 +99,16 @@ void EnemyOebius::processBehavior() {
 
         case PROG_SPLINE: {
             if (pProg->hasJustChanged()) {
-                getKuroko()->setMvAcce(0); //加速度がある場合は切っておく
-                pKurokoLeader_->start(RELATIVE_COORD_DIRECTION, -1); //-1は無限ループ
+                callRikisha()->setMvAcce(0); //加速度がある場合は切っておく
+                pRikishaLeader_->start(RELATIVE_COORD_DIRECTION, -1); //-1は無限ループ
             }
 
 
 
             FormationOebius* pFormation = (FormationOebius*)getFormation();
-            pKurokoLeader_->setStartPosition(pFormation->geo_.x, pFormation->geo_.y, pFormation->geo_.z);
-            pKurokoLeader_->setStartAngle(pFormation->geo_.rx, pFormation->geo_.ry, pFormation->geo_.rz);
-            pKurokoLeader_->behave(); //スプライン移動を振る舞い
+            pRikishaLeader_->setStartPosition(pFormation->geo_.x, pFormation->geo_.y, pFormation->geo_.z);
+            pRikishaLeader_->setStartAngle(pFormation->geo_.rx, pFormation->geo_.ry, pFormation->geo_.rz);
+            pRikishaLeader_->behave(); //スプライン移動を振る舞い
 
             if (scatter_flg_) {
                 pProg->changeNext();
@@ -123,10 +123,10 @@ void EnemyOebius::processBehavior() {
             }
             if (pProg->hasArrivedAt(delay_)) {
                 //散り散りになる
-                pKurokoLeader_->stop();
-                pKuroko->turnRzRyMvAngTo(RND_ABOUT(pKuroko->_rz_mv, D_ANG(90)), RND_ABOUT(pKuroko->_ry_mv, D_ANG(90)),
+                pRikishaLeader_->stop();
+                pRikisha->turnRzRyMvAngTo(RND_ABOUT(pRikisha->_rz_mv, D_ANG(90)), RND_ABOUT(pRikisha->_ry_mv, D_ANG(90)),
                                          D_ANG(2), 0, TURN_CLOSE_TO,false);
-                pKuroko->setMvAcce(100);
+                pRikisha->setMvAcce(100);
             }
 
             if (pProg->hasArrivedAt(delay_ + 200)) {
@@ -151,7 +151,7 @@ void EnemyOebius::processBehavior() {
     }
 
     pAlphaFader->behave();
-    pKuroko->behave();
+    pRikisha->behave();
 }
 
 void EnemyOebius::processJudgement() {
@@ -183,5 +183,5 @@ void EnemyOebius::scatter() {
 }
 
 EnemyOebius::~EnemyOebius() {
-    GGAF_DELETE_NULLABLE(pKurokoLeader_);
+    GGAF_DELETE_NULLABLE(pRikishaLeader_);
 }

@@ -1,6 +1,6 @@
 #include "EffectSpeedMagic.h"
 
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -30,7 +30,7 @@ void EffectSpeedMagic::onActive() {
 
 void EffectSpeedMagic::processBehavior() {
     getUvFlipper()->behave();
-    getKuroko()->behave();
+    callRikisha()->behave();
     getScaler()->behave();
 }
 

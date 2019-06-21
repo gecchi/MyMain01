@@ -1,5 +1,5 @@
-#ifndef GGAF_LIB_FIXEDFRAMESPLINETRUCKERLEADER_H_
-#define GGAF_LIB_FIXEDFRAMESPLINETRUCKERLEADER_H_
+#ifndef GGAF_LIB_FIXEDFRAMESPLINERIKISHALEADER_H_
+#define GGAF_LIB_FIXEDFRAMESPLINERIKISHALEADER_H_
 #include "GgafLibCommonHeader.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 
@@ -11,15 +11,15 @@ namespace GgafLib {
  * 中間の補完点～次の補完点までを、均等に割った時間で移動します。<BR>
  * 補完点の密度が薄いところは移動速度増。<BR>
  * 補完点の密度が濃いところは移動速度減。<BR>
- * そのように動作するよう、GgafDx::Trucker に指示を出して移動を実現します。<BR>
+ * そのように動作するよう、力車(GgafDx::Rikisha)に指示を出して移動を実現します。<BR>
  * @version 1.00
- * @since 2018/07/25
+ * @since 2009/10/28
  * @author Masatoshi Tsuge
  */
-class FixedFrameSplineTruckerLeader : public SplineLeader {
+class FixedFrameSplineRikishaLeader : public SplineLeader {
 
 public:
-    GgafDx::Trucker* _pTrucker_target;
+    GgafDx::Rikisha* _pRikisha_target;
     /** [r]スプライン情報セット(splファイルの情報に相当) */
     FixedFrameSplineManufacture* _pFixedFrameSplManuf;
     /** _leading_framesに加算される補正フレーム */
@@ -30,15 +30,14 @@ public:
     int _prev_point_index;
     /** start()からの経過フレーム数 */
     frame _leading_frames;
-
 public:
     /**
      *
      * @param prm_pManufacture
-     * @param prm_pTrucker
+     * @param prm_pRikisha
      */
-    FixedFrameSplineTruckerLeader(SplineManufacture* prm_pManufacture,
-                                    GgafDx::Trucker* prm_pTrucker_target);
+    FixedFrameSplineRikishaLeader(SplineManufacture* prm_pManufacture,
+                                 GgafDx::Rikisha* prm_pRikisha_target);
 
     virtual void restart() override;
 
@@ -49,8 +48,9 @@ public:
      */
     virtual void behave() override;
 
-    virtual ~FixedFrameSplineTruckerLeader();
+
+    virtual ~FixedFrameSplineRikishaLeader();
 };
 
 }
-#endif /*GGAF_LIB_FIXEDFRAMESPLINEKUROKOLEADER_H_*/
+#endif /*GGAF_LIB_FIXEDFRAMESPLINERIKISHALEADER_H_*/

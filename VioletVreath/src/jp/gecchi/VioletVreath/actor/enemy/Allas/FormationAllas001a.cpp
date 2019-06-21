@@ -1,7 +1,7 @@
 #include "FormationAllas001a.h"
 
 #include "EnemyAllas.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/lib/util/spline/SplineLeader.h"
 
 using namespace GgafLib;
@@ -12,7 +12,7 @@ FormationAllas001a::FormationAllas001a(const char* prm_name) : FormationAllas001
 }
 
 void FormationAllas001a::onCallUpAllas(EnemyAllas* prm_pAllas)  {
-    prm_pAllas->pKurokoLeader_->setAbsoluteBeginCoord();
+    prm_pAllas->pRikishaLeader_->setAbsoluteBeginCoord();
 }
 
 FormationAllas001a::~FormationAllas001a() {

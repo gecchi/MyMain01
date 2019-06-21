@@ -1,5 +1,5 @@
-#ifndef GGAF_DX_TRUCKER_H_
-#define GGAF_DX_TRUCKER_H_
+#ifndef GGAF_DX_KAGO_H_
+#define GGAF_DX_KAGO_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 
@@ -8,7 +8,7 @@
 namespace GgafDx {
 
 /**
- * 平行移動支援 .
+ * アクターを載せる駕籠（アクターの平行移動支援） .
  * GeometricActor のメンバの<BR>
  *  _x, _y, _z  ・・・ アクターの座標<BR>
  * を、各成分毎に簡単に操作するために作成。<BR>
@@ -16,7 +16,7 @@ namespace GgafDx {
  * @since 2008/08/20
  * @author Masatoshi Tsuge
  */
-class Trucker : public GgafCore::Object {
+class Kago : public GgafCore::Object {
 
 public:
     /** [r]対象アクター */
@@ -66,21 +66,21 @@ public:
     acce _grv_mv_acce;
     coord _grv_mv_stop_renge;
     bool _grv_mv_flg;
-    /** [r]黒衣Bの助手A */
-    TruckerAssistantA* _pAsstMv;
+    /** [r]駕籠の助手A */
+    KagoAssistantA* _pAsstMv;
 
 public:
     /**
      * コンストラクタ<BR>
-     * @param   prm_pActor  適用Actor
+     * @param   prm_pActor  駕籠に乗るActor
      */
-    explicit Trucker(GeometricActor* prm_pActor);
+    explicit Kago(GeometricActor* prm_pActor);
 
     /**
-     * 黒衣Bの助手(滑らか移動担当)を取得 .
-     * @return 黒衣Bの助手
+     * 駕籠の助手(滑らか移動担当)を取得 .
+     * @return 駕籠の助手
      */
-    TruckerAssistantA* asst();
+    KagoAssistantA* asst();
 
     int dot(int prm_vX, int prm_vY, int prm_vZ);
     /**
@@ -405,14 +405,14 @@ public:
     }
 
     /**
-     * 平行移動支援の仕事を引継ぐ .
-     * 他の Trucker オブジェクトを状態を自身に引継ぐ .
+     * 駕籠(平行移動支援)の仕事を引継ぐ .
+     * 他の Kago オブジェクトを状態を自身に引継ぐ .
      * @param prm_pAxsMver 引継元
      */
-    void takeoverMvFrom(Trucker* const prm_pAxsMver);
+    void takeoverMvFrom(Kago* const prm_pAxsMver);
 
     /**
-     * Truckerによるアクター移動を停止する。
+     * Kagoによるアクター移動を停止する。
      */
     void stopMv();
 
@@ -422,15 +422,15 @@ public:
     void resetMv();
 
     /**
-     * 平行移動支援が振る舞う .
-     * 平行移動支援機能を利用する場合は、このメソッドを毎フレーム呼び出し実行してください。<BR>
-     * 逆に平行移動支援を必要としない場合は、このメソッドを呼び出さないことで、パフォーマンスに影響を与えません。<BR>
+     * 駕籠(平行移動支援)が振る舞う .
+     * 駕籠(平行移動支援)機能を利用する場合は、このメソッドを毎フレーム呼び出し実行してください。<BR>
+     * 逆に駕籠(平行移動支援)を必要としない場合は、このメソッドを呼び出さないことで、パフォーマンスに影響を与えません。<BR>
      */
     virtual void behave();
 
-    virtual ~Trucker();
+    virtual ~Kago();
 };
 
 }
-#endif /*GGAF_DX_TRUCKER_H_*/
+#endif /*GGAF_DX_KAGO_H_*/
 

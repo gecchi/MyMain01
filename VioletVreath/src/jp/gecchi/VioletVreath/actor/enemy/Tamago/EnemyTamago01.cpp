@@ -1,6 +1,6 @@
 #include "EnemyTamago01.h"
 
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
@@ -43,11 +43,11 @@ void EnemyTamago01::onCreateModel() {
 
 void EnemyTamago01::initialize() {
     setHitAble(true);
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    pKuroko->linkFaceAngByMvAng(true);
-    pKuroko->setRollFaceAngVelo(1000);
-    pKuroko->setMvAngTwd(900000, 300000, 300000);
-    pKuroko->setMvVelo(3000);
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    pRikisha->linkFaceAngByMvAng(true);
+    pRikisha->setRollFaceAngVelo(1000);
+    pRikisha->setMvAngTwd(900000, 300000, 300000);
+    pRikisha->setMvVelo(3000);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
 //    pChecker->setColliAAPrism_Cube(0, 200000,POS_PRISM_ZX_PP);
@@ -117,7 +117,7 @@ void EnemyTamago01::processBehavior() {
 //    if (GgafDx::Input::isPressedKey(DIK_0)) {
 //        pModel->getTexBlinker()->->setScaleToBottom();
 //    }
-    GgafDx::Kuroko* const pKuroko = getKuroko();
+    GgafDx::Rikisha* const pRikisha = callRikisha();
 
     if (iMovePatternNo_ == 0) {
         //スプライン移動中
@@ -128,7 +128,7 @@ void EnemyTamago01::processBehavior() {
 
     if (iMovePatternNo_ == 1) {
         //スプライン移動終了時
-        pKuroko->turnMvAngTwd(pMYSHIP->_x+800000, pMYSHIP->_y, pMYSHIP->_z,
+        pRikisha->turnMvAngTwd(pMYSHIP->_x+800000, pMYSHIP->_y, pMYSHIP->_z,
                                             2000, 0,
                                             TURN_CLOSE_TO, false);
         iMovePatternNo_++; //次の行動パターンへ
@@ -142,7 +142,7 @@ void EnemyTamago01::processBehavior() {
 
     }
     if (getBehaveingFrame() % 30U == 0) {
-        pKuroko->turnMvAngTwd(pMYSHIP,
+        pRikisha->turnMvAngTwd(pMYSHIP,
                                 2000,0,TURN_CLOSE_TO, false);
 
         if (pDepo_shot_) {
@@ -159,8 +159,8 @@ void EnemyTamago01::processBehavior() {
             for (int i = 0; i < way; i++) {
                 pActor = (GgafDx::FigureActor*)pDepo_shot_->dispatch();
                 if (pActor) {
-                    pActor->getKuroko()->linkFaceAngByMvAng(true);
-                    pActor->getKuroko()->setRzRyMvAng_by_RyRz(paAng_way[i], target_RyRz_Rz);
+                    pActor->callRikisha()->linkFaceAngByMvAng(true);
+                    pActor->callRikisha()->setRzRyMvAng_by_RyRz(paAng_way[i], target_RyRz_Rz);
                     pActor->setPositionAt(this);
                 }
             }
@@ -178,7 +178,7 @@ void EnemyTamago01::processBehavior() {
     if (pProgram_Tamago01Move_) {
         pProgram_Tamago01Move_->behave();
     }
-    pKuroko->behave();
+    pRikisha->behave();
     getScaler()->behave();
     getUvFlipper()->behave();
     //getSeTransmitter()->behave();

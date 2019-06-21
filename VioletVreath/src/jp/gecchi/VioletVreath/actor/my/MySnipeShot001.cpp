@@ -1,6 +1,6 @@
 #include "MySnipeShot001.h"
 
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -23,8 +23,8 @@ void MySnipeShot001::initialize() {
     pChecker->createCollisionArea(1);
     pChecker->setColliAABox(0, -PX_C(80), -PX_C(5), -PX_C(5),
                                 PX_C(80),  PX_C(5),  PX_C(5));
-    getKuroko()->setRollFaceAngVelo(D_ANG(12));
-    getKuroko()->linkFaceAngByMvAng(true);
+    callRikisha()->setRollFaceAngVelo(D_ANG(12));
+    callRikisha()->linkFaceAngByMvAng(true);
 }
 
 void MySnipeShot001::onActive() {
@@ -33,7 +33,7 @@ void MySnipeShot001::onActive() {
 }
 
 void MySnipeShot001::processBehavior() {
-    getKuroko()->behave();
+    callRikisha()->behave();
 }
 
 void MySnipeShot001::processJudgement() {

@@ -1,5 +1,5 @@
-#ifndef GGAF_DX_KUROKOMVASSISTANT_H_
-#define GGAF_DX_KUROKOMVASSISTANT_H_
+#ifndef GGAF_DX_RIKISHAMVASSISTANT_H_
+#define GGAF_DX_RIKISHAMVASSISTANT_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 #include "jp/ggaf/core/util/ValueAccelerator.hpp"
@@ -7,22 +7,22 @@
 namespace GgafDx {
 
 /**
- * 黒衣の助手A .
- * 師匠(黒衣)の移動速度の補佐を行います。
+ * 力車の助手A .
+ * 師匠(力車)の移動速度の補佐を行います。
  * @version 1.00
  * @since 2013/12/05
  * @author Masatoshi Tsuge
  */
-class KurokoMvAssistant : public GgafCore::Object {
-	friend class Kuroko;
+class RikishaMvAssistant : public GgafCore::Object {
+	friend class Rikisha;
 
 private:
     /** [r]師匠 */
-    Kuroko* const _pMaster;
+    Rikisha* const _pMaster;
     GgafCore::ValueAccelerator<int> _smthMv;
 
     /**
-     * 黒衣の助手が振る舞う .
+     * 力車の助手が振る舞う .
      * 師匠が振る舞う(behave())時に、自動で呼び出されるので気にしないでよいです。
      */
     virtual void behave();
@@ -32,7 +32,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pMaster  師匠
      */
-    explicit KurokoMvAssistant(Kuroko* prm_pMaster);
+    explicit RikishaMvAssistant(Rikisha* prm_pMaster);
 
 
     /**
@@ -125,9 +125,9 @@ public:
         return _smthMv.hasJustFinishedAccelerating();
     }
 
-    virtual ~KurokoMvAssistant();
+    virtual ~RikishaMvAssistant();
 };
 
 }
-#endif /*GGAF_DX_KUROKOMVASSISTANT_H_*/
+#endif /*GGAF_DX_RIKISHAMVASSISTANT_H_*/
 

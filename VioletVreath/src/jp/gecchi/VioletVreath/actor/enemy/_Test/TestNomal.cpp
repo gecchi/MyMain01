@@ -1,7 +1,7 @@
 #include "TestNomal.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 using namespace GgafLib;
@@ -26,7 +26,7 @@ void TestNomal::onActive() {
 }
 
 void TestNomal::processBehavior() {
-    getKuroko()->behave();
+    callRikisha()->behave();
     //getSeTransmitter()->behave();
     dispStamina();
 }

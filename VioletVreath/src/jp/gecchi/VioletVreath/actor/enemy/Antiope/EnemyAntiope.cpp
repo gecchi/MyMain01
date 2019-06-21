@@ -1,9 +1,9 @@
 #include "EnemyAntiope.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/Trucker.h"
+#include "jp/ggaf/dx/actor/supporter/Kago.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
@@ -50,8 +50,8 @@ void EnemyAntiope::onActive() {
 }
 
 void EnemyAntiope::processBehavior() {
-    GgafDx::Kuroko* const pKuroko = getKuroko();
-    GgafDx::Trucker* const pTrucker = getTrucker();
+    GgafDx::Rikisha* const pRikisha = callRikisha();
+    GgafDx::Kago* const pKago = callKago();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
 
     GgafCore::Progress* const pProg = getProgress();
@@ -59,9 +59,9 @@ void EnemyAntiope::processBehavior() {
          case PROG_INIT: {
              setHitAble(false);
              setAlpha(0);
-             pKuroko->stopMv();
-             pKuroko->setRollFaceAngVelo(D_ANG(10));
-             pTrucker->setZeroVxyzMvVelo();
+             pRikisha->stopMv();
+             pRikisha->setRollFaceAngVelo(D_ANG(10));
+             pKago->setZeroVxyzMvVelo();
              pProg->changeNext();
              break;
          }
@@ -84,24 +84,24 @@ void EnemyAntiope::processBehavior() {
 
          case PROG_MOVE01: { //放物線のような動き
              if (pProg->hasJustChanged()) {
-                 pKuroko->setMvVelo(PX_C(30));
-                 pKuroko->setMvAcce(-1000);
+                 pRikisha->setMvVelo(PX_C(30));
+                 pRikisha->setMvAcce(-1000);
                  //平行移動速度の方向ベクトル mv_velo_twd_ はフォーメーションが設定
-                 pTrucker->setVxyzMvVelo(mv_velo_twd_.x, mv_velo_twd_.y, mv_velo_twd_.z);
+                 pKago->setVxyzMvVelo(mv_velo_twd_.x, mv_velo_twd_.y, mv_velo_twd_.z);
              }
 
-             if (pKuroko->_velo_mv <= (-PX_C(30) + 1000)) {
+             if (pRikisha->_velo_mv <= (-PX_C(30) + 1000)) {
                  if (pP_) {
-                     pKuroko->stopMv();
-                     pTrucker->setZeroVxyzMvVelo();
+                     pRikisha->stopMv();
+                     pKago->setZeroVxyzMvVelo();
                      pProg->change(PROG_LEAVE);
                  } else {
-                     pTrucker->setVxyzMvVelo(
-                                  mv_velo_twd_.x + (pKuroko->_vX * pKuroko->_velo_mv),
-                                  mv_velo_twd_.y + (pKuroko->_vY * pKuroko->_velo_mv),
-                                  mv_velo_twd_.z + (pKuroko->_vZ * pKuroko->_velo_mv)
+                     pKago->setVxyzMvVelo(
+                                  mv_velo_twd_.x + (pRikisha->_vX * pRikisha->_velo_mv),
+                                  mv_velo_twd_.y + (pRikisha->_vY * pRikisha->_velo_mv),
+                                  mv_velo_twd_.z + (pRikisha->_vZ * pRikisha->_velo_mv)
                                 );
-                     pKuroko->stopMv();
+                     pRikisha->stopMv();
                      pProg->change(PROG_RUSH);
                  }
              }
@@ -123,8 +123,8 @@ void EnemyAntiope::processBehavior() {
          case PROG_RUSH: {
              //相方がいなくなった場合
              if (pProg->hasJustChanged()) {
-                 pTrucker->execGravitationMvSequenceTwd(pMYSHIP, PX_C(30), 200, PX_C(50));
-                 pKuroko->keepOnTurningFaceAngTwd(pMYSHIP, D_ANG(2), 0, TURN_CLOSE_TO, false);
+                 pKago->execGravitationMvSequenceTwd(pMYSHIP, PX_C(30), 200, PX_C(50));
+                 pRikisha->keepOnTurningFaceAngTwd(pMYSHIP, D_ANG(2), 0, TURN_CLOSE_TO, false);
              }
              break;
          }
@@ -134,9 +134,9 @@ void EnemyAntiope::processBehavior() {
          }
      }
 
-//    _TRACE_(this<<":"<<getActiveFrame()<<" "<<_x<<","<<_y<<","<<_z<<"  ("<<_pKuroko->_velo_mv<<") "<<_pKuroko->_vX<<","<<_pKuroko->_vY<<","<<_pKuroko->_vZ<<"");
-    pKuroko->behave();
-    pTrucker->behave();
+//    _TRACE_(this<<":"<<getActiveFrame()<<" "<<_x<<","<<_y<<","<<_z<<"  ("<<_pRikisha->_velo_mv<<") "<<_pRikisha->_vX<<","<<_pRikisha->_vY<<","<<_pRikisha->_vZ<<"");
+    pRikisha->behave();
+    pKago->behave();
     pAlphaFader->behave();
 }
 

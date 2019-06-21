@@ -1,10 +1,10 @@
 #include "jp/ggaf/lib/actor/camera/worker/AroundViewCamWorker.h"
 
 #include "jp/ggaf/core/actor/SceneMediator.h"
-#include "jp/ggaf/dx/actor/supporter/Kuroko.h"
+#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
 #include "jp/ggaf/dx/util/Input.h"
 #include "jp/ggaf/lib/util/Quaternion.hpp"
-#include "jp/ggaf/dx/actor/supporter/KurokoMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/RikishaMvAssistant.h"
 #include "jp/ggaf/lib/DefaultGod.h"
 #include "jp/ggaf/lib/LibConfig.h"
 #include "jp/ggaf/lib/actor/camera/DefaultCamera.h"
