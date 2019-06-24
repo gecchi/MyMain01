@@ -86,8 +86,8 @@ bool MyTorpedoController::fire() {
             float vx, vy, vz;
             UTIL::convRzRyToVector(pOrg_->_rz, pOrg_->_ry, vx, vy, vz);
             papTorpedo_[0]->setPosition(pOrg_->_x + (vx * r),
-                                     pOrg_->_y + (vy * r),
-                                     pOrg_->_z + (vz * r));
+                                        pOrg_->_y + (vy * r),
+                                        pOrg_->_z + (vz * r));
             if (target_num == 0) {
                 papTorpedo_[0]->pTarget_ = nullptr;
             } else {

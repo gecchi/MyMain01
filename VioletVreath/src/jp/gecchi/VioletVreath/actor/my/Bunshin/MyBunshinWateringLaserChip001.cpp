@@ -48,10 +48,8 @@ MyBunshinWateringLaserChip001::MyBunshinWateringLaserChip001(const char* prm_nam
     tmp_x_ = _x;
     tmp_y_ = _y;
     tmp_z_ = _z;
-    tmp_acc_vx_ = tmp_acc_vy_ = tmp_acc_vz_ = 0;
     pAimInfo_ = nullptr;
     inv_cnt_ = 0;
-    jerk_ = 1.0;
 }
 
 void MyBunshinWateringLaserChip001::initialize() {
@@ -81,7 +79,6 @@ void MyBunshinWateringLaserChip001::onActive() {
     GgafDx::Kago* pKago = callKago();
     pKago->forceVxyzMvVeloRange(-MAX_VELO_RENGE, MAX_VELO_RENGE);
     pKago->forceVxyzMvAcceRange(-MAX_ACCE_RENGE, MAX_ACCE_RENGE);
-    jerk_ = 1.0;
 }
 
 void MyBunshinWateringLaserChip001::processBehavior() {
@@ -237,17 +234,11 @@ void MyBunshinWateringLaserChip001::processBehavior() {
         } //if (pAimTarget)
 
     }
-//    pKago->addVxMvAcce(pKago->_acce_vx_mv * 1.1);
-//    pKago->addVyMvAcce(pKago->_acce_vy_mv * 1.1);
-//    pKago->addVzMvAcce(pKago->_acce_vz_mv * 1.1);
     pKago->behave();
     WateringLaserChip::processBehavior();
     tmp_x_ = _x;
     tmp_y_ = _y;
     tmp_z_ = _z;
-    tmp_acc_vx_ =  pKago->_acce_vx_mv;
-    tmp_acc_vy_ =  pKago->_acce_vy_mv;
-    tmp_acc_vz_ =  pKago->_acce_vz_mv;
 }
 
 void MyBunshinWateringLaserChip001::processSettlementBehavior() {
@@ -302,7 +293,7 @@ throwCriticalException("pAimInfo_ が引き継がれていません！"<<this<<
     //本来は processBehaviorAfter() 的な意味の処理であるが、全レーザーチップが移動後でないと意味がないので
     //仕方ないのでprocessSettlementBehavior()に食い込んでいます。
     //したがって本クラスを継承した場合、継承クラスのprocessSettlementBehavior()では、先頭で呼び出した方が良い。
-    if (pAimInfo_->pTarget && getActiveFrame() > 3) {//FKオブジェクトからのレーザー発射も考慮すると、_tmpXYZ が埋まるのは3フレーム以降。
+    if (getActiveFrame() > 3) {//FKオブジェクトからのレーザー発射も考慮すると、_tmpXYZ が埋まるのは3フレーム以降。
         MyBunshinWateringLaserChip001* pF = (MyBunshinWateringLaserChip001*)getInfrontChip();
         if (pF && pF->isActive()) {
             MyBunshinWateringLaserChip001* pB = (MyBunshinWateringLaserChip001*)getBehindChip();
@@ -312,9 +303,15 @@ throwCriticalException("pAimInfo_ が引き継がれていません！"<<this<<
                 //_x,_y,_z にはまだ変な値が入っている。
                 //中間座標に再設定
                 //座標の重みは、（ひとつ前, 自身, 一つ先）＝ (0.2, 0.5, 0.3)
-                _x = (coord)(tmp_x_ + (pB->tmp_x_-tmp_x_)*0.2 + (pF->tmp_x_-tmp_x_)*0.3);
-                _y = (coord)(tmp_y_ + (pB->tmp_y_-tmp_y_)*0.2 + (pF->tmp_y_-tmp_y_)*0.3);
-                _z = (coord)(tmp_z_ + (pB->tmp_z_-tmp_z_)*0.2 + (pF->tmp_z_-tmp_z_)*0.3);
+                if (pAimInfo_->pTarget) {
+                    _x = tmp_x_ + (coord)((pB->tmp_x_-tmp_x_)*0.2 + (pF->tmp_x_-tmp_x_)*0.3);
+                    _y = tmp_y_ + (coord)((pB->tmp_y_-tmp_y_)*0.2 + (pF->tmp_y_-tmp_y_)*0.3);
+                    _z = tmp_z_ + (coord)((pB->tmp_z_-tmp_z_)*0.2 + (pF->tmp_z_-tmp_z_)*0.3);
+                } else {
+                    _x = tmp_x_ + (coord)((pB->tmp_x_-tmp_x_)*0.1 + (pF->tmp_x_-tmp_x_)*0.1);
+                    _y = tmp_y_ + (coord)((pB->tmp_y_-tmp_y_)*0.1 + (pF->tmp_y_-tmp_y_)*0.1);
+                    _z = tmp_z_ + (coord)((pB->tmp_z_-tmp_z_)*0.1 + (pF->tmp_z_-tmp_z_)*0.1);
+                }
             }
         }
     }
@@ -374,16 +371,11 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
     double vTz = tZ - _z;
 
     //自→仮自。
-//    int vMx = pKago->_velo_vx_mv;
-//    int vMy = pKago->_velo_vy_mv;
-//    int vMz = pKago->_velo_vz_mv;
     double vMx = pKago->_velo_vx_mv;
     double vMy = pKago->_velo_vy_mv;
     double vMz = pKago->_velo_vz_mv;
     double lVM = sqrt(vMx*vMx + vMy*vMy + vMz*vMz);
     //|仮自| = lVM * 5
-//    int lVM = MAX3(ABS(vMx), ABS(vMy), ABS(vMz)); //仮自ベクトル大きさ簡易版
-
     static const double min_velo = MyBunshinWateringLaserChip001::INITIAL_VELO/2; // ÷2 は、最低移動する各軸のINITIAL_VELOの割合
     if  (lVM < min_velo) { //縮こまらないように
         if (ZEROd_EQ(lVM)) {
@@ -415,67 +407,12 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
     const double accZ = ((vTz * r) - vMz*5.0) * RR_MAX_ACCE;
     double top_acce_mv = pKago->_top_acce_vx_mv*1.05;
     if (MAX_VELO_RENGE < top_acce_mv && top_acce_mv < MAX_VELO_RENGE) {
-        pKago->forceVxyzMvAcceRange(-top_acce_mv, top_acce_mv);//徐々に加速度を大きくセットできるように
+        pKago->forceVxyzMvAcceRange(-top_acce_mv, top_acce_mv);
     }
     pKago->setVxyzMvAcce(accX, accY, accZ);
-//    pKago->setVxyzMvAcce(accX*jerk_, accY*jerk_, accZ*jerk_);
-//    jerk_ += 0.05;
 }
 
 
-//void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
-//    //    |                            vVT 仮的                              |
-//    //    |                                ^ ┌                              |
-//    //    |                 |仮的| > 5*vM /    ＼  vVP 仮自→仮的            |      仮的
-//    //    |                 となるような /       ＼                          |       ↑
-//    //    |                 vVTを設定   /         ┐                         |      仮自
-//    //    |                            /        ／vVM  仮自                  |       ↑
-//    //    |                           /       ／  (vVMx*5,vVMy*5,vVMz*5)     |       ｜
-//    //    |                          /      ／                               |       ｜
-//    //    |                         /     ／                                 |       ｜
-//    //    |                        /    ／ |仮自| = lVM * 5                  |       ｜
-//    //    |                      的 vT(tX,tY,tZ)                             |       的
-//    //    |             ┌       ^  ／                                       |       ↑
-//    //    |               ＼    / ┐vM 現在の移動方向ベクトル                |       ｜
-//    //    | vVP 仮自→仮的  ＼ /／ (vVMx,vVMy,vVMz)                          |       ｜
-//    //    |                   自                                             |       自
-//    //    |                     (_x,_y,_z)                                   |
-//    // ---+------------------------------------------                     ---+---------------------------
-//    //    |                                                                  |
-//    //
-//    // vVP が動きたい方向。vVPを求める！
-//#ifdef MY_DEBUG
-//    if (tX == INT_MAX) {
-//        throwCriticalException("おかしい");
-//    }
-//#endif
-//    GgafDx::Kago* pKago = callKago();
-//
-//
-//
-//
-//    //自→的
-////    const int vTx = tX - _x;
-////    const int vTy = tY - _y;
-////    const int vTz = tZ - _z;
-//    float vTx, vTy, vTz;
-//    UTIL::getNormalizedVector(tX - _x, tY - _y, tZ - _z,
-//                              vTx, vTy, vTz);
-//
-//    //自
-//    double vMx = pKago->_velo_vx_mv;
-//    double vMy = pKago->_velo_vy_mv;
-//    double vMz = pKago->_velo_vz_mv;
-//    double dvm = sqrt(vMx*vMx + vMy*vMy + vMz*vMz);
-//    static const velo min_velo = MyBunshinWateringLaserChip001::INITIAL_VELO/2;
-//    if  (dvm < min_velo) { //縮こまらないように
-//        dvm = min_velo;
-//    }
-//    const double accX = vTx * dvm * RR_MAX_ACCE;
-//    const double accY = vTy * dvm * RR_MAX_ACCE;
-//    const double accZ = vTz * dvm * RR_MAX_ACCE;
-//    pKago->setVxyzMvAcce(accX, accY, accZ);
-//}
 
 void MyBunshinWateringLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor) {
     GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*) prm_pOtherActor;
