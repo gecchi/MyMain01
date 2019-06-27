@@ -389,6 +389,32 @@ public:
     }
 
     /**
+     * 距離の近似を計算
+     * @param x
+     * @param y
+     * @return
+     */
+    static int getApproxDistance(int x, int y) {
+        x = abs(x);
+        y = abs(y);
+        int64_t max = x > y ? x : y;
+        int64_t min = x > y ? y : x;
+        int64_t d = 2*max < 5*min  ?  864 *max + 569*min :
+                                      1016*max + 190*min;
+        return (int)((d + 512) >> 10);
+    }
+    /**
+     * 距離の近似を計算
+     * @param x
+     * @param y
+     * @param z
+     * @return
+     */
+    static int getApproxDistance(int x, int y, int z) {
+        return getApproxDistance(getApproxDistance(x, y), z);
+    }
+
+    /**
      * 原点(0,0,0) からパラメータ座標(vx,vy,vz) を向く方向ベクトルに対応する「Z軸回転のアングル値」と「Y軸回転のアングル値」を取得 .
      * 本クラスの中核とも言うべきメソッドその１<BR>
      * 方向ベクトル -> Z軸Y軸回転方角 の変換<BR>
