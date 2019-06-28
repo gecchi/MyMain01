@@ -20,9 +20,9 @@
 using namespace GgafLib;
 using namespace VioletVreath;
 
-const velo MyBunshinWateringLaserChip001::MAX_VELO_RENGE = PX_C(260); //この値を大きくすると、最高速度が早くなる。
+const velo MyBunshinWateringLaserChip001::MAX_VELO_RENGE = PX_C(300); //この値を大きくすると、最高速度が早くなる。
 const double MyBunshinWateringLaserChip001::INV_MAX_VELO_RENGE = 1.0 / MAX_VELO_RENGE;
-const int MyBunshinWateringLaserChip001::R_MAX_ACCE = 16; //この値を大きくすると、カーブが緩くなる
+const int MyBunshinWateringLaserChip001::R_MAX_ACCE = 20; //この値を大きくすると、カーブが緩くなる
 const velo MyBunshinWateringLaserChip001::INITIAL_VELO = MAX_VELO_RENGE*0.7; //レーザー発射時の初期速度
 const double MyBunshinWateringLaserChip001::RR_MAX_ACCE = 1.0 / R_MAX_ACCE; //計算簡素化用
 const float MyBunshinWateringLaserChip001::MAX_ACCE_RENGE = MAX_VELO_RENGE/R_MAX_ACCE;
@@ -304,9 +304,9 @@ throwCriticalException("pAimInfo_ が引き継がれていません！"<<this<<
                 //中間座標に再設定
                 //座標の重みは、（ひとつ前, 自身, 一つ先）＝ (0.2, 0.5, 0.3)
                 if (pAimInfo_->pTarget) {
-                    _x = tmp_x_ + (coord)((pB->tmp_x_-tmp_x_)*0.2 + (pF->tmp_x_-tmp_x_)*0.3);
-                    _y = tmp_y_ + (coord)((pB->tmp_y_-tmp_y_)*0.2 + (pF->tmp_y_-tmp_y_)*0.3);
-                    _z = tmp_z_ + (coord)((pB->tmp_z_-tmp_z_)*0.2 + (pF->tmp_z_-tmp_z_)*0.3);
+                    _x = tmp_x_ + (coord)((pB->tmp_x_-tmp_x_)*0.1 + (pF->tmp_x_-tmp_x_)*0.3);
+                    _y = tmp_y_ + (coord)((pB->tmp_y_-tmp_y_)*0.1 + (pF->tmp_y_-tmp_y_)*0.3);
+                    _z = tmp_z_ + (coord)((pB->tmp_z_-tmp_z_)*0.1 + (pF->tmp_z_-tmp_z_)*0.3);
                 } else {
                     _x = tmp_x_ + (coord)((pB->tmp_x_-tmp_x_)*0.1 + (pF->tmp_x_-tmp_x_)*0.1);
                     _y = tmp_y_ + (coord)((pB->tmp_y_-tmp_y_)*0.1 + (pF->tmp_y_-tmp_y_)*0.1);
@@ -362,10 +362,10 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
     }
 #endif
 
-    static const coord min_velo = MyBunshinWateringLaserChip001::INITIAL_VELO/2; // ÷2 は、最低移動する各軸のINITIAL_VELOの割合
-    static const coord min_velo2 = min_velo*0.8;
-    static const coord rv = 20.0;
-    static const coord rv2 = rv*0.8;
+    static const coord min_velo = MyBunshinWateringLaserChip001::INITIAL_VELO/4; // ÷2 は、最低移動する各軸のINITIAL_VELOの割合
+//    static const coord min_velo2 = min_velo*0.8;
+    static const coord rv = 10.0;
+//    static const coord rv2 = rv*0.8;
     GgafDx::Kago* pKago = callKago();
     //自→仮、自方向ベクトル(vM)
     coord vMx = pKago->_velo_vx_mv;
