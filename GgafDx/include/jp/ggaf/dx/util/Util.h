@@ -394,7 +394,7 @@ public:
      * @param y
      * @return
      */
-    static int getApproxDistance(int x, int y) {
+    static int __getApproxDistance__(int x, int y) {
         x = abs(x);
         y = abs(y);
         int64_t max = x > y ? x : y;
@@ -404,15 +404,58 @@ public:
         return (int)((d + 512) >> 10);
     }
     /**
-     * 距離の近似を計算
+     * 距離の近似を計算(3D) .
      * @param x
      * @param y
      * @param z
      * @return
      */
-    static int getApproxDistance(int x, int y, int z) {
-        return getApproxDistance(getApproxDistance(x, y), z);
+    static int __getApproxDistance__(int x, int y, int z) {
+        return __getApproxDistance__(__getApproxDistance__(x, y), z);
     }
+
+    /**
+     * 距離近似値計算(2D) .
+     * @param x1
+     * @param y1
+     * @param x2
+     * @param y2
+     * @return
+     */
+    static coord getApproxDistance(coord x1, coord y1, coord x2, coord y2) {
+        return __getApproxDistance__(x2-x1, y2-y1);
+    }
+
+    /**
+     * 距離の近似を計算(3D) .
+     * @param x1
+     * @param y1
+     * @param z1
+     * @param x2
+     * @param y2
+     * @param z2
+     * @return
+     */
+    static coord getApproxDistance(coord x1, coord y1, coord z1, coord x2, coord y2, coord z2) {
+        return __getApproxDistance__(x2-x1, y2-y1, z2-z1);
+    }
+
+    static double getApproxDistance(GeometricActor* pA1, GeometricActor* pA2) {
+        return __getApproxDistance__(pA2->_x - pA1->_x, pA2->_y - pA1->_y, pA2->_z - pA1->_z);
+    }
+
+    static double getApproxDistance(GeometricActor* pA1, GeoElem* pA2) {
+        return __getApproxDistance__(pA2->x - pA1->_x, pA2->y - pA1->_y, pA2->z - pA1->_z);
+    }
+
+    static double getApproxDistance(GeoElem* pA1, GeometricActor* pA2) {
+        return __getApproxDistance__(pA2->_x - pA1->x, pA2->_y - pA1->y, pA2->_z - pA1->z);
+    }
+
+    static double getApproxDistance(GeoElem* pA1 ,GeoElem* pA2) {
+        return __getApproxDistance__(pA2->x - pA1->x, pA2->y - pA1->y, pA2->z - pA1->z);
+    }
+
 
     /**
      * 原点(0,0,0) からパラメータ座標(vx,vy,vz) を向く方向ベクトルに対応する「Z軸回転のアングル値」と「Y軸回転のアングル値」を取得 .

@@ -166,10 +166,10 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                     } else {
                         pAimInfo->setT2(zf_r, pOrg_->_x, pOrg_->_y, pOrg_->_z, _x, _y, _z);
                     }
-                    coord t2_d = UTIL::getDistance(_x, _y, _z,
-                                                   pAimInfo->t2_x,
-                                                   pAimInfo->t2_y,
-                                                   pAimInfo->t2_z);
+                    coord t2_d = UTIL::getApproxDistance(_x, _y, _z,
+                                                         pAimInfo->t2_x,
+                                                         pAimInfo->t2_y,
+                                                         pAimInfo->t2_z);
                     pAimInfo->spent_frames_to_t2 = active_frame + (frame)(t2_d*MyBunshinWateringLaserChip001::INV_MAX_VELO_RENGE); //t2到達時間概算
                     aimChip(pAimInfo->t2_x,
                             pAimInfo->t2_y,
@@ -260,7 +260,7 @@ void MyBunshinWateringLaserChip001::processSettlementBehavior() {
                 pAimInfo_->t1_y = pAimInfo_->pTarget->_y;
                 pAimInfo_->t1_z = pAimInfo_->pTarget->_z;
                 // aim_time_out_t1 を概算で求めておく
-                coord t1_d = UTIL::getDistance(this, pLockonTarget);
+                coord t1_d = UTIL::getApproxDistance(this, pLockonTarget);
                 pAimInfo_->aim_time_out_t1 = (t1_d / MyBunshinWateringLaserChip001::INITIAL_VELO)*1.2;
             } else {
                 //先端でロックオンしていない
@@ -363,9 +363,7 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
 #endif
 
     static const coord min_velo = MyBunshinWateringLaserChip001::INITIAL_VELO/4; // ÷2 は、最低移動する各軸のINITIAL_VELOの割合
-//    static const coord min_velo2 = min_velo*0.8;
     static const coord rv = 10.0;
-//    static const coord rv2 = rv*0.8;
     GgafDx::Kago* pKago = callKago();
     //自→仮、自方向ベクトル(vM)
     coord vMx = pKago->_velo_vx_mv;
@@ -373,7 +371,7 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
     coord vMz = pKago->_velo_vz_mv;
     //|vM|
 //    double lvM = sqrt(vMx*vMx + vMy*vMy + vMz*vMz);
-    double lvM = UTIL::getApproxDistance(vMx, vMy, vMz);
+    coord lvM = UTIL::__getApproxDistance__(vMx, vMy, vMz);
     //|vM|があまりに小さい場合＝速度が遅すぎる場合を考慮
     if  (lvM < min_velo) { //縮こまらないように
         if (ZEROd_EQ(lvM)) {
@@ -389,7 +387,6 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
         vMz = pKago->_velo_vz_mv;
         lvM = min_velo;
     }
-
     coord vVMx = vMx * rv;
     coord vVMy = vMy * rv;
     coord vVMz = vMz * rv;
@@ -402,7 +399,7 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
     coord vTz = tZ - _z;
     //|vT|
 //    double lvT = sqrt(vTx*vTx + vTy*vTy + vTz*vTz);
-    coord lvT = UTIL::getApproxDistance(vTx, vTy, vTz);
+    coord lvT = UTIL::__getApproxDistance__(vTx, vTy, vTz);
     //|仮的| を lvVM の長さに合わせて作成
     double rMT = (lvVM * 1.2 / lvT) ;
     //1.2は右上図のように一直線に並んだ際も、進行方向を維持するために、
@@ -411,236 +408,21 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
     coord vVTy = vTy * rMT;
     coord vVTz = vTz * rMT;
     coord lvVT = lvT * rMT;
-
-    //なす角
-    //例えば a→=(a1,a2,a3) と b→=(b1,b2,b3) のなす角を とすると
-    //
-    //                 a1 b1 + a2 b2 + a3 b3
-    //cosθ =  ----------------------------------------
-    //          √a1^2+a2^2+a3^2  + √b1^2+b2^2+b3^2
-    //
-
-//    double cos_th = ((vMx*vTx + vMy*vTy + vMz*vTz) / (lvT * lvM));
+//    double cos_th = ((vMx*vTx + vMy*vTy + vMz*vTz) / (lvT * lvM)); //なす角
 //    if (cos_th < 0.5) {
 //        cos_th = 0.5;
 //    }
     //vVP 仮自→仮的 の加速度設定
     //→vVP=( vVTx-vVMx, vVTy-vVMy, vVTz-vVMz )
-    const acce accX = (vVTx-vVMx) * RR_MAX_ACCE;// * cos_th;
-    const acce accY = (vVTy-vVMy) * RR_MAX_ACCE;// * cos_th;
-    const acce accZ = (vVTz-vVMz) * RR_MAX_ACCE;// * cos_th;
+    const acce accX = (vVTx-vVMx) * RR_MAX_ACCE; // * cos_th;
+    const acce accY = (vVTy-vVMy) * RR_MAX_ACCE; // * cos_th;
+    const acce accZ = (vVTz-vVMz) * RR_MAX_ACCE; // * cos_th;
     double top_acce_mv = pKago->_top_acce_vx_mv*1.05; //ちょっとずつなら拡張しちょいよみたいな
     if (MAX_VELO_RENGE < top_acce_mv && top_acce_mv < MAX_VELO_RENGE) {
         pKago->forceVxyzMvAcceRange(-top_acce_mv, top_acce_mv);
     }
     pKago->setVxyzMvAcce(accX, accY, accZ);
 }
-
-
-//void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
-//    //    |                            vVT 仮的                              |
-//    //    |                                ^ ┌                              |
-//    //    |                 |仮的| > 5*vM /    ＼  vVP 仮自→仮的            |      仮的
-//    //    |                 となるような /       ＼                          |       ↑
-//    //    |                 vVTを設定   /         ┐                         |      仮自
-//    //    |                            /        ／vVM  仮自                  |       ↑
-//    //    |                           /       ／ =(vMx*5,vMy*5,vMz*5)        |       ｜
-//    //    |                          /      ／                               |       ｜
-//    //    |                         /     ／                                 |       ｜
-//    //    |                        /    ／ |仮自| = lVM * 5                  |       ｜
-//    //    |                      的 vT(vTx,vTy,vTz)                          |       的
-//    //    |             ┌       ^  ／                                       |       ↑
-//    //    |               ＼    / ┐vM 現在の移動方向ベクトル                |       ｜
-//    //    | vVP 仮自→仮的  ＼ /／ (vMx,vMy,vMz)                             |       ｜
-//    //    |                   自                                             |       自
-//    //    |                     (_x,_y,_z)                                   |
-//    // ---+------------------------------------------                     ---+---------------------------
-//    //    |                                                                  |
-//    //
-//    // vVP が動きたい方向。vVPを求める！
-//#ifdef MY_DEBUG
-//    if (tX == INT_MAX) {
-//        throwCriticalException("おかしい");
-//    }
-//#endif
-//
-//    static const double min_velo = MyBunshinWateringLaserChip001::INITIAL_VELO/2; // ÷2 は、最低移動する各軸のINITIAL_VELOの割合
-//    static const double min_velo2 = min_velo*0.8;
-//    static const double rv = 5.0;
-//    static const double rv2 = rv*0.8;
-//    GgafDx::Kago* pKago = callKago();
-//
-//    //自→的、方向ベクトル (vT)
-//    double vTx = tX - _x;
-//    double vTy = tY - _y;
-//    double vTz = tZ - _z;
-//    //|vT|
-//    double lvT = sqrt(vTx*vTx + vTy*vTy + vTz*vTz);
-//    //|vT|があまりに小さい場合
-//    if  (lvT < min_velo2) { //縮こまらないように
-//        if (ZEROd_EQ(lvT)) {
-//            //距離が殆ど０でもうどっち向いてるかわからんので、X軸方向に飛ばす
-//            vTx = min_velo2;
-//            vTy = 0;
-//            vTz = 0;
-//        } else {
-//            //距離 min_velo2 を保証する
-//            double r = (1.0*min_velo2/lvT);
-//            vTx = vTx*r;
-//            vTy = vTy*r;
-//            vTz = vTz*r;
-//        }
-//        lvT = min_velo2;
-//    }
-//    //仮的
-//    double vVTx = vTx * rv2;
-//    double vVTy = vTy * rv2;
-//    double vVTz = vTz * rv2;
-//    double lvVT = lvT * rv2;
-//    /////////////////////
-//
-//    //自→仮、自方向ベクトル(vM)
-//    double vMx = pKago->_velo_vx_mv;
-//    double vMy = pKago->_velo_vy_mv;
-//    double vMz = pKago->_velo_vz_mv;
-//    //|vM|
-//    double lvM = sqrt(vMx*vMx + vMy*vMy + vMz*vMz);
-//
-//    //|vM|があまりに小さい場合＝速度が遅すぎる場合を考慮
-//    if  (lvM < min_velo) { //縮こまらないように
-//        if (ZEROd_EQ(lvM)) {
-//            //速度が殆ど０でもうどっち向いてるかわからんので、X軸方向に飛ばす
-//            pKago->setVxyzMvVelo(min_velo, 0, 0);
-//        } else {
-//            //速度 min_velo を保証する
-//            double r = (1.0*min_velo/lvM);
-//            pKago->setVxyzMvVelo(vMx*r, vMy*r, vMz*r);
-//        }
-//        vMx = pKago->_velo_vx_mv;
-//        vMy = pKago->_velo_vy_mv;
-//        vMz = pKago->_velo_vz_mv;
-//        lvM = min_velo;
-//    }
-//
-//    double vVMx = vMx * rv;
-//    double vVMy = vMy * rv;
-//    double vVMz = vMz * rv;
-//    double lvVM = lvM * rv;
-//
-//
-////    if (lvVM > lvVT) {
-////        //|仮自| > |仮的| になってしまった場合
-//        //同じ方向で平行に近い場合、ターゲットに向けて加速させたいので
-//        //無理やり |仮自| < |仮的| にする
-//        double dot1 = vVTx*vVMx + vVTy*vVMy + vVTz*vVMz;
-//        double ll = lvVT * lvVM;
-//        double rh = dot1 / ll; //1.0 = 同じ方向で平行
-//        if (0.9 < rh && rh < 1.1) {
-//            double rl = (lvVM / lvVT) * 5.0;
-//            //5.0は右上図のように一直線に並んだ際も、進行方向を維持するために、
-//            //|仮自| < |仮的| という関係を維持するためにかけた適当な割合
-//            vVTx = vVTx * rl;
-//            vVTy = vVTy * rl;
-//            vVTz = vVTz * rl;
-//            lvVT = lvVT * rl;
-//        }
-////    }
-//
-//    //vVP 仮自→仮的 の加速度設定
-//    //→vVP=( vVTx-vVMx, vVTy-vVMy, vVTz-vVMz )
-//    const double accX = (vVTx-vVMx) * RR_MAX_ACCE;
-//    const double accY = (vVTy-vVMy) * RR_MAX_ACCE;
-//    const double accZ = (vVTz-vVMz) * RR_MAX_ACCE;
-//    double top_acce_mv = pKago->_top_acce_vx_mv*1.05;
-//    if (MAX_VELO_RENGE < top_acce_mv && top_acce_mv < MAX_VELO_RENGE) {
-//        pKago->forceVxyzMvAcceRange(-top_acce_mv, top_acce_mv);
-//    }
-//    pKago->setVxyzMvAcce(accX, accY, accZ);
-//}
-
-
-//void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
-//    //    |                            vVT 仮的                              |
-//    //    |                                ^ ┌                              |
-//    //    |                 |仮的| > 5*vM /    ＼  vVP 仮自→仮的            |      仮的
-//    //    |                 となるような /       ＼                          |       ↑
-//    //    |                 vVTを設定   /         ┐                         |      仮自
-//    //    |                            /        ／vVM  仮自                  |       ↑
-//    //    |                           /       ／  (vVMx*5,vVMy*5,vVMz*5)     |       ｜
-//    //    |                          /      ／                               |       ｜
-//    //    |                         /     ／                                 |       ｜
-//    //    |                        /    ／ |仮自| = lVM * 5                  |       ｜
-//    //    |                      的 vT(tX,tY,tZ)                             |       的
-//    //    |             ┌       ^  ／                                       |       ↑
-//    //    |               ＼    / ┐vM 現在の移動方向ベクトル                |       ｜
-//    //    | vVP 仮自→仮的  ＼ /／ (vVMx,vVMy,vVMz)                          |       ｜
-//    //    |                   自                                             |       自
-//    //    |                     (_x,_y,_z)                                   |
-//    // ---+------------------------------------------                     ---+---------------------------
-//    //    |                                                                  |
-//    //
-//    // vVP が動きたい方向。vVPを求める！
-//#ifdef MY_DEBUG
-//    if (tX == INT_MAX) {
-//        throwCriticalException("おかしい");
-//    }
-//#endif
-//    GgafDx::Kago* pKago = callKago();
-//
-//    //自→的、方向ベクトル (vT)
-//    double vTx = tX - _x;
-//    double vTy = tY - _y;
-//    double vTz = tZ - _z;
-//
-//    //自→仮、自方向ベクトル(vM)
-//    double vMx = pKago->_velo_vx_mv;
-//    double vMy = pKago->_velo_vy_mv;
-//    double vMz = pKago->_velo_vz_mv;
-//    //|vM|
-//    double lVM = sqrt(vMx*vMx + vMy*vMy + vMz*vMz);
-//    static const double min_velo = MyBunshinWateringLaserChip001::INITIAL_VELO/2; // ÷2 は、最低移動する各軸のINITIAL_VELOの割合
-//    //|vM|があまりに小さい場合＝速度が遅すぎる場合を考慮
-//    if  (lVM < min_velo) { //縮こまらないように
-//        if (ZEROd_EQ(lVM)) {
-//            //速度が殆ど０でもうどっち向いてるかわからんので、X軸方向に飛ばす
-//            pKago->setVxyzMvVelo(min_velo, 0, 0);
-//        } else {
-//            //速度 min_velo を保証する
-//            double r = (1.0*min_velo/lVM);
-//            pKago->setVxyzMvVelo(vMx*r, vMy*r, vMz*r);
-//        }
-//        vMx = pKago->_velo_vx_mv;
-//        vMy = pKago->_velo_vy_mv;
-//        vMz = pKago->_velo_vz_mv;
-//        lVM = min_velo;
-//    }
-//
-//
-//    //|的|
-//    double lT = sqrt(vTx*vTx + vTy*vTy + vTz*vTz);
-//    //|仮自| = |vM| * 5 = lVM*5.0
-//    //|仮自|/|的|  vT の何倍が vVT 仮的 になるのかを求める。
-//    const double r = (lVM*5.0 * 1.2) / lT;
-//    //* 1.2は 右上図のように一直線に並んだ際も、進行方向を維持するために、
-//    //|仮的| > |仮自| という関係を維持するためにかけた適当な割合
-//
-//    //vVP 仮自→仮的 の加速度設定
-//    //求めた vVP=( (vTx*r)-vMx*5), (vTy*r)-vMy*5), (vTz*r)-vMz*5) )
-//    const double accX = ((vTx * r) - vMx*5.0) * RR_MAX_ACCE;
-//    const double accY = ((vTy * r) - vMy*5.0) * RR_MAX_ACCE;
-//    const double accZ = ((vTz * r) - vMz*5.0) * RR_MAX_ACCE;
-//    double top_acce_mv = pKago->_top_acce_vx_mv*1.05;
-//    if (MAX_VELO_RENGE < top_acce_mv && top_acce_mv < MAX_VELO_RENGE) {
-//        pKago->forceVxyzMvAcceRange(-top_acce_mv, top_acce_mv);
-//    }
-//    pKago->setVxyzMvAcce(accX, accY, accZ);
-//}
-
-//double rl = (lvVM / lvVT) * 5.0;
-
-//    const double accX = ((vTx*5.0) * lVM * 1.2 / lT ) - vMx*5.0) * RR_MAX_ACCE;
-//    const double accY = ((vTy*5.0) * lVM * 1.2 / lT )  - vMy*5.0) * RR_MAX_ACCE;
-//    const double accZ = ((vTz*5.0) * lVM * 1.2 / lT )  - vMz*5.0) * RR_MAX_ACCE;
 
 
 void MyBunshinWateringLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor) {
