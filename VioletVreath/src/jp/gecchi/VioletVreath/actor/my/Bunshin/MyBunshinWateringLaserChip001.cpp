@@ -100,7 +100,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
         if (pAimTarget) {
             frame aim_time_out_t1 = pAimInfo->aim_time_out_t1;
             //先端チップ時（消える可能性のあるLeaderChipにあらず！）、T1が相変わらずロックオンターゲットならば更新
-            if (getInfrontChip() == nullptr && pAimTarget == pLockonCursor_->pTarget_ && pAimInfo_->spent_frames_to_t1 < aim_time_out_t1) {
+            if (getInfrontChip() == nullptr && pAimTarget == pLockonCursor_->pTarget_ && pAimInfo->spent_frames_to_t1 < aim_time_out_t1) {
                 pAimInfo->t1_x = pAimTarget->_x; //t1更新
                 pAimInfo->t1_y = pAimTarget->_y;
                 pAimInfo->t1_z = pAimTarget->_z;
@@ -112,17 +112,17 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                     //●Leader が t1 へ Aim
                     if (pAimTarget->isActiveInTheTree() && active_frame < aim_time_out_t1)  {
                         //pAimTarget が存命
-                        int sgn_vx1 = SGN(pKago->_acce_vx_mv);
-                        int sgn_vy1 = SGN(pKago->_acce_vy_mv);
-                        int sgn_vz1 = SGN(pKago->_acce_vz_mv);
+                        int sgn_vx1 = SGN(pKago->_velo_vx_mv);
+                        int sgn_vy1 = SGN(pKago->_velo_vy_mv);
+                        int sgn_vz1 = SGN(pKago->_velo_vz_mv);
 
                         aimChip(pAimInfo->t1_x,
                                 pAimInfo->t1_y,
                                 pAimInfo->t1_z );
 
-                        int sgn_vx2 = SGN(pKago->_acce_vx_mv);
-                        int sgn_vy2 = SGN(pKago->_acce_vy_mv);
-                        int sgn_vz2 = SGN(pKago->_acce_vz_mv);
+                        int sgn_vx2 = SGN(pKago->_velo_vx_mv);
+                        int sgn_vy2 = SGN(pKago->_velo_vy_mv);
+                        int sgn_vz2 = SGN(pKago->_velo_vz_mv);
                         if (sgn_vx1 != sgn_vx2) {
                            inv_cnt_++;
                         }
@@ -132,10 +132,10 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                         if (sgn_vz1 != sgn_vz2) {
                            inv_cnt_++;
                         }
-                        if (inv_cnt_ > 20) { //20回も速度の正負が入れ替わったら終了
+                        if (inv_cnt_ > 15) { //15回も速度の正負が入れ替わったら終了
                             pAimInfo_->spent_frames_to_t1 = active_frame; //Aim t1 終了
                         } else {
-                            static const coord renge = MyBunshinWateringLaserChip001::INITIAL_VELO * 0.4;
+                            static const coord renge = MyBunshinWateringLaserChip001::INITIAL_VELO / 2;
                             static const ucoord renge2 = renge*2;
                             if ( (ucoord)(_x - pAimInfo->t1_x + renge) <= renge2) {
                                 if ( (ucoord)(_y - pAimInfo->t1_y + renge) <= renge2) {
@@ -362,7 +362,7 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
     }
 #endif
 
-    static const coord min_velo = MyBunshinWateringLaserChip001::INITIAL_VELO/4; // ÷2 は、最低移動する各軸のINITIAL_VELOの割合
+    static const coord min_velo = MyBunshinWateringLaserChip001::INITIAL_VELO/2; // ÷2 は、最低移動する各軸のINITIAL_VELOの割合
     static const coord rv = 10.0;
     GgafDx::Kago* pKago = callKago();
     //自→仮、自方向ベクトル(vM)
