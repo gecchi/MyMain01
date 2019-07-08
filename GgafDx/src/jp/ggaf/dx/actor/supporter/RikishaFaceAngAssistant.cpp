@@ -59,9 +59,9 @@ void RikishaFaceAngAssistant::behave() {
 }
 
 void RikishaFaceAngAssistant::turnByDt(axis prm_axis,
-                                            angle prm_distance, int prm_target_frames,
-                                            float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-                                            bool prm_zero_acc_end_flg ) {
+                                       angle prm_distance, int prm_target_frames,
+                                       float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                       bool prm_zero_acc_end_flg ) {
     _smthFaceAng[prm_axis]._t_value = 0;
     _smthFaceAng[prm_axis]._t_velo = _pMaster->_angvelo_face[prm_axis];
     _smthFaceAng[prm_axis]._t_acce = _pMaster->_angacce_face[prm_axis];
@@ -71,9 +71,9 @@ void RikishaFaceAngAssistant::turnByDt(axis prm_axis,
 }
 
 void RikishaFaceAngAssistant::turnByVd(axis prm_axis,
-                                            angvelo prm_top_angvelo, angle prm_distance,
-                                            float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-                                            bool prm_zero_acc_end_flg) {
+                                       angvelo prm_top_angvelo, angle prm_distance,
+                                       float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                       bool prm_zero_acc_end_flg) {
     _smthFaceAng[prm_axis]._t_value = 0;
     _smthFaceAng[prm_axis]._t_velo = _pMaster->_angvelo_face[prm_axis];
     _smthFaceAng[prm_axis]._t_acce = _pMaster->_angacce_face[prm_axis];
@@ -83,8 +83,8 @@ void RikishaFaceAngAssistant::turnByVd(axis prm_axis,
 }
 
 void RikishaFaceAngAssistant::turnRzByDtTo(angle prm_rz_target, int prm_way, int prm_target_frames,
-                                                float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-                                                bool prm_zero_acc_end_flg) {
+                                           float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                           bool prm_zero_acc_end_flg) {
     angle distance = _pMaster->getFaceAngDistance(AXIS_Z, prm_rz_target, prm_way);
     turnByDt(AXIS_Z,
              distance, prm_target_frames,
@@ -93,8 +93,8 @@ void RikishaFaceAngAssistant::turnRzByDtTo(angle prm_rz_target, int prm_way, int
 }
 
 void RikishaFaceAngAssistant::turnRyByDtTo(angle prm_ry_target, int prm_way, int prm_target_frames,
-                                                float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-                                                bool prm_zero_acc_end_flg) {
+                                           float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                           bool prm_zero_acc_end_flg) {
     angle distance = _pMaster->getFaceAngDistance(AXIS_Y, prm_ry_target, prm_way);
     turnByDt(AXIS_Y,
              distance, prm_target_frames,
@@ -103,8 +103,8 @@ void RikishaFaceAngAssistant::turnRyByDtTo(angle prm_ry_target, int prm_way, int
 }
 
 void RikishaFaceAngAssistant::rollFaceAngByDtTo(angle prm_ang_rx_target, int prm_way, int prm_target_frames,
-                                                     float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-                                                     bool prm_zero_acc_end_flg) {
+                                                float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                                bool prm_zero_acc_end_flg) {
     angle distance = _pMaster->getFaceAngDistance(AXIS_X, prm_ang_rx_target, prm_way);
     turnByDt(AXIS_X,
              distance, prm_target_frames,

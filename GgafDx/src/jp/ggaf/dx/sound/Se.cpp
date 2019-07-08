@@ -132,6 +132,10 @@ int Se::writeBuffer(CWaveDecorder& WaveFile) {
 }
 
 void Se::play(bool prm_is_looping) {
+    int v = (int)(_volume * Sound::_pSeManager->getSeMasterVolumeRate());
+    if (v == 0) {
+        return;
+    }
     if (_pIDirectSoundBuffer == nullptr) {
         _TRACE_("_pIDirectSoundBuffer==nullptr;!");
     }

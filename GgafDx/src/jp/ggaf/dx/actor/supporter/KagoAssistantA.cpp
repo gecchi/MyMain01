@@ -36,8 +36,8 @@ void KagoAssistantA::behave() {
 }
 
 void KagoAssistantA::slideVxMvByDt(coord prm_target_distance, int prm_target_frames,
-                                              float prm_p1, float prm_p2, velo prm_end_velo,
-                                              bool prm_zero_acc_end_flg) {
+                                   float prm_p1, float prm_p2, velo prm_end_velo,
+                                   bool prm_zero_acc_end_flg) {
     _smthVxMv._t_value = 0;
     _smthVxMv._t_velo = _pMaster->_velo_vx_mv;
     _smthVxMv._t_acce = _pMaster->_acce_vx_mv;
@@ -58,8 +58,8 @@ void KagoAssistantA::slideVyMvByDt(coord prm_target_distance, int prm_target_fra
 }
 
 void KagoAssistantA::slideVzMvByDt(coord prm_target_distance, int prm_target_frames,
-                                              float prm_p1, float prm_p2, velo prm_end_velo,
-                                              bool prm_zero_acc_end_flg) {
+                                   float prm_p1, float prm_p2, velo prm_end_velo,
+                                   bool prm_zero_acc_end_flg) {
     _smthVzMv._t_value = 0;
     _smthVzMv._t_velo = _pMaster->_velo_vz_mv;
     _smthVzMv._t_acce = _pMaster->_acce_vz_mv;
@@ -69,9 +69,9 @@ void KagoAssistantA::slideVzMvByDt(coord prm_target_distance, int prm_target_fra
 }
 
 void KagoAssistantA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_target, coord prm_z_target,
-                                                  int prm_target_frames,
-                                                  float prm_p1, float prm_p2, velo prm_end_velo,
-                                                  bool prm_zero_acc_end_flg) {
+                                       int prm_target_frames,
+                                       float prm_p1, float prm_p2, velo prm_end_velo,
+                                       bool prm_zero_acc_end_flg) {
     slideVxyzMvByDt( prm_x_target - _pMaster->_pActor->_x,
                      prm_y_target - _pMaster->_pActor->_y,
                      prm_z_target - _pMaster->_pActor->_z,
@@ -81,11 +81,11 @@ void KagoAssistantA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_target, c
 }
 
 void KagoAssistantA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_target, coord prm_z_target,
-                                                  int prm_target_frames,
-                                                  float prm_x_p1, float prm_x_p2, velo prm_x_end_velo,
-                                                  float prm_y_p1, float prm_y_p2, velo prm_y_end_velo,
-                                                  float prm_z_p1, float prm_z_p2, velo prm_z_end_velo,
-                                                  bool prm_zero_acc_end_flg) {
+                                       int prm_target_frames,
+                                       float prm_x_p1, float prm_x_p2, velo prm_x_end_velo,
+                                       float prm_y_p1, float prm_y_p2, velo prm_y_end_velo,
+                                       float prm_z_p1, float prm_z_p2, velo prm_z_end_velo,
+                                       bool prm_zero_acc_end_flg) {
     slideVxyzMvByDt( prm_x_target - _pMaster->_pActor->_x,
                      prm_y_target - _pMaster->_pActor->_y,
                      prm_z_target - _pMaster->_pActor->_z,
@@ -97,8 +97,8 @@ void KagoAssistantA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_target, c
 }
 
 void KagoAssistantA::slideVxMvByVd(velo prm_top_velo, coord prm_target_distance,
-                                              float prm_p1, float prm_p2, velo prm_end_velo,
-                                              bool prm_zero_acc_end_flg) {
+                                   float prm_p1, float prm_p2, velo prm_end_velo,
+                                   bool prm_zero_acc_end_flg) {
     _smthVxMv._t_value = 0;
     _smthVxMv._t_velo = _pMaster->_velo_vx_mv;
     _smthVxMv._t_acce = _pMaster->_acce_vx_mv;
@@ -108,8 +108,8 @@ void KagoAssistantA::slideVxMvByVd(velo prm_top_velo, coord prm_target_distance,
 }
 
 void KagoAssistantA::slideVyMvByVd(velo prm_top_velo, coord prm_target_distance,
-                                              float prm_p1, float prm_p2, velo prm_end_velo,
-                                              bool prm_zero_acc_end_flg) {
+                                   float prm_p1, float prm_p2, velo prm_end_velo,
+                                   bool prm_zero_acc_end_flg) {
     _smthVyMv._t_value = 0;
     _smthVyMv._t_velo = _pMaster->_velo_vy_mv;
     _smthVyMv._t_acce = _pMaster->_acce_vy_mv;
@@ -119,8 +119,8 @@ void KagoAssistantA::slideVyMvByVd(velo prm_top_velo, coord prm_target_distance,
 }
 
 void KagoAssistantA::slideVzMvByVd(velo prm_top_velo, coord prm_target_distance,
-                                              float prm_p1, float prm_p2, velo prm_end_velo,
-                                              bool prm_zero_acc_end_flg) {
+                                   float prm_p1, float prm_p2, velo prm_end_velo,
+                                   bool prm_zero_acc_end_flg) {
     _smthVzMv._t_value = 0;
     _smthVzMv._t_velo = _pMaster->_velo_vz_mv;
     _smthVzMv._t_acce = _pMaster->_acce_vz_mv;
@@ -130,9 +130,9 @@ void KagoAssistantA::slideVzMvByVd(velo prm_top_velo, coord prm_target_distance,
 }
 
 void KagoAssistantA::slideVxyzMvByVd(velo prm_top_velo,
-                                                coord prm_x_target_distance, coord prm_y_target_distance, coord prm_z_target_distance,
-                                                float prm_p1, float prm_p2, velo prm_end_velo,
-                                                bool prm_zero_acc_end_flg) {
+                                     coord prm_x_target_distance, coord prm_y_target_distance, coord prm_z_target_distance,
+                                     float prm_p1, float prm_p2, velo prm_end_velo,
+                                     bool prm_zero_acc_end_flg) {
     double r = MAX3(ABS(prm_x_target_distance), ABS(prm_y_target_distance), ABS(prm_z_target_distance));
     if (!ZEROd_EQ(r)) {
         slideVxMvByVd( prm_top_velo * ABS(prm_x_target_distance/r),  prm_x_target_distance,
@@ -148,9 +148,9 @@ void KagoAssistantA::slideVxyzMvByVd(velo prm_top_velo,
 }
 
 void KagoAssistantA::slideVxyzMvByVdTo(velo prm_top_velo,
-                                                  coord prm_x_target, coord prm_y_target, coord prm_z_target,
-                                                  float prm_p1, float prm_p2, velo prm_end_velo,
-                                                  bool prm_zero_acc_end_flg) {
+                                       coord prm_x_target, coord prm_y_target, coord prm_z_target,
+                                       float prm_p1, float prm_p2, velo prm_end_velo,
+                                       bool prm_zero_acc_end_flg) {
     slideVxyzMvByVd(prm_top_velo,
                     prm_x_target - _pMaster->_pActor->_x,
                     prm_y_target - _pMaster->_pActor->_y,

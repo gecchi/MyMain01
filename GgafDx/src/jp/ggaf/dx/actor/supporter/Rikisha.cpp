@@ -7,7 +7,6 @@
 #include "jp/ggaf/dx/actor/supporter/RikishaMvAngAssistant.h"
 #include "jp/ggaf/dx/util/Util.h"
 
-
 using namespace GgafDx;
 
 Rikisha::Rikisha(GeometricActor* prm_pActor) : GgafCore::Object(),
@@ -409,16 +408,16 @@ void Rikisha::setFaceAngVelo(axis prm_axis, angvelo prm_angvelo) {
 }
 
 void Rikisha::setRollPitchYawFaceAngVelo(angvelo prm_axis_x_angvelo,
-                                              angvelo prm_axis_z_angvelo,
-                                              angvelo prm_axis_y_angvelo) {
+                                         angvelo prm_axis_z_angvelo,
+                                         angvelo prm_axis_y_angvelo) {
     setFaceAngVelo(AXIS_X, prm_axis_x_angvelo);
     setFaceAngVelo(AXIS_Z, prm_axis_z_angvelo);
     setFaceAngVelo(AXIS_Y, prm_axis_y_angvelo);
 }
 
 void Rikisha::forceFaceAngVeloRange(axis prm_axis,
-                                         angvelo prm_angvelo01,
-                                         angvelo prm_angvelo02) {
+                                    angvelo prm_angvelo01,
+                                    angvelo prm_angvelo02) {
     if (prm_angvelo01 < prm_angvelo02) {
         _top_angvelo_face[prm_axis] = prm_angvelo02;
         _bottom_angvelo_face[prm_axis] = prm_angvelo01;
@@ -434,10 +433,10 @@ void Rikisha::setFaceAngAcce(axis prm_axis, angacce prm_angacce) {
 }
 
 void Rikisha::setStopTargetFaceAngTwd(axis prm_axis,
-                                           coord prm_tx,
-                                           coord prm_ty,
-                                           int prm_allow_way,
-                                           angvelo prm_allow_angvelo) {
+                                      coord prm_tx,
+                                      coord prm_ty,
+                                      int prm_allow_way,
+                                      angvelo prm_allow_angvelo) {
     setStopTargetFaceAng(
       prm_axis,
       UTIL::getAngle2D(prm_tx - (_pActor->_x), prm_ty - (_pActor->_y)),
@@ -447,9 +446,9 @@ void Rikisha::setStopTargetFaceAngTwd(axis prm_axis,
 }
 
 void Rikisha::setStopTargetFaceAng(axis prm_axis,
-                                        angle prm_target,
-                                        int prm_allow_way,
-                                        angvelo prm_allow_angvelo) {
+                                   angle prm_target,
+                                   int prm_allow_way,
+                                   angvelo prm_allow_angvelo) {
     _is_targeting_face[prm_axis] = true;
     _face_targeting_stop_flg[prm_axis] = true;
     _target_face[prm_axis] = UTIL::simplifyAng(prm_target);
@@ -653,7 +652,7 @@ void Rikisha::setRzMvAngAcce(angacce prm_angacce_rz_mv) {
 }
 
 void Rikisha::forceRzMvAngVeloRange(angvelo prm_angvelo_rz_mv01,
-                                         angvelo prm_angvelo_rz_mv02) {
+                                    angvelo prm_angvelo_rz_mv02) {
     if (prm_angvelo_rz_mv01 < prm_angvelo_rz_mv02) {
         _top_angvelo_rz_mv = prm_angvelo_rz_mv02;
         _bottom_angvelo_rz_mv = prm_angvelo_rz_mv01;
@@ -665,8 +664,8 @@ void Rikisha::forceRzMvAngVeloRange(angvelo prm_angvelo_rz_mv01,
 }
 
 void Rikisha::setStopTargetRzMvAng(angle prm_target_rz_mv,
-                                  int prm_allow_way,
-                                  angvelo prm_allow_angvelo) {
+                                   int prm_allow_way,
+                                   angvelo prm_allow_angvelo) {
     _is_targeting_rz_mv = true;
     _rz_mv_targeting_stop_flg = true;
     _target_rz_mv = UTIL::simplifyAng(prm_target_rz_mv);
@@ -722,7 +721,7 @@ void Rikisha::setRyMvAngAcce(angacce prm_angacce_ry_mv) {
 }
 
 void Rikisha::forceRyMvAngVeloRange(angvelo prm_angvelo_ry_mv01,
-                                         angvelo prm_angvelo_ry_mv02) {
+                                    angvelo prm_angvelo_ry_mv02) {
     if (prm_angvelo_ry_mv01 < prm_angvelo_ry_mv02) {
         _top_angvelo_ry_mv = prm_angvelo_ry_mv02;
         _bottom_angvelo_ry_mv = prm_angvelo_ry_mv01;
@@ -772,8 +771,8 @@ void Rikisha::setRzRyMvAngVelo(angvelo prm_angvelo_rz_mv, angvelo prm_angvelo_ry
 }
 
 void Rikisha::setStopTargetRyMvAng(angle prm_target_ry_mv,
-                                        int prm_allow_way,
-                                        angvelo prm_allow_angvelo) {
+                                   int prm_allow_way,
+                                   angvelo prm_allow_angvelo) {
     _is_targeting_ry_mv = true;
     _ry_mv_targeting_stop_flg = true;
     _target_ry_mv = UTIL::simplifyAng(prm_target_ry_mv);
@@ -790,7 +789,7 @@ angle Rikisha::getRyMvAngDistance(angle prm_target_ry_mv, int prm_way) {
 }
 
 void Rikisha::getRzRyMvAngDistanceTwd(angle prm_target_rz, angle prm_target_ry, int prm_way,
-                                           angle& out_d_rz, angle& out_d_ry) {
+                                      angle& out_d_rz, angle& out_d_ry) {
     angle target_rz = UTIL::simplifyAng(prm_target_rz);
     angle target_ry = UTIL::simplifyAng(prm_target_ry);
     angle d1_rz = getRzMvAngDistance(target_rz, prm_way); //Rz‚Ì·
@@ -821,7 +820,7 @@ void Rikisha::getRzRyMvAngDistanceTwd(angle prm_target_rz, angle prm_target_ry, 
 }
 
 void Rikisha::getRzRyFaceAngDistanceTwd(angle prm_target_rz, angle prm_target_ry,int prm_way,
-                                             angle& out_d_rz, angle& out_d_ry) {
+                                        angle& out_d_rz, angle& out_d_ry) {
     angle target_rz = UTIL::simplifyAng(prm_target_rz);
     angle target_ry = UTIL::simplifyAng(prm_target_ry);
     angle d1_rz = getFaceAngDistance(AXIS_Z, target_rz, TURN_CLOSE_TO);
@@ -972,8 +971,8 @@ void Rikisha::setStopTargetMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz) {
 }
 
 void Rikisha::turnRzRyFaceAngTo(angle prm_rz_target, angle prm_ry_target,
-                                     angvelo prm_angvelo, angacce prm_angacce,
-                                     int prm_way, bool prm_optimize_ang) {
+                                angvelo prm_angvelo, angacce prm_angacce,
+                                int prm_way, bool prm_optimize_ang) {
     angle out_d_rz;
     angle out_d_ry;
     if (prm_optimize_ang) {
@@ -1068,8 +1067,8 @@ void Rikisha::turnRzRyFaceAngTo(angle prm_rz_target, angle prm_ry_target,
 }
 
 void Rikisha::turnFaceAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
-                            angvelo prm_angvelo, angacce prm_angacce,
-                            int prm_way, bool prm_optimize_ang) {
+                             angvelo prm_angvelo, angacce prm_angacce,
+                             int prm_way, bool prm_optimize_ang) {
     coord vx = prm_tx - _pActor->_x;
     coord vy = prm_ty - _pActor->_y;
     coord vz = prm_tz - _pActor->_z;
@@ -1089,8 +1088,8 @@ void Rikisha::turnFaceAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
 
 
 void Rikisha::turnFaceAng(axis prm_axis,
-                         angle prm_distance,
-                         angvelo prm_angvelo, angacce prm_angacce) {
+                          angle prm_distance,
+                          angvelo prm_angvelo, angacce prm_angacce) {
     int s = SGN(prm_distance);
     setFaceAngVelo(prm_axis, ABS(prm_angvelo)*s);
     setFaceAngAcce(prm_axis, ABS(prm_angacce)*s);
@@ -1101,8 +1100,8 @@ void Rikisha::turnFaceAng(axis prm_axis,
 
 
 void Rikisha::turnRzFaceAngTo(angle prm_rz_target,
-                             angvelo prm_angvelo, angacce prm_angacce,
-                             int prm_way) {
+                              angvelo prm_angvelo, angacce prm_angacce,
+                              int prm_way) {
     if (getFaceAngDistance(AXIS_Z, prm_rz_target, prm_way) > 0) {
         setFaceAngVelo(AXIS_Z, prm_angvelo);
         setFaceAngAcce(AXIS_Z, prm_angacce);
@@ -1116,8 +1115,8 @@ void Rikisha::turnRzFaceAngTo(angle prm_rz_target,
 }
 
 void Rikisha::turnRyFaceAngTo(angle prm_ry_target,
-                                   angvelo prm_angvelo, angacce prm_angacce,
-                                   int prm_way) {
+                              angvelo prm_angvelo, angacce prm_angacce,
+                              int prm_way) {
     if (getFaceAngDistance(AXIS_Y, prm_ry_target, prm_way) > 0) {
         setFaceAngVelo(AXIS_Y, prm_angvelo);
         setFaceAngAcce(AXIS_Y, prm_angacce);
@@ -1131,8 +1130,8 @@ void Rikisha::turnRyFaceAngTo(angle prm_ry_target,
 }
 
 void Rikisha::rollFaceAngTo(angle prm_rx_target,
-                           angvelo prm_angvelo, angacce prm_angacce,
-                           int prm_way) {
+                            angvelo prm_angvelo, angacce prm_angacce,
+                            int prm_way) {
     if (getFaceAngDistance(AXIS_X, prm_rx_target, prm_way) > 0) {
         setFaceAngVelo(AXIS_X, prm_angvelo);
         setFaceAngAcce(AXIS_X, prm_angacce);
@@ -1144,8 +1143,8 @@ void Rikisha::rollFaceAngTo(angle prm_rx_target,
 }
 
 void Rikisha::turnRzRyMvAngTo(angle prm_rz_target, angle prm_ry_target,
-                             angvelo prm_angvelo, angacce prm_angacce,
-                             int prm_way, bool prm_optimize_ang) {
+                              angvelo prm_angvelo, angacce prm_angacce,
+                              int prm_way, bool prm_optimize_ang) {
     angle out_d_rz;
     angle out_d_ry;
     if (prm_optimize_ang) {
@@ -1233,8 +1232,8 @@ void Rikisha::turnRzRyMvAngTo(angle prm_rz_target, angle prm_ry_target,
 }
 
 void Rikisha::turnMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
-                          angvelo prm_angvelo, angacce prm_angacce,
-                          int prm_way, bool prm_optimize_ang) {
+                           angvelo prm_angvelo, angacce prm_angacce,
+                           int prm_way, bool prm_optimize_ang) {
     coord vx = prm_tx - _pActor->_x;
     coord vy = prm_ty - _pActor->_y;
     coord vz = prm_tz - _pActor->_z;
@@ -1253,7 +1252,7 @@ void Rikisha::turnMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
 }
 
 void Rikisha::turnRzMvAng(angle prm_rz_distance,
-                         angvelo prm_angvelo, angacce prm_angacce) {
+                          angvelo prm_angvelo, angacce prm_angacce) {
     int s = SGN(prm_rz_distance);
     setRzMvAngVelo(ABS(prm_angvelo) * s);
     setRzMvAngAcce(ABS(prm_angacce) * s);
@@ -1261,7 +1260,7 @@ void Rikisha::turnRzMvAng(angle prm_rz_distance,
 }
 
 void Rikisha::turnRyMvAng(angle prm_ry_distance,
-                         angvelo prm_angvelo, angacce prm_angacce) {
+                          angvelo prm_angvelo, angacce prm_angacce) {
     int s = SGN(prm_ry_distance);
     setRyMvAngVelo(ABS(prm_angvelo) * s);
     setRyMvAngAcce(ABS(prm_angacce) * s);
@@ -1282,8 +1281,8 @@ void Rikisha::turnRzMvAngTo(angle prm_rz_target,
 }
 
 void Rikisha::turnRyMvAngTo(angle prm_ry_target,
-                           angvelo prm_angvelo, angacce prm_angacce,
-                           int prm_way) {
+                            angvelo prm_angvelo, angacce prm_angacce,
+                            int prm_way) {
     if (getRyMvAngDistance(prm_ry_target, prm_way) > 0) {
         setRyMvAngVelo(prm_angvelo);
         setRyMvAngAcce(prm_angacce);

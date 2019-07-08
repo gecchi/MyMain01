@@ -54,7 +54,6 @@ _pActor(prm_pActor) {
     _grv_mv_acce = 1000;
     _grv_mv_stop_renge = 1000;
     _grv_mv_flg = false;
-
 }
 
 KagoAssistantA* Kago::asst() {
@@ -465,9 +464,9 @@ coord Kago::setVzAcceByT(frame prm_target_frames, velo prm_target_velo) {
 }
 
 void Kago::execGravitationMvSequenceTwd(coord prm_tx, coord prm_ty, coord prm_tz,
-                                                   velo prm_max_velo,
-                                                   acce prm_acce,
-                                                   int prm_stop_renge ) {
+                                        velo prm_max_velo,
+                                        acce prm_acce,
+                                        int prm_stop_renge ) {
     _grv_mv_target_x = prm_tx;
     _grv_mv_target_y = prm_ty;
     _grv_mv_target_z = prm_tz;
@@ -483,9 +482,9 @@ void Kago::execGravitationMvSequenceTwd(coord prm_tx, coord prm_ty, coord prm_tz
 }
 
 void Kago::execGravitationMvSequenceTwd(const GeometricActor* prm_pActor_target,
-                                           velo prm_max_velo,
-                                           acce prm_acce,
-                                           int prm_stop_renge ) {
+                                        velo prm_max_velo,
+                                        acce prm_acce,
+                                        int prm_stop_renge ) {
     _grv_mv_target_x = 0;
     _grv_mv_target_y = 0;
     _grv_mv_target_z = 0;
@@ -501,10 +500,10 @@ void Kago::execGravitationMvSequenceTwd(const GeometricActor* prm_pActor_target,
 }
 
 void Kago::execGravitationMvSequenceTwd(const GeometricActor* prm_pActor_target,
-                                           coord prm_local_offset_tx, coord prm_local_offset_ty, coord prm_local_offset_tz,
-                                           velo prm_max_velo,
-                                           acce prm_acce,
-                                           coord prm_stop_renge) {
+                                        coord prm_local_offset_tx, coord prm_local_offset_ty, coord prm_local_offset_tz,
+                                        velo prm_max_velo,
+                                        acce prm_acce,
+                                        coord prm_stop_renge) {
     _grv_mv_target_x = prm_local_offset_tx;
     _grv_mv_target_y = prm_local_offset_ty;
     _grv_mv_target_z = prm_local_offset_tz;

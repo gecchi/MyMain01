@@ -144,16 +144,16 @@ void RikishaMvAngAssistant::turnRyByVd(
 
 
 void RikishaMvAngAssistant::turnRzByDtTo(angle prm_rz_target, int prm_way, int prm_target_frames,
-                                        float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-                                        bool prm_zero_acc_end_flg) {
+                                         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                         bool prm_zero_acc_end_flg) {
     angle distance = _pMaster->getRzMvAngDistance(prm_rz_target, prm_way);
     turnRzByDt(distance, prm_target_frames,
                prm_p1, prm_p2, prm_end_angvelo,
                prm_zero_acc_end_flg);
 }
 void RikishaMvAngAssistant::turnRyByDtTo(angle prm_ry_target, int prm_way, int prm_target_frames,
-                                        float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-                                        bool prm_zero_acc_end_flg) {
+                                         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                         bool prm_zero_acc_end_flg) {
     angle distance = _pMaster->getRyMvAngDistance(prm_ry_target, prm_way);
     turnRyByDt(distance, prm_target_frames,
                prm_p1, prm_p2, prm_end_angvelo,
@@ -206,7 +206,6 @@ void RikishaMvAngAssistant::turnByDtTwd(
                 prm_p1, prm_p2, prm_end_angvelo,
                 prm_zero_acc_end_flg);
     }
-
 }
 
 void RikishaMvAngAssistant::turnByDtTwd(
@@ -323,10 +322,10 @@ void RikishaMvAngAssistant::turnByVdTwd(
 }
 
 void RikishaMvAngAssistant::turnRzPendulum(coord prm_target1, coord prm_target2,
-                                                int prm_twist_num,
-                                                int prm_first_way, int prm_target_frames,
-                                                float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-                                                bool prm_zero_acc_end_flg) {
+                                           int prm_twist_num,
+                                           int prm_first_way, int prm_target_frames,
+                                           float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                           bool prm_zero_acc_end_flg) {
     _pnd_rz.count = 0;
     _pnd_rz.target_num = 2;
     _pnd_rz.target[0] = prm_target1;
@@ -345,10 +344,10 @@ void RikishaMvAngAssistant::turnRzPendulum(coord prm_target1, coord prm_target2,
                  _pnd_rz.zero_acc_end_flg);
 }
 void RikishaMvAngAssistant::turnRyPendulum(coord prm_target1, coord prm_target2,
-                                                int prm_twist_num,
-                                                int prm_first_way, int prm_target_frames,
-                                                float prm_p1, float prm_p2, angvelo prm_end_angvelo,
-                                                bool prm_zero_acc_end_flg) {
+                                           int prm_twist_num,
+                                           int prm_first_way, int prm_target_frames,
+                                           float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                           bool prm_zero_acc_end_flg) {
     _pnd_ry.count = 0;
     _pnd_ry.target_num = 2;
     _pnd_ry.target[0] = prm_target1;
