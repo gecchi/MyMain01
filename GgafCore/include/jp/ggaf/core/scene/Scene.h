@@ -89,14 +89,9 @@ class Scene : public Element<Scene> {
     friend class SceneMediator;
     friend class GarbageBox;
 
-
 protected:
     /** このシーンの仲介者 */
     SceneMediator* _pSceneMediator;
-
-    /** 何フレームに１回動作するか */
-    frame _once_in_n_time;
-    bool _is_next_frame;
 
 public:
     /**
@@ -111,18 +106,6 @@ public:
      * 自ツリーシーンの解放を行います<BR>
      */
     virtual ~Scene();
-
-    /**
-     * 何フレームに１回実行するかを指定 .
-     * スローにしたい時に使用することを想定。<BR>
-     * 規定は1。等倍進行。上位シーンの1フレームで、自身が1フレーム進む。<BR>
-     * 2 を設定すると 1/2倍速進行。上位シーンの2フレームで1フレーム進む。<BR>
-     * 3 を設定すると 1/3倍速進行。上位シーンの3フレームで1フレーム進む。<BR>
-     * 4 を設定すると 1/4倍速進行。上位シーンの4フレームで1フレーム進む。<BR>
-     * @param prm_once_in_n_time 何フレームに１回実行するか
-     */
-    virtual void setRunFrameOnce(int prm_once_in_n_time);
-    virtual void addRunFrameOnce(int prm_once_in_n_time);
 
     virtual void appendChild(Scene* prm_pScene) override;
 

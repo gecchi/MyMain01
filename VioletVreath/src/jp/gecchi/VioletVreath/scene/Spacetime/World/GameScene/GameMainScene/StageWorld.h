@@ -1,6 +1,8 @@
 #ifndef STAGEWORLD_H_
 #define STAGEWORLD_H_
 #include "VioletVreath.h"
+
+#include "jp/gecchi/VioletVreath/scene/VvScene.hpp"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 #include "../../GameScene.h"
@@ -22,7 +24,7 @@ namespace VioletVreath {
  * @since 2011/10/24
  * @author Masatoshi Tsuge
  */
-class StageWorld : public GgafLib::DefaultScene {
+class StageWorld : public VvScene<GgafLib::DefaultScene> {
 
 public:
     /** ランクアップ挿入シーン */

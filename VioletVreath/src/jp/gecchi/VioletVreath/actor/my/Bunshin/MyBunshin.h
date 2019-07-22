@@ -1,7 +1,7 @@
 #ifndef MYBUNSHIN_H_
 #define MYBUNSHIN_H_
 #include "VioletVreath.h"
-#include "jp/gecchi/VioletVreath/actor/kind/VvEffectActor.hpp"
+#include "jp/gecchi/VioletVreath/actor/VvEffectActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime.h"

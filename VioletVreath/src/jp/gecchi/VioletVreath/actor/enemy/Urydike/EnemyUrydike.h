@@ -1,7 +1,7 @@
 #ifndef ENEMYURYDIKE_H_
 #define ENEMYURYDIKE_H_
 #include "VioletVreath.h"
-#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
+#include "jp/gecchi/VioletVreath/actor/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
 
 namespace VioletVreath {

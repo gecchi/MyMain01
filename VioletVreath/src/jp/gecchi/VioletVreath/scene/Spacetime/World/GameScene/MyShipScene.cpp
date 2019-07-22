@@ -32,7 +32,7 @@ enum {
     PROG_BANPEI,
 };
 
-MyShipScene::MyShipScene(const char* prm_name) : DefaultScene(prm_name) ,
+MyShipScene::MyShipScene(const char* prm_name) : VvScene<DefaultScene>(prm_name) ,
 pMyShip_(nullptr),
 papBunshinBase_(nullptr) {
     _class_name = "MyShipScene";

@@ -1,6 +1,8 @@
 #ifndef STAGEPARTCONTROLLER_H_
 #define STAGEPARTCONTROLLER_H_
 #include "VioletVreath.h"
+
+#include "jp/gecchi/VioletVreath/scene/VvScene.hpp"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 
@@ -12,7 +14,7 @@ namespace VioletVreath {
  * @since 2011/10/21
  * @author Masatoshi Tsuge
  */
-class StagePartController : public GgafLib::DefaultScene {
+class StagePartController : public VvScene<GgafLib::DefaultScene> {
 
 public:
     StagePartController(const char* prm_name);

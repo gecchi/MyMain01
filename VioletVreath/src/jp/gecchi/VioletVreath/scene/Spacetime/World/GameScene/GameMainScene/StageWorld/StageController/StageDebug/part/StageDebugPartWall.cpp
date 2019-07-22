@@ -7,8 +7,6 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
 #include "StageDebugPartWall/StageDebugPartWallSection001.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 

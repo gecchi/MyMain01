@@ -10,7 +10,7 @@ using namespace VioletVreath;
 
 bool Stage::pause_ = false;
 
-Stage::Stage(const char* prm_name) : DefaultScene(prm_name) {
+Stage::Stage(const char* prm_name) : VvScene<DefaultScene>(prm_name) {
     _class_name = "Stage";
     pScene_StagePartCtrler_ = nullptr;
 }

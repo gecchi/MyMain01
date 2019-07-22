@@ -5,11 +5,9 @@
 #include "jp/ggaf/lib/scene/WallSectionScene.h"
 #include "jp/ggaf/lib/actor/wall/MassWallActor.h"
 
-
-
 using namespace GgafLib;
 
-WallScene::WallScene(const char* prm_name) : DefaultScene(prm_name) {
+WallScene::WallScene(const char* prm_name, GgafCore::SceneMediator* prm_pSceneMediator) : DefaultScene(prm_name, prm_pSceneMediator) {
     _obj_class |= Obj_WallScene;
     _class_name = "WallScene";
     _pDepo_wall = nullptr;

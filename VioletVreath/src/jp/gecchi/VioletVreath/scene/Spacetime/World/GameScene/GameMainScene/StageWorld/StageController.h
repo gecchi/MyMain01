@@ -1,6 +1,8 @@
 #ifndef STAGECONTROLLER_H_
 #define STAGECONTROLLER_H_
 #include "VioletVreath.h"
+
+#include "jp/gecchi/VioletVreath/scene/VvScene.hpp"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 #include "../StageWorld.h"
@@ -31,7 +33,7 @@ namespace VioletVreath {
  * @since 2011/07/17
  * @author Masatoshi Tsuge
  */
-class StageController : public GgafLib::DefaultScene {
+class StageController : public VvScene<GgafLib::DefaultScene> {
 
 public:
     char buf_[60];

@@ -29,7 +29,7 @@ enum {
 
 //GameMainScene* GameMainScene::pGameMainScene_ = nullptr;
 
-GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
+GameMainScene::GameMainScene(const char* prm_name) : VvScene<DefaultScene>(prm_name) {
     _class_name = "GameMainScene";
 
     pLabel_SCORE_ = NEW LabelScoreFont("SCORE");

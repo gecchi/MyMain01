@@ -2,7 +2,7 @@
 #define WALL01_H_
 #include "VioletVreath.h"
 //#include "jp/ggaf/lib/actor/wall/MassWallActor.h"
-#include "jp/gecchi/VioletVreath/actor/kind/VvChikeiActor.hpp"
+#include "jp/gecchi/VioletVreath/actor/VvChikeiActor.hpp"
 #include "jp/ggaf/lib/actor/wall/CubeMapMassWallActor.h"
 
 namespace VioletVreath  {

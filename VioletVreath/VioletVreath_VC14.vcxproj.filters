@@ -1367,8 +1367,6 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\title\Cursor001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\title\TitleBoard.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\ViewPointGuide.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VVCommonActorsHeader.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VVEnemysHeader.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\effect\HoshiboshiEffect.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\manager\DepositoryConnection.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\manager\DepositoryManager.h" />
@@ -1435,17 +1433,20 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\LockonCursor001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\LockonCursor001_Main.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\LockonCursor001_Sub.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\kind\VvActor.hpp" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\kind\VvChikeiActor.hpp" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\kind\VvEffectActor.hpp" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\kind\VvEnemyActor.hpp" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\kind\VvItemActor.hpp" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\kind\VvMyActor.hpp" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\Camera.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\CameraUpVector.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\CameraViewPoint.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\VVCameraWorkerChanger.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\CommonScene.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\Config.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\VVCameraWorkerChanger.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvActor.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvChikeiActor.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VVCommonActorsHeader.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvEffectActor.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvEnemyActor.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VVEnemysHeader.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvItemActor.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvMyActor.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\VvScene.hpp" />
   </ItemGroup>
 </Project>

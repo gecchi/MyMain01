@@ -1,7 +1,7 @@
 #ifndef ITEM_H_
 #define ITEM_H_
 #include "VioletVreath.h"
-#include "jp/gecchi/VioletVreath/actor/kind/VvItemActor.hpp"
+#include "jp/gecchi/VioletVreath/actor/VvItemActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMassMeshActor.h"
 
 namespace VioletVreath {

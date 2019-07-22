@@ -1,6 +1,8 @@
 #ifndef GAMEOVERSCENE_H_
 #define GAMEOVERSCENE_H_
 #include "VioletVreath.h"
+
+#include "jp/gecchi/VioletVreath/scene/VvScene.hpp"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 namespace VioletVreath {
@@ -12,7 +14,7 @@ namespace VioletVreath {
  * @since 2010/11/15
  * @author Masatoshi Tsuge
  */
-class GameOverScene : public GgafLib::DefaultScene {
+class GameOverScene : public VvScene<GgafLib::DefaultScene> {
 
 public:
     NameEntryScene* pNameEntryScene_;

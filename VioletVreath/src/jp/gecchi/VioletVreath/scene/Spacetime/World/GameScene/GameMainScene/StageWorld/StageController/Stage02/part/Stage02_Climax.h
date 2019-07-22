@@ -1,6 +1,8 @@
 #ifndef STAGE02_CLIMAX_H_
 #define STAGE02_CLIMAX_H_
 #include "VioletVreath.h"
+
+#include "jp/gecchi/VioletVreath/scene/VvScene.hpp"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 namespace VioletVreath {
@@ -11,7 +13,7 @@ namespace VioletVreath {
  * @since 2010/08/23
  * @author Masatoshi Tsuge
  */
-class Stage02_Climax : public GgafLib::DefaultScene {
+class Stage02_Climax : public VvScene<GgafLib::DefaultScene> {
 
 public:
     bool waiting_;

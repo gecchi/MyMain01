@@ -1,7 +1,7 @@
 #ifndef ENEMYHISBE002_H_
 #define ENEMYHISBE002_H_
 #include "VioletVreath.h"
-#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
+#include "jp/gecchi/VioletVreath/actor/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
 
 namespace VioletVreath {

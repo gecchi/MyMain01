@@ -12,8 +12,6 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/dx/manager/SeConnection.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -26,7 +24,7 @@ enum {
     PROG_BANPEI,
 };
 
-RankUpStageController::RankUpStageController(const char* prm_name) : DefaultScene(prm_name) {
+RankUpStageController::RankUpStageController(const char* prm_name) : VvScene<DefaultScene>(prm_name) {
     _class_name = "RankUpStageController";
     _TRACE_("RankUpStageController::RankUpStageController("<<prm_name<<")");
 
@@ -48,7 +46,7 @@ void RankUpStageController::startRunkUpStage(int prm_rank_up_level) {
         //他のランクアップ中
         //既存ランクアップシーンをさらにスローにする
         while (1) {
-            pRankUpStage->addRunFrameOnce(SLOW_FRAME_RANKUP);
+            ((RankUpStage*)pRankUpStage)->addRunFrameOnce(SLOW_FRAME_RANKUP);
             if (pRankUpStage->isLast()) {
                 break;
             } else {
@@ -132,7 +130,7 @@ void RankUpStageController::onCatchEvent(hashval prm_no, void* prm_pSource) {
                 if (pRankUpStage == pScene) {
                     break;
                 } else {
-                    pRankUpStage->addRunFrameOnce(-SLOW_FRAME_RANKUP); //スロー回復
+                    ((RankUpStage*)pRankUpStage)->addRunFrameOnce(-SLOW_FRAME_RANKUP); //スロー回復
                     _TRACE_("pRankUpStage="<<pRankUpStage->getName()<<"をスロー回復");
                     pRankUpStage = pRankUpStage->getNext();
                 }

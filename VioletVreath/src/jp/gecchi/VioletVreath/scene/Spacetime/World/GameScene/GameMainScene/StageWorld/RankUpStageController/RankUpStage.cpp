@@ -21,7 +21,7 @@ using namespace VioletVreath;
 
 bool RankUpStage::pause_ = false;
 
-RankUpStage::RankUpStage(const char* prm_name) : DefaultScene(prm_name, NEW RankUpStage::Medietor(this)) {
+RankUpStage::RankUpStage(const char* prm_name) : VvScene<DefaultScene>(prm_name, NEW RankUpStage::Medietor(this)) {
     _class_name = "RankUpStage";
     _obj_class |= Obj_RankUpStage;
 
@@ -39,8 +39,6 @@ RankUpStage::RankUpStage(const char* prm_name) : DefaultScene(prm_name, NEW Rank
     pMessage3_ = NEW LabelGecchi16Font("RankUpMsg2");
     pMessage3_->setPosition(PX_C(400), PX_C(260));
     bringSceneMediator()->appendGroupChild(pMessage3_);
-
-
 
     pSeConnection_all_hit_ = connectToSeManager("WAVE_EXPLOSION_002"); //‘S–Å‚ÌÅŒã‚Ìˆê‹@”j‰óSE
 }

@@ -1,6 +1,8 @@
 #ifndef GAMEBEGINNINGSCENE_H_
 #define GAMEBEGINNINGSCENE_H_
 #include "VioletVreath.h"
+
+#include "jp/gecchi/VioletVreath/scene/VvScene.hpp"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 namespace VioletVreath {
@@ -12,7 +14,7 @@ namespace VioletVreath {
  * @since 2010/11/15
  * @author Masatoshi Tsuge
  */
-class GameBeginningScene : public GgafLib::DefaultScene {
+class GameBeginningScene : public VvScene<GgafLib::DefaultScene> {
 
 public:
     LabelGecchi16Font* pLabel01_;

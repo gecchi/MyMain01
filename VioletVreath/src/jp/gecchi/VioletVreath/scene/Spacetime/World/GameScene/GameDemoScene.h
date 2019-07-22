@@ -1,6 +1,8 @@
 #ifndef GAMEDEMOSCENE_H_
 #define GAMEDEMOSCENE_H_
 #include "VioletVreath.h"
+
+#include "jp/gecchi/VioletVreath/scene/VvScene.hpp"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 namespace VioletVreath {
@@ -12,7 +14,7 @@ namespace VioletVreath {
  * @since 2007/11/16
  * @author Masatoshi Tsuge
  */
-class GameDemoScene : public GgafLib::DefaultScene {
+class GameDemoScene : public VvScene<GgafLib::DefaultScene> {
 
 public:
     struct ScoreInfo {

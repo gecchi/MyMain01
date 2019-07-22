@@ -6,11 +6,11 @@
 #include "jp/ggaf/core/actor/ex/Formation.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 #include "jp/ggaf/lib/actor/DefaultSceneMediator.h"
-
+#include "jp/gecchi/VioletVreath/scene/VvScene.hpp"
 
 namespace VioletVreath {
 
-class RankUpStage : public GgafLib::DefaultScene {
+class RankUpStage : public VvScene<GgafLib::DefaultScene> {
 
 public:
     enum {

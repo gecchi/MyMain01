@@ -28,7 +28,7 @@ enum {
     PROG_BANPEI,
 };
 
-GameTitleScene::GameTitleScene(const char* prm_name) : DefaultScene(prm_name) {
+GameTitleScene::GameTitleScene(const char* prm_name) : VvScene<DefaultScene>(prm_name) {
     _class_name = "GameTitleScene";
     getProgress()->reset(PROG_INIT);
 

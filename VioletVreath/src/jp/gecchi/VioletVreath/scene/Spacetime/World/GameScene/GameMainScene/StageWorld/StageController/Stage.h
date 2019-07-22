@@ -1,6 +1,8 @@
 #ifndef STAGE_H_
 #define STAGE_H_
 #include "VioletVreath.h"
+
+#include "jp/gecchi/VioletVreath/scene/VvScene.hpp"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 namespace VioletVreath {
@@ -11,7 +13,7 @@ namespace VioletVreath {
  * @since 2009/02/05
  * @author Masatoshi Tsuge
  */
-class Stage : public GgafLib::DefaultScene {
+class Stage : public VvScene<GgafLib::DefaultScene> {
 
 public:
     enum {

@@ -8,12 +8,10 @@
 #include "../Stage02PartController.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
-Stage02_Climax::Stage02_Climax(const char* prm_name) : DefaultScene(prm_name) {
+Stage02_Climax::Stage02_Climax(const char* prm_name) : VvScene<DefaultScene>(prm_name) {
     _class_name = "Stage02_Climax";
     getBgmConductor()->ready(0, "OGG_BGM_01_02");
 

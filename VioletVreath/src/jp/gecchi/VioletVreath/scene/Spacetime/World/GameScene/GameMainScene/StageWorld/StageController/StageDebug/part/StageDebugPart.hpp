@@ -1,6 +1,8 @@
 #ifndef STAGEDEBUGPART_H_
 #define STAGEDEBUGPART_H_
 #include "VioletVreath.h"
+
+#include "jp/gecchi/VioletVreath/scene/VvScene.hpp"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 #include "jp/ggaf/dx/sound/BgmConductor.h"
@@ -14,12 +16,12 @@ namespace VioletVreath {
  * @author Masatoshi Tsuge
  */
 template<class T>
-class StageDebugPart :  public T {
+class StageDebugPart :  public VvScene<T> {
 
 public:
     hashval event_part_finish_;
 public:
-    StageDebugPart(const char* prm_name, hashval prm_event_part_finish): T(prm_name) {
+    StageDebugPart(const char* prm_name, hashval prm_event_part_finish): VvScene<T>(prm_name) {
         event_part_finish_ = prm_event_part_finish;
     }
 

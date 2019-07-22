@@ -28,7 +28,7 @@
 using namespace GgafLib;
 using namespace VioletVreath;
 
-GameScene::GameScene(const char* prm_name) : DefaultScene(prm_name) ,
+GameScene::GameScene(const char* prm_name) : VvScene<DefaultScene>(prm_name) ,
 pCommonScene_(nullptr),
 pMyShipScene_(nullptr),
 pStageWorld_(nullptr) {

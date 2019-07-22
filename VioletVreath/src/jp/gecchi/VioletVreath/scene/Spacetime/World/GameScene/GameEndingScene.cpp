@@ -16,7 +16,7 @@ enum {
     PROG_BANPEI,
 };
 
-GameEndingScene::GameEndingScene(const char* prm_name) : DefaultScene(prm_name) {
+GameEndingScene::GameEndingScene(const char* prm_name) : VvScene<DefaultScene>(prm_name) {
     _class_name = "GameEndingScene";
 }
 

@@ -1,6 +1,8 @@
 #ifndef RANKUPSTAGECONTROLLER_H_
 #define RANKUPSTAGECONTROLLER_H_
 #include "VioletVreath.h"
+
+#include "jp/gecchi/VioletVreath/scene/VvScene.hpp"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld.h"
@@ -24,7 +26,7 @@ namespace VioletVreath {
  * @since 2011/07/17
  * @author Masatoshi Tsuge
  */
-class RankUpStageController : public GgafLib::DefaultScene {
+class RankUpStageController : public VvScene<GgafLib::DefaultScene> {
 
 public:
     char buf_[60];

@@ -13,7 +13,7 @@
 using namespace GgafLib;
 using namespace VioletVreath;
 
-StageWorld::StageWorld(const char* prm_name) : DefaultScene(prm_name) {
+StageWorld::StageWorld(const char* prm_name) : VvScene<DefaultScene>(prm_name) {
     _class_name = "StageWorld";
     can_rank_up_ = true;
     pStageCtrler_ = NEW StageController("StageController");

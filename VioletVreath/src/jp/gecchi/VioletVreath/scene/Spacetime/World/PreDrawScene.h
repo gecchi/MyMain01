@@ -1,6 +1,8 @@
 #ifndef PREDRAWSCENE_H_
 #define PREDRAWSCENE_H_
 #include "VioletVreath.h"
+
+#include "jp/gecchi/VioletVreath/scene/VvScene.hpp"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 namespace VioletVreath {
@@ -13,7 +15,7 @@ namespace VioletVreath {
  * @since 2010/04/20
  * @author Masatoshi Tsuge
  */
-class PreDrawScene : public GgafLib::DefaultScene {
+class PreDrawScene : public VvScene<GgafLib::DefaultScene> {
 
 public:
     enum {

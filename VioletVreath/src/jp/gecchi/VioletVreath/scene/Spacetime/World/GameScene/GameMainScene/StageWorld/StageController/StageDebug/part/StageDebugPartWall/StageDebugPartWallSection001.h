@@ -1,6 +1,8 @@
 #ifndef STAGEDEBUGPARTWALLSECTION001_H_
 #define STAGEDEBUGPARTWALLSECTION001_H_
 #include "VioletVreath.h"
+
+#include "jp/gecchi/VioletVreath/scene/VvScene.hpp"
 #include "jp/ggaf/lib/scene/WallSectionScene.h"
 
 namespace VioletVreath {

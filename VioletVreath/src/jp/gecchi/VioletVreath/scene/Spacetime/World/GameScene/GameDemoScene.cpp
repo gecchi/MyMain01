@@ -27,7 +27,7 @@ enum {
 };
 
 #define ORDER_ID_DEMOSTAGE 12
-GameDemoScene::GameDemoScene(const char* prm_name) : DefaultScene(prm_name) {
+GameDemoScene::GameDemoScene(const char* prm_name) : VvScene<DefaultScene>(prm_name) {
     _class_name = "GameDemoScene";
     pLabel01_ = NEW LabelGecchi16Font("STR01");
     bringSceneMediator()->appendGroupChild(pLabel01_);

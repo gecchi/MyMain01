@@ -1,8 +1,8 @@
 #ifndef SPACETIME_H_
 #define SPACETIME_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/lib/scene/DefaultSpacetime.h"
 
+#include "jp/ggaf/lib/scene/DefaultSpacetime.h"
 #include "jp/gecchi/VioletVreath/actor/camera/Camera.h"
 
 namespace VioletVreath {

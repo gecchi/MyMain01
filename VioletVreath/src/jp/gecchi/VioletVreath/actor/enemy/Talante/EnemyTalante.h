@@ -1,7 +1,7 @@
 #ifndef ENEMYTALANTE_H_
 #define ENEMYTALANTE_H_
 #include "VioletVreath.h"
-#include "jp/gecchi/VioletVreath/actor/kind/VvEnemyActor.hpp"
+#include "jp/gecchi/VioletVreath/actor/VvEnemyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMassMeshActor.h"
 
 namespace VioletVreath {

@@ -13,8 +13,6 @@
 #include "World/GameScene.h"
 #include "Version.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -28,7 +26,7 @@ enum {
     PROG_BANPEI,
 };
 
-World::World(const char* prm_name) : DefaultScene(prm_name) {
+World::World(const char* prm_name) : VvScene<DefaultScene>(prm_name) {
     _class_name = "World";
     _TRACE_("World::World");
 

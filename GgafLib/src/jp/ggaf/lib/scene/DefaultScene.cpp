@@ -2,8 +2,6 @@
 
 #include "jp/ggaf/lib/actor/DefaultSceneMediator.h"
 
-
-
 using namespace GgafLib;
 
 DefaultScene::DefaultScene(const char* prm_name, GgafCore::SceneMediator* prm_pSceneMediator) :

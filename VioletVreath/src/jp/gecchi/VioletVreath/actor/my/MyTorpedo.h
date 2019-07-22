@@ -1,7 +1,7 @@
 #ifndef MYTORPEDO_H_
 #define MYTORPEDO_H_
 #include "VioletVreath.h"
-#include "jp/gecchi/VioletVreath/actor/kind/VvMyActor.hpp"
+#include "jp/gecchi/VioletVreath/actor/VvMyActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
 
 #define MyTorpedo_IN_FIRE 1

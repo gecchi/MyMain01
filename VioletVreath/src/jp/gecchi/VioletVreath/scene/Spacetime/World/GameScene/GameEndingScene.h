@@ -1,6 +1,8 @@
 #ifndef GAMEENDINGSCENE_H_
 #define GAMEENDINGSCENE_H_
 #include "VioletVreath.h"
+
+#include "jp/gecchi/VioletVreath/scene/VvScene.hpp"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 namespace VioletVreath {
@@ -11,7 +13,7 @@ namespace VioletVreath {
  * @since 2007/11/16
  * @author Masatoshi Tsuge
  */
-class GameEndingScene : public GgafLib::DefaultScene {
+class GameEndingScene : public VvScene<GgafLib::DefaultScene> {
 
 public:
     GameEndingScene(const char* prm_name);

@@ -1,8 +1,9 @@
 #ifndef GAMESCENE_H_
 #define GAMESCENE_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/lib/scene/DefaultScene.h"
 
+#include "jp/gecchi/VioletVreath/scene/VvScene.hpp"
+#include "jp/ggaf/lib/scene/DefaultScene.h"
 #include "../World.h"
 #include "jp/gecchi/VioletVreath/God.h"
 
@@ -21,7 +22,7 @@ namespace VioletVreath {
  * @since 2007/11/16
  * @author Masatoshi Tsuge
  */
-class GameScene : public GgafLib::DefaultScene {
+class GameScene : public VvScene<GgafLib::DefaultScene> {
 
 public:
     enum {

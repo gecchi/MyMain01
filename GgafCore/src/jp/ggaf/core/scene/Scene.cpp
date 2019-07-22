@@ -13,9 +13,6 @@ Scene::Scene(const char* prm_name, SceneMediator* prm_pSceneMediator) : Element<
     } else {
         _pSceneMediator =  NEW SceneMediator(this);
     }
-
-    _once_in_n_time = 1;
-    _is_next_frame = true;
 #ifdef MY_DEBUG
     _TRACE_("new "<<NODE_INFO<<" _id="<<getId());
 #else
@@ -36,66 +33,31 @@ Scene::~Scene() {
 #endif
     GGAF_DELETE_NULLABLE(_pSceneMediator);
 }
-void Scene::setRunFrameOnce(int prm_once_in_n_time) {
-    if (prm_once_in_n_time <= 1) {
-        _once_in_n_time = 1;
-    } else {
-        _once_in_n_time = prm_once_in_n_time;
-    }
-}
-
-void Scene::addRunFrameOnce(int prm_once_in_n_time) {
-    if ((int)_once_in_n_time + prm_once_in_n_time <= 1) {
-        _once_in_n_time = 1;
-    } else {
-        _once_in_n_time += prm_once_in_n_time;
-    }
-}
 
 void Scene::appendChild(Scene* prm_pScene) {
-//    prm_pScene->_once_in_n_time = _once_in_n_time;
     Element<Scene>::appendChild(prm_pScene);
 }
 
 void Scene::nextFrame() {
-    bool b = _is_active_in_the_tree_flg;
-    _is_next_frame = (_once_in_n_time == 1 || pGOD->_frame_of_God % _once_in_n_time == 0);
-    if (_is_next_frame) {
-        Element<Scene>::nextFrame();
-
-//        if (_pSceneMediator->_frame_of_life < _pSceneMediator->_frame_of_life_when_end) {
-//            //endなので実行しない。
-//        } else {
-//            _pSceneMediator->nextFrame();
-//        }
-
-
-        frame f = _pSceneMediator->_frame_of_life;
-        if (b || _is_active_in_the_tree_flg ||
-                f <= _pSceneMediator->_frame_of_life_when_activation ||
-                f <= _pSceneMediator->_frame_of_life_when_inactivation ||
-                f <= _pSceneMediator->_frame_of_life_when_end) {
-            _pSceneMediator->nextFrame();
-        }
-        //_is_active_in_the_tree_flg == false でも
-        //Element<Scene>::nextFrame(); が実行時は
-        //必ず _pSceneMediator->nextFrame(); を実行する。
-        //理由は onInactive() 等のイベントを発生させる為
+    Element<Scene>::nextFrame();
+    frame f = _pSceneMediator->_frame_of_life;
+    if (_is_active_in_the_tree_flg ||
+        f <= _pSceneMediator->_frame_of_life_when_activation ||
+        f <= _pSceneMediator->_frame_of_life_when_inactivation ||
+        f <= _pSceneMediator->_frame_of_life_when_end)
+    {
+        _pSceneMediator->nextFrame();
     }
 }
 
 void Scene::behave() {
-    if (_is_next_frame) {
-        Element<Scene>::behave();
-        _pSceneMediator->behave();
-    }
+    Element<Scene>::behave();
+    _pSceneMediator->behave();
 }
 
 void Scene::settleBehavior() {
-    if (_is_next_frame) {
-        Element<Scene>::settleBehavior();
-        _pSceneMediator->settleBehavior();
-    }
+    Element<Scene>::settleBehavior();
+    _pSceneMediator->settleBehavior();
 }
 
 void Scene::preJudge() {
@@ -239,13 +201,11 @@ void Scene::executeFuncLowerSceneTree(void (*pFunc)(Object*, void*, void*, void*
 }
 
 void Scene::reset() {
-    _once_in_n_time = 1;
     Element<Scene>::reset();
     _pSceneMediator->reset();
 }
 
 void Scene::resetTree() {
-    _once_in_n_time = 1;
     Element<Scene>::resetTree();
     _pSceneMediator->resetTree();
 }

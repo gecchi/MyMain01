@@ -1,6 +1,8 @@
 #ifndef COMMONSCENE_H_
 #define COMMONSCENE_H_
 #include "VioletVreath.h"
+
+#include "jp/gecchi/VioletVreath/scene/VvScene.hpp"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 #include "../GameScene.h"
@@ -32,7 +34,7 @@ namespace VioletVreath {
  * @since 2008/09/08
  * @author Masatoshi Tsuge
  */
-class CommonScene : public GgafLib::DefaultScene {
+class CommonScene : public VvScene<GgafLib::DefaultScene> {
 
 public:
     /** 汎用爆発エフェクトその１用、常備デポジトリ */

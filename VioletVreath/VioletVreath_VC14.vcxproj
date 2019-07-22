@@ -877,12 +877,6 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\item\ScoreItem001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\item\VreathItem.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\item\VreathItem001.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\kind\VvActor.hpp" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\kind\VvChikeiActor.hpp" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\kind\VvEffectActor.hpp" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\kind\VvEnemyActor.hpp" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\kind\VvItemActor.hpp" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\kind\VvMyActor.hpp" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelFix16Font01.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelFont16x32.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\label\LabelFont32x64.h" />
@@ -979,8 +973,14 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\title\Cursor001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\title\TitleBoard.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\ViewPointGuide.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvActor.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvChikeiActor.hpp" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VVCommonActorsHeader.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvEffectActor.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvEnemyActor.hpp" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VVEnemysHeader.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvItemActor.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvMyActor.hpp" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\Config.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\effect\HoshiboshiEffect.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\GameGlobal.h" />
@@ -1043,6 +1043,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\MyShipScene.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\TamagoScene.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\PreDrawScene.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\VvScene.hpp" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\util\MyStgUtil.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\util\RankingTable.h" />
     <ClInclude Include="src\VioletVreath.h" />

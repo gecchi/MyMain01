@@ -20,14 +20,14 @@
 using namespace GgafLib;
 using namespace VioletVreath;
 
-const velo MyBunshinWateringLaserChip001::MAX_VELO_RENGE = PX_C(300); //この値を大きくすると、最高速度が早くなる。
+const velo MyBunshinWateringLaserChip001::MAX_VELO_RENGE = PX_C(350); //この値を大きくすると、最高速度が早くなる。
 const double MyBunshinWateringLaserChip001::INV_MAX_VELO_RENGE = 1.0 / MAX_VELO_RENGE;
 const int MyBunshinWateringLaserChip001::R_MAX_ACCE = 20; //この値を大きくすると、カーブが緩くなる
 const velo MyBunshinWateringLaserChip001::INITIAL_VELO = MAX_VELO_RENGE*0.7; //レーザー発射時の初期速度
 const double MyBunshinWateringLaserChip001::RR_MAX_ACCE = 1.0 / R_MAX_ACCE; //計算簡素化用
 const float MyBunshinWateringLaserChip001::MAX_ACCE_RENGE = MAX_VELO_RENGE/R_MAX_ACCE;
-
-GgafDx::Model* MyBunshinWateringLaserChip001::pModel_  = nullptr;
+const velo MyBunshinWateringLaserChip001::MIN_VELO_ = MyBunshinWateringLaserChip001::INITIAL_VELO/4; // ÷4 は、最低移動する各軸のINITIAL_VELOの割合
+GgafDx::Model* MyBunshinWateringLaserChip001::pModel_ = nullptr;
 int MyBunshinWateringLaserChip001::tex_no_ = 0;
 
 
@@ -135,7 +135,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                         if (inv_cnt_ > 15) { //15回も速度の正負が入れ替わったら終了
                             pAimInfo_->spent_frames_to_t1 = active_frame; //Aim t1 終了
                         } else {
-                            static const coord renge = MyBunshinWateringLaserChip001::INITIAL_VELO / 2;
+                            static const coord renge = MyBunshinWateringLaserChip001::INITIAL_VELO / 4;
                             static const ucoord renge2 = renge*2;
                             if ( (ucoord)(_x - pAimInfo->t1_x + renge) <= renge2) {
                                 if ( (ucoord)(_y - pAimInfo->t1_y + renge) <= renge2) {
@@ -313,7 +313,21 @@ throwCriticalException("pAimInfo_ が引き継がれていません！"<<this<<
                     _z = tmp_z_ + (coord)((pB->tmp_z_-tmp_z_)*0.1 + (pF->tmp_z_-tmp_z_)*0.1);
                 }
             }
+
+//            //レーザーチップの向きを一つ前のチップに設定
+//            setFaceAngTwd(pF);
+        } else {
+//            //レーザーチップの向きを移動方向に設定（先端チップ）
+//            UTIL::convVectorToRzRy(pKago->_velo_vx_mv,
+//                                   pKago->_velo_vy_mv,
+//                                   pKago->_velo_vz_mv,
+//                                   _rz, _ry );
         }
+
+        UTIL::convVectorToRzRy(pKago->_velo_vx_mv,
+                               pKago->_velo_vy_mv,
+                               pKago->_velo_vz_mv,
+                               _rz, _ry );
     }
     WateringLaserChip::processSettlementBehavior();
 }
@@ -362,7 +376,7 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
     }
 #endif
 
-    static const coord min_velo = MyBunshinWateringLaserChip001::INITIAL_VELO/2; // ÷2 は、最低移動する各軸のINITIAL_VELOの割合
+
     static const coord rv = 10.0;
     GgafDx::Kago* pKago = callKago();
     //自→仮、自方向ベクトル(vM)
@@ -373,19 +387,19 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
 //    double lvM = sqrt(vMx*vMx + vMy*vMy + vMz*vMz);
     coord lvM = UTIL::__getApproxDistance__(vMx, vMy, vMz);
     //|vM|があまりに小さい場合＝速度が遅すぎる場合を考慮
-    if  (lvM < min_velo) { //縮こまらないように
+    if  (lvM < MIN_VELO_) { //縮こまらないように
         if (ZEROd_EQ(lvM)) {
             //速度が殆ど０でもうどっち向いてるかわからんので、X軸方向に飛ばす
-            pKago->setVxyzMvVelo(min_velo, 0, 0);
+            pKago->setVxyzMvVelo(MIN_VELO_, 0, 0);
         } else {
-            //速度 min_velo を保証する
-            double r = (1.0*min_velo/lvM);
+            //速度 MIN_VELO_ を保証する
+            double r = (1.0*MIN_VELO_/lvM);
             pKago->setVxyzMvVelo(vMx*r, vMy*r, vMz*r);
         }
         vMx = pKago->_velo_vx_mv;
         vMy = pKago->_velo_vy_mv;
         vMz = pKago->_velo_vz_mv;
-        lvM = min_velo;
+        lvM = MIN_VELO_;
     }
     coord vVMx = vMx * rv;
     coord vVMy = vMy * rv;

@@ -34,7 +34,7 @@ public:
      * @param prm_name
      * @return
      */
-    WallScene(const char* prm_name);
+    WallScene(const char* prm_name, GgafCore::SceneMediator* prm_pSceneMediator = nullptr);
 
     /**
      * X軸方向スクロール WallScene を設定する。

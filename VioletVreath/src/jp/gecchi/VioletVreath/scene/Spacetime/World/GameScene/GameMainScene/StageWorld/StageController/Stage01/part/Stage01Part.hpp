@@ -1,6 +1,8 @@
 #ifndef STAGE01PART_H_
 #define STAGE01PART_H_
 #include "VioletVreath.h"
+
+#include "jp/gecchi/VioletVreath/scene/VvScene.hpp"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 #include "jp/ggaf/dx/sound/BgmConductor.h"
@@ -14,9 +16,7 @@ namespace VioletVreath {
  * @author Masatoshi Tsuge
  */
 template<class T>
-class Stage01Part :  public T {
-
-
+class Stage01Part :  public VvScene<T> {
 
 public:
     enum {
@@ -29,7 +29,7 @@ public:
 
     hashval event_part_finish_;
 public:
-    Stage01Part(const char* prm_name, hashval prm_event_part_finish): T(prm_name) {
+    Stage01Part(const char* prm_name, hashval prm_event_part_finish): VvScene<T>(prm_name, nullptr) {
         event_part_finish_ = prm_event_part_finish;
     }
 

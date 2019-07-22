@@ -1,7 +1,7 @@
 #ifndef MYBUNSHINCURVELASERCHIP001_H_
 #define MYBUNSHINCURVELASERCHIP001_H_
 #include "VioletVreath.h"
-#include "jp/gecchi/VioletVreath/actor/kind/VvMyActor.hpp"
+#include "jp/gecchi/VioletVreath/actor/VvMyActor.hpp"
 #include "jp/ggaf/lib/actor/laserchip/WateringLaserChip.h"
 #include "MyBunshin.h"
 #include <fstream>
@@ -50,6 +50,8 @@ public:
     /** [r/w]速度に対する加速度の割合（この値を大きくすると、カーブが緩くなる） */
     static const int R_MAX_ACCE;
     static const double RR_MAX_ACCE;
+    /** 最低速度 */
+    static const velo MIN_VELO_;
 
     static int tex_no_;
     static GgafDx::Model* pModel_;

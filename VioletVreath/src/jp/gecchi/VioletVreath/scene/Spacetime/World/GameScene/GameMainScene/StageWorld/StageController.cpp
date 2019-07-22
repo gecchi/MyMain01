@@ -32,7 +32,7 @@ enum {
     PROG_BANPEI,
 };
 
-StageController::StageController(const char* prm_name) : DefaultScene(prm_name) {
+StageController::StageController(const char* prm_name) : VvScene<DefaultScene>(prm_name) {
     _class_name = "StageController";
 
     _TRACE_("StageController::StageController("<<prm_name<<")");

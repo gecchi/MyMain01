@@ -28,7 +28,7 @@ using namespace VioletVreath;
 }while(0)
 
 
-CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
+CommonScene::CommonScene(const char* prm_name) : VvScene<DefaultScene>(prm_name) {
     _class_name = "CommonScene";
 
     //全シーンに渡って常時使用な汎用的なアクター類は

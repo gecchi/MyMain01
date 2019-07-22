@@ -463,6 +463,9 @@ void GeometricActor::setFaceAngTwd(coord prm_tx, coord prm_ty, coord prm_tz) {
                                _rz, _ry );
     }
 }
+void GeometricActor::setFaceAngTwd(const GeometricActor* prm_pActor) {
+    setFaceAngTwd(prm_pActor->_x, prm_pActor->_y, prm_pActor->_z);
+}
 
 void GeometricActor::scaleAs(const GeometricActor* prm_pActor) {
     _sx = prm_pActor->_sx;

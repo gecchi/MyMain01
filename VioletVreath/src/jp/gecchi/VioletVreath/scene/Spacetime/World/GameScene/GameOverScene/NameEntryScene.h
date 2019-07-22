@@ -1,6 +1,8 @@
 #ifndef NAMEENTRYSCENE_H_
 #define NAMEENTRYSCENE_H_
 #include "VioletVreath.h"
+
+#include "jp/gecchi/VioletVreath/scene/VvScene.hpp"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 namespace VioletVreath {
@@ -11,7 +13,7 @@ namespace VioletVreath {
  * @since 2012/10/04
  * @author Masatoshi Tsuge
  */
-class NameEntryScene : public GgafLib::DefaultScene {
+class NameEntryScene : public VvScene<GgafLib::DefaultScene> {
 
 public:
     WorldBoundNameEntry* pWorldBound_;

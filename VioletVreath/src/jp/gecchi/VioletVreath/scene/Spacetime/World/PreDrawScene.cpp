@@ -55,9 +55,6 @@
 #include "jp/ggaf/lib/actor/WorldBoundActor.h"
 #include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshi.h"
 
-
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -75,7 +72,7 @@ public:
 };
 
 #define ID_ORDER_BEGIN 111
-PreDrawScene::PreDrawScene(const char* prm_name) : DefaultScene(prm_name) {
+PreDrawScene::PreDrawScene(const char* prm_name) : VvScene<DefaultScene>(prm_name) {
     _class_name = "PreDrawScene";
     _id_ = 0;
     order_id_begin_ = ID_ORDER_BEGIN;

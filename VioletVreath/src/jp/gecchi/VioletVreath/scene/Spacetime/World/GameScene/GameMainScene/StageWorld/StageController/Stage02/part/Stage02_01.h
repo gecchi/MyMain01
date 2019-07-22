@@ -1,6 +1,8 @@
 #ifndef STAGE02_01_H_
 #define STAGE02_01_H_
 #include "VioletVreath.h"
+
+#include "jp/gecchi/VioletVreath/scene/VvScene.hpp"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 namespace VioletVreath {
@@ -11,7 +13,7 @@ namespace VioletVreath {
  * @since 2010/08/18
  * @author Masatoshi Tsuge
  */
-class Stage02_01 : public GgafLib::DefaultScene {
+class Stage02_01 : public VvScene<GgafLib::DefaultScene> {
 
 public:
     Stage02_01(const char* prm_name);

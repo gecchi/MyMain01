@@ -1,12 +1,13 @@
 #ifndef TAMAGOSCENE_H_
 #define TAMAGOSCENE_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/lib/scene/DefaultScene.h"
 
+#include "jp/gecchi/VioletVreath/scene/VvScene.hpp"
+#include "jp/ggaf/lib/scene/DefaultScene.h"
 
 namespace VioletVreath {
 
-class TamagoScene : public GgafLib::DefaultScene {
+class TamagoScene : public VvScene<GgafLib::DefaultScene> {
 
 public:
     TamagoScene(const char* prm_name);

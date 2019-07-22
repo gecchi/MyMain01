@@ -1,8 +1,9 @@
 #ifndef WORLD_H_
 #define WORLD_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/lib/scene/DefaultScene.h"
 
+#include "jp/ggaf/lib/scene/DefaultScene.h"
+#include "jp/gecchi/VioletVreath/scene/VvScene.hpp"
 #include "jp/gecchi/VioletVreath/God.h"
 
 namespace VioletVreath {
@@ -11,7 +12,7 @@ namespace VioletVreath {
  * 世界シーンクラス .
  * アプリ上の「この世(Spacetime)」の一つ下の階層に位置します。<BR>
  */
-class World : public GgafLib::DefaultScene {
+class World : public VvScene<GgafLib::DefaultScene> {
 
 public:
     bool is_create_GameScene_;

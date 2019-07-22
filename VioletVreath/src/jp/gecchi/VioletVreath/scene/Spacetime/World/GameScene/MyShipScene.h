@@ -1,6 +1,8 @@
 #ifndef MYSHIPSCENE_H_
 #define MYSHIPSCENE_H_
 #include "VioletVreath.h"
+
+#include "jp/gecchi/VioletVreath/scene/VvScene.hpp"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
 #include "../GameScene.h"
@@ -25,7 +27,7 @@ namespace VioletVreath {
  * @since 2010/10/25
  * @author Masatoshi Tsuge
  */
-class MyShipScene : public GgafLib::DefaultScene {
+class MyShipScene : public VvScene<GgafLib::DefaultScene> {
 
 public:
     /** Ž©‹@ */

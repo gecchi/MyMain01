@@ -524,6 +524,12 @@ public:
     virtual void setFaceAngTwd(coord prm_tx, coord prm_ty, coord prm_tz);
 
     /**
+     * Actorの自身の座標から対象アクターに向いた方向に、Z軸回転方角とY軸回転方角を設定<BR>
+     * @param prm_pActor 対象アクター
+     */
+    virtual void setFaceAngTwd(const GeometricActor* prm_pActor);
+
+    /**
      * X軸Y軸Z軸スケール _sx, _sy, _sz をコピーして設定 .
      * @param prm_pActor コピー元アクター
      */

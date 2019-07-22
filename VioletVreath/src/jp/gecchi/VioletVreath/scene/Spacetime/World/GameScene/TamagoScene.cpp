@@ -7,7 +7,7 @@
 using namespace GgafLib;
 using namespace VioletVreath;
 
-TamagoScene::TamagoScene(const char* prm_name) : DefaultScene(prm_name) {
+TamagoScene::TamagoScene(const char* prm_name) : VvScene<DefaultScene>(prm_name) {
     _class_name = "TamagoScene";
 
     //requestActor(100000001, HoshiBoshi001, "HoshiBoshi001");
