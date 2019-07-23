@@ -26,7 +26,7 @@ const int MyBunshinWateringLaserChip001::R_MAX_ACCE = 20; //この値を大きくすると
 const velo MyBunshinWateringLaserChip001::INITIAL_VELO = MAX_VELO_RENGE*0.7; //レーザー発射時の初期速度
 const double MyBunshinWateringLaserChip001::RR_MAX_ACCE = 1.0 / R_MAX_ACCE; //計算簡素化用
 const float MyBunshinWateringLaserChip001::MAX_ACCE_RENGE = MAX_VELO_RENGE/R_MAX_ACCE;
-const velo MyBunshinWateringLaserChip001::MIN_VELO_ = MyBunshinWateringLaserChip001::INITIAL_VELO/4; // ÷4 は、最低移動する各軸のINITIAL_VELOの割合
+const velo MyBunshinWateringLaserChip001::MIN_VELO_ = MyBunshinWateringLaserChip001::INITIAL_VELO/8; // ÷8 は、最低移動する各軸のINITIAL_VELOの割合
 GgafDx::Model* MyBunshinWateringLaserChip001::pModel_ = nullptr;
 int MyBunshinWateringLaserChip001::tex_no_ = 0;
 

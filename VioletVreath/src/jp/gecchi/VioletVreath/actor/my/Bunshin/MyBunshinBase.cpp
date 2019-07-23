@@ -500,26 +500,36 @@ void MyBunshinBase::addTurnAngleAroundAx1(float prm_ax_x, float prm_ax_y, float 
     //É∆âÒì]ÇµÇΩå„ÇÃç¿ïWÇÕ (x2, y2, z2)
     static const float p_sin_h = ANG_SIN(MyBunshinBase::ANGVELO_TURN/2);  //ANGVELO_TURN=âÒì]Ç≥ÇπÇΩÇ¢äpìx
     static const float p_cos_h = ANG_COS(MyBunshinBase::ANGVELO_TURN/2);
+
+    float a = prm_ax_x*p_sin_h;
+    float b = prm_ax_y*p_sin_h;
+    float c = prm_ax_z*p_sin_h;
+
     GgafDx::Rikisha* pRikisha = callRikisha();
-    Quaternion<float> H(p_cos_h, -prm_ax_x*p_sin_h, -prm_ax_y*p_sin_h, -prm_ax_z*p_sin_h); //R
-    H.mul(0, pRikisha->_vX, pRikisha->_vY, pRikisha->_vZ);                                   //R*P
-    H.mul(p_cos_h, prm_ax_x*p_sin_h, prm_ax_y*p_sin_h, prm_ax_z*p_sin_h);                 //R*P*Q
+    Quaternion<float> H(p_cos_h, -a, -b, -c); //R
+    H.mul(0, pRikisha->_vX, pRikisha->_vY, pRikisha->_vZ); //R*P
+    H.mul(p_cos_h, a, b, c);                               //R*P*Q
     pRikisha->setRzRyMvAng(H.i, H.j, H.k, true);
 }
 
 void MyBunshinBase::addTurnAngleAroundAx2(float prm_ax_x, float prm_ax_y, float prm_ax_z) {
     static const float p_sin_h = ANG_SIN(MyBunshinBase::ANGVELO_TURN/2);  //ANGVELO_TURN=âÒì]Ç≥ÇπÇΩÇ¢äpìx
     static const float p_cos_h = ANG_COS(MyBunshinBase::ANGVELO_TURN/2);
+
+    float a = prm_ax_x*p_sin_h;
+    float b = prm_ax_y*p_sin_h;
+    float c = prm_ax_z*p_sin_h;
+
     GgafDx::Rikisha* pRikisha = callRikisha();
-    Quaternion<float> H(p_cos_h, -prm_ax_x*p_sin_h, -prm_ax_y*p_sin_h, -prm_ax_z*p_sin_h); //R
+    Quaternion<float> H(p_cos_h, -a, -b, -c); //R
     Quaternion<float> H2 = H;
-    H.mul(0, pRikisha->_vX, pRikisha->_vY, pRikisha->_vZ);                                   //R*P
-    H.mul(p_cos_h, prm_ax_x*p_sin_h, prm_ax_y*p_sin_h, prm_ax_z*p_sin_h);                 //R*P*Q
+    H.mul(0, pRikisha->_vX, pRikisha->_vY, pRikisha->_vZ); //R*P
+    H.mul(p_cos_h, a, b, c);                               //R*P*Q
     pRikisha->setRzRyMvAng(H.i, H.j, H.k, true);
 
     //è„â∫ì¸óÕéûÇÃâÒì]é≤Ç‡âÒì]Ç≥ÇπÇÈ
-    H2.mul(0, c_ax_x_, c_ax_y_, c_ax_z_);                                                 //R*P
-    H2.mul(p_cos_h, prm_ax_x*p_sin_h, prm_ax_y*p_sin_h, prm_ax_z*p_sin_h);                //R*P*Q
+    H2.mul(0, c_ax_x_, c_ax_y_, c_ax_z_); //R*P
+    H2.mul(p_cos_h, a, b, c);             //R*P*Q
     c_ax_x_ = H2.i;
     c_ax_y_ = H2.j;
     c_ax_z_ = H2.k;
