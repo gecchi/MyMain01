@@ -11,6 +11,8 @@
 #endif
 #define UTIL GgafLib::StgUtil
 
+typedef bool (*func_hit_check)(const GgafDx::GeometricActor* , const GgafDx::CollisionPart* , const GgafDx::GeometricActor* , const GgafDx::CollisionPart*);
+
 namespace GgafLib {
 
 /**
@@ -23,6 +25,11 @@ class StgUtil: public GgafDx::Util {
 public:
 
     static bool _was_StgUtil_inited_flg;
+
+    /** 3Dヒットチェック関数ポインタの配列 */
+    static func_hit_check hit_check3d_func_table[16];
+    /** 2Dヒットチェック関数ポインタの配列 */
+    static func_hit_check hit_check2d_func_table[16];
 
     static void init();
 
@@ -52,8 +59,8 @@ public:
      * @param pAABox02
      * @return
      */
-    static inline bool isHit3D(const GgafDx::GeometricActor* const pActor01, const ColliAABox* const pAABox01,
-                               const GgafDx::GeometricActor* const pActor02, const ColliAABox* const pAABox02 ) {
+    static inline bool isHit3D_AABox_AABox(const GgafDx::GeometricActor* pActor01, const GgafDx::CollisionPart* pCollisionPart01,
+                                           const GgafDx::GeometricActor* pActor02, const GgafDx::CollisionPart* pCollisionPart02 ) {
         //＜AAB と AAB＞
         //軸が一致しない確率が高そうな順番(X>Z>Y)に判定
 //        if (pActor01->_x + pAABox01->_x2 >= pActor02->_x + pAABox02->_x1) {
@@ -75,13 +82,13 @@ public:
 //        }
 //    	を変形。
 
-        coord max_dx = pAABox01->_hdx + pAABox02->_hdx;
-        if ((ucoord)( (pActor02->_x + pAABox02->_cx) - (pActor01->_x + pAABox01->_cx) + max_dx ) < (ucoord)(2*max_dx)) {
+        coord max_dx = pCollisionPart01->_hdx + pCollisionPart02->_hdx;
+        if ((ucoord)( (pActor02->_x + pCollisionPart02->_cx) - (pActor01->_x + pCollisionPart01->_cx) + max_dx ) < (ucoord)(2*max_dx)) {
             //↑左辺計算が0より小さい場合 unsigned キャストにより正の大きな数になるので条件成立しない事を利用し、ABSの判定を一つ除去してる。
-            coord max_dz = pAABox01->_hdz + pAABox02->_hdz;
-            if ((ucoord)( (pActor02->_z + pAABox02->_cz) - (pActor01->_z + pAABox01->_cz) + max_dz ) < (ucoord)(2*max_dz)) {
-                coord max_dy = pAABox01->_hdy + pAABox02->_hdy;
-                if ((ucoord)( (pActor02->_y + pAABox02->_cy) - (pActor01->_y + pAABox01->_cy) + max_dy ) < (ucoord)(2*max_dy)) {
+            coord max_dz = pCollisionPart01->_hdz + pCollisionPart02->_hdz;
+            if ((ucoord)( (pActor02->_z + pCollisionPart02->_cz) - (pActor01->_z + pCollisionPart01->_cz) + max_dz ) < (ucoord)(2*max_dz)) {
+                coord max_dy = pCollisionPart01->_hdy + pCollisionPart02->_hdy;
+                if ((ucoord)( (pActor02->_y + pCollisionPart02->_cy) - (pActor01->_y + pCollisionPart01->_cy) + max_dy ) < (ucoord)(2*max_dy)) {
                     return true;
                 }
             }
@@ -97,8 +104,8 @@ public:
      * @param pSphere02
      * @return
      */
-    static bool isHit3D(const GgafDx::GeometricActor* const pActor01, const ColliSphere* const pSphere01 ,
-                        const GgafDx::GeometricActor* const pActor02, const ColliSphere* const pSphere02 );
+    static bool isHit3D_Sphere_Sphere(const GgafDx::GeometricActor* pActor01, const GgafDx::CollisionPart* pCollisionPart01 ,
+                                      const GgafDx::GeometricActor* pActor02, const GgafDx::CollisionPart* pCollisionPart02 );
 
     /**
      * AAB 対 球 当たり判定 .
@@ -108,8 +115,8 @@ public:
      * @param pSphere02
      * @return
      */
-    static bool isHit3D(const GgafDx::GeometricActor* const pActor01, const ColliAABox*  pAABox01,
-                        const GgafDx::GeometricActor* const pActor02, const ColliSphere* pSphere02);
+    static bool isHit3D_AABox_Sphere(const GgafDx::GeometricActor* pActor01, const GgafDx::CollisionPart* pCollisionPart01,
+                                     const GgafDx::GeometricActor* pActor02, const GgafDx::CollisionPart* pCollisionPart02);
 
     /**
      * AAプリズム 対 AAB 当たり判定 .
@@ -119,8 +126,8 @@ public:
      * @param pAABox02
      * @return
      */
-    static bool isHit3D(const GgafDx::GeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
-                        const GgafDx::GeometricActor* const pActor02, const ColliAABox*   const pAABox02   );
+    static bool isHit3D_AAPrism_AABox(const GgafDx::GeometricActor* pActor01, const GgafDx::CollisionPart* pCollisionPart01,
+                                      const GgafDx::GeometricActor* pActor02, const GgafDx::CollisionPart* pCollisionPart02);
 
     /**
      * AAプリズム 対 球 当たり判定 .
@@ -130,8 +137,8 @@ public:
      * @param pSphere02
      * @return
      */
-    static bool isHit3D(const GgafDx::GeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
-                        const GgafDx::GeometricActor* const pActor02, const ColliSphere*  const pSphere02  );
+    static bool isHit3D_AAPrism_Sphere(const GgafDx::GeometricActor* pActor01, const GgafDx::CollisionPart* pCollisionPart01,
+                                       const GgafDx::GeometricActor* pActor02, const GgafDx::CollisionPart* pCollisionPart02);
 
     /**
      * AAピラミッド 対 AAB 当たり判定 .
@@ -141,8 +148,8 @@ public:
      * @param pAABox02
      * @return
      */
-    static bool isHit3D(const GgafDx::GeometricActor* const pActor01, const ColliAAPyramid* const pAAPyramid01,
-                        const GgafDx::GeometricActor* const pActor02, const ColliAABox*     const pAABox02     );
+    static bool isHit3D_AAPyramid_AABox(const GgafDx::GeometricActor* pActor01, const GgafDx::CollisionPart* pCollisionPart01,
+                                        const GgafDx::GeometricActor* pActor02, const GgafDx::CollisionPart* pCollisionPart02);
 
     /**
      * AAピラミッド 対 球 当たり判定 .
@@ -152,9 +159,19 @@ public:
      * @param pSphere02
      * @return
      */
-    static bool isHit3D(const GgafDx::GeometricActor* const pActor01, const ColliAAPyramid* const pAAPyramid01,
-                        const GgafDx::GeometricActor* const pActor02, const ColliSphere*    const pSphere02    );
+    static bool isHit3D_AAPyramid_Sphere(const GgafDx::GeometricActor* pActor01, const GgafDx::CollisionPart* pCollisionPart01,
+                                         const GgafDx::GeometricActor* pActor02, const GgafDx::CollisionPart* pCollisionPart02);
 
+    /**
+     * 未実装当たり判定 .
+     * @param pActor01
+     * @param pCollisionPart01
+     * @param pActor02
+     * @param pCollisionPart02
+     * @return
+     */
+    static bool isHit_NoSupport(const GgafDx::GeometricActor* pActor01, const GgafDx::CollisionPart* pCollisionPart01,
+                                const GgafDx::GeometricActor* pActor02, const GgafDx::CollisionPart* pCollisionPart02);
 
     /**
      * 2D 長方形 対 長方形 当たり判定 .
@@ -164,8 +181,8 @@ public:
      * @param pAABox02
      * @return
      */
-    static inline bool isHit2D(const GgafDx::GeometricActor* const pActor01, const ColliAABox* const pAABox01,
-                               const GgafDx::GeometricActor* const pActor02, const ColliAABox* const pAABox02 ) {
+    static inline bool isHit2D_AABox_AABox(const GgafDx::GeometricActor* pActor01, const GgafDx::CollisionPart* pCollisionPart01,
+                                           const GgafDx::GeometricActor* pActor02, const GgafDx::CollisionPart* pCollisionPart02) {
         //＜AAB と AAB＞
 //        //軸が一致しない確率が高そうな順番(X>Y)に判定
 //        if (pActor01->_x + pAABox01->_x2 >= pActor02->_x + pAABox02->_x1) {
@@ -178,14 +195,13 @@ public:
 //            }
 //        }
 
-        coord max_dx = pAABox01->_hdx + pAABox02->_hdx;
-        if ((ucoord)( (pActor02->_x + pAABox02->_cx) - (pActor01->_x + pAABox01->_cx) + max_dx ) < (ucoord)(2*max_dx)) {
-            coord max_dy = pAABox01->_hdy + pAABox02->_hdy;
-            if ((ucoord)( (pActor02->_y + pAABox02->_cy) - (pActor01->_y + pAABox01->_cy) + max_dy ) < (ucoord)(2*max_dy)) {
+        coord max_dx = pCollisionPart01->_hdx + pCollisionPart02->_hdx;
+        if ((ucoord)( (pActor02->_x + pCollisionPart02->_cx) - (pActor01->_x + pCollisionPart01->_cx) + max_dx ) < (ucoord)(2*max_dx)) {
+            coord max_dy = pCollisionPart01->_hdy + pCollisionPart02->_hdy;
+            if ((ucoord)( (pActor02->_y + pCollisionPart02->_cy) - (pActor01->_y + pCollisionPart01->_cy) + max_dy ) < (ucoord)(2*max_dy)) {
                 return true;
             }
         }
-
         return false;
     }
 
@@ -197,8 +213,8 @@ public:
      * @param pSphere02
      * @return
      */
-    static bool isHit2D(const GgafDx::GeometricActor* const pActor01, const ColliSphere* const pSphere01 ,
-                        const GgafDx::GeometricActor* const pActor02, const ColliSphere* const pSphere02 );
+    static bool isHit2D_Sphere_Sphere(const GgafDx::GeometricActor* pActor01, const GgafDx::CollisionPart* pCollisionPart01,
+                                      const GgafDx::GeometricActor* pActor02, const GgafDx::CollisionPart* pCollisionPart02);
 
     /**
      * 2D 長方形 対 円 当たり判定 .
@@ -208,8 +224,8 @@ public:
      * @param pSphere02
      * @return
      */
-    static bool isHit2D(const GgafDx::GeometricActor* const pActor01, const ColliAABox*  pAABox01,
-                        const GgafDx::GeometricActor* const pActor02, const ColliSphere* pSphere02);
+    static bool isHit2D_AABox_Sphere(const GgafDx::GeometricActor* pActor01, const GgafDx::CollisionPart* pCollisionPart01,
+                                     const GgafDx::GeometricActor* pActor02, const GgafDx::CollisionPart* pCollisionPart02);
 
     /**
      * 2D 直角三角形 対 長方形 当たり判定 .
@@ -219,8 +235,8 @@ public:
      * @param pAABox02
      * @return
      */
-    static bool isHit2D(const GgafDx::GeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
-                        const GgafDx::GeometricActor* const pActor02, const ColliAABox*   const pAABox02   );
+    static bool isHit2D_AAPrism_AABox(const GgafDx::GeometricActor* pActor01, const GgafDx::CollisionPart* pCollisionPart01,
+                                      const GgafDx::GeometricActor* pActor02, const GgafDx::CollisionPart* pCollisionPart02);
 
     /**
      * 2D 直角三角形 対 円 当たり判定 .
@@ -230,8 +246,8 @@ public:
      * @param pSphere02
      * @return
      */
-    static bool isHit2D(const GgafDx::GeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
-                        const GgafDx::GeometricActor* const pActor02, const ColliSphere*  const pSphere02  );
+    static bool isHit2D_AAPrism_Sphere(const GgafDx::GeometricActor* pActor01, const GgafDx::CollisionPart* pCollisionPart01,
+                                       const GgafDx::GeometricActor* pActor02, const GgafDx::CollisionPart* pCollisionPart02);
     /**
      * 2D 直角三角形 対 円 直角三角形 .
      * @param pActor01
@@ -240,8 +256,8 @@ public:
      * @param pAAPrism02
      * @return
      */
-    static bool isHit2D(const GgafDx::GeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
-                        const GgafDx::GeometricActor* const pActor02, const ColliAAPrism* const pAAPrism02  );
+    static bool isHit2D_ColliAAPrism_ColliAAPrism(const GgafDx::GeometricActor* pActor01, const GgafDx::CollisionPart* pCollisionPart01,
+                                                  const GgafDx::GeometricActor* pActor02, const GgafDx::CollisionPart* pCollisionPart02);
 
     /**
      * 単発弾を複数個撃つ .
@@ -264,12 +280,12 @@ public:
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
     static GgafDx::FigureActor* shotWay001(coord prm_x, coord prm_y, coord prm_z,
-                                                     angle prm_rz, angle prm_ry,
-                                                     GgafCore::ActorDepository* prm_pDepo_shot,
-                                                     coord prm_r,
-                                                     velo prm_velo_first, acce prm_acce,
-                                                     int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                     void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int) = nullptr);
+                                           angle prm_rz, angle prm_ry,
+                                           GgafCore::ActorDepository* prm_pDepo_shot,
+                                           coord prm_r,
+                                           velo prm_velo_first, acce prm_acce,
+                                           int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                           void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int) = nullptr);
 
     /**
      * 発射元が向いている方向（_rz > _ry）に向かって 単発弾を複数個撃つ .
@@ -293,12 +309,12 @@ public:
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
     static GgafDx::FigureActor* shotWay001(coord prm_from_x, coord prm_from_y, coord prm_from_z,
-                                                     coord prm_to_x, coord prm_to_y, coord prm_to_z,
-                                                     GgafCore::ActorDepository* prm_pDepo_shot,
-                                                     coord prm_r,
-                                                     velo prm_velo_first, acce prm_acce,
-                                                     int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                     void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int) = nullptr);
+                                           coord prm_to_x, coord prm_to_y, coord prm_to_z,
+                                           GgafCore::ActorDepository* prm_pDepo_shot,
+                                           coord prm_r,
+                                           velo prm_velo_first, acce prm_acce,
+                                           int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                           void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int) = nullptr);
 
     /**
      * 発射元が向いている方向（_rz > _ry）に向かって 単発弾を複数個撃つ .
@@ -317,11 +333,11 @@ public:
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
     static GgafDx::FigureActor* shotWay001(const GgafDx::GeometricActor* prm_pFrom,
-                                                     GgafCore::ActorDepository* prm_pDepo_shot,
-                                                     coord prm_r,
-                                                     velo prm_velo_first, acce prm_acce,
-                                                     int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                     void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int) = nullptr);
+                                           GgafCore::ActorDepository* prm_pDepo_shot,
+                                           coord prm_r,
+                                           velo prm_velo_first, acce prm_acce,
+                                           int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                           void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int) = nullptr);
 
 
     /**
@@ -346,14 +362,14 @@ public:
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
     static GgafDx::FigureActor* shotWay002(coord prm_x, coord prm_y, coord prm_z,
-                                                     angle prm_rx, angle prm_rz, angle prm_ry,
-                                                     GgafCore::ActorDepository* prm_pDepo_shot,
-                                                     coord prm_r,
-                                                     int prm_way_N,
-                                                     angle prm_ang_clearance_N,
-                                                     velo prm_velo_first, acce prm_acce,
-                                                     int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                     void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int) = nullptr);
+                                           angle prm_rx, angle prm_rz, angle prm_ry,
+                                           GgafCore::ActorDepository* prm_pDepo_shot,
+                                           coord prm_r,
+                                           int prm_way_N,
+                                           angle prm_ang_clearance_N,
+                                           velo prm_velo_first, acce prm_acce,
+                                           int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                           void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int) = nullptr);
 
     /**
      * 発射元が向いている方向（_rx, _rz > _ry）N-Way弾（Rz変化）を複数セット撃つ .
@@ -374,13 +390,13 @@ public:
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
     static GgafDx::FigureActor* shotWay002(const GgafDx::GeometricActor* prm_pFrom,
-                                                     GgafCore::ActorDepository* prm_pDepo_shot,
-                                                     coord prm_r,
-                                                     int prm_way_N,
-                                                     angle prm_ang_clearance_N,
-                                                     velo prm_velo_first, acce prm_acce,
-                                                     int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                     void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int) = nullptr);
+                                           GgafCore::ActorDepository* prm_pDepo_shot,
+                                           coord prm_r,
+                                           int prm_way_N,
+                                           angle prm_ang_clearance_N,
+                                           velo prm_velo_first, acce prm_acce,
+                                           int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                           void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int) = nullptr);
 
     /**
      * N*M-Way弾を複数セット撃つ .
@@ -413,16 +429,16 @@ public:
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
     static GgafDx::FigureActor* shotWay003(coord prm_x, coord prm_y, coord prm_z,
-                                                     angle prm_rx, angle prm_rz, angle prm_ry,
-                                                     GgafCore::ActorDepository* prm_pDepo_shot1, uint32_t* prm_paUint32_dotmat1,
-                                                     GgafCore::ActorDepository* prm_pDepo_shot2, uint32_t* prm_paUint32_dotmat2,
-                                                     GgafCore::ActorDepository* prm_pDepo_shot3, uint32_t* prm_paUint32_dotmat3,
-                                                     coord prm_r,
-                                                     int prm_way_N, int prm_way_M,
-                                                     angle prm_ang_clearance_N, angle prm_ang_clearance_M,
-                                                     velo prm_velo_first, acce prm_acce,
-                                                     int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                     void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int, int, int) = nullptr);
+                                           angle prm_rx, angle prm_rz, angle prm_ry,
+                                           GgafCore::ActorDepository* prm_pDepo_shot1, uint32_t* prm_paUint32_dotmat1,
+                                           GgafCore::ActorDepository* prm_pDepo_shot2, uint32_t* prm_paUint32_dotmat2,
+                                           GgafCore::ActorDepository* prm_pDepo_shot3, uint32_t* prm_paUint32_dotmat3,
+                                           coord prm_r,
+                                           int prm_way_N, int prm_way_M,
+                                           angle prm_ang_clearance_N, angle prm_ang_clearance_M,
+                                           velo prm_velo_first, acce prm_acce,
+                                           int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                           void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int, int, int) = nullptr);
 
 
     /**
@@ -451,15 +467,15 @@ public:
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
     static GgafDx::FigureActor* shotWay003(const GgafDx::GeometricActor* prm_pFrom,
-                                                     GgafCore::ActorDepository* prm_pDepo_shot1, uint32_t* prm_paUint32_dotmat1,
-                                                     GgafCore::ActorDepository* prm_pDepo_shot2, uint32_t* prm_paUint32_dotmat2,
-                                                     GgafCore::ActorDepository* prm_pDepo_shot3, uint32_t* prm_paUint32_dotmat3,
-                                                     coord prm_r,
-                                                     int prm_way_N, int prm_way_M,
-                                                     angle prm_ang_clearance_N, angle prm_ang_clearance_M,
-                                                     velo prm_velo_first, acce prm_acce,
-                                                     int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                     void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int, int, int) = nullptr);
+                                           GgafCore::ActorDepository* prm_pDepo_shot1, uint32_t* prm_paUint32_dotmat1,
+                                           GgafCore::ActorDepository* prm_pDepo_shot2, uint32_t* prm_paUint32_dotmat2,
+                                           GgafCore::ActorDepository* prm_pDepo_shot3, uint32_t* prm_paUint32_dotmat3,
+                                           coord prm_r,
+                                           int prm_way_N, int prm_way_M,
+                                           angle prm_ang_clearance_N, angle prm_ang_clearance_M,
+                                           velo prm_velo_first, acce prm_acce,
+                                           int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                           void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int, int, int) = nullptr);
 
     /**
      * 拡散放射状弾を複数セット同時に撃つ .
@@ -491,13 +507,13 @@ public:
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
     static GgafDx::FigureActor* shotWay004(coord prm_x, coord prm_y, coord prm_z,
-                                                     angle prm_rz, angle prm_ry,
-                                                     GgafCore::ActorDepository* prm_pDepo_shot,
-                                                     coord prm_r,
-                                                     int prm_radial_way_num, angle prm_expanse_angle,
-                                                     velo prm_velo_first, acce prm_acce,
-                                                     int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                     void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int) = nullptr);
+                                           angle prm_rz, angle prm_ry,
+                                           GgafCore::ActorDepository* prm_pDepo_shot,
+                                           coord prm_r,
+                                           int prm_radial_way_num, angle prm_expanse_angle,
+                                           velo prm_velo_first, acce prm_acce,
+                                           int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                           void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int) = nullptr);
 
     /**
      * 発射元が向いている方向（_rz > _ry）に向かって拡散放射状弾を複数セット同時に撃つ .
@@ -525,12 +541,12 @@ public:
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
     static GgafDx::FigureActor* shotWay004(const GgafDx::GeometricActor* prm_pFrom,
-                                                     GgafCore::ActorDepository* prm_pDepo_shot,
-                                                     coord prm_r,
-                                                     int prm_radial_way_num, angle prm_expanse_angle,
-                                                     velo prm_velo_first, acce prm_acce,
-                                                     int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                     void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int) = nullptr);
+                                           GgafCore::ActorDepository* prm_pDepo_shot,
+                                           coord prm_r,
+                                           int prm_radial_way_num, angle prm_expanse_angle,
+                                           velo prm_velo_first, acce prm_acce,
+                                           int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                           void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int) = nullptr);
 
 
 };

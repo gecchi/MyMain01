@@ -12,8 +12,6 @@
 #include "jp/ggaf/lib/util/ColliAAPrism.h"
 #include "jp/ggaf/lib/util/ColliAAPyramid.h"
 
-
-
 using namespace GgafLib;
 
 bool StgUtil::_was_StgUtil_inited_flg = false;
@@ -22,6 +20,8 @@ uint32_t StgUtil::BITNUM[33];
 std::map<pos_t,pos_t> StgUtil::POS_R_TRIANGLE_inv_X;
 std::map<pos_t,pos_t> StgUtil::POS_R_TRIANGLE_inv_Y;
 
+func_hit_check StgUtil::hit_check3d_func_table[16] = {StgUtil::isHit_NoSupport};
+func_hit_check StgUtil::hit_check2d_func_table[16] = {StgUtil::isHit_NoSupport};
 
 #define C_INT64(X)  ( (int_fast64_t)((X) * (1.0 / LEN_UNIT)) )
 
@@ -52,6 +52,28 @@ void StgUtil::init() {
     StgUtil::POS_R_TRIANGLE_inv_Y[POS_R_TRIANGLE_PN] = POS_R_TRIANGLE_PP;
     StgUtil::POS_R_TRIANGLE_inv_Y[POS_R_TRIANGLE_PP] = POS_R_TRIANGLE_PN;
 
+//#define COLLI_AABOX     (0x1)  //0b 00000000 00000000 00000000 00000001
+//#define COLLI_SPHERE    (0x2)  //0b 00000000 00000000 00000000 00000010
+//#define COLLI_AAPRISM   (0x4)  //0b 00000000 00000000 00000000 00000100
+//#define COLLI_AAPYRAMID (0x8)  //0b 00000000 00000000 00000000 00001000
+
+    StgUtil::hit_check3d_func_table[COLLI_AABOX]  = StgUtil::isHit3D_AABox_AABox;
+    StgUtil::hit_check3d_func_table[COLLI_SPHERE] = StgUtil::isHit3D_Sphere_Sphere;
+    StgUtil::hit_check3d_func_table[ (COLLI_AABOX     | COLLI_SPHERE) ] = StgUtil::isHit3D_AABox_Sphere;
+    StgUtil::hit_check3d_func_table[ (COLLI_AAPRISM   | COLLI_AABOX)  ] = StgUtil::isHit3D_AAPrism_AABox;
+    StgUtil::hit_check3d_func_table[ (COLLI_AAPRISM   | COLLI_SPHERE) ] = StgUtil::isHit3D_AAPrism_Sphere;
+    StgUtil::hit_check3d_func_table[ (COLLI_AAPYRAMID | COLLI_AABOX)  ] = StgUtil::isHit3D_AAPyramid_AABox;
+    StgUtil::hit_check3d_func_table[ (COLLI_AAPYRAMID | COLLI_SPHERE) ] = StgUtil::isHit3D_AAPyramid_Sphere;
+
+
+    StgUtil::hit_check2d_func_table[COLLI_AABOX]  = StgUtil::isHit2D_AABox_AABox;
+    StgUtil::hit_check2d_func_table[COLLI_SPHERE]  = StgUtil::isHit2D_Sphere_Sphere;
+    StgUtil::hit_check2d_func_table[ (COLLI_AABOX   | COLLI_SPHERE) ]  = StgUtil::isHit2D_AABox_Sphere;
+    StgUtil::hit_check2d_func_table[ (COLLI_AAPRISM | COLLI_AABOX)  ]  = StgUtil::isHit2D_AAPrism_AABox;
+    StgUtil::hit_check2d_func_table[COLLI_AAPRISM]  = StgUtil::isHit2D_ColliAAPrism_ColliAAPrism;
+
+
+
     StgUtil::_was_StgUtil_inited_flg = true;
 }
 
@@ -63,8 +85,10 @@ GgafDx::Checker* StgUtil::createChecker(GgafDx::GeometricActor* prm_pActor) {
     }
 }
 
-bool StgUtil::isHit3D(const GgafDx::GeometricActor* const pActor01, const ColliSphere* const pSphere01 ,
-                      const GgafDx::GeometricActor* const pActor02, const ColliSphere* const pSphere02 ) {
+bool StgUtil::isHit3D_Sphere_Sphere(const GgafDx::GeometricActor* pActor01, const GgafDx::CollisionPart* pCollisionPart01 ,
+                                    const GgafDx::GeometricActor* pActor02, const GgafDx::CollisionPart* pCollisionPart02 ) {
+    const ColliSphere* pSphere01 = (ColliSphere*)pCollisionPart01;
+    const ColliSphere* pSphere02 = (ColliSphere*)pCollisionPart02;
     //＜球 と 球＞
     //球1 ： 中心点の座標P1(x1, y1, z1), 半径r1
     //球2 ： 中心点の座標P2(x2, y2, z2), 半径r2
@@ -81,8 +105,10 @@ bool StgUtil::isHit3D(const GgafDx::GeometricActor* const pActor01, const ColliS
     }
 }
 
-bool StgUtil::isHit3D(const GgafDx::GeometricActor* const pActor01, const ColliAABox*  pAABox01,
-                      const GgafDx::GeometricActor* const pActor02, const ColliSphere* pSphere02) {
+bool StgUtil::isHit3D_AABox_Sphere(const GgafDx::GeometricActor* pActor01, const GgafDx::CollisionPart* pCollisionPart01,
+                                   const GgafDx::GeometricActor* pActor02, const GgafDx::CollisionPart* pCollisionPart02) {
+    const ColliAABox*  pAABox01  = (ColliAABox*)pCollisionPart01;
+    const ColliSphere* pSphere02 = (ColliSphere*)pCollisionPart02;
     //＜AAB と 球＞
     const coord o_scx = pActor02->_x + pSphere02->_cx;
     const coord o_scy = pActor02->_y + pSphere02->_cy;
@@ -127,8 +153,10 @@ bool StgUtil::isHit3D(const GgafDx::GeometricActor* const pActor01, const ColliA
 }
 
 
-bool StgUtil::isHit3D(const GgafDx::GeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
-                      const GgafDx::GeometricActor* const pActor02, const ColliAABox*   const pAABox02     ) {
+bool StgUtil::isHit3D_AAPrism_AABox(const GgafDx::GeometricActor* pActor01, const GgafDx::CollisionPart* pCollisionPart01,
+                                    const GgafDx::GeometricActor* pActor02, const GgafDx::CollisionPart* pCollisionPart02) {
+    const ColliAAPrism* pAAPrism01  = (ColliAAPrism*)pCollisionPart01;
+    const ColliAABox*   pAABox02    = (ColliAABox*)pCollisionPart02;
     //＜プリズム と AAB＞
     const coord aX = pActor01->_x;
     const coord aY = pActor01->_y;
@@ -385,8 +413,10 @@ bool StgUtil::isHit3D(const GgafDx::GeometricActor* const pActor01, const ColliA
 }
 
 
-bool StgUtil::isHit3D(const GgafDx::GeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
-                      const GgafDx::GeometricActor* const pActor02, const ColliSphere*  const pSphere02  ) {
+bool StgUtil::isHit3D_AAPrism_Sphere(const GgafDx::GeometricActor* pActor01, const GgafDx::CollisionPart* pCollisionPart01,
+                                     const GgafDx::GeometricActor* pActor02, const GgafDx::CollisionPart* pCollisionPart02) {
+    const ColliAAPrism* pAAPrism01 = (ColliAAPrism*)pCollisionPart01;
+    const ColliSphere*  pSphere02  = (ColliSphere*)pCollisionPart02;
     //＜プリズム と 球＞
     //MEMO:厳密な当たり判定計算は行っていません。
     //まず、球 対 AAB の判定を行う
@@ -719,8 +749,10 @@ bool StgUtil::isHit3D(const GgafDx::GeometricActor* const pActor01, const ColliA
     return false;
 }
 
-bool StgUtil::isHit3D(const GgafDx::GeometricActor* const pActor01, const ColliAAPyramid* const pAAPyramid01,
-                      const GgafDx::GeometricActor* const pActor02, const ColliAABox*     const pAABox02     ) {
+bool StgUtil::isHit3D_AAPyramid_AABox(const GgafDx::GeometricActor* pActor01, const GgafDx::CollisionPart* pCollisionPart01,
+                                      const GgafDx::GeometricActor* pActor02, const GgafDx::CollisionPart* pCollisionPart02) {
+    const ColliAAPyramid* pAAPyramid01 = (ColliAAPyramid*)pCollisionPart01;
+    const ColliAABox*     pAABox02     = (ColliAABox*)pCollisionPart02;
     //ピラミッドとBOX
     const coord aX1 = pActor01->_x + pAAPyramid01->_x1;
     const coord aY1 = pActor01->_y + pAAPyramid01->_y1;
@@ -823,8 +855,11 @@ bool StgUtil::isHit3D(const GgafDx::GeometricActor* const pActor01, const ColliA
     return false;
 }
 
-bool StgUtil::isHit3D(const GgafDx::GeometricActor* const pActor01, const ColliAAPyramid* const pAAPyramid01,
-                      const GgafDx::GeometricActor* const pActor02, const ColliSphere*    const pSphere02  ) {
+bool StgUtil::isHit3D_AAPyramid_Sphere(const GgafDx::GeometricActor* pActor01, const GgafDx::CollisionPart* pCollisionPart01,
+                                       const GgafDx::GeometricActor* pActor02, const GgafDx::CollisionPart* pCollisionPart02) {
+    const ColliAAPyramid* pAAPyramid01 = (ColliAAPyramid*)pCollisionPart01;
+    const ColliSphere*    pSphere02    = (ColliSphere*)pCollisionPart02;
+
     //三直角三角錐の三直角頂点の座標を原点(0,0,0)におき、
     //A(ex,0,0), B(0,ey,0), C(0,0,ez) の三直角三角錐で当たり判定を考えたいので、
     //球の位置(o_cx, o_cy, o_cz)を座標変換する。
@@ -1138,8 +1173,19 @@ bool StgUtil::isHit3D(const GgafDx::GeometricActor* const pActor01, const ColliA
     return false;
 }
 
-bool StgUtil::isHit2D(const GgafDx::GeometricActor* const pActor01, const ColliSphere* const pSphere01 ,
-                      const GgafDx::GeometricActor* const pActor02, const ColliSphere* const pSphere02 ) {
+bool StgUtil::isHit_NoSupport(const GgafDx::GeometricActor* pActor01, const GgafDx::CollisionPart* pCollisionPart01,
+                              const GgafDx::GeometricActor* pActor02, const GgafDx::CollisionPart* pCollisionPart02) {
+    _TRACE_("＜警告＞StgUtil::isHit_NoSupport、未サポートの当たり判定です。チェックされません。 "<<
+            pActor01 <<"["<<pActor01->getName()<<"] vs "<<pActor02<<"["<<pActor02->getName()<<"]");
+    return false;
+}
+
+
+
+bool StgUtil::isHit2D_Sphere_Sphere(const GgafDx::GeometricActor* pActor01, const GgafDx::CollisionPart* pCollisionPart01,
+                                    const GgafDx::GeometricActor* pActor02, const GgafDx::CollisionPart* pCollisionPart02) {
+    const ColliSphere* pSphere01 = (ColliSphere*)pCollisionPart01;
+    const ColliSphere* pSphere02 = (ColliSphere*)pCollisionPart02;
     //＜球 と 球＞
     //球1 ： 中心点の座標P1(x1, y1, z1), 半径r1
     //球2 ： 中心点の座標P2(x2, y2, z2), 半径r2
@@ -1155,8 +1201,10 @@ bool StgUtil::isHit2D(const GgafDx::GeometricActor* const pActor01, const ColliS
 }
 
 
-bool StgUtil::isHit2D(const GgafDx::GeometricActor* const pActor01, const ColliAABox*  pAABox01,
-                      const GgafDx::GeometricActor* const pActor02, const ColliSphere* pSphere02) {
+bool StgUtil::isHit2D_AABox_Sphere(const GgafDx::GeometricActor* pActor01, const GgafDx::CollisionPart* pCollisionPart01,
+                                   const GgafDx::GeometricActor* pActor02, const GgafDx::CollisionPart* pCollisionPart02) {
+    const ColliAABox*  pAABox01  = (ColliAABox*)pCollisionPart01;
+    const ColliSphere* pSphere02 = (ColliSphere*)pCollisionPart02;
     //＜AAB と 球＞
     const coord o_scx = pActor02->_x + pSphere02->_cx;
     const coord o_scy = pActor02->_y + pSphere02->_cy;
@@ -1186,8 +1234,10 @@ bool StgUtil::isHit2D(const GgafDx::GeometricActor* const pActor01, const ColliA
         return false;
     }
 }
-bool StgUtil::isHit2D(const GgafDx::GeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
-                      const GgafDx::GeometricActor* const pActor02, const ColliAABox*   const pAABox02   ) {
+bool StgUtil::isHit2D_AAPrism_AABox(const GgafDx::GeometricActor* pActor01, const GgafDx::CollisionPart* pCollisionPart01,
+                                                      const GgafDx::GeometricActor* pActor02, const GgafDx::CollisionPart* pCollisionPart02) {
+    const ColliAAPrism* pAAPrism01  = (ColliAAPrism*)pCollisionPart01;
+    const ColliAABox*   pAABox02    = (ColliAABox*)pCollisionPart02;
     const coord aX1 = pActor01->_x + pAAPrism01->_x1;
     const coord aY1 = pActor01->_y + pAAPrism01->_y1;
     const coord aX2 = pActor01->_x + pAAPrism01->_x2;
@@ -1277,11 +1327,12 @@ bool StgUtil::isHit2D(const GgafDx::GeometricActor* const pActor01, const ColliA
     }
     return false;
 }
-bool StgUtil::isHit2D(const GgafDx::GeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
-                      const GgafDx::GeometricActor* const pActor02, const ColliSphere*  const pSphere02  ) {
+bool StgUtil::isHit2D_AAPrism_Sphere(const GgafDx::GeometricActor* pActor01, const GgafDx::CollisionPart* pCollisionPart01,
+                                              const GgafDx::GeometricActor* pActor02, const GgafDx::CollisionPart* pCollisionPart02) {
+    const ColliAAPrism* pAAPrism01 = (ColliAAPrism*)pCollisionPart01;
+    const ColliSphere*  pSphere02  = (ColliSphere*)pCollisionPart02;
     //＜プリズム と 球＞
     //MEMO:厳密な当たり判定計算は行っていません。
-
     //まず、球 対 AAB の判定を行う
     const coord o_scx = pActor02->_x + pSphere02->_cx;
     const coord o_scy = pActor02->_y + pSphere02->_cy;
@@ -1392,8 +1443,11 @@ bool StgUtil::isHit2D(const GgafDx::GeometricActor* const pActor01, const ColliA
     return false;
 }
 
-bool StgUtil::isHit2D(const GgafDx::GeometricActor* const pActor01, const ColliAAPrism* const pAAPrism01,
-                      const GgafDx::GeometricActor* const pActor02, const ColliAAPrism* const pAAPrism02  ) {
+bool StgUtil::isHit2D_ColliAAPrism_ColliAAPrism(const GgafDx::GeometricActor* pActor01, const GgafDx::CollisionPart* pCollisionPart01,
+                                                         const GgafDx::GeometricActor* pActor02, const GgafDx::CollisionPart* pCollisionPart02) {
+    const ColliAAPrism* pAAPrism01 = (ColliAAPrism*)pCollisionPart01;
+    const ColliAAPrism* pAAPrism02 = (ColliAAPrism*)pCollisionPart02;
+
     const coord aX = pActor01->_x;
     const coord aY = pActor01->_y;
     const coord bX = pActor02->_x;
