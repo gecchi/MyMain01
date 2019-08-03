@@ -34,14 +34,14 @@ public:
      * 現在は GgafDx::GeometricActor::processSettlementBehavior から毎フレームコールされている。<br>
      * もし processSettlementBehavior() を下位でオーバーライドする場合は気を付けるべし！<br>
      */
-    virtual void updateHitArea() override final;
+    virtual void updateHitArea() override;
 
     /**
      * 自身の判定領域と他の当たり判定領域と接触しているか調べる
      * @param prm_pOppChecker 他の当たり判定領域
      * @return true:当たっている / false:当たっていない
      */
-    bool isHit(const GgafDx::Checker* const prm_pOppChecker) override final;
+    bool isHit(const GgafDx::Checker* const prm_pOppChecker) override;
 
     virtual ~CollisionChecker2D();
 };

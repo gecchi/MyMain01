@@ -597,6 +597,8 @@ public:
         set2DColliIsoRightTriangle(prm_index, 0, 0, prm_edge, pos_info, false);
     }
 
+    GgafDx::CollisionPart* getLastHitCollisionPart();
+
     static void drawHitArea(CollisionChecker* prm_pColliChecker);
     static void releaseHitArea();
 

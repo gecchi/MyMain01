@@ -32,9 +32,6 @@
     #if _MSC_VER < 1600
         #define nullptr 0
     #endif
-    #if _MSC_VER < 1700
-        #define final
-    #endif
 #endif
 
 

@@ -176,6 +176,14 @@ void CollisionChecker::setColliAAPyramid(int prm_index,
 //    _is_enable = true;
 }
 
+GgafDx::CollisionPart* CollisionChecker::getLastHitCollisionPart() {
+    int hit_colli_part_index = _pCollisionArea->_hit_colli_part_index;
+    if (hit_colli_part_index >= 0) {
+        return _pCollisionArea->_papColliPart[hit_colli_part_index];
+    } else {
+        return nullptr;
+    }
+}
 
 void CollisionChecker::drawHitArea(CollisionChecker* prm_pColliChecker) {
 #ifdef MY_DEBUG

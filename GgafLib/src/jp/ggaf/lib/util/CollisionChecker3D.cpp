@@ -13,6 +13,8 @@
 #include "jp/ggaf/lib/util/ColliAAPyramid.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 
+
+
 using namespace GgafLib;
 
 CollisionChecker3D::CollisionChecker3D(GgafDx::GeometricActor* prm_pActor) : CollisionChecker(prm_pActor) ,
@@ -56,7 +58,7 @@ bool CollisionChecker3D::isHit(const GgafDx::Checker* const prm_pOppChecker) {
 
     //複数の当たり判定要素をもつアクター同士の場合、
     //まず最外境界AABoxで当たり判定を行って、ヒットすれば厳密に当たり判定を行う。
-    if (colli_part_num > 3 || opp_colli_part_num > 3) {
+    if (colli_part_num > 2 || opp_colli_part_num > 2) {
 #ifdef MY_DEBUG
         CollisionChecker::_num_check++;
 #endif
@@ -80,18 +82,145 @@ CNT:
     for (int i = 0; i < colli_part_num; i++) {
         const GgafDx::CollisionPart* const pColliPart = pCollisionArea->_papColliPart[i];
         if (!pColliPart->_is_valid_flg) { continue; }
+        const int shape_kind = pColliPart->_shape_kind;
         for (int j = 0; j < opp_colli_part_num; j++) {
             const GgafDx::CollisionPart* const pOppColliPart = pOppCollisionArea->_papColliPart[j];
             if (!pOppColliPart->_is_valid_flg) { continue; }
+            const int opp_shape_kind = pOppColliPart->_shape_kind;
 #ifdef MY_DEBUG
             CollisionChecker::_num_check++;
 #endif
-            bool is_hit = (*UTIL::hit_check3d_func_table[pColliPart->_shape_kind | pOppColliPart->_shape_kind])(
-                    pActor, pColliPart, pOppActor, pOppColliPart);
-            if (is_hit) {
-                pCollisionArea->_hit_colli_part_index = i;
-                pOppCollisionArea->_hit_colli_part_index = j;
-                return true;
+            if (shape_kind == COLLI_AABOX) {
+                if (opp_shape_kind == COLLI_AABOX) {
+                    //＜AAB と AAB＞
+                    if (UTIL::isHit3D(pActor   , (ColliAABox*)pColliPart,
+                                      pOppActor, (ColliAABox*)pOppColliPart)) {
+                        pCollisionArea->_hit_colli_part_index = i;
+                        pOppCollisionArea->_hit_colli_part_index = j;
+                        return true;
+                    }
+                 } else if (opp_shape_kind == COLLI_SPHERE) {
+                     //＜AAB と 球＞
+                     if (UTIL::isHit3D(pActor   , (ColliAABox*)pColliPart,
+                                       pOppActor, (ColliSphere*)pOppColliPart)) {
+                         pCollisionArea->_hit_colli_part_index = i;
+                         pOppCollisionArea->_hit_colli_part_index = j;
+                         return true;
+                     }
+                 } else if (opp_shape_kind == COLLI_AAPRISM) {
+                     //＜AAB と AAPrism＞
+                     if (UTIL::isHit3D(pOppActor, (ColliAAPrism*)pOppColliPart,
+                                       pActor   , (ColliAABox*)pColliPart        )) {
+                         pCollisionArea->_hit_colli_part_index = i;
+                         pOppCollisionArea->_hit_colli_part_index = j;
+                         return true;
+                     }
+                 } else if (opp_shape_kind == COLLI_AAPYRAMID) {
+                     //＜AAB と AAPyramid＞
+                     if (UTIL::isHit3D(pOppActor, (ColliAAPyramid*)pOppColliPart,
+                                       pActor   , (ColliAABox*)pColliPart        )) {
+                         pCollisionArea->_hit_colli_part_index = i;
+                         pOppCollisionArea->_hit_colli_part_index = j;
+                         return true;
+                     }
+                 }
+
+            } else if (shape_kind == COLLI_SPHERE) {
+                if (opp_shape_kind == COLLI_AABOX) {
+                    //＜球 と AAB＞
+                    if (UTIL::isHit3D(pOppActor, (ColliAABox*)pOppColliPart,
+                                      pActor   , (ColliSphere*)pColliPart )) {
+                        pCollisionArea->_hit_colli_part_index = i;
+                        pOppCollisionArea->_hit_colli_part_index = j;
+                        return true;
+                    }
+                } else if (opp_shape_kind == COLLI_SPHERE) {
+                    //＜球 と 球＞
+                    if (UTIL::isHit3D(pActor  , (ColliSphere*)pColliPart,
+                                      pOppActor, (ColliSphere*)pOppColliPart)) {
+                        pCollisionArea->_hit_colli_part_index = i;
+                        pOppCollisionArea->_hit_colli_part_index = j;
+                        return true;
+                    }
+                } else if (opp_shape_kind == COLLI_AAPRISM) {
+                    //＜球 と AAPrism＞
+                    if (UTIL::isHit3D(pOppActor, (ColliAAPrism*)pOppColliPart,
+                                      pActor   , (ColliSphere*)pColliPart     )) {
+                        pCollisionArea->_hit_colli_part_index = i;
+                        pOppCollisionArea->_hit_colli_part_index = j;
+                        return true;
+                    }
+                } else if (opp_shape_kind == COLLI_AAPYRAMID) {
+                    //＜球 と AAPyramid＞
+                    if (UTIL::isHit3D(pOppActor, (ColliAAPyramid*)pOppColliPart,
+                                      pActor   , (ColliSphere*)pColliPart     )) {
+                        pCollisionArea->_hit_colli_part_index = i;
+                        pOppCollisionArea->_hit_colli_part_index = j;
+                        return true;
+                    }
+                }
+
+            } else if (shape_kind == COLLI_AAPRISM) {
+                if (opp_shape_kind == COLLI_AABOX) {
+                    //＜AAPrism と AAB＞
+                    if (UTIL::isHit3D(pActor   , (ColliAAPrism*)pColliPart,
+                                      pOppActor, (ColliAABox*)pOppColliPart  )) {
+                        pCollisionArea->_hit_colli_part_index = i;
+                        pOppCollisionArea->_hit_colli_part_index = j;
+                        return true;
+                    }
+                } else if (opp_shape_kind == COLLI_SPHERE) {
+                    //＜AAPrism と 球＞
+                    if (UTIL::isHit3D(pActor   , (ColliAAPrism*)pColliPart,
+                                      pOppActor, (ColliSphere*)pOppColliPart)) {
+                        pCollisionArea->_hit_colli_part_index = i;
+                        pOppCollisionArea->_hit_colli_part_index = j;
+                        return true;
+                    }
+                }  else if (opp_shape_kind == COLLI_AAPRISM) {
+                    //＜AAPrism と AAPrism＞
+                    //TODO:未対応。 考えるだけで重たくなりそう、というかめんどくさそうな感じがする；。
+                    //時間があれば考えよう・・・
+                    _TRACE_("＜警告＞AAPrism と AAPrism の当たり判定処理が存在します。そんな処理は未だ作ってません。 "<<
+                            pActor <<"["<<pActor->getName()<<"] vs "<<pOppActor<<"["<<pOppActor->getName()<<"]");
+                    return false;
+                } else if (opp_shape_kind == COLLI_AAPYRAMID) {
+                    //＜AAPrism と AAPyramid＞
+                    //TODO: 今は未対応。
+                    _TRACE_("＜警告＞AAPrism と AAPyramid の当たり判定処理が存在します。そんな処理は未だ作ってません。 "<<
+                            pActor <<"["<<pActor->getName()<<"] vs "<<pOppActor<<"["<<pOppActor->getName()<<"]");
+                    return false;
+                }
+            } else if (shape_kind == COLLI_AAPYRAMID) {
+                if (opp_shape_kind == COLLI_AABOX) {
+                    //＜AAPyramid と AAB＞
+                    if (UTIL::isHit3D(pActor  , (ColliAAPyramid*)pColliPart,
+                                      pOppActor, (ColliAABox*)pOppColliPart  )) {
+                        pCollisionArea->_hit_colli_part_index = i;
+                        pOppCollisionArea->_hit_colli_part_index = j;
+                        return true;
+                    }
+                } else if (opp_shape_kind == COLLI_SPHERE) {
+                    //＜AAPyramid と 球＞
+                    if (UTIL::isHit3D(pActor  , (ColliAAPyramid*)pColliPart,
+                                      pOppActor, (ColliSphere*)pOppColliPart)) {
+                        pCollisionArea->_hit_colli_part_index = i;
+                        pOppCollisionArea->_hit_colli_part_index = j;
+                        return true;
+                    }
+                } else if (opp_shape_kind == COLLI_AAPRISM) {
+                    //＜AAPyramid と AAPrism＞
+                    //TODO: 今は未対応。
+                    _TRACE_("＜警告＞AAPyramid と AAPrism の当たり判定処理が存在します。そんな処理は未だ作ってません。 "<<
+                            pActor <<"["<<_pActor->getName()<<"] vs "<<pOppActor<<"["<<pOppActor->getName()<<"]");
+                    return false;
+                } else if (opp_shape_kind == COLLI_AAPYRAMID) {
+                    //＜AAPyramid と AAPyramid＞
+                    //TODO: 今は未対応。
+                    _TRACE_("＜警告＞AAPyramid と AAPyramid の当たり判定処理が存在します。そんな処理は未だ作ってません。 "<<
+                            pActor <<"["<<_pActor->getName()<<"] vs "<<pOppActor<<"["<<pOppActor->getName()<<"]");
+                    return false;
+                }
             }
         }
     }
