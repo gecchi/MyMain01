@@ -45,7 +45,7 @@ public:
     static GgafDx::Checker* createChecker(GgafDx::GeometricActor* prm_pActor);
 
     /**
-     * AAB ‘Î AAB “–‚½‚è”»’è .
+     * AAB ‘Î AAB “–‚½‚è”»’è(Œ»İ’¼Ú–„‚ß‚ñ‚¾‚Ì‚Å–¢g—p) .
      * @param pActor01
      * @param pAABox01
      * @param pActor02

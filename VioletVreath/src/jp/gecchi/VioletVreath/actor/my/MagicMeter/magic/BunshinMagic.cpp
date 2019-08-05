@@ -110,9 +110,10 @@ void BunshinMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
         for (int lv = prm_now_level+1; lv <= prm_new_level; lv++) {
             MyBunshin* pMyBunshin = papBunshinBase[lv-1]->pBunshin_;
             pMyBunshin->setAlpha(0); //‘€ì•s‰Â‚ÉÝ’è
+            pMyBunshin->getAlphaFader()->stop();
             papEffect_[lv-1]->callKago()->execGravitationMvSequenceTwd(
                                              pMyBunshin,
-                                             PX_C(10)+pMYSHIP->mv_speed_, PX_C(3), PX_C(100)
+                                             PX_C(10)+pMYSHIP->mv_speed_, PX_C(1), PX_C(20)
                                          );
         }
     }
@@ -140,7 +141,7 @@ void BunshinMagic::processEffectBegin(int prm_last_level, int prm_now_level)  {
         MyBunshinBase** papBunshinBase = pMYSHIP_SCENE->papBunshinBase_;
         for (int lv = prm_last_level+1; lv <= prm_now_level; lv++) {
             MyBunshin* pMyBunshin = papBunshinBase[lv-1]->pBunshin_;
-            pMyBunshin->getAlphaFader()->transitionLinearUntil(1.0, 60);
+            pMyBunshin->getAlphaFader()->transitionLinearUntil(1.0, 120);
             //‘€ì‰Â‚É
             papEffect_[lv-1]->callKago()->stopGravitationMvSequence();
             papEffect_[lv-1]->callKago()->resetMv();

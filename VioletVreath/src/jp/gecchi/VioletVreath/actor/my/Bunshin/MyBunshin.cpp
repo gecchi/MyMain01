@@ -103,7 +103,7 @@ void MyBunshin::onActive() {
     pLockonCtrler_->onActive();
     pTorpedoCtrler_->onActive();
     setAlpha(0);
-    getAlphaFader()->transitionLinearToTop(120);
+//    getAlphaFader()->transitionLinearToTop(120);
     resetMaterialColor();
     GgafDx::Rikisha* pRikisha = callRikisha();
     pRikisha->setRollFaceAngVelo(pBase_->bunshin_default_angvelo_mv_); //分身のクルクル速度

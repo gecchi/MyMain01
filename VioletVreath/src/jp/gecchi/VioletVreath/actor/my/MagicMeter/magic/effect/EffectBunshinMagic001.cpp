@@ -32,7 +32,7 @@ void EffectBunshinMagic001::blink(frame prm_scale_in_frames, frame prm_duration_
 
 void EffectBunshinMagic001::blink2(frame prm_scale_in_frames, frame prm_duration_frames, frame prm_scale_out_frames,
             const GgafDx::GeometricActor* prm_pFollowTarget, bool prm_sayonara_end) {
-    getScaler()->setRange(0, R_SC(8.0));
+    getScaler()->setRange(0, R_SC(20.0));
     EffectBlink::blink2(prm_scale_in_frames, prm_duration_frames, prm_scale_out_frames, prm_pFollowTarget, prm_sayonara_end);
 }
 

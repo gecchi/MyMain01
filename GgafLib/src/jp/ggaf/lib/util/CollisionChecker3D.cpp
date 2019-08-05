@@ -83,22 +83,38 @@ CNT:
         const GgafDx::CollisionPart* const pColliPart = pCollisionArea->_papColliPart[i];
         if (!pColliPart->_is_valid_flg) { continue; }
         const int shape_kind = pColliPart->_shape_kind;
-        for (int j = 0; j < opp_colli_part_num; j++) {
-            const GgafDx::CollisionPart* const pOppColliPart = pOppCollisionArea->_papColliPart[j];
-            if (!pOppColliPart->_is_valid_flg) { continue; }
-            const int opp_shape_kind = pOppColliPart->_shape_kind;
+
+        if (shape_kind == COLLI_AABOX) {
+
+            for (int j = 0; j < opp_colli_part_num; j++) {
+                const GgafDx::CollisionPart* const pOppColliPart = pOppCollisionArea->_papColliPart[j];
+                if (!pOppColliPart->_is_valid_flg) { continue; }
+                const int opp_shape_kind = pOppColliPart->_shape_kind;
 #ifdef MY_DEBUG
-            CollisionChecker::_num_check++;
+                CollisionChecker::_num_check++;
 #endif
-            if (shape_kind == COLLI_AABOX) {
+
                 if (opp_shape_kind == COLLI_AABOX) {
                     //＜AAB と AAB＞
-                    if (UTIL::isHit3D(pActor   , (ColliAABox*)pColliPart,
-                                      pOppActor, (ColliAABox*)pOppColliPart)) {
-                        pCollisionArea->_hit_colli_part_index = i;
-                        pOppCollisionArea->_hit_colli_part_index = j;
-                        return true;
+                    coord max_dx = pColliPart->_hdx + pOppColliPart->_hdx;
+                    if ((ucoord)( (pOppActor->_x + pOppColliPart->_cx) - (pActor->_x + pColliPart->_cx) + max_dx ) < (ucoord)(2*max_dx)) {
+                        //↑左辺計算が0より小さい場合 unsigned キャストにより正の大きな数になるので条件成立しない事を利用し、ABSの判定を一つ除去してる。
+                        coord max_dz = pColliPart->_hdz + pOppColliPart->_hdz;
+                        if ((ucoord)( (pOppActor->_z + pOppColliPart->_cz) - (pActor->_z + pColliPart->_cz) + max_dz ) < (ucoord)(2*max_dz)) {
+                            coord max_dy = pColliPart->_hdy + pOppColliPart->_hdy;
+                            if ((ucoord)( (pOppActor->_y + pOppColliPart->_cy) - (pActor->_y + pColliPart->_cy) + max_dy ) < (ucoord)(2*max_dy)) {
+                                pCollisionArea->_hit_colli_part_index = i;
+                                pOppCollisionArea->_hit_colli_part_index = j;
+                                return true;
+                            }
+                        }
                     }
+//                    if (UTIL::isHit3D(pActor   , (ColliAABox*)pColliPart,
+//                                      pOppActor, (ColliAABox*)pOppColliPart)) {
+//                        pCollisionArea->_hit_colli_part_index = i;
+//                        pOppCollisionArea->_hit_colli_part_index = j;
+//                        return true;
+//                    }
                  } else if (opp_shape_kind == COLLI_SPHERE) {
                      //＜AAB と 球＞
                      if (UTIL::isHit3D(pActor   , (ColliAABox*)pColliPart,
@@ -124,8 +140,17 @@ CNT:
                          return true;
                      }
                  }
+            }
 
-            } else if (shape_kind == COLLI_SPHERE) {
+        } else if (shape_kind == COLLI_SPHERE) {
+
+            for (int j = 0; j < opp_colli_part_num; j++) {
+                const GgafDx::CollisionPart* const pOppColliPart = pOppCollisionArea->_papColliPart[j];
+                if (!pOppColliPart->_is_valid_flg) { continue; }
+                const int opp_shape_kind = pOppColliPart->_shape_kind;
+#ifdef MY_DEBUG
+                CollisionChecker::_num_check++;
+#endif
                 if (opp_shape_kind == COLLI_AABOX) {
                     //＜球 と AAB＞
                     if (UTIL::isHit3D(pOppActor, (ColliAABox*)pOppColliPart,
@@ -159,8 +184,17 @@ CNT:
                         return true;
                     }
                 }
+            }
 
-            } else if (shape_kind == COLLI_AAPRISM) {
+        } else if (shape_kind == COLLI_AAPRISM) {
+
+            for (int j = 0; j < opp_colli_part_num; j++) {
+                const GgafDx::CollisionPart* const pOppColliPart = pOppCollisionArea->_papColliPart[j];
+                if (!pOppColliPart->_is_valid_flg) { continue; }
+                const int opp_shape_kind = pOppColliPart->_shape_kind;
+#ifdef MY_DEBUG
+                CollisionChecker::_num_check++;
+#endif
                 if (opp_shape_kind == COLLI_AABOX) {
                     //＜AAPrism と AAB＞
                     if (UTIL::isHit3D(pActor   , (ColliAAPrism*)pColliPart,
@@ -191,7 +225,17 @@ CNT:
                             pActor <<"["<<pActor->getName()<<"] vs "<<pOppActor<<"["<<pOppActor->getName()<<"]");
                     return false;
                 }
-            } else if (shape_kind == COLLI_AAPYRAMID) {
+            }
+
+        } else if (shape_kind == COLLI_AAPYRAMID) {
+
+            for (int j = 0; j < opp_colli_part_num; j++) {
+                const GgafDx::CollisionPart* const pOppColliPart = pOppCollisionArea->_papColliPart[j];
+                if (!pOppColliPart->_is_valid_flg) { continue; }
+                const int opp_shape_kind = pOppColliPart->_shape_kind;
+#ifdef MY_DEBUG
+                CollisionChecker::_num_check++;
+#endif
                 if (opp_shape_kind == COLLI_AABOX) {
                     //＜AAPyramid と AAB＞
                     if (UTIL::isHit3D(pActor  , (ColliAAPyramid*)pColliPart,

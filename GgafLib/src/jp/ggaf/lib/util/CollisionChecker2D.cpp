@@ -13,8 +13,6 @@
 #include "jp/ggaf/lib/util/ColliAAPyramid.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 
-
-
 using namespace GgafLib;
 
 CollisionChecker2D::CollisionChecker2D(GgafDx::GeometricActor* prm_pActor) : CollisionChecker(prm_pActor) ,
@@ -80,14 +78,16 @@ bool CollisionChecker2D::isHit(const GgafDx::Checker* const prm_pOppChecker) {
         const GgafDx::CollisionPart* const pColliPart = pCollisionArea->_papColliPart[i];
         if (!pColliPart->_is_valid_flg) { continue; }
         const int shape_kind = pColliPart->_shape_kind;
-        for (int j = 0; j < opp_colli_part_num; j++) {
-            const GgafDx::CollisionPart* const pOppColliPart = pOppCollisionArea->_papColliPart[j];
-            if (!pOppColliPart->_is_valid_flg) { continue; }
-            const int opp_shape_kind = pOppColliPart->_shape_kind;
+
+        if (shape_kind == COLLI_AABOX) {
+
+            for (int j = 0; j < opp_colli_part_num; j++) {
+                const GgafDx::CollisionPart* const pOppColliPart = pOppCollisionArea->_papColliPart[j];
+                if (!pOppColliPart->_is_valid_flg) { continue; }
+                const int opp_shape_kind = pOppColliPart->_shape_kind;
 #ifdef MY_DEBUG
-            CollisionChecker::_num_check++;
+                CollisionChecker::_num_check++;
 #endif
-            if (shape_kind == COLLI_AABOX) {
                 if (opp_shape_kind == COLLI_AABOX) {
                     //ÅÉí∑ï˚å` Ç∆ í∑ï˚å`ÅÑ
                     if (UTIL::isHit2D(pActor   , (ColliAABox*)pColliPart,
@@ -118,8 +118,15 @@ bool CollisionChecker2D::isHit(const GgafDx::Checker* const prm_pOppChecker) {
                             pActor <<"["<<pActor->getName()<<"] vs "<<pOppActor<<"["<<pOppActor->getName()<<"]");
                     return false;
                  }
-
-            } else if (shape_kind == COLLI_SPHERE) {
+            }
+        } else if (shape_kind == COLLI_SPHERE) {
+            for (int j = 0; j < opp_colli_part_num; j++) {
+                const GgafDx::CollisionPart* const pOppColliPart = pOppCollisionArea->_papColliPart[j];
+                if (!pOppColliPart->_is_valid_flg) { continue; }
+                const int opp_shape_kind = pOppColliPart->_shape_kind;
+#ifdef MY_DEBUG
+                CollisionChecker::_num_check++;
+#endif
                 if (opp_shape_kind == COLLI_AABOX) {
                     //ÅÉâ~ Ç∆ í∑ï˚å`ÅÑ
                     if (UTIL::isHit2D(pOppActor, (ColliAABox*)pOppColliPart,
@@ -150,8 +157,15 @@ bool CollisionChecker2D::isHit(const GgafDx::Checker* const prm_pOppChecker) {
                             pActor <<"["<<pActor->getName()<<"] vs "<<pOppActor<<"["<<pOppActor->getName()<<"]");
                     return false;
                 }
-
-            } else if (shape_kind == COLLI_AAPRISM) {
+            }
+        } else if (shape_kind == COLLI_AAPRISM) {
+            for (int j = 0; j < opp_colli_part_num; j++) {
+                const GgafDx::CollisionPart* const pOppColliPart = pOppCollisionArea->_papColliPart[j];
+                if (!pOppColliPart->_is_valid_flg) { continue; }
+                const int opp_shape_kind = pOppColliPart->_shape_kind;
+#ifdef MY_DEBUG
+                CollisionChecker::_num_check++;
+#endif
                 if (opp_shape_kind == COLLI_AABOX) {
                     //ÅÉíºäpéOäpå` Ç∆ í∑ï˚å`ÅÑ
                     if (UTIL::isHit2D(pActor   , (ColliAAPrism*)pColliPart,
@@ -182,11 +196,11 @@ bool CollisionChecker2D::isHit(const GgafDx::Checker* const prm_pOppChecker) {
                             pActor <<"["<<pActor->getName()<<"] vs "<<pOppActor<<"["<<pOppActor->getName()<<"]");
                     return false;
                  }
-            } else if (shape_kind == COLLI_AAPYRAMID) {
-                _TRACE_("ÅÉåxçêÅÑ2DÇ≈ AAPyramid ÇÃìñÇΩÇËîªíËèàóùÇ™ë∂ç›ÇµÇ‹Ç∑ÅBAAPyramidÇÃ2DìñÇΩÇËîªíËÇÕÇ†ÇËÇ‹ÇπÇÒ "<<
-                        pActor <<"["<<pActor->getName()<<"] vs "<<pOppActor<<"["<<pOppActor->getName()<<"]");
-                return false;
             }
+        } else if (shape_kind == COLLI_AAPYRAMID) {
+            _TRACE_("ÅÉåxçêÅÑ2DÇ≈ AAPyramid ÇÃìñÇΩÇËîªíËèàóùÇ™ë∂ç›ÇµÇ‹Ç∑ÅBAAPyramidÇÃ2DìñÇΩÇËîªíËÇÕÇ†ÇËÇ‹ÇπÇÒ "<<
+                    pActor <<"["<<pActor->getName()<<"] vs "<<pOppActor<<"["<<pOppActor->getName()<<"]");
+            return false;
         }
     }
     return false;
