@@ -1,7 +1,5 @@
 #include "jp/ggaf/lib/util/WMKeyInput.h"
 
-
-
 using namespace GgafLib;
 
 int WMKeyInput::_input_char_state[2][256];

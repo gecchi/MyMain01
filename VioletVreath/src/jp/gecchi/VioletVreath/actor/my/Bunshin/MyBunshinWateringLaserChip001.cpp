@@ -307,9 +307,9 @@ throwCriticalException("pAimInfo_ が引き継がれていません！"<<this<<
                 //中間座標に再設定
                 //座標の重みは、（ひとつ前, 自身, 一つ先）＝ (0.2, 0.5, 0.3)
                 if (pAimInfo_->pTarget) {
-                    _x = tmp_x_ + (coord)((pB->tmp_x_-tmp_x_)*0.1 + (pF->tmp_x_-tmp_x_)*0.3);
-                    _y = tmp_y_ + (coord)((pB->tmp_y_-tmp_y_)*0.1 + (pF->tmp_y_-tmp_y_)*0.3);
-                    _z = tmp_z_ + (coord)((pB->tmp_z_-tmp_z_)*0.1 + (pF->tmp_z_-tmp_z_)*0.3);
+                    _x = tmp_x_ + (coord)((pB->tmp_x_-tmp_x_)*0.1 + (pF->tmp_x_-tmp_x_)*0.4);
+                    _y = tmp_y_ + (coord)((pB->tmp_y_-tmp_y_)*0.1 + (pF->tmp_y_-tmp_y_)*0.4);
+                    _z = tmp_z_ + (coord)((pB->tmp_z_-tmp_z_)*0.1 + (pF->tmp_z_-tmp_z_)*0.4);
                 } else {
                     _x = tmp_x_ + (coord)((pB->tmp_x_-tmp_x_)*0.1 + (pF->tmp_x_-tmp_x_)*0.1);
                     _y = tmp_y_ + (coord)((pB->tmp_y_-tmp_y_)*0.1 + (pF->tmp_y_-tmp_y_)*0.1);
@@ -388,7 +388,7 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
     coord vMz = pKago->_velo_vz_mv;
     //|vM|
 //    double lvM = sqrt(vMx*vMx + vMy*vMy + vMz*vMz);
-    coord lvM = UTIL::__getApproxDistance__(vMx, vMy, vMz);
+    coord lvM = UTIL::getApproxDistanceFromOrigin(vMx, vMy, vMz);
     //|vM|があまりに小さい場合＝速度が遅すぎる場合を考慮
     if  (lvM < MIN_VELO_) { //縮こまらないように
         if (ZEROd_EQ(lvM)) {
@@ -416,7 +416,7 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
     coord vTz = tZ - _z;
     //|vT|
 //    double lvT = sqrt(vTx*vTx + vTy*vTy + vTz*vTz);
-    coord lvT = UTIL::__getApproxDistance__(vTx, vTy, vTz);
+    coord lvT = UTIL::getApproxDistanceFromOrigin(vTx, vTy, vTz);
     //|仮的| を lvVM の長さに合わせて作成
     double rMT = (lvVM * 1.2 / lvT) ;
     //1.2は右上図のように一直線に並んだ際も、進行方向を維持するために、

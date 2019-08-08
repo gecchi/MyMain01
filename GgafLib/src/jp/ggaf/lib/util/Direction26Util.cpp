@@ -110,10 +110,8 @@ dir26 Direction26Util::cnvVec2DirNo(float prm_vx, float prm_vy, float prm_vz) {
     return DIR26(sgn_x, sgn_y, sgn_z);
 }
 
-
-
 void Direction26Util::cnvVec2Sgn(float prm_vx, float prm_vy, float prm_vz,
-                                       int& out_sgn_x, int& out_sgn_y, int& out_sgn_z) {
+                                 int& out_sgn_x, int& out_sgn_y, int& out_sgn_z) {
     //îºåaÇPÇ…ì‡ê⁄Ç∑ÇÈê≥î™äpå`ÇÃÇPï”ÇÕ 2Å„2 - 2
     //                  y
     //                  ^
@@ -177,8 +175,8 @@ void Direction26Util::cnvVec2Sgn(float prm_vx, float prm_vy, float prm_vz,
 }
 
 void Direction26Util::cnvVec2Sgn(float prm_vx, float prm_vy, float prm_vz,
-                                       float& out_nvx, float& out_nvy, float& out_nvz,
-                                       int& out_sgn_x, int& out_sgn_y, int& out_sgn_z) {
+                                 float& out_nvx, float& out_nvy, float& out_nvz,
+                                 int& out_sgn_x, int& out_sgn_y, int& out_sgn_z) {
 
     static const float u = 0.38268343236509f;
     static const float v = 0.92387953251129f;

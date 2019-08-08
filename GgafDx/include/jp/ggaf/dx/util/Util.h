@@ -394,11 +394,19 @@ public:
      * @param y
      * @return
      */
-    static int __getApproxDistance__(int x, int y) {
+    static int getApproxDistanceFromOrigin(int x, int y) {
         x = abs(x);
         y = abs(y);
         int64_t max = x > y ? x : y;
         int64_t min = x > y ? y : x;
+        int64_t d = 2*max < 5*min  ?  864 *max + 569*min :
+                                      1016*max + 190*min;
+        return (int)((d + 512) >> 10);
+    }
+
+    static int getApproxDistanceFromOrigin2(int abs_x, int abs_y) {
+        int64_t max = abs_x > abs_y ? abs_x : abs_y;
+        int64_t min = abs_x > abs_y ? abs_y : abs_x;
         int64_t d = 2*max < 5*min  ?  864 *max + 569*min :
                                       1016*max + 190*min;
         return (int)((d + 512) >> 10);
@@ -410,8 +418,12 @@ public:
      * @param z
      * @return
      */
-    static int __getApproxDistance__(int x, int y, int z) {
-        return __getApproxDistance__(__getApproxDistance__(x, y), z);
+    static int getApproxDistanceFromOrigin(int x, int y, int z) {
+        return getApproxDistanceFromOrigin(getApproxDistanceFromOrigin(x, y), z);
+    }
+
+    static int getApproxDistanceFromOrigin2(int abs_x, int abs_y, int abs_z) {
+        return getApproxDistanceFromOrigin2(getApproxDistanceFromOrigin2(abs_x, abs_y), abs_z);
     }
 
     /**
@@ -423,7 +435,7 @@ public:
      * @return
      */
     static coord getApproxDistance(coord x1, coord y1, coord x2, coord y2) {
-        return __getApproxDistance__(x2-x1, y2-y1);
+        return getApproxDistanceFromOrigin(x2-x1, y2-y1);
     }
 
     /**
@@ -437,23 +449,23 @@ public:
      * @return
      */
     static coord getApproxDistance(coord x1, coord y1, coord z1, coord x2, coord y2, coord z2) {
-        return __getApproxDistance__(x2-x1, y2-y1, z2-z1);
+        return getApproxDistanceFromOrigin(x2-x1, y2-y1, z2-z1);
     }
 
     static double getApproxDistance(GeometricActor* pA1, GeometricActor* pA2) {
-        return __getApproxDistance__(pA2->_x - pA1->_x, pA2->_y - pA1->_y, pA2->_z - pA1->_z);
+        return getApproxDistanceFromOrigin(pA2->_x - pA1->_x, pA2->_y - pA1->_y, pA2->_z - pA1->_z);
     }
 
     static double getApproxDistance(GeometricActor* pA1, GeoElem* pA2) {
-        return __getApproxDistance__(pA2->x - pA1->_x, pA2->y - pA1->_y, pA2->z - pA1->_z);
+        return getApproxDistanceFromOrigin(pA2->x - pA1->_x, pA2->y - pA1->_y, pA2->z - pA1->_z);
     }
 
     static double getApproxDistance(GeoElem* pA1, GeometricActor* pA2) {
-        return __getApproxDistance__(pA2->_x - pA1->x, pA2->_y - pA1->y, pA2->_z - pA1->z);
+        return getApproxDistanceFromOrigin(pA2->_x - pA1->x, pA2->_y - pA1->y, pA2->_z - pA1->z);
     }
 
     static double getApproxDistance(GeoElem* pA1 ,GeoElem* pA2) {
-        return __getApproxDistance__(pA2->x - pA1->x, pA2->y - pA1->y, pA2->z - pA1->z);
+        return getApproxDistanceFromOrigin(pA2->x - pA1->x, pA2->y - pA1->y, pA2->z - pA1->z);
     }
 
 

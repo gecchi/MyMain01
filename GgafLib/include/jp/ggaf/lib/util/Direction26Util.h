@@ -70,7 +70,7 @@ public:
     static void cnvVec2Sgn(coord prm_vx, coord prm_vy, coord prm_vz,
                            int& out_sgn_x, int& out_sgn_y, int& out_sgn_z) {
         Direction26Util::cnvVec2Sgn(C_DX(prm_vx), C_DX(prm_vy), C_DX(prm_vz),
-                                          out_sgn_x, out_sgn_y, out_sgn_z);
+                                    out_sgn_x, out_sgn_y, out_sgn_z);
     }
 
     static void cnvVec2Sgn(float prm_vx, float prm_vy, float prm_vz,

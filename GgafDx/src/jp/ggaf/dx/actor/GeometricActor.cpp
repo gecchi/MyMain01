@@ -268,13 +268,13 @@ void GeometricActor::changeGeoFinal() {
 //
 //}
 GgafCore::GroupHead* GeometricActor::appendGroupChildAsFk(kind_t prm_kind,
-                                                     GeometricActor* prm_pGeoActor,
-                                                     coord prm_x_init_local,
-                                                     coord prm_y_init_local,
-                                                     coord prm_z_init_local,
-                                                     coord prm_rx_init_local,
-                                                     coord prm_ry_init_local,
-                                                     coord prm_rz_init_local) {
+                                                          GeometricActor* prm_pGeoActor,
+                                                          coord prm_x_init_local,
+                                                          coord prm_y_init_local,
+                                                          coord prm_z_init_local,
+                                                          coord prm_rx_init_local,
+                                                          coord prm_ry_init_local,
+                                                          coord prm_rz_init_local) {
 #ifdef MY_DEBUG
     if (_pFunc_calc_rot_mv_world_matrix) {
         //OK
