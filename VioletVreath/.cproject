@@ -2101,6 +2101,8 @@
         		
         <configuration configurationName="DebugCdt_sse"/>
         		
+        <configuration configurationName="GprofCdt_x64"/>
+        		
         <configuration configurationName="ReleaseCdt">
             			
             <resource resourceType="PROJECT" workspacePath="/VioletVreath"/>
