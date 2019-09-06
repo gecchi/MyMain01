@@ -258,16 +258,36 @@ float4 PS_LaserChip(
     return tex2D( MyTextureSampler, prm_uv) * prm_color;
 }
 
+//technique LaserChipTechnique
+//{
+//     pass P0 {
+//        AlphaBlendEnable = true;
+//        SrcBlend  = SrcAlpha;
+//        DestBlend = One;
+//        //BlendOp = Add;    //default
+//        VertexShader = compile VS_VERSION VS_LaserChip();
+//        PixelShader  = compile PS_VERSION PS_LaserChip();
+//    }
+//}
+
+
 technique LaserChipTechnique
 {
      pass P0 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = One;
-        //BlendOp = Add;    //default
+        BlendOp = Max;
+        SrcBlendAlpha = One;
+        DestBlendAlpha = Zero;
+        BlendOpAlpha = Add;
+
         VertexShader = compile VS_VERSION VS_LaserChip();
         PixelShader  = compile PS_VERSION PS_LaserChip();
     }
+}
+
 
 // 	pass P1 {
 //		AlphaBlendEnable = true;
@@ -359,7 +379,7 @@ technique LaserChipTechnique
 //BlendOpÇ…Min,MaxÇÕÇ´Ç©Ç»Ç¢ÅH
 //BlendOp=REVSUBTRACT, SrcBlend=SRCALPHA, DestBlend=ON
 
-}
+
 
 
 

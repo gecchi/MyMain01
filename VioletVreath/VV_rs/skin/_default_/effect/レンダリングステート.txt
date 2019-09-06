@@ -407,8 +407,6 @@ stateblock defaultState = stateblock_state
                                         0.0f, 0.0f, 0.0f, 1.0f);
 };
 
-Cs  = rgba( Rs, Gs, Bs, As )
-Ds  = rgba( Rd, Gd, Bd, Ad ) 
 
 
 <Color BrendFactor>
@@ -433,24 +431,52 @@ INVDESTALPHA : 1-Ad
 
 
 
+
+
+
+アルファブレンドの基本式（③⑥は演算）
+
+
+計算式 rgb : (rgb( Rs, Gs, Bs ) * ①) ③ (rgb( Rd, Gd, Bd) * ②)
+       α  : (As * ④) ⑥ (Ad * ⑤)
+
+Cs  = rgba( Rs, Gs, Bs, As )
+Ds  = rgba( Rd, Gd, Bd, Ad ) 
+
+として整理すると以下と同じ
+
+計算式 rgb : (Cs.rgb * ①) ③ (Cd.rgb * ②)
+       α  : (Cs.a   * ④) ⑥ (Cd.a   * ⑤)
+       
+①SrcBlend
+②DestBlend
+③BlendOp
+
+・SeparateAlphaBlendEnable = true の場合
+④SrcBlendAlpha
+⑤DestBlendAlpha
+⑥BlendOpAlpha
+・SeparateAlphaBlendEnable = false の場合
+④SrcBlendAlpha = SrcBlend
+⑤DestBlendAlpha = DestBlend
+⑥BlendOpAlpha = BlendOp
+
+---------------------------------------------------------------------
+
 ～不透明合成～
 そのまま、上書きするだけです。
 
 計算式 : src = dest
 
+rgb :  (Cs.rgb * 1) + (Cd.rgb * 0) 
+α  :  (Cs.a   * 1) + (Cd.a   * 0)
+---------------------------------------
+AlphaBlendEnable = true;
+SrcBlend  = One;
+DestBlend = Zero;
+BlendOp = Add;
 
-アルファブレンドの基本式（③⑥は演算）
-計算式 rgb : (Cs.rgb * ①) ③ (Cd.rgb * ②)
-       α  : (Cs.a   * ④) ⑥ (Cd.a   * ⑤)
-
-①SrcBlend
-②DestBlend
-③BlendOp
-④SrcBlendAlpha
-⑤DestBlendAlpha
-⑥BlendOpAlpha
 ---------------------------------------------------------------------
-
 
 ～半透明合成～
 後ろの画像が透けて見えます。
