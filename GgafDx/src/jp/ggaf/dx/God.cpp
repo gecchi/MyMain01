@@ -2037,13 +2037,14 @@ void God::clean() {
     if (!_was_cleaned) {
         _TRACE_(FUNC_NAME<<" begin");
         IDirect3DDevice9* pDevice = God::_pID3DDevice9;
-        for (int i = 0; i < 8; ++i) { pDevice->SetTexture( i, nullptr ); }
-        for (int i = 0; i < 8; ++i) { pDevice->SetStreamSource( i, nullptr, 0, 0 ); }
-        pDevice->SetIndices( nullptr );
-        pDevice->SetPixelShader( nullptr );
-        pDevice->SetVertexShader( nullptr );
-        pDevice->SetVertexDeclaration( nullptr );
-
+        if (pDevice) {
+            for (int i = 0; i < 8; ++i) { pDevice->SetTexture( i, nullptr ); }
+            for (int i = 0; i < 8; ++i) { pDevice->SetStreamSource( i, nullptr, 0, 0 ); }
+            pDevice->SetIndices( nullptr );
+            pDevice->SetPixelShader( nullptr );
+            pDevice->SetVertexShader( nullptr );
+            pDevice->SetVertexDeclaration( nullptr );
+        }
         GgafCore::God::clean();
 
         GgafCore::CmRandomNumberGenerator::getInstance()->release();

@@ -38,7 +38,7 @@ void StgUtil::init() {
     }
 
     BITNUM[0] = (uint32_t)0;
-    for (int i = 1; i <= 33; i++) {
+    for (int i = 1; i < 33; i++) {
         BITNUM[i] = ((uint32_t)1 << (i-1));
     }
 

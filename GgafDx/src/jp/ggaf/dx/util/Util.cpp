@@ -541,7 +541,7 @@ void Util::convVectorToRzRy(coord vx,
     } else {
         throwCriticalException("範囲が破綻してます。prj_rXZ="<<prj_rXZ<<" 引数:"<<vx<<","<<vy<<","<<vz);
     }
-#if MY_DEBUG
+#ifdef MY_DEBUG
     if (0 <= prj_rXY && prj_rXY < D45ANG) {
         //OK
     } else if (D45ANG <= prj_rXY && prj_rXY <= D90ANG) {
@@ -597,7 +597,7 @@ void Util::convVectorToRzRy(coord vx,
         }
     }
 
-#if MY_DEBUG
+#ifdef MY_DEBUG
     if (D360ANG < out_rz || 0 > out_rz || D360ANG < out_ry || 0 > out_ry) {
         throwCriticalException("範囲外です要調査。\n out_rz,out_ry="<<out_rz<<","<<out_ry<<" vx,vy,vz="<<vx<<","<<vy<<","<<vz);
     }
