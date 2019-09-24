@@ -315,6 +315,18 @@ throwCriticalException("pAimInfo_ が引き継がれていません！"<<this<<
                     _y = tmp_y_ + (coord)((pB->tmp_y_-tmp_y_)*0.1 + (pF->tmp_y_-tmp_y_)*0.1);
                     _z = tmp_z_ + (coord)((pB->tmp_z_-tmp_z_)*0.1 + (pF->tmp_z_-tmp_z_)*0.1);
                 }
+            } else {
+                if (pAimInfo_->pTarget) {
+                    //補正後の一つ前の座標と、自身の座標を直線で結んで、仮想の自分の後ろの点を作成。
+                    //補正前の一つ前の座標、自身の座標、仮想の自分の後ろの点で平均を取る
+                    coord v_b_x = _x - (pF->_x - _x);
+                    coord v_b_y = _y - (pF->_y - _y);
+                    coord v_b_z = _z - (pF->_z - _z);
+                    _x = tmp_x_ + (coord)((v_b_x-tmp_x_)*0.2 + (pF->tmp_x_-tmp_x_)*0.3);
+                    _y = tmp_y_ + (coord)((v_b_y-tmp_y_)*0.2 + (pF->tmp_y_-tmp_y_)*0.3);
+                    _z = tmp_z_ + (coord)((v_b_z-tmp_z_)*0.2 + (pF->tmp_z_-tmp_z_)*0.3);
+                }
+
             }
 
 //            //レーザーチップの向きを一つ前のチップに設定
