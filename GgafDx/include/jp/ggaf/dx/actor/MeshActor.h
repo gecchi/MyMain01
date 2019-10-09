@@ -24,6 +24,7 @@ public:
 
     float _far_rate;
 
+    float _lambert_flg;//1.0:Half Lambert/ -1.0:Lambert
 public:
     /**
      * コンストラクタ

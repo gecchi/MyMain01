@@ -12,8 +12,6 @@
 #include "jp/ggaf/dx/sound/Sound.h"
 #include "jp/ggaf/dx/util/Input.h"
 
-
-
 using namespace GgafDx;
 
 #define returnWhenFailed(HR, OKVAL, X) { \
@@ -37,10 +35,7 @@ HWND God::_pHWndSecondary = nullptr;
 HINSTANCE God::_hInstance = nullptr;
 IDirect3D9* God::_pID3D9 = nullptr;
 IDirect3DDevice9* God::_pID3DDevice9 = nullptr;
-D3DLIGHT9 God::_d3dlight9_default;
-DWORD God::_ambient_brightness_default = 0xff404040;
-
-
+//D3DLIGHT9 God::_d3dlight9_default;
 D3DFILLMODE God::_d3dfillmode = D3DFILL_SOLID;//D3DFILL_WIREFRAME;//D3DFILL_SOLID;
 
 //ModelManager* God::_pModelManager = nullptr;
@@ -101,6 +96,23 @@ God::God() : GgafCore::God() {
     _pEffectManager = nullptr;
     _pCubeMapTextureManager = nullptr;
     _pBumpMapTextureManager = nullptr;
+
+    //ライト構造体は、シェーダーのパラメータになる時があるため必要。
+    D3DXVECTOR3 vecDirection(-1.0f, -1.0f, 1.0f);
+    D3DXVec3Normalize(&vecDirection, &vecDirection); //正規化
+    ZeroMemory(&_d3dlight9_default, sizeof(D3DLIGHT9));
+    _d3dlight9_default.Direction = vecDirection;
+    _d3dlight9_default.Type = D3DLIGHT_DIRECTIONAL;
+    _d3dlight9_default.Diffuse.a = 1.0f;
+    _d3dlight9_default.Diffuse.r = 1.0f;
+    _d3dlight9_default.Diffuse.g = 1.0f;
+    _d3dlight9_default.Diffuse.b = 1.0f;
+    _d3dlight9_default.Ambient.a = 1.0f;
+    _d3dlight9_default.Ambient.r = 0.2f;
+    _d3dlight9_default.Ambient.g = 0.2f;
+    _d3dlight9_default.Ambient.b = 0.2f;
+
+    //_d3dlight9_default.Range = 1000.0f
 }
 
 
@@ -1377,24 +1389,6 @@ HRESULT God::createDx9Device(UINT adapter,
  }
 
 HRESULT God::initDx9Device() {
-    //ライト構造体は、シェーダーのパラメータになる時があるため必要。
-    D3DXVECTOR3 vecDirection(-1.0f, -1.0f, 1.0f);
-    D3DXVec3Normalize(&vecDirection, &vecDirection); //正規化
-    ZeroMemory(&_d3dlight9_default, sizeof(D3DLIGHT9));
-    God::_d3dlight9_default.Direction = vecDirection;
-    God::_d3dlight9_default.Type = D3DLIGHT_DIRECTIONAL;
-    God::_d3dlight9_default.Diffuse.a = 1.0f;
-    God::_d3dlight9_default.Diffuse.r = 1.0f;
-    God::_d3dlight9_default.Diffuse.g = 1.0f;
-    God::_d3dlight9_default.Diffuse.b = 1.0f;
-
-    God::_d3dlight9_default.Ambient.a = 1.0f;
-    God::_d3dlight9_default.Ambient.r = 0.3f; //アンビエントライトはSetRenderState(D3DRS_AMBIENT, 0x00303030)で設定
-    God::_d3dlight9_default.Ambient.g = 0.3f;
-    God::_d3dlight9_default.Ambient.b = 0.3f;
-
-    //God::_d3dlight9_default.Range = 1000.0f;
-
 
     //【注意】本フレームワークのデフォルトのRenderStateを設定。
     //変更時は以下に影響がないか確認。
@@ -2031,6 +2025,20 @@ void God::finalizeSpacetime() {
     } else {
         GgafCore::God::finalizeSpacetime();
     }
+}
+
+void God::setLightDiffuseColor(float r, float g, float b) {
+    _d3dlight9_default.Diffuse.r = r;
+    _d3dlight9_default.Diffuse.g = g;
+    _d3dlight9_default.Diffuse.b = b;
+
+    //_d3dlight9_default.Range = 1000.0f;
+
+}
+void God::setLightAmbientColor(float r, float g, float b) {
+    _d3dlight9_default.Ambient.r = r;
+    _d3dlight9_default.Ambient.g = g;
+    _d3dlight9_default.Ambient.b = b;
 }
 
 void God::clean() {

@@ -270,7 +270,7 @@ void MeshSetModel::restore() {
             unit_paVtxBuffer_data[i].nx = 0.0f;
             unit_paVtxBuffer_data[i].ny = 0.0f;
             unit_paVtxBuffer_data[i].nz = 0.0f;
-            unit_paVtxBuffer_data[i].color = D3DCOLOR_ARGB(255,255,255,255); //頂点カラーは今の所使っていない
+            unit_paVtxBuffer_data[i].color = D3DCOLOR_ARGB(255,255,255,255); //頂点カラー
             if (i < nTextureCoords) {
                 unit_paVtxBuffer_data[i].tu = pMeshesFront->_TextureCoords[i].data[0];  //出来る限りUV座標設定
                 unit_paVtxBuffer_data[i].tv = pMeshesFront->_TextureCoords[i].data[1];

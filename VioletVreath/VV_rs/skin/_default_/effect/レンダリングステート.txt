@@ -11,12 +11,12 @@ sampler defaultSampler = sampler_state
     MipFilter               = None;
     MipMapLodBias           = 0.0f;
     SRGBTexture             = false;
-    
+
     //<ヘルプ未記載>
     ElementIndex            = 0;
     // DmapOffset のデフォルト値には混乱があって，D3DSAMPLERSTATETYPE Enumerated Type では 0 となっている．
     // いくつかのドライバも 0 を返すようだが，Debug Runtime の自己診断は 256 が正しいとしている．
-    DMapOffset              = 256; 
+    DMapOffset              = 256;
     //</ヘルプ未記載>
 };
 
@@ -71,7 +71,7 @@ stateblock defaultState = stateblock_state
     LightSpecular[0]        = float4(1.0f, 1.0f, 1.0f, 0.0f);
     LightTheta[0]           = 0.0f;
     LightType[0]            = Directional;
-    
+
     // --------------------------------------------------------------------------------
     // マテリアルステート
     // --------------------------------------------------------------------------------
@@ -197,11 +197,11 @@ stateblock defaultState = stateblock_state
     Texture[5]              = null;
     Texture[6]              = null;
     Texture[7]              = null;
-    
+
     // --------------------------------------------------------------------------------
     // ピクセル シェーダ ステート
     // --------------------------------------------------------------------------------
-    PixelShader = null;    
+    PixelShader = null;
     // --------------------------------------------------------------------------------
     // 頂点シェーダ ステート
     // --------------------------------------------------------------------------------
@@ -411,7 +411,7 @@ stateblock defaultState = stateblock_state
 
 <Color BrendFactor>
 SRCCOLOR       : rgb( Rs, Gs, Bs )
-INVSRCCOLOR    : rgb( 1-Rs, 1-Gs, 1-Bs ) 
+INVSRCCOLOR    : rgb( 1-Rs, 1-Gs, 1-Bs )
 SRCALPHA       : rgb( As, As, As )
 INVSRCALPHA    : rgb( 1-As, 1-As, 1-As )
 DESTCOLOR      : rgb( Rd, Gd, Bd, Ad )
@@ -441,13 +441,13 @@ INVDESTALPHA : 1-Ad
        α  : (As * ④) ⑥ (Ad * ⑤)
 
 Cs  = rgba( Rs, Gs, Bs, As )
-Ds  = rgba( Rd, Gd, Bd, Ad ) 
+Ds  = rgba( Rd, Gd, Bd, Ad )
 
 として整理すると以下と同じ
 
 計算式 rgb : (Cs.rgb * ①) ③ (Cd.rgb * ②)
        α  : (Cs.a   * ④) ⑥ (Cd.a   * ⑤)
-       
+
 ①SrcBlend
 ②DestBlend
 ③BlendOp
@@ -468,7 +468,7 @@ Ds  = rgba( Rd, Gd, Bd, Ad )
 
 計算式 : src = dest
 
-rgb :  (Cs.rgb * 1) + (Cd.rgb * 0) 
+rgb :  (Cs.rgb * 1) + (Cd.rgb * 0)
 α  :  (Cs.a   * 1) + (Cd.a   * 0)
 ---------------------------------------
 AlphaBlendEnable = true;
@@ -482,14 +482,14 @@ BlendOp = Add;
 後ろの画像が透けて見えます。
 煙のエフェクトなどで良く使います。
 
-rgb :  (Cs.rgb * As) + (Cd.rgb * (1-As)) 
+rgb :  (Cs.rgb * As) + (Cd.rgb * (1-As))
 α  :  (Cs.a   * 1 ) + (Cd.a   * 0     )
 ---------------------------------------
 AlphaBlendEnable = true;          //default は false
 SeparateAlphaBlendEnable = true;  //アルファの演算を別途指定 default は false
-SrcBlend  = SrcAlpha;             
-DestBlend = InvSrcAlpha;          
-BlendOp = Add;                    
+SrcBlend  = SrcAlpha;
+DestBlend = InvSrcAlpha;
+BlendOp = Add;
 SrcBlendAlpha = One;              //default
 DestBlendAlpha = Zero;            //default
 BlendOpAlpha = Add;               //default
@@ -508,14 +508,14 @@ BlendOp = Add;
 結果、白色に近付き明るく見えます。
 魔法や炎など、エフェクトで一番良く使われています。
 
-rgb :  (Cs.rgb * As) + (Cd.rgb * 1) 
+rgb :  (Cs.rgb * As) + (Cd.rgb * 1)
 α  :  (Cs.a   * 1 ) + (Cd.a   * 0)
 ---------------------------------------
 AlphaBlendEnable = true;              //default は false
 SeparateAlphaBlendEnable = true;      //アルファの演算を別途指定 default は false
-SrcBlend  = SrcAlpha;                 
+SrcBlend  = SrcAlpha;
 DestBlend = One;
-BlendOp = Add;                        
+BlendOp = Add;
 SrcBlendAlpha = One;                  //default
 DestBlendAlpha = Zero;                //default
 BlendOpAlpha = Add;                   //default
@@ -596,7 +596,7 @@ BlendOp = Add;
 
 
 デバイスのポインタ->SetRenderState(D3DRS_ALPHAREF, 0x00000066);
-デバイスのポインタ->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE); 
+デバイスのポインタ->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
 デバイスのポインタ->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATEREQUAL);
 
 Max(DestAlpha,SrcAlpha) + (DestAlpha × SrcAlpha)

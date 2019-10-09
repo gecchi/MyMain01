@@ -14,8 +14,8 @@
 namespace GgafCore {
 
 //!< Period Parameter for Mersenne Twister
-#define	__N__ (624)
-#define	__M__ (397)
+#define	N___ (624)
+#define	M___ (397)
 
 
 /**
@@ -127,7 +127,7 @@ public:
 
     //private:
 
-    void init_genrand(uint32_t s); // initialize mt[__N__] with a seed
+    void init_genrand(uint32_t s); // initialize mt[N___] with a seed
     uint32_t genrand_int32(void); // [0, 0xffffffff]
     int32_t genrand_int31(void); // [0, 0x7fffffff]
     double genrand_real1(void); // [0, 1]
@@ -138,8 +138,8 @@ private:
 
     static CmRandomNumberGenerator* s_pInstance;
 
-    static uint32_t mt[__N__]; //!< array for the state vector
-    static int mti; //!< mti==__N__+1 means mt[__N__] is not initialized
+    static uint32_t mt[N___]; //!< array for the state vector
+    static int mti; //!< mti==N___+1 means mt[N___] is not initialized
 };
 
 }

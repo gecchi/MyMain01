@@ -169,9 +169,7 @@ public:
     /** [r] デバイス */
     static IDirect3DDevice9* _pID3DDevice9;
     /** [r] デフォルトのライト */
-    static D3DLIGHT9 _d3dlight9_default;
-    /** [r] アンビエントライトのデフォルトの明るさ */
-    static DWORD _ambient_brightness_default;
+    D3DLIGHT9 _d3dlight9_default;
     /** [r] デバイスロストフラグ (true=ロスト中) */
     static bool _is_device_lost_flg;
     /** [r] 画面アスペクト比調整フラグ (true=ウィンドウがリサイズされ、表示領域を再計算) */
@@ -341,7 +339,6 @@ public:
         return (Spacetime*)_pSpacetime;
     }
 
-
     virtual ModelManager* getModelManager() {
         return _pModelManager;
     }
@@ -352,6 +349,23 @@ public:
     virtual ModelManager* createModelManager();
     virtual EffectManager* createEffectManager();
 
+    /**
+     * ライトの色（デフォルト：1.0, 1.0, 1.0）を設定 .
+     * 【注意】Effectオブジェクトが作成される前に設定しないと反映がされない。
+     * @param r
+     * @param g
+     * @param b
+     */
+    void setLightDiffuseColor(float r, float g, float b);
+
+    /**
+     * 環境光の色を設定（デフォルト：0.2, 0.2, 0.2） .
+     * 【注意】Effectオブジェクトが作成される前に設定しないと反映がされない。
+     * @param r
+     * @param g
+     * @param b
+     */
+    void setLightAmbientColor(float r, float g, float b);
 
     virtual void clean() override;
 

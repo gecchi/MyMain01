@@ -25,9 +25,7 @@ public:
     UvFlipper* const _pUvFlipper;
 
     float _far_rate;
-
     Align _align;
-
     Valign _valign;
 
 public:
@@ -61,10 +59,6 @@ public:
             _far_rate = -1.0f;
         }
     }
-
-//    virtual void setAlign(Align prm_align, Valign prm_valign);
-//    virtual void setAlign(Align prm_align);
-//    virtual void setValign(Valign prm_valign);
 
     inline UvFlipper* getUvFlipper() {
         return _pUvFlipper;

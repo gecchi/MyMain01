@@ -96,7 +96,7 @@ private:
 
 public:
     /** 最大分身数 */
-    static const int MAX_BUNSHIN_NUM;
+    static const int MAX_B__UNSHIN_NUM;
     /** [r]トレース時の分身と分身の間隔 */
     static const frame BUNSHIN_D;
     /** [r]分身の向きの角速度 */

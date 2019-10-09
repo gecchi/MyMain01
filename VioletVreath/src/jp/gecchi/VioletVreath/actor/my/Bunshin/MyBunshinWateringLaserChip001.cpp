@@ -25,10 +25,10 @@ using namespace VioletVreath;
 
 const velo MyBunshinWateringLaserChip001::MAX_VELO_RENGE = PX_C(350); //この値を大きくすると、最高速度が早くなる。
 const double MyBunshinWateringLaserChip001::INV_MAX_VELO_RENGE = 1.0 / MAX_VELO_RENGE;
-const int MyBunshinWateringLaserChip001::R_MAX_ACCE = 20; //この値を大きくすると、カーブが緩くなる
+const int MyBunshinWateringLaserChip001::R_MAX_A__CCE = 20; //この値を大きくすると、カーブが緩くなる
 const velo MyBunshinWateringLaserChip001::INITIAL_VELO = MAX_VELO_RENGE*0.7; //レーザー発射時の初期速度
-const double MyBunshinWateringLaserChip001::RR_MAX_ACCE = 1.0 / R_MAX_ACCE; //計算簡素化用
-const float MyBunshinWateringLaserChip001::MAX_ACCE_RENGE = MAX_VELO_RENGE/R_MAX_ACCE;
+const double MyBunshinWateringLaserChip001::RR_MAX_A__CCE = 1.0 / R_MAX_A__CCE; //計算簡素化用
+const float MyBunshinWateringLaserChip001::MAX_A__CCE_RENGE = MAX_VELO_RENGE/R_MAX_A__CCE;
 const velo MyBunshinWateringLaserChip001::MIN_VELO_ = MyBunshinWateringLaserChip001::INITIAL_VELO/8; // ÷8 は、最低移動する各軸のINITIAL_VELOの割合
 GgafDx::Model* MyBunshinWateringLaserChip001::pModel_ = nullptr;
 int MyBunshinWateringLaserChip001::tex_no_ = 0;
@@ -81,7 +81,7 @@ void MyBunshinWateringLaserChip001::onActive() {
     inv_cnt_ = 0;
     GgafDx::Kago* pKago = callKago();
     pKago->forceVxyzMvVeloRange(-MAX_VELO_RENGE, MAX_VELO_RENGE);
-    pKago->forceVxyzMvAcceRange(-MAX_ACCE_RENGE, MAX_ACCE_RENGE);
+    pKago->forceVxyzMvAcceRange(-MAX_A__CCE_RENGE, MAX_A__CCE_RENGE);
 }
 
 void MyBunshinWateringLaserChip001::processBehavior() {
@@ -443,9 +443,9 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
 //    }
     //vVP 仮自→仮的 の加速度設定
     //→vVP=( vVTx-vVMx, vVTy-vVMy, vVTz-vVMz )
-    const acce accX = (vVTx-vVMx) * RR_MAX_ACCE; // * cos_th;
-    const acce accY = (vVTy-vVMy) * RR_MAX_ACCE; // * cos_th;
-    const acce accZ = (vVTz-vVMz) * RR_MAX_ACCE; // * cos_th;
+    const acce accX = (vVTx-vVMx) * RR_MAX_A__CCE; // * cos_th;
+    const acce accY = (vVTy-vVMy) * RR_MAX_A__CCE; // * cos_th;
+    const acce accZ = (vVTz-vVMz) * RR_MAX_A__CCE; // * cos_th;
     double top_acce_mv = pKago->_top_acce_vx_mv*1.05; //ちょっとずつなら拡張しちょいよみたいな
     if (MAX_VELO_RENGE < top_acce_mv && top_acce_mv < MAX_VELO_RENGE) {
         pKago->forceVxyzMvAcceRange(-top_acce_mv, top_acce_mv);

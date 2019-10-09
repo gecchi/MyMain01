@@ -1,86 +1,122 @@
-#include "GgafEffectConst.fxh" 
-////////////////////////////////////////////////////////////////////////////////
-// ggaf ライブラリ、GgafDx::SpriteModel用シェーダー
-//
-// author : Masatoshi Tsuge
-// date:2009/03/06 
-////////////////////////////////////////////////////////////////////////////////
-float4x4 g_matWorld;  //World変換行列
-float4x4 g_matView;   //View変換行列
-float4x4 g_matProj;   //射影変換行列
+#include "GgafEffectConst.fxh"
+/**
+ * GgafLib::DefaultSpriteActor 用シェーダー .
+ * 板ポリゴンにテクスチャを貼り付けた擬似スプライトを１つ描画する標準的なシェーダー。
+ * 頂点バッファフォーマットは、以下のような GgafLib::SpriteModel に定義されているものを前提としています。
+ * {
+ *     float x, y, z;             // 座標(ローカル座標系)
+ *     float nx, ny, nz;          // 法線ベクトル(ローカル座標系)
+ *     DWORD color;               // 頂点カラー（現在未使用）
+ *     float tu, tv;              // テクスチャ座標
+ * };
+ *
+ * DWORD SpriteModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1);
+ *
+ * @author Masatoshi Tsuge
+ * @since 2009/03/06
+ */
+
+/** モデルのWorld変換行列 */
+float4x4 g_matWorld;
+/** モデルのView変換行列 */
+float4x4 g_matView;
+/** モデルの射影変換行列 */
+float4x4 g_matProj;
+/** モデルのマテリアル色(ライトによる拡散反射時のモデルの色) */
 float4 g_colMaterialDiffuse;
-float g_offset_u; //テクスチャU座標増分
-float g_offset_v; //テクスチャV座標増分
-float g_tex_blink_power;   
+/** テクスチャU座標増分（パターンNoにより増減） */
+float g_offset_u;
+/** テクスチャV座標増分（パターンNoにより増減） */
+float g_offset_v;
+/** モデルのテクスチャ色点滅機能(GgafDx::TextureBlinker参照)の点滅強度 */
+float g_tex_blink_power;
+/** モデルのテクスチャ色点滅機能(GgafDx::TextureBlinker参照)の対象となるRGBのしきい値(0.0～1.0) */
 float g_tex_blink_threshold;
+/** フェードイン・アウト機能(GgafDx::AlphaCurtain参照)のためのマスターアルファ値(0.0～1.0) */
 float g_alpha_master;
+/** 現在の射影変換行列要素のzf。カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn */
 float g_zf;
+/** -1.0 or 0.999 。遠くでも表示を強制したい場合に0.999 が代入される。*/
 float g_far_rate;
 
-//soレジスタのサンプラを使う(固定パイプラインにセットされたテクスチャをシェーダーで使う)
+/** テクスチャのサンプラー(s0 レジスタにセットされたテクスチャを使う) */
 sampler MyTextureSampler : register(s0);
 
-//頂点シェーダー、出力構造体
+/** 頂点シェーダー、出力構造体 */
 struct OUT_VS
 {
-    float4 posModel_Proj    : POSITION;
-	float2 uv     : TEXCOORD0;
+    float4 posModel_Proj : POSITION;  //最終的な頂点座標(ワールド・ビュー・射影変換後)
+    float4 color         : COLOR0;    //頂点カラー
+    float2 uv            : TEXCOORD0; //頂点テクスチャUV
 };
 
 
-///////////////////////////////////////////////////////////////////////////
-
-//スプライト標準頂点シェーダー
+/**
+ * GgafLib::DefaultMeshActor 用の疑似スプライト標準頂点シェーダー .
+ * 頂点を World > View > 射影 変換する。
+ * モデルのマテリアル色付を頂点カラーの設定で行う。
+ * テクスチャのパターン番号に伴い設定されたUV座標を設定。
+ * @param prm_posModel_Local  頂点のローカル座標。左上、右上、左下、右下の順で4頂点が渡ってくる
+ * @param prm_uv              頂点のUV座標
+ */
 OUT_VS VS_DefaultSprite(
-      float4 prm_posModel_Local    : POSITION,     // モデルの頂点
-      float2 prm_uv     : TEXCOORD0     // モデルの頂点のUV
+      float4 prm_posModel_Local : POSITION, // モデルの頂点
+      float2 prm_uv             : TEXCOORD0 // モデルの頂点のUV
 ) {
-	OUT_VS out_vs = (OUT_VS)0;
+    OUT_VS out_vs = (OUT_VS)0;
 
-	//頂点計算
-	const float4 posModel_World = mul(prm_posModel_Local, g_matWorld ); // World変換
-	const float4 posModel_View = mul(posModel_World, g_matView );       // View変換
-	const float4 posModel_Proj = mul(posModel_View, g_matProj);         // 射影変換
-	out_vs.posModel_Proj = posModel_Proj;                         // 出力に設定
+    //World*View*射影変換
+    out_vs.posModel_Proj = mul(mul(mul( prm_posModel_Local, g_matWorld ), g_matView ), g_matProj);  // 出力に設定
+    //遠方時の表示方法。
     if (g_far_rate > 0.0) {
-        if (out_vs.posModel_Proj.z > g_zf*g_far_rate) {   
-            out_vs.posModel_Proj.z = g_zf*g_far_rate; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
+        if (out_vs.posModel_Proj.z > g_zf*g_far_rate) {
+            //本来視野外のZでも、描画を強制するため、射影後のZ座標を上書き、
+            out_vs.posModel_Proj.z = g_zf*g_far_rate;
         }
     }
-	//dot by dot考慮
-	out_vs.posModel_Proj = adjustDotByDot(out_vs.posModel_Proj);
-	
-	//UVのオフセット(パターン番号による増分)加算
-	out_vs.uv.x = prm_uv.x + g_offset_u;
-	out_vs.uv.y = prm_uv.y + g_offset_v;
-//    if (out_vs.posModel_Proj.z > g_zf*0.98) {   
-//        out_vs.posModel_Proj.z = g_zf*0.98; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
-//    }
-	return out_vs;
+    //dot by dot考慮
+    out_vs.posModel_Proj = adjustDotByDot(out_vs.posModel_Proj);
+
+    //UVのオフセット（パターン番号による増分）を加算
+    out_vs.uv.x = prm_uv.x + g_offset_u;
+    out_vs.uv.y = prm_uv.y + g_offset_v;
+
+    //マテリアル色として頂点カラーに設定
+    out_vs.color = g_colMaterialDiffuse;
+
+    return out_vs;
 }
 
-
-//スプライト標準ピクセルシェーダー
+/**
+ * GgafLib::DefaultSpriteActor 用の疑似スプライト標準ピクセルシェーダー .
+ * @param prm_uv    UV座標
+ * @param prm_color 色（マテリアル、αフォグ考慮済み）
+ */
 float4 PS_DefaultSprite(
-	float2 prm_uv	  : TEXCOORD0
+    float2 prm_uv    : TEXCOORD0,
+    float4 prm_color : COLOR0
 ) : COLOR  {
-	//求める色
-	float4 colOut = tex2D( MyTextureSampler, prm_uv) ; 
-	if (colOut.r >= g_tex_blink_threshold || colOut.g >= g_tex_blink_threshold || colOut.b >= g_tex_blink_threshold) {
-		colOut *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
-	}   
-    colOut *= g_colMaterialDiffuse;
-    colOut.a *= g_alpha_master; 
-	return colOut;
+    //求める色
+    float4 colTex = tex2D( MyTextureSampler, prm_uv); //テクスチャから色取得
+    //テクスチャ色にマテリアルカラーとスペキュラーを考慮
+    float4 colOut = colTex * prm_color;
+    //Blinkerを考慮
+    if (colTex.r >= g_tex_blink_threshold || colOut.g >= g_tex_blink_threshold || colOut.b >= g_tex_blink_threshold) {
+        colOut *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
+    }
+
+    //マスターα
+    colOut.a *= g_alpha_master;
+    return colOut;
 }
 
 float4 PS_Flush(
-	float2 prm_uv	  : TEXCOORD0
+    float2 prm_uv : TEXCOORD0
 ) : COLOR  {
-	float4 colOut = tex2D( MyTextureSampler, prm_uv)  * FLUSH_COLOR;
-    colOut *= g_colMaterialDiffuse;
-    colOut.a *= g_alpha_master; 
-	return colOut;
+    float4 colOut = tex2D( MyTextureSampler, prm_uv)  * FLUSH_COLOR;
+//    colOut *= g_colMaterialDiffuse;
+//    colOut.a *= g_alpha_master;
+    return colOut;
 }
 
 //＜テクニック：DefaultSpriteTechnique＞
@@ -90,45 +126,45 @@ float4 PS_Flush(
 //板ポリ（擬似スプライト）を描画する。ライトなどの陰影は無し。
 technique DefaultSpriteTechnique
 {
-	pass P0 {
-		AlphaBlendEnable = true;
+    pass P0 {
+        AlphaBlendEnable = true;
         //SeparateAlphaBlendEnable = true;
-		SrcBlend  = SrcAlpha;
-		DestBlend = InvSrcAlpha;
+        SrcBlend  = SrcAlpha;
+        DestBlend = InvSrcAlpha;
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		BlendOpAlpha = Add;
-		VertexShader = compile VS_VERSION VS_DefaultSprite();
-		PixelShader  = compile PS_VERSION PS_DefaultSprite();
-	}
+        BlendOpAlpha = Add;
+        VertexShader = compile VS_VERSION VS_DefaultSprite();
+        PixelShader  = compile PS_VERSION PS_DefaultSprite();
+    }
 }
 
 technique DestBlendOne
 {
-	pass P0 {
-		AlphaBlendEnable = true;
+    pass P0 {
+        AlphaBlendEnable = true;
         //SeparateAlphaBlendEnable = true;
-		SrcBlend  = SrcAlpha;   
-		DestBlend = One; //加算合成
+        SrcBlend  = SrcAlpha;
+        DestBlend = One; //加算合成
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		BlendOpAlpha = Add;
-		VertexShader = compile VS_VERSION VS_DefaultSprite();
-		PixelShader  = compile PS_VERSION PS_DefaultSprite();
-	}
+        BlendOpAlpha = Add;
+        VertexShader = compile VS_VERSION VS_DefaultSprite();
+        PixelShader  = compile PS_VERSION PS_DefaultSprite();
+    }
 }
 
 technique Flush
 {
-	pass P0 {
-		AlphaBlendEnable = true;
+    pass P0 {
+        AlphaBlendEnable = true;
         //SeparateAlphaBlendEnable = true;
-		SrcBlend  = SrcAlpha;
-		DestBlend = InvSrcAlpha;
+        SrcBlend  = SrcAlpha;
+        DestBlend = InvSrcAlpha;
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		BlendOpAlpha = Add;
-		VertexShader = compile VS_VERSION VS_DefaultSprite();
-		PixelShader  = compile PS_VERSION PS_Flush();
-	}
+        BlendOpAlpha = Add;
+        VertexShader = compile VS_VERSION VS_DefaultSprite();
+        PixelShader  = compile PS_VERSION PS_Flush();
+    }
 }

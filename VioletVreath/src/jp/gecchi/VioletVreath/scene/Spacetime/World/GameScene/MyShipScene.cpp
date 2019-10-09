@@ -40,8 +40,8 @@ papBunshinBase_(nullptr) {
     pMyShip_->inactivate(); //配下に仮登録のアクター発送者とかあるし
     bringSceneMediator()->appendGroupChild(pMyShip_);
 
-    papBunshinBase_ = NEW MyBunshinBase*[MyBunshinBase::MAX_BUNSHIN_NUM];
-    for (int i = 0; i < MyBunshinBase::MAX_BUNSHIN_NUM; i ++) {
+    papBunshinBase_ = NEW MyBunshinBase*[MyBunshinBase::MAX_B__UNSHIN_NUM];
+    for (int i = 0; i < MyBunshinBase::MAX_B__UNSHIN_NUM; i ++) {
         std::string name = "BunshinBase("+XTOS(i)+")";
         papBunshinBase_[i] = NEW MyBunshinBase(name.c_str(), i+1);
         papBunshinBase_[i]->inactivate();
@@ -84,7 +84,7 @@ void MyShipScene::onReset() {
     pLabelZanki_->update(z.c_str());
 
     pMyShip_->resetTree();
-    for (int i = 0; i < MyBunshinBase::MAX_BUNSHIN_NUM; i ++) {
+    for (int i = 0; i < MyBunshinBase::MAX_B__UNSHIN_NUM; i ++) {
         papBunshinBase_[i]->resetTree();
     }
 
@@ -162,7 +162,7 @@ void MyShipScene::processBehavior() {
             if (pProg->hasJustChanged()) {
                 pEffectMyShipExplosion_->activate(); //爆発
                 pMyShip_->can_control_ = false;
-                for (int i = 0; i < MyBunshinBase::MAX_BUNSHIN_NUM; i ++) {
+                for (int i = 0; i < MyBunshinBase::MAX_B__UNSHIN_NUM; i ++) {
                     papBunshinBase_[i]->is_isolate_mode_ = true;
                 }
                 G_ZANKI -= 1;

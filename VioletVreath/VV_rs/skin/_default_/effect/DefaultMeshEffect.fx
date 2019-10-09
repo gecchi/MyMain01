@@ -2,21 +2,21 @@
 /**
  * GgafLib::DefaultMeshActor 用シェーダー .
  * 静的モデル１つを描画する標準的なシェーダー。
- * 頂点バッファフォーマットは
+ * 頂点バッファフォーマットは、以下のような GgafLib::MeshModel に定義されているものを前提としています。
  * {
  *     float x, y, z;             // 座標(ローカル座標系)
  *     float nx, ny, nz;          // 法線ベクトル(ローカル座標系)
- *     DWORD color;               // 頂点カラー（現在未使用）
+ *     DWORD color;               // 頂点カラー
  *     float tu, tv;              // テクスチャ座標
  *     float tan_x, tan_y, tan_z; // 接ベクトル(u方向単位ベクトル) (ローカル座標系)
  *     float bin_x, bin_y, bin_z; // 従法線ベクトル(v方向単位ベクトル) (ローカル座標系)
  * };
  *
- * FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX3 |
- *                                                        D3DFVF_TEXCOORDSIZE2(0) |     // テクスチャ座標
- *                                                        D3DFVF_TEXCOORDSIZE3(1) |     // 接ベクトル
- *                                                        D3DFVF_TEXCOORDSIZE3(2)   )   // 従法線ベクトル
- * を、前提としています。
+ * DWORD MeshModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX3 |
+ *                                                                         D3DFVF_TEXCOORDSIZE2(0) |     // テクスチャ座標
+ *                                                                         D3DFVF_TEXCOORDSIZE3(1) |     // 接ベクトル
+ *                                                                         D3DFVF_TEXCOORDSIZE3(2)   )   // 従法線ベクトル
+ *
  * @author Masatoshi Tsuge
  * @since 2009/03/06
  */
@@ -54,7 +54,7 @@ float g_zf;
 /** -1.0 or 0.999 。遠くでも表示を強制したい場合に0.999 が代入される。*/
 float g_far_rate;
 
-//float4 g_colFog;
+float g_lambert_flg;
 
 
 /** テクスチャのサンプラー(s0 レジスタにセットされたテクスチャを使う) */
@@ -62,35 +62,28 @@ sampler MyTextureSampler : register(s0);
 /** 法線マップテクスチャのサンプラー(s2 レジスタにセットされたテクスチャを使う) */
 sampler BumpMapTextureSampler : register(s2);
 
-/** 頂点シェーダー、出力構造体 */
+/** 頂点シェーダー出力構造体 */
 struct OUT_VS {
-    float4 posModel_Proj   : POSITION;    //最終的な頂点座標(ワールド・ビュー・射影変換済み)
+    float4 posModel_Proj   : POSITION;    //最終的な頂点座標(ワールド・ビュー・射影変換後)
     float2 uv              : TEXCOORD0;   //頂点テクスチャUV
     float4 color           : COLOR0;      //頂点カラー
     float3 vecNormal_World : TEXCOORD1;   //頂点の法線ベクトル(ワールド座標系)
     float3 vecEye_World    : TEXCOORD2;   //頂点の視線(頂点->視点)ベクトル(ワールド座標系)
 };
 
-/** バンプマッピング用頂点シェーダー、出力構造体 */
-struct OUT_VS_BM {
-    float4 posModel_Proj    : POSITION;    //最終的な頂点座標(ワールド・ビュー・射影変換済み)
-    float2 uv               : TEXCOORD0;   //頂点テクスチャUV
-    float4 color            : COLOR0;      //頂点カラー
-    float3 vecNormal_World  : TEXCOORD1;   //頂点の法線ベクトル(ワールド座標系)
-    float3 vecEye_World     : TEXCOORD2;   //頂点の視線(頂点->視点)ベクトル(ワールド座標系)
-    float4 vecLight_Tangent : TEXCOORD3;   //頂点のライトベクトル(ローカルの接空間座標系)
-    float4 vecHarf_Tangent  : TEXCOORD4;   //頂点のハーフベクトル(ローカルの接空間座標系)
-};
-
 /**
  * GgafLib::DefaultMeshActor 用の標準頂点シェーダー .
  * 頂点を World > View > 射影 変換した後、
- * モデルのマテリアル色付を頂点カラーの設定で行う。
- * マテリアル色付とは具体位的に
- * 拡散光色、拡散光反射色、環境光色、マスターアルファ、フォグ、の事。
+ * モデルに以下の色をブレンドし、頂点カラーとしての設定する
+ * ・ライトの色（拡散光色）
+ * ・モデルのマテリアル色（拡散光反射色）
+ * ・環境光色を加算
+ *  （※以上の色とモデル表面の法線とライト入射角との差を計算し、ライトの色を減衰を考慮）
+ * ・遠方描画時のαフォグ
  * @param prm_posModel_Local  頂点のローカル座標
  * @param prm_vecNormal_Local ローカル頂点での法線ベクトル
  * @param prm_uv              頂点のUV座標
+ * @return OUT_VS 頂点シェーダー出力構造体。上記の説明を参照
  */
 OUT_VS VS_DefaultMesh(
       float4 prm_posModel_Local  : POSITION,
@@ -100,7 +93,7 @@ OUT_VS VS_DefaultMesh(
     OUT_VS out_vs = (OUT_VS)0;
 
     //頂点計算
-    const float4 posModel_World = mul(prm_posModel_Local, g_matWorld); //World変換
+    const float4 posModel_World = mul(prm_posModel_Local, g_matWorld);        //World変換
     out_vs.posModel_Proj = mul( mul( posModel_World, g_matView), g_matProj);  //World*View*射影
 
     //UV計算
@@ -109,41 +102,51 @@ OUT_VS VS_DefaultMesh(
     //頂点カラー計算
     //法線を World 変換して正規化
     out_vs.vecNormal_World = normalize(mul(prm_vecNormal_Local, g_matWorld));
-    //法線と、拡散光方向の内積からライト入射角を求め、面に対する拡散光の減衰率を求める。
-    const float power = max(dot(out_vs.vecNormal_World, -g_vecLightFrom_World ), 0);
-    //拡散光色に減衰率を乗じ、環境光色を加算し、全体をマテリアル色を掛ける。
-    out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*power)) * g_colMaterialDiffuse;
-    //「頂点→カメラ視点」方向ベクトル（スペキュラで使用）
-    out_vs.vecEye_World = normalize(g_posCam_World.xyz - posModel_World.xyz);
-    //αはマテリアルαを最優先とする（上書きする）
+    //法線と、拡散光方向の内積からライト入射角を求め、面に対する拡散光反射率を求める。
+    float reflection_power = dot(out_vs.vecNormal_World, -g_vecLightFrom_World);
+    if (g_lambert_flg > 0) {
+        //内積の負の値も使用して、ハーフ・ランバート で拡散光の回析を行う
+        reflection_power = reflection_power * 0.5f + 0.5f;
+        reflection_power *= reflection_power;
+    } else {
+        //通常のランバート反射、内積の負の値をカット
+        reflection_power = max(reflection_power, 0);
+    }
+    reflection_power *= reflection_power;
+    //拡散光色に反射率を乗じ、環境光色を加算し、全体をマテリアル色を掛ける。
+    out_vs.color.rgb = (g_colLightAmbient + (g_colLightDiffuse*reflection_power)) * g_colMaterialDiffuse.rgb;
+    //αはライトに関係なくマテリアルαを優先とする
     out_vs.color.a = g_colMaterialDiffuse.a;
+    //「頂点→カメラ視点」方向ベクトル。ピクセルシェーダーのスペキュラー計算で使用。
+    out_vs.vecEye_World = normalize(g_posCam_World.xyz - posModel_World.xyz);
 
     //遠方時の表示方法。
     if (g_far_rate > 0.0) {
         if (out_vs.posModel_Proj.z > g_zf*g_far_rate) {
+            //本来視野外のZでも、描画を強制するため、射影後のZ座標を上書き、
             out_vs.posModel_Proj.z = g_zf*g_far_rate; //本来視野外のZでも、描画を強制するため g_zf*0.999 に上書き、
         }
     } else {
         //αフォグ
         if (out_vs.posModel_Proj.z > 0.666f*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
+            //  z : 0.666*g_zf ～ 1.0*g_zf  → α : 1.0 ～ 0.0  となるようにするには
+            //  α = ( (0.0-1.0)*z - (0.666*g_zf*0.0) + (1.0*1.0*g_zf) ) / (1.0*g_zf-0.666*g_zf)
+            //  α = (3.0*(g_zf-z))/g_zf = (3.0*g_zf - 3.0*z)/g_zf = 3.0 - 3.0*z/g_zf
             out_vs.color.a *= (-3.0*(out_vs.posModel_Proj.z/g_zf) + 3.0);
-//            float r_fog = (-3.0*(out_vs.posModel_Proj.z/g_zf) + 3.0);    //r_fogはg_zfで丁度0.0になる。それより奥は負の数
-//            if (1.0f < r_fog) {
-//                out_vs.color.rgb = out_vs.color.rgb * (g_colFog.rgb * (1.0-r_fog));
-//                out_vs.color.a = out_vs.color.a * (g_colFog.a + r_fog);
-//            }
         }
     }
-    //マスターα
-    out_vs.color.a *= g_alpha_master;
-
     return out_vs;
 }
 
 /**
  * GgafLib::DefaultMeshActor 用の標準ピクセルシェーダー .
+ * 各ピクセルに、頂点カラーで設定された色にと下記の色をブレンドする。
+ * ・テクスチャの色
+ * ・スペキュラーの強さを加算
+ * ・Blinker（特定の閾値より大きい色について点滅効果）を考慮
+ * ・マスターα
  * @param prm_uv              UV座標
- * @param prm_color           色（頂点カラーによる）
+ * @param prm_color           色（マテリアル、ライト、αフォグ考慮済み）
  * @param prm_vecNormal_World 法線ベクトル(ワールド座標系)
  * @param prm_vecEye_World    視線(頂点 -> 視点)ベクトル(ワールド座標系)
  */
@@ -153,16 +156,19 @@ float4 PS_DefaultMesh(
     float3 prm_vecNormal_World : TEXCOORD1,
     float3 prm_vecEye_World    : TEXCOORD2
 ) : COLOR  {
-    float s = 0.0f; //スペキュラ成分
+    const float4 colTex = tex2D( MyTextureSampler, prm_uv);
+    //出力色にテクスチャ色にマテリアルカラーを考慮
+    float4 colOut = colTex * prm_color;
+    //スペキュラ成分計算
+    float s = 0.0f;
     if (g_specular_power != 0) {
         //ハーフベクトル（「頂点→カメラ視点」方向ベクトル と、「頂点→ライト」方向ベクトルの真ん中の方向ベクトル）
         const float3 vecHarf = normalize(prm_vecEye_World + (-g_vecLightFrom_World));
         //ハーフベクトルと法線の内積よりスペキュラ具合を計算
         s = pow( max(0.0f, dot(prm_vecNormal_World, vecHarf)), g_specular ) * g_specular_power;
     }
-    const float4 colTex = tex2D( MyTextureSampler, prm_uv);
-    //テクスチャ色に
-    float4 colOut = colTex * prm_color + s;
+    //出力色にスペキュラーを考慮
+    colOut.rgb += s;
     //Blinkerを考慮
     if (colTex.r >= g_tex_blink_threshold || colTex.g >= g_tex_blink_threshold || colTex.b >= g_tex_blink_threshold) {
         colOut *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
@@ -171,7 +177,6 @@ float4 PS_DefaultMesh(
     colOut.a *= g_alpha_master;
     return colOut;
 }
-
 
 
 /**
@@ -199,12 +204,23 @@ float4x4 getInvTangentMatrix(
 }
 
 
+/** バンプマッピング用頂点シェーダー、出力構造体 */
+struct OUT_VS_BM {
+    float4 posModel_Proj    : POSITION;    //最終的な頂点座標(ワールド・ビュー・射影変換後)
+    float2 uv               : TEXCOORD0;   //頂点テクスチャUV
+    float4 color            : COLOR0;      //頂点カラー
+    float3 vecNormal_World  : TEXCOORD1;   //頂点の法線ベクトル(ワールド座標系)
+    float3 vecEye_World     : TEXCOORD2;   //頂点の視線(頂点->視点)ベクトル(ワールド座標系)
+    float4 vecLight_Tangent : TEXCOORD3;   //頂点のライトベクトル(ローカルの接空間座標系)
+    float4 vecHarf_Tangent  : TEXCOORD4;   //頂点のハーフベクトル(ローカルの接空間座標系)
+};
+
 /**
  * GgafLib::DefaultMeshActor バンプマッピング用の頂点シェーダー .
  * 頂点を World > View > 射影 変換した後、
- * モデルのマテリアル色付を頂点カラーの設定で行う。
- * マテリアル色付とは具体位的に
- * 拡散光色、拡散光反射色、環境光色、マスターアルファ、フォグ、の事。
+ * モデルに以下の色をブレンドし、頂点カラーとしての設定する
+ * ・モデルのマテリアル色（拡散光反射色）
+ * ・遠方描画時のαフォグ。
  * @param prm_posModel_Local    モデル頂点(ローカル座標系)
  * @param prm_vecNormal_Local   頂点の法線(ローカル座標系)
  * @param prm_uv                頂点のUV座標
@@ -243,11 +259,9 @@ OUT_VS_BM VS_BumpMapping(
         out_vs.vecHarf_Tangent = mul(vecHarf_Local, matTangent ); //接空間座標系へ
     }
 
-    //頂点カラー計算(拡散光色,マテリアル色)
+    //頂点カラーにマテリアル色を設定しておく、
+    //ライトの拡散光色計算は、バンプマッピングの計算のピクセルシェーダーで行う
     out_vs.color = g_colMaterialDiffuse;
-
-    //αはマテリアルαを最優先とする（上書きする）
-    out_vs.color.a = g_colMaterialDiffuse.a;
 
     //遠方時の表示方法。
     if (g_far_rate > 0.0) {
@@ -256,20 +270,30 @@ OUT_VS_BM VS_BumpMapping(
         }
     } else {
         //αフォグ
-        if (out_vs.posModel_Proj.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
+        if (out_vs.posModel_Proj.z > 0.666*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
             out_vs.color.a *= (-3.0*(out_vs.posModel_Proj.z/g_zf) + 3.0);
         }
     }
-    //マスターα
-    out_vs.color.a *= g_alpha_master;
 
     return out_vs;
 }
 
 /**
  * GgafLib::DefaultMeshActor バンプマッピング用のピクセルシェーダー .
+ * 法線マップから得た法線を考慮し拡散光の減衰率を計算し、
+ * 疑似的に表面に凹凸があるようにみせる。
+ * 各ピクセルに、頂点カラーで設定された色にと下記の色をブレンドする。
+ * ・ライトの色（拡散光色）
+ * ・モデルのマテリアル色（拡散光反射色）
+ * ・環境光色を加算
+ * ・環境光色をブレンド
+ * ・スペキュラーの強さを加算
+ *  （※以上の色について、モデル表面の法線とライト入射角との差を計算し、ライトの色を減衰を考慮する
+ *      その際、モデル表面の法線については、法線マップから得た法線を考慮する）
+ * ・Blinker（特定の閾値より大きい色について点滅効果）を考慮
+ * ・マスターαをブレンド
  * @param prm_uv               UV座標
- * @param prm_color            色（頂点カラーによる）
+ * @param prm_color            色（頂点カラーによるマテリアル色が設定済）
  * @param prm_vecNormal_World  法線ベクトル(World座標系)
  * @param prm_vecEye_World     視線(頂点->視点)ベクトル(World座標系)
  * @param prm_vecLight_Tangent 拡散光方向ベクトル(接空間座標系)
@@ -291,7 +315,15 @@ float4 PS_BumpMapping(
     //法線(法線マップの法線、つまり接空間座標系の法線になる）と、
     //拡散光方向ベクトル(頂点シェーダーで接空間座標系に予め変換済み) の内積から
     //ライト入射角を求め、面に対する拡散光の減衰率(power)を求める
-    const float power = max(dot(vecNormal_Tangent, normalize(prm_vecLight_Tangent) ), 0);
+    float reflection_power = dot(vecNormal_Tangent, normalize(prm_vecLight_Tangent));
+    if (g_lambert_flg > 0) {
+        //内積の負の値も使用して、ハーフ・ランバート で拡散光の回析を行う
+        reflection_power = reflection_power * 0.5f + 0.5f;
+        reflection_power *= reflection_power;
+    } else {
+        //通常のランバート反射、内積の負の値をカット
+        reflection_power = max(reflection_power, 0);
+    }
 
     float s = 0.0f; //スペキュラ成分
     if (g_specular_power != 0) {
@@ -303,12 +335,11 @@ float4 PS_BumpMapping(
     const float4 colTex = tex2D( MyTextureSampler, prm_uv); //単純にUVから色取得、つまり法線マップの凸凹は未考慮。
     //環境光色、テクスチャ色、頂点カラー、減衰率、スペキュラ を考慮した色作成
     //tex・mate・(amb + (light・pow)) + spow
-    float4 colOut = colTex * ((g_colLightAmbient + ( g_colLightDiffuse * power)) * prm_color ) + s; //prm_color = g_colMaterialDiffuse
+    float4 colOut = colTex * ((g_colLightAmbient + ( g_colLightDiffuse * reflection_power)) * prm_color ) + s; //prm_color = g_colMaterialDiffuse
     //Blinkerを考慮
     if (colTex.r >= g_tex_blink_threshold || colTex.g >= g_tex_blink_threshold || colTex.b >= g_tex_blink_threshold) {
         colOut *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
     }
-    //マスターα
     colOut.a = a * g_alpha_master;
     return colOut;
 }
@@ -330,69 +361,67 @@ float4 PS_Flush(
 }
 
 /**
- * 通常テクニック .
+ * 通常エフェクトのTechnique .
  */
 technique DefaultMeshTechnique
 {
     pass P0 {
         AlphaBlendEnable = true;
-        //SeparateAlphaBlendEnable = true;
+        //SeparateAlphaBlendEnable = false; //default
+
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
-        //SrcBlendAlpha = One;      //default
-        //DestBlendAlpha = Zero;    //default
-        //BlendOpAlpha = Add;       //default
+        BlendOp = Add;
+
+        //SrcBlendAlpha = One;    //default
+        //DestBlendAlpha = Zero;  //default
+        //BlendOpAlpha = Add;     //default
+
         VertexShader = compile VS_VERSION VS_DefaultMesh();
         PixelShader  = compile PS_VERSION PS_DefaultMesh();
     }
 }
 
+/**
+ * バンプマッピングエフェクトのテクニック .
+ */
 technique BumpMapping
 {
     pass P0 {
         AlphaBlendEnable = true;
-        //SeparateAlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
-        //SrcBlendAlpha = One;      //default
-        //DestBlendAlpha = Zero;    //default
-        //BlendOpAlpha = Add;       //default
+        BlendOp = Add;
         VertexShader = compile VS_VERSION VS_BumpMapping();
         PixelShader  = compile PS_VERSION PS_BumpMapping();
     }
 }
 
 /**
- * 加算合成テクニック .
+ * 加算合成エフェクトのテクニック .
  */
 technique DestBlendOne
 {
     pass P0 {
         AlphaBlendEnable = true;
-        //SeparateAlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
-        DestBlend = One; //加算合成
-        //SrcBlendAlpha = One;      //default
-        //DestBlendAlpha = Zero;    //default
-        //BlendOpAlpha = Add;       //default
+        DestBlend = One;
+        BlendOp = Add;
         VertexShader = compile VS_VERSION VS_DefaultMesh();
         PixelShader  = compile PS_VERSION PS_DefaultMesh();
     }
 }
 
 /**
- * 閃光テクニック .
+ * 閃光エフェクトのテクニック .
  */
 technique Flush
 {
     pass P0 {
         AlphaBlendEnable = true;
-        //SeparateAlphaBlendEnable = true;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
-        //SrcBlendAlpha = One;      //default
-        //DestBlendAlpha = Zero;    //default
-        //BlendOpAlpha = Add;       //default
+        BlendOp = Add;
         VertexShader = compile VS_VERSION VS_DefaultMesh();
         PixelShader  = compile PS_VERSION PS_Flush();
     }

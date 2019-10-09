@@ -29,32 +29,31 @@
 
 /**
  * 範囲中のある値について、範囲を変換した場合の相対値を取得 .
- * 範囲 MIN_A ～ MAX_A の X の値を、範囲 MIN_B ～ MAX_B に変換した場合の値を得る<br>
- * y = ( (min_b-max_b)*x - (max_a*min_b) + (max_b*min_a) ) / (min_a-max_a)
+ * 範囲 MIN_A__ ～ MAX_A__ の A__ の値を、範囲 MIN_B__ ～ MAX_B__ に変換した場合の A__ に対応した値を得る<br>
  */
-#define RCNV(MIN_A,MAX_A,X,MIN_B,MAX_B) (GgafCore::Util::_rcnv_((double)(MIN_A),(double)(MAX_A),(double)(X),(double)(MIN_B),(double)(MAX_B)))
+#define RCNV(MIN_A__,MAX_A__,A__,MIN_B__,MAX_B__) (GgafCore::Util::_rcnv_((double)(MIN_A__),(double)(MAX_A__),(double)(A__),(double)(MIN_B__),(double)(MAX_B__)))
 /**
  * 0 ～ 1 の範囲のある値について、範囲を変換した場合の相対値を取得 .
- * 範囲 0 ～ 1 の X の値を、範囲 MIN_B ～ MAX_B に変換した場合の値を得る<br>
+ * 範囲 0 ～ 1 の X の値を、範囲 MIN_B__ ～ MAX_B__ に変換した場合の値を得る<br>
  * y = ( (max_b-min_b)*x + min_b)
  */
-#define RCNV_0_to_1(X,MIN_B,MAX_B) (GgafCore::Util::_rcnv_0_to_1_((double)(X),(double)(MIN_B),(double)(MAX_B)))
+#define RCNV_0_to_1(X,MIN_B__,MAX_B__) (GgafCore::Util::_rcnv_0_to_1_((double)(X),(double)(MIN_B__),(double)(MAX_B__)))
 
 /**
  * 整数の乱数を得る .
  * RND(3, 20)
  * → 3～20の乱数を得る 戻りは int32_t 型
  */
-#define RND(__FROM__,__TO__) (GgafCore::Util::_rnd_int32_((int32_t)(__FROM__),(int32_t)(__TO__)))
+#define RND(FROM__,TO__) (GgafCore::Util::_rnd_int32_((int32_t)(FROM__),(int32_t)(TO__)))
 
 /**
  * ある整数の周辺の乱数を得る .
  * RND_ABOUT(15, 4)   意味：15 の±4の範囲の乱数
  * → 11 ～ 19 の乱数になる
  */
-#define RND_ABOUT(__BASE_VALUE__, __MARGIN__) (RND(((int)(__BASE_VALUE__) - (int)(__MARGIN__)), (__BASE_VALUE__ + __MARGIN__)))
+#define RND_ABOUT(BASE_VALUE__, MARGIN__) (RND(((int)(BASE_VALUE__) - (int)(MARGIN__)), (BASE_VALUE__ + MARGIN__)))
 
-#define dRND(__FROM__,__TO__) (GgafCore::Util::_rnd_double_((__FROM__),(__TO__)))
+#define dRND(FROM__,TO__) (GgafCore::Util::_rnd_double_((FROM__),(TO__)))
 
 typedef std::map<std::string, std::string> StrMap;
 
@@ -447,8 +446,12 @@ public:
         return str;
     }
 
-    static inline double _rcnv_(double min_a, double max_a, double x, double min_b, double max_b) {
-        return ( (min_b-max_b)*x - (max_a*min_b) + (max_b*min_a) ) / (min_a-max_a);
+    /**
+     * 範囲中のある値について、範囲を変換した場合の相対値を取得 .
+     * 範囲 min_a ～ max_a の a の値を、範囲 min_b ～ max_b に変換した場合の a に対応する値(b) を得る<br>
+     */
+    static inline double _rcnv_(double min_a, double max_a, double a, double min_b, double max_b) {
+        return ( (min_b-max_b)*a - (max_a*min_b) + (max_b*min_a) ) / (min_a-max_a);
     }
 
     static inline double _rcnv_0_to_1_(double x, double min_b, double max_b) {

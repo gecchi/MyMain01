@@ -14,6 +14,9 @@ namespace SimpleSample {
  */
 class SmpSpacetime : public GgafLib::DefaultSpacetime {
 
+    /** 仮想ボタンオブジェクト */
+    GgafLib::VirtualButton* pVb_;
+
 public:
     /**
      * コンストラクタ .
@@ -31,6 +34,14 @@ public:
      * 「この世」の振る舞い処理 .
      */
     void processBehavior() override;
+
+    /**
+     * 仮想ボタンオブジェクトを返す .
+     * @return 仮想ボタン
+     */
+    GgafLib::VirtualButton* getVB() {
+        return pVb_;
+    }
 
     virtual ~SmpSpacetime();
 };

@@ -29,6 +29,7 @@ _pMeshEffect((MeshEffect*)_pEffect)
     _obj_class |= Obj_GgafDx_MeshActor;
     _class_name = "MeshActor";
     _far_rate = -1.0f;
+    _lambert_flg = -1.0f;
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列
 }
 
@@ -54,6 +55,7 @@ _pMeshEffect((MeshEffect*)_pEffect)
     _obj_class |= Obj_GgafDx_MeshActor;
     _class_name = "MeshActor";
     _far_rate = -1.0f;
+    _lambert_flg = -1.0f;
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列
 }
 
@@ -65,6 +67,8 @@ void MeshActor::processDraw() {
     checkDxException(hr, D3D_OK, "SetMatrix(_h_matWorld) に失敗しました。");
     hr = pID3DXEffect->SetFloat(_pMeshEffect->_h_far_rate, _far_rate );
     checkDxException(hr, D3D_OK, "SetFloat(_h_far_rate) に失敗しました。");
+    hr = pID3DXEffect->SetFloat(_pMeshEffect->_h_lambert_flg, _lambert_flg );
+    checkDxException(hr, D3D_OK, "SetFloat(_h_lambert_flg) に失敗しました。");
     if (_pBumpMapTextureConnection) {
         hr = God::_pID3DDevice9->SetTexture(2, getBumpMapTexture());
         checkDxException(hr, D3D_OK, "SetTexture() に失敗しました。");

@@ -17,8 +17,8 @@ using namespace GgafCore;
  */
 CmRandomNumberGenerator* CmRandomNumberGenerator::s_pInstance = nullptr;
 
-uint32_t CmRandomNumberGenerator::mt[__N__];
-int CmRandomNumberGenerator::mti = __N__ + 1;
+uint32_t CmRandomNumberGenerator::mt[N___];
+int CmRandomNumberGenerator::mti = N___ + 1;
 
 /******************************************************************************
  *
@@ -114,11 +114,11 @@ void CmRandomNumberGenerator::changeSeed(uint32_t a_ulSeed) {
  * 			Mersenne Twister
  ******************************************************************************/
 
-/* initializes mt[__N__] with a seed */
+/* initializes mt[N___] with a seed */
 void CmRandomNumberGenerator::init_genrand(uint32_t s) {
     mt[0] = s & 0xffffffffUL;
 
-    for (mti = 1; mti < __N__; mti++) {
+    for (mti = 1; mti < N___; mti++) {
         mt[mti] = (1812433253UL * (mt[mti - 1] ^ (mt[mti - 1] >> 30)) + mti);
         /* See Knuth TAOCP Vol2. 3rd Ed. P.106 for multiplier. */
         /* In the previous versions, MSBs of the seed affect   */
@@ -135,25 +135,25 @@ uint32_t CmRandomNumberGenerator::genrand_int32(void) {
     static uint32_t mag01[2] = {0x0UL, MATRIX_A};
     /* mag01[x] = x * MATRIX_A  for x=0,1 */
 
-    if (mti >= __N__) {
-        /* generate __N__ words at one time */
+    if (mti >= N___) {
+        /* generate N___ words at one time */
         int kk;
 
-        if (mti == __N__ + 1) /* if init_genrand() has not been called, */
+        if (mti == N___ + 1) /* if init_genrand() has not been called, */
         init_genrand(5489UL); /* a default initial seed is used */
 
-        for (kk = 0; kk < __N__ - __M__; kk++) {
+        for (kk = 0; kk < N___ - M___; kk++) {
             y = (mt[kk] & UPPER_MASK) | (mt[kk + 1] & LOWER_MASK);
-            mt[kk] = mt[kk + __M__] ^ (y >> 1) ^ mag01[y & 0x1UL];
+            mt[kk] = mt[kk + M___] ^ (y >> 1) ^ mag01[y & 0x1UL];
         }
 
-        for (; kk < __N__ - 1; kk++) {
+        for (; kk < N___ - 1; kk++) {
             y = (mt[kk] & UPPER_MASK) | (mt[kk + 1] & LOWER_MASK);
-            mt[kk] = mt[kk + (__M__ - __N__)] ^ (y >> 1) ^ mag01[y & 0x1UL];
+            mt[kk] = mt[kk + (M___ - N___)] ^ (y >> 1) ^ mag01[y & 0x1UL];
         }
 
-        y = (mt[__N__ - 1] & UPPER_MASK) | (mt[0] & LOWER_MASK);
-        mt[__N__ - 1] = mt[__M__ - 1] ^ (y >> 1) ^ mag01[y & 0x1UL];
+        y = (mt[N___ - 1] & UPPER_MASK) | (mt[0] & LOWER_MASK);
+        mt[N___ - 1] = mt[M___ - 1] ^ (y >> 1) ^ mag01[y & 0x1UL];
 
         mti = 0;
     }

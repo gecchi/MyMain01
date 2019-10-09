@@ -88,8 +88,7 @@ void VvvWorld::processBehavior() {
         VvvCamera* const pCam = pGOD->getSpacetime()->getCamera();
         pCamWorker_->slideMvCamTo(0,0,DX_C(pCam->getZOrigin()),60);
         pCamWorker_->slideMvVpTo(0,0,0,60);
-       // pCam->auto_up_wait_frames = 65;
-
+        pCamWorker_->slideMvUpVecTo(0, PX_C(1), 0, 60);
     } else if (GgafDx::Input::isPushedDownKey(DIK_F2)) {
         //ターゲット変更＋カメラ向く
         if (listActorInfo_.length() > 0) {
@@ -166,11 +165,21 @@ void VvvWorld::processBehavior() {
                 pA->setZWriteEnable(true);  //自身のZバッファを書き込みする
             }
         }
+    } else if (GgafDx::Input::isPushedDownKey(DIK_M)) {
+        GgafDx::FigureActor* pA = listActorInfo_.getCurrent()->pActor_;
+        if (pA->instanceOf(Obj_GgafDx_MeshActor)) {
+            //ハーフランバード切替
+            GgafDx::MeshActor* pMeshActor = dynamic_cast<GgafDx::MeshActor*>(pA);
+            if (pMeshActor->_lambert_flg > 0) {
+                pMeshActor->_lambert_flg = -1.0f;
+            } else {
+                pMeshActor->_lambert_flg = 1.0f;
+            }
+        }
     }
 
     if (listActorInfo_.length() > 0) {
         GgafDx::FigureActor* pActor =  listActorInfo_.getCurrent()->pActor_;
-        _TRACE_("pActor->isOutOfView()="<<pActor->isOutOfView());
         int d = 1;
         if (GgafDx::Input::isPressedKey(DIK_SPACE) || GgafDx::Input::isPressedKey(DIK_LCONTROL) || GgafDx::Input::isPressedKey(DIK_RCONTROL)) {
             d = 10;
@@ -420,7 +429,9 @@ void VvvWorld::processBehavior() {
                 pActor->resetMaterialColor();
             }
 
-        } else {       //平行移動
+        } else {
+
+            //平行移動
             if (GgafDx::Input::isPressedKey(DIK_PGUP)) {
                 pActor->_z += PX_C(d); //奥
             }

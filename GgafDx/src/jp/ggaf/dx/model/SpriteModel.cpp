@@ -158,8 +158,6 @@ void SpriteModel::restore() {
     //x,y の ÷2 とは、モデル中心をローカル座標の原点中心としたいため
 //    float tex_width  = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
 //    float tex_height = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
-    double du = 0.0;
-    double dv = 0.0;
     //左上
     paVertex[0].x = PX_DX(xdata.width)  / -2.0;
     paVertex[0].y = PX_DX(xdata.height) /  2.0;
@@ -168,8 +166,8 @@ void SpriteModel::restore() {
     paVertex[0].ny = 0.0f;
     paVertex[0].nz = -1.0f;
     paVertex[0].color = D3DCOLOR_ARGB(255,255,255,255);
-    paVertex[0].tu = (float)du;
-    paVertex[0].tv = (float)dv;
+    paVertex[0].tu = 0.0f;
+    paVertex[0].tv = 0.0f;
     //右上
     paVertex[1].x = PX_DX(xdata.width)  /  2.0;
     paVertex[1].y = PX_DX(xdata.height) /  2.0;
@@ -178,8 +176,8 @@ void SpriteModel::restore() {
     paVertex[1].ny = 0.0f;
     paVertex[1].nz = -1.0f;
     paVertex[1].color = D3DCOLOR_ARGB(255,255,255,255);
-    paVertex[1].tu = (float)((1.0 / xdata.col_texture_split) - du);
-    paVertex[1].tv = (float)dv;
+    paVertex[1].tu = (float)(1.0 / xdata.col_texture_split);
+    paVertex[1].tv = 0.0f;
     //左下
     paVertex[2].x = PX_DX(xdata.width)  / -2.0;
     paVertex[2].y = PX_DX(xdata.height) / -2.0;
@@ -188,9 +186,8 @@ void SpriteModel::restore() {
     paVertex[2].ny = 0.0f;
     paVertex[2].nz = -1.0f;
     paVertex[2].color = D3DCOLOR_ARGB(255,255,255,255);
-    paVertex[2].tu = (float)du;
-    paVertex[2].tv = (float)((1.0 / xdata.row_texture_split) - dv);
-
+    paVertex[2].tu = 0.0f;
+    paVertex[2].tv = (float)(1.0 / xdata.row_texture_split);
     //右下
     paVertex[3].x = PX_DX(xdata.width)  /  2.0;
     paVertex[3].y = PX_DX(xdata.height) / -2.0;
@@ -199,8 +196,8 @@ void SpriteModel::restore() {
     paVertex[3].ny = 0.0f;
     paVertex[3].nz = -1.0f;
     paVertex[3].color = D3DCOLOR_ARGB(255,255,255,255);
-    paVertex[3].tu = (float)((1.0 / xdata.col_texture_split) - du);
-    paVertex[3].tv = (float)((1.0 / xdata.row_texture_split) - dv);
+    paVertex[3].tu = (float)(1.0 / xdata.col_texture_split);
+    paVertex[3].tv = (float)(1.0 / xdata.row_texture_split);
 
     //距離
     FLOAT model_bounding_sphere_radius = (FLOAT)(sqrt(paVertex[0].x * paVertex[0].x +

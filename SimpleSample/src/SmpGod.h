@@ -3,8 +3,6 @@
 #include "SimpleSample.h"
 #include "jp/ggaf/lib/DefaultGod.h"
 
-#include "jp/ggaf/lib/util/VirtualButton.h"
-
 #undef pGOD
 #define pGOD ((SimpleSample::SmpGod*)GgafCore::God::ask())
 
@@ -21,9 +19,6 @@ namespace SimpleSample {
 class SmpGod : public GgafLib::DefaultGod {
 
 public:
-    /** 仮想ボタンオブジェクト */
-    GgafLib::VirtualButton vb_;
-
     /**
      * コンストラクタ .
      */
@@ -35,14 +30,6 @@ public:
      * @return 生成した「この世」
      */
     GgafCore::Spacetime* createSpacetime() override;
-
-    /**
-     * 仮想ボタンオブジェクトを返す .
-     * @return 仮想ボタン
-     */
-    GgafLib::VirtualButton* getVB() {
-        return &vb_;
-    }
 
     virtual ~SmpGod();
 };
