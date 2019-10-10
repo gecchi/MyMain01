@@ -2,20 +2,20 @@
 /**
  * GgafLib::DefaultMeshSetActor 用シェーダー .
  * 静的モデルN個一気にを描画するシェーダー。
- * 頂点バッファに、同じモデルキャラの頂点情報が、複数個分繰り返し詰め込んであり、
- * ステートやレジスタの更新を行わず、ワンパスのでN個のブジェクトを描画。高速化を狙う。
- * 但し、１オブジェクトにつきマテリアル設定(Xファイルのマテリアルインデックス)は１つだけという制限がある。
- * 頂点バッファフォーマットは、以下のような GgafLib::MeshSetModel に定義されているものを前提としています。
+ * 頂点バッファに、モデルキャラの頂点情報が、複数個分繰り返し詰め込んであり、
+ * ステートやレジスタの更新を行わず、ワンパスのでN個のブジェクトを描画する。
+ * また、１オブジェクトにつきマテリアル設定(Xファイルのマテリアルインデックス)は１つだけという制限がある。
+ * 頂点バッファフォーマットは、以下のような GgafLib::MeshSetModel に定義されているものを前提とする。
  *
+ * FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_PSIZE | D3DFVF_DIFFUSE | D3DFVF_TEX1);
  * {
  *     float x, y, z;      // 座標(ローカル座標系)
  *     float nx, ny, nz;   // 法線ベクトル(ローカル座標系)
  *     float index;        // psizeではなくてはなくて頂点番号として使用。シェーダー側で何セット目かを判断するために使用。
  *     DWORD color;        // 頂点の色（オブジェクトのマテリアルカラーとして使用）
  *     float tu, tv;       // テクスチャ座標
- * } のセットが N 個モデル分繰り返し渡ってくる
+ * }
  *
- * DWORD MeshSetModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_PSIZE | D3DFVF_DIFFUSE | D3DFVF_TEX1  );
  *
  * @author Masatoshi Tsuge
  * @since 2009/03/06
@@ -165,9 +165,12 @@ OUT_VS VS_DefaultMeshSet(
     //法線を World 変換して正規化
     out_vs.vecNormal_World = normalize(mul(prm_vecNormal_Local, matWorld));
     //法線と、拡散光方向の内積からライト入射角を求め、面に対する拡散光の減衰率を求める。
-    float power = max(dot(out_vs.vecNormal_World, -g_vecLightFrom_World ), 0);
+    float refl_power = dot(out_vs.vecNormal_World, -g_vecLightFrom_World );
+    //内積の負の値も使用して、ハーフ・ランバート で拡散光の回析を行う
+    refl_power = refl_power * 0.5f + 0.5f;
+    refl_power *= refl_power;
     //拡散光色に減衰率を乗じ、環境光色を加算し、全体をマテリアル色を掛ける。
-    out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*power)) * colMaterialDiffuse;
+    out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*refl_power)) * colMaterialDiffuse;
     //「頂点→カメラ視点」方向ベクトル
     out_vs.vecEye_World = normalize(g_posCam_World.xyz - posModel_World.xyz);
     //αはマテリアルαを最優先とする（上書きする）
@@ -196,7 +199,7 @@ float4 PS_DefaultMeshSet(
         //ハーフベクトルと法線の内積よりスペキュラ具合を計算
         s = pow( max(0.0f, dot(prm_vecNormal_World, vecHarf)), g_specular ) * g_specular_power;
     }
-    const float4 colTex = tex2D( MyTextureSampler, prm_uv);
+    const float4 colTex = tex2D(MyTextureSampler, prm_uv);
     //テクスチャ色に
     float4 colOut = colTex * prm_color + s;
 

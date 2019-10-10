@@ -74,9 +74,12 @@ OUT_VS VS_DefaultMorphMesh0(
     //法線を World 変換して正規化
     out_vs.vecNormal_World = normalize(mul(prm_vecNormalPrimary_Local, g_matWorld));
     //法線と、拡散光方向の内積からライト入射角を求め、面に対する拡散光の減衰率を求める。
-    const float power = max(dot(out_vs.vecNormal_World, -g_vecLightFrom_World ), 0);
+    float refl_power = dot(out_vs.vecNormal_World, -g_vecLightFrom_World);
+    //内積の負の値も使用して、ハーフ・ランバート で拡散光の回析を行う
+    refl_power = refl_power * 0.5f + 0.5f;
+    refl_power *= refl_power;
     //拡散光色に減衰率を乗じ、環境光色を加算し、全体をマテリアル色を掛ける。
-    out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*power)) * g_colMaterialDiffuse;
+    out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*refl_power)) * g_colMaterialDiffuse;
     //「頂点→カメラ視点」方向ベクトル
     out_vs.vecEye_World = normalize(g_posCam_World.xyz - posModel_World.xyz);
     //αはマテリアルαを最優先とする（上書きする）

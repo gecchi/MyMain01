@@ -58,7 +58,7 @@ struct OUT_VS_BM {
     float2 uv               : TEXCOORD0;   //頂点テクスチャUV
     float4 color            : COLOR0;      //頂点カラー
     float3 vecNormal_World  : TEXCOORD1;   //頂点の法線ベクトル(ワールド座標系)
-    float3 vecEye_World    : TEXCOORD2;   //頂点の視線(頂点->視点)ベクトル(ワールド座標系)    
+    float3 vecEye_World    : TEXCOORD2;   //頂点の視線(頂点->視点)ベクトル(ワールド座標系)
     //float3 vecEye_Tangent   : TEXCOORD2;   //頂点の視線(頂点->視点)ベクトル(ローカルの接空間座標系)
     float4 vecLight_Tangent : TEXCOORD3;   //頂点のライトベクトル(ローカルの接空間座標系)
     float4 vecHarf_Tangent  : TEXCOORD4;   //頂点のハーフベクトル(ローカルの接空間座標系)
@@ -91,9 +91,12 @@ OUT_VS VS_CubeMapMesh(
     //法線を World 変換して正規化
     out_vs.vecNormal_World = normalize(mul(prm_vecNormal_Local, g_matWorld));
     //法線と、拡散光方向の内積からライト入射角を求め、面に対する拡散光の減衰率を求める。
-    const float power = max(dot(out_vs.vecNormal_World, -g_vecLightFrom_World ), 0);
+    float refl_power = dot(out_vs.vecNormal_World, -g_vecLightFrom_World);
+    //内積の負の値も使用して、ハーフ・ランバート で拡散光の回析を行う
+    refl_power = refl_power * 0.5f + 0.5f;
+    refl_power *= refl_power;
     //拡散光色に減衰率を乗じ、環境光色を加算し、全体をマテリアル色を掛ける。
-    out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*power)) * g_colMaterialDiffuse;
+    out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*refl_power)) * g_colMaterialDiffuse;
     //「頂点→カメラ視点」方向ベクトル
     out_vs.vecEye_World = normalize(g_posCam_World.xyz - posModel_World.xyz);
     //αはマテリアルαを最優先とする（上書きする）
@@ -234,9 +237,12 @@ float4 PS_BumpMapping(
     //法線(法線マップの法線、つまり接空間座標系の法線になる）と、
     //拡散光方向ベクトル(頂点シェーダーで接空間座標系に予め変換済み) の内積から
     //ライト入射角を求め、面に対する拡散光の減衰率(power)を求める
-    const float power = max(dot(vecNormal_Tangent, normalize(prm_vecLight_Tangent) ), 0);
+    float refl_power = dot(vecNormal_Tangent, normalize(prm_vecLight_Tangent) );
+    //内積の負の値も使用して、ハーフ・ランバート で拡散光の回析を行う
+    refl_power = refl_power * 0.5f + 0.5f;
+    refl_power *= refl_power;
 
-    const float4 colTexCube = texCUBE(CubeMapTextureSampler, reflect(-prm_vecEye_World, prm_vecNormal_World)); //法線マップの凸凹は未考慮。   
+    const float4 colTexCube = texCUBE(CubeMapTextureSampler, reflect(-prm_vecEye_World, prm_vecNormal_World)); //法線マップの凸凹は未考慮。
     const float4 colTex2D   = tex2D( MyTextureSampler, prm_uv);  //法線マップの凸凹は未考慮。
 
     float s = 0.0f; //スペキュラ成分
@@ -247,7 +253,7 @@ float4 PS_BumpMapping(
     }
 
     //色計算
-    float4 colOut = colTex2D * ((g_colLightAmbient + ( g_colLightDiffuse * power)) * prm_color ) + (colTexCube*g_reflectance) +s; //prm_color == g_colMaterialDiffuse
+    float4 colOut = colTex2D * ((g_colLightAmbient + ( g_colLightDiffuse * refl_power)) * prm_color ) + (colTexCube*g_reflectance) +s; //prm_color == g_colMaterialDiffuse
     //TODO:↑色計算もうちょっと頂点シェーダで処理できないものか・・・
     //float4 colOut = (colTex2D * prm_color) + (colTexCube*g_reflectance) + s;
 

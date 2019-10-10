@@ -1,4 +1,4 @@
-#include "GgafEffectConst.fxh" 
+#include "GgafEffectConst.fxh"
 
 ////////////////////////////////////////////////////////////////////////////////
 // CubeMapMassWallActor用シェーダー
@@ -30,19 +30,19 @@ float g_fh_POS_XY;
 
 
 float g_zf;
-float g_tex_blink_power;   
+float g_tex_blink_power;
 float g_tex_blink_threshold;
 float g_alpha_master;
 // ライトの方向
 float3 g_vecLightFrom_World;
 // Ambienライト色（入射色）
 float4 g_colLightAmbient;
-// Diffuseライト色（入射色）  
-float4 g_colLightDiffuse;  
+// Diffuseライト色（入射色）
+float4 g_colLightDiffuse;
 //View変換行列
-float4x4 g_matView; 
-//射影変換行列  
-float4x4 g_matProj;  
+float4x4 g_matView;
+//射影変換行列
+float4x4 g_matProj;
 
 #define POS_PRISM_XY_NN   17
 #define POS_PRISM_XY_NP   18
@@ -90,8 +90,8 @@ sampler BumpMapTextureSampler : register(s2);
 struct OUT_VS
 {
     float4 posModel_Proj   : POSITION;
-	float2 uv              : TEXCOORD0;
-	float4 color           : COLOR0;
+    float2 uv              : TEXCOORD0;
+    float4 color           : COLOR0;
     float3 vecNormal_World : TEXCOORD1;   //頂点の法線ベクトル(ワールド座標系)
     float3 vecEye_World    : TEXCOORD2;   //頂点の視線(頂点->視点)ベクトル(ワールド座標系)
 };
@@ -112,9 +112,9 @@ OUT_VS VS_CubeMapMassWall(
       float4 prm_color            : TEXCOORD5,
       float2 prm_info             : TEXCOORD6
 ) {
-	OUT_VS out_vs = (OUT_VS)0;
+    OUT_VS out_vs = (OUT_VS)0;
 
-	int draw_face = (int)(prm_info.x);
+    int draw_face = (int)(prm_info.x);
     //UVによりどの面の頂点か判断し、
     //描画不要な面の頂点の場合は何とかする（ジオメトリシェーダー使いたい；）
 
@@ -124,277 +124,278 @@ OUT_VS VS_CubeMapMassWall(
     //下図はBOXの展開した状態の図
     //
     //                   ^y
-    //              z┌  | 
-    //                 \ | 
-    //                  c| 
+    //              z┌  |
+    //                 \ |
+    //                  c|
     // ----自機＞--- a b d f ---- -> x
     //                   |e
     //                   | \
-    //                   |  \   
-	//  u v
-	// (0,0)      0.25                     →u
-	//       +------+------+------+------+
-	//       |      |        Z+          |
-	//       |      |       面c          |
-	//  0.25 +  X+  +--------------------+
-	//       | 面f  |        Y-          |
-	//       |      |       面d          |
-	//   0.5 +------+--------------------+
-	//       |      |        Y+          |
-	//       |      |       面a          |
-	//  0.75 +  X-  +--------------------+
-	//       | 面b  |        Z-          |
-	//       |      |       面e          |
-	//       +------+------+------+------+
-	//    ↓                                (1,1)
-	//    v
+    //                   |  \
+    //  u v
+    // (0,0)      0.25                     →u
+    //       +------+------+------+------+
+    //       |      |        Z+          |
+    //       |      |       面c          |
+    //  0.25 +  X+  +--------------------+
+    //       | 面f  |        Y-          |
+    //       |      |       面d          |
+    //   0.5 +------+--------------------+
+    //       |      |        Y+          |
+    //       |      |       面a          |
+    //  0.75 +  X-  +--------------------+
+    //       | 面b  |        Z-          |
+    //       |      |       面e          |
+    //       +------+------+------+------+
+    //    ↓                                (1,1)
+    //    v
 
     //                          00abcdef
-  	if (draw_face >= 32) {  //&b00100000
+      if (draw_face >= 32) {  //&b00100000
         draw_face -= 32;
     } else {
         //上面(面a)が描画不要の場合
-        if (0.25 < prm_uv.x && 
-            0.5  < prm_uv.y && prm_uv.y < 0.75 ) 
-		{
+        if (0.25 < prm_uv.x &&
+            0.5  < prm_uv.y && prm_uv.y < 0.75 )
+        {
             return out_vs;
         }
     }
 
     //                          00abcdef
-  	if (draw_face >= 16) {  //&b00010000
+      if (draw_face >= 16) {  //&b00010000
         draw_face -= 16;
     } else {
         //正面(面b)が描画不要の場合
         if (                   prm_uv.x < 0.25 &&
-            0.5  < prm_uv.y                       ) 
-		{
+            0.5  < prm_uv.y                       )
+        {
             return out_vs;
         }
     }
     //                          00abcdef
-  	if (draw_face >= 8) {   //&b00001000
+      if (draw_face >= 8) {   //&b00001000
         draw_face -= 8;
     } else {
         //左側面(面c)が描画不要の場合
-        if (0.25 < prm_uv.x && 
-                               prm_uv.y < 0.25 ) 
-		{
+        if (0.25 < prm_uv.x &&
+                               prm_uv.y < 0.25 )
+        {
             return out_vs;
         }
     }
     //                          00abcdef
-   	if (draw_face >= 4) {   //&b00000100
+       if (draw_face >= 4) {   //&b00000100
         draw_face -= 4;
     } else {
         //底面(面d)が描画不要の場合
         if (0.25 < prm_uv.x &&
-            0.25 < prm_uv.y && prm_uv.y < 0.5 ) 
-		{
+            0.25 < prm_uv.y && prm_uv.y < 0.5 )
+        {
             return out_vs;
         }
     }
     //                          00abcdef
-  	if (draw_face >= 2) {   //&b00000010
+      if (draw_face >= 2) {   //&b00000010
         draw_face -= 2;
     } else {
         //右側面(面e)が描画不要の場合
         if (0.25 < prm_uv.x &&
-            0.75 < prm_uv.y                    ) 
-		{
+            0.75 < prm_uv.y                    )
+        {
             return out_vs;
-        } 
+        }
     }
     //                          00abcdef
-  	if (draw_face >= 1) {   //&b00000001
+      if (draw_face >= 1) {   //&b00000001
        // draw_face -= 1;
     } else {
         //向こう正面(面f)が描画不要の場合
         if (                    prm_uv.x < 0.25 &&
-                                prm_uv.y < 0.5    ) 
-		{
+                                prm_uv.y < 0.5    )
+        {
             return out_vs;
         }
     }
 
-	int pos_info = (int)(prm_info.y);
+    int pos_info = (int)(prm_info.y);
 
-	if (pos_info == 0) {
+    if (pos_info == 0) {
         //BOX
-	} else if (POS_PRISM_XY_NN <= pos_info && pos_info <= POS_PRISM_ZX_PP) {
-		//プリズムの場合
+    } else if (POS_PRISM_XY_NN <= pos_info && pos_info <= POS_PRISM_ZX_PP) {
+        //プリズムの場合
 
-		if (pos_info >= POS_PRISM_ZX_xx) {   
-	        //BOXの１面を無理やり閉じてプリズム型に変形させる
-			//＋X -X の面がプリズムの斜め面にならないようにする
-			// ZX は XZ平面と見る
-			pos_info -= POS_PRISM_ZX_xx;
-			if (pos_info == POS_PRISM_xx_PP) {
-				prm_posModel_Local.z = (prm_posModel_Local.z * ((prm_posModel_Local.x+g_fh_POS_ZX)/g_wall_dep))       + ((g_fh_POS_ZX-prm_posModel_Local.x)*g_ah_POS_ZX);
-			} else if (pos_info == POS_PRISM_xx_PN) {
-				prm_posModel_Local.z = (prm_posModel_Local.z * (1.0-((prm_posModel_Local.x+g_fh_POS_ZX)/g_wall_dep))) + ((g_fh_POS_ZX+prm_posModel_Local.x)*g_ah_POS_ZX);
-			} else if (pos_info == POS_PRISM_xx_NP) { 
-				prm_posModel_Local.z = (prm_posModel_Local.z * ((prm_posModel_Local.x+g_fh_POS_ZX)/g_wall_dep))       - ((g_fh_POS_ZX-prm_posModel_Local.x)*g_ah_POS_ZX);
-			} else { //if (pos_info == POS_PRISM_xx_NN) {
-				prm_posModel_Local.z = (prm_posModel_Local.z * (1.0-((prm_posModel_Local.x+g_fh_POS_ZX)/g_wall_dep))) - ((g_fh_POS_ZX+prm_posModel_Local.x)*g_ah_POS_ZX);
-			}
-		} else if (pos_info >= POS_PRISM_YZ_xx) {   
-			//＋Z -Z の面がプリズムの斜め面にならないようにする
-			pos_info -= POS_PRISM_YZ_xx;
-			if (pos_info == POS_PRISM_xx_PP) {
-				prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.z+g_fh_POS_YZ)/g_wall_width))       + ((g_fh_POS_YZ-prm_posModel_Local.z)*g_ah_POS_YZ);
-			} else if (pos_info == POS_PRISM_xx_PN) {
-				prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.z+g_fh_POS_YZ)/g_wall_width))) + ((g_fh_POS_YZ+prm_posModel_Local.z)*g_ah_POS_YZ);
-			} else if (pos_info == POS_PRISM_xx_NP) { 
-				prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.z+g_fh_POS_YZ)/g_wall_width))       - ((g_fh_POS_YZ-prm_posModel_Local.z)*g_ah_POS_YZ);
-			} else { //if (pos_info == POS_PRISM_xx_NN) {
-				prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.z+g_fh_POS_YZ)/g_wall_width))) - ((g_fh_POS_YZ+prm_posModel_Local.z)*g_ah_POS_YZ);
-			}
-		} else { //if (pos_info >= POS_PRISM_XY_xx) {   
-			pos_info -= POS_PRISM_XY_xx;
-			//＋X -X の面がプリズムの斜め面にならないようにする
-			if (pos_info == POS_PRISM_xx_PP) {
-				prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.x+g_fh_POS_XY)/g_wall_dep))       + ((g_fh_POS_XY-prm_posModel_Local.x)*g_ah_POS_XY);
-			} else if (pos_info == POS_PRISM_xx_PN) {
-				prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.x+g_fh_POS_XY)/g_wall_dep))       - ((g_fh_POS_XY-prm_posModel_Local.x)*g_ah_POS_XY);
-			} else if (pos_info == POS_PRISM_xx_NP) { 
-				prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.x+g_fh_POS_XY)/g_wall_dep))) + ((g_fh_POS_XY+prm_posModel_Local.x)*g_ah_POS_XY);
-			} else { //if (pos_info == POS_PRISM_xx_NN) {
-				prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.x+g_fh_POS_XY)/g_wall_dep))) - ((g_fh_POS_XY+prm_posModel_Local.x)*g_ah_POS_XY);
-			}
-		} 
-		//メモ  □→⊿
-		// g_wall_dep = 20      幅 
-		// fh = 20 / 2 = 10     幅(20)の半分
-		// ah = 1.0 * 0.5 = 0.5 傾き(1)の半分
-		// prm_posModel_Local.x = -10 ～ 10
-		
-		//(prm_posModel_Local.y * ((prm_posModel_Local.x+fh)/g_wall_dep))   ・・・ 先端をキュッとまとめる計算
-		//
-		// 		//                 y
-		//                ^
-		//                |
-		//                |
-		//                |
-		//         +------+------+-
-		//         |      |      |
-		//         |      |      |
-		//   ------+------+------+---->x
-		//      -10|     0|      |10
-		//         |      |      |
-		//         +------+------+-
-		//                |
-		//                |
-		//                |
-        //  
-		//         <------------->
-		//  r=    0.0             1.0
-		//  r = (prm_posModel_Local.x+fh)/g_wall_dep)
-		//	
-		// その後
-		//  - ((fh-prm_posModel_Local.x)*ah);   ・・・ 先端を水平にする計算
+        if (pos_info >= POS_PRISM_ZX_xx) {
+            //BOXの１面を無理やり閉じてプリズム型に変形させる
+            //＋X -X の面がプリズムの斜め面にならないようにする
+            // ZX は XZ平面と見る
+            pos_info -= POS_PRISM_ZX_xx;
+            if (pos_info == POS_PRISM_xx_PP) {
+                prm_posModel_Local.z = (prm_posModel_Local.z * ((prm_posModel_Local.x+g_fh_POS_ZX)/g_wall_dep))       + ((g_fh_POS_ZX-prm_posModel_Local.x)*g_ah_POS_ZX);
+            } else if (pos_info == POS_PRISM_xx_PN) {
+                prm_posModel_Local.z = (prm_posModel_Local.z * (1.0-((prm_posModel_Local.x+g_fh_POS_ZX)/g_wall_dep))) + ((g_fh_POS_ZX+prm_posModel_Local.x)*g_ah_POS_ZX);
+            } else if (pos_info == POS_PRISM_xx_NP) {
+                prm_posModel_Local.z = (prm_posModel_Local.z * ((prm_posModel_Local.x+g_fh_POS_ZX)/g_wall_dep))       - ((g_fh_POS_ZX-prm_posModel_Local.x)*g_ah_POS_ZX);
+            } else { //if (pos_info == POS_PRISM_xx_NN) {
+                prm_posModel_Local.z = (prm_posModel_Local.z * (1.0-((prm_posModel_Local.x+g_fh_POS_ZX)/g_wall_dep))) - ((g_fh_POS_ZX+prm_posModel_Local.x)*g_ah_POS_ZX);
+            }
+        } else if (pos_info >= POS_PRISM_YZ_xx) {
+            //＋Z -Z の面がプリズムの斜め面にならないようにする
+            pos_info -= POS_PRISM_YZ_xx;
+            if (pos_info == POS_PRISM_xx_PP) {
+                prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.z+g_fh_POS_YZ)/g_wall_width))       + ((g_fh_POS_YZ-prm_posModel_Local.z)*g_ah_POS_YZ);
+            } else if (pos_info == POS_PRISM_xx_PN) {
+                prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.z+g_fh_POS_YZ)/g_wall_width))) + ((g_fh_POS_YZ+prm_posModel_Local.z)*g_ah_POS_YZ);
+            } else if (pos_info == POS_PRISM_xx_NP) {
+                prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.z+g_fh_POS_YZ)/g_wall_width))       - ((g_fh_POS_YZ-prm_posModel_Local.z)*g_ah_POS_YZ);
+            } else { //if (pos_info == POS_PRISM_xx_NN) {
+                prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.z+g_fh_POS_YZ)/g_wall_width))) - ((g_fh_POS_YZ+prm_posModel_Local.z)*g_ah_POS_YZ);
+            }
+        } else { //if (pos_info >= POS_PRISM_XY_xx) {
+            pos_info -= POS_PRISM_XY_xx;
+            //＋X -X の面がプリズムの斜め面にならないようにする
+            if (pos_info == POS_PRISM_xx_PP) {
+                prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.x+g_fh_POS_XY)/g_wall_dep))       + ((g_fh_POS_XY-prm_posModel_Local.x)*g_ah_POS_XY);
+            } else if (pos_info == POS_PRISM_xx_PN) {
+                prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.x+g_fh_POS_XY)/g_wall_dep))       - ((g_fh_POS_XY-prm_posModel_Local.x)*g_ah_POS_XY);
+            } else if (pos_info == POS_PRISM_xx_NP) {
+                prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.x+g_fh_POS_XY)/g_wall_dep))) + ((g_fh_POS_XY+prm_posModel_Local.x)*g_ah_POS_XY);
+            } else { //if (pos_info == POS_PRISM_xx_NN) {
+                prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.x+g_fh_POS_XY)/g_wall_dep))) - ((g_fh_POS_XY+prm_posModel_Local.x)*g_ah_POS_XY);
+            }
+        }
+        //メモ  □→⊿
+        // g_wall_dep = 20      幅
+        // fh = 20 / 2 = 10     幅(20)の半分
+        // ah = 1.0 * 0.5 = 0.5 傾き(1)の半分
+        // prm_posModel_Local.x = -10 ～ 10
 
-	} else {
-		//ピラミッドの場合 
-		pos_info -= POS_PYRAMID_NNN;
-		if (pos_info >= POS_PYRAMID_Pxx) {
-			// Pxx
-			pos_info -= POS_PYRAMID_Pxx;
-			if (pos_info >= POS_PYRAMID_xPx) {
-				// PPx
-				pos_info -= POS_PYRAMID_xPx;
-				if (pos_info >= POS_PYRAMID_xxP) {
-					// PPP
-					prm_posModel_Local.z = (prm_posModel_Local.z * ((prm_posModel_Local.x+g_fh_POS_ZX)/g_wall_dep))       + ((g_fh_POS_ZX-prm_posModel_Local.x)*g_ah_POS_ZX);
-					prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.z+g_fh_POS_YZ)/g_wall_width))       + ((g_fh_POS_YZ-prm_posModel_Local.z)*g_ah_POS_YZ);
-					prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.x+g_fh_POS_XY)/g_wall_dep))       + ((g_fh_POS_XY-prm_posModel_Local.x)*g_ah_POS_XY);
-				} else {
-					// PPN
-					prm_posModel_Local.z = (prm_posModel_Local.z * ((prm_posModel_Local.x+g_fh_POS_ZX)/g_wall_dep))       - ((g_fh_POS_ZX-prm_posModel_Local.x)*g_ah_POS_ZX);
-					prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.z+g_fh_POS_YZ)/g_wall_width))) + ((g_fh_POS_YZ+prm_posModel_Local.z)*g_ah_POS_YZ);
-					prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.x+g_fh_POS_XY)/g_wall_dep))       + ((g_fh_POS_XY-prm_posModel_Local.x)*g_ah_POS_XY);
-				}
-			} else {
-				// PNx
-				if (pos_info >= POS_PYRAMID_xxP) {
-					// PNP
-					prm_posModel_Local.z = (prm_posModel_Local.z * ((prm_posModel_Local.x+g_fh_POS_ZX)/g_wall_dep))       + ((g_fh_POS_ZX-prm_posModel_Local.x)*g_ah_POS_ZX);
-					prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.z+g_fh_POS_YZ)/g_wall_width))       - ((g_fh_POS_YZ-prm_posModel_Local.z)*g_ah_POS_YZ);
-					prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.x+g_fh_POS_XY)/g_wall_dep))       - ((g_fh_POS_XY-prm_posModel_Local.x)*g_ah_POS_XY);
-				} else {
-					// PNN
-					prm_posModel_Local.z = (prm_posModel_Local.z * ((prm_posModel_Local.x+g_fh_POS_ZX)/g_wall_dep))       - ((g_fh_POS_ZX-prm_posModel_Local.x)*g_ah_POS_ZX);
-					prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.z+g_fh_POS_YZ)/g_wall_width))) - ((g_fh_POS_YZ+prm_posModel_Local.z)*g_ah_POS_YZ);
-					prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.x+g_fh_POS_XY)/g_wall_dep))       - ((g_fh_POS_XY-prm_posModel_Local.x)*g_ah_POS_XY);
-				}
-			}
-		} else {
-			// Nxx
-			pos_info -= POS_PYRAMID_Pxx;
-			if (pos_info >= POS_PYRAMID_xPx) {
-				// NPx
-				pos_info -= POS_PYRAMID_xPx;
-				if (pos_info >= POS_PYRAMID_xxP) {
-					// NPP
-					prm_posModel_Local.z = (prm_posModel_Local.z * (1.0-((prm_posModel_Local.x+g_fh_POS_ZX)/g_wall_dep))) + ((g_fh_POS_ZX+prm_posModel_Local.x)*g_ah_POS_ZX);
-					prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.z+g_fh_POS_YZ)/g_wall_width))       + ((g_fh_POS_YZ-prm_posModel_Local.z)*g_ah_POS_YZ);
-					prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.x+g_fh_POS_XY)/g_wall_dep))) + ((g_fh_POS_XY+prm_posModel_Local.x)*g_ah_POS_XY);
-					
-				} else {
-					// NPN
-					prm_posModel_Local.z = (prm_posModel_Local.z * (1.0-((prm_posModel_Local.x+g_fh_POS_ZX)/g_wall_dep))) - ((g_fh_POS_ZX+prm_posModel_Local.x)*g_ah_POS_ZX);
-					prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.z+g_fh_POS_YZ)/g_wall_width))) + ((g_fh_POS_YZ+prm_posModel_Local.z)*g_ah_POS_YZ);
-					prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.x+g_fh_POS_XY)/g_wall_dep))) + ((g_fh_POS_XY+prm_posModel_Local.x)*g_ah_POS_XY);
-				}
-			} else {
-				// NNx
-				if (pos_info >= POS_PYRAMID_xxP) {
-					// NNP
-					prm_posModel_Local.z = (prm_posModel_Local.z * (1.0-((prm_posModel_Local.x+g_fh_POS_ZX)/g_wall_dep))) + ((g_fh_POS_ZX+prm_posModel_Local.x)*g_ah_POS_ZX);
-					prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.z+g_fh_POS_YZ)/g_wall_width))       - ((g_fh_POS_YZ-prm_posModel_Local.z)*g_ah_POS_YZ);
-					prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.x+g_fh_POS_XY)/g_wall_dep))) - ((g_fh_POS_XY+prm_posModel_Local.x)*g_ah_POS_XY);
-				} else {
-					// NNN
-					prm_posModel_Local.z = (prm_posModel_Local.z * (1.0-((prm_posModel_Local.x+g_fh_POS_ZX)/g_wall_dep))) - ((g_fh_POS_ZX+prm_posModel_Local.x)*g_ah_POS_ZX);
-					prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.z+g_fh_POS_YZ)/g_wall_width))) - ((g_fh_POS_YZ+prm_posModel_Local.z)*g_ah_POS_YZ);
-					prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.x+g_fh_POS_XY)/g_wall_dep))) - ((g_fh_POS_XY+prm_posModel_Local.x)*g_ah_POS_XY);
-				}
-			}
-		}
-	}
+        //(prm_posModel_Local.y * ((prm_posModel_Local.x+fh)/g_wall_dep))   ・・・ 先端をキュッとまとめる計算
+        //
+        // 		//                 y
+        //                ^
+        //                |
+        //                |
+        //                |
+        //         +------+------+-
+        //         |      |      |
+        //         |      |      |
+        //   ------+------+------+---->x
+        //      -10|     0|      |10
+        //         |      |      |
+        //         +------+------+-
+        //                |
+        //                |
+        //                |
+        //
+        //         <------------->
+        //  r=    0.0             1.0
+        //  r = (prm_posModel_Local.x+fh)/g_wall_dep)
+        //
+        // その後
+        //  - ((fh-prm_posModel_Local.x)*ah);   ・・・ 先端を水平にする計算
+
+    } else {
+        //ピラミッドの場合
+        pos_info -= POS_PYRAMID_NNN;
+        if (pos_info >= POS_PYRAMID_Pxx) {
+            // Pxx
+            pos_info -= POS_PYRAMID_Pxx;
+            if (pos_info >= POS_PYRAMID_xPx) {
+                // PPx
+                pos_info -= POS_PYRAMID_xPx;
+                if (pos_info >= POS_PYRAMID_xxP) {
+                    // PPP
+                    prm_posModel_Local.z = (prm_posModel_Local.z * ((prm_posModel_Local.x+g_fh_POS_ZX)/g_wall_dep))       + ((g_fh_POS_ZX-prm_posModel_Local.x)*g_ah_POS_ZX);
+                    prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.z+g_fh_POS_YZ)/g_wall_width))       + ((g_fh_POS_YZ-prm_posModel_Local.z)*g_ah_POS_YZ);
+                    prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.x+g_fh_POS_XY)/g_wall_dep))       + ((g_fh_POS_XY-prm_posModel_Local.x)*g_ah_POS_XY);
+                } else {
+                    // PPN
+                    prm_posModel_Local.z = (prm_posModel_Local.z * ((prm_posModel_Local.x+g_fh_POS_ZX)/g_wall_dep))       - ((g_fh_POS_ZX-prm_posModel_Local.x)*g_ah_POS_ZX);
+                    prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.z+g_fh_POS_YZ)/g_wall_width))) + ((g_fh_POS_YZ+prm_posModel_Local.z)*g_ah_POS_YZ);
+                    prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.x+g_fh_POS_XY)/g_wall_dep))       + ((g_fh_POS_XY-prm_posModel_Local.x)*g_ah_POS_XY);
+                }
+            } else {
+                // PNx
+                if (pos_info >= POS_PYRAMID_xxP) {
+                    // PNP
+                    prm_posModel_Local.z = (prm_posModel_Local.z * ((prm_posModel_Local.x+g_fh_POS_ZX)/g_wall_dep))       + ((g_fh_POS_ZX-prm_posModel_Local.x)*g_ah_POS_ZX);
+                    prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.z+g_fh_POS_YZ)/g_wall_width))       - ((g_fh_POS_YZ-prm_posModel_Local.z)*g_ah_POS_YZ);
+                    prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.x+g_fh_POS_XY)/g_wall_dep))       - ((g_fh_POS_XY-prm_posModel_Local.x)*g_ah_POS_XY);
+                } else {
+                    // PNN
+                    prm_posModel_Local.z = (prm_posModel_Local.z * ((prm_posModel_Local.x+g_fh_POS_ZX)/g_wall_dep))       - ((g_fh_POS_ZX-prm_posModel_Local.x)*g_ah_POS_ZX);
+                    prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.z+g_fh_POS_YZ)/g_wall_width))) - ((g_fh_POS_YZ+prm_posModel_Local.z)*g_ah_POS_YZ);
+                    prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.x+g_fh_POS_XY)/g_wall_dep))       - ((g_fh_POS_XY-prm_posModel_Local.x)*g_ah_POS_XY);
+                }
+            }
+        } else {
+            // Nxx
+            pos_info -= POS_PYRAMID_Pxx;
+            if (pos_info >= POS_PYRAMID_xPx) {
+                // NPx
+                pos_info -= POS_PYRAMID_xPx;
+                if (pos_info >= POS_PYRAMID_xxP) {
+                    // NPP
+                    prm_posModel_Local.z = (prm_posModel_Local.z * (1.0-((prm_posModel_Local.x+g_fh_POS_ZX)/g_wall_dep))) + ((g_fh_POS_ZX+prm_posModel_Local.x)*g_ah_POS_ZX);
+                    prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.z+g_fh_POS_YZ)/g_wall_width))       + ((g_fh_POS_YZ-prm_posModel_Local.z)*g_ah_POS_YZ);
+                    prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.x+g_fh_POS_XY)/g_wall_dep))) + ((g_fh_POS_XY+prm_posModel_Local.x)*g_ah_POS_XY);
+
+                } else {
+                    // NPN
+                    prm_posModel_Local.z = (prm_posModel_Local.z * (1.0-((prm_posModel_Local.x+g_fh_POS_ZX)/g_wall_dep))) - ((g_fh_POS_ZX+prm_posModel_Local.x)*g_ah_POS_ZX);
+                    prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.z+g_fh_POS_YZ)/g_wall_width))) + ((g_fh_POS_YZ+prm_posModel_Local.z)*g_ah_POS_YZ);
+                    prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.x+g_fh_POS_XY)/g_wall_dep))) + ((g_fh_POS_XY+prm_posModel_Local.x)*g_ah_POS_XY);
+                }
+            } else {
+                // NNx
+                if (pos_info >= POS_PYRAMID_xxP) {
+                    // NNP
+                    prm_posModel_Local.z = (prm_posModel_Local.z * (1.0-((prm_posModel_Local.x+g_fh_POS_ZX)/g_wall_dep))) + ((g_fh_POS_ZX+prm_posModel_Local.x)*g_ah_POS_ZX);
+                    prm_posModel_Local.y = (prm_posModel_Local.y * ((prm_posModel_Local.z+g_fh_POS_YZ)/g_wall_width))       - ((g_fh_POS_YZ-prm_posModel_Local.z)*g_ah_POS_YZ);
+                    prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.x+g_fh_POS_XY)/g_wall_dep))) - ((g_fh_POS_XY+prm_posModel_Local.x)*g_ah_POS_XY);
+                } else {
+                    // NNN
+                    prm_posModel_Local.z = (prm_posModel_Local.z * (1.0-((prm_posModel_Local.x+g_fh_POS_ZX)/g_wall_dep))) - ((g_fh_POS_ZX+prm_posModel_Local.x)*g_ah_POS_ZX);
+                    prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.z+g_fh_POS_YZ)/g_wall_width))) - ((g_fh_POS_YZ+prm_posModel_Local.z)*g_ah_POS_YZ);
+                    prm_posModel_Local.y = (prm_posModel_Local.y * (1.0-((prm_posModel_Local.x+g_fh_POS_XY)/g_wall_dep))) - ((g_fh_POS_XY+prm_posModel_Local.x)*g_ah_POS_XY);
+                }
+            }
+        }
+    }
 
     float4x4 matWorld = {prm_world0, prm_world1, prm_world2, prm_world3};
-	//World*View*射影変換
+    //World*View*射影変換
     const float4 posModel_World = mul(prm_posModel_Local, matWorld); //World 変換
     const float4 posModel_View = mul(posModel_World, g_matView ); //World*View 変換
-	out_vs.posModel_Proj = mul(posModel_View, g_matProj); //World*View*射影変換
-	//UVはそのまま
-	out_vs.uv = prm_uv;
-	//法線を World 変換して正規化
-    out_vs.vecNormal_World = normalize(mul(prm_vecNormal_Local, matWorld)); 	
+    out_vs.posModel_Proj = mul(posModel_View, g_matProj); //World*View*射影変換
+    //UVはそのまま
+    out_vs.uv = prm_uv;
+    //法線を World 変換して正規化
+    out_vs.vecNormal_World = normalize(mul(prm_vecNormal_Local, matWorld));
     out_vs.vecNormal_World.x+=0.5; //値0.5は壁面にも無理やり光を当てるため
                    //ライトベクトルは XYZ=0.819232,-0.573462,0 固定。とりあえず。
     //法線と、Diffuseライト方向の内積を計算し、面に対するライト方向の入射角による減衰具合を求める。
-	float power = max(dot(out_vs.vecNormal_World, float3(-0.819232,0.573462,0)), 0);      
-// const float power = max(dot(out_vs.vecNormal_World, -g_vecLightFrom_World ), 0); //本来
-
-	out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*power)) * prm_color;
-	out_vs.color.a = prm_color.a;
+    float refl_power = dot(out_vs.vecNormal_World, float3(-0.819232,0.573462,0));
+    //内積の負の値も使用して、ハーフ・ランバート で拡散光の回析を行う
+    refl_power = refl_power * 0.5f + 0.5f;
+    refl_power *= refl_power;
+    out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*refl_power)) * prm_color;
+    out_vs.color.a = prm_color.a;
     //自機より手前はα
-	if (posModel_View.z < g_distance_AlphaTarget) {
-		//out_vs.color.a *= ((posModel_View.z  / (g_distance_AlphaTarget*2)) + 0.5f); //1.0～0.5
-		out_vs.color.a *= (posModel_View.z  / g_distance_AlphaTarget); //1.0～0.0
-	}
+    if (posModel_View.z < g_distance_AlphaTarget) {
+        //out_vs.color.a *= ((posModel_View.z  / (g_distance_AlphaTarget*2)) + 0.5f); //1.0～0.5
+        out_vs.color.a *= (posModel_View.z  / g_distance_AlphaTarget); //1.0～0.0
+    }
 
     //「頂点→カメラ視点」方向ベクトル
     out_vs.vecEye_World = normalize(g_posCam_World.xyz - posModel_World.xyz);
-    
-	return out_vs;
+
+    return out_vs;
 }
 
 //メッシュ標準ピクセルシェーダー（テクスチャ有り）
 float4 PS_CubeMapMassWall(
-	float2 prm_uv              : TEXCOORD0,
+    float2 prm_uv              : TEXCOORD0,
     float4 prm_color           : COLOR0,
     float3 prm_vecNormal_World : TEXCOORD1,
     float3 prm_vecEye_World    : TEXCOORD2   //頂点 -> 視点 ベクトル
@@ -423,62 +424,62 @@ float4 PS_CubeMapMassWall(
 
     colOut.a = prm_color.a * colTex2D.a * colTexCube.a * g_alpha_master;
 
-	return colOut;
+    return colOut;
 }
 
 
-float4 PS_Flush( 
-	float2 prm_uv	  : TEXCOORD0,
+float4 PS_Flush(
+    float2 prm_uv	  : TEXCOORD0,
     float4 prm_color    : COLOR0
 ) : COLOR  {
-	//テクスチャをサンプリングして色取得（原色を取得）
-	const float4 colTex = tex2D( MyTextureSampler, prm_uv);        
-	float4 colOut = colTex * prm_color * FLUSH_COLOR;
+    //テクスチャをサンプリングして色取得（原色を取得）
+    const float4 colTex = tex2D( MyTextureSampler, prm_uv);
+    float4 colOut = colTex * prm_color * FLUSH_COLOR;
     colOut.a *= g_alpha_master;
-	return colOut;
+    return colOut;
 }
 
 technique CubeMapMassWallTechnique
 {
-	pass P0 {
-		AlphaBlendEnable = true;
+    pass P0 {
+        AlphaBlendEnable = true;
         //SeparateAlphaBlendEnable = true;
-		SrcBlend  = SrcAlpha;
-		DestBlend = InvSrcAlpha;
+        SrcBlend  = SrcAlpha;
+        DestBlend = InvSrcAlpha;
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		//BlendOpAlpha = Add;       //default
-		VertexShader = compile VS_VERSION VS_CubeMapMassWall();
-		PixelShader  = compile PS_VERSION PS_CubeMapMassWall();
-	}
+        //BlendOpAlpha = Add;       //default
+        VertexShader = compile VS_VERSION VS_CubeMapMassWall();
+        PixelShader  = compile PS_VERSION PS_CubeMapMassWall();
+    }
 }
 
 technique DestBlendOne
 {
-	pass P0 {
-		AlphaBlendEnable = true;
+    pass P0 {
+        AlphaBlendEnable = true;
         //SeparateAlphaBlendEnable = true;
-		SrcBlend  = SrcAlpha;   
-		DestBlend = One; //加算合成
+        SrcBlend  = SrcAlpha;
+        DestBlend = One; //加算合成
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		//BlendOpAlpha = Add;       //default
-		VertexShader = compile VS_VERSION VS_CubeMapMassWall();
-		PixelShader  = compile PS_VERSION PS_CubeMapMassWall();
-	}
+        //BlendOpAlpha = Add;       //default
+        VertexShader = compile VS_VERSION VS_CubeMapMassWall();
+        PixelShader  = compile PS_VERSION PS_CubeMapMassWall();
+    }
 }
 
 technique Flush
 {
-	pass P0 {
-		AlphaBlendEnable = true;
+    pass P0 {
+        AlphaBlendEnable = true;
         //SeparateAlphaBlendEnable = true;
-		SrcBlend  = SrcAlpha;
-		DestBlend = InvSrcAlpha;
+        SrcBlend  = SrcAlpha;
+        DestBlend = InvSrcAlpha;
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		//BlendOpAlpha = Add;       //default
-		VertexShader = compile VS_VERSION VS_CubeMapMassWall();
-		PixelShader  = compile PS_VERSION PS_Flush();
-	}
+        //BlendOpAlpha = Add;       //default
+        VertexShader = compile VS_VERSION VS_CubeMapMassWall();
+        PixelShader  = compile PS_VERSION PS_Flush();
+    }
 }

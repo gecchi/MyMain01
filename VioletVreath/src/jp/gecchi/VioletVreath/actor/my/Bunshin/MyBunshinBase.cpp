@@ -19,7 +19,7 @@
 using namespace GgafLib;
 using namespace VioletVreath;
 
-const int MyBunshinBase::MAX_B__UNSHIN_NUM = 10;              //最大分身数
+const int MyBunshinBase::MAX_BUNSHIN_NUM = 10;              //最大分身数
 const frame MyBunshinBase::BUNSHIN_D = 16;                  //トレース時の分身と分身の間隔
 const angvelo MyBunshinBase::ANGVELO_TURN = D_ANG(2.7);     //分身の向きの角速度
 const angvelo MyBunshinBase::ANGVELO_EXPANSE = D_ANG(2.7);  //分身広がり回転角速度
@@ -49,7 +49,7 @@ MyBunshinBase::MyBunshinBase(const char* prm_name, unsigned int prm_no) :
 
     trace_offset_.set(0,0,0);
     no_ = prm_no; //１～
-    delay_r_ = RCNV(1,MyBunshinBase::MAX_B__UNSHIN_NUM,no_,0.4,1.0);
+    delay_r_ = RCNV(1,MyBunshinBase::MAX_BUNSHIN_NUM,no_,0.4,1.0);
     std::string bunshin_name = "Bunshin" + XTOS(no_);
     pBunshin_ = NEW MyBunshin(bunshin_name.c_str(), this);
     this->appendGroupChildAsFk(pBunshin_,
@@ -258,13 +258,13 @@ void MyBunshinBase::processBehavior() {
                 const float cosRy = ANG_COS(_ry);
                 const float sinRz = ANG_SIN(_rz);
                 const float cosRz = ANG_COS(_rz);
-                pKago->setVxyzMvVelo((cosRx*-sinRz*cosRy + sinRx*sinRy)  * MyBunshinBase::VELO_BUNSHIN_FREE_MV,
-                                        (cosRx*cosRz)                       * MyBunshinBase::VELO_BUNSHIN_FREE_MV,
-                                        (cosRx*-sinRz*-sinRy + sinRx*cosRy) * MyBunshinBase::VELO_BUNSHIN_FREE_MV );
+                pKago->setVxyzMvVelo( (cosRx*-sinRz*cosRy + sinRx*sinRy)  * MyBunshinBase::VELO_BUNSHIN_FREE_MV,
+                                      (cosRx*cosRz)                       * MyBunshinBase::VELO_BUNSHIN_FREE_MV,
+                                      (cosRx*-sinRz*-sinRy + sinRx*cosRy) * MyBunshinBase::VELO_BUNSHIN_FREE_MV );
             } else if (pProg->getFrame() > 3*(no_-1)) { //ばらつかせ
                 pKago->setVxyzMvAcce( (tx - (_x + pKago->_velo_vx_mv*6)),
-                                         (ty - (_y + pKago->_velo_vy_mv*6)),
-                                         (tz - (_z + pKago->_velo_vz_mv*6)) );
+                                      (ty - (_y + pKago->_velo_vy_mv*6)),
+                                      (tz - (_z + pKago->_velo_vz_mv*6)) );
             }
             if (ABS(_x - tx) < 10000 &&
                 ABS(_y - ty) < 10000 &&
@@ -430,7 +430,6 @@ void MyBunshinBase::processBehavior() {
             }
         }
     }
-
     pRikisha->behave();
     pKago->behave();
 }
@@ -448,7 +447,7 @@ void MyBunshinBase::resetBunshin(int prm_mode) {
     GgafDx::Rikisha* pRikisha = callRikisha();
     GgafCore::Progress* const pProg = getProgress();
     //完全にデフォルト状態に元に戻ために、最低限必要なフレーム数基準値
-    return_default_pos_frames_ = MyBunshinBase::BUNSHIN_D * (MyBunshinBase::MAX_B__UNSHIN_NUM+1); //少しばらつかせる演出
+    return_default_pos_frames_ = MyBunshinBase::BUNSHIN_D * (MyBunshinBase::MAX_BUNSHIN_NUM+1); //少しばらつかせる演出
     //エフェクト
 
     //土台がの向きが元に戻る（前方に向く）指示
@@ -542,7 +541,7 @@ MyBunshinBase::~MyBunshinBase() {
 void MyBunshinBase::setBunshinNum(int prm_num) {
     MyBunshinBase::now_bunshin_num_ = prm_num;
     MyBunshinBase** papBase = pMYSHIP_SCENE->papBunshinBase_;
-    for (int i = 0; i < MyBunshinBase::MAX_B__UNSHIN_NUM; i++) {
+    for (int i = 0; i < MyBunshinBase::MAX_BUNSHIN_NUM; i++) {
         MyBunshinBase* p = papBase[i];
         if (i+1 <= prm_num) {
             //活動して無い場合活動させる。活動中だったら何もしない。

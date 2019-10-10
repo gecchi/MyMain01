@@ -43,8 +43,8 @@ sampler CubeMapTextureSampler : register(s1);
 
 struct OUT_VS {
     float4 posModel_Proj    : POSITION;
-	float2 uv     : TEXCOORD0;
-	float4 color  : COLOR0;
+    float2 uv     : TEXCOORD0;
+    float4 color  : COLOR0;
     float3 vecNormal_World : TEXCOORD1;   // ワールド変換した法線
     float3 vecEye_World    : TEXCOORD2;   //頂点 -> 視点 ベクトル
 };
@@ -59,19 +59,22 @@ OUT_VS VS_CubeMapMorphMesh0(
 ) {
     OUT_VS out_vs = (OUT_VS)0;
 
-	//頂点計算
+    //頂点計算
     const float4 posModel_World = mul(prm_posPrimary_Local, g_matWorld);
     out_vs.posModel_Proj = mul( mul( posModel_World, g_matView), g_matProj);  //World*View*射影
     //UV計算
     out_vs.uv = prm_uv0;  //そのまま
     //頂点カラー計算
     //法線を World 変換して正規化
-    out_vs.vecNormal_World = normalize(mul(prm_vecNormalPrimary_Local, g_matWorld));     
+    out_vs.vecNormal_World = normalize(mul(prm_vecNormalPrimary_Local, g_matWorld));
     //法線と、拡散光方向の内積からライト入射角を求め、面に対する拡散光の減衰率を求める。
-    const float power = max(dot(out_vs.vecNormal_World, -g_vecLightFrom_World ), 0);      
+    float refl_power = dot(out_vs.vecNormal_World, -g_vecLightFrom_World);
+    //内積の負の値も使用して、ハーフ・ランバート で拡散光の回析を行う
+    refl_power = refl_power * 0.5f + 0.5f;
+    refl_power *= refl_power;
     //拡散光色に減衰率を乗じ、環境光色を加算し、全体をマテリアル色を掛ける。
-    out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*power)) * g_colMaterialDiffuse;
-    //「頂点→カメラ視点」方向ベクトル                                                        
+    out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*refl_power)) * g_colMaterialDiffuse;
+    //「頂点→カメラ視点」方向ベクトル
     out_vs.vecEye_World = normalize(g_posCam_World.xyz - posModel_World.xyz);
     //αはマテリアルαを最優先とする（上書きする）
     out_vs.color.a = g_colMaterialDiffuse.a;
@@ -79,10 +82,10 @@ OUT_VS VS_CubeMapMorphMesh0(
     if (out_vs.posModel_Proj.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
         out_vs.color.a *= (-3.0*(out_vs.posModel_Proj.z/g_zf) + 3.0);
     }
-//    if (out_vs.posModel_Proj.z > g_zf*0.98) {   
+//    if (out_vs.posModel_Proj.z > g_zf*0.98) {
 //        out_vs.posModel_Proj.z = g_zf*0.98; //本来視野外のZでも、描画を強制するため0.9以内に上書き、
 //    }
-	return out_vs;
+    return out_vs;
 }
 
 //モーフターゲット１つ
@@ -285,13 +288,13 @@ OUT_VS VS_CubeMapMorphMesh6(
 }
 
 
-float4 PS_CubeMapMorphMesh(       
-	float2 prm_uv	           : TEXCOORD0,
-	float4 prm_color           : COLOR0,
+float4 PS_CubeMapMorphMesh(
+    float2 prm_uv	           : TEXCOORD0,
+    float4 prm_color           : COLOR0,
     float3 prm_vecNormal_World : TEXCOORD1,
     float3 prm_vecEye_World    : TEXCOORD2   //頂点 -> 視点 ベクトル
 ) : COLOR  {
-	const float4 colTexCube = texCUBE(CubeMapTextureSampler, reflect(-prm_vecEye_World, prm_vecNormal_World));
+    const float4 colTexCube = texCUBE(CubeMapTextureSampler, reflect(-prm_vecEye_World, prm_vecNormal_World));
     const float4 colTex2D   = tex2D( MyTextureSampler, prm_uv);
 
     float s = 0.0f; //スペキュラ成分
@@ -304,22 +307,22 @@ float4 PS_CubeMapMorphMesh(
 
     float4 colOut = (colTex2D * prm_color) + (colTexCube*g_reflectance) + s;
     //Blinkerを考慮
-	if (colTex2D.r >= g_tex_blink_threshold || colTex2D.g >= g_tex_blink_threshold || colTex2D.b >= g_tex_blink_threshold) {
-		colOut *= g_tex_blink_power; //+ (colTex2D * g_tex_blink_power);
-	} 
-    colOut.a = prm_color.a * colTex2D.a * colTexCube.a * g_alpha_master; 
-	return colOut;
+    if (colTex2D.r >= g_tex_blink_threshold || colTex2D.g >= g_tex_blink_threshold || colTex2D.b >= g_tex_blink_threshold) {
+        colOut *= g_tex_blink_power; //+ (colTex2D * g_tex_blink_power);
+    }
+    colOut.a = prm_color.a * colTex2D.a * colTexCube.a * g_alpha_master;
+    return colOut;
 }
 
 
-float4 PS_Flush( 
-	float2 prm_uv	  : TEXCOORD0,
-	float4 prm_color  : COLOR0
+float4 PS_Flush(
+    float2 prm_uv	  : TEXCOORD0,
+    float4 prm_color  : COLOR0
 ) : COLOR  {
     const float4 colTex2D  = tex2D( MyTextureSampler, prm_uv);
     float4 colOut = colTex2D * prm_color * FLUSH_COLOR;
     colOut.a *= g_alpha_master;
-	return 	colOut;
+    return 	colOut;
 }
 
 technique CubeMapMorphMeshTechnique
@@ -332,7 +335,7 @@ technique CubeMapMorphMeshTechnique
         DestBlend = InvSrcAlpha;
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		//BlendOpAlpha = Add;       //default  
+        //BlendOpAlpha = Add;       //default
         VertexShader = compile VS_VERSION VS_CubeMapMorphMesh0();
         PixelShader  = compile PS_VERSION PS_CubeMapMorphMesh();
     }
@@ -345,7 +348,7 @@ technique CubeMapMorphMeshTechnique
         DestBlend = InvSrcAlpha;
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		//BlendOpAlpha = Add;       //default  
+        //BlendOpAlpha = Add;       //default
         VertexShader = compile VS_VERSION VS_CubeMapMorphMesh1();
         PixelShader  = compile PS_VERSION PS_CubeMapMorphMesh();
     }
@@ -358,7 +361,7 @@ technique CubeMapMorphMeshTechnique
         DestBlend = InvSrcAlpha;
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		//BlendOpAlpha = Add;       //default  
+        //BlendOpAlpha = Add;       //default
         VertexShader = compile VS_VERSION VS_CubeMapMorphMesh2();
         PixelShader  = compile PS_VERSION PS_CubeMapMorphMesh();
     }
@@ -371,7 +374,7 @@ technique CubeMapMorphMeshTechnique
         DestBlend = InvSrcAlpha;
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		//BlendOpAlpha = Add;       //default  
+        //BlendOpAlpha = Add;       //default
         VertexShader = compile VS_VERSION VS_CubeMapMorphMesh3();
         PixelShader  = compile PS_VERSION PS_CubeMapMorphMesh();
     }
@@ -384,7 +387,7 @@ technique CubeMapMorphMeshTechnique
         DestBlend = InvSrcAlpha;
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		//BlendOpAlpha = Add;       //default  
+        //BlendOpAlpha = Add;       //default
         VertexShader = compile VS_VERSION VS_CubeMapMorphMesh4();
         PixelShader  = compile PS_VERSION PS_CubeMapMorphMesh();
     }
@@ -397,7 +400,7 @@ technique CubeMapMorphMeshTechnique
         DestBlend = InvSrcAlpha;
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		//BlendOpAlpha = Add;       //default  
+        //BlendOpAlpha = Add;       //default
         VertexShader = compile VS_VERSION VS_CubeMapMorphMesh5();
         PixelShader  = compile PS_VERSION PS_CubeMapMorphMesh();
     }
@@ -410,7 +413,7 @@ technique CubeMapMorphMeshTechnique
         DestBlend = InvSrcAlpha;
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		//BlendOpAlpha = Add;       //default  
+        //BlendOpAlpha = Add;       //default
         VertexShader = compile VS_VERSION VS_CubeMapMorphMesh6();
         PixelShader  = compile PS_VERSION PS_CubeMapMorphMesh();
     }
@@ -436,7 +439,7 @@ technique DestBlendOne
         DestBlend = One; //加算合成
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		//BlendOpAlpha = Add;       //default  
+        //BlendOpAlpha = Add;       //default
         VertexShader = compile VS_VERSION VS_CubeMapMorphMesh0();
         PixelShader  = compile PS_VERSION PS_CubeMapMorphMesh();
     }
@@ -449,7 +452,7 @@ technique DestBlendOne
         DestBlend = One; //加算合成
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		//BlendOpAlpha = Add;       //default  
+        //BlendOpAlpha = Add;       //default
         VertexShader = compile VS_VERSION VS_CubeMapMorphMesh1();
         PixelShader  = compile PS_VERSION PS_CubeMapMorphMesh();
     }
@@ -462,7 +465,7 @@ technique DestBlendOne
         DestBlend = One; //加算合成
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		//BlendOpAlpha = Add;       //default  
+        //BlendOpAlpha = Add;       //default
         VertexShader = compile VS_VERSION VS_CubeMapMorphMesh2();
         PixelShader  = compile PS_VERSION PS_CubeMapMorphMesh();
     }
@@ -475,7 +478,7 @@ technique DestBlendOne
         DestBlend = One; //加算合成
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		//BlendOpAlpha = Add;       //default  
+        //BlendOpAlpha = Add;       //default
         VertexShader = compile VS_VERSION VS_CubeMapMorphMesh3();
         PixelShader  = compile PS_VERSION PS_CubeMapMorphMesh();
     }
@@ -488,7 +491,7 @@ technique DestBlendOne
         DestBlend = One; //加算合成
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		//BlendOpAlpha = Add;       //default  
+        //BlendOpAlpha = Add;       //default
         VertexShader = compile VS_VERSION VS_CubeMapMorphMesh4();
         PixelShader  = compile PS_VERSION PS_CubeMapMorphMesh();
     }
@@ -501,7 +504,7 @@ technique DestBlendOne
         DestBlend = One; //加算合成
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		//BlendOpAlpha = Add;       //default  
+        //BlendOpAlpha = Add;       //default
         VertexShader = compile VS_VERSION VS_CubeMapMorphMesh5();
         PixelShader  = compile PS_VERSION PS_CubeMapMorphMesh();
     }
@@ -514,7 +517,7 @@ technique DestBlendOne
         DestBlend = One; //加算合成
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		//BlendOpAlpha = Add;       //default  
+        //BlendOpAlpha = Add;       //default
         VertexShader = compile VS_VERSION VS_CubeMapMorphMesh6();
         PixelShader  = compile PS_VERSION PS_CubeMapMorphMesh();
     }
@@ -530,7 +533,7 @@ technique Flush
         DestBlend = One; //加算合成
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		//BlendOpAlpha = Add;       //default  
+        //BlendOpAlpha = Add;       //default
         VertexShader = compile VS_VERSION VS_CubeMapMorphMesh0();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
@@ -543,7 +546,7 @@ technique Flush
         DestBlend = One; //加算合成
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		//BlendOpAlpha = Add;       //default  
+        //BlendOpAlpha = Add;       //default
         VertexShader = compile VS_VERSION VS_CubeMapMorphMesh1();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
@@ -556,7 +559,7 @@ technique Flush
         DestBlend = One; //加算合成
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		//BlendOpAlpha = Add;       //default  
+        //BlendOpAlpha = Add;       //default
         VertexShader = compile VS_VERSION VS_CubeMapMorphMesh2();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
@@ -569,7 +572,7 @@ technique Flush
         DestBlend = One; //加算合成
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		//BlendOpAlpha = Add;       //default  
+        //BlendOpAlpha = Add;       //default
         VertexShader = compile VS_VERSION VS_CubeMapMorphMesh3();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
@@ -582,7 +585,7 @@ technique Flush
         DestBlend = One; //加算合成
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		//BlendOpAlpha = Add;       //default  
+        //BlendOpAlpha = Add;       //default
         VertexShader = compile VS_VERSION VS_CubeMapMorphMesh4();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
@@ -595,7 +598,7 @@ technique Flush
         DestBlend = One; //加算合成
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		//BlendOpAlpha = Add;       //default  
+        //BlendOpAlpha = Add;       //default
         VertexShader = compile VS_VERSION VS_CubeMapMorphMesh5();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
@@ -608,7 +611,7 @@ technique Flush
         DestBlend = One; //加算合成
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		//BlendOpAlpha = Add;       //default  
+        //BlendOpAlpha = Add;       //default
         VertexShader = compile VS_VERSION VS_CubeMapMorphMesh6();
         PixelShader  = compile PS_VERSION PS_Flush();
     }

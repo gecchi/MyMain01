@@ -1,15 +1,15 @@
-#include "GgafEffectConst.fxh" 
-float4x4 g_matWorld;  
-float4x4 g_matView;   
-float4x4 g_matProj;   
+#include "GgafEffectConst.fxh"
+float4x4 g_matWorld;
+float4x4 g_matView;
+float4x4 g_matProj;
 
-float3 g_vecLightFrom_World; 
-float4 g_colLightAmbient;   
-float4 g_colLightDiffuse;   
+float3 g_vecLightFrom_World;
+float4 g_colLightAmbient;
+float4 g_colLightDiffuse;
 
 float4 g_colMaterialDiffuse;
 
-float g_tex_blink_power;   
+float g_tex_blink_power;
 float g_tex_blink_threshold;
 float g_alpha_master;
 float g_zf;
@@ -20,8 +20,8 @@ sampler MyTextureSampler : register(s0);
 struct OUT_VS
 {
     float4 posModel_Proj    : POSITION;
-	float2 uv     : TEXCOORD0;
-	float4 color    : COLOR0;
+    float2 uv     : TEXCOORD0;
+    float4 color    : COLOR0;
 };
 
 
@@ -30,23 +30,26 @@ OUT_VS VS_GroundMesh(
       float3 prm_vecNormal_Local : NORMAL,        // モデルの頂点の法線
       float2 prm_uv     : TEXCOORD0      // モデルの頂点のUV
 ) {
-	OUT_VS out_vs = (OUT_VS)0;
+    OUT_VS out_vs = (OUT_VS)0;
 
-	//頂点計算
-	out_vs.posModel_Proj = mul( mul( mul(prm_posModel_Local, g_matWorld), g_matView), g_matProj);  //World*View*射影変換
-	//UVはそのまま
-	out_vs.uv = prm_uv;
+    //頂点計算
+    out_vs.posModel_Proj = mul( mul( mul(prm_posModel_Local, g_matWorld), g_matView), g_matProj);  //World*View*射影変換
+    //UVはそのまま
+    out_vs.uv = prm_uv;
 
     //頂点カラー計算
 
-	//法線を World 変換して正規化
-    const float3 vecNormal_World = normalize(mul(prm_vecNormal_Local, g_matWorld)); 	
+    //法線を World 変換して正規化
+    const float3 vecNormal_World = normalize(mul(prm_vecNormal_Local, g_matWorld));
     //法線と、Diffuseライト方向の内積を計算し、面に対するライト方向の入射角による減衰具合を求める。
-	const float power = max(dot(vecNormal_World, -g_vecLightFrom_World ), 0);      
-	//Ambientライト色、Diffuseライト色、Diffuseライト方向、マテリアル色 を考慮したカラー作成。      
-	out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*power)) * g_colMaterialDiffuse;
-	//αフォグ
-	out_vs.color.a = g_colMaterialDiffuse.a;
+    float refl_power = dot(vecNormal_World, -g_vecLightFrom_World);
+    //内積の負の値も使用して、ハーフ・ランバート で拡散光の回析を行う
+    refl_power = refl_power * 0.5f + 0.5f;
+    refl_power *= refl_power;
+    //Ambientライト色、Diffuseライト色、Diffuseライト方向、マテリアル色 を考慮したカラー作成。
+    out_vs.color = (g_colLightAmbient + (g_colLightDiffuse*refl_power)) * g_colMaterialDiffuse;
+    //αフォグ
+    out_vs.color.a = g_colMaterialDiffuse.a;
     if (out_vs.posModel_Proj.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
         out_vs.color.a *= (-3.0*(out_vs.posModel_Proj.z/g_zf) + 3.0);
     }
@@ -60,43 +63,43 @@ OUT_VS VS_GroundMesh(
 //上の例のように視錐状にカメラの視線方向に広がっている頂点を同じXY座標に投影するためです。
 
 
-	if ( out_vs.posModel_Proj.z < 60) {
-		out_vs.color.a = (out_vs.posModel_Proj.z + 1.0)  / (57.1259*2);
+    if ( out_vs.posModel_Proj.z < 60) {
+        out_vs.color.a = (out_vs.posModel_Proj.z + 1.0)  / (57.1259*2);
 //1 - (out_vs.posModel_Proj.z / 57.1259);
-	}
-	return out_vs;
+    }
+    return out_vs;
 }
 
 float4 PS_GroundMesh(
-	float2 prm_uv	  : TEXCOORD0,
+    float2 prm_uv	  : TEXCOORD0,
     float4 prm_color    : COLOR0
 ) : COLOR  {
-	//テクスチャをサンプリングして色取得（原色を取得）
-	const float4 colTex = tex2D( MyTextureSampler, prm_uv);        
-	float4 colOut = colTex * prm_color;
+    //テクスチャをサンプリングして色取得（原色を取得）
+    const float4 colTex = tex2D( MyTextureSampler, prm_uv);
+    float4 colOut = colTex * prm_color;
 
     //Blinkerを考慮
-	if (colTex.r >= g_tex_blink_threshold || colTex.g >= g_tex_blink_threshold || colTex.b >= g_tex_blink_threshold) {
-		colOut *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
-	} 
-	//マスターα
-	colOut.a *= g_alpha_master;
-	return colOut;
+    if (colTex.r >= g_tex_blink_threshold || colTex.g >= g_tex_blink_threshold || colTex.b >= g_tex_blink_threshold) {
+        colOut *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
+    }
+    //マスターα
+    colOut.a *= g_alpha_master;
+    return colOut;
 }
 
 
 technique GroundMeshTechnique
 {
-	pass P0 {
-		AlphaBlendEnable = true;
+    pass P0 {
+        AlphaBlendEnable = true;
         //SeparateAlphaBlendEnable = true;
-		SrcBlend  = SrcAlpha;
-		DestBlend = InvSrcAlpha;
+        SrcBlend  = SrcAlpha;
+        DestBlend = InvSrcAlpha;
         //SrcBlendAlpha = One;      //default
         //DestBlendAlpha = Zero;    //default
-		//BlendOpAlpha = Add;       //default
-		VertexShader = compile VS_VERSION VS_GroundMesh();
-		PixelShader  = compile PS_VERSION PS_GroundMesh();
-	}
+        //BlendOpAlpha = Add;       //default
+        VertexShader = compile VS_VERSION VS_GroundMesh();
+        PixelShader  = compile PS_VERSION PS_GroundMesh();
+    }
 }
 

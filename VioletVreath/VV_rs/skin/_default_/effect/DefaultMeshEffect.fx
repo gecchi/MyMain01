@@ -3,19 +3,19 @@
  * GgafLib::DefaultMeshActor 用シェーダー .
  * 静的モデル１つを描画する標準的なシェーダー。
  * 頂点バッファフォーマットは、以下のような GgafLib::MeshModel に定義されているものを前提としています。
+ *
+ * FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX3 |
+ *                                                        D3DFVF_TEXCOORDSIZE2(0) |     // テクスチャ座標
+ *                                                        D3DFVF_TEXCOORDSIZE3(1) |     // 接ベクトル
+ *                                                        D3DFVF_TEXCOORDSIZE3(2)   )   // 従法線ベクトル
  * {
  *     float x, y, z;             // 座標(ローカル座標系)
  *     float nx, ny, nz;          // 法線ベクトル(ローカル座標系)
  *     DWORD color;               // 頂点カラー
  *     float tu, tv;              // テクスチャ座標
- *     float tan_x, tan_y, tan_z; // 接ベクトル(u方向単位ベクトル) (ローカル座標系)
- *     float bin_x, bin_y, bin_z; // 従法線ベクトル(v方向単位ベクトル) (ローカル座標系)
+ *     float tan_x, tan_y, tan_z; // 接ベクトル(u方向単位ベクトル、バンプマッピング時に使用) (ローカル座標系)
+ *     float bin_x, bin_y, bin_z; // 従法線ベクトル(v方向単位ベクトル、バンプマッピング時に使用) (ローカル座標系)
  * };
- *
- * DWORD MeshModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX3 |
- *                                                                         D3DFVF_TEXCOORDSIZE2(0) |     // テクスチャ座標
- *                                                                         D3DFVF_TEXCOORDSIZE3(1) |     // 接ベクトル
- *                                                                         D3DFVF_TEXCOORDSIZE3(2)   )   // 従法線ベクトル
  *
  * @author Masatoshi Tsuge
  * @since 2009/03/06
@@ -103,18 +103,18 @@ OUT_VS VS_DefaultMesh(
     //法線を World 変換して正規化
     out_vs.vecNormal_World = normalize(mul(prm_vecNormal_Local, g_matWorld));
     //法線と、拡散光方向の内積からライト入射角を求め、面に対する拡散光反射率を求める。
-    float reflection_power = dot(out_vs.vecNormal_World, -g_vecLightFrom_World);
+    float refl_power = dot(out_vs.vecNormal_World, -g_vecLightFrom_World);
     if (g_lambert_flg > 0) {
         //内積の負の値も使用して、ハーフ・ランバート で拡散光の回析を行う
-        reflection_power = reflection_power * 0.5f + 0.5f;
-        reflection_power *= reflection_power;
+        refl_power = refl_power * 0.5f + 0.5f;
+        refl_power *= refl_power;
     } else {
         //通常のランバート反射、内積の負の値をカット
-        reflection_power = max(reflection_power, 0);
+        refl_power = max(refl_power, 0);
     }
-    reflection_power *= reflection_power;
+    refl_power *= refl_power;
     //拡散光色に反射率を乗じ、環境光色を加算し、全体をマテリアル色を掛ける。
-    out_vs.color.rgb = (g_colLightAmbient + (g_colLightDiffuse*reflection_power)) * g_colMaterialDiffuse.rgb;
+    out_vs.color.rgb = (g_colLightAmbient + (g_colLightDiffuse*refl_power)) * g_colMaterialDiffuse.rgb;
     //αはライトに関係なくマテリアルαを優先とする
     out_vs.color.a = g_colMaterialDiffuse.a;
     //「頂点→カメラ視点」方向ベクトル。ピクセルシェーダーのスペキュラー計算で使用。
@@ -315,14 +315,14 @@ float4 PS_BumpMapping(
     //法線(法線マップの法線、つまり接空間座標系の法線になる）と、
     //拡散光方向ベクトル(頂点シェーダーで接空間座標系に予め変換済み) の内積から
     //ライト入射角を求め、面に対する拡散光の減衰率(power)を求める
-    float reflection_power = dot(vecNormal_Tangent, normalize(prm_vecLight_Tangent));
+    float refl_power = dot(vecNormal_Tangent, normalize(prm_vecLight_Tangent));
     if (g_lambert_flg > 0) {
         //内積の負の値も使用して、ハーフ・ランバート で拡散光の回析を行う
-        reflection_power = reflection_power * 0.5f + 0.5f;
-        reflection_power *= reflection_power;
+        refl_power = refl_power * 0.5f + 0.5f;
+        refl_power *= refl_power;
     } else {
         //通常のランバート反射、内積の負の値をカット
-        reflection_power = max(reflection_power, 0);
+        refl_power = max(refl_power, 0);
     }
 
     float s = 0.0f; //スペキュラ成分
@@ -335,7 +335,7 @@ float4 PS_BumpMapping(
     const float4 colTex = tex2D( MyTextureSampler, prm_uv); //単純にUVから色取得、つまり法線マップの凸凹は未考慮。
     //環境光色、テクスチャ色、頂点カラー、減衰率、スペキュラ を考慮した色作成
     //tex・mate・(amb + (light・pow)) + spow
-    float4 colOut = colTex * ((g_colLightAmbient + ( g_colLightDiffuse * reflection_power)) * prm_color ) + s; //prm_color = g_colMaterialDiffuse
+    float4 colOut = colTex * ((g_colLightAmbient + ( g_colLightDiffuse * refl_power)) * prm_color ) + s; //prm_color = g_colMaterialDiffuse
     //Blinkerを考慮
     if (colTex.r >= g_tex_blink_threshold || colTex.g >= g_tex_blink_threshold || colTex.b >= g_tex_blink_threshold) {
         colOut *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。
