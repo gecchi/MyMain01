@@ -192,18 +192,15 @@ float4 PS_Flush(
     return colOut;
 }
 
-
 //＜テクニック：DefaultFramedBoardTechnique＞
 technique DefaultFramedBoardTechnique
 {
     pass P0 {
         AlphaBlendEnable = true;
-        //SeparateAlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = false;
         SrcBlend = SrcAlpha;
         DestBlend = InvSrcAlpha;
-        //SrcBlendAlpha = One;      //default
-        //DestBlendAlpha = Zero;    //default
-        //BlendOpAlpha = Add;       //default
+        BlendOp = Add;
         VertexShader = compile VS_VERSION VS_DefaultFramedBoard();
         PixelShader  = compile PS_VERSION PS_DefaultFramedBoard();
     }
@@ -213,12 +210,10 @@ technique DestBlendOne
 {
     pass P0 {
         AlphaBlendEnable = true;
-        //SeparateAlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = false;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
-        //SrcBlendAlpha = One;      //default
-        //DestBlendAlpha = Zero;    //default
-        //BlendOpAlpha = Add;       //default
+        BlendOp = Add;
         VertexShader = compile VS_VERSION VS_DefaultFramedBoard();
         PixelShader  = compile PS_VERSION PS_DefaultFramedBoard();
     }
@@ -228,12 +223,10 @@ technique Flush
 {
     pass P0 {
         AlphaBlendEnable = true;
-        //SeparateAlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = false;
         SrcBlend = SrcAlpha;
         DestBlend = InvSrcAlpha;
-        //SrcBlendAlpha = One;      //default
-        //DestBlendAlpha = Zero;    //default
-        //BlendOpAlpha = Add;       //default
+        BlendOp = Add;
         VertexShader = compile VS_VERSION VS_DefaultFramedBoard();
         PixelShader  = compile PS_VERSION PS_Flush();
     }

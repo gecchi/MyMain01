@@ -288,12 +288,10 @@ technique CubeMapMeshTechnique
     //ÉÅÉbÉVÉÖÇï`âÊÇ∑ÇÈ
     pass P0 {
         AlphaBlendEnable = true;
-        //SeparateAlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = false;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
-        //SrcBlendAlpha = One;      //default
-        //DestBlendAlpha = Zero;    //default
-        //BlendOpAlpha = Add;       //default
+        BlendOp = Add;
         VertexShader = compile VS_VERSION VS_CubeMapMesh();
         PixelShader  = compile PS_VERSION PS_CubeMapMesh();
     }
@@ -305,12 +303,10 @@ technique BumpMapping
     //ÉÅÉbÉVÉÖÇï`âÊÇ∑ÇÈ
     pass P0 {
         AlphaBlendEnable = true;
-        //SeparateAlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = false;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
-        //SrcBlendAlpha = One;      //default
-        //DestBlendAlpha = Zero;    //default
-        //BlendOpAlpha = Add;       //default
+        BlendOp = Add;
         VertexShader = compile VS_VERSION VS_BumpMapping();
         PixelShader  = compile PS_VERSION PS_BumpMapping();
     }
@@ -321,12 +317,10 @@ technique DestBlendOne
 {
     pass P0 {
         AlphaBlendEnable = true;
-        //SeparateAlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = false;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //â¡éZçáê¨
-        //SrcBlendAlpha = One;      //default
-        //DestBlendAlpha = Zero;    //default
-        //BlendOpAlpha = Add;       //default
+        BlendOp = Add;
         VertexShader = compile VS_VERSION VS_CubeMapMesh();
         PixelShader  = compile PS_VERSION PS_CubeMapMesh();
     }
@@ -336,12 +330,10 @@ technique Flush
 {
     pass P0 {
         AlphaBlendEnable = true;
-        //SeparateAlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = false;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
-        //SrcBlendAlpha = One;      //default
-        //DestBlendAlpha = Zero;    //default
-        //BlendOpAlpha = Add;       //default
+        BlendOp = Add;
         VertexShader = compile VS_VERSION VS_CubeMapMesh();
         PixelShader  = compile PS_VERSION PS_Flush();
     }

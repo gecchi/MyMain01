@@ -183,12 +183,10 @@ technique DefaultPointSpriteSetTechnique
 {
     pass P0 {
         AlphaBlendEnable = true;
-        //SeparateAlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = false;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
-        //SrcBlendAlpha = One;      //default
-        //DestBlendAlpha = Zero;    //default
-        //BlendOpAlpha = Add;       //default
+        BlendOp = Add;
         VertexShader = compile VS_VERSION VS_DefaultPointSpriteSet();
         PixelShader  = compile PS_VERSION PS_DefaultPointSpriteSet();
     }
@@ -198,12 +196,10 @@ technique DestBlendOne
 {
     pass P0 {
         AlphaBlendEnable = true;
-        //SeparateAlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = false;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //â¡éZçáê¨
-        //SrcBlendAlpha = One;      //default
-        //DestBlendAlpha = Zero;    //default
-        //BlendOpAlpha = Add;       //default
+        BlendOp = Add;
         VertexShader = compile VS_VERSION VS_DefaultPointSpriteSet();
         PixelShader  = compile PS_VERSION PS_DefaultPointSpriteSet();
     }
@@ -213,12 +209,10 @@ technique Flush
 {
     pass P0 {
         AlphaBlendEnable = true;
-        //SeparateAlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = false;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
-        //SrcBlendAlpha = One;      //default
-        //DestBlendAlpha = Zero;    //default
-        //BlendOpAlpha = Add;       //default
+        BlendOp = Add;
         VertexShader = compile VS_VERSION VS_DefaultPointSpriteSet();
         PixelShader  = compile PS_VERSION PS_Flush();
     }

@@ -123,12 +123,10 @@ technique DefaultRegularPolygonBoardTechnique
 {
     pass P0 {
         AlphaBlendEnable = true;
-        //SeparateAlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = false;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
-        //SrcBlendAlpha = One;      //default
-        //DestBlendAlpha = Zero;    //default
-        //BlendOpAlpha = Add;       //default
+        BlendOp = Add;
         VertexShader = compile VS_VERSION VS_DefaultRegularPolygonBoard();
         PixelShader  = compile PS_VERSION PS_DefaultRegularPolygonBoard();
     }
@@ -138,12 +136,10 @@ technique DestBlendOne
 {
     pass P0 {
         AlphaBlendEnable = true;
-        //SeparateAlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = false;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //â¡éZçáê¨
-        //SrcBlendAlpha = One;      //default
-        //DestBlendAlpha = Zero;    //default
-        //BlendOpAlpha = Add;       //default
+        BlendOp = Add;
         VertexShader = compile VS_VERSION VS_DefaultRegularPolygonBoard();
         PixelShader  = compile PS_VERSION PS_DefaultRegularPolygonBoard();
     }
@@ -153,12 +149,10 @@ technique Flush
 {
     pass P0 {
         AlphaBlendEnable = true;
-        //SeparateAlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = false;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
-        //SrcBlendAlpha = One;      //default
-        //DestBlendAlpha = Zero;    //default
-        //BlendOpAlpha = Add;       //default
+        BlendOp = Add;
         VertexShader = compile VS_VERSION VS_DefaultRegularPolygonBoard();
         PixelShader  = compile PS_VERSION PS_Flush();
     }

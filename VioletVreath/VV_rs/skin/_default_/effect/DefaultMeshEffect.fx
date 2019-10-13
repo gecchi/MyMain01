@@ -367,7 +367,7 @@ technique DefaultMeshTechnique
 {
     pass P0 {
         AlphaBlendEnable = true;
-        //SeparateAlphaBlendEnable = false; //default
+        SeparateAlphaBlendEnable = false;
 
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
@@ -389,6 +389,7 @@ technique BumpMapping
 {
     pass P0 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = false;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
         BlendOp = Add;
@@ -404,9 +405,23 @@ technique DestBlendOne
 {
     pass P0 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = false;
         SrcBlend  = SrcAlpha;
         DestBlend = One;
         BlendOp = Add;
+        VertexShader = compile VS_VERSION VS_DefaultMesh();
+        PixelShader  = compile PS_VERSION PS_DefaultMesh();
+    }
+}
+
+technique DestBlendOneMax
+{
+    pass P0 {
+        AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = false;
+        SrcBlend  = SrcAlpha;
+        DestBlend = One;
+        BlendOp = Max;
         VertexShader = compile VS_VERSION VS_DefaultMesh();
         PixelShader  = compile PS_VERSION PS_DefaultMesh();
     }
@@ -419,6 +434,7 @@ technique Flush
 {
     pass P0 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = false;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
         BlendOp = Add;

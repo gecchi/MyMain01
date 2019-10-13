@@ -82,8 +82,6 @@ float4 PS_DefaultBoard(
     return colOut;
 }
 
-
-
 float4 PS_Flush(
     float2 prm_uv      : TEXCOORD0
 ) : COLOR  {
@@ -100,12 +98,10 @@ technique DefaultBoardTechnique
 {
     pass P0 {
         AlphaBlendEnable = true;
-        //SeparateAlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = false;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
-        //SrcBlendAlpha = One;      //default
-        //DestBlendAlpha = Zero;    //default
-        //BlendOpAlpha = Add;       //default
+        BlendOp = Add;
         VertexShader = compile VS_VERSION VS_DefaultBoard();
         PixelShader  = compile PS_VERSION PS_DefaultBoard();
     }
@@ -115,12 +111,10 @@ technique DestBlendOne
 {
     pass P0 {
         AlphaBlendEnable = true;
-        //SeparateAlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = false;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //â¡éZçáê¨
-        //SrcBlendAlpha = One;      //default
-        //DestBlendAlpha = Zero;    //default
-        //BlendOpAlpha = Add;       //default
+        BlendOp = Add;
         VertexShader = compile VS_VERSION VS_DefaultBoard();
         PixelShader  = compile PS_VERSION PS_DefaultBoard();
     }
@@ -130,12 +124,10 @@ technique Flush
 {
     pass P0 {
         AlphaBlendEnable = true;
-        //SeparateAlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = false;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
-        //SrcBlendAlpha = One;      //default
-        //DestBlendAlpha = Zero;    //default
-        //BlendOpAlpha = Add;       //default
+        BlendOp = Add;
         VertexShader = compile VS_VERSION VS_DefaultBoard();
         PixelShader  = compile PS_VERSION PS_Flush();
     }

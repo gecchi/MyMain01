@@ -324,7 +324,6 @@ float4 PS_DefaultMassMorphMesh(
     return colOut;
 }
 
-
 float4 PS_Flush(
     float2 prm_uv	  : TEXCOORD0,
     float4 prm_color  : COLOR0
@@ -341,8 +340,10 @@ technique DefaultMassMorphMeshTechnique0
     //モーフターゲット無し
     pass P0 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = false;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
+        BlendOp = Add;
         VertexShader = compile VS_VERSION VS_DefaultMassMorphMesh0();
         PixelShader  = compile PS_VERSION PS_DefaultMassMorphMesh();
     }
@@ -353,8 +354,10 @@ technique DefaultMassMorphMeshTechnique1
     //モーフターゲット1つ
     pass P0 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = false;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
+        BlendOp = Add;
         VertexShader = compile VS_VERSION VS_DefaultMassMorphMesh1();
         PixelShader  = compile PS_VERSION PS_DefaultMassMorphMesh();
     }
@@ -365,8 +368,10 @@ technique DefaultMassMorphMeshTechnique2
     //モーフターゲット2つ
     pass P0 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = false;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
+        BlendOp = Add;
         VertexShader = compile VS_VERSION VS_DefaultMassMorphMesh2();
         PixelShader  = compile PS_VERSION PS_DefaultMassMorphMesh();
     }
@@ -377,8 +382,10 @@ technique DefaultMassMorphMeshTechnique3
     //モーフターゲット3つ
     pass P0 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = false;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
+        BlendOp = Add;
         VertexShader = compile VS_VERSION VS_DefaultMassMorphMesh3();
         PixelShader  = compile PS_VERSION PS_DefaultMassMorphMesh();
     }
@@ -389,8 +396,10 @@ technique DefaultMassMorphMeshTechnique4
     //モーフターゲット4つ
     pass P0 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = false;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
+        BlendOp = Add;
         VertexShader = compile VS_VERSION VS_DefaultMassMorphMesh4();
         PixelShader  = compile PS_VERSION PS_DefaultMassMorphMesh();
     }
@@ -402,8 +411,10 @@ technique DestBlendOne0
     //モーフターゲット無し
     pass P0 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = false;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
+        BlendOp = Add;
         VertexShader = compile VS_VERSION VS_DefaultMassMorphMesh0();
         PixelShader  = compile PS_VERSION PS_DefaultMassMorphMesh();
     }
@@ -414,8 +425,10 @@ technique DestBlendOne1
     //モーフターゲット1つ
     pass P0 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = false;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
+        BlendOp = Add;
         VertexShader = compile VS_VERSION VS_DefaultMassMorphMesh1();
         PixelShader  = compile PS_VERSION PS_DefaultMassMorphMesh();
     }
@@ -426,8 +439,10 @@ technique DestBlendOne2
     //モーフターゲット2つ
     pass P0 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = false;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
+        BlendOp = Add;
         VertexShader = compile VS_VERSION VS_DefaultMassMorphMesh2();
         PixelShader  = compile PS_VERSION PS_DefaultMassMorphMesh();
     }
@@ -438,8 +453,10 @@ technique DestBlendOne3
     //モーフターゲット3つ
     pass P0 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = false;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
+        BlendOp = Add;
         VertexShader = compile VS_VERSION VS_DefaultMassMorphMesh3();
         PixelShader  = compile PS_VERSION PS_DefaultMassMorphMesh();
     }
@@ -450,8 +467,10 @@ technique DestBlendOne4
     //モーフターゲット4つ
     pass P0 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = false;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
+        BlendOp = Add;
         VertexShader = compile VS_VERSION VS_DefaultMassMorphMesh4();
         PixelShader  = compile PS_VERSION PS_DefaultMassMorphMesh();
     }
@@ -463,8 +482,10 @@ technique Flush0
     //モーフターゲット無し
     pass P0 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = false;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
+        BlendOp = Add;
         VertexShader = compile VS_VERSION VS_DefaultMassMorphMesh0();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
@@ -475,8 +496,10 @@ technique Flush1
     //モーフターゲット1つ
     pass P0 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = false;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
+        BlendOp = Add;
         VertexShader = compile VS_VERSION VS_DefaultMassMorphMesh1();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
@@ -487,8 +510,10 @@ technique Flush2
     //モーフターゲット2つ
     pass P0 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = false;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
+        BlendOp = Add;
         VertexShader = compile VS_VERSION VS_DefaultMassMorphMesh2();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
@@ -499,8 +524,10 @@ technique Flush3
     //モーフターゲット3つ
     pass P0 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = false;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
+        BlendOp = Add;
         VertexShader = compile VS_VERSION VS_DefaultMassMorphMesh3();
         PixelShader  = compile PS_VERSION PS_Flush();
     }
@@ -511,8 +538,10 @@ technique Flush4
     //モーフターゲット3つ
     pass P0 {
         AlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = false;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
+        BlendOp = Add;
         VertexShader = compile VS_VERSION VS_DefaultMassMorphMesh4();
         PixelShader  = compile PS_VERSION PS_Flush();
     }

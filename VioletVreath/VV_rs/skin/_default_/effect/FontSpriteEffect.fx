@@ -42,14 +42,14 @@ OUT_VS VS_FontSprite(
 ) {
     OUT_VS out_vs = (OUT_VS)0;
     //頂点計算
-	float4x4 matWorld = {prm_world0, prm_world1, prm_world2, prm_world3};
+    float4x4 matWorld = {prm_world0, prm_world1, prm_world2, prm_world3};
     prm_posModel_Local.x += prm_local.x;
     prm_posModel_Local.y += prm_local.y;
 
     //World*View*射影変換
     out_vs.posModel_Proj = mul(mul(mul( prm_posModel_Local, matWorld ), g_matView ), g_matProj);  // 出力に設定
-	//dot by dot考慮
-	out_vs.posModel_Proj = adjustDotByDot(out_vs.posModel_Proj);
+    //dot by dot考慮
+    out_vs.posModel_Proj = adjustDotByDot(out_vs.posModel_Proj);
 
     //UVのオフセット(パターン番号による増分)加算
     out_vs.uv.x = prm_uv.x + prm_offset_uv.x;
@@ -96,12 +96,10 @@ technique FontSpriteTechnique
 {
     pass P0 {
         AlphaBlendEnable = true;
-        //SeparateAlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = false;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
-        //SrcBlendAlpha = One;      //default
-        //DestBlendAlpha = Zero;    //default
-        //BlendOpAlpha = Add;       //default
+        BlendOp = Add;
         VertexShader = compile VS_VERSION VS_FontSprite();
         PixelShader  = compile PS_VERSION PS_FontSprite();
     }
@@ -111,12 +109,10 @@ technique DestBlendOne
 {
     pass P0 {
         AlphaBlendEnable = true;
-        //SeparateAlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = false;
         SrcBlend  = SrcAlpha;
         DestBlend = One; //加算合成
-        //SrcBlendAlpha = One;      //default
-        //DestBlendAlpha = Zero;    //default
-        //BlendOpAlpha = Add;       //default
+        BlendOp = Add;
         VertexShader = compile VS_VERSION VS_FontSprite();
         PixelShader  = compile PS_VERSION PS_FontSprite();
     }
@@ -126,12 +122,10 @@ technique Flush
 {
     pass P0 {
         AlphaBlendEnable = true;
-        //SeparateAlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = false;
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
-        //SrcBlendAlpha = One;      //default
-        //DestBlendAlpha = Zero;    //default
-        //BlendOpAlpha = Add;       //default
+        BlendOp = Add;
         VertexShader = compile VS_VERSION VS_FontSprite();
         PixelShader  = compile PS_VERSION PS_Flush();
     }

@@ -114,7 +114,7 @@ OUT_VS VS_LaserChip(
       float4 prm_infront_world1   : TEXCOORD6,
       float4 prm_infront_world2   : TEXCOORD7,
       float4 prm_infront_world3   : TEXCOORD8,
-      float4 prm_info             : TEXCOORD9 //チップ種別,強制α,火力率,前方チップ火力率
+      float4 prm_info             : TEXCOORD9 //x:チップ種別, y:強制α, z:火力率, w:前方チップ火力率
 
 ) {
     OUT_VS out_vs = (OUT_VS)0;
@@ -153,12 +153,12 @@ OUT_VS VS_LaserChip(
         }
         // 一つ前方のチップ座標へくっつける
         posModel_World = mul( prm_posModel_Local, matWorld_infront );  //一つ前方のチップのWorld変換
-        power = prm_info.w;
+        power = prm_info.w; //前方チップ火力率
     } else { // prm_posModel_Local.x <= 0.0
         //頂点計算
         prm_posModel_Local.x = 0;
         posModel_World = mul( prm_posModel_Local, matWorld );  // World変換
-        power = prm_info.z;
+        power = prm_info.z; //火力率
     }
     out_vs.posModel_Proj = mul(mul(posModel_World, g_matView), g_matProj);  // View変換・射影変換
 
@@ -192,13 +192,13 @@ OUT_VS VS_LaserChip(
     }
     //αフォグ
     const float c = (1.25-(((out_vs.posModel_Proj.z)/g_zf)*2));
-    out_vs.color = (c < 0.2  ? 0.2 : c) ; //powerが大きいほど白く輝く
+    out_vs.color = (c < 0.2  ? 0.2 : c) ;
     if (force_alpha > out_vs.color.a) {
         out_vs.color.a = force_alpha*g_alpha_master;
     } else {
         out_vs.color.a = out_vs.color.a*g_alpha_master;
     }
-    out_vs.color.rgb *= power;
+    out_vs.color.rgb *= power;  //powerが大きいほど白く輝く
 //    if (out_vs.posModel_Proj.z > 0.6*g_zf) {   // 最遠の約 2/3 よりさらに奥の場合徐々に透明に
 //        out_vs.color.a *= (-3.0*(out_vs.posModel_Proj.z/g_zf) + 3.0);
 //    }
@@ -226,160 +226,27 @@ OUT_VS VS_LaserChip(
     return out_vs;
 }
 
-float4 PS_LaserChip_ZERO(
-    float2 prm_uv	  : TEXCOORD0,
-    float4 prm_color    : COLOR0
-) : COLOR  {
-    const float4 colOut = float4(1,1,1,1);
-    return colOut;
-}
-
-//float4 PS_LaserChip_SHADOW(
-//	float2 prm_uv	  : TEXCOORD0,
-//	float4 prm_color    : COLOR0
-//) : COLOR  {
-//    //レーザーの影
-//	float4 colOut = tex2D( MyTextureSampler, prm_uv) * prm_color;
-////colOut.r = 1-colOut.r;
-////colOut.g = 1-colOut.g;
-////colOut.b = 1-colOut.b;
-////colOut.a = 1-colOut.a;
-//
-////    colOut.rgb = 1;
-//    colOut.a = 1-colOut.a;
-//    //colOut.a = 1-colOut.a;
-//	return colOut;
-//}
-
 float4 PS_LaserChip(
     float2 prm_uv	  : TEXCOORD0,
-    float4 prm_color    : COLOR0
+    float4 prm_color  : COLOR0
 ) : COLOR  {
     return tex2D( MyTextureSampler, prm_uv) * prm_color;
 }
-
-//technique LaserChipTechnique
-//{
-//     pass P0 {
-//        AlphaBlendEnable = true;
-//        SrcBlend  = SrcAlpha;
-//        DestBlend = One;
-//        //BlendOp = Add;    //default
-//        VertexShader = compile VS_VERSION VS_LaserChip();
-//        PixelShader  = compile PS_VERSION PS_LaserChip();
-//    }
-//}
-
 
 technique LaserChipTechnique
 {
      pass P0 {
         AlphaBlendEnable = true;
-        SeparateAlphaBlendEnable = true;
+        SeparateAlphaBlendEnable = true; //!!
         SrcBlend  = SrcAlpha;
         DestBlend = One;
         BlendOp = Max;
         SrcBlendAlpha = One;
         DestBlendAlpha = Zero;
         BlendOpAlpha = Add;
-
         VertexShader = compile VS_VERSION VS_LaserChip();
         PixelShader  = compile PS_VERSION PS_LaserChip();
     }
 }
-
-
-// 	pass P1 {
-//		AlphaBlendEnable = true;
-//        SeparateAlphaBlendEnable = false;
-//		SrcBlend  = Zero;
-//        DestBlend = DestAlpha;
-//		BlendOp = Add;       //default
-//		VertexShader = compile VS_VERSION VS_LaserChip();
-//		PixelShader  = compile PS_VERSION PS_LaserChip();
-//    }
-//
-//
-//    pass P1 {
-//		AlphaBlendEnable = true;
-//        //SeparateAlphaBlendEnable = true;
-//		SrcBlend  = Zero;
-//        DestBlend = DestAlpha;
-//        //SrcBlendAlpha = One;      //default
-//        DestBlendAlpha = One;    //default
-//		BlendOpAlpha = Revsubtract;       //default
-//		VertexShader = compile VS_VERSION VS_LaserChip();
-//		PixelShader  = compile PS_VERSION PS_LaserChip_SHADOW();
-//   }
-//
-
-//    pass P1 {
-//    	AlphaBlendEnable = true;
-//    	SrcBlend  = SrcAlpha;
-//          DestBlend = DestAlpha;
-//    	VertexShader = compile VS_VERSION VS_LaserChip();
-//    	PixelShader  = compile PS_VERSION PS_LaserChip();
-//    }
-//	pass P3 {
-//		AlphaBlendEnable = true;
-//		SrcBlend  = InvDestColor;
-//        DestBlend = ZERO;
-//		VertexShader = compile VS_VERSION VS_LaserChip();
-//		PixelShader  = compile PS_VERSION PS_LaserChip_ONE();
-//	}
-//	pass P4 {
-//		AlphaBlendEnable = true;
-//		SrcBlend  = SrcAlpha;
-//        DestBlend = One;
-//		VertexShader = compile VS_VERSION VS_LaserChip();
-//		PixelShader  = compile PS_VERSION PS_LaserChip();
-//	}
-
-
-//	pass P0 {
-//		AlphaBlendEnable = true;
-////通常合成
-//		SrcBlend  = SrcAlpha;
-////		DestBlend = InvSrcAlpha;
-//
-//        BlendFactor = {1,1,1,1};
-//		DestBlend =  BlendFactor;
-//
-//		VertexShader = compile VS_VERSION VS_LaserChip();
-//		PixelShader  = compile PS_VERSION PS_LaserChip_SHADOW();
-////		VertexShader = compile VS_VERSION VS_LaserChip();
-////		PixelShader  = compile PS_VERSION PS_LaserChip_SHADOW();
-//	}
-//	pass P1 {
-//		AlphaBlendEnable = true;
-////加算合成
-//		SrcBlend  = SrcAlpha;
-////		DestBlend = One;
-//
-////通常合成
-////		SrcBlend  = SrcAlpha;
-////		DestBlend = InvSrcAlpha;
-////Zero/One/SrcColor/InvSrcColor/SrcAlpha/InvSrcAlpha/DestColor/InvDestColor/DestAlpha/InvDestAlpha
-////SrcBlend  = SrcAlpha;
-////		DestBlend = One;
-//		//SrcBlend  = SrcAlphaSat;
-//                         // AARRGGBB
-////        BlendFactor     = 0x11111111;//0xffffffff;
-//        BlendFactor = {1,1,1,1};
-//		DestBlend =  BlendFactor;
-////DestBlend = One;
-//        //BlendOp = Min;
-//        //BlendOpAlpha = Max;
-// //BlendOpAlpha = Add;
-////BlendOp=Max ;       BlendOpとBlendOpAlphaはおなじようだ
-////BlendOpAlpha= Add ;
-//		VertexShader = compile VS_VERSION VS_LaserChip();
-//		PixelShader  = compile PS_VERSION PS_LaserChip();
-//	}
-//BlendOpにMin,Maxはきかない？
-//BlendOp=REVSUBTRACT, SrcBlend=SRCALPHA, DestBlend=ON
-
-
-
 
 

@@ -60,10 +60,13 @@ void VvvWorld::initialize() {
              "[S]+[PgUp/PgDown]:Scale inc or dec.\n"
              "[S]+[X]+[CursorKey]:X or Y Axial Scale inc or dec.\n"
              "[S]+[X]+[PgUp/PgDown]:Z Axial Scale inc or dec.\n"
-             "[W]:Toggle effect Wireframe.\n"
-             "[G]:Toggle display grid.\n"
+             "[W]:Toggle effect Wireframe on/off.\n"
+             "[G]:Toggle display grid on/off.\n"
              "[O]:Toggle effect \"DestBlend = One/InvSrcAlpha\".\n"
              "[Z]:Toggle effect \"Zwriteenable = True/False\".\n"
+             "[B]:Toggle effect Half-Lambert/Lambert.\n"
+             "[N]:Toggle effect culling enable/disablet.\n"
+             "[M]:Toggle effect \"ZBlendOp = Add/Maxe\".\n"
              "[A]+[CursorKey]:Effect AlphaBlend inc or dec.\n"
              "[P]+[RIGHT/LEFT]:Effect SpecularRange inc or dec.\n"
              "[P]+[UP/DOWN]:Effect SpecularPower inc or dec.\n"
@@ -155,7 +158,29 @@ void VvvWorld::processBehavior() {
                 pA->effectBlendOne();
             }
         }
-    } else if (GgafDx::Input::isPushedDownKey(DIK_Z)) {
+    } else if (GgafDx::Input::isPushedDownKey(DIK_M)) {
+       //加算合成有り演算Max
+       if (listActorInfo_.length() > 0) {
+           GgafDx::FigureActor* pA = listActorInfo_.getCurrent()->pActor_;
+           if (pA->instanceOf(Obj_GgafDx_MeshActor)) {
+               if (pA->_is_temp_technique) {
+                   pA->effectDefault();
+               } else {
+                   pA->changeEffectTechniqueMoment("DestBlendOneMax", MAX_FRAME);
+               }
+           }
+       }
+    } else if (GgafDx::Input::isPushedDownKey(DIK_N)) {
+        //カリングの有無
+        if (listActorInfo_.length() > 0) {
+            GgafDx::FigureActor* pA = listActorInfo_.getCurrent()->pActor_;
+            if (pA->_cull_enable) {
+                pA->setCullingDraw(false);
+            } else {
+                pA->setCullingDraw(true);
+            }
+        }
+     } else if (GgafDx::Input::isPushedDownKey(DIK_Z)) {
         //自身のZバッファを書き込みする無し
         if (listActorInfo_.length() > 0) {
             GgafDx::FigureActor* pA = listActorInfo_.getCurrent()->pActor_;
@@ -165,7 +190,7 @@ void VvvWorld::processBehavior() {
                 pA->setZWriteEnable(true);  //自身のZバッファを書き込みする
             }
         }
-    } else if (GgafDx::Input::isPushedDownKey(DIK_M)) {
+    } else if (GgafDx::Input::isPushedDownKey(DIK_B)) {
         GgafDx::FigureActor* pA = listActorInfo_.getCurrent()->pActor_;
         if (pA->instanceOf(Obj_GgafDx_MeshActor)) {
             //ハーフランバード切替
