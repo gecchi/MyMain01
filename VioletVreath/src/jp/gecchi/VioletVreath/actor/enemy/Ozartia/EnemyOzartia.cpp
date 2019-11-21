@@ -277,17 +277,17 @@ void EnemyOzartia::processBehavior() {
     //ƒVƒ‡ƒbƒg”­ŽËŒnˆ— ‚±‚±‚©‚ç --->
     switch (pProg2_->get()) {
         case PROG2_WAIT: {
-            if (pProg->hasJustChanged()) {
+            if (pProg2_->hasJustChanged()) {
             }
             break;
         }
         case PROG2_SHOT01_01: {
-            if (pProg->hasJustChanged()) {
+            if (pProg2_->hasJustChanged()) {
                 faceto_ship_ = true;
                 getMorpher()->transitionLinearUntil(MPH_SHOT01, 1.0, 120);
             }
-            if (pProg->hasArrivedAt(120)) {
-                pProg->change(PROG2_SHOT01_02);
+            if (pProg2_->hasArrivedAt(120)) {
+                pProg2_->change(PROG2_SHOT01_02);
             }
             break;
         }

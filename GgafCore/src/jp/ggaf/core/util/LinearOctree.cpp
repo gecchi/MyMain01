@@ -9,8 +9,8 @@ using namespace GgafCore;
 const uint32_t LinearOctree::_POW8[(MAX_OCTREE_LEVEL+1)+1] = {1, 8, 64, 512, 4096, 32768, 262144, 2097152, 16777216, 134217728};
 
 LinearOctree::LinearOctree(uint32_t prm_level,
-                                   int x1, int y1, int z1,
-                                   int x2, int y2, int z2) : Object(),
+                           int x1, int y1, int z1,
+                           int x2, int y2, int z2) : Object(),
 _top_space_level(prm_level),
 _root_x1(x1),
 _root_y1(y1),
@@ -18,9 +18,9 @@ _root_z1(z1),
 _root_x2(x2),
 _root_y2(y2),
 _root_z2(z2),
-_top_level_dx( ((_root_x2-_root_x1) / ((float)(1<<_top_space_level))) + 1 ),
-_top_level_dy( ((_root_y2-_root_y1) / ((float)(1<<_top_space_level))) + 1 ),
-_top_level_dz( ((_root_z2-_root_z1) / ((float)(1<<_top_space_level))) + 1 ), //+1は空間数をオーバーしないように余裕をもたせるため
+_top_level_dx( ((_root_x2-_root_x1) / ((double)(1<<_top_space_level))) + 1 ),
+_top_level_dy( ((_root_y2-_root_y1) / ((double)(1<<_top_space_level))) + 1 ),
+_top_level_dz( ((_root_z2-_root_z1) / ((double)(1<<_top_space_level))) + 1 ), //+1は空間数をオーバーしないように余裕をもたせるため
 _r_top_level_dx(1.0 / _top_level_dx),
 _r_top_level_dy(1.0 / _top_level_dy),
 _r_top_level_dz(1.0 / _top_level_dz),

@@ -31,17 +31,13 @@ FigureActor::FigureActor(const char* prm_name,
                                             prm_pChecker),
 _pModelCon(
     (ModelConnection*)(
-        pGOD->_pModelManager->connect(
-            std::string(prm_model).c_str(), this
-        )
+        pGOD->_pModelManager->connect(prm_model, this)
     )
 ),
 _pModel((Model*)_pModelCon->peek()),
 _pEffectCon(
     (EffectConnection*)(
-        pGOD->_pEffectManager->connect(
-            std::string(prm_effect).c_str(), this
-        )
+        pGOD->_pEffectManager->connect(prm_effect, this)
     )
 ),
 _pEffect((Effect*)_pEffectCon->peek()),

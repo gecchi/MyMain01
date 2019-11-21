@@ -204,11 +204,13 @@ progress Progress::getToProgWhenProgWillChange() const {
 
 void Progress::update() {
     //êiíªÇîΩâfÇ∑ÇÈ
-    if (_progress != _progress_next) {
-        _map_changed_frame[_progress_next] = (*_p_frame_counter) - 1;
+    progress prog = _progress;
+    progress prog_next = _progress_next;
+    if (prog != prog_next) {
+        _map_changed_frame[prog_next] = (*_p_frame_counter) - 1;
     }
-    _progress_prev = _progress;
-    _progress = _progress_next;
+    _progress_prev = prog;
+    _progress = prog_next;
 }
 
 Progress::~Progress() {

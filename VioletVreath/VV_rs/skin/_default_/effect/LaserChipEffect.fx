@@ -101,10 +101,9 @@ struct OUT_VS
 
 //レーザーチップ頂点シェーダー
 OUT_VS VS_LaserChip(
-      float4 prm_posModel_Local  : POSITION,  // モデルの頂点
-      float  prm_index           : PSIZE ,    // PSIZEではなくてなんとモデルの頂点番号
-      float3 prm_vecNormal_Local : NORMAL,
-      float2 prm_uv              : TEXCOORD0,  // モデルの頂点のUV
+      float4 prm_posModel_Local   : POSITION,   // モデルの頂点
+      float3 prm_vecNormal_Local  : NORMAL,
+      float2 prm_uv               : TEXCOORD0,  // モデルの頂点のUV
 
       float4 prm_world0           : TEXCOORD1,
       float4 prm_world1           : TEXCOORD2,
@@ -114,7 +113,7 @@ OUT_VS VS_LaserChip(
       float4 prm_infront_world1   : TEXCOORD6,
       float4 prm_infront_world2   : TEXCOORD7,
       float4 prm_infront_world3   : TEXCOORD8,
-      float4 prm_info             : TEXCOORD9 //x:チップ種別, y:強制α, z:火力率, w:前方チップ火力率
+      float4 prm_info             : TEXCOORD9   //x:チップ種別, y:強制α, z:火力率, w:前方チップ火力率
 
 ) {
     OUT_VS out_vs = (OUT_VS)0;
