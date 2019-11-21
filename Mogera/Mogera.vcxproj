@@ -231,6 +231,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\actor\AniTest.cpp" />
     <ClCompile Include="src\actor\BoardTest.cpp" />
     <ClCompile Include="src\actor\BoardTest2.cpp" />
     <ClCompile Include="src\actor\Box.cpp" />
@@ -261,6 +262,7 @@
     <ClCompile Include="src\util\MgrUtil.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\actor\anitest.h" />
     <ClInclude Include="src\actor\boardtest.h" />
     <ClInclude Include="src\actor\boardtest2.h" />
     <ClInclude Include="src\actor\Box.h" />

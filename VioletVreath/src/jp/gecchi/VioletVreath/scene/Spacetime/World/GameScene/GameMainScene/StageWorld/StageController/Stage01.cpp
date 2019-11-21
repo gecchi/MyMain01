@@ -59,10 +59,10 @@ void Stage01::initialize() {
 
 void Stage01::processBehavior() {
 
-    if (getBehaveingFrame() == 9663) {
-        pGAME_SCENE->pauseGame();
-        _TRACE_("HOGEHOGE");
-    }
+//    if (getBehaveingFrame() == 9663) {
+//        pGAME_SCENE->pauseGame();
+//        _TRACE_("HOGEHOGE");
+//    }
     Stage::processBehavior();
     SceneProgress* pProg = getProgress();
     switch (pProg->get()) {

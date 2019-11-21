@@ -44,7 +44,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140_xp</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_XP|Win32'" Label="Configuration">
@@ -56,7 +56,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140_xp</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -320,6 +320,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\actor\AniTest.cpp" />
     <ClCompile Include="src\actor\BoardTest.cpp" />
     <ClCompile Include="src\actor\BoardTest2.cpp" />
     <ClCompile Include="src\actor\Box.cpp" />
@@ -350,6 +351,7 @@
     <ClCompile Include="src\util\MgrUtil.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\actor\AniTest.h" />
     <ClInclude Include="src\actor\BoardTest.h" />
     <ClInclude Include="src\actor\BoardTest2.h" />
     <ClInclude Include="src\actor\Box.h" />

@@ -13,9 +13,9 @@
 #include "actor/SeActor3.h"
 #include "actor/SmpPieGraphSprite.h"
 #include "actor/EffectExplosion004.h"
+#include "actor/AniTest.h"
 #include "scene/MgrSpacetime/MgrWorld.h"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-
 
 
 using namespace GgafLib;
@@ -31,7 +31,7 @@ enum {
 TrialAndErrScene::TrialAndErrScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "TrialAndErrScene";
     pTest_ = nullptr;
-    requestActor(1234, SeActor3, "SeActor3");
+    requestActor(1234, AniTest, "AniTest");
 }
 
 
@@ -43,7 +43,7 @@ void TrialAndErrScene::initialize() {
 void TrialAndErrScene::processBehavior() {
 
     if (getActiveFrame() == 100) {
-        SeActor3* p = (SeActor3*)receiveActor(1234);
+        AniTest* p = (AniTest*)receiveActor(1234);
         bringSceneMediator()->appendGroupChild(p);
         p->setPosition(0, 0, 0);
     }

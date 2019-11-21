@@ -15,8 +15,8 @@ MgrWorld::MgrWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
 }
 
 void MgrWorld::initialize() {
-//    pTestScene_ = desireScene(TrialAndErrScene);
-    pTestScene_ = desireScene(ParallelCurveTestScene);
+    pTestScene_ = desireScene(TrialAndErrScene);
+//    pTestScene_ = desireScene(ParallelCurveTestScene);
     appendChild(pTestScene_);
 
 }

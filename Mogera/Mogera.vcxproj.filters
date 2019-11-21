@@ -29,6 +29,7 @@
     <ClCompile Include="src\actor\FormationZako.cpp" />
     <ClCompile Include="src\actor\FormationZako001.cpp" />
     <ClCompile Include="src\actor\Box.cpp" />
+    <ClCompile Include="src\actor\AniTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\actor\camera\MgrCamera.h" />
@@ -59,5 +60,6 @@
     <ClInclude Include="src\actor\FormationZako.h" />
     <ClInclude Include="src\actor\FormationZako001.h" />
     <ClInclude Include="src\actor\Box.h" />
+    <ClInclude Include="src\actor\anitest.h" />
   </ItemGroup>
 </Project>

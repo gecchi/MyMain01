@@ -43,6 +43,7 @@ class SeActor3;
 class EnemyIda;
 class EnemyIdaBase;
 class Box;
+class AniTest;
 }
 
 #endif /*SIMPLEMOGERA_H_*/
