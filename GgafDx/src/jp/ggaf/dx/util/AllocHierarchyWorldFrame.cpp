@@ -15,8 +15,8 @@ AllocHierarchyWorldFrame::~AllocHierarchyWorldFrame(void)
 // ワールド変換行列付きのフレーム構造体を生成
 D3DXFRAME* AllocHierarchyWorldFrame::createNewFrame()
 {
-    D3DXFRAME_WORLD* tmp = NEW D3DXFRAME_WORLD;
-    ZeroMemory( tmp, sizeof(D3DXFRAME_WORLD) );
-    addDelList( NEW Deleter<D3DXFRAME_WORLD>( tmp ) );
+    FrameWorldMatrix* tmp = NEW FrameWorldMatrix;
+    ZeroMemory( tmp, sizeof(FrameWorldMatrix) );
+//    addDelList( NEW Deleter<FrameWorldMatrix>( tmp ) );
     return tmp;
 }

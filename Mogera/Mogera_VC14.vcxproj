@@ -321,6 +321,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\actor\AniTest.cpp" />
+    <ClCompile Include="src\actor\AniTest2.cpp" />
     <ClCompile Include="src\actor\BoardTest.cpp" />
     <ClCompile Include="src\actor\BoardTest2.cpp" />
     <ClCompile Include="src\actor\Box.cpp" />
@@ -352,6 +353,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\actor\AniTest.h" />
+    <ClInclude Include="src\actor\AniTest2.h" />
     <ClInclude Include="src\actor\BoardTest.h" />
     <ClInclude Include="src\actor\BoardTest2.h" />
     <ClInclude Include="src\actor\Box.h" />

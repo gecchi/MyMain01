@@ -36,6 +36,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ggafdxcommonheader.h" />
+    <ClInclude Include="include\jp\ggaf\dx\actor\AniMeshActor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\BaseActor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\BoardActor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\BoardSetActor.h" />
@@ -93,6 +94,7 @@
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\SeTransmitterForActor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\UvFlipper.h" />
     <ClInclude Include="include\jp\ggaf\dx\Config.h" />
+    <ClInclude Include="include\jp\ggaf\dx\effect\AniMeshEffect.h" />
     <ClInclude Include="include\jp\ggaf\dx\effect\BoardEffect.h" />
     <ClInclude Include="include\jp\ggaf\dx\effect\BoardSetEffect.h" />
     <ClInclude Include="include\jp\ggaf\dx\effect\D3DXAniMeshEffect.h" />
@@ -129,6 +131,7 @@
     <ClInclude Include="include\jp\ggaf\dx\manager\SeManager.h" />
     <ClInclude Include="include\jp\ggaf\dx\manager\TextureConnection.h" />
     <ClInclude Include="include\jp\ggaf\dx\manager\TextureManager.h" />
+    <ClInclude Include="include\jp\ggaf\dx\model\AniMeshModel.h" />
     <ClInclude Include="include\jp\ggaf\dx\model\BoardModel.h" />
     <ClInclude Include="include\jp\ggaf\dx\model\BoardSetModel.h" />
     <ClInclude Include="include\jp\ggaf\dx\model\D3DXAniMeshModel.h" />
@@ -176,6 +179,7 @@
     <ClInclude Include="include\jp\ggaf\dx\util\AllocHierarchyWorldFrame.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\CollisionArea.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\CollisionPart.h" />
+    <ClInclude Include="include\jp\ggaf\dx\util\FrameWorldMatrix.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\GeoElem.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\Input.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\SphereRadiusVectors.h" />
@@ -190,6 +194,7 @@
     <ClInclude Include="include\jp\ggaf\dx\util\XFile\Toolbox\XFileStructs.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\jp\ggaf\dx\actor\AniMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\BaseActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\BoardActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\BoardSetActor.cpp" />
@@ -245,6 +250,7 @@
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\SeTransmitterForActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\UvFlipper.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\Config.cpp" />
+    <ClCompile Include="src\jp\ggaf\dx\effect\AniMeshEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\effect\BoardEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\effect\BoardSetEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\effect\D3DXAniMeshEffect.cpp" />
@@ -281,6 +287,7 @@
     <ClCompile Include="src\jp\ggaf\dx\manager\SeManager.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\manager\TextureConnection.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\manager\TextureManager.cpp" />
+    <ClCompile Include="src\jp\ggaf\dx\model\AniMeshModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\model\BoardModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\model\BoardSetModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\model\D3DXAniMeshModel.cpp" />

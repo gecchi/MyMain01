@@ -48,9 +48,14 @@ HRESULT D3DXAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
         hr = pID3DXEffect->SetFloat(pD3DXAniMeshEffect->_h_tex_blink_threshold, _blink_threshold);
         checkDxException(hr, D3D_OK, "SetFloat(_h_tex_blink_threshold) に失敗しました。");
     }
-    pTargetActor->_pPuppeteer->work(); //アニメーション反映
-    std::list< D3DXFRAME_WORLD* > *pDrawList = _stackWorldMat.GetDrawList(); // 描画リストを取得
-    std::list<D3DXFRAME_WORLD*>::iterator it = pDrawList->begin();
+
+    pTargetActor->_pPuppeteer->updateAnimationTrack(); //アニメーション反映
+    //モデルのワールド変換行列更新
+    _stackWorldMat.SetWorldMatrix(&(pTargetActor->_matWorld));
+    _stackWorldMat.UpdateFrame(_pFR);
+
+    std::list< FrameWorldMatrix* > *pDrawList = _stackWorldMat.GetDrawList(); // 描画リストを取得
+    std::list<FrameWorldMatrix*>::iterator it = pDrawList->begin();
     IDirect3DDevice9* const pDevice = God::_pID3DDevice9;
     int n = 0;
     //マテリアル・テクスチャの一発目をセット、
@@ -138,6 +143,19 @@ HRESULT D3DXAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
     return D3D_OK;
 }
 
+ID3DXAnimationController* D3DXAniMeshModel::getCloneAnimationController() {
+    ID3DXAnimationController* _pAc = nullptr;
+    HRESULT hr = _pAcBase->CloneAnimationController(
+                                _pAcBase->GetMaxNumAnimationOutputs(),
+                                _pAcBase->GetMaxNumAnimationSets(),
+                                _pAcBase->GetMaxNumTracks(),
+                                _pAcBase->GetMaxNumEvents(),
+                                        &_pAc);
+    checkDxException(hr, D3D_OK, "アニメーションコントローラーのクローンに失敗しました。");
+    return _pAc;
+}
+
+
 void D3DXAniMeshModel::restore() {
     _TRACE3_("_model_name=" << _model_name << " start");
     //TODO:作成中？！！！！！！！！
@@ -187,7 +205,7 @@ void D3DXAniMeshModel::restore() {
     HRESULT hr;
     //Xファイルのファイルロード
     AllocHierarchyWorldFrame* pAH = NEW AllocHierarchyWorldFrame(); // CAllocHierarchyBaseの派生クラス
-    D3DXFRAME_WORLD* pFR; // ワールド変換行列付きフレーム構造体
+    FrameWorldMatrix* pFR; // ワールド変換行列付きフレーム構造体
     ID3DXAnimationController* pAC; // アニメーションコントローラ
     hr = D3DXLoadMeshHierarchyFromX(
             xfile_name.c_str(),
@@ -204,9 +222,9 @@ void D3DXAniMeshModel::restore() {
         throwCriticalException(xfile_name<<" のフレーム情報が取得できません！");
     }
     //マテリアル配列を作成
-    std::list<D3DXFRAME_WORLD*> listFrame;
+    std::list<FrameWorldMatrix*> listFrame;
     getDrawFrameList(&listFrame, pFR); //マテリアル総数を知りたいがため、フレームを廻り、リスト化
-    std::list<D3DXFRAME_WORLD*>::iterator it = listFrame.begin();
+    std::list<FrameWorldMatrix*>::iterator it = listFrame.begin();
     int model_nMaterials = 0;
     //フレームリストを廻って、マテリアル総数取得
     for (int i = 0; it != listFrame.end(); i++, ++it) {
@@ -264,18 +282,18 @@ void D3DXAniMeshModel::restore() {
     _TRACE3_("_model_name=" << _model_name << " end");
 }
 
-void D3DXAniMeshModel::getDrawFrameList(std::list<D3DXFRAME_WORLD*>* pList, D3DXFRAME_WORLD* pFrame) {
+void D3DXAniMeshModel::getDrawFrameList(std::list<FrameWorldMatrix*>* pList, FrameWorldMatrix* pFrame) {
     if (pFrame->pMeshContainer) {
         //メッシュコンテナ有り
         pList->push_back(pFrame); //リストに追加
     }
     if (pFrame->pFrameFirstChild) {
         // 子フレーム有り
-        getDrawFrameList(pList, (D3DXFRAME_WORLD*)pFrame->pFrameFirstChild);
+        getDrawFrameList(pList, (FrameWorldMatrix*)pFrame->pFrameFirstChild);
     }
     if (pFrame->pFrameSibling) {
         //兄弟フレーム有り
-        getDrawFrameList(pList, (D3DXFRAME_WORLD*)pFrame->pFrameSibling);
+        getDrawFrameList(pList, (FrameWorldMatrix*)pFrame->pFrameSibling);
     }
 }
 
@@ -307,6 +325,7 @@ void D3DXAniMeshModel::release() {
     GGAF_DELETEARR(_paMaterial_default);
     GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);
     GGAF_RELEASE(_pAcBase);
+    _pAH->DestroyFrame((D3DXFRAME*)_pFR);
     GGAF_DELETE(_pAH);
     //TODO:いつ消すの？
     _TRACE3_("_model_name=" << _model_name << " end");

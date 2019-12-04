@@ -17,32 +17,32 @@ namespace GgafDx {
 class AllocHierarchy : public ID3DXAllocateHierarchy
 {
 protected:
-    class DeleterBase {
-    public:
-        virtual ~DeleterBase() {}
-    };
-
-    template< class T >
-    class Deleter : public DeleterBase {
-    public:
-        T* pObj;
-        bool isAry;
-
-        Deleter( T* deletePtr, bool is_Ary = false ) : pObj(deletePtr), isAry( is_Ary ) {};
-        virtual ~Deleter() {
-            if ( isAry ) {
-                T* pa = (T*)pObj;
-                GGAF_DELETEARR(pa);
-            } else {
-                T* p = (T*)pObj;
-                GGAF_DELETE(p);
-            }
-        }
-    };
+//    class DeleterBase {
+//    public:
+//        virtual ~DeleterBase() {}
+//    };
+//
+//    template< class T >
+//    class Deleter : public DeleterBase {
+//    public:
+//        T* pObj;
+//        bool isAry;
+//
+//        Deleter( T* deletePtr, bool is_Ary = false ) : pObj(deletePtr), isAry( is_Ary ) {};
+//        virtual ~Deleter() {
+//            if ( isAry ) {
+//                T* pa = (T*)pObj;
+//                GGAF_DELETEARR(pa);
+//            } else {
+//                T* p = (T*)pObj;
+//                GGAF_DELETE(p);
+//            }
+//        }
+//    };
 
 protected:
-    std::list<DeleterBase*> m_DelList;   // 消去リスト
-    std::list<IUnknown*> m_ReleaseList;   // リリースリスト
+//    std::list<DeleterBase*> m_DelList;   // 消去リスト
+//    std::list<IUnknown*> m_ReleaseList;   // リリースリスト
 
 public:
     AllocHierarchy(void);
@@ -79,7 +79,7 @@ public:
 
 protected:
     // 消去リストに登録する
-    virtual void addDelList( DeleterBase* ptr, bool isAry = false );
+//    virtual void addDelList( DeleterBase* ptr, bool isAry = false );
 
     // 文字列をコピーする
     virtual LPSTR copyStr(LPCSTR name);
@@ -93,8 +93,8 @@ protected:
     // メッシュデータを登録
     virtual void registerMeshData(CONST D3DXMESHDATA *pSrc, D3DXMESHDATA *pDest);
 
-    // リリースリストに登録
-    virtual void addReleaseList( IUnknown *comptr);
+//    // リリースリストに登録
+//    virtual void addReleaseList( IUnknown *comptr);
 
     // マテリアル登録
     virtual void registerMaterial(CONST D3DXMATERIAL *pSrc, DWORD num, D3DXMATERIAL **pDest);

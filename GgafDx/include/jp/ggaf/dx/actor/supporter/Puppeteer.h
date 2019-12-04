@@ -2,6 +2,7 @@
 #define GGAF_DX_PUPPETEER_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
+#include "jp/ggaf/dx/exception/CriticalException.h"
 
 #include <d3dx9.h>
 #ifdef __GNUG__
@@ -13,7 +14,7 @@ namespace GgafDx {
 
 /**
  * パペッター(操り人形遣い) .
- * パペッターは、糸で吊るされたパペット(D3DXAniMeshActor)を操り棒で操り、<BR>
+ * パペッターは、糸で吊るされたパペット(AniMeshActor)を操り棒で操り、<BR>
  * 様々な芸(アニメーション)を演じさせることが出来る人(オブジェクト)です。<BR>
  * 残念ながら、パペットは同時に2種類の芸までしか演じさせる事が出来ません。<BR>
  * 理由は、パペッターの腕が２本しか無いからです。しかたないですね。<BR>
@@ -34,8 +35,8 @@ namespace GgafDx {
  */
 class Puppeteer : public GgafCore::Object {
 private:
-    /** [r]パペットのモデル */
-    D3DXAniMeshModel* _pModel;
+//    /** [r]パペットのモデル */
+//    AniMeshModel* _pModel;
     /** [r]パペットのアニメーションコントローラー */
     ID3DXAnimationController* _pAc;
 
@@ -67,7 +68,7 @@ private:
         /** 重みの加算値 */
         double _inc_weight;
         /** 重みを加算中ならば true */
-        bool   _is_shifting_weight;
+        bool  _is_shifting_weight;
         /** ループ方法 */
         PuppeteerMethod _method;
     public:
@@ -84,7 +85,7 @@ private:
             _weight             = 1.0;
             _inc_weight         = 0.0;
             _is_shifting_weight = false;
-            _method             = PLAY_LOOPING;
+            _method             = NO_CHENGE;
         }
 
         virtual ~Performance() {
@@ -93,18 +94,22 @@ private:
 
     /** パペッターの操り棒 */
     struct Stick {
-        UINT _no;
+        /** 操り棒番号(アニメーショントラック番号) */
+        UINT _tno;
+        /** モーションブレンド有効無効 */
+        BOOL _enable_motion_blend;
+        /** パペッターの操り棒の先にくっついてる持ちネタ(芸) */
         Performance* _pPerformance;
     };
 
 public:
-    /** [r]パペット */
-    D3DXAniMeshActor* _pPuppet;
+//    /** [r]パペット */
+//    AniMeshActor* _pPuppet;
     /** [r/w]パペットの持ちネタ(芸) */
     Performance* _paPerformances;
     /** [r]パペットの持ちネタ(芸)の数 */
     UINT _num_perform;
-    /** [r/w]左手用、右手用のパペッターの操り棒  [0]:左手用／[1]:右手用  */
+    /** [r/w]左手用、右手用のパペッターの操り棒(アニメーショントラック)  [0]:左手用／[1]:右手用  */
     Stick _aStick[2];
 
 public:
@@ -113,12 +118,14 @@ public:
      * @param prm_pPuppet 操られる者
      * @return
      */
-    explicit Puppeteer(D3DXAniMeshActor* prm_pPuppet);
+    explicit Puppeteer(ID3DXAnimationController* prm_pAc_cloned);
+    //TODO:
+//    explicit Puppeteer(D3DXAniMeshActor* prm_pPuppet) {}
 
     /**
      * プレイしてもらう（＝パペットが操られる） .
      * @param prm_handed プレイするパペッターの操り棒 (LEFT_HAND or RIGHT_HAND)
-     * @param prm_prm_performance_no プレイする芸番号（アニメーションコントローラーのアニメーションセットIDに一致する）
+     * @param prm_performance_no プレイする芸番号（アニメーションコントローラーのアニメーションセットIDに一致する）
      * @param prm_loopnum その芸のループ回数 0.0 ～ (１回半ループを1.5というようにも指定可能。負の数指定(-1)で無限ループアニメーション)
      * @param prm_target_speed 目標スピード割合 通常は -1.0 ～ 0.0 ～ 1.0 (1.0で通常スピード、それ以上も可能。負の値指定で逆アニメーションになる)
      * @param prm_shift_speed_frames 目標スピード割合への到達フレーム数。徐々にスピード変化します。(0 を指定で即時 prm_target_speed になる)
@@ -127,13 +134,13 @@ public:
      * @param prm_method
      */
     void play(PuppeteerStick prm_handed,
-              UINT prm_prm_performance_no,
+              UINT prm_performance_no,
               double prm_loopnum,
               double prm_target_speed,
               frame prm_shift_speed_frames,
               double prm_target_weight,
               frame prm_shift_weight_frames,
-              PuppeteerMethod prm_method = NO_CHENGE
+              PuppeteerMethod prm_method = PLAY_LOOPING
     );
 
     /**
@@ -146,7 +153,7 @@ public:
     void stop();
 
     virtual void behave();
-    virtual void work();
+    virtual void updateAnimationTrack();
     virtual ~Puppeteer();
 
 };

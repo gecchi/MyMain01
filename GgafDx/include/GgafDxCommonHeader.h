@@ -286,7 +286,7 @@ enum Valign {
 #define Obj_GgafDx_FramedBoardActor           (0x1000000000ULL)  //0b 00000000 00000000 00000000 00010000 00000000 00000000 00000000 00000000
 #define Obj_GgafDx_RegularPolygonSpriteActor  (0x2000000000ULL)  //0b 00000000 00000000 00000000 00100000 00000000 00000000 00000000 00000000
 #define Obj_GgafDx_RegularPolygonBoardActor   (0x4000000000ULL)  //0b 00000000 00000000 00000000 01000000 00000000 00000000 00000000 00000000
-
+#define Obj_GgafDx_AniMeshActor               (0x8000000000ULL)  //0b 00000000 00000000 00000000 10000000 00000000 00000000 00000000 00000000
 
 //ëOï˚êÈåæ(forward declaration)
 namespace IkdLib {
@@ -322,7 +322,7 @@ class EffectConnection;
 class EffectManager;
 
 class AllocHierarchy;
-class D3DXFRAME_WORLD;
+class FrameWorldMatrix;
 class AllocHierarchyWorldFrame;
 class WorldMatStack;
 
@@ -367,6 +367,7 @@ class PointSpriteSetActor;
 class FramedBoardActor;
 class RegularPolygonSpriteActor;
 class RegularPolygonBoardActor;
+class AniMeshActor;
 
 class Model;
 class MassModel;
@@ -393,7 +394,7 @@ class PointSpriteSetModel;
 class FramedBoardModel;
 class RegularPolygonSpriteModel;
 class RegularPolygonBoardModel;
-
+class AniMeshModel;
 
 class Effect;
 class MassEffect;
@@ -419,6 +420,7 @@ class PointSpriteSetEffect;
 class FramedBoardEffect;
 class RegularPolygonSpriteEffect;
 class RegularPolygonBoardEffect;
+class AniMeshEffect;
 
 class Texture;
 

@@ -36,6 +36,7 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\CubeMapMeshActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\CubeMapMeshSetActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\CubeMapMorphMeshActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\DefaultAniMeshActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultBoardActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultBoardSetActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultD3DXAniMeshActor.h" />
@@ -141,6 +142,7 @@
     <ClCompile Include="src\jp\ggaf\lib\actor\CubeMapMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\CubeMapMeshSetActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\CubeMapMorphMeshActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\DefaultAniMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultBoardActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultBoardSetActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultD3DXAniMeshActor.cpp" />

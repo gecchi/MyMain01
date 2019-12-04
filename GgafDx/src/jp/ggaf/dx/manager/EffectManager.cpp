@@ -19,6 +19,7 @@
 #include "jp/ggaf/dx/effect/FramedBoardEffect.h"
 #include "jp/ggaf/dx/effect/RegularPolygonSpriteEffect.h"
 #include "jp/ggaf/dx/effect/RegularPolygonBoardEffect.h"
+#include "jp/ggaf/dx/effect/AniMeshEffect.h"
 #include "jp/ggaf/dx/effect/ex/CubeMapMeshEffect.h"
 #include "jp/ggaf/dx/effect/ex/CubeMapMeshSetEffect.h"
 #include "jp/ggaf/dx/effect/ex/CubeMapMorphMeshEffect.h"
@@ -109,6 +110,9 @@ Effect* EffectManager::processCreateResource(const char* prm_idstr, void* prm_pC
             break;
         case TYPE_REGULARPOLYGONBOARD_EFFECT:
             pResourceEffect = NEW RegularPolygonBoardEffect(effect_name);
+            break;
+        case TYPE_ANIMESH_EFFECT:
+            pResourceEffect = NEW AniMeshEffect(effect_name);
             break;
         default:
             throwCriticalException("prm_idstr="<<prm_idstr<<" の '"<<effect_type<<"' ・・・そんなエッフェクト種別は知りません");

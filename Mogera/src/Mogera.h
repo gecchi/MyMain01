@@ -44,6 +44,7 @@ class EnemyIda;
 class EnemyIdaBase;
 class Box;
 class AniTest;
+class AniTest2;
 }
 
 #endif /*SIMPLEMOGERA_H_*/

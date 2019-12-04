@@ -38,6 +38,7 @@
 #define Obj_GgafDx_FramedBoardModel            (0x400000U)       //0b 00000000 01000000 00000000 00000000
 #define Obj_GgafDx_RegularPolygonSpriteModel   (0x800000U)       //0b 00000000 10000000 00000000 00000000
 #define Obj_GgafDx_RegularPolygonBoardModel    (0x1000000U)      //0b 00000001 00000000 00000000 00000000
+#define Obj_GgafDx_AniMeshModel                (0x2000000U)      //0b 00000010 00000000 00000000 00000000
 
 namespace GgafDx {
 
@@ -245,6 +246,8 @@ public:
     static float getRadv1_v0v1v2(Frm::Vertex& v0, Frm::Vertex& v1, Frm::Vertex& v2);
 
     void setMaterial(Frm::Mesh* in_pMeshesFront = nullptr);
+
+    void setDefaultMaterial(D3DMATERIAL9* pMateria);
 
     /**
      * ÉÇÉfÉãÇçƒç\ízÇµÇ‹Ç∑.

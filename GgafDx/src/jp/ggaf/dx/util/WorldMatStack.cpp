@@ -14,7 +14,7 @@ void WorldMatStack::SetWorldMatrix(D3DXMATRIX* worldmat) {
     m_WorldTransMatrix = *worldmat;
 }
 
-void WorldMatStack::UpdateFrame(D3DXFRAME_WORLD* frame_world) {
+void WorldMatStack::UpdateFrame(FrameWorldMatrix* frame_world) {
     // スタックの初期化
     while (!m_MatrixStack.empty())
         m_MatrixStack.pop();
@@ -29,7 +29,7 @@ void WorldMatStack::UpdateFrame(D3DXFRAME_WORLD* frame_world) {
     CalcFrameWorldMatrix(frame_world);
 }
 
-void WorldMatStack::CalcFrameWorldMatrix(D3DXFRAME_WORLD* frame_world) {
+void WorldMatStack::CalcFrameWorldMatrix(FrameWorldMatrix* frame_world) {
     // 現在のスタックの先頭にあるワールド変換行列を参照
     D3DXMATRIX *pStackMat = m_MatrixStack.top();
 
@@ -56,18 +56,18 @@ void WorldMatStack::CalcFrameWorldMatrix(D3DXFRAME_WORLD* frame_world) {
     // 子フレームがあればスタックを積んで、子フレームのワールド変換座標の計算へ
     if (frame_world->pFrameFirstChild) {
         m_MatrixStack.push(&(frame_world->WorldTransMatrix));
-        CalcFrameWorldMatrix((D3DXFRAME_WORLD*)frame_world->pFrameFirstChild);
+        CalcFrameWorldMatrix((FrameWorldMatrix*)frame_world->pFrameFirstChild);
         m_MatrixStack.pop(); // 子フレームがもう終わったのでスタックを1つ外す
     }
 
     // 兄弟フレームがあれば「現在の」スタックを利用
     if (frame_world->pFrameSibling) {
         //_TRACE_("兄弟フレームへいきます");
-        CalcFrameWorldMatrix((D3DXFRAME_WORLD*)frame_world->pFrameSibling);
+        CalcFrameWorldMatrix((FrameWorldMatrix*)frame_world->pFrameSibling);
     }
 }
 
 // 描画リストを取得
-std::list<D3DXFRAME_WORLD*> *WorldMatStack::GetDrawList() {
+std::list<FrameWorldMatrix*> *WorldMatStack::GetDrawList() {
     return &m_DrawFrameList;
 }

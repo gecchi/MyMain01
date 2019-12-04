@@ -20,7 +20,7 @@ class D3DXAniMeshModel : public Model {
 public:
     /** メッシュ(インスタンスはモデル毎） */
     AllocHierarchyWorldFrame* _pAH;
-    D3DXFRAME_WORLD* _pFR;
+    FrameWorldMatrix* _pFR;
     ID3DXAnimationController* _pAcBase;
     int _anim_ticks_per_second;
     /** 60フレーム(1秒)で1ループする場合の1フレーム辺りの時間 */
@@ -42,7 +42,9 @@ public:
 
     virtual void restore() override;
 
-    void getDrawFrameList(std::list<D3DXFRAME_WORLD*>* pList, D3DXFRAME_WORLD* frame);
+    ID3DXAnimationController* getCloneAnimationController();
+
+    void getDrawFrameList(std::list<FrameWorldMatrix*>* pList, FrameWorldMatrix* frame);
 
     virtual void onDeviceLost() override;
 

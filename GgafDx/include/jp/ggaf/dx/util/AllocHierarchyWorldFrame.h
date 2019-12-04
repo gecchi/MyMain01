@@ -2,16 +2,11 @@
 #define GGAF_DX_ALLOCHIERARCHYWORLDFRAME_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/util/AllocHierarchy.h"
+#include "jp/ggaf/dx/util/FrameWorldMatrix.h"
 
 namespace GgafDx {
 
-// ワールド変換行列付きフレーム構造体
-class D3DXFRAME_WORLD : public D3DXFRAME {
-public:
-   D3DXMATRIX WorldTransMatrix;
-};
-
-// D3DXFRAME_WORLD取り扱いAllocateHierarchyクラス
+// FrameWorldMatrix取り扱いAllocateHierarchyクラス
 class AllocHierarchyWorldFrame: public AllocHierarchy {
 public:
     AllocHierarchyWorldFrame(void);

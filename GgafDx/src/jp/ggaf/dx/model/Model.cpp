@@ -507,33 +507,31 @@ void Model::setMaterial(Frm::Mesh* in_pMeshesFront) {
             _num_materials = 1;
             _paMaterial_default  = NEW D3DMATERIAL9[1];
             _pa_texture_filenames = NEW std::string[1];
-
-            _paMaterial_default[0].Diffuse.r = 1.0f;
-            _paMaterial_default[0].Diffuse.g = 1.0f;
-            _paMaterial_default[0].Diffuse.b = 1.0f;
-            _paMaterial_default[0].Diffuse.a = 1.0f;
-
-            _paMaterial_default[0].Ambient.r = 1.0f;
-            _paMaterial_default[0].Ambient.g = 1.0f;
-            _paMaterial_default[0].Ambient.b = 1.0f;
-            _paMaterial_default[0].Ambient.a = 1.0f;
-
-            _paMaterial_default[0].Specular.r = 1.0f;
-            _paMaterial_default[0].Specular.g = 1.0f;
-            _paMaterial_default[0].Specular.b = 1.0f;
-            _paMaterial_default[0].Specular.a = 1.0f;
-            _paMaterial_default[0].Power = 0.0f;
-
-            _paMaterial_default[0].Emissive.r = 1.0f;
-            _paMaterial_default[0].Emissive.g = 1.0f;
-            _paMaterial_default[0].Emissive.b = 1.0f;
-            _paMaterial_default[0].Emissive.a = 1.0f;
+            setDefaultMaterial(&(_paMaterial_default[0]));
             _pa_texture_filenames[0] = CONFIG::WHITE_TEXTURE;
         }
     }
 
 }
-
+void Model::setDefaultMaterial(D3DMATERIAL9* pMateria) {
+    pMateria->Diffuse.r = 1.0f;
+    pMateria->Diffuse.g = 1.0f;
+    pMateria->Diffuse.b = 1.0f;
+    pMateria->Diffuse.a = 1.0f;
+    pMateria->Ambient.r = 1.0f;
+    pMateria->Ambient.g = 1.0f;
+    pMateria->Ambient.b = 1.0f;
+    pMateria->Ambient.a = 1.0f;
+    pMateria->Specular.r = 1.0f;
+    pMateria->Specular.g = 1.0f;
+    pMateria->Specular.b = 1.0f;
+    pMateria->Specular.a = 1.0f;
+    pMateria->Power = 0.0f;
+    pMateria->Emissive.r = 1.0f;
+    pMateria->Emissive.g = 1.0f;
+    pMateria->Emissive.b = 1.0f;
+    pMateria->Emissive.a = 1.0f;
+}
 Model::~Model() {
     _TRACE4_("Model::~Model("<<_model_name<<") Adr:"<<this);
     GGAF_DELETEARR_NULLABLE(_model_name);

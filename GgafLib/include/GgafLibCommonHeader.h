@@ -70,6 +70,7 @@ class DefaultPointSpriteSetActor;
 class DefaultFramedBoardActor;
 class DefaultRegularPolygonBoardActor;
 class DefaultRegularPolygonSpriteActor;
+class DefaultAniMeshActor;
 
 class ColliAABoxActor;
 class ColliAAPrismActor;

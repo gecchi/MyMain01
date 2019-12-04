@@ -9,25 +9,25 @@ AllocHierarchy::AllocHierarchy() {
 // デストラクタ
 AllocHierarchy::~AllocHierarchy() {
     // 登録されたオブジェクトを全て削除する
-    std::list<DeleterBase*>::iterator it = m_DelList.begin();
-    for (; it != m_DelList.end(); ++it) {
-        DeleterBase* p = (*it);
-        delete p;
-    }
-
-    std::list<IUnknown*>::iterator comit = m_ReleaseList.begin();
-    for (; comit != m_ReleaseList.end(); ++comit) {
-        if (*comit) {
-            (*comit)->Release();
-        }
-    }
+//    std::list<DeleterBase*>::iterator it = m_DelList.begin();
+//    for (; it != m_DelList.end(); ++it) {
+//        DeleterBase* p = (*it);
+//        delete p;
+//    }
+//
+//    std::list<IUnknown*>::iterator comit = m_ReleaseList.begin();
+//    for (; comit != m_ReleaseList.end(); ++comit) {
+//        if (*comit) {
+//            (*comit)->Release();
+//        }
+//    }
 }
 
 // フレーム構造体を生成
 D3DXFRAME* AllocHierarchy::createNewFrame() {
     D3DXFRAME * tmp = NEW D3DXFRAME;
     ZeroMemory(tmp, sizeof(D3DXFRAME));
-    addDelList( NEW Deleter<D3DXFRAME>(tmp) );
+//    addDelList( NEW Deleter<D3DXFRAME>(tmp) );
     return tmp;
 }
 
@@ -35,30 +35,29 @@ D3DXFRAME* AllocHierarchy::createNewFrame() {
 D3DXMESHCONTAINER *AllocHierarchy::createNewMeshContainer() {
     D3DXMESHCONTAINER * tmp = NEW D3DXMESHCONTAINER;
     ZeroMemory(tmp, sizeof(D3DXMESHCONTAINER));
-    addDelList( NEW Deleter<D3DXMESHCONTAINER>(tmp) );
+//    addDelList( NEW Deleter<D3DXMESHCONTAINER>(tmp) );
     return tmp;
 }
 
 // 消去リストに登録
-void AllocHierarchy::addDelList(DeleterBase* ptr, bool isAry) {
-    m_DelList.push_back(ptr);
-}
+//void AllocHierarchy::addDelList(DeleterBase* ptr, bool isAry) {
+//    m_DelList.push_back(ptr);
+//}
 
-// リリースリストに登録
-void AllocHierarchy::addReleaseList(IUnknown *comptr) {
-    comptr->AddRef();
-    m_ReleaseList.push_back(comptr);
-}
+//// リリースリストに登録
+//void AllocHierarchy::addReleaseList(IUnknown *comptr) {
+//    comptr->AddRef();
+//    m_ReleaseList.push_back(comptr);
+//}
 
 // 文字列コピー関数
 LPSTR AllocHierarchy::copyStr(LPCSTR name) {
-    if (!name)
+    if (!name) {
         return nullptr;   // nullptrは文字数をカウントできない
-    LPSTR
-    Str = NEW
-    char[strlen(name)+1];
+    }
+    LPSTR Str = NEW char[strlen(name)+1];
     Str = strcpy(Str, name);
-    addDelList( NEW Deleter<char>( Str, true ) );
+//    addDelList( NEW Deleter<char>( Str, true ) );
     return Str;
 }
 
@@ -67,7 +66,8 @@ void AllocHierarchy::registerMeshData(CONST D3DXMESHDATA *pSrc, D3DXMESHDATA *pD
 {
     pDest->Type = pSrc->Type;   // メッシュタイプ
     pDest->pMesh = pSrc->pMesh;// メッシュ（unionなのでどれでも一緒）
-    addReleaseList( pDest->pMesh );// Releaseリストへ登録
+//    addReleaseList( pDest->pMesh );// Releaseリストへ登録
+    (pDest->pMesh)->AddRef();
 }
 
 // マテリアル登録
@@ -75,10 +75,9 @@ void AllocHierarchy::registerMaterial(CONST D3DXMATERIAL *pSrc, DWORD num, D3DXM
 {
     // マテリアル配列の生成
     *ppDest = NEW D3DXMATERIAL[ num ];
-    addDelList( NEW Deleter<D3DXMATERIAL>( *ppDest, true ) );
+//    addDelList( NEW Deleter<D3DXMATERIAL>( *ppDest, true ) );
 
-    DWORD i;
-    for (i=0; i<num; i++) {
+    for (DWORD i = 0; i < num; i++) {
         (*ppDest)[i].MatD3D = pSrc[i].MatD3D;   // マテリアル登録
         (*ppDest)[i].pTextureFilename = copyStr( pSrc[i].pTextureFilename );// テクスチャ名登録
     }
@@ -88,11 +87,11 @@ void AllocHierarchy::registerMaterial(CONST D3DXMATERIAL *pSrc, DWORD num, D3DXM
 void AllocHierarchy::registerEffect(CONST D3DXEFFECTINSTANCE *pSrc, D3DXEFFECTINSTANCE **ppDest)
 {
     *ppDest = NEW D3DXEFFECTINSTANCE;
-    addDelList( NEW Deleter<D3DXEFFECTINSTANCE>(*ppDest) );
+//    addDelList( NEW Deleter<D3DXEFFECTINSTANCE>(*ppDest) );
     (*ppDest)->pEffectFilename = copyStr(pSrc->pEffectFilename);     // エフェクト名
     (*ppDest)->NumDefaults = pSrc->NumDefaults;// エフェクトデフォルト数
     (*ppDest)->pDefaults = NEW D3DXEFFECTDEFAULT[pSrc->NumDefaults];// エフェクトデフォルト配列生成
-    addDelList( NEW Deleter<D3DXEFFECTDEFAULT>( (*ppDest)->pDefaults, true ) );
+//    addDelList( NEW Deleter<D3DXEFFECTDEFAULT>( (*ppDest)->pDefaults, true ) );
 
     // エフェクトデフォルトの登録
     D3DXEFFECTDEFAULT *pEDSrc = pSrc->pDefaults;// コピー元
@@ -105,7 +104,7 @@ void AllocHierarchy::registerEffect(CONST D3DXEFFECTINSTANCE *pSrc, D3DXEFFECTIN
         if(pEDSrc[i].Type <= D3DXEDT_DWORD) {
             pEDDest[i].pValue = (void*)( NEW BYTE[ NumBytes ] );              // パラメータ配列生成
             memcpy( pEDDest[i].pValue, pEDSrc[i].pValue, NumBytes );
-            addDelList( NEW Deleter<BYTE>( (BYTE*)(pEDDest[i].pValue), true ) );
+//            addDelList( NEW Deleter<BYTE>( (BYTE*)(pEDDest[i].pValue), true ) );
         }
     }
 }
@@ -115,14 +114,15 @@ void AllocHierarchy::registerAdjacency(CONST DWORD *Src, DWORD polynum, DWORD **
 {
     *Dest = NEW DWORD[ polynum * 3 ];   // 配列生成
     memcpy( *Dest, Src, polynum * 3 * sizeof(DWORD));// コピー
-    addDelList( NEW Deleter<DWORD>( *Dest, true ) );
+//    addDelList( NEW Deleter<DWORD>( *Dest, true ) );
 }
 
 // スキン登録
 void AllocHierarchy::registerSkin( CONST LPD3DXSKININFO Src, LPD3DXSKININFO *Dest) {
     if(!Src) return;   // スキンが無ければ何もしない
     *Dest = Src;// スキンをコピー
-    addReleaseList( *Dest );// リリースリストに登録
+//    addReleaseList( *Dest );// リリースリストに登録
+    (*Dest)->AddRef();
 }
 
 // フレーム生成関数
@@ -177,15 +177,47 @@ HRESULT AllocHierarchy::CreateMeshContainer(THIS_
 // フレームを削除
 HRESULT AllocHierarchy::DestroyFrame(THIS_
         LPD3DXFRAME pFrameToFree) {
-    // このクラスではデストラクタで削除されるので
-    // この関数は使わない
+    if(pFrameToFree->Name) {
+        delete[] pFrameToFree->Name;
+    }
+    if(pFrameToFree->pMeshContainer) {
+        DestroyMeshContainer(pFrameToFree->pMeshContainer);
+    }
+    if(pFrameToFree->pFrameSibling) {
+        DestroyFrame(pFrameToFree->pFrameSibling);
+    }
+    if(pFrameToFree->pFrameFirstChild) {
+        DestroyFrame(pFrameToFree->pFrameFirstChild);
+    }
+    delete pFrameToFree;
     return D3D_OK;
 }
 
 // コンテナを削除
 HRESULT AllocHierarchy::DestroyMeshContainer(THIS_
         LPD3DXMESHCONTAINER pMeshContainerToFree) {
-    // このクラスではデストラクタで削除されるので
-    // この関数は使わない
+    D3DXMESHCONTAINER *p = pMeshContainerToFree;   // 長いので
+    delete[] p->Name;
+    ID3DXMesh* pMesh = p->MeshData.pMesh;
+    GGAF_RELEASE_NULLABLE(pMesh);
+
+    for(unsigned int i=0; i < p->NumMaterials; i++){
+        delete[] p->pMaterials[i].pTextureFilename;
+    }
+    delete[] p->pMaterials;
+
+    // エフェクト
+    for(int i = 0; i < p->pEffects->NumDefaults; i++) {
+        delete[] p->pEffects->pDefaults[i].pParamName;
+        delete[] p->pEffects->pDefaults[i].pValue;
+    }
+
+    delete[] p->pEffects->pEffectFilename;
+    delete[] p->pEffects->pDefaults;
+    delete p->pEffects;
+
+    delete[] p->pAdjacency;
+    LPD3DXSKININFO pSkinInfo = p->pSkinInfo;
+    GGAF_RELEASE_NULLABLE(pSkinInfo);
     return D3D_OK;
 }

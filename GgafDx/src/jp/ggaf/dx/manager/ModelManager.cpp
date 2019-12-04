@@ -43,6 +43,7 @@
 #include "jp/ggaf/dx/model/FramedBoardModel.h"
 #include "jp/ggaf/dx/model/RegularPolygonSpriteModel.h"
 #include "jp/ggaf/dx/model/RegularPolygonBoardModel.h"
+#include "jp/ggaf/dx/model/AniMeshModel.h"
 #include "jp/ggaf/dx/model/ex/CubeMapMeshModel.h"
 #include "jp/ggaf/dx/model/ex/CubeMapMeshSetModel.h"
 #include "jp/ggaf/dx/model/ex/CubeMapMorphMeshModel.h"
@@ -209,6 +210,9 @@ Model* ModelManager::processCreateResource(const char* prm_idstr, void* prm_pCon
             break;
         case TYPE_REGULARPOLYGONBOARD_MODEL:
             pResourceModel = createModel<RegularPolygonBoardModel>(model_name);
+            break;
+        case TYPE_ANIMESH_MODEL:
+            pResourceModel = createModel<AniMeshModel>(model_name);
             break;
         default:
             throwCriticalException("prm_idstr="<<prm_idstr<<" の '"<<model_type<<"' ・・・そんなモデル種別は知りません");

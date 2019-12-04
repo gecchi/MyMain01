@@ -1,15 +1,15 @@
-#include "jp/ggaf/dx/actor/D3DXAniMeshActor.h"
+#include "jp/ggaf/dx/actor/AniMeshActor.h"
 
 #include "jp/ggaf/dx/actor/supporter/Puppeteer.h"
-#include "jp/ggaf/dx/model/D3DXAniMeshModel.h"
-#include "jp/ggaf/dx/effect/D3DXAniMeshEffect.h"
+#include "jp/ggaf/dx/model/AniMeshModel.h"
+#include "jp/ggaf/dx/effect/AniMeshEffect.h"
 #include "jp/ggaf/dx/util/Util.h"
 
 
 using namespace GgafDx;
 
-DWORD D3DXAniMeshActor::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1);
-D3DXAniMeshActor::D3DXAniMeshActor(const char* prm_name,
+DWORD AniMeshActor::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1);
+AniMeshActor::AniMeshActor(const char* prm_name,
                                    const char* prm_model_id,
                                    const char* prm_effect_id,
                                    const char* prm_technique,
@@ -17,25 +17,26 @@ D3DXAniMeshActor::D3DXAniMeshActor(const char* prm_name,
 
                                        FigureActor(prm_name,
                                                    prm_model_id,
-                                                   TYPE_D3DXANIMESH_MODEL,
+                                                   TYPE_ANIMESH_MODEL,
                                                    prm_effect_id,
-                                                   TYPE_D3DXANIMESH_EFFECT,
+                                                   TYPE_ANIMESH_EFFECT,
                                                    prm_technique,
                                                    prm_pChecker) {
-    _obj_class |= Obj_GgafDx_D3DXAniMeshActor;
-    _class_name = "D3DXAniMeshActor";
-    _pD3DXAniMeshModel = (D3DXAniMeshModel*)_pModel;
-    _pD3DXAniMeshEffect = (D3DXAniMeshEffect*)_pEffect;
+    _obj_class |= Obj_GgafDx_AniMeshActor;
+    _class_name = "AniMeshActor";
     _papAnimationSet = nullptr;
+    _pAniMeshModel = (AniMeshModel*)_pModel;
+    _pAniMeshEffect = (AniMeshEffect*)_pEffect;
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列
-    ID3DXAnimationController* pAc_cloned = _pD3DXAniMeshModel->getCloneAnimationController();
+
+    ID3DXAnimationController* pAc_cloned = _pAniMeshModel->getCloneAnimationController();
     _pPuppeteer = NEW Puppeteer(pAc_cloned);
 }
 
-void D3DXAniMeshActor::processDraw() {
-    _pD3DXAniMeshModel->draw(this);
+void AniMeshActor::processDraw() {
+    _pAniMeshModel->draw(this);
 }
 
-D3DXAniMeshActor::~D3DXAniMeshActor() {
+AniMeshActor::~AniMeshActor() {
     GGAF_DELETE(_pPuppeteer);
 }

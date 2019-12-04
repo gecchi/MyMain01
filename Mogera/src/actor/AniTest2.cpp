@@ -1,4 +1,4 @@
-#include "AniTest.h"
+#include "AniTest2.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
 #include "jp/ggaf/dx/actor/supporter/Rikisha.h"
@@ -12,36 +12,38 @@
 using namespace GgafLib;
 using namespace Mogera;
 
-AniTest::AniTest(const char* prm_name) :
-        DefaultD3DXAniMeshActor(prm_name, "AnimatedSkelton") {
-    _class_name = "AniTest";
+AniTest2::AniTest2(const char* prm_name) :
+        DefaultAniMeshActor(prm_name, "AnimatedSkelton") {
+    _class_name = "AniTest2";
     setScaleR(0.2);
+    setMaterialColor(1.0, 0.3, 0.3);
 }
 
-void AniTest::onCreateModel() {
+void AniTest2::onCreateModel() {
 }
 
-void AniTest::initialize() {
+void AniTest2::initialize() {
 }
 
-void AniTest::onActive() {
+void AniTest2::onActive() {
 }
 
-void AniTest::processBehavior() {
+void AniTest2::processBehavior() {
 
     _pPuppeteer->behave();
 }
 
-void AniTest::processJudgement() {
+void AniTest2::processJudgement() {
 }
 
-void AniTest::onHit(const GgafCore::Actor* prm_pOtherActor) {
+void AniTest2::onHit(const GgafCore::Actor* prm_pOtherActor) {
 }
 
-void AniTest::onInactive() {
+void AniTest2::onInactive() {
 }
 
-AniTest::~AniTest() {
+AniTest2::~AniTest2() {
 }
+
 
 

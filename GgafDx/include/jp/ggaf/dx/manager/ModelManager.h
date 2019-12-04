@@ -35,6 +35,7 @@
 #define TYPE_FRAMEDBOARD_MODEL            'E'
 #define TYPE_REGULARPOLYGONSPRITE_MODEL   'R'
 #define TYPE_REGULARPOLYGONBOARD_MODEL    'r'
+#define TYPE_ANIMESH_MODEL                'a'
 
 namespace GgafDx {
 
