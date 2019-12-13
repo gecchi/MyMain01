@@ -8,25 +8,11 @@
 using namespace GgafDx;
 
 Puppeteer::Puppeteer(ID3DXAnimationController* prm_pAc_cloned) : GgafCore::Object() {
-//    _pPuppet = prm_pPuppet;
-//    _pModel = (AniMeshModel*)_pPuppet->getModel();
     _num_perform = 0;
     _paPerformances = nullptr;
     _pAc = prm_pAc_cloned;
 
     HRESULT hr;
-//#ifdef MY_DEBUG
-//    if (!_pModel->_pAcBase) {
-//        throwCriticalException("アニメーションコントローラーが存在しません");
-//    }
-//#endif
-//    HRESULT hr = _pModel->_pAcBase->CloneAnimationController(
-//                                        _pModel->_pAcBase->GetMaxNumAnimationOutputs(),
-//                                        _pModel->_pAcBase->GetMaxNumAnimationSets(),
-//                                        _pModel->_pAcBase->GetMaxNumTracks(),
-//                                        _pModel->_pAcBase->GetMaxNumEvents(),
-//                                        &_pAc);
-//    checkDxException(hr, D3D_OK, "アニメーションコントローラーのクローンに失敗しました。name="<<_pPuppet->getName());
     _num_perform = _pAc->GetMaxNumAnimationSets();
 #ifdef MY_DEBUG
     if (_pAc->GetMaxNumTracks() < 2) {
@@ -35,15 +21,15 @@ Puppeteer::Puppeteer(ID3DXAnimationController* prm_pAc_cloned) : GgafCore::Objec
         return;
     }
 #endif
-    _TRACE_("_pAc="<<_pAc);
-    _TRACE_("_pAc->GetMaxNumTracks()="<<_pAc->GetMaxNumTracks());
-    _TRACE_("_pAc->GetMaxNumAnimationSets()="<<_pAc->GetMaxNumAnimationSets());
     //int x = 'o'  ^0^  -~-  -0-  ~-~  +0+  0-0  *0*  0*0;
+
 
     //モーション情報初期化
     _paPerformances = NEW Performance[_num_perform];
     for (UINT i = 0; i < _num_perform; i++) {
-        hr = _pAc->GetAnimationSet(i, &(_paPerformances[i]._pAnimationSet)); //アニメーションセット保持
+        LPD3DXANIMATIONSET pAnimationSet;
+        hr = _pAc->GetAnimationSet(i, &(pAnimationSet)); //アニメーションセット保持
+        _paPerformances[i].setAnimationSet(pAnimationSet, i);
         checkDxException(hr, D3D_OK, "失敗しました。");
         _paPerformances[i]._time_of_one_loop = _paPerformances[i]._pAnimationSet->GetPeriod();
     }
@@ -60,6 +46,19 @@ Puppeteer::Puppeteer(ID3DXAnimationController* prm_pAc_cloned) : GgafCore::Objec
     _aStick[RIGHT_HAND]._tno = 1;
     _aStick[RIGHT_HAND]._enable_motion_blend = FALSE;
     _aStick[RIGHT_HAND]._pPerformance = nullptr;
+
+//    int as = _pAc->GetMaxNumAnimationSets();
+//    for (int i = 0; i < as; i++) {
+//        ID3DXAnimationSet* pAs = _paPerformances[i]._pAnimationSet;
+//        _TRACE_("["<<i<<"] GetName="<<pAs->GetName());
+//        int numAnims = pAs->GetNumAnimations();
+//        for (int j = 0; j < numAnims; ++j) {
+//            LPCSTR name;
+//            hr = pAs->GetAnimationNameByIndex(j, &name);
+//            checkDxException(hr, D3D_OK, "失敗しましと。");
+//            _TRACE_("["<<i<<"] GetAnimationNameByIndex("<<j<<")="<<name);
+//        }
+//    }
 }
 
 void Puppeteer::exchangPerformance() {
@@ -98,6 +97,9 @@ void Puppeteer::play(PuppeteerStick prm_handed,
                      double prm_target_weight,
                      frame prm_shift_weight_frames,
                      PuppeteerMethod prm_method ) {
+    if (prm_performance_no > _num_perform-1) {
+        throwCriticalException("Puppeteer::play() アニメIDが範囲外です。prm_performance_no="<<prm_performance_no);
+    }
     Performance* p = &(_paPerformances[prm_performance_no]);
     p->_time_of_one_loop = p->_pAnimationSet->GetPeriod();
     p->_target_loop      = prm_loopnum;
@@ -237,23 +239,14 @@ void Puppeteer::behave() {
 
 }
 
-void Puppeteer::unpause(PuppeteerStick prm_handed) {
-//        _aStick[prm_handed]._enable_motion_blend = TRUE;
-}
-
-void Puppeteer::pause(PuppeteerStick prm_handed) {
-//        _aStick[prm_handed]._enable_motion_blend = FALSE;
-}
-
 void Puppeteer::stop() {
-    for (UINT hand = 0; hand < _num_perform; hand++) {
+    for (UINT hand = 0; hand < 2; hand++) {
         Performance* p = _aStick[hand]._pPerformance;
         if (p) {
             p->_method = NO_CHENGE;
         }
     }
 }
-
 
 void Puppeteer::updateAnimationTrack() {
     HRESULT hr;
@@ -274,7 +267,9 @@ void Puppeteer::updateAnimationTrack() {
             checkDxException(hr, D3D_OK, "失敗しました。");
             hr = pAc->SetTrackWeight(tno, pPerformance->_weight);
             checkDxException(hr, D3D_OK, "失敗しました。");
+            _paAs[tno] = pPerformance->_pAnimationSet;
         } else {
+            _paAs[tno] = nullptr;
         }
     }
     //0秒進める（ことによって反映させる）。

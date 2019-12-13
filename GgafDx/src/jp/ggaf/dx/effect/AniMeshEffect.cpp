@@ -29,12 +29,13 @@ AniMeshEffect::AniMeshEffect(const char* prm_effect_name) : Effect(prm_effect_na
     checkDxException(hr, D3D_OK, "SetFloat(g_zf) に失敗しました。");
     //シェーダーハンドル
     _h_matView = _pID3DXEffect->GetParameterByName( nullptr, "g_matView" );
-    _h_matWorld = _pID3DXEffect->GetParameterByName( nullptr, "g_matWorld" );
+//    _h_matWorld = _pID3DXEffect->GetParameterByName( nullptr, "g_matWorld" );
+    _h_specular = _pID3DXEffect->GetParameterByName( nullptr, "g_specular" );
+    _h_specular_power = _pID3DXEffect->GetParameterByName( nullptr, "g_specular_power" );
+    _h_posCam = _pID3DXEffect->GetParameterByName( nullptr, "g_posCam_World" );
     _h_colMaterialDiffuse = _pID3DXEffect->GetParameterByName( nullptr, "g_colMaterialDiffuse" );
     _h_tex_blink_power = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_power" );
     _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_threshold" );
-
-
 
     //シェーダーハンドル
     _h_matView = _pID3DXEffect->GetParameterByName( nullptr, "g_matView" );
@@ -74,6 +75,8 @@ void AniMeshEffect::setParamPerFrame() {
     Camera* pCam = pGOD->getSpacetime()->getCamera();
     HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, pCam->getViewMatrix() );
     checkDxException(hr, D3D_OK, "setParamPerFrame SetMatrix(_h_matView) に失敗しました。");
+    hr = _pID3DXEffect->SetValue(_h_posCam, pCam->getVecCamFromPoint(), sizeof(D3DXVECTOR3) );
+    checkDxException(hr, D3D_OK, "SetValue(_h_posCam) に失敗しました。_effect_name="<<_effect_name);
 }
 
 

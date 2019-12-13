@@ -19,14 +19,14 @@ class D3DXAniMeshModel : public Model {
 
 public:
     /** メッシュ(インスタンスはモデル毎） */
-    AllocHierarchyWorldFrame* _pAH;
-    FrameWorldMatrix* _pFR;
-    ID3DXAnimationController* _pAcBase;
+    AllocHierarchyWorldFrame* _pAllocHierarchy;
+    FrameWorldMatrix* _pFrameRoot;
+    ID3DXAnimationController* _pAniControllerBase;
     int _anim_ticks_per_second;
     /** 60フレーム(1秒)で1ループする場合の1フレーム辺りの時間 */
 //    double _advance_time_per_frame0;//60フレーム(1秒)で1ループすることを標準設定とする。
 
-    WorldMatStack _stackWorldMat;
+//    WorldMatStack _stackWorldMat;
     ///** D3DXLoadMeshFromXのオプション */
     //	LPD3DXBUFFER	_pAdjacency;
 

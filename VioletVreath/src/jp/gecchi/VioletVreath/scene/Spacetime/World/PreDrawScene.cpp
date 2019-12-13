@@ -14,7 +14,8 @@
 #include "jp/ggaf/lib/actor/CubeMapMorphMeshActor.h"
 #include "jp/ggaf/lib/actor/DefaultBoardActor.h"
 #include "jp/ggaf/lib/actor/DefaultBoardSetActor.h"
-#include "jp/ggaf/lib/actor/DefaultD3DXAniMeshActor.h"
+//#include "jp/ggaf/lib/actor/DefaultD3DXAniMeshActor.h"
+#include "jp/ggaf/lib/actor/DefaultAniMeshActor.h"
 #include "jp/ggaf/lib/actor/DefaultD3DXMeshActor.h"
 #include "jp/ggaf/lib/actor/DefaultDynaD3DXMeshActor.h"
 #include "jp/ggaf/lib/actor/DefaultFramedBoardActor.h"
@@ -102,7 +103,8 @@ void PreDrawScene::processBehavior() {
                 requestTestActor(id, CubeMapMeshActor                   ,"_chk_TestCubeMapMeshActorModel"                     );    id++;
                 requestTestActor(id, CubeMapMeshSetActor                ,"_chk_TestCubeMapMeshSetActorModel"                  );    id++;
                 requestTestActor(id, CubeMapMorphMeshActor              ,"_chk_TestCubeMapMorphMeshActorModel_0"              );    id++;
-                requestTestActor(id, DefaultD3DXAniMeshActor            ,"_chk_TestDefaultD3DXAniMeshActorModel"              );    id++;
+//                requestTestActor(id, DefaultD3DXAniMeshActor            ,"_chk_TestDefaultD3DXAniMeshActorModel"              );    id++;
+                requestTestActor(id, DefaultAniMeshActor                ,"_chk_TestDefaultAniMeshActorModel"                  );    id++;
                 requestTestActor(id, DefaultMeshActor                   ,"_chk_TestDefaultMeshActorModel"                     );    id++;
                 requestTestActor(id, DefaultMeshSetActor                ,"_chk_TestDefaultMeshSetActorModel"                  );    id++;
                 requestTestActor(id, DefaultMassMeshActor               ,"_chk_TestDefaultMassMeshActorModel"                 );    id++;

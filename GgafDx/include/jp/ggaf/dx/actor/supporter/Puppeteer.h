@@ -3,8 +3,9 @@
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
-
+#include <vector>
 #include <d3dx9.h>
+#include <d3dx9anim.h>
 #ifdef __GNUG__
     #undef __in
     #undef __out
@@ -35,8 +36,6 @@ namespace GgafDx {
  */
 class Puppeteer : public GgafCore::Object {
 private:
-//    /** [r]パペットのモデル */
-//    AniMeshModel* _pModel;
     /** [r]パペットのアニメーションコントローラー */
     ID3DXAnimationController* _pAc;
 
@@ -47,6 +46,8 @@ private:
     public:
         /** アニメーションセット */
         LPD3DXANIMATIONSET _pAnimationSet;
+        UINT _animation_set_index;
+
         /** １ループの時間 */
         double _time_of_one_loop;
         /** ローカルタイム */
@@ -74,6 +75,7 @@ private:
     public:
         Performance() {
             _pAnimationSet = nullptr;
+            _animation_set_index = 0;
             _time_of_one_loop   = 0.0;
             _local_time         = 0.0;
             _target_loop        = -1;
@@ -87,7 +89,10 @@ private:
             _is_shifting_weight = false;
             _method             = NO_CHENGE;
         }
-
+        void setAnimationSet(LPD3DXANIMATIONSET prm_pAnimationSet, UINT prm_animation_set_index) {
+            _pAnimationSet = prm_pAnimationSet;
+            _animation_set_index = prm_animation_set_index;
+        }
         virtual ~Performance() {
         }
     };
@@ -103,15 +108,13 @@ private:
     };
 
 public:
-//    /** [r]パペット */
-//    AniMeshActor* _pPuppet;
     /** [r/w]パペットの持ちネタ(芸) */
     Performance* _paPerformances;
     /** [r]パペットの持ちネタ(芸)の数 */
     UINT _num_perform;
     /** [r/w]左手用、右手用のパペッターの操り棒(アニメーショントラック)  [0]:左手用／[1]:右手用  */
     Stick _aStick[2];
-
+    ID3DXAnimationSet* _paAs[2];
 public:
     /**
      * コンストラクタ .
@@ -119,8 +122,6 @@ public:
      * @return
      */
     explicit Puppeteer(ID3DXAnimationController* prm_pAc_cloned);
-    //TODO:
-//    explicit Puppeteer(D3DXAniMeshActor* prm_pPuppet) {}
 
     /**
      * プレイしてもらう（＝パペットが操られる） .
@@ -148,12 +149,15 @@ public:
      */
     void exchangPerformance();
 
-    void unpause(PuppeteerStick prm_handed);
-    void pause(PuppeteerStick prm_handed);
     void stop();
 
     virtual void behave();
     virtual void updateAnimationTrack();
+
+    virtual int getPerformanceNum() {
+        return _num_perform;
+    }
+
     virtual ~Puppeteer();
 
 };

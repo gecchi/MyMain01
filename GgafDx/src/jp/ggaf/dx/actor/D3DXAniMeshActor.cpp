@@ -21,7 +21,8 @@ D3DXAniMeshActor::D3DXAniMeshActor(const char* prm_name,
                                                    prm_effect_id,
                                                    TYPE_D3DXANIMESH_EFFECT,
                                                    prm_technique,
-                                                   prm_pChecker) {
+                                                   prm_pChecker),
+_stackWorldMat() {
     _obj_class |= Obj_GgafDx_D3DXAniMeshActor;
     _class_name = "D3DXAniMeshActor";
     _pD3DXAniMeshModel = (D3DXAniMeshModel*)_pModel;

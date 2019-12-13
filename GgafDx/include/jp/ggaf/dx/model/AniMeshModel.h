@@ -2,8 +2,8 @@
 #define GGAF_DX_ANIMESHMODELL_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/model/Model.h"
-
-#include "jp/ggaf/dx/util/WorldMatStack.h"
+#include <map>
+#include <vector>
 
 namespace GgafDx {
 
@@ -36,6 +36,8 @@ public:
 
     AniMeshModel::VERTEX* _paVtxBuffer_data;
     WORD* _paIndexBuffer_data;
+    /** インデックスバッファ番号に対応する頂点バッファのフレームメッシュ番号 */
+    int* _paIndexBuffer_frame_no;
     /** 頂点バッファ（全フレームのメッシュ分） */
     LPDIRECT3DVERTEXBUFFER9 _pVertexBuffer;
     /** インデックスバッファ（全フレームのメッシュ分）  */
@@ -51,17 +53,29 @@ public:
     int _index_param_num;
     INDEXPARAM* _paIndexParam;
     /** FrameWorldMatrix取り扱いAllocateHierarchyクラス */
-    AllocHierarchyWorldFrame* _pAH;
-    /** ワールド変換行列付きフレーム構造体 */
-    FrameWorldMatrix* _pFR;
-    ID3DXAnimationController* _pAcBase;
+    AllocHierarchyWorldFrame* _pAllocHierarchy;
+    /** ワールド変換行列付きフレーム構造体のルート */
+    FrameWorldMatrix* _pFrameRoot;
+    /** アニメーションコントローラ、Actor生成時にはこれが clone されてActorに保持されることになる */
+    ID3DXAnimationController* _pAniControllerBase;
+
+
+    /** _pFrameRoot を巡ってメッシュコンテナがある描画対象フレームを直列化したもの、要素番号はただの連番  */
+    std::vector<FrameWorldMatrix*> _vecDrawBoneFrame;
+
+    /** 総アニメーションセット数 */
+    UINT _num_animation_set;
+    /** 総アニメーションセットの配列、要素番号はアニメーションセットインデックスと呼称する */
+    std::vector<ID3DXAnimationSet*> _vecAnimationSet;
+    /** AnimationSet から、AnimationのターゲットのBoneFrame の Nameの配列が取得できるマップ */
+    std::map<ID3DXAnimationSet*, std::vector<LPCSTR>> _mapAnimationSet_AnimationTargetBoneFrameNames; //
+    /** フレームから、そのフレームが対象となっているアニメーションセットの配列を得る */
+    std::map<FrameWorldMatrix*, std::vector<ID3DXAnimationSet*>> _mapBornFrame_AnimationSetList; //
+
+
     int _anim_ticks_per_second;
     /** 60フレーム(1秒)で1ループする場合の1フレーム辺りの時間 */
 //    double _advance_time_per_frame0;//60フレーム(1秒)で1ループすることを標準設定とする。
-
-    WorldMatStack _stackWorldMat;
-    ///** D3DXLoadMeshFromXのオプション */
-    //	LPD3DXBUFFER	_pAdjacency;
 
 public:
     /**
@@ -77,8 +91,13 @@ public:
 
     ID3DXAnimationController* getCloneAnimationController();
 
-    int getAnimTicksPerSecond(std::string& prm_xfile_name);
-    void getDrawFrameVec(std::vector<FrameWorldMatrix*>* pList, FrameWorldMatrix* frame);
+    static int getAnimTicksPerSecond(std::string& prm_xfile_name);
+
+    /** フレームを巡って情報取得 */
+    void setFrameInfo(FrameWorldMatrix* prm_pFrame);
+    /** setFrameInfo(FrameWorldMatrix*) で使用される、frame_indexの通し番号 */
+    UINT _tmp_frame_index;
+
     int getOffsetFromElem( D3DVERTEXELEMENT9 *elems, D3DDECLUSAGE usage );
 
     virtual void onDeviceLost() override;

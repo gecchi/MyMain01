@@ -17,6 +17,7 @@ int main(int argc, char *argv[]) {
     return LibMain(argc, argv); //直後に、この様に呼び出して下さい。
 }
 
+
 /**
  * MSVC のエントリポイント
  */

@@ -16,10 +16,12 @@ AniTest2::AniTest2(const char* prm_name) :
         DefaultAniMeshActor(prm_name, "AnimatedSkelton") {
     _class_name = "AniTest2";
     setScaleR(0.2);
-    setMaterialColor(1.0, 0.3, 0.3);
+    setMaterialColor(0.4, 1.0, 0.6);
 }
 
 void AniTest2::onCreateModel() {
+    GgafDx::Model* pModel = getModel();
+    pModel->setSpecular(5.0, 2.0);
 }
 
 void AniTest2::initialize() {

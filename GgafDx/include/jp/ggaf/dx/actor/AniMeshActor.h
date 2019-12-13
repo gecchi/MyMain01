@@ -3,6 +3,8 @@
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/actor/FigureActor.h"
 
+#include "jp/ggaf/dx/util/WorldMatStack.h"
+
 namespace GgafDx {
 
 /**
@@ -12,7 +14,7 @@ namespace GgafDx {
  * 追加したアクターです<BR>
  * アニメーションはパペッター(Puppeteer)にお願いします。<BR>
  * @version 1.00
- * @since 2009/11/25
+ * @since 2019/11/26
  * @author Masatoshi Tsuge
  */
 class AniMeshActor : public FigureActor {
@@ -26,16 +28,22 @@ public:
     /** パペッター（アニメーション操作オブジェクト) */
     Puppeteer* _pPuppeteer;
 
+    WorldMatStack _stackWorldMat;
+
     LPD3DXANIMATIONSET* _papAnimationSet;
 
 public:
     AniMeshActor(const char* prm_name,
-                     const char* prm_model_id,
-                     const char* prm_effect_id,
-                     const char* prm_technique,
-                     Checker* prm_pChecker);
+                 const char* prm_model_id,
+                 const char* prm_effect_id,
+                 const char* prm_technique,
+                 Checker* prm_pChecker);
 
     virtual void processDraw() override;
+
+    virtual Puppeteer* getPuppeteer() {
+        return _pPuppeteer;
+    }
 
     virtual ~AniMeshActor(); //デストラクタ
 };

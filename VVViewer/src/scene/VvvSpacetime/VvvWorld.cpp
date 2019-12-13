@@ -5,12 +5,16 @@
 #include "jp/ggaf/core/actor/SceneMediator.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/dx/actor/MorphMeshActor.h"
+#include "jp/ggaf/dx/actor/AniMeshActor.h"
 #include "jp/ggaf/dx/model/MorphMeshModel.h"
+#include "jp/ggaf/dx/model/AniMeshModel.h"
 #include "jp/ggaf/dx/actor/camera/CameraViewPoint.h"
+#include "jp/ggaf/dx/actor/supporter/Puppeteer.h"
 #include "jp/ggaf/lib/actor/CubeMapMeshActor.h"
 #include "jp/ggaf/lib/actor/CubeMapMorphMeshActor.h"
 #include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
 #include "jp/ggaf/lib/actor/DefaultMeshActor.h"
+#include "jp/ggaf/lib/actor/DefaultAniMeshActor.h"
 #include "jp/ggaf/lib/actor/DefaultPointSpriteActor.h"
 #include "jp/ggaf/lib/LibConfig.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
@@ -419,6 +423,22 @@ void VvvWorld::processBehavior() {
                         }
                     }
                 }
+            } else if(pActor->instanceOf(Obj_GgafDx_AniMeshActor) ) {
+                GgafDx::AniMeshActor* pAniMeshActor = dynamic_cast<GgafDx::AniMeshActor*>(pActor);
+                if (pAniMeshActor) {
+                    GgafDx::Puppeteer* pPuppeteer = pAniMeshActor->getPuppeteer();
+                    for (int i = 1; i <= pPuppeteer->getPerformanceNum(); i++) {
+                        if (GgafDx::Input::isPushedDownKey(DIK_1 + (i-1))) {
+                            pPuppeteer->play(LEFT_HAND,
+                                                (i-1),      //UINT   prm_performance_no,
+                                                -1,         //double prm_loopnum,
+                                                1.0,        //double prm_target_speed,
+                                                0,          //frame  prm_shift_speed_frames,
+                                                1.0,        //double prm_target_weight,
+                                                0    );     //frame  prm_shift_weight_frames
+                        }
+                    }
+                }
             }
         } else if (GgafDx::Input::isPressedKey(DIK_J) ||
                    GgafDx::Input::isPressedKey(DIK_K) ||
@@ -516,6 +536,7 @@ void VvvWorld::processBehavior() {
         std::string modelfile = "";
         if (model_type == "X") {
             if (model_id.length() > 2 && model_id.substr(model_id.length()-2) == "_0") {
+                //MorphMeshActorか判断
                 //model_id = "donatu_0"
                 string model_part = model_id.substr(0,model_id.length()-2);
                 //model_part = "donatu"
@@ -533,14 +554,14 @@ void VvvWorld::processBehavior() {
                 pActor = desireActor(GgafLib::DefaultMorphMeshActor, "actor",
                                           string(model_part+"_"+XTOS(targetnum)).c_str());
             } else {
-//            if (model_id.find("WORLDBOUND") == string::npos) {
-//                pActor = desireActor(GgafLib::WorldBoundActor, "actor", filename);
-//            } else {
-                pActor = desireActor(GgafLib::DefaultMeshActor, "actor", model_id.c_str());
-//            }
-//                DefaultMeshActor* pDefaultMeshActor = (DefaultMeshActor*)pActor;
-//                pDefaultMeshActor->setBumpMapTexture("normal.bmp");
+                string fullpath_model_file_name = dropfile_dir + "/" + file_name;
+                if (VvvWorld::isAnimetionMesh(fullpath_model_file_name)) {
+                    pActor = desireActor(GgafLib::DefaultAniMeshActor, "actor", model_id.c_str());
+                } else {
+                    pActor = desireActor(GgafLib::DefaultMeshActor, "actor", model_id.c_str());
+                }
             }
+
         } else if (model_type == "SPRX") {
             pActor = desireActor(GgafLib::DefaultSpriteActor, "actor", model_id.c_str());
         } else if (model_type == "PSPRX") {
@@ -673,6 +694,38 @@ void VvvWorld::processBehavior() {
         }
     } else {
     }
+}
+bool VvvWorld::isAnimetionMesh(std::string& prm_xfile_name) {
+    if (prm_xfile_name == "") {
+         throwCriticalException("AniMeshModel::getAnimTicksPerSecond() メッシュファイル(*.x)が見つかりません。");
+    }
+    //XファイルからAnimTicksPerSecondの値を独自に取り出す
+    std::ifstream ifs(prm_xfile_name.c_str());
+    if (ifs.fail()) {
+        throwCriticalException("["<<prm_xfile_name<<"] が開けません");
+    }
+    std::string buf;
+    bool isdone = false;
+    std::string data;
+    while (isdone == false && !ifs.eof()) {
+        ifs >> data;
+        if (data == "AnimationKey" || data == "AnimationKey{") {
+            while (isdone == false) {
+                ifs >> data;
+                if (data == "{") {
+                    continue;
+                } else if (data == "}") {
+                    isdone = true;
+                    break;
+                } else {
+                    isdone = true;
+                    break;
+                }
+            }
+        }
+    }
+    ifs.close();
+    return isdone;
 }
 
 VvvWorld::~VvvWorld() {

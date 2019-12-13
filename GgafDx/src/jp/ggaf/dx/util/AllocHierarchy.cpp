@@ -219,5 +219,6 @@ HRESULT AllocHierarchy::DestroyMeshContainer(THIS_
     delete[] p->pAdjacency;
     LPD3DXSKININFO pSkinInfo = p->pSkinInfo;
     GGAF_RELEASE_NULLABLE(pSkinInfo);
+    delete p;
     return D3D_OK;
 }

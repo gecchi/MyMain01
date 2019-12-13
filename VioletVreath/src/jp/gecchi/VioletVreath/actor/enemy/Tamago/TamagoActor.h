@@ -1,7 +1,7 @@
 #ifndef TAMAGOACTOR_H_
 #define TAMAGOACTOR_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/lib/actor/DefaultD3DXAniMeshActor.h"
+#include "jp/ggaf/lib/actor/DefaultAniMeshActor.h"
 
 namespace VioletVreath {
 
@@ -11,7 +11,7 @@ namespace VioletVreath {
  * @since 2008/07/23
  * @author Masatoshi Tsuge
  */
-class TamagoActor : public  GgafLib::DefaultD3DXAniMeshActor {
+class TamagoActor : public  GgafLib::DefaultAniMeshActor {
 
     int rnd_;
     double last_time_;

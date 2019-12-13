@@ -9,7 +9,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 TamagoActor::TamagoActor(const char* prm_name) :
-        DefaultD3DXAniMeshActor(prm_name, "anibox") {
+        DefaultAniMeshActor(prm_name, "anibox") {
     _class_name = "TamagoActor";
 }
 

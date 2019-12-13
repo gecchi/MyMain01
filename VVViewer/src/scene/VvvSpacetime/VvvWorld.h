@@ -60,6 +60,13 @@ public:
      */
     void processBehavior() override;
 
+    /**
+     * アニメーションのxファイルかどうか判定
+     * @param prm_xfile_name
+     * @return
+     */
+    static bool isAnimetionMesh(std::string& prm_xfile_name);
+
     virtual ~VvvWorld();
 };
 

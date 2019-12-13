@@ -19,9 +19,9 @@
 using namespace GgafDx;
 
 D3DXAniMeshModel::D3DXAniMeshModel(const char* prm_model_name) : Model(prm_model_name) {
-    _pAH = nullptr;
-    _pFR = nullptr;
-    _pAcBase = nullptr;
+    _pAllocHierarchy = nullptr;
+    _pFrameRoot = nullptr;
+    _pAniControllerBase = nullptr;
     _num_materials = 0L;
     _anim_ticks_per_second = 4800; //restoreD3DXAniMeshModel で上書きされる場合がある。
 
@@ -51,11 +51,17 @@ HRESULT D3DXAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
 
     pTargetActor->_pPuppeteer->updateAnimationTrack(); //アニメーション反映
     //モデルのワールド変換行列更新
-    _stackWorldMat.SetWorldMatrix(&(pTargetActor->_matWorld));
-    _stackWorldMat.UpdateFrame(_pFR);
+    pTargetActor->_stackWorldMat.SetWorldMatrix(&(pTargetActor->_matWorld));
+    pTargetActor->_stackWorldMat.UpdateFrame(_pFrameRoot);
+    //アン
+    //_stackWorldMat.UpdateFrame(_pFrameRoot, トラック１のアニメーションセット, トラック２のアニメーションセット);
 
-    std::list< FrameWorldMatrix* > *pDrawList = _stackWorldMat.GetDrawList(); // 描画リストを取得
-    std::list<FrameWorldMatrix*>::iterator it = pDrawList->begin();
+//    std::list< FrameWorldMatrix* > *pDrawList = pTargetActor->_stackWorldMat.GetDrawList(); // 描画リストを取得
+//    std::list<FrameWorldMatrix*>::iterator it = pDrawList->begin();
+    std::list< FrameWorldMatrix* > *pDrawList = nullptr;
+    std::list<FrameWorldMatrix*>::iterator it;
+
+
     IDirect3DDevice9* const pDevice = God::_pID3DDevice9;
     int n = 0;
     //マテリアル・テクスチャの一発目をセット、
@@ -108,7 +114,7 @@ HRESULT D3DXAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
 #endif
 
         }
-        hr = pID3DXEffect->SetMatrix(pD3DXAniMeshEffect->_h_matWorld, &((*it)->WorldTransMatrix));
+        hr = pID3DXEffect->SetMatrix(pD3DXAniMeshEffect->_h_matWorld, &((*it)->_world_trans_matrix));
         checkDxException(hr, D3D_OK, "["<<i<<"],D3DXAniMeshActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
         if ((*it)->pMeshContainer == nullptr) {
             _TRACE4_("["<<i<<"]×SetMatrix FrameName="<<((*it)->Name)<<" 飛ばし！");
@@ -145,11 +151,11 @@ HRESULT D3DXAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
 
 ID3DXAnimationController* D3DXAniMeshModel::getCloneAnimationController() {
     ID3DXAnimationController* _pAc = nullptr;
-    HRESULT hr = _pAcBase->CloneAnimationController(
-                                _pAcBase->GetMaxNumAnimationOutputs(),
-                                _pAcBase->GetMaxNumAnimationSets(),
-                                _pAcBase->GetMaxNumTracks(),
-                                _pAcBase->GetMaxNumEvents(),
+    HRESULT hr = _pAniControllerBase->CloneAnimationController(
+                                _pAniControllerBase->GetMaxNumAnimationOutputs(),
+                                _pAniControllerBase->GetMaxNumAnimationSets(),
+                                _pAniControllerBase->GetMaxNumTracks(),
+                                _pAniControllerBase->GetMaxNumEvents(),
                                         &_pAc);
     checkDxException(hr, D3D_OK, "アニメーションコントローラーのクローンに失敗しました。");
     return _pAc;
@@ -204,26 +210,26 @@ void D3DXAniMeshModel::restore() {
 //    LPD3DXBUFFER pID3DXBuffer; //受け取り用バッファ（マテリアル用）
     HRESULT hr;
     //Xファイルのファイルロード
-    AllocHierarchyWorldFrame* pAH = NEW AllocHierarchyWorldFrame(); // CAllocHierarchyBaseの派生クラス
-    FrameWorldMatrix* pFR; // ワールド変換行列付きフレーム構造体
+    AllocHierarchyWorldFrame* pAllocHierarchy = NEW AllocHierarchyWorldFrame(); // CAllocHierarchyBaseの派生クラス
+    FrameWorldMatrix* pFrameRoot; // ワールド変換行列付きフレーム構造体
     ID3DXAnimationController* pAC; // アニメーションコントローラ
     hr = D3DXLoadMeshHierarchyFromX(
             xfile_name.c_str(),
             D3DXMESH_SYSTEMMEM, //D3DXMESH_MANAGED,
             God::_pID3DDevice9,
-            pAH,
+            pAllocHierarchy,
             nullptr,
-            (D3DXFRAME**)(&pFR),
+            (D3DXFRAME**)(&pFrameRoot),
             &pAC
          );
-    _TRACE_("pAH="<<pAH<<" pFR="<<pFR<<" pAC="<<pAC<<" xfile_name.c_str()="<<xfile_name.c_str());
+    _TRACE_("pAllocHierarchy="<<pAllocHierarchy<<" pFrameRoot="<<pFrameRoot<<" pAC="<<pAC<<" xfile_name.c_str()="<<xfile_name.c_str());
     checkDxException(hr, D3D_OK, xfile_name<<" 読み込みに失敗しました。対象="<<xfile_name);
-    if (pFR == nullptr) {
+    if (pFrameRoot == nullptr) {
         throwCriticalException(xfile_name<<" のフレーム情報が取得できません！");
     }
     //マテリアル配列を作成
     std::list<FrameWorldMatrix*> listFrame;
-    getDrawFrameList(&listFrame, pFR); //マテリアル総数を知りたいがため、フレームを廻り、リスト化
+    getDrawFrameList(&listFrame, pFrameRoot); //マテリアル総数を知りたいがため、フレームを廻り、リスト化
     std::list<FrameWorldMatrix*>::iterator it = listFrame.begin();
     int model_nMaterials = 0;
     //フレームリストを廻って、マテリアル総数取得
@@ -263,12 +269,12 @@ void D3DXAniMeshModel::restore() {
     //境界球
     D3DXVECTOR3 vecCenter;
     FLOAT model_bounding_sphere_radius;
-    D3DXFrameCalculateBoundingSphere(pFR, &vecCenter, &model_bounding_sphere_radius);
+    D3DXFrameCalculateBoundingSphere(pFrameRoot, &vecCenter, &model_bounding_sphere_radius);
     //メッシュ、マテリアル、テクスチャの参照、マテリアル数をモデルオブジェクトに保持させる
 
-    _pAH = pAH;
-    _pFR = pFR;
-    _pAcBase = pAC;
+    _pAllocHierarchy = pAllocHierarchy;
+    _pFrameRoot = pFrameRoot;
+    _pAniControllerBase = pAC;
     _bounding_sphere_radius = model_bounding_sphere_radius;
     _TRACE_("境界球半径="<<model_bounding_sphere_radius);
 //    _advance_time_per_frame0 =  advanceTimePerFrame0; //トラック0番１ループの時間
@@ -324,9 +330,9 @@ void D3DXAniMeshModel::release() {
     //TODO:親クラスメンバをDELETEするのはややきたないか
     GGAF_DELETEARR(_paMaterial_default);
     GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);
-    GGAF_RELEASE(_pAcBase);
-    _pAH->DestroyFrame((D3DXFRAME*)_pFR);
-    GGAF_DELETE(_pAH);
+    GGAF_RELEASE(_pAniControllerBase);
+    _pAllocHierarchy->DestroyFrame((D3DXFRAME*)_pFrameRoot);
+    GGAF_DELETE(_pAllocHierarchy);
     //TODO:いつ消すの？
     _TRACE3_("_model_name=" << _model_name << " end");
 }
