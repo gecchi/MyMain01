@@ -59,19 +59,20 @@ public:
     /** アニメーションコントローラ、Actor生成時にはこれが clone されてActorに保持されることになる */
     ID3DXAnimationController* _pAniControllerBase;
 
-
+    /** _pFrameRoot を巡ってフレームを直列化したもの、要素番号はフレームインデックスと呼称する  */
+    std::vector<FrameWorldMatrix*> _vecAllBoneFrame;
     /** _pFrameRoot を巡ってメッシュコンテナがある描画対象フレームを直列化したもの、要素番号はただの連番  */
     std::vector<FrameWorldMatrix*> _vecDrawBoneFrame;
 
+
     /** 総アニメーションセット数 */
     UINT _num_animation_set;
-    /** 総アニメーションセットの配列、要素番号はアニメーションセットインデックスと呼称する */
-    std::vector<ID3DXAnimationSet*> _vecAnimationSet;
-    /** AnimationSet から、AnimationのターゲットのBoneFrame の Nameの配列が取得できるマップ */
-    std::map<ID3DXAnimationSet*, std::vector<LPCSTR>> _mapAnimationSet_AnimationTargetBoneFrameNames; //
-    /** フレームから、そのフレームが対象となっているアニメーションセットの配列を得る */
-    std::map<FrameWorldMatrix*, std::vector<ID3DXAnimationSet*>> _mapBornFrame_AnimationSetList; //
-
+    /** AnimationSet から、AnimationSetインデックスが取得できるマップ */
+    std::map<ID3DXAnimationSet*, UINT> _mapAnimationSet_AniSetindex;
+    /** アニメーションセットインデックスから、AnimationのターゲットのBoneFrame の Nameの配列が取得できるマップ */
+    std::map<UINT, std::vector<LPCSTR>> _mapAnimationSetIndex_AnimationTargetBoneFrameNames;
+    /** [アニメーションセットインデックス][フレームインデックス] で アニメーションセットのアニメーション対象のフレームであるかどうかが返る */
+    bool** _papaBool_AnimationSetIndex_BoneFrameIndex_is_act;
 
     int _anim_ticks_per_second;
     /** 60フレーム(1秒)で1ループする場合の1フレーム辺りの時間 */

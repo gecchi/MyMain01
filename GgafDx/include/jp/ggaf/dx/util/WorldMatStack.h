@@ -25,16 +25,15 @@ public:
 
    /** 前回ワールド変換の計算に使用されたフレームの変換行列の保存 */
    std::vector<D3DXMATRIX>  _prevTransformationMatrixList;
-
-   std::map<FrameWorldMatrix*, std::vector<ID3DXAnimationSet*>>* _pModel_MapBornFrame_AnimationSetList;
-   ID3DXAnimationSet* _pAs0;
-   ID3DXAnimationSet* _pAs1;
+   bool** _papaBool_Model_AnimationSetIndex_BoneFrameIndex_is_act;
+   int _as0_index;
+   int _as1_index;
 public:
    WorldMatStack();
    virtual ~WorldMatStack();
    virtual void registerFrameTransformationMatrix(FrameWorldMatrix* pFrame);
    virtual void SetWorldMatrix( D3DXMATRIX* worldmat );
-   virtual void UpdateFrame(FrameWorldMatrix* prm_frame_world, ID3DXAnimationSet* prm_pAs1 = nullptr, ID3DXAnimationSet* prm_pAs2= nullptr);
+   virtual void UpdateFrame(FrameWorldMatrix* prm_frame_world, int prm_as0_index = -1, int prm_as1_index = -1);
 
 protected:
    void CalcFrameWorldMatrix(FrameWorldMatrix* frame_world);   // フレームワールド行列算出再帰関数

@@ -4,9 +4,10 @@
 using namespace GgafDx;
 
 WorldMatStack::WorldMatStack() : GgafCore::Object() {
-    _pModel_MapBornFrame_AnimationSetList = nullptr;
-    _pAs0 = nullptr;
-    _pAs1 = nullptr;
+//    _pModel_MapBoneFrameIndex_ActAnimationSetIndexList = nullptr;
+    _papaBool_Model_AnimationSetIndex_BoneFrameIndex_is_act = nullptr;
+    _as0_index = -1;
+    _as1_index = -1;
     _prevTransformationMatrixList.clear();
 }
 
@@ -29,7 +30,7 @@ void WorldMatStack::SetWorldMatrix(D3DXMATRIX* worldmat) {
     _actor_world_trans_matrix = *worldmat;
 }
 
-void WorldMatStack::UpdateFrame(FrameWorldMatrix* prm_frame_world, ID3DXAnimationSet* prm_pAs0, ID3DXAnimationSet* prm_pAs1) {
+void WorldMatStack::UpdateFrame(FrameWorldMatrix* prm_frame_world, int prm_as0_index, int prm_as1_index) {
 
     // スタックの初期化
     while (!m_MatrixStack.empty())
@@ -40,8 +41,8 @@ void WorldMatStack::UpdateFrame(FrameWorldMatrix* prm_frame_world, ID3DXAnimatio
 
     // ワールド変換行列をスタックに積む
     m_MatrixStack.push(&_actor_world_trans_matrix);
-    _pAs0 = prm_pAs0;
-    _pAs1 = prm_pAs1;
+    _as0_index = prm_as0_index;
+    _as1_index = prm_as1_index;
     // ルートフレームからワールド変換行列を連続計算
     CalcFrameWorldMatrix(prm_frame_world);
 }
@@ -56,15 +57,11 @@ void WorldMatStack::CalcFrameWorldMatrix(FrameWorldMatrix* prm_pBoneFrame) {
     bool is_target_frame = false;
     LPSTR born_frame_name = prm_pBoneFrame->Name;
     if (born_frame_name) {
-        std::vector<ID3DXAnimationSet*>* pRelationAnimationSetList = &((*_pModel_MapBornFrame_AnimationSetList)[prm_pBoneFrame]);
-        int num_ani_set = pRelationAnimationSetList->size();
-        for (int i = 0; i < num_ani_set; ++i) {
-            ID3DXAnimationSet* pRelationAnimationSet = (*pRelationAnimationSetList)[i];
-            if (_pAs0 && _pAs0 == pRelationAnimationSet) {
-                is_target_frame = true;
-            } else if (_pAs1 && _pAs1 == pRelationAnimationSet) {
-                is_target_frame = true;
-            }
+        if (_as0_index >= 0 && _papaBool_Model_AnimationSetIndex_BoneFrameIndex_is_act[_as0_index][prm_pBoneFrame->_frame_index]) {
+            is_target_frame = true;
+
+        } else if (_as1_index >= 0 && _papaBool_Model_AnimationSetIndex_BoneFrameIndex_is_act[_as1_index][prm_pBoneFrame->_frame_index]) {
+            is_target_frame = true;
         }
     }
 
@@ -76,11 +73,6 @@ void WorldMatStack::CalcFrameWorldMatrix(FrameWorldMatrix* prm_pBoneFrame) {
         D3DXMATRIX* pMatrix = &(_prevTransformationMatrixList[prm_pBoneFrame->_frame_index]);
         D3DXMatrixMultiply(&(prm_pBoneFrame->_world_trans_matrix), pMatrix, pStackMat);
     }
-
-//    if (prm_pBoneFrame->pMeshContainer) {
-//        // 引数のフレームに対応するワールド変換行列を計算
-//    	_vecDrawBoneFrame.push_back(prm_pBoneFrame);
-//    }
 
     // 子フレームがあればスタックを積んで、子フレームのワールド変換座標の計算へ
     if (prm_pBoneFrame->pFrameFirstChild) {

@@ -15,7 +15,7 @@
 #include "jp/ggaf/dx/texture/Texture.h"
 #include "jp/ggaf/dx/util/AllocHierarchyWorldFrame.h"
 
-#define MAX_FRAME_WORLD_MATRIX (8) //2以上でないとブレイクしないのでダメ
+#define MAX_FRAME_WORLD_MATRIX (25) //2以上でないとブレイクしないのでダメ
 
 using namespace GgafDx;
 DWORD AniMeshModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_PSIZE | D3DFVF_DIFFUSE | D3DFVF_TEX1);
@@ -37,6 +37,8 @@ AniMeshModel::AniMeshModel(const char* prm_model_name) : Model(prm_model_name) {
     _size_vertex_unit = sizeof(AniMeshModel::VERTEX);
     _nFaces = 0;
     _nVertices = 0;
+
+    _papaBool_AnimationSetIndex_BoneFrameIndex_is_act = nullptr;
     _obj_model |= Obj_GgafDx_AniMeshModel;
 }
 
@@ -81,7 +83,9 @@ HRESULT AniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num,
     pTargetActor->_stackWorldMat.SetWorldMatrix(&(pTargetActor->_matWorld));
     ID3DXAnimationSet* pAs0 = pActorPuppeteer->_paAs[0];
     ID3DXAnimationSet* pAs1 = pActorPuppeteer->_paAs[1];
-    pTargetActor->_stackWorldMat.UpdateFrame(_pFrameRoot, pAs0, pAs1);
+    int as0_index = (int)_mapAnimationSet_AniSetindex[pAs0];
+    int as1_index = pAs1 ? _mapAnimationSet_AniSetindex[pAs1] : -1;
+    pTargetActor->_stackWorldMat.UpdateFrame(_pFrameRoot, as0_index, as1_index);
 
     std::vector<FrameWorldMatrix*>::iterator it_1 = _vecDrawBoneFrame.begin();
 
@@ -263,31 +267,47 @@ void AniMeshModel::restore() {
         hr = _pAniControllerBase->AdvanceTime(0, nullptr);
         checkDxException(hr, D3D_OK, "失敗しました。");
 
-
+        _vecDrawBoneFrame.clear();
+        _vecAllBoneFrame.clear();
+        _tmp_frame_index = 0;
+        setFrameInfo(_pFrameRoot); //フレームを廻り情報をメンバにセット
         //////
-        _vecAnimationSet.clear();
-//        _mapAnimationSet_AniSetindex.clear();
-        _mapAnimationSet_AnimationTargetBoneFrameNames.clear();
+        _mapAnimationSet_AniSetindex.clear();
+        _mapAnimationSetIndex_AnimationTargetBoneFrameNames.clear();
         _num_animation_set = _pAniControllerBase->GetMaxNumAnimationSets();
         for (UINT ani_set_index = 0; ani_set_index < _num_animation_set; ani_set_index++) {
             ID3DXAnimationSet* pAnimationSet = nullptr;
             hr = _pAniControllerBase->GetAnimationSet(ani_set_index, &(pAnimationSet)); //アニメーションセット保持
             checkDxException(hr, D3D_OK, "失敗しました");
-            _vecAnimationSet.push_back(pAnimationSet);
-//            _mapAnimationSet_AniSetindex[pAnimationSet] = ani_set_index;
+            _mapAnimationSet_AniSetindex[pAnimationSet] = ani_set_index;
             int num_animation = pAnimationSet->GetNumAnimations();
-            for (int ani_index = 0; ani_index < num_animation; ++ani_index) {
+            for (UINT ani_index = 0; ani_index < num_animation; ++ani_index) {
                 LPCSTR target_bone_frame_name = nullptr;
                 hr = pAnimationSet->GetAnimationNameByIndex(ani_index, &target_bone_frame_name);
                 checkDxException(hr, D3D_OK, "失敗しました");
-                _mapAnimationSet_AnimationTargetBoneFrameNames[pAnimationSet].push_back(target_bone_frame_name);
-                _TRACE_("_mapAnimationSet_AnimationTargetBoneFrameNames["<<pAnimationSet<<"] = "<<target_bone_frame_name<<"");
+                _mapAnimationSetIndex_AnimationTargetBoneFrameNames[ani_set_index].push_back(target_bone_frame_name);
+
             }
         }
-        _vecDrawBoneFrame.clear();
-        _mapBornFrame_AnimationSetList.clear();
-        _tmp_frame_index = 0;
-        setFrameInfo(_pFrameRoot); //フレームを廻り情報をメンバにセット
+
+        _papaBool_AnimationSetIndex_BoneFrameIndex_is_act = NEW bool*[_num_animation_set];
+        for (UINT ani_set_index = 0; ani_set_index < _num_animation_set; ani_set_index++) {
+            _papaBool_AnimationSetIndex_BoneFrameIndex_is_act[ani_set_index] = NEW bool[_tmp_frame_index+1];
+            std::vector<LPCSTR>* pAnimationTargetBoneFrameNameList = &(_mapAnimationSetIndex_AnimationTargetBoneFrameNames[ani_set_index]);
+            for (UINT frame_index = 0; frame_index < _vecAllBoneFrame.size(); frame_index++) {
+                _papaBool_AnimationSetIndex_BoneFrameIndex_is_act[ani_set_index][frame_index] = false;
+                LPSTR frame_name = _vecAllBoneFrame[frame_index]->Name;
+                if (frame_name) {
+                    for (int n = 0; n < pAnimationTargetBoneFrameNameList->size(); n++) {
+                        LPCSTR animation_target_bone_frame_name = (*pAnimationTargetBoneFrameNameList)[n];
+                        if (strcmp(animation_target_bone_frame_name, frame_name) == 0) {
+                            _papaBool_AnimationSetIndex_BoneFrameIndex_is_act[ani_set_index][frame_index] = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
 
         //境界球
         D3DXVECTOR3 vecCenter;
@@ -477,10 +497,6 @@ void AniMeshModel::restore() {
             GGAF_RELEASE(pMeshContainer->MeshData.pMesh);
             pMeshContainer->MeshData.pMesh = nullptr;
         }
-
-
-
-
 
 ////////////////////////////////////////////////
         //描画時（DrawIndexedPrimitive）のパラメータリスト作成
@@ -694,34 +710,10 @@ int AniMeshModel::getAnimTicksPerSecond(std::string& prm_xfile_name) {
 }
 
 void AniMeshModel::setFrameInfo(FrameWorldMatrix* prm_pFrame) {
-    //以下の情報を構築する
-    //・総アニメーションセットの配列、要素番号はアニメーションセットインデックスと呼称する
-    //    std::vector<ID3DXAnimationSet*> _vecAnimationSet;
-    //・フレームから、そのフレームが対象となっているアニメーションセットの配列を得るMap
-    //    std::map<FrameWorldMatrix*, std::vector<ID3DXAnimationSet*>> _mapBornFrame_AnimationSetList
-    //・AnimationSet から、AnimationのターゲットのBoneFrame の Nameの配列が取得できるマップ
-    //    std::map<ID3DXAnimationSet*, std::vector<LPCSTR>> _mapAnimationSet_AnimationTargetBoneFrameNames
-    //・メッシュコンテナがある描画対象フレームを直列化したもの、要素番号はただの連番
-    //    std::vector<FrameWorldMatrix*> _vecDrawBoneFrame;
-
     prm_pFrame->_frame_index = _tmp_frame_index; //フレームインデックスを保持
     _tmp_frame_index++;
-    LPSTR frame_name = prm_pFrame->Name;
-    if (frame_name) {
-        //フレームから、そのフレームをアニメーションするアニメーションセットの配列を作成
-        std::vector<ID3DXAnimationSet*>* pAnimationSetList = &(_mapBornFrame_AnimationSetList[prm_pFrame]); //構築したい配列
-        for (UINT ani_set_index = 0; ani_set_index < _num_animation_set; ani_set_index++) {
-            ID3DXAnimationSet* pAnimationSet = _vecAnimationSet[ani_set_index];
-            std::vector<LPCSTR>* pAnimationTargetBoneFrameNameList = &(_mapAnimationSet_AnimationTargetBoneFrameNames[pAnimationSet]);
-            for (int n = 0; n < pAnimationTargetBoneFrameNameList->size(); n++) {
-                LPCSTR animation_target_bone_frame_name = (*pAnimationTargetBoneFrameNameList)[n];
-                if (strcmp(animation_target_bone_frame_name, frame_name) == 0) {
-                    pAnimationSetList->push_back(pAnimationSet);
-                    break;
-                }
-            }
-        }
-    }
+
+    _vecAllBoneFrame.push_back(prm_pFrame);
     if (prm_pFrame->pMeshContainer) {
         //メッシュコンテナ有り
         _vecDrawBoneFrame.push_back(prm_pFrame);
@@ -779,6 +771,11 @@ void AniMeshModel::release() {
 }
 
 AniMeshModel::~AniMeshModel() {
+    for (UINT ani_set_index = 0; ani_set_index < _num_animation_set; ani_set_index++) {
+        bool* p = _papaBool_AnimationSetIndex_BoneFrameIndex_is_act[ani_set_index];
+        GGAF_DELETEARR(p);
+    }
+    GGAF_DELETEARR(_papaBool_AnimationSetIndex_BoneFrameIndex_is_act);
     //release();
     //はModelConnection::processReleaseResource(Model* prm_pResource) で呼び出される
 }
