@@ -25,6 +25,7 @@ SpriteModel::SpriteModel(const char* prm_model_name) : Model(prm_model_name) {
     _row_texture_split = 1;
     _col_texture_split = 1;
     _pVertexBuffer = nullptr;
+    _pVertexBuffer_data = nullptr;
     _size_vertices = 0;
     _size_vertex_unit = 0;
     _obj_model |= Obj_GgafDx_SpriteModel;
@@ -130,85 +131,90 @@ HRESULT SpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, 
 
 void SpriteModel::restore() {
     _TRACE3_("_model_name=" << _model_name << " start");
-    ModelManager* pModelManager = pGOD->_pModelManager;
-    _papTextureConnection = nullptr;
-    HRESULT hr;
-    std::string xfile_name = ModelManager::getSpriteFileName(_model_name, "sprx");
-    ModelManager::SpriteXFileFmt xdata;
-    pModelManager->obtainSpriteInfo(&xdata, xfile_name);
-    _model_width_px = xdata.width;
-    _model_height_px =  xdata.height;
-    _row_texture_split = xdata.row_texture_split;
-    _col_texture_split = xdata.col_texture_split;
+    if (_pVertexBuffer_data == nullptr) {
+        ModelManager* pModelManager = pGOD->_pModelManager;
+        _papTextureConnection = nullptr;
+        HRESULT hr;
+        std::string xfile_name = ModelManager::getSpriteFileName(_model_name, "sprx");
+        ModelManager::SpriteXFileFmt xdata;
+        pModelManager->obtainSpriteInfo(&xdata, xfile_name);
+        _model_width_px = xdata.width;
+        _model_height_px =  xdata.height;
+        _row_texture_split = xdata.row_texture_split;
+        _col_texture_split = xdata.col_texture_split;
+        _pVertexBuffer_data = NEW SpriteModel::VERTEX[4];
+        _size_vertices = sizeof(SpriteModel::VERTEX)*4;
+        _size_vertex_unit = sizeof(SpriteModel::VERTEX);
+        _pa_texture_filenames = NEW std::string[1];
+        _pa_texture_filenames[0] = std::string(xdata.texture_file);
 
-    //テクスチャ取得しモデルに保持させる
-    TextureConnection* model_pTextureConnection = (TextureConnection*)(pModelManager->_pModelTextureManager->connect(xdata.texture_file, this));
+        //左上
+        _pVertexBuffer_data[0].x = PX_DX(xdata.width)  / -2.0;
+        _pVertexBuffer_data[0].y = PX_DX(xdata.height) /  2.0;
+        _pVertexBuffer_data[0].z = 0.0f;
+        _pVertexBuffer_data[0].nx = 0.0f;
+        _pVertexBuffer_data[0].ny = 0.0f;
+        _pVertexBuffer_data[0].nz = -1.0f;
+        _pVertexBuffer_data[0].color = D3DCOLOR_ARGB(255,255,255,255);
+        _pVertexBuffer_data[0].tu = 0.0f;
+        _pVertexBuffer_data[0].tv = 0.0f;
+        //右上
+        _pVertexBuffer_data[1].x = PX_DX(xdata.width)  /  2.0;
+        _pVertexBuffer_data[1].y = PX_DX(xdata.height) /  2.0;
+        _pVertexBuffer_data[1].z = 0.0f;
+        _pVertexBuffer_data[1].nx = 0.0f;
+        _pVertexBuffer_data[1].ny = 0.0f;
+        _pVertexBuffer_data[1].nz = -1.0f;
+        _pVertexBuffer_data[1].color = D3DCOLOR_ARGB(255,255,255,255);
+        _pVertexBuffer_data[1].tu = (float)(1.0 / xdata.col_texture_split);
+        _pVertexBuffer_data[1].tv = 0.0f;
+        //左下
+        _pVertexBuffer_data[2].x = PX_DX(xdata.width)  / -2.0;
+        _pVertexBuffer_data[2].y = PX_DX(xdata.height) / -2.0;
+        _pVertexBuffer_data[2].z = 0.0f;
+        _pVertexBuffer_data[2].nx = 0.0f;
+        _pVertexBuffer_data[2].ny = 0.0f;
+        _pVertexBuffer_data[2].nz = -1.0f;
+        _pVertexBuffer_data[2].color = D3DCOLOR_ARGB(255,255,255,255);
+        _pVertexBuffer_data[2].tu = 0.0f;
+        _pVertexBuffer_data[2].tv = (float)(1.0 / xdata.row_texture_split);
+        //右下
+        _pVertexBuffer_data[3].x = PX_DX(xdata.width)  /  2.0;
+        _pVertexBuffer_data[3].y = PX_DX(xdata.height) / -2.0;
+        _pVertexBuffer_data[3].z = 0.0f;
+        _pVertexBuffer_data[3].nx = 0.0f;
+        _pVertexBuffer_data[3].ny = 0.0f;
+        _pVertexBuffer_data[3].nz = -1.0f;
+        _pVertexBuffer_data[3].color = D3DCOLOR_ARGB(255,255,255,255);
+        _pVertexBuffer_data[3].tu = (float)(1.0 / xdata.col_texture_split);
+        _pVertexBuffer_data[3].tv = (float)(1.0 / xdata.row_texture_split);
 
-    //テクスチャの参照を保持させる。
-    _papTextureConnection = NEW TextureConnection*[1];
-    _papTextureConnection[0] = model_pTextureConnection;
+        //距離
+        FLOAT model_bounding_sphere_radius = (FLOAT)(sqrt(_pVertexBuffer_data[0].x * _pVertexBuffer_data[0].x +
+                                                          _pVertexBuffer_data[0].y * _pVertexBuffer_data[0].y +
+                                                          _pVertexBuffer_data[0].z * _pVertexBuffer_data[0].z));
+        _bounding_sphere_radius = model_bounding_sphere_radius;
 
-    SpriteModel::VERTEX* paVertex = NEW SpriteModel::VERTEX[4];
-    _size_vertices = sizeof(SpriteModel::VERTEX)*4;
-    _size_vertex_unit = sizeof(SpriteModel::VERTEX);
-
-    //頂点配列情報をモデルに保持させる
-    //UVは左上の１つ分（アニメパターン０）をデフォルトで設定する。
-    //シェーダーが描画時にアニメパターン番号をみてUV座標をずらす仕様としよっと。
-    //x,y の ÷2 とは、モデル中心をローカル座標の原点中心としたいため
-//    float tex_width  = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
-//    float tex_height = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
-    //左上
-    paVertex[0].x = PX_DX(xdata.width)  / -2.0;
-    paVertex[0].y = PX_DX(xdata.height) /  2.0;
-    paVertex[0].z = 0.0f;
-    paVertex[0].nx = 0.0f;
-    paVertex[0].ny = 0.0f;
-    paVertex[0].nz = -1.0f;
-    paVertex[0].color = D3DCOLOR_ARGB(255,255,255,255);
-    paVertex[0].tu = 0.0f;
-    paVertex[0].tv = 0.0f;
-    //右上
-    paVertex[1].x = PX_DX(xdata.width)  /  2.0;
-    paVertex[1].y = PX_DX(xdata.height) /  2.0;
-    paVertex[1].z = 0.0f;
-    paVertex[1].nx = 0.0f;
-    paVertex[1].ny = 0.0f;
-    paVertex[1].nz = -1.0f;
-    paVertex[1].color = D3DCOLOR_ARGB(255,255,255,255);
-    paVertex[1].tu = (float)(1.0 / xdata.col_texture_split);
-    paVertex[1].tv = 0.0f;
-    //左下
-    paVertex[2].x = PX_DX(xdata.width)  / -2.0;
-    paVertex[2].y = PX_DX(xdata.height) / -2.0;
-    paVertex[2].z = 0.0f;
-    paVertex[2].nx = 0.0f;
-    paVertex[2].ny = 0.0f;
-    paVertex[2].nz = -1.0f;
-    paVertex[2].color = D3DCOLOR_ARGB(255,255,255,255);
-    paVertex[2].tu = 0.0f;
-    paVertex[2].tv = (float)(1.0 / xdata.row_texture_split);
-    //右下
-    paVertex[3].x = PX_DX(xdata.width)  /  2.0;
-    paVertex[3].y = PX_DX(xdata.height) / -2.0;
-    paVertex[3].z = 0.0f;
-    paVertex[3].nx = 0.0f;
-    paVertex[3].ny = 0.0f;
-    paVertex[3].nz = -1.0f;
-    paVertex[3].color = D3DCOLOR_ARGB(255,255,255,255);
-    paVertex[3].tu = (float)(1.0 / xdata.col_texture_split);
-    paVertex[3].tv = (float)(1.0 / xdata.row_texture_split);
-
-    //距離
-    FLOAT model_bounding_sphere_radius = (FLOAT)(sqrt(paVertex[0].x * paVertex[0].x +
-                                                      paVertex[0].y * paVertex[0].y +
-                                                      paVertex[0].z * paVertex[0].z));
-    _bounding_sphere_radius = model_bounding_sphere_radius;
-
+        _num_materials = 1;
+        D3DMATERIAL9* paMaterial;
+        paMaterial = NEW D3DMATERIAL9[_num_materials];
+        for ( DWORD i = 0; i < _num_materials; i++) {
+            //paMaterial[i] = paD3DMaterial9_tmp[i].MatD3D;
+            paMaterial[i].Diffuse.r = 1.0f;
+            paMaterial[i].Diffuse.g = 1.0f;
+            paMaterial[i].Diffuse.b = 1.0f;
+            paMaterial[i].Diffuse.a = 1.0f;
+            paMaterial[i].Ambient.r = 1.0f;
+            paMaterial[i].Ambient.g = 1.0f;
+            paMaterial[i].Ambient.b = 1.0f;
+            paMaterial[i].Ambient.a = 1.0f;
+        }
+        _paMaterial_default = paMaterial;
+    }
 
     //バッファ作成
     if (_pVertexBuffer == nullptr) {
-
+        HRESULT hr;
         hr = God::_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices,
                 D3DUSAGE_WRITEONLY,
@@ -217,33 +223,20 @@ void SpriteModel::restore() {
                 &(_pVertexBuffer),
                 nullptr);
         checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_name));
+        //頂点バッファ作成
+        //頂点情報をビデオカード頂点バッファへロード
+        void *pVertexBuffer;
+        hr = _pVertexBuffer->Lock(0, _size_vertices, (void**)&pVertexBuffer, 0);
+        checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_name);
+        memcpy(pVertexBuffer, _pVertexBuffer_data, _size_vertices); //pVertexBuffer ← _pVertexBuffer_data
+        _pVertexBuffer->Unlock();
     }
-    //頂点バッファ作成
-    //頂点情報をビデオカード頂点バッファへロード
-    void *pVertexBuffer;
-    hr = _pVertexBuffer->Lock(0, _size_vertices, (void**)&pVertexBuffer, 0);
-    checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_name);
-
-    memcpy(pVertexBuffer, paVertex, _size_vertices); //pVertexBuffer ← paVertex
-    _pVertexBuffer->Unlock();
-
-    _num_materials = 1;
-    D3DMATERIAL9* paMaterial;
-    paMaterial = NEW D3DMATERIAL9[_num_materials];
-    for ( DWORD i = 0; i < _num_materials; i++) {
-        //paMaterial[i] = paD3DMaterial9_tmp[i].MatD3D;
-        paMaterial[i].Diffuse.r = 1.0f;
-        paMaterial[i].Diffuse.g = 1.0f;
-        paMaterial[i].Diffuse.b = 1.0f;
-        paMaterial[i].Diffuse.a = 1.0f;
-        paMaterial[i].Ambient.r = 1.0f;
-        paMaterial[i].Ambient.g = 1.0f;
-        paMaterial[i].Ambient.b = 1.0f;
-        paMaterial[i].Ambient.a = 1.0f;
+    if (_papTextureConnection == nullptr) {
+        ModelManager* pModelManager = pGOD->_pModelManager;
+        _papTextureConnection = NEW TextureConnection*[1];
+        _papTextureConnection[0] = (TextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[0].c_str(), this));
     }
-    _paMaterial_default = paMaterial;
-    //後始末
-    GGAF_DELETEARR(paVertex);
+
     _TRACE3_("_model_name=" << _model_name << " end");
 }
 
@@ -264,13 +257,12 @@ void SpriteModel::release() {
         }
     }
     GGAF_DELETEARR(_papTextureConnection);
-    GGAF_DELETEARR(_paMaterial_default);
-    GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);
     _TRACE3_("_model_name=" << _model_name << " end");
 }
 
 SpriteModel::~SpriteModel() {
-    //release();
-    //はModelConnection::processReleaseResource(Model* prm_pResource) で呼び出される
+    GGAF_DELETEARR(_paMaterial_default);
+    GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);
+    GGAF_DELETEARR(_pVertexBuffer_data);
 }
 

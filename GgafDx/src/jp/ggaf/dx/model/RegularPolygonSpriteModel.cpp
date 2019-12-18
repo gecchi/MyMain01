@@ -25,6 +25,7 @@ RegularPolygonSpriteModel::RegularPolygonSpriteModel(const char* prm_model_name)
     _row_texture_split = 1;
     _col_texture_split = 1;
     _pVertexBuffer = nullptr;
+    _pVertexBuffer_data = nullptr;
     _size_vertices = 0;
     _size_vertex_unit = 0;
     _angle_num = 3;
@@ -153,89 +154,99 @@ HRESULT RegularPolygonSpriteModel::draw(FigureActor* prm_pActor_target, int prm_
 
 void RegularPolygonSpriteModel::restore() {
     _TRACE3_("_model_name=" << _model_name << " start");
-    ModelManager* pModelManager = pGOD->_pModelManager;
-    _papTextureConnection = nullptr;
-    HRESULT hr;
-
-    std::string model_name = std::string(_model_name); //_model_name は "8,CW,XXXX" or "8,XXXX"
-    std::vector<std::string> names = UTIL::split(model_name, ",");
-    std::string filenamae = "";
-    if (names.size() == 2) {
-        filenamae = names[1];
-    } else if (names.size() == 3) {
-        filenamae = names[2];
-    }
-    std::string xfile_name = ModelManager::getSpriteFileName(filenamae, "sprx");
-    ModelManager::SpriteXFileFmt xdata;
-    pModelManager->obtainSpriteInfo(&xdata, xfile_name);
-    _model_width_px = xdata.width;
-    _model_height_px =  xdata.height;
-    _row_texture_split = xdata.row_texture_split;
-    _col_texture_split = xdata.col_texture_split;
-
-    //テクスチャ取得しモデルに保持させる
-    TextureConnection* model_pTextureConnection = (TextureConnection*)(pModelManager->_pModelTextureManager->connect(xdata.texture_file, this));
-
-    //テクスチャの参照を保持させる。
-    _papTextureConnection = NEW TextureConnection*[1];
-    _papTextureConnection[0] = model_pTextureConnection;
-
-    RegularPolygonSpriteModel::VERTEX* paVertex = NEW RegularPolygonSpriteModel::VERTEX[_angle_num+2];
-    _size_vertices = sizeof(RegularPolygonSpriteModel::VERTEX)*(_angle_num+2);
-    _size_vertex_unit = sizeof(RegularPolygonSpriteModel::VERTEX);
-    dxcoord model_width = PX_DX(_model_width_px);
-    dxcoord model_height = PX_DX(_model_height_px);
-    float tu_rate = 1.0 / _col_texture_split;
-    float tv_rate = 1.0 / _row_texture_split;
-    _u_center = tu_rate * 0.5;
-    _v_center = tv_rate * 0.5;
-    //中心
-    paVertex[0].x = 0.0f;
-    paVertex[0].y = 0.0f;
-    paVertex[0].z = 0.0f;
-    paVertex[0].nx = 0.0f;
-    paVertex[0].ny = 0.0f;
-    paVertex[0].nz = 1.0f;
-    paVertex[0].color = D3DCOLOR_ARGB(255,255,255,255);
-    paVertex[0].tu = _u_center;
-    paVertex[0].tv = _v_center;
-
-    if (_drawing_order == 0) {        //反計回り
-        for (int ang = 0; ang < _angle_num; ang++) {
-            double rad = (PI2 * ang) / _angle_num;
-            paVertex[ang+1].x = (float)(cos(rad) * model_width * 0.5);
-            paVertex[ang+1].y = (float)(sin(rad) * model_height * 0.5);
-            paVertex[ang+1].z = 0.0f;
-            paVertex[ang+1].nx = 0.0f;
-            paVertex[ang+1].ny = 0.0f;
-            paVertex[ang+1].nz = 1.0f;
-            paVertex[ang+1].color = D3DCOLOR_ARGB(255,255,255,255);
-            paVertex[ang+1].tu = paVertex[0].tu + (cos(rad) * tu_rate * 0.5);
-            paVertex[ang+1].tv = paVertex[0].tv - (sin(rad) * tv_rate * 0.5);
+    if (_pVertexBuffer_data == nullptr) {
+        ModelManager* pModelManager = pGOD->_pModelManager;
+        HRESULT hr;
+        std::string model_name = std::string(_model_name); //_model_name は "8,CW,XXXX" or "8,XXXX"
+        std::vector<std::string> names = UTIL::split(model_name, ",");
+        std::string filenamae = "";
+        if (names.size() == 2) {
+            filenamae = names[1];
+        } else if (names.size() == 3) {
+            filenamae = names[2];
         }
-        paVertex[_angle_num+1] = paVertex[1];
-    } else {
-        //時計回り
-        for (int ang = 0; ang < _angle_num; ang++) {
-            double rad = PI2 - ((PI2 * ang) / _angle_num);
-            paVertex[ang+1].x = (float)(cos(rad) * model_width * 0.5);
-            paVertex[ang+1].y = (float)(sin(rad) * model_height * 0.5);
-            paVertex[ang+1].z = 0.0f;
-            paVertex[ang+1].nx = 0.0f;
-            paVertex[ang+1].ny = 0.0f;
-            paVertex[ang+1].nz = 1.0f;
-            paVertex[ang+1].color = D3DCOLOR_ARGB(255,255,255,255);
-            paVertex[ang+1].tu = paVertex[0].tu + (cos(rad) * tu_rate * 0.5);
-            paVertex[ang+1].tv = paVertex[0].tv - (sin(rad) * tv_rate * 0.5);
-        }
-        paVertex[_angle_num+1] = paVertex[1];
-    }
+        std::string xfile_name = ModelManager::getSpriteFileName(filenamae, "sprx");
+        ModelManager::SpriteXFileFmt xdata;
+        pModelManager->obtainSpriteInfo(&xdata, xfile_name);
+        _model_width_px = xdata.width;
+        _model_height_px =  xdata.height;
+        _row_texture_split = xdata.row_texture_split;
+        _col_texture_split = xdata.col_texture_split;
+        _pa_texture_filenames = NEW std::string[1];
+        _pa_texture_filenames[0] = std::string(xdata.texture_file);
+        _pVertexBuffer_data = NEW RegularPolygonSpriteModel::VERTEX[_angle_num+2];
+        _size_vertices = sizeof(RegularPolygonSpriteModel::VERTEX)*(_angle_num+2);
+        _size_vertex_unit = sizeof(RegularPolygonSpriteModel::VERTEX);
+        dxcoord model_width = PX_DX(_model_width_px);
+        dxcoord model_height = PX_DX(_model_height_px);
+        float tu_rate = 1.0 / _col_texture_split;
+        float tv_rate = 1.0 / _row_texture_split;
+        _u_center = tu_rate * 0.5;
+        _v_center = tv_rate * 0.5;
+        //中心
+        _pVertexBuffer_data[0].x = 0.0f;
+        _pVertexBuffer_data[0].y = 0.0f;
+        _pVertexBuffer_data[0].z = 0.0f;
+        _pVertexBuffer_data[0].nx = 0.0f;
+        _pVertexBuffer_data[0].ny = 0.0f;
+        _pVertexBuffer_data[0].nz = 1.0f;
+        _pVertexBuffer_data[0].color = D3DCOLOR_ARGB(255,255,255,255);
+        _pVertexBuffer_data[0].tu = _u_center;
+        _pVertexBuffer_data[0].tv = _v_center;
 
-    //距離
-    _bounding_sphere_radius = paVertex[1].x;
+        if (_drawing_order == 0) {        //反計回り
+            for (int ang = 0; ang < _angle_num; ang++) {
+                double rad = (PI2 * ang) / _angle_num;
+                _pVertexBuffer_data[ang+1].x = (float)(cos(rad) * model_width * 0.5);
+                _pVertexBuffer_data[ang+1].y = (float)(sin(rad) * model_height * 0.5);
+                _pVertexBuffer_data[ang+1].z = 0.0f;
+                _pVertexBuffer_data[ang+1].nx = 0.0f;
+                _pVertexBuffer_data[ang+1].ny = 0.0f;
+                _pVertexBuffer_data[ang+1].nz = 1.0f;
+                _pVertexBuffer_data[ang+1].color = D3DCOLOR_ARGB(255,255,255,255);
+                _pVertexBuffer_data[ang+1].tu = _pVertexBuffer_data[0].tu + (cos(rad) * tu_rate * 0.5);
+                _pVertexBuffer_data[ang+1].tv = _pVertexBuffer_data[0].tv - (sin(rad) * tv_rate * 0.5);
+            }
+            _pVertexBuffer_data[_angle_num+1] = _pVertexBuffer_data[1];
+        } else {
+            //時計回り
+            for (int ang = 0; ang < _angle_num; ang++) {
+                double rad = PI2 - ((PI2 * ang) / _angle_num);
+                _pVertexBuffer_data[ang+1].x = (float)(cos(rad) * model_width * 0.5);
+                _pVertexBuffer_data[ang+1].y = (float)(sin(rad) * model_height * 0.5);
+                _pVertexBuffer_data[ang+1].z = 0.0f;
+                _pVertexBuffer_data[ang+1].nx = 0.0f;
+                _pVertexBuffer_data[ang+1].ny = 0.0f;
+                _pVertexBuffer_data[ang+1].nz = 1.0f;
+                _pVertexBuffer_data[ang+1].color = D3DCOLOR_ARGB(255,255,255,255);
+                _pVertexBuffer_data[ang+1].tu = _pVertexBuffer_data[0].tu + (cos(rad) * tu_rate * 0.5);
+                _pVertexBuffer_data[ang+1].tv = _pVertexBuffer_data[0].tv - (sin(rad) * tv_rate * 0.5);
+            }
+            _pVertexBuffer_data[_angle_num+1] = _pVertexBuffer_data[1];
+        }
+
+        //距離
+        _bounding_sphere_radius = _pVertexBuffer_data[1].x;
+
+        _num_materials = 1;
+        D3DMATERIAL9* paMaterial;
+        paMaterial = NEW D3DMATERIAL9[_num_materials];
+        for ( DWORD i = 0; i < _num_materials; i++) {
+            //paMaterial[i] = paD3DMaterial9_tmp[i].MatD3D;
+            paMaterial[i].Diffuse.r = 1.0f;
+            paMaterial[i].Diffuse.g = 1.0f;
+            paMaterial[i].Diffuse.b = 1.0f;
+            paMaterial[i].Diffuse.a = 1.0f;
+            paMaterial[i].Ambient.r = 1.0f;
+            paMaterial[i].Ambient.g = 1.0f;
+            paMaterial[i].Ambient.b = 1.0f;
+            paMaterial[i].Ambient.a = 1.0f;
+        }
+        _paMaterial_default = paMaterial;
+    }
     //バッファ作成
     if (_pVertexBuffer == nullptr) {
-
+        HRESULT hr;
         hr = God::_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices,
                 D3DUSAGE_WRITEONLY,
@@ -244,33 +255,23 @@ void RegularPolygonSpriteModel::restore() {
                 &(_pVertexBuffer),
                 nullptr);
         checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_name));
-    }
-    //頂点バッファ作成
-    //頂点情報をビデオカード頂点バッファへロード
-    void *pVertexBuffer;
-    hr = _pVertexBuffer->Lock(0, _size_vertices, (void**)&pVertexBuffer, 0);
-    checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_name);
+        //頂点バッファ作成
+        //頂点情報をビデオカード頂点バッファへロード
+        void *pVertexBuffer;
+        hr = _pVertexBuffer->Lock(0, _size_vertices, (void**)&pVertexBuffer, 0);
+        checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_name);
 
-    memcpy(pVertexBuffer, paVertex, _size_vertices); //pVertexBuffer ← paVertex
-    _pVertexBuffer->Unlock();
-
-    _num_materials = 1;
-    D3DMATERIAL9* paMaterial;
-    paMaterial = NEW D3DMATERIAL9[_num_materials];
-    for ( DWORD i = 0; i < _num_materials; i++) {
-        //paMaterial[i] = paD3DMaterial9_tmp[i].MatD3D;
-        paMaterial[i].Diffuse.r = 1.0f;
-        paMaterial[i].Diffuse.g = 1.0f;
-        paMaterial[i].Diffuse.b = 1.0f;
-        paMaterial[i].Diffuse.a = 1.0f;
-        paMaterial[i].Ambient.r = 1.0f;
-        paMaterial[i].Ambient.g = 1.0f;
-        paMaterial[i].Ambient.b = 1.0f;
-        paMaterial[i].Ambient.a = 1.0f;
+        memcpy(pVertexBuffer, _pVertexBuffer_data, _size_vertices); //pVertexBuffer ← _pVertexBuffer_data
+        _pVertexBuffer->Unlock();
     }
-    _paMaterial_default = paMaterial;
-    //後始末
-    GGAF_DELETEARR(paVertex);
+
+    if (_papTextureConnection == nullptr) {
+        //テクスチャ取得しモデルに保持させる
+        ModelManager* pModelManager = pGOD->_pModelManager;
+        _papTextureConnection = NEW TextureConnection*[1];
+        _papTextureConnection[0] = (TextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[0].c_str(), this));
+    }
+
     _TRACE3_("_model_name=" << _model_name << " end");
 }
 
@@ -291,11 +292,12 @@ void RegularPolygonSpriteModel::release() {
         }
     }
     GGAF_DELETEARR(_papTextureConnection);
-    GGAF_DELETEARR(_paMaterial_default);
-    GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);
     _TRACE3_("_model_name=" << _model_name << " end");
 }
 
 RegularPolygonSpriteModel::~RegularPolygonSpriteModel() {
+    GGAF_DELETEARR(_paMaterial_default);
+    GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);
+    GGAF_DELETEARR(_pVertexBuffer_data);
 }
 

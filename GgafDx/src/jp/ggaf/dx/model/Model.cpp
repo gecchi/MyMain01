@@ -532,6 +532,7 @@ void Model::setDefaultMaterial(D3DMATERIAL9* pMateria) {
     pMateria->Emissive.b = 1.0f;
     pMateria->Emissive.a = 1.0f;
 }
+
 Model::~Model() {
     _TRACE4_("Model::~Model("<<_model_name<<") Adr:"<<this);
     GGAF_DELETEARR_NULLABLE(_model_name);

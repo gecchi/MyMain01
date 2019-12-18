@@ -99,7 +99,9 @@ void MassPointSpriteModel::restore() {
         pModelManager->obtainPointSpriteInfo(&xdata, xfile_name);
 
         //マテリアル定義が１つも無いので、描画のために無理やり１つマテリアルを作成。
+//        _num_materials = 1; //setMaterial();で実行済み
         setMaterial();
+//        _pa_texture_filenames = NEW std::string[1]; //setMaterial();で実行済み
         _pa_texture_filenames[0] = std::string(xdata.TextureFile);
 
         //デバイスにテクスチャ作成 (下にも同じ処理があるが、下はデバイスロスト時実行)
@@ -165,6 +167,7 @@ void MassPointSpriteModel::restore() {
             }
         }
 
+
     }
 
     //デバイスに頂点バッファ作成(モデル)
@@ -187,18 +190,11 @@ void MassPointSpriteModel::restore() {
     }
 
     //デバイスにテクスチャ作成
-    if (!_papTextureConnection) {
-        _num_materials = 1;
+    if (_papTextureConnection == nullptr) {
         _papTextureConnection = NEW TextureConnection*[1];
         _papTextureConnection[0] =
             (TextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[0].c_str(), this));
         Texture* pTex = _papTextureConnection[0]->peek();
-        float tex_width  = (float)(pTex->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
-        float tex_height = (float)(pTex->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)幅と同じになる
-        if ((int)(tex_width*100000) != (int)(tex_height*100000)) {
-            throwCriticalException("ポイントスプライト用テクスチャ["<<pTex->getName()<<"]("<<tex_width<<"x"<<tex_height<<")は、正方形である必要があります。");
-        }
-        _texture_size_px = tex_width;
     }
 
     //インデックスバッファは使わない

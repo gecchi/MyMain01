@@ -61,6 +61,18 @@ Puppeteer::Puppeteer(ID3DXAnimationController* prm_pAc_cloned) : GgafCore::Objec
 //    }
 }
 
+//void Puppeteer::restore(ID3DXAnimationController* prm_pAc_cloned) {
+//    _pAc = prm_pAc_cloned;
+//    HRESULT hr;
+//    for (UINT i = 0; i < _num_perform; i++) {
+//        LPD3DXANIMATIONSET pAnimationSet;
+//        hr = _pAc->GetAnimationSet(i, &(pAnimationSet)); //アニメーションセット保持
+//        _paPerformances[i].setAnimationSet(pAnimationSet, i);
+//        checkDxException(hr, D3D_OK, "失敗しました。");
+//        _paPerformances[i]._time_of_one_loop = _paPerformances[i]._pAnimationSet->GetPeriod();
+//    }
+//}
+
 void Puppeteer::exchangPerformance() {
     Performance* p2 = _aStick[RIGHT_HAND]._pPerformance;
     _aStick[RIGHT_HAND]._pPerformance = _aStick[LEFT_HAND]._pPerformance;

@@ -18,13 +18,14 @@ using namespace GgafDx;
 DWORD BoardSetModel::FVF = (D3DFVF_XYZ | D3DFVF_PSIZE | D3DFVF_TEX1);
 BoardSetModel::BoardSetModel(const char* prm_model_name) : Model(prm_model_name) {
     _TRACE3_("_model_name="<<_model_name);
-
     _model_width_px = 32.0f;
     _model_height_px = 32.0f;
     _row_texture_split = 1;
     _col_texture_split = 1;
     _pVertexBuffer = nullptr;
     _pIndexBuffer = nullptr;
+    _paVertexBuffer_data = nullptr;
+    _pIndexBuffer_data = nullptr;
     _size_vertices = 0;
     _size_vertex_unit = 0;
     _paIndexParam = nullptr;
@@ -134,49 +135,42 @@ HRESULT BoardSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num
 #ifdef MY_DEBUG
         GgafCore::God::_num_drawing++;
 #endif
-
     return D3D_OK;
 }
 
 void BoardSetModel::restore() {
     _TRACE3_("_model_name=" << _model_name << " start");
+    if (_paVertexBuffer_data == nullptr) {
+        if (4*_set_num > 65535) {
+            throwCriticalException("頂点が 65535を超えたかもしれません。\n対象Model："<<getName()<<"  nVertices:4  セット数:"<<(_set_num));
+        }
 
-    if (4*_set_num > 65535) {
-        throwCriticalException("頂点が 65535を超えたかもしれません。\n対象Model："<<getName()<<"  nVertices:4  セット数:"<<(_set_num));
-    }
+        _papTextureConnection = nullptr;
+        ModelManager* pModelManager = pGOD->_pModelManager;
+        std::string xfile_name; //読み込むスプライト定義ファイル名（Xファイル形式）
+        //"12,Moji" or "8,Moji" or "Moji" から "Moji" だけ取とりだしてフルパス名取得。
+        //TODO:数値3桁("123,Moji"とか)が来たら困る。
+        if (*(_model_name + 1) == ',') {
+            xfile_name = ModelManager::getSpriteFileName(std::string(_model_name + 2), "sprx");
+        } else if (*(_model_name + 2) == ',') {
+            xfile_name = ModelManager::getSpriteFileName(std::string(_model_name + 3), "sprx");
+        } else {
+            xfile_name = ModelManager::getSpriteFileName(std::string(_model_name), "sprx");
+        }
+        ModelManager::SpriteXFileFmt xdata;
+        pModelManager->obtainSpriteInfo(&xdata, xfile_name);
+        _model_width_px  = xdata.width;
+        _model_height_px = xdata.height;
+        _row_texture_split = xdata.row_texture_split;
+        _col_texture_split = xdata.col_texture_split;
 
-    _papTextureConnection = nullptr;
-    ModelManager* pModelManager = pGOD->_pModelManager;
-
-    HRESULT hr;
-    std::string xfile_name; //読み込むスプライト定義ファイル名（Xファイル形式）
-    //"12,Moji" or "8,Moji" or "Moji" から "Moji" だけ取とりだしてフルパス名取得。
-    //TODO:数値3桁("123,Moji"とか)が来たら困る。
-    if (*(_model_name + 1) == ',') {
-        xfile_name = ModelManager::getSpriteFileName(std::string(_model_name + 2), "sprx");
-    } else if (*(_model_name + 2) == ',') {
-        xfile_name = ModelManager::getSpriteFileName(std::string(_model_name + 3), "sprx");
-    } else {
-        xfile_name = ModelManager::getSpriteFileName(std::string(_model_name), "sprx");
-    }
-    ModelManager::SpriteXFileFmt xdata;
-    pModelManager->obtainSpriteInfo(&xdata, xfile_name);
-    _model_width_px  = xdata.width;
-    _model_height_px = xdata.height;
-    _row_texture_split = xdata.row_texture_split;
-    _col_texture_split = xdata.col_texture_split;
-
-    //テクスチャ取得しモデルに保持させる
-    TextureConnection* model_pTextureConnection = (TextureConnection*)(pModelManager->_pModelTextureManager->connect(xdata.texture_file, this));
-    //テクスチャの参照を保持させる。
-    _papTextureConnection = NEW TextureConnection*[1];
-    _papTextureConnection[0] = model_pTextureConnection;
-
-    if (_pVertexBuffer == nullptr) {
+        //テクスチャ取得しモデルに保持させる
+        _pa_texture_filenames = NEW std::string[1];
+        _pa_texture_filenames[0] = std::string(xdata.texture_file);
 
         _size_vertices = sizeof(BoardSetModel::VERTEX)*4;
         _size_vertex_unit = sizeof(BoardSetModel::VERTEX);
-        BoardSetModel::VERTEX* paVertex = NEW BoardSetModel::VERTEX[4 * _set_num];
+        _paVertexBuffer_data = NEW BoardSetModel::VERTEX[4 * _set_num];
 
         //1pxあたりのuvの大きさを求める
 //        float tex_width  = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
@@ -185,35 +179,85 @@ void BoardSetModel::restore() {
         double dv = 0.0; //1.0 / tex_height / 100000.0; //テクスチャの高さ1pxの10000分の1px
         for (int i = 0; i < _set_num; i++) {
             //左上
-            paVertex[i*4 + 0].x = 0.0f;
-            paVertex[i*4 + 0].y = 0.0f;
-            paVertex[i*4 + 0].z = 0.0f;
-            paVertex[i*4 + 0].tu = (float)du;
-            paVertex[i*4 + 0].tv = (float)dv;
-            paVertex[i*4 + 0].index = (float)i;
+            _paVertexBuffer_data[i*4 + 0].x = 0.0f;
+            _paVertexBuffer_data[i*4 + 0].y = 0.0f;
+            _paVertexBuffer_data[i*4 + 0].z = 0.0f;
+            _paVertexBuffer_data[i*4 + 0].tu = (float)du;
+            _paVertexBuffer_data[i*4 + 0].tv = (float)dv;
+            _paVertexBuffer_data[i*4 + 0].index = (float)i;
             //右上
-            paVertex[i*4 + 1].x = xdata.width;
-            paVertex[i*4 + 1].y = 0.0f;
-            paVertex[i*4 + 1].z = 0.0f;
-            paVertex[i*4 + 1].tu = (float)((1.0 / xdata.col_texture_split) - du);
-            paVertex[i*4 + 1].tv = (float)dv;
-            paVertex[i*4 + 1].index = (float)i;
+            _paVertexBuffer_data[i*4 + 1].x = xdata.width;
+            _paVertexBuffer_data[i*4 + 1].y = 0.0f;
+            _paVertexBuffer_data[i*4 + 1].z = 0.0f;
+            _paVertexBuffer_data[i*4 + 1].tu = (float)((1.0 / xdata.col_texture_split) - du);
+            _paVertexBuffer_data[i*4 + 1].tv = (float)dv;
+            _paVertexBuffer_data[i*4 + 1].index = (float)i;
             //左下
-            paVertex[i*4 + 2].x = 0.0f;
-            paVertex[i*4 + 2].y = xdata.height;
-            paVertex[i*4 + 2].z = 0.0f;
-            paVertex[i*4 + 2].tu = (float)du;
-            paVertex[i*4 + 2].tv = (float)((1.0 / xdata.row_texture_split) - dv);
-            paVertex[i*4 + 2].index = (float)i;
+            _paVertexBuffer_data[i*4 + 2].x = 0.0f;
+            _paVertexBuffer_data[i*4 + 2].y = xdata.height;
+            _paVertexBuffer_data[i*4 + 2].z = 0.0f;
+            _paVertexBuffer_data[i*4 + 2].tu = (float)du;
+            _paVertexBuffer_data[i*4 + 2].tv = (float)((1.0 / xdata.row_texture_split) - dv);
+            _paVertexBuffer_data[i*4 + 2].index = (float)i;
             //右下
-            paVertex[i*4 + 3].x = xdata.width;
-            paVertex[i*4 + 3].y = xdata.height;
-            paVertex[i*4 + 3].z = 0.0f;
-            paVertex[i*4 + 3].tu = (float)((1.0 / xdata.col_texture_split) - du);
-            paVertex[i*4 + 3].tv = (float)((1.0 / xdata.row_texture_split) - dv);
-            paVertex[i*4 + 3].index = (float)i;
-         }
+            _paVertexBuffer_data[i*4 + 3].x = xdata.width;
+            _paVertexBuffer_data[i*4 + 3].y = xdata.height;
+            _paVertexBuffer_data[i*4 + 3].z = 0.0f;
+            _paVertexBuffer_data[i*4 + 3].tu = (float)((1.0 / xdata.col_texture_split) - du);
+            _paVertexBuffer_data[i*4 + 3].tv = (float)((1.0 / xdata.row_texture_split) - dv);
+            _paVertexBuffer_data[i*4 + 3].index = (float)i;
+        }
 
+        //描画時パラメーター
+        int nVertices = 4;
+        int nFaces = 2;
+        WORD* unit_paIdxBuffer = NEW WORD[(nFaces*3)];
+        unit_paIdxBuffer[0] = 0;
+        unit_paIdxBuffer[1] = 1;
+        unit_paIdxBuffer[2] = 2;
+        unit_paIdxBuffer[3] = 1;
+        unit_paIdxBuffer[4] = 3;
+        unit_paIdxBuffer[5] = 2;
+        _pIndexBuffer_data = NEW WORD[(nFaces*3) * _set_num];
+        for (int i = 0; i < _set_num; i++) {
+            for (int j = 0; j < nFaces; j++) {
+                _pIndexBuffer_data[((i*nFaces*3)+(j*3)) + 0] = unit_paIdxBuffer[j*3 + 0] + (nVertices*i);
+                _pIndexBuffer_data[((i*nFaces*3)+(j*3)) + 1] = unit_paIdxBuffer[j*3 + 1] + (nVertices*i);
+                _pIndexBuffer_data[((i*nFaces*3)+(j*3)) + 2] = unit_paIdxBuffer[j*3 + 2] + (nVertices*i);
+            }
+        }
+        GGAF_DELETEARR(unit_paIdxBuffer);
+
+        BoardSetModel::INDEXPARAM* paIndexParam = NEW BoardSetModel::INDEXPARAM[_set_num];
+        for (int i = 0; i < _set_num; i++) {
+            paIndexParam[i].MaterialNo = 0;
+            paIndexParam[i].BaseVertexIndex = 0;
+            paIndexParam[i].MinIndex = 0;
+            paIndexParam[i].NumVertices = nVertices*(i+1);
+            paIndexParam[i].StartIndex = 0;
+            paIndexParam[i].PrimitiveCount = nFaces*(i+1);
+        }
+        _paIndexParam = paIndexParam;
+
+
+        _num_materials = 1;
+        D3DMATERIAL9* paMaterial = NEW D3DMATERIAL9[_num_materials];
+        for ( DWORD i = 0; i < _num_materials; i++) {
+            //paMaterial[i] = paD3DMaterial9_tmp[i].MatD3D;
+            paMaterial[i].Diffuse.r = 1.0f;
+            paMaterial[i].Diffuse.g = 1.0f;
+            paMaterial[i].Diffuse.b = 1.0f;
+            paMaterial[i].Diffuse.a = 1.0f;
+            paMaterial[i].Ambient.r = 1.0f;
+            paMaterial[i].Ambient.g = 1.0f;
+            paMaterial[i].Ambient.b = 1.0f;
+            paMaterial[i].Ambient.a = 1.0f;
+        }
+        _paMaterial_default = paMaterial;
+    }
+
+    if (_pVertexBuffer == nullptr) {
+        HRESULT hr;
         //バッファ作成
         hr = God::_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices * _set_num,
@@ -233,40 +277,20 @@ void BoardSetModel::restore() {
                                  0
                                );
         checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_name);
-
         memcpy(
           pVertexBuffer,
-          paVertex,
+          _paVertexBuffer_data,
           _size_vertices * _set_num
-        ); //pVertexBuffer ← paVertex
+        ); //pVertexBuffer ← _paVertexBuffer_data
         _pVertexBuffer->Unlock();
 
-        GGAF_DELETEARR(paVertex);
     }
 
 
     //インデックスバッファ作成
     if (_pIndexBuffer == nullptr) {
-        int nVertices = 4;
+        HRESULT hr;
         int nFaces = 2;
-        WORD* unit_paIdxBuffer = NEW WORD[(nFaces*3)];
-        unit_paIdxBuffer[0] = 0;
-        unit_paIdxBuffer[1] = 1;
-        unit_paIdxBuffer[2] = 2;
-
-        unit_paIdxBuffer[3] = 1;
-        unit_paIdxBuffer[4] = 3;
-        unit_paIdxBuffer[5] = 2;
-
-        WORD* paIdxBufferSet = NEW WORD[(nFaces*3) * _set_num];
-        for (int i = 0; i < _set_num; i++) {
-            for (int j = 0; j < nFaces; j++) {
-                paIdxBufferSet[((i*nFaces*3)+(j*3)) + 0] = unit_paIdxBuffer[j*3 + 0] + (nVertices*i);
-                paIdxBufferSet[((i*nFaces*3)+(j*3)) + 1] = unit_paIdxBuffer[j*3 + 1] + (nVertices*i);
-                paIdxBufferSet[((i*nFaces*3)+(j*3)) + 2] = unit_paIdxBuffer[j*3 + 2] + (nVertices*i);
-            }
-        }
-
         hr = God::_pID3DDevice9->CreateIndexBuffer(
                                 sizeof(WORD) * nFaces * 3 * _set_num,
                                 D3DUSAGE_WRITEONLY,
@@ -280,40 +304,19 @@ void BoardSetModel::restore() {
         _pIndexBuffer->Lock(0,0,(void**)&pIndexBuffer,0);
         memcpy(
           pIndexBuffer ,
-          paIdxBufferSet,
+          _pIndexBuffer_data,
           sizeof(WORD) * nFaces * 3 * _set_num
         );
         _pIndexBuffer->Unlock();
-        GGAF_DELETEARR(unit_paIdxBuffer);
-        GGAF_DELETEARR(paIdxBufferSet);
-
-        //描画時パラメーター
-        BoardSetModel::INDEXPARAM* paIndexParam = NEW BoardSetModel::INDEXPARAM[_set_num];
-        for (int i = 0; i < _set_num; i++) {
-            paIndexParam[i].MaterialNo = 0;
-            paIndexParam[i].BaseVertexIndex = 0;
-            paIndexParam[i].MinIndex = 0;
-            paIndexParam[i].NumVertices = nVertices*(i+1);
-            paIndexParam[i].StartIndex = 0;
-            paIndexParam[i].PrimitiveCount = nFaces*(i+1);
-        }
-        _paIndexParam = paIndexParam;
     }
 
-    _num_materials = 1;
-    D3DMATERIAL9* paMaterial = NEW D3DMATERIAL9[_num_materials];
-    for ( DWORD i = 0; i < _num_materials; i++) {
-        //paMaterial[i] = paD3DMaterial9_tmp[i].MatD3D;
-        paMaterial[i].Diffuse.r = 1.0f;
-        paMaterial[i].Diffuse.g = 1.0f;
-        paMaterial[i].Diffuse.b = 1.0f;
-        paMaterial[i].Diffuse.a = 1.0f;
-        paMaterial[i].Ambient.r = 1.0f;
-        paMaterial[i].Ambient.g = 1.0f;
-        paMaterial[i].Ambient.b = 1.0f;
-        paMaterial[i].Ambient.a = 1.0f;
+    if (_papTextureConnection == nullptr) {
+        ModelManager* pModelManager = pGOD->_pModelManager;
+        //テクスチャ取得しモデルに保持させる
+        _papTextureConnection = NEW TextureConnection*[1];
+        _papTextureConnection[0] = (TextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[0].c_str(), this));
     }
-    _paMaterial_default = paMaterial;
+
 }
 
 void BoardSetModel::onDeviceLost() {
@@ -335,14 +338,18 @@ void BoardSetModel::release() {
         }
     }
     GGAF_DELETEARR(_papTextureConnection);
-    GGAF_DELETEARR(_paIndexParam);
     //TODO:親クラスメンバをDELETEするのはややきたないか
-    GGAF_DELETEARR(_paMaterial_default);
-    GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);
+
     _TRACE3_("_model_name=" << _model_name << " end");
 }
 
 BoardSetModel::~BoardSetModel() {
+
+    GGAF_DELETEARR(_paVertexBuffer_data);
+    GGAF_DELETEARR(_pIndexBuffer_data);
+    GGAF_DELETEARR(_paMaterial_default);
+    GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);
+    GGAF_DELETEARR(_paIndexParam);
     //release();
     //はModelConnection::processReleaseResource(Model* prm_pResource) で呼び出される
 }

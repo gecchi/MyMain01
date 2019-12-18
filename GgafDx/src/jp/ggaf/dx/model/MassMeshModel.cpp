@@ -66,9 +66,9 @@ void MassMeshModel::createVertexModel(void* prm, MassModel::VertexModelInfo* out
 
 void MassMeshModel::restore() {
     _TRACE3_("_model_name=" << _model_name << " start");
-    ModelManager* pModelManager = pGOD->_pModelManager;
-    HRESULT hr;
-    if (!_paVtxBuffer_data_model) {
+    if (_paVtxBuffer_data_model == nullptr) {
+        HRESULT hr;
+        ModelManager* pModelManager = pGOD->_pModelManager;
         // _model_name には "xxxxxx" or "8,xxxxx" が、渡ってくる。
         // 同時描画セット数が8という意味です。
         // モデル名から同時描画セット数指定があれば取り出す
@@ -172,6 +172,7 @@ void MassMeshModel::restore() {
 
     //デバイスに頂点バッファ作成(モデル)
     if (_pVertexBuffer_model == nullptr) {
+        HRESULT hr;
         hr = God::_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices_model,
                 D3DUSAGE_WRITEONLY,
@@ -191,6 +192,7 @@ void MassMeshModel::restore() {
 
     //デバイスにインデックスバッファ作成
     if (_pIndexBuffer == nullptr) {
+        HRESULT hr;
         hr = God::_pID3DDevice9->CreateIndexBuffer(
                                 sizeof(WORD) * _nFaces * 3,
                                 D3DUSAGE_WRITEONLY,
@@ -208,14 +210,14 @@ void MassMeshModel::restore() {
     }
 
     //デバイスにテクスチャ作成
-    if (!_papTextureConnection) {
+    if (_papTextureConnection == nullptr) {
+        ModelManager* pModelManager = pGOD->_pModelManager;
         _papTextureConnection = NEW TextureConnection*[_num_materials];
         for (DWORD n = 0; n < _num_materials; n++) {
             _papTextureConnection[n] =
                     (TextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[n].c_str(), this));
         }
     }
-
     _TRACE3_("_model_name=" << _model_name << " end");
 }
 

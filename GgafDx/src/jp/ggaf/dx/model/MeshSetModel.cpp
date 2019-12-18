@@ -191,42 +191,43 @@ HRESULT MeshSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num,
 
 void MeshSetModel::restore() {
     _TRACE3_("_model_name=" << _model_name << " start");
+    if (_paVtxBuffer_data == nullptr) {
+        HRESULT hr;
+        ModelManager* pModelManager = pGOD->_pModelManager;
+        std::string xfile_name; //読み込むXファイル名
+        //"12,Eres" or "8,Celes" or "Celes" から "Celes" だけ取とりだしてフルパス名取得
+        //TODO:数値３桁以上の時はだめ
+        if (*(_model_name + 1) == ',') {
+            xfile_name = ModelManager::getMeshFileName(std::string(_model_name + 2));
+        } else if (*(_model_name + 2) == ',') {
+            xfile_name = ModelManager::getMeshFileName(std::string(_model_name + 3));
+        } else {
+            xfile_name = ModelManager::getMeshFileName(std::string(_model_name));
+        }
+        if (xfile_name == "") {
+             throwCriticalException("メッシュファイル(*.x)が見つかりません。model_name="<<(_model_name));
+        }
 
-    ModelManager* pModelManager = pGOD->_pModelManager;
-    std::string xfile_name; //読み込むXファイル名
-    //"12,Eres" or "8,Celes" or "Celes" から "Celes" だけ取とりだしてフルパス名取得
-    //TODO:数値３桁以上の時はだめ
-    if (*(_model_name + 1) == ',') {
-        xfile_name = ModelManager::getMeshFileName(std::string(_model_name + 2));
-    } else if (*(_model_name + 2) == ',') {
-        xfile_name = ModelManager::getMeshFileName(std::string(_model_name + 3));
-    } else {
-        xfile_name = ModelManager::getMeshFileName(std::string(_model_name));
-    }
-    if (xfile_name == "") {
-         throwCriticalException("メッシュファイル(*.x)が見つかりません。model_name="<<(_model_name));
-    }
 
-    HRESULT hr;
-    //流し込む頂点バッファデータ作成
-    ToolBox::IO_Model_X iox;
+        //流し込む頂点バッファデータ作成
+        ToolBox::IO_Model_X iox;
 
-    Frm::Model3D* pModel3D = nullptr;
-    Frm::Mesh* pMeshesFront = nullptr;
+        Frm::Model3D* pModel3D = nullptr;
+        Frm::Mesh* pMeshesFront = nullptr;
 
-    MeshSetModel::INDEXPARAM** papaIndexParam = nullptr;
-    MeshSetModel::VERTEX* unit_paVtxBuffer_data = nullptr;
-    MeshSetModel::VERTEX* paVtxBuffer_data = nullptr;
-    WORD* unit_paIndexBuffer_data = nullptr;
-    WORD* paIdxBuffer_data = nullptr;
-    D3DMATERIAL9* paMaterial = nullptr;
+        MeshSetModel::INDEXPARAM** papaIndexParam = nullptr;
+        MeshSetModel::VERTEX* unit_paVtxBuffer_data = nullptr;
+        MeshSetModel::VERTEX* paVtxBuffer_data = nullptr;
+        WORD* unit_paIndexBuffer_data = nullptr;
+        WORD* paIdxBuffer_data = nullptr;
+        D3DMATERIAL9* paMaterial = nullptr;
 
-    int nVertices = 0;
-    int nTextureCoords = 0;
-    int nFaces = 0;
-//    int nFaceNormals = 0;
+        int nVertices = 0;
+        int nTextureCoords = 0;
+        int nFaces = 0;
+    //    int nFaceNormals = 0;
 
-    if (_pModel3D == nullptr) {
+
         pModel3D = NEW Frm::Model3D();
 
         bool r = iox.Load(xfile_name, pModel3D);
@@ -415,9 +416,22 @@ void MeshSetModel::restore() {
         }
 
         GGAF_DELETEARR(paFaceMaterials);
+
+        //モデルに保持させる
+        _pModel3D = pModel3D;
+        _pMeshesFront = pMeshesFront;
+        _nFaces = _pMeshesFront->_nFaces;
+        _paIndexBuffer_data = paIdxBuffer_data;
+        _paVtxBuffer_data = paVtxBuffer_data;
+        _papaIndexParam = papaIndexParam;
+
+        //マテリアル設定
+        setMaterial(pMeshesFront);
     }
 
+
     if (_pVertexBuffer == nullptr) {
+        HRESULT hr;
         //頂点バッファ作成
         hr = God::_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices * _set_num,
@@ -439,7 +453,7 @@ void MeshSetModel::restore() {
 
         memcpy(
           pVertexBuffer,
-          paVtxBuffer_data,
+          _paVtxBuffer_data,
           _size_vertices * _set_num
         ); //pVertexBuffer ← paVertex
         _pVertexBuffer->Unlock();
@@ -448,11 +462,9 @@ void MeshSetModel::restore() {
 
     //流し込むインデックスバッファデータ作成
     if (_pIndexBuffer == nullptr) {
-
-        nFaces = pMeshesFront->_nFaces;
-
+        HRESULT hr;
         hr = God::_pID3DDevice9->CreateIndexBuffer(
-                               sizeof(WORD) * nFaces * 3 * _set_num,
+                               sizeof(WORD) * _nFaces * 3 * _set_num,
                                 D3DUSAGE_WRITEONLY,
                                 D3DFMT_INDEX16,
                                 D3DPOOL_DEFAULT,
@@ -464,17 +476,14 @@ void MeshSetModel::restore() {
         _pIndexBuffer->Lock(0,0,(void**)&pIndexBuffer,0);
         memcpy(
           pIndexBuffer ,
-          paIdxBuffer_data,
-          sizeof(WORD) * nFaces * 3 * _set_num
+          _paIndexBuffer_data,
+          sizeof(WORD) * _nFaces * 3 * _set_num
         );
         _pIndexBuffer->Unlock();
     }
 
-
-    //マテリアル設定
-    setMaterial(pMeshesFront);
-
-    if (!_papTextureConnection) {
+    if (_papTextureConnection == nullptr) {
+        ModelManager* pModelManager = pGOD->_pModelManager;
         _papTextureConnection = NEW TextureConnection*[_num_materials];
         for (DWORD n = 0; n < _num_materials; n++) {
             _papTextureConnection[n] =
@@ -482,13 +491,6 @@ void MeshSetModel::restore() {
         }
     }
 
-    //モデルに保持させる
-    _pModel3D = pModel3D;
-    _pMeshesFront = pMeshesFront;
-
-    _paIndexBuffer_data = paIdxBuffer_data;
-    _paVtxBuffer_data = paVtxBuffer_data;
-    _papaIndexParam = papaIndexParam;
     _TRACE3_("_model_name=" << _model_name << " end");
 }
 
@@ -500,7 +502,6 @@ void MeshSetModel::onDeviceLost() {
 
 void MeshSetModel::release() {
     _TRACE3_("_model_name=" << _model_name << " start");
-
     //テクスチャを解放
     if (_papTextureConnection) {
         for (int i = 0; i < (int)_num_materials; i++) {
@@ -513,10 +514,10 @@ void MeshSetModel::release() {
     GGAF_DELETEARR(_papTextureConnection); //テクスチャの配列
     GGAF_RELEASE(_pVertexBuffer);
     GGAF_RELEASE(_pIndexBuffer);
+    _TRACE3_("_model_name=" << _model_name << " end");
+}
 
-    GGAF_DELETEARR(_paVtxBuffer_data);
-    GGAF_DELETEARR(_paIndexBuffer_data);
-
+MeshSetModel::~MeshSetModel() {
     GGAF_DELETE(_pModel3D);
     //_pMeshesFront は _pModel3D をDELETEしているのでする必要は無い
     _pMeshesFront = nullptr;
@@ -529,10 +530,8 @@ void MeshSetModel::release() {
     GGAF_DELETEARR(_paUint_material_list_grp_num);
     GGAF_DELETEARR(_paMaterial_default);
     GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);
-    _TRACE3_("_model_name=" << _model_name << " end");
-
-}
-MeshSetModel::~MeshSetModel() {
+    GGAF_DELETEARR(_paVtxBuffer_data);
+    GGAF_DELETEARR(_paIndexBuffer_data);
     //release();
     //はModelConnection::processReleaseResource(Model* prm_pResource) で呼び出される
 }

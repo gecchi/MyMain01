@@ -200,9 +200,9 @@ HRESULT MassBoardModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_nu
 
 void MassBoardModel::restore() {
     _TRACE3_("_model_name=" << _model_name << " start");
-    ModelManager* pModelManager = pGOD->_pModelManager;
-    HRESULT hr;
-    if (!_paVtxBuffer_data_model) {
+    if (_paVtxBuffer_data_model == nullptr) {
+        ModelManager* pModelManager = pGOD->_pModelManager;
+        HRESULT hr;
         //静的な情報設定
         std::vector<std::string> names = UTIL::split(std::string(_model_name), ",");
         std::string xfile_name = ""; //読み込むXファイル名
@@ -292,10 +292,12 @@ void MassBoardModel::restore() {
         _bounding_sphere_radius = model_bounding_sphere_radius;
 
         setMaterial();
+//        _pa_texture_filenames = NEW std::string[1];
         _pa_texture_filenames[0] = std::string(xdata.texture_file);
     }
     //デバイスに頂点バッファ作成(モデル)
     if (_pVertexBuffer_model == nullptr) {
+        HRESULT hr;
         hr = God::_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices_model,
                 D3DUSAGE_WRITEONLY,
@@ -314,6 +316,7 @@ void MassBoardModel::restore() {
     }
     //デバイスにインデックスバッファ作成
     if (_pIndexBuffer == nullptr) {
+        HRESULT hr;
         hr = God::_pID3DDevice9->CreateIndexBuffer(
                                 sizeof(WORD) * _nFaces * 3,
                                 D3DUSAGE_WRITEONLY,
@@ -330,7 +333,8 @@ void MassBoardModel::restore() {
         checkDxException(hr, D3D_OK, "インデックスバッファのアンロック取得に失敗 model="<<_model_name);
     }
     //デバイスにテクスチャ作成
-    if (!_papTextureConnection) {
+    if (_papTextureConnection == nullptr) {
+        ModelManager* pModelManager = pGOD->_pModelManager;
         _papTextureConnection = NEW TextureConnection*[_num_materials];
         for (DWORD n = 0; n < _num_materials; n++) {
             _papTextureConnection[n] =

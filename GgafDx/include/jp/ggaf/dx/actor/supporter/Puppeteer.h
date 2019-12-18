@@ -123,6 +123,8 @@ public:
      */
     explicit Puppeteer(ID3DXAnimationController* prm_pAc_cloned);
 
+//    void restore(ID3DXAnimationController* prm_pAc_cloned);
+
     /**
      * プレイしてもらう（＝パペットが操られる） .
      * @param prm_handed プレイするパペッターの操り棒 (LEFT_HAND or RIGHT_HAND)

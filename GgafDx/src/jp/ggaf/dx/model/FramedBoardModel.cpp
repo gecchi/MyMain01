@@ -18,6 +18,8 @@ using namespace GgafDx;
 DWORD FramedBoardModel::FVF = (D3DFVF_XYZ | D3DFVF_PSIZE | D3DFVF_TEX1);
 FramedBoardModel::FramedBoardModel(const char* prm_model_name) : Model(prm_model_name) {
     _TRACE3_("_model_name="<<_model_name);
+    _paVertexBuffer_data = nullptr;
+    _pIndexBuffer_data = nullptr;
 
     _model_width_px = 32.0f;
     _model_height_px = 32.0f;
@@ -134,42 +136,35 @@ HRESULT FramedBoardModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
 
 void FramedBoardModel::restore() {
     _TRACE3_("_model_name=" << _model_name << " start");
-    _set_num = 9;
+    if (_paVertexBuffer_data == nullptr) {
+        _set_num = 9;
 
-    ModelManager* pModelManager = pGOD->_pModelManager;
-    _papTextureConnection = nullptr;
-    HRESULT hr;
+        ModelManager* pModelManager = pGOD->_pModelManager;
+        _papTextureConnection = nullptr;
+        HRESULT hr;
 
-    std::string xfile_name = ModelManager::getSpriteFileName(_model_name, "sprx");
-    ModelManager::SpriteXFileFmt xdata;
-    pModelManager->obtainSpriteInfo(&xdata, xfile_name);
-    _model_width_px  = xdata.width;
-    _model_height_px = xdata.height;
-    _row_texture_split = xdata.row_texture_split;
-    _col_texture_split = xdata.col_texture_split;
+        std::string xfile_name = ModelManager::getSpriteFileName(_model_name, "sprx");
+        ModelManager::SpriteXFileFmt xdata;
+        pModelManager->obtainSpriteInfo(&xdata, xfile_name);
+        _model_width_px  = xdata.width;
+        _model_height_px = xdata.height;
+        _row_texture_split = xdata.row_texture_split;
+        _col_texture_split = xdata.col_texture_split;
 
-    std::string xfile_name_frame = ModelManager::getSpriteFileName(std::string(_model_name)+"_frame", "sprx");
-    ModelManager::SpriteXFileFmt xdata_frame;
-    pModelManager->obtainSpriteInfo(&xdata_frame, xfile_name_frame);
-    _model_frame_width_px  = xdata_frame.width;
-    _model_frame_height_px = xdata_frame.height;
-    _row_frame_texture_split = xdata_frame.row_texture_split;
-    _col_frame_texture_split = xdata_frame.col_texture_split;
-
-    //テクスチャ取得しモデルに保持させる
-    TextureConnection* model_pTextureConnection = (TextureConnection*)(pModelManager->_pModelTextureManager->connect(xdata.texture_file, this));
-    TextureConnection* model_frame_pTextureConnection = (TextureConnection*)(pModelManager->_pModelTextureManager->connect(xdata_frame.texture_file, this));
-
-    //テクスチャの参照を保持させる。
-    _papTextureConnection = NEW TextureConnection*[2];
-    _papTextureConnection[0] = model_pTextureConnection;
-    _papTextureConnection[1] = model_frame_pTextureConnection;
-
-    if (_pVertexBuffer == nullptr) {
+        std::string xfile_name_frame = ModelManager::getSpriteFileName(std::string(_model_name)+"_frame", "sprx");
+        ModelManager::SpriteXFileFmt xdata_frame;
+        pModelManager->obtainSpriteInfo(&xdata_frame, xfile_name_frame);
+        _model_frame_width_px  = xdata_frame.width;
+        _model_frame_height_px = xdata_frame.height;
+        _row_frame_texture_split = xdata_frame.row_texture_split;
+        _col_frame_texture_split = xdata_frame.col_texture_split;
+        _pa_texture_filenames = NEW std::string[2];
+        _pa_texture_filenames[0] = std::string(xdata.texture_file);
+        _pa_texture_filenames[1] = std::string(xdata_frame.texture_file);
 
         _size_vertices = sizeof(FramedBoardModel::VERTEX)*4;
         _size_vertex_unit = sizeof(FramedBoardModel::VERTEX);
-        FramedBoardModel::VERTEX* paVertex = NEW FramedBoardModel::VERTEX[4 * _set_num];
+        _paVertexBuffer_data = NEW FramedBoardModel::VERTEX[4 * _set_num];
         //    ┌─┬─┬─┐
         //    │０│１│２│
         //    ├─┼─┼─┤
@@ -185,126 +180,174 @@ void FramedBoardModel::restore() {
             if (i == 4) {
                 //中心
                 //左上
-                paVertex[i*4 + 0].x = 0.0f;
-                paVertex[i*4 + 0].y = 0.0f;
-                paVertex[i*4 + 0].z = 0.0f;
-                paVertex[i*4 + 0].tu = (float)du;
-                paVertex[i*4 + 0].tv = (float)dv;
-                paVertex[i*4 + 0].index = (float)i;
+                _paVertexBuffer_data[i*4 + 0].x = 0.0f;
+                _paVertexBuffer_data[i*4 + 0].y = 0.0f;
+                _paVertexBuffer_data[i*4 + 0].z = 0.0f;
+                _paVertexBuffer_data[i*4 + 0].tu = (float)du;
+                _paVertexBuffer_data[i*4 + 0].tv = (float)dv;
+                _paVertexBuffer_data[i*4 + 0].index = (float)i;
                 //右上
-                paVertex[i*4 + 1].x = xdata.width;
-                paVertex[i*4 + 1].y = 0.0f;
-                paVertex[i*4 + 1].z = 0.0f;
-                paVertex[i*4 + 1].tu = (float)((1.0 / xdata.col_texture_split) - du);
-                paVertex[i*4 + 1].tv = (float)dv;
-                paVertex[i*4 + 1].index = (float)i;
+                _paVertexBuffer_data[i*4 + 1].x = xdata.width;
+                _paVertexBuffer_data[i*4 + 1].y = 0.0f;
+                _paVertexBuffer_data[i*4 + 1].z = 0.0f;
+                _paVertexBuffer_data[i*4 + 1].tu = (float)((1.0 / xdata.col_texture_split) - du);
+                _paVertexBuffer_data[i*4 + 1].tv = (float)dv;
+                _paVertexBuffer_data[i*4 + 1].index = (float)i;
                 //左下
-                paVertex[i*4 + 2].x = 0.0f;
-                paVertex[i*4 + 2].y = xdata.height;
-                paVertex[i*4 + 2].z = 0.0f;
-                paVertex[i*4 + 2].tu = (float)du;
-                paVertex[i*4 + 2].tv = (float)((1.0 / xdata.row_texture_split) - dv);
-                paVertex[i*4 + 2].index = (float)i;
+                _paVertexBuffer_data[i*4 + 2].x = 0.0f;
+                _paVertexBuffer_data[i*4 + 2].y = xdata.height;
+                _paVertexBuffer_data[i*4 + 2].z = 0.0f;
+                _paVertexBuffer_data[i*4 + 2].tu = (float)du;
+                _paVertexBuffer_data[i*4 + 2].tv = (float)((1.0 / xdata.row_texture_split) - dv);
+                _paVertexBuffer_data[i*4 + 2].index = (float)i;
                 //右下
-                paVertex[i*4 + 3].x = xdata.width;
-                paVertex[i*4 + 3].y = xdata.height;
-                paVertex[i*4 + 3].z = 0.0f;
-                paVertex[i*4 + 3].tu = (float)((1.0 / xdata.col_texture_split) - du);
-                paVertex[i*4 + 3].tv = (float)((1.0 / xdata.row_texture_split) - dv);
-                paVertex[i*4 + 3].index = (float)i;
+                _paVertexBuffer_data[i*4 + 3].x = xdata.width;
+                _paVertexBuffer_data[i*4 + 3].y = xdata.height;
+                _paVertexBuffer_data[i*4 + 3].z = 0.0f;
+                _paVertexBuffer_data[i*4 + 3].tu = (float)((1.0 / xdata.col_texture_split) - du);
+                _paVertexBuffer_data[i*4 + 3].tv = (float)((1.0 / xdata.row_texture_split) - dv);
+                _paVertexBuffer_data[i*4 + 3].index = (float)i;
             } else if (i == 0 || i == 2 || i == 6 || i == 8 ) {
                 //４角
                 //左上
-                paVertex[i*4 + 0].x = 0.0f;
-                paVertex[i*4 + 0].y = 0.0f;
-                paVertex[i*4 + 0].z = 0.0f;
-                paVertex[i*4 + 0].tu = (float)du;
-                paVertex[i*4 + 0].tv = (float)dv;
-                paVertex[i*4 + 0].index = (float)i;
+                _paVertexBuffer_data[i*4 + 0].x = 0.0f;
+                _paVertexBuffer_data[i*4 + 0].y = 0.0f;
+                _paVertexBuffer_data[i*4 + 0].z = 0.0f;
+                _paVertexBuffer_data[i*4 + 0].tu = (float)du;
+                _paVertexBuffer_data[i*4 + 0].tv = (float)dv;
+                _paVertexBuffer_data[i*4 + 0].index = (float)i;
                 //右上
-                paVertex[i*4 + 1].x = xdata_frame.width;
-                paVertex[i*4 + 1].y = 0.0f;
-                paVertex[i*4 + 1].z = 0.0f;
-                paVertex[i*4 + 1].tu = (float)((1.0 / xdata_frame.col_texture_split) - du);
-                paVertex[i*4 + 1].tv = (float)dv;
-                paVertex[i*4 + 1].index = (float)i;
+                _paVertexBuffer_data[i*4 + 1].x = xdata_frame.width;
+                _paVertexBuffer_data[i*4 + 1].y = 0.0f;
+                _paVertexBuffer_data[i*4 + 1].z = 0.0f;
+                _paVertexBuffer_data[i*4 + 1].tu = (float)((1.0 / xdata_frame.col_texture_split) - du);
+                _paVertexBuffer_data[i*4 + 1].tv = (float)dv;
+                _paVertexBuffer_data[i*4 + 1].index = (float)i;
                 //左下
-                paVertex[i*4 + 2].x = 0.0f;
-                paVertex[i*4 + 2].y = xdata_frame.height;
-                paVertex[i*4 + 2].z = 0.0f;
-                paVertex[i*4 + 2].tu = (float)du;
-                paVertex[i*4 + 2].tv = (float)((1.0 / xdata_frame.row_texture_split) - dv);
-                paVertex[i*4 + 2].index = (float)i;
+                _paVertexBuffer_data[i*4 + 2].x = 0.0f;
+                _paVertexBuffer_data[i*4 + 2].y = xdata_frame.height;
+                _paVertexBuffer_data[i*4 + 2].z = 0.0f;
+                _paVertexBuffer_data[i*4 + 2].tu = (float)du;
+                _paVertexBuffer_data[i*4 + 2].tv = (float)((1.0 / xdata_frame.row_texture_split) - dv);
+                _paVertexBuffer_data[i*4 + 2].index = (float)i;
                 //右下
-                paVertex[i*4 + 3].x = xdata_frame.width;
-                paVertex[i*4 + 3].y = xdata_frame.height;
-                paVertex[i*4 + 3].z = 0.0f;
-                paVertex[i*4 + 3].tu = (float)((1.0 / xdata_frame.col_texture_split) - du);
-                paVertex[i*4 + 3].tv = (float)((1.0 / xdata_frame.row_texture_split) - dv);
-                paVertex[i*4 + 3].index = (float)i;
+                _paVertexBuffer_data[i*4 + 3].x = xdata_frame.width;
+                _paVertexBuffer_data[i*4 + 3].y = xdata_frame.height;
+                _paVertexBuffer_data[i*4 + 3].z = 0.0f;
+                _paVertexBuffer_data[i*4 + 3].tu = (float)((1.0 / xdata_frame.col_texture_split) - du);
+                _paVertexBuffer_data[i*4 + 3].tv = (float)((1.0 / xdata_frame.row_texture_split) - dv);
+                _paVertexBuffer_data[i*4 + 3].index = (float)i;
             } else if (i == 1 || i == 7) {
                 //縦の真ん中
                 //左上
-                paVertex[i*4 + 0].x = 0.0f;
-                paVertex[i*4 + 0].y = 0.0f;
-                paVertex[i*4 + 0].z = 0.0f;
-                paVertex[i*4 + 0].tu = (float)du;
-                paVertex[i*4 + 0].tv = (float)dv;
-                paVertex[i*4 + 0].index = (float)i;
+                _paVertexBuffer_data[i*4 + 0].x = 0.0f;
+                _paVertexBuffer_data[i*4 + 0].y = 0.0f;
+                _paVertexBuffer_data[i*4 + 0].z = 0.0f;
+                _paVertexBuffer_data[i*4 + 0].tu = (float)du;
+                _paVertexBuffer_data[i*4 + 0].tv = (float)dv;
+                _paVertexBuffer_data[i*4 + 0].index = (float)i;
                 //右上
-                paVertex[i*4 + 1].x = xdata.width;
-                paVertex[i*4 + 1].y = 0.0f;
-                paVertex[i*4 + 1].z = 0.0f;
-                paVertex[i*4 + 1].tu = (float)((1.0 / xdata_frame.col_texture_split) - du);
-                paVertex[i*4 + 1].tv = (float)dv;
-                paVertex[i*4 + 1].index = (float)i;
+                _paVertexBuffer_data[i*4 + 1].x = xdata.width;
+                _paVertexBuffer_data[i*4 + 1].y = 0.0f;
+                _paVertexBuffer_data[i*4 + 1].z = 0.0f;
+                _paVertexBuffer_data[i*4 + 1].tu = (float)((1.0 / xdata_frame.col_texture_split) - du);
+                _paVertexBuffer_data[i*4 + 1].tv = (float)dv;
+                _paVertexBuffer_data[i*4 + 1].index = (float)i;
                 //左下
-                paVertex[i*4 + 2].x = 0.0f;
-                paVertex[i*4 + 2].y = xdata_frame.height;
-                paVertex[i*4 + 2].z = 0.0f;
-                paVertex[i*4 + 2].tu = (float)du;
-                paVertex[i*4 + 2].tv = (float)((1.0 / xdata_frame.row_texture_split) - dv);
-                paVertex[i*4 + 2].index = (float)i;
+                _paVertexBuffer_data[i*4 + 2].x = 0.0f;
+                _paVertexBuffer_data[i*4 + 2].y = xdata_frame.height;
+                _paVertexBuffer_data[i*4 + 2].z = 0.0f;
+                _paVertexBuffer_data[i*4 + 2].tu = (float)du;
+                _paVertexBuffer_data[i*4 + 2].tv = (float)((1.0 / xdata_frame.row_texture_split) - dv);
+                _paVertexBuffer_data[i*4 + 2].index = (float)i;
                 //右下
-                paVertex[i*4 + 3].x = xdata.width;
-                paVertex[i*4 + 3].y = xdata_frame.height;
-                paVertex[i*4 + 3].z = 0.0f;
-                paVertex[i*4 + 3].tu = (float)((1.0 / xdata_frame.col_texture_split) - du);
-                paVertex[i*4 + 3].tv = (float)((1.0 / xdata_frame.row_texture_split) - dv);
-                paVertex[i*4 + 3].index = (float)i;
+                _paVertexBuffer_data[i*4 + 3].x = xdata.width;
+                _paVertexBuffer_data[i*4 + 3].y = xdata_frame.height;
+                _paVertexBuffer_data[i*4 + 3].z = 0.0f;
+                _paVertexBuffer_data[i*4 + 3].tu = (float)((1.0 / xdata_frame.col_texture_split) - du);
+                _paVertexBuffer_data[i*4 + 3].tv = (float)((1.0 / xdata_frame.row_texture_split) - dv);
+                _paVertexBuffer_data[i*4 + 3].index = (float)i;
             } else if (i == 3 || i == 5) {
                 //横の真ん中
                 //左上
-                paVertex[i*4 + 0].x = 0.0f;
-                paVertex[i*4 + 0].y = 0.0f;
-                paVertex[i*4 + 0].z = 0.0f;
-                paVertex[i*4 + 0].tu = (float)du;
-                paVertex[i*4 + 0].tv = (float)dv;
-                paVertex[i*4 + 0].index = (float)i;
+                _paVertexBuffer_data[i*4 + 0].x = 0.0f;
+                _paVertexBuffer_data[i*4 + 0].y = 0.0f;
+                _paVertexBuffer_data[i*4 + 0].z = 0.0f;
+                _paVertexBuffer_data[i*4 + 0].tu = (float)du;
+                _paVertexBuffer_data[i*4 + 0].tv = (float)dv;
+                _paVertexBuffer_data[i*4 + 0].index = (float)i;
                 //右上
-                paVertex[i*4 + 1].x = xdata_frame.width;
-                paVertex[i*4 + 1].y = 0.0f;
-                paVertex[i*4 + 1].z = 0.0f;
-                paVertex[i*4 + 1].tu = (float)((1.0 / xdata_frame.col_texture_split) - du);
-                paVertex[i*4 + 1].tv = (float)dv;
-                paVertex[i*4 + 1].index = (float)i;
+                _paVertexBuffer_data[i*4 + 1].x = xdata_frame.width;
+                _paVertexBuffer_data[i*4 + 1].y = 0.0f;
+                _paVertexBuffer_data[i*4 + 1].z = 0.0f;
+                _paVertexBuffer_data[i*4 + 1].tu = (float)((1.0 / xdata_frame.col_texture_split) - du);
+                _paVertexBuffer_data[i*4 + 1].tv = (float)dv;
+                _paVertexBuffer_data[i*4 + 1].index = (float)i;
                 //左下
-                paVertex[i*4 + 2].x = 0.0f;
-                paVertex[i*4 + 2].y = xdata.height;
-                paVertex[i*4 + 2].z = 0.0f;
-                paVertex[i*4 + 2].tu = (float)du;
-                paVertex[i*4 + 2].tv = (float)((1.0 / xdata_frame.row_texture_split) - dv);
-                paVertex[i*4 + 2].index = (float)i;
+                _paVertexBuffer_data[i*4 + 2].x = 0.0f;
+                _paVertexBuffer_data[i*4 + 2].y = xdata.height;
+                _paVertexBuffer_data[i*4 + 2].z = 0.0f;
+                _paVertexBuffer_data[i*4 + 2].tu = (float)du;
+                _paVertexBuffer_data[i*4 + 2].tv = (float)((1.0 / xdata_frame.row_texture_split) - dv);
+                _paVertexBuffer_data[i*4 + 2].index = (float)i;
                 //右下
-                paVertex[i*4 + 3].x = xdata_frame.width;
-                paVertex[i*4 + 3].y = xdata.height;
-                paVertex[i*4 + 3].z = 0.0f;
-                paVertex[i*4 + 3].tu = (float)((1.0 / xdata_frame.col_texture_split) - du);
-                paVertex[i*4 + 3].tv = (float)((1.0 / xdata_frame.row_texture_split) - dv);
-                paVertex[i*4 + 3].index = (float)i;
+                _paVertexBuffer_data[i*4 + 3].x = xdata_frame.width;
+                _paVertexBuffer_data[i*4 + 3].y = xdata.height;
+                _paVertexBuffer_data[i*4 + 3].z = 0.0f;
+                _paVertexBuffer_data[i*4 + 3].tu = (float)((1.0 / xdata_frame.col_texture_split) - du);
+                _paVertexBuffer_data[i*4 + 3].tv = (float)((1.0 / xdata_frame.row_texture_split) - dv);
+                _paVertexBuffer_data[i*4 + 3].index = (float)i;
             }
-         }
+        }
 
+        int nVertices = 4;
+        int nFaces = 2;
+        WORD* unit_paIdxBuffer = NEW WORD[(nFaces*3)];
+        unit_paIdxBuffer[0] = 0;
+        unit_paIdxBuffer[1] = 1;
+        unit_paIdxBuffer[2] = 2;
+        unit_paIdxBuffer[3] = 1;
+        unit_paIdxBuffer[4] = 3;
+        unit_paIdxBuffer[5] = 2;
+        _pIndexBuffer_data = NEW WORD[(nFaces*3) * _set_num];
+        for (int i = 0; i < _set_num; i++) {
+            for (int j = 0; j < nFaces; j++) {
+                _pIndexBuffer_data[((i*nFaces*3)+(j*3)) + 0] = unit_paIdxBuffer[j*3 + 0] + (nVertices*i);
+                _pIndexBuffer_data[((i*nFaces*3)+(j*3)) + 1] = unit_paIdxBuffer[j*3 + 1] + (nVertices*i);
+                _pIndexBuffer_data[((i*nFaces*3)+(j*3)) + 2] = unit_paIdxBuffer[j*3 + 2] + (nVertices*i);
+            }
+        }
+        GGAF_DELETEARR(unit_paIdxBuffer);
+
+        //描画時パラメーター
+        _indexParam.MaterialNo = 0;
+        _indexParam.BaseVertexIndex = 0;
+        _indexParam.MinIndex = 0;
+        _indexParam.NumVertices = nVertices*_set_num;
+        _indexParam.StartIndex = 0;
+        _indexParam.PrimitiveCount = nFaces*_set_num;
+
+
+        _num_materials = 1;
+        D3DMATERIAL9* paMaterial = NEW D3DMATERIAL9[_num_materials];
+        for ( DWORD i = 0; i < _num_materials; i++) {
+            //paMaterial[i] = paD3DMaterial9_tmp[i].MatD3D;
+            paMaterial[i].Diffuse.r = 1.0f;
+            paMaterial[i].Diffuse.g = 1.0f;
+            paMaterial[i].Diffuse.b = 1.0f;
+            paMaterial[i].Diffuse.a = 1.0f;
+            paMaterial[i].Ambient.r = 1.0f;
+            paMaterial[i].Ambient.g = 1.0f;
+            paMaterial[i].Ambient.b = 1.0f;
+            paMaterial[i].Ambient.a = 1.0f;
+        }
+        _paMaterial_default = paMaterial;
+
+    }
+
+
+    if (_pVertexBuffer == nullptr) {
+        HRESULT hr;
         //バッファ作成
         hr = God::_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices * _set_num,
@@ -324,40 +367,21 @@ void FramedBoardModel::restore() {
                                  0
                                );
         checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_name);
-
         memcpy(
           pVertexBuffer,
-          paVertex,
+          _paVertexBuffer_data,
           _size_vertices * _set_num
-        ); //pVertexBuffer ← paVertex
+        ); //pVertexBuffer ← _paVertexBuffer_data
         _pVertexBuffer->Unlock();
 
-        GGAF_DELETEARR(paVertex);
     }
 
 
     //インデックスバッファ作成
     if (_pIndexBuffer == nullptr) {
+        HRESULT hr;
         int nVertices = 4;
         int nFaces = 2;
-        WORD* unit_paIdxBuffer = NEW WORD[(nFaces*3)];
-        unit_paIdxBuffer[0] = 0;
-        unit_paIdxBuffer[1] = 1;
-        unit_paIdxBuffer[2] = 2;
-
-        unit_paIdxBuffer[3] = 1;
-        unit_paIdxBuffer[4] = 3;
-        unit_paIdxBuffer[5] = 2;
-
-        WORD* paIdxBufferSet = NEW WORD[(nFaces*3) * _set_num];
-        for (int i = 0; i < _set_num; i++) {
-            for (int j = 0; j < nFaces; j++) {
-                paIdxBufferSet[((i*nFaces*3)+(j*3)) + 0] = unit_paIdxBuffer[j*3 + 0] + (nVertices*i);
-                paIdxBufferSet[((i*nFaces*3)+(j*3)) + 1] = unit_paIdxBuffer[j*3 + 1] + (nVertices*i);
-                paIdxBufferSet[((i*nFaces*3)+(j*3)) + 2] = unit_paIdxBuffer[j*3 + 2] + (nVertices*i);
-            }
-        }
-
         hr = God::_pID3DDevice9->CreateIndexBuffer(
                                 sizeof(WORD) * nFaces * 3 * _set_num,
                                 D3DUSAGE_WRITEONLY,
@@ -371,36 +395,19 @@ void FramedBoardModel::restore() {
         _pIndexBuffer->Lock(0,0,(void**)&pIndexBuffer,0);
         memcpy(
           pIndexBuffer ,
-          paIdxBufferSet,
+          _pIndexBuffer_data,
           sizeof(WORD) * nFaces * 3 * _set_num
         );
         _pIndexBuffer->Unlock();
-        GGAF_DELETEARR(unit_paIdxBuffer);
-        GGAF_DELETEARR(paIdxBufferSet);
-
-        //描画時パラメーター
-        _indexParam.MaterialNo = 0;
-        _indexParam.BaseVertexIndex = 0;
-        _indexParam.MinIndex = 0;
-        _indexParam.NumVertices = nVertices*_set_num;
-        _indexParam.StartIndex = 0;
-        _indexParam.PrimitiveCount = nFaces*_set_num;
     }
 
-    _num_materials = 1;
-    D3DMATERIAL9* paMaterial = NEW D3DMATERIAL9[_num_materials];
-    for ( DWORD i = 0; i < _num_materials; i++) {
-        //paMaterial[i] = paD3DMaterial9_tmp[i].MatD3D;
-        paMaterial[i].Diffuse.r = 1.0f;
-        paMaterial[i].Diffuse.g = 1.0f;
-        paMaterial[i].Diffuse.b = 1.0f;
-        paMaterial[i].Diffuse.a = 1.0f;
-        paMaterial[i].Ambient.r = 1.0f;
-        paMaterial[i].Ambient.g = 1.0f;
-        paMaterial[i].Ambient.b = 1.0f;
-        paMaterial[i].Ambient.a = 1.0f;
+    if (_papTextureConnection == nullptr) {
+        //テクスチャ取得しモデルに保持させる
+        ModelManager* pModelManager = pGOD->_pModelManager;
+        _papTextureConnection = NEW TextureConnection*[2];
+        _papTextureConnection[0] = (TextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[0].c_str(), this)); //中身用
+        _papTextureConnection[1] = (TextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[1].c_str(), this)); //フレーム用
     }
-    _paMaterial_default = paMaterial;
 }
 
 void FramedBoardModel::onDeviceLost() {
@@ -419,12 +426,14 @@ void FramedBoardModel::release() {
         _papTextureConnection[1]->close(); //フレーム
     }
     GGAF_DELETEARR(_papTextureConnection);
-    GGAF_DELETEARR(_paMaterial_default);
-    GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);
     _TRACE3_("_model_name=" << _model_name << " end");
 }
 
 FramedBoardModel::~FramedBoardModel() {
+    GGAF_DELETEARR(_paVertexBuffer_data);
+    GGAF_DELETEARR(_pIndexBuffer_data);
+    GGAF_DELETEARR(_paMaterial_default);
+    GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);
     //release();
     //はModelConnection::processReleaseResource(Model* prm_pResource) で呼び出される
 }

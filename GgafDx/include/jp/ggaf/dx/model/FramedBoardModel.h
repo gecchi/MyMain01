@@ -43,7 +43,8 @@ public:
     /** 1頂点のサイズ */
     UINT _size_vertex_unit;
     INDEXPARAM _indexParam;
-
+    VERTEX* _paVertexBuffer_data;
+    WORD* _pIndexBuffer_data;
     float _model_width_px;
     float _model_height_px;
     int _row_texture_split;

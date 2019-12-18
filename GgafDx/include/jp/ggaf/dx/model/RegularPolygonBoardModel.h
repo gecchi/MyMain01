@@ -29,7 +29,7 @@ public:
     UINT _size_vertices;
     /** 1頂点のサイズ */
     UINT _size_vertex_unit;
-
+    VERTEX* _pVertexBuffer_data;
     float _model_width_px;
     float _model_height_px;
     int _row_texture_split;

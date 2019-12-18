@@ -37,7 +37,8 @@ AniMeshModel::AniMeshModel(const char* prm_model_name) : Model(prm_model_name) {
     _size_vertex_unit = sizeof(AniMeshModel::VERTEX);
     _nFaces = 0;
     _nVertices = 0;
-
+    _tmp_frame_index = 0;
+    _num_animation_set = 0;
     _papaBool_AnimationSetIndex_BoneFrameIndex_is_act = nullptr;
     _obj_model |= Obj_GgafDx_AniMeshModel;
 }
@@ -85,7 +86,7 @@ HRESULT AniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num,
     ID3DXAnimationSet* pAs1 = pActorPuppeteer->_paAs[1];
     int as0_index = (int)_mapAnimationSet_AniSetindex[pAs0];
     int as1_index = pAs1 ? _mapAnimationSet_AniSetindex[pAs1] : -1;
-    pTargetActor->_stackWorldMat.UpdateFrame(_pFrameRoot, as0_index, as1_index);
+    pTargetActor->_stackWorldMat.UpdateFrame(_pFrameRoot, as0_index, as1_index, _papaBool_AnimationSetIndex_BoneFrameIndex_is_act);
 
     std::vector<FrameWorldMatrix*>::iterator it_1 = _vecDrawBoneFrame.begin();
 
@@ -140,13 +141,6 @@ HRESULT AniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num,
         }
 
         _TRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
-//        pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
-//                _paIndexParam[0].BaseVertexIndex,
-//                _paIndexParam[0].MinIndex,
-//                _paIndexParam[0].NumVertices,
-//                _paIndexParam[0].StartIndex,
-//                _paIndexParam[0].PrimitiveCount);
-
         pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
                                       idxparam.BaseVertexIndex,
                                       idxparam.MinIndex,
@@ -154,73 +148,6 @@ HRESULT AniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num,
                                       idxparam.StartIndex,
                                       idxparam.PrimitiveCount);
     }
-///////////////////////////////////////////////
-///
-///
-///
-
-
-
-///////////////////////////////////////////////////////////////
-//
-//    for (int i = 0; it != pDrawList->end(); i++, ++it) {
-//        hr = pID3DXEffect->SetMatrix(pAniMeshEffect->_ah_matWorld[i], &((*it)->_world_trans_matrix));
-//    }
-//
-//
-//    Effect* pEffect_active = EffectManager::_pEffect_active;
-//    if ((FigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique) ) {
-//        if (pEffect_active) {
-//            _TRACE4_("EndPass: /_pEffect_active="<<pEffect_active->_effect_name);
-//            hr = pEffect_active->_pID3DXEffect->EndPass();
-//            checkDxException(hr, D3D_OK, "AniMeshModel::draw() EndPass() に失敗しました。");
-//            hr = pEffect_active->_pID3DXEffect->End();
-//            checkDxException(hr, D3D_OK, "AniMeshModel::draw() End() に失敗しました。");
-//#ifdef MY_DEBUG
-//            if (pEffect_active->_begin == false) {
-//                throwCriticalException("begin していません "<<(pEffect_active==nullptr?"nullptr":pEffect_active->_effect_name)<<"");
-//            } else {
-//                pEffect_active->_begin = false;
-//            }
-//#endif
-//        }
-//        _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pAniMeshEffect->_effect_name);
-//        hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
-//
-//        _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pAniMeshEffect->_effect_name<<"("<<pAniMeshEffect<<")");
-//        UINT numPass;
-//        hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
-//        checkDxException(hr, D3D_OK, "AniMeshModel::draw() Begin() に失敗しました。");
-//        hr = pID3DXEffect->BeginPass(0);
-//        checkDxException(hr, D3D_OK, "AniMeshModel::draw() BeginPass(0) に失敗しました。");
-//
-//#ifdef MY_DEBUG
-//        if (pAniMeshEffect->_begin) {
-//            throwCriticalException("End していません "<<(EffectManager::_pEffect_active==nullptr?"nullptr":EffectManager::_pEffect_active->_effect_name)<<"");
-//        } else {
-//            pAniMeshEffect->_begin = true;
-//        }
-//#endif
-//    } else {
-//        hr = pID3DXEffect->CommitChanges();
-//        checkDxException(hr, D3D_OK, "AniMeshModel::draw() CommitChanges() に失敗しました。");
-//    }
-//    _TRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
-//    pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
-//            _paIndexParam[0].BaseVertexIndex,
-//            _paIndexParam[0].MinIndex,
-//            _paIndexParam[0].NumVertices,
-//            _paIndexParam[0].StartIndex,
-//            _paIndexParam[0].PrimitiveCount);
-//
-//
-//
-/////////////////////////////////////////////////////////////
-
-
-
-
-
 
 #ifdef MY_DEBUG
     GgafCore::God::_num_drawing++;
@@ -234,8 +161,8 @@ HRESULT AniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num,
 
 void AniMeshModel::restore() {
     _TRACE3_("_model_name=" << _model_name << " start");
-    HRESULT hr;
     if (_paVtxBuffer_data == nullptr) {
+        HRESULT hr;
         std::string xfile_name = ModelManager::getMeshFileName(_model_name);
         TextureManager* pTextureManager = pGOD->_pModelManager->_pModelTextureManager;
         //AnimTicksPerSecondを独自に取り出す。デフォルトは4800
@@ -491,9 +418,7 @@ void AniMeshModel::restore() {
             pIb->Unlock();
             pIb->Release();
 
-            //情報は頂いたので MeshContainer 解放！
-//            _pAllocHierarchy->DestroyMeshContainer(pMeshContainer);
-//            vecFrame[i]->pMeshContainer = nullptr; //nullptrを設定することで開放時にスキップさせる
+            //情報は頂いたので Meshだけ解放！
             GGAF_RELEASE(pMeshContainer->MeshData.pMesh);
             pMeshContainer->MeshData.pMesh = nullptr;
         }
@@ -605,6 +530,7 @@ void AniMeshModel::restore() {
     }
 
     if (_pVertexBuffer == nullptr) {
+        HRESULT hr;
         //頂点バッファ作成
         hr = God::_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices,
@@ -625,6 +551,7 @@ void AniMeshModel::restore() {
 
     //インデックスバッファデータ作成
     if (_pIndexBuffer == nullptr) {
+        HRESULT hr;
         hr = God::_pID3DDevice9->CreateIndexBuffer(
                                    sizeof(WORD) * _nFaces * 3,
                                    D3DUSAGE_WRITEONLY,
@@ -640,28 +567,6 @@ void AniMeshModel::restore() {
     }
     _TRACE3_("_model_name=" << _model_name << " end");
 }
-
-//        D3DXATTRIBUTERANGE* pAttrTable;
-//        DWORD dwNumAttr;
-//        pAttrTable = NULL;
-//        // メッシュの属性テーブルの取得*/
-//        //メッシュのテーブル数取得*/
-//        pMesh->GetAttributeTable(NULL,&dwNumAttr);
-//        //テーブルの生成
-//        pAttrTable = new D3DXATTRIBUTERANGE[dwNumAttr];
-//        /*取得*/
-//        if(FAILED(pMesh->GetAttributeTable(pAttrTable,&dwNumAttr))) {
-//            throwCriticalException("AniMeshModel::restore() 属性テーブルの取得に失敗しました。");
-//        }
-//        for(DWORD a=0;a<dwNumAttr;a++)
-//        {
-//            INT BaseVertexIndex = 0;
-//            UINT MinIndex = pAttrTable[a].VertexStart; //最初のINDEX
-//            UINT NumVertices= pAttrTable[a].VertexCount; //頂点数
-//            UINT StartIndex = pAttrTable[a].FaceStart*3; //INDEXBUFFER内のINDEX
-//            UINT PrimitiveCount = pAttrTable[a].FaceCount; //ポリゴン数
-////            _TRACE_("["<<i<<"]["<<a<<"]:att="<<MinIndex<<","<<NumVertices<<","<<StartIndex<<","<<PrimitiveCount);
-//        }
 
 ID3DXAnimationController* AniMeshModel::getCloneAnimationController() {
     ID3DXAnimationController* _pAc = nullptr;
@@ -755,18 +660,8 @@ void AniMeshModel::release() {
         }
     }
     GGAF_DELETEARR(_papTextureConnection); //テクスチャの配列
-    GGAF_DELETEARR(_paMaterial_default);
-    GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);
-    GGAF_RELEASE(_pAniControllerBase);
-    _pAllocHierarchy->DestroyFrame((D3DXFRAME*)_pFrameRoot);
-    GGAF_DELETE(_pAllocHierarchy);
-//    GGAF_DELETE(_pFrameRoot); //_pAllocHierarchyを消すと_pFrameRootは消さなくて良いと思う
     GGAF_RELEASE(_pVertexBuffer);
     GGAF_RELEASE(_pIndexBuffer);
-    GGAF_DELETEARR(_paVtxBuffer_data);
-    GGAF_DELETEARR(_paIndexBuffer_data);
-    GGAF_DELETEARR(_paIndexBuffer_frame_no);
-    GGAF_DELETEARR(_paIndexParam);
     _TRACE3_("_model_name=" << _model_name << " end");
 }
 
@@ -776,6 +671,17 @@ AniMeshModel::~AniMeshModel() {
         GGAF_DELETEARR(p);
     }
     GGAF_DELETEARR(_papaBool_AnimationSetIndex_BoneFrameIndex_is_act);
+
+    GGAF_RELEASE(_pAniControllerBase);
+    _pAllocHierarchy->DestroyFrame((D3DXFRAME*)_pFrameRoot);
+    GGAF_DELETE(_pAllocHierarchy);
+    GGAF_DELETEARR_NULLABLE(_pa_texture_filenames); //Model::~Model() で実行されてるはず
+    GGAF_DELETEARR(_paMaterial_default);
+    GGAF_DELETEARR(_paVtxBuffer_data);
+    GGAF_DELETEARR(_paIndexBuffer_data);
+    GGAF_DELETEARR(_paIndexBuffer_frame_no);
+    GGAF_DELETEARR(_paIndexParam);
+//    GGAF_DELETE(_pFrameRoot); //_pAllocHierarchyを消すと_pFrameRootは消さなくて良いと思う
     //release();
     //はModelConnection::processReleaseResource(Model* prm_pResource) で呼び出される
 }

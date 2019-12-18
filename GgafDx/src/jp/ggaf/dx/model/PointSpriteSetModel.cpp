@@ -128,10 +128,9 @@ HRESULT PointSpriteSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_s
 
 void PointSpriteSetModel::restore() {
     _TRACE3_("_model_name=" << _model_name << " start");
-    ModelManager* pModelManager = pGOD->_pModelManager;
-    HRESULT hr;
-    if (!_paVtxBuffer_data) {
-
+    if (_paVtxBuffer_data == nullptr) {
+        ModelManager* pModelManager = pGOD->_pModelManager;
+        HRESULT hr;
         //静的な情報設定
         std::vector<std::string> names = UTIL::split(std::string(_model_name), ",");
         std::string xfile_name = ""; //読み込むXファイル名
@@ -156,23 +155,25 @@ void PointSpriteSetModel::restore() {
         pModelManager->obtainPointSpriteInfo(&xdata, xfile_name);
 
         //マテリアル定義が１つも無いので、描画のために無理やり１つマテリアルを作成。
+//        _num_materials = 1; ////setMaterial();で実行済み
         setMaterial();
+//        _pa_texture_filenames = NEW std::string[1]; ////setMaterial();で実行済み
         _pa_texture_filenames[0] = std::string(xdata.TextureFile);
-
         //デバイスにテクスチャ作成 (下にも同じ処理があるが、下はデバイスロスト時実行)
         //頂点バッファのpsizeの算出に、テクスチャの長さが必要なため、ここで一旦求めている
-        if (!_papTextureConnection) {
+        if (_papTextureConnection == nullptr) {
             _papTextureConnection = NEW TextureConnection*[1];
             _papTextureConnection[0] =
                 (TextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[0].c_str(), this));
-            Texture* pTex = _papTextureConnection[0]->peek();
-            float tex_width  = (float)(pTex->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
-            float tex_height = (float)(pTex->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)幅と同じになる
-            if ((int)(tex_width*100000) != (int)(tex_height*100000)) {
-                throwCriticalException("ポイントスプライト用テクスチャ["<<pTex->getName()<<"]("<<tex_width<<"x"<<tex_height<<")は、正方形である必要があります。");
-            }
-            _texture_size_px = tex_width;
         }
+
+        Texture* pTex = _papTextureConnection[0]->peek();
+        float tex_width  = (float)(pTex->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
+        float tex_height = (float)(pTex->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)幅と同じになる
+        if ((int)(tex_width*100000) != (int)(tex_height*100000)) {
+            throwCriticalException("ポイントスプライト用テクスチャ["<<pTex->getName()<<"]("<<tex_width<<"x"<<tex_height<<")は、正方形である必要があります。");
+        }
+        _texture_size_px = tex_width;
         _square_size_px = xdata.SquareSize;
         _texture_split_rowcol = xdata.TextureSplitRowCol;
         _inv_texture_split_rowcol = 1.0f / _texture_split_rowcol;
@@ -230,7 +231,7 @@ void PointSpriteSetModel::restore() {
 
     //デバイスに頂点バッファ作成(モデル)
     if (_pVertexBuffer == nullptr) {
-
+        HRESULT hr;
         //頂点バッファ作成
         hr = God::_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices,
@@ -250,18 +251,11 @@ void PointSpriteSetModel::restore() {
     }
 
     //デバイスにテクスチャ作成
-    if (!_papTextureConnection) {
-        _num_materials = 1;
+    if (_papTextureConnection == nullptr) {
+        ModelManager* pModelManager = pGOD->_pModelManager;
         _papTextureConnection = NEW TextureConnection*[1];
         _papTextureConnection[0] =
             (TextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[0].c_str(), this));
-        Texture* pTex = _papTextureConnection[0]->peek();
-        float tex_width  = (float)(pTex->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
-        float tex_height = (float)(pTex->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)幅と同じになる
-        if ((int)(tex_width*100000) != (int)(tex_height*100000)) {
-            throwCriticalException("ポイントスプライト用テクスチャ["<<pTex->getName()<<"]("<<tex_width<<"x"<<tex_height<<")は、正方形である必要があります。");
-        }
-        _texture_size_px = tex_width;
     }
 
 //    //インデックスバッファは使わない
@@ -290,14 +284,12 @@ void PointSpriteSetModel::release() {
     }
     GGAF_DELETEARR(_papTextureConnection); //テクスチャの配列
     GGAF_RELEASE(_pVertexBuffer);
-    GGAF_DELETEARR(_paVtxBuffer_data);
-    GGAF_DELETEARR(_paMaterial_default);
-    GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);
     _TRACE3_("_model_name=" << _model_name << " end");
 
 }
 PointSpriteSetModel::~PointSpriteSetModel() {
-    //release();
-    //はModelConnection::processReleaseResource(Model* prm_pResource) で呼び出される
+    GGAF_DELETEARR(_paVtxBuffer_data);
+    GGAF_DELETEARR(_paMaterial_default);
+    GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);
 }
 

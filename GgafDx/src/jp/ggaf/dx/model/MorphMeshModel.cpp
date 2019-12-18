@@ -171,34 +171,35 @@ void MorphMeshModel::restore() {
     //　　　　・マテリアル配列(要素数＝マテリアル数。プライマリメッシュのみ)
     //　　　　・テクスチャ配列(要素数＝マテリアル数。プライマリメッシュのみ)
     //　　　　・DrawIndexedPrimitive用引数配列(要素数＝マテリアルリストが変化した数。プライマリメッシュのみ)
-    ModelManager* pModelManager = pGOD->_pModelManager;
-    std::string model_name = std::string(_model_name);
+    if (_paVtxBuffer_data_primary == nullptr) {
+        ModelManager* pModelManager = pGOD->_pModelManager;
+        std::string model_name = std::string(_model_name);
 
-    std::string::size_type pos = model_name.find_last_of('_');
-    if (pos == std::string::npos) {
-        throwCriticalException("_model_name には  \"xxx_4\" の形式で、モーフターゲット数を含むモデル名を指定してください。 \n"
-                "実際は、_model_name="<<_model_name<<" でした。(1)");
-    }
-    std::string str_model = model_name.substr(0, pos);  // "xxx_4" の xxx が入る
-    std::string str_t_num = model_name.substr(pos + 1); // "xxx_4" の 4 が入る
-    int morph_target_num  = STOI(str_t_num);
-    _morph_target_num = morph_target_num;
-    std::string* paXfileName = NEW std::string[_morph_target_num+1];
-    for (int i = 0; i < _morph_target_num+1; i++) {
-        paXfileName[i] = ModelManager::getMeshFileName(str_model + "_" + XTOS(i));
-    }
-    HRESULT hr;
-    //流し込む頂点バッファデータ作成
-    ToolBox::IO_Model_X* paIOX = nullptr;
-    Frm::Model3D**                        papModel3D = nullptr;
-    Frm::Mesh**                           papMeshesFront = nullptr;
+        std::string::size_type pos = model_name.find_last_of('_');
+        if (pos == std::string::npos) {
+            throwCriticalException("_model_name には  \"xxx_4\" の形式で、モーフターゲット数を含むモデル名を指定してください。 \n"
+                    "実際は、_model_name="<<_model_name<<" でした。(1)");
+        }
+        std::string str_model = model_name.substr(0, pos);  // "xxx_4" の xxx が入る
+        std::string str_t_num = model_name.substr(pos + 1); // "xxx_4" の 4 が入る
+        int morph_target_num  = STOI(str_t_num);
+        _morph_target_num = morph_target_num;
+        std::string* paXfileName = NEW std::string[_morph_target_num+1];
+        for (int i = 0; i < _morph_target_num+1; i++) {
+            paXfileName[i] = ModelManager::getMeshFileName(str_model + "_" + XTOS(i));
+        }
+        HRESULT hr;
+        //流し込む頂点バッファデータ作成
+        ToolBox::IO_Model_X* paIOX = nullptr;
+        Frm::Model3D**                        papModel3D = nullptr;
+        Frm::Mesh**                           papMeshesFront = nullptr;
 
-    MorphMeshModel::INDEXPARAM*     paIndexParam = nullptr;
-    MorphMeshModel::VERTEX_PRIMARY* paVtxBuffer_data_primary = nullptr;
-    MorphMeshModel::VERTEX_MORPH**  papaVtxBuffer_data_morph = nullptr;
-    WORD*                                 paIdxBuffer_data = nullptr;
+        MorphMeshModel::INDEXPARAM*     paIndexParam = nullptr;
+        MorphMeshModel::VERTEX_PRIMARY* paVtxBuffer_data_primary = nullptr;
+        MorphMeshModel::VERTEX_MORPH**  papaVtxBuffer_data_morph = nullptr;
+        WORD*                                 paIdxBuffer_data = nullptr;
 
-    if (_papModel3D == nullptr) {
+
         paIOX = NEW ToolBox::IO_Model_X[morph_target_num+1];
         papModel3D = NEW Frm::Model3D*[morph_target_num+1];
         papMeshesFront = NEW Frm::Mesh*[morph_target_num+1];
@@ -377,13 +378,30 @@ void MorphMeshModel::restore() {
             paIndexParam[i].PrimitiveCount = paParam[i].PrimitiveCount;
         }
         _material_list_grp_num = paramno;
-
         delete[] paParam;
+
+
+        GGAF_DELETEARR(paIOX);
+        GGAF_DELETEARR(paXfileName);
+
+        //モデルに保持させる
+        _papModel3D               = papModel3D;
+        _papMeshesFront           = papMeshesFront;
+        _paIndexBuffer_data       = paIdxBuffer_data;
+        _paVtxBuffer_data_primary = paVtxBuffer_data_primary;
+        _papaVtxBuffer_data_morph = papaVtxBuffer_data_morph;
+        _paIndexParam             = paIndexParam;
+        //マテリアル設定
+        //マテリアルはプライマリメッシュのマテリアル情報を、
+        //プライマリ及び全モーフターゲットのマテリアルとする。
+        //よってpapMeshesFront[0]だけ使う、残りは使わない。
+        //TODO:将来的にはモーフターゲット別にマテリアル設定できれば表現が増す。いつかしようか、多分だいぶ先。
+        setMaterial(papMeshesFront[0]);
     }
 
     if (_pVertexDeclaration == nullptr) {
-
-        int elemnum = (4+(2*morph_target_num))+1; //D3DVERTEXELEMENT9 構造体の配列要素数
+        HRESULT hr;
+        int elemnum = (4+(2*_morph_target_num))+1; //D3DVERTEXELEMENT9 構造体の配列要素数
         D3DVERTEXELEMENT9* paVtxelem = NEW D3DVERTEXELEMENT9[elemnum];
                                                          // 4 = プライマリメッシュ
                                                          // (2*morph_target_num) = モーフターゲットメッシュ
@@ -451,11 +469,11 @@ void MorphMeshModel::restore() {
 
         GGAF_DELETEARR(paVtxelem);
     }
-
     //頂点バッファ作成
     if (_pVertexBuffer_primary == nullptr) {
-        _paIDirect3DVertexBuffer9_morph = NEW LPDIRECT3DVERTEXBUFFER9[morph_target_num];
-        for (int pattern = 0; pattern < morph_target_num+1; pattern++) {
+        HRESULT hr;
+        _paIDirect3DVertexBuffer9_morph = NEW LPDIRECT3DVERTEXBUFFER9[_morph_target_num];
+        for (int pattern = 0; pattern < _morph_target_num+1; pattern++) {
 
             if (pattern == 0) {
                 //プライマリ頂点バッファ
@@ -470,7 +488,7 @@ void MorphMeshModel::restore() {
                 void *pVertexBuffer;
                 hr = _pVertexBuffer_primary->Lock(0, _size_vertices_primary, (void**)&pVertexBuffer, 0);
                 checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗（プライマリ） model="<<_model_name);
-                memcpy(pVertexBuffer, paVtxBuffer_data_primary, _size_vertices_primary); //pVertexBuffer ← paVertex
+                memcpy(pVertexBuffer, _paVtxBuffer_data_primary, _size_vertices_primary); //pVertexBuffer ← paVertex
                 _pVertexBuffer_primary->Unlock();
             } else {
                 //モーフターゲット頂点バッファ
@@ -485,7 +503,7 @@ void MorphMeshModel::restore() {
                 void *pVertexBuffer;
                 hr = _paIDirect3DVertexBuffer9_morph[pattern-1]->Lock(0, _size_vertices_morph, (void**)&pVertexBuffer, 0);
                 checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗（モーフ:"<<pattern-1<<"） model="<<_model_name);
-                memcpy(pVertexBuffer, papaVtxBuffer_data_morph[pattern-1], _size_vertices_morph); //pVertexBuffer ← paVertex
+                memcpy(pVertexBuffer, _papaVtxBuffer_data_morph[pattern-1], _size_vertices_morph); //pVertexBuffer ← paVertex
                 _paIDirect3DVertexBuffer9_morph[pattern-1]->Unlock();
             }
         }
@@ -494,47 +512,30 @@ void MorphMeshModel::restore() {
 
     //インデックスバッファデータ作成（プライマリ、モーフターゲット共に同じ）
     if (_pIndexBuffer == nullptr) {
-        int nFaces = papMeshesFront[0]->_nFaces;
-
+        HRESULT hr;
+        int nFaces = _papMeshesFront[0]->_nFaces;
         hr = God::_pID3DDevice9->CreateIndexBuffer(
-                               sizeof(WORD) * nFaces * 3,
-                                D3DUSAGE_WRITEONLY,
-                                D3DFMT_INDEX16,
-                                D3DPOOL_DEFAULT,
-                                &(_pIndexBuffer),
-                                nullptr);
+                                    sizeof(WORD) * nFaces * 3,
+                                    D3DUSAGE_WRITEONLY,
+                                    D3DFMT_INDEX16,
+                                    D3DPOOL_DEFAULT,
+                                    &(_pIndexBuffer),
+                                    nullptr);
         checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_name));
         void* pIndexBuffer;
         _pIndexBuffer->Lock(0,0,(void**)&pIndexBuffer,0);
-        memcpy(pIndexBuffer , paIdxBuffer_data , sizeof(WORD) * nFaces * 3);
+        memcpy(pIndexBuffer, _paIndexBuffer_data , sizeof(WORD) * nFaces * 3);
         _pIndexBuffer->Unlock();
     }
 
-    //マテリアル設定
-    //マテリアルはプライマリメッシュのマテリアル情報を、
-    //プライマリ及び全モーフターゲットのマテリアルとする。
-    //よってpapMeshesFront[0]だけ使う、残りは使わない。
-    //TODO:将来的にはモーフターゲット別にマテリアル設定できれば表現が増す。いつかしようか、多分だいぶ先。
-    setMaterial(papMeshesFront[0]);
-
     if (!_papTextureConnection) {
+        ModelManager* pModelManager = pGOD->_pModelManager;
         _papTextureConnection = NEW TextureConnection*[_num_materials];
         for (DWORD n = 0; n < _num_materials; n++) {
             _papTextureConnection[n] =
                     (TextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[n].c_str(), this));
         }
     }
-
-    GGAF_DELETEARR(paIOX);
-    GGAF_DELETEARR(paXfileName);
-
-    //モデルに保持させる
-    _papModel3D               = papModel3D;
-    _papMeshesFront           = papMeshesFront;
-    _paIndexBuffer_data       = paIdxBuffer_data;
-    _paVtxBuffer_data_primary = paVtxBuffer_data_primary;
-    _papaVtxBuffer_data_morph = papaVtxBuffer_data_morph;
-    _paIndexParam             = paIndexParam;
 
     _TRACE3_("_model_name=" << _model_name << " end");
 }
@@ -561,9 +562,22 @@ void MorphMeshModel::release() {
     for (int pattern = 0; pattern <= _morph_target_num; pattern++) {
         if (pattern == 0) {
             GGAF_RELEASE(_pVertexBuffer_primary);
-            GGAF_DELETEARR(_paVtxBuffer_data_primary);
         } else {
             GGAF_RELEASE(_paIDirect3DVertexBuffer9_morph[pattern-1]);
+        }
+    }
+    GGAF_DELETEARR(_paIDirect3DVertexBuffer9_morph);
+    GGAF_RELEASE(_pIndexBuffer);
+    GGAF_RELEASE(_pVertexDeclaration);
+    _TRACE3_("_model_name=" << _model_name << " end");
+
+}
+MorphMeshModel::~MorphMeshModel() {
+
+    for (int pattern = 0; pattern <= _morph_target_num; pattern++) {
+        if (pattern == 0) {
+            GGAF_DELETEARR(_paVtxBuffer_data_primary);
+        } else {
             GGAF_DELETEARR(_papaVtxBuffer_data_morph[pattern-1]);
         }
         if (_papModel3D) {
@@ -571,12 +585,7 @@ void MorphMeshModel::release() {
             GGAF_DELETE(p);
         }
     }
-
-    GGAF_DELETEARR(_paIDirect3DVertexBuffer9_morph);
     GGAF_DELETEARR(_papaVtxBuffer_data_morph);
-    GGAF_RELEASE(_pIndexBuffer);
-    GGAF_RELEASE(_pVertexDeclaration);
-
     GGAF_DELETEARR(_papModel3D);
     //_papMeshesFront[0],_papMeshesFront[1] は _papModel3D をDELETEしているのでする必要は無い
     GGAF_DELETEARR(_papMeshesFront);
@@ -585,10 +594,6 @@ void MorphMeshModel::release() {
     GGAF_DELETEARR(_paIndexParam);
     GGAF_DELETEARR(_paMaterial_default);
     GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);
-    _TRACE3_("_model_name=" << _model_name << " end");
-
-}
-MorphMeshModel::~MorphMeshModel() {
     //release();
     //はModelConnection::processReleaseResource(Model* prm_pResource) で呼び出される
 }

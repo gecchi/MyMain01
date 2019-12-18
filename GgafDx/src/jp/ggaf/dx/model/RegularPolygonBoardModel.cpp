@@ -20,6 +20,7 @@ DWORD RegularPolygonBoardModel::FVF = (D3DFVF_XYZ | D3DFVF_TEX1);
 RegularPolygonBoardModel::RegularPolygonBoardModel(const char* prm_model_name) :
     Model(prm_model_name) {
     _TRACE3_("_model_name="<<_model_name);
+    _pVertexBuffer_data = nullptr;
     _model_width_px = 32.0f;
     _model_height_px = 32.0f;
     _row_texture_split = 1;
@@ -149,105 +150,87 @@ HRESULT RegularPolygonBoardModel::draw(FigureActor* prm_pActor_target, int prm_d
 
 void RegularPolygonBoardModel::restore() {
     _TRACE3_("_model_name=" << _model_name << " start");
-    HRESULT hr;
-    std::string model_name = std::string(_model_name); //_model_name は "8,CW,XXXX" or "8,XXXX"
-    std::vector<std::string> names = UTIL::split(model_name, ",");
-    std::string filenamae = "";
-    if (names.size() == 2) {
-        filenamae = names[1];
-    } else if (names.size() == 3) {
-        filenamae = names[2];
+    if (_pVertexBuffer_data == nullptr) {
+        HRESULT hr;
+        std::string model_name = std::string(_model_name); //_model_name は "8,CW,XXXX" or "8,XXXX"
+        std::vector<std::string> names = UTIL::split(model_name, ",");
+        std::string filenamae = "";
+        if (names.size() == 2) {
+            filenamae = names[1];
+        } else if (names.size() == 3) {
+            filenamae = names[2];
+        }
+
+        ModelManager* pModelManager = pGOD->_pModelManager;
+        std::string xfile_name = ModelManager::getSpriteFileName(filenamae, "sprx");
+        ModelManager::SpriteXFileFmt xdata;
+        pModelManager->obtainSpriteInfo(&xdata, xfile_name);
+        _model_width_px  = xdata.width;
+        _model_height_px = xdata.height;
+        _row_texture_split = xdata.row_texture_split;
+        _col_texture_split = xdata.col_texture_split;
+        _pa_texture_filenames = NEW std::string[1];
+        _pa_texture_filenames[0] = std::string(xdata.texture_file);
+        _pVertexBuffer_data = NEW RegularPolygonBoardModel::VERTEX[_angle_num+2];
+        _size_vertices = sizeof(RegularPolygonBoardModel::VERTEX)*(_angle_num+2);
+        _size_vertex_unit = sizeof(RegularPolygonBoardModel::VERTEX);
+        float model_width = _model_width_px;
+        float model_height = _model_height_px;
+        float tu_rate = 1.0 / _col_texture_split;
+        float tv_rate = 1.0 / _row_texture_split;
+        _u_center = tu_rate * 0.5;
+        _v_center = tv_rate * 0.5;
+        _x_center =  model_width * 0.5;
+        _y_center =  model_height * 0.5;
+        //中心
+        _pVertexBuffer_data[0].x = _x_center;
+        _pVertexBuffer_data[0].y = _y_center;
+        _pVertexBuffer_data[0].z = 0.0f;
+        _pVertexBuffer_data[0].tu = _u_center;
+        _pVertexBuffer_data[0].tv = _v_center;
+
+        if (_drawing_order == 0) {        //反計回り
+            for (int ang = 0; ang < _angle_num; ang++) {
+                double rad = (PI2 * ang) / _angle_num;
+                _pVertexBuffer_data[ang+1].x = _pVertexBuffer_data[0].x + (cos(rad) * model_width  * 0.5);
+                _pVertexBuffer_data[ang+1].y = _pVertexBuffer_data[0].y - (sin(rad) * model_height * 0.5);
+                _pVertexBuffer_data[ang+1].z = 0.0f;
+                _pVertexBuffer_data[ang+1].tu = _pVertexBuffer_data[0].tu + (cos(rad) * tu_rate * 0.5);
+                _pVertexBuffer_data[ang+1].tv = _pVertexBuffer_data[0].tv - (sin(rad) * tv_rate * 0.5);
+            }
+            _pVertexBuffer_data[_angle_num+1] = _pVertexBuffer_data[1];
+        } else {
+            //時計回り
+            for (int ang = 0; ang < _angle_num; ang++) {
+                double rad = PI2 - ((PI2 * ang) / _angle_num);
+                _pVertexBuffer_data[ang+1].x = _pVertexBuffer_data[0].x + (cos(rad) * model_width  * 0.5);
+                _pVertexBuffer_data[ang+1].y = _pVertexBuffer_data[0].y - (sin(rad) * model_height * 0.5);
+                _pVertexBuffer_data[ang+1].z = 0.0f;
+                _pVertexBuffer_data[ang+1].tu = _pVertexBuffer_data[0].tu + (cos(rad) * tu_rate * 0.5);
+                _pVertexBuffer_data[ang+1].tv = _pVertexBuffer_data[0].tv - (sin(rad) * tv_rate * 0.5);
+            }
+            _pVertexBuffer_data[_angle_num+1] = _pVertexBuffer_data[1];
+        }
+        _num_materials = 1;
+        D3DMATERIAL9* paMaterial;
+        paMaterial = NEW D3DMATERIAL9[_num_materials];
+        for ( DWORD i = 0; i < _num_materials; i++) {
+            paMaterial[i].Diffuse.r = 1.0f;
+            paMaterial[i].Diffuse.g = 1.0f;
+            paMaterial[i].Diffuse.b = 1.0f;
+            paMaterial[i].Diffuse.a = 1.0f;
+            paMaterial[i].Ambient.r = 1.0f;
+            paMaterial[i].Ambient.g = 1.0f;
+            paMaterial[i].Ambient.b = 1.0f;
+            paMaterial[i].Ambient.a = 1.0f;
+        }
+        _paMaterial_default = paMaterial;
     }
 
-    ModelManager* pModelManager = pGOD->_pModelManager;
-    std::string xfile_name = ModelManager::getSpriteFileName(filenamae, "sprx");
-    ModelManager::SpriteXFileFmt xdata;
-    pModelManager->obtainSpriteInfo(&xdata, xfile_name);
-    _model_width_px  = xdata.width;
-    _model_height_px = xdata.height;
-    _row_texture_split = xdata.row_texture_split;
-    _col_texture_split = xdata.col_texture_split;
-
-    //テクスチャ取得しモデルに保持させる
-    _papTextureConnection = NEW TextureConnection*[1];
-    _papTextureConnection[0] = (TextureConnection*)(pModelManager->_pModelTextureManager->connect(xdata.texture_file, this));
-
-    RegularPolygonBoardModel::VERTEX* paVertex = NEW RegularPolygonBoardModel::VERTEX[_angle_num+2];
-    _size_vertices = sizeof(RegularPolygonBoardModel::VERTEX)*(_angle_num+2);
-    _size_vertex_unit = sizeof(RegularPolygonBoardModel::VERTEX);
-    float model_width = _model_width_px;
-    float model_height = _model_height_px;
-    float tu_rate = 1.0 / _col_texture_split;
-    float tv_rate = 1.0 / _row_texture_split;
-    _u_center = tu_rate * 0.5;
-    _v_center = tv_rate * 0.5;
-    _x_center =  model_width * 0.5;
-    _y_center =  model_height * 0.5;
-    //中心
-    paVertex[0].x = _x_center;
-    paVertex[0].y = _y_center;
-    paVertex[0].z = 0.0f;
-    paVertex[0].tu = _u_center;
-    paVertex[0].tv = _v_center;
-
-    if (_drawing_order == 0) {        //反計回り
-        for (int ang = 0; ang < _angle_num; ang++) {
-            double rad = (PI2 * ang) / _angle_num;
-            paVertex[ang+1].x = paVertex[0].x + (cos(rad) * model_width  * 0.5);
-            paVertex[ang+1].y = paVertex[0].y - (sin(rad) * model_height * 0.5);
-            paVertex[ang+1].z = 0.0f;
-            paVertex[ang+1].tu = paVertex[0].tu + (cos(rad) * tu_rate * 0.5);
-            paVertex[ang+1].tv = paVertex[0].tv - (sin(rad) * tv_rate * 0.5);
-        }
-        paVertex[_angle_num+1] = paVertex[1];
-    } else {
-        //時計回り
-        for (int ang = 0; ang < _angle_num; ang++) {
-            double rad = PI2 - ((PI2 * ang) / _angle_num);
-            paVertex[ang+1].x = paVertex[0].x + (cos(rad) * model_width  * 0.5);
-            paVertex[ang+1].y = paVertex[0].y - (sin(rad) * model_height * 0.5);
-            paVertex[ang+1].z = 0.0f;
-            paVertex[ang+1].tu = paVertex[0].tu + (cos(rad) * tu_rate * 0.5);
-            paVertex[ang+1].tv = paVertex[0].tv - (sin(rad) * tv_rate * 0.5);
-        }
-        paVertex[_angle_num+1] = paVertex[1];
-    }
-
-//    RegularPolygonBoardModel::VERTEX* paVertex = NEW RegularPolygonBoardModel::VERTEX[_angle_num+2];
-//    _size_vertices = sizeof(RegularPolygonBoardModel::VERTEX)*(_angle_num+2);
-//    _size_vertex_unit = sizeof(RegularPolygonBoardModel::VERTEX);
-//
-//    double du = 0.0;
-//    double dv = 0.0;
-//
-//    //左上
-//    paVertex[0].x = 0.0f;
-//    paVertex[0].y = 0.0f;
-//    paVertex[0].z = 0.0f;
-//    paVertex[0].tu = (float)du;
-//    paVertex[0].tv = (float)dv;
-//    //右上
-//    paVertex[1].x = xdata.width;
-//    paVertex[1].y = 0.0f;
-//    paVertex[1].z = 0.0f;
-//    paVertex[1].tu = (float)((1.0 / xdata.col_texture_split) - du);
-//    paVertex[1].tv = (float)dv;
-//    //左下
-//    paVertex[2].x = 0.0f;
-//    paVertex[2].y = xdata.height;
-//    paVertex[2].z = 0.0f;
-//    paVertex[2].tu = (float)du;
-//    paVertex[2].tv = (float)((1.0 / xdata.row_texture_split) - dv);
-//    //右下
-//    paVertex[3].x = xdata.width;
-//    paVertex[3].y = xdata.height;
-//    paVertex[3].z = 0.0f;
-//    paVertex[3].tu = (float)((1.0 / xdata.col_texture_split) - du);
-//    paVertex[3].tv = (float)((1.0 / xdata.row_texture_split) - dv);
 
     //バッファ作成
     if (_pVertexBuffer == nullptr) {
-
+        HRESULT hr;
         hr = God::_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices,
                 D3DUSAGE_WRITEONLY,
@@ -256,31 +239,21 @@ void RegularPolygonBoardModel::restore() {
                 &(_pVertexBuffer),
                 nullptr);
         checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_name));
-    }
-    //頂点バッファ作成
-    //頂点情報をビデオカード頂点バッファへロード
-    void *pVertexBuffer;
-    hr = _pVertexBuffer->Lock(0, _size_vertices, (void**)&pVertexBuffer, 0);
-    checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_name);
+        //頂点バッファ作成
+        //頂点情報をビデオカード頂点バッファへロード
+        void *pVertexBuffer;
+        hr = _pVertexBuffer->Lock(0, _size_vertices, (void**)&pVertexBuffer, 0);
+        checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_name);
 
-    memcpy(pVertexBuffer, paVertex, _size_vertices); //pVertexBuffer ← paVertex
-    _pVertexBuffer->Unlock();
-    _num_materials = 1;
-    D3DMATERIAL9* paMaterial;
-    paMaterial = NEW D3DMATERIAL9[_num_materials];
-    for ( DWORD i = 0; i < _num_materials; i++) {
-        paMaterial[i].Diffuse.r = 1.0f;
-        paMaterial[i].Diffuse.g = 1.0f;
-        paMaterial[i].Diffuse.b = 1.0f;
-        paMaterial[i].Diffuse.a = 1.0f;
-        paMaterial[i].Ambient.r = 1.0f;
-        paMaterial[i].Ambient.g = 1.0f;
-        paMaterial[i].Ambient.b = 1.0f;
-        paMaterial[i].Ambient.a = 1.0f;
+        memcpy(pVertexBuffer, _pVertexBuffer_data, _size_vertices); //pVertexBuffer ← _pVertexBuffer_data
+        _pVertexBuffer->Unlock();
     }
-    _paMaterial_default = paMaterial;
-
-    GGAF_DELETEARR(paVertex);
+    if (_papTextureConnection == nullptr) {
+        //テクスチャ取得しモデルに保持させる
+        ModelManager* pModelManager = pGOD->_pModelManager;
+        _papTextureConnection = NEW TextureConnection*[1];
+        _papTextureConnection[0] = (TextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[0].c_str(), this));
+    }
     _TRACE3_("_model_name=" << _model_name << " end");
 }
 
@@ -296,8 +269,6 @@ void RegularPolygonBoardModel::release() {
         }
     }
     GGAF_DELETEARR(_papTextureConnection);
-    GGAF_DELETEARR(_paMaterial_default);
-    GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);
     _TRACE3_("_model_name=" << _model_name << " end");
 }
 
@@ -308,6 +279,7 @@ void RegularPolygonBoardModel::onDeviceLost() {
 }
 
 RegularPolygonBoardModel::~RegularPolygonBoardModel() {
-    //release();
-    //はModelConnection::processReleaseResource(Model* prm_pResource) で呼び出される
+    GGAF_DELETEARR(_paMaterial_default);
+    GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);
+    GGAF_DELETEARR(_pVertexBuffer_data);
 }

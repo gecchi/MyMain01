@@ -36,12 +36,9 @@ _stackWorldMat() {
     _pPuppeteer = NEW Puppeteer(pAc_cloned);
     //Frame
 //    _stackWorldMat._pModel_MapBoneFrameIndex_ActAnimationSetIndexList = &(_pAniMeshModel->_mapBoneFrameIndex_ActAnimationSetIndexList);
-    _stackWorldMat._papaBool_Model_AnimationSetIndex_BoneFrameIndex_is_act = _pAniMeshModel->_papaBool_AnimationSetIndex_BoneFrameIndex_is_act;
+//    _stackWorldMat._papaBool_Model_AnimationSetIndex_BoneFrameIndex_is_act = _pAniMeshModel->_papaBool_AnimationSetIndex_BoneFrameIndex_is_act;
     FrameWorldMatrix* pFrameRoot = _pAniMeshModel->_pFrameRoot;
     _stackWorldMat.registerFrameTransformationMatrix(pFrameRoot);
-
-
-
 }
 
 void AniMeshActor::processDraw() {

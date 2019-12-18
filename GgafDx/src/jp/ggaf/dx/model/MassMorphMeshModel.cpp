@@ -11,7 +11,6 @@
 #include "jp/ggaf/dx/manager/TextureManager.h"
 #include "jp/ggaf/dx/texture/Texture.h"
 
-
 using namespace GgafDx;
 
 MassMorphMeshModel::MassMorphMeshModel(const char* prm_model_name) : MassModel(prm_model_name) {
@@ -94,8 +93,7 @@ void MassMorphMeshModel::createVertexModel(void* prm, MassModel::VertexModelInfo
 
 void MassMorphMeshModel::restore() {
     _TRACE3_("_model_name=" << _model_name << " start");
-    ModelManager* pModelManager = pGOD->_pModelManager;
-    if (!_paVtxBuffer_data_model) {
+    if (_paVtxBuffer_data_model == nullptr) {
         // _model_name には "8,xxx_4" or "xxx_4" という文字列が渡ってくる。 (/と_は区切り文字)
         // 8   ：同時描画セット数(省略時 GGAFDXMASS_MAX_INSTANCE_NUM)
         // xxx ：モデル名
@@ -158,7 +156,6 @@ void MassMorphMeshModel::restore() {
             uint16_t nTextureCoords = papMeshesFront[pattern]->_nTextureCoords;
             _nFaces = papMeshesFront[pattern]->_nFaces;
     //            nFaceNormals = papMeshesFront[pattern]->_nFaceNormals;
-
             if (_nVertices > 65535) {
                 throwCriticalException("頂点が 65535を超えたかもしれません。\n対象Model："<<getName()<<"  _nVertices:"<<_nVertices);
             }
@@ -251,8 +248,8 @@ void MassMorphMeshModel::restore() {
 
 
     //頂点バッファ作成
-    HRESULT hr;
     if (_pVertexBuffer_model == nullptr) {
+        HRESULT hr;
         //デバイスに頂点バッファ作成(モデル)
         _pVertexBuffer_model_morph = NEW LPDIRECT3DVERTEXBUFFER9[_morph_target_num];
         for (int pattern = 0; pattern < _morph_target_num+1; pattern++) {
@@ -297,6 +294,7 @@ void MassMorphMeshModel::restore() {
 
     //インデックスバッファデータ作成（プライマリ、モーフターゲット共に同じ）
     if (_pIndexBuffer == nullptr) {
+        HRESULT hr;
         hr = God::_pID3DDevice9->CreateIndexBuffer(
                                 sizeof(WORD) * _nFaces * 3,
                                 D3DUSAGE_WRITEONLY,
@@ -311,7 +309,8 @@ void MassMorphMeshModel::restore() {
         _pIndexBuffer->Unlock();
     }
 
-    if (!_papTextureConnection) {
+    if (_papTextureConnection == nullptr) {
+        ModelManager* pModelManager = pGOD->_pModelManager;
         _papTextureConnection = NEW TextureConnection*[_num_materials];
         for (DWORD n = 0; n < _num_materials; n++) {
             _papTextureConnection[n] =

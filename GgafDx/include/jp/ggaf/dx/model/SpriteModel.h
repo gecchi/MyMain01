@@ -25,6 +25,8 @@ public:
     LPDIRECT3DVERTEXBUFFER9 _pVertexBuffer;
     /** 頂点のFVF */
     static DWORD FVF;
+
+    VERTEX* _pVertexBuffer_data;
     /** 矩形の頂点合計のサイズ */
     UINT _size_vertices;
     /** 1頂点のサイズ */

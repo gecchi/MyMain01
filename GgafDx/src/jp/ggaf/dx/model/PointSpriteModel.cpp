@@ -116,66 +116,94 @@ HRESULT PointSpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
 
 void PointSpriteModel::restore() {
     _TRACE3_("_model_name="<<_model_name);
-    ModelManager* pModelManager = pGOD->_pModelManager;
     _papTextureConnection = nullptr;
-    HRESULT hr;
-    std::string xfile_name = ModelManager::getSpriteFileName(_model_name, "psprx");
-    ModelManager::PointSpriteXFileFmt pointsprite_info;
-    pModelManager->obtainPointSpriteInfo(&pointsprite_info, xfile_name);
-    //退避
-    float square_size_px = pointsprite_info.SquareSize;
-    int texture_split_rowcol = pointsprite_info.TextureSplitRowCol;
-    int vertices_num = pointsprite_info.VerticesNum;
-    _TRACE3_("vertices_num="<<vertices_num);
-    UINT size_vertices = sizeof(PointSpriteModel::VERTEX)*vertices_num;
-    UINT size_vertex_unit = sizeof(PointSpriteModel::VERTEX);
 
-    //テクスチャ取得しモデルに保持させる
-    TextureConnection** papTextureConnection = NEW TextureConnection*[1];
-    papTextureConnection[0] = (TextureConnection*)(pModelManager->_pModelTextureManager->connect(pointsprite_info.TextureFile , this));
-    Texture* pTex = papTextureConnection[0]->peek();
+    if (_paVtxBuffer_data == nullptr) {
 
-    float tex_width  = (float)(pTex->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
-    float tex_height = (float)(pTex->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)幅と同じになる
-    if ((int)(tex_width*100000) != (int)(tex_height*100000)) {
-        throwCriticalException("ポイントスプライト用テクスチャ["<<pTex->getName()<<"]("<<tex_width<<"x"<<tex_height<<")は、正方形である必要があります。");
-    }
-    FLOAT bounding_sphere_radius = 0;
+        ModelManager* pModelManager = pGOD->_pModelManager;
+        HRESULT hr;
+        std::string xfile_name = ModelManager::getSpriteFileName(_model_name, "psprx");
+        ModelManager::PointSpriteXFileFmt pointsprite_info;
+        pModelManager->obtainPointSpriteInfo(&pointsprite_info, xfile_name);
+        //退避
+        float square_size_px = pointsprite_info.SquareSize;
+        int texture_split_rowcol = pointsprite_info.TextureSplitRowCol;
+        int vertices_num = pointsprite_info.VerticesNum;
+        _TRACE3_("vertices_num="<<vertices_num);
+        UINT size_vertices = sizeof(PointSpriteModel::VERTEX)*vertices_num;
+        UINT size_vertex_unit = sizeof(PointSpriteModel::VERTEX);
 
-    //頂点バッファ作成
-    PointSpriteModel::VERTEX* paVtxBuffer_data = NEW PointSpriteModel::VERTEX[vertices_num];
-
-    float dis;
-    for (int i = 0; i < vertices_num; i++) {
-        paVtxBuffer_data[i].x = pointsprite_info.paD3DVECTOR_Vertices[i].x;
-        paVtxBuffer_data[i].y = pointsprite_info.paD3DVECTOR_Vertices[i].y;
-        paVtxBuffer_data[i].z = pointsprite_info.paD3DVECTOR_Vertices[i].z;
-        paVtxBuffer_data[i].psize = (square_size_px*texture_split_rowcol / tex_width) * pointsprite_info.paFLOAT_InitScale[i]; //PSIZEにはピクセルサイズではなく倍率を埋め込む。
-                                                                                                //シェーダーで拡大縮小ピクセルを計算
-        paVtxBuffer_data[i].color = D3DCOLOR_COLORVALUE(pointsprite_info.paD3DVECTOR_VertexColors[i].r,
-                                                        pointsprite_info.paD3DVECTOR_VertexColors[i].g,
-                                                        pointsprite_info.paD3DVECTOR_VertexColors[i].b,
-                                                        pointsprite_info.paD3DVECTOR_VertexColors[i].a );
-        paVtxBuffer_data[i].tu = (float)(pointsprite_info.paInt_InitUvPtnNo[i]);
-        paVtxBuffer_data[i].tv = 0;
-
-        dis = (FLOAT)(sqrt(paVtxBuffer_data[i].x * paVtxBuffer_data[i].x +
-                           paVtxBuffer_data[i].y * paVtxBuffer_data[i].y +
-                           paVtxBuffer_data[i].z * paVtxBuffer_data[i].z  )
-                       + (((square_size_px/PX_UNIT) * 1.41421356 ) / 2.0)
-                     );
-
-         if (bounding_sphere_radius < dis) {
-             bounding_sphere_radius = dis;
-         }
-    }
-
-    D3DMATERIAL9*   paMaterial = nullptr;
-    if (_pVertexBuffer == nullptr) {
+        _pa_texture_filenames = NEW std::string[1];
+        _pa_texture_filenames[0] = std::string(pointsprite_info.TextureFile);
+        if (_papTextureConnection == nullptr) {
+            //テクスチャ取得しモデルに保持させる
+            _papTextureConnection = NEW TextureConnection*[1];
+            _papTextureConnection[0] = (TextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[0].c_str() , this));
+        }
+        Texture* pTex = _papTextureConnection[0]->peek();
+        float tex_width  = (float)(pTex->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
+        float tex_height = (float)(pTex->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)幅と同じになる
+        if ((int)(tex_width*100000) != (int)(tex_height*100000)) {
+            throwCriticalException("ポイントスプライト用テクスチャ["<<pTex->getName()<<"]("<<tex_width<<"x"<<tex_height<<")は、正方形である必要があります。");
+        }
+        FLOAT bounding_sphere_radius = 0;
 
         //頂点バッファ作成
+        PointSpriteModel::VERTEX* paVtxBuffer_data = NEW PointSpriteModel::VERTEX[vertices_num];
+
+        float dis;
+        for (int i = 0; i < vertices_num; i++) {
+            paVtxBuffer_data[i].x = pointsprite_info.paD3DVECTOR_Vertices[i].x;
+            paVtxBuffer_data[i].y = pointsprite_info.paD3DVECTOR_Vertices[i].y;
+            paVtxBuffer_data[i].z = pointsprite_info.paD3DVECTOR_Vertices[i].z;
+            paVtxBuffer_data[i].psize = (square_size_px*texture_split_rowcol / tex_width) * pointsprite_info.paFLOAT_InitScale[i]; //PSIZEにはピクセルサイズではなく倍率を埋め込む。
+                                                                                                    //シェーダーで拡大縮小ピクセルを計算
+            paVtxBuffer_data[i].color = D3DCOLOR_COLORVALUE(pointsprite_info.paD3DVECTOR_VertexColors[i].r,
+                                                            pointsprite_info.paD3DVECTOR_VertexColors[i].g,
+                                                            pointsprite_info.paD3DVECTOR_VertexColors[i].b,
+                                                            pointsprite_info.paD3DVECTOR_VertexColors[i].a );
+            paVtxBuffer_data[i].tu = (float)(pointsprite_info.paInt_InitUvPtnNo[i]);
+            paVtxBuffer_data[i].tv = 0;
+
+            dis = (FLOAT)(sqrt(paVtxBuffer_data[i].x * paVtxBuffer_data[i].x +
+                               paVtxBuffer_data[i].y * paVtxBuffer_data[i].y +
+                               paVtxBuffer_data[i].z * paVtxBuffer_data[i].z  )
+                           + (((square_size_px/PX_UNIT) * 1.41421356 ) / 2.0)
+                         );
+
+             if (bounding_sphere_radius < dis) {
+                 bounding_sphere_radius = dis;
+             }
+        }
+        D3DMATERIAL9*   paMaterial = nullptr;
+        paMaterial = NEW D3DMATERIAL9[1];
+        paMaterial[0].Diffuse.r = 1.0f;
+        paMaterial[0].Diffuse.g = 1.0f;
+        paMaterial[0].Diffuse.b = 1.0f;
+        paMaterial[0].Diffuse.a = 1.0f;
+
+        //モデルに保持させる
+        _paMaterial_default     = paMaterial;
+        _num_materials          = 1;
+        _square_size_px         = square_size_px;
+        _texture_size_px        = tex_width;
+        _texture_split_rowcol   = texture_split_rowcol;
+        _vertices_num           = vertices_num;
+        _size_vertices          = size_vertices;
+        _size_vertex_unit       = size_vertex_unit;
+        _paVtxBuffer_data        = paVtxBuffer_data;
+        _bounding_sphere_radius = bounding_sphere_radius;
+        _inv_texture_split_rowcol = 1.0f / _texture_split_rowcol;
+
+
+    }
+
+
+    if (_pVertexBuffer == nullptr) {
+        HRESULT hr;
+        //頂点バッファ作成
         hr = God::_pID3DDevice9->CreateVertexBuffer(
-                size_vertices,
+                _size_vertices,
                 D3DUSAGE_WRITEONLY,
                 PointSpriteModel::FVF,
                 D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT D3DPOOL_MANAGED
@@ -185,31 +213,18 @@ void PointSpriteModel::restore() {
 
         //バッファへ作成済み頂点データを流し込む
         void *pVertexBuffer;
-        hr = _pVertexBuffer->Lock(0, size_vertices, (void**)&pVertexBuffer, 0);
+        hr = _pVertexBuffer->Lock(0, _size_vertices, (void**)&pVertexBuffer, 0);
         checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_name);
-        memcpy(pVertexBuffer, paVtxBuffer_data, size_vertices); //pVertexBuffer ← paVertex
+        memcpy(pVertexBuffer, _paVtxBuffer_data, _size_vertices); //pVertexBuffer ← paVertex
         _pVertexBuffer->Unlock();
     }
 
-    paMaterial = NEW D3DMATERIAL9[1];
-    paMaterial[0].Diffuse.r = 1.0f;
-    paMaterial[0].Diffuse.g = 1.0f;
-    paMaterial[0].Diffuse.b = 1.0f;
-    paMaterial[0].Diffuse.a = 1.0f;
-
-    //モデルに保持させる
-    _paMaterial_default     = paMaterial;
-    _papTextureConnection   = papTextureConnection;
-    _num_materials          = 1;
-    _square_size_px         = square_size_px;
-    _texture_size_px        = tex_width;
-    _texture_split_rowcol   = texture_split_rowcol;
-    _vertices_num           = vertices_num;
-    _size_vertices          = size_vertices;
-    _size_vertex_unit       = size_vertex_unit;
-    _paVtxBuffer_data        = paVtxBuffer_data;
-    _bounding_sphere_radius = bounding_sphere_radius;
-    _inv_texture_split_rowcol = 1.0f / _texture_split_rowcol;
+    if (_papTextureConnection == nullptr) {
+        //テクスチャ取得しモデルに保持させる
+        ModelManager* pModelManager = pGOD->_pModelManager;
+        _papTextureConnection = NEW TextureConnection*[1];
+        _papTextureConnection[0] = (TextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[0].c_str(), this));
+    }
     _TRACE3_("_model_name=" << _model_name << " end");
 }
 
@@ -222,7 +237,6 @@ void PointSpriteModel::onDeviceLost() {
 void PointSpriteModel::release() {
     _TRACE3_("_model_name=" << _model_name << " start");
     GGAF_RELEASE(_pVertexBuffer);
-    GGAF_DELETEARR(_paVtxBuffer_data);
     if (_papTextureConnection) {
         for (int i = 0; i < (int)_num_materials; i++) {
             if (_papTextureConnection[i]) {
@@ -231,13 +245,13 @@ void PointSpriteModel::release() {
         }
     }
     GGAF_DELETEARR(_papTextureConnection);
-    GGAF_DELETEARR(_paMaterial_default);
-    GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);
+
     _TRACE3_("_model_name=" << _model_name << " end");
 }
 
 PointSpriteModel::~PointSpriteModel() {
-    //release();
-    //はModelConnection::processReleaseResource(Model* prm_pResource) で呼び出される
+    GGAF_DELETEARR(_paVtxBuffer_data);
+    GGAF_DELETEARR(_paMaterial_default);
+    GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);
 }
 

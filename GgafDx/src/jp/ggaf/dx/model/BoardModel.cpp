@@ -12,7 +12,6 @@
 #include "jp/ggaf/dx/model/MassModel.h"
 #include "jp/ggaf/dx/texture/Texture.h"
 
-
 using namespace GgafDx;
 
 DWORD BoardModel::FVF = (D3DFVF_XYZ | D3DFVF_TEX1);
@@ -25,6 +24,7 @@ BoardModel::BoardModel(const char* prm_model_name) :
     _row_texture_split = 1;
     _col_texture_split = 1;
     _pVertexBuffer = nullptr;
+    _pVertexBuffer_data = nullptr;
     _size_vertices = 0;
     _size_vertex_unit = 0;
     _obj_model |= Obj_GgafDx_BoardModel;
@@ -115,58 +115,73 @@ HRESULT BoardModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, v
 
 void BoardModel::restore() {
     _TRACE3_("_model_name=" << _model_name << " start");
-    HRESULT hr;
-    ModelManager* pModelManager = pGOD->_pModelManager;
-    std::string xfile_name = ModelManager::getSpriteFileName(_model_name, "sprx");
-    ModelManager::SpriteXFileFmt xdata;
-    pModelManager->obtainSpriteInfo(&xdata, xfile_name);
-    _model_width_px  = xdata.width;
-    _model_height_px = xdata.height;
-    _row_texture_split = xdata.row_texture_split;
-    _col_texture_split = xdata.col_texture_split;
+    if (_pVertexBuffer_data == nullptr) {
+        HRESULT hr;
+        ModelManager* pModelManager = pGOD->_pModelManager;
+        std::string xfile_name = ModelManager::getSpriteFileName(_model_name, "sprx");
+        ModelManager::SpriteXFileFmt xdata;
+        pModelManager->obtainSpriteInfo(&xdata, xfile_name);
+        _model_width_px  = xdata.width;
+        _model_height_px = xdata.height;
+        _row_texture_split = xdata.row_texture_split;
+        _col_texture_split = xdata.col_texture_split;
+        _pa_texture_filenames = NEW std::string[1];
+        _pa_texture_filenames[0] = std::string(xdata.texture_file);
+        _pVertexBuffer_data = NEW BoardModel::VERTEX[4];
+        _size_vertices = sizeof(BoardModel::VERTEX)*4;
+        _size_vertex_unit = sizeof(BoardModel::VERTEX);
 
-    //テクスチャ取得しモデルに保持させる
-    _papTextureConnection = NEW TextureConnection*[1];
-    _papTextureConnection[0] = (TextureConnection*)(pModelManager->_pModelTextureManager->connect(xdata.texture_file, this));
+        //1pxあたりのuvの大きさを求める
+    //    float tex_width  = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
+    //    float tex_height = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
+        double du = 0.0;
+        double dv = 0.0;
 
-    BoardModel::VERTEX* paVertex = NEW BoardModel::VERTEX[4];
-    _size_vertices = sizeof(BoardModel::VERTEX)*4;
-    _size_vertex_unit = sizeof(BoardModel::VERTEX);
+        //左上
+        _pVertexBuffer_data[0].x = 0.0f;
+        _pVertexBuffer_data[0].y = 0.0f;
+        _pVertexBuffer_data[0].z = 0.0f;
+        _pVertexBuffer_data[0].tu = (float)du;
+        _pVertexBuffer_data[0].tv = (float)dv;
+        //右上
+        _pVertexBuffer_data[1].x = xdata.width;
+        _pVertexBuffer_data[1].y = 0.0f;
+        _pVertexBuffer_data[1].z = 0.0f;
+        _pVertexBuffer_data[1].tu = (float)((1.0 / xdata.col_texture_split) - du);
+        _pVertexBuffer_data[1].tv = (float)dv;
+        //左下
+        _pVertexBuffer_data[2].x = 0.0f;
+        _pVertexBuffer_data[2].y = xdata.height;
+        _pVertexBuffer_data[2].z = 0.0f;
+        _pVertexBuffer_data[2].tu = (float)du;
+        _pVertexBuffer_data[2].tv = (float)((1.0 / xdata.row_texture_split) - dv);
+        //右下
+        _pVertexBuffer_data[3].x = xdata.width;
+        _pVertexBuffer_data[3].y = xdata.height;
+        _pVertexBuffer_data[3].z = 0.0f;
+        _pVertexBuffer_data[3].tu = (float)((1.0 / xdata.col_texture_split) - du);
+        _pVertexBuffer_data[3].tv = (float)((1.0 / xdata.row_texture_split) - dv);
 
-    //1pxあたりのuvの大きさを求める
-//    float tex_width  = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
-//    float tex_height = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
-    double du = 0.0;
-    double dv = 0.0;
+        _num_materials = 1;
+        D3DMATERIAL9* paMaterial;
+        paMaterial = NEW D3DMATERIAL9[_num_materials];
+        for ( DWORD i = 0; i < _num_materials; i++) {
+            paMaterial[i].Diffuse.r = 1.0f;
+            paMaterial[i].Diffuse.g = 1.0f;
+            paMaterial[i].Diffuse.b = 1.0f;
+            paMaterial[i].Diffuse.a = 1.0f;
+            paMaterial[i].Ambient.r = 1.0f;
+            paMaterial[i].Ambient.g = 1.0f;
+            paMaterial[i].Ambient.b = 1.0f;
+            paMaterial[i].Ambient.a = 1.0f;
+        }
+        _paMaterial_default = paMaterial;
 
-    //左上
-    paVertex[0].x = 0.0f;
-    paVertex[0].y = 0.0f;
-    paVertex[0].z = 0.0f;
-    paVertex[0].tu = (float)du;
-    paVertex[0].tv = (float)dv;
-    //右上
-    paVertex[1].x = xdata.width;
-    paVertex[1].y = 0.0f;
-    paVertex[1].z = 0.0f;
-    paVertex[1].tu = (float)((1.0 / xdata.col_texture_split) - du);
-    paVertex[1].tv = (float)dv;
-    //左下
-    paVertex[2].x = 0.0f;
-    paVertex[2].y = xdata.height;
-    paVertex[2].z = 0.0f;
-    paVertex[2].tu = (float)du;
-    paVertex[2].tv = (float)((1.0 / xdata.row_texture_split) - dv);
-    //右下
-    paVertex[3].x = xdata.width;
-    paVertex[3].y = xdata.height;
-    paVertex[3].z = 0.0f;
-    paVertex[3].tu = (float)((1.0 / xdata.col_texture_split) - du);
-    paVertex[3].tv = (float)((1.0 / xdata.row_texture_split) - dv);
+    }
 
     //バッファ作成
     if (_pVertexBuffer == nullptr) {
-
+        HRESULT hr;
         hr = God::_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices,
                 D3DUSAGE_WRITEONLY,
@@ -175,31 +190,23 @@ void BoardModel::restore() {
                 &(_pVertexBuffer),
                 nullptr);
         checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_name));
-    }
-    //頂点バッファ作成
-    //頂点情報をビデオカード頂点バッファへロード
-    void *pVertexBuffer;
-    hr = _pVertexBuffer->Lock(0, _size_vertices, (void**)&pVertexBuffer, 0);
-    checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_name);
+        //頂点バッファ作成
+        //頂点情報をビデオカード頂点バッファへロード
+        void *pVertexBuffer;
+        hr = _pVertexBuffer->Lock(0, _size_vertices, (void**)&pVertexBuffer, 0);
+        checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_name);
 
-    memcpy(pVertexBuffer, paVertex, _size_vertices); //pVertexBuffer ← paVertex
-    _pVertexBuffer->Unlock();
-    _num_materials = 1;
-    D3DMATERIAL9* paMaterial;
-    paMaterial = NEW D3DMATERIAL9[_num_materials];
-    for ( DWORD i = 0; i < _num_materials; i++) {
-        paMaterial[i].Diffuse.r = 1.0f;
-        paMaterial[i].Diffuse.g = 1.0f;
-        paMaterial[i].Diffuse.b = 1.0f;
-        paMaterial[i].Diffuse.a = 1.0f;
-        paMaterial[i].Ambient.r = 1.0f;
-        paMaterial[i].Ambient.g = 1.0f;
-        paMaterial[i].Ambient.b = 1.0f;
-        paMaterial[i].Ambient.a = 1.0f;
+        memcpy(pVertexBuffer, _pVertexBuffer_data, _size_vertices); //pVertexBuffer ← paVertex
+        _pVertexBuffer->Unlock();
     }
-    _paMaterial_default = paMaterial;
 
-    GGAF_DELETEARR(paVertex);
+    if (_papTextureConnection == nullptr) {
+        ModelManager* pModelManager = pGOD->_pModelManager;
+        //テクスチャ取得しモデルに保持させる
+        _papTextureConnection = NEW TextureConnection*[1];
+        _papTextureConnection[0] = (TextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[0].c_str(), this));
+    }
+
     _TRACE3_("_model_name=" << _model_name << " end");
 }
 
@@ -215,8 +222,6 @@ void BoardModel::release() {
         }
     }
     GGAF_DELETEARR(_papTextureConnection);
-    GGAF_DELETEARR(_paMaterial_default);
-    GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);
     _TRACE3_("_model_name=" << _model_name << " end");
 }
 
@@ -227,6 +232,7 @@ void BoardModel::onDeviceLost() {
 }
 
 BoardModel::~BoardModel() {
-    //release();
-    //はModelConnection::processReleaseResource(Model* prm_pResource) で呼び出される
+    GGAF_DELETEARR(_paMaterial_default);
+    GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);
+    GGAF_DELETEARR(_pVertexBuffer_data);
 }

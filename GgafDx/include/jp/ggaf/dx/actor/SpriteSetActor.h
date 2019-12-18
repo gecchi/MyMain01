@@ -24,8 +24,8 @@ public:
     /** [r]UVフリッパー(パラパラアニメ) */
     UvFlipper* const _pUvFlipper;
 
-    Align _align;
-    Valign _valign;
+//    Align _align;
+//    Valign _valign;
 
 public:
     /**

@@ -166,27 +166,27 @@ HRESULT MeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, vo
 
 void MeshModel::restore() {
     _TRACE3_("_model_name=" << _model_name << " start");
-    //【MeshModel再構築（＝初期化）処理概要】
-    //１）頂点バッファ、頂点インデックスバッファ を new
-    //２）Xファイルから、独自に次の情報を読み込み、頂点バッファ、頂点インデックスバッファ に流し込む。
-    //３）２）を行なう過程で、同時に MeshModel に次のメンバを作成。
-    //      ・頂点バッファの写し
-    //      ・頂点インデックスバッファの写し
-    //      ・マテリアル配列(要素数＝マテリアル数)
-    //      ・テクスチャ配列(要素数＝マテリアル数)
-    //      ・DrawIndexedPrimitive用引数配列(要素数＝マテリアルリストが変化した数)
-
-    ModelManager* pModelManager = pGOD->_pModelManager;
-    std::string xfile_name = ModelManager::getMeshFileName(_model_name);
-    if (xfile_name == "") {
-        throwCriticalException("メッシュファイル(*.x)が見つかりません。_model_name="<<_model_name);
-    }
-    HRESULT hr;
-
-    //流し込む頂点バッファデータ作成
-    ToolBox::IO_Model_X iox;
-
     if (_paVtxBuffer_data == nullptr) {
+        //【MeshModel再構築（＝初期化）処理概要】
+        //１）頂点バッファ、頂点インデックスバッファ を new
+        //２）Xファイルから、独自に次の情報を読み込み、頂点バッファ、頂点インデックスバッファ に流し込む。
+        //３）２）を行なう過程で、同時に MeshModel に次のメンバを作成。
+        //      ・頂点バッファの写し
+        //      ・頂点インデックスバッファの写し
+        //      ・マテリアル配列(要素数＝マテリアル数)
+        //      ・テクスチャ配列(要素数＝マテリアル数)
+        //      ・DrawIndexedPrimitive用引数配列(要素数＝マテリアルリストが変化した数)
+
+        ModelManager* pModelManager = pGOD->_pModelManager;
+        std::string xfile_name = ModelManager::getMeshFileName(_model_name);
+        if (xfile_name == "") {
+            throwCriticalException("メッシュファイル(*.x)が見つかりません。_model_name="<<_model_name);
+        }
+        HRESULT hr;
+
+        //流し込む頂点バッファデータ作成
+        ToolBox::IO_Model_X iox;
+
         Frm::Model3D* pModel3D = NEW Frm::Model3D();
         bool r = iox.Load(xfile_name, pModel3D);
         if (r == false) {
@@ -351,6 +351,7 @@ void MeshModel::restore() {
     }
 
     if (_pVertexBuffer == nullptr) {
+        HRESULT hr;
         //頂点バッファ作成
         hr = God::_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices,
@@ -371,13 +372,14 @@ void MeshModel::restore() {
 
     //インデックスバッファデータ作成
     if (_pIndexBuffer == nullptr) {
+        HRESULT hr;
         hr = God::_pID3DDevice9->CreateIndexBuffer(
-                               sizeof(WORD) * _nFaces * 3,
-                                D3DUSAGE_WRITEONLY,
-                                D3DFMT_INDEX16,
-                                D3DPOOL_DEFAULT,
-                                &(_pIndexBuffer),
-                                nullptr);
+                                    sizeof(WORD) * _nFaces * 3,
+                                    D3DUSAGE_WRITEONLY,
+                                    D3DFMT_INDEX16,
+                                    D3DPOOL_DEFAULT,
+                                    &(_pIndexBuffer),
+                                    nullptr);
         checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_name));
         void* pIndexBuffer;
         _pIndexBuffer->Lock(0,0,(void**)&pIndexBuffer,0);
@@ -387,6 +389,7 @@ void MeshModel::restore() {
 
     //テクスチャ作成
     if (!_papTextureConnection) {
+        ModelManager* pModelManager = pGOD->_pModelManager;
         _papTextureConnection = NEW TextureConnection*[_num_materials];
         for (DWORD n = 0; n < _num_materials; n++) {
             _papTextureConnection[n] =
@@ -416,15 +419,15 @@ void MeshModel::release() {
     GGAF_DELETEARR(_papTextureConnection); //テクスチャの配列
     GGAF_RELEASE(_pVertexBuffer);
     GGAF_RELEASE(_pIndexBuffer);
+    _TRACE3_("_model_name=" << _model_name << " end");
+}
+
+MeshModel::~MeshModel() {
     GGAF_DELETEARR(_paVtxBuffer_data);
     GGAF_DELETEARR(_paIndexBuffer_data);
     GGAF_DELETEARR(_paIndexParam);
     GGAF_DELETEARR(_paMaterial_default);
     GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);
-    _TRACE3_("_model_name=" << _model_name << " end");
-}
-
-MeshModel::~MeshModel() {
     //release();
     //はModelConnection::processReleaseResource(Model* prm_pResource) で呼び出される
 }

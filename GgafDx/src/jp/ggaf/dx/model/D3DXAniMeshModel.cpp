@@ -53,14 +53,8 @@ HRESULT D3DXAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
     //モデルのワールド変換行列更新
     pTargetActor->_stackWorldMat.SetWorldMatrix(&(pTargetActor->_matWorld));
     pTargetActor->_stackWorldMat.UpdateFrame(_pFrameRoot);
-    //アン
-    //_stackWorldMat.UpdateFrame(_pFrameRoot, トラック１のアニメーションセット, トラック２のアニメーションセット);
-
-//    std::list< FrameWorldMatrix* > *pDrawList = pTargetActor->_stackWorldMat.GetDrawList(); // 描画リストを取得
-//    std::list<FrameWorldMatrix*>::iterator it = pDrawList->begin();
-    std::list< FrameWorldMatrix* > *pDrawList = nullptr;
-    std::list<FrameWorldMatrix*>::iterator it;
-
+    std::list< FrameWorldMatrix* > *pDrawList = pTargetActor->_stackWorldMat.GetDrawList(); // 描画リストを取得
+    std::list<FrameWorldMatrix*>::iterator it = pDrawList->begin();
 
     IDirect3DDevice9* const pDevice = God::_pID3DDevice9;
     int n = 0;
