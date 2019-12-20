@@ -1,13 +1,13 @@
-#ifndef GGAF_LIB_DEFAULTANIMESHACTOR_H_
-#define GGAF_LIB_DEFAULTANIMESHACTOR_H_
+#ifndef GGAF_LIB_DEFAULTBONEANIMESHACTOR_H_
+#define GGAF_LIB_DEFAULTBONEANIMESHACTOR_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/dx/actor/AniMeshActor.h"
+#include "jp/ggaf/dx/actor/BoneAniMeshActor.h"
 
 namespace GgafLib {
 
 /**
  * フレームアニメーションメッシュアクターの具象クラス .
- * GgafDx::AniMeshActor を空実装した具象アクターです。
+ * GgafDx::BoneAniMeshActor を空実装した具象アクターです。
  * 本クラスを継承してキャラクターを作成しましょう。<BR>
  * 以下に使用可能な支援オブジェクトを記す。<BR>
  * <TABLE border=1>
@@ -22,14 +22,14 @@ namespace GgafLib {
  * @since 2009/11/25
  * @author Masatoshi Tsuge
  */
-class DefaultAniMeshActor : public GgafDx::AniMeshActor {
+class DefaultBoneAniMeshActor : public GgafDx::BoneAniMeshActor {
 
 public:
     /** 衝突判定支援オブジェクト */
     CollisionChecker* _pColliChecker;
 
 public:
-    DefaultAniMeshActor(const char* prm_name, const char* prm_model);
+    DefaultBoneAniMeshActor(const char* prm_name, const char* prm_model);
 
     virtual void onCreateModel() override {
     }
@@ -55,8 +55,8 @@ public:
         return _pColliChecker;
     }
 
-    virtual ~DefaultAniMeshActor();
+    virtual ~DefaultBoneAniMeshActor();
 };
 
 }
-#endif /*GGAF_LIB_DEFAULTANIMESHACTOR_H_*/
+#endif /*GGAF_LIB_DEFAULTBONEANIMESHACTOR_H_*/

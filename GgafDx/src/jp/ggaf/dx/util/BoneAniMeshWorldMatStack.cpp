@@ -1,9 +1,9 @@
-#include "jp/ggaf/dx/util/WorldMatStack.h"
-#include "jp/ggaf/dx/util/AllocHierarchyWorldFrame.h"
+#include "jp/ggaf/dx/util/BoneAniMeshWorldMatStack.h"
+#include "jp/ggaf/dx/util/BoneAniMeshAllocHierarchy.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
 using namespace GgafDx;
 
-WorldMatStack::WorldMatStack() : GgafCore::Object() {
+BoneAniMeshWorldMatStack::BoneAniMeshWorldMatStack() : GgafCore::Object() {
 //    _pModel_MapBoneFrameIndex_ActAnimationSetIndexList = nullptr;
     _papaBool_Model_AnimationSetIndex_BoneFrameIndex_is_act = nullptr;
     _as0_index = -1;
@@ -11,29 +11,29 @@ WorldMatStack::WorldMatStack() : GgafCore::Object() {
     _prevTransformationMatrixList.clear();
 }
 
-WorldMatStack::~WorldMatStack(void) {
+BoneAniMeshWorldMatStack::~BoneAniMeshWorldMatStack(void) {
 }
 
-void WorldMatStack::registerFrameTransformationMatrix(FrameWorldMatrix* pFrame) {
+void BoneAniMeshWorldMatStack::registerFrameTransformationMatrix(BoneAniMeshFrame* pFrame) {
     _prevTransformationMatrixList.push_back(pFrame->TransformationMatrix);
     if (pFrame->pFrameFirstChild) {
         // 子フレーム有り
-        registerFrameTransformationMatrix((FrameWorldMatrix*)pFrame->pFrameFirstChild);
+        registerFrameTransformationMatrix((BoneAniMeshFrame*)pFrame->pFrameFirstChild);
     }
     if (pFrame->pFrameSibling) {
         //兄弟フレーム有り
-        registerFrameTransformationMatrix((FrameWorldMatrix*)pFrame->pFrameSibling);
+        registerFrameTransformationMatrix((BoneAniMeshFrame*)pFrame->pFrameSibling);
     }
 }
 // ワールド変換行列の設定
-void WorldMatStack::SetWorldMatrix(D3DXMATRIX* worldmat) {
+void BoneAniMeshWorldMatStack::SetWorldMatrix(D3DXMATRIX* worldmat) {
     _actor_world_trans_matrix = *worldmat;
 }
 
-void WorldMatStack::UpdateFrame(FrameWorldMatrix* prm_frame_root, int prm_as0_index, int prm_as1_index, bool** prm_papaBool_Model_AnimationSetIndex_BoneFrameIndex_is_act) {
+void BoneAniMeshWorldMatStack::UpdateFrame(BoneAniMeshFrame* prm_frame_root, int prm_as0_index, int prm_as1_index, bool** prm_papaBool_Model_AnimationSetIndex_BoneFrameIndex_is_act) {
 #ifdef MY_DEBUG
     if (_prevTransformationMatrixList.size() == 0) {
-        throwCriticalException("WorldMatStack::UpdateFrame() を実行前にregisterFrameTransformationMatrix() でフレーム登録して下さい。");
+        throwCriticalException("BoneAniMeshWorldMatStack::UpdateFrame() を実行前にregisterFrameTransformationMatrix() でフレーム登録して下さい。");
     }
 #endif
     // スタックの初期化
@@ -47,14 +47,14 @@ void WorldMatStack::UpdateFrame(FrameWorldMatrix* prm_frame_root, int prm_as0_in
     _papaBool_Model_AnimationSetIndex_BoneFrameIndex_is_act = prm_papaBool_Model_AnimationSetIndex_BoneFrameIndex_is_act;
     // ルートフレームからワールド変換行列を連続計算
     if (_papaBool_Model_AnimationSetIndex_BoneFrameIndex_is_act) {
-        CalcFrameWorldMatrix(prm_frame_root);
+        CalcBoneAniMeshFrame(prm_frame_root);
     } else {
         m_DrawFrameList.clear();  //削除予定
-        CalcFrameWorldMatrix_old(prm_frame_root);  //削除予定
+        CalcBoneAniMeshFrame_old(prm_frame_root);  //削除予定
     }
 }
 
-void WorldMatStack::CalcFrameWorldMatrix_old(FrameWorldMatrix* prm_pBoneFrame) {
+void BoneAniMeshWorldMatStack::CalcBoneAniMeshFrame_old(BoneAniMeshFrame* prm_pBoneFrame) {
      //削除予定
     // 現在のスタックの先頭にあるワールド変換行列を参照
     D3DXMATRIX *pStackMat = _stack_matrix.top();
@@ -69,18 +69,18 @@ void WorldMatStack::CalcFrameWorldMatrix_old(FrameWorldMatrix* prm_pBoneFrame) {
     // 子フレームがあればスタックを積んで、子フレームのワールド変換座標の計算へ
     if (prm_pBoneFrame->pFrameFirstChild) {
         _stack_matrix.push(&(prm_pBoneFrame->_world_trans_matrix));
-        CalcFrameWorldMatrix_old((FrameWorldMatrix*)prm_pBoneFrame->pFrameFirstChild);
+        CalcBoneAniMeshFrame_old((BoneAniMeshFrame*)prm_pBoneFrame->pFrameFirstChild);
         _stack_matrix.pop(); // 子フレームがもう終わったのでスタックを1つ外す
     }
 
     // 兄弟フレームがあれば「現在の」スタックを利用
     if (prm_pBoneFrame->pFrameSibling) {
         //_TRACE_("兄弟フレームへいきます");
-        CalcFrameWorldMatrix_old((FrameWorldMatrix*)prm_pBoneFrame->pFrameSibling);
+        CalcBoneAniMeshFrame_old((BoneAniMeshFrame*)prm_pBoneFrame->pFrameSibling);
     }
 }
 
-void WorldMatStack::CalcFrameWorldMatrix(FrameWorldMatrix* prm_pBoneFrame) {
+void BoneAniMeshWorldMatStack::CalcBoneAniMeshFrame(BoneAniMeshFrame* prm_pBoneFrame) {
     // 現在のスタックの先頭にあるワールド変換行列を参照
     D3DXMATRIX *pStackMat = _stack_matrix.top();
 
@@ -114,13 +114,13 @@ void WorldMatStack::CalcFrameWorldMatrix(FrameWorldMatrix* prm_pBoneFrame) {
     // 子フレームがあればスタックを積んで、子フレームのワールド変換座標の計算へ
     if (prm_pBoneFrame->pFrameFirstChild) {
         _stack_matrix.push(&(prm_pBoneFrame->_world_trans_matrix));
-        CalcFrameWorldMatrix((FrameWorldMatrix*)prm_pBoneFrame->pFrameFirstChild);
+        CalcBoneAniMeshFrame((BoneAniMeshFrame*)prm_pBoneFrame->pFrameFirstChild);
         _stack_matrix.pop(); // 子フレームがもう終わったのでスタックを1つ外す
     }
 
     // 兄弟フレームがあれば「現在の」スタックを利用
     if (prm_pBoneFrame->pFrameSibling) {
-        CalcFrameWorldMatrix((FrameWorldMatrix*)prm_pBoneFrame->pFrameSibling);
+        CalcBoneAniMeshFrame((BoneAniMeshFrame*)prm_pBoneFrame->pFrameSibling);
     }
 }
 

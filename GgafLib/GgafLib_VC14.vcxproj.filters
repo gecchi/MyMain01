@@ -333,6 +333,12 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultAniMeshActor.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="include\jp\ggaf\lib\actor\DefaultSkinAniMeshActor.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\lib\actor\DefaultBoneAniMeshActor.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\jp\ggaf\lib\actor\camera\worker\AroundViewCamWorker.cpp">
@@ -632,7 +638,10 @@
     <ClCompile Include="src\jp\ggaf\lib\LibConfig.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\jp\ggaf\lib\actor\DefaultAniMeshActor.cpp">
+    <ClCompile Include="src\jp\ggaf\lib\actor\DefaultSkinAniMeshActor.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\ggaf\lib\actor\DefaultBoneAniMeshActor.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

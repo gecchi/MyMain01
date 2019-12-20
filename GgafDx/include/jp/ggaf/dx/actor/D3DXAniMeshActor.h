@@ -2,7 +2,7 @@
 #define GGAF_DX_D3DXANIMESHACTOR_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/actor/FigureActor.h"
-#include "jp/ggaf/dx/util/WorldMatStack.h"
+#include "jp/ggaf/dx/util/BoneAniMeshWorldMatStack.h"
 namespace GgafDx {
 
 /**
@@ -25,7 +25,7 @@ public:
     D3DXAniMeshEffect* _pD3DXAniMeshEffect;
     /** パペッター（アニメーション操作オブジェクト) */
     Puppeteer* _pPuppeteer;
-    WorldMatStack _stackWorldMat;
+    BoneAniMeshWorldMatStack _stackWorldMat;
     LPD3DXANIMATIONSET* _papAnimationSet;
 
 public:

@@ -28,7 +28,8 @@
 #define TYPE_FRAMEDBOARD_EFFECT              'E'
 #define TYPE_REGULARPOLYGONSPRITE_EFFECT     'R'
 #define TYPE_REGULARPOLYGONBOARD_EFFECT      'r'
-#define TYPE_ANIMESH_EFFECT                  'a'
+#define TYPE_BONEANIMESH_EFFECT              '1'
+#define TYPE_SKINANIMESH_EFFECT              '2'
 
 namespace GgafDx {
 

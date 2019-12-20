@@ -1,10 +1,10 @@
-#include "jp/ggaf/dx/model/AniMeshModel.h"
+#include "jp/ggaf/dx/model/SkinAniMeshModel.h"
 
 #include "jp/ggaf/dx/God.h"
 #include "jp/ggaf/dx/Config.h"
-#include "jp/ggaf/dx/actor/AniMeshActor.h"
+#include "jp/ggaf/dx/actor/SkinAniMeshActor.h"
 #include "jp/ggaf/dx/actor/supporter/Puppeteer.h"
-#include "jp/ggaf/dx/effect/AniMeshEffect.h"
+#include "jp/ggaf/dx/effect/SkinAniMeshEffect.h"
 #include "jp/ggaf/dx/effect/MeshEffect.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/dx/manager/EffectManager.h"
@@ -13,19 +13,20 @@
 #include "jp/ggaf/dx/manager/TextureManager.h"
 #include "jp/ggaf/dx/model/MassModel.h"
 #include "jp/ggaf/dx/texture/Texture.h"
-#include "jp/ggaf/dx/util/AllocHierarchyWorldFrame.h"
+#include "jp/ggaf/dx/util/SkinAniMeshAllocHierarchy.h"
+#include "jp/ggaf/dx/util/SkinAniMeshFrame.h"
 
 #define MAX_FRAME_WORLD_MATRIX (25) //2以上でないとブレイクしないのでダメ
 
 using namespace GgafDx;
-DWORD AniMeshModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_PSIZE | D3DFVF_DIFFUSE | D3DFVF_TEX1);
+DWORD SkinAniMeshModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_PSIZE | D3DFVF_DIFFUSE | D3DFVF_TEX1);
 
-AniMeshModel::AniMeshModel(const char* prm_model_name) : Model(prm_model_name) {
+SkinAniMeshModel::SkinAniMeshModel(const char* prm_model_name) : Model(prm_model_name) {
     _pAllocHierarchy = nullptr;
     _pFrameRoot = nullptr;
     _pAniControllerBase = nullptr;
     _num_materials = 0L;
-    _anim_ticks_per_second = 4800; //restoreAniMeshModel で上書きされる場合がある。
+    _anim_ticks_per_second = 4800; //restoreSkinAniMeshModel で上書きされる場合がある。
     _paVtxBuffer_data = nullptr;
     _paIndexBuffer_data = nullptr;
     _pVertexBuffer = nullptr;
@@ -34,25 +35,25 @@ AniMeshModel::AniMeshModel(const char* prm_model_name) : Model(prm_model_name) {
     _paIndexParam = nullptr;
     _paIndexBuffer_frame_no = nullptr;
     _size_vertices = 0;
-    _size_vertex_unit = sizeof(AniMeshModel::VERTEX);
+    _size_vertex_unit = sizeof(SkinAniMeshModel::VERTEX);
     _nFaces = 0;
     _nVertices = 0;
     _tmp_frame_index = 0;
     _num_animation_set = 0;
     _papaBool_AnimationSetIndex_BoneFrameIndex_is_act = nullptr;
-    _obj_model |= Obj_GgafDx_AniMeshModel;
+    _obj_model |= Obj_GgafDx_SkinAniMeshModel;
 }
 
-HRESULT AniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
-    _TRACE4_("AniMeshModel::draw("<<prm_pActor_target->getName()<<")");
+HRESULT SkinAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
+    _TRACE4_("SkinAniMeshModel::draw("<<prm_pActor_target->getName()<<")");
     IDirect3DDevice9* const pDevice = God::_pID3DDevice9;
     HRESULT hr;
     //対象アクター
-    AniMeshActor* pTargetActor = (AniMeshActor*)prm_pActor_target;
+    SkinAniMeshActor* pTargetActor = (SkinAniMeshActor*)prm_pActor_target;
     //対象MeshActorのエフェクトラッパ
-    AniMeshEffect* pAniMeshEffect = (AniMeshEffect*)(prm_pActor_target->getEffect());
+    SkinAniMeshEffect* pSkinAniMeshEffect = (SkinAniMeshEffect*)(prm_pActor_target->getEffect());
     //対象エフェクト
-    ID3DXEffect* pID3DXEffect = pAniMeshEffect->_pID3DXEffect;
+    ID3DXEffect* pID3DXEffect = pSkinAniMeshEffect->_pID3DXEffect;
     Model* pModelLastDraw = ModelManager::_pModelLastDraw;
     if (pModelLastDraw != this) {
         if (pModelLastDraw && (pModelLastDraw->_obj_model & Obj_GgafDx_MassModel)) {
@@ -60,15 +61,15 @@ HRESULT AniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num,
         }
         //頂点バッファとインデックスバッファを設定
         pDevice->SetStreamSource(0, _pVertexBuffer,  0, _size_vertex_unit);
-        pDevice->SetFVF(AniMeshModel::FVF);
+        pDevice->SetFVF(SkinAniMeshModel::FVF);
         pDevice->SetIndices(_pIndexBuffer);
-        hr = pID3DXEffect->SetFloat(pAniMeshEffect->_h_tex_blink_power, _power_blink);
+        hr = pID3DXEffect->SetFloat(pSkinAniMeshEffect->_h_tex_blink_power, _power_blink);
         checkDxException(hr, D3D_OK, "SetFloat(_h_tex_blink_power) に失敗しました。");
-        hr = pID3DXEffect->SetFloat(pAniMeshEffect->_h_tex_blink_threshold, _blink_threshold);
+        hr = pID3DXEffect->SetFloat(pSkinAniMeshEffect->_h_tex_blink_threshold, _blink_threshold);
         checkDxException(hr, D3D_OK, "SetFloat(_h_tex_blink_threshold) に失敗しました。");
-        hr = pID3DXEffect->SetFloat(pAniMeshEffect->_h_specular, _specular);
+        hr = pID3DXEffect->SetFloat(pSkinAniMeshEffect->_h_specular, _specular);
         checkDxException(hr, D3D_OK, "SetFloat(_h_specular) に失敗しました。");
-        hr = pID3DXEffect->SetFloat(pAniMeshEffect->_h_specular_power, _specular_power);
+        hr = pID3DXEffect->SetFloat(pSkinAniMeshEffect->_h_specular_power, _specular_power);
         checkDxException(hr, D3D_OK, "SetFloat(_h_specular_power) に失敗しました。");
     }
 
@@ -76,7 +77,7 @@ HRESULT AniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num,
     LPDIRECT3DBASETEXTURE9 pTex = _papTextureConnection[0]->peek()->_pIDirect3DBaseTexture9;
     hr = pDevice->SetTexture(0, pTex);
     checkDxException(hr, D3D_OK, "SetTexture に失敗しました。");
-    hr = pID3DXEffect->SetValue(pAniMeshEffect->_h_colMaterialDiffuse, &(pTargetActor->_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
+    hr = pID3DXEffect->SetValue(pSkinAniMeshEffect->_h_colMaterialDiffuse, &(pTargetActor->_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
     checkDxException(hr, D3D_OK, "SetValue(g_colMaterialDiffuse) に失敗しました。");
     Puppeteer* pActorPuppeteer = pTargetActor->_pPuppeteer;
     pActorPuppeteer->updateAnimationTrack(); //アニメーション反映
@@ -88,14 +89,14 @@ HRESULT AniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num,
     int as1_index = pAs1 ? _mapAnimationSet_AniSetindex[pAs1] : -1;
     pTargetActor->_stackWorldMat.UpdateFrame(_pFrameRoot, as0_index, as1_index, _papaBool_AnimationSetIndex_BoneFrameIndex_is_act);
 
-    std::vector<FrameWorldMatrix*>::iterator it_1 = _vecDrawBoneFrame.begin();
+    std::vector<SkinAniMeshFrame*>::iterator it_1 = _vecDrawBoneFrame.begin();
 
 /////////////////////////////////////////////
     for (int i = 0; i < _index_param_num; i++) {
         const INDEXPARAM& idxparam = _paIndexParam[i];
         for (int j = 0; j < MAX_FRAME_WORLD_MATRIX; j++) {
             if (it_1 != _vecDrawBoneFrame.end()) {
-                hr = pID3DXEffect->SetMatrix(pAniMeshEffect->_ah_matWorld[j], &((*it_1)->_world_trans_matrix));
+                hr = pID3DXEffect->SetMatrix(pSkinAniMeshEffect->_ah_matWorld[j], &((*it_1)->_world_trans_matrix));
                 ++it_1;
             } else {
                 break;
@@ -107,9 +108,9 @@ HRESULT AniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num,
             if (pEffect_active) {
                 _TRACE4_("EndPass: /_pEffect_active="<<pEffect_active->_effect_name);
                 hr = pEffect_active->_pID3DXEffect->EndPass();
-                checkDxException(hr, D3D_OK, "AniMeshModel::draw() EndPass() に失敗しました。");
+                checkDxException(hr, D3D_OK, "SkinAniMeshModel::draw() EndPass() に失敗しました。");
                 hr = pEffect_active->_pID3DXEffect->End();
-                checkDxException(hr, D3D_OK, "AniMeshModel::draw() End() に失敗しました。");
+                checkDxException(hr, D3D_OK, "SkinAniMeshModel::draw() End() に失敗しました。");
 #ifdef MY_DEBUG
                 if (pEffect_active->_begin == false) {
                     throwCriticalException("begin していません "<<(pEffect_active==nullptr?"nullptr":pEffect_active->_effect_name)<<"");
@@ -118,26 +119,26 @@ HRESULT AniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num,
                 }
 #endif
             }
-            _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pAniMeshEffect->_effect_name);
+            _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pSkinAniMeshEffect->_effect_name);
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
 
-            _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pAniMeshEffect->_effect_name<<"("<<pAniMeshEffect<<")");
+            _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pSkinAniMeshEffect->_effect_name<<"("<<pSkinAniMeshEffect<<")");
             UINT numPass;
             hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
-            checkDxException(hr, D3D_OK, "AniMeshModel::draw() Begin() に失敗しました。");
+            checkDxException(hr, D3D_OK, "SkinAniMeshModel::draw() Begin() に失敗しました。");
             hr = pID3DXEffect->BeginPass(0);
-            checkDxException(hr, D3D_OK, "AniMeshModel::draw() BeginPass(0) に失敗しました。");
+            checkDxException(hr, D3D_OK, "SkinAniMeshModel::draw() BeginPass(0) に失敗しました。");
 
 #ifdef MY_DEBUG
-            if (pAniMeshEffect->_begin) {
+            if (pSkinAniMeshEffect->_begin) {
                 throwCriticalException("End していません "<<(EffectManager::_pEffect_active==nullptr?"nullptr":EffectManager::_pEffect_active->_effect_name)<<"");
             } else {
-                pAniMeshEffect->_begin = true;
+                pSkinAniMeshEffect->_begin = true;
             }
 #endif
         } else {
             hr = pID3DXEffect->CommitChanges();
-            checkDxException(hr, D3D_OK, "AniMeshModel::draw() CommitChanges() に失敗しました。");
+            checkDxException(hr, D3D_OK, "SkinAniMeshModel::draw() CommitChanges() に失敗しました。");
         }
 
         _TRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
@@ -154,24 +155,24 @@ HRESULT AniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num,
 #endif
     //前回描画モデル名反映
     ModelManager::_pModelLastDraw = this;
-    EffectManager::_pEffect_active = pAniMeshEffect;
+    EffectManager::_pEffect_active = pSkinAniMeshEffect;
     FigureActor::_hash_technique_last_draw = prm_pActor_target->_hash_technique;
     return D3D_OK;
 }
 
-void AniMeshModel::restore() {
+void SkinAniMeshModel::restore() {
     _TRACE3_("_model_name=" << _model_name << " start");
     if (_paVtxBuffer_data == nullptr) {
         HRESULT hr;
         std::string xfile_name = ModelManager::getMeshFileName(_model_name);
         TextureManager* pTextureManager = pGOD->_pModelManager->_pModelTextureManager;
         //AnimTicksPerSecondを独自に取り出す。デフォルトは4800
-        _anim_ticks_per_second = AniMeshModel::getAnimTicksPerSecond(xfile_name);
+        _anim_ticks_per_second = SkinAniMeshModel::getAnimTicksPerSecond(xfile_name);
         if (_anim_ticks_per_second < 0) {
             _anim_ticks_per_second = 4800;
         }
         //Xファイルのファイルロード
-        _pAllocHierarchy = NEW AllocHierarchyWorldFrame(); // CAllocHierarchyBaseの派生クラス
+        _pAllocHierarchy = NEW SkinAniMeshAllocHierarchy(); // CAllocHierarchyBaseの派生クラス
         hr = D3DXLoadMeshHierarchyFromX(
                 xfile_name.c_str(),
                 D3DXMESH_SYSTEMMEM, //D3DXMESH_MANAGED,
@@ -253,10 +254,47 @@ void AniMeshModel::restore() {
 
         //フレームリストを廻って、マテリアル総数取得
         for (int i = 0; i < frame_num; i++) {
-            if (_vecDrawBoneFrame[i]->pMeshContainer == nullptr) {
+            LPD3DXMESHCONTAINER     pMeshContainer = _vecDrawBoneFrame[i]->pMeshContainer;
+            if (pMeshContainer == nullptr) {
                 continue;
             }
             ID3DXMesh* pMesh = _vecDrawBoneFrame[i]->pMeshContainer->MeshData.pMesh;
+
+            DWORD                   MaxVertexInfl;              // nombre maximum d'influence
+            DWORD                   NumBoneCombinations;        // nombre de combinaisons
+            LPD3DXMESH              BlendedMesh;
+            DWORD FaceRemap;
+            ID3DXMesh* pMeshOut;
+            LPD3DXBUFFER	pVertexRemap;
+            LPD3DXBUFFER    pBoneCombinationTable;
+            DWORD Options = D3DXMESH_MANAGED|D3DXMESHOPT_VERTEXCACHE;
+            hr = pMeshContainer->pSkinInfo->ConvertToBlendedMesh(
+                pMesh,                      //[in] LPD3DXMESH pMesh, 入力メッシュ
+                Options,                    //[in] DWORD Options,          未使用？
+                pMeshContainer->pAdjacency, //[in] CONST LPDWORD pAdjacencyIn, 入力メッシュ隣接面情報（配列？）
+                NULL,                       //[out]LPDWORD pAdjacencyOut,     出力メッシュ隣接面情報
+               &FaceRemap,                  //[out]DWORD *pFaceRemap,         面をどう並べ替えたかの情報、不要時NULL
+               &pVertexRemap,               //[out]LPD3DXBUFFER *ppVertexRemap, 頂点をどう並べ替えたかの情報、不要時NULL
+               &MaxVertexInfl,              //[out]DWORD *pMaxFaceInfl, 一つの頂点に影響を与えるボーンの数の最大値
+               &NumBoneCombinations,        //[out]DWORD *pNumBoneCombinations, ボーンコンビネーションの数
+               &pBoneCombinationTable,      //[out]LPD3DXBUFFER *ppBoneCombinationTable, ボーンコンビネーション情報、ボーンと頂点の対応表配列
+               &pMeshOut                    //[out]LPD3DXMESH *ppMesh 出力メッシュ情報、処理済みのメッシュが返ってくる
+              );
+
+//            この関数にはID3DXMeshを入力してID3DXMeshが返ってくる。
+//            もちろんそのまま戻ってくるのではなく、内部では
+//
+//            ○頂点、描画面を並べ替えて最適化
+//            ○ボーンの影響をうける範囲ごとに、メッシュをサブセットに分割
+//            ○頂点情報にブレンド加重値を付与
+//            ○ボーンに合わせて頂点を移動
+//
+//            などの細かい処理が行われている。
+//            使う側としては「この関数を通すとメッシュがスキンに対応する」ことが理解できていれば良い。
+
+//            ConvertToBlenderMesh関数で戻ってくる ID3DXBuffer には、
+//            D3DXBONECOMBINATION構造体が　NumBoneCombinations 個入っている。
+
             vertices_total_num += (int)(pMesh->GetNumVertices());  // 頂点数
             faces_total_num += (int)(pMesh->GetNumFaces());        // ポリゴン数
             materials_total_num += (int)(_vecDrawBoneFrame[i]->pMeshContainer->NumMaterials);
@@ -265,7 +303,7 @@ void AniMeshModel::restore() {
         _num_materials = materials_total_num;
         _nVertices = vertices_total_num;
         _nFaces = faces_total_num;
-        _paVtxBuffer_data =  NEW AniMeshModel::VERTEX[_nVertices];
+        _paVtxBuffer_data =  NEW SkinAniMeshModel::VERTEX[_nVertices];
         _paIndexBuffer_data = NEW WORD[_nFaces*3];
         _paIndexBuffer_frame_no = NEW int[_nFaces*3];
         if (!_paMaterial_default) {
@@ -329,7 +367,7 @@ void AniMeshModel::restore() {
             pVb->Lock(0, nVertices*size_vertex_unit, (void**)&pVertexBuffer, 0);
             for (int j = 0; j < nVertices; j++) {
                 char* p = nullptr;
-                AniMeshModel::VERTEX* pVtx = &(_paVtxBuffer_data[v_cnt]); //書き込む1頂点の開始アドレス
+                SkinAniMeshModel::VERTEX* pVtx = &(_paVtxBuffer_data[v_cnt]); //書き込む1頂点の開始アドレス
                 char* pVertex_base = (char*)pVertexBuffer + (size_vertex_unit*j);  //読み込む1頂点の開始アドレス
                 //    float x, y, z;    // 頂点座標
                 p = pVertex_base + offset_position;
@@ -425,7 +463,7 @@ void AniMeshModel::restore() {
 
 ////////////////////////////////////////////////
         //描画時（DrawIndexedPrimitive）のパラメータリスト作成
-        std::vector<AniMeshModel::INDEXPARAM> param_tmp;
+        std::vector<SkinAniMeshModel::INDEXPARAM> param_tmp;
 
         int paramno = 0;
 
@@ -446,7 +484,7 @@ void AniMeshModel::restore() {
                 prev_faceNoCnt_break = faceNoCnt_break;
                 faceNoCnt_break = faceNoCnt;
 
-                param_tmp.push_back(AniMeshModel::INDEXPARAM());
+                param_tmp.push_back(SkinAniMeshModel::INDEXPARAM());
                 param_tmp[paramno].MaterialNo = 0;
                 param_tmp[paramno].BaseVertexIndex = 0;
                 param_tmp[paramno].MinIndex = UINT_MAX; //次回ブレイク時に設定、必ずブレイクしたいため変な値にしとく
@@ -495,7 +533,7 @@ void AniMeshModel::restore() {
             param_tmp[paramno-1].PrimitiveCount = (UINT)(faceNoCnt - faceNoCnt_break);
         }
         _index_param_num = paramno;
-        _paIndexParam = NEW AniMeshModel::INDEXPARAM[paramno];
+        _paIndexParam = NEW SkinAniMeshModel::INDEXPARAM[paramno];
         for (int i = 0; i < paramno; i++) {
             _paIndexParam[i].MaterialNo      = param_tmp[i].MaterialNo;
             _paIndexParam[i].BaseVertexIndex = param_tmp[i].BaseVertexIndex;
@@ -508,7 +546,7 @@ void AniMeshModel::restore() {
 
 //        _TRACE_("まとめ！");
 //        for (int i = 0; i < _nVertices; i++) {
-//            AniMeshModel::VERTEX* pVtx = &(_paVtxBuffer_data[i]); //書き込む1頂点の開始アドレス
+//            SkinAniMeshModel::VERTEX* pVtx = &(_paVtxBuffer_data[i]); //書き込む1頂点の開始アドレス
 //            _TRACE_("["<<i<<"]:Vertex=("<<(pVtx->x)<<","<<(pVtx->y)<<","<<(pVtx->z)<<")  Normal=("<<(pVtx->nx)<<","<<(pVtx->ny)<<","<<(pVtx->nz)<<")");
 //        }
 //        for (int i = 0; i < _nFaces; ++i) {
@@ -535,7 +573,7 @@ void AniMeshModel::restore() {
         hr = God::_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices,
                 D3DUSAGE_WRITEONLY,
-                AniMeshModel::FVF,
+                SkinAniMeshModel::FVF,
                 D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
                 &(_pVertexBuffer),
                 nullptr);
@@ -568,7 +606,7 @@ void AniMeshModel::restore() {
     _TRACE3_("_model_name=" << _model_name << " end");
 }
 
-ID3DXAnimationController* AniMeshModel::getCloneAnimationController() {
+ID3DXAnimationController* SkinAniMeshModel::getCloneAnimationController() {
     ID3DXAnimationController* _pAc = nullptr;
     HRESULT hr = _pAniControllerBase->CloneAnimationController(
                                 _pAniControllerBase->GetMaxNumAnimationOutputs(),
@@ -579,9 +617,9 @@ ID3DXAnimationController* AniMeshModel::getCloneAnimationController() {
     checkDxException(hr, D3D_OK, "アニメーションコントローラーのクローンに失敗しました。");
     return _pAc;
 }
-int AniMeshModel::getAnimTicksPerSecond(std::string& prm_xfile_name) {
+int SkinAniMeshModel::getAnimTicksPerSecond(std::string& prm_xfile_name) {
     if (prm_xfile_name == "") {
-         throwCriticalException("AniMeshModel::getAnimTicksPerSecond() メッシュファイル(*.x)が見つかりません。");
+         throwCriticalException("SkinAniMeshModel::getAnimTicksPerSecond() メッシュファイル(*.x)が見つかりません。");
     }
     //XファイルからAnimTicksPerSecondの値を独自に取り出す
     std::ifstream ifs(prm_xfile_name.c_str());
@@ -614,7 +652,7 @@ int AniMeshModel::getAnimTicksPerSecond(std::string& prm_xfile_name) {
     return anim_ticks_per_second;
 }
 
-void AniMeshModel::setFrameInfo(FrameWorldMatrix* prm_pFrame) {
+void SkinAniMeshModel::setFrameInfo(SkinAniMeshFrame* prm_pFrame) {
     prm_pFrame->_frame_index = _tmp_frame_index; //フレームインデックスを保持
     _tmp_frame_index++;
 
@@ -625,14 +663,14 @@ void AniMeshModel::setFrameInfo(FrameWorldMatrix* prm_pFrame) {
     }
     if (prm_pFrame->pFrameFirstChild) {
         // 子フレーム有り
-        setFrameInfo((FrameWorldMatrix*)prm_pFrame->pFrameFirstChild);
+        setFrameInfo((SkinAniMeshFrame*)prm_pFrame->pFrameFirstChild);
     }
     if (prm_pFrame->pFrameSibling) {
         //兄弟フレーム有り
-        setFrameInfo((FrameWorldMatrix*)prm_pFrame->pFrameSibling);
+        setFrameInfo((SkinAniMeshFrame*)prm_pFrame->pFrameSibling);
     }
 }
-int AniMeshModel::getOffsetFromElem( D3DVERTEXELEMENT9 *elems, D3DDECLUSAGE usage ) {
+int SkinAniMeshModel::getOffsetFromElem( D3DVERTEXELEMENT9 *elems, D3DDECLUSAGE usage ) {
     D3DVERTEXELEMENT9 *e = elems;
     while( e->Stream != 0xff ) {
         if ( e->Usage == usage )
@@ -642,14 +680,14 @@ int AniMeshModel::getOffsetFromElem( D3DVERTEXELEMENT9 *elems, D3DDECLUSAGE usag
     return -1;
 }
 
-void AniMeshModel::onDeviceLost() {
+void SkinAniMeshModel::onDeviceLost() {
     _TRACE3_("_model_name=" << _model_name << " start");
     //デバイスロスト時は解放します。
     release();
     _TRACE3_("_model_name=" << _model_name << " end");
 }
 
-void AniMeshModel::release() {
+void SkinAniMeshModel::release() {
     _TRACE3_("_model_name=" << _model_name << " start");
     if (_papTextureConnection) {
         for (int i = 0; i < (int)_num_materials; i++) {
@@ -665,7 +703,7 @@ void AniMeshModel::release() {
     _TRACE3_("_model_name=" << _model_name << " end");
 }
 
-AniMeshModel::~AniMeshModel() {
+SkinAniMeshModel::~SkinAniMeshModel() {
     for (UINT ani_set_index = 0; ani_set_index < _num_animation_set; ani_set_index++) {
         bool* p = _papaBool_AnimationSetIndex_BoneFrameIndex_is_act[ani_set_index];
         GGAF_DELETEARR(p);

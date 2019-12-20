@@ -13,7 +13,7 @@ using namespace GgafLib;
 using namespace Mogera;
 
 AniTest2::AniTest2(const char* prm_name) :
-        DefaultAniMeshActor(prm_name, "AnimatedSkelton") {
+        DefaultBoneAniMeshActor(prm_name, "AnimatedSkelton") {
     _class_name = "AniTest2";
     setScaleR(0.2);
     setMaterialColor(0.4, 1.0, 0.6);

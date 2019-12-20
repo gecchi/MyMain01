@@ -1,7 +1,7 @@
 #ifndef ANITEST2_H_
 #define ANITEST2_H_
 #include "Mogera.h"
-#include "jp/ggaf/lib/actor/DefaultAniMeshActor.h"
+#include "jp/ggaf/lib/actor/DefaultBoneAniMeshActor.h"
 
 #include <iostream>
 #include <fstream>
@@ -14,7 +14,7 @@ namespace Mogera {
  * @since 2015/02/13
  * @author Masatoshi Tsuge
  */
-class AniTest2 : public GgafLib::DefaultAniMeshActor {
+class AniTest2 : public GgafLib::DefaultBoneAniMeshActor {
 public:
     /**
      * コンストラクタ

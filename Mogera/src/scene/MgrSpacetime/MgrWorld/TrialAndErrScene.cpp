@@ -30,6 +30,7 @@ enum {
     PROG_BANPEI,
 };
 
+
 TrialAndErrScene::TrialAndErrScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "TrialAndErrScene";
     pTest_ = nullptr;
@@ -217,5 +218,6 @@ void TrialAndErrScene::processBehavior() {
 
 TrialAndErrScene::~TrialAndErrScene() {
 }
+
 
 

@@ -1,5 +1,5 @@
-#ifndef GGAF_DX_ANIMESHEFFECT_H_
-#define GGAF_DX_ANIMESHEFFECT_H_
+#ifndef GGAF_DX_SKINANIMESHEFFECT_H_
+#define GGAF_DX_SKINANIMESHEFFECT_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/effect/Effect.h"
 
@@ -11,7 +11,7 @@ namespace GgafDx {
  * @since 2009/03/09
  * @author Masatoshi Tsuge
  */
-class AniMeshEffect : public Effect {
+class SkinAniMeshEffect : public Effect {
     friend class EffectManager;
 
 public:
@@ -31,18 +31,18 @@ public:
      * @param prm_effect_name エフェクト識別名。".fx"を追加するとエフェクトファイル名になる。
      * @return
      */
-    AniMeshEffect(const char* prm_effect_name);
+    SkinAniMeshEffect(const char* prm_effect_name);
 
 
     virtual void setParamPerFrame() override;
 
     /**
      * デストラクタ<BR>
-     * deleteするのはAniMeshEffectManagerである<BR>
+     * deleteするのはSkinAniMeshEffectManagerである<BR>
      */
-    virtual ~AniMeshEffect(); //デストラクタ
+    virtual ~SkinAniMeshEffect(); //デストラクタ
 
 };
 
 }
-#endif /*GGAF_DX_ANIMESHEFFECT_H_*/
+#endif /*GGAF_DX_SKINANIMESHEFFECT_H_*/

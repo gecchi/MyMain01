@@ -13,7 +13,7 @@
 #include "jp/ggaf/dx/manager/TextureManager.h"
 #include "jp/ggaf/dx/model/MassModel.h"
 #include "jp/ggaf/dx/texture/Texture.h"
-#include "jp/ggaf/dx/util/AllocHierarchyWorldFrame.h"
+#include "jp/ggaf/dx/util/BoneAniMeshAllocHierarchy.h"
 
 
 using namespace GgafDx;
@@ -53,8 +53,8 @@ HRESULT D3DXAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
     //モデルのワールド変換行列更新
     pTargetActor->_stackWorldMat.SetWorldMatrix(&(pTargetActor->_matWorld));
     pTargetActor->_stackWorldMat.UpdateFrame(_pFrameRoot);
-    std::list< FrameWorldMatrix* > *pDrawList = pTargetActor->_stackWorldMat.GetDrawList(); // 描画リストを取得
-    std::list<FrameWorldMatrix*>::iterator it = pDrawList->begin();
+    std::list< BoneAniMeshFrame* > *pDrawList = pTargetActor->_stackWorldMat.GetDrawList(); // 描画リストを取得
+    std::list<BoneAniMeshFrame*>::iterator it = pDrawList->begin();
 
     IDirect3DDevice9* const pDevice = God::_pID3DDevice9;
     int n = 0;
@@ -204,8 +204,8 @@ void D3DXAniMeshModel::restore() {
 //    LPD3DXBUFFER pID3DXBuffer; //受け取り用バッファ（マテリアル用）
     HRESULT hr;
     //Xファイルのファイルロード
-    AllocHierarchyWorldFrame* pAllocHierarchy = NEW AllocHierarchyWorldFrame(); // CAllocHierarchyBaseの派生クラス
-    FrameWorldMatrix* pFrameRoot; // ワールド変換行列付きフレーム構造体
+    BoneAniMeshAllocHierarchy* pAllocHierarchy = NEW BoneAniMeshAllocHierarchy(); // CAllocHierarchyBaseの派生クラス
+    BoneAniMeshFrame* pFrameRoot; // ワールド変換行列付きフレーム構造体
     ID3DXAnimationController* pAC; // アニメーションコントローラ
     hr = D3DXLoadMeshHierarchyFromX(
             xfile_name.c_str(),
@@ -222,9 +222,9 @@ void D3DXAniMeshModel::restore() {
         throwCriticalException(xfile_name<<" のフレーム情報が取得できません！");
     }
     //マテリアル配列を作成
-    std::list<FrameWorldMatrix*> listFrame;
+    std::list<BoneAniMeshFrame*> listFrame;
     getDrawFrameList(&listFrame, pFrameRoot); //マテリアル総数を知りたいがため、フレームを廻り、リスト化
-    std::list<FrameWorldMatrix*>::iterator it = listFrame.begin();
+    std::list<BoneAniMeshFrame*>::iterator it = listFrame.begin();
     int model_nMaterials = 0;
     //フレームリストを廻って、マテリアル総数取得
     for (int i = 0; it != listFrame.end(); i++, ++it) {
@@ -282,18 +282,18 @@ void D3DXAniMeshModel::restore() {
     _TRACE3_("_model_name=" << _model_name << " end");
 }
 
-void D3DXAniMeshModel::getDrawFrameList(std::list<FrameWorldMatrix*>* pList, FrameWorldMatrix* pFrame) {
+void D3DXAniMeshModel::getDrawFrameList(std::list<BoneAniMeshFrame*>* pList, BoneAniMeshFrame* pFrame) {
     if (pFrame->pMeshContainer) {
         //メッシュコンテナ有り
         pList->push_back(pFrame); //リストに追加
     }
     if (pFrame->pFrameFirstChild) {
         // 子フレーム有り
-        getDrawFrameList(pList, (FrameWorldMatrix*)pFrame->pFrameFirstChild);
+        getDrawFrameList(pList, (BoneAniMeshFrame*)pFrame->pFrameFirstChild);
     }
     if (pFrame->pFrameSibling) {
         //兄弟フレーム有り
-        getDrawFrameList(pList, (FrameWorldMatrix*)pFrame->pFrameSibling);
+        getDrawFrameList(pList, (BoneAniMeshFrame*)pFrame->pFrameSibling);
     }
 }
 

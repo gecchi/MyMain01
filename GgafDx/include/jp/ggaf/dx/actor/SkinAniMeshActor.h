@@ -1,39 +1,39 @@
-#ifndef GGAF_DX_ANIMESHACTOR_H_
-#define GGAF_DX_ANIMESHACTOR_H_
+#ifndef GGAF_DX_SKINANIMESHACTOR_H_
+#define GGAF_DX_SKINANIMESHACTOR_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/actor/FigureActor.h"
 
-#include "jp/ggaf/dx/util/WorldMatStack.h"
+#include "jp/ggaf/dx/util/SkinAniMeshWorldMatStack.h"
 
 namespace GgafDx {
 
 /**
- * フレームアニメーション付きメッシュアクター.
+ * スキンアニメーション付きメッシュアクター.
  * FigureActor を継承し、Xファイル定義の
  * フレームアニメーションメッシュ表示機能を<BR>
  * 追加したアクターです<BR>
  * アニメーションはパペッター(Puppeteer)にお願いします。<BR>
  * @version 1.00
- * @since 2019/11/26
+ * @since 2019/12/20
  * @author Masatoshi Tsuge
  */
-class AniMeshActor : public FigureActor {
+class SkinAniMeshActor : public FigureActor {
 
 public:
     static DWORD FVF;
     /** モデル */
-    AniMeshModel* _pAniMeshModel;
+    SkinAniMeshModel* _pSkinAniMeshModel;
     /** エフェクト資源 */
-    AniMeshEffect* _pAniMeshEffect;
+    SkinAniMeshEffect* _pSkinAniMeshEffect;
     /** パペッター（アニメーション操作オブジェクト) */
     Puppeteer* _pPuppeteer;
 
-    WorldMatStack _stackWorldMat;
+    SkinAniMeshWorldMatStack _stackWorldMat;
 
     LPD3DXANIMATIONSET* _papAnimationSet;
 
 public:
-    AniMeshActor(const char* prm_name,
+    SkinAniMeshActor(const char* prm_name,
                  const char* prm_model_id,
                  const char* prm_effect_id,
                  const char* prm_technique,
@@ -45,8 +45,8 @@ public:
         return _pPuppeteer;
     }
 
-    virtual ~AniMeshActor(); //デストラクタ
+    virtual ~SkinAniMeshActor(); //デストラクタ
 };
 
 }
-#endif /*GGAF_DX_ANIMESHACTOR_H_*/
+#endif /*GGAF_DX_SKINANIMESHACTOR_H_*/

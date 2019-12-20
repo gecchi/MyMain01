@@ -1,5 +1,5 @@
-#ifndef GGAF_DX_ANIMESHMODELL_H_
-#define GGAF_DX_ANIMESHMODELL_H_
+#ifndef GGAF_DX_SKINANIMESHMODEL_H_
+#define GGAF_DX_SKINANIMESHMODEL_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include <map>
@@ -9,12 +9,12 @@ namespace GgafDx {
 
 /**
  * D3DXActor用モデルクラス.(未使用、自前のアニメーションフレームで解決。appendGroupChildAsFk()で事足りる)
- * AniMeshModel は D3DXLoadMeshFromX を使用して、Xファイルからモデルデータを読み込み設定する。<BR>
+ * SkinAniMeshModel は D3DXLoadMeshFromX を使用して、Xファイルからモデルデータを読み込み設定する。<BR>
  * @version 1.00
  * @since 2009/11/25
  * @author Masatoshi Tsuge
  */
-class AniMeshModel : public Model {
+class SkinAniMeshModel : public Model {
     friend class ModelManager;
 
 public:
@@ -34,7 +34,7 @@ public:
         UINT PrimitiveCount;
     };
 
-    AniMeshModel::VERTEX* _paVtxBuffer_data;
+    SkinAniMeshModel::VERTEX* _paVtxBuffer_data;
     WORD* _paIndexBuffer_data;
     /** インデックスバッファ番号に対応する頂点バッファのフレームメッシュ番号 */
     int* _paIndexBuffer_frame_no;
@@ -52,17 +52,17 @@ public:
     UINT _size_vertices;
     int _index_param_num;
     INDEXPARAM* _paIndexParam;
-    /** FrameWorldMatrix取り扱いAllocateHierarchyクラス */
-    AllocHierarchyWorldFrame* _pAllocHierarchy;
+    /** SkinAniMeshFrame取り扱いAllocateHierarchyクラス */
+    SkinAniMeshAllocHierarchy* _pAllocHierarchy;
     /** ワールド変換行列付きフレーム構造体のルート */
-    FrameWorldMatrix* _pFrameRoot;
+    SkinAniMeshFrame* _pFrameRoot;
     /** アニメーションコントローラ、Actor生成時にはこれが clone されてActorに保持されることになる */
     ID3DXAnimationController* _pAniControllerBase;
 
     /** _pFrameRoot を巡ってフレームを直列化したもの、要素番号はフレームインデックスと呼称する  */
-    std::vector<FrameWorldMatrix*> _vecAllBoneFrame;
+    std::vector<SkinAniMeshFrame*> _vecAllBoneFrame;
     /** _pFrameRoot を巡ってメッシュコンテナがある描画対象フレームを直列化したもの、要素番号はただの連番  */
-    std::vector<FrameWorldMatrix*> _vecDrawBoneFrame;
+    std::vector<SkinAniMeshFrame*> _vecDrawBoneFrame;
 
 
     /** 総アニメーションセット数 */
@@ -84,7 +84,7 @@ public:
      * @param prm_model モデルの識別名。".x"を追加すると定義Xファイル名になる。
      * @return
      */
-    AniMeshModel(const char* prm_model);
+    SkinAniMeshModel(const char* prm_model);
 
     virtual HRESULT draw(FigureActor* prm_pActor_target, int prm_draw_set_num = 1, void* prm_pPrm = nullptr) override;
 
@@ -95,8 +95,8 @@ public:
     static int getAnimTicksPerSecond(std::string& prm_xfile_name);
 
     /** フレームを巡って情報取得 */
-    void setFrameInfo(FrameWorldMatrix* prm_pFrame);
-    /** setFrameInfo(FrameWorldMatrix*) で使用される、frame_indexの通し番号 */
+    void setFrameInfo(SkinAniMeshFrame* prm_pFrame);
+    /** setFrameInfo(SkinAniMeshFrame*) で使用される、frame_indexの通し番号 */
     UINT _tmp_frame_index;
 
     int getOffsetFromElem( D3DVERTEXELEMENT9 *elems, D3DDECLUSAGE usage );
@@ -107,11 +107,11 @@ public:
 
     /**
      * デストラクタ<BR>
-     * deleteするのはAniMeshModelManagerである<BR>
+     * deleteするのはSkinAniMeshModelManagerである<BR>
      */
-    virtual ~AniMeshModel(); //デストラクタ
+    virtual ~SkinAniMeshModel(); //デストラクタ
 
 };
 
 }
-#endif /*GGAF_DX_ANIMESHMODELL_H_*/
+#endif /*GGAF_DX_SKINANIMESHMODEL_H_*/

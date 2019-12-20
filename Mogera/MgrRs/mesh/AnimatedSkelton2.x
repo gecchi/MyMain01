@@ -2699,7 +2699,7 @@ AnimationSet AnimationSet3 {
   AnimationKey
   {
    0;  // Rotation
-   2;
+   3;
 
    0;   4;  1.0, 0.0, 0.0, 0.0;;,
    1200; 4;  0.203223,0.228321,0.949051,0.076635;;;

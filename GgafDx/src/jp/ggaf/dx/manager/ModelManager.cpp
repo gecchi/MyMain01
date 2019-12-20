@@ -43,13 +43,14 @@
 #include "jp/ggaf/dx/model/FramedBoardModel.h"
 #include "jp/ggaf/dx/model/RegularPolygonSpriteModel.h"
 #include "jp/ggaf/dx/model/RegularPolygonBoardModel.h"
-#include "jp/ggaf/dx/model/AniMeshModel.h"
+#include "jp/ggaf/dx/model/BoneAniMeshModel.h"
+#include "jp/ggaf/dx/model/SkinAniMeshModel.h"
 #include "jp/ggaf/dx/model/ex/CubeMapMeshModel.h"
 #include "jp/ggaf/dx/model/ex/CubeMapMeshSetModel.h"
 #include "jp/ggaf/dx/model/ex/CubeMapMorphMeshModel.h"
 #include "jp/ggaf/dx/model/ex/WorldBoundModel.h"
-#include "jp/ggaf/dx/util/WorldMatStack.h"
-#include "jp/ggaf/dx/util/AllocHierarchyWorldFrame.h"
+#include "jp/ggaf/dx/util/BoneAniMeshWorldMatStack.h"
+#include "jp/ggaf/dx/util/BoneAniMeshAllocHierarchy.h"
 #include "jp/ggaf/dx/manager/TextureConnection.h"
 #include "jp/ggaf/dx/texture/Texture.h"
 #include "jp/ggaf/dx/manager/ModelConnection.h"
@@ -211,8 +212,11 @@ Model* ModelManager::processCreateResource(const char* prm_idstr, void* prm_pCon
         case TYPE_REGULARPOLYGONBOARD_MODEL:
             pResourceModel = createModel<RegularPolygonBoardModel>(model_name);
             break;
-        case TYPE_ANIMESH_MODEL:
-            pResourceModel = createModel<AniMeshModel>(model_name);
+        case TYPE_BONEANIMESH_MODEL:
+            pResourceModel = createModel<BoneAniMeshModel>(model_name);
+            break;
+        case TYPE_SKINANIMESH_MODEL:
+            pResourceModel = createModel<SkinAniMeshModel>(model_name);
             break;
         default:
             throwCriticalException("prm_idstr="<<prm_idstr<<" の '"<<model_type<<"' ・・・そんなモデル種別は知りません");

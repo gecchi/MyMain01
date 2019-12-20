@@ -286,7 +286,8 @@ enum Valign {
 #define Obj_GgafDx_FramedBoardActor           (0x1000000000ULL)  //0b 00000000 00000000 00000000 00010000 00000000 00000000 00000000 00000000
 #define Obj_GgafDx_RegularPolygonSpriteActor  (0x2000000000ULL)  //0b 00000000 00000000 00000000 00100000 00000000 00000000 00000000 00000000
 #define Obj_GgafDx_RegularPolygonBoardActor   (0x4000000000ULL)  //0b 00000000 00000000 00000000 01000000 00000000 00000000 00000000 00000000
-#define Obj_GgafDx_AniMeshActor               (0x8000000000ULL)  //0b 00000000 00000000 00000000 10000000 00000000 00000000 00000000 00000000
+#define Obj_GgafDx_BoneAniMeshActor           (0x8000000000ULL)  //0b 00000000 00000000 00000000 10000000 00000000 00000000 00000000 00000000
+#define Obj_GgafDx_SkinAniMeshActor          (0x10000000000ULL)  //0b 00000000 00000000 00000001 00000000 00000000 00000000 00000000 00000000
 
 //ëOï˚êÈåæ(forward declaration)
 namespace IkdLib {
@@ -322,9 +323,12 @@ class EffectConnection;
 class EffectManager;
 
 class AllocHierarchy;
-class FrameWorldMatrix;
-class AllocHierarchyWorldFrame;
-class WorldMatStack;
+class BoneAniMeshFrame;
+class SkinAniMeshFrame;
+class BoneAniMeshAllocHierarchy;
+class SkinAniMeshAllocHierarchy;
+class BoneAniMeshWorldMatStack;
+class SkinAniMeshWorldMatStack;
 
 class ICubeMapActor;
 class IBumpMapActor;
@@ -367,7 +371,8 @@ class PointSpriteSetActor;
 class FramedBoardActor;
 class RegularPolygonSpriteActor;
 class RegularPolygonBoardActor;
-class AniMeshActor;
+class BoneAniMeshActor;
+class SkinAniMeshActor;
 
 class Model;
 class MassModel;
@@ -394,7 +399,8 @@ class PointSpriteSetModel;
 class FramedBoardModel;
 class RegularPolygonSpriteModel;
 class RegularPolygonBoardModel;
-class AniMeshModel;
+class BoneAniMeshModel;
+class SkinAniMeshModel;
 
 class Effect;
 class MassEffect;
@@ -420,7 +426,8 @@ class PointSpriteSetEffect;
 class FramedBoardEffect;
 class RegularPolygonSpriteEffect;
 class RegularPolygonBoardEffect;
-class AniMeshEffect;
+class BoneAniMeshEffect;
+class SkinAniMeshEffect;
 
 class Texture;
 

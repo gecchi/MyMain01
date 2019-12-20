@@ -1,4 +1,4 @@
-#include "jp/ggaf/dx/effect/AniMeshEffect.h"
+#include "jp/ggaf/dx/effect/SkinAniMeshEffect.h"
 
 #include "jp/ggaf/dx/God.h"
 #include "jp/ggaf/dx/Config.h"
@@ -7,8 +7,8 @@
 
 using namespace GgafDx;
 
-AniMeshEffect::AniMeshEffect(const char* prm_effect_name) : Effect(prm_effect_name) {
-    _obj_effect |= Obj_GgafDx_AniMeshEffect;
+SkinAniMeshEffect::SkinAniMeshEffect(const char* prm_effect_name) : Effect(prm_effect_name) {
+    _obj_effect |= Obj_GgafDx_SkinAniMeshEffect;
     Camera* pCam = pGOD->getSpacetime()->getCamera();
     D3DLIGHT9* pLight = &(pGOD->_d3dlight9_default);
     //シェーダー共通のグローバル変数設定
@@ -71,7 +71,7 @@ AniMeshEffect::AniMeshEffect(const char* prm_effect_name) : Effect(prm_effect_na
     _ah_matWorld[29]  = _pID3DXEffect->GetParameterByName( nullptr, "g_matWorld030" );
 }
 
-void AniMeshEffect::setParamPerFrame() {
+void SkinAniMeshEffect::setParamPerFrame() {
     Camera* pCam = pGOD->getSpacetime()->getCamera();
     HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, pCam->getViewMatrix() );
     checkDxException(hr, D3D_OK, "setParamPerFrame SetMatrix(_h_matView) に失敗しました。");
@@ -80,6 +80,6 @@ void AniMeshEffect::setParamPerFrame() {
 }
 
 
-AniMeshEffect::~AniMeshEffect() {
+SkinAniMeshEffect::~SkinAniMeshEffect() {
 }
 

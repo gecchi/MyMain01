@@ -1,8 +1,8 @@
 #include "jp/ggaf/dx/actor/supporter/Puppeteer.h"
 
 #include "jp/ggaf/dx/exception/CriticalException.h"
-#include "jp/ggaf/dx/model/AniMeshModel.h"
-#include "jp/ggaf/dx/actor/AniMeshActor.h"
+#include "jp/ggaf/dx/model/BoneAniMeshModel.h"
+#include "jp/ggaf/dx/actor/BoneAniMeshActor.h"
 
 
 using namespace GgafDx;

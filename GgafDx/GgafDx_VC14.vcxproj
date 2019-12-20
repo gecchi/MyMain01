@@ -36,10 +36,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ggafdxcommonheader.h" />
-    <ClInclude Include="include\jp\ggaf\dx\actor\AniMeshActor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\BaseActor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\BoardActor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\BoardSetActor.h" />
+    <ClInclude Include="include\jp\ggaf\dx\actor\BoneAniMeshActor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\camera\Camera.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\camera\CameraUpVector.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\camera\CameraViewPoint.h" />
@@ -76,6 +76,7 @@
     <ClInclude Include="include\jp\ggaf\dx\actor\RegularPolygonBoardActor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\RegularPolygonSpriteActor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\SceneMediator.h" />
+    <ClInclude Include="include\jp\ggaf\dx\actor\SkinAniMeshActor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\SpriteActor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\SpriteSetActor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\AlphaFader.h" />
@@ -94,9 +95,9 @@
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\SeTransmitterForActor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\UvFlipper.h" />
     <ClInclude Include="include\jp\ggaf\dx\Config.h" />
-    <ClInclude Include="include\jp\ggaf\dx\effect\AniMeshEffect.h" />
     <ClInclude Include="include\jp\ggaf\dx\effect\BoardEffect.h" />
     <ClInclude Include="include\jp\ggaf\dx\effect\BoardSetEffect.h" />
+    <ClInclude Include="include\jp\ggaf\dx\effect\BoneAniMeshEffect.h" />
     <ClInclude Include="include\jp\ggaf\dx\effect\D3DXAniMeshEffect.h" />
     <ClInclude Include="include\jp\ggaf\dx\effect\Effect.h" />
     <ClInclude Include="include\jp\ggaf\dx\effect\ex\CubeMapMeshEffect.h" />
@@ -117,6 +118,7 @@
     <ClInclude Include="include\jp\ggaf\dx\effect\PointSpriteSetEffect.h" />
     <ClInclude Include="include\jp\ggaf\dx\effect\RegularPolygonBoardEffect.h" />
     <ClInclude Include="include\jp\ggaf\dx\effect\RegularPolygonSpriteEffect.h" />
+    <ClInclude Include="include\jp\ggaf\dx\effect\SkinAniMeshEffect.h" />
     <ClInclude Include="include\jp\ggaf\dx\effect\SpriteEffect.h" />
     <ClInclude Include="include\jp\ggaf\dx\effect\SpriteSetEffect.h" />
     <ClInclude Include="include\jp\ggaf\dx\exception\CriticalException.h" />
@@ -131,9 +133,9 @@
     <ClInclude Include="include\jp\ggaf\dx\manager\SeManager.h" />
     <ClInclude Include="include\jp\ggaf\dx\manager\TextureConnection.h" />
     <ClInclude Include="include\jp\ggaf\dx\manager\TextureManager.h" />
-    <ClInclude Include="include\jp\ggaf\dx\model\AniMeshModel.h" />
     <ClInclude Include="include\jp\ggaf\dx\model\BoardModel.h" />
     <ClInclude Include="include\jp\ggaf\dx\model\BoardSetModel.h" />
+    <ClInclude Include="include\jp\ggaf\dx\model\BoneAniMeshModel.h" />
     <ClInclude Include="include\jp\ggaf\dx\model\D3DXAniMeshModel.h" />
     <ClInclude Include="include\jp\ggaf\dx\model\D3DXMeshModel.h" />
     <ClInclude Include="include\jp\ggaf\dx\model\ex\CubeMapMeshModel.h" />
@@ -155,6 +157,7 @@
     <ClInclude Include="include\jp\ggaf\dx\model\PointSpriteSetModel.h" />
     <ClInclude Include="include\jp\ggaf\dx\model\RegularPolygonBoardModel.h" />
     <ClInclude Include="include\jp\ggaf\dx\model\RegularPolygonSpriteModel.h" />
+    <ClInclude Include="include\jp\ggaf\dx\model\SkinAniMeshModel.h" />
     <ClInclude Include="include\jp\ggaf\dx\model\SpriteModel.h" />
     <ClInclude Include="include\jp\ggaf\dx\model\SpriteSetModel.h" />
     <ClInclude Include="include\jp\ggaf\dx\model\supporter\TextureBlinker.h" />
@@ -176,15 +179,20 @@
     <ClInclude Include="include\jp\ggaf\dx\sound\Sound.h" />
     <ClInclude Include="include\jp\ggaf\dx\texture\Texture.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\AllocHierarchy.h" />
-    <ClInclude Include="include\jp\ggaf\dx\util\AllocHierarchyWorldFrame.h" />
+    <ClInclude Include="include\jp\ggaf\dx\util\BoneAniMeshAllocHierarchy.h" />
+    <ClInclude Include="include\jp\ggaf\dx\util\BoneAniMeshFrame.h" />
+    <ClInclude Include="include\jp\ggaf\dx\util\BoneAniMeshWorldMatStack.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\CollisionArea.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\CollisionPart.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\FrameWorldMatrix.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\GeoElem.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\Input.h" />
+    <ClInclude Include="include\jp\ggaf\dx\util\SkinAniMeshAllocHierarchy.h" />
+    <ClInclude Include="include\jp\ggaf\dx\util\SkinAniMeshContainer.h" />
+    <ClInclude Include="include\jp\ggaf\dx\util\SkinAniMeshFrame.h" />
+    <ClInclude Include="include\jp\ggaf\dx\util\SkinAniMeshWorldMatStack.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\SphereRadiusVectors.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\Util.h" />
-    <ClInclude Include="include\jp\ggaf\dx\util\WorldMatStack.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\XFile\framework\Frm_3DMath.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\XFile\framework\Frm_IO.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\XFile\framework\Frm_Material.h" />
@@ -194,10 +202,10 @@
     <ClInclude Include="include\jp\ggaf\dx\util\XFile\Toolbox\XFileStructs.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\jp\ggaf\dx\actor\AniMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\BaseActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\BoardActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\BoardSetActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\dx\actor\BoneAniMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\camera\Camera.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\camera\CameraUpVector.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\camera\CameraViewPoint.cpp" />
@@ -234,6 +242,7 @@
     <ClCompile Include="src\jp\ggaf\dx\actor\RegularPolygonBoardActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\RegularPolygonSpriteActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\SceneMediator.cpp" />
+    <ClCompile Include="src\jp\ggaf\dx\actor\SkinAniMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\SpriteActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\SpriteSetActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\AlphaFader.cpp" />
@@ -250,9 +259,9 @@
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\SeTransmitterForActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\UvFlipper.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\Config.cpp" />
-    <ClCompile Include="src\jp\ggaf\dx\effect\AniMeshEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\effect\BoardEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\effect\BoardSetEffect.cpp" />
+    <ClCompile Include="src\jp\ggaf\dx\effect\BoneAniMeshEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\effect\D3DXAniMeshEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\effect\Effect.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\effect\ex\CubeMapMeshEffect.cpp" />
@@ -273,6 +282,7 @@
     <ClCompile Include="src\jp\ggaf\dx\effect\PointSpriteSetEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\effect\RegularPolygonBoardEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\effect\RegularPolygonSpriteEffect.cpp" />
+    <ClCompile Include="src\jp\ggaf\dx\effect\SkinAniMeshEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\effect\SpriteEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\effect\SpriteSetEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\exception\CriticalException.cpp" />
@@ -287,9 +297,9 @@
     <ClCompile Include="src\jp\ggaf\dx\manager\SeManager.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\manager\TextureConnection.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\manager\TextureManager.cpp" />
-    <ClCompile Include="src\jp\ggaf\dx\model\AniMeshModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\model\BoardModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\model\BoardSetModel.cpp" />
+    <ClCompile Include="src\jp\ggaf\dx\model\BoneAniMeshModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\model\D3DXAniMeshModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\model\D3DXMeshModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\model\ex\CubeMapMeshModel.cpp" />
@@ -311,6 +321,7 @@
     <ClCompile Include="src\jp\ggaf\dx\model\PointSpriteSetModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\model\RegularPolygonBoardModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\model\RegularPolygonSpriteModel.cpp" />
+    <ClCompile Include="src\jp\ggaf\dx\model\SkinAniMeshModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\model\SpriteModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\model\SpriteSetModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\model\supporter\TextureBlinker.cpp" />
@@ -331,14 +342,16 @@
     <ClCompile Include="src\jp\ggaf\dx\sound\Sound.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\texture\Texture.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\util\AllocHierarchy.cpp" />
-    <ClCompile Include="src\jp\ggaf\dx\util\AllocHierarchyWorldFrame.cpp" />
+    <ClCompile Include="src\jp\ggaf\dx\util\BoneAniMeshAllocHierarchy.cpp" />
+    <ClCompile Include="src\jp\ggaf\dx\util\BoneAniMeshWorldMatStack.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\util\CollisionArea.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\util\CollisionPart.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\util\GeoElem.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\util\Input.cpp" />
+    <ClCompile Include="src\jp\ggaf\dx\util\SkinAniMeshAllocHierarchy.cpp" />
+    <ClCompile Include="src\jp\ggaf\dx\util\SkinAniMeshWorldMatStack.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\util\SphereRadiusVectors.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\util\Util.cpp" />
-    <ClCompile Include="src\jp\ggaf\dx\util\WorldMatStack.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\util\XFile\framework\Frm_Mesh.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\util\XFile\Toolbox\ioModel_X.cpp" />
   </ItemGroup>

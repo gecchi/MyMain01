@@ -3,7 +3,7 @@
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/model/Model.h"
 
-#include "jp/ggaf/dx/util/WorldMatStack.h"
+#include "jp/ggaf/dx/util/BoneAniMeshWorldMatStack.h"
 
 namespace GgafDx {
 
@@ -19,14 +19,14 @@ class D3DXAniMeshModel : public Model {
 
 public:
     /** メッシュ(インスタンスはモデル毎） */
-    AllocHierarchyWorldFrame* _pAllocHierarchy;
-    FrameWorldMatrix* _pFrameRoot;
+    BoneAniMeshAllocHierarchy* _pAllocHierarchy;
+    BoneAniMeshFrame* _pFrameRoot;
     ID3DXAnimationController* _pAniControllerBase;
     int _anim_ticks_per_second;
     /** 60フレーム(1秒)で1ループする場合の1フレーム辺りの時間 */
 //    double _advance_time_per_frame0;//60フレーム(1秒)で1ループすることを標準設定とする。
 
-//    WorldMatStack _stackWorldMat;
+//    BoneAniMeshWorldMatStack _stackWorldMat;
     ///** D3DXLoadMeshFromXのオプション */
     //	LPD3DXBUFFER	_pAdjacency;
 
@@ -44,7 +44,7 @@ public:
 
     ID3DXAnimationController* getCloneAnimationController();
 
-    void getDrawFrameList(std::list<FrameWorldMatrix*>* pList, FrameWorldMatrix* frame);
+    void getDrawFrameList(std::list<BoneAniMeshFrame*>* pList, BoneAniMeshFrame* frame);
 
     virtual void onDeviceLost() override;
 

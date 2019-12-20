@@ -1,6 +1,6 @@
 #include "GgafEffectConst.fxh"
 ////////////////////////////////////////////////////////////////////////////////
-// ggaf ライブラリ、GgafDx::AniMeshModel用シェーダー
+// ggaf ライブラリ、GgafDx::BoneAniMeshModel用シェーダー
 //
 // author : Masatoshi Tsuge
 // date:2009/03/06
@@ -81,7 +81,7 @@ struct OUT_VS {
 ///////////////////////////////////////////////////////////////////////////
 
 //メッシュ標準頂点シェーダー
-OUT_VS VS_DefaultAniMesh(
+OUT_VS VS_DefaultBoneAniMesh(
       float4 prm_posModel_Local    : POSITION,      // モデルの頂点
       float3 prm_vecNormal_Local : NORMAL,        // モデルの頂点の法線
       float  prm_index           : PSIZE ,        // モデルのインデックス（何個目のオブジェクトか？）
@@ -196,7 +196,7 @@ OUT_VS VS_DefaultAniMesh(
 }
 
 //メッシュ標準ピクセルシェーダー（テクスチャ有り）
-float4 PS_DefaultAniMesh(
+float4 PS_DefaultBoneAniMesh(
     float2 prm_uv	  : TEXCOORD0,
     float4 prm_color    : COLOR0,
     float3 prm_vecNormal_World : TEXCOORD1,
@@ -224,7 +224,7 @@ float4 PS_DefaultAniMesh(
     return colOut;
 }
 
-float4 PS_DefaultAniMesh2(
+float4 PS_DefaultBoneAniMesh2(
     float2 prm_uv	  : TEXCOORD0,
     float4 prm_color    : COLOR0
 ) : COLOR  {
@@ -242,7 +242,7 @@ float4 PS_DefaultAniMesh2(
 }
 
 
-technique DefaultAniMeshTechnique
+technique DefaultBoneAniMeshTechnique
 {
     //pass P0「メッシュ標準シェーダー」
     //メッシュを描画する
@@ -274,12 +274,12 @@ technique DefaultAniMeshTechnique
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
         BlendOp = Add;
-        VertexShader = compile VS_VERSION VS_DefaultAniMesh();
-        PixelShader  = compile PS_VERSION PS_DefaultAniMesh();
+        VertexShader = compile VS_VERSION VS_DefaultBoneAniMesh();
+        PixelShader  = compile PS_VERSION PS_DefaultBoneAniMesh();
     }
 }
 
-technique DefaultAniMeshTechnique2
+technique DefaultBoneAniMeshTechnique2
 {
     pass P0 {
         AlphaBlendEnable = true;
@@ -287,8 +287,8 @@ technique DefaultAniMeshTechnique2
         SrcBlend  = SrcAlpha;
         DestBlend = InvSrcAlpha;
         BlendOp = Add;
-        VertexShader = compile VS_VERSION VS_DefaultAniMesh();
-        PixelShader  = compile PS_VERSION PS_DefaultAniMesh2();
+        VertexShader = compile VS_VERSION VS_DefaultBoneAniMesh();
+        PixelShader  = compile PS_VERSION PS_DefaultBoneAniMesh2();
     }
 }
 
