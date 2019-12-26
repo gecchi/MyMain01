@@ -3,6 +3,7 @@
 #include "GgafDxCommonHeader.h"
 
 #include <list>
+
 #include <d3dx9.h>
 #ifdef __GNUG__
     #undef __in
@@ -90,8 +91,8 @@ protected:
     // メッシュコンテナ構造体を生成する
     virtual D3DXMESHCONTAINER* createNewMeshContainer();
 
-    // メッシュデータを登録
-    virtual void registerMeshData(CONST D3DXMESHDATA *pSrc, D3DXMESHDATA *pDest);
+//    // メッシュデータを登録
+//    virtual void registerMeshData(CONST D3DXMESHDATA *pSrc, D3DXMESHDATA *pDest);
 
 //    // リリースリストに登録
 //    virtual void addReleaseList( IUnknown *comptr);
@@ -102,11 +103,11 @@ protected:
     // エフェクト登録
     virtual void registerEffect(CONST D3DXEFFECTINSTANCE *pSrc, D3DXEFFECTINSTANCE **ppDest);
 
-    // 隣接ポリゴン登録
-    virtual void registerAdjacency(CONST DWORD *Src, DWORD polynum, DWORD **Dest);
-
-    // スキン登録
-    virtual void registerSkin( CONST LPD3DXSKININFO Src, LPD3DXSKININFO *Dest);
+//    // 隣接ポリゴン登録
+//    virtual void registerAdjacency(CONST DWORD *Src, DWORD polynum, DWORD **Dest);
+//
+//    // スキン登録
+//    virtual void registerSkin( CONST LPD3DXSKININFO Src, LPD3DXSKININFO *Dest);
 };
 
 }

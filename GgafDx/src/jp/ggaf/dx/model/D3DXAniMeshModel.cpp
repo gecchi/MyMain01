@@ -14,7 +14,7 @@
 #include "jp/ggaf/dx/model/MassModel.h"
 #include "jp/ggaf/dx/texture/Texture.h"
 #include "jp/ggaf/dx/util/BoneAniMeshAllocHierarchy.h"
-
+#include "jp/ggaf/dx/util/BoneAniMeshFrame.h"
 
 using namespace GgafDx;
 

@@ -1,10 +1,11 @@
 #include "jp/ggaf/dx/util/BoneAniMeshWorldMatStack.h"
+
 #include "jp/ggaf/dx/util/BoneAniMeshAllocHierarchy.h"
+#include "jp/ggaf/dx/util/BoneAniMeshFrame.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
 using namespace GgafDx;
 
 BoneAniMeshWorldMatStack::BoneAniMeshWorldMatStack() : GgafCore::Object() {
-//    _pModel_MapBoneFrameIndex_ActAnimationSetIndexList = nullptr;
     _papaBool_Model_AnimationSetIndex_BoneFrameIndex_is_act = nullptr;
     _as0_index = -1;
     _as1_index = -1;

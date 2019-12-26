@@ -24,7 +24,6 @@ public:
     D3DXHANDLE _h_specular_power;
     D3DXHANDLE _h_posCam;
     D3DXHANDLE _ah_matWorld[30];
-
 public:
     /**
      * コンストラクタ<BR>

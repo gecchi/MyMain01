@@ -14,6 +14,7 @@
 #include "jp/ggaf/dx/model/MassModel.h"
 #include "jp/ggaf/dx/texture/Texture.h"
 #include "jp/ggaf/dx/util/BoneAniMeshAllocHierarchy.h"
+#include "jp/ggaf/dx/util/BoneAniMeshFrame.h"
 
 #define MAX_FRAME_WORLD_MATRIX (25) //2以上でないとブレイクしないのでダメ
 

@@ -318,6 +318,7 @@
     <ClInclude Include="include\jp\ggaf\dx\texture\texture.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\AllocHierarchy.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\BoneAniMeshAllocHierarchy.h" />
+    <ClInclude Include="include\jp\ggaf\dx\util\boneanimeshcontainer.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\BoneAniMeshFrame.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\BoneAniMeshWorldMatStack.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\collisionarea.h" />

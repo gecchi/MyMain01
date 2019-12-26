@@ -2,20 +2,19 @@
 #define GGAF_DX_BONEANIMESHALLOCHIERARCHY_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/util/AllocHierarchy.h"
-#include "jp/ggaf/dx/util/BoneAniMeshFrame.h"
 
 namespace GgafDx {
 
 // BoneAniMeshFrame取り扱いAllocateHierarchyクラス
-class BoneAniMeshAllocHierarchy: public AllocHierarchy {
+class BoneAniMeshAllocHierarchy : public AllocHierarchy {
 public:
-    BoneAniMeshAllocHierarchy(void);
-public:
-    virtual ~BoneAniMeshAllocHierarchy(void);
+    BoneAniMeshAllocHierarchy();
+    virtual ~BoneAniMeshAllocHierarchy();
 
 protected:
     // フレーム構造体を生成する
     virtual D3DXFRAME* createNewFrame();
+    virtual D3DXMESHCONTAINER* createNewMeshContainer();
 };
 
 }

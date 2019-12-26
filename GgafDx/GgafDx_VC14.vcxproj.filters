@@ -510,6 +510,9 @@
     <ClInclude Include="include\jp\ggaf\dx\util\SkinAniMeshWorldMatStack.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="include\jp\ggaf\dx\util\BoneAniMeshContainer.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\jp\ggaf\dx\actor\camera\Camera.cpp">

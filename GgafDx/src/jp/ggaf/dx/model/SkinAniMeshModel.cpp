@@ -14,6 +14,7 @@
 #include "jp/ggaf/dx/model/MassModel.h"
 #include "jp/ggaf/dx/texture/Texture.h"
 #include "jp/ggaf/dx/util/SkinAniMeshAllocHierarchy.h"
+#include "jp/ggaf/dx/util/SkinAniMeshContainer.h"
 #include "jp/ggaf/dx/util/SkinAniMeshFrame.h"
 
 #define MAX_FRAME_WORLD_MATRIX (25) //2以上でないとブレイクしないのでダメ
@@ -246,59 +247,25 @@ void SkinAniMeshModel::restore() {
         _TRACE_("境界球半径="<<_bounding_sphere_radius);
 
 
-        int frame_num = _vecDrawBoneFrame.size();
+        int draw_frame_num = _vecDrawBoneFrame.size();
 
         int materials_total_num = 0;
         int vertices_total_num = 0;
         int faces_total_num = 0;
 
         //フレームリストを廻って、マテリアル総数取得
-        for (int i = 0; i < frame_num; i++) {
-            LPD3DXMESHCONTAINER     pMeshContainer = _vecDrawBoneFrame[i]->pMeshContainer;
+        for (int frame_index = 0; frame_index < draw_frame_num; frame_index++) {
+            SkinAniMeshContainer* pMeshContainer = (SkinAniMeshContainer*)(_vecDrawBoneFrame[frame_index]->pMeshContainer);
             if (pMeshContainer == nullptr) {
                 continue;
             }
-            ID3DXMesh* pMesh = _vecDrawBoneFrame[i]->pMeshContainer->MeshData.pMesh;
 
-            DWORD                   MaxVertexInfl;              // nombre maximum d'influence
-            DWORD                   NumBoneCombinations;        // nombre de combinaisons
-            LPD3DXMESH              BlendedMesh;
-            DWORD FaceRemap;
-            ID3DXMesh* pMeshOut;
-            LPD3DXBUFFER	pVertexRemap;
-            LPD3DXBUFFER    pBoneCombinationTable;
-            DWORD Options = D3DXMESH_MANAGED|D3DXMESHOPT_VERTEXCACHE;
-            hr = pMeshContainer->pSkinInfo->ConvertToBlendedMesh(
-                pMesh,                      //[in] LPD3DXMESH pMesh, 入力メッシュ
-                Options,                    //[in] DWORD Options,          未使用？
-                pMeshContainer->pAdjacency, //[in] CONST LPDWORD pAdjacencyIn, 入力メッシュ隣接面情報（配列？）
-                NULL,                       //[out]LPDWORD pAdjacencyOut,     出力メッシュ隣接面情報
-               &FaceRemap,                  //[out]DWORD *pFaceRemap,         面をどう並べ替えたかの情報、不要時NULL
-               &pVertexRemap,               //[out]LPD3DXBUFFER *ppVertexRemap, 頂点をどう並べ替えたかの情報、不要時NULL
-               &MaxVertexInfl,              //[out]DWORD *pMaxFaceInfl, 一つの頂点に影響を与えるボーンの数の最大値
-               &NumBoneCombinations,        //[out]DWORD *pNumBoneCombinations, ボーンコンビネーションの数
-               &pBoneCombinationTable,      //[out]LPD3DXBUFFER *ppBoneCombinationTable, ボーンコンビネーション情報、ボーンと頂点の対応表配列
-               &pMeshOut                    //[out]LPD3DXMESH *ppMesh 出力メッシュ情報、処理済みのメッシュが返ってくる
-              );
-
-//            この関数にはID3DXMeshを入力してID3DXMeshが返ってくる。
-//            もちろんそのまま戻ってくるのではなく、内部では
-//
-//            ○頂点、描画面を並べ替えて最適化
-//            ○ボーンの影響をうける範囲ごとに、メッシュをサブセットに分割
-//            ○頂点情報にブレンド加重値を付与
-//            ○ボーンに合わせて頂点を移動
-//
-//            などの細かい処理が行われている。
-//            使う側としては「この関数を通すとメッシュがスキンに対応する」ことが理解できていれば良い。
-
-//            ConvertToBlenderMesh関数で戻ってくる ID3DXBuffer には、
-//            D3DXBONECOMBINATION構造体が　NumBoneCombinations 個入っている。
-
+            ID3DXMesh* pMesh = _vecDrawBoneFrame[frame_index]->pMeshContainer->MeshData.pMesh;
             vertices_total_num += (int)(pMesh->GetNumVertices());  // 頂点数
             faces_total_num += (int)(pMesh->GetNumFaces());        // ポリゴン数
-            materials_total_num += (int)(_vecDrawBoneFrame[i]->pMeshContainer->NumMaterials);
+            materials_total_num += (int)(_vecDrawBoneFrame[frame_index]->pMeshContainer->NumMaterials);
         }
+
         //配列数がやっと解ったので作成
         _num_materials = materials_total_num;
         _nVertices = vertices_total_num;
@@ -329,8 +296,8 @@ void SkinAniMeshModel::restore() {
         char* texture_filename;
         D3DVERTEXELEMENT9 e[MAX_FVF_DECL_SIZE];
         //フレームでループ！
-        for (int i = 0; i < frame_num; i++) {
-            D3DXMESHCONTAINER* pMeshContainer = _vecDrawBoneFrame[i]->pMeshContainer;
+        for (int i = 0; i < draw_frame_num; i++) {
+            SkinAniMeshContainer* pMeshContainer = (SkinAniMeshContainer*)(_vecDrawBoneFrame[i]->pMeshContainer);
             if (pMeshContainer == nullptr) {
                 continue;
             }
@@ -353,6 +320,58 @@ void SkinAniMeshModel::restore() {
             }
 
             ID3DXMesh* pMesh = pMeshContainer->MeshData.pMesh;
+
+
+
+
+
+            /////////////
+
+//            _TRACE_("こここ");
+//
+//            D3DXBONECOMBINATION* pBoneCombination =
+//                    (D3DXBONECOMBINATION*)(pMeshContainer->_pBoneCombinationTable->GetBufferPointer());
+//            for (UINT bc_idx = 0; bc_idx < pMeshContainer->_dwBoneCombNum; ++bc_idx) { //bc_idxはメッシュサブセットID
+//                DWORD infl_id;
+//                for ( infl_id = 0; infl_id < pMeshContainer->_dwMaxInfleNum; ++infl_id) { //
+//                    DWORD bone_id = pBoneCombination[bc_idx].BoneId[infl_id];
+//                    if (bone_id != UINT_MAX) {
+//                        //IDが有効
+////                    	pDev->setTtanceform(D3DTS_WORLDMATRIX(infl_id), &m_mBoneToWorld[bone_id]);
+//                    } else {
+////                    	break;
+//                    }
+//                }
+//                //頂点ブレンド数設定
+//                //pDev->setRenderstate(D3DRS_VERTEXBLEND, pMeshContainer->_dwMaxInfleNum -1);
+//
+//                //属性の設定、どのマテリアを使うか
+////                const D3DXMATERIAL& mat = pMeshContainer->pMaterials[ pBoneCombination[bc_idx].AttribId ];
+////                pDev->SetMaterial(&mat.MatD3D);
+////                pDev->SetTexture(0, GetTexture( mat.pTextureFilename));
+////                pMeshContainer->Mesh.pMesh->DrawSubset(bc_idx);
+//            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+            //////////////
+
+
+
+
+
+
+
             pMesh->GetDeclaration( e );
             int offset_position  = getOffsetFromElem( e, D3DDECLUSAGE_POSITION );
             int offset_normal  = getOffsetFromElem( e, D3DDECLUSAGE_NORMAL );

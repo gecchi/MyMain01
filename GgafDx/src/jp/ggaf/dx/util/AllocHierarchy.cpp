@@ -3,7 +3,7 @@
 
 using namespace GgafDx;
 
-AllocHierarchy::AllocHierarchy() {
+AllocHierarchy::AllocHierarchy() : ID3DXAllocateHierarchy()  {
 }
 
 // デストラクタ
@@ -61,14 +61,14 @@ LPSTR AllocHierarchy::copyStr(LPCSTR name) {
     return Str;
 }
 
-// メッシュデータ登録
-void AllocHierarchy::registerMeshData(CONST D3DXMESHDATA *pSrc, D3DXMESHDATA *pDest)
-{
-    pDest->Type = pSrc->Type;   // メッシュタイプ
-    pDest->pMesh = pSrc->pMesh;// メッシュ（unionなのでどれでも一緒）
-//    addReleaseList( pDest->pMesh );// Releaseリストへ登録
-    (pDest->pMesh)->AddRef();
-}
+//// メッシュデータ登録
+//void AllocHierarchy::registerMeshData(CONST D3DXMESHDATA *pSrc, D3DXMESHDATA *pDest)
+//{
+//    pDest->Type = pSrc->Type;   // メッシュタイプ
+//    pDest->pMesh = pSrc->pMesh;// メッシュ（unionなのでどれでも一緒）
+////    addReleaseList( pDest->pMesh );// Releaseリストへ登録
+//    (pDest->pMesh)->AddRef(); //COMオブジェクトを複製したので参照を＋１
+//}
 
 // マテリアル登録
 void AllocHierarchy::registerMaterial(CONST D3DXMATERIAL *pSrc, DWORD num, D3DXMATERIAL **ppDest)
@@ -109,21 +109,21 @@ void AllocHierarchy::registerEffect(CONST D3DXEFFECTINSTANCE *pSrc, D3DXEFFECTIN
     }
 }
 
-// 隣接ポリゴン登録
-void AllocHierarchy::registerAdjacency(CONST DWORD *Src, DWORD polynum, DWORD **Dest)
-{
-    *Dest = NEW DWORD[ polynum * 3 ];   // 配列生成
-    memcpy( *Dest, Src, polynum * 3 * sizeof(DWORD));// コピー
-//    addDelList( NEW Deleter<DWORD>( *Dest, true ) );
-}
-
-// スキン登録
-void AllocHierarchy::registerSkin( CONST LPD3DXSKININFO Src, LPD3DXSKININFO *Dest) {
-    if(!Src) return;   // スキンが無ければ何もしない
-    *Dest = Src;// スキンをコピー
-//    addReleaseList( *Dest );// リリースリストに登録
-    (*Dest)->AddRef();
-}
+//// 隣接ポリゴン登録
+//void AllocHierarchy::registerAdjacency(CONST DWORD *Src, DWORD polynum, DWORD **Dest)
+//{
+//    *Dest = NEW DWORD[ polynum * 3 ];   // 配列生成
+//    memcpy( *Dest, Src, polynum * 3 * sizeof(DWORD));// コピー
+////    addDelList( NEW Deleter<DWORD>( *Dest, true ) );
+//}
+//
+//// スキン登録
+//void AllocHierarchy::registerSkin( CONST LPD3DXSKININFO Src, LPD3DXSKININFO *Dest) {
+//    if(!Src) return;   // スキンが無ければ何もしない
+//    *Dest = Src;// スキンをコピー
+////    addReleaseList( *Dest );// リリースリストに登録
+//    (*Dest)->AddRef();
+//}
 
 // フレーム生成関数
 HRESULT AllocHierarchy::CreateFrame(THIS_
@@ -154,20 +154,26 @@ HRESULT AllocHierarchy::CreateMeshContainer(THIS_
     p->Name = copyStr( Name );
 
     // メッシュデータ登録
-    registerMeshData( pMeshData, &p->MeshData );
+    p->MeshData.Type = pMeshData->Type;   // メッシュタイプ
+    p->MeshData.pMesh = pMeshData->pMesh;// メッシュ（unionなのでどれでも一緒）
+    p->MeshData.pMesh->AddRef(); //COMオブジェクトを複製したので参照を＋１
+
+    // 隣接ポリゴン登録
+    DWORD polynum = pMeshData->pMesh->GetNumFaces();
+    p->pAdjacency = NEW DWORD[ polynum * 3 ];   // 配列生成
+    memcpy( p->pAdjacency, pAdjacency, polynum * 3 * sizeof(DWORD));// コピー
+
+    // スキン登録
+    if (pSkinInfo) {
+        p->pSkinInfo = pSkinInfo;// スキンをコピー
+        p->pSkinInfo->AddRef();
+    }
 
     // マテリアル登録
     p->NumMaterials = NumMaterials;
     registerMaterial( pMaterials, NumMaterials, &p->pMaterials);
-
     // エフェクト登録
     registerEffect( pEffectInstances, &p->pEffects );
-
-    // 隣接ポリゴン登録
-    registerAdjacency( pAdjacency, pMeshData->pMesh->GetNumFaces(), &p->pAdjacency );
-
-    // スキン登録
-    registerSkin( pSkinInfo, &p->pSkinInfo );
 
     *ppNewMeshContainer = p;
 

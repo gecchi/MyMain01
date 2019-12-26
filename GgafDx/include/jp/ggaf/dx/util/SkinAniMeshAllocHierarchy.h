@@ -5,17 +5,34 @@
 
 namespace GgafDx {
 
-class SkinAniMeshAllocHierarchy: public BoneAniMeshAllocHierarchy {
+class SkinAniMeshAllocHierarchy : public BoneAniMeshAllocHierarchy {
 public:
-    SkinAniMeshAllocHierarchy(void);
+    SkinAniMeshAllocHierarchy();
 public:
-    virtual ~SkinAniMeshAllocHierarchy(void);
+    virtual ~SkinAniMeshAllocHierarchy();
 
 protected:
+    // コンテナを生成する
+    STDMETHOD(CreateMeshContainer)(THIS_
+        LPCSTR Name,
+        CONST D3DXMESHDATA *pMeshData,
+        CONST D3DXMATERIAL *pMaterials,
+        CONST D3DXEFFECTINSTANCE *pEffectInstances,
+        DWORD NumMaterials,
+        CONST DWORD *pAdjacency,
+        LPD3DXSKININFO pSkinInfo,
+        LPD3DXMESHCONTAINER *ppNewMeshContainer
+    ) override;
+
+    // フレーム構造体を生成する
+    virtual D3DXFRAME* createNewFrame();
     // メッシュコンテナ構造体を生成する
     virtual D3DXMESHCONTAINER* createNewMeshContainer();
-    // メッシュデータを登録
-    virtual void registerMeshData(CONST D3DXMESHDATA *pSrc, D3DXMESHDATA *pDest);
+
+    // コンテナを削除する
+    STDMETHOD(DestroyMeshContainer)(THIS_
+        LPD3DXMESHCONTAINER pMeshContainerToFree
+    ) override;
 };
 
 }

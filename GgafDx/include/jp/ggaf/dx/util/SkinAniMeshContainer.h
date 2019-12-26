@@ -2,18 +2,19 @@
 #define GGAF_DX_SKINANIMESHCONTAINER_H_
 #include "GgafDxCommonHeader.h"
 
-#include <map>
+#include "jp/ggaf/dx/util/BoneAniMeshContainer.h"
 
 namespace GgafDx {
 
 /**
  * ワールド変換行列付きフレーム構造体
  */
-class SkinAniMeshContainer : public D3DXMESHCONTAINER {
+class SkinAniMeshContainer : public BoneAniMeshContainer {
 public:
-    DWORD dwMaxInfleNum;            // ボーン最大影響数
-    DWORD dwBoneCombNum;            // ボーンコンビネーション数
-    D3DXBONECOMBINATION *pBoneComb;  // ボーンコンビネーション構造体配列へのポインタ
+    DWORD _dwMaxInfleNum;            // ボーン最大影響数
+    DWORD _dwBoneCombNum;            // ボーンコンビネーション数
+    ID3DXBuffer* _pBoneCombinationTable;
+//    D3DXBONECOMBINATION* _pBoneComb; // ボーンコンビネーション構造体配列へのポインタ
 };
 
 }

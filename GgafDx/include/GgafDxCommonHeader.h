@@ -323,11 +323,13 @@ class EffectConnection;
 class EffectManager;
 
 class AllocHierarchy;
-class BoneAniMeshFrame;
-class SkinAniMeshFrame;
 class BoneAniMeshAllocHierarchy;
-class SkinAniMeshAllocHierarchy;
+class BoneAniMeshFrame;
+class BoneAniMeshContainer;
 class BoneAniMeshWorldMatStack;
+class SkinAniMeshAllocHierarchy;
+class SkinAniMeshFrame;
+class SkinAniMeshContainer;
 class SkinAniMeshWorldMatStack;
 
 class ICubeMapActor;
