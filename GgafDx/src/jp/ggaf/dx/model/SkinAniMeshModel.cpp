@@ -254,16 +254,16 @@ void SkinAniMeshModel::restore() {
         int faces_total_num = 0;
 
         //フレームリストを廻って、マテリアル総数取得
-        for (int frame_index = 0; frame_index < draw_frame_num; frame_index++) {
-            SkinAniMeshContainer* pMeshContainer = (SkinAniMeshContainer*)(_vecDrawBoneFrame[frame_index]->pMeshContainer);
+        for (int i = 0; i < draw_frame_num; i++) {
+            SkinAniMeshContainer* pMeshContainer = (SkinAniMeshContainer*)(_vecDrawBoneFrame[i]->pMeshContainer);
             if (pMeshContainer == nullptr) {
                 continue;
             }
 
-            ID3DXMesh* pMesh = _vecDrawBoneFrame[frame_index]->pMeshContainer->MeshData.pMesh;
+            ID3DXMesh* pMesh = _vecDrawBoneFrame[i]->pMeshContainer->MeshData.pMesh;
             vertices_total_num += (int)(pMesh->GetNumVertices());  // 頂点数
             faces_total_num += (int)(pMesh->GetNumFaces());        // ポリゴン数
-            materials_total_num += (int)(_vecDrawBoneFrame[frame_index]->pMeshContainer->NumMaterials);
+            materials_total_num += (int)(_vecDrawBoneFrame[i]->pMeshContainer->NumMaterials);
         }
 
         //配列数がやっと解ったので作成
@@ -326,6 +326,31 @@ void SkinAniMeshModel::restore() {
 
 
             /////////////
+
+            _TRACE_("draw_frsme["<<i<<"]: idx="<<_vecDrawBoneFrame[i]->_frame_index<<", name="<<_vecDrawBoneFrame[i]->Name<<"");
+            _TRACE_("pMeshContainer->_dwMaxInfleNum = "<<pMeshContainer->_dwMaxInfleNum);
+            _TRACE_("pMeshContainer->_dwBoneCombNum = "<<pMeshContainer->_dwBoneCombNum);
+
+            D3DXBONECOMBINATION* paBoneCombination =
+                    (D3DXBONECOMBINATION*)(pMeshContainer->_pBoneCombinationTable->GetBufferPointer());
+            for (UINT bc_idx = 0; bc_idx < pMeshContainer->_dwBoneCombNum; ++bc_idx) { //bc_idxはメッシュサブセットID
+                D3DXBONECOMBINATION* pBoneCombination = &(paBoneCombination[bc_idx]);
+                _TRACE_("paBoneCombination["<<bc_idx<<"] = "<<
+                        " AttribId="<<pBoneCombination->AttribId<<
+                        " FaceStart="<<pBoneCombination->FaceStart<<
+                        " FaceCount="<<pBoneCombination->FaceCount<<
+                        " VertexStart="<<pBoneCombination->VertexStart<<
+                        " VertexCount="<<pBoneCombination->VertexCount<<
+                        ""
+                );
+                DWORD infl_id;
+                for ( infl_id = 0; infl_id < pMeshContainer->_dwMaxInfleNum; ++infl_id) { //
+                    DWORD bone_id = pBoneCombination->BoneId[infl_id];
+                    _TRACE_("paBoneCombination["<<bc_idx<<"].BoneId["<<infl_id<<"]="<<bone_id);
+                }
+            }
+
+
 
 //            _TRACE_("こここ");
 //

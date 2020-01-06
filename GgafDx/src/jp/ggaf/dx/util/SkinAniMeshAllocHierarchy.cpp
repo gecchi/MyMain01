@@ -37,6 +37,16 @@ HRESULT SkinAniMeshAllocHierarchy::CreateMeshContainer(THIS_
     if(pSkinInfo) {
         pNewMC->pSkinInfo = pSkinInfo;// スキンをコピー
         pNewMC->pSkinInfo->AddRef();
+        // ボーンの数を取得
+        DWORD bone_num = pSkinInfo->GetNumBones();
+        pNewMC->_dwBoneOffsetMatrixNum = bone_num;
+        _TRACE_("pSkinInfo->GetNumBones() = "<<bone_num);
+        pNewMC->_paBoneOffsetMatrix = new D3DXMATRIX[bone_num];
+        for (DWORD i =  0; i < bone_num; i++) {
+            // オフセット行列をコピーする
+            memcpy(&pNewMC->_paBoneOffsetMatrix[i], pSkinInfo->GetBoneOffsetMatrix(i), sizeof(D3DXMATRIX));
+        }
+        _TRACE_("ボーンオフセット行列をコピーしますた");
 
         // メッシュデータ登録
         pNewMC->MeshData.Type = pMeshData->Type;   // メッシュタイプ
@@ -45,7 +55,7 @@ HRESULT SkinAniMeshAllocHierarchy::CreateMeshContainer(THIS_
         //・ボーンの影響をうける範囲ごとに、メッシュをサブセットに分割
         //・頂点情報にブレンド加重値を付与
         //・ボーンに合わせて頂点を移動
-        DWORD Options = D3DXMESH_MANAGED|D3DXMESHOPT_VERTEXCACHE;
+        DWORD Options = D3DXMESH_SYSTEMMEM|D3DXMESHOPT_VERTEXCACHE;
         hr = pNewMC->pSkinInfo->ConvertToBlendedMesh(
           pMeshData->pMesh,                  //[in] LPD3DXMESH pMesh, 入力メッシュ
           Options,                           //[in] DWORD Options,          未使用？
@@ -58,6 +68,7 @@ HRESULT SkinAniMeshAllocHierarchy::CreateMeshContainer(THIS_
           &(pNewMC->_pBoneCombinationTable), //[out]LPD3DXBUFFER *ppBoneCombinationTable, ボーンコンビネーション情報、ボーンと頂点の対応表配列
           &(pNewMC->MeshData.pMesh)          //[out]LPD3DXMESH *ppMesh 出力メッシュ情報、処理済みのメッシュが返ってくる
         );
+        checkDxException(hr, D3D_OK, "ConvertToBlendedMeshに失敗しました。");
         // ConvertToBlenderMesh関数で戻ってくる ID3DXBuffer には、
         // D3DXBONECOMBINATION構造体が　NumBoneCombinations 個入っている。
     } else {
@@ -93,6 +104,9 @@ D3DXMESHCONTAINER* SkinAniMeshAllocHierarchy::createNewMeshContainer() {
     tmp->_dwMaxInfleNum = 0;    // ボーン最大影響数
     tmp->_dwBoneCombNum = 0;    // ボーンコンビネーション数
     tmp->_pBoneCombinationTable = nullptr;  // ボーンコンビネーション構造体配列へのポインタ
+
+    tmp->_dwBoneOffsetMatrixNum = UINT_MAX;
+    tmp->_paBoneOffsetMatrix = nullptr;
     return tmp;
 }
 
@@ -127,6 +141,9 @@ HRESULT SkinAniMeshAllocHierarchy::DestroyMeshContainer(THIS_
     //これを追加、その他は同じ
     ID3DXBuffer* pBoneCombinationTable = p->_pBoneCombinationTable;
     GGAF_RELEASE_NULLABLE(pBoneCombinationTable);
+
+    D3DXMATRIX* paBoneOffsetMatrix = p->_paBoneOffsetMatrix;
+    GGAF_DELETEARR_NULLABLE(pBoneCombinationTable);
 
     delete p;
     return D3D_OK;

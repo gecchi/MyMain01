@@ -246,14 +246,14 @@ void BoneAniMeshModel::restore() {
         _TRACE_("境界球半径="<<_bounding_sphere_radius);
 
 
-        int frame_num = _vecDrawBoneFrame.size();
+        int draw_frame_num = _vecDrawBoneFrame.size();
 
         int materials_total_num = 0;
         int vertices_total_num = 0;
         int faces_total_num = 0;
 
         //フレームリストを廻って、マテリアル総数取得
-        for (int i = 0; i < frame_num; i++) {
+        for (int i = 0; i < draw_frame_num; i++) {
             if (_vecDrawBoneFrame[i]->pMeshContainer == nullptr) {
                 continue;
             }
@@ -292,7 +292,7 @@ void BoneAniMeshModel::restore() {
         char* texture_filename;
         D3DVERTEXELEMENT9 e[MAX_FVF_DECL_SIZE];
         //フレームでループ！
-        for (int i = 0; i < frame_num; i++) {
+        for (int i = 0; i < draw_frame_num; i++) {
             D3DXMESHCONTAINER* pMeshContainer = _vecDrawBoneFrame[i]->pMeshContainer;
             if (pMeshContainer == nullptr) {
                 continue;

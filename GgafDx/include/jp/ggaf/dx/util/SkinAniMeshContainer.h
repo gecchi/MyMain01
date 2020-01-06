@@ -15,6 +15,8 @@ public:
     DWORD _dwBoneCombNum;            // ボーンコンビネーション数
     ID3DXBuffer* _pBoneCombinationTable;
 //    D3DXBONECOMBINATION* _pBoneComb; // ボーンコンビネーション構造体配列へのポインタ
+    DWORD _dwBoneOffsetMatrixNum;
+    D3DXMATRIX* _paBoneOffsetMatrix;
 };
 
 }

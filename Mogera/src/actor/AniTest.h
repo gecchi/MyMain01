@@ -14,8 +14,8 @@ namespace Mogera {
  * @since 2015/02/13
  * @author Masatoshi Tsuge
  */
-class AniTest : public GgafLib::DefaultBoneAniMeshActor {
-//    class AniTest : public GgafLib::DefaultSkinAniMeshActor {
+//class AniTest : public GgafLib::DefaultBoneAniMeshActor {
+    class AniTest : public GgafLib::DefaultSkinAniMeshActor {
 public:
     /**
      * コンストラクタ
