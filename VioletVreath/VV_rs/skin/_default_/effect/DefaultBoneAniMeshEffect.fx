@@ -6,6 +6,8 @@
 // date:2009/03/06
 ////////////////////////////////////////////////////////////////////////////////
 
+#define BoneAniMeshModel_MAX_BONE_WORLD_MATRIX (4)
+
 /** モデルのWorld変換行列（フレーム毎） */
 float4x4 g_matWorld001;
 float4x4 g_matWorld002;
@@ -89,8 +91,7 @@ OUT_VS VS_DefaultBoneAniMesh(
 
 ) {
     OUT_VS out_vs = (OUT_VS)0;
-    const int index = (int)prm_index;
-
+    const int index = ((int)prm_index) % BoneAniMeshModel_MAX_BONE_WORLD_MATRIX;
     //頂点計算
     float4x4 matWorld;
 

@@ -19,11 +19,13 @@ class SkinAniMeshModel : public Model {
 
 public:
     /** 頂点のFVF */
-    static DWORD FVF;
     struct VERTEX : public Model::VERTEX_3D_BASE {
         float index;      // psizeではなくてはなくて頂点番号として使用。何フレーム目かするために使用。
         DWORD color;      // 頂点の色（オブジェクトのマテリアルカラーとして使用）
         float tu, tv;     // テクスチャ座標
+
+        float infl_weight[4];     // 頂点重み
+        byte  infl_bone_idx[4];
     };
     struct INDEXPARAM {
         UINT MaterialNo;
@@ -38,6 +40,8 @@ public:
     WORD* _paIndexBuffer_data;
     /** インデックスバッファ番号に対応する頂点バッファのフレームメッシュ番号 */
     int* _paIndexBuffer_frame_no;
+    /** シェーダー入力頂点フォーマット */
+    LPDIRECT3DVERTEXDECLARATION9 _pVertexDeclaration;
     /** 頂点バッファ（全フレームのメッシュ分） */
     LPDIRECT3DVERTEXBUFFER9 _pVertexBuffer;
     /** インデックスバッファ（全フレームのメッシュ分）  */
@@ -61,7 +65,7 @@ public:
 
     /** _pFrameRoot を巡ってフレームを直列化したもの、要素番号はフレームインデックスと呼称する  */
     std::vector<SkinAniMeshFrame*> _vecAllBoneFrame;
-    /** _pFrameRoot を巡ってメッシュコンテナがある描画対象フレームを直列化したもの、要素番号はただの連番  */
+    /** _pFrameRoot を巡って描画対象があるフレームを直列化したもの、要素番号はただの連番  */
     std::vector<SkinAniMeshFrame*> _vecDrawBoneFrame;
 
 

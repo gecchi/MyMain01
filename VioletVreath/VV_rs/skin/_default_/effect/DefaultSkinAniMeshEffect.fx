@@ -5,38 +5,71 @@
 // author : Masatoshi Tsuge
 // date:2009/03/06
 ////////////////////////////////////////////////////////////////////////////////
-
+#define SkinAniMeshModel_MAX_BONE_WORLD_MATRIX (5)
 /** モデルのWorld変換行列（フレーム毎） */
-float4x4 g_matWorld001;
-float4x4 g_matWorld002;
-float4x4 g_matWorld003;
-float4x4 g_matWorld004;
-float4x4 g_matWorld005;
-float4x4 g_matWorld006;
-float4x4 g_matWorld007;
-float4x4 g_matWorld008;
-float4x4 g_matWorld009;
-float4x4 g_matWorld010;
-float4x4 g_matWorld011;
-float4x4 g_matWorld012;
-float4x4 g_matWorld013;
-float4x4 g_matWorld014;
-float4x4 g_matWorld015;
-float4x4 g_matWorld016;
-float4x4 g_matWorld017;
-float4x4 g_matWorld018;
-float4x4 g_matWorld019;
-float4x4 g_matWorld020;
-float4x4 g_matWorld021;
-float4x4 g_matWorld022;
-float4x4 g_matWorld023;
-float4x4 g_matWorld024;
-float4x4 g_matWorld025;
-float4x4 g_matWorld026;
-float4x4 g_matWorld027;
-float4x4 g_matWorld028;
-float4x4 g_matWorld029;
-float4x4 g_matWorld030;
+float4x4 g_matBone001;
+float4x4 g_matBone002;
+float4x4 g_matBone003;
+float4x4 g_matBone004;
+float4x4 g_matBone005;
+float4x4 g_matBone006;
+float4x4 g_matBone007;
+float4x4 g_matBone008;
+float4x4 g_matBone009;
+float4x4 g_matBone010;
+float4x4 g_matBone011;
+float4x4 g_matBone012;
+float4x4 g_matBone013;
+float4x4 g_matBone014;
+float4x4 g_matBone015;
+float4x4 g_matBone016;
+float4x4 g_matBone017;
+float4x4 g_matBone018;
+float4x4 g_matBone019;
+float4x4 g_matBone020;
+float4x4 g_matBone021;
+float4x4 g_matBone022;
+float4x4 g_matBone023;
+float4x4 g_matBone024;
+float4x4 g_matBone025;
+float4x4 g_matBone026;
+float4x4 g_matBone027;
+float4x4 g_matBone028;
+float4x4 g_matBone029;
+float4x4 g_matBone030;
+
+
+float4x4 g_matBoneOffset001;
+float4x4 g_matBoneOffset002;
+float4x4 g_matBoneOffset003;
+float4x4 g_matBoneOffset004;
+float4x4 g_matBoneOffset005;
+float4x4 g_matBoneOffset006;
+float4x4 g_matBoneOffset007;
+float4x4 g_matBoneOffset008;
+float4x4 g_matBoneOffset009;
+float4x4 g_matBoneOffset010;
+float4x4 g_matBoneOffset011;
+float4x4 g_matBoneOffset012;
+float4x4 g_matBoneOffset013;
+float4x4 g_matBoneOffset014;
+float4x4 g_matBoneOffset015;
+float4x4 g_matBoneOffset016;
+float4x4 g_matBoneOffset017;
+float4x4 g_matBoneOffset018;
+float4x4 g_matBoneOffset019;
+float4x4 g_matBoneOffset020;
+float4x4 g_matBoneOffset021;
+float4x4 g_matBoneOffset022;
+float4x4 g_matBoneOffset023;
+float4x4 g_matBoneOffset024;
+float4x4 g_matBoneOffset025;
+float4x4 g_matBoneOffset026;
+float4x4 g_matBoneOffset027;
+float4x4 g_matBoneOffset028;
+float4x4 g_matBoneOffset029;
+float4x4 g_matBoneOffset030;
+
 
 /** モデルのView変換行列 */
 float4x4 g_matView;
@@ -82,78 +115,79 @@ struct OUT_VS {
 
 //メッシュ標準頂点シェーダー
 OUT_VS VS_DefaultSkinAniMesh(
-      float4 prm_posModel_Local    : POSITION,      // モデルの頂点
+      float4 prm_posModel_Local  : POSITION,      // モデルの頂点
       float3 prm_vecNormal_Local : NORMAL,        // モデルの頂点の法線
       float  prm_index           : PSIZE ,        // モデルのインデックス（何個目のオブジェクトか？）
-      float2 prm_uv     : TEXCOORD0      // モデルの頂点のUV
-
+      float2 prm_uv              : TEXCOORD0 ,     // モデルの頂点のUV
+      float4 infl_weight         : BLENDWEIGHT,
+      int4   infl_bone_idx       : BLENDINDICES
 ) {
     OUT_VS out_vs = (OUT_VS)0;
-    const int index = (int)prm_index;
+    const int index = ((int)prm_index) % SkinAniMeshModel_MAX_BONE_WORLD_MATRIX;
 
     //頂点計算
     float4x4 matWorld;
 
     if (index == 0) {
-        matWorld = g_matWorld001;
+        matWorld = g_matBone001;
     } else if (index == 1) {
-        matWorld = g_matWorld002;
+        matWorld = g_matBone002;
     } else if (index == 2) {
-        matWorld = g_matWorld003;
+        matWorld = g_matBone003;
     } else if (index == 3) {
-        matWorld = g_matWorld004;
+        matWorld = g_matBone004;
     } else if (index == 4) {
-        matWorld = g_matWorld005;
+        matWorld = g_matBone005;
     } else if (index == 5) {
-        matWorld = g_matWorld006;
+        matWorld = g_matBone006;
     } else if (index == 6) {
-        matWorld = g_matWorld007;
+        matWorld = g_matBone007;
     } else if (index == 7) {
-        matWorld = g_matWorld008;
+        matWorld = g_matBone008;
     } else if (index == 8) {
-        matWorld = g_matWorld009;
+        matWorld = g_matBone009;
     } else if (index == 9) {
-        matWorld = g_matWorld010;
+        matWorld = g_matBone010;
     } else if (index == 10) {
-        matWorld = g_matWorld011;
+        matWorld = g_matBone011;
     } else if (index == 11) {
-        matWorld = g_matWorld012;
+        matWorld = g_matBone012;
     } else if (index == 12) {
-        matWorld = g_matWorld013;
+        matWorld = g_matBone013;
     } else if (index == 13) {
-        matWorld = g_matWorld014;
+        matWorld = g_matBone014;
     } else if (index == 14) {
-        matWorld = g_matWorld015;
+        matWorld = g_matBone015;
     } else if (index == 15) {
-        matWorld = g_matWorld016;
+        matWorld = g_matBone016;
     } else if (index == 16) {
-        matWorld = g_matWorld017;
+        matWorld = g_matBone017;
     } else if (index == 17) {
-        matWorld = g_matWorld018;
+        matWorld = g_matBone018;
     } else if (index == 18) {
-        matWorld = g_matWorld019;
+        matWorld = g_matBone019;
     } else if (index == 19) {
-        matWorld = g_matWorld020;
+        matWorld = g_matBone020;
     } else if (index == 20) {
-        matWorld = g_matWorld021;
+        matWorld = g_matBone021;
     } else if (index == 21) {
-        matWorld = g_matWorld022;
+        matWorld = g_matBone022;
     } else if (index == 22) {
-        matWorld = g_matWorld023;
+        matWorld = g_matBone023;
     } else if (index == 23) {
-        matWorld = g_matWorld024;
+        matWorld = g_matBone024;
     } else if (index == 24) {
-        matWorld = g_matWorld025;
+        matWorld = g_matBone025;
     } else if (index == 25) {
-        matWorld = g_matWorld026;
+        matWorld = g_matBone026;
     } else if (index == 26) {
-        matWorld = g_matWorld027;
+        matWorld = g_matBone027;
     } else if (index == 27) {
-        matWorld = g_matWorld028;
+        matWorld = g_matBone028;
     } else if (index == 28) {
-        matWorld = g_matWorld029;
+        matWorld = g_matBone029;
     } else { //if (index == 29) {
-        matWorld = g_matWorld030;
+        matWorld = g_matBone030;
     }
     //頂点計算
     const float4 posModel_World = mul(prm_posModel_Local, matWorld);
@@ -260,7 +294,7 @@ technique DefaultSkinAniMeshTechnique
     //【使用条件】
     //・テクスチャが存在しs0レジスタにバインドされていること。
     //【設定パラメータ】
-    // float4x4 g_matWorld		:	World変換行列
+    // float4x4 g_matBone		:	World変換行列
     // float4x4 g_matView		:	View変換行列
     // float4x4 g_matProj		:	射影変換行列
     // float3 g_vecLightFrom_World	:	ライトの方向

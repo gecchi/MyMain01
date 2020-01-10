@@ -37,8 +37,8 @@ HRESULT SkinAniMeshAllocHierarchy::CreateMeshContainer(THIS_
     if(pSkinInfo) {
         pNewMC->pSkinInfo = pSkinInfo;// スキンをコピー
         pNewMC->pSkinInfo->AddRef();
-        // ボーンの数を取得
         DWORD bone_num = pSkinInfo->GetNumBones();
+        // 描画頂点に関係するボーンの数 ＝ ボーンオフセット行列の数
         pNewMC->_dwBoneOffsetMatrixNum = bone_num;
         _TRACE_("pSkinInfo->GetNumBones() = "<<bone_num);
         pNewMC->_paBoneOffsetMatrix = new D3DXMATRIX[bone_num];
@@ -55,20 +55,26 @@ HRESULT SkinAniMeshAllocHierarchy::CreateMeshContainer(THIS_
         //・ボーンの影響をうける範囲ごとに、メッシュをサブセットに分割
         //・頂点情報にブレンド加重値を付与
         //・ボーンに合わせて頂点を移動
-        DWORD Options = D3DXMESH_SYSTEMMEM|D3DXMESHOPT_VERTEXCACHE;
+//        DWORD Options = D3DXMESH_SYSTEMMEM|D3DXMESHOPT_VERTEXCACHE;
+        LPD3DXBUFFER pVertexRemap;
         hr = pNewMC->pSkinInfo->ConvertToBlendedMesh(
           pMeshData->pMesh,                  //[in] LPD3DXMESH pMesh, 入力メッシュ
-          Options,                           //[in] DWORD Options,          未使用？
+          NULL,                              //[in] DWORD Options,          未使用？
           pAdjacency,                        //[in] CONST LPDWORD pAdjacencyIn, 入力メッシュ隣接面情報（配列？）
           pNewMC->pAdjacency,                //[out]LPDWORD pAdjacencyOut,     出力メッシュ隣接面情報
           NULL,                 //[out]DWORD *pFaceRemap,         面をどう並べ替えたかの情報、不要時NULL
-          NULL,              //[out]LPD3DXBUFFER *ppVertexRemap, 頂点をどう並べ替えたかの情報、不要時NULL
+          &(pVertexRemap),                 //[out]LPD3DXBUFFER *ppVertexRemap, 頂点をどう並べ替えたかの情報、不要時NULL
           &(pNewMC->_dwMaxInfleNum),         //[out]DWORD *pMaxFaceInfl, 一つの頂点に影響を与えるボーンの数の最大値
           &(pNewMC->_dwBoneCombNum),         //[out]DWORD *pNumBoneCombinations, ボーンコンビネーションの数
           &(pNewMC->_pBoneCombinationTable), //[out]LPD3DXBUFFER *ppBoneCombinationTable, ボーンコンビネーション情報、ボーンと頂点の対応表配列
           &(pNewMC->MeshData.pMesh)          //[out]LPD3DXMESH *ppMesh 出力メッシュ情報、処理済みのメッシュが返ってくる
         );
         checkDxException(hr, D3D_OK, "ConvertToBlendedMeshに失敗しました。");
+        //Remap処理、ターゲットの頂点バッファが外部的に順番変更された場合は、このメソッドを呼び出す必要があります。
+        DWORD* d = (DWORD*)pVertexRemap->GetBufferPointer();
+        pNewMC->pSkinInfo->Remap(pNewMC->MeshData.pMesh->GetNumVertices(),d);
+        pVertexRemap->Release();
+
         // ConvertToBlenderMesh関数で戻ってくる ID3DXBuffer には、
         // D3DXBONECOMBINATION構造体が　NumBoneCombinations 個入っている。
     } else {
@@ -93,7 +99,7 @@ D3DXFRAME* SkinAniMeshAllocHierarchy::createNewFrame() {
     tmp->_frame_index = UINT_MAX; // 0 が有効なインデックスなので 0 で初期化したくなかった
     D3DXMatrixIsIdentity(&(tmp->_world_trans_matrix)); //とりあえず単位行列
     D3DXMatrixIsIdentity(&(tmp->_bone_offset_matrix));
-    D3DXMatrixIsIdentity(&(tmp->_conbined_matrix));
+    D3DXMatrixIsIdentity(&(tmp->_combined_matrix));
     return tmp;
 }
 

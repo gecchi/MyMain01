@@ -16,11 +16,10 @@
 #include "jp/ggaf/dx/util/SkinAniMeshAllocHierarchy.h"
 #include "jp/ggaf/dx/util/SkinAniMeshContainer.h"
 #include "jp/ggaf/dx/util/SkinAniMeshFrame.h"
-
-#define MAX_FRAME_WORLD_MATRIX (25) //2以上でないとブレイクしないのでダメ
+//DefaultSkinAniMeshEffect.fx と 定数を一致させる事
+#define SkinAniMeshModel_MAX_BONE_WORLD_MATRIX (5) //2以上でないとブレイクしないのでダメ
 
 using namespace GgafDx;
-DWORD SkinAniMeshModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_PSIZE | D3DFVF_DIFFUSE | D3DFVF_TEX1);
 
 SkinAniMeshModel::SkinAniMeshModel(const char* prm_model_name) : Model(prm_model_name) {
     _pAllocHierarchy = nullptr;
@@ -30,6 +29,7 @@ SkinAniMeshModel::SkinAniMeshModel(const char* prm_model_name) : Model(prm_model
     _anim_ticks_per_second = 4800; //restoreSkinAniMeshModel で上書きされる場合がある。
     _paVtxBuffer_data = nullptr;
     _paIndexBuffer_data = nullptr;
+    _pVertexDeclaration = nullptr;
     _pVertexBuffer = nullptr;
     _pIndexBuffer = nullptr;
     _index_param_num = 0;
@@ -61,8 +61,8 @@ HRESULT SkinAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
             ((MassModel*)pModelLastDraw)->resetStreamSourceFreq();
         }
         //頂点バッファとインデックスバッファを設定
+        pDevice->SetVertexDeclaration( _pVertexDeclaration); //頂点フォーマット
         pDevice->SetStreamSource(0, _pVertexBuffer,  0, _size_vertex_unit);
-        pDevice->SetFVF(SkinAniMeshModel::FVF);
         pDevice->SetIndices(_pIndexBuffer);
         hr = pID3DXEffect->SetFloat(pSkinAniMeshEffect->_h_tex_blink_power, _power_blink);
         checkDxException(hr, D3D_OK, "SetFloat(_h_tex_blink_power) に失敗しました。");
@@ -95,9 +95,9 @@ HRESULT SkinAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
 /////////////////////////////////////////////
     for (int i = 0; i < _index_param_num; i++) {
         const INDEXPARAM& idxparam = _paIndexParam[i];
-        for (int j = 0; j < MAX_FRAME_WORLD_MATRIX; j++) {
+        for (int j = 0; j < SkinAniMeshModel_MAX_BONE_WORLD_MATRIX; j++) {
             if (it_1 != _vecDrawBoneFrame.end()) {
-                hr = pID3DXEffect->SetMatrix(pSkinAniMeshEffect->_ah_matWorld[j], &((*it_1)->_world_trans_matrix));
+                hr = pID3DXEffect->SetMatrix(pSkinAniMeshEffect->_ah_matBone[j], &((*it_1)->_world_trans_matrix));
                 ++it_1;
             } else {
                 break;
@@ -321,82 +321,6 @@ void SkinAniMeshModel::restore() {
 
             ID3DXMesh* pMesh = pMeshContainer->MeshData.pMesh;
 
-
-
-
-
-            /////////////
-
-            _TRACE_("draw_frsme["<<i<<"]: idx="<<_vecDrawBoneFrame[i]->_frame_index<<", name="<<_vecDrawBoneFrame[i]->Name<<"");
-            _TRACE_("pMeshContainer->_dwMaxInfleNum = "<<pMeshContainer->_dwMaxInfleNum);
-            _TRACE_("pMeshContainer->_dwBoneCombNum = "<<pMeshContainer->_dwBoneCombNum);
-
-            D3DXBONECOMBINATION* paBoneCombination =
-                    (D3DXBONECOMBINATION*)(pMeshContainer->_pBoneCombinationTable->GetBufferPointer());
-            for (UINT bc_idx = 0; bc_idx < pMeshContainer->_dwBoneCombNum; ++bc_idx) { //bc_idxはメッシュサブセットID
-                D3DXBONECOMBINATION* pBoneCombination = &(paBoneCombination[bc_idx]);
-                _TRACE_("paBoneCombination["<<bc_idx<<"] = "<<
-                        " AttribId="<<pBoneCombination->AttribId<<
-                        " FaceStart="<<pBoneCombination->FaceStart<<
-                        " FaceCount="<<pBoneCombination->FaceCount<<
-                        " VertexStart="<<pBoneCombination->VertexStart<<
-                        " VertexCount="<<pBoneCombination->VertexCount<<
-                        ""
-                );
-                DWORD infl_id;
-                for ( infl_id = 0; infl_id < pMeshContainer->_dwMaxInfleNum; ++infl_id) { //
-                    DWORD bone_id = pBoneCombination->BoneId[infl_id];
-                    _TRACE_("paBoneCombination["<<bc_idx<<"].BoneId["<<infl_id<<"]="<<bone_id);
-                }
-            }
-
-
-
-//            _TRACE_("こここ");
-//
-//            D3DXBONECOMBINATION* pBoneCombination =
-//                    (D3DXBONECOMBINATION*)(pMeshContainer->_pBoneCombinationTable->GetBufferPointer());
-//            for (UINT bc_idx = 0; bc_idx < pMeshContainer->_dwBoneCombNum; ++bc_idx) { //bc_idxはメッシュサブセットID
-//                DWORD infl_id;
-//                for ( infl_id = 0; infl_id < pMeshContainer->_dwMaxInfleNum; ++infl_id) { //
-//                    DWORD bone_id = pBoneCombination[bc_idx].BoneId[infl_id];
-//                    if (bone_id != UINT_MAX) {
-//                        //IDが有効
-////                    	pDev->setTtanceform(D3DTS_WORLDMATRIX(infl_id), &m_mBoneToWorld[bone_id]);
-//                    } else {
-////                    	break;
-//                    }
-//                }
-//                //頂点ブレンド数設定
-//                //pDev->setRenderstate(D3DRS_VERTEXBLEND, pMeshContainer->_dwMaxInfleNum -1);
-//
-//                //属性の設定、どのマテリアを使うか
-////                const D3DXMATERIAL& mat = pMeshContainer->pMaterials[ pBoneCombination[bc_idx].AttribId ];
-////                pDev->SetMaterial(&mat.MatD3D);
-////                pDev->SetTexture(0, GetTexture( mat.pTextureFilename));
-////                pMeshContainer->Mesh.pMesh->DrawSubset(bc_idx);
-//            }
-
-
-
-
-
-
-
-
-
-
-
-
-
-            //////////////
-
-
-
-
-
-
-
             pMesh->GetDeclaration( e );
             int offset_position  = getOffsetFromElem( e, D3DDECLUSAGE_POSITION );
             int offset_normal  = getOffsetFromElem( e, D3DDECLUSAGE_NORMAL );
@@ -430,7 +354,7 @@ void SkinAniMeshModel::restore() {
                     pVtx->nz = 0.0f;
                 }
                 // float index
-                pVtx->index = (i % MAX_FRAME_WORLD_MATRIX);
+                pVtx->index = i;
 
                 //DWORD color ; //頂点カラー
                 pVtx->color = D3DCOLOR_ARGB(255,255,255,255); //頂点カラー
@@ -445,6 +369,11 @@ void SkinAniMeshModel::restore() {
                     pVtx->tv = 0.0f;
                 }
 //               _TRACE_("["<<i<<"]["<<j<<"]:pVtx->index="<<pVtx->index<<"  Vertex=("<<(pVtx->x)<<","<<(pVtx->y)<<","<<(pVtx->z)<<")  Normal=("<<(pVtx->nx)<<","<<(pVtx->ny)<<","<<(pVtx->nz)<<")  texcoordl=("<<(pVtx->tu)<<","<<(pVtx->tv)<<")");
+
+                for (int k = 0; k < 4; k++) {
+                    pVtx->infl_weight[k] = 1.0f;
+                    pVtx->infl_bone_idx[k] = 0xFF;
+                }
                 v_cnt ++;
             }
             pVb->Unlock();
@@ -505,6 +434,106 @@ void SkinAniMeshModel::restore() {
             pMeshContainer->MeshData.pMesh = nullptr;
         }
 
+
+
+        //skin情報のためにもっかいループ
+        for (int i = 0; i < draw_frame_num; i++) {
+
+            SkinAniMeshContainer* pMeshContainer = (SkinAniMeshContainer*)(_vecDrawBoneFrame[i]->pMeshContainer);
+            if (pMeshContainer == nullptr) {
+                continue;
+            }
+            /////////////
+            _TRACE_("draw_frsme["<<i<<"]: idx="<<_vecDrawBoneFrame[i]->_frame_index<<", name="<<_vecDrawBoneFrame[i]->Name<<"");
+            _TRACE_("pMeshContainer->_dwMaxInfleNum = "<<pMeshContainer->_dwMaxInfleNum);
+            _TRACE_("pMeshContainer->_dwBoneCombNum = "<<pMeshContainer->_dwBoneCombNum);
+            LPD3DXSKININFO pSkinInfo = pMeshContainer->pSkinInfo;
+            D3DXBONECOMBINATION* paBoneCombination =
+                    (D3DXBONECOMBINATION*)(pMeshContainer->_pBoneCombinationTable->GetBufferPointer());
+            for (UINT bc_idx = 0; bc_idx < pMeshContainer->_dwBoneCombNum; ++bc_idx) { //bc_idxはメッシュサブセットID
+                D3DXBONECOMBINATION* pBoneCombination = &(paBoneCombination[bc_idx]);
+                _TRACE_("paBoneCombination["<<bc_idx<<"] = "<<
+                        " AttribId="<<pBoneCombination->AttribId<<
+                        " FaceStart="<<pBoneCombination->FaceStart<<
+                        " FaceCount="<<pBoneCombination->FaceCount<<
+                        " VertexStart="<<pBoneCombination->VertexStart<<
+                        " VertexCount="<<pBoneCombination->VertexCount<<
+                        ""
+                );
+                DWORD infl_id;
+                for ( infl_id = 0; infl_id < pMeshContainer->_dwMaxInfleNum; ++infl_id) { //
+                    DWORD bone_id = pBoneCombination->BoneId[infl_id];
+                    DWORD NumVertices = pSkinInfo->GetNumBoneInfluences(bone_id);
+
+                    _TRACE_("paBoneCombination["<<bc_idx<<"].BoneId["<<infl_id<<"]="<<bone_id<<" NumVertices="<<NumVertices);
+
+                    if (NumVertices > 0) {
+                        // Get the bone influcences
+                        DWORD *Vertices = new DWORD[NumVertices];
+                        float *Weights  = new float[NumVertices];
+                        pSkinInfo->GetBoneInfluence(bone_id, Vertices, Weights);
+                        for (int v = 0; v < NumVertices; v++) {
+                            SkinAniMeshModel::VERTEX* pVtx = &(_paVtxBuffer_data[Vertices[v]]);
+                            bool is_exist = false;
+                            for (int k = 0; k < 4; k++) {
+                                if (pVtx->infl_bone_idx[k] == (byte)bone_id) {
+                                    is_exist = true;
+                                    break;
+                                }
+                            }
+                            if (is_exist == false) {
+                                for (int k = 0; k < 4; k++) {
+                                    if (pVtx->infl_bone_idx[k] == 0xFF) {
+                                         pVtx->infl_bone_idx[k] = (byte)bone_id;
+                                         pVtx->infl_weight[k] =  Weights[v];
+                                         break;
+                                    }
+                                }
+                            }
+                        }
+
+                        _TRACE_N_("Vertices=");
+                        for (int v = 0; v < NumVertices; v++) {
+                            _TRACE_N_("\t"<<Vertices[v]<<"");
+                        }
+                        _TRACE_N_("\n");
+                        _TRACE_N_("Weights=");
+                        for (int v = 0; v < NumVertices; v++) {
+                            _TRACE_N_("\t"<<Weights[v]<<"");
+                        }
+                        _TRACE_N_("\n");
+                    }
+                }
+            }
+
+
+//            _TRACE_("こここ");
+//
+//            D3DXBONECOMBINATION* pBoneCombination =
+//                    (D3DXBONECOMBINATION*)(pMeshContainer->_pBoneCombinationTable->GetBufferPointer());
+//            for (UINT bc_idx = 0; bc_idx < pMeshContainer->_dwBoneCombNum; ++bc_idx) { //bc_idxはメッシュサブセットID
+//                DWORD infl_id;
+//                for ( infl_id = 0; infl_id < pMeshContainer->_dwMaxInfleNum; ++infl_id) { //
+//                    DWORD bone_id = pBoneCombination[bc_idx].BoneId[infl_id];
+//                    if (bone_id != UINT_MAX) {
+//                        //IDが有効
+////                    	pDev->setTtanceform(D3DTS_WORLDMATRIX(infl_id), &m_mBoneToWorld[bone_id]);
+//                    } else {
+////                    	break;
+//                    }
+//                }
+//                //頂点ブレンド数設定
+//                //pDev->setRenderstate(D3DRS_VERTEXBLEND, pMeshContainer->_dwMaxInfleNum -1);
+//
+//                //属性の設定、どのマテリアを使うか
+////                const D3DXMATERIAL& mat = pMeshContainer->pMaterials[ pBoneCombination[bc_idx].AttribId ];
+////                pDev->SetMaterial(&mat.MatD3D);
+////                pDev->SetTexture(0, GetTexture( mat.pTextureFilename));
+////                pMeshContainer->Mesh.pMesh->DrawSubset(bc_idx);
+//            }
+
+            //////////////
+        }
 ////////////////////////////////////////////////
         //描画時（DrawIndexedPrimitive）のパラメータリスト作成
         std::vector<SkinAniMeshModel::INDEXPARAM> param_tmp;
@@ -523,7 +552,7 @@ void SkinAniMeshModel::restore() {
         int faceNoCnt;
         for (faceNoCnt = 0; faceNoCnt < _nFaces; faceNoCnt++) {
             frame_no = _paIndexBuffer_frame_no[faceNoCnt*3 + 0]; //faceNoCnt(面番号)に対する頂点の属するフレームメッシュ通し番号
-            if (frame_no == 0 && prev_frame_no != 0) {
+            if ((frame_no % SkinAniMeshModel_MAX_BONE_WORLD_MATRIX) == 0 && frame_no != prev_frame_no) {
 //                _TRACE_("BREAK! frame_no="<<frame_no);
                 prev_faceNoCnt_break = faceNoCnt_break;
                 faceNoCnt_break = faceNoCnt;
@@ -588,11 +617,17 @@ void SkinAniMeshModel::restore() {
         }
         _size_vertices = _size_vertex_unit * _nVertices;
 
-//        _TRACE_("まとめ！");
-//        for (int i = 0; i < _nVertices; i++) {
-//            SkinAniMeshModel::VERTEX* pVtx = &(_paVtxBuffer_data[i]); //書き込む1頂点の開始アドレス
-//            _TRACE_("["<<i<<"]:Vertex=("<<(pVtx->x)<<","<<(pVtx->y)<<","<<(pVtx->z)<<")  Normal=("<<(pVtx->nx)<<","<<(pVtx->ny)<<","<<(pVtx->nz)<<")");
-//        }
+        _TRACE_("まとめ！");
+        for (int i = 0; i < _nVertices; i++) {
+            SkinAniMeshModel::VERTEX* pVtx = &(_paVtxBuffer_data[i]); //書き込む1頂点の開始アドレス
+            _TRACE_("["<<i<<"]:"<<
+                    " Vertex=("<<(pVtx->x)<<","<<(pVtx->y)<<","<<(pVtx->z)<<")"<<
+                    " infl_bone_idx=("<<(int)(pVtx->infl_bone_idx[0])<<","<<(int)(pVtx->infl_bone_idx[1])<<","<<(int)(pVtx->infl_bone_idx[2])<<","<<(int)(pVtx->infl_bone_idx[3])<<")"<<
+                    " infl_weight=("<<(pVtx->infl_weight[0])<<","<<(pVtx->infl_weight[1])<<","<<(pVtx->infl_weight[2])<<","<<(pVtx->infl_weight[3])<<")"<<
+                    " Normal=("<<(pVtx->nx)<<","<<(pVtx->ny)<<","<<(pVtx->nz)<<")"
+
+            );
+        }
 //        for (int i = 0; i < _nFaces; ++i) {
 //            _TRACE_("["<<i<<"]:Index=("<<(_paIndexBuffer_data[i*3+0])<<","<<
 //                    (_paIndexBuffer_data[i*3+1])<<","<<
@@ -600,6 +635,84 @@ void SkinAniMeshModel::restore() {
 //        }
 
     } //if (_paVtxBuffer_data == nullptr)
+
+
+
+    if (_pVertexDeclaration == nullptr) {
+        HRESULT hr;
+        int elemnum = 8; //D3DVERTEXELEMENT9 構造体の配列要素数
+        D3DVERTEXELEMENT9* paVtxelem = NEW D3DVERTEXELEMENT9[elemnum];
+        WORD  st0_offset_next = 0;
+        //プライマリ部頂点フォーマット
+        //float x, y, z; // 頂点座標
+        paVtxelem[0].Stream = 0;
+        paVtxelem[0].Offset = st0_offset_next;
+        paVtxelem[0].Type = D3DDECLTYPE_FLOAT3;
+        paVtxelem[0].Method = D3DDECLMETHOD_DEFAULT;
+        paVtxelem[0].Usage = D3DDECLUSAGE_POSITION;
+        paVtxelem[0].UsageIndex = 0;
+        st0_offset_next += sizeof(float)*3;
+        //float nx, ny, nz; // 法線
+        paVtxelem[1].Stream = 0;
+        paVtxelem[1].Offset = st0_offset_next;
+        paVtxelem[1].Type = D3DDECLTYPE_FLOAT3;
+        paVtxelem[1].Method = D3DDECLMETHOD_DEFAULT;
+        paVtxelem[1].Usage = D3DDECLUSAGE_NORMAL;
+        paVtxelem[1].UsageIndex = 0;
+        st0_offset_next += sizeof(float)*3;
+        //float index;
+        paVtxelem[2].Stream = 0;
+        paVtxelem[2].Offset = st0_offset_next;
+        paVtxelem[2].Type = D3DDECLTYPE_FLOAT1;
+        paVtxelem[2].Method = D3DDECLMETHOD_DEFAULT;
+        paVtxelem[2].Usage = D3DDECLUSAGE_PSIZE;
+        paVtxelem[2].UsageIndex = 0;
+        st0_offset_next += sizeof(float)*1;
+        //DWORD color; // 頂点カラー
+        paVtxelem[3].Stream = 0;
+        paVtxelem[3].Offset = st0_offset_next;
+        paVtxelem[3].Type = D3DDECLTYPE_D3DCOLOR;
+        paVtxelem[3].Method = D3DDECLMETHOD_DEFAULT;
+        paVtxelem[3].Usage = D3DDECLUSAGE_COLOR;
+        paVtxelem[3].UsageIndex = 0;
+        st0_offset_next += sizeof(DWORD);
+        //float tu, tv; // テクスチャ座標
+        paVtxelem[4].Stream = 0;
+        paVtxelem[4].Offset = st0_offset_next;
+        paVtxelem[4].Type = D3DDECLTYPE_FLOAT2;
+        paVtxelem[4].Method = D3DDECLMETHOD_DEFAULT;
+        paVtxelem[4].Usage = D3DDECLUSAGE_TEXCOORD;
+        paVtxelem[4].UsageIndex = 0;
+        st0_offset_next += sizeof(float)*2;
+        //float weight1, weight2, weight3, weight4;
+        paVtxelem[5].Stream = 0;
+        paVtxelem[5].Offset = st0_offset_next;
+        paVtxelem[5].Type = D3DDECLTYPE_FLOAT4;
+        paVtxelem[5].Method = D3DDECLMETHOD_DEFAULT;
+        paVtxelem[5].Usage = D3DDECLUSAGE_BLENDWEIGHT;
+        paVtxelem[5].UsageIndex = 0;
+        st0_offset_next += sizeof(float)*4;
+        // byte  idx1, idx2, idx3, idx4
+        paVtxelem[6].Stream = 0;
+        paVtxelem[6].Offset = st0_offset_next;
+        paVtxelem[6].Type = D3DDECLTYPE_UBYTE4;
+        paVtxelem[6].Method = D3DDECLMETHOD_DEFAULT;
+        paVtxelem[6].Usage = D3DDECLUSAGE_BLENDINDICES;
+        paVtxelem[6].UsageIndex = 0;
+        st0_offset_next += sizeof(byte)*4;
+        //D3DDECL_END()
+        paVtxelem[7].Stream = 0xFF;
+        paVtxelem[7].Offset = 0;
+        paVtxelem[7].Type = D3DDECLTYPE_UNUSED;
+        paVtxelem[7].Method = 0;
+        paVtxelem[7].Usage = 0;
+        paVtxelem[7].UsageIndex = 0;
+
+        hr = God::_pID3DDevice9->CreateVertexDeclaration( paVtxelem, &(_pVertexDeclaration) );
+        checkDxException(hr, D3D_OK, "God::_pID3DDevice9->CreateVertexDeclaration 失敗 model="<<(_model_name));
+        //ストリーム数取得        hr = m_pDecl->GetDeclaration( m_pElement, &m_numElements);
+        GGAF_DELETEARR(paVtxelem);
+    }
 
 
     if (_papTextureConnection == nullptr) {
@@ -617,7 +730,7 @@ void SkinAniMeshModel::restore() {
         hr = God::_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices,
                 D3DUSAGE_WRITEONLY,
-                SkinAniMeshModel::FVF,
+                0, //SkinAniMeshModel::FVF,
                 D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
                 &(_pVertexBuffer),
                 nullptr);
@@ -744,6 +857,7 @@ void SkinAniMeshModel::release() {
     GGAF_DELETEARR(_papTextureConnection); //テクスチャの配列
     GGAF_RELEASE(_pVertexBuffer);
     GGAF_RELEASE(_pIndexBuffer);
+    GGAF_RELEASE(_pVertexDeclaration);
     _TRACE3_("_model_name=" << _model_name << " end");
 }
 

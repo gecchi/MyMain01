@@ -23,7 +23,8 @@ public:
     D3DXHANDLE _h_specular;
     D3DXHANDLE _h_specular_power;
     D3DXHANDLE _h_posCam;
-    D3DXHANDLE _ah_matWorld[30];
+    D3DXHANDLE _ah_matBone[30];
+    D3DXHANDLE _ah_matBoneOffset[30];
 
 public:
     /**

@@ -12,7 +12,7 @@ namespace GgafDx {
 class SkinAniMeshFrame : public BoneAniMeshFrame {
 public:
     D3DXMATRIX _bone_offset_matrix;    // ボーンオフセット行列
-    D3DXMATRIX _conbined_matrix;  // 合成行列
+    D3DXMATRIX _combined_matrix;  // 合成行列
 };
 
 }

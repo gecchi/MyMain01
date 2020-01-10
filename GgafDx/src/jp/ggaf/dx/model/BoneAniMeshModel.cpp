@@ -16,7 +16,8 @@
 #include "jp/ggaf/dx/util/BoneAniMeshAllocHierarchy.h"
 #include "jp/ggaf/dx/util/BoneAniMeshFrame.h"
 
-#define MAX_FRAME_WORLD_MATRIX (25) //2以上でないとブレイクしないのでダメ
+//DefaultBoneAniMeshEffect.fx と 定数を一致させる事
+#define BoneAniMeshModel_MAX_BONE_WORLD_MATRIX (4) //2以上でないとブレイクしないのでダメ
 
 using namespace GgafDx;
 DWORD BoneAniMeshModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_PSIZE | D3DFVF_DIFFUSE | D3DFVF_TEX1);
@@ -94,7 +95,7 @@ HRESULT BoneAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
 /////////////////////////////////////////////
     for (int i = 0; i < _index_param_num; i++) {
         const INDEXPARAM& idxparam = _paIndexParam[i];
-        for (int j = 0; j < MAX_FRAME_WORLD_MATRIX; j++) {
+        for (int j = 0; j < BoneAniMeshModel_MAX_BONE_WORLD_MATRIX; j++) {
             if (it_1 != _vecDrawBoneFrame.end()) {
                 hr = pID3DXEffect->SetMatrix(pBoneAniMeshEffect->_ah_matWorld[j], &((*it_1)->_world_trans_matrix));
                 ++it_1;
@@ -349,7 +350,7 @@ void BoneAniMeshModel::restore() {
                     pVtx->nz = 0.0f;
                 }
                 // float index
-                pVtx->index = (i % MAX_FRAME_WORLD_MATRIX);
+                pVtx->index = i;
 
                 //DWORD color ; //頂点カラー
                 pVtx->color = D3DCOLOR_ARGB(255,255,255,255); //頂点カラー
@@ -442,8 +443,9 @@ void BoneAniMeshModel::restore() {
         int faceNoCnt;
         for (faceNoCnt = 0; faceNoCnt < _nFaces; faceNoCnt++) {
             frame_no = _paIndexBuffer_frame_no[faceNoCnt*3 + 0]; //faceNoCnt(面番号)に対する頂点の属するフレームメッシュ通し番号
-            if (frame_no == 0 && prev_frame_no != 0) {
-//                _TRACE_("BREAK! frame_no="<<frame_no);
+//                _TRACE_("frame_no="<<frame_no<<" prev_frame_no="<<prev_frame_no);
+            if ((frame_no % BoneAniMeshModel_MAX_BONE_WORLD_MATRIX) == 0 && frame_no != prev_frame_no) {
+//                _TRACE_("BREAK!");
                 prev_faceNoCnt_break = faceNoCnt_break;
                 faceNoCnt_break = faceNoCnt;
 
