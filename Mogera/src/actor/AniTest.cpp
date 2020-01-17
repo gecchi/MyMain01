@@ -14,7 +14,7 @@ using namespace GgafLib;
 using namespace Mogera;
 
 AniTest::AniTest(const char* prm_name) :
-        DefaultSkinAniMeshActor(prm_name, "Tiny") {
+        DefaultSkinAniMeshActor(prm_name, "tiny") {
 //AniTest::AniTest(const char* prm_name) :
 //        DefaultBoneAniMeshActor(prm_name, "AnimatedSkelton2") {
     _class_name = "AniTest";

@@ -20,11 +20,11 @@ class SkinAniMeshModel : public Model {
 public:
     /** 頂点のFVF */
     struct VERTEX : public Model::VERTEX_3D_BASE {
-        float index;      // psizeではなくてはなくて頂点番号として使用。何フレーム目かするために使用。
+        float bone_combi_index;      // psizeではなくてはなくてボーンコンビネーションのインデックス。paBoneCombination[n] の n
         DWORD color;      // 頂点の色（オブジェクトのマテリアルカラーとして使用）
         float tu, tv;     // テクスチャ座標
 
-        float infl_weight[4];     // 頂点重み
+        float infl_weight[4];     // 頂点重み(TODO:４でいいの？)
         byte  infl_bone_idx[4];
     };
     struct INDEXPARAM {
@@ -39,7 +39,7 @@ public:
     SkinAniMeshModel::VERTEX* _paVtxBuffer_data;
     WORD* _paIndexBuffer_data;
     /** インデックスバッファ番号に対応する頂点バッファのフレームメッシュ番号 */
-    int* _paIndexBuffer_frame_no;
+    int* _paIndexBuffer_bone_combi_index;
     /** シェーダー入力頂点フォーマット */
     LPDIRECT3DVERTEXDECLARATION9 _pVertexDeclaration;
     /** 頂点バッファ（全フレームのメッシュ分） */
@@ -68,6 +68,8 @@ public:
     /** _pFrameRoot を巡って描画対象があるフレームを直列化したもの、要素番号はただの連番  */
     std::vector<SkinAniMeshFrame*> _vecDrawBoneFrame;
 
+
+    std::vector<SkinAniMeshFrame*> _vecBoneIdFrame;
 
     /** 総アニメーションセット数 */
     UINT _num_animation_set;
@@ -101,7 +103,7 @@ public:
     /** フレームを巡って情報取得 */
     void setFrameInfo(SkinAniMeshFrame* prm_pFrame);
     /** setFrameInfo(SkinAniMeshFrame*) で使用される、frame_indexの通し番号 */
-    UINT _tmp_frame_index;
+    DWORD _tmp_frame_index;
 
     int getOffsetFromElem( D3DVERTEXELEMENT9 *elems, D3DDECLUSAGE usage );
 

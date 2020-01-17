@@ -223,7 +223,7 @@ void BoneAniMeshModel::restore() {
         for (UINT ani_set_index = 0; ani_set_index < _num_animation_set; ani_set_index++) {
             _papaBool_AnimationSetIndex_BoneFrameIndex_is_act[ani_set_index] = NEW bool[_tmp_frame_index+1];
             std::vector<LPCSTR>* pAnimationTargetBoneFrameNameList = &(_mapAnimationSetIndex_AnimationTargetBoneFrameNames[ani_set_index]);
-            for (UINT frame_index = 0; frame_index < _vecAllBoneFrame.size(); frame_index++) {
+            for (DWORD frame_index = 0; frame_index < _vecAllBoneFrame.size(); frame_index++) {
                 _papaBool_AnimationSetIndex_BoneFrameIndex_is_act[ani_set_index][frame_index] = false;
                 LPSTR frame_name = _vecAllBoneFrame[frame_index]->Name;
                 if (frame_name) {

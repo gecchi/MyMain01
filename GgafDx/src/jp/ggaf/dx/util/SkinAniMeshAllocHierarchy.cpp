@@ -95,9 +95,11 @@ HRESULT SkinAniMeshAllocHierarchy::CreateMeshContainer(THIS_
 D3DXFRAME* SkinAniMeshAllocHierarchy::createNewFrame() {
     SkinAniMeshFrame* tmp = NEW SkinAniMeshFrame;
     ZeroMemory( tmp, sizeof(D3DXFRAME) );
-    //拡張分の初期化
-    tmp->_frame_index = UINT_MAX; // 0 が有効なインデックスなので 0 で初期化したくなかった
+    //親クラスメンバ(BoneAniMeshFrame)初期化
+    tmp->_frame_index = MAXDWORD; // 0 が有効なインデックスなので 0 で初期化したくなかった
     D3DXMatrixIsIdentity(&(tmp->_world_trans_matrix)); //とりあえず単位行列
+    //拡張分の初期化
+    tmp->_bone_id = MAXDWORD;
     D3DXMatrixIsIdentity(&(tmp->_bone_offset_matrix));
     D3DXMatrixIsIdentity(&(tmp->_combined_matrix));
     return tmp;

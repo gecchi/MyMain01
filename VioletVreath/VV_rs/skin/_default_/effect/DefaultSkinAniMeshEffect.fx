@@ -5,7 +5,7 @@
 // author : Masatoshi Tsuge
 // date:2009/03/06
 ////////////////////////////////////////////////////////////////////////////////
-#define SkinAniMeshModel_MAX_BONE_WORLD_MATRIX (5)
+#define SkinAniMeshModel_MAX_BONE_WORLD_MATRIX (20)
 /** モデルのWorld変換行列（フレーム毎） */
 float4x4 g_matBone001;
 float4x4 g_matBone002;
@@ -37,38 +37,77 @@ float4x4 g_matBone027;
 float4x4 g_matBone028;
 float4x4 g_matBone029;
 float4x4 g_matBone030;
+//float4x4 g_matBone031;
+//float4x4 g_matBone032;
+//float4x4 g_matBone033;
+//float4x4 g_matBone034;
+//float4x4 g_matBone035;
+//float4x4 g_matBone036;
+//float4x4 g_matBone037;
+//float4x4 g_matBone038;
+//float4x4 g_matBone039;
+//float4x4 g_matBone040;
+//float4x4 g_matBone041;
+//float4x4 g_matBone042;
+//float4x4 g_matBone043;
+//float4x4 g_matBone044;
+//float4x4 g_matBone045;
+//float4x4 g_matBone046;
+//float4x4 g_matBone047;
+//float4x4 g_matBone048;
+//float4x4 g_matBone049;
+//float4x4 g_matBone050;
 
-
-float4x4 g_matBoneOffset001;
-float4x4 g_matBoneOffset002;
-float4x4 g_matBoneOffset003;
-float4x4 g_matBoneOffset004;
-float4x4 g_matBoneOffset005;
-float4x4 g_matBoneOffset006;
-float4x4 g_matBoneOffset007;
-float4x4 g_matBoneOffset008;
-float4x4 g_matBoneOffset009;
-float4x4 g_matBoneOffset010;
-float4x4 g_matBoneOffset011;
-float4x4 g_matBoneOffset012;
-float4x4 g_matBoneOffset013;
-float4x4 g_matBoneOffset014;
-float4x4 g_matBoneOffset015;
-float4x4 g_matBoneOffset016;
-float4x4 g_matBoneOffset017;
-float4x4 g_matBoneOffset018;
-float4x4 g_matBoneOffset019;
-float4x4 g_matBoneOffset020;
-float4x4 g_matBoneOffset021;
-float4x4 g_matBoneOffset022;
-float4x4 g_matBoneOffset023;
-float4x4 g_matBoneOffset024;
-float4x4 g_matBoneOffset025;
-float4x4 g_matBoneOffset026;
-float4x4 g_matBoneOffset027;
-float4x4 g_matBoneOffset028;
-float4x4 g_matBoneOffset029;
-float4x4 g_matBoneOffset030;
+//float4x4 g_matBoneOffset001;
+//float4x4 g_matBoneOffset002;
+//float4x4 g_matBoneOffset003;
+//float4x4 g_matBoneOffset004;
+//float4x4 g_matBoneOffset005;
+//float4x4 g_matBoneOffset006;
+//float4x4 g_matBoneOffset007;
+//float4x4 g_matBoneOffset008;
+//float4x4 g_matBoneOffset009;
+//float4x4 g_matBoneOffset010;
+//float4x4 g_matBoneOffset011;
+//float4x4 g_matBoneOffset012;
+//float4x4 g_matBoneOffset013;
+//float4x4 g_matBoneOffset014;
+//float4x4 g_matBoneOffset015;
+//float4x4 g_matBoneOffset016;
+//float4x4 g_matBoneOffset017;
+//float4x4 g_matBoneOffset018;
+//float4x4 g_matBoneOffset019;
+//float4x4 g_matBoneOffset020;
+//float4x4 g_matBoneOffset021;
+//float4x4 g_matBoneOffset022;
+//float4x4 g_matBoneOffset023;
+//float4x4 g_matBoneOffset024;
+//float4x4 g_matBoneOffset025;
+//float4x4 g_matBoneOffset026;
+//float4x4 g_matBoneOffset027;
+//float4x4 g_matBoneOffset028;
+//float4x4 g_matBoneOffset029;
+//float4x4 g_matBoneOffset030;
+//float4x4 g_matBoneOffset031;
+//float4x4 g_matBoneOffset032;
+//float4x4 g_matBoneOffset033;
+//float4x4 g_matBoneOffset034;
+//float4x4 g_matBoneOffset035;
+//float4x4 g_matBoneOffset036;
+//float4x4 g_matBoneOffset037;
+//float4x4 g_matBoneOffset038;
+//float4x4 g_matBoneOffset039;
+//float4x4 g_matBoneOffset040;
+//float4x4 g_matBoneOffset041;
+//float4x4 g_matBoneOffset042;
+//float4x4 g_matBoneOffset043;
+//float4x4 g_matBoneOffset044;
+//float4x4 g_matBoneOffset045;
+//float4x4 g_matBoneOffset046;
+//float4x4 g_matBoneOffset047;
+//float4x4 g_matBoneOffset048;
+//float4x4 g_matBoneOffset049;
+//float4x4 g_matBoneOffset050;
 
 
 /** モデルのView変換行列 */
@@ -117,87 +156,129 @@ struct OUT_VS {
 OUT_VS VS_DefaultSkinAniMesh(
       float4 prm_posModel_Local  : POSITION,      // モデルの頂点
       float3 prm_vecNormal_Local : NORMAL,        // モデルの頂点の法線
-      float  prm_index           : PSIZE ,        // モデルのインデックス（何個目のオブジェクトか？）
+      float  prm_bone_combi_index           : PSIZE ,        // モデルのインデックス（何個目のオブジェクトか？）
       float2 prm_uv              : TEXCOORD0 ,     // モデルの頂点のUV
       float4 infl_weight         : BLENDWEIGHT,
       int4   infl_bone_idx       : BLENDINDICES
 ) {
     OUT_VS out_vs = (OUT_VS)0;
-    const int index = ((int)prm_index) % SkinAniMeshModel_MAX_BONE_WORLD_MATRIX;
+    const int bone_combi_index = ((int)prm_bone_combi_index) % SkinAniMeshModel_MAX_BONE_WORLD_MATRIX;
 
     //頂点計算
-    float4x4 matWorld;
+    float4x4 matBoneWorld;
 
-    if (index == 0) {
-        matWorld = g_matBone001;
-    } else if (index == 1) {
-        matWorld = g_matBone002;
-    } else if (index == 2) {
-        matWorld = g_matBone003;
-    } else if (index == 3) {
-        matWorld = g_matBone004;
-    } else if (index == 4) {
-        matWorld = g_matBone005;
-    } else if (index == 5) {
-        matWorld = g_matBone006;
-    } else if (index == 6) {
-        matWorld = g_matBone007;
-    } else if (index == 7) {
-        matWorld = g_matBone008;
-    } else if (index == 8) {
-        matWorld = g_matBone009;
-    } else if (index == 9) {
-        matWorld = g_matBone010;
-    } else if (index == 10) {
-        matWorld = g_matBone011;
-    } else if (index == 11) {
-        matWorld = g_matBone012;
-    } else if (index == 12) {
-        matWorld = g_matBone013;
-    } else if (index == 13) {
-        matWorld = g_matBone014;
-    } else if (index == 14) {
-        matWorld = g_matBone015;
-    } else if (index == 15) {
-        matWorld = g_matBone016;
-    } else if (index == 16) {
-        matWorld = g_matBone017;
-    } else if (index == 17) {
-        matWorld = g_matBone018;
-    } else if (index == 18) {
-        matWorld = g_matBone019;
-    } else if (index == 19) {
-        matWorld = g_matBone020;
-    } else if (index == 20) {
-        matWorld = g_matBone021;
-    } else if (index == 21) {
-        matWorld = g_matBone022;
-    } else if (index == 22) {
-        matWorld = g_matBone023;
-    } else if (index == 23) {
-        matWorld = g_matBone024;
-    } else if (index == 24) {
-        matWorld = g_matBone025;
-    } else if (index == 25) {
-        matWorld = g_matBone026;
-    } else if (index == 26) {
-        matWorld = g_matBone027;
-    } else if (index == 27) {
-        matWorld = g_matBone028;
-    } else if (index == 28) {
-        matWorld = g_matBone029;
-    } else { //if (index == 29) {
-        matWorld = g_matBone030;
+    if (bone_combi_index == 0) {
+        matBoneWorld = g_matBone001;
+    } else if (bone_combi_index == 1) {
+        matBoneWorld = g_matBone002;
+    } else if (bone_combi_index == 2) {
+        matBoneWorld = g_matBone003;
+    } else if (bone_combi_index == 3) {
+        matBoneWorld = g_matBone004;
+    } else if (bone_combi_index == 4) {
+        matBoneWorld = g_matBone005;
+    } else if (bone_combi_index == 5) {
+        matBoneWorld = g_matBone006;
+    } else if (bone_combi_index == 6) {
+        matBoneWorld = g_matBone007;
+    } else if (bone_combi_index == 7) {
+        matBoneWorld = g_matBone008;
+    } else if (bone_combi_index == 8) {
+        matBoneWorld = g_matBone009;
+    } else if (bone_combi_index == 9) {
+        matBoneWorld = g_matBone010;
+    } else if (bone_combi_index == 10) {
+        matBoneWorld = g_matBone011;
+    } else if (bone_combi_index == 11) {
+        matBoneWorld = g_matBone012;
+    } else if (bone_combi_index == 12) {
+        matBoneWorld = g_matBone013;
+    } else if (bone_combi_index == 13) {
+        matBoneWorld = g_matBone014;
+    } else if (bone_combi_index == 14) {
+        matBoneWorld = g_matBone015;
+    } else if (bone_combi_index == 15) {
+        matBoneWorld = g_matBone016;
+    } else if (bone_combi_index == 16) {
+        matBoneWorld = g_matBone017;
+    } else if (bone_combi_index == 17) {
+        matBoneWorld = g_matBone018;
+    } else if (bone_combi_index == 18) {
+        matBoneWorld = g_matBone019;
+    } else if (bone_combi_index == 19) {
+        matBoneWorld = g_matBone020;
+    } else if (bone_combi_index == 20) {
+        matBoneWorld = g_matBone021;
+    } else if (bone_combi_index == 21) {
+        matBoneWorld = g_matBone022;
+    } else if (bone_combi_index == 22) {
+        matBoneWorld = g_matBone023;
+    } else if (bone_combi_index == 23) {
+        matBoneWorld = g_matBone024;
+    } else if (bone_combi_index == 24) {
+        matBoneWorld = g_matBone025;
+    } else if (bone_combi_index == 25) {
+        matBoneWorld = g_matBone026;
+    } else if (bone_combi_index == 26) {
+        matBoneWorld = g_matBone027;
+    } else if (bone_combi_index == 27) {
+        matBoneWorld = g_matBone028;
+    } else if (bone_combi_index == 28) {
+        matBoneWorld = g_matBone029;
+    } else if (bone_combi_index == 29) {
+        matBoneWorld = g_matBone030;
     }
+
+//    else if (bone_combi_index == 30) {
+//        matBoneWorld = g_matBone031;
+//    } else if (bone_combi_index == 31) {
+//        matBoneWorld = g_matBone032;
+//    } else if (bone_combi_index == 32) {
+//        matBoneWorld = g_matBone033;
+//    } else if (bone_combi_index == 33) {
+//        matBoneWorld = g_matBone034;
+//    } else if (bone_combi_index == 34) {
+//        matBoneWorld = g_matBone035;
+//    } else if (bone_combi_index == 35) {
+//        matBoneWorld = g_matBone036;
+//    } else if (bone_combi_index == 36) {
+//        matBoneWorld = g_matBone037;
+//    } else if (bone_combi_index == 37) {
+//        matBoneWorld = g_matBone038;
+//    } else if (bone_combi_index == 38) {
+//        matBoneWorld = g_matBone039;
+//    } else if (bone_combi_index == 39) {
+//        matBoneWorld = g_matBone040;
+//    } else if (bone_combi_index == 40) {
+//        matBoneWorld = g_matBone041;
+//    } else if (bone_combi_index == 41) {
+//        matBoneWorld = g_matBone042;
+//    } else if (bone_combi_index == 42) {
+//        matBoneWorld = g_matBone043;
+//    } else if (bone_combi_index == 43) {
+//        matBoneWorld = g_matBone044;
+//    } else if (bone_combi_index == 44) {
+//        matBoneWorld = g_matBone045;
+//    } else if (bone_combi_index == 45) {
+//        matBoneWorld = g_matBone046;
+//    } else if (bone_combi_index == 46) {
+//        matBoneWorld = g_matBone047;
+//    } else if (bone_combi_index == 47) {
+//        matBoneWorld = g_matBone048;
+//    } else if (bone_combi_index == 48) {
+//        matBoneWorld = g_matBone049;
+//    } else { //if (bone_combi_index == 49) {
+//        matBoneWorld = g_matBone050;
+//    }
     //頂点計算
-    const float4 posModel_World = mul(prm_posModel_Local, matWorld);
+    const float4 posModel_World = mul(prm_posModel_Local, matBoneWorld);
     out_vs.posModel_Proj = mul( mul( posModel_World, g_matView), g_matProj);  //World*View*射影
     //UVはそのまま
     out_vs.uv = prm_uv;
 
     //頂点カラー計算
     //法線を World 変換して正規化
-    const float3 vecNormal_World = normalize(mul(prm_vecNormal_Local, matWorld));
+    const float3 vecNormal_World = normalize(mul(prm_vecNormal_Local, matBoneWorld));
     //法線と、Diffuseライト方向の内積を計算し、面に対するライト方向の入射角による減衰具合を求める。
     float refl_power = dot(vecNormal_World, -g_vecLightFrom_World);
     //内積の負の値も使用して、ハーフ・ランバート で拡散光の回析を行う

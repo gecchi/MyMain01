@@ -97,7 +97,7 @@ public:
     /** フレームを巡って情報取得 */
     void setFrameInfo(BoneAniMeshFrame* prm_pFrame);
     /** setFrameInfo(BoneAniMeshFrame*) で使用される、frame_indexの通し番号 */
-    UINT _tmp_frame_index;
+    DWORD _tmp_frame_index;
 
     int getOffsetFromElem( D3DVERTEXELEMENT9 *elems, D3DDECLUSAGE usage );
 
