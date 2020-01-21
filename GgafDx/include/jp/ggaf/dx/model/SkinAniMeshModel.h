@@ -36,6 +36,18 @@ public:
         UINT PrimitiveCount;
     };
 
+//    struct BONE_CONBI_GRP {
+//        DWORD bone_combi_index;
+//
+//
+//        int infl_bone_idx_num;
+//
+//        float infl_weight[4];
+//        byte  infl_bone_idx[4];
+//    };
+//    std::vector<BONE_CONBI_INFO> _vec_bone_combi_info;
+
+
     SkinAniMeshModel::VERTEX* _paVtxBuffer_data;
     WORD* _paIndexBuffer_data;
     /** インデックスバッファ番号に対応する頂点バッファのフレームメッシュ番号 */
@@ -70,6 +82,17 @@ public:
 
 
     std::vector<SkinAniMeshFrame*> _vecBoneIdFrame;
+
+//    struct BoneCombinationGrp {
+//        std::vector<DWORD> vecInflBoneId;
+//
+//
+//    };
+//    std::vector<BoneCombinationGrp> _vecBoneCombinationGrp;
+
+
+    std::vector<DWORD> _infl_bone_idx_order;
+    std::map<DWORD, DWORD> _map_infl_bone_idx_to_order;
 
     /** 総アニメーションセット数 */
     UINT _num_animation_set;

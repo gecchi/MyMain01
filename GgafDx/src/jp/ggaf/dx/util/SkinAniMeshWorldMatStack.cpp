@@ -102,10 +102,11 @@ void SkinAniMeshWorldMatStack::CalcSkinAniMeshFrame(SkinAniMeshFrame* prm_pBoneF
         //アニメーションコントローラーの pAc->AdvanceTime(0, nullptr) によりモデルのフレームの TransformationMatrix が更新されているので、
         //それを(prm_pBoneFrame->TransformationMatrix) を使用してワールド変換
         D3DXMatrixMultiply(&(prm_pBoneFrame->_world_trans_matrix), &(prm_pBoneFrame->TransformationMatrix), pStackMat);
+        D3DXMatrixMultiply(&(prm_pBoneFrame->_combined_matrix), &(prm_pBoneFrame->_bone_offset_matrix), &(prm_pBoneFrame->_world_trans_matrix));
         //TransformationMatrix を保存
         _prevTransformationMatrixList[prm_pBoneFrame->_frame_index]  = prm_pBoneFrame->TransformationMatrix;
 
-        D3DXMatrixMultiply(&(prm_pBoneFrame->_combined_matrix), &(prm_pBoneFrame->_bone_offset_matrix), &(prm_pBoneFrame->TransformationMatrix));
+
     } else {
         //アニメーション対象のフレームでない
         //アニメーションコントローラーの pAc->AdvanceTime(0, nullptr) でも、モデルのフレームの TransformationMatrix が影響されないので、
@@ -113,8 +114,8 @@ void SkinAniMeshWorldMatStack::CalcSkinAniMeshFrame(SkinAniMeshFrame* prm_pBoneF
         //前回保存の TransformationMatrix 使用してワールド変換する。つまりこのボーンは前回と変わらず停止状態。
         D3DXMATRIX* pMatrix = &(_prevTransformationMatrixList[prm_pBoneFrame->_frame_index]); //前回保存済みのTransformationMatrix
         D3DXMatrixMultiply(&(prm_pBoneFrame->_world_trans_matrix), pMatrix, pStackMat);
+        D3DXMatrixMultiply(&(prm_pBoneFrame->_combined_matrix), &(prm_pBoneFrame->_bone_offset_matrix), &(prm_pBoneFrame->_world_trans_matrix));
 
-        D3DXMatrixMultiply(&(prm_pBoneFrame->_combined_matrix), &(prm_pBoneFrame->_bone_offset_matrix), &(prm_pBoneFrame->TransformationMatrix));
     }
 
     // 子フレームがあればスタックを積んで、子フレームのワールド変換座標の計算へ

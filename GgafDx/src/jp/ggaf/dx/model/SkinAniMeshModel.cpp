@@ -1,5 +1,6 @@
 #include "jp/ggaf/dx/model/SkinAniMeshModel.h"
 
+#include <algorithm>
 #include "jp/ggaf/dx/God.h"
 #include "jp/ggaf/dx/Config.h"
 #include "jp/ggaf/dx/actor/SkinAniMeshActor.h"
@@ -93,16 +94,23 @@ HRESULT SkinAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
     std::vector<SkinAniMeshFrame*>::iterator it_1 = _vecBoneIdFrame.begin();
 
 /////////////////////////////////////////////
+///
+
+    for (int i = 0; i < _infl_bone_idx_order.size(); i++) {
+        DWORD bone_id = _infl_bone_idx_order[i];
+        hr = pID3DXEffect->SetMatrix(pSkinAniMeshEffect->_ah_matBone[i], &(_vecBoneIdFrame[bone_id]->_combined_matrix));
+    }
+
     for (int i = 0; i < _index_param_num; i++) {
         const INDEXPARAM& idxparam = _paIndexParam[i];
-        for (int j = 0; j < SkinAniMeshModel_MAX_BONE_WORLD_MATRIX; j++) {
-            if (it_1 != _vecBoneIdFrame.end()) {
-                hr = pID3DXEffect->SetMatrix(pSkinAniMeshEffect->_ah_matBone[j], &((*it_1)->_combined_matrix));
-                ++it_1;
-            } else {
-                break;
-            }
-        }
+//        for (int j = 0; j < SkinAniMeshModel_MAX_BONE_WORLD_MATRIX; j++) {
+//            if (it_1 != _vecBoneIdFrame.end()) {
+//                hr = pID3DXEffect->SetMatrix(pSkinAniMeshEffect->_ah_matBone[j], &((*it_1)->_combined_matrix));
+//                ++it_1;
+//            } else {
+//                break;
+//            }
+//        }
 
         Effect* pEffect_active = EffectManager::_pEffect_active;
         if ((FigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique) && i == 0) {
@@ -383,190 +391,243 @@ void SkinAniMeshModel::restore() {
 
 
 
-        //skin情報のためにもっかいループ
-        int vertx_through_count = 0;
-        int bc_through_idx = 0;
-        for (int i = 0; i < draw_frame_num; i++) {
+            //skin情報のためにもっかいループ
+            int vertx_through_count = 0;
+            int bc_through_idx = 0;
+            for (int i = 0; i < draw_frame_num; i++) {
 
-            SkinAniMeshContainer* pMeshContainer = (SkinAniMeshContainer*)(_vecDrawBoneFrame[i]->pMeshContainer);
-            if (pMeshContainer == nullptr) {
-                continue;
-            }
-            /////////////
-            _TRACE_("draw_frsme["<<i<<"]: idx="<<_vecDrawBoneFrame[i]->_frame_index<<", name="<<_vecDrawBoneFrame[i]->Name<<"");
-            _TRACE_("pMeshContainer->_dwMaxInfleNum = "<<pMeshContainer->_dwMaxInfleNum);
-            _TRACE_("pMeshContainer->_dwBoneCombNum = "<<pMeshContainer->_dwBoneCombNum);
-            LPD3DXSKININFO pSkinInfo = pMeshContainer->pSkinInfo;
-            D3DXBONECOMBINATION* paBoneCombination =
-                    (D3DXBONECOMBINATION*)(pMeshContainer->_pBoneCombinationTable->GetBufferPointer());
-            for (DWORD bc_idx = 0; bc_idx < pMeshContainer->_dwBoneCombNum; ++bc_idx, ++bc_through_idx) { //bc_idxはメッシュサブセットID
-                D3DXBONECOMBINATION* pBoneCombination = &(paBoneCombination[bc_idx]);
-                _TRACE_("paBoneCombination["<<bc_idx<<"] = "<<
-                        " AttribId="<<pBoneCombination->AttribId<<
-                        " FaceStart="<<pBoneCombination->FaceStart<<
-                        " FaceCount="<<pBoneCombination->FaceCount<<
-                        " VertexStart="<<pBoneCombination->VertexStart<<
-                        " VertexCount="<<pBoneCombination->VertexCount<<
-                        ""
-                );
-                //頂点情報にボーンコンビネーションインデックスを書き込み
-                for (DWORD v = 0; v < pBoneCombination->VertexCount; v++, vertx_through_count++) {
-                    SkinAniMeshModel::VERTEX* pVtx = &(_paVtxBuffer_data[vertx_through_count]);
-                    pVtx->bone_combi_index = (float)bc_through_idx;
+                SkinAniMeshContainer* pMeshContainer = (SkinAniMeshContainer*)(_vecDrawBoneFrame[i]->pMeshContainer);
+                if (pMeshContainer == nullptr) {
+                    continue;
                 }
-                DWORD infl_id;
-                for ( infl_id = 0; infl_id < pMeshContainer->_dwMaxInfleNum; ++infl_id) { //
-                    DWORD bone_id = pBoneCombination->BoneId[infl_id]; //bone_idはなんなのか？
-                    DWORD bone_influ_vertices_num = pSkinInfo->GetNumBoneInfluences(bone_id);
+                /////////////
+                _TRACE_("draw_frsme["<<i<<"]: idx="<<_vecDrawBoneFrame[i]->_frame_index<<", name="<<_vecDrawBoneFrame[i]->Name<<"");
+                _TRACE_("pMeshContainer->_dwMaxInfleNum = "<<pMeshContainer->_dwMaxInfleNum);
+                _TRACE_("pMeshContainer->_dwBoneCombNum = "<<pMeshContainer->_dwBoneCombNum);
+                LPD3DXSKININFO pSkinInfo = pMeshContainer->pSkinInfo;
+                D3DXBONECOMBINATION* paBoneCombination =
+                        (D3DXBONECOMBINATION*)(pMeshContainer->_pBoneCombinationTable->GetBufferPointer());
+                for (DWORD bc_idx = 0; bc_idx < pMeshContainer->_dwBoneCombNum; ++bc_idx, ++bc_through_idx) { //bc_idxはメッシュサブセットID
+                    D3DXBONECOMBINATION* pBoneCombination = &(paBoneCombination[bc_idx]);
+                    _TRACE_("paBoneCombination["<<bc_idx<<"] = "<<
+                            " AttribId="<<pBoneCombination->AttribId<<
+                            " FaceStart="<<pBoneCombination->FaceStart<<
+                            " FaceCount="<<pBoneCombination->FaceCount<<
+                            " VertexStart="<<pBoneCombination->VertexStart<<
+                            " VertexCount="<<pBoneCombination->VertexCount<<
+                            ""
+                    );
+                    //頂点情報にボーンコンビネーションインデックスを書き込み
+                    for (DWORD v = 0; v < pBoneCombination->VertexCount; v++, vertx_through_count++) {
+                        SkinAniMeshModel::VERTEX* pVtx = &(_paVtxBuffer_data[vertx_through_count]);
+                        pVtx->bone_combi_index = (float)bc_through_idx;
+                    }
+                    DWORD infl_id;
+                    for ( infl_id = 0; infl_id < pMeshContainer->_dwMaxInfleNum; ++infl_id) { //
+                        DWORD bone_id = pBoneCombination->BoneId[infl_id]; //bone_idはなんなのか？
+                        DWORD bone_influ_vertices_num = pSkinInfo->GetNumBoneInfluences(bone_id);
 
-                    _TRACE_("paBoneCombination["<<bc_idx<<"].BoneId["<<infl_id<<"]="<<bone_id<<" bone_influ_vertices_num="<<bone_influ_vertices_num);
+                        _TRACE_("paBoneCombination["<<bc_idx<<"].BoneId["<<infl_id<<"]="<<bone_id<<" bone_influ_vertices_num="<<bone_influ_vertices_num);
 
-                    if (bone_influ_vertices_num > 0) {
-                        // Get the bone influcences
-                        DWORD* vertices = new DWORD[bone_influ_vertices_num];
-                        float* skin_weight  = new float[bone_influ_vertices_num];
-                        pSkinInfo->GetBoneInfluence(bone_id, vertices, skin_weight);
-                        for (DWORD v = 0; v < bone_influ_vertices_num; v++) {
-                            if (skin_weight[v] > 0.0) {
-                                SkinAniMeshModel::VERTEX* pVtx = &(_paVtxBuffer_data[vertices[v]]);
-                                bool is_exist = false;
-                                for (int k = 0; k < 4; k++) {
-                                    if (pVtx->infl_bone_idx[k] == (byte)bone_id) {
-                                        is_exist = true;
-                                        break;
-                                    }
-                                }
-                                if (is_exist == false) {
+                        if (bone_influ_vertices_num > 0) {
+                            // Get the bone influcences
+                            DWORD* vertices = new DWORD[bone_influ_vertices_num];
+                            float* skin_weight  = new float[bone_influ_vertices_num];
+                            pSkinInfo->GetBoneInfluence(bone_id, vertices, skin_weight);
+                            for (DWORD v = 0; v < bone_influ_vertices_num; v++) {
+                                if (skin_weight[v] > 0.0) {
+                                    SkinAniMeshModel::VERTEX* pVtx = &(_paVtxBuffer_data[vertices[v]]);
+                                    bool is_exist = false;
                                     for (int k = 0; k < 4; k++) {
-                                        if (pVtx->infl_bone_idx[k] == 0xFF) {
-                                             pVtx->infl_bone_idx[k] = (byte)bone_id;
-                                             pVtx->infl_weight[k] =  skin_weight[v];
-                                             break;
+                                        if (pVtx->infl_bone_idx[k] == (byte)bone_id) {
+                                            is_exist = true;
+                                            break;
                                         }
+                                    }
+                                    if (is_exist == false) {
+                                        for (int k = 0; k < 4; k++) {
+                                            if (pVtx->infl_weight[k] < skin_weight[v]) {
+                                                for (int j = 3; j > k; j--) {
+                                                    //スライド
+                                                    pVtx->infl_bone_idx[j] = pVtx->infl_bone_idx[j-1];
+                                                    pVtx->infl_weight[j] = pVtx->infl_weight[j-1];
+                                                }
+                                                pVtx->infl_bone_idx[k] = (byte)bone_id;
+                                                pVtx->infl_weight[k] =  skin_weight[v];
+
+                                                 std::vector<DWORD>::iterator p = std::find(_infl_bone_idx_order.begin(), _infl_bone_idx_order.end(), bone_id);
+                                                 if (p == _infl_bone_idx_order.end()) {
+                                                     //存在しない＝初めての bone_id
+                                                     _infl_bone_idx_order.push_back(bone_id);
+                                                 }
+                                                 break;
+                                            }
+                                        }
+
+
+//                                        for (int k = 0; k < 4; k++) {
+//                                            if (pVtx->infl_bone_idx[k] == 0xFF) {
+//                                                 pVtx->infl_bone_idx[k] = (byte)bone_id;
+//                                                 pVtx->infl_weight[k] =  skin_weight[v];
+//
+//                                                 std::vector<DWORD>::iterator p = std::find(_infl_bone_idx_order.begin(), _infl_bone_idx_order.end(), bone_id);
+//                                                 if (p == _infl_bone_idx_order.end()) {
+//                                                     //存在しない＝初めての bone_id
+//                                                     _infl_bone_idx_order.push_back(bone_id);
+//                                                 }
+//                                                 break;
+//                                            }
+//                                        }
                                     }
                                 }
                             }
-                        }
 
-                        _TRACE_N_("Vertices=");
-                        for (int v = 0; v < bone_influ_vertices_num; v++) {
-                            _TRACE_N_("\t"<<vertices[v]<<"");
+                            _TRACE_N_("Vertices=");
+                            for (int v = 0; v < bone_influ_vertices_num; v++) {
+                                _TRACE_N_("\t"<<vertices[v]<<"");
+                            }
+                            _TRACE_N_("\n");
+                            _TRACE_N_("Weights=");
+                            for (int v = 0; v < bone_influ_vertices_num; v++) {
+                                _TRACE_N_("\t"<<skin_weight[v]<<"");
+                            }
+                            _TRACE_N_("\n");
                         }
-                        _TRACE_N_("\n");
-                        _TRACE_N_("Weights=");
-                        for (int v = 0; v < bone_influ_vertices_num; v++) {
-                            _TRACE_N_("\t"<<skin_weight[v]<<"");
-                        }
-                        _TRACE_N_("\n");
                     }
                 }
-            }
 
-            //ボーンIDとFrameの紐付けと_bone_offset_matrixの保持
-            DWORD dwNumBone = pSkinInfo->GetNumBones();  // ボーンの数を取得
-            // ボーンの数だけ対応フレームを検索
-            for (DWORD bone_id = 0; bone_id < dwNumBone; bone_id++) {
-                SkinAniMeshFrame* pFrame = nullptr;   // 一致したフレームポインタ
-               // ボーン名を取得
-               LPCSTR skin_bone_name = pSkinInfo->GetBoneName(bone_id);
-               if (skin_bone_name) {
-                   // 名前検索
-                   for (int fram_idx = 0; i < _vecAllBoneFrame.size(); fram_idx++) {
-                       LPSTR frame_bone_name = _vecAllBoneFrame[fram_idx]->Name;
-                       if (frame_bone_name) {
-                           if (strcmp(skin_bone_name, frame_bone_name) == 0) {
-                               pFrame = _vecAllBoneFrame[fram_idx];
-                               break;
+                //ボーンIDとFrameの紐付けと_bone_offset_matrixの保持
+                DWORD dwNumBone = pSkinInfo->GetNumBones();  // ボーンの数を取得
+                // ボーンの数だけ対応フレームを検索
+                for (DWORD bone_id = 0; bone_id < dwNumBone; bone_id++) {
+                    SkinAniMeshFrame* pFrame = nullptr;   // 一致したフレームポインタ
+                   // ボーン名を取得
+                   LPCSTR skin_bone_name = pSkinInfo->GetBoneName(bone_id);
+                   if (skin_bone_name) {
+                       // 名前検索
+                       for (int fram_idx = 0; i < _vecAllBoneFrame.size(); fram_idx++) {
+                           LPSTR frame_bone_name = _vecAllBoneFrame[fram_idx]->Name;
+                           if (frame_bone_name) {
+                               if (strcmp(skin_bone_name, frame_bone_name) == 0) { //SkinInfoボーン名がFrameと一致一致
+                                   pFrame = _vecAllBoneFrame[fram_idx];
+                                   break;
+                               }
                            }
                        }
+                       if (pFrame) {
+                           _vecBoneIdFrame.push_back(pFrame);
+                           pFrame->_bone_id = bone_id;
+                           pFrame->_bone_offset_matrix = *(pSkinInfo->GetBoneOffsetMatrix(bone_id));
+                       } else {
+                           _vecBoneIdFrame.push_back(nullptr);
+                       }
                    }
-                   if (pFrame) {
-                       _vecBoneIdFrame.push_back(pFrame);
-                       pFrame->_bone_id = bone_id;
-                       pFrame->_bone_offset_matrix = *(pSkinInfo->GetBoneOffsetMatrix(bone_id));
-                   } else {
-                       _vecBoneIdFrame.push_back(nullptr);
-                   }
-               }
+                }
+
+
+                //DEBUG
+                for (DWORD frame_idx = 0; frame_idx < _vecAllBoneFrame.size(); frame_idx++) {
+                    _TRACE_("_vecAllBoneFrame["<<frame_idx<<"] Name=\""<<_vecAllBoneFrame[frame_idx]->Name<<"\" "<<
+                                                              "_bone_id="<<_vecAllBoneFrame[frame_idx]->_bone_id<<" "<<
+                                                              "pMeshContainer="<<_vecAllBoneFrame[frame_idx]->pMeshContainer);
+                }
+                _TRACE_("////////////////////////////////////");
+                for (DWORD bone_id = 0; bone_id < _vecBoneIdFrame.size(); bone_id++) {
+                    if (_vecBoneIdFrame[bone_id]) {
+                        _TRACE_("_vecBoneIdFrame["<<bone_id<<"] = "<<_vecBoneIdFrame[bone_id]->Name<<" "<<
+                                                                  "_frame_index="<<_vecBoneIdFrame[bone_id]->_frame_index<<" ");
+                    } else {
+                        _TRACE_("_vecBoneIdFrame["<<bone_id<<"] = nullptr"" "<<
+                                "_frame_index="<<_vecBoneIdFrame[bone_id]->_frame_index<<" ");
+                    }
+                }
+
+            } //for (int i = 0; i < draw_frame_num; i++) {
+
+
+            //ボーンIDをオーダーに書き換える
+            _map_infl_bone_idx_to_order[0xFF] = 0xFF;
+            for (DWORD i = 0; i < _infl_bone_idx_order.size(); i++) {
+                _map_infl_bone_idx_to_order[_infl_bone_idx_order[i]]=i;
+            }
+
+            for (int i = 0; i < _infl_bone_idx_order.size(); i++) {
+                _TRACE_("_infl_bone_idx_order["<<i<<"]="<<_infl_bone_idx_order[i]);
+            }
+
+            //    std::map<DWORD, byte> _map_infl_bone_idx_to_order;
+            for (std::map<DWORD, DWORD>::iterator p = _map_infl_bone_idx_to_order.begin();
+                    p != _map_infl_bone_idx_to_order.end(); p++) {
+                    // イテレータは pair<const string, int> 型なので、
+                    _TRACE_("_map_infl_bone_idx_to_order["<<p->first<<"]="<< p->second);
             }
 
 
-            //DEBUG
-            for (DWORD frame_idx = 0; frame_idx < _vecAllBoneFrame.size(); frame_idx++) {
-                _TRACE_("_vecAllBoneFrame["<<frame_idx<<"] Name=\""<<_vecAllBoneFrame[frame_idx]->Name<<"\" "<<
-                                                          "_bone_id="<<_vecAllBoneFrame[frame_idx]->_bone_id<<" "<<
-                                                          "pMeshContainer="<<_vecAllBoneFrame[frame_idx]->pMeshContainer);
+            //頂点バッファのボーンIDをオーダーに書き換える
+            for (int i = 0; i < _nVertices; i++) {
+                SkinAniMeshModel::VERTEX* pVtx = &(_paVtxBuffer_data[i]);
+                pVtx->infl_bone_idx[0] = (byte)(_map_infl_bone_idx_to_order[pVtx->infl_bone_idx[0]]);
+                pVtx->infl_bone_idx[1] = (byte)(_map_infl_bone_idx_to_order[pVtx->infl_bone_idx[1]]);
+                pVtx->infl_bone_idx[2] = (byte)(_map_infl_bone_idx_to_order[pVtx->infl_bone_idx[2]]);
+                pVtx->infl_bone_idx[3] = (byte)(_map_infl_bone_idx_to_order[pVtx->infl_bone_idx[3]]);
             }
-            _TRACE_("////////////////////////////////////");
-            for (DWORD bone_id = 0; bone_id < _vecBoneIdFrame.size(); bone_id++) {
-                if (_vecBoneIdFrame[bone_id]) {
-                    _TRACE_("_vecBoneIdFrame["<<bone_id<<"] = "<<_vecBoneIdFrame[bone_id]->Name<<" "<<
-                                                              "_frame_index="<<_vecBoneIdFrame[bone_id]->_frame_index<<" ");
-                } else {
-                    _TRACE_("_vecBoneIdFrame["<<bone_id<<"] = nullptr"" "<<
-                            "_frame_index="<<_vecBoneIdFrame[bone_id]->_frame_index<<" ");
+
+            ///
+
+            /////////////////////////////////
+            IDirect3DIndexBuffer9* pIb;
+            pMesh->GetIndexBuffer(&pIb);
+            DWORD nFace = pMesh->GetNumFaces();
+            D3DINDEXBUFFER_DESC desc;
+            pIb->GetDesc( &desc );
+            if (desc.Format == D3DFMT_INDEX16) {
+                void* pIndexBuffer;
+                pIb->Lock(0, nFace*3*sizeof(WORD), (void**)&pIndexBuffer, 0);
+                char* p = (char*)pIndexBuffer;
+    //            _TRACE_("["<<i<<"]:IndexFmt=WORD");
+                for (int f = 0; f < nFace; f++) {
+                    WORD val1,val2,val3;
+                    memcpy(&(val1), p, sizeof(WORD));  p += sizeof(WORD);
+                    memcpy(&(val2), p, sizeof(WORD));  p += sizeof(WORD);
+                    memcpy(&(val3), p, sizeof(WORD));  p += sizeof(WORD);
+    //                _TRACE_("["<<i<<"]["<<f<<"]:Index=("<<val1<<","<<val2<<","<<val3<<")");
+                    int offset = (v_cnt-nVertices); //頂点番号を通しにするための計算。
+                                                    //v_cnt:通しカウンタ ＝ nVertices：初回はメッシュコンテナの頂点数 なので 0 となる。
+                    _paIndexBuffer_data[i_cnt+0] = offset + val1;
+                    _paIndexBuffer_data[i_cnt+1] = offset + val2;
+                    _paIndexBuffer_data[i_cnt+2] = offset + val3;
+                    _paIndexBuffer_bone_combi_index[i_cnt+0] = (int)(_paVtxBuffer_data[_paIndexBuffer_data[i_cnt+0]].bone_combi_index);
+                    _paIndexBuffer_bone_combi_index[i_cnt+1] = (int)(_paVtxBuffer_data[_paIndexBuffer_data[i_cnt+1]].bone_combi_index);
+                    _paIndexBuffer_bone_combi_index[i_cnt+2] = (int)(_paVtxBuffer_data[_paIndexBuffer_data[i_cnt+2]].bone_combi_index);
+                    i_cnt+=3;
+                }
+            } else {
+                void* pIndexBuffer;
+                pIb->Lock(0, nFace*3*sizeof(DWORD), (void**)&pIndexBuffer, 0);
+                char* p = (char*)pIndexBuffer;
+                for (int f = 0; f < nFace; f++) {
+                    WORD val1,val2,val3;
+                    memcpy(&(val1), p, sizeof(WORD));  p += sizeof(DWORD);
+                    memcpy(&(val2), p, sizeof(WORD));  p += sizeof(DWORD);
+                    memcpy(&(val3), p, sizeof(WORD));  p += sizeof(DWORD);
+                    int offset = (v_cnt-nVertices); //頂点番号を通しにするための計算。
+                                                    //v_cnt:通しカウンタ ＝ nVertices：初回はメッシュコンテナの頂点数 なので 0 となる。
+                    _paIndexBuffer_data[i_cnt+0] = offset + val1;
+                    _paIndexBuffer_data[i_cnt+1] = offset + val2;
+                    _paIndexBuffer_data[i_cnt+2] = offset + val3;
+                    _paIndexBuffer_bone_combi_index[i_cnt+0] = (int)(_paVtxBuffer_data[_paIndexBuffer_data[i_cnt+0]].bone_combi_index);
+                    _paIndexBuffer_bone_combi_index[i_cnt+1] = (int)(_paVtxBuffer_data[_paIndexBuffer_data[i_cnt+1]].bone_combi_index);
+                    _paIndexBuffer_bone_combi_index[i_cnt+2] = (int)(_paVtxBuffer_data[_paIndexBuffer_data[i_cnt+2]].bone_combi_index);
+                    i_cnt += 3;
                 }
             }
+            pIb->Unlock();
+            pIb->Release();
 
+            //情報は頂いたので Meshだけ解放！
+            GGAF_RELEASE(pMeshContainer->MeshData.pMesh);
+            pMeshContainer->MeshData.pMesh = nullptr;
         }
-
-
-        ///
-
-        /////////////////////////////////
-        IDirect3DIndexBuffer9* pIb;
-        pMesh->GetIndexBuffer(&pIb);
-        DWORD nFace = pMesh->GetNumFaces();
-        D3DINDEXBUFFER_DESC desc;
-        pIb->GetDesc( &desc );
-        if (desc.Format == D3DFMT_INDEX16) {
-            void* pIndexBuffer;
-            pIb->Lock(0, nFace*3*sizeof(WORD), (void**)&pIndexBuffer, 0);
-            char* p = (char*)pIndexBuffer;
-//            _TRACE_("["<<i<<"]:IndexFmt=WORD");
-            for (int f = 0; f < nFace; f++) {
-                WORD val1,val2,val3;
-                memcpy(&(val1), p, sizeof(WORD));  p += sizeof(WORD);
-                memcpy(&(val2), p, sizeof(WORD));  p += sizeof(WORD);
-                memcpy(&(val3), p, sizeof(WORD));  p += sizeof(WORD);
-//                _TRACE_("["<<i<<"]["<<f<<"]:Index=("<<val1<<","<<val2<<","<<val3<<")");
-                int offset = (v_cnt-nVertices); //頂点番号を通しにするための計算。
-                                                //v_cnt:通しカウンタ ＝ nVertices：初回はメッシュコンテナの頂点数 なので 0 となる。
-                _paIndexBuffer_data[i_cnt+0] = offset + val1;
-                _paIndexBuffer_data[i_cnt+1] = offset + val2;
-                _paIndexBuffer_data[i_cnt+2] = offset + val3;
-                _paIndexBuffer_bone_combi_index[i_cnt+0] = (int)(_paVtxBuffer_data[_paIndexBuffer_data[i_cnt+0]].bone_combi_index);
-                _paIndexBuffer_bone_combi_index[i_cnt+1] = (int)(_paVtxBuffer_data[_paIndexBuffer_data[i_cnt+1]].bone_combi_index);
-                _paIndexBuffer_bone_combi_index[i_cnt+2] = (int)(_paVtxBuffer_data[_paIndexBuffer_data[i_cnt+2]].bone_combi_index);
-                i_cnt+=3;
-            }
-        } else {
-            void* pIndexBuffer;
-            pIb->Lock(0, nFace*3*sizeof(DWORD), (void**)&pIndexBuffer, 0);
-            char* p = (char*)pIndexBuffer;
-            for (int f = 0; f < nFace; f++) {
-                WORD val1,val2,val3;
-                memcpy(&(val1), p, sizeof(WORD));  p += sizeof(DWORD);
-                memcpy(&(val2), p, sizeof(WORD));  p += sizeof(DWORD);
-                memcpy(&(val3), p, sizeof(WORD));  p += sizeof(DWORD);
-                int offset = (v_cnt-nVertices); //頂点番号を通しにするための計算。
-                                                //v_cnt:通しカウンタ ＝ nVertices：初回はメッシュコンテナの頂点数 なので 0 となる。
-                _paIndexBuffer_data[i_cnt+0] = offset + val1;
-                _paIndexBuffer_data[i_cnt+1] = offset + val2;
-                _paIndexBuffer_data[i_cnt+2] = offset + val3;
-                _paIndexBuffer_bone_combi_index[i_cnt+0] = (int)(_paVtxBuffer_data[_paIndexBuffer_data[i_cnt+0]].bone_combi_index);
-                _paIndexBuffer_bone_combi_index[i_cnt+1] = (int)(_paVtxBuffer_data[_paIndexBuffer_data[i_cnt+1]].bone_combi_index);
-                _paIndexBuffer_bone_combi_index[i_cnt+2] = (int)(_paVtxBuffer_data[_paIndexBuffer_data[i_cnt+2]].bone_combi_index);
-                i_cnt += 3;
-            }
-        }
-        pIb->Unlock();
-        pIb->Release();
-
-        //情報は頂いたので Meshだけ解放！
-        GGAF_RELEASE(pMeshContainer->MeshData.pMesh);
-        pMeshContainer->MeshData.pMesh = nullptr;
-    }
 
 
     ///////////////////////////////////////////////////
