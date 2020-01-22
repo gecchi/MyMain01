@@ -607,7 +607,13 @@ int BoneAniMeshModel::getAnimTicksPerSecond(std::string& prm_xfile_name) {
                     break;
                 } else {
                     anim_ticks_per_second = atoi(data.c_str()); //"60;" ¨ 60‚ğ“¾‚é
-                    isdone = true;
+                    if (anim_ticks_per_second == 0) {
+                        //”’l‚É•ÏŠ·‚Å‚«‚È‚¢ê‡‚Í–³Œø
+                        anim_ticks_per_second = -1;
+                        isdone = false;
+                    } else {
+                        isdone = true;
+                    }
                     break;
                 }
             }
