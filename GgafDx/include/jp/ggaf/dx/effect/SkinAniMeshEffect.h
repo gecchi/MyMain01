@@ -3,6 +3,9 @@
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/effect/Effect.h"
 
+//DefaultSkinAniMeshEffect.fx と 定数を一致させる事
+#define SkinAniMeshModel_MAX_BONE_WORLD_MATRIX (20) //2以上でないとブレイクしないのでダメ
+
 namespace GgafDx {
 
 /**

@@ -7,11 +7,11 @@
 
 using namespace GgafDx;
 
-Puppeteer::Puppeteer(ID3DXAnimationController* prm_pAc_cloned) : GgafCore::Object() {
+Puppeteer::Puppeteer(ID3DXAnimationController* prm_pAc_cloned, FLOAT prm_track_speed) : GgafCore::Object() {
     _num_perform = 0;
     _paPerformances = nullptr;
     _pAc = prm_pAc_cloned;
-
+    _track_speed = prm_track_speed;
     HRESULT hr;
     _num_perform = _pAc->GetMaxNumAnimationSets();
 #ifdef MY_DEBUG
@@ -275,7 +275,7 @@ void Puppeteer::updateAnimationTrack() {
             checkDxException(hr, D3D_OK, "é∏îsÇµÇ‹ÇµÇΩÅB");
             hr = pAc->SetTrackPosition(tno, pPerformance->_local_time);
             checkDxException(hr, D3D_OK, "é∏îsÇµÇ‹ÇµÇΩÅB");
-            hr = pAc->SetTrackSpeed(tno, pPerformance->_speed);
+            hr = pAc->SetTrackSpeed(tno, pPerformance->_speed * _track_speed);
             checkDxException(hr, D3D_OK, "é∏îsÇµÇ‹ÇµÇΩÅB");
             hr = pAc->SetTrackWeight(tno, pPerformance->_weight);
             checkDxException(hr, D3D_OK, "é∏îsÇµÇ‹ÇµÇΩÅB");

@@ -2,6 +2,7 @@
 #define GGAF_DX_SKINANIMESHMODEL_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/model/Model.h"
+#include "jp/ggaf/dx/effect/SkinAniMeshEffect.h"
 #include <map>
 #include <vector>
 
@@ -25,7 +26,8 @@ public:
         float tu, tv;     // テクスチャ座標
 
         float infl_weight[4];     // 頂点重み(TODO:４でいいの？)
-        byte  infl_bone_idx[4];
+        byte  infl_bone_id[4];     //ボーンID
+        byte  infl_bone_id_order[4]; //ボーンIDの通し番号
     };
     struct INDEXPARAM {
         UINT MaterialNo;
@@ -90,9 +92,12 @@ public:
 //    };
 //    std::vector<BoneCombinationGrp> _vecBoneCombinationGrp;
 
+    //要素番号はbone_id_order、値は bone_id の配列。bone_id_order から bone_idを得るのに使用
+    std::vector<DWORD> _vec_infl_bone_id_order;
+    //bone_id から、bone_id_order を得るMAP
+    std::map<DWORD, DWORD> _map_infl_bone_id_to_order;
 
-    std::vector<DWORD> _infl_bone_idx_order;
-    std::map<DWORD, DWORD> _map_infl_bone_idx_to_order;
+    D3DXMATRIX* _ap_draw_combined_matrix[SkinAniMeshModel_MAX_BONE_WORLD_MATRIX];
 
     /** 総アニメーションセット数 */
     UINT _num_animation_set;

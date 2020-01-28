@@ -154,70 +154,97 @@ struct OUT_VS {
 
 
 
-float4x4 getBoneWorldMatrix(int prm_infl_bone_idx) {
-    float4x4 matBoneWorld;
-    if (prm_infl_bone_idx == 0) {
-        matBoneWorld = g_matBone001;
-    } else if (prm_infl_bone_idx == 1) {
-        matBoneWorld = g_matBone002;
-    } else if (prm_infl_bone_idx == 2) {
-        matBoneWorld = g_matBone003;
-    } else if (prm_infl_bone_idx == 3) {
-        matBoneWorld = g_matBone004;
-    } else if (prm_infl_bone_idx == 4) {
-        matBoneWorld = g_matBone005;
-    } else if (prm_infl_bone_idx == 5) {
-        matBoneWorld = g_matBone006;
-    } else if (prm_infl_bone_idx == 6) {
-        matBoneWorld = g_matBone007;
-    } else if (prm_infl_bone_idx == 7) {
-        matBoneWorld = g_matBone008;
-    } else if (prm_infl_bone_idx == 8) {
-        matBoneWorld = g_matBone009;
-    } else if (prm_infl_bone_idx == 9) {
-        matBoneWorld = g_matBone010;
-    } else if (prm_infl_bone_idx == 10) {
-        matBoneWorld = g_matBone011;
-    } else if (prm_infl_bone_idx == 11) {
-        matBoneWorld = g_matBone012;
-    } else if (prm_infl_bone_idx == 12) {
-        matBoneWorld = g_matBone013;
-    } else if (prm_infl_bone_idx == 13) {
-        matBoneWorld = g_matBone014;
-    } else if (prm_infl_bone_idx == 14) {
-        matBoneWorld = g_matBone015;
-    } else if (prm_infl_bone_idx == 15) {
-        matBoneWorld = g_matBone016;
-    } else if (prm_infl_bone_idx == 16) {
-        matBoneWorld = g_matBone017;
-    } else if (prm_infl_bone_idx == 17) {
-        matBoneWorld = g_matBone018;
-    } else if (prm_infl_bone_idx == 18) {
-        matBoneWorld = g_matBone019;
-    } else if (prm_infl_bone_idx == 19) {
-        matBoneWorld = g_matBone020;
-    } else if (prm_infl_bone_idx == 20) {
-        matBoneWorld = g_matBone021;
-    } else if (prm_infl_bone_idx == 21) {
-        matBoneWorld = g_matBone022;
-    } else if (prm_infl_bone_idx == 22) {
-        matBoneWorld = g_matBone023;
-    } else if (prm_infl_bone_idx == 23) {
-        matBoneWorld = g_matBone024;
-    } else if (prm_infl_bone_idx == 24) {
-        matBoneWorld = g_matBone025;
-    } else if (prm_infl_bone_idx == 25) {
-        matBoneWorld = g_matBone026;
-    } else if (prm_infl_bone_idx == 26) {
-        matBoneWorld = g_matBone027;
-    } else if (prm_infl_bone_idx == 27) {
-        matBoneWorld = g_matBone028;
-    } else if (prm_infl_bone_idx == 28) {
-        matBoneWorld = g_matBone029;
-    } else if (prm_infl_bone_idx == 29) {
-        matBoneWorld = g_matBone030;
+float4x4 getBoneWorldMatrix(int prm_infl_bone_id_order) {
+
+    if (prm_infl_bone_id_order == 0) {
+        return g_matBone001;
     }
-    return matBoneWorld;
+    if (prm_infl_bone_id_order == 1) {
+        return g_matBone002;
+    }
+    if (prm_infl_bone_id_order == 2) {
+        return g_matBone003;
+    }
+    if (prm_infl_bone_id_order == 3) {
+        return g_matBone004;
+    }
+    if (prm_infl_bone_id_order == 4) {
+        return g_matBone005;
+    }
+    if (prm_infl_bone_id_order == 5) {
+        return g_matBone006;
+    }
+    if (prm_infl_bone_id_order == 6) {
+        return g_matBone007;
+    }
+    if (prm_infl_bone_id_order == 7) {
+        return g_matBone008;
+    }
+    if (prm_infl_bone_id_order == 8) {
+        return g_matBone009;
+    }
+    if (prm_infl_bone_id_order == 9) {
+        return g_matBone010;
+    }
+    if (prm_infl_bone_id_order == 10) {
+        return g_matBone011;
+    }
+    if (prm_infl_bone_id_order == 11) {
+        return g_matBone012;
+    }
+    if (prm_infl_bone_id_order == 12) {
+        return g_matBone013;
+    }
+    if (prm_infl_bone_id_order == 13) {
+        return g_matBone014;
+    }
+    if (prm_infl_bone_id_order == 14) {
+        return g_matBone015;
+    }
+    if (prm_infl_bone_id_order == 15) {
+        return g_matBone016;
+    }
+    if (prm_infl_bone_id_order == 16) {
+        return g_matBone017;
+    }
+    if (prm_infl_bone_id_order == 17) {
+        return g_matBone018;
+    }
+    if (prm_infl_bone_id_order == 18) {
+        return g_matBone019;
+    }
+//    if (prm_infl_bone_id_order == 19) {
+        return g_matBone020;
+//    }
+//    if (prm_infl_bone_id_order == 20) {
+//        return g_matBone021;
+//    }
+//    if (prm_infl_bone_id_order == 21) {
+//        return g_matBone022;
+//    }
+//    if (prm_infl_bone_id_order == 22) {
+//        return g_matBone023;
+//    }
+//    if (prm_infl_bone_id_order == 23) {
+//        return g_matBone024;
+//    }
+//    if (prm_infl_bone_id_order == 24) {
+//        return g_matBone025;
+//    }
+//    if (prm_infl_bone_id_order == 25) {
+//        return g_matBone026;
+//    }
+//    if (prm_infl_bone_id_order == 26) {
+//        return g_matBone027;
+//    }
+//    if (prm_infl_bone_id_order == 27) {
+//        return g_matBone028;
+//    }
+//    if (prm_infl_bone_id_order == 28) {
+//        return g_matBone029;
+//    }
+//    return g_matBone030;
+
 }
 
 
@@ -225,16 +252,48 @@ float4x4 getBoneWorldMatrix(int prm_infl_bone_idx) {
 OUT_VS VS_DefaultSkinAniMesh(
       float4 prm_posModel_Local  : POSITION,      // モデルの頂点
       float3 prm_vecNormal_Local : NORMAL,        // モデルの頂点の法線
-      float  prm_bone_combi_index           : PSIZE ,        // モデルのインデックス（何個目のオブジェクトか？）
+      float  prm_bone_combi_index         : PSIZE ,        // モデルのインデックス（何個目のオブジェクトか？）
       float2 prm_uv              : TEXCOORD0 ,     // モデルの頂点のUV
       float4 infl_weight         : BLENDWEIGHT,
-      int4   infl_bone_idx       : BLENDINDICES
+      int4   infl_bone_id       : BLENDINDICES0,
+      int4   infl_bone_id_order       : BLENDINDICES1
 ) {
     OUT_VS out_vs = (OUT_VS)0;
 //    const int bone_combi_index = ((int)prm_bone_combi_index) % SkinAniMeshModel_MAX_BONE_WORLD_MATRIX;
-    const int bone_combi_index = (int)(infl_bone_idx[0]);
+//    const int bone_combi_index = (int)(infl_bone_idx[0]);
     //頂点計算
-    float4x4 matBoneWorld = getBoneWorldMatrix(bone_combi_index);
+//
+//    float w[4] = (float[4])infl_weight;
+//    int b[4] = (int[4])infl_bone_idx;
+//    float4x4 matBoneWorld = getBoneWorldMatrix(b[0]) * w[0];
+//    if (w[1] > 0.0f) {
+//        matBoneWorld = getBoneWorldMatrix(b[1]) * w[1];
+//    }
+//    else if (w[2] == 0.0f) {
+//        matBoneWorld = getBoneWorldMatrix((int)(infl_bone_idx[0])) * w[0] +
+//                       getBoneWorldMatrix((int)(infl_bone_idx[1])) * w[1];
+//    }
+
+//        matBoneWorld = getBoneWorldMatrix((int)(infl_bone_idx[0])) * infl_weight[0];
+//        mtBoneWorld += getBoneWorldMatrix((int)(infl_bone_idx[1])) * infl_weight[1];a
+//        if (infl_weight[2] > 0) {
+//            matBoneWorld += getBoneWorldMatrix((int)(infl_bone_idx[2])) * infl_weight[2];
+//            if (infl_weight[3] > 0) {
+//                matBoneWorld += getBoneWorldMatrix((int)(infl_bone_idx[3])) * infl_weight[3];
+//            }
+//        }
+//    }
+    float4x4 matBoneWorld = getBoneWorldMatrix((int)(infl_bone_id_order[0])) * infl_weight[0];
+    if (infl_weight[1] > 0.00f) {
+        matBoneWorld = matBoneWorld + getBoneWorldMatrix((int)(infl_bone_id_order[1])) * infl_weight[1];
+        if (infl_weight[2] > 0.00f) {
+            matBoneWorld = matBoneWorld + getBoneWorldMatrix((int)(infl_bone_id_order[2])) * infl_weight[2];
+            if (infl_weight[3] > 0.00f) {
+                matBoneWorld = matBoneWorld + getBoneWorldMatrix((int)(infl_bone_id_order[3])) * infl_weight[3];
+            }
+        }
+    }
+
 
     //頂点計算
     const float4 posModel_World = mul(prm_posModel_Local, matBoneWorld);

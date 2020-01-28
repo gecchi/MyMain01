@@ -17,8 +17,6 @@
 #include "jp/ggaf/dx/util/SkinAniMeshAllocHierarchy.h"
 #include "jp/ggaf/dx/util/SkinAniMeshContainer.h"
 #include "jp/ggaf/dx/util/SkinAniMeshFrame.h"
-//DefaultSkinAniMeshEffect.fx と 定数を一致させる事
-#define SkinAniMeshModel_MAX_BONE_WORLD_MATRIX (20) //2以上でないとブレイクしないのでダメ
 
 using namespace GgafDx;
 
@@ -96,9 +94,17 @@ HRESULT SkinAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
 /////////////////////////////////////////////
 ///
 
-    for (int i = 0; i < _infl_bone_idx_order.size(); i++) {
-        DWORD bone_id = _infl_bone_idx_order[i];
-        hr = pID3DXEffect->SetMatrix(pSkinAniMeshEffect->_ah_matBone[i], &(_vecBoneIdFrame[bone_id]->_combined_matrix));
+
+
+
+//    for (int i = 0; i < _vec_infl_bone_id_order.size(); i++) {
+//        DWORD bone_id = _vec_infl_bone_id_order[i];
+//        hr = pID3DXEffect->SetMatrix(pSkinAniMeshEffect->_ah_matBone[i], &(_vecBoneIdFrame[bone_id]->_combined_matrix));
+//    }
+
+
+    for (int i = 0; i < _vec_infl_bone_id_order.size(); i++) {
+        hr = pID3DXEffect->SetMatrix(pSkinAniMeshEffect->_ah_matBone[i], _ap_draw_combined_matrix[i] );
     }
 
     for (int i = 0; i < _index_param_num; i++) {
@@ -382,7 +388,8 @@ void SkinAniMeshModel::restore() {
 
                 for (int k = 0; k < 4; k++) {  // 仮で初期値設定、下で再設定する
                     pVtx->infl_weight[k] = 0.0f;
-                    pVtx->infl_bone_idx[k] = 0xFF;
+                    pVtx->infl_bone_id[k] = 0xFF;
+                    pVtx->infl_bone_id_order[k] = 0xFF;
                 }
                 v_cnt ++;
             }
@@ -439,26 +446,27 @@ void SkinAniMeshModel::restore() {
                                     SkinAniMeshModel::VERTEX* pVtx = &(_paVtxBuffer_data[vertices[v]]);
                                     bool is_exist = false;
                                     for (int k = 0; k < 4; k++) {
-                                        if (pVtx->infl_bone_idx[k] == (byte)bone_id) {
+                                        if (pVtx->infl_bone_id[k] == (byte)bone_id) {
                                             is_exist = true;
                                             break;
                                         }
                                     }
                                     if (is_exist == false) {
                                         for (int k = 0; k < 4; k++) {
-                                            if (pVtx->infl_weight[k] < skin_weight[v]) {
+                                            if (pVtx->infl_weight[k] < skin_weight[v]) { //weight大きい順に
+                                            //if (pVtx->infl_weight[k] == 0.0 || (pVtx->infl_weight[k] > 0.0 && pVtx->infl_weight[k] > skin_weight[v])) { //weight小さい順
                                                 for (int j = 3; j > k; j--) {
                                                     //スライド
-                                                    pVtx->infl_bone_idx[j] = pVtx->infl_bone_idx[j-1];
+                                                    pVtx->infl_bone_id[j] = pVtx->infl_bone_id[j-1];
                                                     pVtx->infl_weight[j] = pVtx->infl_weight[j-1];
                                                 }
-                                                pVtx->infl_bone_idx[k] = (byte)bone_id;
+                                                pVtx->infl_bone_id[k] = (byte)bone_id;
                                                 pVtx->infl_weight[k] =  skin_weight[v];
 
-                                                 std::vector<DWORD>::iterator p = std::find(_infl_bone_idx_order.begin(), _infl_bone_idx_order.end(), bone_id);
-                                                 if (p == _infl_bone_idx_order.end()) {
+                                                 std::vector<DWORD>::iterator p = std::find(_vec_infl_bone_id_order.begin(), _vec_infl_bone_id_order.end(), bone_id);
+                                                 if (p == _vec_infl_bone_id_order.end()) {
                                                      //存在しない＝初めての bone_id
-                                                     _infl_bone_idx_order.push_back(bone_id);
+                                                     _vec_infl_bone_id_order.push_back(bone_id);
                                                  }
                                                  break;
                                             }
@@ -470,10 +478,10 @@ void SkinAniMeshModel::restore() {
 //                                                 pVtx->infl_bone_idx[k] = (byte)bone_id;
 //                                                 pVtx->infl_weight[k] =  skin_weight[v];
 //
-//                                                 std::vector<DWORD>::iterator p = std::find(_infl_bone_idx_order.begin(), _infl_bone_idx_order.end(), bone_id);
-//                                                 if (p == _infl_bone_idx_order.end()) {
+//                                                 std::vector<DWORD>::iterator p = std::find(_vec_infl_bone_id_order.begin(), _vec_infl_bone_id_order.end(), bone_id);
+//                                                 if (p == _vec_infl_bone_id_order.end()) {
 //                                                     //存在しない＝初めての bone_id
-//                                                     _infl_bone_idx_order.push_back(bone_id);
+//                                                     _vec_infl_bone_id_order.push_back(bone_id);
 //                                                 }
 //                                                 break;
 //                                            }
@@ -546,30 +554,36 @@ void SkinAniMeshModel::restore() {
 
 
             //ボーンIDをオーダーに書き換える
-            _map_infl_bone_idx_to_order[0xFF] = 0xFF;
-            for (DWORD i = 0; i < _infl_bone_idx_order.size(); i++) {
-                _map_infl_bone_idx_to_order[_infl_bone_idx_order[i]]=i;
+            _map_infl_bone_id_to_order[0xFF] = 0xFF;
+            for (DWORD i = 0; i < _vec_infl_bone_id_order.size(); i++) {
+                _map_infl_bone_id_to_order[_vec_infl_bone_id_order[i]]=i;
             }
 
-            for (int i = 0; i < _infl_bone_idx_order.size(); i++) {
-                _TRACE_("_infl_bone_idx_order["<<i<<"]="<<_infl_bone_idx_order[i]);
+            for (int i = 0; i < _vec_infl_bone_id_order.size(); i++) {
+                _TRACE_("_vec_infl_bone_id_order["<<i<<"]="<<_vec_infl_bone_id_order[i]);
             }
 
-            //    std::map<DWORD, byte> _map_infl_bone_idx_to_order;
-            for (std::map<DWORD, DWORD>::iterator p = _map_infl_bone_idx_to_order.begin();
-                    p != _map_infl_bone_idx_to_order.end(); p++) {
+            //    std::map<DWORD, byte> _map_infl_bone_id_to_order;
+            for (std::map<DWORD, DWORD>::iterator p = _map_infl_bone_id_to_order.begin();
+                    p != _map_infl_bone_id_to_order.end(); p++) {
                     // イテレータは pair<const string, int> 型なので、
-                    _TRACE_("_map_infl_bone_idx_to_order["<<p->first<<"]="<< p->second);
+                    _TRACE_("_map_infl_bone_id_to_order["<<p->first<<"]="<< p->second);
             }
 
 
             //頂点バッファのボーンIDをオーダーに書き換える
             for (int i = 0; i < _nVertices; i++) {
                 SkinAniMeshModel::VERTEX* pVtx = &(_paVtxBuffer_data[i]);
-                pVtx->infl_bone_idx[0] = (byte)(_map_infl_bone_idx_to_order[pVtx->infl_bone_idx[0]]);
-                pVtx->infl_bone_idx[1] = (byte)(_map_infl_bone_idx_to_order[pVtx->infl_bone_idx[1]]);
-                pVtx->infl_bone_idx[2] = (byte)(_map_infl_bone_idx_to_order[pVtx->infl_bone_idx[2]]);
-                pVtx->infl_bone_idx[3] = (byte)(_map_infl_bone_idx_to_order[pVtx->infl_bone_idx[3]]);
+                pVtx->infl_bone_id_order[0] = (byte)(_map_infl_bone_id_to_order[pVtx->infl_bone_id[0]]);
+                pVtx->infl_bone_id_order[1] = (byte)(_map_infl_bone_id_to_order[pVtx->infl_bone_id[1]]);
+                pVtx->infl_bone_id_order[2] = (byte)(_map_infl_bone_id_to_order[pVtx->infl_bone_id[2]]);
+                pVtx->infl_bone_id_order[3] = (byte)(_map_infl_bone_id_to_order[pVtx->infl_bone_id[3]]);
+            }
+
+
+            for (int i = 0; i < _vec_infl_bone_id_order.size(); i++) {
+                DWORD bone_id = _vec_infl_bone_id_order[i];
+                _ap_draw_combined_matrix[i] = &(_vecBoneIdFrame[bone_id]->_combined_matrix);
             }
 
             ///
@@ -721,7 +735,8 @@ void SkinAniMeshModel::restore() {
             _TRACE_("["<<i<<"]:"<<
                     " ["<<(pVtx->bone_combi_index)<<"] "<<
                     " Vertex=("<<(pVtx->x)<<","<<(pVtx->y)<<","<<(pVtx->z)<<")"<<
-                    " infl_bone_idx=("<<(int)(pVtx->infl_bone_idx[0])<<","<<(int)(pVtx->infl_bone_idx[1])<<","<<(int)(pVtx->infl_bone_idx[2])<<","<<(int)(pVtx->infl_bone_idx[3])<<")"<<
+                    " infl_bone_id=("<<(int)(pVtx->infl_bone_id[0])<<","<<(int)(pVtx->infl_bone_id[1])<<","<<(int)(pVtx->infl_bone_id[2])<<","<<(int)(pVtx->infl_bone_id[3])<<")"<<
+                    " infl_bone_id_order=("<<(int)(pVtx->infl_bone_id_order[0])<<","<<(int)(pVtx->infl_bone_id_order[1])<<","<<(int)(pVtx->infl_bone_id_order[2])<<","<<(int)(pVtx->infl_bone_id_order[3])<<")"<<
                     " infl_weight=("<<(pVtx->infl_weight[0])<<","<<(pVtx->infl_weight[1])<<","<<(pVtx->infl_weight[2])<<","<<(pVtx->infl_weight[3])<<")"<<
                     " Normal=("<<(pVtx->nx)<<","<<(pVtx->ny)<<","<<(pVtx->nz)<<")"
 
@@ -739,8 +754,8 @@ void SkinAniMeshModel::restore() {
 
     if (_pVertexDeclaration == nullptr) {
         HRESULT hr;
-        int elemnum = 8; //D3DVERTEXELEMENT9 構造体の配列要素数
-        D3DVERTEXELEMENT9* paVtxelem = NEW D3DVERTEXELEMENT9[elemnum];
+        //D3DVERTEXELEMENT9 構造体の配列要素数
+        D3DVERTEXELEMENT9* paVtxelem = NEW D3DVERTEXELEMENT9[9];
         WORD  st0_offset_next = 0;
         //プライマリ部頂点フォーマット
         //float x, y, z; // 頂点座標
@@ -783,7 +798,7 @@ void SkinAniMeshModel::restore() {
         paVtxelem[4].Usage = D3DDECLUSAGE_TEXCOORD;
         paVtxelem[4].UsageIndex = 0;
         st0_offset_next += sizeof(float)*2;
-        //float weight1, weight2, weight3, weight4;
+        //float infl_weight[4];
         paVtxelem[5].Stream = 0;
         paVtxelem[5].Offset = st0_offset_next;
         paVtxelem[5].Type = D3DDECLTYPE_FLOAT4;
@@ -791,7 +806,7 @@ void SkinAniMeshModel::restore() {
         paVtxelem[5].Usage = D3DDECLUSAGE_BLENDWEIGHT;
         paVtxelem[5].UsageIndex = 0;
         st0_offset_next += sizeof(float)*4;
-        // byte  idx1, idx2, idx3, idx4
+        // byte  infl_bone_id[4];
         paVtxelem[6].Stream = 0;
         paVtxelem[6].Offset = st0_offset_next;
         paVtxelem[6].Type = D3DDECLTYPE_UBYTE4;
@@ -799,13 +814,21 @@ void SkinAniMeshModel::restore() {
         paVtxelem[6].Usage = D3DDECLUSAGE_BLENDINDICES;
         paVtxelem[6].UsageIndex = 0;
         st0_offset_next += sizeof(byte)*4;
+        // byte  infl_bone_id_order[4];
+        paVtxelem[7].Stream = 0;
+        paVtxelem[7].Offset = st0_offset_next;
+        paVtxelem[7].Type = D3DDECLTYPE_UBYTE4;
+        paVtxelem[7].Method = D3DDECLMETHOD_DEFAULT;
+        paVtxelem[7].Usage = D3DDECLUSAGE_BLENDINDICES;
+        paVtxelem[7].UsageIndex = 1;
+        st0_offset_next += sizeof(byte)*4;
         //D3DDECL_END()
-        paVtxelem[7].Stream = 0xFF;
-        paVtxelem[7].Offset = 0;
-        paVtxelem[7].Type = D3DDECLTYPE_UNUSED;
-        paVtxelem[7].Method = 0;
-        paVtxelem[7].Usage = 0;
-        paVtxelem[7].UsageIndex = 0;
+        paVtxelem[8].Stream = 0xFF;
+        paVtxelem[8].Offset = 0;
+        paVtxelem[8].Type = D3DDECLTYPE_UNUSED;
+        paVtxelem[8].Method = 0;
+        paVtxelem[8].Usage = 0;
+        paVtxelem[8].UsageIndex = 0;
 
         hr = God::_pID3DDevice9->CreateVertexDeclaration( paVtxelem, &(_pVertexDeclaration) );
         checkDxException(hr, D3D_OK, "God::_pID3DDevice9->CreateVertexDeclaration 失敗 model="<<(_model_name));

@@ -38,7 +38,7 @@ class Puppeteer : public GgafCore::Object {
 private:
     /** [r]パペットのアニメーションコントローラー */
     ID3DXAnimationController* _pAc;
-
+    FLOAT _track_speed;
     /**
      * 芸(モーション) .
      */
@@ -121,7 +121,7 @@ public:
      * @param prm_pPuppet 操られる者
      * @return
      */
-    explicit Puppeteer(ID3DXAnimationController* prm_pAc_cloned);
+    explicit Puppeteer(ID3DXAnimationController* prm_pAc_cloned,  FLOAT prm_track_speed = 60.0f / 4800.0f);
 
 //    void restore(ID3DXAnimationController* prm_pAc_cloned);
 
