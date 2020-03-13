@@ -183,6 +183,8 @@ void SkinAniMeshModel::restore() {
         TextureManager* pTextureManager = pGOD->_pModelManager->_pModelTextureManager;
         //AnimTicksPerSecondを独自に取り出す。デフォルトは4800
         _anim_ticks_per_second = SkinAniMeshModel::getAnimTicksPerSecond(xfile_name);
+//DEBUG
+_TRACE_("SkinAniMeshModel::restore() _anim_ticks_per_second="<<_anim_ticks_per_second);
         if (_anim_ticks_per_second < 0) {
             _anim_ticks_per_second = 4800;
         }

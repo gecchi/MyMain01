@@ -459,6 +459,7 @@ class SceneCurtain;
 class TextureBlinker;
 class UvFlipper;
 class Puppeteer;
+class Puppeteer_old;
 
 class Se;
 class Bgm;

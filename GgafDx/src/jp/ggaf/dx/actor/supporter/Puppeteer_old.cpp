@@ -1,35 +1,13 @@
-#include "jp/ggaf/dx/actor/supporter/Puppeteer.h"
+#include "jp/ggaf/dx/actor/supporter/Puppeteer_old.h"
 
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/dx/model/BoneAniMeshModel.h"
 #include "jp/ggaf/dx/actor/BoneAniMeshActor.h"
 
+
 using namespace GgafDx;
 
-
-Puppeteer::Performance::Performance() {
-    _pAnimationSet = nullptr;
-    _animation_set_index = 0;
-    _one_loop_frames    = 60;
-    _local_time         = 0.0;
-    _local_time_inc     = 0.0;
-    _target_loop        = -1;
-    _loop_count         = 0;
-    _period             = 1.0;
-    _weight             = 1.0;
-    _method             = NO_CHENGE;
-}
-void Puppeteer::Performance::setAnimationSet(LPD3DXANIMATIONSET prm_pAnimationSet, UINT prm_animation_set_index) {
-    _pAnimationSet = prm_pAnimationSet;
-    _animation_set_index = prm_animation_set_index;
-    _period = _pAnimationSet->GetPeriod();
-}
-Puppeteer::Performance::~Performance() {
-}
-
-
-
-Puppeteer::Puppeteer(ID3DXAnimationController* prm_pAc_cloned, FLOAT prm_track_speed) : GgafCore::Object() {
+Puppeteer_old::Puppeteer_old(ID3DXAnimationController* prm_pAc_cloned, FLOAT prm_track_speed) : GgafCore::Object() {
     _num_perform = 0;
     _paPerformances = nullptr;
     _pAc = prm_pAc_cloned;
@@ -53,7 +31,7 @@ Puppeteer::Puppeteer(ID3DXAnimationController* prm_pAc_cloned, FLOAT prm_track_s
         hr = _pAc->GetAnimationSet(i, &(pAnimationSet)); //アニメーションセット保持
         _paPerformances[i].setAnimationSet(pAnimationSet, i);
         checkDxException(hr, D3D_OK, "失敗しました。");
-        _paPerformances[i]._period = _paPerformances[i]._pAnimationSet->GetPeriod();
+        _paPerformances[i]._time_of_one_loop = _paPerformances[i]._pAnimationSet->GetPeriod();
     }
 
     //グローバル時間を0にする
@@ -83,7 +61,7 @@ Puppeteer::Puppeteer(ID3DXAnimationController* prm_pAc_cloned, FLOAT prm_track_s
 //    }
 }
 
-//void Puppeteer::restore(ID3DXAnimationController* prm_pAc_cloned) {
+//void Puppeteer_old::restore(ID3DXAnimationController* prm_pAc_cloned) {
 //    _pAc = prm_pAc_cloned;
 //    HRESULT hr;
 //    for (UINT i = 0; i < _num_perform; i++) {
@@ -91,11 +69,11 @@ Puppeteer::Puppeteer(ID3DXAnimationController* prm_pAc_cloned, FLOAT prm_track_s
 //        hr = _pAc->GetAnimationSet(i, &(pAnimationSet)); //アニメーションセット保持
 //        _paPerformances[i].setAnimationSet(pAnimationSet, i);
 //        checkDxException(hr, D3D_OK, "失敗しました。");
-//        _paPerformances[i]._period = _paPerformances[i]._pAnimationSet->GetPeriod();
+//        _paPerformances[i]._time_of_one_loop = _paPerformances[i]._pAnimationSet->GetPeriod();
 //    }
 //}
 
-void Puppeteer::exchangPerformance() {
+void Puppeteer_old::exchangPerformance() {
     Performance* p2 = _aStick[RIGHT_HAND]._pPerformance;
     _aStick[RIGHT_HAND]._pPerformance = _aStick[LEFT_HAND]._pPerformance;
     _aStick[LEFT_HAND]._pPerformance = p2;
@@ -123,26 +101,78 @@ void Puppeteer::exchangPerformance() {
 
 }
 
-void Puppeteer::play(PuppeteerStick prm_handed,
-          UINT prm_performance_no,
-          frame prm_one_loop_frames,
-          double prm_loopnum,
-          PuppeteerMethod prm_method) {
+void Puppeteer_old::play(PuppeteerStick prm_handed,
+                     UINT prm_performance_no,
+                     double prm_loopnum,
+                     double prm_target_speed,
+                     frame prm_shift_speed_frames,
+                     double prm_target_weight,
+                     frame prm_shift_weight_frames,
+                     PuppeteerMethod prm_method ) {
     if (prm_performance_no > _num_perform-1) {
-        throwCriticalException("Puppeteer::play() アニメIDが範囲外です。prm_performance_no="<<prm_performance_no);
+        throwCriticalException("Puppeteer_old::play() アニメIDが範囲外です。prm_performance_no="<<prm_performance_no);
     }
     Performance* p = &(_paPerformances[prm_performance_no]);
-    p->_one_loop_frames = prm_one_loop_frames;
-    p->_local_time = 0;
-    p->_local_time_inc =  p->_period / p->_one_loop_frames;
-    p->_target_loop = prm_loopnum;
-    p->_loop_count = 0;
-    p->_method     = prm_method;
+    p->_time_of_one_loop = p->_pAnimationSet->GetPeriod();
+    p->_target_loop      = prm_loopnum;
+    p->_method           = prm_method;
+    if (prm_shift_speed_frames == 0) {
+        p->_speed              = prm_target_speed;
+        p->_inc_speed          = 0;
+        p->_is_shifting_speed  = false;
+        p->_target_speed       = prm_target_speed;
+    } else {
+        p->_inc_speed          = (prm_target_speed - p->_speed) / prm_shift_speed_frames;
+        p->_is_shifting_speed  = true;
+        p->_target_speed       = prm_target_speed;
+    }
+    if (prm_shift_weight_frames == 0) {
+        p->_weight             = prm_target_weight;
+        p->_inc_weight         = 0;
+        p->_is_shifting_weight = false;
+        p->_target_weight      = prm_target_weight;
+    } else {
+        p->_inc_weight         = (prm_target_weight - p->_weight) / prm_shift_weight_frames;
+        p->_is_shifting_weight = true;
+        p->_target_weight      = prm_target_weight;
+    }
+
+    //ローカル時間を単純化する。
+    //target_speed が正の場合            0 <= _local_time <  1ループ時間 の範囲に、
+    //target_speed が負の場合 -1ループ時間 <  _local_time <= 0           の範囲に、落とし込む
+    if (prm_target_speed > 0) {
+        if (p->_local_time > 0) {
+            p->_local_time = fmod(p->_local_time, p->_time_of_one_loop);
+        } else if (p->_local_time < 0) {
+            p->_local_time = p->_time_of_one_loop - fmod(ABS(p->_local_time), p->_time_of_one_loop);
+        } else {
+            p->_local_time = 0.0;
+        }
+    } else if (prm_target_speed < 0) {
+        if (p->_local_time > 0) {
+            p->_local_time = fmod(p->_local_time, p->_time_of_one_loop) - p->_time_of_one_loop;
+        } else if (p->_local_time < 0) {
+            p->_local_time = -fmod(ABS(p->_local_time), p->_time_of_one_loop);
+        } else {
+            p->_local_time = 0.0;
+        }
+    } else {
+        p->_local_time = 0.0;
+    }
+
+//    p->_method = (prm_method == NO_CHENGE ? p->_method : prm_method);
+//
+//    HRESULT hr;
+//    hr = _pAc->SetTrackAnimationSet(_aStick[prm_handed]._tno, p->_pAnimationSet);
+//    checkDxException(hr, D3D_OK, "失敗しました。");
+//    hr = _pAc->SetTrackEnable(_aStick[prm_handed]._tno, TRUE);
+//    checkDxException(hr, D3D_OK, "失敗しました。");
     _aStick[prm_handed]._enable_motion_blend = TRUE;
     _aStick[prm_handed]._pPerformance = p;
 }
 
-void Puppeteer::behave() {
+
+void Puppeteer_old::behave() {
 //    _advance_time_per_draw += (1.0/60.0);
     for (UINT i = 0; i < 2; i++) {
         Performance* p = _aStick[i]._pPerformance;
@@ -150,17 +180,45 @@ void Puppeteer::behave() {
             if (p->_method == NO_CHENGE) {
                 break;
             } else if (p->_method == PLAY_LOOPING) {
-                p->_local_time += (p->_local_time_inc);
+                if (p->_is_shifting_speed) {
+                    if (p->_target_speed > 0 && p->_speed > p->_target_speed) {
+                        p->_speed = p->_target_speed;
+                        p->_is_shifting_speed = false;
+                    } else if (p->_target_speed < 0 && p->_speed < p->_target_speed) {
+                        p->_speed = p->_target_speed;
+                        p->_is_shifting_speed = false;
+                    } else {
+                        p->_speed += p->_inc_speed;
+                    }
+                }
+                if (p->_is_shifting_weight) {
+                    if (p->_weight > 0 && p->_weight > p->_target_weight) {
+                        p->_weight = p->_target_weight;
+                        p->_is_shifting_weight = false;
+                    } else if (p->_weight < 0 && p->_weight < p->_target_weight) {
+                        p->_weight = p->_target_weight;
+                        p->_is_shifting_weight = false;
+                    } else {
+                        p->_weight += p->_inc_weight;
+                    }
+                }
+                p->_local_time += (p->_speed / 60.0);
 
                 //ループ完判定
-                if (p->_target_loop > 0 && p->_target_loop < ABS(p->_local_time) / p->_period) {
+                if (p->_target_loop > 0 && p->_target_loop < ABS(p->_local_time) / p->_time_of_one_loop) {
                     if (p->_local_time > 0) {
                         //理想値に補正
-                        p->_local_time = p->_target_loop * p->_period;
+                        p->_local_time = p->_target_loop * p->_time_of_one_loop;
                     } else {
                         //理想値に補正
-                        p->_local_time = - (p->_target_loop * p->_period);
+                        p->_local_time = - (p->_target_loop * p->_time_of_one_loop);
                     }
+                    p->_inc_speed          = 0;
+                    p->_is_shifting_speed  = false;
+
+                    p->_inc_weight         = 0;
+                    p->_is_shifting_weight = false;
+
                     p->_method = NO_CHENGE;
                 }
             } else {
@@ -193,7 +251,7 @@ void Puppeteer::behave() {
 
 }
 
-void Puppeteer::stop() {
+void Puppeteer_old::stop() {
     for (UINT hand = 0; hand < 2; hand++) {
         Performance* p = _aStick[hand]._pPerformance;
         if (p) {
@@ -202,7 +260,7 @@ void Puppeteer::stop() {
     }
 }
 
-void Puppeteer::updateAnimationTrack() {
+void Puppeteer_old::updateAnimationTrack() {
     HRESULT hr;
 
     ID3DXAnimationController* pAc = _pAc;
@@ -217,7 +275,7 @@ void Puppeteer::updateAnimationTrack() {
             checkDxException(hr, D3D_OK, "失敗しました。");
             hr = pAc->SetTrackPosition(tno, pPerformance->_local_time);
             checkDxException(hr, D3D_OK, "失敗しました。");
-            hr = pAc->SetTrackSpeed(tno, pPerformance->_period);
+            hr = pAc->SetTrackSpeed(tno, pPerformance->_speed * _track_speed);
             checkDxException(hr, D3D_OK, "失敗しました。");
             hr = pAc->SetTrackWeight(tno, pPerformance->_weight);
             checkDxException(hr, D3D_OK, "失敗しました。");
@@ -232,7 +290,7 @@ void Puppeteer::updateAnimationTrack() {
 }
 
 
-Puppeteer::~Puppeteer() {
+Puppeteer_old::~Puppeteer_old() {
     GGAF_DELETEARR(_paPerformances);
 }
 

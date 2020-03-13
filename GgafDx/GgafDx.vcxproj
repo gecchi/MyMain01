@@ -68,6 +68,7 @@
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\Kago.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\KagoAssistantA.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\Puppeteer.cpp" />
+    <ClCompile Include="src\jp\ggaf\dx\actor\supporter\Puppeteer_old.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\Rikisha.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\RikishaFaceAngAssistant.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\RikishaMvAngAssistant.cpp" />
@@ -225,6 +226,7 @@
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\morpher.hpp" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\morpherassistanta.hpp" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\puppeteer.h" />
+    <ClInclude Include="include\jp\ggaf\dx\actor\supporter\puppeteer_old.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\rikisha.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\rikishafaceangassistant.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\rikishamvangassistant.h" />

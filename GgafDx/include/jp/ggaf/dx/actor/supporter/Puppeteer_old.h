@@ -1,5 +1,5 @@
-#ifndef GGAF_DX_PUPPETEER_H_
-#define GGAF_DX_PUPPETEER_H_
+#ifndef GGAF_DX_PUPPETEER_OLD_H_
+#define GGAF_DX_PUPPETEER_OLD_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
@@ -34,7 +34,7 @@ namespace GgafDx {
  * @since 2011/02/22
  * @author Masatoshi Tsuge
  */
-class Puppeteer : public GgafCore::Object {
+class Puppeteer_old : public GgafCore::Object {
 private:
     /** [r]パペットのアニメーションコントローラー */
     ID3DXAnimationController* _pAc;
@@ -47,23 +47,54 @@ private:
         /** アニメーションセット */
         LPD3DXANIMATIONSET _pAnimationSet;
         UINT _animation_set_index;
-        double _period;
+
         /** １ループの時間 */
-        frame _one_loop_frames;
+        double _time_of_one_loop;
         /** ローカルタイム */
         double _local_time;
-        double _local_time_inc;
         /** 目標ループ回数(1.5回などの指定も可能) */
         double _target_loop;
-
-        double _loop_count;
+        /** 目標到達スピード割合(1.0で通常スピード、負で逆アニメーション) */
+        double _target_speed;
+        /** 現在のスピード割合 */
+        double _speed;
+        /** スピード割合の加算値 */
+        double _inc_speed;
+        /** スピード割合を加算中ならば true */
+        bool   _is_shifting_speed;
+        /** 目標到達重み 0.0～1.0(負は不可) */
+        double _target_weight;
+        /** 現在の重み */
         double _weight;
+        /** 重みの加算値 */
+        double _inc_weight;
+        /** 重みを加算中ならば true */
+        bool  _is_shifting_weight;
         /** ループ方法 */
         PuppeteerMethod _method;
     public:
-        Performance();
-        void setAnimationSet(LPD3DXANIMATIONSET prm_pAnimationSet, UINT prm_animation_set_index);
-        virtual ~Performance();
+        Performance() {
+            _pAnimationSet = nullptr;
+            _animation_set_index = 0;
+            _time_of_one_loop   = 0.0;
+            _local_time         = 0.0;
+            _target_loop        = -1;
+            _target_speed       = 1.0;
+            _speed              = 1.0;
+            _inc_speed          = 0.0;
+            _is_shifting_speed  = false;
+            _target_weight      = 1.0;
+            _weight             = 1.0;
+            _inc_weight         = 0.0;
+            _is_shifting_weight = false;
+            _method             = NO_CHENGE;
+        }
+        void setAnimationSet(LPD3DXANIMATIONSET prm_pAnimationSet, UINT prm_animation_set_index) {
+            _pAnimationSet = prm_pAnimationSet;
+            _animation_set_index = prm_animation_set_index;
+        }
+        virtual ~Performance() {
+        }
     };
 
     /** パペッターの操り棒 */
@@ -90,7 +121,7 @@ public:
      * @param prm_pPuppet 操られる者
      * @return
      */
-    explicit Puppeteer(ID3DXAnimationController* prm_pAc_cloned,  FLOAT prm_track_speed = 60.0f / 4800.0f);
+    explicit Puppeteer_old(ID3DXAnimationController* prm_pAc_cloned,  FLOAT prm_track_speed = 60.0f / 4800.0f);
 
 //    void restore(ID3DXAnimationController* prm_pAc_cloned);
 
@@ -105,20 +136,13 @@ public:
      * @param prm_shift_weight_frames 目標重へみ到達フレーム数、徐々に重みが変化する。(0 を指定で即時 prm_target_weight になる)
      * @param prm_method
      */
-
-
-    /**
-     *プレイしてもらう（＝パペットが操られる） .
-     * @param prm_handed プレイするパペッターの操り棒 (LEFT_HAND or RIGHT_HAND)
-     * @param prm_performance_no プレイする芸番号（アニメーションコントローラーのアニメーションセットIDに一致する）
-     * @param prm_one_loop_frames その芸の１ループに費やすフレーム数
-     * @param prm_loopnum その芸のループ回数 0.0 ～ (１回半ループを1.5というようにも指定可能。負の数指定(-1)で無限ループアニメーション)
-     * @param prm_method
-     */
     void play(PuppeteerStick prm_handed,
               UINT prm_performance_no,
-              frame prm_one_loop_frames,
               double prm_loopnum,
+              double prm_target_speed,
+              frame prm_shift_speed_frames,
+              double prm_target_weight,
+              frame prm_shift_weight_frames,
               PuppeteerMethod prm_method = PLAY_LOOPING
     );
 
@@ -136,7 +160,7 @@ public:
         return _num_perform;
     }
 
-    virtual ~Puppeteer();
+    virtual ~Puppeteer_old();
 
 };
 
