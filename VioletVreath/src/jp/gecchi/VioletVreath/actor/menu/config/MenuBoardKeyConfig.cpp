@@ -10,7 +10,7 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/Config.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelMenuItemFont01.h"
-#include "jp/ggaf/core/util/ValueEnveloper.hpp"
+#include "jp/ggaf/core/util/ValueTransitioner.hpp"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
 
 

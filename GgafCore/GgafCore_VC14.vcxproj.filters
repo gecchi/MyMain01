@@ -123,9 +123,6 @@
     <ClInclude Include="include\jp\ggaf\core\util\ValueAccelerator.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="include\jp\ggaf\core\util\ValueEnveloper.hpp">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="include\jp\ggaf\core\util\Xpm.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -157,6 +154,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\GgafCommonHeader.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\core\util\ValueTransitioner.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

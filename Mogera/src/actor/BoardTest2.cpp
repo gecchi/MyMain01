@@ -13,7 +13,7 @@
 #include "actor/BoardTest2.h"
 #include "MgrGod.h"
 
-#include "jp/ggaf/core/util/ValueEnveloper.hpp"
+#include "jp/ggaf/core/util/ValueTransitioner.hpp"
 
 
 using namespace GgafLib;

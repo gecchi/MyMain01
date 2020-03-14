@@ -21,7 +21,7 @@
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/core/util/ValueEnveloper.hpp"
+#include "jp/ggaf/core/util/ValueTransitioner.hpp"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
 #include "jp/ggaf/dx/actor/supporter/Colorist.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectTurbo002.h"

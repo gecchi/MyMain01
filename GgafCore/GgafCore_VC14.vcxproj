@@ -81,7 +81,7 @@
     <ClInclude Include="include\jp\ggaf\core\util\TreeSpace.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\Util.h" />
     <ClInclude Include="include\jp\ggaf\core\util\ValueAccelerator.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\ValueEnveloper.hpp" />
+    <ClInclude Include="include\jp\ggaf\core\util\ValueTransitioner.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\Xpm.h" />
   </ItemGroup>
   <ItemGroup>

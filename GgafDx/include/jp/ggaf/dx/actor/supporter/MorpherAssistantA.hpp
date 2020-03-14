@@ -140,7 +140,7 @@ MorpherAssistantA<T>::MorpherAssistantA(Morpher<T>* prm_pMaster) : GgafCore::Obj
 template<class T>
 void MorpherAssistantA<T>::behave() {
     GgafCore::ValueAccelerator<float>* pSmthMph = _pa_smthMph;
-    GgafCore::ValueEnveloper<float, (MAX_MORPH_TARGET+1)>::Parameter* p = _pMaster->_parameter;
+    GgafCore::ValueTransitioner<float, (MAX_MORPH_TARGET+1)>::Parameter* p = _pMaster->_parameter;
     for (int i = 1; i <= _target_num; i++) {
         if (pSmthMph->isAccelerating()) {
             pSmthMph->behave();

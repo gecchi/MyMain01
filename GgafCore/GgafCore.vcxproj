@@ -100,7 +100,7 @@
     <ClInclude Include="include\jp\ggaf\core\util\treespace.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\util.h" />
     <ClInclude Include="include\jp\ggaf\core\util\valueaccelerator.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\valueenveloper.hpp" />
+    <ClInclude Include="include\jp\ggaf\core\util\valuetransitioner.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\xpm.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

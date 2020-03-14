@@ -1,5 +1,5 @@
-#ifndef GGAF_CORE_VALUEENVELOPER_H_
-#define GGAF_CORE_VALUEENVELOPER_H_
+#ifndef GGAF_CORE_VALUETRANSITIONER_H_
+#define GGAF_CORE_VALUETRANSITIONER_H_
 #include "GgafCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 
@@ -17,7 +17,7 @@ namespace GgafCore {
  * @author Masatoshi Tsuge
  */
 template<class VAL_TYPE, int N>
-class ValueEnveloper : public Object {
+class ValueTransitioner : public Object {
 
 public:
     enum TransitionMethod {
@@ -81,7 +81,7 @@ public:
     /**
      * コンストラクタ<BR>
      */
-    ValueEnveloper() : Object() {
+    ValueTransitioner() : Object() {
         Parameter* p = _parameter;
         for (int i = 0; i < N; i++) {
             p->_velo = 0;
@@ -867,11 +867,11 @@ public:
         }
     }
 
-    virtual ~ValueEnveloper() {
+    virtual ~ValueTransitioner() {
     }
 };
 
 }
 
-#endif /*GGAF_CORE_VALUEENVELOPER_H_*/
+#endif /*GGAF_CORE_VALUETRANSITIONER_H_*/
 

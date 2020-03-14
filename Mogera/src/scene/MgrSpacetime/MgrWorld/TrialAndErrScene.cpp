@@ -76,17 +76,17 @@ void TrialAndErrScene::processBehavior() {
 
         p4 = (AniTest2*)receiveActor(1237);
         bringSceneMediator()->appendGroupChild(p4);
-        p4->setPosition(PX_C(-200), PX_C(-150), 0);
+        p4->setPosition(PX_C(-200), PX_C(-50), 0);
         p4->_pPuppeteer->stop();
 
         p5 = (AniTest2*)receiveActor(1238);
         bringSceneMediator()->appendGroupChild(p5);
-        p5->setPosition(0, PX_C(-150), 0);
+        p5->setPosition(0, PX_C(-50), 0);
         p5->_pPuppeteer->stop();
 
         p6 = (AniTest2*)receiveActor(1239);
         bringSceneMediator()->appendGroupChild(p6);
-        p6->setPosition(PX_C(200), PX_C(-150), 0);
+        p6->setPosition(PX_C(200), PX_C(-50), 0);
         p6->_pPuppeteer->stop();
     }
 

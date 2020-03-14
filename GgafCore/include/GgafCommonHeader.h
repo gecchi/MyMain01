@@ -381,7 +381,7 @@ template<class VAL_TYPE>
 class ValueAccelerator;
 
 template<class VAL_TYPE, int N>
-class ValueEnveloper;
+class ValueTransitioner;
 
 class GarbageBox;
 class Progress;

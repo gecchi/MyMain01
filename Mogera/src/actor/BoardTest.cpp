@@ -11,7 +11,7 @@
 #include "jp/ggaf/dx/util/Input.h"
 #include "actor/BoardTest.h"
 
-#include "jp/ggaf/core/util/ValueEnveloper.hpp"
+#include "jp/ggaf/core/util/ValueTransitioner.hpp"
 
 
 using namespace GgafLib;
