@@ -2,7 +2,7 @@
 #define GGAF_DX_RIKISHAMVASSISTANT_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
-#include "jp/ggaf/core/util/ValueAccelerator.hpp"
+#include "jp/ggaf/core/util/AccelerationValue.hpp"
 
 namespace GgafDx {
 
@@ -19,7 +19,7 @@ class RikishaMvAssistant : public GgafCore::Object {
 private:
     /** [r]t  */
     Rikisha* const _pMaster;
-    GgafCore::ValueAccelerator<int> _smthMv;
+    GgafCore::AccelerationValue<int> _smthMv;
 
     /**
      * —ÍÔ‚Ì•è‚ªU‚é•‘‚¤ .

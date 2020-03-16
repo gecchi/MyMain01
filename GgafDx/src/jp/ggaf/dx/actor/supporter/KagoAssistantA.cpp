@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/actor/supporter/KagoAssistantA.h"
 
-#include "jp/ggaf/core/util/ValueAccelerator.hpp"
+#include "jp/ggaf/core/util/AccelerationValue.hpp"
 #include "jp/ggaf/dx/actor/supporter/Kago.h"
 #include "jp/ggaf/dx/util/Util.h"
 

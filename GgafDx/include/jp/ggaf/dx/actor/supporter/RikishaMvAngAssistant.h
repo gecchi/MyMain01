@@ -2,7 +2,7 @@
 #define GGAF_DX_RIKISHAMVANGASSISTANT_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
-#include "jp/ggaf/core/util/ValueAccelerator.hpp"
+#include "jp/ggaf/core/util/AccelerationValue.hpp"
 
 namespace GgafDx {
 
@@ -36,8 +36,8 @@ private:
     Pendulum _pnd_ry;
     /** [r]étè† */
     Rikisha* const _pMaster;
-    GgafCore::ValueAccelerator<int> _smthMvRzAng;
-    GgafCore::ValueAccelerator<int> _smthMvRyAng;
+    GgafCore::AccelerationValue<int> _smthMvRzAng;
+    GgafCore::AccelerationValue<int> _smthMvRyAng;
 
     /**
      * óÕé‘ÇÃèïéËÇ™êUÇÈïëÇ§ .

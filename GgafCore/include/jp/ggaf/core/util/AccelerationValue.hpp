@@ -16,7 +16,7 @@ namespace GgafCore {
  * @author Masatoshi Tsuge
  */
 template<class VAL_TYPE>
-class ValueAccelerator : public Object {
+class AccelerationValue : public Object {
 
 private:
     enum {
@@ -74,7 +74,7 @@ public:
     VAL_TYPE _t_acce;
 
 public:
-    ValueAccelerator() {
+    AccelerationValue() {
         _is_accelerating = false;
         _zero_acc_end_flg = true;
         _top_velo = 0;
@@ -759,7 +759,7 @@ public:
 #endif
     }
 
-    virtual ~ValueAccelerator() {
+    virtual ~AccelerationValue() {
     }
 };
 

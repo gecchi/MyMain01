@@ -25,7 +25,7 @@ SkinAniMeshModel::SkinAniMeshModel(const char* prm_model_name) : Model(prm_model
     _pFrameRoot = nullptr;
     _pAniControllerBase = nullptr;
     _num_materials = 0L;
-    _anim_ticks_per_second = 4800; //restoreSkinAniMeshModel で上書きされる場合がある。
+//    _anim_ticks_per_second = 4800; //restoreSkinAniMeshModel で上書きされる場合がある。
     _paVtxBuffer_data = nullptr;
     _paIndexBuffer_data = nullptr;
     _pVertexDeclaration = nullptr;
@@ -182,12 +182,12 @@ void SkinAniMeshModel::restore() {
         std::string xfile_name = ModelManager::getMeshFileName(_model_name);
         TextureManager* pTextureManager = pGOD->_pModelManager->_pModelTextureManager;
         //AnimTicksPerSecondを独自に取り出す。デフォルトは4800
-        _anim_ticks_per_second = SkinAniMeshModel::getAnimTicksPerSecond(xfile_name);
+//        _anim_ticks_per_second = SkinAniMeshModel::getAnimTicksPerSecond(xfile_name);
 //DEBUG
-_TRACE_("SkinAniMeshModel::restore() _anim_ticks_per_second="<<_anim_ticks_per_second);
-        if (_anim_ticks_per_second < 0) {
-            _anim_ticks_per_second = 4800;
-        }
+//_TRACE_("SkinAniMeshModel::restore() _anim_ticks_per_second="<<_anim_ticks_per_second);
+//        if (_anim_ticks_per_second < 0) {
+//            _anim_ticks_per_second = 4800;
+//        }
         //Xファイルのファイルロード
         _pAllocHierarchy = NEW SkinAniMeshAllocHierarchy(); // CAllocHierarchyBaseの派生クラス
         hr = D3DXLoadMeshHierarchyFromX(
@@ -898,46 +898,46 @@ ID3DXAnimationController* SkinAniMeshModel::getCloneAnimationController() {
     checkDxException(hr, D3D_OK, "アニメーションコントローラーのクローンに失敗しました。");
     return _pAc;
 }
-int SkinAniMeshModel::getAnimTicksPerSecond(std::string& prm_xfile_name) {
-    if (prm_xfile_name == "") {
-         throwCriticalException("SkinAniMeshModel::getAnimTicksPerSecond() メッシュファイル("<<prm_xfile_name<<".x)が見つかりません。");
-    }
-    //XファイルからAnimTicksPerSecondの値を独自に取り出す
-    std::ifstream ifs(prm_xfile_name.c_str());
-    if (ifs.fail()) {
-        throwCriticalException("["<<prm_xfile_name<<"] が開けません");
-    }
-    std::string buf;
-    bool isdone = false;
-    int anim_ticks_per_second = -1;
-    std::string data;
-    while (isdone == false && !ifs.eof()) {
-        ifs >> data;
-        if (data == "AnimTicksPerSecond" || data == "AnimTicksPerSecond{") {
-            while (isdone == false) {
-                ifs >> data;
-                if (data == "{") {
-                    continue;
-                } else if (data == "}") {
-                    isdone = true;
-                    break;
-                } else {
-                    anim_ticks_per_second = atoi(data.c_str()); //"60;" → 60を得る
-                    if (anim_ticks_per_second == 0) {
-                        //数値に変換できない場合は無効
-                        anim_ticks_per_second = -1;
-                        isdone = false;
-                    } else {
-                        isdone = true;
-                    }
-                    break;
-                }
-            }
-        }
-    }
-    ifs.close();
-    return anim_ticks_per_second;
-}
+//int SkinAniMeshModel::getAnimTicksPerSecond(std::string& prm_xfile_name) {
+//    if (prm_xfile_name == "") {
+//         throwCriticalException("SkinAniMeshModel::getAnimTicksPerSecond() メッシュファイル("<<prm_xfile_name<<".x)が見つかりません。");
+//    }
+//    //XファイルからAnimTicksPerSecondの値を独自に取り出す
+//    std::ifstream ifs(prm_xfile_name.c_str());
+//    if (ifs.fail()) {
+//        throwCriticalException("["<<prm_xfile_name<<"] が開けません");
+//    }
+//    std::string buf;
+//    bool isdone = false;
+//    int anim_ticks_per_second = -1;
+//    std::string data;
+//    while (isdone == false && !ifs.eof()) {
+//        ifs >> data;
+//        if (data == "AnimTicksPerSecond" || data == "AnimTicksPerSecond{") {
+//            while (isdone == false) {
+//                ifs >> data;
+//                if (data == "{") {
+//                    continue;
+//                } else if (data == "}") {
+//                    isdone = true;
+//                    break;
+//                } else {
+//                    anim_ticks_per_second = atoi(data.c_str()); //"60;" → 60を得る
+//                    if (anim_ticks_per_second == 0) {
+//                        //数値に変換できない場合は無効
+//                        anim_ticks_per_second = -1;
+//                        isdone = false;
+//                    } else {
+//                        isdone = true;
+//                    }
+//                    break;
+//                }
+//            }
+//        }
+//    }
+//    ifs.close();
+//    return anim_ticks_per_second;
+//}
 
 void SkinAniMeshModel::setFrameInfo(SkinAniMeshFrame* prm_pFrame) {
     prm_pFrame->_frame_index = _tmp_frame_index; //フレームインデックスを保持

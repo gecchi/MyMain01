@@ -108,7 +108,7 @@ public:
     /** [アニメーションセットインデックス][フレームインデックス] で アニメーションセットのアニメーション対象のフレームであるかどうかが返る */
     bool** _papaBool_AnimationSetIndex_BoneFrameIndex_is_act;
 
-    int _anim_ticks_per_second;
+//    int _anim_ticks_per_second;
     /** 60フレーム(1秒)で1ループする場合の1フレーム辺りの時間 */
 //    double _advance_time_per_frame0;//60フレーム(1秒)で1ループすることを標準設定とする。
 
@@ -126,7 +126,7 @@ public:
 
     ID3DXAnimationController* getCloneAnimationController();
 
-    static int getAnimTicksPerSecond(std::string& prm_xfile_name);
+//    static int getAnimTicksPerSecond(std::string& prm_xfile_name);
 
     /** フレームを巡って情報取得 */
     void setFrameInfo(SkinAniMeshFrame* prm_pFrame);

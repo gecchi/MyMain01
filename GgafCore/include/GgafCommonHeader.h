@@ -378,7 +378,7 @@ template<class T>
 class LinkedListRing;
 
 template<class VAL_TYPE>
-class ValueAccelerator;
+class AccelerationValue;
 
 template<class VAL_TYPE, int N>
 class ValueTransitioner;

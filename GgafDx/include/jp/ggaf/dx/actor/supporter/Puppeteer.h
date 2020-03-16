@@ -3,6 +3,7 @@
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
+#include "jp/ggaf/core/util/AccelerationValue.hpp"
 #include <vector>
 #include <d3dx9.h>
 #include <d3dx9anim.h>
@@ -38,7 +39,7 @@ class Puppeteer : public GgafCore::Object {
 private:
     /** [r]パペットのアニメーションコントローラー */
     ID3DXAnimationController* _pAc;
-    FLOAT _track_speed;
+//    FLOAT _track_speed;
     /**
      * 芸(モーション) .
      */
@@ -51,13 +52,13 @@ private:
         /** １ループの時間 */
         frame _one_loop_frames;
         /** ローカルタイム */
-        double _local_time;
-        double _local_time_inc;
+        GgafCore::AccelerationValue<double> _local_time;
+//        double _local_time_inc;
         /** 目標ループ回数(1.5回などの指定も可能) */
         double _target_loop;
 
         double _loop_count;
-        double _weight;
+        GgafCore::AccelerationValue<double> _weight;
         /** ループ方法 */
         PuppeteerMethod _method;
     public:
@@ -90,7 +91,7 @@ public:
      * @param prm_pPuppet 操られる者
      * @return
      */
-    explicit Puppeteer(ID3DXAnimationController* prm_pAc_cloned,  FLOAT prm_track_speed = 60.0f / 4800.0f);
+    explicit Puppeteer(ID3DXAnimationController* prm_pAc_cloned);
 
 //    void restore(ID3DXAnimationController* prm_pAc_cloned);
 

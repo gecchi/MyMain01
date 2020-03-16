@@ -1,7 +1,7 @@
 #include "jp/ggaf/dx/actor/supporter/RikishaMvAssistant.h"
 
 #include "jp/ggaf/dx/actor/supporter/Rikisha.h"
-#include "jp/ggaf/core/util/ValueAccelerator.hpp"
+#include "jp/ggaf/core/util/AccelerationValue.hpp"
 
 
 using namespace GgafDx;

@@ -2,7 +2,7 @@
 #define GGAF_DX_KAGOASSISTANT_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
-#include "jp/ggaf/core/util/ValueAccelerator.hpp"
+#include "jp/ggaf/core/util/AccelerationValue.hpp"
 #include "jp/ggaf/dx/actor/GeometricActor.h"
 
 namespace GgafDx {
@@ -21,11 +21,11 @@ private:
     /** [r]t  */
     Kago* _pMaster;
     /** X²•ûŒü‰Á‘¬‘•’u */
-    GgafCore::ValueAccelerator<coord> _smthVxMv;
+    GgafCore::AccelerationValue<coord> _smthVxMv;
     /** Y²•ûŒü‰Á‘¬‘•’u */
-    GgafCore::ValueAccelerator<coord> _smthVyMv;
+    GgafCore::AccelerationValue<coord> _smthVyMv;
     /** Z²•ûŒü‰Á‘¬‘•’u */
-    GgafCore::ValueAccelerator<coord> _smthVzMv;
+    GgafCore::AccelerationValue<coord> _smthVzMv;
 
     virtual void behave();
 

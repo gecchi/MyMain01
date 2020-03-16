@@ -11,12 +11,12 @@ Puppeteer::Performance::Performance() {
     _pAnimationSet = nullptr;
     _animation_set_index = 0;
     _one_loop_frames    = 60;
-    _local_time         = 0.0;
-    _local_time_inc     = 0.0;
+    _local_time._t_value = 0.0;
+//    _local_time_inc = 0.0;
     _target_loop        = -1;
     _loop_count         = 0;
     _period             = 1.0;
-    _weight             = 1.0;
+    _weight._t_value = 1.0;
     _method             = NO_CHENGE;
 }
 void Puppeteer::Performance::setAnimationSet(LPD3DXANIMATIONSET prm_pAnimationSet, UINT prm_animation_set_index) {
@@ -29,11 +29,11 @@ Puppeteer::Performance::~Performance() {
 
 
 
-Puppeteer::Puppeteer(ID3DXAnimationController* prm_pAc_cloned, FLOAT prm_track_speed) : GgafCore::Object() {
+Puppeteer::Puppeteer(ID3DXAnimationController* prm_pAc_cloned) : GgafCore::Object() {
     _num_perform = 0;
     _paPerformances = nullptr;
     _pAc = prm_pAc_cloned;
-    _track_speed = prm_track_speed;
+//    _track_speed = prm_track_speed;
     HRESULT hr;
     _num_perform = _pAc->GetMaxNumAnimationSets();
 #ifdef MY_DEBUG
@@ -133,8 +133,19 @@ void Puppeteer::play(PuppeteerStick prm_handed,
     }
     Performance* p = &(_paPerformances[prm_performance_no]);
     p->_one_loop_frames = prm_one_loop_frames;
-    p->_local_time = 0;
-    p->_local_time_inc =  p->_period / p->_one_loop_frames;
+//    p->_local_time._t_value = 0.0;
+//    p->_local_time_inc =  p->_period / p->_one_loop_frames;
+    p->_local_time.accelerateByDt(
+            p->_period,           //VAL_TYPE prm_target_value_distance,
+            p->_one_loop_frames, //frame prm_frame_of_target,
+            0.4, 0.6,            //double prm_p1, double prm_p2,
+            0.0,                  //VAL_TYPE prm_end_velo,
+            true                  //bool prm_zero_acc_end_flg
+    );
+
+
+
+
     p->_target_loop = prm_loopnum;
     p->_loop_count = 0;
     p->_method     = prm_method;
@@ -150,19 +161,25 @@ void Puppeteer::behave() {
             if (p->_method == NO_CHENGE) {
                 break;
             } else if (p->_method == PLAY_LOOPING) {
-                p->_local_time += (p->_local_time_inc);
+//                p->_local_time._t_value += (p->_local_time_inc);
 
-                //ループ完判定
-                if (p->_target_loop > 0 && p->_target_loop < ABS(p->_local_time) / p->_period) {
-                    if (p->_local_time > 0) {
-                        //理想値に補正
-                        p->_local_time = p->_target_loop * p->_period;
-                    } else {
-                        //理想値に補正
-                        p->_local_time = - (p->_target_loop * p->_period);
-                    }
-                    p->_method = NO_CHENGE;
+                if (p->_local_time.isAccelerating()) {
+                    p->_local_time.behave();
+                } else {
+                     p->_method = NO_CHENGE;
                 }
+
+//                //ループ完判定
+//                if (p->_target_loop > 0 && p->_target_loop < ABS(p->_local_time._t_value) / p->_period) {
+//                    if (p->_local_time._t_value > 0) {
+//                        //理想値に補正
+//                        p->_local_time._t_value = p->_target_loop * p->_period;
+//                    } else {
+//                        //理想値に補正
+//                        p->_local_time._t_value = - (p->_target_loop * p->_period);
+//                    }
+//                    p->_method = NO_CHENGE;
+//                }
             } else {
                 throwCriticalException("そんなメソッドはは未サポートです。 p->_method="<<p->_method);
             }
@@ -215,11 +232,11 @@ void Puppeteer::updateAnimationTrack() {
         if (pPerformance) {
             hr = pAc->SetTrackAnimationSet(tno, pPerformance->_pAnimationSet);
             checkDxException(hr, D3D_OK, "失敗しました。");
-            hr = pAc->SetTrackPosition(tno, pPerformance->_local_time);
+            hr = pAc->SetTrackPosition(tno, pPerformance->_local_time._t_value);
             checkDxException(hr, D3D_OK, "失敗しました。");
             hr = pAc->SetTrackSpeed(tno, pPerformance->_period);
             checkDxException(hr, D3D_OK, "失敗しました。");
-            hr = pAc->SetTrackWeight(tno, pPerformance->_weight);
+            hr = pAc->SetTrackWeight(tno, pPerformance->_weight._t_value);
             checkDxException(hr, D3D_OK, "失敗しました。");
             _paAs[tno] = pPerformance->_pAnimationSet;
         } else {

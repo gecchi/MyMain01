@@ -81,6 +81,7 @@
     <ClInclude Include="include\jp\ggaf\core\scene\mainscene.h" />
     <ClInclude Include="include\jp\ggaf\core\scene\scene.h" />
     <ClInclude Include="include\jp\ggaf\core\scene\spacetime.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\AccelerationValue.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\CmRandomNumberGenerator.h" />
     <ClInclude Include="include\jp\ggaf\core\util\curtain.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\DetectMemoryLeaks.h" />
@@ -96,6 +97,7 @@
     <ClInclude Include="include\jp\ggaf\core\util\rgb.h" />
     <ClInclude Include="include\jp\ggaf\core\util\status.h" />
     <ClInclude Include="include\jp\ggaf\core\util\table.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\TransitionValue.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\treeelem.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\treespace.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\util.h" />

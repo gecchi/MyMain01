@@ -159,6 +159,12 @@
     <ClInclude Include="include\jp\ggaf\core\util\ValueTransitioner.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="include\jp\ggaf\core\util\AccelerationValue.hpp">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\core\util\TransitionValue.hpp">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\jp\ggaf\core\actor\ex\ActorDepository.cpp">
