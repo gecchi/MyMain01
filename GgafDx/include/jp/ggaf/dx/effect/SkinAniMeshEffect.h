@@ -4,7 +4,7 @@
 #include "jp/ggaf/dx/effect/Effect.h"
 
 //DefaultSkinAniMeshEffect.fx と 定数を一致させる事
-#define SkinAniMeshModel_MAX_BONE_WORLD_MATRIX (20) //2以上でないとブレイクしないのでダメ
+#define SkinAniMeshModel_MAX_BONE_WORLD_MATRIX (50) //2以上でないとブレイクしないのでダメ
 
 namespace GgafDx {
 
@@ -26,7 +26,7 @@ public:
     D3DXHANDLE _h_specular;
     D3DXHANDLE _h_specular_power;
     D3DXHANDLE _h_posCam;
-    D3DXHANDLE _ah_matBone[35];
+    D3DXHANDLE _ah_matBone[SkinAniMeshModel_MAX_BONE_WORLD_MATRIX];
 //    D3DXHANDLE _ah_matBoneOffset[50];
 
 public:

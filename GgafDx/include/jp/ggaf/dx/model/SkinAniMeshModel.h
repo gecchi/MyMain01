@@ -21,7 +21,8 @@ class SkinAniMeshModel : public Model {
 public:
     /** 頂点のFVF */
     struct VERTEX : public Model::VERTEX_3D_BASE {
-        float bone_combi_index;      // psizeではなくてはなくてボーンコンビネーションのインデックス。paBoneCombination[n] の n
+//        float bone_combi_index;      // psizeではなくてはなくてボーンコンビネーションのインデックス。paBoneCombination[n] の n
+        float bone_combi_grp_index;
         DWORD color;      // 頂点の色（オブジェクトのマテリアルカラーとして使用）
         float tu, tv;     // テクスチャ座標
 
@@ -38,22 +39,54 @@ public:
         UINT PrimitiveCount;
     };
 
-//    struct BONE_CONBI_GRP {
-//        DWORD bone_combi_index;
-//
-//
-//        int infl_bone_idx_num;
-//
-//        float infl_weight[4];
-//        byte  infl_bone_idx[4];
-//    };
-//    std::vector<BONE_CONBI_INFO> _vec_bone_combi_info;
+    class BoneConbi {
+    public:
+        DWORD vertex_start;
+        DWORD vertex_count;
+        BoneConbi() {
+            vertex_start = 0;
+            vertex_count = 0;
+        }
+    };
+    /** ボーンコンビネーション毎の情報。添え字はボーンコンビネーションインデックス */
+    std::vector<BoneConbi> _vec_bone_combi_info;
 
+    /**
+     * 一括描画単位のボーンコンビネーショングループ .
+     */
+    class BoneConbiGrp {
+    public:
+        /** グループの最初のボーンコンビネーションインデックス */
+        int bone_combi_start_index;
+        /** グループの bone_combi_start_index 空のボーンコンビネーションインデックス数 */
+        int bone_combi_count;
+        /** グループの頂点バッファ開始インデックス */
+        DWORD grp_vertex_start;
+        /** グループの grp_vertex_start からの頂点バッファ数 */
+        DWORD grp_vertex_count;
+
+        std::vector<DWORD> vec_infl_bone_id_order; //ユニークなvec_cb_idx_orderが挿入されていく
+        std::vector<DWORD> vec_cb_idx_order;       //vec_infl_bone_id_order が挿入された時の
+
+        //bone_id から、bone_id_order を得るMAP
+        std::map<DWORD, DWORD> map_infl_bone_id_to_order;
+        /** 描画時の最終的な変換行列（通し時） */
+//        D3DXMATRIX* _ap_draw_combined_matrix[8];
+        BoneConbiGrp() {
+            bone_combi_start_index = 0;
+            bone_combi_count = 0;
+            grp_vertex_start = 0;
+            grp_vertex_start = 0;
+        }
+    };
+    std::vector<BoneConbiGrp> _vec_bone_combi_grp_info;
 
     SkinAniMeshModel::VERTEX* _paVtxBuffer_data;
     WORD* _paIndexBuffer_data;
     /** インデックスバッファ番号に対応する頂点バッファのフレームメッシュ番号 */
-    int* _paIndexBuffer_bone_combi_index;
+//    int* _paIndexBuffer_bone_combi_index;
+    /** インデックスバッファ番号に対応する頂点バッファの bone_combi_grp_index */
+    int* _paIndexBuffer_bone_combi_grp_index;
     /** シェーダー入力頂点フォーマット */
     LPDIRECT3DVERTEXDECLARATION9 _pVertexDeclaration;
     /** 頂点バッファ（全フレームのメッシュ分） */
@@ -93,11 +126,13 @@ public:
 //    std::vector<BoneCombinationGrp> _vecBoneCombinationGrp;
 
     //要素番号はbone_id_order、値は bone_id の配列。bone_id_order から bone_idを得るのに使用
-    std::vector<DWORD> _vec_infl_bone_id_order;
+    //std::vector<DWORD> _vec_infl_bone_id_order;
     //bone_id から、bone_id_order を得るMAP
-    std::map<DWORD, DWORD> _map_infl_bone_id_to_order;
-
-    D3DXMATRIX* _ap_draw_combined_matrix[SkinAniMeshModel_MAX_BONE_WORLD_MATRIX];
+    //std::map<DWORD, DWORD> _map_infl_bone_id_to_order;
+    /** 描画時の最終的な変換行列（通し時） */
+    //D3DXMATRIX* _ap_draw_combined_matrix[SkinAniMeshModel_MAX_BONE_WORLD_MATRIX];
+    /** 一回の描画でセットできる変換行列数 */
+    int _draw_combined_matrix_set_num;
 
     /** 総アニメーションセット数 */
     UINT _num_animation_set;

@@ -51,8 +51,8 @@ Puppeteer::Puppeteer(ID3DXAnimationController* prm_pAc_cloned) : GgafCore::Objec
     for (UINT i = 0; i < _num_perform; i++) {
         LPD3DXANIMATIONSET pAnimationSet;
         hr = _pAc->GetAnimationSet(i, &(pAnimationSet)); //アニメーションセット保持
-        _paPerformances[i].setAnimationSet(pAnimationSet, i);
         checkDxException(hr, D3D_OK, "失敗しました。");
+        _paPerformances[i].setAnimationSet(pAnimationSet, i);
         _paPerformances[i]._period = _paPerformances[i]._pAnimationSet->GetPeriod();
     }
 
@@ -136,9 +136,9 @@ void Puppeteer::play(PuppeteerStick prm_handed,
 //    p->_local_time._t_value = 0.0;
 //    p->_local_time_inc =  p->_period / p->_one_loop_frames;
     p->_local_time.accelerateByDt(
-            p->_period,           //VAL_TYPE prm_target_value_distance,
-            p->_one_loop_frames, //frame prm_frame_of_target,
-            0.4, 0.6,            //double prm_p1, double prm_p2,
+            p->_period * prm_loopnum,           //VAL_TYPE prm_target_value_distance,
+            p->_one_loop_frames * prm_loopnum, //frame prm_frame_of_target,
+            0.0, 1.0,            //double prm_p1, double prm_p2,
             0.0,                  //VAL_TYPE prm_end_velo,
             true                  //bool prm_zero_acc_end_flg
     );

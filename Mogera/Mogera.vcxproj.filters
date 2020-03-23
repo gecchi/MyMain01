@@ -31,6 +31,8 @@
     <ClCompile Include="src\actor\Box.cpp" />
     <ClCompile Include="src\actor\AniTest.cpp" />
     <ClCompile Include="src\actor\AniTest2.cpp" />
+    <ClCompile Include="src\actor\AniTest3.cpp" />
+    <ClCompile Include="src\scene\MgrSpacetime\MgrWorld\SkinMeshAnimeTestScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\actor\camera\MgrCamera.h" />
@@ -63,5 +65,7 @@
     <ClInclude Include="src\actor\Box.h" />
     <ClInclude Include="src\actor\anitest.h" />
     <ClInclude Include="src\actor\AniTest2.h" />
+    <ClInclude Include="src\actor\AniTest3.h" />
+    <ClInclude Include="src\scene\MgrSpacetime\MgrWorld\SkinMeshAnimeTestScene.h" />
   </ItemGroup>
 </Project>

@@ -1,4 +1,4 @@
-#include "AniTest2.h"
+#include "AniTest3.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
 #include "jp/ggaf/dx/actor/supporter/Rikisha.h"
@@ -12,39 +12,39 @@
 using namespace GgafLib;
 using namespace Mogera;
 
-AniTest2::AniTest2(const char* prm_name) :
-        DefaultBoneAniMeshActor(prm_name, "AnimatedSkelton2") {
-    _class_name = "AniTest2";
-    setScaleR(0.2);
-    setMaterialColor(0.4, 1.0, 0.6);
+AniTest3::AniTest3(const char* prm_name) :
+        DefaultSkinAniMeshActor(prm_name, "tiny") { //"tiny" "Captain"
+    _class_name = "AniTest3";
+    setScaleR(0.1);
+    //setMaterialColor(0.4, 1.0, 0.6);
 }
 
-void AniTest2::onCreateModel() {
+void AniTest3::onCreateModel() {
     GgafDx::Model* pModel = getModel();
     pModel->setSpecular(5.0, 2.0);
 }
 
-void AniTest2::initialize() {
+void AniTest3::initialize() {
 }
 
-void AniTest2::onActive() {
+void AniTest3::onActive() {
 }
 
-void AniTest2::processBehavior() {
+void AniTest3::processBehavior() {
     callRikisha()->behave();
     _pPuppeteer->behave();
 }
 
-void AniTest2::processJudgement() {
+void AniTest3::processJudgement() {
 }
 
-void AniTest2::onHit(const GgafCore::Actor* prm_pOtherActor) {
+void AniTest3::onHit(const GgafCore::Actor* prm_pOtherActor) {
 }
 
-void AniTest2::onInactive() {
+void AniTest3::onInactive() {
 }
 
-AniTest2::~AniTest2() {
+AniTest3::~AniTest3() {
 }
 
 

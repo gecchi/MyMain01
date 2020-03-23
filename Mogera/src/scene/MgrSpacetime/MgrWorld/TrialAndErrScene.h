@@ -1,5 +1,5 @@
-#ifndef PREDRAWSCENE_H_
-#define PREDRAWSCENE_H_
+#ifndef TRIALANDERRSCENE_H_
+#define TRIALANDERRSCENE_H_
 #include "Mogera.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
@@ -18,4 +18,4 @@ public:
 };
 
 }
-#endif /*PREDRAWSCENE_H_*/
+#endif /*TRIALANDERRSCENE_H_*/

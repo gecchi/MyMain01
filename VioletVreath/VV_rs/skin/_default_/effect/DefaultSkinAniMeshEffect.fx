@@ -5,7 +5,7 @@
 // author : Masatoshi Tsuge
 // date:2009/03/06
 ////////////////////////////////////////////////////////////////////////////////
-#define SkinAniMeshModel_MAX_BONE_WORLD_MATRIX (20)
+#define _draw_combined_matrix_set_num (20)
 /** モデルのWorld変換行列（フレーム毎） */
 float4x4 g_matBone001;
 float4x4 g_matBone002;
@@ -17,26 +17,26 @@ float4x4 g_matBone007;
 float4x4 g_matBone008;
 float4x4 g_matBone009;
 float4x4 g_matBone010;
-float4x4 g_matBone011;
-float4x4 g_matBone012;
-float4x4 g_matBone013;
-float4x4 g_matBone014;
-float4x4 g_matBone015;
-float4x4 g_matBone016;
-float4x4 g_matBone017;
-float4x4 g_matBone018;
-float4x4 g_matBone019;
-float4x4 g_matBone020;
-float4x4 g_matBone021;
-float4x4 g_matBone022;
-float4x4 g_matBone023;
-float4x4 g_matBone024;
-float4x4 g_matBone025;
-float4x4 g_matBone026;
-float4x4 g_matBone027;
-float4x4 g_matBone028;
-float4x4 g_matBone029;
-float4x4 g_matBone030;
+//float4x4 g_matBone011;
+//float4x4 g_matBone012;
+//float4x4 g_matBone013;
+//float4x4 g_matBone014;
+//float4x4 g_matBone015;
+//float4x4 g_matBone016;
+//float4x4 g_matBone017;
+//float4x4 g_matBone018;
+//float4x4 g_matBone019;
+//float4x4 g_matBone020;
+//float4x4 g_matBone021;
+//float4x4 g_matBone022;
+//float4x4 g_matBone023;
+//float4x4 g_matBone024;
+//float4x4 g_matBone025;
+//float4x4 g_matBone026;
+//float4x4 g_matBone027;
+//float4x4 g_matBone028;
+//float4x4 g_matBone029;
+//float4x4 g_matBone030;
 //float4x4 g_matBone031;
 //float4x4 g_matBone032;
 //float4x4 g_matBone033;
@@ -183,38 +183,38 @@ float4x4 getBoneWorldMatrix(int prm_infl_bone_id_order) {
     if (prm_infl_bone_id_order == 8) {
         return g_matBone009;
     }
-    if (prm_infl_bone_id_order == 9) {
+//    if (prm_infl_bone_id_order == 9) {
         return g_matBone010;
-    }
-    if (prm_infl_bone_id_order == 10) {
-        return g_matBone011;
-    }
-    if (prm_infl_bone_id_order == 11) {
-        return g_matBone012;
-    }
-    if (prm_infl_bone_id_order == 12) {
-        return g_matBone013;
-    }
-    if (prm_infl_bone_id_order == 13) {
-        return g_matBone014;
-    }
-    if (prm_infl_bone_id_order == 14) {
-        return g_matBone015;
-    }
-    if (prm_infl_bone_id_order == 15) {
-        return g_matBone016;
-    }
-    if (prm_infl_bone_id_order == 16) {
-        return g_matBone017;
-    }
-    if (prm_infl_bone_id_order == 17) {
-        return g_matBone018;
-    }
-    if (prm_infl_bone_id_order == 18) {
-        return g_matBone019;
-    }
+//    }
+//    if (prm_infl_bone_id_order == 10) {
+//        return g_matBone011;
+//    }
+//    if (prm_infl_bone_id_order == 11) {
+//        return g_matBone012;
+//    }
+//    if (prm_infl_bone_id_order == 12) {
+//        return g_matBone013;
+//    }
+//    if (prm_infl_bone_id_order == 13) {
+//        return g_matBone014;
+//    }
+//    if (prm_infl_bone_id_order == 14) {
+//        return g_matBone015;
+//    }
+//    if (prm_infl_bone_id_order == 15) {
+//        return g_matBone016;
+//    }
+//    if (prm_infl_bone_id_order == 16) {
+//        return g_matBone017;
+//    }
+//    if (prm_infl_bone_id_order == 17) {
+//        return g_matBone018;
+//    }
+//    if (prm_infl_bone_id_order == 18) {
+//        return g_matBone019;
+//    }
 //    if (prm_infl_bone_id_order == 19) {
-        return g_matBone020;
+//        return g_matBone020;
 //    }
 //    if (prm_infl_bone_id_order == 20) {
 //        return g_matBone021;
@@ -259,7 +259,7 @@ OUT_VS VS_DefaultSkinAniMesh(
       int4   infl_bone_id_order       : BLENDINDICES1
 ) {
     OUT_VS out_vs = (OUT_VS)0;
-//    const int bone_combi_index = ((int)prm_bone_combi_index) % SkinAniMeshModel_MAX_BONE_WORLD_MATRIX;
+//    const int bone_combi_index = ((int)prm_bone_combi_index) % _draw_combined_matrix_set_num;
 //    const int bone_combi_index = (int)(infl_bone_idx[0]);
     //頂点計算
 //
