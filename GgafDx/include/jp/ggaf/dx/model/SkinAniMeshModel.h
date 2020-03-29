@@ -21,8 +21,7 @@ class SkinAniMeshModel : public Model {
 public:
     /** 頂点のFVF */
     struct VERTEX : public Model::VERTEX_3D_BASE {
-//        float bone_combi_index;      // psizeではなくてはなくてボーンコンビネーションのインデックス。paBoneCombination[n] の n
-        float bone_combi_grp_index;
+        float bone_combi_grp_index; //ボーンコンビネーションのグループのインデックス
         DWORD color;      // 頂点の色（オブジェクトのマテリアルカラーとして使用）
         float tu, tv;     // テクスチャ座標
 
@@ -71,20 +70,17 @@ public:
         //bone_id から、bone_id_order を得るMAP
         std::map<DWORD, DWORD> map_infl_bone_id_to_order;
         /** 描画時の最終的な変換行列（通し時） */
-//        D3DXMATRIX* _ap_draw_combined_matrix[8];
         BoneConbiGrp() {
             bone_combi_start_index = 0;
             bone_combi_count = 0;
             grp_vertex_start = 0;
-            grp_vertex_start = 0;
+            grp_vertex_count = 0;
         }
     };
     std::vector<BoneConbiGrp> _vec_bone_combi_grp_info;
 
     SkinAniMeshModel::VERTEX* _paVtxBuffer_data;
     WORD* _paIndexBuffer_data;
-    /** インデックスバッファ番号に対応する頂点バッファのフレームメッシュ番号 */
-//    int* _paIndexBuffer_bone_combi_index;
     /** インデックスバッファ番号に対応する頂点バッファの bone_combi_grp_index */
     int* _paIndexBuffer_bone_combi_grp_index;
     /** シェーダー入力頂点フォーマット */
@@ -118,19 +114,6 @@ public:
 
     std::vector<SkinAniMeshFrame*> _vecBoneIdFrame;
 
-//    struct BoneCombinationGrp {
-//        std::vector<DWORD> vecInflBoneId;
-//
-//
-//    };
-//    std::vector<BoneCombinationGrp> _vecBoneCombinationGrp;
-
-    //要素番号はbone_id_order、値は bone_id の配列。bone_id_order から bone_idを得るのに使用
-    //std::vector<DWORD> _vec_infl_bone_id_order;
-    //bone_id から、bone_id_order を得るMAP
-    //std::map<DWORD, DWORD> _map_infl_bone_id_to_order;
-    /** 描画時の最終的な変換行列（通し時） */
-    //D3DXMATRIX* _ap_draw_combined_matrix[SkinAniMeshModel_MAX_BONE_WORLD_MATRIX];
     /** 一回の描画でセットできる変換行列数 */
     int _draw_combined_matrix_set_num;
 
@@ -142,10 +125,6 @@ public:
     std::map<UINT, std::vector<LPCSTR>> _mapAnimationSetIndex_AnimationTargetBoneFrameNames;
     /** [アニメーションセットインデックス][フレームインデックス] で アニメーションセットのアニメーション対象のフレームであるかどうかが返る */
     bool** _papaBool_AnimationSetIndex_BoneFrameIndex_is_act;
-
-//    int _anim_ticks_per_second;
-    /** 60フレーム(1秒)で1ループする場合の1フレーム辺りの時間 */
-//    double _advance_time_per_frame0;//60フレーム(1秒)で1ループすることを標準設定とする。
 
 public:
     /**
@@ -160,8 +139,6 @@ public:
     virtual void restore() override;
 
     ID3DXAnimationController* getCloneAnimationController();
-
-//    static int getAnimTicksPerSecond(std::string& prm_xfile_name);
 
     /** フレームを巡って情報取得 */
     void setFrameInfo(SkinAniMeshFrame* prm_pFrame);

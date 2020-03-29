@@ -17,11 +17,11 @@ float4x4 g_matBone007;
 float4x4 g_matBone008;
 float4x4 g_matBone009;
 float4x4 g_matBone010;
-//float4x4 g_matBone011;
-//float4x4 g_matBone012;
-//float4x4 g_matBone013;
-//float4x4 g_matBone014;
-//float4x4 g_matBone015;
+float4x4 g_matBone011;
+float4x4 g_matBone012;
+float4x4 g_matBone013;
+float4x4 g_matBone014;
+float4x4 g_matBone015;
 //float4x4 g_matBone016;
 //float4x4 g_matBone017;
 //float4x4 g_matBone018;
@@ -183,23 +183,23 @@ float4x4 getBoneWorldMatrix(int prm_infl_bone_id_order) {
     if (prm_infl_bone_id_order == 8) {
         return g_matBone009;
     }
-//    if (prm_infl_bone_id_order == 9) {
+    if (prm_infl_bone_id_order == 9) {
         return g_matBone010;
-//    }
-//    if (prm_infl_bone_id_order == 10) {
-//        return g_matBone011;
-//    }
-//    if (prm_infl_bone_id_order == 11) {
-//        return g_matBone012;
-//    }
-//    if (prm_infl_bone_id_order == 12) {
-//        return g_matBone013;
-//    }
-//    if (prm_infl_bone_id_order == 13) {
-//        return g_matBone014;
-//    }
+    }
+    if (prm_infl_bone_id_order == 10) {
+        return g_matBone011;
+    }
+    if (prm_infl_bone_id_order == 11) {
+        return g_matBone012;
+    }
+    if (prm_infl_bone_id_order == 12) {
+        return g_matBone013;
+    }
+    if (prm_infl_bone_id_order == 13) {
+        return g_matBone014;
+    }
 //    if (prm_infl_bone_id_order == 14) {
-//        return g_matBone015;
+        return g_matBone015;
 //    }
 //    if (prm_infl_bone_id_order == 15) {
 //        return g_matBone016;

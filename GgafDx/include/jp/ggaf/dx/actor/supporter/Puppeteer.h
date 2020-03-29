@@ -50,10 +50,11 @@ private:
         UINT _animation_set_index;
         double _period;
         /** １ループの時間 */
-        frame _one_loop_frames;
+//        frame _one_loop_frames;
         /** ローカルタイム */
         GgafCore::AccelerationValue<double> _local_time;
-//        double _local_time_inc;
+        /** 1フレームのローカルタイム増分 */
+//        double _delta_local_time;
         /** 目標ループ回数(1.5回などの指定も可能) */
         double _target_loop;
 
@@ -80,11 +81,17 @@ private:
 public:
     /** [r/w]パペットの持ちネタ(芸) */
     Performance* _paPerformances;
-    /** [r]パペットの持ちネタ(芸)の数 */
+    /** [r]パペットの持ちネタ(芸)の数、AnimationSet の数 */
     UINT _num_perform;
     /** [r/w]左手用、右手用のパペッターの操り棒(アニメーショントラック)  [0]:左手用／[1]:右手用  */
     Stick _aStick[2];
+    /** [r]現在のトラックに設定されているアニメーションセット。未設定の場合はnullptr。[0]:トラック0／[1]トラック1 */
     ID3DXAnimationSet* _paAs[2];
+
+    /** アニメーションコントローラのデフォルトの１フレームあたりのアニメーションフレーム */
+    double _ani_time_delta;
+    double _ani_time_period;
+    double _speed_rate;
 public:
     /**
      * コンストラクタ .
@@ -118,7 +125,6 @@ public:
      */
     void play(PuppeteerStick prm_handed,
               UINT prm_performance_no,
-              frame prm_one_loop_frames,
               double prm_loopnum,
               PuppeteerMethod prm_method = PLAY_LOOPING
     );
@@ -137,6 +143,9 @@ public:
         return _num_perform;
     }
 
+    void setSpeedRate(double prm_speed_rate) {
+        _speed_rate = prm_speed_rate;
+    }
     virtual ~Puppeteer();
 
 };

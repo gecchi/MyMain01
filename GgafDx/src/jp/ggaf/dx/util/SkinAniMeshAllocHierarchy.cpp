@@ -78,7 +78,9 @@ HRESULT SkinAniMeshAllocHierarchy::CreateMeshContainer(THIS_
         // ConvertToBlenderMesh関数で戻ってくる ID3DXBuffer には、
         // D3DXBONECOMBINATION構造体が　NumBoneCombinations 個入っている。
     } else {
-        throwCriticalException("SkinAniMeshAllocHierarchy::CreateMeshContainer()  pSkinInfo 情報がありません");
+        //throwCriticalException("SkinAniMeshAllocHierarchy::CreateMeshContainer()  pSkinInfo 情報がありません");
+        _TRACE_("＜警告＞SkinAniMeshAllocHierarchy::CreateMeshContainer()  pSkinInfo 情報がありません。 pNewMC->Name="<<pNewMC->Name);
+        BoneAniMeshAllocHierarchy::createNewMeshContainer(); //今のところ変更なし
     }
 
     // マテリアル登録

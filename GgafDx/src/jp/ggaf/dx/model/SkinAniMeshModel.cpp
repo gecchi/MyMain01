@@ -25,7 +25,6 @@ SkinAniMeshModel::SkinAniMeshModel(const char* prm_model_name) : Model(prm_model
     _pFrameRoot = nullptr;
     _pAniControllerBase = nullptr;
     _num_materials = 0L;
-//    _anim_ticks_per_second = 4800; //restoreSkinAniMeshModel で上書きされる場合がある。
     _paVtxBuffer_data = nullptr;
     _paIndexBuffer_data = nullptr;
     _pVertexDeclaration = nullptr;
@@ -34,7 +33,7 @@ SkinAniMeshModel::SkinAniMeshModel(const char* prm_model_name) : Model(prm_model
     _index_param_num = 0;
     _paIndexParam = nullptr;
     _paIndexBuffer_bone_combi_grp_index = nullptr;
-    _draw_combined_matrix_set_num = 8;
+    _draw_combined_matrix_set_num = 15;
     _size_vertices = 0;
     _size_vertex_unit = sizeof(SkinAniMeshModel::VERTEX);
     _nFaces = 0;
@@ -86,27 +85,11 @@ HRESULT SkinAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
     pTargetActor->_stackWorldMat.SetWorldMatrix(&(pTargetActor->_matWorld));
     ID3DXAnimationSet* pAs0 = pActorPuppeteer->_paAs[0];
     ID3DXAnimationSet* pAs1 = pActorPuppeteer->_paAs[1];
-    int as0_index = (int)_mapAnimationSet_AniSetindex[pAs0];  //ここでダメ
-    int as1_index = pAs1 ? _mapAnimationSet_AniSetindex[pAs1] : -1;
+    int as0_index = pAs0 ? (int)_mapAnimationSet_AniSetindex[pAs0] : -1;
+    int as1_index = pAs1 ? (int)_mapAnimationSet_AniSetindex[pAs1] : -1;
     pTargetActor->_stackWorldMat.UpdateFrame(_pFrameRoot, as0_index, as1_index, _papaBool_AnimationSetIndex_BoneFrameIndex_is_act);
 
     std::vector<SkinAniMeshFrame*>::iterator it_1 = _vecBoneIdFrame.begin();
-
-/////////////////////////////////////////////
-///
-
-
-
-
-//    for (int i = 0; i < _vec_infl_bone_id_order.size(); i++) {
-//        DWORD bone_id = _vec_infl_bone_id_order[i];
-//        hr = pID3DXEffect->SetMatrix(pSkinAniMeshEffect->_ah_matBone[i], &(_vecBoneIdFrame[bone_id]->_combined_matrix));
-//    }
-
-
-//    for (int i = 0; i < _vec_infl_bone_id_order.size(); i++) {
-//        hr = pID3DXEffect->SetMatrix(pSkinAniMeshEffect->_ah_matBone[i], _ap_draw_combined_matrix[i] );
-//    }
 
     for (int i = 0; i < _index_param_num; i++) { //i = prev_bone_combi_grp_index
 
@@ -117,14 +100,6 @@ HRESULT SkinAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
         }
 
         const INDEXPARAM& idxparam = _paIndexParam[i];
-//        for (int j = 0; j < SkinAniMeshModel_MAX_BONE_WORLD_MATRIX; j++) {
-//            if (it_1 != _vecBoneIdFrame.end()) {
-//                hr = pID3DXEffect->SetMatrix(pSkinAniMeshEffect->_ah_matBone[j], &((*it_1)->_combined_matrix));
-//                ++it_1;
-//            } else {
-//                break;
-//            }
-//        }
 
         Effect* pEffect_active = EffectManager::_pEffect_active;
         if ((FigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique) && i == 0) {
@@ -189,13 +164,6 @@ void SkinAniMeshModel::restore() {
         HRESULT hr;
         std::string xfile_name = ModelManager::getMeshFileName(_model_name);
         TextureManager* pTextureManager = pGOD->_pModelManager->_pModelTextureManager;
-        //AnimTicksPerSecondを独自に取り出す。デフォルトは4800
-//        _anim_ticks_per_second = SkinAniMeshModel::getAnimTicksPerSecond(xfile_name);
-//DEBUG
-//_TRACE_("SkinAniMeshModel::restore() _anim_ticks_per_second="<<_anim_ticks_per_second);
-//        if (_anim_ticks_per_second < 0) {
-//            _anim_ticks_per_second = 4800;
-//        }
         //Xファイルのファイルロード
         _pAllocHierarchy = NEW SkinAniMeshAllocHierarchy(); // CAllocHierarchyBaseの派生クラス
         hr = D3DXLoadMeshHierarchyFromX(
@@ -214,17 +182,17 @@ void SkinAniMeshModel::restore() {
         }
         //デフォルトで設定されているトラックのアニメーションで姿勢を一回つくる（コピー用）
         //グローバル時間を0にする
-        hr = _pAniControllerBase->ResetTime();
-        checkDxException(hr, D3D_OK, "失敗しました。");
-        //0秒進める（ことによって反映させる）。
-        hr = _pAniControllerBase->AdvanceTime(0, nullptr);
-        checkDxException(hr, D3D_OK, "失敗しました。");
+//        hr = _pAniControllerBase->ResetTime();
+//        checkDxException(hr, D3D_OK, "失敗しました。");
+//        //0秒進める（ことによって反映させる）。
+//        hr = _pAniControllerBase->AdvanceTime(0, nullptr);
+//        checkDxException(hr, D3D_OK, "失敗しました。");
 
         _vecDrawBoneFrame.clear();
         _vecAllBoneFrame.clear();
         _tmp_frame_index = 0;
 
-        _TRACE_("setFrameInfo!!!!!!!!!!!!!!!!!1");
+_TRACE_("setFrameInfo!!!!!!!!!!!!!!!!!1");
         setFrameInfo(_pFrameRoot); //フレームを廻り情報をメンバにセット
         //////
         _mapAnimationSet_AniSetindex.clear();
@@ -270,8 +238,7 @@ void SkinAniMeshModel::restore() {
         D3DXFrameCalculateBoundingSphere((D3DXFRAME*)_pFrameRoot, &vecCenter, &bounding_sphere_radius);
         _bounding_sphere_radius = UTIL::getDistance(0.0f, 0.0f, 0.0f, vecCenter.x, vecCenter.y, vecCenter.z) + bounding_sphere_radius;
 
-        _TRACE_("境界球半径="<<_bounding_sphere_radius);
-
+_TRACE_("境界球半径="<<_bounding_sphere_radius);
 
         int draw_frame_num = _vecDrawBoneFrame.size();
 
@@ -285,8 +252,10 @@ void SkinAniMeshModel::restore() {
             if (pMeshContainer == nullptr) {
                 continue;
             }
-
             ID3DXMesh* pMesh = _vecDrawBoneFrame[i]->pMeshContainer->MeshData.pMesh;
+            if (!pMesh) {
+                continue;
+            }
             vertices_total_num += (int)(pMesh->GetNumVertices());  // 頂点数
             faces_total_num += (int)(pMesh->GetNumFaces());        // ポリゴン数
             materials_total_num += (int)(_vecDrawBoneFrame[i]->pMeshContainer->NumMaterials);
@@ -328,6 +297,11 @@ void SkinAniMeshModel::restore() {
             if (pMeshContainer1 == nullptr) {
                 continue;
             }
+            ID3DXMesh* pMesh = pMeshContainer1->MeshData.pMesh;
+            if (!pMesh) {
+                continue;
+            }
+
             int nMaterials = (int)(pMeshContainer1->NumMaterials);
             for (int j = 0; j < nMaterials; j++) {
                 if (pMeshContainer1->pMaterials) {
@@ -346,7 +320,6 @@ void SkinAniMeshModel::restore() {
                 m_cnt ++;
             }
 
-            ID3DXMesh* pMesh = pMeshContainer1->MeshData.pMesh;
 
             pMesh->GetDeclaration( e );
             int offset_position  = getOffsetFromElem( e, D3DDECLUSAGE_POSITION );
@@ -380,7 +353,6 @@ void SkinAniMeshModel::restore() {
                     pVtx->ny = 0.0f;
                     pVtx->nz = 0.0f;
                 }
-                // float bone_combi_index
                 pVtx->bone_combi_grp_index = -1; // 仮設定、下で再設定する
 
                 //DWORD color ; //頂点カラー
@@ -418,6 +390,10 @@ void SkinAniMeshModel::restore() {
                 if (pMeshContainer2 == nullptr) {
                     continue;
                 }
+                if (!pMeshContainer2->MeshData.pMesh) {
+                    continue;
+                }
+
                 /////////////
                 _TRACE_("draw_frsme["<<i<<"]: idx="<<_vecDrawBoneFrame[i]->_frame_index<<", name="<<_vecDrawBoneFrame[i]->Name<<"");
                 _TRACE_("pMeshContainer->_dwMaxInfleNum = "<<pMeshContainer2->_dwMaxInfleNum);
@@ -439,17 +415,12 @@ void SkinAniMeshModel::restore() {
                             " VertexCount="<<pBoneCombination->VertexCount<<
                             ""
                     );
-                    //頂点情報にボーンコンビネーションインデックスを書き込み
-//                    for (DWORD v = 0; v < pBoneCombination->VertexCount; v++, vertx_through_count++) {
-//                        SkinAniMeshModel::VERTEX* pVtx = &(_paVtxBuffer_data[vertx_through_count]);
-//                        pVtx->bone_combi_index = (float)bc_through_idx;
-//                    }
                     DWORD infl_id;
                     for ( infl_id = 0; infl_id < pMeshContainer2->_dwMaxInfleNum; ++infl_id) { //
                         DWORD bone_id = pBoneCombination->BoneId[infl_id]; //bone_idはなんなのか？
                         DWORD bone_influ_vertices_num = pSkinInfo->GetNumBoneInfluences(bone_id);
 
-                        _TRACE_("paBoneCombination["<<bc_idx<<"].BoneId["<<infl_id<<"]="<<bone_id<<" bone_influ_vertices_num="<<bone_influ_vertices_num);
+_TRACE_("paBoneCombination["<<bc_idx<<"].BoneId["<<infl_id<<"]="<<bone_id<<" bone_influ_vertices_num="<<bone_influ_vertices_num);
 
                         if (bone_influ_vertices_num > 0) {
                             // Get the bone influcences
@@ -469,7 +440,6 @@ void SkinAniMeshModel::restore() {
                                     if (is_exist == false) {
                                         for (int k = 0; k < 4; k++) {
                                             if (pVtx->infl_weight[k] < skin_weight[v]) { //weight大きい順に
-                                            //if (pVtx->infl_weight[k] == 0.0 || (pVtx->infl_weight[k] > 0.0 && pVtx->infl_weight[k] > skin_weight[v])) { //weight小さい順
                                                 for (int j = 3; j > k; j--) {
                                                     //スライド
                                                     pVtx->infl_bone_id[j] = pVtx->infl_bone_id[j-1];
@@ -477,13 +447,7 @@ void SkinAniMeshModel::restore() {
                                                 }
                                                 pVtx->infl_bone_id[k] = (byte)bone_id;
                                                 pVtx->infl_weight[k] =  skin_weight[v];
-
-//                                                 std::vector<DWORD>::iterator p = std::find(_vec_infl_bone_id_order.begin(), _vec_infl_bone_id_order.end(), bone_id);
-//                                                 if (p == _vec_infl_bone_id_order.end()) {
-//                                                     //存在しない＝初めての bone_id
-//                                                     _vec_infl_bone_id_order.push_back(bone_id);
-//                                                 }
-                                                 break;
+                                                break;
                                             }
                                         }
 
@@ -554,31 +518,7 @@ void SkinAniMeshModel::restore() {
             } //for (int i = 0; i < draw_frame_num; i++) {
 
 
-            //ボーンIDをオーダーに書き換える
-//            _map_infl_bone_id_to_order[0xFF] = 0xFF;
-//            for (DWORD i = 0; i < _vec_infl_bone_id_order.size(); i++) {
-//                _map_infl_bone_id_to_order[_vec_infl_bone_id_order[i]]=i;
-//            }
-
-//            for (int i = 0; i < _vec_infl_bone_id_order.size(); i++) {
-//                _TRACE_("_vec_infl_bone_id_order["<<i<<"]="<<_vec_infl_bone_id_order[i]);
-//            }
-
-            //    std::map<DWORD, byte> _map_infl_bone_id_to_order;
-//            for (std::map<DWORD, DWORD>::iterator p = _map_infl_bone_id_to_order.begin();
-//                    p != _map_infl_bone_id_to_order.end(); p++) {
-//                    // イテレータは pair<const string, int> 型なので、
-//                    _TRACE_("_map_infl_bone_id_to_order["<<p->first<<"]="<< p->second);
-//            }
-
-
-
-
-            //_draw_combined_matrix_set_num = 8
-
-            //std::vector<BoneConbi> _vec_bone_combi_info;
             _vec_bone_combi_grp_info.clear();
-
             std::vector<DWORD> vec_infl_bone_id_order; //ユニークなvec_cb_idx_orderが挿入されていく
             std::vector<DWORD> vec_cb_idx_order;       //vec_infl_bone_id_order が挿入された時の
             int grp_cb_vertex_start = 0;
@@ -776,8 +716,6 @@ _TRACE_("ボーンコンビネーションでループ抜けた、最終bone_cb_idx="<<bone_cb_idx<<"
         } //for (int i = 0; i < draw_frame_num; i++) フレームでループ
 
 
-    ///////////////////////////////////////////////////
-
 ////////////////////////////////////////////////
         //描画時（DrawIndexedPrimitive）のパラメータリスト作成
         std::vector<SkinAniMeshModel::INDEXPARAM> param_tmp;
@@ -797,7 +735,6 @@ _TRACE_("ボーンコンビネーションでループ抜けた、最終bone_cb_idx="<<bone_cb_idx<<"
         for (faceNoCnt = 0; faceNoCnt < _nFaces; faceNoCnt++) {
             bone_combi_grp_index = _paIndexBuffer_bone_combi_grp_index[faceNoCnt*3 + 0]; //faceNoCnt(面番号)に対する頂点の属するフレームメッシュ通し番号
             if (bone_combi_grp_index != prev_bone_combi_grp_index) {
-//                _TRACE_("BREAK! frame_no="<<frame_no);
                 prev_faceNoCnt_break = faceNoCnt_break;
                 faceNoCnt_break = faceNoCnt;
 
@@ -877,8 +814,6 @@ _TRACE_("ボーンコンビネーションでループ抜けた、最終bone_cb_idx="<<bone_cb_idx<<"
             );
         }
 
-//        bone_combi_grp_info.vec_infl_bone_id_order = vec_infl_bone_id_order; //コピー
-//        bone_combi_grp_info.vec_cb_idx_order = vec_cb_idx_order;       //コピー
         _TRACE_("ボーンコンビグループ");
         for (int i = 0; i < _vec_bone_combi_grp_info.size(); i++) {
             BoneConbiGrp& bcg = _vec_bone_combi_grp_info[i];
@@ -900,12 +835,6 @@ _TRACE_("ボーンコンビネーションでループ抜けた、最終bone_cb_idx="<<bone_cb_idx<<"
             }
             _TRACE_N_("\n");
         }
-
-//        for (int i = 0; i < _nFaces; ++i) {
-//            _TRACE_("["<<i<<"]:Index=("<<(_paIndexBuffer_data[i*3+0])<<","<<
-//                    (_paIndexBuffer_data[i*3+1])<<","<<
-//                    (_paIndexBuffer_data[i*3+2])<<")");
-//        }
 
     } //if (_paVtxBuffer_data == nullptr)
 
@@ -1055,46 +984,6 @@ ID3DXAnimationController* SkinAniMeshModel::getCloneAnimationController() {
     checkDxException(hr, D3D_OK, "アニメーションコントローラーのクローンに失敗しました。");
     return _pAc;
 }
-//int SkinAniMeshModel::getAnimTicksPerSecond(std::string& prm_xfile_name) {
-//    if (prm_xfile_name == "") {
-//         throwCriticalException("SkinAniMeshModel::getAnimTicksPerSecond() メッシュファイル("<<prm_xfile_name<<".x)が見つかりません。");
-//    }
-//    //XファイルからAnimTicksPerSecondの値を独自に取り出す
-//    std::ifstream ifs(prm_xfile_name.c_str());
-//    if (ifs.fail()) {
-//        throwCriticalException("["<<prm_xfile_name<<"] が開けません");
-//    }
-//    std::string buf;
-//    bool isdone = false;
-//    int anim_ticks_per_second = -1;
-//    std::string data;
-//    while (isdone == false && !ifs.eof()) {
-//        ifs >> data;
-//        if (data == "AnimTicksPerSecond" || data == "AnimTicksPerSecond{") {
-//            while (isdone == false) {
-//                ifs >> data;
-//                if (data == "{") {
-//                    continue;
-//                } else if (data == "}") {
-//                    isdone = true;
-//                    break;
-//                } else {
-//                    anim_ticks_per_second = atoi(data.c_str()); //"60;" → 60を得る
-//                    if (anim_ticks_per_second == 0) {
-//                        //数値に変換できない場合は無効
-//                        anim_ticks_per_second = -1;
-//                        isdone = false;
-//                    } else {
-//                        isdone = true;
-//                    }
-//                    break;
-//                }
-//            }
-//        }
-//    }
-//    ifs.close();
-//    return anim_ticks_per_second;
-//}
 
 void SkinAniMeshModel::setFrameInfo(SkinAniMeshFrame* prm_pFrame) {
     prm_pFrame->_frame_index = _tmp_frame_index; //フレームインデックスを保持
@@ -1165,6 +1054,4 @@ SkinAniMeshModel::~SkinAniMeshModel() {
     GGAF_DELETEARR(_paIndexBuffer_bone_combi_grp_index);
     GGAF_DELETEARR(_paIndexParam);
 //    GGAF_DELETE(_pFrameRoot); //_pAllocHierarchyを消すと_pFrameRootは消さなくて良いと思う
-    //release();
-    //はModelConnection::processReleaseResource(Model* prm_pResource) で呼び出される
 }

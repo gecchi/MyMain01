@@ -13,7 +13,7 @@ using namespace GgafLib;
 using namespace Mogera;
 
 AniTest3::AniTest3(const char* prm_name) :
-        DefaultSkinAniMeshActor(prm_name, "tiny") { //"tiny" "Captain"
+        DefaultSkinAniMeshActor(prm_name, "tiny_4anim") { //"tiny" "Captain" "tiny_4anim"
     _class_name = "AniTest3";
     setScaleR(0.1);
     //setMaterialColor(0.4, 1.0, 0.6);
