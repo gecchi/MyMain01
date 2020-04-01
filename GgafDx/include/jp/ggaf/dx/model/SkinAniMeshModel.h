@@ -21,14 +21,14 @@ class SkinAniMeshModel : public Model {
 public:
     /** 頂点のFVF */
     struct VERTEX : public Model::VERTEX_3D_BASE {
-        float bone_combi_grp_index; //ボーンコンビネーションのグループのインデックス
         DWORD color;      // 頂点の色（オブジェクトのマテリアルカラーとして使用）
         float tu, tv;     // テクスチャ座標
-
         float infl_weight[4];     // 頂点重み(TODO:４でいいの？)
-        byte  infl_bone_id[4];     //ボーンID
         byte  infl_bone_id_order[4]; //ボーンIDの通し番号
     };
+    /**
+     * 頂点バッファの補足情報 .
+     */
     struct INDEXPARAM {
         UINT MaterialNo;
         INT BaseVertexIndex;
@@ -37,18 +37,6 @@ public:
         UINT StartIndex;
         UINT PrimitiveCount;
     };
-
-    class BoneConbi {
-    public:
-        DWORD vertex_start;
-        DWORD vertex_count;
-        BoneConbi() {
-            vertex_start = 0;
-            vertex_count = 0;
-        }
-    };
-    /** ボーンコンビネーション毎の情報。添え字はボーンコンビネーションインデックス */
-    std::vector<BoneConbi> _vec_bone_combi_info;
 
     /**
      * 一括描画単位のボーンコンビネーショングループ .
@@ -80,9 +68,8 @@ public:
     std::vector<BoneConbiGrp> _vec_bone_combi_grp_info;
 
     SkinAniMeshModel::VERTEX* _paVtxBuffer_data;
+
     WORD* _paIndexBuffer_data;
-    /** インデックスバッファ番号に対応する頂点バッファの bone_combi_grp_index */
-    int* _paIndexBuffer_bone_combi_grp_index;
     /** シェーダー入力頂点フォーマット */
     LPDIRECT3DVERTEXDECLARATION9 _pVertexDeclaration;
     /** 頂点バッファ（全フレームのメッシュ分） */
@@ -121,8 +108,6 @@ public:
     UINT _num_animation_set;
     /** AnimationSet から、AnimationSetインデックスが取得できるマップ */
     std::map<ID3DXAnimationSet*, UINT> _mapAnimationSet_AniSetindex;
-    /** アニメーションセットインデックスから、AnimationのターゲットのBoneFrame の Nameの配列が取得できるマップ */
-    std::map<UINT, std::vector<LPCSTR>> _mapAnimationSetIndex_AnimationTargetBoneFrameNames;
     /** [アニメーションセットインデックス][フレームインデックス] で アニメーションセットのアニメーション対象のフレームであるかどうかが返る */
     bool** _papaBool_AnimationSetIndex_BoneFrameIndex_is_act;
 
@@ -142,6 +127,9 @@ public:
 
     /** フレームを巡って情報取得 */
     void setFrameInfo(SkinAniMeshFrame* prm_pFrame);
+
+    void setAnimationFrameIndex();
+
     /** setFrameInfo(SkinAniMeshFrame*) で使用される、frame_indexの通し番号 */
     DWORD _tmp_frame_index;
 

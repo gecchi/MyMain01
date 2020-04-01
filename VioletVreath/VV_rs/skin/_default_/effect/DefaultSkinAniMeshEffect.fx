@@ -252,10 +252,10 @@ float4x4 getBoneWorldMatrix(int prm_infl_bone_id_order) {
 OUT_VS VS_DefaultSkinAniMesh(
       float4 prm_posModel_Local  : POSITION,      // モデルの頂点
       float3 prm_vecNormal_Local : NORMAL,        // モデルの頂点の法線
-      float  prm_bone_combi_index         : PSIZE ,        // モデルのインデックス（何個目のオブジェクトか？）
+//      float  prm_bone_combi_index         : PSIZE ,        // モデルのインデックス（何個目のオブジェクトか？）
       float2 prm_uv              : TEXCOORD0 ,     // モデルの頂点のUV
       float4 infl_weight         : BLENDWEIGHT,
-      int4   infl_bone_id       : BLENDINDICES0,
+//      int4   infl_bone_id       : BLENDINDICES0,
       int4   infl_bone_id_order       : BLENDINDICES1
 ) {
     OUT_VS out_vs = (OUT_VS)0;

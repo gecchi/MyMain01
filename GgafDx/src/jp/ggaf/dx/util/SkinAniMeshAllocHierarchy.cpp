@@ -80,6 +80,12 @@ HRESULT SkinAniMeshAllocHierarchy::CreateMeshContainer(THIS_
     } else {
         //throwCriticalException("SkinAniMeshAllocHierarchy::CreateMeshContainer()  pSkinInfo î•ñ‚ª‚ ‚è‚Ü‚¹‚ñ");
         _TRACE_("ƒŒx„SkinAniMeshAllocHierarchy::CreateMeshContainer()  pSkinInfo î•ñ‚ª‚ ‚è‚Ü‚¹‚ñB pNewMC->Name="<<pNewMC->Name);
+        pNewMC->pSkinInfo = nullptr;
+        pNewMC->_dwBoneOffsetMatrixNum = 0;
+        pNewMC->_paBoneOffsetMatrix = nullptr;
+        pNewMC->_dwMaxInfleNum = 0;
+        pNewMC->_dwBoneCombNum = 0;
+        pNewMC->_pBoneCombinationTable = nullptr;
         BoneAniMeshAllocHierarchy::createNewMeshContainer(); //¡‚Ì‚Æ‚±‚ë•ÏX‚È‚µ
     }
 

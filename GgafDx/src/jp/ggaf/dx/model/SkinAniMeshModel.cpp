@@ -32,7 +32,6 @@ SkinAniMeshModel::SkinAniMeshModel(const char* prm_model_name) : Model(prm_model
     _pIndexBuffer = nullptr;
     _index_param_num = 0;
     _paIndexParam = nullptr;
-    _paIndexBuffer_bone_combi_grp_index = nullptr;
     _draw_combined_matrix_set_num = 15;
     _size_vertices = 0;
     _size_vertex_unit = sizeof(SkinAniMeshModel::VERTEX);
@@ -161,6 +160,15 @@ HRESULT SkinAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
 void SkinAniMeshModel::restore() {
     _TRACE3_("_model_name=" << _model_name << " start");
     if (_paVtxBuffer_data == nullptr) {
+        struct VERTEX_EX {
+            float bone_combi_grp_index; //ƒ{[ƒ“ƒRƒ“ƒrƒl[ƒVƒ‡ƒ“‚ÌƒOƒ‹[ƒv‚ÌƒCƒ“ƒfƒbƒNƒX
+            byte  infl_bone_id[4];      //ƒ{[ƒ“ID
+        };
+        struct BoneConbi {
+            DWORD vertex_start;
+            DWORD vertex_count;
+        };
+
         HRESULT hr;
         std::string xfile_name = ModelManager::getMeshFileName(_model_name);
         TextureManager* pTextureManager = pGOD->_pModelManager->_pModelTextureManager;
@@ -180,57 +188,14 @@ void SkinAniMeshModel::restore() {
         if (_pFrameRoot == nullptr) {
             throwCriticalException(xfile_name<<" ‚ÌƒtƒŒ[ƒ€î•ñ‚ªæ“¾‚Å‚«‚Ü‚¹‚ñI");
         }
-        //ƒfƒtƒHƒ‹ƒg‚Åİ’è‚³‚ê‚Ä‚¢‚éƒgƒ‰ƒbƒN‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚Åp¨‚ğˆê‰ñ‚Â‚­‚éiƒRƒs[—pj
-        //ƒOƒ[ƒoƒ‹ŠÔ‚ğ0‚É‚·‚é
-//        hr = _pAniControllerBase->ResetTime();
-//        checkDxException(hr, D3D_OK, "¸”s‚µ‚Ü‚µ‚½B");
-//        //0•bi‚ß‚éi‚±‚Æ‚É‚æ‚Á‚Ä”½‰f‚³‚¹‚éjB
-//        hr = _pAniControllerBase->AdvanceTime(0, nullptr);
-//        checkDxException(hr, D3D_OK, "¸”s‚µ‚Ü‚µ‚½B");
 
-        _vecDrawBoneFrame.clear();
-        _vecAllBoneFrame.clear();
+        //_vecAllBoneFrame, _vecDrawBoneFrame ‹y‚Ñ _tmp_frame_index ‚ğİ’èB
+        _vecDrawBoneFrame.clear(); // _pFrameRoot ‚ğ„‚Á‚Ä•`‰æ‘ÎÛ‚ª‚ ‚éƒtƒŒ[ƒ€‚ğ’¼—ñ‰»‚µ‚½‚à‚ÌA—v‘f”Ô†‚Í‚½‚¾‚Ì˜A”Ô
+        _vecAllBoneFrame.clear();  // _pFrameRoot ‚ğ„‚Á‚ÄƒtƒŒ[ƒ€‚ğ’¼—ñ‰»‚µ‚½‚à‚ÌA—v‘f”Ô†‚ÍƒtƒŒ[ƒ€ƒCƒ“ƒfƒbƒNƒX‚ÆŒÄÌ‚·‚é
         _tmp_frame_index = 0;
-
-_TRACE_("setFrameInfo!!!!!!!!!!!!!!!!!1");
         setFrameInfo(_pFrameRoot); //ƒtƒŒ[ƒ€‚ğ‰ô‚èî•ñ‚ğƒƒ“ƒo‚ÉƒZƒbƒg
-        //////
-        _mapAnimationSet_AniSetindex.clear();
-        _mapAnimationSetIndex_AnimationTargetBoneFrameNames.clear();
-        _num_animation_set = _pAniControllerBase->GetMaxNumAnimationSets();
-        for (UINT ani_set_index = 0; ani_set_index < _num_animation_set; ani_set_index++) {
-            ID3DXAnimationSet* pAnimationSet = nullptr;
-            hr = _pAniControllerBase->GetAnimationSet(ani_set_index, &(pAnimationSet)); //ƒAƒjƒ[ƒVƒ‡ƒ“ƒZƒbƒg•Û
-            checkDxException(hr, D3D_OK, "¸”s‚µ‚Ü‚µ‚½");
-            _mapAnimationSet_AniSetindex[pAnimationSet] = ani_set_index;
-            int num_animation = pAnimationSet->GetNumAnimations();
-            for (UINT ani_index = 0; ani_index < num_animation; ++ani_index) {
-                LPCSTR target_bone_frame_name = nullptr;
-                hr = pAnimationSet->GetAnimationNameByIndex(ani_index, &target_bone_frame_name);
-                checkDxException(hr, D3D_OK, "¸”s‚µ‚Ü‚µ‚½");
-                _mapAnimationSetIndex_AnimationTargetBoneFrameNames[ani_set_index].push_back(target_bone_frame_name);
 
-            }
-        }
-
-        _papaBool_AnimationSetIndex_BoneFrameIndex_is_act = NEW bool*[_num_animation_set];
-        for (UINT ani_set_index = 0; ani_set_index < _num_animation_set; ani_set_index++) {
-            _papaBool_AnimationSetIndex_BoneFrameIndex_is_act[ani_set_index] = NEW bool[_tmp_frame_index+1];
-            std::vector<LPCSTR>* pAnimationTargetBoneFrameNameList = &(_mapAnimationSetIndex_AnimationTargetBoneFrameNames[ani_set_index]);
-            for (UINT frame_index = 0; frame_index < _vecAllBoneFrame.size(); frame_index++) {
-                _papaBool_AnimationSetIndex_BoneFrameIndex_is_act[ani_set_index][frame_index] = false;
-                LPSTR frame_name = _vecAllBoneFrame[frame_index]->Name;
-                if (frame_name) {
-                    for (int n = 0; n < pAnimationTargetBoneFrameNameList->size(); n++) {
-                        LPCSTR animation_target_bone_frame_name = (*pAnimationTargetBoneFrameNameList)[n];
-                        if (strcmp(animation_target_bone_frame_name, frame_name) == 0) {
-                            _papaBool_AnimationSetIndex_BoneFrameIndex_is_act[ani_set_index][frame_index] = true;
-                            break;
-                        }
-                    }
-                }
-            }
-        }
+        setAnimationFrameIndex(); //_mapAnimationSet_AniSetindex, _papaBool_AnimationSetIndex_BoneFrameIndex_is_act[][] ‚ğİ’è
 
         //‹«ŠE‹…
         D3DXVECTOR3 vecCenter;
@@ -238,36 +203,33 @@ _TRACE_("setFrameInfo!!!!!!!!!!!!!!!!!1");
         D3DXFrameCalculateBoundingSphere((D3DXFRAME*)_pFrameRoot, &vecCenter, &bounding_sphere_radius);
         _bounding_sphere_radius = UTIL::getDistance(0.0f, 0.0f, 0.0f, vecCenter.x, vecCenter.y, vecCenter.z) + bounding_sphere_radius;
 
-_TRACE_("‹«ŠE‹…”¼Œa="<<_bounding_sphere_radius);
-
         int draw_frame_num = _vecDrawBoneFrame.size();
-
         int materials_total_num = 0;
         int vertices_total_num = 0;
         int faces_total_num = 0;
 
-        //ƒtƒŒ[ƒ€ƒŠƒXƒg‚ğ‰ô‚Á‚ÄAƒ}ƒeƒŠƒAƒ‹‘”æ“¾
-        for (int i = 0; i < draw_frame_num; i++) {
-            SkinAniMeshContainer* pMeshContainer = (SkinAniMeshContainer*)(_vecDrawBoneFrame[i]->pMeshContainer);
+        //•`‰æ‘ÎÛƒtƒŒ[ƒ€ƒŠƒXƒg‚ğ‰ô‚Á‚ÄA’¸“_‘”æ“¾
+        for (int draw_frame_idx = 0; draw_frame_idx < draw_frame_num; draw_frame_idx++) {
+            SkinAniMeshContainer* pMeshContainer = (SkinAniMeshContainer*)(_vecDrawBoneFrame[draw_frame_idx]->pMeshContainer);
             if (pMeshContainer == nullptr) {
                 continue;
             }
-            ID3DXMesh* pMesh = _vecDrawBoneFrame[i]->pMeshContainer->MeshData.pMesh;
+            ID3DXMesh* pMesh = pMeshContainer->MeshData.pMesh;
             if (!pMesh) {
                 continue;
             }
             vertices_total_num += (int)(pMesh->GetNumVertices());  // ’¸“_”
             faces_total_num += (int)(pMesh->GetNumFaces());        // ƒ|ƒŠƒSƒ“”
-            materials_total_num += (int)(_vecDrawBoneFrame[i]->pMeshContainer->NumMaterials);
+            materials_total_num += (int)(pMeshContainer->NumMaterials); //ƒ}ƒeƒŠƒAƒ‹”
         }
 
-        //”z—ñ”‚ª‚â‚Á‚Æ‰ğ‚Á‚½‚Ì‚Åì¬
+        //’¸“_‘”i”z—ñ”j‚ª‚â‚Á‚Æ‰ğ‚Á‚½‚Ì‚Åì¬
         _num_materials = materials_total_num;
         _nVertices = vertices_total_num;
         _nFaces = faces_total_num;
         _paVtxBuffer_data =  NEW SkinAniMeshModel::VERTEX[_nVertices];
+        VERTEX_EX* paVtx_wk = NEW VERTEX_EX[_nVertices];
         _paIndexBuffer_data = NEW WORD[_nFaces*3];
-        _paIndexBuffer_bone_combi_grp_index = NEW int[_nFaces*3];
         if (!_paMaterial_default) {
             if (materials_total_num > 0) {
                 _paMaterial_default = NEW D3DMATERIAL9[_num_materials];
@@ -285,28 +247,29 @@ _TRACE_("‹«ŠE‹…”¼Œa="<<_bounding_sphere_radius);
 
 
         //ƒ‚ƒfƒ‹•Û—pƒ}ƒeƒŠƒAƒ‹AƒeƒNƒXƒ`ƒƒì¬‚Ì‚½‚ßA‚à‚¤ˆê“x‰ñ‚·
-        _vec_bone_combi_info.clear();
+        _vec_bone_combi_grp_info.clear();
         int m_cnt = 0;   //ƒ}ƒeƒŠƒAƒ‹‚Æ‰Ÿ‚µƒJƒEƒ“ƒ^[
-        int v_cnt = 0;   //’¸“_ƒoƒbƒtƒ@’Ê‚µƒJƒEƒ“ƒ^[
+        int vtx_idx_thru = 0;   //’¸“_ƒoƒbƒtƒ@’Ê‚µƒJƒEƒ“ƒ^[
         int i_cnt = 0;   //ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@’Ê‚µƒJƒEƒ“ƒ^[
         char* texture_filename;
         D3DVERTEXELEMENT9 e[MAX_FVF_DECL_SIZE];
-        //ƒtƒŒ[ƒ€‚Åƒ‹[ƒvI
+        //•`‰æ‘ÎÛƒtƒŒ[ƒ€‚Åƒ‹[ƒvI
         for (int draw_frame_idx = 0; draw_frame_idx < draw_frame_num; draw_frame_idx++) {
-            SkinAniMeshContainer* pMeshContainer1 = (SkinAniMeshContainer*)(_vecDrawBoneFrame[draw_frame_idx]->pMeshContainer);
-            if (pMeshContainer1 == nullptr) {
-                continue;
-            }
-            ID3DXMesh* pMesh = pMeshContainer1->MeshData.pMesh;
-            if (!pMesh) {
-                continue;
-            }
+            int vtx_idx_frame_start = vtx_idx_thru;
 
-            int nMaterials = (int)(pMeshContainer1->NumMaterials);
-            for (int j = 0; j < nMaterials; j++) {
-                if (pMeshContainer1->pMaterials) {
-                    _paMaterial_default[m_cnt] = pMeshContainer1->pMaterials[j].MatD3D; //ƒ}ƒeƒŠƒAƒ‹î•ñƒRƒs[
-                    texture_filename = pMeshContainer1->pMaterials[j].pTextureFilename;
+            SkinAniMeshContainer* pMeshContainer = (SkinAniMeshContainer*)(_vecDrawBoneFrame[draw_frame_idx]->pMeshContainer);
+            if (pMeshContainer == nullptr) {
+                continue;
+            }
+            ID3DXMesh* pMesh1 = pMeshContainer->MeshData.pMesh;
+            if (!pMesh1) {
+                continue;
+            }
+            int nMaterials = (int)(pMeshContainer->NumMaterials);
+            for (int n = 0; n < nMaterials; n++) {
+                if (pMeshContainer->pMaterials) {
+                    _paMaterial_default[m_cnt] = pMeshContainer->pMaterials[n].MatD3D; //ƒ}ƒeƒŠƒAƒ‹î•ñƒRƒs[
+                    texture_filename = pMeshContainer->pMaterials[n].pTextureFilename;
                     if (texture_filename != nullptr && lstrlen(texture_filename) > 0 ) {
                         _pa_texture_filenames[m_cnt] = std::string(texture_filename);
                     } else {
@@ -320,205 +283,198 @@ _TRACE_("‹«ŠE‹…”¼Œa="<<_bounding_sphere_radius);
                 m_cnt ++;
             }
 
-
-            pMesh->GetDeclaration( e );
+            //D3DXLoadMeshHierarchyFromX() ‚Å“Ç‚İ‚Ü‚ê‚½’¸“_î•ñ(pMeshContainer->MeshData.pMesh)‚ğ
+            //_paVtxBuffer_data ‚Éİ’è
+            pMesh1->GetDeclaration( e );
             int offset_position  = getOffsetFromElem( e, D3DDECLUSAGE_POSITION );
-            int offset_normal  = getOffsetFromElem( e, D3DDECLUSAGE_NORMAL );
-    //        int offset_color  = getOffsetFromElem( e, D3DDECLUSAGE_COLOR );
+            int offset_normal    = getOffsetFromElem( e, D3DDECLUSAGE_NORMAL );
             int offset_texcoord  = getOffsetFromElem( e, D3DDECLUSAGE_TEXCOORD );
 
-            IDirect3DVertexBuffer9* pVb;
-            pMesh->GetVertexBuffer(&pVb);
-            DWORD size_vertex_unit = pMesh->GetNumBytesPerVertex(); // 1‚Â‚Ì’¸“_‚ÌƒTƒCƒY
-            void* pVertexBuffer;
-            int nVertices = (int)(pMesh->GetNumVertices()); //ƒƒbƒVƒ…ƒRƒ“ƒeƒi‚Ì’¸“_”
-            pVb->Lock(0, nVertices*size_vertex_unit, (void**)&pVertexBuffer, 0);
-            for (int j = 0; j < nVertices; j++) {
+            IDirect3DVertexBuffer9* pVb_load;
+            pMesh1->GetVertexBuffer(&pVb_load);
+            DWORD size_vertex_unit = pMesh1->GetNumBytesPerVertex(); // 1‚Â‚Ì’¸“_‚ÌƒTƒCƒY
+            void* pVb_load_begin;
+            int nVertices = (int)(pMesh1->GetNumVertices()); //ƒƒbƒVƒ…ƒRƒ“ƒeƒi‚Ì’¸“_”
+            pVb_load->Lock(0, nVertices*size_vertex_unit, (void**)&pVb_load_begin, 0);
+            for (int vi = 0; vi < nVertices; vi++) {
                 char* p = nullptr;
-                SkinAniMeshModel::VERTEX* pVtx = &(_paVtxBuffer_data[v_cnt]); //‘‚«‚Ş1’¸“_‚ÌŠJnƒAƒhƒŒƒX
-                char* pVertex_base = (char*)pVertexBuffer + (size_vertex_unit*j);  //“Ç‚İ‚Ş1’¸“_‚ÌŠJnƒAƒhƒŒƒX
+                SkinAniMeshModel::VERTEX*    pVtx_data    = &(_paVtxBuffer_data[vtx_idx_thru]); //‘‚«‚Ş1’¸“_‚ÌŠJnƒAƒhƒŒƒX
+                VERTEX_EX* pVtx_data_ex = &(paVtx_wk[vtx_idx_thru]);
+                char* pVb_load_base = (char*)pVb_load_begin + (size_vertex_unit*vi);  //“Ç‚İ‚Ş1’¸“_‚ÌŠJnƒAƒhƒŒƒX
                 //    float x, y, z;    // ’¸“_À•W
-                p = pVertex_base + offset_position;
-                memcpy(&(pVtx->x), p, sizeof(FLOAT));  p += sizeof(FLOAT);
-                memcpy(&(pVtx->y), p, sizeof(FLOAT));  p += sizeof(FLOAT);
-                memcpy(&(pVtx->z), p, sizeof(FLOAT));  p += sizeof(FLOAT);
+                p = pVb_load_base + offset_position;
+                memcpy(&(pVtx_data->x), p, sizeof(FLOAT));  p += sizeof(FLOAT);
+                memcpy(&(pVtx_data->y), p, sizeof(FLOAT));  p += sizeof(FLOAT);
+                memcpy(&(pVtx_data->z), p, sizeof(FLOAT));  p += sizeof(FLOAT);
                 //Normal  float nx, ny, nz; // –@ü
                 if (offset_normal > 0) {
-                    p = pVertex_base + offset_normal;
-                    memcpy(&(pVtx->nx), p, sizeof(FLOAT));  p += sizeof(FLOAT);
-                    memcpy(&(pVtx->ny), p, sizeof(FLOAT));  p += sizeof(FLOAT);
-                    memcpy(&(pVtx->nz), p, sizeof(FLOAT));  p += sizeof(FLOAT);
+                    p = pVb_load_base + offset_normal;
+                    memcpy(&(pVtx_data->nx), p, sizeof(FLOAT));  p += sizeof(FLOAT);
+                    memcpy(&(pVtx_data->ny), p, sizeof(FLOAT));  p += sizeof(FLOAT);
+                    memcpy(&(pVtx_data->nz), p, sizeof(FLOAT));  p += sizeof(FLOAT);
                 } else {
-                    pVtx->nx = 0.0f;
-                    pVtx->ny = 0.0f;
-                    pVtx->nz = 0.0f;
+                    pVtx_data->nx = 0.0f;
+                    pVtx_data->ny = 0.0f;
+                    pVtx_data->nz = 0.0f;
                 }
-                pVtx->bone_combi_grp_index = -1; // ‰¼İ’èA‰º‚ÅÄİ’è‚·‚é
+                pVtx_data_ex->bone_combi_grp_index = -999; // ‰¼İ’èA‰º‚ÅÄİ’è‚·‚é
+                //Äİ’è‚ÌêŠu’¸“_ƒoƒbƒtƒ@‚Ì infl_bone_id_order ‚ğ bone_id ‚©‚ç•ÏŠ·‚µ‚Äİ’èv‚Ìˆ—
 
                 //DWORD color ; //’¸“_ƒJƒ‰[
-                pVtx->color = D3DCOLOR_ARGB(255,255,255,255); //’¸“_ƒJƒ‰[
+                pVtx_data->color = D3DCOLOR_ARGB(255,255,255,255); //’¸“_ƒJƒ‰[
 
                 //float tu, tv;     // ƒeƒNƒXƒ`ƒƒÀ•W
                 if (offset_texcoord > 0) {
-                    p = pVertex_base + offset_texcoord;
-                    memcpy(&(pVtx->tu), p, sizeof(FLOAT));  p += sizeof(FLOAT);
-                    memcpy(&(pVtx->tv), p, sizeof(FLOAT));  p += sizeof(FLOAT);
+                    p = pVb_load_base + offset_texcoord;
+                    memcpy(&(pVtx_data->tu), p, sizeof(FLOAT));  p += sizeof(FLOAT);
+                    memcpy(&(pVtx_data->tv), p, sizeof(FLOAT));  p += sizeof(FLOAT);
                 } else {
-                    pVtx->tu = 0.0f;
-                    pVtx->tv = 0.0f;
+                    pVtx_data->tu = 0.0f;
+                    pVtx_data->tv = 0.0f;
                 }
-//               _TRACE_("["<<i<<"]["<<j<<"]:pVtx->index="<<pVtx->index<<"  Vertex=("<<(pVtx->x)<<","<<(pVtx->y)<<","<<(pVtx->z)<<")  Normal=("<<(pVtx->nx)<<","<<(pVtx->ny)<<","<<(pVtx->nz)<<")  texcoordl=("<<(pVtx->tu)<<","<<(pVtx->tv)<<")");
-
                 for (int k = 0; k < 4; k++) {  // ‰¼‚Å‰Šú’lİ’èA‰º‚ÅÄİ’è‚·‚é
-                    pVtx->infl_weight[k] = 0.0f;
-                    pVtx->infl_bone_id[k] = 0xFF;
-                    pVtx->infl_bone_id_order[k] = 0xFF;
+                    pVtx_data->infl_weight[k] = 0.0f;
+                    pVtx_data_ex->infl_bone_id[k] = 0xFF;
+                    pVtx_data->infl_bone_id_order[k] = 0xFF;
                 }
-                v_cnt ++;
+                vtx_idx_thru ++;
             }
-            pVb->Unlock();
-            pVb->Release();
+            pVb_load->Unlock();
+            pVb_load->Release();
 
-
-
-            //skinî•ñ‚Ì‚½‚ß‚É‚à‚Á‚©‚¢ƒ‹[ƒv
-            int vertx_through_count = 0;
+            /////////////
+            //skinî•ñinfl_bone_id ‚â iinfl_weight ‚Ì‚æ‚¤‚ÈA’¸“_‚É•t‚·‚éî•ñ‚ğæ“¾
             int bc_through_idx = 0;
-            for (int i = 0; i < draw_frame_num; i++) {
-
-                SkinAniMeshContainer* pMeshContainer2 = (SkinAniMeshContainer*)(_vecDrawBoneFrame[i]->pMeshContainer);
-                if (pMeshContainer2 == nullptr) {
-                    continue;
-                }
-                if (!pMeshContainer2->MeshData.pMesh) {
-                    continue;
-                }
-
-                /////////////
-                _TRACE_("draw_frsme["<<i<<"]: idx="<<_vecDrawBoneFrame[i]->_frame_index<<", name="<<_vecDrawBoneFrame[i]->Name<<"");
-                _TRACE_("pMeshContainer->_dwMaxInfleNum = "<<pMeshContainer2->_dwMaxInfleNum);
-                _TRACE_("pMeshContainer->_dwBoneCombNum = "<<pMeshContainer2->_dwBoneCombNum);
-                LPD3DXSKININFO pSkinInfo = pMeshContainer2->pSkinInfo;
-                D3DXBONECOMBINATION* paBoneCombination =
-                        (D3DXBONECOMBINATION*)(pMeshContainer2->_pBoneCombinationTable->GetBufferPointer());
-                for (DWORD bc_idx = 0; bc_idx < pMeshContainer2->_dwBoneCombNum; ++bc_idx, ++bc_through_idx) { //bc_idx‚ÍƒƒbƒVƒ…ƒTƒuƒZƒbƒgID
-                    D3DXBONECOMBINATION* pBoneCombination = &(paBoneCombination[bc_idx]);
-                    BoneConbi bc_info;
-                    bc_info.vertex_start = pBoneCombination->VertexStart;
-                    bc_info.vertex_count = pBoneCombination->VertexCount;
-                    _vec_bone_combi_info.push_back(bc_info);
-                    _TRACE_("paBoneCombination["<<bc_idx<<"] = "<<
-                            " AttribId="<<pBoneCombination->AttribId<<
-                            " FaceStart="<<pBoneCombination->FaceStart<<
-                            " FaceCount="<<pBoneCombination->FaceCount<<
-                            " VertexStart="<<pBoneCombination->VertexStart<<
-                            " VertexCount="<<pBoneCombination->VertexCount<<
-                            ""
-                    );
-                    DWORD infl_id;
-                    for ( infl_id = 0; infl_id < pMeshContainer2->_dwMaxInfleNum; ++infl_id) { //
-                        DWORD bone_id = pBoneCombination->BoneId[infl_id]; //bone_id‚Í‚È‚ñ‚È‚Ì‚©H
-                        DWORD bone_influ_vertices_num = pSkinInfo->GetNumBoneInfluences(bone_id);
+            _TRACE_("draw_frsme["<<draw_frame_idx<<"]: idx="<<_vecDrawBoneFrame[draw_frame_idx]->_frame_index<<", name="<<_vecDrawBoneFrame[draw_frame_idx]->Name<<"");
+            _TRACE_("pMeshContainer->_dwMaxInfleNum = "<<pMeshContainer->_dwMaxInfleNum);
+            _TRACE_("pMeshContainer->_dwBoneCombNum = "<<pMeshContainer->_dwBoneCombNum);
+            LPD3DXSKININFO pSkinInfo = pMeshContainer->pSkinInfo; //_vecDrawBoneFrame[] ‘O’ñ skinî•ñ‚ª‚ ‚é‚Í‚¸
+            D3DXBONECOMBINATION* paBoneCombination =
+                    (D3DXBONECOMBINATION*)(pMeshContainer->_pBoneCombinationTable->GetBufferPointer());
+            //ƒtƒŒ[ƒ€ƒƒbƒVƒ…‚ª‰e‹¿‚·‚éƒ{[ƒ“‚ÌƒRƒ“ƒrƒl[ƒVƒ‡ƒ“”‚Åƒ‹[ƒv
+            std::vector<BoneConbi> vec_bone_combi_info;
+            for (DWORD bc_idx = 0; bc_idx < pMeshContainer->_dwBoneCombNum; ++bc_idx, ++bc_through_idx) { //bc_idx‚ÍƒƒbƒVƒ…ƒTƒuƒZƒbƒgID
+                D3DXBONECOMBINATION* pBoneCombination = &(paBoneCombination[bc_idx]);
+                BoneConbi bc_info;
+                bc_info.vertex_start = pBoneCombination->VertexStart + vtx_idx_frame_start; //vtx_idx_frame_start ‚Í•¡”ƒtƒŒ[ƒ€‚ÉƒƒbƒVƒ…‚ª‚ ‚Á‚½ê‡‚ÌƒIƒtƒZƒbƒg
+                bc_info.vertex_count = pBoneCombination->VertexCount;
+                vec_bone_combi_info.push_back(bc_info);
+                _TRACE_("paBoneCombination["<<bc_idx<<"] = "<<
+                        " AttribId="<<pBoneCombination->AttribId<<
+                        " FaceStart="<<pBoneCombination->FaceStart<<
+                        " FaceCount="<<pBoneCombination->FaceCount<<
+                        " VertexStart="<<pBoneCombination->VertexStart<<
+                        " VertexCount="<<pBoneCombination->VertexCount<<
+                        ""
+                );
+                for (DWORD infl_id = 0; infl_id < pMeshContainer->_dwMaxInfleNum; ++infl_id) { //_dwMaxInfleNum = 4
+                    DWORD bone_id = pBoneCombination->BoneId[infl_id]; //0,1,2,3 ‚Ì ‰e‹¿‚ğ‹y‚Ú‚· bone_id ‚ª“ü‚é
+                    DWORD bone_influ_vertices_num = pSkinInfo->GetNumBoneInfluences(bone_id); // ‰e‹¿‚ğ‹y‚Ú‚·’¸“_”
 
 _TRACE_("paBoneCombination["<<bc_idx<<"].BoneId["<<infl_id<<"]="<<bone_id<<" bone_influ_vertices_num="<<bone_influ_vertices_num);
 
-                        if (bone_influ_vertices_num > 0) {
-                            // Get the bone influcences
-                            DWORD* vertices = new DWORD[bone_influ_vertices_num];
-                            float* skin_weight  = new float[bone_influ_vertices_num];
-                            pSkinInfo->GetBoneInfluence(bone_id, vertices, skin_weight);
-                            for (DWORD v = 0; v < bone_influ_vertices_num; v++) {
-                                if (skin_weight[v] > 0.0) {
-                                    SkinAniMeshModel::VERTEX* pVtx = &(_paVtxBuffer_data[vertices[v]]);
-                                    bool is_exist = false;
+                    if (bone_influ_vertices_num > 0) {
+
+                        DWORD* vertices = new DWORD[bone_influ_vertices_num];
+                        float* skin_weight  = new float[bone_influ_vertices_num];
+                        pSkinInfo->GetBoneInfluence(bone_id, vertices, skin_weight); // ‰e‹¿‚ğ‹y‚Ú‚·’¸“_‚Æd‚İ‚ğæ“¾
+                        //’¸“_‚Éî•ñi_paVtxBuffer_dataj‚Éî•ñ‚ğ’Ç‹L‚µ‚Ä‚¢‚­
+                        for (DWORD v = 0; v < bone_influ_vertices_num; v++) {
+                            if (skin_weight[v] > 0.0) {
+                                SkinAniMeshModel::VERTEX*    pVtx_data    = &(_paVtxBuffer_data[vertices[v] + vtx_idx_frame_start]);
+                                VERTEX_EX* pVtx_data_ex = &(paVtx_wk[vertices[v] + vtx_idx_frame_start]);
+                                bool is_exist = false;
+                                for (int k = 0; k < 4; k++) {
+                                    if (pVtx_data_ex->infl_bone_id[k] == (byte)bone_id) {
+                                        is_exist = true;
+                                        break;
+                                    }
+                                }
+                                if (is_exist == false) {
                                     for (int k = 0; k < 4; k++) {
-                                        if (pVtx->infl_bone_id[k] == (byte)bone_id) {
-                                            is_exist = true;
+                                        if (pVtx_data->infl_weight[k] < skin_weight[v]) { //weight‘å‚«‚¢‡‚É
+                                            for (int j = 3; j > k; j--) {
+                                                //ƒXƒ‰ƒCƒh
+                                                pVtx_data_ex->infl_bone_id[j] = pVtx_data_ex->infl_bone_id[j-1];
+                                                pVtx_data->infl_weight[j] = pVtx_data->infl_weight[j-1];
+                                            }
+                                            pVtx_data_ex->infl_bone_id[k] = (byte)bone_id;
+                                            pVtx_data->infl_weight[k] =  skin_weight[v];
                                             break;
                                         }
                                     }
-                                    if (is_exist == false) {
-                                        for (int k = 0; k < 4; k++) {
-                                            if (pVtx->infl_weight[k] < skin_weight[v]) { //weight‘å‚«‚¢‡‚É
-                                                for (int j = 3; j > k; j--) {
-                                                    //ƒXƒ‰ƒCƒh
-                                                    pVtx->infl_bone_id[j] = pVtx->infl_bone_id[j-1];
-                                                    pVtx->infl_weight[j] = pVtx->infl_weight[j-1];
-                                                }
-                                                pVtx->infl_bone_id[k] = (byte)bone_id;
-                                                pVtx->infl_weight[k] =  skin_weight[v];
-                                                break;
-                                            }
-                                        }
 
-                                    }
                                 }
-                            } //for (DWORD v = 0; v < bone_influ_vertices_num; v++)
-                            //ƒfƒoƒbƒO
-                            _TRACE_N_("Vertices=");
-                            for (int v = 0; v < bone_influ_vertices_num; v++) {
-                                _TRACE_N_("\t"<<vertices[v]<<"");
                             }
-                            _TRACE_N_("\n");
-                            _TRACE_N_("Weights=");
-                            for (int v = 0; v < bone_influ_vertices_num; v++) {
-                                _TRACE_N_("\t"<<skin_weight[v]<<"");
-                            }
-                            _TRACE_N_("\n");
+                        } //for (DWORD v = 0; v < bone_influ_vertices_num; v++)
+                        //ƒfƒoƒbƒO
+                        _TRACE_N_("Vertices=");
+                        for (int v = 0; v < bone_influ_vertices_num; v++) {
+                            _TRACE_N_("\t"<<vertices[v]<<"");
                         }
+                        _TRACE_N_("\n");
+                        _TRACE_N_("Weights=");
+                        for (int v = 0; v < bone_influ_vertices_num; v++) {
+                            _TRACE_N_("\t"<<skin_weight[v]<<"");
+                        }
+                        _TRACE_N_("\n");
                     }
-                } //for (DWORD bc_idx = 0; bc_idx < pMeshContainer->_dwBoneCombNum; ++bc_idx, ++bc_through_idx)
+                }
+            } //for (DWORD bc_idx = 0; bc_idx < pMeshContainer->_dwBoneCombNum; ++bc_idx, ++bc_through_idx)
 
-                //ƒ{[ƒ“ID‚ÆFrame‚Ì•R•t‚¯‚Æ_bone_offset_matrix‚Ì•Û
-                DWORD dwNumBone = pSkinInfo->GetNumBones();  // ƒ{[ƒ“‚Ì”‚ğæ“¾
-                // ƒ{[ƒ“‚Ì”‚¾‚¯‘Î‰ƒtƒŒ[ƒ€‚ğŒŸõ
-                for (DWORD bone_id = 0; bone_id < dwNumBone; bone_id++) {
-                    SkinAniMeshFrame* pFrame = nullptr;   // ˆê’v‚µ‚½ƒtƒŒ[ƒ€ƒ|ƒCƒ“ƒ^
-                   // ƒ{[ƒ“–¼‚ğæ“¾
-                   LPCSTR skin_bone_name = pSkinInfo->GetBoneName(bone_id);
-                   if (skin_bone_name) {
-                       // –¼‘OŒŸõ
-                       for (int fram_idx = 0; i < _vecAllBoneFrame.size(); fram_idx++) {
-                           LPSTR frame_bone_name = _vecAllBoneFrame[fram_idx]->Name;
-                           if (frame_bone_name) {
-                               if (strcmp(skin_bone_name, frame_bone_name) == 0) { //SkinInfoƒ{[ƒ“–¼‚ªFrame‚Æˆê’vˆê’v
-                                   pFrame = _vecAllBoneFrame[fram_idx];
-                                   break;
-                               }
+            //ƒ{[ƒ“ID‚ÆFrame‚Ì•R•t‚¯‚Æ_bone_offset_matrix‚Ì•Û
+            DWORD dwNumBone = pSkinInfo->GetNumBones();  // ƒ{[ƒ“‚Ì”‚ğæ“¾
+            // ƒ{[ƒ“‚Ì”‚¾‚¯‘Î‰ƒtƒŒ[ƒ€‚ğŒŸõ
+            for (DWORD bone_id = 0; bone_id < dwNumBone; bone_id++) {
+                SkinAniMeshFrame* pFrame = nullptr;   // ˆê’v‚µ‚½ƒtƒŒ[ƒ€ƒ|ƒCƒ“ƒ^
+               // ƒ{[ƒ“–¼‚ğæ“¾
+               LPCSTR skin_bone_name = pSkinInfo->GetBoneName(bone_id);
+               if (skin_bone_name) {
+                   // –¼‘OŒŸõ
+                   //for (int fram_idx = 0; i < _vecAllBoneFrame.size(); fram_idx++) {
+                   for (int fram_idx = 0; fram_idx < _vecAllBoneFrame.size(); fram_idx++) {
+                       LPSTR frame_bone_name = _vecAllBoneFrame[fram_idx]->Name;
+                       if (frame_bone_name) {
+                           if (strcmp(skin_bone_name, frame_bone_name) == 0) { //SkinInfoƒ{[ƒ“–¼‚ªFrame‚Æˆê’vˆê’v
+                               pFrame = _vecAllBoneFrame[fram_idx];
+                               break;
                            }
                        }
-                       if (pFrame) {
+                   }
+                   if (pFrame) {
+                       if (_vecBoneIdFrame.size() < bone_id+1) {
                            _vecBoneIdFrame.push_back(pFrame);
-                           pFrame->_bone_id = bone_id;
-                           pFrame->_bone_offset_matrix = *(pSkinInfo->GetBoneOffsetMatrix(bone_id));
                        } else {
+                           _vecBoneIdFrame[bone_id] = pFrame;
+                       }
+                       pFrame->_bone_id = bone_id;
+                       pFrame->_bone_offset_matrix = *(pSkinInfo->GetBoneOffsetMatrix(bone_id));
+                   } else {
+                       if (_vecBoneIdFrame.size() < bone_id+1) {
                            _vecBoneIdFrame.push_back(nullptr);
                        }
                    }
+               }
+            }
+
+
+            //DEBUG
+            for (DWORD frame_idx = 0; frame_idx < _vecAllBoneFrame.size(); frame_idx++) {
+                _TRACE_("_vecAllBoneFrame["<<frame_idx<<"] Name=\""<<_vecAllBoneFrame[frame_idx]->Name<<"\" "<<
+                                                          "_bone_id="<<_vecAllBoneFrame[frame_idx]->_bone_id<<" "<<
+                                                          "pMeshContainer="<<_vecAllBoneFrame[frame_idx]->pMeshContainer);
+            }
+            _TRACE_("////////////////////////////////////");
+            for (DWORD bone_id = 0; bone_id < _vecBoneIdFrame.size(); bone_id++) {
+                if (_vecBoneIdFrame[bone_id]) {
+                    _TRACE_("_vecBoneIdFrame["<<bone_id<<"] = "<<_vecBoneIdFrame[bone_id]->Name<<" "<<
+                                                              "_frame_index="<<_vecBoneIdFrame[bone_id]->_frame_index<<" ");
+                } else {
+                    _TRACE_("_vecBoneIdFrame["<<bone_id<<"] = nullptr"" "<<
+                            "_frame_index="<<_vecBoneIdFrame[bone_id]->_frame_index<<" ");
                 }
+            }
 
-
-                //DEBUG
-                for (DWORD frame_idx = 0; frame_idx < _vecAllBoneFrame.size(); frame_idx++) {
-                    _TRACE_("_vecAllBoneFrame["<<frame_idx<<"] Name=\""<<_vecAllBoneFrame[frame_idx]->Name<<"\" "<<
-                                                              "_bone_id="<<_vecAllBoneFrame[frame_idx]->_bone_id<<" "<<
-                                                              "pMeshContainer="<<_vecAllBoneFrame[frame_idx]->pMeshContainer);
-                }
-                _TRACE_("////////////////////////////////////");
-                for (DWORD bone_id = 0; bone_id < _vecBoneIdFrame.size(); bone_id++) {
-                    if (_vecBoneIdFrame[bone_id]) {
-                        _TRACE_("_vecBoneIdFrame["<<bone_id<<"] = "<<_vecBoneIdFrame[bone_id]->Name<<" "<<
-                                                                  "_frame_index="<<_vecBoneIdFrame[bone_id]->_frame_index<<" ");
-                    } else {
-                        _TRACE_("_vecBoneIdFrame["<<bone_id<<"] = nullptr"" "<<
-                                "_frame_index="<<_vecBoneIdFrame[bone_id]->_frame_index<<" ");
-                    }
-                }
-
-            } //for (int i = 0; i < draw_frame_num; i++) {
-
-
-            _vec_bone_combi_grp_info.clear();
             std::vector<DWORD> vec_infl_bone_id_order; //ƒ†ƒj[ƒN‚Èvec_cb_idx_order‚ª‘}“ü‚³‚ê‚Ä‚¢‚­
             std::vector<DWORD> vec_cb_idx_order;       //vec_infl_bone_id_order ‚ª‘}“ü‚³‚ê‚½‚Ì
             int grp_cb_vertex_start = 0;
@@ -526,12 +482,12 @@ _TRACE_("paBoneCombination["<<bc_idx<<"].BoneId["<<infl_id<<"]="<<bone_id<<" bon
             bool is_break = false;
             int cb_vertex_start;
             int cb_vertex_count;
-            //ƒ{[ƒ“ƒRƒ“ƒrƒl[ƒVƒ‡ƒ“‚Åƒ‹[ƒv
-_TRACE_("ƒ{[ƒ“ƒRƒ“ƒrƒl[ƒVƒ‡ƒ“‚Åƒ‹[ƒv  _vec_bone_combi_info.size()="<< _vec_bone_combi_info.size()<<"!!!!!!!!!!!!!!!!!!!!!");
+            //ƒ{[ƒ“ƒRƒ“ƒrƒl[ƒVƒ‡ƒ“î•ñ‚ğŒ‹‡‚µAƒ{[ƒ“ƒRƒ“ƒrƒl[ƒVƒ‡ƒ“ƒOƒ‹[ƒv‚ğ’Ç‹L
+_TRACE_("ƒ{[ƒ“ƒRƒ“ƒrƒl[ƒVƒ‡ƒ“‚Åƒ‹[ƒv  vec_bone_combi_info.size()="<< vec_bone_combi_info.size()<<"!!!!!!!!!!!!!!!!!!!!!");
             int bone_cb_idx;
-            for (bone_cb_idx = 0; bone_cb_idx < _vec_bone_combi_info.size(); bone_cb_idx ++) {
+            for (bone_cb_idx = 0; bone_cb_idx < vec_bone_combi_info.size(); bone_cb_idx ++) {
 _TRACE_("bone_cb_idx="<<bone_cb_idx<<"  ƒ‹[ƒv‚Í‚¶‚ß bone_cb_idx="<<bone_cb_idx<<"");
-                BoneConbi* bone_cb = &(_vec_bone_combi_info[bone_cb_idx]);
+                BoneConbi* bone_cb = &(vec_bone_combi_info[bone_cb_idx]);
                 cb_vertex_start = bone_cb->vertex_start;
                 cb_vertex_count = bone_cb->vertex_count;
 
@@ -547,9 +503,10 @@ _TRACE_("bone_cb_idx="<<bone_cb_idx<<" ‰‰ñA‚Ü‚½‚ÍƒuƒŒƒCƒNˆ—Œã‚ÌÅ‰‚Ìƒ‹[ƒv‚
 
                 //ƒ{[ƒ“ƒRƒ“ƒrƒl[ƒVƒ‡ƒ“‚Ì’¸“_ƒoƒbƒtƒ@‚Åƒ‹[ƒv
                 for (int v_idx = cb_vertex_start; v_idx < cb_vertex_start+cb_vertex_count; v_idx++) {
-                    SkinAniMeshModel::VERTEX* pVtx = &(_paVtxBuffer_data[v_idx]);
+                    SkinAniMeshModel::VERTEX* pVtx_data = &(_paVtxBuffer_data[v_idx]);
+                    VERTEX_EX* pVtx_data_ex = &(paVtx_wk[v_idx]);
                     for (int i = 0; i < 4; i++) {
-                        byte infl_bone_id = pVtx->infl_bone_id[i];
+                        byte infl_bone_id = pVtx_data_ex->infl_bone_id[i];
                         if (infl_bone_id == 0xFF) {
                             break;
                         } else {
@@ -568,15 +525,13 @@ _TRACE_("bone_cb_idx="<<bone_cb_idx<<" ‰‰ñA‚Ü‚½‚ÍƒuƒŒƒCƒNˆ—Œã‚ÌÅ‰‚Ìƒ‹[ƒv‚
                                     is_break = true;
                                     break;
                                 } else {
-                                    _TRACE_("bone_cb_idx="<<bone_cb_idx<<"  vec_cb_idx_order.push_back("<<(int)bone_cb_idx<<");");
-                                    _TRACE_("bone_cb_idx="<<bone_cb_idx<<"  vec_infl_bone_id_order.push_back("<<(int)infl_bone_id<<");");
+                                    _TRACE_("bone_cb_idx="<<bone_cb_idx<<" : vec_cb_idx_order.push_back("<<(int)bone_cb_idx<<");  vec_infl_bone_id_order.push_back("<<(int)infl_bone_id<<");");
                                     vec_cb_idx_order.push_back(bone_cb_idx);
                                     vec_infl_bone_id_order.push_back(infl_bone_id);
                                 }
                             } else {
-                                _TRACE_("bone_cb_idx="<<bone_cb_idx<<"  infl_bone_id="<<(int)infl_bone_id<<" ‚Í vec_infl_bone_id_order ‚É‚·‚Å‚É‘¶İ‚µ‚Æ‚é");
-                                //‘¶İ‚·‚éŠù’m‚Ì infl_bone_id
-                                //‚ÍA‚·‚é[
+                                //_TRACE_("bone_cb_idx="<<bone_cb_idx<<"  infl_bone_id="<<(int)infl_bone_id<<" ‚Í vec_infl_bone_id_order ‚É‚·‚Å‚É‘¶İ‚µ‚Ä‚Ü‚·");
+                                //‘¶İ‚·‚éŠù’m‚Ì infl_bone_id ‚ÍA‚·‚é[‚·‚é
                             }
 
                         }
@@ -634,57 +589,28 @@ _TRACE_("ƒ{[ƒ“ƒRƒ“ƒrƒl[ƒVƒ‡ƒ“‚Åƒ‹[ƒv”²‚¯‚½AÅIbone_cb_idx="<<bone_cb_idx<<"
             }
             _vec_bone_combi_grp_info.push_back(bone_combi_grp_info);
 
-
-            ///////////////////////////////////////////////
-            //ƒ{[ƒ“ƒRƒ“ƒrƒl[ƒVƒ‡ƒ“ƒOƒ‹[ƒv‚Åƒ‹[ƒv
-            for (int bone_cb_grp_idx = 0; bone_cb_grp_idx < _vec_bone_combi_grp_info.size(); bone_cb_grp_idx ++) {
-                BoneConbiGrp&  bone_cb_grp = _vec_bone_combi_grp_info[bone_cb_grp_idx];
-                int cb_grp_vertex_start = bone_cb_grp.grp_vertex_start;
-                int cb_grp_vertex_count = bone_cb_grp.grp_vertex_count;
-                //ƒ{[ƒ“ƒRƒ“ƒrƒl[ƒVƒ‡ƒ“‚Ì’¸“_ƒoƒbƒtƒ@‚Åƒ‹[ƒv
-                for (int v_idx = cb_grp_vertex_start; v_idx < cb_grp_vertex_start+cb_grp_vertex_count; v_idx++) {
-                    SkinAniMeshModel::VERTEX* pVtx = &(_paVtxBuffer_data[v_idx]);
-                    pVtx->bone_combi_grp_index = bone_cb_grp_idx;
-                    for (int i = 0; i < 4; i++) {
-                        byte infl_bone_id = pVtx->infl_bone_id[i];
-                        if (infl_bone_id == 0xFF) {
-                            pVtx->infl_bone_id_order[i] = 0xFF;
-                        } else {
-                            DWORD infl_bone_id_order = bone_cb_grp.map_infl_bone_id_to_order[(DWORD)infl_bone_id];
-                            pVtx->infl_bone_id_order[i] = (byte)infl_bone_id_order;
-                        }
-                    }
-
-
-                }
-            }
-
-
             /////////////////////////////////
             IDirect3DIndexBuffer9* pIb;
-            pMesh->GetIndexBuffer(&pIb);
-            DWORD nFace = pMesh->GetNumFaces();
+            pMesh1->GetIndexBuffer(&pIb);
+            DWORD nFace = pMesh1->GetNumFaces();
             D3DINDEXBUFFER_DESC desc;
             pIb->GetDesc( &desc );
             if (desc.Format == D3DFMT_INDEX16) {
                 void* pIndexBuffer;
                 pIb->Lock(0, nFace*3*sizeof(WORD), (void**)&pIndexBuffer, 0);
                 char* p = (char*)pIndexBuffer;
-    //            _TRACE_("["<<i<<"]:IndexFmt=WORD");
                 for (int f = 0; f < nFace; f++) {
                     WORD val1,val2,val3;
                     memcpy(&(val1), p, sizeof(WORD));  p += sizeof(WORD);
                     memcpy(&(val2), p, sizeof(WORD));  p += sizeof(WORD);
                     memcpy(&(val3), p, sizeof(WORD));  p += sizeof(WORD);
-    //                _TRACE_("["<<i<<"]["<<f<<"]:Index=("<<val1<<","<<val2<<","<<val3<<")");
-                    int offset = (v_cnt-nVertices); //’¸“_”Ô†‚ğ’Ê‚µ‚É‚·‚é‚½‚ß‚ÌŒvZB
-                                                    //v_cnt:’Ê‚µƒJƒEƒ“ƒ^  nVerticesF‰‰ñ‚ÍƒƒbƒVƒ…ƒRƒ“ƒeƒi‚Ì’¸“_” ‚È‚Ì‚Å 0 ‚Æ‚È‚éB
+                    int offset = (vtx_idx_thru-nVertices); //’¸“_”Ô†‚ğ’Ê‚µ‚É‚·‚é‚½‚ß‚ÌŒvZB
+                                                           //vtx_idx_thruFƒƒbƒVƒ…ƒRƒ“ƒeƒiˆ—I—¹‚Ì
+                                                           //              ’Ê‚µ’¸“_ƒCƒ“ƒfƒbƒNƒX‚Ì{‚P  nVertices
+                                                           //              ‰‰ñ‚ÍƒƒbƒVƒ…ƒRƒ“ƒeƒi‚Ì’¸“_” ‚È‚Ì‚Å 0 ‚Æ‚È‚éB
                     _paIndexBuffer_data[i_cnt+0] = offset + val1;
                     _paIndexBuffer_data[i_cnt+1] = offset + val2;
                     _paIndexBuffer_data[i_cnt+2] = offset + val3;
-                    _paIndexBuffer_bone_combi_grp_index[i_cnt+0] = (int)(_paVtxBuffer_data[_paIndexBuffer_data[i_cnt+0]].bone_combi_grp_index);
-                    _paIndexBuffer_bone_combi_grp_index[i_cnt+1] = (int)(_paVtxBuffer_data[_paIndexBuffer_data[i_cnt+1]].bone_combi_grp_index);
-                    _paIndexBuffer_bone_combi_grp_index[i_cnt+2] = (int)(_paVtxBuffer_data[_paIndexBuffer_data[i_cnt+2]].bone_combi_grp_index);
                     i_cnt+=3;
                 }
             } else {
@@ -696,14 +622,10 @@ _TRACE_("ƒ{[ƒ“ƒRƒ“ƒrƒl[ƒVƒ‡ƒ“‚Åƒ‹[ƒv”²‚¯‚½AÅIbone_cb_idx="<<bone_cb_idx<<"
                     memcpy(&(val1), p, sizeof(WORD));  p += sizeof(DWORD);
                     memcpy(&(val2), p, sizeof(WORD));  p += sizeof(DWORD);
                     memcpy(&(val3), p, sizeof(WORD));  p += sizeof(DWORD);
-                    int offset = (v_cnt-nVertices); //’¸“_”Ô†‚ğ’Ê‚µ‚É‚·‚é‚½‚ß‚ÌŒvZB
-                                                    //v_cnt:’Ê‚µƒJƒEƒ“ƒ^  nVerticesF‰‰ñ‚ÍƒƒbƒVƒ…ƒRƒ“ƒeƒi‚Ì’¸“_” ‚È‚Ì‚Å 0 ‚Æ‚È‚éB
+                    int offset = (vtx_idx_thru-nVertices);
                     _paIndexBuffer_data[i_cnt+0] = offset + val1;
                     _paIndexBuffer_data[i_cnt+1] = offset + val2;
                     _paIndexBuffer_data[i_cnt+2] = offset + val3;
-                    _paIndexBuffer_bone_combi_grp_index[i_cnt+0] = (int)(_paVtxBuffer_data[_paIndexBuffer_data[i_cnt+0]].bone_combi_grp_index);
-                    _paIndexBuffer_bone_combi_grp_index[i_cnt+1] = (int)(_paVtxBuffer_data[_paIndexBuffer_data[i_cnt+1]].bone_combi_grp_index);
-                    _paIndexBuffer_bone_combi_grp_index[i_cnt+2] = (int)(_paVtxBuffer_data[_paIndexBuffer_data[i_cnt+2]].bone_combi_grp_index);
                     i_cnt += 3;
                 }
             }
@@ -711,19 +633,40 @@ _TRACE_("ƒ{[ƒ“ƒRƒ“ƒrƒl[ƒVƒ‡ƒ“‚Åƒ‹[ƒv”²‚¯‚½AÅIbone_cb_idx="<<bone_cb_idx<<"
             pIb->Release();
 
             //î•ñ‚Í’¸‚¢‚½‚Ì‚Å Mesh‚¾‚¯‰ğ•úI
-            GGAF_RELEASE(pMeshContainer1->MeshData.pMesh);
-            pMeshContainer1->MeshData.pMesh = nullptr;
+            GGAF_RELEASE(pMeshContainer->MeshData.pMesh);
+            pMeshContainer->MeshData.pMesh = nullptr;
         } //for (int i = 0; i < draw_frame_num; i++) ƒtƒŒ[ƒ€‚Åƒ‹[ƒv
 
-
+        ///////////////////////////////////////////////
+        //’¸“_ƒoƒbƒtƒ@‚Ì infl_bone_id_order ‚ğ bone_id ‚©‚ç•ÏŠ·‚µ‚Äİ’è
+        for (int bone_cb_grp_idx = 0; bone_cb_grp_idx < _vec_bone_combi_grp_info.size(); bone_cb_grp_idx ++) {
+            BoneConbiGrp&  bone_cb_grp = _vec_bone_combi_grp_info[bone_cb_grp_idx];
+            int cb_grp_vertex_start = bone_cb_grp.grp_vertex_start;
+            int cb_grp_vertex_count = bone_cb_grp.grp_vertex_count;
+            //ƒ{[ƒ“ƒRƒ“ƒrƒl[ƒVƒ‡ƒ“‚Ì’¸“_ƒoƒbƒtƒ@‚Åƒ‹[ƒv
+            for (int v_idx = cb_grp_vertex_start; v_idx < cb_grp_vertex_start+cb_grp_vertex_count; v_idx++) {
+                SkinAniMeshModel::VERTEX* pVtx_data = &(_paVtxBuffer_data[v_idx]);
+                VERTEX_EX* pVtx_data_ex = &(paVtx_wk[v_idx]);
+                pVtx_data_ex->bone_combi_grp_index = bone_cb_grp_idx;
+                for (int i = 0; i < 4; i++) {
+                    byte infl_bone_id = pVtx_data_ex->infl_bone_id[i];
+                    if (infl_bone_id == 0xFF) {
+                        pVtx_data->infl_bone_id_order[i] = 0xFF;
+                    } else {
+                        DWORD infl_bone_id_order = bone_cb_grp.map_infl_bone_id_to_order[(DWORD)infl_bone_id];
+                        pVtx_data->infl_bone_id_order[i] = (byte)infl_bone_id_order;
+                    }
+                }
+            }
+        }
 ////////////////////////////////////////////////
         //•`‰æiDrawIndexedPrimitivej‚Ìƒpƒ‰ƒ[ƒ^ƒŠƒXƒgì¬
         std::vector<SkinAniMeshModel::INDEXPARAM> param_tmp;
 
         int paramno = 0; // = bone_combi_grp_index ‚Æ‚È‚é
 
-        int faceNoCnt_break = 0;
-        int prev_faceNoCnt_break = -1;
+        int face_idx_break = 0;
+        int prev_face_idx_break = -1;
 
         int bone_combi_grp_index = 0;
         int prev_bone_combi_grp_index = -1;
@@ -731,34 +674,35 @@ _TRACE_("ƒ{[ƒ“ƒRƒ“ƒrƒl[ƒVƒ‡ƒ“‚Åƒ‹[ƒv”²‚¯‚½AÅIbone_cb_idx="<<bone_cb_idx<<"
         UINT max_num_vertices = 0;
         UINT min_num_vertices = UINT_MAX;
         UINT vtx_idx1,vtx_idx2,vtx_idx3;
-        int faceNoCnt;
-        for (faceNoCnt = 0; faceNoCnt < _nFaces; faceNoCnt++) {
-            bone_combi_grp_index = _paIndexBuffer_bone_combi_grp_index[faceNoCnt*3 + 0]; //faceNoCnt(–Ê”Ô†)‚É‘Î‚·‚é’¸“_‚Ì‘®‚·‚éƒtƒŒ[ƒ€ƒƒbƒVƒ…’Ê‚µ”Ô†
+        int face_idx;
+        for (face_idx = 0; face_idx < _nFaces; face_idx++) {
+            //ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@”Ô†‚É‘Î‰‚·‚é’¸“_ƒoƒbƒtƒ@‚Ì bone_combi_grp_index
+            bone_combi_grp_index = (int)(paVtx_wk[_paIndexBuffer_data[face_idx*3+0]].bone_combi_grp_index);
             if (bone_combi_grp_index != prev_bone_combi_grp_index) {
-                prev_faceNoCnt_break = faceNoCnt_break;
-                faceNoCnt_break = faceNoCnt;
+                prev_face_idx_break = face_idx_break;
+                face_idx_break = face_idx;
 
                 param_tmp.push_back(SkinAniMeshModel::INDEXPARAM());
                 param_tmp[paramno].MaterialNo = 0;
                 param_tmp[paramno].BaseVertexIndex = 0;
                 param_tmp[paramno].MinIndex = UINT_MAX; //Ÿ‰ñƒuƒŒƒCƒN‚Éİ’èA•K‚¸ƒuƒŒƒCƒN‚µ‚½‚¢‚½‚ß•Ï‚È’l‚É‚µ‚Æ‚­
                 param_tmp[paramno].NumVertices = UINT_MAX; //Ÿ‰ñƒuƒŒƒCƒN‚Éİ’è
-                param_tmp[paramno].StartIndex = faceNoCnt*3;
+                param_tmp[paramno].StartIndex = face_idx*3;
                 param_tmp[paramno].PrimitiveCount = UINT_MAX; //Ÿ‰ñƒuƒŒƒCƒN‚Éİ’è
 
-                if (faceNoCnt > 0) {
+                if (face_idx > 0) {
                     param_tmp[paramno-1].MinIndex = min_num_vertices;
                     param_tmp[paramno-1].NumVertices = (UINT)(max_num_vertices - min_num_vertices + 1);
-                    param_tmp[paramno-1].PrimitiveCount = (UINT)(faceNoCnt_break - prev_faceNoCnt_break);
+                    param_tmp[paramno-1].PrimitiveCount = (UINT)(face_idx_break - prev_face_idx_break);
                     //ƒŠƒZƒbƒg
                     max_num_vertices = 0;
                     min_num_vertices = UINT_MAX;
                 }
                 paramno++;
             }
-            vtx_idx1 = _paIndexBuffer_data[faceNoCnt*3 + 0]; //faceNoCnt(–Ê”Ô†)‚É‘Î‚·‚é’¸“_”Ô†
-            vtx_idx2 = _paIndexBuffer_data[faceNoCnt*3 + 1];
-            vtx_idx3 = _paIndexBuffer_data[faceNoCnt*3 + 2];
+            vtx_idx1 = _paIndexBuffer_data[face_idx*3 + 0]; //faceNoCnt(–Ê”Ô†)‚É‘Î‚·‚é’¸“_”Ô†
+            vtx_idx2 = _paIndexBuffer_data[face_idx*3 + 1];
+            vtx_idx3 = _paIndexBuffer_data[face_idx*3 + 2];
 
             if (max_num_vertices < vtx_idx1) {
                 max_num_vertices = vtx_idx1;
@@ -784,7 +728,7 @@ _TRACE_("ƒ{[ƒ“ƒRƒ“ƒrƒl[ƒVƒ‡ƒ“‚Åƒ‹[ƒv”²‚¯‚½AÅIbone_cb_idx="<<bone_cb_idx<<"
         if (_nFaces > 0) {
             param_tmp[paramno-1].MinIndex = min_num_vertices;
             param_tmp[paramno-1].NumVertices = (UINT)(max_num_vertices - min_num_vertices + 1);
-            param_tmp[paramno-1].PrimitiveCount = (UINT)(faceNoCnt - faceNoCnt_break);
+            param_tmp[paramno-1].PrimitiveCount = (UINT)(face_idx - face_idx_break);
         }
         _index_param_num = paramno;
         _paIndexParam = NEW SkinAniMeshModel::INDEXPARAM[paramno];
@@ -798,22 +742,20 @@ _TRACE_("ƒ{[ƒ“ƒRƒ“ƒrƒl[ƒVƒ‡ƒ“‚Åƒ‹[ƒv”²‚¯‚½AÅIbone_cb_idx="<<bone_cb_idx<<"
         }
         _size_vertices = _size_vertex_unit * _nVertices;
 
-        _TRACE_("‚Ü‚Æ‚ßI");
+        _TRACE_("‚Ü‚Æ‚ßI------------");
         for (int i = 0; i < _nVertices; i++) {
             SkinAniMeshModel::VERTEX* pVtx = &(_paVtxBuffer_data[i]); //‘‚«‚Ş1’¸“_‚ÌŠJnƒAƒhƒŒƒX
+            VERTEX_EX* pVtx_data_ex = &(paVtx_wk[i]);
             _TRACE_("["<<i<<"]:"<<
-                    " ["<<(pVtx->bone_combi_grp_index)<<"] "<<
-                    //"bone_id_order:"<<(int)(_vec_bone_combi_info[((int)pVtx->bone_combi_index)].min_infl_bone_id_order)<<
-                    //"-"<<(int)(_vec_bone_combi_info[((int)pVtx->bone_combi_index)].max_infl_bone_id_order)<<
+                    "bone_combi_grp["<<(pVtx_data_ex->bone_combi_grp_index)<<"] "<<
                     " Vertex=("<<(pVtx->x)<<","<<(pVtx->y)<<","<<(pVtx->z)<<")"<<
-                    " infl_bone_id=("<<(int)(pVtx->infl_bone_id[0])<<","<<(int)(pVtx->infl_bone_id[1])<<","<<(int)(pVtx->infl_bone_id[2])<<","<<(int)(pVtx->infl_bone_id[3])<<")"<<
+                    " infl_bone_id=("<<(int)(pVtx_data_ex->infl_bone_id[0])<<","<<(int)(pVtx_data_ex->infl_bone_id[1])<<","<<(int)(pVtx_data_ex->infl_bone_id[2])<<","<<(int)(pVtx_data_ex->infl_bone_id[3])<<")"<<
                     " infl_bone_id_order=("<<(int)(pVtx->infl_bone_id_order[0])<<","<<(int)(pVtx->infl_bone_id_order[1])<<","<<(int)(pVtx->infl_bone_id_order[2])<<","<<(int)(pVtx->infl_bone_id_order[3])<<")"<<
                     " infl_weight=("<<(pVtx->infl_weight[0])<<","<<(pVtx->infl_weight[1])<<","<<(pVtx->infl_weight[2])<<","<<(pVtx->infl_weight[3])<<")"<<
                     " Normal=("<<(pVtx->nx)<<","<<(pVtx->ny)<<","<<(pVtx->nz)<<")"
 
             );
         }
-
         _TRACE_("ƒ{[ƒ“ƒRƒ“ƒrƒOƒ‹[ƒv");
         for (int i = 0; i < _vec_bone_combi_grp_info.size(); i++) {
             BoneConbiGrp& bcg = _vec_bone_combi_grp_info[i];
@@ -835,15 +777,15 @@ _TRACE_("ƒ{[ƒ“ƒRƒ“ƒrƒl[ƒVƒ‡ƒ“‚Åƒ‹[ƒv”²‚¯‚½AÅIbone_cb_idx="<<bone_cb_idx<<"
             }
             _TRACE_N_("\n");
         }
+        _TRACE_("‚Ü‚Æ‚ß‚¨‚í‚èI------------");
 
+        GGAF_DELETEARR(paVtx_wk);
     } //if (_paVtxBuffer_data == nullptr)
-
-
 
     if (_pVertexDeclaration == nullptr) {
         HRESULT hr;
         //D3DVERTEXELEMENT9 \‘¢‘Ì‚Ì”z—ñ—v‘f”
-        D3DVERTEXELEMENT9* paVtxelem = NEW D3DVERTEXELEMENT9[9];
+        D3DVERTEXELEMENT9* paVtxelem = NEW D3DVERTEXELEMENT9[7];
         WORD  st0_offset_next = 0;
         //ƒvƒ‰ƒCƒ}ƒŠ•”’¸“_ƒtƒH[ƒ}ƒbƒg
         //float x, y, z; // ’¸“_À•W
@@ -862,61 +804,45 @@ _TRACE_("ƒ{[ƒ“ƒRƒ“ƒrƒl[ƒVƒ‡ƒ“‚Åƒ‹[ƒv”²‚¯‚½AÅIbone_cb_idx="<<bone_cb_idx<<"
         paVtxelem[1].Usage = D3DDECLUSAGE_NORMAL;
         paVtxelem[1].UsageIndex = 0;
         st0_offset_next += sizeof(float)*3;
-        //float bone_combi_grp_index;
+        //DWORD color; // ’¸“_ƒJƒ‰[
         paVtxelem[2].Stream = 0;
         paVtxelem[2].Offset = st0_offset_next;
-        paVtxelem[2].Type = D3DDECLTYPE_FLOAT1;
+        paVtxelem[2].Type = D3DDECLTYPE_D3DCOLOR;
         paVtxelem[2].Method = D3DDECLMETHOD_DEFAULT;
-        paVtxelem[2].Usage = D3DDECLUSAGE_PSIZE;
+        paVtxelem[2].Usage = D3DDECLUSAGE_COLOR;
         paVtxelem[2].UsageIndex = 0;
-        st0_offset_next += sizeof(float)*1;
-        //DWORD color; // ’¸“_ƒJƒ‰[
-        paVtxelem[3].Stream = 0;
-        paVtxelem[3].Offset = st0_offset_next;
-        paVtxelem[3].Type = D3DDECLTYPE_D3DCOLOR;
-        paVtxelem[3].Method = D3DDECLMETHOD_DEFAULT;
-        paVtxelem[3].Usage = D3DDECLUSAGE_COLOR;
-        paVtxelem[3].UsageIndex = 0;
         st0_offset_next += sizeof(DWORD);
         //float tu, tv; // ƒeƒNƒXƒ`ƒƒÀ•W
-        paVtxelem[4].Stream = 0;
-        paVtxelem[4].Offset = st0_offset_next;
-        paVtxelem[4].Type = D3DDECLTYPE_FLOAT2;
-        paVtxelem[4].Method = D3DDECLMETHOD_DEFAULT;
-        paVtxelem[4].Usage = D3DDECLUSAGE_TEXCOORD;
-        paVtxelem[4].UsageIndex = 0;
+        paVtxelem[3].Stream = 0;
+        paVtxelem[3].Offset = st0_offset_next;
+        paVtxelem[3].Type = D3DDECLTYPE_FLOAT2;
+        paVtxelem[3].Method = D3DDECLMETHOD_DEFAULT;
+        paVtxelem[3].Usage = D3DDECLUSAGE_TEXCOORD;
+        paVtxelem[3].UsageIndex = 0;
         st0_offset_next += sizeof(float)*2;
         //float infl_weight[4];
+        paVtxelem[4].Stream = 0;
+        paVtxelem[4].Offset = st0_offset_next;
+        paVtxelem[4].Type = D3DDECLTYPE_FLOAT4;
+        paVtxelem[4].Method = D3DDECLMETHOD_DEFAULT;
+        paVtxelem[4].Usage = D3DDECLUSAGE_BLENDWEIGHT;
+        paVtxelem[4].UsageIndex = 0;
+        st0_offset_next += sizeof(float)*4;
+        // byte infl_bone_id_order[4];
         paVtxelem[5].Stream = 0;
         paVtxelem[5].Offset = st0_offset_next;
-        paVtxelem[5].Type = D3DDECLTYPE_FLOAT4;
+        paVtxelem[5].Type = D3DDECLTYPE_UBYTE4;
         paVtxelem[5].Method = D3DDECLMETHOD_DEFAULT;
-        paVtxelem[5].Usage = D3DDECLUSAGE_BLENDWEIGHT;
-        paVtxelem[5].UsageIndex = 0;
-        st0_offset_next += sizeof(float)*4;
-        // byte  infl_bone_id[4];
-        paVtxelem[6].Stream = 0;
-        paVtxelem[6].Offset = st0_offset_next;
-        paVtxelem[6].Type = D3DDECLTYPE_UBYTE4;
-        paVtxelem[6].Method = D3DDECLMETHOD_DEFAULT;
-        paVtxelem[6].Usage = D3DDECLUSAGE_BLENDINDICES;
-        paVtxelem[6].UsageIndex = 0;
-        st0_offset_next += sizeof(byte)*4;
-        // byte  infl_bone_id_order[4];
-        paVtxelem[7].Stream = 0;
-        paVtxelem[7].Offset = st0_offset_next;
-        paVtxelem[7].Type = D3DDECLTYPE_UBYTE4;
-        paVtxelem[7].Method = D3DDECLMETHOD_DEFAULT;
-        paVtxelem[7].Usage = D3DDECLUSAGE_BLENDINDICES;
-        paVtxelem[7].UsageIndex = 1;
+        paVtxelem[5].Usage = D3DDECLUSAGE_BLENDINDICES;
+        paVtxelem[5].UsageIndex = 1;
         st0_offset_next += sizeof(byte)*4;
         //D3DDECL_END()
-        paVtxelem[8].Stream = 0xFF;
-        paVtxelem[8].Offset = 0;
-        paVtxelem[8].Type = D3DDECLTYPE_UNUSED;
-        paVtxelem[8].Method = 0;
-        paVtxelem[8].Usage = 0;
-        paVtxelem[8].UsageIndex = 0;
+        paVtxelem[6].Stream = 0xFF;
+        paVtxelem[6].Offset = 0;
+        paVtxelem[6].Type = D3DDECLTYPE_UNUSED;
+        paVtxelem[6].Method = 0;
+        paVtxelem[6].Usage = 0;
+        paVtxelem[6].UsageIndex = 0;
 
         hr = God::_pID3DDevice9->CreateVertexDeclaration( paVtxelem, &(_pVertexDeclaration) );
         checkDxException(hr, D3D_OK, "God::_pID3DDevice9->CreateVertexDeclaration ¸”s model="<<(_model_name));
@@ -1003,6 +929,46 @@ void SkinAniMeshModel::setFrameInfo(SkinAniMeshFrame* prm_pFrame) {
         setFrameInfo((SkinAniMeshFrame*)prm_pFrame->pFrameSibling);
     }
 }
+void SkinAniMeshModel::setAnimationFrameIndex() {
+    _mapAnimationSet_AniSetindex.clear();
+    _num_animation_set = _pAniControllerBase->GetMaxNumAnimationSets();
+    _papaBool_AnimationSetIndex_BoneFrameIndex_is_act = NEW bool*[_num_animation_set];
+
+    HRESULT hr;
+    for (UINT ani_set_index = 0; ani_set_index < _num_animation_set; ani_set_index++) {
+
+        ID3DXAnimationSet* pAnimationSet = nullptr;
+        hr = _pAniControllerBase->GetAnimationSet(ani_set_index, &(pAnimationSet)); //ƒAƒjƒ[ƒVƒ‡ƒ“ƒZƒbƒg•Û
+        checkDxException(hr, D3D_OK, "¸”s‚µ‚Ü‚µ‚½");
+        _mapAnimationSet_AniSetindex[pAnimationSet] = ani_set_index;
+        int num_animation = pAnimationSet->GetNumAnimations();
+        std::vector<LPCSTR> vec_target_bone_frame_name; //ƒAƒjƒ[ƒVƒ‡ƒ“‚·‚éƒtƒŒ[ƒ€(ƒ{[ƒ“)‚Ì–¼‘OƒŠƒXƒg
+        for (UINT ani_index = 0; ani_index < num_animation; ++ani_index) {
+            LPCSTR target_bone_frame_name = nullptr;
+            hr = pAnimationSet->GetAnimationNameByIndex(ani_index, &target_bone_frame_name); //ƒAƒjƒ[ƒVƒ‡ƒ“‚·‚éƒtƒŒ[ƒ€‚Ì–¼‘O
+            checkDxException(hr, D3D_OK, "¸”s‚µ‚Ü‚µ‚½");
+            vec_target_bone_frame_name.push_back(target_bone_frame_name);
+        }
+
+        //ƒAƒjƒ[ƒVƒ‡ƒ“‚·‚éƒtƒŒ[ƒ€‚Ì–¼‘O‚ªƒtƒŒ[ƒ€‚É‘¶İ‚·‚é‚©‚Ç‚¤‚©‚ğ’²‚×A
+        //ƒAƒjƒ[ƒVƒ‡ƒ“‚·‚éƒtƒŒ[ƒ€ƒCƒ“ƒfƒbƒNƒX‚ğ“à•”•Û‚µ‚Ä‚¨‚­
+        _papaBool_AnimationSetIndex_BoneFrameIndex_is_act[ani_set_index] = NEW bool[_tmp_frame_index+1];
+        for (UINT frame_index = 0; frame_index < _vecAllBoneFrame.size(); frame_index++) {
+            _papaBool_AnimationSetIndex_BoneFrameIndex_is_act[ani_set_index][frame_index] = false;
+            LPSTR frame_name = _vecAllBoneFrame[frame_index]->Name;
+            if (frame_name) {
+                for (int n = 0; n < vec_target_bone_frame_name.size(); n++) {
+                    LPCSTR animation_target_bone_frame_name = vec_target_bone_frame_name[n];
+                    if (strcmp(animation_target_bone_frame_name, frame_name) == 0) {
+                        _papaBool_AnimationSetIndex_BoneFrameIndex_is_act[ani_set_index][frame_index] = true;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+}
 int SkinAniMeshModel::getOffsetFromElem( D3DVERTEXELEMENT9 *elems, D3DDECLUSAGE usage ) {
     D3DVERTEXELEMENT9 *e = elems;
     while( e->Stream != 0xff ) {
@@ -1051,7 +1017,6 @@ SkinAniMeshModel::~SkinAniMeshModel() {
     GGAF_DELETEARR(_paMaterial_default);
     GGAF_DELETEARR(_paVtxBuffer_data);
     GGAF_DELETEARR(_paIndexBuffer_data);
-    GGAF_DELETEARR(_paIndexBuffer_bone_combi_grp_index);
     GGAF_DELETEARR(_paIndexParam);
 //    GGAF_DELETE(_pFrameRoot); //_pAllocHierarchy‚ğÁ‚·‚Æ_pFrameRoot‚ÍÁ‚³‚È‚­‚Ä—Ç‚¢‚Æv‚¤
 }

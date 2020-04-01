@@ -39,7 +39,6 @@ class Puppeteer : public GgafCore::Object {
 private:
     /** [r]パペットのアニメーションコントローラー */
     ID3DXAnimationController* _pAc;
-//    FLOAT _track_speed;
     /**
      * 芸(モーション) .
      */
@@ -49,12 +48,8 @@ private:
         LPD3DXANIMATIONSET _pAnimationSet;
         UINT _animation_set_index;
         double _period;
-        /** １ループの時間 */
-//        frame _one_loop_frames;
         /** ローカルタイム */
         GgafCore::AccelerationValue<double> _local_time;
-        /** 1フレームのローカルタイム増分 */
-//        double _delta_local_time;
         /** 目標ループ回数(1.5回などの指定も可能) */
         double _target_loop;
 
@@ -99,8 +94,6 @@ public:
      * @return
      */
     explicit Puppeteer(ID3DXAnimationController* prm_pAc_cloned);
-
-//    void restore(ID3DXAnimationController* prm_pAc_cloned);
 
     /**
      * プレイしてもらう（＝パペットが操られる） .
