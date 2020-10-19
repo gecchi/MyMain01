@@ -21,6 +21,7 @@ bool God::g_should_reboot_ = false;
 
 God::God() :
       DefaultGod() {
+
     pDepoManager_ = NEW DepositoryManager("DepositoryManager");
     pXpmManager_ = NEW XpmManager("XpmManager");
     God::pVbtn_PLAY_ = NEW VirtualButton(FILE_INPUT_PLAY_REPLAY);

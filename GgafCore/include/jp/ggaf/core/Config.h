@@ -27,6 +27,8 @@ class Config {
 
 
 public:
+    /** [r/w] FPS */
+    static frame FPS;
     /** [r/w] 最高フレームスキップ数。つまりどんなに重くも最低描画するフレーム間隔。*/
     static uint32_t MAX_SKIP_FRAME;
     /** [r/w] 60fps→40fpsの処理落ち演出を行うかどうかの境界。1フレームあたり内部描画回数で設定 */

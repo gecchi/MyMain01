@@ -20,12 +20,6 @@ unsigned int God::_num_drawing = 0;
 unsigned int God::_num_active_actor = 0;
 
 God* God::_pGod = nullptr;
-DWORD God::_aaTime_offset_of_next_view[3][60] = {
-        {17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16},
-        {25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25},
-        {33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34,33,33,34}
-};
-double God::_aTime_offset_of_next_view[3] = { 1.0/60.0, 1.5/60.0, 2.0/60.0};
 
 God::God() : Object(),
   _pSpacetime(nullptr),
@@ -64,7 +58,50 @@ God::God() : Object(),
     _have_to_rest_flg = false;
     _is_resting_flg   = false;
     _was_finished_flg = false;
+
+    //_base_fps = CONFIG::FPS;
+    _apaTime_offset_of_next_view[0] = getArrTimeOffset(1000, CONFIG::FPS);
+    _apaTime_offset_of_next_view[1] = getArrTimeOffset(1500, CONFIG::FPS);
+    _apaTime_offset_of_next_view[2] = getArrTimeOffset(2000, CONFIG::FPS);
+    _aTime_offset_of_next_view[0] = 1.0 / CONFIG::FPS;
+    _aTime_offset_of_next_view[1] = 1.5 / CONFIG::FPS;
+    _aTime_offset_of_next_view[2] = 2.0 / CONFIG::FPS;
 }
+
+
+//void God::setSpacetimeFps(int prm_fps) {
+//    GGAF_DELETEARR_NULLABLE(_apaTime_offset_of_next_view[0]);
+//    GGAF_DELETEARR_NULLABLE(_apaTime_offset_of_next_view[1]);
+//    GGAF_DELETEARR_NULLABLE(_apaTime_offset_of_next_view[2]);
+//    _base_fps = prm_fps;
+//    _apaTime_offset_of_next_view[0] = getArrTimeOffset(1000, _base_fps);
+//    _apaTime_offset_of_next_view[1] = getArrTimeOffset(1500, _base_fps);
+//    _apaTime_offset_of_next_view[2] = getArrTimeOffset(2000, _base_fps);
+//    _aTime_offset_of_next_view[0] = 1.0 / _base_fps;
+//    _aTime_offset_of_next_view[1] = 1.5 / _base_fps;
+//    _aTime_offset_of_next_view[2] = 2.0 / _base_fps;
+//}
+
+DWORD* God::getArrTimeOffset(DWORD sec, DWORD fps) {
+    DWORD base = sec / fps;
+    DWORD r = sec % fps;
+    double rr = 1.0*r / fps;
+    DWORD* paTimeOffset = new DWORD[fps];
+    double x = 1.0;
+
+    for (int i = 0; i < fps; i++) {
+        x += rr;
+        if (x > 1.0) {
+            paTimeOffset[i] = base + 1;
+            x -= 1.0;
+        } else {
+            paTimeOffset[i] = base;
+        }
+    }
+    return paTimeOffset;
+
+}
+
 
 void God::be() {
 
@@ -137,9 +174,9 @@ void God::be() {
         _frame_of_God++;
         presentSpacetimeMoment(); //①
         executeSpacetimeJudge();  //②
-        _time_of_next_view += _aaTime_offset_of_next_view[_slowdown_mode][_cnt_frame];
+        _time_of_next_view += _apaTime_offset_of_next_view[_slowdown_mode][_cnt_frame];
         _cnt_frame++;
-        if (_cnt_frame == 60) { _cnt_frame = 0; }
+        if (_cnt_frame >= CONFIG::FPS) { _cnt_frame = 0; }
         if (timeGetTime() >= _time_of_next_view) { //描画タイミングフレームになった、或いは過ぎている場合
             //makeSpacetimeMaterialize はパス
             _is_materialized_flg = false;
@@ -296,6 +333,10 @@ void God::clean() {
             DeleteCriticalSection(&(God::CS2));
         }
 
+
+        GGAF_DELETEARR(_apaTime_offset_of_next_view[0]);
+        GGAF_DELETEARR(_apaTime_offset_of_next_view[1]);
+        GGAF_DELETEARR(_apaTime_offset_of_next_view[2]);
         //神例外 _pException_god が起こっているかもしれない。
         _TRACE_("GGAF_DELETE_NULLABLE(_pException_god);");
         GGAF_DELETE_NULLABLE(_pException_god);
@@ -400,7 +441,7 @@ void* God::receive(uint64_t prm_cradle_no, Object* prm_pReceiver) {
 
     if (pCradle == nullptr) {
         //ゆりかごすら無いよエラー発生！、エラーメッセージを作る。
-        _TRACE_(FUNC_NAME<<" ゆりかすら無いよエラー発生！");
+        _TRACE_(FUNC_NAME<<" ゆりかごすら無いよエラー発生！");
         God::debuginfo();
         throwCriticalException("Error! prm_cradle_no="<<prm_cradle_no<<" ゆりかごリストはnullptrで全て祝福済みしています。\n"
                                    "createCradleとreceiveの対応が取れていません。\n"

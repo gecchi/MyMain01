@@ -55,8 +55,13 @@ public:
     /** [r] 自身 */
     static God* _pGod;
     /** [r] 次にこの世を活動させる時間のオフセット */
-    static DWORD _aaTime_offset_of_next_view[3][60];
-    static double _aTime_offset_of_next_view[3];
+    //static DWORD _aaTime_offset_of_next_view[3][60];
+    //static double _aTime_offset_of_next_view[3];
+
+    //WORD _base_fps;
+    DWORD* _apaTime_offset_of_next_view[3];
+    double _aTime_offset_of_next_view[3];
+
     /** [r] 生成神(別スレッド)のエラー状態。nullptr＝正常稼働中／not nullptr＝異常発生 */
     CriticalException* _pException_god;
 
@@ -100,6 +105,7 @@ public:
     bool _sync_frame_time;
     bool _was_cleaned;
 
+
 public:
     /**
      * コンストラクタ .
@@ -114,6 +120,13 @@ public:
      * アプリケーションは、最小時間単位でこのメソッドをひたすら呼び続けてください。<BR>
      */
     void be();
+
+    /**
+     * この世のFPSを設定する .
+     * 未設定の場合はデフォルトで 60 FPS
+     * @param prm_fps FPS値
+     */
+    void setSpacetimeFps(int prm_fps);
 
     /**
      * この世の、とある最小時間単位の瞬間を創造 .
@@ -185,6 +198,9 @@ public:
 
 
 private:
+
+    DWORD* getArrTimeOffset(DWORD sec, DWORD fps);
+
     /**
      * 神にゆりかごを行う（メインスレッドが使用） .
      * @param prm_cradle_no	ゆりかご番号
