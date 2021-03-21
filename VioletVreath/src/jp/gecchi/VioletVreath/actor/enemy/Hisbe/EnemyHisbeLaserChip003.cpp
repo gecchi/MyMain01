@@ -39,7 +39,7 @@ void EnemyHisbeLaserChip003::onActive() {
     getStatus()->reset();
     pRikishaLeader_->start(RELATIVE_COORD_DIRECTION); //向てる方向にスプライン座標をワールド変換
     sp_index_ = 0;
-    pScrollingScene_ = ((DefaultScene*)(getSceneMediator()->getPlatformScene()))->getNearestScrollingScene();
+    registerpScrollingSplineLeader(pRikishaLeader_);
 }
 
 void EnemyHisbeLaserChip003::processBehavior() {

@@ -160,7 +160,6 @@ while true
       box[box_index].Y = (min_y+((max_y-min_y) / 2)).round
       box[box_index].Z = (min_z+((max_z-min_z) / 2)).round
 
-
       #どういうプリズムか調査
       counter = [0,0,0,0,0,0,0,0]
       for vidx in 0..35
@@ -347,22 +346,12 @@ while true
   end
 
   #各BOXの6面の内、最低限描画しなければいけない面を解析
-  r01_exArea = exArea.getAnalyze01
+  exArea_AnalyzeDispFace = exArea.getAnalyzeDispFace
 
-  #print "r01_exArea.dump01---------------\n"
-  #r01_exArea.dump01
-  #r01_exArea.dump02
-
-  r02_exArea = r01_exArea.getAnalyze02(exArea)
-
-  #r02_exArea.dump02
-
-  r03_exArea = r02_exArea.getAnalyze03(exArea)
-  r03_2_exArea = r03_exArea.getAnalyze03(exArea) #Z方向連結を行うためもう一回getAnalyze03
-
-  #  #r03_2_exArea.dump02
-
-  r04_exArea = r03_2_exArea.getAnalyze04(max_x_colliwall_num, exArea)
+  #BOXの当たり判定を最適化
+  exArea_AnalyzeHitarea = exArea_AnalyzeDispFace.getAnalyzeBoxHitarea(max_x_colliwall_num, exArea)
+  #プリズムの当たり判定を最適化
+  exArea_AnalyzeHitarea = exArea_AnalyzeHitarea.getAnalyzePrizmHitarea(max_x_colliwall_num, exArea)
 
 
   #データ出力開始
@@ -387,7 +376,7 @@ while true
     len = 0
     for h in 0..$area_height-1
       for w in 0..$area_width-1
-        if r01_exArea.area[l][h][w] >= 0 then
+        if exArea_AnalyzeDispFace.area[l][h][w] >= 0 then
           len += 1;
         end
       end #w
@@ -403,15 +392,15 @@ while true
   for l in 0..$area_len-1
     for h in 0..$area_height-1
        for w in 0..$area_width-1
-         if r01_exArea.area[l][h][w] >= 0 then
+         if exArea_AnalyzeDispFace.area[l][h][w] >= 0 then
            fw.print exArea.area[l][h][w]," "
-           fw.print h," ",w," ",r01_exArea.area[l][h][w]," "
-           fw.print r04_exArea.area[l][h][w][0]," ",
-                     r04_exArea.area[l][h][w][1]," ",
-                     r04_exArea.area[l][h][w][2]," ",
-                     r04_exArea.area[l][h][w][3]," ",
-                     r04_exArea.area[l][h][w][4]," ",
-                     r04_exArea.area[l][h][w][5]
+           fw.print h," ",w," ",exArea_AnalyzeDispFace.area[l][h][w]," "
+           fw.print exArea_AnalyzeHitarea.area[l][h][w][0]," ",
+                     exArea_AnalyzeHitarea.area[l][h][w][1]," ",
+                     exArea_AnalyzeHitarea.area[l][h][w][2]," ",
+                     exArea_AnalyzeHitarea.area[l][h][w][3]," ",
+                     exArea_AnalyzeHitarea.area[l][h][w][4]," ",
+                     exArea_AnalyzeHitarea.area[l][h][w][5]
            fw.print "\t"
          end
       end #w

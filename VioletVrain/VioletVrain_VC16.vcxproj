@@ -75,7 +75,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{00AD85EE-8B26-41BF-A92F-61B2EB53A7D7}</ProjectGuid>
     <RootNamespace>VioletVrain_VC14</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
     <ProjectName>VioletVrain</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

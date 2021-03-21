@@ -15,7 +15,7 @@ ColliAAPyramidActor* ColliAAPyramidActor::_pObj = nullptr;
 
 ColliAAPyramidActor::ColliAAPyramidActor(const char* prm_name) : GgafDx::AAPyramidActor(prm_name, nullptr) {
     _class_name = "ColliAAPyramidActor";
-    setAlpha(0.8);
+    setAlpha(0.98);
 }
 
 ColliAAPyramidActor* ColliAAPyramidActor::get() {

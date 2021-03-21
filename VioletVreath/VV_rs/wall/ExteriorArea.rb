@@ -55,6 +55,7 @@ class Box
     @X = 0
     @Y = 0
     @Z = 0
+    #pos_info=0 の場合はBOX
     @pos_info = 0
   end
 end
@@ -65,9 +66,9 @@ class ExteriorArea
 
   #KARA_VAL：全くの未設定
   KARA_VAL = -1
-  #KABE_BOX_VAL:0＝BOX、0より大きい＝@pos_infoの値
+  #KABE_BOX_VAL:0＝BOX、0より大きい場合は @pos_infoの値、つまりPRISMまたはPYRAMID
   KABE_BOX_VAL = 0   #Box.@pos_infoの値
-  #fullfullにより、BOXでもプリズムでもないけど当たり判定が設定済み
+  #fullfullにより、BOXでもプリズムでもないけど当たり判定が設定済み,6面とも描画不要
   FULL_VAL = -2
   #nobashi_zumi 専用フラグ。その座標はもう当たり判定伸ばし済み
   SUMI_FLG = -3
@@ -284,7 +285,7 @@ class ExteriorArea
   end
 
   #BOX６面の内、最低限描画しなければいけない面を解析
-  def getAnalyze01
+  def getAnalyzeDispFace
      ret = ExteriorArea.new(@len, @height, @width)
 
      for x in 0..@len-1
@@ -741,7 +742,6 @@ class ExteriorArea
               end
             end
 
-
             if isPyramid(d_box) then #dが開けれるか
               if    (box_elem == POS_PYRAMID_NNN && d_box == POS_PYRAMID_NPN) then
                 type = type ^ FACE_D_BIT
@@ -788,8 +788,8 @@ class ExteriorArea
               elsif (box_elem == POS_PYRAMID_PPP && c_box == POS_PYRAMID_PPN) then
                 type = type ^ FACE_C_BIT
               end
-            end 
-            
+            end
+
 #            ret.area[x][y][z] = sprintf("%02d ", type)
             ret.area[x][y][z] = type
 
@@ -802,120 +802,278 @@ class ExteriorArea
 
   end
 
-  #+Y -Y +Z -Z 方向についてBOXの描画不要の面（開いている面と呼ぶ）方向に、
-  #当たり判定AABを伸ばせるかどうか解析
-  def getAnalyze02(exArea)
+
+
+  #BOXの当たり判定を最適化したものを得る
+  def getAnalyzeBoxHitarea(prm_max_x_colliwall_num, exArea)
     ret = ExteriorArea.new(@len, @height, @width)
 
     nobashi_zumi = ExteriorArea.new(@len, @height, @width)
 
-
     for x in 0..@len-1
       for y in 0..@height-1
         for z in 0..@width-1
-          ret.area[x][y][z] = [0,0,0,0,0,0]
+
           if exArea.area[x][y][z] == KARA_VAL then
             ret.area[x][y][z] = [0,0,0,0,0,0]
+            next
           elsif exArea.area[x][y][z] == FULL_VAL then
-             next
-          elsif exArea.area[x][y][z] == KABE_BOX_VAL then
-            #自身がBOXの場合
-            ret.area[x][y][z] = [1,1,1,1,1,1]
-            nobashi_zumi.area[x][y][z] = SUMI_FLG
-
-            #6面の開いている方向の当たり判定長さを設定
-            #abcdef
-
-            #    c
-            # a b d f
-            #      e
-
-            #dが開いている        543210
-            #                     abcdef
-            if @area[x][y][z] & FACE_D_BIT == 0 then
-              #d方向にどのぐらい当たり判定を伸ばせばいいか？
-              hitarea_idx = 1
-              hitarea_len = 1
-              while true
-                if (y-hitarea_idx >= 0 &&  @area[x][y-hitarea_idx][z] == FULL_VAL && nobashi_zumi.area[x][y-hitarea_idx][z] != SUMI_FLG) then
-                  nobashi_zumi.area[x][y-hitarea_idx][z] = SUMI_FLG
-                  hitarea_len += 1
-                else
-                  break;
-                end
-                hitarea_idx += 1
-              end
-              ret.area[x][y][z][FACE_D_IDX] = hitarea_len
-            end
-
-            #aが開いている        543210
-            #                     abcdef
-            if @area[x][y][z] & FACE_A_BIT == 0 then
-              #a方向にどのぐらい当たり判定を伸ばせばいいか？
-              hitarea_idx = 1
-              hitarea_len = 1
-              while true
-                if (y+hitarea_idx <= @height-1 &&  @area[x][y+hitarea_idx][z] == FULL_VAL && nobashi_zumi.area[x][y+hitarea_idx][z] != SUMI_FLG) then
-                  nobashi_zumi.area[x][y+hitarea_idx][z] = SUMI_FLG
-                  hitarea_len += 1
-                else
-                  break;
-                end
-                hitarea_idx += 1
-              end
-              ret.area[x][y][z][FACE_A_IDX] = hitarea_len
-            end
-
-            #eが開いている        543210
-            #                     abcdef
-            if @area[x][y][z] & FACE_E_BIT == 0 then
-              #e方向にどのぐらい当たり判定を伸ばせばいいか？
-              hitarea_idx = 1
-              hitarea_len = 1
-              while true
-                if (z-hitarea_idx >= 0 &&  @area[x][y][z-hitarea_idx] == FULL_VAL && nobashi_zumi.area[x][y][z-hitarea_idx] != SUMI_FLG) then
-                  nobashi_zumi.area[x][y][z-hitarea_idx] = SUMI_FLG
-                  hitarea_len += 1
-                else
-                  break;
-                end
-                hitarea_idx += 1
-              end
-              ret.area[x][y][z][FACE_E_IDX] = hitarea_len
-            end
-
-            #cが開いている        543210
-            #                     abcdef
-            if @area[x][y][z] & FACE_C_BIT == 0 then
-              #e方向にどのぐらい当たり判定を伸ばせばいいか？
-              hitarea_idx = 1
-              hitarea_len = 1
-              while true
-                if (z+hitarea_idx <= @width-1 &&  @area[x][y][z+hitarea_idx] == FULL_VAL && nobashi_zumi.area[x][y][z+hitarea_idx] != SUMI_FLG) then
-                  nobashi_zumi.area[x][y][z+hitarea_idx] = SUMI_FLG
-                  hitarea_len += 1
-                else
-                  break;
-                end
-                hitarea_idx += 1
-              end
-#              p "hitarea_len=",hitarea_len
-#              p "befor ",ret.area[x][y][z]
-              ret.area[x][y][z][FACE_C_IDX] = hitarea_len
-#              p "after ",ret.area[x][y][z]
-            end
-
-
-#           print "@area[",x,"][",y,"][",z,"]=",@area[x][y][z],"\n"
-#           print "@area[",x,"][",y,"][",z,"] & FACE_C_BIT=",(@area[x][y][z] & FACE_C_BIT),"\n"
+            next
           elsif isPrism(exArea.area[x][y][z])  then
             #自身がプリズムの場合
             ret.area[x][y][z] = [1,1,1,1,1,1]
+            next
           elsif isPyramid(exArea.area[x][y][z])  then
             #自身がピラミッドの場合
             ret.area[x][y][z] = [1,1,1,1,1,1]
-          end
+            next
+          elsif exArea.area[x][y][z] == KABE_BOX_VAL then
+            #自身がBOXの場合
+            if nobashi_zumi.area[x][y][z] == SUMI_FLG then
+              ret.area[x][y][z] = [0,0,0,0,0,0]
+              next
+            end
 
+            ret.area[x][y][z] = [1,1,1,1,1,1]
+
+            #    c
+            # a b d f
+            #      e
+
+            #543210
+            #abcdef
+#############################
+            # Z+ 方向(c方向)に伸ばせれるだけ伸ばす。　
+            hitarea_c_len = @width - z
+            for z_idx in 0..@width - z - 1
+              if nobashi_zumi.area[x][y][z+z_idx] == SUMI_FLG then
+                #伸ばし終わり
+                hitarea_c_len = z_idx
+                break
+              else
+                if exArea.area[x][y][z+z_idx] == FULL_VAL || exArea.area[x][y][z+z_idx] == KABE_BOX_VAL then
+                  #のびる
+                  nobashi_zumi.area[x][y][z+z_idx] = SUMI_FLG
+                else
+                  #伸ばし終わり
+                  hitarea_c_len = z_idx
+                  break
+                end
+              end
+            end
+
+#############################
+            # Z- 方向（e方向）に伸ばせれるだけ伸ばす。　
+            hitarea_e_len = z + 1
+            for z_idx in 0..z
+              if z_idx != 0 && nobashi_zumi.area[x][y][z-z_idx] == SUMI_FLG then
+                #伸ばし終わり
+                hitarea_e_len = z_idx
+                break
+              else
+                if exArea.area[x][y][z-z_idx] == FULL_VAL || exArea.area[x][y][z-z_idx] == KABE_BOX_VAL then
+                  #のびる
+                  nobashi_zumi.area[x][y][z-z_idx] = SUMI_FLG
+                else
+                  #伸ばし終わり
+                  hitarea_e_len = z_idx
+                  break
+                end
+              end
+            end
+            if hitarea_c_len == 0 && hitarea_e_len == 0 then
+              next
+            end
+            ret.area[x][y][z][FACE_C_IDX] = hitarea_c_len
+            ret.area[x][y][z][FACE_E_IDX] = hitarea_e_len
+
+            z_idx_begin = -(hitarea_e_len-1)
+            z_idx_end   = hitarea_c_len-1
+#############################
+            #今度は伸びた Z 方向の全てについて Y 方向に方向に伸ばせれるだけ伸ばす
+            #まず Y+ 方向（a方向）に伸ばせれるだけ伸ばす。　
+            is_finish_flg = false
+            hitarea_a_len = @height - y
+
+            for y_idx in 0..@height - y - 1
+              for z_idx in z_idx_begin..z_idx_end
+
+                if y_idx != 0 && nobashi_zumi.area[x][y+y_idx][z+z_idx] == SUMI_FLG then
+                  #伸ばし終わり
+                  is_finish_flg = true
+                  break
+                else
+                  if exArea.area[x][y+y_idx][z+z_idx] == FULL_VAL || exArea.area[x][y+y_idx][z+z_idx] == KABE_BOX_VAL then
+                    #伸びる可能性あり
+                  else
+                    #伸ばし終わり
+                    is_finish_flg = true
+                    break
+                  end
+                end
+
+              end  #z_idx
+
+              if is_finish_flg then
+                #伸び数確定、一つ前の値
+                hitarea_a_len = y_idx
+                break
+              else
+                #伸びるが確定、済を埋める。
+                for z_idx in z_idx_begin..z_idx_end
+                  nobashi_zumi.area[x][y+y_idx][z+z_idx] = SUMI_FLG
+                end
+              end
+
+            end  #y_idx
+            ret.area[x][y][z][FACE_A_IDX] = hitarea_a_len
+
+#############################
+            #次に Y- 方向（d方向）に伸ばせれるだけ伸ばす。　
+            is_finish_flg = false
+            hitarea_d_len = y + 1
+
+            for y_idx in 0..y
+              for z_idx in z_idx_begin..z_idx_end
+
+                if y_idx != 0 && nobashi_zumi.area[x][y-y_idx][z+z_idx] == SUMI_FLG then
+                  #伸ばし終わり
+                  is_finish_flg = true
+                  break
+                else
+                  if exArea.area[x][y-y_idx][z+z_idx] == FULL_VAL || exArea.area[x][y-y_idx][z+z_idx] == KABE_BOX_VAL then
+                    #伸びる可能性あり
+                  else
+                    #伸ばし終わり
+                    is_finish_flg = true
+                    break
+                  end
+                end
+
+              end  #z_idx
+
+              if is_finish_flg then
+                #伸び数確定、一つ前の値
+                hitarea_d_len = y_idx
+                break
+              else
+                #伸びるが確定、済を埋める。
+                for z_idx in z_idx_begin..z_idx_end
+                  nobashi_zumi.area[x][y-y_idx][z+z_idx] = SUMI_FLG
+                end
+              end
+
+            end  #y_idx
+            ret.area[x][y][z][FACE_D_IDX] = hitarea_d_len
+
+            y_idx_begin = -(hitarea_d_len-1)
+            y_idx_end   = hitarea_a_len-1
+
+#############################
+            #今度は伸びた Z+ Y+方向の全てについて X+ 方向に方向に伸ばせれるだけ伸す
+            #まず X+ 方向（f方向）に伸ばせれるだけ伸ばす。　
+
+            is_finish_flg = false
+            f_len = @len - x
+            if f_len > prm_max_x_colliwall_num then
+              f_len = prm_max_x_colliwall_num
+            end
+            hitarea_f_len = f_len
+
+            for x_idx in 0..f_len - 1
+              for y_idx in y_idx_begin..y_idx_end
+                for z_idx in z_idx_begin..z_idx_end
+
+                  if x_idx != 0 && nobashi_zumi.area[x+x_idx][y+y_idx][z+z_idx] == SUMI_FLG then
+                    #伸ばし終わり
+                    is_finish_flg = true
+                    break
+                  else
+                    if exArea.area[x+x_idx][y+y_idx][z+z_idx] == FULL_VAL || exArea.area[x+x_idx][y+y_idx][z+z_idx] == KABE_BOX_VAL then
+                      #伸びる可能性あり
+                    else
+                      #伸ばし終わり
+                      is_finish_flg = true
+                      break
+                    end
+                  end
+
+                end  #z_idx
+
+                if is_finish_flg then
+                  break
+                end
+
+              end  #y_idx
+
+              if is_finish_flg then
+                #伸び数確定、一つ前の値
+                hitarea_f_len = x_idx
+                break
+              else
+                #伸びるが確定、済を埋める。
+                for y_idx in y_idx_begin..y_idx_end
+                  for z_idx in z_idx_begin..z_idx_end
+                    nobashi_zumi.area[x+x_idx][y+y_idx][z+z_idx] = SUMI_FLG
+                  end
+                end
+              end
+
+            end  #x_idx
+            ret.area[x][y][z][FACE_F_IDX] = hitarea_f_len
+
+#######################
+            #次に X- 方向（b方向）に伸ばせれるだけ伸ばす。
+            is_finish_flg = false
+            b_len = x + 1
+            if b_len > prm_max_x_colliwall_num then
+              b_len = prm_max_x_colliwall_num
+            end
+            hitarea_b_len = b_len
+
+            for x_idx in 0..b_len - 1
+              for y_idx in y_idx_begin..y_idx_end
+                for z_idx in z_idx_begin..z_idx_end
+
+                  if x_idx != 0 && nobashi_zumi.area[x-x_idx][y+y_idx][z+z_idx] == SUMI_FLG then
+                    #伸ばし終わり
+                    is_finish_flg = true
+                    break
+                  else
+                    if exArea.area[x-x_idx][y+y_idx][z+z_idx] == FULL_VAL || exArea.area[x-x_idx][y+y_idx][z+z_idx] == KABE_BOX_VAL then
+                      #伸びる可能性あり
+                    else
+                      #伸ばし終わり
+                      is_finish_flg = true
+                      break
+                    end
+                  end
+
+                end  #z_idx
+
+                if is_finish_flg then
+                  break
+                end
+
+              end  #y_idx
+
+              if is_finish_flg then
+                #伸び数確定、一つ前の値
+                hitarea_b_len = x_idx
+                break
+              else
+                #伸びるが確定、済を埋める。
+                for y_idx in y_idx_begin..y_idx_end
+                  for z_idx in z_idx_begin..z_idx_end
+                    nobashi_zumi.area[x-x_idx][y+y_idx][z+z_idx] = SUMI_FLG
+                  end
+                end
+              end
+
+            end  #x_idx
+            ret.area[x][y][z][FACE_B_IDX] = hitarea_b_len
+#####################
+          end
         end
       end
     end
@@ -924,276 +1082,124 @@ class ExteriorArea
 
 
 
-  #getAnalyze02 で開いている面方向に伸びた当たり判定を
-  #+Y -Y +Z -Z 方向に連結できるかどうか解析
-  def getAnalyze03(exArea)
+  #PRISMの当たり判定結合
+ def getAnalyzePrizmHitarea(prm_max_x_colliwall_num, exArea)
     ret = ExteriorArea.new(@len, @height, @width)
-    nobashi_zumi = ExteriorArea.new(@len, @height, @width)
 
+    nobashi_zumi = ExteriorArea.new(@len, @height, @width)
 
     for x in 0..@len-1
       for y in 0..@height-1
         for z in 0..@width-1
-          if @area[x][y][z] == KARA_VAL then
-             next
-          elsif @area[x][y][z] == FULL_VAL then
-             next
-          elsif  @area[x][y][z] == [0,0,0,0,0,0] then
-             ret.area[x][y][z] = @area[x][y][z]
-             next
-          elsif ret.area[x][y][z] == [0,0,0,0,0,0] then
-             next
-          #elsif exArea.area[x][y][z] == KABE_BOX_VAL || isPrism(exArea.area[x][y][z]) then 
-          else
-            ret.area[x][y][z] = @area[x][y][z]
-            #    c
-            # a b d f
-            #      e
-
-            # 543210
-            # abcdef
-
-            #+Y -Y +Z -Z の当たり判定と連結できるか考える
-
-            #+Y方向の検討
-            same_Y_inc = 0
-            if (y+1 <= @height-1) then
-              (y+1).upto(@height-1) do |iy|
-                if nobashi_zumi.area[x][iy][z] == SUMI_FLG then
-                  break
-                elsif (ret.area[x][y][z] == @area[x][iy][z] &&
-                    ( exArea.area[x][y][z] < KABE_BOX_VAL || exArea.area[x][y][z] == exArea.area[x][iy][z])
-                    ) then #同じ大きさならば連結
-                  same_Y_inc += 1
-                elsif (ret.area[x][y][z][FACE_B_IDX] == @area[x][iy][z][FACE_B_IDX] &&
-                       ret.area[x][y][z][FACE_C_IDX] == @area[x][iy][z][FACE_C_IDX] &&
-                       ret.area[x][y][z][FACE_D_IDX] == @area[x][iy][z][FACE_D_IDX] &&
-                       ret.area[x][y][z][FACE_E_IDX] == @area[x][iy][z][FACE_E_IDX] &&
-                       ret.area[x][y][z][FACE_F_IDX] == @area[x][iy][z][FACE_F_IDX] &&
-                    ( exArea.area[x][y][z] < KABE_BOX_VAL || exArea.area[x][y][z] == exArea.area[x][iy][z]) ) then
-
-                  same_Y_inc += @area[x][iy][z][FACE_A_IDX]
-                else
-                  break
-                end
-              end
-            end
-            if (same_Y_inc > 0) then
-              #面a方向にも広がりを持たせる
-              ret.area[x][y][z][FACE_A_IDX] += same_Y_inc
-              #面a方向広がりによってまかなわれる残りの当たり判定は不要
-              nobashi_zumi.area[x][y][z] = SUMI_FLG
-              (y+1).upto((y+1)+(same_Y_inc-1)) do |iy|
-                ret.area[x][iy][z] = [0,0,0,0,0,0]
-                nobashi_zumi.area[x][iy][z] = SUMI_FLG
-              end
-            end
-
-            #-Y方向の検討
-            same_Y_dec = 0
-            if (y-1 >= 0) then
-              (y-1).downto(0) do |iy|
-                if nobashi_zumi.area[x][iy][z] == SUMI_FLG then
-                  break
-                elsif (ret.area[x][y][z] ==  @area[x][iy][z] &&
-                    ( exArea.area[x][y][z] < KABE_BOX_VAL || exArea.area[x][y][z] == exArea.area[x][iy][z]) ) then
-                  same_Y_dec += 1
-                elsif (ret.area[x][y][z][FACE_A_IDX] == @area[x][iy][z][FACE_A_IDX] &&
-                       ret.area[x][y][z][FACE_B_IDX] == @area[x][iy][z][FACE_B_IDX] &&
-                       ret.area[x][y][z][FACE_C_IDX] == @area[x][iy][z][FACE_C_IDX] &&
-                       ret.area[x][y][z][FACE_E_IDX] == @area[x][iy][z][FACE_E_IDX] &&
-                       ret.area[x][y][z][FACE_F_IDX] == @area[x][iy][z][FACE_F_IDX] &&
-                    ( exArea.area[x][y][z] < KABE_BOX_VAL || exArea.area[x][y][z] == exArea.area[x][iy][z]) ) then
-
-                  same_Y_dec += @area[x][iy][z][FACE_D_IDX]
-                else
-                  break
-                end
-              end
-            end
-            if (same_Y_dec > 0) then
-              #面d方向にも広がりを持たせる
-              ret.area[x][y][z][FACE_D_IDX] += same_Y_dec
-              nobashi_zumi.area[x][y][z] = SUMI_FLG
-              #面d方向広がりによってまかなわれる残りの当たり判定は不要
-              (y-1).downto((y-1)-(same_Y_dec-1)) do |iy|
-                ret.area[x][iy][z] = [0,0,0,0,0,0]
-                nobashi_zumi.area[x][iy][z] = SUMI_FLG
-              end
-            end
-
-            #Y方向に連結したならば、Z軸方向へは単純連結出来ないのでこれで終了とする
-            if same_Y_dec > 0 || same_Y_inc > 0 then
-              next
-            end
-
-            #+Z方向の検討
-            same_Z_inc = 0
-            if (z+1 <= @width-1) then
-              (z+1).upto(@width-1) do |iz|
-                if nobashi_zumi.area[x][y][iz] == SUMI_FLG then
-                  break
-                elsif (ret.area[x][y][z] ==  @area[x][y][iz] &&
-                    ( exArea.area[x][y][z] < KABE_BOX_VAL || exArea.area[x][y][z] == exArea.area[x][y][iz]) ) then
-                  same_Z_inc += 1
-                elsif (ret.area[x][y][z][FACE_A_IDX] == @area[x][y][iz][FACE_A_IDX] &&
-                       ret.area[x][y][z][FACE_B_IDX] == @area[x][y][iz][FACE_B_IDX] &&
-                       ret.area[x][y][z][FACE_D_IDX] == @area[x][y][iz][FACE_D_IDX] &&
-                       ret.area[x][y][z][FACE_E_IDX] == @area[x][y][iz][FACE_E_IDX] &&
-                       ret.area[x][y][z][FACE_F_IDX] == @area[x][y][iz][FACE_F_IDX] &&
-                    ( exArea.area[x][y][z] < KABE_BOX_VAL || exArea.area[x][y][z] == exArea.area[x][y][iz]) ) then
-
-                  same_Z_inc += @area[x][y][iz][FACE_C_IDX]
-                else
-                  break
-                end
-              end
-            end
-            if (same_Z_inc > 0) then
-              #面c方向にも広がりを持たせる
-              ret.area[x][y][z][FACE_C_IDX] += same_Z_inc
-              nobashi_zumi.area[x][y][z] = SUMI_FLG
-              #面c方向広がりによってまかなわれる残りの当たり判定は不要
-              (z+1).upto((z+1)+(same_Z_inc-1)) do |iz|
-                ret.area[x][y][iz] = [0,0,0,0,0,0]
-                nobashi_zumi.area[x][y][iz] = SUMI_FLG
-              end
-            end
-
-            #-Z方向の検討
-            same_Z_dec = 0
-            if (z-1 >= 0) then
-              (z-1).downto(0) do |iz|
-                if nobashi_zumi.area[x][y][iz] == SUMI_FLG then
-                  break
-                elsif (ret.area[x][y][z] ==  @area[x][y][iz] &&
-                    ( exArea.area[x][y][z] < KABE_BOX_VAL || exArea.area[x][y][z] == exArea.area[x][y][iz]) ) then
-                  same_Z_dec += 1
-                elsif (ret.area[x][y][z][FACE_A_IDX] == @area[x][y][iz][FACE_A_IDX] &&
-                       ret.area[x][y][z][FACE_B_IDX] == @area[x][y][iz][FACE_B_IDX] &&
-                       ret.area[x][y][z][FACE_C_IDX] == @area[x][y][iz][FACE_C_IDX] &&
-                       ret.area[x][y][z][FACE_D_IDX] == @area[x][y][iz][FACE_D_IDX] &&
-                       ret.area[x][y][z][FACE_F_IDX] == @area[x][y][iz][FACE_F_IDX] &&
-                    ( exArea.area[x][y][z] < KABE_BOX_VAL || exArea.area[x][y][z] == exArea.area[x][y][iz]) ) then
-
-                  same_Z_dec += @area[x][y][iz][FACE_E_IDX]
-                else
-                  break
-                end
-              end
-            end
-            if (same_Z_dec > 0) then
-              #面e方向にも広がりを持たせる
-              ret.area[x][y][z][FACE_E_IDX] += same_Z_dec
-              nobashi_zumi.area[x][y][z] = SUMI_FLG
-              #面e方向広がりによってまかなわれる残りの当たり判定は不要
-              (z-1).downto((z-1)-(same_Z_dec-1)) do |iz|
-                ret.area[x][y][iz] = [0,0,0,0,0,0]
-                nobashi_zumi.area[x][y][iz] = SUMI_FLG
-              end
-            end
-
+          ret.area[x][y][z] = @area[x][y][z]
+          if isPrism(exArea.area[x][y][z]) == false then
+            #プリズム以外はそのまま
+            next
           end
-#           print "@area[",x,"][",y,"][",z,"]=",@area[x][y][z],"\n"
-#           print "@area[",x,"][",y,"][",z,"] & FACE_C_BIT=",(@area[x][y][z] & FACE_C_BIT),"\n"
+            pos = exArea.area[x][y][z]
+            x_pos = pos & POS_PRISM_YZ_xx
+            y_pos = pos & POS_PRISM_ZX_xx
+            z_pos = pos & POS_PRISM_XY_xx
+
+
+            if z_pos > 0 then
+              # Z+ 方向(c方向)に同じプリズム（POS_PRISM_XY_xx）ならば伸ばせれるだけ伸ばす。
+              hitarea_c_len = @width - z
+              for z_idx in 0..@width - z - 1
+                if nobashi_zumi.area[x][y][z+z_idx] != SUMI_FLG && @area[x][y][z+z_idx] == z_pos then
+                  #のびる
+                  nobashi_zumi.area[x][y][z+z_idx] = SUMI_FLG
+                else
+                  #伸ばし終わり
+                  hitarea_c_len = z_idx
+                  break
+                end
+              end #z_idx
+              ret.area[x][y][z][FACE_C_IDX] = hitarea_c_len
+
+              # Z- 方向（e方向）に伸ばせれるだけ伸ばす。　
+              hitarea_e_len = z + 1
+              for z_idx in 0..z
+                if z_idx != 0 && nobashi_zumi.area[x][y][z-z_idx] != SUMI_FLG && @area[x][y][z-z_idx] == z_pos then
+                  #のびる
+                  nobashi_zumi.area[x][y][z-z_idx] = SUMI_FLG
+                else
+                  #伸ばし終わり
+                  hitarea_c_len = z_idx
+                  break
+                end
+              end
+              ret.area[x][y][z][FACE_E_IDX] = hitarea_e_len
+
+            elsif y_pos > 0 then
+
+              # Y+ 方向(a方向)に同じプリズム（POS_PRISM_ZX_xx）ならば伸ばせれるだけ伸ばす。
+              hitarea_a_len = @height - y
+              for y_idx in 0..@height - y - 1
+                if nobashi_zumi.area[x][y+y_idx][z] != SUMI_FLG && @area[x][y+y_idx][z] == y_pos then
+                  #のびる
+                  nobashi_zumi.area[x][y+y_idx][z] = SUMI_FLG
+                else
+                  #伸ばし終わり
+                  hitarea_a_len = y_idx
+                  break
+                end
+              end #y_idx
+              ret.area[x][y][z][FACE_A_IDX] = hitarea_a_len
+
+              # Y- 方向（d方向）に伸ばせれるだけ伸ばす。　
+              hitarea_d_len = y + 1
+              for y_idx in 0..y
+                if y_idx != 0 && nobashi_zumi.area[x][y+y_idx][z] != SUMI_FLG && @area[x][y+y_idx][z] == y_pos then
+                  #のびる
+                  nobashi_zumi.area[x][y+y_idx][z] = SUMI_FLG
+                else
+                  #伸ばし終わり
+                  hitarea_d_len = y_idx
+                  break
+                end
+              end
+              ret.area[x][y][z][FACE_D_IDX] = hitarea_d_len
+
+            elsif x_pos > 0 then
+
+              # X+ 方向(f方向)に同じプリズム（POS_PRISM_ZX_xx）ならば伸ばせれるだけ伸ばす。
+              hitarea_f_len = @len - x
+              for x_idx in 0..@len - x - 1
+                if nobashi_zumi.area[x+x_idx][y][z] != SUMI_FLG && @area[x+x_idx][y][z] == x_pos then
+                  #のびる
+                  nobashi_zumi.area[x+x_idx][y][z] = SUMI_FLG
+                else
+                  #伸ばし終わり
+                  hitarea_f_len = x_idx
+                  break
+                end
+              end #x_idx
+              ret.area[x][y][z][FACE_F_IDX] = hitarea_f_len
+
+              # X- 方向（b方向）に伸ばせれるだけ伸ばす。　
+              hitarea_b_len = x + 1
+              for x_idx in 0..x
+                if x_idx != 0 && nobashi_zumi.area[x+x_idx][y][z] != SUMI_FLG && @area[x+x_idx][y][z] == x_pos then
+                  #のびる
+                  nobashi_zumi.area[x+x_idx][y][z] = SUMI_FLG
+                else
+                  #伸ばし終わり
+                  hitarea_b_len = x_idx
+                  break
+                end
+              end
+              ret.area[x][y][z][FACE_B_IDX] = hitarea_b_len
+
+            end
+
+
+
         end
       end
     end
     return ret
-  end
-
-
-  #getAnalyze03 により連結された当たり判定AABについて
-  #+X -X 方向に連結できるかどうか解析
-  #引数：最大連結数
-  def getAnalyze04(prm_max_x_colliwall_num, exArea)
-
-    max_x_colliwall_num = prm_max_x_colliwall_num
-    ret = ExteriorArea.new(@len, @height, @width)
-    nobashi_zumi = ExteriorArea.new(@len, @height, @width)
-
-
-    (@len-1).downto(0) do |x| #お尻からループ
-      for y in 0..@height-1
-        for z in 0..@width-1
-          if @area[x][y][z] == [0,0,0,0,0,0] then
-            ret.area[x][y][z] = @area[x][y][z]
-            next
-          elsif ret.area[x][y][z] == [0,0,0,0,0,0] then
-            next
-          else
-            ret.area[x][y][z] = @area[x][y][z]
-
-            #    c
-            # a b d f
-            #      e
-
-            # 543210
-            # abcdef
-
-            #+X -X の当たり判定と連結できるか考える
-            #-X方向の検討
-            same_X_dec = 0
-            if (x-1 >= 0) then
-              (x-1).downto(0) do |ix|
-                if nobashi_zumi.area[ix][y][z] == SUMI_FLG then
-                  break
-                elsif (ret.area[x][y][z] ==  @area[ix][y][z] &&
-                    ( exArea.area[x][y][z] < KABE_BOX_VAL || exArea.area[x][y][z] == exArea.area[ix][y][z]) ) then
-                  same_X_dec += 1
-                  if same_X_dec >= max_x_colliwall_num then
-                    break #最高 max_x_colliwall_num 個までしか連結しないようにする
-                  end
-                else
-                  break
-                end
-              end
-            end
-            if (same_X_dec > 0) then
-              #面b方向にも広がりを持たせる
-              ret.area[x][y][z][FACE_B_IDX] += same_X_dec
-              nobashi_zumi.area[x][y][z] = SUMI_FLG
-              #面b方向広がりによってまかなわれる残りの当たり判定は不要
-              (x-1).downto((x-1)-(same_X_dec-1)) do |ix|
-                ret.area[ix][y][z] = [0,0,0,0,0,0]
-                nobashi_zumi.area[ix][y][z] = SUMI_FLG
-              end
-            end
-
-            #+X方向の検討
-            same_X_inc = 0
-            if (x+1 <= @len-1) then
-              (x+1).upto(@len-1) do |ix|
-                if nobashi_zumi.area[ix][y][z] == SUMI_FLG then
-                  break
-                elsif (ret.area[x][y][z] == @area[ix][y][z] &&
-                    ( exArea.area[x][y][z] < KABE_BOX_VAL || exArea.area[x][y][z] == exArea.area[ix][y][z])) then
-                  same_X_inc += 1
-                  if same_X_inc >= max_x_colliwall_num then
-                    break #最高 max_x_colliwall_num 個までしか連結しないようにする
-                  end
-                else
-                  break
-                end
-              end
-            end
-            if (same_X_inc > 0) then
-              #面f方向にも広がりを持たせる
-              ret.area[x][y][z][FACE_F_IDX] += same_X_inc
-              nobashi_zumi.area[x][y][z] = SUMI_FLG
-              #面f方向広がりによってまかなわれる残りの当たり判定は不要
-              (x+1).upto((x+1)+(same_X_inc-1)) do |ix|
-                ret.area[ix][y][z] = [0,0,0,0,0,0]
-                nobashi_zumi.area[ix][y][z] = SUMI_FLG
-              end
-            end
-
-          end
-        end
-      end
-    end
-    return ret
-  end
+ end
 
 
   #[0][0][0]から FULL_VAL で塗りつぶす
@@ -1233,27 +1239,27 @@ class ExteriorArea
 
     @area[x][y][z] = val
     if x-1 >= 0         && @area[x-1][y][z] == KARA_VAL then
-      fullfull(x-1, y, z, val)
+      full(x-1, y, z, val)
     end
 
     if x+1 <= @len-1    && @area[x+1][y][z] == KARA_VAL then
-      fullfull(x+1, y, z, val)
+      full(x+1, y, z, val)
     end
 
     if y-1 >= 0         && @area[x][y-1][z] == KARA_VAL then
-      fullfull(x, y-1, z, val)
+      full(x, y-1, z, val)
     end
 
     if y+1 <= @height-1 && @area[x][y+1][z] == KARA_VAL then
-      fullfull(x, y+1, z, val)
+      full(x, y+1, z, val)
     end
 
     if z-1 >= 0         && @area[x][y][z-1] == KARA_VAL then
-      fullfull(x, y, z-1, val)
+      full(x, y, z-1, val)
     end
 
     if z+1 <= @width-1  && @area[x][y][z+1] == KARA_VAL then
-      fullfull(x, y, z+1, val)
+      full(x, y, z+1, val)
     end
   end
 

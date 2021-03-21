@@ -244,4 +244,3 @@ EnemyDelheid::~EnemyDelheid() {
     GGAF_DELETE(pProg2_);
 }
 
-

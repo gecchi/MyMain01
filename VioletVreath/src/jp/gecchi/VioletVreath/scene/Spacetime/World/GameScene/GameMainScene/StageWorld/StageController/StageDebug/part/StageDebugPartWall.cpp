@@ -18,7 +18,7 @@ StageDebugPartWall::StageDebugPartWall(const char* prm_name) :
     coord wall_dep    = DX_C(40);  //壁ブロックモデル１個のX軸方向の幅設定（Xファイルにより決まる）
     coord wall_width  = DX_C(10);  //壁ブロックモデル１個のZ軸方向の幅設定（Xファイルにより決まる）
     coord wall_height = DX_C(10);  //壁ブロックモデル１個のY軸方向の幅設定（Xファイルにより決まる）
-    float scale_r = 4.0f;        //今回壁ブロックの拡大率（ここで設定可能）
+    float scale_r = 1.0f;        //今回壁ブロックの拡大率（ここで設定可能）
     //****************************
 
     //壁ブロック(直方体)デポジトリ生成
@@ -33,38 +33,38 @@ StageDebugPartWall::StageDebugPartWall(const char* prm_name) :
     bringSceneMediator()->appendGroupChild(pDepo_wall);
 
 
-//    //シーンセクション生成
-//    WallSectionScene* apSection[] = {
-//        NEW StageDebugPartWallSection001("StageDebug-001-0", this, "scene5_wall_0.dat"),
-//        NEW StageDebugPartWallSection001("StageDebug-001-1", this, "scene5_wall_1.dat"),
-//        NEW StageDebugPartWallSection001("StageDebug-001-2", this, "scene5_wall_2.dat"),
-//        NEW StageDebugPartWallSection001("StageDebug-001-3", this, "scene5_wall_3.dat"),
-//        NEW StageDebugPartWallSection001("StageDebug-001-4", this, "scene4_wall_0.dat"),
-//        NEW StageDebugPartWallSection001("StageDebug-001-5", this, "scene4_wall_1.dat"),
-//        NEW StageDebugPartWallSection001("StageDebug-001-6", this, "scene4_wall_2.dat"),
-//        NEW StageDebugPartWallSection001("StageDebug-001-7", this, "scene4_wall_3.dat"),
-//    };
-//    //構築
-//    buildWallScene(
-//        wall_dep*scale_r, wall_width*scale_r, wall_height*scale_r,
-//        pGOD->getSpacetime()->_x_bound_right,
-//        (WallSectionScene**)&apSection, 8,
-//        pDepo_wall
-//    );
     //シーンセクション生成
     WallSectionScene* apSection[] = {
-        NEW StageDebugPartWallSection001("StageDebug-001-0", this, "scene6_wall_0.dat"),
-        NEW StageDebugPartWallSection001("StageDebug-001-1", this, "scene6_wall_1.dat"),
-        NEW StageDebugPartWallSection001("StageDebug-001-2", this, "scene6_wall_2.dat"),
-        NEW StageDebugPartWallSection001("StageDebug-001-3", this, "scene6_wall_3.dat"),
+        NEW StageDebugPartWallSection001("StageDebug-001-0", this, "scene5_wall_0.dat"),
+        NEW StageDebugPartWallSection001("StageDebug-001-1", this, "scene5_wall_1.dat"),
+        NEW StageDebugPartWallSection001("StageDebug-001-2", this, "scene5_wall_2.dat"),
+        NEW StageDebugPartWallSection001("StageDebug-001-3", this, "scene5_wall_3.dat"),
+        NEW StageDebugPartWallSection001("StageDebug-001-4", this, "scene4_wall_0.dat"),
+        NEW StageDebugPartWallSection001("StageDebug-001-5", this, "scene4_wall_1.dat"),
+        NEW StageDebugPartWallSection001("StageDebug-001-6", this, "scene4_wall_2.dat"),
+        NEW StageDebugPartWallSection001("StageDebug-001-7", this, "scene4_wall_3.dat"),
     };
     //構築
     buildWallScene(
         wall_dep*scale_r, wall_width*scale_r, wall_height*scale_r,
         pGOD->getSpacetime()->_x_bound_right,
-        (WallSectionScene**)&apSection, 4,
+        (WallSectionScene**)&apSection, 8,
         pDepo_wall
     );
+//    //シーンセクション生成
+//    WallSectionScene* apSection[] = {
+//        NEW StageDebugPartWallSection001("StageDebug-001-0", this, "scene6_wall_0.dat"),
+//        NEW StageDebugPartWallSection001("StageDebug-001-1", this, "scene6_wall_1.dat"),
+//        NEW StageDebugPartWallSection001("StageDebug-001-2", this, "scene6_wall_2.dat"),
+//        NEW StageDebugPartWallSection001("StageDebug-001-3", this, "scene6_wall_3.dat"),
+//    };
+//    //構築
+//    buildWallScene(
+//        wall_dep*scale_r, wall_width*scale_r, wall_height*scale_r,
+//        pGOD->getSpacetime()->_x_bound_right,
+//        (WallSectionScene**)&apSection, 4,
+//        pDepo_wall
+//    );
 
     //初期スクロールスピード
     setScrollSpeed(PX_C(5));

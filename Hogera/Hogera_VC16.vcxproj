@@ -34,147 +34,60 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="include\GgafCommonHeader.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\Actor.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\DisusedActor.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\ex\ActorDepository.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\ex\ActorDepositoryStore.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\ex\DepositoryFormation.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\ex\DestructActor.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\ex\Formation.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\ex\TreeFormation.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\GroupHead.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\MainActor.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\SceneMediator.h" />
-    <ClInclude Include="include\jp\ggaf\core\Config.h" />
-    <ClInclude Include="include\jp\ggaf\core\Cradle.h" />
-    <ClInclude Include="include\jp\ggaf\core\Element.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\exception\CriticalException.h" />
-    <ClInclude Include="include\jp\ggaf\core\exception\Exception.h" />
-    <ClInclude Include="include\jp\ggaf\core\GarbageBox.h" />
-    <ClInclude Include="include\jp\ggaf\core\God.h" />
-    <ClInclude Include="include\jp\ggaf\core\Node.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\Object.h" />
-    <ClInclude Include="include\jp\ggaf\core\Progress.h" />
-    <ClInclude Include="include\jp\ggaf\core\Properties.h" />
-    <ClInclude Include="include\jp\ggaf\core\scene\DisusedScene.h" />
-    <ClInclude Include="include\jp\ggaf\core\scene\MainScene.h" />
-    <ClInclude Include="include\jp\ggaf\core\scene\Scene.h" />
-    <ClInclude Include="include\jp\ggaf\core\scene\Spacetime.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\AccelerationValue.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\CmRandomNumberGenerator.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\Curtain.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\DetectMemoryLeaks.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\EnumIndex.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\LinearOctree.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\LinearQuadtree.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\LinearTreeRounder.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\LinkedListRing.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\Logger.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\RepeatSeq.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\ResourceConnection.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\ResourceManager.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\Rgb.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\Status.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\Table.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\TransitionValue.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\TreeElem.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\TreeSpace.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\Util.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\ValueAccelerator.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\ValueTransitioner.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\Xpm.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\jp\ggaf\core\actor\Actor.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\ex\ActorDepository.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\ex\ActorDepositoryStore.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\ex\DepositoryFormation.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\ex\DestructActor.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\ex\Formation.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\ex\TreeFormation.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\GroupHead.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\MainActor.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\actor\SceneMediator.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\Config.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\Cradle.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\exception\CriticalException.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\exception\Exception.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\GarbageBox.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\God.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\Object.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\Progress.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\Properties.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\scene\MainScene.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\scene\Scene.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\scene\Spacetime.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\CmRandomNumberGenerator.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\DetectMemoryLeaks.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\LinearOctree.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\LinearQuadtree.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\Logger.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\RepeatSeq.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\Rgb.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\Status.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\Table.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\Util.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\util\Xpm.cpp" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{3A785B3F-EA57-4320-9034-7BC4A9C4A105}</ProjectGuid>
-    <RootNamespace>GgafCore_VC14</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>GgafCore</ProjectName>
+    <ProjectGuid>{C4579C22-19F9-45D9-98FD-95BF69561FB9}</ProjectGuid>
+    <RootNamespace>Hogera_VC14</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <ProjectName>Hogera</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_XP|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142_xp</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_XP|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142_xp</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_XP|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142_xp</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_XP|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142_xp</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -247,46 +160,72 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>.\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;.\src;..\GgafLib\include;..\GgafDx\include;..\GgafCore\include;..\_Vorbis\include;..\_Ogg\include;$(DXSDK_DIR)\Include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;WIN32;_DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <FunctionLevelLinking>true</FunctionLevelLinking>
     </ClCompile>
-    <Lib>
-      <TargetMachine>MachineX86</TargetMachine>
-    </Lib>
+    <Link>
+      <AdditionalLibraryDirectories>..\$(Configuration)\$(Platform)\$(PlatformToolset)\;$(DXSDK_DIR)\Lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>GgafCore.lib;GgafDx.lib;GgafLib.lib;_Ogg.lib;_Vorbis.lib;Shlwapi.lib;d3d9.lib;d3dx9.lib;dinput8.lib;dsound.lib;dxguid.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+    <PostBuildEvent>
+      <Command>COPY /Y ..\$(Configuration)\$(Platform)\$(PlatformToolset)\$(ProjectName).exe .\$(ProjectName)_$(Platform)_$(PlatformToolset)_$(Configuration).exe</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_XP|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>.\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;.\src;..\GgafLib\include;..\GgafDx\include;..\GgafCore\include;..\_Vorbis\include;..\_Ogg\include;$(DXSDK_DIR)\Include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;WIN32;_DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
-    <Lib>
-      <TargetMachine>MachineX86</TargetMachine>
-    </Lib>
+    <Link>
+      <AdditionalLibraryDirectories>..\$(Configuration)\$(Platform)\$(PlatformToolset)\;$(DXSDK_DIR)\Lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>GgafCore.lib;GgafDx.lib;GgafLib.lib;_Ogg.lib;_Vorbis.lib;Shlwapi.lib;d3d9.lib;d3dx9.lib;dinput8.lib;dsound.lib;dxguid.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+    <PostBuildEvent>
+      <Command>COPY /Y ..\$(Configuration)\$(Platform)\$(PlatformToolset)\$(ProjectName).exe .\$(ProjectName)_$(Platform)_$(PlatformToolset)_$(Configuration).exe</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>.\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;.\src;..\GgafLib\include;..\GgafDx\include;..\GgafCore\include;..\_Vorbis\include;..\_Ogg\include;$(DXSDK_DIR)\Include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;WIN64;_DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <FunctionLevelLinking>true</FunctionLevelLinking>
     </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>..\$(Configuration)\$(Platform)\$(PlatformToolset)\;$(DXSDK_DIR)\Lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>GgafCore.lib;GgafDx.lib;GgafLib.lib;_Ogg.lib;_Vorbis.lib;Shlwapi.lib;d3d9.lib;d3dx9.lib;dinput8.lib;dsound.lib;dxguid.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+    <PostBuildEvent>
+      <Command>COPY /Y ..\$(Configuration)\$(Platform)\$(PlatformToolset)\$(ProjectName).exe .\$(ProjectName)_$(Platform)_$(PlatformToolset)_$(Configuration).exe</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_XP|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>.\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;.\src;..\GgafLib\include;..\GgafDx\include;..\GgafCore\include;..\_Vorbis\include;..\_Ogg\include;$(DXSDK_DIR)\Include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;WIN64;_DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>..\$(Configuration)\$(Platform)\$(PlatformToolset)\;$(DXSDK_DIR)\Lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>GgafCore.lib;GgafDx.lib;GgafLib.lib;_Ogg.lib;_Vorbis.lib;Shlwapi.lib;d3d9.lib;d3dx9.lib;dinput8.lib;dsound.lib;dxguid.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+    <PostBuildEvent>
+      <Command>COPY /Y ..\$(Configuration)\$(Platform)\$(PlatformToolset)\$(ProjectName).exe .\$(ProjectName)_$(Platform)_$(PlatformToolset)_$(Configuration).exe</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -295,17 +234,21 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>.\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;.\src;..\GgafLib\include;..\GgafDx\include;..\GgafCore\include;..\_Vorbis\include;..\_Ogg\include;$(DXSDK_DIR)\Include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;WIN32;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>..\$(Configuration)\$(Platform)\$(PlatformToolset)\;$(DXSDK_DIR)\Lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>GgafCore.lib;GgafDx.lib;GgafLib.lib;_Ogg.lib;_Vorbis.lib;Shlwapi.lib;d3d9.lib;d3dx9.lib;dinput8.lib;dsound.lib;dxguid.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
     </Link>
-    <Lib>
-      <TargetMachine>MachineX86</TargetMachine>
-    </Lib>
+    <PostBuildEvent>
+      <Command>COPY /Y ..\$(Configuration)\$(Platform)\$(PlatformToolset)\$(ProjectName).exe .\$(ProjectName)_$(Platform)_$(PlatformToolset)_$(Configuration).exe</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_XP|Win32'">
     <ClCompile>
@@ -314,17 +257,21 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>.\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;.\src;..\GgafLib\include;..\GgafDx\include;..\GgafCore\include;..\_Vorbis\include;..\_Ogg\include;$(DXSDK_DIR)\Include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;WIN32;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>..\$(Configuration)\$(Platform)\$(PlatformToolset)\;$(DXSDK_DIR)\Lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>GgafCore.lib;GgafDx.lib;GgafLib.lib;_Ogg.lib;_Vorbis.lib;Shlwapi.lib;d3d9.lib;d3dx9.lib;dinput8.lib;dsound.lib;dxguid.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
     </Link>
-    <Lib>
-      <TargetMachine>MachineX86</TargetMachine>
-    </Lib>
+    <PostBuildEvent>
+      <Command>COPY /Y ..\$(Configuration)\$(Platform)\$(PlatformToolset)\$(ProjectName).exe .\$(ProjectName)_$(Platform)_$(PlatformToolset)_$(Configuration).exe</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -333,14 +280,21 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>.\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;.\src;..\GgafLib\include;..\GgafDx\include;..\GgafCore\include;..\_Vorbis\include;..\_Ogg\include;$(DXSDK_DIR)\Include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;WIN64;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>..\$(Configuration)\$(Platform)\$(PlatformToolset)\;$(DXSDK_DIR)\Lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>GgafCore.lib;GgafDx.lib;GgafLib.lib;_Ogg.lib;_Vorbis.lib;Shlwapi.lib;d3d9.lib;d3dx9.lib;dinput8.lib;dsound.lib;dxguid.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>COPY /Y ..\$(Configuration)\$(Platform)\$(PlatformToolset)\$(ProjectName).exe .\$(ProjectName)_$(Platform)_$(PlatformToolset)_$(Configuration).exe</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_XP|x64'">
     <ClCompile>
@@ -349,15 +303,44 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>.\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;.\src;..\GgafLib\include;..\GgafDx\include;..\GgafCore\include;..\_Vorbis\include;..\_Ogg\include;$(DXSDK_DIR)\Include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;WIN64;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>..\$(Configuration)\$(Platform)\$(PlatformToolset)\;$(DXSDK_DIR)\Lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>GgafCore.lib;GgafDx.lib;GgafLib.lib;_Ogg.lib;_Vorbis.lib;Shlwapi.lib;d3d9.lib;d3dx9.lib;dinput8.lib;dsound.lib;dxguid.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>COPY /Y ..\$(Configuration)\$(Platform)\$(PlatformToolset)\$(ProjectName).exe .\$(ProjectName)_$(Platform)_$(PlatformToolset)_$(Configuration).exe</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\actor\camera\HgrCamera.cpp" />
+    <ClCompile Include="src\actor\Jiki.cpp" />
+    <ClCompile Include="src\actor\Test01.cpp" />
+    <ClCompile Include="src\HgrGod.cpp" />
+    <ClCompile Include="src\Hogera.cpp" />
+    <ClCompile Include="src\scene\HgrSpacetime.cpp" />
+    <ClCompile Include="src\scene\HgrSpacetime\HgrWorld.cpp" />
+    <ClCompile Include="src\scene\HgrSpacetime\HgrWorld\TrialAndErrScene.cpp" />
+    <ClCompile Include="src\util\HgrUtil.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\actor\camera\HgrCamera.h" />
+    <ClInclude Include="src\actor\Jiki.h" />
+    <ClInclude Include="src\actor\Test01.h" />
+    <ClInclude Include="src\HgrGod.h" />
+    <ClInclude Include="src\Hogera.h" />
+    <ClInclude Include="src\scene\HgrSpacetime.h" />
+    <ClInclude Include="src\scene\HgrSpacetime\HgrWorld.h" />
+    <ClInclude Include="src\scene\HgrSpacetime\HgrWorld\TrialAndErrScene.h" />
+    <ClInclude Include="src\util\HgrUtil.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

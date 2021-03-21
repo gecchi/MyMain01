@@ -8,9 +8,13 @@ lClass (NoMethodError)
         from makeSceneWallData.rb:276:in `<main>'
 
 C:\cygwin\workspace\_git_repos\VioletVreath\VV_rs\wall>pause
-続行するには何かキーを押してください . . 
+続行するには何かキーを押してください . .
 
 こんなエラーが出る場合は、XYのブロック数がはみ出て足りてません
 
 ruby makeSceneWallData.rb scene3_2_wall.X 20 20 2 Yes
 の20 20 の数を増やしてください。
+
+2020/10/23
+BOXの結合アルゴリズムヒント
+https://docs.google.com/presentation/d/e/2PACX-1vRMvP_wTiXbixyajiSDdiLWXNd6ZMVL6LkSDUFtPN1_kw5HFnAK56PRRbsiGEIBBTsuChyxkrf6U9aG/pub?start=false&loop=false&delayms=3000&slide=id.g427a9c2bb5_0_656

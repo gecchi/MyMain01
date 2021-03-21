@@ -11,6 +11,7 @@ using namespace GgafLib;
 
 SplineLeader::SplineLeader(SplineManufacture* prm_pManufacture, GgafDx::GeometricActor* prm_pActor_target) :
         GgafCore::Object() {
+    _obj_class = Obj_SplineLeader;
     _pManufacture = prm_pManufacture;
     if (!_pManufacture->_is_calculated) {
         _pManufacture->calculate();
