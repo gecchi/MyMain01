@@ -108,7 +108,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{3A785B3F-EA57-4320-9034-7BC4A9C4A105}</ProjectGuid>
     <RootNamespace>GgafCore_VC14</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectName>GgafCore</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
