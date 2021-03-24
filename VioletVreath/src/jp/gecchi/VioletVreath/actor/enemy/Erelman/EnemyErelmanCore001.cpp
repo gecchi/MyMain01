@@ -1,7 +1,7 @@
 #include "EnemyErelmanCore001.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
@@ -31,7 +31,7 @@ EnemyErelmanCore001::EnemyErelmanCore001(const char* prm_name, EnemyErelmanContr
 }
 
 void EnemyErelmanCore001::processBehavior() {
-    GgafDx::Rikisha* const pRikisha = callRikisha();
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
 
     GgafCore::Progress* const pProg = getProgress();
@@ -39,7 +39,7 @@ void EnemyErelmanCore001::processBehavior() {
         case PROG_INIT: {
             setHitAble(false);
             setAlpha(0);
-//            pRikisha->setRollFaceAngVelo(D_ANG(1));
+//            pVecDriver->setRollFaceAngVelo(D_ANG(1));
             pProg->changeNext();
             break;
         }
@@ -62,10 +62,10 @@ void EnemyErelmanCore001::processBehavior() {
 
         case PROG_WAIT01: {
             if (pProg->hasJustChanged()) {
-//                pRikisha->setRollPitchYawFaceAngVelo(D_ANG(0.027), D_ANG(0.0031), D_ANG(0.0071));
-//                pRikisha->turnFaceAngTwd(0,0,0,D_ANG(2));
+//                pVecDriver->setRollPitchYawFaceAngVelo(D_ANG(0.027), D_ANG(0.0031), D_ANG(0.0071));
+//                pVecDriver->turnFaceAngTwd(0,0,0,D_ANG(2));
                 setRzFaceAng(D_ANG(89));
-                pRikisha->setRyFaceAngVelo(D_ANG(0.01));
+                pVecDriver->setRyFaceAngVelo(D_ANG(0.01));
             }
             if (pProg->hasArrivedAt(10*60*60)) {
                 pProg->changeNext();
@@ -90,7 +90,7 @@ void EnemyErelmanCore001::processBehavior() {
     }
 
     pAlphaFader->behave();
-    pRikisha->behave();
+    pVecDriver->behave();
 }
 
 EnemyErelmanCore001::~EnemyErelmanCore001() {

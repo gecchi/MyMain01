@@ -1,9 +1,9 @@
 #include "MenuBoard.h"
 
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/gecchi/VioletVreath/God.h"
-#include "jp/ggaf/dx/actor/supporter/RikishaMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriverMvAssistant.h"
 
 
 
@@ -127,20 +127,20 @@ void MenuBoard::onRise() {
     //スライドイントランジション
     setPosition(target_x_ + slide_from_offset_x_,
                 target_y_ + slide_from_offset_y_);
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    pRikisha->setMvAngTwd(target_x_, target_y_);
-    pRikisha->asstMv()->slideByDt(UTIL::getDistance(_x, _y, target_x_, target_y_), _fade_frames,
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    pVecDriver->setMvAngTwd(target_x_, target_y_);
+    pVecDriver->asstMv()->slideByDt(UTIL::getDistance(_x, _y, target_x_, target_y_), _fade_frames,
                                  0.2, 0.3, 0, true);
     getSeTransmitter()->play(SE_ON_RISEN);
 }
 
 void MenuBoard::processBehavior() {
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    if (pRikisha->asstMv()->hasJustFinishedSliding()) {
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    if (pVecDriver->asstMv()->hasJustFinishedSliding()) {
         //スライド終了時、目的の座標へ補正
         setPosition(target_x_, target_y_);
     }
-    pRikisha->behave();
+    pVecDriver->behave();
     DefaultFramedBoardMenu::processBehavior();
     //メニュー選択アイテム、表示アイテム、カーソルは、
     //ボード座標を基にしているため、自身の座標確定後に
@@ -152,10 +152,10 @@ void MenuBoard::processJudgement() {
 
 void MenuBoard::onSink() {
     //スライドアウトトランジション
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    pRikisha->setMvAngTwd(target_x_ + slide_from_offset_x_,
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    pVecDriver->setMvAngTwd(target_x_ + slide_from_offset_x_,
                          target_y_ + slide_from_offset_y_);
-    pRikisha->asstMv()->slideByDt(
+    pVecDriver->asstMv()->slideByDt(
                            UTIL::getDistance(
                                   _x, _y,
                                   target_x_+slide_from_offset_x_,

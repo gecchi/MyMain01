@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/core/util/Rgb.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "Zako.h"
 
 

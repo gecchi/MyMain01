@@ -6,13 +6,12 @@
 #include "jp/gecchi/VioletVreath/manager/XpmManager.h"
 #include "jp/ggaf/core/util/ResourceConnection.hpp"
 #include "jp/ggaf/core/util/Xpm.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
-#include "jp/ggaf/lib/util/spline/SplineLeader.h"
-#include "jp/ggaf/lib/util/spline/SplineManufacture.h"
-#include "jp/ggaf/lib/util/spline/FixedFrameSplineManufacture.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/spline/SplineManufacture.h"
+#include "jp/ggaf/dx/util/spline/FixedFrameSplineManufacture.h"
 
-
-
+using namespace GgafDx;
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -96,13 +95,13 @@ void FormationOebius002::processBehavior() {
 
 void FormationOebius002::onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) {
     EnemyOebius* pOebius = (EnemyOebius*)prm_pActor;
-    if (pOebius->pRikishaLeader_) {
-        throwCriticalException("pOebius->pRikishaLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpOebius="<<pOebius<<"("<<pOebius->getName()<<")");
+    if (pOebius->pVecDriverLeader_) {
+        throwCriticalException("pOebius->pVecDriverLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpOebius="<<pOebius<<"("<<pOebius->getName()<<")");
     } else {
-        pOebius->pRikishaLeader_ = papSplManufConn_[prm_col]->peek()->
-                                      createRikishaLeader(pOebius->callRikisha());
+        pOebius->pVecDriverLeader_ = papSplManufConn_[prm_col]->peek()->
+                                      createVecDriverLeader(pOebius->callVecDriver());
     }
-//    double rate_z = pOebius->pRikishaLeader_->_pManufacture->_rate_z; //MAG_Z=100000
+//    double rate_z = pOebius->pVecDriverLeader_->_pManufacture->_rate_z; //MAG_Z=100000
 //
 //    //Z = (prm_col*0.4)*rate_z //0.4‚Í—×‚Ì—ñ‚Æ‚ÌŠÔŠu
 //    //(0, 0, Z) ‚ğ Rz > Ry ‰ñ“]ˆÚ“®‚³‚¹‚é‚Æ
@@ -114,18 +113,18 @@ void FormationOebius002::onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row, 
 //    coord dx = Z*sinRy;
 //    coord dy = 0;
 //    coord dz = Z*cosRy;
-//    pOebius->pRikishaLeader_->setStartPosition(geo_.x + dx,
+//    pOebius->pVecDriverLeader_->setStartPosition(geo_.x + dx,
 //                                              geo_.y + dy,
 //                                              geo_.z + dz);
-    pOebius->pRikishaLeader_->setStartPosition(geo_.x, geo_.y, geo_.z);
-    pOebius->pRikishaLeader_->setStartAngle(geo_.rx, geo_.ry, geo_.rz);
+    pOebius->pVecDriverLeader_->setStartPosition(geo_.x, geo_.y, geo_.z);
+    pOebius->pVecDriverLeader_->setStartAngle(geo_.rx, geo_.ry, geo_.rz);
     pOebius->setPositionAround(geo_.x, geo_.y, geo_.z, PX_C(700));
     pOebius->setFaceAngTwd(pOebius->_x + (pOebius->_x - geo_.x),
                            pOebius->_y + (pOebius->_y - geo_.y),
                            pOebius->_z + (pOebius->_z - geo_.z) );
-    pOebius->callRikisha()->setMvAngByFaceAng();
-    pOebius->callRikisha()->setMvVelo(0);
-    pOebius->callRikisha()->setMvAcce(80);
+    pOebius->callVecDriver()->setMvAngByFaceAng();
+    pOebius->callVecDriver()->setMvVelo(0);
+    pOebius->callVecDriver()->setMvAcce(80);
 
     //F‚ğİ’è
     GgafCore::Xpm* pXpM = pXpmConnection_->peek();

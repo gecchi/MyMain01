@@ -1,6 +1,6 @@
 #include "VarietyRatislavia002.h"
 
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ratislavia/EnemyRatislaviaEye.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -32,12 +32,12 @@ void VarietyRatislavia002::initialize() {
     _x = pSpacetime->_x_bound_right + r1_*2 + r2_*2;
     _y = 0;
     _z = MyShip::lim_z_left_;
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    pRikisha->setRzRyMvAng(D180ANG, 0);
-    pRikisha->setMvVelo(1000);
-    pRikisha->setFaceAngVelo(AXIS_X, 10);
-    pRikisha->setFaceAngVelo(AXIS_Z, -50);
-    pRikisha->setFaceAngVelo(AXIS_Y, 30);
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    pVecDriver->setRzRyMvAng(D180ANG, 0);
+    pVecDriver->setMvVelo(1000);
+    pVecDriver->setFaceAngVelo(AXIS_X, 10);
+    pVecDriver->setFaceAngVelo(AXIS_Z, -50);
+    pVecDriver->setFaceAngVelo(AXIS_Y, 30);
 }
 
 void VarietyRatislavia002::processBehavior() {

@@ -67,7 +67,7 @@ Stage01PartWall::Stage01PartWall(const char* prm_name) :
     );
 
     //初期スクロールスピード
-    setScrollSpeed(PX_C(5));
+    setFeatureParam1(PX_C(5));
 
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
@@ -85,8 +85,8 @@ void Stage01PartWall::initialize() {
 }
 
 void Stage01PartWall::onActive() {
-    pCOMMON_SCENE->setScrollingFunction(CommonScene::scrollX);
-    pCOMMON_SCENE->setScrollSpeed(getScrollSpeed());
+    pCOMMON_SCENE->setFeatureFunction(CommonScene::scrollX);
+    pCOMMON_SCENE->setFeatureParam1(getFeatureParam1());
     _TRACE_(FUNC_NAME<<"  CommonScene にもスクロールを設定します。");
     //pCOMMON_SCENE->dump();
     WallScene::onActive();
@@ -137,20 +137,20 @@ void Stage01PartWall::processBehavior() {
 
 ///////////////デバッグ///////////////////////////////
     if (GgafDx::Input::isPressedKey(DIK_PGUP)) {
-        addScrollSpeed(PX_C(1));
-        pCOMMON_SCENE->addScrollSpeed(PX_C(1));
+        addFeatureParam1(PX_C(1));
+        pCOMMON_SCENE->addFeatureParam1(PX_C(1));
     }
     if (GgafDx::Input::isPressedKey(DIK_PGDN)) {
-        addScrollSpeed(PX_C(-1));
-        pCOMMON_SCENE->addScrollSpeed(PX_C(-1));
+        addFeatureParam1(PX_C(-1));
+        pCOMMON_SCENE->addFeatureParam1(PX_C(-1));
     }
 //////////////////////////////////////////////////////
 }
 
 void Stage01PartWall::onFinishedAllSection() {
     _TRACE_(" Stage01PartWall::onFinishedAllSection()  CommonScene のスクロールを解除します。");
-    pCOMMON_SCENE->setScrollingFunction(nullptr);
-    pCOMMON_SCENE->setScrollSpeed(0);
+    pCOMMON_SCENE->setFeatureFunction(nullptr);
+    pCOMMON_SCENE->setFeatureParam1(0);
     throwEventUpperTree(EVENT_STAGE01_PART_WALL_WAS_FINISHED);
 }
 

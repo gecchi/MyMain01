@@ -1,7 +1,7 @@
 #ifndef SPLINELINEMANAGER_H_
 #define SPLINELINEMANAGER_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/lib/manager/SplineSourceManager.h"
+#include "jp/ggaf/dx/manager/SplineSourceManager.h"
 
 namespace VioletVreath {
 
@@ -11,7 +11,7 @@ namespace VioletVreath {
  * @since 2018/08/10
  * @author Masatoshi Tsuge
  */
-class SplineSourceManagerEx : public GgafLib::SplineSourceManager {
+class SplineSourceManagerEx : public GgafDx::SplineSourceManager {
 
 public:
     /**
@@ -20,7 +20,7 @@ public:
      */
     SplineSourceManagerEx(const char* prm_manager_name);
 
-    virtual GgafLib::SplineSource* processCreateResource(const char* prm_idstr, void* prm_pConnector) override;
+    virtual GgafDx::SplineSource* processCreateResource(const char* prm_idstr, void* prm_pConnector) override;
 
     virtual ~SplineSourceManagerEx() {
     }

@@ -1,6 +1,6 @@
 #include "EffectSmileMagic001.h"
 
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -30,7 +30,7 @@ void EffectSmileMagic001::onActive() {
 
 void EffectSmileMagic001::processBehavior() {
     getUvFlipper()->behave();
-    callRikisha()->behave();
+    callVecDriver()->behave();
     getScaler()->behave();
 }
 

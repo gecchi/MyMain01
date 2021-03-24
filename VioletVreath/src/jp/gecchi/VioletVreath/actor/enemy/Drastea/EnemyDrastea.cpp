@@ -2,8 +2,8 @@
 
 #include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
-#include "jp/ggaf/dx/actor/supporter/Kago.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/GeoDriver.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -86,11 +86,11 @@ void EnemyDrastea::initialize() {
 
 void EnemyDrastea::onActive() {
     getStatus()->reset();
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    GgafDx::Kago* const pKago = callKago();
-    pRikisha->setMvVelo(0);
-    pRikisha->setRollPitchYawFaceAngVelo(700, 1100, 300);
-    pKago->setVxMvVelo(-3000);
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::GeoDriver* const pGeoDriver = callGeoDriver();
+    pVecDriver->setMvVelo(0);
+    pVecDriver->setRollPitchYawFaceAngVelo(700, 1100, 300);
+    pGeoDriver->setVxMvVelo(-3000);
     const coord appearances_renge_z = (MyShip::lim_z_left_ - MyShip::lim_z_right_) * 4;
     const coord appearances_renge_y = (MyShip::lim_y_top_ - MyShip::lim_y_bottom_) * 4;
     Spacetime* pSpacetime =  pGOD->getSpacetime();
@@ -102,8 +102,8 @@ void EnemyDrastea::onActive() {
 
 void EnemyDrastea::processBehavior() {
     //À•W‚É”½‰f
-    callRikisha()->behave();
-    callKago()->behave();
+    callVecDriver()->behave();
+    callGeoDriver()->behave();
     getSeTransmitter()->behave();
 }
 

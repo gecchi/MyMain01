@@ -7,9 +7,7 @@
 using namespace GgafLib;
 
 std::string LibConfig::DIRNAME_RESOURCE_WALL = "wall";
-std::string LibConfig::DIRNAME_RESOURCE_SPLINE = "spline";
 std::string LibConfig::DIR_WALL  = GgafCore::Config::DIR_RESOURCE + "/" + LibConfig::DIRNAME_RESOURCE_WALL + "/" ;
-std::string LibConfig::DIR_SPLINE = GgafCore::Config::DIR_RESOURCE + "/" + LibConfig::DIRNAME_RESOURCE_SPLINE + "/" ;
 
 int LibConfig::OCTREE_LEVEL = 1;
 int LibConfig::QUADTREE_LEVEL = 1;
@@ -21,9 +19,6 @@ void LibConfig::loadProperties(std::string prm_properties_filename) {
     GgafDx::Config::loadProperties(prm_properties_filename);
     if (LibConfig::_properties.isExistKey("DIRNAME_RESOURCE_WALL")) {
         LibConfig::DIRNAME_RESOURCE_WALL   = LibConfig::_properties.getStr("DIRNAME_RESOURCE_WALL");
-    }
-    if (LibConfig::_properties.isExistKey("DIRNAME_RESOURCE_SPLINE")) {
-        LibConfig::DIRNAME_RESOURCE_SPLINE  = LibConfig::_properties.getStr("DIRNAME_RESOURCE_SPLINE");
     }
 
     if (LibConfig::_properties.isExistKey("IS_HIT_CHECK_3D") && LibConfig::_properties.isExistKey("IS_HIT_CHECK_2D")) {
@@ -52,10 +47,8 @@ void LibConfig::loadProperties(std::string prm_properties_filename) {
     }
 
     LibConfig::DIR_WALL   = GgafCore::Config::DIR_RESOURCE + "/" + LibConfig::DIRNAME_RESOURCE_WALL   + "/";
-    LibConfig::DIR_SPLINE = GgafCore::Config::DIR_RESOURCE + "/" + LibConfig::DIRNAME_RESOURCE_SPLINE + "/";
 
     UTIL::strReplace(LibConfig::DIR_WALL, "//", "/");
-    UTIL::strReplace(LibConfig::DIR_SPLINE , "//", "/");
 
     //指定があるのならば、ディレクトリ存在チェック
     if (LibConfig::_properties.isExistKey("DIRNAME_RESOURCE_WALL")) {
@@ -63,16 +56,9 @@ void LibConfig::loadProperties(std::string prm_properties_filename) {
             throwCriticalException("prm_properties_filename="<<prm_properties_filename<<" DIR_WALL("<<LibConfig::DIR_WALL<<") のディレクトリが見つかりません。");
         }
     }
-    if (LibConfig::_properties.isExistKey("DIRNAME_RESOURCE_SPLINE")) {
-        if (!PathFileExists(LibConfig::DIR_SPLINE.c_str()) ) {
-            throwCriticalException("prm_properties_filename="<<prm_properties_filename<<" DIR_WALL("<<LibConfig::DIR_SPLINE<<") のディレクトリが見つかりません。");
-        }
-    }
 
     _TRACE_("LibConfig::DIRNAME_RESOURCE_WALL=" << LibConfig::DIRNAME_RESOURCE_WALL);
-    _TRACE_("LibConfig::DIRNAME_RESOURCE_SPLINE=" << LibConfig::DIRNAME_RESOURCE_SPLINE);
     _TRACE_("LibConfig::DIR_WALL=" << LibConfig::DIR_WALL);
-    _TRACE_("LibConfig::DIR_SPLINE=" << LibConfig::DIR_SPLINE);
     _TRACE_("LibConfig::IS_HIT_CHECK_3D=" << LibConfig::IS_HIT_CHECK_3D);
     _TRACE_("LibConfig::IS_HIT_CHECK_2D=" << LibConfig::IS_HIT_CHECK_2D);
     _TRACE_("LibConfig::OCTREE_LEVEL=" << LibConfig::OCTREE_LEVEL);

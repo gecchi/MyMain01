@@ -84,7 +84,7 @@ public:
     /**
      * X軸の負の方向にスクロールさせる関数 .
      * @param pThat アクター
-     * @param p1 スクロールスピード(_scroll_speedへのポインタ)
+     * @param p1 スクロールスピード(_feature_p1へのポインタ)
      * @param p2 nullptr
      * @param p3 nullptr
      */

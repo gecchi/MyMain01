@@ -12,14 +12,11 @@
 #define Obj_DefaultScene  ( (0x40ULL) | Obj_SceneBit)    //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000000 01000000
 #define Obj_WallScene     ((0x100ULL) | Obj_SceneBit)    //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000001 00000000
 
-#define Obj_LaserChip               (0x1000000000ULL)    //0b 00000000 00000000 00000001 00000000 00000000 00000000 00000000 00000000
-#define Obj_WallPartsActor          (0x2000000000ULL)    //0b 00000000 00000000 00000010 00000000 00000000 00000000 00000000 00000000
-#define Obj_IFormationAble          (0x4000000000ULL)    //0b 00000000 00000000 00000100 00000000 00000000 00000000 00000000 00000000
-#define Obj_MassWallActor           (0x8000000000ULL)    //0b 00000000 00000000 00001000 00000000 00000000 00000000 00000000 00000000
-#define Obj_CubeMapMassWallActor   (0x10000000000ULL)    //0b 00000000 00000000 00010000 00000000 00000000 00000000 00000000 00000000
-
-#define Obj_SplineLeader           (0x80000000000ULL)    //0b 00000000 00000000 10000000 00000000 00000000 00000000 00000000 00000000
-
+#define Obj_LaserChip              (0x80000000000ULL)    //0b 00000000 00000000 00001000 00000000 00000000 00000000 00000000 00000000
+#define Obj_WallPartsActor        (0x100000000000ULL)    //0b 00000000 00000000 00010000 00000000 00000000 00000000 00000000 00000000
+#define Obj_IFormationAble        (0x200000000000ULL)    //0b 00000000 00000000 00100000 00000000 00000000 00000000 00000000 00000000
+#define Obj_MassWallActor         (0x400000000000ULL)    //0b 00000000 00000000 01000000 00000000 00000000 00000000 00000000 00000000
+#define Obj_CubeMapMassWallActor  (0x800000000000ULL)    //0b 00000000 00000000 10000000 00000000 00000000 00000000 00000000 00000000
 
 typedef int_fast32_t dir26;
 typedef int_fast32_t dir8;
@@ -104,19 +101,6 @@ class CollisionChecker;
 class CollisionChecker3D;
 class CollisionChecker2D;
 
-class SplineLeader;
-class FixedFrameSplineRikishaLeader;
-class FixedVelocitySplineRikishaLeader;
-class SteppedCoordSplineRikishaLeader;
-class SplineManufacture;
-class SplineSource;
-class FixedFrameSplineManufacture;
-class FixedVelocitySplineManufacture;
-class SteppedCoordSplineManufacture;
-class SplineSourceManager;
-class SplineSourceConnection;
-class SplineManufactureManager;
-class SplineManufactureConnection;
 class LaserChip;
 class WateringLaserChip;
 class HomingLaserChip;

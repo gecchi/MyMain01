@@ -1,7 +1,7 @@
 #include "AliceShot.h"
 
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 
 using namespace GgafLib;
@@ -21,22 +21,22 @@ void AliceShot::initialize() {
 }
 void AliceShot::onReset() {
     setCullingDraw(false);
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    pRikisha->setRollFaceAngVelo(D_ANG(3));
-    pRikisha->linkFaceAngByMvAng(true);
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    pVecDriver->setRollFaceAngVelo(D_ANG(3));
+    pVecDriver->linkFaceAngByMvAng(true);
 }
 
 void AliceShot::onActive() {
     setHitAble(true, false);
     getStatus()->reset();
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    pRikisha->setRyMvAng(D90ANG);
-    pRikisha->setRzMvAngVelo(D_ANG(1));
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    pVecDriver->setRyMvAng(D90ANG);
+    pVecDriver->setRzMvAngVelo(D_ANG(1));
 }
 
 void AliceShot::processBehavior() {
     //À•W‚É”½‰f
-    callRikisha()->behave();
+    callVecDriver()->behave();
 }
 
 void AliceShot::processJudgement() {

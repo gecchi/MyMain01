@@ -1,6 +1,6 @@
 #include "LockonMagic.h"
 
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectLockonMagic.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyLockonController.h"
@@ -46,7 +46,7 @@ void LockonMagic::processCastBegin(int prm_now_level, int prm_new_level) {
     if (prm_new_level > prm_now_level) {
         pEffect_->setPositionAt(pMYSHIP->pMyMagicEnergyCore_);
         pEffect_->setCullingDraw(false);
-        pEffect_->callRikisha()->setFaceAngVelo(AXIS_Z, 100);
+        pEffect_->callVecDriver()->setFaceAngVelo(AXIS_Z, 100);
         pEffect_->setScale(1000);
         pEffect_->activate();
     }
@@ -69,7 +69,7 @@ void LockonMagic::processCastFinish(int prm_now_level, int prm_new_level, int pr
 void LockonMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
     if (prm_new_level > prm_now_level) {
         pEffect_->setScale(1000);
-        pEffect_->callRikisha()->setFaceAngVelo(AXIS_Z, 3000);
+        pEffect_->callVecDriver()->setFaceAngVelo(AXIS_Z, 3000);
     }
 }
 

@@ -1,9 +1,9 @@
 #include "EnemyAntiope.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/Kago.h"
+#include "jp/ggaf/dx/actor/supporter/GeoDriver.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
@@ -50,8 +50,8 @@ void EnemyAntiope::onActive() {
 }
 
 void EnemyAntiope::processBehavior() {
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    GgafDx::Kago* const pKago = callKago();
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::GeoDriver* const pGeoDriver = callGeoDriver();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
 
     GgafCore::Progress* const pProg = getProgress();
@@ -59,9 +59,9 @@ void EnemyAntiope::processBehavior() {
          case PROG_INIT: {
              setHitAble(false);
              setAlpha(0);
-             pRikisha->stopMv();
-             pRikisha->setRollFaceAngVelo(D_ANG(10));
-             pKago->setZeroVxyzMvVelo();
+             pVecDriver->stopMv();
+             pVecDriver->setRollFaceAngVelo(D_ANG(10));
+             pGeoDriver->setZeroVxyzMvVelo();
              pProg->changeNext();
              break;
          }
@@ -84,24 +84,24 @@ void EnemyAntiope::processBehavior() {
 
          case PROG_MOVE01: { //放物線のような動き
              if (pProg->hasJustChanged()) {
-                 pRikisha->setMvVelo(PX_C(30));
-                 pRikisha->setMvAcce(-1000);
+                 pVecDriver->setMvVelo(PX_C(30));
+                 pVecDriver->setMvAcce(-1000);
                  //平行移動速度の方向ベクトル mv_velo_twd_ はフォーメーションが設定
-                 pKago->setVxyzMvVelo(mv_velo_twd_.x, mv_velo_twd_.y, mv_velo_twd_.z);
+                 pGeoDriver->setVxyzMvVelo(mv_velo_twd_.x, mv_velo_twd_.y, mv_velo_twd_.z);
              }
 
-             if (pRikisha->_velo_mv <= (-PX_C(30) + 1000)) {
+             if (pVecDriver->_velo_mv <= (-PX_C(30) + 1000)) {
                  if (pP_) {
-                     pRikisha->stopMv();
-                     pKago->setZeroVxyzMvVelo();
+                     pVecDriver->stopMv();
+                     pGeoDriver->setZeroVxyzMvVelo();
                      pProg->change(PROG_LEAVE);
                  } else {
-                     pKago->setVxyzMvVelo(
-                                  mv_velo_twd_.x + (pRikisha->_vX * pRikisha->_velo_mv),
-                                  mv_velo_twd_.y + (pRikisha->_vY * pRikisha->_velo_mv),
-                                  mv_velo_twd_.z + (pRikisha->_vZ * pRikisha->_velo_mv)
+                     pGeoDriver->setVxyzMvVelo(
+                                  mv_velo_twd_.x + (pVecDriver->_vX * pVecDriver->_velo_mv),
+                                  mv_velo_twd_.y + (pVecDriver->_vY * pVecDriver->_velo_mv),
+                                  mv_velo_twd_.z + (pVecDriver->_vZ * pVecDriver->_velo_mv)
                                 );
-                     pRikisha->stopMv();
+                     pVecDriver->stopMv();
                      pProg->change(PROG_RUSH);
                  }
              }
@@ -123,8 +123,8 @@ void EnemyAntiope::processBehavior() {
          case PROG_RUSH: {
              //相方がいなくなった場合
              if (pProg->hasJustChanged()) {
-                 pKago->execGravitationMvSequenceTwd(pMYSHIP, PX_C(30), 200, PX_C(50));
-                 pRikisha->keepOnTurningFaceAngTwd(pMYSHIP, D_ANG(2), 0, TURN_CLOSE_TO, false);
+                 pGeoDriver->execGravitationMvSequenceTwd(pMYSHIP, PX_C(30), 200, PX_C(50));
+                 pVecDriver->keepOnTurningFaceAngTwd(pMYSHIP, D_ANG(2), 0, TURN_CLOSE_TO, false);
              }
              break;
          }
@@ -134,9 +134,9 @@ void EnemyAntiope::processBehavior() {
          }
      }
 
-//    _TRACE_(this<<":"<<getActiveFrame()<<" "<<_x<<","<<_y<<","<<_z<<"  ("<<_pRikisha->_velo_mv<<") "<<_pRikisha->_vX<<","<<_pRikisha->_vY<<","<<_pRikisha->_vZ<<"");
-    pRikisha->behave();
-    pKago->behave();
+//    _TRACE_(this<<":"<<getActiveFrame()<<" "<<_x<<","<<_y<<","<<_z<<"  ("<<_pVecDriver->_velo_mv<<") "<<_pVecDriver->_vX<<","<<_pVecDriver->_vY<<","<<_pVecDriver->_vZ<<"");
+    pVecDriver->behave();
+    pGeoDriver->behave();
     pAlphaFader->behave();
 }
 

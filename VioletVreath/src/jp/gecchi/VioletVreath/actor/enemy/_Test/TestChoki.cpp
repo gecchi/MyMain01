@@ -1,6 +1,6 @@
 #include "TestChoki.h"
 
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
@@ -26,7 +26,7 @@ void TestChoki::onActive() {
 }
 
 void TestChoki::processBehavior() {
-    callRikisha()->behave();
+    callVecDriver()->behave();
     //getSeTransmitter()->behave();
     dispStamina();
 }

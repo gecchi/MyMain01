@@ -18,8 +18,8 @@ namespace Mogera {
 class EnemyIdaBase : public GgafLib::DefaultMeshSetActor {
 
 public:
-    GgafLib::SplineManufactureConnection* pConn_pSplManuf_;
-    GgafLib::SplineLeader* pRikishaLeader_;
+    GgafDx::SplineManufactureConnection* pConn_pSplManuf_;
+    GgafDx::SplineLeader* pVecDriverLeader_;
     GgafCore::LinkedListRing<EnemyIda> _list_child;
     std::ofstream* pOs_;
     /**

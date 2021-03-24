@@ -36,7 +36,7 @@ void DanmakuAlice::onActive() {
 }
 
 void DanmakuAlice::processBehavior() {
-    GgafDx::Rikisha* const pRikisha = callRikisha();
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
     GgafCore::Progress* const pProg = getProgress();
 
     switch (pProg->get()) {

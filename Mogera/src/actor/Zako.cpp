@@ -1,10 +1,10 @@
 #include "Zako.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/lib/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/spline/SplineLeader.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "actor/Zakoko.h"
 
@@ -23,7 +23,7 @@ enum {
 Zako::Zako(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Zako") {
     _class_name = "Zako";
-    pRikishaLeader_ = nullptr; //フォーメーションオブジェクトが設定する
+    pVecDriverLeader_ = nullptr; //フォーメーションオブジェクトが設定する
     pOs_ = nullptr;
 
     int n = 6;
@@ -46,10 +46,10 @@ void Zako::onCreateModel() {
 }
 
 void Zako::initialize() {
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    pRikisha->linkFaceAngByMvAng(true);
-    pRikisha->setRollFaceAngVelo(D_ANG(2));
-    pRikisha->setMvVelo(PX_C(1));
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    pVecDriver->linkFaceAngByMvAng(true);
+    pVecDriver->setRollFaceAngVelo(D_ANG(2));
+    pVecDriver->setMvVelo(PX_C(1));
 
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
@@ -65,7 +65,7 @@ void Zako::onActive() {
 }
 
 void Zako::processBehavior() {
-    GgafDx::Rikisha* const pRikisha = callRikisha();
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
 //    GgafCore::Progress* const pProg = getProgress();
 //    switch (pProg->get()) {
 //        case PROG_INIT: {
@@ -75,12 +75,12 @@ void Zako::processBehavior() {
 //
 //        case PROG_SPLINE: {
 //            if (pProg->hasJustChanged()) {
-//                callRikisha()->setMvAcce(0); //加速度がある場合は切っておく
-//                pRikishaLeader_->start(RELATIVE_COORD_DIRECTION, 1);
+//                callVecDriver()->setMvAcce(0); //加速度がある場合は切っておく
+//                pVecDriverLeader_->start(RELATIVE_COORD_DIRECTION, 1);
 //            }
-//            pRikishaLeader_->behave(); //スプライン移動を振る舞い
+//            pVecDriverLeader_->behave(); //スプライン移動を振る舞い
 //
-//            if (pRikishaLeader_->isFinished()) {
+//            if (pVecDriverLeader_->isFinished()) {
 //                pProg->changeNext();
 //            }
 //            break;
@@ -96,7 +96,7 @@ void Zako::processBehavior() {
 //            break;
 //    }
 //
-    pRikisha->behave();
+    pVecDriver->behave();
 }
 
 void Zako::processJudgement() {
@@ -115,5 +115,5 @@ Zako::~Zako() {
     if (pOs_) {
         (*pOs_).close();
     }
-    GGAF_DELETE_NULLABLE(pRikishaLeader_);
+    GGAF_DELETE_NULLABLE(pVecDriverLeader_);
 }

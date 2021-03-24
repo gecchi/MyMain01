@@ -1,6 +1,6 @@
 #include "Planet001Atmosphere.h"
 
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/lib/actor/WorldBoundActor.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime.h"
@@ -26,12 +26,12 @@ void Planet001Atmosphere::onCreateModel() {
 
 void Planet001Atmosphere::initialize() {
     setCullingDraw(false);
-    callRikisha()->setFaceAngVelo(AXIS_Z, 1000);
+    callVecDriver()->setFaceAngVelo(AXIS_Z, 1000);
 }
 
 void Planet001Atmosphere::processBehavior() {
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    pRikisha->behave();
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    pVecDriver->behave();
 }
 
 Planet001Atmosphere::~Planet001Atmosphere() {

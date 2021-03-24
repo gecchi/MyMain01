@@ -1,9 +1,9 @@
 #include "MagicMeterCursor001.h"
 
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter.h"
-#include "jp/ggaf/dx/actor/supporter/RikishaMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriverMvAssistant.h"
 
 
 
@@ -31,10 +31,10 @@ void MagicMeterCursor001::onActive() {
 }
 
 void MagicMeterCursor001::processBehavior() {
-    GgafDx::Rikisha* const pRikisha = callRikisha();
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
     setAlpha(pMagicMeter_->getAlpha());
-    pRikisha->behave();
-    if (pRikisha->asstMv()->hasJustFinishedSliding()) {
+    pVecDriver->behave();
+    if (pVecDriver->asstMv()->hasJustFinishedSliding()) {
         //—‘zˆÊ’u‚É•â³
         _x = tx_;
         _y = ty_;
@@ -48,9 +48,9 @@ void MagicMeterCursor001::processJudgement() {
 void MagicMeterCursor001::moveTo(int prm_magic_mater_index) {
     tx_ = pMagicMeter_->_x + pMagicMeter_->width_*prm_magic_mater_index + (pMagicMeter_->width_/2);
     ty_ = pMagicMeter_->_y + (pMagicMeter_->height_/2);
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    pRikisha->setMvAngTwd(tx_, ty_);
-    pRikisha->asstMv()->slideByDt(UTIL::getDistance(_x, _y, tx_, ty_), 12,
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    pVecDriver->setMvAngTwd(tx_, ty_);
+    pVecDriver->asstMv()->slideByDt(UTIL::getDistance(_x, _y, tx_, ty_), 12,
                                   0.2, 0.4, 0, true);
 }
 

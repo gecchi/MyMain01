@@ -1,17 +1,15 @@
-#include <actor/EnemyIda.h>
-#include <actor/EnemyIdaBase.h>
-#include <GgafCommonHeader.h>
-#include <GgafDxCommonHeader.h>
-#include <jp/ggaf/core/Element.hpp>
-#include <jp/ggaf/core/Progress.h>
-#include <jp/ggaf/core/util/ResourceConnection.hpp>
-#include <jp/ggaf/dx/actor/supporter/Rikisha.h>
-#include <jp/ggaf/lib/DefaultGod.h>
-#include <jp/ggaf/lib/manager/SplineManufactureConnection.h>
-#include <jp/ggaf/lib/util/spline/SplineLeader.h>
-#include <jp/ggaf/lib/util/spline/SplineManufacture.h>
-#include <scene/MgrSpacetime/MgrWorld/ParallelCurveTestScene.h>
+#include "EnemyIdaBase.h"
 
+#include "EnemyIda.h"
+#include "util/MgrUtil.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/lib/DefaultGod.h"
+#include "jp/ggaf/dx/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/manager/SplineManufactureConnection.h"
+#include "jp/ggaf/dx/util/spline/SplineManufacture.h"
+#include "scene/MgrSpacetime/MgrWorld/ParallelCurveTestScene.h"
+
+using namespace GgafDx;
 using namespace GgafLib;
 using namespace Mogera;
 
@@ -24,8 +22,8 @@ enum {
 EnemyIdaBase::EnemyIdaBase(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Ida") {
     pConn_pSplManuf_ = connectToSplineManufactureManager("FormationZako001_STEP");
-    pRikishaLeader_ = pConn_pSplManuf_->peek()->createRikishaLeader(callRikisha());
-    pRikishaLeader_->_turn_smooth = true;
+    pVecDriverLeader_ = pConn_pSplManuf_->peek()->createVecDriverLeader(callVecDriver());
+    pVecDriverLeader_->_turn_smooth = true;
     std::string filename = XTOS(getName()) + ".dat";
     pOs_ = NEW std::ofstream(filename.c_str());
     setScaleR(0.5);
@@ -45,8 +43,8 @@ EnemyIdaBase::EnemyIdaBase(const char* prm_name) :
 }
 
 void EnemyIdaBase::initialize() {
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    pRikisha->linkFaceAngByMvAng(true);
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    pVecDriver->linkFaceAngByMvAng(true);
 }
 
 void EnemyIdaBase::onActive() {
@@ -54,7 +52,7 @@ void EnemyIdaBase::onActive() {
 }
 
 void EnemyIdaBase::processBehavior() {
-    GgafDx::Rikisha* pRikisha = callRikisha();
+    GgafDx::VecDriver* pVecDriver = callVecDriver();
     GgafCore::Progress* pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
@@ -63,22 +61,22 @@ void EnemyIdaBase::processBehavior() {
         }
         case PROG_MOVE: {
             if (pProg->hasJustChanged()) {
-                pRikishaLeader_->start(RELATIVE_COORD);
-                callRikisha()->setMvVelo(PX_C(2));
+                pVecDriverLeader_->start(RELATIVE_COORD);
+                callVecDriver()->setMvVelo(PX_C(2));
             }
-            pRikishaLeader_->behave();
-            if (pRikishaLeader_->isFinished()) {
+            pVecDriverLeader_->behave();
+            if (pVecDriverLeader_->isFinished()) {
                 pProg->changeNext();
             }
             break;
         }
         case PROG_END: {
-            callRikisha()->stopMv();
-            callRikisha()->stopTurningMvAng();
+            callVecDriver()->stopMv();
+            callVecDriver()->stopTurningMvAng();
             break;
         }
     }
-    pRikisha->behave();
+    pVecDriver->behave();
 }
 
 void EnemyIdaBase::processJudgement() {

@@ -4,10 +4,11 @@
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/lib/DefaultGod.h"
-#include "jp/ggaf/lib/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/spline/SplineLeader.h"
 
+using namespace GgafDx;
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -69,9 +70,9 @@ void FormationAllas001::processBehavior() {
                 if (getActiveFrame() % interval_frames_ == 0) {
                     EnemyAllas* pAllas = (EnemyAllas*)callUpMember();
                     if (pAllas) {
-                        pAllas->callRikisha()->setMvVelo(velo_mv_);
-                        SplineLeader* pRikishaLeader = pConn_pSplManuf_->peek()->createRikishaLeader(pAllas->callRikisha());
-                        pAllas->config(pRikishaLeader, nullptr, nullptr);
+                        pAllas->callVecDriver()->setMvVelo(velo_mv_);
+                        SplineLeader* pVecDriverLeader = pConn_pSplManuf_->peek()->createVecDriverLeader(pAllas->callVecDriver());
+                        pAllas->config(pVecDriverLeader, nullptr, nullptr);
                         onCallUpAllas(pAllas);
                     }
                 }

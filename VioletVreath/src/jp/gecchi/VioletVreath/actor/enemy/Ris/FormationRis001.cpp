@@ -1,15 +1,14 @@
 #include "FormationRis001.h"
 
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
-#include "jp/ggaf/lib/util/spline/FixedVelocitySplineRikishaLeader.h"
-#include "jp/ggaf/lib/util/spline/FixedVelocitySplineManufacture.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/util/spline/FixedVelocitySplineVecDriverLeader.h"
+#include "jp/ggaf/dx/util/spline/FixedVelocitySplineManufacture.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ris/EnemyRis.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-
-
+using namespace GgafDx;
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -26,7 +25,7 @@ FormationRis001::FormationRis001(const char* prm_name) : TreeFormation(prm_name)
     for (int i = 0; i < num_Ris_; i++) {
         EnemyRis* pRis = NEW EnemyRis("Ris01");
         //スプライン移動プログラム設定
-        SplineLeader* pProgram = NEW FixedVelocitySplineRikishaLeader(pManufacture_, pRis->callRikisha()); //移動速度固定
+        SplineLeader* pProgram = NEW FixedVelocitySplineVecDriverLeader(pManufacture_, pRis->callVecDriver()); //移動速度固定
         pRis->config(pProgram, pConn_depo_->peek(), nullptr);
         appendFormationMember(pRis);
     }
@@ -43,7 +42,7 @@ void FormationRis001::processBehavior() {
         EnemyRis* pRis = (EnemyRis*)callUpMember();
         if (pRis) {
             pRis->setPosition(MyShip::lim_x_behaind_ - 500000, 0, MyShip::lim_z_left_ * 0.8);
-            pRis->callRikisha()->setMvVelo(velo_mv_);
+            pRis->callVecDriver()->setMvVelo(velo_mv_);
         }
     }
 }

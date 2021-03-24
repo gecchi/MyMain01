@@ -1,14 +1,14 @@
 #include "EnemyAppho.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dx/actor/supporter/RikishaMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriverMvAssistant.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
 using namespace GgafLib;
@@ -51,7 +51,7 @@ void EnemyAppho::onActive() {
 }
 
 void EnemyAppho::processBehavior() {
-    GgafDx::Rikisha* const pRikisha = callRikisha();
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
     GgafCore::Progress* const pProg = getProgress();
 
     switch (pProg->get()) {
@@ -61,10 +61,10 @@ void EnemyAppho::processBehavior() {
              setPositionAt(&entry_pos_);
              setFaceAngTwd(stagnating_pos_.x, stagnating_pos_.y, stagnating_pos_.z);
              setAlpha(0);
-             pRikisha->linkFaceAngByMvAng(false);
-             pRikisha->setMvVelo(0);
-             pRikisha->setMvAngTwd(&stagnating_pos_);
-             pRikisha->setRollFaceAngVelo(D_ANG(3));
+             pVecDriver->linkFaceAngByMvAng(false);
+             pVecDriver->setMvVelo(0);
+             pVecDriver->setMvAngTwd(&stagnating_pos_);
+             pVecDriver->setRollFaceAngVelo(D_ANG(3));
              pProg->changeNext();
              break;
          }
@@ -72,7 +72,7 @@ void EnemyAppho::processBehavior() {
              EffectBlink* pEffectEntry = nullptr;
              if (pProg->hasJustChanged()) {
                  pEffectEntry = UTIL::activateEntryEffectOf(this);
-                 pRikisha->setRollFaceAngVelo(D_ANG(3));
+                 pVecDriver->setRollFaceAngVelo(D_ANG(3));
              }
              static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
              static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
@@ -91,35 +91,35 @@ void EnemyAppho::processBehavior() {
                  //滞留ポイントへGO!
                  velo mv_velo = RF_EnemyAppho_MvVelo(G_RANK);
                  coord d = UTIL::getDistance(this, &stagnating_pos_);
-                 pRikisha->asstMv()->slideByVd(mv_velo, d,
+                 pVecDriver->asstMv()->slideByVd(mv_velo, d,
                                                0.2, 0.8, 200, true);
              }
              //滞留ポイントまで移動中
              if (pProg->getFrame() % 32U == 0) {
                  //ちょくちょく自機を見つめる
-                 pRikisha->turnFaceAngTwd(pMYSHIP, D_ANG(0.5), 0,
+                 pVecDriver->turnFaceAngTwd(pMYSHIP, D_ANG(0.5), 0,
                                          TURN_CLOSE_TO, true);
              }
-             if (pRikisha->asstMv()->hasJustFinishedSliding()) {
+             if (pVecDriver->asstMv()->hasJustFinishedSliding()) {
                  pProg->changeNext();
              }
-             //_TRACE_("PROG_MOVE01:"<<_x<<","<<_y<<","<<_z<<","<<_pRikisha->_velo_mv<<","<<_pRikisha->_acc_mv);
+             //_TRACE_("PROG_MOVE01:"<<_x<<","<<_y<<","<<_z<<","<<_pVecDriver->_velo_mv<<","<<_pVecDriver->_acc_mv);
              break;
          }
 
          case PROG_MOVE02: {
              if (pProg->hasJustChanged()) {
                  //滞留ポイント到着、自機方向へジワリ移動させる
-                 pRikisha->turnMvAngTwd(pMYSHIP,
+                 pVecDriver->turnMvAngTwd(pMYSHIP,
                                        100, 0, TURN_CLOSE_TO, false);
                  //ゆっくり自機の方へ向かせる
-                 pRikisha->turnFaceAngTwd(pMYSHIP,
+                 pVecDriver->turnFaceAngTwd(pMYSHIP,
                                          D_ANG(1), 0, TURN_CLOSE_TO, true);
              }
              //滞留中
              if (pProg->getFrame() % 16U == 0) {
                  //ちょくちょく自機を見つめる
-                 pRikisha->turnFaceAngTwd(pMYSHIP,
+                 pVecDriver->turnFaceAngTwd(pMYSHIP,
                                          D_ANG(1), 0, TURN_CLOSE_TO, true);
              }
 
@@ -131,10 +131,10 @@ void EnemyAppho::processBehavior() {
                      GgafDx::FigureActor* pShot = UTIL::activateAttackShotOf(this);
                      if (pShot) {
                          pShot->activateDelay(1+(i*10)); //ばらつかせ。activate タイミング上書き！
-                         GgafDx::Rikisha* pShot_pRikisha = pShot->callRikisha();
-                         pShot_pRikisha->setRzRyMvAng(_rz, _ry);
-                         pShot_pRikisha->setMvVelo(shot_velo);
-                         pShot_pRikisha->setMvAcce(100);
+                         GgafDx::VecDriver* pShot_pVecDriver = pShot->callVecDriver();
+                         pShot_pVecDriver->setRzRyMvAng(_rz, _ry);
+                         pShot_pVecDriver->setMvVelo(shot_velo);
+                         pShot_pVecDriver->setMvAcce(100);
                      }
                  }
              }
@@ -148,15 +148,15 @@ void EnemyAppho::processBehavior() {
              //さよなら準備
              if (pProg->hasJustChanged()) {
                  //ゆっくりさよならポイントへ向ける
-                 pRikisha->turnMvAngTwd(&leave_pos_,
+                 pVecDriver->turnMvAngTwd(&leave_pos_,
                                        D_ANG(1), D_ANG(1), TURN_CLOSE_TO, false);
-                 pRikisha->setMvAcce(10);
+                 pVecDriver->setMvAcce(10);
              }
              if (pProg->getFrame() % 16U == 0) {
-                 pRikisha->turnFaceAngTwd(pMYSHIP,
+                 pVecDriver->turnFaceAngTwd(pMYSHIP,
                                          D_ANG(1), 0, TURN_CLOSE_TO, true);
              }
-             if (!pRikisha->isTurningMvAng()) {
+             if (!pVecDriver->isTurningMvAng()) {
                  pProg->changeNext();
              }
              break;
@@ -165,13 +165,13 @@ void EnemyAppho::processBehavior() {
          case PROG_MOVE04: {
              //さよなら～
              if (pProg->hasJustChanged()) {
-                 pRikisha->turnMvAngTwd(&leave_pos_,
+                 pVecDriver->turnMvAngTwd(&leave_pos_,
                                        D_ANG(1), 0, TURN_CLOSE_TO, false);
-                 pRikisha->setMvAcce(100+(G_RANK*200));
+                 pVecDriver->setMvAcce(100+(G_RANK*200));
              }
              if (pProg->getFrame() % 16U == 0) {
                  //ちょくちょく自機を見つめる
-                 pRikisha->turnFaceAngTwd(pMYSHIP,
+                 pVecDriver->turnFaceAngTwd(pMYSHIP,
                                          D_ANG(1), 0, TURN_CLOSE_TO, true);
              }
              break;
@@ -181,7 +181,7 @@ void EnemyAppho::processBehavior() {
              break;
          }
      }
-    pRikisha->behave();
+    pVecDriver->behave();
     getAlphaFader()->behave();
 }
 

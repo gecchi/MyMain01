@@ -22,7 +22,7 @@ class FormationOebius002 : public FormationOebius {
     frame* pa_frame_of_call_up_;
     XpmConnection* pXpmConnection_;
 public:
-    GgafLib::SplineManufactureConnection** papSplManufConn_;
+    GgafDx::SplineManufactureConnection** papSplManufConn_;
 
     FormationOebius002(const char* prm_name, EnemyOebiusController* prm_pController);
 

@@ -6,7 +6,7 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/dx/model/supporter/TextureBlinker.h"
@@ -72,7 +72,7 @@ void EnemyRatislaviaEye::onCreateModel() {
 
 void EnemyRatislaviaEye::initialize() {
     setHitAble(true);
-    callRikisha()->linkFaceAngByMvAng(true);
+    callVecDriver()->linkFaceAngByMvAng(true);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliSphere(0, 200000);
@@ -84,13 +84,13 @@ void EnemyRatislaviaEye::onActive() {
     getProgress()->reset(PROG_MOVE);
     setPositionAt(pRatislavia_);
     setFaceAngAs(pRatislavia_);
-    callRikisha()->setRzRyMvAngVelo(pRatislavia_->callRikisha()->_angvelo_face[AXIS_Z],
-                                  pRatislavia_->callRikisha()->_angvelo_face[AXIS_Y]);
+    callVecDriver()->setRzRyMvAngVelo(pRatislavia_->callVecDriver()->_angvelo_face[AXIS_Z],
+                                  pRatislavia_->callVecDriver()->_angvelo_face[AXIS_Y]);
 }
 
 void EnemyRatislaviaEye::processBehavior() {
     setPositionAt(pRatislavia_);
-    GgafDx::Rikisha* const pRikisha = callRikisha();
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_MOVE: {
@@ -103,15 +103,15 @@ void EnemyRatislaviaEye::processBehavior() {
             if (pProg->getFrame() > 240) {
                 pProg->changeNext();
             }
-            pRikisha->takeoverMvFrom(pRatislavia_->callRikisha());
-            pRikisha->setRzRyMvAngVelo(pRatislavia_->callRikisha()->_angvelo_face[AXIS_Z],
-                                      pRatislavia_->callRikisha()->_angvelo_face[AXIS_Y]);
+            pVecDriver->takeoverMvFrom(pRatislavia_->callVecDriver());
+            pVecDriver->setRzRyMvAngVelo(pRatislavia_->callVecDriver()->_angvelo_face[AXIS_Z],
+                                      pRatislavia_->callVecDriver()->_angvelo_face[AXIS_Y]);
             break;
         }
 
         case PROG_TURN: {
             if (pProg->hasJustChanged()) {
-                pRikisha->turnMvAngTwd(pMYSHIP,
+                pVecDriver->turnMvAngTwd(pMYSHIP,
                                         D_ANG(1), 0, TURN_CLOSE_TO, false);
             }
             if (pProg->getFrame() > 240) {
@@ -122,7 +122,7 @@ void EnemyRatislaviaEye::processBehavior() {
 
         case PROG_FIRE_BEGIN: {
             if (pProg->hasJustChanged()) {
-                //_pRikisha->turnMvAngTwd(pMYSHIP, D_ANG(1), 0, TURN_ANTICLOSE_TO, false);
+                //_pVecDriver->turnMvAngTwd(pMYSHIP, D_ANG(1), 0, TURN_ANTICLOSE_TO, false);
                 pEffect_->activate();
             }
             pEffect_->setPositionAt(this);
@@ -133,7 +133,7 @@ void EnemyRatislaviaEye::processBehavior() {
         }
         case PROG_IN_FIRE: {
             if (pProg->hasJustChanged()) {
-                pRikisha->turnMvAngTwd(pMYSHIP,
+                pVecDriver->turnMvAngTwd(pMYSHIP,
                                         10, 0, TURN_CLOSE_TO, false);
             }
             LaserChip* pChip = pLaserChipDepo_->dispatch();
@@ -149,8 +149,8 @@ void EnemyRatislaviaEye::processBehavior() {
         case PROG_FIRE_END: {
             if (pProg->hasJustChanged()) {
                 getMorpher()->transitionLinearUntil(1, 0.0, 180); //•Â‚¶‚é
-                pRikisha->setRzRyMvAngVelo(pRatislavia_->callRikisha()->_angvelo_face[AXIS_Z],
-                                          pRatislavia_->callRikisha()->_angvelo_face[AXIS_Y]);
+                pVecDriver->setRzRyMvAngVelo(pRatislavia_->callVecDriver()->_angvelo_face[AXIS_Z],
+                                          pRatislavia_->callVecDriver()->_angvelo_face[AXIS_Y]);
             }
             //d’¼
             if (pProg->getFrame() >= 300) {
@@ -164,7 +164,7 @@ void EnemyRatislaviaEye::processBehavior() {
         }
     }
 
-    pRikisha->behave();
+    pVecDriver->behave();
     getMorpher()->behave();
     getSeTransmitter()->behave();
 }

@@ -1,14 +1,13 @@
 #include "FormationErelman003.h"
 
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
-#include "jp/ggaf/lib/util/spline/SplineLeader.h"
-#include "jp/ggaf/lib/util/spline/SplineManufacture.h"
-#include "jp/ggaf/lib/util/spline/FixedFrameSplineManufacture.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/spline/SplineManufacture.h"
+#include "jp/ggaf/dx/util/spline/FixedFrameSplineManufacture.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Erelman/EnemyErelman.h"
 
-
-
+using namespace GgafDx;
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -119,25 +118,25 @@ void FormationErelman003::processBehavior() {
 
 void FormationErelman003::onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) {
     EnemyErelman* pErelman = (EnemyErelman*)prm_pActor;
-    if (pErelman->pRikishaLeader_) {
-        throwCriticalException("pErelman->pRikishaLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpErelman="<<pErelman<<"("<<pErelman->getName()<<")");
+    if (pErelman->pVecDriverLeader_) {
+        throwCriticalException("pErelman->pVecDriverLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpErelman="<<pErelman<<"("<<pErelman->getName()<<")");
     } else {
-        pErelman->pRikishaLeader_ = papSplManufConn_[prm_col]->peek()->
-                                      createRikishaLeader(pErelman->callRikisha());
+        pErelman->pVecDriverLeader_ = papSplManufConn_[prm_col]->peek()->
+                                      createVecDriverLeader(pErelman->callVecDriver());
     }
-    pErelman->pRikishaLeader_->setStartPosition(geo_.x, geo_.y, geo_.z);
-    pErelman->pRikishaLeader_->setStartAngle(geo_.rx, geo_.ry, geo_.rz);
+    pErelman->pVecDriverLeader_->setStartPosition(geo_.x, geo_.y, geo_.z);
+    pErelman->pVecDriverLeader_->setStartAngle(geo_.rx, geo_.ry, geo_.rz);
     pErelman->setPositionAround(geo_.x, geo_.y, geo_.z, PX_C(100));
 //    pErelman->setFaceAngTwd(pErelman->_x + (pErelman->_x - geo_.x),
 //                            pErelman->_y + (pErelman->_y - geo_.y),
 //                            pErelman->_z + (pErelman->_z - geo_.z) );
-//    pErelman->callRikisha()->setMvAngByFaceAng();
+//    pErelman->callVecDriver()->setMvAngByFaceAng();
 
-    pErelman->callRikisha()->setMvAngTwd(pErelman->_x + (pErelman->_x - geo_.x),
+    pErelman->callVecDriver()->setMvAngTwd(pErelman->_x + (pErelman->_x - geo_.x),
                                        pErelman->_y + (pErelman->_y - geo_.y),
                                        pErelman->_z + (pErelman->_z - geo_.z) );
-    pErelman->callRikisha()->setMvVelo(0);
-    pErelman->callRikisha()->setMvAcce(80);
+    pErelman->callVecDriver()->setMvVelo(0);
+    pErelman->callVecDriver()->setMvAcce(80);
 
 //    if (prm_row == 0) {
 //        pErelman->setMaterialColor(1, 1, 1);

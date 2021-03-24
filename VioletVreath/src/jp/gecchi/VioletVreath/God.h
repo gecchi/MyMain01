@@ -4,7 +4,7 @@
 #include "jp/ggaf/lib/DefaultGod.h"
 
 #include "jp/ggaf/lib/util/VirtualButton.h"
-#include "jp/ggaf/lib/manager/SplineSourceConnection.h"
+#include "jp/ggaf/dx/manager/SplineSourceConnection.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/manager/EffectManager.h"
 #include "jp/gecchi/VioletVreath/manager/DepositoryManager.h"

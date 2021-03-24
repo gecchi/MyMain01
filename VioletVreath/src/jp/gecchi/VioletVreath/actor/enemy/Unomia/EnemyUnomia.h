@@ -17,7 +17,7 @@ class EnemyUnomia : public VvEnemyActor<GgafLib::DefaultMassMeshActor> {
 
 public:
     /** 移動スプラインのシークエンスプログラム */
-    GgafLib::SplineLeader* pRikishaLeader_;
+    GgafDx::SplineLeader* pVecDriverLeader_;
     /** 弾ストック */
     GgafCore::ActorDepository* pDepo_shot_;
     /** 弾発射効果エフェクト */
@@ -69,12 +69,12 @@ public:
 
     /**
      *
-     * @param prm_pRikishaLeader
+     * @param prm_pVecDriverLeader
      * @param prm_pDepo_shot
      * @param prm_pDepo_shotEffect
      */
     virtual void config(
-            GgafLib::SplineLeader* prm_pRikishaLeader,
+            GgafDx::SplineLeader* prm_pVecDriverLeader,
             GgafCore::ActorDepository* prm_pDepo_shot,
             GgafCore::ActorDepository* prm_pDepo_shotEffect
             );

@@ -17,7 +17,7 @@ class EnemyDelheid : public VvEnemyActor<GgafLib::DefaultMassMorphMeshActor> {
 
 public:
     /** スプライン移動のシークエンス */
-    GgafLib::SplineLeader* pRikishaLeader_;
+    GgafDx::SplineLeader* pVecDriverLeader_;
     /** ショットのデポジトリ */
     GgafCore::ActorDepository* pDepoShot_;
     /** ショット開始時間 */
@@ -37,7 +37,7 @@ public:
 
     void nextFrame() override;
 
-    void config(GgafLib::SplineLeader* prm_pRikishaLeader,
+    void config(GgafDx::SplineLeader* prm_pVecDriverLeader,
                 GgafCore::ActorDepository* prm_pDepoShot);
 
     /**

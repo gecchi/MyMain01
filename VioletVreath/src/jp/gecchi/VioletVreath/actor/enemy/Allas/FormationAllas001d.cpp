@@ -1,8 +1,8 @@
 #include "FormationAllas001d.h"
 
 #include "EnemyAllas.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
-#include "jp/ggaf/lib/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/util/spline/SplineLeader.h"
 
 
 
@@ -14,9 +14,9 @@ FormationAllas001d::FormationAllas001d(const char* prm_name) : FormationAllas001
 }
 
 void FormationAllas001d::onCallUpAllas(EnemyAllas* prm_pAllas) {
-    prm_pAllas->pRikishaLeader_->adjustAxisYFlip();
-    prm_pAllas->pRikishaLeader_->adjustAxisZFlip();
-    prm_pAllas->pRikishaLeader_->setAbsoluteBeginCoord();
+    prm_pAllas->pVecDriverLeader_->adjustAxisYFlip();
+    prm_pAllas->pVecDriverLeader_->adjustAxisZFlip();
+    prm_pAllas->pVecDriverLeader_->setAbsoluteBeginCoord();
 }
 
 FormationAllas001d::~FormationAllas001d() {

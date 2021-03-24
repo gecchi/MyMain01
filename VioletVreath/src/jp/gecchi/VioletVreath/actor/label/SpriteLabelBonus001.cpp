@@ -1,6 +1,6 @@
 #include "SpriteLabelBonus001.h"
 
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
 
@@ -37,16 +37,16 @@ void SpriteLabelBonus001::initialize() {
 
 void SpriteLabelBonus001::onDispatched(GgafDx::GeometricActor* prm_pOrgActor) {
     setPositionAt(prm_pOrgActor);
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    pRikisha->takeoverMvFrom(prm_pOrgActor->callRikisha());
-    pRikisha->setMvAcce(300);
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    pVecDriver->takeoverMvFrom(prm_pOrgActor->callVecDriver());
+    pVecDriver->setMvAcce(300);
     setAlpha(0.7);
     getProgress()->reset(PROG_INIT);
 }
 
 void SpriteLabelBonus001::processBehavior() {
     const Camera* const pCam = pGOD->getSpacetime()->getCamera();
-    GgafDx::Rikisha* const pRikisha = callRikisha();
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
@@ -57,12 +57,12 @@ void SpriteLabelBonus001::processBehavior() {
             //‚µ‚Î‚ç‚­’¼i
             if (pProg->hasArrivedAt(60)) {
                 //ƒJƒƒ‰‚ÉŒü‚©‚Á‚Ä•ûŒü“]Š·1
-                pRikisha->turnMvAngTwd(pCam,
+                pVecDriver->turnMvAngTwd(pCam,
                                       D_ANG(3), 0, TURN_CLOSE_TO, true);
             }
             if (pProg->hasArrivedAt(60+30)) {
                 //ƒJƒƒ‰‚ÉŒü‚©‚Á‚Ä•ûŒü“]Š·2
-                pRikisha->turnMvAngTwd(pCam,
+                pVecDriver->turnMvAngTwd(pCam,
                                       D_ANG(1), 0, TURN_CLOSE_TO, true);
             }
 
@@ -91,7 +91,7 @@ void SpriteLabelBonus001::processBehavior() {
             break;
     }
 
-    pRikisha->behave();
+    pVecDriver->behave();
 }
 
 SpriteLabelBonus001::~SpriteLabelBonus001() {

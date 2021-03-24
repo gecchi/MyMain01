@@ -1,11 +1,11 @@
 #include "jp/ggaf/lib/actor/camera/worker/CameraWorker.h"
 
 #include "jp/ggaf/dx/actor/GeometricActor.h"
-#include "jp/ggaf/dx/actor/supporter/Kago.h"
-#include "jp/ggaf/dx/actor/supporter/KagoAssistantA.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
-#include "jp/ggaf/dx/actor/supporter/RikishaMvAssistant.h"
-#include "jp/ggaf/dx/actor/supporter/RikishaFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/GeoDriver.h"
+#include "jp/ggaf/dx/actor/supporter/GeoDriverAssistantA.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriverMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriverFaceAngAssistant.h"
 #include "jp/ggaf/lib/util/Direction26Util.h"
 #include "jp/ggaf/dx/util/Util.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
@@ -124,11 +124,11 @@ void CameraWorker::setUpVec(coord tx, coord ty, coord tz) {
     _pUp->setPosition(tx,ty,tz);
 }
 void CameraWorker::stopMvCam() {
-    _pCam->callKago()->stopMv();
+    _pCam->callGeoDriver()->stopMv();
 }
 
 void CameraWorker::stopMvVp() {
-    _pVp->callKago()->stopMv();
+    _pVp->callGeoDriver()->stopMv();
 }
 
 CameraWorker::~CameraWorker() {

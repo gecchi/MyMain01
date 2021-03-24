@@ -1,8 +1,8 @@
 #include "jp/ggaf/lib/actor/camera/DefaultCameraUpVector.h"
 
-#include "jp/ggaf/dx/actor/supporter/Kago.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
-#include "jp/ggaf/dx/actor/supporter/KagoAssistantA.h"
+#include "jp/ggaf/dx/actor/supporter/GeoDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/GeoDriverAssistantA.h"
 #include "jp/ggaf/lib/util/Direction26Util.h"
 
 
@@ -15,20 +15,20 @@ DefaultCameraUpVector::DefaultCameraUpVector(const char* prm_name) : GgafDx::Cam
 }
 
 void DefaultCameraUpVector::processBehavior() {
-    callKago()->behave();
-    callRikisha()->behave();
+    callGeoDriver()->behave();
+    callVecDriver()->behave();
 }
 
 //void DefaultCameraUpVector::moveTo(dir26 prm_dir_no, frame prm_spent) {
 //    _TRACE_("moveTo dir26 ("<<prm_dir_no<<") prm_spent="<<prm_spent);
 //    dxcoord up_x, up_y, up_z;
 //    Direction26Util::cnvDirNo2Vec(prm_dir_no, up_x, up_y, up_z);
-//    callKago()->asst()->slideVxyzMvByDtTo(DX_C(up_x), DX_C(up_y), DX_C(up_z), prm_spent, 0.3, 0.4, 0, true);
+//    callGeoDriver()->asst()->slideVxyzMvByDtTo(DX_C(up_x), DX_C(up_y), DX_C(up_z), prm_spent, 0.3, 0.4, 0, true);
 //    up_dir_ = prm_dir_no;
 //}
 
 void DefaultCameraUpVector::slideMvTo(coord tx, coord ty, coord tz, frame prm_spent, float prm_p1, float prm_p2) {
-    callKago()->asst()->slideVxyzMvByDtTo(tx, ty, tz, prm_spent, prm_p1, prm_p2, 0, true);
+    callGeoDriver()->asst()->slideVxyzMvByDtTo(tx, ty, tz, prm_spent, prm_p1, prm_p2, 0, true);
     up_dir_ = Direction26Util::cnvVec2DirNo(C_DX(tx), C_DX(ty), C_DX(tz));
 }
 

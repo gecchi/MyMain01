@@ -3,7 +3,7 @@
 #include "VioletVreath.h"
 #include "jp/ggaf/core/util/Status.h"
 #include "jp/ggaf/dx/actor/FigureActor.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
 
@@ -12,25 +12,25 @@ namespace VioletVreath {
 
 template<class T>
 class VvActor : public T {
-    GgafLib::DefaultScene* pScrollingScene_;
-    GgafLib::SplineLeader* pScrollingSplineLeader_;
+    GgafLib::DefaultScene* pFeatureScene_;
+    GgafDx::SplineLeader* pFeatureSplineLeader_;
 public:
     VvActor(const char* prm_name, const char* prm_model_id)
         : T(prm_name, prm_model_id) {
-        pScrollingScene_ = nullptr;
-        pScrollingSplineLeader_ = nullptr;
+        pFeatureScene_ = nullptr;
+        pFeatureSplineLeader_ = nullptr;
     }
-    void registerpScrollingSplineLeader(GgafLib::SplineLeader* prm_pSplineLeader) {
-        pScrollingSplineLeader_ = prm_pSplineLeader;
-        pScrollingScene_ = ((GgafLib::DefaultScene*)(T::getSceneMediator()->getPlatformScene()))->getNearestScrollingScene();
-        //pScrollingScene_->_pFuncScrolling(pScrollingSplineLeader_, &(pScrollingScene_->_scroll_speed), nullptr, nullptr);
-            //pRikishaLeader_->_x_start_in_loop -= pScrollingScene_->getScrollSpeed();
+    void registerpFeatureSplineLeader(GgafDx::SplineLeader* prm_pSplineLeader) {
+        pFeatureSplineLeader_ = prm_pSplineLeader;
+        pFeatureScene_ = ((GgafLib::DefaultScene*)(T::getSceneMediator()->getPlatformScene()))->getNearestFeatureScene();
+        //pFeatureScene_->_pFuncFeature(pFeatureSplineLeader_, &(pFeatureScene_->_feature_p1), nullptr, nullptr);
+            //pVecDriverLeader_->_x_start_in_loop -= pFeatureScene_->getFeatureParam1();
     }
     void executeFuncLowerTree(void (*pFunc)(GgafCore::Object*, void*, void*, void*), void* prm1, void* prm2, void* prm3) override {
         T::executeFuncLowerTree(pFunc, prm1, prm2, prm3);
-        if (pScrollingSplineLeader_ && pFunc == pScrollingScene_->_pFuncScrolling) {
+        if (pFeatureSplineLeader_ && pFunc == pFeatureScene_->_pFuncFeature) {
             if (T::_can_live_flg && T::_is_active_flg) {
-                pFunc((GgafCore::Object*)pScrollingSplineLeader_, &(pScrollingScene_->_scroll_speed), prm2, prm3);
+                pFunc((GgafCore::Object*)pFeatureSplineLeader_, &(pFeatureScene_->_feature_p1), prm2, prm3);
             }
         }
     }
@@ -50,7 +50,7 @@ public:
 //                        pE->onActive();
 //                    }
 //                    pE->setPositionAt(this);
-//                    pE->callRikisha()->takeoverMvFrom(this->callRikisha());
+//                    pE->callVecDriver()->takeoverMvFrom(this->callVecDriver());
 //                }
 //                break;
 //            }
@@ -58,7 +58,7 @@ public:
 //                pE = dispatchForceFromCommon(EffectExplosion002);
 //                if (pE) {
 //                    pE->setPositionAt(this);
-//                    pE->callRikisha()->takeoverMvFrom(this->callRikisha());
+//                    pE->callVecDriver()->takeoverMvFrom(this->callVecDriver());
 //                }
 //                break;
 //            }
@@ -66,7 +66,7 @@ public:
 //                pE = dispatchForceFromCommon(EffectExplosion003);
 //                if (pE) {
 //                    pE->setPositionAt(this);
-//                    pE->callRikisha()->takeoverMvFrom(this->callRikisha());
+//                    pE->callVecDriver()->takeoverMvFrom(this->callVecDriver());
 //                }
 //                break;
 //            }
@@ -74,8 +74,8 @@ public:
 //                pE = dispatchForceFromCommon(EffectExplosion001);
 //                if (pE) {
 //                    pE->setPositionAt(this);
-//                    pE->callRikisha()->setMvVelo(0);
-//                    pE->callRikisha()->setMvAcce(0);
+//                    pE->callVecDriver()->setMvVelo(0);
+//                    pE->callVecDriver()->setMvAcce(0);
 //                }
 //                break;
 //            }

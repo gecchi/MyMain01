@@ -2,15 +2,16 @@
 
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/actor/supporter/Checker.h"
-#include "jp/ggaf/lib/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/spline/SplineLeader.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Delheid/FormationDelheid.h"
 
+using namespace GgafDx;
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -47,7 +48,7 @@ EnemyDelheid::EnemyDelheid(const char* prm_name) :
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
     pProg2_ = createProgress();
     shot_begin_frame_ = 0;
-    pRikishaLeader_ = nullptr;
+    pVecDriverLeader_ = nullptr;
     pDepoShot_ = nullptr;
 }
 
@@ -63,10 +64,10 @@ void EnemyDelheid::nextFrame() {
     }
 }
 
-void EnemyDelheid::config(GgafLib::SplineLeader* prm_pRikishaLeader,
+void EnemyDelheid::config(GgafDx::SplineLeader* prm_pVecDriverLeader,
                           GgafCore::ActorDepository* prm_pDepoShot  ) {
-    GGAF_DELETE_NULLABLE(pRikishaLeader_);
-    pRikishaLeader_ = prm_pRikishaLeader;
+    GGAF_DELETE_NULLABLE(pVecDriverLeader_);
+    pVecDriverLeader_ = prm_pVecDriverLeader;
     pDepoShot_ = prm_pDepoShot;
 }
 
@@ -78,7 +79,7 @@ void EnemyDelheid::initialize() {
 }
 
 void EnemyDelheid::onActive() {
-    if (pRikishaLeader_ == nullptr) {
+    if (pVecDriverLeader_ == nullptr) {
         throwCriticalException("EnemyDelheidはスプライン必須ですconfigして下さい。this="<<NODE_INFO);
     }
     getStatus()->reset();
@@ -95,9 +96,9 @@ void EnemyDelheid::processBehavior() {
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
-            pRikishaLeader_->start(RELATIVE_COORD_DIRECTION, 3); //最高で３回ループする予定
-            callRikisha()->setMvAcce(0);
-            callRikisha()->keepOnTurningFaceAngTwd(pMYSHIP,
+            pVecDriverLeader_->start(RELATIVE_COORD_DIRECTION, 3); //最高で３回ループする予定
+            callVecDriver()->setMvAcce(0);
+            callVecDriver()->keepOnTurningFaceAngTwd(pMYSHIP,
                                                  D_ANG(1), 0, TURN_CLOSE_TO, false);
             pProg->changeNext();
             break;
@@ -105,13 +106,13 @@ void EnemyDelheid::processBehavior() {
         case PROG_SPLINE_MOVING: {
             if (pProg->hasJustChanged()) {
             }
-            //processJudgement() で pRikishaLeader_->isFinished() 成立待ち
+            //processJudgement() で pVecDriverLeader_->isFinished() 成立待ち
             break;
         }
 
         //ゴールのアリサナがいない場合、その後の移動
         case PROG_AFTER_LEAD: {
-            //processJudgement() で pRikishaLeader_->isFinished() 成立待ち
+            //processJudgement() で pVecDriverLeader_->isFinished() 成立待ち
             break;
         }
         case PROG_AFTER_LEAD_MOVING: {
@@ -174,10 +175,10 @@ void EnemyDelheid::processBehavior() {
         }
     }
     //-----------------------------------------------
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    pRikisha->_angvelo_face[AXIS_X] = pRikisha->_velo_mv/2;
-    pRikishaLeader_->behave(); //スプライン移動を振る舞い
-    pRikisha->behave();
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    pVecDriver->_angvelo_face[AXIS_X] = pVecDriver->_velo_mv/2;
+    pVecDriverLeader_->behave(); //スプライン移動を振る舞い
+    pVecDriver->behave();
     getMorpher()->behave();
 }
 
@@ -185,7 +186,7 @@ void EnemyDelheid::processSettlementBehavior() {
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_SPLINE_MOVING: {
-            if (pRikishaLeader_->_cnt_loop >= 2) {
+            if (pVecDriverLeader_->_cnt_loop >= 2) {
                 if (((FormationDelheid*)getFormation())->pAlisana_goal) {
                     //ゴールが存在する場合、１ループでさよなら。
                     pProg->changeNothing();
@@ -199,7 +200,7 @@ void EnemyDelheid::processSettlementBehavior() {
 
         //ゴールのアリサナがいない場合、その後の移動
         case PROG_AFTER_LEAD: {
-            if (pRikishaLeader_->isFinished()) {
+            if (pVecDriverLeader_->isFinished()) {
                 //スプライン移動も終わった場合
                 pProg->change(PROG_AFTER_LEAD_MOVING);
             }
@@ -240,7 +241,7 @@ void EnemyDelheid::open_shot() {
 }
 
 EnemyDelheid::~EnemyDelheid() {
-    GGAF_DELETE_NULLABLE(pRikishaLeader_);
+    GGAF_DELETE_NULLABLE(pVecDriverLeader_);
     GGAF_DELETE(pProg2_);
 }
 

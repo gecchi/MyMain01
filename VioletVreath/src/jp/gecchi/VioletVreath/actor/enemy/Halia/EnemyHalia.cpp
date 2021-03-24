@@ -1,14 +1,14 @@
 #include "EnemyHalia.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
-#include "jp/ggaf/dx/actor/supporter/RikishaMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriverMvAssistant.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/dx/model/supporter/TextureBlinker.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/lib/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/spline/SplineLeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/common/laserchip/EnemyStraightLaserChip001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
@@ -42,7 +42,7 @@ EnemyHalia::EnemyHalia(const char* prm_name) :
         //VvEnemyActor<CubeMapMassMorphMeshActor>(prm_name, "1,HaliaCM", StatusReset(EnemyHalia)) {
     _class_name = "EnemyHalia";
     veloTopMv_ = 20000;
-    pRikishaLeader_ = nullptr;
+    pVecDriverLeader_ = nullptr;
     pLaserChipDepo_ = NEW LaserChipDepository("MyRotLaser");
     pLaserChipDepo_->config(60, 1); //Haliaは弾切れフレームを1にしないとパクパクしちゃいます。
     EnemyStraightLaserChip001* pChip;
@@ -74,7 +74,7 @@ void EnemyHalia::onCreateModel() {
 
 void EnemyHalia::initialize() {
     setHitAble(true);
-    callRikisha()->linkFaceAngByMvAng(true);
+    callVecDriver()->linkFaceAngByMvAng(true);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliSphere(0, 90000);
@@ -85,14 +85,14 @@ void EnemyHalia::onActive() {
     getStatus()->reset();
     setMorphWeight(0.0);
     getProgress()->reset(PROG_INIT);
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    pRikisha->setRollFaceAngVelo(1000);
-    pRikisha->setMvVelo(0);
-    pRikisha->setMvAcce(0);
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    pVecDriver->setRollFaceAngVelo(1000);
+    pVecDriver->setMvVelo(0);
+    pVecDriver->setMvAcce(0);
 }
 
 void EnemyHalia::processBehavior() {
-    GgafDx::Rikisha* const pRikisha = callRikisha();
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
@@ -119,35 +119,35 @@ void EnemyHalia::processBehavior() {
         }
         case PROG_FIRST_MOVE: { //初回移動
             if (pProg->hasJustChanged()) {
-                pRikisha->setRzRyMvAng(0, 0);
-                pRikisha->asstMv()->slideByVd(veloTopMv_, PX_C(1000),
+                pVecDriver->setRzRyMvAng(0, 0);
+                pVecDriver->asstMv()->slideByVd(veloTopMv_, PX_C(1000),
                                               0.4, 0.6, 0, true);
-                pRikisha->setRollFaceAngVelo(D_ANG(1));
+                pVecDriver->setRollFaceAngVelo(D_ANG(1));
             }
-            if (!pRikisha->asstMv()->isSliding()) {
+            if (!pVecDriver->asstMv()->isSliding()) {
                 pProg->change(PROG_TURN_OPEN);
             }
             break;
         }
         case PROG_MOVE: {  //２回以降の移動
             if (pProg->hasJustChanged()) {
-                pRikisha->asstMv()->slideByVd(veloTopMv_, PX_C(1000),
+                pVecDriver->asstMv()->slideByVd(veloTopMv_, PX_C(1000),
                                               0.4, 0.6, 0, true);
-                pRikisha->setRollFaceAngVelo(D_ANG(1));
+                pVecDriver->setRollFaceAngVelo(D_ANG(1));
             }
-            if (!pRikisha->asstMv()->isSliding()) {
+            if (!pVecDriver->asstMv()->isSliding()) {
                 pProg->change(PROG_TURN_OPEN);
             }
             break;
         }
         case PROG_TURN_OPEN: {
             if (pProg->hasJustChanged()) {
-                pRikisha->turnMvAngTwd(pMYSHIP,
+                pVecDriver->turnMvAngTwd(pMYSHIP,
                                       0, 100,
                                       TURN_CLOSE_TO, false);
             }
-            if (!pRikisha->isTurningMvAng()) {
-                pRikisha->turnMvAngTwd(pMYSHIP,
+            if (!pVecDriver->isTurningMvAng()) {
+                pVecDriver->turnMvAngTwd(pMYSHIP,
                                       D_ANG(1), 0,
                                       TURN_CLOSE_TO, false);
                 getMorpher()->transitionAcceUntil(1, 1.0, 0.0, 0.0004); //開く 0.0004 開く速さ
@@ -158,8 +158,8 @@ void EnemyHalia::processBehavior() {
         case PROG_FIRE_BEGIN: {
             if (!getMorpher()->isTransitioning()) {
                 if ( _x - pMYSHIP->_x > -dZ_camera_init_) {
-                    pRikisha->setMvVelo(PX_C(1)); //ちょっとバック
-                    pRikisha->setRollFaceAngVelo(D_ANG(5));//発射中は速い回転
+                    pVecDriver->setMvVelo(PX_C(1)); //ちょっとバック
+                    pVecDriver->setRollFaceAngVelo(D_ANG(5));//発射中は速い回転
                     pProg->change(PROG_IN_FIRE);
                 } else {
                     //背後からは撃たない。
@@ -190,7 +190,7 @@ void EnemyHalia::processBehavior() {
             break;
         }
     }
-    pRikisha->behave();
+    pVecDriver->behave();
     getMorpher()->behave();
     getSeTransmitter()->behave();
     getAlphaFader()->behave();
@@ -223,5 +223,5 @@ void EnemyHalia::onInactive() {
 }
 
 EnemyHalia::~EnemyHalia() {
-    GGAF_DELETE_NULLABLE(pRikishaLeader_);
+    GGAF_DELETE_NULLABLE(pVecDriverLeader_);
 }

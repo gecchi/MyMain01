@@ -3,7 +3,7 @@
 #include "EnemyOzartiaShot01.h"
 #include "EnemyOzartiaLaserChip01.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
@@ -11,11 +11,12 @@
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/ggaf/dx/model/Model.h"
-#include "jp/ggaf/dx/actor/supporter/RikishaMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriverMvAssistant.h"
 
-#include "jp/ggaf/lib/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/spline/SplineLeader.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
+using namespace GgafDx;
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -75,7 +76,7 @@ EnemyOzartia::EnemyOzartia(const char* prm_name) :
     pDepo_shot01_ = nullptr;
     pDepo_shot02_ = nullptr;
     pConn_pSplManuf_ = connectToSplineManufactureManager("EnemyOzartia01_TTT");
-    pRikishaLeader01_ = pConn_pSplManuf_->peek()->createRikishaLeader(callRikisha());
+    pVecDriverLeader01_ = pConn_pSplManuf_->peek()->createVecDriverLeader(callVecDriver());
 //    //バリアブロック
 //    pDepo_shot01_ = NEW GgafCore::ActorDepository("Depo_OzartiaBlock");
 //    for (int i = 0; i < 9; i++) {
@@ -108,9 +109,9 @@ void EnemyOzartia::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
-    GgafDx::Rikisha* pRikisha = callRikisha();
-    pRikisha->forceMvVeloRange(PX_C(1), PX_C(30));
-    pRikisha->linkFaceAngByMvAng(false); //独立
+    GgafDx::VecDriver* pVecDriver = callVecDriver();
+    pVecDriver->forceMvVeloRange(PX_C(1), PX_C(30));
+    pVecDriver->linkFaceAngByMvAng(false); //独立
     setHitAble(false);
 }
 
@@ -124,14 +125,14 @@ void EnemyOzartia::onActive() {
 void EnemyOzartia::processBehavior() {
     MyShip* pMyShip = pMYSHIP;
     //本体移動系の処理 ここから --->
-    GgafDx::Rikisha* const pRikisha = callRikisha();
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG1_INIT: {
             setHitAble(false);
             setAlpha(0);
-            pRikisha->setMvAngTwd(pMyShip);
+            pVecDriver->setMvAngTwd(pMyShip);
             pProg->changeNext();
             break;
         }
@@ -154,8 +155,8 @@ void EnemyOzartia::processBehavior() {
         case PROG1_STAY: {
             if (pProg->hasJustChanged()) {
                 faceto_ship_ = true;
-                pRikisha->setMvAcce(0);
-                pRikisha->turnMvAngTwd(pMyShip, D_ANG(1), 0, TURN_CLOSE_TO, false);
+                pVecDriver->setMvAcce(0);
+                pVecDriver->turnMvAngTwd(pMyShip, D_ANG(1), 0, TURN_CLOSE_TO, false);
             }
             if (is_hit_ || pProg->hasArrivedAt(4*60)) {
                 //ヒットするか、しばらくボーっとしてると移動開始
@@ -222,11 +223,11 @@ void EnemyOzartia::processBehavior() {
             if (pProg->hasJustChanged()) {
                 //ターン
                 faceto_ship_ = false;
-                pRikisha->setMvVeloBottom();
-                pRikisha->setMvAcce(10); //微妙に加速
-                pRikisha->turnMvAngTwd(&posMvTarget_, D_ANG(2), 0, TURN_CLOSE_TO, false);
+                pVecDriver->setMvVeloBottom();
+                pVecDriver->setMvAcce(10); //微妙に加速
+                pVecDriver->turnMvAngTwd(&posMvTarget_, D_ANG(2), 0, TURN_CLOSE_TO, false);
             }
-            if (!pRikisha->isTurningMvAng()) {
+            if (!pVecDriver->isTurningMvAng()) {
                 //ターンしたら移動へ
                 pProg->change(PROG1_MOVING);
             }
@@ -235,10 +236,10 @@ void EnemyOzartia::processBehavior() {
         case PROG1_MOVING: {
             if (pProg->hasJustChanged()) {
                 //自機の正面付近へスイーっと行きます
-                pRikisha->asstMv()->slideByVd(pRikisha->getMvVeloTop(), UTIL::getDistance(this, &posMvTarget_),
-                                       0.3, 0.7, pRikisha->getMvVeloBottom(), true);
+                pVecDriver->asstMv()->slideByVd(pVecDriver->getMvVeloTop(), UTIL::getDistance(this, &posMvTarget_),
+                                       0.3, 0.7, pVecDriver->getMvVeloBottom(), true);
             }
-            if (!pRikisha->asstMv()->isSliding()) {
+            if (!pVecDriver->asstMv()->isSliding()) {
                 //到着したら終了
                 pProg->change(PROG1_STAY);
             }
@@ -247,10 +248,10 @@ void EnemyOzartia::processBehavior() {
         //////////// 特殊移動開始 ////////////
         case PROG1_SP_MV01: {
             if (pProg->hasJustChanged()) {
-                pRikisha->setMvAngTwd(pMyShip);
-                pRikishaLeader01_->start(RELATIVE_COORD_DIRECTION, 10); //10回
+                pVecDriver->setMvAngTwd(pMyShip);
+                pVecDriverLeader01_->start(RELATIVE_COORD_DIRECTION, 10); //10回
             }
-            if (pRikishaLeader01_->isFinished()) {
+            if (pVecDriverLeader01_->isFinished()) {
                 pProg->change(PROG1_STAY);
             }
             break;
@@ -299,20 +300,20 @@ void EnemyOzartia::processBehavior() {
 
     if (faceto_ship_) {
         //自機向きモード
-        if (!pRikisha->isTurningFaceAng()) {
-            pRikisha->turnFaceAngTwd(pMyShip, D_ANG(5), 0, TURN_CLOSE_TO, false);
+        if (!pVecDriver->isTurningFaceAng()) {
+            pVecDriver->turnFaceAngTwd(pMyShip, D_ANG(5), 0, TURN_CLOSE_TO, false);
         }
     } else {
         //進行方向向きモード
-        if (!pRikisha->isTurningFaceAng()) {
-            pRikisha->turnRzRyFaceAngTo(pRikisha->_rz_mv,pRikisha->_ry_mv,
+        if (!pVecDriver->isTurningFaceAng()) {
+            pVecDriver->turnRzRyFaceAngTo(pVecDriver->_rz_mv,pVecDriver->_ry_mv,
                                           D_ANG(2), 0, TURN_CLOSE_TO, false);
         }
     }
 
     pAlphaFader->behave();
-    pRikishaLeader01_->behave();
-    pRikisha->behave();
+    pVecDriverLeader01_->behave();
+    pVecDriver->behave();
     is_hit_ = false;
 }
 
@@ -339,7 +340,7 @@ void EnemyOzartia::onInactive() {
 }
 
 EnemyOzartia::~EnemyOzartia() {
-    GGAF_DELETE(pRikishaLeader01_);
+    GGAF_DELETE(pVecDriverLeader01_);
     pConn_pSplManuf_->close();
     GGAF_DELETE(pProg2_);
 }

@@ -1,7 +1,7 @@
 #include "EnemyRatislaviaEyeStraightLaserChip001.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 
@@ -17,7 +17,7 @@ EnemyRatislaviaEyeStraightLaserChip001::EnemyRatislaviaEyeStraightLaserChip001(c
 }
 
 void EnemyRatislaviaEyeStraightLaserChip001::initialize() {
-    callRikisha()->setRzRyMvAng(0,0);
+    callVecDriver()->setRzRyMvAng(0,0);
     registerHitAreaCube_AutoGenMidColli(300000);
     setHitAble(true, false); //‰æ–ÊŠO“–‚½‚è”»’è‚Í–³‚µ
     //setScaleR(5.0);
@@ -27,8 +27,8 @@ void EnemyRatislaviaEyeStraightLaserChip001::initialize() {
 
 void EnemyRatislaviaEyeStraightLaserChip001::onActive() {
     StraightLaserChip::onActive();
-    callRikisha()->setMvVelo(100000);
-    callRikisha()->setMvAcce(300);
+    callVecDriver()->setMvVelo(100000);
+    callVecDriver()->setMvAcce(300);
     getStatus()->reset();
 }
 

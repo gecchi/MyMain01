@@ -1,10 +1,10 @@
-#include <jp/ggaf/lib/LibConfig.h>
 #include "jp/ggaf/lib/actor/camera/DefaultCamera.h"
 
-#include "jp/ggaf/dx/actor/supporter/Kago.h"
-#include "jp/ggaf/dx/actor/supporter/RikishaMvAssistant.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
-#include "jp/ggaf/dx/actor/supporter/KagoAssistantA.h"
+#include "jp/ggaf/lib/LibConfig.h"
+#include "jp/ggaf/dx/actor/supporter/GeoDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriverMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/GeoDriverAssistantA.h"
 #include "jp/ggaf/lib/util/Direction26Util.h"
 #include "jp/ggaf/dx/util/Util.h"
 #include "jp/ggaf/lib/actor/camera/DefaultCameraViewPoint.h"
@@ -52,13 +52,13 @@ void DefaultCamera::initialize() {
 }
 
 void DefaultCamera::processBehavior() {
-    callKago()->behave();
-    callRikisha()->behave();
+    callGeoDriver()->behave();
+    callVecDriver()->behave();
     GgafDx::Camera::processBehavior();
 }
 
 void DefaultCamera::slideMvTo(coord tx, coord ty, coord tz, frame t, float prm_p1, float prm_p2) {
-    callKago()->asst()->slideVxyzMvByDtTo(
+    callGeoDriver()->asst()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,
                               prm_p1, prm_p2, 0, true);
 }
@@ -69,7 +69,7 @@ void DefaultCamera::slideMvTo(GgafDx::GeometricActor* pTarget, frame t, float pr
 
 void DefaultCamera::slideMvTo(coord tx, coord ty, coord tz, frame t,
                        float prm_x_p1, float prm_y_p1, float prm_z_p1) {
-    callKago()->asst()->slideVxyzMvByDtTo(
+    callGeoDriver()->asst()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,
                               prm_x_p1, prm_x_p1, 0,
                               prm_y_p1, prm_y_p1, 0,
@@ -94,7 +94,7 @@ dir26 DefaultCamera::getVpDirNo() {
 }
 
 bool DefaultCamera::isSliding() {
-    return callKago()->asst()->isSliding();
+    return callGeoDriver()->asst()->isSliding();
 }
 
 DefaultCamera::~DefaultCamera() {

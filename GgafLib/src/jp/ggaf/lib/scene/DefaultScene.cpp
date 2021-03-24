@@ -11,8 +11,8 @@ DefaultScene::DefaultScene(const char* prm_name, GgafCore::SceneMediator* prm_pS
     _paFrame_NextEvent = nullptr;
     _cnt_event = 0;
     _event_num = 0;
-    _scroll_speed = 0;
-    _pFuncScrolling = nullptr;
+    _feature_p1 = 0;
+    _pFuncFeature = nullptr;
     _pProg = DefaultScene::createProgress();
 }
 
@@ -26,19 +26,19 @@ SceneProgress* DefaultScene::getProgress() const {
 
 void DefaultScene::processSettlementBehavior() {
     GgafDx::Scene::processSettlementBehavior();
-    if (_pFuncScrolling && _is_active_flg && !_was_paused_flg && _can_live_flg) {
-        executeFuncLowerTree(_pFuncScrolling, &_scroll_speed, nullptr, nullptr); //配下アクターにスクロール実行！！
+    if (_pFuncFeature && _is_active_flg && !_was_paused_flg && _can_live_flg) {
+        executeFuncLowerTree(_pFuncFeature, &_feature_p1, nullptr, nullptr); //配下アクターにスクロール実行！！
         //ここの executeFuncLowerTree の第2,3,4引数は、
         //このメソッドのエディタ上の直ぐ上に記述してある DefaultScene::scroll_x の受取り引数 p1 ,p2, p3 と対応する
         //  this           → GgafCore::Object* pThat
-        //  &_scroll_speed → void* p1
+        //  &_feature_p1 → void* p1
         //  nullptr        → void* p2
         //  nullptr        → void* p3
     }
 }
 
-DefaultScene* DefaultScene::getNearestScrollingScene() {
-    if (_pFuncScrolling) {
+DefaultScene* DefaultScene::getNearestFeatureScene() {
+    if (_pFuncFeature) {
         return this;
     } else {
         GgafCore::Scene* pScene = this;
@@ -47,7 +47,7 @@ DefaultScene* DefaultScene::getNearestScrollingScene() {
             if (pScene) {
                 if (pScene->instanceOf(Obj_DefaultScene)) {
                     DefaultScene* pDefaultScene = (DefaultScene*)pScene;
-                    if (pDefaultScene->_pFuncScrolling) {
+                    if (pDefaultScene->_pFuncFeature) {
                          return pDefaultScene;
                     }
                 }

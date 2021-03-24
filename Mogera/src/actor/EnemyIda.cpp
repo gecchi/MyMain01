@@ -1,10 +1,10 @@
 #include "EnemyIda.h"
 
 #include "jp/ggaf/core/actor/SceneMediator.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/lib/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/spline/SplineLeader.h"
 #include "MgrGod.h"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
@@ -25,7 +25,7 @@ void EnemyIda::onCreateModel() {
 }
 
 void EnemyIda::initialize() {
-    callRikisha()->linkFaceAngByMvAng(true);
+    callVecDriver()->linkFaceAngByMvAng(true);
 }
 
 void EnemyIda::onActive() {
@@ -34,8 +34,8 @@ void EnemyIda::onActive() {
 void EnemyIda::processBehavior() {
     changeGeoLocal(); //ローカル座標系へ
 
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    pRikisha->behave();
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    pVecDriver->behave();
 
     changeGeoFinal(); //絶対座標系へ
 }

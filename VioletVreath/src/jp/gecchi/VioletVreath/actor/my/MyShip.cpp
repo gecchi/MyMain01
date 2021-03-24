@@ -2,8 +2,8 @@
 
 #include "jp/ggaf/core/actor/ex/ActorDepository.h"
 #include "jp/ggaf/dx/actor/supporter/Checker.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
-#include "jp/ggaf/dx/actor/supporter/Kago.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/GeoDriver.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/model/Model.h"
@@ -339,16 +339,16 @@ void MyShip::initialize() {
 /////////////TEST
       pChecker->setColliAACube(0, PX_C(40));
 
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    pRikisha->setMvVelo(0);
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    pVecDriver->setMvVelo(0);
 
     //setMaterialColor(1.0, 0.5, 0.5);
     setAlpha(1.0);
-    GgafDx::Kago* const pKago = callKago();
-    pKago->forceVxyzMvVeloRange(-veloTurboTop_, veloTurboTop_);
-    pKago->setZeroVxyzMvAcce();
+    GgafDx::GeoDriver* const pGeoDriver = callGeoDriver();
+    pGeoDriver->forceVxyzMvVeloRange(-veloTurboTop_, veloTurboTop_);
+    pGeoDriver->setZeroVxyzMvAcce();
 
-    callRikisha()->setRollFaceAngVelo(300);
+    callVecDriver()->setRollFaceAngVelo(300);
 }
 
 
@@ -395,8 +395,8 @@ void MyShip::onInactive() {
 }
 void MyShip::processBehavior() {
     VirtualButton* pVbPlay = VB_PLAY;
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    GgafDx::Kago* const pKago = callKago();
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::GeoDriver* const pGeoDriver = callGeoDriver();
     //操作拒否
     if (!can_control_) {
         return;
@@ -415,7 +415,7 @@ void MyShip::processBehavior() {
         }
 
         if (pVbPlay->isPushedDown(VB_TURBO)) {
-            if (pKago->_velo_vx_mv == 0 && pKago->_velo_vy_mv == 0 && pKago->_velo_vz_mv == 0) {
+            if (pGeoDriver->_velo_vx_mv == 0 && pGeoDriver->_velo_vy_mv == 0 && pGeoDriver->_velo_vz_mv == 0) {
                 //ターボ移動完全に終了しないと次のターボは実行不可
                 moveTurbo();
                 UTIL::activateProperEffect01Of(this); //ターボ開始のエフェクト
@@ -429,58 +429,58 @@ void MyShip::processBehavior() {
             if (pVbPlay->isPressed(VB_TURBO)) {
                 //ターボボタンを押し続けることで、速度減衰がゆるやかになり、
                 //移動距離を伸ばす
-                pKago->_velo_vx_mv *= 0.96;
-                pKago->_velo_vy_mv *= 0.96;
-                pKago->_velo_vz_mv *= 0.96;
+                pGeoDriver->_velo_vx_mv *= 0.96;
+                pGeoDriver->_velo_vy_mv *= 0.96;
+                pGeoDriver->_velo_vz_mv *= 0.96;
             } else {
                 //ターボを離した場合、速度減衰。
-                pKago->_velo_vx_mv *= 0.8;
-                pKago->_velo_vy_mv *= 0.8;
-                pKago->_velo_vz_mv *= 0.8;
+                pGeoDriver->_velo_vx_mv *= 0.8;
+                pGeoDriver->_velo_vy_mv *= 0.8;
+                pGeoDriver->_velo_vz_mv *= 0.8;
             }
-            if (ABS(pKago->_velo_vx_mv) <= 2) {
-                pKago->_velo_vx_mv = 0;
+            if (ABS(pGeoDriver->_velo_vx_mv) <= 2) {
+                pGeoDriver->_velo_vx_mv = 0;
             }
-            if (ABS(pKago->_velo_vy_mv) <= 2) {
-                pKago->_velo_vy_mv = 0;
+            if (ABS(pGeoDriver->_velo_vy_mv) <= 2) {
+                pGeoDriver->_velo_vy_mv = 0;
             }
-            if (ABS(pKago->_velo_vz_mv) <= 2) {
-                pKago->_velo_vz_mv = 0;
+            if (ABS(pGeoDriver->_velo_vz_mv) <= 2) {
+                pGeoDriver->_velo_vz_mv = 0;
             }
         }
 
         if (pVbPlay->isDoublePushedDown(VB_OPTION,8,8) ) {
-            pKago->setZeroVxyzMvVelo(); //ターボ移動中でも停止する。（ターボキャンセル的になる！）
+            pGeoDriver->setZeroVxyzMvVelo(); //ターボ移動中でも停止する。（ターボキャンセル的になる！）
         }
     }
 
     //スピンが勢いよく回っているならば速度を弱める
     angvelo MZ = angRxTopVelo_MZ_-3000; //3000は通常旋回時に速度を弱めてangRxTopVelo_MZ_を超えないようにするため、やや手前で減速すると言う意味（TODO:要調整）。
-    if (pRikisha->_angvelo_face[AXIS_X] >= MZ) {
-        pRikisha->_angvelo_face[AXIS_X] *= 0.93;
-        //_callRikisha()->setFaceAngAcce(AXIS_X, -1*angRxAcce_MZ_*2);
-    } else if (pRikisha->_angvelo_face[AXIS_X] <= -MZ) {
-        pRikisha->_angvelo_face[AXIS_X] *= 0.93;
-        //_callRikisha()->setFaceAngAcce(AXIS_X, angRxAcce_MZ_*2);
+    if (pVecDriver->_angvelo_face[AXIS_X] >= MZ) {
+        pVecDriver->_angvelo_face[AXIS_X] *= 0.93;
+        //_callVecDriver()->setFaceAngAcce(AXIS_X, -1*angRxAcce_MZ_*2);
+    } else if (pVecDriver->_angvelo_face[AXIS_X] <= -MZ) {
+        pVecDriver->_angvelo_face[AXIS_X] *= 0.93;
+        //_callVecDriver()->setFaceAngAcce(AXIS_X, angRxAcce_MZ_*2);
     }
 
     //旋回しない移動方向の場合、機体を水平にする（但し勢いよく回っていない場合に限る。setStopTargetFaceAngの第4引数より角速度がゆるい場合受け入れ）
     if (pSenakai_[mv_way_] == 0) {
-        angle dist = pRikisha->getFaceAngDistance(AXIS_X, 0, TURN_CLOSE_TO);
+        angle dist = pVecDriver->getFaceAngDistance(AXIS_X, 0, TURN_CLOSE_TO);
         if (0 <= dist && dist < D180ANG) {
-            callRikisha()->setFaceAngAcce(AXIS_X, angRxAcce_MZ_);
+            callVecDriver()->setFaceAngAcce(AXIS_X, angRxAcce_MZ_);
         } else if (-1*D180ANG < dist && dist < 0) {
-            callRikisha()->setFaceAngAcce(AXIS_X, -1*angRxAcce_MZ_);
+            callVecDriver()->setFaceAngAcce(AXIS_X, -1*angRxAcce_MZ_);
         }
-        pRikisha->setMvAcce(0);
-        pRikisha->setStopTargetFaceAng(AXIS_X, 0, TURN_BOTH, angRxTopVelo_MZ_);
+        pVecDriver->setMvAcce(0);
+        pVecDriver->setStopTargetFaceAng(AXIS_X, 0, TURN_BOTH, angRxTopVelo_MZ_);
     }
 
     ////////////////////////////////////////////////////
 
     //座標に反映
-    pRikisha->behave();
-    pKago->behave();
+    pVecDriver->behave();
+    pGeoDriver->behave();
     getSeTransmitter()->behave();
 
     if (invincible_frames_ > 0) {
@@ -659,9 +659,9 @@ void MyShip::processBehavior() {
             if (pSnipeShot) {
                 getSeTransmitter()->play3D(SE_FIRE_SHOT);
                 pSnipeShot->setPositionAt(this);
-                pSnipeShot->callRikisha()->setRzRyMvAng(_rz, _ry);
-                pSnipeShot->callRikisha()->setMvVelo(PX_C(100));
-                pSnipeShot->callRikisha()->setMvAcce(100);
+                pSnipeShot->callVecDriver()->setRzRyMvAng(_rz, _ry);
+                pSnipeShot->callVecDriver()->setMvVelo(PX_C(100));
+                pSnipeShot->callVecDriver()->setMvAcce(100);
             }
         } else {
             //スナイプショット以外時
@@ -670,9 +670,9 @@ void MyShip::processBehavior() {
                 if (pShot) {
                     getSeTransmitter()->play3D(SE_FIRE_SHOT);
                     pShot->setPositionAt(this);
-                    pShot->callRikisha()->setRzRyMvAng(_rz, _ry);
-                    pShot->callRikisha()->setMvVelo(PX_C(70));
-                    pShot->callRikisha()->setMvAcce(80);
+                    pShot->callVecDriver()->setRzRyMvAng(_rz, _ry);
+                    pShot->callVecDriver()->setMvVelo(PX_C(70));
+                    pShot->callVecDriver()->setMvAcce(80);
                 }
             }
 
@@ -1082,12 +1082,12 @@ void MyShip::moveNomal() {
     if (is_just_change_mv_way_) {
         angle rz, ry;
         Direction26Util::cnvDirNo2RzRy(mv_way, rz, ry);
-        callRikisha()->setRzRyMvAng(rz, ry);
+        callVecDriver()->setRzRyMvAng(rz, ry);
         //旋廻
         int sgn_turn = pSenakai_[mv_way] > pSenakai_[prev_way_] ? 1 : -1;
         if (sgn_turn != 0) {
-            callRikisha()->setFaceAngAcce(AXIS_X, sgn_turn*angRxAcce_MZ_);
-            callRikisha()->setStopTargetFaceAng(AXIS_X, pSenakai_[mv_way],
+            callVecDriver()->setFaceAngAcce(AXIS_X, sgn_turn*angRxAcce_MZ_);
+            callVecDriver()->setStopTargetFaceAng(AXIS_X, pSenakai_[mv_way],
                                               TURN_CLOSE_TO,
                                               angRxTopVelo_MZ_);
         }
@@ -1095,21 +1095,21 @@ void MyShip::moveNomal() {
 }
 
 void MyShip::moveTurbo() {
-    GgafDx::Kago* const pKago = callKago();
+    GgafDx::GeoDriver* const pGeoDriver = callGeoDriver();
     float vx,vy,vz;
     Direction26Util::cnvDirNo2Vec(mv_way_, vx, vy, vz);
-    pKago->addVxMvVelo(veloBeginMT_ * vx);
-    pKago->addVyMvVelo(veloBeginMT_ * vy);
-    pKago->addVzMvVelo(veloBeginMT_ * vz);
+    pGeoDriver->addVxMvVelo(veloBeginMT_ * vx);
+    pGeoDriver->addVyMvVelo(veloBeginMT_ * vy);
+    pGeoDriver->addVzMvVelo(veloBeginMT_ * vz);
     angle rz, ry;
     Direction26Util::cnvDirNo2RzRy(mv_way_, rz, ry);
-    callRikisha()->setRzRyMvAng(rz, ry);
+    callVecDriver()->setRzRyMvAng(rz, ry);
 
     //旋廻
     angle senkai = pSenakai_[mv_way_];
     if (senkai != 0) {
         double senkai_spin_speed_rate = (1.0 * D90ANG / senkai); //旋回時、90度-90度に傾く場合 1.0、1.0 となる。
-        callRikisha()->setRollFaceAngVelo(angRxVelo_BeginMZT_ * senkai_spin_speed_rate);
+        callVecDriver()->setRollFaceAngVelo(angRxVelo_BeginMZT_ * senkai_spin_speed_rate);
     }
 }
 

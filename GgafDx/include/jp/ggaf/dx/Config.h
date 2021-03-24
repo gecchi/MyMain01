@@ -12,7 +12,7 @@ namespace GgafDx {
 
 class Config: public GgafCore::Config {
 public:
-    /** [r] フルスクリーンモードであるかどうか */
+    /** [r] フルスクリーンモードであるかどうかConfig */
     static bool FULL_SCREEN;
     /** [r] ２画面モードであるかどうか */
     static bool DUAL_VIEW;
@@ -146,6 +146,12 @@ public:
     static std::string DIR_OGG[3];
     /** [r] SoundEffectファイル(waveファイル)の格納ディレクトリ(0:default/1:ユーザー/2:カレント) */
     static std::string DIR_WAVE[3];
+
+    /** [r] スプライン曲線座標情報ファイル(datファイル)格納ディレクトリ名 */
+    static std::string DIRNAME_RESOURCE_SPLINE;
+    /** [r] スプライン曲線座標情報ファイル(datファイル)格納ディレクトリ */
+    static std::string DIR_SPLINE;
+
     /** [r] １画面フルスクリーンモードだった場合のスクリーンの補正前解像度(横) */
     static pixcoord SINGLE_VIEW_FULL_SCREEN_WIDTH_BK;
     /** [r] １画面フルスクリーンモードだった場合のスクリーンの補正前解像度(縦) */

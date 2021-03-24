@@ -14,7 +14,7 @@ namespace Mogera {
 class FormationZako001 : public FormationZako {
 
 public:
-    GgafLib::SplineManufactureConnection** papSplManufConn_;
+    GgafDx::SplineManufactureConnection** papSplManufConn_;
 
     FormationZako001(const char* prm_name);
 

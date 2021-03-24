@@ -7,6 +7,23 @@
 #include "jp/ggaf/dx/scene/Spacetime.h"
 
 
+/**
+ * 神が保持する SplineManufactureManager に接続し、コネクションを取得。
+ * @param X：スプライン定義識別文字列。プロパティ DIR_SPLINE 配下の「X + ".spl"」というファイル名を使用する
+ * "FormationOebius002,1" の意味。読み込むファイル=FormationOebius002.spl
+ * 1 は採用するスプラインのインデックス(0～)をあらわす。
+ * SPLINE=mobius1.dat,mobius3.dat,mobius5.dat
+ * 定義されていた場合 1=mobius3.dat のデータを採用
+ */
+#define connectToSplineManufactureManager(X) ((GgafDx::SplineManufactureConnection*)((pGOD)->_pSplManufManager->connect((X), this)))
+
+/**
+ * 神が保持する SplineSourceManager に接続し、コネクションを取得。
+ * X：識別文字列（SplineSourceManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) の prm_idstr に渡る)
+ */
+#define connectToSplineSourceManager(X)   ((GgafDx::SplineSourceConnection*)((pGOD)->_pSplSrcManager->connect((X), this)))
+
+
 #undef pGOD
 #define pGOD ((GgafDx::God*)GgafCore::God::ask())
 
@@ -201,6 +218,10 @@ public:
     int _secondary_adapter_no;
 
 public:
+    SplineSourceManager* _pSplSrcManager;
+    SplineManufactureManager* _pSplManufManager;
+
+public:
     /**
      * コンストラクタ<BR>
      */
@@ -348,6 +369,9 @@ public:
 
     virtual ModelManager* createModelManager();
     virtual EffectManager* createEffectManager();
+
+    virtual SplineSourceManager* createSplineSourceManager();
+    virtual SplineManufactureManager* createSplineManufactureManager();
 
     /**
      * ライトの色（デフォルト：1.0, 1.0, 1.0）を設定 .

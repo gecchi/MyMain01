@@ -1,7 +1,7 @@
 #include "EnemyOrtuna.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
@@ -53,18 +53,18 @@ void EnemyOrtuna::onActive() {
 }
 
 void EnemyOrtuna::processBehavior() {
-    GgafDx::Rikisha* const pRikisha = callRikisha();
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
          case PROG_INIT: {
              setHitAble(false);
              setPositionAt(&entry_pos_);
              setAlpha(0);
-             pRikisha->setMvVelo(0);
-             pRikisha->linkFaceAngByMvAng(true);
-             pRikisha->setMvAngTwd(&stagnating_pos_);
+             pVecDriver->setMvVelo(0);
+             pVecDriver->linkFaceAngByMvAng(true);
+             pVecDriver->setMvAngTwd(&stagnating_pos_);
              velo mv_velo = RF_EnemyOrtuna_MvVelo(G_RANK);
-             pRikisha->setRollFaceAngVelo(mv_velo); //‚®‚é‚®‚é`
+             pVecDriver->setRollFaceAngVelo(mv_velo); //‚®‚é‚®‚é`
              setMorphWeight(0.0);
              pProg->changeNext();
              break;
@@ -91,15 +91,15 @@ void EnemyOrtuna::processBehavior() {
                  //velo mv_velo = RF_EnemyOrtuna_MvVelo(G_RANK);
                  velo mv_velo = PX_C(20);
                  coord d = UTIL::getDistance(this, &stagnating_pos_);
-                 pRikisha->setMvVelo(mv_velo);//¨‚¢‚æ‚­ƒ|[ƒ“‚Æ
-                 stagnating_pos_frames_ = pRikisha->setMvAcceByD(d, PX_C(1));
+                 pVecDriver->setMvVelo(mv_velo);//¨‚¢‚æ‚­ƒ|[ƒ“‚Æ
+                 stagnating_pos_frames_ = pVecDriver->setMvAcceByD(d, PX_C(1));
              }
 
-             pRikisha->setRollFaceAngVelo(pRikisha->_velo_mv); //¨‚¢‚É”ä—á‚µ‚Ä‚®‚é‚®‚é`
+             pVecDriver->setRollFaceAngVelo(pVecDriver->_velo_mv); //¨‚¢‚É”ä—á‚µ‚Ä‚®‚é‚®‚é`
 
              if (pProg->getFrame() > stagnating_pos_frames_) {
-                 pRikisha->setMvVelo(PX_C(1));
-                 pRikisha->setMvAcce(0);
+                 pVecDriver->setMvVelo(PX_C(1));
+                 pVecDriver->setMvAcce(0);
                  pProg->changeNext();
              }
              break;
@@ -109,15 +109,15 @@ void EnemyOrtuna::processBehavior() {
              if (pProg->hasJustChanged()) {
                  //•ûŒü“]Š·
                  //‚ä‚Á‚­‚è©‹@‚Ì•û‚ÖŒü‚©‚¹‚é
-                 pRikisha->turnMvAngTwd(pMYSHIP,
+                 pVecDriver->turnMvAngTwd(pMYSHIP,
                                         D_ANG(3), 0, TURN_CLOSE_TO, true);
                  getMorpher()->transitionLinearUntil(MPH_OPEN, 1.0, 60);
              }
              //‘Ø—¯’†
              if (pProg->getFrame() % 16U == 0) {
-                 if (pRikisha->isTurningMvAng()) {
+                 if (pVecDriver->isTurningMvAng()) {
                      //‚¿‚å‚­‚¿‚å‚­©‹@‚ğŒ©‚Â‚ß‚é
-                     pRikisha->turnFaceAngTwd(pMYSHIP,
+                     pVecDriver->turnFaceAngTwd(pMYSHIP,
                                               D_ANG(1), 0, TURN_CLOSE_TO, true);
                  }
              }
@@ -130,10 +130,10 @@ void EnemyOrtuna::processBehavior() {
                      GgafDx::FigureActor* pShot = UTIL::activateAttackShotOf(this);
                      if (pShot) {
                          pShot->activateDelay(1+(i*10)); //‚Î‚ç‚Â‚©‚¹Bactivate ƒ^ƒCƒ~ƒ“ƒOã‘‚«I
-                         GgafDx::Rikisha* pShot_pRikisha = pShot->callRikisha();
-                         pShot_pRikisha->setRzRyMvAng(_rz, _ry);
-                         pShot_pRikisha->setMvVelo(shot_velo);
-                         pShot_pRikisha->setMvAcce(100);
+                         GgafDx::VecDriver* pShot_pVecDriver = pShot->callVecDriver();
+                         pShot_pVecDriver->setRzRyMvAng(_rz, _ry);
+                         pShot_pVecDriver->setMvVelo(shot_velo);
+                         pShot_pVecDriver->setMvAcce(100);
                      }
                  }
              }
@@ -146,8 +146,8 @@ void EnemyOrtuna::processBehavior() {
          case PROG_MOVE03: {
              //‚³‚æ‚È‚ç`
              if (pProg->hasJustChanged()) {
-                 pRikisha->setMvVelo(PX_C(4));
-                 pRikisha->setMvAcce(100);
+                 pVecDriver->setMvVelo(PX_C(4));
+                 pVecDriver->setMvAcce(100);
              }
              break;
          }
@@ -157,7 +157,7 @@ void EnemyOrtuna::processBehavior() {
          }
      }
 
-    pRikisha->behave();
+    pVecDriver->behave();
     getMorpher()->behave();
     getAlphaFader()->behave();
     //getSeTransmitter()->behave();

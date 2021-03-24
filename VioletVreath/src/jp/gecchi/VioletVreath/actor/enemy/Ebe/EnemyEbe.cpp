@@ -1,14 +1,15 @@
 #include "EnemyEbe.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/lib/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/spline/SplineLeader.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 
+using namespace GgafDx;
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -27,13 +28,13 @@ enum {
 EnemyEbe::EnemyEbe(const char* prm_name) :
         VvEnemyActor<DefaultMeshSetActor>(prm_name, "Ebe", StatusReset(EnemyEbe)) {
     _class_name = "EnemyEbe";
-    pRikishaLeader_ = nullptr;
+    pVecDriverLeader_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
-    callRikisha()->linkFaceAngByMvAng(true);
+    callVecDriver()->linkFaceAngByMvAng(true);
 }
 
 void EnemyEbe::onCreateModel() {
@@ -48,32 +49,32 @@ void EnemyEbe::initialize() {
 }
 
 void EnemyEbe::config(
-        SplineLeader* prm_pRikishaLeader,
+        SplineLeader* prm_pVecDriverLeader,
         GgafCore::ActorDepository* prm_pDepo_shot,
         GgafCore::ActorDepository* prm_pDepo_shotEffect
         ) {
-    GGAF_DELETE_NULLABLE(pRikishaLeader_);
-    pRikishaLeader_ = prm_pRikishaLeader;
+    GGAF_DELETE_NULLABLE(pVecDriverLeader_);
+    pVecDriverLeader_ = prm_pVecDriverLeader;
     pDepo_shot_ = prm_pDepo_shot;
     pDepo_effect_ = prm_pDepo_shotEffect;
 }
 
 void EnemyEbe::onActive() {
-    if (pRikishaLeader_ == nullptr) {
+    if (pVecDriverLeader_ == nullptr) {
         throwCriticalException("EnemyEbeはスプライン必須ですconfigして下さい");
     }
     getStatus()->reset();
     setHitAble(true);
-    callRikisha()->setMvAcce(0);
+    callVecDriver()->setMvAcce(0);
     getProgress()->reset(PROG_MOVE01_1);
 }
 
 void EnemyEbe::processBehavior() {
-    GgafDx::Rikisha* const pRikisha = callRikisha();
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_MOVE01_1: {
-            if ((int)(pProg->getFrame()) > (int)(PX_C(300) / ABS(pRikisha->_velo_mv))) {
+            if ((int)(pProg->getFrame()) > (int)(PX_C(300) / ABS(pVecDriver->_velo_mv))) {
                 pProg->changeNext();
             }
             break;
@@ -81,11 +82,11 @@ void EnemyEbe::processBehavior() {
 
         case PROG_SPLINE_MOVE: {
             if (pProg->hasJustChanged()) {
-                pRikishaLeader_->start(RELATIVE_COORD);
+                pVecDriverLeader_->start(RELATIVE_COORD);
             }
-            pRikishaLeader_->behave();
+            pVecDriverLeader_->behave();
 
-            if (pRikishaLeader_->isFinished()) {
+            if (pVecDriverLeader_->isFinished()) {
                 pProg->changeNext();
             }
             break;
@@ -93,7 +94,7 @@ void EnemyEbe::processBehavior() {
 
         case PROG_MOVE02_1: {
             if (pProg->hasJustChanged()) {
-                pRikisha->turnMvAngTwd(_x - PX_C(300), _y, _z,
+                pVecDriver->turnMvAngTwd(_x - PX_C(300), _y, _z,
                                       D_ANG(1), 0, TURN_CLOSE_TO, false);
             }
 
@@ -101,7 +102,7 @@ void EnemyEbe::processBehavior() {
         }
     }
 
-    pRikisha->behave();
+    pVecDriver->behave();
 }
 
 void EnemyEbe::processJudgement() {
@@ -123,11 +124,11 @@ void EnemyEbe::onHit(const GgafCore::Actor* prm_pOtherActor) {
 }
 
 void EnemyEbe::onInactive() {
-    GGAF_DELETE_NULLABLE(pRikishaLeader_);
+    GGAF_DELETE_NULLABLE(pVecDriverLeader_);
 }
 
 EnemyEbe::~EnemyEbe() {
-    GGAF_DELETE_NULLABLE(pRikishaLeader_);
+    GGAF_DELETE_NULLABLE(pVecDriverLeader_);
 }
 
 

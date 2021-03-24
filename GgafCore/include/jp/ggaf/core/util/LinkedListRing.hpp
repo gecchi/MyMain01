@@ -825,7 +825,7 @@ public:
      *         //個々のメンバー加速
      *         EnemyXXX* pEnemyXXX = (EnemyDelheid*)prm_pActor; //実装の型にキャスト
      *         int velo_mv = *((velo*)p1);                       //キャプチャ引数を元の型に戻す
-     *         pEnemyXXX->callRikisha()->setMvVelo(velo_mv);         //加速設定
+     *         pEnemyXXX->callVecDriver()->setMvVelo(velo_mv);         //加速設定
      *     }
      *
      *     void processBehavior() {

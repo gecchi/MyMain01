@@ -1,7 +1,7 @@
 #include "EnemyTalante.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -41,9 +41,9 @@ void EnemyTalante::onCreateModel() {
 }
 
 void EnemyTalante::initialize() {
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    pRikisha->linkFaceAngByMvAng(true);
-    pRikisha->setRollFaceAngVelo(5000);
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    pVecDriver->linkFaceAngByMvAng(true);
+    pVecDriver->setRollFaceAngVelo(5000);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
@@ -59,16 +59,16 @@ void EnemyTalante::onActive() {
     getStatus()->reset();
     setHitAble(true);
     Z_ok_ = Y_ok_ = false;
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    pRikisha->setMvAcce(0);
-    pRikisha->setMvVelo(4000);
-    pRikisha->forceMvVeloRange(50000);
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    pVecDriver->setMvAcce(0);
+    pVecDriver->setMvVelo(4000);
+    pVecDriver->forceMvVeloRange(50000);
     getProgress()->reset(PROG_INIT);
 }
 
 void EnemyTalante::processBehavior() {
     MyShip* pMyShip = pMYSHIP;
-    GgafDx::Rikisha* const pRikisha = callRikisha();
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
@@ -92,14 +92,14 @@ void EnemyTalante::processBehavior() {
             if (Z_ok_ == false && pMyShip->_z - PX_C(5) <= _z && _z <= pMyShip->_z + PX_C(5)) {
                 //Z座標揃った
                 Z_ok_ = true;
-                pRikisha->addMvVelo(2000);
+                pVecDriver->addMvVelo(2000);
                 if (pMyShip->_y <= _y) {
                     //真下へ折れる
-                    pRikisha->turnRzRyMvAngTo(D270ANG, D0ANG,
+                    pVecDriver->turnRzRyMvAngTo(D270ANG, D0ANG,
                                                D_ANG(8), 0, TURN_ANTICLOSE_TO, false);
                 } else {
                     //真上へ折れる
-                    pRikisha->turnRzRyMvAngTo(D90ANG, D0ANG,
+                    pVecDriver->turnRzRyMvAngTo(D90ANG, D0ANG,
                                                D_ANG(8), 0, TURN_ANTICLOSE_TO, false);
                 }
             }
@@ -107,19 +107,19 @@ void EnemyTalante::processBehavior() {
             if (Y_ok_ == false && pMyShip->_y - PX_C(5) <= _y && _y <= pMyShip->_y + PX_C(5)) {
                 //Y座標揃った
                 Y_ok_ = true;
-                pRikisha->addMvVelo(2000);
+                pVecDriver->addMvVelo(2000);
                 if (pMyShip->_z <= _z) {
                     //奥の自機の方向折れる
-                    pRikisha->turnRzRyMvAngTo(D0ANG, D90ANG,
+                    pVecDriver->turnRzRyMvAngTo(D0ANG, D90ANG,
                                                D_ANG(8), 0, TURN_ANTICLOSE_TO, false);
                 } else {
                     //手前の自機の方向折れる
-                    pRikisha->turnRzRyMvAngTo(D0ANG, D270ANG,
+                    pVecDriver->turnRzRyMvAngTo(D0ANG, D270ANG,
                                                D_ANG(8), 0, TURN_ANTICLOSE_TO, false);
                 }
             }
 
-            if (pRikisha->isTurningMvAng() == false) {
+            if (pVecDriver->isTurningMvAng() == false) {
                 if (Y_ok_ && Z_ok_) {
                     //Z座標Y座標揃ったら次の動きへ
                     pProg->changeNext();
@@ -136,15 +136,15 @@ void EnemyTalante::processBehavior() {
                 //X軸方向に動く
                 if (pMyShip->_x <= _x) {
                     //左へ折れる
-                    pRikisha->turnRzRyMvAngTo(D180ANG, D0ANG,
+                    pVecDriver->turnRzRyMvAngTo(D180ANG, D0ANG,
                                                D_ANG(8), 0, TURN_ANTICLOSE_TO, false);
                 } else {
                     //右へ折れる
-                    pRikisha->turnRzRyMvAngTo(D0ANG, D0ANG,
+                    pVecDriver->turnRzRyMvAngTo(D0ANG, D0ANG,
                                                D_ANG(8), 0, TURN_ANTICLOSE_TO, false);
                 }
             }
-            if (pRikisha->isTurningMvAng() == false) {
+            if (pVecDriver->isTurningMvAng() == false) {
                 pProg->changeNext(); //次の動きへ
             }
             break;
@@ -152,13 +152,13 @@ void EnemyTalante::processBehavior() {
 
         case PROG_MOVE01_4: {
             if (pProg->hasJustChanged()) {
-                pRikisha->setMvAcce(300);//加速開始
+                pVecDriver->setMvAcce(300);//加速開始
             }
             break;
         }
 
     }
-    pRikisha->behave();
+    pVecDriver->behave();
 
     //getSeTransmitter()->behave();
 }

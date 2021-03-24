@@ -1,7 +1,7 @@
 #include "MyTorpedo.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
@@ -62,22 +62,22 @@ void MyTorpedo::onActive() {
     _sx = _sy = _sz = 100;
     setScale(100);
     getScaler()->transitionLinearStep(7000, 500);
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    pRikisha->setRollPitchYawFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    pVecDriver->setRollPitchYawFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
     if (pTarget_) {
-        pRikisha->forceMvVeloRange(4000, 100000);
-        pRikisha->setMvVelo(20000);
-        pRikisha->setMvAcce(-600); //最初減速
+        pVecDriver->forceMvVeloRange(4000, 100000);
+        pVecDriver->setMvVelo(20000);
+        pVecDriver->setMvAcce(-600); //最初減速
     } else {
-        pRikisha->forceMvVeloRange(4000, 70000);
-        pRikisha->setMvVelo(10000);
-        pRikisha->setMvAcce(-500); //最初減速
+        pVecDriver->forceMvVeloRange(4000, 70000);
+        pVecDriver->setMvVelo(10000);
+        pVecDriver->setMvAcce(-500); //最初減速
     }
 
-    pRikisha->forceRzRyMvAngVeloRange(-40000, 40000);
-    pRikisha->setRzRyMvAngVelo(0,0);
-    pRikisha->setRzRyMvAngAcce(0,0);
-    pRikisha->stopTurningMvAng();
+    pVecDriver->forceRzRyMvAngVeloRange(-40000, 40000);
+    pVecDriver->setRzRyMvAngVelo(0,0);
+    pVecDriver->setRzRyMvAngAcce(0,0);
+    pVecDriver->stopTurningMvAng();
     begin_x_ = _x;
     begin_y_ = _y;
     begin_z_ = _z;
@@ -90,7 +90,7 @@ void MyTorpedo::onActive() {
 }
 
 void MyTorpedo::processBehavior() {
-    GgafDx::Rikisha* const pRikisha = callRikisha();
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
     GgafCore::Progress* const pProg = getProgress();
     if (pProg->get() == MyTorpedo_RELEASE) {
         if (pTailEffectDepository_->_num_chip_active == 0) {
@@ -111,18 +111,18 @@ void MyTorpedo::processBehavior() {
         }
         //魚雷のムーブ
         if (move_section_ == 0) { //発射開始～減速完了まで
-            if (pRikisha->_velo_mv == pRikisha->_bottom_velo_mv) { //減速終了時
+            if (pVecDriver->_velo_mv == pVecDriver->_bottom_velo_mv) { //減速終了時
 
                 if (pTarget_) {
                     //ターゲッティング時は、TURN_CLOSE_TO で動きを見せてターゲット
-                    pRikisha->setMvAcce(600);
-                    pRikisha->turnMvAngTwd(pTarget_,
+                    pVecDriver->setMvAcce(600);
+                    pVecDriver->turnMvAngTwd(pTarget_,
                                           1000, 100,
                                           TURN_CLOSE_TO, false);
                 } else {
                     //ノーターゲッティング時は、TURN_ANTICLOSE_TO で動きを真っ直ぐ
-                    pRikisha->setMvAcce(500);
-                    pRikisha->turnRzRyMvAngTo(
+                    pVecDriver->setMvAcce(500);
+                    pVecDriver->turnRzRyMvAngTo(
                                 trz_, try_,
                                 2000, 200,
                                 TURN_ANTICLOSE_TO, false);
@@ -133,7 +133,7 @@ void MyTorpedo::processBehavior() {
 
         //ムーブ１ 減速完了～方向転換完了
         if (move_section_ == 1) {
-            if (pRikisha->isTurningMvAng()) {
+            if (pVecDriver->isTurningMvAng()) {
                 //TURN_ANTICLOSE_TOターゲット完了を待つ
             } else {
                 //TURN_ANTICLOSE_TOターゲット完了
@@ -147,18 +147,18 @@ void MyTorpedo::processBehavior() {
                     if (pTarget_) {
                         if (pTarget_->isActiveInTheTree())  {
                             //ターゲット有り
-                            pRikisha->turnMvAngTwd(pTarget_,
+                            pVecDriver->turnMvAngTwd(pTarget_,
                                                   1000, 200,
                                                   TURN_CLOSE_TO, false);
 
                         } else {
                             //ターゲット消失時、そのまままっすぐ
-                            pRikisha->setRzRyMvAngVelo(0, 0);
-                            pRikisha->setRzRyMvAngAcce(0, 0);
+                            pVecDriver->setRzRyMvAngVelo(0, 0);
+                            pVecDriver->setRzRyMvAngAcce(0, 0);
                         }
                     } else {
                         //ターゲット無し（オプションの向いている方向へ）
-                        pRikisha->turnRzRyMvAngTo(
+                        pVecDriver->turnRzRyMvAngTo(
                                     trz_, try_,
                                     1000, 200,
                                     TURN_CLOSE_TO, false);
@@ -177,17 +177,17 @@ void MyTorpedo::processBehavior() {
                     if (pTarget_) {
                         if (pTarget_->isActiveInTheTree())  {
                             //ターゲット有り
-                            pRikisha->turnMvAngTwd(pTarget_,
+                            pVecDriver->turnMvAngTwd(pTarget_,
                                                   500, 0,
                                                   TURN_CLOSE_TO, false);
                         } else {
                             //ターゲット消失時、そのまままっすぐ
-                            pRikisha->setRzRyMvAngVelo(0,0);
-                            pRikisha->setRzRyMvAngAcce(0,0);
+                            pVecDriver->setRzRyMvAngVelo(0,0);
+                            pVecDriver->setRzRyMvAngAcce(0,0);
                         }
                     } else {
                         //ターゲット無し（オプションの向いている方向へ）
-                        pRikisha->turnRzRyMvAngTo(
+                        pVecDriver->turnRzRyMvAngTo(
                                     trz_, try_,
                                     300, 0,
                                     TURN_CLOSE_TO, false);
@@ -202,10 +202,10 @@ void MyTorpedo::processBehavior() {
         }
         //ムーブ４
         if (move_section_ == 4) {
-            pRikisha->setRzRyMvAngVelo(0,0);
-            pRikisha->setRzRyMvAngAcce(0,0);
+            pVecDriver->setRzRyMvAngVelo(0,0);
+            pVecDriver->setRzRyMvAngAcce(0,0);
         }
-        pRikisha->behave();
+        pVecDriver->behave();
         getScaler()->behave();
     }
 }
@@ -220,7 +220,7 @@ void MyTorpedo::processJudgement() {
             pTailEffect->inactivateDelay(i+1); //軌跡エフェクトが順々に消えるように予約
             pTailEffect = pTailEffect->getNext();
         }
-        callRikisha()->setMvVelo(0);
+        callVecDriver()->setMvVelo(0);
         //自身のinactive()はprocessBehavior()で行われ
         //魚雷の移動エフェクトが全てinactive()になった際に自身もinactive()する
     }
@@ -243,7 +243,7 @@ void MyTorpedo::onHit(const GgafCore::Actor* prm_pOtherActor) {
         pTailEffect->inactivateDelay(i+1); //軌跡エフェクトが順々に消えるように予約
         pTailEffect = pTailEffect->getNext();
     }
-    callRikisha()->setMvVelo(0);
+    callVecDriver()->setMvVelo(0);
     //自身のinactive()はprocessBehavior()で行われ
     //魚雷の移動エフェクトが全てinactive()になった際に自身もinactive()する
 

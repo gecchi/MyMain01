@@ -1,8 +1,8 @@
 #include "FormationAllas001a.h"
 
 #include "EnemyAllas.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
-#include "jp/ggaf/lib/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/util/spline/SplineLeader.h"
 
 using namespace GgafLib;
 using namespace VioletVreath;
@@ -12,7 +12,7 @@ FormationAllas001a::FormationAllas001a(const char* prm_name) : FormationAllas001
 }
 
 void FormationAllas001a::onCallUpAllas(EnemyAllas* prm_pAllas)  {
-    prm_pAllas->pRikishaLeader_->setAbsoluteBeginCoord();
+    prm_pAllas->pVecDriverLeader_->setAbsoluteBeginCoord();
 }
 
 FormationAllas001a::~FormationAllas001a() {

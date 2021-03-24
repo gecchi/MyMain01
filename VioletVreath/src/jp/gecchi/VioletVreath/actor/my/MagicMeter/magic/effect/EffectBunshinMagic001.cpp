@@ -1,6 +1,6 @@
 #include "EffectBunshinMagic001.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
-#include "jp/ggaf/dx/actor/supporter/Kago.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/GeoDriver.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 
 
@@ -15,13 +15,13 @@ EffectBunshinMagic001::EffectBunshinMagic001(const char* prm_name)
     setZEnableDraw(true);        //描画時、Zバッファ値は考慮される
     setZWriteEnable(false);  //自身のZバッファを書き込みしない
     setCullingDraw(false);
-    callRikisha()->setRollPitchYawFaceAngVelo(PX_C(3), PX_C(5), PX_C(7));
+    callVecDriver()->setRollPitchYawFaceAngVelo(PX_C(3), PX_C(5), PX_C(7));
 }
 
 void EffectBunshinMagic001::processBehavior() {
     EffectBlink::processBehavior();
-    callRikisha()->behave();
-    callKago()->behave();
+    callVecDriver()->behave();
+    callGeoDriver()->behave();
 }
 
 void EffectBunshinMagic001::blink(frame prm_scale_in_frames, frame prm_duration_frames, frame prm_scale_out_frames,

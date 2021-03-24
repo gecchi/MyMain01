@@ -1,6 +1,6 @@
 #include "EnemyEmiliaFragment3.h"
 
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -17,11 +17,11 @@ EnemyEmiliaFragment3::EnemyEmiliaFragment3(const char* prm_name) :
 void EnemyEmiliaFragment3::onDispatched(EnemyEmiliaBase* prm_pOrg, FormationEmilia* prm_pFormationEmilia) {
     EnemyEmiliaBase::onDispatched(prm_pOrg, prm_pFormationEmilia);
     setPositionAt(prm_pOrg);
-    GgafDx::Rikisha* pRikisha = callRikisha();
-    pRikisha->takeoverMvFrom(prm_pOrg->callRikisha());
-    pRikisha->setMvVelo(pRikisha->_velo_mv/2); //半分のスピードへ
-    pRikisha->addRyMvAng(RND(D_ANG(-90), D_ANG(+90)));
-    pRikisha->addRzMvAng(RND(D_ANG(-90), D_ANG(+90)));
+    GgafDx::VecDriver* pVecDriver = callVecDriver();
+    pVecDriver->takeoverMvFrom(prm_pOrg->callVecDriver());
+    pVecDriver->setMvVelo(pVecDriver->_velo_mv/2); //半分のスピードへ
+    pVecDriver->addRyMvAng(RND(D_ANG(-90), D_ANG(+90)));
+    pVecDriver->addRzMvAng(RND(D_ANG(-90), D_ANG(+90)));
 }
 
 void EnemyEmiliaFragment3::onCreateModel() {
@@ -33,7 +33,7 @@ void EnemyEmiliaFragment3::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliSphere(0, PX_C(30));
-    callRikisha()->setRollPitchYawFaceAngVelo(D_ANG(0), D_ANG(0), D_ANG(12));
+    callVecDriver()->setRollPitchYawFaceAngVelo(D_ANG(0), D_ANG(0), D_ANG(12));
 }
 
 void EnemyEmiliaFragment3::onActive() {

@@ -1,6 +1,6 @@
 #include "FormationHalia.h"
 
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Halia/EnemyHalia.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
@@ -25,7 +25,7 @@ FormationHalia::FormationHalia(const char* prm_name) :
     for (int i = 0; i < num_Halia_; i++) {
         papHalia_[i] = NEW EnemyHalia("Halia01");
         //スプライン移動プログラム設定
-        papHalia_[i]->setSplineRikishaLeader(nullptr);
+        papHalia_[i]->setSplineVecDriverLeader(nullptr);
         appendFormationMember(papHalia_[i]);
     }
 }

@@ -1,7 +1,7 @@
 #include "FormationGeria.h"
 
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
-#include "jp/ggaf/dx/actor/supporter/Kago.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/GeoDriver.h"
 #include "jp/ggaf/dx/util/Util.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Geria/EnemyGeria.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -20,7 +20,7 @@ FormationGeria::FormationGeria(
     for (int i = 0; i < prm_nGeriaStock; i++) {
         std::string name = "Geria"+XTOS(i);
         EnemyGeria* pEnemyGeria = NEW EnemyGeria(name.c_str());
-        pEnemyGeria->callRikisha()->linkFaceAngByMvAng(true);
+        pEnemyGeria->callVecDriver()->linkFaceAngByMvAng(true);
         pDepo_->put(pEnemyGeria);
     }
     appendGroupChild(pDepo_);

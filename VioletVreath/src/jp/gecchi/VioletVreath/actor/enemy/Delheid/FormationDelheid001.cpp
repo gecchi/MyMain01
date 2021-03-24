@@ -2,7 +2,7 @@
 
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/ggaf/dx/actor/GeometricActor.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Delheid/EnemyDelheid.h"
 
 
@@ -19,7 +19,7 @@ FormationDelheid001::FormationDelheid001(const char* prm_name) :
 void FormationDelheid001::onCallUpDelheid(EnemyDelheid* pEnemyDelheid) {
 }
 
-GgafLib::SplineManufacture* FormationDelheid001::getSplManuf() {
+GgafDx::SplineManufacture* FormationDelheid001::getSplManuf() {
     return pConn_pSplManuf_->peek(); //êe
 }
 void FormationDelheid001::processBehavior() {

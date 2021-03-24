@@ -1,14 +1,13 @@
 #include "FormationOebius001.h"
 
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
-#include "jp/ggaf/lib/util/spline/SplineLeader.h"
-#include "jp/ggaf/lib/util/spline/SplineManufacture.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/spline/SplineManufacture.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Oebius/EnemyOebius.h"
-#include "jp/ggaf/lib/util/spline/FixedFrameSplineManufacture.h"
+#include "jp/ggaf/dx/util/spline/FixedFrameSplineManufacture.h"
 
-
-
+using namespace GgafDx;
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -87,13 +86,13 @@ void FormationOebius001::processBehavior() {
 
 void FormationOebius001::onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) {
     EnemyOebius* pOebius = (EnemyOebius*)prm_pActor;
-    if (pOebius->pRikishaLeader_) {
-        throwCriticalException("pOebius->pRikishaLeader_が設定されてます。pOebius="<<pOebius<<"("<<pOebius->getName()<<")");
+    if (pOebius->pVecDriverLeader_) {
+        throwCriticalException("pOebius->pVecDriverLeader_が設定されてます。pOebius="<<pOebius<<"("<<pOebius->getName()<<")");
     } else {
-        pOebius->pRikishaLeader_ = papSplManufConn_[prm_col]->peek()->
-                                      createRikishaLeader(pOebius->callRikisha());
+        pOebius->pVecDriverLeader_ = papSplManufConn_[prm_col]->peek()->
+                                      createVecDriverLeader(pOebius->callVecDriver());
     }
-//    double rate_z = pOebius->pRikishaLeader_->_pManufacture->_rate_z;
+//    double rate_z = pOebius->pVecDriverLeader_->_pManufacture->_rate_z;
 //
 //    //Z = (prm_col*(0.4+0.4))*rate_z  //基本間隔は0.4。本編隊はmobius1.dat、mobius3.dat、mobius5.dat と一つ飛びなので0.4+0.4
 //    //(0, 0, Z) を Rz > Ry 回転移動させると
@@ -106,18 +105,18 @@ void FormationOebius001::onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row, 
 //    coord dx = Z*sinRy;
 //    coord dy = 0;
 //    coord dz = Z*cosRy;
-//    pOebius->pRikishaLeader_->setStartPosition(geo_.x + dx,
+//    pOebius->pVecDriverLeader_->setStartPosition(geo_.x + dx,
 //                                              geo_.y + dy,
 //                                              geo_.z + dz);
-    pOebius->pRikishaLeader_->setStartPosition(geo_.x, geo_.y, geo_.z);
-    pOebius->pRikishaLeader_->setStartAngle(geo_.rx, geo_.ry, geo_.rz);
+    pOebius->pVecDriverLeader_->setStartPosition(geo_.x, geo_.y, geo_.z);
+    pOebius->pVecDriverLeader_->setStartAngle(geo_.rx, geo_.ry, geo_.rz);
     pOebius->setPositionAround(geo_.x, geo_.y, geo_.z, PX_C(700));
     pOebius->setFaceAngTwd(pOebius->_x + (pOebius->_x - geo_.x),
                            pOebius->_y + (pOebius->_y - geo_.y),
                            pOebius->_z + (pOebius->_z - geo_.z) );
-    pOebius->callRikisha()->setMvAngByFaceAng();
-    pOebius->callRikisha()->setMvVelo(0);
-    pOebius->callRikisha()->setMvAcce(80);
+    pOebius->callVecDriver()->setMvAngByFaceAng();
+    pOebius->callVecDriver()->setMvVelo(0);
+    pOebius->callVecDriver()->setMvAcce(80);
 
 //    float sr = ANG_SIN(RCNV(0, formation_row_num_ , prm_row , D0ANG, D360ANG));
 //    float sg = ANG_COS(RCNV(0, formation_row_num_ , prm_row , D0ANG, D360ANG));

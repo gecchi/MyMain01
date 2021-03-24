@@ -22,7 +22,7 @@ void WallScene::buildWallScene(
         WallSectionScene** prm_papSection, int prm_section_num,
         GgafCore::ActorDepository* prm_pDepo_wall) {
     _TRACE_(FUNC_NAME<<" ["<<getName()<<"] build...");
-    setScrollingFunction(WallScene::scrollX); //X軸方向スクロール関数
+    setFeatureFunction(WallScene::scrollX); //X軸方向スクロール関数
 
     _pDepo_wall = prm_pDepo_wall;
     if (_pDepo_wall->getSceneMediator()) {

@@ -17,7 +17,7 @@ class EnemyUrydike : public VvEnemyActor<GgafLib::DefaultMeshSetActor> {
 
 public:
     /** 移動スプラインプログラム */
-    GgafLib::SplineLeader* pRikishaLeader_;
+    GgafDx::SplineLeader* pVecDriverLeader_;
 
     bool scatter_flg_;
 

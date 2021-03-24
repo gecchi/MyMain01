@@ -1,18 +1,19 @@
 #include "EnemyUrydike.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/lib/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/spline/SplineLeader.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Urydike/FormationUrydike.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
+using namespace GgafDx;
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -34,7 +35,7 @@ EnemyUrydike::EnemyUrydike(const char* prm_name) :
     _class_name = "EnemyUrydike";
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
-    pRikishaLeader_ = nullptr; //フォーメーションオブジェクトが設定する
+    pVecDriverLeader_ = nullptr; //フォーメーションオブジェクトが設定する
     scatter_flg_ = false;
     delay_ = 0;
 }
@@ -47,8 +48,8 @@ void EnemyUrydike::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    pRikisha->linkFaceAngByMvAng(true);
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    pVecDriver->linkFaceAngByMvAng(true);
 }
 
 void EnemyUrydike::onActive() {
@@ -57,7 +58,7 @@ void EnemyUrydike::onActive() {
 }
 
 void EnemyUrydike::processBehavior() {
-    GgafDx::Rikisha* const pRikisha = callRikisha();
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
@@ -71,7 +72,7 @@ void EnemyUrydike::processBehavior() {
             EffectBlink* pEffectEntry = nullptr;
             if (pProg->hasJustChanged()) {
                 pEffectEntry = UTIL::activateEntryEffectOf(this);
-                pRikisha->setRollFaceAngVelo(D_ANG(3));
+                pVecDriver->setRollFaceAngVelo(D_ANG(3));
             }
             static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
             static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
@@ -96,10 +97,10 @@ void EnemyUrydike::processBehavior() {
 
         case PROG_SPLINE: {
             if (pProg->hasJustChanged()) {
-                callRikisha()->setMvAcce(0); //加速度がある場合は切っておく
-                pRikishaLeader_->start(RELATIVE_COORD_DIRECTION, 1);
+                callVecDriver()->setMvAcce(0); //加速度がある場合は切っておく
+                pVecDriverLeader_->start(RELATIVE_COORD_DIRECTION, 1);
             }
-            pRikishaLeader_->behave(); //スプライン移動を振る舞い
+            pVecDriverLeader_->behave(); //スプライン移動を振る舞い
 
             if (scatter_flg_) {
                 pProg->changeNext();
@@ -113,10 +114,10 @@ void EnemyUrydike::processBehavior() {
             }
             if (pProg->hasArrivedAt(delay_)) {
                 //散り散りになる
-                pRikishaLeader_->stop();
-                pRikisha->turnRzRyMvAngTo(RND_ABOUT(pRikisha->_rz_mv, D_ANG(90)), RND_ABOUT(pRikisha->_ry_mv, D_ANG(90)),
+                pVecDriverLeader_->stop();
+                pVecDriver->turnRzRyMvAngTo(RND_ABOUT(pVecDriver->_rz_mv, D_ANG(90)), RND_ABOUT(pVecDriver->_ry_mv, D_ANG(90)),
                                          D_ANG(2), 0, TURN_CLOSE_TO,false);
-                pRikisha->setMvAcce(100);
+                pVecDriver->setMvAcce(100);
             }
 
             if (pProg->hasArrivedAt(delay_ + 200)) {
@@ -141,7 +142,7 @@ void EnemyUrydike::processBehavior() {
     }
 
     pAlphaFader->behave();
-    pRikisha->behave();
+    pVecDriver->behave();
 }
 
 void EnemyUrydike::processJudgement() {
@@ -174,5 +175,5 @@ void EnemyUrydike::scatter() {
 }
 
 EnemyUrydike::~EnemyUrydike() {
-    GGAF_DELETE_NULLABLE(pRikishaLeader_);
+    GGAF_DELETE_NULLABLE(pVecDriverLeader_);
 }

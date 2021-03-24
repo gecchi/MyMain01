@@ -1,6 +1,6 @@
 #include "TestChokiShot.h"
 
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -24,11 +24,11 @@ void TestChokiShot::initialize() {
 void TestChokiShot::onActive() {
     getStatus()->reset();
     setHitAble(true);
-    callRikisha()->setMvVelo(PX_C(30));
+    callVecDriver()->setMvVelo(PX_C(30));
 }
 
 void TestChokiShot::processBehavior() {
-    callRikisha()->behave();
+    callVecDriver()->behave();
 }
 
 void TestChokiShot::processJudgement() {

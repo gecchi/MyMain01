@@ -1,7 +1,7 @@
 #include "EffectBlink001.h"
 
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 
 
 
@@ -24,12 +24,12 @@ void EffectBlink001::onActive() {
     getScaler()->setRange(1, R_SC(40.0));
     setScale(getScaler()->getBottom());
     setFaceAngZero();
-    callRikisha()->setRollPitchYawFaceAngVelo(3000, 11000, 7000);
+    callVecDriver()->setRollPitchYawFaceAngVelo(3000, 11000, 7000);
 }
 
 void EffectBlink001::processBehavior() {
     EffectBlink::processBehavior();
-    callRikisha()->behave();
+    callVecDriver()->behave();
 }
 
 EffectBlink001::~EffectBlink001() {

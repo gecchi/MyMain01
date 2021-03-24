@@ -13,7 +13,7 @@ namespace VioletVreath {
  */
 class FormationEbe001 : public FormationEbe {
     /** スプライン定義資源への接続 */
-    GgafLib::SplineManufactureConnection* pConn_pSplManuf_;
+    GgafDx::SplineManufactureConnection* pConn_pSplManuf_;
 public:
 
     FormationEbe001(const char* prm_name);
@@ -22,7 +22,7 @@ public:
 
     virtual void processBehavior() override;
 
-    GgafLib::SplineManufacture* getSplManuf() override;
+    GgafDx::SplineManufacture* getSplManuf() override;
 
     virtual ~FormationEbe001();
 };

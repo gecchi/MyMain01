@@ -17,7 +17,7 @@ class Zako : public GgafLib::DefaultMeshSetActor {
 
 public:
     /** 移動スプラインプログラム */
-    GgafLib::SplineLeader* pRikishaLeader_;
+    GgafDx::SplineLeader* pVecDriverLeader_;
 
     std::ofstream* pOs_;
 public:

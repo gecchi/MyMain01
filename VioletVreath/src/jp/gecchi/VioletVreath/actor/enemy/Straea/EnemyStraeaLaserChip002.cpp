@@ -1,7 +1,7 @@
 #include "EnemyStraeaLaserChip002.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
@@ -26,11 +26,11 @@ void EnemyStraeaLaserChip002::onActive() {
     RefractionLaserChip::onActive();
     //ステータスリセット
     getStatus()->reset();
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    pRikisha->setMvVelo(80000);
-    //_pRikisha->setMvAcce(300);
-    //_pRikisha->forceRyMvAngVeloRange(-90000, 90000);
-    pRikisha->linkFaceAngByMvAng(true);
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    pVecDriver->setMvVelo(80000);
+    //_pVecDriver->setMvAcce(300);
+    //_pVecDriver->forceRyMvAngVeloRange(-90000, 90000);
+    pVecDriver->linkFaceAngByMvAng(true);
 }
 
 void EnemyStraeaLaserChip002::onRefractionInto(int prm_num_refraction)  {
@@ -41,7 +41,7 @@ void EnemyStraeaLaserChip002::onRefractionOutOf(int prm_num_refraction)  {
     if (prm_num_refraction == 0) {
 
     } else {
-        GgafDx::Rikisha* const pRikisha = callRikisha();
+        GgafDx::VecDriver* const pVecDriver = callVecDriver();
         angle out_rz_Target;
         angle out_ry_Target;
         angle out_d_rz;
@@ -51,16 +51,16 @@ void EnemyStraeaLaserChip002::onRefractionOutOf(int prm_num_refraction)  {
                                pMYSHIP->_z - _z,
                                out_rz_Target,
                                out_ry_Target);
-        out_d_rz = pRikisha->getRzMvAngDistance(out_rz_Target, TURN_CLOSE_TO);
-        out_d_ry = pRikisha->getRyMvAngDistance(out_ry_Target, TURN_CLOSE_TO);
-        pRikisha->addRzMvAng(SGN(out_d_rz)*20000);
-        pRikisha->addRyMvAng(SGN(out_d_ry)*30000);
-//        pRikisha->turnMvAngTwd(
+        out_d_rz = pVecDriver->getRzMvAngDistance(out_rz_Target, TURN_CLOSE_TO);
+        out_d_ry = pVecDriver->getRyMvAngDistance(out_ry_Target, TURN_CLOSE_TO);
+        pVecDriver->addRzMvAng(SGN(out_d_rz)*20000);
+        pVecDriver->addRyMvAng(SGN(out_d_ry)*30000);
+//        pVecDriver->turnMvAngTwd(
 //                        pMYSHIP,
 //                        90000, 0,
 //                        TURN_CLOSE_TO, false);
 
-//        pRikisha->setMvAngTwd(pMYSHIP);
+//        pVecDriver->setMvAngTwd(pMYSHIP);
     }
 }
 

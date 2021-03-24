@@ -1,6 +1,6 @@
 #include "MyWave001.h"
 
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -18,12 +18,12 @@ MyWave001::MyWave001(const char* prm_name) :
 
 void MyWave001::initialize() {
     //exec(FLIP_OSCILLATE_LOOP, 2);
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    pRikisha->setRzMvAngVelo(0);
-    //_pRikisha->setFaceAngVelo(AXIS_Z, 2*1000);
-    //_pRikisha->setRzMvAng(0);
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    pVecDriver->setRzMvAngVelo(0);
+    //_pVecDriver->setFaceAngVelo(AXIS_Z, 2*1000);
+    //_pVecDriver->setRzMvAng(0);
     //setRzFaceAng(0);
-    pRikisha->setMvVelo(20000);
+    pVecDriver->setMvVelo(20000);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(7);
     pChecker->setColliAABox(0,  -10000,  -10000,  -10000,   10000,   10000,   10000, true, true, true);
@@ -50,7 +50,7 @@ void MyWave001::initialize() {
 }
 
 void MyWave001::processBehavior() {
-    GgafDx::Rikisha* const pRikisha = callRikisha();
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
     GgafDx::Scaler* const pScaler = getScaler();
 
     if (hasJustChangedToActive()) {
@@ -62,7 +62,7 @@ void MyWave001::processBehavior() {
         setPositionAt(pMYSHIP);
         setRzFaceAng(pMYSHIP->_rz);
         setRyFaceAng(pMYSHIP->_ry);
-        pRikisha->setRzRyMvAng(pMYSHIP->_rz, pMYSHIP->_ry);
+        pVecDriver->setRzRyMvAng(pMYSHIP->_rz, pMYSHIP->_ry);
         //		_x = pMYSHIP->_x;
         //		_y = pMYSHIP->_y;
         //		_z = pMYSHIP->_z;
@@ -71,7 +71,7 @@ void MyWave001::processBehavior() {
         //behaveUvFlip();
         //À•W‚É”½‰f
         pScaler->behave();
-        pRikisha->behave();
+        pVecDriver->behave();
     }
 }
 

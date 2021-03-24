@@ -9,8 +9,8 @@ namespace VioletVreath {
 class EnemyStraeaLaserChip003 : public VvEnemyActor<GgafLib::WateringLaserChip> {
 
 public:
-    GgafLib::SplineManufactureConnection* pConn_pSplManuf_;
-    GgafLib::SplineLeader* pRikishaLeader_;
+    GgafDx::SplineManufactureConnection* pConn_pSplManuf_;
+    GgafDx::SplineLeader* pVecDriverLeader_;
 
 public:
     EnemyStraeaLaserChip003(const char* prm_name);

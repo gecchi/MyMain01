@@ -1,10 +1,9 @@
 #include "SplineManufactureManagerEx.h"
 
-#include "jp/ggaf/lib/util/spline/FixedFrameSplineManufacture.h"
-#include "jp/ggaf/lib/util/spline/FixedVelocitySplineManufacture.h"
+#include "jp/ggaf/dx/util/spline/FixedFrameSplineManufacture.h"
+#include "jp/ggaf/dx/util/spline/FixedVelocitySplineManufacture.h"
 
-
-
+using namespace GgafDx;
 using namespace GgafLib;
 using namespace VioletVreath;
 

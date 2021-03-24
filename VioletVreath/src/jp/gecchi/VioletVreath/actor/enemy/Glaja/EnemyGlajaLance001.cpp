@@ -1,6 +1,6 @@
 #include "EnemyGlajaLance001.h"
 
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion001.h"
@@ -9,7 +9,7 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
-#include "jp/ggaf/dx/actor/supporter/RikishaFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriverFaceAngAssistant.h"
 
 using namespace GgafLib;
 using namespace VioletVreath;
@@ -51,13 +51,13 @@ void EnemyGlajaLance001::onReset() {
 }
 
 void EnemyGlajaLance001::onActive() {
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    pRikisha->setMvAcce(0);
-    pRikisha->setMvVelo(PX_C(3));
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    pVecDriver->setMvAcce(0);
+    pVecDriver->setMvVelo(PX_C(3));
     setRollPitchYawFaceAng(0, RND(D_ANG(0), D_ANG(360)),
                               RND(D_ANG(0), D_ANG(360)) );
-    pRikisha->setRollPitchYawFaceAngVelo(D_ANG(0), D_ANG(20), D_ANG(15));
-    pRikisha->linkFaceAngByMvAng(true);
+    pVecDriver->setRollPitchYawFaceAngVelo(D_ANG(0), D_ANG(20), D_ANG(15));
+    pVecDriver->linkFaceAngByMvAng(true);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->disable(1);
     pChecker->disable(2);
@@ -72,13 +72,13 @@ void EnemyGlajaLance001::onActive() {
 
 void EnemyGlajaLance001::processBehavior() {
     MyShip* pMyShip = pMYSHIP;
-    GgafDx::Rikisha* const pRikisha = callRikisha();
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
     GgafDx::Scaler* const pScaler = getScaler();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             setHitAble(true, false);
-            //_pRikisha->setMvAngTwd(&turning_pos_);
+            //_pVecDriver->setMvAngTwd(&turning_pos_);
             pProg->changeNext();
             break;
         }
@@ -94,8 +94,8 @@ void EnemyGlajaLance001::processBehavior() {
         case PROG_AIM_ANIME01: {
             if (pProg->hasJustChanged()) {
                 //シャキーンと槍になる！（伸びる！）
-                pRikisha->stopMv();
-                pRikisha->setRollPitchYawFaceAngVelo(0, 0, 0);
+                pVecDriver->stopMv();
+                pVecDriver->setRollPitchYawFaceAngVelo(0, 0, 0);
                 pScaler->transitionAcceUntil(AXIS_X, R_SC(30), R_SC(1), R_SC(0.1));
                 pScaler->transitionAcceUntil(AXIS_Y, R_SC(2), R_SC(1), R_SC(0.1));
                 pScaler->transitionAcceUntil(AXIS_Z, R_SC(2), R_SC(1), R_SC(0.1));
@@ -113,20 +113,20 @@ void EnemyGlajaLance001::processBehavior() {
         case PROG_AIM_ANIME02: {
             if (pProg->hasJustChanged()) {
                 //自機にグルンと向く
-                pRikisha->asstFaceAng()->turnByDtTwd(pMyShip, TURN_ANTICLOSE_TO, false,
+                pVecDriver->asstFaceAng()->turnByDtTwd(pMyShip, TURN_ANTICLOSE_TO, false,
                                                         60, 0.2, 0.4, 0, true );
             }
-            if (!pRikisha->isTurningFaceAng()) {
+            if (!pVecDriver->isTurningFaceAng()) {
                 pProg->changeNext();
             }
             break;
         }
         case PROG_MOVE02: {
             if (pProg->hasJustChanged()) {
-                pRikisha->setMvAngByFaceAng(); //今向いてる方向にこれから移動する
-                pRikisha->setMvVelo(-PX_C(3)); //ちょっとバックして貯めを表現
-                pRikisha->setRollFaceAngVelo(D_ANG(1)); //スピンスピン
-                pRikisha->setRollFaceAngAcce(100); //スピンスピン
+                pVecDriver->setMvAngByFaceAng(); //今向いてる方向にこれから移動する
+                pVecDriver->setMvVelo(-PX_C(3)); //ちょっとバックして貯めを表現
+                pVecDriver->setRollFaceAngVelo(D_ANG(1)); //スピンスピン
+                pVecDriver->setRollFaceAngAcce(100); //スピンスピン
             }
             if (pProg->getFrame() >= 60) {
                 pProg->changeNext();
@@ -136,7 +136,7 @@ void EnemyGlajaLance001::processBehavior() {
         case PROG_MOVE03: {
             if (pProg->hasJustChanged()) {
                 //ズキューーンと移動
-                pRikisha->setMvVelo(PX_C(50));
+                pVecDriver->setMvVelo(PX_C(50));
             }
             //画面外 or HIT まで待機
             break;
@@ -152,7 +152,7 @@ void EnemyGlajaLance001::processBehavior() {
     }
     //座標に反映
     pScaler->behave();
-    pRikisha->behave();
+    pVecDriver->behave();
 }
 
 void EnemyGlajaLance001::processJudgement() {
@@ -170,7 +170,7 @@ void EnemyGlajaLance001::onHit(const GgafCore::Actor* prm_pOtherActor) {
     bool was_destroyed = UTIL::performEnemyHit(this, (const GgafDx::GeometricActor*)prm_pOtherActor);
     if (was_destroyed) {
         //破壊された時(スタミナ <= 0)
-        callRikisha()->stopMv();
+        callVecDriver()->stopMv();
         sayonara(90);
         getProgress()->change(PROG_LEAVE); //矢がフェードアウトする
     } else {

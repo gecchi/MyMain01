@@ -1,6 +1,6 @@
 #include "MyShot001.h"
 
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -25,8 +25,8 @@ void MyShot001::initialize() {
     pChecker->createCollisionArea(1);
     pChecker->setColliAABox(0, -PX_C(50), -PX_C(50), -PX_C(50),
                               PX_C(50),  PX_C(50),  PX_C(50));
-    callRikisha()->setRollFaceAngVelo(D_ANG(12));
-    callRikisha()->linkFaceAngByMvAng(true);
+    callVecDriver()->setRollFaceAngVelo(D_ANG(12));
+    callVecDriver()->linkFaceAngByMvAng(true);
 }
 
 void MyShot001::onActive() {
@@ -35,7 +35,7 @@ void MyShot001::onActive() {
 }
 
 void MyShot001::processBehavior() {
-    callRikisha()->behave();
+    callVecDriver()->behave();
 }
 
 void MyShot001::processJudgement() {

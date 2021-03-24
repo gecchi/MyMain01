@@ -2,10 +2,11 @@
 
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
 #include "jp/ggaf/core/actor/SceneMediator.h"
-#include "jp/ggaf/lib/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/spline/SplineLeader.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/core/actor/ex/ActorDepositoryStore.h"
 
+using namespace GgafDx;
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -68,8 +69,8 @@ void CommonScene::initialize() {
 }
 void CommonScene::onReset() {
     //ƒXƒNƒ[ƒ‹‰ðœ
-    setScrollingFunction(nullptr);
-    setScrollSpeed(0);
+    setFeatureFunction(nullptr);
+    setFeatureParam1(0);
 
     fadeinScene(0);
 }
@@ -90,8 +91,8 @@ void CommonScene::scrollX(GgafCore::Object* pThat, void* p1, void* p2, void* p3)
             }
         }
     }
-    if (pThat->instanceOf(Obj_SplineLeader)) {
-        GgafLib::SplineLeader* pSplineLeader = (SplineLeader*)pThat;
+    if (pThat->instanceOf(Obj_GgadDx_SplineLeader)) {
+        GgafDx::SplineLeader* pSplineLeader = (SplineLeader*)pThat;
         pSplineLeader->_x_start_in_loop -= (*((coord*)p1));
     }
 }

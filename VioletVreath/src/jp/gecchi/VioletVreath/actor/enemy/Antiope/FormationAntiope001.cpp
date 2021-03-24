@@ -4,7 +4,7 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Antiope/EnemyAntiopeP.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Antiope/EnemyAntiopeN.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 
 
 
@@ -58,18 +58,18 @@ void FormationAntiope001::processBehavior() {
 
             if (pP && pN) {
                 pP->setPositionAt(&entry_pos);
-                pP->callRikisha()->setMvAngTwd(&twd_pos_p);
-                pP->setRzFaceAng(pP->callRikisha()->_rz_mv);
-                pP->setRyFaceAng(pP->callRikisha()->_ry_mv);
-                pP->callRikisha()->stopMv();
+                pP->callVecDriver()->setMvAngTwd(&twd_pos_p);
+                pP->setRzFaceAng(pP->callVecDriver()->_rz_mv);
+                pP->setRyFaceAng(pP->callVecDriver()->_ry_mv);
+                pP->callVecDriver()->stopMv();
                 pP->mv_velo_twd_.set(vX*veloMv, vY*veloMv, vZ*veloMv);
 
                 pN->setPositionAt(&entry_pos);
-                pN->callRikisha()->setMvAngTwd(&twd_pos_p);
-                pN->callRikisha()->reverseMvAng(); //”½“]
-                pN->setRzFaceAng(pN->callRikisha()->_rz_mv);
-                pN->setRyFaceAng(pN->callRikisha()->_ry_mv);
-                pN->callRikisha()->stopMv();
+                pN->callVecDriver()->setMvAngTwd(&twd_pos_p);
+                pN->callVecDriver()->reverseMvAng(); //”½“]
+                pN->setRzFaceAng(pN->callVecDriver()->_rz_mv);
+                pN->setRyFaceAng(pN->callVecDriver()->_ry_mv);
+                pN->callVecDriver()->stopMv();
                 pN->mv_velo_twd_.set(vX*veloMv, vY*veloMv, vZ*veloMv);
 
                 //ƒyƒAƒŠƒ“ƒO

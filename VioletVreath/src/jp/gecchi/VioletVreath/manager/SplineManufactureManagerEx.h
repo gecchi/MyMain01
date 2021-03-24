@@ -2,7 +2,7 @@
 #define SPLINEMANUFACTUREMANAGEREX_H_
 #include "VioletVreath.h"
 
-#include "jp/ggaf/lib/manager/SplineManufactureManager.h"
+#include "jp/ggaf/dx/manager/SplineManufactureManager.h"
 
 namespace VioletVreath {
 /**
@@ -11,7 +11,7 @@ namespace VioletVreath {
  * @since 2018/08/21
  * @author Masatoshi Tsuge
  */
-class SplineManufactureManagerEx : public GgafLib::SplineManufactureManager {
+class SplineManufactureManagerEx : public GgafDx::SplineManufactureManager {
 
 public:
     /**
@@ -20,7 +20,7 @@ public:
      */
     SplineManufactureManagerEx(const char* prm_manager_name);
 
-    GgafLib::SplineManufacture* processCreateResource(const char* prm_idstr, void* prm_pConnector) override;
+    GgafDx::SplineManufacture* processCreateResource(const char* prm_idstr, void* prm_pConnector) override;
 
     virtual ~SplineManufactureManagerEx() {
     }

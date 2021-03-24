@@ -50,7 +50,7 @@ public:
 
     virtual void processBehavior() override;
 
-    virtual GgafLib::SplineManufacture* getSplManuf() = 0;
+    virtual GgafDx::SplineManufacture* getSplManuf() = 0;
 
     virtual ~FormationEbe();
 };

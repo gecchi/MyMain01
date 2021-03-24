@@ -1,19 +1,20 @@
 #include "EnemyOebius.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/lib/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/spline/SplineLeader.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Oebius/FormationOebius.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 #include "FormationOebius.h"
 
+using namespace GgafDx;
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -35,7 +36,7 @@ EnemyOebius::EnemyOebius(const char* prm_name) :
     _class_name = "EnemyOebius";
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
-    pRikishaLeader_ = nullptr; //フォーメーションオブジェクトが設定する
+    pVecDriverLeader_ = nullptr; //フォーメーションオブジェクトが設定する
     scatter_flg_ = false;
     delay_ = 0;
 }
@@ -48,9 +49,9 @@ void EnemyOebius::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    pRikisha->linkFaceAngByMvAng(true);
-    pRikisha->forceMvVeloRange(PX_C(15));
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    pVecDriver->linkFaceAngByMvAng(true);
+    pVecDriver->forceMvVeloRange(PX_C(15));
 }
 
 void EnemyOebius::onActive() {
@@ -59,14 +60,14 @@ void EnemyOebius::onActive() {
 }
 
 void EnemyOebius::processBehavior() {
-    GgafDx::Rikisha* const pRikisha = callRikisha();
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             setHitAble(false);
             setAlpha(0);
-            pRikisha->setRollFaceAngVelo(D_ANG(3));
+            pVecDriver->setRollFaceAngVelo(D_ANG(3));
             pProg->changeNext();
             break;
         }
@@ -99,16 +100,14 @@ void EnemyOebius::processBehavior() {
 
         case PROG_SPLINE: {
             if (pProg->hasJustChanged()) {
-                callRikisha()->setMvAcce(0); //加速度がある場合は切っておく
-                pRikishaLeader_->start(RELATIVE_COORD_DIRECTION, -1); //-1は無限ループ
+                callVecDriver()->setMvAcce(0); //加速度がある場合は切っておく
+                pVecDriverLeader_->start(RELATIVE_COORD_DIRECTION, -1); //-1は無限ループ
             }
 
-
-
             FormationOebius* pFormation = (FormationOebius*)getFormation();
-            pRikishaLeader_->setStartPosition(pFormation->geo_.x, pFormation->geo_.y, pFormation->geo_.z);
-            pRikishaLeader_->setStartAngle(pFormation->geo_.rx, pFormation->geo_.ry, pFormation->geo_.rz);
-            pRikishaLeader_->behave(); //スプライン移動を振る舞い
+            pVecDriverLeader_->setStartPosition(pFormation->geo_.x, pFormation->geo_.y, pFormation->geo_.z);
+            pVecDriverLeader_->setStartAngle(pFormation->geo_.rx, pFormation->geo_.ry, pFormation->geo_.rz);
+            pVecDriverLeader_->behave(); //スプライン移動を振る舞い
 
             if (scatter_flg_) {
                 pProg->changeNext();
@@ -116,17 +115,16 @@ void EnemyOebius::processBehavior() {
             break;
         }
 
-
         case PROG_SCATTER: {
             if (pProg->hasJustChanged()) {
                 delay_ = RND(0, 120);
             }
             if (pProg->hasArrivedAt(delay_)) {
                 //散り散りになる
-                pRikishaLeader_->stop();
-                pRikisha->turnRzRyMvAngTo(RND_ABOUT(pRikisha->_rz_mv, D_ANG(90)), RND_ABOUT(pRikisha->_ry_mv, D_ANG(90)),
+                pVecDriverLeader_->stop();
+                pVecDriver->turnRzRyMvAngTo(RND_ABOUT(pVecDriver->_rz_mv, D_ANG(90)), RND_ABOUT(pVecDriver->_ry_mv, D_ANG(90)),
                                          D_ANG(2), 0, TURN_CLOSE_TO,false);
-                pRikisha->setMvAcce(100);
+                pVecDriver->setMvAcce(100);
             }
 
             if (pProg->hasArrivedAt(delay_ + 200)) {
@@ -151,7 +149,7 @@ void EnemyOebius::processBehavior() {
     }
 
     pAlphaFader->behave();
-    pRikisha->behave();
+    pVecDriver->behave();
 }
 
 void EnemyOebius::processJudgement() {
@@ -183,5 +181,5 @@ void EnemyOebius::scatter() {
 }
 
 EnemyOebius::~EnemyOebius() {
-    GGAF_DELETE_NULLABLE(pRikishaLeader_);
+    GGAF_DELETE_NULLABLE(pVecDriverLeader_);
 }

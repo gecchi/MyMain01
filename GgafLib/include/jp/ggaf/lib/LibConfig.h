@@ -13,8 +13,6 @@ class LibConfig: public GgafDx::Config {
 public:
     /** [r] シーン地形データファイル(datファイル)格納ディレクトリ名 */
     static std::string DIRNAME_RESOURCE_WALL;
-    /** [r] スプライン曲線座標情報ファイル(datファイル)格納ディレクトリ名 */
-    static std::string DIRNAME_RESOURCE_SPLINE;
     /** [r] 八分木空間レベル数 */
     static int OCTREE_LEVEL;
     /** [r] 四分木空間レベル数 */
@@ -28,8 +26,7 @@ public:
 
     /** [r] シーン地形データファイル(datファイル)格納ディレクトリ */
     static std::string DIR_WALL;
-    /** [r] スプライン曲線座標情報ファイル(datファイル)格納ディレクトリ */
-    static std::string DIR_SPLINE;
+
 
 
 public:

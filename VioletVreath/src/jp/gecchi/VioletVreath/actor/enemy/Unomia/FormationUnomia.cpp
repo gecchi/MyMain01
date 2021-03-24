@@ -1,15 +1,14 @@
 #include "FormationUnomia.h"
 
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
-#include "jp/ggaf/lib/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/util/spline/SplineLeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Unomia/EnemyUnomia.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
 
-
-
+using namespace GgafDx;
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -85,10 +84,10 @@ void FormationUnomia::processBehavior() {
                     for (int col = 0; col < num_formation_col_; col++) {
                         EnemyUnomia* pUnomia = (EnemyUnomia*)callUpMember();
                         if (pUnomia) {
-                            SplineLeader* pRikishaLeader = pConn_pSplManuf_->peek()->
-                                                          createRikishaLeader(pUnomia->callRikisha());
-                            pUnomia->config(pRikishaLeader, nullptr, nullptr);
-                            pUnomia->callRikisha()->setMvVelo(mv_velo_);
+                            SplineLeader* pVecDriverLeader = pConn_pSplManuf_->peek()->
+                                                          createVecDriverLeader(pUnomia->callVecDriver());
+                            pUnomia->config(pVecDriverLeader, nullptr, nullptr);
+                            pUnomia->callVecDriver()->setMvVelo(mv_velo_);
                             onCallUpUnomia(pUnomia, col); //フォーメーション個別実装の処理
                         }
                     }
@@ -111,10 +110,10 @@ void FormationUnomia::processBehavior() {
                     GgafDx::GeometricActor* pShot = (GgafDx::GeometricActor*)pDepo_shot_->dispatch();
                     if (pShot) {
                         pShot->setPositionAt(pUnomia);
-                        GgafDx::Rikisha* pShot_pRikisha = pShot->callRikisha();
-                        pShot_pRikisha->setMvAngTwd(pMy);
-                        pShot_pRikisha->setMvVelo(PX_C(10));
-                        pShot_pRikisha->setMvAcce(0);
+                        GgafDx::VecDriver* pShot_pVecDriver = pShot->callVecDriver();
+                        pShot_pVecDriver->setMvAngTwd(pMy);
+                        pShot_pVecDriver->setMvVelo(PX_C(10));
+                        pShot_pVecDriver->setMvAcce(0);
                     }
                 }
                 if (pFollower->isLast()) {

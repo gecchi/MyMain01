@@ -1,15 +1,14 @@
 #include "FormationAllas002.h"
 
 #include "EnemyAllas.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
-#include "jp/ggaf/lib/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/util/spline/SplineLeader.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-
-
+using namespace GgafDx;
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -26,7 +25,7 @@ FormationAllas002::FormationAllas002(const char* prm_name) :
     for (int i = 0; i < num_Allas_; i++) {
         papAllas_[i] = NEW EnemyAllas("Allas01");
         //スプライン移動プログラム設定
-        SplineLeader* pProgram = pConn_pSplManuf_->peek()->createRikishaLeader(papAllas_[i]->callRikisha()); //移動速度固定
+        SplineLeader* pProgram = pConn_pSplManuf_->peek()->createVecDriverLeader(papAllas_[i]->callVecDriver()); //移動速度固定
         papAllas_[i]->config(pProgram, nullptr, nullptr);
         //papAllas_[i]->setDepository_Shot(pConn_depo_->peek()); //弾設定
         appendFormationMember(papAllas_[i]);
@@ -36,7 +35,7 @@ FormationAllas002::FormationAllas002(const char* prm_name) :
 void FormationAllas002::onActive() {
     for (int i = 0; i < num_Allas_; i++) {
         papAllas_[i]->setPosition(MyShip::lim_x_behaind_ *2 , pMYSHIP->_y+300000,  pMYSHIP->_z);
-        papAllas_[i]->callRikisha()->setMvVelo(velo_mv_);
+        papAllas_[i]->callVecDriver()->setMvVelo(velo_mv_);
         papAllas_[i]->activateDelay(i*interval_frames_ + 1);//interval_frames_間隔でActiveにする。
     }
 }

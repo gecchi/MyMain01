@@ -1,14 +1,14 @@
 #include "EnemyErelmanCore.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/lib/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/spline/SplineLeader.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Erelman/FormationErelman001.h"
 #include "EnemyErelmanController.h"
@@ -53,9 +53,9 @@ void EnemyErelmanCore::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    pRikisha->linkFaceAngByMvAng(true);
-    pRikisha->forceMvVeloRange(PX_C(15));
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    pVecDriver->linkFaceAngByMvAng(true);
+    pVecDriver->forceMvVeloRange(PX_C(15));
 }
 
 void EnemyErelmanCore::onActive() {
@@ -64,7 +64,7 @@ void EnemyErelmanCore::onActive() {
 }
 
 void EnemyErelmanCore::processBehavior() {
-    GgafDx::Rikisha* const pRikisha = callRikisha();
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
 
     GgafCore::Progress* const pProg = getProgress();
@@ -72,7 +72,7 @@ void EnemyErelmanCore::processBehavior() {
         case PROG_INIT: {
             setHitAble(false);
             setAlpha(0);
-//            pRikisha->setRollFaceAngVelo(D_ANG(3));
+//            pVecDriver->setRollFaceAngVelo(D_ANG(3));
             pProg->changeNext();
             break;
         }
@@ -95,7 +95,7 @@ void EnemyErelmanCore::processBehavior() {
 
         case PROG_WAIT01: {
             if (pProg->hasJustChanged()) {
-//                pRikisha->setRollPitchYawFaceAngVelo(D_ANG(0.027), D_ANG(0.0031), D_ANG(0.0071));
+//                pVecDriver->setRollPitchYawFaceAngVelo(D_ANG(0.027), D_ANG(0.0031), D_ANG(0.0071));
             }
             if (pProg->hasArrivedAt(10*60*60)) {
                 pProg->changeNext();
@@ -119,7 +119,7 @@ void EnemyErelmanCore::processBehavior() {
     }
 
     pAlphaFader->behave();
-    pRikisha->behave();
+    pVecDriver->behave();
 }
 
 void EnemyErelmanCore::processJudgement() {

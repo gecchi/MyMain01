@@ -1,7 +1,7 @@
 #include "EffectExplosion003.h"
 
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
@@ -29,12 +29,12 @@ void EffectExplosion003::onActive() {
     setScale(0);
     getScaler()->transitionAcceUntilVelo(R_SC(0.01) , R_SC(0.1), -R_SC(0.001));
     getUvFlipper()->exec(FLIP_ORDER_LOOP, 1);
-    setRzRyFaceAng(callRikisha()->getRzMvAng(), callRikisha()->getRyMvAng());
+    setRzRyFaceAng(callVecDriver()->getRzMvAng(), callVecDriver()->getRyMvAng());
 }
 
 void EffectExplosion003::processBehavior() {
     getUvFlipper()->behave();
-    callRikisha()->behave();
+    callVecDriver()->behave();
     getScaler()->behave();
 }
 

@@ -1,6 +1,6 @@
 #include "Zako.h"
 
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/ggaf/dx/util/Input.h"
@@ -62,11 +62,11 @@ void Zako::onReset() {
 
 void Zako::onActive() {
     getUvFlipper()->setActivePtnToTop();
-    callRikisha()->setFaceAngVelo(AXIS_Z, 1000);        //‰ñ“]
+    callVecDriver()->setFaceAngVelo(AXIS_Z, 1000);        //‰ñ“]
 }
 
 void Zako::processBehavior() {
-    GgafDx::Rikisha* const pRikisha = callRikisha();
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
     GgafCore::Progress* const pProg = getProgress();
 
     if (GgafDx::Input::isPressedKey(DIK_D)) {
@@ -82,7 +82,7 @@ void Zako::processBehavior() {
         _y -= PX_C(2); //‰º
     }
     getUvFlipper()->behave();
-    pRikisha->behave();
+    pVecDriver->behave();
 }
 
 void Zako::processJudgement() {

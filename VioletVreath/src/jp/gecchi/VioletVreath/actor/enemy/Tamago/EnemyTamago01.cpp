@@ -1,13 +1,13 @@
 #include "EnemyTamago01.h"
 
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/dx/model/supporter/TextureBlinker.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/lib/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/spline/SplineLeader.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion001.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -15,6 +15,7 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
+using namespace GgafDx;
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -43,11 +44,11 @@ void EnemyTamago01::onCreateModel() {
 
 void EnemyTamago01::initialize() {
     setHitAble(true);
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    pRikisha->linkFaceAngByMvAng(true);
-    pRikisha->setRollFaceAngVelo(1000);
-    pRikisha->setMvAngTwd(900000, 300000, 300000);
-    pRikisha->setMvVelo(3000);
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    pVecDriver->linkFaceAngByMvAng(true);
+    pVecDriver->setRollFaceAngVelo(1000);
+    pVecDriver->setMvAngTwd(900000, 300000, 300000);
+    pVecDriver->setMvVelo(3000);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
 //    pChecker->setColliAAPrism_Cube(0, 200000,POS_PRISM_ZX_PP);
@@ -117,7 +118,7 @@ void EnemyTamago01::processBehavior() {
 //    if (GgafDx::Input::isPressedKey(DIK_0)) {
 //        pModel->getTexBlinker()->->setScaleToBottom();
 //    }
-    GgafDx::Rikisha* const pRikisha = callRikisha();
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
 
     if (iMovePatternNo_ == 0) {
         //スプライン移動中
@@ -128,7 +129,7 @@ void EnemyTamago01::processBehavior() {
 
     if (iMovePatternNo_ == 1) {
         //スプライン移動終了時
-        pRikisha->turnMvAngTwd(pMYSHIP->_x+800000, pMYSHIP->_y, pMYSHIP->_z,
+        pVecDriver->turnMvAngTwd(pMYSHIP->_x+800000, pMYSHIP->_y, pMYSHIP->_z,
                                             2000, 0,
                                             TURN_CLOSE_TO, false);
         iMovePatternNo_++; //次の行動パターンへ
@@ -142,7 +143,7 @@ void EnemyTamago01::processBehavior() {
 
     }
     if (getBehaveingFrame() % 30U == 0) {
-        pRikisha->turnMvAngTwd(pMYSHIP,
+        pVecDriver->turnMvAngTwd(pMYSHIP,
                                 2000,0,TURN_CLOSE_TO, false);
 
         if (pDepo_shot_) {
@@ -159,8 +160,8 @@ void EnemyTamago01::processBehavior() {
             for (int i = 0; i < way; i++) {
                 pActor = (GgafDx::FigureActor*)pDepo_shot_->dispatch();
                 if (pActor) {
-                    pActor->callRikisha()->linkFaceAngByMvAng(true);
-                    pActor->callRikisha()->setRzRyMvAng_by_RyRz(paAng_way[i], target_RyRz_Rz);
+                    pActor->callVecDriver()->linkFaceAngByMvAng(true);
+                    pActor->callVecDriver()->setRzRyMvAng_by_RyRz(paAng_way[i], target_RyRz_Rz);
                     pActor->setPositionAt(this);
                 }
             }
@@ -178,7 +179,7 @@ void EnemyTamago01::processBehavior() {
     if (pProgram_Tamago01Move_) {
         pProgram_Tamago01Move_->behave();
     }
-    pRikisha->behave();
+    pVecDriver->behave();
     getScaler()->behave();
     getUvFlipper()->behave();
     //getSeTransmitter()->behave();

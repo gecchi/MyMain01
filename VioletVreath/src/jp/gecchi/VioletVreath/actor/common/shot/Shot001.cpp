@@ -1,18 +1,18 @@
 #include "Shot001.h"
 
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/lib/manager/SplineSourceConnection.h"
-#include "jp/ggaf/lib/util/spline/FixedVelocitySplineRikishaLeader.h"
-#include "jp/ggaf/lib/util/spline/FixedVelocitySplineManufacture.h"
+#include "jp/ggaf/dx/manager/SplineSourceConnection.h"
+#include "jp/ggaf/dx/util/spline/FixedVelocitySplineVecDriverLeader.h"
+#include "jp/ggaf/dx/util/spline/FixedVelocitySplineManufacture.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/manager/SplineSourceManagerEx.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
-
+using namespace GgafDx;
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -22,7 +22,7 @@ Shot001::Shot001(const char* prm_name) :
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(0, "WAVE_EXPLOSION_002");
     pSplManufConn_ = connectToSplineManufactureManager("Shot001_spline");
-    pRikishaLeader_ = NEW FixedVelocitySplineRikishaLeader(pSplManufConn_->peek(), callRikisha()); //移動速度固定
+    pVecDriverLeader_ = NEW FixedVelocitySplineVecDriverLeader(pSplManufConn_->peek(), callVecDriver()); //移動速度固定
 }
 
 void Shot001::initialize() {
@@ -36,23 +36,23 @@ void Shot001::initialize() {
 void Shot001::onActive() {
     getStatus()->reset();
     setHitAble(true, false);
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    pRikisha->linkFaceAngByMvAng(true);
-    pRikisha->setMvVelo(RF_Shot001_MvVelo(G_RANK));    //移動速度
-    pRikisha->setRollFaceAngVelo(RF_Shot001_AngVelo(G_RANK)); //きりもみ具合
-    pRikishaLeader_->start(RELATIVE_COORD_DIRECTION);
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    pVecDriver->linkFaceAngByMvAng(true);
+    pVecDriver->setMvVelo(RF_Shot001_MvVelo(G_RANK));    //移動速度
+    pVecDriver->setRollFaceAngVelo(RF_Shot001_AngVelo(G_RANK)); //きりもみ具合
+    pVecDriverLeader_->start(RELATIVE_COORD_DIRECTION);
     getScaler()->beat(30,5,0,2,-1);
-//    _TRACE_(FUNC_NAME<<" id=["<<getId()<<"]("<<getActiveFrame()<<") → = \t"<<callRikisha()->_rz_mv<<"\t"<<callRikisha()->_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");
+//    _TRACE_(FUNC_NAME<<" id=["<<getId()<<"]("<<getActiveFrame()<<") → = \t"<<callVecDriver()->_rz_mv<<"\t"<<callVecDriver()->_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");
 }
 
 void Shot001::processBehavior() {
-//    _TRACE_(FUNC_NAME<<" before id=["<<getId()<<"]("<<getActiveFrame()<<") → = \t"<<callRikisha()->_rz_mv<<"\t"<<callRikisha()->_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");
-    GgafDx::Rikisha* const pRikisha = callRikisha();
+//    _TRACE_(FUNC_NAME<<" before id=["<<getId()<<"]("<<getActiveFrame()<<") → = \t"<<callVecDriver()->_rz_mv<<"\t"<<callVecDriver()->_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
     //座標に反映
-    pRikishaLeader_->behave(); //スプライン移動を振る舞い
-    pRikisha->behave();
+    pVecDriverLeader_->behave(); //スプライン移動を振る舞い
+    pVecDriver->behave();
     getScaler()->behave();
-//    _TRACE_(FUNC_NAME<<" after id=["<<getId()<<"]("<<getActiveFrame()<<") → = \t"<<callRikisha()->_rz_mv<<"\t"<<callRikisha()->_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");
+//    _TRACE_(FUNC_NAME<<" after id=["<<getId()<<"]("<<getActiveFrame()<<") → = \t"<<callVecDriver()->_rz_mv<<"\t"<<callVecDriver()->_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");
 }
 
 void Shot001::processJudgement() {
@@ -79,6 +79,6 @@ void Shot001::onInactive() {
 
 Shot001::~Shot001() {
     pSplManufConn_->close();
-    GGAF_DELETE(pRikishaLeader_);
+    GGAF_DELETE(pVecDriverLeader_);
 
 }

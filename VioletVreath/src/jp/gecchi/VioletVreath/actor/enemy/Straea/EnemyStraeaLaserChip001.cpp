@@ -1,7 +1,7 @@
 #include "EnemyStraeaLaserChip001.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
@@ -27,32 +27,32 @@ void EnemyStraeaLaserChip001::onActive() {
     HomingLaserChip::onActive();
     //ステータスリセット
     getStatus()->reset();
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    pRikisha->setMvVelo(10000);
-    pRikisha->setMvAcce(400);
-    pRikisha->linkFaceAngByMvAng(true);
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    pVecDriver->setMvVelo(10000);
+    pVecDriver->setMvAcce(400);
+    pVecDriver->linkFaceAngByMvAng(true);
 }
 
 void EnemyStraeaLaserChip001::processBehaviorHeadChip() {
-    GgafDx::Rikisha* const pRikisha = callRikisha();
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
     if (getActiveFrame() == 40) {
-        pRikisha->turnMvAngTwd(pMYSHIP,
+        pVecDriver->turnMvAngTwd(pMYSHIP,
                               7000, 0,
                               TURN_ANTICLOSE_TO, false);
     }
-    if (!pRikisha->isTurningMvAng()) {
-        pRikisha->turnMvAngTwd(pMYSHIP,
+    if (!pVecDriver->isTurningMvAng()) {
+        pVecDriver->turnMvAngTwd(pMYSHIP,
                               100, 0,
                               TURN_CLOSE_TO, false);
     }
 //
 //    if (frame_of_behaving_from_onActive_ == 35) {
-//        pRikisha->turnMvAngTwd(
+//        pVecDriver->turnMvAngTwd(
 //                    pMYSHIP,
 //                    20000, TURN_ANTICLOSE_TO);
 //    }
 
-    pRikisha->behave();
+    pVecDriver->behave();
 }
 
 void EnemyStraeaLaserChip001::processJudgement() {

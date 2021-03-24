@@ -56,7 +56,7 @@ public:
     /** [r]壁ブロックの幅（Z座標軸長さ）*/
     coord _wall_width;
 //    /** [r]壁ブロック移動スピード(値は正、但し移動方向はX軸負の方向) */
-//    int _scroll_speed;
+//    int _feature_p1;
     CollisionChecker* _pColliChecker;
     /** [r]外壁シーン */
     WallSectionScene* _pWallSectionScene;

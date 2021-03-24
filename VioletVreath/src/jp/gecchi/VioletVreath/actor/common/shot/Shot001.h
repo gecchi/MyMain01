@@ -17,9 +17,9 @@ class Shot001 : public VvEnemyActor<GgafLib::DefaultMassMeshActor> {
 
 public:
     /** 移動スプラインプログラム */
-    GgafLib::SplineLeader* pRikishaLeader_;
+    GgafDx::SplineLeader* pVecDriverLeader_;
     /** スプライン定義資源への接続 */
-    GgafLib::SplineManufactureConnection* pSplManufConn_;
+    GgafDx::SplineManufactureConnection* pSplManufConn_;
 public:
     Shot001(const char* prm_name);
 

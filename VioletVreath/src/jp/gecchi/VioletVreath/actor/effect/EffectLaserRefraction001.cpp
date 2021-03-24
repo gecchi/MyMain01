@@ -1,7 +1,7 @@
 #include "EffectLaserRefraction001.h"
 
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 
 
 
@@ -25,14 +25,14 @@ void EffectLaserRefraction001::onActive() {
     //getUvFlipper()->exec(FLIP_ORDER_LOOP, 1); //パラパラアニメ無し
     setAlpha(0.5);
     setScale(R_SC(6));
-    callRikisha()->setRollPitchYawFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
+    callVecDriver()->setRollPitchYawFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
 }
 
 void EffectLaserRefraction001::processBehavior() {
     addScale(100);
 
     //getUvFlipper()->behave();
-    callRikisha()->behave();
+    callVecDriver()->behave();
     getScaler()->behave();
 }
 

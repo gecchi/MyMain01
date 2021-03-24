@@ -1,15 +1,16 @@
 #include "EnemyRis.h"
 
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/dx/model/supporter/TextureBlinker.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/lib/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/spline/SplineLeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
+using namespace GgafDx;
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -21,7 +22,7 @@ EnemyRis::EnemyRis(const char* prm_name)
       : VvEnemyActor<DefaultMeshSetActor>(prm_name, "Ris", StatusReset(EnemyRis)) {
     _class_name = "EnemyRis";
     iMovePatternNo_ = 0;
-    pRikishaLeader_ = nullptr;
+    pVecDriverLeader_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
@@ -37,9 +38,9 @@ void EnemyRis::onCreateModel() {
 
 void EnemyRis::initialize() {
     setHitAble(true);
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    pRikisha->linkFaceAngByMvAng(true);
-    pRikisha->setRollFaceAngVelo(5000);
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    pVecDriver->linkFaceAngByMvAng(true);
+    pVecDriver->setRollFaceAngVelo(5000);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAABox(0, -30000, -30000, -30000, 30000, 30000, 30000);
@@ -51,19 +52,19 @@ void EnemyRis::onActive() {
 }
 
 void EnemyRis::processBehavior() {
-    GgafDx::Rikisha* const pRikisha = callRikisha();
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
     switch (iMovePatternNo_) {
         case 0:  //【パターン０：スプライン移動開始】
-            if (pRikishaLeader_) {
-                pRikishaLeader_->start(ABSOLUTE_COORD); //スプライン移動を開始
+            if (pVecDriverLeader_) {
+                pVecDriverLeader_->start(ABSOLUTE_COORD); //スプライン移動を開始
             }
             iMovePatternNo_++; //次の行動パターンへ
             break;
 
         case 1:  //【パターン１：スプライン移動終了待ち】
-            if (pRikishaLeader_) {
+            if (pVecDriverLeader_) {
                 //スプライン移動有り
-                if (pRikishaLeader_->isFinished()) {
+                if (pVecDriverLeader_->isFinished()) {
                     iMovePatternNo_++; //スプライン移動が終了したら次の行動パターンへ
                 }
             } else {
@@ -92,7 +93,7 @@ void EnemyRis::processBehavior() {
                 }
             }
             //自機へ方向転換
-            pRikisha->turnMvAngTwd(pMYSHIP,
+            pVecDriver->turnMvAngTwd(pMYSHIP,
                                   3000, 0,
                                   TURN_CLOSE_TO, true);
             iMovePatternNo_++; //次の行動パターンへ
@@ -101,10 +102,10 @@ void EnemyRis::processBehavior() {
         case 3:  //【行動パターン３：自機へグルッと逆回転で方向転換開始】
             if (_z-10000 < pMYSHIP->_z && pMYSHIP->_z < _z+10000) {
                 //自機とZ軸が接近したらグルッと逆回転で方向転換
-                pRikisha->turnMvAngTwd(MyShip::lim_x_behaind_ - 500000 , _y, _z,
+                pVecDriver->turnMvAngTwd(MyShip::lim_x_behaind_ - 500000 , _y, _z,
                                       10000, 0,
                                       TURN_CLOSE_TO, true);
-                pRikisha->setMvAcce(100);
+                pVecDriver->setMvAcce(100);
                 iMovePatternNo_++;
             } else {
                 //自機とZ軸が接近するまで待つ
@@ -115,10 +116,10 @@ void EnemyRis::processBehavior() {
     }
 
 
-    if (pRikishaLeader_) {
-        pRikishaLeader_->behave(); //スプライン移動を振る舞い
+    if (pVecDriverLeader_) {
+        pVecDriverLeader_->behave(); //スプライン移動を振る舞い
     }
-    pRikisha->behave();
+    pVecDriver->behave();
     //getSeTransmitter()->behave();
 }
 
@@ -144,5 +145,5 @@ void EnemyRis::onInactive() {
 }
 
 EnemyRis::~EnemyRis() {
-    GGAF_DELETE_NULLABLE(pRikishaLeader_);
+    GGAF_DELETE_NULLABLE(pVecDriverLeader_);
 }

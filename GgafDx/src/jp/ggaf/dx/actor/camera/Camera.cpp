@@ -1,7 +1,7 @@
 #include "jp/ggaf/dx/actor/camera/Camera.h"
 
 #include "jp/ggaf/dx/Config.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/actor/camera/CameraViewPoint.h"
 #include "jp/ggaf/dx/actor/camera/CameraUpVector.h"
 #include "jp/ggaf/dx/God.h"
@@ -74,7 +74,7 @@ _y_buffer_bottom(PX_C(CONFIG::GAME_BUFFER_HEIGHT) / -2)
 
     setPosition(0, 0, DX_C(_cameraZ_org));
     setFaceAngTwd(0,0,0);
-    callRikisha()->setMvAngTwd(0,0,0);
+    callVecDriver()->setMvAngTwd(0,0,0);
     setHitAble(false);
 
     God::_pID3DDevice9->GetViewport(&_viewport);

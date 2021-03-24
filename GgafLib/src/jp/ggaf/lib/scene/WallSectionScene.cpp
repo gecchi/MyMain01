@@ -96,15 +96,15 @@ void WallSectionScene::initialize() {
 }
 
 void WallSectionScene::onActive() {
-    _frame_of_launch_next = (frame)(_wall_dep /_pWallScene->getScrollSpeed());
+    _frame_of_launch_next = (frame)(_wall_dep /_pWallScene->getFeatureParam1());
     _cnt_area_len = 0;
     _cnt_loop = 0;
     _is_loop_end = false;
 }
 
 void WallSectionScene::processBehavior() {
-    const velo parent_scroll_speed =_pWallScene->getScrollSpeed();
-    if (!_is_loop_end && parent_scroll_speed != 0) {
+    const velo parent_feature_p1 =_pWallScene->getFeatureParam1();
+    if (!_is_loop_end && parent_feature_p1 != 0) {
 
         if (_pWallLast == nullptr || (_wall_start_x - _pWallLast->_x) >= _wall_dep) {
             //_pWallLast は、本セクションシーン内での最終表示壁AABB。
@@ -145,7 +145,7 @@ void WallSectionScene::processBehavior() {
                 pWall->_frame_of_behaving_since_onActive = 1; //リセット
             }
             _pWallLast = pWall;
-            _frame_of_launch_next = (frame)(_wall_dep / parent_scroll_speed);
+            _frame_of_launch_next = (frame)(_wall_dep / parent_feature_p1);
 
             onBlockLaunch(_cnt_loop, _cnt_area_len, _pWallLast==nullptr ? _wall_start_x : _pWallLast->_x + _wall_dep); //コールバック
             _cnt_area_len++;

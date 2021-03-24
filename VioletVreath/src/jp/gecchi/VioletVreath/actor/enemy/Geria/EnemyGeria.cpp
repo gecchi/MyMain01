@@ -1,8 +1,8 @@
 #include "EnemyGeria.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
-#include "jp/ggaf/dx/actor/supporter/Kago.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/GeoDriver.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -54,8 +54,8 @@ void EnemyGeria::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 45000);
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    pRikisha->setFaceAngVelo(AXIS_Z, -7000);
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    pVecDriver->setFaceAngVelo(AXIS_Z, -7000);
 }
 
 void EnemyGeria::onActive() {
@@ -65,9 +65,9 @@ void EnemyGeria::onActive() {
     can_Shot_ = true;
     shot_num_ = 0;
     frame_when_shot_ = 0;
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    velo_mv_begin_ = pRikisha->getMvVelo(); //‰ŠúˆÚ“®‘¬“x‚ð•Û‘¶
-    pRikisha->setMvVelo(0);
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    velo_mv_begin_ = pVecDriver->getMvVelo(); //‰ŠúˆÚ“®‘¬“x‚ð•Û‘¶
+    pVecDriver->setMvVelo(0);
     setRzFaceAng(0);
     setRxFaceAng(0);
     mvd_ = 0;
@@ -75,8 +75,8 @@ void EnemyGeria::onActive() {
 }
 
 void EnemyGeria::processBehavior() {
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    GgafDx::Kago* const pKago = callKago();
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::GeoDriver* const pGeoDriver = callGeoDriver();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
     GgafCore::Progress* const pProg = getProgress();
 
@@ -107,7 +107,7 @@ void EnemyGeria::processBehavior() {
         }
         case PROG_MOVE: {  //ˆÚ“®
             if (pProg->hasJustChanged()) {
-                pRikisha->setMvVelo(velo_mv_begin_);
+                pVecDriver->setMvVelo(velo_mv_begin_);
                 will_shot_ = false;
             }
             if (will_shot_) {
@@ -129,11 +129,11 @@ void EnemyGeria::processBehavior() {
         }
         case PROG_FIRE: {  //”­ŽË
             if (pProg->hasJustChanged()) {
-                pRikisha->setMvVelo(PX_C(3)); //Œ¸‘¬
-                pRikisha->rollFaceAngTo(D180ANG, D_ANG(3), 0, TURN_CLOCKWISE); //—\”õ“®ì‚Ì‚®‚é‚Á‚Æ‰ñ“]
+                pVecDriver->setMvVelo(PX_C(3)); //Œ¸‘¬
+                pVecDriver->rollFaceAngTo(D180ANG, D_ANG(3), 0, TURN_CLOCKWISE); //—\”õ“®ì‚Ì‚®‚é‚Á‚Æ‰ñ“]
             }
 
-            if (!pRikisha->isTurningFaceAng()) {
+            if (!pVecDriver->isTurningFaceAng()) {
                 MyShip* pM = pMYSHIP;
                 GgafDx::GeometricActor* pLast =
                       UTIL::shotWay001(_x, _y, _z,
@@ -156,7 +156,7 @@ void EnemyGeria::processBehavior() {
         case PROG_LEAVE: {
             if (pProg->hasJustChanged()) {
                 setHitAble(false);
-                pRikisha->setMvVelo(0);
+                pVecDriver->setMvVelo(0);
                 UTIL::activateLeaveEffectOf(this);
                 pAlphaFader->transitionLinearUntil(0.0, 30);
             }
@@ -169,10 +169,10 @@ void EnemyGeria::processBehavior() {
         default :
             break;
     }
-    pKago->behave();
-    pRikisha->behave();
+    pGeoDriver->behave();
+    pVecDriver->behave();
     pAlphaFader->behave();
-    mvd_ += pRikisha->getMvVelo();
+    mvd_ += pVecDriver->getMvVelo();
     if (mvd_ > migration_length_) {
         getProgress()->change(PROG_LEAVE);
     }

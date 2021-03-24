@@ -8,6 +8,8 @@
 #include "jp/ggaf/dx/manager/EffectManager.h"
 #include "jp/ggaf/dx/manager/ModelManager.h"
 #include "jp/ggaf/dx/manager/TextureManager.h"
+#include "jp/ggaf/dx/manager/SplineSourceManager.h"
+#include "jp/ggaf/dx/manager/SplineManufactureManager.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/ggaf/dx/sound/Sound.h"
 #include "jp/ggaf/dx/util/Input.h"
@@ -113,6 +115,9 @@ God::God() : GgafCore::God() {
     _d3dlight9_default.Ambient.b = 0.2f;
 
     //_d3dlight9_default.Range = 1000.0f
+
+    _pSplSrcManager = nullptr;
+    _pSplManufManager = nullptr;
 }
 
 
@@ -1046,6 +1051,11 @@ void God::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
         UpdateWindow(God::_pHWndSecondary);
     }
 
+
+    _pSplSrcManager = createSplineSourceManager();
+    _pSplManufManager = createSplineManufactureManager();
+
+
     //デバイス作成
     if (FAILED(initDevice())) {
         throwCriticalException("初期化に失敗しました。アプリケーションを起動出来ません。");
@@ -1114,6 +1124,7 @@ void God::createWindow(WNDPROC prm_WndProc,
 }
 
 HRESULT God::initDevice() {
+
 //    //default
 //    UINT AdapterToUse = D3DADAPTER_DEFAULT;
 //    D3DDEVTYPE DeviceType = D3DDEVTYPE_HAL;
@@ -2061,6 +2072,8 @@ void God::clean() {
         GGAF_DELETE(_pBumpMapTextureManager);
         GGAF_DELETE(_pModelManager);
         GGAF_DELETE(_pEffectManager);
+        GGAF_DELETE(_pSplSrcManager);
+        GGAF_DELETE(_pSplManufManager);
         _TRACE_(FUNC_NAME<<" end");
     }
 }
@@ -2226,7 +2239,14 @@ EffectManager* God::createEffectManager() {
     EffectManager* p = NEW EffectManager("EffectManager");
     return p;
 }
-
+SplineSourceManager* God::createSplineSourceManager() {
+    SplineSourceManager* p = NEW SplineSourceManager("SplineSourceManager");
+    return p;
+}
+SplineManufactureManager* God::createSplineManufactureManager() {
+    SplineManufactureManager* p = NEW SplineManufactureManager("SplineManufactureManager");
+    return p;
+}
 God::~God() {
     _TRACE_(FUNC_NAME<<" 解放開始");
     clean();

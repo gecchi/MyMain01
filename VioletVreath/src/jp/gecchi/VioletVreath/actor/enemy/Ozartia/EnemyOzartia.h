@@ -31,8 +31,8 @@ public:
 
     bool faceto_ship_;
 
-    GgafLib::SplineManufactureConnection* pConn_pSplManuf_;
-    GgafLib::SplineLeader* pRikishaLeader01_;
+    GgafDx::SplineManufactureConnection* pConn_pSplManuf_;
+    GgafDx::SplineLeader* pVecDriverLeader01_;
 
 public:
     /**

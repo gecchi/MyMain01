@@ -1,13 +1,12 @@
 #include "EnemyStraeaLaserChip004.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
-#include "jp/ggaf/lib/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/spline/SplineLeader.h"
 
-
-
+using namespace GgafDx;
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -18,7 +17,7 @@ EnemyStraeaLaserChip004::EnemyStraeaLaserChip004(const char* prm_name) :
         VvEnemyActor<HomingLaserChip>(prm_name, "StraeaLaserChip001", StatusReset(EnemyStraeaLaserChip004)) {
     _class_name = "EnemyStraeaLaserChip004";
     pConn_pSplManuf_ = connectToSplineManufactureManager("GURUGURU");
-    pRikishaLeader_ = pConn_pSplManuf_->peek()->createRikishaLeader(callRikisha());
+    pVecDriverLeader_ = pConn_pSplManuf_->peek()->createVecDriverLeader(callVecDriver());
 //    if (pTexCon1_ == nullptr) {
 //        pTexCon1_ = connectToModelTextureManager("StraeaLaserChip001.png");
 //        pTexCon2_ = connectToModelTextureManager("EsperiaLaserChip001.png");
@@ -43,12 +42,12 @@ void EnemyStraeaLaserChip004::onActive() {
     HomingLaserChip::onActive();
     //ステータスリセット
     getStatus()->reset();
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    pRikisha->setMvVelo(10000);
-    pRikisha->setMvAcce(300);
-    //pRikisha->forceMvVeloRange(0, 70000);
-    pRikisha->linkFaceAngByMvAng(true);
-    pRikishaLeader_->stop();
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    pVecDriver->setMvVelo(10000);
+    pVecDriver->setMvAcce(300);
+    //pVecDriver->forceMvVeloRange(0, 70000);
+    pVecDriver->linkFaceAngByMvAng(true);
+    pVecDriverLeader_->stop();
     _force_alpha = 1.50; //最初はちょっと明るめ
 }
 
@@ -66,10 +65,10 @@ void EnemyStraeaLaserChip004::processBehaviorHeadChip() {
 //    //<--debug
 
     if (getActiveFrame() == 2) {
-        pRikishaLeader_->start(RELATIVE_COORD_DIRECTION); //向いた方向にワールド変換
+        pVecDriverLeader_->start(RELATIVE_COORD_DIRECTION); //向いた方向にワールド変換
     }
-    pRikishaLeader_->behave(); //←途中でちょんぎれたらだめじゃん
-    callRikisha()->behave();
+    pVecDriverLeader_->behave(); //←途中でちょんぎれたらだめじゃん
+    callVecDriver()->behave();
 }
 
 void EnemyStraeaLaserChip004::processJudgement() {
@@ -89,7 +88,7 @@ void EnemyStraeaLaserChip004::onHit(const GgafCore::Actor* prm_pOtherActor) {
 }
 
 EnemyStraeaLaserChip004::~EnemyStraeaLaserChip004() {
-    GGAF_DELETE(pRikishaLeader_);
+    GGAF_DELETE(pVecDriverLeader_);
     pConn_pSplManuf_->close();
     //if (pTexCon1_) {
     //    pTexCon1_->close();

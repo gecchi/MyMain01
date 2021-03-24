@@ -2,8 +2,8 @@
 
 #include "jp/ggaf/dx/God.h"
 #include "jp/ggaf/core/util/Status.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
-#include "jp/ggaf/dx/actor/supporter/Kago.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/GeoDriver.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/actor/supporter/Checker.h"
@@ -15,8 +15,8 @@ using namespace GgafDx;
 
 GeometricActor::GeometricActor(const char* prm_name,
                                Checker* prm_pChecker) : BaseActor(prm_name),
-_pRikisha(NEW Rikisha(this)),
-_pKago(nullptr),
+_pVecDriver(NEW VecDriver(this)),
+_pGeoDriver(nullptr),
 _pScaler(nullptr),
 _pSeTransmitter(nullptr),
 _is_2D(false),
@@ -49,12 +49,12 @@ _is_local(false)
     _class_name = "GeometricActor";
     _pFormation = nullptr;
 }
-Rikisha* GeometricActor::callRikisha() {
-    return _pRikisha;
+VecDriver* GeometricActor::callVecDriver() {
+    return _pVecDriver;
 }
 
-Kago* GeometricActor::callKago() {
-    return _pKago ? _pKago : _pKago = NEW Kago(this);
+GeoDriver* GeometricActor::callGeoDriver() {
+    return _pGeoDriver ? _pGeoDriver : _pGeoDriver = NEW GeoDriver(this);
 }
 
 SeTransmitterForActor* GeometricActor::getSeTransmitter() {
@@ -292,8 +292,8 @@ GgafCore::GroupHead* GeometricActor::appendGroupChildAsFk(kind_t prm_kind,
     prm_pGeoActor->_rx = prm_rx_init_local;
     prm_pGeoActor->_ry = prm_ry_init_local;
     prm_pGeoActor->_rz = prm_rz_init_local;
-//    prm_pGeoActor->callRikisha()->_rz_mv = prm_rz_init_local;
-//    prm_pGeoActor->callRikisha()->_ry_mv = prm_ry_init_local;
+//    prm_pGeoActor->callVecDriver()->_rz_mv = prm_rz_init_local;
+//    prm_pGeoActor->callVecDriver()->_ry_mv = prm_ry_init_local;
 
     prm_pGeoActor->changeGeoFinal();
     return pGroupHead;
@@ -479,8 +479,8 @@ void GeometricActor::onEnd() {
 }
 
 GeometricActor::~GeometricActor() {
-    GGAF_DELETE(_pRikisha);
-    GGAF_DELETE_NULLABLE(_pKago);
+    GGAF_DELETE(_pVecDriver);
+    GGAF_DELETE_NULLABLE(_pGeoDriver);
     GGAF_DELETE_NULLABLE(_pScaler);
     GGAF_DELETE_NULLABLE(_pSeTransmitter);
 }

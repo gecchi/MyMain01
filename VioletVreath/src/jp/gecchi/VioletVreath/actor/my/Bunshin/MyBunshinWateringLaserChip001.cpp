@@ -5,8 +5,8 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/core/util/LinkedListRing.hpp"
 #include "jp/ggaf/core/util/ResourceConnection.hpp"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
-#include "jp/ggaf/dx/actor/supporter/Kago.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/GeoDriver.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/manager/TextureConnection.h"
 #include "jp/ggaf/dx/model/Model.h"
@@ -56,7 +56,7 @@ MyBunshinWateringLaserChip001::MyBunshinWateringLaserChip001(const char* prm_nam
 }
 
 void MyBunshinWateringLaserChip001::initialize() {
-    callRikisha()->linkFaceAngByMvAng(true);
+    callVecDriver()->linkFaceAngByMvAng(true);
     registerHitAreaCube_AutoGenMidColli(PX_C(80));
     setHitAble(true);
     setScaleR(6.0);
@@ -79,9 +79,9 @@ void MyBunshinWateringLaserChip001::onActive() {
     WateringLaserChip::onActive();
     pAimInfo_ = nullptr;
     inv_cnt_ = 0;
-    GgafDx::Kago* pKago = callKago();
-    pKago->forceVxyzMvVeloRange(-MAX_VELO_RENGE, MAX_VELO_RENGE);
-    pKago->forceVxyzMvAcceRange(-MAX_ACCE_RENGE, MAX_ACCE_RENGE);
+    GgafDx::GeoDriver* pGeoDriver = callGeoDriver();
+    pGeoDriver->forceVxyzMvVeloRange(-MAX_VELO_RENGE, MAX_VELO_RENGE);
+    pGeoDriver->forceVxyzMvAcceRange(-MAX_ACCE_RENGE, MAX_ACCE_RENGE);
 }
 
 void MyBunshinWateringLaserChip001::processBehavior() {
@@ -90,7 +90,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
     getStatus()->set(STAT_AttackPowerRate, power);
     _power = power;
 
-    GgafDx::Kago* const pKago = callKago();
+    GgafDx::GeoDriver* const pGeoDriver = callGeoDriver();
     frame active_frame = getActiveFrame();
     MyBunshin::AimInfo* pAimInfo = pAimInfo_;
 
@@ -115,17 +115,17 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                     //●Leader が t1 へ Aim
                     if (pAimTarget->isActiveInTheTree() && active_frame < aim_time_out_t1)  {
                         //pAimTarget が存命
-                        int sgn_vx1 = SGN(pKago->_velo_vx_mv);
-                        int sgn_vy1 = SGN(pKago->_velo_vy_mv);
-                        int sgn_vz1 = SGN(pKago->_velo_vz_mv);
+                        int sgn_vx1 = SGN(pGeoDriver->_velo_vx_mv);
+                        int sgn_vy1 = SGN(pGeoDriver->_velo_vy_mv);
+                        int sgn_vz1 = SGN(pGeoDriver->_velo_vz_mv);
 
                         aimChip(pAimInfo->t1_x,
                                 pAimInfo->t1_y,
                                 pAimInfo->t1_z );
 
-                        int sgn_vx2 = SGN(pKago->_velo_vx_mv);
-                        int sgn_vy2 = SGN(pKago->_velo_vy_mv);
-                        int sgn_vz2 = SGN(pKago->_velo_vz_mv);
+                        int sgn_vx2 = SGN(pGeoDriver->_velo_vx_mv);
+                        int sgn_vy2 = SGN(pGeoDriver->_velo_vy_mv);
+                        int sgn_vz2 = SGN(pGeoDriver->_velo_vz_mv);
                         if (sgn_vx1 != sgn_vx2) {
                            inv_cnt_++;
                         }
@@ -184,9 +184,9 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                                 pAimInfo->t2_y,
                                 pAimInfo->t2_z );
                     } else {
-                        aimChip(_x + pKago->_velo_vx_mv*4+1,
-                                _y + pKago->_velo_vy_mv*4+1,
-                                _z + pKago->_velo_vz_mv*4+1 );
+                        aimChip(_x + pGeoDriver->_velo_vx_mv*4+1,
+                                _y + pGeoDriver->_velo_vy_mv*4+1,
+                                _z + pGeoDriver->_velo_vz_mv*4+1 );
                     }
                 }
             } else {
@@ -210,9 +210,9 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                                     pAimLeaderChip->_y,
                                     pAimLeaderChip->_z );
                         } else {
-                            aimChip(_x + pKago->_velo_vx_mv*4+1,
-                                    _y + pKago->_velo_vy_mv*4+1,
-                                    _z + pKago->_velo_vz_mv*4+1 );
+                            aimChip(_x + pGeoDriver->_velo_vx_mv*4+1,
+                                    _y + pGeoDriver->_velo_vy_mv*4+1,
+                                    _z + pGeoDriver->_velo_vz_mv*4+1 );
                         }
                     } else if (active_frame <= pAimInfo->spent_frames_to_t2) {
                         //●その後 Leader以外が t2 が定まって、t2に向かうまでの動き
@@ -226,9 +226,9 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                                     pAimLeaderChip->_y,
                                     pAimLeaderChip->_z );
                         } else {
-                            aimChip(_x + pKago->_velo_vx_mv*4+1,
-                                    _y + pKago->_velo_vy_mv*4+1,
-                                    _z + pKago->_velo_vz_mv*4+1 );
+                            aimChip(_x + pGeoDriver->_velo_vx_mv*4+1,
+                                    _y + pGeoDriver->_velo_vy_mv*4+1,
+                                    _z + pGeoDriver->_velo_vz_mv*4+1 );
                         }
                     }
                 }
@@ -237,7 +237,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
         } //if (pAimTarget)
 
     }
-    pKago->behave();
+    pGeoDriver->behave();
     WateringLaserChip::processBehavior();
     tmp_x_ = _x;
     tmp_y_ = _y;
@@ -246,7 +246,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
 
 void MyBunshinWateringLaserChip001::processSettlementBehavior() {
     //分身はFKなので、絶対座標の確定が processSettlementBehavior() 以降となるため、ここで初期設定が必要
-    GgafDx::Kago* const pKago = callKago();
+    GgafDx::GeoDriver* const pGeoDriver = callGeoDriver();
     if (hasJustChangedToActive()) {
         //チップの初期設定
         //ロックオン情報の引き継ぎ
@@ -271,12 +271,12 @@ void MyBunshinWateringLaserChip001::processSettlementBehavior() {
                 pAimInfo_->pLeaderChip = this;
                 pAimInfo_->pTarget = nullptr;
             }
-            pKago->forceVxyzMvVeloRange(-MAX_VELO_RENGE, MAX_VELO_RENGE);
+            pGeoDriver->forceVxyzMvVeloRange(-MAX_VELO_RENGE, MAX_VELO_RENGE);
         } else {
             //先端以外は前のを受け継ぐ
             pAimInfo_ = pF->pAimInfo_; //受け継ぐ
             velo v = MAX_VELO_RENGE - PX_C(1); //レーザーが弛まないように PX_C(1) 遅くした
-            pKago->forceVxyzMvVeloRange(-v, v);
+            pGeoDriver->forceVxyzMvVeloRange(-v, v);
 #ifdef MY_DEBUG
 if (pAimInfo_ == nullptr) {
 throwCriticalException("pAimInfo_ が引き継がれていません！"<<this<<
@@ -287,8 +287,8 @@ throwCriticalException("pAimInfo_ が引き継がれていません！"<<this<<
         //活動開始初回フレーム、チップの速度と向きの初期設定
         setFaceAngAs(pOrg_);
         setPositionAt(pOrg_);
-        pKago->setVxyzMvVeloTwd(_rz, _ry, INITIAL_VELO); //初速はここで
-        pKago->setZeroVxyzMvAcce();
+        pGeoDriver->setVxyzMvVeloTwd(_rz, _ry, INITIAL_VELO); //初速はここで
+        pGeoDriver->setZeroVxyzMvAcce();
     }
 
     //平均曲線座標設定。(レーザーを滑らかにするノーマライズ）
@@ -333,15 +333,15 @@ throwCriticalException("pAimInfo_ が引き継がれていません！"<<this<<
 //            setFaceAngTwd(pF);
         } else {
 //            //レーザーチップの向きを移動方向に設定（先端チップ）
-//            UTIL::convVectorToRzRy(pKago->_velo_vx_mv,
-//                                   pKago->_velo_vy_mv,
-//                                   pKago->_velo_vz_mv,
+//            UTIL::convVectorToRzRy(pGeoDriver->_velo_vx_mv,
+//                                   pGeoDriver->_velo_vy_mv,
+//                                   pGeoDriver->_velo_vz_mv,
 //                                   _rz, _ry );
         }
 
-        UTIL::convVectorToRzRy(pKago->_velo_vx_mv,
-                               pKago->_velo_vy_mv,
-                               pKago->_velo_vz_mv,
+        UTIL::convVectorToRzRy(pGeoDriver->_velo_vx_mv,
+                               pGeoDriver->_velo_vy_mv,
+                               pGeoDriver->_velo_vz_mv,
                                _rz, _ry );
     }
     WateringLaserChip::processSettlementBehavior();
@@ -393,11 +393,11 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
 
 
     static const coord rv = 10.0;
-    GgafDx::Kago* pKago = callKago();
+    GgafDx::GeoDriver* pGeoDriver = callGeoDriver();
     //自→仮、自方向ベクトル(vM)
-    coord vMx = pKago->_velo_vx_mv;
-    coord vMy = pKago->_velo_vy_mv;
-    coord vMz = pKago->_velo_vz_mv;
+    coord vMx = pGeoDriver->_velo_vx_mv;
+    coord vMy = pGeoDriver->_velo_vy_mv;
+    coord vMz = pGeoDriver->_velo_vz_mv;
     //|vM|
 //    double lvM = sqrt(vMx*vMx + vMy*vMy + vMz*vMz);
     coord lvM = UTIL::getApproxDistanceFromOrigin(vMx, vMy, vMz);
@@ -405,15 +405,15 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
     if  (lvM < MIN_VELO_) { //縮こまらないように
         if (ZEROd_EQ(lvM)) {
             //速度が殆ど０でもうどっち向いてるかわからんので、X軸方向に飛ばす
-            pKago->setVxyzMvVelo(MIN_VELO_, 0, 0);
+            pGeoDriver->setVxyzMvVelo(MIN_VELO_, 0, 0);
         } else {
             //速度 MIN_VELO_ を保証する
             double r = (1.0*MIN_VELO_/lvM);
-            pKago->setVxyzMvVelo(vMx*r, vMy*r, vMz*r);
+            pGeoDriver->setVxyzMvVelo(vMx*r, vMy*r, vMz*r);
         }
-        vMx = pKago->_velo_vx_mv;
-        vMy = pKago->_velo_vy_mv;
-        vMz = pKago->_velo_vz_mv;
+        vMx = pGeoDriver->_velo_vx_mv;
+        vMy = pGeoDriver->_velo_vy_mv;
+        vMz = pGeoDriver->_velo_vz_mv;
         lvM = MIN_VELO_;
     }
     coord vVMx = vMx * rv;
@@ -446,11 +446,11 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
     const acce accX = (vVTx-vVMx) * RR_MAX_ACCE; // * cos_th;
     const acce accY = (vVTy-vVMy) * RR_MAX_ACCE; // * cos_th;
     const acce accZ = (vVTz-vVMz) * RR_MAX_ACCE; // * cos_th;
-    double top_acce_mv = pKago->_top_acce_vx_mv*1.05; //ちょっとずつなら拡張しちょいよみたいな
+    double top_acce_mv = pGeoDriver->_top_acce_vx_mv*1.05; //ちょっとずつなら拡張しちょいよみたいな
     if (MAX_VELO_RENGE < top_acce_mv && top_acce_mv < MAX_VELO_RENGE) {
-        pKago->forceVxyzMvAcceRange(-top_acce_mv, top_acce_mv);
+        pGeoDriver->forceVxyzMvAcceRange(-top_acce_mv, top_acce_mv);
     }
-    pKago->setVxyzMvAcce(accX, accY, accZ);
+    pGeoDriver->setVxyzMvAcce(accX, accY, accZ);
 }
 
 

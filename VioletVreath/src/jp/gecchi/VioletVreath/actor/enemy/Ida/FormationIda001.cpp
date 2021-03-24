@@ -1,6 +1,6 @@
 #include "FormationIda001.h"
 
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ida/EnemyIda.h"
 #include "EnemyIdaBase001.h"

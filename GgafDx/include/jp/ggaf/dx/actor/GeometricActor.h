@@ -26,9 +26,9 @@ private:
     }
 
     /** [r]力車 */
-    Rikisha* _pRikisha;
+    VecDriver* _pVecDriver;
     /** [r]駕籠(平行移動支援) */
-    Kago* _pKago;
+    GeoDriver* _pGeoDriver;
     /** [r]拡大縮小支援 */
     Scaler* _pScaler;
     /** [r]効果音発生管理オブジェクト */
@@ -168,13 +168,13 @@ public:
      * 本アクターの力車を取得 .
      * @return 力車
      */
-    Rikisha* callRikisha();
+    VecDriver* callVecDriver();
 
     /**
      * 本アクターの駕籠(平行移動支援)オブジェクトを取得 .
      * @return 駕籠(平行移動支援)オブジェクト
      */
-    Kago* callKago();
+    GeoDriver* callGeoDriver();
 
     /**
      * 本アクターの拡大縮小支援オブジェクトを取得 .
@@ -555,7 +555,7 @@ public:
      * _x,_y,_z,_rx,_ry,_rz をローカル（thisからの相対）に切り替える・・・changeGeoLocal()<BR>
      * _x,_y,_z,_rx,_ry,_rz 絶対座標に切り替える                    ・・・changeGeoFinal()<BR>
      * 【注意】<BR>
-     * 力車(callRikisha()) は、ローカル座標系でのみ使用可能となります。<BR>
+     * 力車(callVecDriver()) は、ローカル座標系でのみ使用可能となります。<BR>
      * 従属アクターprocessBehavior() の処理を抜ける前には、changeGeoFinal() で絶対座標に戻しておく必要があります。<BR>
      * @param prm_kind     種別
      * @param prm_pGeoActor 従属させるアクター
@@ -582,7 +582,7 @@ public:
      * _x,_y,_z,_rx,_ry,_rz をローカル（thisからの相対）に切り替える・・・changeGeoLocal()<BR>
      * _x,_y,_z,_rx,_ry,_rz 絶対座標に切り替える                    ・・・changeGeoFinal()<BR>
      * 【注意】<BR>
-     * 力車(callRikisha()) は、ローカル座標系でのみ使用可能となります。<BR>
+     * 力車(callVecDriver()) は、ローカル座標系でのみ使用可能となります。<BR>
      * 従属アクターprocessBehavior() の処理を抜ける前には、changeGeoFinal() で絶対座標に戻しておく必要があります。<BR>
      * @param prm_pGeoActor 従属させるアクター
      * @param prm_x_init_local  従属アクターのローカル(this)位置からのX座標位置

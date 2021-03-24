@@ -1,6 +1,6 @@
 #include "Shot004.h"
 
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion001.h"
@@ -30,11 +30,11 @@ void Shot004::initialize() {
 void Shot004::onReset() {
     setScaleR(3.0);
     setCullingDraw(false);
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    pRikisha->setRollFaceAngVelo(D_ANG(3));
-    pRikisha->setMvVelo(30000);
-    pRikisha->setMvAcce(1000);
-    pRikisha->linkFaceAngByMvAng(true);
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    pVecDriver->setRollFaceAngVelo(D_ANG(3));
+    pVecDriver->setMvVelo(30000);
+    pVecDriver->setMvAcce(1000);
+    pVecDriver->linkFaceAngByMvAng(true);
 }
 
 void Shot004::onActive() {
@@ -47,7 +47,7 @@ void Shot004::processBehavior() {
     //’e‚È‚Ì‚Å•s—v
 
     //À•W‚É”½‰f
-    callRikisha()->behave();
+    callVecDriver()->behave();
 }
 
 void Shot004::processJudgement() {

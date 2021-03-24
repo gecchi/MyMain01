@@ -1,6 +1,6 @@
 #include "EffectBlink002.h"
 
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 
 
 
@@ -24,12 +24,12 @@ void EffectBlink002::initialize() {
 void EffectBlink002::onActive() {
     EffectBlink::onActive();
     //getUvFlipper()->setActivePtnToTop();
-    callRikisha()->setFaceAngVelo(AXIS_Z, 4000);
+    callVecDriver()->setFaceAngVelo(AXIS_Z, 4000);
 }
 
 void EffectBlink002::processBehavior() {
     EffectBlink::processBehavior();
-    callRikisha()->behave();
+    callVecDriver()->behave();
 }
 
 EffectBlink002::~EffectBlink002() {

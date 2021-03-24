@@ -3,7 +3,7 @@
 #include "jp/ggaf/core/actor/SceneMediator.h"
 #include "jp/ggaf/core/actor/ex/ActorDepositoryStore.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
-#include "jp/ggaf/lib/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/spline/SplineLeader.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
 #include "jp/gecchi/VioletVreath/manager/DepositoryConnection.h"
 
@@ -247,7 +247,7 @@ GgafCore::ActorDepository* DepositoryManager::processCreateResource(const char* 
             for (int nChip = 0; nChip < 200; nChip++) {
                 std::string name2 = "EnemyHisbeLaserChip002["+XTOS(nLaser)+"]["+XTOS(nChip)+"]";
                 EnemyHisbeLaserChip002* pChip = NEW EnemyHisbeLaserChip002(name2.c_str());
-                int num_refraction = pChip->pRikishaLeader_->getPointNum();
+                int num_refraction = pChip->pVecDriverLeader_->getPointNum();
                 pChip->config(num_refraction, 1, 1, false, pDepoEffect);
                 pLaserChipDepo->put(pChip);
                 Sleep(1);

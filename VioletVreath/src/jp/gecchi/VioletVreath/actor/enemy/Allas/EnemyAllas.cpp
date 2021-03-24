@@ -1,16 +1,17 @@
 #include "EnemyAllas.h"
 
 #include "jp/ggaf/core/actor/ex/ActorDepository.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/lib/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/spline/SplineLeader.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/God.h"
 
+using namespace GgafDx;
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -22,7 +23,7 @@ EnemyAllas::EnemyAllas(const char* prm_name) :
         VvEnemyActor<DefaultMeshSetActor>(prm_name, "Allas", StatusReset(EnemyAllas)) {
     _class_name = "EnemyAllas";
     iMovePatternNo_ = 0;
-    pRikishaLeader_ = nullptr;
+    pVecDriverLeader_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
@@ -36,16 +37,16 @@ void EnemyAllas::onCreateModel() {
 
 void EnemyAllas::initialize() {
     setHitAble(true);
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    pRikisha->setFaceAngVelo(AXIS_Z, -7000);
-    pRikisha->linkFaceAngByMvAng(true);
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    pVecDriver->setFaceAngVelo(AXIS_Z, -7000);
+    pVecDriver->linkFaceAngByMvAng(true);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
 }
 
 void EnemyAllas::onActive() {
-    if (pRikishaLeader_ == nullptr) {
+    if (pVecDriverLeader_ == nullptr) {
         throwCriticalException("EnemyAllasはスプライン必須ですconfigして下さい");
     }
 
@@ -55,31 +56,31 @@ void EnemyAllas::onActive() {
 }
 
 void EnemyAllas::processBehavior() {
-    GgafDx::Rikisha* const pRikisha = callRikisha();
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
     GgafCore::Progress* const pProg = getProgress();
     //【パターン1：スプライン移動】
     if (pProg->hasJustChangedTo(1)) {
-        pRikishaLeader_->start(ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
+        pVecDriverLeader_->start(ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
     }
     if (pProg->get() == 1) {
         //スプライン移動終了待ち
-        if (pRikishaLeader_->isFinished()) {
+        if (pVecDriverLeader_->isFinished()) {
             pProg->changeNext(); //次のパターンへ
         }
     }
 
     switch (iMovePatternNo_) {
         case 0:  //【パターン０：スプライン移動開始】
-            if (pRikishaLeader_) {
-                pRikishaLeader_->start(ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
+            if (pVecDriverLeader_) {
+                pVecDriverLeader_->start(ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
             }
             iMovePatternNo_++; //次の行動パターンへ
             break;
 
         case 1:  //【パターン１：スプライン移動終了待ち】
-            if (pRikishaLeader_) {
+            if (pVecDriverLeader_) {
                 //スプライン移動有り
-                if (pRikishaLeader_->isFinished()) {
+                if (pVecDriverLeader_->isFinished()) {
                     iMovePatternNo_++; //スプライン移動が終了したら次の行動パターンへ
                 }
             } else {
@@ -99,7 +100,7 @@ void EnemyAllas::processBehavior() {
                     pActor_shot = (GgafDx::FigureActor*)pDepo_shot_->dispatch();
                     if (pActor_shot) {
                         pActor_shot->setPositionAt(this);
-                        pActor_shot->callRikisha()->setRzRyMvAng(paAng_way[i], D90ANG);
+                        pActor_shot->callVecDriver()->setRzRyMvAng(paAng_way[i], D90ANG);
                         pActor_shot->activate();
                     }
                 }
@@ -113,7 +114,7 @@ void EnemyAllas::processBehavior() {
                 }
             }
 //            //自機へ方向転換
-            pRikisha->turnMvAngTwd(pMYSHIP->_x, _y, pMYSHIP->_z,
+            pVecDriver->turnMvAngTwd(pMYSHIP->_x, _y, pMYSHIP->_z,
                                     2000, 0,
                                     TURN_CLOSE_TO, true);
             iMovePatternNo_++; //次の行動パターンへ
@@ -126,10 +127,10 @@ void EnemyAllas::processBehavior() {
             break;
     }
 
-    if (pRikishaLeader_) {
-        pRikishaLeader_->behave(); //スプライン移動を振る舞い
+    if (pVecDriverLeader_) {
+        pVecDriverLeader_->behave(); //スプライン移動を振る舞い
     }
-    pRikisha->behave();
+    pVecDriver->behave();
     //getSeTransmitter()->behave();
 }
 
@@ -155,5 +156,5 @@ void EnemyAllas::onInactive() {
 }
 
 EnemyAllas::~EnemyAllas() {
-    GGAF_DELETE_NULLABLE(pRikishaLeader_);
+    GGAF_DELETE_NULLABLE(pVecDriverLeader_);
 }

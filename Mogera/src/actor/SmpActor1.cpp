@@ -1,7 +1,7 @@
 #include "actor/SmpActor1.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
-#include "jp/ggaf/dx/actor/supporter/RikishaFaceAngAssistant.h"
-#include "jp/ggaf/dx/actor/supporter/RikishaMvAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriverFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriverMvAngAssistant.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "MgrGod.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
@@ -53,7 +53,7 @@ void SmpActor1::processBehavior() {
             _y -= PX_C(2); //下
         }
     }
-    callRikisha()->behave(); //力車を活動させる（Z軸回転する）
+    callVecDriver()->behave(); //力車を活動させる（Z軸回転する）
 }
 
 void SmpActor1::onHit(const GgafCore::Actor* prm_pOtherActor) {

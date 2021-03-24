@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/core/actor/ex/ActorDepositoryStore.h"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/dx/model/supporter/TextureBlinker.h"
@@ -84,9 +84,9 @@ void EnemyEsperia::initialize() {
 void EnemyEsperia::onActive() {
     getStatus()->reset();
     setHitAble(false);
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    pRikisha->setRzRyMvAng(0, D180ANG);
-    pRikisha->setMvVelo(1000);
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    pVecDriver->setRzRyMvAng(0, D180ANG);
+    pVecDriver->setMvVelo(1000);
 
     dX_= dZ_ = 0;
     //出現位置
@@ -106,7 +106,7 @@ void EnemyEsperia::onActive() {
 
 void EnemyEsperia::processBehavior() {
     MyShip* pMyShip = pMYSHIP;
-    GgafDx::Rikisha* const pRikisha = callRikisha();
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
@@ -318,8 +318,8 @@ void EnemyEsperia::processBehavior() {
                             pLaserChip->ty2_ = pMyShip->_y + paPos_target_[i].y;
                             pLaserChip->tz2_ = pMyShip->_z + paPos_target_[i].z;
                             //速さと加速度
-                            pLaserChip->callRikisha()->setMvVelo(10000); //初期速度
-                            pLaserChip->callRikisha()->setMvAcce(150+(max_laser_way_-i)*20); //少しバラけるように
+                            pLaserChip->callVecDriver()->setMvVelo(10000); //初期速度
+                            pLaserChip->callVecDriver()->setMvAcce(150+(max_laser_way_-i)*20); //少しバラけるように
                         }
                     }
                 }
@@ -348,7 +348,7 @@ void EnemyEsperia::processBehavior() {
             break;
         }
     }
-    pRikisha->behave();
+    pVecDriver->behave();
     getMorpher()->behave();
 }
 

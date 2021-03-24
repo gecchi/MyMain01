@@ -1,18 +1,19 @@
 #include "EnemyThagoras.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/lib/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/spline/SplineLeader.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Thagoras/FormationThagoras.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
+using namespace GgafDx;
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -32,7 +33,7 @@ EnemyThagoras::EnemyThagoras(const char* prm_name) :
     _class_name = "EnemyThagoras";
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
-    pRikishaLeader_ = nullptr; //フォーメーションオブジェクトが設定する
+    pVecDriverLeader_ = nullptr; //フォーメーションオブジェクトが設定する
     pActor4Sc_ = nullptr;
 }
 
@@ -44,10 +45,10 @@ void EnemyThagoras::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    pRikisha->linkFaceAngByMvAng(true);
-    pRikisha->setRollFaceAngVelo(2000);
-    pRikisha->forceMvVeloRange(PX_C(15));
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    pVecDriver->linkFaceAngByMvAng(true);
+    pVecDriver->setRollFaceAngVelo(2000);
+    pVecDriver->forceMvVeloRange(PX_C(15));
 }
 
 void EnemyThagoras::onActive() {
@@ -85,10 +86,10 @@ void EnemyThagoras::processBehavior() {
         }
         case PROG_MOVE01: {
             if (pProg->hasJustChanged()) {
-                pRikishaLeader_->start(RELATIVE_COORD,5);
+                pVecDriverLeader_->start(RELATIVE_COORD,5);
             }
-            pRikishaLeader_->behave();
-            if (pRikishaLeader_->isFinished()) {
+            pVecDriverLeader_->behave();
+            if (pVecDriverLeader_->isFinished()) {
                 pProg->changeNext();
             }
             break;
@@ -108,7 +109,7 @@ void EnemyThagoras::processBehavior() {
             break;
     }
     pAlphaFader->behave();
-    callRikisha()->behave();
+    callVecDriver()->behave();
     //鼓動を同期
     _sx = pActor4Sc_->_sx;
     _sy = pActor4Sc_->_sy;
@@ -137,5 +138,5 @@ void EnemyThagoras::onInactive() {
 }
 
 EnemyThagoras::~EnemyThagoras() {
-    GGAF_DELETE_NULLABLE(pRikishaLeader_);
+    GGAF_DELETE_NULLABLE(pVecDriverLeader_);
 }

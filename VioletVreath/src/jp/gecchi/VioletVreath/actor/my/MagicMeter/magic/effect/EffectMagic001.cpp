@@ -1,6 +1,6 @@
 #include "EffectMagic001.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
-#include "jp/ggaf/dx/actor/supporter/Kago.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/GeoDriver.h"
 
 
 
@@ -22,11 +22,11 @@ void EffectMagic001::initialize() {
 }
 
 void EffectMagic001::onActive() {
-    callRikisha()->setRollPitchYawFaceAngVelo(PX_C(3), PX_C(5), PX_C(7));
+    callVecDriver()->setRollPitchYawFaceAngVelo(PX_C(3), PX_C(5), PX_C(7));
 }
 
 void EffectMagic001::processBehavior() {
-    callRikisha()->behave();
+    callVecDriver()->behave();
 }
 
 void EffectMagic001::processJudgement() {

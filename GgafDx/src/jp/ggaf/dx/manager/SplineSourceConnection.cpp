@@ -1,0 +1,13 @@
+#include "jp/ggaf/dx/manager/SplineSourceConnection.h"
+
+using namespace GgafDx;
+
+SplineSourceConnection::SplineSourceConnection(const char* prm_idstr, SplineSource* prm_pResource) :
+    GgafCore::ResourceConnection<SplineSource> (prm_idstr, prm_pResource) {
+}
+
+void SplineSourceConnection::processReleaseResource(SplineSource* prm_pResource) {
+    _TRACE_("SplineSourceConnection::processReleaseResource‚Å"<<prm_pResource->_coord_data_file<<"ŠJ•ú(‚±‚±‚Å‚Ô‚Á‰ó‚ê‚½‚çclose()˜R‚ê‚Ì‰Â”\«‚ ‚è)");
+    GGAF_DELETE(prm_pResource);
+}
+

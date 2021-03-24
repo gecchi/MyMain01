@@ -1,10 +1,10 @@
 #include "AniTest3.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/lib/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/spline/SplineLeader.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/ggaf/dx/actor/supporter/Puppeteer.h"
 #include "jp/ggaf/dx/util/Input.h"
@@ -31,7 +31,7 @@ void AniTest3::onActive() {
 }
 
 void AniTest3::processBehavior() {
-    callRikisha()->behave();
+    callVecDriver()->behave();
     _pPuppeteer->behave();
 }
 

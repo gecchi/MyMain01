@@ -14,7 +14,7 @@ namespace VioletVreath {
 class FormationUrydike002 : public FormationUrydike {
 
 public:
-    GgafLib::SplineManufactureConnection** papSplManufConn_;
+    GgafDx::SplineManufactureConnection** papSplManufConn_;
 
     FormationUrydike002(const char* prm_name);
 

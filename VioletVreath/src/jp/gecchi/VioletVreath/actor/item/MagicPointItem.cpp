@@ -1,7 +1,7 @@
 #include "MagicPointItem.h"
 
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
-#include "jp/ggaf/dx/actor/supporter/Kago.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/GeoDriver.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/item/Item.h"
@@ -32,9 +32,9 @@ MagicPointItem::MagicPointItem(const char* prm_name, const char* prm_model, void
     setZEnableDraw(true);        //描画時、Zバッファ値は考慮される
     setZWriteEnable(false);  //自身のZバッファを書き込みしない
     setCullingDraw(false);
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    pRikisha->setRollPitchYawFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
-    pRikisha->linkFaceAngByMvAng(true);
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    pVecDriver->setRollPitchYawFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
+    pVecDriver->linkFaceAngByMvAng(true);
     kDX_ = kDY_ = kDZ_ = 0;
     setHitAble(true, false); //画面外当たり判定は無効
     CollisionChecker* pChecker = getCollisionChecker();
@@ -50,11 +50,11 @@ void MagicPointItem::initialize() {
 void MagicPointItem::onActive() {
     // _x, _y, _z は発生元座標に設定済み
     setHitAble(true, false);
-    GgafDx::Kago* const pKago = callKago();
-    pKago->forceVxyzMvVeloRange(-30000, 30000);
-    pKago->setZeroVxyzMvVelo();
-    pKago->setZeroVxyzMvAcce();
-    pKago->stopGravitationMvSequence();
+    GgafDx::GeoDriver* const pGeoDriver = callGeoDriver();
+    pGeoDriver->forceVxyzMvVeloRange(-30000, 30000);
+    pGeoDriver->setZeroVxyzMvVelo();
+    pGeoDriver->setZeroVxyzMvAcce();
+    pGeoDriver->stopGravitationMvSequence();
 
     //初期方向設定
     MyShip* pMyShip = pMYSHIP;
@@ -63,8 +63,8 @@ void MagicPointItem::onActive() {
 //    //発生地点から、自機への方向への散らばり範囲正方形領域が位置する距離（scattered_distance > (scattered_renge/2) であること)
 ////    int scattered_distance = scattered_renge/2 + 400000;
 //    //従って、scattered_distance 離れていても、自機は動かなくてもぎりぎり全て回収できる。
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    pRikisha->forceMvVeloRange(0, 20000);
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    pVecDriver->forceMvVeloRange(0, 20000);
     float vX, vY, vZ;
     UTIL::getNormalizedVector(
             pMyShip->_x - _x,
@@ -73,11 +73,11 @@ void MagicPointItem::onActive() {
             vX, vY, vZ);
     int d = PX_C(200);
     int r = PX_C(75);
-    pRikisha->setMvAngTwd( (coord)(_x + (vX * d) + RND(-r, +r)),
+    pVecDriver->setMvAngTwd( (coord)(_x + (vX * d) + RND(-r, +r)),
                           (coord)(_y + (vY * d) + RND(-r, +r)),
                           (coord)(_z + (vZ * d) + RND(-r, +r)) );
-    pRikisha->setMvVelo(2000);
-    pRikisha->setMvAcce(100);
+    pVecDriver->setMvVelo(2000);
+    pVecDriver->setMvAcce(100);
 
     getProgress()->reset(PROG_DRIFT);
     _sx = _sy = _sz = 1000;
@@ -85,8 +85,8 @@ void MagicPointItem::onActive() {
 
 void MagicPointItem::processBehavior() {
     MyShip* pMyShip = pMYSHIP;
-    GgafDx::Rikisha* const pRikisha = callRikisha();
-    GgafDx::Kago* const pKago = callKago();
+    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::GeoDriver* const pGeoDriver = callGeoDriver();
     GgafCore::Progress* const pProg = getProgress();
     //通常移動
     if (pProg->get() == PROG_DRIFT) {
@@ -104,12 +104,12 @@ void MagicPointItem::processBehavior() {
         MyMagicEnergyCore* pE = pMyShip->pMyMagicEnergyCore_;
         if (pProg->hasJustChanged()) {
             //自機に引力で引き寄せられるような動き設定
-            pKago->setVxyzMvVelo(pRikisha->_vX * pRikisha->_velo_mv,
-                                     pRikisha->_vY * pRikisha->_velo_mv,
-                                     pRikisha->_vZ * pRikisha->_velo_mv);
-            pKago->execGravitationMvSequenceTwd(pE,
+            pGeoDriver->setVxyzMvVelo(pVecDriver->_vX * pVecDriver->_velo_mv,
+                                     pVecDriver->_vY * pVecDriver->_velo_mv,
+                                     pVecDriver->_vZ * pVecDriver->_velo_mv);
+            pGeoDriver->execGravitationMvSequenceTwd(pE,
                                                     PX_C(50), 300, PX_C(300));
-            pRikisha->stopMv();
+            pVecDriver->stopMv();
         }
 
         //かつ自機近辺に到達？
@@ -128,9 +128,9 @@ void MagicPointItem::processBehavior() {
     if (pProg->get() == PROG_ABSORB) {
         MyMagicEnergyCore* pE = pMyShip->pMyMagicEnergyCore_;
         if (pProg->hasJustChanged()) {
-            pKago->setZeroVxyzMvVelo();
-            pKago->setZeroVxyzMvAcce();
-            pKago->stopGravitationMvSequence();
+            pGeoDriver->setZeroVxyzMvVelo();
+            pGeoDriver->setZeroVxyzMvAcce();
+            pGeoDriver->stopGravitationMvSequence();
         }
         _x = pE->_x + kDX_;
         _y = pE->_y + kDY_;
@@ -144,8 +144,8 @@ void MagicPointItem::processBehavior() {
             sayonara(); //終了
         }
     }
-    pRikisha->behave();
-    pKago->behave();
+    pVecDriver->behave();
+    pGeoDriver->behave();
 }
 
 void MagicPointItem::processJudgement() {

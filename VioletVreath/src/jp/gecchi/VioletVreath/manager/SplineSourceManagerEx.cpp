@@ -1,10 +1,9 @@
 #include "SplineSourceManagerEx.h"
 
-#include "jp/ggaf/lib/manager/SplineSourceConnection.h"
+#include "jp/ggaf/dx/manager/SplineSourceConnection.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
 
-
-
+using namespace GgafDx;
 using namespace GgafLib;
 using namespace VioletVreath;
 

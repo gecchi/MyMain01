@@ -289,6 +289,8 @@ enum Valign {
 #define Obj_GgafDx_BoneAniMeshActor           (0x8000000000ULL)  //0b 00000000 00000000 00000000 10000000 00000000 00000000 00000000 00000000
 #define Obj_GgafDx_SkinAniMeshActor          (0x10000000000ULL)  //0b 00000000 00000000 00000001 00000000 00000000 00000000 00000000 00000000
 
+#define Obj_GgadDx_SplineLeader              (0x20000000000ULL)  //0b 00000000 00000000 00000010 00000000 00000000 00000000 00000000 00000000
+
 //前方宣言(forward declaration)
 namespace IkdLib {
 //「○×（まるぺけ）つくろーどっとコム」 http://marupeke296.com/index.html
@@ -441,12 +443,12 @@ class SphereRadiusVectors;
 class CollisionArea;
 class CollisionPart;
 class GeoElem;
-class Rikisha;
-class RikishaMvAssistant;
-class RikishaFaceAngAssistant;
-class RikishaMvAngAssistant;
-class Kago;
-class KagoAssistantA;
+class VecDriver;
+class VecDriverMvAssistant;
+class VecDriverFaceAngAssistant;
+class VecDriverMvAngAssistant;
+class GeoDriver;
+class GeoDriverAssistantA;
 class Checker;
 class Scaler;
 class AlphaFader;
@@ -469,6 +471,20 @@ class BgmConnection;
 class BgmManager;
 class Sound;
 class CWaveDecorder;
+
+class SplineLeader;
+class FixedFrameSplineVecDriverLeader;
+class FixedVelocitySplineVecDriverLeader;
+class SteppedCoordSplineVecDriverLeader;
+class SplineManufacture;
+class SplineSource;
+class FixedFrameSplineManufacture;
+class FixedVelocitySplineManufacture;
+class SteppedCoordSplineManufacture;
+class SplineSourceManager;
+class SplineSourceConnection;
+class SplineManufactureManager;
+class SplineManufactureConnection;
 
 }
 

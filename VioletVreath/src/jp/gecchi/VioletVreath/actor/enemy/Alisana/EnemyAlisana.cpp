@@ -1,7 +1,7 @@
 #include "EnemyAlisana.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/Rikisha.h"
+#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
@@ -132,7 +132,7 @@ void EnemyAlisana::processBehavior() {
     }
     pAlphaFader->behave();
     getMorpher()->behave();
-    callRikisha()->behave();
+    callVecDriver()->behave();
 }
 
 void EnemyAlisana::processJudgement() {
