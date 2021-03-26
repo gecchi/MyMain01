@@ -2,7 +2,7 @@
 
 #include <fstream>
 #include "jp/ggaf/core/exception/CriticalException.h"
-//#include "jp/ggaf/lib/LibConfig.h"
+#include "jp/ggaf/dx/Config.h"
 #include "jp/ggaf/dx/util/Util.h"
 
 using namespace GgafDx;
@@ -43,11 +43,7 @@ SplineSource::SplineSource(const char* prm_coord_data_file) : GgafCore::Object()
     strcpy(_coord_data_file, prm_coord_data_file);
 
     double accuracy = 1.0;
-//    std::string data_filename = CONFIG::DIR_SPLINE + _coord_data_file;// + ".spls";
-    std::string data_filename = "";// + ".spls";
-
-//‚©‚è‚©‚è
-
+    std::string data_filename = CONFIG::DIR_SPLINE + _coord_data_file;// + ".spls";
     std::ifstream ifs(data_filename.c_str());
     if (ifs.fail()) {
         throwCriticalException(data_filename<<" ‚ªŠJ‚¯‚Ü‚¹‚ñ");

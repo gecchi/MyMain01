@@ -29,13 +29,7 @@ SplineManufacture* SplineManufactureManager::processCreateResource(const char* p
 
 
     std::string spl_data_file="";
-    //std::string spl_filename = CONFIG::DIR_SPLINE + spline_id[0] + ".spl";
-
-
-    std::string spl_filename = "";
-//‚©‚è‚©‚è
-
-
+    std::string spl_filename = CONFIG::DIR_SPLINE + spline_id[0] + ".spl";
     GgafCore::Properties propSpl = GgafCore::Properties(spl_filename);
 
     if (propSpl.isExistKey("SPLINE")) {
