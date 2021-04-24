@@ -16,7 +16,7 @@ namespace VioletVreath {
 class EnemyDelheid : public VvEnemyActor<GgafLib::DefaultMassMorphMeshActor> {
 
 public:
-    /** スプライン移動のシークエンス */
+    /** カーブ移動のシークエンス */
     GgafDx::DriverLeader* pDriverLeader_;
     /** ショットのデポジトリ */
     GgafCore::ActorDepository* pDepoShot_;

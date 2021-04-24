@@ -24,7 +24,7 @@ FormationHalia::FormationHalia(const char* prm_name) :
     papHalia_ = NEW EnemyHalia*[num_Halia_];
     for (int i = 0; i < num_Halia_; i++) {
         papHalia_[i] = NEW EnemyHalia("Halia01");
-        //スプライン移動プログラム設定
+        //カーブ移動プログラム設定
         papHalia_[i]->setCurveVecDriverLeader(nullptr);
         appendFormationMember(papHalia_[i]);
     }

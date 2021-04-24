@@ -76,7 +76,7 @@ void EnemyTamago01::initialize() {
 void EnemyTamago01::onActive() {
     getStatus()->reset();
     if (pProgram_Tamago01Move_) {
-        pProgram_Tamago01Move_->start(ABSOLUTE_COORD); //スプライン移動をプログラムしておく
+        pProgram_Tamago01Move_->start(ABSOLUTE_COORD); //カーブ移動をプログラムしておく
     }
 
 //    getUvFlipper()->locatePatternNo(16, 1/16.0, 1/16.0);
@@ -121,14 +121,14 @@ void EnemyTamago01::processBehavior() {
     GgafDx::VecDriver* const pVecDriver = getVecDriver();
 
     if (iMovePatternNo_ == 0) {
-        //スプライン移動中
+        //カーブ移動中
         if (pProgram_Tamago01Move_ && pProgram_Tamago01Move_->isFinished()) {
-            iMovePatternNo_++; //スプライン移動が終了したら次の行動パターンへ
+            iMovePatternNo_++; //カーブ移動が終了したら次の行動パターンへ
         }
     }
 
     if (iMovePatternNo_ == 1) {
-        //スプライン移動終了時
+        //カーブ移動終了時
         pVecDriver->turnMvAngTwd(pMYSHIP->_x+800000, pMYSHIP->_y, pMYSHIP->_z,
                                             2000, 0,
                                             TURN_CLOSE_TO, false);

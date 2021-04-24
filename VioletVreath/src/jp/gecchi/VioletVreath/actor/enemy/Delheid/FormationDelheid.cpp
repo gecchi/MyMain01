@@ -83,7 +83,7 @@ void FormationDelheid::processBehavior() {
     switch (pProg->get()) {
          case PROG_INIT: {
              updateRankParameter();
-             //ダミー(pDummy_)を使ってメンバーのスプライン移動の開始位置と方向、終了位置と方向を予め求める
+             //ダミー(pDummy_)を使ってメンバーのカーブ移動の開始位置と方向、終了位置と方向を予め求める
              pDummy_->config(getSplManuf()->createVecDriverLeader(pDummy_->getVecDriver()), nullptr);
              pDummy_->getVecDriver()->setMvVelo(RV_MvVelo_);
              pDummy_->setPositionAt(&geoLocate_);

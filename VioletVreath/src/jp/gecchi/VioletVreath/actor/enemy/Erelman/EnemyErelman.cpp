@@ -110,7 +110,7 @@ void EnemyErelman::processBehavior() {
                 FormationErelman* pFormation = (FormationErelman*)getFormation();
                 pDriverLeader_->setStartPosition(pFormation->geo_.x, pFormation->geo_.y, pFormation->geo_.z);
                 pDriverLeader_->setStartAngle(pFormation->geo_.rx, pFormation->geo_.ry, pFormation->geo_.rz);
-                pDriverLeader_->behave(); //スプライン移動を振る舞い
+                pDriverLeader_->behave(); //カーブ移動するようにDriverを操作
             } else {
                 free_interval_--;
             }

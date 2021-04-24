@@ -49,7 +49,7 @@ void Shot001::processBehavior() {
 //    _TRACE_(FUNC_NAME<<" before id=["<<getId()<<"]("<<getActiveFrame()<<") → = \t"<<getVecDriver()->_rz_mv<<"\t"<<getVecDriver()->_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");
     GgafDx::VecDriver* const pVecDriver = getVecDriver();
     //座標に反映
-    pDriverLeader_->behave(); //スプライン移動を振る舞い
+    pDriverLeader_->behave(); //カーブ移動するようにDriverを操作
     pVecDriver->behave();
     getScaler()->behave();
 //    _TRACE_(FUNC_NAME<<" after id=["<<getId()<<"]("<<getActiveFrame()<<") → = \t"<<getVecDriver()->_rz_mv<<"\t"<<getVecDriver()->_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");

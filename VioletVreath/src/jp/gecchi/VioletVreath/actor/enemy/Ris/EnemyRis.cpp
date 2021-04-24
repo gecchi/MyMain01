@@ -54,21 +54,21 @@ void EnemyRis::onActive() {
 void EnemyRis::processBehavior() {
     GgafDx::VecDriver* const pVecDriver = getVecDriver();
     switch (iMovePatternNo_) {
-        case 0:  //【パターン０：スプライン移動開始】
+        case 0:  //【パターン０：カーブ移動開始】
             if (pDriverLeader_) {
-                pDriverLeader_->start(ABSOLUTE_COORD); //スプライン移動を開始
+                pDriverLeader_->start(ABSOLUTE_COORD); //カーブ移動を開始
             }
             iMovePatternNo_++; //次の行動パターンへ
             break;
 
-        case 1:  //【パターン１：スプライン移動終了待ち】
+        case 1:  //【パターン１：カーブ移動終了待ち】
             if (pDriverLeader_) {
-                //スプライン移動有り
+                //カーブ移動有り
                 if (pDriverLeader_->isFinished()) {
-                    iMovePatternNo_++; //スプライン移動が終了したら次の行動パターンへ
+                    iMovePatternNo_++; //カーブ移動が終了したら次の行動パターンへ
                 }
             } else {
-                //スプライン移動無し
+                //カーブ移動無し
                 iMovePatternNo_++; //すぐに次の行動パターンへ
             }
             break;
@@ -117,7 +117,7 @@ void EnemyRis::processBehavior() {
 
 
     if (pDriverLeader_) {
-        pDriverLeader_->behave(); //スプライン移動を振る舞い
+        pDriverLeader_->behave(); //カーブ移動するようにDriverを操作
     }
     pVecDriver->behave();
     //getSeTransmitter()->behave();

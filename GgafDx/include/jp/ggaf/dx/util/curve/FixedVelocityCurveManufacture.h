@@ -61,7 +61,7 @@ public:
     /**
      * DriverLeader オブジェクトの生成 .
      * インスタンスは FixedVelocityCurveVecDriverLeader です。
-     * @param prm_pVecDriver スプライン移動するための操作するオブジェクト
+     * @param prm_pVecDriver カーブ移動するための操作するオブジェクト
      * @return DriverLeader オブジェクト
      */
     DriverLeader* createVecDriverLeader(GgafDx::VecDriver* prm_pVecDriver) override;

@@ -36,7 +36,7 @@ public:
     /**
      * DriverLeader オブジェクトの生成 .
      * インスタンスは SteppedCoordCurveVecDriverLeader です。
-     * @param GgafDx::GeoDriver スプライン移動するための操作するオブジェクト
+     * @param GgafDx::GeoDriver カーブ移動するための操作するオブジェクト
      * @return DriverLeader オブジェクト
      */
     DriverLeader* createVecDriverLeader(GgafDx::VecDriver* prm_pVecDriver) override;

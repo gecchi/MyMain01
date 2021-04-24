@@ -825,12 +825,6 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\manager\EffectManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVreath\manager\SplineManufactureManagerEx.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVreath\manager\SplineSourceManagerEx.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="src\jp\gecchi\VioletVreath\manager\XpmConnection.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -1078,6 +1072,12 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\gecchi\VioletVreath\Config.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\manager\CurveManufactureManagerEx.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\manager\CurveSourceManagerEx.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1448,5 +1448,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvItemActor.hpp" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvMyActor.hpp" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\VvScene.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\manager\CurveManufactureManagerEx.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\manager\CurveSourceManagerEx.h" />
   </ItemGroup>
 </Project>

@@ -116,7 +116,7 @@ void EnemyDelheid::processBehavior() {
             break;
         }
         case PROG_AFTER_LEAD_MOVING: {
-            //もう2回だけ同じスプライン移動が終わった後の動き
+            //もう2回だけ同じカーブ移動が終わった後の動き
             //isOutOfSpacetime() 成立待ち
             break;
         }
@@ -177,7 +177,7 @@ void EnemyDelheid::processBehavior() {
     //-----------------------------------------------
     GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->_angvelo_face[AXIS_X] = pVecDriver->_velo_mv/2;
-    pDriverLeader_->behave(); //スプライン移動を振る舞い
+    pDriverLeader_->behave(); //カーブ移動するようにDriverを操作
     pVecDriver->behave();
     getMorpher()->behave();
 }
@@ -201,7 +201,7 @@ void EnemyDelheid::processSettlementBehavior() {
         //ゴールのアリサナがいない場合、その後の移動
         case PROG_AFTER_LEAD: {
             if (pDriverLeader_->isFinished()) {
-                //スプライン移動も終わった場合
+                //カーブ移動も終わった場合
                 pProg->change(PROG_AFTER_LEAD_MOVING);
             }
             break;

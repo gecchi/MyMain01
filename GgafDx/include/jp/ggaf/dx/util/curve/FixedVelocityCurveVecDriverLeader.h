@@ -24,7 +24,7 @@ public:
     FixedVelocityCurveManufacture* _pFixedVeloSplManuf;
     /** [r]現在向かっている最中の補完点(基準点も含む)の数 */
     int _point_index;
-    /** [r]基準速度で移動した場合のスプライン移動時の経過フレーム数 */
+    /** [r]基準速度で移動した場合のカーブ移動時の経過フレーム数 */
     float _leadning_float_frames;
     /** [r]次の変わり目となる補間点(基準点も含む)に到達する_leadning_fFrames */
     float _float_frame_of_next;

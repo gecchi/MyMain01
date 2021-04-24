@@ -24,7 +24,7 @@ FormationAllas002::FormationAllas002(const char* prm_name) :
     papAllas_ = NEW EnemyAllas*[num_Allas_];
     for (int i = 0; i < num_Allas_; i++) {
         papAllas_[i] = NEW EnemyAllas("Allas01");
-        //スプライン移動プログラム設定
+        //カーブ移動プログラム設定
         DriverLeader* pProgram = pConn_pCurveManuf_->peek()->createVecDriverLeader(papAllas_[i]->getVecDriver()); //移動速度固定
         papAllas_[i]->config(pProgram, nullptr, nullptr);
         //papAllas_[i]->setDepository_Shot(pConn_depo_->peek()); //弾設定

@@ -78,7 +78,7 @@ void Zako::processBehavior() {
 //                getVecDriver()->setMvAcce(0); //加速度がある場合は切っておく
 //                pDriverLeader_->start(RELATIVE_COORD_DIRECTION, 1);
 //            }
-//            pDriverLeader_->behave(); //スプライン移動を振る舞い
+//            pDriverLeader_->behave(); //カーブ移動するようにDriverを操作
 //
 //            if (pDriverLeader_->isFinished()) {
 //                pProg->changeNext();

@@ -18,14 +18,14 @@ FormationRis002::FormationRis002(const char* prm_name) :
     num_Ris_         = RF_FormationRis002_Num(G_RANK);    //編隊数
     interval_frames_ = RF_FormationRis002_LaunchInterval(G_RANK);   //リスの間隔(frame)
     velo_mv_         = RF_FormationRis002_MvVelo(G_RANK); //速度
-    //スプライン移動の定義
+    //カーブ移動の定義
     pCurveSrcConnection_ = connectToCurveSourceManager("Spl_00202_");
     pConn_depo_ = connectToDepositoryManager("Shot002");
     pManufacture_ =  NEW FixedVelocityCurveManufacture(pCurveSrcConnection_->peek(), 10000);
     //リス編隊作成
     for (int i = 0; i < num_Ris_; i++) {
         EnemyRis* pRis = NEW EnemyRis("Ris01");
-        //スプライン移動プログラム設定
+        //カーブ移動プログラム設定
         DriverLeader* pProgram = NEW FixedVelocityCurveVecDriverLeader(pManufacture_, pRis->getVecDriver());
         pRis->config(pProgram, pConn_depo_->peek(), nullptr);
         appendFormationMember(pRis);

@@ -69,7 +69,7 @@ void EnemyEres::onActive() {
     pVecDriver->linkFaceAngByMvAng(true);
     pVecDriver->setRollFaceAngVelo(2000);
 //    pVecDriver->setMvVelo(3000);
-    pDriverLeader_->start(RELATIVE_COORD); //スプライン移動を開始
+    pDriverLeader_->start(RELATIVE_COORD); //カーブ移動を開始
 }
 
 void EnemyEres::processBehavior() {
@@ -97,7 +97,7 @@ void EnemyEres::processBehavior() {
 
         iMovePatternNo_++;
     }
-    pDriverLeader_->behave(); //スプライン移動を進める
+    pDriverLeader_->behave(); //カーブ移動を進める
     getGeoDriver()->behave();
     getVecDriver()->behave(); //次の座標へ移動
     //getSeTransmitter()->behave();

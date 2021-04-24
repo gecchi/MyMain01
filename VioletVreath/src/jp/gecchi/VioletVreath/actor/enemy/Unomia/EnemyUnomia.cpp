@@ -84,7 +84,7 @@ void EnemyUnomia::processBehavior() {
             break;
         }
         case PROG_CURVE_MOVE: {
-            pDriverLeader_->behave(); //スプライン移動を振る舞い
+            pDriverLeader_->behave(); //カーブ移動するようにDriverを操作
             if (pDriverLeader_->isFinished()) {
                 pProg->changeNext(); //次へ
             }

@@ -78,7 +78,7 @@ public:
     }
 
     /**
-     * スプライン移動設定 .
+     * カーブ移動設定 .
      * initialize() までに設定して下さい。
      * @param prm_pDriverLeader
      */
