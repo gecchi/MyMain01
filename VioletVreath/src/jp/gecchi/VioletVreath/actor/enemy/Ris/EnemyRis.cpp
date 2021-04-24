@@ -5,7 +5,7 @@
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/dx/model/supporter/TextureBlinker.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/dx/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/curve/DriverLeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -22,7 +22,7 @@ EnemyRis::EnemyRis(const char* prm_name)
       : VvEnemyActor<DefaultMeshSetActor>(prm_name, "Ris", StatusReset(EnemyRis)) {
     _class_name = "EnemyRis";
     iMovePatternNo_ = 0;
-    pVecDriverLeader_ = nullptr;
+    pDriverLeader_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
@@ -38,7 +38,7 @@ void EnemyRis::onCreateModel() {
 
 void EnemyRis::initialize() {
     setHitAble(true);
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->linkFaceAngByMvAng(true);
     pVecDriver->setRollFaceAngVelo(5000);
     CollisionChecker* pChecker = getCollisionChecker();
@@ -52,19 +52,19 @@ void EnemyRis::onActive() {
 }
 
 void EnemyRis::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     switch (iMovePatternNo_) {
         case 0:  //【パターン０：スプライン移動開始】
-            if (pVecDriverLeader_) {
-                pVecDriverLeader_->start(ABSOLUTE_COORD); //スプライン移動を開始
+            if (pDriverLeader_) {
+                pDriverLeader_->start(ABSOLUTE_COORD); //スプライン移動を開始
             }
             iMovePatternNo_++; //次の行動パターンへ
             break;
 
         case 1:  //【パターン１：スプライン移動終了待ち】
-            if (pVecDriverLeader_) {
+            if (pDriverLeader_) {
                 //スプライン移動有り
-                if (pVecDriverLeader_->isFinished()) {
+                if (pDriverLeader_->isFinished()) {
                     iMovePatternNo_++; //スプライン移動が終了したら次の行動パターンへ
                 }
             } else {
@@ -116,8 +116,8 @@ void EnemyRis::processBehavior() {
     }
 
 
-    if (pVecDriverLeader_) {
-        pVecDriverLeader_->behave(); //スプライン移動を振る舞い
+    if (pDriverLeader_) {
+        pDriverLeader_->behave(); //スプライン移動を振る舞い
     }
     pVecDriver->behave();
     //getSeTransmitter()->behave();
@@ -145,5 +145,5 @@ void EnemyRis::onInactive() {
 }
 
 EnemyRis::~EnemyRis() {
-    GGAF_DELETE_NULLABLE(pVecDriverLeader_);
+    GGAF_DELETE_NULLABLE(pDriverLeader_);
 }

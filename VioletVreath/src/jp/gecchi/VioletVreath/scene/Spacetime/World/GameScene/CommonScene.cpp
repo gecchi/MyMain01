@@ -2,7 +2,7 @@
 
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
 #include "jp/ggaf/core/actor/SceneMediator.h"
-#include "jp/ggaf/dx/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/curve/DriverLeader.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/core/actor/ex/ActorDepositoryStore.h"
 
@@ -91,9 +91,9 @@ void CommonScene::scrollX(GgafCore::Object* pThat, void* p1, void* p2, void* p3)
             }
         }
     }
-    if (pThat->instanceOf(Obj_GgadDx_SplineLeader)) {
-        GgafDx::SplineLeader* pSplineLeader = (SplineLeader*)pThat;
-        pSplineLeader->_x_start_in_loop -= (*((coord*)p1));
+    if (pThat->instanceOf(Obj_GgadDx_DriverLeader)) {
+        GgafDx::DriverLeader* pDriverLeader = (DriverLeader*)pThat;
+        pDriverLeader->_x_start_in_loop -= (*((coord*)p1));
     }
 }
 

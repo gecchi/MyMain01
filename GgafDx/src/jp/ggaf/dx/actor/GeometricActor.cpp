@@ -15,10 +15,11 @@ using namespace GgafDx;
 
 GeometricActor::GeometricActor(const char* prm_name,
                                Checker* prm_pChecker) : BaseActor(prm_name),
-_pVecDriver(NEW VecDriver(this)),
+_pVecDriver(nullptr),
 _pGeoDriver(nullptr),
 _pScaler(nullptr),
 _pSeTransmitter(nullptr),
+_pDriverLeader(nullptr),
 _is_2D(false),
 _offscreen_kind(-1),
 _x(0), _y(0), _z(0),
@@ -49,11 +50,11 @@ _is_local(false)
     _class_name = "GeometricActor";
     _pFormation = nullptr;
 }
-VecDriver* GeometricActor::callVecDriver() {
-    return _pVecDriver;
+VecDriver* GeometricActor::getVecDriver() {
+    return _pVecDriver ? _pVecDriver : _pVecDriver = NEW VecDriver(this);
 }
 
-GeoDriver* GeometricActor::callGeoDriver() {
+GeoDriver* GeometricActor::getGeoDriver() {
     return _pGeoDriver ? _pGeoDriver : _pGeoDriver = NEW GeoDriver(this);
 }
 
@@ -292,8 +293,8 @@ GgafCore::GroupHead* GeometricActor::appendGroupChildAsFk(kind_t prm_kind,
     prm_pGeoActor->_rx = prm_rx_init_local;
     prm_pGeoActor->_ry = prm_ry_init_local;
     prm_pGeoActor->_rz = prm_rz_init_local;
-//    prm_pGeoActor->callVecDriver()->_rz_mv = prm_rz_init_local;
-//    prm_pGeoActor->callVecDriver()->_ry_mv = prm_ry_init_local;
+//    prm_pGeoActor->getVecDriver()->_rz_mv = prm_rz_init_local;
+//    prm_pGeoActor->getVecDriver()->_ry_mv = prm_ry_init_local;
 
     prm_pGeoActor->changeGeoFinal();
     return pGroupHead;

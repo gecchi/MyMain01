@@ -27,11 +27,11 @@ void TestGuShot::initialize() {
 void TestGuShot::onActive() {
     getStatus()->reset();
     setHitAble(true);
-    callVecDriver()->setMvVelo(PX_C(30));
+    getVecDriver()->setMvVelo(PX_C(30));
 }
 
 void TestGuShot::processBehavior() {
-    callVecDriver()->behave();
+    getVecDriver()->behave();
 }
 
 void TestGuShot::processJudgement() {

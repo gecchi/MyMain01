@@ -15,7 +15,7 @@ using namespace VioletVreath;
 
 enum {
     PROG_MOVE01_1   ,
-    PROG_SPLINE_MOVE,
+    PROG_CURVE_MOVE,
     PROG_MOVE02_1   ,
     PROG_MOVE02_2   ,
     PROG_BANPEI,
@@ -86,8 +86,8 @@ void EnemyDrastea::initialize() {
 
 void EnemyDrastea::onActive() {
     getStatus()->reset();
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
-    GgafDx::GeoDriver* const pGeoDriver = callGeoDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
+    GgafDx::GeoDriver* const pGeoDriver = getGeoDriver();
     pVecDriver->setMvVelo(0);
     pVecDriver->setRollPitchYawFaceAngVelo(700, 1100, 300);
     pGeoDriver->setVxMvVelo(-3000);
@@ -102,8 +102,8 @@ void EnemyDrastea::onActive() {
 
 void EnemyDrastea::processBehavior() {
     //À•W‚É”½‰f
-    callVecDriver()->behave();
-    callGeoDriver()->behave();
+    getVecDriver()->behave();
+    getGeoDriver()->behave();
     getSeTransmitter()->behave();
 }
 

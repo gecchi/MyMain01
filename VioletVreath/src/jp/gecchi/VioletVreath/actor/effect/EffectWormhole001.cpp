@@ -26,7 +26,7 @@ void EffectWormhole001::onActive() {
     getScaler()->setRange(30000, 1000); //スケーリング・範囲
     setScale(30000);
     getScaler()->transitionLinearUntil(1000, 30);//スケーリング・60F費やして1000に縮小
-    callVecDriver()->setFaceAngVelo(AXIS_Z, 1000);        //回転
+    getVecDriver()->setFaceAngVelo(AXIS_Z, 1000);        //回転
 }
 
 void EffectWormhole001::processBehavior() {
@@ -39,7 +39,7 @@ void EffectWormhole001::processBehavior() {
         pScaler->setRange(1000, 2000);
         pScaler->beat(30, 2, 0, 26, -1); //無限ループ
     }
-    callVecDriver()->behave();
+    getVecDriver()->behave();
     pScaler->behave();
 }
 

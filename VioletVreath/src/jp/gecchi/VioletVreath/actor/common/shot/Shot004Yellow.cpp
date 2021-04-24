@@ -33,7 +33,7 @@ void Shot004Yellow::onReset() {
     getStatus()->reset();
     setScaleR(3.0);
     setCullingDraw(false);
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->setRollFaceAngVelo(D_ANG(3));
     pVecDriver->setMvVelo(40000);             //ˆÚ“®‘¬“x
     pVecDriver->setMvAcce(1000);             //ˆÚ“®‘¬“x
@@ -47,7 +47,7 @@ void Shot004Yellow::onActive() {
 
 void Shot004Yellow::processBehavior() {
     //À•W‚É”½‰f
-    callVecDriver()->behave();
+    getVecDriver()->behave();
 }
 
 void Shot004Yellow::processJudgement() {

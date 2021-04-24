@@ -64,7 +64,7 @@ public:
      * ‰ºˆÊ‚ÅÀ‘•‚µ‚Ä‰º‚³‚¢B
      * @return
      */
-    virtual GgafDx::SplineManufacture* getSplManuf() = 0;
+    virtual GgafDx::CurveManufacture* getSplManuf() = 0;
 
     virtual void onSayonaraAll() override;
 

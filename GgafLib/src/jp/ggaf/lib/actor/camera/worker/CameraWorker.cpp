@@ -124,11 +124,11 @@ void CameraWorker::setUpVec(coord tx, coord ty, coord tz) {
     _pUp->setPosition(tx,ty,tz);
 }
 void CameraWorker::stopMvCam() {
-    _pCam->callGeoDriver()->stopMv();
+    _pCam->getGeoDriver()->stopMv();
 }
 
 void CameraWorker::stopMvVp() {
-    _pVp->callGeoDriver()->stopMv();
+    _pVp->getGeoDriver()->stopMv();
 }
 
 CameraWorker::~CameraWorker() {

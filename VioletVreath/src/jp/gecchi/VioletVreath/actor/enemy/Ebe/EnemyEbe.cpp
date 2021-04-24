@@ -4,7 +4,7 @@
 #include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/dx/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/curve/DriverLeader.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
@@ -15,7 +15,7 @@ using namespace VioletVreath;
 
 enum {
     PROG_MOVE01_1   ,
-    PROG_SPLINE_MOVE,
+    PROG_CURVE_MOVE,
     PROG_MOVE02_1   ,
     PROG_MOVE02_2   ,
     PROG_BANPEI,
@@ -28,13 +28,13 @@ enum {
 EnemyEbe::EnemyEbe(const char* prm_name) :
         VvEnemyActor<DefaultMeshSetActor>(prm_name, "Ebe", StatusReset(EnemyEbe)) {
     _class_name = "EnemyEbe";
-    pVecDriverLeader_ = nullptr;
+    pDriverLeader_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //爆発
-    callVecDriver()->linkFaceAngByMvAng(true);
+    getVecDriver()->linkFaceAngByMvAng(true);
 }
 
 void EnemyEbe::onCreateModel() {
@@ -49,28 +49,28 @@ void EnemyEbe::initialize() {
 }
 
 void EnemyEbe::config(
-        SplineLeader* prm_pVecDriverLeader,
+        DriverLeader* prm_pDriverLeader,
         GgafCore::ActorDepository* prm_pDepo_shot,
         GgafCore::ActorDepository* prm_pDepo_shotEffect
         ) {
-    GGAF_DELETE_NULLABLE(pVecDriverLeader_);
-    pVecDriverLeader_ = prm_pVecDriverLeader;
+    GGAF_DELETE_NULLABLE(pDriverLeader_);
+    pDriverLeader_ = prm_pDriverLeader;
     pDepo_shot_ = prm_pDepo_shot;
     pDepo_effect_ = prm_pDepo_shotEffect;
 }
 
 void EnemyEbe::onActive() {
-    if (pVecDriverLeader_ == nullptr) {
+    if (pDriverLeader_ == nullptr) {
         throwCriticalException("EnemyEbeはスプライン必須ですconfigして下さい");
     }
     getStatus()->reset();
     setHitAble(true);
-    callVecDriver()->setMvAcce(0);
+    getVecDriver()->setMvAcce(0);
     getProgress()->reset(PROG_MOVE01_1);
 }
 
 void EnemyEbe::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_MOVE01_1: {
@@ -80,13 +80,13 @@ void EnemyEbe::processBehavior() {
             break;
         }
 
-        case PROG_SPLINE_MOVE: {
+        case PROG_CURVE_MOVE: {
             if (pProg->hasJustChanged()) {
-                pVecDriverLeader_->start(RELATIVE_COORD);
+                pDriverLeader_->start(RELATIVE_COORD);
             }
-            pVecDriverLeader_->behave();
+            pDriverLeader_->behave();
 
-            if (pVecDriverLeader_->isFinished()) {
+            if (pDriverLeader_->isFinished()) {
                 pProg->changeNext();
             }
             break;
@@ -124,11 +124,11 @@ void EnemyEbe::onHit(const GgafCore::Actor* prm_pOtherActor) {
 }
 
 void EnemyEbe::onInactive() {
-    GGAF_DELETE_NULLABLE(pVecDriverLeader_);
+    GGAF_DELETE_NULLABLE(pDriverLeader_);
 }
 
 EnemyEbe::~EnemyEbe() {
-    GGAF_DELETE_NULLABLE(pVecDriverLeader_);
+    GGAF_DELETE_NULLABLE(pDriverLeader_);
 }
 
 

@@ -30,7 +30,7 @@ void EffectLockonMagic::onActive() {
 
 void EffectLockonMagic::processBehavior() {
     getUvFlipper()->behave();
-    callVecDriver()->behave();
+    getVecDriver()->behave();
     getScaler()->behave();
 }
 

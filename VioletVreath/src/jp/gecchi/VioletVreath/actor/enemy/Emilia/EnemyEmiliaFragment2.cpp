@@ -20,8 +20,8 @@ EnemyEmiliaFragment2::EnemyEmiliaFragment2(const char* prm_name) :
 void EnemyEmiliaFragment2::onDispatched(EnemyEmiliaBase* prm_pOrg, FormationEmilia* prm_pFormationEmilia) {
     EnemyEmiliaBase::onDispatched(prm_pOrg, prm_pFormationEmilia);
     setPositionAt(prm_pOrg);
-    GgafDx::VecDriver* pVecDriver = callVecDriver();
-    pVecDriver->takeoverMvFrom(prm_pOrg->callVecDriver());
+    GgafDx::VecDriver* pVecDriver = getVecDriver();
+    pVecDriver->takeoverMvFrom(prm_pOrg->getVecDriver());
     pVecDriver->setMvVelo(pVecDriver->_velo_mv/2); //半分のスピードへ
     pVecDriver->addRyMvAng(RND(D_ANG(-90), D_ANG(+90)));
     pVecDriver->addRzMvAng(RND(D_ANG(-90), D_ANG(+90)));
@@ -36,7 +36,7 @@ void EnemyEmiliaFragment2::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliSphere(0, PX_C(50));
-    callVecDriver()->setRollPitchYawFaceAngVelo(D_ANG(3), D_ANG(6), D_ANG(9));
+    getVecDriver()->setRollPitchYawFaceAngVelo(D_ANG(3), D_ANG(6), D_ANG(9));
 }
 
 void EnemyEmiliaFragment2::onActive() {

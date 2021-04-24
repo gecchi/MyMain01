@@ -4,7 +4,7 @@
 #include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
-#include "jp/ggaf/dx/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/curve/DriverLeader.h"
 
 using namespace GgafDx;
 using namespace GgafLib;
@@ -16,8 +16,8 @@ using namespace VioletVreath;
 EnemyStraeaLaserChip004::EnemyStraeaLaserChip004(const char* prm_name) :
         VvEnemyActor<HomingLaserChip>(prm_name, "StraeaLaserChip001", StatusReset(EnemyStraeaLaserChip004)) {
     _class_name = "EnemyStraeaLaserChip004";
-    pConn_pSplManuf_ = connectToSplineManufactureManager("GURUGURU");
-    pVecDriverLeader_ = pConn_pSplManuf_->peek()->createVecDriverLeader(callVecDriver());
+    pConn_pCurveManuf_ = connectToCurveManufactureManager("GURUGURU");
+    pDriverLeader_ = pConn_pCurveManuf_->peek()->createVecDriverLeader(getVecDriver());
 //    if (pTexCon1_ == nullptr) {
 //        pTexCon1_ = connectToModelTextureManager("StraeaLaserChip001.png");
 //        pTexCon2_ = connectToModelTextureManager("EsperiaLaserChip001.png");
@@ -42,12 +42,12 @@ void EnemyStraeaLaserChip004::onActive() {
     HomingLaserChip::onActive();
     //ステータスリセット
     getStatus()->reset();
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->setMvVelo(10000);
     pVecDriver->setMvAcce(300);
     //pVecDriver->forceMvVeloRange(0, 70000);
     pVecDriver->linkFaceAngByMvAng(true);
-    pVecDriverLeader_->stop();
+    pDriverLeader_->stop();
     _force_alpha = 1.50; //最初はちょっと明るめ
 }
 
@@ -65,10 +65,10 @@ void EnemyStraeaLaserChip004::processBehaviorHeadChip() {
 //    //<--debug
 
     if (getActiveFrame() == 2) {
-        pVecDriverLeader_->start(RELATIVE_COORD_DIRECTION); //向いた方向にワールド変換
+        pDriverLeader_->start(RELATIVE_COORD_DIRECTION); //向いた方向にワールド変換
     }
-    pVecDriverLeader_->behave(); //←途中でちょんぎれたらだめじゃん
-    callVecDriver()->behave();
+    pDriverLeader_->behave(); //←途中でちょんぎれたらだめじゃん
+    getVecDriver()->behave();
 }
 
 void EnemyStraeaLaserChip004::processJudgement() {
@@ -88,8 +88,8 @@ void EnemyStraeaLaserChip004::onHit(const GgafCore::Actor* prm_pOtherActor) {
 }
 
 EnemyStraeaLaserChip004::~EnemyStraeaLaserChip004() {
-    GGAF_DELETE(pVecDriverLeader_);
-    pConn_pSplManuf_->close();
+    GGAF_DELETE(pDriverLeader_);
+    pConn_pCurveManuf_->close();
     //if (pTexCon1_) {
     //    pTexCon1_->close();
     //    pTexCon1_ = nullptr;

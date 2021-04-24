@@ -6,7 +6,7 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/lib/DefaultGod.h"
-#include "jp/ggaf/dx/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/curve/DriverLeader.h"
 
 using namespace GgafDx;
 using namespace GgafLib;
@@ -27,7 +27,7 @@ FormationAllas001::FormationAllas001(const char* prm_name) :
     interval_frames_ = 0;
     velo_mv_         = 0;
     //ƒAƒ‰ƒX•Ò‘àì¬
-    pConn_pSplManuf_ = connectToSplineManufactureManager("Allas01");
+    pConn_pCurveManuf_ = connectToCurveManufactureManager("Allas01");
     pConn_depo_ = nullptr;
 }
 
@@ -70,9 +70,9 @@ void FormationAllas001::processBehavior() {
                 if (getActiveFrame() % interval_frames_ == 0) {
                     EnemyAllas* pAllas = (EnemyAllas*)callUpMember();
                     if (pAllas) {
-                        pAllas->callVecDriver()->setMvVelo(velo_mv_);
-                        SplineLeader* pVecDriverLeader = pConn_pSplManuf_->peek()->createVecDriverLeader(pAllas->callVecDriver());
-                        pAllas->config(pVecDriverLeader, nullptr, nullptr);
+                        pAllas->getVecDriver()->setMvVelo(velo_mv_);
+                        DriverLeader* pDriverLeader = pConn_pCurveManuf_->peek()->createVecDriverLeader(pAllas->getVecDriver());
+                        pAllas->config(pDriverLeader, nullptr, nullptr);
                         onCallUpAllas(pAllas);
                     }
                 }
@@ -97,7 +97,7 @@ void FormationAllas001::onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed)
 }
 
 FormationAllas001::~FormationAllas001() {
-    pConn_pSplManuf_->close();
+    pConn_pCurveManuf_->close();
     if (pConn_depo_) {
         pConn_depo_->close();
     }

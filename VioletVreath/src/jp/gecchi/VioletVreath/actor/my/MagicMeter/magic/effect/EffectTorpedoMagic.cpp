@@ -30,7 +30,7 @@ void EffectTorpedoMagic::onActive() {
 
 void EffectTorpedoMagic::processBehavior() {
     getUvFlipper()->behave();
-    callVecDriver()->behave();
+    getVecDriver()->behave();
     getScaler()->behave();
 }
 

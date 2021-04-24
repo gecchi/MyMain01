@@ -9,8 +9,7 @@
 
 using namespace GgafDx;
 
-VecDriver::VecDriver(GeometricActor* prm_pActor) : GgafCore::Object(),
-_pActor(prm_pActor) {
+VecDriver::VecDriver(GeometricActor* prm_pActor) : ActorDriver(prm_pActor) {
     _pAsstMv = nullptr;
     _pAsstFaceAng = nullptr;
     _pAsstMvAng = nullptr;

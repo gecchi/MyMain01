@@ -26,14 +26,14 @@ void MyMagicEnergy::onCreateModel() {
 }
 
 void MyMagicEnergy::initialize() {
-    callVecDriver()->setRollPitchYawFaceAngVelo(2111, 2333, 2777);
+    getVecDriver()->setRollPitchYawFaceAngVelo(2111, 2333, 2777);
 }
 
 void MyMagicEnergy::onActive() {
 }
 
 void MyMagicEnergy::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->behave();
     setPositionAt(pCore_);
     setScaleAt(pCore_);

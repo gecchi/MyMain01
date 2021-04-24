@@ -4,13 +4,13 @@
 #include "jp/ggaf/lib/DefaultGod.h"
 
 #include "jp/ggaf/lib/util/VirtualButton.h"
-#include "jp/ggaf/dx/manager/SplineSourceConnection.h"
+#include "jp/ggaf/dx/manager/CurveSourceConnection.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/manager/EffectManager.h"
 #include "jp/gecchi/VioletVreath/manager/DepositoryManager.h"
 #include "jp/gecchi/VioletVreath/manager/DepositoryConnection.h"
-#include "jp/gecchi/VioletVreath/manager/SplineSourceManagerEx.h"
-#include "jp/gecchi/VioletVreath/manager/SplineManufactureManagerEx.h"
+#include "jp/gecchi/VioletVreath/manager/CurveSourceManagerEx.h"
+#include "jp/gecchi/VioletVreath/manager/CurveManufactureManagerEx.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime.h"
 #undef pGOD
 #define pGOD ((VioletVreath::God*)GgafCore::God::ask())
@@ -119,8 +119,8 @@ public:
 
     virtual EffectManager* createEffectManager() override;  //共変の戻り値
 
-    virtual SplineSourceManagerEx* createSplineSourceManager() override;  //共変の戻り値
-    virtual SplineManufactureManagerEx* createSplineManufactureManager() override;  //共変の戻り値
+    virtual CurveSourceManagerEx* createCurveSourceManager() override;  //共変の戻り値
+    virtual CurveManufactureManagerEx* createCurveManufactureManager() override;  //共変の戻り値
 
     virtual ~God();
 };

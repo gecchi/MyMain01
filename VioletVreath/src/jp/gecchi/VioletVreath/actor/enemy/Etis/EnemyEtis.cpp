@@ -52,7 +52,7 @@ void EnemyEtis::initialize() {
 void EnemyEtis::onActive() {
     getStatus()->reset();
     setAlpha(1.0);
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->setFaceAngVelo(AXIS_Z, D_ANG(1));
     pVecDriver->setRzRyMvAng(D0ANG, D180ANG);
     pVecDriver->setMvVelo(PX_C(3));
@@ -67,7 +67,7 @@ void EnemyEtis::onActive() {
 
 void EnemyEtis::processBehavior() {
     //À•W‚É”½‰f
-    callVecDriver()->behave();
+    getVecDriver()->behave();
 }
 
 void EnemyEtis::processJudgement() {

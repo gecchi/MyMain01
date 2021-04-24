@@ -1,0 +1,9 @@
+SPLINE=Hilbert3_0_4.spl,Hilbert3_0_3.spl,Hilbert3_0_2.spl,Hilbert3_0_1.spl,Hilbert3.spl,Hilbert3_1_1.spl,Hilbert3_1_2.spl,Hilbert3_1_3.spl,Hilbert3_1_4.spl
+MAG_X=300000
+MAG_Y=300000
+MAG_Z=300000
+CLASS=FixedFrameSplineVecDriverLeader
+SPENT_FRAME=1200
+ANGLE_VELOCITY=20000
+TURN_WAY=TURN_CLOSE_TO
+TURN_OPTIMIZE=false

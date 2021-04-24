@@ -18,7 +18,7 @@ FormationGeria001::FormationGeria001(const char* prm_name) :
 
     setPosition(PX_C(5000), 0, PX_C(5000));
     setFaceAngTwd(PX_C(5000), 0, -PX_C(5000));
-    callGeoDriver()->setVxyzMvVelo(-2000, 0, 0);
+    getGeoDriver()->setVxyzMvVelo(-2000, 0, 0);
 }
 
 void FormationGeria001::processBehavior() {
@@ -26,12 +26,12 @@ void FormationGeria001::processBehavior() {
         EnemyGeria* pGeria = summonGeria();
         if (pGeria) {
             pGeria->setPositionAroundAt(this, PX_C(800));
-            pGeria->callVecDriver()->setRzRyMvAng(_rz, _ry); //Œü‚¢‚Ä‚é•ûŒü‚É”ò‚Î‚·
-            pGeria->callVecDriver()->setMvVelo(PX_C(20));
+            pGeria->getVecDriver()->setRzRyMvAng(_rz, _ry); //Œü‚¢‚Ä‚é•ûŒü‚É”ò‚Î‚·
+            pGeria->getVecDriver()->setMvVelo(PX_C(20));
             pGeria->setMigrationLength(PX_C(10000));
         }
     }
-    callGeoDriver()->behave();
+    getGeoDriver()->behave();
 }
 
 void FormationGeria001::processJudgement() {

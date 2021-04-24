@@ -26,7 +26,7 @@ void TestChoki::onActive() {
 }
 
 void TestChoki::processBehavior() {
-    callVecDriver()->behave();
+    getVecDriver()->behave();
     //getSeTransmitter()->behave();
     dispStamina();
 }

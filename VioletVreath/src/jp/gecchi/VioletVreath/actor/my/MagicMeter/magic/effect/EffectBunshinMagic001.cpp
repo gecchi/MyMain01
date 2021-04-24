@@ -15,13 +15,13 @@ EffectBunshinMagic001::EffectBunshinMagic001(const char* prm_name)
     setZEnableDraw(true);        //描画時、Zバッファ値は考慮される
     setZWriteEnable(false);  //自身のZバッファを書き込みしない
     setCullingDraw(false);
-    callVecDriver()->setRollPitchYawFaceAngVelo(PX_C(3), PX_C(5), PX_C(7));
+    getVecDriver()->setRollPitchYawFaceAngVelo(PX_C(3), PX_C(5), PX_C(7));
 }
 
 void EffectBunshinMagic001::processBehavior() {
     EffectBlink::processBehavior();
-    callVecDriver()->behave();
-    callGeoDriver()->behave();
+    getVecDriver()->behave();
+    getGeoDriver()->behave();
 }
 
 void EffectBunshinMagic001::blink(frame prm_scale_in_frames, frame prm_duration_frames, frame prm_scale_out_frames,

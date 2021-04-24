@@ -4,7 +4,7 @@
 #include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
-#include "jp/ggaf/dx/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/curve/DriverLeader.h"
 
 using namespace GgafDx;
 using namespace GgafLib;
@@ -13,8 +13,8 @@ using namespace VioletVreath;
 EnemyStraeaLaserChip003::EnemyStraeaLaserChip003(const char* prm_name) :
         VvEnemyActor<WateringLaserChip>(prm_name, "StraeaLaserChip001", StatusReset(EnemyStraeaLaserChip003)) {
     _class_name = "EnemyStraeaLaserChip003";
-    pConn_pSplManuf_ = connectToSplineManufactureManager("GURUGURU");
-    pVecDriverLeader_ = pConn_pSplManuf_->peek()->createVecDriverLeader(callVecDriver());
+    pConn_pCurveManuf_ = connectToCurveManufactureManager("GURUGURU");
+    pDriverLeader_ = pConn_pCurveManuf_->peek()->createVecDriverLeader(getVecDriver());
 }
 
 void EnemyStraeaLaserChip003::initialize() {
@@ -22,7 +22,7 @@ void EnemyStraeaLaserChip003::initialize() {
     setHitAble(true, false);
     setScaleR(5.0);
     setCullingDraw(false);
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->setMvVelo(30000);
     pVecDriver->linkFaceAngByMvAng(true);
 }
@@ -31,12 +31,12 @@ void EnemyStraeaLaserChip003::onActive() {
     WateringLaserChip::onActive();
     //ステータスリセット
     getStatus()->reset();
-    pVecDriverLeader_->start(RELATIVE_COORD_DIRECTION); //向いた方向にワールド変換
+    pDriverLeader_->start(RELATIVE_COORD_DIRECTION); //向いた方向にワールド変換
 }
 
 void EnemyStraeaLaserChip003::processBehavior() {
-    pVecDriverLeader_->behave();
-    callVecDriver()->behave();
+    pDriverLeader_->behave();
+    getVecDriver()->behave();
 }
 
 void EnemyStraeaLaserChip003::processJudgement() {
@@ -59,7 +59,7 @@ void EnemyStraeaLaserChip003::onInactive() {
 }
 
 EnemyStraeaLaserChip003::~EnemyStraeaLaserChip003() {
-    GGAF_DELETE(pVecDriverLeader_);
-    pConn_pSplManuf_->close();
+    GGAF_DELETE(pDriverLeader_);
+    pConn_pCurveManuf_->close();
 }
 

@@ -148,9 +148,9 @@ public:
     static std::string DIR_WAVE[3];
 
     /** [r] スプライン曲線座標情報ファイル(datファイル)格納ディレクトリ名 */
-    static std::string DIRNAME_RESOURCE_SPLINE;
+    static std::string DIRNAME_RESOURCE_CURVE;
     /** [r] スプライン曲線座標情報ファイル(datファイル)格納ディレクトリ */
-    static std::string DIR_SPLINE;
+    static std::string DIR_CURVE;
 
     /** [r] １画面フルスクリーンモードだった場合のスクリーンの補正前解像度(横) */
     static pixcoord SINGLE_VIEW_FULL_SCREEN_WIDTH_BK;

@@ -79,6 +79,7 @@
     <ClInclude Include="include\jp\ggaf\dx\actor\SkinAniMeshActor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\SpriteActor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\SpriteSetActor.h" />
+    <ClInclude Include="include\jp\ggaf\dx\actor\supporter\ActorDriver.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\AlphaFader.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\Checker.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\Colorist.h" />
@@ -197,12 +198,12 @@
     <ClInclude Include="include\jp\ggaf\dx\util\SkinAniMeshFrame.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\SkinAniMeshWorldMatStack.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\SphereRadiusVectors.h" />
+    <ClInclude Include="include\jp\ggaf\dx\util\spline\DriverLeader.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\spline\FixedFrameSplineGeoDriverLeader.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\spline\FixedFrameSplineManufacture.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\spline\FixedFrameSplineVecDriverLeader.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\spline\FixedVelocitySplineManufacture.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\spline\FixedVelocitySplineVecDriverLeader.h" />
-    <ClInclude Include="include\jp\ggaf\dx\util\spline\SplineLeader.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\spline\SplineManufacture.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\spline\SplineSource.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\spline\SteppedCoordSplineManufacture.h" />
@@ -260,6 +261,7 @@
     <ClCompile Include="src\jp\ggaf\dx\actor\SkinAniMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\SpriteActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\SpriteSetActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\dx\actor\supporter\ActorDriver.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\AlphaFader.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\Checker.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\Colorist.cpp" />
@@ -371,12 +373,12 @@
     <ClCompile Include="src\jp\ggaf\dx\util\SkinAniMeshAllocHierarchy.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\util\SkinAniMeshWorldMatStack.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\util\SphereRadiusVectors.cpp" />
+    <ClCompile Include="src\jp\ggaf\dx\util\spline\DriverLeader.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\util\spline\FixedFrameSplineGeoDriverLeader.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\util\spline\FixedFrameSplineManufacture.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\util\spline\FixedFrameSplineVecDriverLeader.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\util\spline\FixedVelocitySplineManufacture.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\util\spline\FixedVelocitySplineVecDriverLeader.cpp" />
-    <ClCompile Include="src\jp\ggaf\dx\util\spline\SplineLeader.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\util\spline\SplineManufacture.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\util\spline\SplineSource.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\util\spline\SteppedCoordSplineManufacture.cpp" />

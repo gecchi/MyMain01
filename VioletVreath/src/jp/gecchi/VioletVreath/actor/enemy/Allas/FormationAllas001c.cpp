@@ -2,7 +2,7 @@
 
 #include "EnemyAllas.h"
 #include "jp/ggaf/dx/actor/supporter/VecDriver.h"
-#include "jp/ggaf/dx/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/curve/DriverLeader.h"
 
 
 
@@ -14,8 +14,8 @@ FormationAllas001c::FormationAllas001c(const char* prm_name) : FormationAllas001
 }
 
 void FormationAllas001c::onCallUpAllas(EnemyAllas* prm_pAllas) {
-    prm_pAllas->pVecDriverLeader_->adjustAxisZFlip();
-    prm_pAllas->pVecDriverLeader_->setAbsoluteBeginCoord();
+    prm_pAllas->pDriverLeader_->adjustAxisZFlip();
+    prm_pAllas->pDriverLeader_->setAbsoluteBeginCoord();
 }
 
 FormationAllas001c::~FormationAllas001c() {

@@ -132,7 +132,7 @@ void EnemyAlisana::processBehavior() {
     }
     pAlphaFader->behave();
     getMorpher()->behave();
-    callVecDriver()->behave();
+    getVecDriver()->behave();
 }
 
 void EnemyAlisana::processJudgement() {

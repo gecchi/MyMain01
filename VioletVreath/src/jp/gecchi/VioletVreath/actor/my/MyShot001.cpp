@@ -25,8 +25,8 @@ void MyShot001::initialize() {
     pChecker->createCollisionArea(1);
     pChecker->setColliAABox(0, -PX_C(50), -PX_C(50), -PX_C(50),
                               PX_C(50),  PX_C(50),  PX_C(50));
-    callVecDriver()->setRollFaceAngVelo(D_ANG(12));
-    callVecDriver()->linkFaceAngByMvAng(true);
+    getVecDriver()->setRollFaceAngVelo(D_ANG(12));
+    getVecDriver()->linkFaceAngByMvAng(true);
 }
 
 void MyShot001::onActive() {
@@ -35,7 +35,7 @@ void MyShot001::onActive() {
 }
 
 void MyShot001::processBehavior() {
-    callVecDriver()->behave();
+    getVecDriver()->behave();
 }
 
 void MyShot001::processJudgement() {

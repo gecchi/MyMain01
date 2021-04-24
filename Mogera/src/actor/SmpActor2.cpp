@@ -79,7 +79,7 @@ void SmpActor2::processBehavior() {
     if (GgafDx::Input::isPressedKey(DIK_F)) {
         _z += PX_C(2); //奥
     }
-    callVecDriver()->behave(); //力車を活動させる（Z軸回転する）
+    getVecDriver()->behave(); //力車を活動させる（Z軸回転する）
 }
 
 void SmpActor2::onHit(const GgafCore::Actor* prm_pOtherActor) {

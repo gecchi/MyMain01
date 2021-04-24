@@ -8,7 +8,7 @@
 #include "jp/ggaf/dx/model/supporter/TextureBlinker.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/dx/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/curve/DriverLeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/common/laserchip/EnemyStraightLaserChip001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
@@ -42,7 +42,7 @@ EnemyHalia::EnemyHalia(const char* prm_name) :
         //VvEnemyActor<CubeMapMassMorphMeshActor>(prm_name, "1,HaliaCM", StatusReset(EnemyHalia)) {
     _class_name = "EnemyHalia";
     veloTopMv_ = 20000;
-    pVecDriverLeader_ = nullptr;
+    pDriverLeader_ = nullptr;
     pLaserChipDepo_ = NEW LaserChipDepository("MyRotLaser");
     pLaserChipDepo_->config(60, 1); //Haliaは弾切れフレームを1にしないとパクパクしちゃいます。
     EnemyStraightLaserChip001* pChip;
@@ -74,7 +74,7 @@ void EnemyHalia::onCreateModel() {
 
 void EnemyHalia::initialize() {
     setHitAble(true);
-    callVecDriver()->linkFaceAngByMvAng(true);
+    getVecDriver()->linkFaceAngByMvAng(true);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliSphere(0, 90000);
@@ -85,14 +85,14 @@ void EnemyHalia::onActive() {
     getStatus()->reset();
     setMorphWeight(0.0);
     getProgress()->reset(PROG_INIT);
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->setRollFaceAngVelo(1000);
     pVecDriver->setMvVelo(0);
     pVecDriver->setMvAcce(0);
 }
 
 void EnemyHalia::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
@@ -223,5 +223,5 @@ void EnemyHalia::onInactive() {
 }
 
 EnemyHalia::~EnemyHalia() {
-    GGAF_DELETE_NULLABLE(pVecDriverLeader_);
+    GGAF_DELETE_NULLABLE(pDriverLeader_);
 }

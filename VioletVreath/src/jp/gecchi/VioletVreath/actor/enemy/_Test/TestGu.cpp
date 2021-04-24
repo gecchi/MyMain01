@@ -25,7 +25,7 @@ void TestGu::onActive() {
 }
 
 void TestGu::processBehavior() {
-    callVecDriver()->behave();
+    getVecDriver()->behave();
     //getSeTransmitter()->behave();
     dispStamina();
 }

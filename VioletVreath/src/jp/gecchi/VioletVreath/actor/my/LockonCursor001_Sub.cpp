@@ -32,7 +32,7 @@ void LockonCursor001_Sub::onActive() {
     getUvFlipper()->setActivePtnToTop();
     setAlpha(0.01);
     _sx = _sy = _sz = pLockonCursor001_Main_->_sx;
-    callVecDriver()->setFaceAngVelo(AXIS_Z, 1000);        //‰E‰ñ“]
+    getVecDriver()->setFaceAngVelo(AXIS_Z, 1000);        //‰E‰ñ“]
     //getSeTransmitter()->play3D(0); //ƒƒbƒNƒIƒ“SE
     if (pTarget_) {
         setPositionAt(pTarget_);
@@ -45,7 +45,7 @@ void LockonCursor001_Sub::onActive() {
 
 void LockonCursor001_Sub::processBehavior() {
     LockonCursor001::processBehavior();
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     GgafCore::Progress* const pProg = getProgress();
     if (pProg->get() == LOCKON001_PROG_LOCK) {
         if (getAlpha() < 0.7) {
@@ -59,7 +59,7 @@ void LockonCursor001_Sub::processBehavior() {
         }
         //k¬Š®—¹ŒãAMain‚Ìƒr[ƒg‚É‡‚í‚¹‚é
         _sx = _sy = _sz = pLockonCursor001_Main_->_sx;
-        pVecDriver->_angvelo_face[AXIS_Z] = pLockonCursor001_Main_->callVecDriver()->_angvelo_face[AXIS_Z];
+        pVecDriver->_angvelo_face[AXIS_Z] = pLockonCursor001_Main_->getVecDriver()->_angvelo_face[AXIS_Z];
         if (pTarget_) {
             if (pTarget_->isActiveInTheTree() || pTarget_->willActivateAfter()) {
                 if (ABS(pTarget_->_x-_x) <= PX_C(200) &&
@@ -83,7 +83,7 @@ void LockonCursor001_Sub::processBehavior() {
         pTarget_ = nullptr;
         addAlpha(-0.05);
         _sx = _sy = _sz = pLockonCursor001_Main_->_sx;
-        pVecDriver->_angvelo_face[AXIS_Z] = pLockonCursor001_Main_->callVecDriver()->_angvelo_face[AXIS_Z];
+        pVecDriver->_angvelo_face[AXIS_Z] = pLockonCursor001_Main_->getVecDriver()->_angvelo_face[AXIS_Z];
         if ( getAlpha() < 0.0f) {
             inactivate();
         }
@@ -107,7 +107,7 @@ void LockonCursor001_Sub::lockon(GgafDx::GeometricActor* prm_pTarget) {
         return;
     }
     pTarget_ = prm_pTarget;
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     GgafCore::Progress* const pProg = getProgress();
     if (pProg->get() == LOCKON001_PROG_LOCK) {
     } else if (pProg->get() == LOCKON001_PROG_RELEASE) {
@@ -119,7 +119,7 @@ void LockonCursor001_Sub::lockon(GgafDx::GeometricActor* prm_pTarget) {
 void LockonCursor001_Sub::releaseLockon() {
 
     if (isActiveInTheTree()) {
-        GgafDx::VecDriver* const pVecDriver = callVecDriver();
+        GgafDx::VecDriver* const pVecDriver = getVecDriver();
         GgafCore::Progress* const pProg = getProgress();
         if (pProg->get() == LOCKON001_PROG_LOCK) {
             pVecDriver->setFaceAngVelo(AXIS_Z, pVecDriver->_angvelo_face[AXIS_Z]*-3); //‘¬‚­‹t‰ñ“]

@@ -19,7 +19,7 @@ void SmpActor::initialize() {
     setPosition(0, 0, 0);
 
     //力車にキャラのZ軸回転の角速度を設定(毎フレーム2度)
-    VecDriver* kuroko = callVecDriver();
+    VecDriver* kuroko = getVecDriver();
     kuroko->setFaceAngVelo(AXIS_Z, D_ANG(2));
 }
 
@@ -50,7 +50,7 @@ void SmpActor::processBehavior() {
             _y -= d; //下
         }
     }
-    callVecDriver()->behave(); //力車を活動させる（Z軸回転する）
+    getVecDriver()->behave(); //力車を活動させる（Z軸回転する）
 }
 
 SmpActor::~SmpActor() {

@@ -39,7 +39,7 @@ void EnemyEsperiaLaserChip001::initialize() {
     pChecker->setColliAACube(0, 20000);
     setHitAble(true, false);
     setScaleR(5.0);
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->forceMvVeloRange(PX_C(100));
     pVecDriver->linkFaceAngByMvAng(true);
 }
@@ -49,7 +49,7 @@ void EnemyEsperiaLaserChip001::onActive() {
     //ステータスリセット
     getStatus()->reset();
     begin_y_ = _y;
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->stopTurningMvAng();
     if (getInfrontChip() == nullptr) {
         pVecDriver->setMvAngTwd(tx1_, ty1_, tz1_);
@@ -65,7 +65,7 @@ void EnemyEsperiaLaserChip001::onActive() {
 }
 
 void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_MOVE_UP: {

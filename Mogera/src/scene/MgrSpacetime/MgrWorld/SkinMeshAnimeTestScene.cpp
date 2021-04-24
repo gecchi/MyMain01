@@ -60,19 +60,19 @@ void SkinMeshAnimeTestScene::processBehavior() {
         bringSceneMediator()->appendGroupChild(p1);
         p1->setPosition(PX_C(-200), PX_C(-250), 0);
         p1->_pPuppeteer->stop();
-        p1->callVecDriver()->setRyFaceAngVelo(D_ANG(1));
+        p1->getVecDriver()->setRyFaceAngVelo(D_ANG(1));
 
         p2 = (AniTest*)receiveActor(1235);
         bringSceneMediator()->appendGroupChild(p2);
         p2->setPosition(0, PX_C(-250), 0);
         p2->_pPuppeteer->stop();
-        p2->callVecDriver()->setRyFaceAngVelo(D_ANG(-1));
+        p2->getVecDriver()->setRyFaceAngVelo(D_ANG(-1));
 
         p3 = (AniTest*)receiveActor(1236);
         bringSceneMediator()->appendGroupChild(p3);
         p3->setPosition(PX_C(200), PX_C(-250), 0);
         p3->_pPuppeteer->stop();
-        p3->callVecDriver()->setRyFaceAngVelo(D_ANG(0.5));
+        p3->getVecDriver()->setRyFaceAngVelo(D_ANG(0.5));
 
         p4 = (AniTest2*)receiveActor(1237);
         bringSceneMediator()->appendGroupChild(p4);

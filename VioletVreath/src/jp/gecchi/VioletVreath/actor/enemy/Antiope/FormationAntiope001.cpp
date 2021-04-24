@@ -58,18 +58,18 @@ void FormationAntiope001::processBehavior() {
 
             if (pP && pN) {
                 pP->setPositionAt(&entry_pos);
-                pP->callVecDriver()->setMvAngTwd(&twd_pos_p);
-                pP->setRzFaceAng(pP->callVecDriver()->_rz_mv);
-                pP->setRyFaceAng(pP->callVecDriver()->_ry_mv);
-                pP->callVecDriver()->stopMv();
+                pP->getVecDriver()->setMvAngTwd(&twd_pos_p);
+                pP->setRzFaceAng(pP->getVecDriver()->_rz_mv);
+                pP->setRyFaceAng(pP->getVecDriver()->_ry_mv);
+                pP->getVecDriver()->stopMv();
                 pP->mv_velo_twd_.set(vX*veloMv, vY*veloMv, vZ*veloMv);
 
                 pN->setPositionAt(&entry_pos);
-                pN->callVecDriver()->setMvAngTwd(&twd_pos_p);
-                pN->callVecDriver()->reverseMvAng(); //”½“]
-                pN->setRzFaceAng(pN->callVecDriver()->_rz_mv);
-                pN->setRyFaceAng(pN->callVecDriver()->_ry_mv);
-                pN->callVecDriver()->stopMv();
+                pN->getVecDriver()->setMvAngTwd(&twd_pos_p);
+                pN->getVecDriver()->reverseMvAng(); //”½“]
+                pN->setRzFaceAng(pN->getVecDriver()->_rz_mv);
+                pN->setRyFaceAng(pN->getVecDriver()->_ry_mv);
+                pN->getVecDriver()->stopMv();
                 pN->mv_velo_twd_.set(vX*veloMv, vY*veloMv, vZ*veloMv);
 
                 //ƒyƒAƒŠƒ“ƒO

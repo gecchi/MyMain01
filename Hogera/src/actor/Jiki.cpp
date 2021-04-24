@@ -9,8 +9,6 @@
 #include "scene/HgrSpacetime/HgrWorld.h"
 #include "HgrGod.h"
 
-
-
 using namespace GgafLib;
 using namespace Hogera;
 
@@ -24,18 +22,18 @@ enum {
 Jiki::Jiki(const char* prm_name) :
         DefaultSpriteActor(prm_name, "Lockon001") {
     _class_name = "Jiki";
-//    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //ƒ[ƒ‹ƒh•ÏŠ·‚Íƒrƒ‹ƒ{[ƒh‚ÅRz‰ñ“]‚É‹­§
-    effectBlendOne(); //ƒGƒtƒFƒNƒgƒeƒNƒjƒbƒN‚Í‰ÁZ‡¬‚É‹­§
-    setZEnableDraw(false);      //Zƒoƒbƒtƒ@‚Íl—¶–³‚µ‚É‹­§
-    setZWriteEnable(false); //©g‚ÌZƒoƒbƒtƒ@‚ğ‘‚«‚İ‚µ‚È‚¢‚É‹­§
+//    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv);
+    effectBlendOne();
+    setZEnableDraw(false);
+    setZWriteEnable(false);
     setCullingDraw(false);
     setHitAble(true);
 }
 
 void Jiki::initialize() {
     GgafDx::UvFlipper* pUvFlipper = getUvFlipper();
-    pUvFlipper->setFlipPtnRange(0, 3);   //ƒAƒjƒ”ÍˆÍ‚ğ‚O`‚P‚T
-    pUvFlipper->exec(FLIP_ORDER_LOOP, 5); //ƒAƒjƒ‡˜
+    pUvFlipper->setFlipPtnRange(0, 3);
+    pUvFlipper->exec(FLIP_ORDER_LOOP, 5);
     CollisionChecker* pChecker = getCollisionChecker();
 //    pChecker->createCollisionArea(1);
 ////    pChecker->set2DColliSquare(0, PX_C(128));
@@ -59,34 +57,32 @@ void Jiki::onReset() {
 
 void Jiki::onActive() {
     getUvFlipper()->setActivePtnToTop();
-    callVecDriver()->setFaceAngVelo(AXIS_Z, 1000);        //‰ñ“]
+    getVecDriver()->setFaceAngVelo(AXIS_Z, 1000);
 }
 
 void Jiki::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     GgafCore::Progress* const pProg = getProgress();
     VirtualButton* pVb = &(P_GOD->getSpacetime()->getWorld()->vb_);
     if (pVb->isPressed(VB_BUTTON1)) {
-        //ƒ{ƒ^ƒ“‚PiƒXƒy[ƒXƒL[j‚ğ‰Ÿ‚µ‚È‚ª‚ç‚Ìê‡
         if (pVb->isPressed(VB_UP)) {
-            _z += PX_C(2); //‰œ
+            _z += PX_C(2);
         }
         if (pVb->isPressed(VB_DOWN)) {
-            _z -= PX_C(2); //è‘O
+            _z -= PX_C(2);
         }
     } else {
-        //ƒ{ƒ^ƒ“‚PiƒXƒy[ƒXƒL[j‚ğ—£‚µ‚Ä‚¢‚éê‡
         if (pVb->isPressed(VB_RIGHT)) {
-            _x += PX_C(2); //‰E
+            _x += PX_C(2);
         }
         if (pVb->isPressed(VB_LEFT)) {
-            _x -= PX_C(2); //¶
+            _x -= PX_C(2);
         }
         if (pVb->isPressed(VB_UP)) {
-            _y += PX_C(2); //ã
+            _y += PX_C(2);
         }
         if (pVb->isPressed(VB_DOWN)) {
-            _y -= PX_C(2); //‰º
+            _y -= PX_C(2);
         }
     }
     getUvFlipper()->behave();
@@ -100,7 +96,7 @@ void Jiki::onInactive() {
 }
 
 void Jiki::onHit(const GgafCore::Actor* prm_pOtherActor) {
-    _TRACE_("Jiki::onHit!!!! ‘Šè"<<prm_pOtherActor->getName()<<"");
+    _TRACE_("Jiki::onHit!!!! ï¿½ï¿½ï¿½"<<prm_pOtherActor->getName()<<"");
 }
 
 Jiki::~Jiki() {

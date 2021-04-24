@@ -35,7 +35,7 @@ void EffectExplosion001::processBehavior() {
     _sx+= 100;
     _sy+= 100;
     getUvFlipper()->behave();
-    callVecDriver()->behave();
+    getVecDriver()->behave();
     getScaler()->behave();
 }
 
@@ -47,7 +47,7 @@ void EffectExplosion001::processJudgement() {
 }
 
 void EffectExplosion001::onInactive() {
-    callVecDriver()->stopMv();
+    getVecDriver()->stopMv();
 }
 
 

@@ -24,12 +24,12 @@ void EffectBlink002::initialize() {
 void EffectBlink002::onActive() {
     EffectBlink::onActive();
     //getUvFlipper()->setActivePtnToTop();
-    callVecDriver()->setFaceAngVelo(AXIS_Z, 4000);
+    getVecDriver()->setFaceAngVelo(AXIS_Z, 4000);
 }
 
 void EffectBlink002::processBehavior() {
     EffectBlink::processBehavior();
-    callVecDriver()->behave();
+    getVecDriver()->behave();
 }
 
 EffectBlink002::~EffectBlink002() {

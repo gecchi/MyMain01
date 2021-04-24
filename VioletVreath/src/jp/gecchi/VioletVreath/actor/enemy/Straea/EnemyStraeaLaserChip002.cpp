@@ -26,7 +26,7 @@ void EnemyStraeaLaserChip002::onActive() {
     RefractionLaserChip::onActive();
     //ステータスリセット
     getStatus()->reset();
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->setMvVelo(80000);
     //_pVecDriver->setMvAcce(300);
     //_pVecDriver->forceRyMvAngVeloRange(-90000, 90000);
@@ -41,7 +41,7 @@ void EnemyStraeaLaserChip002::onRefractionOutOf(int prm_num_refraction)  {
     if (prm_num_refraction == 0) {
 
     } else {
-        GgafDx::VecDriver* const pVecDriver = callVecDriver();
+        GgafDx::VecDriver* const pVecDriver = getVecDriver();
         angle out_rz_Target;
         angle out_ry_Target;
         angle out_d_rz;

@@ -35,7 +35,7 @@ void LockonCursor001_Main::onActive() {
     getScaler()->setRange(60000, 2000); //スケーリング・範囲
     setScale(60000); //(6000%)
     getScaler()->transitionLinearUntil(2000, 25);//スケーリング・25F費やして2000(200%)に縮小
-    callVecDriver()->setFaceAngVelo(AXIS_Z, 1000);        //回転
+    getVecDriver()->setFaceAngVelo(AXIS_Z, 1000);        //回転
     getSeTransmitter()->play3D(0); //ロックオンSE
 
     if (pTarget_) {
@@ -49,7 +49,7 @@ void LockonCursor001_Main::onActive() {
 
 void LockonCursor001_Main::processBehavior() {
     LockonCursor001::processBehavior();
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     GgafDx::Scaler* const pScaler = getScaler();
     GgafCore::Progress* const pProg = getProgress();
     if (pProg->get() == LOCKON001_PROG_LOCK || pProg->get() == LOCKON001_PROG_FIRST_LOCK) {
@@ -110,7 +110,7 @@ void LockonCursor001_Main::lockon(GgafDx::GeometricActor* prm_pTarget) {
         return;
     }
     pTarget_ = prm_pTarget;
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     GgafDx::Scaler* const pScaler = getScaler();
     GgafCore::Progress* const pProg = getProgress();
     if (pProg->get() == LOCKON001_PROG_FIRST_LOCK) {
@@ -127,7 +127,7 @@ void LockonCursor001_Main::lockon(GgafDx::GeometricActor* prm_pTarget) {
 }
 void LockonCursor001_Main::releaseLockon() {
     if (isActiveInTheTree()) {
-        GgafDx::VecDriver* const pVecDriver = callVecDriver();
+        GgafDx::VecDriver* const pVecDriver = getVecDriver();
         GgafDx::Scaler* const pScaler = getScaler();
         GgafCore::Progress* const pProg = getProgress();
         if (pProg->get() == LOCKON001_PROG_FIRST_LOCK) {

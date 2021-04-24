@@ -8,8 +8,8 @@
 #include "jp/ggaf/dx/manager/EffectManager.h"
 #include "jp/ggaf/dx/manager/ModelManager.h"
 #include "jp/ggaf/dx/manager/TextureManager.h"
-#include "jp/ggaf/dx/manager/SplineSourceManager.h"
-#include "jp/ggaf/dx/manager/SplineManufactureManager.h"
+#include "jp/ggaf/dx/manager/CurveSourceManager.h"
+#include "jp/ggaf/dx/manager/CurveManufactureManager.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/ggaf/dx/sound/Sound.h"
 #include "jp/ggaf/dx/util/Input.h"
@@ -116,8 +116,8 @@ God::God() : GgafCore::God() {
 
     //_d3dlight9_default.Range = 1000.0f
 
-    _pSplSrcManager = nullptr;
-    _pSplManufManager = nullptr;
+    _pCurveSrcManager = nullptr;
+    _pCurveManufManager = nullptr;
 }
 
 
@@ -1052,8 +1052,8 @@ void God::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
     }
 
 
-    _pSplSrcManager = createSplineSourceManager();
-    _pSplManufManager = createSplineManufactureManager();
+    _pCurveSrcManager = createCurveSourceManager();
+    _pCurveManufManager = createCurveManufactureManager();
 
 
     //デバイス作成
@@ -2072,8 +2072,8 @@ void God::clean() {
         GGAF_DELETE(_pBumpMapTextureManager);
         GGAF_DELETE(_pModelManager);
         GGAF_DELETE(_pEffectManager);
-        GGAF_DELETE(_pSplSrcManager);
-        GGAF_DELETE(_pSplManufManager);
+        GGAF_DELETE(_pCurveSrcManager);
+        GGAF_DELETE(_pCurveManufManager);
         _TRACE_(FUNC_NAME<<" end");
     }
 }
@@ -2239,12 +2239,12 @@ EffectManager* God::createEffectManager() {
     EffectManager* p = NEW EffectManager("EffectManager");
     return p;
 }
-SplineSourceManager* God::createSplineSourceManager() {
-    SplineSourceManager* p = NEW SplineSourceManager("SplineSourceManager");
+CurveSourceManager* God::createCurveSourceManager() {
+    CurveSourceManager* p = NEW CurveSourceManager("CurveSourceManager");
     return p;
 }
-SplineManufactureManager* God::createSplineManufactureManager() {
-    SplineManufactureManager* p = NEW SplineManufactureManager("SplineManufactureManager");
+CurveManufactureManager* God::createCurveManufactureManager() {
+    CurveManufactureManager* p = NEW CurveManufactureManager("CurveManufactureManager");
     return p;
 }
 God::~God() {

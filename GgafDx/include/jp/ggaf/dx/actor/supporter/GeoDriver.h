@@ -1,14 +1,14 @@
 #ifndef GGAF_DX_GEODRIVER_H_
 #define GGAF_DX_GEODRIVER_H_
 #include "GgafDxCommonHeader.h"
-#include "jp/ggaf/core/Object.h"
+#include "ActorDriver.h"
 
 #include "jp/ggaf/dx/actor/GeometricActor.h"
 
 namespace GgafDx {
 
 /**
- * アクターを載せる駕籠（アクターの平行移動支援） .
+ * アクターを乗せる駕籠（アクターの平行移動支援） .
  * GeometricActor のメンバの<BR>
  *  _x, _y, _z  ・・・ アクターの座標<BR>
  * を、各成分毎に簡単に操作するために作成。<BR>
@@ -16,11 +16,11 @@ namespace GgafDx {
  * @since 2008/08/20
  * @author Masatoshi Tsuge
  */
-class GeoDriver : public GgafCore::Object {
+class GeoDriver : public ActorDriver {
 
 public:
     /** [r]対象アクター */
-    GeometricActor* const _pActor;
+    //GeometricActor* const _pActor;
     /** [r/w]X軸方向移動速度 */
     velo _velo_vx_mv;
     /** [r/w]X軸方向移動速度上限 */

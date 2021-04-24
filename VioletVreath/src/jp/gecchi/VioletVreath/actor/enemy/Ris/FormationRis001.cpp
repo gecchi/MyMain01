@@ -1,8 +1,8 @@
 #include "FormationRis001.h"
 
 #include "jp/ggaf/dx/actor/supporter/VecDriver.h"
-#include "jp/ggaf/dx/util/spline/FixedVelocitySplineVecDriverLeader.h"
-#include "jp/ggaf/dx/util/spline/FixedVelocitySplineManufacture.h"
+#include "jp/ggaf/dx/util/curve/FixedVelocityCurveVecDriverLeader.h"
+#include "jp/ggaf/dx/util/curve/FixedVelocityCurveManufacture.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ris/EnemyRis.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -18,14 +18,14 @@ FormationRis001::FormationRis001(const char* prm_name) : TreeFormation(prm_name)
     interval_frames_ = RF_FormationRis001_LaunchInterval(G_RANK);   //リスの間隔(frame)
     velo_mv_         = RF_FormationRis001_MvVelo(G_RANK); //速度
     //リス編隊作成
-    pSplSrcConnection_ = connectToSplineSourceManager("Spl_00201_"); //スプライン定義
+    pCurveSrcConnection_ = connectToCurveSourceManager("Spl_00201_"); //スプライン定義
     pConn_depo_ = connectToDepositoryManager("Shot001");
-    pManufacture_ = NEW FixedVelocitySplineManufacture(pSplSrcConnection_->peek(), 10000);
+    pManufacture_ = NEW FixedVelocityCurveManufacture(pCurveSrcConnection_->peek(), 10000);
 
     for (int i = 0; i < num_Ris_; i++) {
         EnemyRis* pRis = NEW EnemyRis("Ris01");
         //スプライン移動プログラム設定
-        SplineLeader* pProgram = NEW FixedVelocitySplineVecDriverLeader(pManufacture_, pRis->callVecDriver()); //移動速度固定
+        DriverLeader* pProgram = NEW FixedVelocityCurveVecDriverLeader(pManufacture_, pRis->getVecDriver()); //移動速度固定
         pRis->config(pProgram, pConn_depo_->peek(), nullptr);
         appendFormationMember(pRis);
     }
@@ -42,7 +42,7 @@ void FormationRis001::processBehavior() {
         EnemyRis* pRis = (EnemyRis*)callUpMember();
         if (pRis) {
             pRis->setPosition(MyShip::lim_x_behaind_ - 500000, 0, MyShip::lim_z_left_ * 0.8);
-            pRis->callVecDriver()->setMvVelo(velo_mv_);
+            pRis->getVecDriver()->setMvVelo(velo_mv_);
         }
     }
 }
@@ -53,6 +53,6 @@ void FormationRis001::onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) {
 
 FormationRis001::~FormationRis001() {
     GGAF_DELETE(pManufacture_);
-    pSplSrcConnection_->close();
+    pCurveSrcConnection_->close();
     pConn_depo_->close();
 }

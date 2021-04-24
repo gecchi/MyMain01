@@ -42,7 +42,7 @@ void EffectShotMagic::onActive() {
 
 void EffectShotMagic::processBehavior() {
     getUvFlipper()->behave();
-    callVecDriver()->behave();
+    getVecDriver()->behave();
     getScaler()->behave();
 }
 

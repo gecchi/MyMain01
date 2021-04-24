@@ -75,8 +75,8 @@ void EnemyDuna::processBehavior() {
 //    }
 
     MyShip* pMyShip = pMYSHIP;
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
-    GgafDx::GeoDriver* const pGeoDriver = callGeoDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
+    GgafDx::GeoDriver* const pGeoDriver = getGeoDriver();
     GgafCore::Progress* const pProg = getProgress();
     if (pProg->hasJustChanged()) {
         pGeoDriver->execGravitationMvSequenceTwd(pMyShip, PX_C(3), 30, PX_C(1));

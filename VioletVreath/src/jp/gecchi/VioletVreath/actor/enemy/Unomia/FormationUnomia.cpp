@@ -1,7 +1,7 @@
 #include "FormationUnomia.h"
 
 #include "jp/ggaf/dx/actor/supporter/VecDriver.h"
-#include "jp/ggaf/dx/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/curve/DriverLeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Unomia/EnemyUnomia.h"
@@ -23,12 +23,12 @@ enum {
     PROG_BANPEI,
 };
 
-FormationUnomia::FormationUnomia(const char* prm_name, const char* prm_spl_id)
+FormationUnomia::FormationUnomia(const char* prm_name, const char* prm_ldr_id)
    : TreeFormation(prm_name, 20*60) {
     _class_name = "FormationUnomia";
 
     //スプライン定義ファイルを読み込む
-    pConn_pSplManuf_ = connectToSplineManufactureManager(prm_spl_id);
+    pConn_pCurveManuf_ = connectToCurveManufactureManager(prm_ldr_id);
     pDepo_shot_ = getCommonDepository(Shot004);
     updateRankParameter();
 }
@@ -84,10 +84,10 @@ void FormationUnomia::processBehavior() {
                     for (int col = 0; col < num_formation_col_; col++) {
                         EnemyUnomia* pUnomia = (EnemyUnomia*)callUpMember();
                         if (pUnomia) {
-                            SplineLeader* pVecDriverLeader = pConn_pSplManuf_->peek()->
-                                                          createVecDriverLeader(pUnomia->callVecDriver());
-                            pUnomia->config(pVecDriverLeader, nullptr, nullptr);
-                            pUnomia->callVecDriver()->setMvVelo(mv_velo_);
+                            DriverLeader* pDriverLeader = pConn_pCurveManuf_->peek()->
+                                                          createVecDriverLeader(pUnomia->getVecDriver());
+                            pUnomia->config(pDriverLeader, nullptr, nullptr);
+                            pUnomia->getVecDriver()->setMvVelo(mv_velo_);
                             onCallUpUnomia(pUnomia, col); //フォーメーション個別実装の処理
                         }
                     }
@@ -110,7 +110,7 @@ void FormationUnomia::processBehavior() {
                     GgafDx::GeometricActor* pShot = (GgafDx::GeometricActor*)pDepo_shot_->dispatch();
                     if (pShot) {
                         pShot->setPositionAt(pUnomia);
-                        GgafDx::VecDriver* pShot_pVecDriver = pShot->callVecDriver();
+                        GgafDx::VecDriver* pShot_pVecDriver = pShot->getVecDriver();
                         pShot_pVecDriver->setMvAngTwd(pMy);
                         pShot_pVecDriver->setMvVelo(PX_C(10));
                         pShot_pVecDriver->setMvAcce(0);
@@ -134,6 +134,6 @@ void FormationUnomia::processBehavior() {
 }
 
 FormationUnomia::~FormationUnomia() {
-    pConn_pSplManuf_->close();
+    pConn_pCurveManuf_->close();
 }
 

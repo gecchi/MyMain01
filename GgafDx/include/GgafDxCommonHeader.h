@@ -289,7 +289,7 @@ enum Valign {
 #define Obj_GgafDx_BoneAniMeshActor           (0x8000000000ULL)  //0b 00000000 00000000 00000000 10000000 00000000 00000000 00000000 00000000
 #define Obj_GgafDx_SkinAniMeshActor          (0x10000000000ULL)  //0b 00000000 00000000 00000001 00000000 00000000 00000000 00000000 00000000
 
-#define Obj_GgadDx_SplineLeader              (0x20000000000ULL)  //0b 00000000 00000000 00000010 00000000 00000000 00000000 00000000 00000000
+#define Obj_GgadDx_DriverLeader              (0x20000000000ULL)  //0b 00000000 00000000 00000010 00000000 00000000 00000000 00000000 00000000
 
 //ëOï˚êÈåæ(forward declaration)
 namespace IkdLib {
@@ -443,6 +443,8 @@ class SphereRadiusVectors;
 class CollisionArea;
 class CollisionPart;
 class GeoElem;
+
+class ActorDriver;
 class VecDriver;
 class VecDriverMvAssistant;
 class VecDriverFaceAngAssistant;
@@ -472,19 +474,19 @@ class BgmManager;
 class Sound;
 class CWaveDecorder;
 
-class SplineLeader;
-class FixedFrameSplineVecDriverLeader;
-class FixedVelocitySplineVecDriverLeader;
-class SteppedCoordSplineVecDriverLeader;
-class SplineManufacture;
-class SplineSource;
-class FixedFrameSplineManufacture;
-class FixedVelocitySplineManufacture;
-class SteppedCoordSplineManufacture;
-class SplineSourceManager;
-class SplineSourceConnection;
-class SplineManufactureManager;
-class SplineManufactureConnection;
+class DriverLeader;
+class FixedFrameCurveVecDriverLeader;
+class FixedVelocityCurveVecDriverLeader;
+class SteppedCoordCurveVecDriverLeader;
+class CurveManufacture;
+class CurveSource;
+class FixedFrameCurveManufacture;
+class FixedVelocityCurveManufacture;
+class SteppedCoordCurveManufacture;
+class CurveSourceManager;
+class CurveSourceConnection;
+class CurveManufactureManager;
+class CurveManufactureConnection;
 
 }
 

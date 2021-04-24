@@ -65,7 +65,7 @@ void SeActor3::processBehavior() {
             _y -= PX_C(D); //‰º
         }
     }
-    callVecDriver()->behave(); //—ÍŽÔ‚ðŠˆ“®‚³‚¹‚éiZŽ²‰ñ“]‚·‚éj
+    getVecDriver()->behave(); //—ÍŽÔ‚ðŠˆ“®‚³‚¹‚éiZŽ²‰ñ“]‚·‚éj
     getSeTransmitter()->behave(); //‚RDŒø‰ÊŠˆ“®
 }
 

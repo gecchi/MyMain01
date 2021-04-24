@@ -339,16 +339,16 @@ void MyShip::initialize() {
 /////////////TEST
       pChecker->setColliAACube(0, PX_C(40));
 
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->setMvVelo(0);
 
     //setMaterialColor(1.0, 0.5, 0.5);
     setAlpha(1.0);
-    GgafDx::GeoDriver* const pGeoDriver = callGeoDriver();
+    GgafDx::GeoDriver* const pGeoDriver = getGeoDriver();
     pGeoDriver->forceVxyzMvVeloRange(-veloTurboTop_, veloTurboTop_);
     pGeoDriver->setZeroVxyzMvAcce();
 
-    callVecDriver()->setRollFaceAngVelo(300);
+    getVecDriver()->setRollFaceAngVelo(300);
 }
 
 
@@ -395,8 +395,8 @@ void MyShip::onInactive() {
 }
 void MyShip::processBehavior() {
     VirtualButton* pVbPlay = VB_PLAY;
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
-    GgafDx::GeoDriver* const pGeoDriver = callGeoDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
+    GgafDx::GeoDriver* const pGeoDriver = getGeoDriver();
     //操作拒否
     if (!can_control_) {
         return;
@@ -458,19 +458,19 @@ void MyShip::processBehavior() {
     angvelo MZ = angRxTopVelo_MZ_-3000; //3000は通常旋回時に速度を弱めてangRxTopVelo_MZ_を超えないようにするため、やや手前で減速すると言う意味（TODO:要調整）。
     if (pVecDriver->_angvelo_face[AXIS_X] >= MZ) {
         pVecDriver->_angvelo_face[AXIS_X] *= 0.93;
-        //_callVecDriver()->setFaceAngAcce(AXIS_X, -1*angRxAcce_MZ_*2);
+        //_getVecDriver()->setFaceAngAcce(AXIS_X, -1*angRxAcce_MZ_*2);
     } else if (pVecDriver->_angvelo_face[AXIS_X] <= -MZ) {
         pVecDriver->_angvelo_face[AXIS_X] *= 0.93;
-        //_callVecDriver()->setFaceAngAcce(AXIS_X, angRxAcce_MZ_*2);
+        //_getVecDriver()->setFaceAngAcce(AXIS_X, angRxAcce_MZ_*2);
     }
 
     //旋回しない移動方向の場合、機体を水平にする（但し勢いよく回っていない場合に限る。setStopTargetFaceAngの第4引数より角速度がゆるい場合受け入れ）
     if (pSenakai_[mv_way_] == 0) {
         angle dist = pVecDriver->getFaceAngDistance(AXIS_X, 0, TURN_CLOSE_TO);
         if (0 <= dist && dist < D180ANG) {
-            callVecDriver()->setFaceAngAcce(AXIS_X, angRxAcce_MZ_);
+            getVecDriver()->setFaceAngAcce(AXIS_X, angRxAcce_MZ_);
         } else if (-1*D180ANG < dist && dist < 0) {
-            callVecDriver()->setFaceAngAcce(AXIS_X, -1*angRxAcce_MZ_);
+            getVecDriver()->setFaceAngAcce(AXIS_X, -1*angRxAcce_MZ_);
         }
         pVecDriver->setMvAcce(0);
         pVecDriver->setStopTargetFaceAng(AXIS_X, 0, TURN_BOTH, angRxTopVelo_MZ_);
@@ -659,9 +659,9 @@ void MyShip::processBehavior() {
             if (pSnipeShot) {
                 getSeTransmitter()->play3D(SE_FIRE_SHOT);
                 pSnipeShot->setPositionAt(this);
-                pSnipeShot->callVecDriver()->setRzRyMvAng(_rz, _ry);
-                pSnipeShot->callVecDriver()->setMvVelo(PX_C(100));
-                pSnipeShot->callVecDriver()->setMvAcce(100);
+                pSnipeShot->getVecDriver()->setRzRyMvAng(_rz, _ry);
+                pSnipeShot->getVecDriver()->setMvVelo(PX_C(100));
+                pSnipeShot->getVecDriver()->setMvAcce(100);
             }
         } else {
             //スナイプショット以外時
@@ -670,9 +670,9 @@ void MyShip::processBehavior() {
                 if (pShot) {
                     getSeTransmitter()->play3D(SE_FIRE_SHOT);
                     pShot->setPositionAt(this);
-                    pShot->callVecDriver()->setRzRyMvAng(_rz, _ry);
-                    pShot->callVecDriver()->setMvVelo(PX_C(70));
-                    pShot->callVecDriver()->setMvAcce(80);
+                    pShot->getVecDriver()->setRzRyMvAng(_rz, _ry);
+                    pShot->getVecDriver()->setMvVelo(PX_C(70));
+                    pShot->getVecDriver()->setMvAcce(80);
                 }
             }
 
@@ -1082,12 +1082,12 @@ void MyShip::moveNomal() {
     if (is_just_change_mv_way_) {
         angle rz, ry;
         Direction26Util::cnvDirNo2RzRy(mv_way, rz, ry);
-        callVecDriver()->setRzRyMvAng(rz, ry);
+        getVecDriver()->setRzRyMvAng(rz, ry);
         //旋廻
         int sgn_turn = pSenakai_[mv_way] > pSenakai_[prev_way_] ? 1 : -1;
         if (sgn_turn != 0) {
-            callVecDriver()->setFaceAngAcce(AXIS_X, sgn_turn*angRxAcce_MZ_);
-            callVecDriver()->setStopTargetFaceAng(AXIS_X, pSenakai_[mv_way],
+            getVecDriver()->setFaceAngAcce(AXIS_X, sgn_turn*angRxAcce_MZ_);
+            getVecDriver()->setStopTargetFaceAng(AXIS_X, pSenakai_[mv_way],
                                               TURN_CLOSE_TO,
                                               angRxTopVelo_MZ_);
         }
@@ -1095,7 +1095,7 @@ void MyShip::moveNomal() {
 }
 
 void MyShip::moveTurbo() {
-    GgafDx::GeoDriver* const pGeoDriver = callGeoDriver();
+    GgafDx::GeoDriver* const pGeoDriver = getGeoDriver();
     float vx,vy,vz;
     Direction26Util::cnvDirNo2Vec(mv_way_, vx, vy, vz);
     pGeoDriver->addVxMvVelo(veloBeginMT_ * vx);
@@ -1103,13 +1103,13 @@ void MyShip::moveTurbo() {
     pGeoDriver->addVzMvVelo(veloBeginMT_ * vz);
     angle rz, ry;
     Direction26Util::cnvDirNo2RzRy(mv_way_, rz, ry);
-    callVecDriver()->setRzRyMvAng(rz, ry);
+    getVecDriver()->setRzRyMvAng(rz, ry);
 
     //旋廻
     angle senkai = pSenakai_[mv_way_];
     if (senkai != 0) {
         double senkai_spin_speed_rate = (1.0 * D90ANG / senkai); //旋回時、90度-90度に傾く場合 1.0、1.0 となる。
-        callVecDriver()->setRollFaceAngVelo(angRxVelo_BeginMZT_ * senkai_spin_speed_rate);
+        getVecDriver()->setRollFaceAngVelo(angRxVelo_BeginMZT_ * senkai_spin_speed_rate);
     }
 }
 

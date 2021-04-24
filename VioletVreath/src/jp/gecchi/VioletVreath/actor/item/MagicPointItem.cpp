@@ -32,7 +32,7 @@ MagicPointItem::MagicPointItem(const char* prm_name, const char* prm_model, void
     setZEnableDraw(true);        //描画時、Zバッファ値は考慮される
     setZWriteEnable(false);  //自身のZバッファを書き込みしない
     setCullingDraw(false);
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->setRollPitchYawFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
     pVecDriver->linkFaceAngByMvAng(true);
     kDX_ = kDY_ = kDZ_ = 0;
@@ -50,7 +50,7 @@ void MagicPointItem::initialize() {
 void MagicPointItem::onActive() {
     // _x, _y, _z は発生元座標に設定済み
     setHitAble(true, false);
-    GgafDx::GeoDriver* const pGeoDriver = callGeoDriver();
+    GgafDx::GeoDriver* const pGeoDriver = getGeoDriver();
     pGeoDriver->forceVxyzMvVeloRange(-30000, 30000);
     pGeoDriver->setZeroVxyzMvVelo();
     pGeoDriver->setZeroVxyzMvAcce();
@@ -63,7 +63,7 @@ void MagicPointItem::onActive() {
 //    //発生地点から、自機への方向への散らばり範囲正方形領域が位置する距離（scattered_distance > (scattered_renge/2) であること)
 ////    int scattered_distance = scattered_renge/2 + 400000;
 //    //従って、scattered_distance 離れていても、自機は動かなくてもぎりぎり全て回収できる。
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->forceMvVeloRange(0, 20000);
     float vX, vY, vZ;
     UTIL::getNormalizedVector(
@@ -85,8 +85,8 @@ void MagicPointItem::onActive() {
 
 void MagicPointItem::processBehavior() {
     MyShip* pMyShip = pMYSHIP;
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
-    GgafDx::GeoDriver* const pGeoDriver = callGeoDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
+    GgafDx::GeoDriver* const pGeoDriver = getGeoDriver();
     GgafCore::Progress* const pProg = getProgress();
     //通常移動
     if (pProg->get() == PROG_DRIFT) {

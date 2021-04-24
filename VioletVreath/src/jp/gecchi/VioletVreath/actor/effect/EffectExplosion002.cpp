@@ -33,7 +33,7 @@ void EffectExplosion002::processBehavior() {
     _sx+= 100;
     _sy+= 100;
     getUvFlipper()->behave();
-    callVecDriver()->behave();
+    getVecDriver()->behave();
     getScaler()->behave();
 }
 

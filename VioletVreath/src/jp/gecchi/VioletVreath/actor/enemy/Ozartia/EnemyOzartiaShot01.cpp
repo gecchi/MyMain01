@@ -36,7 +36,7 @@ void EnemyOzartiaShot01::onActive() {
 
 void EnemyOzartiaShot01::processBehavior() {
     //–{‘ÌˆÚ“®Œn‚Ìˆ— ‚±‚±‚©‚ç --->
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {

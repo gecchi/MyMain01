@@ -14,7 +14,7 @@ EnemyStraightLaserChip001::EnemyStraightLaserChip001(const char* prm_name) :
 }
 
 void EnemyStraightLaserChip001::initialize() {
-    callVecDriver()->setRzRyMvAng(0,0);
+    getVecDriver()->setRzRyMvAng(0,0);
     registerHitAreaCube_AutoGenMidColli(15000);
     setHitAble(true);
     setScaleR(6.0);

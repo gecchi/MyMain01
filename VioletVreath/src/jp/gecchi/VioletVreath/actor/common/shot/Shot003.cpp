@@ -28,14 +28,14 @@ void Shot003::initialize() {
 void Shot003::onActive() {
     getStatus()->reset();
     setHitAble(true, false);
-    callVecDriver()->setMvVelo(20000);
+    getVecDriver()->setMvVelo(20000);
 
 }
 
 void Shot003::processBehavior() {
     //‰ÁZƒ‰ƒ“ƒNƒ|ƒCƒ“ƒg‚ğŒ¸­
     //À•W‚É”½‰f
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->behave();
 }
 

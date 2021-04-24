@@ -5,7 +5,7 @@
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/dx/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/curve/DriverLeader.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
@@ -23,7 +23,7 @@ EnemyAllas::EnemyAllas(const char* prm_name) :
         VvEnemyActor<DefaultMeshSetActor>(prm_name, "Allas", StatusReset(EnemyAllas)) {
     _class_name = "EnemyAllas";
     iMovePatternNo_ = 0;
-    pVecDriverLeader_ = nullptr;
+    pDriverLeader_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
@@ -37,7 +37,7 @@ void EnemyAllas::onCreateModel() {
 
 void EnemyAllas::initialize() {
     setHitAble(true);
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->setFaceAngVelo(AXIS_Z, -7000);
     pVecDriver->linkFaceAngByMvAng(true);
     CollisionChecker* pChecker = getCollisionChecker();
@@ -46,7 +46,7 @@ void EnemyAllas::initialize() {
 }
 
 void EnemyAllas::onActive() {
-    if (pVecDriverLeader_ == nullptr) {
+    if (pDriverLeader_ == nullptr) {
         throwCriticalException("EnemyAllasはスプライン必須ですconfigして下さい");
     }
 
@@ -56,31 +56,31 @@ void EnemyAllas::onActive() {
 }
 
 void EnemyAllas::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     GgafCore::Progress* const pProg = getProgress();
     //【パターン1：スプライン移動】
     if (pProg->hasJustChangedTo(1)) {
-        pVecDriverLeader_->start(ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
+        pDriverLeader_->start(ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
     }
     if (pProg->get() == 1) {
         //スプライン移動終了待ち
-        if (pVecDriverLeader_->isFinished()) {
+        if (pDriverLeader_->isFinished()) {
             pProg->changeNext(); //次のパターンへ
         }
     }
 
     switch (iMovePatternNo_) {
         case 0:  //【パターン０：スプライン移動開始】
-            if (pVecDriverLeader_) {
-                pVecDriverLeader_->start(ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
+            if (pDriverLeader_) {
+                pDriverLeader_->start(ABSOLUTE_COORD); //スプライン移動を開始(1:座標相対)
             }
             iMovePatternNo_++; //次の行動パターンへ
             break;
 
         case 1:  //【パターン１：スプライン移動終了待ち】
-            if (pVecDriverLeader_) {
+            if (pDriverLeader_) {
                 //スプライン移動有り
-                if (pVecDriverLeader_->isFinished()) {
+                if (pDriverLeader_->isFinished()) {
                     iMovePatternNo_++; //スプライン移動が終了したら次の行動パターンへ
                 }
             } else {
@@ -100,7 +100,7 @@ void EnemyAllas::processBehavior() {
                     pActor_shot = (GgafDx::FigureActor*)pDepo_shot_->dispatch();
                     if (pActor_shot) {
                         pActor_shot->setPositionAt(this);
-                        pActor_shot->callVecDriver()->setRzRyMvAng(paAng_way[i], D90ANG);
+                        pActor_shot->getVecDriver()->setRzRyMvAng(paAng_way[i], D90ANG);
                         pActor_shot->activate();
                     }
                 }
@@ -127,8 +127,8 @@ void EnemyAllas::processBehavior() {
             break;
     }
 
-    if (pVecDriverLeader_) {
-        pVecDriverLeader_->behave(); //スプライン移動を振る舞い
+    if (pDriverLeader_) {
+        pDriverLeader_->behave(); //スプライン移動を振る舞い
     }
     pVecDriver->behave();
     //getSeTransmitter()->behave();
@@ -156,5 +156,5 @@ void EnemyAllas::onInactive() {
 }
 
 EnemyAllas::~EnemyAllas() {
-    GGAF_DELETE_NULLABLE(pVecDriverLeader_);
+    GGAF_DELETE_NULLABLE(pDriverLeader_);
 }

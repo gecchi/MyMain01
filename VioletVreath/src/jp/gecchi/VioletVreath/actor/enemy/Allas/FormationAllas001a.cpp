@@ -2,7 +2,7 @@
 
 #include "EnemyAllas.h"
 #include "jp/ggaf/dx/actor/supporter/VecDriver.h"
-#include "jp/ggaf/dx/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/curve/DriverLeader.h"
 
 using namespace GgafLib;
 using namespace VioletVreath;
@@ -12,7 +12,7 @@ FormationAllas001a::FormationAllas001a(const char* prm_name) : FormationAllas001
 }
 
 void FormationAllas001a::onCallUpAllas(EnemyAllas* prm_pAllas)  {
-    prm_pAllas->pVecDriverLeader_->setAbsoluteBeginCoord();
+    prm_pAllas->pDriverLeader_->setAbsoluteBeginCoord();
 }
 
 FormationAllas001a::~FormationAllas001a() {

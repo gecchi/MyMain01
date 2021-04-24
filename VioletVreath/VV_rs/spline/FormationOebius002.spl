@@ -1,9 +1,0 @@
-SPLINE=mobius8-1.dat,mobius8-2.dat,mobius8-3.dat,mobius8-4.dat,mobius8-5.dat,mobius8-6.dat,mobius8-7.dat,mobius8-8.dat
-MAG_X=400000
-MAG_Y=400000
-MAG_Z=400000
-CLASS=FixedFrameSpline
-SPENT_FRAME=560
-ANGLE_VELOCITY=2000
-TURN_WAY=TURN_CLOSE_TO
-TURN_OPTIMIZE=false

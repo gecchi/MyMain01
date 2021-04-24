@@ -19,7 +19,7 @@ class EnemyOebius : public VvEnemyActor<GgafLib::DefaultMassMeshActor> {
 
 public:
     /** 移動スプラインプログラム */
-    GgafDx::SplineLeader* pVecDriverLeader_;
+    GgafDx::DriverLeader* pDriverLeader_;
 
     bool scatter_flg_;
 

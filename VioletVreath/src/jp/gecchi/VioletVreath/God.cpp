@@ -167,12 +167,12 @@ EffectManager* God::createEffectManager() {
     EffectManager* p = NEW EffectManager("EffectManager");
     return p;
 }
-SplineSourceManagerEx* God::createSplineSourceManager() {
-    SplineSourceManagerEx* p = NEW SplineSourceManagerEx("SplineSourceManagerEx");
+CurveSourceManagerEx* God::createCurveSourceManager() {
+    CurveSourceManagerEx* p = NEW CurveSourceManagerEx("CurveSourceManagerEx");
     return p;
 }
-SplineManufactureManagerEx* God::createSplineManufactureManager() {
-    SplineManufactureManagerEx* p = NEW SplineManufactureManagerEx("SplineManufactureManagerEx");
+CurveManufactureManagerEx* God::createCurveManufactureManager() {
+    CurveManufactureManagerEx* p = NEW CurveManufactureManagerEx("CurveManufactureManagerEx");
     return p;
 }
 

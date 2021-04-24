@@ -37,8 +37,8 @@ void SpriteLabelBonus001::initialize() {
 
 void SpriteLabelBonus001::onDispatched(GgafDx::GeometricActor* prm_pOrgActor) {
     setPositionAt(prm_pOrgActor);
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
-    pVecDriver->takeoverMvFrom(prm_pOrgActor->callVecDriver());
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
+    pVecDriver->takeoverMvFrom(prm_pOrgActor->getVecDriver());
     pVecDriver->setMvAcce(300);
     setAlpha(0.7);
     getProgress()->reset(PROG_INIT);
@@ -46,7 +46,7 @@ void SpriteLabelBonus001::onDispatched(GgafDx::GeometricActor* prm_pOrgActor) {
 
 void SpriteLabelBonus001::processBehavior() {
     const Camera* const pCam = pGOD->getSpacetime()->getCamera();
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {

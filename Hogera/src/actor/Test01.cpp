@@ -23,10 +23,10 @@ enum {
 Test01::Test01(const char* prm_name) :
         DefaultSpriteActor(prm_name, "Lockon001") {
     _class_name = "Test01";
-//    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv); //ƒ[ƒ‹ƒh•ÏŠ·‚Íƒrƒ‹ƒ{[ƒh‚ÅRz‰ñ“]‚É‹­§
-    effectBlendOne(); //ƒGƒtƒFƒNƒgƒeƒNƒjƒbƒN‚Í‰ÁZ‡¬‚É‹­§
-    setZEnableDraw(false);      //Zƒoƒbƒtƒ@‚Íl—¶–³‚µ‚É‹­§
-    setZWriteEnable(false); //©g‚ÌZƒoƒbƒtƒ@‚ğ‘‚«‚İ‚µ‚È‚¢‚É‹­§
+//    defineRotMvWorldMatrix(UTIL::setWorldMatrix_RzBxyzMv);
+    effectBlendOne();
+    setZEnableDraw(false);
+    setZWriteEnable(false);
     setCullingDraw(false);
 
     setHitAble(true);
@@ -34,8 +34,8 @@ Test01::Test01(const char* prm_name) :
 
 void Test01::initialize() {
     GgafDx::UvFlipper* pUvFlipper = getUvFlipper();
-    pUvFlipper->setFlipPtnRange(0, 3);   //ƒAƒjƒ”ÍˆÍ‚ğ‚O`‚P‚T
-    pUvFlipper->exec(FLIP_ORDER_LOOP, 5); //ƒAƒjƒ‡˜
+    pUvFlipper->setFlipPtnRange(0, 3);
+    pUvFlipper->exec(FLIP_ORDER_LOOP, 5);
 
     CollisionChecker* pChecker = getCollisionChecker();
 //    pChecker->createCollisionArea(1);
@@ -62,24 +62,24 @@ void Test01::onReset() {
 
 void Test01::onActive() {
     getUvFlipper()->setActivePtnToTop();
-    callVecDriver()->setFaceAngVelo(AXIS_Z, 1000);        //‰ñ“]
+    getVecDriver()->setFaceAngVelo(AXIS_Z, 1000);
 }
 
 void Test01::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     GgafCore::Progress* const pProg = getProgress();
 
     if (GgafDx::Input::isPressedKey(DIK_D)) {
-        _x += PX_C(2); //‰E
+        _x += PX_C(2);
     }
     if (GgafDx::Input::isPressedKey(DIK_A)) {
-        _x -= PX_C(2); //¶
+        _x -= PX_C(2);
     }
     if (GgafDx::Input::isPressedKey(DIK_W)) {
-        _y += PX_C(2); //ã
+        _y += PX_C(2);
     }
     if (GgafDx::Input::isPressedKey(DIK_S)) {
-        _y -= PX_C(2); //‰º
+        _y -= PX_C(2);
     }
     getUvFlipper()->behave();
     pVecDriver->behave();
@@ -92,7 +92,7 @@ void Test01::onInactive() {
 }
 
 void Test01::onHit(const GgafCore::Actor* prm_pOtherActor) {
-    _TRACE_("Test01::onHit!!!! ‘Šè"<<prm_pOtherActor->getName()<<"");
+    _TRACE_("Test01::onHit!!!! ï¿½ï¿½ï¿½"<<prm_pOtherActor->getName()<<"");
 }
 
 Test01::~Test01() {

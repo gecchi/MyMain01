@@ -30,7 +30,7 @@ void EffectSmileMagic001::onActive() {
 
 void EffectSmileMagic001::processBehavior() {
     getUvFlipper()->behave();
-    callVecDriver()->behave();
+    getVecDriver()->behave();
     getScaler()->behave();
 }
 

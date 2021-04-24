@@ -60,7 +60,7 @@ void EnemyEmus::onCreateModel() {
 
 void EnemyEmus::initialize() {
     setHitAble(true);
-    callVecDriver()->linkFaceAngByMvAng(true);
+    getVecDriver()->linkFaceAngByMvAng(true);
     getMorpher()->setRange(MORPHTARGET_HATCH_OPEN, 0.0f, 1.0f);
     setMorphWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
     CollisionChecker* pChecker = getCollisionChecker();
@@ -81,7 +81,7 @@ void EnemyEmus::onActive() {
 
 void EnemyEmus::processBehavior() {
     changeGeoLocal(); //計算はローカル座標系
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
@@ -148,7 +148,7 @@ void EnemyEmus::processChangeGeoFinal() {
                 GgafDx::FigureActor* pChip = (GgafDx::FigureActor*)pDepo_->dispatch();
                 if (pChip) {
                     pChip->setPositionAt(this);
-                    pChip->callVecDriver()->setRzRyMvAng(_rz, _ry); //絶対座標系での向き
+                    pChip->getVecDriver()->setRzRyMvAng(_rz, _ry); //絶対座標系での向き
                 } else {
                     pDepo_ = nullptr;
                 }

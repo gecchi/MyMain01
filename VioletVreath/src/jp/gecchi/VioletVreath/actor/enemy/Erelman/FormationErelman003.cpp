@@ -1,9 +1,9 @@
 #include "FormationErelman003.h"
 
 #include "jp/ggaf/dx/actor/supporter/VecDriver.h"
-#include "jp/ggaf/dx/util/spline/SplineLeader.h"
-#include "jp/ggaf/dx/util/spline/SplineManufacture.h"
-#include "jp/ggaf/dx/util/spline/FixedFrameSplineManufacture.h"
+#include "jp/ggaf/dx/util/curve/DriverLeader.h"
+#include "jp/ggaf/dx/util/curve/CurveManufacture.h"
+#include "jp/ggaf/dx/util/curve/FixedFrameCurveManufacture.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Erelman/EnemyErelman.h"
 
@@ -29,7 +29,7 @@ FormationErelman003::FormationErelman003(const char* prm_name, EnemyErelmanContr
     papa_frame_of_call_up_ = NEW frame*[formation_col_num_];
     pa_spent_frames_ = NEW frame[formation_col_num_];
     pa_call_up_row_idx_ = NEW int[formation_col_num_];
-    papSplManufConn_ = NEW SplineManufactureConnection*[formation_col_num_];
+    papCurveManufConn_ = NEW CurveManufactureConnection*[formation_col_num_];
 
     for (int i = 0; i < num_Erelman_; i++) {
         std::string name = "Erelman("+XTOS(i)+")";
@@ -39,8 +39,8 @@ FormationErelman003::FormationErelman003(const char* prm_name, EnemyErelmanContr
     for (int col = 0; col < formation_col_num_; col++) {
         papa_frame_of_call_up_[col] = NEW frame[formation_row_num_];
         pa_call_up_row_idx_[col] = 0;
-        papSplManufConn_[col] = connectToSplineManufactureManager(("FormationErelman003,"+XTOS(col)).c_str());
-        FixedFrameSplineManufacture* Manuf = ((FixedFrameSplineManufacture*)(papSplManufConn_[col])->peek());
+        papCurveManufConn_[col] = connectToCurveManufactureManager(("FormationErelman003,"+XTOS(col)).c_str());
+        FixedFrameCurveManufacture* Manuf = ((FixedFrameCurveManufacture*)(papCurveManufConn_[col])->peek());
         pa_spent_frames_[col] = Manuf->getSpentFrames();
     }
 
@@ -62,7 +62,7 @@ FormationErelman003::FormationErelman003(const char* prm_name, EnemyErelmanContr
     pa_spent_frames_[8] *= 5.0;       //順 速度  1/5
     pa_spent_frames_[9] *= (5.0/3.0); //順 速度  3/5
     for (int col = 0; col < formation_col_num_; col++) {
-        FixedFrameSplineManufacture* pManuf =  ((FixedFrameSplineManufacture*)(papSplManufConn_[col])->peek());
+        FixedFrameCurveManufacture* pManuf =  ((FixedFrameCurveManufacture*)(papCurveManufConn_[col])->peek());
         pManuf->recalculateBySpentFrame(pa_spent_frames_[col]);
     }
     for (int col = 0; col < formation_col_num_; col++) {
@@ -118,25 +118,25 @@ void FormationErelman003::processBehavior() {
 
 void FormationErelman003::onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) {
     EnemyErelman* pErelman = (EnemyErelman*)prm_pActor;
-    if (pErelman->pVecDriverLeader_) {
-        throwCriticalException("pErelman->pVecDriverLeader_が設定されてます。pErelman="<<pErelman<<"("<<pErelman->getName()<<")");
+    if (pErelman->pDriverLeader_) {
+        throwCriticalException("pErelman->pDriverLeader_が設定されてます。pErelman="<<pErelman<<"("<<pErelman->getName()<<")");
     } else {
-        pErelman->pVecDriverLeader_ = papSplManufConn_[prm_col]->peek()->
-                                      createVecDriverLeader(pErelman->callVecDriver());
+        pErelman->pDriverLeader_ = papCurveManufConn_[prm_col]->peek()->
+                                      createVecDriverLeader(pErelman->getVecDriver());
     }
-    pErelman->pVecDriverLeader_->setStartPosition(geo_.x, geo_.y, geo_.z);
-    pErelman->pVecDriverLeader_->setStartAngle(geo_.rx, geo_.ry, geo_.rz);
+    pErelman->pDriverLeader_->setStartPosition(geo_.x, geo_.y, geo_.z);
+    pErelman->pDriverLeader_->setStartAngle(geo_.rx, geo_.ry, geo_.rz);
     pErelman->setPositionAround(geo_.x, geo_.y, geo_.z, PX_C(100));
 //    pErelman->setFaceAngTwd(pErelman->_x + (pErelman->_x - geo_.x),
 //                            pErelman->_y + (pErelman->_y - geo_.y),
 //                            pErelman->_z + (pErelman->_z - geo_.z) );
-//    pErelman->callVecDriver()->setMvAngByFaceAng();
+//    pErelman->getVecDriver()->setMvAngByFaceAng();
 
-    pErelman->callVecDriver()->setMvAngTwd(pErelman->_x + (pErelman->_x - geo_.x),
+    pErelman->getVecDriver()->setMvAngTwd(pErelman->_x + (pErelman->_x - geo_.x),
                                        pErelman->_y + (pErelman->_y - geo_.y),
                                        pErelman->_z + (pErelman->_z - geo_.z) );
-    pErelman->callVecDriver()->setMvVelo(0);
-    pErelman->callVecDriver()->setMvAcce(80);
+    pErelman->getVecDriver()->setMvVelo(0);
+    pErelman->getVecDriver()->setMvAcce(80);
 
 //    if (prm_row == 0) {
 //        pErelman->setMaterialColor(1, 1, 1);
@@ -168,11 +168,11 @@ void FormationErelman003::freeMenber(frame prm_free_interval) {
 
 FormationErelman003::~FormationErelman003() {
     for (int col = 0; col < getFormationColNum(); col++) {
-        papSplManufConn_[col]->close();
+        papCurveManufConn_[col]->close();
         frame* p = papa_frame_of_call_up_[col];
         GGAF_DELETEARR(p);
     }
-    GGAF_DELETEARR(papSplManufConn_);
+    GGAF_DELETEARR(papCurveManufConn_);
     GGAF_DELETEARR(papa_frame_of_call_up_);
     GGAF_DELETEARR(pa_spent_frames_);
     GGAF_DELETEARR(pa_call_up_row_idx_);

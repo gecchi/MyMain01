@@ -15,7 +15,7 @@ EnemyWateringLaserChip001::EnemyWateringLaserChip001(const char* prm_name) :
 }
 
 void EnemyWateringLaserChip001::initialize() {
-    callVecDriver()->linkFaceAngByMvAng(true);
+    getVecDriver()->linkFaceAngByMvAng(true);
     registerHitAreaCube_AutoGenMidColli(50000);
     setHitAble(true);
     setScaleR(6.0);
@@ -28,8 +28,8 @@ void EnemyWateringLaserChip001::onCreateModel() {
 
 void EnemyWateringLaserChip001::onActive() {
     WateringLaserChip::onActive();
-    callVecDriver()->setMvVelo(PX_C(100));
-    callVecDriver()->setMvAcce(PX_C(5));
+    getVecDriver()->setMvVelo(PX_C(100));
+    getVecDriver()->setMvAcce(PX_C(5));
     getStatus()->reset();
 }
 
@@ -40,7 +40,7 @@ void EnemyWateringLaserChip001::processBehavior() {
         //力車の活動を行うと、ずれるので、最初だけはそのままの座標で表示。
         //とはいうものの、発射元は１フレーム分移動してるので、ピッタリには見えないかもしれない。
     } else {
-        GgafDx::VecDriver* const pVecDriver = callVecDriver();
+        GgafDx::VecDriver* const pVecDriver = getVecDriver();
         pVecDriver->behave();
     }
     WateringLaserChip::processBehavior();//座標を移動させてから呼び出すこと

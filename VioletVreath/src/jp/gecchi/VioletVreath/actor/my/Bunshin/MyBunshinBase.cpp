@@ -59,7 +59,7 @@ MyBunshinBase::MyBunshinBase(const char* prm_name, unsigned int prm_no) :
     pPosTrace_ = NEW PosTrace(MyBunshinBase::BUNSHIN_D * prm_no);
     trace_mode_ = TRACE_GRADIUS;
     return_default_pos_frames_ = 0;
-    GgafDx::GeoDriver* const pGeoDriver = callGeoDriver();
+    GgafDx::GeoDriver* const pGeoDriver = getGeoDriver();
     pGeoDriver->forceVxyzMvVeloRange(-MyBunshinBase::RENGE, MyBunshinBase::RENGE);
     pGeoDriver->forceVxyzMvAcceRange(-MyBunshinBase::RENGE / 30, MyBunshinBase::RENGE / 30);
 
@@ -94,7 +94,7 @@ void MyBunshinBase::config(
 
 void MyBunshinBase::initialize() {
     setScaleR(2.0);
-    callVecDriver()->linkFaceAngByMvAng(true);
+    getVecDriver()->linkFaceAngByMvAng(true);
 }
 
 void MyBunshinBase::onReset() {
@@ -102,7 +102,7 @@ void MyBunshinBase::onReset() {
     bunshin_radius_pos_ = bunshin_default_radius_pos_;
 
     setRollFaceAng(bunshin_default_ang_pos_);
-    callVecDriver()->setRollFaceAngVelo(bunshin_default_angvelo_mv_);
+    getVecDriver()->setRollFaceAngVelo(bunshin_default_angvelo_mv_);
     getProgress()->reset(PROG_INIT);
     trace_mode_ = TRACE_GRADIUS;
 }
@@ -130,8 +130,8 @@ void MyBunshinBase::onInactive() {
 }
 
 void MyBunshinBase::processBehavior() {
-    GgafDx::VecDriver* pVecDriver = callVecDriver();
-    GgafDx::GeoDriver* const pGeoDriver = callGeoDriver();
+    GgafDx::VecDriver* pVecDriver = getVecDriver();
+    GgafDx::GeoDriver* const pGeoDriver = getGeoDriver();
 
     if (is_isolate_mode_) {
         pVecDriver->behave();
@@ -444,7 +444,7 @@ void MyBunshinBase::resetBunshin(int prm_mode) {
     }
 
     is_isolate_mode_ = false;
-    GgafDx::VecDriver* pVecDriver = callVecDriver();
+    GgafDx::VecDriver* pVecDriver = getVecDriver();
     GgafCore::Progress* const pProg = getProgress();
     //完全にデフォルト状態に元に戻ために、最低限必要なフレーム数基準値
     return_default_pos_frames_ = MyBunshinBase::BUNSHIN_D * (MyBunshinBase::MAX_BUNSHIN_NUM+1); //少しばらつかせる演出
@@ -504,7 +504,7 @@ void MyBunshinBase::addTurnAngleAroundAx1(float prm_ax_x, float prm_ax_y, float 
     float b = prm_ax_y*p_sin_h;
     float c = prm_ax_z*p_sin_h;
 
-    GgafDx::VecDriver* pVecDriver = callVecDriver();
+    GgafDx::VecDriver* pVecDriver = getVecDriver();
     Quaternion<float> H(p_cos_h, -a, -b, -c); //R
     H.mul(0, pVecDriver->_vX, pVecDriver->_vY, pVecDriver->_vZ); //R*P
     H.mul(p_cos_h, a, b, c);                               //R*P*Q
@@ -519,7 +519,7 @@ void MyBunshinBase::addTurnAngleAroundAx2(float prm_ax_x, float prm_ax_y, float 
     float b = prm_ax_y*p_sin_h;
     float c = prm_ax_z*p_sin_h;
 
-    GgafDx::VecDriver* pVecDriver = callVecDriver();
+    GgafDx::VecDriver* pVecDriver = getVecDriver();
     Quaternion<float> H(p_cos_h, -a, -b, -c); //R
     Quaternion<float> H2 = H;
     H.mul(0, pVecDriver->_vX, pVecDriver->_vY, pVecDriver->_vZ); //R*P

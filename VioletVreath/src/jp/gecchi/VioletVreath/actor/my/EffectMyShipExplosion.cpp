@@ -31,14 +31,14 @@ void EffectMyShipExplosion::onActive() {
     setPositionAt(pMYSHIP);
     setCullingDraw(false);
     setScale(8000);
-    callVecDriver()->setFaceAngVelo(AXIS_Z, 2000);
+    getVecDriver()->setFaceAngVelo(AXIS_Z, 2000);
 }
 
 void EffectMyShipExplosion::processBehavior() {
     _alpha -= 0.01;
     setPositionAt(pMYSHIP);
     getUvFlipper()->behave();
-    callVecDriver()->behave();
+    getVecDriver()->behave();
     getScaler()->behave();
 
     if (getUvFlipper()->_uvflip_method == NOT_ANIMATED) {

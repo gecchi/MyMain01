@@ -17,7 +17,7 @@ EnemyRatislaviaEyeStraightLaserChip001::EnemyRatislaviaEyeStraightLaserChip001(c
 }
 
 void EnemyRatislaviaEyeStraightLaserChip001::initialize() {
-    callVecDriver()->setRzRyMvAng(0,0);
+    getVecDriver()->setRzRyMvAng(0,0);
     registerHitAreaCube_AutoGenMidColli(300000);
     setHitAble(true, false); //‰æ–ÊŠO“–‚½‚è”»’è‚Í–³‚µ
     //setScaleR(5.0);
@@ -27,8 +27,8 @@ void EnemyRatislaviaEyeStraightLaserChip001::initialize() {
 
 void EnemyRatislaviaEyeStraightLaserChip001::onActive() {
     StraightLaserChip::onActive();
-    callVecDriver()->setMvVelo(100000);
-    callVecDriver()->setMvAcce(300);
+    getVecDriver()->setMvVelo(100000);
+    getVecDriver()->setMvAcce(300);
     getStatus()->reset();
 }
 

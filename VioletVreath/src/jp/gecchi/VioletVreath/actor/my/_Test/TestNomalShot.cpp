@@ -24,11 +24,11 @@ void TestNomalShot::initialize() {
 void TestNomalShot::onActive() {
     getStatus()->reset();
     setHitAble(true);
-    callVecDriver()->setMvVelo(PX_C(30));
+    getVecDriver()->setMvVelo(PX_C(30));
 }
 
 void TestNomalShot::processBehavior() {
-    callVecDriver()->behave();
+    getVecDriver()->behave();
 }
 
 void TestNomalShot::processJudgement() {

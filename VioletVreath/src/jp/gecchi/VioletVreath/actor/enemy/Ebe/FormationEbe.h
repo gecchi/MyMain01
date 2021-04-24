@@ -30,9 +30,9 @@ public:
     /**
      * コンストラクタ .
      * @param prm_name
-     * @param prm_spl_id スプライン定義ID(XXX.spl の XXX)
+     * @param prm_ldr_id スプライン定義ID(XXX.ldr の XXX)
      */
-    FormationEbe(const char* prm_name, const char* prm_spl_id) ;
+    FormationEbe(const char* prm_name, const char* prm_ldr_id) ;
 
     void updateRankParameter();
 
@@ -50,7 +50,7 @@ public:
 
     virtual void processBehavior() override;
 
-    virtual GgafDx::SplineManufacture* getSplManuf() = 0;
+    virtual GgafDx::CurveManufacture* getSplManuf() = 0;
 
     virtual ~FormationEbe();
 };

@@ -26,7 +26,7 @@ void TestPa::onActive() {
 }
 
 void TestPa::processBehavior() {
-    callVecDriver()->behave();
+    getVecDriver()->behave();
     //getSeTransmitter()->behave();
     dispStamina();
 }

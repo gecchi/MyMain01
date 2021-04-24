@@ -4,9 +4,9 @@
 #include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
-#include "jp/ggaf/dx/manager/SplineManufactureConnection.h"
+#include "jp/ggaf/dx/manager/CurveManufactureConnection.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
-#include "jp/ggaf/dx/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/curve/DriverLeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
@@ -17,12 +17,12 @@ using namespace VioletVreath;
 EnemyHisbeLaserChip002::EnemyHisbeLaserChip002(const char* prm_name) :
         VvEnemyActor<RefractionLaserChip>(prm_name, "HisbeLaserChip002", StatusReset(EnemyHisbeLaserChip002)) {
     _class_name = "EnemyHisbeLaserChip002";
-    pConn_pSplManuf_ = connectToSplineManufactureManager("EnemyHisbeLaserChip002"); //ヒルベルト曲線
-    pVecDriverLeader_ = pConn_pSplManuf_->peek()->createVecDriverLeader(callVecDriver());
-    pVecDriverLeader_->adjustCoordOffset(PX_C(100), 0, 0);
+    pConn_pCurveManuf_ = connectToCurveManufactureManager("EnemyHisbeLaserChip002"); //ヒルベルト曲線
+    pDriverLeader_ = pConn_pCurveManuf_->peek()->createVecDriverLeader(getVecDriver());
+    pDriverLeader_->adjustCoordOffset(PX_C(100), 0, 0);
     pFeatureScene_ = nullptr;
-    callVecDriver()->setMvAngByFaceAng();
-    callVecDriver()->linkFaceAngByMvAng(true);
+    getVecDriver()->setMvAngByFaceAng();
+    getVecDriver()->linkFaceAngByMvAng(true);
 }
 
 void EnemyHisbeLaserChip002::initialize() {
@@ -45,10 +45,10 @@ void EnemyHisbeLaserChip002::onRefractionInto(int prm_num_refraction)  {
 
 void EnemyHisbeLaserChip002::onRefractionOutOf(int prm_num_refraction)  {
     if (prm_num_refraction == 0) {
-        pVecDriverLeader_->start(RELATIVE_COORD_DIRECTION); //向てる方向にスプライン座標をワールド変換
+        pDriverLeader_->start(RELATIVE_COORD_DIRECTION); //向てる方向にスプライン座標をワールド変換
     }
-    pVecDriverLeader_->behave();
-    if (pVecDriverLeader_->isFinished()) {
+    pDriverLeader_->behave();
+    if (pDriverLeader_->isFinished()) {
         sayonara();
     }
 }
@@ -56,7 +56,7 @@ void EnemyHisbeLaserChip002::onRefractionOutOf(int prm_num_refraction)  {
 void EnemyHisbeLaserChip002::processBehavior() {
     if (_is_leader) {
         if (pFeatureScene_) {
-            pVecDriverLeader_->_x_start_in_loop -= pFeatureScene_->getFeatureParam1();
+            pDriverLeader_->_x_start_in_loop -= pFeatureScene_->getFeatureParam1();
         }
     }
     RefractionLaserChip::processBehavior();
@@ -82,8 +82,8 @@ void EnemyHisbeLaserChip002::onHit(const GgafCore::Actor* prm_pOtherActor) {
 }
 
 EnemyHisbeLaserChip002::~EnemyHisbeLaserChip002() {
-    GGAF_DELETE(pVecDriverLeader_);
-    pConn_pSplManuf_->close();
+    GGAF_DELETE(pDriverLeader_);
+    pConn_pCurveManuf_->close();
 }
 
 

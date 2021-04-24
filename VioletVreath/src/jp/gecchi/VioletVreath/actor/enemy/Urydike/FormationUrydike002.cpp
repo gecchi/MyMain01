@@ -1,8 +1,8 @@
 #include "FormationUrydike002.h"
 
 #include "jp/ggaf/dx/actor/supporter/VecDriver.h"
-#include "jp/ggaf/dx/util/spline/SplineLeader.h"
-#include "jp/ggaf/dx/util/spline/SplineManufacture.h"
+#include "jp/ggaf/dx/util/curve/DriverLeader.h"
+#include "jp/ggaf/dx/util/curve/CurveManufacture.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Urydike/EnemyUrydike.h"
 #include "jp/ggaf/core/util/Xpm.h"
@@ -16,16 +16,16 @@ FormationUrydike002::FormationUrydike002(const char* prm_name) :
         FormationUrydike(prm_name, "FormationUrydike002_Xpm", 8) {
     _class_name = "FormationUrydike002";
 
-    papSplManufConn_ = NEW SplineManufactureConnection*[getFormationColNum()];
-    papSplManufConn_[0] = connectToSplineManufactureManager("FormationUrydike002,0");
-    papSplManufConn_[1] = connectToSplineManufactureManager("FormationUrydike002,1");
-    papSplManufConn_[2] = connectToSplineManufactureManager("FormationUrydike002,2");
-    papSplManufConn_[3] = connectToSplineManufactureManager("FormationUrydike002,3");
-    papSplManufConn_[4] = connectToSplineManufactureManager("FormationUrydike002,4");
-    papSplManufConn_[5] = connectToSplineManufactureManager("FormationUrydike002,5");
-    papSplManufConn_[6] = connectToSplineManufactureManager("FormationUrydike002,6");
-    papSplManufConn_[7] = connectToSplineManufactureManager("FormationUrydike002,7");
-    papSplManufConn_[8] = connectToSplineManufactureManager("FormationUrydike002,8");
+    papCurveManufConn_ = NEW CurveManufactureConnection*[getFormationColNum()];
+    papCurveManufConn_[0] = connectToCurveManufactureManager("FormationUrydike002,0");
+    papCurveManufConn_[1] = connectToCurveManufactureManager("FormationUrydike002,1");
+    papCurveManufConn_[2] = connectToCurveManufactureManager("FormationUrydike002,2");
+    papCurveManufConn_[3] = connectToCurveManufactureManager("FormationUrydike002,3");
+    papCurveManufConn_[4] = connectToCurveManufactureManager("FormationUrydike002,4");
+    papCurveManufConn_[5] = connectToCurveManufactureManager("FormationUrydike002,5");
+    papCurveManufConn_[6] = connectToCurveManufactureManager("FormationUrydike002,6");
+    papCurveManufConn_[7] = connectToCurveManufactureManager("FormationUrydike002,7");
+    papCurveManufConn_[8] = connectToCurveManufactureManager("FormationUrydike002,8");
 }
 
 void FormationUrydike002::processBehavior() {
@@ -34,14 +34,14 @@ void FormationUrydike002::processBehavior() {
 
 void FormationUrydike002::onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) {
     EnemyUrydike* pUrydike = (EnemyUrydike*)prm_pActor;
-    if (pUrydike->pVecDriverLeader_) {
-        throwCriticalException("pUrydike->pVecDriverLeader_が設定されてます。pUrydike="<<pUrydike<<"("<<pUrydike->getName()<<")");
+    if (pUrydike->pDriverLeader_) {
+        throwCriticalException("pUrydike->pDriverLeader_が設定されてます。pUrydike="<<pUrydike<<"("<<pUrydike->getName()<<")");
     } else {
-        pUrydike->pVecDriverLeader_ = papSplManufConn_[prm_col]->peek()->
-                                     createVecDriverLeader(pUrydike->callVecDriver());
+        pUrydike->pDriverLeader_ = papCurveManufConn_[prm_col]->peek()->
+                                     createVecDriverLeader(pUrydike->getVecDriver());
     }
-    double rate_x = pUrydike->pVecDriverLeader_->_pManufacture->_rate_x;
-    double d_col = -1.0 * papSplManufConn_[prm_col]->peek()->_pSpl->_rotmat._41; //横との間隔
+    double rate_x = pUrydike->pDriverLeader_->_pManufacture->_rate_x;
+    double d_col = -1.0 * papCurveManufConn_[prm_col]->peek()->_pCurve->_rotmat._41; //横との間隔
     float X = d_col*rate_x; //rate_xを掛けることにより、ここで X はcoordの単位となる。
 
     float sinRz = ANG_SIN(entry_pos_.rz);
@@ -54,10 +54,10 @@ void FormationUrydike002::onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row,
     coord dx = X*cosRz*cosRy;
     coord dy = X*sinRz;
     coord dz = X*cosRz*-sinRy;
-    pUrydike->pVecDriverLeader_->setStartPosition(entry_pos_.x + dx,
+    pUrydike->pDriverLeader_->setStartPosition(entry_pos_.x + dx,
                                                entry_pos_.y + dy,
                                                entry_pos_.z + dz);
-    pUrydike->pVecDriverLeader_->setStartAngle(entry_pos_.rx, entry_pos_.ry, entry_pos_.rz);
+    pUrydike->pDriverLeader_->setStartAngle(entry_pos_.rx, entry_pos_.ry, entry_pos_.rz);
 
     pUrydike->setPosition( RND_ABOUT(entry_pos_.x + dx, PX_C(700)),
                            RND_ABOUT(entry_pos_.y + dy, PX_C(700)),
@@ -65,9 +65,9 @@ void FormationUrydike002::onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row,
     pUrydike->setFaceAngTwd(entry_pos_.x + dx,
                             entry_pos_.y + dy,
                             entry_pos_.z + dz);
-    pUrydike->callVecDriver()->setMvAngByFaceAng();
-    pUrydike->callVecDriver()->setMvVelo(0);
-    pUrydike->callVecDriver()->setMvAcce(80);
+    pUrydike->getVecDriver()->setMvAngByFaceAng();
+    pUrydike->getVecDriver()->setMvVelo(0);
+    pUrydike->getVecDriver()->setMvAcce(80);
 
     //色を設定
     GgafCore::Xpm* pXpM = pXpmConnection_->peek();
@@ -80,8 +80,8 @@ void FormationUrydike002::onFinshLeading(GgafDx::FigureActor* prm_pActor) {
 
 FormationUrydike002::~FormationUrydike002() {
     for (int col = 0; col < getFormationColNum(); col++) {
-        papSplManufConn_[col]->close();
+        papCurveManufConn_[col]->close();
     }
-    GGAF_DELETEARR(papSplManufConn_);
+    GGAF_DELETEARR(papCurveManufConn_);
 }
 

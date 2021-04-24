@@ -53,7 +53,7 @@ void SmpActor1::processBehavior() {
             _y -= PX_C(2); //下
         }
     }
-    callVecDriver()->behave(); //力車を活動させる（Z軸回転する）
+    getVecDriver()->behave(); //力車を活動させる（Z軸回転する）
 }
 
 void SmpActor1::onHit(const GgafCore::Actor* prm_pOtherActor) {

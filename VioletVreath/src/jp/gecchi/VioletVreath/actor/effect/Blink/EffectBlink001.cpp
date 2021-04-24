@@ -24,12 +24,12 @@ void EffectBlink001::onActive() {
     getScaler()->setRange(1, R_SC(40.0));
     setScale(getScaler()->getBottom());
     setFaceAngZero();
-    callVecDriver()->setRollPitchYawFaceAngVelo(3000, 11000, 7000);
+    getVecDriver()->setRollPitchYawFaceAngVelo(3000, 11000, 7000);
 }
 
 void EffectBlink001::processBehavior() {
     EffectBlink::processBehavior();
-    callVecDriver()->behave();
+    getVecDriver()->behave();
 }
 
 EffectBlink001::~EffectBlink001() {

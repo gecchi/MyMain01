@@ -6,7 +6,7 @@
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/dx/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/curve/DriverLeader.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 
 
@@ -32,7 +32,7 @@ bool PointSpriteTest::isOutOfSpacetime() const {
     return false;
 }
 void PointSpriteTest::initialize() {
-    callVecDriver()->setRollPitchYawFaceAngVelo(30, 50, 70);
+    getVecDriver()->setRollPitchYawFaceAngVelo(30, 50, 70);
     setScale(0);
     getScaler()->transitionAcceUntilVelo(-R_SC(0.01) , R_SC(0.1), -R_SC(0.001));
 }
@@ -46,7 +46,7 @@ void PointSpriteTest::processBehavior() {
 //        sayonara();
 //    }
     getUvFlipper()->behave();
-    callVecDriver()->behave();
+    getVecDriver()->behave();
     getScaler()->behave();
 }
 

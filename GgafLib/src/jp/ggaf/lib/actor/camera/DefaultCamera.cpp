@@ -52,13 +52,13 @@ void DefaultCamera::initialize() {
 }
 
 void DefaultCamera::processBehavior() {
-    callGeoDriver()->behave();
-    callVecDriver()->behave();
+    getGeoDriver()->behave();
+    getVecDriver()->behave();
     GgafDx::Camera::processBehavior();
 }
 
 void DefaultCamera::slideMvTo(coord tx, coord ty, coord tz, frame t, float prm_p1, float prm_p2) {
-    callGeoDriver()->asst()->slideVxyzMvByDtTo(
+    getGeoDriver()->asst()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,
                               prm_p1, prm_p2, 0, true);
 }
@@ -69,7 +69,7 @@ void DefaultCamera::slideMvTo(GgafDx::GeometricActor* pTarget, frame t, float pr
 
 void DefaultCamera::slideMvTo(coord tx, coord ty, coord tz, frame t,
                        float prm_x_p1, float prm_y_p1, float prm_z_p1) {
-    callGeoDriver()->asst()->slideVxyzMvByDtTo(
+    getGeoDriver()->asst()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,
                               prm_x_p1, prm_x_p1, 0,
                               prm_y_p1, prm_y_p1, 0,
@@ -94,7 +94,7 @@ dir26 DefaultCamera::getVpDirNo() {
 }
 
 bool DefaultCamera::isSliding() {
-    return callGeoDriver()->asst()->isSliding();
+    return getGeoDriver()->asst()->isSliding();
 }
 
 DefaultCamera::~DefaultCamera() {

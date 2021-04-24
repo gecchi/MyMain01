@@ -50,8 +50,8 @@ void EnemyAntiope::onActive() {
 }
 
 void EnemyAntiope::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
-    GgafDx::GeoDriver* const pGeoDriver = callGeoDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
+    GgafDx::GeoDriver* const pGeoDriver = getGeoDriver();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
 
     GgafCore::Progress* const pProg = getProgress();

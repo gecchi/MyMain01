@@ -72,7 +72,7 @@ void SmpPieGraphSprite::processBehavior() {
     }
     getColorist()->behave();
     getUvFlipper()->behave();
-    callVecDriver()->behave(); //力車を活動させる（Z軸回転する）
+    getVecDriver()->behave(); //力車を活動させる（Z軸回転する）
 }
 
 void SmpPieGraphSprite::onHit(const GgafCore::Actor* prm_pOtherActor) {

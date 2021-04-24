@@ -23,7 +23,7 @@ void Cursor001::onActive() {
 }
 
 void Cursor001::processBehavior() {
-    callVecDriver()->behave();
+    getVecDriver()->behave();
     getUvFlipper()->behave();
 }
 
@@ -31,7 +31,7 @@ void Cursor001::processJudgement() {
 }
 
 void Cursor001::moveTo(coord tx, coord ty) {
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->setMvAngTwd(tx, ty);
     pVecDriver->asstMv()->slideByDt(UTIL::getDistance(_x, _y, tx, ty),
                                   8, 0.2, 0.3, 0, true);

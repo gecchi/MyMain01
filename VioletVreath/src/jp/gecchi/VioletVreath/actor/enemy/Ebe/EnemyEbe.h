@@ -17,7 +17,7 @@ class EnemyEbe : public VvEnemyActor<GgafLib::DefaultMeshSetActor> {
 
 public:
     /** 移動スプラインのシークエンスプログラム */
-    GgafDx::SplineLeader* pVecDriverLeader_;
+    GgafDx::DriverLeader* pDriverLeader_;
     /** 弾ストック */
     GgafCore::ActorDepository* pDepo_shot_;
     /** 弾発射効果エフェクト */
@@ -64,12 +64,12 @@ public:
 
     /**
      *
-     * @param prm_pVecDriverLeader
+     * @param prm_pDriverLeader
      * @param prm_pDepo_shot
      * @param prm_pDepo_shotEffect
      */
     virtual void config(
-            GgafDx::SplineLeader* prm_pVecDriverLeader,
+            GgafDx::DriverLeader* prm_pDriverLeader,
             GgafCore::ActorDepository* prm_pDepo_shot,
             GgafCore::ActorDepository* prm_pDepo_shotEffect
             );

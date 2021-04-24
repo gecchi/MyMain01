@@ -35,7 +35,7 @@ void MyMagicEnergyCore::initialize() {
 }
 
 void MyMagicEnergyCore::onActive() {
-    callGeoDriver()->execGravitationMvSequenceTwd(
+    getGeoDriver()->execGravitationMvSequenceTwd(
                       pMYSHIP,
                       +PX_C(90), 0, 0,
                       PX_C(10), PX_C(1), PX_C(20));
@@ -55,7 +55,7 @@ void MyMagicEnergyCore::processBehavior() {
         pChecker->disable(0);
     }
     getScaler()->behave();
-    callGeoDriver()->behave();
+    getGeoDriver()->behave();
 }
 
 void MyMagicEnergyCore::processJudgement() {

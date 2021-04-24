@@ -37,7 +37,7 @@ void EnemyEmiliaBase::onCreateModel() {
 
 void EnemyEmiliaBase::processBehavior() {
     updateRankParameter();
-    callVecDriver()->behave();
+    getVecDriver()->behave();
 }
 
 void EnemyEmiliaBase::processJudgement() {

@@ -38,13 +38,13 @@ void Planet001::initialize() {
     setScale(1000*1000);
     setRzFaceAng(D90ANG - D_ANG(30));
     setRyFaceAng(D45ANG);
-    callVecDriver()->setRollFaceAngVelo(500); //自転の速さ
+    getVecDriver()->setRollFaceAngVelo(500); //自転の速さ
 
     pAtmosphere_->setScale(_sx);
     pAtmosphere_->setPositionAt(this);
 }
 void Planet001::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
 
 //    //巨大オブジェクト移動テスト
 //    if (GgafDx::Input::isPressedKey(DIK_I)) {

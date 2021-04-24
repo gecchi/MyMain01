@@ -29,12 +29,12 @@ void EffectExplosion003::onActive() {
     setScale(0);
     getScaler()->transitionAcceUntilVelo(R_SC(0.01) , R_SC(0.1), -R_SC(0.001));
     getUvFlipper()->exec(FLIP_ORDER_LOOP, 1);
-    setRzRyFaceAng(callVecDriver()->getRzMvAng(), callVecDriver()->getRyMvAng());
+    setRzRyFaceAng(getVecDriver()->getRzMvAng(), getVecDriver()->getRyMvAng());
 }
 
 void EffectExplosion003::processBehavior() {
     getUvFlipper()->behave();
-    callVecDriver()->behave();
+    getVecDriver()->behave();
     getScaler()->behave();
 }
 

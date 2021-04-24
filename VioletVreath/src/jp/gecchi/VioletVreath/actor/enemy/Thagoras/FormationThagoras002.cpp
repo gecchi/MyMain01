@@ -3,7 +3,7 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Thagoras/EnemyThagoras.h"
-#include "jp/ggaf/dx/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/curve/DriverLeader.h"
 
 #include "jp/ggaf/core/util/Xpm.h"
 
@@ -16,9 +16,9 @@ FormationThagoras002::FormationThagoras002(const char* prm_name) :
         FormationThagoras(prm_name, "jikir") {
     _class_name = "FormationThagoras002";
     int col_num = getXpm()->getWidth();
-    papSplManufConn_ = NEW SplineManufactureConnection*[col_num];
+    papCurveManufConn_ = NEW CurveManufactureConnection*[col_num];
     for (int i = 0; i < col_num; i++) {
-        papSplManufConn_[i] = connectToSplineManufactureManager("FormationThagoras001");
+        papCurveManufConn_[i] = connectToCurveManufactureManager("FormationThagoras001");
     }
 }
 
@@ -28,13 +28,13 @@ void FormationThagoras002::processBehavior() {
 
 void FormationThagoras002::onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) {
     EnemyThagoras* pThagoras = (EnemyThagoras*)prm_pActor;
-    if (pThagoras->pVecDriverLeader_) {
-        throwCriticalException("pThagoras->pVecDriverLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpThagoras="<<pThagoras<<"("<<pThagoras->getName()<<")");
+    if (pThagoras->pDriverLeader_) {
+        throwCriticalException("pThagoras->pDriverLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpThagoras="<<pThagoras<<"("<<pThagoras->getName()<<")");
     } else {
-        pThagoras->pVecDriverLeader_ = papSplManufConn_[prm_col]->peek()->
-                                      createVecDriverLeader(pThagoras->callVecDriver());
+        pThagoras->pDriverLeader_ = papCurveManufConn_[prm_col]->peek()->
+                                      createVecDriverLeader(pThagoras->getVecDriver());
     }
-    pThagoras->pVecDriverLeader_->setStartPosition(entry_pos_.x                      ,
+    pThagoras->pDriverLeader_->setStartPosition(entry_pos_.x                      ,
                                                 entry_pos_.y + (prm_col*PX_C(30)) ,
                                                 entry_pos_.z                       );
 
@@ -46,8 +46,8 @@ void FormationThagoras002::onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row
 FormationThagoras002::~FormationThagoras002() {
     int col_num = getXpm()->getWidth();
     for (int i = 0; i < col_num; i++) {
-        papSplManufConn_[i]->close();
+        papCurveManufConn_[i]->close();
     }
-    GGAF_DELETEARR(papSplManufConn_);
+    GGAF_DELETEARR(papCurveManufConn_);
 }
 

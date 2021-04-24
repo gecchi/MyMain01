@@ -1,9 +1,9 @@
 #include "FormationErelman001.h"
 
 #include "jp/ggaf/dx/actor/supporter/VecDriver.h"
-#include "jp/ggaf/dx/util/spline/SplineLeader.h"
-#include "jp/ggaf/dx/util/spline/SplineManufacture.h"
-#include "jp/ggaf/dx/util/spline/FixedFrameSplineManufacture.h"
+#include "jp/ggaf/dx/util/curve/DriverLeader.h"
+#include "jp/ggaf/dx/util/curve/CurveManufacture.h"
+#include "jp/ggaf/dx/util/curve/FixedFrameCurveManufacture.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Erelman/EnemyErelman.h"
 
@@ -35,12 +35,12 @@ FormationErelman001::FormationErelman001(const char* prm_name, EnemyErelmanContr
         appendFormationMember(NEW EnemyErelman(name.c_str()));
     }
 
-    papSplManufConn_ = NEW SplineManufactureConnection*[formation_col_num_];
+    papCurveManufConn_ = NEW CurveManufactureConnection*[formation_col_num_];
     for (int col = 0; col < formation_col_num_; col++) {
-        papSplManufConn_[col] = connectToSplineManufactureManager(("FormationErelman001,"+XTOS(col)).c_str());
+        papCurveManufConn_[col] = connectToCurveManufactureManager(("FormationErelman001,"+XTOS(col)).c_str());
     }
 
-    FixedFrameSplineManufacture* Manuf =  ((FixedFrameSplineManufacture*)(papSplManufConn_[0])->peek());
+    FixedFrameCurveManufacture* Manuf =  ((FixedFrameCurveManufacture*)(papCurveManufConn_[0])->peek());
     spent_frames_ = Manuf->getSpentFrames();
 //    double call_up_interval_ = spent_frames / formation_row_num_;  //èoåªä‘äu
 
@@ -92,21 +92,21 @@ void FormationErelman001::processBehavior() {
 
 void FormationErelman001::onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) {
     EnemyErelman* pErelman = (EnemyErelman*)prm_pActor;
-    if (pErelman->pVecDriverLeader_) {
-        throwCriticalException("pErelman->pVecDriverLeader_Ç™ê›íËÇ≥ÇÍÇƒÇ‹Ç∑ÅBpErelman="<<pErelman<<"("<<pErelman->getName()<<")");
+    if (pErelman->pDriverLeader_) {
+        throwCriticalException("pErelman->pDriverLeader_Ç™ê›íËÇ≥ÇÍÇƒÇ‹Ç∑ÅBpErelman="<<pErelman<<"("<<pErelman->getName()<<")");
     } else {
-        pErelman->pVecDriverLeader_ = papSplManufConn_[prm_col]->peek()->
-                                      createVecDriverLeader(pErelman->callVecDriver());
+        pErelman->pDriverLeader_ = papCurveManufConn_[prm_col]->peek()->
+                                      createVecDriverLeader(pErelman->getVecDriver());
     }
-    pErelman->pVecDriverLeader_->setStartPosition(geo_.x, geo_.y, geo_.z);
-    pErelman->pVecDriverLeader_->setStartAngle(geo_.rx, geo_.ry, geo_.rz);
+    pErelman->pDriverLeader_->setStartPosition(geo_.x, geo_.y, geo_.z);
+    pErelman->pDriverLeader_->setStartAngle(geo_.rx, geo_.ry, geo_.rz);
     pErelman->setPositionAround(geo_.x, geo_.y, geo_.z, PX_C(100));
     pErelman->setFaceAngTwd(pErelman->_x + (pErelman->_x - geo_.x),
                             pErelman->_y + (pErelman->_y - geo_.y),
                             pErelman->_z + (pErelman->_z - geo_.z) );
-    pErelman->callVecDriver()->setMvAngByFaceAng();
-    pErelman->callVecDriver()->setMvVelo(0);
-    pErelman->callVecDriver()->setMvAcce(80);
+    pErelman->getVecDriver()->setMvAngByFaceAng();
+    pErelman->getVecDriver()->setMvVelo(0);
+    pErelman->getVecDriver()->setMvAcce(80);
 
 //    float sr = ANG_SIN(RCNV(0, getFormationRowNum() , prm_row , D0ANG, D360ANG));
 //    float sg = ANG_COS(RCNV(0, getFormationRowNum() , prm_row , D0ANG, D360ANG));
@@ -129,9 +129,9 @@ void FormationErelman001::onFinshLeading(GgafDx::FigureActor* prm_pActor) {
 
 FormationErelman001::~FormationErelman001() {
     for (int col = 0; col < getFormationColNum(); col++) {
-        papSplManufConn_[col]->close();
+        papCurveManufConn_[col]->close();
     }
-    GGAF_DELETEARR(papSplManufConn_);
+    GGAF_DELETEARR(papCurveManufConn_);
     GGAF_DELETEARR(pa_frame_of_call_up_);
 }
 

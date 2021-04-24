@@ -23,8 +23,8 @@ void MyBunshinSnipeShot001::initialize() {
     pChecker->createCollisionArea(1);
     pChecker->setColliAABox(0, -PX_C(50), -PX_C(50), -PX_C(50),
                               PX_C(50),  PX_C(50),  PX_C(50));
-    callVecDriver()->setRollFaceAngVelo(D_ANG(12));
-    callVecDriver()->linkFaceAngByMvAng(true);
+    getVecDriver()->setRollFaceAngVelo(D_ANG(12));
+    getVecDriver()->linkFaceAngByMvAng(true);
 }
 
 void MyBunshinSnipeShot001::onActive() {
@@ -33,7 +33,7 @@ void MyBunshinSnipeShot001::onActive() {
 }
 
 void MyBunshinSnipeShot001::processBehavior() {
-    callVecDriver()->behave();
+    getVecDriver()->behave();
 }
 
 void MyBunshinSnipeShot001::processJudgement() {

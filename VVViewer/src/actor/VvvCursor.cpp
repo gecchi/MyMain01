@@ -28,7 +28,7 @@ VvvCursor::VvvCursor(const char* prm_name) :
 void VvvCursor::initialize() {
     //座標設定
     _x = _y = _z = 0; //(0,0,0) は画面の中心
-    callVecDriver()->_angvelo_face[AXIS_Z] = 1000;
+    getVecDriver()->_angvelo_face[AXIS_Z] = 1000;
     GgafDx::Scaler* const pScaler = getScaler();
     pScaler->setRange(2000, 4000);
     pScaler->beat(30, 2, 0, 28, -1); //無限ループ
@@ -58,8 +58,8 @@ void VvvCursor::processBehavior() {
     }
 
     _pUvFlipper->behave();
-    callVecDriver()->behave();
-    if (callVecDriver()->asstMv()->hasJustFinishedSliding()) {
+    getVecDriver()->behave();
+    if (getVecDriver()->asstMv()->hasJustFinishedSliding()) {
         //理想位置に補正
         _x = tx_;
         _y = ty_;
@@ -74,14 +74,14 @@ void VvvCursor::sinkMe() {
 }
 
 void VvvCursor::moveTo(coord X, coord Y, coord Z) {
-    callVecDriver()->asstMv()->stopSliding();
-    callVecDriver()->setMvVelo(0);
-    callVecDriver()->setMvAcce(0);
+    getVecDriver()->asstMv()->stopSliding();
+    getVecDriver()->setMvVelo(0);
+    getVecDriver()->setMvAcce(0);
     tx_ = X;
     ty_ = Y;
     tz_ = Z;
-    callVecDriver()->setMvAngTwd(tx_, ty_, tz_);
-    callVecDriver()->asstMv()->slideByDt( UTIL::getDistance(_x, _y, _z, tx_, ty_, tz_), 20, 0.3f, 0.7f, 0, true);
+    getVecDriver()->setMvAngTwd(tx_, ty_, tz_);
+    getVecDriver()->asstMv()->slideByDt( UTIL::getDistance(_x, _y, _z, tx_, ty_, tz_), 20, 0.3f, 0.7f, 0, true);
     _pProg->change(CUR_ON_MOVE);
 }
 

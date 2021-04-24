@@ -14,8 +14,8 @@ namespace VioletVreath {
 class FormationRis002 : public GgafLib::TreeFormation {
 
     DepositoryConnection* pConn_depo_;
-    GgafDx::SplineSourceConnection* pSplSrcConnection_;
-    GgafDx::SplineManufacture* pManufacture_;
+    GgafDx::CurveSourceConnection* pCurveSrcConnection_;
+    GgafDx::CurveManufacture* pManufacture_;
 public:
     /** ï“ë‡êî(RANKïœìÆ) */
     int num_Ris_;

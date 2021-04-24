@@ -103,8 +103,8 @@ std::string Config::DIR_WAVE[] = {
                 GgafCore::Config::DIR_SKIN_KIND[2]
             };
 
-std::string Config::DIRNAME_RESOURCE_SPLINE = "spline";
-std::string Config::DIR_SPLINE = GgafCore::Config::DIR_RESOURCE + "/" + Config::DIRNAME_RESOURCE_SPLINE + "/" ;
+std::string Config::DIRNAME_RESOURCE_CURVE = "curve";
+std::string Config::DIR_CURVE = GgafCore::Config::DIR_RESOURCE + "/" + Config::DIRNAME_RESOURCE_CURVE + "/" ;
 
 
 bool Config::REALTIME_EFFECT_COMPILE = false;
@@ -291,8 +291,8 @@ void Config::loadProperties(std::string prm_properties_filename) {
         Config::DIRNAME_RESOURCE_SKIN_XXX_WAVE = GgafCore::Config::_properties.getStr("DIRNAME_RESOURCE_SKIN_XXX_WAVE");
     }
 
-    if (Config::_properties.isExistKey("DIRNAME_RESOURCE_SPLINE")) {
-        Config::DIRNAME_RESOURCE_SPLINE  = GgafCore::Config::_properties.getStr("DIRNAME_RESOURCE_SPLINE");
+    if (Config::_properties.isExistKey("DIRNAME_RESOURCE_CURVE")) {
+        Config::DIRNAME_RESOURCE_CURVE  = GgafCore::Config::_properties.getStr("DIRNAME_RESOURCE_CURVE");
     }
 
     if (GgafCore::Config::_properties.isExistKey("REALTIME_EFFECT_COMPILE")) {
@@ -356,7 +356,7 @@ void Config::loadProperties(std::string prm_properties_filename) {
     Config::DIR_WAVE[2] = GgafCore::Config::DIR_SKIN_KIND[2] + "/";
 
 
-    Config::DIR_SPLINE = GgafCore::Config::DIR_RESOURCE + "/" + Config::DIRNAME_RESOURCE_SPLINE + "/";
+    Config::DIR_CURVE = GgafCore::Config::DIR_RESOURCE + "/" + Config::DIRNAME_RESOURCE_CURVE + "/";
 
 
     UTIL::strReplace(Config::DIR_MESH_MODEL[0]    , "//", "/");
@@ -378,7 +378,7 @@ void Config::loadProperties(std::string prm_properties_filename) {
     UTIL::strReplace(Config::DIR_OGG[2]           , "//", "/");
     UTIL::strReplace(Config::DIR_WAVE[2]          , "//", "/");
 
-    UTIL::strReplace(Config::DIR_SPLINE , "//", "/");
+    UTIL::strReplace(Config::DIR_CURVE , "//", "/");
 
     //リソースディレクトリ名指定があるのならば、デフォルトのスキンディレクトリのリソースディレクトリ存在チェック
     if (GgafCore::Config::_properties.isExistKey("DIRNAME_RESOURCE_SKIN_XXX_MESH")) {
@@ -411,9 +411,9 @@ void Config::loadProperties(std::string prm_properties_filename) {
             throwCriticalException("prm_properties_filename="<<prm_properties_filename<<" DIR_WAVE[0]("<<Config::DIR_WAVE[0]<<") のディレクトリが見つかりません。");
         }
     }
-    if (GgafCore::Config::_properties.isExistKey("DIRNAME_RESOURCE_SPLINE")) {
-        if (!PathFileExists(Config::DIR_SPLINE.c_str()) ) {
-            throwCriticalException("prm_properties_filename="<<prm_properties_filename<<" DIR_SPLINE("<<Config::DIR_SPLINE<<") のディレクトリが見つかりません。");
+    if (GgafCore::Config::_properties.isExistKey("DIRNAME_RESOURCE_CURVE")) {
+        if (!PathFileExists(Config::DIR_CURVE.c_str()) ) {
+            throwCriticalException("prm_properties_filename="<<prm_properties_filename<<" DIR_CURVE("<<Config::DIR_CURVE<<") のディレクトリが見つかりません。");
         }
     }
     _TRACE_("Config::FULL_SCREEN=" << Config::FULL_SCREEN);
@@ -463,7 +463,7 @@ void Config::loadProperties(std::string prm_properties_filename) {
     _TRACE_("Config::DIRNAME_RESOURCE_SKIN_XXX_EFFECT=" << Config::DIRNAME_RESOURCE_SKIN_XXX_EFFECT);
     _TRACE_("Config::DIRNAME_RESOURCE_SKIN_XXX_OGG=" << Config::DIRNAME_RESOURCE_SKIN_XXX_OGG);
     _TRACE_("Config::DIRNAME_RESOURCE_SKIN_XXX_WAVE=" << Config::DIRNAME_RESOURCE_SKIN_XXX_WAVE);
-    _TRACE_("Config::DIRNAME_RESOURCE_SPLINE=" << Config::DIRNAME_RESOURCE_SPLINE);
+    _TRACE_("Config::DIRNAME_RESOURCE_CURVE=" << Config::DIRNAME_RESOURCE_CURVE);
 
     _TRACE_("Config::DIR_MESH_MODEL[0]=" << Config::DIR_MESH_MODEL[0]);
     _TRACE_("Config::DIR_SPRITE_MODEL[0]=" << Config::DIR_SPRITE_MODEL[0]);
@@ -486,7 +486,7 @@ void Config::loadProperties(std::string prm_properties_filename) {
     _TRACE_("Config::DIR_OGG[2]=" << Config::DIR_OGG[2]);
     _TRACE_("Config::DIR_WAVE[2]=" << Config::DIR_WAVE[2]);
 
-    _TRACE_("Config::DIR_SPLINE=" << Config::DIR_SPLINE);
+    _TRACE_("Config::DIR_CURVE=" << Config::DIR_CURVE);
 
     _TRACE_("Config::REALTIME_EFFECT_COMPILE="<<Config::REALTIME_EFFECT_COMPILE);
 

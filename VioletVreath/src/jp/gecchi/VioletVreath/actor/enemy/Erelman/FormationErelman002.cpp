@@ -1,9 +1,9 @@
 #include "FormationErelman002.h"
 
 #include "jp/ggaf/dx/actor/supporter/VecDriver.h"
-#include "jp/ggaf/dx/util/spline/SplineLeader.h"
-#include "jp/ggaf/dx/util/spline/SplineManufacture.h"
-#include "jp/ggaf/dx/util/spline/FixedFrameSplineManufacture.h"
+#include "jp/ggaf/dx/util/curve/DriverLeader.h"
+#include "jp/ggaf/dx/util/curve/CurveManufacture.h"
+#include "jp/ggaf/dx/util/curve/FixedFrameCurveManufacture.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Erelman/EnemyErelman.h"
 
@@ -29,7 +29,7 @@ FormationErelman002::FormationErelman002(const char* prm_name, EnemyErelmanContr
     papa_frame_of_call_up_ = NEW frame*[formation_col_num_];
     pa_spent_frames_ = NEW frame[formation_col_num_];
     pa_call_up_row_idx_ = NEW int[formation_col_num_];
-    papSplManufConn_ = NEW SplineManufactureConnection*[formation_col_num_];
+    papCurveManufConn_ = NEW CurveManufactureConnection*[formation_col_num_];
 
     for (int i = 0; i < num_Erelman_; i++) {
         std::string name = "Erelman("+XTOS(i)+")";
@@ -39,8 +39,8 @@ FormationErelman002::FormationErelman002(const char* prm_name, EnemyErelmanContr
     for (int col = 0; col < formation_col_num_; col++) {
         papa_frame_of_call_up_[col] = NEW frame[formation_row_num_];
         pa_call_up_row_idx_[col] = 0;
-        papSplManufConn_[col] = connectToSplineManufactureManager(("FormationErelman002,"+XTOS(col)).c_str());
-        FixedFrameSplineManufacture* Manuf =  ((FixedFrameSplineManufacture*)(papSplManufConn_[col])->peek());
+        papCurveManufConn_[col] = connectToCurveManufactureManager(("FormationErelman002,"+XTOS(col)).c_str());
+        FixedFrameCurveManufacture* Manuf =  ((FixedFrameCurveManufacture*)(papCurveManufConn_[col])->peek());
         pa_spent_frames_[col] = Manuf->getSpentFrames();
     }
 
@@ -95,21 +95,21 @@ void FormationErelman002::processBehavior() {
 
 void FormationErelman002::onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) {
     EnemyErelman* pErelman = (EnemyErelman*)prm_pActor;
-    if (pErelman->pVecDriverLeader_) {
-        throwCriticalException("pErelman->pVecDriverLeader_Ç™ê›íËÇ≥ÇÍÇƒÇ‹Ç∑ÅBpErelman="<<pErelman<<"("<<pErelman->getName()<<")");
+    if (pErelman->pDriverLeader_) {
+        throwCriticalException("pErelman->pDriverLeader_Ç™ê›íËÇ≥ÇÍÇƒÇ‹Ç∑ÅBpErelman="<<pErelman<<"("<<pErelman->getName()<<")");
     } else {
-        pErelman->pVecDriverLeader_ = papSplManufConn_[prm_col]->peek()->
-                                      createVecDriverLeader(pErelman->callVecDriver());
+        pErelman->pDriverLeader_ = papCurveManufConn_[prm_col]->peek()->
+                                      createVecDriverLeader(pErelman->getVecDriver());
     }
-    pErelman->pVecDriverLeader_->setStartPosition(geo_.x, geo_.y, geo_.z);
-    pErelman->pVecDriverLeader_->setStartAngle(geo_.rx, geo_.ry, geo_.rz);
+    pErelman->pDriverLeader_->setStartPosition(geo_.x, geo_.y, geo_.z);
+    pErelman->pDriverLeader_->setStartAngle(geo_.rx, geo_.ry, geo_.rz);
     pErelman->setPositionAround(geo_.x, geo_.y, geo_.z, PX_C(100));
     pErelman->setFaceAngTwd(pErelman->_x + (pErelman->_x - geo_.x),
                             pErelman->_y + (pErelman->_y - geo_.y),
                             pErelman->_z + (pErelman->_z - geo_.z) );
-    pErelman->callVecDriver()->setMvAngByFaceAng();
-    pErelman->callVecDriver()->setMvVelo(0);
-    pErelman->callVecDriver()->setMvAcce(80);
+    pErelman->getVecDriver()->setMvAngByFaceAng();
+    pErelman->getVecDriver()->setMvVelo(0);
+    pErelman->getVecDriver()->setMvAcce(80);
 
 //    float sr = ANG_SIN(RCNV(0, getFormationRowNum() , prm_row , D0ANG, D360ANG));
 //    float sg = ANG_COS(RCNV(0, getFormationRowNum() , prm_row , D0ANG, D360ANG));
@@ -136,11 +136,11 @@ void FormationErelman002::onFinshLeading(GgafDx::FigureActor* prm_pActor) {
 
 FormationErelman002::~FormationErelman002() {
     for (int col = 0; col < getFormationColNum(); col++) {
-        papSplManufConn_[col]->close();
+        papCurveManufConn_[col]->close();
         frame* p = papa_frame_of_call_up_[col];
         GGAF_DELETEARR(p);
     }
-    GGAF_DELETEARR(papSplManufConn_);
+    GGAF_DELETEARR(papCurveManufConn_);
     GGAF_DELETEARR(papa_frame_of_call_up_);
     GGAF_DELETEARR(pa_spent_frames_);
     GGAF_DELETEARR(pa_call_up_row_idx_);

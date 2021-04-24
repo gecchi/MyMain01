@@ -4,9 +4,9 @@
 #include "util/MgrUtil.h"
 #include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/lib/DefaultGod.h"
-#include "jp/ggaf/dx/util/spline/SplineLeader.h"
-#include "jp/ggaf/dx/manager/SplineManufactureConnection.h"
-#include "jp/ggaf/dx/util/spline/SplineManufacture.h"
+#include "jp/ggaf/dx/util/curve/DriverLeader.h"
+#include "jp/ggaf/dx/manager/CurveManufactureConnection.h"
+#include "jp/ggaf/dx/util/curve/CurveManufacture.h"
 #include "scene/MgrSpacetime/MgrWorld/ParallelCurveTestScene.h"
 
 using namespace GgafDx;
@@ -21,9 +21,9 @@ enum {
 
 EnemyIdaBase::EnemyIdaBase(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Ida") {
-    pConn_pSplManuf_ = connectToSplineManufactureManager("FormationZako001_STEP");
-    pVecDriverLeader_ = pConn_pSplManuf_->peek()->createVecDriverLeader(callVecDriver());
-    pVecDriverLeader_->_turn_smooth = true;
+    pConn_pCurveManuf_ = connectToCurveManufactureManager("FormationZako001_STEP");
+    pDriverLeader_ = pConn_pCurveManuf_->peek()->createVecDriverLeader(getVecDriver());
+    pDriverLeader_->_turn_smooth = true;
     std::string filename = XTOS(getName()) + ".dat";
     pOs_ = NEW std::ofstream(filename.c_str());
     setScaleR(0.5);
@@ -43,7 +43,7 @@ EnemyIdaBase::EnemyIdaBase(const char* prm_name) :
 }
 
 void EnemyIdaBase::initialize() {
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->linkFaceAngByMvAng(true);
 }
 
@@ -52,7 +52,7 @@ void EnemyIdaBase::onActive() {
 }
 
 void EnemyIdaBase::processBehavior() {
-    GgafDx::VecDriver* pVecDriver = callVecDriver();
+    GgafDx::VecDriver* pVecDriver = getVecDriver();
     GgafCore::Progress* pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
@@ -61,18 +61,18 @@ void EnemyIdaBase::processBehavior() {
         }
         case PROG_MOVE: {
             if (pProg->hasJustChanged()) {
-                pVecDriverLeader_->start(RELATIVE_COORD);
-                callVecDriver()->setMvVelo(PX_C(2));
+                pDriverLeader_->start(RELATIVE_COORD);
+                getVecDriver()->setMvVelo(PX_C(2));
             }
-            pVecDriverLeader_->behave();
-            if (pVecDriverLeader_->isFinished()) {
+            pDriverLeader_->behave();
+            if (pDriverLeader_->isFinished()) {
                 pProg->changeNext();
             }
             break;
         }
         case PROG_END: {
-            callVecDriver()->stopMv();
-            callVecDriver()->stopTurningMvAng();
+            getVecDriver()->stopMv();
+            getVecDriver()->stopTurningMvAng();
             break;
         }
     }
@@ -95,7 +95,7 @@ void EnemyIdaBase::onCatchEvent(hashval prm_no, void* prm_pSource) {
 }
 
 EnemyIdaBase::~EnemyIdaBase() {
-    pConn_pSplManuf_->close();
+    pConn_pCurveManuf_->close();
     if (pOs_) {
         (*pOs_).close();
     }

@@ -22,11 +22,11 @@ void EffectMagic001::initialize() {
 }
 
 void EffectMagic001::onActive() {
-    callVecDriver()->setRollPitchYawFaceAngVelo(PX_C(3), PX_C(5), PX_C(7));
+    getVecDriver()->setRollPitchYawFaceAngVelo(PX_C(3), PX_C(5), PX_C(7));
 }
 
 void EffectMagic001::processBehavior() {
-    callVecDriver()->behave();
+    getVecDriver()->behave();
 }
 
 void EffectMagic001::processJudgement() {

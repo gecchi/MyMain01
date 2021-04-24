@@ -110,9 +110,9 @@ GgafDx::FigureActor* MyStgUtil::shotWayGoldenAng(coord prm_x, coord prm_y, coord
                 pActor_shot->setPosition(prm_x + paGeo[i].x,
                                       prm_y + paGeo[i].y,
                                       prm_z + paGeo[i].z);
-                pActor_shot->callVecDriver()->setRzRyMvAng(paGeo[i].rz, paGeo[i].ry);
-                pActor_shot->callVecDriver()->setMvVelo(now_velo);
-                pActor_shot->callVecDriver()->setMvAcce(now_acce);
+                pActor_shot->getVecDriver()->setRzRyMvAng(paGeo[i].rz, paGeo[i].ry);
+                pActor_shot->getVecDriver()->setMvVelo(now_velo);
+                pActor_shot->getVecDriver()->setMvAcce(now_acce);
 //                pActor_shot->_rz = Rz;
 //                pActor_shot->_ry = Ry;
                 if (pFunc_call_back_dispatched) {
@@ -276,7 +276,7 @@ GgafDx::FigureActor* MyStgUtil::activateExplosionEffectOf(GgafDx::GeometricActor
                     pE->onActive();
                 }
                 pE->setPositionAt(prm_pActor);
-                pE->callVecDriver()->takeoverMvFrom(prm_pActor->callVecDriver());
+                pE->getVecDriver()->takeoverMvFrom(prm_pActor->getVecDriver());
             }
             break;
         }
@@ -284,7 +284,7 @@ GgafDx::FigureActor* MyStgUtil::activateExplosionEffectOf(GgafDx::GeometricActor
             pE = dispatchForceFromCommon(EffectExplosion002);
             if (pE) {
                 pE->setPositionAt(prm_pActor);
-                pE->callVecDriver()->takeoverMvFrom(prm_pActor->callVecDriver());
+                pE->getVecDriver()->takeoverMvFrom(prm_pActor->getVecDriver());
             }
             break;
         }
@@ -292,7 +292,7 @@ GgafDx::FigureActor* MyStgUtil::activateExplosionEffectOf(GgafDx::GeometricActor
             pE = dispatchForceFromCommon(EffectExplosion003);
             if (pE) {
                 pE->setPositionAt(prm_pActor);
-                pE->callVecDriver()->takeoverMvFrom(prm_pActor->callVecDriver());
+                pE->getVecDriver()->takeoverMvFrom(prm_pActor->getVecDriver());
             }
             break;
         }
@@ -300,8 +300,8 @@ GgafDx::FigureActor* MyStgUtil::activateExplosionEffectOf(GgafDx::GeometricActor
             pE = dispatchForceFromCommon(EffectExplosion001);
             if (pE) {
                 pE->setPositionAt(prm_pActor);
-                pE->callVecDriver()->setMvVelo(0);
-                pE->callVecDriver()->setMvAcce(0);
+                pE->getVecDriver()->setMvVelo(0);
+                pE->getVecDriver()->setMvAcce(0);
             }
             break;
         }
@@ -340,7 +340,7 @@ GgafDx::FigureActor* MyStgUtil::activateDamagedEffectOf(GgafDx::GeometricActor* 
     if (pE) {
         //出現座標を設定
         pE->setPositionAt(prm_pActor);
-        pE->callVecDriver()->takeoverMvFrom(prm_pActor->callVecDriver());
+        pE->getVecDriver()->takeoverMvFrom(prm_pActor->getVecDriver());
     }
     return pE;
 }
@@ -526,7 +526,7 @@ GgafDx::FigureActor* MyStgUtil::activateDestroyedEffectOf(GgafDx::GeometricActor
     if (pE) {
         //出現座標を設定
         pE->setPositionAt(prm_pActor);
-        pE->callVecDriver()->takeoverMvFrom(prm_pActor->callVecDriver());
+        pE->getVecDriver()->takeoverMvFrom(prm_pActor->getVecDriver());
     }
     return pE;
 }
@@ -690,7 +690,7 @@ GgafDx::FigureActor* MyStgUtil::activateFormationDestroyedEffectOf(GgafDx::Geome
             SpriteLabelBonus001* pLabel = dispatchForceFromCommon(SpriteLabelBonus001);
             pLabel->onDispatched(prm_pActor); //初期設定が行われる
             pLabel->setPositionAt(prm_pActor);
-            pLabel->callVecDriver()->takeoverMvFrom(prm_pActor->callVecDriver());
+            pLabel->getVecDriver()->takeoverMvFrom(prm_pActor->getVecDriver());
             int addscore = prm_pActor->getStatus()->get(STAT_FormationDestroyedAddScorePoint); //フォーメーション全滅得点
             std::string s = XTOS(addscore);
             pLabel->update(s.c_str());
@@ -698,7 +698,7 @@ GgafDx::FigureActor* MyStgUtil::activateFormationDestroyedEffectOf(GgafDx::Geome
 
             EffectTurbo002* pTurbo002 = dispatchForceFromCommon(EffectTurbo002);
             pTurbo002->setPositionAt(prm_pActor);
-            pTurbo002->callVecDriver()->takeoverMvFrom(prm_pActor->callVecDriver());
+            pTurbo002->getVecDriver()->takeoverMvFrom(prm_pActor->getVecDriver());
             break;
         }
 //            case 2: {
@@ -719,7 +719,7 @@ GgafDx::FigureActor* MyStgUtil::activateFormationDestroyedEffectOf(GgafDx::Geome
 //        if (pE) {
 //            //出現座標を設定
 //            pE->setPositionAt(prm_pActor);
-//            pE->callVecDriver()->takeoverMvFrom(prm_pActor->callVecDriver());
+//            pE->getVecDriver()->takeoverMvFrom(prm_pActor->getVecDriver());
 //        }
     return pE;
 }

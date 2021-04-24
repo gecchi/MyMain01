@@ -24,7 +24,7 @@ public:
     frame** papa_frame_of_call_up_;
 
     int* pa_call_up_row_idx_;
-    GgafDx::SplineManufactureConnection** papSplManufConn_;
+    GgafDx::CurveManufactureConnection** papCurveManufConn_;
 
     FormationErelman003(const char* prm_name, EnemyErelmanController* prm_pController);
     virtual void onActive() override;

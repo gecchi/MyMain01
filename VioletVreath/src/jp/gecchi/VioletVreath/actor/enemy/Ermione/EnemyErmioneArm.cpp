@@ -39,7 +39,7 @@ void EnemyErmioneArm::onActive() {
 void EnemyErmioneArm::processBehavior() {
 
     changeGeoLocal(); //ローカル座標の操作とする。
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {

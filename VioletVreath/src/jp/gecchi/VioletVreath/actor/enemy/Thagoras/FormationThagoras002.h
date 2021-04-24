@@ -15,7 +15,7 @@ namespace VioletVreath {
 class FormationThagoras002 : public FormationThagoras {
 
 public:
-    GgafDx::SplineManufactureConnection** papSplManufConn_;
+    GgafDx::CurveManufactureConnection** papCurveManufConn_;
 
     FormationThagoras002(const char* prm_name);
 

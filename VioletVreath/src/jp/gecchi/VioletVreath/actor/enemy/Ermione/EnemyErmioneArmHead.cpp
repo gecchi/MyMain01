@@ -50,7 +50,7 @@ void  EnemyErmioneArmHead::processChangeGeoFinal() {
         if (pChip) {
             //DEPO_LASER001‚Ìê‡
             pChip->setRollPitchYawFaceAng(_rx, _rz, _ry);
-            pChip->callVecDriver()->setRzRyMvAng(_rz, _ry); //â‘ÎÀ•WŒn
+            pChip->getVecDriver()->setRzRyMvAng(_rz, _ry); //â‘ÎÀ•WŒn
             pChip->setPositionAt(this);
 
             //DEPO_LASER002‚Ìê‡

@@ -1,7 +1,7 @@
 #include "FormationUnomia001a.h"
 
 #include "jp/gecchi/VioletVreath/actor/enemy/Unomia/EnemyUnomia.h"
-#include "jp/ggaf/dx/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/curve/DriverLeader.h"
 
 
 
@@ -12,13 +12,13 @@ FormationUnomia001a::FormationUnomia001a(const char* prm_name) : FormationUnomia
     _class_name = "FormationUnomia001a";
 }
 void FormationUnomia001a::onCallUpUnomia(EnemyUnomia* pEnemyUnomia, int col) {
-//    pEnemyUnomia->pVecDriverLeader_->adjustAxisRate(
+//    pEnemyUnomia->pDriverLeader_->adjustAxisRate(
 //                                        MyShip::lim_x_infront_, //X•ûŒü”{—¦
 //                                        MyShip::lim_y_top_,   //Y•ûŒü”{—¦
 //                                        MyShip::lim_z_left_  //Z•ûŒü”{—¦
 //                                    );
-    pEnemyUnomia->pVecDriverLeader_->adjustCoordOffset(PX_C(0), PX_C(col*50), PX_C(col*50));
-    pEnemyUnomia->pVecDriverLeader_->setAbsoluteBeginCoord();
+    pEnemyUnomia->pDriverLeader_->adjustCoordOffset(PX_C(0), PX_C(col*50), PX_C(col*50));
+    pEnemyUnomia->pDriverLeader_->setAbsoluteBeginCoord();
 }
 
 FormationUnomia001a::~FormationUnomia001a() {

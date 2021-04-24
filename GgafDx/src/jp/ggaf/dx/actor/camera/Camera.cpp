@@ -74,7 +74,7 @@ _y_buffer_bottom(PX_C(CONFIG::GAME_BUFFER_HEIGHT) / -2)
 
     setPosition(0, 0, DX_C(_cameraZ_org));
     setFaceAngTwd(0,0,0);
-    callVecDriver()->setMvAngTwd(0,0,0);
+    getVecDriver()->setMvAngTwd(0,0,0);
     setHitAble(false);
 
     God::_pID3DDevice9->GetViewport(&_viewport);

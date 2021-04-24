@@ -1,15 +1,15 @@
 #ifndef GGAF_DX_VECDRIVER_H_
 #define GGAF_DX_VECDRIVER_H_
 #include "GgafDxCommonHeader.h"
+#include "ActorDriver.h"
 
-#include "jp/ggaf/core/Object.h"
 #include "jp/ggaf/dx/util/GeoElem.h"
 #include "jp/ggaf/dx/actor/GeometricActor.h"
 
 namespace GgafDx {
 
 /**
- * 力車 .
+ * アクターを乗せる力車（アクターの旋回移動支援）  .
  * 力車は我々の目には触れませんが、演者(アクター)を持ち上げ、「移動」「向きの回転」を行わせる世話人です。<BR>
  * 演者(アクター)は自らの意思で動作せずとも、力車のおかげで舞台を飛び回まわることができます。<BR>
  * 基本的な動作は力車でほとんどカバーできてしまいます。そのお蔭で、演者は自身の演技に集中できるのです。<BR>
@@ -27,7 +27,7 @@ namespace GgafDx {
  * @since 2008/08/20
  * @author Masatoshi Tsuge
  */
-class VecDriver : public GgafCore::Object {
+class VecDriver : public ActorDriver {
 
 private:
     /** [r]力車の助手A(移動速度の補佐) */
@@ -39,7 +39,7 @@ private:
 
 public:
     /** [r]対象アクター */
-    GeometricActor* const _pActor;
+   // GeometricActor* const _pActor;
 
 public:
     /**

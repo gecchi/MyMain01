@@ -17,7 +17,7 @@ class EnemyAllas : public VvEnemyActor<GgafLib::DefaultMeshSetActor> {
 
 public:
     /** 移動スプラインプログラム */
-    GgafDx::SplineLeader* pVecDriverLeader_;
+    GgafDx::DriverLeader* pDriverLeader_;
     /** 弾ストック */
     GgafCore::ActorDepository* pDepo_shot_;
     /** 弾発射効果エフェクト */
@@ -66,16 +66,16 @@ public:
 
     /**
      *
-     * @param prm_pVecDriverLeader
+     * @param prm_pDriverLeader
      * @param prm_pDepo_shot
      * @param prm_pDepo_shotEffect
      */
     virtual void config(
-            GgafDx::SplineLeader* prm_pVecDriverLeader,
+            GgafDx::DriverLeader* prm_pDriverLeader,
             GgafCore::ActorDepository* prm_pDepo_shot,
             GgafCore::ActorDepository* prm_pDepo_shotEffect
             ) {
-        pVecDriverLeader_ = prm_pVecDriverLeader;
+        pDriverLeader_ = prm_pDriverLeader;
         pDepo_shot_ = prm_pDepo_shot;
         pDepo_effect_ = prm_pDepo_shotEffect;
     }

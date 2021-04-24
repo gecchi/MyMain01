@@ -30,18 +30,18 @@ RefractionLaserChip::RefractionLaserChip(const char* prm_name, const char* prm_m
     _begining_rx = _rx;
     _begining_ry = _ry;
     _begining_rz = _rz;
-    _begining_rz_mv = callVecDriver()->_rz_mv;
-    _begining_ry_mv = callVecDriver()->_ry_mv;
-    _begining_velo_mv   = callVecDriver()->_velo_mv;
+    _begining_rz_mv = getVecDriver()->_rz_mv;
+    _begining_ry_mv = getVecDriver()->_ry_mv;
+    _begining_velo_mv   = getVecDriver()->_velo_mv;
     _prev_x  = _x;
     _prev_y  = _y;
     _prev_z  = _z;
     _prev_rx = _rx;
     _prev_ry = _ry;
     _prev_rz = _rz;
-    _prev_rz_mv = callVecDriver()->_rz_mv;
-    _prev_ry_mv = callVecDriver()->_ry_mv;
-    _prev_velo_mv   = callVecDriver()->_velo_mv;
+    _prev_rz_mv = getVecDriver()->_rz_mv;
+    _prev_ry_mv = getVecDriver()->_ry_mv;
+    _prev_velo_mv   = getVecDriver()->_velo_mv;
     _prev_is_refracting = false;
     _is_fix_begin_pos = true;
     _refraction_end_frames = 0;
@@ -73,7 +73,7 @@ void RefractionLaserChip::onActive() {
     //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
     //その際 は、本クラスの onActive() メソッドも呼び出してください。
     LaserChip::onActive();
-    GgafDx::VecDriver* pVecDriver = callVecDriver();
+    GgafDx::VecDriver* pVecDriver = getVecDriver();
     RefractionLaserChip* pChip_infront =  (RefractionLaserChip*)_pChip_infront;
     //レーザーチップ出現時処理
     if (pChip_infront == nullptr) {
@@ -137,8 +137,8 @@ void RefractionLaserChip::onInactive() {
     //RefractionLaser はそこに溜まり込んでしまう。これは回避すること。
     if (_pChip_behind) {
         RefractionLaserChip* const pChip_behind = (RefractionLaserChip*)_pChip_behind;
-        GgafDx::VecDriver* const pChip_behind_pVecDriver = pChip_behind->callVecDriver();
-        GgafDx::VecDriver* const pVecDriver = callVecDriver();
+        GgafDx::VecDriver* const pChip_behind_pVecDriver = pChip_behind->getVecDriver();
+        GgafDx::VecDriver* const pVecDriver = getVecDriver();
         pChip_behind->_rx = _rx;
         pChip_behind->_ry = _ry;
         pChip_behind->_rz = _rz;
@@ -177,7 +177,7 @@ void RefractionLaserChip::processBehavior() {
     //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
     //その際 は、本クラスの processBehavior() メソッドも呼び出してください。
     //座標に反映
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     RefractionLaserChip* pChip_infront =  (RefractionLaserChip*)_pChip_infront;
     if (getActiveFrame() > 1) { //１フレーム目は、設定座標で表示させるため。移動させない
         //ActorDepository::dispatch() は
@@ -236,7 +236,7 @@ void RefractionLaserChip::processBehavior() {
             }
 
             if (!_is_refracting) {
-                //_is_refracting中は停止しなくてはいけないためcallVecDriver()->behave()を実行しない。
+                //_is_refracting中は停止しなくてはいけないためgetVecDriver()->behave()を実行しない。
                 //pVecDriver->behave();以外で座標を操作している場合は、完全な停止にならないので注意
                 pVecDriver->behave();
             }

@@ -27,7 +27,7 @@ ScoreItem::ScoreItem(const char* prm_name, const char* prm_model, void* prm_pFun
     setZEnableDraw(true);        //描画時、Zバッファ値は考慮される
     setZWriteEnable(false);  //自身のZバッファを書き込みしない
     setCullingDraw(false);
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->setFaceAngVelo(AXIS_X, D_ANG(3));
     pVecDriver->setFaceAngVelo(AXIS_Y, D_ANG(5));
     pVecDriver->setFaceAngVelo(AXIS_Z, D_ANG(7));
@@ -47,7 +47,7 @@ void ScoreItem::initialize() {
 void ScoreItem::onActive() {
     // _x, _y, _z は発生元座標に設定済み
     setHitAble(true, false);
-    GgafDx::GeoDriver* const pGeoDriver = callGeoDriver();
+    GgafDx::GeoDriver* const pGeoDriver = getGeoDriver();
     pGeoDriver->forceVxyzMvVeloRange(-30000, 30000);
     pGeoDriver->setZeroVxyzMvVelo();
     pGeoDriver->setZeroVxyzMvAcce();
@@ -60,7 +60,7 @@ void ScoreItem::onActive() {
 //    //発生地点から、自機への方向への散らばり範囲正方形領域が位置する距離（scattered_distance > (scattered_renge/2) であること)
 ////    int scattered_distance = scattered_renge/2 + 400000;
 //    //従って、scattered_distance 離れていても、自機は動かなくてもぎりぎり全て回収できる。
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->forceMvVeloRange(0, 20000);
     float vX, vY, vZ;
     UTIL::getNormalizedVector(
@@ -82,8 +82,8 @@ void ScoreItem::onActive() {
 
 void ScoreItem::processBehavior() {
     //通常移動
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
-    GgafDx::GeoDriver* const pGeoDriver = callGeoDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
+    GgafDx::GeoDriver* const pGeoDriver = getGeoDriver();
     GgafCore::Progress* const pProg = getProgress();
     if (pProg->get() == PROG_DRIFT) {
         //TractorMagic発動中はPROG_ATTACHへ移行

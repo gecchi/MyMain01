@@ -17,18 +17,18 @@ HomingLaserChip::HomingLaserChip(const char* prm_name, const char* prm_model) :
     _begining_rx = _rx;
     _begining_ry = _ry;
     _begining_rz = _rz;
-    _begining_rz_mv = callVecDriver()->_rz_mv;
-    _begining_ry_mv = callVecDriver()->_ry_mv;
-    _begining_velo_mv   = callVecDriver()->_velo_mv;
+    _begining_rz_mv = getVecDriver()->_rz_mv;
+    _begining_ry_mv = getVecDriver()->_ry_mv;
+    _begining_velo_mv   = getVecDriver()->_velo_mv;
     _prev_x = _x;
     _prev_y = _y;
     _prev_z = _z;
     _prev_rx = _rx;
     _prev_ry = _ry;
     _prev_rz = _rz;
-    _prev_rz_mv = callVecDriver()->_rz_mv;
-    _prev_ry_mv = callVecDriver()->_ry_mv;
-    _prev_velo_mv   = callVecDriver()->_velo_mv;
+    _prev_rz_mv = getVecDriver()->_rz_mv;
+    _prev_ry_mv = getVecDriver()->_ry_mv;
+    _prev_velo_mv   = getVecDriver()->_velo_mv;
     _is_fix_begin_pos = true;
 }
 
@@ -36,7 +36,7 @@ void HomingLaserChip::onActive() {
     //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
     //その際 は、本クラスの onActive() メソッドも呼び出してください。
     LaserChip::onActive();
-    GgafDx::VecDriver* pVecDriver = callVecDriver();
+    GgafDx::VecDriver* pVecDriver = getVecDriver();
     HomingLaserChip* pChip_infront =  (HomingLaserChip*)_pChip_infront;
     //レーザーチップ出現時処理
     if (pChip_infront == nullptr) {
@@ -80,14 +80,14 @@ void HomingLaserChip::onActive() {
 void HomingLaserChip::onInactive() {
     //_TRACE_("A HomingLaserChip::onInactive() _chip_kind ="<<_chip_kind <<")");
     LaserChip* pChip_behind = _pChip_behind;
-    GgafDx::VecDriver* pVecDriver = callVecDriver();
+    GgafDx::VecDriver* pVecDriver = getVecDriver();
 
     if (pChip_behind) {
         //先頭しか動かしていないので、
         //何も考慮しないと、後方チップがその場で停止してしまう。
         //後方チップへ移動のための情報を無理やり設定して移動を継続させる。
         //先端チップ Mover 内部パラメータの移動方向と移動速度の情報をコピーすることでOK
-        GgafDx::VecDriver* pChip_behind_pVecDriver = pChip_behind->callVecDriver();
+        GgafDx::VecDriver* pChip_behind_pVecDriver = pChip_behind->getVecDriver();
         pChip_behind->_rx = _rx;
         pChip_behind->_ry = _ry;
         pChip_behind->_rz = _rz;
@@ -103,7 +103,7 @@ void HomingLaserChip::processBehavior() {
     //その際 は、本クラスの processBehavior() メソッドも呼び出してください。
     //座標に反映
     const HomingLaserChip* const pChip_infront =  (HomingLaserChip*)_pChip_infront;
-    GgafDx::VecDriver* pVecDriver = callVecDriver();
+    GgafDx::VecDriver* pVecDriver = getVecDriver();
     if (getActiveFrame() > 1) {
         //ActorDepository::dispatch() は
         //取得できる場合、ポインタを返すと共に、そのアクターはアクター発送者の子の一番後ろに移動される。

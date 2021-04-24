@@ -32,4 +32,4 @@ public:
 };
 
 }
-#endif /*SPLINELINEMANAGER_H_*/
+#endif /*CURVELINEMANAGER_H_*/

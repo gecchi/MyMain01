@@ -8,7 +8,7 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dx/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/curve/DriverLeader.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Thagoras/FormationThagoras.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
@@ -33,7 +33,7 @@ EnemyThagoras::EnemyThagoras(const char* prm_name) :
     _class_name = "EnemyThagoras";
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
-    pVecDriverLeader_ = nullptr; //フォーメーションオブジェクトが設定する
+    pDriverLeader_ = nullptr; //フォーメーションオブジェクトが設定する
     pActor4Sc_ = nullptr;
 }
 
@@ -45,7 +45,7 @@ void EnemyThagoras::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->linkFaceAngByMvAng(true);
     pVecDriver->setRollFaceAngVelo(2000);
     pVecDriver->forceMvVeloRange(PX_C(15));
@@ -86,10 +86,10 @@ void EnemyThagoras::processBehavior() {
         }
         case PROG_MOVE01: {
             if (pProg->hasJustChanged()) {
-                pVecDriverLeader_->start(RELATIVE_COORD,5);
+                pDriverLeader_->start(RELATIVE_COORD,5);
             }
-            pVecDriverLeader_->behave();
-            if (pVecDriverLeader_->isFinished()) {
+            pDriverLeader_->behave();
+            if (pDriverLeader_->isFinished()) {
                 pProg->changeNext();
             }
             break;
@@ -109,7 +109,7 @@ void EnemyThagoras::processBehavior() {
             break;
     }
     pAlphaFader->behave();
-    callVecDriver()->behave();
+    getVecDriver()->behave();
     //鼓動を同期
     _sx = pActor4Sc_->_sx;
     _sy = pActor4Sc_->_sy;
@@ -138,5 +138,5 @@ void EnemyThagoras::onInactive() {
 }
 
 EnemyThagoras::~EnemyThagoras() {
-    GGAF_DELETE_NULLABLE(pVecDriverLeader_);
+    GGAF_DELETE_NULLABLE(pDriverLeader_);
 }

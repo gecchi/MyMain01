@@ -23,8 +23,8 @@ void MyBunshinShot001::initialize() {
     pChecker->createCollisionArea(1);
     pChecker->setColliAABox(0, -PX_C(50), -PX_C(50), -PX_C(50),
                               PX_C(50),  PX_C(50),  PX_C(50));
-    callVecDriver()->setRollFaceAngVelo(D_ANG(-12));
-    callVecDriver()->linkFaceAngByMvAng(true);
+    getVecDriver()->setRollFaceAngVelo(D_ANG(-12));
+    getVecDriver()->linkFaceAngByMvAng(true);
 }
 
 void MyBunshinShot001::onActive() {
@@ -33,7 +33,7 @@ void MyBunshinShot001::onActive() {
 }
 
 void MyBunshinShot001::processBehavior() {
-    callVecDriver()->behave();
+    getVecDriver()->behave();
 }
 
 void MyBunshinShot001::processJudgement() {

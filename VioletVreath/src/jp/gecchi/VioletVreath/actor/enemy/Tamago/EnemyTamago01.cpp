@@ -7,7 +7,7 @@
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/dx/model/supporter/TextureBlinker.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/dx/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/curve/DriverLeader.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion001.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -44,7 +44,7 @@ void EnemyTamago01::onCreateModel() {
 
 void EnemyTamago01::initialize() {
     setHitAble(true);
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->linkFaceAngByMvAng(true);
     pVecDriver->setRollFaceAngVelo(1000);
     pVecDriver->setMvAngTwd(900000, 300000, 300000);
@@ -118,7 +118,7 @@ void EnemyTamago01::processBehavior() {
 //    if (GgafDx::Input::isPressedKey(DIK_0)) {
 //        pModel->getTexBlinker()->->setScaleToBottom();
 //    }
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
 
     if (iMovePatternNo_ == 0) {
         //ƒXƒvƒ‰ƒCƒ“ˆÚ“®’†
@@ -160,8 +160,8 @@ void EnemyTamago01::processBehavior() {
             for (int i = 0; i < way; i++) {
                 pActor = (GgafDx::FigureActor*)pDepo_shot_->dispatch();
                 if (pActor) {
-                    pActor->callVecDriver()->linkFaceAngByMvAng(true);
-                    pActor->callVecDriver()->setRzRyMvAng_by_RyRz(paAng_way[i], target_RyRz_Rz);
+                    pActor->getVecDriver()->linkFaceAngByMvAng(true);
+                    pActor->getVecDriver()->setRzRyMvAng_by_RyRz(paAng_way[i], target_RyRz_Rz);
                     pActor->setPositionAt(this);
                 }
             }

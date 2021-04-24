@@ -93,7 +93,7 @@ void SmpSprite::processBehavior() {
         }
     }
     getUvFlipper()->behave();
-    callVecDriver()->behave(); //力車を活動させる（Z軸回転する）
+    getVecDriver()->behave(); //力車を活動させる（Z軸回転する）
 }
 
 void SmpSprite::onHit(const GgafCore::Actor* prm_pOtherActor) {

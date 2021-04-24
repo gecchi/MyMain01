@@ -59,11 +59,11 @@ void Jiki::onReset() {
 
 void Jiki::onActive() {
     getUvFlipper()->setActivePtnToTop();
-    callVecDriver()->setFaceAngVelo(AXIS_Z, 1000);        //‰ñ“]
+    getVecDriver()->setFaceAngVelo(AXIS_Z, 1000);        //‰ñ“]
 }
 
 void Jiki::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     GgafCore::Progress* const pProg = getProgress();
     VirtualButton* pVb = &(P_GOD->getSpacetime()->getWorld()->vb_);
     if (pVb->isPressed(VB_BUTTON1)) {

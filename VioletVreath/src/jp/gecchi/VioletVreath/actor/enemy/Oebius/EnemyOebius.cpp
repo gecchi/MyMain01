@@ -8,7 +8,7 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dx/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/curve/DriverLeader.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Oebius/FormationOebius.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
@@ -25,7 +25,7 @@ enum {
     PROG_INIT   ,
     PROG_ENTRY  ,
     PROG_MOVE_BEGIN ,
-    PROG_SPLINE ,
+    PROG_CURVE ,
     PROG_SCATTER ,
     PROG_LEAVE ,
     PROG_BANPEI,
@@ -36,7 +36,7 @@ EnemyOebius::EnemyOebius(const char* prm_name) :
     _class_name = "EnemyOebius";
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
-    pVecDriverLeader_ = nullptr; //フォーメーションオブジェクトが設定する
+    pDriverLeader_ = nullptr; //フォーメーションオブジェクトが設定する
     scatter_flg_ = false;
     delay_ = 0;
 }
@@ -49,7 +49,7 @@ void EnemyOebius::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->linkFaceAngByMvAng(true);
     pVecDriver->forceMvVeloRange(PX_C(15));
 }
@@ -60,7 +60,7 @@ void EnemyOebius::onActive() {
 }
 
 void EnemyOebius::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
@@ -98,16 +98,16 @@ void EnemyOebius::processBehavior() {
             break;
         }
 
-        case PROG_SPLINE: {
+        case PROG_CURVE: {
             if (pProg->hasJustChanged()) {
-                callVecDriver()->setMvAcce(0); //加速度がある場合は切っておく
-                pVecDriverLeader_->start(RELATIVE_COORD_DIRECTION, -1); //-1は無限ループ
+                getVecDriver()->setMvAcce(0); //加速度がある場合は切っておく
+                pDriverLeader_->start(RELATIVE_COORD_DIRECTION, -1); //-1は無限ループ
             }
 
             FormationOebius* pFormation = (FormationOebius*)getFormation();
-            pVecDriverLeader_->setStartPosition(pFormation->geo_.x, pFormation->geo_.y, pFormation->geo_.z);
-            pVecDriverLeader_->setStartAngle(pFormation->geo_.rx, pFormation->geo_.ry, pFormation->geo_.rz);
-            pVecDriverLeader_->behave(); //スプライン移動を振る舞い
+            pDriverLeader_->setStartPosition(pFormation->geo_.x, pFormation->geo_.y, pFormation->geo_.z);
+            pDriverLeader_->setStartAngle(pFormation->geo_.rx, pFormation->geo_.ry, pFormation->geo_.rz);
+            pDriverLeader_->behave(); //スプライン移動を振る舞い
 
             if (scatter_flg_) {
                 pProg->changeNext();
@@ -121,7 +121,7 @@ void EnemyOebius::processBehavior() {
             }
             if (pProg->hasArrivedAt(delay_)) {
                 //散り散りになる
-                pVecDriverLeader_->stop();
+                pDriverLeader_->stop();
                 pVecDriver->turnRzRyMvAngTo(RND_ABOUT(pVecDriver->_rz_mv, D_ANG(90)), RND_ABOUT(pVecDriver->_ry_mv, D_ANG(90)),
                                          D_ANG(2), 0, TURN_CLOSE_TO,false);
                 pVecDriver->setMvAcce(100);
@@ -181,5 +181,5 @@ void EnemyOebius::scatter() {
 }
 
 EnemyOebius::~EnemyOebius() {
-    GGAF_DELETE_NULLABLE(pVecDriverLeader_);
+    GGAF_DELETE_NULLABLE(pDriverLeader_);
 }

@@ -10,12 +10,12 @@ FormationUnomia002b::FormationUnomia002b(const char* prm_name) : FormationUnomia
 }
 
 void FormationUnomia002b::onCallUpUnomia(EnemyUnomia* pEnemyUnomia, int col) {
-//    pEnemyUnomia->pVecDriverLeader_->adjustAxisRate(
+//    pEnemyUnomia->pDriverLeader_->adjustAxisRate(
 //                                        MyShip::lim_x_infront_, //X•ûŒü”{—¦
 //                                       -1.0 * MyShip::lim_y_top_,   //Y•ûŒü”{—¦
 //                                        MyShip::lim_z_left_  //Z•ûŒü”{—¦
 //                                    );
-//    pEnemyUnomia->setPosition(papSplSrcConnection_[col]->peek()->pSp_->_Xbasepoint_[0], 0, 0);
+//    pEnemyUnomia->setPosition(papCurveSrcConnection_[col]->peek()->pSp_->_Xbasepoint_[0], 0, 0);
 }
 
 FormationUnomia002b::~FormationUnomia002b() {

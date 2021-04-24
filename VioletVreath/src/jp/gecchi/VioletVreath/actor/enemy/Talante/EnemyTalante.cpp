@@ -41,7 +41,7 @@ void EnemyTalante::onCreateModel() {
 }
 
 void EnemyTalante::initialize() {
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->linkFaceAngByMvAng(true);
     pVecDriver->setRollFaceAngVelo(5000);
     CollisionChecker* pChecker = getCollisionChecker();
@@ -59,7 +59,7 @@ void EnemyTalante::onActive() {
     getStatus()->reset();
     setHitAble(true);
     Z_ok_ = Y_ok_ = false;
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->setMvAcce(0);
     pVecDriver->setMvVelo(4000);
     pVecDriver->forceMvVeloRange(50000);
@@ -68,7 +68,7 @@ void EnemyTalante::onActive() {
 
 void EnemyTalante::processBehavior() {
     MyShip* pMyShip = pMYSHIP;
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {

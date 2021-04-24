@@ -14,8 +14,8 @@ namespace VioletVreath {
 class EnemyIdaBase001 : public EnemyIdaBase {
 
 public:
-    GgafDx::SplineManufactureConnection* pConn_pSplManuf_;
-    GgafDx::SplineLeader* pVecDriverLeader_;
+    GgafDx::CurveManufactureConnection* pConn_pCurveManuf_;
+    GgafDx::DriverLeader* pDriverLeader_;
 
 public:
     /**

@@ -15,8 +15,8 @@ class FormationRis001 : public GgafLib::TreeFormation {
     /** リスの発射弾の借り入れ元Depository資源への接続 */
     DepositoryConnection* pConn_depo_;
     /** スプライン定義資源への接続 */
-    GgafDx::SplineSourceConnection* pSplSrcConnection_;
-    GgafDx::SplineManufacture* pManufacture_;
+    GgafDx::CurveSourceConnection* pCurveSrcConnection_;
+    GgafDx::CurveManufacture* pManufacture_;
 public:
     /** 編隊数(RANK変動) */
     int num_Ris_;

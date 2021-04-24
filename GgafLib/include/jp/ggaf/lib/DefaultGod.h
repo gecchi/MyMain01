@@ -3,10 +3,10 @@
 #include "GgafLibCommonHeader.h"
 #include "jp/ggaf/dx/God.h"
 
-#include "jp/ggaf/dx/manager/SplineSourceManager.h"
-#include "jp/ggaf/dx/manager/SplineSourceConnection.h"
-#include "jp/ggaf/dx/manager/SplineManufactureManager.h"
-#include "jp/ggaf/dx/manager/SplineManufactureConnection.h"
+#include "jp/ggaf/dx/manager/CurveSourceManager.h"
+#include "jp/ggaf/dx/manager/CurveSourceConnection.h"
+#include "jp/ggaf/dx/manager/CurveManufactureManager.h"
+#include "jp/ggaf/dx/manager/CurveManufactureConnection.h"
 #include "jp/ggaf/lib/manager/DefaultEffectManager.h"
 #include "jp/ggaf/lib/scene/DefaultSpacetime.h"
 

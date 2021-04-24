@@ -4,7 +4,7 @@
 #include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/dx/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/curve/DriverLeader.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "actor/Zakoko.h"
 
@@ -15,7 +15,7 @@ using namespace Mogera;
 
 enum {
     PROG_INIT   ,
-    PROG_SPLINE ,
+    PROG_CURVE ,
     PROG_LEAVE ,
     PROG_BANPEI,
 };
@@ -23,7 +23,7 @@ enum {
 Zako::Zako(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Zako") {
     _class_name = "Zako";
-    pVecDriverLeader_ = nullptr; //フォーメーションオブジェクトが設定する
+    pDriverLeader_ = nullptr; //フォーメーションオブジェクトが設定する
     pOs_ = nullptr;
 
     int n = 6;
@@ -46,7 +46,7 @@ void Zako::onCreateModel() {
 }
 
 void Zako::initialize() {
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->linkFaceAngByMvAng(true);
     pVecDriver->setRollFaceAngVelo(D_ANG(2));
     pVecDriver->setMvVelo(PX_C(1));
@@ -65,7 +65,7 @@ void Zako::onActive() {
 }
 
 void Zako::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
 //    GgafCore::Progress* const pProg = getProgress();
 //    switch (pProg->get()) {
 //        case PROG_INIT: {
@@ -73,14 +73,14 @@ void Zako::processBehavior() {
 //            break;
 //        }
 //
-//        case PROG_SPLINE: {
+//        case PROG_CURVE: {
 //            if (pProg->hasJustChanged()) {
-//                callVecDriver()->setMvAcce(0); //加速度がある場合は切っておく
-//                pVecDriverLeader_->start(RELATIVE_COORD_DIRECTION, 1);
+//                getVecDriver()->setMvAcce(0); //加速度がある場合は切っておく
+//                pDriverLeader_->start(RELATIVE_COORD_DIRECTION, 1);
 //            }
-//            pVecDriverLeader_->behave(); //スプライン移動を振る舞い
+//            pDriverLeader_->behave(); //スプライン移動を振る舞い
 //
-//            if (pVecDriverLeader_->isFinished()) {
+//            if (pDriverLeader_->isFinished()) {
 //                pProg->changeNext();
 //            }
 //            break;
@@ -115,5 +115,5 @@ Zako::~Zako() {
     if (pOs_) {
         (*pOs_).close();
     }
-    GGAF_DELETE_NULLABLE(pVecDriverLeader_);
+    GGAF_DELETE_NULLABLE(pDriverLeader_);
 }

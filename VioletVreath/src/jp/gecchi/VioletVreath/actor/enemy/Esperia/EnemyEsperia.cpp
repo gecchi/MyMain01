@@ -84,7 +84,7 @@ void EnemyEsperia::initialize() {
 void EnemyEsperia::onActive() {
     getStatus()->reset();
     setHitAble(false);
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->setRzRyMvAng(0, D180ANG);
     pVecDriver->setMvVelo(1000);
 
@@ -106,7 +106,7 @@ void EnemyEsperia::onActive() {
 
 void EnemyEsperia::processBehavior() {
     MyShip* pMyShip = pMYSHIP;
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
@@ -318,8 +318,8 @@ void EnemyEsperia::processBehavior() {
                             pLaserChip->ty2_ = pMyShip->_y + paPos_target_[i].y;
                             pLaserChip->tz2_ = pMyShip->_z + paPos_target_[i].z;
                             //速さと加速度
-                            pLaserChip->callVecDriver()->setMvVelo(10000); //初期速度
-                            pLaserChip->callVecDriver()->setMvAcce(150+(max_laser_way_-i)*20); //少しバラけるように
+                            pLaserChip->getVecDriver()->setMvVelo(10000); //初期速度
+                            pLaserChip->getVecDriver()->setMvAcce(150+(max_laser_way_-i)*20); //少しバラけるように
                         }
                     }
                 }

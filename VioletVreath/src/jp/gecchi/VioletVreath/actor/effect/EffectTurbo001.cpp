@@ -28,12 +28,12 @@ void EffectTurbo001::initialize() {
 
 void EffectTurbo001::onActive() {
     getUvFlipper()->setActivePtnToTop();
-    callVecDriver()->setFaceAngVelo(AXIS_Z, 3000);        //âÒì]
+    getVecDriver()->setFaceAngVelo(AXIS_Z, 3000);        //âÒì]
 }
 
 void EffectTurbo001::processBehavior() {
     getUvFlipper()->behave();
-    callVecDriver()->behave();
+    getVecDriver()->behave();
     getScaler()->behave();
     if (VB_PLAY->isPressed(VB_TURBO)) { //É^Å[É{
 

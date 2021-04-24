@@ -4,7 +4,7 @@
 #include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/dx/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/curve/DriverLeader.h"
 #include "MgrGod.h"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
@@ -25,7 +25,7 @@ void EnemyIda::onCreateModel() {
 }
 
 void EnemyIda::initialize() {
-    callVecDriver()->linkFaceAngByMvAng(true);
+    getVecDriver()->linkFaceAngByMvAng(true);
 }
 
 void EnemyIda::onActive() {
@@ -34,7 +34,7 @@ void EnemyIda::onActive() {
 void EnemyIda::processBehavior() {
     changeGeoLocal(); //ローカル座標系へ
 
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->behave();
 
     changeGeoFinal(); //絶対座標系へ

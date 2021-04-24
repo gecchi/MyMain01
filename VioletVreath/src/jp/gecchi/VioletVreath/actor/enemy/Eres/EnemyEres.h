@@ -20,12 +20,12 @@ public:
     /** 弾ストック */
     GgafCore::ActorDepository* pDepo_shot001_;
     /** スプラインプログラム */
-    GgafDx::SplineLeader* pSplineLeader_;
+    GgafDx::DriverLeader* pDriverLeader_;
     /** GgafCore::ActorDepositoryをコンストラクタで生成したか否か */
     bool createActorDepository_;
 
     int iMovePatternNo_;
-    GgafDx::SplineManufactureConnection* pSplManufConn_;
+    GgafDx::CurveManufactureConnection* pCurveManufConn_;
 
 public:
     /**

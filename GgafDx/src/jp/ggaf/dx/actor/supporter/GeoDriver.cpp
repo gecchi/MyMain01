@@ -10,8 +10,7 @@ using namespace GgafDx;
 // 「X軸方向移動速度」「Y軸方向移動速度」「Z軸方向移動速度」を設定すると、毎フレーム(_x,_y,_z)にそれぞれの移動増分が
 // 加算される。
 
-GeoDriver::GeoDriver(GeometricActor* prm_pActor) : GgafCore::Object(),
-_pActor(prm_pActor) {
+GeoDriver::GeoDriver(GeometricActor* prm_pActor)  : ActorDriver(prm_pActor) {
     _pAsstMv = nullptr;
     //X軸方向移動速度（X移動座標増分）＝ 0 px/fream
     _velo_vx_mv = 0;

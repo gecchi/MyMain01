@@ -27,14 +27,14 @@ void WorldBound001::initialize() {
     dxcoord world_r = pCam->getZFar(); //¢ŠE‹«ŠE‹…”¼Œa
     dxcoord world_bound_model_r = 1.0f; //WorldBound001‚Ìƒ‚ƒfƒ‹‚Í”¼ŒaDIRECTX‹——£1‚Ì‹…‚Å‚ ‚é
     setScaleR((world_r*0.989)/world_bound_model_r);
-    //callVecDriver()->setRollPitchYawFaceAngVelo(D_ANG(11),D_ANG(7),D_ANG(5)); //‰ñ‚µ‚Ä‚à‚ ‚ñ‚Ü‚èH
+    //getVecDriver()->setRollPitchYawFaceAngVelo(D_ANG(11),D_ANG(7),D_ANG(5)); //‰ñ‚µ‚Ä‚à‚ ‚ñ‚Ü‚èH
 }
 
 void WorldBound001::onActive() {
 }
 
 void WorldBound001::processBehavior() {
-    //callVecDriver()->behave();
+    //getVecDriver()->behave();
 }
 
 void WorldBound001::processJudgement() {

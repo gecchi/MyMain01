@@ -21,7 +21,7 @@ MyTorpedoBlast::MyTorpedoBlast(const char* prm_name) :
 void MyTorpedoBlast::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
-    callVecDriver()->setRollPitchYawFaceAngVelo(D_ANG(0), D_ANG(0), D_ANG(6));
+    getVecDriver()->setRollPitchYawFaceAngVelo(D_ANG(0), D_ANG(0), D_ANG(6));
     setHitAble(true);
 }
 
@@ -31,7 +31,7 @@ void MyTorpedoBlast::onReset() {
     //onInactive() onActive()‚Å‚ÌÀ‘•‚ğ”ğ‚¯‚é
     getStatus()->reset();
     getCollisionChecker()->setColliSphere(0, PX_C(10));
-    callVecDriver()->setMvVelo(0);
+    getVecDriver()->setMvVelo(0);
     setScale(R_SC(1));
     GgafDx::Scaler* const pScaler = getScaler();
     pScaler->setRange(R_SC(1), R_SC(400));
@@ -44,7 +44,7 @@ void MyTorpedoBlast::processBehavior() {
         sayonara();//–c‚ç‚ñ‚Å‚µ‚Ú‚Ş‚ªI—¹
     } else {
         getCollisionChecker()->setColliSphere(0, _sx); //“–‚½‚è”»’è‚à•Ï‰»
-        callVecDriver()->behave();
+        getVecDriver()->behave();
         pScaler->behave();
     }
 }

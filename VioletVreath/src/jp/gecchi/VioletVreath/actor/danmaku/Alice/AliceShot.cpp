@@ -21,7 +21,7 @@ void AliceShot::initialize() {
 }
 void AliceShot::onReset() {
     setCullingDraw(false);
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->setRollFaceAngVelo(D_ANG(3));
     pVecDriver->linkFaceAngByMvAng(true);
 }
@@ -29,14 +29,14 @@ void AliceShot::onReset() {
 void AliceShot::onActive() {
     setHitAble(true, false);
     getStatus()->reset();
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->setRyMvAng(D90ANG);
     pVecDriver->setRzMvAngVelo(D_ANG(1));
 }
 
 void AliceShot::processBehavior() {
     //À•W‚É”½‰f
-    callVecDriver()->behave();
+    getVecDriver()->behave();
 }
 
 void AliceShot::processJudgement() {

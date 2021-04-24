@@ -18,7 +18,7 @@ void EnemyEmusLaserChip001::initialize() {
     setHitAble(true, false);
     setScaleR(5.0);
     setCullingDraw(false);
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->setMvVelo(300000);
     pVecDriver->linkFaceAngByMvAng(true);
 }
@@ -30,7 +30,7 @@ void EnemyEmusLaserChip001::onActive() {
 }
 
 void EnemyEmusLaserChip001::processBehavior() {
-    callVecDriver()->behave();
+    getVecDriver()->behave();
 }
 
 void EnemyEmusLaserChip001::processJudgement() {

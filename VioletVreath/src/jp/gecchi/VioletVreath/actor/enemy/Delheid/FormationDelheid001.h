@@ -15,7 +15,7 @@ class FormationDelheid001 : public FormationDelheid {
 
 public:
     /** [r]スプライン情報オブジェクト資源への接続 */
-    GgafDx::SplineManufactureConnection* pConn_pSplManuf_;
+    GgafDx::CurveManufactureConnection* pConn_pCurveManuf_;
 
     FormationDelheid001(const char* prm_name);
 
@@ -29,7 +29,7 @@ public:
      * スプライン情報オブジェクトを取得 .
      * @return スプライン情報オブジェクト
      */
-    GgafDx::SplineManufacture* getSplManuf() override;
+    GgafDx::CurveManufacture* getSplManuf() override;
 
     /**
      * 振る舞い実装 .

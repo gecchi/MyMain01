@@ -29,7 +29,7 @@ void VarietyRatislavia004::initialize() {
     _x = pSpacetime->_x_bound_right + r1_*2 + r2_*2;
     _y = MyShip::lim_y_bottom_;
     _z = 0;
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->setRzRyMvAng(D180ANG, 0);
     pVecDriver->setMvVelo(3000);
     pVecDriver->setFaceAngVelo(AXIS_Z, -20);

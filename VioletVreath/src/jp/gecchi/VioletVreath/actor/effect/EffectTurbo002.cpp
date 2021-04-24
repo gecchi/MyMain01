@@ -30,13 +30,13 @@ void EffectTurbo002::onActive() {
     setScale(1000);
     getScaler()->transitionLinearUntil(100000, 60);//スケーリング・60F費やして1000に縮小
     setRyFaceAng(D90ANG);
-    callVecDriver()->setFaceAngVelo(AXIS_Z, 2000);
+    getVecDriver()->setFaceAngVelo(AXIS_Z, 2000);
 }
 
 void EffectTurbo002::processBehavior() {
     addAlpha(-(1.0/60.0));
     getUvFlipper()->behave();
-    callVecDriver()->behave();
+    getVecDriver()->behave();
     getScaler()->behave();
 }
 

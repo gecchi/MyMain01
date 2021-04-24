@@ -30,7 +30,7 @@ void EffectVreathMagic001::onActive() {
 
 void EffectVreathMagic001::processBehavior() {
     getUvFlipper()->behave();
-    callVecDriver()->behave();
+    getVecDriver()->behave();
     getScaler()->behave();
 }
 

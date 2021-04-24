@@ -62,7 +62,7 @@ void MyTorpedo::onActive() {
     _sx = _sy = _sz = 100;
     setScale(100);
     getScaler()->transitionLinearStep(7000, 500);
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->setRollPitchYawFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
     if (pTarget_) {
         pVecDriver->forceMvVeloRange(4000, 100000);
@@ -90,7 +90,7 @@ void MyTorpedo::onActive() {
 }
 
 void MyTorpedo::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     GgafCore::Progress* const pProg = getProgress();
     if (pProg->get() == MyTorpedo_RELEASE) {
         if (pTailEffectDepository_->_num_chip_active == 0) {
@@ -220,7 +220,7 @@ void MyTorpedo::processJudgement() {
             pTailEffect->inactivateDelay(i+1); //軌跡エフェクトが順々に消えるように予約
             pTailEffect = pTailEffect->getNext();
         }
-        callVecDriver()->setMvVelo(0);
+        getVecDriver()->setMvVelo(0);
         //自身のinactive()はprocessBehavior()で行われ
         //魚雷の移動エフェクトが全てinactive()になった際に自身もinactive()する
     }
@@ -243,7 +243,7 @@ void MyTorpedo::onHit(const GgafCore::Actor* prm_pOtherActor) {
         pTailEffect->inactivateDelay(i+1); //軌跡エフェクトが順々に消えるように予約
         pTailEffect = pTailEffect->getNext();
     }
-    callVecDriver()->setMvVelo(0);
+    getVecDriver()->setMvVelo(0);
     //自身のinactive()はprocessBehavior()で行われ
     //魚雷の移動エフェクトが全てinactive()になった際に自身もinactive()する
 

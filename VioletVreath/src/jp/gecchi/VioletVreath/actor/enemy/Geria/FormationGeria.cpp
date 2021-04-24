@@ -20,7 +20,7 @@ FormationGeria::FormationGeria(
     for (int i = 0; i < prm_nGeriaStock; i++) {
         std::string name = "Geria"+XTOS(i);
         EnemyGeria* pEnemyGeria = NEW EnemyGeria(name.c_str());
-        pEnemyGeria->callVecDriver()->linkFaceAngByMvAng(true);
+        pEnemyGeria->getVecDriver()->linkFaceAngByMvAng(true);
         pDepo_->put(pEnemyGeria);
     }
     appendGroupChild(pDepo_);

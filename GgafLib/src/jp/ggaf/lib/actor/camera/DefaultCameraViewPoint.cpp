@@ -17,13 +17,13 @@ void DefaultCameraViewPoint::initialize() {
 }
 
 void DefaultCameraViewPoint::processBehavior() {
-    callGeoDriver()->behave();
-    callVecDriver()->behave();
+    getGeoDriver()->behave();
+    getVecDriver()->behave();
 }
 
 void DefaultCameraViewPoint::slideMvTo(coord tx, coord ty, coord tz, frame t, float prm_p1, float prm_p2) {
     //ƒJƒƒ‰‚Ê‚é‚Á‚ÆˆÚ“®
-    callGeoDriver()->asst()->slideVxyzMvByDtTo(
+    getGeoDriver()->asst()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,
                               prm_p1, prm_p2, 0, true);
 }

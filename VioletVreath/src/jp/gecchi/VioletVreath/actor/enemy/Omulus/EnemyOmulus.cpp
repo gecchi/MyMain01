@@ -51,7 +51,7 @@ void EnemyOmulus::onCreateModel() {
 
 void EnemyOmulus::initialize() {
     setHitAble(true);
-    callVecDriver()->linkFaceAngByMvAng(true);
+    getVecDriver()->linkFaceAngByMvAng(true);
     getMorpher()->setRange(MORPHTARGET_HATCH_OPEN, 0.0f, 1.0f);
     setMorphWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
     CollisionChecker* pChecker = getCollisionChecker();
@@ -112,16 +112,16 @@ void EnemyOmulus::processBehavior() {
     //                       他のオブジェクトから、ボーンにあたるアクターを参照するとき、_rx, _ry, _rzは全く信用できません。
 
     //＜注意＞
-    //・GgafDx::VecDriver(callVecDriver())の behave() 以外メソッドは、常にローカル座標の操作とする。
+    //・GgafDx::VecDriver(getVecDriver())の behave() 以外メソッドは、常にローカル座標の操作とする。
     //  behave()以外メソッドは実際に座標計算しているわけではないので、
     //  changeGeoFinal()時、changeGeoLocal()時に関係なく、呼び出し可能。
-    //・GgafDx::VecDriver(callVecDriver())の behave() メソッドは座標を１フレーム後の状態にする計算を行う。
+    //・GgafDx::VecDriver(getVecDriver())の behave() メソッドは座標を１フレーム後の状態にする計算を行う。
     //  したがって、次のように ローカル座標時(changeGeoLocal()時)で呼び出す事とする。
     //    changeGeoLocal();
     //    pVecDriver->behave();
     //    changeGeoFinal();
     //TODO:混在感をもっとなくす。
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
@@ -175,7 +175,7 @@ void EnemyOmulus::processChangeGeoFinal() {
                     if (pDepo_Fired_) {
                         GgafDx::FigureActor* pActor = (GgafDx::FigureActor*)pDepo_Fired_->dispatch();
                         if (pActor) {
-                            pActor->callVecDriver()->setRzRyMvAng(_rz, _ry); //絶対座標系での向き
+                            pActor->getVecDriver()->setRzRyMvAng(_rz, _ry); //絶対座標系での向き
                             pActor->setPosition(_x, _y, _z);
                             pActor->reset();
                         }

@@ -56,7 +56,7 @@ MyBunshinWateringLaserChip001::MyBunshinWateringLaserChip001(const char* prm_nam
 }
 
 void MyBunshinWateringLaserChip001::initialize() {
-    callVecDriver()->linkFaceAngByMvAng(true);
+    getVecDriver()->linkFaceAngByMvAng(true);
     registerHitAreaCube_AutoGenMidColli(PX_C(80));
     setHitAble(true);
     setScaleR(6.0);
@@ -79,7 +79,7 @@ void MyBunshinWateringLaserChip001::onActive() {
     WateringLaserChip::onActive();
     pAimInfo_ = nullptr;
     inv_cnt_ = 0;
-    GgafDx::GeoDriver* pGeoDriver = callGeoDriver();
+    GgafDx::GeoDriver* pGeoDriver = getGeoDriver();
     pGeoDriver->forceVxyzMvVeloRange(-MAX_VELO_RENGE, MAX_VELO_RENGE);
     pGeoDriver->forceVxyzMvAcceRange(-MAX_ACCE_RENGE, MAX_ACCE_RENGE);
 }
@@ -90,7 +90,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
     getStatus()->set(STAT_AttackPowerRate, power);
     _power = power;
 
-    GgafDx::GeoDriver* const pGeoDriver = callGeoDriver();
+    GgafDx::GeoDriver* const pGeoDriver = getGeoDriver();
     frame active_frame = getActiveFrame();
     MyBunshin::AimInfo* pAimInfo = pAimInfo_;
 
@@ -246,7 +246,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
 
 void MyBunshinWateringLaserChip001::processSettlementBehavior() {
     //分身はFKなので、絶対座標の確定が processSettlementBehavior() 以降となるため、ここで初期設定が必要
-    GgafDx::GeoDriver* const pGeoDriver = callGeoDriver();
+    GgafDx::GeoDriver* const pGeoDriver = getGeoDriver();
     if (hasJustChangedToActive()) {
         //チップの初期設定
         //ロックオン情報の引き継ぎ
@@ -393,7 +393,7 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
 
 
     static const coord rv = 10.0;
-    GgafDx::GeoDriver* pGeoDriver = callGeoDriver();
+    GgafDx::GeoDriver* pGeoDriver = getGeoDriver();
     //自→仮、自方向ベクトル(vM)
     coord vMx = pGeoDriver->_velo_vx_mv;
     coord vMy = pGeoDriver->_velo_vy_mv;

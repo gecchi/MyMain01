@@ -13,24 +13,24 @@ namespace VioletVreath {
 template<class T>
 class VvActor : public T {
     GgafLib::DefaultScene* pFeatureScene_;
-    GgafDx::SplineLeader* pFeatureSplineLeader_;
+    GgafDx::DriverLeader* pFeatureDriverLeader_;
 public:
     VvActor(const char* prm_name, const char* prm_model_id)
         : T(prm_name, prm_model_id) {
         pFeatureScene_ = nullptr;
-        pFeatureSplineLeader_ = nullptr;
+        pFeatureDriverLeader_ = nullptr;
     }
-    void registerpFeatureSplineLeader(GgafDx::SplineLeader* prm_pSplineLeader) {
-        pFeatureSplineLeader_ = prm_pSplineLeader;
+    void registerpFeatureDriverLeader(GgafDx::DriverLeader* prm_pDriverLeader) {
+        pFeatureDriverLeader_ = prm_pDriverLeader;
         pFeatureScene_ = ((GgafLib::DefaultScene*)(T::getSceneMediator()->getPlatformScene()))->getNearestFeatureScene();
-        //pFeatureScene_->_pFuncFeature(pFeatureSplineLeader_, &(pFeatureScene_->_feature_p1), nullptr, nullptr);
-            //pVecDriverLeader_->_x_start_in_loop -= pFeatureScene_->getFeatureParam1();
+        //pFeatureScene_->_pFuncFeature(pFeatureDriverLeader_, &(pFeatureScene_->_feature_p1), nullptr, nullptr);
+            //pDriverLeader_->_x_start_in_loop -= pFeatureScene_->getFeatureParam1();
     }
     void executeFuncLowerTree(void (*pFunc)(GgafCore::Object*, void*, void*, void*), void* prm1, void* prm2, void* prm3) override {
         T::executeFuncLowerTree(pFunc, prm1, prm2, prm3);
-        if (pFeatureSplineLeader_ && pFunc == pFeatureScene_->_pFuncFeature) {
+        if (pFeatureDriverLeader_ && pFunc == pFeatureScene_->_pFuncFeature) {
             if (T::_can_live_flg && T::_is_active_flg) {
-                pFunc((GgafCore::Object*)pFeatureSplineLeader_, &(pFeatureScene_->_feature_p1), prm2, prm3);
+                pFunc((GgafCore::Object*)pFeatureDriverLeader_, &(pFeatureScene_->_feature_p1), prm2, prm3);
             }
         }
     }
@@ -50,7 +50,7 @@ public:
 //                        pE->onActive();
 //                    }
 //                    pE->setPositionAt(this);
-//                    pE->callVecDriver()->takeoverMvFrom(this->callVecDriver());
+//                    pE->getVecDriver()->takeoverMvFrom(this->getVecDriver());
 //                }
 //                break;
 //            }
@@ -58,7 +58,7 @@ public:
 //                pE = dispatchForceFromCommon(EffectExplosion002);
 //                if (pE) {
 //                    pE->setPositionAt(this);
-//                    pE->callVecDriver()->takeoverMvFrom(this->callVecDriver());
+//                    pE->getVecDriver()->takeoverMvFrom(this->getVecDriver());
 //                }
 //                break;
 //            }
@@ -66,7 +66,7 @@ public:
 //                pE = dispatchForceFromCommon(EffectExplosion003);
 //                if (pE) {
 //                    pE->setPositionAt(this);
-//                    pE->callVecDriver()->takeoverMvFrom(this->callVecDriver());
+//                    pE->getVecDriver()->takeoverMvFrom(this->getVecDriver());
 //                }
 //                break;
 //            }
@@ -74,8 +74,8 @@ public:
 //                pE = dispatchForceFromCommon(EffectExplosion001);
 //                if (pE) {
 //                    pE->setPositionAt(this);
-//                    pE->callVecDriver()->setMvVelo(0);
-//                    pE->callVecDriver()->setMvAcce(0);
+//                    pE->getVecDriver()->setMvVelo(0);
+//                    pE->getVecDriver()->setMvAcce(0);
 //                }
 //                break;
 //            }

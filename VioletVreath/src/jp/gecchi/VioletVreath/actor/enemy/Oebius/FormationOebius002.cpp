@@ -7,9 +7,9 @@
 #include "jp/ggaf/core/util/ResourceConnection.hpp"
 #include "jp/ggaf/core/util/Xpm.h"
 #include "jp/ggaf/dx/actor/supporter/VecDriver.h"
-#include "jp/ggaf/dx/util/spline/SplineLeader.h"
-#include "jp/ggaf/dx/util/spline/SplineManufacture.h"
-#include "jp/ggaf/dx/util/spline/FixedFrameSplineManufacture.h"
+#include "jp/ggaf/dx/util/curve/DriverLeader.h"
+#include "jp/ggaf/dx/util/curve/CurveManufacture.h"
+#include "jp/ggaf/dx/util/curve/FixedFrameCurveManufacture.h"
 
 using namespace GgafDx;
 using namespace GgafLib;
@@ -37,11 +37,11 @@ FormationOebius002::FormationOebius002(const char* prm_name, EnemyOebiusControll
         Sleep(1);
     }
 
-    papSplManufConn_ = NEW SplineManufactureConnection*[formation_col_num_];
+    papCurveManufConn_ = NEW CurveManufactureConnection*[formation_col_num_];
     for (int col = 0; col < formation_col_num_; col++) {
-        papSplManufConn_[col] = connectToSplineManufactureManager(("FormationOebius002,"+XTOS(col)).c_str());
+        papCurveManufConn_[col] = connectToCurveManufactureManager(("FormationOebius002,"+XTOS(col)).c_str());
     }
-    FixedFrameSplineManufacture* Manuf =  ((FixedFrameSplineManufacture*)(papSplManufConn_[0])->peek());
+    FixedFrameCurveManufacture* Manuf =  ((FixedFrameCurveManufacture*)(papCurveManufConn_[0])->peek());
     frame spent_frames = Manuf->getSpentFrames();
     pa_frame_of_call_up_ = NEW frame[formation_row_num_];
     for (int row = 0; row < formation_row_num_; row++) {
@@ -95,36 +95,36 @@ void FormationOebius002::processBehavior() {
 
 void FormationOebius002::onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) {
     EnemyOebius* pOebius = (EnemyOebius*)prm_pActor;
-    if (pOebius->pVecDriverLeader_) {
-        throwCriticalException("pOebius->pVecDriverLeader_が設定されてます。pOebius="<<pOebius<<"("<<pOebius->getName()<<")");
+    if (pOebius->pDriverLeader_) {
+        throwCriticalException("pOebius->pDriverLeader_が設定されてます。pOebius="<<pOebius<<"("<<pOebius->getName()<<")");
     } else {
-        pOebius->pVecDriverLeader_ = papSplManufConn_[prm_col]->peek()->
-                                      createVecDriverLeader(pOebius->callVecDriver());
+        pOebius->pDriverLeader_ = papCurveManufConn_[prm_col]->peek()->
+                                      createVecDriverLeader(pOebius->getVecDriver());
     }
-//    double rate_z = pOebius->pVecDriverLeader_->_pManufacture->_rate_z; //MAG_Z=100000
+//    double rate_z = pOebius->pDriverLeader_->_pManufacture->_rate_z; //MAG_Z=100000
 //
 //    //Z = (prm_col*0.4)*rate_z //0.4は隣の列との間隔
 //    //(0, 0, Z) を Rz > Ry 回転移動させると
 //    //(Z*sinRy, 0, Z*cosRy)
 //    float sinRy = ANG_SIN(geo_.ry);
 //    float cosRy = ANG_COS(geo_.ry);
-//    double d_col = -1.0 * papSplManufConn_[prm_col]->peek()->_pSpl->_rotmat._43;
+//    double d_col = -1.0 * papCurveManufConn_[prm_col]->peek()->_pCurve->_rotmat._43;
 //    dxcoord Z = d_col*rate_z; //rate_zを掛けることにより、ここで Z はcoordの単位となる。(ようにMAG_X,MAG_Y,MAG_Zを設定してある）
 //    coord dx = Z*sinRy;
 //    coord dy = 0;
 //    coord dz = Z*cosRy;
-//    pOebius->pVecDriverLeader_->setStartPosition(geo_.x + dx,
+//    pOebius->pDriverLeader_->setStartPosition(geo_.x + dx,
 //                                              geo_.y + dy,
 //                                              geo_.z + dz);
-    pOebius->pVecDriverLeader_->setStartPosition(geo_.x, geo_.y, geo_.z);
-    pOebius->pVecDriverLeader_->setStartAngle(geo_.rx, geo_.ry, geo_.rz);
+    pOebius->pDriverLeader_->setStartPosition(geo_.x, geo_.y, geo_.z);
+    pOebius->pDriverLeader_->setStartAngle(geo_.rx, geo_.ry, geo_.rz);
     pOebius->setPositionAround(geo_.x, geo_.y, geo_.z, PX_C(700));
     pOebius->setFaceAngTwd(pOebius->_x + (pOebius->_x - geo_.x),
                            pOebius->_y + (pOebius->_y - geo_.y),
                            pOebius->_z + (pOebius->_z - geo_.z) );
-    pOebius->callVecDriver()->setMvAngByFaceAng();
-    pOebius->callVecDriver()->setMvVelo(0);
-    pOebius->callVecDriver()->setMvAcce(80);
+    pOebius->getVecDriver()->setMvAngByFaceAng();
+    pOebius->getVecDriver()->setMvVelo(0);
+    pOebius->getVecDriver()->setMvAcce(80);
 
     //色を設定
     GgafCore::Xpm* pXpM = pXpmConnection_->peek();
@@ -140,9 +140,9 @@ FormationOebius002::~FormationOebius002() {
         pXpmConnection_->close();
     }
     for (int col = 0; col < formation_col_num_; col++) {
-        papSplManufConn_[col]->close();
+        papCurveManufConn_[col]->close();
     }
-    GGAF_DELETEARR(papSplManufConn_);
+    GGAF_DELETEARR(papCurveManufConn_);
     GGAF_DELETEARR(pa_frame_of_call_up_);
 }
 

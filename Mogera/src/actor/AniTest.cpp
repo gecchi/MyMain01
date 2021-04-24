@@ -4,7 +4,7 @@
 #include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/dx/util/spline/SplineLeader.h"
+#include "jp/ggaf/dx/util/curve/DriverLeader.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/ggaf/dx/actor/supporter/Puppeteer.h"
 #include "jp/ggaf/dx/actor/supporter/VecDriver.h"
@@ -31,7 +31,7 @@ void AniTest::onActive() {
 }
 
 void AniTest::processBehavior() {
-    callVecDriver()->behave();
+    getVecDriver()->behave();
     _pPuppeteer->behave();
 }
 

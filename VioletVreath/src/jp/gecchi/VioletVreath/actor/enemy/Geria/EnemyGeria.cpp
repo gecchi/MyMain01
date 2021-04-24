@@ -54,7 +54,7 @@ void EnemyGeria::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 45000);
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->setFaceAngVelo(AXIS_Z, -7000);
 }
 
@@ -65,7 +65,7 @@ void EnemyGeria::onActive() {
     can_Shot_ = true;
     shot_num_ = 0;
     frame_when_shot_ = 0;
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     velo_mv_begin_ = pVecDriver->getMvVelo(); //‰ŠúˆÚ“®‘¬“x‚ð•Û‘¶
     pVecDriver->setMvVelo(0);
     setRzFaceAng(0);
@@ -75,8 +75,8 @@ void EnemyGeria::onActive() {
 }
 
 void EnemyGeria::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
-    GgafDx::GeoDriver* const pGeoDriver = callGeoDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
+    GgafDx::GeoDriver* const pGeoDriver = getGeoDriver();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
     GgafCore::Progress* const pProg = getProgress();
 

@@ -72,7 +72,7 @@ void EnemyRatislaviaEye::onCreateModel() {
 
 void EnemyRatislaviaEye::initialize() {
     setHitAble(true);
-    callVecDriver()->linkFaceAngByMvAng(true);
+    getVecDriver()->linkFaceAngByMvAng(true);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliSphere(0, 200000);
@@ -84,13 +84,13 @@ void EnemyRatislaviaEye::onActive() {
     getProgress()->reset(PROG_MOVE);
     setPositionAt(pRatislavia_);
     setFaceAngAs(pRatislavia_);
-    callVecDriver()->setRzRyMvAngVelo(pRatislavia_->callVecDriver()->_angvelo_face[AXIS_Z],
-                                  pRatislavia_->callVecDriver()->_angvelo_face[AXIS_Y]);
+    getVecDriver()->setRzRyMvAngVelo(pRatislavia_->getVecDriver()->_angvelo_face[AXIS_Z],
+                                  pRatislavia_->getVecDriver()->_angvelo_face[AXIS_Y]);
 }
 
 void EnemyRatislaviaEye::processBehavior() {
     setPositionAt(pRatislavia_);
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_MOVE: {
@@ -103,9 +103,9 @@ void EnemyRatislaviaEye::processBehavior() {
             if (pProg->getFrame() > 240) {
                 pProg->changeNext();
             }
-            pVecDriver->takeoverMvFrom(pRatislavia_->callVecDriver());
-            pVecDriver->setRzRyMvAngVelo(pRatislavia_->callVecDriver()->_angvelo_face[AXIS_Z],
-                                      pRatislavia_->callVecDriver()->_angvelo_face[AXIS_Y]);
+            pVecDriver->takeoverMvFrom(pRatislavia_->getVecDriver());
+            pVecDriver->setRzRyMvAngVelo(pRatislavia_->getVecDriver()->_angvelo_face[AXIS_Z],
+                                      pRatislavia_->getVecDriver()->_angvelo_face[AXIS_Y]);
             break;
         }
 
@@ -149,8 +149,8 @@ void EnemyRatislaviaEye::processBehavior() {
         case PROG_FIRE_END: {
             if (pProg->hasJustChanged()) {
                 getMorpher()->transitionLinearUntil(1, 0.0, 180); //•Â‚¶‚é
-                pVecDriver->setRzRyMvAngVelo(pRatislavia_->callVecDriver()->_angvelo_face[AXIS_Z],
-                                          pRatislavia_->callVecDriver()->_angvelo_face[AXIS_Y]);
+                pVecDriver->setRzRyMvAngVelo(pRatislavia_->getVecDriver()->_angvelo_face[AXIS_Z],
+                                          pRatislavia_->getVecDriver()->_angvelo_face[AXIS_Y]);
             }
             //d’¼
             if (pProg->getFrame() >= 300) {

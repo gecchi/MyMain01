@@ -37,7 +37,7 @@ void EffectExplosion004::onActive() {
 void EffectExplosion004::processBehavior() {
     _alpha -= 0.01;
     getUvFlipper()->behave();
-    callVecDriver()->behave();
+    getVecDriver()->behave();
     getScaler()->behave();
 }
 

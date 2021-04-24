@@ -17,7 +17,7 @@ class EnemyHalia : public VvEnemyActor<GgafLib::DefaultMassMorphMeshActor> {
 public:
     velo veloTopMv_;
     /** 移動スプラインプログラム */
-    GgafDx::SplineLeader* pVecDriverLeader_;
+    GgafDx::DriverLeader* pDriverLeader_;
     /** 原点から初期カメラZ位置の距離 */
     coord dZ_camera_init_;
 
@@ -65,10 +65,10 @@ public:
     /**
      * スプライン移動設定 .
      * initialize() までに設定して下さい。
-     * @param prm_pVecDriverLeader
+     * @param prm_pDriverLeader
      */
-    void setSplineVecDriverLeader(GgafDx::SplineLeader* prm_pVecDriverLeader) {
-        pVecDriverLeader_ = prm_pVecDriverLeader;
+    void setCurveVecDriverLeader(GgafDx::DriverLeader* prm_pDriverLeader) {
+        pDriverLeader_ = prm_pDriverLeader;
     }
 
     virtual ~EnemyHalia();

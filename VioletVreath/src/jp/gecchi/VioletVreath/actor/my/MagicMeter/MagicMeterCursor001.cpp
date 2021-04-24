@@ -31,7 +31,7 @@ void MagicMeterCursor001::onActive() {
 }
 
 void MagicMeterCursor001::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     setAlpha(pMagicMeter_->getAlpha());
     pVecDriver->behave();
     if (pVecDriver->asstMv()->hasJustFinishedSliding()) {
@@ -48,7 +48,7 @@ void MagicMeterCursor001::processJudgement() {
 void MagicMeterCursor001::moveTo(int prm_magic_mater_index) {
     tx_ = pMagicMeter_->_x + pMagicMeter_->width_*prm_magic_mater_index + (pMagicMeter_->width_/2);
     ty_ = pMagicMeter_->_y + (pMagicMeter_->height_/2);
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->setMvAngTwd(tx_, ty_);
     pVecDriver->asstMv()->slideByDt(UTIL::getDistance(_x, _y, tx_, ty_), 12,
                                   0.2, 0.4, 0, true);

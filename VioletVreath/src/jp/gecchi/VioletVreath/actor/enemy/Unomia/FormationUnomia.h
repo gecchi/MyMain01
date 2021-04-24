@@ -18,7 +18,7 @@ public:
     GgafCore::ActorDepository* pDepo_shot_;
 
     /** スプライン定義資源への接続 */
-    GgafDx::SplineManufactureConnection* pConn_pSplManuf_;
+    GgafDx::CurveManufactureConnection* pConn_pCurveManuf_;
     /** 編隊列数(RANK変動) */
     int num_formation_col_;
     /** １列の編隊数(RANK変動) */
@@ -34,9 +34,9 @@ public:
     /**
      * コンストラクタ .
      * @param prm_name
-     * @param prm_spl_id スプライン定義ID(XXX.spl の XXX)
+     * @param prm_ldr_id スプライン定義ID(XXX.ldr の XXX)
      */
-    FormationUnomia(const char* prm_name, const char* prm_spl_id) ;
+    FormationUnomia(const char* prm_name, const char* prm_ldr_id) ;
 
     void updateRankParameter();
 

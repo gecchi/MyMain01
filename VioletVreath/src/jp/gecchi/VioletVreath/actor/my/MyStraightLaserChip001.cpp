@@ -39,7 +39,7 @@ MyStraightLaserChip001::MyStraightLaserChip001(const char* prm_name) :
 
 void MyStraightLaserChip001::initialize() {
     pOrg_ = pMYSHIP;
-    callVecDriver()->setRzRyMvAng(0,0);
+    getVecDriver()->setRzRyMvAng(0,0);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAABox_WHD(0,PX_C(300),PX_C(80),PX_C(80));
@@ -58,8 +58,8 @@ void MyStraightLaserChip001::onActive() {
     default_stamina_ = getStatus()->get(STAT_Stamina);
     StraightLaserChip::onActive();
 
-    callVecDriver()->setMvVelo(100000);
-    callVecDriver()->setMvAcce(1000);
+    getVecDriver()->setMvVelo(100000);
+    getVecDriver()->setMvAcce(1000);
 }
 
 void MyStraightLaserChip001::processBehavior() {

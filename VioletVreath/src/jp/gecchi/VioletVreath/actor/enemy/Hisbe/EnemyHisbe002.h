@@ -18,7 +18,7 @@ class EnemyHisbe002 :  public VvEnemyActor<GgafLib::DefaultMorphMeshActor> {
 //class EnemyHisbe002 : public VvEnemyActor<GgafLib::CubeMapMorphMeshActor> {
 
     /** 移動スプラインプログラム */
-    GgafDx::SplineLeader* pVecDriverLeader_;
+    GgafDx::DriverLeader* pDriverLeader_;
     /** 弾ストック */
     GgafCore::ActorDepository* pDepo_shot_;
     /** 弾発射効果エフェクト */
@@ -78,10 +78,10 @@ public:
     /**
      * スプライン移動設定 .
      * initialize() までに設定して下さい。
-     * @param prm_pVecDriverLeader
+     * @param prm_pDriverLeader
      */
-    void setSplineVecDriverLeader(GgafDx::SplineLeader* prm_pVecDriverLeader) {
-        pVecDriverLeader_ = prm_pVecDriverLeader;
+    void setCurveVecDriverLeader(GgafDx::DriverLeader* prm_pDriverLeader) {
+        pDriverLeader_ = prm_pDriverLeader;
     }
 
     /**

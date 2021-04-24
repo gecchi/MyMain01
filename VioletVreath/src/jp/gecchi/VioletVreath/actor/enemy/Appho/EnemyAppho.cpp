@@ -51,7 +51,7 @@ void EnemyAppho::onActive() {
 }
 
 void EnemyAppho::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     GgafCore::Progress* const pProg = getProgress();
 
     switch (pProg->get()) {
@@ -131,7 +131,7 @@ void EnemyAppho::processBehavior() {
                      GgafDx::FigureActor* pShot = UTIL::activateAttackShotOf(this);
                      if (pShot) {
                          pShot->activateDelay(1+(i*10)); //ばらつかせ。activate タイミング上書き！
-                         GgafDx::VecDriver* pShot_pVecDriver = pShot->callVecDriver();
+                         GgafDx::VecDriver* pShot_pVecDriver = pShot->getVecDriver();
                          pShot_pVecDriver->setRzRyMvAng(_rz, _ry);
                          pShot_pVecDriver->setMvVelo(shot_velo);
                          pShot_pVecDriver->setMvAcce(100);

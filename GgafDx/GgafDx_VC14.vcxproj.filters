@@ -465,9 +465,6 @@
     <ClInclude Include="include\jp\ggaf\dx\util\spline\FixedVelocitySplineVecDriverLeader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="include\jp\ggaf\dx\util\spline\SplineLeader.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="include\jp\ggaf\dx\util\spline\SplineManufacture.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -553,6 +550,12 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\ggafdxcommonheader.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\dx\actor\supporter\ActorDriver.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\dx\util\spline\DriverLeader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
@@ -998,9 +1001,6 @@
     <ClCompile Include="src\jp\ggaf\dx\util\spline\FixedVelocitySplineVecDriverLeader.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\jp\ggaf\dx\util\spline\SplineLeader.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="src\jp\ggaf\dx\util\spline\SplineManufacture.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -1056,6 +1056,12 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\ggaf\dx\God.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\ggaf\dx\actor\supporter\ActorDriver.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\ggaf\dx\util\spline\DriverLeader.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

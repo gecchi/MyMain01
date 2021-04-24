@@ -31,14 +31,14 @@ void Shot002::onActive() {
     getStatus()->reset();
     setHitAble(true, false);
     setScale(2000);
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->linkFaceAngByMvAng(true);
     pVecDriver->setMvVelo(RF_Shot002_MvVelo(G_RANK));
     pVecDriver->setRollFaceAngVelo(RF_Shot002_AngVelo(G_RANK));
 }
 
 void Shot002::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     if (getActiveFrame() == 70) {
         pVecDriver->turnMvAngTwd(pMYSHIP,
                               3000, 0,

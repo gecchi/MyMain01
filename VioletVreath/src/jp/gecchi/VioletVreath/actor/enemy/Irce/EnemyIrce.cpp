@@ -37,7 +37,7 @@ void EnemyIrce::onCreateModel() {
 void EnemyIrce::initialize() {
     setHitAble(true);
     setScale(1000);
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->linkFaceAngByMvAng(true);
     pVecDriver->setMvVelo(3000);
     CollisionChecker* pChecker = getCollisionChecker();
@@ -52,7 +52,7 @@ void EnemyIrce::onActive() {
 }
 
 void EnemyIrce::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->turnMvAngTwd(pMYSHIP,
                           50, 0, TURN_CLOSE_TO, true);
     pVecDriver->behave();

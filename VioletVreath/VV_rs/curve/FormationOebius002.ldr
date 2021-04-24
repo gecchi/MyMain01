@@ -1,0 +1,9 @@
+SPLINE=mobius8-1.spl,mobius8-2.spl,mobius8-3.spl,mobius8-4.spl,mobius8-5.spl,mobius8-6.spl,mobius8-7.spl,mobius8-8.spl
+MAG_X=400000
+MAG_Y=400000
+MAG_Z=400000
+CLASS=FixedFrameSplineVecDriverLeader
+SPENT_FRAME=560
+ANGLE_VELOCITY=2000
+TURN_WAY=TURN_CLOSE_TO
+TURN_OPTIMIZE=false

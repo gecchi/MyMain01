@@ -4,12 +4,12 @@
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/dx/manager/SplineSourceConnection.h"
-#include "jp/ggaf/dx/util/spline/FixedVelocitySplineVecDriverLeader.h"
-#include "jp/ggaf/dx/util/spline/FixedVelocitySplineManufacture.h"
+#include "jp/ggaf/dx/manager/CurveSourceConnection.h"
+#include "jp/ggaf/dx/util/curve/FixedVelocityCurveVecDriverLeader.h"
+#include "jp/ggaf/dx/util/curve/FixedVelocityCurveManufacture.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/God.h"
-#include "jp/gecchi/VioletVreath/manager/SplineSourceManagerEx.h"
+#include "jp/gecchi/VioletVreath/manager/CurveSourceManagerEx.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 using namespace GgafDx;
@@ -21,8 +21,8 @@ Shot001::Shot001(const char* prm_name) :
     _class_name = "Shot001";
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(0, "WAVE_EXPLOSION_002");
-    pSplManufConn_ = connectToSplineManufactureManager("Shot001_spline");
-    pVecDriverLeader_ = NEW FixedVelocitySplineVecDriverLeader(pSplManufConn_->peek(), callVecDriver()); //移動速度固定
+    pCurveManufConn_ = connectToCurveManufactureManager("Shot001_curve");
+    pDriverLeader_ = NEW FixedVelocityCurveVecDriverLeader(pCurveManufConn_->peek(), getVecDriver()); //移動速度固定
 }
 
 void Shot001::initialize() {
@@ -36,23 +36,23 @@ void Shot001::initialize() {
 void Shot001::onActive() {
     getStatus()->reset();
     setHitAble(true, false);
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->linkFaceAngByMvAng(true);
     pVecDriver->setMvVelo(RF_Shot001_MvVelo(G_RANK));    //移動速度
     pVecDriver->setRollFaceAngVelo(RF_Shot001_AngVelo(G_RANK)); //きりもみ具合
-    pVecDriverLeader_->start(RELATIVE_COORD_DIRECTION);
+    pDriverLeader_->start(RELATIVE_COORD_DIRECTION);
     getScaler()->beat(30,5,0,2,-1);
-//    _TRACE_(FUNC_NAME<<" id=["<<getId()<<"]("<<getActiveFrame()<<") → = \t"<<callVecDriver()->_rz_mv<<"\t"<<callVecDriver()->_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");
+//    _TRACE_(FUNC_NAME<<" id=["<<getId()<<"]("<<getActiveFrame()<<") → = \t"<<getVecDriver()->_rz_mv<<"\t"<<getVecDriver()->_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");
 }
 
 void Shot001::processBehavior() {
-//    _TRACE_(FUNC_NAME<<" before id=["<<getId()<<"]("<<getActiveFrame()<<") → = \t"<<callVecDriver()->_rz_mv<<"\t"<<callVecDriver()->_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+//    _TRACE_(FUNC_NAME<<" before id=["<<getId()<<"]("<<getActiveFrame()<<") → = \t"<<getVecDriver()->_rz_mv<<"\t"<<getVecDriver()->_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     //座標に反映
-    pVecDriverLeader_->behave(); //スプライン移動を振る舞い
+    pDriverLeader_->behave(); //スプライン移動を振る舞い
     pVecDriver->behave();
     getScaler()->behave();
-//    _TRACE_(FUNC_NAME<<" after id=["<<getId()<<"]("<<getActiveFrame()<<") → = \t"<<callVecDriver()->_rz_mv<<"\t"<<callVecDriver()->_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");
+//    _TRACE_(FUNC_NAME<<" after id=["<<getId()<<"]("<<getActiveFrame()<<") → = \t"<<getVecDriver()->_rz_mv<<"\t"<<getVecDriver()->_ry_mv<<"\t\t\t"<<_x<<"\t"<<_y<<"\t"<<_z<<"");
 }
 
 void Shot001::processJudgement() {
@@ -78,7 +78,7 @@ void Shot001::onInactive() {
 
 
 Shot001::~Shot001() {
-    pSplManufConn_->close();
-    GGAF_DELETE(pVecDriverLeader_);
+    pCurveManufConn_->close();
+    GGAF_DELETE(pDriverLeader_);
 
 }

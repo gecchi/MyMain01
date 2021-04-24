@@ -26,7 +26,7 @@ void TestNomal::onActive() {
 }
 
 void TestNomal::processBehavior() {
-    callVecDriver()->behave();
+    getVecDriver()->behave();
     //getSeTransmitter()->behave();
     dispStamina();
 }

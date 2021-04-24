@@ -68,7 +68,7 @@ void MagicLvCursor003::markOnLevelUpCast(int prm_lv) {
     setScale(10000);
     getScaler()->transitionLinearUntil(1000, 20);
     setRzFaceAng(D180ANG);
-    callVecDriver()->turnRzFaceAngTo(0, D180ANG/20, 0, TURN_COUNTERCLOCKWISE);
+    getVecDriver()->turnRzFaceAngTo(0, D180ANG/20, 0, TURN_COUNTERCLOCKWISE);
 }
 
 void MagicLvCursor003::markOnLevelDownCast(int prm_lv) {

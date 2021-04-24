@@ -31,7 +31,7 @@ EnemyErelmanCore003::EnemyErelmanCore003(const char* prm_name, EnemyErelmanContr
 }
 
 void EnemyErelmanCore003::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
 
     GgafCore::Progress* const pProg = getProgress();

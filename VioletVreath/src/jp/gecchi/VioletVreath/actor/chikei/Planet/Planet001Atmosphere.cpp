@@ -26,11 +26,11 @@ void Planet001Atmosphere::onCreateModel() {
 
 void Planet001Atmosphere::initialize() {
     setCullingDraw(false);
-    callVecDriver()->setFaceAngVelo(AXIS_Z, 1000);
+    getVecDriver()->setFaceAngVelo(AXIS_Z, 1000);
 }
 
 void Planet001Atmosphere::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->behave();
 }
 

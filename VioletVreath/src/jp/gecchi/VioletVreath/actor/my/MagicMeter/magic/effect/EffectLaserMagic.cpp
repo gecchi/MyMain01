@@ -30,7 +30,7 @@ void EffectLaserMagic::onActive() {
 
 void EffectLaserMagic::processBehavior() {
     getUvFlipper()->behave();
-    callVecDriver()->behave();
+    getVecDriver()->behave();
     getScaler()->behave();
 }
 

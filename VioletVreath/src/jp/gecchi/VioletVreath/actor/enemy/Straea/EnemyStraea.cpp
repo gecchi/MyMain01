@@ -97,7 +97,7 @@ void EnemyStraea::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliSphere(0, PX_C(200));
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     pVecDriver->setRzRyMvAng(0, D180ANG);
 }
 
@@ -110,7 +110,7 @@ void EnemyStraea::onActive() {
 }
 
 void EnemyStraea::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = callVecDriver();
+    GgafDx::VecDriver* const pVecDriver = getVecDriver();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
@@ -218,7 +218,7 @@ void EnemyStraea::processBehavior() {
                                 vZ = p->x*matWorldRot._13 + p->y*matWorldRot._23 + p->z*matWorldRot._33;
                                 UTIL::convVectorToRzRy(vX, vY, vZ, Rz, Ry); //Œ»Ý‚ÌÅI“I‚ÈŒü‚«‚ðARzRy‚ÅŽæ“¾
                                 pLaserChip->setPosition(_x+vX, _y+vY, _z+vZ);
-                                pLaserChip->callVecDriver()->setRzRyMvAng(Rz, Ry);
+                                pLaserChip->getVecDriver()->setRzRyMvAng(Rz, Ry);
                                 pLaserChip->_rz = Rz;
                                 pLaserChip->_ry = Ry;
                             }
