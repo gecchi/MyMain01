@@ -17,33 +17,33 @@ CurveSource::CurveSource() : GgafCore::Object() {
     _z_compute = nullptr;
     _rnum = 0;
     _accuracy = 1.0;
-    _coord_data_file = NEW char[13+1];
-    strcpy(_coord_data_file, "nothing_idstr");
-    _coord_data_file[13] = '\0';
+    _coord_spl_file = NEW char[13+1];
+    strcpy(_coord_spl_file, "nothing_idstr");
+    _coord_spl_file[13] = '\0';
 }
 
 CurveSource::CurveSource(double prm_paaEstablish[][3], int prm_num, double prm_accuracy) : GgafCore::Object() {
-    _coord_data_file = NEW char[13+1];
-    strcpy(_coord_data_file, "nothing_idstr");
-    _coord_data_file[13] = '\0';
+    _coord_spl_file = NEW char[13+1];
+    strcpy(_coord_spl_file, "nothing_idstr");
+    _coord_spl_file[13] = '\0';
     init(prm_paaEstablish, prm_num, prm_accuracy);
 }
 
 CurveSource::CurveSource(double prm_paaEstablish[][3], int prm_num, double prm_accuracy, RotMat& prm_rotmat) : GgafCore::Object() {
-    _coord_data_file = NEW char[13+1];
-    strcpy(_coord_data_file, "nothing_idstr");
-    _coord_data_file[13] = '\0';
+    _coord_spl_file = NEW char[13+1];
+    strcpy(_coord_spl_file, "nothing_idstr");
+    _coord_spl_file[13] = '\0';
     _rotmat = prm_rotmat;
     init(prm_paaEstablish, prm_num, prm_accuracy);
 }
 
-CurveSource::CurveSource(const char* prm_coord_data_file) : GgafCore::Object() {
-    int len = strlen(prm_coord_data_file);
-    _coord_data_file = NEW char[len+1];
-    strcpy(_coord_data_file, prm_coord_data_file);
+CurveSource::CurveSource(const char* prm_coord_spl_file) : GgafCore::Object() {
+    int len = strlen(prm_coord_spl_file);
+    _coord_spl_file = NEW char[len+1];
+    strcpy(_coord_spl_file, prm_coord_spl_file);
 
     double accuracy = 1.0;
-    std::string data_filename = CONFIG::DIR_CURVE + _coord_data_file;// + ".spls";
+    std::string data_filename = CONFIG::DIR_CURVE + _coord_spl_file;// + ".spls";
     std::ifstream ifs(data_filename.c_str());
     if (ifs.fail()) {
         throwCriticalException(data_filename<<" が開けません");
@@ -70,11 +70,11 @@ CurveSource::CurveSource(const char* prm_coord_data_file) : GgafCore::Object() {
                 iss >> p[n][1];
                 iss >> p[n][2];
                 if (iss.fail()) {
-                    throwCriticalException(_coord_data_file<<" [BASEPOINT]不正な数値データです line=["<<line<<"]");
+                    throwCriticalException(_coord_spl_file<<" [BASEPOINT]不正な数値データです line=["<<line<<"]");
                 }
                 n++;
                 if (n >= MaxCurveSize) {
-                    throwCriticalException(_coord_data_file<<" ポイントが"<<MaxCurveSize<<"を超えました。");
+                    throwCriticalException(_coord_spl_file<<" ポイントが"<<MaxCurveSize<<"を超えました。");
                 }
             }
         }
@@ -86,7 +86,7 @@ CurveSource::CurveSource(const char* prm_coord_data_file) : GgafCore::Object() {
                 std::istringstream iss(line);
                 iss >> accuracy;
                 if (iss.fail()) {
-                    throwCriticalException(_coord_data_file<<" [ACCURACY]不正な数値データです line=["<<line<<"]");
+                    throwCriticalException(_coord_spl_file<<" [ACCURACY]不正な数値データです line=["<<line<<"]");
                 }
             }
         }
@@ -105,23 +105,23 @@ CurveSource::CurveSource(const char* prm_coord_data_file) : GgafCore::Object() {
                 } else if (d == 3) {
                     iss >> _rotmat._41; iss >> _rotmat._42; iss >> _rotmat._43; iss >> _rotmat._44;
                 } else {
-                    throwCriticalException(_coord_data_file<<" [ADJUST_MAT] のデータ数が多いです。４列４行の行列を設定してください。");
+                    throwCriticalException(_coord_spl_file<<" [ADJUST_MAT] のデータ数が多いです。４列４行の行列を設定してください。");
                 }
                 if (iss.fail()) {
-                    throwCriticalException(_coord_data_file<<" [ADJUST_MAT] 不正な数値データです line=["<<line<<"]");
+                    throwCriticalException(_coord_spl_file<<" [ADJUST_MAT] 不正な数値データです line=["<<line<<"]");
                 }
                 d++;
             }
         }
     }
     if (int(accuracy*100000000) == 0) {
-        throwCriticalException(_coord_data_file<<" [ACCURACY] が指定されてません。");
+        throwCriticalException(_coord_spl_file<<" [ACCURACY] が指定されてません。");
     }
     if (n == 0) {
-        throwCriticalException(_coord_data_file<<" [BASEPOINT] に座標がありません。");
+        throwCriticalException(_coord_spl_file<<" [BASEPOINT] に座標がありません。");
     }
     if (d != 0 && d != 4) {
-        throwCriticalException(_coord_data_file<<" [ADJUST_MAT] のデータ数が中途半端です。４列４行の行列を設定してください。");
+        throwCriticalException(_coord_spl_file<<" [ADJUST_MAT] のデータ数が中途半端です。４列４行の行列を設定してください。");
     }
     init(p, n, accuracy);
 }
@@ -198,7 +198,7 @@ void CurveSource::rotation(angle prm_rx, angle prm_ry, angle prm_rz) {
 
 CurveSource::~CurveSource() {
     _TRACE_("CurveSource::~CurveSource() ");
-    GGAF_DELETEARR(_coord_data_file);
+    GGAF_DELETEARR(_coord_spl_file);
     GGAF_DELETEARR(_x_basepoint);
     GGAF_DELETEARR(_y_basepoint);
     GGAF_DELETEARR(_z_basepoint);

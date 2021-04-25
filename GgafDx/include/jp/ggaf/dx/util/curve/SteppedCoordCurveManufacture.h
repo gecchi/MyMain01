@@ -16,9 +16,9 @@ class SteppedCoordCurveManufacture : public CurveManufacture {
 public:
     /**
      * コンストラクタ .
-     * @param prm_coord_data_file スプライン座標情報ファイル
+     * @param prm_coord_spl_file スプライン座標情報ファイル
      */
-    SteppedCoordCurveManufacture(const char* prm_coord_data_file);
+    SteppedCoordCurveManufacture(const char* prm_coord_spl_file);
 
     /**
      * コンストラクタ .

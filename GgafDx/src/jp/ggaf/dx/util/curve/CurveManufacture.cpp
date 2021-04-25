@@ -11,9 +11,9 @@
 
 using namespace GgafDx;
 
-CurveManufacture::CurveManufacture(const char* prm_coord_data_file) : GgafCore::Object() {
-    _ldr_file = std::string(prm_coord_data_file);
-    _pCurveSrcCon = connectToCurveSourceManager(prm_coord_data_file);
+CurveManufacture::CurveManufacture(const char* prm_coord_spl_file) : GgafCore::Object() {
+    _ldr_file = std::string(prm_coord_spl_file);
+    _pCurveSrcCon = connectToCurveSourceManager(prm_coord_spl_file);
     _pCurve = _pCurveSrcCon->peek();
     _paDistance_to = NEW coord[_pCurve->_rnum];
     _rate_x = 1.0;

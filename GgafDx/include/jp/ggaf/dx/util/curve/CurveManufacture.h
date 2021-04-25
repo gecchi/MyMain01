@@ -74,9 +74,9 @@ public:
 public:
     /**
      * コンストラクタ .
-     * @param prm_coord_data_file スプライン座標情報ファイル(ldrファイル)
+     * @param prm_coord_spl_file スプライン座標情報ファイル(splファイル)
      */
-    explicit CurveManufacture(const char* prm_coord_data_file);
+    explicit CurveManufacture(const char* prm_coord_spl_file);
     /**
      * コンストラクタ .
      * @param prm_pCurveSrc スプライン座標情報オブジェクト

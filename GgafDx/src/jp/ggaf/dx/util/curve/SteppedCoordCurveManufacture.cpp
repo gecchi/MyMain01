@@ -5,8 +5,8 @@
 
 using namespace GgafDx;
 
-SteppedCoordCurveManufacture::SteppedCoordCurveManufacture(const char* prm_coord_data_file) :
-        CurveManufacture(prm_coord_data_file) {
+SteppedCoordCurveManufacture::SteppedCoordCurveManufacture(const char* prm_coord_spl_file) :
+        CurveManufacture(prm_coord_spl_file) {
 }
 
 SteppedCoordCurveManufacture::SteppedCoordCurveManufacture(CurveSource* prm_pCurve) :

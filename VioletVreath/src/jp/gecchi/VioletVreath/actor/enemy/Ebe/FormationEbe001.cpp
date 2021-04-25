@@ -11,7 +11,7 @@ using namespace VioletVreath;
 FormationEbe001::FormationEbe001(const char* prm_name) :
         FormationEbe(prm_name, "FormationEbe001") {
     _class_name = "FormationEbe001";
-    //スプライン定義ファイルを読み込む
+    //曲線移動の情報ファイルを読み込む
     pConn_pCurveManuf_ = connectToCurveManufactureManager("FormationEbe001");
 }
 void FormationEbe001::onCallUpEbe(EnemyEbe* pEnemyEbe) {

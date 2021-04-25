@@ -10,7 +10,6 @@
 #include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/ggaf/dx/util/Util.h"
 
-
 using namespace GgafDx;
 
 GeometricActor::GeometricActor(const char* prm_name,
@@ -57,6 +56,21 @@ VecDriver* GeometricActor::getVecDriver() {
 GeoDriver* GeometricActor::getGeoDriver() {
     return _pGeoDriver ? _pGeoDriver : _pGeoDriver = NEW GeoDriver(this);
 }
+
+DriverLeader* GeometricActor::newSupplyCurveDriverLeader(CurveManufacture* prm_pCurveManufacture) {
+    DriverLeader* pDriverLeader = nullptr;
+    CurveManufacture::MoveDriver move_driver = prm_pCurveManufacture->_move_driver;
+    if (move_driver == CurveManufacture::MoveDriver::GeoDriver) {
+        pDriverLeader = prm_pCurveManufacture->createGeoDriverLeader(getGeoDriver());
+    } else if (move_driver == CurveManufacture::MoveDriver::VecDriver) {
+        pDriverLeader = prm_pCurveManufacture->createVecDriverLeader(getVecDriver());
+    } else {
+        throwCriticalException("newSupplyCurveDriverLeader() : CurveManufacture::MoveDrive ‚ªİ’è‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB"<<
+                "ldr_file="<<prm_pCurveManufacture->_ldr_file<<" move_driver="<<move_driver<<" this="<<NODE_INFO<<"");
+    }
+    return pDriverLeader;
+}
+
 
 SeTransmitterForActor* GeometricActor::getSeTransmitter() {
     return _pSeTransmitter ? _pSeTransmitter : _pSeTransmitter = NEW SeTransmitterForActor(this);

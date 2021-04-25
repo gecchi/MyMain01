@@ -27,7 +27,7 @@ FormationUnomia::FormationUnomia(const char* prm_name, const char* prm_ldr_id)
    : TreeFormation(prm_name, 20*60) {
     _class_name = "FormationUnomia";
 
-    //スプライン定義ファイルを読み込む
+    //曲線移動の情報ファイルを読み込む
     pConn_pCurveManuf_ = connectToCurveManufactureManager(prm_ldr_id);
     pDepo_shot_ = getCommonDepository(Shot004);
     updateRankParameter();
@@ -84,9 +84,7 @@ void FormationUnomia::processBehavior() {
                     for (int col = 0; col < num_formation_col_; col++) {
                         EnemyUnomia* pUnomia = (EnemyUnomia*)callUpMember();
                         if (pUnomia) {
-                            DriverLeader* pDriverLeader = pConn_pCurveManuf_->peek()->
-                                                          createVecDriverLeader(pUnomia->getVecDriver());
-                            pUnomia->config(pDriverLeader, nullptr, nullptr);
+                            pUnomia->config(pConn_pCurveManuf_->peek(), nullptr, nullptr);
                             pUnomia->getVecDriver()->setMvVelo(mv_velo_);
                             onCallUpUnomia(pUnomia, col); //フォーメーション個別実装の処理
                         }

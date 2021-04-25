@@ -5,11 +5,11 @@
 
 using namespace GgafDx;
 
-FixedVelocityCurveManufacture::FixedVelocityCurveManufacture(const char* prm_coord_data_file,
+FixedVelocityCurveManufacture::FixedVelocityCurveManufacture(const char* prm_coord_spl_file,
                                                                angvelo prm_angvelo_rzry_mv,
                                                                int prm_turn_way,
                                                                bool prm_turn_optimaize) :
-        CurveManufacture(prm_coord_data_file) {
+        CurveManufacture(prm_coord_spl_file) {
     _angvelo_rzry_mv = prm_angvelo_rzry_mv;
     _turn_way = prm_turn_way;
     _turn_optimize = prm_turn_optimaize;

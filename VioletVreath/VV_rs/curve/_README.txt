@@ -1,15 +1,16 @@
-ƒƒXƒvƒ‰ƒCƒ“ƒf[ƒ^‚Â‚¢‚Ä„
+ƒ–{ƒtƒHƒ‹ƒ_‚Ìƒtƒ@ƒCƒ‹‚É‚Â‚¢‚Ä„
 ‚RŽŸŒ³‹óŠÔ‚ÉÝ’è‚³‚ê‚½‹Èü‚Ìã‚ðƒLƒƒƒ‰(‚â’e)‚ªˆÚ“®‚µ‚½‚è‚·‚éÛ‚ÉŽg—p‚³‚ê‚Ü‚·B
-ƒXƒvƒ‰ƒCƒ“ƒf[ƒ^‚ÍŽŸ‚Ì‚QŽí—Þ‚Ìƒtƒ@ƒCƒ‹‚É‚æ‚Á‚Ä’è‹`‚³‚ê‚Ä‚¢‚Ü‚·B
-‡@ƒXƒvƒ‰ƒCƒ“‹ÈüÀ•Wî•ñƒtƒ@ƒCƒ‹   EEE datƒtƒ@ƒCƒ‹
-‡AƒXƒvƒ‰ƒCƒ“’è‹`ƒtƒ@ƒCƒ‹           EEE splƒtƒ@ƒCƒ‹
+ŽŸ‚Ì‚QŽí—Þ‚Ìƒtƒ@ƒCƒ‹‚É‚æ‚Á‚Ä’è‹`‚³‚ê‚Ä‚¢‚Ü‚·B
 
-ƒƒXƒvƒ‰ƒCƒ“‹ÈüÀ•Wî•ñƒtƒ@ƒCƒ‹(*.dat)‚É‚Â‚¢‚Ä„
+‡@ƒXƒvƒ‰ƒCƒ“‹ÈüÀ•Wî•ñƒtƒ@ƒCƒ‹   EEE splƒtƒ@ƒCƒ‹
+‡A‹ÈüˆÚ“®‚Ìî•ñƒtƒ@ƒCƒ‹           EEE ldrƒtƒ@ƒCƒ‹
+
+ƒƒXƒvƒ‰ƒCƒ“‹ÈüÀ•Wî•ñƒtƒ@ƒCƒ‹(*.spl)‚É‚Â‚¢‚Ä„
 ƒXƒvƒ‰ƒCƒ“‹Èü‚Ì‚à‚Æ‚Æ‚È‚é’¸“_À•Wî•ñ‚ð•ÛŽ‚µ‚Ü‚·B
 ˆÈ‰º‚Ì‚æ‚¤‚ÈƒtƒH[ƒ}ƒbƒg‚ÌƒXƒvƒ‰ƒCƒ“‹Èü‚ÌÀ•Wî•ñƒtƒ@ƒCƒ‹‚Å‚·B
 (¦gnuplot‚Ìo—Íƒtƒ@ƒCƒ‹‚ª‚»‚Ì‚Ü‚ÜŽg—po—ˆ‚é‚ÅI)
 
-samplebase.dat ---------------------------------
+samplebase.spl ---------------------------------
 [BASEPOINT]
 #       X         Y         Z
 -1.724577  0.000000  0.000000
@@ -79,13 +80,13 @@ BASEPOINT‚ÅŽw’è‚µ‚½§Œä“_`§Œä“_‚ÌŠÔ‚É‚Ç‚Ì‚­‚ç‚¢‚Ì•âŠ®“_‚ð’Ç‰Á‚·‚é‚©‚Æ‚¢‚¤Š„‡‚
 
 
 
-ƒƒXƒvƒ‰ƒCƒ“’è‹`ƒtƒ@ƒCƒ‹(*.spl)‚Â‚¢‚Ä„
+ƒ‹ÈüˆÚ“®‚Ìî•ñƒtƒ@ƒCƒ‹(*.ldr)‚Â‚¢‚Ä„
 
-ƒXƒvƒ‰ƒCƒ“’è‹`ƒtƒ@ƒCƒ‹‚Æ‚ÍAŠg’£Žq‚ªspl‚ÅˆÈ‰º‚Ì‚æ‚¤‚ÈƒtƒH[ƒ}ƒbƒg‚Ìƒtƒ@ƒCƒ‹‚ÌŽ–‚Å‚·B
+‹ÈüˆÚ“®‚Ìî•ñƒtƒ@ƒCƒ‹‚Æ‚ÍAŠg’£Žq‚ª ldr ‚ÅˆÈ‰º‚Ì‚æ‚¤‚ÈƒtƒH[ƒ}ƒbƒg‚Ìƒtƒ@ƒCƒ‹‚ÌŽ–‚Å‚·B
 ƒvƒƒOƒ‰ƒ€‚Å“Ç‚Ýž‚Ü‚êAƒLƒƒƒ‰‚Ì“®‚«‚ÉŽg—p‚³‚ê‚Ü‚·BˆÈ‰ºƒTƒ“ƒvƒ‹B
 
 sample.spl -------------------------------------
-SPLINE=samplebase.dat
+SPLINE=samplebase.spl
 MAG_X=4000000.0
 MAG_Y=1125000.0
 MAG_Z=4000000.0
@@ -97,7 +98,7 @@ TURN_OPTIMIZE=true
 ------------------------------------------------
 
 
-ƒƒXƒvƒ‰ƒCƒ“’è‹`ƒtƒ@ƒCƒ‹‚ÌŠe€–Ú‚Ìà–¾„
+ƒ‹ÈüˆÚ“®‚Ìî•ñƒtƒ@ƒCƒ‹‚ÌŠe€–Ú‚Ìà–¾„
 
 E"SPLINE"
 ƒXƒvƒ‰ƒCƒ“‹Èü‚ÌÀ•Wî•ñ‚Ìƒtƒ@ƒCƒ‹‚ðŽw’è‚µ‚Ü‚·B
@@ -109,7 +110,7 @@ TURN_OPTIMIZE=true
 E"MAG_X", "MAG_Y", "MAG_Z"
 ‘Oq‚Ì "SPLINE" ‚ªŽw’è‚µ‚½À•Wî•ñ‚É‘Î‚µ‚Ä”{—¦‚ðŠ|‚¯‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·B
 MAG_X, MAG_Y, MAG_Z ‚Í XŽ²•ûŒüAYŽ²•ûŒüAZŽ²•ûŒüA‚Ì”{—¦‚ÌÝ’è’l‚Å‚·B
-ƒTƒ“ƒvƒ‹—á‚Å‚ÍŒ³‚ÌÀ•Wî•ñ(samplebase.dat)‚ð XŽ²•ûŒü‚É4000000.0”{AYŽ²•ûŒü‚É1125000.0”{A
+ƒTƒ“ƒvƒ‹—á‚Å‚ÍŒ³‚ÌÀ•Wî•ñ(samplebase.spl)‚ð XŽ²•ûŒü‚É4000000.0”{AYŽ²•ûŒü‚É1125000.0”{A
 ZŽ²•ûŒü‚É4000000.0”{‚ÉŠg‘å‚µ‚½‚à‚Ì‚ðƒXƒvƒ‰ƒCƒ“‹Èü‚Ìƒ|ƒCƒ“ƒg‚Æ‚·‚é‚Æ‚¢‚¤ˆÓ–¡‚Æ‚È‚è‚Ü‚·B
 €–Ú‚ÌÈ—ª‰Â”\BÈ—ª‚µ‚½ê‡‚ÍŽŸ‚Ì‚±‚Ì‚æ‚¤‚ÉÝ’è‚µ‚½‚±‚Æ‚É‚È‚è‚Ü‚·Bi1.0”{Šg‘åk¬–³‚µj
 
@@ -128,33 +129,39 @@ MAG_Z=1.0
 
 
 E"CLASS"
-ƒXƒvƒ‰ƒCƒ“ˆÚ“®‚ÌŽÀsƒNƒ‰ƒX‚ðŽw’è‚µ‚Ü‚·B
+ƒXƒvƒ‰ƒCƒ“ˆÚ“®‚ð§Œä‚·‚é DriverLeader ƒNƒ‰ƒX‚ðŽw’è‚µ‚Ü‚·B
 ƒLƒƒƒ‰‚ª‚Ç‚Ì‚æ‚¤‚ÉƒXƒvƒ‰ƒCƒ“‹Èüã‚ðˆÚ“®‚·‚é‚©‚É‰e‹¿‚µ‚Ü‚·B
-Žw’è‰Â”\‚ÈƒNƒ‰ƒX‚ÍŒ»Ý FixedFrameSpline or FixedVelocitySpline@or SteppedCoordSpline ‚Ì‚RŽí—Þ‚Ì‚Ý‚Å‚·B
+Žw’è‰Â”\‚ÈƒNƒ‰ƒX‚ÍˆÈ‰º‚SŽí—Þ‚Ì‚Ý‚Å‚·B
 ŽŸ‚Ì‚æ‚¤‚È“Á’¥‚ª‚ ‚è‚Ü‚·B
 
-FixedFrameSpline    EEE ƒXƒvƒ‰ƒCƒ“‚ÌŠJŽn“_`I—¹“_‚ÌˆÚ“®‚ðAŽžŠÔ(ƒtƒŒ[ƒ€)ŒÅ’è‚ÅˆÚ“®‚³‚¹‚éB
-                           ŠeƒLƒƒƒ‰‚ª•ÛŽ‚µ‚Ä‚¢‚éˆÚ“®‘¬“x‚Í–³Ž‹‚³‚ê‚Ü‚·B
-                           ƒXƒvƒ‰ƒCƒ“‹Èü‚Ì“_‚ÌŒÂ”‚Æ”ï‚â‚·ƒtƒŒ[ƒ€”‚©‚çŒvŽZ‚³‚ê‚½ˆÚ“®‘¬“x‚ª’€ˆêƒLƒƒƒ‰‚Ì‘¬“x’l‚Éã‘‚«Ý’è‚³‚ê‚Ü‚·
-                           ‚±‚Ì‚½‚ßAƒXƒvƒ‰ƒCƒ“‹Èü‚Ì“_‚Ì–§“x‚ª”Z‚¢‚Æ‚±‚ë‚ÍƒXƒs[ƒh‚ª’x‚­A“_‚Ì–§“x‚ª”–‚¢‚Æ‚±‚ë‚ÍƒXƒs[ƒh‚ª‘¬‚¢ˆÚ“®‚Æ‚È‚è‚Ü‚·B
-                           Œãq‚ÌA[SPENT_FRAME], [ANGLE_VELOCITY], [TURN_WAY], [TURN_OPTIMIZE] ‚ÌÝ’è‚ª•K{‚Å‚·B
+FixedFrameCurveVecDriverLeader
+  ¨ƒXƒvƒ‰ƒCƒ“‹ÈüÀ•W‚ÌŠe“_i§Œä“_{•âŠ®“_j‚Ì—×‚è‡‚¤ŠJŽn“_`I—¹“_‚ÌˆÚ“®‚ðAŽžŠÔ(ƒtƒŒ[ƒ€)ŒÅ’è‚ÅˆÚ“®‚³‚¹‚éƒƒ\ƒbƒh‚ÌƒNƒ‰ƒX‚Å‚·B
+    ŠeƒLƒƒƒ‰‚ª•ÛŽ‚µ‚Ä‚¢‚éŒ»Ý‚Ì VecDriver ‚ÌˆÚ“®‘¬“x‚Í–³Ž‹‚³‚êAã‘‚«Ý’è‚³‚ê‚Ü‚·B
+    ‹ÈüˆÚ“®‚Å”ï‚â‚·ƒtƒŒ[ƒ€”‚ðB“_‚Ì‡ŒvŒÂ”-1 ‚ÅœŽZ‚³‚ê‚½’l‚ªAŠe“_‚ÌŠÔ‚Å”ï‚â‚·ƒtƒŒ[ƒ€”‚Æ‚È‚è‚Ü‚·BA
+    —\‚ßŒvŽZ‚³‚ê‚½Še“_‚ÌŠÔ‚ÌˆÚ“®‘¬“x‚ª’€ˆêƒLƒƒƒ‰‚Ì‘¬“x’l‚ÉAŽžŠÔŒo‰ß‚É”º‚Á‚Äã‘‚«Ý’è‚³‚ê‚Ü‚·
+    ‚»‚Ì‚½‚ß“_‚Ì–§“x‚ª”Z‚¢‚Æ‚±‚ë‚ÍƒXƒs[ƒh‚ª’x‚­A“_‚Ì–§“x‚ª”–‚¢‚Æ‚±‚ë‚ÍƒXƒs[ƒh‚ª‘¬‚¢ˆÚ“®‚Æ‚È‚è‚Ü‚·B
+    Œãq‚ÌA[SPENT_FRAME], [ANGLE_VELOCITY], [TURN_WAY], [TURN_OPTIMIZE] ‚ÌÝ’è‚ª•K{‚Å‚·B
 
-FixedVelocitySpline EEE ƒXƒvƒ‰ƒCƒ“‚ÌŠJŽn“_`I—¹“_‚ÌˆÚ“®‚ðA‘¬“xŒÅ’è‚ÅˆÚ“®‚³‚¹‚éB
-                           ŠeƒLƒƒƒ‰‚ª•ÛŽ‚µ‚Ä‚¢‚éˆÚ“®‘¬“x‚ª‚¸‚Á‚ÆŽg—p‚³‚ê‚Ü‚·B
-                           ƒXƒvƒ‰ƒCƒ“‹Èü‚Ì“_‚Ì–§“x‚ªƒXƒs[ƒh‚É‰e‹¿‚µ‚Ü‚¹‚ñB
-                           •âŠ®“_ŠÔ‚Ì‹——£‚É‰ž‚¶‚ÄA”ï‚â‚·ˆÚ“®ŽžŠÔ‚ª—\‚ßŒvŽZ‚³‚ê‚Ü‚·B
-                           ƒXƒvƒ‰ƒCƒ“‚ÌŠJŽn“_`I—¹“_‚ÌˆÚ“®‚É‰½ƒtƒŒ[ƒ€‚©‚©‚é‚©‚ÍƒLƒƒƒ‰‚ÌƒXƒs[ƒhŽŸ‘æ‚Å‚·B
-                           Œãq‚ÌA[ANGLE_VELOCITY], [TURN_WAY], [TURN_OPTIMIZE] ‚ÌÝ’è‚ª•K{‚Å‚·B
-                           [SPENT_FRAME] ‚ÌÝ’è‚Í•s‰Â‚Å‚·B‚±‚ê‚ÍƒLƒƒƒ‰‚Ì‘¬“x‚É‚æ‚Á‚Ä”ï‚â‚·ƒtƒŒ[ƒ€‚ª•Ï“®‚µ‚ÄŒˆ‚Ü‚é
+FixedVelocityCurveVecDriverLeader
+  ¨ƒXƒvƒ‰ƒCƒ“‹ÈüÀ•W‚ÌŠe“_i§Œä“_{•âŠ®“_j‚Ì—×‚è‡‚¤ŠJŽn“_`I—¹“_‚ÌˆÚ“®‚ðA‘¬“xŒÅ’è‚ÅˆÚ“®‚³‚¹‚éƒƒ\ƒbƒh‚ÌƒNƒ‰ƒX‚Å‚·B
+    ŠeƒLƒƒƒ‰‚ª•ÛŽ‚µ‚Ä‚¢‚éˆÚ“®‘¬“x‚ª‚¸‚Á‚ÆŽg—p‚³‚ê‚Ü‚·BƒJ[ƒu’¸“_•t‹ß‚Å“_‚ª–§W‚µ‚Ä‚¢‚Ä‚àƒXƒs[ƒh‚É‰e‹¿‚µ‚Ü‚¹‚ñB
+    “_‚Æ“_‚ÌŠÔ‚Ì‹——£‚ðA‘¬“x _velo_mvUnit(=1000) ‚ÅˆÚ“®‚µ‚½ê‡‚ÌA”ï‚â‚·ƒtƒŒ[ƒ€”‚ª—\‚ßŒvŽZ‚³‚ê‚Ü‚·B
+    ƒLƒƒƒ‰‚Ì‘¬“x‚É‚æ‚Á‚ÄA‘¬“xˆê’è‚Æ‚È‚é‚æ‚¤‚È”ï‚â‚·ƒtƒŒ[ƒ€”‚ÌŠ„‡‚ªæ‚¶‚ç‚ê‚Ä’²®‚³‚ê‚Ü‚·B
+    Œãq‚ÌA[ANGLE_VELOCITY], [TURN_WAY], [TURN_OPTIMIZE] ‚ÌÝ’è‚ª•K{‚Å‚·B
+    [SPENT_FRAME] ‚ÌÝ’è‚Í•s‰Â‚Å‚·B‚±‚ê‚ÍƒLƒƒƒ‰‚Ì‘¬“x‚É‚æ‚Á‚Ä”ï‚â‚·ƒtƒŒ[ƒ€‚ª•Ï“®‚µ‚ÄŒˆ‚Ü‚é
 
-SteppedCoordSpline  EEE ƒXƒvƒ‰ƒCƒ“‚ÌŠJŽn“_`I—¹“_‚ÌˆÚ“®‚ðA‚PƒtƒŒ[ƒ€–ˆ‚É‚P•âŠÔ“_À•W‚ÖˆÚ“®‚³‚¹‚éB
-                           •âŠÔ“_‚ÌÀ•W‚ÉŽŸX‚ÉˆÚ“®‚µ‚Ü‚·‚Ì‚ÅAÀ•WŠÔŠu‚ª\•ª‚É‹·‚­‚È‚¢‚Æƒ[ƒv‚µ‚½‚æ‚¤‚ÉŒ©‚¦‚Ü‚·B
-                           ƒXƒvƒ‰ƒCƒ“‚ÌŠJŽn“_`I—¹“_‚ÌˆÚ“®‚É‰½ƒtƒŒ[ƒ€‚©‚©‚é‚©‚Í•âŠÔ“_‚Ì”‚Æˆê’v‚µ‚Ü‚·B
-                           Œãq‚ÌA[SPENT_FRAME], [ANGLE_VELOCITY], [TURN_WAY], [TURN_OPTIMIZE] ‚ÌÝ’è‚Í•s‰Â‚Å‚·B
-                           [SPENT_FRAME]‚ÍA•âŠÔ“_‚ÌÀ•W”‚Éˆê’v‚µ‚Ü‚·B
-                           [ANGLE_VELOCITY]‚ÍAˆÓ–¡‚ð‚È‚³‚¸AŽŸ‚Ì–Ú•W‚ÌÀ•W‚ÉŒü‚©‚Á‚ÄA‹——£•ªˆÚ“®‚µ‚Ü‚·B
-                           [TURN_WAY]‚àˆÓ–¡‚ð‚È‚³‚¸B‚OƒtƒŒ[ƒ€‚ÅŽŸ‚Ì–Ú•W‚ÌÀ•W‚ÉŒü‚«‚Ü‚·B
-                           [TURN_OPTIMIZE] ‚ÍAÝ’è‚Å‚«‚é‚æ‚¤‚É‚µ‚½‚©‚Á‚½‚ªA“à•”‚Å‚ÍAGgafDxUtil::convVectorToRzRy ‚ðŽg—p‚µ‚ÄAŽŸ‚Ì–Ú•W‚É•ûŒü‚ð•Ï‚¦‚Ä‚¢‚Ü‚·B
+FixedVelocityCurveGeoDriverLeader
+  ¨ŽÀŒ±’†Bã‹L‚ÌˆÚ“®‚ð GeoDriver.execGravitationMvSequenceTwd() ‚Ås‚Á‚Ä‚Ó‚í‚Ó‚í‚µ‚½ˆÚ“®‚Æ‚È‚é
+
+SteppedCoordCurveVecDriverLeader
+  ¨ƒXƒvƒ‰ƒCƒ“‹ÈüÀ•W‚ÌŠJŽn“_`I—¹“_‚ÌˆÚ“®‚ðA‚PƒtƒŒ[ƒ€–ˆ‚É‚P•âŠÔ“_À•W‚ÖˆÚ“®‚³‚¹‚éƒƒ\ƒbƒh‚ÌƒNƒ‰ƒX‚Å‚·B
+    Še“_i§Œä“_{•âŠ®“_j‚ÌÀ•W‚ÉŽŸX‚ÉˆÚ“®‚µ‚Ü‚·‚Ì‚ÅAÀ•WŠÔŠu‚ª\•ª‚É×‚©‚­‚µ‚È‚¢‚Æƒ[ƒv‚µ‚½‚æ‚¤‚ÉŒ©‚¦‚Ü‚·B
+    ‹Èü‘S‘Ì‚ÌŠJŽn“_`I—¹“_‚ÌˆÚ“®‚É‰½ƒtƒŒ[ƒ€‚©‚©‚é‚©‚Í•âŠÔ“_‚Ì”‚Æˆê’v‚µ‚Ü‚·B
+    Œãq‚ÌA[SPENT_FRAME], [ANGLE_VELOCITY], [TURN_WAY], [TURN_OPTIMIZE] ‚ÌÝ’è‚Í•s‰Â‚Å‚·B
+    [SPENT_FRAME]‚ÍA•âŠÔ“_‚ÌÀ•W”‚Éˆê’v‚µ‚Ü‚·B
+    [ANGLE_VELOCITY]‚ÍAˆÓ–¡‚ð‚È‚³‚¸AŽŸ‚Ì–Ú•W‚ÌÀ•W‚ÉŒü‚©‚Á‚ÄA‹——£•ªˆÚ“®‚µ‚Ü‚·B
+    [TURN_WAY]‚àˆÓ–¡‚ð‚È‚³‚¸B‚OƒtƒŒ[ƒ€‚ÅŽŸ‚Ì–Ú•W‚ÌÀ•W‚ÉŒü‚«‚Ü‚·B
+    [TURN_OPTIMIZE] ‚ÍAÝ’è‚Å‚«‚é‚æ‚¤‚É‚µ‚½‚©‚Á‚½‚ªA“à•”‚Å‚ÍAGgafDxUtil::convVectorToRzRy ‚ðŽg—p‚µ‚ÄAŽŸ‚Ì–Ú•W‚É•ûŒü‚ð•Ï‚¦‚Ä‚¢‚Ü‚·B
 
 E"SPENT_FRAME"
 ˆÚ“®Š®—¹‚É”ï‚â‚·ƒtƒŒ[ƒ€”‚ðÝ’è‚µ‚Ü‚·B
@@ -165,10 +172,10 @@ FixedVelocitySpline ‚ðÝ’è‚µ‚Ä‚¢‚½ê‡A‚±‚Ì€–Ú‚Í–³Ž‹‚³‚ê‚Ü‚·B
 
 E"ANGLE_VELOCITY"
 –ˆƒtƒŒ[ƒ€•ûŒü“]Š·‰Â”\‚ÈÅ‘åŠp(1000 ‚Å 1“xj‚ðÝ’è‚µ‚Ü‚·B
-ƒLƒƒƒ‰‚ªƒXƒvƒ‰ƒCƒ“‹Èü‚Ì“_‚©‚ç“_‚ÖˆÚ“®‚·‚éÛA‚PƒtƒŒ[ƒ€“–‚½‚è‚Ì•ûŒü“]Š·‰Â”\‚È‰ñ“]Šp“x‚ðÝ’è‚µ‚Ü‚·B
-‚±‚ÌŠp“x‚ð‘å‚«‚­‚µ‰ß‚¬‚é‚Æ(180000“™) ƒXƒvƒ‰ƒCƒ“‹Èü‚Ì“_‚©‚ç“_‚ÖÜ‚êüƒOƒ‰ƒO‚Ì‚æ‚¤‚ÉˆÚ“®‚µ‚Ü‚·B
-Šp“x‚ð¬‚³‚­‚µ‚·‚¬‚é‚Æ(1000“™) •ûŒü“]Š·‚ÉŽžŠÔ‚ª‚©‚©‚èA‚¤‚Ü‚­ƒXƒvƒ‰ƒCƒ“‹Èü‚Éæ‚ç‚È‚¢‚æ‚¤‚ÈˆÚ“®‚É‚È‚é‚©‚à‚µ‚ê‚Ü‚¹‚ñB
-ƒXƒvƒ‰ƒCƒ“‹Èü‚ÌƒJ[ƒu“x‡‚¢‚É‚æ‚èÅ“K‚È‰ñ“]Šp“x‚ðÝ’è‚µ‚È‚¯‚ê‚Î‚¢‚¯‚Ü‚¹‚ñB
+ƒLƒƒƒ‰‚ªƒXƒvƒ‰ƒCƒ“‹ÈüÀ•W‚Ì“_‚©‚ç“_‚ÖˆÚ“®‚·‚éÛA‚PƒtƒŒ[ƒ€“–‚½‚è‚Ì•ûŒü“]Š·‰Â”\‚È‰ñ“]Šp“x‚ðÝ’è‚µ‚Ü‚·B
+‚±‚ÌŠp“x‚ð‘å‚«‚­‚µ‰ß‚¬‚é‚Æ(180000“™) ƒXƒvƒ‰ƒCƒ“‹ÈüÀ•W‚Ì“_‚©‚ç“_‚ÖƒJƒNƒJƒN‚Á‚ÆÜ‚êüƒOƒ‰ƒO‚Ì‚æ‚¤‚ÉˆÚ“®‚µ‚Ü‚·B
+Šp“x‚ð¬‚³‚­‚µ‚·‚¬‚é‚Æ(1000“™) •ûŒü“]Š·‚ÉŽžŠÔ‚ª‚©‚©‚èA‚¤‚Ü‚­ƒXƒvƒ‰ƒCƒ“‹Èü‚Ì•âŠ®“_‚ð’Ê‰ß‚µ‚È‚¢ˆÚ“®‚É‚È‚é‚©‚à‚µ‚ê‚Ü‚¹‚ñB
+ƒXƒvƒ‰ƒCƒ“‹Èü‚ÌƒJ[ƒu“x‡‚¢‚É‚æ‚èA‚æ‚³‚°‚È‰ñ“]Šp“x‚ð‚P‚Â‚¦‚¢‚â‚Á‚ÆÝ’è‚µ‚È‚¯‚ê‚Î‚¢‚¯‚Ü‚¹‚ñB
 
 
 E"TURN_WAY"
@@ -216,4 +223,6 @@ true F‚ðÝ’è‚µ‚½ê‡A–Ú“I‚Ì•ûŒü‚ðA‚à‚¤ˆê‚Â‚Ì‰ñ“]•û–@‚É‚æ‚éƒAƒvƒ[ƒ`‚ðŒvŽZ‚µ
 2011/08/22 ‚Qƒtƒ@ƒCƒ‹‚É•ªŠ„
 2014/09/18 [ADJUST_MAT] ’Ç‰Á
 2015/12/04 [CLASS] ‚ÉSteppedCoordSpline ’Ç‰Á
-
+2021/04/05 splƒtƒ@ƒCƒ‹ ¨ ldrƒtƒ@ƒCƒ‹B 
+           datƒtƒ@ƒCƒ‹ ¨ splƒtƒ@ƒCƒ‹B
+           "CLASS"‚Ìà–¾•ÏX

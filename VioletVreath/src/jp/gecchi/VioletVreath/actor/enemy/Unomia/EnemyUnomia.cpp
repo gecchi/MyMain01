@@ -6,6 +6,7 @@
 #include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/dx/util/curve/DriverLeader.h"
+#include "jp/ggaf/dx/util/curve/CurveManufacture.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 
@@ -53,12 +54,12 @@ void EnemyUnomia::onReset() {
 }
 
 void EnemyUnomia::config(
-        GgafDx::DriverLeader* prm_pDriverLeader,
+        GgafDx::CurveManufacture* prm_pCurveManufacture,
         GgafCore::ActorDepository* prm_pDepo_shot,
         GgafCore::ActorDepository* prm_pDepo_shotEffect
         ) {
     GGAF_DELETE_NULLABLE(pDriverLeader_);
-    pDriverLeader_ = prm_pDriverLeader;
+    pDriverLeader_ = newSupplyCurveDriverLeader(prm_pCurveManufacture);
     pDepo_shot_ = prm_pDepo_shot;
     pDepo_effect_ = prm_pDepo_shotEffect;
 }

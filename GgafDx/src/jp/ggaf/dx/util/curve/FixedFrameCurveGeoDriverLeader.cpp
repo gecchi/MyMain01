@@ -102,7 +102,8 @@ void FixedFrameCurveGeoDriverLeader::behave() {
                     mv_velo = _pFixedFrameSplManuf->_paSPMvVeloTo[_point_index];
                 }
             }
-            pGeoDriver_target->setVxyzMvVeloTwd(x, y, z, mv_velo);
+            //pGeoDriver_target->setVxyzMvVeloTwd(x, y, z, mv_velo);
+            pGeoDriver_target->execGravitationMvSequenceTwd(x, y, z, mv_velo*2, mv_velo/10, calc_d/10);
         }
         _leading_frames++;
     }

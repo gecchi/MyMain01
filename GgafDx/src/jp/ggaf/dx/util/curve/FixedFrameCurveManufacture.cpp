@@ -6,11 +6,11 @@
 
 using namespace GgafDx;
 
-FixedFrameCurveManufacture::FixedFrameCurveManufacture(const char* prm_coord_data_file,
+FixedFrameCurveManufacture::FixedFrameCurveManufacture(const char* prm_coord_spl_file,
                                                          frame prm_spent_frames,
                                                          angvelo prm_angvelo_rzry_mv,
                                                          int prm_turn_way,
-                                                         bool prm_turn_optimaize) : CurveManufacture(prm_coord_data_file) {
+                                                         bool prm_turn_optimaize) : CurveManufacture(prm_coord_spl_file) {
     _spent_frames = prm_spent_frames;
     _angvelo_rzry_mv = prm_angvelo_rzry_mv;
     _turn_way = prm_turn_way;
@@ -19,7 +19,7 @@ FixedFrameCurveManufacture::FixedFrameCurveManufacture(const char* prm_coord_dat
     //１区間の使用可能フレーム
     _frame_of_segment = 1.0*_spent_frames / (_pCurve->_rnum-1);
     if (_frame_of_segment < 1.0) {
-        _TRACE_("＜警告＞FixedFrameCurveManufacture ["<<prm_coord_data_file<<"] _frame_of_segment="<<_frame_of_segment<<" < 1.0f です。"
+        _TRACE_("＜警告＞FixedFrameCurveManufacture ["<<prm_coord_spl_file<<"] _frame_of_segment="<<_frame_of_segment<<" < 1.0f です。"
                 "補完点数("<<(_pCurve->_rnum)<<")よりも、始点～終了点フレーム数("<<_spent_frames<<")が小さいので、補完点の飛びをなくすため、強制的に_frame_of_segmentは1.0に上書き。"
                 "従って移動には"<<(_pCurve->_rnum)<<"フレームかかります。ご了承下さい。");
         _frame_of_segment = 1.0;

@@ -17,7 +17,7 @@ public:
     /** ウーノミアの玉、借り入れ元Depository資源への接続 */
     GgafCore::ActorDepository* pDepo_shot_;
 
-    /** スプライン定義資源への接続 */
+    /** 曲線移動の情報資源への接続 */
     GgafDx::CurveManufactureConnection* pConn_pCurveManuf_;
     /** 編隊列数(RANK変動) */
     int num_formation_col_;
@@ -34,7 +34,7 @@ public:
     /**
      * コンストラクタ .
      * @param prm_name
-     * @param prm_ldr_id スプライン定義ID(XXX.ldr の XXX)
+     * @param prm_ldr_id 曲線移動の情報ID(XXX.ldr の XXX)
      */
     FormationUnomia(const char* prm_name, const char* prm_ldr_id) ;
 

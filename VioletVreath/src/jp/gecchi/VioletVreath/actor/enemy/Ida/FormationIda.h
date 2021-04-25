@@ -17,7 +17,7 @@ public:
     /**
      * コンストラクタ .
      * @param prm_name
-     * @param prm_ldr_id スプライン定義ID(XXX.ldr の XXX)
+     * @param prm_ldr_id 曲線移動の情報ID(XXX.ldr の XXX)
      */
     FormationIda(const char* prm_name) ;
 

@@ -94,7 +94,7 @@ void FormationOebius001::onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row, 
     }
 //    double rate_z = pOebius->pDriverLeader_->_pManufacture->_rate_z;
 //
-//    //Z = (prm_col*(0.4+0.4))*rate_z  //基本間隔は0.4。本編隊はmobius1.dat、mobius3.dat、mobius5.dat と一つ飛びなので0.4+0.4
+//    //Z = (prm_col*(0.4+0.4))*rate_z  //基本間隔は0.4。本編隊はmobius1.spl、mobius3.spl、mobius5.spl と一つ飛びなので0.4+0.4
 //    //(0, 0, Z) を Rz > Ry 回転移動させると
 //    //(Z*sinRy, 0, Z*cosRy)
 //    float sinRy = ANG_SIN(geo_.ry);

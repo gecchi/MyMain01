@@ -3,6 +3,7 @@
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/actor/BaseActor.h"
 
+#include "jp/ggaf/dx/util/curve/CurveManufacture.h"
 #include <D3dx9math.h>
 
 namespace GgafDx {
@@ -178,7 +179,7 @@ public:
      */
     GeoDriver* getGeoDriver();
 
-    DriverLeader* employCurveDriverLeader(CurveManufacture* prm_pCurveManufacture);
+    virtual DriverLeader* newSupplyCurveDriverLeader(CurveManufacture* prm_pCurveManufacture);
 
     /**
      * 本アクターの拡大縮小支援オブジェクトを取得 .

@@ -13,7 +13,7 @@ CurveManufactureManager::CurveManufactureManager(const char* prm_manager_name) :
 }
 
 CurveManufacture* CurveManufactureManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) {
-    _TRACE_(FUNC_NAME<<" idstr="<<prm_idstr<<"");
+    _TRACE_(FUNC_NAME<<" prm_idstr="<<prm_idstr<<"");
 
     frame spent_frame = 0;
     angvelo angvelo_rzry_mv = 0;
@@ -25,48 +25,49 @@ CurveManufacture* CurveManufactureManager::processCreateResource(const char* prm
     double rate_z = 1.0f;
 
     std::string id_str = std::string(prm_idstr);
+	    _TRACE_(FUNC_NAME<<" id_str="<<id_str<<"");
     std::vector<std::string> curve_id = UTIL::split(id_str, ","); // "FormationUrydike001,3"のようにスラッシュ区切りがあるか
 
 
-    std::string ldr_data_file="";
+    std::string spl_file="";
     std::string ldr_filename = CONFIG::DIR_CURVE + curve_id[0] + ".ldr";
     GgafCore::Properties propCurve = GgafCore::Properties(ldr_filename);
 
-    if (propCurve.isExistKey("CURVE")) {
+    if (propCurve.isExistKey("SPLINE")) {
         if (curve_id.size() == 1) {
             //prm_idstr = "FormationUrydike001"
-            std::string ldr_data_file_csv = propCurve.getStr("CURVE");
+            std::string ldr_data_file_csv = propCurve.getStr("SPLINE");
             std::vector<std::string> vecCurveData = UTIL::split(ldr_data_file_csv, ",");
 #ifdef MY_DEBUG
             if (0 < vecCurveData.size()) {
-                _TRACE_("＜警告＞ CurveManufactureManager::processCreateResource "<<prm_idstr<<" [CURVE] はカンマ区切りの配列ですが、呼び出し側はインデックス指定していません。意図していますか？");
+                _TRACE_("＜警告＞ CurveManufactureManager::processCreateResource "<<prm_idstr<<" [SPLINE] はカンマ区切りの配列ですが、呼び出し側はインデックス指定していません。意図していますか？");
             }
 #endif
-            ldr_data_file = vecCurveData[0];
+            spl_file = vecCurveData[0];
         } else {
             //prm_idstr = "FormationUrydike001,3"
             //のように、区切りがある場合、
             //ldrファイルの CURVEは
-            //CURVE=mobius1.dat,mobius2.dat,mobius3.dat,mobius4.dat
+            //CURVE=mobius1.spl,mobius2.spl,mobius3.spl,mobius4.spl
             //のようにCSVで複数指定していて、スラッシュの後の数値がインデックス(0～)とする。
-            std::string ldr_data_file_csv = propCurve.getStr("CURVE");
+            std::string ldr_data_file_csv = propCurve.getStr("SPLINE");
             std::vector<std::string> vecCurveData = UTIL::split(ldr_data_file_csv, ",");
             int i = STOI(curve_id[1]);
 #ifdef MY_DEBUG
             if (i+1 > vecCurveData.size()) {
-                throwCriticalException(prm_idstr<<" [CURVE] の配列要素数は"<<(vecCurveData.size())<<"ですが、指定インデックスは"<<i<<"の為、範囲外です。(許容範囲=0～"<<(vecCurveData.size()-1)<<")");
+                throwCriticalException(prm_idstr<<" [SPLINE] の配列要素数は"<<(vecCurveData.size())<<"ですが、指定インデックスは"<<i<<"の為、範囲外です。(許容範囲=0～"<<(vecCurveData.size()-1)<<")");
             }
             if (vecCurveData.size() == 1) {
-                _TRACE_("＜警告＞ CurveManufactureManager::processCreateResource "<<prm_idstr<<" [CURVE]はカンマ区切りの配列ではありませんが、呼び出し側は0番目のインデックス指定です。意図していますか？");
+                _TRACE_("＜警告＞ CurveManufactureManager::processCreateResource "<<prm_idstr<<" [SPLINE]はカンマ区切りの配列ではありませんが、呼び出し側は0番目のインデックス指定です。意図していますか？");
             }
 #endif
-            ldr_data_file = vecCurveData[i];
+            spl_file = vecCurveData[i];
         }
     } else {
-        throwCriticalException(prm_idstr<<" [CURVE] は必須です。");
+        throwCriticalException(prm_idstr<<" [SPLINE] は必須です。");
     }
-    if (ldr_data_file.length() == 0) {
-        throwCriticalException(prm_idstr<<" [CURVE] が指定されてません。");
+    if (spl_file.length() == 0) {
+        throwCriticalException(prm_idstr<<" [SPLINE] が指定されてません。");
     }
 
     if (propCurve.isExistKey("MAG_X")) {
@@ -206,18 +207,18 @@ CurveManufacture* CurveManufactureManager::processCreateResource(const char* prm
     //CurveManufacture作成
     CurveManufacture* pCurveManuf = nullptr;
     if (move_method == CurveManufacture::MoveMethod::FixedFrame) {
-        pCurveManuf = NEW FixedFrameCurveManufacture(ldr_data_file.c_str(),
+        pCurveManuf = NEW FixedFrameCurveManufacture(spl_file.c_str(),
                                                     spent_frame,
                                                     angvelo_rzry_mv,
                                                     turn_way,
                                                     turn_optimize);
     } else if (move_method == CurveManufacture::MoveMethod::FixedVelocity) {
-        pCurveManuf = NEW FixedVelocityCurveManufacture(ldr_data_file.c_str(),
+        pCurveManuf = NEW FixedVelocityCurveManufacture(spl_file.c_str(),
                                                        angvelo_rzry_mv,
                                                        turn_way,
                                                        turn_optimize);
     } else if (move_method == CurveManufacture::MoveMethod::SteppedCoord) {
-        pCurveManuf = NEW SteppedCoordCurveManufacture(ldr_data_file.c_str());
+        pCurveManuf = NEW SteppedCoordCurveManufacture(spl_file.c_str());
     } else {
         throwCriticalException("_classname="<<classname<< "は不明なクラスです");
     }

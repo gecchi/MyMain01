@@ -12,7 +12,7 @@ namespace VioletVreath {
  * @author Masatoshi Tsuge
  */
 class FormationEbe001 : public FormationEbe {
-    /** スプライン定義資源への接続 */
+    /** 曲線移動の情報資源への接続 */
     GgafDx::CurveManufactureConnection* pConn_pCurveManuf_;
 public:
 

@@ -9,11 +9,11 @@
 
 /**
  * 神が保持する CurveManufactureManager に接続し、コネクションを取得。
- * @param X：スプライン定義識別文字列。プロパティ DIR_CURVE 配下の「X + ".ldr"」というファイル名を使用する
+ * @param X：曲線移動の情報識別文字列。プロパティ DIR_CURVE 配下の「X + ".ldr"」というファイル名を使用する
  * "FormationOebius002,1" の意味。読み込むファイル=FormationOebius002.ldr
  * 1 は採用するスプラインのインデックス(0～)をあらわす。
- * CURVE=mobius1.dat,mobius3.dat,mobius5.dat
- * 定義されていた場合 1=mobius3.dat のデータを採用
+ * CURVE=mobius1.spl,mobius3.spl,mobius5.spl
+ * 定義されていた場合 1=mobius3.spl のデータを採用
  */
 #define connectToCurveManufactureManager(X) ((GgafDx::CurveManufactureConnection*)((pGOD)->_pCurveManufManager->connect((X), this)))
 
