@@ -88,12 +88,13 @@ void CommonScene::scrollX(GgafCore::Object* pThat, void* p1, void* p2, void* p3)
                 //Itemはスクロールの影響を受けない
             } else {
                 pActor->_x -= (*((coord*)p1));
+                //setDriverLeader() されていたら、スクロールの影響を受ける
+                GgafDx::DriverLeader* pDriverLeader = pActor->getDriverLeader();
+                if (pDriverLeader) {
+                    pDriverLeader->_x_start_in_loop -= (*((coord*)p1));
+                }
             }
         }
-    }
-    if (pThat->instanceOf(Obj_GgadDx_DriverLeader)) {
-        GgafDx::DriverLeader* pDriverLeader = (DriverLeader*)pThat;
-        pDriverLeader->_x_start_in_loop -= (*((coord*)p1));
     }
 }
 

@@ -64,10 +64,10 @@ void EnemyDelheid::nextFrame() {
     }
 }
 
-void EnemyDelheid::config(GgafDx::DriverLeader* prm_pDriverLeader,
+void EnemyDelheid::config(GgafDx::CurveManufacture* prm_pCurveManufacture,
                           GgafCore::ActorDepository* prm_pDepoShot  ) {
     GGAF_DELETE_NULLABLE(pDriverLeader_);
-    pDriverLeader_ = prm_pDriverLeader;
+    pDriverLeader_ = createCurveDriverLeader(prm_pCurveManufacture);
     pDepoShot_ = prm_pDepoShot;
 }
 
@@ -99,7 +99,7 @@ void EnemyDelheid::processBehavior() {
             pDriverLeader_->start(RELATIVE_COORD_DIRECTION, 3); //Å‚‚Å‚R‰ñƒ‹[ƒv‚·‚é—\’è
             getVecDriver()->setMvAcce(0);
             getVecDriver()->keepOnTurningFaceAngTwd(pMYSHIP,
-                                                 D_ANG(1), 0, TURN_CLOSE_TO, false);
+                                                    D_ANG(1), 0, TURN_CLOSE_TO, false);
             pProg->changeNext();
             break;
         }

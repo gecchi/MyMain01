@@ -22,7 +22,7 @@ enum {
 EnemyIdaBase::EnemyIdaBase(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Ida") {
     pConn_pCurveManuf_ = connectToCurveManufactureManager("FormationZako001_STEP");
-    pDriverLeader_ = pConn_pCurveManuf_->peek()->createVecDriverLeader(getVecDriver());
+    pDriverLeader_ = createCurveDriverLeader(pConn_pCurveManuf_->peek());
     pDriverLeader_->_turn_smooth = true;
     std::string filename = XTOS(getName()) + ".dat";
     pOs_ = NEW std::ofstream(filename.c_str());

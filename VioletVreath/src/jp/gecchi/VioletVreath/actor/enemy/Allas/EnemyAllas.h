@@ -71,14 +71,10 @@ public:
      * @param prm_pDepo_shotEffect
      */
     virtual void config(
-            GgafDx::DriverLeader* prm_pDriverLeader,
+            GgafDx::CurveManufacture* prm_pCurveManufacture,
             GgafCore::ActorDepository* prm_pDepo_shot,
             GgafCore::ActorDepository* prm_pDepo_shotEffect
-            ) {
-        pDriverLeader_ = prm_pDriverLeader;
-        pDepo_shot_ = prm_pDepo_shot;
-        pDepo_effect_ = prm_pDepo_shotEffect;
-    }
+            );
 
 
     virtual ~EnemyAllas();

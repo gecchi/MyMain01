@@ -18,7 +18,7 @@ EnemyHisbeLaserChip002::EnemyHisbeLaserChip002(const char* prm_name) :
         VvEnemyActor<RefractionLaserChip>(prm_name, "HisbeLaserChip002", StatusReset(EnemyHisbeLaserChip002)) {
     _class_name = "EnemyHisbeLaserChip002";
     pConn_pCurveManuf_ = connectToCurveManufactureManager("EnemyHisbeLaserChip002"); //ƒqƒ‹ƒxƒ‹ƒg‹Èü
-    pDriverLeader_ = pConn_pCurveManuf_->peek()->createVecDriverLeader(getVecDriver());
+    pDriverLeader_ = createCurveDriverLeader(pConn_pCurveManuf_->peek());
     pDriverLeader_->adjustCoordOffset(PX_C(100), 0, 0);
     pFeatureScene_ = nullptr;
     getVecDriver()->setMvAngByFaceAng();

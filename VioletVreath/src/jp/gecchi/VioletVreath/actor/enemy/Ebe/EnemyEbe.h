@@ -69,7 +69,7 @@ public:
      * @param prm_pDepo_shotEffect
      */
     virtual void config(
-            GgafDx::DriverLeader* prm_pDriverLeader,
+            GgafDx::CurveManufacture*  prm_pCurveManufacture,
             GgafCore::ActorDepository* prm_pDepo_shot,
             GgafCore::ActorDepository* prm_pDepo_shotEffect
             );

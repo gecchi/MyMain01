@@ -37,8 +37,7 @@ void FormationUrydike002::onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row,
     if (pUrydike->pDriverLeader_) {
         throwCriticalException("pUrydike->pDriverLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpUrydike="<<pUrydike<<"("<<pUrydike->getName()<<")");
     } else {
-        pUrydike->pDriverLeader_ = papCurveManufConn_[prm_col]->peek()->
-                                     createVecDriverLeader(pUrydike->getVecDriver());
+        pUrydike->pDriverLeader_ = pUrydike->createCurveDriverLeader(papCurveManufConn_[prm_col]->peek());
     }
     double rate_x = pUrydike->pDriverLeader_->_pManufacture->_rate_x;
     double d_col = -1.0 * papCurveManufConn_[prm_col]->peek()->_pCurve->_rotmat._41; //‰¡‚Æ‚ÌŠÔŠu

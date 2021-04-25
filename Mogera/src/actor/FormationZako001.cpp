@@ -42,8 +42,7 @@ void FormationZako001::onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row, in
     if (pZako->pDriverLeader_) {
         throwCriticalException("pZako->pDriverLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpZako="<<pZako<<"("<<pZako->getName()<<")");
     } else {
-        pZako->pDriverLeader_ = papCurveManufConn_[prm_col]->peek()->
-                                     createVecDriverLeader(pZako->getVecDriver());
+        pZako->pDriverLeader_ = pZako->createCurveDriverLeader(papCurveManufConn_[prm_col]->peek());
     }
     double rate_x = pZako->pDriverLeader_->_pManufacture->_rate_x;
     double d_col = -1.0 * papCurveManufConn_[prm_col]->peek()->_pCurve->_rotmat._41; //‰¡‚Æ‚ÌŠÔŠu

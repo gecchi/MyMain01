@@ -35,9 +35,9 @@ public:
      * @param prm_turn_optimaize アクターの旋回の最適化オプション(デフォルト false)
      */
     FixedVelocityCurveManufacture(const char* prm_coord_spl_file,
-                                   angvelo prm_angvelo_rzry_mv = (D90ANG/9),
-                                   int prm_turn_way = TURN_CLOSE_TO,
-                                   bool prm_turn_optimaize = false );
+                                  angvelo prm_angvelo_rzry_mv = (D90ANG/9),
+                                  int prm_turn_way = TURN_CLOSE_TO,
+                                  bool prm_turn_optimaize = false );
 
     /**
      *
@@ -47,9 +47,9 @@ public:
      * @param prm_turn_optimaize アクターの旋回の最適化オプション(デフォルト false)
      */
     FixedVelocityCurveManufacture(CurveSource* prm_pCurve,
-                                   angvelo prm_angvelo_rzry_mv = (D90ANG/9),
-                                   int prm_turn_way = TURN_CLOSE_TO,
-                                   bool prm_turn_optimaize = false );
+                                  angvelo prm_angvelo_rzry_mv = (D90ANG/9),
+                                  int prm_turn_way = TURN_CLOSE_TO,
+                                  bool prm_turn_optimaize = false );
 
     /**
      * 初期化（計算）処理 .

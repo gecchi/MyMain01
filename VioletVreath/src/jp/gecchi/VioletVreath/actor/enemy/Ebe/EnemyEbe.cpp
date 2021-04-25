@@ -49,12 +49,12 @@ void EnemyEbe::initialize() {
 }
 
 void EnemyEbe::config(
-        DriverLeader* prm_pDriverLeader,
+        GgafDx::CurveManufacture*  prm_pCurveManufacture,
         GgafCore::ActorDepository* prm_pDepo_shot,
         GgafCore::ActorDepository* prm_pDepo_shotEffect
         ) {
     GGAF_DELETE_NULLABLE(pDriverLeader_);
-    pDriverLeader_ = prm_pDriverLeader;
+    pDriverLeader_ = createCurveDriverLeader(prm_pCurveManufacture);
     pDepo_shot_ = prm_pDepo_shot;
     pDepo_effect_ = prm_pDepo_shotEffect;
 }

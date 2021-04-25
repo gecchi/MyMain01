@@ -96,7 +96,7 @@ void Jiki::onInactive() {
 }
 
 void Jiki::onHit(const GgafCore::Actor* prm_pOtherActor) {
-    _TRACE_("Jiki::onHit!!!! ���"<<prm_pOtherActor->getName()<<"");
+    _TRACE_("Jiki::onHit!"<<prm_pOtherActor->getName()<<"");
 }
 
 Jiki::~Jiki() {

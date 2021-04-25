@@ -14,7 +14,7 @@ EnemyStraeaLaserChip003::EnemyStraeaLaserChip003(const char* prm_name) :
         VvEnemyActor<WateringLaserChip>(prm_name, "StraeaLaserChip001", StatusReset(EnemyStraeaLaserChip003)) {
     _class_name = "EnemyStraeaLaserChip003";
     pConn_pCurveManuf_ = connectToCurveManufactureManager("GURUGURU");
-    pDriverLeader_ = pConn_pCurveManuf_->peek()->createVecDriverLeader(getVecDriver());
+    pDriverLeader_ = createCurveDriverLeader(pConn_pCurveManuf_->peek());
 }
 
 void EnemyStraeaLaserChip003::initialize() {

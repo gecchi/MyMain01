@@ -76,7 +76,7 @@ EnemyOzartia::EnemyOzartia(const char* prm_name) :
     pDepo_shot01_ = nullptr;
     pDepo_shot02_ = nullptr;
     pConn_pCurveManuf_ = connectToCurveManufactureManager("EnemyOzartia01_TTT");
-    pDriverLeader01_ = pConn_pCurveManuf_->peek()->createVecDriverLeader(getVecDriver());
+    pDriverLeader01_ = createCurveDriverLeader(pConn_pCurveManuf_->peek());
 //    //バリアブロック
 //    pDepo_shot01_ = NEW GgafCore::ActorDepository("Depo_OzartiaBlock");
 //    for (int i = 0; i < 9; i++) {

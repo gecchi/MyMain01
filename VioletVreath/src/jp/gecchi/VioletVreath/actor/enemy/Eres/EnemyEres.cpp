@@ -46,8 +46,7 @@ EnemyEres::EnemyEres(const char* prm_name, GgafCore::ActorDepository* prm_pDepo_
     }
 
     pCurveManufConn_ = connectToCurveManufactureManager("EnemyEres_curve");
-    CurveManufacture* pCurveManuf = pCurveManufConn_->peek();
-    pDriverLeader_ = pCurveManuf->createGeoDriverLeader(getGeoDriver());
+    pDriverLeader_ = createCurveDriverLeader(pCurveManufConn_->peek());
 //    ((FixedFrameCurveGeoDriverLeader*)pDriverLeader_)->setGravitationParam(200, PX_C(100));
 
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();

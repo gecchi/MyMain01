@@ -12,28 +12,28 @@ namespace VioletVreath {
 
 template<class T>
 class VvActor : public T {
-    GgafLib::DefaultScene* pFeatureScene_;
-    GgafDx::DriverLeader* pFeatureDriverLeader_;
+//    GgafLib::DefaultScene* pFeatureScene_;
+//    GgafDx::DriverLeader* pFeatureDriverLeader_;
 public:
     VvActor(const char* prm_name, const char* prm_model_id)
         : T(prm_name, prm_model_id) {
-        pFeatureScene_ = nullptr;
-        pFeatureDriverLeader_ = nullptr;
+//        pFeatureScene_ = nullptr;
+//        pFeatureDriverLeader_ = nullptr;
     }
-    void registerpFeatureDriverLeader(GgafDx::DriverLeader* prm_pDriverLeader) {
-        pFeatureDriverLeader_ = prm_pDriverLeader;
-        pFeatureScene_ = ((GgafLib::DefaultScene*)(T::getSceneMediator()->getPlatformScene()))->getNearestFeatureScene();
-        //pFeatureScene_->_pFuncFeature(pFeatureDriverLeader_, &(pFeatureScene_->_feature_p1), nullptr, nullptr);
-            //pDriverLeader_->_x_start_in_loop -= pFeatureScene_->getFeatureParam1();
-    }
-    void executeFuncLowerTree(void (*pFunc)(GgafCore::Object*, void*, void*, void*), void* prm1, void* prm2, void* prm3) override {
-        T::executeFuncLowerTree(pFunc, prm1, prm2, prm3);
-        if (pFeatureDriverLeader_ && pFunc == pFeatureScene_->_pFuncFeature) {
-            if (T::_can_live_flg && T::_is_active_flg) {
-                pFunc((GgafCore::Object*)pFeatureDriverLeader_, &(pFeatureScene_->_feature_p1), prm2, prm3);
-            }
-        }
-    }
+//    void registerpFeatureDriverLeader(GgafDx::DriverLeader* prm_pDriverLeader) {
+//        pFeatureDriverLeader_ = prm_pDriverLeader;
+//        pFeatureScene_ = ((GgafLib::DefaultScene*)(T::getSceneMediator()->getPlatformScene()))->getNearestFeatureScene();
+//        //pFeatureScene_->_pFuncFeature(pFeatureDriverLeader_, &(pFeatureScene_->_feature_p1), nullptr, nullptr);
+//            //pDriverLeader_->_x_start_in_loop -= pFeatureScene_->getFeatureParam1();
+//    }
+//    void executeFuncLowerTree(void (*pFunc)(GgafCore::Object*, void*, void*, void*), void* prm1, void* prm2, void* prm3) override {
+//        T::executeFuncLowerTree(pFunc, prm1, prm2, prm3);
+//        if (pFeatureDriverLeader_ && pFunc == pFeatureScene_->_pFuncFeature) {
+//            if (T::_can_live_flg && T::_is_active_flg) {
+//                pFunc((GgafCore::Object*)pFeatureDriverLeader_, &(pFeatureScene_->_feature_p1), prm2, prm3);
+//            }
+//        }
+//    }
 //    GgafDx::FigureActor* activateExplosionEffect() {
 //        GgafDx::FigureActor* pE = nullptr;
 //        switch (T::getStatus()->get(STAT_ExplosionEffectKind)) {

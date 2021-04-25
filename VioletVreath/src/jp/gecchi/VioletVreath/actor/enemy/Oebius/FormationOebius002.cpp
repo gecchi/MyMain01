@@ -98,8 +98,7 @@ void FormationOebius002::onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row, 
     if (pOebius->pDriverLeader_) {
         throwCriticalException("pOebius->pDriverLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpOebius="<<pOebius<<"("<<pOebius->getName()<<")");
     } else {
-        pOebius->pDriverLeader_ = papCurveManufConn_[prm_col]->peek()->
-                                      createVecDriverLeader(pOebius->getVecDriver());
+        pOebius->pDriverLeader_ = pOebius->createCurveDriverLeader(papCurveManufConn_[prm_col]->peek());
     }
 //    double rate_z = pOebius->pDriverLeader_->_pManufacture->_rate_z; //MAG_Z=100000
 //

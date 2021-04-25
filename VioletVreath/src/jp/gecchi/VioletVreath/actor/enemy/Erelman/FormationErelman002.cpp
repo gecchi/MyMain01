@@ -98,8 +98,7 @@ void FormationErelman002::onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row,
     if (pErelman->pDriverLeader_) {
         throwCriticalException("pErelman->pDriverLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpErelman="<<pErelman<<"("<<pErelman->getName()<<")");
     } else {
-        pErelman->pDriverLeader_ = papCurveManufConn_[prm_col]->peek()->
-                                      createVecDriverLeader(pErelman->getVecDriver());
+        pErelman->pDriverLeader_ = pErelman->createCurveDriverLeader(papCurveManufConn_[prm_col]->peek());
     }
     pErelman->pDriverLeader_->setStartPosition(geo_.x, geo_.y, geo_.z);
     pErelman->pDriverLeader_->setStartAngle(geo_.rx, geo_.ry, geo_.rz);

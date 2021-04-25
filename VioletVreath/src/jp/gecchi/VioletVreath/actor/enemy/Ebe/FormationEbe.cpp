@@ -38,9 +38,8 @@ void FormationEbe::processBehavior() {
     if (canCallUp() && (getActiveFrame() % RV_LaunchInterval == 0)) {
         EnemyEbe* pEbe = (EnemyEbe*)callUpMember(RV_Num_);
         if (pEbe) {
-            DriverLeader* pDriverLeader = getSplManuf()->createVecDriverLeader(pEbe->getVecDriver());
             GgafCore::ActorDepository* pDepo_shot = pConn_pShotDepo_ ? pConn_pShotDepo_->peek() : nullptr;
-            pEbe->config(pDriverLeader, pDepo_shot, nullptr);
+            pEbe->config(getSplManuf(), pDepo_shot, nullptr);
             pEbe->getVecDriver()->setMvVelo(RV_MvVelo_);
             onCallUpEbe(pEbe); //下位フォーメーションクラス個別実装の処理
         }

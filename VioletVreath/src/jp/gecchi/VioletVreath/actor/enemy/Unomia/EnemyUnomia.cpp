@@ -59,7 +59,7 @@ void EnemyUnomia::config(
         GgafCore::ActorDepository* prm_pDepo_shotEffect
         ) {
     GGAF_DELETE_NULLABLE(pDriverLeader_);
-    pDriverLeader_ = newSupplyCurveDriverLeader(prm_pCurveManufacture);
+    pDriverLeader_ = createCurveDriverLeader(prm_pCurveManufacture);
     pDepo_shot_ = prm_pDepo_shot;
     pDepo_effect_ = prm_pDepo_shotEffect;
 }

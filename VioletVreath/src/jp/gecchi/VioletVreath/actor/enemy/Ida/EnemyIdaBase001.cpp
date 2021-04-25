@@ -20,7 +20,7 @@ EnemyIdaBase001::EnemyIdaBase001(const char* prm_name) :
         EnemyIdaBase(prm_name) {
 
     pConn_pCurveManuf_ = connectToCurveManufactureManager("EnemyIdaBase001");
-    pDriverLeader_ = pConn_pCurveManuf_->peek()->createVecDriverLeader(getVecDriver());
+    pDriverLeader_ = createCurveDriverLeader(pConn_pCurveManuf_->peek());
 }
 
 void EnemyIdaBase001::initialize() {

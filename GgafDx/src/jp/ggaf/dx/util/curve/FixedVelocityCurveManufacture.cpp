@@ -6,27 +6,29 @@
 using namespace GgafDx;
 
 FixedVelocityCurveManufacture::FixedVelocityCurveManufacture(const char* prm_coord_spl_file,
-                                                               angvelo prm_angvelo_rzry_mv,
-                                                               int prm_turn_way,
-                                                               bool prm_turn_optimaize) :
+                                                             angvelo prm_angvelo_rzry_mv,
+                                                             int prm_turn_way,
+                                                             bool prm_turn_optimaize) :
         CurveManufacture(prm_coord_spl_file) {
     _angvelo_rzry_mv = prm_angvelo_rzry_mv;
     _turn_way = prm_turn_way;
     _turn_optimize = prm_turn_optimaize;
     _velo_mvUnit = PX_C(1); //速度 PX_C(1) とした場合の各区間のフレーム数を基本とする
     _paFrame_need_at = NEW float[_pCurve->_rnum];
+    _move_method = FixedVelocity;
 }
 
 FixedVelocityCurveManufacture::FixedVelocityCurveManufacture(CurveSource* prm_pCurve,
-                                                               angvelo prm_angvelo_rzry_mv,
-                                                               int prm_turn_way,
-                                                               bool prm_turn_optimaize) :
+                                                             angvelo prm_angvelo_rzry_mv,
+                                                             int prm_turn_way,
+                                                             bool prm_turn_optimaize) :
         CurveManufacture(prm_pCurve) {
     _angvelo_rzry_mv = prm_angvelo_rzry_mv;
     _turn_way = prm_turn_way;
     _turn_optimize = prm_turn_optimaize;
     _velo_mvUnit = PX_C(1); //速度 PX_C(1) とした場合の各区間のフレーム数を基本とする
     _paFrame_need_at = NEW float[_pCurve->_rnum];
+    _move_method = FixedVelocity;
 }
 
 void FixedVelocityCurveManufacture::calculate() {

@@ -29,8 +29,7 @@ void FormationThagoras001::onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row
     if (pThagoras->pDriverLeader_) {
         throwCriticalException("pThagoras->pDriverLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpThagoras="<<pThagoras<<"("<<pThagoras->getName()<<")");
     } else {
-        pThagoras->pDriverLeader_ = papCurveManufConn_[prm_col]->peek()->
-                                      createVecDriverLeader(pThagoras->getVecDriver());
+        pThagoras->pDriverLeader_ = pThagoras->createCurveDriverLeader(papCurveManufConn_[prm_col]->peek());
     }
     pThagoras->pDriverLeader_->setStartPosition(entry_pos_.x                      ,
                                                 entry_pos_.y + (prm_col*PX_C(30)) ,

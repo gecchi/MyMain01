@@ -22,7 +22,7 @@ Shot001::Shot001(const char* prm_name) :
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(0, "WAVE_EXPLOSION_002");
     pCurveManufConn_ = connectToCurveManufactureManager("Shot001_curve");
-    pDriverLeader_ = NEW FixedVelocityCurveVecDriverLeader(pCurveManufConn_->peek(), getVecDriver()); //ˆÚ“®‘¬“xŒÅ’è
+    pDriverLeader_ = createCurveDriverLeader(pCurveManufConn_->peek());
 }
 
 void Shot001::initialize() {

@@ -17,7 +17,7 @@ EnemyHisbeLaserChip001::EnemyHisbeLaserChip001(const char* prm_name) :
         VvEnemyActor<HomingLaserChip>(prm_name, "HisbeLaserChip001", StatusReset(EnemyHisbeLaserChip001)) {
     _class_name = "EnemyHisbeLaserChip001";
     pConn_pCurveManuf_ = connectToCurveManufactureManager("EnemyHisbeLaserChip002"); //ヒルベルト曲線
-    pDriverLeader_ = pConn_pCurveManuf_->peek()->createVecDriverLeader(getVecDriver());
+    pDriverLeader_ = createCurveDriverLeader(pConn_pCurveManuf_->peek());
     pFeatureScene_ = nullptr;
     getVecDriver()->setMvAngByFaceAng();
     getVecDriver()->linkFaceAngByMvAng(true);
@@ -34,7 +34,7 @@ void EnemyHisbeLaserChip001::onActive() {
     HomingLaserChip::onActive();
     //ステータスリセット
     getStatus()->reset();
-    registerpFeatureDriverLeader(pDriverLeader_);
+    setDriverLeader(pDriverLeader_);
 }
 
 void EnemyHisbeLaserChip001::onInactive() {

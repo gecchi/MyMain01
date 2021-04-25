@@ -57,7 +57,7 @@ GeoDriver* GeometricActor::getGeoDriver() {
     return _pGeoDriver ? _pGeoDriver : _pGeoDriver = NEW GeoDriver(this);
 }
 
-DriverLeader* GeometricActor::newSupplyCurveDriverLeader(CurveManufacture* prm_pCurveManufacture) {
+DriverLeader* GeometricActor::createCurveDriverLeader(CurveManufacture* prm_pCurveManufacture) {
     DriverLeader* pDriverLeader = nullptr;
     CurveManufacture::MoveDriver move_driver = prm_pCurveManufacture->_move_driver;
     if (move_driver == CurveManufacture::MoveDriver::GeoDriver) {
@@ -65,7 +65,7 @@ DriverLeader* GeometricActor::newSupplyCurveDriverLeader(CurveManufacture* prm_p
     } else if (move_driver == CurveManufacture::MoveDriver::VecDriver) {
         pDriverLeader = prm_pCurveManufacture->createVecDriverLeader(getVecDriver());
     } else {
-        throwCriticalException("newSupplyCurveDriverLeader() : CurveManufacture::MoveDrive ‚ªİ’è‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB"<<
+        throwCriticalException("createCurveDriverLeader() : CurveManufacture::MoveDrive ‚ªİ’è‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB"<<
                 "ldr_file="<<prm_pCurveManufacture->_ldr_file<<" move_driver="<<move_driver<<" this="<<NODE_INFO<<"");
     }
     return pDriverLeader;
@@ -494,7 +494,7 @@ void GeometricActor::onEnd() {
 }
 
 GeometricActor::~GeometricActor() {
-    GGAF_DELETE(_pVecDriver);
+    GGAF_DELETE_NULLABLE(_pVecDriver);
     GGAF_DELETE_NULLABLE(_pGeoDriver);
     GGAF_DELETE_NULLABLE(_pScaler);
     GGAF_DELETE_NULLABLE(_pSeTransmitter);

@@ -17,7 +17,7 @@ EnemyHisbeLaserChip003::EnemyHisbeLaserChip003(const char* prm_name) :
         VvEnemyActor<WateringLaserChip>(prm_name, "HisbeLaserChip003", StatusReset(EnemyHisbeLaserChip003)) {
     _class_name = "EnemyHisbeLaserChip003";
     pConn_pCurveManuf_ = connectToCurveManufactureManager("EnemyHisbeLaserChip003"); //ゴスパー曲線
-    pDriverLeader_ = pConn_pCurveManuf_->peek()->createVecDriverLeader(getVecDriver());
+    pDriverLeader_ = createCurveDriverLeader(pConn_pCurveManuf_->peek());
     pDriverLeader_->adjustCoordOffset(PX_C(100), 0, 0);
     pFeatureScene_ = nullptr;
     sp_index_ = 0;
@@ -39,7 +39,7 @@ void EnemyHisbeLaserChip003::onActive() {
     getStatus()->reset();
     pDriverLeader_->start(RELATIVE_COORD_DIRECTION); //向てる方向にスプライン座標をワールド変換
     sp_index_ = 0;
-    registerpFeatureDriverLeader(pDriverLeader_);
+    setDriverLeader(pDriverLeader_);
 }
 
 void EnemyHisbeLaserChip003::processBehavior() {

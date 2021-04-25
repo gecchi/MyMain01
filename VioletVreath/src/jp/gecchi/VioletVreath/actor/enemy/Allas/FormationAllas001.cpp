@@ -71,8 +71,7 @@ void FormationAllas001::processBehavior() {
                     EnemyAllas* pAllas = (EnemyAllas*)callUpMember();
                     if (pAllas) {
                         pAllas->getVecDriver()->setMvVelo(velo_mv_);
-                        DriverLeader* pDriverLeader = pConn_pCurveManuf_->peek()->createVecDriverLeader(pAllas->getVecDriver());
-                        pAllas->config(pDriverLeader, nullptr, nullptr);
+                        pAllas->config(pConn_pCurveManuf_->peek(), nullptr, nullptr);
                         onCallUpAllas(pAllas);
                     }
                 }

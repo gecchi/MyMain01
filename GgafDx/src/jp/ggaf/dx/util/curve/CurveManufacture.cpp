@@ -22,7 +22,7 @@ CurveManufacture::CurveManufacture(const char* prm_coord_spl_file) : GgafCore::O
     _total_distance = 0;
     _is_calculated = false;
     _move_method = (MoveMethod)0;
-    _move_driver = (MoveDriver)0;
+    _move_driver = VecDriver;
 }
 
 CurveManufacture::CurveManufacture(CurveSource* prm_pCurve) {
@@ -36,7 +36,7 @@ CurveManufacture::CurveManufacture(CurveSource* prm_pCurve) {
     _total_distance = 0;
     _is_calculated = false;
     _move_method = (MoveMethod)0;
-    _move_driver = (MoveDriver)0;
+    _move_driver = VecDriver;
 }
 
 void CurveManufacture::adjustAxisRate(double prm_rate_x, double prm_rate_y, double prm_rate_z) {

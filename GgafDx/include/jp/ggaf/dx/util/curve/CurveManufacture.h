@@ -19,7 +19,7 @@ namespace GgafDx {
  *                    つまりスプライン曲線の座標点の軸平行移動オフセット、
  *                    X,Y,Zの正負入れ替え情報。（TODO:将来は、回転情報もココに）
  *
- * CurveManufacture   スプライン曲線の座標点セットの拡大縮小情報、またそれに伴うDriverLeaderの実装クラスの情報を保持。
+ * CurveManufacture   スプライン曲線の動的編集情報（拡大縮小など）、移動方式クラス（DriverLeader）の情報等を保持。
  *                    拡大縮小により、各補完点毎の距離等の情報を予め計算して保持している。
  *                    拡大縮小率を変更する場合は、このオブジェクトのフィールドも再計算が必要となる。
  *                    １つの CurveSource オブジェクトに対して N 個の CurveSourceオブジェクトが参照している。
@@ -118,6 +118,14 @@ public:
     virtual DriverLeader* createVecDriverLeader(GgafDx::VecDriver* prm_pVecDriver);
 
     virtual DriverLeader* createGeoDriverLeader(GgafDx::GeoDriver* prm_pGeoDriver);
+
+    void setMoveMethod(MoveMethod prm_move_method) {
+        _move_method = prm_move_method;
+    }
+
+    void setMoveDriver(MoveDriver prm_move_driver) {
+        _move_driver = prm_move_driver;
+    }
 
     virtual ~CurveManufacture();
 };

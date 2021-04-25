@@ -37,7 +37,7 @@ public:
 
     void nextFrame() override;
 
-    void config(GgafDx::DriverLeader* prm_pDriverLeader,
+    void config(GgafDx::CurveManufacture* prm_pCurveManufacture,
                 GgafCore::ActorDepository* prm_pDepoShot);
 
     /**

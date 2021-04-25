@@ -155,6 +155,17 @@ void EnemyAllas::onInactive() {
     sayonara();
 }
 
+void EnemyAllas::config(
+        GgafDx::CurveManufacture* prm_pCurveManufacture,
+        GgafCore::ActorDepository* prm_pDepo_shot,
+        GgafCore::ActorDepository* prm_pDepo_shotEffect
+        ) {
+    //カーブ移動プログラム設定
+    pDriverLeader_ = createCurveDriverLeader(prm_pCurveManufacture);
+    pDepo_shot_ = prm_pDepo_shot;
+    pDepo_effect_ = prm_pDepo_shotEffect;
+}
+
 EnemyAllas::~EnemyAllas() {
     GGAF_DELETE_NULLABLE(pDriverLeader_);
 }

@@ -7,10 +7,10 @@
 using namespace GgafDx;
 
 FixedFrameCurveManufacture::FixedFrameCurveManufacture(const char* prm_coord_spl_file,
-                                                         frame prm_spent_frames,
-                                                         angvelo prm_angvelo_rzry_mv,
-                                                         int prm_turn_way,
-                                                         bool prm_turn_optimaize) : CurveManufacture(prm_coord_spl_file) {
+                                                       frame prm_spent_frames,
+                                                       angvelo prm_angvelo_rzry_mv,
+                                                       int prm_turn_way,
+                                                       bool prm_turn_optimaize) : CurveManufacture(prm_coord_spl_file) {
     _spent_frames = prm_spent_frames;
     _angvelo_rzry_mv = prm_angvelo_rzry_mv;
     _turn_way = prm_turn_way;
@@ -25,13 +25,14 @@ FixedFrameCurveManufacture::FixedFrameCurveManufacture(const char* prm_coord_spl
         _frame_of_segment = 1.0;
     }
     _paSPMvVeloTo = NEW velo[_pCurve->_rnum];
+    _move_method = FixedFrame;
 }
 
 FixedFrameCurveManufacture::FixedFrameCurveManufacture(CurveSource* prm_pCurve,
-                                                         frame prm_spent_frames,
-                                                         angvelo prm_angvelo_rzry_mv,
-                                                         int prm_turn_way,
-                                                         bool prm_turn_optimaize) : CurveManufacture(prm_pCurve) {
+                                                       frame prm_spent_frames,
+                                                       angvelo prm_angvelo_rzry_mv,
+                                                       int prm_turn_way,
+                                                       bool prm_turn_optimaize) : CurveManufacture(prm_pCurve) {
     _spent_frames = prm_spent_frames;
     _angvelo_rzry_mv = prm_angvelo_rzry_mv;
     _turn_way = prm_turn_way;
@@ -46,6 +47,7 @@ FixedFrameCurveManufacture::FixedFrameCurveManufacture(CurveSource* prm_pCurve,
         _frame_of_segment = 1.0;
     }
     _paSPMvVeloTo = NEW velo[_pCurve->_rnum];
+    _move_method = FixedFrame;
 }
 
 

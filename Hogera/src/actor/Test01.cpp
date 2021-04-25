@@ -92,7 +92,7 @@ void Test01::onInactive() {
 }
 
 void Test01::onHit(const GgafCore::Actor* prm_pOtherActor) {
-    _TRACE_("Test01::onHit!!!! ���"<<prm_pOtherActor->getName()<<"");
+    _TRACE_("Test01::onHit!"<<prm_pOtherActor->getName()<<"");
 }
 
 Test01::~Test01() {

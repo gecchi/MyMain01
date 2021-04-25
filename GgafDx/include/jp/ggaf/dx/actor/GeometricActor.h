@@ -35,8 +35,8 @@ private:
     /** [r]効果音発生管理オブジェクト */
     SeTransmitterForActor* _pSeTransmitter;
 
-
     DriverLeader* _pDriverLeader;
+
 public:
     /** [r] 変換済み座標であるか(true:本アクターは変換済み座標/false:本アクターはワールド座標) */
     bool _is_2D;
@@ -179,7 +179,20 @@ public:
      */
     GeoDriver* getGeoDriver();
 
-    virtual DriverLeader* newSupplyCurveDriverLeader(CurveManufacture* prm_pCurveManufacture);
+    virtual DriverLeader* createCurveDriverLeader(CurveManufacture* prm_pCurveManufacture);
+
+    /**
+     * DriverLeader を FeatureScene に関連付ける。
+     * FeatureSceneの影響をDriverLeaderを設定する。
+     * @param prm_pDriverLeader
+     */
+    void setDriverLeader(GgafDx::DriverLeader* prm_pDriverLeader) {
+        _pDriverLeader = prm_pDriverLeader;
+    }
+
+    DriverLeader* getDriverLeader() {
+        return _pDriverLeader;
+    }
 
     /**
      * 本アクターの拡大縮小支援オブジェクトを取得 .

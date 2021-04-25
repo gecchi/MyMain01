@@ -84,7 +84,7 @@ void FormationDelheid::processBehavior() {
          case PROG_INIT: {
              updateRankParameter();
              //ダミー(pDummy_)を使ってメンバーのカーブ移動の開始位置と方向、終了位置と方向を予め求める
-             pDummy_->config(getSplManuf()->createVecDriverLeader(pDummy_->getVecDriver()), nullptr);
+             pDummy_->config(getSplManuf(), nullptr);
              pDummy_->getVecDriver()->setMvVelo(RV_MvVelo_);
              pDummy_->setPositionAt(&geoLocate_);
              pDummy_->setFaceAngAs(&geoLocate_);
@@ -137,7 +137,7 @@ void FormationDelheid::processBehavior() {
                          //機数 RV_Num_ 機まで招集
                          EnemyDelheid* pDelheid = (EnemyDelheid*)callUpMember(RV_Num_);
                          if (pDelheid) {
-                             pDelheid->config(getSplManuf()->createVecDriverLeader(pDelheid->getVecDriver()),
+                             pDelheid->config(getSplManuf(),
                                               pConn_pShotDepo_->peek() );
                              pDelheid->getVecDriver()->forceMvVeloRange(RV_MvVelo_*2);
                              pDelheid->getVecDriver()->setMvVelo(RV_MvVelo_);

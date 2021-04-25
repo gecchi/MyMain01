@@ -17,7 +17,7 @@ EnemyStraeaLaserChip004::EnemyStraeaLaserChip004(const char* prm_name) :
         VvEnemyActor<HomingLaserChip>(prm_name, "StraeaLaserChip001", StatusReset(EnemyStraeaLaserChip004)) {
     _class_name = "EnemyStraeaLaserChip004";
     pConn_pCurveManuf_ = connectToCurveManufactureManager("GURUGURU");
-    pDriverLeader_ = pConn_pCurveManuf_->peek()->createVecDriverLeader(getVecDriver());
+    pDriverLeader_ = createCurveDriverLeader(pConn_pCurveManuf_->peek());
 //    if (pTexCon1_ == nullptr) {
 //        pTexCon1_ = connectToModelTextureManager("StraeaLaserChip001.png");
 //        pTexCon2_ = connectToModelTextureManager("EsperiaLaserChip001.png");
