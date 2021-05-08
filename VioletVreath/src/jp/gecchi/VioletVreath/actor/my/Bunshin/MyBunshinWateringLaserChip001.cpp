@@ -193,9 +193,15 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                 //●Leader以外
                 if (pAimInfo->spent_frames_to_t1 == 0) {
                     //●Leader以外が t1 が定まるまでの動き
-                    aimChip(pAimInfo->t1_x,
-                            pAimInfo->t1_y,
-                            pAimInfo->t1_z );
+                    if (pAimLeaderChip) {
+                        aimChip(pAimLeaderChip->_x,
+                                pAimLeaderChip->_y,
+                                pAimLeaderChip->_z );
+                    } else {
+                        aimChip(pAimInfo->t1_x,
+                                pAimInfo->t1_y,
+                                pAimInfo->t1_z );
+                    }
                 } else if (active_frame <= pAimInfo->spent_frames_to_t1) {
                     //●Leader以外が t1 が定まってから t1 到達までの動き
                     aimChip(pAimInfo->t1_x,
@@ -216,9 +222,15 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                         }
                     } else if (active_frame <= pAimInfo->spent_frames_to_t2) {
                         //●その後 Leader以外が t2 が定まって、t2に向かうまでの動き
-                        aimChip(pAimInfo->t2_x,
-                                pAimInfo->t2_y,
-                                pAimInfo->t2_z );
+                        if (pAimLeaderChip) {
+                            aimChip(pAimLeaderChip->_x,
+                                    pAimLeaderChip->_y,
+                                    pAimLeaderChip->_z );
+                        } else {
+                            aimChip(pAimInfo->t2_x,
+                                    pAimInfo->t2_y,
+                                    pAimInfo->t2_z );
+                        }
                     } else if (active_frame > pAimInfo->spent_frames_to_t2) {
                         //●その後 Leader以外が t2 を通過した後の動き
                         if (pAimLeaderChip) {
