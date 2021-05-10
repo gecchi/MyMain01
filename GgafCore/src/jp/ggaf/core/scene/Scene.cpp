@@ -22,7 +22,7 @@ Scene::Scene(const char* prm_name, SceneMediator* prm_pSceneMediator) : Element<
 
 Scene::~Scene() {
     if (pGOD->_is_loving_flg) {
-        pGOD->pardon(this); //自身が望んだ命を破棄
+        pGOD->repent(this); //自身が望んだ命を破棄
     } else {
         //アプリ終了処理時のため、愛ももれなく掃除されるため考慮不要
     }

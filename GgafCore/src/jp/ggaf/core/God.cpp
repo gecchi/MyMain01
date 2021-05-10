@@ -370,7 +370,7 @@ void God::createCradle(uint64_t prm_cradle_no,
     Cradle* pCradle = _pCradleRoot;
     while (pCradle) {
         if (pCradle->_cradle_no == prm_cradle_no &&  pCradle->_pReceiver == prm_pReceiver) {
-            _TRACE_("＜警告＞ God::createCradle( ちょっと、[" << prm_cradle_no << "-"<<prm_pReceiver<<"]は、２重祝福していますよ！、無視します。意図していますか？");
+            _TRACE_("＜警告＞ God::createCradle() ゆりかご[" << prm_cradle_no << "-"<<prm_pReceiver<<"]は既に存在してますよ！。意図していますか？");
             return;
         }
         if (pCradle->_is_last_cradle_flg) {
@@ -378,7 +378,7 @@ void God::createCradle(uint64_t prm_cradle_no,
         }
         pCradle = pCradle->_pCradle_next;
     }
-    //既は未だであるようなので先頭にストック
+    //ゆりかごは未だであるようなので先頭にストック
     Cradle* pCradle_new;
     pCradle_new = NEW Cradle(prm_cradle_no);
     pCradle_new->_pObject_creation=nullptr;
@@ -613,7 +613,7 @@ void God::flood() {
     return;
 }
 
-void God::pardon(Object* prm_pReceiver) {
+void God::repent(Object* prm_pReceiver) {
     //新しい命を望んだ人が無くなった為、受取人のいないゆりがこを削除する（祝福済みの命も削除）。
     Cradle* pCradle = _pCradleRoot;
     while (pCradle) {

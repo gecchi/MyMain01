@@ -406,7 +406,7 @@ public:
      * —eÍ‚·‚é .
      * @param prm_pReceiver ó‚¯æ‚é‚Í‚¸‚¾‚Á‚½l
      */
-    void pardon(Object* prm_pReceiver);
+    void repent(Object* prm_pReceiver);
 
     /**
      * ˆ¤ .

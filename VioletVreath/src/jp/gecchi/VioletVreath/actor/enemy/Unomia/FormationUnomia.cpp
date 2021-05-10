@@ -14,8 +14,8 @@ using namespace VioletVreath;
 
 enum {
     PROG_INIT  ,
-    PROG_READY_MEMBER_ORDER,
-    PROG_READY_MEMBER_OBTAIN,
+    PROG_READY_MEMBER_REQUEST,
+    PROG_READY_MEMBER_RECEIVE,
     PROG_CALL_UP ,
     PROG_WAIT1,
     PROG_SHOT,
@@ -31,6 +31,9 @@ FormationUnomia::FormationUnomia(const char* prm_name, const char* prm_ldr_id)
     pConn_pCurveManuf_ = connectToCurveManufactureManager(prm_ldr_id);
     pDepo_shot_ = getCommonDepository(Shot004);
     updateRankParameter();
+    for (int order_no = 1; order_no <= num_formation_member_; order_no++) {
+        requestActor(order_no, EnemyUnomia, "EnemyUnomia");
+    }
 }
 
 void FormationUnomia::updateRankParameter() {
@@ -66,13 +69,15 @@ void FormationUnomia::processBehavior() {
             pProg->changeNext();
             break;
         }
-        case PROG_READY_MEMBER_ORDER: {
+        case PROG_READY_MEMBER_REQUEST: {
+            //変体数が変動している可能性の為、改めてrequestActor。
+            //2重の場合は無視される。
             uint64_t order_no = pProg->getFrame();
             requestActor(order_no, EnemyUnomia, "EnemyUnomia");
             pProg->changeNextWhenArrivedAt(num_formation_member_);
             break;
         }
-        case PROG_READY_MEMBER_OBTAIN: {
+        case PROG_READY_MEMBER_RECEIVE: {
             uint64_t order_no = pProg->getFrame();
             appendFormationMember(receiveActor(order_no));
             pProg->changeNextWhenArrivedAt(num_formation_member_);
