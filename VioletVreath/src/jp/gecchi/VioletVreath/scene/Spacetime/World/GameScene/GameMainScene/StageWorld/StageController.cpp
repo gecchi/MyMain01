@@ -70,6 +70,10 @@ void StageController::onReset() {
 
 void StageController::readyStage(int prm_main_stage) {
     _TRACE_("StageController::readyStage("<<prm_main_stage<<")");
+    //最大ランクを調整、周回によって変化。TODO:難易度レベルとかも G_MIN_RANK 底上げとか
+    G_MAX_RANK = 1.0 + ((loop_-1) * 0.2);
+
+
     switch (prm_main_stage) {
         case 0:
             requestScene(ORDER_ID_STAGE+prm_main_stage, StageDebug);

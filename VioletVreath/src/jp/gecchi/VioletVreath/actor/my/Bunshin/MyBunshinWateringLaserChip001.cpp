@@ -25,11 +25,11 @@ using namespace VioletVreath;
 
 const velo MyBunshinWateringLaserChip001::MAX_VELO_RENGE = PX_C(350); //この値を大きくすると、最高速度が早くなる。
 const double MyBunshinWateringLaserChip001::INV_MAX_VELO_RENGE = 1.0 / MAX_VELO_RENGE;
-const int MyBunshinWateringLaserChip001::R_MAX_ACCE = 20; //この値を大きくすると、カーブが緩くなる
-const velo MyBunshinWateringLaserChip001::INITIAL_VELO = MAX_VELO_RENGE*0.7; //レーザー発射時の初期速度
+const int MyBunshinWateringLaserChip001::R_MAX_ACCE = 15; //この値を大きくすると、カーブが緩くなる
+const velo MyBunshinWateringLaserChip001::INITIAL_VELO = MAX_VELO_RENGE*0.8; //レーザー発射時の初期速度
 const double MyBunshinWateringLaserChip001::RR_MAX_ACCE = 1.0 / R_MAX_ACCE; //計算簡素化用
 const float MyBunshinWateringLaserChip001::MAX_ACCE_RENGE = MAX_VELO_RENGE/R_MAX_ACCE;
-const velo MyBunshinWateringLaserChip001::MIN_VELO_ = MyBunshinWateringLaserChip001::INITIAL_VELO/8; // ÷8 は、最低移動する各軸のINITIAL_VELOの割合
+const velo MyBunshinWateringLaserChip001::MIN_VELO_ = MyBunshinWateringLaserChip001::INITIAL_VELO/10; // ÷10 は、最低移動する各軸のINITIAL_VELOの割合
 GgafDx::Model* MyBunshinWateringLaserChip001::pModel_ = nullptr;
 int MyBunshinWateringLaserChip001::tex_no_ = 0;
 
@@ -51,6 +51,9 @@ MyBunshinWateringLaserChip001::MyBunshinWateringLaserChip001(const char* prm_nam
     tmp_x_ = _x;
     tmp_y_ = _y;
     tmp_z_ = _z;
+    sgn_vx0_ = 0;
+    sgn_vy0_ = 0;
+    sgn_vz0_ = 0;
     pAimInfo_ = nullptr;
     inv_cnt_ = 0;
 }
@@ -79,6 +82,9 @@ void MyBunshinWateringLaserChip001::onActive() {
     WateringLaserChip::onActive();
     pAimInfo_ = nullptr;
     inv_cnt_ = 0;
+    sgn_vx0_ = 0;
+    sgn_vy0_ = 0;
+    sgn_vz0_ = 0;
     GgafDx::GeoDriver* pGeoDriver = getGeoDriver();
     pGeoDriver->forceVxyzMvVeloRange(-MAX_VELO_RENGE, MAX_VELO_RENGE);
     pGeoDriver->forceVxyzMvAcceRange(-MAX_ACCE_RENGE, MAX_ACCE_RENGE);
@@ -115,27 +121,33 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                     //●Leader が t1 へ Aim
                     if (pAimTarget->isActiveInTheTree() && active_frame < aim_time_out_t1)  {
                         //pAimTarget が存命
-                        int sgn_vx1 = SGN(pGeoDriver->_velo_vx_mv);
-                        int sgn_vy1 = SGN(pGeoDriver->_velo_vy_mv);
-                        int sgn_vz1 = SGN(pGeoDriver->_velo_vz_mv);
+                        int vx1 = pGeoDriver->_velo_vx_mv;
+                        int vy1 = pGeoDriver->_velo_vy_mv;
+                        int vz1 = pGeoDriver->_velo_vz_mv;
 
                         aimChip(pAimInfo->t1_x,
                                 pAimInfo->t1_y,
                                 pAimInfo->t1_z );
 
-                        int sgn_vx2 = SGN(pGeoDriver->_velo_vx_mv);
-                        int sgn_vy2 = SGN(pGeoDriver->_velo_vy_mv);
-                        int sgn_vz2 = SGN(pGeoDriver->_velo_vz_mv);
-                        if (sgn_vx1 != sgn_vx2) {
-                           inv_cnt_++;
+                        int vx2 = pGeoDriver->_velo_vx_mv;
+                        int vy2 = pGeoDriver->_velo_vy_mv;
+                        int vz2 = pGeoDriver->_velo_vz_mv;
+
+                        int sgn_vx = SGN(vx1 - vx2);
+                        int sgn_vy = SGN(vy1 - vy2);
+                        int sgn_vz = SGN(vz1 - vz2);
+
+                        if (sgn_vy0_ != sgn_vy) {
+                            inv_cnt_++;
+                            sgn_vy0_ = sgn_vy;
+                        } else if (sgn_vz0_ != sgn_vz) {
+                            inv_cnt_++;
+                            sgn_vz0_ = sgn_vz;
+                        } else if (sgn_vx0_ != sgn_vx) {
+                            inv_cnt_++;
+                            sgn_vx0_ = sgn_vx;
                         }
-                        if (sgn_vy1 != sgn_vy2) {
-                           inv_cnt_++;
-                        }
-                        if (sgn_vz1 != sgn_vz2) {
-                           inv_cnt_++;
-                        }
-                        if (inv_cnt_ > 15) { //15回も速度の正負が入れ替わったら終了
+                        if (inv_cnt_ > 10) { //10回も速度の正負が入れ替わったら終了
                             pAimInfo_->spent_frames_to_t1 = active_frame; //Aim t1 終了
                         } else {
                             static const coord renge = MyBunshinWateringLaserChip001::INITIAL_VELO / 4;
@@ -165,6 +177,12 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                                                      ) * 1.2;
                     LaserChip* pB = getBehindChip();
                     if (pB) {
+                        pB = pB->getBehindChip();
+                        if (pB) {
+                            pB = pB->getBehindChip();
+                        }
+                    }
+                    if (pB) {
                         pAimInfo->setT2(zf_r, pB->_x, pB->_y, pB->_z, _x, _y, _z);
                     } else {
                         pAimInfo->setT2(zf_r, pOrg_->_x, pOrg_->_y, pOrg_->_z, _x, _y, _z);
@@ -190,6 +208,22 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                     }
                 }
             } else {
+//                MyBunshinWateringLaserChip001* pF = (MyBunshinWateringLaserChip001*)getInfrontChip();
+//                if (pF) {
+//                    pF = (MyBunshinWateringLaserChip001*)pF->getInfrontChip();
+//                    if (pF) {
+//                        pF = (MyBunshinWateringLaserChip001*)pF->getInfrontChip();
+//                        if (pF) {
+//                            pF = (MyBunshinWateringLaserChip001*)pF->getInfrontChip();
+//                        }
+//                    }
+//                }
+//                if (pF) {
+//                    aimChip(pF->_x,
+//                            pF->_y,
+//                            pF->_z );
+//                } else {
+//                }
                 //●Leader以外
                 if (pAimInfo->spent_frames_to_t1 == 0) {
                     //●Leader以外が t1 が定まるまでの動き
@@ -242,6 +276,8 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                                     _y + pGeoDriver->_velo_vy_mv*4+1,
                                     _z + pGeoDriver->_velo_vz_mv*4+1 );
                         }
+                    } else {
+                        _TRACE_("＜警告＞ありえない");
                     }
                 }
             }

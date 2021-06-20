@@ -18,6 +18,8 @@ class FormationRis001 : public GgafLib::TreeFormation {
     GgafDx::CurveSourceConnection* pCurveSrcConnection_;
     GgafDx::CurveManufacture* pManufacture_;
 public:
+
+    int _max_num_Ris;
     /** •Ò‘à”(RANK•Ï“®) */
     int num_Ris_;
     /** •Ò‘àŠÔŠuƒtƒŒ[ƒ€(RANK•Ï“®) */
