@@ -28,6 +28,10 @@ FormationDelheid::FormationDelheid(const char* prm_name)
    : DepositoryFormation(prm_name) {
     _class_name = "FormationDelheid";
 
+    RV_Num_           = 0;
+    RV_MvVelo_        = 0;
+    RV_LaunchInterval = 0;
+
     pAlisana_start = NEW EnemyAlisana("Alisana_START");
     pAlisana_start->inactivate(); //生成直後は非活動なので、これで onInactive() は発生しません。
     appendGroupChild(pAlisana_start);
@@ -47,14 +51,6 @@ FormationDelheid::FormationDelheid(const char* prm_name)
     setFormationMember(pConn_pDelheidDepo_->peek());
     //編隊隊員のショットデポジトリ
     pConn_pShotDepo_ = connectToDepositoryManager("EnemyDelheidShot");
-
-    updateRankParameter();
-}
-
-void FormationDelheid::updateRankParameter() {
-    RV_Num_           = RF_FormationDelheid_Num(G_RANK);    //編隊数
-    RV_MvVelo_        = RF_FormationDelheid_MvVelo(G_RANK); //速度
-    RV_LaunchInterval = 64 / C_PX(RV_MvVelo_);
 }
 
 void FormationDelheid::initialize() {
@@ -62,7 +58,9 @@ void FormationDelheid::initialize() {
 }
 
 void FormationDelheid::onActive() {
-    updateRankParameter();
+    RV_Num_           = RF_FormationDelheid_Num(G_RANK);    //編隊数
+    RV_MvVelo_        = RF_FormationDelheid_MvVelo(G_RANK); //速度
+    RV_LaunchInterval = 64 / C_PX(RV_MvVelo_);
     getProgress()->reset(PROG_INIT);
 }
 
@@ -82,14 +80,13 @@ void FormationDelheid::processBehavior() {
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
          case PROG_INIT: {
-             updateRankParameter();
              //ダミー(pDummy_)を使ってメンバーのカーブ移動の開始位置と方向、終了位置と方向を予め求める
              pDummy_->config(getSplManuf(), nullptr);
              pDummy_->getVecDriver()->setMvVelo(RV_MvVelo_);
              pDummy_->setPositionAt(&geoLocate_);
              pDummy_->setFaceAngAs(&geoLocate_);
              pDummy_->getVecDriver()->setRzRyMvAng(geoLocate_.rz, geoLocate_.ry);
-             onCallUpDelheid(pDummy_);
+             onCalledUpDelheid(pDummy_);
              pDummy_->pDriverLeader_->start(RELATIVE_COORD_DIRECTION); //座標計算のためスタート＆オプション指定が必要
              coord next_x, next_y, next_z;             //開始+1 の補完点座標
              coord end_x, end_y, end_z;                //最終の補完点座標
@@ -121,7 +118,7 @@ void FormationDelheid::processBehavior() {
                  }
              } else {
                  //開始ハッチがオープン前にやられた
-                 callUpMember(0); //強制招集打ち切り
+                 calledUpMember(0); //強制招集打ち切り
                  pProg->changeNothing(); //本フォーメーション自体終了！
              }
              //ハッチオープン完了待ち
@@ -131,11 +128,11 @@ void FormationDelheid::processBehavior() {
          case PROG_FROMATION_MOVE1: {
              if (pAlisana_start) {
                  //開始ハッチがオープンが存在中の場合
-                 if (canCallUp()) {
+                 if (canCalledUp()) {
                      //招集未完了時
                      if (pProg->getFrame() % RV_LaunchInterval == 0) {
                          //機数 RV_Num_ 機まで招集
-                         EnemyDelheid* pDelheid = (EnemyDelheid*)callUpMember(RV_Num_);
+                         EnemyDelheid* pDelheid = (EnemyDelheid*)calledUpMember(RV_Num_);
                          if (pDelheid) {
                              pDelheid->config(getSplManuf(),
                                               pConn_pShotDepo_->peek() );
@@ -148,7 +145,7 @@ void FormationDelheid::processBehavior() {
                              pDelheid->getVecDriver()->setRzRyMvAng(geoLocate_.rz, geoLocate_.ry);
                              pDelheid->pDriverLeader_->setStartAngle(geoLocate_.rx, geoLocate_.ry, geoLocate_.rz);
 //                             pDelheid->pDriverLeader_->setLoopAngleByMvAng();
-                             onCallUpDelheid(pDelheid); //下位フォーメーションクラス個別実装の処理
+                             onCalledUpDelheid(pDelheid); //下位フォーメーションクラス個別実装の処理
                          } else {
                              //招集おしまい
                          }
@@ -160,7 +157,7 @@ void FormationDelheid::processBehavior() {
                  }
              } else {
                  //開始ハッチが無い(無くなった)場合
-                 callUpMember(0); //強制招集打ち切り（本フォーメションオブジェクトを解放させる条件として必要）
+                 calledUpMember(0); //強制招集打ち切り（本フォーメションオブジェクトを解放させる条件として必要）
                  pProg->changeNext(); //出現終了！
              }
              break;

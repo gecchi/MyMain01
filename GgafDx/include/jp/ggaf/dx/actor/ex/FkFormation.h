@@ -25,9 +25,9 @@ private:
         throwCriticalException("使用不可です。");
     }
 
-    /** [r]callUpMember()用のカーソル */
+    /** [r]calledUpMember()用のカーソル */
     GgafCore::Actor* _pIte;
-    bool _can_call_up;
+    bool _can_called_up;
 public:
     /**
      * コンストラクタ .
@@ -70,7 +70,7 @@ public:
      * 編隊のメンバーを登録。姿勢をフォワードキネマティクスで設定する。
      * 編隊を構成するために、本メソッドを実行し、メンバーを予め配下アクターに設定する必要がある。<BR>
      * 最初に登録したアクターが、フォーメーションの種別となるため、同じ種別をappendFormationMember する必要がある。<BR>
-     * 構成メンバーを活動させるには、callUpMember() を使用。<BR>
+     * 構成メンバーを活動させるには、calledUpMember() を使用。<BR>
      * 構成メンバーを活動終了時は、sayonara() を使用。解放対象になる。<BR>
      * 編隊メンバーは使い捨てである。<BR>
      * 内部的には、引数 prm_fkbase_index 番目の子アクターをベースとし、そのベースアクターが appendGroupChildAsFk により
@@ -91,27 +91,28 @@ public:
      * @param prm_rz_init_local 従属アクターのローカル(this)回転からのZ軸回転値
      */
     virtual void appendFormationMember(GeometricActor* prm_pMember,
-                                    int prm_x_init_local,
-                                    int prm_y_init_local,
-                                    int prm_z_init_local,
-                                    int prm_rx_init_local,
-                                    int prm_ry_init_local,
-                                    int prm_rz_init_local);
+                                       int prm_x_init_local,
+                                       int prm_y_init_local,
+                                       int prm_z_init_local,
+                                       int prm_rx_init_local,
+                                       int prm_ry_init_local,
+                                       int prm_rz_init_local);
 
     /**
      * 登録した編隊のメンバーを順番に取得します.
      * appendChild(GgafCore::Actor*) により、登録した編隊メンバーを順番に取り出します。
      * 全て編隊メンバーを取得してしまった場合、nullptr を返します。
+     * @param prm_formation_child_num 本フォーメーションの管理される要員数（＝編隊全滅数）。省略時は配下メンバー数となる。
      * @return 未活動の編隊登録メンバー。又は nullptr、未活動の編隊登録メンバーはもう無い。
      */
-    GeometricActor* callUpMember();
+    GeometricActor* calledUpMember(int prm_formation_child_num = INT_MAX);
 
     /**
-     * callUpMember() 可能な場合 true
+     * calledUpMember() 可能な場合 true
      * @return true:未活動の編隊登録メンバーが未だ存在/false:もう存在しない。
      */
-    inline bool canCallUp() {
-        return _can_call_up;
+    inline bool canCalledUp() {
+        return _can_called_up;
     }
 
     /**

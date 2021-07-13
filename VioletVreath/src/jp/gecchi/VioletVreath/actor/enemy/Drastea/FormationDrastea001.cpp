@@ -18,8 +18,8 @@ void FormationDrastea001::initialize() {
 }
 
 void FormationDrastea001::processBehavior() {
-    if (canCallUp() && (getActiveFrame()-1) % 32 == 0) {
-        callUpMember();
+    if (canCalledUp() && (getActiveFrame()-1) % 32 == 0) {
+        calledUpMember();
     }
 }
 

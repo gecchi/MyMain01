@@ -18,10 +18,21 @@ namespace GgafCore {
 class Formation : public MainActor {
 
 public:
-    /** [r]編隊要素として管理されているアクター数(appendChild() callUpMember() により増加) */
+    /** [r]編隊要素として「管理されている」アクター数 . */
     int _num_formation_member;
+    //実際に配下に登録されているアクター数と同じとは限らない。
+    //appendChild()で増加、 setFormationMember() によりセット、calledUpMember() 上限で上書き再設定
+    //やりたいことは、destroyedFollower() で編隊全滅判定を行いたい。
+    //生成時に、配下に余裕を持って最大メンバーを 10 登録しておき、
+    //実際に活動時に使用するメンバー数は 8 である、と後から確定したい。
+    //この場合 8 消滅で編隊全滅とする。
+    //この場合_num_formation_member は最初 10 であるが、calledUpMember(8) 時に 8 に上書きされる。
+
     /** [r]破壊による消滅したアクター数 (所属アクターの informDestroyedFollower() により増加)*/
     int _num_destory;
+    /** [r]編隊要素の呼び出し数（calledUpMember() が成功し true を返したとき増加）*/
+    int _num_called_up;
+
     /** [r]フォーメーション要員が全滅した際に自身を解放する猶予フレーム。下位クラスで、sayonaraの引数になる。 */
     frame _offset_frames_end;
     /** [r]全滅時 true (Actor::notifyDestroyedToFormation() が設定) */

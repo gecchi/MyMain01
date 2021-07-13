@@ -17,10 +17,10 @@ FormationIda::FormationIda(const char* prm_name) : FkFormation(prm_name) {
 
 }
 void FormationIda::onActive() {
-    while (canCallUp()) {
-        EnemyIda* pIda = (EnemyIda*)callUpMember();
+    while (canCalledUp()) {
+        EnemyIda* pIda = (EnemyIda*)calledUpMember();
         if (pIda) {
-            onCallUpIda(pIda); //コールバック
+            onCalledUpIda(pIda); //コールバック
         }
     }
 }

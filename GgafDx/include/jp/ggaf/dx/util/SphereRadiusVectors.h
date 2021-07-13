@@ -52,15 +52,15 @@ public:
             vec.y = prm_y;
             vec.z = prm_z;
             num_yzx = (prm_y * 1000000LL * 1000000LL ) +
-            (prm_z * 1000000LL ) +
-            (prm_x );
+                                  (prm_z * 1000000LL ) +
+                                              (prm_x );
 
             //_TRACE_(prm_x<<","<<prm_y<<","<<prm_z<<"  num_yzx="<<(num_yzx));
             //1048575LL = &b11111111111111111111 (20bit)
         }
     };
 
-    /** 作成目的の 1/8球分のソート可能方向ベクトル配列(要素数は900*900) */
+    /** 作成目的の 1/8球分のソート可能方向ベクトル配列(要素数は901*901) */
     COMPARE_ABLE_SR_VECTOR _sr[(D90SANG + 1) * (D90SANG + 1)];
 
 public:

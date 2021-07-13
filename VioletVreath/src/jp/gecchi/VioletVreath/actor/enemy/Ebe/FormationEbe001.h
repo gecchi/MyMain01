@@ -18,7 +18,7 @@ public:
 
     FormationEbe001(const char* prm_name);
 
-    void onCallUpEbe(EnemyEbe* pEnemyEbe) override;
+    void onCalledUpEbe(EnemyEbe* pEnemyEbe) override;
 
     virtual void processBehavior() override;
 

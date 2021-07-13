@@ -47,6 +47,7 @@ public:
 
         GgafCore::GroupHead* appendGroupChild(kind_t prm_kind, GgafCore::MainActor* prm_pMainActor) {
             GgafCore::GroupHead* pGroupHead = GgafLib::DefaultSceneMediator::appendGroupChild(prm_kind, prm_pMainActor);
+            //‘S•Ò‘à”‚ª—~‚µ‚¢‚Ì‚ÅA’Ç‰ÁŒã‚Éƒƒ“ƒo[”‚ğ‡Z‚µ‚Ä•Û‚µ‚Ä‚¨‚­
             if (prm_pMainActor->instanceOf(Obj_ggaf_Formation)) {
                 GgafCore::Formation* pF = (GgafCore::Formation*)prm_pMainActor;
                 all_hit_num_ += pF->getMemberNum();

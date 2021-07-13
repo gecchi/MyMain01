@@ -43,16 +43,16 @@ FormationOebius002::FormationOebius002(const char* prm_name, EnemyOebiusControll
     }
     FixedFrameCurveManufacture* Manuf =  ((FixedFrameCurveManufacture*)(papCurveManufConn_[0])->peek());
     frame spent_frames = Manuf->getSpentFrames();
-    pa_frame_of_call_up_ = NEW frame[formation_row_num_];
+    pa_frame_of_called_up_ = NEW frame[formation_row_num_];
     for (int row = 0; row < formation_row_num_; row++) {
         //出現フレーム(最後の +1は getFrame() が 1フレームから始まる為
-        pa_frame_of_call_up_[row] = (frame)( ( (1.0*spent_frames*(1+row))  /  formation_row_num_)  ) + 1;
+        pa_frame_of_called_up_[row] = (frame)( ( (1.0*spent_frames*(1+row))  /  formation_row_num_)  ) + 1;
     }
-    call_up_row_idx_ = 0;
+    called_up_row_idx_ = 0;
 
 }
 void FormationOebius002::onActive() {
-    call_up_row_idx_ = 0;
+    called_up_row_idx_ = 0;
     getProgress()->reset(PROG_INIT);
 }
 void FormationOebius002::processBehavior() {
@@ -65,18 +65,18 @@ void FormationOebius002::processBehavior() {
         case PROG_CALL_UP: {
             if (pProg->hasJustChanged()) {
             }
-            if (call_up_row_idx_ < formation_row_num_) {
-                if (pProg->getFrame() == pa_frame_of_call_up_[call_up_row_idx_]) {
+            if (called_up_row_idx_ < formation_row_num_) {
+                if (pProg->getFrame() == pa_frame_of_called_up_[called_up_row_idx_]) {
                     for (int col = 0; col < formation_col_num_; col++) {
                         //xpm編隊
-                        if (!pXpmConnection_->peek()->isNonColor(call_up_row_idx_, col)) {
-                            EnemyOebius* pOebius = (EnemyOebius*)callUpMember();
+                        if (!pXpmConnection_->peek()->isNonColor(called_up_row_idx_, col)) {
+                            EnemyOebius* pOebius = (EnemyOebius*)calledUpMember();
                             if (pOebius) {
-                                onCallUp(pOebius, call_up_row_idx_, col);
+                                onCalledUp(pOebius, called_up_row_idx_, col);
                             }
                         }
                     }
-                    call_up_row_idx_ ++;
+                    called_up_row_idx_ ++;
                 }
             } else {
                 pProg->changeNext();
@@ -93,7 +93,7 @@ void FormationOebius002::processBehavior() {
     }
 }
 
-void FormationOebius002::onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) {
+void FormationOebius002::onCalledUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) {
     EnemyOebius* pOebius = (EnemyOebius*)prm_pActor;
     if (pOebius->pDriverLeader_) {
         throwCriticalException("pOebius->pDriverLeader_が設定されてます。pOebius="<<pOebius<<"("<<pOebius->getName()<<")");
@@ -142,6 +142,6 @@ FormationOebius002::~FormationOebius002() {
         papCurveManufConn_[col]->close();
     }
     GGAF_DELETEARR(papCurveManufConn_);
-    GGAF_DELETEARR(pa_frame_of_call_up_);
+    GGAF_DELETEARR(pa_frame_of_called_up_);
 }
 

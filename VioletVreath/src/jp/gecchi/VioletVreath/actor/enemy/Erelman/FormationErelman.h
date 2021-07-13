@@ -33,7 +33,7 @@ public:
 
     virtual void onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) override;
 
-    virtual void onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) = 0;
+    virtual void onCalledUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) = 0;
 
     virtual void onFinshLeading(GgafDx::FigureActor* prm_pActor) = 0;
 

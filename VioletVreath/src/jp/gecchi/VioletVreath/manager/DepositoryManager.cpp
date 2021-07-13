@@ -166,8 +166,8 @@ GgafCore::ActorDepository* DepositoryManager::processCreateResource(const char* 
 
     } else if (strcmp("EnemyEbe4Formation", prm_idstr) == 0) {
         pResource = NEW GgafCore::ActorDepository("Deop_Ebe");
-        for (int i = 0; i < RF_FormationEbe_Num(2.0); i++) {
-            pResource->put(NEW EnemyEbe("EnemyEmilia"));
+        for (int i = 0; i < RF_FormationEbe_Num(G_MAX_RANK)*2; i++) {
+            pResource->put(NEW EnemyEbe("EnemyEbe"));
             Sleep(1);
         }
         pCOMMON_SCENE->bringSceneMediator()->appendGroupChild(pResource);
@@ -276,7 +276,7 @@ GgafCore::ActorDepository* DepositoryManager::processCreateResource(const char* 
 
     } else if (strcmp("EnemyDelheid4Formation", prm_idstr) == 0) {
         pResource = NEW GgafCore::ActorDepository("Depo_DelheidStock");
-        for (int i = 0; i < 300; i++) {
+        for (int i = 0; i < RF_FormationDelheid_Num(G_MAX_RANK)*8; i++) {
             std::string name = "EnemyDelheid("+XTOS(i)+")";
             pResource->put(NEW EnemyDelheid(name.c_str()));
             Sleep(1);

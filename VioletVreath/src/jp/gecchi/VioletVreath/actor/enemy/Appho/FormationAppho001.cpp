@@ -12,27 +12,31 @@ using namespace VioletVreath;
 FormationAppho001::FormationAppho001(const char* prm_name) :
         TreeFormation(prm_name) {
     _class_name = "FormationAppho001";
-    num_Appho_       = RF_FormationAppho001_Num(G_RANK);    //編隊数
-    interval_frames_ = RF_FormationAppho001_LaunchInterval(G_RANK);  //アラスの間隔(frame)
-    for (int i = 0; i < num_Appho_; i++) {
+    num_Appho_       = 0;
+    interval_frames_ = 0;
+
+
+    for (int i = 0; i < RF_FormationAppho001_Num(G_MAX_RANK); i++) {
         std::string name = "Appho("+XTOS(i)+")";
         appendFormationMember(NEW EnemyAppho(name.c_str()));
     }
-    cnt_call_up_ = 0;
+    cnt_called_up_ = 0;
 }
 
 void FormationAppho001::initialize() {
 }
 
 void FormationAppho001::onActive() {
+    num_Appho_       = RF_FormationAppho001_Num(G_RANK);    //編隊数
+    interval_frames_ = RF_FormationAppho001_LaunchInterval(G_RANK);  //アラスの間隔(frame)
 }
 
 void FormationAppho001::processBehavior() {
-    if (canCallUp() && getActiveFrame() % interval_frames_ == 0) {
-        EnemyAppho* pAppho = (EnemyAppho*)callUpMember();
+    if (canCalledUp() && getActiveFrame() % interval_frames_ == 0) {
+        EnemyAppho* pAppho = (EnemyAppho*)calledUpMember(num_Appho_);
         if (pAppho) {
-            onCallUpAppho(pAppho, cnt_call_up_);  //コールバック
-            cnt_call_up_++;
+            onCalledUpAppho(pAppho, cnt_called_up_);  //コールバック
+            cnt_called_up_++;
         }
     }
 }

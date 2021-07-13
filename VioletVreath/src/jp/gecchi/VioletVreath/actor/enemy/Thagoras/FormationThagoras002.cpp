@@ -26,7 +26,7 @@ void FormationThagoras002::processBehavior() {
     FormationThagoras::processBehavior();
 }
 
-void FormationThagoras002::onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) {
+void FormationThagoras002::onCalledUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) {
     EnemyThagoras* pThagoras = (EnemyThagoras*)prm_pActor;
     if (pThagoras->pDriverLeader_) {
         throwCriticalException("pThagoras->pDriverLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpThagoras="<<pThagoras<<"("<<pThagoras->getName()<<")");

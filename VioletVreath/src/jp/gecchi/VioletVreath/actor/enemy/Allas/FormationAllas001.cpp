@@ -14,7 +14,6 @@ using namespace VioletVreath;
 
 enum {
     PROG_INIT  ,
-    PROG_READY_MEMBER,
     PROG_CALL_UP ,
     PROG_WAIT  ,
     PROG_BANPEI,
@@ -26,8 +25,14 @@ FormationAllas001::FormationAllas001(const char* prm_name) :
     num_Allas_       = 0;
     interval_frames_ = 0;
     velo_mv_         = 0;
-    //アラス編隊作成
+
     pConn_pCurveManuf_ = connectToCurveManufactureManager("Allas01");
+    //アラス編隊作成
+    int max_num_Allas = RF_FormationAllas001_Num(G_MAX_RANK);
+    for (int i = 0; i < max_num_Allas; i++) {
+        EnemyAllas* pAllas_ = NEW EnemyAllas("Allas01");
+        appendFormationMember(pAllas_);
+    }
     pConn_depo_ = nullptr;
 }
 
@@ -48,31 +53,17 @@ void FormationAllas001::processBehavior() {
             pProg->changeNext();
             break;
         }
-        case PROG_READY_MEMBER: {
-            if (pProg->hasJustChanged()) {
-                for (int i = 0; i < num_Allas_; i++) {
-                    requestActor(i, EnemyAllas, "EnemyAllas");
-                }
-            }
-            if (pProg->hasArrivedAt(60)) {
-                for (int i = 0; i < num_Allas_; i++) {
-                    appendFormationMember(receiveActor(i));
-                }
-                pProg->changeNext();
-            }
-            break;
-        }
         case PROG_CALL_UP: {
             if (pProg->hasJustChanged()) {
 
             }
-            if (canCallUp()) {
+            if (canCalledUp()) {
                 if (getActiveFrame() % interval_frames_ == 0) {
-                    EnemyAllas* pAllas = (EnemyAllas*)callUpMember();
+                    EnemyAllas* pAllas = (EnemyAllas*)calledUpMember(num_Allas_);
                     if (pAllas) {
                         pAllas->getVecDriver()->setMvVelo(velo_mv_);
                         pAllas->config(pConn_pCurveManuf_->peek(), nullptr, nullptr);
-                        onCallUpAllas(pAllas);
+                        onCalledUpAllas(pAllas);
                     }
                 }
             } else {

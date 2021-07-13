@@ -24,18 +24,18 @@ enum {
     PROG_BANPEI,
 };
 
-FormationUrydike::FormationUrydike(const char* prm_name, int prm_formation_col_num, int prm_formation_row_num, frame prm_call_up_interval) :
+FormationUrydike::FormationUrydike(const char* prm_name, int prm_formation_col_num, int prm_formation_row_num, frame prm_called_up_interval) :
         TreeFormation(prm_name) {
     _class_name = "FormationUrydike";
     pXpmConnection_ = nullptr;
     formation_col_num_ = prm_formation_col_num;
     formation_row_num_ = prm_formation_row_num;
     num_Urydike_ = prm_formation_col_num  * prm_formation_row_num;
-    call_up_interval_ = prm_call_up_interval; //oŒ»ŠÔŠu
-    call_up_row_idx_ = 0;
+    called_up_interval_ = prm_called_up_interval; //oŒ»ŠÔŠu
+    called_up_row_idx_ = 0;
 }
 
-FormationUrydike::FormationUrydike(const char* prm_name, const char* prm_xpm_id, frame prm_call_up_interval)  :
+FormationUrydike::FormationUrydike(const char* prm_name, const char* prm_xpm_id, frame prm_called_up_interval)  :
             TreeFormation(prm_name) {
     _class_name = "FormationUrydike";
     pXpmConnection_ = connectToXpmManager(prm_xpm_id);
@@ -43,15 +43,15 @@ FormationUrydike::FormationUrydike(const char* prm_name, const char* prm_xpm_id,
     formation_col_num_ = pXpM->getWidth();
     formation_row_num_ = pXpM->getHeight();
     num_Urydike_ = pXpM->getPixelNum();
-    call_up_interval_ = prm_call_up_interval; //oŒ»ŠÔŠu
-    call_up_row_idx_ = 0;
+    called_up_interval_ = prm_called_up_interval; //oŒ»ŠÔŠu
+    called_up_row_idx_ = 0;
 }
 
 void FormationUrydike::initialize() {
 }
 
 void FormationUrydike::onActive() {
-    call_up_row_idx_ = 0;
+    called_up_row_idx_ = 0;
     getProgress()->reset(PROG_INIT);
 }
 
@@ -80,25 +80,25 @@ void FormationUrydike::processBehavior() {
             if (pProg->hasJustChanged()) {
 
             }
-            if (canCallUp() && call_up_row_idx_ < formation_row_num_) {
-                if (getActiveFrame() % call_up_interval_ == 0) {
+            if (canCalledUp() && called_up_row_idx_ < formation_row_num_) {
+                if (getActiveFrame() % called_up_interval_ == 0) {
                     for (int col = 0; col < formation_col_num_; col++) {
                         if (pXpmConnection_) {
                             //xpm•Ò‘à
-                            if (!pXpmConnection_->peek()->isNonColor(call_up_row_idx_, col)) {
-                                EnemyUrydike* pUrydike = (EnemyUrydike*)callUpMember();
+                            if (!pXpmConnection_->peek()->isNonColor(called_up_row_idx_, col)) {
+                                EnemyUrydike* pUrydike = (EnemyUrydike*)calledUpMember();
                                 if (pUrydike) {
-                                    onCallUp(pUrydike, call_up_row_idx_, col);
+                                    onCalledUp(pUrydike, called_up_row_idx_, col);
                                 }
                             }
                         } else {
-                            EnemyUrydike* pUrydike = (EnemyUrydike*)callUpMember();
+                            EnemyUrydike* pUrydike = (EnemyUrydike*)calledUpMember();
                             if (pUrydike) {
-                                onCallUp(pUrydike, call_up_row_idx_, col);
+                                onCalledUp(pUrydike, called_up_row_idx_, col);
                             }
                         }
                     }
-                    call_up_row_idx_ ++;
+                    called_up_row_idx_ ++;
                 }
             } else {
                 pProg->changeNext();

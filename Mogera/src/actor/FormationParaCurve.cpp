@@ -23,11 +23,11 @@ FormationParaCurve::FormationParaCurve(const char* prm_name) :
     formation_col_num_ = 0;
     formation_row_num_ = 0;
     num_Zako_ = 0;
-    call_up_interval_ = 0;
-    call_up_row_idx_ = 0;
+    called_up_interval_ = 0;
+    called_up_row_idx_ = 0;
 }
 
-void FormationParaCurve::addMember(int prm_formation_col_num, int prm_formation_row_num, frame prm_call_up_interval) {
+void FormationParaCurve::addMember(int prm_formation_col_num, int prm_formation_row_num, frame prm_called_up_interval) {
     formation_col_num_ = prm_formation_col_num;
     formation_row_num_ = prm_formation_row_num;
     num_Zako_ = prm_formation_col_num  * prm_formation_row_num;
@@ -35,14 +35,14 @@ void FormationParaCurve::addMember(int prm_formation_col_num, int prm_formation_
         std::string name = "Zako("+XTOS(i)+")";
 //        appendFormationMember(NEW Zako(name.c_str()));
     }
-    call_up_interval_ = prm_call_up_interval; //oŒ»ŠÔŠu
-    call_up_row_idx_ = 0;
+    called_up_interval_ = prm_called_up_interval; //oŒ»ŠÔŠu
+    called_up_row_idx_ = 0;
 }
 void FormationParaCurve::initialize() {
 }
 
 void FormationParaCurve::onActive() {
-    call_up_row_idx_ = 0;
+    called_up_row_idx_ = 0;
     getProgress()->reset(PROG_INIT);
 }
 
@@ -56,15 +56,15 @@ void FormationParaCurve::processBehavior() {
         case PROG_CALL_UP: {
             if (pProg->hasJustChanged()) {
             }
-            if (formation_row_num_ > call_up_row_idx_ && canCallUp()) {
-                if (getActiveFrame() % call_up_interval_ == 0) {
+            if (formation_row_num_ > called_up_row_idx_ && canCalledUp()) {
+                if (getActiveFrame() % called_up_interval_ == 0) {
                     for (int col = 0; col < formation_col_num_; col++) {
-                        Zako* pZako = (Zako*)callUpMember();
+                        Zako* pZako = (Zako*)calledUpMember();
                         if (pZako) {
-                            onCallUp(pZako, call_up_row_idx_, col);
+                            onCalledUp(pZako, called_up_row_idx_, col);
                         }
                     }
-                    call_up_row_idx_ ++;
+                    called_up_row_idx_ ++;
                 }
             } else {
                 pProg->changeNext();

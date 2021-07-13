@@ -12,7 +12,7 @@ using namespace VioletVreath;
 FormationEres002::FormationEres002(const char* prm_name) : TreeFormation(prm_name) {
     _class_name = "FormationEres002";
 
-    for (int i = 0; i < 1; i++) {
+    for (int i = 0; i < 10; i++) {
         EnemyEres* pEres = NEW EnemyEres("Eres");
 //        pEres->Y_turn_ = PX_C(-1*(CONFIG::GAME_BUFFER_HEIGHT*LEN_UNIT/2) + (i * ((CONFIG::GAME_BUFFER_HEIGHT*LEN_UNIT)/30)));
         pEres->_z = -1500000;
@@ -24,8 +24,8 @@ void FormationEres002::initialize() {
 }
 
 void FormationEres002::processBehavior() {
-    if (canCallUp() && (getActiveFrame()-1) % 64 == 0) {
-        EnemyEres* pEres = (EnemyEres*)callUpMember();
+    if (canCalledUp() && (getActiveFrame()-1) % 64 == 0) {
+        EnemyEres* pEres = (EnemyEres*)calledUpMember();
         if (pEres) {
             pEres->activate();
         }

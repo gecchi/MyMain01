@@ -20,8 +20,6 @@ class FormationAllas002 : public GgafLib::TreeFormation {
 public:
     /** 編隊数(RANK変動) */
     int num_Allas_;
-    /** リスの配列(RANK変動) */
-    EnemyAllas** papAllas_;
     /** 編隊間隔フレーム(RANK変動) */
     frame interval_frames_;
     /** 移動速度(RANK変動) */

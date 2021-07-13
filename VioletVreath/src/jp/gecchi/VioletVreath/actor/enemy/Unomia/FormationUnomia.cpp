@@ -14,8 +14,6 @@ using namespace VioletVreath;
 
 enum {
     PROG_INIT  ,
-    PROG_READY_MEMBER_REQUEST,
-    PROG_READY_MEMBER_RECEIVE,
     PROG_CALL_UP ,
     PROG_WAIT1,
     PROG_SHOT,
@@ -26,21 +24,29 @@ enum {
 FormationUnomia::FormationUnomia(const char* prm_name, const char* prm_ldr_id)
    : TreeFormation(prm_name, 20*60) {
     _class_name = "FormationUnomia";
-
+    num_formation_col_ = 0;
+    num_formation_row_ = 0;
+    num_formation_member_ = 0;
+    launch_interval_   = 0;
+    mv_velo_           = 0;
     //曲線移動の情報ファイルを読み込む
     pConn_pCurveManuf_ = connectToCurveManufactureManager(prm_ldr_id);
     pDepo_shot_ = getCommonDepository(Shot004);
-    updateRankParameter();
-    for (int order_no = 1; order_no <= num_formation_member_; order_no++) {
-        requestActor(order_no, EnemyUnomia, "EnemyUnomia");
+
+
+    int col_num = RF_FormationUnomia001_Col(G_MAX_RANK);
+    int row_num = RF_FormationUnomia001_Num(G_MAX_RANK);
+    for (int row = 0; row < row_num; row++ ) {
+        for (int col = 0; col < col_num; col++ ) {
+            std::string name = "EnemyUnomia"+XTOS(row)+"_"+XTOS(col);
+            EnemyUnomia* pEnemyUnomia = NEW EnemyUnomia(name.c_str());
+            appendFormationMember(pEnemyUnomia);
+        }
     }
 }
 
 void FormationUnomia::updateRankParameter() {
-    num_formation_col_ = RF_FormationUnomia001_Col(G_RANK);            //編隊列数
-    num_formation_row_ = RF_FormationUnomia001_Num(G_RANK);            //１列の編隊数
-    launch_interval_   = RF_FormationUnomia001_LaunchInterval(G_RANK); //ウーノミアの間隔(frame)
-    mv_velo_           = RF_FormationUnomia001_MvVelo(G_RANK);         //速度
+
     num_formation_member_ = num_formation_col_*num_formation_row_;
 }
 
@@ -55,7 +61,11 @@ void FormationUnomia::initialize() {
 }
 
 void FormationUnomia::onActive() {
-    updateRankParameter();
+    num_formation_col_ = RF_FormationUnomia001_Col(G_RANK);            //編隊列数
+    num_formation_row_ = RF_FormationUnomia001_Num(G_RANK);            //１列の編隊数
+    num_formation_member_ = num_formation_col_ * num_formation_row_;
+    launch_interval_   = RF_FormationUnomia001_LaunchInterval(G_RANK); //ウーノミアの間隔(frame)
+    mv_velo_           = RF_FormationUnomia001_MvVelo(G_RANK);         //速度
 }
 
 void FormationUnomia::onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) {
@@ -69,29 +79,15 @@ void FormationUnomia::processBehavior() {
             pProg->changeNext();
             break;
         }
-        case PROG_READY_MEMBER_REQUEST: {
-            //変体数が変動している可能性の為、改めてrequestActor。
-            //2重の場合は無視される。
-            uint64_t order_no = pProg->getFrame();
-            requestActor(order_no, EnemyUnomia, "EnemyUnomia");
-            pProg->changeNextWhenArrivedAt(num_formation_member_);
-            break;
-        }
-        case PROG_READY_MEMBER_RECEIVE: {
-            uint64_t order_no = pProg->getFrame();
-            appendFormationMember(receiveActor(order_no));
-            pProg->changeNextWhenArrivedAt(num_formation_member_);
-            break;
-        }
         case PROG_CALL_UP: {
-            if (canCallUp()) {
+            if (canCalledUp()) {
                 if (getActiveFrame() % launch_interval_ == 0) {
                     for (int col = 0; col < num_formation_col_; col++) {
-                        EnemyUnomia* pUnomia = (EnemyUnomia*)callUpMember();
+                        EnemyUnomia* pUnomia = (EnemyUnomia*)calledUpMember(num_formation_member_);
                         if (pUnomia) {
                             pUnomia->config(pConn_pCurveManuf_->peek(), nullptr, nullptr);
                             pUnomia->getVecDriver()->setMvVelo(mv_velo_);
-                            onCallUpUnomia(pUnomia, col); //フォーメーション個別実装の処理
+                            onCalledUpUnomia(pUnomia, col); //フォーメーション個別実装の処理
                         }
                     }
                 }

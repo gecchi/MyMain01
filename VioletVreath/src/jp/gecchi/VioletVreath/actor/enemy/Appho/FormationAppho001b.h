@@ -16,7 +16,7 @@ class FormationAppho001b : public FormationAppho001 {
 public:
     FormationAppho001b(const char* prm_name);
 
-    virtual void onCallUpAppho(EnemyAppho* prm_pAppho, int prm_index) override;
+    virtual void onCalledUpAppho(EnemyAppho* prm_pAppho, int prm_index) override;
 
     virtual ~FormationAppho001b();
 };

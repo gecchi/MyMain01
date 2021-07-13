@@ -39,7 +39,7 @@ public:
 
     virtual void onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) override;
 
-    virtual void onCallUpAllas(EnemyAllas* prm_pAllas) = 0;
+    virtual void onCalledUpAllas(EnemyAllas* prm_pAllas) = 0;
 
     virtual ~FormationAllas001();
 };

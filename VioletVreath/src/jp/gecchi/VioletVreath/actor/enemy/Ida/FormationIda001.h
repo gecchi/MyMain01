@@ -16,7 +16,7 @@ class FormationIda001 : public FormationIda {
 public:
     FormationIda001(const char* prm_name);
 
-    void onCallUpIda(EnemyIda* pEnemyIda) override;
+    void onCalledUpIda(EnemyIda* pEnemyIda) override;
 
     virtual void processBehavior() override;
 

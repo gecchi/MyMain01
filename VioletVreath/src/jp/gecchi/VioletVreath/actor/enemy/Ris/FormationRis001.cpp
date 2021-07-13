@@ -21,8 +21,8 @@ FormationRis001::FormationRis001(const char* prm_name) : TreeFormation(prm_name)
     pCurveSrcConnection_ = connectToCurveSourceManager("Spl_00201_"); //曲線移動の情報
     pConn_depo_ = connectToDepositoryManager("Shot001");
     pManufacture_ = NEW FixedVelocityCurveManufacture(pCurveSrcConnection_->peek(), 10000);
-    _max_num_Ris = RF_FormationRis001_Num(G_MAX_RANK);    //最大編隊数準備
-    for (int i = 0; i < _max_num_Ris; i++) {
+    int max_num_Ris = RF_FormationRis001_Num(G_MAX_RANK);    //最大編隊数準備
+    for (int i = 0; i < max_num_Ris; i++) {
         EnemyRis* pRis = NEW EnemyRis("Ris01");
         //カーブ移動プログラム設定
         DriverLeader* pProgram = NEW FixedVelocityCurveVecDriverLeader(pManufacture_, pRis->getVecDriver()); //移動速度固定
@@ -41,13 +41,11 @@ void FormationRis001::onActive() {
 }
 
 void FormationRis001::processBehavior() {
-    if (canCallUp() && (getActiveFrame()-1) % interval_frames_ == 0) {
-        if ((_max_num_Ris - num_Ris_) - _num_formation_member >= 0) {
-            EnemyRis* pRis = (EnemyRis*)callUpMember();
-            if (pRis) {
-                pRis->setPosition(MyShip::lim_x_behaind_ - 500000, 0, MyShip::lim_z_left_ * 0.8);
-                pRis->getVecDriver()->setMvVelo(velo_mv_);
-            }
+    if (canCalledUp() && (getActiveFrame()-1) % interval_frames_ == 0) {
+        EnemyRis* pRis = (EnemyRis*)calledUpMember(num_Ris_);
+        if (pRis) {
+            pRis->setPosition(MyShip::lim_x_behaind_ - 500000, 0, MyShip::lim_z_left_ * 0.8);
+            pRis->getVecDriver()->setMvVelo(velo_mv_);
         }
     }
 }

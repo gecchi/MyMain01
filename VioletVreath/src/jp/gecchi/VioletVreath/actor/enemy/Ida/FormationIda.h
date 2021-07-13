@@ -23,7 +23,7 @@ public:
 
     virtual void onActive() override;
 
-    virtual void onCallUpIda(EnemyIda* pEnemyIda) = 0;
+    virtual void onCalledUpIda(EnemyIda* pEnemyIda) = 0;
 
     /**
      * •Ò‘à‚ª‘S‚Ä©‹@‘¤‚ÌUŒ‚‚ÅŸr–Å‚³‚¹‚ç‚ê‚½ê‡‚Ìˆ—À‘• .

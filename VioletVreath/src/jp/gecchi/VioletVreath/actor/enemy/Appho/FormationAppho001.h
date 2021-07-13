@@ -19,7 +19,7 @@ public:
     /** •Ò‘àŠÔŠuƒtƒŒ[ƒ€(RANK•Ï“®) */
     frame interval_frames_;
 
-    int cnt_call_up_;
+    int cnt_called_up_;
 
 public:
     FormationAppho001(const char* prm_name);
@@ -31,7 +31,7 @@ public:
 
     virtual void onActive() override;
 
-    virtual void onCallUpAppho(EnemyAppho* prm_pAppho, int prm_index) = 0;
+    virtual void onCalledUpAppho(EnemyAppho* prm_pAppho, int prm_index) = 0;
 
     virtual void processBehavior() override;
 

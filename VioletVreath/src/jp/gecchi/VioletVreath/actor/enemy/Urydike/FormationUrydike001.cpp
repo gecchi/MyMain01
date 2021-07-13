@@ -31,7 +31,7 @@ void FormationUrydike001::processBehavior() {
     FormationUrydike::processBehavior();
 }
 
-void FormationUrydike001::onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) {
+void FormationUrydike001::onCalledUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) {
     EnemyUrydike* pUrydike = (EnemyUrydike*)prm_pActor;
     if (pUrydike->pDriverLeader_) {
         throwCriticalException("pUrydike->pDriverLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpUrydike="<<pUrydike<<"("<<pUrydike->getName()<<")");

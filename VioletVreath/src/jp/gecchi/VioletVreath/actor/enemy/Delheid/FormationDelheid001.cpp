@@ -16,7 +16,7 @@ FormationDelheid001::FormationDelheid001(const char* prm_name) :
     pConn_pCurveManuf_ = connectToCurveManufactureManager("FormationDelheid001");
 }
 
-void FormationDelheid001::onCallUpDelheid(EnemyDelheid* pEnemyDelheid) {
+void FormationDelheid001::onCalledUpDelheid(EnemyDelheid* pEnemyDelheid) {
 }
 
 GgafDx::CurveManufacture* FormationDelheid001::getSplManuf() {

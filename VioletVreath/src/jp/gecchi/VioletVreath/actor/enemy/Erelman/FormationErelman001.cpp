@@ -24,9 +24,9 @@ FormationErelman001::FormationErelman001(const char* prm_name, EnemyErelmanContr
     _class_name = "FormationErelman001";
     formation_col_num_ = 4;
     formation_row_num_ = 130;
-    call_up_cnt_ = 0;
-    call_up_row_idx_ = 0;
-    pa_frame_of_call_up_ = NEW frame[formation_row_num_];
+    called_up_cnt_ = 0;
+    called_up_row_idx_ = 0;
+    pa_frame_of_called_up_ = NEW frame[formation_row_num_];
 
 
     num_Erelman_ = formation_col_num_  * formation_row_num_;
@@ -42,12 +42,12 @@ FormationErelman001::FormationErelman001(const char* prm_name, EnemyErelmanContr
 
     FixedFrameCurveManufacture* Manuf =  ((FixedFrameCurveManufacture*)(papCurveManufConn_[0])->peek());
     spent_frames_ = Manuf->getSpentFrames();
-//    double call_up_interval_ = spent_frames / formation_row_num_;  //出現間隔
+//    double called_up_interval_ = spent_frames / formation_row_num_;  //出現間隔
 
     for (int row = 0; row < formation_row_num_; row++) {
         //出現フレーム(最後の +1は getFrame() が 1フレームから始まる為
-//        pa_frame_of_call_up_[row] = ((spent_frames / formation_row_num_) + (spent_frames / formation_row_num_)*row    ) + 1;
-        pa_frame_of_call_up_[row] = (frame)( ( (1.0*spent_frames_*(1+row))  /  formation_row_num_)  ) + 1;
+//        pa_frame_of_called_up_[row] = ((spent_frames / formation_row_num_) + (spent_frames / formation_row_num_)*row    ) + 1;
+        pa_frame_of_called_up_[row] = (frame)( ( (1.0*spent_frames_*(1+row))  /  formation_row_num_)  ) + 1;
     }
 }
 void FormationErelman001::onActive() {
@@ -65,15 +65,15 @@ void FormationErelman001::processBehavior() {
         case PROG_CALL_UP: {
             if (pProg->hasJustChanged()) {
             }
-            if (call_up_row_idx_ < formation_row_num_) {
-                if (pProg->getFrame() == pa_frame_of_call_up_[call_up_row_idx_]) {
+            if (called_up_row_idx_ < formation_row_num_) {
+                if (pProg->getFrame() == pa_frame_of_called_up_[called_up_row_idx_]) {
                     for (int col = 0; col < formation_col_num_; col++) {
-                        EnemyErelman* pErelman = (EnemyErelman*)callUpMember();
+                        EnemyErelman* pErelman = (EnemyErelman*)calledUpMember();
                         if (pErelman) {
-                            onCallUp(pErelman, call_up_row_idx_, col);
+                            onCalledUp(pErelman, called_up_row_idx_, col);
                         }
                     }
-                    call_up_row_idx_++;
+                    called_up_row_idx_++;
                 }
             } else {
                 pProg->changeNext();
@@ -90,7 +90,7 @@ void FormationErelman001::processBehavior() {
     }
 }
 
-void FormationErelman001::onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) {
+void FormationErelman001::onCalledUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) {
     EnemyErelman* pErelman = (EnemyErelman*)prm_pActor;
     if (pErelman->pDriverLeader_) {
         throwCriticalException("pErelman->pDriverLeader_が設定されてます。pErelman="<<pErelman<<"("<<pErelman->getName()<<")");
@@ -131,6 +131,6 @@ FormationErelman001::~FormationErelman001() {
         papCurveManufConn_[col]->close();
     }
     GGAF_DELETEARR(papCurveManufConn_);
-    GGAF_DELETEARR(pa_frame_of_call_up_);
+    GGAF_DELETEARR(pa_frame_of_called_up_);
 }
 

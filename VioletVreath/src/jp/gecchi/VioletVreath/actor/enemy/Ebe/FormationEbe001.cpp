@@ -14,7 +14,7 @@ FormationEbe001::FormationEbe001(const char* prm_name) :
     //‹ÈüˆÚ“®‚Ìî•ñƒtƒ@ƒCƒ‹‚ð“Ç‚Ýž‚Þ
     pConn_pCurveManuf_ = connectToCurveManufactureManager("FormationEbe001");
 }
-void FormationEbe001::onCallUpEbe(EnemyEbe* pEnemyEbe) {
+void FormationEbe001::onCalledUpEbe(EnemyEbe* pEnemyEbe) {
 //    pEnemyEbe->pDriverLeader_->adjustAxisRate(
 //                                        MyShip::lim_x_infront_, //X•ûŒü”{—¦
 //                                       -1.0 * MyShip::lim_y_top_,   //Y•ûŒü”{—¦

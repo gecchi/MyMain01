@@ -27,8 +27,8 @@ FormationThagoras::FormationThagoras(const char* prm_name,
         appendFormationMember(NEW EnemyThagoras(name.c_str()));
     }
 
-    cnt_call_up_row_ = 0;
-    call_up_interval_ = 20;
+    cnt_called_up_row_ = 0;
+    called_up_interval_ = 20;
 
     pActor4Sc_ = NEW DefaultGeometricActor("Actor4Sc");
     pScaler4Sc_ = NEW GgafDx::Scaler(pActor4Sc_);
@@ -43,18 +43,18 @@ void FormationThagoras::onActive() {
 }
 
 void FormationThagoras::processBehavior() {
-    if (canCallUp() && getActiveFrame() % call_up_interval_ == 0) {
+    if (canCalledUp() && getActiveFrame() % called_up_interval_ == 0) {
         GgafCore::Xpm* pXpm = getXpm();
         for (int col = 0; col < pXpm->getWidth(); col++) {
-            if (!pXpm->isNonColor(cnt_call_up_row_, col)) {
-                EnemyThagoras* pThagoras = (EnemyThagoras*)callUpMember();
+            if (!pXpm->isNonColor(cnt_called_up_row_, col)) {
+                EnemyThagoras* pThagoras = (EnemyThagoras*)calledUpMember();
                 if (pThagoras) {
-                    onCallUp(pThagoras, cnt_call_up_row_, col);
+                    onCalledUp(pThagoras, cnt_called_up_row_, col);
                 }
-                pThagoras->setMaterialColor(pXpm->getColor(cnt_call_up_row_, col));
+                pThagoras->setMaterialColor(pXpm->getColor(cnt_called_up_row_, col));
             }
         }
-        cnt_call_up_row_++;
+        cnt_called_up_row_++;
     }
     pScaler4Sc_->behave();
 }

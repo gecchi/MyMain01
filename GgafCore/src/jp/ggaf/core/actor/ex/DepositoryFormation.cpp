@@ -11,7 +11,7 @@ DepositoryFormation::DepositoryFormation(const char* prm_name, frame prm_offset_
 {
     _class_name = "DepositoryFormation";
     _pDepo = nullptr;
-    _can_call_up = true;
+    _can_called_up = true;
 }
 void DepositoryFormation::setFormationMember(ActorDepository* prm_pDepo) {
 #ifdef MY_DEBUG
@@ -39,6 +39,7 @@ void DepositoryFormation::setFormationMember(ActorDepository* prm_pDepo) {
     }
 #endif
     _pDepo = prm_pDepo;
+    _num_formation_member = _pDepo->getNumChild();
     //団長に種別を正しく伝えるためにデポジトリ種別引継ぎ
     getStatus()->set(STAT_DEFAULT_ACTOR_KIND, _pDepo->getDefaultKind());
     //TODO:↑必要だっただろうか、Treeじゃないので不要ではないか？？2015/02/20
@@ -67,23 +68,14 @@ void DepositoryFormation::processFinal() {
     }
 
     if (_listFollower.length() == 0) {
-        if (_can_call_up == false && _was_all_sayonara == false) {
+        if (_can_called_up == false && _was_all_sayonara == false) {
             //編隊メンバーが0かつ、
-            //もうこれ以上 callUp 不可で、onSayonaraAll()コールバック未実行の場合
+            //もうこれ以上 calledUp 不可で、onSayonaraAll()コールバック未実行の場合
             onSayonaraAll(); //コールバック
             sayonara(_offset_frames_end); //編隊自体がさよなら。
             _was_all_sayonara = true;
         }
     }
-
-
-
-
-
-
-
-
-
 
 //    if (_listFollower.length() > 0) {
 //        //編隊メンバー状況チェック
@@ -112,9 +104,9 @@ void DepositoryFormation::processFinal() {
 //    }
 
 //    if (_listFollower.length() == 0) {
-//        if (_can_call_up == false && _was_all_sayonara == false) {
+//        if (_can_called_up == false && _was_all_sayonara == false) {
 //            //編隊メンバーが0かつ、
-//            //もうこれ以上 callUp 不可で、onSayonaraAll()コールバック未実行の場合
+//            //もうこれ以上 calledUp 不可で、onSayonaraAll()コールバック未実行の場合
 //            onSayonaraAll(); //コールバック
 //            sayonara(_offset_frames_end); //編隊自体がさよなら。
 //            _was_all_sayonara = true;
@@ -122,8 +114,8 @@ void DepositoryFormation::processFinal() {
 //    }
 }
 
-Actor* DepositoryFormation::callUpMember(int prm_formation_child_num) {
-    if (_can_call_up == false || wasDeclaredEnd() || willInactivateAfter()) {
+Actor* DepositoryFormation::calledUpMember(int prm_formation_child_num) {
+    if (wasDeclaredEnd() || willInactivateAfter()) {
         //終了を待つのみ
         return nullptr;
     }
@@ -133,27 +125,31 @@ Actor* DepositoryFormation::callUpMember(int prm_formation_child_num) {
                                    "this="<<getName()<<" _num_formation_member="<<_num_formation_member);
     }
 #endif
-
-    if (prm_formation_child_num <= _num_formation_member) {
-        _can_call_up = false;
-        return nullptr; //もうこれ以上callUpUntil不可
-    } else {
+    if (_can_called_up) {
         MainActor* pActor = _pDepo->dispatch();
         if (pActor) {
-            _num_formation_member++;
-            _can_call_up = true;
+            _can_called_up = true;
+            _num_called_up++;
             pActor->_pFormation = this;
             _listFollower.addLast(pActor, false);
+            if (prm_formation_child_num <= _num_called_up) {
+                _can_called_up = false; //次回から calledUpMember() 不可
+                _num_formation_member = _num_called_up; //destroyedFollower 編隊全滅判定の為再設定
+            }
             return (Actor*)pActor;
         } else {
-            _can_call_up = false;
-            return nullptr; //もうこれ以上callUpUntil不可
+            _can_called_up = false; //次回から calledUpMember() 不可
+            _num_formation_member = _num_called_up; //destroyedFollower 編隊全滅判定の為再設定
+            return nullptr; //もうこれ以上calledUpUntil不可
         }
+
+    } else {
+        return nullptr;
     }
 }
 
-bool DepositoryFormation::canCallUp() const {
-    return _can_call_up;
+bool DepositoryFormation::canCalledUp() const {
+    return _can_called_up;
 }
 
 void DepositoryFormation::onEnd() {

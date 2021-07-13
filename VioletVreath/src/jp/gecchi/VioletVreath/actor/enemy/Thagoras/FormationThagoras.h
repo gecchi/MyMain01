@@ -16,8 +16,8 @@ namespace VioletVreath {
 class FormationThagoras : public GgafLib::TreeFormation {
 
 public:
-    int cnt_call_up_row_;
-    frame call_up_interval_;
+    int cnt_called_up_row_;
+    frame called_up_interval_;
 
     /** [r]出現座標(シーンが設定) */
     GgafDx::GeoElem entry_pos_;
@@ -41,7 +41,7 @@ public:
 
     virtual void onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) override;
 
-    virtual void onCallUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) = 0;
+    virtual void onCalledUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) = 0;
 
     /**
      * 出現座標を設定。

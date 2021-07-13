@@ -44,13 +44,11 @@ public:
      */
     FormationDelheid(const char* prm_name) ;
 
-    void updateRankParameter();
-
     virtual void initialize() override;
 
     virtual void onActive() override;
 
-    virtual void onCallUpDelheid(EnemyDelheid* pEnemyDelheid) = 0;
+    virtual void onCalledUpDelheid(EnemyDelheid* pEnemyDelheid) = 0;
 
     /**
      * •Ò‘à‚ª‘S‚Ä©‹@‘¤‚ÌUŒ‚‚ÅŸr–Å‚³‚¹‚ç‚ê‚½ê‡‚Ìˆ—À‘• .
