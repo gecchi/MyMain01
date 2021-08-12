@@ -3,6 +3,8 @@
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 
+#include <map>
+
 namespace GgafDx {
 
 /**
@@ -34,8 +36,6 @@ public:
             uint32_t z;
             uint32_t y;
         };
-
-
         uint64_t num_yzx;
         SR_VECTOR vec;
     public:
@@ -51,9 +51,16 @@ public:
             vec.x = prm_x;
             vec.y = prm_y;
             vec.z = prm_z;
-            num_yzx = (prm_y * 1000000LL * 1000000LL ) +
-                                  (prm_z * 1000000LL ) +
-                                              (prm_x );
+
+            /*     21bit                   21bit                 21bit
+             *  0 000000000000000000000 000000000000000000000 000000000000000000000
+             *        y                      z                       x
+             */
+
+            uint64_t x = prm_x;
+            uint64_t y = prm_y;
+            uint64_t z = prm_z;
+            num_yzx = y<<42 | z<<21 | x;
 
             //_TRACE_(prm_x<<","<<prm_y<<","<<prm_z<<"  num_yzx="<<(num_yzx));
             //1048575LL = &b11111111111111111111 (20bit)
@@ -62,6 +69,13 @@ public:
 
     /** 作成目的の 1/8球分のソート可能方向ベクトル配列(要素数は901*901) */
     COMPARE_ABLE_SR_VECTOR _sr[(D90SANG + 1) * (D90SANG + 1)];
+    //std::map<uint64_t, uint32_t> _sortmap;
+
+    struct RzRy {
+        s_ang rz;
+        s_ang ry;
+    };
+    std::map<uint32_t, std::map<uint32_t, RzRy> > _vy_vz_rzry;
 
 public:
     SphereRadiusVectors();
@@ -74,14 +88,17 @@ public:
      * @param prm_z 単位方向ベクトルZ要素（長さ1 が 1000000) > 0
      * @param out_faceZ Z軸回転値（ 回転値0は、方向ベクトル(1,0,0)。方向ベクトル(0,0,1)を向いて反時計回り。）（単位s_ang）
      * @param out_faceY_rev 時計周りY軸回転値（回転値0は、同じく方向ベクトル(1,0,0)。方向ベクトル(0,1,0)を向いて時計回り）（単位s_ang）
-     * @param s 計算回数（精度）。回数が多いほど正確になる。
      */
     void getFaceAngClosely(uint32_t prm_x,
                            uint32_t prm_y,
                            uint32_t prm_z,
                            s_ang& out_faceZ,
-                           s_ang& out_faceY_rev,
-                           int s = 25);
+                           s_ang& out_faceY_rev);
+    void getFaceAngClosely_debug(uint32_t prm_x,
+                           uint32_t prm_y,
+                           uint32_t prm_z,
+                           s_ang& out_faceZ,
+                           s_ang& out_faceY_rev);
 
     /**
      * 引数のZ軸回転とY軸回転の値から、相当する単位方向ベクトルの近似を求める .

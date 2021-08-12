@@ -95,39 +95,46 @@ Actor* TreeFormation::calledUpMember(int prm_formation_child_num) {
         //終了を待つのみ
         return nullptr;
     }
+    if (prm_formation_child_num > 0) {
 
-    if (_can_called_up) {
-        if (_pIte) {
-            //初回以降は next
-            _pIte = _pIte->getNext();
-        } else {
-            //初回は子先頭
-            _pIte = getChildFirst();
-            if (!_pIte) {
-                //メンバーが追加されてない
-                _TRACE_("＜警告＞ TreeFormation::calledUpMember() メンバーが追加されてません。おかしいのでは？。this="<<NODE_INFO);
-                _can_called_up = false; //次回から calledUpMember() 不可
-                _num_formation_member = 0;
-                return nullptr;
+
+        if (_can_called_up) {
+            if (_pIte) {
+                //初回以降は next
+                _pIte = _pIte->getNext();
+            } else {
+                //初回は子先頭
+                _pIte = getChildFirst();
+                if (!_pIte) {
+                    //メンバーが追加されてない
+                    _TRACE_("＜警告＞ TreeFormation::calledUpMember() メンバーが追加されてません。おかしいのでは？。this="<<NODE_INFO);
+                    _can_called_up = false; //次回から calledUpMember() 不可
+                    _num_formation_member = 0;
+                    return nullptr;
+                }
             }
-        }
 
-        _num_called_up++;
-        _pIte->activate();
+            _num_called_up++;
+            _pIte->activate();
 
-        if (_pIte->getNext() == getChildFirst()) {
-            //最後の１つ
-            _can_called_up = false; //次回から calledUpMember() 不可
-            _num_formation_member = _num_called_up; //destroyedFollower 編隊全滅判定の為再設定
-        }
-        if (prm_formation_child_num <= _num_called_up) {
-            //上限数に達した
-            _can_called_up = false; //次回から calledUpMember() 不可
-            _num_formation_member = _num_called_up; //destroyedFollower 編隊全滅判定の為再設定
-        }
+            if (_pIte->getNext() == getChildFirst()) {
+                //最後の１つ
+                _can_called_up = false; //次回から calledUpMember() 不可
+                _num_formation_member = _num_called_up; //destroyedFollower 編隊全滅判定の為再設定
+            }
+            if (prm_formation_child_num <= _num_called_up) {
+                //上限数に達した
+                _can_called_up = false; //次回から calledUpMember() 不可
+                _num_formation_member = _num_called_up; //destroyedFollower 編隊全滅判定の為再設定
+            }
 
-        return _pIte;
+            return _pIte;
+        } else {
+            return nullptr;
+        }
     } else {
+        _can_called_up = false; //次回から calledUpMember() 不可
+        _num_formation_member = _num_called_up; //destroyedFollower 編隊全滅判定の為再設定
         return nullptr;
     }
 }

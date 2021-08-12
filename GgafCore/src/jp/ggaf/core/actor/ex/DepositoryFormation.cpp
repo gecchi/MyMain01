@@ -125,26 +125,32 @@ Actor* DepositoryFormation::calledUpMember(int prm_formation_child_num) {
                                    "this="<<getName()<<" _num_formation_member="<<_num_formation_member);
     }
 #endif
-    if (_can_called_up) {
-        MainActor* pActor = _pDepo->dispatch();
-        if (pActor) {
-            _can_called_up = true;
-            _num_called_up++;
-            pActor->_pFormation = this;
-            _listFollower.addLast(pActor, false);
-            if (prm_formation_child_num <= _num_called_up) {
+    if (prm_formation_child_num	> 0) {
+        if (_can_called_up) {
+            MainActor* pActor = _pDepo->dispatch();
+            if (pActor) {
+                _can_called_up = true;
+                _num_called_up++;
+                pActor->_pFormation = this;
+                _listFollower.addLast(pActor, false);
+                if (prm_formation_child_num <= _num_called_up) {
+                    _can_called_up = false; //次回から calledUpMember() 不可
+                    _num_formation_member = _num_called_up; //destroyedFollower 編隊全滅判定の為再設定
+                }
+                return (Actor*)pActor;
+            } else {
                 _can_called_up = false; //次回から calledUpMember() 不可
                 _num_formation_member = _num_called_up; //destroyedFollower 編隊全滅判定の為再設定
+                return nullptr; //もうこれ以上calledUpUntil不可
             }
-            return (Actor*)pActor;
-        } else {
-            _can_called_up = false; //次回から calledUpMember() 不可
-            _num_formation_member = _num_called_up; //destroyedFollower 編隊全滅判定の為再設定
-            return nullptr; //もうこれ以上calledUpUntil不可
-        }
 
+        } else {
+            return nullptr;
+        }
     } else {
-        return nullptr;
+        _can_called_up = false; //次回から calledUpMember() 不可
+        _num_formation_member = _num_called_up; //destroyedFollower 編隊全滅判定の為再設定
+        return nullptr; //もうこれ以上calledUpUntil不可
     }
 }
 

@@ -214,8 +214,7 @@ void Util::init() {
                     (uint32_t)(nvy*1000000),
                     (uint32_t)(nvz*1000000),
                     rz,
-                    ry_rev,
-                    9999
+                    ry_rev
             );
             Util::PROJANG_XY_XZ_TO_ROTANG_z[prj_ang_xy][prj_ang_xz] = rz*SANG_RATE;
             Util::PROJANG_XY_XZ_TO_ROTANG_y_REV[prj_ang_xy][prj_ang_xz] = ry_rev*SANG_RATE;
@@ -245,8 +244,7 @@ void Util::init() {
                     (uint32_t)(nvy*1000000),
                     (uint32_t)(nvz*1000000),
                     rz,
-                    ry_rev,
-                    9999
+                    ry_rev
             );
 
             //(0,0,1.0)‚ğ0‹‚Æ‚µX²‚Ì³‚Ì•û‚ğŒü‚¢‚ÄŒv‰ñ‚è‚ğ³‚ÌŠp(rx_rev)‚ğl‚¦‚é
