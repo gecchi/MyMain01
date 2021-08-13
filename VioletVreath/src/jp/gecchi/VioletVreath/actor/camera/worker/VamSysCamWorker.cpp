@@ -630,7 +630,8 @@ VamSysCamWorker::VamSysCamWorker(const char* prm_name, Camera* prm_pCamera) : Ca
     returning_cam_pos_ = false;
     returning_cam_pos_frames_ = 0;
 
-    pos_vam_up_ = DIR26(0,1,0);
+    pos_vam_up_ = VAM_POS_UP;
+    pos_vam_up_prev_ = VAM_POS_NON;
     pSe_ = NEW GgafDx::SeTransmitter();
     pSe_->set(SE_RETURNNING_CAM_POS, "WAVE_MY_RETURNNING_CAM_POS" ,0);
 
@@ -675,6 +676,7 @@ void VamSysCamWorker::processBehavior() {
     const bool isPressed_VB_RIGHT = pVbPlay->isPressed(VB_RIGHT);
 
     const bool isPressed_VB_VIEW = pVbPlay->isPressed(VB_VIEW);
+    const bool isDoublePushedDown_VB_VIEW = pVbPlay->isDoublePushedDown(VB_VIEW);
     const bool isPressed_VB_VIEW_UP    = pVbPlay->isPressed(VB_VIEW_UP)    ||  (isPressed_VB_VIEW && isPressed_VB_UP   );
     const bool isPressed_VB_VIEW_DOWN  = pVbPlay->isPressed(VB_VIEW_DOWN)  ||  (isPressed_VB_VIEW && isPressed_VB_DOWN );
     const bool isPressed_VB_VIEW_LEFT  = pVbPlay->isPressed(VB_VIEW_LEFT)  ||  (isPressed_VB_VIEW && isPressed_VB_LEFT );
@@ -688,7 +690,7 @@ void VamSysCamWorker::processBehavior() {
         }
     }
 
-    if (pVbPlay->isDoublePushedDown(VB_VIEW)) {
+    if (isDoublePushedDown_VB_VIEW) {
         //ÉvÉäÉZÉbÉgà íuÇ…à⁄ìÆ
         pSe_->play(SE_RETURNNING_CAM_POS);
         mv_t_x_vUP_  = 0;
@@ -873,14 +875,14 @@ void VamSysCamWorker::processBehavior() {
     ) {
         if (returning_cam_pos_) {
             slideMvCamTo(mv_t_x_CAM, mv_t_y_CAM, mv_t_z_CAM,
-                    returning_cam_pos_frames_, 0.3, 0.8);
+                         returning_cam_pos_frames_, 0.3, 0.8);
             slideMvVpTo(mv_t_x_VP, mv_t_y_VP, mv_t_z_VP,
-                    returning_cam_pos_frames_*0.8, 0.3, 0.8);
+                        returning_cam_pos_frames_*0.8, 0.3, 0.8);
             slideMvUpVecTo(mv_t_x_vUP_, mv_t_y_vUP_, mv_t_z_vUP_,
-                    returning_cam_pos_frames_, 0.3, 0.8);
+                           returning_cam_pos_frames_, 0.3, 0.8);
         } else {
             slideMvCamTo(mv_t_x_CAM, mv_t_y_CAM, mv_t_z_CAM,
-                        60, 0.2, 0.5);
+                         60, 0.2, 0.5);
             slideMvVpTo(mv_t_x_VP, mv_t_y_VP, mv_t_z_VP,
                         60*0.8, 0.2, 0.5);
             slideMvUpVecTo(mv_t_x_vUP_, mv_t_y_vUP_, mv_t_z_vUP_,
@@ -893,17 +895,17 @@ void VamSysCamWorker::processBehavior() {
         mv_t_z_vCAM_ = -C_PX(1); //0èúéZñhé~
     }
     VamSysCamWorker::cnvVec2VamSgn(mv_t_x_vCAM_, mv_t_y_vCAM_, mv_t_z_vCAM_,
-                                    cam_sgn_x_, cam_sgn_y_, cam_sgn_z_);
+                                   cam_sgn_x_, cam_sgn_y_, cam_sgn_z_);
     pos_vam_camera_ = DIR26(cam_sgn_x_, cam_sgn_y_, cam_sgn_z_); //18ï˚å¸Ç÷
-    if (pos_vam_camera_prev_ != pos_vam_camera_) {
+    if ((pos_vam_camera_prev_ != pos_vam_camera_) || isDoublePushedDown_VB_VIEW) {
         is_just_changed_pos_vam_cam_ = true;
         //UPÇ‡çXêVÇ∑ÇÈ
         if (mv_t_x_vUP_ == 0 && mv_t_y_vUP_ == 0 && mv_t_z_vUP_ == 0) {
             mv_t_y_vUP_ = C_PX(1); //0èúéZñhé~
         }
         VamSysCamWorker::cnvVec2VamUpSgn(pos_vam_camera_,
-                                          mv_t_x_vUP_, mv_t_y_vUP_, mv_t_z_vUP_,
-                                          up_sgn_x_, up_sgn_y_, up_sgn_z_);
+                                         mv_t_x_vUP_, mv_t_y_vUP_, mv_t_z_vUP_,
+                                         up_sgn_x_, up_sgn_y_, up_sgn_z_);
         pos_vam_up_ = DIR26(up_sgn_x_, up_sgn_y_, up_sgn_z_);
     } else {
         is_just_changed_pos_vam_cam_ = false;
@@ -921,8 +923,8 @@ VamSysCamWorker::~VamSysCamWorker() {
 
 
 void VamSysCamWorker::cnvVec2VamUpSgn(const dir26 prm_vam_cam_pos,
-                                       const coord prm_vx, const coord prm_vy, const coord prm_vz,
-                                       int& out_sgn_x, int& out_sgn_y, int& out_sgn_z) {
+                                      const coord prm_vx, const coord prm_vy, const coord prm_vz,
+                                      int& out_sgn_x, int& out_sgn_y, int& out_sgn_z) {
     if (prm_vam_cam_pos == VAM_POS_ZRIGHT || prm_vam_cam_pos == VAM_POS_ZLEFT) {
         //ZóvëfÇ0Ç…ÇµÇƒÇÃXYïΩñ è„ÇÃ8ï˚å¸ÇÃíºãﬂ
         Direction8Util::cnvVec2Sgn(prm_vx, prm_vy,

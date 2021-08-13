@@ -15,7 +15,7 @@
 #define VAM_POS_ZRIGHT_DOWN         DIR26( 0,-1,-1) // -4
 #define VAM_POS_DOWN                DIR26( 0,-1, 0) // -3
 #define VAM_POS_ZLEFT_DOWN          DIR26( 0,-1,+1) // -2
-#define VAM_POS_ZRIGHT              DIR26( 0, 0,-1) // -1
+#define VAM_POS_ZRIGHT              DIR26( 0, 0,-1) // -1  初期カメラ位置
 #define VAM_POS_NON                 DIR26( 0, 0, 0) //  0
 #define VAM_POS_ZLEFT               DIR26( 0, 0,+1) //  1
 #define VAM_POS_ZRIGHT_UP           DIR26( 0,+1,-1) //  2
@@ -95,6 +95,7 @@ public:
     dir26 pos_vam_camera_;
     dir26 pos_vam_camera_prev_;
     dir26 pos_vam_up_;
+    dir26 pos_vam_up_prev_;
     /** [r]カメラの方向位置が切り替わった（pos_vam_camera_の値が変化した）ならばtrue */
     bool is_just_changed_pos_vam_cam_;
     /** [r]カメラがホームポジションに自動戻り中の場合 true */
