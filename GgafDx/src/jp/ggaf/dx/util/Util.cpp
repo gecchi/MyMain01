@@ -210,9 +210,9 @@ void Util::init() {
             //convVectorToRzRy((float)nvx,(float)nvy,(float)nvz,rz,ry,30);
             //単位ベクトルからRxRyを求める
             Util::_srv.getFaceAngClosely(
-                    (uint32_t)(nvx*1000000),
-                    (uint32_t)(nvy*1000000),
-                    (uint32_t)(nvz*1000000),
+                    (uint32_t)(nvx*10000000),
+                    (uint32_t)(nvy*10000000),
+                    (uint32_t)(nvz*10000000),
                     rz,
                     ry_rev
             );
@@ -240,9 +240,9 @@ void Util::init() {
             //convVectorToRzRy((float)nvx,(float)nvy,(float)nvz,rz,ry,30);
             //単位ベクトルからRxRyを求める
             Util::_srv.getFaceAngClosely(
-                    (uint32_t)(nvx*1000000),
-                    (uint32_t)(nvy*1000000),
-                    (uint32_t)(nvz*1000000),
+                    (uint32_t)(nvx*10000000),
+                    (uint32_t)(nvy*10000000),
+                    (uint32_t)(nvz*10000000),
                     rz,
                     ry_rev
             );
@@ -720,10 +720,10 @@ void Util::convRzRyToVector(angle prm_rz,
         throwCriticalException("getNormalizedVectorZY: なんかおかしいですぜ(5) prm_rz="<<prm_rz<<" prm_ry="<<prm_ry);
     }
     uint32_t vx, vy, vz;
-    Util::_srv.getVectorClosely(ry_rev, rz, vx, vy, vz);
-    out_nvx = xsign * (int)vx * (1.0 / 1000000.0);
-    out_nvy = ysign * (int)vy * (1.0 / 1000000.0);
-    out_nvz = zsign * (int)vz * (1.0 / 1000000.0);
+    Util::_srv.getVectorClosely(rz, ry_rev, vx, vy, vz);
+    out_nvx = xsign * (int)vx * (1.0 / 10000000.0);
+    out_nvy = ysign * (int)vy * (1.0 / 10000000.0);
+    out_nvz = zsign * (int)vz * (1.0 / 10000000.0);
 }
 
 void Util::getPlaneNomalVec(float p1x, float p1y, float p1z,
