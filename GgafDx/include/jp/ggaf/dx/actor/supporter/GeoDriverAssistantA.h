@@ -2,7 +2,7 @@
 #define GGAF_DX_GEODRIVERASSISTANT_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
-#include "jp/ggaf/core/util/AccelerationValue.hpp"
+#include "jp/ggaf/core/util/TrapezoidalValue.hpp"
 #include "jp/ggaf/dx/actor/GeometricActor.h"
 
 namespace GgafDx {
@@ -21,11 +21,11 @@ private:
     /** [r]t  */
     GeoDriver* _pMaster;
     /** X²•ûŒü‰Á‘¬‘•’u */
-    GgafCore::AccelerationValue<coord> _smthVxMv;
+    GgafCore::TrapezoidalValue<coord> _smthVxMv;
     /** Y²•ûŒü‰Á‘¬‘•’u */
-    GgafCore::AccelerationValue<coord> _smthVyMv;
+    GgafCore::TrapezoidalValue<coord> _smthVyMv;
     /** Z²•ûŒü‰Á‘¬‘•’u */
-    GgafCore::AccelerationValue<coord> _smthVzMv;
+    GgafCore::TrapezoidalValue<coord> _smthVzMv;
 
     virtual void behave();
 

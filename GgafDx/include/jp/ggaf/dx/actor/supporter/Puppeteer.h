@@ -3,7 +3,7 @@
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
-#include "jp/ggaf/core/util/AccelerationValue.hpp"
+#include "jp/ggaf/core/util/TrapezoidalValue.hpp"
 #include <vector>
 #include <d3dx9.h>
 #include <d3dx9anim.h>
@@ -49,12 +49,12 @@ private:
         UINT _animation_set_index;
         double _period;
         /** ローカルタイム */
-        GgafCore::AccelerationValue<double> _local_time;
+        GgafCore::TrapezoidalValue<double> _local_time;
         /** 目標ループ回数(1.5回などの指定も可能) */
         double _target_loop;
 
         double _loop_count;
-        GgafCore::AccelerationValue<double> _weight;
+        GgafCore::TrapezoidalValue<double> _weight;
         /** ループ方法 */
         PuppeteerMethod _method;
     public:
@@ -130,6 +130,7 @@ public:
     void stop();
 
     virtual void behave();
+
     virtual void updateAnimationTrack();
 
     virtual int getPerformanceNum() {

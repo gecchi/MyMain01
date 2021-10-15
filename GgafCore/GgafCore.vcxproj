@@ -19,6 +19,56 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\GgafCommonHeader.h" />
+    <ClInclude Include="include\jp\ggaf\core\actor\actor.h" />
+    <ClInclude Include="include\jp\ggaf\core\actor\DisusedActor.h" />
+    <ClInclude Include="include\jp\ggaf\core\actor\ex\actordepository.h" />
+    <ClInclude Include="include\jp\ggaf\core\actor\ex\actordepositorystore.h" />
+    <ClInclude Include="include\jp\ggaf\core\actor\ex\depositoryformation.h" />
+    <ClInclude Include="include\jp\ggaf\core\actor\ex\destructactor.h" />
+    <ClInclude Include="include\jp\ggaf\core\actor\ex\formation.h" />
+    <ClInclude Include="include\jp\ggaf\core\actor\ex\treeformation.h" />
+    <ClInclude Include="include\jp\ggaf\core\actor\grouphead.h" />
+    <ClInclude Include="include\jp\ggaf\core\actor\mainactor.h" />
+    <ClInclude Include="include\jp\ggaf\core\actor\scenemediator.h" />
+    <ClInclude Include="include\jp\ggaf\core\config.h" />
+    <ClInclude Include="include\jp\ggaf\core\Cradle.h" />
+    <ClInclude Include="include\jp\ggaf\core\element.hpp" />
+    <ClInclude Include="include\jp\ggaf\core\exception\criticalexception.h" />
+    <ClInclude Include="include\jp\ggaf\core\exception\exception.h" />
+    <ClInclude Include="include\jp\ggaf\core\garbagebox.h" />
+    <ClInclude Include="include\jp\ggaf\core\god.h" />
+    <ClInclude Include="include\jp\ggaf\core\node.hpp" />
+    <ClInclude Include="include\jp\ggaf\core\object.h" />
+    <ClInclude Include="include\jp\ggaf\core\progress.h" />
+    <ClInclude Include="include\jp\ggaf\core\properties.h" />
+    <ClInclude Include="include\jp\ggaf\core\scene\DisusedScene.h" />
+    <ClInclude Include="include\jp\ggaf\core\scene\mainscene.h" />
+    <ClInclude Include="include\jp\ggaf\core\scene\scene.h" />
+    <ClInclude Include="include\jp\ggaf\core\scene\spacetime.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\CmRandomNumberGenerator.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\curtain.hpp" />
+    <ClInclude Include="include\jp\ggaf\core\util\DetectMemoryLeaks.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\enumindex.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\linearoctree.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\linearquadtree.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\lineartreerounder.hpp" />
+    <ClInclude Include="include\jp\ggaf\core\util\linkedlistring.hpp" />
+    <ClInclude Include="include\jp\ggaf\core\util\logger.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\RepeatSeq.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\resourceconnection.hpp" />
+    <ClInclude Include="include\jp\ggaf\core\util\resourcemanager.hpp" />
+    <ClInclude Include="include\jp\ggaf\core\util\rgb.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\status.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\table.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\TransitionValue.hpp" />
+    <ClInclude Include="include\jp\ggaf\core\util\trapezoidalvalue.hpp" />
+    <ClInclude Include="include\jp\ggaf\core\util\treeelem.hpp" />
+    <ClInclude Include="include\jp\ggaf\core\util\treespace.hpp" />
+    <ClInclude Include="include\jp\ggaf\core\util\util.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\xpm.h" />
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="src\jp\ggaf\core\actor\Actor.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\ex\ActorDepository.cpp" />
     <ClCompile Include="src\jp\ggaf\core\actor\ex\ActorDepositoryStore.cpp" />
@@ -52,58 +102,6 @@
     <ClCompile Include="src\jp\ggaf\core\util\Table.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\Util.cpp" />
     <ClCompile Include="src\jp\ggaf\core\util\Xpm.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="include\GgafCommonHeader.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\actor.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\DisusedActor.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\ex\actordepository.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\ex\actordepositorystore.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\ex\depositoryformation.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\ex\destructactor.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\ex\formation.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\ex\treeformation.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\grouphead.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\mainactor.h" />
-    <ClInclude Include="include\jp\ggaf\core\actor\scenemediator.h" />
-    <ClInclude Include="include\jp\ggaf\core\config.h" />
-    <ClInclude Include="include\jp\ggaf\core\Cradle.h" />
-    <ClInclude Include="include\jp\ggaf\core\element.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\exception\criticalexception.h" />
-    <ClInclude Include="include\jp\ggaf\core\exception\exception.h" />
-    <ClInclude Include="include\jp\ggaf\core\garbagebox.h" />
-    <ClInclude Include="include\jp\ggaf\core\god.h" />
-    <ClInclude Include="include\jp\ggaf\core\node.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\object.h" />
-    <ClInclude Include="include\jp\ggaf\core\progress.h" />
-    <ClInclude Include="include\jp\ggaf\core\properties.h" />
-    <ClInclude Include="include\jp\ggaf\core\scene\DisusedScene.h" />
-    <ClInclude Include="include\jp\ggaf\core\scene\mainscene.h" />
-    <ClInclude Include="include\jp\ggaf\core\scene\scene.h" />
-    <ClInclude Include="include\jp\ggaf\core\scene\spacetime.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\AccelerationValue.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\CmRandomNumberGenerator.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\curtain.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\DetectMemoryLeaks.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\enumindex.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\linearoctree.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\linearquadtree.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\lineartreerounder.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\linkedlistring.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\logger.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\RepeatSeq.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\resourceconnection.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\resourcemanager.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\rgb.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\status.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\table.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\TransitionValue.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\treeelem.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\treespace.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\util.h" />
-    <ClInclude Include="include\jp\ggaf\core\util\valueaccelerator.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\valuetransitioner.hpp" />
-    <ClInclude Include="include\jp\ggaf\core\util\xpm.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4CD46674-BB16-4B83-B01E-D6DAF7FB6C81}</ProjectGuid>

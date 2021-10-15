@@ -1,7 +1,7 @@
 #ifndef GGAF_DX_MORPHER_H_
 #define GGAF_DX_MORPHER_H_
 #include "GgafDxCommonHeader.h"
-#include "jp/ggaf/core/util/ValueTransitioner.hpp"
+#include "jp/ggaf/core/util/TransitionValue.hpp"
 
 namespace GgafDx {
 
@@ -19,7 +19,7 @@ class MorpherAssistantA;
  * @author Masatoshi Tsuge
  */
 template<class T>
-class Morpher : public GgafCore::ValueTransitioner<float, (MAX_MORPH_TARGET+1) > {
+class Morpher : public GgafCore::TransitionValue<float, (MAX_MORPH_TARGET+1) > {
 
 private:
     /** [r]モーファーの助手A */
@@ -54,7 +54,7 @@ public:
 };
 
 template<class T>
-Morpher<T>::Morpher(T* prm_pActor) : GgafCore::ValueTransitioner<float, (MAX_MORPH_TARGET+1) >(),
+Morpher<T>::Morpher(T* prm_pActor) : GgafCore::TransitionValue<float, (MAX_MORPH_TARGET+1) >(),
 _pActor(prm_pActor) {
     _pAsstMv = nullptr;
     setRange(0.0f, 1.0f);
@@ -67,7 +67,7 @@ MorpherAssistantA<T>* Morpher<T>::asst() {
 
 template<class T>
 void Morpher<T>::reset() {
-    GgafCore::ValueTransitioner<float, (MAX_MORPH_TARGET+1) >::reset();
+    GgafCore::TransitionValue<float, (MAX_MORPH_TARGET+1) >::reset();
     setRange(0.0f, 1.0f);
 }
 
@@ -86,7 +86,7 @@ void Morpher<T>::behave(int s, int n) {
     if (_pAsstMv) {
         _pAsstMv->behave();
     }
-    GgafCore::ValueTransitioner<float, (MAX_MORPH_TARGET+1) >::behave(1, _pActor->_morph_target_num);
+    GgafCore::TransitionValue<float, (MAX_MORPH_TARGET+1) >::behave(1, _pActor->_morph_target_num);
 }
 
 template<class T>

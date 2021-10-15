@@ -107,14 +107,14 @@ void Puppeteer::exchangPerformance() {
 }
 
 void Puppeteer::play(PuppeteerStick prm_handed,
-          UINT prm_performance_no,
-          double prm_loopnum,
-          PuppeteerMethod prm_method) {
+                     UINT prm_performance_no,
+                     double prm_loopnum,
+                     PuppeteerMethod prm_method) {
     if (prm_performance_no > _num_perform-1) {
         throwCriticalException("Puppeteer::play() アニメIDが範囲外です。prm_performance_no="<<prm_performance_no);
     }
     Performance* p = &(_paPerformances[prm_performance_no]);
-    p->_local_time.accelerateByDt(
+    p->_local_time.moveByDt(
             p->_period * prm_loopnum,           //VAL_TYPE prm_target_value_distance,
             (p->_period / _ani_time_delta) * prm_loopnum, //frame prm_frame_of_target,
             0.0, 1.0,            //double prm_p1, double prm_p2,

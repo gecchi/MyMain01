@@ -19,8 +19,8 @@ void SmpActor::initialize() {
     setPosition(0, 0, 0);
 
     //力車にキャラのZ軸回転の角速度を設定(毎フレーム2度)
-    VecDriver* kuroko = getVecDriver();
-    kuroko->setFaceAngVelo(AXIS_Z, D_ANG(2));
+    VecDriver* pVecDriver = getVecDriver();
+    pVecDriver->setFaceAngVelo(AXIS_Z, D_ANG(2));
 }
 
 void SmpActor::processBehavior() {

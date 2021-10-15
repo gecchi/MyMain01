@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/actor/supporter/VecDriverMvAngAssistant.h"
 
-#include "jp/ggaf/core/util/AccelerationValue.hpp"
+#include "jp/ggaf/core/util/TrapezoidalValue.hpp"
 #include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/util/Util.h"
 
@@ -102,7 +102,7 @@ void VecDriverMvAngAssistant::turnRzByDt(
     _smthMvRzAng._t_value = 0;
     _smthMvRzAng._t_velo = _pMaster->_angvelo_rz_mv;
     _smthMvRzAng._t_acce = _pMaster->_angacce_rz_mv;
-    _smthMvRzAng.accelerateByDt(prm_distance, prm_target_frames,
+    _smthMvRzAng.moveByDt(prm_distance, prm_target_frames,
                            prm_p1,prm_p2,prm_end_angvelo,
                            prm_zero_acc_end_flg);
 }
@@ -114,7 +114,7 @@ void VecDriverMvAngAssistant::turnRyByDt(
     _smthMvRyAng._t_value = 0;
     _smthMvRyAng._t_velo = _pMaster->_angvelo_ry_mv;
     _smthMvRyAng._t_acce = _pMaster->_angacce_ry_mv;
-    _smthMvRyAng.accelerateByDt(prm_distance, prm_target_frames,
+    _smthMvRyAng.moveByDt(prm_distance, prm_target_frames,
                            prm_p1,prm_p2,prm_end_angvelo,
                            prm_zero_acc_end_flg);
 }
@@ -126,7 +126,7 @@ void VecDriverMvAngAssistant::turnRzByVd(
     _smthMvRzAng._t_value = 0;
     _smthMvRzAng._t_velo = _pMaster->_angvelo_rz_mv;
     _smthMvRzAng._t_acce = _pMaster->_angacce_rz_mv;
-    _smthMvRzAng.accelerateByVd(prm_top_angvelo, prm_distance,
+    _smthMvRzAng.moveByVd(prm_top_angvelo, prm_distance,
                                 prm_p1,prm_p2, prm_end_angvelo,
                                 prm_zero_acc_end_flg);
 }
@@ -137,7 +137,7 @@ void VecDriverMvAngAssistant::turnRyByVd(
     _smthMvRyAng._t_value = 0;
     _smthMvRyAng._t_velo = _pMaster->_angvelo_ry_mv;
     _smthMvRyAng._t_acce = _pMaster->_angacce_ry_mv;
-    _smthMvRyAng.accelerateByVd(prm_top_angvelo, prm_distance,
+    _smthMvRyAng.moveByVd(prm_top_angvelo, prm_distance,
                                 prm_p1,prm_p2, prm_end_angvelo,
                                 prm_zero_acc_end_flg);
 }

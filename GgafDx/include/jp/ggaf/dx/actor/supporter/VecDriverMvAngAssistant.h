@@ -2,7 +2,7 @@
 #define GGAF_DX_VECDRIVERMVANGASSISTANT_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
-#include "jp/ggaf/core/util/AccelerationValue.hpp"
+#include "jp/ggaf/core/util/TrapezoidalValue.hpp"
 
 namespace GgafDx {
 
@@ -36,8 +36,8 @@ private:
     Pendulum _pnd_ry;
     /** [r]étè† */
     VecDriver* const _pMaster;
-    GgafCore::AccelerationValue<int> _smthMvRzAng;
-    GgafCore::AccelerationValue<int> _smthMvRyAng;
+    GgafCore::TrapezoidalValue<int> _smthMvRzAng;
+    GgafCore::TrapezoidalValue<int> _smthMvRyAng;
 
     /**
      * óÕé‘ÇÃèïéËÇ™êUÇÈïëÇ§ .

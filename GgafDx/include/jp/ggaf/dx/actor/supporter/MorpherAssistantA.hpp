@@ -2,7 +2,7 @@
 #define GGAF_DX_MORPHERASSISTANT_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
-#include "jp/ggaf/core/util/AccelerationValue.hpp"
+#include "jp/ggaf/core/util/TrapezoidalValue.hpp"
 
 namespace GgafDx {
 
@@ -25,7 +25,7 @@ private:
     /** [r]師匠 */
     Morpher<T>* _pMaster;
     /** [r]重み加速器 */
-    GgafCore::AccelerationValue<float>* _pa_smthMph;
+    GgafCore::TrapezoidalValue<float>* _pa_smthMph;
     /** [r]モーフターゲット数(利用頻度が高いので、モデルからコピーして保持) */
     int _target_num;
 
@@ -130,7 +130,7 @@ MorpherAssistantA<T>::MorpherAssistantA(Morpher<T>* prm_pMaster) : GgafCore::Obj
         _pMaster(prm_pMaster) {
     _target_num = prm_pMaster->_pActor->_pMorphMeshModel->_morph_target_num;
 
-    _pa_smthMph = NEW GgafCore::AccelerationValue<float>[_target_num+1];
+    _pa_smthMph = NEW GgafCore::TrapezoidalValue<float>[_target_num+1];
     for (int i = 1; i <= _target_num; i++) {
         _pa_smthMph[i]._t_velo = _pMaster->_velo[i];
         _pa_smthMph[i]._t_acce = _pMaster->_acce[i];
@@ -139,8 +139,8 @@ MorpherAssistantA<T>::MorpherAssistantA(Morpher<T>* prm_pMaster) : GgafCore::Obj
 
 template<class T>
 void MorpherAssistantA<T>::behave() {
-    GgafCore::AccelerationValue<float>* pSmthMph = _pa_smthMph;
-    GgafCore::ValueTransitioner<float, (MAX_MORPH_TARGET+1)>::Parameter* p = _pMaster->_parameter;
+    GgafCore::TrapezoidalValue<float>* pSmthMph = _pa_smthMph;
+    GgafCore::TransitionValue<float, (MAX_MORPH_TARGET+1)>::Parameter* p = _pMaster->_parameter;
     for (int i = 1; i <= _target_num; i++) {
         if (pSmthMph->isAccelerating()) {
             pSmthMph->behave();
@@ -160,7 +160,7 @@ void MorpherAssistantA<T>::morphByDt(int prm_target_mesh_no,
     _pa_smthMph[prm_target_mesh_no]._t_value = 0;
     _pa_smthMph[prm_target_mesh_no]._t_velo = _pMaster->_velo[prm_target_mesh_no];
     _pa_smthMph[prm_target_mesh_no]._t_acce = _pMaster->_acce[prm_target_mesh_no];
-    _pa_smthMph[prm_target_mesh_no].accelerateByDt(prm_target_distance, prm_target_frames,
+    _pa_smthMph[prm_target_mesh_no].moveByDt(prm_target_distance, prm_target_frames,
                                                    prm_p1,prm_p2,prm_end_velo,
                                                    prm_zero_acc_end_flg);
 }
@@ -173,7 +173,7 @@ void MorpherAssistantA<T>::morphByVd(int prm_target_mesh_no,
     _pa_smthMph[prm_target_mesh_no]._t_value = 0;
     _pa_smthMph[prm_target_mesh_no]._t_velo = _pMaster->_velo[prm_target_mesh_no];
     _pa_smthMph[prm_target_mesh_no]._t_acce = _pMaster->_acce[prm_target_mesh_no];
-    _pa_smthMph[prm_target_mesh_no].accelerateByVd(prm_top_velo, prm_target_distance,
+    _pa_smthMph[prm_target_mesh_no].moveByVd(prm_top_velo, prm_target_distance,
                                                    prm_p1,prm_p2,prm_end_velo,
                                                    prm_zero_acc_end_flg);
 }

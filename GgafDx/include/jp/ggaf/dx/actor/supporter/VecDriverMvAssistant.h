@@ -2,7 +2,7 @@
 #define GGAF_DX_VECDRIVERMVASSISTANT_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
-#include "jp/ggaf/core/util/AccelerationValue.hpp"
+#include "jp/ggaf/core/util/TrapezoidalValue.hpp"
 
 namespace GgafDx {
 
@@ -19,7 +19,7 @@ class VecDriverMvAssistant : public GgafCore::Object {
 private:
     /** [r]t  */
     VecDriver* const _pMaster;
-    GgafCore::AccelerationValue<int> _smthMv;
+    GgafCore::TrapezoidalValue<int> _smthMv;
 
     /**
      * —ÍÔ‚Ì•è‚ªU‚é•‘‚¤ .

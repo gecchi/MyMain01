@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/actor/supporter/GeoDriverAssistantA.h"
 
-#include "jp/ggaf/core/util/AccelerationValue.hpp"
+#include "jp/ggaf/core/util/TrapezoidalValue.hpp"
 #include "jp/ggaf/dx/actor/supporter/GeoDriver.h"
 #include "jp/ggaf/dx/util/Util.h"
 
@@ -41,7 +41,7 @@ void GeoDriverAssistantA::slideVxMvByDt(coord prm_target_distance, int prm_targe
     _smthVxMv._t_value = 0;
     _smthVxMv._t_velo = _pMaster->_velo_vx_mv;
     _smthVxMv._t_acce = _pMaster->_acce_vx_mv;
-    _smthVxMv.accelerateByDt(prm_target_distance, prm_target_frames,
+    _smthVxMv.moveByDt(prm_target_distance, prm_target_frames,
                              prm_p1, prm_p2, prm_end_velo,
                              prm_zero_acc_end_flg);
 }
@@ -52,7 +52,7 @@ void GeoDriverAssistantA::slideVyMvByDt(coord prm_target_distance, int prm_targe
     _smthVyMv._t_value = 0;
     _smthVyMv._t_velo = _pMaster->_velo_vy_mv;
     _smthVyMv._t_acce = _pMaster->_acce_vy_mv;
-    _smthVyMv.accelerateByDt(prm_target_distance, prm_target_frames,
+    _smthVyMv.moveByDt(prm_target_distance, prm_target_frames,
                              prm_p1, prm_p2, prm_end_velo,
                              prm_zero_acc_end_flg);
 }
@@ -63,7 +63,7 @@ void GeoDriverAssistantA::slideVzMvByDt(coord prm_target_distance, int prm_targe
     _smthVzMv._t_value = 0;
     _smthVzMv._t_velo = _pMaster->_velo_vz_mv;
     _smthVzMv._t_acce = _pMaster->_acce_vz_mv;
-    _smthVzMv.accelerateByDt(prm_target_distance, prm_target_frames,
+    _smthVzMv.moveByDt(prm_target_distance, prm_target_frames,
                              prm_p1, prm_p2, prm_end_velo,
                              prm_zero_acc_end_flg);
 }
@@ -102,7 +102,7 @@ void GeoDriverAssistantA::slideVxMvByVd(velo prm_top_velo, coord prm_target_dist
     _smthVxMv._t_value = 0;
     _smthVxMv._t_velo = _pMaster->_velo_vx_mv;
     _smthVxMv._t_acce = _pMaster->_acce_vx_mv;
-    _smthVxMv.accelerateByVd(prm_top_velo, prm_target_distance,
+    _smthVxMv.moveByVd(prm_top_velo, prm_target_distance,
                              prm_p1, prm_p2, prm_end_velo,
                              prm_zero_acc_end_flg);
 }
@@ -113,7 +113,7 @@ void GeoDriverAssistantA::slideVyMvByVd(velo prm_top_velo, coord prm_target_dist
     _smthVyMv._t_value = 0;
     _smthVyMv._t_velo = _pMaster->_velo_vy_mv;
     _smthVyMv._t_acce = _pMaster->_acce_vy_mv;
-    _smthVyMv.accelerateByVd(prm_top_velo, prm_target_distance,
+    _smthVyMv.moveByVd(prm_top_velo, prm_target_distance,
                              prm_p1,prm_p2,prm_end_velo,
                              prm_zero_acc_end_flg);
 }
@@ -124,7 +124,7 @@ void GeoDriverAssistantA::slideVzMvByVd(velo prm_top_velo, coord prm_target_dist
     _smthVzMv._t_value = 0;
     _smthVzMv._t_velo = _pMaster->_velo_vz_mv;
     _smthVzMv._t_acce = _pMaster->_acce_vz_mv;
-    _smthVzMv.accelerateByVd(prm_top_velo, prm_target_distance,
+    _smthVzMv.moveByVd(prm_top_velo, prm_target_distance,
                              prm_p1, prm_p2, prm_end_velo,
                              prm_zero_acc_end_flg);
 }

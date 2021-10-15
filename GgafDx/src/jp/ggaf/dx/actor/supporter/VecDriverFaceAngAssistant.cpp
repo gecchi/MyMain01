@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/actor/supporter/VecDriverFaceAngAssistant.h"
 
-#include "jp/ggaf/core/util/AccelerationValue.hpp"
+#include "jp/ggaf/core/util/TrapezoidalValue.hpp"
 #include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/util/Util.h"
 
@@ -65,7 +65,7 @@ void VecDriverFaceAngAssistant::turnByDt(axis prm_axis,
     _smthFaceAng[prm_axis]._t_value = 0;
     _smthFaceAng[prm_axis]._t_velo = _pMaster->_angvelo_face[prm_axis];
     _smthFaceAng[prm_axis]._t_acce = _pMaster->_angacce_face[prm_axis];
-    _smthFaceAng[prm_axis].accelerateByDt(prm_distance, prm_target_frames,
+    _smthFaceAng[prm_axis].moveByDt(prm_distance, prm_target_frames,
                                           prm_p1,prm_p2,prm_end_angvelo,
                                           prm_zero_acc_end_flg);
 }
@@ -77,7 +77,7 @@ void VecDriverFaceAngAssistant::turnByVd(axis prm_axis,
     _smthFaceAng[prm_axis]._t_value = 0;
     _smthFaceAng[prm_axis]._t_velo = _pMaster->_angvelo_face[prm_axis];
     _smthFaceAng[prm_axis]._t_acce = _pMaster->_angacce_face[prm_axis];
-    _smthFaceAng[prm_axis].accelerateByVd(prm_top_angvelo, prm_distance,
+    _smthFaceAng[prm_axis].moveByVd(prm_top_angvelo, prm_distance,
                                           prm_p1,prm_p2, prm_end_angvelo,
                                           prm_zero_acc_end_flg);
 }

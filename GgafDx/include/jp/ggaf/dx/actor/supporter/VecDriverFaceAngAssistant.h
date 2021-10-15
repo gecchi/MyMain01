@@ -3,7 +3,7 @@
 #include "GgafDxCommonHeader.h"
 
 #include "jp/ggaf/core/Object.h"
-#include "jp/ggaf/core/util/AccelerationValue.hpp"
+#include "jp/ggaf/core/util/TrapezoidalValue.hpp"
 
 namespace GgafDx {
 
@@ -33,7 +33,7 @@ private:
 
     /** [r]師匠 */
     VecDriver* const _pMaster;
-    GgafCore::AccelerationValue<int> _smthFaceAng[3];
+    GgafCore::TrapezoidalValue<int> _smthFaceAng[3];
     /** ツイスト情報 */
     Twist _tw[3];
 
