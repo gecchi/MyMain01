@@ -114,6 +114,7 @@
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <FunctionLevelLinking>true</FunctionLevelLinking>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -141,6 +142,7 @@
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <FunctionLevelLinking>true</FunctionLevelLinking>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -166,7 +168,7 @@
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
-      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
       <FloatingPointModel>Precise</FloatingPointModel>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <BufferSecurityCheck>true</BufferSecurityCheck>
@@ -199,7 +201,7 @@
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
-      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
       <FloatingPointModel>Precise</FloatingPointModel>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <BufferSecurityCheck>true</BufferSecurityCheck>
@@ -219,23 +221,6 @@
       <Command>COPY /Y ..\$(Configuration)\$(Platform)\$(PlatformToolset)\$(ProjectName).exe .\$(ProjectName)_$(Platform)_$(PlatformToolset)_$(Configuration).exe</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CustomizeOgg_static\CustomizeOgg_static.vcxproj">
-      <Project>{2fdefa24-55e5-4955-8497-44085c92a5b1}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\CustomizeVorbis_static\CustomizeVorbis_static.vcxproj">
-      <Project>{3a06bba2-2a59-4965-8095-3836e2a10840}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\GgafCore\GgafCore.vcxproj">
-      <Project>{4cd46674-bb16-4b83-b01e-d6daf7fb6c81}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\GgafDx\GgafDx.vcxproj">
-      <Project>{f04b2bae-f007-4de8-a91f-ea7e9ddcb6f2}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\GgafLib\GgafLib.vcxproj">
-      <Project>{55c018db-2586-4f20-addb-8da23932824c}</Project>
-    </ProjectReference>
-  </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\actor\CamWorker\VvvCamWorker.cpp" />
     <ClCompile Include="src\actor\Font01.cpp" />
