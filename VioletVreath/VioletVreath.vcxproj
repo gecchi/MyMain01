@@ -121,6 +121,7 @@
       </PrecompiledHeaderFile>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <ProjectReference>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
@@ -165,6 +166,7 @@
       </PrecompiledHeaderFile>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <ProjectReference>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
@@ -205,6 +207,7 @@
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <FunctionLevelLinking>true</FunctionLevelLinking>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalDependencies>GgafCore.lib;GgafDx.lib;GgafLib.lib;_Ogg.lib;_Vorbis.lib;Shlwapi.lib;d3d9.lib;d3dx9.lib;dinput8.lib;dsound.lib;dxguid.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -245,6 +248,7 @@
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
       <FunctionLevelLinking>true</FunctionLevelLinking>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalDependencies>GgafCore.lib;GgafDx.lib;GgafLib.lib;_Ogg.lib;_Vorbis.lib;Shlwapi.lib;d3d9.lib;d3dx9.lib;dinput8.lib;dsound.lib;dxguid.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>

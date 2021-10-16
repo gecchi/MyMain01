@@ -202,6 +202,7 @@
       <PreprocessorDefinitions>_MBCS;WIN32;_DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <FunctionLevelLinking>true</FunctionLevelLinking>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>..\$(Configuration)\$(Platform)\$(PlatformToolset)\;$(DXSDK_DIR)\Lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -219,6 +220,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>.\;.\src;..\GgafLib\include;..\GgafDx\include;..\GgafCore\include;..\_Vorbis\include;..\_Ogg\include;$(DXSDK_DIR)\Include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;WIN32;_DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>..\$(Configuration)\$(Platform)\$(PlatformToolset)\;$(DXSDK_DIR)\Lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -238,6 +240,7 @@
       <PreprocessorDefinitions>_MBCS;WIN64;_DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <FunctionLevelLinking>true</FunctionLevelLinking>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>..\$(Configuration)\$(Platform)\$(PlatformToolset)\;$(DXSDK_DIR)\Lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -255,6 +258,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>.\;.\src;..\GgafLib\include;..\GgafDx\include;..\GgafCore\include;..\_Vorbis\include;..\_Ogg\include;$(DXSDK_DIR)\Include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;WIN64;_DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>..\$(Configuration)\$(Platform)\$(PlatformToolset)\;$(DXSDK_DIR)\Lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -275,6 +279,7 @@
       <AdditionalIncludeDirectories>.\;.\src;..\GgafLib\include;..\GgafDx\include;..\GgafCore\include;..\_Vorbis\include;..\_Ogg\include;$(DXSDK_DIR)\Include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;WIN32;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -298,6 +303,7 @@
       <AdditionalIncludeDirectories>.\;.\src;..\GgafLib\include;..\GgafDx\include;..\GgafCore\include;..\_Vorbis\include;..\_Ogg\include;$(DXSDK_DIR)\Include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;WIN32;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -321,6 +327,7 @@
       <AdditionalIncludeDirectories>.\;.\src;..\GgafLib\include;..\GgafDx\include;..\GgafCore\include;..\_Vorbis\include;..\_Ogg\include;$(DXSDK_DIR)\Include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;WIN64;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -344,6 +351,7 @@
       <AdditionalIncludeDirectories>.\;.\src;..\GgafLib\include;..\GgafDx\include;..\GgafCore\include;..\_Vorbis\include;..\_Ogg\include;$(DXSDK_DIR)\Include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;WIN64;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

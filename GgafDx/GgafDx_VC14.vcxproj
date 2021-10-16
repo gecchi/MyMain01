@@ -517,6 +517,7 @@
       <PreprocessorDefinitions>_MBCS;WIN32;_DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <FunctionLevelLinking>true</FunctionLevelLinking>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
       <TargetMachine>MachineX86</TargetMachine>
@@ -529,6 +530,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>.\include;..\_Ogg\include;..\_Vorbis\include;..\GgafCore\include;$(DXSDK_DIR)\Include;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;WIN32;_DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Lib>
       <TargetMachine>MachineX86</TargetMachine>
@@ -543,6 +545,7 @@
       <PreprocessorDefinitions>_MBCS;WIN64;_DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <FunctionLevelLinking>true</FunctionLevelLinking>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_XP|x64'">
@@ -552,6 +555,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>.\include;..\_Ogg\include;..\_Vorbis\include;..\GgafCore\include;$(DXSDK_DIR)\Include;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;WIN64;_DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -564,6 +568,7 @@
       <AdditionalIncludeDirectories>.\include;..\_Ogg\include;..\_Vorbis\include;..\GgafCore\include;$(DXSDK_DIR)\Include;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;WIN32;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -583,6 +588,7 @@
       <AdditionalIncludeDirectories>.\include;..\_Ogg\include;..\_Vorbis\include;..\GgafCore\include;$(DXSDK_DIR)\Include;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;WIN32;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -602,6 +608,7 @@
       <AdditionalIncludeDirectories>.\include;..\_Ogg\include;..\_Vorbis\include;..\GgafCore\include;$(DXSDK_DIR)\Include;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;WIN64;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -618,6 +625,7 @@
       <AdditionalIncludeDirectories>.\include;..\_Ogg\include;..\_Vorbis\include;..\GgafCore\include;$(DXSDK_DIR)\Include;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;WIN64;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
