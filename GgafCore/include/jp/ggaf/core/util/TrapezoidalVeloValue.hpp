@@ -1,5 +1,5 @@
-#ifndef GGAF_CORE_TRAPEZOIDALVALUE_H_
-#define GGAF_CORE_TRAPEZOIDALVALUE_H_
+#ifndef GGAF_CORE_TRAPEZOIDALVELOVALUE_H_
+#define GGAF_CORE_TRAPEZOIDALVELOVALUE_H_
 #include "GgafCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 
@@ -16,7 +16,7 @@ namespace GgafCore {
  * @author Masatoshi Tsuge
  */
 template<class VAL_TYPE>
-class TrapezoidalValue : public Object {
+class TrapezoidalVeloValue : public Object {
 
 private:
     enum {
@@ -74,7 +74,7 @@ public:
     VAL_TYPE _t_acce;
 
 public:
-    TrapezoidalValue() {
+    TrapezoidalVeloValue() {
         _is_accelerating = false;
         _zero_acc_end_flg = true;
         _top_velo = 0;
@@ -451,7 +451,7 @@ public:
      * 現在加速処理中であるか否か .
      * @return true:加速処理中/false:停止中
      */
-    inline bool isAccelerating() const {
+    inline bool isTransitioning() const {
         return _progress == TVMOVE_DONE ? false : true;
     }
 
@@ -461,7 +461,7 @@ public:
      * その後の behave() で false となる。
      * @return true:丁度加速処理が完了/false:現在加速処理中か、或いは以前から停止中
      */
-    inline bool hasJustFinishedAccelerating() {
+    inline bool hasJustFinishedTransitioning() {
         if (_progress != TVMOVE_DONE && _is_accelerating == false) {
             return true;
         } else {
@@ -472,7 +472,7 @@ public:
     /**
      * 加速処理中を強制終了 .
      */
-    inline void stopAccelerating() {
+    inline void stopTransitioning() {
         _is_accelerating = false;
     }
 
@@ -759,10 +759,10 @@ public:
 #endif
     }
 
-    virtual ~TrapezoidalValue() {
+    virtual ~TrapezoidalVeloValue() {
     }
 };
 
 }
-#endif /*GGAF_CORE_TRAPEZOIDALVALUE_H_*/
+#endif /*GGAF_CORE_TRAPEZOIDALVELOVALUE_H_*/
 

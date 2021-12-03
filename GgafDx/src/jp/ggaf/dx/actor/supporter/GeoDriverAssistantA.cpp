@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/actor/supporter/GeoDriverAssistantA.h"
 
-#include "jp/ggaf/core/util/TrapezoidalValue.hpp"
+#include "jp/ggaf/core/util/TrapezoidalVeloValue.hpp"
 #include "jp/ggaf/dx/actor/supporter/GeoDriver.h"
 #include "jp/ggaf/dx/util/Util.h"
 
@@ -17,17 +17,17 @@ GeoDriverAssistantA::GeoDriverAssistantA(GeoDriver* prm_pMaster) : GgafCore::Obj
     _smthVzMv._t_acce = _pMaster->_acce_vz_mv;
 }
 void GeoDriverAssistantA::behave() {
-    if (_smthVxMv.isAccelerating()) {
+    if (_smthVxMv.isTransitioning()) {
         _smthVxMv.behave();
         _pMaster->setVxMvVelo(_smthVxMv._t_velo - _smthVxMv._t_acce);
         _pMaster->setVxMvAcce(_smthVxMv._t_acce);
     }
-    if (_smthVyMv.isAccelerating()) {
+    if (_smthVyMv.isTransitioning()) {
         _smthVyMv.behave();
         _pMaster->setVyMvVelo(_smthVyMv._t_velo - _smthVyMv._t_acce);
         _pMaster->setVyMvAcce(_smthVyMv._t_acce);
     }
-    if (_smthVzMv.isAccelerating()) {
+    if (_smthVzMv.isTransitioning()) {
         _smthVzMv.behave();
         _pMaster->setVzMvVelo(_smthVzMv._t_velo - _smthVzMv._t_acce );
         _pMaster->setVzMvAcce(_smthVzMv._t_acce);

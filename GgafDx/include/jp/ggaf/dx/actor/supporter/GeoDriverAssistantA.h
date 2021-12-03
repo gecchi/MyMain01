@@ -2,7 +2,7 @@
 #define GGAF_DX_GEODRIVERASSISTANT_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
-#include "jp/ggaf/core/util/TrapezoidalValue.hpp"
+#include "jp/ggaf/core/util/TrapezoidalVeloValue.hpp"
 #include "jp/ggaf/dx/actor/GeometricActor.h"
 
 namespace GgafDx {
@@ -21,11 +21,11 @@ private:
     /** [r]師匠 */
     GeoDriver* _pMaster;
     /** X軸方向加速装置 */
-    GgafCore::TrapezoidalValue<coord> _smthVxMv;
+    GgafCore::TrapezoidalVeloValue<coord> _smthVxMv;
     /** Y軸方向加速装置 */
-    GgafCore::TrapezoidalValue<coord> _smthVyMv;
+    GgafCore::TrapezoidalVeloValue<coord> _smthVyMv;
     /** Z軸方向加速装置 */
-    GgafCore::TrapezoidalValue<coord> _smthVzMv;
+    GgafCore::TrapezoidalVeloValue<coord> _smthVzMv;
 
     virtual void behave();
 
@@ -274,7 +274,7 @@ public:
      * @return true:作動中 / false:作動中ではない
      */
     bool isSliding() {
-        if (_smthVxMv.isAccelerating() || _smthVyMv.isAccelerating() || _smthVzMv.isAccelerating()) {
+        if (_smthVxMv.isTransitioning() || _smthVyMv.isTransitioning() || _smthVzMv.isTransitioning()) {
             return true;
         } else {
             return false;
@@ -285,9 +285,9 @@ public:
      * なめらかな移動シークエンスを停止（注意：移動（速度）を停止させるという事は行っていない）.
      */
     void stopSliding() {
-        _smthVxMv.stopAccelerating();
-        _smthVyMv.stopAccelerating();
-        _smthVzMv.stopAccelerating();
+        _smthVxMv.stopTransitioning();
+        _smthVyMv.stopTransitioning();
+        _smthVzMv.stopTransitioning();
     }
 
     virtual ~GeoDriverAssistantA();

@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/actor/supporter/VecDriverMvAngAssistant.h"
 
-#include "jp/ggaf/core/util/TrapezoidalValue.hpp"
+#include "jp/ggaf/core/util/TrapezoidalVeloValue.hpp"
 #include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/util/Util.h"
 
@@ -42,7 +42,7 @@ VecDriverMvAngAssistant::VecDriverMvAngAssistant(VecDriver* prm_pMaster) : GgafC
 }
 
 void VecDriverMvAngAssistant::behave() {
-    if (_smthMvRzAng.isAccelerating()) {
+    if (_smthMvRzAng.isTransitioning()) {
         _smthMvRzAng.behave();
         _pMaster->setRzMvAngVelo(_smthMvRzAng._t_velo - _smthMvRzAng._t_acce); //‚±‚¤‚µ‚È‚¢‚Æ—ÍŽÔ‚Ìbehave‚Å‚Q‰ñ_acce‘«‚µž‚Ü‚ê‚é‚µ
         _pMaster->setRzMvAngAcce(_smthMvRzAng._t_acce);
@@ -67,7 +67,7 @@ void VecDriverMvAngAssistant::behave() {
             }
         }
     }
-    if (_smthMvRyAng.isAccelerating()) {
+    if (_smthMvRyAng.isTransitioning()) {
         _smthMvRyAng.behave();
         _pMaster->setRyMvAngVelo(_smthMvRyAng._t_velo - _smthMvRyAng._t_acce); //‚±‚¤‚µ‚È‚¢‚Æ—ÍŽÔ‚Ìbehave‚Å‚Q‰ñ_acce‘«‚µž‚Ü‚ê‚é‚µ
         _pMaster->setRyMvAngAcce(_smthMvRyAng._t_acce);

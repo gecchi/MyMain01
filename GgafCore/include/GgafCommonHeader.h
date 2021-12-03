@@ -378,10 +378,10 @@ template<class T>
 class LinkedListRing;
 
 template<class VAL_TYPE>
-class TrapezoidalValue;
+class TrapezoidalVeloValue;
 
 template<class VAL_TYPE, int N>
-class TransitionValue;
+class TransitionValueSet;
 
 class GarbageBox;
 class Progress;

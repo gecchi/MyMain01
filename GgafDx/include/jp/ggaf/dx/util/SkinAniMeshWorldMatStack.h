@@ -40,7 +40,7 @@ public:
      * アクターのワールド変換を行う .
      * @param prm_frame_root アニメーションボーンフレームのルート
      * @param prm_as0_index トラック0に設定されているアニメーションセットインデックス
-     * @param prm_as1_index トラック0に設定されているアニメーションセットインデックス
+     * @param prm_as1_index トラック1に設定されているアニメーションセットインデックス
      * @param prm_papaBool_Model_AnimationSetIndex_BoneFrameIndex_is_act
      */
     virtual void UpdateFrame(SkinAniMeshFrame* prm_frame_root, int prm_as0_index = -1, int prm_as1_index = -1,

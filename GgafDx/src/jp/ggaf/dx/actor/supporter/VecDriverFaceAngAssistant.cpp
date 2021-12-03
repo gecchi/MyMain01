@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/actor/supporter/VecDriverFaceAngAssistant.h"
 
-#include "jp/ggaf/core/util/TrapezoidalValue.hpp"
+#include "jp/ggaf/core/util/TrapezoidalVeloValue.hpp"
 #include "jp/ggaf/dx/actor/supporter/VecDriver.h"
 #include "jp/ggaf/dx/util/Util.h"
 
@@ -30,7 +30,7 @@ VecDriverFaceAngAssistant::VecDriverFaceAngAssistant(VecDriver* prm_pMaster) : G
 
 void VecDriverFaceAngAssistant::behave() {
     for (int ax = 0; ax < 3; ax++) {
-        if (_smthFaceAng[ax].isAccelerating()) {
+        if (_smthFaceAng[ax].isTransitioning()) {
             _smthFaceAng[ax].behave();
             _pMaster->setFaceAngVelo(ax, _smthFaceAng[ax]._t_velo - _smthFaceAng[ax]._t_acce); //‚±‚¤‚µ‚È‚¢‚Æ—ÍŽÔ‚Ìbehave‚Å‚Q‰ñ_acce‘«‚µž‚Ü‚ê‚é‚µ
             _pMaster->setFaceAngAcce(ax, _smthFaceAng[ax]._t_acce);

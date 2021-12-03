@@ -72,7 +72,6 @@
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\Morpher.hpp" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\MorpherAssistantA.hpp" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\Puppeteer.h" />
-    <ClInclude Include="include\jp\ggaf\dx\actor\supporter\Puppeteer_old.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\Scaler.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\SeTransmitterForActor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\UvFlipper.h" />
@@ -252,7 +251,6 @@
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\GeoDriver.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\GeoDriverAssistantA.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\Puppeteer.cpp" />
-    <ClCompile Include="src\jp\ggaf\dx\actor\supporter\Puppeteer_old.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\Scaler.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\SeTransmitterForActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\UvFlipper.cpp" />

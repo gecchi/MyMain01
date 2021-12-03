@@ -2,7 +2,7 @@
 #define GGAF_DX_MORPHERASSISTANT_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
-#include "jp/ggaf/core/util/TrapezoidalValue.hpp"
+#include "jp/ggaf/core/util/TrapezoidalVeloValue.hpp"
 
 namespace GgafDx {
 
@@ -25,7 +25,7 @@ private:
     /** [r]師匠 */
     Morpher<T>* _pMaster;
     /** [r]重み加速器 */
-    GgafCore::TrapezoidalValue<float>* _pa_smthMph;
+    GgafCore::TrapezoidalVeloValue<float>* _pa_smthMph;
     /** [r]モーフターゲット数(利用頻度が高いので、モデルからコピーして保持) */
     int _target_num;
 
@@ -130,7 +130,7 @@ MorpherAssistantA<T>::MorpherAssistantA(Morpher<T>* prm_pMaster) : GgafCore::Obj
         _pMaster(prm_pMaster) {
     _target_num = prm_pMaster->_pActor->_pMorphMeshModel->_morph_target_num;
 
-    _pa_smthMph = NEW GgafCore::TrapezoidalValue<float>[_target_num+1];
+    _pa_smthMph = NEW GgafCore::TrapezoidalVeloValue<float>[_target_num+1];
     for (int i = 1; i <= _target_num; i++) {
         _pa_smthMph[i]._t_velo = _pMaster->_velo[i];
         _pa_smthMph[i]._t_acce = _pMaster->_acce[i];
@@ -139,10 +139,10 @@ MorpherAssistantA<T>::MorpherAssistantA(Morpher<T>* prm_pMaster) : GgafCore::Obj
 
 template<class T>
 void MorpherAssistantA<T>::behave() {
-    GgafCore::TrapezoidalValue<float>* pSmthMph = _pa_smthMph;
-    GgafCore::TransitionValue<float, (MAX_MORPH_TARGET+1)>::Parameter* p = _pMaster->_parameter;
+    GgafCore::TrapezoidalVeloValue<float>* pSmthMph = _pa_smthMph;
+    GgafCore::TransitionValueSet<float, (MAX_MORPH_TARGET+1)>::Parameter* p = _pMaster->_parameter;
     for (int i = 1; i <= _target_num; i++) {
-        if (pSmthMph->isAccelerating()) {
+        if (pSmthMph->isTransitioning()) {
             pSmthMph->behave();
             p->_velo = pSmthMph->_t_velo - pSmthMph->_t_acce;
             p->_acce = pSmthMph->_t_acce;

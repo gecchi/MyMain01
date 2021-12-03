@@ -3,7 +3,7 @@
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
-#include "jp/ggaf/core/util/TrapezoidalValue.hpp"
+#include "jp/ggaf/core/util/TrapezoidalVeloValue.hpp"
 #include <vector>
 #include <d3dx9.h>
 #include <d3dx9anim.h>
@@ -41,6 +41,7 @@ private:
     ID3DXAnimationController* _pAc;
     /**
      * 芸(モーション) .
+     * ID3DXAnimationSetラッパー
      */
     class Performance {
     public:
@@ -49,12 +50,14 @@ private:
         UINT _animation_set_index;
         double _period;
         /** ローカルタイム */
-        GgafCore::TrapezoidalValue<double> _local_time;
+        GgafCore::TrapezoidalVeloValue<double> _local_time;
+        double _p1;
+        double _p2;
         /** 目標ループ回数(1.5回などの指定も可能) */
         double _target_loop;
 
         double _loop_count;
-        GgafCore::TrapezoidalValue<double> _weight;
+        GgafCore::TrapezoidalVeloValue<double> _weight;
         /** ループ方法 */
         PuppeteerMethod _method;
     public:
@@ -67,8 +70,6 @@ private:
     struct Stick {
         /** 操り棒番号(アニメーショントラック番号) */
         UINT _tno;
-        /** モーションブレンド有効無効 */
-        BOOL _enable_motion_blend;
         /** パペッターの操り棒の先にくっついてる持ちネタ(芸) */
         Performance* _pPerformance;
     };
@@ -79,21 +80,23 @@ public:
     /** [r]パペットの持ちネタ(芸)の数、AnimationSet の数 */
     UINT _num_perform;
     /** [r/w]左手用、右手用のパペッターの操り棒(アニメーショントラック)  [0]:左手用／[1]:右手用  */
-    Stick _aStick[2];
+    Stick*  _pStickMain;
+    Stick*  _pStickSub;
+    Stick* _apStick[2];
     /** [r]現在のトラックに設定されているアニメーションセット。未設定の場合はnullptr。[0]:トラック0／[1]トラック1 */
-    ID3DXAnimationSet* _paAs[2];
+   ID3DXAnimationSet* _paAs[2];
 
     /** アニメーションコントローラのデフォルトの１フレームあたりのアニメーションフレーム */
     double _ani_time_delta;
-    double _ani_time_period;
-    double _speed_rate;
 public:
     /**
      * コンストラクタ .
      * @param prm_pPuppet 操られる者
      * @return
      */
-    explicit Puppeteer(ID3DXAnimationController* prm_pAc_cloned);
+    explicit Puppeteer(ID3DXAnimationController* prm_pAc_cloned,
+                       double prm_ani_time_delta = 60.0 / 4800);
+
 
     /**
      * プレイしてもらう（＝パペットが操られる） .
@@ -108,6 +111,9 @@ public:
      */
 
 
+
+//    void perform(UINT prm_performance_no, double prm_loopnum);
+
     /**
      *プレイしてもらう（＝パペットが操られる） .
      * @param prm_handed プレイするパペッターの操り棒 (LEFT_HAND or RIGHT_HAND)
@@ -116,8 +122,7 @@ public:
      * @param prm_loopnum その芸のループ回数 0.0 ～ (１回半ループを1.5というようにも指定可能。負の数指定(-1)で無限ループアニメーション)
      * @param prm_method
      */
-    void play(PuppeteerStick prm_handed,
-              UINT prm_performance_no,
+    void play(UINT prm_performance_no,
               double prm_loopnum,
               PuppeteerMethod prm_method = PLAY_LOOPING
     );
@@ -137,9 +142,6 @@ public:
         return _num_perform;
     }
 
-    void setSpeedRate(double prm_speed_rate) {
-        _speed_rate = prm_speed_rate;
-    }
     virtual ~Puppeteer();
 
 };

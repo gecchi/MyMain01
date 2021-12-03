@@ -1,7 +1,7 @@
 #ifndef GGAF_DX_SCALER_H_
 #define GGAF_DX_SCALER_H_
 #include "GgafDxCommonHeader.h"
-#include "jp/ggaf/core/util/TransitionValue.hpp"
+#include "jp/ggaf/core/util/TransitionValueSet.hpp"
 
 namespace GgafDx {
 
@@ -24,7 +24,7 @@ namespace GgafDx {
  * @since 2009/05/22
  * @author Masatoshi Tsuge
  */
-class Scaler : public GgafCore::TransitionValue<scale, 3 > {
+class Scaler : public GgafCore::TransitionValueSet<scale, 3 > {
 
 public:
     /** [r]対象アクター */

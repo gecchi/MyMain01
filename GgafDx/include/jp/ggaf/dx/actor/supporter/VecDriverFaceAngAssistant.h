@@ -3,7 +3,7 @@
 #include "GgafDxCommonHeader.h"
 
 #include "jp/ggaf/core/Object.h"
-#include "jp/ggaf/core/util/TrapezoidalValue.hpp"
+#include "jp/ggaf/core/util/TrapezoidalVeloValue.hpp"
 
 namespace GgafDx {
 
@@ -33,7 +33,7 @@ private:
 
     /** [r]師匠 */
     VecDriver* const _pMaster;
-    GgafCore::TrapezoidalValue<int> _smthFaceAng[3];
+    GgafCore::TrapezoidalVeloValue<int> _smthFaceAng[3];
     /** ツイスト情報 */
     Twist _tw[3];
 
@@ -296,7 +296,7 @@ public:
                bool prm_zero_acc_end_flg);
 
     inline bool isTurning() const {
-        if (_smthFaceAng[AXIS_X].isAccelerating() || _smthFaceAng[AXIS_Y].isAccelerating() || _smthFaceAng[AXIS_Z].isAccelerating()) {
+        if (_smthFaceAng[AXIS_X].isTransitioning() || _smthFaceAng[AXIS_Y].isTransitioning() || _smthFaceAng[AXIS_Z].isTransitioning()) {
             return true;
         } else {
             return false;
@@ -304,9 +304,9 @@ public:
     }
 
     inline void stopTurn() {
-        _smthFaceAng[AXIS_X].stopAccelerating();
-        _smthFaceAng[AXIS_Y].stopAccelerating();
-        _smthFaceAng[AXIS_Z].stopAccelerating();
+        _smthFaceAng[AXIS_X].stopTransitioning();
+        _smthFaceAng[AXIS_Y].stopTransitioning();
+        _smthFaceAng[AXIS_Z].stopTransitioning();
         _tw[AXIS_X].target_num = 0;
         _tw[AXIS_Y].target_num = 0;
         _tw[AXIS_Z].target_num = 0;

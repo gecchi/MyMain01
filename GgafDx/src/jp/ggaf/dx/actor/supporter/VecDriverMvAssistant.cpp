@@ -1,7 +1,7 @@
 #include "jp/ggaf/dx/actor/supporter/VecDriverMvAssistant.h"
 
 #include "jp/ggaf/dx/actor/supporter/VecDriver.h"
-#include "jp/ggaf/core/util/TrapezoidalValue.hpp"
+#include "jp/ggaf/core/util/TrapezoidalVeloValue.hpp"
 
 
 using namespace GgafDx;
@@ -13,7 +13,7 @@ VecDriverMvAssistant::VecDriverMvAssistant(VecDriver* prm_pMaster) : GgafCore::O
 }
 
 void VecDriverMvAssistant::behave() {
-    if (_smthMv.isAccelerating()) {
+    if (_smthMv.isTransitioning()) {
         _smthMv.behave();
         _pMaster->setMvVelo(_smthMv._t_velo - _smthMv._t_acce);
         _pMaster->setMvAcce(_smthMv._t_acce);

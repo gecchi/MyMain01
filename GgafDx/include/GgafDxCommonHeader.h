@@ -231,12 +231,12 @@ enum UvFlippingMethod {
 enum PuppeteerMethod {
     NO_CHENGE = 0,
     PLAY_LOOPING = 1,
-    PLAY_OSCILLATING = 2
+    //PLAY_OSCILLATING = 2
 };
 
 enum PuppeteerStick {
-    LEFT_HAND  = 0,
-    RIGHT_HAND = 1
+    MAIN  = 0,
+    SUB = 1
 };
 
 
@@ -463,7 +463,6 @@ class SceneCurtain;
 class TextureBlinker;
 class UvFlipper;
 class Puppeteer;
-class Puppeteer_old;
 
 class Se;
 class Bgm;

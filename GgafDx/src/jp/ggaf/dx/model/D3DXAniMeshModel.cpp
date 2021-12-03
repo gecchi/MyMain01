@@ -3,7 +3,7 @@
 #include "jp/ggaf/dx/God.h"
 #include "jp/ggaf/dx/Config.h"
 #include "jp/ggaf/dx/actor/D3DXAniMeshActor.h"
-#include "jp/ggaf/dx/actor/supporter/Puppeteer_old.h"
+#include "jp/ggaf/dx/actor/supporter/Puppeteer.h"
 #include "jp/ggaf/dx/effect/D3DXAniMeshEffect.h"
 #include "jp/ggaf/dx/effect/MeshEffect.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"

@@ -10,7 +10,7 @@ namespace GgafDx {
  * FigureActor を継承し、Xファイル定義の
  * フレームアニメーションメッシュ表示機能を<BR>
  * 追加したアクターです<BR>
- * アニメーションはパペッター(Puppeteer_old)にお願いします。<BR>
+ * アニメーションはパペッター(Puppeteer)にお願いします。<BR>
  * @version 1.00
  * @since 2009/11/25
  * @author Masatoshi Tsuge
@@ -24,7 +24,7 @@ public:
     /** エフェクト資源 */
     D3DXAniMeshEffect* _pD3DXAniMeshEffect;
     /** パペッター（アニメーション操作オブジェクト) */
-    Puppeteer_old* _pPuppeteer;
+    Puppeteer* _pPuppeteer;
     BoneAniMeshWorldMatStack _stackWorldMat;
     LPD3DXANIMATIONSET* _papAnimationSet;
 

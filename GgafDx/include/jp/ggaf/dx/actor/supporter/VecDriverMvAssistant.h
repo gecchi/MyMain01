@@ -2,7 +2,7 @@
 #define GGAF_DX_VECDRIVERMVASSISTANT_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
-#include "jp/ggaf/core/util/TrapezoidalValue.hpp"
+#include "jp/ggaf/core/util/TrapezoidalVeloValue.hpp"
 
 namespace GgafDx {
 
@@ -19,7 +19,7 @@ class VecDriverMvAssistant : public GgafCore::Object {
 private:
     /** [r]étè† */
     VecDriver* const _pMaster;
-    GgafCore::TrapezoidalValue<int> _smthMv;
+    GgafCore::TrapezoidalVeloValue<int> _smthMv;
 
     /**
      * óÕé‘ÇÃèïéËÇ™êUÇÈïëÇ§ .
@@ -114,15 +114,15 @@ public:
                    bool prm_zero_acc_end_flg);
 
     bool isSliding() {
-        return _smthMv.isAccelerating();
+        return _smthMv.isTransitioning();
     }
 
     void stopSliding() {
-        _smthMv.stopAccelerating();
+        _smthMv.stopTransitioning();
     }
 
     bool hasJustFinishedSliding() {
-        return _smthMv.hasJustFinishedAccelerating();
+        return _smthMv.hasJustFinishedTransitioning();
     }
 
     virtual ~VecDriverMvAssistant();

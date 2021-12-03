@@ -1,7 +1,7 @@
 #ifndef GGAF_DX_COLORIST_H_
 #define GGAF_DX_COLORIST_H_
 #include "GgafDxCommonHeader.h"
-#include "jp/ggaf/core/util/TransitionValue.hpp"
+#include "jp/ggaf/core/util/TransitionValueSet.hpp"
 
 namespace GgafDx {
 
@@ -11,7 +11,7 @@ namespace GgafDx {
  * @since 2011/07/28
  * @author Masatoshi Tsuge
  */
-class Colorist : public GgafCore::TransitionValue<float, 3 > {
+class Colorist : public GgafCore::TransitionValueSet<float, 3 > {
 
 public:
     /** 対象アクター */

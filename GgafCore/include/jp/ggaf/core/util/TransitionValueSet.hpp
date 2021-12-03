@@ -1,5 +1,5 @@
-#ifndef GGAF_CORE_TRANSITIONVALUE_H_
-#define GGAF_CORE_TRANSITIONVALUE_H_
+#ifndef GGAF_CORE_TRANSITIONVALUESET_H_
+#define GGAF_CORE_TRANSITIONVALUESET_H_
 #include "GgafCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 
@@ -17,7 +17,7 @@ namespace GgafCore {
  * @author Masatoshi Tsuge
  */
 template<class VAL_TYPE, int N>
-class TransitionValue : public Object {
+class TransitionValueSet : public Object {
 
 public:
     enum TransitionMethod {
@@ -81,7 +81,7 @@ public:
     /**
      * コンストラクタ<BR>
      */
-    TransitionValue() : Object() {
+    TransitionValueSet() : Object() {
         Parameter* p = _parameter;
         for (int i = 0; i < N; i++) {
             p->_velo = 0;
@@ -867,11 +867,11 @@ public:
         }
     }
 
-    virtual ~TransitionValue() {
+    virtual ~TransitionValueSet() {
     }
 };
 
 }
 
-#endif /*GGAF_CORE_TRANSITIONVALUE_H_*/
+#endif /*GGAF_CORE_TRANSITIONVALUESET_H_*/
 

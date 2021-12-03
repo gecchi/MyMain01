@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/actor/D3DXAniMeshActor.h"
 
-#include "jp/ggaf/dx/actor/supporter/Puppeteer_old.h"
+#include "jp/ggaf/dx/actor/supporter/Puppeteer.h"
 #include "jp/ggaf/dx/model/D3DXAniMeshModel.h"
 #include "jp/ggaf/dx/effect/D3DXAniMeshEffect.h"
 #include "jp/ggaf/dx/util/Util.h"
@@ -30,7 +30,7 @@ _stackWorldMat() {
     _papAnimationSet = nullptr;
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列
     ID3DXAnimationController* pAc_cloned = _pD3DXAniMeshModel->getCloneAnimationController();
-    _pPuppeteer = NEW Puppeteer_old(pAc_cloned);
+    _pPuppeteer = NEW Puppeteer(pAc_cloned);
     BoneAniMeshFrame* pFrameRoot = _pD3DXAniMeshModel->_pFrameRoot;
     _stackWorldMat.registerFrameTransformationMatrix(pFrameRoot);
 }

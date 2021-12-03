@@ -2,7 +2,7 @@
 #define GGAF_DX_VECDRIVERMVANGASSISTANT_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
-#include "jp/ggaf/core/util/TrapezoidalValue.hpp"
+#include "jp/ggaf/core/util/TrapezoidalVeloValue.hpp"
 
 namespace GgafDx {
 
@@ -36,8 +36,8 @@ private:
     Pendulum _pnd_ry;
     /** [r]étè† */
     VecDriver* const _pMaster;
-    GgafCore::TrapezoidalValue<int> _smthMvRzAng;
-    GgafCore::TrapezoidalValue<int> _smthMvRyAng;
+    GgafCore::TrapezoidalVeloValue<int> _smthMvRzAng;
+    GgafCore::TrapezoidalVeloValue<int> _smthMvRyAng;
 
     /**
      * óÕé‘ÇÃèïéËÇ™êUÇÈïëÇ§ .
@@ -277,12 +277,12 @@ public:
 
 
     inline bool isTurning() const {
-        return (_smthMvRzAng.isAccelerating() || _smthMvRyAng.isAccelerating()) ? true : false;
+        return (_smthMvRzAng.isTransitioning() || _smthMvRyAng.isTransitioning()) ? true : false;
     }
 
     inline void stopTurning() {
-        _smthMvRzAng.stopAccelerating();
-        _smthMvRyAng.stopAccelerating();
+        _smthMvRzAng.stopTransitioning();
+        _smthMvRyAng.stopTransitioning();
     }
 
     virtual ~VecDriverMvAngAssistant();
