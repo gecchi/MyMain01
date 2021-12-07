@@ -95,31 +95,36 @@ void TrialAndErrScene::processBehavior() {
     }
 
 
-    if (GgafDx::Input::isPushedDownKey(DIK_1)) {
-        p1->_pPuppeteer->play(0,          //UINT   prm_performance_no,
-                              2.0        //double prm_loopnum,
-                              );
-    }
-
     if (GgafDx::Input::isPushedDownKey(DIK_2)) {
-        p1->_pPuppeteer->play(1,          //UINT   prm_performance_no,
-                              2.0        //double prm_loopnum,
-                              );
+        p1->_pPuppeteer->play(0);
     }
     if (GgafDx::Input::isPushedDownKey(DIK_3)) {
-        p1->_pPuppeteer->play(2,          //UINT   prm_performance_no,
-                              2.0        //double prm_loopnum,
-                              );
+        p1->_pPuppeteer->play(1);
     }
     if (GgafDx::Input::isPushedDownKey(DIK_4)) {
-        p1->_pPuppeteer->play(3,         //UINT   prm_performance_no,
-                              2.0        //double prm_loopnum,
-                              );
+        p1->_pPuppeteer->play(2);
     }
     if (GgafDx::Input::isPushedDownKey(DIK_5)) {
-        p1->_pPuppeteer->play(4,         //UINT   prm_performance_no,
-                              2.0        //double prm_loopnum,
-                              );
+        p1->_pPuppeteer->play(3);
+    }
+    if (GgafDx::Input::isPushedDownKey(DIK_6)) {
+        p1->_pPuppeteer->play(4);
+    }
+
+    if (GgafDx::Input::isPushedDownKey(DIK_W)) {
+        p1->_pPuppeteer->switchTo(0);
+    }
+    if (GgafDx::Input::isPushedDownKey(DIK_E)) {
+        p1->_pPuppeteer->switchTo(1);
+    }
+    if (GgafDx::Input::isPushedDownKey(DIK_R)) {
+        p1->_pPuppeteer->switchTo(2);
+    }
+    if (GgafDx::Input::isPushedDownKey(DIK_T)) {
+        p1->_pPuppeteer->switchTo(3);
+    }
+    if (GgafDx::Input::isPushedDownKey(DIK_Y)) {
+        p1->_pPuppeteer->switchTo(4);
     }
 
 
@@ -127,179 +132,36 @@ void TrialAndErrScene::processBehavior() {
 
 
     if (GgafDx::Input::isPushedDownKey(DIK_A)) {
-        p2->_pPuppeteer->play(0,          //UINT   prm_performance_no,
-                            2.0        //double prm_loopnum,
-                            );
+        p2->_pPuppeteer->play(0);
     }
-
     if (GgafDx::Input::isPushedDownKey(DIK_S)) {
-        p2->_pPuppeteer->play(1,          //UINT   prm_performance_no,
-                            2.0        //double prm_loopnum,
-                            );
-
+        p2->_pPuppeteer->play(1);
     }
     if (GgafDx::Input::isPushedDownKey(DIK_D)) {
-        p2->_pPuppeteer->play(2,          //UINT   prm_performance_no,
-                            2.0        //double prm_loopnum,
-                            );
-
+        p2->_pPuppeteer->play(2);
     }
     if (GgafDx::Input::isPushedDownKey(DIK_F)) {
-        p2->_pPuppeteer->play(3,         //UINT   prm_performance_no,
-                              2.0        //double prm_loopnum,
-                              );
-
+        p2->_pPuppeteer->play(3);
     }
     if (GgafDx::Input::isPushedDownKey(DIK_G)) {
-        p2->_pPuppeteer->play( 4,         //UINT   prm_performance_no,
-                              2.0        //double prm_loopnum,
-                              );
-
+        p2->_pPuppeteer->play(4);
     }
-//////////////////////
-//
-//    if (GgafDx::Input::isPushedDownKey(DIK_Z)) {
-//        p3->_pPuppeteer->play(LEFT_HAND,
-//                            0,          //UINT   prm_performance_no,
-//                            120,          //frame prm_one_loop_frames,
-//                            3.0        //double prm_loopnum,
-//                            );
-//    }
-//
-//    if (GgafDx::Input::isPushedDownKey(DIK_X)) {
-//        p3->_pPuppeteer->play(LEFT_HAND,
-//                            1,          //UINT   prm_performance_no,
-//                            120,          //frame prm_one_loop_frames,
-//                            1.0        //double prm_loopnum,
-//                            );
-//
-//    }
-//    if (GgafDx::Input::isPushedDownKey(DIK_C)) {
-//        p3->_pPuppeteer->play(LEFT_HAND,
-//                            2,          //UINT   prm_performance_no,
-//                            120,          //frame prm_one_loop_frames,
-//                            1.0        //double prm_loopnum,
-//                            );
-//
-//    }
-//    if (GgafDx::Input::isPushedDownKey(DIK_V)) {
-//        p3->_pPuppeteer->play(LEFT_HAND,
-//                            3,         //UINT   prm_performance_no,
-//                            120,       //frame prm_one_loop_frames,
-//                            1.0        //double prm_loopnum,
-//                            );
-//
-//    }
 
-
-/////////////////////////////////////////////////
-//
-//
-//    if (GgafDx::Input::isPushedDownKey(DIK_5)) {
-//        p4->_pPuppeteer->play(LEFT_HAND,
-//                            0,          //UINT   prm_performance_no,
-//                            120,          //frame prm_one_loop_frames,
-//                            1.0        //double prm_loopnum,
-//                            );
-//
-//    }
-//
-//    if (GgafDx::Input::isPushedDownKey(DIK_6)) {
-//        p4->_pPuppeteer->play(LEFT_HAND,
-//                            1,          //UINT   prm_performance_no,
-//                            120,          //frame prm_one_loop_frames,
-//                            1.0        //double prm_loopnum,
-//                            );
-//
-//    }
-//    if (GgafDx::Input::isPushedDownKey(DIK_7)) {
-//        p4->_pPuppeteer->play(LEFT_HAND,
-//                            2,          //UINT   prm_performance_no,
-//                            120,          //frame prm_one_loop_frames,
-//                            1.0        //double prm_loopnum,
-//                            );
-//
-//    }
-//    if (GgafDx::Input::isPushedDownKey(DIK_8)) {
-//        p4->_pPuppeteer->play(LEFT_HAND,
-//                            3,         //UINT   prm_performance_no,
-//                            120,       //frame prm_one_loop_frames,
-//                            1.0        //double prm_loopnum,
-//                            );
-//
-//    }
-//
-//////////////////////////
-//
-//
-//    if (GgafDx::Input::isPushedDownKey(DIK_G)) {
-//        p5->_pPuppeteer->play(LEFT_HAND,
-//                            0,          //UINT   prm_performance_no,
-//                            120,          //frame prm_one_loop_frames,
-//                            1.0        //double prm_loopnum,
-//                            );
-//
-//    }
-//
-//    if (GgafDx::Input::isPushedDownKey(DIK_H)) {
-//        p5->_pPuppeteer->play(LEFT_HAND,
-//                            1,          //UINT   prm_performance_no,
-//                            120,          //frame prm_one_loop_frames,
-//                            1.0        //double prm_loopnum,
-//                            );
-//
-//    }
-//    if (GgafDx::Input::isPushedDownKey(DIK_J)) {
-//        p5->_pPuppeteer->play(LEFT_HAND,
-//                            2,          //UINT   prm_performance_no,
-//                            120,          //frame prm_one_loop_frames,
-//                            1.0        //double prm_loopnum,
-//                            );
-//
-//    }
-//    if (GgafDx::Input::isPushedDownKey(DIK_K)) {
-//        p5->_pPuppeteer->play(LEFT_HAND,
-//                            3,         //UINT   prm_performance_no,
-//                            120,       //frame prm_one_loop_frames,
-//                            1.0        //double prm_loopnum,
-//                            );
-//
-//    }
-//////////////////////
-//
-//    if (GgafDx::Input::isPushedDownKey(DIK_B)) {
-//        p6->_pPuppeteer->play(LEFT_HAND,
-//                            0,          //UINT   prm_performance_no,
-//                            120,          //frame prm_one_loop_frames,
-//                            1.0        //double prm_loopnum,
-//                            );
-//
-//    }
-//
-//    if (GgafDx::Input::isPushedDownKey(DIK_N)) {
-//        p6->_pPuppeteer->play(LEFT_HAND,
-//                            1,          //UINT   prm_performance_no,
-//                            120,          //frame prm_one_loop_frames,
-//                            1.0        //double prm_loopnum,
-//                            );
-//
-//    }
-//    if (GgafDx::Input::isPushedDownKey(DIK_M)) {
-//        p6->_pPuppeteer->play(LEFT_HAND,
-//                            2,          //UINT   prm_performance_no,
-//                            120,          //frame prm_one_loop_frames,
-//                            1.0        //double prm_loopnum,
-//                            );
-//
-//    }
-//    if (GgafDx::Input::isPushedDownKey(DIK_COMMA)) {
-//        p6->_pPuppeteer->play(LEFT_HAND,
-//                            3,         //UINT   prm_performance_no,
-//                            120,       //frame prm_one_loop_frames,
-//                            1.0        //double prm_loopnum,
-//                            );
-//
-//    }
+    if (GgafDx::Input::isPushedDownKey(DIK_Z)) {
+         p2->_pPuppeteer->switchTo(0);
+     }
+     if (GgafDx::Input::isPushedDownKey(DIK_X)) {
+         p2->_pPuppeteer->switchTo(1);
+     }
+     if (GgafDx::Input::isPushedDownKey(DIK_C)) {
+         p2->_pPuppeteer->switchTo(2);
+     }
+     if (GgafDx::Input::isPushedDownKey(DIK_V)) {
+         p2->_pPuppeteer->switchTo(3);
+     }
+     if (GgafDx::Input::isPushedDownKey(DIK_B)) {
+         p2->_pPuppeteer->switchTo(4);
+     }
 
 }
 

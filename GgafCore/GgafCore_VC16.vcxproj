@@ -61,6 +61,7 @@
     <ClInclude Include="include\jp\ggaf\core\util\Rgb.h" />
     <ClInclude Include="include\jp\ggaf\core\util\Status.h" />
     <ClInclude Include="include\jp\ggaf\core\util\Table.h" />
+    <ClInclude Include="include\jp\ggaf\core\util\TransitionValue.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\TransitionValueSet.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\TrapezoidalVeloValue.hpp" />
     <ClInclude Include="include\jp\ggaf\core\util\TreeElem.hpp" />

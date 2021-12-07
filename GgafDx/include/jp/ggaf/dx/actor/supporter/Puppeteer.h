@@ -3,7 +3,7 @@
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
-#include "jp/ggaf/core/util/TrapezoidalVeloValue.hpp"
+#include "jp/ggaf/core/util/TransitionValue.hpp"
 #include <vector>
 #include <d3dx9.h>
 #include <d3dx9anim.h>
@@ -50,14 +50,14 @@ private:
         UINT _animation_set_index;
         double _period;
         /** ローカルタイム */
-        GgafCore::TrapezoidalVeloValue<double> _local_time;
+//        GgafCore::TrapezoidalVeloValue<double> _local_time;
         double _p1;
         double _p2;
         /** 目標ループ回数(1.5回などの指定も可能) */
         double _target_loop;
 
         double _loop_count;
-        GgafCore::TrapezoidalVeloValue<double> _weight;
+//        GgafCore::TrapezoidalVeloValue<double> _weight;
         /** ループ方法 */
         PuppeteerMethod _method;
     public:
@@ -72,6 +72,8 @@ private:
         UINT _tno;
         /** パペッターの操り棒の先にくっついてる持ちネタ(芸) */
         Performance* _pPerformance;
+
+        GgafCore::TransitionValue<double> _weight;
     };
 
 public:
@@ -88,6 +90,8 @@ public:
 
     /** アニメーションコントローラのデフォルトの１フレームあたりのアニメーションフレーム */
     double _ani_time_delta;
+
+    double _advance_time;
 public:
     /**
      * コンストラクタ .
@@ -122,10 +126,11 @@ public:
      * @param prm_loopnum その芸のループ回数 0.0 ～ (１回半ループを1.5というようにも指定可能。負の数指定(-1)で無限ループアニメーション)
      * @param prm_method
      */
-    void play(UINT prm_performance_no,
-              double prm_loopnum,
-              PuppeteerMethod prm_method = PLAY_LOOPING
-    );
+    void play(UINT prm_performance_no);
+
+
+
+    void switchTo(UINT prm_performance_no, frame prm_switch_frames = 120);
 
     /**
      * パペッターの右手芸と左手芸を交換 .

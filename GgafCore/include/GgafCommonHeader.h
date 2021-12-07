@@ -380,6 +380,9 @@ class LinkedListRing;
 template<class VAL_TYPE>
 class TrapezoidalVeloValue;
 
+template<class VAL_TYPE>
+class TransitionValue;
+
 template<class VAL_TYPE, int N>
 class TransitionValueSet;
 
