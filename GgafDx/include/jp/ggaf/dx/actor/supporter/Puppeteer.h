@@ -102,29 +102,11 @@ public:
                        double prm_ani_time_delta = 60.0 / 4800);
 
 
-    /**
-     * プレイしてもらう（＝パペットが操られる） .
-     * @param prm_handed プレイするパペッターの操り棒 (LEFT_HAND or RIGHT_HAND)
-     * @param prm_performance_no プレイする芸番号（アニメーションコントローラーのアニメーションセットIDに一致する）
-     * @param prm_loopnum その芸のループ回数 0.0 ～ (１回半ループを1.5というようにも指定可能。負の数指定(-1)で無限ループアニメーション)
-     * @param prm_target_speed 目標スピード割合 通常は -1.0 ～ 0.0 ～ 1.0 (1.0で通常スピード、それ以上も可能。負の値指定で逆アニメーションになる)
-     * @param prm_shift_speed_frames 目標スピード割合への到達フレーム数。徐々にスピード変化します。(0 を指定で即時 prm_target_speed になる)
-     * @param prm_target_weight 目標重み（＝アニメーション合成割合） 0.0 ～ 1.0 (負の数不可)
-     * @param prm_shift_weight_frames 目標重へみ到達フレーム数、徐々に重みが変化する。(0 を指定で即時 prm_target_weight になる)
-     * @param prm_method
-     */
-
-
-
 //    void perform(UINT prm_performance_no, double prm_loopnum);
 
     /**
-     *プレイしてもらう（＝パペットが操られる） .
-     * @param prm_handed プレイするパペッターの操り棒 (LEFT_HAND or RIGHT_HAND)
+     * プレイしてもらう（＝パペットが操られる） .
      * @param prm_performance_no プレイする芸番号（アニメーションコントローラーのアニメーションセットIDに一致する）
-     * @param prm_one_loop_frames その芸の１ループに費やすフレーム数
-     * @param prm_loopnum その芸のループ回数 0.0 ～ (１回半ループを1.5というようにも指定可能。負の数指定(-1)で無限ループアニメーション)
-     * @param prm_method
      */
     void play(UINT prm_performance_no);
 
@@ -132,10 +114,9 @@ public:
 
     void switchTo(UINT prm_performance_no, frame prm_switch_frames = 120);
 
-    /**
-     * パペッターの右手芸と左手芸を交換 .
-     */
-    void exchangPerformance();
+
+    void playPartly(UINT prm_performance_no, frame prm_spend_frames = 180);
+    void playPartly2(UINT prm_performance_no, int prm_loop);
 
     void stop();
 

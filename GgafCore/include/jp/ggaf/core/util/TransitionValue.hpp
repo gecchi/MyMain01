@@ -483,7 +483,7 @@ public:
                 //維持終時
                 if (cnt == _beat_frame_of_sustain_finish) {
                     val = top;
-                    frame attenuate_frames = _beat_frame_of_release_finish - _beat_frame_of_sustain_finish; //減衰(余韻)時間
+                    int attenuate_frames = (int)_beat_frame_of_release_finish - (int)_beat_frame_of_sustain_finish; //減衰(余韻)時間
                     //下限までの減衰(余韻)速度設定
                     if (attenuate_frames > 0)  {
                         _velo = (VAL_TYPE)( (double)(bottom-top) / ((double)attenuate_frames) );
@@ -521,7 +521,7 @@ public:
                 //維持(下限)終時
                 if (cnt == _beat_frame_of_sustain_finish) {
                     val = bottom;
-                    frame attenuate_frames = _beat_frame_of_release_finish - _beat_frame_of_sustain_finish; //復帰時間
+                    int attenuate_frames = (int)_beat_frame_of_release_finish - (int)_beat_frame_of_sustain_finish; //復帰時間
                     //上限までの復帰速度設定
                     if (attenuate_frames > 0)  {
                         _velo = (VAL_TYPE)( (double)(top - bottom) / ((double)attenuate_frames) );

@@ -112,7 +112,7 @@ void TrialAndErrScene::processBehavior() {
     }
 
     if (GgafDx::Input::isPushedDownKey(DIK_W)) {
-        p1->_pPuppeteer->switchTo(0);
+        p1->_pPuppeteer->playPartly(0);
     }
     if (GgafDx::Input::isPushedDownKey(DIK_E)) {
         p1->_pPuppeteer->switchTo(1);
@@ -148,7 +148,7 @@ void TrialAndErrScene::processBehavior() {
     }
 
     if (GgafDx::Input::isPushedDownKey(DIK_Z)) {
-         p2->_pPuppeteer->switchTo(0);
+         p2->_pPuppeteer->playPartly(0);
      }
      if (GgafDx::Input::isPushedDownKey(DIK_X)) {
          p2->_pPuppeteer->switchTo(1);
@@ -167,5 +167,4 @@ void TrialAndErrScene::processBehavior() {
 
 TrialAndErrScene::~TrialAndErrScene() {
 }
-
 
