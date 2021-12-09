@@ -166,7 +166,6 @@ void MassMorphMeshModel::restore() {
                 _size_vertex_unit_model = sizeof(MassMorphMeshModel::VERTEX_model_primary);
                 _size_vertices_model = sizeof(MassMorphMeshModel::VERTEX_model_primary) * _nVertices;
                 //法線以外設定
-                FLOAT model_bounding_sphere_radius;
                 for (UINT i = 0; i < _nVertices; i++) {
                     _paVtxBuffer_data_model[i].x = papMeshesFront[pattern]->_Vertices[i].data[0];
                     _paVtxBuffer_data_model[i].y = papMeshesFront[pattern]->_Vertices[i].data[1];
@@ -183,13 +182,6 @@ void MassMorphMeshModel::restore() {
                         _paVtxBuffer_data_model[i].tv = 0.0f;
                     }
 
-                    //距離
-                    model_bounding_sphere_radius = (FLOAT)(sqrt(_paVtxBuffer_data_model[i].x * _paVtxBuffer_data_model[i].x +
-                                                                _paVtxBuffer_data_model[i].y * _paVtxBuffer_data_model[i].y +
-                                                                _paVtxBuffer_data_model[i].z * _paVtxBuffer_data_model[i].z));
-                    if (_bounding_sphere_radius < model_bounding_sphere_radius) {
-                        _bounding_sphere_radius = model_bounding_sphere_radius;
-                    }
                 }
             } else {
                 //モーフターゲットメッシュ
@@ -216,6 +208,16 @@ void MassMorphMeshModel::restore() {
             if (pattern == 0) { //プライマリメッシュ
                 prepareVtx((void*)_paVtxBuffer_data_model, _size_vertex_unit_model,
                            papModel3D[pattern], paNumVertices);
+                //距離
+                FLOAT model_bounding_sphere_radius;
+                for (UINT i = 0; i < _nVertices; i++) {
+                    model_bounding_sphere_radius = (FLOAT)(sqrt(_paVtxBuffer_data_model[i].x * _paVtxBuffer_data_model[i].x +
+                                                                _paVtxBuffer_data_model[i].y * _paVtxBuffer_data_model[i].y +
+                                                                _paVtxBuffer_data_model[i].z * _paVtxBuffer_data_model[i].z));
+                    if (_bounding_sphere_radius < model_bounding_sphere_radius) {
+                        _bounding_sphere_radius = model_bounding_sphere_radius;
+                    }
+                }
             } else {            //ターゲットメッシュ
                 prepareVtx((void*)(_papaVtxBuffer_data_morph_model[pattern-1]), _size_vertex_unit_morph_model,
                            papModel3D[pattern], paNumVertices);

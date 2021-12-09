@@ -123,7 +123,6 @@ void MassMeshModel::restore() {
         _size_vertex_unit_model = sizeof(MassMeshModel::VERTEX_model);
         _size_vertices_model = sizeof(MassMeshModel::VERTEX_model) * _nVertices;
         //法線以外設定
-        FLOAT model_bounding_sphere_radius;
         for (UINT i = 0; i < _nVertices; i++) {
             _paVtxBuffer_data_model[i].x = pMeshesFront->_Vertices[i].data[0];
             _paVtxBuffer_data_model[i].y = pMeshesFront->_Vertices[i].data[1];
@@ -139,14 +138,6 @@ void MassMeshModel::restore() {
                 _paVtxBuffer_data_model[i].tu = 0;
                 _paVtxBuffer_data_model[i].tv = 0;
             }
-
-            //距離
-            model_bounding_sphere_radius = (FLOAT)(sqrt(_paVtxBuffer_data_model[i].x * _paVtxBuffer_data_model[i].x +
-                                                        _paVtxBuffer_data_model[i].y * _paVtxBuffer_data_model[i].y +
-                                                        _paVtxBuffer_data_model[i].z * _paVtxBuffer_data_model[i].z));
-            if (_bounding_sphere_radius < model_bounding_sphere_radius) {
-                _bounding_sphere_radius = model_bounding_sphere_radius;
-            }
         }
 
         if (_nVertices < nTextureCoords) {
@@ -155,8 +146,19 @@ void MassMeshModel::restore() {
         }
         //法線設定とFrameTransformMatrix適用
         prepareVtx((void*)_paVtxBuffer_data_model, _size_vertex_unit_model,
-                                        pModel3D, paNumVertices);
+                   pModel3D, paNumVertices);
         GGAF_DELETE(paNumVertices);
+
+        //距離
+        FLOAT model_bounding_sphere_radius;
+        for (UINT i = 0; i < _nVertices; i++) {
+            model_bounding_sphere_radius = (FLOAT)(sqrt(_paVtxBuffer_data_model[i].x * _paVtxBuffer_data_model[i].x +
+                                                        _paVtxBuffer_data_model[i].y * _paVtxBuffer_data_model[i].y +
+                                                        _paVtxBuffer_data_model[i].z * _paVtxBuffer_data_model[i].z));
+            if (_bounding_sphere_radius < model_bounding_sphere_radius) {
+                _bounding_sphere_radius = model_bounding_sphere_radius;
+            }
+        }
 
         //インデックスバッファ構築
         _paIndexBuffer_data = NEW WORD[_nFaces*3];

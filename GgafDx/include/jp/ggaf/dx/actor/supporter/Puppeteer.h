@@ -16,10 +16,9 @@ namespace GgafDx {
 
 /**
  * パペッター(操り人形遣い) .
- * パペッターは、糸で吊るされたパペット(BoneAniMeshActor)を操り棒で操り、<BR>
+ * パペッターは、糸で吊るされたパペット(Actor)を操り棒で操り、<BR>
  * 様々な芸(アニメーション)を演じさせることが出来る人(オブジェクト)です。<BR>
  * 残念ながら、パペットは同時に2種類の芸までしか演じさせる事が出来ません。<BR>
- * 理由は、パペッターの腕が２本しか無いからです。しかたないですね。<BR>
  * 両手を駆使して、パペットをうまく操ってください。<BR>
  * <BR>
  * 内部的には、このクラスは、ID3DXAnimationController のラッパークラスです。<BR>
@@ -86,7 +85,7 @@ public:
     Stick*  _pStickSub;
     Stick* _apStick[2];
     /** [r]現在のトラックに設定されているアニメーションセット。未設定の場合はnullptr。[0]:トラック0／[1]トラック1 */
-   ID3DXAnimationSet* _paAs[2];
+   ID3DXAnimationSet* _apAs[2];
 
     /** アニメーションコントローラのデフォルトの１フレームあたりのアニメーションフレーム */
     double _ani_time_delta;
@@ -95,28 +94,27 @@ public:
 public:
     /**
      * コンストラクタ .
-     * @param prm_pPuppet 操られる者
-     * @return
+     * @param prm_pAc_cloned アニメーションコントローラー(cloneしたもの)
+     * @param prm_ani_time_delta アニメーション最小時間（アニメーションコントローラーの内部の単位）
      */
     explicit Puppeteer(ID3DXAnimationController* prm_pAc_cloned,
-                       double prm_ani_time_delta = 60.0 / 4800);
-
-
-//    void perform(UINT prm_performance_no, double prm_loopnum);
+                       double prm_ani_time_delta = 60.0 / 4800);  //内部4800フレームを1秒換算 (60FPSの場合)
 
     /**
-     * プレイしてもらう（＝パペットが操られる） .
+     * 芸をプレイしてもらう（＝パペットが操られる） .
      * @param prm_performance_no プレイする芸番号（アニメーションコントローラーのアニメーションセットIDに一致する）
      */
     void play(UINT prm_performance_no);
 
+    /**
+     * 次の芸に移行する .
+     * @param prm_performance_no 移行する芸番号
+     * @param prm_switch_frames 移行する時間(フレーム数)
+     */
+    void shiftTo(UINT prm_performance_no, frame prm_switch_frames = 120);
 
 
-    void switchTo(UINT prm_performance_no, frame prm_switch_frames = 120);
-
-
-    void playPartly(UINT prm_performance_no, frame prm_spend_frames = 180);
-    void playPartly2(UINT prm_performance_no, int prm_loop);
+    void playPartly(UINT prm_performance_no, double prm_num_loop = 1.0);
 
     void stop();
 

@@ -20,7 +20,7 @@ enum CurtainState {
  * <pre>
  *
  *           |             |         <-- カーテンレール止めが刺さっている位置
- *           v             v
+ *     0     v             v    n
  *     +-----+------+------+----+    <-- カーテンレール
  *           +------+
  *           |  カ  |
@@ -76,8 +76,8 @@ public:
      * @param prm_max_position カーテンが100% 閉じた判定される位置
      */
     Curtain(T prm_curtain_rail_length,
-                T prm_min_position,
-                T prm_max_position) : Object(),
+            T prm_min_position,
+            T prm_max_position) : Object(),
     _curtain_rail_length(prm_curtain_rail_length),
     _min_position(prm_min_position),
     _max_position(prm_max_position),

@@ -753,8 +753,8 @@ public:
             _progress = TVMOVE_DONE;
         }
 #ifdef MY_DEBUG
-        if (_spent_frames > 60*60*10) {
-            throwCriticalException("10•ªˆÈãŠŠ‚è‚Á‚Ï‚È‚µ‚È‚ñ‚Å‚·‚ªI");
+        if (_spent_frames > 60*60*60) {
+            throwCriticalException("1ŽžŠÔˆÈãŠŠ‚è‚Á‚Ï‚È‚µ‚È‚ñ‚Å‚·‚ªI");
         }
 #endif
     }

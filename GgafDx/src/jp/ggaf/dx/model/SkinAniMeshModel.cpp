@@ -82,8 +82,8 @@ HRESULT SkinAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
     pActorPuppeteer->updateAnimationTrack(); //アニメーション反映
     //モデルのワールド変換行列更新
     pTargetActor->_stackWorldMat.SetWorldMatrix(&(pTargetActor->_matWorld));
-    ID3DXAnimationSet* pAs0 = pActorPuppeteer->_paAs[0];
-    ID3DXAnimationSet* pAs1 = pActorPuppeteer->_paAs[1];
+    ID3DXAnimationSet* pAs0 = pActorPuppeteer->_apAs[0];
+    ID3DXAnimationSet* pAs1 = pActorPuppeteer->_apAs[1];
     int as0_index = pAs0 ? (int)_mapAnimationSet_AniSetindex[pAs0] : -1;
     int as1_index = pAs1 ? (int)_mapAnimationSet_AniSetindex[pAs1] : -1;
     pTargetActor->_stackWorldMat.UpdateFrame(_pFrameRoot, as0_index, as1_index, _papaBool_AnimationSetIndex_BoneFrameIndex_is_act);

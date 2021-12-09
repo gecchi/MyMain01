@@ -263,7 +263,6 @@ void MeshSetModel::restore() {
         _size_vertex_unit = sizeof(MeshSetModel::VERTEX);
 
         //法線以外設定
-        FLOAT model_bounding_sphere_radius;
         for (int i = 0; i < nVertices; i++) {
             unit_paVtxBuffer_data[i].x = pMeshesFront->_Vertices[i].data[0];
             unit_paVtxBuffer_data[i].y = pMeshesFront->_Vertices[i].data[1];
@@ -280,14 +279,6 @@ void MeshSetModel::restore() {
                 unit_paVtxBuffer_data[i].tv = 0;
             }
             unit_paVtxBuffer_data[i].index = 0; //頂点番号（むりやり埋め込み）
-
-            //距離
-            model_bounding_sphere_radius = (FLOAT)(sqrt(unit_paVtxBuffer_data[i].x * unit_paVtxBuffer_data[i].x +
-                                                        unit_paVtxBuffer_data[i].y * unit_paVtxBuffer_data[i].y +
-                                                        unit_paVtxBuffer_data[i].z * unit_paVtxBuffer_data[i].z));
-            if (_bounding_sphere_radius < model_bounding_sphere_radius) {
-                _bounding_sphere_radius = model_bounding_sphere_radius;
-            }
         }
 
         if (nVertices < nTextureCoords) {
@@ -298,7 +289,16 @@ void MeshSetModel::restore() {
         prepareVtx((void*)unit_paVtxBuffer_data, _size_vertex_unit,
                    pModel3D, paNumVertices);
         GGAF_DELETE(paNumVertices);
-
+        //距離
+        FLOAT model_bounding_sphere_radius;
+        for (int i = 0; i < nVertices; i++) {
+            model_bounding_sphere_radius = (FLOAT)(sqrt(unit_paVtxBuffer_data[i].x * unit_paVtxBuffer_data[i].x +
+                                                        unit_paVtxBuffer_data[i].y * unit_paVtxBuffer_data[i].y +
+                                                        unit_paVtxBuffer_data[i].z * unit_paVtxBuffer_data[i].z));
+            if (_bounding_sphere_radius < model_bounding_sphere_radius) {
+                _bounding_sphere_radius = model_bounding_sphere_radius;
+            }
+        }
         //インデックスバッファ登録
         unit_paIndexBuffer_data = NEW WORD[nFaces*3];
         for (int i = 0; i < nFaces; i++) {

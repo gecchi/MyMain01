@@ -30,13 +30,13 @@ public:
         TARGET_ACCELERATION_UNTIL,
         TARGET_ACCELERATION_UNTIL_VELO,
     };
-
+    /** [r/w]値 */
     VAL_TYPE _t_value;
     /** [r/w]目標の遷移 */
     VAL_TYPE _target;
-    /** [r/w]遷移上限 */
+    /** [r/w]遷移上限値 */
     VAL_TYPE _top;
-    /** [r/w]遷移下限 */
+    /** [r/w]遷移下限値 */
     VAL_TYPE _bottom;
     /** [r/w]毎フレームの遷移の増分 */
     VAL_TYPE _velo;
@@ -109,6 +109,20 @@ public:
      */
     virtual void setBottom(VAL_TYPE prm_bottom) {
         _bottom = prm_bottom;
+    }
+
+    /**
+     * 値に上限値を設定 .
+     */
+    virtual void setValueTop() {
+        _t_value = _top;
+    }
+
+    /**
+     * 値に下限値を設定 .
+     */
+    virtual void setValueBottom() {
+        _t_value = _bottom;
     }
 
     /**

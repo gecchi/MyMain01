@@ -218,7 +218,6 @@ void MeshModel::restore() {
 
         //頂点バッファ作成開始！
         //法線以外設定
-        FLOAT model_bounding_sphere_radius;
         for (UINT i = 0; i < _nVertices; i++) {
             _paVtxBuffer_data[i].x = pMeshesFront->_Vertices[i].data[0];
             _paVtxBuffer_data[i].y = pMeshesFront->_Vertices[i].data[1];
@@ -240,7 +239,16 @@ void MeshModel::restore() {
             _paVtxBuffer_data[i].bin_x = 0.0f;
             _paVtxBuffer_data[i].bin_y = 0.0f;
             _paVtxBuffer_data[i].bin_z = 0.0f;
-            //距離
+        }
+
+        //頂点バッファ作成
+        prepareVtx((void*)_paVtxBuffer_data, _size_vertex_unit,
+                    pModel3D, paNumVertices);
+        GGAF_DELETE(paNumVertices);
+
+        //距離
+        FLOAT model_bounding_sphere_radius;
+        for (UINT i = 0; i < _nVertices; i++) {
             model_bounding_sphere_radius = (FLOAT)(sqrt(_paVtxBuffer_data[i].x * _paVtxBuffer_data[i].x +
                                                         _paVtxBuffer_data[i].y * _paVtxBuffer_data[i].y +
                                                         _paVtxBuffer_data[i].z * _paVtxBuffer_data[i].z));
@@ -248,12 +256,6 @@ void MeshModel::restore() {
                 _bounding_sphere_radius = model_bounding_sphere_radius;
             }
         }
-
-        //頂点バッファ作成
-        prepareVtx((void*)_paVtxBuffer_data, _size_vertex_unit,
-                    pModel3D, paNumVertices);
-
-        GGAF_DELETE(paNumVertices);
 
         //インデックスバッファ登録
         _paIndexBuffer_data = NEW WORD[_nFaces*3];

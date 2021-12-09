@@ -672,7 +672,7 @@ public:
      * ---「実行前」------------------------------
      * ([E])⇔[A]⇔[B]⇔[C]!⇔[D]⇔[E]⇔([A])
      * -------------------------------------------
-     *               ↓ remove() … 要素 [C] 抜き取る。そして値 C をゲット
+     *               ↓ remove() … 要素 [C] を抜き取る。そして値 C をゲット
      * ---「実行後」------------------------------
      * ([E])⇔[A]⇔[B]⇔[D]!⇔[E]⇔([A])
      * -------------------------------------------
@@ -685,7 +685,7 @@ public:
      * ---「実行前」------------------------------
      * ([E]!)⇔[A]⇔[B]⇔[C]⇔[D]⇔[E]!⇔([A])
      * -------------------------------------------
-     *               ↓ remove() … 要素 [C] 抜き取る。そして値 E をゲット
+     *               ↓ remove() … 要素 [E] を抜き取る。そして値 E をゲット
      * ---「実行後」------------------------------
      * ([D])⇔[A]!⇔[B]⇔[C]⇔[D]⇔([A]!)
      * -------------------------------------------
@@ -699,7 +699,7 @@ public:
     /**
      * 全ての要素を抜き取る .
      */
-    virtual int removeAll();
+    virtual void removeAll();
 
     /**
      * 引数が先頭から何番目かを返す。
@@ -1299,14 +1299,13 @@ T* LinkedListRing<T>::remove() {
 }
 
 template<class T>
-int LinkedListRing<T>::removeAll() {
+void LinkedListRing<T>::removeAll() {
     if (_papLinearVal) {
         //要素数が変更されるのでインデックスは無効にする
         GGAF_DELETEARR(_papLinearVal);
     }
 
     Elem* pElem = _pElem_first;
-    int n = 0;
     while (pElem) {
         if (pElem->_is_last_flg) {
             GGAF_DELETE(pElem);
@@ -1320,7 +1319,6 @@ int LinkedListRing<T>::removeAll() {
     _num_elem = 0;
     _pElemActive = nullptr;
     _pElem_first = nullptr;
-    return n;
 }
 
 template<class T>

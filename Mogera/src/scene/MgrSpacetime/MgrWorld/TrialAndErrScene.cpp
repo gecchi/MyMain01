@@ -107,25 +107,25 @@ void TrialAndErrScene::processBehavior() {
     if (GgafDx::Input::isPushedDownKey(DIK_5)) {
         p1->_pPuppeteer->play(3);
     }
-    if (GgafDx::Input::isPushedDownKey(DIK_6)) {
-        p1->_pPuppeteer->play(4);
-    }
+//    if (GgafDx::Input::isPushedDownKey(DIK_6)) {
+//        p1->_pPuppeteer->play(4);
+//    }
 
     if (GgafDx::Input::isPushedDownKey(DIK_W)) {
         p1->_pPuppeteer->playPartly(0);
     }
     if (GgafDx::Input::isPushedDownKey(DIK_E)) {
-        p1->_pPuppeteer->switchTo(1);
+        p1->_pPuppeteer->shiftTo(1);
     }
     if (GgafDx::Input::isPushedDownKey(DIK_R)) {
-        p1->_pPuppeteer->switchTo(2);
+        p1->_pPuppeteer->shiftTo(2);
     }
     if (GgafDx::Input::isPushedDownKey(DIK_T)) {
-        p1->_pPuppeteer->switchTo(3);
+        p1->_pPuppeteer->shiftTo(3);
     }
-    if (GgafDx::Input::isPushedDownKey(DIK_Y)) {
-        p1->_pPuppeteer->switchTo(4);
-    }
+//    if (GgafDx::Input::isPushedDownKey(DIK_Y)) {
+//        p1->_pPuppeteer->shiftTo(4);
+//    }
 
 
 ////////////////////////
@@ -143,25 +143,25 @@ void TrialAndErrScene::processBehavior() {
     if (GgafDx::Input::isPushedDownKey(DIK_F)) {
         p2->_pPuppeteer->play(3);
     }
-    if (GgafDx::Input::isPushedDownKey(DIK_G)) {
-        p2->_pPuppeteer->play(4);
-    }
+//    if (GgafDx::Input::isPushedDownKey(DIK_G)) {
+//        p2->_pPuppeteer->play(4);
+//    }
 
     if (GgafDx::Input::isPushedDownKey(DIK_Z)) {
          p2->_pPuppeteer->playPartly(0);
      }
      if (GgafDx::Input::isPushedDownKey(DIK_X)) {
-         p2->_pPuppeteer->switchTo(1);
+         p2->_pPuppeteer->shiftTo(1);
      }
      if (GgafDx::Input::isPushedDownKey(DIK_C)) {
-         p2->_pPuppeteer->switchTo(2);
+         p2->_pPuppeteer->shiftTo(2);
      }
      if (GgafDx::Input::isPushedDownKey(DIK_V)) {
-         p2->_pPuppeteer->switchTo(3);
+         p2->_pPuppeteer->shiftTo(3);
      }
-     if (GgafDx::Input::isPushedDownKey(DIK_B)) {
-         p2->_pPuppeteer->switchTo(4);
-     }
+//     if (GgafDx::Input::isPushedDownKey(DIK_B)) {
+//         p2->_pPuppeteer->shiftTo(4);
+//     }
 
 }
 

@@ -90,7 +90,6 @@ Puppeteer::Puppeteer(ID3DXAnimationController* prm_pAc_cloned,
 
     //Stick初期化(トラック初期設定)
     _pStickMain->_tno = 0;
-//    _pStickMain->_pPerformance = &(_paPerformances[0]);
     _pStickMain->_pPerformance = nullptr;
     _pStickMain->_weight.setRange(0.000001, 1.0);
     _pStickMain->_weight._t_value = 1.0;
@@ -108,13 +107,12 @@ Puppeteer::Puppeteer(ID3DXAnimationController* prm_pAc_cloned,
         if (p) {
             hr = pAc->SetTrackEnable(tno, TRUE);
             checkDxException(hr, D3D_OK, "失敗しました。");
-            hr = pAc->SetTrackAnimationSet(tno, p->_pAnimationSet);
+            hr = pAc->SetTrackAnimationSet(tno, p->_pAnimationSet); _apAs[tno] = p->_pAnimationSet;
             checkDxException(hr, D3D_OK, "失敗しました。");
-            _paAs[tno] = p->_pAnimationSet;
         } else {
-            hr = pAc->SetTrackEnable(tno, FALSE);
+            hr = pAc->SetTrackEnable(tno, FALSE);  _apAs[tno] = nullptr;
             checkDxException(hr, D3D_OK, "失敗しました。");
-            _paAs[tno] = nullptr;
+
         }
     }
 
@@ -135,7 +133,7 @@ void Puppeteer::play(UINT prm_performance_no) {
     HRESULT hr;
     hr = _pAc->SetTrackEnable(main_tno, TRUE);
     checkDxException(hr, D3D_OK, "失敗しました。");
-    hr = _pAc->SetTrackAnimationSet(main_tno, _pStickMain->_pPerformance->_pAnimationSet); _paAs[main_tno] = _pStickMain->_pPerformance->_pAnimationSet;
+    hr = _pAc->SetTrackAnimationSet(main_tno, _pStickMain->_pPerformance->_pAnimationSet); _apAs[main_tno] = _pStickMain->_pPerformance->_pAnimationSet;
     checkDxException(hr, D3D_OK, "失敗しました。");
     hr = _pAc->SetTrackSpeed(main_tno, 1.0);
     checkDxException(hr, D3D_OK, "失敗しました。");
@@ -147,30 +145,30 @@ void Puppeteer::play(UINT prm_performance_no) {
     UINT sub_tno = _pStickSub->_tno;
     _pStickSub->_weight._t_value = 0.0;
     _pStickSub->_weight.stop();
-    hr = _pAc->SetTrackEnable(sub_tno, FALSE);
+    hr = _pAc->SetTrackEnable(sub_tno, FALSE);  _apAs[sub_tno] = nullptr;
     checkDxException(hr, D3D_OK, "失敗しました。");
     hr = _pAc->SetTrackWeight(sub_tno, _pStickSub->_weight._t_value);
     checkDxException(hr, D3D_OK, "失敗しました。");
 }
-void Puppeteer::switchTo(UINT prm_performance_no, frame prm_switch_frames) {
+void Puppeteer::shiftTo(UINT prm_performance_no, frame prm_switch_frames) {
     if (prm_performance_no > _num_perform-1) {
         throwCriticalException("Puppeteer::play() アニメIDが範囲外です。prm_performance_no="<<prm_performance_no);
     }
 
     Performance* p = &(_paPerformances[prm_performance_no]);
     if (_pStickMain->_pPerformance == p) {
-        _TRACE_("Puppeteer::switchTo() prm_performance_no="<<prm_performance_no<<" は既にアニメーション中の為無視されました。");
+        _TRACE_("Puppeteer::shiftTo() prm_performance_no="<<prm_performance_no<<" は既にアニメーション中の為無視されました。");
         return;
     }
 
     _pStickSub->_pPerformance = p;
-    _pStickSub->_weight._t_value = 0.0;
+    _pStickSub->_weight.setValueBottom();
     _pStickSub->_weight.transitionLinearToTop(prm_switch_frames);
     UINT sub_tno = _pStickSub->_tno;
     HRESULT hr;
     hr = _pAc->SetTrackEnable(sub_tno, TRUE);
     checkDxException(hr, D3D_OK, "失敗しました。");
-    hr = _pAc->SetTrackAnimationSet(sub_tno, _pStickSub->_pPerformance->_pAnimationSet); _paAs[sub_tno] = _pStickSub->_pPerformance->_pAnimationSet;
+    hr = _pAc->SetTrackAnimationSet(sub_tno, _pStickSub->_pPerformance->_pAnimationSet); _apAs[sub_tno] = _pStickSub->_pPerformance->_pAnimationSet;
     checkDxException(hr, D3D_OK, "失敗しました。");
     hr = _pAc->SetTrackSpeed(sub_tno, 1.0);
     checkDxException(hr, D3D_OK, "失敗しました。");
@@ -179,7 +177,7 @@ void Puppeteer::switchTo(UINT prm_performance_no, frame prm_switch_frames) {
     hr = _pAc->SetTrackWeight(sub_tno, _pStickSub->_weight._t_value);
     checkDxException(hr, D3D_OK, "失敗しました。");
 
-
+    _pStickMain->_weight.setValueTop();
     _pStickMain->_weight.transitionLinearToBottom(prm_switch_frames);
     UINT main_tno = _pStickMain->_tno;
     hr = _pAc->SetTrackEnable(main_tno, TRUE);
@@ -194,37 +192,27 @@ void Puppeteer::switchTo(UINT prm_performance_no, frame prm_switch_frames) {
     _pStickSub = pWk;
 
 }
-void Puppeteer::playPartly2(UINT prm_performance_no, int prm_loop) {
+
+void Puppeteer::playPartly(UINT prm_performance_no, double prm_num_loop) {
     if (prm_performance_no > _num_perform-1) {
         throwCriticalException("Puppeteer::play() アニメIDが範囲外です。prm_performance_no="<<prm_performance_no);
     }
-
     Performance* p = &(_paPerformances[prm_performance_no]);
     if (_pStickMain->_pPerformance == p) {
-        _TRACE_("Puppeteer::switchTo() prm_performance_no="<<prm_performance_no<<" は既にアニメーション中の為無視されました。");
+        _TRACE_("Puppeteer::shiftTo() prm_performance_no="<<prm_performance_no<<" は既にアニメーション中の為無視されました。");
         return;
     }
-    Puppeteer::playPartly(prm_performance_no, p->_period*prm_loop / _ani_time_delta);
-}
-void Puppeteer::playPartly(UINT prm_performance_no, frame prm_spend_frames) {
-    if (prm_performance_no > _num_perform-1) {
-        throwCriticalException("Puppeteer::play() アニメIDが範囲外です。prm_performance_no="<<prm_performance_no);
-    }
-
-    Performance* p = &(_paPerformances[prm_performance_no]);
-    if (_pStickMain->_pPerformance == p) {
-        _TRACE_("Puppeteer::switchTo() prm_performance_no="<<prm_performance_no<<" は既にアニメーション中の為無視されました。");
-        return;
-    }
-
+    double spend_frames = p->_period*prm_num_loop / _ani_time_delta;
     _pStickSub->_pPerformance = p;
-    _pStickSub->_weight._t_value = 0.0;
-    _pStickSub->_weight.beat(prm_spend_frames, prm_spend_frames*0.2, prm_spend_frames*0.6, prm_spend_frames*0.2, 1.0);
+    _pStickSub->_weight.setValueBottom();
+    _pStickSub->_weight.beat((frame)spend_frames,
+                             (frame)(spend_frames*0.2), (frame)(spend_frames*0.6), (frame)(spend_frames*0.2),
+                             prm_num_loop);
     UINT sub_tno = _pStickSub->_tno;
     HRESULT hr;
     hr = _pAc->SetTrackEnable(sub_tno, TRUE);
     checkDxException(hr, D3D_OK, "失敗しました。");
-    hr = _pAc->SetTrackAnimationSet(sub_tno, _pStickSub->_pPerformance->_pAnimationSet); _paAs[sub_tno] = _pStickSub->_pPerformance->_pAnimationSet;
+    hr = _pAc->SetTrackAnimationSet(sub_tno, _pStickSub->_pPerformance->_pAnimationSet); _apAs[sub_tno] = _pStickSub->_pPerformance->_pAnimationSet;
     checkDxException(hr, D3D_OK, "失敗しました。");
     hr = _pAc->SetTrackSpeed(sub_tno, 1.0);
     checkDxException(hr, D3D_OK, "失敗しました。");
@@ -233,7 +221,10 @@ void Puppeteer::playPartly(UINT prm_performance_no, frame prm_spend_frames) {
     hr = _pAc->SetTrackWeight(sub_tno, _pStickSub->_weight._t_value);
     checkDxException(hr, D3D_OK, "失敗しました。");
 
-    _pStickMain->_weight.rbeat(prm_spend_frames, prm_spend_frames*0.2, prm_spend_frames*0.6, prm_spend_frames*0.2, 1.0);
+    _pStickMain->_weight.setValueTop();
+    _pStickMain->_weight.rbeat((frame)spend_frames,
+                               (frame)(spend_frames*0.2), (frame)(spend_frames*0.6), (frame)(spend_frames*0.2),
+                               prm_num_loop);
     UINT main_tno = _pStickMain->_tno;
     hr = _pAc->SetTrackEnable(main_tno, TRUE);
     checkDxException(hr, D3D_OK, "失敗しました。");
@@ -242,14 +233,12 @@ void Puppeteer::playPartly(UINT prm_performance_no, frame prm_spend_frames) {
 }
 
 void Puppeteer::behave() {
-
     HRESULT hr;
     UINT main_tno = _pStickMain->_tno;
     if (_pStickMain->_weight.isTransitioning()) {
         _pStickMain->_weight.behave();
         hr = _pAc->SetTrackWeight(main_tno, _pStickMain->_weight._t_value);
         checkDxException(hr, D3D_OK, "失敗しました。");
-//        _TRACE_("_pStickMain tno="<<main_tno<<" _weight="<<_pStickMain->_weight._t_value);
     }
 
     UINT sub_tno = _pStickSub->_tno;
@@ -257,21 +246,19 @@ void Puppeteer::behave() {
         _pStickSub->_weight.behave();
         hr = _pAc->SetTrackWeight(sub_tno, _pStickSub->_weight._t_value);
         checkDxException(hr, D3D_OK, "失敗しました。");
-//        _TRACE_("_pStickSub  tno="<<sub_tno<<" _weight="<<_pStickSub->_weight._t_value);
     } else {
-        hr = _pAc->SetTrackEnable(sub_tno, FALSE);
+        hr = _pAc->SetTrackEnable(sub_tno, FALSE); _apAs[sub_tno] = nullptr;
         checkDxException(hr, D3D_OK, "失敗しました。");
     }
     _advance_time += _ani_time_delta;
 }
 
 void Puppeteer::stop() {
-//    for (UINT hand = 0; hand < 2; hand++) {
-//        Performance* p = _apStick[hand]->_pPerformance;
-//        if (p) {
-//            p->_method = NO_CHENGE;
-//        }
-//    }
+    HRESULT hr;
+    for (UINT tno = 0; tno < 2; tno++) {
+        hr = _pAc->SetTrackEnable(tno, FALSE); _apAs[tno] = nullptr;
+        checkDxException(hr, D3D_OK, "失敗しました。");
+    }
 }
 
 void Puppeteer::updateAnimationTrack() {
