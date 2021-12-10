@@ -177,13 +177,15 @@ void Puppeteer::shiftTo(UINT prm_performance_no, frame prm_switch_frames) {
     hr = _pAc->SetTrackWeight(sub_tno, _pStickSub->_weight._t_value);
     checkDxException(hr, D3D_OK, "失敗しました。");
 
-    _pStickMain->_weight.setValueTop();
-    _pStickMain->_weight.transitionLinearToBottom(prm_switch_frames);
-    UINT main_tno = _pStickMain->_tno;
-    hr = _pAc->SetTrackEnable(main_tno, TRUE);
-    checkDxException(hr, D3D_OK, "失敗しました。");
-    hr = _pAc->SetTrackWeight(main_tno,_pStickMain->_weight._t_value);
-    checkDxException(hr, D3D_OK, "失敗しました。");
+    if (_pStickMain->_pPerformance) {
+        _pStickMain->_weight.setValueTop();
+        _pStickMain->_weight.transitionLinearToBottom(prm_switch_frames);
+        UINT main_tno = _pStickMain->_tno;
+        hr = _pAc->SetTrackEnable(main_tno, TRUE);
+        checkDxException(hr, D3D_OK, "失敗しました。");
+        hr = _pAc->SetTrackWeight(main_tno,_pStickMain->_weight._t_value);
+        checkDxException(hr, D3D_OK, "失敗しました。");
+    }
 
 
     //MainとSubを交換

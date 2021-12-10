@@ -230,6 +230,10 @@ public:
                     Frm::Model3D* model_pModel3D,
                     uint16_t* paNumVertices);
 
+    void transformVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit, int prm_vtx_num,
+                      D3DXMATRIX& prm_FrameTransformMatrix);
+
+
     static void calcTangentAndBinormal(
             D3DXVECTOR3* p0, D3DXVECTOR2* uv0,
             D3DXVECTOR3* p1, D3DXVECTOR2* uv1,
