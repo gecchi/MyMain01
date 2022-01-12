@@ -6,8 +6,8 @@ template<class T>
 class VvActor : public T {
 
 public:
-    VvActor(const char* prm_name, const char* prm_model_id)
-        : T(prm_name, prm_model_id) {
+    VvActor(const char* prm_name, const char* prm_model)
+        : T(prm_name, prm_model) {
     }
 
     virtual ~VvActor() {

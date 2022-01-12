@@ -7,9 +7,9 @@
 
 using namespace GgafLib;
 
-CubeMapMorphMeshActor::CubeMapMorphMeshActor(const char* prm_name, const char* prm_model_id) :
+CubeMapMorphMeshActor::CubeMapMorphMeshActor(const char* prm_name, const char* prm_model) :
         GgafDx::CubeMapMorphMeshActor(prm_name,
-                                    prm_model_id,
+                                    prm_model,
                                     "CubeMapMorphMeshEffect",
                                     "CubeMapMorphMeshTechnique",
                                     UTIL::createChecker(this) ) {

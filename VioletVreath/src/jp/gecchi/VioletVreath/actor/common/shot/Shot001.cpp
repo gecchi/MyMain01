@@ -20,7 +20,7 @@ Shot001::Shot001(const char* prm_name) :
         VvEnemyActor<DefaultMassMeshActor>(prm_name, "Flora", StatusReset(Shot001)) {
     _class_name = "Shot001";
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(0, "WAVE_EXPLOSION_002");
+    pSeTx->set(0, "SE_EXPLOSION_002");
     pCurveManufConn_ = connectToCurveManufactureManager("Shot001_curve");
     pDriverLeader_ = createCurveDriverLeader(pCurveManufConn_->peek());
 }

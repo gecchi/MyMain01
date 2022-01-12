@@ -26,9 +26,9 @@ public:
 public:
     /**
      * コンストラクタ<BR>
-     * @param prm_model_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
+     * @param prm_model_id スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
      */
-    MassMeshModel(const char* prm_model_name);
+    MassMeshModel(const char* prm_model_id);
 
     static void createVertexModel(void* prm, MassModel::VertexModelInfo* out_info);
 

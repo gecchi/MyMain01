@@ -16,9 +16,10 @@ using namespace GgafDx;
 
 DWORD BoardModel::FVF = (D3DFVF_XYZ | D3DFVF_TEX1);
 
-BoardModel::BoardModel(const char* prm_model_name) :
-    Model(prm_model_name) {
-    _TRACE3_("_model_name="<<_model_name);
+BoardModel::BoardModel(const char* prm_model_id) :
+    Model(prm_model_id) {
+    _TRACE3_("_model_id="<<_model_id);
+    _obj_model |= Obj_GgafDx_BoardModel;
     _model_width_px = 32.0f;
     _model_height_px = 32.0f;
     _row_texture_split = 1;
@@ -27,7 +28,6 @@ BoardModel::BoardModel(const char* prm_model_name) :
     _pVertexBuffer_data = nullptr;
     _size_vertices = 0;
     _size_vertex_unit = 0;
-    _obj_model |= Obj_GgafDx_BoardModel;
 }
 
 HRESULT BoardModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
@@ -77,11 +77,11 @@ HRESULT BoardModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, v
             }
 #endif
         }
-        _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoardEffect->_effect_name);
+        _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pBoardEffect->_effect_name);
         hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
         checkDxException(hr, S_OK, "SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
 
-        _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoardEffect->_effect_name);
+        _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pBoardEffect->_effect_name);
         UINT numPass;
         hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
         checkDxException(hr, D3D_OK, "Begin() に失敗しました。");
@@ -100,7 +100,7 @@ HRESULT BoardModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, v
         hr = pID3DXEffect->CommitChanges();
         checkDxException(hr, D3D_OK, "CommitChanges() に失敗しました。");
     }
-    _TRACE4_("DrawPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoardEffect->_effect_name<<"("<<pBoardEffect<<")");
+    _TRACE4_("DrawPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pBoardEffect->_effect_name<<"("<<pBoardEffect<<")");
     pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
     //前回描画モデル保持
     ModelManager::_pModelLastDraw = this;
@@ -114,19 +114,28 @@ HRESULT BoardModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, v
 }
 
 void BoardModel::restore() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     if (_pVertexBuffer_data == nullptr) {
-        HRESULT hr;
+        _papTextureConnection = nullptr;
+
         ModelManager* pModelManager = pGOD->_pModelManager;
-        std::string xfile_name = ModelManager::getSpriteFileName(_model_name, "sprx");
+        std::string model_def_file = std::string(_model_id) + ".sprx";
+        std::string model_def_filepath = ModelManager::getModelDefineFilePath(model_def_file);
         ModelManager::SpriteXFileFmt xdata;
-        pModelManager->obtainSpriteInfo(&xdata, xfile_name);
-        _model_width_px  = xdata.width;
-        _model_height_px = xdata.height;
-        _row_texture_split = xdata.row_texture_split;
-        _col_texture_split = xdata.col_texture_split;
+        pModelManager->obtainSpriteModelInfo(&xdata, model_def_filepath);
+
+        _model_width_px  = xdata.Width;
+        _model_height_px = xdata.Height;
+        _row_texture_split = xdata.TextureSplitRows;
+        _col_texture_split = xdata.TextureSplitCols;
         _pa_texture_filenames = NEW std::string[1];
-        _pa_texture_filenames[0] = std::string(xdata.texture_file);
+        _pa_texture_filenames[0] = std::string(xdata.TextureFile);
+        _draw_set_num = xdata.DrawSetNum;
+        if (_draw_set_num != 1) {
+            _TRACE_("BoardModel::restore() 本モデルの "<<_model_id<<" の同時描画セット数は 1 に上書きされました。（_draw_set_num="<<_draw_set_num<<" は無視されました。）");
+            _draw_set_num = 1;
+        }
+
         _pVertexBuffer_data = NEW BoardModel::VERTEX[4];
         _size_vertices = sizeof(BoardModel::VERTEX)*4;
         _size_vertex_unit = sizeof(BoardModel::VERTEX);
@@ -144,23 +153,23 @@ void BoardModel::restore() {
         _pVertexBuffer_data[0].tu = (float)du;
         _pVertexBuffer_data[0].tv = (float)dv;
         //右上
-        _pVertexBuffer_data[1].x = xdata.width;
+        _pVertexBuffer_data[1].x = xdata.Width;
         _pVertexBuffer_data[1].y = 0.0f;
         _pVertexBuffer_data[1].z = 0.0f;
-        _pVertexBuffer_data[1].tu = (float)((1.0 / xdata.col_texture_split) - du);
+        _pVertexBuffer_data[1].tu = (float)((1.0 / xdata.TextureSplitCols) - du);
         _pVertexBuffer_data[1].tv = (float)dv;
         //左下
         _pVertexBuffer_data[2].x = 0.0f;
-        _pVertexBuffer_data[2].y = xdata.height;
+        _pVertexBuffer_data[2].y = xdata.Height;
         _pVertexBuffer_data[2].z = 0.0f;
         _pVertexBuffer_data[2].tu = (float)du;
-        _pVertexBuffer_data[2].tv = (float)((1.0 / xdata.row_texture_split) - dv);
+        _pVertexBuffer_data[2].tv = (float)((1.0 / xdata.TextureSplitRows) - dv);
         //右下
-        _pVertexBuffer_data[3].x = xdata.width;
-        _pVertexBuffer_data[3].y = xdata.height;
+        _pVertexBuffer_data[3].x = xdata.Width;
+        _pVertexBuffer_data[3].y = xdata.Height;
         _pVertexBuffer_data[3].z = 0.0f;
-        _pVertexBuffer_data[3].tu = (float)((1.0 / xdata.col_texture_split) - du);
-        _pVertexBuffer_data[3].tv = (float)((1.0 / xdata.row_texture_split) - dv);
+        _pVertexBuffer_data[3].tu = (float)((1.0 / xdata.TextureSplitCols) - du);
+        _pVertexBuffer_data[3].tv = (float)((1.0 / xdata.TextureSplitRows) - dv);
 
         _num_materials = 1;
         D3DMATERIAL9* paMaterial;
@@ -189,12 +198,12 @@ void BoardModel::restore() {
                 D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
                 &(_pVertexBuffer),
                 nullptr);
-        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_name));
+        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_id));
         //頂点バッファ作成
         //頂点情報をビデオカード頂点バッファへロード
         void *pVertexBuffer;
         hr = _pVertexBuffer->Lock(0, _size_vertices, (void**)&pVertexBuffer, 0);
-        checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_name);
+        checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_id);
 
         memcpy(pVertexBuffer, _pVertexBuffer_data, _size_vertices); //pVertexBuffer ← paVertex
         _pVertexBuffer->Unlock();
@@ -207,11 +216,11 @@ void BoardModel::restore() {
         _papTextureConnection[0] = (TextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[0].c_str(), this));
     }
 
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 void BoardModel::release() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     GGAF_RELEASE(_pVertexBuffer);
     //テクスチャを解放
     if (_papTextureConnection) {
@@ -222,13 +231,13 @@ void BoardModel::release() {
         }
     }
     GGAF_DELETEARR(_papTextureConnection);
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 void BoardModel::onDeviceLost() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     release();
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 BoardModel::~BoardModel() {

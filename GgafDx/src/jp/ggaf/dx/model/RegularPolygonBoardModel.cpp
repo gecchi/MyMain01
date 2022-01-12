@@ -17,9 +17,10 @@ using namespace GgafDx;
 
 DWORD RegularPolygonBoardModel::FVF = (D3DFVF_XYZ | D3DFVF_TEX1);
 
-RegularPolygonBoardModel::RegularPolygonBoardModel(const char* prm_model_name) :
-    Model(prm_model_name) {
-    _TRACE3_("_model_name="<<_model_name);
+RegularPolygonBoardModel::RegularPolygonBoardModel(const char* prm_model_id) :
+    Model(prm_model_id) {
+    _TRACE3_("_model_id="<<_model_id);
+    _obj_model |= Obj_GgafDx_RegularPolygonBoardModel;
     _pVertexBuffer_data = nullptr;
     _model_width_px = 32.0f;
     _model_height_px = 32.0f;
@@ -34,27 +35,27 @@ RegularPolygonBoardModel::RegularPolygonBoardModel(const char* prm_model_name) :
     _y_center = 16;
     _u_center = 0.5;
     _v_center = 0.5;
-    // prm_model_name には "8,XXXX" or "8,CW,XXXX" が、渡ってくる。
-    // "8,CW,XXXX" : 正8角形で時計回り描画
-    // "8,XXXX"    : 正8角形(デフォルトの反時計回り描画)
-    std::string model_name = std::string(prm_model_name);
-    std::vector<std::string> names = UTIL::split(model_name, ",");
-    if (names.size() == 1) {
-        throwCriticalException("モデルIDに情報が足りません。[8,XXXX] or [8,CW,XXXX] 形式で指定して下さい。prm_model_name="<<prm_model_name);
-    } else {
-        _angle_num = STOI(names[0]);
-        if (names.size() == 2) {
-            _drawing_order = 0;
-        } else if (names.size() == 3) {
-            if (names[1] == "CW" ||  names[1] == "cw" || names[1] == "1") {
-                //時計回り描画
-                _drawing_order = 1;
-            } else {
-                _drawing_order = 0;
-            }
-        }
-    }
-    _obj_model |= Obj_GgafDx_RegularPolygonBoardModel;
+//    // prm_model_id には "8,XXXX" or "8,CW,XXXX" が、渡ってくる。
+//    // "8,CW,XXXX" : 正8角形で時計回り描画
+//    // "8,XXXX"    : 正8角形(デフォルトの反時計回り描画)
+//    std::string model_id = std::string(prm_model_id);
+//    std::vector<std::string> names = UTIL::split(model_id, ",");
+//    if (names.size() == 1) {
+//        throwCriticalException("モデルIDに情報が足りません。[8,XXXX] or [8,CW,XXXX] 形式で指定して下さい。prm_model_id="<<prm_model_id);
+//    } else {
+//        _angle_num = STOI(names[0]);
+//        if (names.size() == 2) {
+//            _drawing_order = 0;
+//        } else if (names.size() == 3) {
+//            if (names[1] == "CW" ||  names[1] == "cw" || names[1] == "1") {
+//                //時計回り描画
+//                _drawing_order = 1;
+//            } else {
+//                _drawing_order = 0;
+//            }
+//        }
+//    }
+
 }
 
 HRESULT RegularPolygonBoardModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
@@ -112,11 +113,11 @@ HRESULT RegularPolygonBoardModel::draw(FigureActor* prm_pActor_target, int prm_d
             }
 #endif
         }
-        _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pRegularPolygonBoardEffect->_effect_name);
+        _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pRegularPolygonBoardEffect->_effect_name);
         hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
         checkDxException(hr, S_OK, "SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
 
-        _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pRegularPolygonBoardEffect->_effect_name);
+        _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pRegularPolygonBoardEffect->_effect_name);
         UINT numPass;
         hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
         checkDxException(hr, D3D_OK, "Begin() に失敗しました。");
@@ -135,7 +136,7 @@ HRESULT RegularPolygonBoardModel::draw(FigureActor* prm_pActor_target, int prm_d
         hr = pID3DXEffect->CommitChanges();
         checkDxException(hr, D3D_OK, "CommitChanges() に失敗しました。");
     }
-    _TRACE4_("DrawPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pRegularPolygonBoardEffect->_effect_name<<"("<<pRegularPolygonBoardEffect<<")");
+    _TRACE4_("DrawPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pRegularPolygonBoardEffect->_effect_name<<"("<<pRegularPolygonBoardEffect<<")");
     pDevice->DrawPrimitive(D3DPT_TRIANGLEFAN, 0, pTargetActor->_draw_fan_num);
     //前回描画モデル保持
     ModelManager::_pModelLastDraw = this;
@@ -149,28 +150,25 @@ HRESULT RegularPolygonBoardModel::draw(FigureActor* prm_pActor_target, int prm_d
 }
 
 void RegularPolygonBoardModel::restore() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     if (_pVertexBuffer_data == nullptr) {
-        HRESULT hr;
-        std::string model_name = std::string(_model_name); //_model_name は "8,CW,XXXX" or "8,XXXX"
-        std::vector<std::string> names = UTIL::split(model_name, ",");
-        std::string filenamae = "";
-        if (names.size() == 2) {
-            filenamae = names[1];
-        } else if (names.size() == 3) {
-            filenamae = names[2];
-        }
-
+        _papTextureConnection = nullptr;
         ModelManager* pModelManager = pGOD->_pModelManager;
-        std::string xfile_name = ModelManager::getSpriteFileName(filenamae, "sprx");
-        ModelManager::SpriteXFileFmt xdata;
-        pModelManager->obtainSpriteInfo(&xdata, xfile_name);
-        _model_width_px  = xdata.width;
-        _model_height_px = xdata.height;
-        _row_texture_split = xdata.row_texture_split;
-        _col_texture_split = xdata.col_texture_split;
+        std::string model_def_file = std::string(_model_id) + ".rsprx";
+        std::string model_def_filepath = ModelManager::getModelDefineFilePath(model_def_file);
+        ModelManager::RegPolySpriteXFileFmt xdata;
+        pModelManager->obtainRegPolySpriteModelInfo(&xdata, model_def_filepath);
+
+        _angle_num = xdata.FanNum;
+        _drawing_order = xdata.IsCW;
+        _model_width_px  = xdata.Width;
+        _model_height_px = xdata.Height;
+        _row_texture_split = xdata.TextureSplitRows;
+        _col_texture_split = xdata.TextureSplitCols;
         _pa_texture_filenames = NEW std::string[1];
-        _pa_texture_filenames[0] = std::string(xdata.texture_file);
+        _pa_texture_filenames[0] = std::string(xdata.TextureFile);
+        _matBaseTransformMatrix = xdata.BaseTransformMatrix;
+
         _pVertexBuffer_data = NEW RegularPolygonBoardModel::VERTEX[_angle_num+2];
         _size_vertices = sizeof(RegularPolygonBoardModel::VERTEX)*(_angle_num+2);
         _size_vertex_unit = sizeof(RegularPolygonBoardModel::VERTEX);
@@ -211,6 +209,8 @@ void RegularPolygonBoardModel::restore() {
             }
             _pVertexBuffer_data[_angle_num+1] = _pVertexBuffer_data[1];
         }
+        transformVtx(_pVertexBuffer_data, _size_vertex_unit, _angle_num+2);
+
         _num_materials = 1;
         D3DMATERIAL9* paMaterial;
         paMaterial = NEW D3DMATERIAL9[_num_materials];
@@ -238,12 +238,12 @@ void RegularPolygonBoardModel::restore() {
                 D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
                 &(_pVertexBuffer),
                 nullptr);
-        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_name));
+        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_id));
         //頂点バッファ作成
         //頂点情報をビデオカード頂点バッファへロード
         void *pVertexBuffer;
         hr = _pVertexBuffer->Lock(0, _size_vertices, (void**)&pVertexBuffer, 0);
-        checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_name);
+        checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_id);
 
         memcpy(pVertexBuffer, _pVertexBuffer_data, _size_vertices); //pVertexBuffer ← _pVertexBuffer_data
         _pVertexBuffer->Unlock();
@@ -254,11 +254,11 @@ void RegularPolygonBoardModel::restore() {
         _papTextureConnection = NEW TextureConnection*[1];
         _papTextureConnection[0] = (TextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[0].c_str(), this));
     }
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 void RegularPolygonBoardModel::release() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     GGAF_RELEASE(_pVertexBuffer);
     //テクスチャを解放
     if (_papTextureConnection) {
@@ -269,13 +269,13 @@ void RegularPolygonBoardModel::release() {
         }
     }
     GGAF_DELETEARR(_papTextureConnection);
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 void RegularPolygonBoardModel::onDeviceLost() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     release();
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 RegularPolygonBoardModel::~RegularPolygonBoardModel() {

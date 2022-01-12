@@ -7,7 +7,7 @@ template<class T>
 class VvEffectActor : public VvActor<T> {
 
 public:
-    VvEffectActor(const char* prm_name, const char* prm_model_id, void* prm_pPrm1 = nullptr);
+    VvEffectActor(const char* prm_name, const char* prm_model, void* prm_pPrm1 = nullptr);
 
     virtual ~VvEffectActor();
 };

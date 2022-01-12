@@ -15,7 +15,7 @@ D3DXFRAME* BoneAniMeshAllocHierarchy::createNewFrame() {
     ZeroMemory( tmp, sizeof(D3DXFRAME) );
     //独自追加した分の初期化
     tmp->_frame_index = MAXDWORD; // 0 有効なインデックスなので 0 で初期化したくなかった
-    D3DXMatrixIsIdentity(&(tmp->_world_trans_matrix)); //とりあえず単位行列
+    D3DXMatrixIdentity(&(tmp->_world_trans_matrix)); //とりあえず単位行列
     return tmp;
 }
 D3DXMESHCONTAINER* BoneAniMeshAllocHierarchy::createNewMeshContainer() {

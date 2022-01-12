@@ -1,8 +1,9 @@
 #include "MgrWorld.h"
 
 #include "jp/ggaf/lib/util/VirtualButton.h"
-#include "scene/MgrSpacetime/MgrWorld/TrialAndErrScene.h"
-#include "scene/MgrSpacetime/MgrWorld/ParallelCurveTestScene.h"
+//#include "scene/MgrSpacetime/MgrWorld/TrialAndErrScene.h"
+//#include "scene/MgrSpacetime/MgrWorld/ParallelCurveTestScene.h"
+#include "scene/MgrSpacetime/MgrWorld/TestScene.h"
 #include "scene/MgrSpacetime.h"
 #include "MgrGod.h"
 
@@ -15,8 +16,7 @@ MgrWorld::MgrWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
 }
 
 void MgrWorld::initialize() {
-    pTestScene_ = desireScene(TrialAndErrScene);
-//    pTestScene_ = desireScene(ParallelCurveTestScene);
+    pTestScene_ = desireScene(TestScene);
     appendChild(pTestScene_);
 
 }

@@ -22,21 +22,22 @@
 #define TYPE_MASSMORPHMESH_MODEL          'm'
 #define TYPE_CUBEMAPMORPHMESH_MODEL       'H'
 #define TYPE_WORLDBOUND_MODEL             'W'
-#define TYPE_SPRITE_MODEL                 'S'
+#define TYPE_ACTOR_DEFINE                 'S'
 #define TYPE_SPRITESET_MODEL              's'
-#define TYPE_MASSSPRITE_MODEL             'z'
+#define TYPE_MASSACTOR_DEFINE             'z'
 #define TYPE_BOARD_MODEL                  'B'
 #define TYPE_BOARDSET_MODEL               'b'
 #define TYPE_MASSBOARD_MODEL              'w'
 #define TYPE_CUBE_MODEL                   'C'
-#define TYPE_POINTSPRITE_MODEL            'P'
-#define TYPE_MASSPOINTSPRITE_MODEL        'p'
+#define TYPE_POINTACTOR_DEFINE            'P'
+#define TYPE_MASSPOINTACTOR_DEFINE        'p'
 #define TYPE_POINTSPRITESET_MODEL         'o'
 #define TYPE_FRAMEDBOARD_MODEL            'E'
-#define TYPE_REGULARPOLYGONSPRITE_MODEL   'R'
+#define TYPE_REGULARPOLYGONACTOR_DEFINE   'R'
 #define TYPE_REGULARPOLYGONBOARD_MODEL    'r'
 #define TYPE_BONEANIMESH_MODEL            '1'
 #define TYPE_SKINANIMESH_MODEL            '2'
+
 
 namespace GgafDx {
 
@@ -52,17 +53,62 @@ namespace GgafDx {
 class ModelManager : public GgafCore::ResourceManager<Model> {
 
 private:
-    template <typename T> T* createModel(const char* prm_model_name);
-    D3DXMeshModel*     createD3DXMeshModel(const char* prm_model_name, DWORD prm_dwOptions);
+    template <typename T> T* createModel(const char* prm_model_id);
+    D3DXMeshModel*     createD3DXMeshModel(const char* prm_model_id, DWORD prm_dwOptions);
 public:
 
-    struct SpriteXFileFmt {
-        FLOAT width;
-        FLOAT height;
-        char texture_file[256];
-        DWORD row_texture_split;
-        DWORD col_texture_split;
+    struct MeshXFileFmt {
+        DWORD XFileNum;
+        std::string* XFileNames;
+        DWORD DrawSetNum; //0の場合は最大
+        D3DXMATRIX BaseTransformMatrix;
+        MeshXFileFmt() {
+            XFileNum = 1;
+            XFileNames = nullptr;
+            DrawSetNum = 1;
+        }
+        ~MeshXFileFmt() {
+            GGAF_DELETEARR_NULLABLE(XFileNames);
+        }
     };
+
+    struct SpriteXFileFmt {
+        FLOAT Width;
+        FLOAT Height;
+        char TextureFile[256];
+        DWORD TextureSplitRows;
+        DWORD TextureSplitCols;
+        DWORD DrawSetNum;
+    };
+
+    struct FramedSpriteXFileFmt {
+        FLOAT Width;
+        FLOAT Height;
+        char TextureFile[256];
+        DWORD TextureSplitRows;
+        DWORD TextureSplitCols;
+
+        FLOAT FrameWidth;
+        FLOAT FrameHeight;
+        char FrameTextureFile[256];
+        DWORD FrameTextureSplitRows;
+        DWORD FrameTextureSplitCols;
+    };
+
+    struct RegPolySpriteXFileFmt {
+        FLOAT Width;
+        FLOAT Height;
+        char TextureFile[256];
+        DWORD TextureSplitRows;
+        DWORD TextureSplitCols;
+
+        DWORD  FanNum;
+        DWORD  IsCW; //1:時計回り / 0:反時計回り
+        D3DXMATRIX BaseTransformMatrix;
+    };
+
+
+
 
     class PointSpriteXFileFmt {
     public:
@@ -74,6 +120,8 @@ public:
         D3DCOLORVALUE* paD3DVECTOR_VertexColors;
         DWORD* paInt_InitUvPtnNo;
         FLOAT* paFLOAT_InitScale;
+        DWORD DrawSetNum;
+        D3DXMATRIX BaseTransformMatrix;
         PointSpriteXFileFmt() {
             SquareSize = 1;
             TextureSplitRowCol = 1;
@@ -82,6 +130,7 @@ public:
             paD3DVECTOR_VertexColors = nullptr;
             paInt_InitUvPtnNo = nullptr;
             paFLOAT_InitScale = nullptr;
+            DrawSetNum = 1;
         }
         ~PointSpriteXFileFmt() {
             GGAF_DELETE_NULLABLE(paD3DVECTOR_Vertices);
@@ -92,13 +141,20 @@ public:
     };
 
     TextureManager* _pModelTextureManager;
-    /** カスタムテンプレートXファイル読み込み用の ID3DXFile のポインタ */
+    /** Xファイル読み込み用の ID3DXFile のポインタ（meshx モデル定義読み込んだあと） */
+    ID3DXFile* _pID3DXFile_meshx;
     ID3DXFile* _pID3DXFile_sprx;
+    ID3DXFile* _pID3DXFile_fsprx;
+    ID3DXFile* _pID3DXFile_rsprx;
     ID3DXFile* _pID3DXFile_psprx;
-    static std::string getMeshFileName(std::string prm_model_name);
-    static std::string getSpriteFileName(std::string prm_model_name, std::string prm_ext);
-    void obtainSpriteInfo(SpriteXFileFmt* prm_pSpriteFmt_out, std::string prm_sprite_x_filename);
-    void obtainPointSpriteInfo(PointSpriteXFileFmt* pPointSpriteFmt_out, std::string prm_point_sprite_x_filename);
+    static std::string getXFilePath(std::string prm_xfile);
+//    static std::string getXFilePath2(std::string prm_model_id);
+    static std::string getModelDefineFilePath(std::string prm_model_name);
+    void obtainMeshModelInfo(MeshXFileFmt* prm_pMeshXFileFmt_out, std::string prm_meshx_filepath);
+    void obtainSpriteModelInfo(SpriteXFileFmt* prm_pSpriteFmt_out, std::string prm_sprx_filepath);
+    void obtainFramedSpriteModelInfo(FramedSpriteXFileFmt* prm_pFramedSpriteFmt_out, std::string prm_fsprx_filepath);
+    void obtainRegPolySpriteModelInfo(RegPolySpriteXFileFmt* prm_pRegPolySpriteFmt_out, std::string prm_rsprx_filepath);
+    void obtainPointSpriteModelInfo(PointSpriteXFileFmt* prm_pPointSpriteFmt_out, std::string prm_psprx_filepath);
 public:
     /**
      * コンストラクタ
@@ -165,6 +221,7 @@ public:
 
     virtual ~ModelManager();
 };
+
 
 }
 #endif /*GGAF_DX_MODELMANAGER_H_*/

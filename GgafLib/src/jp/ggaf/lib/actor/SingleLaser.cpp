@@ -12,16 +12,16 @@
 using namespace GgafLib;
 
 
-SingleLaser::SingleLaser(const char* prm_name, const char* prm_model_id) :
+SingleLaser::SingleLaser(const char* prm_name, const char* prm_model) :
              GgafDx::MeshSetActor(prm_name,
-                                 std::string("26," + std::string(prm_model_id)).c_str(),
+                                 std::string("26," + std::string(prm_model)).c_str(),
                                  TYPE_MESHSET_MODEL,
                                  "SingleLaserEffect",
                                  TYPE_SINGLELASER_EFFECT,
                                  "SingleLaserTechnique",
                                  UTIL::createChecker(this) ) {
 
-    _pMeshSetModel->_set_num = 26; //現在のシングルレーザーの最大セット数強制上書き。
+    _pMeshSetModel->_draw_set_num = 26; //現在のシングルレーザーの最大セット数強制上書き。
 
     _class_name = "SingleLaser";
     _pColliChecker = (CollisionChecker*)_pChecker;
@@ -39,7 +39,7 @@ void SingleLaser::processDraw() {
     //基本モデル頂点数
     GgafDx::FigureActor* pDrawActor = this;
     SingleLaser* pSingleLaserChip = nullptr;
-    int model_Set_num = _pMeshSetModel->_set_num;
+    int model_Set_num = _pMeshSetModel->_draw_set_num;
 
     while (pDrawActor) {
         if (pDrawActor->getModel() == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {

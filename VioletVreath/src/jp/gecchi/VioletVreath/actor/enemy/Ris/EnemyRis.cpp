@@ -26,7 +26,7 @@ EnemyRis::EnemyRis(const char* prm_name)
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­
+    pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_001");     //”š”­
 }
 
 void EnemyRis::onCreateModel() {

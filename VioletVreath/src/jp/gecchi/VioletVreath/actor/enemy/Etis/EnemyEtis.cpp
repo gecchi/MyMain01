@@ -25,8 +25,8 @@ EnemyEtis::EnemyEtis(const char* prm_name) :
     height_z_ = 220*2*LEN_UNIT;
     depth_y_ = 36*2*LEN_UNIT;
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
+    pSeTx->set(SE_DAMAGED  , "SE_ENEMY_DAMAGED_001");
+    pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_MIDDLE_001");
 }
 
 void EnemyEtis::onCreateModel() {

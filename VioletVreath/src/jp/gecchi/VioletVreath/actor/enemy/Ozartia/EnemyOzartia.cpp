@@ -70,7 +70,7 @@ EnemyOzartia::EnemyOzartia(const char* prm_name) :
         VvEnemyActor<DefaultMorphMeshActor>(prm_name, "Ozartia_1", StatusReset(EnemyOzartia)) {
     _class_name = "EnemyOzartia";
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_001");
     pProg2_ = createProgress();
     is_hit_ = false;
     pDepo_shot01_ = nullptr;

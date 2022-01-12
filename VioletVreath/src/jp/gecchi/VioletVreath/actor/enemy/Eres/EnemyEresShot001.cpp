@@ -37,7 +37,7 @@ EnemyEresShot001::EnemyEresShot001(const char* prm_name) :
     iMoveAcce_2nd_ = 100;
 
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(ERESSHOT001_SE_EXPLOSION, "WAVE_EXPLOSION_002");
+    pSeTx->set(ERESSHOT001_SE_EXPLOSION, "SE_EXPLOSION_002");
 }
 
 void EnemyEresShot001::initialize() {

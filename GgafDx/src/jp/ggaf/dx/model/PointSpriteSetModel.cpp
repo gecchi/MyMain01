@@ -12,15 +12,16 @@
 #include "jp/ggaf/dx/model/MassModel.h"
 #include "jp/ggaf/dx/texture/Texture.h"
 
+#define POINTSPRITESETMODEL_MAX_DARW_SET_NUM 15
 
 using namespace GgafDx;
 
 DWORD PointSpriteSetModel::FVF = (D3DFVF_XYZ | D3DFVF_PSIZE | D3DFVF_DIFFUSE | D3DFVF_TEX1  );
 //LPDIRECT3DVERTEXBUFFER9 _pVertexBuffer = nullptr;
 
-PointSpriteSetModel::PointSpriteSetModel(const char* prm_model_name) : Model(prm_model_name) {
-    _TRACE3_("_model_name="<<_model_name);
-    _set_num = 0;
+PointSpriteSetModel::PointSpriteSetModel(const char* prm_model_id) : Model(prm_model_id) {
+    _TRACE3_("_model_id="<<_model_id);
+    _obj_model |= Obj_GgafDx_PointSpriteSetModel;
     _pVertexBuffer = nullptr;
     _paVtxBuffer_data = nullptr;
     _square_size_px = 0.0f;
@@ -30,14 +31,14 @@ PointSpriteSetModel::PointSpriteSetModel(const char* prm_model_name) : Model(prm
     _size_vertices = 0;
     _size_vertex_unit= 0;
     _nVertices = 0;
-    _obj_model |= Obj_GgafDx_PointSpriteSetModel;
+    _draw_set_num = POINTSPRITESETMODEL_MAX_DARW_SET_NUM;
 }
 
 HRESULT PointSpriteSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
     _TRACE4_("PointSpriteSetModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
 #ifdef MY_DEBUG
-    if (prm_draw_set_num > _set_num) {
-        _TRACE_(FUNC_NAME<<" "<<_model_name<<" の描画セット数オーバー。_set_num="<<_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
+    if (prm_draw_set_num > _draw_set_num) {
+        _TRACE_(FUNC_NAME<<" "<<_model_id<<" の描画セット数オーバー。_draw_set_num="<<_draw_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
     }
 #endif
     IDirect3DDevice9* pDevice = God::_pID3DDevice9;
@@ -91,11 +92,11 @@ HRESULT PointSpriteSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_s
             }
 #endif
         }
-        _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pPointSpriteSetEffect->_effect_name);
+        _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pPointSpriteSetEffect->_effect_name);
         hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
         checkDxException(hr, S_OK, "SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
 
-        _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pPointSpriteSetEffect->_effect_name<<"("<<pPointSpriteSetEffect<<")");
+        _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pPointSpriteSetEffect->_effect_name<<"("<<pPointSpriteSetEffect<<")");
         //UINT numPass;
         hr = pID3DXEffect->Begin(&_num_pass, D3DXFX_DONOTSAVESTATE );
         checkDxException(hr, D3D_OK, "Begin() に失敗しました。");
@@ -113,7 +114,7 @@ HRESULT PointSpriteSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_s
         hr = pID3DXEffect->CommitChanges();
         checkDxException(hr, D3D_OK, "CommitChanges() に失敗しました。");
     }
-    _TRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pPointSpriteSetEffect->_effect_name);
+    _TRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pPointSpriteSetEffect->_effect_name);
     hr = pDevice->DrawPrimitive(D3DPT_POINTLIST, 0, _nVertices*prm_draw_set_num);
     checkDxException(hr, D3D_OK, " pass=1 に失敗しました。");
 #ifdef MY_DEBUG
@@ -127,32 +128,24 @@ HRESULT PointSpriteSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_s
 }
 
 void PointSpriteSetModel::restore() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     if (_paVtxBuffer_data == nullptr) {
+
+//        //"12,xxxxxx" or "xxxxxx" から "xxxxxx" だけ取とりだしてフルパス名取得
+//        std::string model_name;
+//        std::vector<std::string> names = UTIL::split(std::string(_model_id), ",");
+//        if (names.size() == 2) {
+//            model_name = names[1];
+//        } else {
+//            model_name = names[0];
+//        }
         ModelManager* pModelManager = pGOD->_pModelManager;
-        HRESULT hr;
-        //静的な情報設定
-        std::vector<std::string> names = UTIL::split(std::string(_model_name), ",");
-        std::string xfile_name = ""; //読み込むXファイル名
-        if (names.size() == 1) {
-            _TRACE_(FUNC_NAME<<" "<<_model_name<<" の最大同時描画オブジェクト数は、デフォルトの15が設定されました。");
-            _set_num = 15;
-            xfile_name = ModelManager::getSpriteFileName(names[0], "psprx");
-        } else if (names.size() == 2) {
-            _set_num = STOI(names[0]);
-            xfile_name = ModelManager::getSpriteFileName(names[1], "psprx");
-        } else {
-            throwCriticalException("_model_name には \"xxxxxx\" or \"8,xxxxx\" 形式を指定してください。 \n"
-                    "実際は、_model_name="<<_model_name<<" でした。");
-        }
-//        if (_set_num < 1 || _set_num > GGAFDXMASS_MAX_INSTANCE_NUM) {
-//            throwCriticalException(_model_name<<"の最大同時描画オブジェクト数が不正。範囲は 1～"<<GGAFDXMASS_MAX_INSTANCE_NUM<<"セットです。_set_num="<<_set_num);
-//        }
-//        if (xfile_name == "") {
-//            throwCriticalException("ポイントスプライト定義ファイル(*.psprx)が見つかりません。model_name="<<(_model_name));
-//        }
+
+        std::string model_def_file = std::string(_model_id) + ".psprx";
+        std::string model_def_filepath = ModelManager::getModelDefineFilePath(model_def_file);
         ModelManager::PointSpriteXFileFmt xdata;
-        pModelManager->obtainPointSpriteInfo(&xdata, xfile_name);
+        pModelManager->obtainPointSpriteModelInfo(&xdata, model_def_filepath);
+        _matBaseTransformMatrix = xdata.BaseTransformMatrix;
 
         //マテリアル定義が１つも無いので、描画のために無理やり１つマテリアルを作成。
 //        _num_materials = 1; ////setMaterial();で実行済み
@@ -178,16 +171,21 @@ void PointSpriteSetModel::restore() {
         _texture_split_rowcol = xdata.TextureSplitRowCol;
         _inv_texture_split_rowcol = 1.0f / _texture_split_rowcol;
         _nVertices = xdata.VerticesNum;
-        if (_nVertices*_set_num > 65535) {
-            throwCriticalException("頂点が 65535を超えたかもしれません。\n対象Model："<<getName()<<"  _nVertices*_set_num:"<<_nVertices*_set_num);
+        _draw_set_num = xdata.DrawSetNum;
+        if (_draw_set_num == 0 || _draw_set_num > POINTSPRITESETMODEL_MAX_DARW_SET_NUM) {
+            _TRACE_("PointSpriteSetModel::restore() "<<_model_id<<" の同時描画セット数は、最大の "<<POINTSPRITESETMODEL_MAX_DARW_SET_NUM<<" に再定義されました。理由：_draw_set_num="<<_draw_set_num);
+            _draw_set_num = POINTSPRITESETMODEL_MAX_DARW_SET_NUM;
+        } else {
+            _TRACE_("PointSpriteSetModel::restore() "<<_model_id<<" の同時描画セット数は "<<_draw_set_num<<" です。");
+        }
+
+        if (_nVertices*_draw_set_num > 65535) {
+            throwCriticalException("PointSpriteSetModel::restore() 頂点が 65535を超えたかもしれません。\n対象Model："<<getName()<<"  _nVertices*_draw_set_num:"<<_nVertices*_draw_set_num);
         }
 //        _nFaces = 0; //_nFacesは使用しない
-        _paVtxBuffer_data = NEW PointSpriteSetModel::VERTEX[_nVertices*_set_num];
+        _paVtxBuffer_data = NEW PointSpriteSetModel::VERTEX[_nVertices*_draw_set_num];
         _size_vertex_unit = sizeof(PointSpriteSetModel::VERTEX);
-        _size_vertices = sizeof(PointSpriteSetModel::VERTEX) * _nVertices*_set_num;
-
-        FLOAT model_bounding_sphere_radius;
-
+        _size_vertices = sizeof(PointSpriteSetModel::VERTEX) * _nVertices*_draw_set_num;
 
         for (UINT i = 0; i < _nVertices; i++) {
             _paVtxBuffer_data[i].x = xdata.paD3DVECTOR_Vertices[i].x;
@@ -202,19 +200,23 @@ void PointSpriteSetModel::restore() {
                                                                    xdata.paD3DVECTOR_VertexColors[i].a );
             _paVtxBuffer_data[i].ini_ptn_no = (float)(xdata.paInt_InitUvPtnNo[i]); //頂点スプライトのUVパターン番号
             _paVtxBuffer_data[i].index = 0; //頂点番号（むりやり埋め込み）
+        }
+        transformPointSpriteVtx(_paVtxBuffer_data, _size_vertex_unit, _nVertices);
 
+        //距離
+        FLOAT model_bounding_sphere_radius;
+        for (UINT i = 0; i < _nVertices; i++) {
             model_bounding_sphere_radius = (FLOAT)(sqrt(_paVtxBuffer_data[i].x * _paVtxBuffer_data[i].x +
                                                         _paVtxBuffer_data[i].y * _paVtxBuffer_data[i].y +
                                                         _paVtxBuffer_data[i].z * _paVtxBuffer_data[i].z  )
                                                    + (((_square_size_px/PX_UNIT) * 1.41421356 ) / 2.0)
                                                  );
-
             if (_bounding_sphere_radius < model_bounding_sphere_radius) {
                 _bounding_sphere_radius = model_bounding_sphere_radius;
             }
         }
-
-        for (int n = 1; n < _set_num; n++) {
+        //set分繰り返し挿入
+        for (int n = 1; n < _draw_set_num; n++) {
             int os = n*_nVertices;
             for (UINT i = 0; i < _nVertices; i++) {
                 _paVtxBuffer_data[os+i].x = _paVtxBuffer_data[i].x;
@@ -240,14 +242,14 @@ void PointSpriteSetModel::restore() {
                 D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT D3DPOOL_MANAGED
                 &(_pVertexBuffer),
                 nullptr);
-        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_name));
+        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_id));
         //バッファへ作成済み頂点データを流し込む
         void* pDeviceMemory = 0;
         hr = _pVertexBuffer->Lock(0, _size_vertices, (void**)&pDeviceMemory, 0);
-        checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_name);
+        checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_id);
         memcpy(pDeviceMemory, _paVtxBuffer_data, _size_vertices);
         hr = _pVertexBuffer->Unlock();
-        checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗 model="<<_model_name);
+        checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗 model="<<_model_id);
     }
 
     //デバイスにテクスチャ作成
@@ -261,17 +263,17 @@ void PointSpriteSetModel::restore() {
 //    //インデックスバッファは使わない
 //    _pIndexBuffer = nullptr;
 
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 void PointSpriteSetModel::onDeviceLost() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     release();
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 void PointSpriteSetModel::release() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
 
     //テクスチャを解放
     if (_papTextureConnection) {
@@ -284,7 +286,7 @@ void PointSpriteSetModel::release() {
     }
     GGAF_DELETEARR(_papTextureConnection); //テクスチャの配列
     GGAF_RELEASE(_pVertexBuffer);
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 
 }
 PointSpriteSetModel::~PointSpriteSetModel() {

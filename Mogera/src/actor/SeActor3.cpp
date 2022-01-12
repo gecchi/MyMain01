@@ -20,8 +20,8 @@ SeActor3::SeActor3(const char* prm_name) :
 //    pChecker->setColliSphere(0, PX_C(20));
 //    setHitAble(true);
     GgafDx::SeTransmitterForActor* se = getSeTransmitter();
-    se->set(0, "WAVE_ENEMY_FIRE_LASER_001");
-    se->set(1, "WAVE_ENEMY_FIRE_LASER_002");
+    se->set(0, "SE_ENEMY_FIRE_LASER_001");
+    se->set(1, "SE_ENEMY_FIRE_LASER_002");
 }
 
 void SeActor3::initialize() {

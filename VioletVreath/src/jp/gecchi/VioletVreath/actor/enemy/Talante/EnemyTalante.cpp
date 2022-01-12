@@ -30,8 +30,8 @@ EnemyTalante::EnemyTalante(const char* prm_name) :
     _class_name = "EnemyTalante";
     pDepo_shot_ = nullptr;
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­
+    pSeTx->set(SE_DAMAGED  , "SE_ENEMY_DAMAGED_001");
+    pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_001");     //”š”­
     Z_ok_ = Y_ok_ = false;
 }
 

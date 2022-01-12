@@ -36,7 +36,7 @@ StageDebugPart01::StageDebugPart01(const char* prm_name) :
 	requestActor(20000012, FormationAllas001c, "FormationAllas001c-20000012");
     // gen01 end
 
-    getBgmConductor()->ready(0, "OGG_BGM_01_01");
+    getBgmConductor()->ready(0, "BGM_01_01");
 
 }
 

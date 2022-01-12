@@ -75,9 +75,9 @@ GgafDx::FigureActor* MyStgUtil::shotWayGoldenAng(coord prm_x, coord prm_y, coord
                                                   int prm_way_num,
                                                   angle prm_first_expanse_angle, angle prm_inc_expanse_angle,
                                                   velo prm_velo_first, acce prm_acce,
-                                                  int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                                  int prm_draw_set_num, frame prm_interval_frames, float prm_attenuated,
                                                   void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int)) {
-    if (prm_way_num <= 0 || prm_set_num <= 0) {  return nullptr;  }
+    if (prm_way_num <= 0 || prm_draw_set_num <= 0) {  return nullptr;  }
     GgafDx::GeoElem* paGeo = NEW GgafDx::GeoElem[prm_way_num];
     angle expanse_rz = (D180ANG - prm_first_expanse_angle)/2;
 
@@ -102,7 +102,7 @@ GgafDx::FigureActor* MyStgUtil::shotWayGoldenAng(coord prm_x, coord prm_y, coord
     velo now_velo = prm_velo_first;
     acce now_acce = prm_acce;
     int dispatch_num = 0;
-    for (int n = 0; n < prm_set_num; n++) {
+    for (int n = 0; n < prm_draw_set_num; n++) {
         for (int i = 0; i < prm_way_num; i++) {
             pActor_shot = (GgafDx::FigureActor*)prm_pDepo_shot->dispatch(n*prm_interval_frames+1);
             if (pActor_shot) {
@@ -132,7 +132,7 @@ GgafDx::FigureActor* MyStgUtil::shotWayGoldenAng(GgafDx::GeometricActor* prm_pFr
                                                   int prm_way_num,
                                                   angle prm_first_expanse_angle, angle prm_inc_expanse_angle,
                                                   velo prm_velo_first, acce prm_acce,
-                                                  int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                                  int prm_draw_set_num, frame prm_interval_frames, float prm_attenuated,
                                                   void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int)) {
     return shotWayGoldenAng(prm_pFrom->_x, prm_pFrom->_y, prm_pFrom->_z,
                             prm_pFrom->_rz, prm_pFrom->_ry,
@@ -141,7 +141,7 @@ GgafDx::FigureActor* MyStgUtil::shotWayGoldenAng(GgafDx::GeometricActor* prm_pFr
                             prm_way_num,
                             prm_first_expanse_angle, prm_inc_expanse_angle,
                             prm_velo_first, prm_acce,
-                            prm_set_num, prm_interval_frames, prm_attenuated,
+                            prm_draw_set_num, prm_interval_frames, prm_attenuated,
                             pFunc_call_back_dispatched);
 }
 

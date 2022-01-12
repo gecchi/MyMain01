@@ -15,11 +15,11 @@
 
 using namespace GgafDx;
 
-D3DXMeshModel::D3DXMeshModel(const char* prm_model_name, DWORD prm_dwOptions) : Model(prm_model_name) {
+D3DXMeshModel::D3DXMeshModel(const char* prm_model_id, DWORD prm_dwOptions) : Model(prm_model_id) {
+    _obj_model |= Obj_GgafDx_D3DXMeshModel;
     _pID3DXMesh = nullptr;
     _num_materials = 0L;
     _dwOptions = prm_dwOptions;
-    _obj_model |= Obj_GgafDx_D3DXMeshModel;
 }
 
 HRESULT D3DXMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
@@ -84,11 +84,11 @@ HRESULT D3DXMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num
                 }
 #endif
             }
-            _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
+            _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pMeshEffect->_effect_name);
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
             checkDxException(hr, S_OK, "SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
 
-            _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name<<"("<<pMeshEffect<<")");
+            _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pMeshEffect->_effect_name<<"("<<pMeshEffect<<")");
             UINT numPass;
             hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
             checkDxException(hr, D3D_OK, "Begin() に失敗しました。");
@@ -107,7 +107,7 @@ HRESULT D3DXMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num
             hr = pID3DXEffect->CommitChanges();
             checkDxException(hr, D3D_OK, "CommitChanges() に失敗しました。");
         }
-        _TRACE4_("DrawSubset: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
+        _TRACE4_("DrawSubset: /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pMeshEffect->_effect_name);
         hr = _pID3DXMesh->DrawSubset(i);  //なんて便利なメソッド。
 #ifdef MY_DEBUG
         GgafCore::God::_num_drawing++;
@@ -136,27 +136,35 @@ HRESULT D3DXMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num
 
 
 void D3DXMeshModel::restore() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     ModelManager* pModelManager = pGOD->_pModelManager;
     //【restoreD3DXMeshModel再構築（＝初期化）処理概要】
     //1)D3DXLoadMeshFromXを使用してXファイルを読み込む
     //2)D3DXMeshModelのメンバにセット
+
+    ModelManager::MeshXFileFmt xdata;
+    std::string model_def_file = std::string(_model_id) + ".meshx";
+    std::string model_def_filepath = ModelManager::getModelDefineFilePath(model_def_file);
+    pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
+    _matBaseTransformMatrix = xdata.BaseTransformMatrix; //TODO:これは使われていない。
+    std::string xfilepath = ModelManager::getXFilePath(xdata.XFileNames[0]);
 
     //Xファイルのロードして必要な内容をD3DXMeshModelメンバに設定しインスタンスとして完成させたい
     LPD3DXMESH pID3DXMesh; //メッシュ(ID3DXMeshインターフェイスへのポインタ）
     D3DMATERIAL9* paMaterial; //マテリアル(D3DXMATERIAL構造体の配列の先頭要素を指すポインタ）
     TextureConnection** papTextureConnection; //テクスチャ配列(IDirect3DTexture9インターフェイスへのポインタを保持するオブジェクト）
     DWORD num_materials;
-    std::string xfile_name = ModelManager::getMeshFileName(_model_name);
-    if (xfile_name == "") {
-         throwCriticalException("メッシュファイル(*.x)が見つかりません。model_name="<<(_model_name));
-    }
+
+//    std::string xfile_name = ModelManager::getModelDefineFilePath(_model_id, "meshx");
+//    if (xfile_name == "") {
+//         throwCriticalException("メッシュファイル(*.x)が見つかりません。model_id="<<(_model_id));
+//    }
 
     LPD3DXBUFFER pID3DXBuffer; //受け取り用バッファ（マテリアル用）
     HRESULT hr;
     //Xファイルのファイルロード
     hr = D3DXLoadMeshFromX(
-            xfile_name.c_str(),             //[in]  LPCTSTR pFilename
+            xfilepath.c_str(),             //[in]  LPCTSTR pFilename
             _dwOptions, //[in]  DWORD Options  D3DXMESH_SYSTEMMEM D3DXMESH_VB_DYNAMIC
             God::_pID3DDevice9,       //[in]  LPDIRECT3DDEVICE9 pDevice
             nullptr,                        //[out] LPD3DXBUFFER* ppAdjacency
@@ -165,16 +173,16 @@ void D3DXMeshModel::restore() {
             &num_materials,                //[out] DWORD* pNumMaterials
             &pID3DXMesh                     //[out] LPD3DXMESH* pMesh
          );
-    checkDxException(hr, D3D_OK, "D3DXLoadMeshFromXによるロードが失敗。対象="<<xfile_name);
+    checkDxException(hr, D3D_OK, "D3DXLoadMeshFromXによるロードが失敗。対象="<<xfilepath);
 
     //最適化
     DWORD *pAdjacency = NEW DWORD [ pID3DXMesh->GetNumFaces() * 3 ];
     hr = pID3DXMesh->GenerateAdjacency( 1e-6f, pAdjacency );
-    checkDxException(hr, D3D_OK, "GenerateAdjacencyがつくれません。対象="<<xfile_name);
+    checkDxException(hr, D3D_OK, "GenerateAdjacencyがつくれません。対象="<<xfilepath);
     hr = pID3DXMesh->OptimizeInplace( D3DXMESHOPT_ATTRSORT, pAdjacency, nullptr, nullptr, nullptr );
-    checkDxException(hr, D3D_OK, "D3DXMESHOPT_ATTRSORTできません。対象="<<xfile_name);
+    checkDxException(hr, D3D_OK, "D3DXMESHOPT_ATTRSORTできません。対象="<<xfilepath);
     hr = pID3DXMesh->OptimizeInplace( D3DXMESHOPT_VERTEXCACHE, pAdjacency, nullptr, nullptr, nullptr );
-    checkDxException(hr, D3D_OK, "D3DXMESHOPT_VERTEXCACHEできません。対象="<<xfile_name);
+    checkDxException(hr, D3D_OK, "D3DXMESHOPT_VERTEXCACHEできません。対象="<<xfilepath);
     GGAF_DELETEARR(pAdjacency);
 
     //マテリアルを取り出す
@@ -223,7 +231,7 @@ void D3DXMeshModel::restore() {
                            God::_pID3DDevice9,             // [in]  LPDIRECT3DDEVICE9 pDevice,
                            &pID3DXMesh_tmp                       // [out] LPD3DXMESH *ppCloneMesh
                          );
-        checkDxException(hr, D3D_OK, " pID3DXMesh->CloneMeshFVF()失敗。対象="<<xfile_name);
+        checkDxException(hr, D3D_OK, " pID3DXMesh->CloneMeshFVF()失敗。対象="<<xfilepath);
         D3DXComputeNormals(pID3DXMesh_tmp, nullptr); //法線計算（Faceの表裏どっちに法線向けるか、どうやって判定しているのだろうか・・・）
         GGAF_RELEASE(pID3DXMesh);
         pID3DXMesh = pID3DXMesh_tmp;
@@ -235,20 +243,20 @@ void D3DXMeshModel::restore() {
     _papTextureConnection   = papTextureConnection;
     _num_materials          = num_materials;
     _bounding_sphere_radius = 10.0f; //TODO:境界球半径大きさとりあえず100px
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 void D3DXMeshModel::onDeviceLost() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     //デバイスロスト時は解放します。
     release();
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 void D3DXMeshModel::release() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     if (_pID3DXMesh == nullptr) {
-        _TRACE_("＜警告＞ [D3DXMeshModel::release()]  "<<_model_name<<" の _pID3DXMeshが オブジェクトになっていないため release できません！");
+        _TRACE_("＜警告＞ [D3DXMeshModel::release()]  "<<_model_id<<" の _pID3DXMeshが オブジェクトになっていないため release できません！");
     }
     //テクスチャを解放
     if (_papTextureConnection) {
@@ -263,7 +271,7 @@ void D3DXMeshModel::release() {
     GGAF_RELEASE(_pID3DXMesh);
     GGAF_DELETEARR(_paMaterial_default);
     GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 D3DXMeshModel::~D3DXMeshModel() {

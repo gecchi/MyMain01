@@ -12,12 +12,12 @@
 using namespace GgafDx;
 
 MassBoardActor::MassBoardActor(const char* prm_name,
-                               const char* prm_model_id,
+                               const char* prm_model,
                                const char* prm_effect_id,
                                const char* prm_technique) :
 
                                    MassActor(prm_name,
-                                             prm_model_id,
+                                             prm_model,
                                              TYPE_MASSBOARD_MODEL,
                                              prm_effect_id,
                                              TYPE_MASSBOARD_EFFECT,

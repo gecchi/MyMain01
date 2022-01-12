@@ -41,7 +41,7 @@ void SpriteMeshSetActor::processDraw() {
     HRESULT hr;
     FigureActor* pDrawActor = this;
     SpriteMeshSetActor* pSpriteMeshSetActor = nullptr;
-    int model_set_num = _pMeshSetModel->_set_num;
+    int model_draw_set_num = _pMeshSetModel->_draw_set_num;
     float u = 0;
     float v = 0;
     while (pDrawActor) {
@@ -83,7 +83,7 @@ void SpriteMeshSetActor::processDraw() {
             checkDxException(hr, D3D_OK, "SetMatrix(_h_offset_v) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
             draw_set_num++;
-            if (draw_set_num >= model_set_num) {
+            if (draw_set_num >= model_draw_set_num) {
                 break;
             }
             pDrawActor = pDrawActor->_pNextRenderActor;

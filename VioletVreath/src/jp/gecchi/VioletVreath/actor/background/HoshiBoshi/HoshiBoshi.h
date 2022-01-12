@@ -29,7 +29,7 @@ public:
     static coord CAM_ZF_;
 
 public:
-    HoshiBoshi(const char* prm_name, const char* prm_model_id);
+    HoshiBoshi(const char* prm_name, const char* prm_model);
 
     static bool initStatic(HoshiBoshi* prm_pHoshiBoshi);
 

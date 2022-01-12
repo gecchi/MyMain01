@@ -11,13 +11,13 @@
 using namespace GgafDx;
 
 WorldBoundActor::WorldBoundActor(const char* prm_name,
-                                             const char* prm_model_id,
+                                             const char* prm_model,
                                              const char* prm_effect_id,
                                              const char* prm_technique,
                                              Checker* prm_pChecker) :
 
                                                  MorphMeshActor(prm_name,
-                                                                      prm_model_id,
+                                                                      prm_model,
                                                                       TYPE_WORLDBOUND_MODEL,
                                                                       prm_effect_id,
                                                                       TYPE_WORLDBOUND_EFFECT,

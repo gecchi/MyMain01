@@ -11,13 +11,13 @@
 using namespace GgafDx;
 
 MorphMeshActor::MorphMeshActor(const char* prm_name,
-                               const char* prm_model_id,
+                               const char* prm_model,
                                const char* prm_effect_id,
                                const char* prm_technique,
                                Checker* prm_pChecker) :
 
                                    FigureActor(prm_name,
-                                               prm_model_id,
+                                               prm_model,
                                                TYPE_MORPHMESH_MODEL,
                                                prm_effect_id,
                                                TYPE_MORPHMESH_EFFECT,
@@ -39,7 +39,7 @@ _pMorphMeshEffect((MorphMeshEffect*)_pEffect)
 
 
 MorphMeshActor::MorphMeshActor(const char* prm_name,
-                               const char* prm_model_id,
+                               const char* prm_model,
                                const char prm_model_type,
                                const char* prm_effect_id,
                                const char prm_effect_type,
@@ -47,7 +47,7 @@ MorphMeshActor::MorphMeshActor(const char* prm_name,
                                Checker* prm_pChecker) :
 
                                    FigureActor(prm_name,
-                                               prm_model_id,
+                                               prm_model,
                                                prm_model_type,
                                                prm_effect_id,
                                                prm_effect_type,

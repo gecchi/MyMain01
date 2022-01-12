@@ -37,7 +37,7 @@ EnemyGlaja::EnemyGlaja(const char* prm_name) :
         VvEnemyActor<DefaultMorphMeshActor>(prm_name, "Glaja_1", StatusReset(EnemyGlaja)) {
     _class_name = "EnemyGlaja";
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_001");
     pConn_pShot_ = connectToDepositoryManager("GlajaLance001");
     effectBlendOne(); //â¡éZçáê¨
     setScaleR(0.3);

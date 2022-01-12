@@ -10,13 +10,13 @@ using namespace GgafDx;
 
 DWORD D3DXMeshActor::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1);
 D3DXMeshActor::D3DXMeshActor(const char* prm_name,
-                             const char* prm_model_id,
+                             const char* prm_model,
                              const char* prm_effect_id,
                              const char* prm_technique,
                              Checker* prm_pChecker) :
 
                                  FigureActor(prm_name,
-                                             prm_model_id,
+                                             prm_model,
                                              TYPE_D3DXMESH_MODEL,
                                              prm_effect_id,
                                              TYPE_MESH_EFFECT,

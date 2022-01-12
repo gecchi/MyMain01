@@ -15,7 +15,7 @@ namespace VioletVreath {
 class AliceShot : public VvEnemyActor<GgafLib::SingleLaser> {
 
 public:
-    AliceShot(const char* prm_name, const char* prm_model_id);
+    AliceShot(const char* prm_name, const char* prm_model);
 
     void initialize() override;
 

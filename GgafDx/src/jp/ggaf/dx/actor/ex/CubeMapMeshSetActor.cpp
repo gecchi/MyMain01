@@ -10,12 +10,12 @@
 using namespace GgafDx;
 
 CubeMapMeshSetActor::CubeMapMeshSetActor(const char* prm_name,
-                                                     const char* prm_model_id,
+                                                     const char* prm_model,
                                                      const char* prm_effect_id,
                                                      const char* prm_technique,
                                                      Checker* prm_pChecker) :
                                               MeshSetActor(prm_name,
-                                                                 prm_model_id,
+                                                                 prm_model,
                                                                  TYPE_CUBEMAPMESHSET_MODEL,
                                                                  prm_effect_id,
                                                                  TYPE_CUBEMAPMESHSET_EFFECT,
@@ -30,7 +30,7 @@ CubeMapMeshSetActor::CubeMapMeshSetActor(const char* prm_name,
 
 void CubeMapMeshSetActor::processDraw() {
     int draw_set_num = 0; //CubeMapMeshSetActorの同じモデルで同じテクニックが
-                       //連続しているカウント数。同一描画深度は一度に描画する。
+                          //連続しているカウント数。同一描画深度は一度に描画する。
     ID3DXEffect* const pID3DXEffect = _pCubeMapMeshSetEffect->_pID3DXEffect;
     HRESULT hr;
 
@@ -41,7 +41,7 @@ void CubeMapMeshSetActor::processDraw() {
     //基本モデル頂点数
     FigureActor* pDrawActor = this;
     CubeMapMeshSetActor* pCubeMapMeshSetActor = nullptr;
-    int model_set_num = _pCubeMapMeshSetModel->_set_num;
+    int model_draw_set_num = _pCubeMapMeshSetModel->_draw_set_num;
     while (pDrawActor) {
         if (pDrawActor->getModel() == _pCubeMapMeshSetModel && pDrawActor->_hash_technique == _hash_technique ) {
             pCubeMapMeshSetActor = (CubeMapMeshSetActor*)pDrawActor;
@@ -52,7 +52,7 @@ void CubeMapMeshSetActor::processDraw() {
                 hr = pID3DXEffect->SetValue(_pCubeMapMeshSetEffect->_ah_materialDiffuse[draw_set_num], &(pCubeMapMeshSetActor->_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
                 checkDxException(hr, D3D_OK, "SetValue(g_colMaterialDiffuse) に失敗しました。");
                 draw_set_num++;
-                if (draw_set_num >= model_set_num) {
+                if (draw_set_num >= model_draw_set_num) {
                     break;
                 }
                 pDrawActor = pDrawActor->_pNextRenderActor;

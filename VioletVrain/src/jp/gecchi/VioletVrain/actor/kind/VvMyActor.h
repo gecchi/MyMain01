@@ -7,7 +7,7 @@ template<class T>
 class VvMyActor : public VvActor<T> {
 
 public:
-    VvMyActor(const char* prm_name, const char* prm_model_id, void* prm_pPrm1 = nullptr);
+    VvMyActor(const char* prm_name, const char* prm_model, void* prm_pPrm1 = nullptr);
 
     virtual ~VvMyActor();
 };

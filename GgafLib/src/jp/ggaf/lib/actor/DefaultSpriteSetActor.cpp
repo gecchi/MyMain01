@@ -7,9 +7,9 @@
 
 using namespace GgafLib;
 
-DefaultSpriteSetActor::DefaultSpriteSetActor(const char* prm_name, const char* prm_model_id) :
+DefaultSpriteSetActor::DefaultSpriteSetActor(const char* prm_name, const char* prm_model) :
     GgafDx::SpriteSetActor(prm_name,
-                         prm_model_id,
+                         prm_model,
                          "DefaultSpriteSetEffect",
                          "DefaultSpriteSetTechnique",
                          UTIL::createChecker(this) ) {

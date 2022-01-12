@@ -55,9 +55,9 @@ EnemyRatislaviaEye::EnemyRatislaviaEye(const char* prm_name, EnemyRatislavia* pr
     pEffect_->inactivate();
     appendGroupChild(pEffect_);
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_MIDDLE_001");
-    pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_LASER_001");
+    pSeTx->set(SE_DAMAGED  , "SE_ENEMY_DAMAGED_001");
+    pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_MIDDLE_001");
+    pSeTx->set(SE_FIRE     , "SE_ENEMY_FIRE_LASER_001");
 
     is_wake_ = false;
 }

@@ -29,7 +29,7 @@ public:
     CollisionChecker* _pColliChecker;
 
 public:
-    CubeMapMorphMeshActor(const char* prm_name, const char* prm_model_id);
+    CubeMapMorphMeshActor(const char* prm_name, const char* prm_model);
 
     virtual void onCreateModel() override {
     }

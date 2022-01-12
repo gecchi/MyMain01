@@ -633,7 +633,7 @@ VamSysCamWorker::VamSysCamWorker(const char* prm_name, Camera* prm_pCamera) : Ca
     pos_vam_up_ = VAM_POS_UP;
     pos_vam_up_prev_ = VAM_POS_NON;
     pSe_ = NEW GgafDx::SeTransmitter();
-    pSe_->set(SE_RETURNNING_CAM_POS, "WAVE_MY_RETURNNING_CAM_POS" ,0);
+    pSe_->set(SE_RETURNNING_CAM_POS, "SE_MY_RETURNNING_CAM_POS" ,0);
 
     mv_t_x_vUP_  = 0;
     mv_t_y_vUP_  = DX_C(1);

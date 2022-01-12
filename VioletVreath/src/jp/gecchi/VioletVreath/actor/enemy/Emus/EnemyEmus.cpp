@@ -45,8 +45,8 @@ EnemyEmus::EnemyEmus(const char* prm_name) :
 //    pDepoStore_laser_set = (GgafCore::ActorDepositoryStore*)(pConn_pDepoStore_laser_set->peek());
     pDepo_ = nullptr;
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    pSeTx->set(SE_DAMAGED  , "SE_ENEMY_DAMAGED_001");
+    pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_001");
     ini_wait_ = 0;
 }
 

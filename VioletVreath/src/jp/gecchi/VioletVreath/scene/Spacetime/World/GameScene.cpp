@@ -59,7 +59,7 @@ pStageWorld_(nullptr) {
 
     was_paused_flg_GameMainScene_prev_frame_ = false;
 
-    getBgmConductor()->ready(BGM_DEMO, "OGG_BGM_DEMO");
+    getBgmConductor()->ready(BGM_DEMO, "BGM_DEMO");
     pHitCheckRounder_ = nullptr;
 }
 

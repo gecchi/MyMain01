@@ -150,24 +150,24 @@ height_(PX_C(height_px_)) {
     appendGroupChild(pMainCur_);
 
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(SE_CURSOR_MOVE_METER             , "WAVE_MM_CURSOR_MOVE_METER");  //主メーターカーソル移動時
-    pSeTx->set(SE_CURSOR_MOVE_LEVEL             , "WAVE_MM_CURSOR_MOVE_LEVEL");  //上下レベル移動時
-    pSeTx->set(SE_CURSOR_MOVE_LEVEL_CANCEL      , "WAVE_MM_CURSOR_MOVE_LEVEL_CANCEL");  //上下レベル移動キャンセル（）
-    pSeTx->set(SE_CURSOR_BAD_MOVE               , "WAVE_MM_CURSOR_BAD_MOVE");  //ダメなカーソル移動（鳴るとうるさいので現在未使用）
-    pSeTx->set(SE_EXECUTE_LEVELUP_MAGIC         , "WAVE_MM_EXECUTE_LEVELUP_MAGIC");  //レベルアップ実行時
-    pSeTx->set(SE_EXECUTE_LEVELDOWN_MAGIC       , "WAVE_MM_EXECUTE_LEVELDOWN_MAGIC");  //レベルダウン実行時
-    pSeTx->set(SE_EXECUTE_CANCEL_LEVELUP_MAGIC  , "WAVE_MM_EXECUTE_CANCEL_LEVELUP_MAGIC");  //（詠唱キャンセルして）レベルアップ実行時
-    pSeTx->set(SE_EXECUTE_CANCEL_LEVELDOWN_MAGIC, "WAVE_MM_EXECUTE_CANCEL_LEVELDOWN_MAGIC");  //（詠唱キャンセルして）レベルダウン実行時
-    pSeTx->set(SE_NG_MP_IS_SHORT                , "WAVE_MM_NG_MP_IS_SHORT");  //MPが足りないため発動あるいは効果開始できない場合
-    pSeTx->set(SE_EFFECT_MAGIC                  , "WAVE_MM_EFFECT_MAGIC");  //発動が完了し、効果発生時
-    pSeTx->set(SE_NOTICE_LEVELDOWN_MAGIC        , "WAVE_MM_NOTICE_LEVELDOWN_MAGIC");  //レベルダウン発生予告
-    pSeTx->set(SE_BAD_OPERATION                 , "WAVE_MM_BAD_OPERATION");  //操作ミス。出来ない入力、ブブー
+    pSeTx->set(SE_CURSOR_MOVE_METER             , "SE_MM_CURSOR_MOVE_METER");  //主メーターカーソル移動時
+    pSeTx->set(SE_CURSOR_MOVE_LEVEL             , "SE_MM_CURSOR_MOVE_LEVEL");  //上下レベル移動時
+    pSeTx->set(SE_CURSOR_MOVE_LEVEL_CANCEL      , "SE_MM_CURSOR_MOVE_LEVEL_CANCEL");  //上下レベル移動キャンセル（）
+    pSeTx->set(SE_CURSOR_BAD_MOVE               , "SE_MM_CURSOR_BAD_MOVE");  //ダメなカーソル移動（鳴るとうるさいので現在未使用）
+    pSeTx->set(SE_EXECUTE_LEVELUP_MAGIC         , "SE_MM_EXECUTE_LEVELUP_MAGIC");  //レベルアップ実行時
+    pSeTx->set(SE_EXECUTE_LEVELDOWN_MAGIC       , "SE_MM_EXECUTE_LEVELDOWN_MAGIC");  //レベルダウン実行時
+    pSeTx->set(SE_EXECUTE_CANCEL_LEVELUP_MAGIC  , "SE_MM_EXECUTE_CANCEL_LEVELUP_MAGIC");  //（詠唱キャンセルして）レベルアップ実行時
+    pSeTx->set(SE_EXECUTE_CANCEL_LEVELDOWN_MAGIC, "SE_MM_EXECUTE_CANCEL_LEVELDOWN_MAGIC");  //（詠唱キャンセルして）レベルダウン実行時
+    pSeTx->set(SE_NG_MP_IS_SHORT                , "SE_MM_NG_MP_IS_SHORT");  //MPが足りないため発動あるいは効果開始できない場合
+    pSeTx->set(SE_EFFECT_MAGIC                  , "SE_MM_EFFECT_MAGIC");  //発動が完了し、効果発生時
+    pSeTx->set(SE_NOTICE_LEVELDOWN_MAGIC        , "SE_MM_NOTICE_LEVELDOWN_MAGIC");  //レベルダウン発生予告
+    pSeTx->set(SE_BAD_OPERATION                 , "SE_MM_BAD_OPERATION");  //操作ミス。出来ない入力、ブブー
 
     pSeTx4Cast_ = NEW GgafDx::SeTransmitterForActor(this);
     pSeTx4Invoke_ = NEW GgafDx::SeTransmitterForActor(this);
     for (int i = 0; i < magic_num; i++) {
-        pSeTx4Cast_->set(i, "WAVE_MM_CASTING", i); //詠唱中SE。チャンネル明示指定
-        pSeTx4Invoke_->set(i, "WAVE_MM_INVOKING", i); //発動中SE。チャンネル明示指定
+        pSeTx4Cast_->set(i, "SE_MM_CASTING", i); //詠唱中SE。チャンネル明示指定
+        pSeTx4Invoke_->set(i, "SE_MM_INVOKING", i); //発動中SE。チャンネル明示指定
     }
     fraeme_of_notice_remaind_ = 60*5;//残り僅か警告発生の残り時間
     alpha_velo_ = -0.01f;

@@ -37,8 +37,8 @@ EnemyAlisana::EnemyAlisana(const char* prm_name) :
 
     frame_of_morph_interval_ = 120;
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    pSeTx->set(SE_DAMAGED  , "SE_ENEMY_DAMAGED_001");
+    pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_001");
 }
 
 void EnemyAlisana::onCreateModel() {

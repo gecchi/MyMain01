@@ -18,7 +18,7 @@ Shot002::Shot002(const char* prm_name) :
     _class_name = "Shot002";
 
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(0, "WAVE_EXPLOSION_002");
+    pSeTx->set(0, "SE_EXPLOSION_002");
 }
 
 void Shot002::initialize() {

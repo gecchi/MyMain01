@@ -21,6 +21,8 @@ class MgrSpacetime;
 class MgrWorld;
 class TrialAndErrScene;
 class ParallelCurveTestScene;
+class TestScene;
+
 class MgrCamera;
 class MgrCameraViewPoint;
 class MgrCameraUpVector;

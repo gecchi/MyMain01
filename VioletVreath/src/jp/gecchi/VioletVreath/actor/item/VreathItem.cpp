@@ -37,7 +37,7 @@ VreathItem::VreathItem(const char* prm_name, const char* prm_model, void* prm_pF
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 400000);
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(0, "WAVE_GET_ITEM_001");
+    pSeTx->set(0, "SE_GET_ITEM_001");
 }
 
 void VreathItem::initialize() {

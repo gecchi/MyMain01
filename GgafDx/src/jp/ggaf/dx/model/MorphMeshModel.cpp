@@ -15,9 +15,9 @@
 
 using namespace GgafDx;
 
-MorphMeshModel::MorphMeshModel(const char* prm_model_name) : Model(prm_model_name) {
+MorphMeshModel::MorphMeshModel(const char* prm_model_id) : Model(prm_model_id) {
     _obj_model |= Obj_GgafDx_MorphMeshModel;
-    _TRACE3_("_model_name="<<_model_name);
+    _TRACE3_("_model_id="<<_model_id);
     _morph_target_num = 0;
 
     _papModel3D = nullptr;
@@ -36,7 +36,6 @@ MorphMeshModel::MorphMeshModel(const char* prm_model_name) : Model(prm_model_nam
     _size_vertex_unit_primary = 0;
     _size_vertices_morph = 0;
     _size_vertex_unit_morph = 0;
-
 }
 
 HRESULT MorphMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
@@ -110,12 +109,12 @@ HRESULT MorphMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_nu
                 }
 #endif
              }
-            _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMorphMeshEffect->_effect_name);
+            _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pMorphMeshEffect->_effect_name);
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
             checkDxException(hr, S_OK, "SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
 
 
-            _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMorphMeshEffect->_effect_name<<"("<<pMorphMeshEffect<<")");
+            _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pMorphMeshEffect->_effect_name<<"("<<pMorphMeshEffect<<")");
             UINT numPass;
             hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
             checkDxException(hr, D3D_OK, "Begin() に失敗しました。");
@@ -140,7 +139,7 @@ HRESULT MorphMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_nu
             checkDxException(hr, D3D_OK, "CommitChanges() に失敗しました。");
         }
 
-        _TRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMorphMeshEffect->_effect_name);
+        _TRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pMorphMeshEffect->_effect_name);
         pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
                                       _paIndexParam[i].BaseVertexIndex,
                                       _paIndexParam[i].MinIndex,
@@ -159,7 +158,7 @@ HRESULT MorphMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_nu
 }
 
 void MorphMeshModel::restore() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     //【MorphMeshModel再構築（＝初期化）処理概要】
     //基本的にはrestoreMeshModelの処理を一つ次元（配列）を増やしたようなもの
     //１）プライマリ＋モーフターゲットｘN の、頂点バッファ、頂点インデックスバッファ を作成
@@ -173,32 +172,29 @@ void MorphMeshModel::restore() {
     //　　　　・DrawIndexedPrimitive用引数配列(要素数＝マテリアルリストが変化した数。プライマリメッシュのみ)
     if (_paVtxBuffer_data_primary == nullptr) {
         ModelManager* pModelManager = pGOD->_pModelManager;
-        std::string model_name = std::string(_model_name);
+        ModelManager::MeshXFileFmt xdata;
 
-        std::string::size_type pos = model_name.find_last_of('_');
-        if (pos == std::string::npos) {
-            throwCriticalException("_model_name には  \"xxx_4\" の形式で、モーフターゲット数を含むモデル名を指定してください。 \n"
-                    "実際は、_model_name="<<_model_name<<" でした。(1)");
+        std::string model_def_file = std::string(_model_id) + ".meshx";
+        std::string model_def_filepath = ModelManager::getModelDefineFilePath(model_def_file);
+        pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
+        _matBaseTransformMatrix = xdata.BaseTransformMatrix;
+        _morph_target_num = xdata.XFileNum - 1;
+        int morph_target_num = _morph_target_num;
+        std::string* paXfilepath = NEW std::string[morph_target_num+1];
+        for (int i = 0; i < morph_target_num+1; i++) {
+            paXfilepath[i] = ModelManager::getXFilePath(xdata.XFileNames[i]);
         }
-        std::string str_model = model_name.substr(0, pos);  // "xxx_4" の xxx が入る
-        std::string str_t_num = model_name.substr(pos + 1); // "xxx_4" の 4 が入る
-        int morph_target_num  = STOI(str_t_num);
-        _morph_target_num = morph_target_num;
-        std::string* paXfileName = NEW std::string[_morph_target_num+1];
-        for (int i = 0; i < _morph_target_num+1; i++) {
-            paXfileName[i] = ModelManager::getMeshFileName(str_model + "_" + XTOS(i));
-        }
+
         HRESULT hr;
         //流し込む頂点バッファデータ作成
         ToolBox::IO_Model_X* paIOX = nullptr;
-        Frm::Model3D**                        papModel3D = nullptr;
-        Frm::Mesh**                           papMeshesFront = nullptr;
+        Frm::Model3D**                  papModel3D = nullptr;
+        Frm::Mesh**                     papMeshesFront = nullptr;
 
         MorphMeshModel::INDEXPARAM*     paIndexParam = nullptr;
         MorphMeshModel::VERTEX_PRIMARY* paVtxBuffer_data_primary = nullptr;
         MorphMeshModel::VERTEX_MORPH**  papaVtxBuffer_data_morph = nullptr;
-        WORD*                                 paIdxBuffer_data = nullptr;
-
+        WORD*                           paIdxBuffer_data = nullptr;
 
         paIOX = NEW ToolBox::IO_Model_X[morph_target_num+1];
         papModel3D = NEW Frm::Model3D*[morph_target_num+1];
@@ -210,9 +206,9 @@ void MorphMeshModel::restore() {
 //        int nFaceNormals = 0;
         for (int pattern = 0; pattern < morph_target_num+1; pattern++) {
             papModel3D[pattern] = NEW Frm::Model3D();
-            bool r = paIOX[pattern].Load(paXfileName[pattern], papModel3D[pattern]);
+            bool r = paIOX[pattern].Load(paXfilepath[pattern], papModel3D[pattern]);
             if (r == false) {
-                throwCriticalException("Xファイルの読込み失敗。2/ とか忘れてませんか？ 対象="<<paXfileName[pattern]);
+                throwCriticalException("Xファイルの読込み失敗。2/ とか忘れてませんか？ 対象="<<paXfilepath[pattern]);
             }
             //メッシュを結合する前に、情報を確保しておく
             int nMesh = (int)papModel3D[pattern]->_Meshes.size();
@@ -274,7 +270,7 @@ void MorphMeshModel::restore() {
 
             if (nVertices < nTextureCoords) {
                 _TRACE_("nTextureCoords="<<nTextureCoords<<"/nVertices="<<nVertices);
-                _TRACE_("UV座標数が、頂点バッファ数を越えてます。頂点数までしか設定されません。対象="<<paXfileName[pattern]);
+                _TRACE_("UV座標数が、頂点バッファ数を越えてます。頂点数までしか設定されません。対象="<<paXfilepath[pattern]);
             }
 
             //法線設定とFrameTransformMatrix適用
@@ -383,7 +379,7 @@ void MorphMeshModel::restore() {
 
 
         GGAF_DELETEARR(paIOX);
-        GGAF_DELETEARR(paXfileName);
+        GGAF_DELETEARR(paXfilepath);
 
         //モデルに保持させる
         _papModel3D               = papModel3D;
@@ -465,7 +461,7 @@ void MorphMeshModel::restore() {
         paVtxelem[elemnum-1].UsageIndex = 0;
 
         hr = God::_pID3DDevice9->CreateVertexDeclaration( paVtxelem, &(_pVertexDeclaration) );
-        checkDxException(hr, D3D_OK, "God::_pID3DDevice9->CreateVertexDeclaration 失敗 model="<<(_model_name));
+        checkDxException(hr, D3D_OK, "God::_pID3DDevice9->CreateVertexDeclaration 失敗 model="<<(_model_id));
         //ストリーム数取得        hr = m_pDecl->GetDeclaration( m_pElement, &m_numElements);
 
         GGAF_DELETEARR(paVtxelem);
@@ -485,10 +481,10 @@ void MorphMeshModel::restore() {
                         D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
                         &(_pVertexBuffer_primary),
                         nullptr);
-                checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗（プライマリ） model="<<(_model_name));
+                checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗（プライマリ） model="<<(_model_id));
                 void *pVertexBuffer;
                 hr = _pVertexBuffer_primary->Lock(0, _size_vertices_primary, (void**)&pVertexBuffer, 0);
-                checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗（プライマリ） model="<<_model_name);
+                checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗（プライマリ） model="<<_model_id);
                 memcpy(pVertexBuffer, _paVtxBuffer_data_primary, _size_vertices_primary); //pVertexBuffer ← paVertex
                 _pVertexBuffer_primary->Unlock();
             } else {
@@ -500,10 +496,10 @@ void MorphMeshModel::restore() {
                         D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
                         &(_paIDirect3DVertexBuffer9_morph[pattern-1]),
                         nullptr);
-                checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗（モーフ:"<<pattern-1<<"） model="<<(_model_name));
+                checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗（モーフ:"<<pattern-1<<"） model="<<(_model_id));
                 void *pVertexBuffer;
                 hr = _paIDirect3DVertexBuffer9_morph[pattern-1]->Lock(0, _size_vertices_morph, (void**)&pVertexBuffer, 0);
-                checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗（モーフ:"<<pattern-1<<"） model="<<_model_name);
+                checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗（モーフ:"<<pattern-1<<"） model="<<_model_id);
                 memcpy(pVertexBuffer, _papaVtxBuffer_data_morph[pattern-1], _size_vertices_morph); //pVertexBuffer ← paVertex
                 _paIDirect3DVertexBuffer9_morph[pattern-1]->Unlock();
             }
@@ -522,7 +518,7 @@ void MorphMeshModel::restore() {
                                     D3DPOOL_DEFAULT,
                                     &(_pIndexBuffer),
                                     nullptr);
-        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_name));
+        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_id));
         void* pIndexBuffer;
         _pIndexBuffer->Lock(0,0,(void**)&pIndexBuffer,0);
         memcpy(pIndexBuffer, _paIndexBuffer_data , sizeof(WORD) * nFaces * 3);
@@ -538,17 +534,17 @@ void MorphMeshModel::restore() {
         }
     }
 
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 void MorphMeshModel::onDeviceLost() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     release();
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 void MorphMeshModel::release() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
 
     //テクスチャを解放
     if (_papTextureConnection) {
@@ -570,7 +566,7 @@ void MorphMeshModel::release() {
     GGAF_DELETEARR(_paIDirect3DVertexBuffer9_morph);
     GGAF_RELEASE(_pIndexBuffer);
     GGAF_RELEASE(_pVertexDeclaration);
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 
 }
 MorphMeshModel::~MorphMeshModel() {

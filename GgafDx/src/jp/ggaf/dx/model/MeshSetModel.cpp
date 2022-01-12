@@ -12,35 +12,18 @@
 #include "jp/ggaf/dx/model/MassModel.h"
 #include "jp/ggaf/dx/texture/Texture.h"
 
+#define MESHSETMODEL_MAX_DARW_SET_NUM 15
 
 using namespace GgafDx;
 
 DWORD MeshSetModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_PSIZE | D3DFVF_DIFFUSE | D3DFVF_TEX1  );
 //LPDIRECT3DVERTEXBUFFER9 _pVertexBuffer = nullptr;
 
-MeshSetModel::MeshSetModel(const char* prm_model_name) : Model(prm_model_name) {
-    _TRACE3_("_model_name="<<_model_name);
+MeshSetModel::MeshSetModel(const char* prm_model_id) : Model(prm_model_id) {
+    _TRACE3_("_model_id="<<_model_id);
+    _obj_model |= Obj_GgafDx_MeshSetModel;
     _pModel3D = nullptr;
     _pMeshesFront = nullptr;
-    // prm_model_name には "xxxxxx" or "8,xxxxx" が、渡ってくる。
-    // 同時描画セット数が8という意味です。
-    // モーフターゲット数が違うモデルは、別モデルという扱いにするため、モデル名に数値を残そうかな。
-    // モデル名から同時描画セット数指定があれば取り出す。無ければ8
-    std::string model_name = std::string(prm_model_name);
-    std::vector<std::string> names = UTIL::split(model_name, ",");
-    if (names.size() > 2) {
-        throwCriticalException("prm_model_name には \"xxxxxx\" or \"8,xxxxx\" 形式を指定してください。 \n"
-                "実際の引数は、prm_idstr="<<prm_model_name);
-    }
-    if (names.size() == 2) {
-        _set_num = STOI(names[0]);
-        if (_set_num > 15) {
-            _TRACE_("MeshSetModel("<<prm_model_name<<") の同時描画セット数オーバー。最大は15セットがですがそれ以上が設定されています。意図していますか？ _set_num="<<_set_num<<"。");
-        }
-    } else {
-        _TRACE_("MeshSetModel("<<prm_model_name<<") のセット数省略のため、標準の最大の15セットが設定されます。");
-        _set_num = 15;
-    }
     _pVertexBuffer = nullptr;
     _pIndexBuffer = nullptr;
     _paUint_material_list_grp_num = nullptr;
@@ -51,16 +34,31 @@ MeshSetModel::MeshSetModel(const char* prm_model_name) : Model(prm_model_name) {
     _size_vertices = 0;
     _nVertices = 0;
     _nFaces= 0;
-
-    _obj_model |= Obj_GgafDx_MeshSetModel;
-    _TRACE_("MeshSetModel::MeshSetModel(" << _model_name << ") End");
+    _draw_set_num = MESHSETMODEL_MAX_DARW_SET_NUM;
+//    // prm_model_id には "xxxxxx" or "8,xxxxx" が、渡ってくる。
+//    // 同時描画セット数が8という意味です。
+//    std::string model_id = std::string(prm_model_id);
+//    std::vector<std::string> names = UTIL::split(model_id, ",");
+//    if (names.size() > 2) {
+//        throwCriticalException("prm_model_id には \"xxxxxx\" or \"8,xxxxx\" 形式を指定してください。 \n"
+//                "実際の引数は、prm_model_id="<<prm_model_id);
+//    }
+//    if (names.size() == 2) {
+//        _draw_set_num = STOI(names[0]);
+//        if (_draw_set_num > MESHSETMODEL_MAX_DARW_SET_NUM) {
+//            _TRACE_("MeshSetModel("<<prm_model_id<<") の同時描画セット数オーバー。最大は"<<MESHSETMODEL_MAX_DARW_SET_NUM<<"セットがですがそれ以上が設定されています。意図していますか？ _draw_set_num="<<_draw_set_num<<"。");
+//        }
+//    } else {
+//        _TRACE_("MeshSetModel("<<prm_model_id<<") のセット数省略のため、標準の最大の"<<MESHSETMODEL_MAX_DARW_SET_NUM<<"セットが設定されます。");
+//        _draw_set_num = MESHSETMODEL_MAX_DARW_SET_NUM;
+//    }
 }
 
 HRESULT MeshSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
     _TRACE4_("MeshSetModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
 #ifdef MY_DEBUG
-    if (prm_draw_set_num > _set_num) {
-        _TRACE_(FUNC_NAME<<" "<<_model_name<<" の描画セット数オーバー。_set_num="<<_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
+    if (prm_draw_set_num > _draw_set_num) {
+        _TRACE_(FUNC_NAME<<" "<<_model_id<<" の描画セット数オーバー。_draw_set_num="<<_draw_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
     }
 #endif
     IDirect3DDevice9* const pDevice = God::_pID3DDevice9;
@@ -131,11 +129,11 @@ HRESULT MeshSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num,
                 }
 #endif
             }
-            _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshSetEffect->_effect_name);
+            _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pMeshSetEffect->_effect_name);
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
             checkDxException(hr, S_OK, "SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
 
-            _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshSetEffect->_effect_name<<"("<<pMeshSetEffect<<")");
+            _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pMeshSetEffect->_effect_name<<"("<<pMeshSetEffect<<")");
             //UINT numPass;
             hr = pID3DXEffect->Begin(&_num_pass, D3DXFX_DONOTSAVESTATE );
             checkDxException(hr, D3D_OK, "Begin() に失敗しました。");
@@ -153,7 +151,7 @@ HRESULT MeshSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num,
             hr = pID3DXEffect->CommitChanges();
             checkDxException(hr, D3D_OK, "CommitChanges() に失敗しました。");
         }
-        _TRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshSetEffect->_effect_name);
+        _TRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pMeshSetEffect->_effect_name);
 
         pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
                                       idxparam.BaseVertexIndex,
@@ -190,24 +188,23 @@ HRESULT MeshSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num,
 }
 
 void MeshSetModel::restore() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     if (_paVtxBuffer_data == nullptr) {
-        HRESULT hr;
         ModelManager* pModelManager = pGOD->_pModelManager;
-        std::string xfile_name; //読み込むXファイル名
-        //"12,Eres" or "8,Celes" or "Celes" から "Celes" だけ取とりだしてフルパス名取得
-        //TODO:数値３桁以上の時はだめ
-        if (*(_model_name + 1) == ',') {
-            xfile_name = ModelManager::getMeshFileName(std::string(_model_name + 2));
-        } else if (*(_model_name + 2) == ',') {
-            xfile_name = ModelManager::getMeshFileName(std::string(_model_name + 3));
+        ModelManager::MeshXFileFmt xdata;
+        std::string model_def_file = std::string(_model_id) + ".meshx";
+        std::string model_def_filepath = ModelManager::getModelDefineFilePath(model_def_file);
+        pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
+        _matBaseTransformMatrix = xdata.BaseTransformMatrix;
+        _draw_set_num = xdata.DrawSetNum;
+        if (_draw_set_num == 0 || _draw_set_num > MESHSETMODEL_MAX_DARW_SET_NUM) {
+            _TRACE_("MeshSetModel::restore() "<<_model_id<<" の同時描画セット数は、最大の "<<MESHSETMODEL_MAX_DARW_SET_NUM<<" に再定義されました。理由：_draw_set_num="<<_draw_set_num);
+            _draw_set_num = MESHSETMODEL_MAX_DARW_SET_NUM;
         } else {
-            xfile_name = ModelManager::getMeshFileName(std::string(_model_name));
-        }
-        if (xfile_name == "") {
-             throwCriticalException("メッシュファイル(*.x)が見つかりません。model_name="<<(_model_name));
+            _TRACE_("MeshSetModel::restore() "<<_model_id<<" の同時描画セット数は "<<_draw_set_num<<" です。");
         }
 
+        std::string xfilepath = ModelManager::getXFilePath(xdata.XFileNames[0]);
 
         //流し込む頂点バッファデータ作成
         ToolBox::IO_Model_X iox;
@@ -225,14 +222,11 @@ void MeshSetModel::restore() {
         int nVertices = 0;
         int nTextureCoords = 0;
         int nFaces = 0;
-    //    int nFaceNormals = 0;
-
-
         pModel3D = NEW Frm::Model3D();
 
-        bool r = iox.Load(xfile_name, pModel3D);
+        bool r = iox.Load(xfilepath, pModel3D);
         if (r == false) {
-            throwCriticalException("Xファイルの読込み失敗。対象="<<xfile_name);
+            throwCriticalException("Xファイルの読込み失敗。対象="<<xfilepath);
         }
 
         //メッシュを結合する前に、情報を確保しておく
@@ -253,8 +247,8 @@ void MeshSetModel::restore() {
 //        nFaceNormals = pMeshesFront->_nFaceNormals;
         unit_paVtxBuffer_data = NEW MeshSetModel::VERTEX[nVertices];
 
-        if (nVertices*_set_num > 65535) {
-            throwCriticalException("頂点が 65535を超えたかもしれません。\n対象Model："<<getName()<<"  nVertices:"<<nVertices<<"  セット数:"<<(_set_num));
+        if (nVertices*_draw_set_num > 65535) {
+            throwCriticalException("頂点が 65535を超えたかもしれません。\n対象Model："<<getName()<<"  nVertices:"<<nVertices<<"  セット数:"<<(_draw_set_num));
         }
 
         _nVertices = nVertices;
@@ -283,7 +277,7 @@ void MeshSetModel::restore() {
 
         if (nVertices < nTextureCoords) {
             _TRACE_("nTextureCoords="<<nTextureCoords<<"/nVertices="<<nVertices);
-            _TRACE_("UV座標数が、頂点バッファ数を越えてます。頂点数までしか設定されません。対象="<<xfile_name);
+            _TRACE_("UV座標数が、頂点バッファ数を越えてます。頂点数までしか設定されません。対象="<<xfilepath);
         }
         //法線設定とFrameTransformMatrix適用
         prepareVtx((void*)unit_paVtxBuffer_data, _size_vertex_unit,
@@ -308,8 +302,8 @@ void MeshSetModel::restore() {
         }
 
         //頂点バッファをセット数分繰り返しコピーで作成
-        paVtxBuffer_data = NEW MeshSetModel::VERTEX[nVertices * _set_num];
-        for (int i = 0; i < _set_num; i++) {
+        paVtxBuffer_data = NEW MeshSetModel::VERTEX[nVertices * _draw_set_num];
+        for (int i = 0; i < _draw_set_num; i++) {
             for (int j = 0; j < nVertices; j++) {
                 paVtxBuffer_data[(i*nVertices) + j] = unit_paVtxBuffer_data[j];
                 paVtxBuffer_data[(i*nVertices) + j].index = (float)i; //+= (nVertices*i);
@@ -318,8 +312,8 @@ void MeshSetModel::restore() {
         GGAF_DELETEARR(unit_paVtxBuffer_data);
 
         //インデックスバッファをセット数分繰り返しコピーで作成
-        paIdxBuffer_data = NEW WORD[(nFaces*3) * _set_num];
-        for (int i = 0; i < _set_num; i++) {
+        paIdxBuffer_data = NEW WORD[(nFaces*3) * _draw_set_num];
+        for (int i = 0; i < _draw_set_num; i++) {
             for (int j = 0; j < nFaces; j++) {
                 paIdxBuffer_data[((i*nFaces*3)+(j*3)) + 0] = unit_paIndexBuffer_data[j*3 + 0] + (nVertices*i);
                 paIdxBuffer_data[((i*nFaces*3)+(j*3)) + 1] = unit_paIndexBuffer_data[j*3 + 1] + (nVertices*i);
@@ -329,17 +323,17 @@ void MeshSetModel::restore() {
         GGAF_DELETEARR(unit_paIndexBuffer_data);
 
         //マテリアルリストをセット数分繰り返しコピーで作成
-        uint16_t* paFaceMaterials = NEW uint16_t[nFaces * _set_num];
-        for (int i = 0; i < _set_num; i++) {
+        uint16_t* paFaceMaterials = NEW uint16_t[nFaces * _draw_set_num];
+        for (int i = 0; i < _draw_set_num; i++) {
             for (int j = 0; j < nFaces; j++) {
                 paFaceMaterials[(i*nFaces) + j] = pMeshesFront->_FaceMaterials[j];
             }
         }
 
         //パラメータもをセット数分繰り返しコピーで作成
-        papaIndexParam = NEW MeshSetModel::INDEXPARAM*[_set_num];
-        _paUint_material_list_grp_num = NEW UINT[_set_num];
-        for (int set_index = 0; set_index < _set_num; set_index++) {
+        papaIndexParam = NEW MeshSetModel::INDEXPARAM*[_draw_set_num];
+        _paUint_material_list_grp_num = NEW UINT[_draw_set_num];
+        for (int set_index = 0; set_index < _draw_set_num; set_index++) {
             MeshSetModel::INDEXPARAM* paParam = NEW MeshSetModel::INDEXPARAM[nFaces * (set_index+1)];
             int prev_materialno = -1;
             int materialno = 0;
@@ -434,27 +428,27 @@ void MeshSetModel::restore() {
         HRESULT hr;
         //頂点バッファ作成
         hr = God::_pID3DDevice9->CreateVertexBuffer(
-                _size_vertices * _set_num,
+                _size_vertices * _draw_set_num,
                 D3DUSAGE_WRITEONLY,
                 MeshSetModel::FVF,
                 D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
                 &(_pVertexBuffer),
                 nullptr);
-        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_name));
+        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_id));
         //バッファへ作成済み頂点データを流し込む
         void *pVertexBuffer;
         hr = _pVertexBuffer->Lock(
                                       0,
-                                      _size_vertices * _set_num,
+                                      _size_vertices * _draw_set_num,
                                       (void**)&pVertexBuffer,
                                       0
                                     );
-        checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_name);
+        checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_id);
 
         memcpy(
           pVertexBuffer,
           _paVtxBuffer_data,
-          _size_vertices * _set_num
+          _size_vertices * _draw_set_num
         ); //pVertexBuffer ← paVertex
         _pVertexBuffer->Unlock();
     }
@@ -464,20 +458,20 @@ void MeshSetModel::restore() {
     if (_pIndexBuffer == nullptr) {
         HRESULT hr;
         hr = God::_pID3DDevice9->CreateIndexBuffer(
-                               sizeof(WORD) * _nFaces * 3 * _set_num,
+                               sizeof(WORD) * _nFaces * 3 * _draw_set_num,
                                 D3DUSAGE_WRITEONLY,
                                 D3DFMT_INDEX16,
                                 D3DPOOL_DEFAULT,
                                 &(_pIndexBuffer),
                                 nullptr);
-        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_name));
+        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_id));
 
         void* pIndexBuffer;
         _pIndexBuffer->Lock(0,0,(void**)&pIndexBuffer,0);
         memcpy(
           pIndexBuffer ,
           _paIndexBuffer_data,
-          sizeof(WORD) * _nFaces * 3 * _set_num
+          sizeof(WORD) * _nFaces * 3 * _draw_set_num
         );
         _pIndexBuffer->Unlock();
     }
@@ -491,17 +485,17 @@ void MeshSetModel::restore() {
         }
     }
 
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 void MeshSetModel::onDeviceLost() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     release();
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 void MeshSetModel::release() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     //テクスチャを解放
     if (_papTextureConnection) {
         for (int i = 0; i < (int)_num_materials; i++) {
@@ -514,7 +508,7 @@ void MeshSetModel::release() {
     GGAF_DELETEARR(_papTextureConnection); //テクスチャの配列
     GGAF_RELEASE(_pVertexBuffer);
     GGAF_RELEASE(_pIndexBuffer);
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 MeshSetModel::~MeshSetModel() {
@@ -522,7 +516,7 @@ MeshSetModel::~MeshSetModel() {
     //_pMeshesFront は _pModel3D をDELETEしているのでする必要は無い
     _pMeshesFront = nullptr;
     if (_papaIndexParam) {
-        for (int i = 0; i < _set_num; i++) {
+        for (int i = 0; i < _draw_set_num; i++) {
             GGAF_DELETEARR(_papaIndexParam[i]);
         }
     }

@@ -13,7 +13,7 @@
 
 using namespace GgafDx;
 
-MassMorphMeshModel::MassMorphMeshModel(const char* prm_model_name) : MassModel(prm_model_name) {
+MassMorphMeshModel::MassMorphMeshModel(const char* prm_model_id) : MassModel(prm_model_id) {
     _obj_model |= Obj_GgafDx_MassMorphMeshModel;
     _paVtxBuffer_data_model = nullptr;
     _paIndexBuffer_data = nullptr;
@@ -92,42 +92,27 @@ void MassMorphMeshModel::createVertexModel(void* prm, MassModel::VertexModelInfo
 }
 
 void MassMorphMeshModel::restore() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     if (_paVtxBuffer_data_model == nullptr) {
-        // _model_name には "8,xxx_4" or "xxx_4" という文字列が渡ってくる。 (/と_は区切り文字)
-        // 8   ：同時描画セット数(省略時 GGAFDXMASS_MAX_INSTANCE_NUM)
-        // xxx ：モデル名
-        // 4   ：モーフターゲット数
-        std::vector<std::string> names = UTIL::split(std::string(_model_name), ",");
-        std::string xname = "";
-        if (names.size() == 1) {
-            _TRACE_(FUNC_NAME<<" "<<_model_name<<" の最大同時描画オブジェクト数は、デフォルトの"<<GGAFDXMASS_MAX_INSTANCE_NUM<<" が設定されました。");
-            _set_num = GGAFDXMASS_MAX_INSTANCE_NUM;
-            xname = names[0];
-        } else if (names.size() == 2) {
-            _set_num = STOI(names[0]);  // "8,xxx_4" の 8 が入る
-            xname = names[1];            // "8,xxx_4" の xxx_4 が入る
+        ModelManager* pModelManager = pGOD->_pModelManager;
+        ModelManager::MeshXFileFmt xdata;
+        std::string model_def_file = std::string(_model_id) + ".meshx";
+        std::string model_def_filepath = ModelManager::getModelDefineFilePath(model_def_file);
+        pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
+        _matBaseTransformMatrix = xdata.BaseTransformMatrix;
+        _draw_set_num = xdata.DrawSetNum;
+        if (_draw_set_num == 0 || _draw_set_num > GGAFDXMASS_MAX_INSTANCE_NUM) {
+            _TRACE_("MassMorphMeshModel::restore() "<<_model_id<<" の同時描画セット数は、最大の "<<GGAFDXMASS_MAX_INSTANCE_NUM<<" に再定義されました。理由：_draw_set_num="<<_draw_set_num);
+            _draw_set_num = GGAFDXMASS_MAX_INSTANCE_NUM;
         } else {
-            throwCriticalException("_model_name には \"8,xxx_4\" or \"xxx_4\" 形式を指定してください。 \n"
-                    "実際は、_model_name="<<_model_name<<" でした。");
-        }
-        if (_set_num < 1 || _set_num > GGAFDXMASS_MAX_INSTANCE_NUM) {
-            throwCriticalException(_model_name<<"の最大同時描画オブジェクト数が不正。範囲は 1～"<<GGAFDXMASS_MAX_INSTANCE_NUM<<"セットです。_set_num="<<_set_num);
+            _TRACE_("MassMorphMeshModel::restore() "<<_model_id<<" の同時描画セット数は "<<_draw_set_num<<" です。");
         }
 
-        std::string::size_type pos = xname.find_last_of('_');
-        if (pos == std::string::npos) {
-            throwCriticalException("_model_name には \"8,xxx_4\" or \"xxx_4\" 形式を指定してください。 \n"
-                    "実際は、_model_name="<<_model_name<<" でした。(2)");
-        }
-        std::string str_model = xname.substr(0, pos);  // "8,xxx_4" の xxx が入る
-        std::string str_t_num = xname.substr(pos + 1); // "8,xxx_4" の 4 が入る
-        _morph_target_num = STOI(str_t_num);
-
-        std::string* xfile_names = NEW std::string[_morph_target_num+1];
-
-        for (int i = 0; i < _morph_target_num+1; i++) {
-            xfile_names[i] = ModelManager::getMeshFileName(str_model + "_" + XTOS(i));
+        _morph_target_num = xdata.XFileNum - 1;
+        int morph_target_num = _morph_target_num;
+        std::string* paXfilepath = NEW std::string[morph_target_num+1];
+        for (int i = 0; i < morph_target_num+1; i++) {
+            paXfilepath[i] = ModelManager::getXFilePath(xdata.XFileNames[i]);
         }
         //流し込む頂点バッファデータ作成
         ToolBox::IO_Model_X iox;
@@ -137,9 +122,9 @@ void MassMorphMeshModel::restore() {
 
         for (int pattern = 0; pattern < _morph_target_num+1; pattern++) {
             papModel3D[pattern] = NEW Frm::Model3D();
-            bool r = iox.Load(xfile_names[pattern], papModel3D[pattern]);
+            bool r = iox.Load(paXfilepath[pattern], papModel3D[pattern]);
             if (r == false) {
-                throwCriticalException("Xファイルの読込み失敗。2/ とか忘れてませんか？ 対象="<<xfile_names[pattern]);
+                throwCriticalException("Xファイルの読込み失敗。対象="<<paXfilepath[pattern]);
             }
             //メッシュを結合する前に、情報を確保しておく
             int nMesh = (int)papModel3D[pattern]->_Meshes.size();
@@ -201,7 +186,7 @@ void MassMorphMeshModel::restore() {
 
             if (_nVertices < nTextureCoords) {
                 _TRACE_("nTextureCoords="<<nTextureCoords<<"/_nVertices="<<_nVertices);
-                _TRACE_("UV座標数が、頂点バッファ数を越えてます。頂点数までしか設定されません。対象="<<xfile_names[pattern]);
+                _TRACE_("UV座標数が、頂点バッファ数を越えてます。頂点数までしか設定されません。対象="<<paXfilepath[pattern]);
             }
 
             //法線設定とFrameTransformMatrix適用
@@ -242,7 +227,7 @@ void MassMorphMeshModel::restore() {
                 GGAF_DELETE(p);
             }
         }
-        GGAF_DELETEARR(xfile_names);
+        GGAF_DELETEARR(paXfilepath);
         GGAF_DELETEARR(papMeshesFront);
         GGAF_DELETEARR(papModel3D);
     }
@@ -264,14 +249,14 @@ void MassMorphMeshModel::restore() {
                         D3DPOOL_DEFAULT,
                         &(_pVertexBuffer_model),
                         nullptr);
-                checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_name));
+                checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_id));
                 //バッファへ作成済み頂点データを流し込む
                 void* pDeviceMemory = 0;
                 hr = _pVertexBuffer_model->Lock(0, _size_vertices_model, (void**)&pDeviceMemory, 0);
-                checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_name);
+                checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_id);
                 memcpy(pDeviceMemory, _paVtxBuffer_data_model, _size_vertices_model);
                 hr = _pVertexBuffer_model->Unlock();
-                checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗 model="<<_model_name);
+                checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗 model="<<_model_id);
             } else {
                 //モーフターゲット頂点バッファ
                 hr = God::_pID3DDevice9->CreateVertexBuffer(
@@ -281,14 +266,14 @@ void MassMorphMeshModel::restore() {
                         D3DPOOL_DEFAULT,
                         &(_pVertexBuffer_model_morph[pattern-1]),
                         nullptr);
-                checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗（モーフ:"<<pattern-1<<"） model="<<(_model_name));
+                checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗（モーフ:"<<pattern-1<<"） model="<<(_model_id));
                 //バッファへ作成済み頂点データを流し込む
                 void* pDeviceMemory = 0;
                 hr = _pVertexBuffer_model_morph[pattern-1]->Lock(0, _size_vertices_morph_model, (void**)&pDeviceMemory, 0);
-                checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗（モーフ:"<<pattern-1<<"） model="<<_model_name);
+                checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗（モーフ:"<<pattern-1<<"） model="<<_model_id);
                 memcpy(pDeviceMemory, _papaVtxBuffer_data_morph_model[pattern-1], _size_vertices_morph_model); //pVertexBuffer ← paVertex
                 hr = _pVertexBuffer_model_morph[pattern-1]->Unlock();
-                checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗（モーフ:"<<pattern-1<<"） model="<<_model_name);
+                checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗（モーフ:"<<pattern-1<<"） model="<<_model_id);
             }
         }
     }
@@ -304,7 +289,7 @@ void MassMorphMeshModel::restore() {
                                 D3DPOOL_DEFAULT,
                                 &(_pIndexBuffer),
                                 nullptr);
-        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_name));
+        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_id));
         void* pDeviceMemory = 0;
         _pIndexBuffer->Lock(0,0,(void**)&pDeviceMemory,0);
         memcpy(pDeviceMemory , _paIndexBuffer_data , sizeof(WORD) * _nFaces * 3);
@@ -319,7 +304,7 @@ void MassMorphMeshModel::restore() {
                     (TextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[n].c_str(), this));
         }
     }
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 HRESULT MassMorphMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
@@ -327,8 +312,8 @@ HRESULT MassMorphMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_se
         createVertexElements(); //デバイスロスト復帰時に呼び出される
     }
 #ifdef MY_DEBUG
-    if (prm_draw_set_num > _set_num) {
-        throwCriticalException(FUNC_NAME<<" "<<_model_name<<" の描画セット数オーバー。_set_num="<<_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
+    if (prm_draw_set_num > _draw_set_num) {
+        throwCriticalException(FUNC_NAME<<" "<<_model_id<<" の描画セット数オーバー。_draw_set_num="<<_draw_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
     }
 #endif
     IDirect3DDevice9* pDevice = God::_pID3DDevice9;
@@ -346,10 +331,10 @@ HRESULT MassMorphMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_se
     void* pInstancedata = prm_pPrm ? prm_pPrm : this->_pInstancedata; //prm_pPrm は臨時のテンポラリインスタンスデータ
     void* pDeviceMemory = 0;
     hr = _pVertexBuffer_instancedata->Lock(0, update_vertex_instancedata_size, (void**)&pDeviceMemory, D3DLOCK_DISCARD);
-    checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_name);
+    checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_id);
     memcpy(pDeviceMemory, pInstancedata, update_vertex_instancedata_size);
     hr = _pVertexBuffer_instancedata->Unlock();
-    checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗 model="<<_model_name);
+    checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗 model="<<_model_id);
 
     //モデルが同じならば頂点バッファ、インデックスバッファの設定はスキップできる
     //頂点バッファ設定
@@ -410,12 +395,12 @@ HRESULT MassMorphMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_se
             }
 #endif
         }
-        _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMassMorphMeshEffect->_effect_name);
+        _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pMassMorphMeshEffect->_effect_name);
         hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
         checkDxException(hr, S_OK, "SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
 
 
-        _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMassMorphMeshEffect->_effect_name<<"("<<pMassMorphMeshEffect<<")");
+        _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pMassMorphMeshEffect->_effect_name<<"("<<pMassMorphMeshEffect<<")");
         UINT numPass;
         hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
         checkDxException(hr, D3D_OK, "Begin() に失敗しました。");
@@ -440,7 +425,7 @@ HRESULT MassMorphMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_se
         checkDxException(hr, D3D_OK, "CommitChanges() に失敗しました。");
     }
 
-    _TRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMassMorphMeshEffect->_effect_name);
+    _TRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pMassMorphMeshEffect->_effect_name);
     hr = pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
                                        0,
                                        0,
@@ -484,18 +469,18 @@ void MassMorphMeshModel::resetStreamSourceFreq() {
 }
 
 void MassMorphMeshModel::onDeviceLost() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     release();
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 void MassMorphMeshModel::release() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     for (int pattern = 1; pattern <= _morph_target_num; pattern++) {
         GGAF_RELEASE(_pVertexBuffer_model_morph[pattern-1]);
     }
     GGAF_DELETEARR(_pVertexBuffer_model_morph);
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
     MassModel::release();
 }
 

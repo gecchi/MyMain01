@@ -73,7 +73,7 @@ void DefaultMassBoardActor::processDraw() {
                        //連続しているカウント数。同一描画深度は一度に描画する。
     GgafDx::FigureActor* pDrawActor = this;
     DefaultMassBoardActor* pDefaultMassBoardActor = nullptr;
-    int model_set_num = _pMassBoardModel->_set_num;
+    int model_draw_set_num = _pMassBoardModel->_draw_set_num;
     float u,v;
     VERTEX_instancedata* paInstancedata = DefaultMassBoardActor::_aInstancedata;
     static const size_t size_of_D3DCOLORVALUE = sizeof(D3DCOLORVALUE);
@@ -112,7 +112,7 @@ void DefaultMassBoardActor::processDraw() {
 
             draw_set_num++;
             GgafDx::Spacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
-            if (draw_set_num >= model_set_num) {
+            if (draw_set_num >= model_draw_set_num) {
                 break;
             } else {
                 pDrawActor = pDrawActor->_pNextRenderActor;

@@ -11,9 +11,9 @@ using namespace GgafLib;
 
 DefaultMassMorphMeshActor::VERTEX_instancedata DefaultMassMorphMeshActor::_aInstancedata[GGAFDXMASS_MAX_INSTANCE_NUM];
 
-DefaultMassMorphMeshActor::DefaultMassMorphMeshActor(const char* prm_name, const char* prm_model_id) :
+DefaultMassMorphMeshActor::DefaultMassMorphMeshActor(const char* prm_name, const char* prm_model) :
     GgafDx::MassMorphMeshActor(prm_name,
-                         prm_model_id,
+                         prm_model,
                          "DefaultMassMorphMeshEffect",
                          "DefaultMassMorphMeshTechnique",
                          UTIL::createChecker(this) ) {
@@ -81,7 +81,7 @@ void DefaultMassMorphMeshActor::processDraw() {
     int draw_set_num = 0; //MassMorphMeshActorの同じモデルで同じテクニックが
                           //連続しているカウント数。同一描画深度は一度に描画する。
     GgafDx::MassMorphMeshModel* pMassMorphMeshModel = _pMassMorphMeshModel;
-    const int model_max_set_num = pMassMorphMeshModel->_set_num;
+    const int model_max_draw_set_num = pMassMorphMeshModel->_draw_set_num;
     const hashval hash_technique = _hash_technique;
     int morph_target_num = pMassMorphMeshModel->_morph_target_num;
     static const size_t size_of_D3DXMATRIX = sizeof(D3DXMATRIX);
@@ -113,7 +113,7 @@ void DefaultMassMorphMeshActor::processDraw() {
             ++paInstancedata;
             draw_set_num++;
             GgafDx::Spacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
-            if (draw_set_num >= model_max_set_num) {
+            if (draw_set_num >= model_max_draw_set_num) {
                 break;
             } else {
                 pDrawActor = pDrawActor->_pNextRenderActor;

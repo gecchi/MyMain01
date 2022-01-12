@@ -50,7 +50,7 @@ EnemyEres::EnemyEres(const char* prm_name, GgafCore::ActorDepository* prm_pDepo_
 //    ((FixedFrameCurveGeoDriverLeader*)pDriverLeader_)->setGravitationParam(200, PX_C(100));
 
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_001");
     getModel()->setSpecular(8.0, 2.0);
 }
 

@@ -32,7 +32,7 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) :
     //pDepo_shot_ = pConn_depo_->peek();
     pDepo_shot_ = nullptr;
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(0, "WAVE_EXPLOSION_001");
+    pSeTx->set(0, "SE_EXPLOSION_001");
 }
 
 void EnemyTamago01::onCreateModel() {

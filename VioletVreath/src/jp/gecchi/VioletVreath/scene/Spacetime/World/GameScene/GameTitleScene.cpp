@@ -50,9 +50,9 @@ GameTitleScene::GameTitleScene(const char* prm_name) : VvScene<DefaultScene>(prm
     pHoshiBoshi_ = NEW HoshiBoshiTitle("TITLE_BG_HOSHI");
     bringSceneMediator()->appendGroupChild(pHoshiBoshi_);
 
-    pSeConnection_exec_ = connectToSeManager("WAVE_EXECUTE");
+    pSeConnection_exec_ = connectToSeManager("SE_EXECUTE");
 
-   // getBgmConductor()->ready(0, "OGG_BGM_DEMO");
+   // getBgmConductor()->ready(0, "BGM_DEMO");
     frame_of_noinput_ = 0;
     active_item_ = 0;
 

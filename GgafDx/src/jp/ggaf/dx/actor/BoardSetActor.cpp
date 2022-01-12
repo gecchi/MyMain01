@@ -12,12 +12,12 @@
 using namespace GgafDx;
 
 BoardSetActor::BoardSetActor(const char* prm_name,
-                             const char* prm_model_id,
+                             const char* prm_model,
                              const char* prm_effect_id,
                              const char* prm_technique) :
 
                                  FigureActor(prm_name,
-                                             prm_model_id,
+                                             prm_model,
                                              TYPE_BOARDSET_MODEL,
                                              prm_effect_id,
                                              TYPE_BOARDSET_EFFECT,
@@ -60,7 +60,7 @@ void BoardSetActor::processDraw() {
     HRESULT hr;
     FigureActor* pDrawActor = this;
     BoardSetActor* pBoardSetActor = nullptr;
-    int model_set_num = _pBoardSetModel->_set_num;
+    int model_draw_set_num = _pBoardSetModel->_draw_set_num;
     float u,v;
     while (pDrawActor) {
         if (pDrawActor->getModel() == _pBoardSetModel && pDrawActor->_hash_technique == _hash_technique) {
@@ -95,7 +95,7 @@ void BoardSetActor::processDraw() {
             checkDxException(hr, D3D_OK, "SetFloat(_h_offset_v) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
             draw_set_num++;
-            if (draw_set_num >= model_set_num) {
+            if (draw_set_num >= model_draw_set_num) {
                 break;
             }
             pDrawActor = pDrawActor->_pNextRenderActor;

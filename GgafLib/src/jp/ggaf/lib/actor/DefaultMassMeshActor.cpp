@@ -85,7 +85,7 @@ void DefaultMassMeshActor::processDraw() {
     int draw_set_num = 0; //MassMeshActorの同じモデルで同じテクニックが
                           //連続しているカウント数。同一描画深度は一度に描画する。
     GgafDx::MassMeshModel* pMassMeshModel = _pMassMeshModel;
-    const int model_max_set_num = pMassMeshModel->_set_num;
+    const int model_max_draw_set_num = pMassMeshModel->_draw_set_num;
     const hashval hash_technique = _hash_technique;
 
     static const size_t size_of_D3DXMATRIX = sizeof(D3DXMATRIX);
@@ -100,7 +100,7 @@ void DefaultMassMeshActor::processDraw() {
             ++paInstancedata;
             draw_set_num++;
             GgafDx::Spacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
-            if (draw_set_num >= model_max_set_num) {
+            if (draw_set_num >= model_max_draw_set_num) {
                 break;
             } else {
                 pDrawActor = pDrawActor->_pNextRenderActor;

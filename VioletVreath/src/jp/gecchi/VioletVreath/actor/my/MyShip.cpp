@@ -249,13 +249,13 @@ MyShip::MyShip(const char* prm_name) :
     pSenakai_[DIR26( 1, 1, 1)] =  D_ANG(30);
 
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(SE_DAMAGED     , "WAVE_MY_DAMAGED_001");
-    pSeTx->set(SE_EXPLOSION   , "WAVE_MY_SE_EXPLOSION_001");
-    pSeTx->set(SE_TURBO       , "WAVE_MY_TURBO_001");
-    pSeTx->set(SE_CANT_TURBO  , "WAVE_MY_CANT_TURBO_001");
-    pSeTx->set(SE_FIRE_LASER  , "WAVE_MY_FIRE_LASER_001");
-    pSeTx->set(SE_FIRE_SHOT   , "WAVE_MY_FIRE_SHOT_001");
-    pSeTx->set(SE_FIRE_TORPEDO, "WAVE_MY_FIRE_TORPEDO_001");
+    pSeTx->set(SE_DAMAGED     , "SE_MY_DAMAGED_001");
+    pSeTx->set(SE_EXPLOSION   , "SE_MY_SE_EXPLOSION_001");
+    pSeTx->set(SE_TURBO       , "SE_MY_TURBO_001");
+    pSeTx->set(SE_CANT_TURBO  , "SE_MY_CANT_TURBO_001");
+    pSeTx->set(SE_FIRE_LASER  , "SE_MY_FIRE_LASER_001");
+    pSeTx->set(SE_FIRE_SHOT   , "SE_MY_FIRE_SHOT_001");
+    pSeTx->set(SE_FIRE_TORPEDO, "SE_MY_FIRE_TORPEDO_001");
 
     veloTurboTop_ = 30000;
     veloTurboBottom_ = 10000;

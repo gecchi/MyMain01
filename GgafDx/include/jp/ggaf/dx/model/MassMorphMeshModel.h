@@ -41,9 +41,9 @@ public:
 public:
     /**
      * コンストラクタ<BR>
-     * @param prm_model_name モデル定義の識別名
+     * @param prm_model_id モデル定義の識別名
      */
-    MassMorphMeshModel(const char* prm_model_name);
+    MassMorphMeshModel(const char* prm_model_id);
 
     static void createVertexModel(void* prm, MassModel::VertexModelInfo* out_info);
 

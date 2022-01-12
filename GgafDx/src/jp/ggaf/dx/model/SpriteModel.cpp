@@ -17,9 +17,9 @@ using namespace GgafDx;
 
 DWORD SpriteModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1);
 
-SpriteModel::SpriteModel(const char* prm_model_name) : Model(prm_model_name) {
-    _TRACE3_("_model_name="<<_model_name);
-
+SpriteModel::SpriteModel(const char* prm_model_id) : Model(prm_model_id) {
+    _TRACE3_("_model_id="<<_model_id);
+    _obj_model |= Obj_GgafDx_SpriteModel;
     _model_width_px = 32.0f;
     _model_height_px = 32.0f;
     _row_texture_split = 1;
@@ -28,7 +28,6 @@ SpriteModel::SpriteModel(const char* prm_model_name) : Model(prm_model_name) {
     _pVertexBuffer_data = nullptr;
     _size_vertices = 0;
     _size_vertex_unit = 0;
-    _obj_model |= Obj_GgafDx_SpriteModel;
 }
 
 HRESULT SpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
@@ -79,11 +78,11 @@ HRESULT SpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, 
             }
 #endif
         }
-        _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pSpriteEffect->_effect_name);
+        _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pSpriteEffect->_effect_name);
         hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
         checkDxException(hr, S_OK, "SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
 
-        _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pSpriteEffect->_effect_name<<"("<<pSpriteEffect<<")");
+        _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pSpriteEffect->_effect_name<<"("<<pSpriteEffect<<")");
         hr = pID3DXEffect->Begin(&_num_pass, D3DXFX_DONOTSAVESTATE );
         checkDxException(hr, D3D_OK, "Begin() に失敗しました。");
         hr = pID3DXEffect->BeginPass(0);
@@ -101,7 +100,7 @@ HRESULT SpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, 
         hr = pID3DXEffect->CommitChanges();
         checkDxException(hr, D3D_OK, "CommitChanges() に失敗しました。");
     }
-    _TRACE4_("DrawPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pSpriteEffect->_effect_name);
+    _TRACE4_("DrawPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pSpriteEffect->_effect_name);
     pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
     if (_num_pass >= 2) { //２パス目以降が存在
         hr = pID3DXEffect->EndPass();
@@ -130,27 +129,32 @@ HRESULT SpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, 
 }
 
 void SpriteModel::restore() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     if (_pVertexBuffer_data == nullptr) {
-        ModelManager* pModelManager = pGOD->_pModelManager;
         _papTextureConnection = nullptr;
-        HRESULT hr;
-        std::string xfile_name = ModelManager::getSpriteFileName(_model_name, "sprx");
+        ModelManager* pModelManager = pGOD->_pModelManager;
+        std::string model_def_file = std::string(_model_id) + ".sprx";
+        std::string model_def_filepath = ModelManager::getModelDefineFilePath(model_def_file);
         ModelManager::SpriteXFileFmt xdata;
-        pModelManager->obtainSpriteInfo(&xdata, xfile_name);
-        _model_width_px = xdata.width;
-        _model_height_px =  xdata.height;
-        _row_texture_split = xdata.row_texture_split;
-        _col_texture_split = xdata.col_texture_split;
+        pModelManager->obtainSpriteModelInfo(&xdata, model_def_filepath);
+
+        _model_width_px = xdata.Width;
+        _model_height_px =  xdata.Height;
+        _row_texture_split = xdata.TextureSplitRows;
+        _col_texture_split = xdata.TextureSplitCols;
         _pVertexBuffer_data = NEW SpriteModel::VERTEX[4];
         _size_vertices = sizeof(SpriteModel::VERTEX)*4;
         _size_vertex_unit = sizeof(SpriteModel::VERTEX);
         _pa_texture_filenames = NEW std::string[1];
-        _pa_texture_filenames[0] = std::string(xdata.texture_file);
-
+        _pa_texture_filenames[0] = std::string(xdata.TextureFile);
+        _draw_set_num = xdata.DrawSetNum;
+        if (_draw_set_num != 1) {
+            _TRACE_("SpriteModel::restore() 本モデルの "<<_model_id<<" の同時描画セット数は 1 に上書きされました。（_draw_set_num="<<_draw_set_num<<" は無視されました。）");
+            _draw_set_num = 1;
+        }
         //左上
-        _pVertexBuffer_data[0].x = PX_DX(xdata.width)  / -2.0;
-        _pVertexBuffer_data[0].y = PX_DX(xdata.height) /  2.0;
+        _pVertexBuffer_data[0].x = PX_DX(xdata.Width)  / -2.0;
+        _pVertexBuffer_data[0].y = PX_DX(xdata.Height) /  2.0;
         _pVertexBuffer_data[0].z = 0.0f;
         _pVertexBuffer_data[0].nx = 0.0f;
         _pVertexBuffer_data[0].ny = 0.0f;
@@ -159,35 +163,35 @@ void SpriteModel::restore() {
         _pVertexBuffer_data[0].tu = 0.0f;
         _pVertexBuffer_data[0].tv = 0.0f;
         //右上
-        _pVertexBuffer_data[1].x = PX_DX(xdata.width)  /  2.0;
-        _pVertexBuffer_data[1].y = PX_DX(xdata.height) /  2.0;
+        _pVertexBuffer_data[1].x = PX_DX(xdata.Width)  /  2.0;
+        _pVertexBuffer_data[1].y = PX_DX(xdata.Height) /  2.0;
         _pVertexBuffer_data[1].z = 0.0f;
         _pVertexBuffer_data[1].nx = 0.0f;
         _pVertexBuffer_data[1].ny = 0.0f;
         _pVertexBuffer_data[1].nz = -1.0f;
         _pVertexBuffer_data[1].color = D3DCOLOR_ARGB(255,255,255,255);
-        _pVertexBuffer_data[1].tu = (float)(1.0 / xdata.col_texture_split);
+        _pVertexBuffer_data[1].tu = (float)(1.0 / xdata.TextureSplitCols);
         _pVertexBuffer_data[1].tv = 0.0f;
         //左下
-        _pVertexBuffer_data[2].x = PX_DX(xdata.width)  / -2.0;
-        _pVertexBuffer_data[2].y = PX_DX(xdata.height) / -2.0;
+        _pVertexBuffer_data[2].x = PX_DX(xdata.Width)  / -2.0;
+        _pVertexBuffer_data[2].y = PX_DX(xdata.Height) / -2.0;
         _pVertexBuffer_data[2].z = 0.0f;
         _pVertexBuffer_data[2].nx = 0.0f;
         _pVertexBuffer_data[2].ny = 0.0f;
         _pVertexBuffer_data[2].nz = -1.0f;
         _pVertexBuffer_data[2].color = D3DCOLOR_ARGB(255,255,255,255);
         _pVertexBuffer_data[2].tu = 0.0f;
-        _pVertexBuffer_data[2].tv = (float)(1.0 / xdata.row_texture_split);
+        _pVertexBuffer_data[2].tv = (float)(1.0 / xdata.TextureSplitRows);
         //右下
-        _pVertexBuffer_data[3].x = PX_DX(xdata.width)  /  2.0;
-        _pVertexBuffer_data[3].y = PX_DX(xdata.height) / -2.0;
+        _pVertexBuffer_data[3].x = PX_DX(xdata.Width)  /  2.0;
+        _pVertexBuffer_data[3].y = PX_DX(xdata.Height) / -2.0;
         _pVertexBuffer_data[3].z = 0.0f;
         _pVertexBuffer_data[3].nx = 0.0f;
         _pVertexBuffer_data[3].ny = 0.0f;
         _pVertexBuffer_data[3].nz = -1.0f;
         _pVertexBuffer_data[3].color = D3DCOLOR_ARGB(255,255,255,255);
-        _pVertexBuffer_data[3].tu = (float)(1.0 / xdata.col_texture_split);
-        _pVertexBuffer_data[3].tv = (float)(1.0 / xdata.row_texture_split);
+        _pVertexBuffer_data[3].tu = (float)(1.0 / xdata.TextureSplitCols);
+        _pVertexBuffer_data[3].tv = (float)(1.0 / xdata.TextureSplitRows);
 
         //距離
         FLOAT model_bounding_sphere_radius = (FLOAT)(sqrt(_pVertexBuffer_data[0].x * _pVertexBuffer_data[0].x +
@@ -222,12 +226,12 @@ void SpriteModel::restore() {
                 D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
                 &(_pVertexBuffer),
                 nullptr);
-        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_name));
+        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_id));
         //頂点バッファ作成
         //頂点情報をビデオカード頂点バッファへロード
         void *pVertexBuffer;
         hr = _pVertexBuffer->Lock(0, _size_vertices, (void**)&pVertexBuffer, 0);
-        checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_name);
+        checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_id);
         memcpy(pVertexBuffer, _pVertexBuffer_data, _size_vertices); //pVertexBuffer ← _pVertexBuffer_data
         _pVertexBuffer->Unlock();
     }
@@ -237,17 +241,17 @@ void SpriteModel::restore() {
         _papTextureConnection[0] = (TextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[0].c_str(), this));
     }
 
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 void SpriteModel::onDeviceLost() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     release();
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 void SpriteModel::release() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     GGAF_RELEASE(_pVertexBuffer);
     if (_papTextureConnection) {
         for (int i = 0; i < (int)_num_materials; i++) {
@@ -257,7 +261,7 @@ void SpriteModel::release() {
         }
     }
     GGAF_DELETEARR(_papTextureConnection);
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 SpriteModel::~SpriteModel() {

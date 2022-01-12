@@ -41,7 +41,7 @@ MagicPointItem::MagicPointItem(const char* prm_name, const char* prm_model, void
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 400000);
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(SE_GET_ITEM, "WAVE_GET_ITEM_001");
+    pSeTx->set(SE_GET_ITEM, "SE_GET_ITEM_001");
 }
 
 void MagicPointItem::initialize() {

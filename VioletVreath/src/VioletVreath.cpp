@@ -229,14 +229,16 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
 }
 
 void myUnexpectedHandler() {
-    MessageBox(nullptr, "UnexpectedHandler called.","ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
+    //MessageBox(nullptr, "UnexpectedHandler was called.","ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
+    _TRACE_("ERROR. UnexpectedHandler was called.");
     VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_Unexpected.rep");
     VB_UI->_pRpy->outputFile("VB_UI_LAST_Unexpected.rep");
     std::unexpected();
 }
 
 void myTerminateHandler() {
-    MessageBox(nullptr, "TerminateHandler called.","ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
+    //MessageBox(nullptr, "TerminateHandler was called.","ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
+    _TRACE_("ERROR. TerminateHandler was called.");
     VB_PLAY->_pRpy->outputFile("VB_PLAY_LAST_Terminate.rep");
     VB_UI->_pRpy->outputFile("VB_UI_LAST_Terminate.rep");
     std::terminate();

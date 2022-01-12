@@ -102,17 +102,17 @@ public:
     static double SE_VOLUME_RATE_MAX_DEPTH;
 
     /** [r] メッシュモデルの定義ファイル(Xファイル)の格納ディレクトリ名 */
-    static std::string DIRNAME_RESOURCE_SKIN_XXX_MESH;
+    static std::string DIRNAME_RESOURCE_SKIN_XXX_XFILE;
     /** [r] 2Dスプライトモデルの定義ファイル(sprx)の格納ディレクトリ名 */
-    static std::string DIRNAME_RESOURCE_SKIN_XXX_SPRITE;
+    static std::string DIRNAME_RESOURCE_SKIN_XXX_MODEL;
     /** [r] テクスチャファイルの格納ディレクトリ名 */
     static std::string DIRNAME_RESOURCE_SKIN_XXX_TEXTURE;
     /** [r] エフェクトファイル(fxファイル)の格納ディレクトリ名 */
     static std::string DIRNAME_RESOURCE_SKIN_XXX_EFFECT;
     /** [r] BGMファイル(oggファイル)の格納ディレクトリ名 */
-    static std::string DIRNAME_RESOURCE_SKIN_XXX_OGG;
+    static std::string DIRNAME_RESOURCE_SKIN_XXX_BGM;
     /** [r] SoundEffectファイル(waveファイル)の格納ディレクトリ名 */
-    static std::string DIRNAME_RESOURCE_SKIN_XXX_WAVE;
+    static std::string DIRNAME_RESOURCE_SKIN_XXX_SE;
 
     /** [r] エフェクトファイル(fxファイル)を実行時にコンパイルするかどうか */
     static bool REALTIME_EFFECT_COMPILE;
@@ -135,17 +135,17 @@ public:
     ////// 以下は、上記プロパティから生成される読み出し専用プロパティ ////////
 
     /** [r] メッシュモデルの定義ファイル(Xファイル)の格納ディレクトリ(0:default/1:ユーザー/2:カレント) */
-    static std::string DIR_MESH_MODEL[3];
-    /** [r] 2Dスプライトモデルの定義ファイル(sprx)の格納ディレクトリ(0:default/1:ユーザー/2:カレント) */
-    static std::string DIR_SPRITE_MODEL[3];
+    static std::string DIR_XFILE[3];
+    /** [r] アクターの定義ファイルの格納ディレクトリ(0:default/1:ユーザー/2:カレント) */
+    static std::string DIR_MODEL[3];
     /** [r] テクスチャファイルの格納ディレクトリ(0:default/1:ユーザー/2:カレント) */
     static std::string DIR_TEXTURE[3];
     /** [r] エフェクトファイル(fxファイル)の格納ディレクトリ(0:default/1:ユーザー/2:カレント) */
     static std::string DIR_EFFECT[3];
     /** [r] BGMファイル(oggファイル)の格納ディレクトリ(0:default/1:ユーザー/2:カレント) */
-    static std::string DIR_OGG[3];
+    static std::string DIR_BGM[3];
     /** [r] SoundEffectファイル(waveファイル)の格納ディレクトリ(0:default/1:ユーザー/2:カレント) */
-    static std::string DIR_WAVE[3];
+    static std::string DIR_SE[3];
 
     /** [r] スプライン曲線座標情報ファイル(datファイル)格納ディレクトリ名 */
     static std::string DIRNAME_RESOURCE_CURVE;

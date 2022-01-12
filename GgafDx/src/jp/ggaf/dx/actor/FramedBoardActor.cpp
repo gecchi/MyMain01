@@ -12,12 +12,12 @@
 using namespace GgafDx;
 
 FramedBoardActor::FramedBoardActor(const char* prm_name,
-                                   const char* prm_model_id,
+                                   const char* prm_model,
                                    const char* prm_effect_id,
                                    const char* prm_technique) :
 
                                        FigureActor(prm_name,
-                                                   prm_model_id,
+                                                   prm_model,
                                                    TYPE_FRAMEDBOARD_MODEL,
                                                    prm_effect_id,
                                                    TYPE_FRAMEDBOARD_EFFECT,

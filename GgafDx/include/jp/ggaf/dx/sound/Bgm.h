@@ -38,7 +38,7 @@ public:
      * ② prm_bgm_key+"_BPM"  ・・・ 値：現在未使用(:TODO)
      * ③ prm_bgm_key+"_TITLE"・・・ 値：現在未使用(:TODO)
      * 次に、①のの値をのBGMとなる oggファイルを プロパティファイルの
-     * DIR_OGG[0] の設定値配下から探してオープンし、再生準備を行います。
+     * DIR_BGM[0] の設定値配下から探してオープンし、再生準備を行います。
      * @param prm_bgm_key プロパティファイルのkey
      * @return
      */

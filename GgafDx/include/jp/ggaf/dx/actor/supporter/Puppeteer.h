@@ -92,6 +92,8 @@ public:
 
     double _advance_time;
 public:
+    Puppeteer();
+
     /**
      * コンストラクタ .
      * @param prm_pAc_cloned アニメーションコントローラー(cloneしたもの)

@@ -40,8 +40,8 @@ EnemyGeria::EnemyGeria(const char* prm_name) :
     velo_mv_begin_ = 0;
     frame_when_shot_ = 0;
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");     //”š”­
-    pSeTx->set(SE_FIRE     , "WAVE_ENEMY_FIRE_SHOT_001");     //”­ŽË
+    pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_001");     //”š”­
+    pSeTx->set(SE_FIRE     , "SE_ENEMY_FIRE_SHOT_001");     //”­ŽË
     migration_length_ = PX_C(10000);
     mvd_ = 0;
 }

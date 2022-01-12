@@ -202,7 +202,7 @@ public:
      * @param prm_inc_expanse_angle     1弾毎に加算する照射角差分(0 ～ D180ANG)
      * @param prm_velo_first      初弾セットのショット初期速度。初弾セット以降の初期速度は prm_attenuated を乗じていく。
      * @param prm_acce            各セットのショット初期加速度
-     * @param prm_set_num         撃つ放射状WAY弾の合計セット数
+     * @param prm_draw_set_num         撃つ放射状WAY弾の合計セット数
      * @param prm_interval_frames 弾セットと弾セットの出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全セット一斉発射。）
      * @param prm_attenuated      初弾セット以降のセット毎のショット初期速度へ乗率。速度減衰(< 1.0)或いは速度増加(>1.0)。1.0は全セット速度が同じ。
      * @param pFunc_call_back_dispatched
@@ -215,7 +215,7 @@ public:
                                                   int prm_way_num,
                                                   angle prm_first_expanse_angle, angle prm_inc_expanse_angle,
                                                   velo prm_velo_first, acce prm_acce,
-                                                  int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                                  int prm_draw_set_num, frame prm_interval_frames, float prm_attenuated,
                                                   void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int) = nullptr);
 
     /**
@@ -231,7 +231,7 @@ public:
      * @param prm_inc_expanse_angle     1弾毎に加算する照射角差分(0 ～ D180ANG)
      * @param prm_velo_first      初弾セットのショット初期速度。初弾セット以降の初期速度は prm_attenuated を乗じていく。
      * @param prm_acce            各セットのショット初期加速度
-     * @param prm_set_num         撃つ放射状WAY弾の合計セット数
+     * @param prm_draw_set_num         撃つ放射状WAY弾の合計セット数
      * @param prm_interval_frames 弾セットと弾セットの出現フレーム間隔。(0より大きい設定値で、時間差打ち返しのような演出になる。0 指定は全セット一斉発射。）
      * @param prm_attenuated      初弾セット以降のセット毎のショット初期速度へ乗率。速度減衰(< 1.0)或いは速度増加(>1.0)。1.0は全セット速度が同じ。
      * @param pFunc_call_back_dispatched
@@ -243,7 +243,7 @@ public:
                                                   int prm_way_num,
                                                   angle prm_first_expanse_angle, angle prm_inc_expanse_angle,
                                                   velo prm_velo_first, acce prm_acce,
-                                                  int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                                  int prm_draw_set_num, frame prm_interval_frames, float prm_attenuated,
                                                   void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int) = nullptr);
 
 

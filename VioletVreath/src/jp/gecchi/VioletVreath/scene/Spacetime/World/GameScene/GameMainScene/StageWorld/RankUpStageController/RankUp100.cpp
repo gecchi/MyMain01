@@ -49,7 +49,7 @@ RankUp100::RankUp100(const char* prm_name) : RankUpStage(prm_name) {
     requestActor(120000025, EnemyTamago01, "EnemyTamago01-120000025");
     requestActor(120000026, EnemyTamago01, "EnemyTamago01-120000026");
     // gen01 end
-    getBgmConductor()->ready(0, "OGG_RANKUP100_THEMA");
+    getBgmConductor()->ready(0, "BGM_RANKUP100_THEMA");
 }
 
 void RankUp100::initialize() {

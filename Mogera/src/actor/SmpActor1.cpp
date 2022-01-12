@@ -12,14 +12,14 @@ using namespace GgafLib;
 using namespace Mogera;
 
 SmpActor1::SmpActor1(const char* prm_name) :
-        GgafLib::DefaultMeshActor(prm_name, "Zako") { //Guruguru.x が参照される。
+        GgafLib::DefaultMeshSetActor(prm_name, "MorphTest") { //Guruguru.x が参照される。
     //座標設定
     setMaterialColor(0.0, 1.0, 1.0);
-    CollisionChecker* pChecker = getCollisionChecker();
-    pChecker->createCollisionArea(1);
-//    pChecker->setColliAABox_WHD(0, PX_C(100),PX_C(100),PX_C(100));
-    pChecker->setColliSphere(0, PX_C(20));
-    setHitAble(true);
+//    CollisionChecker* pChecker = getCollisionChecker();
+//    pChecker->createCollisionArea(1);
+////    pChecker->setColliAABox_WHD(0, PX_C(100),PX_C(100),PX_C(100));
+//    pChecker->setColliSphere(0, PX_C(20));
+//    setHitAble(true);
 }
 
 void SmpActor1::initialize() {

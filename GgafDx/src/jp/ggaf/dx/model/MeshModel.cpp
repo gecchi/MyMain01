@@ -17,12 +17,13 @@ using namespace GgafDx;
 
 //DWORD MeshModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1);
 DWORD MeshModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX3 |
-                                    D3DFVF_TEXCOORDSIZE2(0) | // real texture coord
-                                    D3DFVF_TEXCOORDSIZE3(1) | // tangent
-                                    D3DFVF_TEXCOORDSIZE3(2)   // binormal
+                        D3DFVF_TEXCOORDSIZE2(0) | // real texture coord
+                        D3DFVF_TEXCOORDSIZE3(1) | // tangent
+                        D3DFVF_TEXCOORDSIZE3(2)   // binormal
                                     );
-MeshModel::MeshModel(const char* prm_model_name) : Model(prm_model_name) {
-    _TRACE3_("_model_name="<<_model_name);
+MeshModel::MeshModel(const char* prm_model_id) : Model(prm_model_id) {
+    _TRACE3_("_model_id="<<_model_id);
+    _obj_model |= Obj_GgafDx_MeshModel;
     _pVertexBuffer = nullptr;
     _pIndexBuffer = nullptr;
     _paVtxBuffer_data = nullptr;
@@ -33,7 +34,6 @@ MeshModel::MeshModel(const char* prm_model_name) : Model(prm_model_name) {
     _size_vertex_unit = 0;
     _nVertices = 0;
     _nFaces = 0;
-    _obj_model |= Obj_GgafDx_MeshModel;
 }
 
 HRESULT MeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
@@ -107,11 +107,11 @@ HRESULT MeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, vo
                 }
 #endif
             }
-            _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
+            _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pMeshEffect->_effect_name);
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
             checkDxException(hr, S_OK, "SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
 
-            _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name<<"("<<pMeshEffect<<")");
+            _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pMeshEffect->_effect_name<<"("<<pMeshEffect<<")");
             hr = pID3DXEffect->Begin( &_num_pass, D3DXFX_DONOTSAVESTATE );
             checkDxException(hr, D3D_OK, "Begin() に失敗しました。");
             hr = pID3DXEffect->BeginPass(0);
@@ -129,7 +129,7 @@ HRESULT MeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, vo
             hr = pID3DXEffect->CommitChanges(); //マテリアルをコミットしなければいけない。
             checkDxException(hr, D3D_OK, "CommitChanges() に失敗しました。");
         }
-        _TRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
+        _TRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pMeshEffect->_effect_name);
         pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
                                       idxparam.BaseVertexIndex,
                                       idxparam.MinIndex,
@@ -165,7 +165,7 @@ HRESULT MeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, vo
 }
 
 void MeshModel::restore() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     if (_paVtxBuffer_data == nullptr) {
         //【MeshModel再構築（＝初期化）処理概要】
         //１）頂点バッファ、頂点インデックスバッファ を new
@@ -176,21 +176,27 @@ void MeshModel::restore() {
         //      ・マテリアル配列(要素数＝マテリアル数)
         //      ・テクスチャ配列(要素数＝マテリアル数)
         //      ・DrawIndexedPrimitive用引数配列(要素数＝マテリアルリストが変化した数)
-
         ModelManager* pModelManager = pGOD->_pModelManager;
-        std::string xfile_name = ModelManager::getMeshFileName(_model_name);
-        if (xfile_name == "") {
-            throwCriticalException("メッシュファイル(*.x)が見つかりません。_model_name="<<_model_name);
-        }
-        HRESULT hr;
+        ModelManager::MeshXFileFmt xdata;
 
+        std::string model_def_file = std::string(_model_id) + ".meshx";
+        std::string model_def_filepath = ModelManager::getModelDefineFilePath(model_def_file);
+        pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
+        _matBaseTransformMatrix = xdata.BaseTransformMatrix;
+        _draw_set_num = xdata.DrawSetNum;
+        if (_draw_set_num != 1) {
+            _TRACE_("MeshModel::restore() 本モデルの "<<_model_id<<" の同時描画セット数は 1 に上書きされました。（_draw_set_num="<<_draw_set_num<<" は無視されました。）");
+            _draw_set_num = 1;
+        }
+
+        std::string xfilepath = ModelManager::getXFilePath(xdata.XFileNames[0]);
+        HRESULT hr;
         //流し込む頂点バッファデータ作成
         ToolBox::IO_Model_X iox;
-
         Frm::Model3D* pModel3D = NEW Frm::Model3D();
-        bool r = iox.Load(xfile_name, pModel3D);
+        bool r = iox.Load(xfilepath, pModel3D);
         if (r == false) {
-            throwCriticalException("Xファイルの読込み失敗。対象="<<xfile_name);
+            throwCriticalException("Xファイルの読込み失敗。対象="<<xfilepath);
         }
         //メッシュを結合する前に、情報を確保しておく
         int nMesh = (int)pModel3D->_Meshes.size();
@@ -362,12 +368,12 @@ void MeshModel::restore() {
                 D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
                 &(_pVertexBuffer),
                 nullptr);
-        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_name));
+        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_id));
 
         //バッファへ作成済み頂点データを流し込む
         void *pVertexBuffer;
         hr = _pVertexBuffer->Lock(0, _size_vertices, (void**)&pVertexBuffer, 0);
-        checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_name);
+        checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_id);
         memcpy(pVertexBuffer, _paVtxBuffer_data, _size_vertices); //pVertexBuffer ← paVertex
         _pVertexBuffer->Unlock();
     }
@@ -382,7 +388,7 @@ void MeshModel::restore() {
                                     D3DPOOL_DEFAULT,
                                     &(_pIndexBuffer),
                                     nullptr);
-        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_name));
+        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_id));
         void* pIndexBuffer;
         _pIndexBuffer->Lock(0,0,(void**)&pIndexBuffer,0);
         memcpy(pIndexBuffer , _paIndexBuffer_data , sizeof(WORD) * _nFaces * 3);
@@ -398,17 +404,17 @@ void MeshModel::restore() {
                     (TextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[n].c_str(), this));
         }
     }
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 void MeshModel::onDeviceLost() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     release();
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 void MeshModel::release() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     //テクスチャを解放
     if (_papTextureConnection) {
         for (int i = 0; i < (int)_num_materials; i++) {
@@ -421,7 +427,7 @@ void MeshModel::release() {
     GGAF_DELETEARR(_papTextureConnection); //テクスチャの配列
     GGAF_RELEASE(_pVertexBuffer);
     GGAF_RELEASE(_pIndexBuffer);
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 MeshModel::~MeshModel() {

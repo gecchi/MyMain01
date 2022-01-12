@@ -14,8 +14,8 @@ using namespace GgafDx;
 #include "jp/ggaf/dx/texture/Texture.h"
 #include "jp/ggaf/dx/Config.h"
 
-WorldBoundModel::WorldBoundModel(const char* prm_model_name) : MorphMeshModel(prm_model_name) {
-    _TRACE3_("_model_name="<<_model_name);
+WorldBoundModel::WorldBoundModel(const char* prm_model_id) : MorphMeshModel(prm_model_id) {
+    _TRACE3_("_model_id="<<_model_id);
     _obj_model |= Obj_GgafDx_WorldBoundModel;
 }
 
@@ -74,11 +74,11 @@ HRESULT WorldBoundModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_n
                 }
 #endif
             }
-            _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pWorldBoundEffect->_effect_name);
+            _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pWorldBoundEffect->_effect_name);
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
             checkDxException(hr, S_OK, "SetTechnique("<<pTargetActor->_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
-            _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pWorldBoundEffect->_effect_name<<"("<<pWorldBoundEffect<<")");
+            _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pWorldBoundEffect->_effect_name<<"("<<pWorldBoundEffect<<")");
             UINT numPass;
             hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
             checkDxException(hr, D3D_OK, "Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
@@ -103,7 +103,7 @@ HRESULT WorldBoundModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_n
             checkDxException(hr, D3D_OK, "CommitChanges() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         }
 
-        _TRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pWorldBoundEffect->_effect_name);
+        _TRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pWorldBoundEffect->_effect_name);
         pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
                                       _paIndexParam[i].BaseVertexIndex,
                                       _paIndexParam[i].MinIndex,

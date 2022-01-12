@@ -40,7 +40,7 @@ RankUpStage::RankUpStage(const char* prm_name) : VvScene<DefaultScene>(prm_name,
     pMessage3_->setPosition(PX_C(400), PX_C(260));
     bringSceneMediator()->appendGroupChild(pMessage3_);
 
-    pSeConnection_all_hit_ = connectToSeManager("WAVE_EXPLOSION_002"); //全滅の最後の一機破壊時SE
+    pSeConnection_all_hit_ = connectToSeManager("SE_EXPLOSION_002"); //全滅の最後の一機破壊時SE
 }
 
 void RankUpStage::initialize() {

@@ -12,13 +12,13 @@
 using namespace GgafDx;
 
 SpriteSetActor::SpriteSetActor(const char* prm_name,
-                               const char* prm_model_id,
+                               const char* prm_model,
                                const char* prm_effect_id,
                                const char* prm_technique,
                                Checker* prm_pChecker) :
 
                                    FigureActor(prm_name,
-                                               prm_model_id,
+                                               prm_model,
                                                TYPE_SPRITESET_MODEL,
                                                prm_effect_id,
                                                TYPE_SPRITESET_EFFECT,
@@ -49,7 +49,7 @@ void SpriteSetActor::processDraw() {
 
     FigureActor* pDrawActor = this;
     SpriteSetActor* pSpriteSetActor = nullptr;
-    const int model_set_num = _pSpriteSetModel->_set_num;
+    const int model_draw_set_num = _pSpriteSetModel->_draw_set_num;
     float u,v;
     while (pDrawActor) {
         if (pDrawActor->getModel() == _pSpriteSetModel && pDrawActor->_hash_technique == _hash_technique) {
@@ -81,7 +81,7 @@ void SpriteSetActor::processDraw() {
             checkDxException(hr, D3D_OK, "SetFloat(_alpha) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
             draw_set_num++;
-            if (draw_set_num >= model_set_num) {
+            if (draw_set_num >= model_draw_set_num) {
                 break;
             }
             pDrawActor = pDrawActor->_pNextRenderActor;

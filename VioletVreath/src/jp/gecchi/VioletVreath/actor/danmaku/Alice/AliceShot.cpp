@@ -7,8 +7,8 @@
 using namespace GgafLib;
 using namespace VioletVreath;
 
-AliceShot::AliceShot(const char* prm_name, const char* prm_model_id) :
-        VvEnemyActor<SingleLaser>(prm_name, prm_model_id, StatusReset(AliceShot)) { //SingleLaserは最大27セットである
+AliceShot::AliceShot(const char* prm_name, const char* prm_model) :
+        VvEnemyActor<SingleLaser>(prm_name, prm_model, StatusReset(AliceShot)) { //SingleLaserは最大27セットである
         //SingleLaser(prm_name, "27,laser_single") { //SingleLaserは最大27セットである
     _class_name = "AliceShot";
 }

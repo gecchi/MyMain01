@@ -27,7 +27,7 @@ public:
     GgafDx::GeometricActor* pTarget_;
 
 public:
-    LockonCursor001(const char* prm_name, const char* prm_model_id);
+    LockonCursor001(const char* prm_name, const char* prm_model);
 
     virtual void initialize() override;
 

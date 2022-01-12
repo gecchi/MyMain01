@@ -17,7 +17,7 @@ class DanmakuAlice : public GgafLib::DefaultGeometricActor {
     GgafCore::ActorDepository* pShotDepo_;
 
 public:
-    DanmakuAlice(const char* prm_name, const char* prm_shot_model_id);
+    DanmakuAlice(const char* prm_name, const char* prm_shot_model);
 
     virtual void initialize() override;
 

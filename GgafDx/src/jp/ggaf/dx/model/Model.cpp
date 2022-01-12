@@ -6,18 +6,18 @@
 #include "jp/ggaf/dx/manager/TextureConnection.h"
 #include "jp/ggaf/dx/manager/TextureManager.h"
 #include "jp/ggaf/dx/model/MeshModel.h"
+#include "jp/ggaf/dx/model/PointSpriteModel.h"
 #include "jp/ggaf/dx/model/supporter/TextureBlinker.h"
 #include "jp/ggaf/dx/texture/Texture.h"
 
-
 using namespace GgafDx;
 
-Model::Model(const char* prm_model_name) : GgafCore::Object(),
+Model::Model(const char* prm_model_id) : GgafCore::Object(),
 _pTexBlinker(new TextureBlinker(this)) {
-    _TRACE3_("_model_name=" << prm_model_name << " _id=" << _id);
-    int len = (int)strlen(prm_model_name);
-    _model_name = NEW char[len+1];
-    strcpy(_model_name, prm_model_name);
+    _TRACE3_("_model_id=" << prm_model_id << " _id=" << _id);
+    int len = (int)strlen(prm_model_id);
+    _model_id = NEW char[len+1];
+    strcpy(_model_id, prm_model_id);
     _paMaterial_default = nullptr;
     _num_materials = 0;
     _pa_texture_filenames = nullptr;
@@ -28,13 +28,13 @@ _pTexBlinker(new TextureBlinker(this)) {
     _blink_threshold = 1.000001f;
     _blinker_frames = 0;
     _is_init_model = false;
-    _set_num = 1; //デフォルト最大同描画数１
+    _draw_set_num = 1; //デフォルト最大同描画数１
     _specular = 0.0f;
     _specular_power = 0.0f;
     _num_pass = 1;
     _obj_model = 0;
-
-    _TRACE3_("_model_name="<<_model_name<<" _id="<<_id);
+    D3DXMatrixIdentity(&_matBaseTransformMatrix);
+    _TRACE3_("_model_id="<<_model_id<<" _id="<<_id);
 }
 
 //void Model::setMaterialTexture(int prm_material_no, const char* prm_texture) {
@@ -46,7 +46,7 @@ _pTexBlinker(new TextureBlinker(this)) {
 
 //TextureConnection* Model::setMaterialTexture(int prm_material_no, TextureConnection* prm_pTexCon) {
 //    if (prm_material_no > _num_materials) {
-//        throwCriticalException("マテリアルINDEXが範囲外です。_model_name="<<_model_name<<" _num_materials="<<_num_materials<<" prm_material_no="<<prm_material_no)
+//        throwCriticalException("マテリアルINDEXが範囲外です。_model_id="<<_model_id<<" _num_materials="<<_num_materials<<" prm_material_no="<<prm_material_no)
 //    } else {
 //        TextureConnection* r = _papTextureConnection[prm_material_no];
 //        _papTextureConnection[prm_material_no] = prm_pTexCon;
@@ -76,9 +76,19 @@ _pTexBlinker(new TextureBlinker(this)) {
 //    }
 //    _papTextureConnection[0] = top;
 //}
-
-void Model::transformVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit, int prm_vtx_num,
-                         D3DXMATRIX& prm_FrameTransformMatrix) {
+void Model::transformPointSpriteVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit, int prm_vtx_num) {
+    byte* paVtxBuffer = (byte*)prm_paVtxBuffer;
+    PointSpriteModel::VERTEX* pVtx;
+    for (int i = 0; i < prm_vtx_num; i++) {
+        D3DXVECTOR3 vecVertex;
+        pVtx = (PointSpriteModel::VERTEX*)(paVtxBuffer + (prm_size_of_vtx_unit*i)); //頂点データの頭だし
+        vecVertex.x = pVtx->x;
+        vecVertex.y = pVtx->y;
+        vecVertex.z = pVtx->z;
+        D3DXVec3TransformCoord(&vecVertex, &vecVertex, &_matBaseTransformMatrix);
+    }
+}
+void Model::transformVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit, int prm_vtx_num) {
     byte* paVtxBuffer = (byte*)prm_paVtxBuffer;
     Model::VERTEX_3D_BASE* pVtx;
 
@@ -89,11 +99,11 @@ void Model::transformVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit, int p
         vecVertex.x = pVtx->x;
         vecVertex.y = pVtx->y;
         vecVertex.z = pVtx->z;
-        D3DXVec3TransformCoord(&vecVertex, &vecVertex, &prm_FrameTransformMatrix);
+        D3DXVec3TransformCoord(&vecVertex, &vecVertex, &_matBaseTransformMatrix);
         vecNormal.x = pVtx->nx;
         vecNormal.y = pVtx->ny;
         vecNormal.z = pVtx->nz;
-        D3DXVec3TransformNormal(&vecNormal, &vecNormal, &prm_FrameTransformMatrix);
+        D3DXVec3TransformNormal(&vecNormal, &vecNormal, &_matBaseTransformMatrix);
         pVtx->x = vecVertex.x;
         pVtx->y = vecVertex.y;
         pVtx->z = vecVertex.z;
@@ -110,11 +120,11 @@ void Model::transformVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit, int p
             vecTangent.x = pVtx_ex->tan_x;
             vecTangent.y = pVtx_ex->tan_y;
             vecTangent.z = pVtx_ex->tan_z;
-            D3DXVec3TransformNormal(&vecTangent, &vecTangent, &prm_FrameTransformMatrix);
+            D3DXVec3TransformNormal(&vecTangent, &vecTangent, &_matBaseTransformMatrix);
             vecBinormal.x = pVtx_ex->bin_x;
             vecBinormal.y = pVtx_ex->bin_y;
             vecBinormal.z = pVtx_ex->bin_z;
-            D3DXVec3TransformNormal(&vecBinormal, &vecBinormal, &prm_FrameTransformMatrix);
+            D3DXVec3TransformNormal(&vecBinormal, &vecBinormal, &_matBaseTransformMatrix);
 
             pVtx_ex->tan_x = vecTangent.x;
             pVtx_ex->tan_y = vecTangent.y;
@@ -345,13 +355,14 @@ void Model::prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,
         _TRACE_("ModelManager : (*iteBone)->_Name="<<((*iteBone)->_Name));
 
         if ((*iteBone)) {
+            D3DXMATRIX FrameTransformMatrix;
+            D3DXMatrixIdentity(&FrameTransformMatrix);
             Frm::Matrix* pMatPos = &((*iteBone)->_MatrixPos);
             if (pMatPos == 0 || pMatPos== nullptr || pMatPos->isIdentity()) {
                 //FrameTransformMatrix は単位行列
                 _TRACE_("ModelManager : FrameTransformMatrix is Identity");
             } else {
                 _TRACE_("ModelManager : Execute FrameTransform!");
-                D3DXMATRIX FrameTransformMatrix;
                 FrameTransformMatrix._11 = pMatPos->data[0];
                 FrameTransformMatrix._12 = pMatPos->data[1];
                 FrameTransformMatrix._13 = pMatPos->data[2];
@@ -368,58 +379,59 @@ void Model::prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,
                 FrameTransformMatrix._42 = pMatPos->data[13];
                 FrameTransformMatrix._43 = pMatPos->data[14];
                 FrameTransformMatrix._44 = pMatPos->data[15];
+            }
 
-                if (n == 0) {
-                    nVertices_begin = 0;
-                    nVertices_end = paNumVertices[n];
-                } else {
-                    nVertices_begin += paNumVertices[n-1];
-                    nVertices_end += paNumVertices[n];
+            D3DXMatrixMultiply(&FrameTransformMatrix, &FrameTransformMatrix, &_matBaseTransformMatrix);
+            if (n == 0) {
+                nVertices_begin = 0;
+                nVertices_end = paNumVertices[n];
+            } else {
+                nVertices_begin += paNumVertices[n-1];
+                nVertices_end += paNumVertices[n];
+            }
+
+            D3DXVECTOR3 vecVertex;
+            D3DXVECTOR3 vecNormal;
+            D3DXVECTOR3 vecTangent;
+            D3DXVECTOR3 vecBinormal;
+            for (int i = nVertices_begin; i < nVertices_end; i++) {
+                pVtx = (Model::VERTEX_3D_BASE*)(paVtxBuffer + (prm_size_of_vtx_unit*i));
+                vecVertex.x = pVtx->x;
+                vecVertex.y = pVtx->y;
+                vecVertex.z = pVtx->z;
+                D3DXVec3TransformCoord(&vecVertex, &vecVertex, &FrameTransformMatrix);
+                vecNormal.x = pVtx->nx;
+                vecNormal.y = pVtx->ny;
+                vecNormal.z = pVtx->nz;
+                D3DXVec3TransformNormal(&vecNormal, &vecNormal, &FrameTransformMatrix);
+                pVtx->x = vecVertex.x;
+                pVtx->y = vecVertex.y;
+                pVtx->z = vecVertex.z;
+                pVtx->nx = vecNormal.x;
+                pVtx->ny = vecNormal.y;
+                pVtx->nz = vecNormal.z;
+
+                ///MeshModelの場合だけ///////////////////
+                if (_obj_model & Obj_GgafDx_MeshModel) {
+                    //MeshModelの場合
+                    MeshModel::VERTEX* pVtx_ex = (MeshModel::VERTEX*)pVtx;
+                    vecTangent.x = pVtx_ex->tan_x;
+                    vecTangent.y = pVtx_ex->tan_y;
+                    vecTangent.z = pVtx_ex->tan_z;
+                    D3DXVec3TransformNormal(&vecTangent, &vecTangent, &FrameTransformMatrix);
+                    vecBinormal.x = pVtx_ex->bin_x;
+                    vecBinormal.y = pVtx_ex->bin_y;
+                    vecBinormal.z = pVtx_ex->bin_z;
+                    D3DXVec3TransformNormal(&vecBinormal, &vecBinormal, &FrameTransformMatrix);
+
+                    pVtx_ex->tan_x = vecTangent.x;
+                    pVtx_ex->tan_y = vecTangent.y;
+                    pVtx_ex->tan_z = vecTangent.z;
+                    pVtx_ex->bin_x = vecBinormal.x;
+                    pVtx_ex->bin_y = vecBinormal.y;
+                    pVtx_ex->bin_z = vecBinormal.z;
                 }
-
-                D3DXVECTOR3 vecVertex;
-                D3DXVECTOR3 vecNormal;
-                D3DXVECTOR3 vecTangent;
-                D3DXVECTOR3 vecBinormal;
-                for (int i = nVertices_begin; i < nVertices_end; i++) {
-                    pVtx = (Model::VERTEX_3D_BASE*)(paVtxBuffer + (prm_size_of_vtx_unit*i));
-                    vecVertex.x = pVtx->x;
-                    vecVertex.y = pVtx->y;
-                    vecVertex.z = pVtx->z;
-                    D3DXVec3TransformCoord(&vecVertex, &vecVertex, &FrameTransformMatrix);
-                    vecNormal.x = pVtx->nx;
-                    vecNormal.y = pVtx->ny;
-                    vecNormal.z = pVtx->nz;
-                    D3DXVec3TransformNormal(&vecNormal, &vecNormal, &FrameTransformMatrix);
-                    pVtx->x = vecVertex.x;
-                    pVtx->y = vecVertex.y;
-                    pVtx->z = vecVertex.z;
-                    pVtx->nx = vecNormal.x;
-                    pVtx->ny = vecNormal.y;
-                    pVtx->nz = vecNormal.z;
-
-                    ///MeshModelの場合だけ///////////////////
-                    if (_obj_model & Obj_GgafDx_MeshModel) {
-                        //MeshModelの場合
-                        MeshModel::VERTEX* pVtx_ex = (MeshModel::VERTEX*)pVtx;
-                        vecTangent.x = pVtx_ex->tan_x;
-                        vecTangent.y = pVtx_ex->tan_y;
-                        vecTangent.z = pVtx_ex->tan_z;
-                        D3DXVec3TransformNormal(&vecTangent, &vecTangent, &FrameTransformMatrix);
-                        vecBinormal.x = pVtx_ex->bin_x;
-                        vecBinormal.y = pVtx_ex->bin_y;
-                        vecBinormal.z = pVtx_ex->bin_z;
-                        D3DXVec3TransformNormal(&vecBinormal, &vecBinormal, &FrameTransformMatrix);
-
-                        pVtx_ex->tan_x = vecTangent.x;
-                        pVtx_ex->tan_y = vecTangent.y;
-                        pVtx_ex->tan_z = vecTangent.z;
-                        pVtx_ex->bin_x = vecBinormal.x;
-                        pVtx_ex->bin_y = vecBinormal.y;
-                        pVtx_ex->bin_z = vecBinormal.z;
-                    }
-                    /////////////////////////////////////////////
-                }
+                /////////////////////////////////////////////
             }
         }
         n++;
@@ -632,8 +644,8 @@ void Model::setDefaultMaterial(D3DMATERIAL9* pMateria) {
 }
 
 Model::~Model() {
-    _TRACE4_("Model::~Model("<<_model_name<<") Adr:"<<this);
-    GGAF_DELETEARR_NULLABLE(_model_name);
+    _TRACE4_("Model::~Model("<<_model_id<<") Adr:"<<this);
+    GGAF_DELETEARR_NULLABLE(_model_id);
     GGAF_DELETEARR_NULLABLE(_paMaterial_default);
     GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);
     delete _pTexBlinker;

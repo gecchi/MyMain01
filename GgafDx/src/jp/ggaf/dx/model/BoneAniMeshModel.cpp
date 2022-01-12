@@ -22,7 +22,8 @@
 using namespace GgafDx;
 DWORD BoneAniMeshModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_PSIZE | D3DFVF_DIFFUSE | D3DFVF_TEX1);
 
-BoneAniMeshModel::BoneAniMeshModel(const char* prm_model_name) : Model(prm_model_name) {
+BoneAniMeshModel::BoneAniMeshModel(const char* prm_model_id) : Model(prm_model_id) {
+    _obj_model |= Obj_GgafDx_BoneAniMeshModel;
     _pAllocHierarchy = nullptr;
     _pFrameRoot = nullptr;
     _pAniControllerBase = nullptr;
@@ -42,7 +43,7 @@ BoneAniMeshModel::BoneAniMeshModel(const char* prm_model_name) : Model(prm_model
     _tmp_frame_index = 0;
     _num_animation_set = 0;
     _papaBool_AnimationSetIndex_BoneFrameIndex_is_act = nullptr;
-    _obj_model |= Obj_GgafDx_BoneAniMeshModel;
+
 }
 
 HRESULT BoneAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
@@ -120,10 +121,10 @@ HRESULT BoneAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
                 }
 #endif
             }
-            _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoneAniMeshEffect->_effect_name);
+            _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pBoneAniMeshEffect->_effect_name);
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
 
-            _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoneAniMeshEffect->_effect_name<<"("<<pBoneAniMeshEffect<<")");
+            _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pBoneAniMeshEffect->_effect_name<<"("<<pBoneAniMeshEffect<<")");
             UINT numPass;
             hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
             checkDxException(hr, D3D_OK, "BoneAniMeshModel::draw() Begin() に失敗しました。");
@@ -142,7 +143,7 @@ HRESULT BoneAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
             checkDxException(hr, D3D_OK, "BoneAniMeshModel::draw() CommitChanges() に失敗しました。");
         }
 
-        _TRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
+        _TRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pMeshEffect->_effect_name);
         pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
                                       idxparam.BaseVertexIndex,
                                       idxparam.MinIndex,
@@ -162,20 +163,34 @@ HRESULT BoneAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
 }
 
 void BoneAniMeshModel::restore() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     if (_paVtxBuffer_data == nullptr) {
         HRESULT hr;
-        std::string xfile_name = ModelManager::getMeshFileName(_model_name);
+
+        ModelManager* pModelManager = pGOD->_pModelManager;
+        ModelManager::MeshXFileFmt xdata;
+        std::string model_def_file = std::string(_model_id) + ".meshx";
+        std::string model_def_filepath = ModelManager::getModelDefineFilePath(model_def_file);
+        pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
+        _draw_set_num = xdata.DrawSetNum;
+        if (_draw_set_num != 1) {
+            _TRACE_("BoneAniMeshModel::restore() 本モデルの "<<_model_id<<" の同時描画セット数は常に 1 です。（_draw_set_num="<<_draw_set_num<<" は無視されました。）");
+            _draw_set_num = 1;
+        }
+        _matBaseTransformMatrix = xdata.BaseTransformMatrix;
+
+//        std::string xfile_name = ModelManager::getXFilePath(_model_id);
+        std::string xfilepath = ModelManager::getXFilePath(xdata.XFileNames[0]);
         TextureManager* pTextureManager = pGOD->_pModelManager->_pModelTextureManager;
         //AnimTicksPerSecondを独自に取り出す。デフォルトは4800
-        _anim_ticks_per_second = BoneAniMeshModel::getAnimTicksPerSecond(xfile_name);
+        _anim_ticks_per_second = BoneAniMeshModel::getAnimTicksPerSecond(xfilepath);
         if (_anim_ticks_per_second < 0) {
             _anim_ticks_per_second = 4800;
         }
         //Xファイルのファイルロード
         _pAllocHierarchy = NEW BoneAniMeshAllocHierarchy(); // CAllocHierarchyBaseの派生クラス
         hr = D3DXLoadMeshHierarchyFromX(
-                xfile_name.c_str(),
+                xfilepath.c_str(),
                 D3DXMESH_SYSTEMMEM, //D3DXMESH_MANAGED,
                 God::_pID3DDevice9,
                 _pAllocHierarchy,
@@ -183,18 +198,20 @@ void BoneAniMeshModel::restore() {
                 (D3DXFRAME**)(&_pFrameRoot),
                 &_pAniControllerBase
              );
-        _TRACE_("_pAllocHierarchy="<<_pAllocHierarchy<<" _pFrameRoot="<<_pFrameRoot<<" _pAniControllerBase="<<_pAniControllerBase<<" xfile_name.c_str()="<<xfile_name.c_str());
-        checkDxException(hr, D3D_OK, xfile_name<<" 読み込みに失敗しました。対象="<<xfile_name);
+        _TRACE_("_pAllocHierarchy="<<_pAllocHierarchy<<" _pFrameRoot="<<_pFrameRoot<<" _pAniControllerBase="<<_pAniControllerBase<<" xfile_name.c_str()="<<xfilepath.c_str());
+        checkDxException(hr, D3D_OK, xfilepath<<" 読み込みに失敗しました。対象="<<xfilepath);
         if (_pFrameRoot == nullptr) {
-            throwCriticalException(xfile_name<<" のフレーム情報が取得できません！");
+            throwCriticalException(xfilepath<<" のフレーム情報が取得できません！");
         }
-        //デフォルトで設定されているトラックのアニメーションで姿勢を一回つくる（コピー用）
-        //グローバル時間を0にする
-        hr = _pAniControllerBase->ResetTime();
-        checkDxException(hr, D3D_OK, "失敗しました。");
-        //0秒進める（ことによって反映させる）。
-        hr = _pAniControllerBase->AdvanceTime(0, nullptr);
-        checkDxException(hr, D3D_OK, "失敗しました。");
+        if (_pAniControllerBase) {
+            //デフォルトで設定されているトラックのアニメーションで姿勢を一回つくる（コピー用）
+            //グローバル時間を0にする
+            hr = _pAniControllerBase->ResetTime();
+            checkDxException(hr, D3D_OK, "失敗しました。");
+            //0秒進める（ことによって反映させる）。
+            hr = _pAniControllerBase->AdvanceTime(0, nullptr);
+            checkDxException(hr, D3D_OK, "失敗しました。");
+        }
 
         _vecDrawBoneFrame.clear();
         _vecAllBoneFrame.clear();
@@ -203,35 +220,39 @@ void BoneAniMeshModel::restore() {
         //////
         _mapAnimationSet_AniSetindex.clear();
         _mapAnimationSetIndex_AnimationTargetBoneFrameNames.clear();
-        _num_animation_set = _pAniControllerBase->GetMaxNumAnimationSets();
-        for (UINT ani_set_index = 0; ani_set_index < _num_animation_set; ani_set_index++) {
-            ID3DXAnimationSet* pAnimationSet = nullptr;
-            hr = _pAniControllerBase->GetAnimationSet(ani_set_index, &(pAnimationSet)); //アニメーションセット保持
-            checkDxException(hr, D3D_OK, "失敗しました");
-            _mapAnimationSet_AniSetindex[pAnimationSet] = ani_set_index;
-            int num_animation = pAnimationSet->GetNumAnimations();
-            for (UINT ani_index = 0; ani_index < num_animation; ++ani_index) {
-                LPCSTR target_bone_frame_name = nullptr;
-                hr = pAnimationSet->GetAnimationNameByIndex(ani_index, &target_bone_frame_name);
+        _num_animation_set = 0;
+        if (_pAniControllerBase) {
+            _num_animation_set = _pAniControllerBase->GetMaxNumAnimationSets();
+
+            for (UINT ani_set_index = 0; ani_set_index < _num_animation_set; ani_set_index++) {
+                ID3DXAnimationSet* pAnimationSet = nullptr;
+                hr = _pAniControllerBase->GetAnimationSet(ani_set_index, &(pAnimationSet)); //アニメーションセット保持
                 checkDxException(hr, D3D_OK, "失敗しました");
-                _mapAnimationSetIndex_AnimationTargetBoneFrameNames[ani_set_index].push_back(target_bone_frame_name);
+                _mapAnimationSet_AniSetindex[pAnimationSet] = ani_set_index;
+                int num_animation = pAnimationSet->GetNumAnimations();
+                for (UINT ani_index = 0; ani_index < num_animation; ++ani_index) {
+                    LPCSTR target_bone_frame_name = nullptr;
+                    hr = pAnimationSet->GetAnimationNameByIndex(ani_index, &target_bone_frame_name);
+                    checkDxException(hr, D3D_OK, "失敗しました");
+                    _mapAnimationSetIndex_AnimationTargetBoneFrameNames[ani_set_index].push_back(target_bone_frame_name);
 
+                }
             }
-        }
 
-        _papaBool_AnimationSetIndex_BoneFrameIndex_is_act = NEW bool*[_num_animation_set];
-        for (UINT ani_set_index = 0; ani_set_index < _num_animation_set; ani_set_index++) {
-            _papaBool_AnimationSetIndex_BoneFrameIndex_is_act[ani_set_index] = NEW bool[_tmp_frame_index+1];
-            std::vector<LPCSTR>* pAnimationTargetBoneFrameNameList = &(_mapAnimationSetIndex_AnimationTargetBoneFrameNames[ani_set_index]);
-            for (DWORD frame_index = 0; frame_index < _vecAllBoneFrame.size(); frame_index++) {
-                _papaBool_AnimationSetIndex_BoneFrameIndex_is_act[ani_set_index][frame_index] = false;
-                LPSTR frame_name = _vecAllBoneFrame[frame_index]->Name;
-                if (frame_name) {
-                    for (int n = 0; n < pAnimationTargetBoneFrameNameList->size(); n++) {
-                        LPCSTR animation_target_bone_frame_name = (*pAnimationTargetBoneFrameNameList)[n];
-                        if (strcmp(animation_target_bone_frame_name, frame_name) == 0) {
-                            _papaBool_AnimationSetIndex_BoneFrameIndex_is_act[ani_set_index][frame_index] = true;
-                            break;
+            _papaBool_AnimationSetIndex_BoneFrameIndex_is_act = NEW bool*[_num_animation_set];
+            for (UINT ani_set_index = 0; ani_set_index < _num_animation_set; ani_set_index++) {
+                _papaBool_AnimationSetIndex_BoneFrameIndex_is_act[ani_set_index] = NEW bool[_tmp_frame_index+1];
+                std::vector<LPCSTR>* pAnimationTargetBoneFrameNameList = &(_mapAnimationSetIndex_AnimationTargetBoneFrameNames[ani_set_index]);
+                for (DWORD frame_index = 0; frame_index < _vecAllBoneFrame.size(); frame_index++) {
+                    _papaBool_AnimationSetIndex_BoneFrameIndex_is_act[ani_set_index][frame_index] = false;
+                    LPSTR frame_name = _vecAllBoneFrame[frame_index]->Name;
+                    if (frame_name) {
+                        for (int n = 0; n < pAnimationTargetBoneFrameNameList->size(); n++) {
+                            LPCSTR animation_target_bone_frame_name = (*pAnimationTargetBoneFrameNameList)[n];
+                            if (strcmp(animation_target_bone_frame_name, frame_name) == 0) {
+                                _papaBool_AnimationSetIndex_BoneFrameIndex_is_act[ani_set_index][frame_index] = true;
+                                break;
+                            }
                         }
                     }
                 }
@@ -542,12 +563,12 @@ void BoneAniMeshModel::restore() {
                 D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
                 &(_pVertexBuffer),
                 nullptr);
-        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_name));
+        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_id));
 
         //バッファへ作成済み頂点データを流し込む
         void *pVertexBuffer;
         hr = _pVertexBuffer->Lock(0, _size_vertices, (void**)&pVertexBuffer, 0);
-        checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_name);
+        checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_id);
         memcpy(pVertexBuffer, _paVtxBuffer_data, _size_vertices); //pVertexBuffer ← paVertex
         _pVertexBuffer->Unlock();
     }
@@ -562,13 +583,13 @@ void BoneAniMeshModel::restore() {
                                    D3DPOOL_DEFAULT,
                                    &(_pIndexBuffer),
                                    nullptr);
-        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_name));
+        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_id));
         void* pIndexBuffer;
         _pIndexBuffer->Lock(0,0,(void**)&pIndexBuffer,0);
         memcpy(pIndexBuffer , _paIndexBuffer_data , sizeof(WORD) * _nFaces * 3);
         _pIndexBuffer->Unlock();
     }
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 ID3DXAnimationController* BoneAniMeshModel::getCloneAnimationController() {
@@ -652,14 +673,14 @@ int BoneAniMeshModel::getOffsetFromElem( D3DVERTEXELEMENT9 *elems, D3DDECLUSAGE 
 }
 
 void BoneAniMeshModel::onDeviceLost() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     //デバイスロスト時は解放します。
     release();
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 void BoneAniMeshModel::release() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     if (_papTextureConnection) {
         for (int i = 0; i < (int)_num_materials; i++) {
             if (_papTextureConnection[i]) {
@@ -671,7 +692,7 @@ void BoneAniMeshModel::release() {
     GGAF_DELETEARR(_papTextureConnection); //テクスチャの配列
     GGAF_RELEASE(_pVertexBuffer);
     GGAF_RELEASE(_pIndexBuffer);
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 BoneAniMeshModel::~BoneAniMeshModel() {

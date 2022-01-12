@@ -43,9 +43,9 @@ EnemyDelheid::EnemyDelheid(const char* prm_name) :
         VvEnemyActor<DefaultMassMorphMeshActor>(prm_name, "Delheid_1", StatusReset(EnemyDelheid)) {
     _class_name = "EnemyDelheid";
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    pSeTx->set(SE_UNDAMAGED, "WAVE_ENEMY_UNDAMAGED_001");
-    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    pSeTx->set(SE_DAMAGED  , "SE_ENEMY_DAMAGED_001");
+    pSeTx->set(SE_UNDAMAGED, "SE_ENEMY_UNDAMAGED_001");
+    pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_001");
     pProg2_ = createProgress();
     shot_begin_frame_ = 0;
     pDriverLeader_ = nullptr;

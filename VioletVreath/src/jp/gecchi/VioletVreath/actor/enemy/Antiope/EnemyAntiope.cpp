@@ -29,7 +29,7 @@ EnemyAntiope::EnemyAntiope(const char* prm_name, const char* prm_model, void* pr
         VvEnemyActor<DefaultMeshSetActor>(prm_name, prm_model, prm_pFuncStatusReset) {
     _class_name = "EnemyAntiope";
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_001");
     pP_ = nullptr;
 }
 

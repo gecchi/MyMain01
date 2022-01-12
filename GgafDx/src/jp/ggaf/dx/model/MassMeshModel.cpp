@@ -14,14 +14,15 @@
 
 using namespace GgafDx;
 
-MassMeshModel::MassMeshModel(const char* prm_model_name) : MassModel(prm_model_name) {
-    _TRACE3_("_model_name="<<_model_name);
+MassMeshModel::MassMeshModel(const char* prm_model_id) : MassModel(prm_model_id) {
+    _TRACE3_("_model_id="<<_model_id);
     _obj_model |= Obj_GgafDx_MassMeshModel;
 
     _paVtxBuffer_data_model = nullptr;
     _paIndexBuffer_data = nullptr;
     registerCallback_VertexModelInfo(MassMeshModel::createVertexModel); //頂点レイアウト情報作成コールバック関数
-    _TRACE_("MassMeshModel::MassMeshModel(" << _model_name << ") End");
+    _draw_set_num = GGAFDXMASS_MAX_INSTANCE_NUM;
+    _TRACE_("MassMeshModel::MassMeshModel(" << _model_id << ") End");
 }
 
 void MassMeshModel::createVertexModel(void* prm, MassModel::VertexModelInfo* out_info) {
@@ -65,39 +66,30 @@ void MassMeshModel::createVertexModel(void* prm, MassModel::VertexModelInfo* out
 }
 
 void MassMeshModel::restore() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     if (_paVtxBuffer_data_model == nullptr) {
         HRESULT hr;
         ModelManager* pModelManager = pGOD->_pModelManager;
-        // _model_name には "xxxxxx" or "8,xxxxx" が、渡ってくる。
-        // 同時描画セット数が8という意味です。
-        // モデル名から同時描画セット数指定があれば取り出す
-        std::vector<std::string> names = UTIL::split(std::string(_model_name), ",");
-        std::string xfile_name = ""; //読み込むXファイル名
-        if (names.size() == 1) {
-            _TRACE_(FUNC_NAME<<" "<<_model_name<<" の最大同時描画オブジェクト数は、デフォルトの"<<GGAFDXMASS_MAX_INSTANCE_NUM<<" が設定されました。");
-            _set_num = GGAFDXMASS_MAX_INSTANCE_NUM;
-            xfile_name = ModelManager::getMeshFileName(names[0]);
-        } else if (names.size() == 2) {
-            _set_num = STOI(names[0]);
-            xfile_name = ModelManager::getMeshFileName(names[1]);
+        ModelManager::MeshXFileFmt xdata;
+        std::string model_def_file = std::string(_model_id) + ".meshx";
+        std::string model_def_filepath = ModelManager::getModelDefineFilePath(model_def_file);
+        pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
+        _matBaseTransformMatrix = xdata.BaseTransformMatrix;
+        _draw_set_num = xdata.DrawSetNum;
+        if (_draw_set_num == 0 || _draw_set_num > GGAFDXMASS_MAX_INSTANCE_NUM) {
+            _TRACE_("MassMeshModel::restore() "<<_model_id<<" の同時描画セット数は、最大の "<<GGAFDXMASS_MAX_INSTANCE_NUM<<" に再定義されました。理由：_draw_set_num="<<_draw_set_num);
+            _draw_set_num = GGAFDXMASS_MAX_INSTANCE_NUM;
         } else {
-            throwCriticalException("_model_name には \"xxxxxx\" or \"8,xxxxx\" 形式を指定してください。 \n"
-                    "実際は、_model_name="<<_model_name<<" でした。");
-        }
-        if (_set_num < 1 || _set_num > GGAFDXMASS_MAX_INSTANCE_NUM) {
-            throwCriticalException(_model_name<<"の最大同時描画オブジェクト数が不正。範囲は 1～"<<GGAFDXMASS_MAX_INSTANCE_NUM<<"セットです。_set_num="<<_set_num);
-        }
-        if (xfile_name == "") {
-            throwCriticalException("メッシュファイル(*.x)が見つかりません。model_name="<<(_model_name));
+            _TRACE_("MassMeshModel::restore() "<<_model_id<<" の同時描画セット数は "<<_draw_set_num<<" です。");
         }
 
+        std::string xfilepath = ModelManager::getXFilePath(xdata.XFileNames[0]);
         //流し込む頂点バッファデータ作成
         ToolBox::IO_Model_X iox;
         Frm::Model3D* pModel3D = NEW Frm::Model3D();
-        bool r = iox.Load(xfile_name, pModel3D);
+        bool r = iox.Load(xfilepath, pModel3D);
         if (r == false) {
-            throwCriticalException("Xファイルの読込み失敗。対象="<<xfile_name);
+            throwCriticalException("Xファイルの読込み失敗。対象="<<xfilepath);
         }
 
         //メッシュを結合する前に、情報を確保しておく
@@ -142,7 +134,7 @@ void MassMeshModel::restore() {
 
         if (_nVertices < nTextureCoords) {
             _TRACE_("nTextureCoords="<<nTextureCoords<<"/_nVertices="<<_nVertices);
-            _TRACE_("UV座標数が、頂点バッファ数を越えてます。頂点数までしか設定されません。対象="<<xfile_name);
+            _TRACE_("UV座標数が、頂点バッファ数を越えてます。頂点数までしか設定されません。対象="<<xfilepath);
         }
         //法線設定とFrameTransformMatrix適用
         prepareVtx((void*)_paVtxBuffer_data_model, _size_vertex_unit_model,
@@ -182,14 +174,14 @@ void MassMeshModel::restore() {
                 D3DPOOL_DEFAULT,
                 &(_pVertexBuffer_model),
                 nullptr);
-        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_name));
+        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_id));
         //バッファへ作成済み頂点データを流し込む
         void* pDeviceMemory = 0;
         hr = _pVertexBuffer_model->Lock(0, _size_vertices_model, (void**)&pDeviceMemory, 0);
-        checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_name);
+        checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_id);
         memcpy(pDeviceMemory, _paVtxBuffer_data_model, _size_vertices_model);
         hr = _pVertexBuffer_model->Unlock();
-        checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗 model="<<_model_name);
+        checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗 model="<<_model_id);
     }
 
     //デバイスにインデックスバッファ作成
@@ -202,13 +194,13 @@ void MassMeshModel::restore() {
                                 D3DPOOL_DEFAULT,
                                 &(_pIndexBuffer),
                                 nullptr);
-        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<_model_name);
+        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<_model_id);
         void* pDeviceMemory = 0;
         hr = _pIndexBuffer->Lock(0, 0, (void**)&pDeviceMemory,0);
-        checkDxException(hr, D3D_OK, "インデックスバッファのロック取得に失敗 model="<<_model_name);
+        checkDxException(hr, D3D_OK, "インデックスバッファのロック取得に失敗 model="<<_model_id);
         memcpy(pDeviceMemory, _paIndexBuffer_data, sizeof(WORD)*_nFaces*3);
         hr = _pIndexBuffer->Unlock();
-        checkDxException(hr, D3D_OK, "インデックスバッファのアンロック取得に失敗 model="<<_model_name);
+        checkDxException(hr, D3D_OK, "インデックスバッファのアンロック取得に失敗 model="<<_model_id);
     }
 
     //デバイスにテクスチャ作成
@@ -220,7 +212,7 @@ void MassMeshModel::restore() {
                     (TextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[n].c_str(), this));
         }
     }
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 HRESULT MassMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
@@ -229,8 +221,8 @@ HRESULT MassMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num
         createVertexElements(); //デバイスロスト復帰時に呼び出される
     }
 #ifdef MY_DEBUG
-    if (prm_draw_set_num > _set_num) {
-        throwCriticalException(FUNC_NAME<<" "<<_model_name<<" の描画セット数オーバー。_set_num="<<_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
+    if (prm_draw_set_num > _draw_set_num) {
+        throwCriticalException(FUNC_NAME<<" "<<_model_id<<" の描画セット数オーバー。_draw_set_num="<<_draw_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
     }
 #endif
     IDirect3DDevice9* pDevice = God::_pID3DDevice9;
@@ -247,10 +239,10 @@ HRESULT MassMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num
     void* pInstancedata = prm_pPrm ? prm_pPrm : this->_pInstancedata; //prm_pPrm は臨時のテンポラリインスタンスデータ
     void* pDeviceMemory = 0;
     hr = _pVertexBuffer_instancedata->Lock(0, update_vertex_instancedata_size, (void**)&pDeviceMemory, D3DLOCK_DISCARD);
-    checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_name);
+    checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_id);
     memcpy(pDeviceMemory, pInstancedata, update_vertex_instancedata_size);
     hr = _pVertexBuffer_instancedata->Unlock();
-    checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗 model="<<_model_name);
+    checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗 model="<<_model_id);
 
     //モデルが同じならば頂点バッファ、インデックスバッファの設定はスキップできる
     Model* pModelLastDraw = ModelManager::_pModelLastDraw;
@@ -303,11 +295,11 @@ HRESULT MassMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num
             }
 #endif
         }
-        _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMassMeshEffect->_effect_name);
+        _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pMassMeshEffect->_effect_name);
         hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
         checkDxException(hr, S_OK, "SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
 
-        _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMassMeshEffect->_effect_name<<"("<<pMassMeshEffect<<")");
+        _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pMassMeshEffect->_effect_name<<"("<<pMassMeshEffect<<")");
         //UINT numPass;
         hr = pID3DXEffect->Begin(&_num_pass, D3DXFX_DONOTSAVESTATE );
         checkDxException(hr, D3D_OK, "Begin() に失敗しました。");
@@ -325,7 +317,7 @@ HRESULT MassMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num
         hr = pID3DXEffect->CommitChanges();
         checkDxException(hr, D3D_OK, "CommitChanges() に失敗しました。");
     }
-    _TRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMassMeshEffect->_effect_name);
+    _TRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pMassMeshEffect->_effect_name);
 
     hr = pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
                                        0,

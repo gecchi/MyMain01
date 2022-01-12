@@ -31,7 +31,7 @@ EnemyAppho::EnemyAppho(const char* prm_name) :
         VvEnemyActor<DefaultMeshSetActor>(prm_name, "Appho", StatusReset(EnemyAppho)) {
     _class_name = "EnemyAppho";
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_001");
 }
 
 void EnemyAppho::onCreateModel() {

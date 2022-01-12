@@ -74,7 +74,7 @@ void FontBoardActor::processDraw() {
     VERTEX_instancedata* paInstancedata = FontBoardActor::_aInstancedata;
     GgafDx::FigureActor* pDrawActor = this;
     FontBoardActor* pFontBoardActor = nullptr;
-    int model_set_num = _pMassBoardModel->_set_num;
+    int model_draw_set_num = _pMassBoardModel->_draw_set_num;
     while (pDrawActor) {
         if (pDrawActor->getModel() == this->getModel() && pDrawActor->_hash_technique == this->_hash_technique) {
             pFontBoardActor = (FontBoardActor*)pDrawActor;
@@ -97,7 +97,7 @@ void FontBoardActor::processDraw() {
                 ++paInstancedata;
 
                 draw_set_num++;
-                if (draw_set_num >= model_set_num) {
+                if (draw_set_num >= model_draw_set_num) {
                    _pMassBoardModel->GgafDx::MassBoardModel::draw(this, draw_set_num);
                    paInstancedata = FontBoardActor::_aInstancedata;
                    draw_set_num = 0;

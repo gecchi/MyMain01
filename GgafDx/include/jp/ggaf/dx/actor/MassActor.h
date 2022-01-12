@@ -27,7 +27,7 @@ public:
     /**
      * 下位継承用コンストラクタ
      * @param prm_name アクター名称（任意）
-     * @param prm_model_id モデル定義名
+     * @param prm_model モデル定義名
      * @param prm_model_type モデルタイプ
      * @param prm_effect_id エフェクト定義名
      * @param prm_effect_type エフェクトタイプ
@@ -36,7 +36,7 @@ public:
      * @return
      */
     MassActor(const char* prm_name,
-              const char* prm_model_id,
+              const char* prm_model,
               const char prm_model_type,
               const char* prm_effect_id,
               const char prm_effect_type,

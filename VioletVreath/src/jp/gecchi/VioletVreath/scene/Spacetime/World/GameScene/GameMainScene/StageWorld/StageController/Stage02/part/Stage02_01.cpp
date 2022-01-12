@@ -13,7 +13,7 @@ using namespace VioletVreath;
 
 Stage02_01::Stage02_01(const char* prm_name) : VvScene<DefaultScene>(prm_name) {
     _class_name = "Stage02_01";
-    getBgmConductor()->ready(0, "OGG_BGM_02_01");
+    getBgmConductor()->ready(0, "BGM_02_01");
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コードの変更は「シーンCreater.xls」から行う事とする（整合性確保のため）。
     // gen01 start

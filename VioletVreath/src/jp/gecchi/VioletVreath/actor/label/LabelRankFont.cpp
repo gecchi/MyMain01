@@ -93,7 +93,7 @@ LabelRankFont::LabelRankFont(const char* prm_name) :
     getAlphaFader()->setRange(0.0, 1.0);
     setAlign(ALIGN_RIGHT, VALIGN_BOTTOM);
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(SE_RANK_UP, "WAVE_RANK_UP");
+    pSeTx->set(SE_RANK_UP, "SE_RANK_UP");
 }
 
 void LabelRankFont::onCreateModel() {

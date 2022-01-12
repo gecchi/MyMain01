@@ -38,6 +38,18 @@ Puppeteer::Performance::~Performance() {
 //26693083 <DEBUG> [1] Speed=0
 //26693083 <DEBUG> [1] Weight=0
 //26693083 <DEBUG> [1] Priority=0
+Puppeteer::Puppeteer() {
+    _pAc = nullptr;
+    _advance_time = 0.0;
+    _ani_time_delta =  0.0;
+    _num_perform = 0;
+    _paPerformances = nullptr;
+    _pStickMain = NEW Stick;
+    _pStickSub = NEW Stick;
+    _apStick[0] = _pStickMain;
+    _apStick[1] = _pStickSub;
+
+}
 Puppeteer::Puppeteer(ID3DXAnimationController* prm_pAc_cloned,
                      double prm_ani_time_delta) : GgafCore::Object() {
     _paPerformances = nullptr;
@@ -274,5 +286,5 @@ void Puppeteer::updateAnimationTrack() {
 Puppeteer::~Puppeteer() {
     GGAF_DELETE(_pStickMain);
     GGAF_DELETE(_pStickSub);
-    GGAF_DELETEARR(_paPerformances);
+    GGAF_DELETE_NULLABLE(_paPerformances);
 }

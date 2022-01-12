@@ -264,12 +264,12 @@ public:
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
     static GgafDx::FigureActor* shotWay001(coord prm_x, coord prm_y, coord prm_z,
-                                                     angle prm_rz, angle prm_ry,
-                                                     GgafCore::ActorDepository* prm_pDepo_shot,
-                                                     coord prm_r,
-                                                     velo prm_velo_first, acce prm_acce,
-                                                     int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                     void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int) = nullptr);
+                                           angle prm_rz, angle prm_ry,
+                                           GgafCore::ActorDepository* prm_pDepo_shot,
+                                           coord prm_r,
+                                           velo prm_velo_first, acce prm_acce,
+                                           int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                           void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int) = nullptr);
 
     /**
      * 発射元が向いている方向（_rz > _ry）に向かって 単発弾を複数個撃つ .
@@ -293,12 +293,12 @@ public:
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
     static GgafDx::FigureActor* shotWay001(coord prm_from_x, coord prm_from_y, coord prm_from_z,
-                                                     coord prm_to_x, coord prm_to_y, coord prm_to_z,
-                                                     GgafCore::ActorDepository* prm_pDepo_shot,
-                                                     coord prm_r,
-                                                     velo prm_velo_first, acce prm_acce,
-                                                     int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                     void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int) = nullptr);
+                                           coord prm_to_x, coord prm_to_y, coord prm_to_z,
+                                           GgafCore::ActorDepository* prm_pDepo_shot,
+                                           coord prm_r,
+                                           velo prm_velo_first, acce prm_acce,
+                                           int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                           void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int) = nullptr);
 
     /**
      * 発射元が向いている方向（_rz > _ry）に向かって 単発弾を複数個撃つ .
@@ -317,11 +317,11 @@ public:
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
     static GgafDx::FigureActor* shotWay001(const GgafDx::GeometricActor* prm_pFrom,
-                                                     GgafCore::ActorDepository* prm_pDepo_shot,
-                                                     coord prm_r,
-                                                     velo prm_velo_first, acce prm_acce,
-                                                     int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                     void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int) = nullptr);
+                                           GgafCore::ActorDepository* prm_pDepo_shot,
+                                           coord prm_r,
+                                           velo prm_velo_first, acce prm_acce,
+                                           int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                           void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int) = nullptr);
 
 
     /**
@@ -346,14 +346,14 @@ public:
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
     static GgafDx::FigureActor* shotWay002(coord prm_x, coord prm_y, coord prm_z,
-                                                     angle prm_rx, angle prm_rz, angle prm_ry,
-                                                     GgafCore::ActorDepository* prm_pDepo_shot,
-                                                     coord prm_r,
-                                                     int prm_way_N,
-                                                     angle prm_ang_clearance_N,
-                                                     velo prm_velo_first, acce prm_acce,
-                                                     int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                     void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int) = nullptr);
+                                           angle prm_rx, angle prm_rz, angle prm_ry,
+                                           GgafCore::ActorDepository* prm_pDepo_shot,
+                                           coord prm_r,
+                                           int prm_way_N,
+                                           angle prm_ang_clearance_N,
+                                           velo prm_velo_first, acce prm_acce,
+                                           int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                           void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int) = nullptr);
 
     /**
      * 発射元が向いている方向（_rx, _rz > _ry）N-Way弾（Rz変化）を複数セット撃つ .
@@ -374,13 +374,13 @@ public:
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
     static GgafDx::FigureActor* shotWay002(const GgafDx::GeometricActor* prm_pFrom,
-                                                     GgafCore::ActorDepository* prm_pDepo_shot,
-                                                     coord prm_r,
-                                                     int prm_way_N,
-                                                     angle prm_ang_clearance_N,
-                                                     velo prm_velo_first, acce prm_acce,
-                                                     int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                     void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int) = nullptr);
+                                           GgafCore::ActorDepository* prm_pDepo_shot,
+                                           coord prm_r,
+                                           int prm_way_N,
+                                           angle prm_ang_clearance_N,
+                                           velo prm_velo_first, acce prm_acce,
+                                           int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                           void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int) = nullptr);
 
     /**
      * N*M-Way弾を複数セット撃つ .
@@ -413,16 +413,16 @@ public:
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
     static GgafDx::FigureActor* shotWay003(coord prm_x, coord prm_y, coord prm_z,
-                                                     angle prm_rx, angle prm_rz, angle prm_ry,
-                                                     GgafCore::ActorDepository* prm_pDepo_shot1, uint32_t* prm_paUint32_dotmat1,
-                                                     GgafCore::ActorDepository* prm_pDepo_shot2, uint32_t* prm_paUint32_dotmat2,
-                                                     GgafCore::ActorDepository* prm_pDepo_shot3, uint32_t* prm_paUint32_dotmat3,
-                                                     coord prm_r,
-                                                     int prm_way_N, int prm_way_M,
-                                                     angle prm_ang_clearance_N, angle prm_ang_clearance_M,
-                                                     velo prm_velo_first, acce prm_acce,
-                                                     int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                     void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int, int, int) = nullptr);
+                                           angle prm_rx, angle prm_rz, angle prm_ry,
+                                           GgafCore::ActorDepository* prm_pDepo_shot1, uint32_t* prm_paUint32_dotmat1,
+                                           GgafCore::ActorDepository* prm_pDepo_shot2, uint32_t* prm_paUint32_dotmat2,
+                                           GgafCore::ActorDepository* prm_pDepo_shot3, uint32_t* prm_paUint32_dotmat3,
+                                           coord prm_r,
+                                           int prm_way_N, int prm_way_M,
+                                           angle prm_ang_clearance_N, angle prm_ang_clearance_M,
+                                           velo prm_velo_first, acce prm_acce,
+                                           int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                           void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int, int, int) = nullptr);
 
 
     /**
@@ -451,15 +451,15 @@ public:
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
     static GgafDx::FigureActor* shotWay003(const GgafDx::GeometricActor* prm_pFrom,
-                                                     GgafCore::ActorDepository* prm_pDepo_shot1, uint32_t* prm_paUint32_dotmat1,
-                                                     GgafCore::ActorDepository* prm_pDepo_shot2, uint32_t* prm_paUint32_dotmat2,
-                                                     GgafCore::ActorDepository* prm_pDepo_shot3, uint32_t* prm_paUint32_dotmat3,
-                                                     coord prm_r,
-                                                     int prm_way_N, int prm_way_M,
-                                                     angle prm_ang_clearance_N, angle prm_ang_clearance_M,
-                                                     velo prm_velo_first, acce prm_acce,
-                                                     int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                     void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int, int, int) = nullptr);
+                                           GgafCore::ActorDepository* prm_pDepo_shot1, uint32_t* prm_paUint32_dotmat1,
+                                           GgafCore::ActorDepository* prm_pDepo_shot2, uint32_t* prm_paUint32_dotmat2,
+                                           GgafCore::ActorDepository* prm_pDepo_shot3, uint32_t* prm_paUint32_dotmat3,
+                                           coord prm_r,
+                                           int prm_way_N, int prm_way_M,
+                                           angle prm_ang_clearance_N, angle prm_ang_clearance_M,
+                                           velo prm_velo_first, acce prm_acce,
+                                           int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                           void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int, int, int) = nullptr);
 
     /**
      * 拡散放射状弾を複数セット同時に撃つ .
@@ -491,13 +491,13 @@ public:
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
     static GgafDx::FigureActor* shotWay004(coord prm_x, coord prm_y, coord prm_z,
-                                                     angle prm_rz, angle prm_ry,
-                                                     GgafCore::ActorDepository* prm_pDepo_shot,
-                                                     coord prm_r,
-                                                     int prm_radial_way_num, angle prm_expanse_angle,
-                                                     velo prm_velo_first, acce prm_acce,
-                                                     int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                     void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int) = nullptr);
+                                           angle prm_rz, angle prm_ry,
+                                           GgafCore::ActorDepository* prm_pDepo_shot,
+                                           coord prm_r,
+                                           int prm_radial_way_num, angle prm_expanse_angle,
+                                           velo prm_velo_first, acce prm_acce,
+                                           int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                           void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int) = nullptr);
 
     /**
      * 発射元が向いている方向（_rz > _ry）に向かって拡散放射状弾を複数セット同時に撃つ .
@@ -525,12 +525,12 @@ public:
      * @return 最後の発射弾のアクター(撃てなかった場合は nullptr)
      */
     static GgafDx::FigureActor* shotWay004(const GgafDx::GeometricActor* prm_pFrom,
-                                                     GgafCore::ActorDepository* prm_pDepo_shot,
-                                                     coord prm_r,
-                                                     int prm_radial_way_num, angle prm_expanse_angle,
-                                                     velo prm_velo_first, acce prm_acce,
-                                                     int prm_set_num, frame prm_interval_frames, float prm_attenuated,
-                                                     void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int) = nullptr);
+                                           GgafCore::ActorDepository* prm_pDepo_shot,
+                                           coord prm_r,
+                                           int prm_radial_way_num, angle prm_expanse_angle,
+                                           velo prm_velo_first, acce prm_acce,
+                                           int prm_set_num, frame prm_interval_frames, float prm_attenuated,
+                                           void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int, int) = nullptr);
 
 
 };

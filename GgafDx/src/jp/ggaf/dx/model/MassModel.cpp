@@ -14,9 +14,9 @@
 
 using namespace GgafDx;
 
-MassModel::MassModel(const char* prm_model_name) : Model(prm_model_name) {
-    _TRACE3_("_model_name="<<_model_name);
-    _set_num = 0;
+MassModel::MassModel(const char* prm_model_id) : Model(prm_model_id) {
+    _TRACE3_("_model_id="<<_model_id);
+    _draw_set_num = 0;
     _pVertexBuffer_model = nullptr;
     _pVertexBuffer_instancedata = nullptr;
     _pIndexBuffer = nullptr;
@@ -90,11 +90,11 @@ void MassModel::createVertexElements() {
         paVtxelem[elem_num-1].UsageIndex = 0;
 
         hr = God::_pID3DDevice9->CreateVertexDeclaration( paVtxelem, &(_pVertexDeclaration) );
-        checkDxException(hr, D3D_OK, "God::_pID3DDevice9->CreateVertexDeclaration 失敗 model="<<(_model_name));
+        checkDxException(hr, D3D_OK, "God::_pID3DDevice9->CreateVertexDeclaration 失敗 model="<<(_model_id));
         GGAF_DELETEARR(paVtxelem);
     }
     //デバイスに頂点バッファ作成(インスタンスデータ)
-    int size_instancedata = _size_vertex_unit_instancedata * _set_num;//最大同時描画数確保
+    int size_instancedata = _size_vertex_unit_instancedata * _draw_set_num;//最大同時描画数確保
     hr = God::_pID3DDevice9->CreateVertexBuffer(
             size_instancedata,
             D3DUSAGE_WRITEONLY | D3DUSAGE_DYNAMIC,  //毎回書き換える為D3DUSAGE_DYNAMIC
@@ -102,13 +102,13 @@ void MassModel::createVertexElements() {
             D3DPOOL_DEFAULT,
             &(_pVertexBuffer_instancedata),
             nullptr);
-    checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer2 失敗 model="<<_model_name);
+    checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer2 失敗 model="<<_model_id);
 //    void* pDeviceMemory = 0;
 //    hr = _pVertexBuffer_instancedata->Lock(0, size_instancedata, (void**)&pDeviceMemory, 0);
-//    checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗2 model="<<_model_name);
+//    checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗2 model="<<_model_id);
 //    ZeroMemory(pDeviceMemory, size_instancedata);
 //    hr = _pVertexBuffer_instancedata->Unlock();
-//    checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗2 model="<<_model_name);
+//    checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗2 model="<<_model_id);
 }
 
 void MassModel::resetStreamSourceFreq() {
@@ -117,13 +117,13 @@ void MassModel::resetStreamSourceFreq() {
 }
 
 void MassModel::onDeviceLost() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     release();
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 void MassModel::release() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     //テクスチャを解放
     if (_papTextureConnection) {
         for (int i = 0; i < (int)_num_materials; i++) {
@@ -138,7 +138,7 @@ void MassModel::release() {
     GGAF_RELEASE(_pVertexBuffer_model);
     GGAF_RELEASE(_pIndexBuffer);
     GGAF_RELEASE(_pVertexDeclaration);
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 MassModel::~MassModel() {

@@ -80,7 +80,7 @@ _pColorist(nullptr)
 }
 
 FigureActor::FigureActor(const char* prm_name,
-                         const char* prm_model_id,
+                         const char* prm_model,
                          const char prm_model_type,
                          const char* prm_effect_id,
                          const char prm_effect_type,
@@ -92,7 +92,7 @@ FigureActor::FigureActor(const char* prm_name,
 _pModelCon(
     (ModelConnection*)(
         pGOD->_pModelManager->connect(
-            (std::string(1, prm_model_type) + "," + std::string(prm_model_id)).c_str(), this
+            (std::string(1, prm_model_type) + "," + std::string(prm_model)).c_str(), this
         )
     )
 ),

@@ -1,7 +1,7 @@
 #ifndef SMPACTOR1_H_
 #define SMPACTOR1_H_
 #include "Mogera.h"
-#include "jp/ggaf/lib/actor/DefaultMeshActor.h"
+#include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
 
 namespace Mogera {
 
@@ -11,7 +11,7 @@ namespace Mogera {
  * @since 2011/02/16
  * @author Masatoshi Tsuge
  */
-class SmpActor1 : public GgafLib::DefaultMeshActor {
+class SmpActor1 : public GgafLib::DefaultMeshSetActor {
 
 public:
     /**

@@ -11,7 +11,7 @@
 using namespace GgafDx;
 
 MassActor::MassActor(const char* prm_name,
-                     const char* prm_model_id,
+                     const char* prm_model,
                      const char prm_model_type,
                      const char* prm_effect_id,
                      const char prm_effect_type,
@@ -19,7 +19,7 @@ MassActor::MassActor(const char* prm_name,
                      Checker* prm_pChecker) :
 
                        FigureActor(prm_name,
-                                   prm_model_id,
+                                   prm_model,
                                    prm_model_type,
                                    prm_effect_id,
                                    prm_effect_type,

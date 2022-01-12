@@ -37,8 +37,8 @@ EnemyOmulus::EnemyOmulus(const char* prm_name) :
     pDepo_Fired_ = nullptr;
     pConn_depo_ = connectToDepositoryManager("Talante");
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(SE_DAMAGED  , "WAVE_ENEMY_DAMAGED_001");
-    pSeTx->set(SE_EXPLOSION, "WAVE_EXPLOSION_001");
+    pSeTx->set(SE_DAMAGED  , "SE_ENEMY_DAMAGED_001");
+    pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_001");
 }
 
 void EnemyOmulus::onCreateModel() {

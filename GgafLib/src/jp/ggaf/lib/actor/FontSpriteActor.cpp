@@ -12,9 +12,9 @@ using namespace GgafLib;
 
 FontSpriteActor::VERTEX_instancedata FontSpriteActor::_aInstancedata[GGAFDXMASS_MAX_INSTANCE_NUM];
 
-FontSpriteActor::FontSpriteActor(const char* prm_name, const char* prm_model_id) :
+FontSpriteActor::FontSpriteActor(const char* prm_name, const char* prm_model) :
             GgafDx::MassSpriteActor(prm_name,
-                                  prm_model_id,
+                                  prm_model,
                                   "FontSpriteEffect",
                                   "FontSpriteTechnique",
                                   UTIL::createChecker(this) ) ,
@@ -127,7 +127,7 @@ void FontSpriteActor::processDraw() {
     static const size_t size_of_D3DCOLORVALUE = sizeof(D3DCOLORVALUE);
     GgafDx::FigureActor* pDrawActor = this;
     FontSpriteActor* pFontSpriteActor = nullptr;
-    int model_set_num = _pMassSpriteModel->_set_num;
+    int model_draw_set_num = _pMassSpriteModel->_draw_set_num;
     float u,v;
     VERTEX_instancedata* paInstancedata = FontSpriteActor::_aInstancedata;
     while (pDrawActor) {
@@ -149,7 +149,7 @@ void FontSpriteActor::processDraw() {
                 ++paInstancedata;
 
                 draw_set_num++;
-                if (draw_set_num >= model_set_num) {
+                if (draw_set_num >= model_draw_set_num) {
                    _pMassSpriteModel->GgafDx::MassSpriteModel::draw(this, draw_set_num);
                    paInstancedata = FontSpriteActor::_aInstancedata;
                    draw_set_num = 0;

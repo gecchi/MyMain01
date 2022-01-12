@@ -60,11 +60,11 @@ EnemyEsperia::EnemyEsperia(const char* prm_name) :
     }
 
     GgafDx::SeTransmitterForActor* pSetx = getSeTransmitter();
-    pSetx->set(SE_EXPLOSION  , "WAVE_EXPLOSION_MIDDLE_001");
-    pSetx->set(SE_DAMAGED    , "WAVE_ENEMY_DAMAGED_001");
-    pSetx->set(SE_HATCH_OPEN , "WAVE_HATCH_OPEN_001");
-    pSetx->set(SE_FIRE       , "WAVE_ENEMY_FIRE_LASER_001");
-    pSetx->set(SE_HATCH_CLOSE, "WAVE_HATCH_CLOSE_001");
+    pSetx->set(SE_EXPLOSION  , "SE_EXPLOSION_MIDDLE_001");
+    pSetx->set(SE_DAMAGED    , "SE_ENEMY_DAMAGED_001");
+    pSetx->set(SE_HATCH_OPEN , "SE_HATCH_OPEN_001");
+    pSetx->set(SE_FIRE       , "SE_ENEMY_FIRE_LASER_001");
+    pSetx->set(SE_HATCH_CLOSE, "SE_HATCH_CLOSE_001");
     dX_= dZ_ = 0;
 }
 

@@ -96,9 +96,9 @@ public:
 public:
     /**
      * コンストラクタ .
-     * @param prm_model_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
+     * @param prm_model_id スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
      */
-    MassModel(const char* prm_model_name);
+    MassModel(const char* prm_model_id);
 
     /**
      * 頂点レイアウト（インスタンスデータ）情報取得コールバック関数を登録する .

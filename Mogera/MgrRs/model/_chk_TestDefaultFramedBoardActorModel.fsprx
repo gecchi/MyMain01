@@ -1,0 +1,15 @@
+xof 0303txt 0032
+
+SpriteDef Mogera-to {
+   64.0;
+   64.0;
+   "test_tile2.png";
+   4;
+   4;
+   
+   32.0;
+   32.0;
+   "test_tile.png";
+   8;
+   8;
+} 

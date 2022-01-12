@@ -20,14 +20,14 @@
 
 /**
  * 神が保持する SeManager に接続し、コネクションを取得。
- * @param X  SE定義識別文字列。プロパティ DIR_WAVE[0] 配下の「X + ".wave"」というファイル名を使用する。
+ * @param X  SE定義識別文字列。プロパティ DIR_SE[0] 配下の「X + ".wave"」というファイル名を使用する。
  *           チャンネル指定時は、スラッシュを挿入 ("1,click" 等）
  */
 #define connectToSeManager(X)  ((GgafDx::SeConnection*)GgafDx::Sound::_pSeManager->connect((X), this))
 
 /**
  * 神が保持する BgmManager に接続し、コネクションを取得。
- * @param X  BGM定義識別文字列。プロパティ DIR_OGG[0] 配下から、プロパティ X +"_OGG" の値のファイル名を使用する。
+ * @param X  BGM定義識別文字列。プロパティ DIR_BGM[0] 配下から、プロパティ X +"_OGG" の値のファイル名を使用する。
  */
 #define connectToBgmManager(X) ((GgafDx::BgmConnection*)GgafDx::Sound::_pBgmManager->connect((X), this))
 

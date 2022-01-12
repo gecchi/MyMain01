@@ -9,8 +9,8 @@ template<class T>
 class VvEnemyActor : public VvActor<T> {
 
 public:
-    VvEnemyActor(const char* prm_name, const char* prm_model_id, void* prm_pPrm1 = nullptr)
-            : VvActor<T>(prm_name, prm_model_id) {
+    VvEnemyActor(const char* prm_name, const char* prm_model, void* prm_pPrm1 = nullptr)
+            : VvActor<T>(prm_name, prm_model) {
         T::getStatus()->reset((GgafCore::Status* (*)(GgafCore::Status*))prm_pPrm1);
 #ifdef MY_DEBUG
         if (!(T::getDefaultKind() & KIND_ENEMRY)) {

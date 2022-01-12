@@ -83,12 +83,12 @@ public:
     /**
      *
      * @param prm_name
-     * @param prm_model_id
+     * @param prm_model
      * @param prm_effect_id
      * @param prm_technique
      */
     RegularPolygonBoardActor(const char* prm_name,
-                     const char* prm_model_id,
+                     const char* prm_model,
                      const char* prm_effect_id,
                      const char* prm_technique );
 

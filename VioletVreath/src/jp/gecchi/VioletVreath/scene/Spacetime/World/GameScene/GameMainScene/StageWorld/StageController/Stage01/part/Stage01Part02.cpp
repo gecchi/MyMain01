@@ -39,7 +39,7 @@ Stage01Part02::Stage01Part02(const char* prm_name) :
 	requestActor(30000016, EnemyEtis, "EnemyEtis-30000016");
     // gen01 end
 
-    getBgmConductor()->ready(0, "OGG_BGM_01_02");
+    getBgmConductor()->ready(0, "BGM_01_02");
 }
 
 void Stage01Part02::initialize() {

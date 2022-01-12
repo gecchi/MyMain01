@@ -14,13 +14,13 @@ enum {
     PROG_BANPEI,
 };
 
-DanmakuAlice::DanmakuAlice(const char* prm_name, const char* prm_shot_model_id) :
+DanmakuAlice::DanmakuAlice(const char* prm_name, const char* prm_shot_model) :
         DefaultGeometricActor(prm_name) {
 
     pShotDepo_ = NEW GgafCore::ActorDepository("AliceShotDepo");
     for (int i = 0; i < 300; i++) {
         std::string name = "AliceShot["+XTOS(i)+"]";
-        pShotDepo_->put(NEW AliceShot(name.c_str(), prm_shot_model_id));
+        pShotDepo_->put(NEW AliceShot(name.c_str(), prm_shot_model));
     }
     appendGroupChild(pShotDepo_);
 }

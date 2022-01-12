@@ -7,9 +7,9 @@
 
 using namespace GgafLib;
 
-DefaultRegularPolygonSpriteActor::DefaultRegularPolygonSpriteActor(const char* prm_name, const char* prm_model_id) :
+DefaultRegularPolygonSpriteActor::DefaultRegularPolygonSpriteActor(const char* prm_name, const char* prm_model) :
     GgafDx::RegularPolygonSpriteActor(prm_name,
-                                  prm_model_id,
+                                  prm_model,
                                   "DefaultRegularPolygonSpriteEffect",
                                   "DefaultRegularPolygonSpriteTechnique",
                                   UTIL::createChecker(this) ) {

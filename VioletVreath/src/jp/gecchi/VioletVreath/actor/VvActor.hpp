@@ -15,8 +15,8 @@ class VvActor : public T {
 //    GgafLib::DefaultScene* pFeatureScene_;
 //    GgafDx::DriverLeader* pFeatureDriverLeader_;
 public:
-    VvActor(const char* prm_name, const char* prm_model_id)
-        : T(prm_name, prm_model_id) {
+    VvActor(const char* prm_name, const char* prm_model)
+        : T(prm_name, prm_model) {
 //        pFeatureScene_ = nullptr;
 //        pFeatureDriverLeader_ = nullptr;
     }

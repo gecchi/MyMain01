@@ -41,6 +41,8 @@ TrialAndErrScene::TrialAndErrScene(const char* prm_name) : DefaultScene(prm_name
 //    requestActor(1237, AniTest2, "AniTest2-1");
 //    requestActor(1238, AniTest2, "AniTest2-2");
 //    requestActor(1239, AniTest2, "AniTest2-3");
+
+    requestActor(2001, SmpActor1, "SmpActor1");
 }
 
 
@@ -56,7 +58,8 @@ void TrialAndErrScene::processBehavior() {
 //    static AniTest2* p4 = nullptr;
 //    static AniTest2* p5 = nullptr;
 //    static AniTest2* p6 = nullptr;
-    if (getActiveFrame() == 200) {
+    static SmpActor1* pSmpActor1 = nullptr;
+    if (hasJustChangedToActive()) {
         p1 = (AniTest3*)receiveActor(1234);
         bringSceneMediator()->appendGroupChild(p1);
         p1->setPosition(PX_C(-200), PX_C(0), 0);
@@ -92,8 +95,18 @@ void TrialAndErrScene::processBehavior() {
 //        bringSceneMediator()->appendGroupChild(p6);
 //        p6->setPosition(PX_C(200), PX_C(-50), 0);
 //        p6->_pPuppeteer->stop();
-    }
 
+        pSmpActor1 = (SmpActor1*)receiveActor(2001);
+        bringSceneMediator()->appendGroupChild(pSmpActor1);
+        pSmpActor1->setPosition(PX_C(0), PX_C(0), 0);
+    }
+//    if (GgafDx::Input::isPushedDownKey(DIK_U)) {
+//        pSmpActor1->getMorpher()->transitionLinearToTop(1, 120);
+//    }
+//    if (GgafDx::Input::isPushedDownKey(DIK_I)) {
+//        pSmpActor1->getMorpher()->transitionLinearToBottom(1, 120);
+//    }
+//    pSmpActor1->getMorpher()->behave();
 
     if (GgafDx::Input::isPushedDownKey(DIK_2)) {
         p1->_pPuppeteer->play(0);
@@ -162,7 +175,6 @@ void TrialAndErrScene::processBehavior() {
 //     if (GgafDx::Input::isPushedDownKey(DIK_B)) {
 //         p2->_pPuppeteer->shiftTo(4);
 //     }
-
 }
 
 TrialAndErrScene::~TrialAndErrScene() {

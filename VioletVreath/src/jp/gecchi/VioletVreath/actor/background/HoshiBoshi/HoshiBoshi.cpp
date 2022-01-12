@@ -12,11 +12,11 @@ using namespace VioletVreath;
 
 coord HoshiBoshi::CAM_ZF_;
 
-HoshiBoshi::HoshiBoshi(const char* prm_name, const char* prm_model_id) :
+HoshiBoshi::HoshiBoshi(const char* prm_name, const char* prm_model) :
 
                                         GgafDx::PointSpriteActor(prm_name,
-                                                               prm_model_id,
-                                                               TYPE_POINTSPRITE_MODEL,
+                                                               prm_model,
+                                                               TYPE_POINTACTOR_DEFINE,
                                                                "HoshiBoshiEffect",
                                                                TYPE_HOSHIBOSHI_EFFECT,
                                                                "HoshiBoshiTechnique",

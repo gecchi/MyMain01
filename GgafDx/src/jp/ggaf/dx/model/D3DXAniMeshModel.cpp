@@ -18,14 +18,13 @@
 
 using namespace GgafDx;
 
-D3DXAniMeshModel::D3DXAniMeshModel(const char* prm_model_name) : Model(prm_model_name) {
+D3DXAniMeshModel::D3DXAniMeshModel(const char* prm_model_id) : Model(prm_model_id) {
+    _obj_model |= Obj_GgafDx_D3DXAniMeshModel;
     _pAllocHierarchy = nullptr;
     _pFrameRoot = nullptr;
     _pAniControllerBase = nullptr;
     _num_materials = 0L;
     _anim_ticks_per_second = 4800; //restoreD3DXAniMeshModel で上書きされる場合がある。
-
-    _obj_model |= Obj_GgafDx_D3DXAniMeshModel;
 }
 
 HRESULT D3DXAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
@@ -89,10 +88,10 @@ HRESULT D3DXAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
                 }
 #endif
             }
-            _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pD3DXAniMeshEffect->_effect_name);
+            _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pD3DXAniMeshEffect->_effect_name);
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
 
-            _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pD3DXAniMeshEffect->_effect_name<<"("<<pD3DXAniMeshEffect<<")");
+            _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pD3DXAniMeshEffect->_effect_name<<"("<<pD3DXAniMeshEffect<<")");
             UINT numPass;
             hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
             checkDxException(hr, D3D_OK, "["<<i<<"],D3DXAniMeshModel::draw() Begin() に失敗しました。");
@@ -157,7 +156,7 @@ ID3DXAnimationController* D3DXAniMeshModel::getCloneAnimationController() {
 
 
 void D3DXAniMeshModel::restore() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     //TODO:作成中？！！！！！！！！
     ModelManager* pModelManager = pGOD->_pModelManager;
     //【restoreD3DXAniMeshModel再構築（＝初期化）処理概要】
@@ -168,14 +167,21 @@ void D3DXAniMeshModel::restore() {
     D3DMATERIAL9* model_paMaterial = nullptr; //マテリアル(D3DXMATERIAL構造体の配列の先頭要素を指すポインタ）
     TextureConnection** model_papTextureConnection = nullptr; //テクスチャ配列(IDirect3DTexture9インターフェイスへのポインタを保持するオブジェクト）
 //    DWORD _num_materials;
-    std::string xfile_name = ModelManager::getMeshFileName(_model_name);
-    if (xfile_name == "") {
-         throwCriticalException("メッシュファイル(*.x)が見つかりません。model_name="<<(_model_name));
-    }
+    ModelManager::MeshXFileFmt xdata;
+    std::string model_def_file = std::string(_model_id) + ".meshx";
+    std::string model_def_filepath = ModelManager::getModelDefineFilePath(model_def_file);
+    pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
+    _matBaseTransformMatrix = xdata.BaseTransformMatrix;
+    std::string xfilepath = ModelManager::getXFilePath(xdata.XFileNames[0]);
+
+//    std::string xfile_name = ModelManager::getModelDefineFilePath(_model_id, "meshx");
+//    if (xfile_name == "") {
+//         throwCriticalException("メッシュファイル(*.x)が見つかりません。model_id="<<(_model_id));
+//    }
     //AnimTicksPerSecondの値を独自に取り出す
-    std::ifstream ifs(xfile_name.c_str());
+    std::ifstream ifs(xfilepath.c_str());
     if (ifs.fail()) {
-        throwCriticalException("["<<xfile_name<<"] が開けません");
+        throwCriticalException("["<<xfilepath<<"] が開けません");
     }
     std::string buf;
     bool isdone = false;
@@ -208,7 +214,7 @@ void D3DXAniMeshModel::restore() {
     BoneAniMeshFrame* pFrameRoot; // ワールド変換行列付きフレーム構造体
     ID3DXAnimationController* pAC; // アニメーションコントローラ
     hr = D3DXLoadMeshHierarchyFromX(
-            xfile_name.c_str(),
+            xfilepath.c_str(),
             D3DXMESH_SYSTEMMEM, //D3DXMESH_MANAGED,
             God::_pID3DDevice9,
             pAllocHierarchy,
@@ -216,10 +222,10 @@ void D3DXAniMeshModel::restore() {
             (D3DXFRAME**)(&pFrameRoot),
             &pAC
          );
-    _TRACE_("pAllocHierarchy="<<pAllocHierarchy<<" pFrameRoot="<<pFrameRoot<<" pAC="<<pAC<<" xfile_name.c_str()="<<xfile_name.c_str());
-    checkDxException(hr, D3D_OK, xfile_name<<" 読み込みに失敗しました。対象="<<xfile_name);
+    _TRACE_("pAllocHierarchy="<<pAllocHierarchy<<" pFrameRoot="<<pFrameRoot<<" pAC="<<pAC<<" xfile_name.c_str()="<<xfilepath.c_str());
+    checkDxException(hr, D3D_OK, xfilepath<<" 読み込みに失敗しました。対象="<<xfilepath);
     if (pFrameRoot == nullptr) {
-        throwCriticalException(xfile_name<<" のフレーム情報が取得できません！");
+        throwCriticalException(xfilepath<<" のフレーム情報が取得できません！");
     }
     //マテリアル配列を作成
     std::list<BoneAniMeshFrame*> listFrame;
@@ -279,7 +285,7 @@ void D3DXAniMeshModel::restore() {
     _papTextureConnection = model_papTextureConnection;
     _num_materials = model_nMaterials;
     _anim_ticks_per_second = anim_ticks_per_second;
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 void D3DXAniMeshModel::getDrawFrameList(std::list<BoneAniMeshFrame*>* pList, BoneAniMeshFrame* pFrame) {
@@ -299,14 +305,14 @@ void D3DXAniMeshModel::getDrawFrameList(std::list<BoneAniMeshFrame*>* pList, Bon
 
 
 void D3DXAniMeshModel::onDeviceLost() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     //デバイスロスト時は解放します。
     release();
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 void D3DXAniMeshModel::release() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
 //    if (_pID3DXAniMesh == nullptr) {
 //        throwCriticalException("Error! _pID3DXAniMeshが オブジェクトになっていないため release できません！");
 //    }
@@ -328,7 +334,7 @@ void D3DXAniMeshModel::release() {
     _pAllocHierarchy->DestroyFrame((D3DXFRAME*)_pFrameRoot);
     GGAF_DELETE(_pAllocHierarchy);
     //TODO:いつ消すの？
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 D3DXAniMeshModel::~D3DXAniMeshModel() {

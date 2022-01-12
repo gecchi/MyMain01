@@ -32,7 +32,7 @@ RankUpStageController::RankUpStageController(const char* prm_name) : VvScene<Def
         apRankUpStage_[i] = nullptr;
     }
 
-    pSeConn_RankUpStageExec_ = connectToSeManager("WAVE_RANK_UP_STAGE_EXEC");
+    pSeConn_RankUpStageExec_ = connectToSeManager("SE_RANK_UP_STAGE_EXEC");
     ready(G_RANKUP_LEVEL + 1);
 }
 void RankUpStageController::startRunkUpStage(int prm_rank_up_level) {

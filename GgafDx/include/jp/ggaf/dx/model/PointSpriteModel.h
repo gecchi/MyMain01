@@ -44,9 +44,9 @@ public:
 public:
     /**
      * コンストラクタ<BR>
-     * @param prm_model_name スプライト定義の識別名。".psprx"を追加すると定義Xファイル名になる。
+     * @param prm_model_id スプライト定義の識別名。".psprx"を追加すると定義Xファイル名になる。
      */
-    PointSpriteModel(const char* prm_model_name);
+    PointSpriteModel(const char* prm_model_id);
 
     virtual HRESULT draw(FigureActor* prm_pActor_target, int prm_draw_set_num = 1, void* prm_pPrm = nullptr) override;
 

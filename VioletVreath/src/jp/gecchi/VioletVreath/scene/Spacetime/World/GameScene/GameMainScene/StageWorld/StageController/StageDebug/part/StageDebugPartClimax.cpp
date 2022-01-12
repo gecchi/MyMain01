@@ -19,7 +19,7 @@ StageDebugPartClimax::StageDebugPartClimax(const char* prm_name) :
     // gen01 end
     waiting_ = false;
     pBoss_ = nullptr;
-    getBgmConductor()->ready(0, "OGG_BGM_01_CLIMAX");
+    getBgmConductor()->ready(0, "BGM_01_CLIMAX");
 }
 
 void StageDebugPartClimax::initialize() {

@@ -291,12 +291,31 @@ public:
     }
 
     /**
+     * 上限遷移へ片道等速値遷移（対象インデックス単位・持続フレーム数指定） .
+     * @param prm_idx 対象インデックス
+     * @param prm_spend_frame 費やすフレーム数
+     */
+    virtual void transitionLinearToTop(int prm_idx, frame prm_spend_frame) {
+        transitionLinearUntil(prm_idx, getTop(), prm_spend_frame);
+    }
+
+    /**
      * 下限遷移へ片道等速値遷移（全インデックス対象・持続フレーム数指定） .
      * @param prm_spend_frame 費やすフレーム数
      */
     virtual void transitionLinearToBottom(frame prm_spend_frame) {
         transitionLinearUntil(getBottom(), prm_spend_frame);
     }
+
+    /**
+     * 下限遷移へ片道等速値遷移（対象インデックス単位・持続フレーム数指定） .
+     * @param prm_idx 対象インデックス
+     * @param prm_spend_frame 費やすフレーム数
+     */
+    virtual void transitionLinearToBottom(int prm_idx, frame prm_spend_frame) {
+        transitionLinearUntil(prm_idx, getBottom(), prm_spend_frame);
+    }
+
 
     /**
      * 片道等速値遷移（全インデックス対象・遷移速度指定） .

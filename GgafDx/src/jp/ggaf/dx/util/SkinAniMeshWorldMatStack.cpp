@@ -31,7 +31,7 @@ void SkinAniMeshWorldMatStack::SetWorldMatrix(D3DXMATRIX* worldmat) {
     _actor_world_trans_matrix = *worldmat;
 }
 
-void SkinAniMeshWorldMatStack::UpdateFrame(SkinAniMeshFrame* prm_frame_root, int prm_as0_index, int prm_as1_index, bool** prm_papaBool_Model_AnimationSetIndex_BoneFrameIndex_is_act) {
+void SkinAniMeshWorldMatStack::UpdateFrame(D3DXMATRIX* prm_pMatBaseTransformMatrix, SkinAniMeshFrame* prm_frame_root, int prm_as0_index, int prm_as1_index, bool** prm_papaBool_Model_AnimationSetIndex_BoneFrameIndex_is_act) {
 #ifdef MY_DEBUG
     if (_prevTransformationMatrixList.size() == 0) {
         throwCriticalException("SkinAniMeshWorldMatStack::UpdateFrame() を実行前にregisterFrameTransformationMatrix() でフレーム登録して下さい。");
@@ -41,9 +41,10 @@ void SkinAniMeshWorldMatStack::UpdateFrame(SkinAniMeshFrame* prm_frame_root, int
     while (!_stack_matrix.empty()) {
         _stack_matrix.pop();
     }
-
     // ワールド変換行列をスタックに積む
-    _stack_matrix.push(&_actor_world_trans_matrix);
+    D3DXMATRIX _mat_top;
+    D3DXMatrixMultiply(&_mat_top, prm_pMatBaseTransformMatrix, &_actor_world_trans_matrix);//world変換に予め、ベース変換を掛けておく
+    _stack_matrix.push(&_mat_top);
     _as0_index = prm_as0_index;
     _as1_index = prm_as1_index;
     _papaBool_Model_AnimationSetIndex_BoneFrameIndex_is_act = prm_papaBool_Model_AnimationSetIndex_BoneFrameIndex_is_act;
@@ -60,21 +61,17 @@ void SkinAniMeshWorldMatStack::CalcSkinAniMeshFrame_old(SkinAniMeshFrame* prm_pB
      //削除予定
     // 現在のスタックの先頭にあるワールド変換行列を参照
     D3DXMATRIX *pStackMat = _stack_matrix.top();
-
     D3DXMatrixMultiply(&(prm_pBoneFrame->_world_trans_matrix), &(prm_pBoneFrame->TransformationMatrix), pStackMat);
-
     if (prm_pBoneFrame->pMeshContainer) {
         //メッシュコンテナ有り
         m_DrawFrameList.push_back(prm_pBoneFrame);
     }
-
     // 子フレームがあればスタックを積んで、子フレームのワールド変換座標の計算へ
     if (prm_pBoneFrame->pFrameFirstChild) {
         _stack_matrix.push(&(prm_pBoneFrame->_world_trans_matrix));
         CalcSkinAniMeshFrame_old((SkinAniMeshFrame*)prm_pBoneFrame->pFrameFirstChild);
         _stack_matrix.pop(); // 子フレームがもう終わったのでスタックを1つ外す
     }
-
     // 兄弟フレームがあれば「現在の」スタックを利用
     if (prm_pBoneFrame->pFrameSibling) {
         //_TRACE_("兄弟フレームへいきます");

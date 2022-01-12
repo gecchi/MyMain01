@@ -37,7 +37,7 @@ public:
     virtual void setAlign(Align prm_align);
     virtual void setValign(Valign prm_valign);
 public:
-    FontSpriteActor(const char* prm_name, const char* prm_model_id);
+    FontSpriteActor(const char* prm_name, const char* prm_model);
 
     virtual void onCreateModel() override {
     }

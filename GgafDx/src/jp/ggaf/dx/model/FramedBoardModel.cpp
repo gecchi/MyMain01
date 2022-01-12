@@ -16,8 +16,9 @@
 using namespace GgafDx;
 
 DWORD FramedBoardModel::FVF = (D3DFVF_XYZ | D3DFVF_PSIZE | D3DFVF_TEX1);
-FramedBoardModel::FramedBoardModel(const char* prm_model_name) : Model(prm_model_name) {
-    _TRACE3_("_model_name="<<_model_name);
+FramedBoardModel::FramedBoardModel(const char* prm_model_id) : Model(prm_model_id) {
+    _TRACE3_("_model_id="<<_model_id);
+    _obj_model |= Obj_GgafDx_FramedBoardModel;
     _paVertexBuffer_data = nullptr;
     _pIndexBuffer_data = nullptr;
 
@@ -33,8 +34,7 @@ FramedBoardModel::FramedBoardModel(const char* prm_model_name) : Model(prm_model
     _pIndexBuffer = nullptr;
     _size_vertices = 0;
     _size_vertex_unit = 0;
-    _obj_model |= Obj_GgafDx_FramedBoardModel;
-    _set_num = 9;
+    _draw_set_num = 9;
 }
 
 HRESULT FramedBoardModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
@@ -92,11 +92,11 @@ HRESULT FramedBoardModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
             }
 #endif
         }
-        _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pFramedBoardEffect->_effect_name);
+        _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pFramedBoardEffect->_effect_name);
         hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
         checkDxException(hr, S_OK, "SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
 
-        _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pFramedBoardEffect->_effect_name<<"("<<pFramedBoardEffect<<")");
+        _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pFramedBoardEffect->_effect_name<<"("<<pFramedBoardEffect<<")");
         UINT numPass;
         hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
         checkDxException(hr, D3D_OK, "Begin() に失敗しました。");
@@ -115,7 +115,7 @@ HRESULT FramedBoardModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
         hr = pID3DXEffect->CommitChanges();
         checkDxException(hr, D3D_OK, "CommitChanges() に失敗しました。");
     }
-    _TRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pFramedBoardEffect->_effect_name);
+    _TRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pFramedBoardEffect->_effect_name);
     pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
                                     _indexParam.BaseVertexIndex,
                                     _indexParam.MinIndex,
@@ -135,36 +135,39 @@ HRESULT FramedBoardModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
 }
 
 void FramedBoardModel::restore() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     if (_paVertexBuffer_data == nullptr) {
-        _set_num = 9;
-
-        ModelManager* pModelManager = pGOD->_pModelManager;
+        _draw_set_num = 9;
         _papTextureConnection = nullptr;
-        HRESULT hr;
+        ModelManager* pModelManager = pGOD->_pModelManager;
 
-        std::string xfile_name = ModelManager::getSpriteFileName(_model_name, "sprx");
-        ModelManager::SpriteXFileFmt xdata;
-        pModelManager->obtainSpriteInfo(&xdata, xfile_name);
-        _model_width_px  = xdata.width;
-        _model_height_px = xdata.height;
-        _row_texture_split = xdata.row_texture_split;
-        _col_texture_split = xdata.col_texture_split;
+        std::string model_def_file = std::string(_model_id) + ".fsprx";
+        std::string model_def_filepath = ModelManager::getModelDefineFilePath(model_def_file);
+        ModelManager::FramedSpriteXFileFmt xdata;
+        pModelManager->obtainFramedSpriteModelInfo(&xdata, model_def_filepath);
 
-        std::string xfile_name_frame = ModelManager::getSpriteFileName(std::string(_model_name)+"_frame", "sprx");
-        ModelManager::SpriteXFileFmt xdata_frame;
-        pModelManager->obtainSpriteInfo(&xdata_frame, xfile_name_frame);
-        _model_frame_width_px  = xdata_frame.width;
-        _model_frame_height_px = xdata_frame.height;
-        _row_frame_texture_split = xdata_frame.row_texture_split;
-        _col_frame_texture_split = xdata_frame.col_texture_split;
+//        std::string xfile_name = ModelManager::getModelDefineFilePath(_model_id, "sprx");
+//        ModelManager::SpriteXFileFmt xdata;
+//        pModelManager->obtainSpriteModelInfo(&xdata, xfile_name);
+        _model_width_px  = xdata.Width;
+        _model_height_px = xdata.Height;
+        _row_texture_split = xdata.TextureSplitRows;
+        _col_texture_split = xdata.TextureSplitCols;
+
+//        std::string xfile_name_frame = ModelManager::getModelDefineFilePath(std::string(_model_id)+"_frame", "sprx");
+//        ModelManager::SpriteXFileFmt xdata_frame;
+//        pModelManager->obtainSpriteModelInfo(&xdata_frame, xfile_name_frame);
+        _model_frame_width_px  = xdata.FrameWidth;
+        _model_frame_height_px = xdata.FrameHeight;
+        _row_frame_texture_split = xdata.FrameTextureSplitRows;
+        _col_frame_texture_split = xdata.FrameTextureSplitCols;
         _pa_texture_filenames = NEW std::string[2];
-        _pa_texture_filenames[0] = std::string(xdata.texture_file);
-        _pa_texture_filenames[1] = std::string(xdata_frame.texture_file);
+        _pa_texture_filenames[0] = std::string(xdata.TextureFile);
+        _pa_texture_filenames[1] = std::string(xdata.FrameTextureFile);
 
         _size_vertices = sizeof(FramedBoardModel::VERTEX)*4;
         _size_vertex_unit = sizeof(FramedBoardModel::VERTEX);
-        _paVertexBuffer_data = NEW FramedBoardModel::VERTEX[4 * _set_num];
+        _paVertexBuffer_data = NEW FramedBoardModel::VERTEX[4 * _draw_set_num];
         //    ┌─┬─┬─┐
         //    │０│１│２│
         //    ├─┼─┼─┤
@@ -176,7 +179,7 @@ void FramedBoardModel::restore() {
         //1pxあたりのuvの大きさを求める
         double du = 0.0;
         double dv = 0.0;
-        for (int i = 0; i < _set_num; i++) {
+        for (int i = 0; i < _draw_set_num; i++) {
             if (i == 4) {
                 //中心
                 //左上
@@ -187,25 +190,25 @@ void FramedBoardModel::restore() {
                 _paVertexBuffer_data[i*4 + 0].tv = (float)dv;
                 _paVertexBuffer_data[i*4 + 0].index = (float)i;
                 //右上
-                _paVertexBuffer_data[i*4 + 1].x = xdata.width;
+                _paVertexBuffer_data[i*4 + 1].x = xdata.Width;
                 _paVertexBuffer_data[i*4 + 1].y = 0.0f;
                 _paVertexBuffer_data[i*4 + 1].z = 0.0f;
-                _paVertexBuffer_data[i*4 + 1].tu = (float)((1.0 / xdata.col_texture_split) - du);
+                _paVertexBuffer_data[i*4 + 1].tu = (float)((1.0 / xdata.TextureSplitCols) - du);
                 _paVertexBuffer_data[i*4 + 1].tv = (float)dv;
                 _paVertexBuffer_data[i*4 + 1].index = (float)i;
                 //左下
                 _paVertexBuffer_data[i*4 + 2].x = 0.0f;
-                _paVertexBuffer_data[i*4 + 2].y = xdata.height;
+                _paVertexBuffer_data[i*4 + 2].y = xdata.Height;
                 _paVertexBuffer_data[i*4 + 2].z = 0.0f;
                 _paVertexBuffer_data[i*4 + 2].tu = (float)du;
-                _paVertexBuffer_data[i*4 + 2].tv = (float)((1.0 / xdata.row_texture_split) - dv);
+                _paVertexBuffer_data[i*4 + 2].tv = (float)((1.0 / xdata.TextureSplitRows) - dv);
                 _paVertexBuffer_data[i*4 + 2].index = (float)i;
                 //右下
-                _paVertexBuffer_data[i*4 + 3].x = xdata.width;
-                _paVertexBuffer_data[i*4 + 3].y = xdata.height;
+                _paVertexBuffer_data[i*4 + 3].x = xdata.Width;
+                _paVertexBuffer_data[i*4 + 3].y = xdata.Height;
                 _paVertexBuffer_data[i*4 + 3].z = 0.0f;
-                _paVertexBuffer_data[i*4 + 3].tu = (float)((1.0 / xdata.col_texture_split) - du);
-                _paVertexBuffer_data[i*4 + 3].tv = (float)((1.0 / xdata.row_texture_split) - dv);
+                _paVertexBuffer_data[i*4 + 3].tu = (float)((1.0 / xdata.TextureSplitCols) - du);
+                _paVertexBuffer_data[i*4 + 3].tv = (float)((1.0 / xdata.TextureSplitRows) - dv);
                 _paVertexBuffer_data[i*4 + 3].index = (float)i;
             } else if (i == 0 || i == 2 || i == 6 || i == 8 ) {
                 //４角
@@ -217,25 +220,25 @@ void FramedBoardModel::restore() {
                 _paVertexBuffer_data[i*4 + 0].tv = (float)dv;
                 _paVertexBuffer_data[i*4 + 0].index = (float)i;
                 //右上
-                _paVertexBuffer_data[i*4 + 1].x = xdata_frame.width;
+                _paVertexBuffer_data[i*4 + 1].x = xdata.FrameWidth;
                 _paVertexBuffer_data[i*4 + 1].y = 0.0f;
                 _paVertexBuffer_data[i*4 + 1].z = 0.0f;
-                _paVertexBuffer_data[i*4 + 1].tu = (float)((1.0 / xdata_frame.col_texture_split) - du);
+                _paVertexBuffer_data[i*4 + 1].tu = (float)((1.0 / xdata.FrameTextureSplitCols) - du);
                 _paVertexBuffer_data[i*4 + 1].tv = (float)dv;
                 _paVertexBuffer_data[i*4 + 1].index = (float)i;
                 //左下
                 _paVertexBuffer_data[i*4 + 2].x = 0.0f;
-                _paVertexBuffer_data[i*4 + 2].y = xdata_frame.height;
+                _paVertexBuffer_data[i*4 + 2].y = xdata.FrameHeight;
                 _paVertexBuffer_data[i*4 + 2].z = 0.0f;
                 _paVertexBuffer_data[i*4 + 2].tu = (float)du;
-                _paVertexBuffer_data[i*4 + 2].tv = (float)((1.0 / xdata_frame.row_texture_split) - dv);
+                _paVertexBuffer_data[i*4 + 2].tv = (float)((1.0 / xdata.FrameTextureSplitRows) - dv);
                 _paVertexBuffer_data[i*4 + 2].index = (float)i;
                 //右下
-                _paVertexBuffer_data[i*4 + 3].x = xdata_frame.width;
-                _paVertexBuffer_data[i*4 + 3].y = xdata_frame.height;
+                _paVertexBuffer_data[i*4 + 3].x = xdata.FrameWidth;
+                _paVertexBuffer_data[i*4 + 3].y = xdata.FrameHeight;
                 _paVertexBuffer_data[i*4 + 3].z = 0.0f;
-                _paVertexBuffer_data[i*4 + 3].tu = (float)((1.0 / xdata_frame.col_texture_split) - du);
-                _paVertexBuffer_data[i*4 + 3].tv = (float)((1.0 / xdata_frame.row_texture_split) - dv);
+                _paVertexBuffer_data[i*4 + 3].tu = (float)((1.0 / xdata.FrameTextureSplitCols) - du);
+                _paVertexBuffer_data[i*4 + 3].tv = (float)((1.0 / xdata.FrameTextureSplitRows) - dv);
                 _paVertexBuffer_data[i*4 + 3].index = (float)i;
             } else if (i == 1 || i == 7) {
                 //縦の真ん中
@@ -247,25 +250,25 @@ void FramedBoardModel::restore() {
                 _paVertexBuffer_data[i*4 + 0].tv = (float)dv;
                 _paVertexBuffer_data[i*4 + 0].index = (float)i;
                 //右上
-                _paVertexBuffer_data[i*4 + 1].x = xdata.width;
+                _paVertexBuffer_data[i*4 + 1].x = xdata.Width;
                 _paVertexBuffer_data[i*4 + 1].y = 0.0f;
                 _paVertexBuffer_data[i*4 + 1].z = 0.0f;
-                _paVertexBuffer_data[i*4 + 1].tu = (float)((1.0 / xdata_frame.col_texture_split) - du);
+                _paVertexBuffer_data[i*4 + 1].tu = (float)((1.0 / xdata.FrameTextureSplitCols) - du);
                 _paVertexBuffer_data[i*4 + 1].tv = (float)dv;
                 _paVertexBuffer_data[i*4 + 1].index = (float)i;
                 //左下
                 _paVertexBuffer_data[i*4 + 2].x = 0.0f;
-                _paVertexBuffer_data[i*4 + 2].y = xdata_frame.height;
+                _paVertexBuffer_data[i*4 + 2].y = xdata.FrameHeight;
                 _paVertexBuffer_data[i*4 + 2].z = 0.0f;
                 _paVertexBuffer_data[i*4 + 2].tu = (float)du;
-                _paVertexBuffer_data[i*4 + 2].tv = (float)((1.0 / xdata_frame.row_texture_split) - dv);
+                _paVertexBuffer_data[i*4 + 2].tv = (float)((1.0 / xdata.FrameTextureSplitRows) - dv);
                 _paVertexBuffer_data[i*4 + 2].index = (float)i;
                 //右下
-                _paVertexBuffer_data[i*4 + 3].x = xdata.width;
-                _paVertexBuffer_data[i*4 + 3].y = xdata_frame.height;
+                _paVertexBuffer_data[i*4 + 3].x = xdata.Width;
+                _paVertexBuffer_data[i*4 + 3].y = xdata.FrameHeight;
                 _paVertexBuffer_data[i*4 + 3].z = 0.0f;
-                _paVertexBuffer_data[i*4 + 3].tu = (float)((1.0 / xdata_frame.col_texture_split) - du);
-                _paVertexBuffer_data[i*4 + 3].tv = (float)((1.0 / xdata_frame.row_texture_split) - dv);
+                _paVertexBuffer_data[i*4 + 3].tu = (float)((1.0 / xdata.FrameTextureSplitCols) - du);
+                _paVertexBuffer_data[i*4 + 3].tv = (float)((1.0 / xdata.FrameTextureSplitRows) - dv);
                 _paVertexBuffer_data[i*4 + 3].index = (float)i;
             } else if (i == 3 || i == 5) {
                 //横の真ん中
@@ -277,25 +280,25 @@ void FramedBoardModel::restore() {
                 _paVertexBuffer_data[i*4 + 0].tv = (float)dv;
                 _paVertexBuffer_data[i*4 + 0].index = (float)i;
                 //右上
-                _paVertexBuffer_data[i*4 + 1].x = xdata_frame.width;
+                _paVertexBuffer_data[i*4 + 1].x = xdata.FrameWidth;
                 _paVertexBuffer_data[i*4 + 1].y = 0.0f;
                 _paVertexBuffer_data[i*4 + 1].z = 0.0f;
-                _paVertexBuffer_data[i*4 + 1].tu = (float)((1.0 / xdata_frame.col_texture_split) - du);
+                _paVertexBuffer_data[i*4 + 1].tu = (float)((1.0 / xdata.FrameTextureSplitCols) - du);
                 _paVertexBuffer_data[i*4 + 1].tv = (float)dv;
                 _paVertexBuffer_data[i*4 + 1].index = (float)i;
                 //左下
                 _paVertexBuffer_data[i*4 + 2].x = 0.0f;
-                _paVertexBuffer_data[i*4 + 2].y = xdata.height;
+                _paVertexBuffer_data[i*4 + 2].y = xdata.Height;
                 _paVertexBuffer_data[i*4 + 2].z = 0.0f;
                 _paVertexBuffer_data[i*4 + 2].tu = (float)du;
-                _paVertexBuffer_data[i*4 + 2].tv = (float)((1.0 / xdata_frame.row_texture_split) - dv);
+                _paVertexBuffer_data[i*4 + 2].tv = (float)((1.0 / xdata.FrameTextureSplitRows) - dv);
                 _paVertexBuffer_data[i*4 + 2].index = (float)i;
                 //右下
-                _paVertexBuffer_data[i*4 + 3].x = xdata_frame.width;
-                _paVertexBuffer_data[i*4 + 3].y = xdata.height;
+                _paVertexBuffer_data[i*4 + 3].x = xdata.FrameWidth;
+                _paVertexBuffer_data[i*4 + 3].y = xdata.Height;
                 _paVertexBuffer_data[i*4 + 3].z = 0.0f;
-                _paVertexBuffer_data[i*4 + 3].tu = (float)((1.0 / xdata_frame.col_texture_split) - du);
-                _paVertexBuffer_data[i*4 + 3].tv = (float)((1.0 / xdata_frame.row_texture_split) - dv);
+                _paVertexBuffer_data[i*4 + 3].tu = (float)((1.0 / xdata.FrameTextureSplitCols) - du);
+                _paVertexBuffer_data[i*4 + 3].tv = (float)((1.0 / xdata.FrameTextureSplitRows) - dv);
                 _paVertexBuffer_data[i*4 + 3].index = (float)i;
             }
         }
@@ -309,8 +312,8 @@ void FramedBoardModel::restore() {
         unit_paIdxBuffer[3] = 1;
         unit_paIdxBuffer[4] = 3;
         unit_paIdxBuffer[5] = 2;
-        _pIndexBuffer_data = NEW WORD[(nFaces*3) * _set_num];
-        for (int i = 0; i < _set_num; i++) {
+        _pIndexBuffer_data = NEW WORD[(nFaces*3) * _draw_set_num];
+        for (int i = 0; i < _draw_set_num; i++) {
             for (int j = 0; j < nFaces; j++) {
                 _pIndexBuffer_data[((i*nFaces*3)+(j*3)) + 0] = unit_paIdxBuffer[j*3 + 0] + (nVertices*i);
                 _pIndexBuffer_data[((i*nFaces*3)+(j*3)) + 1] = unit_paIdxBuffer[j*3 + 1] + (nVertices*i);
@@ -323,9 +326,9 @@ void FramedBoardModel::restore() {
         _indexParam.MaterialNo = 0;
         _indexParam.BaseVertexIndex = 0;
         _indexParam.MinIndex = 0;
-        _indexParam.NumVertices = nVertices*_set_num;
+        _indexParam.NumVertices = nVertices*_draw_set_num;
         _indexParam.StartIndex = 0;
-        _indexParam.PrimitiveCount = nFaces*_set_num;
+        _indexParam.PrimitiveCount = nFaces*_draw_set_num;
 
 
         _num_materials = 1;
@@ -350,27 +353,27 @@ void FramedBoardModel::restore() {
         HRESULT hr;
         //バッファ作成
         hr = God::_pID3DDevice9->CreateVertexBuffer(
-                _size_vertices * _set_num,
+                _size_vertices * _draw_set_num,
                 D3DUSAGE_WRITEONLY,
                 FramedBoardModel::FVF,
                 D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
                 &(_pVertexBuffer),
                 nullptr);
-        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_name));
+        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_id));
         //頂点バッファ作成
         //頂点情報をビデオカード頂点バッファへロード
         void *pVertexBuffer;
         hr = _pVertexBuffer->Lock(
                                  0,
-                                 _size_vertices * _set_num,
+                                 _size_vertices * _draw_set_num,
                                  (void**)&pVertexBuffer,
                                  0
                                );
-        checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_name);
+        checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_id);
         memcpy(
           pVertexBuffer,
           _paVertexBuffer_data,
-          _size_vertices * _set_num
+          _size_vertices * _draw_set_num
         ); //pVertexBuffer ← _paVertexBuffer_data
         _pVertexBuffer->Unlock();
 
@@ -383,20 +386,20 @@ void FramedBoardModel::restore() {
         int nVertices = 4;
         int nFaces = 2;
         hr = God::_pID3DDevice9->CreateIndexBuffer(
-                                sizeof(WORD) * nFaces * 3 * _set_num,
+                                sizeof(WORD) * nFaces * 3 * _draw_set_num,
                                 D3DUSAGE_WRITEONLY,
                                 D3DFMT_INDEX16,
                                 D3DPOOL_DEFAULT,
                                 &(_pIndexBuffer),
                                 nullptr);
-        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_name));
+        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_id));
 
         void* pIndexBuffer;
         _pIndexBuffer->Lock(0,0,(void**)&pIndexBuffer,0);
         memcpy(
           pIndexBuffer ,
           _pIndexBuffer_data,
-          sizeof(WORD) * nFaces * 3 * _set_num
+          sizeof(WORD) * nFaces * 3 * _draw_set_num
         );
         _pIndexBuffer->Unlock();
     }
@@ -411,13 +414,13 @@ void FramedBoardModel::restore() {
 }
 
 void FramedBoardModel::onDeviceLost() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     release();
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 void FramedBoardModel::release() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     GGAF_RELEASE(_pVertexBuffer);
     GGAF_RELEASE(_pIndexBuffer);
     //テクスチャを解放
@@ -426,7 +429,7 @@ void FramedBoardModel::release() {
         _papTextureConnection[1]->close(); //フレーム
     }
     GGAF_DELETEARR(_papTextureConnection);
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 FramedBoardModel::~FramedBoardModel() {

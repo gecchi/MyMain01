@@ -39,7 +39,7 @@ public:
     /** 衝突判定支援オブジェクト */
     CollisionChecker* _pColliChecker;
 
-    DefaultMassSpriteActor(const char* prm_name, const char* prm_model_id);
+    DefaultMassSpriteActor(const char* prm_name, const char* prm_model);
 
     virtual void onCreateModel() override {
     }

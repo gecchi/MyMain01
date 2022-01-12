@@ -29,7 +29,7 @@ public:
     CollisionChecker* _pColliChecker;
 
 public:
-    DefaultSpriteSetActor(const char* prm_name, const char* prm_model_id);
+    DefaultSpriteSetActor(const char* prm_name, const char* prm_model);
 
     virtual void onCreateModel() override {
     }

@@ -10,13 +10,13 @@
 using namespace GgafDx;
 
 MeshSetActor::MeshSetActor(const char* prm_name,
-                           const char* prm_model_id,
+                           const char* prm_model,
                            const char* prm_effect_id,
                            const char* prm_technique,
                            Checker* prm_pChecker) :
 
                                FigureActor(prm_name,
-                                           prm_model_id,
+                                           prm_model,
                                            TYPE_MESHSET_MODEL,
                                            prm_effect_id,
                                            TYPE_MESHSET_EFFECT,
@@ -31,7 +31,7 @@ _pMeshSetEffect((MeshSetEffect*)_pEffect)
 }
 
 MeshSetActor::MeshSetActor(const char* prm_name,
-                           const char* prm_model_id,
+                           const char* prm_model,
                            const char prm_model_type,
                            const char* prm_effect_id,
                            const char prm_effect_type,
@@ -39,7 +39,7 @@ MeshSetActor::MeshSetActor(const char* prm_name,
                            Checker* prm_pChecker) :
 
                                FigureActor(prm_name,
-                                           prm_model_id,
+                                           prm_model,
                                            prm_model_type,
                                            prm_effect_id,
                                            prm_effect_type,
@@ -55,12 +55,12 @@ _pMeshSetEffect((MeshSetEffect*)_pEffect) {
 
 void MeshSetActor::processDraw() {
     int draw_set_num = 0; //MeshSetActorの同じモデルで同じテクニックが
-                       //連続しているカウント数。同一描画深度は一度に描画する。
+                          //連続しているカウント数。同一描画深度は一度に描画する。
     ID3DXEffect* const pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
     HRESULT hr;
     FigureActor* pDrawActor = this;
     MeshSetActor* pMeshSetActor = nullptr;
-    const int model_set_num = _pMeshSetModel->_set_num;
+    const int model_draw_set_num = _pMeshSetModel->_draw_set_num;
     while (pDrawActor) {
         if (pDrawActor->getModel() == _pMeshSetModel && pDrawActor->_hash_technique == _hash_technique) {
             pMeshSetActor = (MeshSetActor*)pDrawActor;
@@ -76,7 +76,7 @@ void MeshSetActor::processDraw() {
             //１枚テクスチャで頑張れば問題ない・・・という方針。マテリアル色で色分けしたい場合は MeshActor を使うしかない。
             checkDxException(hr, D3D_OK, "SetValue(g_colMaterialDiffuse) に失敗しました。");
             draw_set_num++;
-            if (draw_set_num >= model_set_num) {
+            if (draw_set_num >= model_draw_set_num) {
                 break;
             }
             pDrawActor = pDrawActor->_pNextRenderActor;

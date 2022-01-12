@@ -123,7 +123,7 @@ public:
 
 public:
     BoardSetActor(const char* prm_name,
-                        const char* prm_model_id,
+                        const char* prm_model,
                         const char* prm_effect_id,
                         const char* prm_technique );
 

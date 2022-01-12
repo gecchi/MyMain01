@@ -8,8 +8,8 @@
 using namespace GgafLib;
 using namespace VioletVreath;
 
-LockonCursor001::LockonCursor001(const char* prm_name, const char* prm_model_id) :
-        DefaultMassSpriteActor(prm_name, prm_model_id) {
+LockonCursor001::LockonCursor001(const char* prm_name, const char* prm_model) :
+        DefaultMassSpriteActor(prm_name, prm_model) {
     _class_name = "LockonCursor001";
     pTarget_ = nullptr;
     inactivate();
@@ -22,7 +22,7 @@ LockonCursor001::LockonCursor001(const char* prm_name, const char* prm_model_id)
 
     setHitAble(false); //“–‚½‚è”»’è–³‚µ
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
-    pSeTx->set(0, "WAVE_LOCKON_001"); //Œø‰Ê‰¹’è‹`
+    pSeTx->set(0, "SE_LOCKON_001"); //Œø‰Ê‰¹’è‹`
 }
 
 void LockonCursor001::initialize() {

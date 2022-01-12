@@ -8,16 +8,17 @@
 #include "jp/ggaf/dx/manager/ModelManager.h"
 #include "jp/ggaf/dx/manager/EffectManager.h"
 #include "jp/ggaf/dx/texture/Texture.h"
-
 #include "jp/ggaf/dx/manager/TextureManager.h"
-
 #include "jp/ggaf/dx/model/MassModel.h"
+
+#define BOARDSETMODEL_MAX_DARW_SET_NUM 28
 
 using namespace GgafDx;
 
 DWORD BoardSetModel::FVF = (D3DFVF_XYZ | D3DFVF_PSIZE | D3DFVF_TEX1);
-BoardSetModel::BoardSetModel(const char* prm_model_name) : Model(prm_model_name) {
-    _TRACE3_("_model_name="<<_model_name);
+BoardSetModel::BoardSetModel(const char* prm_model_id) : Model(prm_model_id) {
+    _TRACE3_("_model_id="<<_model_id);
+    _obj_model |= Obj_GgafDx_BoardSetModel;
     _model_width_px = 32.0f;
     _model_height_px = 32.0f;
     _row_texture_split = 1;
@@ -29,30 +30,14 @@ BoardSetModel::BoardSetModel(const char* prm_model_name) : Model(prm_model_name)
     _size_vertices = 0;
     _size_vertex_unit = 0;
     _paIndexParam = nullptr;
-    _obj_model |= Obj_GgafDx_BoardSetModel;
-
-    std::string model_name = std::string(prm_model_name);
-    std::vector<std::string> names = UTIL::split(model_name, ",");
-    if (names.size() > 2) {
-        throwCriticalException("prm_model_name には \"xxxxxx\" or \"8,xxxxx\" 形式を指定してください。 \n"
-                                   "実際の引数は、prm_idstr="<<prm_model_name);
-    }
-    if (names.size() == 2) {
-        _set_num = STOI(names[0]);
-        if (_set_num > 28) {
-            _TRACE_("BoardSetModel("<<prm_model_name<<") の同時描画セット数オーバー。最大の28がセットですが、それ以上のセット数です。意図していますか？_set_num="<<_set_num);
-        }
-    } else {
-        _TRACE_("BoardSetModel("<<prm_model_name<<") の同時描画セット数省略のため、最大の28がセットされます。");
-        _set_num = 28;
-    }
+    _draw_set_num = BOARDSETMODEL_MAX_DARW_SET_NUM;
 }
 
 HRESULT BoardSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
     _TRACE4_("BoardSetModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
 #ifdef MY_DEBUG
-    if (prm_draw_set_num > _set_num) {
-        throwCriticalException(FUNC_NAME<<" "<<_model_name<<" の描画セット数オーバー。_set_num="<<_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
+    if (prm_draw_set_num > _draw_set_num) {
+        throwCriticalException(FUNC_NAME<<" "<<_model_id<<" の描画セット数オーバー。_draw_set_num="<<_draw_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
     }
 #endif
     IDirect3DDevice9* const pDevice = God::_pID3DDevice9;
@@ -96,11 +81,11 @@ HRESULT BoardSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num
             }
 #endif
         }
-        _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoardSetEffect->_effect_name);
+        _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pBoardSetEffect->_effect_name);
         hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
         checkDxException(hr, S_OK, "SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
 
-        _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoardSetEffect->_effect_name<<"("<<pBoardSetEffect<<")");
+        _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pBoardSetEffect->_effect_name<<"("<<pBoardSetEffect<<")");
         UINT numPass;
         hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
         checkDxException(hr, D3D_OK, "Begin() に失敗しました。");
@@ -119,7 +104,7 @@ HRESULT BoardSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num
         hr = pID3DXEffect->CommitChanges();
         checkDxException(hr, D3D_OK, "CommitChanges() に失敗しました。");
     }
-    _TRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoardSetEffect->_effect_name);
+    _TRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pBoardSetEffect->_effect_name);
     const INDEXPARAM& idxparam = _paIndexParam[prm_draw_set_num-1];
     pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
                                   idxparam.BaseVertexIndex,
@@ -139,45 +124,54 @@ HRESULT BoardSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num
 }
 
 void BoardSetModel::restore() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     if (_paVertexBuffer_data == nullptr) {
-        if (4*_set_num > 65535) {
-            throwCriticalException("頂点が 65535を超えたかもしれません。\n対象Model："<<getName()<<"  nVertices:4  セット数:"<<(_set_num));
-        }
-
-        _papTextureConnection = nullptr;
+//        if (4*_draw_set_num > 65535) {
+//            throwCriticalException("頂点が 65535を超えたかもしれません。\n対象Model："<<getName()<<"  nVertices:4  セット数:"<<(_draw_set_num));
+//        }
+//
+//        _papTextureConnection = nullptr;
+//
+//        //"12,Moji" or "8,Moji" or "Moji" から "Moji" だけ取とりだしてフルパス名取得。
+//        std::string model_name;
+//        std::vector<std::string> names = UTIL::split(std::string(_model_id), ",");
+//        if (names.size() == 2) {
+//            model_name = names[1];
+//        } else {
+//            model_name = names[0];
+//        }
         ModelManager* pModelManager = pGOD->_pModelManager;
-        std::string xfile_name; //読み込むスプライト定義ファイル名（Xファイル形式）
-        //"12,Moji" or "8,Moji" or "Moji" から "Moji" だけ取とりだしてフルパス名取得。
-        //TODO:数値3桁("123,Moji"とか)が来たら困る。
-        if (*(_model_name + 1) == ',') {
-            xfile_name = ModelManager::getSpriteFileName(std::string(_model_name + 2), "sprx");
-        } else if (*(_model_name + 2) == ',') {
-            xfile_name = ModelManager::getSpriteFileName(std::string(_model_name + 3), "sprx");
-        } else {
-            xfile_name = ModelManager::getSpriteFileName(std::string(_model_name), "sprx");
-        }
         ModelManager::SpriteXFileFmt xdata;
-        pModelManager->obtainSpriteInfo(&xdata, xfile_name);
-        _model_width_px  = xdata.width;
-        _model_height_px = xdata.height;
-        _row_texture_split = xdata.row_texture_split;
-        _col_texture_split = xdata.col_texture_split;
+        std::string model_def_file = std::string(_model_id) + ".sprx";
+        std::string model_def_filepath = ModelManager::getModelDefineFilePath(model_def_file);
+        pModelManager->obtainSpriteModelInfo(&xdata, model_def_filepath);
 
-        //テクスチャ取得しモデルに保持させる
+        _model_width_px  = xdata.Width;
+        _model_height_px = xdata.Height;
+        _row_texture_split = xdata.TextureSplitRows;
+        _col_texture_split = xdata.TextureSplitCols;
         _pa_texture_filenames = NEW std::string[1];
-        _pa_texture_filenames[0] = std::string(xdata.texture_file);
-
+        _pa_texture_filenames[0] = std::string(xdata.TextureFile);
+        _draw_set_num = xdata.DrawSetNum;
+        if (_draw_set_num == 0 || _draw_set_num > BOARDSETMODEL_MAX_DARW_SET_NUM) {
+            _TRACE_("BoardSetModel::restore() "<<_model_id<<" の同時描画セット数は、最大の "<<BOARDSETMODEL_MAX_DARW_SET_NUM<<" に再定義されました。理由：_draw_set_num="<<_draw_set_num);
+            _draw_set_num = BOARDSETMODEL_MAX_DARW_SET_NUM;
+        } else {
+            _TRACE_("BoardSetModel::restore() "<<_model_id<<" の同時描画セット数は "<<_draw_set_num<<" です。");
+        }
+        if (4*_draw_set_num > 65535) {
+            throwCriticalException("SpriteSetModel::restore() 頂点が 65535を超えたかもしれません。\n対象Model："<<getName()<<"  nVertices:4  セット数:"<<(_draw_set_num));
+        }
         _size_vertices = sizeof(BoardSetModel::VERTEX)*4;
         _size_vertex_unit = sizeof(BoardSetModel::VERTEX);
-        _paVertexBuffer_data = NEW BoardSetModel::VERTEX[4 * _set_num];
+        _paVertexBuffer_data = NEW BoardSetModel::VERTEX[4 * _draw_set_num];
 
         //1pxあたりのuvの大きさを求める
 //        float tex_width  = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
 //        float tex_height = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)
         double du = 0.0; //1.0 / tex_width  / 100000.0; //テクスチャの幅1pxの10000分の1px
         double dv = 0.0; //1.0 / tex_height / 100000.0; //テクスチャの高さ1pxの10000分の1px
-        for (int i = 0; i < _set_num; i++) {
+        for (int i = 0; i < _draw_set_num; i++) {
             //左上
             _paVertexBuffer_data[i*4 + 0].x = 0.0f;
             _paVertexBuffer_data[i*4 + 0].y = 0.0f;
@@ -186,25 +180,25 @@ void BoardSetModel::restore() {
             _paVertexBuffer_data[i*4 + 0].tv = (float)dv;
             _paVertexBuffer_data[i*4 + 0].index = (float)i;
             //右上
-            _paVertexBuffer_data[i*4 + 1].x = xdata.width;
+            _paVertexBuffer_data[i*4 + 1].x = xdata.Width;
             _paVertexBuffer_data[i*4 + 1].y = 0.0f;
             _paVertexBuffer_data[i*4 + 1].z = 0.0f;
-            _paVertexBuffer_data[i*4 + 1].tu = (float)((1.0 / xdata.col_texture_split) - du);
+            _paVertexBuffer_data[i*4 + 1].tu = (float)((1.0 / xdata.TextureSplitCols) - du);
             _paVertexBuffer_data[i*4 + 1].tv = (float)dv;
             _paVertexBuffer_data[i*4 + 1].index = (float)i;
             //左下
             _paVertexBuffer_data[i*4 + 2].x = 0.0f;
-            _paVertexBuffer_data[i*4 + 2].y = xdata.height;
+            _paVertexBuffer_data[i*4 + 2].y = xdata.Height;
             _paVertexBuffer_data[i*4 + 2].z = 0.0f;
             _paVertexBuffer_data[i*4 + 2].tu = (float)du;
-            _paVertexBuffer_data[i*4 + 2].tv = (float)((1.0 / xdata.row_texture_split) - dv);
+            _paVertexBuffer_data[i*4 + 2].tv = (float)((1.0 / xdata.TextureSplitRows) - dv);
             _paVertexBuffer_data[i*4 + 2].index = (float)i;
             //右下
-            _paVertexBuffer_data[i*4 + 3].x = xdata.width;
-            _paVertexBuffer_data[i*4 + 3].y = xdata.height;
+            _paVertexBuffer_data[i*4 + 3].x = xdata.Width;
+            _paVertexBuffer_data[i*4 + 3].y = xdata.Height;
             _paVertexBuffer_data[i*4 + 3].z = 0.0f;
-            _paVertexBuffer_data[i*4 + 3].tu = (float)((1.0 / xdata.col_texture_split) - du);
-            _paVertexBuffer_data[i*4 + 3].tv = (float)((1.0 / xdata.row_texture_split) - dv);
+            _paVertexBuffer_data[i*4 + 3].tu = (float)((1.0 / xdata.TextureSplitCols) - du);
+            _paVertexBuffer_data[i*4 + 3].tv = (float)((1.0 / xdata.TextureSplitRows) - dv);
             _paVertexBuffer_data[i*4 + 3].index = (float)i;
         }
 
@@ -218,8 +212,8 @@ void BoardSetModel::restore() {
         unit_paIdxBuffer[3] = 1;
         unit_paIdxBuffer[4] = 3;
         unit_paIdxBuffer[5] = 2;
-        _pIndexBuffer_data = NEW WORD[(nFaces*3) * _set_num];
-        for (int i = 0; i < _set_num; i++) {
+        _pIndexBuffer_data = NEW WORD[(nFaces*3) * _draw_set_num];
+        for (int i = 0; i < _draw_set_num; i++) {
             for (int j = 0; j < nFaces; j++) {
                 _pIndexBuffer_data[((i*nFaces*3)+(j*3)) + 0] = unit_paIdxBuffer[j*3 + 0] + (nVertices*i);
                 _pIndexBuffer_data[((i*nFaces*3)+(j*3)) + 1] = unit_paIdxBuffer[j*3 + 1] + (nVertices*i);
@@ -228,8 +222,8 @@ void BoardSetModel::restore() {
         }
         GGAF_DELETEARR(unit_paIdxBuffer);
 
-        BoardSetModel::INDEXPARAM* paIndexParam = NEW BoardSetModel::INDEXPARAM[_set_num];
-        for (int i = 0; i < _set_num; i++) {
+        BoardSetModel::INDEXPARAM* paIndexParam = NEW BoardSetModel::INDEXPARAM[_draw_set_num];
+        for (int i = 0; i < _draw_set_num; i++) {
             paIndexParam[i].MaterialNo = 0;
             paIndexParam[i].BaseVertexIndex = 0;
             paIndexParam[i].MinIndex = 0;
@@ -260,27 +254,27 @@ void BoardSetModel::restore() {
         HRESULT hr;
         //バッファ作成
         hr = God::_pID3DDevice9->CreateVertexBuffer(
-                _size_vertices * _set_num,
+                _size_vertices * _draw_set_num,
                 D3DUSAGE_WRITEONLY,
                 BoardSetModel::FVF,
                 D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
                 &(_pVertexBuffer),
                 nullptr);
-        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_name));
+        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_id));
         //頂点バッファ作成
         //頂点情報をビデオカード頂点バッファへロード
         void *pVertexBuffer;
         hr = _pVertexBuffer->Lock(
                                  0,
-                                 _size_vertices * _set_num,
+                                 _size_vertices * _draw_set_num,
                                  (void**)&pVertexBuffer,
                                  0
                                );
-        checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_name);
+        checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_id);
         memcpy(
           pVertexBuffer,
           _paVertexBuffer_data,
-          _size_vertices * _set_num
+          _size_vertices * _draw_set_num
         ); //pVertexBuffer ← _paVertexBuffer_data
         _pVertexBuffer->Unlock();
 
@@ -292,20 +286,20 @@ void BoardSetModel::restore() {
         HRESULT hr;
         int nFaces = 2;
         hr = God::_pID3DDevice9->CreateIndexBuffer(
-                                sizeof(WORD) * nFaces * 3 * _set_num,
+                                sizeof(WORD) * nFaces * 3 * _draw_set_num,
                                 D3DUSAGE_WRITEONLY,
                                 D3DFMT_INDEX16,
                                 D3DPOOL_DEFAULT,
                                 &(_pIndexBuffer),
                                 nullptr);
-        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_name));
+        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_id));
 
         void* pIndexBuffer;
         _pIndexBuffer->Lock(0,0,(void**)&pIndexBuffer,0);
         memcpy(
           pIndexBuffer ,
           _pIndexBuffer_data,
-          sizeof(WORD) * nFaces * 3 * _set_num
+          sizeof(WORD) * nFaces * 3 * _draw_set_num
         );
         _pIndexBuffer->Unlock();
     }
@@ -320,13 +314,13 @@ void BoardSetModel::restore() {
 }
 
 void BoardSetModel::onDeviceLost() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     release();
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 void BoardSetModel::release() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
     GGAF_RELEASE(_pVertexBuffer);
     GGAF_RELEASE(_pIndexBuffer);
     //テクスチャを解放
@@ -340,7 +334,7 @@ void BoardSetModel::release() {
     GGAF_DELETEARR(_papTextureConnection);
     //TODO:親クラスメンバをDELETEするのはややきたないか
 
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 BoardSetModel::~BoardSetModel() {

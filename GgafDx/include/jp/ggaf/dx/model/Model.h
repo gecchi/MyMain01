@@ -60,9 +60,9 @@ public:
     };
 
     /** [r]最大可能同時描画セット数（キャラクタ数）*/
-    int _set_num;
+    int _draw_set_num;
     /** [r]モデル定義の識別名。(50文字まで) */
-    char* _model_name;
+    char* _model_id;
     /** [r]モデルインスタンス種類 */
     uint32_t _obj_model;
 
@@ -103,16 +103,17 @@ public:
     bool _is_init_model;
 
     UINT _num_pass;
-
+    /** [r]ベース変換行（メッシュ系のみ） */
+    D3DXMATRIX _matBaseTransformMatrix;
 public:
     /**
      * コンストラクタ<BR>
-     * @param prm_model_name モデル定義の識別名。".x"を追加すると定義Xファイル名になる。
+     * @param prm_model_id モデル定義の識別名。".x"を追加すると定義Xファイル名になる。
      */
-    explicit Model(const char* prm_model_name);
+    explicit Model(const char* prm_model_id);
 
     char* getName() {
-        return _model_name;
+        return _model_id;
     }
 
     /**
@@ -230,9 +231,8 @@ public:
                     Frm::Model3D* model_pModel3D,
                     uint16_t* paNumVertices);
 
-    void transformVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit, int prm_vtx_num,
-                      D3DXMATRIX& prm_FrameTransformMatrix);
-
+    void transformVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit, int prm_vtx_num);
+    void transformPointSpriteVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit, int prm_vtx_num);
 
     static void calcTangentAndBinormal(
             D3DXVECTOR3* p0, D3DXVECTOR2* uv0,

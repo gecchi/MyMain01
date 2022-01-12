@@ -14,11 +14,12 @@
 
 using namespace GgafDx;
 
-MassSpriteModel::MassSpriteModel(const char* prm_model_name) : MassModel(prm_model_name) {
-    _TRACE3_("_model_name="<<_model_name);
+MassSpriteModel::MassSpriteModel(const char* prm_model_id) : MassModel(prm_model_id) {
+    _TRACE3_("_model_id="<<_model_id);
+    _obj_model |= Obj_GgafDx_MassSpriteModel;
+
     _paVtxBuffer_data_model = nullptr;
     _paIndexBuffer_data = nullptr;
-
     _model_width_px = 32.0f;
     _model_height_px = 32.0f;
     _model_half_width_px = _model_width_px/2;
@@ -26,8 +27,6 @@ MassSpriteModel::MassSpriteModel(const char* prm_model_name) : MassModel(prm_mod
     _row_texture_split = 1;
     _col_texture_split = 1;
     _papTextureConnection = nullptr;
-    _obj_model |= Obj_GgafDx_MassSpriteModel;
-
     registerCallback_VertexModelInfo(MassSpriteModel::createVertexModel); //頂点レイアウト情報作成コールバック関数
 }
 
@@ -68,8 +67,8 @@ HRESULT MassSpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_n
         createVertexElements(); //デバイスロスト復帰時に呼び出される
     }
 #ifdef MY_DEBUG
-    if (prm_draw_set_num > _set_num) {
-        throwCriticalException(_model_name<<" の描画セット数オーバー。_set_num="<<_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
+    if (prm_draw_set_num > _draw_set_num) {
+        throwCriticalException(_model_id<<" の描画セット数オーバー。_draw_set_num="<<_draw_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
     }
 #endif
     IDirect3DDevice9* const pDevice = God::_pID3DDevice9;
@@ -86,10 +85,10 @@ HRESULT MassSpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_n
     void* pInstancedata = prm_pPrm ? prm_pPrm : this->_pInstancedata; //prm_pPrm は臨時のテンポラリインスタンスデータ
     void* pDeviceMemory = 0;
     hr = _pVertexBuffer_instancedata->Lock(0, update_vertex_instancedata_size, (void**)&pDeviceMemory, D3DLOCK_DISCARD);
-    checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_name);
+    checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_id);
     memcpy(pDeviceMemory, pInstancedata, update_vertex_instancedata_size);
     hr = _pVertexBuffer_instancedata->Unlock();
-    checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗 model="<<_model_name);
+    checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗 model="<<_model_id);
 
     //モデルが同じならば頂点バッファ、インデックスバッファの設定はスキップできる
     Model* pModelLastDraw = ModelManager::_pModelLastDraw;
@@ -140,11 +139,11 @@ HRESULT MassSpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_n
             }
 #endif
         }
-        _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMassSpriteEffect->_effect_name);
+        _TRACE4_("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pMassSpriteEffect->_effect_name);
         hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
         checkDxException(hr, S_OK, "SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
 
-        _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMassSpriteEffect->_effect_name<<"("<<pMassSpriteEffect<<")");
+        _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pMassSpriteEffect->_effect_name<<"("<<pMassSpriteEffect<<")");
         hr = pID3DXEffect->Begin( &_num_pass, D3DXFX_DONOTSAVESTATE );
         checkDxException(hr, D3D_OK, "Begin() に失敗しました。");
         hr = pID3DXEffect->BeginPass(0);
@@ -162,7 +161,7 @@ HRESULT MassSpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_n
         hr = pID3DXEffect->CommitChanges();
         checkDxException(hr, D3D_OK, "CommitChanges() に失敗しました。");
     }
-    _TRACE4_("DrawPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMassSpriteEffect->_effect_name);
+    _TRACE4_("DrawPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pMassSpriteEffect->_effect_name);
     hr = pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
                                        0,
                                        0,
@@ -201,39 +200,31 @@ HRESULT MassSpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_n
 }
 
 void MassSpriteModel::restore() {
-    _TRACE3_("_model_name=" << _model_name << " start");
+    _TRACE3_("_model_id=" << _model_id << " start");
 
     if (_paVtxBuffer_data_model == nullptr) {
         HRESULT hr;
         ModelManager* pModelManager = pGOD->_pModelManager;
-        //静的な情報設定
-        std::vector<std::string> names = UTIL::split(std::string(_model_name), ",");
-        std::string xfile_name = ""; //読み込むXファイル名
-        if (names.size() == 1) {
-            _TRACE_(FUNC_NAME<<" "<<_model_name<<" の最大同時描画オブジェクト数は、デフォルトの"<<GGAFDXMASS_MAX_INSTANCE_NUM<<" が設定されました。");
-            _set_num = GGAFDXMASS_MAX_INSTANCE_NUM;
-            xfile_name = ModelManager::getSpriteFileName(names[0], "sprx");
-        } else if (names.size() == 2) {
-            _set_num = STOI(names[0]);
-            xfile_name = ModelManager::getSpriteFileName(names[1], "sprx");
-        } else {
-            throwCriticalException("_model_name には \"xxxxxx\" or \"8/xxxxx\" 形式を指定してください。 \n"
-                    "実際は、_model_name="<<_model_name<<" でした。");
-        }
-        if (_set_num < 1 || _set_num > GGAFDXMASS_MAX_INSTANCE_NUM) {
-            throwCriticalException(_model_name<<"の最大同時描画オブジェクト数が不正。範囲は 1～"<<GGAFDXMASS_MAX_INSTANCE_NUM<<"セットです。_set_num="<<_set_num);
-        }
-        if (xfile_name == "") {
-            throwCriticalException("スプライト定義ファイル(*.sprx)が見つかりません。model_name="<<(_model_name));
-        }
         ModelManager::SpriteXFileFmt xdata;
-        pModelManager->obtainSpriteInfo(&xdata, xfile_name);
-        _model_width_px  = xdata.width;
-        _model_height_px = xdata.height;
+        std::string model_def_file = std::string(_model_id) + ".sprx";
+        std::string model_def_filepath = ModelManager::getModelDefineFilePath(model_def_file);
+        pModelManager->obtainSpriteModelInfo(&xdata, model_def_filepath);
+        _model_width_px  = xdata.Width;
+        _model_height_px = xdata.Height;
         _model_half_width_px = _model_width_px/2;
         _model_half_height_px = _model_height_px/2;
-        _row_texture_split = xdata.row_texture_split;
-        _col_texture_split = xdata.col_texture_split;
+        _row_texture_split = xdata.TextureSplitRows;
+        _col_texture_split = xdata.TextureSplitCols;
+
+        _draw_set_num = xdata.DrawSetNum;
+        if (_draw_set_num == 0 || _draw_set_num > GGAFDXMASS_MAX_INSTANCE_NUM) {
+            _TRACE_("MassSpriteModel::restore() "<<_model_id<<" の同時描画セット数は、最大の "<<GGAFDXMASS_MAX_INSTANCE_NUM<<" に再定義されました。理由：_draw_set_num="<<_draw_set_num);
+            _draw_set_num = GGAFDXMASS_MAX_INSTANCE_NUM;
+        } else {
+            _TRACE_("MassSpriteModel::restore() "<<_model_id<<" の同時描画セット数は "<<_draw_set_num<<" です。");
+        }
+
+
         _nVertices = 4;
         _nFaces = 2;
         _paVtxBuffer_data_model = NEW MassSpriteModel::VERTEX_model[_nVertices];
@@ -245,8 +236,8 @@ void MassSpriteModel::restore() {
         double du = 0.0;
         double dv = 0.0;
         //左上
-        _paVtxBuffer_data_model[0].x = PX_DX(xdata.width)  / -2.0;
-        _paVtxBuffer_data_model[0].y = PX_DX(xdata.height) /  2.0;
+        _paVtxBuffer_data_model[0].x = PX_DX(xdata.Width)  / -2.0;
+        _paVtxBuffer_data_model[0].y = PX_DX(xdata.Height) /  2.0;
         _paVtxBuffer_data_model[0].z = 0.0f;
         _paVtxBuffer_data_model[0].nx = 0.0f;
         _paVtxBuffer_data_model[0].ny = 0.0f;
@@ -254,32 +245,32 @@ void MassSpriteModel::restore() {
         _paVtxBuffer_data_model[0].tu = du;
         _paVtxBuffer_data_model[0].tv = dv;
         //右上
-        _paVtxBuffer_data_model[1].x = PX_DX(xdata.width)  / 2.0;
-        _paVtxBuffer_data_model[1].y = PX_DX(xdata.height) / 2.0;
+        _paVtxBuffer_data_model[1].x = PX_DX(xdata.Width)  / 2.0;
+        _paVtxBuffer_data_model[1].y = PX_DX(xdata.Height) / 2.0;
         _paVtxBuffer_data_model[1].z = 0.0f;
         _paVtxBuffer_data_model[1].nx = 0.0f;
         _paVtxBuffer_data_model[1].ny = 0.0f;
         _paVtxBuffer_data_model[1].nz = -1.0f;
-        _paVtxBuffer_data_model[1].tu = (1.0/xdata.col_texture_split) - du;
+        _paVtxBuffer_data_model[1].tu = (1.0/xdata.TextureSplitCols) - du;
         _paVtxBuffer_data_model[1].tv = dv;
         //左下
-        _paVtxBuffer_data_model[2].x = PX_DX(xdata.width)  / -2.0;
-        _paVtxBuffer_data_model[2].y = PX_DX(xdata.height) / -2.0;
+        _paVtxBuffer_data_model[2].x = PX_DX(xdata.Width)  / -2.0;
+        _paVtxBuffer_data_model[2].y = PX_DX(xdata.Height) / -2.0;
         _paVtxBuffer_data_model[2].z = 0.0f;
         _paVtxBuffer_data_model[2].nx = 0.0f;
         _paVtxBuffer_data_model[2].ny = 0.0f;
         _paVtxBuffer_data_model[2].nz = -1.0f;
         _paVtxBuffer_data_model[2].tu = du;
-        _paVtxBuffer_data_model[2].tv = (1.0/xdata.row_texture_split) - dv;
+        _paVtxBuffer_data_model[2].tv = (1.0/xdata.TextureSplitRows) - dv;
         //右下
-        _paVtxBuffer_data_model[3].x = PX_DX(xdata.width)  /  2.0;
-        _paVtxBuffer_data_model[3].y = PX_DX(xdata.height) / -2.0;
+        _paVtxBuffer_data_model[3].x = PX_DX(xdata.Width)  /  2.0;
+        _paVtxBuffer_data_model[3].y = PX_DX(xdata.Height) / -2.0;
         _paVtxBuffer_data_model[3].z = 0.0f;
         _paVtxBuffer_data_model[3].nx = 0.0f;
         _paVtxBuffer_data_model[3].ny = 0.0f;
         _paVtxBuffer_data_model[3].nz = -1.0f;
-        _paVtxBuffer_data_model[3].tu = 1.0/xdata.col_texture_split;
-        _paVtxBuffer_data_model[3].tv = 1.0/xdata.row_texture_split;
+        _paVtxBuffer_data_model[3].tu = 1.0/xdata.TextureSplitCols;
+        _paVtxBuffer_data_model[3].tv = 1.0/xdata.TextureSplitRows;
 
         _paIndexBuffer_data = NEW WORD[(_nFaces*3)];
         _paIndexBuffer_data[0] = 0;
@@ -298,7 +289,7 @@ void MassSpriteModel::restore() {
 
         setMaterial();
 //        _pa_texture_filenames = NEW std::string[1]; ////setMaterial();で実行済み
-        _pa_texture_filenames[0] = std::string(xdata.texture_file);
+        _pa_texture_filenames[0] = std::string(xdata.TextureFile);
     }
 
     //デバイスに頂点バッファ作成(モデル)
@@ -311,14 +302,14 @@ void MassSpriteModel::restore() {
                 D3DPOOL_DEFAULT,
                 &(_pVertexBuffer_model),
                 nullptr);
-        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_name));
+        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_id));
         //バッファへ作成済み頂点データを流し込む
         void* pDeviceMemory = 0;
         hr = _pVertexBuffer_model->Lock(0, _size_vertices_model, (void**)&pDeviceMemory, 0);
-        checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_name);
+        checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_id);
         memcpy(pDeviceMemory, _paVtxBuffer_data_model, _size_vertices_model);
         hr = _pVertexBuffer_model->Unlock();
-        checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗 model="<<_model_name);
+        checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗 model="<<_model_id);
     }
 
     //デバイスにインデックスバッファ作成
@@ -331,13 +322,13 @@ void MassSpriteModel::restore() {
                                 D3DPOOL_DEFAULT,
                                 &(_pIndexBuffer),
                                 nullptr);
-        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<_model_name);
+        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<_model_id);
         void* pDeviceMemory = 0;
         hr = _pIndexBuffer->Lock(0, 0, (void**)&pDeviceMemory,0);
-        checkDxException(hr, D3D_OK, "インデックスバッファのロック取得に失敗 model="<<_model_name);
+        checkDxException(hr, D3D_OK, "インデックスバッファのロック取得に失敗 model="<<_model_id);
         memcpy(pDeviceMemory, _paIndexBuffer_data, sizeof(WORD)*_nFaces*3);
         hr = _pIndexBuffer->Unlock();
-        checkDxException(hr, D3D_OK, "インデックスバッファのアンロック取得に失敗 model="<<_model_name);
+        checkDxException(hr, D3D_OK, "インデックスバッファのアンロック取得に失敗 model="<<_model_id);
     }
     //デバイスにテクスチャ作成
     if (_papTextureConnection == nullptr) {
@@ -348,7 +339,7 @@ void MassSpriteModel::restore() {
                     (TextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[n].c_str(), this));
         }
     }
-    _TRACE3_("_model_name=" << _model_name << " end");
+    _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 MassSpriteModel::~MassSpriteModel() {

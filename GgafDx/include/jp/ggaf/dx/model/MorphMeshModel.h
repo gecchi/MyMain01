@@ -8,11 +8,11 @@ namespace GgafDx {
 /**
  * MorphMeshModel用のモデルクラス.
  * MorphMeshModel は MeshModel の描画する機能に加え、モーフアニメーション機能を有するモデルです。<BR>
- * <b>引数のモデル名 ( prm_model_name ) の与えかたと読み込まれるXファイルについて</b><BR>
+ * <b>引数のモデル名 ( prm_model_id ) の与えかたと読み込まれるXファイルについて</b><BR>
  * ＜例＞<BR>
  * <table border=1>
  * <tr>
- * <th>prm_model_name</th>
+ * <th>prm_model_id</th>
  * <th>プライマリメッシュ Xファイル</th>
  * <th>モーフターゲット Xファイル</th>
  * </tr>
@@ -106,9 +106,9 @@ public:
 public:
     /**
      * コンストラクタ<BR>
-     * @param prm_model_name モデル定義の識別名
+     * @param prm_model_id モデル定義の識別名
      */
-    MorphMeshModel(const char* prm_model_name);
+    MorphMeshModel(const char* prm_model_id);
 
     virtual HRESULT draw(FigureActor* prm_pActor_target, int prm_draw_set_num = 1, void* prm_pPrm = nullptr) override;
 

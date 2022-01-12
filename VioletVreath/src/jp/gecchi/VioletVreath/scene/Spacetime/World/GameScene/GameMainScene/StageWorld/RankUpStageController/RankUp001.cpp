@@ -51,7 +51,7 @@ RankUp001::RankUp001(const char* prm_name) : RankUpStage(prm_name) {
     requestActor(90000031, FormationThagoras001, "FormationThagoras001-90000031");
     // gen01 end
 
-    getBgmConductor()->ready(0, "OGG_RANKUP001_THEMA");
+    getBgmConductor()->ready(0, "BGM_RANKUP001_THEMA");
 }
 
 void RankUp001::initialize() {

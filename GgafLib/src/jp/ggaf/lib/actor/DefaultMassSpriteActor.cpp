@@ -11,9 +11,9 @@ using namespace GgafLib;
 
 DefaultMassSpriteActor::VERTEX_instancedata DefaultMassSpriteActor::_aInstancedata[GGAFDXMASS_MAX_INSTANCE_NUM];
 
-DefaultMassSpriteActor::DefaultMassSpriteActor(const char* prm_name, const char* prm_model_id) :
+DefaultMassSpriteActor::DefaultMassSpriteActor(const char* prm_name, const char* prm_model) :
     GgafDx::MassSpriteActor(prm_name,
-                          prm_model_id,
+                          prm_model,
                           "DefaultMassSpriteEffect",
                           "DefaultMassSpriteTechnique",
                           UTIL::createChecker(this) ) {
@@ -94,7 +94,7 @@ void DefaultMassSpriteActor::processDraw() {
     int draw_set_num = 0; //MassSpriteActorの同じモデルで同じテクニックが
                           //連続しているカウント数。同一描画深度は一度に描画する。
     GgafDx::MassSpriteModel* pMassSpriteModel = _pMassSpriteModel;
-    const int model_max_set_num = pMassSpriteModel->_set_num;
+    const int model_max_draw_set_num = pMassSpriteModel->_draw_set_num;
     const hashval hash_technique = _hash_technique;
     VERTEX_instancedata* paInstancedata = DefaultMassSpriteActor::_aInstancedata;
     GgafDx::FigureActor* pDrawActor = this;
@@ -134,7 +134,7 @@ void DefaultMassSpriteActor::processDraw() {
 
             draw_set_num++;
             GgafDx::Spacetime::_pActor_draw_active = pDrawActor; //描画セットの最後アクターをセット
-            if (draw_set_num >= model_max_set_num) {
+            if (draw_set_num >= model_max_draw_set_num) {
                 break;
             } else {
                 pDrawActor = pDrawActor->_pNextRenderActor;

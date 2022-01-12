@@ -13,13 +13,13 @@
 using namespace GgafDx;
 
 PointSpriteSetActor::PointSpriteSetActor(const char* prm_name,
-                                         const char* prm_model_id,
+                                         const char* prm_model,
                                          const char* prm_effect_id,
                                          const char* prm_technique,
                                          Checker* prm_pChecker) :
 
                                              FigureActor(prm_name,
-                                                         prm_model_id,
+                                                         prm_model,
                                                          TYPE_POINTSPRITESET_MODEL,
                                                          prm_effect_id,
                                                          TYPE_POINTSPRITESET_EFFECT,
@@ -41,7 +41,7 @@ _pUvFlipper(NEW UvFlipper(getModel()->getDefaultTextureConnection()->peek()))
 }
 
 PointSpriteSetActor::PointSpriteSetActor(const char* prm_name,
-                                         const char* prm_model_id,
+                                         const char* prm_model,
                                          const char prm_model_type,
                                          const char* prm_effect_id,
                                          const char prm_effect_type,
@@ -49,7 +49,7 @@ PointSpriteSetActor::PointSpriteSetActor(const char* prm_name,
                                          Checker* prm_pChecker) :
 
                                              FigureActor(prm_name,
-                                                         prm_model_id,
+                                                         prm_model,
                                                          prm_model_type,
                                                          prm_effect_id,
                                                          prm_effect_type,
@@ -77,7 +77,7 @@ void PointSpriteSetActor::processDraw() {
     HRESULT hr;
     FigureActor* pDrawActor = this;
     PointSpriteSetActor* pPointSpriteSetActor = nullptr;
-    const int model_set_num = _pPointSpriteSetModel->_set_num;
+    const int model_draw_set_num = _pPointSpriteSetModel->_draw_set_num;
     while (pDrawActor) {
         if (pDrawActor->getModel() == _pPointSpriteSetModel && pDrawActor->_hash_technique == _hash_technique) {
             pPointSpriteSetActor = (PointSpriteSetActor*)pDrawActor;
@@ -87,7 +87,7 @@ void PointSpriteSetActor::processDraw() {
             hr = pID3DXEffect->SetValue(_pPointSpriteSetEffect->_ah_colMaterialDiffuse[draw_set_num], &(pPointSpriteSetActor->_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
             checkDxException(hr, D3D_OK, "SetValue(g_colMaterialDiffuse) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
             draw_set_num++;
-            if (draw_set_num >= model_set_num) {
+            if (draw_set_num >= model_draw_set_num) {
                 break;
             }
             pDrawActor = pDrawActor->_pNextRenderActor;

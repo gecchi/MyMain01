@@ -17,9 +17,9 @@ class CubeMapMeshModel : public MeshModel {
 public:
     /**
      * コンストラクタ<BR>
-     * @param prm_model_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
+     * @param prm_model_id スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
      */
-    CubeMapMeshModel(const char* prm_model_name);
+    CubeMapMeshModel(const char* prm_model_id);
 
     virtual ~CubeMapMeshModel(); //デストラクタ
 };
