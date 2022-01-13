@@ -16,7 +16,7 @@ HoshiBoshi::HoshiBoshi(const char* prm_name, const char* prm_model) :
 
                                         GgafDx::PointSpriteActor(prm_name,
                                                                prm_model,
-                                                               TYPE_POINTACTOR_DEFINE,
+                                                               TYPE_POINTSPRITE_MODEL,
                                                                "HoshiBoshiEffect",
                                                                TYPE_HOSHIBOSHI_EFFECT,
                                                                "HoshiBoshiTechnique",

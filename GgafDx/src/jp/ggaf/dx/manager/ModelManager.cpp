@@ -269,13 +269,13 @@ Model* ModelManager::processCreateResource(const char* prm_idstr, void* prm_pCon
             // "W,xxxxx_4" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
             pResourceModel = createModel<WorldBoundModel>(model_id);
             break;
-        case TYPE_ACTOR_DEFINE:
+        case TYPE_ACTOR_MODEL:
             pResourceModel = createModel<SpriteModel>(model_id);
             break;
         case TYPE_SPRITESET_MODEL:
             pResourceModel = createModel<SpriteSetModel>(model_id);
             break;
-        case TYPE_MASSACTOR_DEFINE:
+        case TYPE_MASSACTOR_MODEL:
             pResourceModel = createModel<MassSpriteModel>(model_id);
             break;
         case TYPE_BOARD_MODEL:
@@ -290,10 +290,10 @@ Model* ModelManager::processCreateResource(const char* prm_idstr, void* prm_pCon
         case TYPE_CUBE_MODEL:
             pResourceModel = createD3DXMeshModel(const_cast<char*>("cube"), D3DXMESH_SYSTEMMEM);
             break;
-        case TYPE_POINTACTOR_DEFINE:
+        case TYPE_POINTSPRITE_MODEL:
             pResourceModel = createModel<PointSpriteModel>(model_id);
             break;
-        case TYPE_MASSPOINTACTOR_DEFINE:
+        case TYPE_MASSPOINTACTOR_MODEL:
             pResourceModel = createModel<MassPointSpriteModel>(model_id);
             break;
         case TYPE_POINTSPRITESET_MODEL:
@@ -302,7 +302,7 @@ Model* ModelManager::processCreateResource(const char* prm_idstr, void* prm_pCon
         case TYPE_FRAMEDBOARD_MODEL:
             pResourceModel = createModel<FramedBoardModel>(model_id);
             break;
-        case TYPE_REGULARPOLYGONACTOR_DEFINE:
+        case TYPE_REGULARPOLYGONACTOR_MODEL:
             pResourceModel = createModel<RegularPolygonSpriteModel>(model_id);
             break;
         case TYPE_REGULARPOLYGONBOARD_MODEL:
@@ -515,11 +515,11 @@ void ModelManager::obtainFramedSpriteModelInfo(FramedSpriteXFileFmt* prm_pFramed
     //    DWORD  TextureSplitCols;
     // }
     ID3DXFileEnumObject* pID3DXFileEnumObject;
-    HRESULT hr = _pID3DXFile_sprx->CreateEnumObject(
+    HRESULT hr = _pID3DXFile_fsprx->CreateEnumObject(
                                      (void*)prm_fsprx_filepath.c_str(),
                                      D3DXF_FILELOAD_FROMFILE,
                                      &pID3DXFileEnumObject);
-    checkDxException(hr, S_OK, "'"<<prm_fsprx_filepath<<"' のCreateEnumObjectに失敗しました。sprxファイルのフォーマットを確認して下さい。");
+    checkDxException(hr, S_OK, "'"<<prm_fsprx_filepath<<"' のCreateEnumObjectに失敗しました。fsprxファイルのフォーマットを確認して下さい。");
     //TODO:GUIDなんとかする。今は完全無視。
     //const GUID PersonID_GUID ={ 0xB2B63407,0x6AA9,0x4618, 0x95, 0x63, 0x63, 0x1E, 0xDC, 0x20, 0x4C, 0xDE};
     ID3DXFileData* pID3DXFileData = nullptr;
@@ -555,7 +555,7 @@ void ModelManager::obtainFramedSpriteModelInfo(FramedSpriteXFileFmt* prm_pFramed
     pXData += (sizeof(char) * (strlen(prm_pFramedSpriteFmt_out->FrameTextureFile)+1));
     memcpy(&(prm_pFramedSpriteFmt_out->FrameTextureSplitRows), pXData, sizeof(DWORD));
     pXData += sizeof(DWORD);
-    memcpy(&(prm_pFramedSpriteFmt_out->FrameTextureSplitRows), pXData, sizeof(DWORD));
+    memcpy(&(prm_pFramedSpriteFmt_out->FrameTextureSplitCols), pXData, sizeof(DWORD));
     pXData += sizeof(DWORD);
 
     pID3DXFileData->Unlock();

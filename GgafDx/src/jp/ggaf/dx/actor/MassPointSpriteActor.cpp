@@ -19,7 +19,7 @@ MassPointSpriteActor::MassPointSpriteActor(const char* prm_name,
 
                                              MassActor(prm_name,
                                                        prm_model,
-                                                       TYPE_MASSPOINTACTOR_DEFINE,
+                                                       TYPE_MASSPOINTACTOR_MODEL,
                                                        prm_effect_id,
                                                        TYPE_MASSPOINTSPRITE_EFFECT,
                                                        prm_technique,

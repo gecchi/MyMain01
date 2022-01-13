@@ -204,6 +204,7 @@
     <ClCompile Include="src\scene\MgrSpacetime\MgrWorld.cpp" />
     <ClCompile Include="src\scene\MgrSpacetime\MgrWorld\ParallelCurveTestScene.cpp" />
     <ClCompile Include="src\scene\MgrSpacetime\MgrWorld\SkinMeshAnimeTestScene.cpp" />
+    <ClCompile Include="src\scene\MgrSpacetime\MgrWorld\TestScene.cpp" />
     <ClCompile Include="src\scene\MgrSpacetime\MgrWorld\TrialAndErrScene.cpp" />
     <ClCompile Include="src\util\MgrUtil.cpp" />
   </ItemGroup>
@@ -238,6 +239,7 @@
     <ClInclude Include="src\scene\MgrSpacetime\MgrWorld.h" />
     <ClInclude Include="src\scene\MgrSpacetime\MgrWorld\ParallelCurveTestScene.h" />
     <ClInclude Include="src\scene\MgrSpacetime\MgrWorld\SkinMeshAnimeTestScene.h" />
+    <ClInclude Include="src\scene\MgrSpacetime\MgrWorld\TestScene.h" />
     <ClInclude Include="src\scene\MgrSpacetime\MgrWorld\TrialAndErrScene.h" />
     <ClInclude Include="src\util\MgrUtil.h" />
   </ItemGroup>

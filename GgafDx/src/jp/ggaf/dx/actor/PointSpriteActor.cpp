@@ -19,7 +19,7 @@ PointSpriteActor::PointSpriteActor(const char* prm_name,
 
                                        FigureActor(prm_name,
                                                    prm_model,
-                                                   TYPE_POINTACTOR_DEFINE,
+                                                   TYPE_POINTSPRITE_MODEL,
                                                    prm_effect_id,
                                                    TYPE_POINTSPRITE_EFFECT,
                                                    prm_technique,

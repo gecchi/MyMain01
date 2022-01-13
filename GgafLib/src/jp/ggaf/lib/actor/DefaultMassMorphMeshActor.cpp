@@ -13,10 +13,10 @@ DefaultMassMorphMeshActor::VERTEX_instancedata DefaultMassMorphMeshActor::_aInst
 
 DefaultMassMorphMeshActor::DefaultMassMorphMeshActor(const char* prm_name, const char* prm_model) :
     GgafDx::MassMorphMeshActor(prm_name,
-                         prm_model,
-                         "DefaultMassMorphMeshEffect",
-                         "DefaultMassMorphMeshTechnique",
-                         UTIL::createChecker(this) ) {
+                               prm_model,
+                               "DefaultMassMorphMeshEffect",
+                               "DefaultMassMorphMeshTechnique",
+                               UTIL::createChecker(this) ) {
     _class_name = "DefaultMassMorphMeshActor";
     _pColliChecker = (CollisionChecker*)_pChecker;
     _pMassMorphMeshModel->registerCallback_VertexInstanceDataInfo(DefaultMassMorphMeshActor::createVertexInstanceData);

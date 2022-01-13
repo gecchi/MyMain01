@@ -1,6 +1,6 @@
 xof 0303txt 0032
 
-SpriteDef Mogera-to {
+FramedSpriteModelDef _chk_TestDefaultFramedBoardActorModel {
    64.0;
    64.0;
    "test_tile2.png";

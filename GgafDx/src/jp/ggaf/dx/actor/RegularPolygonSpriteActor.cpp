@@ -19,7 +19,7 @@ RegularPolygonSpriteActor::RegularPolygonSpriteActor(const char* prm_name,
 
                                                          FigureActor(prm_name,
                                                                      prm_model,
-                                                                     TYPE_REGULARPOLYGONACTOR_DEFINE,
+                                                                     TYPE_REGULARPOLYGONACTOR_MODEL,
                                                                      prm_effect_id,
                                                                      TYPE_REGULARPOLYGONSPRITE_EFFECT,
                                                                      prm_technique,
