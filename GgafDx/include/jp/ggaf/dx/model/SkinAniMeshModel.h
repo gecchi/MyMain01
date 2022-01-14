@@ -20,7 +20,7 @@ class SkinAniMeshModel : public Model {
 
 public:
     /** 頂点のFVF */
-    struct VERTEX : public Model::VERTEX_3D_BASE {
+    struct VERTEX : public Model::VERTEX_POS_NOMAL {
         DWORD color;      // 頂点の色（オブジェクトのマテリアルカラーとして使用）
         float tu, tv;     // テクスチャ座標
         float infl_weight[4];     // 頂点重み(TODO:４でいいの？)

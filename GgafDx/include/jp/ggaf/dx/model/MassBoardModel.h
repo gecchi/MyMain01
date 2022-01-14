@@ -16,7 +16,7 @@ class MassBoardModel : public MassModel {
     friend class MassBoardActor;
 
 public:
-    struct VERTEX_model : public Model::VERTEX_3D_BASE {
+    struct VERTEX_model : public Model::VERTEX_POS_NOMAL {
         float tu, tv;     // テクスチャ座標
     };
     VERTEX_model* _paVtxBuffer_data_model;

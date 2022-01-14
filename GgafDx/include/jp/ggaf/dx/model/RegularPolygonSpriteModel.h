@@ -16,7 +16,7 @@ class RegularPolygonSpriteModel : public Model {
 
 public:
     /** 頂点構造体 */
-    struct VERTEX : public VERTEX_3D_BASE {
+    struct VERTEX : public VERTEX_POS_NOMAL {
         DWORD color;      // 頂点色（現在未使用）
         float tu, tv;     // 頂点のテクスチャ座標
     };

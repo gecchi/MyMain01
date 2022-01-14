@@ -11,7 +11,7 @@
 
 using namespace GgafLib;
 
-
+//注意：SingleLaser SetNum の最大は 26 に引き上げられる。定義側で26を設定推奨
 SingleLaser::SingleLaser(const char* prm_name, const char* prm_model) :
              GgafDx::MeshSetActor(prm_name,
                                   prm_model,
@@ -20,8 +20,7 @@ SingleLaser::SingleLaser(const char* prm_name, const char* prm_model) :
                                   TYPE_SINGLELASER_EFFECT,
                                   "SingleLaserTechnique",
                                   UTIL::createChecker(this) ) {
-
-    _pMeshSetModel->_draw_set_num = 26; //現在のシングルレーザーの最大セット数強制上書き。
+//    _pMeshSetModel->_draw_set_num = 26; //現在のシングルレーザーの最大セット数強制上書き。
     _class_name = "SingleLaser";
     _pColliChecker = (CollisionChecker*)_pChecker;
 

@@ -41,7 +41,7 @@ public:
         UINT PrimitiveCount;
     };
 
-    struct VERTEX : public Model::VERTEX_3D_BASE {
+    struct VERTEX : public Model::VERTEX_POS_NOMAL {
         float index;      // psizeではなくてはなくて頂点番号として使用。シェーダー側で何セット目かを判断するために使用。
         DWORD color;      // 頂点の色（オブジェクトのマテリアルカラーとして使用）
         float tu, tv;     // テクスチャ座標

@@ -52,7 +52,7 @@ public:
         UINT PrimitiveCount;
     };
 
-    struct VERTEX : public Model::VERTEX_3D_BASE {
+    struct VERTEX : public Model::VERTEX_POS_NOMAL {
         DWORD color; // 頂点の色（現在未使用）
         float tu, tv; // テクスチャ座標
         float tan_x, tan_y, tan_z; //

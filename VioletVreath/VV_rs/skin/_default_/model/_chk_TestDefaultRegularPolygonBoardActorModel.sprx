@@ -1,9 +1,0 @@
-xof 0303txt 0032
-
-SpriteDef Mogera-to {
-   128.0;
-   128.0;
-   "test_tile.png";
-   2;
-   2;
-} 

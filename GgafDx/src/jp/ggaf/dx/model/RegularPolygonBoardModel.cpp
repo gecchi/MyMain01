@@ -209,7 +209,7 @@ void RegularPolygonBoardModel::restore() {
             }
             _pVertexBuffer_data[_angle_num+1] = _pVertexBuffer_data[1];
         }
-        transformVtx(_pVertexBuffer_data, _size_vertex_unit, _angle_num+2);
+        transformPosVtx(_pVertexBuffer_data, _size_vertex_unit, _angle_num+2);
 
         _num_materials = 1;
         D3DMATERIAL9* paMaterial;

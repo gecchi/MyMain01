@@ -76,26 +76,27 @@ _pTexBlinker(new TextureBlinker(this)) {
 //    }
 //    _papTextureConnection[0] = top;
 //}
-void Model::transformPointSpriteVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit, int prm_vtx_num) {
+void Model::transformPosVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit, int prm_vtx_num) {
     byte* paVtxBuffer = (byte*)prm_paVtxBuffer;
-    PointSpriteModel::VERTEX* pVtx;
+    VERTEX_POS* pVtx;
     for (int i = 0; i < prm_vtx_num; i++) {
         D3DXVECTOR3 vecVertex;
-        pVtx = (PointSpriteModel::VERTEX*)(paVtxBuffer + (prm_size_of_vtx_unit*i)); //頂点データの頭だし
+        pVtx = (VERTEX_POS*)(paVtxBuffer + (prm_size_of_vtx_unit*i)); //頂点データの頭だし
         vecVertex.x = pVtx->x;
         vecVertex.y = pVtx->y;
         vecVertex.z = pVtx->z;
         D3DXVec3TransformCoord(&vecVertex, &vecVertex, &_matBaseTransformMatrix);
     }
 }
-void Model::transformVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit, int prm_vtx_num) {
+
+void Model::transformPosNomalVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit, int prm_vtx_num) {
     byte* paVtxBuffer = (byte*)prm_paVtxBuffer;
-    Model::VERTEX_3D_BASE* pVtx;
+    Model::VERTEX_POS_NOMAL* pVtx;
 
     for (int i = 0; i < prm_vtx_num; i++) {
         D3DXVECTOR3 vecVertex;
         D3DXVECTOR3 vecNormal;
-        pVtx = (Model::VERTEX_3D_BASE*)(paVtxBuffer + (prm_size_of_vtx_unit*i)); //頂点データの頭だし
+        pVtx = (Model::VERTEX_POS_NOMAL*)(paVtxBuffer + (prm_size_of_vtx_unit*i)); //頂点データの頭だし
         vecVertex.x = pVtx->x;
         vecVertex.y = pVtx->y;
         vecVertex.z = pVtx->z;
@@ -138,7 +139,7 @@ void Model::transformVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit, int p
 
     D3DXVECTOR3 vec;
     for (int i = 0; i < prm_vtx_num; i++) {
-        pVtx = (Model::VERTEX_3D_BASE*)(paVtxBuffer + (prm_size_of_vtx_unit*i));
+        pVtx = (Model::VERTEX_POS_NOMAL*)(paVtxBuffer + (prm_size_of_vtx_unit*i));
         vec.x = pVtx->nx;
         vec.y = pVtx->ny;
         vec.z = pVtx->nz;
@@ -249,7 +250,7 @@ void Model::prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,
     }
 
     float rate; //その法線の出ている頂点の成す角の率。つまり法線ベクトルに掛ける率。その法線ベクトルの影響の強さ。
-    Model::VERTEX_3D_BASE* pVtx;
+    Model::VERTEX_POS_NOMAL* pVtx;
     D3DXVECTOR3 p[3];
     D3DXVECTOR2 uv[3];
     D3DXVECTOR3 outTangent;
@@ -268,7 +269,7 @@ void Model::prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,
         if (nFaceNormals > face_index) {
             for (int v = 0; v < 3; v++) {
                 rate = (paRad[face_index*3+v] / paRadSum_Vtx[indexVertices_per_Face[v]]);
-                pVtx = (Model::VERTEX_3D_BASE*)(paVtxBuffer + (prm_size_of_vtx_unit*indexVertices_per_Face[v]));
+                pVtx = (Model::VERTEX_POS_NOMAL*)(paVtxBuffer + (prm_size_of_vtx_unit*indexVertices_per_Face[v]));
                 pVtx->nx += (model_pMeshesFront->_Normals[indexNormals_per_Face[v]].x * rate);
                 pVtx->ny += (model_pMeshesFront->_Normals[indexNormals_per_Face[v]].y * rate);
                 pVtx->nz += (model_pMeshesFront->_Normals[indexNormals_per_Face[v]].z * rate);
@@ -304,7 +305,7 @@ void Model::prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,
             D3DXPlaneNormalize(&Plane, &Plane);
             for (int v = 0; v < 3; v++) {
                 rate = (paRad[face_index*3+v] / paRadSum_Vtx[indexVertices_per_Face[v]]);
-                pVtx = (Model::VERTEX_3D_BASE*)(paVtxBuffer + (prm_size_of_vtx_unit*indexVertices_per_Face[v]));
+                pVtx = (Model::VERTEX_POS_NOMAL*)(paVtxBuffer + (prm_size_of_vtx_unit*indexVertices_per_Face[v]));
                 pVtx->nx += (Plane.a * rate);
                 pVtx->ny += (Plane.b * rate);
                 pVtx->nz += (Plane.c * rate);
@@ -316,7 +317,7 @@ void Model::prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,
             //何を血迷ったか、バンプマップの為U軸 接ベクトル（Tangent）及び V軸 従法線（Binormal）の平均を計算
             //頂点バッファに、Tangent Binormal 埋め込み有りの場合
             for (int v = 0; v < 3; v++) { //p[3] と uv[3] にパラメータセット
-                pVtx = (Model::VERTEX_3D_BASE*)(paVtxBuffer + (prm_size_of_vtx_unit*indexVertices_per_Face[v]));
+                pVtx = (Model::VERTEX_POS_NOMAL*)(paVtxBuffer + (prm_size_of_vtx_unit*indexVertices_per_Face[v]));
                 p[v].x = pVtx->x;
                 p[v].y = pVtx->y;
                 p[v].z = pVtx->z;
@@ -395,7 +396,7 @@ void Model::prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,
             D3DXVECTOR3 vecTangent;
             D3DXVECTOR3 vecBinormal;
             for (int i = nVertices_begin; i < nVertices_end; i++) {
-                pVtx = (Model::VERTEX_3D_BASE*)(paVtxBuffer + (prm_size_of_vtx_unit*i));
+                pVtx = (Model::VERTEX_POS_NOMAL*)(paVtxBuffer + (prm_size_of_vtx_unit*i));
                 vecVertex.x = pVtx->x;
                 vecVertex.y = pVtx->y;
                 vecVertex.z = pVtx->z;
@@ -439,7 +440,7 @@ void Model::prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,
     //最後に法線正規化して設定
     D3DXVECTOR3 vec;
     for (int i = 0; i < nVertices; i++) {
-        pVtx = (Model::VERTEX_3D_BASE*)(paVtxBuffer + (prm_size_of_vtx_unit*i));
+        pVtx = (Model::VERTEX_POS_NOMAL*)(paVtxBuffer + (prm_size_of_vtx_unit*i));
         vec.x = pVtx->nx;
         vec.y = pVtx->ny;
         vec.z = pVtx->nz;

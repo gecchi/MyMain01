@@ -54,8 +54,11 @@ class Model : public GgafCore::Object {
     friend class ModelManager;
 
 public:
-    struct VERTEX_3D_BASE {
+    struct VERTEX_POS {
         float x, y, z;    // í∏ì_ç¿ïW
+    };
+
+    struct VERTEX_POS_NOMAL : public VERTEX_POS {
         float nx, ny, nz; // ñ@ê¸
     };
 
@@ -231,8 +234,8 @@ public:
                     Frm::Model3D* model_pModel3D,
                     uint16_t* paNumVertices);
 
-    void transformVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit, int prm_vtx_num);
-    void transformPointSpriteVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit, int prm_vtx_num);
+    void transformPosNomalVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit, int prm_vtx_num);
+    void transformPosVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit, int prm_vtx_num);
 
     static void calcTangentAndBinormal(
             D3DXVECTOR3* p0, D3DXVECTOR2* uv0,

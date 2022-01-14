@@ -25,7 +25,7 @@ public:
     };
 
     /** 頂点構造体 */
-    struct VERTEX : public Model::VERTEX_3D_BASE {
+    struct VERTEX : public Model::VERTEX_POS_NOMAL {
         float index;      // psizeではなくてはなくて頂点番号を埋め込む。シェーダー側で何セット目かを判断するために使用。
         float tu, tv;     // 頂点のテクスチャ座標
     };

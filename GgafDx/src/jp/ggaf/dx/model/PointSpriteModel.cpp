@@ -171,7 +171,7 @@ void PointSpriteModel::restore() {
 
 
         }
-        transformPointSpriteVtx(paVtxBuffer_data, size_vertex_unit, vertices_num);
+        transformPosVtx(paVtxBuffer_data, size_vertex_unit, vertices_num);
 
         //‹——£
         FLOAT bounding_sphere_radius = 0;

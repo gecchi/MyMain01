@@ -56,13 +56,13 @@ public:
 
 
     /** プライマリメッシュの頂点フォーマット定義 */
-    struct VERTEX_PRIMARY : public Model::VERTEX_3D_BASE {
+    struct VERTEX_PRIMARY : public Model::VERTEX_POS_NOMAL {
         DWORD color;      // 頂点の色（現在未使用）
         float tu, tv;     // テクスチャ座標
     };
 
     /** モーフターゲットメッシュの頂点フォーマット定義 */
-    struct VERTEX_MORPH : public Model::VERTEX_3D_BASE {
+    struct VERTEX_MORPH : public Model::VERTEX_POS_NOMAL {
     };
 
     /** モーフターゲット数 */

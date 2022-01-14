@@ -1,6 +1,6 @@
 xof 0303txt 0032
 
-PointSpriteDef mogera {
+PointSpriteModelDef _chk_TestDefaultPointSpriteSetActorModel {
   32.0;
   "test_tile.png";
   8;
@@ -45,5 +45,12 @@ PointSpriteDef mogera {
   1.0,
   1.0,
   1.0;
+  
+  0;
+  
+  1.000000, 0.000000, 0.000000, 0.000000, 
+  0.000000, 1.000000, 0.000000, 0.000000, 
+  0.000000, 0.000000, 1.000000, 0.000000, 
+  0.000000, 0.000000, 0.000000, 1.000000; 
 
 } 

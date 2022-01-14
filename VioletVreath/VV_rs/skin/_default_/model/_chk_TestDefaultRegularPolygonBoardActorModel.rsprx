@@ -1,11 +1,17 @@
 xof 0303txt 0032
 
-MeshModelDef _chk_TestDefaultD3DXAniMeshActorModel {
-  1;
-  "_chk_TestDefaultBoneAniMeshActorModel.x";
-  0;
+RegularPolygonModelDef Mogera-to {
+  128.0;
+  128.0;
+  "test_tile.png";
+  2;
+  2;
+   
+  6;   # DWORD  FanNum 
+  1;   # DWORD  IsCW
+   
   1.000000, 0.000000, 0.000000, 0.000000, 
   0.000000, 1.000000, 0.000000, 0.000000, 
   0.000000, 0.000000, 1.000000, 0.000000, 
   0.000000, 0.000000, 0.000000, 1.000000; 
-}
+} 

@@ -2,7 +2,7 @@ xof 0303txt 0032
 
 MeshModelDef _chk_TestSpriteMeshSetActorModel {
   1;
-  "_chk_TestSpriteMeshSetActorModel.x";
+  "Guruguru.x";
   0;
   1.000000, 0.000000, 0.000000, 0.000000, 
   0.000000, 1.000000, 0.000000, 0.000000, 

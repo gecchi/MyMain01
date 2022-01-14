@@ -14,8 +14,7 @@ class PointSpriteSetModel : public Model {
     friend class ModelManager;
 
 public:
-    struct VERTEX {
-        float x, y, z;    // 頂点座標
+    struct VERTEX : public Model::VERTEX_POS {
         float psize;      // ポイントサイズ
         DWORD color;      // 頂点の色
         float ini_ptn_no, index;     //

@@ -197,9 +197,11 @@ void MeshSetModel::restore() {
         pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
         _matBaseTransformMatrix = xdata.BaseTransformMatrix;
         _draw_set_num = xdata.DrawSetNum;
-        if (_draw_set_num == 0 || _draw_set_num > MESHSETMODEL_MAX_DARW_SET_NUM) {
+        if (_draw_set_num == 0) {
             _TRACE_("MeshSetModel::restore() "<<_model_id<<" の同時描画セット数は、最大の "<<MESHSETMODEL_MAX_DARW_SET_NUM<<" に再定義されました。理由：_draw_set_num="<<_draw_set_num);
             _draw_set_num = MESHSETMODEL_MAX_DARW_SET_NUM;
+        } else if (_draw_set_num > MESHSETMODEL_MAX_DARW_SET_NUM) {
+            _TRACE_("【警告】MeshSetModel::restore() "<<_model_id<<" の同時描画セット数が、定数 "<<MESHSETMODEL_MAX_DARW_SET_NUM<<" を超えています。 独自 effect などで意図してますか？ _draw_set_num="<<_draw_set_num);
         } else {
             _TRACE_("MeshSetModel::restore() "<<_model_id<<" の同時描画セット数は "<<_draw_set_num<<" です。");
         }

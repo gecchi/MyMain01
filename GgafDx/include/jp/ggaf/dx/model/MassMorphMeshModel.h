@@ -16,7 +16,7 @@ class MassMorphMeshModel : public MassModel {
     friend class ModelManager;
 
 public:
-    struct VERTEX_model_primary : public Model::VERTEX_3D_BASE {
+    struct VERTEX_model_primary : public Model::VERTEX_POS_NOMAL {
         D3DCOLOR color;   // 頂点の色（オブジェクトのマテリアルカラーとして使用予定）
         float tu, tv;     // テクスチャ座標
     };
@@ -24,7 +24,7 @@ public:
     WORD* _paIndexBuffer_data;
 
     /** モーフターゲットの頂点フォーマット定義 */
-    struct VERTEX_model_morph : public Model::VERTEX_3D_BASE {
+    struct VERTEX_model_morph : public Model::VERTEX_POS_NOMAL {
     };
     /** モーフターゲット頂点バッファの写しコピーの頂点配列のモーフターゲット数配列 */
     VERTEX_model_morph**  _papaVtxBuffer_data_morph_model;

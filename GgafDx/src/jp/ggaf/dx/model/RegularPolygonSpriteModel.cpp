@@ -223,7 +223,7 @@ void RegularPolygonSpriteModel::restore() {
             _pVertexBuffer_data[_angle_num+1] = _pVertexBuffer_data[1];
         }
 
-        transformVtx(_pVertexBuffer_data, _size_vertex_unit, _angle_num+2);
+        transformPosVtx(_pVertexBuffer_data, _size_vertex_unit, _angle_num+2);
 
         //‹——£
         _bounding_sphere_radius = _pVertexBuffer_data[1].x;

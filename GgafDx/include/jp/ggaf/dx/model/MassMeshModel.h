@@ -16,7 +16,7 @@ class MassMeshModel : public MassModel {
     friend class ModelManager;
 
 public:
-    struct VERTEX_model : public Model::VERTEX_3D_BASE {
+    struct VERTEX_model : public Model::VERTEX_POS_NOMAL {
         D3DCOLOR color;   // 頂点の色（オブジェクトのマテリアルカラーとして使用予定）
         float tu, tv;     // テクスチャ座標
     };

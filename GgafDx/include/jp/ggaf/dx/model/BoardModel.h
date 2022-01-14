@@ -16,8 +16,7 @@ class BoardModel : public Model {
     friend class BoardActor;
 
 public:
-    struct VERTEX {
-        float x, y, z; // 頂点座標
+    struct VERTEX : public Model::VERTEX_POS {
         float tu, tv; // テクスチャ座標
     };
 

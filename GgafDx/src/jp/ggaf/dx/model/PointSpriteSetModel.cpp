@@ -201,7 +201,7 @@ void PointSpriteSetModel::restore() {
             _paVtxBuffer_data[i].ini_ptn_no = (float)(xdata.paInt_InitUvPtnNo[i]); //頂点スプライトのUVパターン番号
             _paVtxBuffer_data[i].index = 0; //頂点番号（むりやり埋め込み）
         }
-        transformPointSpriteVtx(_paVtxBuffer_data, _size_vertex_unit, _nVertices);
+        transformPosVtx(_paVtxBuffer_data, _size_vertex_unit, _nVertices);
 
         //距離
         FLOAT model_bounding_sphere_radius;

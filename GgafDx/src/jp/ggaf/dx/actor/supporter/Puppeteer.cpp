@@ -286,5 +286,5 @@ void Puppeteer::updateAnimationTrack() {
 Puppeteer::~Puppeteer() {
     GGAF_DELETE(_pStickMain);
     GGAF_DELETE(_pStickSub);
-    GGAF_DELETE_NULLABLE(_paPerformances);
+    GGAF_DELETEARR(_paPerformances);
 }

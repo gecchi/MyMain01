@@ -20,7 +20,7 @@ class BoneAniMeshModel : public Model {
 public:
     /** 頂点のFVF */
     static DWORD FVF;
-    struct VERTEX : public Model::VERTEX_3D_BASE {
+    struct VERTEX : public Model::VERTEX_POS_NOMAL {
         float index;      // psizeではなくてはなくて頂点番号として使用。何フレーム目かするために使用。
         DWORD color;      // 頂点の色（オブジェクトのマテリアルカラーとして使用）
         float tu, tv;     // テクスチャ座標

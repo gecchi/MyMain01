@@ -16,13 +16,12 @@ class MassPointSpriteModel : public MassModel {
     friend class ModelManager;
 
 public:
-//    struct VERTEX_model : public Model::VERTEX_3D_BASE {
+//    struct VERTEX_model : public Model::VERTEX_POS_NOMAL {
 //        D3DCOLOR color;   // 頂点の色（オブジェクトのマテリアルカラーとして使用予定）
 //        float tu, tv;     // テクスチャ座標
 //    };
 
-    struct VERTEX_model {
-        float x, y, z;    // 頂点座標
+    struct VERTEX_model : public Model::VERTEX_POS {
         float psize;      // ポイントサイズ
         DWORD color;      // 頂点の色
         float tu, tv;     // テクスチャ座標

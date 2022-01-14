@@ -2,8 +2,8 @@ xof 0303txt 0032
 
 MeshModelDef _chk_TestSingleLaserModel {
   1;
-  "_chk_TestSingleLaserModel.x";
-  0;
+  "Guruguru.x";
+  26;                   # SingleLaserModel max is 26
   1.000000, 0.000000, 0.000000, 0.000000, 
   0.000000, 1.000000, 0.000000, 0.000000, 
   0.000000, 0.000000, 1.000000, 0.000000, 

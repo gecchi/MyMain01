@@ -203,15 +203,13 @@ void BoneAniMeshModel::restore() {
         if (_pFrameRoot == nullptr) {
             throwCriticalException(xfilepath<<" のフレーム情報が取得できません！");
         }
-        if (_pAniControllerBase) {
-            //デフォルトで設定されているトラックのアニメーションで姿勢を一回つくる（コピー用）
-            //グローバル時間を0にする
-            hr = _pAniControllerBase->ResetTime();
-            checkDxException(hr, D3D_OK, "失敗しました。");
-            //0秒進める（ことによって反映させる）。
-            hr = _pAniControllerBase->AdvanceTime(0, nullptr);
-            checkDxException(hr, D3D_OK, "失敗しました。");
-        }
+        //デフォルトで設定されているトラックのアニメーションで姿勢を一回つくる（コピー用）
+        //グローバル時間を0にする
+        hr = _pAniControllerBase->ResetTime();
+        checkDxException(hr, D3D_OK, "失敗しました。");
+        //0秒進める（ことによって反映させる）。
+        hr = _pAniControllerBase->AdvanceTime(0, nullptr);
+        checkDxException(hr, D3D_OK, "失敗しました。");
 
         _vecDrawBoneFrame.clear();
         _vecAllBoneFrame.clear();
@@ -220,39 +218,36 @@ void BoneAniMeshModel::restore() {
         //////
         _mapAnimationSet_AniSetindex.clear();
         _mapAnimationSetIndex_AnimationTargetBoneFrameNames.clear();
-        _num_animation_set = 0;
-        if (_pAniControllerBase) {
-            _num_animation_set = _pAniControllerBase->GetMaxNumAnimationSets();
+        _num_animation_set = _pAniControllerBase->GetMaxNumAnimationSets();
 
-            for (UINT ani_set_index = 0; ani_set_index < _num_animation_set; ani_set_index++) {
-                ID3DXAnimationSet* pAnimationSet = nullptr;
-                hr = _pAniControllerBase->GetAnimationSet(ani_set_index, &(pAnimationSet)); //アニメーションセット保持
+        for (UINT ani_set_index = 0; ani_set_index < _num_animation_set; ani_set_index++) {
+            ID3DXAnimationSet* pAnimationSet = nullptr;
+            hr = _pAniControllerBase->GetAnimationSet(ani_set_index, &(pAnimationSet)); //アニメーションセット保持
+            checkDxException(hr, D3D_OK, "失敗しました");
+            _mapAnimationSet_AniSetindex[pAnimationSet] = ani_set_index;
+            int num_animation = pAnimationSet->GetNumAnimations();
+            for (UINT ani_index = 0; ani_index < num_animation; ++ani_index) {
+                LPCSTR target_bone_frame_name = nullptr;
+                hr = pAnimationSet->GetAnimationNameByIndex(ani_index, &target_bone_frame_name);
                 checkDxException(hr, D3D_OK, "失敗しました");
-                _mapAnimationSet_AniSetindex[pAnimationSet] = ani_set_index;
-                int num_animation = pAnimationSet->GetNumAnimations();
-                for (UINT ani_index = 0; ani_index < num_animation; ++ani_index) {
-                    LPCSTR target_bone_frame_name = nullptr;
-                    hr = pAnimationSet->GetAnimationNameByIndex(ani_index, &target_bone_frame_name);
-                    checkDxException(hr, D3D_OK, "失敗しました");
-                    _mapAnimationSetIndex_AnimationTargetBoneFrameNames[ani_set_index].push_back(target_bone_frame_name);
+                _mapAnimationSetIndex_AnimationTargetBoneFrameNames[ani_set_index].push_back(target_bone_frame_name);
 
-                }
             }
+        }
 
-            _papaBool_AnimationSetIndex_BoneFrameIndex_is_act = NEW bool*[_num_animation_set];
-            for (UINT ani_set_index = 0; ani_set_index < _num_animation_set; ani_set_index++) {
-                _papaBool_AnimationSetIndex_BoneFrameIndex_is_act[ani_set_index] = NEW bool[_tmp_frame_index+1];
-                std::vector<LPCSTR>* pAnimationTargetBoneFrameNameList = &(_mapAnimationSetIndex_AnimationTargetBoneFrameNames[ani_set_index]);
-                for (DWORD frame_index = 0; frame_index < _vecAllBoneFrame.size(); frame_index++) {
-                    _papaBool_AnimationSetIndex_BoneFrameIndex_is_act[ani_set_index][frame_index] = false;
-                    LPSTR frame_name = _vecAllBoneFrame[frame_index]->Name;
-                    if (frame_name) {
-                        for (int n = 0; n < pAnimationTargetBoneFrameNameList->size(); n++) {
-                            LPCSTR animation_target_bone_frame_name = (*pAnimationTargetBoneFrameNameList)[n];
-                            if (strcmp(animation_target_bone_frame_name, frame_name) == 0) {
-                                _papaBool_AnimationSetIndex_BoneFrameIndex_is_act[ani_set_index][frame_index] = true;
-                                break;
-                            }
+        _papaBool_AnimationSetIndex_BoneFrameIndex_is_act = NEW bool*[_num_animation_set];
+        for (UINT ani_set_index = 0; ani_set_index < _num_animation_set; ani_set_index++) {
+            _papaBool_AnimationSetIndex_BoneFrameIndex_is_act[ani_set_index] = NEW bool[_tmp_frame_index+1];
+            std::vector<LPCSTR>* pAnimationTargetBoneFrameNameList = &(_mapAnimationSetIndex_AnimationTargetBoneFrameNames[ani_set_index]);
+            for (DWORD frame_index = 0; frame_index < _vecAllBoneFrame.size(); frame_index++) {
+                _papaBool_AnimationSetIndex_BoneFrameIndex_is_act[ani_set_index][frame_index] = false;
+                LPSTR frame_name = _vecAllBoneFrame[frame_index]->Name;
+                if (frame_name) {
+                    for (int n = 0; n < pAnimationTargetBoneFrameNameList->size(); n++) {
+                        LPCSTR animation_target_bone_frame_name = (*pAnimationTargetBoneFrameNameList)[n];
+                        if (strcmp(animation_target_bone_frame_name, frame_name) == 0) {
+                            _papaBool_AnimationSetIndex_BoneFrameIndex_is_act[ani_set_index][frame_index] = true;
+                            break;
                         }
                     }
                 }
