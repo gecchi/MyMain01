@@ -152,9 +152,9 @@ void TestScene::processBehavior() {
                 } else {
                     GgafDx::GeometricActor* pActor = (GgafDx::GeometricActor*)receiveActor(_id_+order_id_begin_);
                     if (pActor->_pFunc_calc_rot_mv_world_matrix) {
-                        pActor->setPosition(PX_C(_id_*40 - 512), PX_C(-100), 0);
+                        pActor->setPosition(PX_C(_id_*40 - 450), PX_C(-200+_id_*10), 0);
                     } else {
-                        pActor->setPosition(PX_C(_id_*40), PX_C(100), 0);
+                        pActor->setPosition(PX_C(_id_*40), PX_C(_id_*10), 0);
                     }
                     bringSceneMediator()->appendGroupChild(pActor);
                     _id_++;
