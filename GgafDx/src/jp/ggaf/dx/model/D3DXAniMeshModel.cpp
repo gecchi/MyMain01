@@ -25,6 +25,7 @@ D3DXAniMeshModel::D3DXAniMeshModel(const char* prm_model_id) : Model(prm_model_i
     _pAniControllerBase = nullptr;
     _num_materials = 0L;
     _anim_ticks_per_second = 4800; //restoreD3DXAniMeshModel で上書きされる場合がある。
+    _max_draw_set_num = 1;
 }
 
 HRESULT D3DXAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
@@ -172,6 +173,12 @@ void D3DXAniMeshModel::restore() {
     std::string model_def_filepath = ModelManager::getModelDefineFilePath(model_def_file);
     pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
     _matBaseTransformMatrix = xdata.BaseTransformMatrix;
+    _draw_set_num = xdata.DrawSetNum;
+    if (_draw_set_num != 1) {
+        _TRACE_("D3DXAniMeshModel::restore() 本モデルの "<<_model_id<<" の同時描画セット数は 1 に上書きされました。（_draw_set_num="<<_draw_set_num<<" は無視されました。）");
+        _draw_set_num = 1;
+    }
+
     std::string xfilepath = ModelManager::getXFilePath(xdata.XFileNames[0]);
 
 //    std::string xfile_name = ModelManager::getModelDefineFilePath(_model_id, "meshx");

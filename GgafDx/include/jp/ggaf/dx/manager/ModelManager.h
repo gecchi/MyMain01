@@ -53,10 +53,12 @@ namespace GgafDx {
 class ModelManager : public GgafCore::ResourceManager<Model> {
 
 private:
-    template <typename T> T* createModel(const char* prm_model_id);
     D3DXMeshModel*     createD3DXMeshModel(const char* prm_model_id, DWORD prm_dwOptions);
-public:
 
+protected:
+    template <typename T> T* createModel(const char* prm_model_id);
+
+public:
     struct MeshXFileFmt {
         DWORD XFileNum;
         std::string* XFileNames;

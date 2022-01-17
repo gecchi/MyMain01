@@ -30,7 +30,7 @@ BoardSetModel::BoardSetModel(const char* prm_model_id) : Model(prm_model_id) {
     _size_vertices = 0;
     _size_vertex_unit = 0;
     _paIndexParam = nullptr;
-    _draw_set_num = BOARDSETMODEL_MAX_DARW_SET_NUM;
+    _max_draw_set_num = BOARDSETMODEL_MAX_DARW_SET_NUM;
 }
 
 HRESULT BoardSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
@@ -126,20 +126,6 @@ HRESULT BoardSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num
 void BoardSetModel::restore() {
     _TRACE3_("_model_id=" << _model_id << " start");
     if (_paVertexBuffer_data == nullptr) {
-//        if (4*_draw_set_num > 65535) {
-//            throwCriticalException("頂点が 65535を超えたかもしれません。\n対象Model："<<getName()<<"  nVertices:4  セット数:"<<(_draw_set_num));
-//        }
-//
-//        _papTextureConnection = nullptr;
-//
-//        //"12,Moji" or "8,Moji" or "Moji" から "Moji" だけ取とりだしてフルパス名取得。
-//        std::string model_name;
-//        std::vector<std::string> names = UTIL::split(std::string(_model_id), ",");
-//        if (names.size() == 2) {
-//            model_name = names[1];
-//        } else {
-//            model_name = names[0];
-//        }
         ModelManager* pModelManager = pGOD->_pModelManager;
         ModelManager::SpriteXFileFmt xdata;
         std::string model_def_file = std::string(_model_id) + ".sprx";
@@ -153,9 +139,9 @@ void BoardSetModel::restore() {
         _pa_texture_filenames = NEW std::string[1];
         _pa_texture_filenames[0] = std::string(xdata.TextureFile);
         _draw_set_num = xdata.DrawSetNum;
-        if (_draw_set_num == 0 || _draw_set_num > BOARDSETMODEL_MAX_DARW_SET_NUM) {
-            _TRACE_("BoardSetModel::restore() "<<_model_id<<" の同時描画セット数は、最大の "<<BOARDSETMODEL_MAX_DARW_SET_NUM<<" に再定義されました。理由：_draw_set_num="<<_draw_set_num);
-            _draw_set_num = BOARDSETMODEL_MAX_DARW_SET_NUM;
+        if (_draw_set_num == 0 || _draw_set_num > _max_draw_set_num) {
+            _TRACE_("BoardSetModel::restore() "<<_model_id<<" の同時描画セット数は、最大の "<<_max_draw_set_num<<" に再定義されました。理由：_draw_set_num="<<_draw_set_num);
+            _draw_set_num = _max_draw_set_num;
         } else {
             _TRACE_("BoardSetModel::restore() "<<_model_id<<" の同時描画セット数は "<<_draw_set_num<<" です。");
         }

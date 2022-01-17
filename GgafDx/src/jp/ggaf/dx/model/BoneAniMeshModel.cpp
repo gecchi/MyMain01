@@ -42,6 +42,7 @@ BoneAniMeshModel::BoneAniMeshModel(const char* prm_model_id) : Model(prm_model_i
     _nVertices = 0;
     _tmp_frame_index = 0;
     _num_animation_set = 0;
+    _max_draw_set_num = 1;
     _papaBool_AnimationSetIndex_BoneFrameIndex_is_act = nullptr;
 
 }

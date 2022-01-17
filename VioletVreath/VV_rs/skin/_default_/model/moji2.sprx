@@ -1,6 +1,6 @@
 xof 0303txt 0032
 
-SpriteDef Mogera-to {
+SpriteModelDef Mogera-to {
    20.0;
    30.0;
    "ASCII2.bmp";

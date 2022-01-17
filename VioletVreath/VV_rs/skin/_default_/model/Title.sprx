@@ -1,6 +1,6 @@
 xof 0303txt 0032
 
-SpriteDef Title {
+SpriteModelDef Title {
    1024.0;         # FLOAT  Width
    256.0;         # FLOAT  Height
    "Title.png";   # STRING TextureFile

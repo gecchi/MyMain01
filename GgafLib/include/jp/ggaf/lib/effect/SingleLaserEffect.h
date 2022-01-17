@@ -13,7 +13,7 @@ namespace GgafLib {
  */
 class SingleLaserEffect : public GgafDx::MeshSetEffect {
     friend class DefaultEffectManager;
-
+    friend class DefaultModelManager;
 public:
 
 public:

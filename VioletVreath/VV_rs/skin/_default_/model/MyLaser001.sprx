@@ -1,6 +1,6 @@
 xof 0303txt 0032
 
-SpriteDef Mogera {
+SpriteModelDef Mogera {
    32.0;
    32.0;
    "MyLaser001.png";

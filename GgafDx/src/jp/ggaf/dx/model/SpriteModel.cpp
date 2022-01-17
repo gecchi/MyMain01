@@ -28,6 +28,7 @@ SpriteModel::SpriteModel(const char* prm_model_id) : Model(prm_model_id) {
     _pVertexBuffer_data = nullptr;
     _size_vertices = 0;
     _size_vertex_unit = 0;
+    _max_draw_set_num = 1;
 }
 
 HRESULT SpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {

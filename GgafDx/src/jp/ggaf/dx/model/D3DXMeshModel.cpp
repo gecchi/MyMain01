@@ -12,7 +12,6 @@
 #include "jp/ggaf/dx/model/MassModel.h"
 #include "jp/ggaf/dx/texture/Texture.h"
 
-
 using namespace GgafDx;
 
 D3DXMeshModel::D3DXMeshModel(const char* prm_model_id, DWORD prm_dwOptions) : Model(prm_model_id) {
@@ -20,6 +19,7 @@ D3DXMeshModel::D3DXMeshModel(const char* prm_model_id, DWORD prm_dwOptions) : Mo
     _pID3DXMesh = nullptr;
     _num_materials = 0L;
     _dwOptions = prm_dwOptions;
+    _max_draw_set_num = 1;
 }
 
 HRESULT D3DXMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
@@ -146,7 +146,12 @@ void D3DXMeshModel::restore() {
     std::string model_def_file = std::string(_model_id) + ".meshx";
     std::string model_def_filepath = ModelManager::getModelDefineFilePath(model_def_file);
     pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
-    _matBaseTransformMatrix = xdata.BaseTransformMatrix; //TODO:これは使われていない。
+    _matBaseTransformMatrix = xdata.BaseTransformMatrix; //TODO:これは使われていない。どうやって適用しようか・・・
+    _draw_set_num = xdata.DrawSetNum;
+    if (_draw_set_num != 1) {
+        _TRACE_("D3DXMeshModel::restore() 本モデルの "<<_model_id<<" の同時描画セット数は 1 に上書きされました。（_draw_set_num="<<_draw_set_num<<" は無視されました。）");
+        _draw_set_num = 1;
+    }
     std::string xfilepath = ModelManager::getXFilePath(xdata.XFileNames[0]);
 
     //Xファイルのロードして必要な内容をD3DXMeshModelメンバに設定しインスタンスとして完成させたい

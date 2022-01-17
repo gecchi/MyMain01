@@ -110,7 +110,11 @@ class NomalLaserChip;
 class LaserChipDepository;
 
 class DefaultEffectManager;
+class SingleLaserEffect;
 class MassWallEffect;
+
+class DefaultModelManager;
+class SingleLaserModel;
 
 class CameraWorkerManager;
 class CameraWorkerConnection;

@@ -1,6 +1,6 @@
 xof 0303txt 0032
 
-SpriteDef EffectTorusEye001 {
+SpriteModelDef EffectTorusEye001 {
    128.0;
    128.0;
    "EffectTorusEye001.png";

@@ -28,6 +28,7 @@ BoardModel::BoardModel(const char* prm_model_id) :
     _pVertexBuffer_data = nullptr;
     _size_vertices = 0;
     _size_vertex_unit = 0;
+    _max_draw_set_num = 0;
 }
 
 HRESULT BoardModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
@@ -135,11 +136,9 @@ void BoardModel::restore() {
             _TRACE_("BoardModel::restore() 本モデルの "<<_model_id<<" の同時描画セット数は 1 に上書きされました。（_draw_set_num="<<_draw_set_num<<" は無視されました。）");
             _draw_set_num = 1;
         }
-
         _pVertexBuffer_data = NEW BoardModel::VERTEX[4];
         _size_vertices = sizeof(BoardModel::VERTEX)*4;
         _size_vertex_unit = sizeof(BoardModel::VERTEX);
-
         //1pxあたりのuvの大きさを求める
     //    float tex_width  = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Width); //テクスチャの幅(px)
     //    float tex_height = (float)(model_pTextureConnection->peek()->_pD3DXIMAGE_INFO->Height); //テクスチャの高さ(px)

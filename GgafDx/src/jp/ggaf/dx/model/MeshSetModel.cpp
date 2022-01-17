@@ -34,24 +34,7 @@ MeshSetModel::MeshSetModel(const char* prm_model_id) : Model(prm_model_id) {
     _size_vertices = 0;
     _nVertices = 0;
     _nFaces= 0;
-    _draw_set_num = MESHSETMODEL_MAX_DARW_SET_NUM;
-//    // prm_model_id には "xxxxxx" or "8,xxxxx" が、渡ってくる。
-//    // 同時描画セット数が8という意味です。
-//    std::string model_id = std::string(prm_model_id);
-//    std::vector<std::string> names = UTIL::split(model_id, ",");
-//    if (names.size() > 2) {
-//        throwCriticalException("prm_model_id には \"xxxxxx\" or \"8,xxxxx\" 形式を指定してください。 \n"
-//                "実際の引数は、prm_model_id="<<prm_model_id);
-//    }
-//    if (names.size() == 2) {
-//        _draw_set_num = STOI(names[0]);
-//        if (_draw_set_num > MESHSETMODEL_MAX_DARW_SET_NUM) {
-//            _TRACE_("MeshSetModel("<<prm_model_id<<") の同時描画セット数オーバー。最大は"<<MESHSETMODEL_MAX_DARW_SET_NUM<<"セットがですがそれ以上が設定されています。意図していますか？ _draw_set_num="<<_draw_set_num<<"。");
-//        }
-//    } else {
-//        _TRACE_("MeshSetModel("<<prm_model_id<<") のセット数省略のため、標準の最大の"<<MESHSETMODEL_MAX_DARW_SET_NUM<<"セットが設定されます。");
-//        _draw_set_num = MESHSETMODEL_MAX_DARW_SET_NUM;
-//    }
+    _max_draw_set_num = MESHSETMODEL_MAX_DARW_SET_NUM;
 }
 
 HRESULT MeshSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
@@ -197,11 +180,9 @@ void MeshSetModel::restore() {
         pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
         _matBaseTransformMatrix = xdata.BaseTransformMatrix;
         _draw_set_num = xdata.DrawSetNum;
-        if (_draw_set_num == 0) {
-            _TRACE_("MeshSetModel::restore() "<<_model_id<<" の同時描画セット数は、最大の "<<MESHSETMODEL_MAX_DARW_SET_NUM<<" に再定義されました。理由：_draw_set_num="<<_draw_set_num);
-            _draw_set_num = MESHSETMODEL_MAX_DARW_SET_NUM;
-        } else if (_draw_set_num > MESHSETMODEL_MAX_DARW_SET_NUM) {
-            _TRACE_("【警告】MeshSetModel::restore() "<<_model_id<<" の同時描画セット数が、定数 "<<MESHSETMODEL_MAX_DARW_SET_NUM<<" を超えています。 独自 effect などで意図してますか？ _draw_set_num="<<_draw_set_num);
+        if (_draw_set_num == 0 || _draw_set_num > _max_draw_set_num) {
+            _TRACE_("MeshSetModel::restore() "<<_model_id<<" の同時描画セット数は、最大の "<<_max_draw_set_num<<" に再定義されました。理由：_draw_set_num="<<_draw_set_num);
+            _draw_set_num = _max_draw_set_num;
         } else {
             _TRACE_("MeshSetModel::restore() "<<_model_id<<" の同時描画セット数は "<<_draw_set_num<<" です。");
         }

@@ -20,7 +20,6 @@ DWORD PointSpriteModel::FVF = (D3DFVF_XYZ | D3DFVF_PSIZE | D3DFVF_DIFFUSE | D3DF
 PointSpriteModel::PointSpriteModel(const char* prm_model_id) : Model(prm_model_id) {
     _TRACE3_("_model_id="<<_model_id);
     _obj_model |= Obj_GgafDx_PointSpriteModel;
-
     _pVertexBuffer = nullptr;
     _paVtxBuffer_data = nullptr;
     _vertices_num = 0;
@@ -30,6 +29,7 @@ PointSpriteModel::PointSpriteModel(const char* prm_model_id) : Model(prm_model_i
     _texture_size_px = 0.0f;
     _texture_split_rowcol = 1;
     _inv_texture_split_rowcol = 1.0f / _texture_split_rowcol;
+    _max_draw_set_num = 1;
 }
 
 HRESULT PointSpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
@@ -122,14 +122,17 @@ void PointSpriteModel::restore() {
     if (_paVtxBuffer_data == nullptr) {
 
         ModelManager* pModelManager = pGOD->_pModelManager;
-
         std::string model_def_file = std::string(_model_id) + ".psprx";
         _TRACE_("model_def_file="<<model_def_file);
         std::string model_def_filepath = ModelManager::getModelDefineFilePath(model_def_file);
         ModelManager::PointSpriteXFileFmt xdata;
         pModelManager->obtainPointSpriteModelInfo(&xdata, model_def_filepath);
         _matBaseTransformMatrix = xdata.BaseTransformMatrix;
-
+        _draw_set_num = xdata.DrawSetNum;
+        if (_draw_set_num != 1) {
+            _TRACE_("PointSpriteModel::restore() 本モデルの "<<_model_id<<" の同時描画セット数は 1 に上書きされました。（_draw_set_num="<<_draw_set_num<<" は無視されました。）");
+            _draw_set_num = 1;
+        }
         //退避
         float square_size_px = xdata.SquareSize;
         int texture_split_rowcol = xdata.TextureSplitRowCol;
@@ -151,7 +154,6 @@ void PointSpriteModel::restore() {
         if ((int)(tex_width*100000) != (int)(tex_height*100000)) {
             throwCriticalException("ポイントスプライト用テクスチャ["<<pTex->getName()<<"]("<<tex_width<<"x"<<tex_height<<")は、正方形である必要があります。");
         }
-
 
         //頂点バッファ作成
         PointSpriteModel::VERTEX* paVtxBuffer_data = NEW PointSpriteModel::VERTEX[vertices_num];
@@ -206,10 +208,7 @@ void PointSpriteModel::restore() {
         _paVtxBuffer_data        = paVtxBuffer_data;
         _bounding_sphere_radius = bounding_sphere_radius;
         _inv_texture_split_rowcol = 1.0f / _texture_split_rowcol;
-
-
     }
-
 
     if (_pVertexBuffer == nullptr) {
         HRESULT hr;

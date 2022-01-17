@@ -10,7 +10,6 @@
 #include "jp/ggaf/dx/manager/TextureManager.h"
 #include "jp/ggaf/dx/texture/Texture.h"
 
-
 using namespace GgafDx;
 
 MassBoardModel::MassBoardModel(const char* prm_model_id) : MassModel(prm_model_id) {
@@ -26,7 +25,7 @@ MassBoardModel::MassBoardModel(const char* prm_model_id) : MassModel(prm_model_i
     _row_texture_split = 1;
     _col_texture_split = 1;
     _papTextureConnection = nullptr;
-    _draw_set_num = GGAFDXMASS_MAX_INSTANCE_NUM;
+    _max_draw_set_num = GGAFDXMASS_MAX_INSTANCE_NUM;
     registerCallback_VertexModelInfo(MassBoardModel::createVertexModel); //頂点レイアウト情報作成コールバック関数
 }
 
@@ -214,9 +213,9 @@ void MassBoardModel::restore() {
         _row_texture_split = xdata.TextureSplitRows;
         _col_texture_split = xdata.TextureSplitCols;
         _draw_set_num = xdata.DrawSetNum;
-        if (_draw_set_num == 0 || _draw_set_num > GGAFDXMASS_MAX_INSTANCE_NUM) {
-            _TRACE_("MassBoardModel::restore() "<<_model_id<<" の同時描画セット数は、最大の "<<GGAFDXMASS_MAX_INSTANCE_NUM<<" に再定義されました。理由：_draw_set_num="<<_draw_set_num);
-            _draw_set_num = GGAFDXMASS_MAX_INSTANCE_NUM;
+        if (_draw_set_num == 0 || _draw_set_num > _max_draw_set_num) {
+            _TRACE_("MassBoardModel::restore() "<<_model_id<<" の同時描画セット数は、最大の "<<_max_draw_set_num<<" に再定義されました。理由：_draw_set_num="<<_draw_set_num);
+            _draw_set_num = _max_draw_set_num;
         } else {
             _TRACE_("MassBoardModel::restore() "<<_model_id<<" の同時描画セット数は "<<_draw_set_num<<" です。");
         }

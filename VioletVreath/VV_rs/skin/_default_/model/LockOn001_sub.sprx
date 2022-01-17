@@ -1,6 +1,6 @@
 xof 0303txt 0032
 
-SpriteDef LockOn001 {
+SpriteModelDef LockOn001 {
    128.0;
    128.0;
    "LockOn001_sub.png";

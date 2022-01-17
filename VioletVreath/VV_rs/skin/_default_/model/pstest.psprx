@@ -1,6 +1,6 @@
 xof 0303txt 0032
 
-PointSpriteDef mogera {
+PointSpriteModelDef mogera {
   128.0;
   "SPRITE.png";
   6;

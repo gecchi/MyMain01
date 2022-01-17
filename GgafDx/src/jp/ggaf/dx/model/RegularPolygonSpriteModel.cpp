@@ -33,27 +33,7 @@ RegularPolygonSpriteModel::RegularPolygonSpriteModel(const char* prm_model_id) :
     _u_center = 0.5;
     _v_center = 0.5;
     _drawing_order = 0; //1以外:反時計回り
-    // prm_model_id には "8,XXXX" or "8,CW,XXXX" が、渡ってくる。
-    // "8,CW,XXXX" : 正8角形で時計回り描画
-    // "8,XXXX"    : 正8角形(デフォルトの反時計回り描画)
-//    std::string model_id = std::string(prm_model_id);
-//    std::vector<std::string> names = UTIL::split(model_id, ",");
-//    if (names.size() == 1) {
-//        throwCriticalException("モデルIDに情報が足りません。[8,XXXX] or [8,CW,XXXX] 形式で指定して下さい。prm_model_id="<<prm_model_id);
-//    } else {
-//        _angle_num = STOI(names[0]);
-//        if (names.size() == 2) {
-//            _drawing_order = 0;
-//        } else if (names.size() == 3) {
-//            if (names[1] == "CW" ||  names[1] == "cw" || names[1] == "1") {
-//                //時計回り描画
-//                _drawing_order = 1;
-//            } else {
-//                _drawing_order = 0;
-//            }
-//        }
-//    }
-
+    _max_draw_set_num = 1;
 }
 
 HRESULT RegularPolygonSpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {

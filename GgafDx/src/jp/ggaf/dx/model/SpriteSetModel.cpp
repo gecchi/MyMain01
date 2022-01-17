@@ -32,7 +32,7 @@ SpriteSetModel::SpriteSetModel(const char* prm_model_id) : Model(prm_model_id) {
     _size_vertices = 0;
     _size_vertex_unit = 0;
     _paIndexParam = nullptr;
-    _draw_set_num = SPRITESETMODEL_MAX_DARW_SET_NUM;
+    _max_draw_set_num = SPRITESETMODEL_MAX_DARW_SET_NUM;
 }
 
 HRESULT SpriteSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
@@ -163,11 +163,9 @@ void SpriteSetModel::restore() {
         _pa_texture_filenames[0] = std::string(xdata.TextureFile);
         _draw_set_num = xdata.DrawSetNum;
 
-        if (_draw_set_num == 0) {
-            _TRACE_("SpriteSetModel::restore() "<<_model_id<<" の同時描画セット数は、最大の "<<SPRITESETMODEL_MAX_DARW_SET_NUM<<" に再定義されました。理由：_draw_set_num="<<_draw_set_num);
-            _draw_set_num = SPRITESETMODEL_MAX_DARW_SET_NUM;
-        } else if (_draw_set_num > SPRITESETMODEL_MAX_DARW_SET_NUM) {
-            _TRACE_("【警告】SpriteSetModel::restore() "<<_model_id<<" の同時描画セット数が、定数 "<<SPRITESETMODEL_MAX_DARW_SET_NUM<<" を超えています。 独自 effect などで意図してますか？ _draw_set_num="<<_draw_set_num);
+        if (_draw_set_num == 0 || _draw_set_num > _max_draw_set_num) {
+            _TRACE_("SpriteSetModel::restore() "<<_model_id<<" の同時描画セット数は、最大の "<<_max_draw_set_num<<" に再定義されました。理由：_draw_set_num="<<_draw_set_num);
+            _draw_set_num = _max_draw_set_num;
         } else {
             _TRACE_("SpriteSetModel::restore() "<<_model_id<<" の同時描画セット数は "<<_draw_set_num<<" です。");
         }

@@ -22,6 +22,7 @@ MassMorphMeshModel::MassMorphMeshModel(const char* prm_model_id) : MassModel(prm
     _size_vertices_morph_model = 0;
     _size_vertex_unit_morph_model = 0;
     _morph_target_num = 0;
+    _max_draw_set_num = GGAFDXMASS_MAX_INSTANCE_NUM;
     registerCallback_VertexModelInfo(MassMorphMeshModel::createVertexModel); //頂点レイアウト情報作成コールバック関数
 }
 
@@ -101,9 +102,9 @@ void MassMorphMeshModel::restore() {
         pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
         _matBaseTransformMatrix = xdata.BaseTransformMatrix;
         _draw_set_num = xdata.DrawSetNum;
-        if (_draw_set_num == 0 || _draw_set_num > GGAFDXMASS_MAX_INSTANCE_NUM) {
-            _TRACE_("MassMorphMeshModel::restore() "<<_model_id<<" の同時描画セット数は、最大の "<<GGAFDXMASS_MAX_INSTANCE_NUM<<" に再定義されました。理由：_draw_set_num="<<_draw_set_num);
-            _draw_set_num = GGAFDXMASS_MAX_INSTANCE_NUM;
+        if (_draw_set_num == 0 || _draw_set_num > _max_draw_set_num) {
+            _TRACE_("MassMorphMeshModel::restore() "<<_model_id<<" の同時描画セット数は、最大の "<<_max_draw_set_num<<" に再定義されました。理由：_draw_set_num="<<_draw_set_num);
+            _draw_set_num = _max_draw_set_num;
         } else {
             _TRACE_("MassMorphMeshModel::restore() "<<_model_id<<" の同時描画セット数は "<<_draw_set_num<<" です。");
         }

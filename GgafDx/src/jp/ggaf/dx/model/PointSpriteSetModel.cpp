@@ -31,7 +31,7 @@ PointSpriteSetModel::PointSpriteSetModel(const char* prm_model_id) : Model(prm_m
     _size_vertices = 0;
     _size_vertex_unit= 0;
     _nVertices = 0;
-    _draw_set_num = POINTSPRITESETMODEL_MAX_DARW_SET_NUM;
+    _max_draw_set_num = POINTSPRITESETMODEL_MAX_DARW_SET_NUM;
 }
 
 HRESULT PointSpriteSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
@@ -130,15 +130,6 @@ HRESULT PointSpriteSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_s
 void PointSpriteSetModel::restore() {
     _TRACE3_("_model_id=" << _model_id << " start");
     if (_paVtxBuffer_data == nullptr) {
-
-//        //"12,xxxxxx" or "xxxxxx" から "xxxxxx" だけ取とりだしてフルパス名取得
-//        std::string model_name;
-//        std::vector<std::string> names = UTIL::split(std::string(_model_id), ",");
-//        if (names.size() == 2) {
-//            model_name = names[1];
-//        } else {
-//            model_name = names[0];
-//        }
         ModelManager* pModelManager = pGOD->_pModelManager;
 
         std::string model_def_file = std::string(_model_id) + ".psprx";
@@ -172,9 +163,9 @@ void PointSpriteSetModel::restore() {
         _inv_texture_split_rowcol = 1.0f / _texture_split_rowcol;
         _nVertices = xdata.VerticesNum;
         _draw_set_num = xdata.DrawSetNum;
-        if (_draw_set_num == 0 || _draw_set_num > POINTSPRITESETMODEL_MAX_DARW_SET_NUM) {
-            _TRACE_("PointSpriteSetModel::restore() "<<_model_id<<" の同時描画セット数は、最大の "<<POINTSPRITESETMODEL_MAX_DARW_SET_NUM<<" に再定義されました。理由：_draw_set_num="<<_draw_set_num);
-            _draw_set_num = POINTSPRITESETMODEL_MAX_DARW_SET_NUM;
+        if (_draw_set_num == 0 || _draw_set_num > _max_draw_set_num) {
+            _TRACE_("PointSpriteSetModel::restore() "<<_model_id<<" の同時描画セット数は、最大の "<<_max_draw_set_num<<" に再定義されました。理由：_draw_set_num="<<_draw_set_num);
+            _draw_set_num = _max_draw_set_num;
         } else {
             _TRACE_("PointSpriteSetModel::restore() "<<_model_id<<" の同時描画セット数は "<<_draw_set_num<<" です。");
         }

@@ -11,13 +11,11 @@
 #include "jp/ggaf/dx/texture/Texture.h"
 #include "jp/ggaf/dx/manager/TextureManager.h"
 
-
 using namespace GgafDx;
 
 MassSpriteModel::MassSpriteModel(const char* prm_model_id) : MassModel(prm_model_id) {
     _TRACE3_("_model_id="<<_model_id);
     _obj_model |= Obj_GgafDx_MassSpriteModel;
-
     _paVtxBuffer_data_model = nullptr;
     _paIndexBuffer_data = nullptr;
     _model_width_px = 32.0f;
@@ -27,6 +25,7 @@ MassSpriteModel::MassSpriteModel(const char* prm_model_id) : MassModel(prm_model
     _row_texture_split = 1;
     _col_texture_split = 1;
     _papTextureConnection = nullptr;
+    _max_draw_set_num = GGAFDXMASS_MAX_INSTANCE_NUM;
     registerCallback_VertexModelInfo(MassSpriteModel::createVertexModel); //頂点レイアウト情報作成コールバック関数
 }
 
@@ -217,13 +216,12 @@ void MassSpriteModel::restore() {
         _col_texture_split = xdata.TextureSplitCols;
 
         _draw_set_num = xdata.DrawSetNum;
-        if (_draw_set_num == 0 || _draw_set_num > GGAFDXMASS_MAX_INSTANCE_NUM) {
-            _TRACE_("MassSpriteModel::restore() "<<_model_id<<" の同時描画セット数は、最大の "<<GGAFDXMASS_MAX_INSTANCE_NUM<<" に再定義されました。理由：_draw_set_num="<<_draw_set_num);
-            _draw_set_num = GGAFDXMASS_MAX_INSTANCE_NUM;
+        if (_draw_set_num == 0 || _draw_set_num > _max_draw_set_num) {
+            _TRACE_("MassSpriteModel::restore() "<<_model_id<<" の同時描画セット数は、最大の "<<_max_draw_set_num<<" に再定義されました。理由：_draw_set_num="<<_draw_set_num);
+            _draw_set_num = _max_draw_set_num;
         } else {
             _TRACE_("MassSpriteModel::restore() "<<_model_id<<" の同時描画セット数は "<<_draw_set_num<<" です。");
         }
-
 
         _nVertices = 4;
         _nFaces = 2;

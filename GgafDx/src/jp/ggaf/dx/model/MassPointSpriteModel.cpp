@@ -25,7 +25,7 @@ MassPointSpriteModel::MassPointSpriteModel(const char* prm_model_id) : MassModel
     _inv_texture_split_rowcol = 1.0f / _texture_split_rowcol;
     _paVtxBuffer_data_model = nullptr;
 //    _paIndexBuffer_data = nullptr;
-    _draw_set_num = GGAFDXMASS_MAX_INSTANCE_NUM;
+    _max_draw_set_num = GGAFDXMASS_MAX_INSTANCE_NUM;
     registerCallback_VertexModelInfo(MassPointSpriteModel::createVertexModel); //頂点レイアウト情報作成コールバック関数
     _TRACE_("MassPointSpriteModel::MassPointSpriteModel(" << _model_id << ") End");
 }
@@ -107,9 +107,9 @@ void MassPointSpriteModel::restore() {
         _inv_texture_split_rowcol = 1.0f / _texture_split_rowcol;
         _nVertices = xdata.VerticesNum;
         _draw_set_num = xdata.DrawSetNum;
-        if (_draw_set_num == 0 || _draw_set_num > GGAFDXMASS_MAX_INSTANCE_NUM) {
-            _TRACE_("MassPointSpriteModel::restore() "<<_model_id<<" の同時描画セット数は、最大の "<<GGAFDXMASS_MAX_INSTANCE_NUM<<" に再定義されました。理由：_draw_set_num="<<_draw_set_num);
-            _draw_set_num = GGAFDXMASS_MAX_INSTANCE_NUM;
+        if (_draw_set_num == 0 || _draw_set_num > _max_draw_set_num) {
+            _TRACE_("MassPointSpriteModel::restore() "<<_model_id<<" の同時描画セット数は、最大の "<<_max_draw_set_num<<" に再定義されました。理由：_draw_set_num="<<_draw_set_num);
+            _draw_set_num = _max_draw_set_num;
         } else {
             _TRACE_("MassPointSpriteModel::restore() "<<_model_id<<" の同時描画セット数は "<<_draw_set_num<<" です。");
         }

@@ -29,6 +29,7 @@ MassModel::MassModel(const char* prm_model_id) : Model(prm_model_id) {
     _pFunc_getVertexInstanceData = nullptr;
     _pFunc_getVertexModel = nullptr;
     _pInstancedata = nullptr;
+    _max_draw_set_num = GGAFDXMASS_MAX_INSTANCE_NUM;
     _obj_model |= Obj_GgafDx_MassModel;
 }
 

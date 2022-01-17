@@ -36,6 +36,7 @@ MorphMeshModel::MorphMeshModel(const char* prm_model_id) : Model(prm_model_id) {
     _size_vertex_unit_primary = 0;
     _size_vertices_morph = 0;
     _size_vertex_unit_morph = 0;
+    _max_draw_set_num = 1;
 }
 
 HRESULT MorphMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
@@ -178,6 +179,11 @@ void MorphMeshModel::restore() {
         std::string model_def_filepath = ModelManager::getModelDefineFilePath(model_def_file);
         pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
         _matBaseTransformMatrix = xdata.BaseTransformMatrix;
+        _draw_set_num = xdata.DrawSetNum;
+        if (_draw_set_num != 1) {
+            _TRACE_("MorphMeshModel::restore() 本モデルの "<<_model_id<<" の同時描画セット数は 1 に上書きされました。（_draw_set_num="<<_draw_set_num<<" は無視されました。）");
+            _draw_set_num = 1;
+        }
         _morph_target_num = xdata.XFileNum - 1;
         int morph_target_num = _morph_target_num;
         std::string* paXfilepath = NEW std::string[morph_target_num+1];

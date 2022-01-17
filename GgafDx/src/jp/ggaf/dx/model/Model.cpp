@@ -28,7 +28,8 @@ _pTexBlinker(new TextureBlinker(this)) {
     _blink_threshold = 1.000001f;
     _blinker_frames = 0;
     _is_init_model = false;
-    _draw_set_num = 1; //デフォルト最大同描画数１
+    _draw_set_num = 1;
+    _max_draw_set_num = 1;//デフォルト最大同描画数１
     _specular = 0.0f;
     _specular_power = 0.0f;
     _num_pass = 1;

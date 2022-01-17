@@ -8,9 +8,7 @@
 #include "jp/ggaf/dx/manager/ModelManager.h"
 #include "jp/ggaf/dx/manager/EffectManager.h"
 #include "jp/ggaf/dx/texture/Texture.h"
-
 #include "jp/ggaf/dx/manager/TextureManager.h"
-
 #include "jp/ggaf/dx/model/MassModel.h"
 
 using namespace GgafDx;
@@ -35,6 +33,7 @@ FramedBoardModel::FramedBoardModel(const char* prm_model_id) : Model(prm_model_i
     _size_vertices = 0;
     _size_vertex_unit = 0;
     _draw_set_num = 9;
+    _max_draw_set_num = 9;
 }
 
 HRESULT FramedBoardModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {

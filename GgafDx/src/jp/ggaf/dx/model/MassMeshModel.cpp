@@ -17,11 +17,10 @@ using namespace GgafDx;
 MassMeshModel::MassMeshModel(const char* prm_model_id) : MassModel(prm_model_id) {
     _TRACE3_("_model_id="<<_model_id);
     _obj_model |= Obj_GgafDx_MassMeshModel;
-
     _paVtxBuffer_data_model = nullptr;
     _paIndexBuffer_data = nullptr;
     registerCallback_VertexModelInfo(MassMeshModel::createVertexModel); //頂点レイアウト情報作成コールバック関数
-    _draw_set_num = GGAFDXMASS_MAX_INSTANCE_NUM;
+    _max_draw_set_num = GGAFDXMASS_MAX_INSTANCE_NUM;
     _TRACE_("MassMeshModel::MassMeshModel(" << _model_id << ") End");
 }
 
@@ -76,9 +75,9 @@ void MassMeshModel::restore() {
         pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
         _matBaseTransformMatrix = xdata.BaseTransformMatrix;
         _draw_set_num = xdata.DrawSetNum;
-        if (_draw_set_num == 0 || _draw_set_num > GGAFDXMASS_MAX_INSTANCE_NUM) {
-            _TRACE_("MassMeshModel::restore() "<<_model_id<<" の同時描画セット数は、最大の "<<GGAFDXMASS_MAX_INSTANCE_NUM<<" に再定義されました。理由：_draw_set_num="<<_draw_set_num);
-            _draw_set_num = GGAFDXMASS_MAX_INSTANCE_NUM;
+        if (_draw_set_num == 0 || _draw_set_num > _max_draw_set_num) {
+            _TRACE_("MassMeshModel::restore() "<<_model_id<<" の同時描画セット数は、最大の "<<_max_draw_set_num<<" に再定義されました。理由：_draw_set_num="<<_draw_set_num);
+            _draw_set_num = _max_draw_set_num;
         } else {
             _TRACE_("MassMeshModel::restore() "<<_model_id<<" の同時描画セット数は "<<_draw_set_num<<" です。");
         }

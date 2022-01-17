@@ -24,6 +24,11 @@ DefaultEffectManager* DefaultGod::createEffectManager() {
     DefaultEffectManager* p = NEW DefaultEffectManager("EffectManager");
     return p;
 }
+DefaultModelManager* DefaultGod::createModelManager() {
+    DefaultModelManager* p = NEW DefaultModelManager("ModelManager");
+    return p;
+}
+
 
 DefaultGod::~DefaultGod() {
     clean();

@@ -1,6 +1,6 @@
 xof 0303txt 0032
 
-SpriteDef background02 {
+SpriteModelDef background02 {
    512.0;
    512.0;
    "spacebg02.png";

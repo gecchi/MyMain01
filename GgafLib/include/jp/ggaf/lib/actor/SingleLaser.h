@@ -3,6 +3,7 @@
 #include "GgafLibCommonHeader.h"
 #include "jp/ggaf/dx/actor/MeshSetActor.h"
 #include "jp/ggaf/lib/manager/DefaultEffectManager.h"
+#include "jp/ggaf/lib/manager/DefaultModelManager.h"
 
 namespace GgafLib {
 

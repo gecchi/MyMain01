@@ -1,6 +1,6 @@
 xof 0303txt 0032
 
-SpriteDef board_bg01 {
+SpriteModelDef board_bg01 {
    32.0;
    32.0;
    "waku256.png";

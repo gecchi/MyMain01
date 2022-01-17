@@ -12,7 +12,6 @@
 #include "jp/ggaf/dx/model/MassModel.h"
 #include "jp/ggaf/dx/texture/Texture.h"
 
-
 using namespace GgafDx;
 
 //DWORD MeshModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1);
@@ -34,6 +33,7 @@ MeshModel::MeshModel(const char* prm_model_id) : Model(prm_model_id) {
     _size_vertex_unit = 0;
     _nVertices = 0;
     _nFaces = 0;
+    _max_draw_set_num = 1;
 }
 
 HRESULT MeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {

@@ -1,6 +1,6 @@
 xof 0303txt 0032
 
-SpriteDef Mogera-to {
+SpriteModelDef Mogera-to {
    16.0;              # FLOAT  Width
    32.0;              # FLOAT  Height
    "Font16x32.png";   # STRING TextureFile

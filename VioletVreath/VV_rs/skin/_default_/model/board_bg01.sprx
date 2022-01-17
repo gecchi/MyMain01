@@ -1,6 +1,6 @@
 xof 0303txt 0032
 
-SpriteDef board_bg01 {
+SpriteModelDef board_bg01 {
    8.0;
    8.0;
    "blue_bk.png";

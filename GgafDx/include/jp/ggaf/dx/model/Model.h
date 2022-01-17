@@ -64,6 +64,7 @@ public:
 
     /** [r]最大可能同時描画セット数（キャラクタ数）*/
     int _draw_set_num;
+    int _max_draw_set_num;
     /** [r]モデル定義の識別名。(50文字まで) */
     char* _model_id;
     /** [r]モデルインスタンス種類 */

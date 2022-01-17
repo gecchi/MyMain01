@@ -1,6 +1,6 @@
 xof 0303txt 0032
 
-SpriteDef CostDispBar {
+SpriteModelDef CostDispBar {
    8.0;                # FLOAT  Width
    8.0;                # FLOAT  Height
    "CostDispBar.png";  # STRING TextureFile

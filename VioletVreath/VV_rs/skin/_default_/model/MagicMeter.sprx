@@ -1,6 +1,6 @@
 xof 0303txt 0032
 
-SpriteDef MagicMeter {
+SpriteModelDef MagicMeter {
    128.0;             # FLOAT  Width
    32.0;              # FLOAT  Height
    "MagicMeter.png";  # STRING TextureFile

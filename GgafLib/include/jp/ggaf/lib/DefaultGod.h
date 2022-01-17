@@ -8,6 +8,7 @@
 #include "jp/ggaf/dx/manager/CurveManufactureManager.h"
 #include "jp/ggaf/dx/manager/CurveManufactureConnection.h"
 #include "jp/ggaf/lib/manager/DefaultEffectManager.h"
+#include "jp/ggaf/lib/manager/DefaultModelManager.h"
 #include "jp/ggaf/lib/scene/DefaultSpacetime.h"
 
 #undef pGOD
@@ -26,7 +27,7 @@ public:
 
     virtual void clean() override;
     virtual DefaultEffectManager* createEffectManager() override;  //‹¤•Ï‚Ì–ß‚è’l
-
+    virtual DefaultModelManager* createModelManager() override;  //‹¤•Ï‚Ì–ß‚è’l
     virtual ~DefaultGod();
 };
 

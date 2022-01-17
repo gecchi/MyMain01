@@ -13,7 +13,7 @@ namespace GgafLib {
  */
 class MassWallEffect : public GgafDx::MassMeshEffect {
     friend class DefaultEffectManager;
-
+    friend class DefaultModelManager;
 public:
     D3DXHANDLE _h_distance_AlphaTarget;
     D3DXHANDLE _h_wall_dep;

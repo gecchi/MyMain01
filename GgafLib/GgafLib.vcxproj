@@ -91,6 +91,8 @@
     <ClInclude Include="include\jp\ggaf\lib\manager\CameraWorkerConnection.h" />
     <ClInclude Include="include\jp\ggaf\lib\manager\CameraWorkerManager.h" />
     <ClInclude Include="include\jp\ggaf\lib\manager\defaulteffectmanager.h" />
+    <ClInclude Include="include\jp\ggaf\lib\manager\defaultmodelmanager.h" />
+    <ClInclude Include="include\jp\ggaf\lib\model\SingleLaserModel.h" />
     <ClInclude Include="include\jp\ggaf\lib\scene\DefaultScene.h" />
     <ClInclude Include="include\jp\ggaf\lib\scene\DefaultSpacetime.h" />
     <ClInclude Include="include\jp\ggaf\lib\scene\FormationTableScene.h" />
@@ -182,6 +184,8 @@
     <ClCompile Include="src\jp\ggaf\lib\manager\CameraWorkerConnection.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\manager\CameraWorkerManager.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\manager\DefaultEffectManager.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\manager\DefaultModelManager.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\model\SingleLaserModel.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\scene\DefaultScene.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\scene\DefaultSpacetime.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\scene\FormationTableScene.cpp" />

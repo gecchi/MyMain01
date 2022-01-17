@@ -22,6 +22,7 @@
 using namespace GgafDx;
 
 SkinAniMeshModel::SkinAniMeshModel(const char* prm_model_id) : Model(prm_model_id) {
+    _obj_model |= Obj_GgafDx_SkinAniMeshModel;
     _pAllocHierarchy = nullptr;
     _pFrameRoot = nullptr;
     _pAniControllerBase = nullptr;
@@ -41,7 +42,7 @@ SkinAniMeshModel::SkinAniMeshModel(const char* prm_model_id) : Model(prm_model_i
     _tmp_frame_index = 0;
     _num_animation_set = 0;
     _papaBool_AnimationSetIndex_BoneFrameIndex_is_act = nullptr;
-    _obj_model |= Obj_GgafDx_SkinAniMeshModel;
+    _max_draw_set_num = 1;
 }
 
 HRESULT SkinAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {

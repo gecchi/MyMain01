@@ -1,6 +1,6 @@
 xof 0303txt 0032
 
-PointSpriteDef mogera {
+PointSpriteModelDef mogera {
   32.0;
   "EffectExplosion003.png";
   8;
