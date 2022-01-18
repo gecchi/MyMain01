@@ -1,0 +1,15 @@
+xof 0303txt 0032
+
+SpriteModelDef FramedSpriteModelDef {
+   8.0;
+   8.0;
+   "SPRITE.png";
+   6;
+   6;
+   
+   8.0;
+   8.0;
+   "SPRITE.png";
+   6;
+   6;
+}

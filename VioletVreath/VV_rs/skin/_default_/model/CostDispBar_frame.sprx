@@ -1,9 +1,0 @@
-xof 0303txt 0032
-
-SpriteModelDef CostDispBar {
-   8.0;                # FLOAT  Width
-   8.0;                # FLOAT  Height
-   "CostDispBar.png";  # STRING TextureFile
-   1;                  # DWORD  TextureSplitRows
-   8;                  # DWORD  TextureSplitCols
-} 

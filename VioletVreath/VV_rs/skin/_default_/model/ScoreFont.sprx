@@ -1,9 +1,0 @@
-xof 0303txt 0032
-
-SpriteModelDef Mogera-to {
-   32.0;
-   32.0;
-   "ScoreFont.png";
-   8;
-   8;
-} 

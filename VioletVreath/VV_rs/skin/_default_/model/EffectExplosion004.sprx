@@ -1,9 +1,0 @@
-xof 0303txt 0032
-
-SpriteModelDef EffectExplosion004 {
-   512.0;
-   512.0;
-   "EffectExplosion004.png";
-   8;
-   8;
-} 

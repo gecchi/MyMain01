@@ -507,7 +507,7 @@ void VvvWorld::processBehavior() {
         //プロパティ書き換え
         CONFIG::DIR_XFILE[2]   = dropfile_dir;
         CONFIG::DIR_MODEL[2] = dropfile_dir;
-        CONFIG::DIR_TEXTURE[0]      = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
+        CONFIG::DIR_TEXTURE[0]      = dir_texture_user; //dir_texture_userはシステムスキンディレクトリ
         CONFIG::DIR_TEXTURE[1]      = dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
         CONFIG::DIR_TEXTURE[2]      = dropfile_dir;
         transform(model_type.begin(), model_type.end(), model_type.begin(), static_cast<int (*)(int)>(toupper));
@@ -569,12 +569,12 @@ void VvvWorld::processBehavior() {
                 if (pCurrentActor->instanceOf(Obj_GgafDx_MeshActor)) {
                     string was_dropfile_dir = UTIL::getFileDirName(listActorInfo_.getCurrent()->modelfile_.c_str()) + "/";
                     CONFIG::DIR_XFILE[2] = was_dropfile_dir;
-                    CONFIG::DIR_TEXTURE[0]    = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
+                    CONFIG::DIR_TEXTURE[0]    = dir_texture_user; //dir_texture_userはシステムスキンディレクトリ
                     CONFIG::DIR_TEXTURE[1]    = was_dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
                     CONFIG::DIR_TEXTURE[2]    = was_dropfile_dir;
                     string was_model = UTIL::getFileBaseNameWithoutExt(listActorInfo_.getCurrent()->modelfile_.c_str());
                     pNewActor = desireActor(GgafLib::CubeMapMeshActor, "actor", was_model.c_str());
-                    CONFIG::DIR_TEXTURE[0]    = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
+                    CONFIG::DIR_TEXTURE[0]    = dir_texture_user; //dir_texture_userはシステムスキンディレクトリ
                     CONFIG::DIR_TEXTURE[1]    = dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
                     CONFIG::DIR_TEXTURE[2]    = dropfile_dir;
                     ((CubeMapMeshActor*)pNewActor)->setCubeMap(file_name.c_str(), 0.5);
@@ -582,11 +582,11 @@ void VvvWorld::processBehavior() {
                 } else if (pCurrentActor->instanceOf(Obj_GgafDx_MorphMeshActor)) {
                     string was_dropfile_dir = UTIL::getFileDirName(listActorInfo_.getCurrent()->modelfile_.c_str()) + "/";
                     CONFIG::DIR_XFILE[2] = was_dropfile_dir;
-                    CONFIG::DIR_TEXTURE[0]    = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
+                    CONFIG::DIR_TEXTURE[0]    = dir_texture_user; //dir_texture_userはシステムスキンディレクトリ
                     CONFIG::DIR_TEXTURE[1]    = was_dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
                     CONFIG::DIR_TEXTURE[2]    = was_dropfile_dir;
                     pNewActor = desireActor(GgafLib::CubeMapMorphMeshActor, "actor", pCurrentActor->getModel()->getName());
-                    CONFIG::DIR_TEXTURE[0]    = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
+                    CONFIG::DIR_TEXTURE[0]    = dir_texture_user; //dir_texture_userはシステムスキンディレクトリ
                     CONFIG::DIR_TEXTURE[1]    = dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
                     CONFIG::DIR_TEXTURE[2]    = dropfile_dir;
                     ((CubeMapMorphMeshActor*)pNewActor)->setCubeMap(file_name.c_str(), 0.5);
@@ -607,7 +607,7 @@ void VvvWorld::processBehavior() {
             file_name.find("Normalmap") == std::string::npos)
         ) {
             GgafDx::FigureActor* pCurrentActor = listActorInfo_.getCurrent()->pActor_;
-            CONFIG::DIR_TEXTURE[0] = dir_texture_user; //dir_texture_userはデフォルトスキンディレクトリ
+            CONFIG::DIR_TEXTURE[0] = dir_texture_user; //dir_texture_userはシステムスキンディレクトリ
             CONFIG::DIR_TEXTURE[1] = dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
             CONFIG::DIR_TEXTURE[2] = dropfile_dir;
             if (pCurrentActor->instanceOf(Obj_GgafDx_MeshActor)) {

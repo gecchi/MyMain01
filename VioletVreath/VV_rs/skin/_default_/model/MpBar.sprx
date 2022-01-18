@@ -1,9 +1,0 @@
-xof 0303txt 0032
-
-SpriteModelDef TurboMeter {
-   8.0;
-   8.0;
-   "waku.png";
-   4;
-   4;
-} 

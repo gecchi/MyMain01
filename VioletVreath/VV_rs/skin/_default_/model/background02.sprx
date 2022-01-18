@@ -1,9 +1,0 @@
-xof 0303txt 0032
-
-SpriteModelDef background02 {
-   512.0;
-   512.0;
-   "spacebg02.png";
-   1;
-   1;
-} 

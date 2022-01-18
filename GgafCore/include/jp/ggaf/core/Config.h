@@ -41,8 +41,8 @@ public:
     static std::string DIR_RESOURCE;
     /** [r] アプリケーションのスキンフォルダ名(リソースディレクトリ配下) */
     static std::string DIRNAME_RESOURCE_SKIN;
-    /** [r] アプリケーションのスキンフォルダのデフォルトスキン名(リソースディレクトリのスキンフォルダ配下) */
-    static std::string DIRNAME_RESOURCE_SKIN_DEFAULT;
+    /** [r] アプリケーションのスキンフォルダのシステムスキン名(リソースディレクトリのスキンフォルダ配下) */
+    static std::string DIRNAME_RESOURCE_SKIN_SYSTEM;
     /** [r] アプリケーションのスキンフォルダのユーザースキン名(リソースディレクトリのスキンフォルダ配下) */
     static std::string DIRNAME_RESOURCE_SKIN_USER;
 
@@ -50,7 +50,7 @@ public:
 
     /** [r] アプリケーションのスキンディレクトリ */
     static std::string DIR_SKIN;
-    /** [r] アプリケーションのデフォルトスキンディレクトリ(0:default/1:ユーザー/2:カレント) */
+    /** [r] アプリケーションのシステムスキンディレクトリ(0:default/1:ユーザー/2:カレント) */
     static std::string DIR_SKIN_KIND[3];
 
 

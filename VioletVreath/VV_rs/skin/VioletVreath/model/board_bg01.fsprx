@@ -1,0 +1,15 @@
+xof 0303txt 0032
+
+FramedSpriteModelDef board_bg01 {
+   8.0;              #Width(px)
+   8.0;              #Height(px)
+   "blue_bk.png";    #TextureFile
+   1;                #TextureSplitRows
+   1;                #TextureSplitCols
+   
+   32.0;             #FrameWidth(px)
+   32.0;             #FrameHeight(px)
+   "waku256.png";    #FrameTextureFile
+   8;                #FrameTextureSplitRows
+   8;                #FrameTextureSplitCols
+} 

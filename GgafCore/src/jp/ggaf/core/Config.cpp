@@ -15,11 +15,11 @@ uint32_t Config::OBJNUM_TO_SLOWDOWN2 = 1500;
 float Config::FPS_TO_CLEAN_GARBAGE_BOX = 30.0f;
 std::string Config::DIR_RESOURCE = "./";
 std::string Config::DIRNAME_RESOURCE_SKIN = ".";
-std::string Config::DIRNAME_RESOURCE_SKIN_DEFAULT = ".";
+std::string Config::DIRNAME_RESOURCE_SKIN_SYSTEM = ".";
 std::string Config::DIRNAME_RESOURCE_SKIN_USER = "";
 std::string Config::DIR_SKIN = Config::DIR_RESOURCE + "/" + Config::DIRNAME_RESOURCE_SKIN + "/";
 std::string Config::DIR_SKIN_KIND[] = {
-                Config::DIR_SKIN + "/" + Config::DIRNAME_RESOURCE_SKIN_DEFAULT + "/",
+                Config::DIR_SKIN + "/" + Config::DIRNAME_RESOURCE_SKIN_SYSTEM + "/",
                 "",
                 "./"
             };
@@ -62,8 +62,8 @@ void Config::loadProperties(std::string prm_properties_filename) {
     if (_properties.isExistKey("DIRNAME_RESOURCE_SKIN")) {
         Config::DIRNAME_RESOURCE_SKIN = _properties.getStr("DIRNAME_RESOURCE_SKIN");
     }
-    if (_properties.isExistKey("DIRNAME_RESOURCE_SKIN_DEFAULT")) {
-        Config::DIRNAME_RESOURCE_SKIN_DEFAULT = _properties.getStr("DIRNAME_RESOURCE_SKIN_DEFAULT");
+    if (_properties.isExistKey("DIRNAME_RESOURCE_SKIN_SYSTEM")) {
+        Config::DIRNAME_RESOURCE_SKIN_SYSTEM = _properties.getStr("DIRNAME_RESOURCE_SKIN_SYSTEM");
     }
     if (_properties.isExistKey("DIRNAME_RESOURCE_SKIN_USER")) {
         Config::DIRNAME_RESOURCE_SKIN_USER = _properties.getStr("DIRNAME_RESOURCE_SKIN_USER");
@@ -72,7 +72,7 @@ void Config::loadProperties(std::string prm_properties_filename) {
     Config::DIR_SKIN = Config::DIR_RESOURCE + "/" + Config::DIRNAME_RESOURCE_SKIN  + "/";
     UTIL::strReplace(Config::DIR_SKIN, "//", "/");
 
-    Config::DIR_SKIN_KIND[0] = Config::DIR_SKIN + "/" + Config::DIRNAME_RESOURCE_SKIN_DEFAULT + "/";
+    Config::DIR_SKIN_KIND[0] = Config::DIR_SKIN + "/" + Config::DIRNAME_RESOURCE_SKIN_SYSTEM + "/";
     UTIL::strReplace(Config::DIR_SKIN_KIND[0], "//", "/");
 
     if (Config::DIRNAME_RESOURCE_SKIN_USER == "") {
@@ -95,7 +95,7 @@ void Config::loadProperties(std::string prm_properties_filename) {
     if (Config::DIRNAME_RESOURCE_SKIN_USER == "") {
 
     } else {
-        //ユーザースキンディレクトリー名指定有りの場合、デフォルトスキンの存在チェック
+        //ユーザースキンディレクトリー名指定有りの場合、システムスキンの存在チェック
         if (!PathFileExists(Config::DIR_SKIN_KIND[0].c_str()) ) {
             throwCriticalException("prm_properties_filename="<<prm_properties_filename<<" DIRNAME_RESOURCE_SKIN_USERを指定しましたが、\n("<<Config::DIR_SKIN_KIND[1]<<") のディレクトリが見つかりません。");
         }

@@ -1,0 +1,15 @@
+xof 0303txt 0032
+
+FramedSpriteModelDef CostDispBar {
+   8.0;               #Width(px)
+   8.0;               #Height(px)
+   "CostDispBar.png"; #TextureFile
+   1;                 #TextureSplitRows
+   8;                 #TextureSplitCols
+   
+   8.0;               #FrameWidth(px)
+   8.0;               #FrameHeight(px)
+   "CostDispBar.png"; #FrameTextureFile
+   1;                 #FrameTextureSplitRows
+   8;                 #FrameTextureSplitCols
+} 

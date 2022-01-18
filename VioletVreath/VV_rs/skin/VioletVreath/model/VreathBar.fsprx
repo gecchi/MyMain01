@@ -1,0 +1,15 @@
+xof 0303txt 0032
+
+FramedSpriteModelDef VreathBar {
+   8.0;
+   8.0;
+   "waku.png";
+   4;
+   4;
+   
+   8.0;
+   8.0;
+   "waku.png";
+   4;
+   4;
+} 

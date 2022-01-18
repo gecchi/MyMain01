@@ -152,34 +152,6 @@ ModelManager::ModelManager(const char* prm_manager_name) :
 
     //ポイントスプライト定義ファイル(拡張子psprx)のフォーマット定義
     D3DXFileCreate( &_pID3DXFile_psprx );
-//    static const char* psprx_template =
-//        "xof 0303txt 0032 \n" \
-//        "template Vector {" \
-//        "  <3d82ab5e-62da-11cf-ab39-0020af71e433>" \
-//        "  FLOAT x;" \
-//        "  FLOAT y;" \
-//        "  FLOAT z;" \
-//        "}\n" \
-//        "template ColorRGBA {" \
-//        "  <35ff44e0-6c7c-11cf-8f52-0040333594a3>" \
-//        "  FLOAT red;" \
-//        "  FLOAT green;" \
-//        "  FLOAT blue;" \
-//        "  FLOAT alpha;" \
-//        "}\n" \
-//        "template PointSpriteModelDef {" \
-//        "  <E4EECE4C-E106-11DC-9B62-946D55D89593>" \
-//        "  FLOAT            SquareSize;" \
-//        "  STRING           TextureFile;" \
-//        "  DWORD            TextureSplitRowCol;" \
-//        "  DWORD            VerticesNum;" \
-//        "  array  Vector    Vertices[VerticesNum];" \
-//        "  array  ColorRGBA VertexColors[VerticesNum];" \
-//        "  array  DWORD     InitUvPtnNo[VerticesNum];" \
-//        "  array  FLOAT     InitScale[VerticesNum];" \
-//        "  DWORD  DrawSetNum; " \
-//        "  array  FLOAT     BaseTransformMatrix[16]; " \
-//        "}\n";
 
     static const char* psprx_template =
             "xof 0303txt 0032\n" \
