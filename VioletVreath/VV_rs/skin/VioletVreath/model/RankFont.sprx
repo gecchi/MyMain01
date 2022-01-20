@@ -6,5 +6,5 @@ SpriteModelDef RankFont {
    "RankFont.png";
    4;
    16;
-   0;                #DrawSetNum
+   70;                #DrawSetNum
 }

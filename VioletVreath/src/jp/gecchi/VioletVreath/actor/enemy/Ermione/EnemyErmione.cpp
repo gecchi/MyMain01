@@ -30,7 +30,7 @@ enum {
 };
 
 EnemyErmione::EnemyErmione(const char* prm_name) :
-        VvEnemyActor<DefaultMorphMeshActor>(prm_name, "Ermione_1", StatusReset(EnemyErmione)) {
+        VvEnemyActor<DefaultMorphMeshActor>(prm_name, "Ermione", StatusReset(EnemyErmione)) {
     _class_name = "EnemyErmione";
 //    num_arm_ = 6; //腕の合計本数
 //    num_arm_part_ = 11;  //各腕の節数（3以上）

@@ -6,5 +6,5 @@ SpriteModelDef MagicMeter {
    "MagicMeter.png";  # STRING TextureFile
    32;                # DWORD  TextureSplitRows
    8;                 # DWORD  TextureSplitCols
-   1;                #DrawSetNum
+   128;                #DrawSetNum
 }

@@ -27,7 +27,7 @@ enum {
 };
 
 EnemyOmulus::EnemyOmulus(const char* prm_name) :
-        VvEnemyActor<DefaultMassMorphMeshActor>(prm_name, "Omulus_1", StatusReset(EnemyOmulus)) {
+        VvEnemyActor<DefaultMassMorphMeshActor>(prm_name, "Omulus", StatusReset(EnemyOmulus)) {
     _class_name = "EnemyOmulus";
     is_open_hatch_ = false;
     frame_of_open_interval_  = 3*60;

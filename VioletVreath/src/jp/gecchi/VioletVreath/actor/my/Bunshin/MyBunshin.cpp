@@ -36,10 +36,10 @@ enum {
     SE_FIRE_TORPEDO,
 };
 
-//MyBunshin::MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase) : DefaultMorphMeshActor(prm_name, "Eres_4") {
+//MyBunshin::MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase) : DefaultMorphMeshActor(prm_name, "Eres_m") {
 //MyBunshin::MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase) : CubeMapMeshSetActor(prm_name, "4,Core4cm_") {
 MyBunshin::MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase) :
-        VvEffectActor<DefaultMeshSetActor>(prm_name, "8,myvic", StatusReset(MyBunshin)) {
+        VvEffectActor<DefaultMeshSetActor>(prm_name, "myvic", StatusReset(MyBunshin)) {
 
     _class_name = "MyBunshin";
     pBase_ = prm_pBase;

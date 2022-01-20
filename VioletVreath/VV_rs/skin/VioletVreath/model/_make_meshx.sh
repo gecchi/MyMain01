@@ -3,7 +3,7 @@
 $(cd $(dirname $0))
 
 
-for xfile_path in `find ../xfile -type f -name "*.x"`; do
+for xfile_path in `find ../xfile -type f -name "*.x" -or -name "*.X"`; do
   #echo "xfile_path=${xfile_path}"
   xfile=`basename ${xfile_path}`
   echo "basename=${xfile}"

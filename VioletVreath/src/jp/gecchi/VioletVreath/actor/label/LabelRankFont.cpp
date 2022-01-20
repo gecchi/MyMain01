@@ -86,7 +86,7 @@ enum {
 };
 
 LabelRankFont::LabelRankFont(const char* prm_name) :
-        FontBoardActor(prm_name, "70,RankFont")
+        FontBoardActor(prm_name, "RankFont")
 {
     _class_name = "LabelRankFont";
     tmp_rank_ = 0;

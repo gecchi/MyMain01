@@ -69,7 +69,7 @@ _pMorphMeshEffect((MorphMeshEffect*)_pEffect)
 void MorphMeshActor::setMorphWeight(int prm_target_mesh_no, float prm_weight) {
 #ifdef MY_DEBUG
     if (prm_target_mesh_no < 1 || _morph_target_num < prm_target_mesh_no) {
-        throwCriticalException("prm_target_mesh_no(="<<prm_target_mesh_no<<") が、範囲外です。(有効範囲は 1～"<<_morph_target_num<<") ");
+        throwCriticalException("MorphMeshActor::setMorphWeight() name="<<getName()<<" の、prm_target_mesh_no(="<<prm_target_mesh_no<<") が、範囲外です。(modelの有効範囲は 1～"<<_morph_target_num<<") ");
     }
 #endif
      _weight[prm_target_mesh_no] = prm_weight;

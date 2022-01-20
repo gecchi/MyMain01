@@ -6,5 +6,5 @@ SpriteModelDef LockOn001 {
    "LockOn001.png";  # STRING TextureFile
    2;                # DWORD  TextureSplitRows
    2;                # DWORD  TextureSplitCols
-   9;                #DrawSetNum
+   8;                #DrawSetNum
 }

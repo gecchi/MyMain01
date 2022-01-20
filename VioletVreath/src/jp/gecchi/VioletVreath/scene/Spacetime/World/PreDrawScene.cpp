@@ -102,20 +102,20 @@ void PreDrawScene::processBehavior() {
                 int id = order_id_begin_;
                 requestTestActor(id, CubeMapMeshActor                   ,"_chk_TestCubeMapMeshActorModel"                     );    id++;
                 requestTestActor(id, CubeMapMeshSetActor                ,"_chk_TestCubeMapMeshSetActorModel"                  );    id++;
-                requestTestActor(id, CubeMapMorphMeshActor              ,"_chk_TestCubeMapMorphMeshActorModel_0"              );    id++;
+                requestTestActor(id, CubeMapMorphMeshActor              ,"_chk_TestCubeMapMorphMeshActorModel"              );    id++;
 //                requestTestActor(id, DefaultD3DXAniMeshActor            ,"_chk_TestDefaultD3DXAniMeshActorModel"              );    id++;
                 requestTestActor(id, DefaultBoneAniMeshActor                ,"_chk_TestDefaultBoneAniMeshActorModel"                  );    id++;
                 requestTestActor(id, DefaultMeshActor                   ,"_chk_TestDefaultMeshActorModel"                     );    id++;
                 requestTestActor(id, DefaultMeshSetActor                ,"_chk_TestDefaultMeshSetActorModel"                  );    id++;
                 requestTestActor(id, DefaultMassMeshActor               ,"_chk_TestDefaultMassMeshActorModel"                 );    id++;
-                requestTestActor(id, DefaultMorphMeshActor              ,"_chk_TestDefaultMorphMeshActorModel_0"              );    id++;
-                requestTestActor(id, DefaultMassMorphMeshActor          ,"_chk_TestDefaultMassMorphMeshActorModel_0"          );    id++;
+                requestTestActor(id, DefaultMorphMeshActor              ,"_chk_TestDefaultMorphMeshActorModel"              );    id++;
+                requestTestActor(id, DefaultMassMorphMeshActor          ,"_chk_TestDefaultMassMorphMeshActorModel"          );    id++;
                 requestTestActor(id, DefaultPointSpriteActor            ,"_chk_TestDefaultPointSpriteActorModel"              );    id++;
                 requestTestActor(id, DefaultPointSpriteSetActor         ,"_chk_TestDefaultPointSpriteSetActorModel"           );    id++;
                 requestTestActor(id, DefaultSpriteActor                 ,"_chk_TestDefaultSpriteActorModel"                   );    id++;
                 requestTestActor(id, DefaultSpriteSetActor              ,"_chk_TestDefaultSpriteSetActorModel"                );    id++;
                 requestTestActor(id, DefaultMassSpriteActor             ,"_chk_TestDefaultMassSpriteActorModel"               );    id++;
-                requestTestActor(id, DefaultRegularPolygonSpriteActor   ,"6,CW,_chk_TestDefaultRegularPolygonSpriteActorModel");    id++;
+                requestTestActor(id, DefaultRegularPolygonSpriteActor   ,"_chk_TestDefaultRegularPolygonSpriteActorModel");    id++;
                 requestTestActor(id, FontSpriteActor                    ,"_chk_TestFontSpriteActorModel"                      );    id++;
                 requestTestActor(id, SpriteMeshActor                    ,"_chk_TestSpriteMeshActorModel"                      );    id++;
                 requestTestActor(id, SpriteMeshSetActor                 ,"_chk_TestSpriteMeshSetActorModel"                   );    id++;
@@ -127,7 +127,7 @@ void PreDrawScene::processBehavior() {
                 requestTestActor(id, DefaultBoardSetActor               ,"_chk_TestDefaultBoardSetActorModel"                 );    id++;
                 requestTestActor(id, DefaultMassBoardActor              ,"_chk_TestDefaultMassBoardActorModel"                );    id++;
                 requestTestActor(id, DefaultFramedBoardActor            ,"_chk_TestDefaultFramedBoardActorModel"              );    id++;
-                requestTestActor(id, DefaultRegularPolygonBoardActor    ,"6,CW,_chk_TestDefaultRegularPolygonBoardActorModel" );    id++;
+                requestTestActor(id, DefaultRegularPolygonBoardActor    ,"_chk_TestDefaultRegularPolygonBoardActorModel" );    id++;
                 requestTestActor(id, FontBoardActor                    ,"_chk_TestFontBoardActorModel"                        );    id++;
 
                 requestTestActor(id, HoshiBoshi                         ,"_chk_TestHoshiBoshiModel"                           );    id++;

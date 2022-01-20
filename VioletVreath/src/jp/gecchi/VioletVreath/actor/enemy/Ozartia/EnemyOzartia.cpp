@@ -67,7 +67,7 @@ enum {
 #define D_MOVE (PX_C(500))
 #define ASOBI (RND(-30,30))
 EnemyOzartia::EnemyOzartia(const char* prm_name) :
-        VvEnemyActor<DefaultMorphMeshActor>(prm_name, "Ozartia_1", StatusReset(EnemyOzartia)) {
+        VvEnemyActor<DefaultMorphMeshActor>(prm_name, "Ozartia", StatusReset(EnemyOzartia)) {
     _class_name = "EnemyOzartia";
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_001");

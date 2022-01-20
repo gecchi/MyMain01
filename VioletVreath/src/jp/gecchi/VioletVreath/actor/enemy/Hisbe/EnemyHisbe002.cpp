@@ -25,8 +25,8 @@ enum {
 };
 
 EnemyHisbe002::EnemyHisbe002(const char* prm_name) :
-        VvEnemyActor<DefaultMorphMeshActor>(prm_name, "Hisbe002_1", StatusReset(EnemyHisbe002)) {
-        //VvEnemyActor<CubeMapMorphMeshActor>(prm_name, "1HisbeCM_1", StatusReset(EnemyHisbe002)) {
+        VvEnemyActor<DefaultMorphMeshActor>(prm_name, "Hisbe002", StatusReset(EnemyHisbe002)) {
+        //VvEnemyActor<CubeMapMorphMeshActor>(prm_name, "HisbeCM", StatusReset(EnemyHisbe002)) {
 
     _class_name = "EnemyHisbe002";
     pDriverLeader_ = nullptr;

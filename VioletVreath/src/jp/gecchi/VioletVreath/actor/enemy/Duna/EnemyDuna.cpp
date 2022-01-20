@@ -44,7 +44,7 @@ enum {
 };
 
 EnemyDuna::EnemyDuna(const char* prm_name) :
-        VvEnemyActor<DefaultMorphMeshActor>(prm_name, "Duna_1", StatusReset(EnemyDuna)) {
+        VvEnemyActor<DefaultMorphMeshActor>(prm_name, "Duna", StatusReset(EnemyDuna)) {
     _class_name = "EnemyDuna";
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_001");

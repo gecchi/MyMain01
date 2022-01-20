@@ -76,10 +76,10 @@ void Config::loadProperties(std::string prm_properties_filename) {
     UTIL::strReplace(Config::DIR_SKIN_KIND[0], "//", "/");
 
     if (Config::DIRNAME_RESOURCE_SKIN_USER == "") {
-        //ユーザースキンディレクトリー名指定無しの場合
+        //ユーザースキンディレクトリー名指定無しの場合、DIR_SKIN_KIND[1] も同じにする。
         Config::DIR_SKIN_KIND[1] = Config::DIR_SKIN_KIND[0];
     } else {
-        //ユーザースキンディレクトリー名指定有りの場合
+        //ユーザースキンディレクトリー名指定有りの場合、DIR_SKIN_KIND[1] は ユーザースキンディレクトリ
         Config::DIR_SKIN_KIND[1] = Config::DIR_SKIN + "/" + Config::DIRNAME_RESOURCE_SKIN_USER + "/";
     }
     UTIL::strReplace(Config::DIR_SKIN_KIND[1], "//", "/");

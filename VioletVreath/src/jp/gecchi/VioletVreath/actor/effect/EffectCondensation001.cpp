@@ -11,7 +11,7 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 EffectCondensation001::EffectCondensation001(const char* prm_name) :
-        DefaultSpriteSetActor(prm_name, "8,Lockon001") {
+        DefaultSpriteSetActor(prm_name, "Lockon001") {
     _class_name = "EffectCondensation001";
     inactivate();
     effectBlendOne(); //â¡éZçáê¨

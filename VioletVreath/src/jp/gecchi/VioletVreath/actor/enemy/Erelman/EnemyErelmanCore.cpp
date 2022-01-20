@@ -33,7 +33,7 @@ enum {
 };
 
 EnemyErelmanCore::EnemyErelmanCore(const char* prm_name, EnemyErelmanController* prm_pController) :
-        VvEnemyActor<DefaultMorphMeshActor>(prm_name, "ErelmanCore_1", StatusReset(EnemyErelmanCore)) {
+        VvEnemyActor<DefaultMorphMeshActor>(prm_name, "ErelmanCore", StatusReset(EnemyErelmanCore)) {
     _class_name = "EnemyErelmanCore";
     pController_ = prm_pController;
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();

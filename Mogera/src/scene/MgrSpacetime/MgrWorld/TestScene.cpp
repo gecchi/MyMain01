@@ -76,7 +76,7 @@ public:
     TestActor(const char* prm_name, const char* prm_model) : T(prm_name, prm_model) {
         T::setHitAble(false);
     }
-    void initialize() override {}
+    void initialize() override {     T::setScaleR(1.0); }
     void processBehavior() override { T::addRyFaceAng(D_ANG(1)); }
     void processJudgement() override {}
     virtual ~TestActor() {}
@@ -105,34 +105,34 @@ void TestScene::processBehavior() {
             if (pProg->getFrame() == 20) {
                 order_id_begin_ = ID_ORDER_BEGIN;
                 int id = order_id_begin_;
-                requestTestActor(id, CubeMapMeshActor                   ,"_chk_TestCubeMapMeshActorModel"                     );    id++;
-                requestTestActor(id, CubeMapMeshSetActor                ,"_chk_TestCubeMapMeshSetActorModel"                  );    id++;
-                requestTestActor(id, CubeMapMorphMeshActor              ,"_chk_TestCubeMapMorphMeshActorModel"              );    id++;
-//                requestTestActor(id, DefaultD3DXAniMeshActor            ,"_chk_TestDefaultD3DXAniMeshActorModel"              );    id++;
-                requestTestActor(id, DefaultBoneAniMeshActor                ,"_chk_TestDefaultBoneAniMeshActorModel"                  );    id++;
-                requestTestActor(id, DefaultMeshActor                   ,"_chk_TestDefaultMeshActorModel"                     );    id++;
-                requestTestActor(id, DefaultMeshSetActor                ,"_chk_TestDefaultMeshSetActorModel"                  );    id++;
-                requestTestActor(id, DefaultMassMeshActor               ,"_chk_TestDefaultMassMeshActorModel"                 );    id++;
-                requestTestActor(id, DefaultMorphMeshActor              ,"_chk_TestDefaultMorphMeshActorModel"              );    id++;
-                requestTestActor(id, DefaultMassMorphMeshActor          ,"_chk_TestDefaultMassMorphMeshActorModel"          );    id++;
-                requestTestActor(id, DefaultPointSpriteActor            ,"_chk_TestDefaultPointSpriteActorModel"              );    id++;
-                requestTestActor(id, DefaultPointSpriteSetActor         ,"_chk_TestDefaultPointSpriteSetActorModel"           );    id++;
-                requestTestActor(id, DefaultSpriteActor                 ,"_chk_TestDefaultSpriteActorModel"                   );    id++;
-                requestTestActor(id, DefaultSpriteSetActor              ,"_chk_TestDefaultSpriteSetActorModel"                );    id++;
-                requestTestActor(id, DefaultMassSpriteActor             ,"_chk_TestDefaultMassSpriteActorModel"               );    id++;
-                requestTestActor(id, DefaultRegularPolygonSpriteActor   ,"_chk_TestDefaultRegularPolygonSpriteActorModel");         id++;
-                requestTestActor(id, FontSpriteActor                    ,"_chk_TestFontSpriteActorModel"                      );    id++;
-                requestTestActor(id, SpriteMeshActor                    ,"_chk_TestSpriteMeshActorModel"                      );    id++;
-                requestTestActor(id, SpriteMeshSetActor                 ,"_chk_TestSpriteMeshSetActorModel"                   );    id++;
+//                requestTestActor(id, CubeMapMeshActor                   ,"_chk_TestCubeMapMeshActorModel"                     );    id++;
+//                requestTestActor(id, CubeMapMeshSetActor                ,"_chk_TestCubeMapMeshSetActorModel"                  );    id++;
+//                requestTestActor(id, CubeMapMorphMeshActor              ,"_chk_TestCubeMapMorphMeshActorModel"              );    id++;
+////                requestTestActor(id, DefaultD3DXAniMeshActor            ,"_chk_TestDefaultD3DXAniMeshActorModel"              );    id++;
+//                requestTestActor(id, DefaultBoneAniMeshActor                ,"_chk_TestDefaultBoneAniMeshActorModel"                  );    id++;
+//                requestTestActor(id, DefaultMeshActor                   ,"_chk_TestDefaultMeshActorModel"                     );    id++;
+//                requestTestActor(id, DefaultMeshSetActor                ,"_chk_TestDefaultMeshSetActorModel"                  );    id++;
+//                requestTestActor(id, DefaultMassMeshActor               ,"_chk_TestDefaultMassMeshActorModel"                 );    id++;
+//                requestTestActor(id, DefaultMorphMeshActor              ,"_chk_TestDefaultMorphMeshActorModel"              );    id++;
+//                requestTestActor(id, DefaultMassMorphMeshActor          ,"_chk_TestDefaultMassMorphMeshActorModel"          );    id++;
+//                requestTestActor(id, DefaultPointSpriteActor            ,"_chk_TestDefaultPointSpriteActorModel"              );    id++;
+//                requestTestActor(id, DefaultPointSpriteSetActor         ,"_chk_TestDefaultPointSpriteSetActorModel"           );    id++;
+//                requestTestActor(id, DefaultSpriteActor                 ,"_chk_TestDefaultSpriteActorModel"                   );    id++;
+//                requestTestActor(id, DefaultSpriteSetActor              ,"_chk_TestDefaultSpriteSetActorModel"                );    id++;
+//                requestTestActor(id, DefaultMassSpriteActor             ,"_chk_TestDefaultMassSpriteActorModel"               );    id++;
+//                requestTestActor(id, DefaultRegularPolygonSpriteActor   ,"_chk_TestDefaultRegularPolygonSpriteActorModel");         id++;
+//                requestTestActor(id, FontSpriteActor                    ,"_chk_TestFontSpriteActorModel"                      );    id++;
+//                requestTestActor(id, SpriteMeshActor                    ,"_chk_TestSpriteMeshActorModel"                      );    id++;
+//                requestTestActor(id, SpriteMeshSetActor                 ,"_chk_TestSpriteMeshSetActorModel"                   );    id++;
                 requestTestActor(id, NomalLaserChip                     ,"_chk_TestNomalLaserChipModel"                       );    id++;
-                requestTestActor(id, SingleLaser                        ,"_chk_TestSingleLaserModel"                          );    id++;
-
-                requestTestActor(id, DefaultBoardActor                  ,"_chk_TestDefaultBoardActorModel"                    );    id++;
-                requestTestActor(id, DefaultBoardSetActor               ,"_chk_TestDefaultBoardSetActorModel"                 );    id++;
-                requestTestActor(id, DefaultMassBoardActor              ,"_chk_TestDefaultMassBoardActorModel"                );    id++;
-                requestTestActor(id, DefaultFramedBoardActor            ,"_chk_TestDefaultFramedBoardActorModel"              );    id++;
-                requestTestActor(id, DefaultRegularPolygonBoardActor    ,"_chk_TestDefaultRegularPolygonBoardActorModel" );    id++;
-                requestTestActor(id, FontBoardActor                     ,"_chk_TestFontBoardActorModel"                        );    id++;
+//                requestTestActor(id, SingleLaser                        ,"_chk_TestSingleLaserModel"                          );    id++;
+//
+//                requestTestActor(id, DefaultBoardActor                  ,"_chk_TestDefaultBoardActorModel"                    );    id++;
+//                requestTestActor(id, DefaultBoardSetActor               ,"_chk_TestDefaultBoardSetActorModel"                 );    id++;
+//                requestTestActor(id, DefaultMassBoardActor              ,"_chk_TestDefaultMassBoardActorModel"                );    id++;
+//                requestTestActor(id, DefaultFramedBoardActor            ,"_chk_TestDefaultFramedBoardActorModel"              );    id++;
+//                requestTestActor(id, DefaultRegularPolygonBoardActor    ,"_chk_TestDefaultRegularPolygonBoardActorModel" );    id++;
+//                requestTestActor(id, FontBoardActor                     ,"_chk_TestFontBoardActorModel"                        );    id++;
 
 //                requestTestActor(id, HoshiBoshi                         ,"_chk_TestHoshiBoshiModel"                           );    id++;
 

@@ -33,7 +33,7 @@ enum {
 };
 
 EnemyOebiusCore::EnemyOebiusCore(const char* prm_name, EnemyOebiusController* prm_pController) :
-        VvEnemyActor<DefaultMorphMeshActor>(prm_name, "OebiusCore_1", StatusReset(EnemyOebiusCore)) {
+        VvEnemyActor<DefaultMorphMeshActor>(prm_name, "OebiusCore", StatusReset(EnemyOebiusCore)) {
     _class_name = "EnemyOebiusCore";
     pController_ = prm_pController;
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();

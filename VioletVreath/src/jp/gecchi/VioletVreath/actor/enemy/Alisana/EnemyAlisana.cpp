@@ -32,7 +32,7 @@ enum {
 };
 
 EnemyAlisana::EnemyAlisana(const char* prm_name) :
-        VvEnemyActor<DefaultMorphMeshActor>(prm_name, "Alisana_1", StatusReset(EnemyAlisana)) {
+        VvEnemyActor<DefaultMorphMeshActor>(prm_name, "Alisana", StatusReset(EnemyAlisana)) {
     _class_name = "EnemyAlisana";
 
     frame_of_morph_interval_ = 120;

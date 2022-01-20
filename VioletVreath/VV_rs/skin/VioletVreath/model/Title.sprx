@@ -6,5 +6,5 @@ SpriteModelDef Title {
    "Title.png";   # STRING TextureFile
    4;             # DWORD  TextureSplitRows
    1;             # DWORD  TextureSplitCols
-   1;                #DrawSetNum
+   2;                #DrawSetNum
 }
