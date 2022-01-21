@@ -138,7 +138,7 @@ void RegularPolygonSpriteModel::restore() {
         _papTextureConnection = nullptr;
         ModelManager* pModelManager = pGOD->_pModelManager;
         std::string model_def_file = std::string(_model_id) + ".rsprx";
-        std::string model_def_filepath = ModelManager::getModelDefineFilePath(model_def_file);
+        std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
         ModelManager::RegPolySpriteXFileFmt xdata;
         pModelManager->obtainRegPolySpriteModelInfo(&xdata, model_def_filepath);
 

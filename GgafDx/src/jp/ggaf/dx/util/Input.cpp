@@ -103,7 +103,7 @@ HRESULT Input::initMouse() {
     //  dipropword.dwData       = DIPROPAXISMODE_REL;   // ëäëŒílÉÇÅ[Éh
     hr = Input::_pMouseInputDevice->SetProperty(DIPROP_AXISMODE, &dipropword_m.diph);
     if (hr != D3D_OK) {
-        _TRACE_("ÅÉåxçêÅÑé≤ÉÇÅ[ÉhÇÃê›íËÇ…é∏îs");
+        _TRACE_("ÅyåxçêÅzé≤ÉÇÅ[ÉhÇÃê›íËÇ…é∏îs");
         return FALSE;
     }
 
@@ -307,7 +307,7 @@ BOOL CALLBACK Input::enumPadAxisCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOI
 void Input::updateMouseState() {
 #ifdef MY_DEBUG
     if (Input::_pMouseInputDevice == nullptr) {
-        _TRACE_("ÅÉåxçêÅÑ Input::updateKeyboardState() Input::_pMouseInputDevice == nullptr !!!!");
+        _TRACE_("ÅyåxçêÅz Input::updateKeyboardState() Input::_pMouseInputDevice == nullptr !!!!");
         return;
     }
 #endif

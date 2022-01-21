@@ -96,7 +96,7 @@ GeometricActor* FkFormation::calledUpMember(int prm_formation_child_num) {
             _pIte = pFirstActor;
             if (!_pIte) {
                 //メンバーが追加されてない
-                _TRACE_("＜警告＞ FkFormation::calledUpMember() メンバーが追加されてません。おかしいのでは？。this="<<NODE_INFO);
+                _TRACE_("【警告】 FkFormation::calledUpMember() メンバーが追加されてません。おかしいのでは？。this="<<NODE_INFO);
                 _can_called_up = false; //次回から calledUpMember() 不可
                 _num_formation_member = 0;
                 return nullptr;

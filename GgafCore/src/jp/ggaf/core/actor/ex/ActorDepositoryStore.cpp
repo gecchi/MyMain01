@@ -17,7 +17,7 @@ void ActorDepositoryStore::put(Actor* prm_pChild) {
     }
     if (_pChildFirst == nullptr) {
         if (prm_pChild->getDefaultKind() == 0U) {
-            _TRACE_("ƒŒx„ ActorDepositoryStore::appendChild ˆø” this="<<getName()<<" prm_pChild("<<prm_pChild->getName()<<") ‚Í ‚Ìí•Ê‚ª0‚Å‚·‚ªˆÓ}‚µ‚Ä‚¢‚Ü‚·‚©H");
+            _TRACE_("yŒxz ActorDepositoryStore::appendChild ˆø” this="<<getName()<<" prm_pChild("<<prm_pChild->getName()<<") ‚Í ‚Ìí•Ê‚ª0‚Å‚·‚ªˆÓ}‚µ‚Ä‚¢‚Ü‚·‚©H");
         }
     }
 #endif

@@ -1,5 +1,6 @@
 #include "jp/ggaf/dx/model/Model.h"
 
+#include <Shlwapi.h>
 #include "jp/ggaf/dx/God.h"
 #include "jp/ggaf/dx/Config.h"
 #include "jp/ggaf/dx/manager/ModelManager.h"
@@ -516,7 +517,7 @@ void Model::calcTangentAndBinormal(
         if (ZEROf_EQ(VABC.x)) {
             // ‚â‚Î‚¢‚·I
             // ƒ|ƒŠƒSƒ“‚©UVã‚Ìƒ|ƒŠƒSƒ“‚ªk‘Þ‚µ‚Ä‚Ü‚·I
-            //_TRACE_("ƒŒx„ Model::calcTangentAndBinormal ƒ|ƒŠƒSƒ“‚©UVã‚Ìƒ|ƒŠƒSƒ“‚ªk‘Þ‚µ‚Ä‚Ü‚·I");
+            //_TRACE_("yŒxz Model::calcTangentAndBinormal ƒ|ƒŠƒSƒ“‚©UVã‚Ìƒ|ƒŠƒSƒ“‚ªk‘Þ‚µ‚Ä‚Ü‚·I");
             U[i] = -SGN(VABC.y) * lim;
             V[i] = -SGN(VABC.z) * lim;
         } else {
@@ -643,6 +644,56 @@ void Model::setDefaultMaterial(D3DMATERIAL9* pMateria) {
     pMateria->Emissive.g = 1.0f;
     pMateria->Emissive.b = 1.0f;
     pMateria->Emissive.a = 1.0f;
+}
+
+std::string Model::getXFilePath(std::string prm_xfile) {
+    std::string xfilepath = CONFIG::DIR_MESH[2] + "/" + prm_xfile;
+    UTIL::strReplace(xfilepath, "//", "/");
+    if (PathFileExists(xfilepath.c_str()) ) {
+        _TRACE_("Model::getXFilePath() xfilepath="<<xfilepath);
+        return xfilepath; //ƒJƒŒƒ“ƒg‚É‘¶Ý‚·‚ê‚Î‚»‚ê‚ð—Dæ
+    } else {
+        xfilepath = CONFIG::DIR_MESH[1] + "/" + prm_xfile;
+        UTIL::strReplace(xfilepath, "//", "/");
+        _TRACE_("Model::getXFilePath() xfilepath="<<xfilepath);
+        if (PathFileExists(xfilepath.c_str()) ) {
+            return xfilepath; //ƒ†[ƒU[ƒXƒLƒ“‚É‘¶Ý‚·‚ê‚Î‚»‚ê‚ð—Dæ
+        } else {
+            xfilepath = CONFIG::DIR_MESH[0] + "/" + prm_xfile;
+            UTIL::strReplace(xfilepath, "//", "/");
+            _TRACE_("Model::getXFilePath() xfilepath="<<xfilepath);
+            if (PathFileExists(xfilepath.c_str()) ) {
+                return xfilepath;
+            } else {
+                throwCriticalException("Model::getXFilePath() Xƒtƒ@ƒCƒ‹("<<prm_xfile<<")‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñB");
+            }
+        }
+    }
+}
+
+std::string Model::getModelDefineFilePath(std::string prm_model_name) {
+    std::string model_define_name = CONFIG::DIR_MODEL[2] + "/" + prm_model_name;
+    UTIL::strReplace(model_define_name, "//", "/");
+    if (PathFileExists(model_define_name.c_str()) ) {
+        _TRACE_("Model::getModelDefineFilePath() model_define_name.c_str()="<<model_define_name.c_str());
+        return model_define_name;
+    } else {
+        model_define_name = CONFIG::DIR_MODEL[1] + "/" +  prm_model_name;
+        UTIL::strReplace(model_define_name, "//", "/");
+        if (PathFileExists(model_define_name.c_str()) ) {
+            _TRACE_("Model::getModelDefineFilePath() model_define_name.c_str()="<<model_define_name.c_str());
+            return model_define_name; //ƒ†[ƒU[ƒXƒLƒ“‚É‘¶Ý‚·‚ê‚Î‚»‚ê‚ð—Dæ
+        } else {
+            model_define_name = CONFIG::DIR_MODEL[0] + "/" +  prm_model_name;
+            UTIL::strReplace(model_define_name, "//", "/");
+            if (PathFileExists(model_define_name.c_str()) ) {
+                _TRACE_("Model::getModelDefineFilePath() model_define_name.c_str()="<<model_define_name.c_str());
+                return model_define_name;
+            } else {
+                throwCriticalException("Model::getModelDefineFilePath() ƒ‚ƒfƒ‹’è‹`ƒtƒ@ƒCƒ‹‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñBprm_model_name="<<prm_model_name);
+            }
+        }
+    }
 }
 
 Model::~Model() {

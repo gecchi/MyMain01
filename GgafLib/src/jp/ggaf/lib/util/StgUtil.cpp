@@ -1132,7 +1132,7 @@ bool StgUtil::isHit3D(const GgafDx::GeometricActor* const pActor01, const ColliA
         //三角錐内部
         return true;
     } else {
-        _TRACE_("＜警告＞StgUtil::isHit3D() 数値範囲がオーバーフローして、正しく判定されていません。");
+        _TRACE_("【警告】StgUtil::isHit3D() 数値範囲がオーバーフローして、正しく判定されていません。");
     }
 
     return false;

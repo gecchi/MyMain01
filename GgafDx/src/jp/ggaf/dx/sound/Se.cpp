@@ -63,7 +63,7 @@ Se::Se(const char* prm_wave_key) : GgafCore::Object() {
     checkDxException(hr, D3D_OK, "prm_wave_key="<<prm_wave_key<<" CreateSoundBufferに失敗しました。サウンドカードは有効ですか？");
 
     if (!writeBuffer(WaveFile)) {
-        _TRACE_("Se::Se("<<prm_wave_key<<") ＜警告＞Se::writeBuffer()が失敗しています。");
+        _TRACE_("Se::Se("<<prm_wave_key<<") 【警告】Se::writeBuffer()が失敗しています。");
     }
     hr = _pIDirectSoundBuffer->GetFrequency(&_default_frequency);
     checkDxException(hr, D3D_OK, "prm_wave_key="<<prm_wave_key<<" GetFrequency に失敗しました。サウンドカードは有効ですか？");

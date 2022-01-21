@@ -1108,7 +1108,7 @@ void Element<T>::activateDelay(frame prm_offset_frames) {
     if (_can_live_flg) {
 #ifdef MY_DEBUG
         if (_is_active_flg) {
-            _TRACE_("ƒŒx„activateDelay("<<prm_offset_frames<<") ‚µ‚Ü‚µ‚½‚¯‚ÇAŠù‚ÉŠˆ“®ó‘Ô‚Å‚·‚æBˆÓ}‚µ‚Ä‚Ü‚·‚©H name="<<Node<T>::_name<<" this="<<this);
+            _TRACE_("yŒxzactivateDelay("<<prm_offset_frames<<") ‚µ‚Ü‚µ‚½‚¯‚ÇAŠù‚ÉŠˆ“®ó‘Ô‚Å‚·‚æBˆÓ}‚µ‚Ä‚Ü‚·‚©H name="<<Node<T>::_name<<" this="<<this);
         }
 #endif
         //Šù‚ÉinactivateDelay()ÀsÏ‚İ‚Ìê‡‚Í
@@ -1305,7 +1305,7 @@ void Element<T>::end(frame prm_offset_frames) {
 //    if (_can_live_flg) {
 //        return extract();
 //    } else {
-//        //_TRACE_("[Element<"<<_class_name<<">::extract()] ƒŒx„ "<<getName()<<"‚ÍA€‚ñ‚Å‚¢‚Ü‚·B");
+//        //_TRACE_("[Element<"<<_class_name<<">::extract()] yŒxz "<<getName()<<"‚ÍA€‚ñ‚Å‚¢‚Ü‚·B");
 //        return extract();
 //    }
 //}

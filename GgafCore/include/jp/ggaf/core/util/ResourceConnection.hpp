@@ -190,7 +190,7 @@ template<class T>
 int ResourceConnection<T>::close() {
     //close() は複数スレッドから受付を許容する。
     if ( _is_closing_resource || ResourceManager<T>::_is_connecting_resource) {
-        _TRACE_("＜警告＞ ResourceConnection<T>::close() 別のスレッドがconnect() 或いは close() 。待機が発生しました・・・・意図的ならば良いです。[" << _pManager->_manager_name << "(" << _idstr << ")" << "]。");
+        _TRACE_("【警告】 ResourceConnection<T>::close() 別のスレッドがconnect() 或いは close() 。待機が発生しました・・・・意図的ならば良いです。[" << _pManager->_manager_name << "(" << _idstr << ")" << "]。");
     }
 
     for (int i = 0; _is_closing_resource || ResourceManager<T>::_is_connecting_resource; i++) {
@@ -200,13 +200,13 @@ int ResourceConnection<T>::close() {
                                        "現在 connect() 或いは close() 中にもかかわらず、close()しようとしてタイムアウトになりました。connect～colse のスレッドを１本にして下さい。");
         }
         if (i % 100 == 0) {
-            _TRACE_("＜警告＞ ResourceConnection<T>::close() 別のスレッドがconnect() 或いは close() 中に、さらにclose()要求がきたため待機。[" << _pManager->_manager_name << "(" << _idstr << ")" << "]。待ち時間="<<i);
+            _TRACE_("【警告】 ResourceConnection<T>::close() 別のスレッドがconnect() 或いは close() 中に、さらにclose()要求がきたため待機。[" << _pManager->_manager_name << "(" << _idstr << ")" << "]。待ち時間="<<i);
         }
     }
     _is_closing_resource = true;
 
     if (_num_connection <= 0) {
-        _TRACE3_(" [" << _pManager->_manager_name << "(" << _idstr << ")" << "]<-" << _num_connection << "  ＜警告＞既にコネクションは無いにもかかわらず、close() しようとしてます。");
+        _TRACE3_(" [" << _pManager->_manager_name << "(" << _idstr << ")" << "]<-" << _num_connection << "  【警告】既にコネクションは無いにもかかわらず、close() しようとしてます。");
         _TRACE3_("何も行なわずreturnしますが、意図的でない場合は何かがおかしいでしょう。リークの可能性が大。調査すべし！");
         return _num_connection;
     }
@@ -282,7 +282,7 @@ int ResourceConnection<T>::close() {
 //                //ここに来て、connet()待ちに変わっていたら、もう諦める。
 //                //現在の排他が完全ではないと考えるのは、このあたりの処理も含む
 //                //TODO:完全対応には、connect()を却下する機構を作らねばならぬ。
-//                _TRACE_("＜警告＞ResourceConnection<T>::close() delete this 中に connect() しようとしました。大丈夫でしょうか。・・・もはやどうしようも無いのですが！");
+//                _TRACE_("【警告】ResourceConnection<T>::close() delete this 中に connect() しようとしました。大丈夫でしょうか。・・・もはやどうしようも無いのですが！");
 //            }
 //            _is_closing_resource = false; //thisポインタを使用していないので代入可能
             return 0;

@@ -73,7 +73,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
         } else {
             CONFIG::loadProperties(VV_DEFAULT_CONFIG_FILE);
             CONFIG::_properties.write(VV_CONFIG_FILE);
-            _TRACE_("＜警告＞config.properties が存在しないので、既定の '" <<VV_DEFAULT_CONFIG_FILE << "' を load しました。");
+            _TRACE_("【警告】config.properties が存在しないので、既定の '" <<VV_DEFAULT_CONFIG_FILE << "' を load しました。");
         }
     } else {
         MessageBox(nullptr, "既定設定ファイル(.default_config.properties)が見つかりません。",

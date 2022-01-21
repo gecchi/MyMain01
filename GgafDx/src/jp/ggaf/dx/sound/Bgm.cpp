@@ -19,7 +19,7 @@
     #undef __in
     #undef __out
 #endif
-#include "Shlwapi.h"
+#include <Shlwapi.h>
 #ifdef __GNUG__
     #undef __in
     #undef __out

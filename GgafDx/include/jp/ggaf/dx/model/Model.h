@@ -273,6 +273,9 @@ public:
      */
     virtual void onDeviceLost() = 0;
 
+
+    static std::string getXFilePath(std::string prm_xfile);
+    static std::string getModelDefineFilePath(std::string prm_model_name);
     /**
      * デストラクタ<BR>
      * deleteするのはModelManagerである<BR>

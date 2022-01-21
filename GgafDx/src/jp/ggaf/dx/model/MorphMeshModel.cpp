@@ -176,7 +176,7 @@ void MorphMeshModel::restore() {
         ModelManager::MeshXFileFmt xdata;
 
         std::string model_def_file = std::string(_model_id) + ".meshx";
-        std::string model_def_filepath = ModelManager::getModelDefineFilePath(model_def_file);
+        std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
         pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
         _matBaseTransformMatrix = xdata.BaseTransformMatrix;
         _draw_set_num = xdata.DrawSetNum;
@@ -188,7 +188,7 @@ void MorphMeshModel::restore() {
         int morph_target_num = _morph_target_num;
         std::string* paXfilepath = NEW std::string[morph_target_num+1];
         for (int i = 0; i < morph_target_num+1; i++) {
-            paXfilepath[i] = ModelManager::getXFilePath(xdata.XFileNames[i]);
+            paXfilepath[i] = Model::getXFilePath(xdata.XFileNames[i]);
         }
 
         HRESULT hr;

@@ -370,7 +370,7 @@ void God::createCradle(uint64_t prm_cradle_no,
     Cradle* pCradle = _pCradleRoot;
     while (pCradle) {
         if (pCradle->_cradle_no == prm_cradle_no &&  pCradle->_pReceiver == prm_pReceiver) {
-            _TRACE_("ƒŒx„ God::createCradle() ‚ä‚è‚©‚²[" << prm_cradle_no << "-"<<prm_pReceiver<<"]‚ÍŠù‚É‘¶İ‚µ‚Ä‚Ü‚·‚æIBˆÓ}‚µ‚Ä‚¢‚Ü‚·‚©H");
+            _TRACE_("yŒxz God::createCradle() ‚ä‚è‚©‚²[" << prm_cradle_no << "-"<<prm_pReceiver<<"]‚ÍŠù‚É‘¶İ‚µ‚Ä‚Ü‚·‚æIBˆÓ}‚µ‚Ä‚¢‚Ü‚·‚©H");
             return;
         }
         if (pCradle->_is_last_cradle_flg) {

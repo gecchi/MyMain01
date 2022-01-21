@@ -13,7 +13,6 @@
 
 #include "jp/ggaf/dx/manager/ModelManager.h"
 
-#include <Shlwapi.h>
 #include <d3dx9xof.h>
 #ifdef __GNUG__
     #undef __in
@@ -108,7 +107,7 @@ ModelManager::ModelManager(const char* prm_manager_name) :
     static const char* fsprx_template =
         "xof 0303txt 0032 \n" \
         "template FramedSpriteModelDef {" \
-        "   <41E1382F-9E2B-4056-B1E1-71F5D573C139>" \
+        "   <E2A64EB2-5F1B-42B4-B05A-19DF9EB9CD72>" \
         "   FLOAT  Width;" \
         "   FLOAT  Height;" \
         "   STRING TextureFile;" \
@@ -133,7 +132,7 @@ ModelManager::ModelManager(const char* prm_manager_name) :
     static const char* rsprx_template =
         "xof 0303txt 0032 \n" \
         "template RegularPolygonModelDef {" \
-        "   <41E1382F-9E2B-4056-B1E1-71F5D573C130>" \
+        "   <964A6FAF-9C35-460C-920F-4A87D713BCA6>" \
         "   FLOAT  Width;" \
         "   FLOAT  Height;" \
         "   STRING TextureFile;" \
@@ -169,7 +168,7 @@ ModelManager::ModelManager(const char* prm_manager_name) :
             "  FLOAT alpha;\n" \
             "}\n" \
             "template PointSpriteModelDef {\n" \
-            "  <E4EECE4C-E106-11DC-9B62-346D55D89513>\n" \
+            "  <2A355D47-C0C6-4979-92D0-3FCE3090C49A>\n" \
             "  FLOAT  SquareSize;\n" \
             "  STRING TextureFile;\n" \
             "  DWORD  TextureSplitRowCol;\n" \
@@ -307,55 +306,7 @@ D3DXMeshModel* ModelManager::createD3DXMeshModel(const char* prm_model_id, DWORD
     return pD3DXMeshModel_new;
 }
 
-std::string ModelManager::getXFilePath(std::string prm_xfile) {
-    std::string xfilepath = CONFIG::DIR_XFILE[2] + "/" + prm_xfile;
-    UTIL::strReplace(xfilepath, "//", "/");
-    if (PathFileExists(xfilepath.c_str()) ) {
-        _TRACE_("ModelManager::getXFilePath() xfilepath="<<xfilepath);
-        return xfilepath; //カレントに存在すればそれを優先
-    } else {
-        xfilepath = CONFIG::DIR_XFILE[1] + "/" + prm_xfile;
-        UTIL::strReplace(xfilepath, "//", "/");
-        _TRACE_("ModelManager::getXFilePath() xfilepath="<<xfilepath);
-        if (PathFileExists(xfilepath.c_str()) ) {
-            return xfilepath; //ユーザースキンに存在すればそれを優先
-        } else {
-            xfilepath = CONFIG::DIR_XFILE[0] + "/" + prm_xfile;
-            UTIL::strReplace(xfilepath, "//", "/");
-            _TRACE_("ModelManager::getXFilePath() xfilepath="<<xfilepath);
-            if (PathFileExists(xfilepath.c_str()) ) {
-                return xfilepath;
-            } else {
-                throwCriticalException("ModelManager::getXFilePath() Xファイル("<<prm_xfile<<")が見つかりません。");
-            }
-        }
-    }
-}
 
-std::string ModelManager::getModelDefineFilePath(std::string prm_model_name) {
-    std::string model_define_name = CONFIG::DIR_MODEL[2] + "/" + prm_model_name;
-    UTIL::strReplace(model_define_name, "//", "/");
-    if (PathFileExists(model_define_name.c_str()) ) {
-        _TRACE_("ModelManager::getModelDefineFilePath() model_define_name.c_str()="<<model_define_name.c_str());
-        return model_define_name;
-    } else {
-        model_define_name = CONFIG::DIR_MODEL[1] + "/" +  prm_model_name;
-        UTIL::strReplace(model_define_name, "//", "/");
-        if (PathFileExists(model_define_name.c_str()) ) {
-            _TRACE_("ModelManager::getModelDefineFilePath() model_define_name.c_str()="<<model_define_name.c_str());
-            return model_define_name; //ユーザースキンに存在すればそれを優先
-        } else {
-            model_define_name = CONFIG::DIR_MODEL[0] + "/" +  prm_model_name;
-            UTIL::strReplace(model_define_name, "//", "/");
-            if (PathFileExists(model_define_name.c_str()) ) {
-                _TRACE_("ModelManager::getModelDefineFilePath() model_define_name.c_str()="<<model_define_name.c_str());
-                return model_define_name;
-            } else {
-                throwCriticalException("ModelManager::getModelDefineFilePath() モデル定義ファイルが見つかりません。prm_model_name="<<prm_model_name);
-            }
-        }
-    }
-}
 void ModelManager::obtainMeshModelInfo(MeshXFileFmt* prm_pMeshXFileFmt_out, std::string prm_meshx_filepath) {
     _TRACE_("ModelManager::obtainMeshModelInfo() prm_meshx_filepath="<<prm_meshx_filepath);
     //    "xof 0303txt 0032 \n" \
@@ -426,16 +377,16 @@ void ModelManager::obtainMeshModelInfo(MeshXFileFmt* prm_pMeshXFileFmt_out, std:
 }
 void ModelManager::obtainSpriteModelInfo(SpriteXFileFmt* prm_pSpriteFmt_out, std::string prm_sprx_filepath) {
     _TRACE_("ModelManager::obtainSpriteModelInfo() prm_sprx_filepath="<<prm_sprx_filepath);
-//    "xof 0303txt 0032 \n" \
-//    "template SpriteModeDef {" \
-//    "   <E4EECE4C-E106-11DC-9B62-346D55D89593>" \
-//    "   FLOAT  Width;" \
-//    "   FLOAT  Height;" \
-//    "   STRING TextureFile;" \
-//    "   DWORD  TextureSplitRows;" \
-//    "   DWORD  TextureSplitCols;" \
-//    "   DWORD  DrawSetNum; " \
-//    "}\n";
+    //    "xof 0303txt 0032 \n" \
+    //    "template SpriteModelDef {" \
+    //    "   <E4EECE4C-E106-11DC-9B62-346D55D89599>" \
+    //    "   FLOAT  Width;" \
+    //    "   FLOAT  Height;" \
+    //    "   STRING TextureFile;" \
+    //    "   DWORD  TextureSplitRows;" \
+    //    "   DWORD  TextureSplitCols;" \
+    //    "   DWORD  DrawSetNum; " \
+    //    "}\n";
     ID3DXFileEnumObject* pID3DXFileEnumObject;
     HRESULT hr = _pID3DXFile_sprx->CreateEnumObject(
                                      (void*)prm_sprx_filepath.c_str(),
@@ -476,16 +427,21 @@ void ModelManager::obtainSpriteModelInfo(SpriteXFileFmt* prm_pSpriteFmt_out, std
 }
 void ModelManager::obtainFramedSpriteModelInfo(FramedSpriteXFileFmt* prm_pFramedSpriteFmt_out, std::string prm_fsprx_filepath) {
     _TRACE_("ModelManager::obtainFramedSpriteModelInfo() prm_fsprx_filepath="<<prm_fsprx_filepath);
-    //スプライト情報読込み
-    // xof 0303txt 0032
-    // template FramedSpriteModelDef {
-    //    <E4EECE4C-E106-11DC-9B62-346D55D89593>
-    //    FLOAT  Width;
-    //    FLOAT  Height;
-    //    STRING TextureFile;
-    //    DWORD  TextureSplitRows;
-    //    DWORD  TextureSplitCols;
-    // }
+    //    "xof 0303txt 0032 \n" \
+    //    "template FramedSpriteModelDef {" \
+    //    "   <E2A64EB2-5F1B-42B4-B05A-19DF9EB9CD72>" \
+    //    "   FLOAT  Width;" \
+    //    "   FLOAT  Height;" \
+    //    "   STRING TextureFile;" \
+    //    "   DWORD  TextureSplitRows;" \
+    //    "   DWORD  TextureSplitCols;" \
+    //    "\n" \
+    //    "   FLOAT  FrameWidth;" \
+    //    "   FLOAT  FrameHeight;" \
+    //    "   STRING FrameTextureFile;" \
+    //    "   DWORD  FrameTextureSplitRows;" \
+    //    "   DWORD  FrameTextureSplitCols;" \
+    //    "}\n";
     ID3DXFileEnumObject* pID3DXFileEnumObject;
     HRESULT hr = _pID3DXFile_fsprx->CreateEnumObject(
                                      (void*)prm_fsprx_filepath.c_str(),
@@ -538,8 +494,8 @@ void ModelManager::obtainFramedSpriteModelInfo(FramedSpriteXFileFmt* prm_pFramed
 void ModelManager::obtainRegPolySpriteModelInfo(RegPolySpriteXFileFmt* prm_pRegPolySpriteFmt_out, std::string prm_rsprx_filepath) {
     _TRACE_("ModelManager::obtainRegPolySpriteModelInfo() prm_sprx_filepath="<<prm_rsprx_filepath);
     //    "xof 0303txt 0032 \n" \
-    //    "template RegPolySpriteModeDef {" \
-    //    "   <41E1382F-9E2B-4056-B1E1-71F5D573C139>" \
+    //    "template RegularPolygonModelDef {" \
+    //    "   <964A6FAF-9C35-460C-920F-4A87D713BCA6>" \
     //    "   FLOAT  Width;" \
     //    "   FLOAT  Height;" \
     //    "   STRING TextureFile;" \
@@ -611,33 +567,34 @@ void ModelManager::obtainRegPolySpriteModelInfo(RegPolySpriteXFileFmt* prm_pRegP
 }
 void ModelManager::obtainPointSpriteModelInfo(PointSpriteXFileFmt* prm_pPointSpriteFmt_out, std::string prm_psprx_filepath) {
     _TRACE_("ModelManager::obtainPointSpriteModelInfo() prm_psprx_filepath="<<prm_psprx_filepath);
-    //    "xof 0303txt 0032 \n" \
-    //    "template Vector {" \
-    //    "  <3d82ab5e-62da-11cf-ab39-0020af71e433>" \
-    //    "  FLOAT x;" \
-    //    "  FLOAT y;" \
-    //    "  FLOAT z;" \
+    //    "xof 0303txt 0032\n" \
+    //    "template Vector {\n" \
+    //    "  <3d82ab5e-62da-11cf-ab39-0020af71e433>\n" \
+    //    "  FLOAT x;\n" \
+    //    "  FLOAT y;\n" \
+    //    "  FLOAT z;\n" \
     //    "}\n" \
-    //    "template ColorRGBA {" \
-    //    "  <35ff44e0-6c7c-11cf-8f52-0040333594a3>" \
-    //    "  FLOAT red;" \
-    //    "  FLOAT green;" \
-    //    "  FLOAT blue;" \
-    //    "  FLOAT alpha;" \
+    //    "template ColorRGBA {\n" \
+    //    "  <35ff44e0-6c7c-11cf-8f52-0040333594a3>\n" \
+    //    "  FLOAT red;\n" \
+    //    "  FLOAT green;\n" \
+    //    "  FLOAT blue;\n" \
+    //    "  FLOAT alpha;\n" \
     //    "}\n" \
-    //    "template PointSpriteDef {" \
-    //    "  <E4EECE4C-E106-11DC-9B62-346D55D89593>" \
-    //    "  FLOAT            SquareSize;" \
-    //    "  STRING           TextureFile;" \
-    //    "  DWORD            TextureSplitRowCol;" \
-    //    "  DWORD            VerticesNum;" \
-    //    "  array  Vector    Vertices[VerticesNum];" \
-    //    "  array  ColorRGBA VertexColors[VerticesNum];" \
-    //    "  array  DWORD     InitUvPtnNo[VerticesNum];" \
-    //    "  array  FLOAT     InitScale[VerticesNum];" \
-    //    "  DWORD  DrawSetNum; " \
-    //    "  array  FLOAT     BaseTransformMatrix[16]; " \
-    //    "}\n";
+    //    "template PointSpriteModelDef {\n" \
+    //    "  <2A355D47-C0C6-4979-92D0-3FCE3090C49A>\n" \
+    //    "  FLOAT  SquareSize;\n" \
+    //    "  STRING TextureFile;\n" \
+    //    "  DWORD  TextureSplitRowCol;\n" \
+    //    "  DWORD  VerticesNum;\n" \
+    //    "  array  Vector    Vertices[VerticesNum];\n" \
+    //    "  array  ColorRGBA VertexColors[VerticesNum];\n" \
+    //    "  array  DWORD     InitUvPtnNo[VerticesNum];\n" \
+    //    "  array  FLOAT     InitScale[VerticesNum];\n" \
+    //    "  DWORD  DrawSetNum;\n" \
+    //    "  array  FLOAT     BaseTransformMatrix[16];\n" \
+    //    "}\n" \
+    //    "\n";
 
     //スプライト情報読込みテンプレートの登録(初回実行時のみ)
     ID3DXFileEnumObject* pID3DXFileEnumObject;

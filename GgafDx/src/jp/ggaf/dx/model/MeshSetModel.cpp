@@ -176,7 +176,7 @@ void MeshSetModel::restore() {
         ModelManager* pModelManager = pGOD->_pModelManager;
         ModelManager::MeshXFileFmt xdata;
         std::string model_def_file = std::string(_model_id) + ".meshx";
-        std::string model_def_filepath = ModelManager::getModelDefineFilePath(model_def_file);
+        std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
         pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
         _matBaseTransformMatrix = xdata.BaseTransformMatrix;
         _draw_set_num = xdata.DrawSetNum;
@@ -187,7 +187,7 @@ void MeshSetModel::restore() {
             _TRACE_("MeshSetModel::restore() "<<_model_id<<" の同時描画セット数は "<<_draw_set_num<<" です。");
         }
 
-        std::string xfilepath = ModelManager::getXFilePath(xdata.XFileNames[0]);
+        std::string xfilepath = Model::getXFilePath(xdata.XFileNames[0]);
 
         //流し込む頂点バッファデータ作成
         ToolBox::IO_Model_X iox;

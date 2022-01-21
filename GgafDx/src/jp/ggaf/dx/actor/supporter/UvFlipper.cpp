@@ -86,7 +86,7 @@ void UvFlipper::remapPatternNoUv(int prm_ptn_num, ...) {
 void UvFlipper::setActivePtn(int prm_pattno_uvflip) {
 #ifdef MY_DEBUG
     if (prm_pattno_uvflip > _pattno_uvflip_max) {
-        throwCriticalException("＜警告＞UvFlipper::setActivePtn 引数のパターン番号="<<prm_pattno_uvflip<<"は、最大パターン番号（NOT 上限パターン番号）を超えています。_pattno_uvflip_max="<<_pattno_uvflip_max<<" Texture="<<_pTexture->_texture_name);
+        throwCriticalException("【警告】UvFlipper::setActivePtn 引数のパターン番号="<<prm_pattno_uvflip<<"は、最大パターン番号（NOT 上限パターン番号）を超えています。_pattno_uvflip_max="<<_pattno_uvflip_max<<" Texture="<<_pTexture->_texture_name);
     }
 #endif
     _pattno_uvflip_now = prm_pattno_uvflip;

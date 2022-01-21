@@ -23,7 +23,7 @@ namespace GgafDx {
 class Texture : public GgafCore::Object {
     friend class TextureManager;
 
-    static std::string getTextureFileName(std::string prm_file);
+    static std::string getTextureFilePath(std::string prm_file);
 
 public:
     /** ƒ‚ƒfƒ‹’è‹`‚Ì¯•Ê–¼B(50•¶š‚Ü‚Å) */

@@ -149,9 +149,7 @@ public:
     ID3DXFile* _pID3DXFile_fsprx;
     ID3DXFile* _pID3DXFile_rsprx;
     ID3DXFile* _pID3DXFile_psprx;
-    static std::string getXFilePath(std::string prm_xfile);
-//    static std::string getXFilePath2(std::string prm_model_id);
-    static std::string getModelDefineFilePath(std::string prm_model_name);
+
     void obtainMeshModelInfo(MeshXFileFmt* prm_pMeshXFileFmt_out, std::string prm_meshx_filepath);
     void obtainSpriteModelInfo(SpriteXFileFmt* prm_pSpriteFmt_out, std::string prm_sprx_filepath);
     void obtainFramedSpriteModelInfo(FramedSpriteXFileFmt* prm_pFramedSpriteFmt_out, std::string prm_fsprx_filepath);

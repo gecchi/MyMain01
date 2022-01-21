@@ -32,7 +32,7 @@ void CollisionChecker2D::updateHitArea() {
         _pElem->_kind = pActor->lookUpKind();
 #ifdef MY_DEBUG
         if (_pElem->_kind == 0) {
-            _TRACE_("ƒŒx„ CollisionChecker2D::updateHitArea() pActor="<<pActor->getName()<<"("<<pActor<<")‚Ìí•Ê‚ª0‚É‚à‚©‚©‚í‚ç‚¸A”ª•ª–Ø‚É“o˜^‚µ‚æ‚¤‚Æ‚µ‚Ä‚¢‚Ü‚·B‚È‚º‚Å‚·‚©HB");
+            _TRACE_("yŒxz CollisionChecker2D::updateHitArea() pActor="<<pActor->getName()<<"("<<pActor<<")‚Ìí•Ê‚ª0‚É‚à‚©‚©‚í‚ç‚¸A”ª•ª–Ø‚É“o˜^‚µ‚æ‚¤‚Æ‚µ‚Ä‚¢‚Ü‚·B‚È‚º‚Å‚·‚©HB");
         }
 #endif
         pCollisionArea->updateAABB(pActor->_rx, pActor->_ry, pActor->_rz); //ÅŠOˆæ‚Ì‹«ŠEAABBXV
@@ -114,7 +114,7 @@ bool CollisionChecker2D::isHit(const GgafDx::Checker* const prm_pOppChecker) {
                      }
                  } else if (opp_shape_kind == COLLI_AAPYRAMID) {
                      //ƒ’·•ûŒ` ‚Æ AAPyramid„
-                    _TRACE_("ƒŒx„2D‚Å AAB ‚Æ AAPyramid ‚Ì“–‚½‚è”»’èˆ—‚ª‘¶İ‚µ‚Ü‚·BAAPyramid‚Ì2D“–‚½‚è”»’è‚Í‚ ‚è‚Ü‚¹‚ñ "<<
+                    _TRACE_("yŒxz2D‚Å AAB ‚Æ AAPyramid ‚Ì“–‚½‚è”»’èˆ—‚ª‘¶İ‚µ‚Ü‚·BAAPyramid‚Ì2D“–‚½‚è”»’è‚Í‚ ‚è‚Ü‚¹‚ñ "<<
                             pActor <<"["<<pActor->getName()<<"] vs "<<pOppActor<<"["<<pOppActor->getName()<<"]");
                     return false;
                  }
@@ -153,7 +153,7 @@ bool CollisionChecker2D::isHit(const GgafDx::Checker* const prm_pOppChecker) {
                     }
                 } else if (opp_shape_kind == COLLI_AAPYRAMID) {
                     //ƒ‰~ ‚Æ ’¼ŠpOŠpŒ`„
-                    _TRACE_("ƒŒx„2D‚Å ‹… ‚Æ AAPyramid ‚Ì“–‚½‚è”»’èˆ—‚ª‘¶İ‚µ‚Ü‚·BAAPyramid‚Ì2D“–‚½‚è”»’è‚Í‚ ‚è‚Ü‚¹‚ñ "<<
+                    _TRACE_("yŒxz2D‚Å ‹… ‚Æ AAPyramid ‚Ì“–‚½‚è”»’èˆ—‚ª‘¶İ‚µ‚Ü‚·BAAPyramid‚Ì2D“–‚½‚è”»’è‚Í‚ ‚è‚Ü‚¹‚ñ "<<
                             pActor <<"["<<pActor->getName()<<"] vs "<<pOppActor<<"["<<pOppActor->getName()<<"]");
                     return false;
                 }
@@ -192,13 +192,13 @@ bool CollisionChecker2D::isHit(const GgafDx::Checker* const prm_pOppChecker) {
                     }
                 } else if (opp_shape_kind == COLLI_AAPYRAMID) {
                     //ƒ’¼ŠpOŠpŒ` ‚Æ AAPyramid„
-                    _TRACE_("ƒŒx„2D‚Å AAPrism ‚Æ AAPyramid ‚Ì“–‚½‚è”»’èˆ—‚ª‘¶İ‚µ‚Ü‚·BAAPyramid‚Ì2D“–‚½‚è”»’è‚Í‚ ‚è‚Ü‚¹‚ñ "<<
+                    _TRACE_("yŒxz2D‚Å AAPrism ‚Æ AAPyramid ‚Ì“–‚½‚è”»’èˆ—‚ª‘¶İ‚µ‚Ü‚·BAAPyramid‚Ì2D“–‚½‚è”»’è‚Í‚ ‚è‚Ü‚¹‚ñ "<<
                             pActor <<"["<<pActor->getName()<<"] vs "<<pOppActor<<"["<<pOppActor->getName()<<"]");
                     return false;
                  }
             }
         } else if (shape_kind == COLLI_AAPYRAMID) {
-            _TRACE_("ƒŒx„2D‚Å AAPyramid ‚Ì“–‚½‚è”»’èˆ—‚ª‘¶İ‚µ‚Ü‚·BAAPyramid‚Ì2D“–‚½‚è”»’è‚Í‚ ‚è‚Ü‚¹‚ñ "<<
+            _TRACE_("yŒxz2D‚Å AAPyramid ‚Ì“–‚½‚è”»’èˆ—‚ª‘¶İ‚µ‚Ü‚·BAAPyramid‚Ì2D“–‚½‚è”»’è‚Í‚ ‚è‚Ü‚¹‚ñ "<<
                     pActor <<"["<<pActor->getName()<<"] vs "<<pOppActor<<"["<<pOppActor->getName()<<"]");
             return false;
         }

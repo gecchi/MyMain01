@@ -95,7 +95,7 @@ void PCMPlayer::terminateThread() {
         while (!end) {
             //if (wait > 1) {
             if (wait > 10000) {
-                _TRACE_("＜警告＞ PCMPlayer::terminateThread() 未完。正しくスレッドが終了することを願ってBREAK (T_T)");
+                _TRACE_("【警告】 PCMPlayer::terminateThread() 未完。正しくスレッドが終了することを願ってBREAK (T_T)");
                 break;
             }
             DWORD flag = WaitForSingleObject(_hnd_thread, 4);

@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/texture/Texture.h"
 
-#include "Shlwapi.h"
+#include <Shlwapi.h>
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/dx/Config.h"
 #include "jp/ggaf/dx/God.h"
@@ -15,11 +15,11 @@ Texture::Texture(const char* prm_texture_name) : GgafCore::Object() {
     restore();
 }
 
-std::string Texture::getTextureFileName(std::string prm_file) {
+std::string Texture::getTextureFilePath(std::string prm_file) {
     std::string texture_file = CONFIG::DIR_TEXTURE[2] + "/" + prm_file;
     UTIL::strReplace(texture_file, "//", "/");
     if (PathFileExists(texture_file.c_str()) ) {
-        return texture_file; //ユーザースキンに存在すればそれを優先
+        return texture_file;
     } else {
         texture_file = CONFIG::DIR_TEXTURE[1] + "/" + prm_file;
         UTIL::strReplace(texture_file, "//", "/");
@@ -31,7 +31,7 @@ std::string Texture::getTextureFileName(std::string prm_file) {
             if (PathFileExists(texture_file.c_str()) ) {
                 return texture_file;
             } else {
-                _TRACE_("＜警告＞Texture::getTextureFileName テクスチャファイルが見つかりません。texture_file="<<texture_file);
+                _TRACE_("【警告】Texture::getTextureFilePath テクスチャファイルが見つかりません。texture_file="<<texture_file);
                 return texture_file;
             }
         }
@@ -42,13 +42,14 @@ void Texture::restore() {
     _pIDirect3DBaseTexture9 = nullptr;
     _pD3DXIMAGE_INFO = NEW D3DXIMAGE_INFO;
     std::string texture_name = std::string(_texture_name);
-    std::string texture_file_name = getTextureFileName(texture_name);
+    std::string texture_file_name = Texture::getTextureFilePath(texture_name);
 
     //テクスチャファイル名に "cubemap" or "CubeMap" or "Cubemap" が含まれていれば、環境マップテクスチャとみなす
     if (texture_name.find("cubemap") == std::string::npos &&
         texture_name.find("CubeMap") == std::string::npos &&
         texture_name.find("Cubemap") == std::string::npos
     ) {
+        _TRACE_("Texture::restore() texture_name="<<texture_name<<" は、通常の２Dテクスチャとみなします（ファイル名に CubeMap が含まれ無い為）");
         //通常の２Dテクスチャの場合
         LPDIRECT3DTEXTURE9 pIDirect3DTexture9;
         HRESULT hr = D3DXCreateTextureFromFileEx(
@@ -70,7 +71,7 @@ void Texture::restore() {
         if (hr != D3D_OK) {
             _TRACE_("D3DXCreateTextureFromFileEx失敗。対象="<<texture_file_name);
             //失敗用テクスチャ"IlligalTexture.dds"を設定
-            std::string texture_file_name2 = getTextureFileName(CONFIG::ILLIGAL_TEXTURE);
+            std::string texture_file_name2 = getTextureFilePath(CONFIG::ILLIGAL_TEXTURE);
             HRESULT hr2 = D3DXCreateTextureFromFileEx(
                              God::_pID3DDevice9,   // [in] LPDIRECT3DDEVICE9 pDevice,
                              texture_file_name2.c_str(), // [in] LPCTSTR pSrcFile,
@@ -87,7 +88,7 @@ void Texture::restore() {
                              nullptr,                    // [in] PALETTEENTRY *pPalette,
                              &pIDirect3DTexture9         // [out] TextureConnection* *ppTextureConnection
                           );
-            checkDxException(hr2, D3D_OK, "＜警告＞TextureManager::restore() D3DXCreateTextureFromFileEx失敗。対象="<<texture_file_name2);
+            checkDxException(hr2, D3D_OK, "【警告】TextureManager::restore() D3DXCreateTextureFromFileEx失敗。対象="<<texture_file_name2);
         }
         D3DSURFACE_DESC d3dsurface_desc;
         pIDirect3DTexture9->GetLevelDesc(0, &d3dsurface_desc);
@@ -96,6 +97,7 @@ void Texture::restore() {
         _pIDirect3DBaseTexture9 = pIDirect3DTexture9;
         Sleep(1); //愛に気を使う。
     } else {
+        _TRACE_("Texture::restore() texture_name="<<texture_name<<" は、環境マップテクスチャとみなします（ファイル名に CubeMap が含まれる為）");
         //環境マップテクスチャの場合
         LPDIRECT3DCUBETEXTURE9 pIDirect3DCubeTexture9;
         HRESULT hr = D3DXCreateCubeTextureFromFileEx(
@@ -114,9 +116,9 @@ void Texture::restore() {
                             &pIDirect3DCubeTexture9    // [out] LPDIRECT3DCUBETEXTURE9 * ppCubeTexture
                     );
         if (hr != D3D_OK) {
-            _TRACE_("＜警告＞TextureManager::restore() D3DXCreateCubeTextureFromFileEx 失敗。対象="<<texture_name);
+            _TRACE_("【警告】TextureManager::restore() D3DXCreateCubeTextureFromFileEx 失敗。対象="<<texture_name);
             //失敗用環境マップテクスチャ"IlligalCubeMapTexture.dds"を設定
-            std::string texture_file_name2 = getTextureFileName(CONFIG::ILLIGAL_CUBEMAP_TEXTURE);
+            std::string texture_file_name2 = getTextureFilePath(CONFIG::ILLIGAL_CUBEMAP_TEXTURE);
             HRESULT hr2 = D3DXCreateCubeTextureFromFileEx(
                                     God::_pID3DDevice9,   // [in ] LPDIRECT3DDEVICE9 pDevice,
                                     texture_file_name2.c_str(), // [in ] LPCTSTR pSrcFile,

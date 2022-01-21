@@ -277,7 +277,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                                     _z + pGeoDriver->_velo_vz_mv*4+1 );
                         }
                     } else {
-                        _TRACE_("ÅÉåxçêÅÑÇ†ÇËÇ¶Ç»Ç¢");
+                        _TRACE_("ÅyåxçêÅzÇ†ÇËÇ¶Ç»Ç¢");
                     }
                 }
             }

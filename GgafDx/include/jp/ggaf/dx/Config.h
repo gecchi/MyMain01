@@ -102,7 +102,7 @@ public:
     static double SE_VOLUME_RATE_MAX_DEPTH;
 
     /** [r] メッシュモデルの定義ファイル(Xファイル)の格納ディレクトリ名 */
-    static std::string DIRNAME_RESOURCE_SKIN_XXX_XFILE;
+    static std::string DIRNAME_RESOURCE_SKIN_XXX_MESH;
     /** [r] 2Dスプライトモデルの定義ファイル(sprx)の格納ディレクトリ名 */
     static std::string DIRNAME_RESOURCE_SKIN_XXX_MODEL;
     /** [r] テクスチャファイルの格納ディレクトリ名 */
@@ -134,17 +134,17 @@ public:
 
     ////// 以下は、上記プロパティから生成される読み出し専用プロパティ ////////
 
-    /** [r] メッシュモデルの定義ファイル(Xファイル)の格納ディレクトリ(0:システム/1:ユーザー/2:カレント) */
-    static std::string DIR_XFILE[3];
-    /** [r] アクターの定義ファイルの格納ディレクトリ(0:システム/1:ユーザー/2:カレント) */
+    /** [r] メッシュモデルの定義ファイル(Xファイル)の格納ディレクトリ(0:システム/1:ユーザー/2:直下) */
+    static std::string DIR_MESH[3];
+    /** [r] アクターの定義ファイルの格納ディレクトリ(0:システム/1:ユーザー/2:直下) */
     static std::string DIR_MODEL[3];
-    /** [r] テクスチャファイルの格納ディレクトリ(0:システム/1:ユーザー/2:カレント) */
+    /** [r] テクスチャファイルの格納ディレクトリ(0:システム/1:ユーザー/2:直下) */
     static std::string DIR_TEXTURE[3];
-    /** [r] エフェクトファイル(fxファイル)の格納ディレクトリ(0:システム/1:ユーザー/2:カレント) */
+    /** [r] エフェクトファイル(fxファイル)の格納ディレクトリ(0:システム/1:ユーザー/2:直下) */
     static std::string DIR_EFFECT[3];
-    /** [r] BGMファイル(oggファイル)の格納ディレクトリ(0:システム/1:ユーザー/2:カレント) */
+    /** [r] BGMファイル(oggファイル)の格納ディレクトリ(0:システム/1:ユーザー/2:直下) */
     static std::string DIR_BGM[3];
-    /** [r] SoundEffectファイル(waveファイル)の格納ディレクトリ(0:システム/1:ユーザー/2:カレント) */
+    /** [r] SoundEffectファイル(waveファイル)の格納ディレクトリ(0:システム/1:ユーザー/2:直下) */
     static std::string DIR_SE[3];
 
     /** [r] スプライン曲線座標情報ファイル(datファイル)格納ディレクトリ名 */

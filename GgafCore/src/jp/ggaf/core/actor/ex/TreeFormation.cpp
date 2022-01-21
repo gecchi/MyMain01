@@ -19,7 +19,7 @@ void TreeFormation::appendFormationMember(Actor* prm_pChild) {
 #ifdef MY_DEBUG
     if (wasDeclaredEnd()) {
         //終了を待つのみ
-        _TRACE_("＜警告＞ TreeFormation::appendChild("<<NODE_INFO_P(prm_pChild)<<") 既に死にゆく定めのFormationです。子に追加することはおかしいのではないか？いいのか？。this="<<NODE_INFO);
+        _TRACE_("【警告】 TreeFormation::appendChild("<<NODE_INFO_P(prm_pChild)<<") 既に死にゆく定めのFormationです。子に追加することはおかしいのではないか？いいのか？。this="<<NODE_INFO);
     }
 #endif
     _num_formation_member++;
@@ -107,7 +107,7 @@ Actor* TreeFormation::calledUpMember(int prm_formation_child_num) {
                 _pIte = getChildFirst();
                 if (!_pIte) {
                     //メンバーが追加されてない
-                    _TRACE_("＜警告＞ TreeFormation::calledUpMember() メンバーが追加されてません。おかしいのでは？。this="<<NODE_INFO);
+                    _TRACE_("【警告】 TreeFormation::calledUpMember() メンバーが追加されてません。おかしいのでは？。this="<<NODE_INFO);
                     _can_called_up = false; //次回から calledUpMember() 不可
                     _num_formation_member = 0;
                     return nullptr;

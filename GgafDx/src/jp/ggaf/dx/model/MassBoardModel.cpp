@@ -64,9 +64,9 @@ void MassBoardModel::createVertexModel(void* prm, MassModel::VertexModelInfo* ou
 //描画
 HRESULT MassBoardModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
     _TRACE4_("MassBoardModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
-    if (_pVertexBuffer_instancedata == nullptr) {
-        createVertexElements(); //デバイスロスト復帰時に呼び出される
-    }
+//    if (_pVertexBuffer_instancedata == nullptr) {
+//        createVertexElements(); //デバイスロスト復帰時に呼び出される
+//    }
 #ifdef MY_DEBUG
     if (prm_draw_set_num > _draw_set_num) {
         throwCriticalException(FUNC_NAME<<" "<<_model_id<<" の描画セット数オーバー。_draw_set_num="<<_draw_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
@@ -202,7 +202,7 @@ void MassBoardModel::restore() {
     if (_paVtxBuffer_data_model == nullptr) {
         ModelManager* pModelManager = pGOD->_pModelManager;
         std::string model_def_file = std::string(_model_id) + ".sprx";
-        std::string model_def_filepath = ModelManager::getModelDefineFilePath(model_def_file);
+        std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
         ModelManager::SpriteXFileFmt xdata;
         pModelManager->obtainSpriteModelInfo(&xdata, model_def_filepath);
 
@@ -329,6 +329,7 @@ void MassBoardModel::restore() {
                     (TextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[n].c_str(), this));
         }
     }
+    MassModel::restore(); //上位を呼び出す
 }
 
 MassBoardModel::~MassBoardModel() {

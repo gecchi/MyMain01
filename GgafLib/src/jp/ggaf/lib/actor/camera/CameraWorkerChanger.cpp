@@ -115,7 +115,7 @@ CameraWorker* CameraWorkerChanger::changeCameraWork(const char* prm_pID) {
     if (pCamWorker == _pActiveCamWorker) {
 #ifdef MY_DEBUG
         _stack_CamWorkerConnection.dump();
-        _TRACE_("＜警告＞CameraWorkerChanger::changeCameraWork("<<prm_pID<<") 同じカメラワークを連続でpush()していますので無視します。_pActiveCamWorker="<<_pActiveCamWorker->getName());
+        _TRACE_("【警告】CameraWorkerChanger::changeCameraWork("<<prm_pID<<") 同じカメラワークを連続でpush()していますので無視します。_pActiveCamWorker="<<_pActiveCamWorker->getName());
 #endif
         pCon->close();
     } else {
@@ -177,7 +177,7 @@ CameraWorker* CameraWorkerChanger::undoCameraWork() {
         } else {
 #ifdef MY_DEBUG
             _stack_CamWorkerConnection.dump();
-            _TRACE_("＜警告＞CameraWorkerChanger::undoCameraWork() pop()したカメラワークは、pop()前と同じカメラワークです。pCamWorker="<<pCamWorker->getName());
+            _TRACE_("【警告】CameraWorkerChanger::undoCameraWork() pop()したカメラワークは、pop()前と同じカメラワークです。pCamWorker="<<pCamWorker->getName());
 #endif
             return _pActiveCamWorker;
         }

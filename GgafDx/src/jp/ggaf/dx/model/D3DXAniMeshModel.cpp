@@ -170,7 +170,7 @@ void D3DXAniMeshModel::restore() {
 //    DWORD _num_materials;
     ModelManager::MeshXFileFmt xdata;
     std::string model_def_file = std::string(_model_id) + ".meshx";
-    std::string model_def_filepath = ModelManager::getModelDefineFilePath(model_def_file);
+    std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
     pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
     _matBaseTransformMatrix = xdata.BaseTransformMatrix;
     _draw_set_num = xdata.DrawSetNum;
@@ -179,9 +179,9 @@ void D3DXAniMeshModel::restore() {
         _draw_set_num = 1;
     }
 
-    std::string xfilepath = ModelManager::getXFilePath(xdata.XFileNames[0]);
+    std::string xfilepath = Model::getXFilePath(xdata.XFileNames[0]);
 
-//    std::string xfile_name = ModelManager::getModelDefineFilePath(_model_id, "meshx");
+//    std::string xfile_name = Model::getModelDefineFilePath(_model_id, "meshx");
 //    if (xfile_name == "") {
 //         throwCriticalException("メッシュファイル(*.x)が見つかりません。model_id="<<(_model_id));
 //    }

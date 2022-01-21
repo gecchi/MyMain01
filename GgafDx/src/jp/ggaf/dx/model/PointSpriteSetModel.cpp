@@ -133,7 +133,7 @@ void PointSpriteSetModel::restore() {
         ModelManager* pModelManager = pGOD->_pModelManager;
 
         std::string model_def_file = std::string(_model_id) + ".psprx";
-        std::string model_def_filepath = ModelManager::getModelDefineFilePath(model_def_file);
+        std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
         ModelManager::PointSpriteXFileFmt xdata;
         pModelManager->obtainPointSpriteModelInfo(&xdata, model_def_filepath);
         _matBaseTransformMatrix = xdata.BaseTransformMatrix;

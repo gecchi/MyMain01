@@ -40,12 +40,12 @@ void FixedFrameCurveGeoDriverLeader::restart() {
 //    if (ABS(_distance_to_begin) <= PX_C(1)) {
     if ( (ucoord)(_distance_to_begin + PX_C(1)) <= (ucoord)(PX_C(2)) ) {
         //始点への距離が無い、間引く。
-        //_TRACE_("＜警告＞FixedFrameCurveGeoDriverLeader::start("<<prm_option<<") _pActor_target="<<_pActor_target->getName()<<
+        //_TRACE_("【警告】FixedFrameCurveGeoDriverLeader::start("<<prm_option<<") _pActor_target="<<_pActor_target->getName()<<
         //    " 現座標～始点[0]への距離は 0 であるため、現座標～始点への移動プロセスはカットされます。");
         _hosei_frames = _pFixedFrameSplManuf->_frame_of_segment;
         //これにより、_point_index は、初回いきなり1から始まる。
     } else {
-        _TRACE_("＜警告＞FixedFrameCurveGeoDriverLeader::restart("<<_option<<") _pActor_target="<<_pActor_target->getName()<<
+        _TRACE_("【警告】FixedFrameCurveGeoDriverLeader::restart("<<_option<<") _pActor_target="<<_pActor_target->getName()<<
             " 現座標～始点[0]への距離("<<_distance_to_begin<<" coord)が離れているため、現座標～始点への移動プロセスとしてセグメントが＋１されます。"<<
             "そのため、合計移動フレーム時間に誤差(+"<<_pFixedFrameSplManuf->_frame_of_segment<<"フレーム)が生じます。ご了承くださいませ。");
         _hosei_frames = 0;

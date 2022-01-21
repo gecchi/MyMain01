@@ -282,9 +282,9 @@ void God::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
     _TRACE_("_num_adapter = "<< _num_adapter);
     if (CONFIG::FULL_SCREEN && CONFIG::DUAL_VIEW) {
         if (_num_adapter < 2) {
-            _TRACE_("＜警告＞２画面フルスクリーン設定ですが、マルチモニタを検出できません。強制的に１画面フルスクリーンで起動します");
+            _TRACE_("【警告】２画面フルスクリーン設定ですが、マルチモニタを検出できません。強制的に１画面フルスクリーンで起動します");
             MessageBox(God::_pHWndPrimary,
-                       "＜警告＞２画面フルスクリーン設定ですが、マルチモニタを検出できません。\n強制的に１画面フルスクリーンで起動します",
+                       "【警告】２画面フルスクリーン設定ですが、マルチモニタを検出できません。\n強制的に１画面フルスクリーンで起動します",
                        "WARNING", MB_OK | MB_ICONSTOP | MB_SETFOREGROUND | MB_TOPMOST);
             _primary_adapter_no = 0;
             _secondary_adapter_no = 1;
@@ -1545,7 +1545,7 @@ HRESULT God::initDx9Device() {
 
 HRESULT God::restoreFullScreenRenderTarget() {
     if (!CONFIG::FULL_SCREEN) {
-        _TRACE_("＜警告＞フルスクリーン時意外、呼び出し不要です。");
+        _TRACE_("【警告】フルスクリーン時意外、呼び出し不要です。");
         return D3D_OK;
     }
     HRESULT hr;
@@ -1893,8 +1893,8 @@ void God::presentSpacetimeVisualize() {
 
         if (hr != D3D_OK) { //hr は Present の戻り値
              //出刃異素露巣斗？
-//            _TRACE_("＜警告＞デバイス異常発生!!" <<DXGetErrorString(hr) << " "<< DXGetErrorDescription(hr));
-            _TRACE_("＜警告＞デバイス異常発生!! HRESULT="<<hr);
+//            _TRACE_("【警告】デバイス異常発生!!" <<DXGetErrorString(hr) << " "<< DXGetErrorDescription(hr));
+            _TRACE_("【警告】デバイス異常発生!! HRESULT="<<hr);
             if (hr == D3DERR_DEVICELOST) {
                 _TRACE_("通常の正常デバイスロスト！");
             }

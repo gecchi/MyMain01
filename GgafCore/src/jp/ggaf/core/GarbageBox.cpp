@@ -32,7 +32,7 @@ void GarbageBox::add(Actor* prm_pActor) {
         if (GarbageBox::_wait) {
             Sleep(1);
             if (i == Garbage_MAX_WAIT-1) {
-                _TRACE_("ÅÉåxçêÅÑ GarbageBox::add("<<NODE_INFO_P(prm_pActor)<<") ã≠êßadd");
+                _TRACE_("ÅyåxçêÅz GarbageBox::add("<<NODE_INFO_P(prm_pActor)<<") ã≠êßadd");
             }
         } else {
             break;
@@ -54,7 +54,7 @@ void GarbageBox::add(Scene* prm_pScene) {
         if (GarbageBox::_wait) {
             Sleep(1);
             if (i == Garbage_MAX_WAIT-1) {
-                _TRACE_("ÅÉåxçêÅÑ GarbageBox::add("<<NODE_INFO_P(prm_pScene)<<") ã≠êßadd");
+                _TRACE_("ÅyåxçêÅz GarbageBox::add("<<NODE_INFO_P(prm_pScene)<<") ã≠êßadd");
             }
         } else {
             break;
@@ -82,7 +82,7 @@ void GarbageBox::clean(int prm_num_cleaning) {
         if (GarbageBox::_wait) {
             Sleep(1);
             if (i == Garbage_MAX_WAIT-1) {
-                _TRACE_("ÅÉåxçêÅÑ GarbageBox::clean() ã≠êßreturn");
+                _TRACE_("ÅyåxçêÅz GarbageBox::clean() ã≠êßreturn");
                 return;
             }
         } else {

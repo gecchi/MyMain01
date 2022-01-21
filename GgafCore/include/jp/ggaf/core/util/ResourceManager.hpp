@@ -213,7 +213,7 @@ ResourceConnection<T>* ResourceManager<T>::connect(const char* prm_idstr, void* 
         _TRACE3_("警告 ResourceManager<T>::connect(nullptr) [" << _manager_name << "]");
     }
     if (_is_waiting_to_connect || _is_connecting_resource) {
-        _TRACE_("＜警告＞ ResourceManager<T>::connect() "<<_manager_name<<"は、コネクト処理中にもかかわらず、更にconnect() 要求が来たため待機が発生しました・・ 待機中("<<prm_idstr<<")");
+        _TRACE_("【警告】 ResourceManager<T>::connect() "<<_manager_name<<"は、コネクト処理中にもかかわらず、更にconnect() 要求が来たため待機が発生しました・・ 待機中("<<prm_idstr<<")");
     }
     for (int i = 0; _is_waiting_to_connect || _is_connecting_resource; i++) {
         Sleep(10);
@@ -223,7 +223,7 @@ ResourceConnection<T>* ResourceManager<T>::connect(const char* prm_idstr, void* 
             throwCriticalException("中に、connect()しているか、処理が遅すぎます。(1)");
         }
         if (i % 100 == 0) {
-            _TRACE_("＜警告＞ ResourceManager<T>::connect() "<<_manager_name<<"は、コネクト処理中にもかかわらず、更にconnect() 要求が来たため待機が発生しました・・ 待機中("<<prm_idstr<<") 待ち時間="<<i);
+            _TRACE_("【警告】 ResourceManager<T>::connect() "<<_manager_name<<"は、コネクト処理中にもかかわらず、更にconnect() 要求が来たため待機が発生しました・・ 待機中("<<prm_idstr<<") 待ち時間="<<i);
         }
     }
     _is_waiting_to_connect = false;
@@ -240,7 +240,7 @@ ResourceConnection<T>* ResourceManager<T>::connect(const char* prm_idstr, void* 
             throwCriticalException("中に、connect()しているか、処理が遅すぎます。(2)");
         }
         if (i % 100 == 0) {
-            _TRACE_("＜警告＞ ResourceManager<T>::connect() "<<_manager_name<<"は、既存のクローズ処理中に、connect() 要求が来たため待機が発生しました・・ 待機中("<<prm_idstr<<") 待ち時間="<<i);
+            _TRACE_("【警告】 ResourceManager<T>::connect() "<<_manager_name<<"は、既存のクローズ処理中に、connect() 要求が来たため待機が発生しました・・ 待機中("<<prm_idstr<<") 待ち時間="<<i);
         }
     }
     //TODO:メモ
@@ -332,7 +332,7 @@ ResourceManager<T>::~ResourceManager() {
         ResourceConnection<T>* pCurrent_next;
         while (pCurrent) {
             int rnum = pCurrent->_num_connection;
-            _TRACE_("＜警告＞["<<_manager_name<<"]に、コネクション[" << pCurrent->_idstr << "←" << rnum
+            _TRACE_("【警告】["<<_manager_name<<"]に、コネクション[" << pCurrent->_idstr << "←" << rnum
                     << "Connection]が残っているので削除出来ません。close()漏れ要調査です。特別に" << rnum << "回 close() を試みます。");
 //            T* r = pCurrent->peek();
             pCurrent_next = pCurrent->_pNext;
@@ -340,9 +340,9 @@ ResourceManager<T>::~ResourceManager() {
 //                pCurrent->processReleaseResource(r); //リソースの解放
 //            }
             for (int i = 0; i < rnum; i++) {
-                _TRACE_("＜警告＞["<<i<<"回目] close() 今からします。pCurrent="<<(pCurrent->_idstr)<<"("<<pCurrent<<")");
+                _TRACE_("【警告】["<<i<<"回目] close() 今からします。pCurrent="<<(pCurrent->_idstr)<<"("<<pCurrent<<")");
                 pCurrent->close(); //自殺するまで解放
-                _TRACE_("＜警告＞["<<i<<"回目] close() 完了しました。");
+                _TRACE_("【警告】["<<i<<"回目] close() 完了しました。");
             }
             if (pCurrent_next == nullptr) {
                 //最後の一つ

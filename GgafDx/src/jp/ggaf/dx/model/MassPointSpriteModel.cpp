@@ -77,7 +77,7 @@ void MassPointSpriteModel::restore() {
     if (!_paVtxBuffer_data_model) {
         ModelManager* pModelManager = pGOD->_pModelManager;
         std::string model_def_file = std::string(_model_id) + ".psprx";
-        std::string model_def_filepath = ModelManager::getModelDefineFilePath(model_def_file);
+        std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
         ModelManager::PointSpriteXFileFmt xdata;
         pModelManager->obtainPointSpriteModelInfo(&xdata, model_def_filepath);
         _matBaseTransformMatrix = xdata.BaseTransformMatrix;
@@ -192,14 +192,15 @@ void MassPointSpriteModel::restore() {
     //インデックスバッファは使わない
     _pIndexBuffer = nullptr;
 
+    MassModel::restore(); //上位を呼び出す
     _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 HRESULT MassPointSpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
     _TRACE4_("MassPointSpriteModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
-    if (_pVertexBuffer_instancedata == nullptr) {
-        createVertexElements(); //デバイスロスト復帰時に呼び出される
-    }
+//    if (_pVertexBuffer_instancedata == nullptr) {
+//        createVertexElements(); //デバイスロスト復帰時に呼び出される
+//    }
 #ifdef MY_DEBUG
     if (prm_draw_set_num > _draw_set_num) {
         throwCriticalException(FUNC_NAME<<" "<<_model_id<<" の描画セット数オーバー。_draw_set_num="<<_draw_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");

@@ -34,7 +34,7 @@ void CollisionChecker3D::updateHitArea() {
         _pElem->_kind = pActor->lookUpKind();
 #ifdef MY_DEBUG
         if (_pElem->_kind == 0) {
-            _TRACE_("＜警告＞ CollisionChecker3D::updateHitArea() pActor="<<pActor->getName()<<"("<<pActor<<")の種別が0にもかかわらず、八分木に登録しようとしています。なぜですか？。");
+            _TRACE_("【警告】 CollisionChecker3D::updateHitArea() pActor="<<pActor->getName()<<"("<<pActor<<")の種別が0にもかかわらず、八分木に登録しようとしています。なぜですか？。");
         }
 #endif
         pCollisionArea->updateAABB(pActor->_rx, pActor->_ry, pActor->_rz); //最外域の境界AABB更新
@@ -215,13 +215,13 @@ CNT:
                     //＜AAPrism と AAPrism＞
                     //TODO:未対応。 考えるだけで重たくなりそう、というかめんどくさそうな感じがする；。
                     //時間があれば考えよう・・・
-                    _TRACE_("＜警告＞AAPrism と AAPrism の当たり判定処理が存在します。そんな処理は未だ作ってません。 "<<
+                    _TRACE_("【警告】AAPrism と AAPrism の当たり判定処理が存在します。そんな処理は未だ作ってません。 "<<
                             pActor <<"["<<pActor->getName()<<"] vs "<<pOppActor<<"["<<pOppActor->getName()<<"]");
                     return false;
                 } else if (opp_shape_kind == COLLI_AAPYRAMID) {
                     //＜AAPrism と AAPyramid＞
                     //TODO: 今は未対応。
-                    _TRACE_("＜警告＞AAPrism と AAPyramid の当たり判定処理が存在します。そんな処理は未だ作ってません。 "<<
+                    _TRACE_("【警告】AAPrism と AAPyramid の当たり判定処理が存在します。そんな処理は未だ作ってません。 "<<
                             pActor <<"["<<pActor->getName()<<"] vs "<<pOppActor<<"["<<pOppActor->getName()<<"]");
                     return false;
                 }
@@ -255,13 +255,13 @@ CNT:
                 } else if (opp_shape_kind == COLLI_AAPRISM) {
                     //＜AAPyramid と AAPrism＞
                     //TODO: 今は未対応。
-                    _TRACE_("＜警告＞AAPyramid と AAPrism の当たり判定処理が存在します。そんな処理は未だ作ってません。 "<<
+                    _TRACE_("【警告】AAPyramid と AAPrism の当たり判定処理が存在します。そんな処理は未だ作ってません。 "<<
                             pActor <<"["<<_pActor->getName()<<"] vs "<<pOppActor<<"["<<pOppActor->getName()<<"]");
                     return false;
                 } else if (opp_shape_kind == COLLI_AAPYRAMID) {
                     //＜AAPyramid と AAPyramid＞
                     //TODO: 今は未対応。
-                    _TRACE_("＜警告＞AAPyramid と AAPyramid の当たり判定処理が存在します。そんな処理は未だ作ってません。 "<<
+                    _TRACE_("【警告】AAPyramid と AAPyramid の当たり判定処理が存在します。そんな処理は未だ作ってません。 "<<
                             pActor <<"["<<_pActor->getName()<<"] vs "<<pOppActor<<"["<<pOppActor->getName()<<"]");
                     return false;
                 }

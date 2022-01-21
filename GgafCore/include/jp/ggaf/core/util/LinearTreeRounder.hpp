@@ -51,7 +51,7 @@ public:
          */
         inline void push(T* prm_pObject) {
             if (_papCur == _papBanpei) {
-                _TRACE_("＜警告＞ LinearTreeRounder::push("<<prm_pObject<<") スタックを使い切りました。無視します。一箇所に当たり判定が塊過ぎです。");
+                _TRACE_("【警告】 LinearTreeRounder::push("<<prm_pObject<<") スタックを使い切りました。無視します。一箇所に当たり判定が塊過ぎです。");
                 return;
             }
             (*_papCur) = prm_pObject;
@@ -82,14 +82,14 @@ public:
          */
         inline void popush(TStack* prm_pTStack) {
             if (_papCur == _papBanpei) {
-                _TRACE_("＜警告＞ LinearTreeRounder::popush("<<prm_pTStack<<") スタックを使い切ってます。無視します。一箇所に当たり判定が塊過ぎです。");
+                _TRACE_("【警告】 LinearTreeRounder::popush("<<prm_pTStack<<") スタックを使い切ってます。無視します。一箇所に当たり判定が塊過ぎです。");
                 prm_pTStack->clear();
                 return;
             }
             while ((*_papCur) = prm_pTStack->pop()) { //代入。pop出来なければ nullptr。 I know "=" , not "=="
                  ++_papCur;
                  if (_papCur == _papBanpei) {
-                    _TRACE_("＜警告＞ LinearTreeRounder::popush("<<prm_pTStack<<") スタックを使い切りました。無視します。一箇所に当たり判定が塊過ぎです。");
+                    _TRACE_("【警告】 LinearTreeRounder::popush("<<prm_pTStack<<") スタックを使い切りました。無視します。一箇所に当たり判定が塊過ぎです。");
                     prm_pTStack->clear();
                     break;
                 }

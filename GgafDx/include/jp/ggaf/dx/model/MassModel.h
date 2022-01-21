@@ -148,7 +148,7 @@ public:
 
     virtual void release() override;
 
-
+    virtual void restore() override;
     /**
      * デストラクタ<BR>
      */

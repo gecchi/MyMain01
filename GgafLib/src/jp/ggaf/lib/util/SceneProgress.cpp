@@ -34,7 +34,7 @@ void SceneProgress::relateChildScene(progress prm_FirstProgress, progress prm_En
 void SceneProgress::changeWithSceneFadein(progress prm_progress, frame prm_fade_in ) {
     _TRACE_("SceneProgress::changeWithSceneFadein("<<prm_progress<<","<<prm_fade_in<<")  進捗シーン:"<<get()<<"->"<<prm_progress<<" ");
     if (_mapProg2Scene.find(prm_progress) == _mapProg2Scene.end()) {
-                _TRACE_("＜警告＞SceneProgress::changeWithSceneFadein シーン("<<_pScene->getName()<<")で、"
+                _TRACE_("【警告】SceneProgress::changeWithSceneFadein シーン("<<_pScene->getName()<<")で、"
             "子シーンと関連付けされていない遷移先進捗(prm_progress="<<prm_progress<<") だった為、activate() ができませんでした。");
     } else {
         _mapProg2Scene[prm_progress]->reset();
@@ -48,14 +48,14 @@ void SceneProgress::changeWithSceneFlipping(progress prm_progress) {
     _TRACE_("SceneProgress::changeWithSceneFlipping("<<prm_progress<<")  進捗シーン:"<<get()<<"->"<<prm_progress<<" ");
 
     if (_mapProg2Scene.find(get()) == _mapProg2Scene.end()) {
-        _TRACE_("＜警告＞SceneProgress::changeWithSceneFlipping シーン("<<_pScene->getName()<<")で、"
+        _TRACE_("【警告】SceneProgress::changeWithSceneFlipping シーン("<<_pScene->getName()<<")で、"
             "子シーンと関連付けされていない遷移元進捗(get()="<<get()<<")だった為、inactivate() ができませんでした。");
     } else {
         _mapProg2Scene[get()]->fadeoutBgmTree(0);
         _mapProg2Scene[get()]->inactivate();
     }
     if (_mapProg2Scene.find(prm_progress) == _mapProg2Scene.end()) {
-        _TRACE_("＜警告＞SceneProgress::changeWithSceneFlipping シーン("<<_pScene->getName()<<")で、"
+        _TRACE_("【警告】SceneProgress::changeWithSceneFlipping シーン("<<_pScene->getName()<<")で、"
             "子シーンと関連付けされていない遷移先進捗(prm_progress="<<prm_progress<<") だった為、activate() ができませんでした。");
     } else {
         _mapProg2Scene[prm_progress]->reset();
@@ -68,14 +68,14 @@ void SceneProgress::changeWithSceneFlipping(progress prm_progress) {
 void SceneProgress::changeWithSceneCrossfading(progress prm_progress, frame prm_cross_fade_frames) {
     _TRACE_("SceneProgress::changeWithSceneCrossfading("<<prm_progress<<","<<prm_cross_fade_frames<<")  進捗シーン:"<<get()<<"->"<<prm_progress<<" ");
     if (_mapProg2Scene.find(get()) == _mapProg2Scene.end()) {
-        _TRACE_("＜警告＞SceneProgress::changeWithSceneCrossfading シーン("<<_pScene->getName()<<")で、"
+        _TRACE_("【警告】SceneProgress::changeWithSceneCrossfading シーン("<<_pScene->getName()<<")で、"
             "子シーンと関連付けされていない遷移元進捗(get()="<<get()<<")だった為、inactivateDelay() ができませんでした。");
     } else {
         _mapProg2Scene[get()]->fadeoutSceneWithBgmTree(prm_cross_fade_frames);
         _mapProg2Scene[get()]->inactivateDelay(prm_cross_fade_frames); //フェード完了後、非活動に
     }
     if (_mapProg2Scene.find(prm_progress) == _mapProg2Scene.end()) {
-        _TRACE_("＜警告＞SceneProgress::changeWithSceneCrossfading シーン("<<_pScene->getName()<<")で、"
+        _TRACE_("【警告】SceneProgress::changeWithSceneCrossfading シーン("<<_pScene->getName()<<")で、"
             "子シーンと関連付けされていない遷移先進捗(prm_progress="<<prm_progress<<") だった為、activate() ができませんでした。");
     } else {
         _mapProg2Scene[prm_progress]->reset();
@@ -89,14 +89,14 @@ void SceneProgress::changeWithSceneCrossfading(progress prm_progress, frame prm_
 void SceneProgress::changeWithSceneFadeoutFadein(progress prm_progress, frame prm_fade_out, frame prm_fade_in) {
     _TRACE_("SceneProgress::changeWithSceneFadeoutFadein("<<prm_progress<<","<<prm_fade_out<<","<<prm_fade_in<<")  進捗シーン:"<<get()<<"->"<<prm_progress<<" ");
     if (_mapProg2Scene.find(get()) == _mapProg2Scene.end()) {
-        _TRACE_("＜警告＞SceneProgress::changeWithSceneFadeoutFadein シーン("<<_pScene->getName()<<")で、"
+        _TRACE_("【警告】SceneProgress::changeWithSceneFadeoutFadein シーン("<<_pScene->getName()<<")で、"
             "子シーンと関連付けされていない遷移元進捗(get()="<<get()<<")だった為、inactivateDelay() ができませんでした。");
     } else {
         _mapProg2Scene[get()]->fadeoutSceneWithBgmTree(prm_fade_out);
         _mapProg2Scene[get()]->inactivateDelay(prm_fade_out);
     }
     if (_mapProg2Scene.find(prm_progress) == _mapProg2Scene.end()) {
-        _TRACE_("＜警告＞SceneProgress::changeWithSceneFadeoutFadein シーン("<<_pScene->getName()<<")で、"
+        _TRACE_("【警告】SceneProgress::changeWithSceneFadeoutFadein シーン("<<_pScene->getName()<<")で、"
             "子シーンと関連付けされていない遷移先進捗(prm_progress="<<prm_progress<<") だった為、activateDelay() ができませんでした。");
     } else {
         _mapProg2Scene[prm_progress]->reset();
@@ -110,13 +110,13 @@ void SceneProgress::changeWithSceneFadeoutFadein(progress prm_progress, frame pr
 void SceneProgress::changeWithSceneOverlapping(progress prm_progress, frame prm_overlapping_frames) {
     _TRACE_("SceneProgress::changeWithSceneOverlapping("<<prm_progress<<","<<prm_overlapping_frames<<")  進捗シーン:"<<get()<<"->"<<prm_progress<<" ");
     if (_mapProg2Scene.find(get()) == _mapProg2Scene.end()) {
-        _TRACE_("＜警告＞SceneProgress::changeWithSceneOverlapping シーン("<<_pScene->getName()<<")で、"
+        _TRACE_("【警告】SceneProgress::changeWithSceneOverlapping シーン("<<_pScene->getName()<<")で、"
             "子シーンと関連付けされていない遷移元進捗(get()="<<get()<<")だった為、inactivateDelay() ができませんでした。");
     } else {
         _mapProg2Scene[get()]->inactivateDelay(prm_overlapping_frames);
     }
     if (_mapProg2Scene.find(prm_progress) == _mapProg2Scene.end()) {
-        _TRACE_("＜警告＞SceneProgress::changeWithSceneOverlapping シーン("<<_pScene->getName()<<")で、"
+        _TRACE_("【警告】SceneProgress::changeWithSceneOverlapping シーン("<<_pScene->getName()<<")で、"
             "子シーンと関連付けされていない遷移先進捗(prm_progress="<<prm_progress<<") だった為、activate() ができませんでした。");
     } else {
         _mapProg2Scene[prm_progress]->reset();
@@ -153,11 +153,11 @@ void SceneProgress::change(progress prm_progress) {
         } else {
             //_progress_next_promiseの activateDelay() を取り消す。
             if (_mapProg2Scene.find(_progress_next_promise) == _mapProg2Scene.end()) {
-                _TRACE_("＜情報＞SceneProgress::change("<<prm_progress<<")  シーン("<<_pScene->getName()<<")で、"
+                _TRACE_("【情報】SceneProgress::change("<<prm_progress<<")  シーン("<<_pScene->getName()<<")で、"
                     "遷移先予約進捗(_progress_next_promise="<<_progress_next_promise<<")が存在しましたが、子シーンと関連付けされていないため、"
                     "活動予約を取り消しの措置は行いません。");
             } else {
-                _TRACE_("＜情報＞SceneProgress::change("<<prm_progress<<")  シーン("<<_pScene->getName()<<")で、"
+                _TRACE_("【情報】SceneProgress::change("<<prm_progress<<")  シーン("<<_pScene->getName()<<")で、"
                     "遷移先予約進捗(_progress_next_promise="<<_progress_next_promise<<")が存在し、関連シーン("<<(_mapProg2Scene[_progress_next_promise]->getName())<<")が、"
                     "既に activateDelay() されています。しかし、本 change() を優先し、シーン("<<(_mapProg2Scene[_progress_next_promise]->getName())<<"の activateDelay() を取り消しました。");
                 _mapProg2Scene[_progress_next_promise]->_frame_of_life_when_activation = 0;
@@ -174,11 +174,11 @@ void SceneProgress::changeNothing() {
         //遷移先予約がすでにあった場合とりけす
         //_progress_next_promiseの activateDelay() を取り消す。
         if (_mapProg2Scene.find(_progress_next_promise) == _mapProg2Scene.end()) {
-            _TRACE_("＜情報＞SceneProgress::changeNothing() シーン("<<_pScene->getName()<<")で、"
+            _TRACE_("【情報】SceneProgress::changeNothing() シーン("<<_pScene->getName()<<")で、"
                 "遷移先予約進捗(_progress_next_promise="<<_progress_next_promise<<")が存在しましたが、子シーンと関連付けされていないため、"
                 "活動予約を取り消しの措置は行いません。");
         } else {
-            _TRACE_("＜情報＞SceneProgress::changeNothing()  シーン("<<_pScene->getName()<<")で、"
+            _TRACE_("【情報】SceneProgress::changeNothing()  シーン("<<_pScene->getName()<<")で、"
                 "遷移先予約進捗(_progress_next_promise="<<_progress_next_promise<<")が存在し、関連シーン("<<(_mapProg2Scene[_progress_next_promise]->getName())<<")が、"
                 "既に activateDelay() されています。しかし、本 changeNothing() を優先し、シーン("<<(_mapProg2Scene[_progress_next_promise]->getName())<<"の activateDelay() を取り消しました。");
             _mapProg2Scene[_progress_next_promise]->_frame_of_life_when_activation = 0;
@@ -200,11 +200,11 @@ void SceneProgress::changeNext() {
         } else {
             //_progress_next_promiseの activateDelay() を取り消す。
             if (_mapProg2Scene.find(_progress_next_promise) == _mapProg2Scene.end()) {
-                _TRACE_("＜情報＞SceneProgress::changeNext() _progress+1="<<(_progress+1)<<" シーン("<<_pScene->getName()<<")で、"
+                _TRACE_("【情報】SceneProgress::changeNext() _progress+1="<<(_progress+1)<<" シーン("<<_pScene->getName()<<")で、"
                 "遷移先予約進捗(_progress_next_promise="<<_progress_next_promise<<")が存在しましたが、子シーンと関連付けされていないため、"
                 "活動予約を取り消しの措置は行いません。");
             } else {
-                _TRACE_("＜情報＞SceneProgress::changeNext() _progress+1="<<(_progress+1)<<" シーン("<<_pScene->getName()<<")で、"
+                _TRACE_("【情報】SceneProgress::changeNext() _progress+1="<<(_progress+1)<<" シーン("<<_pScene->getName()<<")で、"
                 "遷移先予約進捗(_progress_next_promise="<<_progress_next_promise<<")が存在し、関連シーン("<<(_mapProg2Scene[_progress_next_promise]->getName())<<")が、"
                 "既に activateDelay() されています。しかし、本 changeNext() を優先し、シーン("<<(_mapProg2Scene[_progress_next_promise]->getName())<<"の activateDelay() を取り消しました。");
                 _mapProg2Scene[_progress_next_promise]->_frame_of_life_when_activation = 0;

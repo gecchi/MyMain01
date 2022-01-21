@@ -79,7 +79,7 @@ HRESULT SkinAniMeshAllocHierarchy::CreateMeshContainer(THIS_
         // D3DXBONECOMBINATION\‘¢‘Ì‚ª@NumBoneCombinations ŒÂ“ü‚Á‚Ä‚¢‚éB
     } else {
         //throwCriticalException("SkinAniMeshAllocHierarchy::CreateMeshContainer()  pSkinInfo î•ñ‚ª‚ ‚è‚Ü‚¹‚ñ");
-        _TRACE_("ƒŒx„SkinAniMeshAllocHierarchy::CreateMeshContainer()  pSkinInfo î•ñ‚ª‚ ‚è‚Ü‚¹‚ñB pNewMC->Name="<<pNewMC->Name);
+        _TRACE_("yŒxzSkinAniMeshAllocHierarchy::CreateMeshContainer()  pSkinInfo î•ñ‚ª‚ ‚è‚Ü‚¹‚ñB pNewMC->Name="<<pNewMC->Name);
         pNewMC->pSkinInfo = nullptr;
         pNewMC->_dwBoneOffsetMatrixNum = 0;
         pNewMC->_paBoneOffsetMatrix = nullptr;

@@ -171,7 +171,7 @@ void BoneAniMeshModel::restore() {
         ModelManager* pModelManager = pGOD->_pModelManager;
         ModelManager::MeshXFileFmt xdata;
         std::string model_def_file = std::string(_model_id) + ".meshx";
-        std::string model_def_filepath = ModelManager::getModelDefineFilePath(model_def_file);
+        std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
         pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
         _draw_set_num = xdata.DrawSetNum;
         if (_draw_set_num != 1) {
@@ -180,8 +180,8 @@ void BoneAniMeshModel::restore() {
         }
         _matBaseTransformMatrix = xdata.BaseTransformMatrix;
 
-//        std::string xfile_name = ModelManager::getXFilePath(_model_id);
-        std::string xfilepath = ModelManager::getXFilePath(xdata.XFileNames[0]);
+//        std::string xfile_name = Model::getXFilePath(_model_id);
+        std::string xfilepath = Model::getXFilePath(xdata.XFileNames[0]);
         TextureManager* pTextureManager = pGOD->_pModelManager->_pModelTextureManager;
         //AnimTicksPerSecondを独自に取り出す。デフォルトは4800
         _anim_ticks_per_second = BoneAniMeshModel::getAnimTicksPerSecond(xfilepath);

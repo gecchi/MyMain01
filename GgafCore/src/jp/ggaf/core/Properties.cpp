@@ -3,7 +3,7 @@
 #include <fstream>
 #include "jp/ggaf/core/exception/CriticalException.h"
 #include "jp/ggaf/core/util/Util.h"
-#include "Shlwapi.h"
+#include <Shlwapi.h>
 
 
 using namespace GgafCore;

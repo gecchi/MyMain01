@@ -152,7 +152,7 @@ void SpriteSetModel::restore() {
         ModelManager* pModelManager = pGOD->_pModelManager;
         ModelManager::SpriteXFileFmt xdata;
         std::string model_def_file = std::string(_model_id) + ".sprx";
-        std::string model_def_filepath = ModelManager::getModelDefineFilePath(model_def_file);
+        std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
         pModelManager->obtainSpriteModelInfo(&xdata, model_def_filepath);
 
         _model_width_px  = xdata.Width;

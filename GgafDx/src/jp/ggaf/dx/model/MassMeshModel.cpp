@@ -71,7 +71,7 @@ void MassMeshModel::restore() {
         ModelManager* pModelManager = pGOD->_pModelManager;
         ModelManager::MeshXFileFmt xdata;
         std::string model_def_file = std::string(_model_id) + ".meshx";
-        std::string model_def_filepath = ModelManager::getModelDefineFilePath(model_def_file);
+        std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
         pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
         _matBaseTransformMatrix = xdata.BaseTransformMatrix;
         _draw_set_num = xdata.DrawSetNum;
@@ -82,7 +82,7 @@ void MassMeshModel::restore() {
             _TRACE_("MassMeshModel::restore() "<<_model_id<<" の同時描画セット数は "<<_draw_set_num<<" です。");
         }
 
-        std::string xfilepath = ModelManager::getXFilePath(xdata.XFileNames[0]);
+        std::string xfilepath = Model::getXFilePath(xdata.XFileNames[0]);
         //流し込む頂点バッファデータ作成
         ToolBox::IO_Model_X iox;
         Frm::Model3D* pModel3D = NEW Frm::Model3D();
@@ -211,14 +211,16 @@ void MassMeshModel::restore() {
                     (TextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[n].c_str(), this));
         }
     }
+
+    MassModel::restore(); //上位を呼び出す
     _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 HRESULT MassMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
     _TRACE4_("MassMeshModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
-    if (_pVertexBuffer_instancedata == nullptr) {
-        createVertexElements(); //デバイスロスト復帰時に呼び出される
-    }
+//    if (_pVertexBuffer_instancedata == nullptr) {
+//        createVertexElements(); //デバイスロスト復帰時に呼び出される
+//    }
 #ifdef MY_DEBUG
     if (prm_draw_set_num > _draw_set_num) {
         throwCriticalException(FUNC_NAME<<" "<<_model_id<<" の描画セット数オーバー。_draw_set_num="<<_draw_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");

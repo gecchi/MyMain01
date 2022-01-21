@@ -19,7 +19,7 @@ FixedFrameCurveManufacture::FixedFrameCurveManufacture(const char* prm_coord_spl
     //１区間の使用可能フレーム
     _frame_of_segment = 1.0*_spent_frames / (_pCurve->_rnum-1);
     if (_frame_of_segment < 1.0) {
-        _TRACE_("＜警告＞FixedFrameCurveManufacture ["<<prm_coord_spl_file<<"] _frame_of_segment="<<_frame_of_segment<<" < 1.0f です。"
+        _TRACE_("【警告】FixedFrameCurveManufacture ["<<prm_coord_spl_file<<"] _frame_of_segment="<<_frame_of_segment<<" < 1.0f です。"
                 "補完点数("<<(_pCurve->_rnum)<<")よりも、始点～終了点フレーム数("<<_spent_frames<<")が小さいので、補完点の飛びをなくすため、強制的に_frame_of_segmentは1.0に上書き。"
                 "従って移動には"<<(_pCurve->_rnum)<<"フレームかかります。ご了承下さい。");
         _frame_of_segment = 1.0;
@@ -41,7 +41,7 @@ FixedFrameCurveManufacture::FixedFrameCurveManufacture(CurveSource* prm_pCurve,
     //１区間の使用可能フレーム
     _frame_of_segment = 1.0*_spent_frames / (_pCurve->_rnum-1);
     if (_frame_of_segment < 1.0) {
-        _TRACE_("＜警告＞FixedFrameCurveManufacture  _frame_of_segment="<<_frame_of_segment<<" < 1.0f です。"
+        _TRACE_("【警告】FixedFrameCurveManufacture  _frame_of_segment="<<_frame_of_segment<<" < 1.0f です。"
                 "補完点数("<<(_pCurve->_rnum)<<")よりも、始点～終了点フレーム数("<<_spent_frames<<")が小さいので、補完点の飛びをなくすため、強制的に_frame_of_segmentは1.0に上書き。"
                 "従って移動には"<<(_pCurve->_rnum)<<"フレームかかります。ご了承下さい。");
         _frame_of_segment = 1.0;
@@ -113,7 +113,7 @@ void FixedFrameCurveManufacture::recalculateBySpentFrame(frame prm_spent_frames)
     _spent_frames = prm_spent_frames;
     _frame_of_segment = 1.0*_spent_frames / (_pCurve->_rnum-1);
     if (_frame_of_segment < 1.0) {
-        _TRACE_("＜警告＞FixedFrameCurveManufacture::setSpentFrames()  _frame_of_segment="<<_frame_of_segment<<" < 1.0f です。"
+        _TRACE_("【警告】FixedFrameCurveManufacture::setSpentFrames()  _frame_of_segment="<<_frame_of_segment<<" < 1.0f です。"
                 "補完点数("<<(_pCurve->_rnum)<<")よりも、始点～終了点フレーム数("<<_spent_frames<<")が小さいので、補完点の飛びをなくすため、強制的に_frame_of_segmentは1.0に上書き。"
                 "従って移動には"<<(_pCurve->_rnum)<<"フレームかかります。ご了承下さい。");
         _frame_of_segment = 1.0;

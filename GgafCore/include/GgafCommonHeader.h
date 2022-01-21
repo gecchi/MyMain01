@@ -96,7 +96,7 @@
             (POINTER) = nullptr; \
         } else { \
             std::stringstream ss; \
-            ss << "＜警告＞GGAF_DELETE(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にnullptrであるため "<< \
+            ss << "【警告】GGAF_DELETE(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にnullptrであるため "<< \
                   #POINTER << " の解放をやむなく無視しました。本来は、ここで nullptr になってこと自体おかしいのでは？。調査せよ！"; \
             GgafCore::Logger::writeln(ss); \
             (POINTER) = nullptr; \
@@ -111,7 +111,7 @@
             (POINTER) = nullptr; \
         } else { \
             std::stringstream ss; \
-            ss << "＜警告＞GGAF_DELETEARR(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にnullptrであるため "<< \
+            ss << "【警告】GGAF_DELETEARR(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にnullptrであるため "<< \
                   #POINTER << "の解放をやむなく無視しました。本来は、ここで nullptr になってこと自体おかしいのでは？。調査せよ！"; \
             GgafCore::Logger::writeln(ss); \
             (POINTER) = nullptr; \
@@ -143,19 +143,20 @@
     /** nullptrかどうか不明なRelease() */
     #define GGAF_RELEASE_NULLABLE(POINTER) do { \
         if (POINTER) { \
-            int rc = (POINTER)->AddRef(); \
+            int rc = (POINTER)->AddRef(); /* AddRef(), Release() とすることで、現在の参照カウンタを得る。 */  \
             rc = (POINTER)->Release(); \
             if (rc == 0) { \
                 std::stringstream ss; \
-                ss << "＜警告＞GGAF_RELEASE_NULLABLE(file:"<<__FILE__<<" line:"<<__LINE__<<") "<< \
-                      #POINTER << "は、既に参照カウンタ0です。Release() は行いませんでした。調査が必要です！"; \
+                ss << "【警告】GGAF_RELEASE_NULLABLE(file:"<<__FILE__<<" line:"<<__LINE__<<") "<< \
+                      #POINTER << "は、既に参照カウンタ 0 です。リリースをやむなく無視しましたが、意図しない場合は調査が必要です！"; \
                 GgafCore::Logger::writeln(ss); \
             } else { \
                 rc = (POINTER)->Release(); \
                 if (rc > 0) { \
                     std::stringstream ss; \
-                    ss << "＜情報＞GGAF_RELEASE_NULLABLE(file:"<<__FILE__<<" line:"<<__LINE__<<") "<< \
-                          #POINTER << "は、まだ解放されません。参照カウンタ="<<rc; \
+                    ss << "【情報】GGAF_RELEASE_NULLABLE(file:"<<__FILE__<<" line:"<<__LINE__<<") "<< \
+                          "参照カウンタを -1 しました。" \
+                          #POINTER << "は、まだ解放されてません。∵現在の参照カウンタ="<<rc; \
                     GgafCore::Logger::writeln(ss); \
                 } \
             } \
@@ -168,27 +169,28 @@
     /** nullptrはありえないRelease() */
     #define GGAF_RELEASE(POINTER) do { \
         if (POINTER) { \
-            int rc = (POINTER)->AddRef(); \
+            int rc = (POINTER)->AddRef(); /* AddRef(), Release() とすることで、現在の参照カウンタを得る。 */ \
             rc = (POINTER)->Release(); \
             if (rc == 0) { \
                 std::stringstream ss; \
-                ss << "＜警告＞GGAF_RELEASE(file:"<<__FILE__<<" line:"<<__LINE__<<") "<< \
-                      #POINTER << "は、既に参照カウンタ0です。リリースをやむなく無視しました。調査が必要です！"; \
+                ss << "【警告】GGAF_RELEASE(file:"<<__FILE__<<" line:"<<__LINE__<<") "<< \
+                      #POINTER << "は、既に参照カウンタ 0 です。リリースをやむなく無視しましたが、意図しない場合は調査が必要です！"; \
                 GgafCore::Logger::writeln(ss); \
             } else { \
                 rc = (POINTER)->Release(); \
                 if (rc > 0) { \
                     std::stringstream ss; \
-                    ss << "＜情報＞GGAF_RELEASE(file:"<<__FILE__<<" line:"<<__LINE__<<") "<< \
-                          #POINTER << "は、まだ解放されません。参照カウンタ="<<rc; \
+                    ss << "【情報】GGAF_RELEASE(file:"<<__FILE__<<" line:"<<__LINE__<<") "<< \
+                          "参照カウンタを -1 しました。" \
+                          #POINTER << "は、まだ解放されません。∵参照カウンタ="<<rc; \
                     GgafCore::Logger::writeln(ss); \
                 } \
             } \
             (POINTER) = nullptr; \
         } else { \
             std::stringstream ss; \
-            ss << "GGAF_RELEASE(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にnullptrであるため "<< \
-                  #POINTER << "のリリースをやむなく無視しました。本来は、ここでnullptrになってこと自体おかしいのでは？。調査せよ。"; \
+            ss << "【警告】GGAF_RELEASE(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にnullptrであるため "<< \
+                  #POINTER << "のリリースをやむなく無視しました。本来は、ここでnullptrになってこと自体おかしいのでは？。調査せよ！！"; \
             GgafCore::Logger::writeln(ss); \
             (POINTER) = nullptr; \
         } \

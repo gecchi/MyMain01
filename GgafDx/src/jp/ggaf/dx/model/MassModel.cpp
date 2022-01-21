@@ -142,6 +142,14 @@ void MassModel::release() {
     _TRACE3_("_model_id=" << _model_id << " end");
 }
 
+void MassModel::restore() {
+    _TRACE3_("MassModel::restore() _model_id=" << _model_id << " start");
+    if (God::_is_device_lost_flg  && _pVertexBuffer_instancedata == nullptr) {
+        createVertexElements(); //デバイスロスト復帰時に呼び出される
+    }
+    _TRACE3_("MassModel::restore() _model_id=" << _model_id << " end");
+}
+
 MassModel::~MassModel() {
     //release();
     //はModelConnection::processReleaseResource(Model* prm_pResource) で呼び出される

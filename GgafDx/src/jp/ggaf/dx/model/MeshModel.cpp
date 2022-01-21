@@ -180,7 +180,7 @@ void MeshModel::restore() {
         ModelManager::MeshXFileFmt xdata;
 
         std::string model_def_file = std::string(_model_id) + ".meshx";
-        std::string model_def_filepath = ModelManager::getModelDefineFilePath(model_def_file);
+        std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
         pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
         _matBaseTransformMatrix = xdata.BaseTransformMatrix;
         _draw_set_num = xdata.DrawSetNum;
@@ -189,7 +189,7 @@ void MeshModel::restore() {
             _draw_set_num = 1;
         }
 
-        std::string xfilepath = ModelManager::getXFilePath(xdata.XFileNames[0]);
+        std::string xfilepath = Model::getXFilePath(xdata.XFileNames[0]);
         HRESULT hr;
         //流し込む頂点バッファデータ作成
         ToolBox::IO_Model_X iox;

@@ -12,6 +12,8 @@
 #include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
 #include "jp/ggaf/lib/actor/DefaultMeshActor.h"
 #include "jp/ggaf/lib/actor/DefaultPointSpriteActor.h"
+#include "jp/ggaf/lib/actor/DefaultFramedBoardActor.h"
+#include "jp/ggaf/lib/actor/DefaultRegularPolygonSpriteActor.h"
 #include "jp/ggaf/lib/LibConfig.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 #include "VvvGod.h"
@@ -489,49 +491,42 @@ void VvvWorld::processBehavior() {
         string dropfile_dir = UTIL::getFileDirName(VvvGod::dropfiles_) + "/";
         string file_name = UTIL::getFileBaseName(VvvGod::dropfiles_);
         string model = UTIL::getFileBaseNameWithoutExt(VvvGod::dropfiles_);
-        string model_type = UTIL::getFileExt(VvvGod::dropfiles_);
+        string ext = UTIL::getFileExt(VvvGod::dropfiles_);
         _TRACE_("dropfile_dir="<<dropfile_dir);
         _TRACE_("model="<<model);
-        _TRACE_("model_type="<<model_type);
+        _TRACE_("ext="<<ext);
 
         //プロパティ一時退避
-        string dir_mesh_model_default = CONFIG::DIR_XFILE[0];
-        string dir_mesh_model_user = CONFIG::DIR_XFILE[1];
-        string dir_mesh_model_current = CONFIG::DIR_XFILE[2];
-        string dir_sprite_model_default = CONFIG::DIR_MODEL[0];
-        string dir_sprite_model_user = CONFIG::DIR_MODEL[1];
-        string dir_sprite_model_current = CONFIG::DIR_MODEL[2];
-        string dir_texture_default = CONFIG::DIR_TEXTURE[0];
+        string vvv_dir_model_system = CONFIG::DIR_MODEL[0];
+        string vvv_dir_model_user = CONFIG::DIR_MODEL[1];
+        string vvv_dir_model_current = CONFIG::DIR_MODEL[2];
+        string vvv_dir_texture_system = CONFIG::DIR_MESH[0];
+        string vvv_dir_texture_user = CONFIG::DIR_MESH[1];
+        string vvv_dir_texture_current = CONFIG::DIR_MESH[2];
+        string dir_texture_system = CONFIG::DIR_TEXTURE[0];
         string dir_texture_user = CONFIG::DIR_TEXTURE[1];
         string dir_texture_current = CONFIG::DIR_TEXTURE[2];
         //プロパティ書き換え
-        CONFIG::DIR_XFILE[2]   = dropfile_dir;
-        CONFIG::DIR_MODEL[2] = dropfile_dir;
+//        CONFIG::DIR_MESH[2]   = dropfile_dir;
+        //・CONFIG::DIR_MODEL[2] = dropfile_dir;
+        CONFIG::DIR_MESH[0]      = vvv_dir_texture_user; //vvv_dir_texture_user はシステムスキンディレクトリ
+        CONFIG::DIR_MESH[1]      = dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_MESH + "/";
+        CONFIG::DIR_MESH[2]      = dropfile_dir;
         CONFIG::DIR_TEXTURE[0]      = dir_texture_user; //dir_texture_userはシステムスキンディレクトリ
         CONFIG::DIR_TEXTURE[1]      = dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
         CONFIG::DIR_TEXTURE[2]      = dropfile_dir;
-        transform(model_type.begin(), model_type.end(), model_type.begin(), static_cast<int (*)(int)>(toupper));
+        transform(ext.begin(), ext.end(), ext.begin(), static_cast<int (*)(int)>(toupper));
 
         GgafDx::FigureActor* pActor = nullptr;
         std::string modelfile = "";
-        if (model_type == "X") {
-            if (model.length() > 2 && model.substr(model.length()-2) == "_0") {
-                //model = "donatu_0"
-                string model_part = model.substr(0,model.length()-2);
-                //model_part = "donatu"
-                int targetnum = 0;
-                while (true) {
-                    string model_filenm = model_part + "_" + XTOS(targetnum+1) + ".x";
-                    //model_filenm = "donatu_1.x"
-                    string model_path = dropfile_dir + "/" + model_filenm;
-                    if (PathFileExists(model_path.c_str())) {
-                        targetnum++;
-                    } else {
-                        break;
-                    }
-                }
-                pActor = desireActor(GgafLib::DefaultMorphMeshActor, "actor",
-                                          string(model_part+"_"+XTOS(targetnum)).c_str());
+        if (ext == "MESHX") {
+            GgafDx::ModelManager* pModelManager = pGOD->_pModelManager;
+            GgafDx::ModelManager::MeshXFileFmt xdata;
+            std::string model_def_file = std::string(VvvGod::dropfiles_);
+            std::string model_def_filepath = GgafDx::Model::getModelDefineFilePath(model_def_file);
+            pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
+            if (xdata.XFileNum >= 2) {
+                pActor = desireActor(GgafLib::DefaultMorphMeshActor, "actor", model.c_str());
             } else {
 //            if (model.find("WORLDBOUND") == string::npos) {
 //                pActor = desireActor(GgafLib::WorldBoundActor, "actor", filename);
@@ -541,12 +536,16 @@ void VvvWorld::processBehavior() {
 //                DefaultMeshActor* pDefaultMeshActor = (DefaultMeshActor*)pActor;
 //                pDefaultMeshActor->setBumpMapTexture("normal.bmp");
             }
-        } else if (model_type == "SPRX") {
+        } else if (ext == "SPRX") {
             pActor = desireActor(GgafLib::DefaultSpriteActor, "actor", model.c_str());
-        } else if (model_type == "PSPRX") {
+        } else if (ext == "PSPRX") {
             pActor = desireActor(GgafLib::DefaultPointSpriteActor, "actor", model.c_str());
+        } else if (ext == "FSPRX") {
+            pActor = desireActor(GgafLib::DefaultFramedBoardActor, "actor", model.c_str());
+        } else if (ext == "RSPRX") {
+            pActor = desireActor(GgafLib::DefaultRegularPolygonSpriteActor, "actor", model.c_str());
         }
-
+        //アクター表示
         if (pActor) {
             bringSceneMediator()->appendGroupChild(pActor);
             ActorInfo* pActorInfo = NEW ActorInfo(pActor, string(VvvGod::dropfiles_));
@@ -568,7 +567,7 @@ void VvvWorld::processBehavior() {
                 GgafDx::FigureActor* pNewActor = nullptr;
                 if (pCurrentActor->instanceOf(Obj_GgafDx_MeshActor)) {
                     string was_dropfile_dir = UTIL::getFileDirName(listActorInfo_.getCurrent()->modelfile_.c_str()) + "/";
-                    CONFIG::DIR_XFILE[2] = was_dropfile_dir;
+                    CONFIG::DIR_MESH[2] = was_dropfile_dir;
                     CONFIG::DIR_TEXTURE[0]    = dir_texture_user; //dir_texture_userはシステムスキンディレクトリ
                     CONFIG::DIR_TEXTURE[1]    = was_dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
                     CONFIG::DIR_TEXTURE[2]    = was_dropfile_dir;
@@ -581,7 +580,7 @@ void VvvWorld::processBehavior() {
 
                 } else if (pCurrentActor->instanceOf(Obj_GgafDx_MorphMeshActor)) {
                     string was_dropfile_dir = UTIL::getFileDirName(listActorInfo_.getCurrent()->modelfile_.c_str()) + "/";
-                    CONFIG::DIR_XFILE[2] = was_dropfile_dir;
+                    CONFIG::DIR_MESH[2] = was_dropfile_dir;
                     CONFIG::DIR_TEXTURE[0]    = dir_texture_user; //dir_texture_userはシステムスキンディレクトリ
                     CONFIG::DIR_TEXTURE[1]    = was_dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_TEXTURE + "/";
                     CONFIG::DIR_TEXTURE[2]    = was_dropfile_dir;
@@ -616,13 +615,13 @@ void VvvWorld::processBehavior() {
         }
 
         //プロパティ復帰
-        CONFIG::DIR_XFILE[0]   = dir_mesh_model_default;
-        CONFIG::DIR_XFILE[1]   = dir_mesh_model_user;
-        CONFIG::DIR_XFILE[2]   = dir_mesh_model_current;
-        CONFIG::DIR_MODEL[0] = dir_sprite_model_default;
-        CONFIG::DIR_MODEL[1] = dir_sprite_model_user;
-        CONFIG::DIR_MODEL[2] = dir_sprite_model_current;
-        CONFIG::DIR_TEXTURE[0]      = dir_texture_default;
+        CONFIG::DIR_MESH[0]   = vvv_dir_texture_system;
+        CONFIG::DIR_MESH[1]   = vvv_dir_texture_user;
+        CONFIG::DIR_MESH[2]   = vvv_dir_texture_current;
+        CONFIG::DIR_MODEL[0] = vvv_dir_model_system;
+        CONFIG::DIR_MODEL[1] = vvv_dir_model_user;
+        CONFIG::DIR_MODEL[2] = vvv_dir_model_current;
+        CONFIG::DIR_TEXTURE[0]      = dir_texture_system;
         CONFIG::DIR_TEXTURE[1]      = dir_texture_user;
         CONFIG::DIR_TEXTURE[2]      = dir_texture_current;
         VvvGod::is_wm_dropfiles_ = false;

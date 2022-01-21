@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/core/exception/CriticalException.h"
 #include "jp/ggaf/core/util/Util.h"
-#include "Shlwapi.h"
+#include <Shlwapi.h>
 
 
 using namespace GgafCore;
@@ -20,8 +20,8 @@ std::string Config::DIRNAME_RESOURCE_SKIN_USER = "";
 std::string Config::DIR_SKIN = Config::DIR_RESOURCE + "/" + Config::DIRNAME_RESOURCE_SKIN + "/";
 std::string Config::DIR_SKIN_KIND[] = {
                 Config::DIR_SKIN + "/" + Config::DIRNAME_RESOURCE_SKIN_SYSTEM + "/",
-                "",
-                "./"
+                Config::DIR_SKIN + "/" + Config::DIRNAME_RESOURCE_SKIN_USER + "/",
+                Config::DIR_SKIN + "/"
             };
 
 #ifdef _MSC_VER
@@ -76,15 +76,16 @@ void Config::loadProperties(std::string prm_properties_filename) {
     UTIL::strReplace(Config::DIR_SKIN_KIND[0], "//", "/");
 
     if (Config::DIRNAME_RESOURCE_SKIN_USER == "") {
-        //ユーザースキンディレクトリー名指定無しの場合、DIR_SKIN_KIND[1] も同じにする。
+        //ユーザースキンディレクトリー名指定無しの場合、DIR_SKIN_KIND[0] と同じにする。
         Config::DIR_SKIN_KIND[1] = Config::DIR_SKIN_KIND[0];
     } else {
-        //ユーザースキンディレクトリー名指定有りの場合、DIR_SKIN_KIND[1] は ユーザースキンディレクトリ
+        //ユーザースキンディレクトリー名指定有りの場合
         Config::DIR_SKIN_KIND[1] = Config::DIR_SKIN + "/" + Config::DIRNAME_RESOURCE_SKIN_USER + "/";
     }
     UTIL::strReplace(Config::DIR_SKIN_KIND[1], "//", "/");
 
-    Config::DIR_SKIN_KIND[2] = "./";
+    //スキンディレクトリー直下
+    Config::DIR_SKIN_KIND[2] = Config::DIR_SKIN + "/";
     UTIL::strReplace(Config::DIR_SKIN_KIND[2], "//", "/");
 
     //DIR存在チェック

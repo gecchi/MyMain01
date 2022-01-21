@@ -40,7 +40,7 @@ CurveManufacture* CurveManufactureManager::processCreateResource(const char* prm
             std::vector<std::string> vecCurveData = UTIL::split(ldr_data_file_csv, ",");
 #ifdef MY_DEBUG
             if (0 < vecCurveData.size()) {
-                _TRACE_("＜警告＞ CurveManufactureManager::processCreateResource "<<prm_idstr<<" [SPLINE] はカンマ区切りの配列ですが、呼び出し側はインデックス指定していません。意図していますか？");
+                _TRACE_("【警告】 CurveManufactureManager::processCreateResource "<<prm_idstr<<" [SPLINE] はカンマ区切りの配列ですが、呼び出し側はインデックス指定していません。意図していますか？");
             }
 #endif
             spl_file = vecCurveData[0];
@@ -58,7 +58,7 @@ CurveManufacture* CurveManufactureManager::processCreateResource(const char* prm
                 throwCriticalException(prm_idstr<<" [SPLINE] の配列要素数は"<<(vecCurveData.size())<<"ですが、指定インデックスは"<<i<<"の為、範囲外です。(許容範囲=0～"<<(vecCurveData.size()-1)<<")");
             }
             if (vecCurveData.size() == 1) {
-                _TRACE_("＜警告＞ CurveManufactureManager::processCreateResource "<<prm_idstr<<" [SPLINE]はカンマ区切りの配列ではありませんが、呼び出し側は0番目のインデックス指定です。意図していますか？");
+                _TRACE_("【警告】 CurveManufactureManager::processCreateResource "<<prm_idstr<<" [SPLINE]はカンマ区切りの配列ではありませんが、呼び出し側は0番目のインデックス指定です。意図していますか？");
             }
 #endif
             spl_file = vecCurveData[i];
@@ -147,7 +147,7 @@ CurveManufacture* CurveManufactureManager::processCreateResource(const char* prm
         if (move_method == CurveManufacture::MoveMethod::FixedFrame || move_method == CurveManufacture::MoveMethod::FixedVelocity) {
             angvelo_rzry_mv = (angvelo)propCurve.getInt("ANGLE_VELOCITY");
             if (angvelo_rzry_mv == 0) {
-                _TRACE_("＜警告＞ CurveManufactureManager::processCreateResource "<<prm_idstr<<" : "
+                _TRACE_("【警告】 CurveManufactureManager::processCreateResource "<<prm_idstr<<" : "
                         "[ANGLE_VELOCITY] が 0 です。意図してますか？");
             }
         } else {

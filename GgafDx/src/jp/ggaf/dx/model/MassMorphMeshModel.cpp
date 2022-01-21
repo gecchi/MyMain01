@@ -98,7 +98,7 @@ void MassMorphMeshModel::restore() {
         ModelManager* pModelManager = pGOD->_pModelManager;
         ModelManager::MeshXFileFmt xdata;
         std::string model_def_file = std::string(_model_id) + ".meshx";
-        std::string model_def_filepath = ModelManager::getModelDefineFilePath(model_def_file);
+        std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
         pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
         _matBaseTransformMatrix = xdata.BaseTransformMatrix;
         _draw_set_num = xdata.DrawSetNum;
@@ -113,7 +113,7 @@ void MassMorphMeshModel::restore() {
         int morph_target_num = _morph_target_num;
         std::string* paXfilepath = NEW std::string[morph_target_num+1];
         for (int i = 0; i < morph_target_num+1; i++) {
-            paXfilepath[i] = ModelManager::getXFilePath(xdata.XFileNames[i]);
+            paXfilepath[i] = Model::getXFilePath(xdata.XFileNames[i]);
         }
         //流し込む頂点バッファデータ作成
         ToolBox::IO_Model_X iox;
@@ -232,9 +232,6 @@ void MassMorphMeshModel::restore() {
         GGAF_DELETEARR(papMeshesFront);
         GGAF_DELETEARR(papModel3D);
     }
-
-
-
     //頂点バッファ作成
     if (_pVertexBuffer_model == nullptr) {
         HRESULT hr;
@@ -305,13 +302,14 @@ void MassMorphMeshModel::restore() {
                     (TextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[n].c_str(), this));
         }
     }
+    MassModel::restore(); //上位を呼び出す
     _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 HRESULT MassMorphMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
-    if (_pVertexBuffer_instancedata == nullptr) {
-        createVertexElements(); //デバイスロスト復帰時に呼び出される
-    }
+//    if (_pVertexBuffer_instancedata == nullptr) {
+//        createVertexElements(); //デバイスロスト復帰時に呼び出される
+//    }
 #ifdef MY_DEBUG
     if (prm_draw_set_num > _draw_set_num) {
         throwCriticalException(FUNC_NAME<<" "<<_model_id<<" の描画セット数オーバー。_draw_set_num="<<_draw_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
