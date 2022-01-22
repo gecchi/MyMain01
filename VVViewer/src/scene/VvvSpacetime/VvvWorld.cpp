@@ -507,8 +507,9 @@ void VvvWorld::processBehavior() {
         string dir_texture_user = CONFIG::DIR_TEXTURE[1];
         string dir_texture_current = CONFIG::DIR_TEXTURE[2];
         //プロパティ書き換え
-//        CONFIG::DIR_MESH[2]   = dropfile_dir;
-        //・CONFIG::DIR_MODEL[2] = dropfile_dir;
+        CONFIG::DIR_MODEL[0]      = vvv_dir_model_system; //vvv_dir_model_system はシステムスキンディレクトリ
+        CONFIG::DIR_MODEL[1]      = dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_MODEL + "/";
+        CONFIG::DIR_MODEL[2]      = dropfile_dir;
         CONFIG::DIR_MESH[0]      = vvv_dir_texture_user; //vvv_dir_texture_user はシステムスキンディレクトリ
         CONFIG::DIR_MESH[1]      = dropfile_dir + "/../" + CONFIG::DIRNAME_RESOURCE_SKIN_XXX_MESH + "/";
         CONFIG::DIR_MESH[2]      = dropfile_dir;
@@ -522,8 +523,7 @@ void VvvWorld::processBehavior() {
         if (ext == "MESHX") {
             GgafDx::ModelManager* pModelManager = pGOD->_pModelManager;
             GgafDx::ModelManager::MeshXFileFmt xdata;
-            std::string model_def_file = std::string(VvvGod::dropfiles_);
-            std::string model_def_filepath = GgafDx::Model::getModelDefineFilePath(model_def_file);
+            std::string model_def_filepath = std::string(VvvGod::dropfiles_);
             pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
             if (xdata.XFileNum >= 2) {
                 pActor = desireActor(GgafLib::DefaultMorphMeshActor, "actor", model.c_str());

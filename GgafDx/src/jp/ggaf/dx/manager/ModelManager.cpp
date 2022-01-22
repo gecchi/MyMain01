@@ -323,19 +323,21 @@ void ModelManager::obtainMeshModelInfo(MeshXFileFmt* prm_pMeshXFileFmt_out, std:
                                      (void*)prm_meshx_filepath.c_str(),
                                      D3DXF_FILELOAD_FROMFILE,
                                      &pID3DXFileEnumObject);
-    checkDxException(hr, S_OK, "'"<<prm_meshx_filepath<<"' のCreateEnumObjectに失敗しました。meshxファイルのフォーマットを確認して下さい。");
+    checkDxException(hr, S_OK, "ModelManager::obtainMeshModelInfo() '"<<prm_meshx_filepath<<"' のCreateEnumObjectに失敗しました。meshxファイルのフォーマットを確認して下さい。");
     ID3DXFileData* pID3DXFileData = nullptr;
     SIZE_T nChildren;
     pID3DXFileEnumObject->GetChildren(&nChildren);
     for (SIZE_T childCount = 0; childCount < nChildren; childCount++) {
         pID3DXFileEnumObject->GetChild(childCount, &pID3DXFileData);
     } //ループしているが、child は一つだけです。
-
+    if (pID3DXFileData == nullptr) {
+        throwCriticalException("ModelManager::obtainMeshModelInfo() "<<prm_meshx_filepath<<" のフォーマットエラー。 MeshModelDef { ... }  の MeshModelDef が見つからないです。");
+    }
     SIZE_T xsize = 0;
     char* pXData = nullptr;
     pID3DXFileData->Lock(&xsize, (const void**)&pXData);
     if (pXData == nullptr) {
-        throwCriticalException(prm_meshx_filepath<<" のフォーマットエラー。");
+        throwCriticalException("ModelManager::obtainMeshModelInfo() "<<prm_meshx_filepath<<" のフォーマットエラー。");
     }
     memcpy(&(prm_pMeshXFileFmt_out->XFileNum), pXData, sizeof(DWORD));
     pXData += sizeof(DWORD);
@@ -392,7 +394,7 @@ void ModelManager::obtainSpriteModelInfo(SpriteXFileFmt* prm_pSpriteFmt_out, std
                                      (void*)prm_sprx_filepath.c_str(),
                                      D3DXF_FILELOAD_FROMFILE,
                                      &pID3DXFileEnumObject);
-    checkDxException(hr, S_OK, "'"<<prm_sprx_filepath<<"' のCreateEnumObjectに失敗しました。sprxファイルのフォーマットを確認して下さい。");
+    checkDxException(hr, S_OK, "ModelManager::obtainSpriteModelInfo() '"<<prm_sprx_filepath<<"' のCreateEnumObjectに失敗しました。sprxファイルのフォーマットを確認して下さい。");
     //TODO:GUIDなんとかする。今は完全無視。
     //const GUID PersonID_GUID ={ 0xB2B63407,0x6AA9,0x4618, 0x95, 0x63, 0x63, 0x1E, 0xDC, 0x20, 0x4C, 0xDE};
     ID3DXFileData* pID3DXFileData = nullptr;
@@ -401,11 +403,14 @@ void ModelManager::obtainSpriteModelInfo(SpriteXFileFmt* prm_pSpriteFmt_out, std
     for (SIZE_T childCount = 0; childCount < nChildren; childCount++) {
         pID3DXFileEnumObject->GetChild(childCount, &pID3DXFileData);
     } //ループしているが、child は一つだけです。
+    if (pID3DXFileData == nullptr) {
+        throwCriticalException("ModelManager::obtainSpriteModelInfo() "<<prm_sprx_filepath<<" のフォーマットエラー。 SpriteModelDef { ... }  の SpriteModelDef が見つからないです。");
+    }
     SIZE_T xsize = 0;
     char* pXData = nullptr;
     pID3DXFileData->Lock(&xsize, (const void**)&pXData);
     if (pXData == nullptr) {
-        throwCriticalException(prm_sprx_filepath<<" のフォーマットエラー。");
+        throwCriticalException("ModelManager::obtainSpriteModelInfo() "<<prm_sprx_filepath<<" のフォーマットエラー。");
     }
     //    GUID* pGuid;
     //    pID3DXFileData->GetType(pGuid);
@@ -447,7 +452,7 @@ void ModelManager::obtainFramedSpriteModelInfo(FramedSpriteXFileFmt* prm_pFramed
                                      (void*)prm_fsprx_filepath.c_str(),
                                      D3DXF_FILELOAD_FROMFILE,
                                      &pID3DXFileEnumObject);
-    checkDxException(hr, S_OK, "'"<<prm_fsprx_filepath<<"' のCreateEnumObjectに失敗しました。fsprxファイルのフォーマットを確認して下さい。");
+    checkDxException(hr, S_OK, "ModelManager::obtainFramedSpriteModelInfo() '"<<prm_fsprx_filepath<<"' のCreateEnumObjectに失敗しました。fsprxファイルのフォーマットを確認して下さい。");
     //TODO:GUIDなんとかする。今は完全無視。
     //const GUID PersonID_GUID ={ 0xB2B63407,0x6AA9,0x4618, 0x95, 0x63, 0x63, 0x1E, 0xDC, 0x20, 0x4C, 0xDE};
     ID3DXFileData* pID3DXFileData = nullptr;
@@ -456,11 +461,14 @@ void ModelManager::obtainFramedSpriteModelInfo(FramedSpriteXFileFmt* prm_pFramed
     for (SIZE_T childCount = 0; childCount < nChildren; childCount++) {
         pID3DXFileEnumObject->GetChild(childCount, &pID3DXFileData);
     } //ループしているが、child は一つだけです。
+    if (pID3DXFileData == nullptr) {
+        throwCriticalException("ModelManager::obtainFramedSpriteModelInfo() "<<prm_fsprx_filepath<<" のフォーマットエラー。 FramedSpriteModelDef { ... }  の FramedSpriteModelDef が見つからないです。");
+    }
     SIZE_T xsize = 0;
     char* pXData = nullptr;
     pID3DXFileData->Lock(&xsize, (const void**)&pXData);
     if (pXData == nullptr) {
-        throwCriticalException(prm_fsprx_filepath<<" のフォーマットエラー。");
+        throwCriticalException("ModelManager::obtainFramedSpriteModelInfo() "<<prm_fsprx_filepath<<" のフォーマットエラー。");
     }
     //    GUID* pGuid;
     //    pID3DXFileData->GetType(pGuid);
@@ -510,7 +518,7 @@ void ModelManager::obtainRegPolySpriteModelInfo(RegPolySpriteXFileFmt* prm_pRegP
                                      (void*)prm_rsprx_filepath.c_str(),
                                      D3DXF_FILELOAD_FROMFILE,
                                      &pID3DXFileEnumObject);
-    checkDxException(hr, S_OK, "'"<<prm_rsprx_filepath<<"' のCreateEnumObjectに失敗しました。rsprxファイルのフォーマットを確認して下さい。");
+    checkDxException(hr, S_OK, "ModelManager::obtainRegPolySpriteModelInfo() '"<<prm_rsprx_filepath<<"' のCreateEnumObjectに失敗しました。rsprxファイルのフォーマットを確認して下さい。");
     //TODO:GUIDなんとかする。今は完全無視。
     ID3DXFileData* pID3DXFileData = nullptr;
     SIZE_T nChildren;
@@ -518,11 +526,14 @@ void ModelManager::obtainRegPolySpriteModelInfo(RegPolySpriteXFileFmt* prm_pRegP
     for (SIZE_T childCount = 0; childCount < nChildren; childCount++) {
         pID3DXFileEnumObject->GetChild(childCount, &pID3DXFileData);
     } //ループしているが、child は一つだけです。
+    if (pID3DXFileData == nullptr) {
+        throwCriticalException("ModelManager::obtainRegPolySpriteModelInfo() "<<prm_rsprx_filepath<<" のフォーマットエラー。 RegularPolygonModelDef { ... }  の RegularPolygonModelDef が見つからないです。");
+    }
     SIZE_T xsize = 0;
     char* pXData = nullptr;
     pID3DXFileData->Lock(&xsize, (const void**)&pXData);
     if (pXData == nullptr) {
-        throwCriticalException(prm_rsprx_filepath<<" のフォーマットエラー。");
+        throwCriticalException("ModelManager::obtainRegPolySpriteModelInfo() "<<prm_rsprx_filepath<<" のフォーマットエラー。");
     }
 
     memcpy(&(prm_pRegPolySpriteFmt_out->Width), pXData, sizeof(FLOAT));
@@ -600,7 +611,7 @@ void ModelManager::obtainPointSpriteModelInfo(PointSpriteXFileFmt* prm_pPointSpr
     ID3DXFileEnumObject* pID3DXFileEnumObject;
     ID3DXFileData* pID3DXFileData = nullptr;
     HRESULT hr = _pID3DXFile_psprx->CreateEnumObject((void*)prm_psprx_filepath.c_str(), D3DXF_FILELOAD_FROMFILE, &pID3DXFileEnumObject);
-    checkDxException(hr, S_OK, "'"<<prm_psprx_filepath<<"' のCreateEnumObjectに失敗しました。psprx ファイルのフォーマットを確認して下さい。");
+    checkDxException(hr, S_OK, "ModelManager::obtainPointSpriteModelInfo() '"<<prm_psprx_filepath<<"' のCreateEnumObjectに失敗しました。psprx ファイルのフォーマットを確認して下さい。");
 
     //TODO:GUIDなんとかする。今は完全無視。
     //const GUID PersonID_GUID ={ 0xB2B63407,0x6AA9,0x4618, 0x95, 0x63, 0x63, 0x1E, 0xDC, 0x20, 0x4C, 0xDE};
@@ -609,12 +620,14 @@ void ModelManager::obtainPointSpriteModelInfo(PointSpriteXFileFmt* prm_pPointSpr
     for (SIZE_T childCount = 0; childCount < nChildren; childCount++) {
         pID3DXFileEnumObject->GetChild(childCount, &pID3DXFileData);
     }
-
+    if (pID3DXFileData == nullptr) {
+        throwCriticalException("ModelManager::obtainPointSpriteModelInfo() "<<prm_psprx_filepath<<" のフォーマットエラー。 PointSpriteModelDef { ... }  の PointSpriteModelDef が見つからないです。");
+    }
     SIZE_T xsize = 0;
     char* pXData = nullptr;
     pID3DXFileData->Lock(&xsize, (const void**)&pXData);
     if (pXData == nullptr) {
-        throwCriticalException(prm_psprx_filepath<<" のフォーマットエラー。");
+        throwCriticalException("ModelManager::obtainPointSpriteModelInfo() "<<prm_psprx_filepath<<" のフォーマットエラー。");
     }
     //    GUID* pGuid;
     //    pID3DXFileData->GetType(pGuid);

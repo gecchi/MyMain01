@@ -1,6 +1,6 @@
 xof 0303txt 0032
 
-MeshModelDef 3box {
+MeshModelDef threebox {
   1;
   "3box.x";
   0;
