@@ -647,50 +647,59 @@ void Model::setDefaultMaterial(D3DMATERIAL9* pMateria) {
 }
 
 std::string Model::getXFilePath(std::string prm_xfile) {
-    std::string xfilepath = CONFIG::DIR_MESH[2] + "/" + prm_xfile;
-    UTIL::strReplace(xfilepath, "//", "/");
-    if (PathFileExists(xfilepath.c_str()) ) {
-        _TRACE_("Model::getXFilePath() xfilepath="<<xfilepath);
-        return xfilepath; //カレントに存在すればそれを優先
+    std::string xfile_path2 = CONFIG::DIR_MESH[2] + "/" + prm_xfile;
+    UTIL::strReplace(xfile_path2, "//", "/");
+    if (PathFileExists(xfile_path2.c_str()) ) {
+        _TRACE_("Model::getXFilePath() xfile_path2="<<xfile_path2);
+        return xfile_path2; //カレントに存在すればそれを優先
     } else {
-        xfilepath = CONFIG::DIR_MESH[1] + "/" + prm_xfile;
-        UTIL::strReplace(xfilepath, "//", "/");
-        _TRACE_("Model::getXFilePath() xfilepath="<<xfilepath);
-        if (PathFileExists(xfilepath.c_str()) ) {
-            return xfilepath; //ユーザースキンに存在すればそれを優先
+        std::string xfile_path1 = CONFIG::DIR_MESH[1] + "/" + prm_xfile;
+        UTIL::strReplace(xfile_path1, "//", "/");
+        _TRACE_("Model::getXFilePath() xfile_path1="<<xfile_path1);
+        if (PathFileExists(xfile_path1.c_str()) ) {
+            return xfile_path1; //ユーザースキンに存在すればそれを優先
         } else {
-            xfilepath = CONFIG::DIR_MESH[0] + "/" + prm_xfile;
-            UTIL::strReplace(xfilepath, "//", "/");
-            _TRACE_("Model::getXFilePath() xfilepath="<<xfilepath);
-            if (PathFileExists(xfilepath.c_str()) ) {
-                return xfilepath;
+            std::string xfile_path0 = CONFIG::DIR_MESH[0] + "/" + prm_xfile;
+            UTIL::strReplace(xfile_path0, "//", "/");
+            _TRACE_("Model::getXFilePath() xfile_path0="<<xfile_path0);
+            if (PathFileExists(xfile_path0.c_str()) ) {
+                return xfile_path0;
             } else {
-                throwCriticalException("Model::getXFilePath() Xファイル("<<prm_xfile<<")が見つかりません。");
+                throwCriticalException("Model::getXFilePath() Xファイルが以下から見つかりません。prm_xfile="<<prm_xfile<<"\n"<<
+                        "xfile_path2="<<xfile_path2<<"\n"
+                        "xfile_path1="<<xfile_path1<<"\n"
+                        "xfile_path0="<<xfile_path0<<"\n"
+                        );
             }
         }
     }
 }
 
 std::string Model::getModelDefineFilePath(std::string prm_model_name) {
-    std::string model_define_name = CONFIG::DIR_MODEL[2] + "/" + prm_model_name;
-    UTIL::strReplace(model_define_name, "//", "/");
-    if (PathFileExists(model_define_name.c_str()) ) {
-        _TRACE_("Model::getModelDefineFilePath() model_define_name.c_str()="<<model_define_name.c_str());
-        return model_define_name;
+    std::string model_define_path2 = CONFIG::DIR_MODEL[2] + "/" + prm_model_name;
+    UTIL::strReplace(model_define_path2, "//", "/");
+    if (PathFileExists(model_define_path2.c_str()) ) {
+        _TRACE_("Model::getModelDefineFilePath() model_define_path2.c_str()="<<model_define_path2.c_str());
+        return model_define_path2;
     } else {
-        model_define_name = CONFIG::DIR_MODEL[1] + "/" +  prm_model_name;
-        UTIL::strReplace(model_define_name, "//", "/");
-        if (PathFileExists(model_define_name.c_str()) ) {
-            _TRACE_("Model::getModelDefineFilePath() model_define_name.c_str()="<<model_define_name.c_str());
-            return model_define_name; //ユーザースキンに存在すればそれを優先
+        std::string model_define_path1 = CONFIG::DIR_MODEL[1] + "/" +  prm_model_name;
+        UTIL::strReplace(model_define_path1, "//", "/");
+        if (PathFileExists(model_define_path1.c_str()) ) {
+            _TRACE_("Model::getModelDefineFilePath() model_define_path1.c_str()="<<model_define_path1.c_str());
+            return model_define_path1; //ユーザースキンに存在すればそれを優先
         } else {
-            model_define_name = CONFIG::DIR_MODEL[0] + "/" +  prm_model_name;
-            UTIL::strReplace(model_define_name, "//", "/");
-            if (PathFileExists(model_define_name.c_str()) ) {
-                _TRACE_("Model::getModelDefineFilePath() model_define_name.c_str()="<<model_define_name.c_str());
-                return model_define_name;
+            std::string model_define_path0 = CONFIG::DIR_MODEL[0] + "/" +  prm_model_name;
+            UTIL::strReplace(model_define_path0, "//", "/");
+            if (PathFileExists(model_define_path0.c_str()) ) {
+                _TRACE_("Model::getModelDefineFilePath() model_define_path3.c_str()="<<model_define_path0.c_str());
+                return model_define_path0;
             } else {
-                throwCriticalException("Model::getModelDefineFilePath() モデル定義ファイルが見つかりません。prm_model_name="<<prm_model_name);
+                _TRACE_("Model::getModelDefineFilePath() モデル定義ファイルが以下から見つかりません。prm_model_name="<<prm_model_name<<"\n"<<
+                        "model_define_path2="<<model_define_path2<<"\n"
+                        "model_define_path1="<<model_define_path1<<"\n"
+                        "model_define_path0="<<model_define_path0<<"\n"
+                        );
+                return "";
             }
         }
     }

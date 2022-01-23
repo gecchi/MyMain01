@@ -181,15 +181,27 @@ void MeshModel::restore() {
 
         std::string model_def_file = std::string(_model_id) + ".meshx";
         std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
-        pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
-        _matBaseTransformMatrix = xdata.BaseTransformMatrix;
-        _draw_set_num = xdata.DrawSetNum;
-        if (_draw_set_num != 1) {
-            _TRACE_("MeshModel::restore() 本モデルの "<<_model_id<<" の同時描画セット数は 1 に上書きされました。（_draw_set_num="<<_draw_set_num<<" は無視されました。）");
-            _draw_set_num = 1;
-        }
 
-        std::string xfilepath = Model::getXFilePath(xdata.XFileNames[0]);
+        std::string xfile = std::string(_model_id) + ".x";
+        std::string xfilepath = "";
+
+        if (model_def_filepath != "") {
+            pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
+            _matBaseTransformMatrix = xdata.BaseTransformMatrix;
+            _draw_set_num = xdata.DrawSetNum;
+            if (_draw_set_num != 1) {
+                _TRACE_("MeshModel::restore() 本モデルの "<<_model_id<<" の同時描画セット数は 1 に上書きされました。（_draw_set_num="<<_draw_set_num<<" は無視されました。）");
+                _draw_set_num = 1;
+            }
+        } else {
+            xdata.XFileNum = 1;
+            xdata.XFileNames = NEW std::string[1];
+            xdata.XFileNames[0] = xfile;
+            xdata.DrawSetNum = 1;
+            D3DXMatrixIdentity(&(xdata.BaseTransformMatrix));
+            _TRACE_("MeshModel::restore() model_def_file="<<model_def_file<<" が存在しないので、特別に xfile="<<xfile<<" をよみこんだげる！（べ、べつに・・略）");
+        }
+        xfilepath = Model::getXFilePath(xdata.XFileNames[0]);
         HRESULT hr;
         //流し込む頂点バッファデータ作成
         ToolBox::IO_Model_X iox;
