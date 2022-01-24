@@ -19,7 +19,7 @@ MassSpriteActor::MassSpriteActor(const char* prm_name,
 
                                        MassActor(prm_name,
                                                  prm_model,
-                                                 TYPE_MASSACTOR_MODEL,
+                                                 TYPE_MASSSPRITE_MODEL,
                                                  prm_effect_id,
                                                  TYPE_MASSSPRITE_EFFECT,
                                                  prm_technique,

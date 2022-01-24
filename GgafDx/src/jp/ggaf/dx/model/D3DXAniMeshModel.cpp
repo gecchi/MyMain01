@@ -52,7 +52,7 @@ HRESULT D3DXAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
     pTargetActor->_pPuppeteer->updateAnimationTrack(); //アニメーション反映
     //モデルのワールド変換行列更新
     pTargetActor->_stackWorldMat.SetWorldMatrix(&(pTargetActor->_matWorld));
-    pTargetActor->_stackWorldMat.UpdateFrame(_pFrameRoot);
+    pTargetActor->_stackWorldMat.UpdateFrame(&_matBaseTransformMatrix, _pFrameRoot);
     std::list< BoneAniMeshFrame* > *pDrawList = pTargetActor->_stackWorldMat.GetDrawList(); // 描画リストを取得
     std::list<BoneAniMeshFrame*>::iterator it = pDrawList->begin();
 

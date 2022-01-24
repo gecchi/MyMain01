@@ -225,19 +225,15 @@ Model* ModelManager::processCreateResource(const char* prm_idstr, void* prm_pCon
             pResourceModel = createModel<CubeMapMeshSetModel>(model_id);
             break;
         case TYPE_MORPHMESH_MODEL:
-            // "M,xxxxx_4" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
             pResourceModel = createModel<MorphMeshModel>(model_id);
             break;
         case TYPE_MASSMORPHMESH_MODEL:
-            //"m,4,xxxxx_2" の場合、セットが４プライマリのメッシュが1、モーフターゲットのメッシュが2つという意味
             pResourceModel = createModel<MassMorphMeshModel>(model_id);
             break;
         case TYPE_CUBEMAPMORPHMESH_MODEL:
-            //"H,xxxxx_4" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
             pResourceModel = createModel<CubeMapMorphMeshModel>(model_id);
             break;
         case TYPE_WORLDBOUND_MODEL:
-            // "W,xxxxx_4" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
             pResourceModel = createModel<WorldBoundModel>(model_id);
             break;
         case TYPE_ACTOR_MODEL:
@@ -246,7 +242,7 @@ Model* ModelManager::processCreateResource(const char* prm_idstr, void* prm_pCon
         case TYPE_SPRITESET_MODEL:
             pResourceModel = createModel<SpriteSetModel>(model_id);
             break;
-        case TYPE_MASSACTOR_MODEL:
+        case TYPE_MASSSPRITE_MODEL:
             pResourceModel = createModel<MassSpriteModel>(model_id);
             break;
         case TYPE_BOARD_MODEL:
@@ -264,7 +260,7 @@ Model* ModelManager::processCreateResource(const char* prm_idstr, void* prm_pCon
         case TYPE_POINTSPRITE_MODEL:
             pResourceModel = createModel<PointSpriteModel>(model_id);
             break;
-        case TYPE_MASSPOINTACTOR_MODEL:
+        case TYPE_MASSPOINTSPRITE_MODEL:
             pResourceModel = createModel<MassPointSpriteModel>(model_id);
             break;
         case TYPE_POINTSPRITESET_MODEL:
@@ -273,7 +269,7 @@ Model* ModelManager::processCreateResource(const char* prm_idstr, void* prm_pCon
         case TYPE_FRAMEDBOARD_MODEL:
             pResourceModel = createModel<FramedBoardModel>(model_id);
             break;
-        case TYPE_REGULARPOLYGONACTOR_MODEL:
+        case TYPE_REGULARPOLYGONSPRITE_MODEL:
             pResourceModel = createModel<RegularPolygonSpriteModel>(model_id);
             break;
         case TYPE_REGULARPOLYGONBOARD_MODEL:

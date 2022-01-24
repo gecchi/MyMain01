@@ -39,12 +39,13 @@ public:
 
     /**
      * アクターのワールド変換を行う .
+     * @param prm_pMatBaseTransformMatrix モデルベース変換行列
      * @param prm_frame_root アニメーションボーンフレームのルート
      * @param prm_as0_index トラック0に設定されているアニメーションセットインデックス
      * @param prm_as1_index トラック0に設定されているアニメーションセットインデックス
      * @param prm_papaBool_Model_AnimationSetIndex_BoneFrameIndex_is_act
      */
-    virtual void UpdateFrame(BoneAniMeshFrame* prm_frame_root, int prm_as0_index = -1, int prm_as1_index = -1,
+    virtual void UpdateFrame(D3DXMATRIX* prm_pMatBaseTransformMatrix, BoneAniMeshFrame* prm_frame_root, int prm_as0_index = -1, int prm_as1_index = -1,
            bool** prm_papaBool_Model_AnimationSetIndex_BoneFrameIndex_is_act = nullptr);
 
     //D3DXAniMeshActor維持用、削除予定

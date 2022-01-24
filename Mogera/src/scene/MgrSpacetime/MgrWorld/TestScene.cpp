@@ -76,8 +76,8 @@ public:
     TestActor(const char* prm_name, const char* prm_model) : T(prm_name, prm_model) {
         T::setHitAble(false);
     }
-    void initialize() override {     T::setScaleR(1.0); }
-    void processBehavior() override { T::addRyFaceAng(D_ANG(1)); }
+    void initialize() override {     T::setScaleR(1.0);  T::_pPuppeteer->play(0); }
+    void processBehavior() override { T::addRyFaceAng(D_ANG(1)); T::_pPuppeteer->behave(); }
     void processJudgement() override {}
     virtual ~TestActor() {}
 };
@@ -109,10 +109,11 @@ void TestScene::processBehavior() {
 //                requestTestActor(id, CubeMapMeshSetActor                ,"_chk_TestCubeMapMeshSetActorModel"                  );    id++;
 //                requestTestActor(id, CubeMapMorphMeshActor              ,"_chk_TestCubeMapMorphMeshActorModel"              );    id++;
 ////                requestTestActor(id, DefaultD3DXAniMeshActor            ,"_chk_TestDefaultD3DXAniMeshActorModel"              );    id++;
-//                requestTestActor(id, DefaultBoneAniMeshActor                ,"_chk_TestDefaultBoneAniMeshActorModel"                  );    id++;
+                requestTestActor(id, DefaultBoneAniMeshActor                ,"_chk_TestDefaultBoneAniMeshActorModel"                  );    id++;
+//                requestTestActor(id, DefaultD3DXMeshActor                ,"_chk_TestDefaultD3DXMeshActorModel"                  );    id++;
 //                requestTestActor(id, DefaultMeshActor                   ,"_chk_TestDefaultMeshActorModel"                     );    id++;
 //                requestTestActor(id, DefaultMeshSetActor                ,"_chk_TestDefaultMeshSetActorModel"                  );    id++;
-                requestTestActor(id, DefaultMassMeshActor               ,"_chk_TestDefaultMassMeshActorModel"                 );    id++;
+//                requestTestActor(id, DefaultMassMeshActor               ,"_chk_TestDefaultMassMeshActorModel"                 );    id++;
 //                requestTestActor(id, DefaultMorphMeshActor              ,"_chk_TestDefaultMorphMeshActorModel"              );    id++;
 //                requestTestActor(id, DefaultMassMorphMeshActor          ,"_chk_TestDefaultMassMorphMeshActorModel"          );    id++;
 //                requestTestActor(id, DefaultPointSpriteActor            ,"_chk_TestDefaultPointSpriteActorModel"              );    id++;
@@ -124,7 +125,7 @@ void TestScene::processBehavior() {
 //                requestTestActor(id, FontSpriteActor                    ,"_chk_TestFontSpriteActorModel"                      );    id++;
 //                requestTestActor(id, SpriteMeshActor                    ,"_chk_TestSpriteMeshActorModel"                      );    id++;
 //                requestTestActor(id, SpriteMeshSetActor                 ,"_chk_TestSpriteMeshSetActorModel"                   );    id++;
-                requestTestActor(id, NomalLaserChip                     ,"_chk_TestNomalLaserChipModel"                       );    id++;
+//                requestTestActor(id, NomalLaserChip                     ,"_chk_TestNomalLaserChipModel"                       );    id++;
 //                requestTestActor(id, SingleLaser                        ,"_chk_TestSingleLaserModel"                          );    id++;
 //
 //                requestTestActor(id, DefaultBoardActor                  ,"_chk_TestDefaultBoardActorModel"                    );    id++;

@@ -3,7 +3,6 @@
 #include "GgafDxCommonHeader.h"
 
 #include "jp/ggaf/core/util/ResourceManager.hpp"
-
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/dx/util/XFile/framework/Frm_Mesh.h"
 #include "jp/ggaf/dx/util/XFile/ToolBox/IOModel_X.h"
@@ -24,16 +23,16 @@
 #define TYPE_WORLDBOUND_MODEL             'W'
 #define TYPE_ACTOR_MODEL                  'S'
 #define TYPE_SPRITESET_MODEL              's'
-#define TYPE_MASSACTOR_MODEL              'z'
+#define TYPE_MASSSPRITE_MODEL             'z'
 #define TYPE_BOARD_MODEL                  'B'
 #define TYPE_BOARDSET_MODEL               'b'
 #define TYPE_MASSBOARD_MODEL              'w'
 #define TYPE_CUBE_MODEL                   'C'
 #define TYPE_POINTSPRITE_MODEL            'P'
-#define TYPE_MASSPOINTACTOR_MODEL         'p'
+#define TYPE_MASSPOINTSPRITE_MODEL        'p'
 #define TYPE_POINTSPRITESET_MODEL         'o'
 #define TYPE_FRAMEDBOARD_MODEL            'E'
-#define TYPE_REGULARPOLYGONACTOR_MODEL    'R'
+#define TYPE_REGULARPOLYGONSPRITE_MODEL   'R'
 #define TYPE_REGULARPOLYGONBOARD_MODEL    'r'
 #define TYPE_BONEANIMESH_MODEL            '1'
 #define TYPE_SKINANIMESH_MODEL            '2'
@@ -65,9 +64,10 @@ public:
         DWORD DrawSetNum; //0の場合は最大
         D3DXMATRIX BaseTransformMatrix;
         MeshXFileFmt() {
-            XFileNum = 1;
+            XFileNum = 0;
             XFileNames = nullptr;
             DrawSetNum = 1;
+            D3DXMatrixIdentity(&BaseTransformMatrix);
         }
         ~MeshXFileFmt() {
             GGAF_DELETEARR_NULLABLE(XFileNames);
@@ -107,6 +107,12 @@ public:
         DWORD  FanNum;
         DWORD  IsCW; //1:時計回り / 0:反時計回り
         D3DXMATRIX BaseTransformMatrix;
+
+        RegPolySpriteXFileFmt() {
+            D3DXMatrixIdentity(&BaseTransformMatrix);
+        }
+        ~RegPolySpriteXFileFmt() {
+        }
     };
 
 
@@ -133,6 +139,7 @@ public:
             paInt_InitUvPtnNo = nullptr;
             paFLOAT_InitScale = nullptr;
             DrawSetNum = 1;
+            D3DXMatrixIdentity(&BaseTransformMatrix);
         }
         ~PointSpriteXFileFmt() {
             GGAF_DELETE_NULLABLE(paD3DVECTOR_Vertices);
@@ -166,25 +173,18 @@ public:
      * モデル識別IDにより、モデルオブジェクトを生成する .
      * <pre>
      * ＜モデル識別IDの形式＞メモ
-     * 『モデルタイプ  + "," + モデル定義名』となっている。
-     *  "D,MyShip"   --> D3DXMeshModel のモデル。読み込むファイルは "MyShip.x"
-     *  "d,MyShip"   --> D3DXMeshModel のモデル。読み込むファイルは "MyShip.x"（D3DXMESH_DYNAMIC オプションだけ異なる）
-     *  "A,Hone"     --> D3DXAniMeshModel のモデル。読み込むファイルは "Hone.x"
-     *  "X,Enemy"    --> MeshModel のモデル。読み込むファイルは "Enemy.x"
-     *  "x,12,Enemy"- -> MeshSetModel のモデル。読み込むファイルは "Enemy.x"。同時描画オブジェクト数は 12 セット
-     *  "x,Enemy"    --> MeshSetModel のモデル(セット数省略表記)。読み込むファイルは "Enemy.x"。セット数省略時は最大の 15 セット
-     *  "t,12,Enemy"- -> MassMeshModel のモデル。読み込むファイルは "Enemy.x"。同時描画オブジェクト数は 12 セット
-     *  "t,Enemy"    --> MassMeshModel のモデル(セット数省略表記)。読み込むファイルは "Enemy.x"。セット数省略時は最大の 15 セット
-     *  "M,MyShip_3" --> MorphMeshModel のモデル。読み込むファイルは "MyShip_0.x", "MyShip_1.x", "MyShip_2.x", "MyShip_3.x"。数値部分省略不可。
-     *                   プライマリモデルは"MyShip_0.x"、モーフターゲット1～3が"MyShip_1.x", "MyShip_2.x", "MyShip_3.x"
+     * 『モデルタイプ(TYPE_XXX_MODEL)  + "," + モデル定義名』となっている。
+     *  "D,MyShip"   --> D3DXMeshModel のモデル。読み込むファイルは "MyShip.meshx"
+     *  "d,MyShip"   --> D3DXMeshModel のモデル。読み込むファイルは "MyShip.meshx"（D3DXMESH_DYNAMIC オプションだけ異なる）
+     *  "A,Hone"     --> D3DXAniMeshModel のモデル。読み込むファイルは "Hone.meshx"
+     *  "X,Enemy"    --> MeshModel のモデル。読み込むファイルは "Enemy.meshx"
+     *  "x,Enemy"    --> MeshSetModel のモデル。読み込むファイルは "Enemy.meshx"。（セット数省略時は最大の 15 セット）
+     *  "t,Enemy"    --> MassMeshModel のモデル。読み込むファイルは "Enemy.meshx"。（セット数省略時は最大の 512 セット）
+     *  "M,MyShip"   --> MorphMeshModel のモデル。読み込むファイルは "Enemy.meshx"
      *  "S,Bomb"     --> SpriteModel のモデル。読み込むファイルは "Bomb.sprx"。
-     *  "s,5,Bomb"   --> SpriteSetModel のモデル。読み込むファイルは "Bomb.sprx"。同時描画オブジェクト数は 5 セット
-     *  "s,Bomb"     --> SpriteSetModel のモデル(セット数省略表記)。読み込むファイルは "Bomb.sprx"。セット数省略時は最大の 18 セット
+     *  "s,Bomb"     --> SpriteSetModel のモデル。読み込むファイルは "Bomb.sprx"。（セット数省略時は最大の 18 セット）
      *  "B,Font"     --> BoardModel のモデル。読み込むファイルは "Font.sprx"。
-     *  "b,10,Font"  --> BoardSetModel のモデル。読み込むファイルは "Font.sprx"。同時描画オブジェクト数は 10 セット
-     *  "b,Font"     --> BoardSetModel のモデル。読み込むファイルは "Font.sprx"。セット数省略時は最大の 28 セット
-     *  "P,Star"     --> PointSpriteModel のモデル。読み込むファイルは "Star.psprx"。同時描画セット数は8
-     *  "C"          --> D3DXMeshModel のモデル。読み込むファイルは "cube.x"
+     *  "b,Font"     --> BoardSetModel のモデル。読み込むファイルは "Font.sprx"。（セット数省略時は最大の 28 セット）
      *  </pre>
      * @param prm_idstr モデル識別ID
      * @param prm_p 自由パラメータ、現在未使用

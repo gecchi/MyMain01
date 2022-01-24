@@ -31,7 +31,7 @@ void BoneAniMeshWorldMatStack::SetWorldMatrix(D3DXMATRIX* worldmat) {
     _actor_world_trans_matrix = *worldmat;
 }
 
-void BoneAniMeshWorldMatStack::UpdateFrame(BoneAniMeshFrame* prm_frame_root, int prm_as0_index, int prm_as1_index, bool** prm_papaBool_Model_AnimationSetIndex_BoneFrameIndex_is_act) {
+void BoneAniMeshWorldMatStack::UpdateFrame(D3DXMATRIX* prm_pMatBaseTransformMatrix, BoneAniMeshFrame* prm_frame_root, int prm_as0_index, int prm_as1_index, bool** prm_papaBool_Model_AnimationSetIndex_BoneFrameIndex_is_act) {
 #ifdef MY_DEBUG
     if (_prevTransformationMatrixList.size() == 0) {
         throwCriticalException("BoneAniMeshWorldMatStack::UpdateFrame() を実行前にregisterFrameTransformationMatrix() でフレーム登録して下さい。");
@@ -42,7 +42,9 @@ void BoneAniMeshWorldMatStack::UpdateFrame(BoneAniMeshFrame* prm_frame_root, int
         _stack_matrix.pop();
 
     // ワールド変換行列をスタックに積む
-    _stack_matrix.push(&_actor_world_trans_matrix);
+    D3DXMATRIX _mat_top;
+    D3DXMatrixMultiply(&_mat_top, prm_pMatBaseTransformMatrix, &_actor_world_trans_matrix);//world変換に予め、ベース変換を掛けておく
+    _stack_matrix.push(&_mat_top);
     _as0_index = prm_as0_index;
     _as1_index = prm_as1_index;
     _papaBool_Model_AnimationSetIndex_BoneFrameIndex_is_act = prm_papaBool_Model_AnimationSetIndex_BoneFrameIndex_is_act;
