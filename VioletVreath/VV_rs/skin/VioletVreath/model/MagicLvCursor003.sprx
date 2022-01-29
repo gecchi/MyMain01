@@ -7,4 +7,9 @@ SpriteModelDef MagicLvCursor003 {
    8;                          # DWORD  TextureSplitRows
    2;                          # DWORD  TextureSplitCols
    1;                #DrawSetNum
+  1.000000, 0.000000, 0.000000, 0.000000, 
+  0.000000, 1.000000, 0.000000, 0.000000, 
+  0.000000, 0.000000, 1.000000, 0.000000, 
+  0.000000, 0.000000, 0.000000, 1.000000; 
 }
+

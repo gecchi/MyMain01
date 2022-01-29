@@ -78,13 +78,13 @@ public:
     const pixcoord _model_center_width_px;
     /** [r]モデルのオリジナルの中心のメインの高さ(px) */
     const pixcoord _model_center_height_px;
-    /** [r]モデルのオリジナルの幅(px) */
+    /** [r]モデルのオリジナルの全体の幅(px) */
     const pixcoord _model_total_width_px;
-    /** [r]モデルのオリジナルの高さ(px) */
+    /** [r]モデルのオリジナルの全体の高さ(px) */
     const pixcoord _model_total_height_px;
-    /** [r]角がゆがまないで表示できる限界の幅(px) */
+    /** [r]角がゆがまないで表示できる限界の _sx */
     const scale _lim_center_sx;
-    /** [r]角がゆがまないで表示できる限界の高さ(px) */
+    /** [r]角がゆがまないで表示できる限界の _sy */
     const scale _lim_center_sy;
 
     Align _align;

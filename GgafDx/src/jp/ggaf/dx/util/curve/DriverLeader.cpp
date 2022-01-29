@@ -9,7 +9,6 @@ using namespace GgafDx;
 
 DriverLeader::DriverLeader(CurveManufacture* prm_pManufacture, GgafDx::GeometricActor* prm_pActor_target) :
         GgafCore::Object() {
-    _obj_class = Obj_GgadDx_DriverLeader;
     _pManufacture = prm_pManufacture;
     if (!_pManufacture->_is_calculated) {
         _pManufacture->calculate();

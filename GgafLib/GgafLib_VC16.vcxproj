@@ -41,6 +41,7 @@
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultD3DXMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultDynaD3DXMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultFramedBoardActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\DefaultFramedSpriteActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultGeometricActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultMassBoardActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\DefaultMassMeshActor.cpp" />
@@ -134,6 +135,7 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultD3DXMeshActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultDynaD3DXMeshActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultFramedBoardActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\DefaultFramedSpriteActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultGeometricActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultMassBoardActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\DefaultMassMeshActor.h" />

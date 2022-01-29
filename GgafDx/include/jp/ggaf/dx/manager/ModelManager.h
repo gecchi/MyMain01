@@ -81,6 +81,7 @@ public:
         DWORD TextureSplitRows;
         DWORD TextureSplitCols;
         DWORD DrawSetNum;
+        D3DXMATRIX BaseTransformMatrix;
     };
 
     struct FramedSpriteXFileFmt {

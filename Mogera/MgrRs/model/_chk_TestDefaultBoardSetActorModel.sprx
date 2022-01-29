@@ -7,4 +7,9 @@ SpriteModelDef Test {
    8;                # DWORD  TextureSplitRows
    8;                # DWORD  TextureSplitCols
    0;                # DWORD  DrawSetNum
+  1.000000, 0.000000, 0.000000, 0.000000, 
+  0.000000, 1.000000, 0.000000, 0.000000, 
+  0.000000, 0.000000, 1.000000, 0.000000, 
+  0.000000, 0.000000, 0.000000, 1.000000; 
 }
+

@@ -2,7 +2,6 @@
 #define GGAF_DX_SCENE_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/scene/MainScene.h"
-
 #include "jp/ggaf/core/util/Curtain.hpp"
 
 namespace GgafDx {

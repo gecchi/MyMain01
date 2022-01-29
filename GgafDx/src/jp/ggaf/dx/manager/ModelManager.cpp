@@ -94,6 +94,7 @@ ModelManager::ModelManager(const char* prm_manager_name) :
         "   DWORD  TextureSplitRows;" \
         "   DWORD  TextureSplitCols;" \
         "   DWORD  DrawSetNum; " \
+        "   array FLOAT BaseTransformMatrix[16]; " \
         "}\n";
     hr = _pID3DXFile_sprx->RegisterTemplates(sprx_template, (DWORD)(strlen(sprx_template)));
 #ifdef MY_DEBUG
@@ -384,6 +385,7 @@ void ModelManager::obtainSpriteModelInfo(SpriteXFileFmt* prm_pSpriteFmt_out, std
     //    "   DWORD  TextureSplitRows;" \
     //    "   DWORD  TextureSplitCols;" \
     //    "   DWORD  DrawSetNum; " \
+    //    "   array FLOAT BaseTransformMatrix[16]; " \
     //    "}\n";
     ID3DXFileEnumObject* pID3DXFileEnumObject;
     HRESULT hr = _pID3DXFile_sprx->CreateEnumObject(
@@ -422,6 +424,27 @@ void ModelManager::obtainSpriteModelInfo(SpriteXFileFmt* prm_pSpriteFmt_out, std
     pXData += sizeof(DWORD);
     memcpy(&(prm_pSpriteFmt_out->DrawSetNum), pXData, sizeof(DWORD));
     pXData += sizeof(DWORD);
+
+    FLOAT aMat[16];
+    memcpy(aMat, pXData, sizeof(FLOAT)*16);
+    pXData += sizeof(FLOAT)*16;
+    prm_pSpriteFmt_out->BaseTransformMatrix._11 = aMat[0];
+    prm_pSpriteFmt_out->BaseTransformMatrix._12 = aMat[1];
+    prm_pSpriteFmt_out->BaseTransformMatrix._13 = aMat[2];
+    prm_pSpriteFmt_out->BaseTransformMatrix._14 = aMat[3];
+    prm_pSpriteFmt_out->BaseTransformMatrix._21 = aMat[4];
+    prm_pSpriteFmt_out->BaseTransformMatrix._22 = aMat[5];
+    prm_pSpriteFmt_out->BaseTransformMatrix._23 = aMat[6];
+    prm_pSpriteFmt_out->BaseTransformMatrix._24 = aMat[7];
+    prm_pSpriteFmt_out->BaseTransformMatrix._31 = aMat[8];
+    prm_pSpriteFmt_out->BaseTransformMatrix._32 = aMat[9];
+    prm_pSpriteFmt_out->BaseTransformMatrix._33 = aMat[10];
+    prm_pSpriteFmt_out->BaseTransformMatrix._34 = aMat[11];
+    prm_pSpriteFmt_out->BaseTransformMatrix._41 = aMat[12];
+    prm_pSpriteFmt_out->BaseTransformMatrix._42 = aMat[13];
+    prm_pSpriteFmt_out->BaseTransformMatrix._43 = aMat[14];
+    prm_pSpriteFmt_out->BaseTransformMatrix._44 = aMat[15];
+
     pID3DXFileData->Unlock();
     GGAF_RELEASE_BY_FROCE(pID3DXFileData);
     GGAF_RELEASE(pID3DXFileEnumObject);

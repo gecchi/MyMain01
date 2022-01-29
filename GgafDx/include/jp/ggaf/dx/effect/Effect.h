@@ -36,6 +36,7 @@
 #define Obj_GgafDx_RegularPolygonBoardEffect   (0x1000000U)      //0b 00000001 00000000 00000000 00000000
 #define Obj_GgafDx_BoneAniMeshEffect           (0x2000000U)      //0b 00000010 00000000 00000000 00000000
 #define Obj_GgafDx_SkinAniMeshEffect           (0x4000000U)      //0b 00000100 00000000 00000000 00000000
+#define Obj_GgafDx_FramedSpriteEffect          (0x8000000U)      //0b 00001000 00000000 00000000 00000000
 
 namespace GgafDx {
 

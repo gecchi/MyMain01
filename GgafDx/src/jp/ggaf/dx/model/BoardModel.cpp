@@ -28,7 +28,8 @@ BoardModel::BoardModel(const char* prm_model_id) :
     _pVertexBuffer_data = nullptr;
     _size_vertices = 0;
     _size_vertex_unit = 0;
-    _max_draw_set_num = 0;
+    _nVertices = 4;
+    _max_draw_set_num = 1;
 }
 
 HRESULT BoardModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
@@ -169,6 +170,8 @@ void BoardModel::restore() {
         _pVertexBuffer_data[3].z = 0.0f;
         _pVertexBuffer_data[3].tu = (float)((1.0 / xdata.TextureSplitCols) - du);
         _pVertexBuffer_data[3].tv = (float)((1.0 / xdata.TextureSplitRows) - dv);
+
+        transformPosVtx(_pVertexBuffer_data, _size_vertex_unit, _nVertices);
 
         _num_materials = 1;
         D3DMATERIAL9* paMaterial;

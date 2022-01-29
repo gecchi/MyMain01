@@ -6,4 +6,9 @@ SpriteDef Grid {
    "Grid.png";  # STRING TextureFile
    1;                # DWORD  TextureSplitRows
    1;                # DWORD  TextureSplitCols
+  1.000000, 0.000000, 0.000000, 0.000000, 
+  0.000000, 1.000000, 0.000000, 0.000000, 
+  0.000000, 0.000000, 1.000000, 0.000000, 
+  0.000000, 0.000000, 0.000000, 1.000000; 
 }
+

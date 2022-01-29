@@ -28,6 +28,7 @@ SpriteModel::SpriteModel(const char* prm_model_id) : Model(prm_model_id) {
     _pVertexBuffer_data = nullptr;
     _size_vertices = 0;
     _size_vertex_unit = 0;
+    _nVertices = 4;
     _max_draw_set_num = 1;
 }
 
@@ -146,6 +147,7 @@ void SpriteModel::restore() {
         _pVertexBuffer_data = NEW SpriteModel::VERTEX[4];
         _size_vertices = sizeof(SpriteModel::VERTEX)*4;
         _size_vertex_unit = sizeof(SpriteModel::VERTEX);
+        _nVertices = 4;
         _pa_texture_filenames = NEW std::string[1];
         _pa_texture_filenames[0] = std::string(xdata.TextureFile);
         _draw_set_num = xdata.DrawSetNum;
@@ -193,6 +195,9 @@ void SpriteModel::restore() {
         _pVertexBuffer_data[3].color = D3DCOLOR_ARGB(255,255,255,255);
         _pVertexBuffer_data[3].tu = (float)(1.0 / xdata.TextureSplitCols);
         _pVertexBuffer_data[3].tv = (float)(1.0 / xdata.TextureSplitRows);
+
+
+        transformPosVtx(_pVertexBuffer_data, _size_vertex_unit, _nVertices);
 
         //‹——£
         FLOAT model_bounding_sphere_radius = (FLOAT)(sqrt(_pVertexBuffer_data[0].x * _pVertexBuffer_data[0].x +

@@ -145,17 +145,10 @@ void FramedBoardModel::restore() {
         ModelManager::FramedSpriteXFileFmt xdata;
         pModelManager->obtainFramedSpriteModelInfo(&xdata, model_def_filepath);
 
-//        std::string xfile_name = Model::getModelDefineFilePath(_model_id, "sprx");
-//        ModelManager::SpriteXFileFmt xdata;
-//        pModelManager->obtainSpriteModelInfo(&xdata, xfile_name);
         _model_width_px  = xdata.Width;
         _model_height_px = xdata.Height;
         _row_texture_split = xdata.TextureSplitRows;
         _col_texture_split = xdata.TextureSplitCols;
-
-//        std::string xfile_name_frame = Model::getModelDefineFilePath(std::string(_model_id)+"_frame", "sprx");
-//        ModelManager::SpriteXFileFmt xdata_frame;
-//        pModelManager->obtainSpriteModelInfo(&xdata_frame, xfile_name_frame);
         _model_frame_width_px  = xdata.FrameWidth;
         _model_frame_height_px = xdata.FrameHeight;
         _row_frame_texture_split = xdata.FrameTextureSplitRows;

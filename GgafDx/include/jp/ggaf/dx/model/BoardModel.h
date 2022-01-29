@@ -28,6 +28,8 @@ public:
     UINT _size_vertices;
     /** 1頂点のサイズ */
     UINT _size_vertex_unit;
+    /** 基本モデル（１キャラ分）頂点数 */
+    UINT _nVertices;
 
     VERTEX* _pVertexBuffer_data;
 

@@ -186,9 +186,9 @@ void PointSpriteSetModel::restore() {
             _paVtxBuffer_data[i].psize = (_square_size_px*_texture_split_rowcol / _texture_size_px) * xdata.paFLOAT_InitScale[i]; //PSIZEにはピクセルサイズではなく倍率を埋め込む。
             //シェーダーで拡大縮小ピクセルを計算
             _paVtxBuffer_data[i].color = D3DCOLOR_COLORVALUE(xdata.paD3DVECTOR_VertexColors[i].r,
-                                                                   xdata.paD3DVECTOR_VertexColors[i].g,
-                                                                   xdata.paD3DVECTOR_VertexColors[i].b,
-                                                                   xdata.paD3DVECTOR_VertexColors[i].a );
+                                                             xdata.paD3DVECTOR_VertexColors[i].g,
+                                                             xdata.paD3DVECTOR_VertexColors[i].b,
+                                                             xdata.paD3DVECTOR_VertexColors[i].a );
             _paVtxBuffer_data[i].ini_ptn_no = (float)(xdata.paInt_InitUvPtnNo[i]); //頂点スプライトのUVパターン番号
             _paVtxBuffer_data[i].index = 0; //頂点番号（むりやり埋め込み）
         }

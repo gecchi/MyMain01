@@ -59,6 +59,7 @@
     <ClInclude Include="include\jp\ggaf\dx\actor\ex\WorldBoundActor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\FigureActor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\FramedBoardActor.h" />
+    <ClInclude Include="include\jp\ggaf\dx\actor\FramedSpriteActor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\GeometricActor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\interface\IBumpMapActor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\interface\ICubeMapActor.h" />
@@ -106,6 +107,7 @@
     <ClInclude Include="include\jp\ggaf\dx\effect\ex\CubeMapMorphMeshEffect.h" />
     <ClInclude Include="include\jp\ggaf\dx\effect\ex\WorldBoundEffect.h" />
     <ClInclude Include="include\jp\ggaf\dx\effect\FramedBoardEffect.h" />
+    <ClInclude Include="include\jp\ggaf\dx\effect\FramedSpriteEffect.h" />
     <ClInclude Include="include\jp\ggaf\dx\effect\MassBoardEffect.h" />
     <ClInclude Include="include\jp\ggaf\dx\effect\MassEffect.h" />
     <ClInclude Include="include\jp\ggaf\dx\effect\MassMeshEffect.h" />
@@ -148,6 +150,7 @@
     <ClInclude Include="include\jp\ggaf\dx\model\ex\CubeMapMorphMeshModel.h" />
     <ClInclude Include="include\jp\ggaf\dx\model\ex\WorldBoundModel.h" />
     <ClInclude Include="include\jp\ggaf\dx\model\FramedBoardModel.h" />
+    <ClInclude Include="include\jp\ggaf\dx\model\FramedSpriteModel.h" />
     <ClInclude Include="include\jp\ggaf\dx\model\MassBoardModel.h" />
     <ClInclude Include="include\jp\ggaf\dx\model\MassMeshModel.h" />
     <ClInclude Include="include\jp\ggaf\dx\model\MassModel.h" />
@@ -240,6 +243,7 @@
     <ClCompile Include="src\jp\ggaf\dx\actor\ex\WorldBoundActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\FigureActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\FramedBoardActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\dx\actor\FramedSpriteActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\GeometricActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\interface\IBumpMapActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\interface\ICubeMapActor.cpp" />
@@ -285,6 +289,7 @@
     <ClCompile Include="src\jp\ggaf\dx\effect\ex\CubeMapMorphMeshEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\effect\ex\WorldBoundEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\effect\FramedBoardEffect.cpp" />
+    <ClCompile Include="src\jp\ggaf\dx\effect\FramedSpriteEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\effect\MassBoardEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\effect\MassEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\effect\MassMeshEffect.cpp" />
@@ -327,6 +332,7 @@
     <ClCompile Include="src\jp\ggaf\dx\model\ex\CubeMapMorphMeshModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\model\ex\WorldBoundModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\model\FramedBoardModel.cpp" />
+    <ClCompile Include="src\jp\ggaf\dx\model\FramedSpriteModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\model\MassBoardModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\model\MassMeshModel.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\model\MassModel.cpp" />

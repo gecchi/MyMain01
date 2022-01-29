@@ -1,10 +1,14 @@
 xof 0303txt 0032
 
 SpriteModelDef Mogera-to {
-   8.0;             # FLOAT  Width
-   8.0;             # FLOAT  Height
-   "MSX-SF2-FONT.png";  # STRING TextureFile
-   16;              # DWORD  TextureSplitRows
-   16;              # DWORD  TextureSplitCols
-   0;
+  8.0;             # FLOAT  Width
+  8.0;             # FLOAT  Height
+  "MSX-SF2-FONT.png";  # STRING TextureFile
+  16;              # DWORD  TextureSplitRows
+  16;              # DWORD  TextureSplitCols
+  0;
+  1.000000, 0.000000, 0.000000, 0.000000, 
+  0.000000, 1.000000, 0.000000, 0.000000, 
+  0.000000, 0.000000, 1.000000, 0.000000, 
+  0.000000, 0.000000, 0.000000, 1.000000; 
 }

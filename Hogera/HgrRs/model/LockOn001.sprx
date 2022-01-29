@@ -6,4 +6,9 @@ SpriteDef LockOn001 {
    "LockOn001.png";  # STRING TextureFile
    2;                # DWORD  TextureSplitRows
    2;                # DWORD  TextureSplitCols
+   1;
+   1.000000, 0.000000, 0.000000, 0.000000, 
+  0.000000, 1.000000, 0.000000, 0.000000, 
+  0.000000, 0.000000, 1.000000, 0.000000, 
+  0.000000, 0.000000, 0.000000, 1.000000; 
 }

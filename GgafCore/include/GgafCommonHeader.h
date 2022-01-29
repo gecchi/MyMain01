@@ -332,8 +332,6 @@ typedef uint_fast32_t frame;
 /** ハッシュ数値 */
 typedef uint64_t hashval;
 
-#define MAX_FRAME (0xffffffff)
-
 #define Obj_SceneBit              (0x8000000000000000ULL)       //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
 
 #define Obj_ggaf_Scene             ((0x1ULL) | Obj_SceneBit)     //0b 10000000 00000000 00000000 00000000 00000000 00000000 00000000 00000001
@@ -350,6 +348,7 @@ typedef uint64_t hashval;
 #define Obj_ggaf_ActorDepository   (0x40ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 01000000
 #define Obj_ggaf_Formation         (0x80ULL)                     //0b 00000000 00000000 00000000 00000000 00000000 00000000 00000000 10000000
 
+#define MAX_FRAME (0xffffffff)
 
 //前方宣言(forward declaration)
 namespace GgafCore {
