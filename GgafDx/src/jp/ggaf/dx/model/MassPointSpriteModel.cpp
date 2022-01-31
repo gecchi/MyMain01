@@ -163,21 +163,21 @@ void MassPointSpriteModel::restore() {
     }
 
     //デバイスに頂点バッファ作成(モデル)
-    if (_pVertexBuffer_model == nullptr) {
+    if (_paVertexBuffer_model == nullptr) {
         hr = God::_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices_model,
                 D3DUSAGE_WRITEONLY | D3DUSAGE_POINTS,
                 0,
                 D3DPOOL_DEFAULT,
-                &(_pVertexBuffer_model),
+                &(_paVertexBuffer_model),
                 nullptr);
         checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_id));
         //バッファへ作成済み頂点データを流し込む
         void* pDeviceMemory = 0;
-        hr = _pVertexBuffer_model->Lock(0, _size_vertices_model, (void**)&pDeviceMemory, 0);
+        hr = _paVertexBuffer_model->Lock(0, _size_vertices_model, (void**)&pDeviceMemory, 0);
         checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_id);
         memcpy(pDeviceMemory, _paVtxBuffer_data_model, _size_vertices_model);
-        hr = _pVertexBuffer_model->Unlock();
+        hr = _paVertexBuffer_model->Unlock();
         checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗 model="<<_model_id);
     }
 
@@ -190,7 +190,7 @@ void MassPointSpriteModel::restore() {
     }
 
     //インデックスバッファは使わない
-    _pIndexBuffer = nullptr;
+    _paIndexBuffer = nullptr;
 
     MassModel::restore(); //上位を呼び出す
     _TRACE3_("_model_id=" << _model_id << " end");
@@ -198,7 +198,7 @@ void MassPointSpriteModel::restore() {
 
 HRESULT MassPointSpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
     _TRACE4_("MassPointSpriteModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
-//    if (_pVertexBuffer_instancedata == nullptr) {
+//    if (_paVertexBuffer_instancedata == nullptr) {
 //        createVertexElements(); //デバイスロスト復帰時に呼び出される
 //    }
 #ifdef MY_DEBUG
@@ -221,10 +221,10 @@ HRESULT MassPointSpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_
     UINT update_vertex_instancedata_size = _size_vertex_unit_instancedata * prm_draw_set_num;
     void* pInstancedata = prm_pPrm ? prm_pPrm : this->_pInstancedata; //prm_pPrm は臨時のテンポラリインスタンスデータ
     void* pDeviceMemory = 0;
-    hr = _pVertexBuffer_instancedata->Lock(0, update_vertex_instancedata_size, (void**)&pDeviceMemory, D3DLOCK_DISCARD);
+    hr = _paVertexBuffer_instancedata->Lock(0, update_vertex_instancedata_size, (void**)&pDeviceMemory, D3DLOCK_DISCARD);
     checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_id);
     memcpy(pDeviceMemory, pInstancedata, update_vertex_instancedata_size);
-    hr = _pVertexBuffer_instancedata->Unlock();
+    hr = _paVertexBuffer_instancedata->Unlock();
     checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗 model="<<_model_id);
 
     //モデルが同じならば頂点バッファ、インデックスバッファの設定はスキップできる
@@ -239,9 +239,9 @@ HRESULT MassPointSpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_
         //頂点バッファとインデックスバッファを設定
         hr = pDevice->SetVertexDeclaration(_pVertexDeclaration); //頂点フォーマット
         checkDxException(hr, D3D_OK, "SetVertexDeclaration に失敗しました。");
-        hr = pDevice->SetStreamSource(0, _pVertexBuffer_model      , 0, _size_vertex_unit_model);
+        hr = pDevice->SetStreamSource(0, _paVertexBuffer_model      , 0, _size_vertex_unit_model);
         checkDxException(hr, D3D_OK, "SetStreamSource 0 に失敗しました。");
-        hr = pDevice->SetStreamSource(1, _pVertexBuffer_instancedata, 0, _size_vertex_unit_instancedata);
+        hr = pDevice->SetStreamSource(1, _paVertexBuffer_instancedata, 0, _size_vertex_unit_instancedata);
         checkDxException(hr, D3D_OK, "SetStreamSource 1 に失敗しました。");
         hr = pDevice->SetIndices(nullptr);
         checkDxException(hr, D3D_OK, "SetIndices に失敗しました。");

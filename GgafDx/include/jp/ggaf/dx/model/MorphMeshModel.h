@@ -70,12 +70,12 @@ public:
     /** シェーダー入力頂点フォーマット */
     LPDIRECT3DVERTEXDECLARATION9 _pVertexDeclaration;
     /** 頂点バッファ（プライマリ） */
-    LPDIRECT3DVERTEXBUFFER9 _pVertexBuffer_primary;
+    LPDIRECT3DVERTEXBUFFER9 _paVertexBuffer_primary;
     /** 頂点バッファの配列（要素数＝モーフターゲット数） */
     LPDIRECT3DVERTEXBUFFER9* _paIDirect3DVertexBuffer9_morph;
 
     /** インデックスバッファ（プライマリのみ） */
-    LPDIRECT3DINDEXBUFFER9 _pIndexBuffer;
+    LPDIRECT3DINDEXBUFFER9 _paIndexBuffer;
 
     /** 頂点のサイズ（プライマリ） */
     UINT _size_vertices_primary;

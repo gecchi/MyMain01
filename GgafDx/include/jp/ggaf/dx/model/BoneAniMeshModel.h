@@ -39,9 +39,9 @@ public:
     /** インデックスバッファ番号に対応する頂点バッファのフレームメッシュ番号 */
     int* _paIndexBuffer_frame_no;
     /** 頂点バッファ（全フレームのメッシュ分） */
-    LPDIRECT3DVERTEXBUFFER9 _pVertexBuffer;
+    LPDIRECT3DVERTEXBUFFER9 _paVertexBuffer;
     /** インデックスバッファ（全フレームのメッシュ分）  */
-    LPDIRECT3DINDEXBUFFER9 _pIndexBuffer;
+    LPDIRECT3DINDEXBUFFER9 _paIndexBuffer;
     /** モデル頂点数 */
     UINT _nVertices;
     /** モデル面の数 */

@@ -20,9 +20,34 @@ public:
     D3DXHANDLE _h_matView;
     D3DXHANDLE _h_matWorld;
     D3DXHANDLE _h_colMaterialDiffuse;
-    D3DXHANDLE _h_offset_u;
-    D3DXHANDLE _h_offset_v;
     D3DXHANDLE _h_far_rate;
+
+    D3DXHANDLE _ah_offset_u[9];
+    D3DXHANDLE _ah_offset_v[9];
+    D3DXHANDLE _ah_offset_x[9];
+    D3DXHANDLE _ah_offset_y[9];
+
+    D3DXHANDLE _h_frame_width;
+    D3DXHANDLE _h_frame_height;
+    D3DXHANDLE _h_center_width;
+    D3DXHANDLE _h_center_height;
+
+    D3DXHANDLE _h_local_offset_x;
+    D3DXHANDLE _h_local_offset_y;
+
+    D3DXHANDLE _h_x;
+    D3DXHANDLE _h_y;
+    D3DXHANDLE _h_z;
+    D3DXHANDLE _h_rz;
+
+    D3DXHANDLE _h_frame_width_rate;
+    D3DXHANDLE _h_center_width_rate;
+
+    D3DXHANDLE _h_frame_height_rate;
+    D3DXHANDLE _h_center_height_rate;
+
+    D3DXHANDLE _h_alpha;
+    D3DXHANDLE _h_depth_z;
 
 public:
     /**

@@ -25,9 +25,6 @@ public:
     /** [r]UVフリッパー(パラパラアニメ) */
     UvFlipper* const _pUvFlipper;
 
-//    Align _align;
-//    Valign _valign;
-
 public:
     /**
      * コンストラクタ .
@@ -43,10 +40,6 @@ public:
                     const char* prm_effect_id,
                     const char* prm_technique,
                     Checker* prm_pChecker );
-
-//    virtual void setAlign(Align prm_align, Valign prm_valign);
-//    virtual void setAlign(Align prm_align);
-//    virtual void setValign(Valign prm_valign);
 
     inline UvFlipper* getUvFlipper() {
         return _pUvFlipper;

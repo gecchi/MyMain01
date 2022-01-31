@@ -23,12 +23,12 @@ public:
     /** 頂点のFVF */
     static DWORD FVF;
     /** 頂点バッファ */
-    LPDIRECT3DVERTEXBUFFER9 _pVertexBuffer;
+    LPDIRECT3DVERTEXBUFFER9 _paVertexBuffer;
     /** 矩形の頂点合計のサイズ */
     UINT _size_vertices;
     /** 1頂点のサイズ */
     UINT _size_vertex_unit;
-    VERTEX* _pVertexBuffer_data;
+    VERTEX* _paVertexBuffer_data;
     float _model_width_px;
     float _model_height_px;
     int _row_texture_split;

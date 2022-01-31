@@ -73,9 +73,9 @@ public:
     /** シェーダー入力頂点フォーマット */
     LPDIRECT3DVERTEXDECLARATION9 _pVertexDeclaration;
     /** 頂点バッファ（全フレームのメッシュ分） */
-    LPDIRECT3DVERTEXBUFFER9 _pVertexBuffer;
+    LPDIRECT3DVERTEXBUFFER9 _paVertexBuffer;
     /** インデックスバッファ（全フレームのメッシュ分）  */
-    LPDIRECT3DINDEXBUFFER9 _pIndexBuffer;
+    LPDIRECT3DINDEXBUFFER9 _paIndexBuffer;
     /** モデル頂点数 */
     UINT _nVertices;
     /** モデル面の数 */

@@ -24,8 +24,8 @@ SpriteModel::SpriteModel(const char* prm_model_id) : Model(prm_model_id) {
     _model_height_px = 32.0f;
     _row_texture_split = 1;
     _col_texture_split = 1;
-    _pVertexBuffer = nullptr;
-    _pVertexBuffer_data = nullptr;
+    _paVertexBuffer = nullptr;
+    _paVertexBuffer_data = nullptr;
     _size_vertices = 0;
     _size_vertex_unit = 0;
     _nVertices = 4;
@@ -51,7 +51,7 @@ HRESULT SpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, 
         if (pModelLastDraw && (pModelLastDraw->_obj_model & Obj_GgafDx_MassModel)) {
             ((MassModel*)pModelLastDraw)->resetStreamSourceFreq();
         }
-        pDevice->SetStreamSource(0, _pVertexBuffer, 0, _size_vertex_unit);
+        pDevice->SetStreamSource(0, _paVertexBuffer, 0, _size_vertex_unit);
         pDevice->SetFVF(SpriteModel::FVF);
         pDevice->SetTexture(0, getDefaultTextureConnection()->peek()->_pIDirect3DBaseTexture9);
 
@@ -132,7 +132,7 @@ HRESULT SpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, 
 
 void SpriteModel::restore() {
     _TRACE3_("_model_id=" << _model_id << " start");
-    if (_pVertexBuffer_data == nullptr) {
+    if (_paVertexBuffer_data == nullptr) {
         _papTextureConnection = nullptr;
         ModelManager* pModelManager = pGOD->_pModelManager;
         std::string model_def_file = std::string(_model_id) + ".sprx";
@@ -144,7 +144,7 @@ void SpriteModel::restore() {
         _model_height_px =  xdata.Height;
         _row_texture_split = xdata.TextureSplitRows;
         _col_texture_split = xdata.TextureSplitCols;
-        _pVertexBuffer_data = NEW SpriteModel::VERTEX[4];
+        _paVertexBuffer_data = NEW SpriteModel::VERTEX[4];
         _size_vertices = sizeof(SpriteModel::VERTEX)*4;
         _size_vertex_unit = sizeof(SpriteModel::VERTEX);
         _nVertices = 4;
@@ -156,53 +156,53 @@ void SpriteModel::restore() {
             _draw_set_num = 1;
         }
         //左上
-        _pVertexBuffer_data[0].x = PX_DX(xdata.Width)  / -2.0;
-        _pVertexBuffer_data[0].y = PX_DX(xdata.Height) /  2.0;
-        _pVertexBuffer_data[0].z = 0.0f;
-        _pVertexBuffer_data[0].nx = 0.0f;
-        _pVertexBuffer_data[0].ny = 0.0f;
-        _pVertexBuffer_data[0].nz = -1.0f;
-        _pVertexBuffer_data[0].color = D3DCOLOR_ARGB(255,255,255,255);
-        _pVertexBuffer_data[0].tu = 0.0f;
-        _pVertexBuffer_data[0].tv = 0.0f;
+        _paVertexBuffer_data[0].x = PX_DX(xdata.Width)  / -2.0;
+        _paVertexBuffer_data[0].y = PX_DX(xdata.Height) /  2.0;
+        _paVertexBuffer_data[0].z = 0.0f;
+        _paVertexBuffer_data[0].nx = 0.0f;
+        _paVertexBuffer_data[0].ny = 0.0f;
+        _paVertexBuffer_data[0].nz = -1.0f;
+        _paVertexBuffer_data[0].color = D3DCOLOR_ARGB(255,255,255,255);
+        _paVertexBuffer_data[0].tu = 0.0f;
+        _paVertexBuffer_data[0].tv = 0.0f;
         //右上
-        _pVertexBuffer_data[1].x = PX_DX(xdata.Width)  /  2.0;
-        _pVertexBuffer_data[1].y = PX_DX(xdata.Height) /  2.0;
-        _pVertexBuffer_data[1].z = 0.0f;
-        _pVertexBuffer_data[1].nx = 0.0f;
-        _pVertexBuffer_data[1].ny = 0.0f;
-        _pVertexBuffer_data[1].nz = -1.0f;
-        _pVertexBuffer_data[1].color = D3DCOLOR_ARGB(255,255,255,255);
-        _pVertexBuffer_data[1].tu = (float)(1.0 / xdata.TextureSplitCols);
-        _pVertexBuffer_data[1].tv = 0.0f;
+        _paVertexBuffer_data[1].x = PX_DX(xdata.Width)  /  2.0;
+        _paVertexBuffer_data[1].y = PX_DX(xdata.Height) /  2.0;
+        _paVertexBuffer_data[1].z = 0.0f;
+        _paVertexBuffer_data[1].nx = 0.0f;
+        _paVertexBuffer_data[1].ny = 0.0f;
+        _paVertexBuffer_data[1].nz = -1.0f;
+        _paVertexBuffer_data[1].color = D3DCOLOR_ARGB(255,255,255,255);
+        _paVertexBuffer_data[1].tu = (float)(1.0 / xdata.TextureSplitCols);
+        _paVertexBuffer_data[1].tv = 0.0f;
         //左下
-        _pVertexBuffer_data[2].x = PX_DX(xdata.Width)  / -2.0;
-        _pVertexBuffer_data[2].y = PX_DX(xdata.Height) / -2.0;
-        _pVertexBuffer_data[2].z = 0.0f;
-        _pVertexBuffer_data[2].nx = 0.0f;
-        _pVertexBuffer_data[2].ny = 0.0f;
-        _pVertexBuffer_data[2].nz = -1.0f;
-        _pVertexBuffer_data[2].color = D3DCOLOR_ARGB(255,255,255,255);
-        _pVertexBuffer_data[2].tu = 0.0f;
-        _pVertexBuffer_data[2].tv = (float)(1.0 / xdata.TextureSplitRows);
+        _paVertexBuffer_data[2].x = PX_DX(xdata.Width)  / -2.0;
+        _paVertexBuffer_data[2].y = PX_DX(xdata.Height) / -2.0;
+        _paVertexBuffer_data[2].z = 0.0f;
+        _paVertexBuffer_data[2].nx = 0.0f;
+        _paVertexBuffer_data[2].ny = 0.0f;
+        _paVertexBuffer_data[2].nz = -1.0f;
+        _paVertexBuffer_data[2].color = D3DCOLOR_ARGB(255,255,255,255);
+        _paVertexBuffer_data[2].tu = 0.0f;
+        _paVertexBuffer_data[2].tv = (float)(1.0 / xdata.TextureSplitRows);
         //右下
-        _pVertexBuffer_data[3].x = PX_DX(xdata.Width)  /  2.0;
-        _pVertexBuffer_data[3].y = PX_DX(xdata.Height) / -2.0;
-        _pVertexBuffer_data[3].z = 0.0f;
-        _pVertexBuffer_data[3].nx = 0.0f;
-        _pVertexBuffer_data[3].ny = 0.0f;
-        _pVertexBuffer_data[3].nz = -1.0f;
-        _pVertexBuffer_data[3].color = D3DCOLOR_ARGB(255,255,255,255);
-        _pVertexBuffer_data[3].tu = (float)(1.0 / xdata.TextureSplitCols);
-        _pVertexBuffer_data[3].tv = (float)(1.0 / xdata.TextureSplitRows);
+        _paVertexBuffer_data[3].x = PX_DX(xdata.Width)  /  2.0;
+        _paVertexBuffer_data[3].y = PX_DX(xdata.Height) / -2.0;
+        _paVertexBuffer_data[3].z = 0.0f;
+        _paVertexBuffer_data[3].nx = 0.0f;
+        _paVertexBuffer_data[3].ny = 0.0f;
+        _paVertexBuffer_data[3].nz = -1.0f;
+        _paVertexBuffer_data[3].color = D3DCOLOR_ARGB(255,255,255,255);
+        _paVertexBuffer_data[3].tu = (float)(1.0 / xdata.TextureSplitCols);
+        _paVertexBuffer_data[3].tv = (float)(1.0 / xdata.TextureSplitRows);
 
 
-        transformPosVtx(_pVertexBuffer_data, _size_vertex_unit, _nVertices);
+        transformPosVtx(_paVertexBuffer_data, _size_vertex_unit, _nVertices);
 
         //距離
-        FLOAT model_bounding_sphere_radius = (FLOAT)(sqrt(_pVertexBuffer_data[0].x * _pVertexBuffer_data[0].x +
-                                                          _pVertexBuffer_data[0].y * _pVertexBuffer_data[0].y +
-                                                          _pVertexBuffer_data[0].z * _pVertexBuffer_data[0].z));
+        FLOAT model_bounding_sphere_radius = (FLOAT)(sqrt(_paVertexBuffer_data[0].x * _paVertexBuffer_data[0].x +
+                                                          _paVertexBuffer_data[0].y * _paVertexBuffer_data[0].y +
+                                                          _paVertexBuffer_data[0].z * _paVertexBuffer_data[0].z));
         _bounding_sphere_radius = model_bounding_sphere_radius;
 
         _num_materials = 1;
@@ -223,23 +223,23 @@ void SpriteModel::restore() {
     }
 
     //バッファ作成
-    if (_pVertexBuffer == nullptr) {
+    if (_paVertexBuffer == nullptr) {
         HRESULT hr;
         hr = God::_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices,
                 D3DUSAGE_WRITEONLY,
                 SpriteModel::FVF,
                 D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
-                &(_pVertexBuffer),
+                &(_paVertexBuffer),
                 nullptr);
         checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_id));
         //頂点バッファ作成
         //頂点情報をビデオカード頂点バッファへロード
-        void *pVertexBuffer;
-        hr = _pVertexBuffer->Lock(0, _size_vertices, (void**)&pVertexBuffer, 0);
+        void *paVertexBuffer;
+        hr = _paVertexBuffer->Lock(0, _size_vertices, (void**)&paVertexBuffer, 0);
         checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_id);
-        memcpy(pVertexBuffer, _pVertexBuffer_data, _size_vertices); //pVertexBuffer ← _pVertexBuffer_data
-        _pVertexBuffer->Unlock();
+        memcpy(paVertexBuffer, _paVertexBuffer_data, _size_vertices); //paVertexBuffer ← _paVertexBuffer_data
+        _paVertexBuffer->Unlock();
     }
     if (_papTextureConnection == nullptr) {
         ModelManager* pModelManager = pGOD->_pModelManager;
@@ -258,7 +258,7 @@ void SpriteModel::onDeviceLost() {
 
 void SpriteModel::release() {
     _TRACE3_("_model_id=" << _model_id << " start");
-    GGAF_RELEASE(_pVertexBuffer);
+    GGAF_RELEASE(_paVertexBuffer);
     if (_papTextureConnection) {
         for (int i = 0; i < (int)_num_materials; i++) {
             if (_papTextureConnection[i]) {
@@ -273,6 +273,6 @@ void SpriteModel::release() {
 SpriteModel::~SpriteModel() {
     GGAF_DELETEARR(_paMaterial_default);
     GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);
-    GGAF_DELETEARR(_pVertexBuffer_data);
+    GGAF_DELETEARR(_paVertexBuffer_data);
 }
 

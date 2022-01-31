@@ -18,7 +18,7 @@ SpriteActor::SpriteActor(const char* prm_name,
 
                              FigureActor(prm_name,
                                          prm_model,
-                                         TYPE_ACTOR_MODEL,
+                                         TYPE_SPRITE_MODEL,
                                          prm_effect_id,
                                          TYPE_SPRITE_EFFECT,
                                          prm_technique,

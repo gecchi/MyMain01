@@ -40,6 +40,7 @@
 #include "jp/ggaf/dx/model/MassPointSpriteModel.h"
 #include "jp/ggaf/dx/model/PointSpriteSetModel.h"
 #include "jp/ggaf/dx/model/FramedBoardModel.h"
+#include "jp/ggaf/dx/model/FramedSpriteModel.h"
 #include "jp/ggaf/dx/model/RegularPolygonSpriteModel.h"
 #include "jp/ggaf/dx/model/RegularPolygonBoardModel.h"
 #include "jp/ggaf/dx/model/BoneAniMeshModel.h"
@@ -237,7 +238,7 @@ Model* ModelManager::processCreateResource(const char* prm_idstr, void* prm_pCon
         case TYPE_WORLDBOUND_MODEL:
             pResourceModel = createModel<WorldBoundModel>(model_id);
             break;
-        case TYPE_ACTOR_MODEL:
+        case TYPE_SPRITE_MODEL:
             pResourceModel = createModel<SpriteModel>(model_id);
             break;
         case TYPE_SPRITESET_MODEL:
@@ -269,6 +270,9 @@ Model* ModelManager::processCreateResource(const char* prm_idstr, void* prm_pCon
             break;
         case TYPE_FRAMEDBOARD_MODEL:
             pResourceModel = createModel<FramedBoardModel>(model_id);
+            break;
+        case TYPE_FRAMEDSPRITE_MODEL:
+            pResourceModel = createModel<FramedSpriteModel>(model_id);
             break;
         case TYPE_REGULARPOLYGONSPRITE_MODEL:
             pResourceModel = createModel<RegularPolygonSpriteModel>(model_id);

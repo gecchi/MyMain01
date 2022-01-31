@@ -17,9 +17,9 @@ using namespace GgafDx;
 MassModel::MassModel(const char* prm_model_id) : Model(prm_model_id) {
     _TRACE3_("_model_id="<<_model_id);
     _draw_set_num = 0;
-    _pVertexBuffer_model = nullptr;
-    _pVertexBuffer_instancedata = nullptr;
-    _pIndexBuffer = nullptr;
+    _paVertexBuffer_model = nullptr;
+    _paVertexBuffer_instancedata = nullptr;
+    _paIndexBuffer = nullptr;
     _pVertexDeclaration = nullptr;
     _size_vertex_unit_instancedata = 0;
     _size_vertex_unit_model = 0;
@@ -101,14 +101,14 @@ void MassModel::createVertexElements() {
             D3DUSAGE_WRITEONLY | D3DUSAGE_DYNAMIC,  //毎回書き換える為D3DUSAGE_DYNAMIC
             0,
             D3DPOOL_DEFAULT,
-            &(_pVertexBuffer_instancedata),
+            &(_paVertexBuffer_instancedata),
             nullptr);
     checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer2 失敗 model="<<_model_id);
 //    void* pDeviceMemory = 0;
-//    hr = _pVertexBuffer_instancedata->Lock(0, size_instancedata, (void**)&pDeviceMemory, 0);
+//    hr = _paVertexBuffer_instancedata->Lock(0, size_instancedata, (void**)&pDeviceMemory, 0);
 //    checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗2 model="<<_model_id);
 //    ZeroMemory(pDeviceMemory, size_instancedata);
-//    hr = _pVertexBuffer_instancedata->Unlock();
+//    hr = _paVertexBuffer_instancedata->Unlock();
 //    checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗2 model="<<_model_id);
 }
 
@@ -135,16 +135,16 @@ void MassModel::release() {
         }
     }
     GGAF_DELETEARR(_papTextureConnection);
-    GGAF_RELEASE(_pVertexBuffer_instancedata);
-    GGAF_RELEASE(_pVertexBuffer_model);
-    GGAF_RELEASE(_pIndexBuffer);
+    GGAF_RELEASE(_paVertexBuffer_instancedata);
+    GGAF_RELEASE(_paVertexBuffer_model);
+    GGAF_RELEASE(_paIndexBuffer);
     GGAF_RELEASE(_pVertexDeclaration);
     _TRACE3_("_model_id=" << _model_id << " end");
 }
 
 void MassModel::restore() {
     _TRACE3_("MassModel::restore() _model_id=" << _model_id << " start");
-    if (God::_is_device_lost_flg  && _pVertexBuffer_instancedata == nullptr) {
+    if (God::_is_device_lost_flg  && _paVertexBuffer_instancedata == nullptr) {
         createVertexElements(); //デバイスロスト復帰時に呼び出される
     }
     _TRACE3_("MassModel::restore() _model_id=" << _model_id << " end");

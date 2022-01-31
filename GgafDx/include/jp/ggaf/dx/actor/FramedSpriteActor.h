@@ -18,8 +18,27 @@ public:
     FramedSpriteModel* const _pFramedSpriteModel;
     /** [r]エフェクト資源 */
     FramedSpriteEffect* const _pFramedSpriteEffect;
-    /** [r]UVフリッパー(パラパラアニメ) */
+    /** [r]UVフリッパー(中心のメイン) */
     UvFlipper* const _pUvFlipper;
+    /** [r]UVフリッパー(周囲フレーム) */
+    UvFlipper* const _pUvFlipper_frame;
+
+    /** [r]モデルのオリジナルの周囲フレームの幅(px) */
+    const pixcoord _model_frame_width_px;
+    /** [r]モデルのオリジナルの周囲フレームの高さ(px) */
+    const pixcoord _model_frame_height_px;
+    /** [r]モデルのオリジナルの中心のメインの幅(px) */
+    const pixcoord _model_center_width_px;
+    /** [r]モデルのオリジナルの中心のメインの高さ(px) */
+    const pixcoord _model_center_height_px;
+    /** [r]モデルのオリジナルの全体の幅(px) */
+    const pixcoord _model_total_width_px;
+    /** [r]モデルのオリジナルの全体の高さ(px) */
+    const pixcoord _model_total_height_px;
+    /** [r]角がゆがまないで表示できる限界の _sx */
+    const scale _lim_center_sx;
+    /** [r]角がゆがまないで表示できる限界の _sy */
+    const scale _lim_center_sy;
 
     float _far_rate;
     Align _align;

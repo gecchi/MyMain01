@@ -22,7 +22,7 @@ public:
     };
 
     /** 頂点バッファ */
-    LPDIRECT3DVERTEXBUFFER9 _pVertexBuffer;
+    LPDIRECT3DVERTEXBUFFER9 _paVertexBuffer;
     /** 頂点情報配列 */
     VERTEX* _paVtxBuffer_data;
     /** 頂点数(=スプライト数) */

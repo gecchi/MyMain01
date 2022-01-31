@@ -21,12 +21,12 @@ RegularPolygonBoardModel::RegularPolygonBoardModel(const char* prm_model_id) :
     Model(prm_model_id) {
     _TRACE3_("_model_id="<<_model_id);
     _obj_model |= Obj_GgafDx_RegularPolygonBoardModel;
-    _pVertexBuffer_data = nullptr;
+    _paVertexBuffer_data = nullptr;
     _model_width_px = 32.0f;
     _model_height_px = 32.0f;
     _row_texture_split = 1;
     _col_texture_split = 1;
-    _pVertexBuffer = nullptr;
+    _paVertexBuffer = nullptr;
     _size_vertices = 0;
     _size_vertex_unit = 0;
     _angle_num = 3;
@@ -56,7 +56,7 @@ HRESULT RegularPolygonBoardModel::draw(FigureActor* prm_pActor_target, int prm_d
         if (pModelLastDraw && (pModelLastDraw->_obj_model & Obj_GgafDx_MassModel)) {
             ((MassModel*)pModelLastDraw)->resetStreamSourceFreq();
         }
-        pDevice->SetStreamSource(0, _pVertexBuffer, 0, _size_vertex_unit);
+        pDevice->SetStreamSource(0, _paVertexBuffer, 0, _size_vertex_unit);
         pDevice->SetFVF(RegularPolygonBoardModel::FVF);
         pDevice->SetTexture(0, getDefaultTextureConnection()->peek()->_pIDirect3DBaseTexture9);
 
@@ -131,7 +131,7 @@ HRESULT RegularPolygonBoardModel::draw(FigureActor* prm_pActor_target, int prm_d
 
 void RegularPolygonBoardModel::restore() {
     _TRACE3_("_model_id=" << _model_id << " start");
-    if (_pVertexBuffer_data == nullptr) {
+    if (_paVertexBuffer_data == nullptr) {
         _papTextureConnection = nullptr;
         ModelManager* pModelManager = pGOD->_pModelManager;
         std::string model_def_file = std::string(_model_id) + ".rsprx";
@@ -149,7 +149,7 @@ void RegularPolygonBoardModel::restore() {
         _pa_texture_filenames[0] = std::string(xdata.TextureFile);
         _matBaseTransformMatrix = xdata.BaseTransformMatrix;
 
-        _pVertexBuffer_data = NEW RegularPolygonBoardModel::VERTEX[_angle_num+2];
+        _paVertexBuffer_data = NEW RegularPolygonBoardModel::VERTEX[_angle_num+2];
         _size_vertices = sizeof(RegularPolygonBoardModel::VERTEX)*(_angle_num+2);
         _size_vertex_unit = sizeof(RegularPolygonBoardModel::VERTEX);
         float model_width = _model_width_px;
@@ -161,35 +161,35 @@ void RegularPolygonBoardModel::restore() {
         _x_center =  model_width * 0.5;
         _y_center =  model_height * 0.5;
         //中心
-        _pVertexBuffer_data[0].x = _x_center;
-        _pVertexBuffer_data[0].y = _y_center;
-        _pVertexBuffer_data[0].z = 0.0f;
-        _pVertexBuffer_data[0].tu = _u_center;
-        _pVertexBuffer_data[0].tv = _v_center;
+        _paVertexBuffer_data[0].x = _x_center;
+        _paVertexBuffer_data[0].y = _y_center;
+        _paVertexBuffer_data[0].z = 0.0f;
+        _paVertexBuffer_data[0].tu = _u_center;
+        _paVertexBuffer_data[0].tv = _v_center;
 
         if (_drawing_order == 0) {        //反計回り
             for (int ang = 0; ang < _angle_num; ang++) {
                 double rad = (PI2 * ang) / _angle_num;
-                _pVertexBuffer_data[ang+1].x = _pVertexBuffer_data[0].x + (cos(rad) * model_width  * 0.5);
-                _pVertexBuffer_data[ang+1].y = _pVertexBuffer_data[0].y - (sin(rad) * model_height * 0.5);
-                _pVertexBuffer_data[ang+1].z = 0.0f;
-                _pVertexBuffer_data[ang+1].tu = _pVertexBuffer_data[0].tu + (cos(rad) * tu_rate * 0.5);
-                _pVertexBuffer_data[ang+1].tv = _pVertexBuffer_data[0].tv - (sin(rad) * tv_rate * 0.5);
+                _paVertexBuffer_data[ang+1].x = _paVertexBuffer_data[0].x + (cos(rad) * model_width  * 0.5);
+                _paVertexBuffer_data[ang+1].y = _paVertexBuffer_data[0].y - (sin(rad) * model_height * 0.5);
+                _paVertexBuffer_data[ang+1].z = 0.0f;
+                _paVertexBuffer_data[ang+1].tu = _paVertexBuffer_data[0].tu + (cos(rad) * tu_rate * 0.5);
+                _paVertexBuffer_data[ang+1].tv = _paVertexBuffer_data[0].tv - (sin(rad) * tv_rate * 0.5);
             }
-            _pVertexBuffer_data[_angle_num+1] = _pVertexBuffer_data[1];
+            _paVertexBuffer_data[_angle_num+1] = _paVertexBuffer_data[1];
         } else {
             //時計回り
             for (int ang = 0; ang < _angle_num; ang++) {
                 double rad = PI2 - ((PI2 * ang) / _angle_num);
-                _pVertexBuffer_data[ang+1].x = _pVertexBuffer_data[0].x + (cos(rad) * model_width  * 0.5);
-                _pVertexBuffer_data[ang+1].y = _pVertexBuffer_data[0].y - (sin(rad) * model_height * 0.5);
-                _pVertexBuffer_data[ang+1].z = 0.0f;
-                _pVertexBuffer_data[ang+1].tu = _pVertexBuffer_data[0].tu + (cos(rad) * tu_rate * 0.5);
-                _pVertexBuffer_data[ang+1].tv = _pVertexBuffer_data[0].tv - (sin(rad) * tv_rate * 0.5);
+                _paVertexBuffer_data[ang+1].x = _paVertexBuffer_data[0].x + (cos(rad) * model_width  * 0.5);
+                _paVertexBuffer_data[ang+1].y = _paVertexBuffer_data[0].y - (sin(rad) * model_height * 0.5);
+                _paVertexBuffer_data[ang+1].z = 0.0f;
+                _paVertexBuffer_data[ang+1].tu = _paVertexBuffer_data[0].tu + (cos(rad) * tu_rate * 0.5);
+                _paVertexBuffer_data[ang+1].tv = _paVertexBuffer_data[0].tv - (sin(rad) * tv_rate * 0.5);
             }
-            _pVertexBuffer_data[_angle_num+1] = _pVertexBuffer_data[1];
+            _paVertexBuffer_data[_angle_num+1] = _paVertexBuffer_data[1];
         }
-        transformPosVtx(_pVertexBuffer_data, _size_vertex_unit, _angle_num+2);
+        transformPosVtx(_paVertexBuffer_data, _size_vertex_unit, _angle_num+2);
 
         _num_materials = 1;
         D3DMATERIAL9* paMaterial;
@@ -209,24 +209,24 @@ void RegularPolygonBoardModel::restore() {
 
 
     //バッファ作成
-    if (_pVertexBuffer == nullptr) {
+    if (_paVertexBuffer == nullptr) {
         HRESULT hr;
         hr = God::_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices,
                 D3DUSAGE_WRITEONLY,
                 RegularPolygonBoardModel::FVF,
                 D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
-                &(_pVertexBuffer),
+                &(_paVertexBuffer),
                 nullptr);
         checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_id));
         //頂点バッファ作成
         //頂点情報をビデオカード頂点バッファへロード
-        void *pVertexBuffer;
-        hr = _pVertexBuffer->Lock(0, _size_vertices, (void**)&pVertexBuffer, 0);
+        void *paVertexBuffer;
+        hr = _paVertexBuffer->Lock(0, _size_vertices, (void**)&paVertexBuffer, 0);
         checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_id);
 
-        memcpy(pVertexBuffer, _pVertexBuffer_data, _size_vertices); //pVertexBuffer ← _pVertexBuffer_data
-        _pVertexBuffer->Unlock();
+        memcpy(paVertexBuffer, _paVertexBuffer_data, _size_vertices); //paVertexBuffer ← _paVertexBuffer_data
+        _paVertexBuffer->Unlock();
     }
     if (_papTextureConnection == nullptr) {
         //テクスチャ取得しモデルに保持させる
@@ -239,7 +239,7 @@ void RegularPolygonBoardModel::restore() {
 
 void RegularPolygonBoardModel::release() {
     _TRACE3_("_model_id=" << _model_id << " start");
-    GGAF_RELEASE(_pVertexBuffer);
+    GGAF_RELEASE(_paVertexBuffer);
     //テクスチャを解放
     if (_papTextureConnection) {
         for (int i = 0; i < (int)_num_materials; i++) {
@@ -261,5 +261,5 @@ void RegularPolygonBoardModel::onDeviceLost() {
 RegularPolygonBoardModel::~RegularPolygonBoardModel() {
     GGAF_DELETEARR(_paMaterial_default);
     GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);
-    GGAF_DELETEARR(_pVertexBuffer_data);
+    GGAF_DELETEARR(_paVertexBuffer_data);
 }

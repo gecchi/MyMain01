@@ -62,9 +62,9 @@ public:
     /** 頂点のFVF */
     static DWORD FVF;
     /** 頂点バッファ */
-    LPDIRECT3DVERTEXBUFFER9 _pVertexBuffer;
+    LPDIRECT3DVERTEXBUFFER9 _paVertexBuffer;
     /** インデックスバッファ */
-    LPDIRECT3DINDEXBUFFER9 _pIndexBuffer;
+    LPDIRECT3DINDEXBUFFER9 _paIndexBuffer;
 
     /** モデル頂点数 */
     UINT _nVertices;

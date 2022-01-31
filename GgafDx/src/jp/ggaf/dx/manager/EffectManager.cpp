@@ -17,6 +17,7 @@
 #include "jp/ggaf/dx/effect/MassPointSpriteEffect.h"
 #include "jp/ggaf/dx/effect/PointSpriteSetEffect.h"
 #include "jp/ggaf/dx/effect/FramedBoardEffect.h"
+#include "jp/ggaf/dx/effect/FramedSpriteEffect.h"
 #include "jp/ggaf/dx/effect/RegularPolygonSpriteEffect.h"
 #include "jp/ggaf/dx/effect/RegularPolygonBoardEffect.h"
 #include "jp/ggaf/dx/effect/BoneAniMeshEffect.h"
@@ -105,6 +106,9 @@ Effect* EffectManager::processCreateResource(const char* prm_idstr, void* prm_pC
             break;
         case TYPE_FRAMEDBOARD_EFFECT:
             pResourceEffect = NEW FramedBoardEffect(effect_name);
+            break;
+        case TYPE_FRAMEDSPRITE_EFFECT:
+            pResourceEffect = NEW FramedSpriteEffect(effect_name);
             break;
         case TYPE_REGULARPOLYGONSPRITE_EFFECT:
             pResourceEffect = NEW RegularPolygonSpriteEffect(effect_name);

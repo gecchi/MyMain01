@@ -50,9 +50,9 @@ public:
     /** 頂点のFVF */
     static DWORD FVF;
     /** 頂点バッファ（ｎキャラ分） */
-    LPDIRECT3DVERTEXBUFFER9 _pVertexBuffer;
+    LPDIRECT3DVERTEXBUFFER9 _paVertexBuffer;
     /** インデックスバッファ（ｎキャラ分） */
-    LPDIRECT3DINDEXBUFFER9 _pIndexBuffer;
+    LPDIRECT3DINDEXBUFFER9 _paIndexBuffer;
 
 
     /** １頂点のサイズ */

@@ -20,15 +20,15 @@ DWORD SpriteSetModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_PSIZE | D3DFVF_
 SpriteSetModel::SpriteSetModel(const char* prm_model_id) : Model(prm_model_id) {
     _TRACE3_("_model_id="<<_model_id);
     _obj_model |= Obj_GgafDx_SpriteSetModel;
-    _pVertexBuffer_data = nullptr;
-    _pIndexBuffer_data = nullptr;
+    _paVertexBuffer_data = nullptr;
+    _paIndexBuffer_data = nullptr;
 
     _model_width_px = 32.0f;
     _model_height_px = 32.0f;
     _row_texture_split = 1;
     _col_texture_split = 1;
-    _pVertexBuffer = nullptr;
-    _pIndexBuffer = nullptr;
+    _paVertexBuffer = nullptr;
+    _paIndexBuffer = nullptr;
     _size_vertices = 0;
     _size_vertex_unit = 0;
     _paIndexParam = nullptr;
@@ -57,10 +57,10 @@ HRESULT SpriteSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_nu
         if (pModelLastDraw && (pModelLastDraw->_obj_model & Obj_GgafDx_MassModel)) {
             ((MassModel*)pModelLastDraw)->resetStreamSourceFreq();
         }
-        pDevice->SetStreamSource(0, _pVertexBuffer, 0, _size_vertex_unit);
+        pDevice->SetStreamSource(0, _paVertexBuffer, 0, _size_vertex_unit);
         pDevice->SetFVF(SpriteSetModel::FVF);
         pDevice->SetTexture(0, getDefaultTextureConnection()->peek()->_pIDirect3DBaseTexture9);
-        pDevice->SetIndices(_pIndexBuffer);
+        pDevice->SetIndices(_paIndexBuffer);
 
         hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_h_tex_blink_power, _power_blink);
         checkDxException(hr, D3D_OK, "SetFloat(_h_tex_blink_power) に失敗しました。");
@@ -146,7 +146,7 @@ HRESULT SpriteSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_nu
 
 void SpriteSetModel::restore() {
     _TRACE3_("_model_id="<<_model_id);
-    if (_pVertexBuffer_data == nullptr) {
+    if (_paVertexBuffer_data == nullptr) {
         _papTextureConnection = nullptr;
 
         ModelManager* pModelManager = pGOD->_pModelManager;
@@ -179,7 +179,7 @@ void SpriteSetModel::restore() {
         //バッファ作成
         _size_vertices = sizeof(SpriteSetModel::VERTEX)*4;
         _size_vertex_unit = sizeof(SpriteSetModel::VERTEX);
-        _pVertexBuffer_data = NEW SpriteSetModel::VERTEX[4 * _draw_set_num];
+        _paVertexBuffer_data = NEW SpriteSetModel::VERTEX[4 * _draw_set_num];
 
         double du = 0.0;
         double dv = 0.0;
@@ -189,52 +189,52 @@ void SpriteSetModel::restore() {
         //x,y の ÷2 とは、モデル中心をローカル座標の原点中心としたいため
         for (int i = 0; i < _draw_set_num; i++) {
             //左上
-            _pVertexBuffer_data[i*4 + 0].x = PX_DX(xdata.Width)  / -2.0;
-            _pVertexBuffer_data[i*4 + 0].y = PX_DX(xdata.Height) /  2.0;
-            _pVertexBuffer_data[i*4 + 0].z = 0.0f;
-            _pVertexBuffer_data[i*4 + 0].nx = 0.0f;
-            _pVertexBuffer_data[i*4 + 0].ny = 0.0f;
-            _pVertexBuffer_data[i*4 + 0].nz = -1.0f;
-            _pVertexBuffer_data[i*4 + 0].tu = (float)du;
-            _pVertexBuffer_data[i*4 + 0].tv = (float)dv;
-            _pVertexBuffer_data[i*4 + 0].index = (float)i;
+            _paVertexBuffer_data[i*4 + 0].x = PX_DX(xdata.Width)  / -2.0;
+            _paVertexBuffer_data[i*4 + 0].y = PX_DX(xdata.Height) /  2.0;
+            _paVertexBuffer_data[i*4 + 0].z = 0.0f;
+            _paVertexBuffer_data[i*4 + 0].nx = 0.0f;
+            _paVertexBuffer_data[i*4 + 0].ny = 0.0f;
+            _paVertexBuffer_data[i*4 + 0].nz = -1.0f;
+            _paVertexBuffer_data[i*4 + 0].tu = (float)du;
+            _paVertexBuffer_data[i*4 + 0].tv = (float)dv;
+            _paVertexBuffer_data[i*4 + 0].index = (float)i;
             //右上
-            _pVertexBuffer_data[i*4 + 1].x = PX_DX(xdata.Width)  / 2.0;
-            _pVertexBuffer_data[i*4 + 1].y = PX_DX(xdata.Height) / 2.0;
-            _pVertexBuffer_data[i*4 + 1].z = 0.0f;
-            _pVertexBuffer_data[i*4 + 1].nx = 0.0f;
-            _pVertexBuffer_data[i*4 + 1].ny = 0.0f;
-            _pVertexBuffer_data[i*4 + 1].nz = -1.0f;
-            _pVertexBuffer_data[i*4 + 1].tu = (float)((1.0 / xdata.TextureSplitCols) - du);
-            _pVertexBuffer_data[i*4 + 1].tv = (float)dv;
-            _pVertexBuffer_data[i*4 + 1].index = (float)i;
+            _paVertexBuffer_data[i*4 + 1].x = PX_DX(xdata.Width)  / 2.0;
+            _paVertexBuffer_data[i*4 + 1].y = PX_DX(xdata.Height) / 2.0;
+            _paVertexBuffer_data[i*4 + 1].z = 0.0f;
+            _paVertexBuffer_data[i*4 + 1].nx = 0.0f;
+            _paVertexBuffer_data[i*4 + 1].ny = 0.0f;
+            _paVertexBuffer_data[i*4 + 1].nz = -1.0f;
+            _paVertexBuffer_data[i*4 + 1].tu = (float)((1.0 / xdata.TextureSplitCols) - du);
+            _paVertexBuffer_data[i*4 + 1].tv = (float)dv;
+            _paVertexBuffer_data[i*4 + 1].index = (float)i;
             //左下
-            _pVertexBuffer_data[i*4 + 2].x = PX_DX(xdata.Width)  / -2.0;
-            _pVertexBuffer_data[i*4 + 2].y = PX_DX(xdata.Height) / -2.0;
-            _pVertexBuffer_data[i*4 + 2].z = 0.0f;
-            _pVertexBuffer_data[i*4 + 2].nx = 0.0f;
-            _pVertexBuffer_data[i*4 + 2].ny = 0.0f;
-            _pVertexBuffer_data[i*4 + 2].nz = -1.0f;
-            _pVertexBuffer_data[i*4 + 2].tu = (float)du;
-            _pVertexBuffer_data[i*4 + 2].tv = (float)((1.0 / xdata.TextureSplitRows) - dv);
-            _pVertexBuffer_data[i*4 + 2].index = (float)i;
+            _paVertexBuffer_data[i*4 + 2].x = PX_DX(xdata.Width)  / -2.0;
+            _paVertexBuffer_data[i*4 + 2].y = PX_DX(xdata.Height) / -2.0;
+            _paVertexBuffer_data[i*4 + 2].z = 0.0f;
+            _paVertexBuffer_data[i*4 + 2].nx = 0.0f;
+            _paVertexBuffer_data[i*4 + 2].ny = 0.0f;
+            _paVertexBuffer_data[i*4 + 2].nz = -1.0f;
+            _paVertexBuffer_data[i*4 + 2].tu = (float)du;
+            _paVertexBuffer_data[i*4 + 2].tv = (float)((1.0 / xdata.TextureSplitRows) - dv);
+            _paVertexBuffer_data[i*4 + 2].index = (float)i;
             //右下
-            _pVertexBuffer_data[i*4 + 3].x = PX_DX(xdata.Width)  /  2.0;
-            _pVertexBuffer_data[i*4 + 3].y = PX_DX(xdata.Height) / -2.0;
-            _pVertexBuffer_data[i*4 + 3].z = 0.0f;
-            _pVertexBuffer_data[i*4 + 3].nx = 0.0f;
-            _pVertexBuffer_data[i*4 + 3].ny = 0.0f;
-            _pVertexBuffer_data[i*4 + 3].nz = -1.0f;
-            _pVertexBuffer_data[i*4 + 3].tu = (float)((1.0 / xdata.TextureSplitCols) - du);
-            _pVertexBuffer_data[i*4 + 3].tv = (float)((1.0 / xdata.TextureSplitRows) - dv);
-            _pVertexBuffer_data[i*4 + 3].index = (float)i;
+            _paVertexBuffer_data[i*4 + 3].x = PX_DX(xdata.Width)  /  2.0;
+            _paVertexBuffer_data[i*4 + 3].y = PX_DX(xdata.Height) / -2.0;
+            _paVertexBuffer_data[i*4 + 3].z = 0.0f;
+            _paVertexBuffer_data[i*4 + 3].nx = 0.0f;
+            _paVertexBuffer_data[i*4 + 3].ny = 0.0f;
+            _paVertexBuffer_data[i*4 + 3].nz = -1.0f;
+            _paVertexBuffer_data[i*4 + 3].tu = (float)((1.0 / xdata.TextureSplitCols) - du);
+            _paVertexBuffer_data[i*4 + 3].tv = (float)((1.0 / xdata.TextureSplitRows) - dv);
+            _paVertexBuffer_data[i*4 + 3].index = (float)i;
 
         }
 
         //距離
-        FLOAT model_bounding_sphere_radius = (FLOAT)(sqrt(_pVertexBuffer_data[0].x * _pVertexBuffer_data[0].x +
-                                                          _pVertexBuffer_data[0].y * _pVertexBuffer_data[0].y +
-                                                          _pVertexBuffer_data[0].z * _pVertexBuffer_data[0].z));
+        FLOAT model_bounding_sphere_radius = (FLOAT)(sqrt(_paVertexBuffer_data[0].x * _paVertexBuffer_data[0].x +
+                                                          _paVertexBuffer_data[0].y * _paVertexBuffer_data[0].y +
+                                                          _paVertexBuffer_data[0].z * _paVertexBuffer_data[0].z));
         _bounding_sphere_radius = model_bounding_sphere_radius;
         //インデックスバッファデータ
         int nVertices = 4;
@@ -246,12 +246,12 @@ void SpriteSetModel::restore() {
         unit_paIdxBuffer[3] = 1;
         unit_paIdxBuffer[4] = 3;
         unit_paIdxBuffer[5] = 2;
-        _pIndexBuffer_data = NEW WORD[(nFaces*3) * _draw_set_num];
+        _paIndexBuffer_data = NEW WORD[(nFaces*3) * _draw_set_num];
         for (int i = 0; i < _draw_set_num; i++) {
             for (int j = 0; j < nFaces; j++) {
-                _pIndexBuffer_data[((i*nFaces*3)+(j*3)) + 0] = unit_paIdxBuffer[j*3 + 0] + (nVertices*i);
-                _pIndexBuffer_data[((i*nFaces*3)+(j*3)) + 1] = unit_paIdxBuffer[j*3 + 1] + (nVertices*i);
-                _pIndexBuffer_data[((i*nFaces*3)+(j*3)) + 2] = unit_paIdxBuffer[j*3 + 2] + (nVertices*i);
+                _paIndexBuffer_data[((i*nFaces*3)+(j*3)) + 0] = unit_paIdxBuffer[j*3 + 0] + (nVertices*i);
+                _paIndexBuffer_data[((i*nFaces*3)+(j*3)) + 1] = unit_paIdxBuffer[j*3 + 1] + (nVertices*i);
+                _paIndexBuffer_data[((i*nFaces*3)+(j*3)) + 2] = unit_paIdxBuffer[j*3 + 2] + (nVertices*i);
             }
         }
         GGAF_DELETEARR(unit_paIdxBuffer);
@@ -284,38 +284,38 @@ void SpriteSetModel::restore() {
         }
         _paMaterial_default = paMaterial;
     }
-    if (_pVertexBuffer == nullptr) {
+    if (_paVertexBuffer == nullptr) {
         HRESULT hr;
         hr = God::_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices * _draw_set_num,
                 D3DUSAGE_WRITEONLY,
                 SpriteSetModel::FVF,
                 D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
-                &(_pVertexBuffer),
+                &(_paVertexBuffer),
                 nullptr);
         checkDxException(hr, D3D_OK, "_p1ID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_id));
         //頂点バッファ作成
         //頂点情報をビデオカード頂点バッファへロード
-        void *pVertexBuffer;
-        hr = _pVertexBuffer->Lock(
+        void *paVertexBuffer;
+        hr = _paVertexBuffer->Lock(
                                0,
                                _size_vertices * _draw_set_num,
-                               (void**)&pVertexBuffer,
+                               (void**)&paVertexBuffer,
                                0
                            );
         checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_id);
 
         memcpy(
-            pVertexBuffer,
-            _pVertexBuffer_data,
+            paVertexBuffer,
+            _paVertexBuffer_data,
             _size_vertices* _draw_set_num
-        ); //pVertexBuffer ← _pVertexBuffer_data
-        _pVertexBuffer->Unlock();
+        ); //paVertexBuffer ← _paVertexBuffer_data
+        _paVertexBuffer->Unlock();
 
     }
 
     //インデックスバッファ作成
-    if (_pIndexBuffer == nullptr) {
+    if (_paIndexBuffer == nullptr) {
         HRESULT hr;
         int nVertices = 4;
         int nFaces = 2;
@@ -324,18 +324,18 @@ void SpriteSetModel::restore() {
                                 D3DUSAGE_WRITEONLY,
                                 D3DFMT_INDEX16,
                                 D3DPOOL_DEFAULT,
-                                &(_pIndexBuffer),
+                                &(_paIndexBuffer),
                                 nullptr);
         checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_id));
 
-        void* pIndexBuffer;
-        _pIndexBuffer->Lock(0,0,(void**)&pIndexBuffer,0);
+        void* paIndexBuffer;
+        _paIndexBuffer->Lock(0,0,(void**)&paIndexBuffer,0);
         memcpy(
-          pIndexBuffer ,
-          _pIndexBuffer_data,
+          paIndexBuffer ,
+          _paIndexBuffer_data,
           sizeof(WORD) * nFaces * 3 * _draw_set_num
         );
-        _pIndexBuffer->Unlock();
+        _paIndexBuffer->Unlock();
     }
 
     if (_papTextureConnection == nullptr) {
@@ -356,8 +356,8 @@ void SpriteSetModel::onDeviceLost() {
 
 void SpriteSetModel::release() {
     _TRACE3_("_model_id=" << _model_id << " start");
-    GGAF_RELEASE(_pVertexBuffer);
-    GGAF_RELEASE(_pIndexBuffer);
+    GGAF_RELEASE(_paVertexBuffer);
+    GGAF_RELEASE(_paIndexBuffer);
     if (_papTextureConnection) {
         for (int i = 0; i < (int)_num_materials; i++) {
             if (_papTextureConnection[i]) {
@@ -371,8 +371,8 @@ void SpriteSetModel::release() {
 }
 
 SpriteSetModel::~SpriteSetModel() {
-    GGAF_DELETEARR(_pVertexBuffer_data);
-    GGAF_DELETEARR(_pIndexBuffer_data);
+    GGAF_DELETEARR(_paVertexBuffer_data);
+    GGAF_DELETEARR(_paIndexBuffer_data);
     GGAF_DELETEARR(_paIndexParam);
     GGAF_DELETEARR(_paMaterial_default);
     GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);

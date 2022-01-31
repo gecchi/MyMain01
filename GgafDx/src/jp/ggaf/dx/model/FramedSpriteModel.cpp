@@ -29,9 +29,9 @@ FramedSpriteModel::FramedSpriteModel(const char* prm_model_id) : Model(prm_model
     _row_frame_texture_split = 1;
     _col_frame_texture_split = 1;
     _paVertexBuffer = nullptr;
-    _pIndexBuffer = nullptr;
+    _paIndexBuffer = nullptr;
     _paVertexBuffer_data = nullptr;
-    _pIndexBuffer_data = nullptr;
+    _paIndexBuffer_data = nullptr;
     _size_vertices = 0;
     _size_vertex_unit = 0;
     _nVertices = 4;
@@ -39,8 +39,8 @@ FramedSpriteModel::FramedSpriteModel(const char* prm_model_id) : Model(prm_model
 }
 
 HRESULT FramedSpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
-    IDirect3DDevice9* const pDevice = God::_pID3DDevice9;
     _TRACE4_("FramedSpriteModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
+    IDirect3DDevice9* const pDevice = God::_pID3DDevice9;
     //対象Actor
     const FramedSpriteActor* const pTargetActor = (FramedSpriteActor*)prm_pActor_target;
     //対象FramedSpriteActorのエフェクトラッパ
@@ -48,10 +48,8 @@ HRESULT FramedSpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_set
     //対象エフェクト
     ID3DXEffect* const pID3DXEffect = pFramedSpriteEffect->_pID3DXEffect;
 
-    //今回描画のUV
-    float u,v;
-    pTargetActor->_pUvFlipper->getUV(u,v);
     HRESULT hr;
+    //モデルが同じならば頂点バッファ等、の設定はスキップできる
     Model* pModelLastDraw = ModelManager::_pModelLastDraw;
     if (pModelLastDraw != this) {
         if (pModelLastDraw && (pModelLastDraw->_obj_model & Obj_GgafDx_MassModel)) {
@@ -59,21 +57,30 @@ HRESULT FramedSpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_set
         }
         pDevice->SetStreamSource(0, _paVertexBuffer, 0, _size_vertex_unit);
         pDevice->SetFVF(FramedSpriteModel::FVF);
-        pDevice->SetTexture(0, getDefaultTextureConnection()->peek()->_pIDirect3DBaseTexture9);
+        pDevice->SetTexture(0, _papTextureConnection[0]->peek()->_pIDirect3DBaseTexture9);
+        pDevice->SetTexture(1, _papTextureConnection[1]->peek()->_pIDirect3DBaseTexture9);
+        pDevice->SetIndices(_paIndexBuffer);
 
         hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_tex_blink_power, _power_blink);
         checkDxException(hr, D3D_OK, "SetFloat(_h_tex_blink_power) に失敗しました。");
         hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_tex_blink_threshold, _blink_threshold);
         checkDxException(hr, D3D_OK, "SetFloat(_h_tex_blink_threshold) に失敗しました。");
+
+        hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_center_width, _model_width_px);
+        checkDxException(hr, D3D_OK, "SetFloat(_h_unit_width) に失敗しました。");
+        hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_center_height, _model_height_px);
+        checkDxException(hr, D3D_OK, "SetFloat(_h_unit_height) に失敗しました。");
+
+        hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_frame_width, _model_frame_width_px);
+        checkDxException(hr, D3D_OK, "SetFloat(_h_unit_width) に失敗しました。");
+        hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_frame_height, _model_frame_height_px);
+        checkDxException(hr, D3D_OK, "SetFloat(_h_unit_height) に失敗しました。");
+
     }
-    hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_offset_u, u);
-    checkDxException(hr, D3D_OK, "SetFloat(_h_offset_u) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_offset_v, v);
-    checkDxException(hr, D3D_OK, "SetFloat(_h_offset_v) に失敗しました。");
     Effect* pEffect_active = EffectManager::_pEffect_active;
     if (FigureActor::_hash_technique_last_draw != prm_pActor_target->_hash_technique)  {
         if (pEffect_active) {
-            _TRACE4_("EndPass("<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
+           _TRACE4_("EndPass("<<pEffect_active->_pID3DXEffect<<"): /_pEffect_active="<<pEffect_active->_effect_name<<"("<<pEffect_active<<")");
             hr = pEffect_active->_pID3DXEffect->EndPass();
             checkDxException(hr, D3D_OK, "EndPass() に失敗しました。");
             hr = pEffect_active->_pID3DXEffect->End();
@@ -91,7 +98,8 @@ HRESULT FramedSpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_set
         checkDxException(hr, S_OK, "SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
 
         _TRACE4_("BeginPass("<<pID3DXEffect<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pFramedSpriteEffect->_effect_name<<"("<<pFramedSpriteEffect<<")");
-        hr = pID3DXEffect->Begin(&_num_pass, D3DXFX_DONOTSAVESTATE );
+        UINT numPass;
+        hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
         checkDxException(hr, D3D_OK, "Begin() に失敗しました。");
         hr = pID3DXEffect->BeginPass(0);
         checkDxException(hr, D3D_OK, "BeginPass(0) に失敗しました。");
@@ -108,23 +116,13 @@ HRESULT FramedSpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_set
         hr = pID3DXEffect->CommitChanges();
         checkDxException(hr, D3D_OK, "CommitChanges() に失敗しました。");
     }
-    _TRACE4_("DrawPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pFramedSpriteEffect->_effect_name);
-    pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
-    if (_num_pass >= 2) { //２パス目以降が存在
-        hr = pID3DXEffect->EndPass();
-        checkDxException(hr, D3D_OK, "EndPass() に失敗しました。");
-
-        for (UINT pass = 1; pass < _num_pass; pass++) {
-            hr = pID3DXEffect->BeginPass(pass);
-            checkDxException(hr, D3D_OK, pass+1<<"パス目 BeginPass("<<pass<<") に失敗しました。");
-            pDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
-            hr = pID3DXEffect->EndPass();
-            checkDxException(hr, D3D_OK, "EndPass() に失敗しました。");
-        }
-
-        hr = pID3DXEffect->BeginPass(0);
-        checkDxException(hr, D3D_OK, "１パス目 BeginPass(0) に失敗しました。");
-    }
+    _TRACE4_("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pFramedSpriteEffect->_effect_name);
+    pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
+                                    _indexParam.BaseVertexIndex,
+                                    _indexParam.MinIndex,
+                                    _indexParam.NumVertices,
+                                    _indexParam.StartIndex,
+                                    _indexParam.PrimitiveCount);
 
     //前回描画モデル保持
     ModelManager::_pModelLastDraw = this;
@@ -133,6 +131,7 @@ HRESULT FramedSpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_set
 #ifdef MY_DEBUG
         GgafCore::God::_num_drawing++;
 #endif
+
     return D3D_OK;
 }
 
@@ -383,12 +382,12 @@ void FramedSpriteModel::restore() {
         unit_paIdxBuffer[3] = 1;
         unit_paIdxBuffer[4] = 3;
         unit_paIdxBuffer[5] = 2;
-        _pIndexBuffer_data = NEW WORD[(nFaces*3) * _draw_set_num];
+        _paIndexBuffer_data = NEW WORD[(nFaces*3) * _draw_set_num];
         for (int i = 0; i < _draw_set_num; i++) {
             for (int j = 0; j < nFaces; j++) {
-                _pIndexBuffer_data[((i*nFaces*3)+(j*3)) + 0] = unit_paIdxBuffer[j*3 + 0] + (nVertices*i);
-                _pIndexBuffer_data[((i*nFaces*3)+(j*3)) + 1] = unit_paIdxBuffer[j*3 + 1] + (nVertices*i);
-                _pIndexBuffer_data[((i*nFaces*3)+(j*3)) + 2] = unit_paIdxBuffer[j*3 + 2] + (nVertices*i);
+                _paIndexBuffer_data[((i*nFaces*3)+(j*3)) + 0] = unit_paIdxBuffer[j*3 + 0] + (nVertices*i);
+                _paIndexBuffer_data[((i*nFaces*3)+(j*3)) + 1] = unit_paIdxBuffer[j*3 + 1] + (nVertices*i);
+                _paIndexBuffer_data[((i*nFaces*3)+(j*3)) + 2] = unit_paIdxBuffer[j*3 + 2] + (nVertices*i);
             }
         }
         GGAF_DELETEARR(unit_paIdxBuffer);
@@ -420,12 +419,11 @@ void FramedSpriteModel::restore() {
 
     } // if (_paVertexBuffer_data == nullptr) {
 
-
-    //バッファ作成
     if (_paVertexBuffer == nullptr) {
         HRESULT hr;
+        //バッファ作成
         hr = God::_pID3DDevice9->CreateVertexBuffer(
-                _size_vertices,
+                _size_vertices * _draw_set_num,
                 D3DUSAGE_WRITEONLY,
                 FramedSpriteModel::FVF,
                 D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
@@ -434,11 +432,54 @@ void FramedSpriteModel::restore() {
         checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_id));
         //頂点バッファ作成
         //頂点情報をビデオカード頂点バッファへロード
-        void *pVertexBuffer;
-        hr = _paVertexBuffer->Lock(0, _size_vertices, (void**)&pVertexBuffer, 0);
+        void* paVertexBuffer;
+        hr = _paVertexBuffer->Lock(
+                                 0,
+                                 _size_vertices * _draw_set_num,
+                                 (void**)&paVertexBuffer,
+                                 0
+                               );
         checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_id);
-        memcpy(pVertexBuffer, _paVertexBuffer_data, _size_vertices); //paVertexBuffer ← _paVertexBuffer_data
+        memcpy(
+          paVertexBuffer,
+          _paVertexBuffer_data,
+          _size_vertices * _draw_set_num
+        ); //paVertexBuffer ← _paVertexBuffer_data
         _paVertexBuffer->Unlock();
+
+    }
+
+
+    //インデックスバッファ作成
+    if (_paIndexBuffer == nullptr) {
+        HRESULT hr;
+        int nVertices = 4;
+        int nFaces = 2;
+        hr = God::_pID3DDevice9->CreateIndexBuffer(
+                                sizeof(WORD) * nFaces * 3 * _draw_set_num,
+                                D3DUSAGE_WRITEONLY,
+                                D3DFMT_INDEX16,
+                                D3DPOOL_DEFAULT,
+                                &(_paIndexBuffer),
+                                nullptr);
+        checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_id));
+
+        void* paIndexBuffer;
+        _paIndexBuffer->Lock(0,0,(void**)&paIndexBuffer,0);
+        memcpy(
+          paIndexBuffer ,
+          _paIndexBuffer_data,
+          sizeof(WORD) * nFaces * 3 * _draw_set_num
+        );
+        _paIndexBuffer->Unlock();
+    }
+
+    if (_papTextureConnection == nullptr) {
+        //テクスチャ取得しモデルに保持させる
+        ModelManager* pModelManager = pGOD->_pModelManager;
+        _papTextureConnection = NEW TextureConnection*[2];
+        _papTextureConnection[0] = (TextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[0].c_str(), this)); //中身用
+        _papTextureConnection[1] = (TextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[1].c_str(), this)); //フレーム用
     }
 
 

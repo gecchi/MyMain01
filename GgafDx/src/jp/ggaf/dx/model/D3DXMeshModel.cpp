@@ -183,17 +183,17 @@ void D3DXMeshModel::restore() {
     IDirect3DVertexBuffer9* pVb_load;
     pID3DXMesh->GetVertexBuffer(&pVb_load);
     DWORD size_vertex_unit = pID3DXMesh->GetNumBytesPerVertex(); // 1つの頂点のサイズ
-    void* pVertexBuffer;
+    void* paVertexBuffer;
     int nVertices = (int)(pID3DXMesh->GetNumVertices()); //メッシュコンテナの頂点数
-    pVb_load->Lock(0, nVertices*size_vertex_unit, (void**)&pVertexBuffer, 0);
+    pVb_load->Lock(0, nVertices*size_vertex_unit, (void**)&paVertexBuffer, 0);
 //    for (int vi = 0; vi < nVertices; vi++) {
 //        Model::VERTEX_POS* pVtx = (Model::VERTEX_POS*)pVb_load + (size_vertex_unit*vi);  //読み込む1頂点の開始アドレス
 //    }
     if(pID3DXMesh->GetFVF() != (D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_TEX1)) {
         //Xファイルに法線がない場合
-        transformPosVtx(pVertexBuffer, size_vertex_unit, nVertices);
+        transformPosVtx(paVertexBuffer, size_vertex_unit, nVertices);
     } else {
-        transformPosNomalVtx(pVertexBuffer, size_vertex_unit, nVertices);
+        transformPosNomalVtx(paVertexBuffer, size_vertex_unit, nVertices);
     }
     pVb_load->Unlock();
     pVb_load->Release();

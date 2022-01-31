@@ -164,41 +164,41 @@ void MassMeshModel::restore() {
     }
 
     //デバイスに頂点バッファ作成(モデル)
-    if (_pVertexBuffer_model == nullptr) {
+    if (_paVertexBuffer_model == nullptr) {
         HRESULT hr;
         hr = God::_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices_model,
                 D3DUSAGE_WRITEONLY,
                 0,
                 D3DPOOL_DEFAULT,
-                &(_pVertexBuffer_model),
+                &(_paVertexBuffer_model),
                 nullptr);
         checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_id));
         //バッファへ作成済み頂点データを流し込む
         void* pDeviceMemory = 0;
-        hr = _pVertexBuffer_model->Lock(0, _size_vertices_model, (void**)&pDeviceMemory, 0);
+        hr = _paVertexBuffer_model->Lock(0, _size_vertices_model, (void**)&pDeviceMemory, 0);
         checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_id);
         memcpy(pDeviceMemory, _paVtxBuffer_data_model, _size_vertices_model);
-        hr = _pVertexBuffer_model->Unlock();
+        hr = _paVertexBuffer_model->Unlock();
         checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗 model="<<_model_id);
     }
 
     //デバイスにインデックスバッファ作成
-    if (_pIndexBuffer == nullptr) {
+    if (_paIndexBuffer == nullptr) {
         HRESULT hr;
         hr = God::_pID3DDevice9->CreateIndexBuffer(
                                 sizeof(WORD) * _nFaces * 3,
                                 D3DUSAGE_WRITEONLY,
                                 D3DFMT_INDEX16,
                                 D3DPOOL_DEFAULT,
-                                &(_pIndexBuffer),
+                                &(_paIndexBuffer),
                                 nullptr);
         checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<_model_id);
         void* pDeviceMemory = 0;
-        hr = _pIndexBuffer->Lock(0, 0, (void**)&pDeviceMemory,0);
+        hr = _paIndexBuffer->Lock(0, 0, (void**)&pDeviceMemory,0);
         checkDxException(hr, D3D_OK, "インデックスバッファのロック取得に失敗 model="<<_model_id);
         memcpy(pDeviceMemory, _paIndexBuffer_data, sizeof(WORD)*_nFaces*3);
-        hr = _pIndexBuffer->Unlock();
+        hr = _paIndexBuffer->Unlock();
         checkDxException(hr, D3D_OK, "インデックスバッファのアンロック取得に失敗 model="<<_model_id);
     }
 
@@ -218,7 +218,7 @@ void MassMeshModel::restore() {
 
 HRESULT MassMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
     _TRACE4_("MassMeshModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
-//    if (_pVertexBuffer_instancedata == nullptr) {
+//    if (_paVertexBuffer_instancedata == nullptr) {
 //        createVertexElements(); //デバイスロスト復帰時に呼び出される
 //    }
 #ifdef MY_DEBUG
@@ -239,10 +239,10 @@ HRESULT MassMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num
     UINT update_vertex_instancedata_size = _size_vertex_unit_instancedata * prm_draw_set_num;
     void* pInstancedata = prm_pPrm ? prm_pPrm : this->_pInstancedata; //prm_pPrm は臨時のテンポラリインスタンスデータ
     void* pDeviceMemory = 0;
-    hr = _pVertexBuffer_instancedata->Lock(0, update_vertex_instancedata_size, (void**)&pDeviceMemory, D3DLOCK_DISCARD);
+    hr = _paVertexBuffer_instancedata->Lock(0, update_vertex_instancedata_size, (void**)&pDeviceMemory, D3DLOCK_DISCARD);
     checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_id);
     memcpy(pDeviceMemory, pInstancedata, update_vertex_instancedata_size);
-    hr = _pVertexBuffer_instancedata->Unlock();
+    hr = _paVertexBuffer_instancedata->Unlock();
     checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗 model="<<_model_id);
 
     //モデルが同じならば頂点バッファ、インデックスバッファの設定はスキップできる
@@ -253,11 +253,11 @@ HRESULT MassMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num
         //頂点バッファとインデックスバッファを設定
         hr = pDevice->SetVertexDeclaration(_pVertexDeclaration); //頂点フォーマット
         checkDxException(hr, D3D_OK, "SetVertexDeclaration に失敗しました。");
-        hr = pDevice->SetStreamSource(0, _pVertexBuffer_model      , 0, _size_vertex_unit_model);
+        hr = pDevice->SetStreamSource(0, _paVertexBuffer_model      , 0, _size_vertex_unit_model);
         checkDxException(hr, D3D_OK, "SetStreamSource 0 に失敗しました。");
-        hr = pDevice->SetStreamSource(1, _pVertexBuffer_instancedata, 0, _size_vertex_unit_instancedata);
+        hr = pDevice->SetStreamSource(1, _paVertexBuffer_instancedata, 0, _size_vertex_unit_instancedata);
         checkDxException(hr, D3D_OK, "SetStreamSource 1 に失敗しました。");
-        hr = pDevice->SetIndices(_pIndexBuffer);
+        hr = pDevice->SetIndices(_paIndexBuffer);
         checkDxException(hr, D3D_OK, "SetIndices に失敗しました。");
 
         hr = pID3DXEffect->SetFloat(pMassMeshEffect->_h_tex_blink_power, _power_blink);

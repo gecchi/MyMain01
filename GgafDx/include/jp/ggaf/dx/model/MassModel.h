@@ -60,11 +60,11 @@ public:
     };
 
     /** デバイスの頂点バッファ（モデル） */
-    LPDIRECT3DVERTEXBUFFER9 _pVertexBuffer_model;
+    LPDIRECT3DVERTEXBUFFER9 _paVertexBuffer_model;
     /** デバイスの頂点バッファ（インスタンス：ワールド変換行列情報、マテリアルカラー情報） */
-    LPDIRECT3DVERTEXBUFFER9 _pVertexBuffer_instancedata;
+    LPDIRECT3DVERTEXBUFFER9 _paVertexBuffer_instancedata;
     /** デバイスのインデックスバッファ */
-    LPDIRECT3DINDEXBUFFER9 _pIndexBuffer;
+    LPDIRECT3DINDEXBUFFER9 _paIndexBuffer;
     /** デバイスのシェーダー入力頂点フォーマット */
     LPDIRECT3DVERTEXDECLARATION9 _pVertexDeclaration;
 
@@ -113,7 +113,7 @@ public:
 #endif
         _pFunc_getVertexInstanceData = prm_pFunc_getVertexInstanceData;
         if (_pFunc_getVertexInstanceData && _pFunc_getVertexModel) {
-            if (_pVertexBuffer_instancedata == nullptr) {
+            if (_paVertexBuffer_instancedata == nullptr) {
                 createVertexElements();
             }
         }
@@ -131,7 +131,7 @@ public:
 #endif
         _pFunc_getVertexModel = prm_pFunc_getVertexModel;
         if (_pFunc_getVertexInstanceData && _pFunc_getVertexModel) {
-            if (_pVertexBuffer_instancedata == nullptr) {
+            if (_paVertexBuffer_instancedata == nullptr) {
                 createVertexElements();
             }
         }

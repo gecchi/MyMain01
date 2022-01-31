@@ -17,12 +17,12 @@
 using namespace GgafDx;
 
 DWORD PointSpriteSetModel::FVF = (D3DFVF_XYZ | D3DFVF_PSIZE | D3DFVF_DIFFUSE | D3DFVF_TEX1  );
-//LPDIRECT3DVERTEXBUFFER9 _pVertexBuffer = nullptr;
+//LPDIRECT3DVERTEXBUFFER9 _paVertexBuffer = nullptr;
 
 PointSpriteSetModel::PointSpriteSetModel(const char* prm_model_id) : Model(prm_model_id) {
     _TRACE3_("_model_id="<<_model_id);
     _obj_model |= Obj_GgafDx_PointSpriteSetModel;
-    _pVertexBuffer = nullptr;
+    _paVertexBuffer = nullptr;
     _paVtxBuffer_data = nullptr;
     _square_size_px = 0.0f;
     _texture_size_px = 0.0f;
@@ -57,7 +57,7 @@ HRESULT PointSpriteSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_s
             ((MassModel*)pModelLastDraw)->resetStreamSourceFreq();
         }
         //頂点バッファとインデックスバッファを設定
-        pDevice->SetStreamSource(0, _pVertexBuffer,  0, _size_vertex_unit);
+        pDevice->SetStreamSource(0, _paVertexBuffer,  0, _size_vertex_unit);
         pDevice->SetFVF(PointSpriteSetModel::FVF);
         if (_papTextureConnection[0]) {
             hr = pDevice->SetTexture(0, getDefaultTextureConnection()->peek()->_pIDirect3DBaseTexture9);
@@ -223,7 +223,7 @@ void PointSpriteSetModel::restore() {
     }
 
     //デバイスに頂点バッファ作成(モデル)
-    if (_pVertexBuffer == nullptr) {
+    if (_paVertexBuffer == nullptr) {
         HRESULT hr;
         //頂点バッファ作成
         hr = God::_pID3DDevice9->CreateVertexBuffer(
@@ -231,15 +231,15 @@ void PointSpriteSetModel::restore() {
                 D3DUSAGE_WRITEONLY | D3DUSAGE_POINTS,
                 PointSpriteSetModel::FVF,
                 D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT D3DPOOL_MANAGED
-                &(_pVertexBuffer),
+                &(_paVertexBuffer),
                 nullptr);
         checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_id));
         //バッファへ作成済み頂点データを流し込む
         void* pDeviceMemory = 0;
-        hr = _pVertexBuffer->Lock(0, _size_vertices, (void**)&pDeviceMemory, 0);
+        hr = _paVertexBuffer->Lock(0, _size_vertices, (void**)&pDeviceMemory, 0);
         checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_id);
         memcpy(pDeviceMemory, _paVtxBuffer_data, _size_vertices);
-        hr = _pVertexBuffer->Unlock();
+        hr = _paVertexBuffer->Unlock();
         checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗 model="<<_model_id);
     }
 
@@ -252,7 +252,7 @@ void PointSpriteSetModel::restore() {
     }
 
 //    //インデックスバッファは使わない
-//    _pIndexBuffer = nullptr;
+//    _paIndexBuffer = nullptr;
 
     _TRACE3_("_model_id=" << _model_id << " end");
 }
@@ -276,7 +276,7 @@ void PointSpriteSetModel::release() {
         }
     }
     GGAF_DELETEARR(_papTextureConnection); //テクスチャの配列
-    GGAF_RELEASE(_pVertexBuffer);
+    GGAF_RELEASE(_paVertexBuffer);
     _TRACE3_("_model_id=" << _model_id << " end");
 
 }

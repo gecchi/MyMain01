@@ -66,10 +66,6 @@ public:
         }
     }
 
-//    virtual void setAlign(Align prm_align, Valign prm_valign);
-//    virtual void setAlign(Align prm_align);
-//    virtual void setValign(Valign prm_valign);
-
     inline UvFlipper* getUvFlipper() {
         return _pUvFlipper;
     }

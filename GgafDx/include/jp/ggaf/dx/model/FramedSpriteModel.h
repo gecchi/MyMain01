@@ -34,12 +34,12 @@ public:
     /** 頂点バッファ */
     LPDIRECT3DVERTEXBUFFER9 _paVertexBuffer;
     /** インデックスバッファ */
-    LPDIRECT3DINDEXBUFFER9 _pIndexBuffer;
+    LPDIRECT3DINDEXBUFFER9 _paIndexBuffer;
     /** 頂点のFVF */
     static DWORD FVF;
 
     VERTEX* _paVertexBuffer_data;
-    WORD* _pIndexBuffer_data;
+    WORD* _paIndexBuffer_data;
     /** 矩形の頂点合計のサイズ */
     UINT _size_vertices;
     /** 1頂点のサイズ */

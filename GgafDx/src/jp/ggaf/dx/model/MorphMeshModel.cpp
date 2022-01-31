@@ -24,9 +24,9 @@ MorphMeshModel::MorphMeshModel(const char* prm_model_id) : Model(prm_model_id) {
     _papMeshesFront = nullptr;
 
     _pVertexDeclaration = nullptr;
-    _pVertexBuffer_primary = nullptr;
+    _paVertexBuffer_primary = nullptr;
     _paIDirect3DVertexBuffer9_morph = nullptr;
-    _pIndexBuffer = nullptr;
+    _paIndexBuffer = nullptr;
     _paVtxBuffer_data_primary = nullptr;
     _papaVtxBuffer_data_morph = nullptr;
     _paIndexBuffer_data = nullptr;
@@ -58,12 +58,12 @@ HRESULT MorphMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_nu
             ((MassModel*)pModelLastDraw)->resetStreamSourceFreq();
         }
         pDevice->SetVertexDeclaration( _pVertexDeclaration); //頂点フォーマット
-        pDevice->SetStreamSource(0, _pVertexBuffer_primary, 0, _size_vertex_unit_primary);
+        pDevice->SetStreamSource(0, _paVertexBuffer_primary, 0, _size_vertex_unit_primary);
         for (int i = 1; i <= _morph_target_num; i++) {
             pDevice->SetStreamSource(i, _paIDirect3DVertexBuffer9_morph[i-1], 0, _size_vertex_unit_morph);
         }
         //インデックスバッファ設定
-        pDevice->SetIndices(_pIndexBuffer);
+        pDevice->SetIndices(_paIndexBuffer);
 
         hr = pID3DXEffect->SetFloat(pMorphMeshEffect->_h_tex_blink_power, _power_blink);
         checkDxException(hr, D3D_OK, "SetFloat(_h_tex_blink_power) に失敗しました。");
@@ -473,7 +473,7 @@ void MorphMeshModel::restore() {
         GGAF_DELETEARR(paVtxelem);
     }
     //頂点バッファ作成
-    if (_pVertexBuffer_primary == nullptr) {
+    if (_paVertexBuffer_primary == nullptr) {
         HRESULT hr;
         _paIDirect3DVertexBuffer9_morph = NEW LPDIRECT3DVERTEXBUFFER9[_morph_target_num];
         for (int pattern = 0; pattern < _morph_target_num+1; pattern++) {
@@ -485,14 +485,14 @@ void MorphMeshModel::restore() {
                         D3DUSAGE_WRITEONLY,
                         0, //MorphMeshModel::FVF,
                         D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
-                        &(_pVertexBuffer_primary),
+                        &(_paVertexBuffer_primary),
                         nullptr);
                 checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗（プライマリ） model="<<(_model_id));
-                void *pVertexBuffer;
-                hr = _pVertexBuffer_primary->Lock(0, _size_vertices_primary, (void**)&pVertexBuffer, 0);
+                void *paVertexBuffer;
+                hr = _paVertexBuffer_primary->Lock(0, _size_vertices_primary, (void**)&paVertexBuffer, 0);
                 checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗（プライマリ） model="<<_model_id);
-                memcpy(pVertexBuffer, _paVtxBuffer_data_primary, _size_vertices_primary); //pVertexBuffer ← paVertex
-                _pVertexBuffer_primary->Unlock();
+                memcpy(paVertexBuffer, _paVtxBuffer_data_primary, _size_vertices_primary); //paVertexBuffer ← paVertex
+                _paVertexBuffer_primary->Unlock();
             } else {
                 //モーフターゲット頂点バッファ
                 hr = God::_pID3DDevice9->CreateVertexBuffer(
@@ -503,10 +503,10 @@ void MorphMeshModel::restore() {
                         &(_paIDirect3DVertexBuffer9_morph[pattern-1]),
                         nullptr);
                 checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗（モーフ:"<<pattern-1<<"） model="<<(_model_id));
-                void *pVertexBuffer;
-                hr = _paIDirect3DVertexBuffer9_morph[pattern-1]->Lock(0, _size_vertices_morph, (void**)&pVertexBuffer, 0);
+                void *paVertexBuffer;
+                hr = _paIDirect3DVertexBuffer9_morph[pattern-1]->Lock(0, _size_vertices_morph, (void**)&paVertexBuffer, 0);
                 checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗（モーフ:"<<pattern-1<<"） model="<<_model_id);
-                memcpy(pVertexBuffer, _papaVtxBuffer_data_morph[pattern-1], _size_vertices_morph); //pVertexBuffer ← paVertex
+                memcpy(paVertexBuffer, _papaVtxBuffer_data_morph[pattern-1], _size_vertices_morph); //paVertexBuffer ← paVertex
                 _paIDirect3DVertexBuffer9_morph[pattern-1]->Unlock();
             }
         }
@@ -514,7 +514,7 @@ void MorphMeshModel::restore() {
 
 
     //インデックスバッファデータ作成（プライマリ、モーフターゲット共に同じ）
-    if (_pIndexBuffer == nullptr) {
+    if (_paIndexBuffer == nullptr) {
         HRESULT hr;
         int nFaces = _papMeshesFront[0]->_nFaces;
         hr = God::_pID3DDevice9->CreateIndexBuffer(
@@ -522,13 +522,13 @@ void MorphMeshModel::restore() {
                                     D3DUSAGE_WRITEONLY,
                                     D3DFMT_INDEX16,
                                     D3DPOOL_DEFAULT,
-                                    &(_pIndexBuffer),
+                                    &(_paIndexBuffer),
                                     nullptr);
         checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_id));
-        void* pIndexBuffer;
-        _pIndexBuffer->Lock(0,0,(void**)&pIndexBuffer,0);
-        memcpy(pIndexBuffer, _paIndexBuffer_data , sizeof(WORD) * nFaces * 3);
-        _pIndexBuffer->Unlock();
+        void* paIndexBuffer;
+        _paIndexBuffer->Lock(0,0,(void**)&paIndexBuffer,0);
+        memcpy(paIndexBuffer, _paIndexBuffer_data , sizeof(WORD) * nFaces * 3);
+        _paIndexBuffer->Unlock();
     }
 
     if (!_papTextureConnection) {
@@ -564,13 +564,13 @@ void MorphMeshModel::release() {
 
     for (int pattern = 0; pattern <= _morph_target_num; pattern++) {
         if (pattern == 0) {
-            GGAF_RELEASE(_pVertexBuffer_primary);
+            GGAF_RELEASE(_paVertexBuffer_primary);
         } else {
             GGAF_RELEASE(_paIDirect3DVertexBuffer9_morph[pattern-1]);
         }
     }
     GGAF_DELETEARR(_paIDirect3DVertexBuffer9_morph);
-    GGAF_RELEASE(_pIndexBuffer);
+    GGAF_RELEASE(_paIndexBuffer);
     GGAF_RELEASE(_pVertexDeclaration);
     _TRACE3_("_model_id=" << _model_id << " end");
 

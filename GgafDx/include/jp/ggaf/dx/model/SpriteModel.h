@@ -22,11 +22,11 @@ public:
     };
 
     /** 頂点バッファ */
-    LPDIRECT3DVERTEXBUFFER9 _pVertexBuffer;
+    LPDIRECT3DVERTEXBUFFER9 _paVertexBuffer;
     /** 頂点のFVF */
     static DWORD FVF;
 
-    VERTEX* _pVertexBuffer_data;
+    VERTEX* _paVertexBuffer_data;
     /** 矩形の頂点合計のサイズ */
     UINT _size_vertices;
     /** 1頂点のサイズ */

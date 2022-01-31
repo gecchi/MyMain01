@@ -24,9 +24,6 @@ public:
     /** [r]UVフリッパー(パラパラアニメ) */
     UvFlipper* const _pUvFlipper;
 
-//    Align _align;
-//    Valign _valign;
-
 public:
     /**
      * コンストラクタ .
@@ -46,10 +43,6 @@ public:
     virtual void processDraw() override;
 
     virtual ~SpriteSetActor();
-
-//    virtual void setAlign(Align prm_align, Valign prm_valign);
-//    virtual void setAlign(Align prm_align);
-//    virtual void setValign(Valign prm_valign);
 
     inline UvFlipper* getUvFlipper() {
         return _pUvFlipper;

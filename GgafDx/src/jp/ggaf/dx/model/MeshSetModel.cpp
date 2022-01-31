@@ -17,15 +17,15 @@
 using namespace GgafDx;
 
 DWORD MeshSetModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_PSIZE | D3DFVF_DIFFUSE | D3DFVF_TEX1  );
-//LPDIRECT3DVERTEXBUFFER9 _pVertexBuffer = nullptr;
+//LPDIRECT3DVERTEXBUFFER9 _paVertexBuffer = nullptr;
 
 MeshSetModel::MeshSetModel(const char* prm_model_id) : Model(prm_model_id) {
     _TRACE3_("_model_id="<<_model_id);
     _obj_model |= Obj_GgafDx_MeshSetModel;
     _pModel3D = nullptr;
     _pMeshesFront = nullptr;
-    _pVertexBuffer = nullptr;
-    _pIndexBuffer = nullptr;
+    _paVertexBuffer = nullptr;
+    _paIndexBuffer = nullptr;
     _paUint_material_list_grp_num = nullptr;
     _paVtxBuffer_data = nullptr;
     _paIndexBuffer_data = nullptr;
@@ -60,9 +60,9 @@ HRESULT MeshSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num,
             ((MassModel*)pModelLastDraw)->resetStreamSourceFreq();
         }
         //頂点バッファとインデックスバッファを設定
-        pDevice->SetStreamSource(0, _pVertexBuffer,  0, _size_vertex_unit);
+        pDevice->SetStreamSource(0, _paVertexBuffer,  0, _size_vertex_unit);
         pDevice->SetFVF(MeshSetModel::FVF);
-        pDevice->SetIndices(_pIndexBuffer);
+        pDevice->SetIndices(_paIndexBuffer);
 
         hr = pID3DXEffect->SetFloat(pMeshSetEffect->_h_tex_blink_power, _power_blink);
         checkDxException(hr, D3D_OK, "SetFloat(_h_tex_blink_power) に失敗しました。");
@@ -407,7 +407,7 @@ void MeshSetModel::restore() {
     }
 
 
-    if (_pVertexBuffer == nullptr) {
+    if (_paVertexBuffer == nullptr) {
         HRESULT hr;
         //頂点バッファ作成
         hr = God::_pID3DDevice9->CreateVertexBuffer(
@@ -415,48 +415,48 @@ void MeshSetModel::restore() {
                 D3DUSAGE_WRITEONLY,
                 MeshSetModel::FVF,
                 D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
-                &(_pVertexBuffer),
+                &(_paVertexBuffer),
                 nullptr);
         checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_id));
         //バッファへ作成済み頂点データを流し込む
-        void *pVertexBuffer;
-        hr = _pVertexBuffer->Lock(
+        void *paVertexBuffer;
+        hr = _paVertexBuffer->Lock(
                                       0,
                                       _size_vertices * _draw_set_num,
-                                      (void**)&pVertexBuffer,
+                                      (void**)&paVertexBuffer,
                                       0
                                     );
         checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_id);
 
         memcpy(
-          pVertexBuffer,
+          paVertexBuffer,
           _paVtxBuffer_data,
           _size_vertices * _draw_set_num
-        ); //pVertexBuffer ← paVertex
-        _pVertexBuffer->Unlock();
+        ); //paVertexBuffer ← paVertex
+        _paVertexBuffer->Unlock();
     }
 
 
     //流し込むインデックスバッファデータ作成
-    if (_pIndexBuffer == nullptr) {
+    if (_paIndexBuffer == nullptr) {
         HRESULT hr;
         hr = God::_pID3DDevice9->CreateIndexBuffer(
                                sizeof(WORD) * _nFaces * 3 * _draw_set_num,
                                 D3DUSAGE_WRITEONLY,
                                 D3DFMT_INDEX16,
                                 D3DPOOL_DEFAULT,
-                                &(_pIndexBuffer),
+                                &(_paIndexBuffer),
                                 nullptr);
         checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_id));
 
-        void* pIndexBuffer;
-        _pIndexBuffer->Lock(0,0,(void**)&pIndexBuffer,0);
+        void* paIndexBuffer;
+        _paIndexBuffer->Lock(0,0,(void**)&paIndexBuffer,0);
         memcpy(
-          pIndexBuffer ,
+          paIndexBuffer ,
           _paIndexBuffer_data,
           sizeof(WORD) * _nFaces * 3 * _draw_set_num
         );
-        _pIndexBuffer->Unlock();
+        _paIndexBuffer->Unlock();
     }
 
     if (_papTextureConnection == nullptr) {
@@ -489,8 +489,8 @@ void MeshSetModel::release() {
         }
     }
     GGAF_DELETEARR(_papTextureConnection); //テクスチャの配列
-    GGAF_RELEASE(_pVertexBuffer);
-    GGAF_RELEASE(_pIndexBuffer);
+    GGAF_RELEASE(_paVertexBuffer);
+    GGAF_RELEASE(_paIndexBuffer);
     _TRACE3_("_model_id=" << _model_id << " end");
 }
 

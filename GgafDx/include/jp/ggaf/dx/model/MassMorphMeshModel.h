@@ -35,7 +35,7 @@ public:
     /** モーフターゲット数 */
     int _morph_target_num;
     /** モーフターゲット頂点バッファの配列（要素数＝モーフターゲット数） */
-    LPDIRECT3DVERTEXBUFFER9* _pVertexBuffer_model_morph;
+    LPDIRECT3DVERTEXBUFFER9* _paVertexBuffer_model_morph;
 
 
 public:

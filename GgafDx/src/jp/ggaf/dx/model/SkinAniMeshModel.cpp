@@ -30,8 +30,8 @@ SkinAniMeshModel::SkinAniMeshModel(const char* prm_model_id) : Model(prm_model_i
     _paVtxBuffer_data = nullptr;
     _paIndexBuffer_data = nullptr;
     _pVertexDeclaration = nullptr;
-    _pVertexBuffer = nullptr;
-    _pIndexBuffer = nullptr;
+    _paVertexBuffer = nullptr;
+    _paIndexBuffer = nullptr;
     _index_param_num = 0;
     _paIndexParam = nullptr;
     _draw_combined_matrix_set_num = 15;
@@ -62,8 +62,8 @@ HRESULT SkinAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
         }
         //頂点バッファとインデックスバッファを設定
         pDevice->SetVertexDeclaration( _pVertexDeclaration); //頂点フォーマット
-        pDevice->SetStreamSource(0, _pVertexBuffer,  0, _size_vertex_unit);
-        pDevice->SetIndices(_pIndexBuffer);
+        pDevice->SetStreamSource(0, _paVertexBuffer,  0, _size_vertex_unit);
+        pDevice->SetIndices(_paIndexBuffer);
         hr = pID3DXEffect->SetFloat(pSkinAniMeshEffect->_h_tex_blink_power, _power_blink);
         checkDxException(hr, D3D_OK, "SetFloat(_h_tex_blink_power) に失敗しました。");
         hr = pID3DXEffect->SetFloat(pSkinAniMeshEffect->_h_tex_blink_threshold, _blink_threshold);
@@ -608,9 +608,9 @@ void SkinAniMeshModel::restore() {
             D3DINDEXBUFFER_DESC desc;
             pIb->GetDesc( &desc );
             if (desc.Format == D3DFMT_INDEX16) {
-                void* pIndexBuffer;
-                pIb->Lock(0, nFace*3*sizeof(WORD), (void**)&pIndexBuffer, 0);
-                char* p = (char*)pIndexBuffer;
+                void* paIndexBuffer;
+                pIb->Lock(0, nFace*3*sizeof(WORD), (void**)&paIndexBuffer, 0);
+                char* p = (char*)paIndexBuffer;
                 for (int f = 0; f < nFace; f++) {
                     WORD val1,val2,val3;
                     memcpy(&(val1), p, sizeof(WORD));  p += sizeof(WORD);
@@ -626,9 +626,9 @@ void SkinAniMeshModel::restore() {
                     i_cnt+=3;
                 }
             } else {
-                void* pIndexBuffer;
-                pIb->Lock(0, nFace*3*sizeof(DWORD), (void**)&pIndexBuffer, 0);
-                char* p = (char*)pIndexBuffer;
+                void* paIndexBuffer;
+                pIb->Lock(0, nFace*3*sizeof(DWORD), (void**)&paIndexBuffer, 0);
+                char* p = (char*)paIndexBuffer;
                 for (int f = 0; f < nFace; f++) {
                     WORD val1,val2,val3;
                     memcpy(&(val1), p, sizeof(WORD));  p += sizeof(DWORD);
@@ -872,7 +872,7 @@ void SkinAniMeshModel::restore() {
         }
     }
 
-    if (_pVertexBuffer == nullptr) {
+    if (_paVertexBuffer == nullptr) {
         HRESULT hr;
         //頂点バッファ作成
         hr = God::_pID3DDevice9->CreateVertexBuffer(
@@ -880,33 +880,33 @@ void SkinAniMeshModel::restore() {
                 D3DUSAGE_WRITEONLY,
                 0, //SkinAniMeshModel::FVF,
                 D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
-                &(_pVertexBuffer),
+                &(_paVertexBuffer),
                 nullptr);
         checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_id));
 
         //バッファへ作成済み頂点データを流し込む
-        void *pVertexBuffer;
-        hr = _pVertexBuffer->Lock(0, _size_vertices, (void**)&pVertexBuffer, 0);
+        void *paVertexBuffer;
+        hr = _paVertexBuffer->Lock(0, _size_vertices, (void**)&paVertexBuffer, 0);
         checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_id);
-        memcpy(pVertexBuffer, _paVtxBuffer_data, _size_vertices); //pVertexBuffer ← paVertex
-        _pVertexBuffer->Unlock();
+        memcpy(paVertexBuffer, _paVtxBuffer_data, _size_vertices); //paVertexBuffer ← paVertex
+        _paVertexBuffer->Unlock();
     }
 
     //インデックスバッファデータ作成
-    if (_pIndexBuffer == nullptr) {
+    if (_paIndexBuffer == nullptr) {
         HRESULT hr;
         hr = God::_pID3DDevice9->CreateIndexBuffer(
                                    sizeof(WORD) * _nFaces * 3,
                                    D3DUSAGE_WRITEONLY,
                                    D3DFMT_INDEX16,
                                    D3DPOOL_DEFAULT,
-                                   &(_pIndexBuffer),
+                                   &(_paIndexBuffer),
                                    nullptr);
         checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_id));
-        void* pIndexBuffer;
-        _pIndexBuffer->Lock(0,0,(void**)&pIndexBuffer,0);
-        memcpy(pIndexBuffer , _paIndexBuffer_data , sizeof(WORD) * _nFaces * 3);
-        _pIndexBuffer->Unlock();
+        void* paIndexBuffer;
+        _paIndexBuffer->Lock(0,0,(void**)&paIndexBuffer,0);
+        memcpy(paIndexBuffer , _paIndexBuffer_data , sizeof(WORD) * _nFaces * 3);
+        _paIndexBuffer->Unlock();
     }
     _TRACE3_("_model_id=" << _model_id << " end");
 }
@@ -1009,8 +1009,8 @@ void SkinAniMeshModel::release() {
         }
     }
     GGAF_DELETEARR(_papTextureConnection); //テクスチャの配列
-    GGAF_RELEASE(_pVertexBuffer);
-    GGAF_RELEASE(_pIndexBuffer);
+    GGAF_RELEASE(_paVertexBuffer);
+    GGAF_RELEASE(_paIndexBuffer);
     GGAF_RELEASE(_pVertexDeclaration);
     _TRACE3_("_model_id=" << _model_id << " end");
 }

@@ -32,9 +32,9 @@ public:
     };
 
     /** 頂点バッファの各セット */
-    LPDIRECT3DVERTEXBUFFER9 _pVertexBuffer;
+    LPDIRECT3DVERTEXBUFFER9 _paVertexBuffer;
     /** インデックスバッファ */
-    LPDIRECT3DINDEXBUFFER9 _pIndexBuffer;
+    LPDIRECT3DINDEXBUFFER9 _paIndexBuffer;
     /** 頂点のFVF */
     static DWORD FVF;
     /** 矩形の頂点合計のサイズ */
@@ -44,7 +44,7 @@ public:
     INDEXPARAM* _paIndexParam;
 
     VERTEX* _paVertexBuffer_data;
-    WORD* _pIndexBuffer_data;
+    WORD* _paIndexBuffer_data;
 
     float _model_width_px;
     float _model_height_px;

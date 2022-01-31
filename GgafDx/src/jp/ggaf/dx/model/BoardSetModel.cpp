@@ -23,10 +23,10 @@ BoardSetModel::BoardSetModel(const char* prm_model_id) : Model(prm_model_id) {
     _model_height_px = 32.0f;
     _row_texture_split = 1;
     _col_texture_split = 1;
-    _pVertexBuffer = nullptr;
-    _pIndexBuffer = nullptr;
+    _paVertexBuffer = nullptr;
+    _paIndexBuffer = nullptr;
     _paVertexBuffer_data = nullptr;
-    _pIndexBuffer_data = nullptr;
+    _paIndexBuffer_data = nullptr;
     _size_vertices = 0;
     _size_vertex_unit = 0;
     _paIndexParam = nullptr;
@@ -55,10 +55,10 @@ HRESULT BoardSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num
         if (pModelLastDraw && (pModelLastDraw->_obj_model & Obj_GgafDx_MassModel)) {
             ((MassModel*)pModelLastDraw)->resetStreamSourceFreq();
         }
-        pDevice->SetStreamSource(0, _pVertexBuffer, 0, _size_vertex_unit);
+        pDevice->SetStreamSource(0, _paVertexBuffer, 0, _size_vertex_unit);
         pDevice->SetFVF(BoardSetModel::FVF);
         pDevice->SetTexture(0, getDefaultTextureConnection()->peek()->_pIDirect3DBaseTexture9);
-        pDevice->SetIndices(_pIndexBuffer);
+        pDevice->SetIndices(_paIndexBuffer);
 
         hr = pID3DXEffect->SetFloat(pBoardSetEffect->_h_tex_blink_power, _power_blink);
         checkDxException(hr, D3D_OK, "SetFloat(_h_tex_blink_power) に失敗しました。");
@@ -198,12 +198,12 @@ void BoardSetModel::restore() {
         unit_paIdxBuffer[3] = 1;
         unit_paIdxBuffer[4] = 3;
         unit_paIdxBuffer[5] = 2;
-        _pIndexBuffer_data = NEW WORD[(nFaces*3) * _draw_set_num];
+        _paIndexBuffer_data = NEW WORD[(nFaces*3) * _draw_set_num];
         for (int i = 0; i < _draw_set_num; i++) {
             for (int j = 0; j < nFaces; j++) {
-                _pIndexBuffer_data[((i*nFaces*3)+(j*3)) + 0] = unit_paIdxBuffer[j*3 + 0] + (nVertices*i);
-                _pIndexBuffer_data[((i*nFaces*3)+(j*3)) + 1] = unit_paIdxBuffer[j*3 + 1] + (nVertices*i);
-                _pIndexBuffer_data[((i*nFaces*3)+(j*3)) + 2] = unit_paIdxBuffer[j*3 + 2] + (nVertices*i);
+                _paIndexBuffer_data[((i*nFaces*3)+(j*3)) + 0] = unit_paIdxBuffer[j*3 + 0] + (nVertices*i);
+                _paIndexBuffer_data[((i*nFaces*3)+(j*3)) + 1] = unit_paIdxBuffer[j*3 + 1] + (nVertices*i);
+                _paIndexBuffer_data[((i*nFaces*3)+(j*3)) + 2] = unit_paIdxBuffer[j*3 + 2] + (nVertices*i);
             }
         }
         GGAF_DELETEARR(unit_paIdxBuffer);
@@ -236,7 +236,7 @@ void BoardSetModel::restore() {
         _paMaterial_default = paMaterial;
     }
 
-    if (_pVertexBuffer == nullptr) {
+    if (_paVertexBuffer == nullptr) {
         HRESULT hr;
         //バッファ作成
         hr = God::_pID3DDevice9->CreateVertexBuffer(
@@ -244,31 +244,31 @@ void BoardSetModel::restore() {
                 D3DUSAGE_WRITEONLY,
                 BoardSetModel::FVF,
                 D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
-                &(_pVertexBuffer),
+                &(_paVertexBuffer),
                 nullptr);
         checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_id));
         //頂点バッファ作成
         //頂点情報をビデオカード頂点バッファへロード
-        void *pVertexBuffer;
-        hr = _pVertexBuffer->Lock(
+        void *paVertexBuffer;
+        hr = _paVertexBuffer->Lock(
                                  0,
                                  _size_vertices * _draw_set_num,
-                                 (void**)&pVertexBuffer,
+                                 (void**)&paVertexBuffer,
                                  0
                                );
         checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_id);
         memcpy(
-          pVertexBuffer,
+          paVertexBuffer,
           _paVertexBuffer_data,
           _size_vertices * _draw_set_num
-        ); //pVertexBuffer ← _paVertexBuffer_data
-        _pVertexBuffer->Unlock();
+        ); //paVertexBuffer ← _paVertexBuffer_data
+        _paVertexBuffer->Unlock();
 
     }
 
 
     //インデックスバッファ作成
-    if (_pIndexBuffer == nullptr) {
+    if (_paIndexBuffer == nullptr) {
         HRESULT hr;
         int nFaces = 2;
         hr = God::_pID3DDevice9->CreateIndexBuffer(
@@ -276,18 +276,18 @@ void BoardSetModel::restore() {
                                 D3DUSAGE_WRITEONLY,
                                 D3DFMT_INDEX16,
                                 D3DPOOL_DEFAULT,
-                                &(_pIndexBuffer),
+                                &(_paIndexBuffer),
                                 nullptr);
         checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_id));
 
-        void* pIndexBuffer;
-        _pIndexBuffer->Lock(0,0,(void**)&pIndexBuffer,0);
+        void* paIndexBuffer;
+        _paIndexBuffer->Lock(0,0,(void**)&paIndexBuffer,0);
         memcpy(
-          pIndexBuffer ,
-          _pIndexBuffer_data,
+          paIndexBuffer ,
+          _paIndexBuffer_data,
           sizeof(WORD) * nFaces * 3 * _draw_set_num
         );
-        _pIndexBuffer->Unlock();
+        _paIndexBuffer->Unlock();
     }
 
     if (_papTextureConnection == nullptr) {
@@ -307,8 +307,8 @@ void BoardSetModel::onDeviceLost() {
 
 void BoardSetModel::release() {
     _TRACE3_("_model_id=" << _model_id << " start");
-    GGAF_RELEASE(_pVertexBuffer);
-    GGAF_RELEASE(_pIndexBuffer);
+    GGAF_RELEASE(_paVertexBuffer);
+    GGAF_RELEASE(_paIndexBuffer);
     //テクスチャを解放
     if (_papTextureConnection) {
         for (int i = 0; i < (int)_num_materials; i++) {
@@ -326,7 +326,7 @@ void BoardSetModel::release() {
 BoardSetModel::~BoardSetModel() {
 
     GGAF_DELETEARR(_paVertexBuffer_data);
-    GGAF_DELETEARR(_pIndexBuffer_data);
+    GGAF_DELETEARR(_paIndexBuffer_data);
     GGAF_DELETEARR(_paMaterial_default);
     GGAF_DELETEARR_NULLABLE(_pa_texture_filenames);
     GGAF_DELETEARR(_paIndexParam);

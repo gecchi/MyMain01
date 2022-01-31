@@ -26,6 +26,7 @@
 #define TYPE_MASSPOINTSPRITE_EFFECT          'p'
 #define TYPE_POINTSPRITESET_EFFECT           'o'
 #define TYPE_FRAMEDBOARD_EFFECT              'E'
+#define TYPE_FRAMEDSPRITE_EFFECT             'F'
 #define TYPE_REGULARPOLYGONSPRITE_EFFECT     'R'
 #define TYPE_REGULARPOLYGONBOARD_EFFECT      'r'
 #define TYPE_BONEANIMESH_EFFECT              '1'

@@ -17,7 +17,7 @@ MassMorphMeshModel::MassMorphMeshModel(const char* prm_model_id) : MassModel(prm
     _obj_model |= Obj_GgafDx_MassMorphMeshModel;
     _paVtxBuffer_data_model = nullptr;
     _paIndexBuffer_data = nullptr;
-    _pVertexBuffer_model_morph = nullptr;
+    _paVertexBuffer_model_morph = nullptr;
     _papaVtxBuffer_data_morph_model = nullptr;
     _size_vertices_morph_model = 0;
     _size_vertex_unit_morph_model = 0;
@@ -233,10 +233,10 @@ void MassMorphMeshModel::restore() {
         GGAF_DELETEARR(papModel3D);
     }
     //頂点バッファ作成
-    if (_pVertexBuffer_model == nullptr) {
+    if (_paVertexBuffer_model == nullptr) {
         HRESULT hr;
         //デバイスに頂点バッファ作成(モデル)
-        _pVertexBuffer_model_morph = NEW LPDIRECT3DVERTEXBUFFER9[_morph_target_num];
+        _paVertexBuffer_model_morph = NEW LPDIRECT3DVERTEXBUFFER9[_morph_target_num];
         for (int pattern = 0; pattern < _morph_target_num+1; pattern++) {
             if (pattern == 0) {
                 //プライマリ頂点バッファ
@@ -245,15 +245,15 @@ void MassMorphMeshModel::restore() {
                         D3DUSAGE_WRITEONLY,
                         0,
                         D3DPOOL_DEFAULT,
-                        &(_pVertexBuffer_model),
+                        &(_paVertexBuffer_model),
                         nullptr);
                 checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_id));
                 //バッファへ作成済み頂点データを流し込む
                 void* pDeviceMemory = 0;
-                hr = _pVertexBuffer_model->Lock(0, _size_vertices_model, (void**)&pDeviceMemory, 0);
+                hr = _paVertexBuffer_model->Lock(0, _size_vertices_model, (void**)&pDeviceMemory, 0);
                 checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_id);
                 memcpy(pDeviceMemory, _paVtxBuffer_data_model, _size_vertices_model);
-                hr = _pVertexBuffer_model->Unlock();
+                hr = _paVertexBuffer_model->Unlock();
                 checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗 model="<<_model_id);
             } else {
                 //モーフターゲット頂点バッファ
@@ -262,15 +262,15 @@ void MassMorphMeshModel::restore() {
                         D3DUSAGE_WRITEONLY,
                         0,
                         D3DPOOL_DEFAULT,
-                        &(_pVertexBuffer_model_morph[pattern-1]),
+                        &(_paVertexBuffer_model_morph[pattern-1]),
                         nullptr);
                 checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗（モーフ:"<<pattern-1<<"） model="<<(_model_id));
                 //バッファへ作成済み頂点データを流し込む
                 void* pDeviceMemory = 0;
-                hr = _pVertexBuffer_model_morph[pattern-1]->Lock(0, _size_vertices_morph_model, (void**)&pDeviceMemory, 0);
+                hr = _paVertexBuffer_model_morph[pattern-1]->Lock(0, _size_vertices_morph_model, (void**)&pDeviceMemory, 0);
                 checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗（モーフ:"<<pattern-1<<"） model="<<_model_id);
-                memcpy(pDeviceMemory, _papaVtxBuffer_data_morph_model[pattern-1], _size_vertices_morph_model); //pVertexBuffer ← paVertex
-                hr = _pVertexBuffer_model_morph[pattern-1]->Unlock();
+                memcpy(pDeviceMemory, _papaVtxBuffer_data_morph_model[pattern-1], _size_vertices_morph_model); //paVertexBuffer ← paVertex
+                hr = _paVertexBuffer_model_morph[pattern-1]->Unlock();
                 checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗（モーフ:"<<pattern-1<<"） model="<<_model_id);
             }
         }
@@ -278,20 +278,20 @@ void MassMorphMeshModel::restore() {
 
 
     //インデックスバッファデータ作成（プライマリ、モーフターゲット共に同じ）
-    if (_pIndexBuffer == nullptr) {
+    if (_paIndexBuffer == nullptr) {
         HRESULT hr;
         hr = God::_pID3DDevice9->CreateIndexBuffer(
                                 sizeof(WORD) * _nFaces * 3,
                                 D3DUSAGE_WRITEONLY,
                                 D3DFMT_INDEX16,
                                 D3DPOOL_DEFAULT,
-                                &(_pIndexBuffer),
+                                &(_paIndexBuffer),
                                 nullptr);
         checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_id));
         void* pDeviceMemory = 0;
-        _pIndexBuffer->Lock(0,0,(void**)&pDeviceMemory,0);
+        _paIndexBuffer->Lock(0,0,(void**)&pDeviceMemory,0);
         memcpy(pDeviceMemory , _paIndexBuffer_data , sizeof(WORD) * _nFaces * 3);
-        _pIndexBuffer->Unlock();
+        _paIndexBuffer->Unlock();
     }
 
     if (_papTextureConnection == nullptr) {
@@ -307,7 +307,7 @@ void MassMorphMeshModel::restore() {
 }
 
 HRESULT MassMorphMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
-//    if (_pVertexBuffer_instancedata == nullptr) {
+//    if (_paVertexBuffer_instancedata == nullptr) {
 //        createVertexElements(); //デバイスロスト復帰時に呼び出される
 //    }
 #ifdef MY_DEBUG
@@ -329,10 +329,10 @@ HRESULT MassMorphMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_se
     UINT update_vertex_instancedata_size = _size_vertex_unit_instancedata * prm_draw_set_num;
     void* pInstancedata = prm_pPrm ? prm_pPrm : this->_pInstancedata; //prm_pPrm は臨時のテンポラリインスタンスデータ
     void* pDeviceMemory = 0;
-    hr = _pVertexBuffer_instancedata->Lock(0, update_vertex_instancedata_size, (void**)&pDeviceMemory, D3DLOCK_DISCARD);
+    hr = _paVertexBuffer_instancedata->Lock(0, update_vertex_instancedata_size, (void**)&pDeviceMemory, D3DLOCK_DISCARD);
     checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_id);
     memcpy(pDeviceMemory, pInstancedata, update_vertex_instancedata_size);
-    hr = _pVertexBuffer_instancedata->Unlock();
+    hr = _paVertexBuffer_instancedata->Unlock();
     checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗 model="<<_model_id);
 
     //モデルが同じならば頂点バッファ、インデックスバッファの設定はスキップできる
@@ -343,16 +343,16 @@ HRESULT MassMorphMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_se
         checkDxException(hr, D3D_OK, "SetStreamSourceFreq "<<_morph_target_num+1<<" D3DSTREAMSOURCE_INSTANCEDATA に失敗しました。");
         hr = pDevice->SetVertexDeclaration(_pVertexDeclaration); //頂点フォーマット
         checkDxException(hr, D3D_OK, "SetVertexDeclaration に失敗しました。");
-        hr = pDevice->SetStreamSource(0, _pVertexBuffer_model, 0, _size_vertex_unit_model);
+        hr = pDevice->SetStreamSource(0, _paVertexBuffer_model, 0, _size_vertex_unit_model);
         checkDxException(hr, D3D_OK, "SetStreamSource 0 に失敗しました。");
         for (int i = 1; i <= _morph_target_num; i++) {
-            hr = pDevice->SetStreamSource(i, _pVertexBuffer_model_morph[i-1], 0, _size_vertex_unit_morph_model);
+            hr = pDevice->SetStreamSource(i, _paVertexBuffer_model_morph[i-1], 0, _size_vertex_unit_morph_model);
             checkDxException(hr, D3D_OK, "SetStreamSource "<<i<<" に失敗しました。");
         }
-        hr = pDevice->SetStreamSource(_morph_target_num+1, _pVertexBuffer_instancedata, 0, _size_vertex_unit_instancedata);
+        hr = pDevice->SetStreamSource(_morph_target_num+1, _paVertexBuffer_instancedata, 0, _size_vertex_unit_instancedata);
         checkDxException(hr, D3D_OK, "SetStreamSource "<<_morph_target_num+1<<" に失敗しました。");
         //インデックスバッファ設定
-        pDevice->SetIndices(_pIndexBuffer);
+        pDevice->SetIndices(_paIndexBuffer);
 
         hr = pID3DXEffect->SetFloat(pMassMorphMeshEffect->_h_tex_blink_power, _power_blink);
         checkDxException(hr, D3D_OK, "SetFloat(_h_tex_blink_power) に失敗しました。");
@@ -476,9 +476,9 @@ void MassMorphMeshModel::onDeviceLost() {
 void MassMorphMeshModel::release() {
     _TRACE3_("_model_id=" << _model_id << " start");
     for (int pattern = 1; pattern <= _morph_target_num; pattern++) {
-        GGAF_RELEASE(_pVertexBuffer_model_morph[pattern-1]);
+        GGAF_RELEASE(_paVertexBuffer_model_morph[pattern-1]);
     }
-    GGAF_DELETEARR(_pVertexBuffer_model_morph);
+    GGAF_DELETEARR(_paVertexBuffer_model_morph);
     _TRACE3_("_model_id=" << _model_id << " end");
     MassModel::release();
 }

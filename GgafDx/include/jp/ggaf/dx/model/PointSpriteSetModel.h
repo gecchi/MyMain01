@@ -23,7 +23,7 @@ public:
     /** 頂点のFVF */
     static DWORD FVF;
     /** 頂点バッファ（ｎキャラ分） */
-    LPDIRECT3DVERTEXBUFFER9 _pVertexBuffer;
+    LPDIRECT3DVERTEXBUFFER9 _paVertexBuffer;
 
     /** オブジェクトの１辺のサイズ(px) */
     float _square_size_px;

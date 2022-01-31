@@ -39,12 +39,12 @@ HRESULT CubeMapMorphMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw
             ((MassModel*)pModelLastDraw)->resetStreamSourceFreq();
         }
         pDevice->SetVertexDeclaration( _pVertexDeclaration); //頂点フォーマット
-        pDevice->SetStreamSource(0, _pVertexBuffer_primary, 0, _size_vertex_unit_primary);
+        pDevice->SetStreamSource(0, _paVertexBuffer_primary, 0, _size_vertex_unit_primary);
         for (int i = 1; i <= _morph_target_num; i++) {
             pDevice->SetStreamSource(i, _paIDirect3DVertexBuffer9_morph[i-1], 0, _size_vertex_unit_morph);
         }
         //インデックスバッファ設定
-        pDevice->SetIndices(_pIndexBuffer);
+        pDevice->SetIndices(_paIndexBuffer);
 
         hr = pID3DXEffect->SetFloat(pCubeMapMorphMeshEffect->_h_tex_blink_power, _power_blink);
         checkDxException(hr, D3D_OK, "SetFloat(_h_tex_blink_power) に失敗しました。");

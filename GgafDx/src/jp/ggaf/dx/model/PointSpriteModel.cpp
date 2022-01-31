@@ -20,7 +20,7 @@ DWORD PointSpriteModel::FVF = (D3DFVF_XYZ | D3DFVF_PSIZE | D3DFVF_DIFFUSE | D3DF
 PointSpriteModel::PointSpriteModel(const char* prm_model_id) : Model(prm_model_id) {
     _TRACE3_("_model_id="<<_model_id);
     _obj_model |= Obj_GgafDx_PointSpriteModel;
-    _pVertexBuffer = nullptr;
+    _paVertexBuffer = nullptr;
     _paVtxBuffer_data = nullptr;
     _vertices_num = 0;
     _size_vertices = 0;
@@ -50,7 +50,7 @@ HRESULT PointSpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
         if (pModelLastDraw && (pModelLastDraw->_obj_model & Obj_GgafDx_MassModel)) {
             ((MassModel*)pModelLastDraw)->resetStreamSourceFreq();
         }
-        pDevice->SetStreamSource(0, _pVertexBuffer, 0, _size_vertex_unit);
+        pDevice->SetStreamSource(0, _paVertexBuffer, 0, _size_vertex_unit);
         pDevice->SetFVF(PointSpriteModel::FVF);
         pDevice->SetTexture(0, getDefaultTextureConnection()->peek()->_pIDirect3DBaseTexture9);
 
@@ -210,7 +210,7 @@ void PointSpriteModel::restore() {
         _inv_texture_split_rowcol = 1.0f / _texture_split_rowcol;
     }
 
-    if (_pVertexBuffer == nullptr) {
+    if (_paVertexBuffer == nullptr) {
         HRESULT hr;
         //頂点バッファ作成
         hr = God::_pID3DDevice9->CreateVertexBuffer(
@@ -218,16 +218,16 @@ void PointSpriteModel::restore() {
                 D3DUSAGE_WRITEONLY,
                 PointSpriteModel::FVF,
                 D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT D3DPOOL_MANAGED
-                &(_pVertexBuffer),
+                &(_paVertexBuffer),
                 nullptr);
         checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_id));
 
         //バッファへ作成済み頂点データを流し込む
-        void *pVertexBuffer;
-        hr = _pVertexBuffer->Lock(0, _size_vertices, (void**)&pVertexBuffer, 0);
+        void *paVertexBuffer;
+        hr = _paVertexBuffer->Lock(0, _size_vertices, (void**)&paVertexBuffer, 0);
         checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_id);
-        memcpy(pVertexBuffer, _paVtxBuffer_data, _size_vertices); //pVertexBuffer ← paVertex
-        _pVertexBuffer->Unlock();
+        memcpy(paVertexBuffer, _paVtxBuffer_data, _size_vertices); //paVertexBuffer ← paVertex
+        _paVertexBuffer->Unlock();
     }
 
     if (_papTextureConnection == nullptr) {
@@ -247,7 +247,7 @@ void PointSpriteModel::onDeviceLost() {
 
 void PointSpriteModel::release() {
     _TRACE3_("_model_id=" << _model_id << " start");
-    GGAF_RELEASE(_pVertexBuffer);
+    GGAF_RELEASE(_paVertexBuffer);
     if (_papTextureConnection) {
         for (int i = 0; i < (int)_num_materials; i++) {
             if (_papTextureConnection[i]) {

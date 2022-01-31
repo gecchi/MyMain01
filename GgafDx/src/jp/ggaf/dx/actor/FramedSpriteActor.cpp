@@ -18,21 +18,35 @@ FramedSpriteActor::FramedSpriteActor(const char* prm_name,
 
                              FigureActor(prm_name,
                                          prm_model,
-                                         TYPE_ACTOR_MODEL,
+                                         TYPE_FRAMEDSPRITE_MODEL,
                                          prm_effect_id,
-                                         TYPE_SPRITE_EFFECT,
+                                         TYPE_FRAMEDSPRITE_EFFECT,
                                          prm_technique,
                                          prm_pChecker),
 _pFramedSpriteModel( (FramedSpriteModel*)_pModel),
 _pFramedSpriteEffect( (FramedSpriteEffect*)_pEffect),
-_pUvFlipper(NEW UvFlipper(getModel()->getDefaultTextureConnection()->peek())) {
+_pUvFlipper(NEW UvFlipper(getModel()->_papTextureConnection[0]->peek())),
+_pUvFlipper_frame(NEW UvFlipper(getModel()->_papTextureConnection[1]->peek())),
+_model_frame_width_px((pixcoord)(_pFramedSpriteModel->_model_frame_width_px)),
+_model_frame_height_px((pixcoord)(_pFramedSpriteModel->_model_frame_height_px)),
+_model_center_width_px((pixcoord)(_pFramedSpriteModel->_model_width_px)),
+_model_center_height_px((pixcoord)(_pFramedSpriteModel->_model_height_px)),
+_model_total_width_px(_model_frame_width_px * 2 + _model_center_width_px),
+_model_total_height_px(_model_frame_height_px * 2 + _model_center_height_px),
+_lim_center_sx(R_SC( (_model_frame_width_px * 2.0) / _model_total_width_px )),
+_lim_center_sy(R_SC( (_model_frame_height_px * 2.0) / _model_total_height_px )) {
 
     _obj_class |= Obj_GgafDx_FramedSpriteActor;
     _class_name = "FramedSpriteActor";
     _pUvFlipper->locatePatternNo(_pFramedSpriteModel->_col_texture_split,
-                             _pFramedSpriteModel->_row_texture_split );
+                                 _pFramedSpriteModel->_row_texture_split );
     _pUvFlipper->setActivePtn(0);
     _pUvFlipper->exec(NOT_ANIMATED, 1);
+
+    _pUvFlipper_frame->locatePatternNo(_pFramedSpriteModel->_col_frame_texture_split,
+                                       _pFramedSpriteModel->_row_frame_texture_split );
+    _pUvFlipper_frame->setActivePtn(0);
+    _pUvFlipper_frame->exec(NOT_ANIMATED, 1);
 
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //ƒfƒtƒHƒ‹ƒg‚Ì‰ñ“]~ˆÚ“®‚Ì•ÏŠ·s—ñ
     _far_rate = -1.0f;
@@ -42,10 +56,212 @@ _pUvFlipper(NEW UvFlipper(getModel()->getDefaultTextureConnection()->peek())) {
 }
 
 void FramedSpriteActor::processDraw() {
+    if (_sx == 0 || _sy == 0) {
+        return;
+    }
     ID3DXEffect* const pID3DXEffect = _pFramedSpriteEffect->_pID3DXEffect;
+    FramedSpriteEffect* pFramedSpriteEffect = _pFramedSpriteEffect;
     HRESULT hr;
-    hr = pID3DXEffect->SetMatrix(_pFramedSpriteEffect->_h_matWorld, &_matWorld );
-    checkDxException(hr, D3D_OK, "SetMatrix(_h_matWorld) ‚É¸”s‚µ‚Ü‚µ‚½B");
+    float u,v;
+
+    //    „¡„Ÿ„¦„Ÿ„¦„Ÿ„¢
+    //    „ ‚O„ ‚P„ ‚Q„ 
+    //    „¥„Ÿ„©„Ÿ„©„Ÿ„§
+    //    „ ‚R„ ‚S„ ‚T„ 
+    //    „¥„Ÿ„©„Ÿ„©„Ÿ„§
+    //    „ ‚U„ ‚V„ ‚W„ 
+    //    „¤„Ÿ„¨„Ÿ„¨„Ÿ„£
+
+    float frame_width_rate, center_width_rate;
+    float total_width_px;
+    int sgn_sx = SGN(_sx);
+    if (ABS(_sx)  > _lim_center_sx) {
+        //‰¡•‚É—]—T‚ ‚èA1,4,7 ‚Ì‰¡•‚ğLk‚³‚¹‚éB
+
+        //  f = _model_frame_width_px
+        //  c = _model_center_width_px
+        //          1.0
+        //    <------------>
+        //     f    c    f
+        //   „¡„Ÿ„¦„Ÿ„Ÿ„¦„Ÿ„¢
+        //   „ ‚O„  ‚P „ ‚Q„ 
+        //   „¥„Ÿ„©„Ÿ„Ÿ„©„Ÿ„§
+        //   „ ‚R„  ‚S „ ‚T„ 
+        //   „¥„Ÿ„©„Ÿ„Ÿ„©„Ÿ„§
+        //   „ ‚U„  ‚V „ ‚W„ 
+        //   „¤„Ÿ„¨„Ÿ„Ÿ„¨„Ÿ„£
+        //
+        //  1.0 ¨ r
+        //
+        //           r
+        //    <------------->
+        //     f     x     f
+        //   „¡„Ÿ„¦„Ÿ„Ÿ„Ÿ„¦„Ÿ„¢
+        //   „ ‚O„   ‚P  „ ‚Q„ 
+        //   „¥„Ÿ„©„Ÿ„Ÿ„Ÿ„©„Ÿ„§
+        //   „ ‚R„   ‚S  „ ‚T„ 
+        //   „¥„Ÿ„©„Ÿ„Ÿ„Ÿ„©„Ÿ„§
+        //   „ ‚U„   ‚V  „ ‚W„ 
+        //   „¤„Ÿ„¨„Ÿ„Ÿ„Ÿ„¨„Ÿ„£
+        //
+        //  2f+c : 1.0 =  2f+x : r
+        //
+        //  2f+x = r(2f+c)
+        //  x = r(2f+c)-2f
+        frame_width_rate = 1.0f * sgn_sx;
+        pixcoord fw = 2*_model_frame_width_px;
+        center_width_rate = ( SC_R(_sx)*(fw + _model_center_width_px) - fw ) / _model_center_width_px;
+        total_width_px = fw + _model_center_width_px * center_width_rate;
+
+    } else {
+        //‰¡•‚É—]—T–³‚µA1,4,7 ‚Ì‰¡•‚Í0
+        //0,3,6 ‚Æ 2,5,8 ‚Ì‰¡•‚ğ –³—‚â‚è‚ä‚ª‚ß‚Ä•‚ğ’²®
+        //  l = _lim_center_sx
+        //  f = _model_frame_width_px
+        //          l
+        //    <---------->
+        //     f       f
+        //   „¡„Ÿ„Ÿ„¦„Ÿ„Ÿ„¢
+        //   „  ‚O „  ‚Q „ 
+        //   „¥„Ÿ„Ÿ„©„Ÿ„Ÿ„§
+        //   „  ‚R „  ‚T „ 
+        //   „¥„Ÿ„Ÿ„©„Ÿ„Ÿ„§
+        //   „  ‚U „  ‚W „ 
+        //   „¤„Ÿ„Ÿ„¨„Ÿ„Ÿ„£
+        //
+        //  l ¨ r
+        //
+        //       r
+        //    <------>
+        //     x   x
+        //   „¡„Ÿ„¦„Ÿ„¢
+        //   „ ‚O„ ‚Q„ 
+        //   „¥„Ÿ„©„Ÿ„§
+        //   „ ‚R„ ‚T„ 
+        //   „¥„Ÿ„©„Ÿ„§
+        //   „ ‚U„ ‚W„ 
+        //   „¤„Ÿ„¨„Ÿ„£
+        //
+        //  2f : l =  2x : r
+        //
+        //  l2x = r2f
+        //  x = 2rf / 2l = rf / l
+        frame_width_rate = 1.0f * _sx / _lim_center_sx;
+        center_width_rate = 0.0f;
+        total_width_px =  (_model_frame_width_px * frame_width_rate) + (_model_frame_width_px * frame_width_rate);
+    }
+    hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_frame_width_rate, frame_width_rate);
+    checkDxException(hr, D3D_OK, "SetFloat(_h_left_edge_size_rate) ‚É¸”s‚µ‚Ü‚µ‚½B");
+    hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_center_width_rate, center_width_rate);
+    checkDxException(hr, D3D_OK, "SetFloat(_h_left_edge_size_rate) ‚É¸”s‚µ‚Ü‚µ‚½B");
+
+
+    //            if (_align == ALIGN_CENTER) {
+    //                //do nothing
+    //            } else if (_align == ALIGN_LEFT) {
+    //                pSpriteSetActor->_matWorld._41 += PX_DX(_pSpriteSetModel->_model_width_px/2);
+    //            } else {
+    //                //ALIGN_RIGHT
+    //                pSpriteSetActor->_matWorld._41 -= PX_DX(_pSpriteSetModel->_model_width_px/2);
+    //            }
+
+
+    if (_align == ALIGN_CENTER) {
+        hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_local_offset_x, 0.0f);
+    } else if (_align == ALIGN_LEFT) {
+        hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_local_offset_x, PX_DX(total_width_px*0.5) );
+    } else { //ALIGN_RIGHT
+        hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_local_offset_x, -PX_DX(total_width_px*0.5));
+    }
+//    if (_align == ALIGN_RIGHT) {
+//        //2f+x = r(2f+c)
+//        hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_local_offset_x, -total_width_px);
+//    } else if (_align == ALIGN_CENTER) {
+//        hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_local_offset_x, -(total_width_px*0.5));
+//    } else { //ALIGN_LEFT ‚Í‚»‚Ì‚Ü‚Ü
+//        hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_local_offset_x, 0.0f);
+//    }
+    checkDxException(hr, D3D_OK, "SetFloat(_h_local_offset_x) ‚É¸”s‚µ‚Ü‚µ‚½B");
+
+    float frame_height_rate, center_height_rate;
+    float total_height_px;
+    int sgn_sy = SGN(_sy);
+    if (ABS(_sy) > _lim_center_sy) {
+        //c•‚É—]—T‚ ‚èA3,4,5 ‚Ìc•‚ğLk‚³‚¹‚éB
+        frame_height_rate = 1.0f * sgn_sy;
+        pixcoord fh = 2*_model_frame_height_px;
+        center_height_rate =  ( SC_R(_sy)*(fh + _model_center_height_px) - fh ) / _model_center_height_px;
+        total_height_px = fh + _model_center_height_px * center_height_rate;
+    } else {
+        //c•‚É—]—T–³‚µA3,4,5 ‚Ìc•‚Í0
+        //0,1,2 ‚Æ 6,7,8 ‚Ìc•‚ğ –³—‚â‚è‚ä‚ª‚ß‚Ä•‚ğ’²®
+        frame_height_rate = 1.0f * _sy / _lim_center_sy;
+        center_height_rate = 0.0f;
+        total_height_px = (_model_frame_height_px * frame_height_rate ) + (_model_frame_height_px * frame_height_rate );
+    }
+
+    hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_frame_height_rate, frame_height_rate);
+    checkDxException(hr, D3D_OK, "SetFloat(_h_top_edge_size_rate) ‚É¸”s‚µ‚Ü‚µ‚½B");
+    hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_center_height_rate, center_height_rate);
+    checkDxException(hr, D3D_OK, "SetFloat(_h_left_edge_size_rate) ‚É¸”s‚µ‚Ü‚µ‚½B");
+    //            if (_valign == VALIGN_MIDDLE) {
+    //                //do nothing
+    //            } else if (_valign == VALIGN_TOP) {
+    //                pSpriteSetActor->_matWorld._42 -= PX_DX(_pSpriteSetModel->_model_height_px/2);
+    //            } else {
+    //                //VALIGN_BOTTOM
+    //                pSpriteSetActor->_matWorld._42 += PX_DX(_pSpriteSetModel->_model_height_px/2);
+    //            }
+    if (_valign == VALIGN_MIDDLE) {
+        hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_local_offset_y, 0.0f);
+    } else if (_valign == VALIGN_TOP) {
+        hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_local_offset_y, -PX_DX(total_height_px*0.5));
+    } else { //VALIGN_BOTTOM
+        hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_local_offset_y, PX_DX(total_height_px*0.5));
+    }
+
+//    if (_valign == VALIGN_BOTTOM) {
+//        hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_local_offset_y, -total_height_px);
+//    } else if (_valign == VALIGN_MIDDLE) {
+//        hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_local_offset_y, -total_height_px*0.5f);
+//    } else { //VALIGN_TOP ‚Í‚»‚Ì‚Ü‚Ü
+//        hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_local_offset_y, 0.0f);
+//    }
+
+    checkDxException(hr, D3D_OK, "SetFloat(_h_local_offset_y) ‚É¸”s‚µ‚Ü‚µ‚½B");
+
+    hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_x, C_PX(_x));
+    checkDxException(hr, D3D_OK, "SetFloat(_h_x) ‚É¸”s‚µ‚Ü‚µ‚½B");
+    hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_y, C_PX(_y));
+    checkDxException(hr, D3D_OK, "SetFloat(_h_y) ‚É¸”s‚µ‚Ü‚µ‚½B");
+    hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_z, C_PX(_z));
+    checkDxException(hr, D3D_OK, "SetFloat(_h_z) ‚É¸”s‚µ‚Ü‚µ‚½B");
+    hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_alpha, _alpha);
+    checkDxException(hr, D3D_OK, "SetFloat(_h_alpha) ‚É¸”s‚µ‚Ü‚µ‚½B");
+
+    int active_frame_ptn_no = _pUvFlipper_frame->getActivePtn();
+    for (int i = 0; i < 9; i++) {
+        if (i == 4) {
+            _pUvFlipper->getUV(u, v);
+            hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_ah_offset_u[4], u);
+            checkDxException(hr, D3D_OK, "SetFloat(_h_offset_u) ‚É¸”s‚µ‚Ü‚µ‚½B");
+            hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_ah_offset_v[4], v);
+            checkDxException(hr, D3D_OK, "SetFloat(_h_offset_v) ‚É¸”s‚µ‚Ü‚µ‚½B");
+        } else {
+            _pUvFlipper_frame->getUV(active_frame_ptn_no, u, v);
+            hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_ah_offset_u[i], u);
+            checkDxException(hr, D3D_OK, "SetFloat(_h_offset_u) ‚É¸”s‚µ‚Ü‚µ‚½B");
+            hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_ah_offset_v[i], v);
+            checkDxException(hr, D3D_OK, "SetFloat(_h_offset_v) ‚É¸”s‚µ‚Ü‚µ‚½B");
+            active_frame_ptn_no++;
+        }
+    }
+
+    _pFramedSpriteModel->FramedSpriteModel::draw(this);
+
+
+//    hr = pID3DXEffect->SetMatrix(_pFramedSpriteEffect->_h_matWorld, &_matWorld );
+//    checkDxException(hr, D3D_OK, "SetMatrix(_h_matWorld) ‚É¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetValue(_pFramedSpriteEffect->_h_colMaterialDiffuse, &(_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
     checkDxException(hr, D3D_OK, "SetValue(_h_colMaterialDiffuse) ‚É¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(_pFramedSpriteEffect->_h_far_rate, _far_rate );

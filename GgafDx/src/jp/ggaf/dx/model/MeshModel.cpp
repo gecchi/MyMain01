@@ -23,8 +23,8 @@ DWORD MeshModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX
 MeshModel::MeshModel(const char* prm_model_id) : Model(prm_model_id) {
     _TRACE3_("_model_id="<<_model_id);
     _obj_model |= Obj_GgafDx_MeshModel;
-    _pVertexBuffer = nullptr;
-    _pIndexBuffer = nullptr;
+    _paVertexBuffer = nullptr;
+    _paIndexBuffer = nullptr;
     _paVtxBuffer_data = nullptr;
     _paIndexBuffer_data = nullptr;
     _paIndexParam = nullptr;
@@ -54,9 +54,9 @@ HRESULT MeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, vo
             ((MassModel*)pModelLastDraw)->resetStreamSourceFreq();
         }
         //頂点バッファとインデックスバッファを設定
-        pDevice->SetStreamSource(0, _pVertexBuffer,  0, _size_vertex_unit);
+        pDevice->SetStreamSource(0, _paVertexBuffer,  0, _size_vertex_unit);
         pDevice->SetFVF(MeshModel::FVF);
-        pDevice->SetIndices(_pIndexBuffer);
+        pDevice->SetIndices(_paIndexBuffer);
 
         hr = pID3DXEffect->SetFloat(pMeshEffect->_h_tex_blink_power, _power_blink);
         checkDxException(hr, D3D_OK, "SetFloat(_h_tex_blink_power) に失敗しました。");
@@ -370,7 +370,7 @@ void MeshModel::restore() {
         pMeshesFront = nullptr;
     }
 
-    if (_pVertexBuffer == nullptr) {
+    if (_paVertexBuffer == nullptr) {
         HRESULT hr;
         //頂点バッファ作成
         hr = God::_pID3DDevice9->CreateVertexBuffer(
@@ -378,33 +378,33 @@ void MeshModel::restore() {
                 D3DUSAGE_WRITEONLY,
                 MeshModel::FVF,
                 D3DPOOL_DEFAULT, //D3DPOOL_DEFAULT
-                &(_pVertexBuffer),
+                &(_paVertexBuffer),
                 nullptr);
         checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateVertexBuffer 失敗 model="<<(_model_id));
 
         //バッファへ作成済み頂点データを流し込む
-        void *pVertexBuffer;
-        hr = _pVertexBuffer->Lock(0, _size_vertices, (void**)&pVertexBuffer, 0);
+        void *paVertexBuffer;
+        hr = _paVertexBuffer->Lock(0, _size_vertices, (void**)&paVertexBuffer, 0);
         checkDxException(hr, D3D_OK, "頂点バッファのロック取得に失敗 model="<<_model_id);
-        memcpy(pVertexBuffer, _paVtxBuffer_data, _size_vertices); //pVertexBuffer ← paVertex
-        _pVertexBuffer->Unlock();
+        memcpy(paVertexBuffer, _paVtxBuffer_data, _size_vertices); //paVertexBuffer ← paVertex
+        _paVertexBuffer->Unlock();
     }
 
     //インデックスバッファデータ作成
-    if (_pIndexBuffer == nullptr) {
+    if (_paIndexBuffer == nullptr) {
         HRESULT hr;
         hr = God::_pID3DDevice9->CreateIndexBuffer(
                                     sizeof(WORD) * _nFaces * 3,
                                     D3DUSAGE_WRITEONLY,
                                     D3DFMT_INDEX16,
                                     D3DPOOL_DEFAULT,
-                                    &(_pIndexBuffer),
+                                    &(_paIndexBuffer),
                                     nullptr);
         checkDxException(hr, D3D_OK, "_pID3DDevice9->CreateIndexBuffer 失敗 model="<<(_model_id));
-        void* pIndexBuffer;
-        _pIndexBuffer->Lock(0,0,(void**)&pIndexBuffer,0);
-        memcpy(pIndexBuffer , _paIndexBuffer_data , sizeof(WORD) * _nFaces * 3);
-        _pIndexBuffer->Unlock();
+        void* paIndexBuffer;
+        _paIndexBuffer->Lock(0,0,(void**)&paIndexBuffer,0);
+        memcpy(paIndexBuffer , _paIndexBuffer_data , sizeof(WORD) * _nFaces * 3);
+        _paIndexBuffer->Unlock();
     }
 
     //テクスチャ作成
@@ -437,8 +437,8 @@ void MeshModel::release() {
         }
     }
     GGAF_DELETEARR(_papTextureConnection); //テクスチャの配列
-    GGAF_RELEASE(_pVertexBuffer);
-    GGAF_RELEASE(_pIndexBuffer);
+    GGAF_RELEASE(_paVertexBuffer);
+    GGAF_RELEASE(_paIndexBuffer);
     _TRACE3_("_model_id=" << _model_id << " end");
 }
 

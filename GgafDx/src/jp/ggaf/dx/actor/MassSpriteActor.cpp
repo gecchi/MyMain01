@@ -8,7 +8,6 @@
 #include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/ggaf/dx/util/Util.h"
 
-
 using namespace GgafDx;
 
 MassSpriteActor::MassSpriteActor(const char* prm_name,
@@ -36,22 +35,7 @@ _pUvFlipper(NEW UvFlipper(getModel()->getDefaultTextureConnection()->peek()))
     _pUvFlipper->exec(NOT_ANIMATED, 1);
 
     defineRotMvWorldMatrix(UTIL::setWorldMatrix_RxRzRyMv); //デフォルトの回転×移動の変換行列
-//    _align = ALIGN_CENTER;
-//    _valign = VALIGN_MIDDLE;
 }
-
-//void MassSpriteActor::setAlign(Align prm_align, Valign prm_valign) {
-//    _align = prm_align;
-//    _valign = prm_valign;
-//}
-//
-//void MassSpriteActor::setAlign(Align prm_align) {
-//    _align = prm_align;
-//}
-//
-//void MassSpriteActor::setValign(Valign prm_valign) {
-//    _valign = prm_valign;
-//}
 
 MassSpriteActor::~MassSpriteActor() {
     delete _pUvFlipper;
