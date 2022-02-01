@@ -151,9 +151,9 @@ void FramedSpriteActor::processDraw() {
         total_width_px =  (_model_frame_width_px * frame_width_rate) + (_model_frame_width_px * frame_width_rate);
     }
     hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_frame_width_rate, frame_width_rate);
-    checkDxException(hr, D3D_OK, "SetFloat(_h_left_edge_size_rate) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    checkDxException(hr, D3D_OK, "SetFloat(_h_frame_width_rate) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_center_width_rate, center_width_rate);
-    checkDxException(hr, D3D_OK, "SetFloat(_h_left_edge_size_rate) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    checkDxException(hr, D3D_OK, "SetFloat(_h_center_width_rate) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
 
     //            if (_align == ALIGN_CENTER) {

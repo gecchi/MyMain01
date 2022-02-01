@@ -29,6 +29,9 @@ FramedSpriteEffect::FramedSpriteEffect(const char* prm_effect_name) : Effect(prm
 
     _h_alpha = _pID3DXEffect->GetParameterByName( nullptr, "g_alpha" );
 
+    _h_offset_u = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_u" );
+    _h_offset_v = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_v" );
+
     _ah_offset_u[0] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_u001" );
     _ah_offset_u[1] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_u002" );
     _ah_offset_u[2] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_u003" );

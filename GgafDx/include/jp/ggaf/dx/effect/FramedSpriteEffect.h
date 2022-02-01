@@ -22,6 +22,9 @@ public:
     D3DXHANDLE _h_colMaterialDiffuse;
     D3DXHANDLE _h_far_rate;
 
+    D3DXHANDLE _h_offset_u;
+    D3DXHANDLE _h_offset_v;
+
     D3DXHANDLE _ah_offset_u[9];
     D3DXHANDLE _ah_offset_v[9];
     D3DXHANDLE _ah_offset_x[9];
