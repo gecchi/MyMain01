@@ -18,7 +18,7 @@ using namespace Mogera;
 
 
 BoardTest::BoardTest(const char* prm_name) :
-        DefaultFramedBoardActor(prm_name, "BoardTest") {
+        DefaultFramedBoardActor(prm_name, "_chk_TestDefaultFramedBoardActorModel") {
     _class_name = "BoardTest";
 }
 

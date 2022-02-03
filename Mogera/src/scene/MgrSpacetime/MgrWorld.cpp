@@ -1,8 +1,8 @@
 #include "MgrWorld.h"
 
 #include "jp/ggaf/lib/util/VirtualButton.h"
-//#include "scene/MgrSpacetime/MgrWorld/TrialAndErrScene.h"
-//#include "scene/MgrSpacetime/MgrWorld/ParallelCurveTestScene.h"
+#include "scene/MgrSpacetime/MgrWorld/TrialAndErrScene.h"
+#include "scene/MgrSpacetime/MgrWorld/ParallelCurveTestScene.h"
 #include "scene/MgrSpacetime/MgrWorld/TestScene.h"
 #include "scene/MgrSpacetime.h"
 #include "MgrGod.h"
@@ -12,13 +12,16 @@ using namespace Mogera;
 
 MgrWorld::MgrWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
     pTestScene_ = nullptr;
+    pTrialAndErrScene_ = nullptr;
     pHitCheckRounder_ = P_GOD->getSpacetime()->getLinearOctreeHitCheckRounder();
 }
 
 void MgrWorld::initialize() {
-    pTestScene_ = desireScene(TestScene);
-    appendChild(pTestScene_);
+//    pTestScene_ = desireScene(TestScene);
+//    appendChild(pTestScene_);
 
+    pTrialAndErrScene_ = desireScene(TrialAndErrScene);
+    appendChild(pTrialAndErrScene_);
 }
 
 void MgrWorld::processBehavior() {

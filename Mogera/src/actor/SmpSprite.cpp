@@ -14,7 +14,7 @@ using namespace GgafLib;
 using namespace Mogera;
 
 SmpSprite::SmpSprite(const char* prm_name) :
-        GgafLib::DefaultRegularPolygonSpriteActor(prm_name, "36,CCW,BoardTest2") {
+        GgafLib::DefaultFramedSpriteActor(prm_name, "_chk_TestDefaultFramedSpriteActorModel") {
     //座標設定
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
@@ -29,24 +29,24 @@ void SmpSprite::initialize() {
 
 void SmpSprite::processBehavior() {
     VirtualButton* pVb = P_GOD->getSpacetime()->pVb_;
-    if (GgafDx::Input::isPressedKey(DIK_C)) {
-        setDrawFanNum(getDrawFanNum() + 1);
-    }
-    if (GgafDx::Input::isPressedKey(DIK_V)) {
-        setDrawFanNum(getDrawFanNum() - 1);
-    }
-    if (GgafDx::Input::isPressedKey(DIK_Z)) {
-        setBeginAngPos(getBeginAngPos() + D_ANG(1));
-    }
-    if (GgafDx::Input::isPressedKey(DIK_X)) {
-        setBeginAngPos(getBeginAngPos() - D_ANG(1));
-    }
-    if (GgafDx::Input::isPressedKey(DIK_B)) {
-        addRzFaceAng(D_ANG(1));
-    }
-    if (GgafDx::Input::isPressedKey(DIK_N)) {
-        addRzFaceAng(D_ANG(-1));
-    }
+//    if (GgafDx::Input::isPressedKey(DIK_C)) {
+//        setDrawFanNum(getDrawFanNum() + 1);
+//    }
+//    if (GgafDx::Input::isPressedKey(DIK_V)) {
+//        setDrawFanNum(getDrawFanNum() - 1);
+//    }
+//    if (GgafDx::Input::isPressedKey(DIK_Z)) {
+//        setBeginAngPos(getBeginAngPos() + D_ANG(1));
+//    }
+//    if (GgafDx::Input::isPressedKey(DIK_X)) {
+//        setBeginAngPos(getBeginAngPos() - D_ANG(1));
+//    }
+//    if (GgafDx::Input::isPressedKey(DIK_B)) {
+//        addRzFaceAng(D_ANG(1));
+//    }
+//    if (GgafDx::Input::isPressedKey(DIK_N)) {
+//        addRzFaceAng(D_ANG(-1));
+//    }
 
 //    if (GgafDx::Input::isPressedKey(DIK_Q)) {
 //        setAlign(ALIGN_LEFT);
@@ -67,7 +67,22 @@ void SmpSprite::processBehavior() {
 //    if (GgafDx::Input::isPressedKey(DIK_D)) {
 //        setValign(VALIGN_BOTTOM);
 //    }
+    if (GgafDx::Input::isPressedKey(DIK_A)) {
+        addWidth(-C_PX(1));
+    }
+    if (GgafDx::Input::isPressedKey(DIK_S)) {
+        addWidth(C_PX(1));
+    }
+    if (GgafDx::Input::isPressedKey(DIK_W)) {
+        addHeight(C_PX(1));
+    }
+    if (GgafDx::Input::isPressedKey(DIK_S)) {
+        addHeight(-C_PX(1));
+    }
 
+    if (GgafDx::Input::isPressedKey(DIK_A)) {
+        _x += PX_C(2); //右
+    }
 
     if (pVb->isPressed(VB_BUTTON1)) {
         //ボタン１（スペースキー）を押しながらの場合

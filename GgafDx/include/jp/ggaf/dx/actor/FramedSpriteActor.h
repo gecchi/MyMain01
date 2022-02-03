@@ -79,6 +79,14 @@ public:
     inline UvFlipper* getUvFlipper() {
         return _pUvFlipper;
     }
+
+
+    void setWidth(coord prm_width);
+    void setHeight(coord prm_height);
+    void addWidth(coord prm_width);
+    void addHeight(coord prm_height);
+    coord getWidth();
+    coord getHeight();
 };
 
 }

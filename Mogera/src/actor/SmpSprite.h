@@ -1,7 +1,7 @@
 #ifndef SMPSPRITE_H_
 #define SMPSPRITE_H_
 #include "Mogera.h"
-#include "jp/ggaf/lib/actor/DefaultRegularPolygonSpriteActor.h"
+#include "jp/ggaf/lib/actor/DefaultFramedSpriteActor.h"
 
 namespace Mogera {
 
@@ -11,7 +11,7 @@ namespace Mogera {
  * @since 2011/02/16
  * @author Masatoshi Tsuge
  */
-class SmpSprite : public GgafLib::DefaultRegularPolygonSpriteActor {
+class SmpSprite : public GgafLib::DefaultFramedSpriteActor {
 
 public:
     /**

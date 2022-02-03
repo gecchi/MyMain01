@@ -83,6 +83,7 @@ float g_rz;
 float g_alpha;
 /** テクスチャのサンプラー(s0 レジスタにセットされたテクスチャを使う) */
 sampler MyTextureSampler : register(s0);
+sampler MyTextureSampler_frame : register(s1);
 
 /** 頂点シェーダー、出力構造体 */
 struct OUT_VS
@@ -103,10 +104,74 @@ struct OUT_VS
  */
 OUT_VS VS_DefaultFramedSprite(
       float4 prm_posModel_Local : POSITION, // モデルの頂点
+      float  prm_index          : PSIZE ,       // モデル番号
       float2 prm_uv             : TEXCOORD0 // モデルの頂点のUV
 ) {
     OUT_VS out_vs = (OUT_VS)0;
+    const int index = (int)prm_index;
+    float offsetU; //テクスチャU座標増分
+    float offsetV; //テクスチャV座標増分
+    float x; //変換済みX座標(px)
+    float y; //変換済みY座標(px)
+	
+    float center_flg = 0.0f;
+    //    ┌─┬─┬─┐
+    //    │０│１│２│
+    //    ├─┼─┼─┤
+    //    │３│４│５│
+    //    ├─┼─┼─┤
+    //    │６│７│８│
+    //    └─┴─┴─┘
 
+    if (index < 3) {
+        y = prm_posModel_Local.y * g_frame_height_rate;
+        if (index == 0) {
+            x = prm_posModel_Local.x * g_frame_width_rate;
+            offsetU = g_offset_u001;
+            offsetV = g_offset_v001;
+        } else if (index == 1) {
+            x = g_frame_width * g_frame_width_rate + prm_posModel_Local.x * g_center_width_rate;
+            offsetU = g_offset_u002;
+            offsetV = g_offset_v002;
+        } else { //index == 2
+            x = g_frame_width * g_frame_width_rate + g_center_width * g_center_width_rate + prm_posModel_Local.x * g_frame_width_rate;
+            offsetU = g_offset_u003;
+            offsetV = g_offset_v003;
+        }
+    } else if (index < 6) {
+        y = g_frame_height * g_frame_height_rate + prm_posModel_Local.y * g_center_height_rate;
+        if (index == 3) {
+            x = prm_posModel_Local.x * g_frame_width_rate;
+            offsetU = g_offset_u004;
+            offsetV = g_offset_v004;
+        } else if (index == 4) {
+            x = g_frame_width * g_frame_width_rate + prm_posModel_Local.x * g_center_width_rate;
+            offsetU = g_offset_u005;
+            offsetV = g_offset_v005;
+            center_flg = 1.0f; //中心パネルであることのフラグ
+        } else { //index == 5
+            x = g_frame_width * g_frame_width_rate + g_center_width * g_center_width_rate + prm_posModel_Local.x * g_frame_width_rate;
+            offsetU = g_offset_u006;
+            offsetV = g_offset_v006;
+        }
+    } else { // index >= 6
+        y = g_frame_height * g_frame_height_rate + g_center_height * g_center_height_rate + prm_posModel_Local.y * g_frame_height_rate;
+        if (index == 6) {
+            x = prm_posModel_Local.x * g_frame_width_rate;
+            offsetU = g_offset_u007;
+            offsetV = g_offset_v007;
+        } else if (index == 7) {
+            x = g_frame_width * g_frame_width_rate + prm_posModel_Local.x * g_center_width_rate;
+            offsetU = g_offset_u008;
+            offsetV = g_offset_v008;
+        } else { // index == 8
+            x = g_frame_width * g_frame_width_rate + g_center_width * g_center_width_rate + prm_posModel_Local.x * g_frame_width_rate;
+            offsetU = g_offset_u009;
+            offsetV = g_offset_v009;
+        }
+    }
+
+	
 	//World*View*射影変換
     out_vs.posModel_Proj = mul(mul(mul( prm_posModel_Local, g_matWorld ), g_matView ), g_matProj);  // 出力に設定
     //遠方時の表示方法。
@@ -124,8 +189,9 @@ OUT_VS VS_DefaultFramedSprite(
     out_vs.uv.y = prm_uv.y + g_offset_v;
 
     //マテリアル色として頂点カラーに設定
-    out_vs.color = g_colMaterialDiffuse;
-
+    //out_vs.color = g_colMaterialDiffuse;
+    out_vs.color.r = center_flg;  //中心パネルである事の情報を color.r として埋め込む
+    out_vs.color.a = g_alpha;
     return out_vs;
 }
 
@@ -138,10 +204,17 @@ float4 PS_DefaultFramedSprite(
     float2 prm_uv    : TEXCOORD0,
     float4 prm_color : COLOR0
 ) : COLOR  {
+    float4 colTex;
+    if (prm_color.r == 1.0f) { //color.rは中心パネル情報
+        colTex = tex2D( MyTextureSampler, prm_uv);
+    } else {
+        colTex = tex2D( MyTextureSampler_frame, prm_uv);
+    }
+	
     //求める色
-    float4 colTex = tex2D( MyTextureSampler, prm_uv); //テクスチャから色取得
+    //float4 colTex = tex2D( MyTextureSampler, prm_uv); //テクスチャから色取得
     //テクスチャ色にマテリアルカラーとスペキュラーを考慮
-    float4 colOut = colTex * prm_color;
+    float4 colOut = colTex * g_colMaterialDiffuse;
     //Blinkerを考慮
     if (colTex.r >= g_tex_blink_threshold || colOut.g >= g_tex_blink_threshold || colOut.b >= g_tex_blink_threshold) {
         colOut *= g_tex_blink_power; //あえてαも倍率を掛ける。点滅を目立たせる。

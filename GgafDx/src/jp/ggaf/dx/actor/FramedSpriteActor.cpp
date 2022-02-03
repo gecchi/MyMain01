@@ -260,13 +260,36 @@ void FramedSpriteActor::processDraw() {
     _pFramedSpriteModel->FramedSpriteModel::draw(this);
 
 
-//    hr = pID3DXEffect->SetMatrix(_pFramedSpriteEffect->_h_matWorld, &_matWorld );
-//    checkDxException(hr, D3D_OK, "SetMatrix(_h_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    hr = pID3DXEffect->SetMatrix(_pFramedSpriteEffect->_h_matWorld, &_matWorld );
+    checkDxException(hr, D3D_OK, "SetMatrix(_h_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetValue(_pFramedSpriteEffect->_h_colMaterialDiffuse, &(_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
     checkDxException(hr, D3D_OK, "SetValue(_h_colMaterialDiffuse) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(_pFramedSpriteEffect->_h_far_rate, _far_rate );
     checkDxException(hr, D3D_OK, "SetFloat(_h_far_rate) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     _pFramedSpriteModel->FramedSpriteModel::draw(this);
+}
+
+void FramedSpriteActor::setWidth(coord prm_width) {
+    _sx = R_SC(1.0 * C_PX(prm_width) / _model_total_width_px);
+}
+
+void FramedSpriteActor::setHeight(coord prm_height) {
+    _sy = R_SC(1.0 * C_PX(prm_height) / _model_total_height_px);
+}
+
+void FramedSpriteActor::addWidth(coord prm_width) {
+    _sx += (R_SC(1.0 * C_PX(prm_width) / _model_total_width_px));
+}
+
+void FramedSpriteActor::addHeight(coord prm_height) {
+    _sy += (R_SC(1.0 * C_PX(prm_height) / _model_total_height_px));
+}
+
+coord FramedSpriteActor::getWidth() {
+    return PX_C(_model_total_width_px * SC_R(_sx));
+}
+coord FramedSpriteActor::getHeight() {
+    return PX_C(_model_total_height_px * SC_R(_sy));
 }
 
 FramedSpriteActor::~FramedSpriteActor() {
