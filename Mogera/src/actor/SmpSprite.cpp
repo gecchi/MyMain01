@@ -20,10 +20,16 @@ SmpSprite::SmpSprite(const char* prm_name) :
     pChecker->createCollisionArea(1);
     pChecker->setColliSphere(0, PX_C(20));
     setHitAble(true);
+
+
 }
 
 void SmpSprite::initialize() {
-    getUvFlipper()->exec(FLIP_ORDER_LOOP, 30);
+    getUvFlipper()->exec(FLIP_ORDER_LOOP, 40);
+    GgafDx::UvFlipper* pFrameUvFlipper = getFrameUvFlipper();
+    static int ptn[8] = {0, 8, 16, 24, 32, 40, 48, 56 };
+    pFrameUvFlipper->customizePtnOrder(ptn, 8);
+    pFrameUvFlipper->exec(FLIP_CUSTOMIZED_LOOP, 30);
 
 }
 
@@ -80,10 +86,6 @@ void SmpSprite::processBehavior() {
         addHeight(-C_PX(1));
     }
 
-    if (GgafDx::Input::isPressedKey(DIK_A)) {
-        _x += PX_C(2); //右
-    }
-
     if (pVb->isPressed(VB_BUTTON1)) {
         //ボタン１（スペースキー）を押しながらの場合
         if (pVb->isPressed(VB_UP)) {
@@ -107,6 +109,7 @@ void SmpSprite::processBehavior() {
             _y += PX_C(2); //下
         }
     }
+    getFrameUvFlipper()->behave();
     getUvFlipper()->behave();
     getVecDriver()->behave(); //力車を活動させる（Z軸回転する）
 }

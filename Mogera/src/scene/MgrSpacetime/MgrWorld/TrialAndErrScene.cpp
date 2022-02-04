@@ -58,7 +58,7 @@ void TrialAndErrScene::processBehavior() {
 //    static AniTest2* p4 = nullptr;
 //    static AniTest2* p5 = nullptr;
 //    static AniTest2* p6 = nullptr;
-    static SmpActor1* pSmpActor1 = nullptr;
+    static SmpSprite* pSmpSprite = nullptr;
     static BoardTest* pBoardTest = nullptr;
     if (hasJustChangedToActive()) {
 //        p1 = (AniTest3*)receiveActor(1234);
@@ -97,12 +97,12 @@ void TrialAndErrScene::processBehavior() {
 //        p6->setPosition(PX_C(200), PX_C(-50), 0);
 //        p6->_pPuppeteer->stop();
         pBoardTest = (BoardTest*)receiveActor(2000);
-        bringSceneMediator()->appendGroupChild(pBoardTest);
+        bringSceneMediator()->appendGroupChild(MGR_MIKATA, pBoardTest);
         pBoardTest->setPosition(PX_C(10), PX_C(10), 0);
 
-        pSmpActor1 = (SmpActor1*)receiveActor(2001);
-        bringSceneMediator()->appendGroupChild(pSmpActor1);
-        pSmpActor1->setPosition(PX_C(0), PX_C(0), 0);
+        pSmpSprite = (SmpSprite*)receiveActor(2001);
+        bringSceneMediator()->appendGroupChild(MGR_MIKATA, pSmpSprite);
+        pSmpSprite->setPosition(PX_C(0), PX_C(0), 0);
     }
 //    if (GgafDx::Input::isPushedDownKey(DIK_U)) {
 //        pSmpActor1->getMorpher()->transitionLinearToTop(1, 120);

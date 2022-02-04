@@ -64,6 +64,10 @@ public:
 
     virtual ~FramedSpriteActor();
 
+    inline UvFlipper* getFrameUvFlipper() {
+        return _pUvFlipper_frame;
+    }
+
     /**
      * âìÇ≠ÇÃç¿ïWÇ≈Ç‡ã≠êßï\é¶ .
      * @param prm_b

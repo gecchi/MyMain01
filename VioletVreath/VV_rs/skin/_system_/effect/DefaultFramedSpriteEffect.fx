@@ -115,6 +115,7 @@ OUT_VS VS_DefaultFramedSprite(
     float y; //変換済みY座標(px)
 	
     float center_flg = 0.0f;
+//center_flg = 1.0f; 
     //    ┌─┬─┬─┐
     //    │０│１│２│
     //    ├─┼─┼─┤
@@ -124,54 +125,55 @@ OUT_VS VS_DefaultFramedSprite(
     //    └─┴─┴─┘
 
     if (index < 3) {
-        y = prm_posModel_Local.y * g_frame_height_rate;
+        y = g_frame_height + (g_center_height-g_frame_height) * 0.5;
         if (index == 0) {
-            x = prm_posModel_Local.x * g_frame_width_rate;
+            x = -g_frame_width - (g_center_width-g_frame_width) * 0.5;
             offsetU = g_offset_u001;
             offsetV = g_offset_v001;
         } else if (index == 1) {
-            x = g_frame_width * g_frame_width_rate + prm_posModel_Local.x * g_center_width_rate;
+            x = 0;
             offsetU = g_offset_u002;
             offsetV = g_offset_v002;
         } else { //index == 2
-            x = g_frame_width * g_frame_width_rate + g_center_width * g_center_width_rate + prm_posModel_Local.x * g_frame_width_rate;
+            x = g_frame_width + (g_center_width-g_frame_width) * 0.5;
             offsetU = g_offset_u003;
             offsetV = g_offset_v003;
         }
     } else if (index < 6) {
-        y = g_frame_height * g_frame_height_rate + prm_posModel_Local.y * g_center_height_rate;
+        y = 0;
         if (index == 3) {
-            x = prm_posModel_Local.x * g_frame_width_rate;
+            x = -g_frame_width - (g_center_width-g_frame_width) * 0.5;
             offsetU = g_offset_u004;
             offsetV = g_offset_v004;
         } else if (index == 4) {
-            x = g_frame_width * g_frame_width_rate + prm_posModel_Local.x * g_center_width_rate;
+            x = 0;
             offsetU = g_offset_u005;
             offsetV = g_offset_v005;
             center_flg = 1.0f; //中心パネルであることのフラグ
         } else { //index == 5
-            x = g_frame_width * g_frame_width_rate + g_center_width * g_center_width_rate + prm_posModel_Local.x * g_frame_width_rate;
+            x = g_frame_width + (g_center_width-g_frame_width) * 0.5;
             offsetU = g_offset_u006;
             offsetV = g_offset_v006;
         }
     } else { // index >= 6
-        y = g_frame_height * g_frame_height_rate + g_center_height * g_center_height_rate + prm_posModel_Local.y * g_frame_height_rate;
+        y = -g_frame_height - (g_center_height-g_frame_height) * 0.5;
         if (index == 6) {
-            x = prm_posModel_Local.x * g_frame_width_rate;
+            x = -g_frame_width - (g_center_width-g_frame_width) * 0.5;
             offsetU = g_offset_u007;
             offsetV = g_offset_v007;
         } else if (index == 7) {
-            x = g_frame_width * g_frame_width_rate + prm_posModel_Local.x * g_center_width_rate;
+            x = 0;
             offsetU = g_offset_u008;
             offsetV = g_offset_v008;
         } else { // index == 8
-            x = g_frame_width * g_frame_width_rate + g_center_width * g_center_width_rate + prm_posModel_Local.x * g_frame_width_rate;
+            x = g_frame_width + (g_center_width-g_frame_width) * 0.5;
             offsetU = g_offset_u009;
             offsetV = g_offset_v009;
         }
     }
 
-	
+	prm_posModel_Local.x += x;
+	prm_posModel_Local.y += y;
 	//World*View*射影変換
     out_vs.posModel_Proj = mul(mul(mul( prm_posModel_Local, g_matWorld ), g_matView ), g_matProj);  // 出力に設定
     //遠方時の表示方法。
@@ -205,11 +207,11 @@ float4 PS_DefaultFramedSprite(
     float4 prm_color : COLOR0
 ) : COLOR  {
     float4 colTex;
-    if (prm_color.r == 1.0f) { //color.rは中心パネル情報
-        colTex = tex2D( MyTextureSampler, prm_uv);
-    } else {
+    if (prm_color.r == 0.0f) { //color.rは中心パネル情報
         colTex = tex2D( MyTextureSampler_frame, prm_uv);
-    }
+    } else {
+        colTex = tex2D( MyTextureSampler, prm_uv);
+    } 
 	
     //求める色
     //float4 colTex = tex2D( MyTextureSampler, prm_uv); //テクスチャから色取得

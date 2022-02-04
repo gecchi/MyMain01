@@ -20,8 +20,8 @@ public:
     D3DXHANDLE _h_colMaterialDiffuse;
     D3DXHANDLE _ah_offset_u[9];
     D3DXHANDLE _ah_offset_v[9];
-    D3DXHANDLE _ah_offset_x[9];
-    D3DXHANDLE _ah_offset_y[9];
+//    D3DXHANDLE _ah_offset_x[9];
+//    D3DXHANDLE _ah_offset_y[9];
 //    D3DXHANDLE _ah_x_width_rate[9];
 //    D3DXHANDLE _ah_y_width_rate[9];
 

@@ -14,7 +14,7 @@ using namespace Mogera;
 SmpActor1::SmpActor1(const char* prm_name) :
         GgafLib::DefaultMeshSetActor(prm_name, "MorphTest") { //Guruguru.x ‚ªŽQÆ‚³‚ê‚éB
     //À•WÝ’è
-    setMaterialColor(0.0, 1.0, 1.0);
+//    setMaterialColor(0.0, 1.0, 1.0);
 //    CollisionChecker* pChecker = getCollisionChecker();
 //    pChecker->createCollisionArea(1);
 ////    pChecker->setColliAABox_WHD(0, PX_C(100),PX_C(100),PX_C(100));

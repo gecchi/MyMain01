@@ -163,10 +163,10 @@ float4 PS_DefaultFramedBoard(
 ) : COLOR  {
     //求める色
     float4 colOut;
-    if (prm_color.r == 1.0f) { //color.rは中心パネル情報
-        colOut = tex2D( MyTextureSampler, prm_uv);
-    } else {
+    if (prm_color.r == 0.0f) { //color.rは中心パネル情報
         colOut = tex2D( MyTextureSampler_frame, prm_uv);
+    } else {
+        colOut = tex2D( MyTextureSampler, prm_uv);
     }
     if (colOut.r >= g_tex_blink_threshold || colOut.g >= g_tex_blink_threshold || colOut.b >= g_tex_blink_threshold) {
         colOut *= g_tex_blink_power; //+ (colTex * g_tex_blink_power);

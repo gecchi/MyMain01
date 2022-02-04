@@ -52,25 +52,25 @@ FramedSpriteEffect::FramedSpriteEffect(const char* prm_effect_name) : Effect(prm
     _ah_offset_v[7] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_v008" );
     _ah_offset_v[8] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_v009" );
 
-    _ah_offset_x[0] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_x001" );
-    _ah_offset_x[1] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_x002" );
-    _ah_offset_x[2] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_x003" );
-    _ah_offset_x[3] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_x004" );
-    _ah_offset_x[4] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_x005" );
-    _ah_offset_x[5] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_x006" );
-    _ah_offset_x[6] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_x007" );
-    _ah_offset_x[7] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_x008" );
-    _ah_offset_x[8] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_x009" );
-
-    _ah_offset_y[0] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_y001" );
-    _ah_offset_y[1] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_y002" );
-    _ah_offset_y[2] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_y003" );
-    _ah_offset_y[3] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_y004" );
-    _ah_offset_y[4] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_y005" );
-    _ah_offset_y[5] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_y006" );
-    _ah_offset_y[6] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_y007" );
-    _ah_offset_y[7] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_y008" );
-    _ah_offset_y[8] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_y009" );
+//    _ah_offset_x[0] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_x001" );
+//    _ah_offset_x[1] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_x002" );
+//    _ah_offset_x[2] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_x003" );
+//    _ah_offset_x[3] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_x004" );
+//    _ah_offset_x[4] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_x005" );
+//    _ah_offset_x[5] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_x006" );
+//    _ah_offset_x[6] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_x007" );
+//    _ah_offset_x[7] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_x008" );
+//    _ah_offset_x[8] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_x009" );
+//
+//    _ah_offset_y[0] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_y001" );
+//    _ah_offset_y[1] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_y002" );
+//    _ah_offset_y[2] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_y003" );
+//    _ah_offset_y[3] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_y004" );
+//    _ah_offset_y[4] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_y005" );
+//    _ah_offset_y[5] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_y006" );
+//    _ah_offset_y[6] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_y007" );
+//    _ah_offset_y[7] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_y008" );
+//    _ah_offset_y[8] = _pID3DXEffect->GetParameterByName( nullptr, "g_offset_y009" );
 
 
     _h_center_width = _pID3DXEffect->GetParameterByName( nullptr, "g_center_width" );
