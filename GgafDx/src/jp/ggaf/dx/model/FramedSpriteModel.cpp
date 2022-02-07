@@ -495,12 +495,11 @@ void FramedSpriteModel::onDeviceLost() {
 void FramedSpriteModel::release() {
     _TRACE3_("_model_id=" << _model_id << " start");
     GGAF_RELEASE(_paVertexBuffer);
+    GGAF_RELEASE(_paIndexBuffer);
+    //テクスチャを解放
     if (_papTextureConnection) {
-        for (int i = 0; i < (int)_num_materials; i++) {
-            if (_papTextureConnection[i]) {
-                _papTextureConnection[i]->close();
-            }
-        }
+        _papTextureConnection[0]->close();
+        _papTextureConnection[1]->close(); //フレーム
     }
     GGAF_DELETEARR(_papTextureConnection);
     _TRACE3_("_model_id=" << _model_id << " end");

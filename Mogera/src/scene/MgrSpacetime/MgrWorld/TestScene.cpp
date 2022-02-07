@@ -132,7 +132,7 @@ void TestScene::processBehavior() {
 //                requestTestActor(id, DefaultBoardActor                  ,"_chk_TestDefaultBoardActorModel"                    );    id++;
 //                requestTestActor(id, DefaultBoardSetActor               ,"_chk_TestDefaultBoardSetActorModel"                 );    id++;
 //                requestTestActor(id, DefaultMassBoardActor              ,"_chk_TestDefaultMassBoardActorModel"                );    id++;
-//                requestTestActor(id, DefaultFramedBoardActor            ,"_chk_TestDefaultFramedBoardActorModel"              );    id++;
+                requestTestActor(id, DefaultFramedBoardActor            ,"_chk_TestDefaultFramedBoardActorModel"              );    id++;
                 requestTestActor(id, DefaultFramedSpriteActor           ,"_chk_TestDefaultFramedSpriteActorModel"             );    id++;
 //                requestTestActor(id, DefaultRegularPolygonBoardActor    ,"_chk_TestDefaultRegularPolygonBoardActorModel" );    id++;
 //                requestTestActor(id, FontBoardActor                     ,"_chk_TestFontBoardActorModel"                        );    id++;

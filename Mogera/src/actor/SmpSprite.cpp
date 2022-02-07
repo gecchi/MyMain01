@@ -74,16 +74,23 @@ void SmpSprite::processBehavior() {
 //        setValign(VALIGN_BOTTOM);
 //    }
     if (GgafDx::Input::isPressedKey(DIK_A)) {
-        addWidth(-C_PX(1));
+        addWidth(-PX_C(1));
     }
     if (GgafDx::Input::isPressedKey(DIK_S)) {
-        addWidth(C_PX(1));
+        addWidth(PX_C(1));
     }
     if (GgafDx::Input::isPressedKey(DIK_W)) {
-        addHeight(C_PX(1));
+        addHeight(PX_C(1));
     }
-    if (GgafDx::Input::isPressedKey(DIK_S)) {
-        addHeight(-C_PX(1));
+    if (GgafDx::Input::isPressedKey(DIK_Z)) {
+        addHeight(-PX_C(1));
+    }
+
+    if (GgafDx::Input::isPressedKey(DIK_R)) {
+        setWidth(PX_C(64));
+    }
+    if (GgafDx::Input::isPressedKey(DIK_T)) {
+        setWidth(PX_C(32));
     }
 
     if (pVb->isPressed(VB_BUTTON1)) {
@@ -103,10 +110,10 @@ void SmpSprite::processBehavior() {
             _x -= PX_C(2); //¶
         }
         if (pVb->isPressed(VB_UP)) {
-            _y -= PX_C(2); //ã
+            _y += PX_C(2); //ã
         }
         if (pVb->isPressed(VB_DOWN)) {
-            _y += PX_C(2); //‰º
+            _y -= PX_C(2); //‰º
         }
     }
     getFrameUvFlipper()->behave();

@@ -96,6 +96,7 @@ void TrialAndErrScene::processBehavior() {
 //        bringSceneMediator()->appendGroupChild(p6);
 //        p6->setPosition(PX_C(200), PX_C(-50), 0);
 //        p6->_pPuppeteer->stop();
+
         pBoardTest = (BoardTest*)receiveActor(2000);
         bringSceneMediator()->appendGroupChild(MGR_MIKATA, pBoardTest);
         pBoardTest->setPosition(PX_C(10), PX_C(10), 0);

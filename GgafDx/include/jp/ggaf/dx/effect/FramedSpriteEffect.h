@@ -18,7 +18,7 @@ public:
     D3DXHANDLE _h_tex_blink_power;
     D3DXHANDLE _h_tex_blink_threshold;
     D3DXHANDLE _h_matView;
-    D3DXHANDLE _h_matWorld;
+    D3DXHANDLE _h_matWorldRotMv;
     D3DXHANDLE _h_colMaterialDiffuse;
     D3DXHANDLE _h_far_rate;
 
@@ -38,9 +38,9 @@ public:
     D3DXHANDLE _h_local_offset_x;
     D3DXHANDLE _h_local_offset_y;
 
-    D3DXHANDLE _h_x;
-    D3DXHANDLE _h_y;
-    D3DXHANDLE _h_z;
+//    D3DXHANDLE _h_x;
+//    D3DXHANDLE _h_y;
+//    D3DXHANDLE _h_z;
     D3DXHANDLE _h_rz;
 
     D3DXHANDLE _h_frame_width_rate;
@@ -51,6 +51,12 @@ public:
 
     D3DXHANDLE _h_alpha;
     D3DXHANDLE _h_depth_z;
+
+
+    D3DXHANDLE _h_sx;
+    D3DXHANDLE _h_sy;
+    D3DXHANDLE _h_sz;
+
 
 public:
     /**

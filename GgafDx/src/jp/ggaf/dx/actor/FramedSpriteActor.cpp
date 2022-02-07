@@ -230,11 +230,11 @@ void FramedSpriteActor::processDraw() {
 
     checkDxException(hr, D3D_OK, "SetFloat(_h_local_offset_y) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
-    hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_x, C_PX(_x));
+    hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_sx, SC_R(_sx));
     checkDxException(hr, D3D_OK, "SetFloat(_h_x) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_y, C_PX(_y));
+    hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_sy, SC_R(_sy));
     checkDxException(hr, D3D_OK, "SetFloat(_h_y) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_z, C_PX(_z));
+    hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_sz, SC_R(_sz));
     checkDxException(hr, D3D_OK, "SetFloat(_h_z) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_alpha, _alpha);
     checkDxException(hr, D3D_OK, "SetFloat(_h_alpha) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
@@ -260,7 +260,7 @@ void FramedSpriteActor::processDraw() {
     _pFramedSpriteModel->FramedSpriteModel::draw(this);
 
 
-    hr = pID3DXEffect->SetMatrix(_pFramedSpriteEffect->_h_matWorld, &_matWorld );
+    hr = pID3DXEffect->SetMatrix(_pFramedSpriteEffect->_h_matWorldRotMv, &_matWorldRotMv );
     checkDxException(hr, D3D_OK, "SetMatrix(_h_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     hr = pID3DXEffect->SetValue(_pFramedSpriteEffect->_h_colMaterialDiffuse, &(_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
     checkDxException(hr, D3D_OK, "SetValue(_h_colMaterialDiffuse) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

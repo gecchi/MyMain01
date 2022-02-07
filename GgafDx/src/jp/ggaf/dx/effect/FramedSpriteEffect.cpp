@@ -21,7 +21,7 @@ FramedSpriteEffect::FramedSpriteEffect(const char* prm_effect_name) : Effect(prm
 
     //シェーダーハンドル
     _h_matView  = _pID3DXEffect->GetParameterByName( nullptr, "g_matView" );
-    _h_matWorld = _pID3DXEffect->GetParameterByName( nullptr, "g_matWorld" );
+    _h_matWorldRotMv = _pID3DXEffect->GetParameterByName( nullptr, "g_matWorldRotMv" );
     _h_colMaterialDiffuse = _pID3DXEffect->GetParameterByName( nullptr, "g_colMaterialDiffuse" );
     _h_tex_blink_power = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_power" );
     _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_threshold" );
@@ -82,9 +82,9 @@ FramedSpriteEffect::FramedSpriteEffect(const char* prm_effect_name) : Effect(prm
     _h_local_offset_x = _pID3DXEffect->GetParameterByName( nullptr, "g_local_offset_x" );
     _h_local_offset_y = _pID3DXEffect->GetParameterByName( nullptr, "g_local_offset_y" );
 
-    _h_x = _pID3DXEffect->GetParameterByName( nullptr, "g_x" );
-    _h_y = _pID3DXEffect->GetParameterByName( nullptr, "g_y" );
-    _h_z = _pID3DXEffect->GetParameterByName( nullptr, "g_z" );
+    _h_sx = _pID3DXEffect->GetParameterByName( nullptr, "g_sx" );
+    _h_sy = _pID3DXEffect->GetParameterByName( nullptr, "g_sy" );
+    _h_sz = _pID3DXEffect->GetParameterByName( nullptr, "g_sz" );
     _h_rz = _pID3DXEffect->GetParameterByName( nullptr, "g_rz" );
     _h_depth_z = _pID3DXEffect->GetParameterByName( nullptr, "g_depth_Z" );
 
@@ -97,6 +97,7 @@ FramedSpriteEffect::FramedSpriteEffect(const char* prm_effect_name) : Effect(prm
 
     _h_frame_height_rate = _pID3DXEffect->GetParameterByName( nullptr, "g_frame_height_rate" );
     _h_center_height_rate = _pID3DXEffect->GetParameterByName( nullptr, "g_center_height_rate" );
+
 }
 
 void FramedSpriteEffect::setParamPerFrame() {

@@ -17,7 +17,7 @@
  */
 
 /** モデルのWorld変換行列 */
-float4x4 g_matWorld;
+float4x4 g_matWorldRotMv;
 /** モデルのView変換行列 */
 float4x4 g_matView;
 /** モデルの射影変換行列 */
@@ -75,9 +75,9 @@ float g_center_width_rate;
 float g_local_offset_x;
 float g_local_offset_y;
 
-float g_x;
-float g_y;
-float g_z;
+float g_sx;
+float g_sy;
+float g_sz;
 float g_rz;
 
 float g_alpha;
@@ -111,9 +111,9 @@ OUT_VS VS_DefaultFramedSprite(
     const int index = (int)prm_index;
     float offsetU; //テクスチャU座標増分
     float offsetV; //テクスチャV座標増分
-    float x; //変換済みX座標(px)
-    float y; //変換済みY座標(px)
-	
+    float x; //X座標(dxcoord)
+    float y; //Y座標(dxcoord)
+    float4x4 matWorld = g_matWorldRotMv;
     float center_flg = 0.0f;
 //center_flg = 1.0f; 
     //    ┌─┬─┬─┐
@@ -123,59 +123,101 @@ OUT_VS VS_DefaultFramedSprite(
     //    ├─┼─┼─┤
     //    │６│７│８│
     //    └─┴─┴─┘
-
+    float center_width = g_center_width * g_center_width_rate;
+    float center_height = g_center_height * g_center_height_rate;
+    float frame_width = g_frame_width * g_frame_width_rate;
+    float frame_height = g_frame_height * g_frame_height_rate;
     if (index < 3) {
-        y = g_frame_height + (g_center_height-g_frame_height) * 0.5;
+        y = frame_height + (center_height - frame_height) * 0.5;
+        matWorld._21 *= g_frame_height_rate;
+        matWorld._22 *= g_frame_height_rate;
+        matWorld._23 *= g_frame_height_rate;
         if (index == 0) {
-            x = -g_frame_width - (g_center_width-g_frame_width) * 0.5;
+            x = -frame_width - (center_width - frame_width) * 0.5;
             offsetU = g_offset_u001;
             offsetV = g_offset_v001;
+            matWorld._11 *= g_frame_width_rate;
+            matWorld._12 *= g_frame_width_rate;
+            matWorld._13 *= g_frame_width_rate;
         } else if (index == 1) {
             x = 0;
             offsetU = g_offset_u002;
             offsetV = g_offset_v002;
+            matWorld._11 *= g_center_width_rate;
+            matWorld._12 *= g_center_width_rate;
+            matWorld._13 *= g_center_width_rate;
         } else { //index == 2
-            x = g_frame_width + (g_center_width-g_frame_width) * 0.5;
+            x = frame_width + (center_width - frame_width) * 0.5;
             offsetU = g_offset_u003;
             offsetV = g_offset_v003;
+            matWorld._11 *= g_frame_width_rate;
+            matWorld._12 *= g_frame_width_rate;
+            matWorld._13 *= g_frame_width_rate;
         }
     } else if (index < 6) {
         y = 0;
+        matWorld._21 *= g_center_height_rate;
+        matWorld._22 *= g_center_height_rate;
+        matWorld._23 *= g_center_height_rate;
         if (index == 3) {
-            x = -g_frame_width - (g_center_width-g_frame_width) * 0.5;
+            x = -frame_width - (center_width - frame_width) * 0.5;
             offsetU = g_offset_u004;
             offsetV = g_offset_v004;
+            offsetV = g_offset_v001;
+            matWorld._11 *= g_frame_width_rate;
+            matWorld._12 *= g_frame_width_rate;
+            matWorld._13 *= g_frame_width_rate;
         } else if (index == 4) {
             x = 0;
             offsetU = g_offset_u005;
             offsetV = g_offset_v005;
             center_flg = 1.0f; //中心パネルであることのフラグ
+            matWorld._11 *= g_center_width_rate;
+	        matWorld._12 *= g_center_width_rate;
+	        matWorld._13 *= g_center_width_rate;
+
         } else { //index == 5
-            x = g_frame_width + (g_center_width-g_frame_width) * 0.5;
+            x = frame_width + (center_width - frame_width) * 0.5;
             offsetU = g_offset_u006;
             offsetV = g_offset_v006;
+            matWorld._11 *= g_frame_width_rate;
+            matWorld._12 *= g_frame_width_rate;
+            matWorld._13 *= g_frame_width_rate;
         }
     } else { // index >= 6
-        y = -g_frame_height - (g_center_height-g_frame_height) * 0.5;
+        y = -frame_height - (center_height - frame_height) * 0.5;
+
+        matWorld._21 *= g_frame_height_rate;
+        matWorld._22 *= g_frame_height_rate;
+        matWorld._23 *= g_frame_height_rate;
         if (index == 6) {
-            x = -g_frame_width - (g_center_width-g_frame_width) * 0.5;
+            x = -frame_width - (center_width - frame_width) * 0.5;
             offsetU = g_offset_u007;
             offsetV = g_offset_v007;
+            matWorld._11 *= g_frame_width_rate;
+            matWorld._12 *= g_frame_width_rate;
+            matWorld._13 *= g_frame_width_rate;
         } else if (index == 7) {
             x = 0;
             offsetU = g_offset_u008;
             offsetV = g_offset_v008;
+			matWorld._11 *= g_center_width_rate;
+			matWorld._12 *= g_center_width_rate;
+			matWorld._13 *= g_center_width_rate;
         } else { // index == 8
-            x = g_frame_width + (g_center_width-g_frame_width) * 0.5;
+            x = frame_width + (center_width - frame_width) * 0.5;
             offsetU = g_offset_u009;
             offsetV = g_offset_v009;
+            matWorld._11 *= g_frame_width_rate;
+            matWorld._12 *= g_frame_width_rate;
+            matWorld._13 *= g_frame_width_rate;
         }
     }
 
 	prm_posModel_Local.x += x;
 	prm_posModel_Local.y += y;
 	//World*View*射影変換
-    out_vs.posModel_Proj = mul(mul(mul( prm_posModel_Local, g_matWorld ), g_matView ), g_matProj);  // 出力に設定
+    out_vs.posModel_Proj = mul(mul(mul( prm_posModel_Local, matWorld ), g_matView ), g_matProj);  // 出力に設定
     //遠方時の表示方法。
     if (g_far_rate > 0.0) {
         if (out_vs.posModel_Proj.z > g_zf*g_far_rate) {
@@ -187,8 +229,8 @@ OUT_VS VS_DefaultFramedSprite(
     out_vs.posModel_Proj = adjustDotByDot(out_vs.posModel_Proj);
 
     //UVのオフセット（パターン番号による増分）を加算
-    out_vs.uv.x = prm_uv.x + g_offset_u;
-    out_vs.uv.y = prm_uv.y + g_offset_v;
+    out_vs.uv.x = prm_uv.x + offsetU;
+    out_vs.uv.y = prm_uv.y + offsetV;
 
     //マテリアル色として頂点カラーに設定
     //out_vs.color = g_colMaterialDiffuse;
