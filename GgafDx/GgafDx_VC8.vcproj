@@ -165,251 +165,635 @@
 	</References>
 	<Files>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\sound\CWaveDecorder.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\ex\AABActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\sound\CWaveDecorder.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\ex\AABActor.h"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\util\XFile\framework\Frm_3DMath.h"
+			RelativePath=".\src\jp\ggaf\dx\actor\ex\AAPrismActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\util\XFile\framework\Frm_IO.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\ex\AAPrismActor.h"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\util\XFile\framework\Frm_Material.h"
+			RelativePath=".\src\jp\ggaf\dx\actor\ex\AAPyramidActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\util\XFile\framework\Frm_Mesh.cpp"
+			RelativePath=".\include\jp\ggaf\dx\actor\ex\AAPyramidActor.h"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\util\XFile\framework\Frm_Mesh.h"
+			RelativePath=".\src\jp\ggaf\dx\actor\supporter\ActorDriver.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\util\XFile\framework\Frm_types.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\supporter\ActorDriver.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\ex\GgafDxAABActor.cpp"
+			RelativePath=".\src\jp\ggaf\dx\util\AllocHierarchy.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\ex\GgafDxAABActor.h"
+			RelativePath=".\include\jp\ggaf\dx\util\AllocHierarchy.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\ex\GgafDxAAPrismActor.cpp"
+			RelativePath=".\src\jp\ggaf\dx\scene\supporter\AlphaCurtain.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\ex\GgafDxAAPrismActor.h"
+			RelativePath=".\include\jp\ggaf\dx\scene\supporter\AlphaCurtain.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\ex\GgafDxAAPyramidActor.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\supporter\AlphaFader.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\ex\GgafDxAAPyramidActor.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\supporter\AlphaFader.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\util\GgafDxAllocHierarchy.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\BaseActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\util\GgafDxAllocHierarchy.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\BaseActor.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\util\GgafDxAllocHierarchyWorldFrame.cpp"
+			RelativePath=".\src\jp\ggaf\dx\sound\Bgm.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\util\GgafDxAllocHierarchyWorldFrame.h"
+			RelativePath=".\include\jp\ggaf\dx\sound\Bgm.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\scene\supporter\GgafDxAlphaCurtain.cpp"
+			RelativePath=".\src\jp\ggaf\dx\sound\BgmConductor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\scene\supporter\GgafDxAlphaCurtain.h"
+			RelativePath=".\include\jp\ggaf\dx\sound\BgmConductor.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\supporter\GgafDxAlphaFader.cpp"
+			RelativePath=".\src\jp\ggaf\dx\manager\BgmConnection.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\supporter\GgafDxAlphaFader.h"
+			RelativePath=".\include\jp\ggaf\dx\manager\BgmConnection.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\supporter\GgafDxAxesMover.cpp"
+			RelativePath=".\src\jp\ggaf\dx\manager\BgmManager.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\supporter\GgafDxAxesMover.h"
+			RelativePath=".\include\jp\ggaf\dx\manager\BgmManager.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\supporter\GgafDxAxesMoverAssistantA.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\BoardActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\supporter\GgafDxAxesMoverAssistantA.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\BoardActor.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\GgafDxBaseActor.cpp"
+			RelativePath=".\src\jp\ggaf\dx\effect\BoardEffect.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\GgafDxBaseActor.h"
+			RelativePath=".\include\jp\ggaf\dx\effect\BoardEffect.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\sound\GgafDxBgm.cpp"
+			RelativePath=".\src\jp\ggaf\dx\model\BoardModel.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\sound\GgafDxBgm.h"
+			RelativePath=".\include\jp\ggaf\dx\model\BoardModel.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\sound\GgafDxBgmConductor.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\BoardSetActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\sound\GgafDxBgmConductor.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\BoardSetActor.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\manager\GgafDxBgmConnection.cpp"
+			RelativePath=".\src\jp\ggaf\dx\effect\BoardSetEffect.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\manager\GgafDxBgmConnection.h"
+			RelativePath=".\include\jp\ggaf\dx\effect\BoardSetEffect.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\manager\GgafDxBgmManager.cpp"
+			RelativePath=".\src\jp\ggaf\dx\model\BoardSetModel.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\manager\GgafDxBgmManager.h"
+			RelativePath=".\include\jp\ggaf\dx\model\BoardSetModel.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\GgafDxBoardActor.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\BoneAniMeshActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\GgafDxBoardActor.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\BoneAniMeshActor.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\effect\GgafDxBoardEffect.cpp"
+			RelativePath=".\src\jp\ggaf\dx\util\BoneAniMeshAllocHierarchy.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\effect\GgafDxBoardEffect.h"
+			RelativePath=".\include\jp\ggaf\dx\util\BoneAniMeshAllocHierarchy.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\model\GgafDxBoardModel.cpp"
+			RelativePath=".\include\jp\ggaf\dx\util\BoneAniMeshContainer.h"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\model\GgafDxBoardModel.h"
+			RelativePath=".\src\jp\ggaf\dx\effect\BoneAniMeshEffect.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\GgafDxBoardSetActor.cpp"
+			RelativePath=".\include\jp\ggaf\dx\effect\BoneAniMeshEffect.h"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\GgafDxBoardSetActor.h"
+			RelativePath=".\include\jp\ggaf\dx\util\BoneAniMeshFrame.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\effect\GgafDxBoardSetEffect.cpp"
+			RelativePath=".\src\jp\ggaf\dx\model\BoneAniMeshModel.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\effect\GgafDxBoardSetEffect.h"
+			RelativePath=".\include\jp\ggaf\dx\model\BoneAniMeshModel.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\model\GgafDxBoardSetModel.cpp"
+			RelativePath=".\src\jp\ggaf\dx\util\BoneAniMeshWorldMatStack.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\model\GgafDxBoardSetModel.h"
+			RelativePath=".\include\jp\ggaf\dx\util\BoneAniMeshWorldMatStack.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\camera\GgafDxCamera.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\camera\Camera.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\camera\GgafDxCamera.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\camera\Camera.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\camera\GgafDxCameraUpVector.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\camera\CameraUpVector.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\camera\GgafDxCameraUpVector.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\camera\CameraUpVector.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\camera\GgafDxCameraViewPoint.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\camera\CameraViewPoint.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\camera\GgafDxCameraViewPoint.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\camera\CameraViewPoint.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\supporter\GgafDxChecker.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\supporter\Checker.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\supporter\GgafDxChecker.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\supporter\Checker.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\util\GgafDxCollisionArea.cpp"
+			RelativePath=".\src\jp\ggaf\dx\util\CollisionArea.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\util\GgafDxCollisionArea.h"
+			RelativePath=".\include\jp\ggaf\dx\util\CollisionArea.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\util\GgafDxCollisionPart.cpp"
+			RelativePath=".\src\jp\ggaf\dx\util\CollisionPart.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\util\GgafDxCollisionPart.h"
+			RelativePath=".\include\jp\ggaf\dx\util\CollisionPart.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\supporter\GgafDxColorist.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\supporter\Colorist.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\supporter\GgafDxColorist.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\supporter\Colorist.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\Config.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\Config.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\exception\CriticalException.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\exception\CriticalException.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\actor\ex\CubeMapMeshActor.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\actor\ex\CubeMapMeshActor.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\effect\ex\CubeMapMeshEffect.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\effect\ex\CubeMapMeshEffect.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\model\ex\CubeMapMeshModel.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\model\ex\CubeMapMeshModel.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\actor\ex\CubeMapMeshSetActor.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\actor\ex\CubeMapMeshSetActor.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\effect\ex\CubeMapMeshSetEffect.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\effect\ex\CubeMapMeshSetEffect.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\model\ex\CubeMapMeshSetModel.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\model\ex\CubeMapMeshSetModel.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\actor\ex\CubeMapMorphMeshActor.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\actor\ex\CubeMapMorphMeshActor.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\effect\ex\CubeMapMorphMeshEffect.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\effect\ex\CubeMapMorphMeshEffect.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\model\ex\CubeMapMorphMeshModel.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\model\ex\CubeMapMorphMeshModel.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\util\curve\CurveManufacture.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\util\curve\CurveManufacture.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\manager\CurveManufactureConnection.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\manager\CurveManufactureConnection.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\manager\CurveManufactureManager.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\manager\CurveManufactureManager.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\util\curve\CurveSource.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\util\curve\CurveSource.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\manager\CurveSourceConnection.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\manager\CurveSourceConnection.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\manager\CurveSourceManager.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\manager\CurveSourceManager.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\sound\CWaveDecorder.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\sound\CWaveDecorder.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\actor\D3DXAniMeshActor.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\actor\D3DXAniMeshActor.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\effect\D3DXAniMeshEffect.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\effect\D3DXAniMeshEffect.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\model\D3DXAniMeshModel.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\model\D3DXAniMeshModel.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\actor\D3DXMeshActor.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\actor\D3DXMeshActor.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\model\D3DXMeshModel.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\model\D3DXMeshModel.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\util\curve\DriverLeader.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\util\curve\DriverLeader.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\actor\DynaD3DXMeshActor.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\actor\DynaD3DXMeshActor.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\effect\Effect.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\effect\Effect.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\manager\EffectConnection.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\manager\EffectConnection.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\manager\EffectManager.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\manager\EffectManager.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\actor\FigureActor.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\actor\FigureActor.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\util\curve\FixedFrameCurveGeoDriverLeader.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\util\curve\FixedFrameCurveGeoDriverLeader.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\util\curve\FixedFrameCurveManufacture.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\util\curve\FixedFrameCurveManufacture.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\util\curve\FixedFrameCurveVecDriverLeader.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\util\curve\FixedFrameCurveVecDriverLeader.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\util\curve\FixedVelocityCurveManufacture.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\util\curve\FixedVelocityCurveManufacture.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\util\curve\FixedVelocityCurveVecDriverLeader.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\util\curve\FixedVelocityCurveVecDriverLeader.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\actor\ex\FkFormation.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\actor\ex\FkFormation.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\actor\FramedBoardActor.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\actor\FramedBoardActor.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\effect\FramedBoardEffect.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\effect\FramedBoardEffect.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\model\FramedBoardModel.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\model\FramedBoardModel.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\actor\FramedSpriteActor.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\actor\FramedSpriteActor.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\effect\FramedSpriteEffect.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\effect\FramedSpriteEffect.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\model\FramedSpriteModel.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\model\FramedSpriteModel.h"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\util\XFile\framework\Frm_3DMath.h"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\util\XFile\framework\Frm_IO.h"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\util\XFile\framework\Frm_Material.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\util\XFile\framework\Frm_Mesh.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\util\XFile\framework\Frm_Mesh.h"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\util\XFile\framework\Frm_types.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\actor\supporter\GeoDriver.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\actor\supporter\GeoDriver.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\actor\supporter\GeoDriverAssistantA.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\actor\supporter\GeoDriverAssistantA.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\util\GeoElem.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\util\GeoElem.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\dx\actor\GeometricActor.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\dx\actor\GeometricActor.h"
 			>
 		</File>
 		<File
@@ -417,891 +801,783 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\GgafDxConfig.cpp"
+			RelativePath=".\src\jp\ggaf\dx\God.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\GgafDxConfig.h"
+			RelativePath=".\include\jp\ggaf\dx\God.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\exception\GgafDxCriticalException.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\interface\IBumpMapActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\exception\GgafDxCriticalException.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\interface\IBumpMapActor.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\ex\GgafDxCubeMapMeshActor.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\interface\ICubeMapActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\ex\GgafDxCubeMapMeshActor.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\interface\ICubeMapActor.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\effect\ex\GgafDxCubeMapMeshEffect.cpp"
+			RelativePath=".\src\jp\ggaf\dx\util\Input.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\effect\ex\GgafDxCubeMapMeshEffect.h"
+			RelativePath=".\include\jp\ggaf\dx\util\Input.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\model\ex\GgafDxCubeMapMeshModel.cpp"
+			RelativePath=".\src\jp\ggaf\dx\util\XFile\Toolbox\ioModel_X.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\model\ex\GgafDxCubeMapMeshModel.h"
+			RelativePath=".\include\jp\ggaf\dx\util\XFile\Toolbox\IOModel_X.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\ex\GgafDxCubeMapMeshSetActor.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\MassActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\ex\GgafDxCubeMapMeshSetActor.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\MassActor.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\effect\ex\GgafDxCubeMapMeshSetEffect.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\MassBoardActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\effect\ex\GgafDxCubeMapMeshSetEffect.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\MassBoardActor.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\model\ex\GgafDxCubeMapMeshSetModel.cpp"
+			RelativePath=".\src\jp\ggaf\dx\effect\MassBoardEffect.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\model\ex\GgafDxCubeMapMeshSetModel.h"
+			RelativePath=".\include\jp\ggaf\dx\effect\MassBoardEffect.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\ex\GgafDxCubeMapMorphMeshActor.cpp"
+			RelativePath=".\src\jp\ggaf\dx\model\MassBoardModel.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\ex\GgafDxCubeMapMorphMeshActor.h"
+			RelativePath=".\include\jp\ggaf\dx\model\MassBoardModel.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\effect\ex\GgafDxCubeMapMorphMeshEffect.cpp"
+			RelativePath=".\src\jp\ggaf\dx\effect\MassEffect.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\effect\ex\GgafDxCubeMapMorphMeshEffect.h"
+			RelativePath=".\include\jp\ggaf\dx\effect\MassEffect.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\model\ex\GgafDxCubeMapMorphMeshModel.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\MassMeshActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\model\ex\GgafDxCubeMapMorphMeshModel.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\MassMeshActor.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\GgafDxD3DXAniMeshActor.cpp"
+			RelativePath=".\src\jp\ggaf\dx\effect\MassMeshEffect.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\GgafDxD3DXAniMeshActor.h"
+			RelativePath=".\include\jp\ggaf\dx\effect\MassMeshEffect.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\effect\GgafDxD3DXAniMeshEffect.cpp"
+			RelativePath=".\src\jp\ggaf\dx\model\MassMeshModel.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\effect\GgafDxD3DXAniMeshEffect.h"
+			RelativePath=".\include\jp\ggaf\dx\model\MassMeshModel.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\model\GgafDxD3DXAniMeshModel.cpp"
+			RelativePath=".\src\jp\ggaf\dx\model\MassModel.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\model\GgafDxD3DXAniMeshModel.h"
+			RelativePath=".\include\jp\ggaf\dx\model\MassModel.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\GgafDxD3DXMeshActor.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\MassMorphMeshActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\GgafDxD3DXMeshActor.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\MassMorphMeshActor.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\model\GgafDxD3DXMeshModel.cpp"
+			RelativePath=".\src\jp\ggaf\dx\effect\MassMorphMeshEffect.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\model\GgafDxD3DXMeshModel.h"
+			RelativePath=".\include\jp\ggaf\dx\effect\MassMorphMeshEffect.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\GgafDxDynaD3DXMeshActor.cpp"
+			RelativePath=".\src\jp\ggaf\dx\model\MassMorphMeshModel.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\GgafDxDynaD3DXMeshActor.h"
+			RelativePath=".\include\jp\ggaf\dx\model\MassMorphMeshModel.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\effect\GgafDxEffect.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\MassPointSpriteActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\effect\GgafDxEffect.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\MassPointSpriteActor.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\manager\GgafDxEffectConnection.cpp"
+			RelativePath=".\src\jp\ggaf\dx\effect\MassPointSpriteEffect.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\manager\GgafDxEffectConnection.h"
+			RelativePath=".\include\jp\ggaf\dx\effect\MassPointSpriteEffect.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\manager\GgafDxEffectManager.cpp"
+			RelativePath=".\src\jp\ggaf\dx\model\MassPointSpriteModel.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\manager\GgafDxEffectManager.h"
+			RelativePath=".\include\jp\ggaf\dx\model\MassPointSpriteModel.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\GgafDxFigureActor.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\MassSpriteActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\GgafDxFigureActor.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\MassSpriteActor.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\ex\GgafDxFkFormation.cpp"
+			RelativePath=".\src\jp\ggaf\dx\effect\MassSpriteEffect.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\ex\GgafDxFkFormation.h"
+			RelativePath=".\include\jp\ggaf\dx\effect\MassSpriteEffect.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\GgafDxFramedBoardActor.cpp"
+			RelativePath=".\src\jp\ggaf\dx\model\MassSpriteModel.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\GgafDxFramedBoardActor.h"
+			RelativePath=".\include\jp\ggaf\dx\model\MassSpriteModel.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\effect\GgafDxFramedBoardEffect.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\MeshActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\effect\GgafDxFramedBoardEffect.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\MeshActor.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\model\GgafDxFramedBoardModel.cpp"
+			RelativePath=".\src\jp\ggaf\dx\effect\MeshEffect.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\model\GgafDxFramedBoardModel.h"
+			RelativePath=".\include\jp\ggaf\dx\effect\MeshEffect.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\util\GgafDxGeoElem.cpp"
+			RelativePath=".\src\jp\ggaf\dx\model\MeshModel.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\util\GgafDxGeoElem.h"
+			RelativePath=".\include\jp\ggaf\dx\model\MeshModel.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\GgafDxGeometricActor.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\MeshSetActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\GgafDxGeometricActor.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\MeshSetActor.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\GgafDxGod.cpp"
+			RelativePath=".\src\jp\ggaf\dx\effect\MeshSetEffect.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\GgafDxGod.h"
+			RelativePath=".\include\jp\ggaf\dx\effect\MeshSetEffect.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\interface\GgafDxIBumpMapActor.cpp"
+			RelativePath=".\src\jp\ggaf\dx\model\MeshSetModel.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\interface\GgafDxIBumpMapActor.h"
+			RelativePath=".\include\jp\ggaf\dx\model\MeshSetModel.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\interface\GgafDxICubeMapActor.cpp"
+			RelativePath=".\src\jp\ggaf\dx\model\Model.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\interface\GgafDxICubeMapActor.h"
+			RelativePath=".\include\jp\ggaf\dx\model\Model.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\util\GgafDxInput.cpp"
+			RelativePath=".\src\jp\ggaf\dx\manager\ModelConnection.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\util\GgafDxInput.h"
+			RelativePath=".\include\jp\ggaf\dx\manager\ModelConnection.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\supporter\GgafDxKuroko.cpp"
+			RelativePath=".\src\jp\ggaf\dx\manager\ModelManager.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\supporter\GgafDxKuroko.h"
+			RelativePath=".\include\jp\ggaf\dx\manager\ModelManager.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\supporter\GgafDxKurokoFaceAngAssistant.cpp"
+			RelativePath=".\include\jp\ggaf\dx\actor\supporter\Morpher.hpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\supporter\GgafDxKurokoFaceAngAssistant.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\supporter\MorpherAssistantA.hpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\supporter\GgafDxKurokoMvAngAssistant.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\MorphMeshActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\supporter\GgafDxKurokoMvAngAssistant.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\MorphMeshActor.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\supporter\GgafDxKurokoMvAssistant.cpp"
+			RelativePath=".\src\jp\ggaf\dx\effect\MorphMeshEffect.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\supporter\GgafDxKurokoMvAssistant.h"
+			RelativePath=".\include\jp\ggaf\dx\effect\MorphMeshEffect.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\GgafDxMassActor.cpp"
+			RelativePath=".\src\jp\ggaf\dx\model\MorphMeshModel.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\GgafDxMassActor.h"
+			RelativePath=".\include\jp\ggaf\dx\model\MorphMeshModel.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\GgafDxMassBoardActor.cpp"
+			RelativePath=".\src\jp\ggaf\dx\sound\IkdLib\OggDecoder.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\GgafDxMassBoardActor.h"
+			RelativePath=".\include\jp\ggaf\dx\sound\IkdLib\OggDecoder.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\effect\GgafDxMassBoardEffect.cpp"
+			RelativePath=".\src\jp\ggaf\dx\sound\IkdLib\OggVorbisFile.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\effect\GgafDxMassBoardEffect.h"
+			RelativePath=".\include\jp\ggaf\dx\sound\IkdLib\OggVorbisFile.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\model\GgafDxMassBoardModel.cpp"
+			RelativePath=".\src\jp\ggaf\dx\sound\IkdLib\OggVorbisMemory.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\model\GgafDxMassBoardModel.h"
+			RelativePath=".\include\jp\ggaf\dx\sound\IkdLib\OggVorbisMemory.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\effect\GgafDxMassEffect.cpp"
+			RelativePath=".\include\jp\ggaf\dx\sound\IkdLib\OggVorbisResource.h"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\effect\GgafDxMassEffect.h"
+			RelativePath=".\src\jp\ggaf\dx\sound\IkdLib\PCMDecoder.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\GgafDxMassMeshActor.cpp"
+			RelativePath=".\include\jp\ggaf\dx\sound\IkdLib\PCMDecoder.h"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\GgafDxMassMeshActor.h"
+			RelativePath=".\src\jp\ggaf\dx\sound\IkdLib\PCMPlayer.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\effect\GgafDxMassMeshEffect.cpp"
+			RelativePath=".\include\jp\ggaf\dx\sound\IkdLib\PCMPlayer.h"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\effect\GgafDxMassMeshEffect.h"
+			RelativePath=".\src\jp\ggaf\dx\actor\PointSpriteActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\model\GgafDxMassMeshModel.cpp"
+			RelativePath=".\include\jp\ggaf\dx\actor\PointSpriteActor.h"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\model\GgafDxMassMeshModel.h"
+			RelativePath=".\src\jp\ggaf\dx\effect\PointSpriteEffect.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\model\GgafDxMassModel.cpp"
+			RelativePath=".\include\jp\ggaf\dx\effect\PointSpriteEffect.h"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\model\GgafDxMassModel.h"
+			RelativePath=".\src\jp\ggaf\dx\model\PointSpriteModel.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\GgafDxMassMorphMeshActor.cpp"
+			RelativePath=".\include\jp\ggaf\dx\model\PointSpriteModel.h"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\GgafDxMassMorphMeshActor.h"
+			RelativePath=".\src\jp\ggaf\dx\actor\PointSpriteSetActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\effect\GgafDxMassMorphMeshEffect.cpp"
+			RelativePath=".\include\jp\ggaf\dx\actor\PointSpriteSetActor.h"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\effect\GgafDxMassMorphMeshEffect.h"
+			RelativePath=".\src\jp\ggaf\dx\effect\PointSpriteSetEffect.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\model\GgafDxMassMorphMeshModel.cpp"
+			RelativePath=".\include\jp\ggaf\dx\effect\PointSpriteSetEffect.h"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\model\GgafDxMassMorphMeshModel.h"
+			RelativePath=".\src\jp\ggaf\dx\model\PointSpriteSetModel.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\GgafDxMassPointSpriteActor.cpp"
+			RelativePath=".\include\jp\ggaf\dx\model\PointSpriteSetModel.h"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\GgafDxMassPointSpriteActor.h"
+			RelativePath=".\src\jp\ggaf\dx\actor\supporter\Puppeteer.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\effect\GgafDxMassPointSpriteEffect.cpp"
+			RelativePath=".\include\jp\ggaf\dx\actor\supporter\Puppeteer.h"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\effect\GgafDxMassPointSpriteEffect.h"
+			RelativePath=".\src\jp\ggaf\dx\actor\RegularPolygonBoardActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\model\GgafDxMassPointSpriteModel.cpp"
+			RelativePath=".\include\jp\ggaf\dx\actor\RegularPolygonBoardActor.h"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\model\GgafDxMassPointSpriteModel.h"
+			RelativePath=".\src\jp\ggaf\dx\effect\RegularPolygonBoardEffect.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\GgafDxMassSpriteActor.cpp"
+			RelativePath=".\include\jp\ggaf\dx\effect\RegularPolygonBoardEffect.h"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\GgafDxMassSpriteActor.h"
+			RelativePath=".\src\jp\ggaf\dx\model\RegularPolygonBoardModel.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\effect\GgafDxMassSpriteEffect.cpp"
+			RelativePath=".\include\jp\ggaf\dx\model\RegularPolygonBoardModel.h"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\effect\GgafDxMassSpriteEffect.h"
+			RelativePath=".\src\jp\ggaf\dx\actor\RegularPolygonSpriteActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\model\GgafDxMassSpriteModel.cpp"
+			RelativePath=".\include\jp\ggaf\dx\actor\RegularPolygonSpriteActor.h"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\model\GgafDxMassSpriteModel.h"
+			RelativePath=".\src\jp\ggaf\dx\effect\RegularPolygonSpriteEffect.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\GgafDxMeshActor.cpp"
+			RelativePath=".\include\jp\ggaf\dx\effect\RegularPolygonSpriteEffect.h"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\GgafDxMeshActor.h"
+			RelativePath=".\src\jp\ggaf\dx\model\RegularPolygonSpriteModel.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\effect\GgafDxMeshEffect.cpp"
+			RelativePath=".\include\jp\ggaf\dx\model\RegularPolygonSpriteModel.h"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\effect\GgafDxMeshEffect.h"
+			RelativePath=".\MSVC_include\sal.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\model\GgafDxMeshModel.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\supporter\Scaler.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\model\GgafDxMeshModel.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\supporter\Scaler.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\GgafDxMeshSetActor.cpp"
+			RelativePath=".\src\jp\ggaf\dx\scene\Scene.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\GgafDxMeshSetActor.h"
+			RelativePath=".\include\jp\ggaf\dx\scene\Scene.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\effect\GgafDxMeshSetEffect.cpp"
+			RelativePath=".\src\jp\ggaf\dx\scene\supporter\SceneCurtain.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\effect\GgafDxMeshSetEffect.h"
+			RelativePath=".\include\jp\ggaf\dx\scene\supporter\SceneCurtain.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\model\GgafDxMeshSetModel.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\SceneMediator.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\model\GgafDxMeshSetModel.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\SceneMediator.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\model\GgafDxModel.cpp"
+			RelativePath=".\src\jp\ggaf\dx\sound\Se.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\model\GgafDxModel.h"
+			RelativePath=".\include\jp\ggaf\dx\sound\Se.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\manager\GgafDxModelConnection.cpp"
+			RelativePath=".\src\jp\ggaf\dx\manager\SeConnection.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\manager\GgafDxModelConnection.h"
+			RelativePath=".\include\jp\ggaf\dx\manager\SeConnection.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\manager\GgafDxModelManager.cpp"
+			RelativePath=".\src\jp\ggaf\dx\manager\SeManager.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\manager\GgafDxModelManager.h"
+			RelativePath=".\include\jp\ggaf\dx\manager\SeManager.h"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\supporter\GgafDxMorpher.hpp"
+			RelativePath=".\src\jp\ggaf\dx\sound\SeTransmitter.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\supporter\GgafDxMorpherAssistantA.hpp"
+			RelativePath=".\include\jp\ggaf\dx\sound\SeTransmitter.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\GgafDxMorphMeshActor.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\supporter\SeTransmitterForActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\GgafDxMorphMeshActor.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\supporter\SeTransmitterForActor.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\effect\GgafDxMorphMeshEffect.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\SkinAniMeshActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\effect\GgafDxMorphMeshEffect.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\SkinAniMeshActor.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\model\GgafDxMorphMeshModel.cpp"
+			RelativePath=".\src\jp\ggaf\dx\util\SkinAniMeshAllocHierarchy.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\model\GgafDxMorphMeshModel.h"
+			RelativePath=".\include\jp\ggaf\dx\util\SkinAniMeshAllocHierarchy.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\GgafDxPointSpriteActor.cpp"
+			RelativePath=".\include\jp\ggaf\dx\util\SkinAniMeshContainer.h"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\GgafDxPointSpriteActor.h"
+			RelativePath=".\src\jp\ggaf\dx\effect\SkinAniMeshEffect.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\effect\GgafDxPointSpriteEffect.cpp"
+			RelativePath=".\include\jp\ggaf\dx\effect\SkinAniMeshEffect.h"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\effect\GgafDxPointSpriteEffect.h"
+			RelativePath=".\include\jp\ggaf\dx\util\SkinAniMeshFrame.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\model\GgafDxPointSpriteModel.cpp"
+			RelativePath=".\src\jp\ggaf\dx\model\SkinAniMeshModel.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\model\GgafDxPointSpriteModel.h"
+			RelativePath=".\include\jp\ggaf\dx\model\SkinAniMeshModel.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\GgafDxPointSpriteSetActor.cpp"
+			RelativePath=".\src\jp\ggaf\dx\util\SkinAniMeshWorldMatStack.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\GgafDxPointSpriteSetActor.h"
+			RelativePath=".\include\jp\ggaf\dx\util\SkinAniMeshWorldMatStack.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\effect\GgafDxPointSpriteSetEffect.cpp"
+			RelativePath=".\src\jp\ggaf\dx\sound\Sound.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\effect\GgafDxPointSpriteSetEffect.h"
+			RelativePath=".\include\jp\ggaf\dx\sound\Sound.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\model\GgafDxPointSpriteSetModel.cpp"
+			RelativePath=".\src\jp\ggaf\dx\scene\Spacetime.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\model\GgafDxPointSpriteSetModel.h"
+			RelativePath=".\include\jp\ggaf\dx\scene\Spacetime.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\supporter\GgafDxPuppeteer.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\ex\SphereActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\supporter\GgafDxPuppeteer.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\ex\SphereActor.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\supporter\GgafDxScaler.cpp"
+			RelativePath=".\src\jp\ggaf\dx\util\SphereRadiusVectors.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\supporter\GgafDxScaler.h"
+			RelativePath=".\include\jp\ggaf\dx\util\SphereRadiusVectors.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\scene\GgafDxScene.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\SpriteActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\scene\GgafDxScene.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\SpriteActor.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\scene\supporter\GgafDxSceneCurtain.cpp"
+			RelativePath=".\src\jp\ggaf\dx\effect\SpriteEffect.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\scene\supporter\GgafDxSceneCurtain.h"
+			RelativePath=".\include\jp\ggaf\dx\effect\SpriteEffect.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\GgafDxSceneMediator.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\ex\SpriteMeshActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\GgafDxSceneMediator.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\ex\SpriteMeshActor.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\sound\GgafDxSe.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\ex\SpriteMeshSetActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\sound\GgafDxSe.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\ex\SpriteMeshSetActor.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\manager\GgafDxSeConnection.cpp"
+			RelativePath=".\src\jp\ggaf\dx\model\SpriteModel.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\manager\GgafDxSeConnection.h"
+			RelativePath=".\include\jp\ggaf\dx\model\SpriteModel.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\manager\GgafDxSeManager.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\SpriteSetActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\manager\GgafDxSeManager.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\SpriteSetActor.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\sound\GgafDxSeTransmitter.cpp"
+			RelativePath=".\src\jp\ggaf\dx\effect\SpriteSetEffect.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\sound\GgafDxSeTransmitter.h"
+			RelativePath=".\include\jp\ggaf\dx\effect\SpriteSetEffect.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\supporter\GgafDxSeTransmitterForActor.cpp"
+			RelativePath=".\src\jp\ggaf\dx\model\SpriteSetModel.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\supporter\GgafDxSeTransmitterForActor.h"
+			RelativePath=".\include\jp\ggaf\dx\model\SpriteSetModel.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\sound\GgafDxSound.cpp"
+			RelativePath=".\src\jp\ggaf\dx\util\curve\SteppedCoordCurveManufacture.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\sound\GgafDxSound.h"
+			RelativePath=".\include\jp\ggaf\dx\util\curve\SteppedCoordCurveManufacture.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\scene\GgafDxSpacetime.cpp"
+			RelativePath=".\src\jp\ggaf\dx\util\curve\SteppedCoordCurveVecDriverLeader.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\scene\GgafDxSpacetime.h"
+			RelativePath=".\include\jp\ggaf\dx\util\curve\SteppedCoordCurveVecDriverLeader.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\ex\GgafDxSphereActor.cpp"
+			RelativePath=".\src\jp\ggaf\dx\texture\Texture.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\ex\GgafDxSphereActor.h"
+			RelativePath=".\include\jp\ggaf\dx\texture\Texture.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\util\GgafDxSphereRadiusVectors.cpp"
+			RelativePath=".\src\jp\ggaf\dx\model\supporter\TextureBlinker.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\util\GgafDxSphereRadiusVectors.h"
+			RelativePath=".\include\jp\ggaf\dx\model\supporter\TextureBlinker.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\GgafDxSpriteActor.cpp"
+			RelativePath=".\src\jp\ggaf\dx\manager\TextureConnection.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\GgafDxSpriteActor.h"
+			RelativePath=".\include\jp\ggaf\dx\manager\TextureConnection.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\effect\GgafDxSpriteEffect.cpp"
+			RelativePath=".\src\jp\ggaf\dx\manager\TextureManager.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\effect\GgafDxSpriteEffect.h"
+			RelativePath=".\include\jp\ggaf\dx\manager\TextureManager.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\ex\GgafDxSpriteMeshActor.cpp"
+			RelativePath=".\src\jp\ggaf\dx\util\Util.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\ex\GgafDxSpriteMeshActor.h"
+			RelativePath=".\include\jp\ggaf\dx\util\Util.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\ex\GgafDxSpriteMeshSetActor.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\supporter\UvFlipper.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\ex\GgafDxSpriteMeshSetActor.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\supporter\UvFlipper.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\model\GgafDxSpriteModel.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\supporter\VecDriver.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\model\GgafDxSpriteModel.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\supporter\VecDriver.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\GgafDxSpriteSetActor.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\supporter\VecDriverFaceAngAssistant.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\GgafDxSpriteSetActor.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\supporter\VecDriverFaceAngAssistant.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\effect\GgafDxSpriteSetEffect.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\supporter\VecDriverMvAngAssistant.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\effect\GgafDxSpriteSetEffect.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\supporter\VecDriverMvAngAssistant.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\model\GgafDxSpriteSetModel.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\supporter\VecDriverMvAssistant.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\model\GgafDxSpriteSetModel.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\supporter\VecDriverMvAssistant.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\texture\GgafDxTexture.cpp"
+			RelativePath=".\src\jp\ggaf\dx\actor\ex\WorldBoundActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\texture\GgafDxTexture.h"
+			RelativePath=".\include\jp\ggaf\dx\actor\ex\WorldBoundActor.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\model\supporter\GgafDxTextureBlinker.cpp"
+			RelativePath=".\src\jp\ggaf\dx\effect\ex\WorldBoundEffect.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\model\supporter\GgafDxTextureBlinker.h"
+			RelativePath=".\include\jp\ggaf\dx\effect\ex\WorldBoundEffect.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\manager\GgafDxTextureConnection.cpp"
+			RelativePath=".\src\jp\ggaf\dx\model\ex\WorldBoundModel.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dxcore\manager\GgafDxTextureConnection.h"
+			RelativePath=".\include\jp\ggaf\dx\model\ex\WorldBoundModel.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dxcore\manager\GgafDxTextureManager.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\dxcore\manager\GgafDxTextureManager.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\dxcore\util\GgafDxUtil.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\dxcore\util\GgafDxUtil.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\supporter\GgafDxUvFlipper.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\supporter\GgafDxUvFlipper.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\dxcore\actor\ex\GgafDxWorldBoundActor.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\dxcore\actor\ex\GgafDxWorldBoundActor.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\dxcore\effect\ex\GgafDxWorldBoundEffect.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\dxcore\effect\ex\GgafDxWorldBoundEffect.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\dxcore\model\ex\GgafDxWorldBoundModel.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\dxcore\model\ex\GgafDxWorldBoundModel.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\dxcore\util\GgafDxWorldMatStack.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\dxcore\util\GgafDxWorldMatStack.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\dxcore\util\XFile\Toolbox\ioModel_X.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\dxcore\util\XFile\Toolbox\IOModel_X.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\dxcore\sound\IkdLib\OggDecoder.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\dxcore\sound\IkdLib\OggDecoder.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\dxcore\sound\IkdLib\OggVorbisFile.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\dxcore\sound\IkdLib\OggVorbisFile.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\dxcore\sound\IkdLib\OggVorbisMemory.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\dxcore\sound\IkdLib\OggVorbisMemory.h"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\dxcore\sound\IkdLib\OggVorbisResource.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\dxcore\sound\IkdLib\PCMDecoder.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\dxcore\sound\IkdLib\PCMDecoder.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\dxcore\sound\IkdLib\PCMPlayer.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\dxcore\sound\IkdLib\PCMPlayer.h"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\dxcore\util\XFile\Toolbox\XFileStructs.h"
+			RelativePath=".\include\jp\ggaf\dx\util\XFile\Toolbox\XFileStructs.h"
 			>
 		</File>
 	</Files>

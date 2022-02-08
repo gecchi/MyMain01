@@ -181,6 +181,30 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\jp\ggaf\lib\actor\camera\CameraWorkerChanger.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\lib\actor\camera\CameraWorkerChanger.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\lib\manager\CameraWorkerConnection.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\lib\manager\CameraWorkerConnection.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\lib\manager\CameraWorkerManager.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\lib\manager\CameraWorkerManager.h"
+			>
+		</File>
+		<File
 			RelativePath=".\src\jp\ggaf\lib\actor\CappedGraphBarActor.cpp"
 			>
 		</File>
@@ -325,6 +349,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\jp\ggaf\lib\actor\DefaultBoneAniMeshActor.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\lib\actor\DefaultBoneAniMeshActor.h"
+			>
+		</File>
+		<File
 			RelativePath=".\src\jp\ggaf\lib\actor\camera\DefaultCamera.cpp"
 			>
 		</File>
@@ -346,6 +378,14 @@
 		</File>
 		<File
 			RelativePath=".\include\jp\ggaf\lib\actor\camera\DefaultCameraViewPoint.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\lib\actor\camera\worker\DefaultCamWorker.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\lib\actor\camera\worker\DefaultCamWorker.h"
 			>
 		</File>
 		<File
@@ -386,6 +426,14 @@
 		</File>
 		<File
 			RelativePath=".\include\jp\ggaf\lib\actor\DefaultFramedBoardActor.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\lib\actor\DefaultFramedSpriteActor.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\lib\actor\DefaultFramedSpriteActor.h"
 			>
 		</File>
 		<File
@@ -461,6 +509,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\jp\ggaf\lib\manager\DefaultModelManager.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\lib\manager\DefaultModelManager.h"
+			>
+		</File>
+		<File
 			RelativePath=".\src\jp\ggaf\lib\actor\DefaultMorphMeshActor.cpp"
 			>
 		</File>
@@ -485,6 +541,22 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\jp\ggaf\lib\actor\DefaultRegularPolygonBoardActor.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\lib\actor\DefaultRegularPolygonBoardActor.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\lib\actor\DefaultRegularPolygonSpriteActor.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\lib\actor\DefaultRegularPolygonSpriteActor.h"
+			>
+		</File>
+		<File
 			RelativePath=".\src\jp\ggaf\lib\scene\DefaultScene.cpp"
 			>
 		</File>
@@ -498,6 +570,14 @@
 		</File>
 		<File
 			RelativePath=".\include\jp\ggaf\lib\actor\DefaultSceneMediator.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\lib\actor\DefaultSkinAniMeshActor.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\lib\actor\DefaultSkinAniMeshActor.h"
 			>
 		</File>
 		<File
@@ -549,46 +629,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\lib\util\spline\FixedFrameSplineAxesMoverLeader.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\lib\util\spline\FixedFrameSplineAxesMoverLeader.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\lib\util\spline\FixedFrameSplineKurokoLeader.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\lib\util\spline\FixedFrameSplineKurokoLeader.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\lib\util\spline\FixedFrameSplineManufacture.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\lib\util\spline\FixedFrameSplineManufacture.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\lib\util\spline\FixedVelocitySplineKurokoLeader.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\lib\util\spline\FixedVelocitySplineKurokoLeader.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\lib\util\spline\FixedVelocitySplineManufacture.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\lib\util\spline\FixedVelocitySplineManufacture.h"
-			>
-		</File>
-		<File
 			RelativePath=".\src\jp\ggaf\lib\actor\FkFormation.cpp"
 			>
 		</File>
@@ -637,14 +677,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\lib\GgafLibConfig.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\lib\GgafLibConfig.h"
-			>
-		</File>
-		<File
 			RelativePath=".\src\jp\ggaf\lib\actor\GraphBarActor.cpp"
 			>
 		</File>
@@ -681,6 +713,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\jp\ggaf\lib\LibConfig.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\lib\LibConfig.h"
+			>
+		</File>
+		<File
 			RelativePath=".\src\jp\ggaf\lib\actor\wall\MassWallActor.cpp"
 			>
 		</File>
@@ -706,6 +746,14 @@
 		</File>
 		<File
 			RelativePath=".\include\jp\ggaf\lib\actor\laserchip\NomalLaserChip.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\lib\actor\PieGraphSpriteActor.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\lib\actor\PieGraphSpriteActor.h"
 			>
 		</File>
 		<File
@@ -749,59 +797,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\lib\util\spline\SplineLeader.cpp"
+			RelativePath=".\src\jp\ggaf\lib\model\SingleLaserModel.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\lib\util\spline\SplineLeader.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\lib\util\spline\SplineManufacture.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\lib\util\spline\SplineManufacture.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\lib\manager\SplineManufactureConnection.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\lib\manager\SplineManufactureConnection.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\lib\manager\SplineManufactureManager.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\lib\manager\SplineManufactureManager.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\lib\util\spline\SplineSource.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\lib\util\spline\SplineSource.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\lib\manager\SplineSourceConnection.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\lib\manager\SplineSourceConnection.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\lib\manager\SplineSourceManager.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\lib\manager\SplineSourceManager.h"
+			RelativePath=".\include\jp\ggaf\lib\model\SingleLaserModel.h"
 			>
 		</File>
 		<File
@@ -826,22 +826,6 @@
 		</File>
 		<File
 			RelativePath=".\include\jp\ggaf\lib\actor\SpriteMeshWorldBoundActor.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\lib\util\spline\SteppedCoordSplineKurokoLeader.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\lib\util\spline\SteppedCoordSplineKurokoLeader.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\lib\util\spline\SteppedCoordSplineManufacture.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\lib\util\spline\SteppedCoordSplineManufacture.h"
 			>
 		</File>
 		<File

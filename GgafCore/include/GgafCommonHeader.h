@@ -435,3 +435,4 @@ class LinearTreeRounder;
 }
 
 #endif /*GGAFCOMMONHEADER_H_*/
+

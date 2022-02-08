@@ -243,22 +243,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\manager\CameraWorkerConnection.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\manager\CameraWorkerConnection.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\manager\CameraWorkerManager.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\manager\CameraWorkerManager.h"
-			>
-		</File>
-		<File
 			RelativePath=".\src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\CommonScene.cpp"
 			>
 		</File>
@@ -280,30 +264,6 @@
 		</File>
 		<File
 			RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\CostDispBar.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\CubeMapMeshSetTestActor.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\CubeMapMeshSetTestActor.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\CubeMapMeshTestActor.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\CubeMapMeshTestActor.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\CubeMapMorphMeshTestActor.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\CubeMapMorphMeshTestActor.h"
 			>
 		</File>
 		<File
@@ -395,6 +355,22 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\manager\CurveManufactureManagerEx.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\manager\CurveManufactureManagerEx.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\manager\CurveSourceManagerEx.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\manager\CurveSourceManagerEx.h"
+			>
+		</File>
+		<File
 			RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\DamageDispBar.cpp"
 			>
 		</File>
@@ -416,94 +392,6 @@
 		</File>
 		<File
 			RelativePath=".\src\jp\gecchi\VioletVreath\actor\danmaku\Alice\DanmakuAlice001.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultBoardSetTestActor.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultBoardSetTestActor.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultBoardTestActor.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultBoardTestActor.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\camera\worker\DefaultCamWorker.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\camera\worker\DefaultCamWorker.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultD3DXAniMeshTestActor.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultD3DXAniMeshTestActor.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultD3DXMeshTestActor.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultD3DXMeshTestActor.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultMeshSetTestActor.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultMeshSetTestActor.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultMeshTestActor.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultMeshTestActor.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultMorphMeshTestActor.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultMorphMeshTestActor.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultPointSpriteTestActor.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultPointSpriteTestActor.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultSpriteSetTestActor.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultSpriteSetTestActor.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultSpriteTestActor.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\DefaultSpriteTestActor.h"
 			>
 		</File>
 		<File
@@ -616,30 +504,6 @@
 		</File>
 		<File
 			RelativePath=".\src\jp\gecchi\VioletVreath\actor\effect\EffectLaserRefraction001.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\EffectLockon001.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\EffectLockon001.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\EffectLockon001_Main.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\EffectLockon001_Main.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\EffectLockon001_Sub.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\EffectLockon001_Sub.h"
 			>
 		</File>
 		<File
@@ -1895,14 +1759,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\HoshiBoshiTestActor.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\HoshiBoshiTestActor.h"
-			>
-		</File>
-		<File
 			RelativePath=".\src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshiTitle.cpp"
 			>
 		</File>
@@ -2031,19 +1887,35 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\LaserChipTestActor.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\LaserChipTestActor.h"
-			>
-		</File>
-		<File
 			RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\LaserMagic.cpp"
 			>
 		</File>
 		<File
 			RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\LaserMagic.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\LockonCursor001.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\LockonCursor001.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\LockonCursor001_Main.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\LockonCursor001_Main.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\LockonCursor001_Sub.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\LockonCursor001_Sub.h"
 			>
 		</File>
 		<File
@@ -2575,14 +2447,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\SingleLaserTestActor.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\SingleLaserTestActor.h"
-			>
-		</File>
-		<File
 			RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\SmileMagic.cpp"
 			>
 		</File>
@@ -2604,22 +2468,6 @@
 		</File>
 		<File
 			RelativePath=".\src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\SpeedMagic.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\manager\SplineManufactureManagerEx.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\manager\SplineManufactureManagerEx.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\manager\SplineSourceManagerEx.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\manager\SplineSourceManagerEx.h"
 			>
 		</File>
 		<File
@@ -2652,22 +2500,6 @@
 		</File>
 		<File
 			RelativePath=".\src\jp\gecchi\VioletVreath\actor\label\SpriteLabelTest.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\SpriteMeshSetTestActor.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\SpriteMeshSetTestActor.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\SpriteMeshTestActor.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\_predrawer\SpriteMeshTestActor.h"
 			>
 		</File>
 		<File
@@ -3039,14 +2871,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\camera\worker\VamSysCamWorker2.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath\actor\camera\worker\VamSysCamWorker2.h"
-			>
-		</File>
-		<File
 			RelativePath=".\src\jp\gecchi\VioletVreath\actor\enemy\Ratislavia\VarietyRatislavia001.cpp"
 			>
 		</File>
@@ -3079,10 +2903,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\Version.h"
-			>
-		</File>
-		<File
 			RelativePath=".\src\jp\gecchi\VioletVreath\actor\ViewPointGuide.cpp"
 			>
 		</File>
@@ -3096,6 +2916,10 @@
 		</File>
 		<File
 			RelativePath=".\src\VioletVreath.h"
+			>
+		</File>
+		<File
+			RelativePath=".\VioletVreath.ico"
 			>
 		</File>
 		<File
@@ -3135,11 +2959,47 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\VvActor.hpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\camera\VVCameraWorkerChanger.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\camera\VVCameraWorkerChanger.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\VvChikeiActor.hpp"
+			>
+		</File>
+		<File
 			RelativePath=".\src\jp\gecchi\VioletVreath\actor\VVCommonActorsHeader.h"
 			>
 		</File>
 		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\VvEffectActor.hpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\VvEnemyActor.hpp"
+			>
+		</File>
+		<File
 			RelativePath=".\src\jp\gecchi\VioletVreath\actor\VVEnemysHeader.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\VvItemActor.hpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\actor\VvMyActor.hpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\gecchi\VioletVreath\scene\VvScene.hpp"
 			>
 		</File>
 		<File

@@ -2,7 +2,17 @@
 #define GGAF_CORE_PROGRESS_H_
 #include "GgafCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
-#include <unordered_map>
+
+#ifdef _MSC_VER
+    #if _MSC_VER < 1600
+        #include <map>
+        #define unordered_map map
+    #else
+        #include <unordered_map>
+    #endif
+#else
+        #include <unordered_map>
+#endif
 
 #define PROGRESS_NOTHING (-1)
 #define PROGRESS_NULL (-2)

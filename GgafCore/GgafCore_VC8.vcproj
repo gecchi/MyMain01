@@ -164,11 +164,79 @@
 	</References>
 	<Files>
 		<File
+			RelativePath=".\src\jp\ggaf\core\actor\Actor.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\core\actor\Actor.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\core\actor\ex\ActorDepository.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\core\actor\ex\ActorDepository.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\core\actor\ex\ActorDepositoryStore.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\core\actor\ex\ActorDepositoryStore.h"
+			>
+		</File>
+		<File
 			RelativePath=".\src\jp\ggaf\core\util\CmRandomNumberGenerator.cpp"
 			>
 		</File>
 		<File
 			RelativePath=".\include\jp\ggaf\core\util\CmRandomNumberGenerator.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\core\Config.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\core\Config.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\core\Cradle.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\core\Cradle.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\core\exception\CriticalException.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\core\exception\CriticalException.h"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\core\util\Curtain.hpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\core\actor\ex\DepositoryFormation.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\core\actor\ex\DepositoryFormation.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\core\actor\ex\DestructActor.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\core\actor\ex\DestructActor.h"
 			>
 		</File>
 		<File
@@ -180,27 +248,43 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\core\actor\GgafActor.cpp"
+			RelativePath=".\include\jp\ggaf\core\actor\DisusedActor.h"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\actor\GgafActor.h"
+			RelativePath=".\include\jp\ggaf\core\scene\DisusedScene.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\core\actor\ex\GgafActorDepository.cpp"
+			RelativePath=".\include\jp\ggaf\core\Element.hpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\actor\ex\GgafActorDepository.h"
+			RelativePath=".\include\jp\ggaf\core\util\EnumIndex.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\core\actor\ex\GgafActorDepositoryStore.cpp"
+			RelativePath=".\src\jp\ggaf\core\exception\Exception.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\actor\ex\GgafActorDepositoryStore.h"
+			RelativePath=".\include\jp\ggaf\core\exception\Exception.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\core\actor\ex\Formation.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\core\actor\ex\Formation.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\jp\ggaf\core\GarbageBox.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\include\jp\ggaf\core\GarbageBox.h"
 			>
 		</File>
 		<File
@@ -208,283 +292,203 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\core\GgafConfig.cpp"
+			RelativePath=".\src\jp\ggaf\core\God.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\GgafConfig.h"
+			RelativePath=".\include\jp\ggaf\core\God.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\core\GgafCradle.cpp"
+			RelativePath=".\src\jp\ggaf\core\actor\GroupHead.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\GgafCradle.h"
+			RelativePath=".\include\jp\ggaf\core\actor\GroupHead.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\core\exception\GgafCriticalException.cpp"
+			RelativePath=".\src\jp\ggaf\core\util\LinearOctree.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\exception\GgafCriticalException.h"
+			RelativePath=".\include\jp\ggaf\core\util\LinearOctree.h"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\util\GgafCurtain.hpp"
+			RelativePath=".\src\jp\ggaf\core\util\LinearQuadtree.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\core\actor\ex\GgafDepositoryFormation.cpp"
+			RelativePath=".\include\jp\ggaf\core\util\LinearQuadtree.h"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\actor\ex\GgafDepositoryFormation.h"
+			RelativePath=".\include\jp\ggaf\core\util\LinearTreeRounder.hpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\core\actor\ex\GgafDestructActor.cpp"
+			RelativePath=".\include\jp\ggaf\core\util\LinkedListRing.hpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\actor\ex\GgafDestructActor.h"
+			RelativePath=".\src\jp\ggaf\core\util\Logger.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\actor\GgafDisusedActor.h"
+			RelativePath=".\include\jp\ggaf\core\util\Logger.h"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\scene\GgafDisusedScene.h"
+			RelativePath=".\src\jp\ggaf\core\actor\MainActor.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\GgafElement.hpp"
+			RelativePath=".\include\jp\ggaf\core\actor\MainActor.h"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\util\GgafEnumIndex.h"
+			RelativePath=".\src\jp\ggaf\core\scene\MainScene.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\core\exception\GgafException.cpp"
+			RelativePath=".\include\jp\ggaf\core\scene\MainScene.h"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\exception\GgafException.h"
+			RelativePath=".\include\jp\ggaf\core\Node.hpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\core\actor\ex\GgafFormation.cpp"
+			RelativePath=".\src\jp\ggaf\core\Object.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\actor\ex\GgafFormation.h"
+			RelativePath=".\include\jp\ggaf\core\Object.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\core\GgafGarbageBox.cpp"
+			RelativePath=".\src\jp\ggaf\core\Progress.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\GgafGarbageBox.h"
+			RelativePath=".\include\jp\ggaf\core\Progress.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\core\GgafGod.cpp"
+			RelativePath=".\src\jp\ggaf\core\Properties.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\GgafGod.h"
+			RelativePath=".\include\jp\ggaf\core\Properties.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\core\actor\GgafGroupHead.cpp"
+			RelativePath=".\src\jp\ggaf\core\util\RepeatSeq.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\actor\GgafGroupHead.h"
+			RelativePath=".\include\jp\ggaf\core\util\RepeatSeq.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\core\util\GgafLinearOctree.cpp"
+			RelativePath=".\include\jp\ggaf\core\util\ResourceConnection.hpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\util\GgafLinearOctree.h"
+			RelativePath=".\include\jp\ggaf\core\util\ResourceManager.hpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\core\util\GgafLinearQuadtree.cpp"
+			RelativePath=".\src\jp\ggaf\core\util\Rgb.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\util\GgafLinearQuadtree.h"
+			RelativePath=".\include\jp\ggaf\core\util\Rgb.h"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\util\GgafLinearTreeRounder.hpp"
+			RelativePath=".\src\jp\ggaf\core\scene\Scene.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\util\GgafLinkedListRing.hpp"
+			RelativePath=".\include\jp\ggaf\core\scene\Scene.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\core\util\GgafLogger.cpp"
+			RelativePath=".\src\jp\ggaf\core\actor\SceneMediator.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\util\GgafLogger.h"
+			RelativePath=".\include\jp\ggaf\core\actor\SceneMediator.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\core\actor\GgafMainActor.cpp"
+			RelativePath=".\src\jp\ggaf\core\scene\Spacetime.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\actor\GgafMainActor.h"
+			RelativePath=".\include\jp\ggaf\core\scene\Spacetime.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\core\scene\GgafMainScene.cpp"
+			RelativePath=".\src\jp\ggaf\core\util\Status.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\scene\GgafMainScene.h"
+			RelativePath=".\include\jp\ggaf\core\util\Status.h"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\GgafNode.hpp"
+			RelativePath=".\src\jp\ggaf\core\util\Table.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\core\GgafObject.cpp"
+			RelativePath=".\include\jp\ggaf\core\util\Table.h"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\GgafObject.h"
+			RelativePath=".\include\jp\ggaf\core\util\TransitionValue.hpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\core\GgafProgress.cpp"
+			RelativePath=".\include\jp\ggaf\core\util\TransitionValueSet.hpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\GgafProgress.h"
+			RelativePath=".\include\jp\ggaf\core\util\TrapezoidalVeloValue.hpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\core\GgafProperties.cpp"
+			RelativePath=".\include\jp\ggaf\core\util\TreeElem.hpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\GgafProperties.h"
+			RelativePath=".\src\jp\ggaf\core\actor\ex\TreeFormation.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\core\util\GgafRepeatSeq.cpp"
+			RelativePath=".\include\jp\ggaf\core\actor\ex\TreeFormation.h"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\util\GgafRepeatSeq.h"
+			RelativePath=".\include\jp\ggaf\core\util\TreeSpace.hpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\util\GgafResourceConnection.hpp"
+			RelativePath=".\src\jp\ggaf\core\util\Util.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\util\GgafResourceManager.hpp"
+			RelativePath=".\include\jp\ggaf\core\util\Util.h"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\core\util\GgafRgb.cpp"
+			RelativePath=".\src\jp\ggaf\core\util\Xpm.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\util\GgafRgb.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\core\scene\GgafScene.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\core\scene\GgafScene.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\core\actor\GgafSceneMediator.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\core\actor\GgafSceneMediator.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\core\scene\GgafSpacetime.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\core\scene\GgafSpacetime.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\core\util\GgafStasus.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\core\util\GgafStatus.h"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\core\util\GgafTable.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\core\util\GgafTable.h"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\core\util\GgafTreeElem.hpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\core\actor\ex\GgafTreeFormation.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\core\actor\ex\GgafTreeFormation.h"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\core\util\GgafTreeSpace.hpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\core\util\GgafUtil.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\core\util\GgafUtil.h"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\core\util\GgafValueAccelerator.hpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\core\util\GgafValueEnveloper.hpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\jp\ggaf\core\util\GgafXpm.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\include\jp\ggaf\core\util\GgafXpm.h"
+			RelativePath=".\include\jp\ggaf\core\util\Xpm.h"
 			>
 		</File>
 	</Files>
