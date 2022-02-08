@@ -72,7 +72,7 @@ void FramedSpriteActor::processDraw() {
     //    Ñ†ÇUÑ†ÇVÑ†ÇWÑ†
     //    Ñ§ÑüÑ®ÑüÑ®ÑüÑ£
 
-    float frame_width_rate, center_width_rate;
+    float frame_sx, center_sx;
     float total_width_px;
     int sgn_sx = SGN(_sx);
     if (ABS(_sx)  > _lim_center_sx) {
@@ -108,10 +108,10 @@ void FramedSpriteActor::processDraw() {
         //
         //  2f+x = r(2f+c)
         //  x = r(2f+c)-2f
-        frame_width_rate = 1.0f * sgn_sx;
+        frame_sx = 1.0f * sgn_sx;
         pixcoord fw = 2*_model_frame_width_px;
-        center_width_rate = ( SC_R(_sx)*(fw + _model_center_width_px) - fw ) / _model_center_width_px;
-        total_width_px = fw + _model_center_width_px * center_width_rate;
+        center_sx = ( SC_R(_sx)*(fw + _model_center_width_px) - fw ) / _model_center_width_px;
+        total_width_px = fw + _model_center_width_px * center_sx;
 
     } else {
         //â°ïùÇ…ó]óTñ≥ÇµÅA1,4,7 ÇÃâ°ïùÇÕ0
@@ -146,14 +146,14 @@ void FramedSpriteActor::processDraw() {
         //
         //  l2x = r2f
         //  x = 2rf / 2l = rf / l
-        frame_width_rate = 1.0f * _sx / _lim_center_sx;
-        center_width_rate = 0.0f;
-        total_width_px =  (_model_frame_width_px * frame_width_rate) + (_model_frame_width_px * frame_width_rate);
+        frame_sx = 1.0f * _sx / _lim_center_sx;
+        center_sx = 0.0f;
+        total_width_px =  (_model_frame_width_px * frame_sx) + (_model_frame_width_px * frame_sx);
     }
-    hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_frame_width_rate, frame_width_rate);
-    checkDxException(hr, D3D_OK, "SetFloat(_h_frame_width_rate) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_center_width_rate, center_width_rate);
-    checkDxException(hr, D3D_OK, "SetFloat(_h_center_width_rate) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_frame_sx, frame_sx);
+    checkDxException(hr, D3D_OK, "SetFloat(_h_frame_sx) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_center_sx, center_sx);
+    checkDxException(hr, D3D_OK, "SetFloat(_h_center_sx) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
 
     //            if (_align == ALIGN_CENTER) {
@@ -183,26 +183,26 @@ void FramedSpriteActor::processDraw() {
 //    }
     checkDxException(hr, D3D_OK, "SetFloat(_h_local_offset_x) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
-    float frame_height_rate, center_height_rate;
+    float frame_sy, center_sy;
     float total_height_px;
     int sgn_sy = SGN(_sy);
     if (ABS(_sy) > _lim_center_sy) {
         //ècïùÇ…ó]óTÇ†ÇËÅA3,4,5 ÇÃècïùÇêLèkÇ≥ÇπÇÈÅB
-        frame_height_rate = 1.0f * sgn_sy;
+        frame_sy = 1.0f * sgn_sy;
         pixcoord fh = 2*_model_frame_height_px;
-        center_height_rate =  ( SC_R(_sy)*(fh + _model_center_height_px) - fh ) / _model_center_height_px;
-        total_height_px = fh + _model_center_height_px * center_height_rate;
+        center_sy =  ( SC_R(_sy)*(fh + _model_center_height_px) - fh ) / _model_center_height_px;
+        total_height_px = fh + _model_center_height_px * center_sy;
     } else {
         //ècïùÇ…ó]óTñ≥ÇµÅA3,4,5 ÇÃècïùÇÕ0
         //0,1,2 Ç∆ 6,7,8 ÇÃècïùÇ ñ≥óùÇ‚ÇËÇ‰Ç™ÇﬂÇƒïùÇí≤êÆ
-        frame_height_rate = 1.0f * _sy / _lim_center_sy;
-        center_height_rate = 0.0f;
-        total_height_px = (_model_frame_height_px * frame_height_rate ) + (_model_frame_height_px * frame_height_rate );
+        frame_sy = 1.0f * _sy / _lim_center_sy;
+        center_sy = 0.0f;
+        total_height_px = (_model_frame_height_px * frame_sy ) + (_model_frame_height_px * frame_sy );
     }
 
-    hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_frame_height_rate, frame_height_rate);
+    hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_frame_sy, frame_sy);
     checkDxException(hr, D3D_OK, "SetFloat(_h_top_edge_size_rate) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_center_height_rate, center_height_rate);
+    hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_center_sy, center_sy);
     checkDxException(hr, D3D_OK, "SetFloat(_h_left_edge_size_rate) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     //            if (_valign == VALIGN_MIDDLE) {
     //                //do nothing
@@ -230,12 +230,6 @@ void FramedSpriteActor::processDraw() {
 
     checkDxException(hr, D3D_OK, "SetFloat(_h_local_offset_y) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
-    hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_sx, SC_R(_sx));
-    checkDxException(hr, D3D_OK, "SetFloat(_h_x) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_sy, SC_R(_sy));
-    checkDxException(hr, D3D_OK, "SetFloat(_h_y) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_sz, SC_R(_sz));
-    checkDxException(hr, D3D_OK, "SetFloat(_h_z) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     hr = pID3DXEffect->SetFloat(pFramedSpriteEffect->_h_alpha, _alpha);
     checkDxException(hr, D3D_OK, "SetFloat(_h_alpha) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
@@ -294,4 +288,5 @@ coord FramedSpriteActor::getHeight() {
 
 FramedSpriteActor::~FramedSpriteActor() {
     delete _pUvFlipper;
+    delete _pUvFlipper_frame;
 }

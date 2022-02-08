@@ -34,6 +34,7 @@ void SmpSprite::initialize() {
 }
 
 void SmpSprite::processBehavior() {
+    addRzFaceAng(D_ANG(1));
     VirtualButton* pVb = P_GOD->getSpacetime()->pVb_;
 //    if (GgafDx::Input::isPressedKey(DIK_C)) {
 //        setDrawFanNum(getDrawFanNum() + 1);

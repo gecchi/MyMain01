@@ -39,11 +39,11 @@ float g_center_height;
 float g_frame_width;
 float g_frame_height;
 
-float g_frame_width_rate;
-float g_center_height_rate;
+float g_frame_sx;
+float g_center_sy;
 
-float g_frame_height_rate;
-float g_center_width_rate;
+float g_frame_sy;
+float g_center_sx;
 
 float g_alpha;
 
@@ -93,48 +93,48 @@ OUT_VS VS_DefaultFramedBoard(
     //    └─┴─┴─┘
 
     if (index < 3) {
-        y = prm_posModel_Local.y * g_frame_height_rate;
+        y = prm_posModel_Local.y * g_frame_sy;
         if (index == 0) {
-            x = prm_posModel_Local.x * g_frame_width_rate;
+            x = prm_posModel_Local.x * g_frame_sx;
             offsetU = g_offset_u001;
             offsetV = g_offset_v001;
         } else if (index == 1) {
-            x = g_frame_width * g_frame_width_rate + prm_posModel_Local.x * g_center_width_rate;
+            x = g_frame_width * g_frame_sx + prm_posModel_Local.x * g_center_sx;
             offsetU = g_offset_u002;
             offsetV = g_offset_v002;
         } else { //index == 2
-            x = g_frame_width * g_frame_width_rate + g_center_width * g_center_width_rate + prm_posModel_Local.x * g_frame_width_rate;
+            x = g_frame_width * g_frame_sx + g_center_width * g_center_sx + prm_posModel_Local.x * g_frame_sx;
             offsetU = g_offset_u003;
             offsetV = g_offset_v003;
         }
     } else if (index < 6) {
-        y = g_frame_height * g_frame_height_rate + prm_posModel_Local.y * g_center_height_rate;
+        y = g_frame_height * g_frame_sy + prm_posModel_Local.y * g_center_sy;
         if (index == 3) {
-            x = prm_posModel_Local.x * g_frame_width_rate;
+            x = prm_posModel_Local.x * g_frame_sx;
             offsetU = g_offset_u004;
             offsetV = g_offset_v004;
         } else if (index == 4) {
-            x = g_frame_width * g_frame_width_rate + prm_posModel_Local.x * g_center_width_rate;
+            x = g_frame_width * g_frame_sx + prm_posModel_Local.x * g_center_sx;
             offsetU = g_offset_u005;
             offsetV = g_offset_v005;
             center_flg = 1.0f; //中心パネルであることのフラグ
         } else { //index == 5
-            x = g_frame_width * g_frame_width_rate + g_center_width * g_center_width_rate + prm_posModel_Local.x * g_frame_width_rate;
+            x = g_frame_width * g_frame_sx + g_center_width * g_center_sx + prm_posModel_Local.x * g_frame_sx;
             offsetU = g_offset_u006;
             offsetV = g_offset_v006;
         }
     } else { // index >= 6
-        y = g_frame_height * g_frame_height_rate + g_center_height * g_center_height_rate + prm_posModel_Local.y * g_frame_height_rate;
+        y = g_frame_height * g_frame_sy + g_center_height * g_center_sy + prm_posModel_Local.y * g_frame_sy;
         if (index == 6) {
-            x = prm_posModel_Local.x * g_frame_width_rate;
+            x = prm_posModel_Local.x * g_frame_sx;
             offsetU = g_offset_u007;
             offsetV = g_offset_v007;
         } else if (index == 7) {
-            x = g_frame_width * g_frame_width_rate + prm_posModel_Local.x * g_center_width_rate;
+            x = g_frame_width * g_frame_sx + prm_posModel_Local.x * g_center_sx;
             offsetU = g_offset_u008;
             offsetV = g_offset_v008;
         } else { // index == 8
-            x = g_frame_width * g_frame_width_rate + g_center_width * g_center_width_rate + prm_posModel_Local.x * g_frame_width_rate;
+            x = g_frame_width * g_frame_sx + g_center_width * g_center_sx + prm_posModel_Local.x * g_frame_sx;
             offsetU = g_offset_u009;
             offsetV = g_offset_v009;
         }

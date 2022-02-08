@@ -22,8 +22,8 @@ public:
     D3DXHANDLE _h_colMaterialDiffuse;
     D3DXHANDLE _h_far_rate;
 
-    D3DXHANDLE _h_offset_u;
-    D3DXHANDLE _h_offset_v;
+//    D3DXHANDLE _h_offset_u;
+//    D3DXHANDLE _h_offset_v;
 
     D3DXHANDLE _ah_offset_u[9];
     D3DXHANDLE _ah_offset_v[9];
@@ -38,24 +38,14 @@ public:
     D3DXHANDLE _h_local_offset_x;
     D3DXHANDLE _h_local_offset_y;
 
-//    D3DXHANDLE _h_x;
-//    D3DXHANDLE _h_y;
-//    D3DXHANDLE _h_z;
-    D3DXHANDLE _h_rz;
+    D3DXHANDLE _h_frame_sx;
+    D3DXHANDLE _h_center_sx;
 
-    D3DXHANDLE _h_frame_width_rate;
-    D3DXHANDLE _h_center_width_rate;
-
-    D3DXHANDLE _h_frame_height_rate;
-    D3DXHANDLE _h_center_height_rate;
+    D3DXHANDLE _h_frame_sy;
+    D3DXHANDLE _h_center_sy;
 
     D3DXHANDLE _h_alpha;
     D3DXHANDLE _h_depth_z;
-
-
-    D3DXHANDLE _h_sx;
-    D3DXHANDLE _h_sy;
-    D3DXHANDLE _h_sz;
 
 
 public:

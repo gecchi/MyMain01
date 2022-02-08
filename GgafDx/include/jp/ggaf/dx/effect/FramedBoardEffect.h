@@ -22,8 +22,8 @@ public:
     D3DXHANDLE _ah_offset_v[9];
 //    D3DXHANDLE _ah_offset_x[9];
 //    D3DXHANDLE _ah_offset_y[9];
-//    D3DXHANDLE _ah_x_width_rate[9];
-//    D3DXHANDLE _ah_y_width_rate[9];
+//    D3DXHANDLE _ah_x_sx[9];
+//    D3DXHANDLE _ah_y_sx[9];
 
     D3DXHANDLE _h_frame_width;
     D3DXHANDLE _h_frame_height;
@@ -38,11 +38,11 @@ public:
     D3DXHANDLE _h_z;
     D3DXHANDLE _h_rz;
 
-    D3DXHANDLE _h_frame_width_rate;
-    D3DXHANDLE _h_center_width_rate;
+    D3DXHANDLE _h_frame_sx;
+    D3DXHANDLE _h_center_sx;
 
-    D3DXHANDLE _h_frame_height_rate;
-    D3DXHANDLE _h_center_height_rate;
+    D3DXHANDLE _h_frame_sy;
+    D3DXHANDLE _h_center_sy;
 
 
 

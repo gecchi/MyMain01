@@ -86,11 +86,11 @@ FramedBoardEffect::FramedBoardEffect(const char* prm_effect_name) : Effect(prm_e
     _h_tex_blink_threshold = _pID3DXEffect->GetParameterByName( nullptr, "g_tex_blink_threshold" );
     _h_colMaterialDiffuse  = _pID3DXEffect->GetParameterByName( nullptr, "g_colMaterialDiffuse" );
 
-    _h_frame_width_rate = _pID3DXEffect->GetParameterByName( nullptr, "g_frame_width_rate" );
-    _h_center_width_rate = _pID3DXEffect->GetParameterByName( nullptr, "g_center_width_rate" );
+    _h_frame_sx = _pID3DXEffect->GetParameterByName( nullptr, "g_frame_sx" );
+    _h_center_sx = _pID3DXEffect->GetParameterByName( nullptr, "g_center_sx" );
 
-    _h_frame_height_rate = _pID3DXEffect->GetParameterByName( nullptr, "g_frame_height_rate" );
-    _h_center_height_rate = _pID3DXEffect->GetParameterByName( nullptr, "g_center_height_rate" );
+    _h_frame_sy = _pID3DXEffect->GetParameterByName( nullptr, "g_frame_sy" );
+    _h_center_sy = _pID3DXEffect->GetParameterByName( nullptr, "g_center_sy" );
 
 }
 
