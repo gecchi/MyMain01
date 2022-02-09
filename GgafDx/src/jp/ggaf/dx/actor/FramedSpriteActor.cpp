@@ -250,10 +250,6 @@ void FramedSpriteActor::processDraw() {
             active_frame_ptn_no++;
         }
     }
-
-    _pFramedSpriteModel->FramedSpriteModel::draw(this);
-
-
     hr = pID3DXEffect->SetMatrix(_pFramedSpriteEffect->_h_matWorldRotMv, &_matWorldRotMv );
     checkDxException(hr, D3D_OK, "SetMatrix(_h_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetValue(_pFramedSpriteEffect->_h_colMaterialDiffuse, &(_paMaterial[0].Diffuse), sizeof(D3DCOLORVALUE) );
@@ -261,6 +257,18 @@ void FramedSpriteActor::processDraw() {
     hr = pID3DXEffect->SetFloat(_pFramedSpriteEffect->_h_far_rate, _far_rate );
     checkDxException(hr, D3D_OK, "SetFloat(_h_far_rate) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     _pFramedSpriteModel->FramedSpriteModel::draw(this);
+}
+void FramedSpriteActor::setAlign(Align prm_align, Valign prm_valign) {
+    _align = prm_align;
+    _valign = prm_valign;
+}
+
+void FramedSpriteActor::setAlign(Align prm_align) {
+    _align = prm_align;
+}
+
+void FramedSpriteActor::setValign(Valign prm_valign) {
+    _valign = prm_valign;
 }
 
 void FramedSpriteActor::setWidth(coord prm_width) {

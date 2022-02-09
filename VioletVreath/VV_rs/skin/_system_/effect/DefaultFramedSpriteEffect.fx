@@ -178,8 +178,8 @@ OUT_VS VS_DefaultFramedSprite(
         }
     }
 
-	prm_posModel_Local.x += x;
-	prm_posModel_Local.y += y;
+	prm_posModel_Local.x += (x + g_local_offset_x);
+	prm_posModel_Local.y += (y + g_local_offset_y);
 	//World*View*射影変換
     out_vs.posModel_Proj = mul(mul(mul( prm_posModel_Local, g_matWorldRotMv ), g_matView ), g_matProj);  // 出力に設定
     //遠方時の表示方法。

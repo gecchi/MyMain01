@@ -34,7 +34,7 @@ void SmpSprite::initialize() {
 }
 
 void SmpSprite::processBehavior() {
-    addRzFaceAng(D_ANG(1));
+
     VirtualButton* pVb = P_GOD->getSpacetime()->pVb_;
 //    if (GgafDx::Input::isPressedKey(DIK_C)) {
 //        setDrawFanNum(getDrawFanNum() + 1);
@@ -87,12 +87,38 @@ void SmpSprite::processBehavior() {
         addHeight(-PX_C(1));
     }
 
-    if (GgafDx::Input::isPressedKey(DIK_R)) {
-        setWidth(PX_C(64));
+    if (GgafDx::Input::isPressedKey(DIK_1)) {
+        setAlign(ALIGN_RIGHT, VALIGN_TOP);
     }
-    if (GgafDx::Input::isPressedKey(DIK_T)) {
-        setWidth(PX_C(32));
+    if (GgafDx::Input::isPressedKey(DIK_2)) {
+        setAlign(ALIGN_CENTER, VALIGN_TOP);
     }
+    if (GgafDx::Input::isPressedKey(DIK_3)) {
+        setAlign(ALIGN_LEFT, VALIGN_TOP);
+    }
+    if (GgafDx::Input::isPressedKey(DIK_4)) {
+        setAlign(ALIGN_RIGHT, VALIGN_MIDDLE);
+    }
+    if (GgafDx::Input::isPressedKey(DIK_5)) {
+        setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
+    }
+    if (GgafDx::Input::isPressedKey(DIK_6)) {
+        setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
+    }
+    if (GgafDx::Input::isPressedKey(DIK_7)) {
+        setAlign(ALIGN_RIGHT, VALIGN_BOTTOM);
+    }
+    if (GgafDx::Input::isPressedKey(DIK_8)) {
+        setAlign(ALIGN_CENTER, VALIGN_BOTTOM);
+    }
+    if (GgafDx::Input::isPressedKey(DIK_9)) {
+        setAlign(ALIGN_LEFT, VALIGN_BOTTOM);
+    }
+
+    if (GgafDx::Input::isPressedKey(DIK_O)) {
+        addRzFaceAng(D_ANG(1));
+    }
+
 
     if (pVb->isPressed(VB_BUTTON1)) {
         //ボタン１（スペースキー）を押しながらの場合

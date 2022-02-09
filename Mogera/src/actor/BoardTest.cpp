@@ -10,7 +10,8 @@
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/ggaf/dx/util/Input.h"
 #include "actor/BoardTest.h"
-
+#include "MgrGod.h"
+#include "jp/ggaf/lib/util/VirtualButton.h"
 
 
 using namespace GgafLib;
@@ -42,51 +43,71 @@ void BoardTest::onActive() {
 }
 
 void BoardTest::processBehavior() {
-    addRzFaceAng(1000);
-    if (GgafDx::Input::isPressedKey(DIK_D)) {
-        _x += PX_C(2); //右
-    }
+    VirtualButton* pVb = P_GOD->getSpacetime()->pVb_;
     if (GgafDx::Input::isPressedKey(DIK_A)) {
-        _x -= PX_C(2); //左
+        addWidth(-PX_C(1));
     }
     if (GgafDx::Input::isPressedKey(DIK_S)) {
-        _y += PX_C(2); //上
+        addWidth(PX_C(1));
     }
     if (GgafDx::Input::isPressedKey(DIK_W)) {
-        _y -= PX_C(2); //下
+        addHeight(PX_C(1));
+    }
+    if (GgafDx::Input::isPressedKey(DIK_Z)) {
+        addHeight(-PX_C(1));
     }
 
     if (GgafDx::Input::isPressedKey(DIK_1)) {
-        addWidth(PX_C(2));
-    }
-    if (GgafDx::Input::isPressedKey(DIK_2)) {
-        addWidth(-PX_C(2));
-    }
-    if (GgafDx::Input::isPressedKey(DIK_3)) {
-        addHeight(PX_C(2));
-    }
-    if (GgafDx::Input::isPressedKey(DIK_4)) {
-        addHeight(-PX_C(2));
-    }
+         setAlign(ALIGN_RIGHT, VALIGN_TOP);
+     }
+     if (GgafDx::Input::isPressedKey(DIK_2)) {
+         setAlign(ALIGN_CENTER, VALIGN_TOP);
+     }
+     if (GgafDx::Input::isPressedKey(DIK_3)) {
+         setAlign(ALIGN_LEFT, VALIGN_TOP);
+     }
+     if (GgafDx::Input::isPressedKey(DIK_4)) {
+         setAlign(ALIGN_RIGHT, VALIGN_MIDDLE);
+     }
+     if (GgafDx::Input::isPressedKey(DIK_5)) {
+         setAlign(ALIGN_CENTER, VALIGN_MIDDLE);
+     }
+     if (GgafDx::Input::isPressedKey(DIK_6)) {
+         setAlign(ALIGN_LEFT, VALIGN_MIDDLE);
+     }
+     if (GgafDx::Input::isPressedKey(DIK_7)) {
+         setAlign(ALIGN_RIGHT, VALIGN_BOTTOM);
+     }
+     if (GgafDx::Input::isPressedKey(DIK_8)) {
+         setAlign(ALIGN_CENTER, VALIGN_BOTTOM);
+     }
+     if (GgafDx::Input::isPressedKey(DIK_9)) {
+         setAlign(ALIGN_LEFT, VALIGN_BOTTOM);
+     }
 
-    if (GgafDx::Input::isPressedKey(DIK_Z)) {
-        setAlign(ALIGN_LEFT);
-    }
-    if (GgafDx::Input::isPressedKey(DIK_X)) {
-        setAlign(ALIGN_CENTER);
-    }
-    if (GgafDx::Input::isPressedKey(DIK_C)) {
-        setAlign(ALIGN_RIGHT);
-    }
 
-    if (GgafDx::Input::isPressedKey(DIK_V)) {
-        setValign(VALIGN_TOP);
-    }
-    if (GgafDx::Input::isPressedKey(DIK_B)) {
-        setValign(VALIGN_MIDDLE);
-    }
-    if (GgafDx::Input::isPressedKey(DIK_N)) {
-        setValign(VALIGN_BOTTOM);
+    if (pVb->isPressed(VB_BUTTON1)) {
+        //ボタン１（スペースキー）を押しながらの場合
+//        if (pVb->isPressed(VB_UP)) {
+//          _z += PX_C(2); //奥
+//        }
+//        if (pVb->isPressed(VB_DOWN)) {
+//          _z -= PX_C(2); //手前
+//        }
+    } else {
+        //ボタン１（スペースキー）を離している場合
+        if (pVb->isPressed(VB_RIGHT)) {
+          _x += PX_C(2); //右
+        }
+        if (pVb->isPressed(VB_LEFT)) {
+          _x -= PX_C(2); //左
+        }
+        if (pVb->isPressed(VB_UP)) {
+          _y -= PX_C(2); //上
+        }
+        if (pVb->isPressed(VB_DOWN)) {
+          _y += PX_C(2); //下
+        }
     }
     getFrameUvFlipper()->behave();
     getUvFlipper()->behave();

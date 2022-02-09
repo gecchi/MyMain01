@@ -99,7 +99,7 @@ void TrialAndErrScene::processBehavior() {
 
         pBoardTest = (BoardTest*)receiveActor(2000);
         bringSceneMediator()->appendGroupChild(MGR_MIKATA, pBoardTest);
-        pBoardTest->setPosition(PX_C(10), PX_C(10), 0);
+        pBoardTest->setPosition(PX_C(100), PX_C(100), 0);
 
         pSmpSprite = (SmpSprite*)receiveActor(2001);
         bringSceneMediator()->appendGroupChild(MGR_MIKATA, pSmpSprite);
