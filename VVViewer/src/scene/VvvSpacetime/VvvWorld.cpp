@@ -12,7 +12,7 @@
 #include "jp/ggaf/lib/actor/DefaultMorphMeshActor.h"
 #include "jp/ggaf/lib/actor/DefaultMeshActor.h"
 #include "jp/ggaf/lib/actor/DefaultPointSpriteActor.h"
-#include "jp/ggaf/lib/actor/DefaultFramedBoardActor.h"
+#include "jp/ggaf/lib/actor/DefaultFramedSpriteActor.h"
 #include "jp/ggaf/lib/actor/DefaultRegularPolygonSpriteActor.h"
 #include "jp/ggaf/lib/LibConfig.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
@@ -541,7 +541,7 @@ void VvvWorld::processBehavior() {
         } else if (ext == "PSPRX") {
             pActor = desireActor(GgafLib::DefaultPointSpriteActor, "actor", model.c_str());
         } else if (ext == "FSPRX") {
-            pActor = desireActor(GgafLib::DefaultFramedBoardActor, "actor", model.c_str());
+            pActor = desireActor(GgafLib::DefaultFramedSpriteActor, "actor", model.c_str());
         } else if (ext == "RSPRX") {
             pActor = desireActor(GgafLib::DefaultRegularPolygonSpriteActor, "actor", model.c_str());
         } else if (ext == "X") {
