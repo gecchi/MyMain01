@@ -7,7 +7,7 @@ namespace GgafDx {
 
 /**
  * ポイントスプライトセット .
- * FigureActor を継承し、ポイントスプライト表示機能を<BR>
+ * ポイントスプライト表示機能を<BR>
  * 追加、さらに同一モデル複数オブジェクトの頂点バッファを持ち、大量表示に最適化したアクターです<BR>
  * @version 1.00
  * @since 2016/06/09
@@ -26,7 +26,7 @@ public:
     /**
      * コンストラクタ .
      * @param prm_name アクター名称（デバッグログで表示、なんでも良い）
-     * @param prm_model モデル定義名、末尾に ".x" をつけてXファイル名になること。
+     * @param prm_model モデル定義名、末尾に ".psprx" をつけたモデル定義ファイルが読み込まれる。
      * @param prm_effect_id エフェクト定義名。末尾に ".fx" をつけてエフェクトファイル名になること。
      * @param prm_technique エフェクトのテクニック名
      * @param prm_pChecker 使用するチェッカーオブジェクト（チェッカー未使用時はnullptrでよい）

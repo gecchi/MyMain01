@@ -1,5 +1,5 @@
 #include "GgafLib.h"
-#include "VioletVreath.h"
+#include "VioletVreath_launcher.h"
 
 #include <Shlwapi.h>
 #include "resource.h"
@@ -391,7 +391,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
                 }
             } else if(wParam == MY_IDM_REBOOT) {
                 //çƒãNìÆé¿çs
-                int ret = MessageBox(nullptr, "Quit and Reboot. Are You Sure ?", "VioletVreath", MB_OKCANCEL|MB_SETFOREGROUND);
+                int ret = MessageBox(nullptr, "Quit and Reboot. Are You Sure ?", "VioletVreath_launcher", MB_OKCANCEL|MB_SETFOREGROUND);
                 if (ret == IDOK) {
                     VioletVreath::God::g_should_reboot_ = true;
                     PostQuitMessage(0);

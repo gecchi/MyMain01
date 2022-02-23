@@ -8,7 +8,7 @@ namespace GgafDx {
 
 /**
  * メッシュアクター.
- * FigureActor を継承し、独自のXファイル定義のメッシュ表示機能を<BR>
+ * 独自のXファイル定義のメッシュ表示機能を<BR>
  * 追加したアクターです。<BR>
  * @version 1.00
  * @since 2009/02/26
@@ -29,7 +29,7 @@ public:
     /**
      * コンストラクタ
      * @param prm_name モデル名称（デバッグログで表示、なんでも良い）
-     * @param prm_model モデル定義名。末尾に ".x" をつけてXファイル名になること。
+     * @param prm_model モデル定義名。末尾に ".meshx" をつけたモデル定義ファイルが読み込まれる。
      * @param prm_effect_id エフェクト定義名。末尾に ".fx" をつけてエフェクトファイル名になること。
      * @param prm_technique エフェクトのテクニック名
      * @param prm_pChecker 使用するチェッカーオブジェクト（チェッカー未使用時はnullptrでよい）

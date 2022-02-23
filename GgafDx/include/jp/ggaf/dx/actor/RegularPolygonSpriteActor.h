@@ -7,8 +7,8 @@ namespace GgafDx {
 
 /**
  * 正多角形疑似スプライトアクター .
- * FigureActor を継承し、板ポリゴンにテクスチャを貼り付けた<BR>
- * 擬似スプライト機能を追加したアクターです。<BR>
+ * 板ポリゴンにテクスチャを貼り付けた<BR>
+ * 所謂擬似スプライトのアクターです。<BR>
  * いわゆる板ポリ<BR>
  * @version 1.00
  * @since 2010/10/18
@@ -38,7 +38,7 @@ public:
     /**
      * コンストラクタ .
      * @param prm_name アクター名称（デバッグログで表示、なんでも良い）
-     * @param prm_model モデル定義名、末尾に ".x" をつけてXファイル名になること。
+     * @param prm_model モデル定義名、末尾に ".rsprx" をつけたモデル定義ファイルが読み込まれる。
      * @param prm_effect_id エフェクト定義名。末尾に ".fx" をつけてエフェクトファイル名になること。
      * @param prm_technique エフェクトのテクニック名
      * @param prm_pChecker 使用するチェッカーオブジェクト（チェッカー未使用時はnullptrでよい）

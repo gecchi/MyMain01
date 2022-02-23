@@ -6,8 +6,8 @@
 namespace GgafDx {
 
 /**
- * 座標変換済みスプライトアクター .
- * TransformedActor を継承し、板ポリゴンにテクスチャを貼り付けた<BR>
+ * 2D表示用正多角形アクター .
+ * 板ポリゴンにテクスチャを貼り付けた<BR>
  * テクスチャの１ピクセルをそのまま１ドットで表示したい時に使用。<BR>
  * 2D擬似スプライト的な機能を想定したアクター。<BR>
  * 回転機能(Z軸回転のみ)、拡大縮小機能機能あり。<BR>
@@ -81,16 +81,17 @@ public:
     angle _circumference_begin_position;
 public:
     /**
-     *
-     * @param prm_name
-     * @param prm_model
-     * @param prm_effect_id
-     * @param prm_technique
+     * コンストラクタ .
+     * @param prm_name アクター名称（デバッグログで表示、なんでも良い）
+     * @param prm_model モデル定義名、末尾に ".rsprx" をつけたモデル定義ファイルが読み込まれる。
+     * @param prm_effect_id エフェクト定義名。末尾に ".fx" をつけてエフェクトファイル名になること。
+     * @param prm_technique エフェクトのテクニック名
+     * @return
      */
     RegularPolygonBoardActor(const char* prm_name,
-                     const char* prm_model,
-                     const char* prm_effect_id,
-                     const char* prm_technique );
+                             const char* prm_model,
+                             const char* prm_effect_id,
+                             const char* prm_technique );
 
     virtual void processDraw() override;
 

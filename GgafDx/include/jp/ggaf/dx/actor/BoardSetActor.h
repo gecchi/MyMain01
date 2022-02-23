@@ -6,11 +6,12 @@
 namespace GgafDx {
 
 /**
- * 座標変換済みのスプライトアクター(大量表示時用) .
- * TransformedActor を継承し、板ポリゴンにテクスチャを貼り付けた<BR>
+ * 2D表示用板ポリアクター. (複数同時表示時用) .
  * BoardActorに、同一モデルは一括描画を行うように最適化したたアクター。<BR>
- * 回転機能なし、拡大縮小機能なし。<BR>
- * 単純表示のため高速。文字表示や、背景等に使用したい。<BR>
+ * 頂点バッファに複数の板ポリ頂点を挿入し、一気に描画する仕様。<BR>
+ * 数十個の同一モデル板ポリであれば、頂点バッファが固定の為、MassBoardActor より本アクターの方が効率が良い<BR>
+ * 但し、回転機能はなし、拡大縮小機能もなし。<BR>
+ * 単純表示のため高速。背景等に使用したい。<BR>
  * @version 1.00
  * @since 2009/07/21
  * @author Masatoshi Tsuge
@@ -40,13 +41,13 @@ private:
      * @return
      */
     GgafCore::GroupHead* appendGroupChildAsFk(kind_t prm_kind,
-                                             GeometricActor* prm_pGeoActor,
-                                             int prm_x_init_local,
-                                             int prm_y_init_local,
-                                             int prm_z_init_local,
-                                             int prm_rx_init_local,
-                                             int prm_ry_init_local,
-                                             int prm_rz_init_local) override {
+                                              GeometricActor* prm_pGeoActor,
+                                              int prm_x_init_local,
+                                              int prm_y_init_local,
+                                              int prm_z_init_local,
+                                              int prm_rx_init_local,
+                                              int prm_ry_init_local,
+                                              int prm_rz_init_local) override {
         throwCriticalException("使用不可です。");
         return nullptr;
     }
@@ -56,12 +57,12 @@ private:
      * @return
      */
     GgafCore::GroupHead* appendGroupChildAsFk(GeometricActor* prm_pGeoActor,
-                                             int prm_x_init_local,
-                                             int prm_y_init_local,
-                                             int prm_z_init_local,
-                                             int prm_rx_init_local,
-                                             int prm_ry_init_local,
-                                             int prm_rz_init_local) override {
+                                              int prm_x_init_local,
+                                              int prm_y_init_local,
+                                              int prm_z_init_local,
+                                              int prm_rx_init_local,
+                                              int prm_ry_init_local,
+                                              int prm_rz_init_local) override {
         throwCriticalException("使用不可です。");
         return nullptr;
     }
@@ -122,10 +123,18 @@ public:
     Valign _valign;
 
 public:
+    /**
+     * コンストラクタ .
+     * @param prm_name アクター名称（デバッグログで表示、なんでも良い）
+     * @param prm_model モデル定義名、末尾に ".sprx" をつけたモデル定義ファイルが読み込まれる。
+     * @param prm_effect_id エフェクト定義名。末尾に ".fx" をつけてエフェクトファイル名になること。
+     * @param prm_technique エフェクトのテクニック名
+     * @return
+     */
     BoardSetActor(const char* prm_name,
-                        const char* prm_model,
-                        const char* prm_effect_id,
-                        const char* prm_technique );
+                  const char* prm_model,
+                  const char* prm_effect_id,
+                  const char* prm_technique );
 
     virtual void processDraw() override;
 

@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
-// Used by VioletVreath.rc
+// Used by VioletVreath_launcher.rc
 //
 #define IDC_MYICON                      2
 #define IDD_VIOLETVREATH_DIALOG         102

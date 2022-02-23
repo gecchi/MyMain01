@@ -353,7 +353,6 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\Config.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\GameGlobal.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\God.cpp" />
-    <ClCompile Include="src\VioletVreath.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshi.h" />
@@ -720,11 +719,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\Config.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\GameGlobal.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\God.h" />
+    <ClInclude Include="src\Version.h" />
     <ClInclude Include="src\VioletVreath.h" />
-    <ClInclude Include="resource.h" />
-    <ClInclude Include="Version.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="VioletVreath.rc" />
   </ItemGroup>
 </Project>

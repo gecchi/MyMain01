@@ -1,5 +1,5 @@
 
-C:\cygwin\workspace\_git_repos\VioletVreath\VV_rs\wall>ruby makeSceneWallData.rb
+C:\cygwin\workspace\_git_repos\VioletVreath_launcher\VV_rs\wall>ruby makeSceneWallData.rb
  scene3_2_wall.X 20 20 2 Yes
 "Warning: Force loop 1."
 makeSceneWallData.rb:281:in `block in <main>': undefined method `[]=' for nil:Ni
@@ -7,7 +7,7 @@ lClass (NoMethodError)
         from makeSceneWallData.rb:276:in `each'
         from makeSceneWallData.rb:276:in `<main>'
 
-C:\cygwin\workspace\_git_repos\VioletVreath\VV_rs\wall>pause
+C:\cygwin\workspace\_git_repos\VioletVreath_launcher\VV_rs\wall>pause
 続行するには何かキーを押してください . .
 
 こんなエラーが出る場合は、XYのブロック数がはみ出て足りてません

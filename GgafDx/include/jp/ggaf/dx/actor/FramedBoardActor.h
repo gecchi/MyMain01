@@ -6,6 +6,9 @@
 namespace GgafDx {
 
 /**
+ * 2D表示用枠ありの板ポリアクター .
+ * いくら拡大しても、四隅の画像は拡大さません。<BR>
+ * ウィンドウ表示等に利用を想定<BR>
  * @version 1.00
  * @since 2017/08/21
  * @author Masatoshi Tsuge
@@ -90,6 +93,14 @@ public:
     Align _align;
     Valign _valign;
 public:
+    /**
+     * コンストラクタ .
+     * @param prm_name アクター名称（デバッグログで表示、なんでも良い）
+     * @param prm_model モデル定義名、末尾に ".fsprx" をつけたモデル定義ファイルが読み込まれる。
+     * @param prm_effect_id エフェクト定義名。末尾に ".fx" をつけてエフェクトファイル名になること。
+     * @param prm_technique エフェクトのテクニック名
+     * @return
+     */
     FramedBoardActor(const char* prm_name,
                      const char* prm_model,
                      const char* prm_effect_id,

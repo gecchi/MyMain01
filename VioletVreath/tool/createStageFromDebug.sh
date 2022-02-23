@@ -1,4 +1,5 @@
 #!/bin/bash
+cd ..
 
 src_stage_prefix=$1
 if [ "${src_stage_prefix}" = "" ]; then

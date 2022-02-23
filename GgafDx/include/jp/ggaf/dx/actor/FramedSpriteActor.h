@@ -7,6 +7,8 @@ namespace GgafDx {
 
 /**
  * 枠ありのスプライトアクター.
+ * いくら拡大しても、四隅の画像は拡大さません。<BR>
+ * ウィンドウ表示等に利用を想定<BR>
  * @version 1.00
  * @since 2022/01/25
  * @author Masatoshi Tsuge
@@ -48,7 +50,7 @@ public:
     /**
      * コンストラクタ .
      * @param prm_name アクター名称（デバッグログで表示、なんでも良い）
-     * @param prm_model モデル定義名、末尾に ".x" をつけてXファイル名になること。
+     * @param prm_model モデル定義名、末尾に ".fsprx" をつけたモデル定義ファイルが読み込まれる。
      * @param prm_effect_id エフェクト定義名。末尾に ".fx" をつけてエフェクトファイル名になること。
      * @param prm_technique エフェクトのテクニック名
      * @param prm_pChecker 使用するチェッカーオブジェクト（チェッカー未使用時はnullptrでよい）

@@ -10,4 +10,4 @@ set SS=%TIME_TMP:~6,2%
 set SSS=%TIME_TMP:~9,2%
 set DATETIME=%yyyy%%mm%%dd%%hh%%mi%%ss%_%sss%
 set LOGFILE=%DATETIME%.log
-VioletVreath.exe  2>&1 >> %LOGFILE%
+VioletVreath_launcher.exe  2>&1 >> %LOGFILE%

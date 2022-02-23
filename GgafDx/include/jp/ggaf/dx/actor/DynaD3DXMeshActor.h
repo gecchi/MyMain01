@@ -10,7 +10,7 @@ namespace GgafDx {
 //     現在は全てプログラマブルシェーダーであるため、もう使わない。
 /**
  * メッシュアクター.
- * FigureActor を継承し、Xファイル定義のメッシュ表示機能を<BR>
+ * Xファイル定義のメッシュ表示機能を<BR>
  * 追加したアクターです。<BR>
  * D3DXMeshActor との違いは、頂点バッファに直接アクセスをことに考慮して、<BR>
  * D3DXMESH_DYNAMIC オプションを使用しているところだけです。<BR>
@@ -28,6 +28,15 @@ public:
     MeshEffect* _pMeshEffect;
 
 public:
+    /**
+     * コンストラクタ .
+     * @param prm_name アクター名称（デバッグログで表示、なんでも良い）
+     * @param prm_model モデル定義名、末尾に ".meshx" をつけたモデル定義ファイルが読み込まれる。
+     * @param prm_effect_id エフェクト定義名。末尾に ".fx" をつけてエフェクトファイル名になること。
+     * @param prm_technique エフェクトのテクニック名
+     * @param prm_pChecker 使用するチェッカーオブジェクト（チェッカー未使用時はnullptrでよい）
+     * @return
+     */
     DynaD3DXMeshActor(const char* prm_name,
                       const char* prm_model,
                       const char* prm_effect_id,

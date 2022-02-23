@@ -27,10 +27,9 @@ SmpSprite::SmpSprite(const char* prm_name) :
 void SmpSprite::initialize() {
     getUvFlipper()->exec(FLIP_ORDER_LOOP, 40);
     GgafDx::UvFlipper* pFrameUvFlipper = getFrameUvFlipper();
-    static int ptn[8] = {0, 8, 16, 24, 32, 40, 48, 56 };
+    int ptn[8] = {0, 8, 16, 24, 32, 40, 48, 56 };
     pFrameUvFlipper->customizePtnOrder(ptn, 8);
     pFrameUvFlipper->exec(FLIP_CUSTOMIZED_LOOP, 30);
-
 }
 
 void SmpSprite::processBehavior() {

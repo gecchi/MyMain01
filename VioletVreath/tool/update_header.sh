@@ -1,7 +1,9 @@
 #!/bin/bash
 
+cd ..
+
 # update Version.h
-echo \#define VERSION \"VER 0.30.`git log --oneline --no-merges | wc -l`\"  >  Version.h
+echo \#define VERSION \"VER 0.30.`git log --oneline --no-merges | wc -l`\"  >  src/Version.h
 
 # update CommonActorsHeader
 CommonHeader=src/jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h

@@ -9,7 +9,7 @@ namespace GgafDx {
 
 /**
  * スキンアニメーション付きメッシュアクター.
- * FigureActor を継承し、Xファイル定義の
+ * Xファイル定義の
  * フレームアニメーションメッシュ表示機能を<BR>
  * 追加したアクターです<BR>
  * アニメーションはパペッター(Puppeteer)にお願いします。<BR>
@@ -33,6 +33,15 @@ public:
     LPD3DXANIMATIONSET* _papAnimationSet;
 
 public:
+    /**
+     * コンストラクタ .
+     * @param prm_name アクター名称（デバッグログで表示、なんでも良い）
+     * @param prm_model モデル定義名、末尾に ".meshx" をつけたモデル定義ファイルが読み込まれる。
+     * @param prm_effect_id エフェクト定義名。末尾に ".fx" をつけてエフェクトファイル名になること。
+     * @param prm_technique エフェクトのテクニック名
+     * @param prm_pChecker 使用するチェッカーオブジェクト（チェッカー未使用時はnullptrでよい）
+     * @return
+     */
     SkinAniMeshActor(const char* prm_name,
                  const char* prm_model,
                  const char* prm_effect_id,

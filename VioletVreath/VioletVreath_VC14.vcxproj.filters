@@ -11,16 +11,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="VioletVreath.rc">
-      <Filter>リソース ファイル</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="VioletVreath.ico">
-      <Filter>リソース ファイル</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\background\HoshiBoshi\HoshiBoshi.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -66,6 +56,18 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\worker\VamSysCamWorker.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\Camera.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\CameraUpVector.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\CameraViewPoint.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\VVCameraWorkerChanger.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\chikei\Horizon\Horizon001.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -109,6 +111,18 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\danmaku\Alice\AliceShot.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\danmaku\Alice\DanmakuAlice.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\danmaku\Alice\DanmakuAlice001.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\effect\Blink\EffectBlink.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\effect\Blink\EffectBlink001.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\effect\Blink\EffectBlink002.cpp">
@@ -630,7 +644,25 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\label\SpriteLabelTest.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\config\screen\CursorResolutionSelect.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\config\screen\MenuBoardResolutionSelect.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfig001.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfig002.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfig003.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfig004.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfig005.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardConfig.cpp">
@@ -645,13 +677,25 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\config\MenuBoardSoundConfig.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\CursorConfirmMenu.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\MenuBoardConfirm.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\name_entry\CursorNameEntryMenu.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\name_entry\MenuBoardNameEntry.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\pause\CursorPauseMenu.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\pause\MenuBoardPause.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\title\CursorTitleMenu.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\title\MenuBoardTitle.cpp">
@@ -744,6 +788,12 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\magic\VreathMagic.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\CostDispBar.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\DamageDispBar.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MagicLvCursor.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -769,6 +819,15 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\EffectMyShipExplosion.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\LockonCursor001.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\LockonCursor001_Main.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\LockonCursor001_Sub.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter.cpp">
@@ -813,6 +872,9 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MyWave001.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\title\Cursor001.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
     <ClCompile Include="src\jp\gecchi\VioletVreath\actor\title\TitleBoard.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -820,6 +882,18 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\gecchi\VioletVreath\effect\HoshiboshiEffect.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\manager\CurveManufactureManagerEx.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\manager\CurveSourceManagerEx.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\manager\DepositoryConnection.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\manager\DepositoryManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\gecchi\VioletVreath\manager\EffectManager.cpp">
@@ -936,6 +1010,9 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameOverScene\NameEntryScene.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\CommonScene.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
     <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameBeginningScene.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -981,103 +1058,13 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\util\RankingTable.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="src\jp\gecchi\VioletVreath\Config.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
     <ClCompile Include="src\jp\gecchi\VioletVreath\GameGlobal.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\gecchi\VioletVreath\God.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\VioletVreath.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\LockonCursor001.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\LockonCursor001_Main.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\LockonCursor001_Sub.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\VVCameraWorkerChanger.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\Camera.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\CameraUpVector.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\camera\CameraViewPoint.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\danmaku\Alice\DanmakuAlice.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\danmaku\Alice\DanmakuAlice001.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\effect\Blink\EffectBlink.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\effect\Blink\EffectBlink001.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\config\screen\CursorResolutionSelect.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfig001.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfig002.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfig003.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfig004.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\config\CursorConfig005.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\confirm\CursorConfirmMenu.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\name_entry\CursorNameEntryMenu.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\pause\CursorPauseMenu.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\menu\title\CursorTitleMenu.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\CostDispBar.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\DamageDispBar.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVreath\actor\title\Cursor001.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVreath\manager\DepositoryConnection.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVreath\manager\DepositoryManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\CommonScene.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVreath\Config.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVreath\manager\CurveManufactureManagerEx.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\gecchi\VioletVreath\manager\CurveSourceManagerEx.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1093,11 +1080,14 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundRankUp.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundTitle.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\background\WorldBound\WorldBoundTransit.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\worker\DefaultCamWorker.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\worker\MyShipDivingCamWorker.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\worker\PauseCamWorker.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\worker\TestCamWorker.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\worker\VamSysCamWorker.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\Camera.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\CameraUpVector.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\CameraViewPoint.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\VVCameraWorkerChanger.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\chikei\Horizon\Horizon001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\chikei\Planet\Planet001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\chikei\Planet\Planet001Atmosphere.h" />
@@ -1350,6 +1340,9 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\MpBar.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter\VreathBar.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\EffectMyShipExplosion.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\LockonCursor001.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\LockonCursor001_Main.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\LockonCursor001_Sub.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MagicMeter.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyLockonController.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\MyMagicEnergy.h" />
@@ -1367,12 +1360,20 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\title\Cursor001.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\title\TitleBoard.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\actor\ViewPointGuide.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvActor.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvChikeiActor.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VVCommonActorsHeader.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvEffectActor.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvEnemyActor.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VVEnemysHeader.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvItemActor.hpp" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvMyActor.hpp" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\effect\HoshiboshiEffect.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\manager\CurveManufactureManagerEx.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\manager\CurveSourceManagerEx.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\manager\DepositoryConnection.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\manager\DepositoryManager.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\manager\EffectManager.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\manager\SplineManufactureManagerEx.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\manager\SplineSourceManagerEx.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\manager\XpmConnection.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\manager\XpmManager.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\RankUpStageController\RankUp001.h" />
@@ -1412,6 +1413,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld\StageController.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameMainScene\StageWorld.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameOverScene\NameEntryScene.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\CommonScene.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameBeginningScene.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameDemoScene.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\GameEndingScene.h" />
@@ -1425,30 +1427,13 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\PreDrawScene.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\VvScene.hpp" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\util\MyStgUtil.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\util\RankingTable.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\Config.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\GameGlobal.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\God.h" />
+    <ClInclude Include="src\Version.h" />
     <ClInclude Include="src\VioletVreath.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\LockonCursor001.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\LockonCursor001_Main.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\my\LockonCursor001_Sub.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\Camera.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\CameraUpVector.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\CameraViewPoint.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\Spacetime\World\GameScene\CommonScene.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\Config.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\camera\VVCameraWorkerChanger.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvActor.hpp" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvChikeiActor.hpp" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VVCommonActorsHeader.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvEffectActor.hpp" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvEnemyActor.hpp" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VVEnemysHeader.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvItemActor.hpp" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\actor\VvMyActor.hpp" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\scene\VvScene.hpp" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\manager\CurveManufactureManagerEx.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\manager\CurveSourceManagerEx.h" />
   </ItemGroup>
 </Project>

@@ -92,7 +92,7 @@ std::string Se::getWaveFileName(std::string prm_file) {
             if (PathFileExists(wave_file.c_str()) ) {
                 return wave_file;
             } else {
-                throwCriticalException("waveファイルが見つかりません。wave_file="<<wave_file);
+                throwCriticalException("Se::getWaveFileName() waveファイルが見つかりません。wave_file="<<wave_file);
             }
         }
     }

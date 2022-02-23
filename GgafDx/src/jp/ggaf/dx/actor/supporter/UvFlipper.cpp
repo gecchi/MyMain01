@@ -220,6 +220,9 @@ void UvFlipper::behave() {
 }
 
 void UvFlipper::customizePtnOrder(int prm_aPtnOffset[], int prm_num) {
+    if (_pa_ptn_offset_customized) {
+        GGAF_DELETEARR_NULLABLE(_pa_ptn_offset_customized);
+    }
     _pa_ptn_offset_customized = NEW int[prm_num];
     _ptn_customized = prm_num;
     for (int i = 0; i < prm_num; i++) {
@@ -244,4 +247,5 @@ void UvFlipper::getUV(int prm_pattno_uvflip, float& out_u, float& out_v) {
 
 UvFlipper::~UvFlipper() {
     GGAF_DELETEARR_NULLABLE(_paUV);
+    GGAF_DELETEARR_NULLABLE(_pa_ptn_offset_customized);
 }

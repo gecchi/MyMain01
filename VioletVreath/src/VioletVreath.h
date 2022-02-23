@@ -1,10 +1,7 @@
 #ifndef VIOLETVREATHHEADER_H_
 #define VIOLETVREATHHEADER_H_
-#include "VioletVreath.h"
-
 //「DirectXライブラリ」を利用する（利用者は俺！）場合
 //次の"GgafLib::LibCommonHeader.h"ヘッダをインクルードします。
-
 #include "GgafLibCommonHeader.h"
 
 //種別定数

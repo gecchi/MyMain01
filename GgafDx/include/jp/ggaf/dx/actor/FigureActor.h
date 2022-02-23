@@ -90,10 +90,10 @@ public:
      * @param prm_pChecker 使用するチェッカーオブジェクト（チェッカー未使用時はnullptrでよい）
      */
     FigureActor(const char* prm_name,
-                      const char* prm_model,
-                      const char* prm_effect,
-                      const char* prm_technique,
-                      Checker* prm_pChecker);
+                const char* prm_model,
+                const char* prm_effect,
+                const char* prm_technique,
+                Checker* prm_pChecker);
 
     /**
      * コンストラクタ .

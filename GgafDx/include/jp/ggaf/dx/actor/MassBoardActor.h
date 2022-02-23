@@ -7,11 +7,10 @@
 namespace GgafDx {
 
 /**
- * 座標変換済みのスプライトアクター(大量表示時用) .
- * TransformedActor を継承し、板ポリゴンにテクスチャを貼り付けた<BR>
- * BoardActorに、同一モデルは一括描画を行うように最適化したたアクター。<BR>
- * 回転機能なし、拡大縮小機能なし。<BR>
- * 単純表示のため高速。文字表示や、背景等に使用したい。<BR>
+ * 2D表示用板ポリアクター(大量表示時用) .
+ * DirectX の インスタシイング により、同一モデルは大量表示に最適化<BR>
+ * 但し、回転機能はなし、拡大縮小機能もなし。<BR>
+ * 文字表示に使用することを想定。<BR>
  * @version 1.00
  * @since 2016/02/25
  * @author Masatoshi Tsuge
@@ -78,10 +77,18 @@ public:
     Valign _valign;
 
 public:
+    /**
+     * コンストラクタ .
+     * @param prm_name アクター名称（デバッグログで表示、なんでも良い）
+     * @param prm_model モデル定義名、末尾に ".sprx" をつけたモデル定義ファイルが読み込まれる。
+     * @param prm_effect_id エフェクト定義名。末尾に ".fx" をつけてエフェクトファイル名になること。
+     * @param prm_technique エフェクトのテクニック名
+     * @return
+     */
     MassBoardActor(const char* prm_name,
-                         const char* prm_model,
-                         const char* prm_effect_id,
-                         const char* prm_technique );
+                   const char* prm_model,
+                   const char* prm_effect_id,
+                   const char* prm_technique );
 
     virtual void processSettlementBehavior() override {
     }
