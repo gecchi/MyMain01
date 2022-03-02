@@ -60,40 +60,40 @@ void Scene::processPreJudgement() {
     }
 }
 
-void Scene::pauseTree() {
-    if (_can_live_flg) {
-        _TRACE_("Scene::pauseTree() シーン"<<getName()<<"("<<this<<")の BGMを一時停止 pause() します。");
-        _pConductor->pause();
-    }
-    GgafCore::Element<GgafCore::Scene>::pauseTree();
-    _pSceneMediator->pauseTree();
-}
+//void Scene::pauseTree() {
+//    if (_can_live_flg) {
+//        _TRACE_("Scene::pauseTree() シーン"<<getName()<<"("<<this<<")の BGMを一時停止 pause() します。");
+//        _pConductor->pause();
+//    }
+//    GgafCore::MainScene::pauseTree();
+////    _pSceneMediator->pauseTree();
+//}
 
 void Scene::pause() {
-    if (_can_live_flg) {
+//    if (_can_live_flg) {
         _TRACE_("Scene::pause() シーン"<<getName()<<"("<<this<<")の BGMを一時停止 pause() します。");
         _pConductor->pause();
-    }
-    GgafCore::Element<GgafCore::Scene>::pause();
-    _pSceneMediator->pause();
+//    }
+    GgafCore::MainScene::pause();
+//    _pSceneMediator->pause();
 }
 
-void Scene::unpauseTree() {
-    if (_can_live_flg) {
-        _TRACE_("Scene::unpauseTree() シーン"<<getName()<<"("<<this<<")の BGMを一時停止解除 unpause() します。");
-        _pConductor->unpause();
-    }
-    GgafCore::Element<GgafCore::Scene>::unpauseTree();
-    _pSceneMediator->unpauseTree();
-}
+//void Scene::unpauseTree() {
+//    if (_can_live_flg) {
+//        _TRACE_("Scene::unpauseTree() シーン"<<getName()<<"("<<this<<")の BGMを一時停止解除 unpause() します。");
+//        _pConductor->unpause();
+//    }
+//    GgafCore::MainScene::unpauseTree();
+////    _pSceneMediator->unpauseTree();
+//}
 
 void Scene::unpause() {
-    if (_can_live_flg) {
+//    if (_can_live_flg) {
         _TRACE_("Scene::unpause() シーン"<<getName()<<"("<<this<<")の BGMを一時停止解除 unpause() します。");
         _pConductor->unpause();
-    }
-    GgafCore::Element<GgafCore::Scene>::unpause();
-    _pSceneMediator->unpause();
+//    }
+    GgafCore::MainScene::unpause();
+//    _pSceneMediator->unpause();
 }
 
 void Scene::fadeinScene(int prm_frame_fade) {

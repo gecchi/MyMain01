@@ -83,7 +83,7 @@ void CommonScene::scrollX(GgafCore::Object* pThat, void* p1, void* p2, void* p3)
 
     if (pThat->instanceOf(Obj_GgafDx_GeometricActor)) {
         GgafDx::GeometricActor* pActor = (GgafDx::GeometricActor*)pThat;
-        if (!pActor->_was_paused_flg) {
+//        if (!pActor->_was_paused_flg) {
             if (pActor->lookUpKind() & KIND_ITEM) {
                 //Item‚ÍƒXƒNƒ[ƒ‹‚Ì‰e‹¿‚ðŽó‚¯‚È‚¢
             } else {
@@ -94,7 +94,7 @@ void CommonScene::scrollX(GgafCore::Object* pThat, void* p1, void* p2, void* p3)
                     pDriverLeader->_x_start_in_loop -= (*((coord*)p1));
                 }
             }
-        }
+//        }
     }
 }
 

@@ -35,7 +35,7 @@ namespace GgafCore {
 template<class T>
 class Element : public Node<T> {
 
-private:
+protected:
     /**
      * 自ツリーの配下ノード全てに、再帰呼び出しを行う。
      * @param pFunc 再帰呼び出しするメソッド
@@ -86,13 +86,13 @@ public:
     bool _is_active_flg;
     /** [r]ノード活動フラグ(自ツリーも考慮あり) */
     bool _is_active_in_the_tree_flg;
-    /** [r]一時停止フラグ */
-    bool _was_paused_flg;
+//    /** [r]一時停止フラグ */
+//    bool _was_paused_flg;
     /** [r]ノード生存フラグ */
     bool _can_live_flg;
 
-    /** [r]次フレームの一時停止フラグ、次フレームのフレーム加算時 _was_paused_flg に反映される */
-    bool _was_paused_flg_in_next_frame;
+//    /** [r]次フレームの一時停止フラグ、次フレームのフレーム加算時 _was_paused_flg に反映される */
+//    bool _was_paused_flg_in_next_frame;
     /** [r]終了する予定の _frame_of_life */
     frame _frame_of_life_when_end;
     /** [r]活動開始する予定の _frame_of_life */
@@ -528,38 +528,38 @@ public:
     virtual void inactivateTreeImmed();
 
     //===================
-    /**
-     * 一時停止状態にする(実行対象：this のみ) .
-     * 正確には、自ノードだけ次フレームから一時停止にする予約フラグを立てる。<BR>
-     * そして、次フレーム先頭処理(nextFrame())内で、めでたく一時停止状態(_was_paused_flg = true)になる。<BR>
-     * したがって、本メソッドを実行しても『同一フレーム内』は一時停止状態の変化は無く一貫性は保たれる。<BR>
-     * 配下ノードには何も影響がありません。<BR>
-     */
-    virtual void pause();
-
-    /**
-     * 一時停止状態にする(実行対象：自ツリー全て) .
-     * 自身と配下ノード全てについて再帰的に pause() が実行される。<BR>
-     */
-    virtual void pauseTree();
-
-
-
-    //===================
-    /**
-     * 一時停止状態を解除する(実行対象：this のみ) .
-     * 正確には、自ノードだけ次フレームから一時停止状態を解除する予約フラグを立てる。<BR>
-     * そして、次フレーム先頭処理(nextFrame())内で、めでたく一時停止状態解除(_was_paused_flg = false)になる。<BR>
-     * したがって、本メソッドを実行しても『同一フレーム内』は一時停止状態の変化は無く一貫性は保たれる。<BR>
-     * 配下ノードには何も影響がありません。<BR>
-     */
-    virtual void unpause();
-
-    /**
-     * 一時停止状態を解除する(実行対象：自ツリー全て) .
-     * 自身と配下ノード全てについて再帰的に unpause() が実行される。<BR>
-     */
-    virtual void unpauseTree();
+//    /**
+//     * 一時停止状態にする(実行対象：this のみ) .
+//     * 正確には、自ノードだけ次フレームから一時停止にする予約フラグを立てる。<BR>
+//     * そして、次フレーム先頭処理(nextFrame())内で、めでたく一時停止状態(_was_paused_flg = true)になる。<BR>
+//     * したがって、本メソッドを実行しても『同一フレーム内』は一時停止状態の変化は無く一貫性は保たれる。<BR>
+//     * 配下ノードには何も影響がありません。<BR>
+//     */
+//    virtual void pause();
+//
+//    /**
+//     * 一時停止状態にする(実行対象：自ツリー全て) .
+//     * 自身と配下ノード全てについて再帰的に pause() が実行される。<BR>
+//     */
+//    virtual void pauseTree();
+//
+//
+//
+//    //===================
+//    /**
+//     * 一時停止状態を解除する(実行対象：this のみ) .
+//     * 正確には、自ノードだけ次フレームから一時停止状態を解除する予約フラグを立てる。<BR>
+//     * そして、次フレーム先頭処理(nextFrame())内で、めでたく一時停止状態解除(_was_paused_flg = false)になる。<BR>
+//     * したがって、本メソッドを実行しても『同一フレーム内』は一時停止状態の変化は無く一貫性は保たれる。<BR>
+//     * 配下ノードには何も影響がありません。<BR>
+//     */
+//    virtual void unpause();
+//
+//    /**
+//     * 一時停止状態を解除する(実行対象：自ツリー全て) .
+//     * 自身と配下ノード全てについて再帰的に unpause() が実行される。<BR>
+//     */
+//    virtual void unpauseTree();
 
 
 
@@ -733,13 +733,13 @@ public:
         return (_is_active_in_the_tree_flg && _can_live_flg) ? true : false;
     }
 
-    /**
-     * 一時停止状態かどうか判断
-     * @return true:一時停止状態／false:一時停止状態では無い
-     */
-    inline bool wasPaused() const {
-        return _was_paused_flg;
-    }
+//    /**
+//     * 一時停止状態かどうか判断
+//     * @return true:一時停止状態／false:一時停止状態では無い
+//     */
+//    inline bool wasPaused() const {
+//        return _was_paused_flg;
+//    }
 
     /**
      * 終了宣言したかどうか .
@@ -877,9 +877,9 @@ Element<T>::Element(const char* prm_name) :
     _frame_of_behaving_since_onActive(0),
     _is_active_flg(false),             //生成直後はfalseであるが、何もしないと初回nextFrame()でアクティブになる予定
     _is_active_in_the_tree_flg(false),
-    _was_paused_flg(false),
+//    _was_paused_flg(false),
     _can_live_flg(true),
-    _was_paused_flg_in_next_frame(false),
+//    _was_paused_flg_in_next_frame(false),
     _frame_of_life_when_end(0),
     _frame_of_life_when_activation(1), //初回フレームにアクティブになるために1
     _frame_of_life_when_inactivation(0),
@@ -891,54 +891,54 @@ Element<T>::Element(const char* prm_name) :
 
 template<class T>
 void Element<T>::nextFrame() {
-    _was_paused_flg = _was_paused_flg_in_next_frame;
-    if (!_was_paused_flg) {
-        const frame frame_of_life = (++_frame_of_life);
-        _is_already_reset = false;
-        if (frame_of_life == _frame_of_life_when_end) {
-            _can_live_flg = false; //終了の時だ
-        } else {
-            if (_is_active_flg) {  //現在activate
-                if (frame_of_life == _frame_of_life_when_inactivation) { //現在 activate だが、今inactivateになる時が来た
-                    _on_change_to = 1;
-                    _is_active_flg = false; //活動フラグOFF
-                    _is_active_in_the_tree_flg = false;
-                    onInactive(); //コールバック
-                } else {
-                    _on_change_to = 0;
-                    updateActiveInTheTree();     //_is_active_in_the_tree_flg を更新
-                    if (_is_active_in_the_tree_flg) {
-                        _frame_of_behaving++;
-                        if (_pProg) {  _pProg->update();  } // 進捗を反映
-                        _frame_of_behaving_since_onActive++;
-                    }
+//    _was_paused_flg = _was_paused_flg_in_next_frame;
+//    if (!_was_paused_flg) {
+    const frame frame_of_life = (++_frame_of_life);
+    _is_already_reset = false;
+    if (frame_of_life == _frame_of_life_when_end) {
+        _can_live_flg = false; //終了の時だ
+    } else {
+        if (_is_active_flg) {  //現在activate
+            if (frame_of_life == _frame_of_life_when_inactivation) { //現在 activate だが、今inactivateになる時が来た
+                _on_change_to = 1;
+                _is_active_flg = false; //活動フラグOFF
+                _is_active_in_the_tree_flg = false;
+                onInactive(); //コールバック
+            } else {
+                _on_change_to = 0;
+                updateActiveInTheTree();     //_is_active_in_the_tree_flg を更新
+                if (_is_active_in_the_tree_flg) {
+                    _frame_of_behaving++;
+                    if (_pProg) {  _pProg->update();  } // 進捗を反映
+                    _frame_of_behaving_since_onActive++;
                 }
+            }
 
-            } else { //現在inactivate
-                if(frame_of_life == _frame_of_life_when_activation) { //現在inactivate だが、今activateになる時が来た
-                    _on_change_to = 2;      //onActive処理
-                    _is_active_flg = true;  //活動フラグON
-                    updateActiveInTheTree();     //_is_active_in_the_tree_flg を更新
-                    if (_is_active_in_the_tree_flg) {
-                        _frame_of_behaving++;
-                        if (_pProg) {  _pProg->update();  } // 進捗を反映
-                        _frame_of_behaving_since_onActive++;
-                    }
-                    if (!_was_initialize_flg) {
-                        initialize();       //初期化
-                        _was_initialize_flg = true;
-                        reset(); //リセット
-                    }
-                    _frame_of_behaving_since_onActive = 0; //リセット
-                    onActive();   //コールバック
-                    _frame_of_behaving_since_onActive = 1;
-                } else {
-                    _on_change_to = 0;
-                    _is_active_in_the_tree_flg = false;
+        } else { //現在inactivate
+            if(frame_of_life == _frame_of_life_when_activation) { //現在inactivate だが、今activateになる時が来た
+                _on_change_to = 2;      //onActive処理
+                _is_active_flg = true;  //活動フラグON
+                updateActiveInTheTree();     //_is_active_in_the_tree_flg を更新
+                if (_is_active_in_the_tree_flg) {
+                    _frame_of_behaving++;
+                    if (_pProg) {  _pProg->update();  } // 進捗を反映
+                    _frame_of_behaving_since_onActive++;
                 }
+                if (!_was_initialize_flg) {
+                    initialize();       //初期化
+                    _was_initialize_flg = true;
+                    reset(); //リセット
+                }
+                _frame_of_behaving_since_onActive = 0; //リセット
+                onActive();   //コールバック
+                _frame_of_behaving_since_onActive = 1;
+            } else {
+                _on_change_to = 0;
+                _is_active_in_the_tree_flg = false;
             }
         }
     }
+//    }
     //再帰
     //配下の全ノードに再帰的にnextFrame()実行
     T* p = Node<T>::_pChildFirst; //一つ配下の先頭ノード。潜れる場合は先に潜る。
@@ -967,7 +967,8 @@ void Element<T>::nextFrame() {
 
 template<class T>
 void Element<T>::behave() {
-    if (_is_active_in_the_tree_flg && !_was_paused_flg) {
+//    if (_is_active_in_the_tree_flg && !_was_paused_flg) {
+    if (_is_active_in_the_tree_flg) {
         processBehavior();    //ユーザー実装用
         callRecursive(&Element<T>::behave); //再帰
     }
@@ -991,7 +992,8 @@ void Element<T>::preJudge() {
 
 template<class T>
 void Element<T>::judge() {
-    if (_is_active_in_the_tree_flg && !_was_paused_flg) {
+//    if (_is_active_in_the_tree_flg && !_was_paused_flg) {
+    if (_is_active_in_the_tree_flg) {
         processJudgement();    //ユーザー実装用
         callRecursive(&Element<T>::judge); //再帰
     }
@@ -1023,7 +1025,8 @@ void Element<T>::afterDraw() {
 
 template<class T>
 void Element<T>::doFinally() {
-    if (_is_active_in_the_tree_flg && !_was_paused_flg) {
+//    if (_is_active_in_the_tree_flg && !_was_paused_flg) {
+    if (_is_active_in_the_tree_flg) {
         processFinal();
         callRecursive(&Element<T>::doFinally); //再帰
     }
@@ -1248,35 +1251,35 @@ void Element<T>::inactivateTreeImmed() {
     }
 }
 
-template<class T>
-void Element<T>::pauseTree() {
-    if (_can_live_flg) {
-        _was_paused_flg_in_next_frame = true;
-        callRecursive(&Element<T>::pauseTree); //再帰
-    }
-}
+//template<class T>
+//void Element<T>::pauseTree() {
+//    if (_can_live_flg) {
+//        _was_paused_flg_in_next_frame = true;
+//        callRecursive(&Element<T>::pauseTree); //再帰
+//    }
+//}
 
-template<class T>
-void Element<T>::pause() {
-    if (_can_live_flg) {
-        _was_paused_flg_in_next_frame = true;
-    }
-}
-
-template<class T>
-void Element<T>::unpauseTree() {
-    if (_can_live_flg) {
-        _was_paused_flg_in_next_frame = false;
-        callRecursive(&Element<T>::unpauseTree); //再帰
-    }
-}
-
-template<class T>
-void Element<T>::unpause() {
-    if (_can_live_flg) {
-        _was_paused_flg_in_next_frame = false;
-    }
-}
+//template<class T>
+//void Element<T>::pause() {
+//    if (_can_live_flg) {
+//        _was_paused_flg_in_next_frame = true;
+//    }
+//}
+//
+//template<class T>
+//void Element<T>::unpauseTree() {
+//    if (_can_live_flg) {
+//        _was_paused_flg_in_next_frame = false;
+//        callRecursive(&Element<T>::unpauseTree); //再帰
+//    }
+//}
+//
+//template<class T>
+//void Element<T>::unpause() {
+//    if (_can_live_flg) {
+//        _was_paused_flg_in_next_frame = false;
+//    }
+//}
 
 template<class T>
 void Element<T>::end(frame prm_offset_frames) {

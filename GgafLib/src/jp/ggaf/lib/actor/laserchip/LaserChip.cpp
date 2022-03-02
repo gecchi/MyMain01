@@ -81,70 +81,61 @@ void LaserChip::onActive() {
 }
 
 void LaserChip::processSettlementBehavior() {
-    if (_was_paused_flg) {
-        GgafDx::MassMeshActor::processSettlementBehavior();
-    } else {
-        CollisionChecker* pChecker = getCollisionChecker();
-        const LaserChip* pChip_infront = _pChip_infront;
-        const LaserChip* pChip_behind = _pChip_behind;
+//    if (_was_paused_flg) {
+//        GgafDx::MassMeshActor::processSettlementBehavior();
+//    } else {
+    CollisionChecker* pChecker = getCollisionChecker();
+    const LaserChip* pChip_infront = _pChip_infront;
+    const LaserChip* pChip_behind = _pChip_behind;
 
-        //レーザーチップ種別 設定。
-        //シェーダーのパラメータとなります。
-        //
-        //      -==========<>            レーザーは
-        //
-        //      -= === === === <>        こんなふうに分断されています。
-        //                               縦に区切られている線の箇所が LaserChip オブジェクトです。
-        //    | -=|===|===|===|<> |      左図はレーザーをオブジェクトで区切ったつもりの図
-        //
-        //    <--><--><--><--><-->^
-        //    ^   ^   ^   ^   ^   |
-        //    |   |   |   |   |   |
-        //    |   |   |   |   |    `----- 5:先端チップ(非表示で、中間先頭チップを表示するためだけに存在)
-        //    |   |   |   |    `----- 4:中間先頭チップ(表示される実質の先頭)
-        //    |   |   |    `----- 3:中間チップ
-        //    |   |    `----- 3:中間チップ
-        //    |    `----- 3:中間チップ
-        //     `----- 1:末尾チップ(ただし、前方にチップが5の場合は 2)
-        //
-        //先頭と先端という言葉で区別しています。
-        if (pChip_infront) {
-            if (pChip_infront->isActive()) {
-                if (pChip_behind) {
-                    if (pChip_behind->isActive()) {
-                        if (pChip_infront->_pChip_infront) {
-                            _chip_kind = 3; //中間テクスチャチップ
-                            setHitAble(true);
-                        } else {
-                            _chip_kind = 4; //中間先頭テクスチャチップ
-                            setHitAble(true);
-                        }
+    //レーザーチップ種別 設定。
+    //シェーダーのパラメータとなります。
+    //
+    //      -==========<>            レーザーは
+    //
+    //      -= === === === <>        こんなふうに分断されています。
+    //                               縦に区切られている線の箇所が LaserChip オブジェクトです。
+    //    | -=|===|===|===|<> |      左図はレーザーをオブジェクトで区切ったつもりの図
+    //
+    //    <--><--><--><--><-->^
+    //    ^   ^   ^   ^   ^   |
+    //    |   |   |   |   |   |
+    //    |   |   |   |   |    `----- 5:先端チップ(非表示で、中間先頭チップを表示するためだけに存在)
+    //    |   |   |   |    `----- 4:中間先頭チップ(表示される実質の先頭)
+    //    |   |   |    `----- 3:中間チップ
+    //    |   |    `----- 3:中間チップ
+    //    |    `----- 3:中間チップ
+    //     `----- 1:末尾チップ(ただし、前方にチップが5の場合は 2)
+    //
+    //先頭と先端という言葉で区別しています。
+    if (pChip_infront) {
+        if (pChip_infront->isActive()) {
+            if (pChip_behind) {
+                if (pChip_behind->isActive()) {
+                    if (pChip_infront->_pChip_infront) {
+                        _chip_kind = 3; //中間テクスチャチップ
+                        setHitAble(true);
                     } else {
-                        if (pChip_infront->_chip_kind == 5) {
-                            _chip_kind = 2; //先が丸い発射元の末端テクスチャチップ
-                            setHitAble(true);
-                        } else {
-                            _chip_kind = 1; //発射元の末端テクスチャチップ
-                            setHitAble(true);
-                        }
+                        _chip_kind = 4; //中間先頭テクスチャチップ
+                        setHitAble(true);
                     }
                 } else {
                     if (pChip_infront->_chip_kind == 5) {
-                       _chip_kind = 2; //先が丸い発射元の末端テクスチャチップ
+                        _chip_kind = 2; //先が丸い発射元の末端テクスチャチップ
+                        setHitAble(true);
                     } else {
-                       _chip_kind = 1; //発射元の末端テクスチャチップ
-                    }
-                    if (getActiveFrame() > 2 && pChip_infront->_pChip_infront == nullptr) {
-                        _chip_kind = 0;
-                        sayonara();
-                        setHitAble(false);
-                    } else {
+                        _chip_kind = 1; //発射元の末端テクスチャチップ
                         setHitAble(true);
                     }
                 }
             } else {
-                _chip_kind = 5; //先端チップ。何も描画したくない
-                if (getActiveFrame() > 1 && pChip_behind == nullptr) {
+                if (pChip_infront->_chip_kind == 5) {
+                   _chip_kind = 2; //先が丸い発射元の末端テクスチャチップ
+                } else {
+                   _chip_kind = 1; //発射元の末端テクスチャチップ
+                }
+                if (getActiveFrame() > 2 && pChip_infront->_pChip_infront == nullptr) {
+                    _chip_kind = 0;
                     sayonara();
                     setHitAble(false);
                 } else {
@@ -160,122 +151,131 @@ void LaserChip::processSettlementBehavior() {
                 setHitAble(true);
             }
         }
+    } else {
+        _chip_kind = 5; //先端チップ。何も描画したくない
+        if (getActiveFrame() > 1 && pChip_behind == nullptr) {
+            sayonara();
+            setHitAble(false);
+        } else {
+            setHitAble(true);
+        }
+    }
 
-        if (pChecker->getArea() && _can_hit_flg) {
-            if (_chip_kind == 5) {
-                if (_middle_colli_able) {
-                    pChecker->disable(1);
-                    pChecker->disable(2);
-                    pChecker->disable(3);
-                }
-                //先端チップの当たり判定を、後ろチップとの中間の位置に凹ませる。
-                if (pChip_behind) {
-                    coord dX =  pChip_behind->_x - _x;
-                    coord dY =  pChip_behind->_y - _y;
-                    coord dZ =  pChip_behind->_z - _z;
-                    coord cX = dX * 0.25;
-                    coord cY = dY * 0.25;
-                    coord cZ = dZ * 0.25;
-                    pChecker->moveColliAABoxPos(0, cX, cY, cZ);
-                } else {
-                    setHitAble(false);
-                }
-            } else { //if (_chip_kind != 5)
-                //この処理はprocessBehavior()で行えない。なぜならば、_pChip_infront が座標移動済みの保証がないため。
-                if (_middle_colli_able) { //おそらく水撒きレーザーチップの場合
-                    //レーザーチップの広がった間隔に当たり判定を生成して埋める
-                    //
-                    //              | -=|===|===|===|<> |
-                    // _chip_kind : 1   3   3   3   4   5
-                    //              2
-                    //
-                    //判定領域要素[0]        [1]        [2]        [3]        [0]
-                    //             |                                           |
-                    //          ┌-|-┐    ┌---┐    ┌---┐    ┌---┐    ┌-|-┐
-                    //  +----------+----------+----------+----------+----------+-----------+-
-                    //          └-|-┘    └---┘    └---┘    └---┘    └-|-┘
-                    //             |                                           |
-                    //             <------------------------------------------->
-                    //                                  dX
-                    //           <--->
-                    //         _hitarea_edge_length
-                    //
+    if (pChecker->getArea() && _can_hit_flg) {
+        if (_chip_kind == 5) {
+            if (_middle_colli_able) {
+                pChecker->disable(1);
+                pChecker->disable(2);
+                pChecker->disable(3);
+            }
+            //先端チップの当たり判定を、後ろチップとの中間の位置に凹ませる。
+            if (pChip_behind) {
+                coord dX =  pChip_behind->_x - _x;
+                coord dY =  pChip_behind->_y - _y;
+                coord dZ =  pChip_behind->_z - _z;
+                coord cX = dX * 0.25;
+                coord cY = dY * 0.25;
+                coord cZ = dZ * 0.25;
+                pChecker->moveColliAABoxPos(0, cX, cY, cZ);
+            } else {
+                setHitAble(false);
+            }
+        } else { //if (_chip_kind != 5)
+            //この処理はprocessBehavior()で行えない。なぜならば、_pChip_infront が座標移動済みの保証がないため。
+            if (_middle_colli_able) { //おそらく水撒きレーザーチップの場合
+                //レーザーチップの広がった間隔に当たり判定を生成して埋める
+                //
+                //              | -=|===|===|===|<> |
+                // _chip_kind : 1   3   3   3   4   5
+                //              2
+                //
+                //判定領域要素[0]        [1]        [2]        [3]        [0]
+                //             |                                           |
+                //          ┌-|-┐    ┌---┐    ┌---┐    ┌---┐    ┌-|-┐
+                //  +----------+----------+----------+----------+----------+-----------+-
+                //          └-|-┘    └---┘    └---┘    └---┘    └-|-┘
+                //             |                                           |
+                //             <------------------------------------------->
+                //                                  dX
+                //           <--->
+                //         _hitarea_edge_length
+                //
 
-    //                if (_chip_kind != 0) {
-                        coord dX = pChip_infront->_x - _x;
-                        coord dY = pChip_infront->_y - _y;
-                        coord dZ = pChip_infront->_z - _z;
+//                if (_chip_kind != 0) {
+                    coord dX = pChip_infront->_x - _x;
+                    coord dY = pChip_infront->_y - _y;
+                    coord dZ = pChip_infront->_z - _z;
 
-        //                if (ABS(dX) < _hitarea_edge_length &&
-        //                    ABS(dY) < _hitarea_edge_length &&
-        //                    ABS(dZ) < _hitarea_edge_length)
-        //                {
-        //              ↓の意味は、↑と同じ。ちょっと最適化。
-                        if ((ucoord)(dX+_hitarea_edge_length) < _hitarea_edge_length_2 &&
-                            (ucoord)(dY+_hitarea_edge_length) < _hitarea_edge_length_2 &&
-                            (ucoord)(dZ+_hitarea_edge_length) < _hitarea_edge_length_2)
+    //                if (ABS(dX) < _hitarea_edge_length &&
+    //                    ABS(dY) < _hitarea_edge_length &&
+    //                    ABS(dZ) < _hitarea_edge_length)
+    //                {
+    //              ↓の意味は、↑と同じ。ちょっと最適化。
+                    if ((ucoord)(dX+_hitarea_edge_length) < _hitarea_edge_length_2 &&
+                        (ucoord)(dY+_hitarea_edge_length) < _hitarea_edge_length_2 &&
+                        (ucoord)(dZ+_hitarea_edge_length) < _hitarea_edge_length_2)
+                    {
+                        //前方チップとくっつきすぎた場合に、判定領域を一時的に無効化
+                        if (_chip_kind != 1) { //近くても末端だけは当たり判定あり
+                            setHitAble(false);
+                        }
+                    } else {
+                        if ((ucoord)(dX+_hitarea_edge_length_3) < _hitarea_edge_length_3_2 &&
+                            (ucoord)(dY+_hitarea_edge_length_3) < _hitarea_edge_length_3_2 &&
+                            (ucoord)(dZ+_hitarea_edge_length_3) < _hitarea_edge_length_3_2)
                         {
-                            //前方チップとくっつきすぎた場合に、判定領域を一時的に無効化
-                            if (_chip_kind != 1) { //近くても末端だけは当たり判定あり
-                                setHitAble(false);
-                            }
+                            pChecker->disable(1);
+                            pChecker->disable(2);
+                            pChecker->disable(3);
+                            _rate_of_length = 4.0f;
                         } else {
-                            if ((ucoord)(dX+_hitarea_edge_length_3) < _hitarea_edge_length_3_2 &&
-                                (ucoord)(dY+_hitarea_edge_length_3) < _hitarea_edge_length_3_2 &&
-                                (ucoord)(dZ+_hitarea_edge_length_3) < _hitarea_edge_length_3_2)
+                            //前方チップと離れすぎた場合に、中間に当たり判定領域を一時的に有効化
+                            //自身と前方チップの中間に当たり判定を作り出す
+                            coord cX = dX / 2;
+                            coord cY = dY / 2;
+                            coord cZ = dZ / 2;
+                            pChecker->moveColliAABoxPos(2, cX, cY, cZ);
+                            if ((ucoord)(dX+_hitarea_edge_length_6) < _hitarea_edge_length_6_2 &&
+                                (ucoord)(dY+_hitarea_edge_length_6) < _hitarea_edge_length_6_2 &&
+                                (ucoord)(dZ+_hitarea_edge_length_6) < _hitarea_edge_length_6_2)
                             {
                                 pChecker->disable(1);
-                                pChecker->disable(2);
                                 pChecker->disable(3);
-                                _rate_of_length = 4.0f;
+                                _rate_of_length = 8.0f;
                             } else {
-                                //前方チップと離れすぎた場合に、中間に当たり判定領域を一時的に有効化
-                                //自身と前方チップの中間に当たり判定を作り出す
-                                coord cX = dX / 2;
-                                coord cY = dY / 2;
-                                coord cZ = dZ / 2;
-                                pChecker->moveColliAABoxPos(2, cX, cY, cZ);
-                                if ((ucoord)(dX+_hitarea_edge_length_6) < _hitarea_edge_length_6_2 &&
-                                    (ucoord)(dY+_hitarea_edge_length_6) < _hitarea_edge_length_6_2 &&
-                                    (ucoord)(dZ+_hitarea_edge_length_6) < _hitarea_edge_length_6_2)
-                                {
-                                    pChecker->disable(1);
-                                    pChecker->disable(3);
-                                    _rate_of_length = 8.0f;
-                                } else {
-                                    coord cX2 = cX / 2;
-                                    coord cY2 = cY / 2;
-                                    coord cZ2 = cZ / 2;
-                                    pChecker->moveColliAABoxPos(1, cX2, cY2, cZ2);
-                                    coord cX3 = cX2 + cX;
-                                    coord cY3 = cY2 + cY;
-                                    coord cZ3 = cZ2 + cZ;
-                                    pChecker->moveColliAABoxPos(3, cX3, cY3, cZ3);
-                                    _rate_of_length = 16.0f;
-                                }
+                                coord cX2 = cX / 2;
+                                coord cY2 = cY / 2;
+                                coord cZ2 = cZ / 2;
+                                pChecker->moveColliAABoxPos(1, cX2, cY2, cZ2);
+                                coord cX3 = cX2 + cX;
+                                coord cY3 = cY2 + cY;
+                                coord cZ3 = cZ2 + cZ;
+                                pChecker->moveColliAABoxPos(3, cX3, cY3, cZ3);
+                                _rate_of_length = 16.0f;
                             }
                         }
-    //                } else { //if (_chip_kind == 1 || _chip_kind == 2 || _chip_kind == 3 || _chip_kind = 4) 以外
-    //                    pChecker->disable(1);
-    //                    pChecker->disable(2);
-    //                    pChecker->disable(3);
-    //                    _rate_of_length = 4.0f;
-    //                }
-                } else { //if (_middle_colli_able) 以外
-                }
+                    }
+//                } else { //if (_chip_kind == 1 || _chip_kind == 2 || _chip_kind == 3 || _chip_kind = 4) 以外
+//                    pChecker->disable(1);
+//                    pChecker->disable(2);
+//                    pChecker->disable(3);
+//                    _rate_of_length = 4.0f;
+//                }
+            } else { //if (_middle_colli_able) 以外
+            }
 
-            } //if (_chip_kind != 5)
-        }
-
-        //最初は奥でもハッキリ映る。が
-        //1秒後は距離に寄って薄まる仕様
-        if (getActiveFrame() > 60 && _force_alpha > 0) {
-            _force_alpha -= 0.01;
-        }
-        GgafDx::MassMeshActor::processSettlementBehavior(); //八分木登録
-        //TODO:八分木登録だけならprocessSettlementBehavior()を呼び出すのは少し効率が悪かもしれない。
-        //当たり判定領域を更新してからprocessSettlementBehaviorで八分木登録すること。
+        } //if (_chip_kind != 5)
     }
+
+    //最初は奥でもハッキリ映る。が
+    //1秒後は距離に寄って薄まる仕様
+    if (getActiveFrame() > 60 && _force_alpha > 0) {
+        _force_alpha -= 0.01;
+    }
+    GgafDx::MassMeshActor::processSettlementBehavior(); //八分木登録
+    //TODO:八分木登録だけならprocessSettlementBehavior()を呼び出すのは少し効率が悪かもしれない。
+    //当たり判定領域を更新してからprocessSettlementBehaviorで八分木登録すること。
+//    }
 }
 
 void LaserChip::processPreDraw() {

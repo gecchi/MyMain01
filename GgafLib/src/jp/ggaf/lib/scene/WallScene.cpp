@@ -150,10 +150,10 @@ void WallScene::processFinal() {
 void WallScene::scrollX(GgafCore::Object* pThat, void* p1, void* p2, void* p3) {
     if (pThat->instanceOf(Obj_GgafDx_GeometricActor)) {
         GgafDx::GeometricActor* pActor = (GgafDx::GeometricActor*)pThat;
-        if (!pActor->_was_paused_flg) {
+//        if (!pActor->_was_paused_flg) {
             // _is_active_flg と、_can_live_flg は、GgafCore::Element<T>::executeFuncLowerTree()でチェック済み
             pActor->_x -= (*((coord*)p1));
-        }
+//        }
     }
 }
 

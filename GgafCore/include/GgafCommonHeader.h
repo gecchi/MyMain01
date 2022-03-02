@@ -292,6 +292,31 @@
                     ","<< \
                     _can_live_flg<<\
                     _was_initialize_flg<< \
+                    ","<< \
+                    _is_active_in_the_tree_flg<< \
+                    _is_active_flg<< \
+                    "-"<< \
+                    _frame_of_life_when_activation<< \
+                    "-"<< \
+                    _frame_of_life_when_inactivation<< \
+                    ","<< \
+                    _frame_of_life_when_end<< \
+                    ","<< \
+                    "prog="<<(_pProg?_pProg->_progress:-9)<<"("<<(_pProg?_pProg->getFrame():0)<<")"<< \
+                    ","<< \
+                    "id="<<getId()
+
+
+#define DUMP_FLGS_SCENE   "@"<< \
+                    _frame_of_behaving_since_onActive<< \
+                    "/"<< \
+                    _frame_of_behaving<< \
+                    "/"<< \
+                    _frame_of_life<< \
+                    ","<< \
+                    _can_live_flg<<\
+                    _was_initialize_flg<< \
+                    ","<< \
                     _was_paused_flg<< \
                     "("<<_was_paused_flg_in_next_frame<<")"<< \
                     ","<< \
@@ -307,6 +332,7 @@
                     "prog="<<(_pProg?_pProg->_progress:-9)<<"("<<(_pProg?_pProg->getFrame():0)<<")"<< \
                     ","<< \
                     "id="<<getId()
+
 
 
 /** 共通遅延解放フレーム数（≒エフェクト最大再生時間） */

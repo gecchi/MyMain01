@@ -13,6 +13,10 @@ Scene::Scene(const char* prm_name, SceneMediator* prm_pSceneMediator) : Element<
     } else {
         _pSceneMediator =  NEW SceneMediator(this);
     }
+
+    _was_paused_flg = false;
+    _was_paused_flg_in_next_frame = false;
+
 #ifdef MY_DEBUG
     _TRACE_("new "<<NODE_INFO<<" _id="<<getId());
 #else
@@ -39,7 +43,12 @@ void Scene::appendChild(Scene* prm_pScene) {
 }
 
 void Scene::nextFrame() {
-    Element<Scene>::nextFrame();
+    _was_paused_flg = _was_paused_flg_in_next_frame;
+    if (!_was_paused_flg) {
+        Element<Scene>::nextFrame();
+    }
+
+
     frame f = _pSceneMediator->_frame_of_life;
     if (_is_active_in_the_tree_flg ||
         f <= _pSceneMediator->_frame_of_life_when_activation ||
@@ -51,23 +60,29 @@ void Scene::nextFrame() {
 }
 
 void Scene::behave() {
-    Element<Scene>::behave();
-    _pSceneMediator->behave();
+    if (!_was_paused_flg) {
+        Element<Scene>::behave();
+        _pSceneMediator->behave();
+    }
 }
 
 void Scene::settleBehavior() {
+    //_was_paused_flg は忘れていません
     Element<Scene>::settleBehavior();
     _pSceneMediator->settleBehavior();
 }
 
 void Scene::preJudge() {
+    //_was_paused_flg は忘れていません
     Element<Scene>::preJudge();
     _pSceneMediator->preJudge();
 }
 
 void Scene::judge() {
-    Element<Scene>::judge();
-    _pSceneMediator->judge();
+    if (!_was_paused_flg) {
+        Element<Scene>::judge();
+        _pSceneMediator->judge();
+    }
 }
 
 void Scene::preDraw() {
@@ -104,10 +119,12 @@ void Scene::throwEventUpperTree(hashval prm_no) {
 }
 
 void Scene::doFinally() {
-    //doFinally()は_once_in_n_timeの影響を受けない。
-    //必ず毎フレーム実行したい処理はprocessFinal()に書くことができることとする。
-    Element<Scene>::doFinally();
-    _pSceneMediator->doFinally();
+    if (!_was_paused_flg) {
+        //doFinally()は_once_in_n_timeの影響を受けない。
+        //必ず毎フレーム実行したい処理はprocessFinal()に書くことができることとする。
+        Element<Scene>::doFinally();
+        _pSceneMediator->doFinally();
+    }
 }
 
 void Scene::activateTree() {
@@ -160,25 +177,25 @@ void Scene::inactivateImmed() {
     _pSceneMediator->inactivate();
 }
 
-void Scene::pauseTree() {
-    Element<Scene>::pauseTree();
-    _pSceneMediator->pauseTree();
-}
-
-void Scene::pause() {
-    Element<Scene>::pause();
-    _pSceneMediator->pause();
-}
-
-void Scene::unpauseTree() {
-    Element<Scene>::unpauseTree();
-    _pSceneMediator->unpauseTree();
-}
-
-void Scene::unpause() {
-    Element<Scene>::unpause();
-    _pSceneMediator->unpause();
-}
+//void Scene::pauseTree() {
+//    Element<Scene>::pauseTree();
+//    _pSceneMediator->pauseTree();
+//}
+//
+//void Scene::pause() {
+//    Element<Scene>::pause();
+//    _pSceneMediator->pause();
+//}
+//
+//void Scene::unpauseTree() {
+//    Element<Scene>::unpauseTree();
+//    _pSceneMediator->unpauseTree();
+//}
+//
+//void Scene::unpause() {
+//    Element<Scene>::unpause();
+//    _pSceneMediator->unpause();
+//}
 
 void Scene::executeFuncLowerTree(void (*pFunc)(Object*, void*, void*, void*), void* prm1, void* prm2, void* prm3) {
     Element<Scene>::executeFuncLowerTree(pFunc, prm1, prm2, prm3);
@@ -280,7 +297,7 @@ void Scene::dump() {
 }
 
 void Scene::dump(std::string prm_parent) {
-    _TRACE_(prm_parent+"●"<<NODE_INFO<<DUMP_FLGS);
+    _TRACE_(prm_parent+"●"<<NODE_INFO<<DUMP_FLGS_SCENE);
     if (_pSceneMediator) {
         _pSceneMediator->dump(prm_parent + "\t\t\t\t\t\t\t\t");
         Scene* pScene_tmp = _pChildFirst;

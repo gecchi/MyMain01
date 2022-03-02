@@ -59,7 +59,8 @@ void EnemyDelheid::onCreateModel() {
 
 void EnemyDelheid::nextFrame() {
     DefaultMassMorphMeshActor::nextFrame();
-    if (!_was_paused_flg && _is_active_in_the_tree_flg) {
+//    if (!_was_paused_flg && _is_active_in_the_tree_flg) {
+    if (_is_active_in_the_tree_flg) {
         pProg2_->update();
     }
 }

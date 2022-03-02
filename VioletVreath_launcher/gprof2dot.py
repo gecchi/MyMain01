@@ -534,7 +534,12 @@ class Profile(Object):
                 self._rank_cycle_function(cycle, callee, 0, ranks)
                 self._call_ratios_cycle(cycle, callee, ranks, call_ratios, set())
                 partial = self._integrate_cycle_function(cycle, callee, call_ratio, partials, ranks, call_ratios, outevent, inevent)
-                assert partial == max(partials.values())
+                #assert partial == max(partials.values())
+                if partial != 0.0:
+                    assert ((abs(partial - max(partials.values())) / abs(partial)) <= 1e-7), "result=%e, partial=%e, max(partials.values)=%e, partial-max(partials.values)=%e" \
+                        % ((abs(partial - max(partials.values())) / abs(partial)), partial, max(partials.values()), partial - max(partials.values()))
+
+                #assert partial == max(partials.values()) , "partial=%r, max(partials.values)=%r, partial-max(partials.values)=%r" % (str(partial), str(max(partials.values())), str(partial - max(partials.values())))
                 assert abs(call_ratio*total - partial) <= 0.001*call_ratio*total
 
         return cycle[outevent]
@@ -2899,12 +2904,12 @@ class DotWriter:
                 if event in function.events:
                     label = event.format(function[event])
                     labels.append(label)
+
             if function.called is not None:
                 labels.append("%u%s" % (function.called, MULTIPLICATION_SIGN))
-
-            if function.called > 1:
-                labels.append("1call %f u%%" % (((function[TOTAL_TIME_RATIO] * 100.0 * 1000.0 * 1000.0) / function.called) ) )
-                labels.append("(1call %f u%%)" % (((function[TIME_RATIO] * 100.0 * 1000.0 * 1000.0 ) / function.called) ) )
+                if function.called > 1:
+                    labels.append("1call %f u%%" % (((function[TOTAL_TIME_RATIO] * 100.0 * 1000.0 * 1000.0) / function.called) ) )
+                    labels.append("(1call %f u%%)" % (((function[TIME_RATIO] * 100.0 * 1000.0 * 1000.0 ) / function.called) ) )
 
             if function.weight is not None:
                 weight = function.weight

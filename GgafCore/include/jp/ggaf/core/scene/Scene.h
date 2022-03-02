@@ -89,9 +89,13 @@ class Scene : public Element<Scene> {
     friend class SceneMediator;
     friend class GarbageBox;
 
-protected:
+public:
     /** このシーンの仲介者 */
     SceneMediator* _pSceneMediator;
+    /** [r]一時停止フラグ */
+    bool _was_paused_flg;
+    /** [r]次フレームの一時停止フラグ、次フレームのフレーム加算時 _was_paused_flg に反映される */
+    bool _was_paused_flg_in_next_frame;
 
 public:
     /**
@@ -137,11 +141,94 @@ public:
     virtual void inactivateTreeImmed() override;
     virtual void inactivateImmed() override;
 
-    virtual void pauseTree() override;
-    virtual void pause() override;
 
-    virtual void unpauseTree() override;
-    virtual void unpause() override;
+
+    /**
+     * 自ツリーの配下ノード全てに、再帰呼び出しを行う。
+     * @param pFunc 再帰呼び出しするメソッド
+     */
+    inline void callRecursive(void (Scene::*pFunc)()) const {
+        Scene* pElementTemp = _pChildFirst;
+        while (pElementTemp) {
+            (pElementTemp->*pFunc)(); //実行
+            if (pElementTemp->_is_last_flg) {
+                break;
+            } else {
+                pElementTemp = pElementTemp->_pNext;
+            }
+        }
+    }
+
+    /**
+    * 一時停止状態かどうか判断
+    * @return true:一時停止状態／false:一時停止状態では無い
+    */
+    inline bool wasPaused() const {
+        return _was_paused_flg;
+    }
+
+
+    /**
+    * 一時停止状態にする(実行対象：自ツリー全て) .
+    * 正確には、自ノードだけ次フレームから一時停止にする予約フラグを立てる。<BR>
+    * そして、次フレーム先頭処理(nextFrame())内で、めでたく一時停止状態(_was_paused_flg = true)になる。<BR>
+    * したがって、本メソッドを実行しても『同一フレーム内』は一時停止状態の変化は無く一貫性は保たれる。<BR>
+    * 配下ノードには何も影響がありません。<BR>
+    */
+    virtual void pause() {
+//        if (_can_live_flg) {
+//            _was_paused_flg_in_next_frame = true;
+//        }
+        if (_can_live_flg) {
+            _was_paused_flg_in_next_frame = true;
+            callRecursive(&Scene::pause); //再帰
+        }
+    }
+
+//    /**
+//    * 一時停止状態にする(実行対象：自ツリー全て) .
+//    * 自身と配下ノード全てについて再帰的に pause() が実行される。<BR>
+//    */
+//    virtual void pauseTree() {
+//        if (_can_live_flg) {
+//            _was_paused_flg_in_next_frame = true;
+//            callRecursive(&Scene::pauseTree); //再帰
+//        }
+//    }
+
+    /**
+    * 一時停止状態を解除する(実行対象：自ツリー全て) .
+    * 正確には、自ノードだけ次フレームから一時停止状態を解除する予約フラグを立てる。<BR>
+    * そして、次フレーム先頭処理(nextFrame())内で、めでたく一時停止状態解除(_was_paused_flg = false)になる。<BR>
+    * したがって、本メソッドを実行しても『同一フレーム内』は一時停止状態の変化は無く一貫性は保たれる。<BR>
+    * 配下ノードには何も影響がありません。<BR>
+    */
+    virtual void unpause() {
+//        if (_can_live_flg) {
+//            _was_paused_flg_in_next_frame = false;
+//        }
+        if (_can_live_flg) {
+            _was_paused_flg_in_next_frame = false;
+            callRecursive(&Scene::unpause); //再帰
+        }
+    }
+
+//    /**
+//    * 一時停止状態を解除する(実行対象：自ツリー全て) .
+//    * 自身と配下ノード全てについて再帰的に unpause() が実行される。<BR>
+//    */
+//    virtual void unpauseTree() {
+//        if (_can_live_flg) {
+//            _was_paused_flg_in_next_frame = false;
+//            callRecursive(&Scene::unpauseTree); //再帰
+//        }
+//    }
+
+//    virtual void pauseTree() override;
+//    virtual void pause() override;
+//
+//    virtual void unpauseTree() override;
+//    virtual void unpause() override;
 
     virtual void reset() override;
     virtual void resetTree() override;
