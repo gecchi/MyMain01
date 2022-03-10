@@ -228,7 +228,6 @@ void GameScene::processBehavior() {
                     //ポーズ解除時直後の初期処理はココへ
                     _TRACE_("UNPAUSE!");
                     pGOD->setVB(VB_PLAY);
-//                    pProg->getGazedScene()->unpauseTree();//ポーズ解除！！
                     pProg->getGazedScene()->unpause();//ポーズ解除！！
                 }
             }
@@ -344,7 +343,6 @@ void GameScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
         _TRACE_("GameScene::onCatchEvent(EVENT_GO_TO_TITLE)");
         _TRACE_("UNPAUSE!(because EVENT_GO_TO_TITLE)");
         pGOD->setVB(VB_PLAY);
-//        pProg->getGazedScene()->unpauseTree();//ポーズ解除！！
         pProg->getGazedScene()->unpause();//ポーズ解除！！
         pProg->change(PROG_FINISH);
     }
@@ -389,7 +387,6 @@ void GameScene::pauseGame() {
     is_frame_advance_ = false;
     _TRACE_("PAUSE!");
     pGOD->setVB(VB_UI);  //入力はＵＩに切り替え
-//    getProgress()->getGazedScene()->pauseTree(); //ポーズ！！
     getProgress()->getGazedScene()->pause(); //ポーズ！！
     pMenuBoardPause_->rise(PX_C(100), PX_C(20));
 }

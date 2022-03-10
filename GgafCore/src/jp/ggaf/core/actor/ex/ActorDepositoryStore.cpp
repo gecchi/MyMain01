@@ -27,11 +27,11 @@ void ActorDepositoryStore::put(Actor* prm_pChild) {
 void ActorDepositoryStore::processFinal() {
     Actor* pChildDepository = getChildFirst(); //子はデポジトリのはず
     while (pChildDepository) {
-        if (pChildDepository->_is_active_flg && !(pChildDepository->willInactivateAfter())) {
+        if (pChildDepository->_is_active_flg && !(pChildDepository->isInactivateScheduled())) {
             bool is_inactive_all = false; //全メンバーが非活動の場合true
             Actor* pActor = pChildDepository->getChildFirst()->getPrev(); //お尻から見る(アクティブは後ろに回されているためブレイク確立が高い）
             while (true) {
-                if (pActor->_is_active_flg || pActor->willActivateAfter()) {
+                if (pActor->_is_active_flg || pActor->isActivateScheduled()) {
                     //dispatch の
                     //if (pActor->_is_active_flg == false && pActor->_will_activate_after_flg == false) {
                     //の対偶の条件で判定すること。

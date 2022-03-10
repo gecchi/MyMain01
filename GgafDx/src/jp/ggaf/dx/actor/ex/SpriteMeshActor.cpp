@@ -12,14 +12,14 @@
 using namespace GgafDx;
 
 SpriteMeshActor::SpriteMeshActor(const char* prm_name,
-                                             const char* prm_model,
-                                             Checker* prm_pChecker) :
+                                 const char* prm_model,
+                                 Checker* prm_pChecker) :
 
-                                        MeshActor(prm_name,
-                                                        prm_model,
-                                                        "SpriteMeshEffect",
-                                                        "SpriteMeshTechnique",
-                                                        prm_pChecker) {
+                                     MeshActor(prm_name,
+                                               prm_model,
+                                               "SpriteMeshEffect",
+                                               "SpriteMeshTechnique",
+                                               prm_pChecker) {
 
     _obj_class |= Obj_GgafDx_SpriteMeshActor;
     _class_name = "SpriteMeshActor";

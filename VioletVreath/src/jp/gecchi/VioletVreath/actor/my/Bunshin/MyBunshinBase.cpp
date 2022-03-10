@@ -259,12 +259,12 @@ void MyBunshinBase::processBehavior() {
                 const float sinRz = ANG_SIN(_rz);
                 const float cosRz = ANG_COS(_rz);
                 pGeoDriver->setVxyzMvVelo( (cosRx*-sinRz*cosRy + sinRx*sinRy)  * MyBunshinBase::VELO_BUNSHIN_FREE_MV,
-                                      (cosRx*cosRz)                       * MyBunshinBase::VELO_BUNSHIN_FREE_MV,
-                                      (cosRx*-sinRz*-sinRy + sinRx*cosRy) * MyBunshinBase::VELO_BUNSHIN_FREE_MV );
+                                           (cosRx*cosRz)                       * MyBunshinBase::VELO_BUNSHIN_FREE_MV,
+                                           (cosRx*-sinRz*-sinRy + sinRx*cosRy) * MyBunshinBase::VELO_BUNSHIN_FREE_MV );
             } else if (pProg->getFrame() > 3*(no_-1)) { //ばらつかせ
                 pGeoDriver->setVxyzMvAcce( (tx - (_x + pGeoDriver->_velo_vx_mv*6)),
-                                      (ty - (_y + pGeoDriver->_velo_vy_mv*6)),
-                                      (tz - (_z + pGeoDriver->_velo_vz_mv*6)) );
+                                           (ty - (_y + pGeoDriver->_velo_vy_mv*6)),
+                                           (tz - (_z + pGeoDriver->_velo_vz_mv*6)) );
             }
             if (ABS(_x - tx) < 10000 &&
                 ABS(_y - ty) < 10000 &&
@@ -452,12 +452,12 @@ void MyBunshinBase::resetBunshin(int prm_mode) {
 
     //土台がの向きが元に戻る（前方に向く）指示
     pVecDriver->asstMvAng()->turnRzRyByDtTo(D0ANG, D0ANG,
-                                         TURN_CLOSE_TO,
-                                         false,
-                                         return_default_pos_frames_ * delay_r_,
-                                         0.3, 0.5,
-                                         0,
-                                         true);
+                                            TURN_CLOSE_TO,
+                                            false,
+                                            return_default_pos_frames_ * delay_r_,
+                                            0.3, 0.5,
+                                            0,
+                                            true);
     //分身の向きが元に戻る（前方に向く）指示
     pBunshin_->turnExpanse(
                    D_ANG(0),

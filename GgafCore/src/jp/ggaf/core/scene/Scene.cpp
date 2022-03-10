@@ -177,26 +177,6 @@ void Scene::inactivateImmed() {
     _pSceneMediator->inactivate();
 }
 
-//void Scene::pauseTree() {
-//    Element<Scene>::pauseTree();
-//    _pSceneMediator->pauseTree();
-//}
-//
-//void Scene::pause() {
-//    Element<Scene>::pause();
-//    _pSceneMediator->pause();
-//}
-//
-//void Scene::unpauseTree() {
-//    Element<Scene>::unpauseTree();
-//    _pSceneMediator->unpauseTree();
-//}
-//
-//void Scene::unpause() {
-//    Element<Scene>::unpause();
-//    _pSceneMediator->unpause();
-//}
-
 void Scene::executeFuncLowerTree(void (*pFunc)(Object*, void*, void*, void*), void* prm1, void* prm2, void* prm3) {
     Element<Scene>::executeFuncLowerTree(pFunc, prm1, prm2, prm3);
     _pSceneMediator->executeFuncLowerTree(pFunc, prm1, prm2, prm3);

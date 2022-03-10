@@ -38,7 +38,7 @@ void FkFormation::appendFormationMember(GeometricActor* prm_pMember,
                                         int prm_rz_init_local) {
 
 #ifdef MY_DEBUG
-    if (wasDeclaredEnd() || willInactivateAfter()) {
+    if (wasDeclaredEnd() || isInactivateScheduled()) {
         //終了を待つのみ
         throwCriticalException(": 既に死にゆく定めのFormationです。子に追加することはおかしいでしょう。this="<<getName());
     }
@@ -60,7 +60,7 @@ void FkFormation::appendFormationMember(GeometricActor* prm_pMember,
 }
 
 void FkFormation::processFinal() {
-    if (_was_all_sayonara || wasDeclaredEnd() || willInactivateAfter()) {
+    if (_was_all_sayonara || wasDeclaredEnd() || isInactivateScheduled()) {
         //終了を待つのみ
     } else {
         GgafCore::MainActor* pFkBase = (GgafCore::MainActor*)(getChildFirst()); //FKベース
@@ -82,7 +82,7 @@ void FkFormation::onEnd() {
 }
 
 GeometricActor* FkFormation::calledUpMember(int prm_formation_child_num) {
-    if (wasDeclaredEnd() || willInactivateAfter()) {
+    if (wasDeclaredEnd() || isInactivateScheduled()) {
         //終了を待つのみ
         return nullptr;
     }

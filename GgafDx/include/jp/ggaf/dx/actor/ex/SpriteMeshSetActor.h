@@ -23,8 +23,8 @@ public:
 
 public:
     SpriteMeshSetActor(const char* prm_name,
-                             const char* prm_model,
-                             Checker* prm_pChecker );
+                       const char* prm_model,
+                       Checker* prm_pChecker );
 
     virtual void processDraw() override;
 

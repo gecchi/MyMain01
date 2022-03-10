@@ -59,7 +59,7 @@ void DepositoryFormation::processFinal() {
     Actor* pFollower;
     for (int i = 0; i < n; i++) {
         pFollower = _listFollower.getCurrent();
-        if (pFollower->isActive() || pFollower->willActivateAfter()) {
+        if (pFollower->isActive() || pFollower->isActivateScheduled()) {
             _listFollower.next();
         } else {
             //編隊メンバーから外す
@@ -85,7 +85,7 @@ void DepositoryFormation::processFinal() {
 //            if (_can_live_flg) {
 //                if (pFollower->_is_active_flg) {
 //                    _listFollower.next();
-//                } else if (pFollower->willActivateAfter()) {
+//                } else if (pFollower->isActivateScheduled()) {
 //                    //未来に活動予定でも残す
 //                    _listFollower.next();
 //                } else {
@@ -115,7 +115,7 @@ void DepositoryFormation::processFinal() {
 }
 
 Actor* DepositoryFormation::calledUpMember(int prm_formation_child_num) {
-    if (wasDeclaredEnd() || willInactivateAfter()) {
+    if (wasDeclaredEnd() || isInactivateScheduled()) {
         //終了を待つのみ
         return nullptr;
     }

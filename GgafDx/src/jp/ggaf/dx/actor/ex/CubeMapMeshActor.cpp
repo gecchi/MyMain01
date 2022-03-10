@@ -21,7 +21,7 @@ CubeMapMeshActor::CubeMapMeshActor(const char* prm_name,
                                                            TYPE_CUBEMAPMESH_EFFECT,
                                                            prm_technique,
                                                            prm_pChecker) ,
-                                            ICubeMapActor() {
+                                           ICubeMapActor() {
     _obj_class |= Obj_GgafDx_CubeMapMeshActor;
     _class_name = "CubeMapMeshActor";
     _pCubeMapMeshModel = (CubeMapMeshModel*)_pModel;

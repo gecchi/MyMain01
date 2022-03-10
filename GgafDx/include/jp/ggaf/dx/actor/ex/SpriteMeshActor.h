@@ -7,7 +7,7 @@ namespace GgafDx {
 
 /**
  * スプライトメッシュセットアクター.
- * 
+ *
  * さらにUVを切り替える機能を有したアクター
  * メッシュ３Dオブジェクトの表面のテクスチャをアニメーションできます。
  * @version 1.00
@@ -29,8 +29,8 @@ public:
      * @param prm_pChecker
      */
     SpriteMeshActor(const char* prm_name,
-                           const char* prm_model,
-                           Checker* prm_pChecker );
+                    const char* prm_model,
+                    Checker* prm_pChecker );
 
     virtual void processDraw() override;
 

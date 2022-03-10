@@ -10,13 +10,11 @@ std::map<int, AAPyramidActor::RotPosPyramid> AAPyramidActor::pos2r;
 
 AAPyramidActor::AAPyramidActor(const char* prm_name,
                                Checker* prm_pChecker) :
-
-                               MeshActor(prm_name,
-                                         CONFIG::COLI_AAPYRAMID_MODEL.c_str(),
-                                         "DefaultMeshEffect",
-                                         "DefaultMeshTechnique",
-                                         prm_pChecker) {
-    //_obj_class |= Obj_GgafDx_AAPyramidActor;
+                                   MeshActor(prm_name,
+                                             CONFIG::COLI_AAPYRAMID_MODEL.c_str(),
+                                             "DefaultMeshEffect",
+                                             "DefaultMeshTechnique",
+                                             prm_pChecker) {
     _class_name = "AAPyramidActor";
     static volatile bool is_init = AAPyramidActor::initStatic(); //ê√ìIÉÅÉìÉoèâä˙âª
 }

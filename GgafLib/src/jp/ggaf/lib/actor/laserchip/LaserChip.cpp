@@ -81,9 +81,6 @@ void LaserChip::onActive() {
 }
 
 void LaserChip::processSettlementBehavior() {
-//    if (_was_paused_flg) {
-//        GgafDx::MassMeshActor::processSettlementBehavior();
-//    } else {
     CollisionChecker* pChecker = getCollisionChecker();
     const LaserChip* pChip_infront = _pChip_infront;
     const LaserChip* pChip_behind = _pChip_behind;

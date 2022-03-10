@@ -113,7 +113,7 @@ public:
         frame offset_frames = (prm_offset_frames < 1 ? 1 : prm_offset_frames);
         MainActor* pActor = (MainActor*)_pChildFirst;
         while (true) {
-            if (pActor->_is_active_flg == false && pActor->willActivateAfter() == false) {
+            if (pActor->_is_active_flg == false && pActor->isActivateScheduled() == false) {
                 //取得！
                 pActor->moveLast(); //お尻に回す
                 pActor->activateDelay(offset_frames); //activate自動実行。
@@ -139,26 +139,20 @@ public:
      * <b>＜注意＞</b><BR>
      * 取り出し後、アクターに active() を実行しても、そのアクターが既に活動状態の可能性があり、つまり
      * isActiveInTheTree() → true の状態もありうるため、onActive() コールバックは呼ばれない可能性がある。<BR>
-     * 無理やりにonInctive(); onActive(); コールバックを呼び出したい場合に次のようなコードに
-     * しなければいけないかも知れない。<BR>
-     * <pre><code>
-     * MainActor* pActor = pDepository->dispatchForce();
-     * if (pActor->isActiveInTheTree()) {
-     *     pActor->onInactive();
-     *     pActor->_frame_of_behaving_since_onActive = 1;
-     *     pActor->onActive();
-     * }
-     * pActor->active();
-     * </code></pre>
+     * そこで、即座に inactivateImmed() を実行し、無理やりに onInctive() コールバックを呼び出している。<BR>
      *
      * @param prm_offset_frames 活動状態にする遅延フレーム
-     * @return
+     * @return アクター発送者の暇そうなメンバーアクターのポインタ、或いは、先頭のアクター
      */
-    virtual MainActor* dispatchForce() {
-        MainActor* pActor = dispatch(1);
+    virtual MainActor* dispatchForce(int prm_offset_frames = 1) {
+        MainActor* pActor = dispatch(prm_offset_frames);
         if (pActor == nullptr) {
-            pActor = (MainActor*)getChildFirst();
+            pActor = (MainActor*)getChildFirst(); //強制敵に先頭取得
             pActor->moveLast(); //お尻に回す
+            frame offset_frames = (prm_offset_frames < 1 ? 1 : prm_offset_frames);
+            pActor->inactivateImmed(); //即時非活性
+            pActor->onInactive();      //nextFrame() で呼び出されるべき onInactive() が呼び出されないので、ここで呼ぶ
+            pActor->activateDelay(prm_offset_frames); //activate自動実行。
         }
         return pActor;
     }

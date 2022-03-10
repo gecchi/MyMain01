@@ -70,7 +70,7 @@ void TreeFormation::appendFormationMember(Actor* prm_pChild) {
 }
 
 void TreeFormation::processFinal() {
-    if (_was_all_sayonara || wasDeclaredEnd() || willInactivateAfter()) {
+    if (_was_all_sayonara || wasDeclaredEnd() || isInactivateScheduled()) {
         //終了を待つのみ
     } else {
         if (getChildFirst() == nullptr) {  //配下がない場合、フォーメーションはなかったことになり、自身を終了かな？
@@ -91,7 +91,7 @@ void TreeFormation::onEnd() {
 }
 
 Actor* TreeFormation::calledUpMember(int prm_formation_child_num) {
-    if (wasDeclaredEnd() || willInactivateAfter()) {
+    if (wasDeclaredEnd() || isInactivateScheduled()) {
         //終了を待つのみ
         return nullptr;
     }

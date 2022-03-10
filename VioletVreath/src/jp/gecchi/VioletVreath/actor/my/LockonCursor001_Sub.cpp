@@ -61,7 +61,7 @@ void LockonCursor001_Sub::processBehavior() {
         _sx = _sy = _sz = pLockonCursor001_Main_->_sx;
         pVecDriver->_angvelo_face[AXIS_Z] = pLockonCursor001_Main_->getVecDriver()->_angvelo_face[AXIS_Z];
         if (pTarget_) {
-            if (pTarget_->isActiveInTheTree() || pTarget_->willActivateAfter()) {
+            if (pTarget_->isActiveInTheTree() || pTarget_->isActivateScheduled()) {
                 if (ABS(pTarget_->_x-_x) <= PX_C(200) &&
                     ABS(pTarget_->_y-_y) <= PX_C(200) &&
                     ABS(pTarget_->_z-_z) <= PX_C(200)) {

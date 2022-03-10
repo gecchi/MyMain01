@@ -11,19 +11,19 @@
 using namespace GgafDx;
 
 WorldBoundActor::WorldBoundActor(const char* prm_name,
-                                             const char* prm_model,
-                                             const char* prm_effect_id,
-                                             const char* prm_technique,
-                                             Checker* prm_pChecker) :
+                                 const char* prm_model,
+                                 const char* prm_effect_id,
+                                 const char* prm_technique,
+                                 Checker* prm_pChecker) :
 
-                                                 MorphMeshActor(prm_name,
-                                                                      prm_model,
-                                                                      TYPE_WORLDBOUND_MODEL,
-                                                                      prm_effect_id,
-                                                                      TYPE_WORLDBOUND_EFFECT,
-                                                                      prm_technique,
-                                                                      prm_pChecker),
-                                                     ICubeMapActor() {
+                                     MorphMeshActor(prm_name,
+                                                    prm_model,
+                                                    TYPE_WORLDBOUND_MODEL,
+                                                    prm_effect_id,
+                                                    TYPE_WORLDBOUND_EFFECT,
+                                                    prm_technique,
+                                                    prm_pChecker),
+                                     ICubeMapActor() {
     _obj_class |= Obj_GgafDx_WorldBoundActor;
     _class_name = "WorldBoundActor";
     _pWorldBoundModel = (WorldBoundModel*)_pModel;

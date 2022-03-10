@@ -62,12 +62,9 @@ void EnemyHisbeLaserChip003::processBehavior() {
 }
 void EnemyHisbeLaserChip003::processSettlementBehavior() {
     //角を丸めたくないのでオーバーライド
-//    if (_was_paused_flg) {
-//        GgafDx::GeometricActor::processSettlementBehavior();
-//    } else {
         LaserChip::processSettlementBehavior();
-//    }
 }
+
 void EnemyHisbeLaserChip003::processJudgement() {
     if (pDriverLeader_->isFinished()) {
         sayonara();

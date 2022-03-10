@@ -128,11 +128,11 @@ void WallSectionScene::processBehavior() {
                 WallInfo* const pWallInfo = &(_papaWallInfo[_cnt_area_len][n]);
                 pWall = (MassWallActor*)_pDepo_wall->dispatchForce();
                 //pWallInfo->_pos_info == 0 ‚È‚ç‚ÎBOX
-                if (pWall->isActiveInTheTree()) {
-                    //–³—‚â‚è‰¡Žæ‚è‚µ‚½
-                    pWall->inactivateImmed();
-                    pWall->onInactive();
-                }
+//                if (pWall->isActiveInTheTree()) {
+//                    //–³—‚â‚è‰¡Žæ‚è‚µ‚½
+//                    pWall->inactivateImmed();
+//                    pWall->onInactive();
+//                }
 
                 pWall->config(this, pWallInfo->_pos_info,
                                     pWallInfo->_wall_draw_face,

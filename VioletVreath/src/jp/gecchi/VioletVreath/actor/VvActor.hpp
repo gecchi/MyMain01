@@ -43,40 +43,27 @@ public:
 //            }
 //            case MyStgUtil::EF_EXPLOSION001: {
 //                pE = dispatchForceFromCommon(EffectExplosion001);
-//                if (pE) {
-//                    if (pE->isActiveInTheTree()) {
-//                        pE->onInactive();
-//                        pE->_frame_of_behaving_since_onActive = 1;
-//                        pE->onActive();
-//                    }
-//                    pE->setPositionAt(this);
-//                    pE->getVecDriver()->takeoverMvFrom(this->getVecDriver());
-//                }
+//                pE->setPositionAt(this);
+//                pE->getVecDriver()->takeoverMvFrom(this->getVecDriver());
 //                break;
 //            }
 //            case MyStgUtil::EF_EXPLOSION002: {
 //                pE = dispatchForceFromCommon(EffectExplosion002);
-//                if (pE) {
-//                    pE->setPositionAt(this);
-//                    pE->getVecDriver()->takeoverMvFrom(this->getVecDriver());
-//                }
+//                pE->setPositionAt(this);
+//                pE->getVecDriver()->takeoverMvFrom(this->getVecDriver());
 //                break;
 //            }
 //            case MyStgUtil::EF_EXPLOSION003: {
 //                pE = dispatchForceFromCommon(EffectExplosion003);
-//                if (pE) {
-//                    pE->setPositionAt(this);
-//                    pE->getVecDriver()->takeoverMvFrom(this->getVecDriver());
-//                }
+//                pE->setPositionAt(this);
+//                pE->getVecDriver()->takeoverMvFrom(this->getVecDriver());
 //                break;
 //            }
 //            case MyStgUtil::EF_EXPLOSION001_STAY: {
 //                pE = dispatchForceFromCommon(EffectExplosion001);
-//                if (pE) {
-//                    pE->setPositionAt(this);
-//                    pE->getVecDriver()->setMvVelo(0);
-//                    pE->getVecDriver()->setMvAcce(0);
-//                }
+//                pE->setPositionAt(this);
+//                pE->getVecDriver()->setMvVelo(0);
+//                pE->getVecDriver()->setMvAcce(0);
 //                break;
 //            }
 //            default: {

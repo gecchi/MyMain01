@@ -176,25 +176,11 @@ public:
     * 配下ノードには何も影響がありません。<BR>
     */
     virtual void pause() {
-//        if (_can_live_flg) {
-//            _was_paused_flg_in_next_frame = true;
-//        }
         if (_can_live_flg) {
             _was_paused_flg_in_next_frame = true;
             callRecursive(&Scene::pause); //再帰
         }
     }
-
-//    /**
-//    * 一時停止状態にする(実行対象：自ツリー全て) .
-//    * 自身と配下ノード全てについて再帰的に pause() が実行される。<BR>
-//    */
-//    virtual void pauseTree() {
-//        if (_can_live_flg) {
-//            _was_paused_flg_in_next_frame = true;
-//            callRecursive(&Scene::pauseTree); //再帰
-//        }
-//    }
 
     /**
     * 一時停止状態を解除する(実行対象：自ツリー全て) .
@@ -204,31 +190,11 @@ public:
     * 配下ノードには何も影響がありません。<BR>
     */
     virtual void unpause() {
-//        if (_can_live_flg) {
-//            _was_paused_flg_in_next_frame = false;
-//        }
         if (_can_live_flg) {
             _was_paused_flg_in_next_frame = false;
             callRecursive(&Scene::unpause); //再帰
         }
     }
-
-//    /**
-//    * 一時停止状態を解除する(実行対象：自ツリー全て) .
-//    * 自身と配下ノード全てについて再帰的に unpause() が実行される。<BR>
-//    */
-//    virtual void unpauseTree() {
-//        if (_can_live_flg) {
-//            _was_paused_flg_in_next_frame = false;
-//            callRecursive(&Scene::unpauseTree); //再帰
-//        }
-//    }
-
-//    virtual void pauseTree() override;
-//    virtual void pause() override;
-//
-//    virtual void unpauseTree() override;
-//    virtual void unpause() override;
 
     virtual void reset() override;
     virtual void resetTree() override;

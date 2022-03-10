@@ -16,8 +16,7 @@ namespace GgafCore {
  * nextFrame() > behave() > settleBehavior() > judge() > [preDraw() > draw() > afterDraw()] > doFinally() <BR>
  * アプリケーションに登場するノードは全て、「この世」のツリーに所属するため、全ノードに対して上記の処理が行われる。
  * 上記の内、nextFrame() のみ毎フレーム必ず実行される。<BR>
- * behave(), settleBehavior(), judge(), doFinally() は、活動状態フラグ(_is_active_in_the_tree_flg)が true、かつ、
- * 一時停止フラグ(_was_paused_flg)が false の場合実行される。<BR>
+ * behave(), settleBehavior(), judge(), doFinally() は、活動状態フラグ(_is_active_in_the_tree_flg)が true の場合実行される。<BR>
  * preDraw(), draw(), afterDraw() は、次フレームまでの残時間に余裕がある場合、実行される。<BR>
  * 次フレームまでの残時間に余裕が無い場合、神はこの3メソッドをスキップする。
  * 但し、スキップするといっても、MAX_SKIP_FRAME フレームに１回は必ず実行する。<BR>
@@ -75,24 +74,20 @@ public:
     God* _pGod;
     /** [r]initializeが行われたどうかのフラグ(true=行われた) */
     bool _was_initialize_flg;
-    /** [r]ノードが誕生(appendChildされた）時からのフレーム数総計(但し、_was_paused_flg = true 時は加算され無い) */
+    /** [r]ノードが誕生(appendChildされた）時からのフレーム数総計 */
     frame _frame_of_life;
-    /** [r]ノードが誕生(appendChildされた）時から、振舞ったフレーム数総計(但し、_was_paused_flg = true 又は _is_active_flg = false 時は加算され無い) */
+    /** [r]ノードが誕生(appendChildされた）時から、振舞ったフレーム数総計(_is_active_flg = false 時は加算され無い) */
     frame _frame_of_behaving;
-    /** [r]ノードが活動開始(onActive())時からの振舞ったフレーム数総計(但し、_was_paused_flg = true 又は _is_active_flg = false 時は加算され無い) */
+    /** [r]ノードが活動開始(onActive())時からの振舞ったフレーム数総計(_is_active_flg = false 時は加算され無い) */
     frame _frame_of_behaving_since_onActive;
 
     /** [r]ノード活動フラグ */
     bool _is_active_flg;
     /** [r]ノード活動フラグ(自ツリーも考慮あり) */
     bool _is_active_in_the_tree_flg;
-//    /** [r]一時停止フラグ */
-//    bool _was_paused_flg;
     /** [r]ノード生存フラグ */
     bool _can_live_flg;
 
-//    /** [r]次フレームの一時停止フラグ、次フレームのフレーム加算時 _was_paused_flg に反映される */
-//    bool _was_paused_flg_in_next_frame;
     /** [r]終了する予定の _frame_of_life */
     frame _frame_of_life_when_end;
     /** [r]活動開始する予定の _frame_of_life */
@@ -141,8 +136,8 @@ public:
     /**
      * ノードのフレームを加算と、フレーム開始にあたってのいろいろな初期処理(実行対象：自ツリー全て) .
      * 毎フレーム必ず実行され、主に様々な状態フラグの更新を行う。 <BR>
-     * _is_active_flg_in_next_frame _was_paused_flg_in_next_frame _can_live_flg_in_next_frame を<BR>
-     * _is_active_flg _was_paused_flg _can_live_flg に反映（コピー）する。<BR>
+     * _is_active_flg_in_next_frame, _can_live_flg_in_next_frame を<BR>
+     * _is_active_flg,  _can_live_flg に反映（コピー）する。<BR>
      * また、_will_mv_first_in_next_frame_flg, _will_mv_last_in_next_frame_flg が true の場合は、<BR>
      * それぞれ、自ノードの先頭ノードへの移動、末尾ノードへの移動処理も実行される。<BR>
      * その後、配下ノード全てに nextFrame() を再帰的に実行する。<BR>
@@ -168,8 +163,7 @@ public:
      * ノードのフレーム毎の振る舞い処理(実行対象：自ツリー全て) .
      * この処理では、全ノード座標移動処理を行うこととする。<BR>
      * 実装用の processBehavior() がコールバックされるためのフラグの条件は、<BR>
-     * 活動フラグがセット、かつ一時停止フラグがアンセット<BR>
-     * （ _is_active_in_the_tree_flg && !_was_paused_flg ）の場合である。 <BR>
+     * 活動フラグがセット( _is_active_in_the_tree_flg == true) の場合である。 <BR>
      * behave() は 仮想関数 processBehavior() をコールした後、配下のノード全てについて behave() を再帰的に実行する。<BR>
      * 神(God)が実行するメソッドであり、通常は下位ロジックで本メソッドを直接呼び出しを行わないこととする。<BR>
      * 下位クラスではコールされる processBehavior() をオーバーライドして具体的な座標移動ロジックを実装する。 <BR>
@@ -197,8 +191,7 @@ public:
      * この処理では、ノード間の様々な判定処理を行う事とする設計。<BR>
      * 全ノード座標移動処理と伴なうステータス類の更新が完全に完了してが前提とする処理が行われる。<BR>
      * 実装用の processJudgement() がコールバックされるためのフラグの条件は、behave()と同じく、<BR>
-     * 活動フラグがセット、かつ一時停止フラグがアンセット<BR>
-     * つまり ( _is_active_in_the_tree_flg && !_was_paused_flg )の場合 <BR>
+     * 活動フラグがセット(_is_active_in_the_tree_flg == true)の場合 <BR>
      * judge() は 仮想関数 processJudgement() をコールした後、配下のノード全てについて judge() を再帰的に実行する。<BR>
      * 神(God)が実行するメソッドであり、通常は下位ロジックで本メソッドを直接呼び出しを行わないこととする。<BR>
      * 下位クラスではコールされる processJudgement() をオーバーライドしてロジックを実装する <BR>
@@ -244,8 +237,7 @@ public:
      * ノードのフレーム毎の最終処理(実行対象：自ツリー全て) .
      * 座標移動処理、判定処理、描画処理が終了した後に、最後に行う後始末処理を行う事とする設計。<BR>
      * 実装用の processFinal() がコールバックされる条件は、
-     * 活動フラグがセット、かつ一時停止フラグがアンセット<BR>
-     * （_is_active_in_the_tree_flg && !_was_paused_flg）の場合である。 <BR>
+     * 活動フラグがセット(_is_active_in_the_tree_flg == true)の場合である。 <BR>
      * processFinal() をコールした後、配下のノード全てについて doFinally() を再帰的に実行する。<BR>
      * 神(God)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
      * 下位クラスではコールされる processFinal() をオーバーライドしてロジックを実装する <BR>
@@ -528,43 +520,6 @@ public:
     virtual void inactivateTreeImmed();
 
     //===================
-//    /**
-//     * 一時停止状態にする(実行対象：this のみ) .
-//     * 正確には、自ノードだけ次フレームから一時停止にする予約フラグを立てる。<BR>
-//     * そして、次フレーム先頭処理(nextFrame())内で、めでたく一時停止状態(_was_paused_flg = true)になる。<BR>
-//     * したがって、本メソッドを実行しても『同一フレーム内』は一時停止状態の変化は無く一貫性は保たれる。<BR>
-//     * 配下ノードには何も影響がありません。<BR>
-//     */
-//    virtual void pause();
-//
-//    /**
-//     * 一時停止状態にする(実行対象：自ツリー全て) .
-//     * 自身と配下ノード全てについて再帰的に pause() が実行される。<BR>
-//     */
-//    virtual void pauseTree();
-//
-//
-//
-//    //===================
-//    /**
-//     * 一時停止状態を解除する(実行対象：this のみ) .
-//     * 正確には、自ノードだけ次フレームから一時停止状態を解除する予約フラグを立てる。<BR>
-//     * そして、次フレーム先頭処理(nextFrame())内で、めでたく一時停止状態解除(_was_paused_flg = false)になる。<BR>
-//     * したがって、本メソッドを実行しても『同一フレーム内』は一時停止状態の変化は無く一貫性は保たれる。<BR>
-//     * 配下ノードには何も影響がありません。<BR>
-//     */
-//    virtual void unpause();
-//
-//    /**
-//     * 一時停止状態を解除する(実行対象：自ツリー全て) .
-//     * 自身と配下ノード全てについて再帰的に unpause() が実行される。<BR>
-//     */
-//    virtual void unpauseTree();
-
-
-
-
-    //===================
     /**
      * 状態をリセットするための処理である onReset() をコールバックする。(実行対象：thisのみ) .
      * 次のような動作を『即時』に行います。<BR>
@@ -733,14 +688,6 @@ public:
         return (_is_active_in_the_tree_flg && _can_live_flg) ? true : false;
     }
 
-//    /**
-//     * 一時停止状態かどうか判断
-//     * @return true:一時停止状態／false:一時停止状態では無い
-//     */
-//    inline bool wasPaused() const {
-//        return _was_paused_flg;
-//    }
-
     /**
      * 終了宣言したかどうか .
      * end(frame) が実行済みかどうか調べます。
@@ -843,8 +790,8 @@ public:
      * 活動予定か否かを返す .
      * @return
      */
-    inline bool willActivateAfter() {
-        if (_frame_of_life_when_activation > _frame_of_life) {
+    inline bool isActivateScheduled() {
+        if (_frame_of_life_when_activation >= _frame_of_life) {
             return true;
         } else {
             return false;
@@ -855,9 +802,9 @@ public:
      * 非活動予定か否かを返す .
      * @return
      */
-    inline bool willInactivateAfter() {
+    inline bool isInactivateScheduled() {
         if (0 < _frame_of_life_when_inactivation &&
-                _frame_of_life_when_inactivation > _frame_of_life) {
+                _frame_of_life_when_inactivation >= _frame_of_life) {
             return true;
         } else {
             return false;
@@ -877,9 +824,7 @@ Element<T>::Element(const char* prm_name) :
     _frame_of_behaving_since_onActive(0),
     _is_active_flg(false),             //生成直後はfalseであるが、何もしないと初回nextFrame()でアクティブになる予定
     _is_active_in_the_tree_flg(false),
-//    _was_paused_flg(false),
     _can_live_flg(true),
-//    _was_paused_flg_in_next_frame(false),
     _frame_of_life_when_end(0),
     _frame_of_life_when_activation(1), //初回フレームにアクティブになるために1
     _frame_of_life_when_inactivation(0),
@@ -891,8 +836,6 @@ Element<T>::Element(const char* prm_name) :
 
 template<class T>
 void Element<T>::nextFrame() {
-//    _was_paused_flg = _was_paused_flg_in_next_frame;
-//    if (!_was_paused_flg) {
     const frame frame_of_life = (++_frame_of_life);
     _is_already_reset = false;
     if (frame_of_life == _frame_of_life_when_end) {
@@ -915,7 +858,7 @@ void Element<T>::nextFrame() {
             }
 
         } else { //現在inactivate
-            if(frame_of_life == _frame_of_life_when_activation) { //現在inactivate だが、今activateになる時が来た
+            if (frame_of_life == _frame_of_life_when_activation) { //現在inactivate だが、今activateになる時が来た
                 _on_change_to = 2;      //onActive処理
                 _is_active_flg = true;  //活動フラグON
                 updateActiveInTheTree();     //_is_active_in_the_tree_flg を更新
@@ -938,7 +881,6 @@ void Element<T>::nextFrame() {
             }
         }
     }
-//    }
     //再帰
     //配下の全ノードに再帰的にnextFrame()実行
     T* p = Node<T>::_pChildFirst; //一つ配下の先頭ノード。潜れる場合は先に潜る。
@@ -967,7 +909,6 @@ void Element<T>::nextFrame() {
 
 template<class T>
 void Element<T>::behave() {
-//    if (_is_active_in_the_tree_flg && !_was_paused_flg) {
     if (_is_active_in_the_tree_flg) {
         processBehavior();    //ユーザー実装用
         callRecursive(&Element<T>::behave); //再帰
@@ -976,7 +917,7 @@ void Element<T>::behave() {
 
 template<class T>
 void Element<T>::settleBehavior() {
-    if (_is_active_in_the_tree_flg) { //_was_paused_flg は忘れていません
+    if (_is_active_in_the_tree_flg) {
         processSettlementBehavior(); //フレームワーク用
         callRecursive(&Element<T>::settleBehavior); //再帰
     }
@@ -984,7 +925,7 @@ void Element<T>::settleBehavior() {
 
 template<class T>
 void Element<T>::preJudge() {
-    if (_is_active_in_the_tree_flg) { //_was_paused_flg は忘れていません
+    if (_is_active_in_the_tree_flg) {
         processPreJudgement();    //フレームワーク用
         callRecursive(&Element<T>::preJudge); //再帰
     }
@@ -992,7 +933,6 @@ void Element<T>::preJudge() {
 
 template<class T>
 void Element<T>::judge() {
-//    if (_is_active_in_the_tree_flg && !_was_paused_flg) {
     if (_is_active_in_the_tree_flg) {
         processJudgement();    //ユーザー実装用
         callRecursive(&Element<T>::judge); //再帰
@@ -1025,7 +965,6 @@ void Element<T>::afterDraw() {
 
 template<class T>
 void Element<T>::doFinally() {
-//    if (_is_active_in_the_tree_flg && !_was_paused_flg) {
     if (_is_active_in_the_tree_flg) {
         processFinal();
         callRecursive(&Element<T>::doFinally); //再帰
@@ -1250,36 +1189,6 @@ void Element<T>::inactivateTreeImmed() {
         callRecursive(&Element<T>::inactivateTreeImmed); //再帰
     }
 }
-
-//template<class T>
-//void Element<T>::pauseTree() {
-//    if (_can_live_flg) {
-//        _was_paused_flg_in_next_frame = true;
-//        callRecursive(&Element<T>::pauseTree); //再帰
-//    }
-//}
-
-//template<class T>
-//void Element<T>::pause() {
-//    if (_can_live_flg) {
-//        _was_paused_flg_in_next_frame = true;
-//    }
-//}
-//
-//template<class T>
-//void Element<T>::unpauseTree() {
-//    if (_can_live_flg) {
-//        _was_paused_flg_in_next_frame = false;
-//        callRecursive(&Element<T>::unpauseTree); //再帰
-//    }
-//}
-//
-//template<class T>
-//void Element<T>::unpause() {
-//    if (_can_live_flg) {
-//        _was_paused_flg_in_next_frame = false;
-//    }
-//}
 
 template<class T>
 void Element<T>::end(frame prm_offset_frames) {
