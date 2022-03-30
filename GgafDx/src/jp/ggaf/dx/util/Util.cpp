@@ -529,7 +529,7 @@ void Util::convVectorToRzRy(coord vx,
         int xz = (int)(prj_rXZ*0.01);
         rot_z = Util::PROJANG_XY_XZ_TO_ROTANG_z[xy][xz];
         rot_y_rev = Util::PROJANG_XY_XZ_TO_ROTANG_y_REV[xy][xz];
-    } else if (D45ANG <= prj_rXZ && prj_rXZ <= D90ANG) {
+    } else if (prj_rXZ <= D90ANG) {
         const angle prj_rZY = Util::getAngle2D_first_quadrant(dz, dy); //Rz
         const angle prj_rZX = Util::getAngle2D_first_quadrant(dz, dx);
         int zy = (int)(prj_rZY*0.01);
@@ -621,17 +621,17 @@ void Util::convRzRyToVector(angle prm_rz,
             xsign = 1;
             ysign = 1;
             zsign = -1;
-        } else if (D90ANG <= prm_ry && prm_ry < D180ANG) { //‘æ˜ZŒTŒÀ
+        } else if (prm_ry < D180ANG) { //‘æ˜ZŒTŒÀ
             ry_rev = (D180ANG - prm_ry) * (1.0 / SANG_RATE);
             xsign = -1;
             ysign = 1;
             zsign = -1;
-        } else if (D180ANG <= prm_ry && prm_ry < D270ANG) { //‘æ“ñŒTŒÀ
+        } else if (prm_ry < D270ANG) { //‘æ“ñŒTŒÀ
             ry_rev = (prm_ry - D180ANG) * (1.0 / SANG_RATE);
             xsign = -1;
             ysign = 1;
             zsign = 1;
-        } else if (D270ANG <= prm_ry && prm_ry <= D360ANG) { //‘æˆêŒTŒÀ
+        } else if (prm_ry <= D360ANG) { //‘æˆêŒTŒÀ
             ry_rev = (D360ANG - prm_ry) * (1.0 / SANG_RATE);
             xsign = 1;
             ysign = 1;
@@ -639,7 +639,7 @@ void Util::convRzRyToVector(angle prm_rz,
         } else {
             throwCriticalException("getNormalizedVectorZY: ‚È‚ñ‚©‚¨‚©‚µ‚¢‚Å‚·‚º(1) prm_rz="<<prm_rz<<" prm_ry="<<prm_ry);
         }
-    } else if (D90ANG <= prm_rz && prm_rz < D180ANG) {
+    } else if (prm_rz < D180ANG) {
         rz = (D180ANG - prm_rz) * (1.0 / SANG_RATE);
 
         if (0 <= prm_ry && prm_ry < D90ANG) { //‘æ“ñŒTŒÀ
@@ -647,17 +647,17 @@ void Util::convRzRyToVector(angle prm_rz,
             xsign = -1;
             ysign = 1;
             zsign = 1;
-        } else if (D90ANG <= prm_ry && prm_ry < D180ANG) { //‘æˆêŒTŒÀ
+        } else if (prm_ry < D180ANG) { //‘æˆêŒTŒÀ
             ry_rev = (D180ANG - prm_ry) * (1.0 / SANG_RATE);
             xsign = 1;
             ysign = 1;
             zsign = 1;
-        } else if (D180ANG <= prm_ry && prm_ry < D270ANG) { //‘æŒÜŒTŒÀ
+        } else if (prm_ry < D270ANG) { //‘æŒÜŒTŒÀ
             ry_rev = (prm_ry - D180ANG) * (1.0 / SANG_RATE);
             xsign = 1;
             ysign = 1;
             zsign = -1;
-        } else if (D270ANG <= prm_ry && prm_ry <= D360ANG) { //‘æ˜ZŒTŒÀ
+        } else if (prm_ry <= D360ANG) { //‘æ˜ZŒTŒÀ
             ry_rev = (D360ANG - prm_ry) * (1.0 / SANG_RATE);
             xsign = -1;
             ysign = 1;
@@ -666,24 +666,24 @@ void Util::convRzRyToVector(angle prm_rz,
             throwCriticalException("getNormalizedVectorZY: ‚È‚ñ‚©‚¨‚©‚µ‚¢‚Å‚·‚º(2) prm_rz="<<prm_rz<<" prm_ry="<<prm_ry);
         }
 
-    } else if (D180ANG <= prm_rz && prm_rz < D270ANG) {
+    } else if (prm_rz < D270ANG) {
         rz = (prm_rz - D180ANG) * (1.0 / SANG_RATE);
         if (0 <= prm_ry && prm_ry < D90ANG) { //‘æŽOŒTŒÀ
             ry_rev = prm_ry * (1.0 / SANG_RATE);
             xsign = -1;
             ysign = -1;
             zsign = 1;
-        } else if (D90ANG <= prm_ry && prm_ry < D180ANG) { //‘æŽlŒTŒÀ
+        } else if (prm_ry < D180ANG) { //‘æŽlŒTŒÀ
             ry_rev = (D180ANG - prm_ry) * (1.0 / SANG_RATE);
             xsign = 1;
             ysign = -1;
             zsign = 1;
-        } else if (D180ANG <= prm_ry && prm_ry < D270ANG) { //‘æ”ªŒTŒÀ
+        } else if (prm_ry < D270ANG) { //‘æ”ªŒTŒÀ
             ry_rev = (prm_ry - D180ANG) * (1.0 / SANG_RATE);
             xsign = 1;
             ysign = -1;
             zsign = -1;
-        } else if (D270ANG <= prm_ry && prm_ry <= D360ANG) { //‘æŽµŒTŒÀ
+        } else if (prm_ry <= D360ANG) { //‘æŽµŒTŒÀ
             ry_rev = (D360ANG - prm_ry) * (1.0 / SANG_RATE);
             xsign = -1;
             ysign = -1;
@@ -691,24 +691,24 @@ void Util::convRzRyToVector(angle prm_rz,
         } else {
             throwCriticalException("getNormalizedVectorZY: ‚È‚ñ‚©‚¨‚©‚µ‚¢‚Å‚·‚º(3) prm_rz="<<prm_rz<<" prm_ry="<<prm_ry);
         }
-    } else if (D270ANG <= prm_rz && prm_rz <= D360ANG) {
+    } else if (prm_rz <= D360ANG) {
         rz = (D360ANG - prm_rz) * (1.0 / SANG_RATE);
         if (0 <= prm_ry && prm_ry < D90ANG) { //‘æ”ªŒTŒÀ
             ry_rev = prm_ry * (1.0 / SANG_RATE);
             xsign = 1;
             ysign = -1;
             zsign = -1;
-        } else if (D90ANG <= prm_ry && prm_ry < D180ANG) { //‘æŽµŒTŒÀ
+        } else if (prm_ry < D180ANG) { //‘æŽµŒTŒÀ
             ry_rev = (D180ANG - prm_ry) * (1.0 / SANG_RATE);
             xsign = -1;
             ysign = -1;
             zsign = -1;
-        } else if (D180ANG <= prm_ry && prm_ry < D270ANG) { //‘æŽOŒTŒÀ
+        } else if (prm_ry < D270ANG) { //‘æŽOŒTŒÀ
             ry_rev = (prm_ry - D180ANG) * (1.0 / SANG_RATE);
             xsign = -1;
             ysign = -1;
             zsign = 1;
-        } else if (D270ANG <= prm_ry && prm_ry <= D360ANG) { //‘æŽlŒTŒÀ
+        } else if (prm_ry <= D360ANG) { //‘æŽlŒTŒÀ
             ry_rev = (D360ANG - prm_ry) * (1.0 / SANG_RATE);
             xsign = 1;
             ysign = -1;

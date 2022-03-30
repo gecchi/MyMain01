@@ -370,6 +370,8 @@ void MyBunshinBase::processBehavior() {
                 } else if (pVbPlay->isPressed(VB_DOWN)) {
                     pVecDriver->addRzMvAng(-MyBunshinBase::ANGVELO_TURN);
                 }
+
+//TODO:上以外も斜めでなければ高速でいけるのでは？
             } else {
                 //重いが仕方ない
                 if (pVbPlay->isPressed(VB_LEFT)) {
