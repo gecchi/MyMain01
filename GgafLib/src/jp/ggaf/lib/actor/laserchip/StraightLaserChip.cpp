@@ -61,9 +61,9 @@ void StraightLaserChip::processBehavior() {
         _z = (*_pSource_z) + (vz * v );
     } else {
         //発射元アクターが非活動中の場合
-        _rx = _tmp_source_x;
-        _ry = _tmp_source_y;
-        _rz = _tmp_source_z;
+        _rx = _tmp_source_rx;
+        _ry = _tmp_source_ry;
+        _rz = _tmp_source_rz;
         float vx, vy, vz;
         UTIL::convRzRyToVector(_tmp_source_rz, _tmp_source_ry,
                                 vx, vy, vz);

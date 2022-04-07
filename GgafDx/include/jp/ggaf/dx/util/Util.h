@@ -129,6 +129,7 @@ public:
      * @return ‚È‚·Šp‚ÌƒAƒ“ƒOƒ‹’l (0 ` 360000)
      */
     static angle getAngle2D(int prm_vx, int prm_vy) {
+
         if (prm_vx == 0) {
             if (prm_vy > 0) {
                 return D90ANG;
