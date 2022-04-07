@@ -236,8 +236,8 @@ void ColliAAPrism::set(int x1, int y1, int z1, int x2, int y2, int z2, pos_t pos
         UTIL::getAngle2D(x2_e-x1_s, y2_e-y1_s)
         + D270ANG
         );
-    _vIH_x = UTIL::COS[angIH/SANG_RATE];
-    _vIH_y = UTIL::SIN[angIH/SANG_RATE];
+    _vIH_x = ANG_COS(angIH);
+    _vIH_y = ANG_SIN(angIH);
 
 }
 

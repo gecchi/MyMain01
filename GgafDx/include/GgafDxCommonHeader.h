@@ -245,11 +245,11 @@ typedef int_fast32_t axis;
 /** 度数法角度→アプリのアングル値 変換 */
 #define D_ANG(X) ((angle)((X) * 1000))
 ///** アプリのアングル値→ラジアン 変換 */
-#define ANG_RAD(X) (GgafDx::Util::RAD[(int)((X) * (1.0 / SANG_RATE))])
+#define ANG_RAD(X) (GgafDx::Util::RAD[(int)((X) * 0.1)])
 /** アプリのアングル値→正弦 変換 */
-#define ANG_SIN(X) (GgafDx::Util::SIN[(int)((X) * (1.0 / SANG_RATE))])
+#define ANG_SIN(X) (GgafDx::Util::SIN[(int)((X) * 0.1)])
 /** アプリのアングル値→余弦 変換 */
-#define ANG_COS(X) (GgafDx::Util::COS[(int)((X) * (1.0 / SANG_RATE))])
+#define ANG_COS(X) (GgafDx::Util::COS[(int)((X) * 0.1)])
 /** アプリのスケール値 → 拡大率 変換 */
 #define SC_R(X) ( (float)((X) * (1.0 / LEN_UNIT)) )
 /** 拡大率 → アプリのスケール値 変換 */

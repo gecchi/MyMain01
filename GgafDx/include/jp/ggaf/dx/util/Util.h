@@ -39,21 +39,21 @@ public:
     //static float PARABORA[];
     /**
      * cosテーブル .
-     * 要素番号範囲：0 ~ D360SANG
-     * angle値 r の cosは、COS[r/SANG_RATE]
+     * 要素番号範囲：0 ~ 36000
+     * angle値 r の cosは、COS[r/10]
      */
     static float COS[];
     /**
      * sinテーブル .
-     * 要素番号範囲：0 ~ D360SANG
-     * angle値 r の sin は、SIN[r/SANG_RATE]
+     * 要素番号範囲：0 ~ 36000
+     * angle値 r の sin は、SIN[r/10]
      */
     static float SIN[];
 
     /**
      * 弧度法変換テーブル .
-     * 要素番号範囲：0 ~ D360SANG
-     * angle値 r のラディアンは、RAD[r/SANG_RATE]
+     * 要素番号範囲：0 ~ 36000
+     * angle値 r のラディアンは、RAD[r/10]
      */
     static float RAD[];
     /**

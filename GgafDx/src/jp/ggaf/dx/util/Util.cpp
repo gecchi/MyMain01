@@ -62,9 +62,9 @@ using namespace GgafDx;
 bool Util::_was_GgafDx_Util_inited_flg = false;
 
 //float Util::PARABORA[D360SANG+1];
-float Util::COS[D360SANG+1];
-float Util::SIN[D360SANG+1];
-float Util::RAD[D360SANG+1];
+float Util::COS[36000+1];
+float Util::SIN[36000+1];
+float Util::RAD[36000+1];
 
 angle Util::SLANT2ANG[100000 + 1];
 
@@ -90,9 +90,8 @@ void Util::init() {
         return;
     }
 
-    for (s_ang ang = 0; ang < D360SANG+1; ang++) {
-        double rad = (PI2 * ang) / D360SANG;
-
+    for (s_ang ang = 0; ang < 36000+1; ang++) {
+        double rad = (PI2 * ang) / 36000;
         Util::COS[ang] = (float)(cos(rad));
         Util::SIN[ang] = (float)(sin(rad));
         Util::RAD[ang] = (float)rad;
@@ -100,16 +99,16 @@ void Util::init() {
         ////PARABORA[0] = 0 , PARABORA[D180SANG] = 1,  PARABORA[D360SANG-1] = 0 Ç≈ y = -x^2  ï˙ï®ê¸ÇÃílÇÇ∆ÇÈ
     }
 
-    Util::COS[D0SANG]   =  1;
-    Util::COS[D90SANG]  =  0;
-    Util::COS[D180SANG] = -1;
-    Util::COS[D270SANG] =  0;
-    Util::COS[D360SANG] =  1;
-    Util::SIN[D0SANG]   =  0;
-    Util::SIN[D90SANG]  =  1;
-    Util::SIN[D180SANG] =  0;
-    Util::SIN[D270SANG] = -1;
-    Util::SIN[D360SANG] =  0;
+    Util::COS[0]     =  1;
+    Util::COS[9000]  =  0;
+    Util::COS[18000] = -1;
+    Util::COS[27000] =  0;
+    Util::COS[36000] =  1;
+    Util::SIN[0]     =  0;
+    Util::SIN[9000]  =  1;
+    Util::SIN[18000] =  0;
+    Util::SIN[27000] = -1;
+    Util::SIN[36000] =  0;
     Sleep(1);
     //<SLANT2ANG>
     double rad;
@@ -454,8 +453,8 @@ angle Util::getAngDiff(angle prm_from, angle prm_to, int prm_way) {
 }
 
 void Util::rotxy(int prm_x, int prm_y, angle prm_ang, int& out_x, int& out_y) {
-    out_x = (int)(floor((prm_x * Util::COS[prm_ang/SANG_RATE]) - (prm_y * Util::SIN[prm_ang/SANG_RATE])));
-    out_y = (int)(floor((prm_x * Util::SIN[prm_ang/SANG_RATE]) + (prm_y * Util::COS[prm_ang/SANG_RATE])));
+    out_x = (int)(floor((prm_x * ANG_COS(prm_ang)) - (prm_y * ANG_SIN(prm_ang))));
+    out_y = (int)(floor((prm_x * ANG_SIN(prm_ang)) + (prm_y * ANG_COS(prm_ang))));
 }
 
 // ê¸ï™ÇÃìñÇΩÇËîªíË (x11,y11)-(x12,y12) Å~ (x21,y21)-(x22,y22)

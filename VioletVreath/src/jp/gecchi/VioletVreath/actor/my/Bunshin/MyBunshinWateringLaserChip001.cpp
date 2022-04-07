@@ -519,7 +519,8 @@ void MyBunshinWateringLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor
         if (stamina <= 0) {
             //一撃でチップ消滅の攻撃力
             getStatus()->set(STAT_Stamina, default_stamina_);
-            sayonara();
+//TODO:ここで sayonara() せずに、しばらく理想のホーミングレーザー軌跡を研究する！
+            //sayonara();
         } else {
             //耐えれるならば、通貫し、スタミナ回復（攻撃力100の雑魚ならば通貫）
             getStatus()->set(STAT_Stamina, default_stamina_);
