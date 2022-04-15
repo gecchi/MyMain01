@@ -1,5 +1,5 @@
 #include "EnemyOzartiaPillar01.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
@@ -35,7 +35,7 @@ void EnemyOzartiaPillar01::onActive() {
 
 void EnemyOzartiaPillar01::processBehavior() {
     //–{‘ÌˆÚ“®Œn‚Ìˆ— ‚±‚±‚©‚ç --->
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
@@ -84,7 +84,7 @@ void EnemyOzartiaPillar01::processBehavior() {
             break;
     }
     pAlphaFader->behave();
-    pVecDriver->behave();
+    pVecVehicle->behave();
 }
 
 void EnemyOzartiaPillar01::processJudgement() {

@@ -1,10 +1,10 @@
 #include "EnemyStraeaLaserChip003.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
-#include "jp/ggaf/dx/util/curve/DriverLeader.h"
+#include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 
 using namespace GgafDx;
 using namespace GgafLib;
@@ -14,7 +14,7 @@ EnemyStraeaLaserChip003::EnemyStraeaLaserChip003(const char* prm_name) :
         VvEnemyActor<WateringLaserChip>(prm_name, "StraeaLaserChip001", StatusReset(EnemyStraeaLaserChip003)) {
     _class_name = "EnemyStraeaLaserChip003";
     pConn_pCurveManuf_ = connectToCurveManufactureManager("GURUGURU");
-    pDriverLeader_ = createCurveDriverLeader(pConn_pCurveManuf_->peek());
+    pVehicleLeader_ = createCurveVehicleLeader(pConn_pCurveManuf_->peek());
 }
 
 void EnemyStraeaLaserChip003::initialize() {
@@ -22,21 +22,21 @@ void EnemyStraeaLaserChip003::initialize() {
     setHitAble(true, false);
     setScaleR(5.0);
     setCullingDraw(false);
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    pVecDriver->setMvVelo(30000);
-    pVecDriver->linkFaceAngByMvAng(true);
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    pVecVehicle->setMvVelo(30000);
+    pVecVehicle->linkFaceAngByMvAng(true);
 }
 
 void EnemyStraeaLaserChip003::onActive() {
     WateringLaserChip::onActive();
     //ステータスリセット
     getStatus()->reset();
-    pDriverLeader_->start(RELATIVE_COORD_DIRECTION); //向いた方向にワールド変換
+    pVehicleLeader_->start(RELATIVE_COORD_DIRECTION); //向いた方向にワールド変換
 }
 
 void EnemyStraeaLaserChip003::processBehavior() {
-    pDriverLeader_->behave();
-    getVecDriver()->behave();
+    pVehicleLeader_->behave();
+    getVecVehicle()->behave();
 }
 
 void EnemyStraeaLaserChip003::processJudgement() {
@@ -59,7 +59,7 @@ void EnemyStraeaLaserChip003::onInactive() {
 }
 
 EnemyStraeaLaserChip003::~EnemyStraeaLaserChip003() {
-    GGAF_DELETE(pDriverLeader_);
+    GGAF_DELETE(pVehicleLeader_);
     pConn_pCurveManuf_->close();
 }
 

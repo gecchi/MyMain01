@@ -1,13 +1,13 @@
-#include "jp/ggaf/dx/util/curve/DriverLeader.h"
+#include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/util/Util.h"
 #include "jp/ggaf/dx/util/curve/CurveManufacture.h"
 #include "jp/ggaf/dx/util/curve/CurveSource.h"
 
 using namespace GgafDx;
 
-DriverLeader::DriverLeader(CurveManufacture* prm_pManufacture, GgafDx::GeometricActor* prm_pActor_target) :
+VehicleLeader::VehicleLeader(CurveManufacture* prm_pManufacture, GgafDx::GeometricActor* prm_pActor_target) :
         GgafCore::Object() {
     _pManufacture = prm_pManufacture;
     if (!_pManufacture->_is_calculated) {
@@ -43,7 +43,7 @@ DriverLeader::DriverLeader(CurveManufacture* prm_pManufacture, GgafDx::Geometric
     _turn_smooth = false;
 }
 
-void DriverLeader::getPointCoord(int prm_point_index, coord& out_x, coord& out_y, coord& out_z) {
+void VehicleLeader::getPointCoord(int prm_point_index, coord& out_x, coord& out_y, coord& out_z) {
 #ifdef MY_DEBUG
     if (prm_point_index >= _pManufacture->_pCurve->_rnum) {
         throwCriticalException("ポイントのインデックスオーバー。"
@@ -127,7 +127,7 @@ void DriverLeader::getPointCoord(int prm_point_index, coord& out_x, coord& out_y
     }
 }
 
-void DriverLeader::restart() {
+void VehicleLeader::restart() {
     const CurveSource* const pCurve = _pManufacture->_pCurve;
     const double p0x = _flip_x * pCurve->_x_compute[0] * _pManufacture->_rate_x + _offset_x;
     const double p0y = _flip_y * pCurve->_y_compute[0] * _pManufacture->_rate_y + _offset_y;
@@ -183,10 +183,10 @@ void DriverLeader::restart() {
 //            } else {
 //                //setLoopAngleByMvAng() 設定済みの場合
 //                //１週目はアクターの移動方向が開始移動方向
-//                GgafDx::VecDriver* pActorVecDriver = _pActor_target->getVecDriver();
+//                GgafDx::VecVehicle* pActorVecVehicle = _pActor_target->getVecVehicle();
 //                angle rx_mv_start = D0ANG;
-//                angle rz_mv_start = pActorVecDriver->_rz_mv;
-//                angle ry_mv_start = pActorVecDriver->_ry_mv;
+//                angle rz_mv_start = pActorVecVehicle->_rz_mv;
+//                angle ry_mv_start = pActorVecVehicle->_ry_mv;
 //                _sinRx_begin = ANG_SIN(rx_mv_start);
 //                _cosRx_begin = ANG_COS(rx_mv_start);
 //                _sinRz_begin = ANG_SIN(rz_mv_start);
@@ -225,7 +225,7 @@ void DriverLeader::restart() {
     }
 }
 
-void DriverLeader::setManufacture(CurveManufacture* prm_pManufacture) {
+void VehicleLeader::setManufacture(CurveManufacture* prm_pManufacture) {
     _pManufacture = prm_pManufacture;
     _pActor_target = nullptr;
     _option = ABSOLUTE_COORD;
@@ -239,13 +239,13 @@ void DriverLeader::setManufacture(CurveManufacture* prm_pManufacture) {
     _is_leading = false;
 }
 
-void DriverLeader::adjustCoordOffset(coord prm_offset_x, coord prm_offset_y, coord prm_offset_z) {
+void VehicleLeader::adjustCoordOffset(coord prm_offset_x, coord prm_offset_y, coord prm_offset_z) {
     _offset_x = prm_offset_x;
     _offset_y = prm_offset_y;
     _offset_z = prm_offset_z;
 }
 
-void DriverLeader::start(SplinTraceOption prm_option, int prm_max_loop) {
+void VehicleLeader::start(SplinTraceOption prm_option, int prm_max_loop) {
     if (_pManufacture) {
         _was_started = true;
         _is_leading = true;
@@ -258,15 +258,15 @@ void DriverLeader::start(SplinTraceOption prm_option, int prm_max_loop) {
     }
 }
 
-void DriverLeader::stop() {
+void VehicleLeader::stop() {
     _is_leading = false;
 }
 
-void DriverLeader::setAbsoluteBeginCoord() {
-    DriverLeader::getPointCoord(0, _pActor_target->_x, _pActor_target->_y, _pActor_target->_z);
+void VehicleLeader::setAbsoluteBeginCoord() {
+    VehicleLeader::getPointCoord(0, _pActor_target->_x, _pActor_target->_y, _pActor_target->_z);
 }
 
-coord DriverLeader::getSegmentDistance(int prm_index) {
+coord VehicleLeader::getSegmentDistance(int prm_index) {
 #ifdef MY_DEBUG
     if (prm_index < 0 || prm_index > (_pManufacture->_pCurve->_rnum -1)) {
         throwCriticalException("prm_index="<<prm_index<<" は、範囲外です._pActor_target="<< _pActor_target <<"["<< _pActor_target->getName() <<"]");
@@ -279,15 +279,15 @@ coord DriverLeader::getSegmentDistance(int prm_index) {
     }
 }
 
-coord DriverLeader::getTotalDistance() {
+coord VehicleLeader::getTotalDistance() {
     return _pManufacture->_total_distance + _distance_to_begin;
 }
 
-int DriverLeader::getPointNum() {
+int VehicleLeader::getPointNum() {
     return _pManufacture->_pCurve->_rnum;
 }
 
-void DriverLeader::setStartAngle(angle prm_rx, angle prm_ry, angle prm_rz) {
+void VehicleLeader::setStartAngle(angle prm_rx, angle prm_ry, angle prm_rz) {
     _is_force_start_ang = true;
     angle rx_mv_start = UTIL::simplifyAng(prm_rx);
     angle rz_mv_start = UTIL::simplifyAng(prm_rz);
@@ -300,7 +300,7 @@ void DriverLeader::setStartAngle(angle prm_rx, angle prm_ry, angle prm_rz) {
     _cosRy_begin = ANG_COS(ry_mv_start);
 }
 
-DriverLeader::~DriverLeader() {
+VehicleLeader::~VehicleLeader() {
 //    if (_is_created_pManufacture) {
 //        CurveSource* pCurveSrc = _pManufacture->_pCurveSrc;
 //        GGAF_DELETE(pCurveSrc);

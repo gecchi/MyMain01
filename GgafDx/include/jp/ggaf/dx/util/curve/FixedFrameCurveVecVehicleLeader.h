@@ -1,7 +1,7 @@
-#ifndef GGAF_DX_FIXEDFRAMECURVEGEODRIVERLEADER_H_
-#define GGAF_DX_FIXEDFRAMECURVEGEODRIVERLEADER_H_
+#ifndef GGAF_DX_FIXEDFRAMECURVEVECVEHICLELEADER_H_
+#define GGAF_DX_FIXEDFRAMECURVEVECVEHICLELEADER_H_
 #include "GgafDxCommonHeader.h"
-#include "jp/ggaf/dx/util/curve/DriverLeader.h"
+#include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 
 namespace GgafDx {
 
@@ -11,15 +11,15 @@ namespace GgafDx {
  * 中間の補完点～次の補完点までを、均等に割った時間で移動します。<BR>
  * 補完点の密度が薄いところは移動速度増。<BR>
  * 補完点の密度が濃いところは移動速度減。<BR>
- * そのように動作するよう、GgafDx::GeoDriver に指示を出して移動を実現します。<BR>
+ * そのように動作するよう、力車(GgafDx::VecVehicle)に指示を出して移動を実現します。<BR>
  * @version 1.00
- * @since 2018/07/25
+ * @since 2009/10/28
  * @author Masatoshi Tsuge
  */
-class FixedFrameCurveGeoDriverLeader : public DriverLeader {
+class FixedFrameCurveVecVehicleLeader : public VehicleLeader {
 
 public:
-    GgafDx::GeoDriver* _pGeoDriver_target;
+    GgafDx::VecVehicle* _pVecVehicle_target;
     /** [r]スプライン情報セット(ldrファイルの情報に相当) */
     FixedFrameCurveManufacture* _pFixedFrameSplManuf;
     /** _leading_framesに加算される補正フレーム */
@@ -30,15 +30,14 @@ public:
     int _prev_point_index;
     /** start()からの経過フレーム数 */
     frame _leading_frames;
-
 public:
     /**
      *
      * @param prm_pManufacture
-     * @param prm_pGeoDriver
+     * @param prm_pVecVehicle
      */
-    FixedFrameCurveGeoDriverLeader(CurveManufacture* prm_pManufacture,
-                                    GgafDx::GeoDriver* prm_pGeoDriver_target);
+    FixedFrameCurveVecVehicleLeader(CurveManufacture* prm_pManufacture,
+                                 GgafDx::VecVehicle* prm_pVecVehicle_target);
 
     virtual void restart() override;
 
@@ -49,8 +48,9 @@ public:
      */
     virtual void behave() override;
 
-    virtual ~FixedFrameCurveGeoDriverLeader();
+
+    virtual ~FixedFrameCurveVecVehicleLeader();
 };
 
 }
-#endif /*GGAF_DX_FIXEDFRAMECURVEVECDRIVERLEADER_H_*/
+#endif /*GGAF_LIB_FIXEDFRAMECURVEVECVEHICLELEADER_H_*/

@@ -4,9 +4,9 @@
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/lib/DefaultGod.h"
-#include "jp/ggaf/dx/util/curve/DriverLeader.h"
+#include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 
 using namespace GgafDx;
 using namespace GgafLib;
@@ -61,7 +61,7 @@ void FormationAllas001::processBehavior() {
                 if (getActiveFrame() % interval_frames_ == 0) {
                     EnemyAllas* pAllas = (EnemyAllas*)calledUpMember(num_Allas_);
                     if (pAllas) {
-                        pAllas->getVecDriver()->setMvVelo(velo_mv_);
+                        pAllas->getVecVehicle()->setMvVelo(velo_mv_);
                         pAllas->config(pConn_pCurveManuf_->peek(), nullptr, nullptr);
                         onCalledUpAllas(pAllas);
                     }

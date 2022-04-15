@@ -1,7 +1,7 @@
 #include "EnemyEmusLaserChip001.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 using namespace GgafLib;
@@ -18,9 +18,9 @@ void EnemyEmusLaserChip001::initialize() {
     setHitAble(true, false);
     setScaleR(5.0);
     setCullingDraw(false);
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    pVecDriver->setMvVelo(300000);
-    pVecDriver->linkFaceAngByMvAng(true);
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    pVecVehicle->setMvVelo(300000);
+    pVecVehicle->linkFaceAngByMvAng(true);
 }
 
 void EnemyEmusLaserChip001::onActive() {
@@ -30,7 +30,7 @@ void EnemyEmusLaserChip001::onActive() {
 }
 
 void EnemyEmusLaserChip001::processBehavior() {
-    getVecDriver()->behave();
+    getVecVehicle()->behave();
 }
 
 void EnemyEmusLaserChip001::processJudgement() {

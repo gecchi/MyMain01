@@ -1,6 +1,6 @@
 #include "EnemyEmiliaBase.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -37,7 +37,7 @@ void EnemyEmiliaBase::onCreateModel() {
 
 void EnemyEmiliaBase::processBehavior() {
     updateRankParameter();
-    getVecDriver()->behave();
+    getVecVehicle()->behave();
 }
 
 void EnemyEmiliaBase::processJudgement() {

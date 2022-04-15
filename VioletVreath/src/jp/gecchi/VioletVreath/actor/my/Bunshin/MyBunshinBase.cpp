@@ -6,10 +6,10 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/ggaf/dx/actor/GeometricActor.h"
-#include "jp/ggaf/dx/actor/supporter/GeoDriver.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriverFaceAngAssistant.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriverMvAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/GeoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicleFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicleMvAngAssistant.h"
 #include "jp/ggaf/dx/util/GeoElem.h"
 #include "jp/ggaf/lib/util/Quaternion.hpp"
 #include "jp/ggaf/lib/util/Direction26Util.h"
@@ -59,9 +59,9 @@ MyBunshinBase::MyBunshinBase(const char* prm_name, unsigned int prm_no) :
     pPosTrace_ = NEW PosTrace(MyBunshinBase::BUNSHIN_D * prm_no);
     trace_mode_ = TRACE_GRADIUS;
     return_default_pos_frames_ = 0;
-    GgafDx::GeoDriver* const pGeoDriver = getGeoDriver();
-    pGeoDriver->forceVxyzMvVeloRange(-MyBunshinBase::RENGE, MyBunshinBase::RENGE);
-    pGeoDriver->forceVxyzMvAcceRange(-MyBunshinBase::RENGE / 30, MyBunshinBase::RENGE / 30);
+    GgafDx::GeoVehicle* const pGeoVehicle = getGeoVehicle();
+    pGeoVehicle->forceVeloXYZRange(-MyBunshinBase::RENGE, MyBunshinBase::RENGE);
+    pGeoVehicle->forceAcceXYZRange(-MyBunshinBase::RENGE / 30, MyBunshinBase::RENGE / 30);
 
     is_free_mode_ = false;
     is_isolate_mode_ = true;
@@ -94,7 +94,7 @@ void MyBunshinBase::config(
 
 void MyBunshinBase::initialize() {
     setScaleR(2.0);
-    getVecDriver()->linkFaceAngByMvAng(true);
+    getVecVehicle()->linkFaceAngByMvAng(true);
 }
 
 void MyBunshinBase::onReset() {
@@ -102,7 +102,7 @@ void MyBunshinBase::onReset() {
     bunshin_radius_pos_ = bunshin_default_radius_pos_;
 
     setRollFaceAng(bunshin_default_ang_pos_);
-    getVecDriver()->setRollFaceAngVelo(bunshin_default_angvelo_mv_);
+    getVecVehicle()->setRollFaceAngVelo(bunshin_default_angvelo_mv_);
     getProgress()->reset(PROG_INIT);
     trace_mode_ = TRACE_GRADIUS;
 }
@@ -130,12 +130,12 @@ void MyBunshinBase::onInactive() {
 }
 
 void MyBunshinBase::processBehavior() {
-    GgafDx::VecDriver* pVecDriver = getVecDriver();
-    GgafDx::GeoDriver* const pGeoDriver = getGeoDriver();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafDx::GeoVehicle* const pGeoVehicle = getGeoVehicle();
 
     if (is_isolate_mode_) {
-        pVecDriver->behave();
-        pGeoDriver->behave();
+        pVecVehicle->behave();
+        pGeoVehicle->behave();
         return;
     }
     MyShip* pMyShip = pMYSHIP;
@@ -219,19 +219,19 @@ void MyBunshinBase::processBehavior() {
                 //分身フリーモード移動開始
                 pBunshin_->effectFreeModeLaunch(); //発射エフェクト
                 is_free_mode_ = true;
-                pGeoDriver->setZeroVxyzMvVelo();
-                pGeoDriver->setZeroVxyzMvAcce();
+                pGeoVehicle->setXYZZero();
+                pGeoVehicle->setAcceXYZZero();
             }
             if (is_pressed_VB_OPTION) {
                 //分身フリーモードで移動中
                 //オプションの広がり角より、MyBunshinBaseの移動速度と、MyBunshin旋回半径増加速度にベクトル分解。
                 angvelo bunshin_angvelo_expance = pBunshin_->getExpanse();
-                pVecDriver->setMvVelo(ANG_COS(bunshin_angvelo_expance) * MyBunshinBase::VELO_BUNSHIN_FREE_MV); //MyBunshinBase
+                pVecVehicle->setMvVelo(ANG_COS(bunshin_angvelo_expance) * MyBunshinBase::VELO_BUNSHIN_FREE_MV); //MyBunshinBase
                 pBunshin_->addRadiusPosition(ANG_SIN(bunshin_angvelo_expance) * MyBunshinBase::VELO_BUNSHIN_FREE_MV);
                 // VB_OPTION を離すまで待つ・・・
             } else {
                 //分身フリーモード、中断待機
-                pVecDriver->setMvVelo(0);
+                pVecVehicle->setMvVelo(0);
                 pProg->change(PROG_BUNSHIN_FREE_MODE_STOP);
             }
             break;
@@ -258,24 +258,24 @@ void MyBunshinBase::processBehavior() {
                 const float cosRy = ANG_COS(_ry);
                 const float sinRz = ANG_SIN(_rz);
                 const float cosRz = ANG_COS(_rz);
-                pGeoDriver->setVxyzMvVelo( (cosRx*-sinRz*cosRy + sinRx*sinRy)  * MyBunshinBase::VELO_BUNSHIN_FREE_MV,
+                pGeoVehicle->setVeloXYZ( (cosRx*-sinRz*cosRy + sinRx*sinRy)  * MyBunshinBase::VELO_BUNSHIN_FREE_MV,
                                            (cosRx*cosRz)                       * MyBunshinBase::VELO_BUNSHIN_FREE_MV,
                                            (cosRx*-sinRz*-sinRy + sinRx*cosRy) * MyBunshinBase::VELO_BUNSHIN_FREE_MV );
             } else if (pProg->getFrame() > 3*(no_-1)) { //ばらつかせ
-                pGeoDriver->setVxyzMvAcce( (tx - (_x + pGeoDriver->_velo_vx_mv*6)),
-                                           (ty - (_y + pGeoDriver->_velo_vy_mv*6)),
-                                           (tz - (_z + pGeoDriver->_velo_vz_mv*6)) );
+                pGeoVehicle->setAcceXYZ( (tx - (_x + pGeoVehicle->_velo_x*6)),
+                                           (ty - (_y + pGeoVehicle->_velo_y*6)),
+                                           (tz - (_z + pGeoVehicle->_velo_z*6)) );
             }
             if (ABS(_x - tx) < 10000 &&
                 ABS(_y - ty) < 10000 &&
                 ABS(_z - tz) < 10000 &&
-                ABS(pGeoDriver->_velo_vx_mv) <= MyBunshinBase::VELO_BUNSHIN_FREE_MV &&
-                ABS(pGeoDriver->_velo_vy_mv) <= MyBunshinBase::VELO_BUNSHIN_FREE_MV &&
-                ABS(pGeoDriver->_velo_vz_mv) <= MyBunshinBase::VELO_BUNSHIN_FREE_MV)
+                ABS(pGeoVehicle->_velo_x) <= MyBunshinBase::VELO_BUNSHIN_FREE_MV &&
+                ABS(pGeoVehicle->_velo_y) <= MyBunshinBase::VELO_BUNSHIN_FREE_MV &&
+                ABS(pGeoVehicle->_velo_z) <= MyBunshinBase::VELO_BUNSHIN_FREE_MV)
             {
                 //もどった！
-                pGeoDriver->setZeroVxyzMvVelo();
-                pGeoDriver->setZeroVxyzMvAcce();
+                pGeoVehicle->setXYZZero();
+                pGeoVehicle->setAcceXYZZero();
                 setPosition(tx, ty, tz);
                 moving_frames_since_default_pos_ = 0;
                 pProg->change(PROG_BUNSHIN_NOMAL_TRACE);
@@ -337,10 +337,10 @@ void MyBunshinBase::processBehavior() {
             trace_mode_ = TRACE_FREEZE;
             //カメラ位置によって上下左右の操作割当を変える
             const dir26 pos_up = pVAM->getPosUp();
-            const float vX = pVecDriver->_vX;
-            const float vY = pVecDriver->_vY;
-            const float vZ = pVecDriver->_vZ;
-            bool update_updown_rot_axis_timing = (pVecDriver->isTurningMvAng() || pVbPlay->isPushedDown(VB_OPTION) || pVAM->isJustChangedPosCam());
+            const float vX = pVecVehicle->_vX;
+            const float vY = pVecVehicle->_vY;
+            const float vZ = pVecVehicle->_vZ;
+            bool update_updown_rot_axis_timing = (pVecVehicle->isTurningMvAng() || pVbPlay->isPushedDown(VB_OPTION) || pVAM->isJustChangedPosCam());
 
             //LEFT RIGHT 回転軸 = pos_up = (up_sgn_x, up_sgn_y, up_sgn_z)
             float up_vx, up_vy, up_vz;
@@ -361,14 +361,14 @@ void MyBunshinBase::processBehavior() {
             if (pos_up == VAM_POS_UP) {
                 //高速
                 if (pVbPlay->isPressed(VB_LEFT)) {
-                    pVecDriver->addRyMvAng(-MyBunshinBase::ANGVELO_TURN);
+                    pVecVehicle->addRyMvAng(-MyBunshinBase::ANGVELO_TURN);
                 } else if (pVbPlay->isPressed(VB_RIGHT)) {
-                    pVecDriver->addRyMvAng(MyBunshinBase::ANGVELO_TURN);
+                    pVecVehicle->addRyMvAng(MyBunshinBase::ANGVELO_TURN);
                 }
                 if (pVbPlay->isPressed(VB_UP)) {
-                    pVecDriver->addRzMvAng(MyBunshinBase::ANGVELO_TURN);
+                    pVecVehicle->addRzMvAng(MyBunshinBase::ANGVELO_TURN);
                 } else if (pVbPlay->isPressed(VB_DOWN)) {
-                    pVecDriver->addRzMvAng(-MyBunshinBase::ANGVELO_TURN);
+                    pVecVehicle->addRzMvAng(-MyBunshinBase::ANGVELO_TURN);
                 }
 
 //TODO:上以外も斜めでなければ高速でいけるのでは？
@@ -432,8 +432,8 @@ void MyBunshinBase::processBehavior() {
             }
         }
     }
-    pVecDriver->behave();
-    pGeoDriver->behave();
+    pVecVehicle->behave();
+    pGeoVehicle->behave();
 }
 
 void MyBunshinBase::resetBunshin(int prm_mode) {
@@ -446,14 +446,14 @@ void MyBunshinBase::resetBunshin(int prm_mode) {
     }
 
     is_isolate_mode_ = false;
-    GgafDx::VecDriver* pVecDriver = getVecDriver();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     GgafCore::Progress* const pProg = getProgress();
     //完全にデフォルト状態に元に戻ために、最低限必要なフレーム数基準値
     return_default_pos_frames_ = MyBunshinBase::BUNSHIN_D * (MyBunshinBase::MAX_BUNSHIN_NUM+1); //少しばらつかせる演出
     //エフェクト
 
     //土台がの向きが元に戻る（前方に向く）指示
-    pVecDriver->asstMvAng()->turnRzRyByDtTo(D0ANG, D0ANG,
+    pVecVehicle->asstMvAng()->turnRzRyByDtTo(D0ANG, D0ANG,
                                             TURN_CLOSE_TO,
                                             false,
                                             return_default_pos_frames_ * delay_r_,
@@ -466,7 +466,7 @@ void MyBunshinBase::resetBunshin(int prm_mode) {
                    return_default_pos_frames_ * delay_r_
                );
     //分身の角度位置が元に戻る指示
-    pVecDriver->asstFaceAng()->rollFaceAngByDtTo(
+    pVecVehicle->asstFaceAng()->rollFaceAngByDtTo(
                           bunshin_default_ang_pos_,
                           SGN(bunshin_default_angvelo_mv_) > 0 ? TURN_COUNTERCLOCKWISE : TURN_CLOCKWISE,
                           return_default_pos_frames_/2, //ばらつかせるとズレるので  * delay_r_ しません
@@ -506,11 +506,11 @@ void MyBunshinBase::addTurnAngleAroundAx1(float prm_ax_x, float prm_ax_y, float 
     float b = prm_ax_y*p_sin_h;
     float c = prm_ax_z*p_sin_h;
 
-    GgafDx::VecDriver* pVecDriver = getVecDriver();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     Quaternion<float> H(p_cos_h, -a, -b, -c); //R
-    H.mul(0, pVecDriver->_vX, pVecDriver->_vY, pVecDriver->_vZ); //R*P
+    H.mul(0, pVecVehicle->_vX, pVecVehicle->_vY, pVecVehicle->_vZ); //R*P
     H.mul(p_cos_h, a, b, c);                               //R*P*Q
-    pVecDriver->setRzRyMvAng(H.i, H.j, H.k, true);
+    pVecVehicle->setRzRyMvAng(H.i, H.j, H.k, true);
 }
 
 void MyBunshinBase::addTurnAngleAroundAx2(float prm_ax_x, float prm_ax_y, float prm_ax_z) {
@@ -521,12 +521,12 @@ void MyBunshinBase::addTurnAngleAroundAx2(float prm_ax_x, float prm_ax_y, float 
     float b = prm_ax_y*p_sin_h;
     float c = prm_ax_z*p_sin_h;
 
-    GgafDx::VecDriver* pVecDriver = getVecDriver();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     Quaternion<float> H(p_cos_h, -a, -b, -c); //R
     Quaternion<float> H2 = H;
-    H.mul(0, pVecDriver->_vX, pVecDriver->_vY, pVecDriver->_vZ); //R*P
+    H.mul(0, pVecVehicle->_vX, pVecVehicle->_vY, pVecVehicle->_vZ); //R*P
     H.mul(p_cos_h, a, b, c);                               //R*P*Q
-    pVecDriver->setRzRyMvAng(H.i, H.j, H.k, true);
+    pVecVehicle->setRzRyMvAng(H.i, H.j, H.k, true);
 
     //上下入力時の回転軸も回転させる
     H2.mul(0, c_ax_x_, c_ax_y_, c_ax_z_); //R*P

@@ -1,12 +1,12 @@
 #include "EnemyHisbe.h"
 
 #include "jp/ggaf/core/actor/SceneMediator.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/dx/util/curve/DriverLeader.h"
+#include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectLaserRefraction001.h"
@@ -32,7 +32,7 @@ EnemyHisbe::EnemyHisbe(const char* prm_name) :
         VvEnemyActor<DefaultMorphMeshActor>(prm_name, "Hisbe", StatusReset(EnemyHisbe)) {
         //VvEnemyActor<CubeMapMorphMeshActor>(prm_name, "HisbeCM", StatusReset(EnemyHisbe)) {
     _class_name = "EnemyHisbe";
-    pDriverLeader_ = nullptr;
+    pVehicleLeader_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;
 
@@ -51,7 +51,7 @@ EnemyHisbe::EnemyHisbe(const char* prm_name) :
 //    for (int i = 0; i < 100; i++) { //レーザーストック
 //        std::string name = "EnemyHisbeLaserChip002["+XTOS(i)+"]";
 //        EnemyHisbeLaserChip002* pChip = NEW EnemyHisbeLaserChip002(name.c_str());
-//        int num_refraction = pChip->pDriverLeader_->getPointNum();
+//        int num_refraction = pChip->pVehicleLeader_->getPointNum();
 //        pChip->config(num_refraction, 1, 1, false, pDepoEffect);
 //        pLaserChipDepo_->put(pChip);
 //    }
@@ -106,7 +106,7 @@ void EnemyHisbe::onCreateModel() {
 }
 
 void EnemyHisbe::initialize() {
-//    getVecDriver()->linkFaceAngByMvAng(true);
+//    getVecVehicle()->linkFaceAngByMvAng(true);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliSphere(0, 40000);
@@ -187,7 +187,7 @@ void EnemyHisbe::processBehavior() {
             break;
         }
     }
-    getVecDriver()->behave();
+    getVecVehicle()->behave();
     getMorpher()->behave();
     getSeTransmitter()->behave();
 }
@@ -215,7 +215,7 @@ void EnemyHisbe::onInactive() {
 }
 
 EnemyHisbe::~EnemyHisbe() {
-    GGAF_DELETE_NULLABLE(pDriverLeader_);
+    GGAF_DELETE_NULLABLE(pVehicleLeader_);
     pConn_pDepoStore_laser_set->close();
     //pConn_pRefractionEffectDepository_->close();
 }

@@ -18,7 +18,7 @@ class EnemyRis : public VvEnemyActor<GgafLib::DefaultMeshSetActor> {
 //    /** フォーメーション(非フォーメーション時はnullptr) */
 //    GgafLib::TreeFormation* pFormation_;
     /** 移動スプラインプログラム */
-    GgafDx::DriverLeader* pDriverLeader_;
+    GgafDx::VehicleLeader* pVehicleLeader_;
     /** 弾ストック */
     GgafCore::ActorDepository* pDepo_shot_;
     /** 弾発射効果エフェクト */
@@ -69,11 +69,11 @@ public:
 
 
     virtual void config(
-            GgafDx::DriverLeader* prm_pDriverLeader,
+            GgafDx::VehicleLeader* prm_pVehicleLeader,
             GgafCore::ActorDepository* prm_pDepo_shot,
             GgafCore::ActorDepository* prm_pDepo_shotEffect
             ) {
-        pDriverLeader_ = prm_pDriverLeader;
+        pVehicleLeader_ = prm_pVehicleLeader;
         pDepo_shot_ = prm_pDepo_shot;
         pDepo_effect_ = prm_pDepo_shotEffect;
     }

@@ -1,10 +1,10 @@
 #include "Zako.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/dx/util/curve/DriverLeader.h"
+#include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "actor/Zakoko.h"
 
@@ -23,7 +23,7 @@ enum {
 Zako::Zako(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Zako") {
     _class_name = "Zako";
-    pDriverLeader_ = nullptr; //フォーメーションオブジェクトが設定する
+    pVehicleLeader_ = nullptr; //フォーメーションオブジェクトが設定する
     pOs_ = nullptr;
 
     int n = 6;
@@ -46,10 +46,10 @@ void Zako::onCreateModel() {
 }
 
 void Zako::initialize() {
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    pVecDriver->linkFaceAngByMvAng(true);
-    pVecDriver->setRollFaceAngVelo(D_ANG(2));
-    pVecDriver->setMvVelo(PX_C(1));
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    pVecVehicle->linkFaceAngByMvAng(true);
+    pVecVehicle->setRollFaceAngVelo(D_ANG(2));
+    pVecVehicle->setMvVelo(PX_C(1));
 
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
@@ -65,7 +65,7 @@ void Zako::onActive() {
 }
 
 void Zako::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
 //    GgafCore::Progress* const pProg = getProgress();
 //    switch (pProg->get()) {
 //        case PROG_INIT: {
@@ -75,12 +75,12 @@ void Zako::processBehavior() {
 //
 //        case PROG_CURVE: {
 //            if (pProg->hasJustChanged()) {
-//                getVecDriver()->setMvAcce(0); //加速度がある場合は切っておく
-//                pDriverLeader_->start(RELATIVE_COORD_DIRECTION, 1);
+//                getVecVehicle()->setMvAcce(0); //加速度がある場合は切っておく
+//                pVehicleLeader_->start(RELATIVE_COORD_DIRECTION, 1);
 //            }
-//            pDriverLeader_->behave(); //カーブ移動するようにDriverを操作
+//            pVehicleLeader_->behave(); //カーブ移動するようにDriverを操作
 //
-//            if (pDriverLeader_->isFinished()) {
+//            if (pVehicleLeader_->isFinished()) {
 //                pProg->changeNext();
 //            }
 //            break;
@@ -96,7 +96,7 @@ void Zako::processBehavior() {
 //            break;
 //    }
 //
-    pVecDriver->behave();
+    pVecVehicle->behave();
 }
 
 void Zako::processJudgement() {
@@ -115,5 +115,5 @@ Zako::~Zako() {
     if (pOs_) {
         (*pOs_).close();
     }
-    GGAF_DELETE_NULLABLE(pDriverLeader_);
+    GGAF_DELETE_NULLABLE(pVehicleLeader_);
 }

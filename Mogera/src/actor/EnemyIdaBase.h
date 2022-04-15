@@ -19,7 +19,7 @@ class EnemyIdaBase : public GgafLib::DefaultMeshSetActor {
 
 public:
     GgafDx::CurveManufactureConnection* pConn_pCurveManuf_;
-    GgafDx::DriverLeader* pDriverLeader_;
+    GgafDx::VehicleLeader* pVehicleLeader_;
     GgafCore::LinkedListRing<EnemyIda> _list_child;
     std::ofstream* pOs_;
     /**

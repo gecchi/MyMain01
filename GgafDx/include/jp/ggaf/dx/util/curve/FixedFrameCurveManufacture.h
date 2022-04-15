@@ -77,14 +77,14 @@ public:
     void recalculateBySpentFrame(frame prm_spent_frames);
 
     /**
-     * DriverLeader オブジェクトの生成 .
+     * VehicleLeader オブジェクトの生成 .
      * インスタンスは FixedFrameCurveManufacture です。
-     * @param prm_pVecDriver カーブ移動するための操作するオブジェクト
-     * @return DriverLeader オブジェクト
+     * @param prm_pVecVehicle カーブ移動するための操作するオブジェクト
+     * @return VehicleLeader オブジェクト
      */
-    DriverLeader* createVecDriverLeader(GgafDx::VecDriver* prm_pVecDriver) override;
+    VehicleLeader* createVecVehicleLeader(GgafDx::VecVehicle* prm_pVecVehicle) override;
 
-    DriverLeader* createGeoDriverLeader(GgafDx::GeoDriver* prm_pGeoDriver) override;
+    VehicleLeader* createGeoVehicleLeader(GgafDx::GeoVehicle* prm_pGeoVehicle) override;
 
     virtual ~FixedFrameCurveManufacture();
 };

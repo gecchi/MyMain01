@@ -1,6 +1,6 @@
 #include "MyMagicEnergy.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyMagicEnergyCore.h"
@@ -26,15 +26,15 @@ void MyMagicEnergy::onCreateModel() {
 }
 
 void MyMagicEnergy::initialize() {
-    getVecDriver()->setRollPitchYawFaceAngVelo(2111, 2333, 2777);
+    getVecVehicle()->setRollPitchYawFaceAngVelo(2111, 2333, 2777);
 }
 
 void MyMagicEnergy::onActive() {
 }
 
 void MyMagicEnergy::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    pVecDriver->behave();
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    pVecVehicle->behave();
     setPositionAt(pCore_);
     setScaleAt(pCore_);
 }

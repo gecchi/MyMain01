@@ -10,7 +10,7 @@ class EnemyStraeaLaserChip003 : public VvEnemyActor<GgafLib::WateringLaserChip> 
 
 public:
     GgafDx::CurveManufactureConnection* pConn_pCurveManuf_;
-    GgafDx::DriverLeader* pDriverLeader_;
+    GgafDx::VehicleLeader* pVehicleLeader_;
 
 public:
     EnemyStraeaLaserChip003(const char* prm_name);

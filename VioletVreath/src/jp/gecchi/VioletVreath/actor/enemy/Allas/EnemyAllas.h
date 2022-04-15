@@ -17,7 +17,7 @@ class EnemyAllas : public VvEnemyActor<GgafLib::DefaultMeshSetActor> {
 
 public:
     /** 移動スプラインプログラム */
-    GgafDx::DriverLeader* pDriverLeader_;
+    GgafDx::VehicleLeader* pVehicleLeader_;
     /** 弾ストック */
     GgafCore::ActorDepository* pDepo_shot_;
     /** 弾発射効果エフェクト */
@@ -66,7 +66,7 @@ public:
 
     /**
      *
-     * @param prm_pDriverLeader
+     * @param prm_pVehicleLeader
      * @param prm_pDepo_shot
      * @param prm_pDepo_shotEffect
      */

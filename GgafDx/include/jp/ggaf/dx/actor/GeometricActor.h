@@ -27,15 +27,15 @@ private:
     }
 
     /** [r]力車 */
-    VecDriver* _pVecDriver;
+    VecVehicle* _pVecVehicle;
     /** [r]駕籠(平行移動支援) */
-    GeoDriver* _pGeoDriver;
+    GeoVehicle* _pGeoVehicle;
     /** [r]拡大縮小支援 */
     Scaler* _pScaler;
     /** [r]効果音発生管理オブジェクト */
     SeTransmitterForActor* _pSeTransmitter;
 
-    DriverLeader* _pDriverLeader;
+    VehicleLeader* _pVehicleLeader;
 
 public:
     /** [r] 変換済み座標であるか(true:本アクターは変換済み座標/false:本アクターはワールド座標) */
@@ -171,27 +171,27 @@ public:
      * 本アクターの力車を取得 .
      * @return 力車
      */
-    VecDriver* getVecDriver();
+    VecVehicle* getVecVehicle();
 
     /**
      * 本アクターの駕籠(平行移動支援)オブジェクトを取得 .
      * @return 駕籠(平行移動支援)オブジェクト
      */
-    GeoDriver* getGeoDriver();
+    GeoVehicle* getGeoVehicle();
 
-    virtual DriverLeader* createCurveDriverLeader(CurveManufacture* prm_pCurveManufacture);
+    virtual VehicleLeader* createCurveVehicleLeader(CurveManufacture* prm_pCurveManufacture);
 
     /**
-     * DriverLeader を FeatureScene に関連付ける。
-     * FeatureSceneの影響をDriverLeaderを設定する。
-     * @param prm_pDriverLeader
+     * VehicleLeader を FeatureScene に関連付ける。
+     * FeatureSceneの影響をVehicleLeaderを設定する。
+     * @param prm_pVehicleLeader
      */
-    void setDriverLeader(GgafDx::DriverLeader* prm_pDriverLeader) {
-        _pDriverLeader = prm_pDriverLeader;
+    void setVehicleLeader(GgafDx::VehicleLeader* prm_pVehicleLeader) {
+        _pVehicleLeader = prm_pVehicleLeader;
     }
 
-    DriverLeader* getDriverLeader() {
-        return _pDriverLeader;
+    VehicleLeader* getVehicleLeader() {
+        return _pVehicleLeader;
     }
 
     /**
@@ -573,7 +573,7 @@ public:
      * _x,_y,_z,_rx,_ry,_rz をローカル（thisからの相対）に切り替える・・・changeGeoLocal()<BR>
      * _x,_y,_z,_rx,_ry,_rz 絶対座標に切り替える                    ・・・changeGeoFinal()<BR>
      * 【注意】<BR>
-     * 力車(getVecDriver()) は、ローカル座標系でのみ使用可能となります。<BR>
+     * 力車(getVecVehicle()) は、ローカル座標系でのみ使用可能となります。<BR>
      * 従属アクターprocessBehavior() の処理を抜ける前には、changeGeoFinal() で絶対座標に戻しておく必要があります。<BR>
      * @param prm_kind     種別
      * @param prm_pGeoActor 従属させるアクター
@@ -600,7 +600,7 @@ public:
      * _x,_y,_z,_rx,_ry,_rz をローカル（thisからの相対）に切り替える・・・changeGeoLocal()<BR>
      * _x,_y,_z,_rx,_ry,_rz 絶対座標に切り替える                    ・・・changeGeoFinal()<BR>
      * 【注意】<BR>
-     * 力車(getVecDriver()) は、ローカル座標系でのみ使用可能となります。<BR>
+     * 力車(getVecVehicle()) は、ローカル座標系でのみ使用可能となります。<BR>
      * 従属アクターprocessBehavior() の処理を抜ける前には、changeGeoFinal() で絶対座標に戻しておく必要があります。<BR>
      * @param prm_pGeoActor 従属させるアクター
      * @param prm_x_init_local  従属アクターのローカル(this)位置からのX座標位置

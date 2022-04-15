@@ -1,14 +1,14 @@
 #include "EnemyOebius.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dx/util/curve/DriverLeader.h"
+#include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Oebius/FormationOebius.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
@@ -36,7 +36,7 @@ EnemyOebius::EnemyOebius(const char* prm_name) :
     _class_name = "EnemyOebius";
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_001");
-    pDriverLeader_ = nullptr; //フォーメーションオブジェクトが設定する
+    pVehicleLeader_ = nullptr; //フォーメーションオブジェクトが設定する
     scatter_flg_ = false;
     delay_ = 0;
 }
@@ -49,9 +49,9 @@ void EnemyOebius::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    pVecDriver->linkFaceAngByMvAng(true);
-    pVecDriver->forceMvVeloRange(PX_C(15));
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    pVecVehicle->linkFaceAngByMvAng(true);
+    pVecVehicle->forceMvVeloRange(PX_C(15));
 }
 
 void EnemyOebius::onActive() {
@@ -60,14 +60,14 @@ void EnemyOebius::onActive() {
 }
 
 void EnemyOebius::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             setHitAble(false);
             setAlpha(0);
-            pVecDriver->setRollFaceAngVelo(D_ANG(3));
+            pVecVehicle->setRollFaceAngVelo(D_ANG(3));
             pProg->changeNext();
             break;
         }
@@ -100,14 +100,14 @@ void EnemyOebius::processBehavior() {
 
         case PROG_CURVE: {
             if (pProg->hasJustChanged()) {
-                getVecDriver()->setMvAcce(0); //加速度がある場合は切っておく
-                pDriverLeader_->start(RELATIVE_COORD_DIRECTION, -1); //-1は無限ループ
+                getVecVehicle()->setMvAcce(0); //加速度がある場合は切っておく
+                pVehicleLeader_->start(RELATIVE_COORD_DIRECTION, -1); //-1は無限ループ
             }
 
             FormationOebius* pFormation = (FormationOebius*)getFormation();
-            pDriverLeader_->setStartPosition(pFormation->geo_.x, pFormation->geo_.y, pFormation->geo_.z);
-            pDriverLeader_->setStartAngle(pFormation->geo_.rx, pFormation->geo_.ry, pFormation->geo_.rz);
-            pDriverLeader_->behave(); //カーブ移動するようにDriverを操作
+            pVehicleLeader_->setStartPosition(pFormation->geo_.x, pFormation->geo_.y, pFormation->geo_.z);
+            pVehicleLeader_->setStartAngle(pFormation->geo_.rx, pFormation->geo_.ry, pFormation->geo_.rz);
+            pVehicleLeader_->behave(); //カーブ移動するようにDriverを操作
 
             if (scatter_flg_) {
                 pProg->changeNext();
@@ -121,10 +121,10 @@ void EnemyOebius::processBehavior() {
             }
             if (pProg->hasArrivedAt(delay_)) {
                 //散り散りになる
-                pDriverLeader_->stop();
-                pVecDriver->turnRzRyMvAngTo(RND_ABOUT(pVecDriver->_rz_mv, D_ANG(90)), RND_ABOUT(pVecDriver->_ry_mv, D_ANG(90)),
+                pVehicleLeader_->stop();
+                pVecVehicle->turnRzRyMvAngTo(RND_ABOUT(pVecVehicle->_rz_mv, D_ANG(90)), RND_ABOUT(pVecVehicle->_ry_mv, D_ANG(90)),
                                          D_ANG(2), 0, TURN_CLOSE_TO,false);
-                pVecDriver->setMvAcce(100);
+                pVecVehicle->setMvAcce(100);
             }
 
             if (pProg->hasArrivedAt(delay_ + 200)) {
@@ -149,7 +149,7 @@ void EnemyOebius::processBehavior() {
     }
 
     pAlphaFader->behave();
-    pVecDriver->behave();
+    pVecVehicle->behave();
 }
 
 void EnemyOebius::processJudgement() {
@@ -181,5 +181,5 @@ void EnemyOebius::scatter() {
 }
 
 EnemyOebius::~EnemyOebius() {
-    GGAF_DELETE_NULLABLE(pDriverLeader_);
+    GGAF_DELETE_NULLABLE(pVehicleLeader_);
 }

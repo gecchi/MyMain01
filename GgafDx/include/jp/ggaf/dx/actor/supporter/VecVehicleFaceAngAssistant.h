@@ -1,5 +1,5 @@
-#ifndef GGAF_DX_VECDRIVERFACEANGASSISTANT_H_
-#define GGAF_DX_VECDRIVERFACEANGASSISTANT_H_
+#ifndef GGAF_DX_VECVEHICLEFACEANGASSISTANT_H_
+#define GGAF_DX_VECVEHICLEFACEANGASSISTANT_H_
 #include "GgafDxCommonHeader.h"
 
 #include "jp/ggaf/core/Object.h"
@@ -14,8 +14,8 @@ namespace GgafDx {
  * @since 2013/12/05
  * @author Masatoshi Tsuge
  */
-class VecDriverFaceAngAssistant : public GgafCore::Object {
-    friend class VecDriver;
+class VecVehicleFaceAngAssistant : public GgafCore::Object {
+    friend class VecVehicle;
 
 private:
     struct Twist {
@@ -32,7 +32,7 @@ private:
     };
 
     /** [r]師匠 */
-    VecDriver* const _pMaster;
+    VecVehicle* const _pMaster;
     GgafCore::TrapezoidalVeloValue<int> _smthFaceAng[3];
     /** ツイスト情報 */
     Twist _tw[3];
@@ -48,7 +48,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pMaster  師匠
      */
-    explicit VecDriverFaceAngAssistant(VecDriver* prm_pMaster);
+    explicit VecVehicleFaceAngAssistant(VecVehicle* prm_pMaster);
 
 
     /**
@@ -312,9 +312,9 @@ public:
         _tw[AXIS_Z].target_num = 0;
     }
 
-    virtual ~VecDriverFaceAngAssistant();
+    virtual ~VecVehicleFaceAngAssistant();
 };
 
 }
-#endif /*GGAF_DX_VECDRIVERFACEANGASSISTANT_H_*/
+#endif /*GGAF_DX_VECVEHICLEFACEANGASSISTANT_H_*/
 

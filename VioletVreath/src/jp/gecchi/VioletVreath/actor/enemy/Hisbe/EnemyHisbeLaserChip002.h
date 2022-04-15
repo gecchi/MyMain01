@@ -10,7 +10,7 @@ class EnemyHisbeLaserChip002 : public VvEnemyActor<GgafLib::RefractionLaserChip>
 
 public:
     GgafDx::CurveManufactureConnection* pConn_pCurveManuf_;
-    GgafDx::DriverLeader* pDriverLeader_;
+    GgafDx::VehicleLeader* pVehicleLeader_;
     GgafLib::DefaultScene* pFeatureScene_;
 public:
     EnemyHisbeLaserChip002(const char* prm_name);

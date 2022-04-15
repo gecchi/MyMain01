@@ -1,8 +1,8 @@
 #include "EnemyGeria.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
-#include "jp/ggaf/dx/actor/supporter/GeoDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/GeoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -54,8 +54,8 @@ void EnemyGeria::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 45000);
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    pVecDriver->setFaceAngVelo(AXIS_Z, -7000);
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    pVecVehicle->setFaceAngVelo(AXIS_Z, -7000);
 }
 
 void EnemyGeria::onActive() {
@@ -65,9 +65,9 @@ void EnemyGeria::onActive() {
     can_Shot_ = true;
     shot_num_ = 0;
     frame_when_shot_ = 0;
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    velo_mv_begin_ = pVecDriver->getMvVelo(); //‰ŠúˆÚ“®‘¬“x‚ð•Û‘¶
-    pVecDriver->setMvVelo(0);
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    velo_mv_begin_ = pVecVehicle->getMvVelo(); //‰ŠúˆÚ“®‘¬“x‚ð•Û‘¶
+    pVecVehicle->setMvVelo(0);
     setRzFaceAng(0);
     setRxFaceAng(0);
     mvd_ = 0;
@@ -75,8 +75,8 @@ void EnemyGeria::onActive() {
 }
 
 void EnemyGeria::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    GgafDx::GeoDriver* const pGeoDriver = getGeoDriver();
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::GeoVehicle* const pGeoVehicle = getGeoVehicle();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
     GgafCore::Progress* const pProg = getProgress();
 
@@ -107,7 +107,7 @@ void EnemyGeria::processBehavior() {
         }
         case PROG_MOVE: {  //ˆÚ“®
             if (pProg->hasJustChanged()) {
-                pVecDriver->setMvVelo(velo_mv_begin_);
+                pVecVehicle->setMvVelo(velo_mv_begin_);
                 will_shot_ = false;
             }
             if (will_shot_) {
@@ -129,11 +129,11 @@ void EnemyGeria::processBehavior() {
         }
         case PROG_FIRE: {  //”­ŽË
             if (pProg->hasJustChanged()) {
-                pVecDriver->setMvVelo(PX_C(3)); //Œ¸‘¬
-                pVecDriver->rollFaceAngTo(D180ANG, D_ANG(3), 0, TURN_CLOCKWISE); //—\”õ“®ì‚Ì‚®‚é‚Á‚Æ‰ñ“]
+                pVecVehicle->setMvVelo(PX_C(3)); //Œ¸‘¬
+                pVecVehicle->rollFaceAngTo(D180ANG, D_ANG(3), 0, TURN_CLOCKWISE); //—\”õ“®ì‚Ì‚®‚é‚Á‚Æ‰ñ“]
             }
 
-            if (!pVecDriver->isTurningFaceAng()) {
+            if (!pVecVehicle->isTurningFaceAng()) {
                 MyShip* pM = pMYSHIP;
                 GgafDx::GeometricActor* pLast =
                       UTIL::shotWay001(_x, _y, _z,
@@ -156,7 +156,7 @@ void EnemyGeria::processBehavior() {
         case PROG_LEAVE: {
             if (pProg->hasJustChanged()) {
                 setHitAble(false);
-                pVecDriver->setMvVelo(0);
+                pVecVehicle->setMvVelo(0);
                 UTIL::activateLeaveEffectOf(this);
                 pAlphaFader->transitionLinearUntil(0.0, 30);
             }
@@ -169,10 +169,10 @@ void EnemyGeria::processBehavior() {
         default :
             break;
     }
-    pGeoDriver->behave();
-    pVecDriver->behave();
+    pGeoVehicle->behave();
+    pVecVehicle->behave();
     pAlphaFader->behave();
-    mvd_ += pVecDriver->getMvVelo();
+    mvd_ += pVecVehicle->getMvVelo();
     if (mvd_ > migration_length_) {
         getProgress()->change(PROG_LEAVE);
     }

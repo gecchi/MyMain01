@@ -6,8 +6,8 @@
 #include "jp/gecchi/VioletVreath/manager/XpmManager.h"
 #include "jp/ggaf/core/util/ResourceConnection.hpp"
 #include "jp/ggaf/core/util/Xpm.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
-#include "jp/ggaf/dx/util/curve/DriverLeader.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/ggaf/dx/util/curve/CurveManufacture.h"
 #include "jp/ggaf/dx/util/curve/FixedFrameCurveManufacture.h"
 
@@ -95,12 +95,12 @@ void FormationOebius002::processBehavior() {
 
 void FormationOebius002::onCalledUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) {
     EnemyOebius* pOebius = (EnemyOebius*)prm_pActor;
-    if (pOebius->pDriverLeader_) {
-        throwCriticalException("pOebius->pDriverLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpOebius="<<pOebius<<"("<<pOebius->getName()<<")");
+    if (pOebius->pVehicleLeader_) {
+        throwCriticalException("pOebius->pVehicleLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpOebius="<<pOebius<<"("<<pOebius->getName()<<")");
     } else {
-        pOebius->pDriverLeader_ = pOebius->createCurveDriverLeader(papCurveManufConn_[prm_col]->peek());
+        pOebius->pVehicleLeader_ = pOebius->createCurveVehicleLeader(papCurveManufConn_[prm_col]->peek());
     }
-//    double rate_z = pOebius->pDriverLeader_->_pManufacture->_rate_z; //MAG_Z=100000
+//    double rate_z = pOebius->pVehicleLeader_->_pManufacture->_rate_z; //MAG_Z=100000
 //
 //    //Z = (prm_col*0.4)*rate_z //0.4‚Í—×‚Ì—ñ‚Æ‚ÌŠÔŠu
 //    //(0, 0, Z) ‚ğ Rz > Ry ‰ñ“]ˆÚ“®‚³‚¹‚é‚Æ
@@ -112,18 +112,18 @@ void FormationOebius002::onCalledUp(GgafDx::FigureActor* prm_pActor, int prm_row
 //    coord dx = Z*sinRy;
 //    coord dy = 0;
 //    coord dz = Z*cosRy;
-//    pOebius->pDriverLeader_->setStartPosition(geo_.x + dx,
+//    pOebius->pVehicleLeader_->setStartPosition(geo_.x + dx,
 //                                              geo_.y + dy,
 //                                              geo_.z + dz);
-    pOebius->pDriverLeader_->setStartPosition(geo_.x, geo_.y, geo_.z);
-    pOebius->pDriverLeader_->setStartAngle(geo_.rx, geo_.ry, geo_.rz);
+    pOebius->pVehicleLeader_->setStartPosition(geo_.x, geo_.y, geo_.z);
+    pOebius->pVehicleLeader_->setStartAngle(geo_.rx, geo_.ry, geo_.rz);
     pOebius->setPositionAround(geo_.x, geo_.y, geo_.z, PX_C(700));
     pOebius->setFaceAngTwd(pOebius->_x + (pOebius->_x - geo_.x),
                            pOebius->_y + (pOebius->_y - geo_.y),
                            pOebius->_z + (pOebius->_z - geo_.z) );
-    pOebius->getVecDriver()->setMvAngByFaceAng();
-    pOebius->getVecDriver()->setMvVelo(0);
-    pOebius->getVecDriver()->setMvAcce(80);
+    pOebius->getVecVehicle()->setMvAngByFaceAng();
+    pOebius->getVecVehicle()->setMvVelo(0);
+    pOebius->getVecVehicle()->setMvAcce(80);
 
     //F‚ğİ’è
     GgafCore::Xpm* pXpM = pXpmConnection_->peek();

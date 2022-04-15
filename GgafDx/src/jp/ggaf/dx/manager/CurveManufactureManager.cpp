@@ -97,29 +97,29 @@ CurveManufacture* CurveManufactureManager::processCreateResource(const char* prm
     CurveManufacture::MoveMethod move_method;
     CurveManufacture::MoveDriver move_driver;
 
-    if (classname.find("FixedVelocityCurveGeoDriverLeader") != std::string::npos) {
+    if (classname.find("FixedVelocityCurveGeoVehicleLeader") != std::string::npos) {
         //未作成
         move_method = CurveManufacture::MoveMethod::FixedVelocity;
-        move_driver = CurveManufacture::MoveDriver::GeoDriver;
-    } else if (classname.find("FixedVelocityCurveVecDriverLeader") != std::string::npos) {
+        move_driver = CurveManufacture::MoveDriver::GeoVehicle;
+    } else if (classname.find("FixedVelocityCurveVecVehicleLeader") != std::string::npos) {
         move_method = CurveManufacture::MoveMethod::FixedVelocity;
-        move_driver = CurveManufacture::MoveDriver::VecDriver;
-    } else if (classname.find("FixedFrameCurveGeoDriverLeader") != std::string::npos) {
+        move_driver = CurveManufacture::MoveDriver::VecVehicle;
+    } else if (classname.find("FixedFrameCurveGeoVehicleLeader") != std::string::npos) {
         move_method = CurveManufacture::MoveMethod::FixedFrame;
-        move_driver = CurveManufacture::MoveDriver::GeoDriver;
-    } else if (classname.find("FixedFrameCurveVecDriverLeader") != std::string::npos) {
+        move_driver = CurveManufacture::MoveDriver::GeoVehicle;
+    } else if (classname.find("FixedFrameCurveVecVehicleLeader") != std::string::npos) {
         move_method = CurveManufacture::MoveMethod::FixedFrame;
-        move_driver = CurveManufacture::MoveDriver::VecDriver;
-    } else if (classname.find("SteppedCoordCurveGeoDriverLeader") != std::string::npos) {
+        move_driver = CurveManufacture::MoveDriver::VecVehicle;
+    } else if (classname.find("SteppedCoordCurveGeoVehicleLeader") != std::string::npos) {
         //未作成
         move_method = CurveManufacture::MoveMethod::SteppedCoord;
-        move_driver = CurveManufacture::MoveDriver::GeoDriver;
-    } else if (classname.find("SteppedCoordCurveVecDriverLeader") != std::string::npos) {
+        move_driver = CurveManufacture::MoveDriver::GeoVehicle;
+    } else if (classname.find("SteppedCoordCurveVecVehicleLeader") != std::string::npos) {
         move_method = CurveManufacture::MoveMethod::SteppedCoord;
-        move_driver = CurveManufacture::MoveDriver::VecDriver;
+        move_driver = CurveManufacture::MoveDriver::VecVehicle;
     } else {
         throwCriticalException(prm_idstr<<" : "
-                "[CLASS]="<<classname<<" は指定出来ません。可能なクラスは FixedVelocityCurveVecDriverLeader/FixedFrameCurveGeoDriverLeader/FixedFrameCurveVecDriverLeader/CLASS_SteppedCoordCurveVecDriverLeader のみです。");
+                "[CLASS]="<<classname<<" は指定出来ません。可能なクラスは FixedVelocityCurveVecVehicleLeader/FixedFrameCurveGeoVehicleLeader/FixedFrameCurveVecVehicleLeader/CLASS_SteppedCoordCurveVecVehicleLeader のみです。");
     }
 
 

@@ -9,12 +9,12 @@ FormationUnomia002a::FormationUnomia002a(const char* prm_name) : FormationUnomia
     _class_name = "FormationUnomia002a";
 }
 void FormationUnomia002a::onCalledUpUnomia(EnemyUnomia* pEnemyUnomia, int col) {
-//    pEnemyUnomia->pDriverLeader_->adjustAxisRate(
+//    pEnemyUnomia->pVehicleLeader_->adjustAxisRate(
 //                                        MyShip::lim_x_infront_, //X•ûŒü”{—¦
 //                                        MyShip::lim_y_top_,   //Y•ûŒü”{—¦
 //                                        MyShip::lim_z_left_  //Z•ûŒü”{—¦
 //                                    );
-//    pEnemyUnomia->pDriverLeader_->adjustCoordOffset(0, col*50*1000, col*50*1000);
+//    pEnemyUnomia->pVehicleLeader_->adjustCoordOffset(0, col*50*1000, col*50*1000);
 //    pEnemyUnomia->setPosition(papCurveSrcConnection_[col]->peek()->pSp_->_Xbasepoint_[0], 0, 0);
 }
 

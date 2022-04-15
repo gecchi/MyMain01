@@ -3,11 +3,11 @@
 
 #include "jp/ggaf/dx/actor/GeometricActor.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriverFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicleFaceAngAssistant.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
 using namespace GgafLib;
@@ -39,7 +39,7 @@ void EnemyErmioneArm::onActive() {
 void EnemyErmioneArm::processBehavior() {
 
     changeGeoLocal(); //ローカル座標の操作とする。
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
@@ -124,13 +124,13 @@ void EnemyErmioneArm::processBehavior() {
                         ry_target = D360ANG - aiming_movable_limit_ang_;
                     }
 
-                    pVecDriver->turnRzRyFaceAngTo(
+                    pVecVehicle->turnRzRyFaceAngTo(
                                     rz_target, ry_target,
                                     aiming_ang_velo_, aiming_ang_velo_*0.01,
                                     TURN_CLOSE_TO, false);
                 }
             }
-            if (pVecDriver->isTurningFaceAng()) {
+            if (pVecVehicle->isTurningFaceAng()) {
                 // 待機
             } else {
                 pProg->change(PROG_NOTHING);
@@ -143,7 +143,7 @@ void EnemyErmioneArm::processBehavior() {
             break;
     }
 
-    pVecDriver->behave();
+    pVecVehicle->behave();
     changeGeoFinal();
     //pScaler_->behave();
     if (_pActor_base) {

@@ -1,6 +1,6 @@
 #include "EnemyRatislavia.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/util/CollisionArea.h"
@@ -93,7 +93,7 @@ void EnemyRatislavia::onActive() {
 }
 
 void EnemyRatislavia::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
@@ -156,7 +156,7 @@ void EnemyRatislavia::processBehavior() {
         }
     }
 
-    pVecDriver->behave();
+    pVecVehicle->behave();
     getAlphaFader()->behave();
 }
 

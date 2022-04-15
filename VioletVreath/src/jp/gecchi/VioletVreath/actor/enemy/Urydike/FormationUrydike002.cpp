@@ -1,7 +1,7 @@
 #include "FormationUrydike002.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
-#include "jp/ggaf/dx/util/curve/DriverLeader.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/ggaf/dx/util/curve/CurveManufacture.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Urydike/EnemyUrydike.h"
@@ -34,12 +34,12 @@ void FormationUrydike002::processBehavior() {
 
 void FormationUrydike002::onCalledUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) {
     EnemyUrydike* pUrydike = (EnemyUrydike*)prm_pActor;
-    if (pUrydike->pDriverLeader_) {
-        throwCriticalException("pUrydike->pDriverLeader_が設定されてます。pUrydike="<<pUrydike<<"("<<pUrydike->getName()<<")");
+    if (pUrydike->pVehicleLeader_) {
+        throwCriticalException("pUrydike->pVehicleLeader_が設定されてます。pUrydike="<<pUrydike<<"("<<pUrydike->getName()<<")");
     } else {
-        pUrydike->pDriverLeader_ = pUrydike->createCurveDriverLeader(papCurveManufConn_[prm_col]->peek());
+        pUrydike->pVehicleLeader_ = pUrydike->createCurveVehicleLeader(papCurveManufConn_[prm_col]->peek());
     }
-    double rate_x = pUrydike->pDriverLeader_->_pManufacture->_rate_x;
+    double rate_x = pUrydike->pVehicleLeader_->_pManufacture->_rate_x;
     double d_col = -1.0 * papCurveManufConn_[prm_col]->peek()->_pCurve->_rotmat._41; //横との間隔
     float X = d_col*rate_x; //rate_xを掛けることにより、ここで X はcoordの単位となる。
 
@@ -53,10 +53,10 @@ void FormationUrydike002::onCalledUp(GgafDx::FigureActor* prm_pActor, int prm_ro
     coord dx = X*cosRz*cosRy;
     coord dy = X*sinRz;
     coord dz = X*cosRz*-sinRy;
-    pUrydike->pDriverLeader_->setStartPosition(entry_pos_.x + dx,
+    pUrydike->pVehicleLeader_->setStartPosition(entry_pos_.x + dx,
                                                entry_pos_.y + dy,
                                                entry_pos_.z + dz);
-    pUrydike->pDriverLeader_->setStartAngle(entry_pos_.rx, entry_pos_.ry, entry_pos_.rz);
+    pUrydike->pVehicleLeader_->setStartAngle(entry_pos_.rx, entry_pos_.ry, entry_pos_.rz);
 
     pUrydike->setPosition( RND_ABOUT(entry_pos_.x + dx, PX_C(700)),
                            RND_ABOUT(entry_pos_.y + dy, PX_C(700)),
@@ -64,9 +64,9 @@ void FormationUrydike002::onCalledUp(GgafDx::FigureActor* prm_pActor, int prm_ro
     pUrydike->setFaceAngTwd(entry_pos_.x + dx,
                             entry_pos_.y + dy,
                             entry_pos_.z + dz);
-    pUrydike->getVecDriver()->setMvAngByFaceAng();
-    pUrydike->getVecDriver()->setMvVelo(0);
-    pUrydike->getVecDriver()->setMvAcce(80);
+    pUrydike->getVecVehicle()->setMvAngByFaceAng();
+    pUrydike->getVecVehicle()->setMvVelo(0);
+    pUrydike->getVecVehicle()->setMvAcce(80);
 
     //色を設定
     GgafCore::Xpm* pXpM = pXpmConnection_->peek();

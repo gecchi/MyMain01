@@ -1,7 +1,7 @@
 #include "jp/ggaf/dx/util/curve/FixedVelocityCurveManufacture.h"
 
 #include "jp/ggaf/dx/util/curve/CurveSource.h"
-#include "jp/ggaf/dx/util/curve/FixedVelocityCurveVecDriverLeader.h"
+#include "jp/ggaf/dx/util/curve/FixedVelocityCurveVecVehicleLeader.h"
 
 using namespace GgafDx;
 
@@ -89,8 +89,8 @@ void FixedVelocityCurveManufacture::calculate() {
     }
 }
 
-DriverLeader* FixedVelocityCurveManufacture::createVecDriverLeader(GgafDx::VecDriver* prm_pVecDriver) {
-    return NEW FixedVelocityCurveVecDriverLeader(this, prm_pVecDriver);
+VehicleLeader* FixedVelocityCurveManufacture::createVecVehicleLeader(GgafDx::VecVehicle* prm_pVecVehicle) {
+    return NEW FixedVelocityCurveVecVehicleLeader(this, prm_pVecVehicle);
 }
 
 FixedVelocityCurveManufacture::~FixedVelocityCurveManufacture() {

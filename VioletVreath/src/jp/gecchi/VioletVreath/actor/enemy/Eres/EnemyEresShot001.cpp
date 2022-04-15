@@ -1,7 +1,7 @@
 #include "EnemyEresShot001.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -41,9 +41,9 @@ EnemyEresShot001::EnemyEresShot001(const char* prm_name) :
 }
 
 void EnemyEresShot001::initialize() {
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    pVecDriver->forceMvVeloRange(veloTop_, veloBottom_);
-    pVecDriver->linkFaceAngByMvAng(true);
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    pVecVehicle->forceMvVeloRange(veloTop_, veloBottom_);
+    pVecVehicle->linkFaceAngByMvAng(true);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, PX_C(60));
@@ -54,33 +54,33 @@ void EnemyEresShot001::onActive() {
     getStatus()->reset();
 
     //oŒ»
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    pVecDriver->setMvVelo(velo1st_);
-    pVecDriver->setMvAcce(iMoveAcce_1st_);
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    pVecVehicle->setMvVelo(velo1st_);
+    pVecVehicle->setMvAcce(iMoveAcce_1st_);
 
     setHitAble(true);
 }
 
 void EnemyEresShot001::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
     //•ûŒü“]Š·ŠJn
     if (getActiveFrame() == frame_TurnBegin_) {
-        pVecDriver->turnMvAngTwd(pMYSHIP,
+        pVecVehicle->turnMvAngTwd(pMYSHIP,
                               angVelo_Turn_, 0,
                               TURN_CLOSE_TO, true);
-        pVecDriver->setMvAcce(iMoveAcce_2nd_);
+        pVecVehicle->setMvAcce(iMoveAcce_2nd_);
     }
 
     //•ûŒü“]Š·I—¹
     if (getActiveFrame() == frame_TurnBegin_ + frame_TurnInterval_) {
-        pVecDriver->setRzRyMvAngVelo(0,0);
-        pVecDriver->_is_targeting_ry_mv = false;
-        pVecDriver->_is_targeting_rz_mv = false;
+        pVecVehicle->setRzRyMvAngVelo(0,0);
+        pVecVehicle->_is_targeting_ry_mv = false;
+        pVecVehicle->_is_targeting_rz_mv = false;
     }
 
     //behaveUvFlip();
     //À•W‚É”½‰f
-    pVecDriver->behave();
+    pVecVehicle->behave();
     //getSeTransmitter()->behave();
 }
 

@@ -1,7 +1,7 @@
-#ifndef GGAF_DX_FIXEDVELOCITYCURVEVECDRIVERLEADER_H_
-#define GGAF_DX_FIXEDVELOCITYCURVEVECDRIVERLEADER_H_
+#ifndef GGAF_DX_FIXEDVELOCITYCURVEVECVEHICLELEADER_H_
+#define GGAF_DX_FIXEDVELOCITYCURVEVECVEHICLELEADER_H_
 #include "GgafDxCommonHeader.h"
-#include "jp/ggaf/dx/util/curve/DriverLeader.h"
+#include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 
 namespace GgafDx {
 
@@ -11,15 +11,15 @@ namespace GgafDx {
  * 次の補完点までの距離を測り、現在の移動速度から、測った距離を減算し「残り移動距離」を求める。
  * 残り移動距離が0になれば、次の補完点に向きを変えながらまた距離を測る・・・を繰り返します。<BR>
  * 補完点の密度が薄いところでも濃いところでも移動速度に影響はありません。<BR>
- * そのように動作するよう、力車(GgafDx::VecDriver)に指示を出して移動を実現します。<BR>
+ * そのように動作するよう、力車(GgafDx::VecVehicle)に指示を出して移動を実現します。<BR>
  * @version 1.00
  * @since 2009/10/28
  * @author Masatoshi Tsuge
  */
-class FixedVelocityCurveVecDriverLeader : public DriverLeader {
+class FixedVelocityCurveVecVehicleLeader : public VehicleLeader {
 
 public:
-    GgafDx::VecDriver* _pVecDriver_target;
+    GgafDx::VecVehicle* _pVecVehicle_target;
     /** [r]スプライン情報セット(ldrファイルの情報に相当)  */
     FixedVelocityCurveManufacture* _pFixedVeloSplManuf;
     /** [r]現在向かっている最中の補完点(基準点も含む)の数 */
@@ -32,9 +32,9 @@ public:
     /**
      * コンストラクタ .
      * @param prm_pManufacture
-     * @param prm_pVecDriver 対象のアクターの力車
+     * @param prm_pVecVehicle 対象のアクターの力車
      */
-    FixedVelocityCurveVecDriverLeader(CurveManufacture* prm_pManufacture, GgafDx::VecDriver* prm_pVecDriver_target);
+    FixedVelocityCurveVecVehicleLeader(CurveManufacture* prm_pManufacture, GgafDx::VecVehicle* prm_pVecVehicle_target);
 
     virtual void restart() override;
 
@@ -46,8 +46,8 @@ public:
     virtual void behave() override;
 
 
-    virtual ~FixedVelocityCurveVecDriverLeader();
+    virtual ~FixedVelocityCurveVecVehicleLeader();
 };
 
 }
-#endif /*GGAF_DX_FIXEDVELOCITYCURVEVECDRIVERLEADER_H_*/
+#endif /*GGAF_DX_FIXEDVELOCITYCURVEVECVEHICLELEADER_H_*/

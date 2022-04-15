@@ -19,7 +19,7 @@ class EnemyErelman : public VvEnemyActor<GgafLib::DefaultMassMeshActor> {
 
 public:
     /** 移動スプラインプログラム */
-    GgafDx::DriverLeader* pDriverLeader_;
+    GgafDx::VehicleLeader* pVehicleLeader_;
 
     bool scatter_flg_;
     frame free_interval_;

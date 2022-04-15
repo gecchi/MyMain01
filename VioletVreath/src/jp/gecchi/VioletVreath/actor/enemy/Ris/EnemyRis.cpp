@@ -1,11 +1,11 @@
 #include "EnemyRis.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/dx/model/supporter/TextureBlinker.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/dx/util/curve/DriverLeader.h"
+#include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -22,7 +22,7 @@ EnemyRis::EnemyRis(const char* prm_name)
       : VvEnemyActor<DefaultMeshSetActor>(prm_name, "Ris", StatusReset(EnemyRis)) {
     _class_name = "EnemyRis";
     iMovePatternNo_ = 0;
-    pDriverLeader_ = nullptr;
+    pVehicleLeader_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
@@ -38,9 +38,9 @@ void EnemyRis::onCreateModel() {
 
 void EnemyRis::initialize() {
     setHitAble(true);
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    pVecDriver->linkFaceAngByMvAng(true);
-    pVecDriver->setRollFaceAngVelo(5000);
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    pVecVehicle->linkFaceAngByMvAng(true);
+    pVecVehicle->setRollFaceAngVelo(5000);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAABox(0, -30000, -30000, -30000, 30000, 30000, 30000);
@@ -52,19 +52,19 @@ void EnemyRis::onActive() {
 }
 
 void EnemyRis::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
     switch (iMovePatternNo_) {
         case 0:  //【パターン０：カーブ移動開始】
-            if (pDriverLeader_) {
-                pDriverLeader_->start(ABSOLUTE_COORD); //カーブ移動を開始
+            if (pVehicleLeader_) {
+                pVehicleLeader_->start(ABSOLUTE_COORD); //カーブ移動を開始
             }
             iMovePatternNo_++; //次の行動パターンへ
             break;
 
         case 1:  //【パターン１：カーブ移動終了待ち】
-            if (pDriverLeader_) {
+            if (pVehicleLeader_) {
                 //カーブ移動有り
-                if (pDriverLeader_->isFinished()) {
+                if (pVehicleLeader_->isFinished()) {
                     iMovePatternNo_++; //カーブ移動が終了したら次の行動パターンへ
                 }
             } else {
@@ -93,7 +93,7 @@ void EnemyRis::processBehavior() {
                 }
             }
             //自機へ方向転換
-            pVecDriver->turnMvAngTwd(pMYSHIP,
+            pVecVehicle->turnMvAngTwd(pMYSHIP,
                                   3000, 0,
                                   TURN_CLOSE_TO, true);
             iMovePatternNo_++; //次の行動パターンへ
@@ -102,10 +102,10 @@ void EnemyRis::processBehavior() {
         case 3:  //【行動パターン３：自機へグルッと逆回転で方向転換開始】
             if (_z-10000 < pMYSHIP->_z && pMYSHIP->_z < _z+10000) {
                 //自機とZ軸が接近したらグルッと逆回転で方向転換
-                pVecDriver->turnMvAngTwd(MyShip::lim_x_behaind_ - 500000 , _y, _z,
+                pVecVehicle->turnMvAngTwd(MyShip::lim_x_behaind_ - 500000 , _y, _z,
                                       10000, 0,
                                       TURN_CLOSE_TO, true);
-                pVecDriver->setMvAcce(100);
+                pVecVehicle->setMvAcce(100);
                 iMovePatternNo_++;
             } else {
                 //自機とZ軸が接近するまで待つ
@@ -116,10 +116,10 @@ void EnemyRis::processBehavior() {
     }
 
 
-    if (pDriverLeader_) {
-        pDriverLeader_->behave(); //カーブ移動するようにDriverを操作
+    if (pVehicleLeader_) {
+        pVehicleLeader_->behave(); //カーブ移動するようにDriverを操作
     }
-    pVecDriver->behave();
+    pVecVehicle->behave();
     //getSeTransmitter()->behave();
 }
 
@@ -145,5 +145,5 @@ void EnemyRis::onInactive() {
 }
 
 EnemyRis::~EnemyRis() {
-    GGAF_DELETE_NULLABLE(pDriverLeader_);
+    GGAF_DELETE_NULLABLE(pVehicleLeader_);
 }

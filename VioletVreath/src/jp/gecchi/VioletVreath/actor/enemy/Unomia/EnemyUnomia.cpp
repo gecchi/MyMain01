@@ -3,9 +3,9 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/model/Model.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/dx/util/curve/DriverLeader.h"
+#include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/ggaf/dx/util/curve/CurveManufacture.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
@@ -29,7 +29,7 @@ enum {
 EnemyUnomia::EnemyUnomia(const char* prm_name) :
         VvEnemyActor<DefaultMassMeshActor>(prm_name, "Unomia", StatusReset(EnemyUnomia)) {
     _class_name = "EnemyUnomia";
-    pDriverLeader_ = nullptr;
+    pVehicleLeader_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
@@ -42,9 +42,9 @@ void EnemyUnomia::onCreateModel() {
 }
 
 void EnemyUnomia::initialize() {
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    pVecDriver->linkFaceAngByMvAng(true);
-    pVecDriver->setRollFaceAngVelo(-4000);
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    pVecVehicle->linkFaceAngByMvAng(true);
+    pVecVehicle->setRollFaceAngVelo(-4000);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
@@ -58,15 +58,15 @@ void EnemyUnomia::config(
         GgafCore::ActorDepository* prm_pDepo_shot,
         GgafCore::ActorDepository* prm_pDepo_shotEffect
         ) {
-    GGAF_DELETE_NULLABLE(pDriverLeader_);
-    pDriverLeader_ = createCurveDriverLeader(prm_pCurveManufacture);
+    GGAF_DELETE_NULLABLE(pVehicleLeader_);
+    pVehicleLeader_ = createCurveVehicleLeader(prm_pCurveManufacture);
     pDepo_shot_ = prm_pDepo_shot;
     pDepo_effect_ = prm_pDepo_shotEffect;
 }
 
 
 void EnemyUnomia::onActive() {
-    if (pDriverLeader_ == nullptr) {
+    if (pVehicleLeader_ == nullptr) {
         throwCriticalException("EnemyUnomiaはスプライン必須ですconfigして下さい");
     }
     getStatus()->reset();
@@ -76,17 +76,17 @@ void EnemyUnomia::onActive() {
 }
 
 void EnemyUnomia::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_ENTRY: {
-            pDriverLeader_->start(ABSOLUTE_COORD);
+            pVehicleLeader_->start(ABSOLUTE_COORD);
             pProg->changeNext();
             break;
         }
         case PROG_CURVE_MOVE: {
-            pDriverLeader_->behave(); //カーブ移動するようにDriverを操作
-            if (pDriverLeader_->isFinished()) {
+            pVehicleLeader_->behave(); //カーブ移動するようにDriverを操作
+            if (pVehicleLeader_->isFinished()) {
                 pProg->changeNext(); //次へ
             }
             break;
@@ -94,7 +94,7 @@ void EnemyUnomia::processBehavior() {
         case PROG_MOVE01_1: {
             if (pProg->hasJustChanged()) {
                 //自機へ方向転換
-                pVecDriver->turnMvAngTwd(
+                pVecVehicle->turnMvAngTwd(
                                pMYSHIP->_x, _y, pMYSHIP->_z,
                                2000, 0,
                                TURN_CLOSE_TO, true
@@ -111,7 +111,7 @@ void EnemyUnomia::processBehavior() {
 //                    pActor_shot = (GgafDx::FigureActor*)pDepo_shot_->dispatch();
 //                    if (pActor_shot) {
 //                        pActor_shot->setPositionAt(this);
-//                        pActor_shot->getVecDriver()->setRzRyMvAng(paAng_way[i], D90ANG);
+//                        pActor_shot->getVecVehicle()->setRzRyMvAng(paAng_way[i], D90ANG);
 //                    }
 //                }
 //                GGAF_DELETEARR(paAng_way);
@@ -130,7 +130,7 @@ void EnemyUnomia::processBehavior() {
         }
     }
 
-    pVecDriver->behave();
+    pVecVehicle->behave();
 }
 
 void EnemyUnomia::processJudgement() {
@@ -151,11 +151,11 @@ void EnemyUnomia::onHit(const GgafCore::Actor* prm_pOtherActor) {
 }
 
 void EnemyUnomia::onInactive() {
-    GGAF_DELETE_NULLABLE(pDriverLeader_);
+    GGAF_DELETE_NULLABLE(pVehicleLeader_);
 }
 
 EnemyUnomia::~EnemyUnomia() {
-    GGAF_DELETE_NULLABLE(pDriverLeader_);
+    GGAF_DELETE_NULLABLE(pVehicleLeader_);
 }
 
 

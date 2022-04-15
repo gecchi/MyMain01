@@ -129,20 +129,20 @@ MAG_Z=1.0
 
 
 ・"CLASS"
-スプライン移動を制御する DriverLeader クラスを指定します。
+スプライン移動を制御する VehicleLeader クラスを指定します。
 キャラがどのようにスプライン曲線上を移動するかに影響します。
 指定可能なクラスは以下４種類のみです。
 次のような特徴があります。
 
-FixedFrameCurveVecDriverLeader
+FixedFrameCurveVecVehicleLeader
   →スプライン曲線座標の各点（制御点＋補完点）の隣り合う開始点～終了点の移動を、時間(フレーム)固定で移動させるメソッドのクラスです。
-    各キャラが保持している現在の VecDriver の移動速度は無視され、上書き設定されます。
+    各キャラが保持している現在の VecVehicle の移動速度は無視され、上書き設定されます。
     曲線移動で費やすフレーム数を。点の合計個数-1 で除算された値が、各点の間で費やすフレーム数となります。、
     予め計算された各点の間の移動速度が逐一キャラの速度値に、時間経過に伴って上書き設定されます
     そのため点の密度が濃いところはスピードが遅く、点の密度が薄いところはスピードが速い移動となります。
     後述の、[SPENT_FRAME], [ANGLE_VELOCITY], [TURN_WAY], [TURN_OPTIMIZE] の設定が必須です。
 
-FixedVelocityCurveVecDriverLeader
+FixedVelocityCurveVecVehicleLeader
   →スプライン曲線座標の各点（制御点＋補完点）の隣り合う開始点～終了点の移動を、速度固定で移動させるメソッドのクラスです。
     各キャラが保持している移動速度がずっと使用されます。カーブ頂点付近で点が密集していてもスピードに影響しません。
     点と点の間の距離を、速度 _velo_mvUnit(=1000) で移動した場合の、費やすフレーム数が予め計算されます。
@@ -150,10 +150,10 @@ FixedVelocityCurveVecDriverLeader
     後述の、[ANGLE_VELOCITY], [TURN_WAY], [TURN_OPTIMIZE] の設定が必須です。
     [SPENT_FRAME] の設定は不可です。これはキャラの速度によって費やすフレームが変動して決まる
 
-FixedVelocityCurveGeoDriverLeader
-  →実験中。上記の移動を GeoDriver.execGravitationMvSequenceTwd() で行ってふわふわした移動となる
+FixedVelocityCurveGeoVehicleLeader
+  →実験中。上記の移動を GeoVehicle.execGravitationMvSequenceTwd() で行ってふわふわした移動となる
 
-SteppedCoordCurveVecDriverLeader
+SteppedCoordCurveVecVehicleLeader
   →スプライン曲線座標の開始点～終了点の移動を、１フレーム毎に１補間点座標へ移動させるメソッドのクラスです。
     各点（制御点＋補完点）の座標に次々に移動しますので、座標間隔が十分に細かくしないとワープしたように見えます。
     曲線全体の開始点～終了点の移動に何フレームかかるかは補間点の数と一致します。

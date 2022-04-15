@@ -1,9 +1,9 @@
 #include "MenuBoard.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/gecchi/VioletVreath/God.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriverMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicleMvAssistant.h"
 
 
 
@@ -127,20 +127,20 @@ void MenuBoard::onRise() {
     //スライドイントランジション
     setPosition(target_x_ + slide_from_offset_x_,
                 target_y_ + slide_from_offset_y_);
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    pVecDriver->setMvAngTwd(target_x_, target_y_);
-    pVecDriver->asstMv()->slideByDt(UTIL::getDistance(_x, _y, target_x_, target_y_), _fade_frames,
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    pVecVehicle->setMvAngTwd(target_x_, target_y_);
+    pVecVehicle->asstMv()->slideByDt(UTIL::getDistance(_x, _y, target_x_, target_y_), _fade_frames,
                                  0.2, 0.3, 0, true);
     getSeTransmitter()->play(SE_ON_RISEN);
 }
 
 void MenuBoard::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    if (pVecDriver->asstMv()->hasJustFinishedSliding()) {
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    if (pVecVehicle->asstMv()->hasJustFinishedSliding()) {
         //スライド終了時、目的の座標へ補正
         setPosition(target_x_, target_y_);
     }
-    pVecDriver->behave();
+    pVecVehicle->behave();
     DefaultFramedBoardMenu::processBehavior();
     //メニュー選択アイテム、表示アイテム、カーソルは、
     //ボード座標を基にしているため、自身の座標確定後に
@@ -152,10 +152,10 @@ void MenuBoard::processJudgement() {
 
 void MenuBoard::onSink() {
     //スライドアウトトランジション
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    pVecDriver->setMvAngTwd(target_x_ + slide_from_offset_x_,
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    pVecVehicle->setMvAngTwd(target_x_ + slide_from_offset_x_,
                          target_y_ + slide_from_offset_y_);
-    pVecDriver->asstMv()->slideByDt(
+    pVecVehicle->asstMv()->slideByDt(
                            UTIL::getDistance(
                                   _x, _y,
                                   target_x_+slide_from_offset_x_,

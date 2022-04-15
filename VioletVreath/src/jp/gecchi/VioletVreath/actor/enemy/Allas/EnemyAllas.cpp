@@ -1,11 +1,11 @@
 #include "EnemyAllas.h"
 
 #include "jp/ggaf/core/actor/ex/ActorDepository.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/dx/util/curve/DriverLeader.h"
+#include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
@@ -23,7 +23,7 @@ EnemyAllas::EnemyAllas(const char* prm_name) :
         VvEnemyActor<DefaultMeshSetActor>(prm_name, "Allas", StatusReset(EnemyAllas)) {
     _class_name = "EnemyAllas";
     iMovePatternNo_ = 0;
-    pDriverLeader_ = nullptr;
+    pVehicleLeader_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
@@ -37,16 +37,16 @@ void EnemyAllas::onCreateModel() {
 
 void EnemyAllas::initialize() {
     setHitAble(true);
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    pVecDriver->setFaceAngVelo(AXIS_Z, -7000);
-    pVecDriver->linkFaceAngByMvAng(true);
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    pVecVehicle->setFaceAngVelo(AXIS_Z, -7000);
+    pVecVehicle->linkFaceAngByMvAng(true);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
 }
 
 void EnemyAllas::onActive() {
-    if (pDriverLeader_ == nullptr) {
+    if (pVehicleLeader_ == nullptr) {
         throwCriticalException("EnemyAllasはスプライン必須ですconfigして下さい");
     }
 
@@ -56,31 +56,31 @@ void EnemyAllas::onActive() {
 }
 
 void EnemyAllas::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
     GgafCore::Progress* const pProg = getProgress();
     //【パターン1：カーブ移動】
     if (pProg->hasJustChangedTo(1)) {
-        pDriverLeader_->start(ABSOLUTE_COORD); //カーブ移動を開始(1:座標相対)
+        pVehicleLeader_->start(ABSOLUTE_COORD); //カーブ移動を開始(1:座標相対)
     }
     if (pProg->get() == 1) {
         //カーブ移動終了待ち
-        if (pDriverLeader_->isFinished()) {
+        if (pVehicleLeader_->isFinished()) {
             pProg->changeNext(); //次のパターンへ
         }
     }
 
     switch (iMovePatternNo_) {
         case 0:  //【パターン０：カーブ移動開始】
-            if (pDriverLeader_) {
-                pDriverLeader_->start(ABSOLUTE_COORD); //カーブ移動を開始(1:座標相対)
+            if (pVehicleLeader_) {
+                pVehicleLeader_->start(ABSOLUTE_COORD); //カーブ移動を開始(1:座標相対)
             }
             iMovePatternNo_++; //次の行動パターンへ
             break;
 
         case 1:  //【パターン１：カーブ移動終了待ち】
-            if (pDriverLeader_) {
+            if (pVehicleLeader_) {
                 //カーブ移動有り
-                if (pDriverLeader_->isFinished()) {
+                if (pVehicleLeader_->isFinished()) {
                     iMovePatternNo_++; //カーブ移動が終了したら次の行動パターンへ
                 }
             } else {
@@ -100,7 +100,7 @@ void EnemyAllas::processBehavior() {
                     pActor_shot = (GgafDx::FigureActor*)pDepo_shot_->dispatch();
                     if (pActor_shot) {
                         pActor_shot->setPositionAt(this);
-                        pActor_shot->getVecDriver()->setRzRyMvAng(paAng_way[i], D90ANG);
+                        pActor_shot->getVecVehicle()->setRzRyMvAng(paAng_way[i], D90ANG);
                         pActor_shot->activate();
                     }
                 }
@@ -114,7 +114,7 @@ void EnemyAllas::processBehavior() {
                 }
             }
 //            //自機へ方向転換
-            pVecDriver->turnMvAngTwd(pMYSHIP->_x, _y, pMYSHIP->_z,
+            pVecVehicle->turnMvAngTwd(pMYSHIP->_x, _y, pMYSHIP->_z,
                                     2000, 0,
                                     TURN_CLOSE_TO, true);
             iMovePatternNo_++; //次の行動パターンへ
@@ -127,10 +127,10 @@ void EnemyAllas::processBehavior() {
             break;
     }
 
-    if (pDriverLeader_) {
-        pDriverLeader_->behave(); //カーブ移動するようにDriverを操作
+    if (pVehicleLeader_) {
+        pVehicleLeader_->behave(); //カーブ移動するようにDriverを操作
     }
-    pVecDriver->behave();
+    pVecVehicle->behave();
     //getSeTransmitter()->behave();
 }
 
@@ -161,11 +161,11 @@ void EnemyAllas::config(
         GgafCore::ActorDepository* prm_pDepo_shotEffect
         ) {
     //カーブ移動プログラム設定
-    pDriverLeader_ = createCurveDriverLeader(prm_pCurveManufacture);
+    pVehicleLeader_ = createCurveVehicleLeader(prm_pCurveManufacture);
     pDepo_shot_ = prm_pDepo_shot;
     pDepo_effect_ = prm_pDepo_shotEffect;
 }
 
 EnemyAllas::~EnemyAllas() {
-    GGAF_DELETE_NULLABLE(pDriverLeader_);
+    GGAF_DELETE_NULLABLE(pVehicleLeader_);
 }

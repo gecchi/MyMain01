@@ -20,7 +20,7 @@ public:
     /** 弾ストック */
     GgafCore::ActorDepository* pDepo_shot001_;
     /** スプラインプログラム */
-    GgafDx::DriverLeader* pDriverLeader_;
+    GgafDx::VehicleLeader* pVehicleLeader_;
     /** GgafCore::ActorDepositoryをコンストラクタで生成したか否か */
     bool createActorDepository_;
 

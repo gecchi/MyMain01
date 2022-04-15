@@ -1,10 +1,10 @@
 #include "AniTest3.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/dx/util/curve/DriverLeader.h"
+#include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/ggaf/dx/actor/supporter/Puppeteer.h"
 #include "jp/ggaf/dx/util/Input.h"
@@ -31,7 +31,7 @@ void AniTest3::onActive() {
 }
 
 void AniTest3::processBehavior() {
-    getVecDriver()->behave();
+    getVecVehicle()->behave();
     _pPuppeteer->behave();
 }
 

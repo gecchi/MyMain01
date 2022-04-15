@@ -1,7 +1,7 @@
 #include "ScoreItem.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
-#include "jp/ggaf/dx/actor/supporter/GeoDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/GeoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/TractorMagic.h"
@@ -27,11 +27,11 @@ ScoreItem::ScoreItem(const char* prm_name, const char* prm_model, void* prm_pFun
     setZEnableDraw(true);        //描画時、Zバッファ値は考慮される
     setZWriteEnable(false);  //自身のZバッファを書き込みしない
     setCullingDraw(false);
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    pVecDriver->setFaceAngVelo(AXIS_X, D_ANG(3));
-    pVecDriver->setFaceAngVelo(AXIS_Y, D_ANG(5));
-    pVecDriver->setFaceAngVelo(AXIS_Z, D_ANG(7));
-    pVecDriver->linkFaceAngByMvAng(true);
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    pVecVehicle->setFaceAngVelo(AXIS_X, D_ANG(3));
+    pVecVehicle->setFaceAngVelo(AXIS_Y, D_ANG(5));
+    pVecVehicle->setFaceAngVelo(AXIS_Z, D_ANG(7));
+    pVecVehicle->linkFaceAngByMvAng(true);
     kDX_ = kDY_ = kDZ_ = 0;
     setHitAble(true, false); //画面外当たり判定は無効
     CollisionChecker* pChecker = getCollisionChecker();
@@ -47,11 +47,11 @@ void ScoreItem::initialize() {
 void ScoreItem::onActive() {
     // _x, _y, _z は発生元座標に設定済み
     setHitAble(true, false);
-    GgafDx::GeoDriver* const pGeoDriver = getGeoDriver();
-    pGeoDriver->forceVxyzMvVeloRange(-30000, 30000);
-    pGeoDriver->setZeroVxyzMvVelo();
-    pGeoDriver->setZeroVxyzMvAcce();
-    pGeoDriver->stopGravitationMvSequence();
+    GgafDx::GeoVehicle* const pGeoVehicle = getGeoVehicle();
+    pGeoVehicle->forceVeloXYZRange(-30000, 30000);
+    pGeoVehicle->setXYZZero();
+    pGeoVehicle->setAcceXYZZero();
+    pGeoVehicle->stopGravitationMvSequence();
 
     //初期方向設定
     MyShip* pMyShip = pMYSHIP;
@@ -60,8 +60,8 @@ void ScoreItem::onActive() {
 //    //発生地点から、自機への方向への散らばり範囲正方形領域が位置する距離（scattered_distance > (scattered_renge/2) であること)
 ////    int scattered_distance = scattered_renge/2 + 400000;
 //    //従って、scattered_distance 離れていても、自機は動かなくてもぎりぎり全て回収できる。
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    pVecDriver->forceMvVeloRange(0, 20000);
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    pVecVehicle->forceMvVeloRange(0, 20000);
     float vX, vY, vZ;
     UTIL::getNormalizedVector(
             pMyShip->_x - _x,
@@ -70,11 +70,11 @@ void ScoreItem::onActive() {
             vX, vY, vZ);
     int d = PX_C(200);
     int r = PX_C(75);
-    pVecDriver->setMvAngTwd((coord)(_x + (vX * d) + RND(-r, +r)),
+    pVecVehicle->setMvAngTwd((coord)(_x + (vX * d) + RND(-r, +r)),
                          (coord)(_y + (vY * d) + RND(-r, +r)),
                          (coord)(_z + (vZ * d) + RND(-r, +r)) );
-    pVecDriver->setMvVelo(2000);
-    pVecDriver->setMvAcce(100);
+    pVecVehicle->setMvVelo(2000);
+    pVecVehicle->setMvAcce(100);
 
     getProgress()->reset(PROG_DRIFT);
     _sx = _sy = _sz = 1000;
@@ -82,8 +82,8 @@ void ScoreItem::onActive() {
 
 void ScoreItem::processBehavior() {
     //通常移動
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    GgafDx::GeoDriver* const pGeoDriver = getGeoDriver();
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::GeoVehicle* const pGeoVehicle = getGeoVehicle();
     GgafCore::Progress* const pProg = getProgress();
     if (pProg->get() == PROG_DRIFT) {
         //TractorMagic発動中はPROG_ATTACHへ移行
@@ -100,12 +100,12 @@ void ScoreItem::processBehavior() {
         MyShip* pMyShip = pMYSHIP;
         if (pProg->hasJustChanged()) {
             //自機に引力で引き寄せられるような動き設定
-            pGeoDriver->setVxyzMvVelo(pVecDriver->_vX * pVecDriver->_velo_mv,
-                                     pVecDriver->_vY * pVecDriver->_velo_mv,
-                                     pVecDriver->_vZ * pVecDriver->_velo_mv);
-            pGeoDriver->execGravitationMvSequenceTwd(pMyShip,
+            pGeoVehicle->setVeloXYZ(pVecVehicle->_vX * pVecVehicle->_velo_mv,
+                                     pVecVehicle->_vY * pVecVehicle->_velo_mv,
+                                     pVecVehicle->_vZ * pVecVehicle->_velo_mv);
+            pGeoVehicle->execGravitationMvSequenceTwd(pMyShip,
                                                     PX_C(20), 200, PX_C(100));
-            pVecDriver->stopMv();
+            pVecVehicle->stop();
         }
 
         //かつ自機近辺に到達？
@@ -125,9 +125,9 @@ void ScoreItem::processBehavior() {
     if (pProg->get() == PROG_ABSORB) {
         MyShip* pMyShip = pMYSHIP;
         if (pProg->hasJustChanged()) {
-            pGeoDriver->setZeroVxyzMvVelo();
-            pGeoDriver->setZeroVxyzMvAcce();
-            pGeoDriver->stopGravitationMvSequence();
+            pGeoVehicle->setXYZZero();
+            pGeoVehicle->setAcceXYZZero();
+            pGeoVehicle->stopGravitationMvSequence();
         }
         _x = pMyShip->_x + kDX_;
         _y = pMyShip->_y + kDY_;
@@ -142,8 +142,8 @@ void ScoreItem::processBehavior() {
         }
         G_SCORE += 100;
     }
-    pVecDriver->behave();
-    pGeoDriver->behave();
+    pVecVehicle->behave();
+    pGeoVehicle->behave();
 }
 
 void ScoreItem::processJudgement() {

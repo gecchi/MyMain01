@@ -17,7 +17,7 @@ class Shot001 : public VvEnemyActor<GgafLib::DefaultMassMeshActor> {
 
 public:
     /** 移動スプラインプログラム */
-    GgafDx::DriverLeader* pDriverLeader_;
+    GgafDx::VehicleLeader* pVehicleLeader_;
     /** 曲線移動の情報資源への接続 */
     GgafDx::CurveManufactureConnection* pCurveManufConn_;
 public:

@@ -1,5 +1,5 @@
-#ifndef GGAF_DX_DRIVERLEADER_H_
-#define GGAF_DX_DRIVERLEADER_H_
+#ifndef GGAF_DX_VEHICLELEADER_H_
+#define GGAF_DX_VEHICLELEADER_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 
@@ -18,7 +18,7 @@ enum SplinTraceOption {
  * @since 2009/10/27
  * @author Masatoshi Tsuge
  */
-class DriverLeader : public GgafCore::Object {
+class VehicleLeader : public GgafCore::Object {
 
 public:
     /** スプライン情報セット */
@@ -33,7 +33,7 @@ public:
      * [r]オプション
      * ABSOLUTE_COORD     : 絶対座標移動。
      * RELATIVE_COORD     : 始点を現座標とし、スプライン座標群は相対移動で計算。
-     * RELATIVE_COORD_DIRECTION : 始点を現座標とし、さらに現在の向き（_pVecDriver の _rz_mv, _ry_mv)でスプライン座標群をワールド変換。
+     * RELATIVE_COORD_DIRECTION : 始点を現座標とし、さらに現在の向き（_pVecVehicle の _rz_mv, _ry_mv)でスプライン座標群をワールド変換。
      */
     SplinTraceOption _option;
     /** [r] ループカウンタ */
@@ -76,9 +76,9 @@ public:
     /**
      * コンストラクタ .
      * @param prm_pManufacture
-     * @param prm_pVecDriver
+     * @param prm_pVecVehicle
      */
-    DriverLeader(CurveManufacture* prm_pManufacture,  GgafDx::GeometricActor* prm_pActor_target);
+    VehicleLeader(CurveManufacture* prm_pManufacture,  GgafDx::GeometricActor* prm_pActor_target);
 
     /**
      * 各補完点を読み込み時、X軸方向、Y軸方向、Z軸方向それぞれに加算(平行移動)し、補正します .
@@ -149,7 +149,7 @@ public:
      * start() を行った同一フレームに実行を避けるといったことは不要。<BR>
      * start() を行った最初のbehave()は、現在の座標～ポイント[0] が離れていればその移動処理、
      * もし、現在の座標とポイント[0]が重なっていれば、現在の座標～ポイント[1]への移動処理となります。<BR>
-     * 力車(GgafDx::VecDriver)のbehave();より先に実行して下さい。
+     * 力車(GgafDx::VecVehicle)のbehave();より先に実行して下さい。
      */
     virtual void behave() = 0;
 
@@ -295,7 +295,7 @@ public:
 //
 //    /**
 //     * カーブ移動の開始方向を、自分が移動している方向に対して開始する .
-//     * start()時の対象アクター力車の移動方向(getVecDriver()->_rz_mv, getVecDriver()->_ry_mv）
+//     * start()時の対象アクター力車の移動方向(getVecVehicle()->_rz_mv, getVecVehicle()->_ry_mv）
 //     * に座標変換されて、スプラインの軌跡が構築される。
 //     */
 //    void setLoopAngleByMvAng() {
@@ -322,8 +322,8 @@ public:
 //        _is_linked_start_ang = false;
 //    }
 
-    virtual ~DriverLeader();
+    virtual ~VehicleLeader();
 };
 
 }
-#endif /*GGAF_DX_DRIVERLEADER_H_*/
+#endif /*GGAF_DX_VEHICLELEADER_H_*/

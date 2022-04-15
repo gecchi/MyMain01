@@ -1,14 +1,14 @@
 #include "EnemyErelman.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dx/util/curve/DriverLeader.h"
+#include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Erelman/FormationErelman.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
@@ -36,7 +36,7 @@ EnemyErelman::EnemyErelman(const char* prm_name) :
     _class_name = "EnemyErelman";
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_001");
-    pDriverLeader_ = nullptr; //フォーメーションオブジェクトが設定する
+    pVehicleLeader_ = nullptr; //フォーメーションオブジェクトが設定する
     scatter_flg_ = false;
     delay_ = 0;
     free_interval_ = 0;
@@ -50,9 +50,9 @@ void EnemyErelman::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-//    pVecDriver->linkFaceAngByMvAng(true);
-    pVecDriver->forceMvVeloRange(PX_C(15));
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+//    pVecVehicle->linkFaceAngByMvAng(true);
+    pVecVehicle->forceMvVeloRange(PX_C(15));
 }
 
 void EnemyErelman::onActive() {
@@ -61,16 +61,16 @@ void EnemyErelman::onActive() {
 }
 
 void EnemyErelman::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             setHitAble(false);
             setAlpha(0);
-//            pVecDriver->setRollFaceAngVelo(D_ANG(3));
+//            pVecVehicle->setRollFaceAngVelo(D_ANG(3));
             setRyFaceAng(D_ANG(90));
-            pVecDriver->setRzFaceAngVelo(D_ANG(3));
+            pVecVehicle->setRzFaceAngVelo(D_ANG(3));
             pProg->changeNext();
             break;
         }
@@ -103,14 +103,14 @@ void EnemyErelman::processBehavior() {
 
         case PROG_CURVE: {
             if (pProg->hasJustChanged()) {
-                getVecDriver()->setMvAcce(0); //加速度がある場合は切っておく
-                pDriverLeader_->start(RELATIVE_COORD_DIRECTION, -1); //-1は無限ループ
+                getVecVehicle()->setMvAcce(0); //加速度がある場合は切っておく
+                pVehicleLeader_->start(RELATIVE_COORD_DIRECTION, -1); //-1は無限ループ
             }
             if (free_interval_ == 0) {
                 FormationErelman* pFormation = (FormationErelman*)getFormation();
-                pDriverLeader_->setStartPosition(pFormation->geo_.x, pFormation->geo_.y, pFormation->geo_.z);
-                pDriverLeader_->setStartAngle(pFormation->geo_.rx, pFormation->geo_.ry, pFormation->geo_.rz);
-                pDriverLeader_->behave(); //カーブ移動するようにDriverを操作
+                pVehicleLeader_->setStartPosition(pFormation->geo_.x, pFormation->geo_.y, pFormation->geo_.z);
+                pVehicleLeader_->setStartAngle(pFormation->geo_.rx, pFormation->geo_.ry, pFormation->geo_.rz);
+                pVehicleLeader_->behave(); //カーブ移動するようにDriverを操作
             } else {
                 free_interval_--;
             }
@@ -127,10 +127,10 @@ void EnemyErelman::processBehavior() {
             }
             if (pProg->hasArrivedAt(delay_)) {
                 //散り散りになる
-                pDriverLeader_->stop();
-                pVecDriver->turnRzRyMvAngTo(RND_ABOUT(pVecDriver->_rz_mv, D_ANG(90)), RND_ABOUT(pVecDriver->_ry_mv, D_ANG(90)),
+                pVehicleLeader_->stop();
+                pVecVehicle->turnRzRyMvAngTo(RND_ABOUT(pVecVehicle->_rz_mv, D_ANG(90)), RND_ABOUT(pVecVehicle->_ry_mv, D_ANG(90)),
                                          D_ANG(2), 0, TURN_CLOSE_TO,false);
-                pVecDriver->setMvAcce(100);
+                pVecVehicle->setMvAcce(100);
             }
 
             if (pProg->hasArrivedAt(delay_ + 200)) {
@@ -155,7 +155,7 @@ void EnemyErelman::processBehavior() {
     }
 
     pAlphaFader->behave();
-    pVecDriver->behave();
+    pVecVehicle->behave();
 }
 
 void EnemyErelman::processJudgement() {
@@ -187,5 +187,5 @@ void EnemyErelman::scatter() {
 }
 
 EnemyErelman::~EnemyErelman() {
-    GGAF_DELETE_NULLABLE(pDriverLeader_);
+    GGAF_DELETE_NULLABLE(pVehicleLeader_);
 }

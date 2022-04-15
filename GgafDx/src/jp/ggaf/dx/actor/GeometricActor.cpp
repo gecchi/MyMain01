@@ -2,8 +2,8 @@
 
 #include "jp/ggaf/dx/God.h"
 #include "jp/ggaf/core/util/Status.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
-#include "jp/ggaf/dx/actor/supporter/GeoDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/GeoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/actor/supporter/Checker.h"
@@ -14,11 +14,11 @@ using namespace GgafDx;
 
 GeometricActor::GeometricActor(const char* prm_name,
                                Checker* prm_pChecker) : BaseActor(prm_name),
-_pVecDriver(nullptr),
-_pGeoDriver(nullptr),
+_pVecVehicle(nullptr),
+_pGeoVehicle(nullptr),
 _pScaler(nullptr),
 _pSeTransmitter(nullptr),
-_pDriverLeader(nullptr),
+_pVehicleLeader(nullptr),
 _is_2D(false),
 _offscreen_kind(-1),
 _x(0), _y(0), _z(0),
@@ -49,26 +49,26 @@ _is_local(false)
     _class_name = "GeometricActor";
     _pFormation = nullptr;
 }
-VecDriver* GeometricActor::getVecDriver() {
-    return _pVecDriver ? _pVecDriver : _pVecDriver = NEW VecDriver(this);
+VecVehicle* GeometricActor::getVecVehicle() {
+    return _pVecVehicle ? _pVecVehicle : _pVecVehicle = NEW VecVehicle(this);
 }
 
-GeoDriver* GeometricActor::getGeoDriver() {
-    return _pGeoDriver ? _pGeoDriver : _pGeoDriver = NEW GeoDriver(this);
+GeoVehicle* GeometricActor::getGeoVehicle() {
+    return _pGeoVehicle ? _pGeoVehicle : _pGeoVehicle = NEW GeoVehicle(this);
 }
 
-DriverLeader* GeometricActor::createCurveDriverLeader(CurveManufacture* prm_pCurveManufacture) {
-    DriverLeader* pDriverLeader = nullptr;
+VehicleLeader* GeometricActor::createCurveVehicleLeader(CurveManufacture* prm_pCurveManufacture) {
+    VehicleLeader* pVehicleLeader = nullptr;
     CurveManufacture::MoveDriver move_driver = prm_pCurveManufacture->_move_driver;
-    if (move_driver == CurveManufacture::MoveDriver::GeoDriver) {
-        pDriverLeader = prm_pCurveManufacture->createGeoDriverLeader(getGeoDriver());
-    } else if (move_driver == CurveManufacture::MoveDriver::VecDriver) {
-        pDriverLeader = prm_pCurveManufacture->createVecDriverLeader(getVecDriver());
+    if (move_driver == CurveManufacture::MoveDriver::GeoVehicle) {
+        pVehicleLeader = prm_pCurveManufacture->createGeoVehicleLeader(getGeoVehicle());
+    } else if (move_driver == CurveManufacture::MoveDriver::VecVehicle) {
+        pVehicleLeader = prm_pCurveManufacture->createVecVehicleLeader(getVecVehicle());
     } else {
-        throwCriticalException("createCurveDriverLeader() : CurveManufacture::MoveDrive Ç™ê›íËÇ≥ÇÍÇƒÇ¢Ç‹ÇπÇÒÅB"<<
+        throwCriticalException("createCurveVehicleLeader() : CurveManufacture::MoveDrive Ç™ê›íËÇ≥ÇÍÇƒÇ¢Ç‹ÇπÇÒÅB"<<
                 "ldr_file="<<prm_pCurveManufacture->_ldr_file<<" move_driver="<<move_driver<<" this="<<NODE_INFO<<"");
     }
-    return pDriverLeader;
+    return pVehicleLeader;
 }
 
 
@@ -307,8 +307,8 @@ GgafCore::GroupHead* GeometricActor::appendGroupChildAsFk(kind_t prm_kind,
     prm_pGeoActor->_rx = prm_rx_init_local;
     prm_pGeoActor->_ry = prm_ry_init_local;
     prm_pGeoActor->_rz = prm_rz_init_local;
-//    prm_pGeoActor->getVecDriver()->_rz_mv = prm_rz_init_local;
-//    prm_pGeoActor->getVecDriver()->_ry_mv = prm_ry_init_local;
+//    prm_pGeoActor->getVecVehicle()->_rz_mv = prm_rz_init_local;
+//    prm_pGeoActor->getVecVehicle()->_ry_mv = prm_ry_init_local;
 
     prm_pGeoActor->changeGeoFinal();
     return pGroupHead;
@@ -494,8 +494,8 @@ void GeometricActor::onEnd() {
 }
 
 GeometricActor::~GeometricActor() {
-    GGAF_DELETE_NULLABLE(_pVecDriver);
-    GGAF_DELETE_NULLABLE(_pGeoDriver);
+    GGAF_DELETE_NULLABLE(_pVecVehicle);
+    GGAF_DELETE_NULLABLE(_pGeoVehicle);
     GGAF_DELETE_NULLABLE(_pScaler);
     GGAF_DELETE_NULLABLE(_pSeTransmitter);
 }

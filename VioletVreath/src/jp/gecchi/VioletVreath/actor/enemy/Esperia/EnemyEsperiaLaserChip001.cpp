@@ -1,6 +1,6 @@
 #include "EnemyEsperiaLaserChip001.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -39,9 +39,9 @@ void EnemyEsperiaLaserChip001::initialize() {
     pChecker->setColliAACube(0, 20000);
     setHitAble(true, false);
     setScaleR(5.0);
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    pVecDriver->forceMvVeloRange(PX_C(100));
-    pVecDriver->linkFaceAngByMvAng(true);
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    pVecVehicle->forceMvVeloRange(PX_C(100));
+    pVecVehicle->linkFaceAngByMvAng(true);
 }
 
 void EnemyEsperiaLaserChip001::onActive() {
@@ -49,10 +49,10 @@ void EnemyEsperiaLaserChip001::onActive() {
     //ステータスリセット
     getStatus()->reset();
     begin_y_ = _y;
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    pVecDriver->stopTurningMvAng();
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    pVecVehicle->stopTurningMvAng();
     if (getInfrontChip() == nullptr) {
-        pVecDriver->setMvAngTwd(tx1_, ty1_, tz1_);
+        pVecVehicle->setMvAngTwd(tx1_, ty1_, tz1_);
         getProgress()->reset(PROG_MOVE_UP);
     } else {
         getProgress()->reset(PROG_NOTHING);
@@ -65,15 +65,15 @@ void EnemyEsperiaLaserChip001::onActive() {
 }
 
 void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_MOVE_UP: {
             //レーザー上昇
-            if (!pVecDriver->isTurningMvAng()) {
+            if (!pVecVehicle->isTurningMvAng()) {
 
                 //補正
-                pVecDriver->turnMvAngTwd(tx1_, ty1_, tz1_,
+                pVecVehicle->turnMvAngTwd(tx1_, ty1_, tz1_,
                                       D_ANG(5), 0,
                                       TURN_CLOSE_TO, false);
             }
@@ -86,12 +86,12 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
         case PROG_TURN1: {
             //自機より少し上の座標で屈折
             if (pProg->hasJustChanged()) {
-                pVecDriver->setMvVelo(pVecDriver->_velo_mv/3); //屈折時少しスローダウン
-                pVecDriver->turnMvAngTwd(tx2_, ty2_, tz2_,
+                pVecVehicle->setMvVelo(pVecVehicle->_velo_mv/3); //屈折時少しスローダウン
+                pVecVehicle->turnMvAngTwd(tx2_, ty2_, tz2_,
                                       D_ANG(10), 0,
                                       TURN_CLOSE_TO, false);
             }
-            if (!pVecDriver->isTurningMvAng() || pProg->getFrame() > 300) {
+            if (!pVecVehicle->isTurningMvAng() || pProg->getFrame() > 300) {
                 pProg->changeNext();
             }
             break;
@@ -100,10 +100,10 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
         case PROG_TURN2: {
             //屈折補正
             if (pProg->getFrame() % 8U == 0) {
-                pVecDriver->turnMvAngTwd(tx2_, ty2_, tz2_,
+                pVecVehicle->turnMvAngTwd(tx2_, ty2_, tz2_,
                                       D_ANG(5), 0,
                                       TURN_CLOSE_TO, false);
-                pVecDriver->setMvVelo(pVecDriver->_velo_mv*2);
+                pVecVehicle->setMvVelo(pVecVehicle->_velo_mv*2);
             }
             if (pProg->getFrame() > 60) {
                 pProg->changeNext();
@@ -116,13 +116,13 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
                 getSeTransmitter()->play3D(SE_FIRE);
             }
             if (pProg->getFrame() % 16U == 0) {
-                pVecDriver->turnMvAngTwd(tx2_, ty2_, tz2_,
+                pVecVehicle->turnMvAngTwd(tx2_, ty2_, tz2_,
                                       100, 0,
                                       TURN_CLOSE_TO, false);
             }
             if (pProg->getFrame() > 90) {
-                pVecDriver->stopTurningMvAng();
-                pVecDriver->setRzRyMvAngVelo(0,0);
+                pVecVehicle->stopTurningMvAng();
+                pVecVehicle->setRzRyMvAngVelo(0,0);
                 pProg->changeNext();
             }
             break;
@@ -131,7 +131,7 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
             break;
         }
     }
-    pVecDriver->behave();
+    pVecVehicle->behave();
     getSeTransmitter()->behave();
 }
 

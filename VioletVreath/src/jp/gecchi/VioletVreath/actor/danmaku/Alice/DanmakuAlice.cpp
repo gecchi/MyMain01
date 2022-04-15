@@ -36,7 +36,7 @@ void DanmakuAlice::onActive() {
 }
 
 void DanmakuAlice::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
     GgafCore::Progress* const pProg = getProgress();
 
     switch (pProg->get()) {

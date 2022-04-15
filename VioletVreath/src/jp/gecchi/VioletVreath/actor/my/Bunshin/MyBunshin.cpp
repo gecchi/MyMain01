@@ -10,10 +10,10 @@
 #include "jp/gecchi/VioletVreath/actor/my/MyTorpedoController.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dx/actor/supporter/GeoDriver.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriverMvAssistant.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriverFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/GeoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicleMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicleFaceAngAssistant.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/model/Model.h"
@@ -104,16 +104,16 @@ void MyBunshin::onActive() {
     setAlpha(0);
 //    getAlphaFader()->transitionLinearToTop(120);
     resetMaterialColor();
-    GgafDx::VecDriver* pVecDriver = getVecDriver();
-    pVecDriver->setRollFaceAngVelo(pBase_->bunshin_default_angvelo_mv_); //分身のクルクル速度
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    pVecVehicle->setRollFaceAngVelo(pBase_->bunshin_default_angvelo_mv_); //分身のクルクル速度
 }
 
 void MyBunshin::processBehavior() {
     changeGeoLocal(); //ローカル座標の操作とする。
 
-    GgafDx::VecDriver* pVecDriver = getVecDriver();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
 
-    pVecDriver->behave();
+    pVecVehicle->behave();
     getScaler()->behave();
     getAlphaFader()->behave();
     getColorist()->behave();
@@ -140,9 +140,9 @@ void MyBunshin::processChangeGeoFinal() {
     //            if (pSnipeShot) {
     //                getSeTransmitter()->play3D(SE_FIRE_SHOT);
     //                pSnipeShot->setPositionAt(this);
-    //                pSnipeShot->getVecDriver()->setRzRyMvAng(_rz, _ry);
-    //                pSnipeShot->getVecDriver()->setMvVelo(PX_C(70));
-    //                pSnipeShot->getVecDriver()->setMvAcce(100);
+    //                pSnipeShot->getVecVehicle()->setRzRyMvAng(_rz, _ry);
+    //                pSnipeShot->getVecVehicle()->setMvVelo(PX_C(70));
+    //                pSnipeShot->getVecVehicle()->setMvAcce(100);
     //            }
             } else {
                 if (pMyShip->shot_level_ >= 1) {
@@ -150,9 +150,9 @@ void MyBunshin::processChangeGeoFinal() {
                     if (pShot) {
                         getSeTransmitter()->play3D(SE_FIRE_SHOT);
                         pShot->setPositionAt(this);
-                        pShot->getVecDriver()->setRzRyMvAng(_rz, _ry);
-                        pShot->getVecDriver()->setMvVelo(PX_C(70));
-                        pShot->getVecDriver()->setMvAcce(100);
+                        pShot->getVecVehicle()->setRzRyMvAng(_rz, _ry);
+                        pShot->getVecVehicle()->setMvVelo(PX_C(70));
+                        pShot->getVecVehicle()->setMvAcce(100);
                     }
                 }
                 if (pMyShip->shot_level_ == 2) {
@@ -216,7 +216,7 @@ void MyBunshin::onHit(const GgafCore::Actor* prm_pOtherActor) {
 }
 
 void MyBunshin::effectFreeModeIgnited() {
-    getVecDriver()->setRollFaceAngVelo(pBase_->bunshin_default_angvelo_mv_*2); //分身の速いクルクル
+    getVecVehicle()->setRollFaceAngVelo(pBase_->bunshin_default_angvelo_mv_*2); //分身の速いクルクル
     getColorist()->flush(1.0, 5, 5, 3);
 }
 
@@ -239,7 +239,7 @@ void MyBunshin::effectFreeModeLaunch() {
     }
 }
 void MyBunshin::effectFreeModePause() {
-    getVecDriver()->setRollFaceAngVelo(pBase_->bunshin_default_angvelo_mv_);
+    getVecVehicle()->setRollFaceAngVelo(pBase_->bunshin_default_angvelo_mv_);
 }
 
 void MyBunshin::setRadiusPosition(coord prm_radius_pos) {
@@ -277,8 +277,8 @@ void MyBunshin::slideMvRadiusPosition(coord prm_target_radius_pos, frame prm_spe
     bool is_local = _is_local;
     if (!is_local) { changeGeoLocal(); }  //ローカル座標の操作とする。
     coord d = prm_target_radius_pos - _y;
-    getVecDriver()->setRzRyMvAng(D90ANG, D0ANG); //Y軸方向
-    getVecDriver()->asstMv()->slideByDt(d, prm_spent_frames, 0.2, 0.8, 0, true);
+    getVecVehicle()->setRzRyMvAng(D90ANG, D0ANG); //Y軸方向
+    getVecVehicle()->asstMv()->slideByDt(d, prm_spent_frames, 0.2, 0.8, 0, true);
     if (!is_local) { changeGeoFinal(); }  //座標系を戻す
 }
 
@@ -305,7 +305,7 @@ angvelo MyBunshin::getExpanse() {
 void MyBunshin::turnExpanse(coord prm_target_ang_expanse, frame prm_spent_frames) {
     bool is_local = _is_local;
     if (!is_local) { changeGeoLocal(); }  //ローカル座標の操作とする。
-    getVecDriver()->asstFaceAng()->turnRzByDtTo(prm_target_ang_expanse, TURN_CLOSE_TO,
+    getVecVehicle()->asstFaceAng()->turnRzByDtTo(prm_target_ang_expanse, TURN_CLOSE_TO,
                                                     prm_spent_frames, 0.3, 0.5, 0, true);
     if (!is_local) { changeGeoFinal(); }  //座標系を戻す
 }

@@ -1,6 +1,6 @@
 #include "SpriteLabelBonus001.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
 
@@ -37,16 +37,16 @@ void SpriteLabelBonus001::initialize() {
 
 void SpriteLabelBonus001::onDispatched(GgafDx::GeometricActor* prm_pOrgActor) {
     setPositionAt(prm_pOrgActor);
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    pVecDriver->takeoverMvFrom(prm_pOrgActor->getVecDriver());
-    pVecDriver->setMvAcce(300);
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    pVecVehicle->takeoverFrom(prm_pOrgActor->getVecVehicle());
+    pVecVehicle->setMvAcce(300);
     setAlpha(0.7);
     getProgress()->reset(PROG_INIT);
 }
 
 void SpriteLabelBonus001::processBehavior() {
     const Camera* const pCam = pGOD->getSpacetime()->getCamera();
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
@@ -57,12 +57,12 @@ void SpriteLabelBonus001::processBehavior() {
             //‚µ‚Î‚ç‚­’¼i
             if (pProg->hasArrivedAt(60)) {
                 //ƒJƒƒ‰‚ÉŒü‚©‚Á‚Ä•ûŒü“]Š·1
-                pVecDriver->turnMvAngTwd(pCam,
+                pVecVehicle->turnMvAngTwd(pCam,
                                       D_ANG(3), 0, TURN_CLOSE_TO, true);
             }
             if (pProg->hasArrivedAt(60+30)) {
                 //ƒJƒƒ‰‚ÉŒü‚©‚Á‚Ä•ûŒü“]Š·2
-                pVecDriver->turnMvAngTwd(pCam,
+                pVecVehicle->turnMvAngTwd(pCam,
                                       D_ANG(1), 0, TURN_CLOSE_TO, true);
             }
 
@@ -91,7 +91,7 @@ void SpriteLabelBonus001::processBehavior() {
             break;
     }
 
-    pVecDriver->behave();
+    pVecVehicle->behave();
 }
 
 SpriteLabelBonus001::~SpriteLabelBonus001() {

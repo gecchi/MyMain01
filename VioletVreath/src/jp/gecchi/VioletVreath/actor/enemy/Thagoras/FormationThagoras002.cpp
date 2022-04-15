@@ -3,7 +3,7 @@
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Thagoras/EnemyThagoras.h"
-#include "jp/ggaf/dx/util/curve/DriverLeader.h"
+#include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 
 #include "jp/ggaf/core/util/Xpm.h"
 
@@ -28,12 +28,12 @@ void FormationThagoras002::processBehavior() {
 
 void FormationThagoras002::onCalledUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) {
     EnemyThagoras* pThagoras = (EnemyThagoras*)prm_pActor;
-    if (pThagoras->pDriverLeader_) {
-        throwCriticalException("pThagoras->pDriverLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpThagoras="<<pThagoras<<"("<<pThagoras->getName()<<")");
+    if (pThagoras->pVehicleLeader_) {
+        throwCriticalException("pThagoras->pVehicleLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpThagoras="<<pThagoras<<"("<<pThagoras->getName()<<")");
     } else {
-        pThagoras->pDriverLeader_ = pThagoras->createCurveDriverLeader(papCurveManufConn_[prm_col]->peek());
+        pThagoras->pVehicleLeader_ = pThagoras->createCurveVehicleLeader(papCurveManufConn_[prm_col]->peek());
     }
-    pThagoras->pDriverLeader_->setStartPosition(entry_pos_.x                      ,
+    pThagoras->pVehicleLeader_->setStartPosition(entry_pos_.x                      ,
                                                 entry_pos_.y + (prm_col*PX_C(30)) ,
                                                 entry_pos_.z                       );
 

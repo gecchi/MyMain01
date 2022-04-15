@@ -1,6 +1,6 @@
 #include "EnemyEmilia.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
@@ -27,7 +27,7 @@ void EnemyEmilia::onDispatched(EnemyEmiliaBase* prm_pOrg, FormationEmilia* prm_p
     setPosition(pSpacetime->_x_bound_right,
                       RND(-(appearances_renge_y/2) , +(appearances_renge_y/2)),
                       RND(-(appearances_renge_z/2) , +(appearances_renge_z/2)) );
-    getVecDriver()->setMvVelo(RF_FormationEmilia_MvVelo(G_RANK) );
+    getVecVehicle()->setMvVelo(RF_FormationEmilia_MvVelo(G_RANK) );
 }
 
 void EnemyEmilia::onCreateModel() {
@@ -37,7 +37,7 @@ void EnemyEmilia::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliSphere(0, PX_C(170));
-    getVecDriver()->setRollPitchYawFaceAngVelo(D_ANG(1), D_ANG(2), D_ANG(3));
+    getVecVehicle()->setRollPitchYawFaceAngVelo(D_ANG(1), D_ANG(2), D_ANG(3));
     setScaleR(0.5);
 }
 
@@ -45,10 +45,10 @@ void EnemyEmilia::onActive() {
     //ステータスリセット
     getStatus()->reset();
     setHitAble(true);
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    pVecDriver->setMvAngTwd(0, D180ANG);
-    pVecDriver->addRyMvAng(RND(D_ANG(-5), D_ANG(+5)));
-    pVecDriver->addRzMvAng(RND(D_ANG(-5), D_ANG(+5)));
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    pVecVehicle->setMvAngTwd(0, D180ANG);
+    pVecVehicle->addRyMvAng(RND(D_ANG(-5), D_ANG(+5)));
+    pVecVehicle->addRzMvAng(RND(D_ANG(-5), D_ANG(+5)));
 }
 
 void EnemyEmilia::onInactive() {

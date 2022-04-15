@@ -1,8 +1,8 @@
 #include "EnemyIdaBase001.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/lib/DefaultGod.h"
-#include "jp/ggaf/dx/util/curve/DriverLeader.h"
+#include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/ggaf/dx/manager/CurveManufactureConnection.h"
 #include "jp/ggaf/dx/util/curve/CurveManufacture.h"
 
@@ -20,14 +20,14 @@ EnemyIdaBase001::EnemyIdaBase001(const char* prm_name) :
         EnemyIdaBase(prm_name) {
 
     pConn_pCurveManuf_ = connectToCurveManufactureManager("EnemyIdaBase001");
-    pDriverLeader_ = createCurveDriverLeader(pConn_pCurveManuf_->peek());
+    pVehicleLeader_ = createCurveVehicleLeader(pConn_pCurveManuf_->peek());
 }
 
 void EnemyIdaBase001::initialize() {
     EnemyIdaBase::initialize();
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    pVecDriver->linkFaceAngByMvAng(true);
-    pVecDriver->setRollPitchYawFaceAngVelo(D_ANG(2), D0ANG, D_ANG(0.4));
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    pVecVehicle->linkFaceAngByMvAng(true);
+    pVecVehicle->setRollPitchYawFaceAngVelo(D_ANG(2), D0ANG, D_ANG(0.4));
 }
 
 void EnemyIdaBase001::onActive() {
@@ -37,25 +37,25 @@ void EnemyIdaBase001::onActive() {
 
 void EnemyIdaBase001::processBehavior() {
     EnemyIdaBase::processBehavior();
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
-            pDriverLeader_->start(RELATIVE_COORD, 3);
+            pVehicleLeader_->start(RELATIVE_COORD, 3);
             pProg->changeNext();
             break;
         }
         case PROG_MOVE: {
-            pDriverLeader_->behave();
+            pVehicleLeader_->behave();
             break;
         }
     }
 
-    pVecDriver->behave();
+    pVecVehicle->behave();
 }
 
 EnemyIdaBase001::~EnemyIdaBase001() {
-    GGAF_DELETE(pDriverLeader_);
+    GGAF_DELETE(pVehicleLeader_);
     pConn_pCurveManuf_->close();
 }
 

@@ -3,7 +3,7 @@
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/dx/model/supporter/TextureBlinker.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
 #include "jp/ggaf/core/actor/ex/ActorDepositoryStore.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
@@ -97,8 +97,8 @@ void EnemyStraea::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliSphere(0, PX_C(200));
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    pVecDriver->setRzRyMvAng(0, D180ANG);
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    pVecVehicle->setRzRyMvAng(0, D180ANG);
 }
 
 void EnemyStraea::onActive() {
@@ -110,13 +110,13 @@ void EnemyStraea::onActive() {
 }
 
 void EnemyStraea::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             setHitAble(false);
             setAlpha(0);
-            pVecDriver->setRollFaceAngVelo(4000);
+            pVecVehicle->setRollFaceAngVelo(4000);
             pProg->changeNext();
             break;
         }
@@ -140,8 +140,8 @@ void EnemyStraea::processBehavior() {
         case PROG_MOVE: {
             if (pProg->hasJustChanged()) {
                 angle v = angvelo_turn_ / 50;
-                pVecDriver->setRollPitchYawFaceAngVelo(RND(-v, v), RND(-v, v), RND(-v, v));
-                pVecDriver->setMvVelo(2000);
+                pVecVehicle->setRollPitchYawFaceAngVelo(RND(-v, v), RND(-v, v), RND(-v, v));
+                pVecVehicle->setMvVelo(2000);
             }
             if (getActiveFrame() % laser_interval_ == 0) {
                 pProg->changeNext();
@@ -152,16 +152,16 @@ void EnemyStraea::processBehavior() {
         case PROG_TURN: {
             if (pProg->hasJustChanged()) {
                 //ターン開始
-                pVecDriver->turnFaceAngTwd(pMYSHIP,
+                pVecVehicle->turnFaceAngTwd(pMYSHIP,
                                         angvelo_turn_, 0, TURN_ANTICLOSE_TO, false);
                 cnt_laserchip_ = 0;
             }
-            if (pVecDriver->isTurningFaceAng()) {
+            if (pVecVehicle->isTurningFaceAng()) {
                 //ターン中
             } else {
                 //自機にがいた方向に振り向きが完了時
-                pVecDriver->setRollPitchYawFaceAngVelo(angvelo_turn_*2, 0, 0);
-                pVecDriver->setMvVelo(0);
+                pVecVehicle->setRollPitchYawFaceAngVelo(angvelo_turn_*2, 0, 0);
+                pVecVehicle->setMvVelo(0);
                 pProg->changeNext();
             }
             break;
@@ -218,7 +218,7 @@ void EnemyStraea::processBehavior() {
                                 vZ = p->x*matWorldRot._13 + p->y*matWorldRot._23 + p->z*matWorldRot._33;
                                 UTIL::convVectorToRzRy(vX, vY, vZ, Rz, Ry); //現在の最終的な向きを、RzRyで取得
                                 pLaserChip->setPosition(_x+vX, _y+vY, _z+vZ);
-                                pLaserChip->getVecDriver()->setRzRyMvAng(Rz, Ry);
+                                pLaserChip->getVecVehicle()->setRzRyMvAng(Rz, Ry);
                                 pLaserChip->_rz = Rz;
                                 pLaserChip->_ry = Ry;
                             }
@@ -232,7 +232,7 @@ void EnemyStraea::processBehavior() {
         }
     }
     getSeTransmitter()->behave();
-    pVecDriver->behave();
+    pVecVehicle->behave();
 }
 
 void EnemyStraea::processJudgement() {

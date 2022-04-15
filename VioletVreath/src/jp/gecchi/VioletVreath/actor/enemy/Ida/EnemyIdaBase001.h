@@ -15,7 +15,7 @@ class EnemyIdaBase001 : public EnemyIdaBase {
 
 public:
     GgafDx::CurveManufactureConnection* pConn_pCurveManuf_;
-    GgafDx::DriverLeader* pDriverLeader_;
+    GgafDx::VehicleLeader* pVehicleLeader_;
 
 public:
     /**

@@ -1,6 +1,6 @@
 #include "EffectBunshinMagic001.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
-#include "jp/ggaf/dx/actor/supporter/GeoDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/GeoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 
 
@@ -15,13 +15,13 @@ EffectBunshinMagic001::EffectBunshinMagic001(const char* prm_name)
     setZEnableDraw(true);        //描画時、Zバッファ値は考慮される
     setZWriteEnable(false);  //自身のZバッファを書き込みしない
     setCullingDraw(false);
-    getVecDriver()->setRollPitchYawFaceAngVelo(PX_C(3), PX_C(5), PX_C(7));
+    getVecVehicle()->setRollPitchYawFaceAngVelo(PX_C(3), PX_C(5), PX_C(7));
 }
 
 void EffectBunshinMagic001::processBehavior() {
     EffectBlink::processBehavior();
-    getVecDriver()->behave();
-    getGeoDriver()->behave();
+    getVecVehicle()->behave();
+    getGeoVehicle()->behave();
 }
 
 void EffectBunshinMagic001::blink(frame prm_scale_in_frames, frame prm_duration_frames, frame prm_scale_out_frames,

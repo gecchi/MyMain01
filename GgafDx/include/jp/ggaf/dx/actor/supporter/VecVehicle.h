@@ -1,7 +1,7 @@
-#ifndef GGAF_DX_VECDRIVER_H_
-#define GGAF_DX_VECDRIVER_H_
+#ifndef GGAF_DX_VECVEHICLE_H_
+#define GGAF_DX_VECVEHICLE_H_
 #include "GgafDxCommonHeader.h"
-#include "ActorDriver.h"
+#include "ActorVehicle.h"
 
 #include "jp/ggaf/dx/util/GeoElem.h"
 #include "jp/ggaf/dx/actor/GeometricActor.h"
@@ -27,15 +27,15 @@ namespace GgafDx {
  * @since 2008/08/20
  * @author Masatoshi Tsuge
  */
-class VecDriver : public ActorDriver {
+class VecVehicle : public ActorVehicle {
 
 private:
     /** [r]力車の助手A(移動速度の補佐) */
-    VecDriverMvAssistant* _pAsstMv;
+    VecVehicleMvAssistant* _pAsstMv;
     /** [r]力車の助手B(軸回転方角角速度の補佐) */
-    VecDriverFaceAngAssistant* _pAsstFaceAng;
+    VecVehicleFaceAngAssistant* _pAsstFaceAng;
     /** [r]力車の助手C(移動方角角速度の補佐) */
-    VecDriverMvAngAssistant* _pAsstMvAng;
+    VecVehicleMvAngAssistant* _pAsstMvAng;
 
 public:
     /** [r]対象アクター */
@@ -46,25 +46,25 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pActor  適用Actor
      */
-    explicit VecDriver(GeometricActor* prm_pActor);
+    explicit VecVehicle(GeometricActor* prm_pActor);
 
     /**
      * 力車の助手A(移動速度の補佐)を取得 .
      * @return 力車の助手A
      */
-    VecDriverMvAssistant* asstMv();
+    VecVehicleMvAssistant* asstMv();
 
     /**
      * 力車の助手B(軸回転方角角速度の補佐)を取得 .
      * @return 力車の助手B
      */
-    VecDriverFaceAngAssistant* asstFaceAng();
+    VecVehicleFaceAngAssistant* asstFaceAng();
 
     /**
      * 力車の助手C(移動方角角速度の補佐)を取得 .
      * @return 力車の助手C
      */
-    VecDriverMvAngAssistant* asstMvAng();
+    VecVehicleMvAngAssistant* asstMvAng();
 
     void reset();
 
@@ -703,7 +703,7 @@ public:
      * @param prm_ry
      * @param prm_rz
      */
-    void setRzRyMvAng_by_RyRz(angle prm_ry, angle prm_rz);
+    void setRzRyMvAngByRyRz(angle prm_ry, angle prm_rz);
 
     /**
      * 目標座標点を座標指定で移動方角(RzRy)を設定。.
@@ -1149,15 +1149,15 @@ public:
 
     /**
      * 力車の仕事を引継ぐ .
-     * 他の VecDriver オブジェクトを状態を自身に引継ぐ .
-     * @param prm_pVecDriver 引継元
+     * 他の VecVehicle オブジェクトを状態を自身に引継ぐ .
+     * @param prm_pVecVehicle 引継元
      */
-    void takeoverMvFrom(VecDriver* const prm_pVecDriver);
+    void takeoverFrom(VecVehicle* const prm_pVecVehicle);
 
     /**
      * 移動を停止します。
      */
-    void stopMv();
+    void stop();
 
     /**
      * 力車が振る舞う .
@@ -1166,9 +1166,9 @@ public:
      */
     virtual void behave();
 
-    virtual ~VecDriver();
+    virtual ~VecVehicle();
 };
 
 }
-#endif /*GGAF_DX_VECDRIVER_H_*/
+#endif /*GGAF_DX_VECVEHICLE_H_*/
 

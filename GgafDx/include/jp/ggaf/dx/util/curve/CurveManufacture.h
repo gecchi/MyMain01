@@ -11,15 +11,15 @@ namespace GgafDx {
  * スプライン曲線移動のための情報セット .
  * 全てのアクターに共通するスプラインの情報はここに集約。<BR>
  * オブジェクトの関係<BR>
- * DriverLeader       各アクター毎に生成される。
+ * VehicleLeader       各アクター毎に生成される。
  *                    アクターに対する、スプライン曲線上の現在の補完点の位置・時間・距離等の管理を行い、
- *                    力車(VecDriver)に指示を出してアクターを移動させる。
- *                    １つの CurveManufacture オブジェクトに対して N 個の DriverLeader オブジェクトが参照している。
+ *                    力車(VecVehicle)に指示を出してアクターを移動させる。
+ *                    １つの CurveManufacture オブジェクトに対して N 個の VehicleLeader オブジェクトが参照している。
  *                    スプラインの座標点間の距離に影響の無い情報はココで保持する。
  *                    つまりスプライン曲線の座標点の軸平行移動オフセット、
  *                    X,Y,Zの正負入れ替え情報。（TODO:将来は、回転情報もココに）
  *
- * CurveManufacture   スプライン曲線の動的編集情報（拡大縮小など）、移動方式クラス（DriverLeader）の情報等を保持。
+ * CurveManufacture   スプライン曲線の動的編集情報（拡大縮小など）、移動方式クラス（VehicleLeader）の情報等を保持。
  *                    拡大縮小により、各補完点毎の距離等の情報を予め計算して保持している。
  *                    拡大縮小率を変更する場合は、このオブジェクトのフィールドも再計算が必要となる。
  *                    １つの CurveSource オブジェクトに対して N 個の CurveSourceオブジェクトが参照している。
@@ -45,8 +45,8 @@ public:
     };
 
     enum MoveDriver {
-        GeoDriver = 1,
-        VecDriver,
+        GeoVehicle = 1,
+        VecVehicle,
     };
 
 
@@ -106,18 +106,18 @@ public:
     virtual void calculate();
 
 
-    virtual DriverLeader* createDriverLeader(GgafDx::GeometricActor* prm_pActor);
+    virtual VehicleLeader* createVehicleLeader(GgafDx::GeometricActor* prm_pActor);
 
     /**
-     * DriverLeader オブジェクトの生成 .
+     * VehicleLeader オブジェクトの生成 .
      * 設定した力車を、操作しますので注意して下さい。<br>
-     * 本メソッドで作成した DriverLeader は、呼び元で deleteする必要があります。<br>
-     * @param prm_pVecDriver 対象のアクターの力車
+     * 本メソッドで作成した VehicleLeader は、呼び元で deleteする必要があります。<br>
+     * @param prm_pVecVehicle 対象のアクターの力車
      * @return
      */
-    virtual DriverLeader* createVecDriverLeader(GgafDx::VecDriver* prm_pVecDriver);
+    virtual VehicleLeader* createVecVehicleLeader(GgafDx::VecVehicle* prm_pVecVehicle);
 
-    virtual DriverLeader* createGeoDriverLeader(GgafDx::GeoDriver* prm_pGeoDriver);
+    virtual VehicleLeader* createGeoVehicleLeader(GgafDx::GeoVehicle* prm_pGeoVehicle);
 
     void setMoveMethod(MoveMethod prm_move_method) {
         _move_method = prm_move_method;

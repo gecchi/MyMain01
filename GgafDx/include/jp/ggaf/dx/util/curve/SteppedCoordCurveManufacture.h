@@ -34,12 +34,12 @@ public:
     void calculate() override;
 
     /**
-     * DriverLeader オブジェクトの生成 .
-     * インスタンスは SteppedCoordCurveVecDriverLeader です。
-     * @param GgafDx::GeoDriver カーブ移動するための操作するオブジェクト
-     * @return DriverLeader オブジェクト
+     * VehicleLeader オブジェクトの生成 .
+     * インスタンスは SteppedCoordCurveVecVehicleLeader です。
+     * @param GgafDx::GeoVehicle カーブ移動するための操作するオブジェクト
+     * @return VehicleLeader オブジェクト
      */
-    DriverLeader* createVecDriverLeader(GgafDx::VecDriver* prm_pVecDriver) override;
+    VehicleLeader* createVecVehicleLeader(GgafDx::VecVehicle* prm_pVecVehicle) override;
 
     virtual ~SteppedCoordCurveManufacture();
 };

@@ -32,7 +32,7 @@ public:
     bool faceto_ship_;
 
     GgafDx::CurveManufactureConnection* pConn_pCurveManuf_;
-    GgafDx::DriverLeader* pDriverLeader01_;
+    GgafDx::VehicleLeader* pVehicleLeader01_;
 
 public:
     /**

@@ -1,11 +1,11 @@
 #include "EnemyHisbeLaserChip001.h"
 
 #include "jp/ggaf/core/actor/SceneMediator.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
-#include "jp/ggaf/dx/util/curve/DriverLeader.h"
+#include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
@@ -17,10 +17,10 @@ EnemyHisbeLaserChip001::EnemyHisbeLaserChip001(const char* prm_name) :
         VvEnemyActor<HomingLaserChip>(prm_name, "HisbeLaserChip001", StatusReset(EnemyHisbeLaserChip001)) {
     _class_name = "EnemyHisbeLaserChip001";
     pConn_pCurveManuf_ = connectToCurveManufactureManager("EnemyHisbeLaserChip002"); //ヒルベルト曲線
-    pDriverLeader_ = createCurveDriverLeader(pConn_pCurveManuf_->peek());
+    pVehicleLeader_ = createCurveVehicleLeader(pConn_pCurveManuf_->peek());
     pFeatureScene_ = nullptr;
-    getVecDriver()->setMvAngByFaceAng();
-    getVecDriver()->linkFaceAngByMvAng(true);
+    getVecVehicle()->setMvAngByFaceAng();
+    getVecVehicle()->linkFaceAngByMvAng(true);
 }
 
 void EnemyHisbeLaserChip001::initialize() {
@@ -34,12 +34,12 @@ void EnemyHisbeLaserChip001::onActive() {
     HomingLaserChip::onActive();
     //ステータスリセット
     getStatus()->reset();
-    setDriverLeader(pDriverLeader_);
+    setVehicleLeader(pVehicleLeader_);
 }
 
 void EnemyHisbeLaserChip001::onInactive() {
     HomingLaserChip::onInactive();
-    pDriverLeader_->stop();
+    pVehicleLeader_->stop();
 }
 
 void EnemyHisbeLaserChip001::processBehaviorHeadChip() {
@@ -48,11 +48,11 @@ void EnemyHisbeLaserChip001::processBehaviorHeadChip() {
     }
 
     if (getActiveFrame() == 2) {
-        pDriverLeader_->start(RELATIVE_COORD_DIRECTION); //向いた方向にワールド変換
+        pVehicleLeader_->start(RELATIVE_COORD_DIRECTION); //向いた方向にワールド変換
     }
-    pDriverLeader_->behave();
-    getVecDriver()->behave();
-    if (pDriverLeader_->isFinished()) {
+    pVehicleLeader_->behave();
+    getVecVehicle()->behave();
+    if (pVehicleLeader_->isFinished()) {
         sayonara();
     }
 }
@@ -74,7 +74,7 @@ void EnemyHisbeLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor) {
 }
 
 EnemyHisbeLaserChip001::~EnemyHisbeLaserChip001() {
-    GGAF_DELETE(pDriverLeader_);
+    GGAF_DELETE(pVehicleLeader_);
     pConn_pCurveManuf_->close();
 }
 

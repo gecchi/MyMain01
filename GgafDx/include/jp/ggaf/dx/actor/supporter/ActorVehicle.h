@@ -1,5 +1,5 @@
-#ifndef GGAF_DX_ACTORDRIVER_H_
-#define GGAF_DX_ACTORDRIVER_H_
+#ifndef GGAF_DX_ACTORVEHICLE_H_
+#define GGAF_DX_ACTORVEHICLE_H_
 #include "GgafDxCommonHeader.h"
 
 #include "jp/ggaf/core/Object.h"
@@ -14,7 +14,7 @@ namespace GgafDx {
  * @since 2021/03/29
  * @author Masatoshi Tsuge
  */
-class ActorDriver : public GgafCore::Object {
+class ActorVehicle : public GgafCore::Object {
 
 private:
 
@@ -28,13 +28,12 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pActor  適用Actor
      */
-    explicit ActorDriver(GeometricActor* prm_pActor);
+    explicit ActorVehicle(GeometricActor* prm_pActor);
 
     virtual void behave() = 0;
 
-    virtual ~ActorDriver();
+    virtual ~ActorVehicle();
 };
 
 }
-#endif /*GGAF_DX_ACTORDRIVER_H_*/
-
+#endif /*GGAF_DX_ACTORVEHICLE_H_*/

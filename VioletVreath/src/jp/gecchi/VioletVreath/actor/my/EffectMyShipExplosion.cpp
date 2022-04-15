@@ -4,7 +4,7 @@
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 
 
@@ -31,14 +31,14 @@ void EffectMyShipExplosion::onActive() {
     setPositionAt(pMYSHIP);
     setCullingDraw(false);
     setScale(8000);
-    getVecDriver()->setFaceAngVelo(AXIS_Z, 2000);
+    getVecVehicle()->setFaceAngVelo(AXIS_Z, 2000);
 }
 
 void EffectMyShipExplosion::processBehavior() {
     _alpha -= 0.01;
     setPositionAt(pMYSHIP);
     getUvFlipper()->behave();
-    getVecDriver()->behave();
+    getVecVehicle()->behave();
     getScaler()->behave();
 
     if (getUvFlipper()->_uvflip_method == NOT_ANIMATED) {

@@ -1,10 +1,10 @@
 #include "Zakoko.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/dx/util/curve/DriverLeader.h"
+#include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 
 
@@ -23,8 +23,8 @@ void Zakoko::onCreateModel() {
 }
 
 void Zakoko::initialize() {
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    pVecDriver->linkFaceAngByMvAng(true);
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    pVecVehicle->linkFaceAngByMvAng(true);
 
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
@@ -39,8 +39,8 @@ void Zakoko::onActive() {
 }
 
 void Zakoko::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    pVecDriver->behave();
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    pVecVehicle->behave();
 }
 
 void Zakoko::processJudgement() {

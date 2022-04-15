@@ -1,8 +1,8 @@
 #include "FormationDelheid.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/util/curve/CurveManufacture.h"
-#include "jp/ggaf/dx/util/curve/DriverLeader.h"
+#include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Alisana/EnemyAlisana.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Delheid/EnemyDelheid.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -42,7 +42,7 @@ FormationDelheid::FormationDelheid(const char* prm_name)
 
     //軌道計算用のダミー
     pDummy_ = NEW EnemyDelheid("DammyEnemyDelheid");
-    pDummy_->pDriverLeader_ = nullptr;
+    pDummy_->pVehicleLeader_ = nullptr;
     pDummy_->inactivate();
     appendGroupChild(pDummy_);
 
@@ -82,19 +82,19 @@ void FormationDelheid::processBehavior() {
          case PROG_INIT: {
              //ダミー(pDummy_)を使ってメンバーのカーブ移動の開始位置と方向、終了位置と方向を予め求める
              pDummy_->config(getSplManuf(), nullptr);
-             pDummy_->getVecDriver()->setMvVelo(RV_MvVelo_);
+             pDummy_->getVecVehicle()->setMvVelo(RV_MvVelo_);
              pDummy_->setPositionAt(&geoLocate_);
              pDummy_->setFaceAngAs(&geoLocate_);
-             pDummy_->getVecDriver()->setRzRyMvAng(geoLocate_.rz, geoLocate_.ry);
+             pDummy_->getVecVehicle()->setRzRyMvAng(geoLocate_.rz, geoLocate_.ry);
              onCalledUpDelheid(pDummy_);
-             pDummy_->pDriverLeader_->start(RELATIVE_COORD_DIRECTION); //座標計算のためスタート＆オプション指定が必要
+             pDummy_->pVehicleLeader_->start(RELATIVE_COORD_DIRECTION); //座標計算のためスタート＆オプション指定が必要
              coord next_x, next_y, next_z;             //開始+1 の補完点座標
              coord end_x, end_y, end_z;                //最終の補完点座標
              coord end_prev_x, end_prev_y, end_prev_z; //最終-1 の補完点座標
-             pDummy_->pDriverLeader_->getPointCoord(1, next_x, next_y, next_z);//[0] or [1] を気をつけよ
-             int ldr_point_num = pDummy_->pDriverLeader_->getPointNum(); //補完点の数
-             pDummy_->pDriverLeader_->getPointCoord(ldr_point_num-1, end_x, end_y, end_z);
-             pDummy_->pDriverLeader_->getPointCoord(ldr_point_num-2, end_prev_x, end_prev_y, end_prev_z);
+             pDummy_->pVehicleLeader_->getPointCoord(1, next_x, next_y, next_z);//[0] or [1] を気をつけよ
+             int ldr_point_num = pDummy_->pVehicleLeader_->getPointNum(); //補完点の数
+             pDummy_->pVehicleLeader_->getPointCoord(ldr_point_num-1, end_x, end_y, end_z);
+             pDummy_->pVehicleLeader_->getPointCoord(ldr_point_num-2, end_prev_x, end_prev_y, end_prev_z);
              //出現開始位置アリサナを配備
              pAlisana_start->setPositionAt(pDummy_);
              pAlisana_start->setFaceAngTwd(next_x, next_y, next_z); //向きセット
@@ -102,7 +102,7 @@ void FormationDelheid::processBehavior() {
              //終了位置にアリサナを配備
              pAlisana_goal->setPosition(end_x, end_y, end_z);
              pAlisana_goal->setFaceAngTwd(end_prev_x, end_prev_y, end_prev_z);
-             pAlisana_goal->acitve_open((frame)(pDummy_->pDriverLeader_->getTotalDistance() / RV_MvVelo_)); //ハッチオープン予約
+             pAlisana_goal->acitve_open((frame)(pDummy_->pVehicleLeader_->getTotalDistance() / RV_MvVelo_)); //ハッチオープン予約
 
              pDummy_->sayonara(); //ありがとうダミー
              pProg->changeNext();
@@ -136,15 +136,15 @@ void FormationDelheid::processBehavior() {
                          if (pDelheid) {
                              pDelheid->config(getSplManuf(),
                                               pConn_pShotDepo_->peek() );
-                             pDelheid->getVecDriver()->forceMvVeloRange(RV_MvVelo_*2);
-                             pDelheid->getVecDriver()->setMvVelo(RV_MvVelo_);
+                             pDelheid->getVecVehicle()->forceMvVeloRange(RV_MvVelo_*2);
+                             pDelheid->getVecVehicle()->setMvVelo(RV_MvVelo_);
 
-                             pDelheid->getVecDriver()->setMvAcce(0);
+                             pDelheid->getVecVehicle()->setMvAcce(0);
                              pDelheid->setPositionAt(&geoLocate_);
                              pDelheid->setFaceAngAs(&geoLocate_);
-                             pDelheid->getVecDriver()->setRzRyMvAng(geoLocate_.rz, geoLocate_.ry);
-                             pDelheid->pDriverLeader_->setStartAngle(geoLocate_.rx, geoLocate_.ry, geoLocate_.rz);
-//                             pDelheid->pDriverLeader_->setLoopAngleByMvAng();
+                             pDelheid->getVecVehicle()->setRzRyMvAng(geoLocate_.rz, geoLocate_.ry);
+                             pDelheid->pVehicleLeader_->setStartAngle(geoLocate_.rx, geoLocate_.ry, geoLocate_.rz);
+//                             pDelheid->pVehicleLeader_->setLoopAngleByMvAng();
                              onCalledUpDelheid(pDelheid); //下位フォーメーションクラス個別実装の処理
                          } else {
                              //招集おしまい
@@ -226,14 +226,14 @@ void FormationDelheid::order1(GgafCore::Actor* prm_pDelheid, void* prm1, void* p
     //各メンバー減速
     EnemyDelheid* pMember = (EnemyDelheid*)prm_pDelheid;
     FormationDelheid* pFormation = (FormationDelheid*)prm1;
-    pMember->getVecDriver()->setMvAcceByT(120, -(pFormation->RV_MvVelo_/8));
+    pMember->getVecVehicle()->setMvAcceByT(120, -(pFormation->RV_MvVelo_/8));
 }
 
 void FormationDelheid::order2(GgafCore::Actor* prm_pDelheid, void* prm1, void* prm2, void* prm3) {
     //各メンバー停滞&発射
     EnemyDelheid* pMember = (EnemyDelheid*)prm_pDelheid;
     FormationDelheid* pFormation = (FormationDelheid*)prm1;
-    pMember->getVecDriver()->setMvAcce(0);
+    pMember->getVecVehicle()->setMvAcce(0);
     pMember->open_shot(); //ショット発射！
 }
 
@@ -241,7 +241,7 @@ void FormationDelheid::order3(GgafCore::Actor* prm_pDelheid, void* prm1, void* p
     //各メンバー再始動
     EnemyDelheid* pMember = (EnemyDelheid*)prm_pDelheid;
     FormationDelheid* pFormation = (FormationDelheid*)prm1;
-    pMember->getVecDriver()->setMvAcceByT(120, pFormation->RV_MvVelo_);
+    pMember->getVecVehicle()->setMvAcceByT(120, pFormation->RV_MvVelo_);
 }
 
 void FormationDelheid::onSayonaraAll() {

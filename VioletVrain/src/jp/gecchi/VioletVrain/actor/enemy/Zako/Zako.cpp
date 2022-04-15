@@ -1,6 +1,6 @@
 #include "Zako.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/ggaf/dx/util/Input.h"
@@ -62,11 +62,11 @@ void Zako::onReset() {
 
 void Zako::onActive() {
     getUvFlipper()->setActivePtnToTop();
-    getVecDriver()->setFaceAngVelo(AXIS_Z, 1000);        //‰ñ“]
+    getVecVehicle()->setFaceAngVelo(AXIS_Z, 1000);        //‰ñ“]
 }
 
 void Zako::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
     GgafCore::Progress* const pProg = getProgress();
 
     if (GgafDx::Input::isPressedKey(DIK_D)) {
@@ -82,7 +82,7 @@ void Zako::processBehavior() {
         _y -= PX_C(2); //‰º
     }
     getUvFlipper()->behave();
-    pVecDriver->behave();
+    pVecVehicle->behave();
 }
 
 void Zako::processJudgement() {

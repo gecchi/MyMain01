@@ -1,10 +1,10 @@
 #include "EnemyHisbe002.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/dx/util/curve/DriverLeader.h"
+#include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Hisbe/EnemyHisbeLaserChip003.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
@@ -29,7 +29,7 @@ EnemyHisbe002::EnemyHisbe002(const char* prm_name) :
         //VvEnemyActor<CubeMapMorphMeshActor>(prm_name, "HisbeCM", StatusReset(EnemyHisbe002)) {
 
     _class_name = "EnemyHisbe002";
-    pDriverLeader_ = nullptr;
+    pVehicleLeader_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;
     pLaserChipDepo_ = NEW LaserChipDepository("HisbeLaser");
@@ -54,9 +54,9 @@ void EnemyHisbe002::onCreateModel() {
 }
 
 void EnemyHisbe002::initialize() {
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    pVecDriver->setFaceAngVelo(AXIS_Y, 500);
-    pVecDriver->linkFaceAngByMvAng(true);
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    pVecVehicle->setFaceAngVelo(AXIS_Y, 500);
+    pVecVehicle->linkFaceAngByMvAng(true);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliSphere(0, 40000);
@@ -69,7 +69,7 @@ void EnemyHisbe002::onActive() {
 }
 
 void EnemyHisbe002::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_WAIT: {
@@ -93,7 +93,7 @@ void EnemyHisbe002::processBehavior() {
             LaserChip* pLaser = pLaserChipDepo_->dispatch();
             if (pLaser) {
                 pLaser->setPositionAt(this);
-                pLaser->getVecDriver()->setRzRyMvAng(_rz, _ry);
+                pLaser->getVecVehicle()->setRzRyMvAng(_rz, _ry);
                                    //レーザーのスプラインがRELATIVE_COORD_DIRECTIONのためMvAngの設定が必要。
                 if (pLaser->getInfrontChip() == nullptr) {
                     getSeTransmitter()->play3D(SE_FIRE);
@@ -119,7 +119,7 @@ void EnemyHisbe002::processBehavior() {
         }
     }
 
-    pVecDriver->behave();
+    pVecVehicle->behave();
     getMorpher()->behave();
     getSeTransmitter()->behave();
 }
@@ -147,5 +147,5 @@ void EnemyHisbe002::onInactive() {
 }
 
 EnemyHisbe002::~EnemyHisbe002() {
-    GGAF_DELETE_NULLABLE(pDriverLeader_);
+    GGAF_DELETE_NULLABLE(pVehicleLeader_);
 }

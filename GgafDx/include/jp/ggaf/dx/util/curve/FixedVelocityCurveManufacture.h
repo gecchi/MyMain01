@@ -59,12 +59,12 @@ public:
     void calculate() override;
 
     /**
-     * DriverLeader オブジェクトの生成 .
-     * インスタンスは FixedVelocityCurveVecDriverLeader です。
-     * @param prm_pVecDriver カーブ移動するための操作するオブジェクト
-     * @return DriverLeader オブジェクト
+     * VehicleLeader オブジェクトの生成 .
+     * インスタンスは FixedVelocityCurveVecVehicleLeader です。
+     * @param prm_pVecVehicle カーブ移動するための操作するオブジェクト
+     * @return VehicleLeader オブジェクト
      */
-    DriverLeader* createVecDriverLeader(GgafDx::VecDriver* prm_pVecDriver) override;
+    VehicleLeader* createVecVehicleLeader(GgafDx::VecVehicle* prm_pVecVehicle) override;
 
     virtual ~FixedVelocityCurveManufacture();
 };

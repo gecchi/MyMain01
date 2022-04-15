@@ -1,18 +1,18 @@
-#include "jp/ggaf/dx/actor/supporter/VecDriverMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicleMvAssistant.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/core/util/TrapezoidalVeloValue.hpp"
 
 
 using namespace GgafDx;
 
-VecDriverMvAssistant::VecDriverMvAssistant(VecDriver* prm_pMaster) : GgafCore::Object(),
+VecVehicleMvAssistant::VecVehicleMvAssistant(VecVehicle* prm_pMaster) : GgafCore::Object(),
         _pMaster(prm_pMaster) {
     _smthMv._t_velo = _pMaster->_velo_mv;
     _smthMv._t_acce = _pMaster->_acc_mv;
 }
 
-void VecDriverMvAssistant::behave() {
+void VecVehicleMvAssistant::behave() {
     if (_smthMv.isTransitioning()) {
         _smthMv.behave();
         _pMaster->setMvVelo(_smthMv._t_velo - _smthMv._t_acce);
@@ -20,7 +20,7 @@ void VecDriverMvAssistant::behave() {
     }
 }
 
-void VecDriverMvAssistant::slideByDt(coord prm_target_distance, int prm_target_frames,
+void VecVehicleMvAssistant::slideByDt(coord prm_target_distance, int prm_target_frames,
                                    float prm_p1, float prm_p2, velo prm_end_velo,
                                    bool prm_zero_acc_end_flg) {
     _smthMv._t_value = 0;
@@ -31,7 +31,7 @@ void VecDriverMvAssistant::slideByDt(coord prm_target_distance, int prm_target_f
                            prm_zero_acc_end_flg);
 }
 
-void VecDriverMvAssistant::slideByVd(velo prm_top_velo, coord prm_target_distance,
+void VecVehicleMvAssistant::slideByVd(velo prm_top_velo, coord prm_target_distance,
                                    float prm_p1, float prm_p2, velo prm_end_velo,
                                    bool prm_zero_acc_end_flg) {
     _smthMv._t_value = 0;
@@ -42,7 +42,7 @@ void VecDriverMvAssistant::slideByVd(velo prm_top_velo, coord prm_target_distanc
                            prm_zero_acc_end_flg);
 }
 
-VecDriverMvAssistant::~VecDriverMvAssistant() {
+VecVehicleMvAssistant::~VecVehicleMvAssistant() {
 }
 
 

@@ -2,9 +2,9 @@
 
 #include "EnemyIda.h"
 #include "util/MgrUtil.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/lib/DefaultGod.h"
-#include "jp/ggaf/dx/util/curve/DriverLeader.h"
+#include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/ggaf/dx/manager/CurveManufactureConnection.h"
 #include "jp/ggaf/dx/util/curve/CurveManufacture.h"
 #include "scene/MgrSpacetime/MgrWorld/ParallelCurveTestScene.h"
@@ -22,8 +22,8 @@ enum {
 EnemyIdaBase::EnemyIdaBase(const char* prm_name) :
         DefaultMeshSetActor(prm_name, "Ida") {
     pConn_pCurveManuf_ = connectToCurveManufactureManager("FormationZako001_STEP");
-    pDriverLeader_ = createCurveDriverLeader(pConn_pCurveManuf_->peek());
-    pDriverLeader_->_turn_smooth = true;
+    pVehicleLeader_ = createCurveVehicleLeader(pConn_pCurveManuf_->peek());
+    pVehicleLeader_->_turn_smooth = true;
     std::string filename = XTOS(getName()) + ".dat";
     pOs_ = NEW std::ofstream(filename.c_str());
     setScaleR(0.5);
@@ -43,8 +43,8 @@ EnemyIdaBase::EnemyIdaBase(const char* prm_name) :
 }
 
 void EnemyIdaBase::initialize() {
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    pVecDriver->linkFaceAngByMvAng(true);
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    pVecVehicle->linkFaceAngByMvAng(true);
 }
 
 void EnemyIdaBase::onActive() {
@@ -52,7 +52,7 @@ void EnemyIdaBase::onActive() {
 }
 
 void EnemyIdaBase::processBehavior() {
-    GgafDx::VecDriver* pVecDriver = getVecDriver();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     GgafCore::Progress* pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
@@ -61,22 +61,22 @@ void EnemyIdaBase::processBehavior() {
         }
         case PROG_MOVE: {
             if (pProg->hasJustChanged()) {
-                pDriverLeader_->start(RELATIVE_COORD);
-                getVecDriver()->setMvVelo(PX_C(2));
+                pVehicleLeader_->start(RELATIVE_COORD);
+                getVecVehicle()->setMvVelo(PX_C(2));
             }
-            pDriverLeader_->behave();
-            if (pDriverLeader_->isFinished()) {
+            pVehicleLeader_->behave();
+            if (pVehicleLeader_->isFinished()) {
                 pProg->changeNext();
             }
             break;
         }
         case PROG_END: {
-            getVecDriver()->stopMv();
-            getVecDriver()->stopTurningMvAng();
+            getVecVehicle()->stop();
+            getVecVehicle()->stopTurningMvAng();
             break;
         }
     }
-    pVecDriver->behave();
+    pVecVehicle->behave();
 }
 
 void EnemyIdaBase::processJudgement() {

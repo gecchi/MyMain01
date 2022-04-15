@@ -1,6 +1,6 @@
 #include "LockonCursor001_Main.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
@@ -35,7 +35,7 @@ void LockonCursor001_Main::onActive() {
     getScaler()->setRange(60000, 2000); //スケーリング・範囲
     setScale(60000); //(6000%)
     getScaler()->transitionLinearUntil(2000, 25);//スケーリング・25F費やして2000(200%)に縮小
-    getVecDriver()->setFaceAngVelo(AXIS_Z, 1000);        //回転
+    getVecVehicle()->setFaceAngVelo(AXIS_Z, 1000);        //回転
     getSeTransmitter()->play3D(0); //ロックオンSE
 
     if (pTarget_) {
@@ -49,7 +49,7 @@ void LockonCursor001_Main::onActive() {
 
 void LockonCursor001_Main::processBehavior() {
     LockonCursor001::processBehavior();
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
     GgafDx::Scaler* const pScaler = getScaler();
     GgafCore::Progress* const pProg = getProgress();
     if (pProg->get() == LOCKON001_PROG_LOCK || pProg->get() == LOCKON001_PROG_FIRST_LOCK) {
@@ -68,12 +68,12 @@ void LockonCursor001_Main::processBehavior() {
                     ABS(pTarget_->_y-_y) <= PX_C(200) &&
                     ABS(pTarget_->_z-_z) <= PX_C(200)) {
                     setPositionAt(pTarget_);
-                    pVecDriver->setMvVelo(0);
-                    pVecDriver->_angvelo_face[AXIS_Z] = 1000;
+                    pVecVehicle->setMvVelo(0);
+                    pVecVehicle->_angvelo_face[AXIS_Z] = 1000;
                 } else {
-                    pVecDriver->_angvelo_face[AXIS_Z] = 3000; //速周り
-                    pVecDriver->setMvAngTwd(pTarget_);
-                    pVecDriver->setMvVelo(PX_C(200));
+                    pVecVehicle->_angvelo_face[AXIS_Z] = 3000; //速周り
+                    pVecVehicle->setMvAngTwd(pTarget_);
+                    pVecVehicle->setMvVelo(PX_C(200));
                 }
             } else {
                 pProg->change(LOCKON001_PROG_RELEASE);
@@ -93,7 +93,7 @@ void LockonCursor001_Main::processBehavior() {
     }
 
     getUvFlipper()->behave();
-    pVecDriver->behave();
+    pVecVehicle->behave();
     pScaler->behave();
 }
 
@@ -110,7 +110,7 @@ void LockonCursor001_Main::lockon(GgafDx::GeometricActor* prm_pTarget) {
         return;
     }
     pTarget_ = prm_pTarget;
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
     GgafDx::Scaler* const pScaler = getScaler();
     GgafCore::Progress* const pProg = getProgress();
     if (pProg->get() == LOCKON001_PROG_FIRST_LOCK) {
@@ -119,7 +119,7 @@ void LockonCursor001_Main::lockon(GgafDx::GeometricActor* prm_pTarget) {
     } else if (pProg->get() == LOCKON001_PROG_RELEASE) {
         pScaler->setRange(60000, 2000); //スケーリング・範囲
         pScaler->transitionLinearUntil(2000, 25);//スケーリング・20F費やして2000(200%)に縮小
-        pVecDriver->setFaceAngVelo(AXIS_Z, 1000);   //回転
+        pVecVehicle->setFaceAngVelo(AXIS_Z, 1000);   //回転
         getSeTransmitter()->play3D(0); //ロックオンSE
         pProg->change(LOCKON001_PROG_FIRST_LOCK);
     }
@@ -127,18 +127,18 @@ void LockonCursor001_Main::lockon(GgafDx::GeometricActor* prm_pTarget) {
 }
 void LockonCursor001_Main::releaseLockon() {
     if (isActiveInTheTree()) {
-        GgafDx::VecDriver* const pVecDriver = getVecDriver();
+        GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
         GgafDx::Scaler* const pScaler = getScaler();
         GgafCore::Progress* const pProg = getProgress();
         if (pProg->get() == LOCKON001_PROG_FIRST_LOCK) {
             pScaler->setRange(60000, 2000); //スケーリング・範囲
             pScaler->transitionLinearUntil(60000, 60);//スケーリング
-            pVecDriver->setFaceAngVelo(AXIS_Z, pVecDriver->_angvelo_face[AXIS_Z]*-3); //速く逆回転
+            pVecVehicle->setFaceAngVelo(AXIS_Z, pVecVehicle->_angvelo_face[AXIS_Z]*-3); //速く逆回転
             pProg->change(LOCKON001_PROG_RELEASE);
         } else if (pProg->get() == LOCKON001_PROG_LOCK) {
             pScaler->setRange(60000, 2000); //スケーリング・範囲
             pScaler->transitionLinearUntil(60000, 60);//スケーリング
-            pVecDriver->setFaceAngVelo(AXIS_Z, pVecDriver->_angvelo_face[AXIS_Z]*-3); //速く逆回転
+            pVecVehicle->setFaceAngVelo(AXIS_Z, pVecVehicle->_angvelo_face[AXIS_Z]*-3); //速く逆回転
             pProg->change(LOCKON001_PROG_RELEASE);
         } else if (pProg->get() == LOCKON001_PROG_RELEASE) {
             //何も無し

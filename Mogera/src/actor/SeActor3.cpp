@@ -1,7 +1,7 @@
 #include "actor/SeActor3.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriverFaceAngAssistant.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriverMvAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicleFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicleMvAngAssistant.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "MgrGod.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
@@ -65,7 +65,7 @@ void SeActor3::processBehavior() {
             _y -= PX_C(D); //‰º
         }
     }
-    getVecDriver()->behave(); //—ÍŽÔ‚ðŠˆ“®‚³‚¹‚éiZŽ²‰ñ“]‚·‚éj
+    getVecVehicle()->behave(); //—ÍŽÔ‚ðŠˆ“®‚³‚¹‚éiZŽ²‰ñ“]‚·‚éj
     getSeTransmitter()->behave(); //‚RDŒø‰ÊŠˆ“®
 }
 

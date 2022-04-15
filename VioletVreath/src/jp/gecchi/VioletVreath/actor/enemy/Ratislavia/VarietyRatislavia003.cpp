@@ -1,6 +1,6 @@
 #include "VarietyRatislavia003.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Omulus/EnemyOmulus.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Ratislavia/EnemyRatislaviaEye.h"
@@ -29,11 +29,11 @@ void VarietyRatislavia003::initialize() {
     _x = pSpacetime->_x_bound_right + r1_*2 + r2_*2;
     _y = 0;
     _z = MyShip::lim_z_right_;
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    pVecDriver->setRzRyMvAng(D180ANG, 0);
-    pVecDriver->setMvVelo(3000);
-    pVecDriver->setFaceAngVelo(AXIS_Z, -20);
-    pVecDriver->setFaceAngVelo(AXIS_Y, 10);
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    pVecVehicle->setRzRyMvAng(D180ANG, 0);
+    pVecVehicle->setMvVelo(3000);
+    pVecVehicle->setFaceAngVelo(AXIS_Z, -20);
+    pVecVehicle->setFaceAngVelo(AXIS_Y, 10);
 }
 
 void VarietyRatislavia003::processBehavior() {

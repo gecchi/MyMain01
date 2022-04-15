@@ -1,6 +1,6 @@
 #include "TestGuShot.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -27,11 +27,11 @@ void TestGuShot::initialize() {
 void TestGuShot::onActive() {
     getStatus()->reset();
     setHitAble(true);
-    getVecDriver()->setMvVelo(PX_C(30));
+    getVecVehicle()->setMvVelo(PX_C(30));
 }
 
 void TestGuShot::processBehavior() {
-    getVecDriver()->behave();
+    getVecVehicle()->behave();
 }
 
 void TestGuShot::processJudgement() {

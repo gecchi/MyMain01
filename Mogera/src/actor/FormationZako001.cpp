@@ -1,7 +1,7 @@
 #include "FormationZako001.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
-#include "jp/ggaf/dx/util/curve/DriverLeader.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/ggaf/dx/util/curve/CurveManufacture.h"
 #include "jp/ggaf/dx/util/curve/CurveSource.h"
 
@@ -39,12 +39,12 @@ void FormationZako001::processBehavior() {
 
 void FormationZako001::onCalledUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) {
     Zako* pZako = (Zako*)prm_pActor;
-    if (pZako->pDriverLeader_) {
-        throwCriticalException("pZako->pDriverLeader_が設定されてます。pZako="<<pZako<<"("<<pZako->getName()<<")");
+    if (pZako->pVehicleLeader_) {
+        throwCriticalException("pZako->pVehicleLeader_が設定されてます。pZako="<<pZako<<"("<<pZako->getName()<<")");
     } else {
-        pZako->pDriverLeader_ = pZako->createCurveDriverLeader(papCurveManufConn_[prm_col]->peek());
+        pZako->pVehicleLeader_ = pZako->createCurveVehicleLeader(papCurveManufConn_[prm_col]->peek());
     }
-    double rate_x = pZako->pDriverLeader_->_pManufacture->_rate_x;
+    double rate_x = pZako->pVehicleLeader_->_pManufacture->_rate_x;
     double d_col = -1.0 * papCurveManufConn_[prm_col]->peek()->_pCurve->_rotmat._41; //横との間隔
     float X = d_col*rate_x; //rate_xを掛けることにより、ここで X はcoordの単位となる。
 
@@ -58,10 +58,10 @@ void FormationZako001::onCalledUp(GgafDx::FigureActor* prm_pActor, int prm_row, 
     coord dx = X*cosRz*cosRy;
     coord dy = X*sinRz;
     coord dz = X*cosRz*-sinRy;
-    pZako->pDriverLeader_->setStartPosition(entry_pos_.x + dx,
+    pZako->pVehicleLeader_->setStartPosition(entry_pos_.x + dx,
                                             entry_pos_.y + dy,
                                             entry_pos_.z + dz);
-    pZako->pDriverLeader_->setStartAngle(0, entry_pos_.rz, entry_pos_.ry);
+    pZako->pVehicleLeader_->setStartAngle(0, entry_pos_.rz, entry_pos_.ry);
 
     pZako->setPosition(entry_pos_.x + dx,
                        entry_pos_.y + dy,
@@ -69,7 +69,7 @@ void FormationZako001::onCalledUp(GgafDx::FigureActor* prm_pActor, int prm_row, 
     pZako->setFaceAngTwd(entry_pos_.rz,
                          entry_pos_.ry,
                          0);
-    pZako->getVecDriver()->setMvAngByFaceAng();
+    pZako->getVecVehicle()->setMvAngByFaceAng();
 }
 
 void FormationZako001::onFinshLeading(GgafDx::FigureActor* prm_pActor) {

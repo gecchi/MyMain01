@@ -1,14 +1,14 @@
 #include "EnemyUrydike.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dx/util/curve/DriverLeader.h"
+#include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Urydike/FormationUrydike.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
@@ -35,7 +35,7 @@ EnemyUrydike::EnemyUrydike(const char* prm_name) :
     _class_name = "EnemyUrydike";
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_001");
-    pDriverLeader_ = nullptr; //フォーメーションオブジェクトが設定する
+    pVehicleLeader_ = nullptr; //フォーメーションオブジェクトが設定する
     scatter_flg_ = false;
     delay_ = 0;
 }
@@ -48,8 +48,8 @@ void EnemyUrydike::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    pVecDriver->linkFaceAngByMvAng(true);
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    pVecVehicle->linkFaceAngByMvAng(true);
 }
 
 void EnemyUrydike::onActive() {
@@ -58,7 +58,7 @@ void EnemyUrydike::onActive() {
 }
 
 void EnemyUrydike::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
@@ -72,7 +72,7 @@ void EnemyUrydike::processBehavior() {
             EffectBlink* pEffectEntry = nullptr;
             if (pProg->hasJustChanged()) {
                 pEffectEntry = UTIL::activateEntryEffectOf(this);
-                pVecDriver->setRollFaceAngVelo(D_ANG(3));
+                pVecVehicle->setRollFaceAngVelo(D_ANG(3));
             }
             static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
             static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
@@ -97,10 +97,10 @@ void EnemyUrydike::processBehavior() {
 
         case PROG_CURVE: {
             if (pProg->hasJustChanged()) {
-                getVecDriver()->setMvAcce(0); //加速度がある場合は切っておく
-                pDriverLeader_->start(RELATIVE_COORD_DIRECTION, 1);
+                getVecVehicle()->setMvAcce(0); //加速度がある場合は切っておく
+                pVehicleLeader_->start(RELATIVE_COORD_DIRECTION, 1);
             }
-            pDriverLeader_->behave(); //カーブ移動するようにDriverを操作
+            pVehicleLeader_->behave(); //カーブ移動するようにDriverを操作
 
             if (scatter_flg_) {
                 pProg->changeNext();
@@ -114,10 +114,10 @@ void EnemyUrydike::processBehavior() {
             }
             if (pProg->hasArrivedAt(delay_)) {
                 //散り散りになる
-                pDriverLeader_->stop();
-                pVecDriver->turnRzRyMvAngTo(RND_ABOUT(pVecDriver->_rz_mv, D_ANG(90)), RND_ABOUT(pVecDriver->_ry_mv, D_ANG(90)),
+                pVehicleLeader_->stop();
+                pVecVehicle->turnRzRyMvAngTo(RND_ABOUT(pVecVehicle->_rz_mv, D_ANG(90)), RND_ABOUT(pVecVehicle->_ry_mv, D_ANG(90)),
                                          D_ANG(2), 0, TURN_CLOSE_TO,false);
-                pVecDriver->setMvAcce(100);
+                pVecVehicle->setMvAcce(100);
             }
 
             if (pProg->hasArrivedAt(delay_ + 200)) {
@@ -142,7 +142,7 @@ void EnemyUrydike::processBehavior() {
     }
 
     pAlphaFader->behave();
-    pVecDriver->behave();
+    pVecVehicle->behave();
 }
 
 void EnemyUrydike::processJudgement() {
@@ -175,5 +175,5 @@ void EnemyUrydike::scatter() {
 }
 
 EnemyUrydike::~EnemyUrydike() {
-    GGAF_DELETE_NULLABLE(pDriverLeader_);
+    GGAF_DELETE_NULLABLE(pVehicleLeader_);
 }

@@ -2,9 +2,9 @@
 
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/Checker.h"
-#include "jp/ggaf/dx/util/curve/DriverLeader.h"
+#include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -48,7 +48,7 @@ EnemyDelheid::EnemyDelheid(const char* prm_name) :
     pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_001");
     pProg2_ = createProgress();
     shot_begin_frame_ = 0;
-    pDriverLeader_ = nullptr;
+    pVehicleLeader_ = nullptr;
     pDepoShot_ = nullptr;
 }
 
@@ -66,8 +66,8 @@ void EnemyDelheid::nextFrame() {
 
 void EnemyDelheid::config(GgafDx::CurveManufacture* prm_pCurveManufacture,
                           GgafCore::ActorDepository* prm_pDepoShot  ) {
-    GGAF_DELETE_NULLABLE(pDriverLeader_);
-    pDriverLeader_ = createCurveDriverLeader(prm_pCurveManufacture);
+    GGAF_DELETE_NULLABLE(pVehicleLeader_);
+    pVehicleLeader_ = createCurveVehicleLeader(prm_pCurveManufacture);
     pDepoShot_ = prm_pDepoShot;
 }
 
@@ -79,7 +79,7 @@ void EnemyDelheid::initialize() {
 }
 
 void EnemyDelheid::onActive() {
-    if (pDriverLeader_ == nullptr) {
+    if (pVehicleLeader_ == nullptr) {
         throwCriticalException("EnemyDelheidはスプライン必須ですconfigして下さい。this="<<NODE_INFO);
     }
     getStatus()->reset();
@@ -96,9 +96,9 @@ void EnemyDelheid::processBehavior() {
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
-            pDriverLeader_->start(RELATIVE_COORD_DIRECTION, 3); //最高で３回ループする予定
-            getVecDriver()->setMvAcce(0);
-            getVecDriver()->keepOnTurningFaceAngTwd(pMYSHIP,
+            pVehicleLeader_->start(RELATIVE_COORD_DIRECTION, 3); //最高で３回ループする予定
+            getVecVehicle()->setMvAcce(0);
+            getVecVehicle()->keepOnTurningFaceAngTwd(pMYSHIP,
                                                     D_ANG(1), 0, TURN_CLOSE_TO, false);
             pProg->changeNext();
             break;
@@ -106,13 +106,13 @@ void EnemyDelheid::processBehavior() {
         case PROG_CURVE_MOVING: {
             if (pProg->hasJustChanged()) {
             }
-            //processJudgement() で pDriverLeader_->isFinished() 成立待ち
+            //processJudgement() で pVehicleLeader_->isFinished() 成立待ち
             break;
         }
 
         //ゴールのアリサナがいない場合、その後の移動
         case PROG_AFTER_LEAD: {
-            //processJudgement() で pDriverLeader_->isFinished() 成立待ち
+            //processJudgement() で pVehicleLeader_->isFinished() 成立待ち
             break;
         }
         case PROG_AFTER_LEAD_MOVING: {
@@ -175,10 +175,10 @@ void EnemyDelheid::processBehavior() {
         }
     }
     //-----------------------------------------------
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    pVecDriver->_angvelo_face[AXIS_X] = pVecDriver->_velo_mv/2;
-    pDriverLeader_->behave(); //カーブ移動するようにDriverを操作
-    pVecDriver->behave();
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    pVecVehicle->_angvelo_face[AXIS_X] = pVecVehicle->_velo_mv/2;
+    pVehicleLeader_->behave(); //カーブ移動するようにDriverを操作
+    pVecVehicle->behave();
     getMorpher()->behave();
 }
 
@@ -186,7 +186,7 @@ void EnemyDelheid::processSettlementBehavior() {
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_CURVE_MOVING: {
-            if (pDriverLeader_->_cnt_loop >= 2) {
+            if (pVehicleLeader_->_cnt_loop >= 2) {
                 if (((FormationDelheid*)getFormation())->pAlisana_goal) {
                     //ゴールが存在する場合、１ループでさよなら。
                     pProg->changeNothing();
@@ -200,7 +200,7 @@ void EnemyDelheid::processSettlementBehavior() {
 
         //ゴールのアリサナがいない場合、その後の移動
         case PROG_AFTER_LEAD: {
-            if (pDriverLeader_->isFinished()) {
+            if (pVehicleLeader_->isFinished()) {
                 //カーブ移動も終わった場合
                 pProg->change(PROG_AFTER_LEAD_MOVING);
             }
@@ -241,7 +241,7 @@ void EnemyDelheid::open_shot() {
 }
 
 EnemyDelheid::~EnemyDelheid() {
-    GGAF_DELETE_NULLABLE(pDriverLeader_);
+    GGAF_DELETE_NULLABLE(pVehicleLeader_);
     GGAF_DELETE(pProg2_);
 }
 

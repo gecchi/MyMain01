@@ -1,7 +1,7 @@
 #include "jp/ggaf/dx/util/curve/SteppedCoordCurveManufacture.h"
 
 #include "jp/ggaf/dx/util/curve/CurveSource.h"
-#include "jp/ggaf/dx/util/curve/SteppedCoordCurveVecDriverLeader.h"
+#include "jp/ggaf/dx/util/curve/SteppedCoordCurveVecVehicleLeader.h"
 
 using namespace GgafDx;
 
@@ -19,8 +19,8 @@ void SteppedCoordCurveManufacture::calculate() {
     CurveManufacture::calculate();
 }
 
-DriverLeader* SteppedCoordCurveManufacture::createVecDriverLeader(GgafDx::VecDriver* prm_pVecDriver) {
-    return NEW SteppedCoordCurveVecDriverLeader(this, prm_pVecDriver);
+VehicleLeader* SteppedCoordCurveManufacture::createVecVehicleLeader(GgafDx::VecVehicle* prm_pVecVehicle) {
+    return NEW SteppedCoordCurveVecVehicleLeader(this, prm_pVecVehicle);
 }
 
 SteppedCoordCurveManufacture::~SteppedCoordCurveManufacture() {

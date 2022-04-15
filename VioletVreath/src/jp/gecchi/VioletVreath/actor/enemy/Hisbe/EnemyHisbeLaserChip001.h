@@ -16,7 +16,7 @@ class EnemyHisbeLaserChip001 : public VvEnemyActor<GgafLib::HomingLaserChip> {
 
 public:
     GgafDx::CurveManufactureConnection* pConn_pCurveManuf_;
-    GgafDx::DriverLeader* pDriverLeader_;
+    GgafDx::VehicleLeader* pVehicleLeader_;
     GgafLib::DefaultScene* pFeatureScene_;
 
 public:

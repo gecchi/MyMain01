@@ -4,11 +4,11 @@
 #include "jp/ggaf/core/actor/GroupHead.h"
 #include "jp/ggaf/core/actor/ex/ActorDepository.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
-#include "jp/ggaf/dx/actor/supporter/GeoDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/GeoVehicle.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/dx/util/curve/FixedFrameCurveGeoDriverLeader.h"
-#include "jp/ggaf/dx/util/curve/FixedFrameCurveVecDriverLeader.h"
+#include "jp/ggaf/dx/util/curve/FixedFrameCurveGeoVehicleLeader.h"
+#include "jp/ggaf/dx/util/curve/FixedFrameCurveVecVehicleLeader.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Eres/EnemyEresShot001.h"
 #include "jp/ggaf/dx/util/curve/FixedFrameCurveManufacture.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -46,8 +46,8 @@ EnemyEres::EnemyEres(const char* prm_name, GgafCore::ActorDepository* prm_pDepo_
     }
 
     pCurveManufConn_ = connectToCurveManufactureManager("EnemyEres_curve");
-    pDriverLeader_ = createCurveDriverLeader(pCurveManufConn_->peek());
-//    ((FixedFrameCurveGeoDriverLeader*)pDriverLeader_)->setGravitationParam(200, PX_C(100));
+    pVehicleLeader_ = createCurveVehicleLeader(pCurveManufConn_->peek());
+//    ((FixedFrameCurveGeoVehicleLeader*)pVehicleLeader_)->setGravitationParam(200, PX_C(100));
 
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_001");
@@ -64,11 +64,11 @@ void EnemyEres::onActive() {
     setHitAble(true);
     getStatus()->reset();
     iMovePatternNo_ = 0;
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    pVecDriver->linkFaceAngByMvAng(true);
-    pVecDriver->setRollFaceAngVelo(2000);
-//    pVecDriver->setMvVelo(3000);
-    pDriverLeader_->start(RELATIVE_COORD); //カーブ移動を開始
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    pVecVehicle->linkFaceAngByMvAng(true);
+    pVecVehicle->setRollFaceAngVelo(2000);
+//    pVecVehicle->setMvVelo(3000);
+    pVehicleLeader_->start(RELATIVE_COORD); //カーブ移動を開始
 }
 
 void EnemyEres::processBehavior() {
@@ -83,22 +83,22 @@ void EnemyEres::processBehavior() {
             pTama = (GgafDx::FigureActor*)pDepo_shot001_->dispatch();
             if (pTama) {
                 pTama->setPositionAt(this);
-                pTama->getVecDriver()->setRzRyMvAng(-D90ANG + way[i], D90ANG);
+                pTama->getVecVehicle()->setRzRyMvAng(-D90ANG + way[i], D90ANG);
             }
         }
         for (int i = 16; i < 32; i++) {
             pTama = (GgafDx::FigureActor*)pDepo_shot001_->dispatch();
             if (pTama) {
                 pTama->setPositionAt(this);
-                pTama->getVecDriver()->setRzRyMvAng(-D90ANG - way[i], -D90ANG);
+                pTama->getVecVehicle()->setRzRyMvAng(-D90ANG - way[i], -D90ANG);
             }
         }
 
         iMovePatternNo_++;
     }
-    pDriverLeader_->behave(); //カーブ移動を進める
-    getGeoDriver()->behave();
-    getVecDriver()->behave(); //次の座標へ移動
+    pVehicleLeader_->behave(); //カーブ移動を進める
+    getGeoVehicle()->behave();
+    getVecVehicle()->behave(); //次の座標へ移動
     //getSeTransmitter()->behave();
 }
 
@@ -139,6 +139,6 @@ bool EnemyEres::isOutOfSpacetime() const {
 EnemyEres::~EnemyEres() {
     //staticなので最初の１回だけ解放したい
     pCurveManufConn_->close();
-    GGAF_DELETE_NULLABLE(pDriverLeader_);
+    GGAF_DELETE_NULLABLE(pVehicleLeader_);
 }
 

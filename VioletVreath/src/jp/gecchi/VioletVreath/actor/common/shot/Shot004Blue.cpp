@@ -1,6 +1,6 @@
 #include "Shot004Blue.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion001.h"
@@ -30,11 +30,11 @@ void Shot004Blue::initialize() {
 void Shot004Blue::onReset() {
     setScaleR(3.0);
     setCullingDraw(false);
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    pVecDriver->setRollFaceAngVelo(D_ANG(3));
-    pVecDriver->setMvVelo(40000);             //移動速度
-    pVecDriver->setMvAcce(1000);             //移動速度
-    pVecDriver->linkFaceAngByMvAng(true);
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    pVecVehicle->setRollFaceAngVelo(D_ANG(3));
+    pVecVehicle->setMvVelo(40000);             //移動速度
+    pVecVehicle->setMvAcce(1000);             //移動速度
+    pVecVehicle->linkFaceAngByMvAng(true);
 }
 
 void Shot004Blue::onActive() {
@@ -45,7 +45,7 @@ void Shot004Blue::onActive() {
 
 void Shot004Blue::processBehavior() {
     //座標に反映
-    getVecDriver()->behave();
+    getVecVehicle()->behave();
 }
 
 void Shot004Blue::processJudgement() {

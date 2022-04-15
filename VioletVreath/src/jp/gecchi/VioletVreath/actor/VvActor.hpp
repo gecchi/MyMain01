@@ -3,7 +3,7 @@
 #include "VioletVreath.h"
 #include "jp/ggaf/core/util/Status.h"
 #include "jp/ggaf/dx/actor/FigureActor.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
 
@@ -13,24 +13,24 @@ namespace VioletVreath {
 template<class T>
 class VvActor : public T {
 //    GgafLib::DefaultScene* pFeatureScene_;
-//    GgafDx::DriverLeader* pFeatureDriverLeader_;
+//    GgafDx::VehicleLeader* pFeatureVehicleLeader_;
 public:
     VvActor(const char* prm_name, const char* prm_model)
         : T(prm_name, prm_model) {
 //        pFeatureScene_ = nullptr;
-//        pFeatureDriverLeader_ = nullptr;
+//        pFeatureVehicleLeader_ = nullptr;
     }
-//    void registerpFeatureDriverLeader(GgafDx::DriverLeader* prm_pDriverLeader) {
-//        pFeatureDriverLeader_ = prm_pDriverLeader;
+//    void registerpFeatureVehicleLeader(GgafDx::VehicleLeader* prm_pVehicleLeader) {
+//        pFeatureVehicleLeader_ = prm_pVehicleLeader;
 //        pFeatureScene_ = ((GgafLib::DefaultScene*)(T::getSceneMediator()->getPlatformScene()))->getNearestFeatureScene();
-//        //pFeatureScene_->_pFuncFeature(pFeatureDriverLeader_, &(pFeatureScene_->_feature_p1), nullptr, nullptr);
-//            //pDriverLeader_->_x_start_in_loop -= pFeatureScene_->getFeatureParam1();
+//        //pFeatureScene_->_pFuncFeature(pFeatureVehicleLeader_, &(pFeatureScene_->_feature_p1), nullptr, nullptr);
+//            //pVehicleLeader_->_x_start_in_loop -= pFeatureScene_->getFeatureParam1();
 //    }
 //    void executeFuncLowerTree(void (*pFunc)(GgafCore::Object*, void*, void*, void*), void* prm1, void* prm2, void* prm3) override {
 //        T::executeFuncLowerTree(pFunc, prm1, prm2, prm3);
-//        if (pFeatureDriverLeader_ && pFunc == pFeatureScene_->_pFuncFeature) {
+//        if (pFeatureVehicleLeader_ && pFunc == pFeatureScene_->_pFuncFeature) {
 //            if (T::_can_live_flg && T::_is_active_flg) {
-//                pFunc((GgafCore::Object*)pFeatureDriverLeader_, &(pFeatureScene_->_feature_p1), prm2, prm3);
+//                pFunc((GgafCore::Object*)pFeatureVehicleLeader_, &(pFeatureScene_->_feature_p1), prm2, prm3);
 //            }
 //        }
 //    }
@@ -44,26 +44,26 @@ public:
 //            case MyStgUtil::EF_EXPLOSION001: {
 //                pE = dispatchForceFromCommon(EffectExplosion001);
 //                pE->setPositionAt(this);
-//                pE->getVecDriver()->takeoverMvFrom(this->getVecDriver());
+//                pE->getVecVehicle()->takeoverFrom(this->getVecVehicle());
 //                break;
 //            }
 //            case MyStgUtil::EF_EXPLOSION002: {
 //                pE = dispatchForceFromCommon(EffectExplosion002);
 //                pE->setPositionAt(this);
-//                pE->getVecDriver()->takeoverMvFrom(this->getVecDriver());
+//                pE->getVecVehicle()->takeoverFrom(this->getVecVehicle());
 //                break;
 //            }
 //            case MyStgUtil::EF_EXPLOSION003: {
 //                pE = dispatchForceFromCommon(EffectExplosion003);
 //                pE->setPositionAt(this);
-//                pE->getVecDriver()->takeoverMvFrom(this->getVecDriver());
+//                pE->getVecVehicle()->takeoverFrom(this->getVecVehicle());
 //                break;
 //            }
 //            case MyStgUtil::EF_EXPLOSION001_STAY: {
 //                pE = dispatchForceFromCommon(EffectExplosion001);
 //                pE->setPositionAt(this);
-//                pE->getVecDriver()->setMvVelo(0);
-//                pE->getVecDriver()->setMvAcce(0);
+//                pE->getVecVehicle()->setMvVelo(0);
+//                pE->getVecVehicle()->setMvAcce(0);
 //                break;
 //            }
 //            default: {

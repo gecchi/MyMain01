@@ -1,5 +1,5 @@
-#ifndef GGAF_DX_GEODRIVERASSISTANT_H_
-#define GGAF_DX_GEODRIVERASSISTANT_H_
+#ifndef GGAF_DX_GEOVEHICLEASSISTANT_H_
+#define GGAF_DX_GEOVEHICLEASSISTANT_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 #include "jp/ggaf/core/util/TrapezoidalVeloValue.hpp"
@@ -14,12 +14,12 @@ namespace GgafDx {
  * @since 2013/12/16
  * @author Masatoshi Tsuge
  */
-class GeoDriverAssistantA : public GgafCore::Object {
-	friend class GeoDriver;
+class GeoVehicleAssistantA : public GgafCore::Object {
+	friend class GeoVehicle;
 
 private:
     /** [r]師匠 */
-    GeoDriver* _pMaster;
+    GeoVehicle* _pMaster;
     /** X軸方向加速装置 */
     GgafCore::TrapezoidalVeloValue<coord> _smthVxMv;
     /** Y軸方向加速装置 */
@@ -34,7 +34,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pMaster  師匠
      */
-    explicit GeoDriverAssistantA(GeoDriver* prm_pMaster);
+    explicit GeoVehicleAssistantA(GeoVehicle* prm_pMaster);
 
     /**
      * X軸方向でなめらかな移動速度を変化させるシークエンスを実行(時間・距離指定、速度変動) .
@@ -290,9 +290,9 @@ public:
         _smthVzMv.stopTransitioning();
     }
 
-    virtual ~GeoDriverAssistantA();
+    virtual ~GeoVehicleAssistantA();
 };
 
 }
-#endif /*GGAF_DX_GEODRIVERASSISTANT_H_*/
+#endif /*GGAF_DX_GEOVEHICLEASSISTANT_H_*/
 

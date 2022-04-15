@@ -1,7 +1,7 @@
 #include "EffectTurbo001.h"
 
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -28,12 +28,12 @@ void EffectTurbo001::initialize() {
 
 void EffectTurbo001::onActive() {
     getUvFlipper()->setActivePtnToTop();
-    getVecDriver()->setFaceAngVelo(AXIS_Z, 3000);        //âÒì]
+    getVecVehicle()->setFaceAngVelo(AXIS_Z, 3000);        //âÒì]
 }
 
 void EffectTurbo001::processBehavior() {
     getUvFlipper()->behave();
-    getVecDriver()->behave();
+    getVecVehicle()->behave();
     getScaler()->behave();
     if (VB_PLAY->isPressed(VB_TURBO)) { //É^Å[É{
 

@@ -1,10 +1,10 @@
 #include "EnemyIda.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/dx/util/curve/DriverLeader.h"
+#include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
@@ -40,7 +40,7 @@ void EnemyIda::onCreateModel() {
 }
 
 void EnemyIda::initialize() {
-    getVecDriver()->linkFaceAngByMvAng(true);
+    getVecVehicle()->linkFaceAngByMvAng(true);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
@@ -54,12 +54,12 @@ void EnemyIda::onActive() {
 void EnemyIda::processBehavior() {
     changeGeoLocal(); //ローカル座標系へ
 
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
     GgafCore::Progress* const pProg = getProgress();
     switch (pProg->get()) {
         case PROG_INIT: {
             setHitAble(false);
-            pVecDriver->setRollFaceAngVelo(D_ANG(4));
+            pVecVehicle->setRollFaceAngVelo(D_ANG(4));
             setAlpha(0);
             pProg->changeNext();
             break;
@@ -97,13 +97,13 @@ void EnemyIda::processBehavior() {
 
             angle rz_target, ry_target;
             UTIL::convVectorToRzRy(tvx, tvy, tvz, rz_target, ry_target); //RzRyに置き換える
-            pVecDriver->setRzRyMvAng(rz_target, ry_target);
+            pVecVehicle->setRzRyMvAng(rz_target, ry_target);
             break;
         }
     }
 
     getAlphaFader()->behave();
-    pVecDriver->behave();
+    pVecVehicle->behave();
 
     changeGeoFinal(); //絶対座標系へ
 }

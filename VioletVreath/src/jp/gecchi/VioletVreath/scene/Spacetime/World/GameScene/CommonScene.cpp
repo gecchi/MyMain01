@@ -2,7 +2,7 @@
 
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
 #include "jp/ggaf/core/actor/SceneMediator.h"
-#include "jp/ggaf/dx/util/curve/DriverLeader.h"
+#include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/core/actor/ex/ActorDepositoryStore.h"
 
@@ -87,10 +87,10 @@ void CommonScene::scrollX(GgafCore::Object* pThat, void* p1, void* p2, void* p3)
             //Itemはスクロールの影響を受けない
         } else {
             pActor->_x -= (*((coord*)p1));
-            //setDriverLeader() されていたら、スクロールの影響を受ける
-            GgafDx::DriverLeader* pDriverLeader = pActor->getDriverLeader();
-            if (pDriverLeader) {
-                pDriverLeader->_x_start_in_loop -= (*((coord*)p1));
+            //setVehicleLeader() されていたら、スクロールの影響を受ける
+            GgafDx::VehicleLeader* pVehicleLeader = pActor->getVehicleLeader();
+            if (pVehicleLeader) {
+                pVehicleLeader->_x_start_in_loop -= (*((coord*)p1));
             }
         }
     }

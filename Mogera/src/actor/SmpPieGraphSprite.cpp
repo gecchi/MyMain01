@@ -1,8 +1,8 @@
 #include "SmpPieGraphSprite.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriverFaceAngAssistant.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriverMvAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicleFaceAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicleMvAngAssistant.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/ggaf/dx/actor/supporter/Colorist.h"
 #include "jp/ggaf/dx/model/RegularPolygonSpriteModel.h"
@@ -72,7 +72,7 @@ void SmpPieGraphSprite::processBehavior() {
     }
     getColorist()->behave();
     getUvFlipper()->behave();
-    getVecDriver()->behave(); //力車を活動させる（Z軸回転する）
+    getVecVehicle()->behave(); //力車を活動させる（Z軸回転する）
 }
 
 void SmpPieGraphSprite::onHit(const GgafCore::Actor* prm_pOtherActor) {

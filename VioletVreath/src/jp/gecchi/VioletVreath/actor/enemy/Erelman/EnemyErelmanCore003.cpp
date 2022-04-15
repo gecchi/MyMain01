@@ -1,7 +1,7 @@
 #include "EnemyErelmanCore003.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
@@ -31,7 +31,7 @@ EnemyErelmanCore003::EnemyErelmanCore003(const char* prm_name, EnemyErelmanContr
 }
 
 void EnemyErelmanCore003::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
 
     GgafCore::Progress* const pProg = getProgress();
@@ -61,8 +61,8 @@ void EnemyErelmanCore003::processBehavior() {
 
         case PROG_WAIT01: {
             if (pProg->hasJustChanged()) {
-                //pVecDriver->turnFaceAng(AXIS_X, D_ANG(90), D_ANG(0.5));
-                pVecDriver->setRollPitchYawFaceAngVelo(D_ANG(0.00717), D_ANG(0.0031), D_ANG(0.0057));
+                //pVecVehicle->turnFaceAng(AXIS_X, D_ANG(90), D_ANG(0.5));
+                pVecVehicle->setRollPitchYawFaceAngVelo(D_ANG(0.00717), D_ANG(0.0031), D_ANG(0.0057));
             }
             if (pProg->hasArrivedAt(10*60*60)) {
                 pProg->changeNext();
@@ -86,7 +86,7 @@ void EnemyErelmanCore003::processBehavior() {
     }
 
     pAlphaFader->behave();
-    pVecDriver->behave();
+    pVecVehicle->behave();
 }
 
 EnemyErelmanCore003::~EnemyErelmanCore003() {

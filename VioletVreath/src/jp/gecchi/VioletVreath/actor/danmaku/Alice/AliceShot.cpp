@@ -1,7 +1,7 @@
 #include "AliceShot.h"
 
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 
 using namespace GgafLib;
@@ -21,22 +21,22 @@ void AliceShot::initialize() {
 }
 void AliceShot::onReset() {
     setCullingDraw(false);
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    pVecDriver->setRollFaceAngVelo(D_ANG(3));
-    pVecDriver->linkFaceAngByMvAng(true);
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    pVecVehicle->setRollFaceAngVelo(D_ANG(3));
+    pVecVehicle->linkFaceAngByMvAng(true);
 }
 
 void AliceShot::onActive() {
     setHitAble(true, false);
     getStatus()->reset();
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    pVecDriver->setRyMvAng(D90ANG);
-    pVecDriver->setRzMvAngVelo(D_ANG(1));
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    pVecVehicle->setRyMvAng(D90ANG);
+    pVecVehicle->setRzMvAngVelo(D_ANG(1));
 }
 
 void AliceShot::processBehavior() {
     //À•W‚É”½‰f
-    getVecDriver()->behave();
+    getVecVehicle()->behave();
 }
 
 void AliceShot::processJudgement() {

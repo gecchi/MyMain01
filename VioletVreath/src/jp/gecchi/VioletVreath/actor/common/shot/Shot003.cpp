@@ -1,7 +1,7 @@
 #include "Shot003.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 
@@ -28,15 +28,15 @@ void Shot003::initialize() {
 void Shot003::onActive() {
     getStatus()->reset();
     setHitAble(true, false);
-    getVecDriver()->setMvVelo(20000);
+    getVecVehicle()->setMvVelo(20000);
 
 }
 
 void Shot003::processBehavior() {
     //加算ランクポイントを減少
     //座標に反映
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    pVecDriver->behave();
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    pVecVehicle->behave();
 }
 
 void Shot003::processJudgement() {

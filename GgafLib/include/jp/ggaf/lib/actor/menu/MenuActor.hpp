@@ -4,8 +4,8 @@
 
 #include "jp/ggaf/core/util/LinkedListRing.hpp"
 #include "jp/ggaf/dx/actor/FigureActor.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriverMvAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicleMvAssistant.h"
 #include "jp/ggaf/dx/util/Util.h"
 #include "jp/ggaf/lib/actor/DefaultBoardActor.h"
 #include "jp/ggaf/lib/actor/DefaultBoardSetActor.h"
@@ -355,9 +355,9 @@ public:
      * メインカーソルオブジェクトを設定する .
      * 【注意】<BR>
      * カーソル移動を制御するため、MenuActor<T>::processBehavior() 内で、<BR>
-     * _pCursorActor->getVecDriver()->behave(); <BR>
+     * _pCursorActor->getVecVehicle()->behave(); <BR>
      * を実行しています。したがって、引数のカーソルクラスで、<BR>
-     * getVecDriver()->behave(); <BR>
+     * getVecVehicle()->behave(); <BR>
      * を実行する必要はありません。<BR>
      * @param prm_pCursorActor メインカーソル
      * @param prm_x_cursor_adjust メニューアイテムとの重なりを補正するための加算される差分X座標
@@ -379,9 +379,9 @@ public:
      * 補助カーソルオブジェクトを設定する .
      * 【注意】<BR>
      * カーソル移動を制御するため、MenuActor<T>::processBehavior() 内で、<BR>
-     * _lstSubCursor.getFromFirst(i)->_pActor->getVecDriver()->behave(); <BR>
+     * _lstSubCursor.getFromFirst(i)->_pActor->getVecVehicle()->behave(); <BR>
      * を実行しています。したがって、引数のカーソルクラスで、<BR>
-     * getVecDriver()->behave(); <BR>
+     * getVecVehicle()->behave(); <BR>
      * を実行する必要はありません。<BR>
      * @param prm_pCursorActor 補助カーソル
      * @param prm_x_cursor_adjust メニューアイテムとの重なりを補正するための加算される差分X座標
@@ -1458,15 +1458,15 @@ template<class T>
 void MenuActor<T>::moveCursor(bool prm_smooth) {
     if (_pCursorActor) {
         GgafDx::FigureActor* pTargetItem = _lstItems.getCurrent();
-        GgafDx::VecDriver* pCursorActor_pVecDriver = _pCursorActor->getVecDriver();
+        GgafDx::VecVehicle* pCursorActor_pVecVehicle = _pCursorActor->getVecVehicle();
         if (prm_smooth) {
-            pCursorActor_pVecDriver->setMvAngTwd(
+            pCursorActor_pVecVehicle->setMvAngTwd(
                                     pTargetItem->_x + _x_cursor_adjust,
                                     pTargetItem->_y + _y_cursor_adjust,
                                     pTargetItem->_z + _z_cursor_adjust
                                   );
-            pCursorActor_pVecDriver->stopMv();
-            pCursorActor_pVecDriver->asstMv()->slideByDt(
+            pCursorActor_pVecVehicle->stop();
+            pCursorActor_pVecVehicle->asstMv()->slideByDt(
                                     UTIL::getDistance(_pCursorActor->_x,
                                                       _pCursorActor->_y,
                                                       _pCursorActor->_z,
@@ -1480,8 +1480,8 @@ void MenuActor<T>::moveCursor(bool prm_smooth) {
             _y_cursor_target_prev = pTargetItem->_y;
             _z_cursor_target_prev = pTargetItem->_z;
         } else {
-            pCursorActor_pVecDriver->asstMv()->stopSliding();
-            pCursorActor_pVecDriver->stopMv();
+            pCursorActor_pVecVehicle->asstMv()->stopSliding();
+            pCursorActor_pVecVehicle->stop();
             _pCursorActor->_x = pTargetItem->_x + _x_cursor_adjust;
             _pCursorActor->_y = pTargetItem->_y + _y_cursor_adjust;
             _pCursorActor->_z = pTargetItem->_z + _z_cursor_adjust;
@@ -1498,15 +1498,15 @@ void MenuActor<T>::moveSubCursor(int prm_subcur_no, bool prm_smooth) {
         GgafDx::FigureActor* pTargetItem = getSelectedItemOnSubCursor(prm_subcur_no);
         SubCursor* pSubCursor = _lstSubCursor.getFromFirst(prm_subcur_no);
         GgafDx::FigureActor* pSubCursorActor = pSubCursor->_pActor;
-        GgafDx::VecDriver* pSubCursorActor_pVecDriver = pSubCursorActor->getVecDriver();
+        GgafDx::VecVehicle* pSubCursorActor_pVecVehicle = pSubCursorActor->getVecVehicle();
         if (prm_smooth) {
-            pSubCursorActor_pVecDriver->setMvAngTwd(
+            pSubCursorActor_pVecVehicle->setMvAngTwd(
                                          pTargetItem->_x + pSubCursor->_x_adjust,
                                          pTargetItem->_y + pSubCursor->_y_adjust,
                                          pTargetItem->_z + pSubCursor->_z_adjust
                                      );
-            pSubCursorActor_pVecDriver->stopMv();
-            pSubCursorActor_pVecDriver->asstMv()->slideByDt(
+            pSubCursorActor_pVecVehicle->stop();
+            pSubCursorActor_pVecVehicle->asstMv()->slideByDt(
                                       UTIL::getDistance(pSubCursorActor->_x,
                                                         pSubCursorActor->_y,
                                                         pSubCursorActor->_z,
@@ -1520,8 +1520,8 @@ void MenuActor<T>::moveSubCursor(int prm_subcur_no, bool prm_smooth) {
             pSubCursor->_y_target_prev = pTargetItem->_y;
             pSubCursor->_z_target_prev = pTargetItem->_z;
         } else {
-            pSubCursorActor_pVecDriver->asstMv()->stopSliding();
-            pSubCursorActor_pVecDriver->stopMv();
+            pSubCursorActor_pVecVehicle->asstMv()->stopSliding();
+            pSubCursorActor_pVecVehicle->stop();
             pSubCursorActor->_x = pTargetItem->_x + pSubCursor->_x_adjust;
             pSubCursorActor->_y = pTargetItem->_y + pSubCursor->_y_adjust;
             pSubCursorActor->_z = pTargetItem->_z + pSubCursor->_z_adjust;
@@ -1631,14 +1631,14 @@ void MenuActor<T>::processBehavior() {
     }
 
     if (_pCursorActor) {
-        _pCursorActor->getVecDriver()->behave();
-        //メインカーソル側で、_pVecDriver->behave() しないように注意
+        _pCursorActor->getVecVehicle()->behave();
+        //メインカーソル側で、_pVecVehicle->behave() しないように注意
     }
     int n_sc = _lstSubCursor.length();
     for (int i = 0; i < n_sc; i++) {
         SubCursor* pSubCursor = _lstSubCursor.getFromFirst(i);
-        pSubCursor->_pActor->getVecDriver()->behave();
-        //補助カーソル側で、_pVecDriver->behave() しないように注意
+        pSubCursor->_pActor->getVecVehicle()->behave();
+        //補助カーソル側で、_pVecVehicle->behave() しないように注意
     }
 
     //メニューアイテムをメニューに追従
@@ -1685,7 +1685,7 @@ void MenuActor<T>::processBehavior() {
     //メインカーソルをメニューアイテムに追従
     if (_pCursorActor) {
         GgafDx::FigureActor* pTargetItem = _lstItems.getCurrent();
-        if (_pCursorActor->getVecDriver()->asstMv()->isSliding()) {
+        if (_pCursorActor->getVecVehicle()->asstMv()->isSliding()) {
             _pCursorActor->_x += (pTargetItem->_x - _x_cursor_target_prev);
             _pCursorActor->_y += (pTargetItem->_y - _y_cursor_target_prev);
             _pCursorActor->_z += (pTargetItem->_z - _z_cursor_target_prev);
@@ -1713,7 +1713,7 @@ void MenuActor<T>::processBehavior() {
         SubCursor* pSubCursor = _lstSubCursor.getFromFirst(i);
         GgafDx::FigureActor* pTargetItem = _lstItems.getFromFirst(pSubCursor->_select_index);
         GgafDx::FigureActor* pSubCursorActor = pSubCursor->_pActor;
-        if (pSubCursorActor->getVecDriver()->asstMv()->isSliding()) {
+        if (pSubCursorActor->getVecVehicle()->asstMv()->isSliding()) {
             pSubCursorActor->_x += (pTargetItem->_x - pSubCursor->_x_target_prev);
             pSubCursorActor->_y += (pTargetItem->_y - pSubCursor->_y_target_prev);
             pSubCursorActor->_z += (pTargetItem->_z - pSubCursor->_z_target_prev);

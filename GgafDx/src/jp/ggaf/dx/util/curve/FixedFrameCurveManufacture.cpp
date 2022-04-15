@@ -1,8 +1,8 @@
 #include "jp/ggaf/dx/util/curve/FixedFrameCurveManufacture.h"
 
 #include "jp/ggaf/dx/util/curve/CurveSource.h"
-#include "jp/ggaf/dx/util/curve/FixedFrameCurveVecDriverLeader.h"
-#include "jp/ggaf/dx/util/curve/FixedFrameCurveGeoDriverLeader.h"
+#include "jp/ggaf/dx/util/curve/FixedFrameCurveVecVehicleLeader.h"
+#include "jp/ggaf/dx/util/curve/FixedFrameCurveGeoVehicleLeader.h"
 
 using namespace GgafDx;
 
@@ -128,11 +128,11 @@ void FixedFrameCurveManufacture::recalculateBySpentFrame(frame prm_spent_frames)
     _paSPMvVeloTo[0] = 0; //始点までの速度など分からない。
 }
 
-DriverLeader* FixedFrameCurveManufacture::createVecDriverLeader(GgafDx::VecDriver* prm_pVecDriver) {
-    return NEW FixedFrameCurveVecDriverLeader(this, prm_pVecDriver);
+VehicleLeader* FixedFrameCurveManufacture::createVecVehicleLeader(GgafDx::VecVehicle* prm_pVecVehicle) {
+    return NEW FixedFrameCurveVecVehicleLeader(this, prm_pVecVehicle);
 }
-DriverLeader* FixedFrameCurveManufacture::createGeoDriverLeader(GgafDx::GeoDriver* prm_pGeoDriver) {
-    return NEW FixedFrameCurveGeoDriverLeader(this, prm_pGeoDriver);
+VehicleLeader* FixedFrameCurveManufacture::createGeoVehicleLeader(GgafDx::GeoVehicle* prm_pGeoVehicle) {
+    return NEW FixedFrameCurveGeoVehicleLeader(this, prm_pGeoVehicle);
 }
 FixedFrameCurveManufacture::~FixedFrameCurveManufacture() {
     //イニシャライズされる前に解放されるかもしれない

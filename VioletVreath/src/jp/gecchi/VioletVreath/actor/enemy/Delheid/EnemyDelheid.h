@@ -17,7 +17,7 @@ class EnemyDelheid : public VvEnemyActor<GgafLib::DefaultMassMorphMeshActor> {
 
 public:
     /** カーブ移動のシークエンス */
-    GgafDx::DriverLeader* pDriverLeader_;
+    GgafDx::VehicleLeader* pVehicleLeader_;
     /** ショットのデポジトリ */
     GgafCore::ActorDepository* pDepoShot_;
     /** ショット開始時間 */

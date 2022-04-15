@@ -2,8 +2,8 @@
 
 #include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
-#include "jp/ggaf/dx/actor/supporter/GeoDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/GeoVehicle.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -86,11 +86,11 @@ void EnemyDrastea::initialize() {
 
 void EnemyDrastea::onActive() {
     getStatus()->reset();
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    GgafDx::GeoDriver* const pGeoDriver = getGeoDriver();
-    pVecDriver->setMvVelo(0);
-    pVecDriver->setRollPitchYawFaceAngVelo(700, 1100, 300);
-    pGeoDriver->setVxMvVelo(-3000);
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::GeoVehicle* const pGeoVehicle = getGeoVehicle();
+    pVecVehicle->setMvVelo(0);
+    pVecVehicle->setRollPitchYawFaceAngVelo(700, 1100, 300);
+    pGeoVehicle->setVeloX(-3000);
     const coord appearances_renge_z = (MyShip::lim_z_left_ - MyShip::lim_z_right_) * 4;
     const coord appearances_renge_y = (MyShip::lim_y_top_ - MyShip::lim_y_bottom_) * 4;
     Spacetime* pSpacetime =  pGOD->getSpacetime();
@@ -102,8 +102,8 @@ void EnemyDrastea::onActive() {
 
 void EnemyDrastea::processBehavior() {
     //À•W‚É”½‰f
-    getVecDriver()->behave();
-    getGeoDriver()->behave();
+    getVecVehicle()->behave();
+    getGeoVehicle()->behave();
     getSeTransmitter()->behave();
 }
 

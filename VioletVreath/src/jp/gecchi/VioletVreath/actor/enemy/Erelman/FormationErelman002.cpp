@@ -1,7 +1,7 @@
 #include "FormationErelman002.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
-#include "jp/ggaf/dx/util/curve/DriverLeader.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/ggaf/dx/util/curve/CurveManufacture.h"
 #include "jp/ggaf/dx/util/curve/FixedFrameCurveManufacture.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -95,20 +95,20 @@ void FormationErelman002::processBehavior() {
 
 void FormationErelman002::onCalledUp(GgafDx::FigureActor* prm_pActor, int prm_row, int prm_col) {
     EnemyErelman* pErelman = (EnemyErelman*)prm_pActor;
-    if (pErelman->pDriverLeader_) {
-        throwCriticalException("pErelman->pDriverLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpErelman="<<pErelman<<"("<<pErelman->getName()<<")");
+    if (pErelman->pVehicleLeader_) {
+        throwCriticalException("pErelman->pVehicleLeader_‚ªİ’è‚³‚ê‚Ä‚Ü‚·BpErelman="<<pErelman<<"("<<pErelman->getName()<<")");
     } else {
-        pErelman->pDriverLeader_ = pErelman->createCurveDriverLeader(papCurveManufConn_[prm_col]->peek());
+        pErelman->pVehicleLeader_ = pErelman->createCurveVehicleLeader(papCurveManufConn_[prm_col]->peek());
     }
-    pErelman->pDriverLeader_->setStartPosition(geo_.x, geo_.y, geo_.z);
-    pErelman->pDriverLeader_->setStartAngle(geo_.rx, geo_.ry, geo_.rz);
+    pErelman->pVehicleLeader_->setStartPosition(geo_.x, geo_.y, geo_.z);
+    pErelman->pVehicleLeader_->setStartAngle(geo_.rx, geo_.ry, geo_.rz);
     pErelman->setPositionAround(geo_.x, geo_.y, geo_.z, PX_C(100));
     pErelman->setFaceAngTwd(pErelman->_x + (pErelman->_x - geo_.x),
                             pErelman->_y + (pErelman->_y - geo_.y),
                             pErelman->_z + (pErelman->_z - geo_.z) );
-    pErelman->getVecDriver()->setMvAngByFaceAng();
-    pErelman->getVecDriver()->setMvVelo(0);
-    pErelman->getVecDriver()->setMvAcce(80);
+    pErelman->getVecVehicle()->setMvAngByFaceAng();
+    pErelman->getVecVehicle()->setMvVelo(0);
+    pErelman->getVecVehicle()->setMvAcce(80);
 
 //    float sr = ANG_SIN(RCNV(0, getFormationRowNum() , prm_row , D0ANG, D360ANG));
 //    float sg = ANG_COS(RCNV(0, getFormationRowNum() , prm_row , D0ANG, D360ANG));

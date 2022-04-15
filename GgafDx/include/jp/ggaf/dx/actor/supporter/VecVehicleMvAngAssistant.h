@@ -1,5 +1,5 @@
-#ifndef GGAF_DX_VECDRIVERMVANGASSISTANT_H_
-#define GGAF_DX_VECDRIVERMVANGASSISTANT_H_
+#ifndef GGAF_DX_VECVEHICLEMVANGASSISTANT_H_
+#define GGAF_DX_VECVEHICLEMVANGASSISTANT_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/core/Object.h"
 #include "jp/ggaf/core/util/TrapezoidalVeloValue.hpp"
@@ -13,8 +13,8 @@ namespace GgafDx {
  * @since 2013/12/10
  * @author Masatoshi Tsuge
  */
-class VecDriverMvAngAssistant : public GgafCore::Object {
-    friend class VecDriver;
+class VecVehicleMvAngAssistant : public GgafCore::Object {
+    friend class VecVehicle;
 
 private:
 
@@ -35,7 +35,7 @@ private:
     Pendulum _pnd_rz;
     Pendulum _pnd_ry;
     /** [r]師匠 */
-    VecDriver* const _pMaster;
+    VecVehicle* const _pMaster;
     GgafCore::TrapezoidalVeloValue<int> _smthMvRzAng;
     GgafCore::TrapezoidalVeloValue<int> _smthMvRyAng;
 
@@ -50,7 +50,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pMaster  師匠
      */
-    explicit VecDriverMvAngAssistant(VecDriver* prm_pMaster);
+    explicit VecVehicleMvAngAssistant(VecVehicle* prm_pMaster);
 
 
     /**
@@ -285,9 +285,9 @@ public:
         _smthMvRyAng.stopTransitioning();
     }
 
-    virtual ~VecDriverMvAngAssistant();
+    virtual ~VecVehicleMvAngAssistant();
 };
 
 }
-#endif /*GGAF_DX_VECDRIVERMVANGASSISTANT_H_*/
+#endif /*GGAF_DX_VECVEHICLEMVANGASSISTANT_H_*/
 

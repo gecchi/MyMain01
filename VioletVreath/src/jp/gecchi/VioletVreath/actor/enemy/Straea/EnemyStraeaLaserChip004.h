@@ -10,7 +10,7 @@ class EnemyStraeaLaserChip004 : public VvEnemyActor<GgafLib::HomingLaserChip> {
 
 public:
     GgafDx::CurveManufactureConnection* pConn_pCurveManuf_;
-    GgafDx::DriverLeader* pDriverLeader_;
+    GgafDx::VehicleLeader* pVehicleLeader_;
 //    static GgafDx::TextureConnection* pTexCon1_;
 //    static GgafDx::TextureConnection* pTexCon2_;
 

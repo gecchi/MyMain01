@@ -1,7 +1,7 @@
 #include "BunshinMagic.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
-#include "jp/ggaf/dx/actor/supporter/GeoDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/GeoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectMagic001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectBunshinMagic001.h"
@@ -61,20 +61,20 @@ void BunshinMagic::processCastBegin(int prm_now_level, int prm_new_level) {
         MyMagicEnergyCore* pCore = pMyShip->pMyMagicEnergyCore_;
         angle* paAng_way = NEW angle[prm_new_level-prm_now_level];
         UTIL::getRadialAngle2D(0, prm_new_level-prm_now_level, paAng_way);
-        GgafDx::GeoDriver* const pCoreGeoDriver = pCore->getGeoDriver();
-        velo veloVxMv = pCoreGeoDriver->_velo_vx_mv;
-        velo veloVyMv = pCoreGeoDriver->_velo_vy_mv;
-        velo veloVzMv = pCoreGeoDriver->_velo_vz_mv;
+        GgafDx::GeoVehicle* const pCoreGeoVehicle = pCore->getGeoVehicle();
+        velo veloVxMv = pCoreGeoVehicle->_velo_x;
+        velo veloVyMv = pCoreGeoVehicle->_velo_y;
+        velo veloVzMv = pCoreGeoVehicle->_velo_z;
         EffectBunshinMagic001* pEffect;
         for (int lv = prm_now_level+1, n = 0; lv <= prm_new_level; lv++, n++) {
             pEffect = papEffect_[lv-1];
             pEffect->setPositionAt(pCore);
-            GgafDx::GeoDriver* const pEffectGeoDriver = pEffect->getGeoDriver();
-            pEffectGeoDriver->resetMv();
-            pEffectGeoDriver->setVxyzMvVelo(veloVxMv*0.8,
+            GgafDx::GeoVehicle* const pEffectGeoVehicle = pEffect->getGeoVehicle();
+            pEffectGeoVehicle->reset();
+            pEffectGeoVehicle->setVeloXYZ(veloVxMv*0.8,
                                           veloVyMv + (ANG_SIN(paAng_way[n]) * PX_C(3)),
                                           veloVzMv + (ANG_COS(paAng_way[n]) * PX_C(3)) ); //放射状にエフェクト放出
-            pEffectGeoDriver->execGravitationMvSequenceTwd(pMYSHIP, PX_C(10), PX_C(0.2), PX_C(2));
+            pEffectGeoVehicle->execGravitationMvSequenceTwd(pMYSHIP, PX_C(10), PX_C(0.2), PX_C(2));
             _TRACE_(getBehaveingFrame()<<":BunshinMagic::processCastBegin("<<prm_now_level<<","<<prm_new_level<<") papEffect_["<<(lv-1)<<"]->activate();");
             pEffect->activate();
             pEffect->blink(10, MAX_FRAME, 0, nullptr, false);
@@ -111,7 +111,7 @@ void BunshinMagic::processInvokeBegin(int prm_now_level, int prm_new_level) {
             MyBunshin* pMyBunshin = papBunshinBase[lv-1]->pBunshin_;
             pMyBunshin->setAlpha(0); //操作不可に設定
             pMyBunshin->getAlphaFader()->stop();
-            papEffect_[lv-1]->getGeoDriver()->execGravitationMvSequenceTwd(
+            papEffect_[lv-1]->getGeoVehicle()->execGravitationMvSequenceTwd(
                                              pMyBunshin,
                                              PX_C(10)+pMYSHIP->mv_speed_, PX_C(1), PX_C(20)
                                          );
@@ -143,8 +143,8 @@ void BunshinMagic::processEffectBegin(int prm_last_level, int prm_now_level)  {
             MyBunshin* pMyBunshin = papBunshinBase[lv-1]->pBunshin_;
             pMyBunshin->getAlphaFader()->transitionLinearUntil(1.0, 120);
             //操作可に
-            papEffect_[lv-1]->getGeoDriver()->stopGravitationMvSequence();
-            papEffect_[lv-1]->getGeoDriver()->resetMv();
+            papEffect_[lv-1]->getGeoVehicle()->stopGravitationMvSequence();
+            papEffect_[lv-1]->getGeoVehicle()->reset();
             papEffect_[lv-1]->blink2(6, 30, 120, pMyBunshin, false);
         }
     }

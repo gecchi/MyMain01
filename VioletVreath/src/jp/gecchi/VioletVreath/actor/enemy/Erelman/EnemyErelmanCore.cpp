@@ -1,14 +1,14 @@
 #include "EnemyErelmanCore.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dx/util/curve/DriverLeader.h"
+#include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Erelman/FormationErelman001.h"
 #include "EnemyErelmanController.h"
@@ -53,9 +53,9 @@ void EnemyErelmanCore::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    pVecDriver->linkFaceAngByMvAng(true);
-    pVecDriver->forceMvVeloRange(PX_C(15));
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    pVecVehicle->linkFaceAngByMvAng(true);
+    pVecVehicle->forceMvVeloRange(PX_C(15));
 }
 
 void EnemyErelmanCore::onActive() {
@@ -64,7 +64,7 @@ void EnemyErelmanCore::onActive() {
 }
 
 void EnemyErelmanCore::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
 
     GgafCore::Progress* const pProg = getProgress();
@@ -72,7 +72,7 @@ void EnemyErelmanCore::processBehavior() {
         case PROG_INIT: {
             setHitAble(false);
             setAlpha(0);
-//            pVecDriver->setRollFaceAngVelo(D_ANG(3));
+//            pVecVehicle->setRollFaceAngVelo(D_ANG(3));
             pProg->changeNext();
             break;
         }
@@ -95,7 +95,7 @@ void EnemyErelmanCore::processBehavior() {
 
         case PROG_WAIT01: {
             if (pProg->hasJustChanged()) {
-//                pVecDriver->setRollPitchYawFaceAngVelo(D_ANG(0.027), D_ANG(0.0031), D_ANG(0.0071));
+//                pVecVehicle->setRollPitchYawFaceAngVelo(D_ANG(0.027), D_ANG(0.0031), D_ANG(0.0071));
             }
             if (pProg->hasArrivedAt(10*60*60)) {
                 pProg->changeNext();
@@ -119,7 +119,7 @@ void EnemyErelmanCore::processBehavior() {
     }
 
     pAlphaFader->behave();
-    pVecDriver->behave();
+    pVecVehicle->behave();
 }
 
 void EnemyErelmanCore::processJudgement() {

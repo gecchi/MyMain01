@@ -2,8 +2,8 @@
 
 #include "jp/ggaf/core/actor/ex/ActorDepository.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
-#include "jp/ggaf/dx/actor/supporter/GeoDriver.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/GeoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Geria/EnemyGeria.h"
 #include "jp/gecchi/VioletVreath/God.h"
 
@@ -18,7 +18,7 @@ FormationGeria001::FormationGeria001(const char* prm_name) :
 
     setPosition(PX_C(5000), 0, PX_C(5000));
     setFaceAngTwd(PX_C(5000), 0, -PX_C(5000));
-    getGeoDriver()->setVxyzMvVelo(-2000, 0, 0);
+    getGeoVehicle()->setVeloXYZ(-2000, 0, 0);
 }
 
 void FormationGeria001::processBehavior() {
@@ -26,12 +26,12 @@ void FormationGeria001::processBehavior() {
         EnemyGeria* pGeria = summonGeria();
         if (pGeria) {
             pGeria->setPositionAroundAt(this, PX_C(800));
-            pGeria->getVecDriver()->setRzRyMvAng(_rz, _ry); //Œü‚¢‚Ä‚é•ûŒü‚É”ò‚Î‚·
-            pGeria->getVecDriver()->setMvVelo(PX_C(20));
+            pGeria->getVecVehicle()->setRzRyMvAng(_rz, _ry); //Œü‚¢‚Ä‚é•ûŒü‚É”ò‚Î‚·
+            pGeria->getVecVehicle()->setMvVelo(PX_C(20));
             pGeria->setMigrationLength(PX_C(10000));
         }
     }
-    getGeoDriver()->behave();
+    getGeoVehicle()->behave();
 }
 
 void FormationGeria001::processJudgement() {

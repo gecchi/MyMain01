@@ -1,6 +1,6 @@
 #include "TestChokiShot.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -24,11 +24,11 @@ void TestChokiShot::initialize() {
 void TestChokiShot::onActive() {
     getStatus()->reset();
     setHitAble(true);
-    getVecDriver()->setMvVelo(PX_C(30));
+    getVecVehicle()->setMvVelo(PX_C(30));
 }
 
 void TestChokiShot::processBehavior() {
-    getVecDriver()->behave();
+    getVecVehicle()->behave();
 }
 
 void TestChokiShot::processJudgement() {

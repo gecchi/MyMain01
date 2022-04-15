@@ -1,9 +1,9 @@
 #include "EnemyAntiope.h"
 
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/ggaf/dx/actor/supporter/GeoDriver.h"
+#include "jp/ggaf/dx/actor/supporter/GeoVehicle.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
@@ -50,8 +50,8 @@ void EnemyAntiope::onActive() {
 }
 
 void EnemyAntiope::processBehavior() {
-    GgafDx::VecDriver* const pVecDriver = getVecDriver();
-    GgafDx::GeoDriver* const pGeoDriver = getGeoDriver();
+    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::GeoVehicle* const pGeoVehicle = getGeoVehicle();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
 
     GgafCore::Progress* const pProg = getProgress();
@@ -59,9 +59,9 @@ void EnemyAntiope::processBehavior() {
          case PROG_INIT: {
              setHitAble(false);
              setAlpha(0);
-             pVecDriver->stopMv();
-             pVecDriver->setRollFaceAngVelo(D_ANG(10));
-             pGeoDriver->setZeroVxyzMvVelo();
+             pVecVehicle->stop();
+             pVecVehicle->setRollFaceAngVelo(D_ANG(10));
+             pGeoVehicle->setXYZZero();
              pProg->changeNext();
              break;
          }
@@ -84,24 +84,24 @@ void EnemyAntiope::processBehavior() {
 
          case PROG_MOVE01: { //放物線のような動き
              if (pProg->hasJustChanged()) {
-                 pVecDriver->setMvVelo(PX_C(30));
-                 pVecDriver->setMvAcce(-1000);
+                 pVecVehicle->setMvVelo(PX_C(30));
+                 pVecVehicle->setMvAcce(-1000);
                  //平行移動速度の方向ベクトル mv_velo_twd_ はフォーメーションが設定
-                 pGeoDriver->setVxyzMvVelo(mv_velo_twd_.x, mv_velo_twd_.y, mv_velo_twd_.z);
+                 pGeoVehicle->setVeloXYZ(mv_velo_twd_.x, mv_velo_twd_.y, mv_velo_twd_.z);
              }
 
-             if (pVecDriver->_velo_mv <= (-PX_C(30) + 1000)) {
+             if (pVecVehicle->_velo_mv <= (-PX_C(30) + 1000)) {
                  if (pP_) {
-                     pVecDriver->stopMv();
-                     pGeoDriver->setZeroVxyzMvVelo();
+                     pVecVehicle->stop();
+                     pGeoVehicle->setXYZZero();
                      pProg->change(PROG_LEAVE);
                  } else {
-                     pGeoDriver->setVxyzMvVelo(
-                                  mv_velo_twd_.x + (pVecDriver->_vX * pVecDriver->_velo_mv),
-                                  mv_velo_twd_.y + (pVecDriver->_vY * pVecDriver->_velo_mv),
-                                  mv_velo_twd_.z + (pVecDriver->_vZ * pVecDriver->_velo_mv)
+                     pGeoVehicle->setVeloXYZ(
+                                  mv_velo_twd_.x + (pVecVehicle->_vX * pVecVehicle->_velo_mv),
+                                  mv_velo_twd_.y + (pVecVehicle->_vY * pVecVehicle->_velo_mv),
+                                  mv_velo_twd_.z + (pVecVehicle->_vZ * pVecVehicle->_velo_mv)
                                 );
-                     pVecDriver->stopMv();
+                     pVecVehicle->stop();
                      pProg->change(PROG_RUSH);
                  }
              }
@@ -123,8 +123,8 @@ void EnemyAntiope::processBehavior() {
          case PROG_RUSH: {
              //相方がいなくなった場合
              if (pProg->hasJustChanged()) {
-                 pGeoDriver->execGravitationMvSequenceTwd(pMYSHIP, PX_C(30), 200, PX_C(50));
-                 pVecDriver->keepOnTurningFaceAngTwd(pMYSHIP, D_ANG(2), 0, TURN_CLOSE_TO, false);
+                 pGeoVehicle->execGravitationMvSequenceTwd(pMYSHIP, PX_C(30), 200, PX_C(50));
+                 pVecVehicle->keepOnTurningFaceAngTwd(pMYSHIP, D_ANG(2), 0, TURN_CLOSE_TO, false);
              }
              break;
          }
@@ -134,9 +134,9 @@ void EnemyAntiope::processBehavior() {
          }
      }
 
-//    _TRACE_(this<<":"<<getActiveFrame()<<" "<<_x<<","<<_y<<","<<_z<<"  ("<<_pVecDriver->_velo_mv<<") "<<_pVecDriver->_vX<<","<<_pVecDriver->_vY<<","<<_pVecDriver->_vZ<<"");
-    pVecDriver->behave();
-    pGeoDriver->behave();
+//    _TRACE_(this<<":"<<getActiveFrame()<<" "<<_x<<","<<_y<<","<<_z<<"  ("<<_pVecVehicle->_velo_mv<<") "<<_pVecVehicle->_vX<<","<<_pVecVehicle->_vY<<","<<_pVecVehicle->_vZ<<"");
+    pVecVehicle->behave();
+    pGeoVehicle->behave();
     pAlphaFader->behave();
 }
 

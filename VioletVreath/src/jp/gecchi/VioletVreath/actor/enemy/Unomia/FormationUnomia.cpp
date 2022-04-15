@@ -1,7 +1,7 @@
 #include "FormationUnomia.h"
 
-#include "jp/ggaf/dx/actor/supporter/VecDriver.h"
-#include "jp/ggaf/dx/util/curve/DriverLeader.h"
+#include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Unomia/EnemyUnomia.h"
@@ -86,7 +86,7 @@ void FormationUnomia::processBehavior() {
                         EnemyUnomia* pUnomia = (EnemyUnomia*)calledUpMember(num_formation_member_);
                         if (pUnomia) {
                             pUnomia->config(pConn_pCurveManuf_->peek(), nullptr, nullptr);
-                            pUnomia->getVecDriver()->setMvVelo(mv_velo_);
+                            pUnomia->getVecVehicle()->setMvVelo(mv_velo_);
                             onCalledUpUnomia(pUnomia, col); //フォーメーション個別実装の処理
                         }
                     }
@@ -109,10 +109,10 @@ void FormationUnomia::processBehavior() {
                     GgafDx::GeometricActor* pShot = (GgafDx::GeometricActor*)pDepo_shot_->dispatch();
                     if (pShot) {
                         pShot->setPositionAt(pUnomia);
-                        GgafDx::VecDriver* pShot_pVecDriver = pShot->getVecDriver();
-                        pShot_pVecDriver->setMvAngTwd(pMy);
-                        pShot_pVecDriver->setMvVelo(PX_C(10));
-                        pShot_pVecDriver->setMvAcce(0);
+                        GgafDx::VecVehicle* pShot_pVecVehicle = pShot->getVecVehicle();
+                        pShot_pVecVehicle->setMvAngTwd(pMy);
+                        pShot_pVecVehicle->setMvVelo(PX_C(10));
+                        pShot_pVecVehicle->setMvAcce(0);
                     }
                 }
                 if (pFollower->isLast()) {
