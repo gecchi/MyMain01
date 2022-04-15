@@ -152,7 +152,7 @@ public:
             frame offset_frames = (prm_offset_frames < 1 ? 1 : prm_offset_frames);
             pActor->inactivateImmed(); //即時非活性
             pActor->onInactive();      //nextFrame() で呼び出されるべき onInactive() が呼び出されないので、ここで呼ぶ
-            pActor->activateDelay(prm_offset_frames); //activate自動実行。
+            pActor->activateDelay(offset_frames); //activate自動実行。
         }
         return pActor;
     }
