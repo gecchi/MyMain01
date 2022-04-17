@@ -143,7 +143,7 @@ void TransitStage::processBehaviorProgPlaying() {
     SceneProgress* pProg = getProgress();
     switch (teansit_stage_) {
         case 0: //DEBUGƒXƒe[ƒW
-            if (pProg->hasArrivedAt(5)*60) {
+            if (pProg->hasArrivedAt(5*60)) {
                 //‚T•bŒo‚Á‚½‚ç“n“‡Ž
                 pMessage_->update("DEBUG STAGE DONE!! NEXT STAGE 1????");
                 next_main_stage_ = 1;
@@ -153,7 +153,7 @@ void TransitStage::processBehaviorProgPlaying() {
             break;
 
         case 1:
-             if (pProg->hasArrivedAt(5)*60) {
+             if (pProg->hasArrivedAt(5*60)) {
                 //‚T•bŒo‚Á‚½‚ç“n“‡Ž
                 pMessage_->update("OKOKOK!! NEXT STAGE 2");
                 next_main_stage_ = 2;
@@ -162,8 +162,7 @@ void TransitStage::processBehaviorProgPlaying() {
             }
             break;
         case 2:
-            if (pProg->hasArrivedAt(5)*60) {
-
+            if (pProg->hasArrivedAt(5*60)) {
                //‚T•bŒo‚Á‚½‚ç“n“‡Ž
                 pMessage_->update("OKOKOK!! NEXT STAGE 3?");
                next_main_stage_ = 3;

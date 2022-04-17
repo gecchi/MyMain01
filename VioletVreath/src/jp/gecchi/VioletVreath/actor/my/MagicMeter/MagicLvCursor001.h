@@ -24,8 +24,10 @@ public:
 
     void initialize() override;
 
+    void moveSmoothTo(int prm_lv) { //意図的に 上位の moveSmoothTo を hiding
+        MagicLvCursor::moveSmoothTo(prm_lv, 12, 0.3f, 0.7f);
+    }
 
-    void moveSmoothTo(int prm_lv); //意図的に 上位の moveSmoothTo を hiding
     /**
      * 操作不可状態表示 .
      */

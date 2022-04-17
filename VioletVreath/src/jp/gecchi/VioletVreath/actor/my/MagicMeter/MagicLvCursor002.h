@@ -25,7 +25,11 @@ public:
     MagicLvCursor002(const char* prm_name, MagicMeter* prm_pMagicMeter, Magic* prm_pMagic);
 
     void initialize() override;
-    void moveSmoothTo(int prm_lv, frame prm_spent=10); //意図的に 上位の moveSmoothTo を hiding
+
+    void moveSmoothTo(int prm_lv, frame prm_spent=10) { //意図的に 上位の moveSmoothTo を hiding
+        MagicLvCursor::moveSmoothTo(prm_lv, prm_spent, 0.3f, 0.7f); //じわ～っと移動
+    }
+
     /**
      * 操作不可状態表示 .
      */

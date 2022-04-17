@@ -546,7 +546,7 @@ void VvvWorld::processBehavior() {
             pActor = desireActor(GgafLib::DefaultRegularPolygonSpriteActor, "actor", model.c_str());
         } else if (ext == "X") {
             //DefaultMeshActor のみ x ファイル直接でも大丈夫
-            pActor = pActor = desireActor(GgafLib::DefaultMeshActor, "actor", model.c_str());
+            pActor = desireActor(GgafLib::DefaultMeshActor, "actor", model.c_str());
         }
         //アクター表示
         if (pActor) {

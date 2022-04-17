@@ -19,10 +19,6 @@ void MagicLvCursor001::initialize() {
     pUvFlipper->setActivePtnToTop();
 }
 
-void MagicLvCursor001::moveSmoothTo(int prm_lv) {
-    MagicLvCursor::moveSmoothTo(prm_lv, 12, 0.3f, 0.7f);
-}
-
 void MagicLvCursor001::dispDisable() {
     GgafDx::UvFlipper* pUvFlipper = getUvFlipper();
     int lock_ptn_no = 3; //最後のパターンの次はロック表示
