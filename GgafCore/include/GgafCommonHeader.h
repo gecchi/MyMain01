@@ -302,7 +302,7 @@
                     ","<< \
                     _frame_of_life_when_end<< \
                     ","<< \
-                    "prog="<<(_pPhase?_pPhase->_phase:-9)<<"("<<(_pPhase?_pPhase->getFrame():0)<<")"<< \
+                    "int="<<(_pPhase?_pPhase->_phase_no:-9)<<"("<<(_pPhase?_pPhase->getFrame():0)<<")"<< \
                     ","<< \
                     "id="<<getId()
 
@@ -329,7 +329,7 @@
                     ","<< \
                     _frame_of_life_when_end<< \
                     ","<< \
-                    "prog="<<(_pPhase?_pPhase->_phase:-9)<<"("<<(_pPhase?_pPhase->getFrame():0)<<")"<< \
+                    "int="<<(_pPhase?_pPhase->_phase_no:-9)<<"("<<(_pPhase?_pPhase->getFrame():0)<<")"<< \
                     ","<< \
                     "id="<<getId()
 

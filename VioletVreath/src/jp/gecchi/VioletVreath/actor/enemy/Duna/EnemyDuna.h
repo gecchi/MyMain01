@@ -19,7 +19,7 @@ class EnemyDuna : public VvEnemyActor<GgafLib::DefaultMorphMeshActor> {
 
 public:
     GgafDx::GeoElem next_pos_;
-    int nprog_;
+    int step_;
 public:
     /**
      * コンストラクタ

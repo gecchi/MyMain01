@@ -104,7 +104,7 @@ void GameScene::processBehavior() {
     }
 #endif
     ScenePhase* pPhase = getPhase();
-    switch (pPhase->getFromPhaseOnChange()) {
+    switch (pPhase->getPrevWhenChanged()) {
         case PHASE_MAIN: {
             _TRACE_(FUNC_NAME<<" Prog has Just Changed 'From' PHASE_MAIN");
             VB_UI->clear();

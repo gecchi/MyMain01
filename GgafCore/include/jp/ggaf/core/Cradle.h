@@ -55,7 +55,7 @@ public:
     /** ‚ä‚è‚©‚²”Ô† */
     uint64_t _cradle_no;
     /** i’»‹ï‡i0:–¢’…è/1:j•Ÿ’†/2:j•ŸÏ‚İj */
-    int _phase;
+    int _phase_no;
     /** –½‚Ö‚Ìä`‚Ì */
     Object* _pObject_creation;
 

@@ -17,13 +17,10 @@
 #define GGAF_PHASE_NOTHING (-1)
 #define GGAF_PHASE_NULL (-2)
 
-typedef int_fast32_t phase;
-
 namespace GgafCore {
 
 /**
- * フェーズ進捗管理クラス .
- * フェーズを管理する機能を持ったのクラスです。
+ * フェーズ管理クラス .
  * 時間経過に伴い、フェーズ番号を変更を行うメソッドを提供、
  * また、フェーズ番号を変更に伴う様々な条件成立のメソッドを提供する。<br>
  * @version 1.00
@@ -34,13 +31,13 @@ class Phase : public Object {
 
 public:
     /** [r]現在フェーズ番号(-1, 0～) */
-    phase _phase;
-    /** [r]１単位時間前のフェーズ番号(-1, 0～) */
-    phase _phase_prev;
+    int _phase_no;
+    /** [r]１フレーム前のフェーズ番号(-1, 0～) */
+    int _phase_no_prev;
     /** [r]次の単位時間加算時に反映予定のフェーズ番号(-1, 0～) */
-    phase _phase_next;
+    int _phase_no_next;
     /** [r]各フェーズ番号の進捗変更時の時間の保存 */
-    std::unordered_map<phase, frame> _map_changed_frame;
+    std::unordered_map<int, frame> _map_phase_no_changed_frame;
     /** [r]時間カウンター(時間経過に伴い増加する何らかの変数)の参照 */
     frame* _p_frame_counter;
 
@@ -60,8 +57,8 @@ public:
      * 現在のフェーズ番号取得 .
      * @return フェーズ番号(GGAF_PHASE_NOTHING or 0～)
      */
-    inline phase get() const {
-        return _phase;
+    inline int get() const {
+        return _phase_no;
     }
 
     /**
@@ -72,9 +69,9 @@ public:
      * という設計。<BR>
      * 【注意】<BR>
      * hasJustChanged() は成立しません。<BR>
-     * @param prm_phase フェーズ番号(0～)
+     * @param prm_phase_no フェーズ番号(0～)
      */
-    void reset(phase prm_phase);
+    void reset(int prm_phase_no);
 
     /**
      * 現在の進捗を無し GGAF_PHASE_NOTHING(-1) に設定する .
@@ -84,10 +81,10 @@ public:
 
     /**
      * 引数のフェーズ番号へ変更された時の時間を調べる .
-     * @param prm_phase フェーズ番号(0～)
+     * @param prm_phase_no フェーズ番号(0～)
      * @return 引数のフェーズ番号へ変更された時(直近)の時間
      */
-    frame getFrameWhenChanged(phase prm_phase);
+    frame getFrameWhenChanged(int prm_phase_no);
 
     /**
      * 現在のフェーズ番号内で何フレームなのかを取得(0～) .
@@ -96,7 +93,7 @@ public:
      * @return 進捗内経過時間
      */
     inline frame getFrame() const {
-        std::unordered_map<phase, frame>::const_iterator i = _map_changed_frame.find(_phase);
+        std::unordered_map<int, frame>::const_iterator i = _map_phase_no_changed_frame.find(_phase_no);
         return ((*_p_frame_counter) - (i->second));
     }
 
@@ -106,7 +103,7 @@ public:
      * @return
      */
     inline bool hasArrivedFrameAt(frame prm_frame) const {
-        std::unordered_map<phase, frame>::const_iterator i = _map_changed_frame.find(_phase);
+        std::unordered_map<int, frame>::const_iterator i = _map_phase_no_changed_frame.find(_phase_no);
         return prm_frame == ((*_p_frame_counter) - (i->second)) ? true : false;
     }
 
@@ -114,10 +111,10 @@ public:
      * フェーズ番号を変更 .
      * 但し、直後には反映されず update() 時に反映される。
      * GGAF_PHASE_NOTHING(-1) は設定不可。
-     * reset(phase) と使い分けること。
-     * @param prm_phase フェーズ番号(0～)
+     * reset(int) と使い分けること。
+     * @param prm_phase_no フェーズ番号(0～)
      */
-    virtual void change(phase prm_phase);
+    virtual void change(int prm_phase_no);
 
     /**
      * フェーズ番号を確率別で変更 .
@@ -147,7 +144,7 @@ public:
      * @param prm_p1 確率その１
      * @param prm_v1 その確率で変更するフェーズ番号その１(0～)
      */
-    void changeProbab(uint32_t prm_p1, phase prm_v1, ...);
+    void changeProbab(uint32_t prm_p1, int prm_v1, ...);
 
     /**
      * フェーズ番号を無し GGAF_PHASE_NOTHING(-1) に変更 .
@@ -158,7 +155,7 @@ public:
     /**
      * フェーズ番号を+1する .
      * 但し、直後には反映されず update() 時に反映される。
-     * change(_phase+1) と同じ意味である。
+     * change(_phase_no+1) と同じ意味である。
      */
     virtual void changeNext();
 
@@ -175,13 +172,13 @@ public:
 
     /**
      * フェーズ番号が切り替わった直後なのかどうかを判定。 .
-     * change(phase) によりフェーズ番号切り替えた次の update() 時だけ true になります。<BR>
-     * reset(phase) によりフェーズ番号切り替えた場合は成立しません。<BR>
-     * change(phase) 又は changeNext() を実行した次フレームで取得条件が成立。
+     * change(int) によりフェーズ番号切り替えた次の update() 時だけ true になります。<BR>
+     * reset(int) によりフェーズ番号切り替えた場合は成立しません。<BR>
+     * change(int) 又は changeNext() を実行した次フレームで取得条件が成立。
      * @return true:進捗に切り替わった直後である／false:それ以外
      */
     inline bool hasJustChanged() const {
-        if (_phase != _phase_prev && _phase_prev >= GGAF_PHASE_NOTHING) {
+        if (_phase_no != _phase_no_prev && _phase_no_prev >= GGAF_PHASE_NOTHING) {
             return true;
         } else {
             return false;
@@ -192,70 +189,70 @@ public:
      * @return
      */
     inline bool isNothing() const {
-        return _phase == GGAF_PHASE_NOTHING ? true : false;
+        return _phase_no == GGAF_PHASE_NOTHING ? true : false;
     }
 
     /**
      * 引数のフェーズ番号に切り替わった直後なのかどうか調べる。.
      * hasJustChanged() に現在のフェーズ番号の条件を付加します。
-     * change(phase) 又は changeNext() を実行した次フレームで取得条件が成立。
-     * @param prm_phase 現在のフェーズ番号条件
+     * change(int) 又は changeNext() を実行した次フレームで取得条件が成立。
+     * @param prm_phase_no 現在のフェーズ番号条件
      * @return true:引数のフェーズ番号に切り替わった／false:そうではない
      */
-    bool hasJustChangedTo(phase prm_phase) const;
+    bool hasJustChangedTo(int prm_phase_no) const;
 
     /**
      * 引数のフェーズ番号から切り替わった直後なのかどうかを調べる。.
      * hasJustChanged() に前回のフェーズ番号の条件を付加します。
-     * change(phase) 又は changeNext() を実行した次フレームで取得条件が成立。
-     * @param prm_phase 前回（切り替わる前）のフェーズ番号
+     * change(int) 又は changeNext() を実行した次フレームで取得条件が成立。
+     * @param prm_phase_no 前回（切り替わる前）のフェーズ番号
      * @return true:切り替わった際、前回のフェーズ番号は引数のフェーズ番号だった／false:そうではない
      */
-    bool hasJustChangedFrom(phase prm_phase) const;
+    bool hasJustChangedFrom(int prm_phase_no) const;
 
     /**
      * フェーズ番号が変化したか（前回と同じかどうか）調べる .
      * 変化した場合、その新しいフェーズ番号を返す。
-     * change(phase) 又は changeNext() を実行した次フレームで取得条件が成立。
-     * reset(phase) によりフェーズ番号切り替えた場合は成立しません。<BR>
+     * change(int) 又は changeNext() を実行した次フレームで取得条件が成立。
+     * reset(int) によりフェーズ番号切り替えた場合は成立しません。<BR>
      * @return GGAF_PHASE_NULL(-2) 又は GGAF_PHASE_NOTHING(-1) 又は フェーズ番号
      *         GGAF_PHASE_NULL   ：フェーズ番号が変化していない
      *         GGAF_PHASE_NOTHING：フェーズ番号が無し GGAF_PHASE_NOTHING(-1) に変化した直後だった。
      *         0～               ：フェーズ番号が変化した直後であるので、その新しいフェーズ番号を返す
      */
-    phase getPhaseOnChange() const;
+    int getWhenChanged() const;
 
     /**
      * フェーズ番号が何から変化したか調べる .
      * 変化した場合、その元のフェーズ番号を返す。
-     * change(phase) 又は changeNext() を実行した次フレームで取得条件が成立。
-     * reset(phase) によりフェーズ番号切り替えた場合は成立しません。<BR>
+     * change(int) 又は changeNext() を実行した次フレームで取得条件が成立。
+     * reset(int) によりフェーズ番号切り替えた場合は成立しません。<BR>
      * @return GGAF_PHASE_NULL(-2) 又は GGAF_PHASE_NOTHING(-1) 又は フェーズ番号
      *         GGAF_PHASE_NULL   ：フェーズ番号が変化していない
      *         GGAF_PHASE_NOTHING：フェーズ番号が無し GGAF_PHASE_NOTHING(-1) から変化した直後だった。
      *         0～               ：フェーズ番号が変化がした直後であるので、変化前の元のフェーズ番号返す
      */
-    phase getFromPhaseOnChange() const;
+    int getPrevWhenChanged() const;
 
     /**
      * フェーズ番号が次フレームに変更される予定ならば、現在のフェーズ番号を取得する .
-     * 同一フレーム内で change(phase) 又は changeNext() を実行済みの場合、取得条件が成立。
+     * 同一フレーム内で change(int) 又は changeNext() を実行済みの場合、取得条件が成立。
      * @return GGAF_PHASE_NULL(-2) 又は GGAF_PHASE_NOTHING(-1) 又は フェーズ番号
      *         GGAF_PHASE_NULL   ：次フレームにフェーズ番号が変更される予定ではない。
      *         GGAF_PHASE_NOTHING：現在進捗が無し GGAF_PHASE_NOTHING(-1) で、次フレームにフェーズ番号が変更される予定である。
      *         0～               ：次フレームにフェーズ番号が変更される予定であるので、現在のフェーズ番号を返す。
      */
-    phase getPhaseWhenPhaseWillChange() const;
+    int getWillChangeNextFrame() const;
 
     /**
      * フェーズ番号が次フレームに変更される予定ならば、その変更されるフェーズ番号を取得する .
-     * 同一フレーム内で change(phase) 又は changeNext() を実行済みの場合、取得条件が成立。
+     * 同一フレーム内で change(int) 又は changeNext() を実行済みの場合、取得条件が成立。
      * @return GGAF_PHASE_NULL(-2) 又は GGAF_PHASE_NOTHING(-1) 又は フェーズ番号
      *         GGAF_PHASE_NULL   ：次フレームにフェーズ番号が変更される予定ではない。
      *         GGAF_PHASE_NOTHING：次フレームに進捗無し GGAF_PHASE_NOTHING(-1) となる予定である。
-     *         0～             ：次フレームにフェーズ番号が変更される予定であるので、その新しいフェーズ番号を返す。
+     *         0～               ：次フレームにフェーズ番号が変更される予定であるので、その新しいフェーズ番号を返す。
      */
-    phase getToPhaseWhenPhaseWillChange() const;
+    int getPrevWillChangeNextFrame() const;
 
     /**
      * 時間に伴って進捗を更新 .

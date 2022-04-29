@@ -63,13 +63,13 @@ typedef frame magic_time;
 class Magic : public GgafCore::MainActor {
 public:
     enum {
-        STATE_NOTHING     ,
-        STATE_RE_CASTING  ,
-        STATE_CASTING     ,
-        STATE_INVOKING    ,
-        STATE_RE_EFFECT   ,
-        STATE_EFFECT_START,
-        STATE_ABANDONING  ,
+        PHASE_NOTHING     ,
+        PHASE_RE_CASTING  ,
+        PHASE_CASTING     ,
+        PHASE_INVOKING    ,
+        PHASE_RE_EFFECT   ,
+        PHASE_EFFECT_START,
+        PHASE_ABANDONING  ,
         PHASE_BANPEI,
     };
 
@@ -182,7 +182,7 @@ public:
     /** [r]次の進捗状態になる為に必要なフレーム数(を一時保持) */
     magic_time time_of_next_state_;
 
-    phase temp_hold_status_;
+    int temp_hold_status_;
     int temp_hold_new_level_;
 
     int last_cast_;

@@ -81,7 +81,7 @@ void GameTitleScene::initialize() {
 void GameTitleScene::processBehavior() {
 
     ScenePhase* pPhase = getPhase();
-    switch (pPhase->getFromPhaseOnChange()) {
+    switch (pPhase->getPrevWhenChanged()) {
         default: {
             break;
         }

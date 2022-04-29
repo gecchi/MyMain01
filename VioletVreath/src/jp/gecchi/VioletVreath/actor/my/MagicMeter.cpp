@@ -305,7 +305,7 @@ void MagicMeter::processBehavior() {
         }
 
         //詠唱開始
-        if (pMagicProg->hasJustChangedTo(Magic::STATE_CASTING)) {
+        if (pMagicProg->hasJustChangedTo(Magic::PHASE_CASTING)) {
             switch (pMagic->last_cast_) {
                 case MAGIC_CAST_OK_LEVELUP: {
                     getSeTransmitter()->play(SE_EXECUTE_LEVELUP_MAGIC);
@@ -358,7 +358,7 @@ void MagicMeter::processBehavior() {
             }
         }
         //詠唱中
-        if (pMagicProg->get() == Magic::STATE_CASTING) {
+        if (pMagicProg->get() == Magic::PHASE_CASTING) {
             if (pMagic->new_level_ > pMagic_level) {
                 //レベルアップなら音程アップ
                 float r = ((float)(pMagicProg->getFrame())) / ((float)(pMagic->time_of_next_state_));
@@ -366,12 +366,12 @@ void MagicMeter::processBehavior() {
             }
         }
         //詠唱中ではなくなった
-        if (pMagicProg->hasJustChangedFrom(Magic::STATE_CASTING)) {
+        if (pMagicProg->hasJustChangedFrom(Magic::PHASE_CASTING)) {
             pSeTx4Cast_->stop(m); //消音
         }
 
         //発動開始時
-        if (pMagicProg->hasJustChangedTo(Magic::STATE_INVOKING)) {
+        if (pMagicProg->hasJustChangedTo(Magic::PHASE_INVOKING)) {
             switch (pMagic->last_invoke_) {
                 case MAGIC_INVOKE_OK_LEVELUP: {
                     pSeTx4Invoke_->play(m, true);
@@ -399,7 +399,7 @@ void MagicMeter::processBehavior() {
             }
         }
         //発動中
-        if (pMagicProg->get() == Magic::STATE_INVOKING) {
+        if (pMagicProg->get() == Magic::PHASE_INVOKING) {
             if (pMagic->new_level_ > pMagic_level) {
                 //レベルアップ時
                 float r = ((float)(pMagicProg->getFrame())) / ((float)(pMagic->time_of_next_state_));
@@ -407,13 +407,13 @@ void MagicMeter::processBehavior() {
             }
         }
         //発動ではなくなった
-        if (pMagicProg->hasJustChangedFrom(Magic::STATE_INVOKING)) {
+        if (pMagicProg->hasJustChangedFrom(Magic::PHASE_INVOKING)) {
             pSeTx4Invoke_->stop(m); //消音
             pLvTgtMvCur->dispEnable(); //操作不可表示を解除
             pLvNowCur->dispEnable();
         }
         //効果開始時
-        if (pMagicProg->hasJustChangedTo(Magic::STATE_EFFECT_START)) {
+        if (pMagicProg->hasJustChangedTo(Magic::PHASE_EFFECT_START)) {
             switch (pMagic->last_effect_) {
                 case MAGIC_EFFECT_OK_LEVELUP: {
                     if (pMagic->effecting_frames_base_ == 0) {
@@ -456,11 +456,11 @@ void MagicMeter::processBehavior() {
             }
         }
 
-        //STATE_NOTHINGへ移行した
-        if (pMagicProg->hasJustChangedTo(Magic::STATE_NOTHING)) {
-            if (pMagicProg->hasJustChangedFrom(Magic::STATE_CASTING)) { //詠唱→STATE_NOTHING
+        //PHASE_NOTHINGへ移行した
+        if (pMagicProg->hasJustChangedTo(Magic::PHASE_NOTHING)) {
+            if (pMagicProg->hasJustChangedFrom(Magic::PHASE_CASTING)) { //詠唱→PHASE_NOTHING
                 //空詠唱（詠唱をキャンセルした or 詠唱したが詠唱完了時にMPが足りなかった）
-                _TRACE_(FUNC_NAME<<" ["<<pMagic->getName()<<"] 詠唱→STATE_NOTHING 空詠唱乙。");
+                _TRACE_(FUNC_NAME<<" ["<<pMagic->getName()<<"] 詠唱→PHASE_NOTHING 空詠唱乙。");
                 pLvCastingCur->markOff(); //マークオフ！
                 pLvNowCur->moveSmoothTo(pMagic_level);
                 pLvTgtMvCur->moveSmoothTo(pMagic_level); //レベルカーソルをアクティブレベルに戻す
@@ -471,9 +471,9 @@ void MagicMeter::processBehavior() {
                     getSeTransmitter()->play(SE_CURSOR_MOVE_LEVEL_CANCEL);
                 }
             }
-            if (pMagicProg->hasJustChangedFrom(Magic::STATE_INVOKING)) {  //発動→STATE_NOTHING
+            if (pMagicProg->hasJustChangedFrom(Magic::PHASE_INVOKING)) {  //発動→PHASE_NOTHING
                 //空発動（発動したが、発動完了時、MPが足りなかったので、効果開始出来なかった）
-                _TRACE_(FUNC_NAME<<" ["<<pMagic->getName()<<"] 発動→STATE_NOTHING 空発動乙 ");
+                _TRACE_(FUNC_NAME<<" ["<<pMagic->getName()<<"] 発動→PHASE_NOTHING 空発動乙 ");
                 pLvCastingCur->markOff(); //マークオフ！
                 pLvNowCur->moveSmoothTo(pMagic_level);
                 pLvTgtMvCur->moveSmoothTo(pMagic_level); //レベルカーソルをアクティブレベルに戻す
@@ -510,14 +510,14 @@ void MagicMeter::processBehavior() {
         alpha_velo_ = 0.05f;
         Magic* pActiveMagic = lstMagic_.getCurrent();     //アクティブな魔法
         int active_idx = lstMagic_.getCurrentIndex();     //アクティブな魔法のインデックス
-        phase active_prg = pActiveMagic->getPhase()->get();  //アクティブな魔法の進捗
+        int active_phase = pActiveMagic->getPhase()->get();  //アクティブな魔法の進捗
         if (pMyShip->canControl() && pVbPlay->isPushedDown(VB_POWERUP)) {
             rollOpen(active_idx);
         }
 
         if (pVbPlay->isAutoRepeat(VB_RIGHT)) {    //「→」押下時
             //レベル表示
-            if (active_prg == Magic::STATE_CASTING) {
+            if (active_phase == Magic::PHASE_CASTING) {
                 if (papLvTgtMvCur_[active_idx]->point_lv_ != papLvCastingCur_[active_idx]->point_lv_) {
                     getSeTransmitter()->play(SE_CURSOR_MOVE_LEVEL_CANCEL);
                     papLvTgtMvCur_[active_idx]->moveSmoothTo(papLvCastingCur_[active_idx]->point_lv_); //レベルカーソルを詠唱先レベルに戻す
@@ -533,7 +533,7 @@ void MagicMeter::processBehavior() {
             lstMagic_.next(); //メーターを１つ進める
             pActiveMagic= lstMagic_.getCurrent();     //更新
             active_idx = lstMagic_.getCurrentIndex(); //更新
-            active_prg = pActiveMagic->getPhase()->get(); //更新
+            active_phase = pActiveMagic->getPhase()->get(); //更新
 
             rollOpen(active_idx);  //進めた先をロールオープン
             pMainCur_->moveTo(active_idx); //メーターカーソルも１つ進める
@@ -541,7 +541,7 @@ void MagicMeter::processBehavior() {
 
         } else if (pVbPlay->isAutoRepeat(VB_LEFT)) { //「←」押下時
             //レベル表示
-            if (active_prg == Magic::STATE_CASTING) {
+            if (active_phase == Magic::PHASE_CASTING) {
                 if (papLvTgtMvCur_[active_idx]->point_lv_ != papLvCastingCur_[active_idx]->point_lv_) {
                     getSeTransmitter()->play(SE_CURSOR_MOVE_LEVEL_CANCEL);
                     papLvTgtMvCur_[active_idx]->moveSmoothTo(papLvCastingCur_[active_idx]->point_lv_); //レベルカーソルを詠唱先レベルに戻す
@@ -557,7 +557,7 @@ void MagicMeter::processBehavior() {
             lstMagic_.prev(); //メーターを１つ戻す
             pActiveMagic= lstMagic_.getCurrent();     //更新
             active_idx = lstMagic_.getCurrentIndex(); //更新
-            active_prg = pActiveMagic->getPhase()->get(); //更新
+            active_phase = pActiveMagic->getPhase()->get(); //更新
 
             rollOpen(active_idx); //戻した先をロールオープン
             pMainCur_->moveTo(active_idx); //メーターカーソルも１つ戻す

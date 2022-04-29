@@ -97,7 +97,7 @@ void PreDrawScene::processBehavior() {
     ScenePhase* pPhase = getPhase();
     switch (pPhase->get()) {
         case PHASE_READY: {
-            if (pPhase->getFrame() == 20) {
+            if (pPhase->getFrame() == 60) {
                 order_id_begin_ = ID_ORDER_BEGIN;
                 int id = order_id_begin_;
                 requestTestActor(id, CubeMapMeshActor                   ,"_chk_TestCubeMapMeshActorModel"                     );    id++;
@@ -142,7 +142,7 @@ void PreDrawScene::processBehavior() {
             if (pPhase->hasJustChanged()) {
                 _id_ = 0;
             }
-            if (pPhase->getFrame() % 10U == 0 && pGOD->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX) {
+            if (pPhase->getFrame() % 6U == 0 && pGOD->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX) {
                 if (_id_ > order_id_end_-order_id_begin_) {
                     pPhase->changeNext();
                 } else {

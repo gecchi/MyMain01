@@ -40,7 +40,7 @@ void GameOverScene::initialize() {
 
 void GameOverScene::processBehavior() {
 
-//    switch (pPhase->getFromPhaseOnChange()) {
+//    switch (pPhase->getPrevWhenChanged()) {
 //        case PHASE_DISP: {
 //            fadeoutSceneWithBgm(FADE_FRAMES);
 //            inactivateDelay(FADE_FRAMES);

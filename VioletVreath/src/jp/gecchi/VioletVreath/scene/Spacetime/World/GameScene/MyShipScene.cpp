@@ -100,7 +100,7 @@ void MyShipScene::onActive() {
 void MyShipScene::processBehavior() {
     Spacetime* pSpacetime = pGOD->getSpacetime();
      ScenePhase* pPhase = getPhase();
-    switch (pPhase->getFromPhaseOnChange()) {
+    switch (pPhase->getPrevWhenChanged()) {
         case PHASE_BEGIN: {
             pSpacetime->getCameraWorkerChanger()->undoCameraWork(); //MyShipDivingCamWorker‰ğœ
             break;
