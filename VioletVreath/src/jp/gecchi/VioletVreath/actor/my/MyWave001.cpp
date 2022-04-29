@@ -18,7 +18,7 @@ MyWave001::MyWave001(const char* prm_name) :
 
 void MyWave001::initialize() {
     //exec(FLIP_OSCILLATE_LOOP, 2);
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->setRzMvAngVelo(0);
     //_pVecVehicle->setFaceAngVelo(AXIS_Z, 2*1000);
     //_pVecVehicle->setRzMvAng(0);
@@ -50,7 +50,7 @@ void MyWave001::initialize() {
 }
 
 void MyWave001::processBehavior() {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     GgafDx::Scaler* const pScaler = getScaler();
 
     if (hasJustChangedToActive()) {

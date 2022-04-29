@@ -19,10 +19,10 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG_INIT ,
-    PROG_ENTRY,
-    PROG_MOVE ,
-    PROG_BANPEI,
+    PHASE_INIT ,
+    PHASE_ENTRY,
+    PHASE_MOVE ,
+    PHASE_BANPEI,
 };
 enum {
     SE_DAMAGED  ,
@@ -149,33 +149,33 @@ void EnemyErmione::onActive() {
     getStatus()->reset();
     setMorphWeight(1, 0.0);
 
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
     setHitAble(false);
 }
 
 void EnemyErmione::processBehavior() {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
-    GgafCore::Progress* const pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_INIT: {
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafCore::Phase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_INIT: {
             setHitAble(false);
             setAlpha(0);
             pVecVehicle->setMvVelo(10);
-            pProg->changeNext();
+            pPhase->changeNext();
             break;
         }
 
-        case PROG_ENTRY: {
+        case PHASE_ENTRY: {
             EffectBlink* pEffectEntry = nullptr;
-            if (pProg->hasJustChanged()) {
+            if (pPhase->hasJustChanged()) {
                 pEffectEntry = UTIL::activateEntryEffectOf(this);
             }
             static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
             static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
-            if (pProg->hasArrivedAt(frame_of_summons_begin)) {
+            if (pPhase->hasArrivedFrameAt(frame_of_summons_begin)) {
                 getAlphaFader()->transitionLinearUntil(1.0, frame_of_entering);
             }
-            if (pProg->hasArrivedAt(frame_of_entering)) {
+            if (pPhase->hasArrivedFrameAt(frame_of_entering)) {
                 setHitAble(true);
                 throwEventLowerTree(EVENT_ERMIONE_ENTRY_DONE);
                 pVecVehicle->setMvAngTwd(pMYSHIP);
@@ -184,13 +184,13 @@ void EnemyErmione::processBehavior() {
                         pMYSHIP, TURN_CLOSE_TO, true, 60*30,
                         0.4, 0.6, 0, true);
 
-                pProg->changeNext();
+                pPhase->changeNext();
             }
             break;
         }
 
-        case PROG_MOVE: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_MOVE: {
+            if (pPhase->hasJustChanged()) {
                 pVecVehicle->setFaceAngVelo(AXIS_X, 55);
                 pVecVehicle->setFaceAngVelo(AXIS_Y, 53);
                 pVecVehicle->setFaceAngVelo(AXIS_Z, 51);

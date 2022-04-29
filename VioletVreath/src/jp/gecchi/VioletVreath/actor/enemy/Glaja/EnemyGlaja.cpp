@@ -23,14 +23,14 @@ enum {
     SE_EXPLOSION ,
 };
 enum {
-    PROG_INIT   ,
-    PROG_ENTRY  ,
-    PROG_MOVE01 ,
-    PROG_MOVE02 ,
-    PROG_OPEN ,
-    PROG_FIRE ,
-    PROG_CLOSE ,
-    PROG_BANPEI,
+    PHASE_INIT   ,
+    PHASE_ENTRY  ,
+    PHASE_MOVE01 ,
+    PHASE_MOVE02 ,
+    PHASE_OPEN ,
+    PHASE_FIRE ,
+    PHASE_CLOSE ,
+    PHASE_BANPEI,
 };
 
 EnemyGlaja::EnemyGlaja(const char* prm_name) :
@@ -57,42 +57,42 @@ void EnemyGlaja::initialize() {
 
 void EnemyGlaja::onActive() {
     getStatus()->reset();
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 
 void EnemyGlaja::processBehavior() {
     MyShip* pMyShip = pMYSHIP;
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
-    GgafCore::Progress* const pProg = getProgress();
-    switch (pProg->get()) {
-         case PROG_INIT: {
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafCore::Phase* pPhase = getPhase();
+    switch (pPhase->get()) {
+         case PHASE_INIT: {
              setHitAble(false);
              setAlpha(0);
              pVecVehicle->keepOnTurningFaceAngTwd(pMyShip,
                                                D_ANG(2), 0, TURN_CLOSE_TO, false);
              setMorphWeight(0.0);
-             pProg->changeNext();
+             pPhase->changeNext();
              break;
          }
-         case PROG_ENTRY: {
+         case PHASE_ENTRY: {
              EffectBlink* pEffectEntry = nullptr;
-             if (pProg->hasJustChanged()) {
+             if (pPhase->hasJustChanged()) {
                  pEffectEntry = UTIL::activateEntryEffectOf(this);
              }
              static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
              static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
-             if (pProg->hasArrivedAt(frame_of_summons_begin)) {
+             if (pPhase->hasArrivedFrameAt(frame_of_summons_begin)) {
                  getAlphaFader()->transitionLinearUntil(1.0, frame_of_entering);
              }
-             if (pProg->hasArrivedAt(frame_of_entering)) {
+             if (pPhase->hasArrivedFrameAt(frame_of_entering)) {
                  setHitAble(true);
-                 pProg->changeNext();
+                 pPhase->changeNext();
              }
              break;
          }
 
-         case PROG_MOVE01: {
-             if (pProg->hasJustChanged()) {
+         case PHASE_MOVE01: {
+             if (pPhase->hasJustChanged()) {
                  next_pos_.set(
                              pMyShip->_x + PX_C(300) + RND(PX_C(-100), PX_C(100)),
                              pMyShip->_y + RND(PX_C(-400), PX_C(400)),
@@ -107,32 +107,32 @@ void EnemyGlaja::processBehavior() {
              }
 
              if (pVecVehicle->asstMv()->hasJustFinishedSliding()) {
-                 pProg->changeNext();
+                 pPhase->changeNext();
              }
              break;
          }
 
-         case PROG_MOVE02: {
-             if (pProg->hasJustChanged()) {
+         case PHASE_MOVE02: {
+             if (pPhase->hasJustChanged()) {
              }
-             if (pProg->hasArrivedAt(60)) {
-                 pProg->changeNext();
+             if (pPhase->hasArrivedFrameAt(60)) {
+                 pPhase->changeNext();
              }
              break;
          }
 
-         case PROG_OPEN: {
-             if (pProg->hasJustChanged()) {
+         case PHASE_OPEN: {
+             if (pPhase->hasJustChanged()) {
                  getMorpher()->transitionLinearUntil(MPH_OPEN, 1.0, 30);
              }
-             if (pProg->hasArrivedAt(30)) {
-                 pProg->changeNext();
+             if (pPhase->hasArrivedFrameAt(30)) {
+                 pPhase->changeNext();
              }
              break;
          }
 
-         case PROG_FIRE: {
-             if (pProg->hasJustChanged()) {
+         case PHASE_FIRE: {
+             if (pPhase->hasJustChanged()) {
                  num_fire_ = RF_EnemyGlaja_ShotWay(G_RANK);
                  UTIL::shotWay004(
                      this,
@@ -145,18 +145,18 @@ void EnemyGlaja::processBehavior() {
                  );
 
              }
-             if (pProg->getFrame() >= num_fire_*5) {
-                 pProg->changeNext();
+             if (pPhase->getFrame() >= num_fire_*5) {
+                 pPhase->changeNext();
              }
              break;
          }
 
-         case PROG_CLOSE: {
-             if (pProg->hasJustChanged()) {
+         case PHASE_CLOSE: {
+             if (pPhase->hasJustChanged()) {
                  getMorpher()->transitionLinearUntil(MPH_OPEN, 0.0, 30);
              }
-             if (pProg->hasArrivedAt(30)) {
-                 pProg->change(PROG_MOVE01); //ŒJ‚è•Ô‚µ
+             if (pPhase->hasArrivedFrameAt(30)) {
+                 pPhase->change(PHASE_MOVE01); //ŒJ‚è•Ô‚µ
              }
              break;
          }
@@ -168,7 +168,7 @@ void EnemyGlaja::processBehavior() {
     pVecVehicle->behave();
     getMorpher()->behave();
     getAlphaFader()->behave();
-//_TRACE_("EnemyGlaja f:"<<getBehaveingFrame()<<"  pProg="<<pProg->get()<<"   X,Y,Z="<<_x<<","<<_y<<","<<_z<<" ");
+//_TRACE_("EnemyGlaja f:"<<getBehaveingFrame()<<"  pPhase="<<pPhase->get()<<"   X,Y,Z="<<_x<<","<<_y<<","<<_z<<" ");
 }
 
 void EnemyGlaja::processJudgement() {

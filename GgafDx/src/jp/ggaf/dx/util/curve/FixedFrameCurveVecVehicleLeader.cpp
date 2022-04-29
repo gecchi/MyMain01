@@ -53,7 +53,7 @@ void FixedFrameCurveVecVehicleLeader::restart() {
 
 void FixedFrameCurveVecVehicleLeader::behave() {
     if (_is_leading) {
-        GgafDx::VecVehicle* const pVecVehicle_target = _pVecVehicle_target;
+        GgafDx::VecVehicle* pVecVehicle_target = _pVecVehicle_target;
         const double frame_of_segment = _pFixedFrameSplManuf->_frame_of_segment;
         //åªç›ÇÃì_INDEX
         _point_index = (_leading_frames+_hosei_frames) / frame_of_segment;

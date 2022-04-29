@@ -64,14 +64,14 @@ void Stage01::processBehavior() {
 //        _TRACE_("HOGEHOGE");
 //    }
     Stage::processBehavior();
-    SceneProgress* pProg = getProgress();
-    switch (pProg->get()) {
-        case Stage::PROG_INIT: {
-            pProg->change(Stage::PROG_BEGIN);
+    ScenePhase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case Stage::PHASE_INIT: {
+            pPhase->change(Stage::PHASE_BEGIN);
             break;
         }
-        case Stage::PROG_BEGIN: {
-            if (pProg->hasArrivedAt(180)) { //ステージ１開始！
+        case Stage::PHASE_BEGIN: {
+            if (pPhase->hasArrivedFrameAt(180)) { //ステージ１開始！
                 pMessage_->activateImmed();
                 pWorldBound_->activateTree();    //背景ON
                 pHoshiBoshi_->activateTree();    //背景ON
@@ -80,31 +80,31 @@ void Stage01::processBehavior() {
                 pPlanet_->activate();
 
                 fadeinScene(360);
-                pProg->change(Stage::PROG_PLAYING);
+                pPhase->change(Stage::PHASE_PLAYING);
             }
             break;
         }
-        case Stage::PROG_PLAYING: {
-            if (pProg->hasArrivedAt(60)) { //ステージ１開始！
+        case Stage::PHASE_PLAYING: {
+            if (pPhase->hasArrivedFrameAt(60)) { //ステージ１開始！
                 pMessage_->update(PX_C(300), PX_C(300), "SCENE DEBUG START!");
                 pMessage_->inactivateDelay(240);
             }
             //EVENT_STAGE01_PART_CTRLER_WAS_ENDイベント待ち
             break;
         }
-        case Stage::PROG_END: {
-            if (pProg->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<"  Stage::PROG_ENDになりますた！");
+        case Stage::PHASE_END: {
+            if (pPhase->hasJustChanged()) {
+                _TRACE_(FUNC_NAME<<"  Stage::PHASE_ENDになりますた！");
                 throwEventUpperTree(EVENT_PREPARE_TRANSIT_STAGE); //通過ステージ準備へ
             }
 
-            if (pProg->hasArrivedAt(60)) {
+            if (pPhase->hasArrivedFrameAt(60)) {
                 pMessage_->activateImmed();
                 pMessage_->update(PX_C(300), PX_C(300), "SCENE DEBUG CLEAR!!");
                 pMessage_->inactivateDelay(120);
                 fadeoutSceneWithBgm(300);
             }
-            if (pProg->hasArrivedAt(300)) {
+            if (pPhase->hasArrivedFrameAt(300)) {
                 throwEventUpperTree(EVENT_STAGE01_WAS_FINISHED);
             }
             break;
@@ -120,11 +120,11 @@ void Stage01::processJudgement() {
 }
 
 void Stage01::onCatchEvent(hashval prm_no, void* prm_pSource) {
-    SceneProgress* pProg = getProgress();
+    ScenePhase* pPhase = getPhase();
     if (prm_no == EVENT_STAGE01_PART_CTRLER_WAS_END ) {
-        _TRACE_(FUNC_NAME<<" EVENT_STAGE01_PART_CTRLER_WAS_END をキャッチ。ステータスをStage::PROG_ENDへ");
+        _TRACE_(FUNC_NAME<<" EVENT_STAGE01_PART_CTRLER_WAS_END をキャッチ。ステータスをStage::PHASE_ENDへ");
         pScene_StagePartCtrler_->sayonara(60*60);
-        pProg->change(Stage::PROG_END);
+        pPhase->change(Stage::PHASE_END);
     } else {
 
     }

@@ -276,9 +276,6 @@
     <ClInclude Include="include\jp\ggaf\lib\util\Quaternion.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="include\jp\ggaf\lib\util\SceneProgress.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="include\jp\ggaf\lib\util\StgUtil.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -301,6 +298,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\GgafLibCommonHeader.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\lib\util\ScenePhase.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
@@ -554,9 +554,6 @@
     <ClCompile Include="src\jp\ggaf\lib\util\Direction26Util.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\jp\ggaf\lib\util\SceneProgress.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="src\jp\ggaf\lib\util\StgUtil.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -573,6 +570,9 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\ggaf\lib\LibConfig.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\ggaf\lib\util\ScenePhase.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

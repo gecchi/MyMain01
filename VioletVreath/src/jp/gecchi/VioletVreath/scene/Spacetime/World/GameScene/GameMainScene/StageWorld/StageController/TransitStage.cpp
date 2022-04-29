@@ -35,7 +35,7 @@ void TransitStage::initialize() {
 void TransitStage::onReset() {
     _TRACE_(FUNC_NAME<<" "<<NODE_INFO<<"");
     pMessage_->update("");
-    getProgress()->reset(Stage::PROG_INIT);
+    getPhase()->reset(Stage::PHASE_INIT);
 }
 
 void TransitStage::onActive() {
@@ -44,33 +44,33 @@ void TransitStage::onActive() {
 }
 void TransitStage::processBehavior() {
     Stage::processBehavior();
-    SceneProgress* pProg = getProgress();
-    switch (pProg->get()) {
-        case Stage::PROG_INIT: {
-            _TRACE_(FUNC_NAME<<" Prog is Stage::PROG_INIT");
+    ScenePhase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case Stage::PHASE_INIT: {
+            _TRACE_(FUNC_NAME<<" Prog is Stage::PHASE_INIT");
             _TRACE_(FUNC_NAME<<" 直後 STAGE="<<teansit_stage_<<"→?");
-            pProg->change(Stage::PROG_BEGIN);
+            pPhase->change(Stage::PHASE_BEGIN);
             break;
         }
-        case Stage::PROG_BEGIN: {
-            if (pProg->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to Stage::PROG_BEGIN)");
+        case Stage::PHASE_BEGIN: {
+            if (pPhase->hasJustChanged()) {
+                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to Stage::PHASE_BEGIN)");
                 _TRACE_(FUNC_NAME<<" 直後 STAGE="<<teansit_stage_<<"→?");
             }
 
             //始まって少し猶予
 
-            if (pProg->hasArrivedAt(180)) { //通過ステージ開始
-                pProg->change(Stage::PROG_PLAYING);
+            if (pPhase->hasArrivedFrameAt(180)) { //通過ステージ開始
+                pPhase->change(Stage::PHASE_PLAYING);
             }
             break;
         }
-        case Stage::PROG_PLAYING: {
-            if (pProg->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to Stage::PROG_PLAYING)");
+        case Stage::PHASE_PLAYING: {
+            if (pPhase->hasJustChanged()) {
+                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to Stage::PHASE_PLAYING)");
                 _TRACE_(FUNC_NAME<<" 直後 STAGE="<<teansit_stage_<<"→?");
             }
-            if (pProg->hasArrivedAt(120)) { //次ステージ開始！
+            if (pPhase->hasArrivedFrameAt(120)) { //次ステージ開始！
                 pMessage_->update("SELECT NEXT STAGE!");
 //                pMessage_->inactivateDelay(240);
             }
@@ -80,19 +80,19 @@ void TransitStage::processBehavior() {
             break;
         }
 
-        case Stage::PROG_END: {
-            if (pProg->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to Stage::PROG_END)");
+        case Stage::PHASE_END: {
+            if (pPhase->hasJustChanged()) {
+                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to Stage::PHASE_END)");
                 _TRACE_(FUNC_NAME<<" 直後 STAGE="<<teansit_stage_<<"→"<<next_main_stage_);
                 throwEventUpperTree(EVENT_PREPARE_NEXT_STAGE, (void*)(&next_main_stage_)); //次ステージ準備へ
             }
 
-            if (pProg->hasArrivedAt(120)) {
+            if (pPhase->hasArrivedFrameAt(120)) {
                 pMessage_->update("GOOD LUCK!");
             }
 
-            if (pProg->hasArrivedAt(300)) {
-                _TRACE_(FUNC_NAME<<" Prog(=Stage::PROG_END) and throwEventUpperTree(EVENT_TRANSIT_WAS_END).");
+            if (pPhase->hasArrivedFrameAt(300)) {
+                _TRACE_(FUNC_NAME<<" Prog(=Stage::PHASE_END) and throwEventUpperTree(EVENT_TRANSIT_WAS_END).");
                 _TRACE_(FUNC_NAME<<" 直後 STAGE="<<teansit_stage_<<"→"<<next_main_stage_);
                 throwEventUpperTree(EVENT_TRANSIT_WAS_END);
             }
@@ -116,7 +116,7 @@ void TransitStage::onInactive() {
 void TransitStage::onCatchEvent(hashval prm_no, void* prm_pSource) {
     //if (prm_no == EVENT_STAGE01_CTRLER_WAS_END ) {
     //    _TRACE_("TransitStage::onCatchEvent(EVENT_STAGE01_CTRLER_WAS_END)");
-    //    pProg->change(Stage::PROG_END);
+    //    pPhase->change(Stage::PHASE_END);
     //} else {
     //
     //}
@@ -140,34 +140,34 @@ void TransitStage::ready(int prm_stage) {
     }
 }
 void TransitStage::processBehaviorProgPlaying() {
-    SceneProgress* pProg = getProgress();
+    ScenePhase* pPhase = getPhase();
     switch (teansit_stage_) {
         case 0: //DEBUGステージ
-            if (pProg->hasArrivedAt(5*60)) {
+            if (pPhase->hasArrivedFrameAt(5*60)) {
                 //５秒経ったら渡島氏
                 pMessage_->update("DEBUG STAGE DONE!! NEXT STAGE 1????");
                 next_main_stage_ = 1;
                 _TRACE_(FUNC_NAME<<" GOTO NEXT STAGE="<<teansit_stage_<<"→"<<next_main_stage_);
-                 pProg->change(Stage::PROG_END);
+                 pPhase->change(Stage::PHASE_END);
             }
             break;
 
         case 1:
-             if (pProg->hasArrivedAt(5*60)) {
+             if (pPhase->hasArrivedFrameAt(5*60)) {
                 //５秒経ったら渡島氏
                 pMessage_->update("OKOKOK!! NEXT STAGE 2");
                 next_main_stage_ = 2;
                 _TRACE_(FUNC_NAME<<" GOTO NEXT STAGE="<<teansit_stage_<<"→"<<next_main_stage_);
-                 pProg->change(Stage::PROG_END);
+                 pPhase->change(Stage::PHASE_END);
             }
             break;
         case 2:
-            if (pProg->hasArrivedAt(5*60)) {
+            if (pPhase->hasArrivedFrameAt(5*60)) {
                //５秒経ったら渡島氏
                 pMessage_->update("OKOKOK!! NEXT STAGE 3?");
                next_main_stage_ = 3;
                _TRACE_(FUNC_NAME<<" GOTO NEXT STAGE="<<teansit_stage_<<"→"<<next_main_stage_);
-                pProg->change(Stage::PROG_END);
+                pPhase->change(Stage::PHASE_END);
            }
             break;
         case 3:

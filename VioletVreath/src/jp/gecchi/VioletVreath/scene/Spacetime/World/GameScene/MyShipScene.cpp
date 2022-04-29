@@ -24,12 +24,12 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG_INIT    ,
-    PROG_BEGIN   ,
-    PROG_PLAY    ,
-    PROG_DESTROY ,
-    PROG_END     ,
-    PROG_BANPEI,
+    PHASE_INIT    ,
+    PHASE_BEGIN   ,
+    PHASE_PLAY    ,
+    PHASE_DESTROY ,
+    PHASE_END     ,
+    PHASE_BANPEI,
 };
 
 MyShipScene::MyShipScene(const char* prm_name) : VvScene<DefaultScene>(prm_name) ,
@@ -89,7 +89,7 @@ void MyShipScene::onReset() {
     }
 
     fadeoutSceneWithBgm(0);
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
     pGOD->getSpacetime()->getCameraWorkerChanger()->cleanCamWorker();
 }
 
@@ -99,9 +99,9 @@ void MyShipScene::onActive() {
 
 void MyShipScene::processBehavior() {
     Spacetime* pSpacetime = pGOD->getSpacetime();
-     SceneProgress* pProg = getProgress();
-    switch (pProg->getFromProgOnChange()) {
-        case PROG_BEGIN: {
+     ScenePhase* pPhase = getPhase();
+    switch (pPhase->getFromPhaseOnChange()) {
+        case PHASE_BEGIN: {
             pSpacetime->getCameraWorkerChanger()->undoCameraWork(); //MyShipDivingCamWorker解除
             break;
         }
@@ -110,9 +110,9 @@ void MyShipScene::processBehavior() {
         }
     }
 
-    switch (pProg->get()) {
-        case PROG_INIT: {
-            pProg->change(PROG_BEGIN);
+    switch (pPhase->get()) {
+        case PHASE_INIT: {
+            pPhase->change(PHASE_BEGIN);
             if (pSpacetime->getCameraWorkerChanger()->getActiveCamWorker() != pVamSysCamWorker_) {
                 pVamSysCamWorker_ = (VamSysCamWorker*)(pSpacetime->getCameraWorkerChanger()->changeCameraWork("VamSysCamWorker"));
                 pVamSysCamWorker_->pMyShip_ = pMyShip_;
@@ -120,8 +120,8 @@ void MyShipScene::processBehavior() {
             break;
         }
 
-        case PROG_BEGIN: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_BEGIN: {
+            if (pPhase->hasJustChanged()) {
                 fadeinScene(120);
                 pMyShip_->resetTree();
 
@@ -146,20 +146,20 @@ void MyShipScene::processBehavior() {
             if (pMyShip_->_x > 0) {
                 pMyShip_->_x = 0;
                 pMyShip_->is_diving_ = false;
-                pProg->change(PROG_PLAY);
+                pPhase->change(PHASE_PLAY);
             }
             break;
         }
 
-        case PROG_PLAY: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_PLAY: {
+            if (pPhase->hasJustChanged()) {
             }
             //イベント EVENT_MY_SHIP_WAS_DESTROYED_BEGIN 待ち
             break;
         }
 
-        case PROG_DESTROY: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_DESTROY: {
+            if (pPhase->hasJustChanged()) {
                 pEffectMyShipExplosion_->activate(); //爆発
                 pMyShip_->can_control_ = false;
                 for (int i = 0; i < MyBunshinBase::MAX_BUNSHIN_NUM; i ++) {
@@ -169,19 +169,19 @@ void MyShipScene::processBehavior() {
                 std::string z(G_ZANKI, '*');
                 pLabelZanki_->update(z.c_str());
             }
-            if (pProg->hasArrivedAt(120)) {
+            if (pPhase->hasArrivedFrameAt(120)) {
                 fadeoutScene(120);
                 pMyShip_->inactivateDelay(121);
             }
-            if (pProg->hasArrivedAt(240)) {
+            if (pPhase->hasArrivedFrameAt(240)) {
                 if (G_ZANKI == 0) {
                    throwEventUpperTree(EVENT_ALL_MY_SHIP_WAS_DESTROYED);
                    pSpacetime->getCameraWorkerChanger()->undoCameraWork(); //VamSysCamWorker解除
-                   pProg->changeNothing();
+                   pPhase->changeNothing();
                    inactivate();
                 } else {
                    throwEventUpperTree(EVENT_MY_SHIP_WAS_DESTROYED_FINISH);//←現在未使用
-                   pProg->change(PROG_BEGIN);
+                   pPhase->change(PHASE_BEGIN);
                 }
             }
             break;
@@ -194,10 +194,10 @@ void MyShipScene::processBehavior() {
 }
 
 void MyShipScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
-    SceneProgress* pProg = getProgress();
+    ScenePhase* pPhase = getPhase();
     if (prm_no == EVENT_MY_SHIP_WAS_DESTROYED_BEGIN) {
         _TRACE_("MyShipScene EVENT_MY_SHIP_WAS_DESTROYED_BEGIN was Catch!!");
-       pProg->change(PROG_DESTROY);
+       pPhase->change(PHASE_DESTROY);
     }
 }
 

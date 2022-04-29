@@ -14,9 +14,9 @@ using namespace GgafLib;
 using namespace Mogera;
 
 enum {
-    PROG_INIT ,
-    PROG_MOVE ,
-    PROG_END,
+    PHASE_INIT ,
+    PHASE_MOVE ,
+    PHASE_END,
 };
 
 EnemyIdaBase::EnemyIdaBase(const char* prm_name) :
@@ -43,34 +43,34 @@ EnemyIdaBase::EnemyIdaBase(const char* prm_name) :
 }
 
 void EnemyIdaBase::initialize() {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->linkFaceAngByMvAng(true);
 }
 
 void EnemyIdaBase::onActive() {
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 
 void EnemyIdaBase::processBehavior() {
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
-    GgafCore::Progress* pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_INIT: {
+    GgafCore::Phase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_INIT: {
             //ƒCƒxƒ“ƒg‘Ò‚¿
             break;
         }
-        case PROG_MOVE: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_MOVE: {
+            if (pPhase->hasJustChanged()) {
                 pVehicleLeader_->start(RELATIVE_COORD);
                 getVecVehicle()->setMvVelo(PX_C(2));
             }
             pVehicleLeader_->behave();
             if (pVehicleLeader_->isFinished()) {
-                pProg->changeNext();
+                pPhase->changeNext();
             }
             break;
         }
-        case PROG_END: {
+        case PHASE_END: {
             getVecVehicle()->stop();
             getVecVehicle()->stopTurningMvAng();
             break;
@@ -89,8 +89,8 @@ void EnemyIdaBase::onInactive() {
 void EnemyIdaBase::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == EVENT_START_MOVING) {
         _TRACE_(FUNC_NAME<<" EVENT_START_PLOT !!");
-        GgafCore::Progress* pProg = getProgress();
-        pProg->change(PROG_MOVE);
+        GgafCore::Phase* pPhase = getPhase();
+        pPhase->change(PHASE_MOVE);
     }
 }
 

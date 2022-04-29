@@ -15,12 +15,12 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG_ENTRY      ,
-    PROG_CURVE_MOVE,
-    PROG_MOVE01_1   ,
-    PROG_MOVE01_2   ,
-    PROG_LEAVE      ,
-    PROG_BANPEI,
+    PHASE_ENTRY      ,
+    PHASE_CURVE_MOVE,
+    PHASE_MOVE01_1   ,
+    PHASE_MOVE01_2   ,
+    PHASE_LEAVE      ,
+    PHASE_BANPEI,
 };
 enum {
     SE_EXPLOSION ,
@@ -42,7 +42,7 @@ void EnemyUnomia::onCreateModel() {
 }
 
 void EnemyUnomia::initialize() {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->linkFaceAngByMvAng(true);
     pVecVehicle->setRollFaceAngVelo(-4000);
     CollisionChecker* pChecker = getCollisionChecker();
@@ -72,27 +72,27 @@ void EnemyUnomia::onActive() {
     getStatus()->reset();
     setHitAble(true);
     setRzFaceAng(0);
-    getProgress()->reset(PROG_ENTRY);
+    getPhase()->reset(PHASE_ENTRY);
 }
 
 void EnemyUnomia::processBehavior() {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
-    GgafCore::Progress* const pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_ENTRY: {
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafCore::Phase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_ENTRY: {
             pVehicleLeader_->start(ABSOLUTE_COORD);
-            pProg->changeNext();
+            pPhase->changeNext();
             break;
         }
-        case PROG_CURVE_MOVE: {
+        case PHASE_CURVE_MOVE: {
             pVehicleLeader_->behave(); //カーブ移動するようにDriverを操作
             if (pVehicleLeader_->isFinished()) {
-                pProg->changeNext(); //次へ
+                pPhase->changeNext(); //次へ
             }
             break;
         }
-        case PROG_MOVE01_1: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_MOVE01_1: {
+            if (pPhase->hasJustChanged()) {
                 //自機へ方向転換
                 pVecVehicle->turnMvAngTwd(
                                pMYSHIP->_x, _y, pMYSHIP->_z,

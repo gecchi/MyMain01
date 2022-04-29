@@ -30,7 +30,7 @@ void Planet001Atmosphere::initialize() {
 }
 
 void Planet001Atmosphere::processBehavior() {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->behave();
 }
 

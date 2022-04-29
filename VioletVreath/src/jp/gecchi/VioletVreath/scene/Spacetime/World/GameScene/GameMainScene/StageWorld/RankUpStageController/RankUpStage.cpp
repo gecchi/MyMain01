@@ -44,47 +44,47 @@ RankUpStage::RankUpStage(const char* prm_name) : VvScene<DefaultScene>(prm_name,
 }
 
 void RankUpStage::initialize() {
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 void RankUpStage::processBehavior() {
     RankUpStage::Medietor* pMedietor = bringSceneMediator();
 
     sprintf(buff,"HIT/ALL %d/%d", pMedietor->hit_enemy_num_, pMedietor->all_hit_num_);
-    SceneProgress* pProg = getProgress();
+    ScenePhase* pPhase = getPhase();
     pMessage3_->update(buff);
-    switch (pProg->get()) {
-        case PROG_INIT: {
+    switch (pPhase->get()) {
+        case PHASE_INIT: {
             _TRACE_("RankUpStage::processBehavior()  "<<this<<" ★"<<NODE_INFO<<DUMP_FLGS);
-            _TRACE_(FUNC_NAME<<" ["<<getName()<<"] PROG_BEGIN !");
-            pMessage1_->update("RANKUPSTAGE::PROG_BEGIN");
+            _TRACE_(FUNC_NAME<<" ["<<getName()<<"] PHASE_BEGIN !");
+            pMessage1_->update("RANKUPSTAGE::PHASE_BEGIN");
             std::string m = "RUNKUP LEVEL:" + XTOS(G_RANKUP_LEVEL) ;
             pMessage2_->update(m.c_str());
             pMessage2_->getAlphaFader()->beat(120, 30, 30, 30, -1);
             getBgmConductor()->performFadein(0, 120);
-            pProg->changeNext();
+            pPhase->changeNext();
             break;
         }
-        case PROG_BEGIN: {
-            if (pProg->hasArrivedAt(60)) { //ステージ開始！
-                pProg->changeNext();
+        case PHASE_BEGIN: {
+            if (pPhase->hasArrivedFrameAt(60)) { //ステージ開始！
+                pPhase->changeNext();
             }
             break;
         }
-        case PROG_PLAYING: {
-            if (pProg->hasJustChanged()) {
-                pMessage1_->update("RANKUPSTAGE::PROG_PLAYING");
-                _TRACE_(FUNC_NAME<<" ["<<getName()<<"] PROG_BEGIN !");
+        case PHASE_PLAYING: {
+            if (pPhase->hasJustChanged()) {
+                pMessage1_->update("RANKUPSTAGE::PHASE_PLAYING");
+                _TRACE_(FUNC_NAME<<" ["<<getName()<<"] PHASE_BEGIN !");
             }
 
-            if (pProg->getFrame() > _paFrame_NextEvent[_event_num-1]) { //最後の敵機が出現以降
+            if (pPhase->getFrame() > _paFrame_NextEvent[_event_num-1]) { //最後の敵機が出現以降
                 if (pMedietor->all_hit_num_ == pMedietor->hit_enemy_num_) {
                     //全滅させた！即効結果画面へ
                     _TRACE_(FUNC_NAME<<" ["<<getName()<<"] 全滅させた！");
                     pSeConnection_all_hit_->peek()->play(); //全滅時SE!
-                    pProg->change(PROG_RESULT);
+                    pPhase->change(PHASE_RESULT);
                 }
 #ifdef MY_DEBUG
-                if (pProg->hasArrivedAt(_paFrame_NextEvent[_event_num-1]+(10*60*60))) { //最終のアクター出現から10分。
+                if (pPhase->hasArrivedFrameAt(_paFrame_NextEvent[_event_num-1]+(10*60*60))) { //最終のアクター出現から10分。
                     throwCriticalException(NODE_INFO<<" ランクアップシーンが終わらないのではないだろうか？？");
                 }
 #endif
@@ -93,19 +93,19 @@ void RankUpStage::processBehavior() {
             }
 
             //全滅させてない場合
-            //下位の継承実装クラスのPROG_RESULTへ進捗更新待ち
+            //下位の継承実装クラスのPHASE_RESULTへ進捗更新待ち
             break;
         }
-        case PROG_RESULT: {
-            if (pProg->hasJustChanged()) {
-                pMessage1_->update("RANKUPSTAGE::PROG_RESULT");
+        case PHASE_RESULT: {
+            if (pPhase->hasJustChanged()) {
+                pMessage1_->update("RANKUPSTAGE::PHASE_RESULT");
                 pMessage2_->update("KEKKA HAPYOU!!!");
-                _TRACE_(FUNC_NAME<<" ["<<getName()<<"] PROG_RESULT !");
+                _TRACE_(FUNC_NAME<<" ["<<getName()<<"] PHASE_RESULT !");
                 _TRACE_(FUNC_NAME<<" ["<<getName()<<"] 結果 hit_enemy_num_="<<pMedietor->hit_enemy_num_<<" all_hit_num_="<<pMedietor->all_hit_num_);
             }
 
             //結果表示？
-            if (pProg->hasArrivedAt(320)) {
+            if (pPhase->hasArrivedFrameAt(320)) {
                 getBgmConductor()->fadeoutStop(0, 120);
                 if (pMedietor->all_hit_num_ <= pMedietor->hit_enemy_num_) { //全滅させた！
                     pMessage2_->update("PERFECT!!!!");
@@ -117,17 +117,17 @@ void RankUpStage::processBehavior() {
                     pMessage2_->update("HETAKUSO!!!!");
                 }
             }
-            if (pProg->hasArrivedAt(320+300)) {
-                pProg->changeNext();
+            if (pPhase->hasArrivedFrameAt(320+300)) {
+                pPhase->changeNext();
             }
             break;
         }
-        case PROG_END: {
-            _TRACE_(FUNC_NAME<<" ["<<getName()<<"] PROG_ENDになりますた！");
-            pMessage1_->update("RANKUPSTAGE::PROG_END");
+        case PHASE_END: {
+            _TRACE_(FUNC_NAME<<" ["<<getName()<<"] PHASE_ENDになりますた！");
+            pMessage1_->update("RANKUPSTAGE::PHASE_END");
             pMessage2_->update("BYEBYE!");
             throwEventUpperTree(EVENT_RANKUP_WAS_END); //RankUpStageControllerに処理を任せる
-            pProg->changeNothing();
+            pPhase->changeNothing();
             break;
         }
         default:

@@ -18,13 +18,13 @@ using namespace VioletVreath;
 #define MORPHTARGET_HATCH_OPEN 1
 
 enum {
-    PROG_INIT       ,
-    PROG_INI_WAIT   ,
-    PROG_HATCH_CLOSE,
-    PROG_HATCH_OPEN ,
-    PROG_FIRE       ,
-    PROG_NOTHING    ,
-    PROG_BANPEI,
+    PHASE_INIT       ,
+    PHASE_INI_WAIT   ,
+    PHASE_HATCH_CLOSE,
+    PHASE_HATCH_OPEN ,
+    PHASE_FIRE       ,
+    PHASE_NOTHING    ,
+    PHASE_BANPEI,
 };
 enum {
     SE_DAMAGED  ,
@@ -76,58 +76,58 @@ void EnemyEmus::onActive() {
     getStatus()->reset();
     setMorphWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
     is_open_hatch_ = false;
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 
 void EnemyEmus::processBehavior() {
     changeGeoLocal(); //計算はローカル座標系
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
-    GgafCore::Progress* const pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_INIT: {
-            pProg->change(PROG_INI_WAIT);
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafCore::Phase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_INIT: {
+            pPhase->change(PHASE_INI_WAIT);
             break;
         }
-        case PROG_INI_WAIT: {
-            if (pProg->hasArrivedAt(ini_wait_+1)) {
-                pProg->change(PROG_HATCH_CLOSE);
+        case PHASE_INI_WAIT: {
+            if (pPhase->hasArrivedFrameAt(ini_wait_+1)) {
+                pPhase->change(PHASE_HATCH_CLOSE);
             }
             break;
         }
-        case PROG_HATCH_CLOSE: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_HATCH_CLOSE: {
+            if (pPhase->hasJustChanged()) {
                 getMorpher()->transitionLinearUntil(MORPHTARGET_HATCH_OPEN,
                                            0.0f, frame_of_morph_interval_);
                 pVecVehicle->setRollFaceAngVelo(0);
             }
 
             //次へ
-            if (pProg->getFrame() >= frame_of_close_interval_ + frame_of_morph_interval_) {
-                pProg->change(PROG_HATCH_OPEN);
+            if (pPhase->getFrame() >= frame_of_close_interval_ + frame_of_morph_interval_) {
+                pPhase->change(PHASE_HATCH_OPEN);
             }
             break;
         }
-        case PROG_HATCH_OPEN: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_HATCH_OPEN: {
+            if (pPhase->hasJustChanged()) {
                 getMorpher()->transitionLinearUntil(MORPHTARGET_HATCH_OPEN,
                                            1.0f, frame_of_morph_interval_);
                 pVecVehicle->setRollFaceAngVelo(3000);
             }
-            if (pProg->hasArrivedAt(frame_of_morph_interval_/2)) {
+            if (pPhase->hasArrivedFrameAt(frame_of_morph_interval_/2)) {
                 //開くモーションが半分以上まで到達したなら
-                pProg->change(PROG_FIRE);
+                pPhase->change(PHASE_FIRE);
             }
             break;
         }
-        case PROG_FIRE: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_FIRE: {
+            if (pPhase->hasJustChanged()) {
                 if (!pDepo_) {
                     pDepo_ = (LaserChipDepository*)UTIL::getDepositoryOf(this);
                 }
             }
-            if (pProg->getFrame() >= (frame_of_morph_interval_/2) + frame_of_open_interval_) {
+            if (pPhase->getFrame() >= (frame_of_morph_interval_/2) + frame_of_open_interval_) {
                 pDepo_ = nullptr;
-                pProg->change(PROG_HATCH_CLOSE);
+                pPhase->change(PHASE_HATCH_CLOSE);
             }
             break;
         }
@@ -141,9 +141,9 @@ void EnemyEmus::processBehavior() {
 
 void EnemyEmus::processChangeGeoFinal() {
     //絶対座標系での操作
-    GgafCore::Progress* const pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_FIRE: {
+    GgafCore::Phase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_FIRE: {
             if(pDepo_) {
                 GgafDx::FigureActor* pChip = (GgafDx::FigureActor*)pDepo_->dispatch();
                 if (pChip) {

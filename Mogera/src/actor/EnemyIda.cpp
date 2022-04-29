@@ -34,7 +34,7 @@ void EnemyIda::onActive() {
 void EnemyIda::processBehavior() {
     changeGeoLocal(); //ローカル座標系へ
 
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->behave();
 
     changeGeoFinal(); //絶対座標系へ

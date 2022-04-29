@@ -15,10 +15,10 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG_DRIFT      , //通常移動状態
-    PROG_ATTACH     , //吸着中(未吸着)状態
-    PROG_ABSORB     , //吸着中(吸着済)状態
-    PROG_BANPEI,
+    PHASE_DRIFT      , //通常移動状態
+    PHASE_ATTACH     , //吸着中(未吸着)状態
+    PHASE_ABSORB     , //吸着中(吸着済)状態
+    PHASE_BANPEI,
 };
 
 VreathItem::VreathItem(const char* prm_name, const char* prm_model, void* prm_pFuncStatusReset)
@@ -28,7 +28,7 @@ VreathItem::VreathItem(const char* prm_name, const char* prm_model, void* prm_pF
     setZEnableDraw(true);        //描画時、Zバッファ値は考慮される
     setZWriteEnable(false);  //自身のZバッファを書き込みしない
     setCullingDraw(false);
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->setRollPitchYawFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
     pVecVehicle->linkFaceAngByMvAng(true);
     kDX_ = kDY_ = kDZ_ = 0;
@@ -59,7 +59,7 @@ void VreathItem::onActive() {
 //    //発生地点から、自機への方向への散らばり範囲正方形領域が位置する距離（scattered_distance > (scattered_renge/2) であること)
 ////    int scattered_distance = scattered_renge/2 + 400000;
 //    //従って、scattered_distance 離れていても、自機は動かなくてもぎりぎり全て回収できる。
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->forceMvVeloRange(0, 20000);
     float vX, vY, vZ;
     UTIL::getNormalizedVector(
@@ -75,29 +75,29 @@ void VreathItem::onActive() {
     pVecVehicle->setMvVelo(2000);
     pVecVehicle->setMvAcce(100);
 
-    getProgress()->reset(PROG_DRIFT);
+    getPhase()->reset(PHASE_DRIFT);
     _sx = _sy = _sz = 1000;
 }
 
 void VreathItem::processBehavior() {
     //通常移動
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     GgafDx::GeoVehicle* const pGeoVehicle = getGeoVehicle();
-    GgafCore::Progress* const pProg = getProgress();
-    if (pProg->get() == PROG_DRIFT) {
-        //TractorMagic発動中はPROG_ATTACHへ移行
+    GgafCore::Phase* pPhase = getPhase();
+    if (pPhase->get() == PHASE_DRIFT) {
+        //TractorMagic発動中はPHASE_ATTACHへ移行
         if (getTractorMagic()->is_tracting_) {
             effectFlush(6); //フラッシュ
             setHitAble(false);
-            pProg->change(PROG_ATTACH);
+            pPhase->change(PHASE_ATTACH);
         }
-        //あるいは onHit() で PROG_ATTACH 状態変化するのを待つ
+        //あるいは onHit() で PHASE_ATTACH 状態変化するのを待つ
     }
 
     //自機と当たり判定がヒットし、自機に向かう動き
-    if (pProg->get() == PROG_ATTACH) {
+    if (pPhase->get() == PHASE_ATTACH) {
         MyShip* pMyShip = pMYSHIP;
-        if (pProg->hasJustChanged()) {
+        if (pPhase->hasJustChanged()) {
             //自機に引力で引き寄せられるような動き設定
             pGeoVehicle->setVeloXYZ(pVecVehicle->_vX * pVecVehicle->_velo_mv,
                                      pVecVehicle->_vY * pVecVehicle->_velo_mv,
@@ -114,15 +114,15 @@ void VreathItem::processBehavior() {
             kDX_ = pMyShip->_x - _x;
             kDY_ = pMyShip->_y - _y;
             kDZ_ = pMyShip->_z - _z;
-            pProg->change(PROG_ABSORB); //吸着吸収へ
+            pPhase->change(PHASE_ABSORB); //吸着吸収へ
         }
 
     }
 
     //自機近辺に到達し、吸着、吸収中の動き
-    if (pProg->get() == PROG_ABSORB) {
+    if (pPhase->get() == PHASE_ABSORB) {
         MyShip* pMyShip = pMYSHIP;
-        if (pProg->hasJustChanged()) {
+        if (pPhase->hasJustChanged()) {
             pGeoVehicle->setXYZZero();
             pGeoVehicle->setAcceXYZZero();
             pGeoVehicle->stopGravitationMvSequence();
@@ -135,7 +135,7 @@ void VreathItem::processBehavior() {
         _sz -= 100;
         if (_sx < 5) {
             getSeTransmitter()->play(0);
-            pProg->changeNothing();
+            pPhase->changeNothing();
             sayonara(); //終了
         }
         pMyShip->getStatus()->plus(STAT_Stamina, 1);
@@ -149,17 +149,17 @@ void VreathItem::processJudgement() {
         sayonara();
     }
 //    //通常移動
-//    if (pProg->get() == PROG_DRIFT) {
+//    if (pPhase->get() == PHASE_DRIFT) {
 //        //onHit() で状態変化するのを待つ
 //    }
 //
 //    //自機と当たり判定がヒット時
-//    if (pProg->get() == PROG_ATTACH) {
+//    if (pPhase->get() == PHASE_ATTACH) {
 //
 //    }
 //
 //    //自機に吸着し、吸収中の動き
-//    if (pProg->get() == PROG_ABSORB) {
+//    if (pPhase->get() == PHASE_ABSORB) {
 //    }
 }
 
@@ -170,10 +170,10 @@ void VreathItem::onHit(const GgafCore::Actor* prm_pOtherActor) {
     GgafDx::GeometricActor* pOther = (GgafDx::GeometricActor*)prm_pOtherActor;
     //ここにヒットエフェクト
 
-    GgafCore::Progress* const pProg = getProgress();
-    if (pProg->get() == PROG_DRIFT && (pOther->lookUpKind() & KIND_MY_BODY))  {
+    GgafCore::Phase* pPhase = getPhase();
+    if (pPhase->get() == PHASE_DRIFT && (pOther->lookUpKind() & KIND_MY_BODY))  {
         setHitAble(false);
-        pProg->change(PROG_ATTACH);
+        pPhase->change(PHASE_ATTACH);
     }
 }
 

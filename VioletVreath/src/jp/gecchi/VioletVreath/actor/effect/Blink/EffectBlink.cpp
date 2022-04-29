@@ -9,11 +9,11 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG_INIT ,
-    PROG_IN   ,
-    PROG_STAY ,
-    PROG_OUT  ,
-    PROG_BANPEI,
+    PHASE_INIT ,
+    PHASE_IN   ,
+    PHASE_STAY ,
+    PHASE_OUT  ,
+    PHASE_BANPEI,
 };
 
 EffectBlink::EffectBlink(const char* prm_name, const char* prm_model) :
@@ -30,7 +30,7 @@ EffectBlink::EffectBlink(const char* prm_name, const char* prm_model) :
 
 void EffectBlink::onActive() {
     setScale(getScaler()->getBottom());
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 
 void EffectBlink::processBehavior() {
@@ -49,44 +49,44 @@ void EffectBlink::processBehavior() {
     }
 
     GgafDx::Scaler* const pScaler = getScaler();
-    GgafCore::Progress* const pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_INIT: {
+    GgafCore::Phase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_INIT: {
             if (scale_in_frames_ > 0) {
                 pScaler->transitionLinearToTop(scale_in_frames_);
-                pProg->changeNext();
+                pPhase->changeNext();
             } else {
                 setScale(getScaler()->getTop());
-                pProg->change(PROG_STAY);
+                pPhase->change(PHASE_STAY);
             }
             break;
         }
 
-        case PROG_IN: {
+        case PHASE_IN: {
             if (pScaler->isTransitioning() == false) {
                 if (duration_frames_ > 0) {
-                    pProg->changeNext();
+                    pPhase->changeNext();
                 } else {
-                    pProg->change(PROG_OUT);
+                    pPhase->change(PHASE_OUT);
                 }
             }
             break;
         }
 
-        case PROG_STAY: {
-            if (pProg->getFrame() >= duration_frames_) {
+        case PHASE_STAY: {
+            if (pPhase->getFrame() >= duration_frames_) {
                 pScaler->transitionLinearToBottom(scale_out_frames_);
-                pProg->changeNext();
+                pPhase->changeNext();
             }
             break;
         }
 
-        case PROG_OUT: {
+        case PHASE_OUT: {
             if (pScaler->isTransitioning() == false) {
                 if (sayonara_end_) {
                     sayonara();
                 }
-                pProg->changeNothing(); //I—¹
+                pPhase->changeNothing(); //I—¹
             }
             break;
         }
@@ -119,7 +119,7 @@ void EffectBlink::blink(frame prm_scale_in_frames, frame prm_duration_frames, fr
     scale_out_frames_ = prm_scale_out_frames;
     sayonara_end_ = prm_sayonara_end;
     setScale(getScaler()->getBottom());
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 
 void EffectBlink::blink2(frame prm_scale_in_frames, frame prm_duration_frames, frame prm_scale_out_frames,
@@ -129,16 +129,16 @@ void EffectBlink::blink2(frame prm_scale_in_frames, frame prm_duration_frames, f
     duration_frames_ = prm_duration_frames;
     scale_out_frames_ = prm_scale_out_frames;
     sayonara_end_ = prm_sayonara_end;
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 
 bool EffectBlink::isBlinking() {
-    return getProgress()->isNothing();
+    return getPhase()->isNothing();
 }
 
 void EffectBlink::forceFadeOut(frame prm_scale_out_frames) {
     getScaler()->transitionLinearToBottom(prm_scale_out_frames);
-    getProgress()->change(PROG_OUT);
+    getPhase()->change(PHASE_OUT);
 }
 
 EffectBlink::~EffectBlink() {

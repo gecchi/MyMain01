@@ -30,7 +30,7 @@ void Shot004::initialize() {
 void Shot004::onReset() {
     setScaleR(3.0);
     setCullingDraw(false);
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->setRollFaceAngVelo(D_ANG(3));
     pVecVehicle->setMvVelo(30000);
     pVecVehicle->setMvAcce(1000);

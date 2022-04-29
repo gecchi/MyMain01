@@ -9,9 +9,9 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG_INIT,
-    PROG_1,
-    PROG_BANPEI,
+    PHASE_INIT,
+    PHASE_1,
+    PHASE_BANPEI,
 };
 
 DanmakuAlice::DanmakuAlice(const char* prm_name, const char* prm_shot_model) :
@@ -32,16 +32,16 @@ void DanmakuAlice::onReset() {
 }
 
 void DanmakuAlice::onActive() {
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 
 void DanmakuAlice::processBehavior() {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
-    GgafCore::Progress* const pProg = getProgress();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafCore::Phase* pPhase = getPhase();
 
-    switch (pProg->get()) {
+    switch (pPhase->get()) {
 
-         case PROG_INIT: {
+         case PHASE_INIT: {
 
          }
     }

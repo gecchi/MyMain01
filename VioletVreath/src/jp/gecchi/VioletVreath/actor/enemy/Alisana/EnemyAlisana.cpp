@@ -14,13 +14,13 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG_INIT ,
-    PROG_ENTRY,
-    PROG_HATCH_OPEN,
-    PROG_HATCH_OPEN_DONE,
-    PROG_HATCH_CLOSE,
-    PROG_LEAVE,
-    PROG_BANPEI,
+    PHASE_INIT ,
+    PHASE_ENTRY,
+    PHASE_HATCH_OPEN,
+    PHASE_HATCH_OPEN_DONE,
+    PHASE_HATCH_CLOSE,
+    PHASE_LEAVE,
+    PHASE_BANPEI,
 };
 enum {
     SE_DAMAGED  ,
@@ -57,73 +57,73 @@ void EnemyAlisana::initialize() {
 
 void EnemyAlisana::onActive() {
     getStatus()->reset();
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 
 void EnemyAlisana::processBehavior() {
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
-    GgafCore::Progress* const pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_INIT: {
+    GgafCore::Phase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_INIT: {
             setHitAble(false);
             setAlpha(0);
-            pProg->changeNext();
+            pPhase->changeNext();
             break;
         }
-        case PROG_ENTRY: {
+        case PHASE_ENTRY: {
             EffectBlink* pEffectEntry = nullptr;
-            if (pProg->hasJustChanged()) {
+            if (pPhase->hasJustChanged()) {
                 pEffectEntry = UTIL::activateEntryEffectOf(this);
             }
             static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
             static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
-            if (pProg->hasArrivedAt(frame_of_summons_begin)) {
+            if (pPhase->hasArrivedFrameAt(frame_of_summons_begin)) {
                 pAlphaFader->transitionLinearUntil(0.999, frame_of_entering);
             }
-            if (pProg->hasArrivedAt(frame_of_entering)) {
+            if (pPhase->hasArrivedFrameAt(frame_of_entering)) {
                 setHitAble(true);
-                pProg->changeNext();
+                pPhase->changeNext();
             }
             break;
         }
-        case PROG_HATCH_OPEN: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_HATCH_OPEN: {
+            if (pPhase->hasJustChanged()) {
                 getMorpher()->transitionLinearUntil(MPH_HATCH_OPEN,
                                            1.0, frame_of_morph_interval_);
             }
             if (!getMorpher()->isTransitioning()) {
-                pProg->changeNext();
+                pPhase->changeNext();
             }
             break;
         }
 
-        case PROG_HATCH_OPEN_DONE: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_HATCH_OPEN_DONE: {
+            if (pPhase->hasJustChanged()) {
             }
             //‚¨‚µ‚Ü‚¢B
             break;
         }
 
         //-----------------------------------------------------------------------
-        case PROG_HATCH_CLOSE: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_HATCH_CLOSE: {
+            if (pPhase->hasJustChanged()) {
                 getMorpher()->transitionLinearUntil(MPH_HATCH_OPEN,
                                            0.0, frame_of_morph_interval_);
             }
             if (!getMorpher()->isTransitioning()) {
-                pProg->changeNext();
+                pPhase->changeNext();
             }
             break;
         }
-        case PROG_LEAVE: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_LEAVE: {
+            if (pPhase->hasJustChanged()) {
                 setHitAble(false);
                 UTIL::activateLeaveEffectOf(this);
                 pAlphaFader->transitionLinearUntil(0.0, 30);
             }
-            if (pProg->hasArrivedAt(60)) {
+            if (pPhase->hasArrivedFrameAt(60)) {
                 sayonara();
-                pProg->changeNothing(); //‚¨‚µ‚Ü‚¢I
+                pPhase->changeNothing(); //‚¨‚µ‚Ü‚¢I
             }
             break;
         }
@@ -159,7 +159,7 @@ void EnemyAlisana::acitve_open(frame prm_delay) {
 }
 
 bool EnemyAlisana::isOpenDone() {
-    if (getProgress()->get() == PROG_HATCH_OPEN_DONE) {
+    if (getPhase()->get() == PHASE_HATCH_OPEN_DONE) {
         return true;
     } else {
         return false;
@@ -168,7 +168,7 @@ bool EnemyAlisana::isOpenDone() {
 
 void EnemyAlisana::close_sayonara() {
     getMorpher()->stop();
-    getProgress()->change(PROG_HATCH_CLOSE);
+    getPhase()->change(PHASE_HATCH_CLOSE);
 }
 
 EnemyAlisana::~EnemyAlisana() {

@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/core/actor/SceneMediator.h"
 #include "jp/ggaf/dx/sound/BgmConductor.h"
-#include "jp/ggaf/lib/util/SceneProgress.h"
+#include "jp/ggaf/lib/util/ScenePhase.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
 
@@ -247,16 +247,16 @@ void RankUp001::processBehavior() {
     }
     // gen02 end
 
-    SceneProgress* pProg = getProgress();
-    switch (pProg->get()) {
-        case RankUpStage::PROG_PLAYING: {
-            if (pProg->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" RankUpStage::PROG_PLAYING になりますた！ getBehaveingFrame()="<<getBehaveingFrame());
+    ScenePhase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case RankUpStage::PHASE_PLAYING: {
+            if (pPhase->hasJustChanged()) {
+                _TRACE_(FUNC_NAME<<" RankUpStage::PHASE_PLAYING になりますた！ getBehaveingFrame()="<<getBehaveingFrame());
             }
 
-            if (pProg->hasArrivedAt(_paFrame_NextEvent[_event_num-1]+600)) { //最終のアクター出現から10秒後、強制終了。
-                _TRACE_(FUNC_NAME<<" RankUpStage::PROG_PLAYING おわった。 pProg->getFrame()="<<pProg->getFrame());
-                pProg->change(RankUpStage::PROG_RESULT); //RankUpStageの共通処理へ
+            if (pPhase->hasArrivedFrameAt(_paFrame_NextEvent[_event_num-1]+600)) { //最終のアクター出現から10秒後、強制終了。
+                _TRACE_(FUNC_NAME<<" RankUpStage::PHASE_PLAYING おわった。 pPhase->getFrame()="<<pPhase->getFrame());
+                pPhase->change(RankUpStage::PHASE_RESULT); //RankUpStageの共通処理へ
             }
             break;
         }

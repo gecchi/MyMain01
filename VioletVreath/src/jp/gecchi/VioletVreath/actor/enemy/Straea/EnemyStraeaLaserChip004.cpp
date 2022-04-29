@@ -42,7 +42,7 @@ void EnemyStraeaLaserChip004::onActive() {
     HomingLaserChip::onActive();
     //ステータスリセット
     getStatus()->reset();
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->setMvVelo(10000);
     pVecVehicle->setMvAcce(300);
     //pVecVehicle->forceMvVeloRange(0, 70000);

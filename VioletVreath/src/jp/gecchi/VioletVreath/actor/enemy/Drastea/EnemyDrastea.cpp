@@ -14,11 +14,11 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG_MOVE01_1   ,
-    PROG_CURVE_MOVE,
-    PROG_MOVE02_1   ,
-    PROG_MOVE02_2   ,
-    PROG_BANPEI,
+    PHASE_MOVE01_1   ,
+    PHASE_CURVE_MOVE,
+    PHASE_MOVE02_1   ,
+    PHASE_MOVE02_2   ,
+    PHASE_BANPEI,
 };
 enum {
     SE_DAMAGED   ,
@@ -86,7 +86,7 @@ void EnemyDrastea::initialize() {
 
 void EnemyDrastea::onActive() {
     getStatus()->reset();
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     GgafDx::GeoVehicle* const pGeoVehicle = getGeoVehicle();
     pVecVehicle->setMvVelo(0);
     pVecVehicle->setRollPitchYawFaceAngVelo(700, 1100, 300);

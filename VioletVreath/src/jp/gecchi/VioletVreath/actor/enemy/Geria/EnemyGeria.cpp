@@ -17,12 +17,12 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG_INIT  ,
-    PROG_ENTRY ,
-    PROG_MOVE  ,
-    PROG_FIRE  ,
-    PROG_LEAVE ,
-    PROG_BANPEI,
+    PHASE_INIT  ,
+    PHASE_ENTRY ,
+    PHASE_MOVE  ,
+    PHASE_FIRE  ,
+    PHASE_LEAVE ,
+    PHASE_BANPEI,
 };
 enum {
     SE_EXPLOSION,
@@ -54,7 +54,7 @@ void EnemyGeria::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 45000);
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->setFaceAngVelo(AXIS_Z, -7000);
 }
 
@@ -65,54 +65,54 @@ void EnemyGeria::onActive() {
     can_Shot_ = true;
     shot_num_ = 0;
     frame_when_shot_ = 0;
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     velo_mv_begin_ = pVecVehicle->getMvVelo(); //初期移動速度を保存
     pVecVehicle->setMvVelo(0);
     setRzFaceAng(0);
     setRxFaceAng(0);
     mvd_ = 0;
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 
 void EnemyGeria::processBehavior() {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     GgafDx::GeoVehicle* const pGeoVehicle = getGeoVehicle();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
-    GgafCore::Progress* const pProg = getProgress();
+    GgafCore::Phase* pPhase = getPhase();
 
-    switch (pProg->get()) {
-        case PROG_INIT: {
+    switch (pPhase->get()) {
+        case PHASE_INIT: {
             max_shots_ = 1; //移動中に撃つ事ができるショットの最大回数
             shot_num_ = 0;  //撃ったショット回数
             setHitAble(false);
             setAlpha(0);
-            pProg->changeNext();
+            pPhase->changeNext();
             break;
         }
-        case PROG_ENTRY: {  //登場
+        case PHASE_ENTRY: {  //登場
             EffectBlink* pEffectEntry = nullptr;
-            if (pProg->hasJustChanged()) {
+            if (pPhase->hasJustChanged()) {
                 pEffectEntry = UTIL::activateEntryEffectOf(this);
             }
             static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
             static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
-            if (pProg->hasArrivedAt(frame_of_summons_begin)) {
+            if (pPhase->hasArrivedFrameAt(frame_of_summons_begin)) {
                 pAlphaFader->transitionLinearUntil(1.0, frame_of_entering);
             }
-            if (pProg->hasArrivedAt(frame_of_entering)) {
+            if (pPhase->hasArrivedFrameAt(frame_of_entering)) {
                 setHitAble(true);
-                pProg->changeNext();
+                pPhase->changeNext();
             }
             break;
         }
-        case PROG_MOVE: {  //移動
-            if (pProg->hasJustChanged()) {
+        case PHASE_MOVE: {  //移動
+            if (pPhase->hasJustChanged()) {
                 pVecVehicle->setMvVelo(velo_mv_begin_);
                 will_shot_ = false;
             }
             if (will_shot_) {
-                if (pProg->hasArrivedAt(frame_when_shot_)) {
-                    pProg->change(PROG_FIRE);
+                if (pPhase->hasArrivedFrameAt(frame_when_shot_)) {
+                    pPhase->change(PHASE_FIRE);
                 }
             } else {
                 if (max_shots_ > shot_num_) {
@@ -120,15 +120,15 @@ void EnemyGeria::processBehavior() {
                     if (pM->_z - 500000 < _z && _z < pM->_z + 500000 &&
                         pM->_y - 500000 < _y && _y < pM->_y + 500000 )
                     {
-                        frame_when_shot_ = pProg->getFrame() + RND(1, 20); //ショット撃ち初めまでのラグを設けて散らばらせる
+                        frame_when_shot_ = pPhase->getFrame() + RND(1, 20); //ショット撃ち初めまでのラグを設けて散らばらせる
                         will_shot_ = true;
                     }
                 }
             }
             break;
         }
-        case PROG_FIRE: {  //発射
-            if (pProg->hasJustChanged()) {
+        case PHASE_FIRE: {  //発射
+            if (pPhase->hasJustChanged()) {
                 pVecVehicle->setMvVelo(PX_C(3)); //減速
                 pVecVehicle->rollFaceAngTo(D180ANG, D_ANG(3), 0, TURN_CLOCKWISE); //予備動作のぐるっと回転
             }
@@ -149,20 +149,20 @@ void EnemyGeria::processBehavior() {
                     effectFlush(3); //フラッシュ
                     getSeTransmitter()->play3D(SE_FIRE);
                 }
-                pProg->change(PROG_MOVE);
+                pPhase->change(PHASE_MOVE);
             }
             break;
         }
-        case PROG_LEAVE: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_LEAVE: {
+            if (pPhase->hasJustChanged()) {
                 setHitAble(false);
                 pVecVehicle->setMvVelo(0);
                 UTIL::activateLeaveEffectOf(this);
                 pAlphaFader->transitionLinearUntil(0.0, 30);
             }
-            if (pProg->hasArrivedAt(60)) {
+            if (pPhase->hasArrivedFrameAt(60)) {
                 sayonara();
-                pProg->changeNothing(); //おしまい！
+                pPhase->changeNothing(); //おしまい！
             }
             break;
         }
@@ -174,7 +174,7 @@ void EnemyGeria::processBehavior() {
     pAlphaFader->behave();
     mvd_ += pVecVehicle->getMvVelo();
     if (mvd_ > migration_length_) {
-        getProgress()->change(PROG_LEAVE);
+        getPhase()->change(PHASE_LEAVE);
     }
 }
 

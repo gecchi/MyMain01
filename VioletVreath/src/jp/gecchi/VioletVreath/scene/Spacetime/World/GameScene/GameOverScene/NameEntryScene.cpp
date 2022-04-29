@@ -15,12 +15,12 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG_INIT     ,
-    PROG_PRE_DISP ,
-    PROG_INPUT    ,
-    PROG_DONE_DISP,
-    PROG_FINISH   ,
-    PROG_BANPEI,
+    PHASE_INIT     ,
+    PHASE_PRE_DISP ,
+    PHASE_INPUT    ,
+    PHASE_DONE_DISP,
+    PHASE_FINISH   ,
+    PHASE_BANPEI,
 };
 
 NameEntryScene::NameEntryScene(const char* prm_name) : VvScene<DefaultScene>(prm_name) {
@@ -51,37 +51,37 @@ void NameEntryScene::onReset() {
     pLabel01_->update("");
     pLabelInputedName_->update("");
     pWorldBound_->inactivate();
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 void NameEntryScene::initialize() {
     _TRACE_(FUNC_NAME<<"");
 }
 
 void NameEntryScene::processBehavior() {
-    SceneProgress* pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_INIT: {
-            pProg->change(PROG_PRE_DISP);
+    ScenePhase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_INIT: {
+            pPhase->change(PHASE_PRE_DISP);
             break;
         }
 
-        case PROG_PRE_DISP: {
+        case PHASE_PRE_DISP: {
             //##########  事前画面表示  ##########
-            if (pProg->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PROG_PRE_DISP)");
+            if (pPhase->hasJustChanged()) {
+                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PHASE_PRE_DISP)");
                 pWorldBound_->fadein();
             }
 
-            if(pProg->getFrame() >= 120) {
-                pProg->change(PROG_INPUT);
+            if(pPhase->getFrame() >= 120) {
+                pPhase->change(PHASE_INPUT);
             }
             break;
         }
 
-        case PROG_INPUT: {
+        case PHASE_INPUT: {
             //##########  ネームエントリー  ##########
-            if (pProg->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PROG_INPUT)");
+            if (pPhase->hasJustChanged()) {
+                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PHASE_INPUT)");
                 pLabel01_->update(PX_C(62), PX_C(32), "PLEASE ENTRY YOUR NAME!!!!");
                 pNameEntryBoard_->rise(PX_C(50), PX_C(10)); //ネームエントリー板出現
                 pLabelInputedName_->getVecVehicle()->setRollPitchYawFaceAngVelo(1700, 1500, 1000);
@@ -93,10 +93,10 @@ void NameEntryScene::processBehavior() {
             break;
         }
 
-        case PROG_DONE_DISP: {
+        case PHASE_DONE_DISP: {
             //##########  ネームエントリー完了後の画面表示  ##########
-            if (pProg->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PROG_DONE_DISP)");
+            if (pPhase->hasJustChanged()) {
+                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PHASE_DONE_DISP)");
                 pNameEntryBoard_->sinkMe(); //ネームエントリー板消去
                 pLabelSelectedChar_->inactivate(); //選択表示文字消去
                 pLabelInputedName_->getAlphaFader()->beat(10, 5, 0, 5, -1); //入力ネーム点滅
@@ -119,8 +119,8 @@ void NameEntryScene::processBehavior() {
 
                 pWorldBound_->fadeout();
             }
-            if(pProg->getFrame() >= 180) {
-                pProg->change(PROG_FINISH);
+            if(pPhase->getFrame() >= 180) {
+                pPhase->change(PHASE_FINISH);
             }
 
             pLabelInputedName_->getVecVehicle()->behave();
@@ -129,9 +129,9 @@ void NameEntryScene::processBehavior() {
             break;
         }
 
-        case PROG_FINISH: {
-            if (pProg->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PROG_FINISH)");
+        case PHASE_FINISH: {
+            if (pPhase->hasJustChanged()) {
+                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PHASE_FINISH)");
                 _TRACE_("おわりじゃよ！");
                 throwEventUpperTree(EVENT_NAMEENTRYSCENE_FINISH);
             }
@@ -145,10 +145,10 @@ void NameEntryScene::processBehavior() {
 }
 
 void NameEntryScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
-    GgafCore::Progress* const pProg = getProgress();
+    GgafCore::Phase* pPhase = getPhase();
     if (prm_no == EVENT_MENU_NAMEENTRY_DONE) {
         _TRACE_("NameEntryScene::onCatchEvent(EVENT_MENU_NAMEENTRY_DONE)");
-        pProg->change(PROG_DONE_DISP);
+        pPhase->change(PHASE_DONE_DISP);
     }
 }
 

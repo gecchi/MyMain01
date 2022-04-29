@@ -63,7 +63,7 @@ private:
     /** [r]なめらか移動シークエンスで設定された等速～減速へ切り替わる位置 */
     double  _p2;
     /** [r]なめらか移動シークエンスの進捗状況 */
-    int  _progress;
+    int  _phase;
 
 public:
     /** 何かの値 */
@@ -90,7 +90,7 @@ public:
         _p0 = 0;
         _p1 = 0;
         _p2 = 0;
-        _progress = TVMOVE_DONE;
+        _phase = TVMOVE_DONE;
 
         _t_value = 0;
         _t_velo = 0;
@@ -119,7 +119,7 @@ public:
             _frame_of_target = prm_frame_of_target;
             _spent_frames = 0;
             _zero_acc_end_flg = prm_zero_acc_end_flg;
-            _progress = TVMOVE_ZERO_END; //いきなり終了
+            _phase = TVMOVE_ZERO_END; //いきなり終了
             return;
         }
         //_TRACE_(FUNC_NAME<<" COME!");
@@ -182,7 +182,7 @@ public:
             _frame_of_target = Te;
             _spent_frames = 0;
             _zero_acc_end_flg = prm_zero_acc_end_flg;
-            _progress = TVMOVE_acc_for_T1;
+            _phase = TVMOVE_acc_for_T1;
 
         } else {
             //        速度(v)
@@ -268,7 +268,7 @@ public:
             _frame_of_target = Te;
             _spent_frames = 0;
             _zero_acc_end_flg = prm_zero_acc_end_flg;
-            _progress = TVMOVE_acc_for_T1;
+            _phase = TVMOVE_acc_for_T1;
         }
 
 
@@ -285,7 +285,7 @@ public:
         //_TRACE_("_end_velo ="<<_end_velo);
         //_TRACE_("_frame_of_target ="<<_frame_of_target);
         //_TRACE_("_spent_frames ="<<_spent_frames);
-        //_TRACE_("_progress ="<<_progress);
+        //_TRACE_("_phase ="<<_phase);
     }
 
     void moveByVd(VAL_TYPE prm_top_velo,
@@ -312,7 +312,7 @@ public:
             _p1 = 0;
             _p2 = 0;
             _zero_acc_end_flg = prm_zero_acc_end_flg;
-            _progress = TVMOVE_ZERO_END; //いきなりおしまい
+            _phase = TVMOVE_ZERO_END; //いきなりおしまい
             return;
         }
         //_TRACE_("s_d="<<s_d<<" sgn_W0="<<sgn_W0);
@@ -353,7 +353,7 @@ public:
             _p1 = ABS(_target_distance) * prm_p1;
             _p2 = ABS(_target_distance) * prm_p2;
             _zero_acc_end_flg = prm_zero_acc_end_flg;
-            _progress = TVMOVE_on_Ts; //回復フェーズを飛ばす
+            _phase = TVMOVE_on_Ts; //回復フェーズを飛ばす
         } else {
             //                                                       V0:現時点の速度      (_velo_mv)
             //        速度(v)                                        Vt:トップスピード    (prm_top_angvelo)
@@ -428,7 +428,7 @@ public:
             _p1 = prm_p1;
             _p2 = prm_p2;
             _zero_acc_end_flg = prm_zero_acc_end_flg;
-            _progress = TVMOVE_RECOVERY_BEGIN; //回復フェーズから
+            _phase = TVMOVE_RECOVERY_BEGIN; //回復フェーズから
         }
 
         //_TRACE_("_is_accelerating ="<<_is_accelerating);
@@ -444,7 +444,7 @@ public:
         //_TRACE_("_end_velo ="<<_end_velo);
         //_TRACE_("_frame_of_target ="<<_frame_of_target);
         //_TRACE_("_spent_frames ="<<_spent_frames);
-        //_TRACE_("_progress ="<<_progress);
+        //_TRACE_("_phase ="<<_phase);
     }
 
     /**
@@ -452,7 +452,7 @@ public:
      * @return true:加速処理中/false:停止中
      */
     inline bool isTransitioning() const {
-        return _progress == TVMOVE_DONE ? false : true;
+        return _phase == TVMOVE_DONE ? false : true;
     }
 
     /**
@@ -462,7 +462,7 @@ public:
      * @return true:丁度加速処理が完了/false:現在加速処理中か、或いは以前から停止中
      */
     inline bool hasJustFinishedTransitioning() {
-        if (_progress != TVMOVE_DONE && _is_accelerating == false) {
+        if (_phase != TVMOVE_DONE && _is_accelerating == false) {
             return true;
         } else {
             return false;
@@ -479,9 +479,9 @@ public:
     void behave() {
         //なめらか移動シークエンス起動時
         if (_is_accelerating) {
-            //_TRACE_(_frame_of_target<<":_progress="<<_progress);
+            //_TRACE_(_frame_of_target<<":_phase="<<_phase);
             //_TRACE_(_frame_of_target<<":before _t_value="<<_t_value<<" _t_velo="<<_t_velo<<" _t_acce="<<_t_acce<<" _moved="<<_moved<<" _moved2="<<_moved2<<"");
-            if (_progress == TVMOVE_ZERO_END) {
+            if (_phase == TVMOVE_ZERO_END) {
                 //いきなり終了時の処理（距離が０、或いは、時間が０）
                 _t_velo = (VAL_TYPE)0.0; //停止
                 _t_acce = (VAL_TYPE)0.0;
@@ -502,12 +502,12 @@ public:
 
                 if (_frame_of_target < 0) {
                     //目標TOPスピード指定の場合
-                    if (_progress == TVMOVE_RECOVERY_BEGIN) {
+                    if (_phase == TVMOVE_RECOVERY_BEGIN) {
                         //回復フェーズ
                         _t_acce = _acce_a0;
-                        _progress = TVMOVE_RECOVERING_to_Ts;
+                        _phase = TVMOVE_RECOVERING_to_Ts;
                     }
-                    if (_progress == TVMOVE_RECOVERING_to_Ts) {
+                    if (_phase == TVMOVE_RECOVERING_to_Ts) {
                         //回復中
                         if (_moved >= _p0) {
                             //加速設定
@@ -518,10 +518,10 @@ public:
                             _moved = (VAL_TYPE)0.0;
                             _p1 = _target_distance * _p1;
                             _p2 = _target_distance * _p2;
-                            _progress = TVMOVE_on_Ts;
+                            _phase = TVMOVE_on_Ts;
                         }
                     }
-                    if (_progress == TVMOVE_on_Ts) {
+                    if (_phase == TVMOVE_on_Ts) {
                         if (!ZEROd_EQ(_p1)) {
                             _t_acce = (VAL_TYPE)(UTIL::getAcceByVd(_t_velo, _top_velo, _p1*_target_sgn));
                             VAL_TYPE a = ABS(_t_acce);
@@ -530,14 +530,14 @@ public:
                             } else if (a > ABS(_top_velo)) {
                                 _t_acce = _top_velo;
                             }
-                            _progress = TVMOVE_acc_for_T1; //T1 へ向けての加速度設定
+                            _phase = TVMOVE_acc_for_T1; //T1 へ向けての加速度設定
                         } else {
                             _t_acce = (VAL_TYPE)0.0;
                             _t_velo = _top_velo;
-                            _progress = TVMOVE_T1_to_T2; //加速スキップ
+                            _phase = TVMOVE_T1_to_T2; //加速スキップ
                         }
                     }
-                    if (_progress == TVMOVE_acc_for_T1) {
+                    if (_phase == TVMOVE_acc_for_T1) {
                         //加速中
                         if (_moved >= _p1) {
                             //p1 に到達すれば 等速へ
@@ -547,10 +547,10 @@ public:
                             if (ABS(_t_velo) > ABS(diff_to_end)) {
                                 _t_velo = diff_to_end;
                             }
-                            _progress = TVMOVE_T1_to_T2;
+                            _phase = TVMOVE_T1_to_T2;
                         }
                     }
-                    if (_progress == TVMOVE_T1_to_T2) {
+                    if (_phase == TVMOVE_T1_to_T2) {
                         //_TRACE_("等速中");
                         //等速中
                         if (_moved >= _p2) {
@@ -566,10 +566,10 @@ public:
                                 }
                                 //_TRACE_("減速加速度 補正 _t_acce="<<acc<<" ????");
                             }
-                            _progress = TVMOVE_T2_to_Te;
+                            _phase = TVMOVE_T2_to_Te;
                         }
                     }
-                    if (_progress == TVMOVE_T2_to_Te) {
+                    if (_phase == TVMOVE_T2_to_Te) {
                          //_TRACE_("減速中");
                         //減速中
                         const VAL_TYPE diff_to_end = _target_distance2 - _moved2;
@@ -632,7 +632,7 @@ public:
                                     //ずれてるのでもう１フレーム頑張ってバッチリ合わせる
                                     _t_velo = diff_to_end;   //バッチリ合わせる
                                     //_TRACE_("バッチリ合わせたったよ_velo="<<_target_distance2<<"-"<<_moved2<<"="<<_t_velo);
-                                    _progress = TVMOVE_BACCHIRI; //もう１フレーム
+                                    _phase = TVMOVE_BACCHIRI; //もう１フレーム
                                 }
                             } else {
                                 //最終速度が0ではない。そのまま終了
@@ -640,32 +640,32 @@ public:
                                 _is_accelerating = false; //おしまい
                             }
                         }
-                    } else if (_progress == TVMOVE_BACCHIRI) {
+                    } else if (_phase == TVMOVE_BACCHIRI) {
                         //_TRACE_("よしバッチリ合わせておしまい");
                         _t_velo = (VAL_TYPE)0.0;
                         _is_accelerating = false; //おしまい
                     }
                 } else {
                     //目標時間指定の場合
-                    if (_progress == TVMOVE_acc_for_T1) {
+                    if (_phase == TVMOVE_acc_for_T1) {
                         if (ZEROd_EQ(_p1)) {
                             _t_acce = 0;
                         } else {
                             //加速設定
                             _t_acce = (VAL_TYPE)(UTIL::getAcceByTv(_p1, _t_velo, _top_velo));
                         }
-                        _progress = TVMOVE_Ts_to_T1;
+                        _phase = TVMOVE_Ts_to_T1;
                     }
-                    if (_progress == TVMOVE_Ts_to_T1) {
+                    if (_phase == TVMOVE_Ts_to_T1) {
                         //加速中
                         if (_spent_frames >= (int)(_p1)) {
                             //p1 に到達すれば 等速へ
                             _t_acce = (VAL_TYPE)0.0;
                             _t_velo = _top_velo;
-                            _progress = TVMOVE_T1_to_T2;
+                            _phase = TVMOVE_T1_to_T2;
                         }
                     }
-                    if (_progress == TVMOVE_T1_to_T2) {
+                    if (_phase == TVMOVE_T1_to_T2) {
                         //_TRACE_("等速中 _spent_frames="<<_spent_frames<<" _p2="<<_p2);
                         //等速中
                         if (_spent_frames >= (int)(_p2)) {
@@ -680,10 +680,10 @@ public:
                             } else {
                                 _t_acce = (VAL_TYPE)0.0;
                             }
-                            _progress = TVMOVE_T2_to_Te;
+                            _phase = TVMOVE_T2_to_Te;
                         }
                     }
-                    if (_progress == TVMOVE_T2_to_Te) {
+                    if (_phase == TVMOVE_T2_to_Te) {
                         //減速中
                         //_TRACE_("減速中");
                         if ((_spent_frames & 1) == 0) { //2回に1回
@@ -725,7 +725,7 @@ public:
                                     //ずれてる。バッチリ合わせるため、もう１フレーム
                                     _t_velo = (_target_distance2 - _moved2); //次はバッチリ0になる
                                     //_TRACE_("バッチリ合わせたったよ_velo="<<_target_distance2<<"-"<<_moved2<<"="<<_t_velo);
-                                    _progress = TVMOVE_BACCHIRI;
+                                    _phase = TVMOVE_BACCHIRI;
                                 }
                             } else {
                                 //最終速度が0ではない。そのまま終了
@@ -733,7 +733,7 @@ public:
                                 _is_accelerating = false; //おしまい
                             }
                         }
-                    } else if (_progress == TVMOVE_BACCHIRI) {
+                    } else if (_phase == TVMOVE_BACCHIRI) {
                         //_TRACE_("バッチリ合わせておしまい");
                         _t_velo = (VAL_TYPE)0.0;
                         _is_accelerating = false; //おしまい
@@ -750,7 +750,7 @@ public:
             //_TRACE_(_frame_of_target<<":after _t_value="<<_t_value<<" _t_velo="<<_t_velo<<" _t_acce="<<_t_acce<<" _moved="<<_moved<<" _moved2="<<_moved2<<"");
             ++_spent_frames;
         } else {
-            _progress = TVMOVE_DONE;
+            _phase = TVMOVE_DONE;
         }
 #ifdef MY_DEBUG
         if (_spent_frames > 60*60*60) {

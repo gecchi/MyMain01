@@ -32,7 +32,7 @@ void VarietyRatislavia002::initialize() {
     _x = pSpacetime->_x_bound_right + r1_*2 + r2_*2;
     _y = 0;
     _z = MyShip::lim_z_left_;
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->setRzRyMvAng(D180ANG, 0);
     pVecVehicle->setMvVelo(1000);
     pVecVehicle->setFaceAngVelo(AXIS_X, 10);

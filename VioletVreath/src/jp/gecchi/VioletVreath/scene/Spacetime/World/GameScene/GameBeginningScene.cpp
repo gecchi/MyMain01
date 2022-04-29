@@ -12,11 +12,11 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG_INIT       ,
-    PROG_SELECT_MODE,
-    PROG_DECIDE     ,
-    PROG_FINISH     ,
-    PROG_BANPEI,
+    PHASE_INIT       ,
+    PHASE_SELECT_MODE,
+    PHASE_DECIDE     ,
+    PHASE_FINISH     ,
+    PHASE_BANPEI,
 };
 
 GameBeginningScene::GameBeginningScene(const char* prm_name) : VvScene<DefaultScene>(prm_name) {
@@ -31,7 +31,7 @@ GameBeginningScene::GameBeginningScene(const char* prm_name) : VvScene<DefaultSc
 
 void GameBeginningScene::onReset() {
     _TRACE_(FUNC_NAME<<" "<<NODE_INFO<<"");
-    getProgress()->change(PROG_INIT);
+    getPhase()->change(PHASE_INIT);
 //    fadeinScene(0);
     pLabel01_->update("");
     pLabel02_->update("");
@@ -48,45 +48,45 @@ void GameBeginningScene::initialize() {
 }
 
 void GameBeginningScene::processBehavior() {
-    SceneProgress* pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_INIT: {
-            pProg->change(PROG_SELECT_MODE);
+    ScenePhase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_INIT: {
+            pPhase->change(PHASE_SELECT_MODE);
             break;
         }
 
-        case PROG_SELECT_MODE: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_SELECT_MODE: {
+            if (pPhase->hasJustChanged()) {
                 pLabel01_->update(PX_C(200), PX_C(200), "GAME_BEGINNING_SCENE BEGIN");
                 pLabel02_->update(PX_C(200), PX_C(250), "SELECT MODE!");
             }
-            if (pProg->get() == PROG_SELECT_MODE) {
-                if (VB->isPushedDown(VB_UI_EXECUTE) || pProg->hasArrivedAt(300)) {
-                    pProg->change(PROG_DECIDE);
+            if (pPhase->get() == PHASE_SELECT_MODE) {
+                if (VB->isPushedDown(VB_UI_EXECUTE) || pPhase->hasArrivedFrameAt(300)) {
+                    pPhase->change(PHASE_DECIDE);
                 }
             }
             break;
         }
 
-        case PROG_DECIDE: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_DECIDE: {
+            if (pPhase->hasJustChanged()) {
                 pLabel02_->update(PX_C(300), PX_C(300), "OK OK OK");
                 pLabel02_->getAlphaFader()->beat(20, 3, 7, 3, -1);
 //                fadeoutScene(FADE_FRAMES);
             }
-            if (pProg->hasArrivedAt(20)) {
+            if (pPhase->hasArrivedFrameAt(20)) {
                 throwEventUpperTree(EVENT_GAMEMODE_DECIDE);
             }
 
 //
-//            if (pProg->hasArrivedAt(FADE_FRAMES)) {
-//                pProg->change(PROG_FINISH);
+//            if (pPhase->hasArrivedFrameAt(FADE_FRAMES)) {
+//                pPhase->change(PHASE_FINISH);
 //            }
             break;
         }
 
-        case PROG_FINISH: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_FINISH: {
+            if (pPhase->hasJustChanged()) {
                 //inactivate();
             }
             break;

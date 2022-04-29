@@ -19,12 +19,12 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG_INIT,
-    PROG_ENTRY,
-    PROG_MOVE ,
-    PROG_TURN ,
-    PROG_FIRE ,
-    PROG_BANPEI,
+    PHASE_INIT,
+    PHASE_ENTRY,
+    PHASE_MOVE ,
+    PHASE_TURN ,
+    PHASE_FIRE ,
+    PHASE_BANPEI,
 };
 enum {
     SE_EXPLOSION,
@@ -97,7 +97,7 @@ void EnemyStraea::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliSphere(0, PX_C(200));
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->setRzRyMvAng(0, D180ANG);
 }
 
@@ -106,51 +106,51 @@ void EnemyStraea::onActive() {
     setHitAble(false);
     Spacetime* pSpacetime =  pGOD->getSpacetime();
     _x = pSpacetime->_x_bound_right;
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 
 void EnemyStraea::processBehavior() {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
-    GgafCore::Progress* const pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_INIT: {
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafCore::Phase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_INIT: {
             setHitAble(false);
             setAlpha(0);
             pVecVehicle->setRollFaceAngVelo(4000);
-            pProg->changeNext();
+            pPhase->changeNext();
             break;
         }
-        case PROG_ENTRY: {
+        case PHASE_ENTRY: {
             EffectBlink* pEffectEntry = nullptr;
-            if (pProg->hasJustChanged()) {
+            if (pPhase->hasJustChanged()) {
                 pEffectEntry = UTIL::activateEntryEffectOf(this);
             }
             static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
             static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
-            if (pProg->hasArrivedAt(frame_of_summons_begin)) {
+            if (pPhase->hasArrivedFrameAt(frame_of_summons_begin)) {
                 getAlphaFader()->transitionLinearUntil(1.0, frame_of_entering);
             }
-            if (pProg->hasArrivedAt(frame_of_entering)) {
+            if (pPhase->hasArrivedFrameAt(frame_of_entering)) {
                 setHitAble(true);
-                pProg->changeNext();
+                pPhase->changeNext();
             }
             getAlphaFader()->behave();
             break;
         }
-        case PROG_MOVE: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_MOVE: {
+            if (pPhase->hasJustChanged()) {
                 angle v = angvelo_turn_ / 50;
                 pVecVehicle->setRollPitchYawFaceAngVelo(RND(-v, v), RND(-v, v), RND(-v, v));
                 pVecVehicle->setMvVelo(2000);
             }
             if (getActiveFrame() % laser_interval_ == 0) {
-                pProg->changeNext();
+                pPhase->changeNext();
             }
             break;
         }
 
-        case PROG_TURN: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_TURN: {
+            if (pPhase->hasJustChanged()) {
                 //ターン開始
                 pVecVehicle->turnFaceAngTwd(pMYSHIP,
                                         angvelo_turn_, 0, TURN_ANTICLOSE_TO, false);
@@ -162,13 +162,13 @@ void EnemyStraea::processBehavior() {
                 //自機にがいた方向に振り向きが完了時
                 pVecVehicle->setRollPitchYawFaceAngVelo(angvelo_turn_*2, 0, 0);
                 pVecVehicle->setMvVelo(0);
-                pProg->changeNext();
+                pPhase->changeNext();
             }
             break;
         }
 
-        case PROG_FIRE: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_FIRE: {
+            if (pPhase->hasJustChanged()) {
                 //レーザーセット、借入
                 GgafCore::ActorDepositoryStore* pLaserChipDepoStore =
                         (GgafCore::ActorDepositoryStore*)(pConn_pDepoStore_laser_set->peek());
@@ -226,7 +226,7 @@ void EnemyStraea::processBehavior() {
                     }
                 }
             } else {
-                pProg->change(PROG_MOVE);
+                pPhase->change(PHASE_MOVE);
             }
             break;
         }

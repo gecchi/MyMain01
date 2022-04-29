@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/core/actor/SceneMediator.h"
 #include "jp/ggaf/dx/sound/BgmConductor.h"
-#include "jp/ggaf/lib/util/SceneProgress.h"
+#include "jp/ggaf/lib/util/ScenePhase.h"
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
 
@@ -243,16 +243,16 @@ void RankUp002::processBehavior() {
     }
     // gen02 end
 
-    SceneProgress* pProg = getProgress();
-    switch (pProg->get()) {
-        case RankUpStage::PROG_PLAYING: {
-            if (pProg->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" RankUpStage::PROG_PLAYING Ç…Ç»ÇËÇ‹Ç∑ÇΩÅI");
+    ScenePhase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case RankUpStage::PHASE_PLAYING: {
+            if (pPhase->hasJustChanged()) {
+                _TRACE_(FUNC_NAME<<" RankUpStage::PHASE_PLAYING Ç…Ç»ÇËÇ‹Ç∑ÇΩÅI");
             }
 
-            if (pProg->hasArrivedAt(_paFrame_NextEvent[_event_num-1]+600)) {
-                _TRACE_(FUNC_NAME<<" RankUpStage::PROG_PLAYING Ç®ÇÌÇ¡ÇΩ");
-                pProg->change(RankUpStage::PROG_RESULT); //RankUpStageÇÃã§í èàóùÇ÷
+            if (pPhase->hasArrivedFrameAt(_paFrame_NextEvent[_event_num-1]+600)) {
+                _TRACE_(FUNC_NAME<<" RankUpStage::PHASE_PLAYING Ç®ÇÌÇ¡ÇΩ");
+                pPhase->change(RankUpStage::PHASE_RESULT); //RankUpStageÇÃã§í èàóùÇ÷
             }
             break;
         }

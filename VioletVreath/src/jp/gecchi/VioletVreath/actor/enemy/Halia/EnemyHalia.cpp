@@ -20,15 +20,15 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG_INIT   ,
-    PROG_ENTRY  ,
-    PROG_FIRST_MOVE,
-    PROG_MOVE      ,
-    PROG_TURN_OPEN ,
-    PROG_FIRE_BEGIN,
-    PROG_IN_FIRE   ,
-    PROG_CLOSE     ,
-    PROG_BANPEI,
+    PHASE_INIT   ,
+    PHASE_ENTRY  ,
+    PHASE_FIRST_MOVE,
+    PHASE_MOVE      ,
+    PHASE_TURN_OPEN ,
+    PHASE_FIRE_BEGIN,
+    PHASE_IN_FIRE   ,
+    PHASE_CLOSE     ,
+    PHASE_BANPEI,
 };
 enum {
     SE_DAMAGED  ,
@@ -84,64 +84,64 @@ void EnemyHalia::initialize() {
 void EnemyHalia::onActive() {
     getStatus()->reset();
     setMorphWeight(0.0);
-    getProgress()->reset(PROG_INIT);
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    getPhase()->reset(PHASE_INIT);
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->setRollFaceAngVelo(1000);
     pVecVehicle->setMvVelo(0);
     pVecVehicle->setMvAcce(0);
 }
 
 void EnemyHalia::processBehavior() {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
-    GgafCore::Progress* const pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_INIT: {
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafCore::Phase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_INIT: {
             setHitAble(false);
             setAlpha(0);
-            pProg->changeNext();
+            pPhase->changeNext();
             break;
         }
-        case PROG_ENTRY: {  //“oê
+        case PHASE_ENTRY: {  //“oê
             EffectBlink* pEffectEntry = nullptr;
-            if (pProg->hasJustChanged()) {
+            if (pPhase->hasJustChanged()) {
                 pEffectEntry = UTIL::activateEntryEffectOf(this);
             }
             static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
             static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
-            if (pProg->hasArrivedAt(frame_of_summons_begin)) {
+            if (pPhase->hasArrivedFrameAt(frame_of_summons_begin)) {
                 getAlphaFader()->transitionLinearUntil(1.0, frame_of_entering);
             }
-            if (pProg->hasArrivedAt(frame_of_entering)) {
+            if (pPhase->hasArrivedFrameAt(frame_of_entering)) {
                 setHitAble(true);
-                pProg->change(PROG_FIRST_MOVE);
+                pPhase->change(PHASE_FIRST_MOVE);
             }
             break;
         }
-        case PROG_FIRST_MOVE: { //‰‰ñˆÚ“®
-            if (pProg->hasJustChanged()) {
+        case PHASE_FIRST_MOVE: { //‰‰ñˆÚ“®
+            if (pPhase->hasJustChanged()) {
                 pVecVehicle->setRzRyMvAng(0, 0);
                 pVecVehicle->asstMv()->slideByVd(veloTopMv_, PX_C(1000),
                                               0.4, 0.6, 0, true);
                 pVecVehicle->setRollFaceAngVelo(D_ANG(1));
             }
             if (!pVecVehicle->asstMv()->isSliding()) {
-                pProg->change(PROG_TURN_OPEN);
+                pPhase->change(PHASE_TURN_OPEN);
             }
             break;
         }
-        case PROG_MOVE: {  //‚Q‰ñˆÈ~‚ÌˆÚ“®
-            if (pProg->hasJustChanged()) {
+        case PHASE_MOVE: {  //‚Q‰ñˆÈ~‚ÌˆÚ“®
+            if (pPhase->hasJustChanged()) {
                 pVecVehicle->asstMv()->slideByVd(veloTopMv_, PX_C(1000),
                                               0.4, 0.6, 0, true);
                 pVecVehicle->setRollFaceAngVelo(D_ANG(1));
             }
             if (!pVecVehicle->asstMv()->isSliding()) {
-                pProg->change(PROG_TURN_OPEN);
+                pPhase->change(PHASE_TURN_OPEN);
             }
             break;
         }
-        case PROG_TURN_OPEN: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_TURN_OPEN: {
+            if (pPhase->hasJustChanged()) {
                 pVecVehicle->turnMvAngTwd(pMYSHIP,
                                       0, 100,
                                       TURN_CLOSE_TO, false);
@@ -151,38 +151,38 @@ void EnemyHalia::processBehavior() {
                                       D_ANG(1), 0,
                                       TURN_CLOSE_TO, false);
                 getMorpher()->transitionAcceUntil(1, 1.0, 0.0, 0.0004); //ŠJ‚­ 0.0004 ŠJ‚­‘¬‚³
-                pProg->changeNext();
+                pPhase->changeNext();
             }
             break;
         }
-        case PROG_FIRE_BEGIN: {
+        case PHASE_FIRE_BEGIN: {
             if (!getMorpher()->isTransitioning()) {
                 if ( _x - pMYSHIP->_x > -dZ_camera_init_) {
                     pVecVehicle->setMvVelo(PX_C(1)); //‚¿‚å‚Á‚ÆƒoƒbƒN
                     pVecVehicle->setRollFaceAngVelo(D_ANG(5));//”­ŽË’†‚Í‘¬‚¢‰ñ“]
-                    pProg->change(PROG_IN_FIRE);
+                    pPhase->change(PHASE_IN_FIRE);
                 } else {
                     //”wŒã‚©‚ç‚ÍŒ‚‚½‚È‚¢B
-                    pProg->change(PROG_CLOSE);
+                    pPhase->change(PHASE_CLOSE);
                 }
             }
             break;
         }
-        case PROG_IN_FIRE: {
+        case PHASE_IN_FIRE: {
             LaserChip* pLaser = pLaserChipDepo_->dispatch();
             if (pLaser) {
                 if (pLaser->getInfrontChip() == nullptr) {
                     getSeTransmitter()->play3D(SE_FIRE);
                 }
             } else {
-                pProg->change(PROG_CLOSE);
+                pPhase->change(PHASE_CLOSE);
             }
             break;
         }
-        case PROG_CLOSE: {
+        case PHASE_CLOSE: {
             //‚PƒTƒCƒNƒ‹ƒŒ[ƒU[‘Å‚¿Ø‚Á‚½
             getMorpher()->transitionLinearUntil(1, 0.0, 60); //•Â‚¶‚é
-            pProg->change(PROG_MOVE);
+            pPhase->change(PHASE_MOVE);
             break;
         }
 

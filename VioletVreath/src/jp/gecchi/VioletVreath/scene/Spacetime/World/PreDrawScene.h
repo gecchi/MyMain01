@@ -19,11 +19,11 @@ class PreDrawScene : public VvScene<GgafLib::DefaultScene> {
 
 public:
     enum {
-        PROG_READY ,
-        PROG_DISP ,
-        PROG_CALM_DOWN ,
-        PROG_WAIT ,
-        PROG_BANPEI,
+        PHASE_READY ,
+        PHASE_DISP ,
+        PHASE_CALM_DOWN ,
+        PHASE_WAIT ,
+        PHASE_BANPEI,
     };
 
     int order_id_begin_;

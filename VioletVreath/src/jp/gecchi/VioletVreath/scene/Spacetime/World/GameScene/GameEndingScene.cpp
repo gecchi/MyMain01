@@ -8,12 +8,12 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG_INIT    ,
-    PROG_BEGIN   ,
-    PROG_OPE     ,
-    PROG_DECIDE  ,
-    PROG_END     ,
-    PROG_BANPEI,
+    PHASE_INIT    ,
+    PHASE_BEGIN   ,
+    PHASE_OPE     ,
+    PHASE_DECIDE  ,
+    PHASE_END     ,
+    PHASE_BANPEI,
 };
 
 GameEndingScene::GameEndingScene(const char* prm_name) : VvScene<DefaultScene>(prm_name) {
@@ -21,7 +21,7 @@ GameEndingScene::GameEndingScene(const char* prm_name) : VvScene<DefaultScene>(p
 }
 
 void GameEndingScene::onReset() {
-    //pProg->change(GameEndingScene::PROG_INIT);
+    //pPhase->change(GameEndingScene::PHASE_INIT);
 }
 void GameEndingScene::ready() {
     _TRACE_(FUNC_NAME<<"");

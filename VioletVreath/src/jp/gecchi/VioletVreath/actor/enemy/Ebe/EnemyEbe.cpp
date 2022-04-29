@@ -14,11 +14,11 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG_MOVE01_1   ,
-    PROG_CURVE_MOVE,
-    PROG_MOVE02_1   ,
-    PROG_MOVE02_2   ,
-    PROG_BANPEI,
+    PHASE_MOVE01_1   ,
+    PHASE_CURVE_MOVE,
+    PHASE_MOVE02_1   ,
+    PHASE_MOVE02_2   ,
+    PHASE_BANPEI,
 };
 enum {
     SE_DAMAGED  ,
@@ -66,34 +66,34 @@ void EnemyEbe::onActive() {
     getStatus()->reset();
     setHitAble(true);
     getVecVehicle()->setMvAcce(0);
-    getProgress()->reset(PROG_MOVE01_1);
+    getPhase()->reset(PHASE_MOVE01_1);
 }
 
 void EnemyEbe::processBehavior() {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
-    GgafCore::Progress* const pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_MOVE01_1: {
-            if ((int)(pProg->getFrame()) > (int)(PX_C(300) / ABS(pVecVehicle->_velo_mv))) {
-                pProg->changeNext();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafCore::Phase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_MOVE01_1: {
+            if ((int)(pPhase->getFrame()) > (int)(PX_C(300) / ABS(pVecVehicle->_velo_mv))) {
+                pPhase->changeNext();
             }
             break;
         }
 
-        case PROG_CURVE_MOVE: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_CURVE_MOVE: {
+            if (pPhase->hasJustChanged()) {
                 pVehicleLeader_->start(RELATIVE_COORD);
             }
             pVehicleLeader_->behave();
 
             if (pVehicleLeader_->isFinished()) {
-                pProg->changeNext();
+                pPhase->changeNext();
             }
             break;
         }
 
-        case PROG_MOVE02_1: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_MOVE02_1: {
+            if (pPhase->hasJustChanged()) {
                 pVecVehicle->turnMvAngTwd(_x - PX_C(300), _y, _z,
                                       D_ANG(1), 0, TURN_CLOSE_TO, false);
             }

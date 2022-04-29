@@ -18,9 +18,9 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG_INIT   ,
-    PROG_FAINAL ,
-    PROG_BANPEI,
+    PHASE_INIT   ,
+    PHASE_FAINAL ,
+    PHASE_BANPEI,
 };
 
 StageDebugPartController::StageDebugPartController(const char* prm_name) : StagePartController(prm_name) {
@@ -73,7 +73,7 @@ StageDebugPartController::StageDebugPartController(const char* prm_name) : Stage
 }
 
 void StageDebugPartController::initialize() {
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 
 void StageDebugPartController::processBehavior() {
@@ -7119,15 +7119,15 @@ void StageDebugPartController::processBehavior() {
 	}
     // gen02 end
 
-    SceneProgress* pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_FAINAL: {
-            if (pProg->hasJustChanged()) {
+    ScenePhase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_FAINAL: {
+            if (pPhase->hasJustChanged()) {
                 //STGDBGClimax_終焉の処理
-                _TRACE_("STGDBGClimax_終焉のStageDebugPartController::PROG_FAINALきた");
+                _TRACE_("STGDBGClimax_終焉のStageDebugPartController::PHASE_FAINALきた");
             }
 
-            if (pProg->hasArrivedAt(60)) {
+            if (pPhase->hasArrivedFrameAt(60)) {
                 fadeoutSceneWithBgm(300);
                 throwEventUpperTree(EVENT_STAGEDEBUG_PART_CTRLER_WAS_END); //ステージエンドを上位に伝える
             }
@@ -7140,7 +7140,7 @@ void StageDebugPartController::processBehavior() {
 }
 
 void StageDebugPartController::onCatchEvent(hashval prm_no, void* prm_pSource) {
-    SceneProgress* pProg = getProgress();
+    ScenePhase* pPhase = getPhase();
     if (prm_no == EVENT_STAGEDEBUG_PART_01_WAS_FINISHED) {
         _TRACE_(FUNC_NAME<<" EVENT_STAGEDEBUG_PART_01_WAS_FINISHED");
         ((DefaultScene*)prm_pSource)->sayonara(60*60);
@@ -7156,7 +7156,7 @@ void StageDebugPartController::onCatchEvent(hashval prm_no, void* prm_pSource) {
     } else if (prm_no == EVENT_STAGEDEBUG_PART_CLIMAX_WAS_FINISHED) {
         _TRACE_(FUNC_NAME<<" EVENT_STAGEDEBUG_PART_CLIMAX_WAS_FINISHED");
         ((DefaultScene*)prm_pSource)->sayonara(60*60);
-        pProg->change(PROG_FAINAL); //進捗をStageDebugPartController::PROG_FAINALに切り替える
+        pPhase->change(PHASE_FAINAL); //進捗をStageDebugPartController::PHASE_FAINALに切り替える
     } else {
 
     }

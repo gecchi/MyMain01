@@ -41,7 +41,7 @@ EnemyEresShot001::EnemyEresShot001(const char* prm_name) :
 }
 
 void EnemyEresShot001::initialize() {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->forceMvVeloRange(veloTop_, veloBottom_);
     pVecVehicle->linkFaceAngByMvAng(true);
     CollisionChecker* pChecker = getCollisionChecker();
@@ -54,7 +54,7 @@ void EnemyEresShot001::onActive() {
     getStatus()->reset();
 
     //oŒ»Žž
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->setMvVelo(velo1st_);
     pVecVehicle->setMvAcce(iMoveAcce_1st_);
 
@@ -62,7 +62,7 @@ void EnemyEresShot001::onActive() {
 }
 
 void EnemyEresShot001::processBehavior() {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     //•ûŒü“]Š·ŠJŽn
     if (getActiveFrame() == frame_TurnBegin_) {
         pVecVehicle->turnMvAngTwd(pMYSHIP,

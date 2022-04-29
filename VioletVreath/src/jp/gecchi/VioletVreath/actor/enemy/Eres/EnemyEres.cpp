@@ -64,7 +64,7 @@ void EnemyEres::onActive() {
     setHitAble(true);
     getStatus()->reset();
     iMovePatternNo_ = 0;
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->linkFaceAngByMvAng(true);
     pVecVehicle->setRollFaceAngVelo(2000);
 //    pVecVehicle->setMvVelo(3000);

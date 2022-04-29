@@ -16,14 +16,14 @@ Stage::Stage(const char* prm_name) : VvScene<DefaultScene>(prm_name) {
 }
 
 void Stage::initialize() {
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 void Stage::processBehavior() {
     DefaultScene::processBehavior();
-    SceneProgress* pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_BEGIN: {
-            if (pProg->hasJustChanged()) {
+    ScenePhase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_BEGIN: {
+            if (pPhase->hasJustChanged()) {
                 //乱数シード更新
                 uint32_t seed = (uint32_t)G_RANK_DISP;
                 _TRACE_(FUNC_NAME<<" 乱数シード更新 changeSeed("+XTOS(seed)+")");

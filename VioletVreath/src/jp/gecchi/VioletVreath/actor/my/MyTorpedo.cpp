@@ -62,7 +62,7 @@ void MyTorpedo::onActive() {
     _sx = _sy = _sz = 100;
     setScale(100);
     getScaler()->transitionLinearStep(7000, 500);
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->setRollPitchYawFaceAngVelo(D_ANG(3), D_ANG(5), D_ANG(7));
     if (pTarget_) {
         pVecVehicle->forceMvVeloRange(4000, 100000);
@@ -82,7 +82,7 @@ void MyTorpedo::onActive() {
     begin_y_ = _y;
     begin_z_ = _z;
     setHitAble(true);
-    getProgress()->reset(MyTorpedo_IN_FIRE);
+    getPhase()->reset(MyTorpedo_IN_FIRE);
     move_section_ = 0;
     //非ターゲット時の方向、オプションの向いてる方向に飛ばす
     trz_ = pTorpedoCtrler_->pOrg_->_rz;
@@ -90,9 +90,9 @@ void MyTorpedo::onActive() {
 }
 
 void MyTorpedo::processBehavior() {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
-    GgafCore::Progress* const pProg = getProgress();
-    if (pProg->get() == MyTorpedo_RELEASE) {
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafCore::Phase* pPhase = getPhase();
+    if (pPhase->get() == MyTorpedo_RELEASE) {
         if (pTailEffectDepository_->_num_chip_active == 0) {
             //軌跡エフェクトが全て非活動になった場合
             inactivate(); //自身を最後にinactivate()
@@ -101,7 +101,7 @@ void MyTorpedo::processBehavior() {
         }
     }
 
-    if (pProg->get() == MyTorpedo_IN_FIRE) {
+    if (pPhase->get() == MyTorpedo_IN_FIRE) {
         //尾っぽエフェクト追加処理
         if (pTailEffectDepository_->_num_chip_active < length_TailEffect_) {
             MyTorpedoTail* pTailEffect = (MyTorpedoTail*)pTailEffectDepository_->dispatch();
@@ -211,10 +211,10 @@ void MyTorpedo::processBehavior() {
 }
 
 void MyTorpedo::processJudgement() {
-    GgafCore::Progress* const pProg = getProgress();
-    if (isOutOfSpacetime() && pProg->get() == MyTorpedo_IN_FIRE) {
+    GgafCore::Phase* pPhase = getPhase();
+    if (isOutOfSpacetime() && pPhase->get() == MyTorpedo_IN_FIRE) {
         setHitAble(false);
-        pProg->change(MyTorpedo_RELEASE);
+        pPhase->change(MyTorpedo_RELEASE);
         GgafCore::MainActor* pTailEffect = (GgafCore::MainActor*)pTailEffectDepository_->getChildFirst();
         for (int i = 0; i < length_TailEffect_; i++) {
             pTailEffect->inactivateDelay(i+1); //軌跡エフェクトが順々に消えるように予約
@@ -236,8 +236,8 @@ void MyTorpedo::onHit(const GgafCore::Actor* prm_pOtherActor) {
     int sta = UTIL::calcMyStamina(this, pOther);
     setHitAble(false);
 
-    GgafCore::Progress* const pProg = getProgress();
-    pProg->change(MyTorpedo_RELEASE);
+    GgafCore::Phase* pPhase = getPhase();
+    pPhase->change(MyTorpedo_RELEASE);
     GgafCore::MainActor* pTailEffect = (GgafCore::MainActor*)pTailEffectDepository_->getChildFirst();
     for (int i = 0; i < length_TailEffect_; i++) {
         pTailEffect->inactivateDelay(i+1); //軌跡エフェクトが順々に消えるように予約

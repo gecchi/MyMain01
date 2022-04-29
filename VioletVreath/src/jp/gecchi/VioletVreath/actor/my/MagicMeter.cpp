@@ -277,7 +277,7 @@ void MagicMeter::onActive() {
 
 void MagicMeter::processBehavior() {
     ////////////////////////各魔法についての処理//////////////////////////
-    GgafCore::Progress* pMagicProg;
+    GgafCore::Phase* pMagicProg;
     Magic* pMagic = nullptr;
     int pMagic_level, pMagic_new_level;
     MagicLvCursor001* pLvTgtMvCur;
@@ -286,7 +286,7 @@ void MagicMeter::processBehavior() {
 
     for (int m = 0; m < lstMagic_.length(); m++) {
         pMagic = lstMagic_.getFromFirst(m);    //魔法オブジェクト
-        pMagicProg = pMagic->_pProg;           //魔法の進捗状況
+        pMagicProg = pMagic->_pPhase;           //魔法の進捗状況
         pMagic_level = pMagic->level_;         //魔法の現レベル
         pMagic_new_level = pMagic->new_level_; //魔法の新レベル（詠唱中・発動中の場合）
         pLvTgtMvCur = papLvTgtMvCur_[m];       //操作カーソルオブジェクト(↑↓移動)
@@ -510,7 +510,7 @@ void MagicMeter::processBehavior() {
         alpha_velo_ = 0.05f;
         Magic* pActiveMagic = lstMagic_.getCurrent();     //アクティブな魔法
         int active_idx = lstMagic_.getCurrentIndex();     //アクティブな魔法のインデックス
-        progress active_prg = pActiveMagic->getProgress()->get();  //アクティブな魔法の進捗
+        phase active_prg = pActiveMagic->getPhase()->get();  //アクティブな魔法の進捗
         if (pMyShip->canControl() && pVbPlay->isPushedDown(VB_POWERUP)) {
             rollOpen(active_idx);
         }
@@ -533,7 +533,7 @@ void MagicMeter::processBehavior() {
             lstMagic_.next(); //メーターを１つ進める
             pActiveMagic= lstMagic_.getCurrent();     //更新
             active_idx = lstMagic_.getCurrentIndex(); //更新
-            active_prg = pActiveMagic->getProgress()->get(); //更新
+            active_prg = pActiveMagic->getPhase()->get(); //更新
 
             rollOpen(active_idx);  //進めた先をロールオープン
             pMainCur_->moveTo(active_idx); //メーターカーソルも１つ進める
@@ -557,7 +557,7 @@ void MagicMeter::processBehavior() {
             lstMagic_.prev(); //メーターを１つ戻す
             pActiveMagic= lstMagic_.getCurrent();     //更新
             active_idx = lstMagic_.getCurrentIndex(); //更新
-            active_prg = pActiveMagic->getProgress()->get(); //更新
+            active_prg = pActiveMagic->getPhase()->get(); //更新
 
             rollOpen(active_idx); //戻した先をロールオープン
             pMainCur_->moveTo(active_idx); //メーターカーソルも１つ戻す

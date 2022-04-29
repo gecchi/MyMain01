@@ -20,11 +20,11 @@ class Stage01Part :  public VvScene<T> {
 
 public:
     enum {
-        PROG_INIT    ,
-        PROG_BEGIN   ,
-        PROG_PLAYING ,
-        PROG_END     ,
-        PROG_BANPEI,
+        PHASE_INIT    ,
+        PHASE_BEGIN   ,
+        PHASE_PLAYING ,
+        PHASE_END     ,
+        PHASE_BANPEI,
     };
 
     hashval event_part_finish_;

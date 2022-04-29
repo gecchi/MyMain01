@@ -20,17 +20,17 @@ using namespace VioletVreath;
 #define GAMETITLE_TIMEOUT (60*20)
 
 enum {
-    PROG_INIT     ,
-    PROG_TITLE    ,
-    PROG_SELECT   ,
-    PROG_GAMESTART,
-    PROG_FINISH   ,
-    PROG_BANPEI,
+    PHASE_INIT     ,
+    PHASE_TITLE    ,
+    PHASE_SELECT   ,
+    PHASE_GAMESTART,
+    PHASE_FINISH   ,
+    PHASE_BANPEI,
 };
 
 GameTitleScene::GameTitleScene(const char* prm_name) : VvScene<DefaultScene>(prm_name) {
     _class_name = "GameTitleScene";
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 
     pLabel01_ = NEW LabelGecchi16Font("STR01");
     bringSceneMediator()->appendGroupChild(pLabel01_);
@@ -63,7 +63,7 @@ void GameTitleScene::onReset() {
     pLabel01_->update("");
     pLabel02_->update("");
     pTitleBoard_->setPosition(PX_C(100), PX_C(90));
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 
 void GameTitleScene::onActive() {
@@ -71,7 +71,7 @@ void GameTitleScene::onActive() {
     pHoshiBoshi_->activate();
     pWorldBound_->fadein();
     pHoshiBoshi_->fadein();
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 
 void GameTitleScene::initialize() {
@@ -80,79 +80,79 @@ void GameTitleScene::initialize() {
 
 void GameTitleScene::processBehavior() {
 
-    SceneProgress* pProg = getProgress();
-    switch (pProg->getFromProgOnChange()) {
+    ScenePhase* pPhase = getPhase();
+    switch (pPhase->getFromPhaseOnChange()) {
         default: {
             break;
         }
     }
 //    DECLARE_HASHVAL(STR02);
 //    LabelGecchi16Font* pLabel02 = (LabelGecchi16Font*) bringSceneMediator()->bring(STR02);
-    switch (pProg->get()) {
-        case PROG_INIT: {
-            pProg->change(PROG_TITLE);
+    switch (pPhase->get()) {
+        case PHASE_INIT: {
+            pPhase->change(PHASE_TITLE);
             break;
         }
 
-        case PROG_TITLE: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_TITLE: {
+            if (pPhase->hasJustChanged()) {
                 pLabel02_->update(PX_C(400), PX_C(400), "PUSH UI_EXECUTE TO BEGIN!");
             }
             if (VB->isPushedDown(VB_UI_EXECUTE)) {
                 pSeConnection_exec_->peek()->play();
-                pProg->change(PROG_SELECT);
-            } else if (pProg->hasArrivedAt(GAMETITLE_TIMEOUT)) {
+                pPhase->change(PHASE_SELECT);
+            } else if (pPhase->hasArrivedFrameAt(GAMETITLE_TIMEOUT)) {
                 //ボーっと見てた場合
                 _TRACE_("GameTitleScene throwEventUpperTree(EVENT_GAMETITLESCENE_FINISH)");
                 throwEventUpperTree(EVENT_GAMETITLESCENE_FINISH); //普通に終了イベント
-                pProg->change(PROG_FINISH); //タイトルシーン終了へ
+                pPhase->change(PHASE_FINISH); //タイトルシーン終了へ
             }
             break;
         }
 
-        case PROG_SELECT: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_SELECT: {
+            if (pPhase->hasJustChanged()) {
                 pMenu_->rise(PX_C(50), PX_C(250));
-                frame_of_noinput_ = pProg->getFrame();
+                frame_of_noinput_ = pPhase->getFrame();
             }
 
             if (pMenu_->canControll()) {
                 if (pMenu_->getOnDecidedIndex() == MenuBoardTitle::ITEM_GAME_START) {
                     pMenu_->disableControll(); //入力受付終わり
                     pSeConnection_exec_->peek()->play();
-                    pProg->change(PROG_GAMESTART);
+                    pPhase->change(PHASE_GAMESTART);
                 }
             }
 
             if (GgafDx::Input::getPressedJoyRgbButton() != -1) {
-                frame_of_noinput_ = pProg->getFrame();
+                frame_of_noinput_ = pPhase->getFrame();
             }
             if (GgafDx::Input::getPushedDownKey() != -1) {
-                frame_of_noinput_ = pProg->getFrame();
+                frame_of_noinput_ = pPhase->getFrame();
             }
             if (pMenu_->getRisingSubMenu()) {
                 //サブメニューを開いている場合は勝手にタイトルシーンを終了させない
-                frame_of_noinput_ = pProg->getFrame();
+                frame_of_noinput_ = pPhase->getFrame();
             }
 
-            if (pProg->getFrame() >= frame_of_noinput_ + GAMETITLE_TIMEOUT) {
+            if (pPhase->getFrame() >= frame_of_noinput_ + GAMETITLE_TIMEOUT) {
                 //ボーっと見てた場合
                 _TRACE_("GameTitleScene throwEventUpperTree(EVENT_GAMETITLESCENE_FINISH)");
                 throwEventUpperTree(EVENT_GAMETITLESCENE_FINISH); //普通に終了イベント
-                pProg->change(PROG_FINISH); //タイトルシーン終了へ
+                pPhase->change(PHASE_FINISH); //タイトルシーン終了へ
             }
             break;
         }
 
-        case PROG_GAMESTART: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_GAMESTART: {
+            if (pPhase->hasJustChanged()) {
             }
-            if (pProg->hasArrivedAt(90)) {
+            if (pPhase->hasArrivedFrameAt(90)) {
                 throwEventUpperTree(EVENT_GAMESTART);      //スタートでに終了イベント
-                pProg->change(PROG_FINISH); //タイトルシーン終了へ
+                pPhase->change(PHASE_FINISH); //タイトルシーン終了へ
             }
             //点滅
-            if (pProg->getFrame() % 10U < 5 ) {
+            if (pPhase->getFrame() % 10U < 5 ) {
                 pLabel02_->update(PX_C(700), PX_C(200), "READY GO!");
             } else {
                 pLabel02_->update(PX_C(700), PX_C(200), "");
@@ -160,8 +160,8 @@ void GameTitleScene::processBehavior() {
             break;
         }
 
-        case PROG_FINISH: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_FINISH: {
+            if (pPhase->hasJustChanged()) {
                 pMenu_->sinkMe();
 //                fadeoutSceneWithBgmTree(FADE_FRAMES);
 //                inactivateDelay(FADE_FRAMES);

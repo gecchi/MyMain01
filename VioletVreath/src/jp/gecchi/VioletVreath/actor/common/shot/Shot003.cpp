@@ -35,7 +35,7 @@ void Shot003::onActive() {
 void Shot003::processBehavior() {
     //‰ÁZƒ‰ƒ“ƒNƒ|ƒCƒ“ƒg‚ğŒ¸­
     //À•W‚É”½‰f
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->behave();
 }
 

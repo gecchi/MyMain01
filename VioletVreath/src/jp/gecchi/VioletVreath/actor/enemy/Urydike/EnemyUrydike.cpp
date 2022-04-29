@@ -21,13 +21,13 @@ enum {
     SE_EXPLOSION ,
 };
 enum {
-    PROG_INIT   ,
-    PROG_ENTRY  ,
-    PROG_MOVE_BEGIN ,
-    PROG_CURVE ,
-    PROG_SCATTER ,
-    PROG_LEAVE ,
-    PROG_BANPEI,
+    PHASE_INIT   ,
+    PHASE_ENTRY  ,
+    PHASE_MOVE_BEGIN ,
+    PHASE_CURVE ,
+    PHASE_SCATTER ,
+    PHASE_LEAVE ,
+    PHASE_BANPEI,
 };
 
 EnemyUrydike::EnemyUrydike(const char* prm_name) :
@@ -48,71 +48,71 @@ void EnemyUrydike::initialize() {
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
     pChecker->setColliAACube(0, 40000);
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->linkFaceAngByMvAng(true);
 }
 
 void EnemyUrydike::onActive() {
     getStatus()->reset();
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 
 void EnemyUrydike::processBehavior() {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
-    GgafCore::Progress* const pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_INIT: {
+    GgafCore::Phase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_INIT: {
             setHitAble(false);
             setAlpha(0);
-            pProg->changeNext();
+            pPhase->changeNext();
             break;
         }
-        case PROG_ENTRY: {
+        case PHASE_ENTRY: {
             EffectBlink* pEffectEntry = nullptr;
-            if (pProg->hasJustChanged()) {
+            if (pPhase->hasJustChanged()) {
                 pEffectEntry = UTIL::activateEntryEffectOf(this);
                 pVecVehicle->setRollFaceAngVelo(D_ANG(3));
             }
             static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
             static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
-            if (pProg->hasArrivedAt(frame_of_summons_begin)) {
+            if (pPhase->hasArrivedFrameAt(frame_of_summons_begin)) {
                 pAlphaFader->transitionLinearUntil(1.0, frame_of_entering);
             }
-            if (pProg->hasArrivedAt(frame_of_entering)) {
+            if (pPhase->hasArrivedFrameAt(frame_of_entering)) {
                 setHitAble(true);
-                pProg->changeNext();
+                pPhase->changeNext();
             }
             break;
         }
-        case PROG_MOVE_BEGIN: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_MOVE_BEGIN: {
+            if (pPhase->hasJustChanged()) {
 
             }
-            if (pProg->hasArrivedAt(120)) {
-                pProg->changeNext();
+            if (pPhase->hasArrivedFrameAt(120)) {
+                pPhase->changeNext();
             }
             break;
         }
 
-        case PROG_CURVE: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_CURVE: {
+            if (pPhase->hasJustChanged()) {
                 getVecVehicle()->setMvAcce(0); //加速度がある場合は切っておく
                 pVehicleLeader_->start(RELATIVE_COORD_DIRECTION, 1);
             }
             pVehicleLeader_->behave(); //カーブ移動するようにDriverを操作
 
             if (scatter_flg_) {
-                pProg->changeNext();
+                pPhase->changeNext();
             }
             break;
         }
 
-        case PROG_SCATTER: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_SCATTER: {
+            if (pPhase->hasJustChanged()) {
                 delay_ = RND(0, 120);
             }
-            if (pProg->hasArrivedAt(delay_)) {
+            if (pPhase->hasArrivedFrameAt(delay_)) {
                 //散り散りになる
                 pVehicleLeader_->stop();
                 pVecVehicle->turnRzRyMvAngTo(RND_ABOUT(pVecVehicle->_rz_mv, D_ANG(90)), RND_ABOUT(pVecVehicle->_ry_mv, D_ANG(90)),
@@ -120,20 +120,20 @@ void EnemyUrydike::processBehavior() {
                 pVecVehicle->setMvAcce(100);
             }
 
-            if (pProg->hasArrivedAt(delay_ + 200)) {
-                pProg->changeNext();
+            if (pPhase->hasArrivedFrameAt(delay_ + 200)) {
+                pPhase->changeNext();
             }
             break;
         }
 
-        case PROG_LEAVE: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_LEAVE: {
+            if (pPhase->hasJustChanged()) {
                 UTIL::activateLeaveEffectOf(this);
                 pAlphaFader->transitionLinearUntil(0.0, 30);
             }
-            if (pProg->hasArrivedAt(60)) {
+            if (pPhase->hasArrivedFrameAt(60)) {
                 sayonara();
-                pProg->changeNothing(); //おしまい！
+                pPhase->changeNothing(); //おしまい！
             }
             break;
         }

@@ -12,11 +12,11 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG_WAIT,
-    PROG_OPEN,
-    PROG_FIRE,
-    PROG_CLOSE,
-    PROG_BANPEI,
+    PHASE_WAIT,
+    PHASE_OPEN,
+    PHASE_FIRE,
+    PHASE_CLOSE,
+    PHASE_BANPEI,
 };
 enum {
     SE_DAMAGED  ,
@@ -54,7 +54,7 @@ void EnemyHisbe002::onCreateModel() {
 }
 
 void EnemyHisbe002::initialize() {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->setFaceAngVelo(AXIS_Y, 500);
     pVecVehicle->linkFaceAngByMvAng(true);
     CollisionChecker* pChecker = getCollisionChecker();
@@ -65,31 +65,31 @@ void EnemyHisbe002::initialize() {
 void EnemyHisbe002::onActive() {
     getStatus()->reset();
     getMorpher()->reset();
-    getProgress()->reset(PROG_WAIT);
+    getPhase()->reset(PHASE_WAIT);
 }
 
 void EnemyHisbe002::processBehavior() {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
-    GgafCore::Progress* const pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_WAIT: {
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafCore::Phase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_WAIT: {
             if (pLaserChipDepo_->_num_chip_active == 0) {
-                pProg->changeNext();
+                pPhase->changeNext();
             }
             break;
         }
-        case PROG_OPEN: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_OPEN: {
+            if (pPhase->hasJustChanged()) {
                 getMorpher()->transitionLinearUntil(1, 1.0, 120);
             }
             if (!getMorpher()->isTransitioning()) {
                 //完全に開いたら
-                pProg->changeNext();
+                pPhase->changeNext();
             }
             break;
         }
 
-        case PROG_FIRE: {
+        case PHASE_FIRE: {
             LaserChip* pLaser = pLaserChipDepo_->dispatch();
             if (pLaser) {
                 pLaser->setPositionAt(this);
@@ -99,17 +99,17 @@ void EnemyHisbe002::processBehavior() {
                     getSeTransmitter()->play3D(SE_FIRE);
                 }
             } else {
-                pProg->change(PROG_CLOSE);
+                pPhase->change(PHASE_CLOSE);
             }
             break;
         }
-        case PROG_CLOSE: { //１サイクルレーザー打ち切った
-            if (pProg->hasJustChanged()) {
+        case PHASE_CLOSE: { //１サイクルレーザー打ち切った
+            if (pPhase->hasJustChanged()) {
                 getMorpher()->transitionLinearUntil(1, 0.0, 120); //閉じる
             }
             if (!getMorpher()->isTransitioning()) {
                 //完全に閉じたら
-                pProg->change(PROG_WAIT);
+                pPhase->change(PHASE_WAIT);
             }
             break;
         }

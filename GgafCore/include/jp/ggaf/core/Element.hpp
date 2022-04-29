@@ -3,7 +3,7 @@
 #include "GgafCommonHeader.h"
 #include "jp/ggaf/core/Node.hpp"
 
-#include "jp/ggaf/core/Progress.h"
+#include "jp/ggaf/core/Phase.h"
 #include "jp/ggaf/core/GarbageBox.h"
 #include "jp/ggaf/core/exception/CriticalException.h"
 
@@ -11,7 +11,7 @@ namespace GgafCore {
 
 /**
  * ノード(Node<T>)に、様々な状態管理機能を追加したクラス .
- * 所謂タスクシステムに必要な状態遷移機能が実装されている。<BR>
+ * 所謂タスクシステムに必要なフェーズ機能が実装されている。<BR>
  * 毎フレーム、神(God)は、この世(Spacetime)に、次のメソッドを順に呼び出す仕組みになっている。<BR>
  * nextFrame() > behave() > settleBehavior() > judge() > [preDraw() > draw() > afterDraw()] > doFinally() <BR>
  * アプリケーションに登場するノードは全て、「この世」のツリーに所属するため、全ノードに対して上記の処理が行われる。
@@ -99,7 +99,7 @@ public:
     /** [r]カレントフレーム内で一度でもリセットが実行されればtrue。毎フレーム false に更新される */
     bool _is_already_reset;
     /** [r]状態進捗管理オブジェクト */
-    Progress* _pProg;
+    Phase* _pPhase;
 
 public:
     /**
@@ -396,7 +396,7 @@ public:
      */
     virtual God* askGod() = 0;
 
-    //==================状態遷移メソッド郡==================>
+    //==================フェーズメソッド郡==================>
     /**
      * 活動状態にする(実行対象：this のみ) .
      * 正確には、自ノードだけ次フレームから活動状態にする予約フラグを立てる。<BR>
@@ -764,21 +764,21 @@ public:
     virtual void executeFuncLowerTree(void (*pFunc)(Object*, void*, void*, void*), void* prm1, void* prm2, void* prm3);
 
     /**
-     * 進捗管理オブジェクト(Progress) を取得する。
+     * 進捗管理オブジェクト(Phase) を取得する。
      * @return 進捗管理オブジェクト
      */
-    inline virtual Progress* getProgress() const {
-        return _pProg;
+    inline virtual Phase* getPhase() const {
+        return _pPhase;
     }
 
     /**
-     * 本オブジェクトの _frame_of_behaving に関連性を持った、進捗管理オブジェクト(Progress) を生成し取得 .
+     * 本オブジェクトの _frame_of_behaving に関連性を持った、進捗管理オブジェクト(Phase) を生成し取得 .
      * 自動で進捗の更新は行われないので、呼び出し元で updateを行ってください。
      * @param prm_num 進捗の場合の数
      * @return 新しい進捗管理オブジェクト
      */
-    virtual Progress* createProgress() {
-        return NEW Progress(&_frame_of_behaving);
+    virtual Phase* createAnotherPhase() {
+        return NEW Phase(&_frame_of_behaving);
     }
 
     /**
@@ -830,7 +830,7 @@ Element<T>::Element(const char* prm_name) :
     _frame_of_life_when_inactivation(0),
     _on_change_to(0),
     _is_already_reset(false),
-    _pProg(nullptr)
+    _pPhase(nullptr)
 {
 }
 
@@ -852,7 +852,7 @@ void Element<T>::nextFrame() {
                 updateActiveInTheTree();     //_is_active_in_the_tree_flg を更新
                 if (_is_active_in_the_tree_flg) {
                     _frame_of_behaving++;
-                    if (_pProg) {  _pProg->update();  } // 進捗を反映
+                    if (_pPhase) {  _pPhase->update();  } // 進捗を反映
                     _frame_of_behaving_since_onActive++;
                 }
             }
@@ -864,7 +864,7 @@ void Element<T>::nextFrame() {
                 updateActiveInTheTree();     //_is_active_in_the_tree_flg を更新
                 if (_is_active_in_the_tree_flg) {
                     _frame_of_behaving++;
-                    if (_pProg) {  _pProg->update();  } // 進捗を反映
+                    if (_pPhase) {  _pPhase->update();  } // 進捗を反映
                     _frame_of_behaving_since_onActive++;
                 }
                 if (!_was_initialize_flg) {
@@ -1328,7 +1328,7 @@ bool Element<T>::isDisappear() {
 
 template<class T>
 Element<T>::~Element() {
-    GGAF_DELETE_NULLABLE(_pProg);
+    GGAF_DELETE_NULLABLE(_pPhase);
 }
 
 }

@@ -31,7 +31,7 @@ void Cursor001::processJudgement() {
 }
 
 void Cursor001::moveTo(coord tx, coord ty) {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->setMvAngTwd(tx, ty);
     pVecVehicle->asstMv()->slideByDt(UTIL::getDistance(_x, _y, tx, ty),
                                   8, 0.2, 0.3, 0, true);

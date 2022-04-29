@@ -18,7 +18,7 @@ void EnemyEmusLaserChip001::initialize() {
     setHitAble(true, false);
     setScaleR(5.0);
     setCullingDraw(false);
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->setMvVelo(300000);
     pVecVehicle->linkFaceAngByMvAng(true);
 }

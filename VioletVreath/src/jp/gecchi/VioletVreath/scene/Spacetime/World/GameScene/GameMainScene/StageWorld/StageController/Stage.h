@@ -17,11 +17,11 @@ class Stage : public VvScene<GgafLib::DefaultScene> {
 
 public:
     enum {
-        PROG_INIT    ,
-        PROG_BEGIN   ,
-        PROG_PLAYING ,
-        PROG_END     ,
-        PROG_BANPEI,
+        PHASE_INIT    ,
+        PHASE_BEGIN   ,
+        PHASE_PLAYING ,
+        PHASE_END     ,
+        PHASE_BANPEI,
     };
 
     static bool pause_;

@@ -16,10 +16,10 @@ using namespace VioletVreath;
 #define MORPHTARGET_HATCH_OPEN 1
 
 enum {
-    PROG_INIT       ,
-    PROG_HATCH_CLOSE,
-    PROG_HATCH_OPEN ,
-    PROG_BANPEI,
+    PHASE_INIT       ,
+    PHASE_HATCH_CLOSE,
+    PHASE_HATCH_OPEN ,
+    PHASE_BANPEI,
 };
 enum {
     SE_DAMAGED  ,
@@ -68,7 +68,7 @@ void EnemyOmulus::onActive() {
     setMorphWeight(MORPHTARGET_HATCH_OPEN, 0.0f);
     is_open_hatch_ = false;
 //    frame_of_moment_nextopen_ = frame_of_close_interval_;
-    getProgress()->reset(PROG_HATCH_CLOSE);
+    getPhase()->reset(PHASE_HATCH_CLOSE);
 }
 
 void EnemyOmulus::processBehavior() {
@@ -121,35 +121,35 @@ void EnemyOmulus::processBehavior() {
     //    pVecVehicle->behave();
     //    changeGeoFinal();
     //TODO:混在感をもっとなくす。
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
-    GgafCore::Progress* const pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_INIT: {
-            pProg->change(PROG_HATCH_CLOSE);
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafCore::Phase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_INIT: {
+            pPhase->change(PHASE_HATCH_CLOSE);
             break;
         }
-        case PROG_HATCH_CLOSE: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_HATCH_CLOSE: {
+            if (pPhase->hasJustChanged()) {
                 getMorpher()->transitionLinearUntil(MORPHTARGET_HATCH_OPEN,
                                                 0.0f, frame_of_morph_interval_);
                 pVecVehicle->setRollFaceAngVelo(-3000);
             }
 
             //次へ
-            if (pProg->getFrame() >= frame_of_close_interval_ + frame_of_morph_interval_) {
-                pProg->change(PROG_HATCH_OPEN);
+            if (pPhase->getFrame() >= frame_of_close_interval_ + frame_of_morph_interval_) {
+                pPhase->change(PHASE_HATCH_OPEN);
             }
             break;
         }
-        case PROG_HATCH_OPEN: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_HATCH_OPEN: {
+            if (pPhase->hasJustChanged()) {
                 getMorpher()->transitionLinearUntil(MORPHTARGET_HATCH_OPEN,
                                            1.0f, frame_of_morph_interval_);
                 pVecVehicle->setRollFaceAngVelo(0);
             }
             //processJudgement()でショット発射
-            if (pProg->getFrame() >= frame_of_open_interval_+ frame_of_morph_interval_) {
-                pProg->change(PROG_HATCH_CLOSE);
+            if (pPhase->getFrame() >= frame_of_open_interval_+ frame_of_morph_interval_) {
+                pPhase->change(PHASE_HATCH_CLOSE);
             }
             break;
         }
@@ -166,12 +166,12 @@ void EnemyOmulus::processBehavior() {
 
 void EnemyOmulus::processChangeGeoFinal() {
     //絶対座標が更新されてから～
-    GgafCore::Progress* const pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_HATCH_OPEN: {
+    GgafCore::Phase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_HATCH_OPEN: {
             //オープン時敵出現処理
             if (getMorphWeight(MORPHTARGET_HATCH_OPEN) > 0.5) { //モーションが半分以上まで到達したなら
-                if (pProg->getFrame() % (frame)(RF_EnemyOmulus_ShotInterval(G_RANK)) == 0) { //出現間隔
+                if (pPhase->getFrame() % (frame)(RF_EnemyOmulus_ShotInterval(G_RANK)) == 0) { //出現間隔
                     if (pDepo_Fired_) {
                         GgafDx::FigureActor* pActor = (GgafDx::FigureActor*)pDepo_Fired_->dispatch();
                         if (pActor) {

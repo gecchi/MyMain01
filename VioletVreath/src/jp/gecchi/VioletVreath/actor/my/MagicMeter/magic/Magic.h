@@ -70,7 +70,7 @@ public:
         STATE_RE_EFFECT   ,
         STATE_EFFECT_START,
         STATE_ABANDONING  ,
-        PROG_BANPEI,
+        PHASE_BANPEI,
     };
 
     /**
@@ -182,7 +182,7 @@ public:
     /** [r]次の進捗状態になる為に必要なフレーム数(を一時保持) */
     magic_time time_of_next_state_;
 
-    progress temp_hold_status_;
+    phase temp_hold_status_;
     int temp_hold_new_level_;
 
     int last_cast_;

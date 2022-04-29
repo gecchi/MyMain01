@@ -27,14 +27,14 @@ void EnemyStraeaLaserChip001::onActive() {
     HomingLaserChip::onActive();
     //ステータスリセット
     getStatus()->reset();
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->setMvVelo(10000);
     pVecVehicle->setMvAcce(400);
     pVecVehicle->linkFaceAngByMvAng(true);
 }
 
 void EnemyStraeaLaserChip001::processBehaviorHeadChip() {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     if (getActiveFrame() == 40) {
         pVecVehicle->turnMvAngTwd(pMYSHIP,
                               7000, 0,

@@ -44,7 +44,7 @@ void Planet001::initialize() {
     pAtmosphere_->setPositionAt(this);
 }
 void Planet001::processBehavior() {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
 
 //    //巨大オブジェクト移動テスト
 //    if (GgafDx::Input::isPressedKey(DIK_I)) {

@@ -17,11 +17,11 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG_INIT  ,
-    PROG_READY_MEMBER,
-    PROG_CALL_UP ,
-    PROG_WAIT  ,
-    PROG_BANPEI,
+    PHASE_INIT  ,
+    PHASE_READY_MEMBER,
+    PHASE_CALL_UP ,
+    PHASE_WAIT  ,
+    PHASE_BANPEI,
 };
 
 FormationUrydike::FormationUrydike(const char* prm_name, int prm_formation_col_num, int prm_formation_row_num, frame prm_called_up_interval) :
@@ -52,32 +52,32 @@ void FormationUrydike::initialize() {
 
 void FormationUrydike::onActive() {
     called_up_row_idx_ = 0;
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 
 void FormationUrydike::processBehavior() {
-    GgafCore::Progress* const pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_INIT: {
-            pProg->changeNext();
+    GgafCore::Phase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_INIT: {
+            pPhase->changeNext();
             break;
         }
-        case PROG_READY_MEMBER: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_READY_MEMBER: {
+            if (pPhase->hasJustChanged()) {
                 for (int i = 0; i < num_Urydike_; i++) {
                     requestActor(i, EnemyUrydike, "EnemyUrydike");
                 }
             }
-            if (pProg->hasArrivedAt(120)) {
+            if (pPhase->hasArrivedFrameAt(120)) {
                 for (int i = 0; i < num_Urydike_; i++) {
                     appendFormationMember(receiveActor(i));
                 }
-                pProg->changeNext();
+                pPhase->changeNext();
             }
             break;
         }
-        case PROG_CALL_UP: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_CALL_UP: {
+            if (pPhase->hasJustChanged()) {
 
             }
             if (canCalledUp() && called_up_row_idx_ < formation_row_num_) {
@@ -101,12 +101,12 @@ void FormationUrydike::processBehavior() {
                     called_up_row_idx_ ++;
                 }
             } else {
-                pProg->changeNext();
+                pPhase->changeNext();
             }
             break;
         }
-        case PROG_WAIT: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_WAIT: {
+            if (pPhase->hasJustChanged()) {
             }
             break;
         }

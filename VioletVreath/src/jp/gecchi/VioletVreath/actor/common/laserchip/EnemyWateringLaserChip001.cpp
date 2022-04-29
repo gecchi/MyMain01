@@ -40,7 +40,7 @@ void EnemyWateringLaserChip001::processBehavior() {
         //力車の活動を行うと、ずれるので、最初だけはそのままの座標で表示。
         //とはいうものの、発射元は１フレーム分移動してるので、ピッタリには見えないかもしれない。
     } else {
-        GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+        GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
         pVecVehicle->behave();
     }
     WateringLaserChip::processBehavior();//座標を移動させてから呼び出すこと

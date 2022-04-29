@@ -1,7 +1,7 @@
 #include "EnemyOebiusController.h"
 
 #include "jp/ggaf/core/Element.hpp"
-#include "jp/ggaf/core/Progress.h"
+#include "jp/ggaf/core/Phase.h"
 #include "FormationOebius001.h"
 #include "FormationOebius002.h"
 #include "EnemyOebiusCore.h"
@@ -12,12 +12,12 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG_INIT  ,
-    PROG_ENTRY_CORE ,
-    PROG_WAIT01 ,
-    PROG_ENTRY_FORMATION ,
-    PROG_WAIT02 ,
-    PROG_BANPEI,
+    PHASE_INIT  ,
+    PHASE_ENTRY_CORE ,
+    PHASE_WAIT01 ,
+    PHASE_ENTRY_FORMATION ,
+    PHASE_WAIT02 ,
+    PHASE_BANPEI,
 };
 
 EnemyOebiusController::EnemyOebiusController(const char* prm_name, EnemyOebiusCore* prm_pCore,
@@ -38,7 +38,7 @@ void EnemyOebiusController::initialize() {
 }
 
 void EnemyOebiusController::onActive() {
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 
 void EnemyOebiusController::processBehavior() {
@@ -53,54 +53,54 @@ void EnemyOebiusController::processBehavior() {
         }
     }
 
-    GgafCore::Progress* const pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_INIT: {
-            pProg->changeNext();
+    GgafCore::Phase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_INIT: {
+            pPhase->changeNext();
             break;
         }
-        case PROG_ENTRY_CORE: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_ENTRY_CORE: {
+            if (pPhase->hasJustChanged()) {
                 if (pOebiusCore_) {
                     pOebiusCore_->setPositionAt(&entry_pos_);
                     pOebiusCore_->activate();
                 }
             }
-            pProg->changeNext();
+            pPhase->changeNext();
             break;
         }
 
-        case PROG_WAIT01: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_WAIT01: {
+            if (pPhase->hasJustChanged()) {
             }
-            if (pProg->hasArrivedAt(120)) {
-                pProg->changeNext();
+            if (pPhase->hasArrivedFrameAt(120)) {
+                pPhase->changeNext();
             }
             break;
         }
 
-        case PROG_ENTRY_FORMATION: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_ENTRY_FORMATION: {
+            if (pPhase->hasJustChanged()) {
                 if (pFormationOebius_) {
                     pFormationOebius_->activate();
                 }
             }
 
-            if (pProg->hasArrivedAt(600)) {
-                pProg->changeNext();
+            if (pPhase->hasArrivedFrameAt(600)) {
+                pPhase->changeNext();
             }
             break;
         }
 
-        case PROG_WAIT02: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_WAIT02: {
+            if (pPhase->hasJustChanged()) {
             }
             if (!pOebiusCore_) {
                 //ƒRƒA‚ª‚¢‚È‚­‚È‚Á‚½‚çŽU‚èŽU‚è‚É
                 if (pFormationOebius_) {
                     pFormationOebius_->scatterMember();
                 }
-                pProg->changeNothing(); //‚¨‚µ‚Ü‚¢
+                pPhase->changeNothing(); //‚¨‚µ‚Ü‚¢
             }
             break;
         }

@@ -23,7 +23,7 @@ public:
     /** ショット開始時間 */
     frame shot_begin_frame_;
     /** ショット関連の進捗状態 */
-    GgafCore::Progress* pProg2_;
+    GgafCore::Phase* pPhase2_;
 
 public:
     /**

@@ -22,7 +22,7 @@ Cradle::Cradle(uint64_t prm_cradle_no) : Object() {
     _time_of_wants = 0;
     _time_of_create_begin = 0;
     _time_of_create_finish = 0;
-    _progress = 0;
+    _phase = 0;
 }
 std::string Cradle::getDebuginfo() {
     std::string name_creation = "nullptr";
@@ -38,7 +38,7 @@ std::string Cradle::getDebuginfo() {
     std::stringstream ss;
     ss << "‚ä‚è‚©‚²Žž:"<<_time_of_wants<<", "
           "‚ä‚è‚©‚²”Ô†:"<<_cradle_no<<"-"<<_pReceiver<<", "
-          "i’»:"<<_progress<<", "<<
+          "i’»:"<<_phase<<", "<<
           "–½:"<<name_creation<<"("<<_pObject_creation<<")"<<", "
           "j•ŸŠJŽn:"<<_time_of_create_begin<<", "
           "j•ŸŠ®—¹:"<<_time_of_create_finish<<", "

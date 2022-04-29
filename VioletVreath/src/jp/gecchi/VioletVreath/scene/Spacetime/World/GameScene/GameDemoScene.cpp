@@ -19,11 +19,11 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG_INIT    ,
-    PROG_DEMOPLAY,
-    PROG_RANKING_TABLE ,
-    PROG_FINISH  ,
-    PROG_BANPEI,
+    PHASE_INIT    ,
+    PHASE_DEMOPLAY,
+    PHASE_RANKING_TABLE ,
+    PHASE_FINISH  ,
+    PHASE_BANPEI,
 };
 
 #define ORDER_ID_DEMOSTAGE 12
@@ -44,7 +44,7 @@ GameDemoScene::GameDemoScene(const char* prm_name) : VvScene<DefaultScene>(prm_n
 
 }
 void GameDemoScene::onReset() {
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
     pLabel01_->update("");
     pLabel02_->update("");
     int cnt = (int)(G_RANKING_TABLE.getCount());
@@ -62,44 +62,44 @@ void GameDemoScene::initialize() {
 }
 
 void GameDemoScene::processBehavior() {
-    SceneProgress* pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_INIT: {
-            _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PROG_INIT)");
+    ScenePhase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_INIT: {
+            _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PHASE_INIT)");
             appendChild(pSTAGE_WORLD->extract());
             pSTAGE_WORLD->resetTree();
             pSTAGE_WORLD->inactivateImmed();
             pSTAGE_WORLD->activate();
-            pProg->change(PROG_DEMOPLAY);
+            pPhase->change(PHASE_DEMOPLAY);
             break;
         }
 
-        case PROG_DEMOPLAY: {
-            if (pProg->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PROG_DEMOPLAY)");
+        case PHASE_DEMOPLAY: {
+            if (pPhase->hasJustChanged()) {
+                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PHASE_DEMOPLAY)");
                 pLabel01_->update(100*1000, 100*1000, "DEMOPLAY NOW");
                 pLabel02_->update(100*1000, 150*1000, "GAME OVER");
                 pLabel02_->setAlpha(pLabel02_->getAlphaFader()->getTop());
                 pLabel02_->getAlphaFader()->beat(60, 3, 27, 3,-1);
             }
 
-//            if (pProg->getFrame() % 60 == 0) {
+//            if (pPhase->getFrame() % 60 == 0) {
 //                pLabel02_->update("");
-//            } else if (pProg->getFrame() % 60 == 30) {
+//            } else if (pPhase->getFrame() % 60 == 30) {
 //                pLabel02_->update("GAME OVER");
 //            }
 
 
-            if (pProg->hasArrivedAt(600)) {
-                pProg->change(PROG_RANKING_TABLE);
+            if (pPhase->hasArrivedFrameAt(600)) {
+                pPhase->change(PHASE_RANKING_TABLE);
             }
             break;
         }
 
-        case PROG_RANKING_TABLE: {
+        case PHASE_RANKING_TABLE: {
             int ranking_num = G_RANKING_TABLE.getCount();
-            if (pProg->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PROG_RANKING_TABLE)");
+            if (pPhase->hasJustChanged()) {
+                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PHASE_RANKING_TABLE)");
                 pLabel01_->update(PX_C(100), PX_C(100), "RANKING NOW");
                 char buf[60];
                 for (int i = 0; i < ranking_num; i++) {
@@ -128,16 +128,16 @@ void GameDemoScene::processBehavior() {
                 for (int i = 0; i < ranking_num; i++) {
                     papLabel_ranking_[i]->inactivate();
                 }
-                pProg->change(PROG_FINISH);
+                pPhase->change(PHASE_FINISH);
             }
             break;
         }
 
-        case PROG_FINISH: {
-            if (pProg->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PROG_FINISH)");
+        case PHASE_FINISH: {
+            if (pPhase->hasJustChanged()) {
+                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PHASE_FINISH)");
             }
-            if (pProg->hasArrivedAt(60*60*6)) {
+            if (pPhase->hasArrivedFrameAt(60*60*6)) {
                 _TRACE_(FUNC_NAME<<" throwEventUpperTree(EVENT_GAMEDEMOSCENE_FINISH)");
                 throwEventUpperTree(EVENT_GAMEDEMOSCENE_FINISH); //終わったイベント発動
             }

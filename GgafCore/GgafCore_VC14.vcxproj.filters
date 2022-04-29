@@ -150,9 +150,6 @@
     <ClInclude Include="include\jp\ggaf\core\Object.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="include\jp\ggaf\core\Progress.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="include\jp\ggaf\core\Properties.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -160,6 +157,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\core\util\TransitionValue.hpp">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\core\Phase.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
@@ -257,10 +257,10 @@
     <ClCompile Include="src\jp\ggaf\core\Object.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\jp\ggaf\core\Progress.cpp">
+    <ClCompile Include="src\jp\ggaf\core\Properties.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\jp\ggaf\core\Properties.cpp">
+    <ClCompile Include="src\jp\ggaf\core\Phase.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

@@ -26,16 +26,16 @@ class GameScene : public VvScene<GgafLib::DefaultScene> {
 
 public:
     enum {
-        PROG_INIT      ,
-        PROG_PRE_TITLE ,
-        PROG_TITLE     ,
-        PROG_DEMO      ,
-        PROG_BEGINNING ,
-        PROG_MAIN      ,
-        PROG_ENDING    ,
-        PROG_GAME_OVER ,
-        PROG_FINISH    ,
-        PROG_BANPEI,
+        PHASE_INIT      ,
+        PHASE_PRE_TITLE ,
+        PHASE_TITLE     ,
+        PHASE_DEMO      ,
+        PHASE_BEGINNING ,
+        PHASE_MAIN      ,
+        PHASE_ENDING    ,
+        PHASE_GAME_OVER ,
+        PHASE_FINISH    ,
+        PHASE_BANPEI,
     };
     enum {
         BGM_DEMO,

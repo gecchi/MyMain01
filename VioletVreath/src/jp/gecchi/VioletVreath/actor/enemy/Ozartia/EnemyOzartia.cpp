@@ -21,29 +21,29 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG1_INIT   ,
-    PROG1_ENTRY  ,
-    PROG1_STAY   ,
-    PROG1_MV_POS0 ,
-    PROG1_MV_POS1 ,
-    PROG1_MV_POS2 ,
-    PROG1_MV_POS3 ,
-    PROG1_MV_POS4 ,
-    PROG1_MV_POS5 ,
-    PROG1_MOVE_START ,
-    PROG1_MOVING ,
-    PROG1_SP_MV01 ,
-    PROG1_LEAVE ,
-    PROG_BANPEI1_,
+    PHASE1_INIT   ,
+    PHASE1_ENTRY  ,
+    PHASE1_STAY   ,
+    PHASE1_MV_POS0 ,
+    PHASE1_MV_POS1 ,
+    PHASE1_MV_POS2 ,
+    PHASE1_MV_POS3 ,
+    PHASE1_MV_POS4 ,
+    PHASE1_MV_POS5 ,
+    PHASE1_MOVE_START ,
+    PHASE1_MOVING ,
+    PHASE1_SP_MV01 ,
+    PHASE1_LEAVE ,
+    PHASE_BANPEI1_,
 };
 enum {
-    PROG2_WAIT ,
-    PROG2_SHOT01_01 ,
-    PROG2_SHOT01_02 ,
-    PROG2_SHOT02 ,
-    PROG2_SHOT03 ,
-    PROG2_SHOT04 ,
-    PROG2_BANPEI,
+    PHASE2_WAIT ,
+    PHASE2_SHOT01_01 ,
+    PHASE2_SHOT01_02 ,
+    PHASE2_SHOT02 ,
+    PHASE2_SHOT03 ,
+    PHASE2_SHOT04 ,
+    PHASE2_BANPEI,
 };
 enum {
     MPH_CLOSE  ,
@@ -71,7 +71,7 @@ EnemyOzartia::EnemyOzartia(const char* prm_name) :
     _class_name = "EnemyOzartia";
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_001");
-    pProg2_ = createProgress();
+    pPhase2_ = createAnotherPhase();
     is_hit_ = false;
     pDepo_shot01_ = nullptr;
     pDepo_shot02_ = nullptr;
@@ -117,110 +117,110 @@ void EnemyOzartia::initialize() {
 
 void EnemyOzartia::onActive() {
     getStatus()->reset();
-    getProgress()->reset(PROG1_INIT);
-    pProg2_->reset(PROG2_WAIT);
+    getPhase()->reset(PHASE1_INIT);
+    pPhase2_->reset(PHASE2_WAIT);
     faceto_ship_ = false;
 }
 
 void EnemyOzartia::processBehavior() {
     MyShip* pMyShip = pMYSHIP;
     //本体移動系の処理 ここから --->
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
-    GgafCore::Progress* const pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG1_INIT: {
+    GgafCore::Phase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE1_INIT: {
             setHitAble(false);
             setAlpha(0);
             pVecVehicle->setMvAngTwd(pMyShip);
-            pProg->changeNext();
+            pPhase->changeNext();
             break;
         }
-        case PROG1_ENTRY: {
+        case PHASE1_ENTRY: {
             EffectBlink* pEffectEntry = nullptr;
-            if (pProg->hasJustChanged()) {
+            if (pPhase->hasJustChanged()) {
                 pEffectEntry = UTIL::activateEntryEffectOf(this);
             }
             static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
             static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
-            if (pProg->hasArrivedAt(frame_of_summons_begin)) {
+            if (pPhase->hasArrivedFrameAt(frame_of_summons_begin)) {
                  getAlphaFader()->transitionLinearUntil(1.0, frame_of_entering);
             }
-            if (pProg->hasArrivedAt(frame_of_entering)) {
+            if (pPhase->hasArrivedFrameAt(frame_of_entering)) {
                 setHitAble(true);
-                pProg->change(PROG1_STAY);
+                pPhase->change(PHASE1_STAY);
             }
             break;
         }
-        case PROG1_STAY: {
-            if (pProg->hasJustChanged()) {
+        case PHASE1_STAY: {
+            if (pPhase->hasJustChanged()) {
                 faceto_ship_ = true;
                 pVecVehicle->setMvAcce(0);
                 pVecVehicle->turnMvAngTwd(pMyShip, D_ANG(1), 0, TURN_CLOSE_TO, false);
             }
-            if (is_hit_ || pProg->hasArrivedAt(4*60)) {
+            if (is_hit_ || pPhase->hasArrivedFrameAt(4*60)) {
                 //ヒットするか、しばらくボーっとしてると移動開始
-                pProg->changeProbab(18, PROG1_MV_POS0,
-                                    16, PROG1_MV_POS1,
-                                    16, PROG1_MV_POS2,
-                                    16, PROG1_MV_POS3,
-                                    16, PROG1_MV_POS4,
-                                    18, PROG1_MV_POS5 );
+                pPhase->changeProbab(18, PHASE1_MV_POS0,
+                                     16, PHASE1_MV_POS1,
+                                     16, PHASE1_MV_POS2,
+                                     16, PHASE1_MV_POS3,
+                                     16, PHASE1_MV_POS4,
+                                     18, PHASE1_MV_POS5 );
             }
             break;
         }
         //////////// 通常移動先決定 ////////////
-        case PROG1_MV_POS0: {
+        case PHASE1_MV_POS0: {
             //自機の正面付近へ
             posMvTarget_.set(pMyShip->_x + D_MOVE + ASOBI,
                              pMyShip->_y          + ASOBI,
                              pMyShip->_z          + ASOBI );
-            pProg->change(PROG1_MOVE_START);
+            pPhase->change(PHASE1_MOVE_START);
             break;
         }
-        case PROG1_MV_POS1: {
+        case PHASE1_MV_POS1: {
             //自機の上
             posMvTarget_.set(pMyShip->_x            + ASOBI,
                              pMyShip->_y + D_MOVE/2 + ASOBI,
                              pMyShip->_z            + ASOBI );
-            pProg->change(PROG1_MOVE_START);
+            pPhase->change(PHASE1_MOVE_START);
             break;
         }
-        case PROG1_MV_POS2: {
+        case PHASE1_MV_POS2: {
             //自機の右
             posMvTarget_.set(pMyShip->_x          + ASOBI,
                              pMyShip->_y          + ASOBI,
                              pMyShip->_z - D_MOVE + ASOBI );
-            pProg->change(PROG1_MOVE_START);
+            pPhase->change(PHASE1_MOVE_START);
             break;
         }
-        case PROG1_MV_POS3: {
+        case PHASE1_MV_POS3: {
             //自機の下
             posMvTarget_.set(pMyShip->_x            + ASOBI,
                              pMyShip->_y - D_MOVE/2 + ASOBI,
                              pMyShip->_z            + ASOBI );
-            pProg->change(PROG1_MOVE_START);
+            pPhase->change(PHASE1_MOVE_START);
             break;
         }
-        case PROG1_MV_POS4: {
+        case PHASE1_MV_POS4: {
             //自機の左
             posMvTarget_.set(pMyShip->_x          + ASOBI,
                              pMyShip->_y          + ASOBI,
                              pMyShip->_z + D_MOVE + ASOBI );
-            pProg->change(PROG1_MOVE_START);
+            pPhase->change(PHASE1_MOVE_START);
             break;
         }
-        case PROG1_MV_POS5: {
+        case PHASE1_MV_POS5: {
             //自機の後ろ
             posMvTarget_.set(pMyShip->_x - D_MOVE + ASOBI,
                              pMyShip->_y          + ASOBI,
                              pMyShip->_z          + ASOBI );
-            pProg->change(PROG1_MOVE_START);
+            pPhase->change(PHASE1_MOVE_START);
             break;
         }
         //////////// 通常移動開始 ////////////
-        case PROG1_MOVE_START: {
-            if (pProg->hasJustChanged()) {
+        case PHASE1_MOVE_START: {
+            if (pPhase->hasJustChanged()) {
                 //ターン
                 faceto_ship_ = false;
                 pVecVehicle->setMvVeloBottom();
@@ -229,42 +229,42 @@ void EnemyOzartia::processBehavior() {
             }
             if (!pVecVehicle->isTurningMvAng()) {
                 //ターンしたら移動へ
-                pProg->change(PROG1_MOVING);
+                pPhase->change(PHASE1_MOVING);
             }
             break;
         }
-        case PROG1_MOVING: {
-            if (pProg->hasJustChanged()) {
+        case PHASE1_MOVING: {
+            if (pPhase->hasJustChanged()) {
                 //自機の正面付近へスイーっと行きます
                 pVecVehicle->asstMv()->slideByVd(pVecVehicle->getMvVeloTop(), UTIL::getDistance(this, &posMvTarget_),
                                        0.3, 0.7, pVecVehicle->getMvVeloBottom(), true);
             }
             if (!pVecVehicle->asstMv()->isSliding()) {
                 //到着したら終了
-                pProg->change(PROG1_STAY);
+                pPhase->change(PHASE1_STAY);
             }
             break;
         }
         //////////// 特殊移動開始 ////////////
-        case PROG1_SP_MV01: {
-            if (pProg->hasJustChanged()) {
+        case PHASE1_SP_MV01: {
+            if (pPhase->hasJustChanged()) {
                 pVecVehicle->setMvAngTwd(pMyShip);
                 pVehicleLeader01_->start(RELATIVE_COORD_DIRECTION, 10); //10回
             }
             if (pVehicleLeader01_->isFinished()) {
-                pProg->change(PROG1_STAY);
+                pPhase->change(PHASE1_STAY);
             }
             break;
         }
         //////////// 時間切れ退出 ////////////
-        case PROG1_LEAVE: {
-            if (pProg->hasJustChanged()) {
+        case PHASE1_LEAVE: {
+            if (pPhase->hasJustChanged()) {
                 UTIL::activateLeaveEffectOf(this);
                 pAlphaFader->transitionLinearUntil(0.0, 30);
             }
-            if (pProg->hasArrivedAt(60)) {
+            if (pPhase->hasArrivedFrameAt(60)) {
                 sayonara();
-                pProg->changeNothing(); //おしまい！
+                pPhase->changeNothing(); //おしまい！
             }
             break;
         }
@@ -276,26 +276,26 @@ void EnemyOzartia::processBehavior() {
     //////////////////////////////////////////////////////////////////////
 
     //ショット発射系処理 ここから --->
-    switch (pProg2_->get()) {
-        case PROG2_WAIT: {
-            if (pProg2_->hasJustChanged()) {
+    switch (pPhase2_->get()) {
+        case PHASE2_WAIT: {
+            if (pPhase2_->hasJustChanged()) {
             }
             break;
         }
-        case PROG2_SHOT01_01: {
-            if (pProg2_->hasJustChanged()) {
+        case PHASE2_SHOT01_01: {
+            if (pPhase2_->hasJustChanged()) {
                 faceto_ship_ = true;
                 getMorpher()->transitionLinearUntil(MPH_SHOT01, 1.0, 120);
             }
-            if (pProg2_->hasArrivedAt(120)) {
-                pProg2_->change(PROG2_SHOT01_02);
+            if (pPhase2_->hasArrivedFrameAt(120)) {
+                pPhase2_->change(PHASE2_SHOT01_02);
             }
             break;
         }
         default :
             break;
     }
-    pProg2_->update();
+    pPhase2_->update();
     //<-- ショット発射系処理 ここまで
 
     if (faceto_ship_) {
@@ -342,6 +342,6 @@ void EnemyOzartia::onInactive() {
 EnemyOzartia::~EnemyOzartia() {
     GGAF_DELETE(pVehicleLeader01_);
     pConn_pCurveManuf_->close();
-    GGAF_DELETE(pProg2_);
+    GGAF_DELETE(pPhase2_);
 }
 

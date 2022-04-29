@@ -11,10 +11,10 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG_INIT   ,
-    PROG_EXEC   ,
-    PROG_FINISH ,
-    PROG_BANPEI,
+    PHASE_INIT   ,
+    PHASE_EXEC   ,
+    PHASE_FINISH ,
+    PHASE_BANPEI,
 };
 
 GamePreTitleScene::GamePreTitleScene(const char* prm_name) : VvScene<DefaultScene>(prm_name) {
@@ -37,7 +37,7 @@ void GamePreTitleScene::onReset() {
     pTitleBoard_->setPosition(PX_C(100), PX_C(600));
     pLabel01_->update(PX_C(100), PX_C(50), "");
     pLabel02_->update("");
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 
 void GamePreTitleScene::onActive() {
@@ -48,38 +48,38 @@ void GamePreTitleScene::initialize() {
 }
 
 void GamePreTitleScene::processBehavior() {
-    SceneProgress* pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_INIT: {
-            pProg->change(PROG_EXEC);
+    ScenePhase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_INIT: {
+            pPhase->change(PHASE_EXEC);
             break;
         }
 
-        case PROG_EXEC: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_EXEC: {
+            if (pPhase->hasJustChanged()) {
 //                fadeinScene(FADE_FRAMES);
             }
-            if (pProg->hasArrivedAt(1)) {
+            if (pPhase->hasArrivedFrameAt(1)) {
                 pLabel01_->update("[STORY]");
-            } else if (pProg->hasArrivedAt(120)) {
+            } else if (pPhase->hasArrivedFrameAt(120)) {
                 pLabel01_->update("MUKASHI MUKASHI ARU TOKORONI...");
-            } else if (pProg->hasArrivedAt(240)) {
+            } else if (pPhase->hasArrivedFrameAt(240)) {
                 pLabel01_->update("OITOITE...");
-            } else if (pProg->hasArrivedAt(360)) {
+            } else if (pPhase->hasArrivedFrameAt(360)) {
                 pLabel01_->update("PRESENTED BY GECCHI.");
-            } else if (pProg->getFrame() > 361) {
+            } else if (pPhase->getFrame() > 361) {
                 //タイトルが下からニューっと
                 pTitleBoard_->_y -= PX_C(1);
                 if (pTitleBoard_->_y <= PX_C(90)) {
                     pTitleBoard_->_y = PX_C(90);
-                    pProg->change(PROG_FINISH);
+                    pPhase->change(PHASE_FINISH);
                 }
             }
             break;
         }
 
-        case PROG_FINISH: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_FINISH: {
+            if (pPhase->hasJustChanged()) {
                 throwEventUpperTree(EVENT_PREGAMETITLESCENE_FINISH);
             }
             //おしまい待ちぼうけループ

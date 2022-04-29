@@ -16,18 +16,18 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG_INIT,
-    PROG_CURVE_MOVING,
-    PROG_AFTER_LEAD,
-    PROG_AFTER_LEAD_MOVING,
-    PROG_BANPEI,
+    PHASE_INIT,
+    PHASE_CURVE_MOVING,
+    PHASE_AFTER_LEAD,
+    PHASE_AFTER_LEAD_MOVING,
+    PHASE_BANPEI,
 };
 enum {
-    PROG2_WAIT,
-    PROG2_OPEN,
-    PROG2_SHOT,
-    PROG2_CLOSE,
-    PROG2_BANPEI,
+    PHASE2_WAIT,
+    PHASE2_OPEN,
+    PHASE2_SHOT,
+    PHASE2_CLOSE,
+    PHASE2_BANPEI,
 };
 enum {
     MPH_CLOSE,
@@ -46,7 +46,7 @@ EnemyDelheid::EnemyDelheid(const char* prm_name) :
     pSeTx->set(SE_DAMAGED  , "SE_ENEMY_DAMAGED_001");
     pSeTx->set(SE_UNDAMAGED, "SE_ENEMY_UNDAMAGED_001");
     pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_001");
-    pProg2_ = createProgress();
+    pPhase2_ = createAnotherPhase();
     shot_begin_frame_ = 0;
     pVehicleLeader_ = nullptr;
     pDepoShot_ = nullptr;
@@ -60,7 +60,7 @@ void EnemyDelheid::onCreateModel() {
 void EnemyDelheid::nextFrame() {
     DefaultMassMorphMeshActor::nextFrame();
     if (_is_active_in_the_tree_flg) {
-        pProg2_->update();
+        pPhase2_->update();
     }
 }
 
@@ -85,65 +85,65 @@ void EnemyDelheid::onActive() {
     getStatus()->reset();
     setHitAble(true);
     getMorpher()->reset();
-    getProgress()->reset(PROG_INIT);
-    pProg2_->reset(PROG2_WAIT);
+    getPhase()->reset(PHASE_INIT);
+    pPhase2_->reset(PHASE2_WAIT);
 }
 
 void EnemyDelheid::processBehavior() {
     MyShip* pMyShip = pMYSHIP;
 
-    //移動の状態遷移------------------------------
-    GgafCore::Progress* const pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_INIT: {
+    //移動のフェーズ------------------------------
+    GgafCore::Phase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_INIT: {
             pVehicleLeader_->start(RELATIVE_COORD_DIRECTION, 3); //最高で３回ループする予定
             getVecVehicle()->setMvAcce(0);
             getVecVehicle()->keepOnTurningFaceAngTwd(pMYSHIP,
                                                     D_ANG(1), 0, TURN_CLOSE_TO, false);
-            pProg->changeNext();
+            pPhase->changeNext();
             break;
         }
-        case PROG_CURVE_MOVING: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_CURVE_MOVING: {
+            if (pPhase->hasJustChanged()) {
             }
             //processJudgement() で pVehicleLeader_->isFinished() 成立待ち
             break;
         }
 
         //ゴールのアリサナがいない場合、その後の移動
-        case PROG_AFTER_LEAD: {
+        case PHASE_AFTER_LEAD: {
             //processJudgement() で pVehicleLeader_->isFinished() 成立待ち
             break;
         }
-        case PROG_AFTER_LEAD_MOVING: {
+        case PHASE_AFTER_LEAD_MOVING: {
             //もう2回だけ同じカーブ移動が終わった後の動き
             //isOutOfSpacetime() 成立待ち
             break;
         }
     }
 
-    //ショット発射の状態遷移-----------------------------------
-    switch (pProg2_->get()) {
-        case PROG2_WAIT: {
+    //ショット発射のフェーズ-----------------------------------
+    switch (pPhase2_->get()) {
+        case PHASE2_WAIT: {
             //open_shot() 待ち・・・
             break;
         }
-        case PROG2_OPEN: {
-            if (pProg2_->hasJustChanged()) {
+        case PHASE2_OPEN: {
+            if (pPhase2_->hasJustChanged()) {
                 getMorpher()->transitionAcceUntil(MPH_OPEN, 1.1, 0, 0.001);
             }
             if (!getMorpher()->isTransitioning()) {
                 setMorphWeight(MPH_OPEN, 1.0);
-                pProg2_->changeNext();
+                pPhase2_->changeNext();
             }
             break;
         }
 
-        case PROG2_SHOT: {
-            if (pProg2_->hasJustChanged()) {
+        case PHASE2_SHOT: {
+            if (pPhase2_->hasJustChanged()) {
                 shot_begin_frame_ = RND(120, 240);
             }
-            if (pProg2_->hasArrivedAt(shot_begin_frame_)) {
+            if (pPhase2_->hasArrivedFrameAt(shot_begin_frame_)) {
                 UTIL::shotWay002(
                        this,
                        pDepoShot_,
@@ -158,24 +158,24 @@ void EnemyDelheid::processBehavior() {
                        nullptr
                      );
             }
-            if (pProg2_->hasArrivedAt(240)) {
-                pProg2_->changeNext();
+            if (pPhase2_->hasArrivedFrameAt(240)) {
+                pPhase2_->changeNext();
             }
             break;
         }
-        case PROG2_CLOSE: {
-            if (pProg2_->hasJustChanged()) {
+        case PHASE2_CLOSE: {
+            if (pPhase2_->hasJustChanged()) {
                 getMorpher()->transitionAcceUntil(MPH_OPEN, 0.0, 0, -0.01);
             }
             if (!getMorpher()->isTransitioning()) {
-                pProg2_->changeNothing();
+                pPhase2_->changeNothing();
             }
 
             break;
         }
     }
     //-----------------------------------------------
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->_angvelo_face[AXIS_X] = pVecVehicle->_velo_mv/2;
     pVehicleLeader_->behave(); //カーブ移動するようにDriverを操作
     pVecVehicle->behave();
@@ -183,26 +183,26 @@ void EnemyDelheid::processBehavior() {
 }
 
 void EnemyDelheid::processSettlementBehavior() {
-    GgafCore::Progress* const pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_CURVE_MOVING: {
+    GgafCore::Phase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_CURVE_MOVING: {
             if (pVehicleLeader_->_cnt_loop >= 2) {
                 if (((FormationDelheid*)getFormation())->pAlisana_goal) {
                     //ゴールが存在する場合、１ループでさよなら。
-                    pProg->changeNothing();
+                    pPhase->changeNothing();
                     sayonara();
                 } else {
-                    pProg->change(PROG_AFTER_LEAD);
+                    pPhase->change(PHASE_AFTER_LEAD);
                 }
             }
             break;
         }
 
         //ゴールのアリサナがいない場合、その後の移動
-        case PROG_AFTER_LEAD: {
+        case PHASE_AFTER_LEAD: {
             if (pVehicleLeader_->isFinished()) {
                 //カーブ移動も終わった場合
-                pProg->change(PROG_AFTER_LEAD_MOVING);
+                pPhase->change(PHASE_AFTER_LEAD_MOVING);
             }
             break;
         }
@@ -237,11 +237,11 @@ void EnemyDelheid::onInactive() {
 }
 
 void EnemyDelheid::open_shot() {
-    pProg2_->change(PROG2_OPEN);
+    pPhase2_->change(PHASE2_OPEN);
 }
 
 EnemyDelheid::~EnemyDelheid() {
     GGAF_DELETE_NULLABLE(pVehicleLeader_);
-    GGAF_DELETE(pProg2_);
+    GGAF_DELETE(pPhase2_);
 }
 

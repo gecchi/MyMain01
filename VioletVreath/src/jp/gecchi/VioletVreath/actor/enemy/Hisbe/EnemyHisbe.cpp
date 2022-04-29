@@ -16,11 +16,11 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG_WAIT,
-    PROG_OPEN,
-    PROG_FIRE,
-    PROG_CLOSE,
-    PROG_BANPEI,
+    PHASE_WAIT,
+    PHASE_OPEN,
+    PHASE_FIRE,
+    PHASE_CLOSE,
+    PHASE_BANPEI,
 };
 enum {
     SE_DAMAGED  ,
@@ -122,36 +122,36 @@ void EnemyHisbe::initialize() {
 void EnemyHisbe::onActive() {
     getStatus()->reset();
     getMorpher()->reset();
-    getProgress()->reset(PROG_WAIT);
+    getPhase()->reset(PHASE_WAIT);
 }
 
 void EnemyHisbe::processBehavior() {
-    GgafCore::Progress* const pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_WAIT: {
+    GgafCore::Phase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_WAIT: {
             if (pLaserChipDepo_) {
                 if (pLaserChipDepo_->_num_chip_active == 0) {
                     pLaserChipDepo_ = nullptr;
                 }
             } else {
-                pProg->changeNext();
+                pPhase->changeNext();
             }
             break;
         }
 
-        case PROG_OPEN: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_OPEN: {
+            if (pPhase->hasJustChanged()) {
                 getMorpher()->transitionLinearUntil(1, 1.0, 120);
             }
             if (!getMorpher()->isTransitioning()) {
                 //完全に開いたら
-                pProg->changeNext();
+                pPhase->changeNext();
             }
             break;
         }
 
-        case PROG_FIRE: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_FIRE: {
+            if (pPhase->hasJustChanged()) {
                 pLaserChipDepo_ = (LaserChipDepository*)(pConn_pDepoStore_laser_set->peek()->dispatch()); //レーザーセット一本借ります。
             }
             if (pLaserChipDepo_) {
@@ -163,22 +163,22 @@ void EnemyHisbe::processBehavior() {
                         getSeTransmitter()->play3D(SE_FIRE);
                     }
                 } else {
-                    pProg->changeNext();
+                    pPhase->changeNext();
                 }
             } else {
                 //借りれなかった！
-                pProg->changeNext();
+                pPhase->changeNext();
             }
             break;
         }
 
-        case PROG_CLOSE: { //１サイクルレーザー打ち切った
-            if (pProg->hasJustChanged()) {
+        case PHASE_CLOSE: { //１サイクルレーザー打ち切った
+            if (pPhase->hasJustChanged()) {
                 getMorpher()->transitionLinearUntil(1, 0.0, 120); //閉じる
             }
             if (!getMorpher()->isTransitioning()) {
                 //完全に閉じたら
-                pProg->change(PROG_WAIT);
+                pPhase->change(PHASE_WAIT);
             }
             break;
         }

@@ -138,7 +138,7 @@ void RefractionLaserChip::onInactive() {
     if (_pChip_behind) {
         RefractionLaserChip* const pChip_behind = (RefractionLaserChip*)_pChip_behind;
         GgafDx::VecVehicle* const pChip_behind_pVecVehicle = pChip_behind->getVecVehicle();
-        GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+        GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
         pChip_behind->_rx = _rx;
         pChip_behind->_ry = _ry;
         pChip_behind->_rz = _rz;
@@ -177,7 +177,7 @@ void RefractionLaserChip::processBehavior() {
     //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
     //その際 は、本クラスの processBehavior() メソッドも呼び出してください。
     //座標に反映
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     RefractionLaserChip* pChip_infront =  (RefractionLaserChip*)_pChip_infront;
     if (getActiveFrame() > 1) { //１フレーム目は、設定座標で表示させるため。移動させない
         //ActorDepository::dispatch() は

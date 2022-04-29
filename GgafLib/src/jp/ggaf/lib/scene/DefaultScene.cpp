@@ -13,15 +13,15 @@ DefaultScene::DefaultScene(const char* prm_name, GgafCore::SceneMediator* prm_pS
     _event_num = 0;
     _feature_p1 = 0;
     _pFuncFeature = nullptr;
-    _pProg = DefaultScene::createProgress();
+    _pPhase = DefaultScene::createAnotherPhase();
 }
 
-SceneProgress* DefaultScene::createProgress() {
-    return NEW SceneProgress(this);
+ScenePhase* DefaultScene::createAnotherPhase() {
+    return NEW ScenePhase(this);
 }
 
-SceneProgress* DefaultScene::getProgress() const {
-    return (SceneProgress*)(GgafCore::Scene::getProgress());
+ScenePhase* DefaultScene::getPhase() const {
+    return (ScenePhase*)(GgafCore::Scene::getPhase());
 }
 
 void DefaultScene::processSettlementBehavior() {

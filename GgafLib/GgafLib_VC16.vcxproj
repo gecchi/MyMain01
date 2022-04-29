@@ -104,7 +104,7 @@
     <ClCompile Include="src\jp\ggaf\lib\util\ColliSphere.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\Direction26Util.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\Direction8Util.cpp" />
-    <ClCompile Include="src\jp\ggaf\lib\util\SceneProgress.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\ScenePhase.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\StgUtil.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\VBReplayRecorder.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\VirtualButton.cpp" />
@@ -202,7 +202,7 @@
     <ClInclude Include="include\jp\ggaf\lib\util\Direction8Util.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\Quantity.hpp" />
     <ClInclude Include="include\jp\ggaf\lib\util\Quaternion.hpp" />
-    <ClInclude Include="include\jp\ggaf\lib\util\SceneProgress.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\ScenePhase.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\StgUtil.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\VBReplayRecorder.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\VirtualButton.h" />

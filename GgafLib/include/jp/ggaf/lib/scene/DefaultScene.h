@@ -3,7 +3,7 @@
 #include "GgafLibCommonHeader.h"
 #include "jp/ggaf/dx/scene/Scene.h"
 
-#include "jp/ggaf/lib/util/SceneProgress.h"
+#include "jp/ggaf/lib/util/ScenePhase.h"
 
 namespace GgafLib {
 
@@ -32,9 +32,9 @@ public:
 public:
     DefaultScene(const char* prm_name, GgafCore::SceneMediator* prm_pSceneMediator = nullptr);
 
-    virtual SceneProgress* createProgress() override; //共変戻り値
+    virtual ScenePhase* createAnotherPhase() override; //共変戻り値
 
-    virtual SceneProgress* getProgress() const override; //共変戻り値
+    virtual ScenePhase* getPhase() const override; //共変戻り値
 
     virtual void initialize() override {
     }

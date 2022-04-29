@@ -10,11 +10,11 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG_INIT   ,
-    PROG_MOVE01 ,
-    PROG_MOVE02 ,
-    PROG_LEAVE ,
-    PROG_BANPEI,
+    PHASE_INIT   ,
+    PHASE_MOVE01 ,
+    PHASE_MOVE02 ,
+    PHASE_LEAVE ,
+    PHASE_BANPEI,
 };
 
 SpriteLabelBonus001::SpriteLabelBonus001(const char* prm_name) :
@@ -37,53 +37,53 @@ void SpriteLabelBonus001::initialize() {
 
 void SpriteLabelBonus001::onDispatched(GgafDx::GeometricActor* prm_pOrgActor) {
     setPositionAt(prm_pOrgActor);
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->takeoverFrom(prm_pOrgActor->getVecVehicle());
     pVecVehicle->setMvAcce(300);
     setAlpha(0.7);
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 
 void SpriteLabelBonus001::processBehavior() {
     const Camera* const pCam = pGOD->getSpacetime()->getCamera();
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
-    GgafCore::Progress* const pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_INIT: {
-            pProg->changeNext();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafCore::Phase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_INIT: {
+            pPhase->changeNext();
             break;
         }
-        case PROG_MOVE01: {
+        case PHASE_MOVE01: {
             //‚µ‚Î‚ç‚­’¼i
-            if (pProg->hasArrivedAt(60)) {
+            if (pPhase->hasArrivedFrameAt(60)) {
                 //ƒJƒƒ‰‚ÉŒü‚©‚Á‚Ä•ûŒü“]Š·1
                 pVecVehicle->turnMvAngTwd(pCam,
                                       D_ANG(3), 0, TURN_CLOSE_TO, true);
             }
-            if (pProg->hasArrivedAt(60+30)) {
+            if (pPhase->hasArrivedFrameAt(60+30)) {
                 //ƒJƒƒ‰‚ÉŒü‚©‚Á‚Ä•ûŒü“]Š·2
                 pVecVehicle->turnMvAngTwd(pCam,
                                       D_ANG(1), 0, TURN_CLOSE_TO, true);
             }
 
-            if (ABS(pCam->_x - _x) < PX_C(200) || pProg->getFrame() >= 60+30+120) {
-                pProg->changeNext();
+            if (ABS(pCam->_x - _x) < PX_C(200) || pPhase->getFrame() >= 60+30+120) {
+                pPhase->changeNext();
             }
             break;
         }
-        case PROG_MOVE02: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_MOVE02: {
+            if (pPhase->hasJustChanged()) {
             }
             addAlpha(-0.01);
             if (getAlpha() <= 0.0) {
-                pProg->changeNext();
+                pPhase->changeNext();
             }
             break;
         }
-        case PROG_LEAVE: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_LEAVE: {
+            if (pPhase->hasJustChanged()) {
                 sayonara();
-                pProg->changeNothing();
+                pPhase->changeNothing();
             }
             break;
         }

@@ -37,7 +37,7 @@ void EnemyAllas::onCreateModel() {
 
 void EnemyAllas::initialize() {
     setHitAble(true);
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->setFaceAngVelo(AXIS_Z, -7000);
     pVecVehicle->linkFaceAngByMvAng(true);
     CollisionChecker* pChecker = getCollisionChecker();
@@ -52,20 +52,20 @@ void EnemyAllas::onActive() {
 
     getStatus()->reset();
    iMovePatternNo_ = 0; //行動パターンリセット
-   getProgress()->change(1);
+   getPhase()->change(1);
 }
 
 void EnemyAllas::processBehavior() {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
-    GgafCore::Progress* const pProg = getProgress();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafCore::Phase* pPhase = getPhase();
     //【パターン1：カーブ移動】
-    if (pProg->hasJustChangedTo(1)) {
+    if (pPhase->hasJustChangedTo(1)) {
         pVehicleLeader_->start(ABSOLUTE_COORD); //カーブ移動を開始(1:座標相対)
     }
-    if (pProg->get() == 1) {
+    if (pPhase->get() == 1) {
         //カーブ移動終了待ち
         if (pVehicleLeader_->isFinished()) {
-            pProg->changeNext(); //次のパターンへ
+            pPhase->changeNext(); //次のパターンへ
         }
     }
 

@@ -36,22 +36,22 @@ void LockonCursor001_Sub::onActive() {
     //getSeTransmitter()->play3D(0); //ƒƒbƒNƒIƒ“SE
     if (pTarget_) {
         setPositionAt(pTarget_);
-        getProgress()->reset(LOCKON001_PROG_LOCK);
+        getPhase()->reset(LOCKON001_PHASE_LOCK);
     } else {
         setAlpha(0.00);
-        getProgress()->reset(LOCKON001_PROG_RELEASE);
+        getPhase()->reset(LOCKON001_PHASE_RELEASE);
     }
 }
 
 void LockonCursor001_Sub::processBehavior() {
     LockonCursor001::processBehavior();
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
-    GgafCore::Progress* const pProg = getProgress();
-    if (pProg->get() == LOCKON001_PROG_LOCK) {
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafCore::Phase* pPhase = getPhase();
+    if (pPhase->get() == LOCKON001_PHASE_LOCK) {
         if (getAlpha() < 0.7) {
-            if (pLockonCursor001_Main_->getProgress()->get() == LOCKON001_PROG_LOCK) {
+            if (pLockonCursor001_Main_->getPhase()->get() == LOCKON001_PHASE_LOCK) {
                 addAlpha(0.07);
-            } else if (pLockonCursor001_Main_->getProgress()->get() == LOCKON001_PROG_FIRST_LOCK) {
+            } else if (pLockonCursor001_Main_->getPhase()->get() == LOCKON001_PHASE_FIRST_LOCK) {
                 addAlpha(0.01);
             } else {
                 addAlpha(0.01);
@@ -72,14 +72,14 @@ void LockonCursor001_Sub::processBehavior() {
                     pVecVehicle->setMvVelo(PX_C(200));
                 }
             } else {
-                pProg->change(LOCKON001_PROG_RELEASE);
+                pPhase->change(LOCKON001_PHASE_RELEASE);
             }
         } else {
-            pProg->change(LOCKON001_PROG_RELEASE);
+            pPhase->change(LOCKON001_PHASE_RELEASE);
         }
     }
 
-    if (pProg->get() == LOCKON001_PROG_RELEASE) {
+    if (pPhase->get() == LOCKON001_PHASE_RELEASE) {
         pTarget_ = nullptr;
         addAlpha(-0.05);
         _sx = _sy = _sz = pLockonCursor001_Main_->_sx;
@@ -107,24 +107,24 @@ void LockonCursor001_Sub::lockon(GgafDx::GeometricActor* prm_pTarget) {
         return;
     }
     pTarget_ = prm_pTarget;
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
-    GgafCore::Progress* const pProg = getProgress();
-    if (pProg->get() == LOCKON001_PROG_LOCK) {
-    } else if (pProg->get() == LOCKON001_PROG_RELEASE) {
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafCore::Phase* pPhase = getPhase();
+    if (pPhase->get() == LOCKON001_PHASE_LOCK) {
+    } else if (pPhase->get() == LOCKON001_PHASE_RELEASE) {
         pVecVehicle->setFaceAngVelo(AXIS_Z, 1000);   //‰E‰ñ“]
-        pProg->change(LOCKON001_PROG_LOCK);
+        pPhase->change(LOCKON001_PHASE_LOCK);
     }
 
 }
 void LockonCursor001_Sub::releaseLockon() {
 
     if (isActiveInTheTree()) {
-        GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
-        GgafCore::Progress* const pProg = getProgress();
-        if (pProg->get() == LOCKON001_PROG_LOCK) {
+        GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+        GgafCore::Phase* pPhase = getPhase();
+        if (pPhase->get() == LOCKON001_PHASE_LOCK) {
             pVecVehicle->setFaceAngVelo(AXIS_Z, pVecVehicle->_angvelo_face[AXIS_Z]*-3); //‘¬‚­‹t‰ñ“]
-            pProg->change(LOCKON001_PROG_RELEASE);
-        } else if (pProg->get() == LOCKON001_PROG_RELEASE) {
+            pPhase->change(LOCKON001_PHASE_RELEASE);
+        } else if (pPhase->get() == LOCKON001_PHASE_RELEASE) {
             //‰½‚à–³‚µ
         }
     }

@@ -13,12 +13,12 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG_INIT  ,
-    PROG_CALL_UP ,
-    PROG_WAIT1,
-    PROG_SHOT,
-    PROG_WAIT2,
-    PROG_BANPEI,
+    PHASE_INIT  ,
+    PHASE_CALL_UP ,
+    PHASE_WAIT1,
+    PHASE_SHOT,
+    PHASE_WAIT2,
+    PHASE_BANPEI,
 };
 
 FormationUnomia::FormationUnomia(const char* prm_name, const char* prm_ldr_id)
@@ -51,7 +51,7 @@ void FormationUnomia::updateRankParameter() {
 }
 
 void FormationUnomia::initialize() {
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 //    if (pConn_depo_Unomia_->chkFirstConnectionIs(this)) {
 //        _TRACE_("pConn_depo_Unomia_ は、ワシ(this="<<NODE_INFO<<")が育てたエヘン！")
 //        getPlatformScene()->bringSceneMediator()->appendGroupChild(
@@ -73,13 +73,13 @@ void FormationUnomia::onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) {
 }
 
 void FormationUnomia::processBehavior() {
-   GgafCore::Progress* const pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_INIT: {
-            pProg->changeNext();
+   GgafCore::Phase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_INIT: {
+            pPhase->changeNext();
             break;
         }
-        case PROG_CALL_UP: {
+        case PHASE_CALL_UP: {
             if (canCalledUp()) {
                 if (getActiveFrame() % launch_interval_ == 0) {
                     for (int col = 0; col < num_formation_col_; col++) {
@@ -92,15 +92,15 @@ void FormationUnomia::processBehavior() {
                     }
                 }
             } else {
-                pProg->changeNext();
+                pPhase->changeNext();
             }
             break;
         }
-        case PROG_WAIT1: {
-            pProg->changeNextWhenArrivedAt(1200);
+        case PHASE_WAIT1: {
+            pPhase->changeNextWhenArrivedFrameAt(1200);
             break;
         }
-        case PROG_SHOT: {
+        case PHASE_SHOT: {
             MyShip* pMy = pMYSHIP;
             GgafCore::Actor* pFollower = getChildFirst();
             while(true) {
@@ -120,10 +120,10 @@ void FormationUnomia::processBehavior() {
                 }
                 pFollower = pFollower->getNext();
             }
-            pProg->changeNext();
+            pPhase->changeNext();
             break;
         }
-        case PROG_WAIT2: {
+        case PHASE_WAIT2: {
             //おしまい
             break;
         }

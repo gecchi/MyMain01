@@ -302,7 +302,7 @@
                     ","<< \
                     _frame_of_life_when_end<< \
                     ","<< \
-                    "prog="<<(_pProg?_pProg->_progress:-9)<<"("<<(_pProg?_pProg->getFrame():0)<<")"<< \
+                    "prog="<<(_pPhase?_pPhase->_phase:-9)<<"("<<(_pPhase?_pPhase->getFrame():0)<<")"<< \
                     ","<< \
                     "id="<<getId()
 
@@ -329,7 +329,7 @@
                     ","<< \
                     _frame_of_life_when_end<< \
                     ","<< \
-                    "prog="<<(_pProg?_pProg->_progress:-9)<<"("<<(_pProg?_pProg->getFrame():0)<<")"<< \
+                    "prog="<<(_pPhase?_pPhase->_phase:-9)<<"("<<(_pPhase?_pPhase->getFrame():0)<<")"<< \
                     ","<< \
                     "id="<<getId()
 
@@ -414,7 +414,7 @@ template<class VAL_TYPE, int N>
 class TransitionValueSet;
 
 class GarbageBox;
-class Progress;
+class Phase;
 class Scene;
 class DisusedScene;
 class Actor;

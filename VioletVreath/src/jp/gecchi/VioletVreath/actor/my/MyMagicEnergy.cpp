@@ -33,7 +33,7 @@ void MyMagicEnergy::onActive() {
 }
 
 void MyMagicEnergy::processBehavior() {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->behave();
     setPositionAt(pCore_);
     setScaleAt(pCore_);

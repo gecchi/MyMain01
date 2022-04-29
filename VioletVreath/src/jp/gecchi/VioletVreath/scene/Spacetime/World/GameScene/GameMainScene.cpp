@@ -20,11 +20,11 @@ using namespace VioletVreath;
 #define ORDER_ID_STAGE 11
 
 enum {
-    PROG_INIT    ,
-    PROG_BEGIN   ,
-    PROG_PLAY    ,
-    PROG_FINISH  ,
-    PROG_BANPEI,
+    PHASE_INIT    ,
+    PHASE_BEGIN   ,
+    PHASE_PLAY    ,
+    PHASE_FINISH  ,
+    PHASE_BANPEI,
 };
 
 //GameMainScene* GameMainScene::pGameMainScene_ = nullptr;
@@ -64,7 +64,7 @@ GameMainScene::GameMainScene(const char* prm_name) : VvScene<DefaultScene>(prm_n
 
 void GameMainScene::onReset() {
     _TRACE_(FUNC_NAME<<" "<<NODE_INFO<<"");
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 
 void GameMainScene::initialize() {
@@ -88,36 +88,36 @@ void GameMainScene::processBehavior() {
     sprintf(buf_, "Z:%8d", pMyShip->_z);
     pLabel_JIKI_z_->update(buf_);
 
-    SceneProgress* pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_INIT: {
-            _TRACE_(FUNC_NAME<<" Prog is PROG_INIT");
+    ScenePhase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_INIT: {
+            _TRACE_(FUNC_NAME<<" Prog is PHASE_INIT");
             appendChild(pSTAGE_WORLD->extract());
             pSTAGE_WORLD->resetTree();
             pSTAGE_WORLD->inactivateImmed();
             pSTAGE_WORLD->activate();
-            pProg->change(PROG_BEGIN);
+            pPhase->change(PHASE_BEGIN);
             break;
         }
 
-        case PROG_BEGIN: {
-            if (pProg->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PROG_BEGIN)");
-                pProg->change(PROG_PLAY);
+        case PHASE_BEGIN: {
+            if (pPhase->hasJustChanged()) {
+                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PHASE_BEGIN)");
+                pPhase->change(PHASE_PLAY);
             }
             break;
         }
 
-        case PROG_PLAY: {
-            if (pProg->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PROG_PLAY)");
+        case PHASE_PLAY: {
+            if (pPhase->hasJustChanged()) {
+                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PHASE_PLAY)");
             }
             break;
         }
 
-        case PROG_FINISH: {
-            if (pProg->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PROG_FINISH)");
+        case PHASE_FINISH: {
+            if (pPhase->hasJustChanged()) {
+                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PHASE_FINISH)");
             }
             break;
         }

@@ -43,7 +43,7 @@ void MagicLvCursor::initialize() {
 }
 
 void MagicLvCursor::processBehavior() {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->behave();
     if (pVecVehicle->asstMv()->hasJustFinishedSliding()) {
         //理想位置に補正
@@ -81,7 +81,7 @@ void MagicLvCursor::processAfterDraw() {
 }
 
 void MagicLvCursor::moveTo(int prm_lv) {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->asstMv()->stopSliding();
     pVecVehicle->stop();
     point_lv_ = prm_lv;
@@ -90,7 +90,7 @@ void MagicLvCursor::moveTo(int prm_lv) {
 }
 
 void MagicLvCursor::moveSmoothTo(int prm_lv, frame prm_target_frames, float prm_p1, float prm_p2) {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->stop();
     //Y座標のロール（スライド表示）の分考慮せずにY座標のLVカーソル移動計算を行っている。
     //processPreDraw()でロール分を補正する。

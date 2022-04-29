@@ -12,13 +12,13 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG_INIT    ,
-    PROG_MOVE01_1,
-    PROG_MOVE01_2,
-    PROG_MOVE01_3,
-    PROG_MOVE01_4,
-    PROG_FINISH  ,
-    PROG_BANPEI,
+    PHASE_INIT    ,
+    PHASE_MOVE01_1,
+    PHASE_MOVE01_2,
+    PHASE_MOVE01_3,
+    PHASE_MOVE01_4,
+    PHASE_FINISH  ,
+    PHASE_BANPEI,
 };
 enum {
     SE_DAMAGED  ,
@@ -41,7 +41,7 @@ void EnemyTalante::onCreateModel() {
 }
 
 void EnemyTalante::initialize() {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->linkFaceAngByMvAng(true);
     pVecVehicle->setRollFaceAngVelo(5000);
     CollisionChecker* pChecker = getCollisionChecker();
@@ -59,35 +59,35 @@ void EnemyTalante::onActive() {
     getStatus()->reset();
     setHitAble(true);
     Z_ok_ = Y_ok_ = false;
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->setMvAcce(0);
     pVecVehicle->setMvVelo(4000);
     pVecVehicle->forceMvVeloRange(50000);
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 
 void EnemyTalante::processBehavior() {
     MyShip* pMyShip = pMYSHIP;
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
-    GgafCore::Progress* const pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_INIT: {
-            pProg->changeNext();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafCore::Phase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_INIT: {
+            pPhase->changeNext();
             break;
         }
 
-        case PROG_MOVE01_1: {
+        case PHASE_MOVE01_1: {
             //ちょっとそのまま真っ直ぐ進む
-            if (pProg->hasJustChanged()) {
+            if (pPhase->hasJustChanged()) {
             }
-            if (pProg->getFrame() > 60) {
-                pProg->changeNext(); //次の動きへ
+            if (pPhase->getFrame() > 60) {
+                pPhase->changeNext(); //次の動きへ
             }
             break;
         }
 
-        case PROG_MOVE01_2: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_MOVE01_2: {
+            if (pPhase->hasJustChanged()) {
             }
             if (Z_ok_ == false && pMyShip->_z - PX_C(5) <= _z && _z <= pMyShip->_z + PX_C(5)) {
                 //Z座標揃った
@@ -122,17 +122,17 @@ void EnemyTalante::processBehavior() {
             if (pVecVehicle->isTurningMvAng() == false) {
                 if (Y_ok_ && Z_ok_) {
                     //Z座標Y座標揃ったら次の動きへ
-                    pProg->changeNext();
-                } else if (pProg->getFrame() >= 480) {
+                    pPhase->changeNext();
+                } else if (pPhase->getFrame() >= 480) {
                     //Z座標Y座標揃わずとも一定時間で次の動きへ
-                    pProg->changeNext();
+                    pPhase->changeNext();
                 }
             }
             break;
         }
 
-        case PROG_MOVE01_3: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_MOVE01_3: {
+            if (pPhase->hasJustChanged()) {
                 //X軸方向に動く
                 if (pMyShip->_x <= _x) {
                     //左へ折れる
@@ -145,13 +145,13 @@ void EnemyTalante::processBehavior() {
                 }
             }
             if (pVecVehicle->isTurningMvAng() == false) {
-                pProg->changeNext(); //次の動きへ
+                pPhase->changeNext(); //次の動きへ
             }
             break;
         }
 
-        case PROG_MOVE01_4: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_MOVE01_4: {
+            if (pPhase->hasJustChanged()) {
                 pVecVehicle->setMvAcce(300);//加速開始
             }
             break;

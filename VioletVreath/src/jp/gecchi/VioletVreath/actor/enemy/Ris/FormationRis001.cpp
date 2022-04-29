@@ -25,8 +25,8 @@ FormationRis001::FormationRis001(const char* prm_name) : TreeFormation(prm_name)
     for (int i = 0; i < max_num_Ris; i++) {
         EnemyRis* pRis = NEW EnemyRis("Ris01");
         //カーブ移動プログラム設定
-        VehicleLeader* pProgram = NEW FixedVelocityCurveVecVehicleLeader(pManufacture_, pRis->getVecVehicle()); //移動速度固定
-        pRis->config(pProgram, pConn_depo_->peek(), nullptr);
+        VehicleLeader* pVehicleLeader = NEW FixedVelocityCurveVecVehicleLeader(pManufacture_, pRis->getVecVehicle()); //移動速度固定
+        pRis->config(pVehicleLeader, pConn_depo_->peek(), nullptr);
         appendFormationMember(pRis);
     }
 }

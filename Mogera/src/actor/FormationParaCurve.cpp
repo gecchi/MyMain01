@@ -11,10 +11,10 @@ using namespace GgafLib;
 using namespace Mogera;
 
 enum {
-    PROG_INIT  ,
-    PROG_CALL_UP ,
-    PROG_WAIT  ,
-    PROG_BANPEI,
+    PHASE_INIT  ,
+    PHASE_CALL_UP ,
+    PHASE_WAIT  ,
+    PHASE_BANPEI,
 };
 
 FormationParaCurve::FormationParaCurve(const char* prm_name) :
@@ -43,18 +43,18 @@ void FormationParaCurve::initialize() {
 
 void FormationParaCurve::onActive() {
     called_up_row_idx_ = 0;
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 
 void FormationParaCurve::processBehavior() {
-    GgafCore::Progress* const pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_INIT: {
-            pProg->changeNext();
+    GgafCore::Phase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_INIT: {
+            pPhase->changeNext();
             break;
         }
-        case PROG_CALL_UP: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_CALL_UP: {
+            if (pPhase->hasJustChanged()) {
             }
             if (formation_row_num_ > called_up_row_idx_ && canCalledUp()) {
                 if (getActiveFrame() % called_up_interval_ == 0) {
@@ -67,12 +67,12 @@ void FormationParaCurve::processBehavior() {
                     called_up_row_idx_ ++;
                 }
             } else {
-                pProg->changeNext();
+                pPhase->changeNext();
             }
             break;
         }
-        case PROG_WAIT: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_WAIT: {
+            if (pPhase->hasJustChanged()) {
             }
             break;
         }

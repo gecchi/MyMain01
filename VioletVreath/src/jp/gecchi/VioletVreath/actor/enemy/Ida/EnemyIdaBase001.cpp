@@ -11,9 +11,9 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG_INIT ,
-    PROG_MOVE ,
-    PROG_BANPEI,
+    PHASE_INIT ,
+    PHASE_MOVE ,
+    PHASE_BANPEI,
 };
 
 EnemyIdaBase001::EnemyIdaBase001(const char* prm_name) :
@@ -25,27 +25,27 @@ EnemyIdaBase001::EnemyIdaBase001(const char* prm_name) :
 
 void EnemyIdaBase001::initialize() {
     EnemyIdaBase::initialize();
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->linkFaceAngByMvAng(true);
     pVecVehicle->setRollPitchYawFaceAngVelo(D_ANG(2), D0ANG, D_ANG(0.4));
 }
 
 void EnemyIdaBase001::onActive() {
     EnemyIdaBase::onActive();
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 
 void EnemyIdaBase001::processBehavior() {
     EnemyIdaBase::processBehavior();
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
-    GgafCore::Progress* const pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_INIT: {
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafCore::Phase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_INIT: {
             pVehicleLeader_->start(RELATIVE_COORD, 3);
-            pProg->changeNext();
+            pPhase->changeNext();
             break;
         }
-        case PROG_MOVE: {
+        case PHASE_MOVE: {
             pVehicleLeader_->behave();
             break;
         }

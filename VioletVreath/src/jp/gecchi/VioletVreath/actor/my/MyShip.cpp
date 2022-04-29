@@ -339,7 +339,7 @@ void MyShip::initialize() {
 /////////////TEST
       pChecker->setColliAACube(0, PX_C(40));
 
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->setMvVelo(0);
 
     //setMaterialColor(1.0, 0.5, 0.5);
@@ -395,7 +395,7 @@ void MyShip::onInactive() {
 }
 void MyShip::processBehavior() {
     VirtualButton* pVbPlay = VB_PLAY;
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     GgafDx::GeoVehicle* const pGeoVehicle = getGeoVehicle();
     //ëÄçÏãëî€
     if (!can_control_) {

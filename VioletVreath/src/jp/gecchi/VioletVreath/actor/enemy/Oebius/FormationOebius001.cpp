@@ -12,10 +12,10 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG_INIT  ,
-    PROG_CALL_UP ,
-    PROG_WAIT  ,
-    PROG_BANPEI,
+    PHASE_INIT  ,
+    PHASE_CALL_UP ,
+    PHASE_WAIT  ,
+    PHASE_BANPEI,
 };
 
 FormationOebius001::FormationOebius001(const char* prm_name, EnemyOebiusController* prm_pController) :
@@ -47,20 +47,20 @@ FormationOebius001::FormationOebius001(const char* prm_name, EnemyOebiusControll
 }
 void FormationOebius001::onActive() {
     called_up_row_idx_ = 0;
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 void FormationOebius001::processBehavior() {
-    GgafCore::Progress* const pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_INIT: {
-            pProg->changeNext();
+    GgafCore::Phase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_INIT: {
+            pPhase->changeNext();
             break;
         }
-        case PROG_CALL_UP: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_CALL_UP: {
+            if (pPhase->hasJustChanged()) {
             }
             if (called_up_row_idx_ < formation_row_num_) {
-                if (pProg->getFrame() == pa_frame_of_called_up_[called_up_row_idx_]) {
+                if (pPhase->getFrame() == pa_frame_of_called_up_[called_up_row_idx_]) {
                     for (int col = 0; col < formation_col_num_; col++) {
                         EnemyOebius* pOebius = (EnemyOebius*)calledUpMember();
                         if (pOebius) {
@@ -70,12 +70,12 @@ void FormationOebius001::processBehavior() {
                     called_up_row_idx_ ++;
                 }
             } else {
-                pProg->changeNext();
+                pPhase->changeNext();
             }
             break;
         }
-        case PROG_WAIT: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_WAIT: {
+            if (pPhase->hasJustChanged()) {
             }
             break;
         }

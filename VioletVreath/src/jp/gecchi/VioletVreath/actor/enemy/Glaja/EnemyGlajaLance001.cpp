@@ -15,14 +15,14 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG_INIT   ,
-    PROG_MOVE01 ,
-    PROG_AIM_ANIME01 ,
-    PROG_AIM_ANIME02 ,
-    PROG_MOVE02 ,
-    PROG_MOVE03 ,
-    PROG_LEAVE ,
-    PROG_BANPEI,
+    PHASE_INIT   ,
+    PHASE_MOVE01 ,
+    PHASE_AIM_ANIME01 ,
+    PHASE_AIM_ANIME02 ,
+    PHASE_MOVE02 ,
+    PHASE_MOVE03 ,
+    PHASE_LEAVE ,
+    PHASE_BANPEI,
 };
 
 EnemyGlajaLance001::EnemyGlajaLance001(const char* prm_name) :
@@ -51,7 +51,7 @@ void EnemyGlajaLance001::onReset() {
 }
 
 void EnemyGlajaLance001::onActive() {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->setMvAcce(0);
     pVecVehicle->setMvVelo(PX_C(3));
     setRollPitchYawFaceAng(0, RND(D_ANG(0), D_ANG(360)),
@@ -67,32 +67,32 @@ void EnemyGlajaLance001::onActive() {
     pScaler->behave();
     getStatus()->reset();
     setCullingDraw(false);
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 
 void EnemyGlajaLance001::processBehavior() {
     MyShip* pMyShip = pMYSHIP;
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     GgafDx::Scaler* const pScaler = getScaler();
-    GgafCore::Progress* const pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_INIT: {
+    GgafCore::Phase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_INIT: {
             setHitAble(true, false);
             //_pVecVehicle->setMvAngTwd(&turning_pos_);
-            pProg->changeNext();
+            pPhase->changeNext();
             break;
         }
-        case PROG_MOVE01: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_MOVE01: {
+            if (pPhase->hasJustChanged()) {
 
             }
-            if (pProg->hasArrivedAt(120)) {
-                pProg->changeNext();
+            if (pPhase->hasArrivedFrameAt(120)) {
+                pPhase->changeNext();
             }
             break;
         }
-        case PROG_AIM_ANIME01: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_AIM_ANIME01: {
+            if (pPhase->hasJustChanged()) {
                 //シャキーンと槍になる！（伸びる！）
                 pVecVehicle->stop();
                 pVecVehicle->setRollPitchYawFaceAngVelo(0, 0, 0);
@@ -105,36 +105,36 @@ void EnemyGlajaLance001::processBehavior() {
                 CollisionChecker* pChecker = getCollisionChecker();
                 pChecker->enable(1);
                 pChecker->enable(2);
-                pProg->changeNext();
+                pPhase->changeNext();
              }
 
              break;
         }
-        case PROG_AIM_ANIME02: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_AIM_ANIME02: {
+            if (pPhase->hasJustChanged()) {
                 //自機にグルンと向く
                 pVecVehicle->asstFaceAng()->turnByDtTwd(pMyShip, TURN_ANTICLOSE_TO, false,
                                                         60, 0.2, 0.4, 0, true );
             }
             if (!pVecVehicle->isTurningFaceAng()) {
-                pProg->changeNext();
+                pPhase->changeNext();
             }
             break;
         }
-        case PROG_MOVE02: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_MOVE02: {
+            if (pPhase->hasJustChanged()) {
                 pVecVehicle->setMvAngByFaceAng(); //今向いてる方向にこれから移動する
                 pVecVehicle->setMvVelo(-PX_C(3)); //ちょっとバックして貯めを表現
                 pVecVehicle->setRollFaceAngVelo(D_ANG(1)); //スピンスピン
                 pVecVehicle->setRollFaceAngAcce(100); //スピンスピン
             }
-            if (pProg->getFrame() >= 60) {
-                pProg->changeNext();
+            if (pPhase->getFrame() >= 60) {
+                pPhase->changeNext();
             }
             break;
         }
-        case PROG_MOVE03: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_MOVE03: {
+            if (pPhase->hasJustChanged()) {
                 //ズキューーンと移動
                 pVecVehicle->setMvVelo(PX_C(50));
             }
@@ -142,8 +142,8 @@ void EnemyGlajaLance001::processBehavior() {
             break;
         }
 
-        case PROG_LEAVE: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_LEAVE: {
+            if (pPhase->hasJustChanged()) {
                 //HIT後消えるまで
             }
             addAlpha(-1.0/90.0); //sayonara(90);だから
@@ -172,7 +172,7 @@ void EnemyGlajaLance001::onHit(const GgafCore::Actor* prm_pOtherActor) {
         //破壊された時(スタミナ <= 0)
         getVecVehicle()->stop();
         sayonara(90);
-        getProgress()->change(PROG_LEAVE); //矢がフェードアウトする
+        getPhase()->change(PHASE_LEAVE); //矢がフェードアウトする
     } else {
         //破壊されなかった時(スタミナ > 0)
     }

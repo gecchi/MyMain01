@@ -23,7 +23,7 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) :
         VvEnemyActor<SpriteMeshSetActor>(prm_name, "tamago", StatusReset(EnemyTamago01)) { //8/をいれとかないとユニークにならない
     _class_name = "EnemyTamago01";
     iMovePatternNo_ = 0;
-    pProgram_Tamago01Move_ = nullptr;
+    pVehicleLeader_Tamago01Move_ = nullptr;
     pConn_depo_ = nullptr;
     pDepo_shot_ = nullptr;
     pDepo_effect_ = nullptr;
@@ -44,7 +44,7 @@ void EnemyTamago01::onCreateModel() {
 
 void EnemyTamago01::initialize() {
     setHitAble(true);
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->linkFaceAngByMvAng(true);
     pVecVehicle->setRollFaceAngVelo(1000);
     pVecVehicle->setMvAngTwd(900000, 300000, 300000);
@@ -75,8 +75,8 @@ void EnemyTamago01::initialize() {
 
 void EnemyTamago01::onActive() {
     getStatus()->reset();
-    if (pProgram_Tamago01Move_) {
-        pProgram_Tamago01Move_->start(ABSOLUTE_COORD); //カーブ移動をプログラムしておく
+    if (pVehicleLeader_Tamago01Move_) {
+        pVehicleLeader_Tamago01Move_->start(ABSOLUTE_COORD); //カーブ移動をプログラムしておく
     }
 
 //    getUvFlipper()->locatePatternNo(16, 1/16.0, 1/16.0);
@@ -118,11 +118,11 @@ void EnemyTamago01::processBehavior() {
 //    if (GgafDx::Input::isPressedKey(DIK_0)) {
 //        pModel->getTexBlinker()->->setScaleToBottom();
 //    }
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
 
     if (iMovePatternNo_ == 0) {
         //カーブ移動中
-        if (pProgram_Tamago01Move_ && pProgram_Tamago01Move_->isFinished()) {
+        if (pVehicleLeader_Tamago01Move_ && pVehicleLeader_Tamago01Move_->isFinished()) {
             iMovePatternNo_++; //カーブ移動が終了したら次の行動パターンへ
         }
     }
@@ -176,8 +176,8 @@ void EnemyTamago01::processBehavior() {
         }
 
     }
-    if (pProgram_Tamago01Move_) {
-        pProgram_Tamago01Move_->behave();
+    if (pVehicleLeader_Tamago01Move_) {
+        pVehicleLeader_Tamago01Move_->behave();
     }
     pVecVehicle->behave();
     getScaler()->behave();
@@ -207,5 +207,5 @@ void EnemyTamago01::onInactive() {
 
 EnemyTamago01::~EnemyTamago01() {
     pConn_depo_->close();
-    GGAF_DELETE_NULLABLE(pProgram_Tamago01Move_);
+    GGAF_DELETE_NULLABLE(pVehicleLeader_Tamago01Move_);
 }

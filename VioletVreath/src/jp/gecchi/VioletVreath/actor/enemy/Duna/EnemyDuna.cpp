@@ -27,20 +27,20 @@ enum {
     SE_EXPLOSION ,
 };
 enum {
-    PROG_INIT   ,
-    PROG_ENTRY_EFFECT,
-    PROG_ENTRY_MOVE01,
-    PROG_ENTRY_MOVE02,
-    PROG_MOVE_ORDER_LARGE_SEMIARC_CW,
-    PROG_MOVE_ORDER_LARGE_SEMIARC_CCW,
-    PROG_MOVE_REV_LARGE_SEMIARC_CW,
-    PROG_MOVE_REV_LARGE_SEMIARC_CCW,
-    PROG_MOVE_ORDER_SMALL_SEMIARC_CW,
-    PROG_MOVE_ORDER_SMALL_SEMIARC_CCW,
-    PROG_MOVE_REV_SMALL_SEMIARC_CW,
-    PROG_MOVE_REV_SMALL_SEMIARC_CCW,
-    PROG_CLOSE ,
-    PROG_BANPEI,
+    PHASE_INIT   ,
+    PHASE_ENTRY_EFFECT,
+    PHASE_ENTRY_MOVE01,
+    PHASE_ENTRY_MOVE02,
+    PHASE_MOVE_ORDER_LARGE_SEMIARC_CW,
+    PHASE_MOVE_ORDER_LARGE_SEMIARC_CCW,
+    PHASE_MOVE_REV_LARGE_SEMIARC_CW,
+    PHASE_MOVE_REV_LARGE_SEMIARC_CCW,
+    PHASE_MOVE_ORDER_SMALL_SEMIARC_CW,
+    PHASE_MOVE_ORDER_SMALL_SEMIARC_CCW,
+    PHASE_MOVE_REV_SMALL_SEMIARC_CW,
+    PHASE_MOVE_REV_SMALL_SEMIARC_CCW,
+    PHASE_CLOSE ,
+    PHASE_BANPEI,
 };
 
 EnemyDuna::EnemyDuna(const char* prm_name) :
@@ -66,24 +66,24 @@ void EnemyDuna::initialize() {
 
 void EnemyDuna::onActive() {
     getStatus()->reset();
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 
 void EnemyDuna::processBehavior() {
-//    if (pProg->hasJustChanged()) {
-//        _TRACE_("EnemyDuna::"<<pProg->getFromProgOnChange()<<"¨"<<pProg->get()<<"");
+//    if (pPhase->hasJustChanged()) {
+//        _TRACE_("EnemyDuna::"<<pPhase->getFromPhaseOnChange()<<"¨"<<pPhase->get()<<"");
 //    }
 
     MyShip* pMyShip = pMYSHIP;
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     GgafDx::GeoVehicle* const pGeoVehicle = getGeoVehicle();
-    GgafCore::Progress* const pProg = getProgress();
-    if (pProg->hasJustChanged()) {
+    GgafCore::Phase* pPhase = getPhase();
+    if (pPhase->hasJustChanged()) {
         pGeoVehicle->execGravitationMvSequenceTwd(pMyShip, PX_C(3), 30, PX_C(1));
     }
 
-    switch (pProg->get()) {
-        case PROG_INIT: {
+    switch (pPhase->get()) {
+        case PHASE_INIT: {
             setHitAble(false);
             setAlpha(0);
             pVecVehicle->linkFaceAngByMvAng(false);
@@ -95,50 +95,50 @@ void EnemyDuna::processBehavior() {
             pVecVehicle->setRzMvAngVelo(D_ANG(12));
             pVecVehicle->setRzMvAngAcce(D_ANG(0.05));
             setMorphWeight(0.0);
-            pProg->changeNext();
+            pPhase->changeNext();
             break;
         }
-         case PROG_ENTRY_EFFECT: {
+         case PHASE_ENTRY_EFFECT: {
              EffectBlink* pEffectEntry = nullptr;
-             if (pProg->hasJustChanged()) {
+             if (pPhase->hasJustChanged()) {
                  pEffectEntry = UTIL::activateEntryEffectOf(this);
              }
              static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
              static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
-             if (pProg->hasArrivedAt(frame_of_summons_begin)) {
+             if (pPhase->hasArrivedFrameAt(frame_of_summons_begin)) {
                  getAlphaFader()->transitionLinearUntil(1.0, frame_of_entering);
              }
-             if (pProg->hasArrivedAt(frame_of_entering)) {
+             if (pPhase->hasArrivedFrameAt(frame_of_entering)) {
                  setHitAble(true);
-                 pProg->changeNext();
+                 pPhase->changeNext();
              }
              break;
          }
-         case PROG_ENTRY_MOVE01: {
-             if (pProg->hasJustChanged()) {
+         case PHASE_ENTRY_MOVE01: {
+             if (pPhase->hasJustChanged()) {
              }
              _x -= PX_C(10);
              if (_x < pMyShip->_x + PX_C(1000)) {
-                 pProg->changeNext();
+                 pPhase->changeNext();
              }
              break;
          }
-         case PROG_ENTRY_MOVE02: {
-             if (pProg->hasJustChanged()) {
+         case PHASE_ENTRY_MOVE02: {
+             if (pPhase->hasJustChanged()) {
                  pVecVehicle->turnRzRyMvAngTo(0, D180ANG, D_ANG(5), 0, TURN_CLOSE_TO, false);
                  pVecVehicle->turnRzRyFaceAngTo(0, D180ANG, D_ANG(5), 0, TURN_CLOSE_TO, false);
              }
              if (!pVecVehicle->isTurningMvAng() && !pVecVehicle->isTurningFaceAng()) {
                  pVecVehicle->linkFaceAngByMvAng(true);
-                 pProg->changeProbab(
-                              0, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,
-                             25, PROG_MOVE_ORDER_LARGE_SEMIARC_CCW,
-                             25, PROG_MOVE_REV_LARGE_SEMIARC_CW,
-                              0, PROG_MOVE_REV_LARGE_SEMIARC_CCW,
-                              0, PROG_MOVE_ORDER_SMALL_SEMIARC_CW,
-                             25, PROG_MOVE_ORDER_SMALL_SEMIARC_CCW,
-                             25, PROG_MOVE_REV_SMALL_SEMIARC_CW,
-                              0, PROG_MOVE_REV_SMALL_SEMIARC_CCW
+                 pPhase->changeProbab(
+                              0, PHASE_MOVE_ORDER_LARGE_SEMIARC_CW,
+                             25, PHASE_MOVE_ORDER_LARGE_SEMIARC_CCW,
+                             25, PHASE_MOVE_REV_LARGE_SEMIARC_CW,
+                              0, PHASE_MOVE_REV_LARGE_SEMIARC_CCW,
+                              0, PHASE_MOVE_ORDER_SMALL_SEMIARC_CW,
+                             25, PHASE_MOVE_ORDER_SMALL_SEMIARC_CCW,
+                             25, PHASE_MOVE_REV_SMALL_SEMIARC_CW,
+                              0, PHASE_MOVE_REV_SMALL_SEMIARC_CCW
                          );
              }
              break;
@@ -166,59 +166,59 @@ void EnemyDuna::processBehavior() {
          //           PPP                         ¨
          //             ¨
          //
-         //  ‡@ EEE PROG_MOVE_ORDER_LARGE_SEMIARC_CW       ‡•ûŒüA  ‘å‰~ŒÊˆÚ“®AŽžŒv‰ñ‚è
-         //  ‡A EEE PROG_MOVE_ORDER_LARGE_SEMIARC_CCW      ‡•ûŒüA  ‘å‰~ŒÊˆÚ“®A”¼ŽžŒv‰ñ‚è
-         //  ‡B EEE PROG_MOVE_REV_LARGE_SEMIARC_CW         •ûŒü”½“]A‘å‰~ŒÊˆÚ“®AŽžŒv‰ñ‚è
-         //  ‡C EEE PROG_MOVE_REV_LARGE_SEMIARC_CCW        •ûŒü”½“]A‘å‰~ŒÊˆÚ“®A”¼ŽžŒv‰ñ‚è
-         //  ‡D EEE PROG_MOVE_ORDER_SMALL_SEMIARC_CW       ‡•ûŒüA  ¬‰~ŒÊˆÚ“®AŽžŒv‰ñ‚è
-         //  ‡E EEE PROG_MOVE_ORDER_SMALL_SEMIARC_CCW      ‡•ûŒüA  ¬‰~ŒÊˆÚ“®A”¼ŽžŒv‰ñ‚è
-         //  ‡F EEE PROG_MOVE_REV_SMALL_SEMIARC_CW         •ûŒü”½“]A¬‰~ŒÊˆÚ“®AŽžŒv‰ñ‚è
-         //  ‡G EEE PROG_MOVE_REV_SMALL_SEMIARC_CCW        •ûŒü”½“]A¬‰~ŒÊˆÚ“®A”¼ŽžŒv‰ñ‚è
+         //  ‡@ EEE PHASE_MOVE_ORDER_LARGE_SEMIARC_CW       ‡•ûŒüA  ‘å‰~ŒÊˆÚ“®AŽžŒv‰ñ‚è
+         //  ‡A EEE PHASE_MOVE_ORDER_LARGE_SEMIARC_CCW      ‡•ûŒüA  ‘å‰~ŒÊˆÚ“®A”¼ŽžŒv‰ñ‚è
+         //  ‡B EEE PHASE_MOVE_REV_LARGE_SEMIARC_CW         •ûŒü”½“]A‘å‰~ŒÊˆÚ“®AŽžŒv‰ñ‚è
+         //  ‡C EEE PHASE_MOVE_REV_LARGE_SEMIARC_CCW        •ûŒü”½“]A‘å‰~ŒÊˆÚ“®A”¼ŽžŒv‰ñ‚è
+         //  ‡D EEE PHASE_MOVE_ORDER_SMALL_SEMIARC_CW       ‡•ûŒüA  ¬‰~ŒÊˆÚ“®AŽžŒv‰ñ‚è
+         //  ‡E EEE PHASE_MOVE_ORDER_SMALL_SEMIARC_CCW      ‡•ûŒüA  ¬‰~ŒÊˆÚ“®A”¼ŽžŒv‰ñ‚è
+         //  ‡F EEE PHASE_MOVE_REV_SMALL_SEMIARC_CW         •ûŒü”½“]A¬‰~ŒÊˆÚ“®AŽžŒv‰ñ‚è
+         //  ‡G EEE PHASE_MOVE_REV_SMALL_SEMIARC_CCW        •ûŒü”½“]A¬‰~ŒÊˆÚ“®A”¼ŽžŒv‰ñ‚è
 
-         case PROG_MOVE_ORDER_LARGE_SEMIARC_CW: {  //‡@
-             if (pProg->hasJustChanged()) {
+         case PHASE_MOVE_ORDER_LARGE_SEMIARC_CW: {  //‡@
+             if (pPhase->hasJustChanged()) {
                  pVecVehicle->turnRzMvAngTo(pVecVehicle->_rz_mv - SEMIARC_ANG,
                                         LARGE_SEMIARC_ANGVELO, 0, TURN_CLOCKWISE);
              }
              if (!pVecVehicle->isTurningMvAng()) {
                  //‡@‚ÌŽŸ‚Ì“®ì
-                 pProg->changeProbab(
-                               0, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  ‡@
-                              10, PROG_MOVE_ORDER_LARGE_SEMIARC_CCW, //  ‡A
-                               0, PROG_MOVE_REV_LARGE_SEMIARC_CW,    //  ‡B
-                               0, PROG_MOVE_REV_LARGE_SEMIARC_CCW,   //  ‡C
-                              30, PROG_MOVE_ORDER_SMALL_SEMIARC_CW,  //  ‡D
-                              30, PROG_MOVE_ORDER_SMALL_SEMIARC_CCW, //  ‡E
-                              15, PROG_MOVE_REV_SMALL_SEMIARC_CW,    //  ‡F
-                              15, PROG_MOVE_REV_SMALL_SEMIARC_CCW    //  ‡G
+                 pPhase->changeProbab(
+                               0, PHASE_MOVE_ORDER_LARGE_SEMIARC_CW,  //  ‡@
+                              10, PHASE_MOVE_ORDER_LARGE_SEMIARC_CCW, //  ‡A
+                               0, PHASE_MOVE_REV_LARGE_SEMIARC_CW,    //  ‡B
+                               0, PHASE_MOVE_REV_LARGE_SEMIARC_CCW,   //  ‡C
+                              30, PHASE_MOVE_ORDER_SMALL_SEMIARC_CW,  //  ‡D
+                              30, PHASE_MOVE_ORDER_SMALL_SEMIARC_CCW, //  ‡E
+                              15, PHASE_MOVE_REV_SMALL_SEMIARC_CW,    //  ‡F
+                              15, PHASE_MOVE_REV_SMALL_SEMIARC_CCW    //  ‡G
                          );
              }
              break;
          }
 
-         case PROG_MOVE_ORDER_LARGE_SEMIARC_CCW: { //‡A
-             if (pProg->hasJustChanged()) {
+         case PHASE_MOVE_ORDER_LARGE_SEMIARC_CCW: { //‡A
+             if (pPhase->hasJustChanged()) {
                  //‰~ŒÊˆÚ“®
                  pVecVehicle->turnRzMvAngTo(pVecVehicle->_rz_mv + SEMIARC_ANG,
                                         LARGE_SEMIARC_ANGVELO, 0, TURN_COUNTERCLOCKWISE);
              }
              if (!pVecVehicle->isTurningMvAng()) {
                  //‡A‚ÌŽŸ‚Ì“®ì
-                 pProg->changeProbab(
-                              10, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  ‡@
-                               0, PROG_MOVE_ORDER_LARGE_SEMIARC_CCW, //  ‡A
-                               0, PROG_MOVE_REV_LARGE_SEMIARC_CW,    //  ‡B
-                               0, PROG_MOVE_REV_LARGE_SEMIARC_CCW,   //  ‡C
-                              30, PROG_MOVE_ORDER_SMALL_SEMIARC_CW,  //  ‡D
-                              30, PROG_MOVE_ORDER_SMALL_SEMIARC_CCW, //  ‡E
-                              15, PROG_MOVE_REV_SMALL_SEMIARC_CW,    //  ‡F
-                              15, PROG_MOVE_REV_SMALL_SEMIARC_CCW    //  ‡G
+                 pPhase->changeProbab(
+                              10, PHASE_MOVE_ORDER_LARGE_SEMIARC_CW,  //  ‡@
+                               0, PHASE_MOVE_ORDER_LARGE_SEMIARC_CCW, //  ‡A
+                               0, PHASE_MOVE_REV_LARGE_SEMIARC_CW,    //  ‡B
+                               0, PHASE_MOVE_REV_LARGE_SEMIARC_CCW,   //  ‡C
+                              30, PHASE_MOVE_ORDER_SMALL_SEMIARC_CW,  //  ‡D
+                              30, PHASE_MOVE_ORDER_SMALL_SEMIARC_CCW, //  ‡E
+                              15, PHASE_MOVE_REV_SMALL_SEMIARC_CW,    //  ‡F
+                              15, PHASE_MOVE_REV_SMALL_SEMIARC_CCW    //  ‡G
                          );
              }
              break;
          }
-         case PROG_MOVE_REV_LARGE_SEMIARC_CW: {  //‡B
-             if (pProg->hasJustChanged()) {
+         case PHASE_MOVE_REV_LARGE_SEMIARC_CW: {  //‡B
+             if (pPhase->hasJustChanged()) {
                  //‚Ü‚¸ŠJŽnó‘Ô‚Ì^— •ûŒü‚ÉŒü‚­
                  pVecVehicle->turnRzMvAngTo(pVecVehicle->_rz_mv - D180ANG,
                                         REV_TURN_ANGVELO, 0, TURN_CLOSE_TO);
@@ -232,21 +232,21 @@ void EnemyDuna::processBehavior() {
              }
              if (nprog_ == 1 && !pVecVehicle->isTurningMvAng()) {
                  //‡B‚ÌŽŸ‚Ì“®ì
-                 pProg->changeProbab(
-                               0, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  ‡@
-                              10, PROG_MOVE_ORDER_LARGE_SEMIARC_CCW, //  ‡A
-                               0, PROG_MOVE_REV_LARGE_SEMIARC_CW,    //  ‡B
-                               0, PROG_MOVE_REV_LARGE_SEMIARC_CCW,   //  ‡C
-                              30, PROG_MOVE_ORDER_SMALL_SEMIARC_CW,  //  ‡D
-                              30, PROG_MOVE_ORDER_SMALL_SEMIARC_CCW, //  ‡E
-                              15, PROG_MOVE_REV_SMALL_SEMIARC_CW,    //  ‡F
-                              15, PROG_MOVE_REV_SMALL_SEMIARC_CCW    //  ‡G
+                 pPhase->changeProbab(
+                               0, PHASE_MOVE_ORDER_LARGE_SEMIARC_CW,  //  ‡@
+                              10, PHASE_MOVE_ORDER_LARGE_SEMIARC_CCW, //  ‡A
+                               0, PHASE_MOVE_REV_LARGE_SEMIARC_CW,    //  ‡B
+                               0, PHASE_MOVE_REV_LARGE_SEMIARC_CCW,   //  ‡C
+                              30, PHASE_MOVE_ORDER_SMALL_SEMIARC_CW,  //  ‡D
+                              30, PHASE_MOVE_ORDER_SMALL_SEMIARC_CCW, //  ‡E
+                              15, PHASE_MOVE_REV_SMALL_SEMIARC_CW,    //  ‡F
+                              15, PHASE_MOVE_REV_SMALL_SEMIARC_CCW    //  ‡G
                          );
              }
              break;
          }
-         case PROG_MOVE_REV_LARGE_SEMIARC_CCW: {  //‡C
-             if (pProg->hasJustChanged()) {
+         case PHASE_MOVE_REV_LARGE_SEMIARC_CCW: {  //‡C
+             if (pPhase->hasJustChanged()) {
                  //‚Ü‚¸ŠJŽnó‘Ô‚Ì^— •ûŒü‚ÉŒü‚­
                  pVecVehicle->turnRzMvAngTo(pVecVehicle->_rz_mv + D180ANG,
                                         REV_TURN_ANGVELO, 0, TURN_CLOSE_TO);
@@ -260,15 +260,15 @@ void EnemyDuna::processBehavior() {
              }
              if (nprog_ == 1 && !pVecVehicle->isTurningMvAng()) {
                  //‡C‚ÌŽŸ‚Ì“®ì
-                 pProg->changeProbab(
-                              10, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  ‡@
-                               0, PROG_MOVE_ORDER_LARGE_SEMIARC_CCW, //  ‡A
-                               0, PROG_MOVE_REV_LARGE_SEMIARC_CW,    //  ‡B
-                               0, PROG_MOVE_REV_LARGE_SEMIARC_CCW,   //  ‡C
-                              30, PROG_MOVE_ORDER_SMALL_SEMIARC_CW,  //  ‡D
-                              30, PROG_MOVE_ORDER_SMALL_SEMIARC_CCW, //  ‡E
-                              15, PROG_MOVE_REV_SMALL_SEMIARC_CW,    //  ‡F
-                              15, PROG_MOVE_REV_SMALL_SEMIARC_CCW    //  ‡G
+                 pPhase->changeProbab(
+                              10, PHASE_MOVE_ORDER_LARGE_SEMIARC_CW,  //  ‡@
+                               0, PHASE_MOVE_ORDER_LARGE_SEMIARC_CCW, //  ‡A
+                               0, PHASE_MOVE_REV_LARGE_SEMIARC_CW,    //  ‡B
+                               0, PHASE_MOVE_REV_LARGE_SEMIARC_CCW,   //  ‡C
+                              30, PHASE_MOVE_ORDER_SMALL_SEMIARC_CW,  //  ‡D
+                              30, PHASE_MOVE_ORDER_SMALL_SEMIARC_CCW, //  ‡E
+                              15, PHASE_MOVE_REV_SMALL_SEMIARC_CW,    //  ‡F
+                              15, PHASE_MOVE_REV_SMALL_SEMIARC_CCW    //  ‡G
                          );
              }
              break;
@@ -279,50 +279,50 @@ void EnemyDuna::processBehavior() {
 
 
 
-         case PROG_MOVE_ORDER_SMALL_SEMIARC_CW: {  //‡D
-             if (pProg->hasJustChanged()) {
+         case PHASE_MOVE_ORDER_SMALL_SEMIARC_CW: {  //‡D
+             if (pPhase->hasJustChanged()) {
                  pVecVehicle->turnRzMvAngTo(pVecVehicle->_rz_mv - SEMIARC_ANG,
                                         SMALL_SEMIARC_ANGVELO, 0, TURN_CLOCKWISE);
              }
              if (!pVecVehicle->isTurningMvAng()) {
                  //‡D‚ÌŽŸ‚Ì“®ì
-                 pProg->changeProbab(
-                               0, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  ‡@
-                              40, PROG_MOVE_ORDER_LARGE_SEMIARC_CCW, //  ‡A
-                               0, PROG_MOVE_REV_LARGE_SEMIARC_CW,    //  ‡B
-                              30, PROG_MOVE_REV_LARGE_SEMIARC_CCW,   //  ‡C
-                               0, PROG_MOVE_ORDER_SMALL_SEMIARC_CW,  //  ‡D
-                              30, PROG_MOVE_ORDER_SMALL_SEMIARC_CCW, //  ‡E
-                               0, PROG_MOVE_REV_SMALL_SEMIARC_CW,    //  ‡F
-                               0, PROG_MOVE_REV_SMALL_SEMIARC_CCW    //  ‡G
+                 pPhase->changeProbab(
+                               0, PHASE_MOVE_ORDER_LARGE_SEMIARC_CW,  //  ‡@
+                              40, PHASE_MOVE_ORDER_LARGE_SEMIARC_CCW, //  ‡A
+                               0, PHASE_MOVE_REV_LARGE_SEMIARC_CW,    //  ‡B
+                              30, PHASE_MOVE_REV_LARGE_SEMIARC_CCW,   //  ‡C
+                               0, PHASE_MOVE_ORDER_SMALL_SEMIARC_CW,  //  ‡D
+                              30, PHASE_MOVE_ORDER_SMALL_SEMIARC_CCW, //  ‡E
+                               0, PHASE_MOVE_REV_SMALL_SEMIARC_CW,    //  ‡F
+                               0, PHASE_MOVE_REV_SMALL_SEMIARC_CCW    //  ‡G
                          );
              }
              break;
          }
 
-         case PROG_MOVE_ORDER_SMALL_SEMIARC_CCW: { //‡E
-             if (pProg->hasJustChanged()) {
+         case PHASE_MOVE_ORDER_SMALL_SEMIARC_CCW: { //‡E
+             if (pPhase->hasJustChanged()) {
                  //‰~ŒÊˆÚ“®
                  pVecVehicle->turnRzMvAngTo(pVecVehicle->_rz_mv + SEMIARC_ANG,
                                         SMALL_SEMIARC_ANGVELO, 0, TURN_COUNTERCLOCKWISE);
              }
              if (!pVecVehicle->isTurningMvAng()) {
                  //‡E‚ÌŽŸ‚Ì“®ì
-                 pProg->changeProbab(
-                              40, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  ‡@
-                               0, PROG_MOVE_ORDER_LARGE_SEMIARC_CCW, //  ‡A
-                              30, PROG_MOVE_REV_LARGE_SEMIARC_CW,    //  ‡B
-                               0, PROG_MOVE_REV_LARGE_SEMIARC_CCW,   //  ‡C
-                              30, PROG_MOVE_ORDER_SMALL_SEMIARC_CW,  //  ‡D
-                               0, PROG_MOVE_ORDER_SMALL_SEMIARC_CCW, //  ‡E
-                               0, PROG_MOVE_REV_SMALL_SEMIARC_CW,    //  ‡F
-                               0, PROG_MOVE_REV_SMALL_SEMIARC_CCW    //  ‡G
+                 pPhase->changeProbab(
+                              40, PHASE_MOVE_ORDER_LARGE_SEMIARC_CW,  //  ‡@
+                               0, PHASE_MOVE_ORDER_LARGE_SEMIARC_CCW, //  ‡A
+                              30, PHASE_MOVE_REV_LARGE_SEMIARC_CW,    //  ‡B
+                               0, PHASE_MOVE_REV_LARGE_SEMIARC_CCW,   //  ‡C
+                              30, PHASE_MOVE_ORDER_SMALL_SEMIARC_CW,  //  ‡D
+                               0, PHASE_MOVE_ORDER_SMALL_SEMIARC_CCW, //  ‡E
+                               0, PHASE_MOVE_REV_SMALL_SEMIARC_CW,    //  ‡F
+                               0, PHASE_MOVE_REV_SMALL_SEMIARC_CCW    //  ‡G
                          );
              }
              break;
          }
-         case PROG_MOVE_REV_SMALL_SEMIARC_CW: {  //‡F
-             if (pProg->hasJustChanged()) {
+         case PHASE_MOVE_REV_SMALL_SEMIARC_CW: {  //‡F
+             if (pPhase->hasJustChanged()) {
                  //‚Ü‚¸ŠJŽnó‘Ô‚Ì^— •ûŒü‚ÉŒü‚­
                  pVecVehicle->turnRzMvAngTo(pVecVehicle->_rz_mv - D180ANG,
                                         REV_TURN_ANGVELO, 0, TURN_CLOSE_TO);
@@ -336,21 +336,21 @@ void EnemyDuna::processBehavior() {
              }
              if (nprog_ == 1 && !pVecVehicle->isTurningMvAng()) {
                  //‡F‚ÌŽŸ‚Ì“®ì
-                 pProg->changeProbab(
-                               0, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  ‡@
-                              40, PROG_MOVE_ORDER_LARGE_SEMIARC_CCW, //  ‡A
-                               0, PROG_MOVE_REV_LARGE_SEMIARC_CW,    //  ‡B
-                              30, PROG_MOVE_REV_LARGE_SEMIARC_CCW,   //  ‡C
-                               0, PROG_MOVE_ORDER_SMALL_SEMIARC_CW,  //  ‡D
-                              30, PROG_MOVE_ORDER_SMALL_SEMIARC_CCW, //  ‡E
-                               0, PROG_MOVE_REV_SMALL_SEMIARC_CW,    //  ‡F
-                               0, PROG_MOVE_REV_SMALL_SEMIARC_CCW    //  ‡G
+                 pPhase->changeProbab(
+                               0, PHASE_MOVE_ORDER_LARGE_SEMIARC_CW,  //  ‡@
+                              40, PHASE_MOVE_ORDER_LARGE_SEMIARC_CCW, //  ‡A
+                               0, PHASE_MOVE_REV_LARGE_SEMIARC_CW,    //  ‡B
+                              30, PHASE_MOVE_REV_LARGE_SEMIARC_CCW,   //  ‡C
+                               0, PHASE_MOVE_ORDER_SMALL_SEMIARC_CW,  //  ‡D
+                              30, PHASE_MOVE_ORDER_SMALL_SEMIARC_CCW, //  ‡E
+                               0, PHASE_MOVE_REV_SMALL_SEMIARC_CW,    //  ‡F
+                               0, PHASE_MOVE_REV_SMALL_SEMIARC_CCW    //  ‡G
                          );
              }
              break;
          }
-         case PROG_MOVE_REV_SMALL_SEMIARC_CCW: {  //‡G
-             if (pProg->hasJustChanged()) {
+         case PHASE_MOVE_REV_SMALL_SEMIARC_CCW: {  //‡G
+             if (pPhase->hasJustChanged()) {
                  //‚Ü‚¸ŠJŽnó‘Ô‚Ì^— •ûŒü‚ÉŒü‚­
                  pVecVehicle->turnRzMvAngTo(pVecVehicle->_rz_mv + D180ANG,
                                         REV_TURN_ANGVELO, 0, TURN_CLOSE_TO);
@@ -364,15 +364,15 @@ void EnemyDuna::processBehavior() {
              }
              if (nprog_ == 1 && !pVecVehicle->isTurningMvAng()) {
                  //‡G‚ÌŽŸ‚Ì“®ì
-                 pProg->changeProbab(
-                              40, PROG_MOVE_ORDER_LARGE_SEMIARC_CW,  //  ‡@
-                               0, PROG_MOVE_ORDER_LARGE_SEMIARC_CCW, //  ‡A
-                              30, PROG_MOVE_REV_LARGE_SEMIARC_CW,    //  ‡B
-                               0, PROG_MOVE_REV_LARGE_SEMIARC_CCW,   //  ‡C
-                              30, PROG_MOVE_ORDER_SMALL_SEMIARC_CW,  //  ‡D
-                               0, PROG_MOVE_ORDER_SMALL_SEMIARC_CCW, //  ‡E
-                               0, PROG_MOVE_REV_SMALL_SEMIARC_CW,    //  ‡F
-                               0, PROG_MOVE_REV_SMALL_SEMIARC_CCW    //  ‡G
+                 pPhase->changeProbab(
+                              40, PHASE_MOVE_ORDER_LARGE_SEMIARC_CW,  //  ‡@
+                               0, PHASE_MOVE_ORDER_LARGE_SEMIARC_CCW, //  ‡A
+                              30, PHASE_MOVE_REV_LARGE_SEMIARC_CW,    //  ‡B
+                               0, PHASE_MOVE_REV_LARGE_SEMIARC_CCW,   //  ‡C
+                              30, PHASE_MOVE_ORDER_SMALL_SEMIARC_CW,  //  ‡D
+                               0, PHASE_MOVE_ORDER_SMALL_SEMIARC_CCW, //  ‡E
+                               0, PHASE_MOVE_REV_SMALL_SEMIARC_CW,    //  ‡F
+                               0, PHASE_MOVE_REV_SMALL_SEMIARC_CCW    //  ‡G
                          );
              }
              break;
@@ -387,7 +387,7 @@ void EnemyDuna::processBehavior() {
     pGeoVehicle->behave();
     getMorpher()->behave();
     getAlphaFader()->behave();
-//_TRACE_("EnemyDuna f:"<<getBehaveingFrame()<<"  pProg="<<pProg->get()<<"   X,Y,Z="<<_x<<","<<_y<<","<<_z<<" ");
+//_TRACE_("EnemyDuna f:"<<getBehaveingFrame()<<"  pPhase="<<pPhase->get()<<"   X,Y,Z="<<_x<<","<<_y<<","<<_z<<" ");
 }
 
 void EnemyDuna::processJudgement() {

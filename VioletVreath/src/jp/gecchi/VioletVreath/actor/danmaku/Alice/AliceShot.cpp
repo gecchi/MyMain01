@@ -21,7 +21,7 @@ void AliceShot::initialize() {
 }
 void AliceShot::onReset() {
     setCullingDraw(false);
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->setRollFaceAngVelo(D_ANG(3));
     pVecVehicle->linkFaceAngByMvAng(true);
 }
@@ -29,7 +29,7 @@ void AliceShot::onReset() {
 void AliceShot::onActive() {
     setHitAble(true, false);
     getStatus()->reset();
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->setRyMvAng(D90ANG);
     pVecVehicle->setRzMvAngVelo(D_ANG(1));
 }

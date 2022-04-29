@@ -13,15 +13,15 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG_INIT  ,
-    PROG_ENTRY ,
-    PROG_FROMATION_MOVE1,
-    PROG_FROMATION_MOVE2,
-    PROG_FROMATION_MOVE3,
-    PROG_FROMATION_MOVE4,
-    PROG_FROMATION_MOVE5,
-    PROG_LEAVE ,
-    PROG_BANPEI,
+    PHASE_INIT  ,
+    PHASE_ENTRY ,
+    PHASE_FROMATION_MOVE1,
+    PHASE_FROMATION_MOVE2,
+    PHASE_FROMATION_MOVE3,
+    PHASE_FROMATION_MOVE4,
+    PHASE_FROMATION_MOVE5,
+    PHASE_LEAVE ,
+    PHASE_BANPEI,
 };
 
 FormationDelheid::FormationDelheid(const char* prm_name)
@@ -61,7 +61,7 @@ void FormationDelheid::onActive() {
     RV_Num_           = RF_FormationDelheid_Num(G_RANK);    //編隊数
     RV_MvVelo_        = RF_FormationDelheid_MvVelo(G_RANK); //速度
     RV_LaunchInterval = 64 / C_PX(RV_MvVelo_);
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 
 void FormationDelheid::processBehavior() {
@@ -77,9 +77,9 @@ void FormationDelheid::processBehavior() {
             pAlisana_goal = nullptr;
         }
     }
-    GgafCore::Progress* const pProg = getProgress();
-    switch (pProg->get()) {
-         case PROG_INIT: {
+    GgafCore::Phase* pPhase = getPhase();
+    switch (pPhase->get()) {
+         case PHASE_INIT: {
              //ダミー(pDummy_)を使ってメンバーのカーブ移動の開始位置と方向、終了位置と方向を予め求める
              pDummy_->config(getSplManuf(), nullptr);
              pDummy_->getVecVehicle()->setMvVelo(RV_MvVelo_);
@@ -105,32 +105,32 @@ void FormationDelheid::processBehavior() {
              pAlisana_goal->acitve_open((frame)(pDummy_->pVehicleLeader_->getTotalDistance() / RV_MvVelo_)); //ハッチオープン予約
 
              pDummy_->sayonara(); //ありがとうダミー
-             pProg->changeNext();
+             pPhase->changeNext();
              break;
          }
          //ハッチ出現＆オープン
-         case PROG_ENTRY: {
+         case PHASE_ENTRY: {
              //開始ハッチが存在しているかどうか
              if (pAlisana_start) {
                  if (pAlisana_start->isOpenDone()) {
                      //ハッチオープン完了まで待つ
-                     pProg->changeNext(); //完了
+                     pPhase->changeNext(); //完了
                  }
              } else {
                  //開始ハッチがオープン前にやられた
                  calledUpMember(0); //強制招集打ち切り
-                 pProg->changeNothing(); //本フォーメーション自体終了！
+                 pPhase->changeNothing(); //本フォーメーション自体終了！
              }
              //ハッチオープン完了待ち
              break;
          }
          //ハッチから編隊メンバー出現
-         case PROG_FROMATION_MOVE1: {
+         case PHASE_FROMATION_MOVE1: {
              if (pAlisana_start) {
                  //開始ハッチがオープンが存在中の場合
                  if (canCalledUp()) {
                      //招集未完了時
-                     if (pProg->getFrame() % RV_LaunchInterval == 0) {
+                     if (pPhase->getFrame() % RV_LaunchInterval == 0) {
                          //機数 RV_Num_ 機まで招集
                          EnemyDelheid* pDelheid = (EnemyDelheid*)calledUpMember(RV_Num_);
                          if (pDelheid) {
@@ -153,53 +153,53 @@ void FormationDelheid::processBehavior() {
                  } else {
                      //招集限界時
                      pAlisana_start->close_sayonara();
-                     pProg->changeNext(); //出現終了！
+                     pPhase->changeNext(); //出現終了！
                  }
              } else {
                  //開始ハッチが無い(無くなった)場合
                  calledUpMember(0); //強制招集打ち切り（本フォーメションオブジェクトを解放させる条件として必要）
-                 pProg->changeNext(); //出現終了！
+                 pPhase->changeNext(); //出現終了！
              }
              break;
          }
 
          //全メンバー減速
-         case PROG_FROMATION_MOVE2: {
-             if (pProg->hasJustChanged()) {
+         case PHASE_FROMATION_MOVE2: {
+             if (pPhase->hasJustChanged()) {
                  _listFollower.executeFunc(FormationDelheid::order1, this, nullptr, nullptr);
              }
-             if (pProg->hasArrivedAt(120)) {
-                 pProg->changeNext();
+             if (pPhase->hasArrivedFrameAt(120)) {
+                 pPhase->changeNext();
              }
 
              break;
          }
 
          //メンバー停滞&発射
-         case PROG_FROMATION_MOVE3: {
-             if (pProg->hasJustChanged()) {
+         case PHASE_FROMATION_MOVE3: {
+             if (pPhase->hasJustChanged()) {
                  _listFollower.executeFunc(FormationDelheid::order2, this, nullptr, nullptr);
              }
-             if (pProg->hasArrivedAt(360)) {
-                 pProg->changeNext(); //停滞終了！
+             if (pPhase->hasArrivedFrameAt(360)) {
+                 pPhase->changeNext(); //停滞終了！
              }
              break;
          }
 
          //メンバー再始動
-         case PROG_FROMATION_MOVE4: {
-             if (pProg->hasJustChanged()) {
+         case PHASE_FROMATION_MOVE4: {
+             if (pPhase->hasJustChanged()) {
                  _listFollower.executeFunc(FormationDelheid::order3, this, nullptr, nullptr);
              }
-             if (pProg->hasArrivedAt(120)) {
-                 pProg->changeNext(); //再始動完了
+             if (pPhase->hasArrivedFrameAt(120)) {
+                 pPhase->changeNext(); //再始動完了
              }
              break;
          }
 
          //待機
-         case PROG_FROMATION_MOVE5: {
-             if (pProg->hasJustChanged()) {
+         case PHASE_FROMATION_MOVE5: {
+             if (pPhase->hasJustChanged()) {
              }
              //onSayonaraAll() コールバック待ち
              break;
@@ -207,8 +207,8 @@ void FormationDelheid::processBehavior() {
 
 //----------------------------------------------
          //編隊メンバー全機非活動時(onSayonaraAll()時)
-         case PROG_LEAVE: {
-             if (pProg->hasJustChanged()) {
+         case PHASE_LEAVE: {
+             if (pPhase->hasJustChanged()) {
                   if (pAlisana_goal) {
                       pAlisana_goal->close_sayonara();
                   }
@@ -247,7 +247,7 @@ void FormationDelheid::order3(GgafCore::Actor* prm_pDelheid, void* prm1, void* p
 void FormationDelheid::onSayonaraAll() {
     //このコールバックが呼び出された時点で、余命は FORMATION_END_DELAY フレームのはず
     _TRACE_(FUNC_NAME<<" です");
-    getProgress()->change(PROG_LEAVE);
+    getPhase()->change(PHASE_LEAVE);
     //解放を待つ
 }
 

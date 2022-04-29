@@ -18,9 +18,9 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG_INIT   ,
-    PROG_FAINAL ,
-    PROG_BANPEI,
+    PHASE_INIT   ,
+    PHASE_FAINAL ,
+    PHASE_BANPEI,
 };
 
 Stage01PartController::Stage01PartController(const char* prm_name) : StagePartController(prm_name) {
@@ -47,7 +47,7 @@ Stage01PartController::Stage01PartController(const char* prm_name) : StagePartCo
 }
 
 void Stage01PartController::initialize() {
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 
 void Stage01PartController::processBehavior() {
@@ -201,15 +201,15 @@ void Stage01PartController::processBehavior() {
 	}
     // gen02 end
 
-    SceneProgress* pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_FAINAL: {
-            if (pProg->hasJustChanged()) {
+    ScenePhase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_FAINAL: {
+            if (pPhase->hasJustChanged()) {
                 //STGDBGClimax_終焉の処理
-                _TRACE_("STGDBGClimax_終焉のStage01PartController::PROG_FAINALきた");
+                _TRACE_("STGDBGClimax_終焉のStage01PartController::PHASE_FAINALきた");
             }
 
-            if (pProg->hasArrivedAt(60)) {
+            if (pPhase->hasArrivedFrameAt(60)) {
                 fadeoutSceneWithBgm(300);
                 throwEventUpperTree(EVENT_STAGE01_PART_CTRLER_WAS_END); //ステージエンドを上位に伝える
             }
@@ -222,7 +222,7 @@ void Stage01PartController::processBehavior() {
 }
 
 void Stage01PartController::onCatchEvent(hashval prm_no, void* prm_pSource) {
-    SceneProgress* pProg = getProgress();
+    ScenePhase* pPhase = getPhase();
     if (prm_no == EVENT_STAGE01_PART_01_WAS_FINISHED) {
         _TRACE_(FUNC_NAME<<" EVENT_STAGE01_PART_01_WAS_FINISHED");
         ((DefaultScene*)prm_pSource)->sayonara(60*60);
@@ -238,7 +238,7 @@ void Stage01PartController::onCatchEvent(hashval prm_no, void* prm_pSource) {
     } else if (prm_no == EVENT_STAGE01_PART_CLIMAX_WAS_FINISHED) {
         _TRACE_(FUNC_NAME<<" EVENT_STAGE01_PART_CLIMAX_WAS_FINISHED");
         ((DefaultScene*)prm_pSource)->sayonara(60*60);
-        pProg->change(PROG_FAINAL); //進捗をStage01PartController::PROG_FAINALに切り替える
+        pPhase->change(PHASE_FAINAL); //進捗をStage01PartController::PHASE_FAINALに切り替える
     } else {
 
     }

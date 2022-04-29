@@ -17,14 +17,14 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG_MOVE ,
-    PROG_OPEN ,
-    PROG_TURN ,
-    PROG_FIRE_BEGIN,
-    PROG_IN_FIRE   ,
-    PROG_FIRE_END  ,
-    PROG_CLOSE     ,
-    PROG_BANPEI,
+    PHASE_MOVE ,
+    PHASE_OPEN ,
+    PHASE_TURN ,
+    PHASE_FIRE_BEGIN,
+    PHASE_IN_FIRE   ,
+    PHASE_FIRE_END  ,
+    PHASE_CLOSE     ,
+    PHASE_BANPEI,
 };
 enum {
     SE_DAMAGED  ,
@@ -81,7 +81,7 @@ void EnemyRatislaviaEye::initialize() {
 void EnemyRatislaviaEye::onActive() {
     getStatus()->reset();
     setMorphWeight(1, 0.0);
-    getProgress()->reset(PROG_MOVE);
+    getPhase()->reset(PHASE_MOVE);
     setPositionAt(pRatislavia_);
     setFaceAngAs(pRatislavia_);
     getVecVehicle()->setRzRyMvAngVelo(pRatislavia_->getVecVehicle()->_angvelo_face[AXIS_Z],
@@ -90,18 +90,18 @@ void EnemyRatislaviaEye::onActive() {
 
 void EnemyRatislaviaEye::processBehavior() {
     setPositionAt(pRatislavia_);
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
-    GgafCore::Progress* const pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_MOVE: {
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafCore::Phase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_MOVE: {
             break;
         }
-        case PROG_OPEN: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_OPEN: {
+            if (pPhase->hasJustChanged()) {
                 getMorpher()->transitionLinearUntil(1, 1.0, 180); //ŠJ‚­
             }
-            if (pProg->getFrame() > 240) {
-                pProg->changeNext();
+            if (pPhase->getFrame() > 240) {
+                pPhase->changeNext();
             }
             pVecVehicle->takeoverFrom(pRatislavia_->getVecVehicle());
             pVecVehicle->setRzRyMvAngVelo(pRatislavia_->getVecVehicle()->_angvelo_face[AXIS_Z],
@@ -109,30 +109,30 @@ void EnemyRatislaviaEye::processBehavior() {
             break;
         }
 
-        case PROG_TURN: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_TURN: {
+            if (pPhase->hasJustChanged()) {
                 pVecVehicle->turnMvAngTwd(pMYSHIP,
                                         D_ANG(1), 0, TURN_CLOSE_TO, false);
             }
-            if (pProg->getFrame() > 240) {
-                pProg->changeNext();
+            if (pPhase->getFrame() > 240) {
+                pPhase->changeNext();
             }
             break;
         }
 
-        case PROG_FIRE_BEGIN: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_FIRE_BEGIN: {
+            if (pPhase->hasJustChanged()) {
                 //_pVecVehicle->turnMvAngTwd(pMYSHIP, D_ANG(1), 0, TURN_ANTICLOSE_TO, false);
                 pEffect_->activate();
             }
             pEffect_->setPositionAt(this);
             if (pEffect_->hasJustChangedToInactive()) {
-                pProg->changeNext();
+                pPhase->changeNext();
             }
             break;
         }
-        case PROG_IN_FIRE: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_IN_FIRE: {
+            if (pPhase->hasJustChanged()) {
                 pVecVehicle->turnMvAngTwd(pMYSHIP,
                                         10, 0, TURN_CLOSE_TO, false);
             }
@@ -142,19 +142,19 @@ void EnemyRatislaviaEye::processBehavior() {
                     getSeTransmitter()->play3D(SE_FIRE);
                 }
             } else {
-                pProg->changeNext();
+                pPhase->changeNext();
             }
             break;
         }
-        case PROG_FIRE_END: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_FIRE_END: {
+            if (pPhase->hasJustChanged()) {
                 getMorpher()->transitionLinearUntil(1, 0.0, 180); //•Â‚¶‚é
                 pVecVehicle->setRzRyMvAngVelo(pRatislavia_->getVecVehicle()->_angvelo_face[AXIS_Z],
                                           pRatislavia_->getVecVehicle()->_angvelo_face[AXIS_Y]);
             }
             //d’¼
-            if (pProg->getFrame() >= 300) {
-                pProg->change(PROG_OPEN);
+            if (pPhase->getFrame() >= 300) {
+                pPhase->change(PHASE_OPEN);
             }
             break;
         }
@@ -195,7 +195,7 @@ void EnemyRatislaviaEye::onInactive() {
 
 void EnemyRatislaviaEye::wake() {
     is_wake_ = true;
-    getProgress()->change(PROG_OPEN);
+    getPhase()->change(PHASE_OPEN);
 }
 
 EnemyRatislaviaEye::~EnemyRatislaviaEye() {

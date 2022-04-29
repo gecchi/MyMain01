@@ -17,10 +17,10 @@ class LockonCursor001 : public GgafLib::DefaultMassSpriteActor {
 
 public:
     enum {
-        LOCKON001_PROG_FIRST_LOCK ,
-        LOCKON001_PROG_LOCK       ,
-        LOCKON001_PROG_RELEASE    ,
-        PROG_BANPEI,
+        LOCKON001_PHASE_FIRST_LOCK ,
+        LOCKON001_PHASE_LOCK       ,
+        LOCKON001_PHASE_RELEASE    ,
+        PHASE_BANPEI,
     };
 
 

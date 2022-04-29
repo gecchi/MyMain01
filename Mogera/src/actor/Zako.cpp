@@ -14,10 +14,10 @@ using namespace GgafLib;
 using namespace Mogera;
 
 enum {
-    PROG_INIT   ,
-    PROG_CURVE ,
-    PROG_LEAVE ,
-    PROG_BANPEI,
+    PHASE_INIT   ,
+    PHASE_CURVE ,
+    PHASE_LEAVE ,
+    PHASE_BANPEI,
 };
 
 Zako::Zako(const char* prm_name) :
@@ -46,7 +46,7 @@ void Zako::onCreateModel() {
 }
 
 void Zako::initialize() {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->linkFaceAngByMvAng(true);
     pVecVehicle->setRollFaceAngVelo(D_ANG(2));
     pVecVehicle->setMvVelo(PX_C(1));
@@ -57,7 +57,7 @@ void Zako::initialize() {
 }
 
 void Zako::onActive() {
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
     if (isFirst()) {
         std::string filename = XTOS(getName()) + ".dat";
         pOs_ = NEW std::ofstream(filename.c_str());
@@ -65,29 +65,29 @@ void Zako::onActive() {
 }
 
 void Zako::processBehavior() {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
-//    GgafCore::Progress* const pProg = getProgress();
-//    switch (pProg->get()) {
-//        case PROG_INIT: {
-//            pProg->changeNext();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+//    GgafCore::Phase* pPhase = getPhase();
+//    switch (pPhase->get()) {
+//        case PHASE_INIT: {
+//            pPhase->changeNext();
 //            break;
 //        }
 //
-//        case PROG_CURVE: {
-//            if (pProg->hasJustChanged()) {
+//        case PHASE_CURVE: {
+//            if (pPhase->hasJustChanged()) {
 //                getVecVehicle()->setMvAcce(0); //加速度がある場合は切っておく
 //                pVehicleLeader_->start(RELATIVE_COORD_DIRECTION, 1);
 //            }
 //            pVehicleLeader_->behave(); //カーブ移動するようにDriverを操作
 //
 //            if (pVehicleLeader_->isFinished()) {
-//                pProg->changeNext();
+//                pPhase->changeNext();
 //            }
 //            break;
 //        }
 //
-//        case PROG_LEAVE: {
-//            if (pProg->hasJustChanged()) {
+//        case PHASE_LEAVE: {
+//            if (pPhase->hasJustChanged()) {
 //                sayonara();
 //            }
 //            break;

@@ -17,9 +17,9 @@ using namespace GgafLib;
 using namespace Mogera;
 
 enum {
-    PROG_INIT ,
-    PROG_MOVE ,
-    PROG_END,
+    PHASE_INIT ,
+    PHASE_MOVE ,
+    PHASE_END,
 };
 
 ParallelCurveTestScene::ParallelCurveTestScene(const char* prm_name) : DefaultScene(prm_name) {
@@ -39,7 +39,7 @@ void ParallelCurveTestScene::initialize() {
     pActor_ = (EnemyIdaBase*)receiveActor(1234);
     bringSceneMediator()->appendGroupChild(pActor_);
     pActor_->setPosition(PX_C(-300), PX_C(-200), 0);
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 
 void ParallelCurveTestScene::processBehavior() {
@@ -53,19 +53,19 @@ void ParallelCurveTestScene::processBehavior() {
         pCameraWorker->slideMvUpVecTo(0, DX_C(1), 0, 60);
 
     }
-    SceneProgress* const pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_INIT: {
+    ScenePhase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_INIT: {
             if (GgafDx::Input::isPushedDownKey(DIK_RETURN)) {
-                pProg->changeNext();
+                pPhase->changeNext();
             }
             break;
         }
-        case PROG_MOVE: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_MOVE: {
+            if (pPhase->hasJustChanged()) {
                 pActor_->throwEventLowerTree(EVENT_START_MOVING);
             }
-            if (pProg->getFrame() % 3 == 0) {
+            if (pPhase->getFrame() % 3 == 0) {
                 psetAs(pActor_);
                 (*pActor_->pOs_) << pActor_->_x << "  " <<  pActor_->_y  << "  " << pActor_->_z << std::endl;
 
@@ -81,7 +81,7 @@ void ParallelCurveTestScene::processBehavior() {
             }
             break;
         }
-        case PROG_END: {
+        case PHASE_END: {
             break;
         }
     }

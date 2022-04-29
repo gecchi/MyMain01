@@ -33,14 +33,14 @@ enum {
     TRACE_FREEZE,    //グラディウスVのType1のオプションフリーズのような動き
 };
 enum {
-    PROG_INIT,
-    PROG_BUNSHIN_NOMAL_TRACE,
-    PROG_BUNSHIN_FREE_MODE_IGNITED,
-    PROG_BUNSHIN_FREE_MODE_READY,
-    PROG_BUNSHIN_FREE_MODE_MOVE,
-    PROG_BUNSHIN_FREE_MODE_STOP,
-    PROG_BUNSHIN_FREE_MODE_BACK_TO_DEFAULT_POS,
-    PROG_BANPEI,
+    PHASE_INIT,
+    PHASE_BUNSHIN_NOMAL_TRACE,
+    PHASE_BUNSHIN_FREE_MODE_IGNITED,
+    PHASE_BUNSHIN_FREE_MODE_READY,
+    PHASE_BUNSHIN_FREE_MODE_MOVE,
+    PHASE_BUNSHIN_FREE_MODE_STOP,
+    PHASE_BUNSHIN_FREE_MODE_BACK_TO_DEFAULT_POS,
+    PHASE_BANPEI,
 };
 
 MyBunshinBase::MyBunshinBase(const char* prm_name, unsigned int prm_no) :
@@ -103,7 +103,7 @@ void MyBunshinBase::onReset() {
 
     setRollFaceAng(bunshin_default_ang_pos_);
     getVecVehicle()->setRollFaceAngVelo(bunshin_default_angvelo_mv_);
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
     trace_mode_ = TRACE_GRADIUS;
 }
 
@@ -143,15 +143,15 @@ void MyBunshinBase::processBehavior() {
     const bool is_pressed_VB_OPTION = pVbPlay->isPressed(VB_OPTION);
     const bool is_pressed_VB_TURBO  = pVbPlay->isPressed(VB_TURBO);
     const bool is_released_up_VB_TURBO = pVbPlay->isReleasedUp(VB_TURBO);
-    GgafCore::Progress* pProg = getProgress();
+    GgafCore::Phase* pPhase = getPhase();
 
-    switch (pProg->get()) {
-        case PROG_INIT: {
-            pProg->change(PROG_BUNSHIN_NOMAL_TRACE);
+    switch (pPhase->get()) {
+        case PHASE_INIT: {
+            pPhase->change(PHASE_BUNSHIN_NOMAL_TRACE);
             break;
         }
-        case PROG_BUNSHIN_NOMAL_TRACE: { //通常トレース
-            if (pProg->hasJustChanged()) {
+        case PHASE_BUNSHIN_NOMAL_TRACE: { //通常トレース
+            if (pPhase->hasJustChanged()) {
                 is_free_mode_ = false;
             }
             //初期位置から２０フレーム以内の動きは、TRACE_TWINBEEによって初期位置を維持させる
@@ -169,36 +169,36 @@ void MyBunshinBase::processBehavior() {
             trace_mode_ = moving_frames_since_default_pos_ > 20 ? TRACE_GRADIUS : TRACE_TWINBEE;
             break;
         }
-        case PROG_BUNSHIN_FREE_MODE_IGNITED: { //分身フリーモード、点火待ち！
-            if (pProg->hasJustChanged()) {
+        case PHASE_BUNSHIN_FREE_MODE_IGNITED: { //分身フリーモード、点火待ち！
+            if (pPhase->hasJustChanged()) {
                 pBunshin_->effectFreeModeIgnited(); //点火エフェクト
             }
             if (is_pressed_VB_OPTION && is_pressed_VB_TURBO) {
-                if (pProg->getFrame() >= (((MyBunshinBase::now_bunshin_num_ - (no_-1) )*5) + 10) ) { //おしりのオプションから
-                    pProg->change(PROG_BUNSHIN_FREE_MODE_READY);
+                if (pPhase->getFrame() >= (((MyBunshinBase::now_bunshin_num_ - (no_-1) )*5) + 10) ) { //おしりのオプションから
+                    pPhase->change(PHASE_BUNSHIN_FREE_MODE_READY);
                 }
             } else {
                 //分身フリーモード、リセット
                 if (is_free_mode_) {
-                    pProg->change(PROG_BUNSHIN_FREE_MODE_STOP);
+                    pPhase->change(PHASE_BUNSHIN_FREE_MODE_STOP);
                 } else {
-                    pProg->change(PROG_BUNSHIN_NOMAL_TRACE);
+                    pPhase->change(PHASE_BUNSHIN_NOMAL_TRACE);
                 }
             }
             break;
         }
-        case PROG_BUNSHIN_FREE_MODE_READY: { //分身フリーモード発射準備OK
-            if (pProg->hasJustChanged()) {
+        case PHASE_BUNSHIN_FREE_MODE_READY: { //分身フリーモード発射準備OK
+            if (pPhase->hasJustChanged()) {
                 pBunshin_->effectFreeModeReady(); //発射準備OKエフェクト
             }
-            if ( pProg->getFrame() >= ((no_-1)*5) + 10 ) { //最後の分身が発射準備OKになったあと+10
+            if ( pPhase->getFrame() >= ((no_-1)*5) + 10 ) { //最後の分身が発射準備OKになったあと+10
                 //強制発射
-                pProg->change(PROG_BUNSHIN_FREE_MODE_MOVE);
+                pPhase->change(PHASE_BUNSHIN_FREE_MODE_MOVE);
             } else {
                 if (is_pressed_VB_OPTION) {
                     if(is_released_up_VB_TURBO) { //VB_TURBOだけ離すと即発射。
                         //ハーフ発射！！
-                        pProg->change(PROG_BUNSHIN_FREE_MODE_MOVE);
+                        pPhase->change(PHASE_BUNSHIN_FREE_MODE_MOVE);
                     } else {
                         //発射待ち・・・
                     }
@@ -206,16 +206,16 @@ void MyBunshinBase::processBehavior() {
                     //VB_OPTION を離すとリセット。
                     //リセット
                     if (is_free_mode_) {
-                        pProg->change(PROG_BUNSHIN_FREE_MODE_STOP);
+                        pPhase->change(PHASE_BUNSHIN_FREE_MODE_STOP);
                     } else {
-                        pProg->change(PROG_BUNSHIN_NOMAL_TRACE);
+                        pPhase->change(PHASE_BUNSHIN_NOMAL_TRACE);
                     }
                 }
             }
             break;
         }
-        case PROG_BUNSHIN_FREE_MODE_MOVE: { //分身フリーモード、操作移動！
-            if (pProg->hasJustChanged()) {
+        case PHASE_BUNSHIN_FREE_MODE_MOVE: { //分身フリーモード、操作移動！
+            if (pPhase->hasJustChanged()) {
                 //分身フリーモード移動開始
                 pBunshin_->effectFreeModeLaunch(); //発射エフェクト
                 is_free_mode_ = true;
@@ -232,24 +232,24 @@ void MyBunshinBase::processBehavior() {
             } else {
                 //分身フリーモード、中断待機
                 pVecVehicle->setMvVelo(0);
-                pProg->change(PROG_BUNSHIN_FREE_MODE_STOP);
+                pPhase->change(PHASE_BUNSHIN_FREE_MODE_STOP);
             }
             break;
         }
-        case PROG_BUNSHIN_FREE_MODE_STOP: { //分身フリーモード、停止中！
-            if (pProg->hasJustChanged()) {
+        case PHASE_BUNSHIN_FREE_MODE_STOP: { //分身フリーモード、停止中！
+            if (pPhase->hasJustChanged()) {
                 pBunshin_->effectFreeModePause();
             }
             break;
         }
-        case PROG_BUNSHIN_FREE_MODE_BACK_TO_DEFAULT_POS: { //分身元の場所に戻る！
-            if (pProg->hasJustChanged()) {
+        case PHASE_BUNSHIN_FREE_MODE_BACK_TO_DEFAULT_POS: { //分身元の場所に戻る！
+            if (pPhase->hasJustChanged()) {
             }
             const Pos* pTargetPos = pPosTrace_->getNext(); //通常時の本来の分身の座標位置を目標にする
             const coord tx = pTargetPos->x;
             const coord ty = pTargetPos->y;
             const coord tz = pTargetPos->z;
-            if (pProg->getFrame() == 3*(no_-1)) { //ばらつかせ
+            if (pPhase->getFrame() == 3*(no_-1)) { //ばらつかせ
 
                 // (0,1,0) × RxRzRy ＝ ( (cosRx*-sinRz*cosRy + sinRx*sinRy),  cosRx*cosRz, (cosRx*-sinRz*-sinRy + sinRx*cosRy) )
                 const float sinRx = ANG_SIN(_rx);
@@ -261,7 +261,7 @@ void MyBunshinBase::processBehavior() {
                 pGeoVehicle->setVeloXYZ( (cosRx*-sinRz*cosRy + sinRx*sinRy)  * MyBunshinBase::VELO_BUNSHIN_FREE_MV,
                                            (cosRx*cosRz)                       * MyBunshinBase::VELO_BUNSHIN_FREE_MV,
                                            (cosRx*-sinRz*-sinRy + sinRx*cosRy) * MyBunshinBase::VELO_BUNSHIN_FREE_MV );
-            } else if (pProg->getFrame() > 3*(no_-1)) { //ばらつかせ
+            } else if (pPhase->getFrame() > 3*(no_-1)) { //ばらつかせ
                 pGeoVehicle->setAcceXYZ( (tx - (_x + pGeoVehicle->_velo_x*6)),
                                            (ty - (_y + pGeoVehicle->_velo_y*6)),
                                            (tz - (_z + pGeoVehicle->_velo_z*6)) );
@@ -278,7 +278,7 @@ void MyBunshinBase::processBehavior() {
                 pGeoVehicle->setAcceXYZZero();
                 setPosition(tx, ty, tz);
                 moving_frames_since_default_pos_ = 0;
-                pProg->change(PROG_BUNSHIN_NOMAL_TRACE);
+                pPhase->change(PHASE_BUNSHIN_NOMAL_TRACE);
             }
             break;
         }
@@ -291,7 +291,7 @@ void MyBunshinBase::processBehavior() {
     if (is_pressed_VB_OPTION) {
         if (pVbPlay->isDoublePushedDown(VB_TURBO)) { //VB_OPTION + VB_TURBOダブルプッシュ
             //分身フリーモード、点火！
-            pProg->change(PROG_BUNSHIN_FREE_MODE_IGNITED);
+            pPhase->change(PHASE_BUNSHIN_FREE_MODE_IGNITED);
         }
     }
 
@@ -447,7 +447,7 @@ void MyBunshinBase::resetBunshin(int prm_mode) {
 
     is_isolate_mode_ = false;
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
-    GgafCore::Progress* const pProg = getProgress();
+    GgafCore::Phase* pPhase = getPhase();
     //完全にデフォルト状態に元に戻ために、最低限必要なフレーム数基準値
     return_default_pos_frames_ = MyBunshinBase::BUNSHIN_D * (MyBunshinBase::MAX_BUNSHIN_NUM+1); //少しばらつかせる演出
     //エフェクト
@@ -483,7 +483,7 @@ void MyBunshinBase::resetBunshin(int prm_mode) {
         //後はreturn_default_pos_frames_ が0になるまで
         //trace_mode_ = TRACE_TWINBEE;
         //が行われる
-        pProg->change(PROG_BUNSHIN_FREE_MODE_BACK_TO_DEFAULT_POS); //分身元に戻る
+        pPhase->change(PHASE_BUNSHIN_FREE_MODE_BACK_TO_DEFAULT_POS); //分身元に戻る
     } else {
         //VB_OPTION ダブルプッシュ、VB_TURBOを押していないと、
         //チョットリセット

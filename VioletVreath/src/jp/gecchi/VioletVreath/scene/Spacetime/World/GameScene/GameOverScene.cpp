@@ -13,11 +13,11 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG_INIT     ,
-    PROG_DISP     ,
-    PROG_NAMEENTRY,
-    PROG_FINISH   ,
-    PROG_BANPEI,
+    PHASE_INIT     ,
+    PHASE_DISP     ,
+    PHASE_NAMEENTRY,
+    PHASE_FINISH   ,
+    PHASE_BANPEI,
 };
 
 GameOverScene::GameOverScene(const char* prm_name) : VvScene<DefaultScene>(prm_name) {
@@ -32,7 +32,7 @@ void GameOverScene::onReset() {
     fadeoutSceneWithBgm(0);
     pLabel01_->update("");
     pNameEntryScene_ = nullptr;
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 void GameOverScene::initialize() {
     _TRACE_(FUNC_NAME<<"");
@@ -40,8 +40,8 @@ void GameOverScene::initialize() {
 
 void GameOverScene::processBehavior() {
 
-//    switch (pProg->getFromProgOnChange()) {
-//        case PROG_DISP: {
+//    switch (pPhase->getFromPhaseOnChange()) {
+//        case PHASE_DISP: {
 //            fadeoutSceneWithBgm(FADE_FRAMES);
 //            inactivateDelay(FADE_FRAMES);
 //            break;
@@ -51,15 +51,15 @@ void GameOverScene::processBehavior() {
 //            break;
 //    }
 
-    SceneProgress* pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_INIT: {
-            pProg->change(PROG_DISP);
+    ScenePhase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_INIT: {
+            pPhase->change(PHASE_DISP);
             break;
         }
 
-        case PROG_DISP: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_DISP: {
+            if (pPhase->hasJustChanged()) {
                 pLabel01_->update(500*1000, 300*1000, "GAME OVER (-_-;)");
                 fadeinScene(FADE_FRAMES);
 
@@ -73,20 +73,20 @@ void GameOverScene::processBehavior() {
                     need_name_entry_ = false;
                 }
             }
-            if (pProg->hasArrivedAt(420)) {
+            if (pPhase->hasArrivedFrameAt(420)) {
                 pGOD->getSpacetime()->getCameraWorkerChanger()->cleanCamWorker();
                 if (need_name_entry_) {
-                    _TRACE_("pProg->change(PROG_NAMEENTRY);");
-                    pProg->change(PROG_NAMEENTRY);
+                    _TRACE_("pPhase->change(PHASE_NAMEENTRY);");
+                    pPhase->change(PHASE_NAMEENTRY);
                 } else {
-                    pProg->change(PROG_FINISH);
+                    pPhase->change(PHASE_FINISH);
                 }
             }
             break;
         }
 
-        case PROG_NAMEENTRY: {
-             if (pProg->hasJustChanged()) {
+        case PHASE_NAMEENTRY: {
+             if (pPhase->hasJustChanged()) {
                  pNameEntryScene_ = (NameEntryScene*)receiveScene(ORDER_ID_NAMEENTRYSCENE);
                  appendChild(pNameEntryScene_);
              }
@@ -94,8 +94,8 @@ void GameOverScene::processBehavior() {
              break;
          }
 
-        case PROG_FINISH: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_FINISH: {
+            if (pPhase->hasJustChanged()) {
                 if (pNameEntryScene_) {
                     pNameEntryScene_->sayonara();
                 }
@@ -113,7 +113,7 @@ void GameOverScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == EVENT_NAMEENTRYSCENE_FINISH) {
         //ネームエントリーシーン終了時
         _TRACE_("GameOverScene::onCatchEvent(EVENT_NAMEENTRYSCENE_FINISH)");
-        getProgress()->change(PROG_FINISH);
+        getPhase()->change(PHASE_FINISH);
     }
 }
 GameOverScene::~GameOverScene() {

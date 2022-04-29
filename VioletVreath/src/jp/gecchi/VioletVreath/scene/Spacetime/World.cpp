@@ -17,13 +17,13 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG_INIT  ,
-    PROG_CALM1 ,
-    PROG_CALM2 ,
-    PROG_CALM3 ,
-    PROG_CALM4 ,
-    PROG_MAINLOOP ,
-    PROG_BANPEI,
+    PHASE_INIT  ,
+    PHASE_CALM1 ,
+    PHASE_CALM2 ,
+    PHASE_CALM3 ,
+    PHASE_CALM4 ,
+    PHASE_MAINLOOP ,
+    PHASE_BANPEI,
 };
 
 World::World(const char* prm_name) : VvScene<DefaultScene>(prm_name) {
@@ -202,7 +202,7 @@ void World::initialize() {
     }
     requestScene(1, PreDrawScene);
     requestScene(2, GameScene);
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 
 void World::processBehavior() {
@@ -218,51 +218,51 @@ void World::processBehavior() {
 
     DECLARE_HASHVAL(ASTER);
 
-    SceneProgress* pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_INIT: {
+    ScenePhase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_INIT: {
             if (pGOD->chkCradle(1) == 2) {
                 pPreDrawScene_ = (PreDrawScene*)receiveScene(1);
                 appendChild(pPreDrawScene_);
-                pProg->changeNext();
+                pPhase->changeNext();
             }
             pLabel_aster_->getAlphaFader()->behave(); //右上＊チカチカ
             break;
         }
 
-        case PROG_CALM1: {
-            if (pPreDrawScene_->getProgress()->get() == PreDrawScene::PROG_WAIT) {
+        case PHASE_CALM1: {
+            if (pPreDrawScene_->getPhase()->get() == PreDrawScene::PHASE_WAIT) {
                 pLabel_title_->sayonara();
                 pPreDrawScene_->sayonara(120);
-                pProg->changeNext();
+                pPhase->changeNext();
             }
             pLabel_aster_->getAlphaFader()->behave(); //右上＊チカチカ
             break;
         }
 
-        case PROG_CALM2: {
-            if ((pProg->getFrame() >= 30 && pGOD->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX && pGOD->_fps <= CONFIG::FPS*1.01) || pProg->getFrame() >= 60*60*3) {
+        case PHASE_CALM2: {
+            if ((pPhase->getFrame() >= 30 && pGOD->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX && pGOD->_fps <= CONFIG::FPS*1.01) || pPhase->getFrame() >= 60*60*3) {
                 pGameScene_ = (GameScene*)receiveScene(2);
-                pProg->changeNext();
+                pPhase->changeNext();
             }
             pLabel_aster_->getAlphaFader()->behave(); //右上＊チカチカ
             break;
         }
 
-        case PROG_CALM3: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_CALM3: {
+            if (pPhase->hasJustChanged()) {
             }
-            if ((pProg->getFrame() >= 30 && pGOD->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX && pGOD->_fps <= CONFIG::FPS*1.01) || pProg->getFrame() >= 60*60*3) {
-                pProg->changeNext();
+            if ((pPhase->getFrame() >= 30 && pGOD->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX && pGOD->_fps <= CONFIG::FPS*1.01) || pPhase->getFrame() >= 60*60*3) {
+                pPhase->changeNext();
             }
             pLabel_aster_->getAlphaFader()->behave(); //右上＊チカチカ
             break;
         }
 
-        case PROG_CALM4: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_CALM4: {
+            if (pPhase->hasJustChanged()) {
             }
-            if (pProg->getFrame() >= 60) {
+            if (pPhase->getFrame() >= 60) {
                 pLabel_aster_->update("*");
                 pLabel_aster_->sayonara(60);
                 pLabel_resolution1_->sayonara();
@@ -270,14 +270,14 @@ void World::processBehavior() {
                 pLabel_warn1_->sayonara();
                 pLabel_warn2_->sayonara();
                 pLabel_warn_dual_view_->sayonara();
-                pProg->changeNext(); //メインへループ
+                pPhase->changeNext(); //メインへループ
             }
             pLabel_aster_->getAlphaFader()->behave(); //右上＊チカチカ
             break;
         }
 
-        case PROG_MAINLOOP: { //世界のメインループ
-            if (pProg->hasJustChanged()) {
+        case PHASE_MAINLOOP: { //世界のメインループ
+            if (pPhase->hasJustChanged()) {
                 appendChild(pGameScene_);
             }
 

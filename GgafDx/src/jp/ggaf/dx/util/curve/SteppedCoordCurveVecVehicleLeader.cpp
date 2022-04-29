@@ -33,7 +33,7 @@ void SteppedCoordCurveVecVehicleLeader::restart() {
 
 void SteppedCoordCurveVecVehicleLeader::behave() {
     if (_is_leading) {
-        GgafDx::VecVehicle* const pVecVehicle_target = _pActor_target->getVecVehicle();
+        GgafDx::VecVehicle* pVecVehicle_target = _pActor_target->getVecVehicle();
         _point_index++;
         if (_point_index == _pSteppedSplManuf->_pCurve->_rnum) {
             if (_cnt_loop == _max_loop) {

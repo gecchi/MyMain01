@@ -12,10 +12,10 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG_INIT  ,
-    PROG_CALL_UP ,
-    PROG_WAIT  ,
-    PROG_BANPEI,
+    PHASE_INIT  ,
+    PHASE_CALL_UP ,
+    PHASE_WAIT  ,
+    PHASE_BANPEI,
 };
 
 
@@ -52,22 +52,22 @@ FormationErelman002::FormationErelman002(const char* prm_name, EnemyErelmanContr
     }
 }
 void FormationErelman002::onActive() {
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 void FormationErelman002::processBehavior() {
     FormationErelman::processBehavior();
 
-    GgafCore::Progress* const pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_INIT: {
-            pProg->changeNext();
+    GgafCore::Phase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_INIT: {
+            pPhase->changeNext();
             break;
         }
-        case PROG_CALL_UP: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_CALL_UP: {
+            if (pPhase->hasJustChanged()) {
             }
             if (called_up_cnt_ < num_Erelman_) {
-                frame f = pProg->getFrame();
+                frame f = pPhase->getFrame();
                 for (int col = 0; col < formation_col_num_; col++) {
                     if (f == papa_frame_of_called_up_[col][pa_called_up_row_idx_[col]]) {
                         EnemyErelman* pErelman = (EnemyErelman*)calledUpMember();
@@ -79,12 +79,12 @@ void FormationErelman002::processBehavior() {
                     }
                 }
             } else {
-                pProg->changeNext();
+                pPhase->changeNext();
             }
             break;
         }
-        case PROG_WAIT: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_WAIT: {
+            if (pPhase->hasJustChanged()) {
             }
             break;
         }

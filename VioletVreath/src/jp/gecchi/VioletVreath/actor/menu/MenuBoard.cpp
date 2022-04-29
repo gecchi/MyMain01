@@ -127,7 +127,7 @@ void MenuBoard::onRise() {
     //スライドイントランジション
     setPosition(target_x_ + slide_from_offset_x_,
                 target_y_ + slide_from_offset_y_);
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->setMvAngTwd(target_x_, target_y_);
     pVecVehicle->asstMv()->slideByDt(UTIL::getDistance(_x, _y, target_x_, target_y_), _fade_frames,
                                  0.2, 0.3, 0, true);
@@ -135,7 +135,7 @@ void MenuBoard::onRise() {
 }
 
 void MenuBoard::processBehavior() {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     if (pVecVehicle->asstMv()->hasJustFinishedSliding()) {
         //スライド終了時、目的の座標へ補正
         setPosition(target_x_, target_y_);
@@ -152,7 +152,7 @@ void MenuBoard::processJudgement() {
 
 void MenuBoard::onSink() {
     //スライドアウトトランジション
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->setMvAngTwd(target_x_ + slide_from_offset_x_,
                          target_y_ + slide_from_offset_y_);
     pVecVehicle->asstMv()->slideByDt(

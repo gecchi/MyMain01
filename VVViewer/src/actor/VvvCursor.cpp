@@ -22,7 +22,7 @@ VvvCursor::VvvCursor(const char* prm_name) :
     tx_ = _x;
     ty_ = _y;
     tz_ = _z;
-    _pProg->reset(CUR_SINK);
+    _pPhase->reset(CUR_SINK);
 }
 
 void VvvCursor::initialize() {
@@ -36,19 +36,19 @@ void VvvCursor::initialize() {
 }
 
 void VvvCursor::processBehavior() {
-    switch (_pProg->get()) {
+    switch (_pPhase->get()) {
         case CUR_SINK: {
             break;
         }
         case CUR_ON_MOVE: {
             setCullingDraw(false);
-            _pProg->change(CUR_STAY);
+            _pPhase->change(CUR_STAY);
             break;
         }
         case CUR_STAY: {
-            if (_pProg->getFrame() > 60) {
+            if (_pPhase->getFrame() > 60) {
                 getAlphaFader()->transitionLinearUntil(0.0, 120);
-                _pProg->change(CUR_SINK);
+                _pPhase->change(CUR_SINK);
             }
             break;
         }
@@ -70,7 +70,7 @@ void VvvCursor::processBehavior() {
     getAlphaFader()->behave();
 }
 void VvvCursor::sinkMe() {
-    _pProg->change(CUR_SINK);
+    _pPhase->change(CUR_SINK);
 }
 
 void VvvCursor::moveTo(coord X, coord Y, coord Z) {
@@ -82,7 +82,7 @@ void VvvCursor::moveTo(coord X, coord Y, coord Z) {
     tz_ = Z;
     getVecVehicle()->setMvAngTwd(tx_, ty_, tz_);
     getVecVehicle()->asstMv()->slideByDt( UTIL::getDistance(_x, _y, _z, tx_, ty_, tz_), 20, 0.3f, 0.7f, 0, true);
-    _pProg->change(CUR_ON_MOVE);
+    _pPhase->change(CUR_ON_MOVE);
 }
 
 VvvCursor::~VvvCursor() {

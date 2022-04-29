@@ -13,10 +13,10 @@ using namespace GgafLib;
 using namespace Hogera;
 
 enum {
-    PROG_INIT ,
-    PROG_CALM ,
-    PROG_WAIT ,
-    PROG_BANPEI,
+    PHASE_INIT ,
+    PHASE_CALM ,
+    PHASE_WAIT ,
+    PHASE_BANPEI,
 };
 
 TrialAndErrScene::TrialAndErrScene(const char* prm_name) : DefaultScene(prm_name) {

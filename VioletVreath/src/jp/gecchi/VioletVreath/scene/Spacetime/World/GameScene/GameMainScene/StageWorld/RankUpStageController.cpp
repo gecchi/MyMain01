@@ -18,10 +18,10 @@ using namespace VioletVreath;
 #define ORDER_ID_RANKUP (80)
 
 enum {
-    PROG_INIT  ,
-    PROG_PLAY  ,
-    PROG_FINISH,
-    PROG_BANPEI,
+    PHASE_INIT  ,
+    PHASE_PLAY  ,
+    PHASE_FINISH,
+    PHASE_BANPEI,
 };
 
 RankUpStageController::RankUpStageController(const char* prm_name) : VvScene<DefaultScene>(prm_name) {
@@ -62,7 +62,7 @@ void RankUpStageController::startRunkUpStage(int prm_rank_up_level) {
 }
 
 void RankUpStageController::onReset() {
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 
 void RankUpStageController::ready(int prm_rank_up_level) {
@@ -86,25 +86,25 @@ void RankUpStageController::ready(int prm_rank_up_level) {
 }
 
 void RankUpStageController::initialize() {
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 
 void RankUpStageController::processBehavior() {
-    SceneProgress* pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_INIT: {
-            pProg->changeNext();
+    ScenePhase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_INIT: {
+            pPhase->changeNext();
             break;
         }
 
-        case PROG_PLAY: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_PLAY: {
+            if (pPhase->hasJustChanged()) {
             }
             break;
         }
 
-        case PROG_FINISH: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_FINISH: {
+            if (pPhase->hasJustChanged()) {
             }
             break;
         }

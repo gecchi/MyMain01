@@ -63,11 +63,11 @@ using namespace GgafLib;
 using namespace Mogera;
 
 enum {
-    PROG_READY ,
-    PROG_DISP ,
-    PROG_CALM_DOWN ,
-    PROG_WAIT ,
-    PROG_BANPEI,
+    PHASE_READY ,
+    PHASE_DISP ,
+    PHASE_CALM_DOWN ,
+    PHASE_WAIT ,
+    PHASE_BANPEI,
 };
 
 #define requestTestActor(X,Y,Z) requestActor(X, TestActor<Y>, "Test" #Y, Z)
@@ -89,7 +89,7 @@ TestScene::TestScene(const char* prm_name) : DefaultScene(prm_name) {
     _id_ = 0;
     order_id_begin_ = ID_ORDER_BEGIN;
     order_id_end_ = 0;
-    getProgress()->reset(PROG_READY);
+    getPhase()->reset(PHASE_READY);
 }
 
 
@@ -100,10 +100,10 @@ void TestScene::initialize() {
 }
 
 void TestScene::processBehavior() {
-    SceneProgress* pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_READY: {
-            if (pProg->getFrame() == 20) {
+    ScenePhase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_READY: {
+            if (pPhase->getFrame() == 20) {
                 order_id_begin_ = ID_ORDER_BEGIN;
                 int id = order_id_begin_;
 //                requestTestActor(id, CubeMapMeshActor                   ,"_chk_TestCubeMapMeshActorModel"                     );    id++;
@@ -141,17 +141,17 @@ void TestScene::processBehavior() {
 
                 order_id_end_ = id - 1;
 
-                pProg->changeNext();
+                pPhase->changeNext();
             }
             break;
         }
-        case PROG_DISP: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_DISP: {
+            if (pPhase->hasJustChanged()) {
                 _id_ = 0;
             }
-            if (pProg->getFrame() % 10U == 0 && pGOD->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX) {
+            if (pPhase->getFrame() % 10U == 0 && pGOD->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX) {
                 if (_id_ > order_id_end_-order_id_begin_) {
-                    pProg->changeNext();
+                    pPhase->changeNext();
                 } else {
                     GgafDx::GeometricActor* pActor = (GgafDx::GeometricActor*)receiveActor(_id_+order_id_begin_);
                     if (pActor->_pFunc_calc_rot_mv_world_matrix) {
@@ -163,21 +163,21 @@ void TestScene::processBehavior() {
                     _id_++;
                 }
             }
-            if (pProg->getFrame() > 60*120) {
+            if (pPhase->getFrame() > 60*120) {
                 //タイムアウト
                 _TRACE_("PreDrawScene Time Out!!");
-                pProg->changeNext();
+                pPhase->changeNext();
             }
             break;
         }
-        case PROG_CALM_DOWN: {
-            if ((pProg->getFrame() > 60 && pGOD->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX) || pProg->getFrame() > 60*60) {
+        case PHASE_CALM_DOWN: {
+            if ((pPhase->getFrame() > 60 && pGOD->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX) || pPhase->getFrame() > 60*60) {
 //                fadeoutSceneWithBgmTree(120);
-                pProg->changeNext();
+                pPhase->changeNext();
             }
             break;
         }
-        case PROG_WAIT: {
+        case PHASE_WAIT: {
             //World シーンが sayonara をしてくれるまで・・
             break;
         }

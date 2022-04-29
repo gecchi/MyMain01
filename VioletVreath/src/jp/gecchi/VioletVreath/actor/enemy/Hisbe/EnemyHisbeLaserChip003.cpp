@@ -43,7 +43,7 @@ void EnemyHisbeLaserChip003::onActive() {
 }
 
 void EnemyHisbeLaserChip003::processBehavior() {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
 
     if (pFeatureScene_) {
         pVehicleLeader_->_x_start_in_loop -= pFeatureScene_->getFeatureParam1();

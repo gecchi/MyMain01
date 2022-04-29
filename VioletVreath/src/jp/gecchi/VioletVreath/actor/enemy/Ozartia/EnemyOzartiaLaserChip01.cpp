@@ -25,7 +25,7 @@ void EnemyOzartiaLaserChip01::initialize() {
 
 void EnemyOzartiaLaserChip01::onActive() {
     StraightLaserChip::onActive();
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->setMvVelo(100000);
     pVecVehicle->setMvAcce(300);
     getStatus()->reset();

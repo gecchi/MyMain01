@@ -18,13 +18,13 @@ enum {
     SE_EXPLOSION ,
 };
 enum {
-    PROG_INIT   ,
-    PROG_ENTRY  ,
-    PROG_MOVE01 ,
-    PROG_MOVE02 ,
-    PROG_MOVE03 ,
-    PROG_MOVE04 ,
-    PROG_BANPEI ,
+    PHASE_INIT   ,
+    PHASE_ENTRY  ,
+    PHASE_MOVE01 ,
+    PHASE_MOVE02 ,
+    PHASE_MOVE03 ,
+    PHASE_MOVE04 ,
+    PHASE_BANPEI ,
 };
 
 EnemyAppho::EnemyAppho(const char* prm_name) :
@@ -47,16 +47,16 @@ void EnemyAppho::initialize() {
 
 void EnemyAppho::onActive() {
     getStatus()->reset();
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 
 void EnemyAppho::processBehavior() {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
-    GgafCore::Progress* const pProg = getProgress();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafCore::Phase* pPhase = getPhase();
 
-    switch (pProg->get()) {
+    switch (pPhase->get()) {
 
-         case PROG_INIT: {
+         case PHASE_INIT: {
              setHitAble(false);
              setPositionAt(&entry_pos_);
              setFaceAngTwd(stagnating_pos_.x, stagnating_pos_.y, stagnating_pos_.z);
@@ -65,29 +65,29 @@ void EnemyAppho::processBehavior() {
              pVecVehicle->setMvVelo(0);
              pVecVehicle->setMvAngTwd(&stagnating_pos_);
              pVecVehicle->setRollFaceAngVelo(D_ANG(3));
-             pProg->changeNext();
+             pPhase->changeNext();
              break;
          }
-         case PROG_ENTRY: {
+         case PHASE_ENTRY: {
              EffectBlink* pEffectEntry = nullptr;
-             if (pProg->hasJustChanged()) {
+             if (pPhase->hasJustChanged()) {
                  pEffectEntry = UTIL::activateEntryEffectOf(this);
                  pVecVehicle->setRollFaceAngVelo(D_ANG(3));
              }
              static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
              static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
-             if (pProg->hasArrivedAt(frame_of_summons_begin)) {
+             if (pPhase->hasArrivedFrameAt(frame_of_summons_begin)) {
                  getAlphaFader()->transitionLinearUntil(1.0, frame_of_entering);
              }
-             if (pProg->hasArrivedAt(frame_of_entering)) {
+             if (pPhase->hasArrivedFrameAt(frame_of_entering)) {
                  setHitAble(true);
-                 pProg->changeNext();
+                 pPhase->changeNext();
              }
              break;
          }
 
-         case PROG_MOVE01: {
-             if (pProg->hasJustChanged()) {
+         case PHASE_MOVE01: {
+             if (pPhase->hasJustChanged()) {
                  //滞留ポイントへGO!
                  velo mv_velo = RF_EnemyAppho_MvVelo(G_RANK);
                  coord d = UTIL::getDistance(this, &stagnating_pos_);
@@ -95,20 +95,20 @@ void EnemyAppho::processBehavior() {
                                                0.2, 0.8, 200, true);
              }
              //滞留ポイントまで移動中
-             if (pProg->getFrame() % 32U == 0) {
+             if (pPhase->getFrame() % 32U == 0) {
                  //ちょくちょく自機を見つめる
                  pVecVehicle->turnFaceAngTwd(pMYSHIP, D_ANG(0.5), 0,
                                          TURN_CLOSE_TO, true);
              }
              if (pVecVehicle->asstMv()->hasJustFinishedSliding()) {
-                 pProg->changeNext();
+                 pPhase->changeNext();
              }
-             //_TRACE_("PROG_MOVE01:"<<_x<<","<<_y<<","<<_z<<","<<_pVecVehicle->_velo_mv<<","<<_pVecVehicle->_acc_mv);
+             //_TRACE_("PHASE_MOVE01:"<<_x<<","<<_y<<","<<_z<<","<<_pVecVehicle->_velo_mv<<","<<_pVecVehicle->_acc_mv);
              break;
          }
 
-         case PROG_MOVE02: {
-             if (pProg->hasJustChanged()) {
+         case PHASE_MOVE02: {
+             if (pPhase->hasJustChanged()) {
                  //滞留ポイント到着、自機方向へジワリ移動させる
                  pVecVehicle->turnMvAngTwd(pMYSHIP,
                                        100, 0, TURN_CLOSE_TO, false);
@@ -117,13 +117,13 @@ void EnemyAppho::processBehavior() {
                                          D_ANG(1), 0, TURN_CLOSE_TO, true);
              }
              //滞留中
-             if (pProg->getFrame() % 16U == 0) {
+             if (pPhase->getFrame() % 16U == 0) {
                  //ちょくちょく自機を見つめる
                  pVecVehicle->turnFaceAngTwd(pMYSHIP,
                                          D_ANG(1), 0, TURN_CLOSE_TO, true);
              }
 
-             if (pProg->hasArrivedAt(180)) {
+             if (pPhase->hasArrivedFrameAt(180)) {
                  //自機の方に向いたら敵弾発射！
                  int shot_num   = RF_EnemyAppho_ShotWay(G_RANK);    //弾数、ランク変動
                  velo shot_velo = RF_EnemyAppho_ShotMvVelo(G_RANK); //弾速、ランク変動
@@ -138,38 +138,38 @@ void EnemyAppho::processBehavior() {
                      }
                  }
              }
-             if (pProg->hasArrivedAt(240)) {
-                 pProg->changeNext();
+             if (pPhase->hasArrivedFrameAt(240)) {
+                 pPhase->changeNext();
              }
              break;
          }
 
-         case PROG_MOVE03: {
+         case PHASE_MOVE03: {
              //さよなら準備
-             if (pProg->hasJustChanged()) {
+             if (pPhase->hasJustChanged()) {
                  //ゆっくりさよならポイントへ向ける
                  pVecVehicle->turnMvAngTwd(&leave_pos_,
                                        D_ANG(1), D_ANG(1), TURN_CLOSE_TO, false);
                  pVecVehicle->setMvAcce(10);
              }
-             if (pProg->getFrame() % 16U == 0) {
+             if (pPhase->getFrame() % 16U == 0) {
                  pVecVehicle->turnFaceAngTwd(pMYSHIP,
                                          D_ANG(1), 0, TURN_CLOSE_TO, true);
              }
              if (!pVecVehicle->isTurningMvAng()) {
-                 pProg->changeNext();
+                 pPhase->changeNext();
              }
              break;
          }
 
-         case PROG_MOVE04: {
+         case PHASE_MOVE04: {
              //さよなら～
-             if (pProg->hasJustChanged()) {
+             if (pPhase->hasJustChanged()) {
                  pVecVehicle->turnMvAngTwd(&leave_pos_,
                                        D_ANG(1), 0, TURN_CLOSE_TO, false);
                  pVecVehicle->setMvAcce(100+(G_RANK*200));
              }
-             if (pProg->getFrame() % 16U == 0) {
+             if (pPhase->getFrame() % 16U == 0) {
                  //ちょくちょく自機を見つめる
                  pVecVehicle->turnFaceAngTwd(pMYSHIP,
                                          D_ANG(1), 0, TURN_CLOSE_TO, true);

@@ -36,7 +36,7 @@
     <ClCompile Include="src\jp\ggaf\core\GarbageBox.cpp" />
     <ClCompile Include="src\jp\ggaf\core\God.cpp" />
     <ClCompile Include="src\jp\ggaf\core\Object.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\Progress.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\Phase.cpp" />
     <ClCompile Include="src\jp\ggaf\core\Properties.cpp" />
     <ClCompile Include="src\jp\ggaf\core\scene\MainScene.cpp" />
     <ClCompile Include="src\jp\ggaf\core\scene\Scene.cpp" />
@@ -75,7 +75,7 @@
     <ClInclude Include="include\jp\ggaf\core\god.h" />
     <ClInclude Include="include\jp\ggaf\core\node.hpp" />
     <ClInclude Include="include\jp\ggaf\core\object.h" />
-    <ClInclude Include="include\jp\ggaf\core\progress.h" />
+    <ClInclude Include="include\jp\ggaf\core\phase.h" />
     <ClInclude Include="include\jp\ggaf\core\properties.h" />
     <ClInclude Include="include\jp\ggaf\core\scene\DisusedScene.h" />
     <ClInclude Include="include\jp\ggaf\core\scene\mainscene.h" />

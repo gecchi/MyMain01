@@ -38,7 +38,7 @@ void EnemyRis::onCreateModel() {
 
 void EnemyRis::initialize() {
     setHitAble(true);
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->linkFaceAngByMvAng(true);
     pVecVehicle->setRollFaceAngVelo(5000);
     CollisionChecker* pChecker = getCollisionChecker();
@@ -52,7 +52,7 @@ void EnemyRis::onActive() {
 }
 
 void EnemyRis::processBehavior() {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     switch (iMovePatternNo_) {
         case 0:  //【パターン０：カーブ移動開始】
             if (pVehicleLeader_) {

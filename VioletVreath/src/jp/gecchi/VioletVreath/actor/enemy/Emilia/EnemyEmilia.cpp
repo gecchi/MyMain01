@@ -45,7 +45,7 @@ void EnemyEmilia::onActive() {
     //ステータスリセット
     getStatus()->reset();
     setHitAble(true);
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->setMvAngTwd(0, D180ANG);
     pVecVehicle->addRyMvAng(RND(D_ANG(-5), D_ANG(+5)));
     pVecVehicle->addRzMvAng(RND(D_ANG(-5), D_ANG(+5)));

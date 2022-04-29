@@ -16,10 +16,10 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG_INIT ,
-    PROG_ENTRY,
-    PROG_MOVE01,
-    PROG_BANPEI,
+    PHASE_INIT ,
+    PHASE_ENTRY,
+    PHASE_MOVE01,
+    PHASE_BANPEI,
 };
 enum {
     SE_DAMAGED  ,
@@ -48,40 +48,40 @@ void EnemyIda::initialize() {
 
 void EnemyIda::onActive() {
     getStatus()->reset();
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 
 void EnemyIda::processBehavior() {
     changeGeoLocal(); //ローカル座標系へ
 
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
-    GgafCore::Progress* const pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_INIT: {
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafCore::Phase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_INIT: {
             setHitAble(false);
             pVecVehicle->setRollFaceAngVelo(D_ANG(4));
             setAlpha(0);
-            pProg->changeNext();
+            pPhase->changeNext();
             break;
         }
-        case PROG_ENTRY: {
+        case PHASE_ENTRY: {
             EffectBlink* pEffectEntry = nullptr;
-            if (pProg->hasJustChanged()) {
+            if (pPhase->hasJustChanged()) {
                 pEffectEntry = UTIL::activateEntryEffectOf(this);
             }
             static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
             static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
-            if (pProg->hasArrivedAt(frame_of_summons_begin)) {
+            if (pPhase->hasArrivedFrameAt(frame_of_summons_begin)) {
                 getAlphaFader()->transitionLinearUntil(1.0, frame_of_entering);
             }
-            if (pProg->hasArrivedAt(frame_of_entering)) {
+            if (pPhase->hasArrivedFrameAt(frame_of_entering)) {
                 setHitAble(true);
-                pProg->changeNext();
+                pPhase->changeNext();
             }
             break;
         }
-        case PROG_MOVE01: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_MOVE01: {
+            if (pPhase->hasJustChanged()) {
             }
             //自機へ向ける
             GgafDx::GeometricActor* pTargetActor = pMYSHIP;

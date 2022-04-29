@@ -14,10 +14,10 @@ using namespace GgafLib;
 using namespace VioletVrain;
 
 enum {
-    LOCKON001_PROG_FIRST_LOCK ,
-    LOCKON001_PROG_LOCK       ,
-    LOCKON001_PROG_RELEASE    ,
-    PROG_BANPEI,
+    LOCKON001_PHASE_FIRST_LOCK ,
+    LOCKON001_PHASE_LOCK       ,
+    LOCKON001_PHASE_RELEASE    ,
+    PHASE_BANPEI,
 };
 
 Zako::Zako(const char* prm_name) :
@@ -57,7 +57,7 @@ void Zako::initialize() {
 }
 
 void Zako::onReset() {
-    getProgress()->reset(LOCKON001_PROG_RELEASE);
+    getPhase()->reset(LOCKON001_PHASE_RELEASE);
 }
 
 void Zako::onActive() {
@@ -66,8 +66,8 @@ void Zako::onActive() {
 }
 
 void Zako::processBehavior() {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
-    GgafCore::Progress* const pProg = getProgress();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafCore::Phase* pPhase = getPhase();
 
     if (GgafDx::Input::isPressedKey(DIK_D)) {
         _x += PX_C(2); //‰E

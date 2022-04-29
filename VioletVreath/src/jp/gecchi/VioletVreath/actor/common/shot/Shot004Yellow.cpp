@@ -33,7 +33,7 @@ void Shot004Yellow::onReset() {
     getStatus()->reset();
     setScaleR(3.0);
     setCullingDraw(false);
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->setRollFaceAngVelo(D_ANG(3));
     pVecVehicle->setMvVelo(40000);             //ˆÚ“®‘¬“x
     pVecVehicle->setMvAcce(1000);             //ˆÚ“®‘¬“x

@@ -52,7 +52,7 @@ void EnemyEtis::initialize() {
 void EnemyEtis::onActive() {
     getStatus()->reset();
     setAlpha(1.0);
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->setFaceAngVelo(AXIS_Z, D_ANG(1));
     pVecVehicle->setRzRyMvAng(D0ANG, D180ANG);
     pVecVehicle->setMvVelo(PX_C(3));

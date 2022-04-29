@@ -30,7 +30,7 @@ void LockonCursor001::initialize() {
 
 
 void LockonCursor001::onReset() {
-    getProgress()->reset(LOCKON001_PROG_RELEASE);
+    getPhase()->reset(LOCKON001_PHASE_RELEASE);
 }
 
 void LockonCursor001::onActive() {

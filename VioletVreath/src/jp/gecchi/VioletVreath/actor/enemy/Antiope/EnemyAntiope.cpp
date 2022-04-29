@@ -16,12 +16,12 @@ enum {
     SE_EXPLOSION,
 };
 enum {
-    PROG_INIT  ,
-    PROG_ENTRY ,
-    PROG_MOVE01,
-    PROG_LEAVE ,
-    PROG_RUSH,
-    PROG_BANPEI,
+    PHASE_INIT  ,
+    PHASE_ENTRY ,
+    PHASE_MOVE01,
+    PHASE_LEAVE ,
+    PHASE_RUSH,
+    PHASE_BANPEI,
 };
 
 
@@ -46,44 +46,44 @@ void EnemyAntiope::initialize() {
 
 void EnemyAntiope::onActive() {
     getStatus()->reset();
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 
 void EnemyAntiope::processBehavior() {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     GgafDx::GeoVehicle* const pGeoVehicle = getGeoVehicle();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
 
-    GgafCore::Progress* const pProg = getProgress();
-    switch (pProg->get()) {
-         case PROG_INIT: {
+    GgafCore::Phase* pPhase = getPhase();
+    switch (pPhase->get()) {
+         case PHASE_INIT: {
              setHitAble(false);
              setAlpha(0);
              pVecVehicle->stop();
              pVecVehicle->setRollFaceAngVelo(D_ANG(10));
              pGeoVehicle->setXYZZero();
-             pProg->changeNext();
+             pPhase->changeNext();
              break;
          }
-         case PROG_ENTRY: {
+         case PHASE_ENTRY: {
              EffectBlink* pEffectEntry = nullptr;
-             if (pProg->hasJustChanged()) {
+             if (pPhase->hasJustChanged()) {
                  pEffectEntry = UTIL::activateEntryEffectOf(this);
              }
              static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
              static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
-             if (pProg->hasArrivedAt(frame_of_summons_begin)) {
+             if (pPhase->hasArrivedFrameAt(frame_of_summons_begin)) {
                  pAlphaFader->transitionLinearUntil(1.0, frame_of_entering);
              }
-             if (pProg->hasArrivedAt(frame_of_entering)) {
+             if (pPhase->hasArrivedFrameAt(frame_of_entering)) {
                  setHitAble(true);
-                 pProg->changeNext();
+                 pPhase->changeNext();
              }
              break;
          }
 
-         case PROG_MOVE01: { //放物線のような動き
-             if (pProg->hasJustChanged()) {
+         case PHASE_MOVE01: { //放物線のような動き
+             if (pPhase->hasJustChanged()) {
                  pVecVehicle->setMvVelo(PX_C(30));
                  pVecVehicle->setMvAcce(-1000);
                  //平行移動速度の方向ベクトル mv_velo_twd_ はフォーメーションが設定
@@ -94,7 +94,7 @@ void EnemyAntiope::processBehavior() {
                  if (pP_) {
                      pVecVehicle->stop();
                      pGeoVehicle->setXYZZero();
-                     pProg->change(PROG_LEAVE);
+                     pPhase->change(PHASE_LEAVE);
                  } else {
                      pGeoVehicle->setVeloXYZ(
                                   mv_velo_twd_.x + (pVecVehicle->_vX * pVecVehicle->_velo_mv),
@@ -102,27 +102,27 @@ void EnemyAntiope::processBehavior() {
                                   mv_velo_twd_.z + (pVecVehicle->_vZ * pVecVehicle->_velo_mv)
                                 );
                      pVecVehicle->stop();
-                     pProg->change(PROG_RUSH);
+                     pPhase->change(PHASE_RUSH);
                  }
              }
              break;
          }
 
-         case PROG_LEAVE: {
-             if (pProg->hasJustChanged()) {
+         case PHASE_LEAVE: {
+             if (pPhase->hasJustChanged()) {
                  UTIL::activateLeaveEffectOf(this);
                  pAlphaFader->transitionLinearUntil(0.0, 15);
              }
-             if (pProg->hasArrivedAt(15)) {
+             if (pPhase->hasArrivedFrameAt(15)) {
                  setHitAble(false);
                  sayonara();
              }
              break;
          }
 
-         case PROG_RUSH: {
+         case PHASE_RUSH: {
              //相方がいなくなった場合
-             if (pProg->hasJustChanged()) {
+             if (pPhase->hasJustChanged()) {
                  pGeoVehicle->execGravitationMvSequenceTwd(pMYSHIP, PX_C(30), 200, PX_C(50));
                  pVecVehicle->keepOnTurningFaceAngTwd(pMYSHIP, D_ANG(2), 0, TURN_CLOSE_TO, false);
              }

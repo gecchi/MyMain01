@@ -11,12 +11,12 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG_MOVE_UP,
-    PROG_TURN1,
-    PROG_TURN2,
-    PROG_INTO_MYSHIP,
-    PROG_NOTHING,
-    PROG_BANPEI,
+    PHASE_MOVE_UP,
+    PHASE_TURN1,
+    PHASE_TURN2,
+    PHASE_INTO_MYSHIP,
+    PHASE_NOTHING,
+    PHASE_BANPEI,
 };
 enum {
     SE_FIRE,
@@ -39,7 +39,7 @@ void EnemyEsperiaLaserChip001::initialize() {
     pChecker->setColliAACube(0, 20000);
     setHitAble(true, false);
     setScaleR(5.0);
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->forceMvVeloRange(PX_C(100));
     pVecVehicle->linkFaceAngByMvAng(true);
 }
@@ -49,13 +49,13 @@ void EnemyEsperiaLaserChip001::onActive() {
     //ステータスリセット
     getStatus()->reset();
     begin_y_ = _y;
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->stopTurningMvAng();
     if (getInfrontChip() == nullptr) {
         pVecVehicle->setMvAngTwd(tx1_, ty1_, tz1_);
-        getProgress()->reset(PROG_MOVE_UP);
+        getPhase()->reset(PHASE_MOVE_UP);
     } else {
-        getProgress()->reset(PROG_NOTHING);
+        getPhase()->reset(PHASE_NOTHING);
     }
     setCullingDraw(false);
     //次のメンバーは EnemyEsperia 本体側から設定済みが前提
@@ -65,10 +65,10 @@ void EnemyEsperiaLaserChip001::onActive() {
 }
 
 void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
-    GgafCore::Progress* const pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_MOVE_UP: {
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafCore::Phase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_MOVE_UP: {
             //レーザー上昇
             if (!pVecVehicle->isTurningMvAng()) {
 
@@ -77,57 +77,57 @@ void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
                                       D_ANG(5), 0,
                                       TURN_CLOSE_TO, false);
             }
-            if (_y > begin_y_+turn_dy_ || pProg->getFrame() > 300) {
-                pProg->changeNext();
+            if (_y > begin_y_+turn_dy_ || pPhase->getFrame() > 300) {
+                pPhase->changeNext();
             }
             break;
         }
 
-        case PROG_TURN1: {
+        case PHASE_TURN1: {
             //自機より少し上の座標で屈折
-            if (pProg->hasJustChanged()) {
+            if (pPhase->hasJustChanged()) {
                 pVecVehicle->setMvVelo(pVecVehicle->_velo_mv/3); //屈折時少しスローダウン
                 pVecVehicle->turnMvAngTwd(tx2_, ty2_, tz2_,
                                       D_ANG(10), 0,
                                       TURN_CLOSE_TO, false);
             }
-            if (!pVecVehicle->isTurningMvAng() || pProg->getFrame() > 300) {
-                pProg->changeNext();
+            if (!pVecVehicle->isTurningMvAng() || pPhase->getFrame() > 300) {
+                pPhase->changeNext();
             }
             break;
         }
 
-        case PROG_TURN2: {
+        case PHASE_TURN2: {
             //屈折補正
-            if (pProg->getFrame() % 8U == 0) {
+            if (pPhase->getFrame() % 8U == 0) {
                 pVecVehicle->turnMvAngTwd(tx2_, ty2_, tz2_,
                                       D_ANG(5), 0,
                                       TURN_CLOSE_TO, false);
                 pVecVehicle->setMvVelo(pVecVehicle->_velo_mv*2);
             }
-            if (pProg->getFrame() > 60) {
-                pProg->changeNext();
+            if (pPhase->getFrame() > 60) {
+                pPhase->changeNext();
             }
             break;
         }
 
-        case PROG_INTO_MYSHIP: {
-            if (pProg->hasJustChanged()) {
+        case PHASE_INTO_MYSHIP: {
+            if (pPhase->hasJustChanged()) {
                 getSeTransmitter()->play3D(SE_FIRE);
             }
-            if (pProg->getFrame() % 16U == 0) {
+            if (pPhase->getFrame() % 16U == 0) {
                 pVecVehicle->turnMvAngTwd(tx2_, ty2_, tz2_,
                                       100, 0,
                                       TURN_CLOSE_TO, false);
             }
-            if (pProg->getFrame() > 90) {
+            if (pPhase->getFrame() > 90) {
                 pVecVehicle->stopTurningMvAng();
                 pVecVehicle->setRzRyMvAngVelo(0,0);
-                pProg->changeNext();
+                pPhase->changeNext();
             }
             break;
         }
-        case PROG_NOTHING: {
+        case PHASE_NOTHING: {
             break;
         }
     }

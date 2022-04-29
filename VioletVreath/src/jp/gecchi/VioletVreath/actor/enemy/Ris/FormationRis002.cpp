@@ -26,8 +26,8 @@ FormationRis002::FormationRis002(const char* prm_name) :
     for (int i = 0; i < RF_FormationRis002_Num(G_MAX_RANK); i++) {
         EnemyRis* pRis = NEW EnemyRis("Ris01");
         //カーブ移動プログラム設定
-        VehicleLeader* pProgram = NEW FixedVelocityCurveVecVehicleLeader(pManufacture_, pRis->getVecVehicle());
-        pRis->config(pProgram, pConn_depo_->peek(), nullptr);
+        VehicleLeader* pVehicleLeader = NEW FixedVelocityCurveVecVehicleLeader(pManufacture_, pRis->getVecVehicle());
+        pRis->config(pVehicleLeader, pConn_depo_->peek(), nullptr);
         appendFormationMember(pRis);
     }
 }

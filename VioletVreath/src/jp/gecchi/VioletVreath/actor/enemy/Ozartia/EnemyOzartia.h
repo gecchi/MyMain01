@@ -20,7 +20,7 @@ class EnemyOzartia : public VvEnemyActor<GgafLib::DefaultMorphMeshActor> {
 
 public:
     /** ショット関連の進捗状態 */
-    GgafCore::Progress* pProg2_;
+    GgafCore::Phase* pPhase2_;
 
     bool is_hit_;
 

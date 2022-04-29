@@ -15,11 +15,11 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 enum {
-    PROG_INIT      ,
-    PROG_FLOAT_MOVE,
-    PROG_EXPLOSION ,
-    PROG_NOTHING   ,
-    PROG_BANPEI,
+    PHASE_INIT      ,
+    PHASE_FLOAT_MOVE,
+    PHASE_EXPLOSION ,
+    PHASE_NOTHING   ,
+    PHASE_BANPEI,
 };
 
 EnemyRatislavia::EnemyRatislavia(const char* prm_name, const char* prm_model, coord prm_r1, coord prm_r2) :
@@ -89,30 +89,30 @@ void EnemyRatislavia::initialize() {
 
 void EnemyRatislavia::onActive() {
     getStatus()->reset();
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 
 void EnemyRatislavia::processBehavior() {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
-    GgafCore::Progress* const pProg = getProgress();
-    switch (pProg->get()) {
-        case PROG_INIT: {
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafCore::Phase* pPhase = getPhase();
+    switch (pPhase->get()) {
+        case PHASE_INIT: {
             setAlpha(0);
             getAlphaFader()->transitionLinearUntil(1.0, 30*60);
-            pProg->change(PROG_FLOAT_MOVE);
+            pPhase->change(PHASE_FLOAT_MOVE);
             break;
         }
 
-        case PROG_FLOAT_MOVE: {
+        case PHASE_FLOAT_MOVE: {
             //イベント待ち
             break;
         }
 
-        case PROG_EXPLOSION: {
-            if (pProg->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" _pProg=PROG_EXPLOSION きたわ～");
+        case PHASE_EXPLOSION: {
+            if (pPhase->hasJustChanged()) {
+                _TRACE_(FUNC_NAME<<" _pPhase=PHASE_EXPLOSION きたわ～");
             }
-            if (pProg->getFrame() % 16U == 0) {
+            if (pPhase->getFrame() % 16U == 0) {
                 //沸々爆発
                 //当たり判定球付近に爆発エフェクトを散乱させる
                 GgafDx::CollisionPart* pPart;
@@ -130,7 +130,7 @@ void EnemyRatislavia::processBehavior() {
             }
 
 
-            if (pProg->hasArrivedAt(480)) {
+            if (pPhase->hasArrivedFrameAt(480)) {
                 //ここで大きい爆発
                 //当たり判定球付近に爆発エフェクトを散乱させる
                 GgafDx::CollisionPart* pPart;
@@ -146,11 +146,11 @@ void EnemyRatislavia::processBehavior() {
                     }
                 }
                 sayonara();
-                pProg->change(PROG_NOTHING);
+                pPhase->change(PHASE_NOTHING);
             }
             break;
         }
-        case PROG_NOTHING: {
+        case PHASE_NOTHING: {
             //死を松の実
             break;
         }
@@ -174,7 +174,7 @@ void EnemyRatislavia::onCatchEvent(hashval prm_no, void* prm_pSource) {
     if (prm_no == RATISLAVIA_EXPLOSION) {
         _TRACE_(FUNC_NAME<<" RATISLAVIA_EXPLOSION キャッチ");
         setHitAble(false);
-        getProgress()->change(PROG_EXPLOSION);
+        getPhase()->change(PHASE_EXPLOSION);
     }
 }
 

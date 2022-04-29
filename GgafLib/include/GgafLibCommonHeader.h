@@ -36,7 +36,7 @@ class VirtualButton;
 class VBReplayRecorder;
 
 class DefaultScene;
-class SceneProgress;
+class ScenePhase;
 class FormationTableScene;
 class WallScene;
 class WallSectionScene;

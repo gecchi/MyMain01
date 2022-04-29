@@ -20,12 +20,12 @@ enum {
     SE_EXPLOSION ,
 };
 enum {
-    PROG_INIT   ,
-    PROG_ENTRY  ,
-    PROG_MOVE01 ,
-    PROG_MOVE02 ,
-    PROG_MOVE03 ,
-    PROG_BANPEI,
+    PHASE_INIT   ,
+    PHASE_ENTRY  ,
+    PHASE_MOVE01 ,
+    PHASE_MOVE02 ,
+    PHASE_MOVE03 ,
+    PHASE_BANPEI,
 };
 
 EnemyOrtuna::EnemyOrtuna(const char* prm_name) :
@@ -49,14 +49,14 @@ void EnemyOrtuna::initialize() {
 
 void EnemyOrtuna::onActive() {
     getStatus()->reset();
-    getProgress()->reset(PROG_INIT);
+    getPhase()->reset(PHASE_INIT);
 }
 
 void EnemyOrtuna::processBehavior() {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
-    GgafCore::Progress* const pProg = getProgress();
-    switch (pProg->get()) {
-         case PROG_INIT: {
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
+    GgafCore::Phase* pPhase = getPhase();
+    switch (pPhase->get()) {
+         case PHASE_INIT: {
              setHitAble(false);
              setPositionAt(&entry_pos_);
              setAlpha(0);
@@ -66,27 +66,27 @@ void EnemyOrtuna::processBehavior() {
              velo mv_velo = RF_EnemyOrtuna_MvVelo(G_RANK);
              pVecVehicle->setRollFaceAngVelo(mv_velo); //‚®‚é‚®‚é`
              setMorphWeight(0.0);
-             pProg->changeNext();
+             pPhase->changeNext();
              break;
          }
-         case PROG_ENTRY: {
+         case PHASE_ENTRY: {
              EffectBlink* pEffectEntry = nullptr;
-             if (pProg->hasJustChanged()) {
+             if (pPhase->hasJustChanged()) {
                  pEffectEntry = UTIL::activateEntryEffectOf(this);
              }
              static const frame frame_of_summons_begin = pEffectEntry->getFrameOfSummonsBegin();
              static const frame frame_of_entering = pEffectEntry->getSummoningFrames() + frame_of_summons_begin;
-             if (pProg->hasArrivedAt(frame_of_summons_begin)) {
+             if (pPhase->hasArrivedFrameAt(frame_of_summons_begin)) {
                  getAlphaFader()->transitionLinearUntil(1.0, frame_of_entering);
              }
-             if (pProg->hasArrivedAt(frame_of_entering)) {
+             if (pPhase->hasArrivedFrameAt(frame_of_entering)) {
                  setHitAble(true);
-                 pProg->changeNext();
+                 pPhase->changeNext();
              }
              break;
          }
-         case PROG_MOVE01: {
-             if (pProg->hasJustChanged()) {
+         case PHASE_MOVE01: {
+             if (pPhase->hasJustChanged()) {
                  //Ü‚è•Ô‚µƒ|ƒCƒ“ƒg‚ÖGO!
                  //velo mv_velo = RF_EnemyOrtuna_MvVelo(G_RANK);
                  velo mv_velo = PX_C(20);
@@ -97,32 +97,30 @@ void EnemyOrtuna::processBehavior() {
 
              pVecVehicle->setRollFaceAngVelo(pVecVehicle->_velo_mv); //¨‚¢‚É”ä—á‚µ‚Ä‚®‚é‚®‚é`
 
-             if (pProg->getFrame() > stagnating_pos_frames_) {
+             if (pPhase->getFrame() > stagnating_pos_frames_) {
                  pVecVehicle->setMvVelo(PX_C(1));
                  pVecVehicle->setMvAcce(0);
-                 pProg->changeNext();
+                 pPhase->changeNext();
              }
              break;
          }
 
-         case PROG_MOVE02: {
-             if (pProg->hasJustChanged()) {
+         case PHASE_MOVE02: {
+             if (pPhase->hasJustChanged()) {
                  //•ûŒü“]Š·
                  //‚ä‚Á‚­‚èŽ©‹@‚Ì•û‚ÖŒü‚©‚¹‚é
-                 pVecVehicle->turnMvAngTwd(pMYSHIP,
-                                        D_ANG(3), 0, TURN_CLOSE_TO, true);
+                 pVecVehicle->turnMvAngTwd(pMYSHIP, D_ANG(3), 0, TURN_CLOSE_TO, true);
                  getMorpher()->transitionLinearUntil(MPH_OPEN, 1.0, 60);
              }
              //‘Ø—¯’†
-             if (pProg->getFrame() % 16U == 0) {
+             if (pPhase->getFrame() % 16U == 0) {
                  if (pVecVehicle->isTurningMvAng()) {
                      //‚¿‚å‚­‚¿‚å‚­Ž©‹@‚ðŒ©‚Â‚ß‚é
-                     pVecVehicle->turnFaceAngTwd(pMYSHIP,
-                                              D_ANG(1), 0, TURN_CLOSE_TO, true);
+                     pVecVehicle->turnFaceAngTwd(pMYSHIP, D_ANG(1), 0, TURN_CLOSE_TO, true);
                  }
              }
 
-             if (pProg->hasArrivedAt(60)) {
+             if (pPhase->hasArrivedFrameAt(60)) {
                  //Ž©‹@‚Ì•û‚ÉŒü‚¢‚½‚ç“G’e”­ŽËI
                  int shot_num = RF_EnemyOrtuna_ShotWay(G_RANK); //’e”Aƒ‰ƒ“ƒN•Ï“®
                  velo shot_velo = RF_EnemyOrtuna_ShotMvVelo(G_RANK); //’e‘¬Aƒ‰ƒ“ƒN•Ï“®
@@ -137,15 +135,15 @@ void EnemyOrtuna::processBehavior() {
                      }
                  }
              }
-             if (pProg->hasArrivedAt(60)) {
-                 pProg->changeNext();
+             if (pPhase->hasArrivedFrameAt(60)) {
+                 pPhase->changeNext();
              }
              break;
          }
 
-         case PROG_MOVE03: {
+         case PHASE_MOVE03: {
              //‚³‚æ‚È‚ç`
-             if (pProg->hasJustChanged()) {
+             if (pPhase->hasJustChanged()) {
                  pVecVehicle->setMvVelo(PX_C(4));
                  pVecVehicle->setMvAcce(100);
              }

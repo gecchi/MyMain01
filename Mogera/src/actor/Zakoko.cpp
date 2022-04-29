@@ -23,7 +23,7 @@ void Zakoko::onCreateModel() {
 }
 
 void Zakoko::initialize() {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->linkFaceAngByMvAng(true);
 
     CollisionChecker* pChecker = getCollisionChecker();
@@ -39,7 +39,7 @@ void Zakoko::onActive() {
 }
 
 void Zakoko::processBehavior() {
-    GgafDx::VecVehicle* const pVecVehicle = getVecVehicle();
+    GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->behave();
 }
 
