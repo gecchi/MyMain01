@@ -42,25 +42,25 @@ public:
 //                break;
 //            }
 //            case MyStgUtil::EF_EXPLOSION001: {
-//                pE = dispatchForceFromCommon(EffectExplosion001);
+//                pE = CommonScene_dispatchForce(EffectExplosion001);
 //                pE->setPositionAt(this);
 //                pE->getVecVehicle()->takeoverFrom(this->getVecVehicle());
 //                break;
 //            }
 //            case MyStgUtil::EF_EXPLOSION002: {
-//                pE = dispatchForceFromCommon(EffectExplosion002);
+//                pE = CommonScene_dispatchForce(EffectExplosion002);
 //                pE->setPositionAt(this);
 //                pE->getVecVehicle()->takeoverFrom(this->getVecVehicle());
 //                break;
 //            }
 //            case MyStgUtil::EF_EXPLOSION003: {
-//                pE = dispatchForceFromCommon(EffectExplosion003);
+//                pE = CommonScene_dispatchForce(EffectExplosion003);
 //                pE->setPositionAt(this);
 //                pE->getVecVehicle()->takeoverFrom(this->getVecVehicle());
 //                break;
 //            }
 //            case MyStgUtil::EF_EXPLOSION001_STAY: {
-//                pE = dispatchForceFromCommon(EffectExplosion001);
+//                pE = CommonScene_dispatchForce(EffectExplosion001);
 //                pE->setPositionAt(this);
 //                pE->getVecVehicle()->setMvVelo(0);
 //                pE->getVecVehicle()->setMvAcce(0);

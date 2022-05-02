@@ -98,7 +98,7 @@ public:
     int _on_change_to;
     /** [r]カレントフレーム内で一度でもリセットが実行されればtrue。毎フレーム false に更新される */
     bool _is_already_reset;
-    /** [r]状態進捗管理オブジェクト */
+    /** [r]フェーズ管理オブジェクト */
     Phase* _pPhase;
 
 public:
@@ -764,18 +764,18 @@ public:
     virtual void executeFuncLowerTree(void (*pFunc)(Object*, void*, void*, void*), void* prm1, void* prm2, void* prm3);
 
     /**
-     * 進捗管理オブジェクト(Phase) を取得する。
-     * @return 進捗管理オブジェクト
+     * フェーズ管理オブジェクト(Phase) を取得する。
+     * @return フェーズ管理オブジェクト
      */
     inline virtual Phase* getPhase() const {
         return _pPhase;
     }
 
     /**
-     * 本オブジェクトの _frame_of_behaving に関連性を持った、進捗管理オブジェクト(Phase) を生成し取得 .
-     * 自動で進捗の更新は行われないので、呼び出し元で updateを行ってください。
-     * @param prm_num 進捗の場合の数
-     * @return 新しい進捗管理オブジェクト
+     * 本オブジェクトの _frame_of_behaving に関連性を持った、フェーズ管理オブジェクト(Phase) を生成し取得 .
+     * 自動でフェーズの更新は行われないので、呼び出し元で updateを行ってください。
+     * @param prm_num フェーズの場合の数
+     * @return 新しいフェーズ管理オブジェクト
      */
     virtual Phase* createAnotherPhase() {
         return NEW Phase(&_frame_of_behaving);
@@ -852,7 +852,7 @@ void Element<T>::nextFrame() {
                 updateActiveInTheTree();     //_is_active_in_the_tree_flg を更新
                 if (_is_active_in_the_tree_flg) {
                     _frame_of_behaving++;
-                    if (_pPhase) {  _pPhase->update();  } // 進捗を反映
+                    if (_pPhase) {  _pPhase->update();  } // フェーズを反映
                     _frame_of_behaving_since_onActive++;
                 }
             }
@@ -864,7 +864,7 @@ void Element<T>::nextFrame() {
                 updateActiveInTheTree();     //_is_active_in_the_tree_flg を更新
                 if (_is_active_in_the_tree_flg) {
                     _frame_of_behaving++;
-                    if (_pPhase) {  _pPhase->update();  } // 進捗を反映
+                    if (_pPhase) {  _pPhase->update();  } // フェーズを反映
                     _frame_of_behaving_since_onActive++;
                 }
                 if (!_was_initialize_flg) {

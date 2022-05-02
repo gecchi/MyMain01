@@ -25,18 +25,22 @@ namespace VioletVreath {
 class GameScene : public VvScene<GgafLib::DefaultScene> {
 
 public:
+    /**
+     * ゲームシーンのフェーズ番号 .
+     */
     enum {
-        PHASE_INIT      ,
-        PHASE_PRE_TITLE ,
-        PHASE_TITLE     ,
-        PHASE_DEMO      ,
-        PHASE_BEGINNING ,
-        PHASE_MAIN      ,
-        PHASE_ENDING    ,
-        PHASE_GAME_OVER ,
-        PHASE_FINISH    ,
+        PHASE_INIT      ,  //初期処理
+        PHASE_PRE_TITLE ,  //タイトル前
+        PHASE_TITLE     ,  //タイトル
+        PHASE_DEMO      ,  //デモプレイ
+        PHASE_BEGINNING ,  //ゲーム開始（モード選択等）
+        PHASE_MAIN      ,  //ゲームメイン
+        PHASE_ENDING    ,  //ゲーム終了
+        PHASE_GAME_OVER ,  //ゲームオーバー
+        PHASE_FINISH    ,  //ゲームシーン終了
         PHASE_BANPEI,
     };
+
     enum {
         BGM_DEMO,
     };
@@ -54,14 +58,18 @@ public:
     bool was_paused_flg_GameMainScene_prev_frame_;
 
     GgafLib::OctreeRounder* pHitCheckRounder_;
+
 public:
     GameScene(const char* prm_name);
 
     void onReset() override;
+
     void initialize() override;
+
     void onActive() override;
 
     void processBehavior() override;
+
     void processJudgement() override;
 
     void onCatchEvent(hashval prm_no, void* prm_pSource) override;

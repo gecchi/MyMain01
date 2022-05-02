@@ -77,9 +77,9 @@ void Phase::changeProbab(uint32_t prm_p1, int prm_phase_no1, ...) {
             return;
          }
 #endif
-        int phs = va_arg(args, int);
+        int ph = va_arg(args, int);
         if (p_sum >= r) {
-            change(phs);
+            change(ph);
             return;
         }
     }
@@ -90,32 +90,6 @@ void Phase::changeProbab(uint32_t prm_p1, int prm_phase_no1, ...) {
     }
 #endif
 }
-
-//void Phase::changeProbab(uint32_t prm_p1, int prm_phase_no1, ...) {
-//    uint32_t r = (uint32_t)(RND(1,100));
-//    if (prm_p1 <= r) {
-//        change(prm_phase_no1);
-//        return;
-//    }
-//    uint32_t p_sum = (uint32_t)prm_p1;
-//
-//    va_list args;
-//    va_start(args, prm_phase_no1);
-//    while(p_sum < 100) {
-//        p_sum += va_arg(args, uint32_t);
-//        int phs = va_arg(args, int);
-//        if (p_sum <= r) {
-//            change(phs);
-//            return;
-//        }
-//    }
-//    va_end(args);
-//#ifdef MY_DEBUG
-//    if (p_sum != 100) {
-//        throwCriticalException("合計が100%になってない。");
-//    }
-//#endif
-//}
 
 void Phase::changeNothing() {
     _phase_no_next = GGAF_PHASE_NOTHING;
@@ -203,14 +177,14 @@ int Phase::getPrevWillChangeNextFrame() const {
 }
 
 void Phase::update() {
-    //進捗を反映する
-    int phs = _phase_no;
-    int phs_next = _phase_no_next;
-    if (phs != phs_next) {
-        _map_phase_no_changed_frame[phs_next] = (*_p_frame_counter) - 1;
+    //フェーズを反映する
+    int ph_now = _phase_no;
+    int ph_next = _phase_no_next;
+    if (ph_now != ph_next) {
+        _map_phase_no_changed_frame[ph_next] = (*_p_frame_counter) - 1;
     }
-    _phase_no_prev = phs;
-    _phase_no = phs_next;
+    _phase_no_prev = ph_now;
+    _phase_no = ph_next;
 }
 
 Phase::~Phase() {

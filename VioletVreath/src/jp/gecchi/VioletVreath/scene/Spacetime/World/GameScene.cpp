@@ -22,9 +22,6 @@
 #include "GameScene/MyShipScene.h"
 
 
-
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 
@@ -265,7 +262,7 @@ void GameScene::processBehavior() {
                 }
             }
             if (pPhase->hasArrivedFrameAt(FADE_FRAMES+20)) {
-                reset(); //リセット（最初の進捗状態に戻る）
+                reset(); //リセット（最初のフェーズに戻る）
             }
             break;
         }

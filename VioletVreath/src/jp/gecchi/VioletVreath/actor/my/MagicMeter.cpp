@@ -286,7 +286,7 @@ void MagicMeter::processBehavior() {
 
     for (int m = 0; m < lstMagic_.length(); m++) {
         pMagic = lstMagic_.getFromFirst(m);    //魔法オブジェクト
-        pMagicProg = pMagic->_pPhase;           //魔法の進捗状況
+        pMagicProg = pMagic->_pPhase;           //魔法のフェーズ状況
         pMagic_level = pMagic->level_;         //魔法の現レベル
         pMagic_new_level = pMagic->new_level_; //魔法の新レベル（詠唱中・発動中の場合）
         pLvTgtMvCur = papLvTgtMvCur_[m];       //操作カーソルオブジェクト(↑↓移動)
@@ -510,7 +510,7 @@ void MagicMeter::processBehavior() {
         alpha_velo_ = 0.05f;
         Magic* pActiveMagic = lstMagic_.getCurrent();     //アクティブな魔法
         int active_idx = lstMagic_.getCurrentIndex();     //アクティブな魔法のインデックス
-        int active_phase = pActiveMagic->getPhase()->get();  //アクティブな魔法の進捗
+        int active_phase = pActiveMagic->getPhase()->get();  //アクティブな魔法のフェーズ
         if (pMyShip->canControl() && pVbPlay->isPushedDown(VB_POWERUP)) {
             rollOpen(active_idx);
         }

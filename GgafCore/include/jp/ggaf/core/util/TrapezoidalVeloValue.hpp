@@ -20,7 +20,7 @@ class TrapezoidalVeloValue : public Object {
 
 private:
     enum {
-        TVMOVE_ZERO_END = -9,        /** 距離が 0 の場合の進捗定数。                                                     */
+        TVMOVE_ZERO_END = -9,        /** 距離が 0 の場合のフェーズ定数。                                                     */
         TVMOVE_RECOVERY_BEGIN = 0,   /** 回復フェーズ Ts へ向けての加速度設定                                            */
         TVMOVE_RECOVERING_to_Ts = 1, /** 回復中  ～ Ts                                                                   */
         TVMOVE_on_Ts = 2,            /** Ts～T1 が 0 ならば TVMOVE_T1_to_T2 へ、そうでなければ TVMOVE_acc_for_T1 */
@@ -29,7 +29,7 @@ private:
         TVMOVE_T1_to_T2 = 5,         /** 等速中 T1～T2 、T2に到達すれば、Teへ向けての減速度設定                          */
         TVMOVE_T2_to_Te = 6,         /** 減速中 T2～Te 、Teに到達すれば終了。あるいは補正で１フレーム追加                */
         TVMOVE_BACCHIRI = 7,         /** 残距離バッチリ合わせ（１フレーム）                                              */
-        TVMOVE_DONE = -1,            /** 加速処理が完全に終了した時の進捗定数                                            */
+        TVMOVE_DONE = -1,            /** 加速処理が完全に終了した時のフェーズ定数                                            */
     };
 
     /** [r]なめらか移動シークエンスを実行中はtrue */
@@ -62,7 +62,7 @@ private:
     double  _p1;
     /** [r]なめらか移動シークエンスで設定された等速～減速へ切り替わる位置 */
     double  _p2;
-    /** [r]なめらか移動シークエンスの進捗状況 */
+    /** [r]なめらか移動シークエンスのフェーズ状況 */
     int  _phase_no;
 
 public:

@@ -11,20 +11,20 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 #define REGISTER_DEPO(TYPE, NUM)   do { \
-        pCOMMON_DEPO(TYPE) = NEW GgafCore::ActorDepository("CommonDepo_" #TYPE); \
-        pCOMMON_DEPO(TYPE)->putn<TYPE>(NUM); \
-        bringSceneMediator()->appendGroupChild(pCOMMON_DEPO(TYPE)); \
+        CommonScene_pCOMMON_DEPO(TYPE) = NEW GgafCore::ActorDepository("Depo_" #TYPE); \
+        CommonScene_pCOMMON_DEPO(TYPE)->putn<TYPE>(NUM); \
+        bringSceneMediator()->appendGroupChild(CommonScene_pCOMMON_DEPO(TYPE)); \
 }while(0)
 #define REGISTER_LASERDEPO_STORE(TYPE, SET_NUM, LASER_NUM) do { \
-    pCOMMON_DEPO_STORE(TYPE) = NEW GgafCore::ActorDepositoryStore("CommonDepoStore_" #TYPE); \
+    CommonScene_pCOMMON_DEPO_STORE(TYPE) = NEW GgafCore::ActorDepositoryStore("DepoStore_" #TYPE); \
     LaserChipDepository* pLaserChipDepo; \
     for (int laser_set = 0; laser_set < SET_NUM; laser_set++) { \
         std::string name_depo = "LaserChipDepo["+XTOS(laser_set)+"]"; \
         pLaserChipDepo = NEW LaserChipDepository(name_depo.c_str()); \
         pLaserChipDepo->putn<TYPE>(LASER_NUM); \
-        pCOMMON_DEPO_STORE(TYPE)->put(pLaserChipDepo); \
+        CommonScene_pCOMMON_DEPO_STORE(TYPE)->put(pLaserChipDepo); \
     } \
-    bringSceneMediator()->appendGroupChild(pCOMMON_DEPO_STORE(TYPE)); \
+    bringSceneMediator()->appendGroupChild(CommonScene_pCOMMON_DEPO_STORE(TYPE)); \
 }while(0)
 
 
@@ -61,12 +61,13 @@ CommonScene::CommonScene(const char* prm_name) : VvScene<DefaultScene>(prm_name)
     REGISTER_DEPO(Shot004, 30);
 
     REGISTER_LASERDEPO_STORE(EnemyWateringLaserChip001, 30, 40);
-    REGISTER_LASERDEPO_STORE(EnemyStraightLaserChip001, 8 ,40);
+    REGISTER_LASERDEPO_STORE(EnemyStraightLaserChip001, 8 , 40);
 
 }
 
 void CommonScene::initialize() {
 }
+
 void CommonScene::onReset() {
     //ÉXÉNÉçÅ[Éãâèú
     setFeatureFunction(nullptr);

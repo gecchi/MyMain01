@@ -19,7 +19,7 @@ namespace VioletVreath {
 class EnemyOzartia : public VvEnemyActor<GgafLib::DefaultMorphMeshActor> {
 
 public:
-    /** ショット関連の進捗状態 */
+    /** ショット関連のフェーズ */
     GgafCore::Phase* pPhase2_;
 
     bool is_hit_;

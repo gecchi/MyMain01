@@ -63,13 +63,13 @@ typedef frame magic_time;
 class Magic : public GgafCore::MainActor {
 public:
     enum {
-        PHASE_NOTHING     ,
-        PHASE_RE_CASTING  ,
-        PHASE_CASTING     ,
-        PHASE_INVOKING    ,
-        PHASE_RE_EFFECT   ,
-        PHASE_EFFECT_START,
-        PHASE_ABANDONING  ,
+        PHASE_NOTHING     ,  //待機
+        PHASE_RE_CASTING  ,  //詠唱中キャンセル再詠唱
+        PHASE_CASTING     ,  //詠唱中
+        PHASE_INVOKING    ,  //発動中
+        PHASE_RE_EFFECT   ,  //効果持続中
+        PHASE_EFFECT_START,  //効果持続開始
+        PHASE_ABANDONING  ,  //破棄 （未使用）
         PHASE_BANPEI,
     };
 
@@ -179,7 +179,7 @@ public:
     /** [r]レベルアップに発動時間の情報セット。配列インデックスは[現レベル][新しいレベル] */
     magic_time  level_up_invoking_frames_[MMETER_MAX_LEVEL+1][MMETER_MAX_LEVEL+1];
 
-    /** [r]次の進捗状態になる為に必要なフレーム数(を一時保持) */
+    /** [r]次のフェーズになる為に必要なフレーム数(を一時保持) */
     magic_time time_of_next_state_;
 
     int temp_hold_status_;
@@ -292,13 +292,13 @@ public:
      * @retval  MAGIC_CAST_NOTHING                 現在のレベルと同じレベルを詠唱しようとしているので、
      *                                             →何もしなかった。
      * @retval  MAGIC_CAST_CANCEL                  他のレベルを詠唱中、現在の効果持続レベルと同じレベルを詠唱指定したので、
-     *                                             →詠唱中止。進捗ステータスが STATE_NOTHING への遷移を実行した。
+     *                                             →詠唱中止。フェーズが PHASE_NOTHING への遷移を実行した。
      * @retval  MAGIC_CAST_OK_LEVELUP              現在の効果持続レベルより高いレベルを詠唱を指定ので、
-     *                                             →詠唱シークエンス開始、進捗ステータスを STATE_CASTING への遷移を実行した。
+     *                                             →詠唱シークエンス開始、フェーズを PHASE_CASTING への遷移を実行した。
      * @retval  MAGIC_CAST_LEVELDOWN               現在の効果持続レベルより低いレベルを詠唱を指定ので、
      *                                             →魔法効果開始 effect(prm_new_level) を実行した。
      * @retval  MAGIC_CAST_OK_CANCEL_AND_LEVELUP   他のレベルを詠唱中に再詠唱を行おうとしていて、再詠唱のレベルが、現在の効果持続レベルより高ので、
-     *                                             →再詠唱シークエンス開始、進捗ステータスが STATE_RE_CASTING への遷移を実行した。
+     *                                             →再詠唱シークエンス開始、フェーズが PHASE_RE_CASTING への遷移を実行した。
      * @retval  MAGIC_CAST_CANCEL_AND_LEVELDOWN    他のレベルを詠唱中に再詠唱を行おうとしていて、再詠唱のレベルが、現在の効果持続レベルより低いので、
      *                                             →魔法効果開始 effect(prm_new_level) を実行した。
      */

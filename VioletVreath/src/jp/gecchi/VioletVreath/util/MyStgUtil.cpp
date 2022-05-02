@@ -268,25 +268,25 @@ GgafDx::FigureActor* MyStgUtil::activateExplosionEffectOf(GgafDx::GeometricActor
             break;
         }
         case EF_EXPLOSION001: {
-            pE = dispatchForceFromCommon(EffectExplosion001);
+            pE = CommonScene_dispatchForce(EffectExplosion001);
             pE->setPositionAt(prm_pActor);
             pE->getVecVehicle()->takeoverFrom(prm_pActor->getVecVehicle());
             break;
         }
         case EF_EXPLOSION002: {
-            pE = dispatchForceFromCommon(EffectExplosion002);
+            pE = CommonScene_dispatchForce(EffectExplosion002);
             pE->setPositionAt(prm_pActor);
             pE->getVecVehicle()->takeoverFrom(prm_pActor->getVecVehicle());
             break;
         }
         case EF_EXPLOSION003: {
-            pE = dispatchForceFromCommon(EffectExplosion003);
+            pE = CommonScene_dispatchForce(EffectExplosion003);
             pE->setPositionAt(prm_pActor);
             pE->getVecVehicle()->takeoverFrom(prm_pActor->getVecVehicle());
             break;
         }
         case EF_EXPLOSION001_STAY: {
-            pE = dispatchForceFromCommon(EffectExplosion001);
+            pE = CommonScene_dispatchForce(EffectExplosion001);
             pE->setPositionAt(prm_pActor);
             pE->getVecVehicle()->setMvVelo(0);
             pE->getVecVehicle()->setMvAcce(0);
@@ -314,7 +314,7 @@ GgafDx::FigureActor* MyStgUtil::activateDamagedEffectOf(GgafDx::GeometricActor* 
             break;
         }
         case EF_DAMAGED001: {
-            pE = dispatchFromCommon(EffectExplosion001);
+            pE = CommonScene_dispatch(EffectExplosion001);
             break;
         }
         default: {
@@ -331,6 +331,7 @@ GgafDx::FigureActor* MyStgUtil::activateDamagedEffectOf(GgafDx::GeometricActor* 
     }
     return pE;
 }
+
 GgafDx::FigureActor* MyStgUtil::activateAttackShotOf(GgafDx::GeometricActor* prm_pActor) {
     GgafDx::FigureActor* pI = nullptr;
     switch (prm_pActor->getStatus()->get(STAT_AttackShotKind)) {
@@ -339,7 +340,7 @@ GgafDx::FigureActor* MyStgUtil::activateAttackShotOf(GgafDx::GeometricActor* prm
             break;
         }
         case SHOT_SMALL001: {
-            pI = dispatchFromCommon(Shot004);
+            pI = CommonScene_dispatch(Shot004);
             break;
         }
         default: {
@@ -363,11 +364,11 @@ GgafCore::ActorDepository* MyStgUtil::getDepositoryOf(GgafDx::GeometricActor* pr
             break;
         }
         case DEPO_LASER001: {
-            pDepo = dispatchFromCommonDepositoryStore(EnemyWateringLaserChip001);
+            pDepo = CommonScene_dispatchDepoStore(EnemyWateringLaserChip001);
             break;
         }
         case DEPO_LASER002: {
-            pDepo = dispatchFromCommonDepositoryStore(EnemyStraightLaserChip001);
+            pDepo = CommonScene_dispatchDepoStore(EnemyStraightLaserChip001);
             break;
         }
         default: {
@@ -390,7 +391,7 @@ GgafDx::FigureActor* MyStgUtil::activateRevengeShotOf(GgafDx::GeometricActor* pr
         case SHOT_RV_NOMAL001: {
             pI = UTIL::shotWay002(
                    prm_pActor,
-                   getCommonDepository(Shot004),
+                   CommonScene_getDepository(Shot004),
                    PX_C(20),       //r
                    RF_SHOT_RV_NOMAL001_ShotWay(G_RANK),    //way数
                    RF_SHOT_RV_NOMAL001_Density(G_RANK),    //wayとwayの間隔
@@ -408,7 +409,7 @@ GgafDx::FigureActor* MyStgUtil::activateRevengeShotOf(GgafDx::GeometricActor* pr
         case SHOT_RV_NOMAL002: {
 
             pI = UTIL::shotWay004(prm_pActor,
-                                  getCommonDepository(Shot004),
+                                  CommonScene_getDepository(Shot004),
                                   PX_C(20),
                                   8,
                                   D_ANG(10),
@@ -434,7 +435,7 @@ GgafDx::FigureActor* MyStgUtil::activateRevengeShotOf(GgafDx::GeometricActor* pr
                                         prm_pActor->_y,
                                         prm_pActor->_z,
                                         rz, ry,
-                                        getCommonDepository(Shot004),
+                                        CommonScene_getDepository(Shot004),
                                         PX_C(20),
                                         300,
                                         D_ANG(1), 100,
@@ -463,15 +464,15 @@ GgafDx::FigureActor* MyStgUtil::activateItemOf(GgafDx::GeometricActor* prm_pActo
             break;
         }
         case ITEM_MP_SMALL: {
-            pI = dispatchFromCommon(MagicPointItem001);
+            pI = CommonScene_dispatch(MagicPointItem001);
             break;
         }
         case ITEM_MP_MIDDLE: {
-            pI = dispatchFromCommon(MagicPointItem002);
+            pI = CommonScene_dispatch(MagicPointItem002);
             break;
         }
         case ITEM_MP_LARGE: {
-            pI = dispatchFromCommon(MagicPointItem003);
+            pI = CommonScene_dispatch(MagicPointItem003);
             break;
         }
         default: {
@@ -496,7 +497,7 @@ GgafDx::FigureActor* MyStgUtil::activateDestroyedEffectOf(GgafDx::GeometricActor
         }
         case EF_BONUS001: {
             //スコアが表示される消滅エフェクト
-            SpriteLabelBonus001* pLabel = dispatchForceFromCommon(SpriteLabelBonus001);
+            SpriteLabelBonus001* pLabel = CommonScene_dispatchForce(SpriteLabelBonus001);
             pLabel->onDispatched(prm_pActor); //初期設定が行われる
             std::string s = XTOS(prm_pActor->getStatus()->get(STAT_AddDestroyScorePoint));
             pLabel->update(s.c_str()); //破壊時得点が表示される
@@ -522,59 +523,59 @@ EffectBlink* MyStgUtil::activateEntryEffectOf(GgafDx::GeometricActor* prm_pActor
     EffectBlink* pRet = nullptr;
     switch (prm_pActor->getStatus()->get(STAT_EntryEffectKind)) {
         case EF_ENTRY_SMALL001_LONG: { //EffectBlink001で210F。アクターに追従する。
-            EffectBlink001* pE = dispatchForceFromCommon(EffectBlink001);
+            EffectBlink001* pE = CommonScene_dispatchForce(EffectBlink001);
             pE->blink(30, 120, 60, prm_pActor);
             pRet = pE;
             break;
         }
         case EF_ENTRY_SMALL001_F30: { //EffectBlink001で30F。アクターに追従する。
-            EffectBlink001* pE = dispatchForceFromCommon(EffectBlink001);
+            EffectBlink001* pE = CommonScene_dispatchForce(EffectBlink001);
             pE->blink(12, 6, 12, prm_pActor);
             pRet = pE;
             break;
         }
         case EF_ENTRY_SMALL001_F60: { //EffectBlink001で60F。アクターに追従する。
-            EffectBlink001* pE = dispatchForceFromCommon(EffectBlink001);
+            EffectBlink001* pE = CommonScene_dispatchForce(EffectBlink001);
             pE->blink(25, 10, 25, prm_pActor);
             pRet = pE;
             break;
         }
         case EF_ENTRY_SMALL001_F90: { //EffectBlink001で60F。アクターに追従する。
-            EffectBlink001* pE = dispatchForceFromCommon(EffectBlink001);
+            EffectBlink001* pE = CommonScene_dispatchForce(EffectBlink001);
             pE->blink(35, 20, 35, prm_pActor);
             pRet = pE;
             break;
         }
 
         case EF_ENTRY_SMALL001_STAY_F30: { //EffectBlink001で60F。その場にとどまる、アクター追従無し。
-            EffectBlink001* pE = dispatchForceFromCommon(EffectBlink001);
+            EffectBlink001* pE = CommonScene_dispatchForce(EffectBlink001);
             pE->setPositionAt(prm_pActor);
             pE->blink(12, 6, 12, nullptr);
             pRet = pE;
             break;
         }
         case EF_ENTRY_SMALL001_STAY_F60: {  //EffectBlink001で60F。その場にとどまる、アクター追従無し。
-            EffectBlink001* pE = dispatchForceFromCommon(EffectBlink001);
+            EffectBlink001* pE = CommonScene_dispatchForce(EffectBlink001);
             pE->setPositionAt(prm_pActor);
             pE->blink(25, 10, 25, nullptr);
             pRet = pE;
             break;
         }
         case EF_ENTRY_SMALL001_STAY_F90: {  //EffectBlink001で60F。その場にとどまる、アクター追従無し。
-            EffectBlink001* pE = dispatchForceFromCommon(EffectBlink001);
+            EffectBlink001* pE = CommonScene_dispatchForce(EffectBlink001);
             pE->setPositionAt(prm_pActor);
             pE->blink(35, 20, 35, nullptr);
             pRet = pE;
             break;
         }
         case EF_ENTRY_MIDDLE001: {  //EffectBlink002で180F。アクターに追従する。
-            EffectBlink002* pE = dispatchForceFromCommon(EffectBlink002);
+            EffectBlink002* pE = CommonScene_dispatchForce(EffectBlink002);
             pE->blink(60, 60, 60, prm_pActor);
             pRet = pE;
             break;
         }
         case EF_ENTRY_LARGE001: {
-            EffectBlink003* pE = dispatchForceFromCommon(EffectBlink003);
+            EffectBlink003* pE = CommonScene_dispatchForce(EffectBlink003);
             pE->blink(60, 60, 60, prm_pActor);
             pRet = pE;
             break;
@@ -595,27 +596,27 @@ EffectBlink* MyStgUtil::activateLeaveEffectOf(GgafDx::GeometricActor* prm_pActor
     EffectBlink* pRet = nullptr;
     switch (prm_pActor->getStatus()->get(STAT_LeaveEffectKind)) {
         case EF_LEAVE_SMALL001_F30: {
-            pRet = dispatchForceFromCommon(EffectBlink001);
+            pRet = CommonScene_dispatchForce(EffectBlink001);
             pRet->blink(10, 1, 20, prm_pActor);
             break;
         }
         case EF_LEAVE_SMALL001_F60: {
-            pRet = dispatchForceFromCommon(EffectBlink001);
+            pRet = CommonScene_dispatchForce(EffectBlink001);
             pRet->blink(20, 0, 40, prm_pActor);
             break;
         }
         case EF_LEAVE_SMALL001_F90: {
-            pRet = dispatchForceFromCommon(EffectBlink001);
+            pRet = CommonScene_dispatchForce(EffectBlink001);
             pRet->blink(30, 0, 60, prm_pActor);
             break;
         }
         case EF_LEAVE_MIDDLE001: {
-            pRet = dispatchForceFromCommon(EffectBlink002);
+            pRet = CommonScene_dispatchForce(EffectBlink002);
             pRet->blink(20, 0, 40, prm_pActor);
             break;
         }
         case EF_LEAVE_LARGE001: {
-            pRet = dispatchForceFromCommon(EffectBlink003);
+            pRet = CommonScene_dispatchForce(EffectBlink003);
             pRet->blink(20, 0, 40, prm_pActor);
             break;
         }
@@ -641,7 +642,7 @@ GgafDx::FigureActor* MyStgUtil::activateFormationDestroyedEffectOf(GgafDx::Geome
         }
         case EF_EXPLO_AND_BONUS001: {
             //1は通常のフォーメーションボーナススコア表示エフェクト
-            SpriteLabelBonus001* pLabel = dispatchForceFromCommon(SpriteLabelBonus001);
+            SpriteLabelBonus001* pLabel = CommonScene_dispatchForce(SpriteLabelBonus001);
             pLabel->onDispatched(prm_pActor); //初期設定が行われる
             pLabel->setPositionAt(prm_pActor);
             pLabel->getVecVehicle()->takeoverFrom(prm_pActor->getVecVehicle());
@@ -650,17 +651,17 @@ GgafDx::FigureActor* MyStgUtil::activateFormationDestroyedEffectOf(GgafDx::Geome
             pLabel->update(s.c_str());
             pE = pLabel;
 
-            EffectTurbo002* pTurbo002 = dispatchForceFromCommon(EffectTurbo002);
+            EffectTurbo002* pTurbo002 = CommonScene_dispatchForce(EffectTurbo002);
             pTurbo002->setPositionAt(prm_pActor);
             pTurbo002->getVecVehicle()->takeoverFrom(prm_pActor->getVecVehicle());
             break;
         }
 //            case 2: {
-//                pE = dispatchFromCommon(EffectExplosion002);
+//                pE = CommonScene_dispatch(EffectExplosion002);
 //                break;
 //            }
 //            case 3: {
-//                pE = dispatchFromCommon(EffectExplosion003);
+//                pE = CommonScene_dispatch(EffectExplosion003);
 //                break;
 //            }
         default: {
@@ -686,15 +687,15 @@ GgafDx::FigureActor* MyStgUtil::activateFormationDestroyedItemOf(GgafDx::Geometr
             break;
         }
         case ITEM_MP_SMALL: {
-            pI = dispatchFromCommon(MagicPointItem001);
+            pI = CommonScene_dispatch(MagicPointItem001);
             break;
         }
         case ITEM_MP_MIDDLE: {
-            pI = dispatchFromCommon(MagicPointItem002);
+            pI = CommonScene_dispatch(MagicPointItem002);
             break;
         }
         case ITEM_MP_LARGE: {
-            pI = dispatchFromCommon(MagicPointItem003);
+            pI = CommonScene_dispatch(MagicPointItem003);
             break;
         }
         default: {
@@ -719,7 +720,7 @@ GgafDx::FigureActor* MyStgUtil::activateProperEffect01Of(GgafDx::GeometricActor*
         }
         case EF_TURBO: {
             //ターボエフェクト
-            pE = dispatchFromCommon(EffectTurbo002);
+            pE = CommonScene_dispatch(EffectTurbo002);
             break;
         }
         default: {

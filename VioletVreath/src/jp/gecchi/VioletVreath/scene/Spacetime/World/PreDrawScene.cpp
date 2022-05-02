@@ -122,7 +122,6 @@ void PreDrawScene::processBehavior() {
                 requestTestActor(id, NomalLaserChip                     ,"_chk_TestNomalLaserChipModel"                       );    id++;
                 requestTestActor(id, SingleLaser                        ,"_chk_TestSingleLaserModel"                          );    id++;
 
-
                 requestTestActor(id, DefaultBoardActor                  ,"_chk_TestDefaultBoardActorModel"                    );    id++;
                 requestTestActor(id, DefaultBoardSetActor               ,"_chk_TestDefaultBoardSetActorModel"                 );    id++;
                 requestTestActor(id, DefaultMassBoardActor              ,"_chk_TestDefaultMassBoardActorModel"                );    id++;

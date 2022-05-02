@@ -38,7 +38,7 @@ std::string Cradle::getDebuginfo() {
     std::stringstream ss;
     ss << "ゆりかご時刻:"<<_time_of_wants<<", "
           "ゆりかご番号:"<<_cradle_no<<"-"<<_pReceiver<<", "
-          "進捗:"<<_phase_no<<", "<<
+          "フェーズ:"<<_phase_no<<", "<<
           "命:"<<name_creation<<"("<<_pObject_creation<<")"<<", "
           "祝福開始:"<<_time_of_create_begin<<", "
           "祝福完了:"<<_time_of_create_finish<<", "

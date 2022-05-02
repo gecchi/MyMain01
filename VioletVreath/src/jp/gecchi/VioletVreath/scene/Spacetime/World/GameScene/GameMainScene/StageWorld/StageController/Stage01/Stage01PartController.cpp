@@ -238,7 +238,7 @@ void Stage01PartController::onCatchEvent(hashval prm_no, void* prm_pSource) {
     } else if (prm_no == EVENT_STAGE01_PART_CLIMAX_WAS_FINISHED) {
         _TRACE_(FUNC_NAME<<" EVENT_STAGE01_PART_CLIMAX_WAS_FINISHED");
         ((DefaultScene*)prm_pSource)->sayonara(60*60);
-        pPhase->change(PHASE_FAINAL); //進捗をStage01PartController::PHASE_FAINALに切り替える
+        pPhase->change(PHASE_FAINAL); //フェーズをStage01PartController::PHASE_FAINALに切り替える
     } else {
 
     }

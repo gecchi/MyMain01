@@ -31,7 +31,7 @@ FormationUnomia::FormationUnomia(const char* prm_name, const char* prm_ldr_id)
     mv_velo_           = 0;
     //‹ÈüˆÚ“®‚Ìî•ñƒtƒ@ƒCƒ‹‚ð“Ç‚Ýž‚Þ
     pConn_pCurveManuf_ = connectToCurveManufactureManager(prm_ldr_id);
-    pDepo_shot_ = getCommonDepository(Shot004);
+    pDepo_shot_ = CommonScene_getDepository(Shot004);
 
 
     int col_num = RF_FormationUnomia001_Col(G_MAX_RANK);
@@ -97,7 +97,9 @@ void FormationUnomia::processBehavior() {
             break;
         }
         case PHASE_WAIT1: {
-            pPhase->changeNextWhenArrivedFrameAt(1200);
+            if (pPhase->hasArrivedFrameAt(1200)) {
+                pPhase->changeNext();
+            }
             break;
         }
         case PHASE_SHOT: {

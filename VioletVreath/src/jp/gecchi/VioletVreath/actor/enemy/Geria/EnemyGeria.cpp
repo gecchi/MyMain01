@@ -138,7 +138,7 @@ void EnemyGeria::processBehavior() {
                 GgafDx::GeometricActor* pLast =
                       UTIL::shotWay001(_x, _y, _z,
                                        pM->_x, pM->_y, pM->_z,
-                                       getCommonDepository(Shot004),
+                                       CommonScene_getDepository(Shot004),
                                        PX_C(10),
                                        10000, 100,
                                        3, 5, 0.9,

@@ -34,9 +34,9 @@ public:
     int _phase_no;
     /** [r]１フレーム前のフェーズ番号(-1, 0～) */
     int _phase_no_prev;
-    /** [r]次の単位時間加算時に反映予定のフェーズ番号(-1, 0～) */
+    /** [r]次のフレーム加算時に反映予定のフェーズ番号(-1, 0～) */
     int _phase_no_next;
-    /** [r]各フェーズ番号の進捗変更時の時間の保存 */
+    /** [r]各フェーズ番号のフェーズ変更時の時間の保存 */
     std::unordered_map<int, frame> _map_phase_no_changed_frame;
     /** [r]時間カウンター(時間経過に伴い増加する何らかの変数)の参照 */
     frame* _p_frame_counter;
@@ -45,9 +45,9 @@ public:
     /**
      * コンストラクタ .
      * 初期化時のフェーズ番号は GGAF_PHASE_NOTHING(-1) に設定されている。<BR>
-     * これは、どの進捗状態でも無い事を意味で設定している。<BR>
-     * 通常の進捗状態は 0～ とする。<BR>
-     * @param prm_p_frame_counter 時間カウンターの参照(何らか経過に伴いインクリメント(+1)されていく変数の参照)
+     * これは、どのフェーズでも無い事を意味で設定している。<BR>
+     * 通常のフェーズは 0～ とする。<BR>
+     * @param prm_p_frame_counter 管理するフレーム変数の参照
      */
     Phase(frame* prm_p_frame_counter);
 
@@ -62,7 +62,7 @@ public:
     }
 
     /**
-     * 現在の進捗を即座に設定する .
+     * 現在のフェーズを即座に設定する .
      * 即座に反映される。-1 は設定不可。<BR>
      * 初期化などではこの reset(int) を使用し、<BR>
      * 状態変化時は change(int) を使用する。<BR>
@@ -74,7 +74,7 @@ public:
     void reset(int prm_phase_no);
 
     /**
-     * 現在の進捗を無し GGAF_PHASE_NOTHING(-1) に設定する .
+     * 現在のフェーズを無し GGAF_PHASE_NOTHING(-1) に設定する .
      * 即座に反映される。
      */
     void setNothing();
@@ -90,7 +90,7 @@ public:
      * 現在のフェーズ番号内で何フレームなのかを取得(0～) .
      * hasJustChanged() 成立時は 1 が返る。（リセットされる）
      * その後、加算されていく。
-     * @return 進捗内経過時間
+     * @return フェーズ内経過時間
      */
     inline frame getFrame() const {
         std::unordered_map<int, frame>::const_iterator i = _map_phase_no_changed_frame.find(_phase_no);
@@ -160,22 +160,11 @@ public:
     virtual void changeNext();
 
     /**
-     * 現在のフェーズ番号内でのフレーム数と引数のフレームが同じならば、フェーズ番号を+1する .
-     * 但し、直後には反映されず update() 時に反映される。
-     * @param prm_frame
-     */
-    inline void changeNextWhenArrivedFrameAt(frame prm_frame) {
-        if (hasArrivedFrameAt(prm_frame)) {
-            changeNext();
-        }
-    }
-
-    /**
      * フェーズ番号が切り替わった直後なのかどうかを判定。 .
      * change(int) によりフェーズ番号切り替えた次の update() 時だけ true になります。<BR>
      * reset(int) によりフェーズ番号切り替えた場合は成立しません。<BR>
      * change(int) 又は changeNext() を実行した次フレームで取得条件が成立。
-     * @return true:進捗に切り替わった直後である／false:それ以外
+     * @return true:フェーズに切り替わった直後である／false:それ以外
      */
     inline bool hasJustChanged() const {
         if (_phase_no != _phase_no_prev && _phase_no_prev >= GGAF_PHASE_NOTHING) {
@@ -239,7 +228,7 @@ public:
      * 同一フレーム内で change(int) 又は changeNext() を実行済みの場合、取得条件が成立。
      * @return GGAF_PHASE_NULL(-2) 又は GGAF_PHASE_NOTHING(-1) 又は フェーズ番号
      *         GGAF_PHASE_NULL   ：次フレームにフェーズ番号が変更される予定ではない。
-     *         GGAF_PHASE_NOTHING：現在進捗が無し GGAF_PHASE_NOTHING(-1) で、次フレームにフェーズ番号が変更される予定である。
+     *         GGAF_PHASE_NOTHING：現在フェーズが無し GGAF_PHASE_NOTHING(-1) で、次フレームにフェーズ番号が変更される予定である。
      *         0～               ：次フレームにフェーズ番号が変更される予定であるので、現在のフェーズ番号を返す。
      */
     int getWillChangeNextFrame() const;
@@ -249,13 +238,13 @@ public:
      * 同一フレーム内で change(int) 又は changeNext() を実行済みの場合、取得条件が成立。
      * @return GGAF_PHASE_NULL(-2) 又は GGAF_PHASE_NOTHING(-1) 又は フェーズ番号
      *         GGAF_PHASE_NULL   ：次フレームにフェーズ番号が変更される予定ではない。
-     *         GGAF_PHASE_NOTHING：次フレームに進捗無し GGAF_PHASE_NOTHING(-1) となる予定である。
+     *         GGAF_PHASE_NOTHING：次フレームにフェーズ無し GGAF_PHASE_NOTHING(-1) となる予定である。
      *         0～               ：次フレームにフェーズ番号が変更される予定であるので、その新しいフェーズ番号を返す。
      */
     int getPrevWillChangeNextFrame() const;
 
     /**
-     * 時間に伴って進捗を更新 .
+     * 時間に伴ってフェーズを更新 .
      * 時間カウンターの増加処理で、この処理をコールしてください。
      */
     virtual void update();

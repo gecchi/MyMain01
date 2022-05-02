@@ -93,7 +93,7 @@ void RankUpStage::processBehavior() {
             }
 
             //全滅させてない場合
-            //下位の継承実装クラスのPHASE_RESULTへ進捗更新待ち
+            //下位の継承実装クラスのPHASE_RESULTへフェーズ更新待ち
             break;
         }
         case PHASE_RESULT: {

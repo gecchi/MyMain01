@@ -16,15 +16,16 @@
 /**
  * 共通オブジェクト取得マクロ
  */
-#define pCOMMON_DEPO(X)                   pDepo_##X##_
-#define getCommonDepository(X)             (pCOMMON_SCENE->pCOMMON_DEPO(X))
-#define dispatchFromCommon(X)              ( (X*)(getCommonDepository(X)->dispatch()) )
-#define dispatchDelayFromCommon(X, F)      ( (X*)(getCommonDepository(X)->dispatch((F))) )
-#define dispatchForceFromCommon(X)         ( (X*)(getCommonDepository(X)->dispatchForce()) )
+#define CommonScene_pCOMMON_DEPO(X)          pDepo_##X##_
+#define CommonScene_getDepository(X)         (pCOMMON_SCENE->CommonScene_pCOMMON_DEPO(X))
+#define CommonScene_dispatch(X)              ( (X*)(CommonScene_getDepository(X)->dispatch()) )
+#define CommonScene_dispatchDelay(X, F)      ( (X*)(CommonScene_getDepository(X)->dispatch((F))) )
+#define CommonScene_dispatchForce(X)         ( (X*)(CommonScene_getDepository(X)->dispatchForce()) )
 
-#define pCOMMON_DEPO_STORE(X)              pStore_##X##_
-#define getCommonDepoStore(X)                  (pCOMMON_SCENE->pCOMMON_DEPO_STORE(X))
-#define dispatchFromCommonDepositoryStore(X)         ( (GgafCore::ActorDepository*)(getCommonDepoStore(X)->dispatch()) )
+#define CommonScene_pCOMMON_DEPO_STORE(X)    pStore_##X##_
+#define CommonScene_getDepoStore(X)          (pCOMMON_SCENE->CommonScene_pCOMMON_DEPO_STORE(X))
+#define CommonScene_dispatchDepoStore(X)     ( (GgafCore::ActorDepository*)(CommonScene_getDepoStore(X)->dispatch()) )
+
 namespace VioletVreath {
 
 /**
@@ -39,37 +40,37 @@ class CommonScene : public VvScene<GgafLib::DefaultScene> {
 public:
     /** 汎用爆発エフェクトその１用、常備デポジトリ */
 
-    GgafCore::ActorDepository* pCOMMON_DEPO(EffectExplosion001);
+    GgafCore::ActorDepository* CommonScene_pCOMMON_DEPO(EffectExplosion001);
     /** 汎用爆発エフェクトその２用、常備デポジトリ */
-    GgafCore::ActorDepository* pCOMMON_DEPO(EffectExplosion002);
+    GgafCore::ActorDepository* CommonScene_pCOMMON_DEPO(EffectExplosion002);
     /** 汎用爆発エフェクトその３用、常備デポジトリ */
-    GgafCore::ActorDepository* pCOMMON_DEPO(EffectExplosion003);
+    GgafCore::ActorDepository* CommonScene_pCOMMON_DEPO(EffectExplosion003);
     /** 汎用爆発エフェクトその４用、常備デポジトリ */
-    GgafCore::ActorDepository* pCOMMON_DEPO(EffectExplosion004);
+    GgafCore::ActorDepository* CommonScene_pCOMMON_DEPO(EffectExplosion004);
     /** ターボエフェクト用、常備デポジトリ */
-    GgafCore::ActorDepository* pCOMMON_DEPO(EffectTurbo002);
+    GgafCore::ActorDepository* CommonScene_pCOMMON_DEPO(EffectTurbo002);
     /** アイテムオブジェクト小、常備デポジトリ */
-    GgafCore::ActorDepository* pCOMMON_DEPO(MagicPointItem001);
+    GgafCore::ActorDepository* CommonScene_pCOMMON_DEPO(MagicPointItem001);
     /** アイテムオブジェクト中、常備デポジトリ */
-    GgafCore::ActorDepository* pCOMMON_DEPO(MagicPointItem002);
+    GgafCore::ActorDepository* CommonScene_pCOMMON_DEPO(MagicPointItem002);
     /** アイテムオブジェクト大、常備デポジトリ */
-    GgafCore::ActorDepository* pCOMMON_DEPO(MagicPointItem003);
+    GgafCore::ActorDepository* CommonScene_pCOMMON_DEPO(MagicPointItem003);
 
     /** 汎用出現エフェクトその１用、常備デポジトリ */
-    GgafCore::ActorDepository* pCOMMON_DEPO(EffectBlink001);
+    GgafCore::ActorDepository* CommonScene_pCOMMON_DEPO(EffectBlink001);
     /** 汎用出現エフェクトその２用、常備デポジトリ */
-    GgafCore::ActorDepository* pCOMMON_DEPO(EffectBlink002);
+    GgafCore::ActorDepository* CommonScene_pCOMMON_DEPO(EffectBlink002);
     /** 汎用出現エフェクトその３用、常備デポジトリ */
-    GgafCore::ActorDepository* pCOMMON_DEPO(EffectBlink003);
+    GgafCore::ActorDepository* CommonScene_pCOMMON_DEPO(EffectBlink003);
 
-    GgafCore::ActorDepository* pCOMMON_DEPO(SpriteLabelBonus001);
+    GgafCore::ActorDepository* CommonScene_pCOMMON_DEPO(SpriteLabelBonus001);
 
     /** 汎用出現エフェクトその３用、常備デポジトリ */
-    GgafCore::ActorDepository* pCOMMON_DEPO(Shot004);
+    GgafCore::ActorDepository* CommonScene_pCOMMON_DEPO(Shot004);
 
     /**  */
-    GgafCore::ActorDepositoryStore* pCOMMON_DEPO_STORE(EnemyWateringLaserChip001);
-    GgafCore::ActorDepositoryStore* pCOMMON_DEPO_STORE(EnemyStraightLaserChip001);
+    GgafCore::ActorDepositoryStore* CommonScene_pCOMMON_DEPO_STORE(EnemyWateringLaserChip001);
+    GgafCore::ActorDepositoryStore* CommonScene_pCOMMON_DEPO_STORE(EnemyStraightLaserChip001);
 
 public:
     CommonScene(const char* prm_name);

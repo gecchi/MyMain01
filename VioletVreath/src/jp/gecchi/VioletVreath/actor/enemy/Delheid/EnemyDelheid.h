@@ -22,7 +22,7 @@ public:
     GgafCore::ActorDepository* pDepoShot_;
     /** ショット開始時間 */
     frame shot_begin_frame_;
-    /** ショット関連の進捗状態 */
+    /** ショット関連のフェーズ */
     GgafCore::Phase* pPhase2_;
 
 public:

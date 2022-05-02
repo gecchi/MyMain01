@@ -318,7 +318,7 @@ void EnemyStraea::onHit(const GgafCore::Actor* prm_pOtherActor) {
         sayonara();
         //ŒÅ—L‘Å‚¿•Ô‚µ
         UTIL::shotWay003(this,
-                         getCommonDepository(Shot004) , red_dot,
+                         CommonScene_getDepository(Shot004) , red_dot,
                          pConn_pShotDepo2_->peek(), yellow_dot,
                          pConn_pShotDepo3_->peek(), blue_dot,
                          PX_C(20),

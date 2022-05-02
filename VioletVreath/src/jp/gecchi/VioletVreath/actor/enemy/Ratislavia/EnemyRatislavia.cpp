@@ -120,7 +120,7 @@ void EnemyRatislavia::processBehavior() {
                 CollisionChecker* pChecker = getCollisionChecker();
                 for (int j = 0; j < colli_part_num_; j++) {
                     pPart = pChecker->getArea()->getPart(j);
-                    pE = dispatchDelayFromCommon(EffectExplosion004, RND(1,10));
+                    pE = CommonScene_dispatchDelay(EffectExplosion004, RND(1,10));
                     if (pE) {
                         pE->setPosition(_x + pPart->_cx + RND(-r2_, +r2_),
                                         _y + pPart->_cy + RND(-r2_, +r2_),
@@ -138,7 +138,7 @@ void EnemyRatislavia::processBehavior() {
                 CollisionChecker* pChecker = getCollisionChecker();
                 for (int j = 0; j < colli_part_num_; j++) {
                     pPart = pChecker->getArea()->getPart(j);
-                    pE = dispatchFromCommon(EffectExplosion004);
+                    pE = CommonScene_dispatch(EffectExplosion004);
                     if (pE) {
                         pE->setPosition(_x + pPart->_cx,
                                      _y + pPart->_cy,

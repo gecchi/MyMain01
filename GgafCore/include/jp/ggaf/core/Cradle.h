@@ -54,7 +54,7 @@ private:
 public:
     /** ゆりかご番号 */
     uint64_t _cradle_no;
-    /** 進捗具合（0:未着手/1:祝福中/2:祝福済み） */
+    /** フェーズ具合（0:未着手/1:祝福中/2:祝福済み） */
     int _phase_no;
     /** 命への臍の緒 */
     Object* _pObject_creation;

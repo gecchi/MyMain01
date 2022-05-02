@@ -7156,7 +7156,7 @@ void StageDebugPartController::onCatchEvent(hashval prm_no, void* prm_pSource) {
     } else if (prm_no == EVENT_STAGEDEBUG_PART_CLIMAX_WAS_FINISHED) {
         _TRACE_(FUNC_NAME<<" EVENT_STAGEDEBUG_PART_CLIMAX_WAS_FINISHED");
         ((DefaultScene*)prm_pSource)->sayonara(60*60);
-        pPhase->change(PHASE_FAINAL); //進捗をStageDebugPartController::PHASE_FAINALに切り替える
+        pPhase->change(PHASE_FAINAL); //フェーズをStageDebugPartController::PHASE_FAINALに切り替える
     } else {
 
     }
