@@ -85,7 +85,7 @@ void ScoreItem::processBehavior() {
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     GgafDx::GeoVehicle* const pGeoVehicle = getGeoVehicle();
     GgafCore::Phase* pPhase = getPhase();
-    if (pPhase->get() == PHASE_DRIFT) {
+    if (pPhase->getCurrent() == PHASE_DRIFT) {
         //TractorMagic発動中はPHASE_ATTACHへ移行
         if (getTractorMagic()->is_tracting_) {
             effectFlush(6); //フラッシュ
@@ -96,7 +96,7 @@ void ScoreItem::processBehavior() {
     }
 
     //自機と当たり判定がヒットし、自機に向かう動き
-    if (pPhase->get() == PHASE_ATTACH) {
+    if (pPhase->getCurrent() == PHASE_ATTACH) {
         MyShip* pMyShip = pMYSHIP;
         if (pPhase->hasJustChanged()) {
             //自機に引力で引き寄せられるような動き設定
@@ -122,7 +122,7 @@ void ScoreItem::processBehavior() {
     }
 
     //自機近辺に到達し、吸着、吸収中の動き
-    if (pPhase->get() == PHASE_ABSORB) {
+    if (pPhase->getCurrent() == PHASE_ABSORB) {
         MyShip* pMyShip = pMYSHIP;
         if (pPhase->hasJustChanged()) {
             pGeoVehicle->setXYZZero();
@@ -151,17 +151,17 @@ void ScoreItem::processJudgement() {
         sayonara();
     }
 //    //通常移動
-//    if (pPhase->get() == PHASE_DRIFT) {
+//    if (pPhase->getCurrent() == PHASE_DRIFT) {
 //        //onHit() で状態変化するのを待つ
 //    }
 //
 //    //自機と当たり判定がヒット時
-//    if (pPhase->get() == PHASE_ATTACH) {
+//    if (pPhase->getCurrent() == PHASE_ATTACH) {
 //
 //    }
 //
 //    //自機に吸着し、吸収中の動き
-//    if (pPhase->get() == PHASE_ABSORB) {
+//    if (pPhase->getCurrent() == PHASE_ABSORB) {
 //    }
 }
 
@@ -173,7 +173,7 @@ void ScoreItem::onHit(const GgafCore::Actor* prm_pOtherActor) {
     //ここにヒットエフェクト
 
     GgafCore::Phase* pPhase = getPhase();
-    if (pPhase->get() == PHASE_DRIFT && (pOther->lookUpKind() & KIND_MY_BODY))  {
+    if (pPhase->getCurrent() == PHASE_DRIFT && (pOther->lookUpKind() & KIND_MY_BODY))  {
         setHitAble(false);
         pPhase->change(PHASE_ATTACH);
     }

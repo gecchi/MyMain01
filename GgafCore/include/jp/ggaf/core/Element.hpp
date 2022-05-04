@@ -830,7 +830,7 @@ Element<T>::Element(const char* prm_name) :
     _frame_of_life_when_inactivation(0),
     _on_change_to(0),
     _is_already_reset(false),
-    _pPhase(nullptr)
+    _pPhase(NEW Phase(&_frame_of_behaving))
 {
 }
 
@@ -852,11 +852,10 @@ void Element<T>::nextFrame() {
                 updateActiveInTheTree();     //_is_active_in_the_tree_flg を更新
                 if (_is_active_in_the_tree_flg) {
                     _frame_of_behaving++;
-                    if (_pPhase) {  _pPhase->update();  } // フェーズを反映
+                    _pPhase->update();// フェーズを反映
                     _frame_of_behaving_since_onActive++;
                 }
             }
-
         } else { //現在inactivate
             if (frame_of_life == _frame_of_life_when_activation) { //現在inactivate だが、今activateになる時が来た
                 _on_change_to = 2;      //onActive処理
@@ -864,7 +863,7 @@ void Element<T>::nextFrame() {
                 updateActiveInTheTree();     //_is_active_in_the_tree_flg を更新
                 if (_is_active_in_the_tree_flg) {
                     _frame_of_behaving++;
-                    if (_pPhase) {  _pPhase->update();  } // フェーズを反映
+                    _pPhase->update();  // フェーズを反映
                     _frame_of_behaving_since_onActive++;
                 }
                 if (!_was_initialize_flg) {

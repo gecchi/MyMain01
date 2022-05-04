@@ -72,7 +72,7 @@ void EnemyEbe::onActive() {
 void EnemyEbe::processBehavior() {
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     GgafCore::Phase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_MOVE01_1: {
             if ((int)(pPhase->getFrame()) > (int)(PX_C(300) / ABS(pVecVehicle->_velo_mv))) {
                 pPhase->changeNext();

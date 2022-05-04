@@ -95,7 +95,7 @@ void EnemyRatislavia::onActive() {
 void EnemyRatislavia::processBehavior() {
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     GgafCore::Phase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
             setAlpha(0);
             getAlphaFader()->transitionLinearUntil(1.0, 30*60);

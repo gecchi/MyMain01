@@ -75,7 +75,7 @@ void EnemyGlajaLance001::processBehavior() {
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     GgafDx::Scaler* const pScaler = getScaler();
     GgafCore::Phase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
             setHitAble(true, false);
             //_pVecVehicle->setMvAngTwd(&turning_pos_);

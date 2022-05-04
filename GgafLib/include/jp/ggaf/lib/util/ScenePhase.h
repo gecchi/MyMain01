@@ -9,9 +9,9 @@ namespace GgafLib {
 typedef std::map<int, GgafLib::DefaultScene*> PhaseSceneMap;
 
 /**
- * フェーズフェーズ管理(シーン用)クラス .
+ * フェーズ管理(シーン用)クラス .
  * 基底のGgafCore::Phaseクラスに、シーンにまつわる便利な機能を追加した
- * シーン専用のフェーズフェーズ管理クラスです。
+ * シーン専用のフェーズ管理クラスです。
  * @version 1.00
  * @since 2011/07/15
  * @author Masatoshi Tsuge
@@ -152,6 +152,7 @@ public:
      * @param prm_delay 遅延フレーム
      */
     virtual void changeDelay(int prm_phase_no, frame prm_delay);
+
     virtual void update() override;
 
     /**

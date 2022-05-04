@@ -52,7 +52,7 @@ void LockonCursor001_Main::processBehavior() {
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     GgafDx::Scaler* const pScaler = getScaler();
     GgafCore::Phase* pPhase = getPhase();
-    if (pPhase->get() == LOCKON001_PHASE_LOCK || pPhase->get() == LOCKON001_PHASE_FIRST_LOCK) {
+    if (pPhase->getCurrent() == LOCKON001_PHASE_LOCK || pPhase->getCurrent() == LOCKON001_PHASE_FIRST_LOCK) {
         if (getAlpha() < 1.0) {
             addAlpha(0.01);
         }
@@ -83,7 +83,7 @@ void LockonCursor001_Main::processBehavior() {
         }
     }
 
-    if (pPhase->get() == LOCKON001_PHASE_RELEASE) {
+    if (pPhase->getCurrent() == LOCKON001_PHASE_RELEASE) {
         pTarget_ = nullptr;
         addAlpha(-0.05);
         if (!pScaler->isTransitioning() || getAlpha() < 0.0f) {
@@ -113,10 +113,10 @@ void LockonCursor001_Main::lockon(GgafDx::GeometricActor* prm_pTarget) {
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     GgafDx::Scaler* const pScaler = getScaler();
     GgafCore::Phase* pPhase = getPhase();
-    if (pPhase->get() == LOCKON001_PHASE_FIRST_LOCK) {
+    if (pPhase->getCurrent() == LOCKON001_PHASE_FIRST_LOCK) {
 
-    } else if (pPhase->get() == LOCKON001_PHASE_LOCK) {
-    } else if (pPhase->get() == LOCKON001_PHASE_RELEASE) {
+    } else if (pPhase->getCurrent() == LOCKON001_PHASE_LOCK) {
+    } else if (pPhase->getCurrent() == LOCKON001_PHASE_RELEASE) {
         pScaler->setRange(60000, 2000); //スケーリング・範囲
         pScaler->transitionLinearUntil(2000, 25);//スケーリング・20F費やして2000(200%)に縮小
         pVecVehicle->setFaceAngVelo(AXIS_Z, 1000);   //回転
@@ -130,17 +130,17 @@ void LockonCursor001_Main::releaseLockon() {
         GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
         GgafDx::Scaler* const pScaler = getScaler();
         GgafCore::Phase* pPhase = getPhase();
-        if (pPhase->get() == LOCKON001_PHASE_FIRST_LOCK) {
+        if (pPhase->getCurrent() == LOCKON001_PHASE_FIRST_LOCK) {
             pScaler->setRange(60000, 2000); //スケーリング・範囲
             pScaler->transitionLinearUntil(60000, 60);//スケーリング
             pVecVehicle->setFaceAngVelo(AXIS_Z, pVecVehicle->_angvelo_face[AXIS_Z]*-3); //速く逆回転
             pPhase->change(LOCKON001_PHASE_RELEASE);
-        } else if (pPhase->get() == LOCKON001_PHASE_LOCK) {
+        } else if (pPhase->getCurrent() == LOCKON001_PHASE_LOCK) {
             pScaler->setRange(60000, 2000); //スケーリング・範囲
             pScaler->transitionLinearUntil(60000, 60);//スケーリング
             pVecVehicle->setFaceAngVelo(AXIS_Z, pVecVehicle->_angvelo_face[AXIS_Z]*-3); //速く逆回転
             pPhase->change(LOCKON001_PHASE_RELEASE);
-        } else if (pPhase->get() == LOCKON001_PHASE_RELEASE) {
+        } else if (pPhase->getCurrent() == LOCKON001_PHASE_RELEASE) {
             //何も無し
         }
     }

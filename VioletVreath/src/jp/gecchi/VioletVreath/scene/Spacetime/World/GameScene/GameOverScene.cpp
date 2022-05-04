@@ -52,7 +52,7 @@ void GameOverScene::processBehavior() {
 //    }
 
     ScenePhase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
             pPhase->change(PHASE_DISP);
             break;

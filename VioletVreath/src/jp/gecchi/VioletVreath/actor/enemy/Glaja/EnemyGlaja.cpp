@@ -64,7 +64,7 @@ void EnemyGlaja::processBehavior() {
     MyShip* pMyShip = pMYSHIP;
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     GgafCore::Phase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
          case PHASE_INIT: {
              setHitAble(false);
              setAlpha(0);
@@ -168,7 +168,7 @@ void EnemyGlaja::processBehavior() {
     pVecVehicle->behave();
     getMorpher()->behave();
     getAlphaFader()->behave();
-//_TRACE_("EnemyGlaja f:"<<getBehaveingFrame()<<"  pPhase="<<pPhase->get()<<"   X,Y,Z="<<_x<<","<<_y<<","<<_z<<" ");
+//_TRACE_("EnemyGlaja f:"<<getBehaveingFrame()<<"  pPhase="<<pPhase->getCurrent()<<"   X,Y,Z="<<_x<<","<<_y<<","<<_z<<" ");
 }
 
 void EnemyGlaja::processJudgement() {

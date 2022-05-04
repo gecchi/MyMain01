@@ -219,7 +219,7 @@ void World::processBehavior() {
     DECLARE_HASHVAL(ASTER);
 
     ScenePhase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
             if (pGOD->chkCradle(1) == 2) {
                 pPreDrawScene_ = (PreDrawScene*)receiveScene(1);
@@ -231,7 +231,7 @@ void World::processBehavior() {
         }
 
         case PHASE_CALM1: {
-            if (pPreDrawScene_->getPhase()->get() == PreDrawScene::PHASE_WAIT) {
+            if (pPreDrawScene_->getPhase()->getCurrent() == PreDrawScene::PHASE_WAIT) {
                 pLabel_title_->sayonara();
                 pPreDrawScene_->sayonara(120);
                 pPhase->changeNext();

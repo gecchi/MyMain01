@@ -39,7 +39,7 @@ void EnemyIdaBase001::processBehavior() {
     EnemyIdaBase::processBehavior();
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     GgafCore::Phase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
             pVehicleLeader_->start(RELATIVE_COORD, 3);
             pPhase->changeNext();

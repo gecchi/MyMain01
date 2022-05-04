@@ -110,7 +110,7 @@ void MyShipScene::processBehavior() {
         }
     }
 
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
             pPhase->change(PHASE_BEGIN);
             if (pSpacetime->getCameraWorkerChanger()->getActiveCamWorker() != pVamSysCamWorker_) {

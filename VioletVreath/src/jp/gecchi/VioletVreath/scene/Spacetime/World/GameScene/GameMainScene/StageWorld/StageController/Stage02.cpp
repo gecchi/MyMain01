@@ -40,11 +40,11 @@ void Stage02::initialize() {
 void Stage02::processBehavior() {
     Stage::processBehavior();
     ScenePhase* pPhase = getPhase();
-    if (pPhase->get() == Stage::PHASE_INIT) {
+    if (pPhase->getCurrent() == Stage::PHASE_INIT) {
        pPhase->change(Stage::PHASE_BEGIN);
     }
 
-    if (pPhase->get() == Stage::PHASE_BEGIN) {
+    if (pPhase->getCurrent() == Stage::PHASE_BEGIN) {
         if (pPhase->hasArrivedFrameAt(180)) { //ステージ2開始！
             pMessage_->activateImmed();
             pMessage_->update(300*1000, 300*1000, "SCENE 02 START!");
@@ -56,7 +56,7 @@ void Stage02::processBehavior() {
         }
     }
 
-    if (pPhase->get() == Stage::PHASE_END) {
+    if (pPhase->getCurrent() == Stage::PHASE_END) {
         if (pPhase->hasJustChanged()) {
             _TRACE_(FUNC_NAME<<"  Stage::PHASE_ENDになりますた！");
             throwEventUpperTree(EVENT_PREPARE_TRANSIT_STAGE); //通過ステージ準備へ

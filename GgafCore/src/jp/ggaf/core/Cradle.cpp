@@ -22,7 +22,7 @@ Cradle::Cradle(uint64_t prm_cradle_no) : Object() {
     _time_of_wants = 0;
     _time_of_create_begin = 0;
     _time_of_create_finish = 0;
-    _phase_no = 0;
+    _progress_no = 0;
 }
 std::string Cradle::getDebuginfo() {
     std::string name_creation = "nullptr";
@@ -38,7 +38,7 @@ std::string Cradle::getDebuginfo() {
     std::stringstream ss;
     ss << "ゆりかご時刻:"<<_time_of_wants<<", "
           "ゆりかご番号:"<<_cradle_no<<"-"<<_pReceiver<<", "
-          "フェーズ:"<<_phase_no<<", "<<
+          "進捗状況:"<<_progress_no<<", "<<
           "命:"<<name_creation<<"("<<_pObject_creation<<")"<<", "
           "祝福開始:"<<_time_of_create_begin<<", "
           "祝福完了:"<<_time_of_create_finish<<", "

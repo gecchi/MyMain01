@@ -54,7 +54,7 @@ void EnemyOebiusController::processBehavior() {
     }
 
     GgafCore::Phase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
             pPhase->changeNext();
             break;

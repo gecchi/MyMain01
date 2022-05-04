@@ -60,7 +60,7 @@ void StageDebug::initialize() {
 void StageDebug::processBehavior() {
     Stage::processBehavior();
     ScenePhase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case Stage::PHASE_INIT: {
             pPhase->change(Stage::PHASE_BEGIN);
             break;

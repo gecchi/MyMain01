@@ -47,11 +47,11 @@ void LockonCursor001_Sub::processBehavior() {
     LockonCursor001::processBehavior();
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     GgafCore::Phase* pPhase = getPhase();
-    if (pPhase->get() == LOCKON001_PHASE_LOCK) {
+    if (pPhase->getCurrent() == LOCKON001_PHASE_LOCK) {
         if (getAlpha() < 0.7) {
-            if (pLockonCursor001_Main_->getPhase()->get() == LOCKON001_PHASE_LOCK) {
+            if (pLockonCursor001_Main_->getPhase()->getCurrent() == LOCKON001_PHASE_LOCK) {
                 addAlpha(0.07);
-            } else if (pLockonCursor001_Main_->getPhase()->get() == LOCKON001_PHASE_FIRST_LOCK) {
+            } else if (pLockonCursor001_Main_->getPhase()->getCurrent() == LOCKON001_PHASE_FIRST_LOCK) {
                 addAlpha(0.01);
             } else {
                 addAlpha(0.01);
@@ -79,7 +79,7 @@ void LockonCursor001_Sub::processBehavior() {
         }
     }
 
-    if (pPhase->get() == LOCKON001_PHASE_RELEASE) {
+    if (pPhase->getCurrent() == LOCKON001_PHASE_RELEASE) {
         pTarget_ = nullptr;
         addAlpha(-0.05);
         _sx = _sy = _sz = pLockonCursor001_Main_->_sx;
@@ -109,8 +109,8 @@ void LockonCursor001_Sub::lockon(GgafDx::GeometricActor* prm_pTarget) {
     pTarget_ = prm_pTarget;
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     GgafCore::Phase* pPhase = getPhase();
-    if (pPhase->get() == LOCKON001_PHASE_LOCK) {
-    } else if (pPhase->get() == LOCKON001_PHASE_RELEASE) {
+    if (pPhase->getCurrent() == LOCKON001_PHASE_LOCK) {
+    } else if (pPhase->getCurrent() == LOCKON001_PHASE_RELEASE) {
         pVecVehicle->setFaceAngVelo(AXIS_Z, 1000);   //‰E‰ñ“]
         pPhase->change(LOCKON001_PHASE_LOCK);
     }
@@ -121,10 +121,10 @@ void LockonCursor001_Sub::releaseLockon() {
     if (isActiveInTheTree()) {
         GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
         GgafCore::Phase* pPhase = getPhase();
-        if (pPhase->get() == LOCKON001_PHASE_LOCK) {
+        if (pPhase->getCurrent() == LOCKON001_PHASE_LOCK) {
             pVecVehicle->setFaceAngVelo(AXIS_Z, pVecVehicle->_angvelo_face[AXIS_Z]*-3); //‘¬‚­‹t‰ñ“]
             pPhase->change(LOCKON001_PHASE_RELEASE);
-        } else if (pPhase->get() == LOCKON001_PHASE_RELEASE) {
+        } else if (pPhase->getCurrent() == LOCKON001_PHASE_RELEASE) {
             //‰½‚à–³‚µ
         }
     }

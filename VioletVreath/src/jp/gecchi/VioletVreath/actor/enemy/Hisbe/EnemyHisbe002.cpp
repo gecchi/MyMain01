@@ -71,7 +71,7 @@ void EnemyHisbe002::onActive() {
 void EnemyHisbe002::processBehavior() {
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     GgafCore::Phase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_WAIT: {
             if (pLaserChipDepo_->_num_chip_active == 0) {
                 pPhase->changeNext();

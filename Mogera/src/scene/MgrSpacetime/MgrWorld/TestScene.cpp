@@ -101,7 +101,7 @@ void TestScene::initialize() {
 
 void TestScene::processBehavior() {
     ScenePhase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_READY: {
             if (pPhase->getFrame() == 20) {
                 order_id_begin_ = ID_ORDER_BEGIN;

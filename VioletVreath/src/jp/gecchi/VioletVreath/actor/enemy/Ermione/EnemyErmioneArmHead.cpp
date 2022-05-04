@@ -33,7 +33,7 @@ void EnemyErmioneArmHead::initialize() {
 
 void EnemyErmioneArmHead::processBehavior() {
     GgafCore::Phase* pPhase = getPhase();
-    if (pPhase->get() == PHASE_NOTHING || pPhase->get() == PHASE_AIMING) { //èoåªä‘äu
+    if (pPhase->getCurrent() == PHASE_NOTHING || pPhase->getCurrent() == PHASE_AIMING) { //èoåªä‘äu
         if (!pDepo_laser_chip_) {
             pDepo_laser_chip_ = (LaserChipDepository*)UTIL::getDepositoryOf(this);
         }

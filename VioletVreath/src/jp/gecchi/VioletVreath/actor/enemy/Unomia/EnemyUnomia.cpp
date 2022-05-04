@@ -78,7 +78,7 @@ void EnemyUnomia::onActive() {
 void EnemyUnomia::processBehavior() {
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     GgafCore::Phase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_ENTRY: {
             pVehicleLeader_->start(ABSOLUTE_COORD);
             pPhase->changeNext();

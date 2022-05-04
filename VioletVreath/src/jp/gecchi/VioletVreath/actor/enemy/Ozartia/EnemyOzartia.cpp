@@ -128,7 +128,7 @@ void EnemyOzartia::processBehavior() {
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
     GgafCore::Phase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE1_INIT: {
             setHitAble(false);
             setAlpha(0);
@@ -276,7 +276,7 @@ void EnemyOzartia::processBehavior() {
     //////////////////////////////////////////////////////////////////////
 
     //ƒVƒ‡ƒbƒg”­ŽËŒnˆ— ‚±‚±‚©‚ç --->
-    switch (pPhase2_->get()) {
+    switch (pPhase2_->getCurrent()) {
         case PHASE2_WAIT: {
             if (pPhase2_->hasJustChanged()) {
             }

@@ -70,7 +70,7 @@ void EnemyTalante::processBehavior() {
     MyShip* pMyShip = pMYSHIP;
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     GgafCore::Phase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
             pPhase->changeNext();
             break;

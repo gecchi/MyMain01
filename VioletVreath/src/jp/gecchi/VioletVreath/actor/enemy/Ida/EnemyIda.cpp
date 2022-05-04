@@ -56,7 +56,7 @@ void EnemyIda::processBehavior() {
 
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     GgafCore::Phase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
             setHitAble(false);
             pVecVehicle->setRollFaceAngVelo(D_ANG(4));

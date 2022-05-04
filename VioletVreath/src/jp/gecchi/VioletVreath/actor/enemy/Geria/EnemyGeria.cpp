@@ -80,7 +80,7 @@ void EnemyGeria::processBehavior() {
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
     GgafCore::Phase* pPhase = getPhase();
 
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
             max_shots_ = 1; //移動中に撃つ事ができるショットの最大回数
             shot_num_ = 0;  //撃ったショット回数

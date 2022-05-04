@@ -59,7 +59,7 @@ void NameEntryScene::initialize() {
 
 void NameEntryScene::processBehavior() {
     ScenePhase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
             pPhase->change(PHASE_PRE_DISP);
             break;
@@ -68,7 +68,7 @@ void NameEntryScene::processBehavior() {
         case PHASE_PRE_DISP: {
             //##########  事前画面表示  ##########
             if (pPhase->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PHASE_PRE_DISP)");
+                _TRACE_(FUNC_NAME<<" Phase has Just Changed (to PHASE_PRE_DISP)");
                 pWorldBound_->fadein();
             }
 
@@ -81,7 +81,7 @@ void NameEntryScene::processBehavior() {
         case PHASE_INPUT: {
             //##########  ネームエントリー  ##########
             if (pPhase->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PHASE_INPUT)");
+                _TRACE_(FUNC_NAME<<" Phase has Just Changed (to PHASE_INPUT)");
                 pLabel01_->update(PX_C(62), PX_C(32), "PLEASE ENTRY YOUR NAME!!!!");
                 pNameEntryBoard_->rise(PX_C(50), PX_C(10)); //ネームエントリー板出現
                 pLabelInputedName_->getVecVehicle()->setRollPitchYawFaceAngVelo(1700, 1500, 1000);
@@ -96,7 +96,7 @@ void NameEntryScene::processBehavior() {
         case PHASE_DONE_DISP: {
             //##########  ネームエントリー完了後の画面表示  ##########
             if (pPhase->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PHASE_DONE_DISP)");
+                _TRACE_(FUNC_NAME<<" Phase has Just Changed (to PHASE_DONE_DISP)");
                 pNameEntryBoard_->sinkMe(); //ネームエントリー板消去
                 pLabelSelectedChar_->inactivate(); //選択表示文字消去
                 pLabelInputedName_->getAlphaFader()->beat(10, 5, 0, 5, -1); //入力ネーム点滅
@@ -131,7 +131,7 @@ void NameEntryScene::processBehavior() {
 
         case PHASE_FINISH: {
             if (pPhase->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PHASE_FINISH)");
+                _TRACE_(FUNC_NAME<<" Phase has Just Changed (to PHASE_FINISH)");
                 _TRACE_("おわりじゃよ！");
                 throwEventUpperTree(EVENT_NAMEENTRYSCENE_FINISH);
             }

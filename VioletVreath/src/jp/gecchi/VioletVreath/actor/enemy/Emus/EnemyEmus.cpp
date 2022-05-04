@@ -83,7 +83,7 @@ void EnemyEmus::processBehavior() {
     changeGeoLocal(); //ŒvŽZ‚Íƒ[ƒJƒ‹À•WŒn
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     GgafCore::Phase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
             pPhase->change(PHASE_INI_WAIT);
             break;
@@ -142,7 +142,7 @@ void EnemyEmus::processBehavior() {
 void EnemyEmus::processChangeGeoFinal() {
     //â‘ÎÀ•WŒn‚Å‚Ì‘€ì
     GgafCore::Phase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_FIRE: {
             if(pDepo_) {
                 GgafDx::FigureActor* pChip = (GgafDx::FigureActor*)pDepo_->dispatch();

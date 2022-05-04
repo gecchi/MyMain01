@@ -50,7 +50,7 @@ void EffectBlink::processBehavior() {
 
     GgafDx::Scaler* const pScaler = getScaler();
     GgafCore::Phase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
             if (scale_in_frames_ > 0) {
                 pScaler->transitionLinearToTop(scale_in_frames_);

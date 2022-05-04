@@ -94,7 +94,7 @@ void EnemyDelheid::processBehavior() {
 
     //移動のフェーズ------------------------------
     GgafCore::Phase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
             pVehicleLeader_->start(RELATIVE_COORD_DIRECTION, 3); //最高で３回ループする予定
             getVecVehicle()->setMvAcce(0);
@@ -123,7 +123,7 @@ void EnemyDelheid::processBehavior() {
     }
 
     //ショット発射のフェーズ-----------------------------------
-    switch (pPhase2_->get()) {
+    switch (pPhase2_->getCurrent()) {
         case PHASE2_WAIT: {
             //open_shot() 待ち・・・
             break;
@@ -184,7 +184,7 @@ void EnemyDelheid::processBehavior() {
 
 void EnemyDelheid::processSettlementBehavior() {
     GgafCore::Phase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_CURVE_MOVING: {
             if (pVehicleLeader_->_cnt_loop >= 2) {
                 if (((FormationDelheid*)getFormation())->pAlisana_goal) {

@@ -97,7 +97,7 @@ void VvvWorld::processBehavior() {
     } else if (GgafDx::Input::isPushedDownKey(DIK_F2)) {
         //ターゲット変更＋カメラ向く
         if (listActorInfo_.length() > 0) {
-            if (pCursor_->_pPhase->get() == VvvCursor::CUR_SINK) {
+            if (pCursor_->_pPhase->getCurrent() == VvvCursor::CUR_SINK) {
                 pCursor_->moveTo(listActorInfo_.getCurrent()->pActor_);
             } else {
                 pCursor_->moveTo(listActorInfo_.next()->pActor_);
@@ -109,7 +109,7 @@ void VvvWorld::processBehavior() {
     } else if (GgafDx::Input::isPushedDownKey(DIK_F3)) {
        //ターゲット変更のみ
        if (listActorInfo_.length() > 0) {
-           if (pCursor_->_pPhase->get() == VvvCursor::CUR_SINK) {
+           if (pCursor_->_pPhase->getCurrent() == VvvCursor::CUR_SINK) {
                pCursor_->moveTo(listActorInfo_.getCurrent()->pActor_);
            } else {
                pCursor_->moveTo(listActorInfo_.next()->pActor_);
@@ -119,7 +119,7 @@ void VvvWorld::processBehavior() {
     } else if (GgafDx::Input::isPushedDownKey(DIK_F4)) {
         //現ターゲットへカメラ向く
         if (listActorInfo_.length() > 0) {
-            if (pCursor_->_pPhase->get() == VvvCursor::CUR_SINK) {
+            if (pCursor_->_pPhase->getCurrent() == VvvCursor::CUR_SINK) {
                 pCursor_->moveTo(listActorInfo_.getCurrent()->pActor_);
             }
             listActorInfo_.getCurrent()->pActor_->effectFlush(30);

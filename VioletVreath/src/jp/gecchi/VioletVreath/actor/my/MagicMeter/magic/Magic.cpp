@@ -179,9 +179,9 @@ void Magic::loadProperties(std::stringstream& sts) {
 
 int Magic::chkCastAble(int prm_new_level) {
     GgafCore::Phase* pPhase = getPhase();
-    if (pPhase->get() == PHASE_INVOKING) {
+    if (pPhase->getCurrent() == PHASE_INVOKING) {
         return MAGIC_CAST_NG_INVOKING_NOW; //発動中のため実行不可
-    } else if (pPhase->get() == PHASE_CASTING) {
+    } else if (pPhase->getCurrent() == PHASE_CASTING) {
         if (prm_new_level == new_level_) {
             //現在詠唱中と同じレベルを詠唱しようとした
             return MAGIC_CAST_NOTHING; //何もしない。
@@ -292,7 +292,7 @@ int Magic::cast(int prm_new_level) {
 
 int Magic::chkInvokeAble(int prm_new_level) {
     GgafCore::Phase* pPhase = getPhase();
-    if (pPhase->get() == PHASE_INVOKING) {
+    if (pPhase->getCurrent() == PHASE_INVOKING) {
         //発動中のため実行不可
         return MAGIC_INVOKE_NG_INVOKING_NOW;
     } else {
@@ -430,7 +430,7 @@ void Magic::nextFrame() {
 }
 void Magic::processBehavior() {
     GgafCore::Phase* pPhase = getPhase();
-    int phs = pPhase->get();
+    int phs = pPhase->getCurrent();
     switch (phs) {
         /////////////////////////////////////// 待機
         case PHASE_NOTHING: {
@@ -605,11 +605,11 @@ void Magic::processBehavior() {
             //上位レベルを詠唱中、または発動中だった場合 effect の後に、ステータスを元に戻す必要がある。
             if (phs == PHASE_CASTING) {
                 _TRACE_(FUNC_NAME<<" ["<<getName()<<"] 効果持続中・・・・、現在詠唱中で持続時間満期処理。effect() 後再詠唱予約");
-                temp_hold_status_ = pPhase->get(); //そこで、現ステータスを一時退避(やや苦しい・・・)
+                temp_hold_status_ = pPhase->getCurrent(); //そこで、現ステータスを一時退避(やや苦しい・・・)
                 temp_hold_new_level_ = new_level_; //詠唱又は発動しようとしていた新レベルも保持
             } else if (phs == PHASE_INVOKING) {
                 _TRACE_(FUNC_NAME<<" ["<<getName()<<"] 効果持続中・・・・、現在発動中で持続時間満期処理。effect() 後発動予約");
-                temp_hold_status_ = pPhase->get(); //そこで、現ステータスを一時退避(やや苦しい・・・)
+                temp_hold_status_ = pPhase->getCurrent(); //そこで、現ステータスを一時退避(やや苦しい・・・)
                 temp_hold_new_level_ = new_level_; //詠唱又は発動しようとしていた新レベルも保持
             } else {
                 //PHASE_EFFECT_START
@@ -623,7 +623,7 @@ void Magic::processBehavior() {
     }while(false); //<--break 脱出用、ここまで
 
 
-    //_TRACE_(FUNC_NAME<<" F="<<getBehaveingFrame()<<" after pPhase->get()="<<pPhase->get());
+    //_TRACE_(FUNC_NAME<<" F="<<getBehaveingFrame()<<" after pPhase->getCurrent()="<<pPhase->getCurrent());
 
 }
 

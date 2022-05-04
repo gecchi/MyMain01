@@ -78,7 +78,7 @@ void FormationDelheid::processBehavior() {
         }
     }
     GgafCore::Phase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
          case PHASE_INIT: {
              //ダミー(pDummy_)を使ってメンバーのカーブ移動の開始位置と方向、終了位置と方向を予め求める
              pDummy_->config(getSplManuf(), nullptr);

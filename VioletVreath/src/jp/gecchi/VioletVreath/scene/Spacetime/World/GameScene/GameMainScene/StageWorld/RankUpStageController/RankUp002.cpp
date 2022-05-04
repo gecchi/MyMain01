@@ -244,7 +244,7 @@ void RankUp002::processBehavior() {
     // gen02 end
 
     ScenePhase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case RankUpStage::PHASE_PLAYING: {
             if (pPhase->hasJustChanged()) {
                 _TRACE_(FUNC_NAME<<" RankUpStage::PHASE_PLAYING ‚É‚È‚è‚Ü‚·‚½I");

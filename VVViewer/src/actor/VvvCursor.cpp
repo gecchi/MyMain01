@@ -36,7 +36,7 @@ void VvvCursor::initialize() {
 }
 
 void VvvCursor::processBehavior() {
-    switch (_pPhase->get()) {
+    switch (_pPhase->getCurrent()) {
         case CUR_SINK: {
             break;
         }

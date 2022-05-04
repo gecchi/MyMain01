@@ -48,7 +48,7 @@ void SpriteLabelBonus001::processBehavior() {
     const Camera* const pCam = pGOD->getSpacetime()->getCamera();
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     GgafCore::Phase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
             pPhase->changeNext();
             break;

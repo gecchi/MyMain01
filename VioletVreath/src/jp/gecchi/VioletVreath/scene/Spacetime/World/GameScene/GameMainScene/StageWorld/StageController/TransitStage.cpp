@@ -45,16 +45,16 @@ void TransitStage::onActive() {
 void TransitStage::processBehavior() {
     Stage::processBehavior();
     ScenePhase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case Stage::PHASE_INIT: {
-            _TRACE_(FUNC_NAME<<" Prog is Stage::PHASE_INIT");
+            _TRACE_(FUNC_NAME<<" Phase is Stage::PHASE_INIT");
             _TRACE_(FUNC_NAME<<" 直後 STAGE="<<teansit_stage_<<"→?");
             pPhase->change(Stage::PHASE_BEGIN);
             break;
         }
         case Stage::PHASE_BEGIN: {
             if (pPhase->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to Stage::PHASE_BEGIN)");
+                _TRACE_(FUNC_NAME<<" Phase has Just Changed (to Stage::PHASE_BEGIN)");
                 _TRACE_(FUNC_NAME<<" 直後 STAGE="<<teansit_stage_<<"→?");
             }
 
@@ -67,7 +67,7 @@ void TransitStage::processBehavior() {
         }
         case Stage::PHASE_PLAYING: {
             if (pPhase->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to Stage::PHASE_PLAYING)");
+                _TRACE_(FUNC_NAME<<" Phase has Just Changed (to Stage::PHASE_PLAYING)");
                 _TRACE_(FUNC_NAME<<" 直後 STAGE="<<teansit_stage_<<"→?");
             }
             if (pPhase->hasArrivedFrameAt(120)) { //次ステージ開始！
@@ -82,7 +82,7 @@ void TransitStage::processBehavior() {
 
         case Stage::PHASE_END: {
             if (pPhase->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to Stage::PHASE_END)");
+                _TRACE_(FUNC_NAME<<" Phase has Just Changed (to Stage::PHASE_END)");
                 _TRACE_(FUNC_NAME<<" 直後 STAGE="<<teansit_stage_<<"→"<<next_main_stage_);
                 throwEventUpperTree(EVENT_PREPARE_NEXT_STAGE, (void*)(&next_main_stage_)); //次ステージ準備へ
             }
@@ -92,7 +92,7 @@ void TransitStage::processBehavior() {
             }
 
             if (pPhase->hasArrivedFrameAt(300)) {
-                _TRACE_(FUNC_NAME<<" Prog(=Stage::PHASE_END) and throwEventUpperTree(EVENT_TRANSIT_WAS_END).");
+                _TRACE_(FUNC_NAME<<" Phase(=Stage::PHASE_END) and throwEventUpperTree(EVENT_TRANSIT_WAS_END).");
                 _TRACE_(FUNC_NAME<<" 直後 STAGE="<<teansit_stage_<<"→"<<next_main_stage_);
                 throwEventUpperTree(EVENT_TRANSIT_WAS_END);
             }

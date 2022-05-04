@@ -145,7 +145,7 @@ void MyBunshinBase::processBehavior() {
     const bool is_released_up_VB_TURBO = pVbPlay->isReleasedUp(VB_TURBO);
     GgafCore::Phase* pPhase = getPhase();
 
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
             pPhase->change(PHASE_BUNSHIN_NOMAL_TRACE);
             break;

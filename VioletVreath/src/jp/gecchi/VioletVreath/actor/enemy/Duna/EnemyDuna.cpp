@@ -71,7 +71,7 @@ void EnemyDuna::onActive() {
 
 void EnemyDuna::processBehavior() {
 //    if (pPhase->hasJustChanged()) {
-//        _TRACE_("EnemyDuna::"<<pPhase->getPrevWhenChanged()<<"¨"<<pPhase->get()<<"");
+//        _TRACE_("EnemyDuna::"<<pPhase->getPrevWhenChanged()<<"¨"<<pPhase->getCurrent()<<"");
 //    }
 
     MyShip* pMyShip = pMYSHIP;
@@ -82,7 +82,7 @@ void EnemyDuna::processBehavior() {
         pGeoVehicle->execGravitationMvSequenceTwd(pMyShip, PX_C(3), 30, PX_C(1));
     }
 
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
             setHitAble(false);
             setAlpha(0);
@@ -387,7 +387,7 @@ void EnemyDuna::processBehavior() {
     pGeoVehicle->behave();
     getMorpher()->behave();
     getAlphaFader()->behave();
-//_TRACE_("EnemyDuna f:"<<getBehaveingFrame()<<"  pPhase="<<pPhase->get()<<"   X,Y,Z="<<_x<<","<<_y<<","<<_z<<" ");
+//_TRACE_("EnemyDuna f:"<<getBehaveingFrame()<<"  pPhase="<<pPhase->getCurrent()<<"   X,Y,Z="<<_x<<","<<_y<<","<<_z<<" ");
 }
 
 void EnemyDuna::processJudgement() {

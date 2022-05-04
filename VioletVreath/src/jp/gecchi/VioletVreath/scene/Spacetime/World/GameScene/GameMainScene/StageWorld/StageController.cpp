@@ -104,9 +104,9 @@ void StageController::initialize() {
 void StageController::processBehavior() {
     //SCORE表示
     ScenePhase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
-            _TRACE_(FUNC_NAME<<" Prog is PHASE_INIT");
+            _TRACE_(FUNC_NAME<<" Phase is PHASE_INIT");
 
             readyStage(main_stage_);
             pPhase->change(PHASE_BEGIN);
@@ -115,7 +115,7 @@ void StageController::processBehavior() {
 
         case PHASE_BEGIN: {
             if (pPhase->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed to PHASE_BEGIN");
+                _TRACE_(FUNC_NAME<<" Phase has Just Changed to PHASE_BEGIN");
                 _TRACE_(FUNC_NAME<<" main_stage_="<<main_stage_);
             }
             if (pPhase->hasArrivedFrameAt(120)) { //２秒遊ぶ
@@ -126,7 +126,7 @@ void StageController::processBehavior() {
 
         case PHASE_PLAY_STAGE: {
             if (pPhase->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed to PHASE_PLAY_STAGE");
+                _TRACE_(FUNC_NAME<<" Phase has Just Changed to PHASE_PLAY_STAGE");
                 _TRACE_(FUNC_NAME<<" main_stage_="<<main_stage_);
                 readyStage(main_stage_); //念のために呼ぶ。通常はもう準備できているハズ。
                 //ステージシーン追加
@@ -145,7 +145,7 @@ void StageController::processBehavior() {
 
         case PHASE_PLAY_TRANSIT: {
             if (pPhase->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed to PHASE_PLAY_TRANSIT");
+                _TRACE_(FUNC_NAME<<" Phase has Just Changed to PHASE_PLAY_TRANSIT");
                 _TRACE_(FUNC_NAME<<" main_stage_="<<main_stage_);
                 pTransitStage_->fadeoutSceneWithBgmTree(0);
                 _TRACE_(FUNC_NAME<<" pTransitStage_->setStage("<<main_stage_<<")");
@@ -160,7 +160,7 @@ void StageController::processBehavior() {
 
         case PHASE_FINISH: {
             if (pPhase->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed to PHASE_FINISH");
+                _TRACE_(FUNC_NAME<<" Phase has Just Changed to PHASE_FINISH");
                 _TRACE_(FUNC_NAME<<" main_stage_="<<main_stage_);
                 main_stage_ = pTransitStage_->next_main_stage_; //次のステージ
                 _TRACE_(FUNC_NAME<<" main_stage_ = pTransitStage_->next_main_stage_;");

@@ -7120,7 +7120,7 @@ void StageDebugPartController::processBehavior() {
     // gen02 end
 
     ScenePhase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_FAINAL: {
             if (pPhase->hasJustChanged()) {
                 //STGDBGClimax_Ià‚Ìˆ—

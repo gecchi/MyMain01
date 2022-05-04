@@ -49,7 +49,7 @@ void GameBeginningScene::initialize() {
 
 void GameBeginningScene::processBehavior() {
     ScenePhase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
             pPhase->change(PHASE_SELECT_MODE);
             break;
@@ -60,7 +60,7 @@ void GameBeginningScene::processBehavior() {
                 pLabel01_->update(PX_C(200), PX_C(200), "GAME_BEGINNING_SCENE BEGIN");
                 pLabel02_->update(PX_C(200), PX_C(250), "SELECT MODE!");
             }
-            if (pPhase->get() == PHASE_SELECT_MODE) {
+            if (pPhase->getCurrent() == PHASE_SELECT_MODE) {
                 if (VB->isPushedDown(VB_UI_EXECUTE) || pPhase->hasArrivedFrameAt(300)) {
                     pPhase->change(PHASE_DECIDE);
                 }

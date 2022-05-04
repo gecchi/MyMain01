@@ -52,7 +52,7 @@ void RankUpStage::processBehavior() {
     sprintf(buff,"HIT/ALL %d/%d", pMedietor->hit_enemy_num_, pMedietor->all_hit_num_);
     ScenePhase* pPhase = getPhase();
     pMessage3_->update(buff);
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
             _TRACE_("RankUpStage::processBehavior()  "<<this<<" š"<<NODE_INFO<<DUMP_FLGS);
             _TRACE_(FUNC_NAME<<" ["<<getName()<<"] PHASE_BEGIN !");

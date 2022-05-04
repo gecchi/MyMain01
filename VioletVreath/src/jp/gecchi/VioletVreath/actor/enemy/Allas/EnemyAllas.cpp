@@ -62,7 +62,7 @@ void EnemyAllas::processBehavior() {
     if (pPhase->hasJustChangedTo(1)) {
         pVehicleLeader_->start(ABSOLUTE_COORD); //カーブ移動を開始(1:座標相対)
     }
-    if (pPhase->get() == 1) {
+    if (pPhase->getCurrent() == 1) {
         //カーブ移動終了待ち
         if (pVehicleLeader_->isFinished()) {
             pPhase->changeNext(); //次のパターンへ

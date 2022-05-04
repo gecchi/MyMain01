@@ -348,36 +348,36 @@ public:
      */
     template<class X>
     X* makeObject(X* (*prm_pFunc)(void*, void*, void*),
-                         Object* prm_pWisher,
-                         Object* prm_pReceiver,
-                         void* prm_pArg1,
-                         void* prm_pArg2,
-                         void* prm_pArg3,
-                         Object* prm_org) {
+                  Object* prm_pWisher,
+                  Object* prm_pReceiver,
+                  void* prm_pArg1,
+                  void* prm_pArg2,
+                  void* prm_pArg3,
+                  Object* prm_org) {
         createCradle(ORDER_ID_MAX, (Object* (*)(void*, void*, void*))prm_pFunc, prm_pWisher, prm_pReceiver, prm_pArg1, prm_pArg2, prm_pArg3);
         return (X*)(receive(ORDER_ID_MAX, prm_org));
     }
 
     template<class X>
     X* makeActor(X* (*prm_pFunc)(void*, void*, void*),
-                         Object* prm_pWisher,
-                         Object* prm_pReceiver,
-                         void* prm_pArg1,
-                         void* prm_pArg2,
-                         void* prm_pArg3,
-                         Object* prm_org) {
+                 Object* prm_pWisher,
+                 Object* prm_pReceiver,
+                 void* prm_pArg1,
+                 void* prm_pArg2,
+                 void* prm_pArg3,
+                 Object* prm_org) {
         createActorCradle(ORDER_ID_MAX, (Object* (*)(void*, void*, void*))prm_pFunc, prm_pWisher, prm_pReceiver, prm_pArg1, prm_pArg2, prm_pArg3);
         return (X*)(receive_Actor(ORDER_ID_MAX, prm_org));
     }
 
     template<class X>
     X* makeScene(X* (*prm_pFunc)(void*, void*, void*),
-                         Object* prm_pWisher,
-                         Object* prm_pReceiver,
-                         void* prm_pArg1,
-                         void* prm_pArg2,
-                         void* prm_pArg3,
-                         Object* prm_org) {
+                 Object* prm_pWisher,
+                 Object* prm_pReceiver,
+                 void* prm_pArg1,
+                 void* prm_pArg2,
+                 void* prm_pArg3,
+                 Object* prm_org) {
         createSceneCradle(ORDER_ID_MAX, (Object* (*)(void*, void*, void*))prm_pFunc, prm_pWisher, prm_pReceiver, prm_pArg1, prm_pArg2, prm_pArg3);
         return (X*)(receive_Scene(ORDER_ID_MAX, prm_org));
     }
@@ -385,7 +385,7 @@ public:
     /**
      * 望んだ命が出来上がっているか調べる。（メインスレッドが使用） .
      * @param prm_cradle_no   ゆりかご番号
-     * @return ゆりかご番号の命のフェーズ具合(-2:神が愛していない/-1:ゆりかご自体が無い/0:ゆりかごは在るが未祝福/1:祝福中/2:祝福済み）
+     * @return ゆりかご番号の命の進捗状況(-2:神が愛していない/-1:ゆりかご自体が無い/0:ゆりかごは在るが未祝福/1:祝福中/2:祝福済み）
      */
     int chkCradle(uint64_t prm_cradle_no);
 

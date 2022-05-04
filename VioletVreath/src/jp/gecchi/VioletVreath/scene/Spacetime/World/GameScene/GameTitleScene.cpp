@@ -88,7 +88,7 @@ void GameTitleScene::processBehavior() {
     }
 //    DECLARE_HASHVAL(STR02);
 //    LabelGecchi16Font* pLabel02 = (LabelGecchi16Font*) bringSceneMediator()->bring(STR02);
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
             pPhase->change(PHASE_TITLE);
             break;

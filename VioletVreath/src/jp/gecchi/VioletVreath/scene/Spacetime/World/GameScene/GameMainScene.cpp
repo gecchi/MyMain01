@@ -89,9 +89,9 @@ void GameMainScene::processBehavior() {
     pLabel_JIKI_z_->update(buf_);
 
     ScenePhase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
-            _TRACE_(FUNC_NAME<<" Prog is PHASE_INIT");
+            _TRACE_(FUNC_NAME<<" Phase is PHASE_INIT");
             appendChild(pSTAGE_WORLD->extract());
             pSTAGE_WORLD->resetTree();
             pSTAGE_WORLD->inactivateImmed();
@@ -102,7 +102,7 @@ void GameMainScene::processBehavior() {
 
         case PHASE_BEGIN: {
             if (pPhase->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PHASE_BEGIN)");
+                _TRACE_(FUNC_NAME<<" Phase has Just Changed (to PHASE_BEGIN)");
                 pPhase->change(PHASE_PLAY);
             }
             break;
@@ -110,14 +110,14 @@ void GameMainScene::processBehavior() {
 
         case PHASE_PLAY: {
             if (pPhase->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PHASE_PLAY)");
+                _TRACE_(FUNC_NAME<<" Phase has Just Changed (to PHASE_PLAY)");
             }
             break;
         }
 
         case PHASE_FINISH: {
             if (pPhase->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PHASE_FINISH)");
+                _TRACE_(FUNC_NAME<<" Phase has Just Changed (to PHASE_FINISH)");
             }
             break;
         }

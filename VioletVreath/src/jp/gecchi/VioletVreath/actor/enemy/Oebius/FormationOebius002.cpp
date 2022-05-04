@@ -57,7 +57,7 @@ void FormationOebius002::onActive() {
 }
 void FormationOebius002::processBehavior() {
     GgafCore::Phase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
             pPhase->changeNext();
             break;

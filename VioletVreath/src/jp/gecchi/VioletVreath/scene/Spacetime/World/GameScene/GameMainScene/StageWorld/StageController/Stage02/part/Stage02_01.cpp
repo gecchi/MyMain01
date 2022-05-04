@@ -73,7 +73,7 @@ void Stage02_01::processBehavior() {
     }
     // gen02 end
 
-    if (getBehaveingFrame() == 1 && pGAME_SCENE->getPhase()->get() == GameScene::PHASE_MAIN) {
+    if (getBehaveingFrame() == 1 && pGAME_SCENE->getPhase()->getCurrent() == GameScene::PHASE_MAIN) {
         //兄弟シーンのBGMを全てフェードアウトし、自分のシーンBGMをフェードイン
         StagePartController* pStagePartController = (StagePartController*)(getParent());
         pStagePartController->fadeoutBgmTree(300);

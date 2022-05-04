@@ -54,7 +54,7 @@ void ParallelCurveTestScene::processBehavior() {
 
     }
     ScenePhase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
             if (GgafDx::Input::isPushedDownKey(DIK_RETURN)) {
                 pPhase->changeNext();

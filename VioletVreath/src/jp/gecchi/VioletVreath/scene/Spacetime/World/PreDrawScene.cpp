@@ -95,7 +95,7 @@ void PreDrawScene::initialize() {
 
 void PreDrawScene::processBehavior() {
     ScenePhase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_READY: {
             if (pPhase->getFrame() == 60) {
                 order_id_begin_ = ID_ORDER_BEGIN;

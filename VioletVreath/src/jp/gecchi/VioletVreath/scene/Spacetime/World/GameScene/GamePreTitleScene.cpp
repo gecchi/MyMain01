@@ -49,7 +49,7 @@ void GamePreTitleScene::initialize() {
 
 void GamePreTitleScene::processBehavior() {
     ScenePhase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
             pPhase->change(PHASE_EXEC);
             break;

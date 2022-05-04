@@ -13,7 +13,8 @@ DefaultScene::DefaultScene(const char* prm_name, GgafCore::SceneMediator* prm_pS
     _event_num = 0;
     _feature_p1 = 0;
     _pFuncFeature = nullptr;
-    _pPhase = DefaultScene::createAnotherPhase();
+    GGAF_DELETE_NULLABLE(_pPhase);
+    _pPhase = NEW ScenePhase(this);
 }
 
 ScenePhase* DefaultScene::createAnotherPhase() {

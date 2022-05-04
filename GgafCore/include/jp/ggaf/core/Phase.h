@@ -57,7 +57,7 @@ public:
      * 現在のフェーズ番号取得 .
      * @return フェーズ番号(GGAF_PHASE_NOTHING or 0～)
      */
-    inline int get() const {
+    inline int getCurrent() const {
         return _phase_no;
     }
 

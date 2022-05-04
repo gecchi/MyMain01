@@ -21,7 +21,7 @@ void Stage::initialize() {
 void Stage::processBehavior() {
     DefaultScene::processBehavior();
     ScenePhase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_BEGIN: {
             if (pPhase->hasJustChanged()) {
                 //乱数シード更新

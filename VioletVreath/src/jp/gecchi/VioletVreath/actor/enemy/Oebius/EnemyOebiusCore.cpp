@@ -68,7 +68,7 @@ void EnemyOebiusCore::processBehavior() {
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
 
     GgafCore::Phase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
             setHitAble(false);
             setAlpha(0);

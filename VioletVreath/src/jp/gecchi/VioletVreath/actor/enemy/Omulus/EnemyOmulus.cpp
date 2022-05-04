@@ -123,7 +123,7 @@ void EnemyOmulus::processBehavior() {
     //TODO:混在感をもっとなくす。
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     GgafCore::Phase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
             pPhase->change(PHASE_HATCH_CLOSE);
             break;
@@ -167,7 +167,7 @@ void EnemyOmulus::processBehavior() {
 void EnemyOmulus::processChangeGeoFinal() {
     //絶対座標が更新されてから～
     GgafCore::Phase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_HATCH_OPEN: {
             //オープン時敵出現処理
             if (getMorphWeight(MORPHTARGET_HATCH_OPEN) > 0.5) { //モーションが半分以上まで到達したなら

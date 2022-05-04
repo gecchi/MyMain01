@@ -103,7 +103,7 @@ void GameScene::processBehavior() {
     ScenePhase* pPhase = getPhase();
     switch (pPhase->getPrevWhenChanged()) {
         case PHASE_MAIN: {
-            _TRACE_(FUNC_NAME<<" Prog has Just Changed 'From' PHASE_MAIN");
+            _TRACE_(FUNC_NAME<<" Phase has Just Changed 'From' PHASE_MAIN");
             VB_UI->clear();
             pGOD->setVB(VB_UI);  //元に戻す
             break;
@@ -115,9 +115,9 @@ void GameScene::processBehavior() {
     }
 
 
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
-//            _TRACE_(FUNC_NAME<<" Prog(=PHASE_INIT) has Just Changed");
+//            _TRACE_(FUNC_NAME<<" Phase(=PHASE_INIT) has Just Changed");
             //pGOD->syncTimeFrame(); //描画を中止して、フレームと時間の同期を行う
             if ((pPhase->hasArrivedFrameAt(120))) {
                 _TRACE_("pGOD->_fps = "<<pGOD->_fps);
@@ -130,7 +130,7 @@ void GameScene::processBehavior() {
         case PHASE_PRE_TITLE: {
             //##########  タイトル前演出  ##########
             if (pPhase->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PHASE_PRE_TITLE)");
+                _TRACE_(FUNC_NAME<<" Phase has Just Changed (to PHASE_PRE_TITLE)");
                 getBgmConductor()->performFromTheBegining(BGM_DEMO);
             }
             //VB_UI_EXECUTE で、スキップしてTITLEへ
@@ -144,7 +144,7 @@ void GameScene::processBehavior() {
         case PHASE_TITLE: {
             //##########  タイトル  ##########
             if (pPhase->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PHASE_TITLE)");
+                _TRACE_(FUNC_NAME<<" Phase has Just Changed (to PHASE_TITLE)");
             }
             //イベント待ち EVENT_GAMETITLESCENE_FINISH or EVENT_GAMESTART
             break;
@@ -153,7 +153,7 @@ void GameScene::processBehavior() {
         case PHASE_DEMO: {
             //##########  デモ  ##########
             if (pPhase->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PHASE_DEMO)");
+                _TRACE_(FUNC_NAME<<" Phase has Just Changed (to PHASE_DEMO)");
             }
             //VB_UI_EXECUTE で、スキップしてTITLEへ
             if (VB->isPushedDown(VB_UI_EXECUTE)) {
@@ -167,7 +167,7 @@ void GameScene::processBehavior() {
         case PHASE_BEGINNING: {
             //##########  ゲーム開始（モード選択等）  ##########
             if (pPhase->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PHASE_BEGINNING)");
+                _TRACE_(FUNC_NAME<<" Phase has Just Changed (to PHASE_BEGINNING)");
                 getBgmConductor()->fadeoutStopAll(120);
             }
             //イベント待ち EVENT_GAMEMODE_DECIDE
@@ -177,7 +177,7 @@ void GameScene::processBehavior() {
         case PHASE_MAIN: {
             //##########  ゲームメイン  ##########
             if (pPhase->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PHASE_MAIN)");
+                _TRACE_(FUNC_NAME<<" Phase has Just Changed (to PHASE_MAIN)");
                 VB_PLAY->clear();
                 pGOD->setVB(VB_PLAY); //プレイ用に変更
             }
@@ -234,7 +234,7 @@ void GameScene::processBehavior() {
 
         case PHASE_ENDING: {
             if (pPhase->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PHASE_ENDING)");
+                _TRACE_(FUNC_NAME<<" Phase has Just Changed (to PHASE_ENDING)");
             }
             break;
         }
@@ -242,7 +242,7 @@ void GameScene::processBehavior() {
         case PHASE_GAME_OVER: {
             //##########  ゲームオーバー  ##########
             if (pPhase->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PHASE_GAME_OVER)");
+                _TRACE_(FUNC_NAME<<" Phase has Just Changed (to PHASE_GAME_OVER)");
             }
             //イベント待ち EVENT_GAME_OVER_FINISH
             break;
@@ -251,7 +251,7 @@ void GameScene::processBehavior() {
         case PHASE_FINISH: {
             //##########  ゲームシーン終了  ##########
             if (pPhase->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PHASE_FINISH)");
+                _TRACE_(FUNC_NAME<<" Phase has Just Changed (to PHASE_FINISH)");
                 DefaultScene* pChildScene;
                 for (PhaseSceneMap::const_iterator it = pPhase->_mapPhase2Scene.begin(); it != pPhase->_mapPhase2Scene.end(); ++it) {
                     pChildScene = it->second;
@@ -326,7 +326,7 @@ void GameScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
         pPhase->changeWithSceneCrossfading(PHASE_MAIN,600);//メインへ
     } else if (prm_no == EVENT_ALL_MY_SHIP_WAS_DESTROYED) {
         _TRACE_("GameScene::onCatchEvent(EVENT_ALL_MY_SHIP_WAS_DESTROYED)");
-        if (pPhase->get() == PHASE_DEMO) {
+        if (pPhase->getCurrent() == PHASE_DEMO) {
             //もし万が一、デモシーン中の全機消滅ならば、デモシーン終了
             pPhase->changeWithSceneFadeoutFadein(PHASE_INIT, 120, 120); //最初へ
             getBgmConductor()->fadeoutStopAll(120);

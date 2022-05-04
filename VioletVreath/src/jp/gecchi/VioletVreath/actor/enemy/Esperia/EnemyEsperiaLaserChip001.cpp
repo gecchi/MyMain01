@@ -67,7 +67,7 @@ void EnemyEsperiaLaserChip001::onActive() {
 void EnemyEsperiaLaserChip001::processBehaviorHeadChip() {
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     GgafCore::Phase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_MOVE_UP: {
             //ƒŒ[ƒU[ã¸
             if (!pVecVehicle->isTurningMvAng()) {

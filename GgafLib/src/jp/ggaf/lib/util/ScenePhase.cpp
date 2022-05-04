@@ -32,7 +32,7 @@ void ScenePhase::relateChildScene(int prm_FirstPhase, int prm_EndPhase, DefaultS
 }
 
 void ScenePhase::changeWithSceneFadein(int prm_phase_no, frame prm_fade_in ) {
-    _TRACE_("ScenePhase::changeWithSceneFadein("<<prm_phase_no<<","<<prm_fade_in<<")  フェーズシーン:"<<get()<<"->"<<prm_phase_no<<" ");
+    _TRACE_("ScenePhase::changeWithSceneFadein("<<prm_phase_no<<","<<prm_fade_in<<")  シーンフェーズ:"<<getCurrent()<<"->"<<prm_phase_no<<" ");
     if (_mapPhase2Scene.find(prm_phase_no) == _mapPhase2Scene.end()) {
         _TRACE_("【警告】ScenePhase::changeWithSceneFadein シーン("<<_pScene->getName()<<")で、"
                 "子シーンと関連付けされていない遷移先フェーズ(prm_phase_no="<<prm_phase_no<<") だった為、activate() ができませんでした。");
@@ -45,14 +45,14 @@ void ScenePhase::changeWithSceneFadein(int prm_phase_no, frame prm_fade_in ) {
 }
 
 void ScenePhase::changeWithSceneFlipping(int prm_phase_no) {
-    _TRACE_("ScenePhase::changeWithSceneFlipping("<<prm_phase_no<<")  フェーズシーン:"<<get()<<"->"<<prm_phase_no<<" ");
+    _TRACE_("ScenePhase::changeWithSceneFlipping("<<prm_phase_no<<")  シーンフェーズ:"<<getCurrent()<<"->"<<prm_phase_no<<" ");
 
-    if (_mapPhase2Scene.find(get()) == _mapPhase2Scene.end()) {
+    if (_mapPhase2Scene.find(getCurrent()) == _mapPhase2Scene.end()) {
         _TRACE_("【警告】ScenePhase::changeWithSceneFlipping シーン("<<_pScene->getName()<<")で、"
-                "子シーンと関連付けされていない遷移元フェーズ(get()="<<get()<<")だった為、inactivate() ができませんでした。");
+                "子シーンと関連付けされていない遷移元フェーズ(get()="<<getCurrent()<<")だった為、inactivate() ができませんでした。");
     } else {
-        _mapPhase2Scene[get()]->fadeoutBgmTree(0);
-        _mapPhase2Scene[get()]->inactivate();
+        _mapPhase2Scene[getCurrent()]->fadeoutBgmTree(0);
+        _mapPhase2Scene[getCurrent()]->inactivate();
     }
     if (_mapPhase2Scene.find(prm_phase_no) == _mapPhase2Scene.end()) {
         _TRACE_("【警告】ScenePhase::changeWithSceneFlipping シーン("<<_pScene->getName()<<")で、"
@@ -66,13 +66,13 @@ void ScenePhase::changeWithSceneFlipping(int prm_phase_no) {
 }
 
 void ScenePhase::changeWithSceneCrossfading(int prm_phase_no, frame prm_cross_fade_frames) {
-    _TRACE_("ScenePhase::changeWithSceneCrossfading("<<prm_phase_no<<","<<prm_cross_fade_frames<<")  フェーズシーン:"<<get()<<"->"<<prm_phase_no<<" ");
-    if (_mapPhase2Scene.find(get()) == _mapPhase2Scene.end()) {
+    _TRACE_("ScenePhase::changeWithSceneCrossfading("<<prm_phase_no<<","<<prm_cross_fade_frames<<")  シーンフェーズ:"<<getCurrent()<<"->"<<prm_phase_no<<" ");
+    if (_mapPhase2Scene.find(getCurrent()) == _mapPhase2Scene.end()) {
         _TRACE_("【警告】ScenePhase::changeWithSceneCrossfading シーン("<<_pScene->getName()<<")で、"
-                "子シーンと関連付けされていない遷移元フェーズ(get()="<<get()<<")だった為、inactivateDelay() ができませんでした。");
+                "子シーンと関連付けされていない遷移元フェーズ(get()="<<getCurrent()<<")だった為、inactivateDelay() ができませんでした。");
     } else {
-        _mapPhase2Scene[get()]->fadeoutSceneWithBgmTree(prm_cross_fade_frames);
-        _mapPhase2Scene[get()]->inactivateDelay(prm_cross_fade_frames); //フェード完了後、非活動に
+        _mapPhase2Scene[getCurrent()]->fadeoutSceneWithBgmTree(prm_cross_fade_frames);
+        _mapPhase2Scene[getCurrent()]->inactivateDelay(prm_cross_fade_frames); //フェード完了後、非活動に
     }
     if (_mapPhase2Scene.find(prm_phase_no) == _mapPhase2Scene.end()) {
         _TRACE_("【警告】ScenePhase::changeWithSceneCrossfading シーン("<<_pScene->getName()<<")で、"
@@ -87,13 +87,13 @@ void ScenePhase::changeWithSceneCrossfading(int prm_phase_no, frame prm_cross_fa
 }
 
 void ScenePhase::changeWithSceneFadeoutFadein(int prm_phase_no, frame prm_fade_out, frame prm_fade_in) {
-    _TRACE_("ScenePhase::changeWithSceneFadeoutFadein("<<prm_phase_no<<","<<prm_fade_out<<","<<prm_fade_in<<")  フェーズシーン:"<<get()<<"->"<<prm_phase_no<<" ");
-    if (_mapPhase2Scene.find(get()) == _mapPhase2Scene.end()) {
+    _TRACE_("ScenePhase::changeWithSceneFadeoutFadein("<<prm_phase_no<<","<<prm_fade_out<<","<<prm_fade_in<<")  シーンフェーズ:"<<getCurrent()<<"->"<<prm_phase_no<<" ");
+    if (_mapPhase2Scene.find(getCurrent()) == _mapPhase2Scene.end()) {
         _TRACE_("【警告】ScenePhase::changeWithSceneFadeoutFadein シーン("<<_pScene->getName()<<")で、"
-                "子シーンと関連付けされていない遷移元フェーズ(get()="<<get()<<")だった為、inactivateDelay() ができませんでした。");
+                "子シーンと関連付けされていない遷移元フェーズ(get()="<<getCurrent()<<")だった為、inactivateDelay() ができませんでした。");
     } else {
-        _mapPhase2Scene[get()]->fadeoutSceneWithBgmTree(prm_fade_out);
-        _mapPhase2Scene[get()]->inactivateDelay(prm_fade_out);
+        _mapPhase2Scene[getCurrent()]->fadeoutSceneWithBgmTree(prm_fade_out);
+        _mapPhase2Scene[getCurrent()]->inactivateDelay(prm_fade_out);
     }
     if (_mapPhase2Scene.find(prm_phase_no) == _mapPhase2Scene.end()) {
         _TRACE_("【警告】ScenePhase::changeWithSceneFadeoutFadein シーン("<<_pScene->getName()<<")で、"
@@ -108,12 +108,12 @@ void ScenePhase::changeWithSceneFadeoutFadein(int prm_phase_no, frame prm_fade_o
 }
 
 void ScenePhase::changeWithSceneOverlapping(int prm_phase_no, frame prm_overlapping_frames) {
-    _TRACE_("ScenePhase::changeWithSceneOverlapping("<<prm_phase_no<<","<<prm_overlapping_frames<<")  フェーズシーン:"<<get()<<"->"<<prm_phase_no<<" ");
-    if (_mapPhase2Scene.find(get()) == _mapPhase2Scene.end()) {
+    _TRACE_("ScenePhase::changeWithSceneOverlapping("<<prm_phase_no<<","<<prm_overlapping_frames<<")  シーンフェーズ:"<<getCurrent()<<"->"<<prm_phase_no<<" ");
+    if (_mapPhase2Scene.find(getCurrent()) == _mapPhase2Scene.end()) {
         _TRACE_("【警告】ScenePhase::changeWithSceneOverlapping シーン("<<_pScene->getName()<<")で、"
-                "子シーンと関連付けされていない遷移元フェーズ(get()="<<get()<<")だった為、inactivateDelay() ができませんでした。");
+                "子シーンと関連付けされていない遷移元フェーズ(get()="<<getCurrent()<<")だった為、inactivateDelay() ができませんでした。");
     } else {
-        _mapPhase2Scene[get()]->inactivateDelay(prm_overlapping_frames);
+        _mapPhase2Scene[getCurrent()]->inactivateDelay(prm_overlapping_frames);
     }
     if (_mapPhase2Scene.find(prm_phase_no) == _mapPhase2Scene.end()) {
         _TRACE_("【警告】ScenePhase::changeWithSceneOverlapping シーン("<<_pScene->getName()<<")で、"
@@ -127,10 +127,10 @@ void ScenePhase::changeWithSceneOverlapping(int prm_phase_no, frame prm_overlapp
 
 
 DefaultScene* ScenePhase::getGazedScene() {
-    if (_mapPhase2Scene.find(get()) == _mapPhase2Scene.end()) {
+    if (_mapPhase2Scene.find(getCurrent()) == _mapPhase2Scene.end()) {
         return nullptr;
     } else {
-        return (_mapPhase2Scene[get()]);
+        return (_mapPhase2Scene[getCurrent()]);
     }
 }
 

@@ -74,7 +74,7 @@ void FormationUnomia::onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed) {
 
 void FormationUnomia::processBehavior() {
    GgafCore::Phase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
             pPhase->changeNext();
             break;

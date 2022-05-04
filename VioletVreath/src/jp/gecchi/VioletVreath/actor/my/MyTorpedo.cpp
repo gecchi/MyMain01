@@ -92,7 +92,7 @@ void MyTorpedo::onActive() {
 void MyTorpedo::processBehavior() {
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     GgafCore::Phase* pPhase = getPhase();
-    if (pPhase->get() == MyTorpedo_RELEASE) {
+    if (pPhase->getCurrent() == MyTorpedo_RELEASE) {
         if (pTailEffectDepository_->_num_chip_active == 0) {
             //軌跡エフェクトが全て非活動になった場合
             inactivate(); //自身を最後にinactivate()
@@ -101,7 +101,7 @@ void MyTorpedo::processBehavior() {
         }
     }
 
-    if (pPhase->get() == MyTorpedo_IN_FIRE) {
+    if (pPhase->getCurrent() == MyTorpedo_IN_FIRE) {
         //尾っぽエフェクト追加処理
         if (pTailEffectDepository_->_num_chip_active < length_TailEffect_) {
             MyTorpedoTail* pTailEffect = (MyTorpedoTail*)pTailEffectDepository_->dispatch();
@@ -212,7 +212,7 @@ void MyTorpedo::processBehavior() {
 
 void MyTorpedo::processJudgement() {
     GgafCore::Phase* pPhase = getPhase();
-    if (isOutOfSpacetime() && pPhase->get() == MyTorpedo_IN_FIRE) {
+    if (isOutOfSpacetime() && pPhase->getCurrent() == MyTorpedo_IN_FIRE) {
         setHitAble(false);
         pPhase->change(MyTorpedo_RELEASE);
         GgafCore::MainActor* pTailEffect = (GgafCore::MainActor*)pTailEffectDepository_->getChildFirst();

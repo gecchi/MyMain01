@@ -63,7 +63,7 @@ void EnemyAlisana::onActive() {
 void EnemyAlisana::processBehavior() {
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
     GgafCore::Phase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
             setHitAble(false);
             setAlpha(0);
@@ -159,7 +159,7 @@ void EnemyAlisana::acitve_open(frame prm_delay) {
 }
 
 bool EnemyAlisana::isOpenDone() {
-    if (getPhase()->get() == PHASE_HATCH_OPEN_DONE) {
+    if (getPhase()->getCurrent() == PHASE_HATCH_OPEN_DONE) {
         return true;
     } else {
         return false;

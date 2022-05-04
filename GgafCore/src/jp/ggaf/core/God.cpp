@@ -104,7 +104,6 @@ DWORD* God::getArrTimeOffset(DWORD sec, DWORD fps) {
 
 
 void God::be() {
-
     // 【メモ】
     // １サイクル（１フレーム）の処理は以下の様に大きく５つに分け、順に実行するものとした。
     //
@@ -333,7 +332,6 @@ void God::clean() {
             DeleteCriticalSection(&(God::CS2));
         }
 
-
         GGAF_DELETEARR(_apaTime_offset_of_next_view[0]);
         GGAF_DELETEARR(_apaTime_offset_of_next_view[1]);
         GGAF_DELETEARR(_apaTime_offset_of_next_view[2]);
@@ -389,7 +387,7 @@ void God::createCradle(uint64_t prm_cradle_no,
     pCradle_new->_pArg1 = prm_pArg1;
     pCradle_new->_pArg2 = prm_pArg2;
     pCradle_new->_pArg3 = prm_pArg3;
-    pCradle_new->_phase_no = 0;
+    pCradle_new->_progress_no = 0;
     if (_pCradleRoot == nullptr) {
         _TRACE2_("＜依頼人:("<<prm_pWisher<<")＞ あぁ、神様はお暇ですね。お願いしたら、すぐ生まれるよね？。");
         pCradle_new->_is_first_cradle_flg = true;
@@ -419,7 +417,7 @@ int God::chkCradle(uint64_t prm_cradle_no) {
     }
     while (_is_loving_flg) {
         if (pCradle->_cradle_no == prm_cradle_no) {
-            return pCradle->_phase_no;
+            return pCradle->_progress_no;
         } else {
             if (pCradle->_is_last_cradle_flg) {
                 return -1;
@@ -452,12 +450,11 @@ void* God::receive(uint64_t prm_cradle_no, Object* prm_pReceiver) {
     while (_is_loving_flg) {
         if (pCradle->_cradle_no == prm_cradle_no && (pCradle->_pReceiver == nullptr || pCradle->_pReceiver == prm_pReceiver) ) {
             while (_is_loving_flg) {
-                if (pCradle->_phase_no < 2) {
-                    _TRACE2_("＜受取人:"<<(prm_pReceiver ? prm_pReceiver->toString() : "nullptr")<<"("<<prm_pReceiver<<")＞ ねぇ神様、["<<prm_cradle_no<<"-"<<prm_pReceiver<<"]の祝福まだ～？、5ミリ秒だけ待ったげよう。pCradle->_phase_no="<<(pCradle->_phase_no));
+                if (pCradle->_progress_no < 2) {
+                    _TRACE2_("＜受取人:"<<(prm_pReceiver ? prm_pReceiver->toString() : "nullptr")<<"("<<prm_pReceiver<<")＞ ねぇ神様、["<<prm_cradle_no<<"-"<<prm_pReceiver<<"]の祝福まだ～？、5ミリ秒だけ待ったげよう。pCradle->_phase_no="<<(pCradle->_progress_no));
 #ifdef _DEBUG
                     //デバッグ時はタイムアウト無し
 #else
-
                     if (waittime > 1000*600) { //約10分
                         _TRACE_(FUNC_NAME<<" タイムアウトエラー発生！");
                         God::debuginfo();
@@ -472,16 +469,16 @@ void* God::receive(uint64_t prm_cradle_no, Object* prm_pReceiver) {
                     Sleep(5);
                     BEGIN_SYNCHRONIZED1; // ----->排他開始
                     waittime += 5;
-                    if (pCradle->_phase_no == 1) {
+                    if (pCradle->_progress_no == 1) {
                         //着手済み
                         _TRACE_N_("！");
                         continue; //待つ
-                    } else if (pCradle->_phase_no == 0) {
+                    } else if (pCradle->_progress_no == 0) {
                         //未着手？
                         pCradle = _pCradleRoot; //もう一度最初から探させる。
                         _TRACE_N_("…");
                         break;
-                    } else if (pCradle->_phase_no == 2) {
+                    } else if (pCradle->_progress_no == 2) {
                         //完成
                         pCradle = _pCradleRoot;
                         _TRACE_N_("(^_^)v");
@@ -700,9 +697,9 @@ unsigned God::loveEternal(void* prm_arg) {
 BEGIN_SYNCHRONIZED1; // ----->排他開始
             Cradle* pCradleBlessing = _pCradleBlessing;
             if (pCradleBlessing) {
-                if (pCradleBlessing->_phase_no == 0) { //未着手ならまず作る
-                    _TRACE2_("＜神＞ よし、ゆりかご["<<pCradleBlessing->_cradle_no<<"-"<<pCradleBlessing->_pReceiver<<"]は未着手(_phase_no == "<<pCradleBlessing->_phase_no<<")だな。ゆえに今から作ります！");
-                    pCradleBlessing->_phase_no = 1; //ステータスを祝福中へ
+                if (pCradleBlessing->_progress_no == 0) { //未着手ならまず作る
+                    _TRACE2_("＜神＞ よし、ゆりかご["<<pCradleBlessing->_cradle_no<<"-"<<pCradleBlessing->_pReceiver<<"]は未着手(_phase_no == "<<pCradleBlessing->_progress_no<<")だな。ゆえに今から作ります！");
+                    pCradleBlessing->_progress_no = 1; //ステータスを祝福中へ
                     pCradleBlessing->_time_of_create_begin = timeGetTime();
                     funcBlessing = pCradleBlessing->_pFunc;
                     void* arg1 = pCradleBlessing->_pArg1;
@@ -726,7 +723,7 @@ END_SYNCHRONIZED1; // <----- 排他終了
                     } else if (_pCradleBlessing == pCradleBlessing) {
                         //正常なケース
                         pCradleBlessing->_pObject_creation = pObject; //ゆりかごに乗せる
-                        pCradleBlessing->_phase_no = 2; //ステータスを祝福済みへ
+                        pCradleBlessing->_progress_no = 2; //ステータスを祝福済みへ
                         pCradleBlessing->_time_of_create_finish = timeGetTime();
                         _TRACE2_("＜神＞ 祝福したゆりかごの命["<<pCradleBlessing->_cradle_no<<"-"<<pCradleBlessing->_pReceiver<<"]を、棚に置いときます。");
                     }  else if (_pCradleBlessing != pCradleBlessing) {
@@ -734,12 +731,12 @@ END_SYNCHRONIZED1; // <----- 排他終了
                                  "_pCradleBlessing が、別のゆりかご["<<_pCradleBlessing->_cradle_no<<"-"<<_pCradleBlessing->_pReceiver<<"]を指していました！壊れてるかもしれません！強制的に元に戻します！要調査！");
                         _pCradleBlessing = pCradleBlessing; //ポインタ強制戻し
                         pCradleBlessing->_pObject_creation = pObject; //ゆりかごに乗せる
-                        pCradleBlessing->_phase_no = 2; //ステータスを祝福済みへ
+                        pCradleBlessing->_progress_no = 2; //ステータスを祝福済みへ
                         pCradleBlessing->_time_of_create_finish = timeGetTime();
                         _TRACE2_("＜神＞ 祝福したゆりかごの命["<<pCradleBlessing->_cradle_no<<"-"<<pCradleBlessing->_pReceiver<<"]を、棚に置いときます・・・。");
                     }
                 } else {
-                    _TRACE2_("＜神＞ ゆりかご["<<pCradleBlessing->_cradle_no<<"-"<<pCradleBlessing->_pReceiver<<"]の命は、もう祝福済みでストックしてるし・・・(_phase_no == "<<pCradleBlessing->_phase_no<<")。");
+                    _TRACE2_("＜神＞ ゆりかご["<<pCradleBlessing->_cradle_no<<"-"<<pCradleBlessing->_pReceiver<<"]の命は、もう祝福済みでストックしてるし・・・(_phase_no == "<<pCradleBlessing->_progress_no<<")。");
                 }
             }
             if (_pCradleRoot == nullptr) {
@@ -752,7 +749,7 @@ END_SYNCHRONIZED1; // <----- 排他終了
                     GarbageBox::_cnt_cleaned = 0;
                 }
             } else {
-                if (_pCradleRoot != nullptr && _pCradleRoot->_pCradle_prev->_phase_no == 0) {
+                if (_pCradleRoot != nullptr && _pCradleRoot->_pCradle_prev->_progress_no == 0) {
                     _TRACE2_("＜神＞ ・・・未祝福のゆりかごがある気配。最終目標のゆりかごは["<<_pCradleRoot->_pCradle_prev->_cradle_no<<"/受取人="<<_pCradleRoot->_pCradle_prev->_pReceiver<<"]なのか？。");
                     _pCradleBlessing = _pCradleBlessing->_pCradle_next;
 END_SYNCHRONIZED1; // <----- 排他終了

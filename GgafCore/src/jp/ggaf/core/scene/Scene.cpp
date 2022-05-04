@@ -16,7 +16,6 @@ Scene::Scene(const char* prm_name, SceneMediator* prm_pSceneMediator) : Element<
 
     _was_paused_flg = false;
     _was_paused_flg_in_next_frame = false;
-
 #ifdef MY_DEBUG
     _TRACE_("new "<<NODE_INFO<<" _id="<<getId());
 #else

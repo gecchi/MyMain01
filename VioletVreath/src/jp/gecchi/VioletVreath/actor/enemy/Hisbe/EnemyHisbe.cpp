@@ -127,7 +127,7 @@ void EnemyHisbe::onActive() {
 
 void EnemyHisbe::processBehavior() {
     GgafCore::Phase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_WAIT: {
             if (pLaserChipDepo_) {
                 if (pLaserChipDepo_->_num_chip_active == 0) {

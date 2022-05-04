@@ -63,9 +63,9 @@ void GameDemoScene::initialize() {
 
 void GameDemoScene::processBehavior() {
     ScenePhase* pPhase = getPhase();
-    switch (pPhase->get()) {
+    switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
-            _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PHASE_INIT)");
+            _TRACE_(FUNC_NAME<<" Phase has Just Changed (to PHASE_INIT)");
             appendChild(pSTAGE_WORLD->extract());
             pSTAGE_WORLD->resetTree();
             pSTAGE_WORLD->inactivateImmed();
@@ -76,7 +76,7 @@ void GameDemoScene::processBehavior() {
 
         case PHASE_DEMOPLAY: {
             if (pPhase->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PHASE_DEMOPLAY)");
+                _TRACE_(FUNC_NAME<<" Phase has Just Changed (to PHASE_DEMOPLAY)");
                 pLabel01_->update(100*1000, 100*1000, "DEMOPLAY NOW");
                 pLabel02_->update(100*1000, 150*1000, "GAME OVER");
                 pLabel02_->setAlpha(pLabel02_->getAlphaFader()->getTop());
@@ -99,7 +99,7 @@ void GameDemoScene::processBehavior() {
         case PHASE_RANKING_TABLE: {
             int ranking_num = G_RANKING_TABLE.getCount();
             if (pPhase->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PHASE_RANKING_TABLE)");
+                _TRACE_(FUNC_NAME<<" Phase has Just Changed (to PHASE_RANKING_TABLE)");
                 pLabel01_->update(PX_C(100), PX_C(100), "RANKING NOW");
                 char buf[60];
                 for (int i = 0; i < ranking_num; i++) {
@@ -135,7 +135,7 @@ void GameDemoScene::processBehavior() {
 
         case PHASE_FINISH: {
             if (pPhase->hasJustChanged()) {
-                _TRACE_(FUNC_NAME<<" Prog has Just Changed (to PHASE_FINISH)");
+                _TRACE_(FUNC_NAME<<" Phase has Just Changed (to PHASE_FINISH)");
             }
             if (pPhase->hasArrivedFrameAt(60*60*6)) {
                 _TRACE_(FUNC_NAME<<" throwEventUpperTree(EVENT_GAMEDEMOSCENE_FINISH)");
