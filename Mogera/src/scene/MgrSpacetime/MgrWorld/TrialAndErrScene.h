@@ -8,7 +8,6 @@ namespace Mogera {
 class TrialAndErrScene : public GgafLib::DefaultScene {
 
 public:
-    PointSpriteTest* pTest_;
 
 public:
     TrialAndErrScene(const char* prm_name);

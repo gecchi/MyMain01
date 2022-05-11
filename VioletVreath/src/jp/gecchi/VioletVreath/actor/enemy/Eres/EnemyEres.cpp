@@ -5,9 +5,9 @@
 #include "jp/ggaf/core/actor/ex/ActorDepository.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/GeoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/AxisVehicle.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "jp/ggaf/dx/util/curve/FixedFrameCurveGeoVehicleLeader.h"
+#include "jp/ggaf/dx/util/curve/FixedFrameCurveAxisVehicleLeader.h"
 #include "jp/ggaf/dx/util/curve/FixedFrameCurveVecVehicleLeader.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Eres/EnemyEresShot001.h"
 #include "jp/ggaf/dx/util/curve/FixedFrameCurveManufacture.h"
@@ -47,7 +47,7 @@ EnemyEres::EnemyEres(const char* prm_name, GgafCore::ActorDepository* prm_pDepo_
 
     pCurveManufConn_ = connectToCurveManufactureManager("EnemyEres_curve");
     pVehicleLeader_ = createCurveVehicleLeader(pCurveManufConn_->peek());
-//    ((FixedFrameCurveGeoVehicleLeader*)pVehicleLeader_)->setGravitationParam(200, PX_C(100));
+//    ((FixedFrameCurveAxisVehicleLeader*)pVehicleLeader_)->setGravitationParam(200, PX_C(100));
 
     GgafDx::SeTransmitterForActor* pSeTx = getSeTransmitter();
     pSeTx->set(SE_EXPLOSION, "SE_EXPLOSION_001");
@@ -97,7 +97,7 @@ void EnemyEres::processBehavior() {
         iMovePatternNo_++;
     }
     pVehicleLeader_->behave(); //カーブ移動を進める
-    getGeoVehicle()->behave();
+    getAxisVehicle()->behave();
     getVecVehicle()->behave(); //次の座標へ移動
     //getSeTransmitter()->behave();
 }

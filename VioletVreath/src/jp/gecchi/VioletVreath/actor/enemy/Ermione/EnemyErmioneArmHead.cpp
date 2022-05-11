@@ -6,7 +6,7 @@
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dx/actor/supporter/GeoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/AxisVehicle.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/lib/actor/laserchip/StraightLaserChip.h"
 

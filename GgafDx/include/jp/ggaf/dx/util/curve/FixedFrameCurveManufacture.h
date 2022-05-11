@@ -84,7 +84,7 @@ public:
      */
     VehicleLeader* createVecVehicleLeader(GgafDx::VecVehicle* prm_pVecVehicle) override;
 
-    VehicleLeader* createGeoVehicleLeader(GgafDx::GeoVehicle* prm_pGeoVehicle) override;
+    VehicleLeader* createAxisVehicleLeader(GgafDx::AxisVehicle* prm_pAxisVehicle) override;
 
     virtual ~FixedFrameCurveManufacture();
 };

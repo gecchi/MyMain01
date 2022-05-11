@@ -2,7 +2,6 @@
 #define VVCOMMONACTORSHEADER_H_
 #include "VioletVreath.h"
 
-#include "jp/gecchi/VioletVreath/actor/common/TestDepository.h"
 #include "jp/gecchi/VioletVreath/actor/common/laserchip/EnemyStraightLaserChip001.h"
 #include "jp/gecchi/VioletVreath/actor/common/laserchip/EnemyWateringLaserChip001.h"
 #include "jp/gecchi/VioletVreath/actor/common/mesh/GroundMeshActor.h"
@@ -12,7 +11,12 @@
 #include "jp/gecchi/VioletVreath/actor/common/shot/Shot004.h"
 #include "jp/gecchi/VioletVreath/actor/common/shot/Shot004Blue.h"
 #include "jp/gecchi/VioletVreath/actor/common/shot/Shot004Yellow.h"
+#include "jp/gecchi/VioletVreath/actor/common/TestDepository.h"
 
+#include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
+#include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink001.h"
+#include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink002.h"
+#include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink003.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectCondensation001.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion001.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion002.h"
@@ -23,10 +27,6 @@
 #include "jp/gecchi/VioletVreath/actor/effect/EffectTurbo002.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectWormhole.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectWormhole001.h"
-#include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
-#include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink001.h"
-#include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink002.h"
-#include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink003.h"
 
 #include "jp/gecchi/VioletVreath/actor/item/Item.h"
 #include "jp/gecchi/VioletVreath/actor/item/MagicPointItem.h"

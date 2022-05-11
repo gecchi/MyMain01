@@ -1,608 +1,229 @@
 #include "jp/ggaf/dx/actor/supporter/GeoVehicle.h"
 
-#include "jp/ggaf/dx/actor/supporter/GeoVehicleAssistantA.h"
 #include "jp/ggaf/dx/util/Util.h"
 
 using namespace GgafDx;
-// ＜軸方向移動: VxMv VyMv VzMv＞
-// 上記の移動体系とはまったく別に、独立して X軸、Y軸、Z軸に平行な移動指定ができる。
-// 「X軸方向移動速度」「Y軸方向移動速度」「Z軸方向移動速度」を設定すると、毎フレーム(_x,_y,_z)にそれぞれの移動増分が
-// 加算される。
 
 GeoVehicle::GeoVehicle(GeometricActor* prm_pActor)  : ActorVehicle(prm_pActor) {
-    _pAsstMv = nullptr;
-    //X軸方向移動速度（X移動座標増分）＝ 0 px/fream
     _velo_x = 0;
-    //X軸方向移動速度上限
-    _top_velo_x = INT_MAX;
-    //X軸方向移動速度下限
-    _bottom_velo_x = INT_MIN;
-    //X軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
-    _acce_x = 0;
-    _top_acce_x = INT_MAX;
-    _bottom_acce_x = INT_MIN;
-    //Y軸方向移動速度（Y移動座標増分）＝ 0 px/fream
     _velo_y = 0;
-    //Y軸方向移動速度上限
-    _top_velo_y = INT_MAX;
-    //Y軸方向移動速度下限
-    _bottom_velo_y = INT_MIN;
-    //Y軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
-    _acce_y = 0;
-
-    _top_acce_y = INT_MAX;
-    _bottom_acce_y = INT_MIN;
-
-    //Z軸方向移動速度（Z移動座標増分）＝ 0 px/fream
     _velo_z = 0;
-    //Z軸方向移動速度上限
-    _top_velo_z = INT_MAX;
-    //Z軸方向移動速度下限
-    _bottom_velo_z = INT_MIN;
-    //Z軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
+    _acce_x = 0;
+    _acce_y = 0;
     _acce_z = 0;
-    _top_acce_z = INT_MAX;
-    _bottom_acce_z = INT_MIN;
+    //移動速度上限
+    _top_velo = INT_MAX;
+    //移動速度下限
+    _bottom_velo = 0;
+    //移動加速度上限
+    _top_acce = INT_MAX;
+    //移動加速度下限
+    _bottom_acce = 0;
 
-    _grv_mv_target_x = 0;
-    _grv_mv_target_y = 0;
-    _grv_mv_target_z = 0;
-    _grv_mv_pActor_target = nullptr;
-    _grv_mv_max_velo = 1000;
-    _grv_mv_acce = 1000;
-    _grv_mv_stop_renge = 1000;
-    _grv_mv_flg = false;
+    _velo = 0;
+    _acce = 0;
 }
 
-GeoVehicleAssistantA* GeoVehicle::asst() {
-    return _pAsstMv ? _pAsstMv : _pAsstMv = NEW GeoVehicleAssistantA(this);
+
+void GeoVehicle::forceVeloRange(velo prm_velo01, velo prm_velo02) {
+    if (prm_velo01 < prm_velo02) {
+        _top_velo = prm_velo02;
+        _bottom_velo = prm_velo01;
+    } else {
+        _top_velo = prm_velo01;
+        _bottom_velo = prm_velo02;
+    }
+#ifdef MY_DEBUG
+    if (_top_velo == 0 ) {
+        _TRACE_("【警告】GeoVehicle::forceVeloRange() 。_top_velo が 0 っておかしいのでは？ prm_velo01="<<prm_velo01<<",prm_velo02="<<prm_velo02<<"");
+    }
+#endif
+    //再設定して範囲内に補正
+    setVelo(_velo_x, _velo_y, _velo_z);
 }
+
+void GeoVehicle::forceAcceRange(acce prm_acce01, acce prm_acce02) {
+    if (prm_acce01 < prm_acce02) {
+        _top_acce = prm_acce02;
+        _bottom_acce = prm_acce01;
+    } else {
+        _top_acce = prm_acce01;
+        _bottom_acce = prm_acce02;
+    }
+    //再設定して範囲内に補正
+    setAcce(_acce_x, _acce_y, _acce_z);
+}
+
+
+void GeoVehicle::setVeloTwd(coord prm_tx, coord prm_ty, coord prm_tz, velo prm_velo) {
+    double vx = prm_tx - _pActor->_x;
+    double vy = prm_ty - _pActor->_y;
+    double vz = prm_tz - _pActor->_z;
+    double p = vx*vx + vy*vy + vz*vz;
+    if (ZEROd_EQ(p)) {
+        if (_acce == 0) {
+            _velo_x = _bottom_velo;
+            _velo_y = 0;
+            _velo_z = 0;
+            _velo = _bottom_velo;
+            return;
+        }
+        p = 1.0*_acce_x*_acce_x + 1.0*_acce_y*_acce_y + 1.0*_acce_z*_acce_z;
+        if (ZEROd_EQ(p)) {
+            _velo_x = _bottom_velo;
+            _velo_y = 0;
+            _velo_z = 0;
+            _velo = _bottom_velo;
+            return;
+        }
+    }
+    velo velo_xyz = prm_velo;
+    if (prm_velo > _top_velo) {
+        velo_xyz = _top_velo;
+    } else if (prm_velo < _bottom_velo) {
+        velo_xyz = _bottom_velo;
+    }
+    if (velo_xyz == 0) {
+        _velo_x = _bottom_velo;
+        _velo_y = 0;
+        _velo_z = 0;
+        _velo = _bottom_velo;
+    } else {
+        double t = (velo_xyz / sqrt(p));
+        _velo_x = t * vx;
+        _velo_y = t * vy;
+        _velo_z = t * vz;
+        _velo = velo_xyz;
+    }
+}
+
+void GeoVehicle::setVeloTwd(angle prm_rz, angle prm_ry, velo prm_velo) {
+    float vx, vy, vz;
+    UTIL::convRzRyToVector(prm_rz, prm_ry, vx, vy, vz);
+    setVelo(vx*prm_velo, vy*prm_velo, vz*prm_velo);
+}
+
+void GeoVehicle::setVelo(velo prm_velo_x, velo prm_velo_y, velo prm_velo_z) {
+    double p = 1.0*prm_velo_x*prm_velo_x + 1.0*prm_velo_y*prm_velo_y + 1.0*prm_velo_z*prm_velo_z;
+    if (ZEROd_EQ(p)) {
+        if (_acce == 0) {
+            _velo_x = _bottom_velo;
+            _velo_y = 0;
+            _velo_z = 0;
+            _velo = _bottom_velo;
+            return;
+        }
+        p = 1.0*_acce_x*_acce_x + 1.0*_acce_y*_acce_y + 1.0*_acce_z*_acce_z;
+        if (ZEROd_EQ(p)) {
+            _velo_x = _bottom_velo;
+            _velo_y = 0;
+            _velo_z = 0;
+            _velo = _bottom_velo;
+            return;
+        }
+    }
+    double velo_xyz = sqrt(p);
+    if (velo_xyz > _top_velo) {
+        double t = _top_velo/velo_xyz;
+        _velo_x = t * prm_velo_x;
+        _velo_y = t * prm_velo_y;
+        _velo_z = t * prm_velo_z;
+        _velo = _top_velo;
+        return;
+    } else if (velo_xyz < _bottom_velo) {
+        double t = _bottom_velo/velo_xyz;
+        _velo_x = t * prm_velo_x;
+        _velo_y = t * prm_velo_y;
+        _velo_z = t * prm_velo_z;
+        _velo = _bottom_velo;
+        return;
+    } else {
+        double t = 1.0;
+        _velo_x = t * prm_velo_x;
+        _velo_y = t * prm_velo_y;
+        _velo_z = t * prm_velo_z;
+        _velo = velo_xyz;
+        return;
+    }
+}
+void GeoVehicle::setVeloZero() {
+    setVelo(0,0,0);
+}
+
+void GeoVehicle::setAcceTwd(coord prm_tx, coord prm_ty, coord prm_tz, acce prm_acce) {
+    acce acce_xyz = prm_acce;
+    if (prm_acce > _top_acce) {
+        acce_xyz = _top_acce;
+    } else if (prm_acce < _bottom_acce) {
+        acce_xyz = _bottom_acce;
+    }
+    double vx = prm_tx - _pActor->_x;
+    double vy = prm_ty - _pActor->_y;
+    double vz = prm_tz - _pActor->_z;
+    double p = vx*vx + vy*vy + vz*vz;
+    if (ZEROd_EQ(p)) {
+        _acce_x = _bottom_acce;
+        _acce_y = 0;
+        _acce_z = 0;
+        _acce = _bottom_acce;
+    } else {
+        double t = (acce_xyz / sqrt(vx*vx + vy*vy + vz*vz));
+        _acce_x = t * vx;
+        _acce_y = t * vy;
+        _acce_z = t * vz;
+        _acce = acce_xyz;
+    }
+}
+
+void GeoVehicle::setAcce(acce prm_acce_x, acce prm_acce_y, acce prm_acce_z) {
+    double p = 1.0 * prm_acce_x * prm_acce_x + 1.0 * prm_acce_y * prm_acce_y + 1.0 * prm_acce_z * prm_acce_z;
+    if (ZEROd_EQ(p)) {
+        _acce_x = _bottom_acce;
+        _acce_y = 0;
+        _acce_z = 0;
+        _acce = _bottom_acce;
+    } else {
+        double acce_xyz = sqrt(p);
+        if (acce_xyz > _top_acce) {
+            double t = _top_acce/acce_xyz;
+            _acce_x = t * prm_acce_x;
+            _acce_y = t * prm_acce_y;
+            _acce_z = t * prm_acce_z;
+            _acce = _top_acce;
+        } else if (acce_xyz < _bottom_acce) {
+            double t = _bottom_acce/acce_xyz;
+            _acce_x = t * prm_acce_x;
+            _acce_y = t * prm_acce_y;
+            _acce_z = t * prm_acce_z;
+            _acce = _bottom_acce;
+        } else {
+            double t = 1.0;
+            _acce_x = t * prm_acce_x;
+            _acce_y = t * prm_acce_y;
+            _acce_z = t * prm_acce_z;
+            _acce = acce_xyz;
+            return;
+        }
+    }
+}
+void GeoVehicle::setAcceZero() {
+    _acce_x = _bottom_acce;
+    _acce_y = 0;
+    _acce_z = 0;
+    _acce = _bottom_acce;
+}
+
 
 void GeoVehicle::behave() {
-    if (_pAsstMv) {
-        _pAsstMv->behave();
+    if (_acce != 0) {
+        setVelo(_velo_x+_acce_x, _velo_y+_acce_y, _velo_z+_acce_z);
     }
-
-    if(_grv_mv_flg) {
-        coord dx, dy, dz;
-        if (_grv_mv_pActor_target) {
-            //_grv_mv_pActor_target 指定時の _grv_mv_target_(xyz) は、_grv_mv_pActor_targetからの補正相対座標
-            dx = (_grv_mv_pActor_target->_x + _grv_mv_target_x) - _pActor->_x;
-            dy = (_grv_mv_pActor_target->_y + _grv_mv_target_y) - _pActor->_y;
-            dz = (_grv_mv_pActor_target->_z + _grv_mv_target_z) - _pActor->_z;
-        } else {
-            //_grv_mv_pActor_target 未定時の _grv_mv_target_(xyz) は、絶対座標
-            dx = _grv_mv_target_x - _pActor->_x;
-            dy = _grv_mv_target_y - _pActor->_y;
-            dz = _grv_mv_target_z - _pActor->_z;
-        }
-        const coord dx_abs = ABS(dx);
-        const coord dy_abs = ABS(dy);
-        const coord dz_abs = ABS(dz);
-        const coord dmax = MAX3(dx_abs, dy_abs, dz_abs);//距離簡易計算
-        if (dmax > _grv_mv_max_velo) {
-            double rr = 1.0*_grv_mv_max_velo / dmax;
-            dx *= rr;
-            dy *= rr;
-            dz *= rr;
-        }
-        const double r_acce = 1.7*_grv_mv_acce / dmax;
-        acce x_acce = r_acce * dx_abs;
-        acce y_acce = r_acce * dy_abs;
-        acce z_acce = r_acce * dz_abs;
-        if (x_acce > _grv_mv_acce) {
-            x_acce = _grv_mv_acce;
-        }
-        if (y_acce > _grv_mv_acce) {
-            y_acce = _grv_mv_acce;
-        }
-        if (z_acce > _grv_mv_acce) {
-            z_acce = _grv_mv_acce;
-        }
-
-        double inv_grv_mv_stop_renge = 1.0 / _grv_mv_stop_renge;
-        const velo last_velo_x = _velo_x;
-        const velo new_velo_x = _grv_mv_max_velo * (dx * inv_grv_mv_stop_renge);
-        if (last_velo_x - x_acce <= new_velo_x &&
-                                        new_velo_x <= last_velo_x + x_acce) {
-            _velo_x = new_velo_x;
-        } else {
-            if (last_velo_x - x_acce > new_velo_x) {
-                _velo_x = last_velo_x - x_acce;
-            } else if (new_velo_x > last_velo_x + x_acce) {
-                _velo_x = last_velo_x + x_acce;
-            }
-        }
-
-        const velo last_velo_y = _velo_y;
-        const velo new_velo_y = _grv_mv_max_velo * (dy * inv_grv_mv_stop_renge);
-        if (last_velo_y - y_acce <= new_velo_y &&
-                                        new_velo_y <= last_velo_y + y_acce) {
-            _velo_y = new_velo_y;
-        } else {
-            if (last_velo_y - y_acce > new_velo_y) {
-                _velo_y = last_velo_y - y_acce;
-            } else if (new_velo_y > last_velo_y + y_acce) {
-                _velo_y = last_velo_y + y_acce;
-            }
-        }
-
-        const velo last_velo_z = _velo_z;
-        const velo new_velo_z = _grv_mv_max_velo * (dz * inv_grv_mv_stop_renge);
-        if (last_velo_z - z_acce <= new_velo_z &&
-                                        new_velo_z <= last_velo_z + z_acce) {
-            _velo_z = new_velo_z;
-        } else {
-            if (last_velo_z - z_acce > new_velo_z) {
-                _velo_z = last_velo_z - z_acce;
-            } else if (new_velo_z > last_velo_z + z_acce) {
-                _velo_z = last_velo_z + z_acce;
-            }
-        }
-    }
-
-    _velo_x += _acce_x;
-    if (_velo_x > _top_velo_x) {
-        _velo_x = _top_velo_x;
-    } else if (_velo_x < _bottom_velo_x) {
-        _velo_x = _bottom_velo_x;
-    }
-    _velo_y += _acce_y;
-    if (_velo_y > _top_velo_y) {
-        _velo_y = _top_velo_y;
-    } else if (_velo_y < _bottom_velo_y) {
-        _velo_y = _bottom_velo_y;
-    }
-    _velo_z += _acce_z;
-    if (_velo_z > _top_velo_z) {
-        _velo_z = _top_velo_z;
-    } else if (_velo_z < _bottom_velo_z) {
-        _velo_z = _bottom_velo_z;
-    }
-
     //Actorに反映
     _pActor->_x += _velo_x;
     _pActor->_y += _velo_y;
     _pActor->_z += _velo_z;
 }
 
-int GeoVehicle::dot(int prm_vX, int prm_vY, int prm_vZ) {
-    return (prm_vX * _velo_x) + (prm_vY *_velo_y) + (prm_vZ*_velo_z);
-}
-
-void GeoVehicle::setVeloX(velo prm_velo_x) {
-    if (prm_velo_x > _top_velo_x) {
-        _velo_x = _top_velo_x;
-    } else if (prm_velo_x < _bottom_velo_x) {
-        _velo_x = _bottom_velo_x;
-    } else {
-        _velo_x = prm_velo_x;
-    }
-}
-
-void GeoVehicle::addVeloX(velo prm_velo_x) {
-    _velo_x += prm_velo_x;
-    if (_velo_x > _top_velo_x) {
-        _velo_x = _top_velo_x;
-    } else if (_velo_x < _bottom_velo_x) {
-        _velo_x = _bottom_velo_x;
-    }
-}
-
-void GeoVehicle::forceVeloXRange(velo prm_velo_x01, velo prm_velo_x02) {
-    if (prm_velo_x01 < prm_velo_x02) {
-        _top_velo_x = prm_velo_x02;
-        _bottom_velo_x = prm_velo_x01;
-    } else {
-        _top_velo_x = prm_velo_x01;
-        _bottom_velo_x = prm_velo_x02;
-    }
-    setVeloX(_velo_x); //再設定して範囲内に補正
-}
-
-void GeoVehicle::setAcceX(acce prm_acce_x) {
-    if (prm_acce_x > _top_acce_x) {
-        _acce_x = _top_acce_x;
-    } else if (prm_acce_x < _bottom_acce_x) {
-        _acce_x = _bottom_acce_x;
-    } else {
-        _acce_x = prm_acce_x;
-    }
-}
-
-void GeoVehicle::addAcceX(acce prm_acce_x) {
-    setAcceX(_acce_x + prm_acce_x);
-}
-
-void GeoVehicle::forceAcceXRange(acce prm_acce_x01, acce prm_acce_x02) {
-    if (prm_acce_x01 < prm_acce_x02) {
-        _top_acce_x = prm_acce_x02;
-        _bottom_acce_x = prm_acce_x01;
-    } else {
-        _top_acce_x = prm_acce_x01;
-        _bottom_acce_x = prm_acce_x02;
-    }
-    setAcceX(_acce_x); //再設定して範囲内に補正
-}
-
-
-void GeoVehicle::setVeloY(velo prm_velo_y) {
-    if (prm_velo_y > _top_velo_y) {
-        _velo_y = _top_velo_y;
-    } else if (prm_velo_y < _bottom_velo_y) {
-        _velo_y = _bottom_velo_y;
-    } else {
-        _velo_y = prm_velo_y;
-    }
-}
-
-void GeoVehicle::addVeloY(velo prm_velo_y) {
-    _velo_y += prm_velo_y;
-    if (_velo_y > _top_velo_y) {
-        _velo_y = _top_velo_y;
-    } else if (_velo_y < _bottom_velo_y) {
-        _velo_y = _bottom_velo_y;
-    }
-}
-
-void GeoVehicle::forceVeloYRange(velo prm_velo_y01, velo prm_velo_y02) {
-    if (prm_velo_y01 < prm_velo_y02) {
-        _top_velo_y = prm_velo_y02;
-        _bottom_velo_y = prm_velo_y01;
-    } else {
-        _top_velo_y = prm_velo_y01;
-        _bottom_velo_y = prm_velo_y02;
-    }
-    setVeloY(_velo_y); //再設定して範囲内に補正
-}
-
-void GeoVehicle::setAcceY(acce prm_acce_y) {
-    if (prm_acce_y > _top_acce_y) {
-        _acce_y = _top_acce_y;
-    } else if (prm_acce_y < _bottom_acce_y) {
-        _acce_y = _bottom_acce_y;
-    } else {
-        _acce_y = prm_acce_y;
-    }
-}
-
-void GeoVehicle::addAcceY(acce prm_acce_y) {
-    setAcceY(_acce_y + prm_acce_y);
-}
-
-void GeoVehicle::forceAcceYRange(acce prm_acce_y01, acce prm_acce_y02) {
-    if (prm_acce_y01 < prm_acce_y02) {
-        _top_acce_y = prm_acce_y02;
-        _bottom_acce_y = prm_acce_y01;
-    } else {
-        _top_acce_y = prm_acce_y01;
-        _bottom_acce_y = prm_acce_y02;
-    }
-    setAcceY(_acce_y); //再設定して範囲内に補正
-}
-
-void GeoVehicle::setVeloZ(velo prm_velo_z) {
-    if (prm_velo_z > _top_velo_z) {
-        _velo_z = _top_velo_z;
-    } else if (prm_velo_z < _bottom_velo_z) {
-        _velo_z = _bottom_velo_z;
-    } else {
-        _velo_z = prm_velo_z;
-    }
-}
-
-void GeoVehicle::addVeloZ(velo prm_velo_z) {
-    _velo_z += prm_velo_z;
-    if (_velo_z > _top_velo_z) {
-        _velo_z = _top_velo_z;
-    } else if (_velo_z < _bottom_velo_z) {
-        _velo_z = _bottom_velo_z;
-    }
-}
-
-void GeoVehicle::forceVeloZRange(velo prm_velo_z01, velo prm_velo_z02) {
-    if (prm_velo_z01 < prm_velo_z02) {
-        _top_velo_z = prm_velo_z02;
-        _bottom_velo_z = prm_velo_z01;
-    } else {
-        _top_velo_z = prm_velo_z01;
-        _bottom_velo_z = prm_velo_z02;
-    }
-    setVeloZ(_velo_z); //再設定して範囲内に補正
-}
-
-void GeoVehicle::setAcceZ(acce prm_acce_z) {
-    if (prm_acce_z > _top_acce_z) {
-        _acce_z = _top_acce_z;
-    } else if (prm_acce_z < _bottom_acce_z) {
-        _acce_z = _bottom_acce_z;
-    } else {
-        _acce_z = prm_acce_z;
-    }
-}
-
-void GeoVehicle::addAcceZ(acce prm_acce_z) {
-    setAcceZ(_acce_z + prm_acce_z);
-}
-
-void GeoVehicle::forceAcceZRange(acce prm_acce_z01, acce prm_acce_z02) {
-    if (prm_acce_z01 < prm_acce_z02) {
-        _top_acce_z = prm_acce_z02;
-        _bottom_acce_z = prm_acce_z01;
-    } else {
-        _top_acce_z = prm_acce_z01;
-        _bottom_acce_z = prm_acce_z02;
-    }
-    setAcceZ(_acce_z); //再設定して範囲内に補正
-}
-
-void GeoVehicle::forceVeloXYZRange(velo prm_velo_vxyz_mv01, velo prm_velo_vxyz_mv02) {
-    if (prm_velo_vxyz_mv01 < prm_velo_vxyz_mv02) {
-        _top_velo_x    = _top_velo_y    = _top_velo_z    = prm_velo_vxyz_mv02;
-        _bottom_velo_x = _bottom_velo_y = _bottom_velo_z = prm_velo_vxyz_mv01;
-    } else {
-        _top_velo_x    = _top_velo_y    = _top_velo_z    = prm_velo_vxyz_mv01;
-        _bottom_velo_x = _bottom_velo_y = _bottom_velo_z = prm_velo_vxyz_mv02;
-    }
-    //再設定して範囲内に補正
-    setVeloX(_velo_x);
-    setVeloY(_velo_y);
-    setVeloZ(_velo_z);
-}
-
-void GeoVehicle::forceAcceXYZRange(acce prm_acce_vxyz_mv01, acce prm_acce_vxyz_mv02) {
-    if (prm_acce_vxyz_mv01 < prm_acce_vxyz_mv02) {
-        _top_acce_x    = _top_acce_y    = _top_acce_z    = prm_acce_vxyz_mv02;
-        _bottom_acce_x = _bottom_acce_y = _bottom_acce_z = prm_acce_vxyz_mv01;
-    } else {
-        _top_acce_x    = _top_acce_y     = _top_acce_z   = prm_acce_vxyz_mv01;
-        _bottom_acce_x =  _bottom_acce_y =_bottom_acce_z = prm_acce_vxyz_mv02;
-    }
-    //再設定して範囲内に補正
-    setAcceX(_acce_x);
-    setAcceY(_acce_y);
-    setAcceZ(_acce_z);
-}
-
-void GeoVehicle::setVeloXYZ(velo prm_velo_x, velo prm_velo_y, velo prm_velo_z) {
-    if (prm_velo_x > _top_velo_x) {
-        _velo_x = _top_velo_x;
-    } else if (prm_velo_x < _bottom_velo_x) {
-        _velo_x = _bottom_velo_x;
-    } else {
-        _velo_x = prm_velo_x;
-    }
-    if (prm_velo_y > _top_velo_y) {
-        _velo_y = _top_velo_y;
-    } else if (prm_velo_y < _bottom_velo_y) {
-        _velo_y = _bottom_velo_y;
-    } else {
-        _velo_y = prm_velo_y;
-    }
-    if (prm_velo_z > _top_velo_z) {
-        _velo_z = _top_velo_z;
-    } else if (prm_velo_z < _bottom_velo_z) {
-        _velo_z = _bottom_velo_z;
-    } else {
-        _velo_z = prm_velo_z;
-    }
-}
-
-void GeoVehicle::setVeloXYZTwd(angle prm_rz, angle prm_ry, velo prm_velo) {
-    float vx, vy, vz;
-    UTIL::convRzRyToVector(prm_rz, prm_ry, vx, vy, vz);
-    setVeloXYZ(vx*prm_velo, vy*prm_velo, vz*prm_velo);
-}
-
-void GeoVehicle::setVeloXYZTwd(coord prm_tx, coord prm_ty, coord prm_tz, velo prm_velo) {
-    float vx, vy, vz;
-    UTIL::getNormalizedVector(prm_tx - _pActor->_x,
-                              prm_ty - _pActor->_y,
-                              prm_tz - _pActor->_z,
-                              vx, vy, vz);
-    setVeloXYZ(vx*prm_velo, vy*prm_velo, vz*prm_velo);
-}
-
-void GeoVehicle::setAcceXYZ(acce prm_acce_x, acce prm_acce_y, acce prm_acce_z) {
-    if (prm_acce_x > _top_acce_x) {
-        _acce_x = _top_acce_x;
-    } else if (prm_acce_x < _bottom_acce_x) {
-        _acce_x = _bottom_acce_x;
-    } else {
-        _acce_x = prm_acce_x;
-    }
-    if (prm_acce_y > _top_acce_y) {
-        _acce_y = _top_acce_y;
-    } else if (prm_acce_y < _bottom_acce_y) {
-        _acce_y = _bottom_acce_y;
-    } else {
-        _acce_y = prm_acce_y;
-    }
-    if (prm_acce_z > _top_acce_z) {
-        _acce_z = _top_acce_z;
-    } else if (prm_acce_z < _bottom_acce_z) {
-        _acce_z = _bottom_acce_z;
-    } else {
-        _acce_z = prm_acce_z;
-    }
-}
-
-coord GeoVehicle::setAcceXByT(frame prm_target_frames, velo prm_target_velo) {
-    double acc = UTIL::getAcceByTv(prm_target_frames, _velo_x, prm_target_velo);
-    if (acc > 0.0) {
-        acc += 0.5;
-    } else if (acc < 0.0) {
-        acc -= 0.5;
-    }
-    setAcceX(acc);
-    //  D = (1/2) (Vo + Vt) Te
-    return ((_velo_x + prm_target_velo) * prm_target_frames) / 2 ;
-}
-
-coord GeoVehicle::setAcceYByT(frame prm_target_frames, velo prm_target_velo) {
-    double acc = UTIL::getAcceByTv(prm_target_frames, _velo_y, prm_target_velo);
-    if (acc > 0.0) {
-        acc += 0.5;
-    } else if (acc < 0.0) {
-        acc -= 0.5;
-    }
-    setAcceY(acc);
-    //  D = (1/2) (Vo + Vt) Te
-    return ((_velo_y + prm_target_velo) * prm_target_frames) / 2 ;
-}
-
-coord GeoVehicle::setAcceZByT(frame prm_target_frames, velo prm_target_velo) {
-    double acc = UTIL::getAcceByTv(prm_target_frames, _velo_z, prm_target_velo);
-    if (acc > 0.0) {
-        acc += 0.5;
-    } else if (acc < 0.0) {
-        acc -= 0.5;
-    }
-    setAcceZ(acc);
-    //  D = (1/2) (Vo + Vt) Te
-    return ((_velo_z + prm_target_velo) * prm_target_frames) / 2 ;
-}
-
-void GeoVehicle::execGravitationMvSequenceTwd(coord prm_tx, coord prm_ty, coord prm_tz,
-                                              velo prm_max_velo,
-                                              acce prm_acce,
-                                              coord prm_stop_renge ) {
-    _grv_mv_target_x = prm_tx;
-    _grv_mv_target_y = prm_ty;
-    _grv_mv_target_z = prm_tz;
-    _grv_mv_pActor_target = nullptr;
-    _grv_mv_max_velo = prm_max_velo;
-    _grv_mv_acce = prm_acce;
-    _grv_mv_stop_renge = prm_stop_renge;
-    _grv_mv_flg = true;
-
-    forceVeloXRange(-prm_max_velo, prm_max_velo);
-    forceVeloYRange(-prm_max_velo, prm_max_velo);
-    forceVeloZRange(-prm_max_velo, prm_max_velo);
-}
-
-void GeoVehicle::execGravitationMvSequenceTwd(const GeometricActor* prm_pActor_target,
-                                              velo prm_max_velo,
-                                              acce prm_acce,
-                                              coord prm_stop_renge ) {
-    _grv_mv_target_x = 0;
-    _grv_mv_target_y = 0;
-    _grv_mv_target_z = 0;
-    _grv_mv_pActor_target = prm_pActor_target;
-    _grv_mv_max_velo = prm_max_velo;
-    _grv_mv_acce = prm_acce;
-    _grv_mv_stop_renge = prm_stop_renge;
-    _grv_mv_flg = true;
-
-    forceVeloXRange(-prm_max_velo, prm_max_velo);
-    forceVeloYRange(-prm_max_velo, prm_max_velo);
-    forceVeloZRange(-prm_max_velo, prm_max_velo);
-}
-
-void GeoVehicle::execGravitationMvSequenceTwd(const GeometricActor* prm_pActor_target,
-                                              coord prm_local_offset_tx, coord prm_local_offset_ty, coord prm_local_offset_tz,
-                                              velo prm_max_velo,
-                                              acce prm_acce,
-                                              coord prm_stop_renge) {
-    _grv_mv_target_x = prm_local_offset_tx;
-    _grv_mv_target_y = prm_local_offset_ty;
-    _grv_mv_target_z = prm_local_offset_tz;
-    _grv_mv_pActor_target = prm_pActor_target;
-    _grv_mv_max_velo = prm_max_velo;
-    _grv_mv_acce = prm_acce;
-    _grv_mv_stop_renge = prm_stop_renge;
-    _grv_mv_flg = true;
-
-    forceVeloXRange(-prm_max_velo, prm_max_velo);
-    forceVeloYRange(-prm_max_velo, prm_max_velo);
-    forceVeloZRange(-prm_max_velo, prm_max_velo);
-}
-
-void GeoVehicle::takeoverFrom(GeoVehicle* const prm_pAxsMver) {
-    // X軸方向移動速度
-    _velo_x = prm_pAxsMver->_velo_x;
-    // X軸方向移動速度上限
-    _top_velo_x = prm_pAxsMver->_top_velo_x;
-    // X軸方向移動速度下限
-    _bottom_velo_x = prm_pAxsMver->_bottom_velo_x;
-    // X軸方向移動加速度
-    _acce_x = prm_pAxsMver->_acce_x;
-    // X軸方向移動加速度上限
-    _top_acce_x = prm_pAxsMver->_top_acce_x;
-    // X軸方向移動加速度下限
-    _bottom_acce_x = prm_pAxsMver->_bottom_acce_x;
-    // Y軸方向移動速度
-    _velo_y = prm_pAxsMver->_velo_y;
-    // Y軸方向移動速度上限
-    _top_velo_y = prm_pAxsMver->_top_velo_y;
-    // Y軸方向移動速度下限
-    _bottom_velo_y = prm_pAxsMver->_bottom_velo_y;
-    // Y軸方向移動加速度
-    _acce_y = prm_pAxsMver->_acce_y;
-    // Y軸方向移動加速度上限
-    _top_acce_y = prm_pAxsMver->_top_acce_y;
-    // Y軸方向移動加速度下限
-    _bottom_acce_y = prm_pAxsMver->_bottom_acce_y;
-    // Z軸方向移動速度
-    _velo_z = prm_pAxsMver->_velo_z;
-    // Z軸方向移動速度上限
-    _top_velo_z = prm_pAxsMver->_top_velo_z;
-    // Z軸方向移動速度下限
-    _bottom_velo_z = prm_pAxsMver->_bottom_velo_z;
-    // Z軸方向移動加速度
-    _acce_z = prm_pAxsMver->_acce_z;
-    // Z軸方向移動加速度上限
-    _top_acce_z = prm_pAxsMver->_top_acce_z;
-    // Z軸方向移動加速度下限
-    _bottom_acce_z = prm_pAxsMver->_bottom_acce_z;
-}
-
-void GeoVehicle::stop() {
-    setXYZZero();
-    setAcceXYZZero();
-    stopGravitationMvSequence();
-    if (_pAsstMv) {
-        _pAsstMv->stopSliding();
-    }
-}
-
-void GeoVehicle::reset() {
-    //X軸方向移動速度（X移動座標増分）＝ 0 px/fream
-    _velo_x = 0;
-    //X軸方向移動速度上限
-    _top_velo_x = INT_MAX;
-    //X軸方向移動速度下限
-    _bottom_velo_x = INT_MIN;
-    //X軸方向移動速度の加速度
-    _acce_x = 0;
-    _top_acce_x = INT_MAX;
-    _bottom_acce_x = INT_MIN;
-    //Y軸方向移動速度（Y移動座標増分）＝ 0 px/fream
-    _velo_y = 0;
-    //Y軸方向移動速度上限
-    _top_velo_y = INT_MAX;
-    //Y軸方向移動速度下限
-    _bottom_velo_y = INT_MIN;
-    //Y軸方向移動速度の加速度
-    _acce_y = 0;
-
-    _top_acce_y = INT_MAX;
-    _bottom_acce_y = INT_MIN;
-
-    //Z軸方向移動速度（Z移動座標増分）＝ 0 px/fream
-    _velo_z = 0;
-    //Z軸方向移動速度上限
-    _top_velo_z = INT_MAX;
-    //Z軸方向移動速度下限
-    _bottom_velo_z = INT_MIN;
-    //Z軸方向移動速度の加速度
-    _acce_z = 0;
-    _top_acce_z = INT_MAX;
-    _bottom_acce_z = INT_MIN;
-
-    _grv_mv_flg = false;
-}
 
 GeoVehicle::~GeoVehicle() {
-    GGAF_DELETE_NULLABLE(_pAsstMv);
 }

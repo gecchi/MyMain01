@@ -1,6 +1,6 @@
 #include "EffectMagic001.h"
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/GeoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/AxisVehicle.h"
 
 
 

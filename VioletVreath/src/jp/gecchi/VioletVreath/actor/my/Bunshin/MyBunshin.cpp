@@ -10,7 +10,7 @@
 #include "jp/gecchi/VioletVreath/actor/my/MyTorpedoController.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dx/actor/supporter/GeoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/AxisVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/VecVehicleMvAssistant.h"
 #include "jp/ggaf/dx/actor/supporter/VecVehicleFaceAngAssistant.h"

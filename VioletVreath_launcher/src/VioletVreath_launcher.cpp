@@ -246,7 +246,6 @@ void myTerminateHandler() {
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
     LibWndProc(hWnd, message, wParam, lParam);
-
     switch (message) {
         case WM_CREATE: {
             // システムメニューカスタム関数を呼ぶ
@@ -474,7 +473,6 @@ BOOL CustmizeSysMenu(HWND hWnd)
 
     //システムメニューを作成
     DrawMenuBar(hWnd);
-
     return TRUE;
 }
 
@@ -511,5 +509,8 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam) {
 //        break;
 //}
 //}
+
+
+
 
 

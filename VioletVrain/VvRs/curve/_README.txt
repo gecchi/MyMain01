@@ -150,8 +150,8 @@ FixedVelocityCurveVecVehicleLeader
     後述の、[ANGLE_VELOCITY], [TURN_WAY], [TURN_OPTIMIZE] の設定が必須です。
     [SPENT_FRAME] の設定は不可です。これはキャラの速度によって費やすフレームが変動して決まる
 
-FixedVelocityCurveGeoVehicleLeader
-  →実験中。上記の移動を GeoVehicle.execGravitationMvSequenceTwd() で行ってふわふわした移動となる
+FixedVelocityCurveAxisVehicleLeader
+  →実験中。上記の移動を AxisVehicle.execGravitationMvSequenceTwd() で行ってふわふわした移動となる
 
 SteppedCoordCurveVecVehicleLeader
   →スプライン曲線座標の開始点～終了点の移動を、１フレーム毎に１補間点座標へ移動させるメソッドのクラスです。

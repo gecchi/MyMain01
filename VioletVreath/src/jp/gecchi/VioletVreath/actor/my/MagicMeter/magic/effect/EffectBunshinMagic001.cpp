@@ -1,6 +1,6 @@
 #include "EffectBunshinMagic001.h"
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/GeoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/AxisVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 
 
@@ -21,7 +21,7 @@ EffectBunshinMagic001::EffectBunshinMagic001(const char* prm_name)
 void EffectBunshinMagic001::processBehavior() {
     EffectBlink::processBehavior();
     getVecVehicle()->behave();
-    getGeoVehicle()->behave();
+    getAxisVehicle()->behave();
 }
 
 void EffectBunshinMagic001::blink(frame prm_scale_in_frames, frame prm_duration_frames, frame prm_scale_out_frames,

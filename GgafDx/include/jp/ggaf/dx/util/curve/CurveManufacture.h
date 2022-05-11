@@ -45,7 +45,7 @@ public:
     };
 
     enum MoveDriver {
-        GeoVehicle = 1,
+        AxisVehicle = 1,
         VecVehicle,
     };
 
@@ -117,7 +117,7 @@ public:
      */
     virtual VehicleLeader* createVecVehicleLeader(GgafDx::VecVehicle* prm_pVecVehicle);
 
-    virtual VehicleLeader* createGeoVehicleLeader(GgafDx::GeoVehicle* prm_pGeoVehicle);
+    virtual VehicleLeader* createAxisVehicleLeader(GgafDx::AxisVehicle* prm_pAxisVehicle);
 
     void setMoveMethod(MoveMethod prm_move_method) {
         _move_method = prm_move_method;

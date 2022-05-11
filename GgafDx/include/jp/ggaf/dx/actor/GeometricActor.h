@@ -29,7 +29,10 @@ private:
     /** [r]力車 */
     VecVehicle* _pVecVehicle;
     /** [r]駕籠(平行移動支援) */
+    AxisVehicle* _pAxisVehicle;
+
     GeoVehicle* _pGeoVehicle;
+
     /** [r]拡大縮小支援 */
     Scaler* _pScaler;
     /** [r]効果音発生管理オブジェクト */
@@ -177,6 +180,8 @@ public:
      * 本アクターの駕籠(平行移動支援)オブジェクトを取得 .
      * @return 駕籠(平行移動支援)オブジェクト
      */
+    AxisVehicle* getAxisVehicle();
+
     GeoVehicle* getGeoVehicle();
 
     virtual VehicleLeader* createCurveVehicleLeader(CurveManufacture* prm_pCurveManufacture);

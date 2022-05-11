@@ -3,13 +3,14 @@
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/VecVehicleFaceAngAssistant.h"
 #include "jp/ggaf/dx/actor/supporter/VecVehicleMvAngAssistant.h"
+#include "jp/ggaf/dx/actor/supporter/GeoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "MgrGod.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 
-
-
+using namespace GgafCore;
+using namespace GgafDx;
 using namespace GgafLib;
 using namespace Mogera;
 
@@ -60,26 +61,23 @@ void SmpActor2::initialize() {
 }
 
 void SmpActor2::processBehavior() {
-    if (GgafDx::Input::isPressedKey(DIK_D)) {
-        _x += PX_C(2); //右
-    }
-    if (GgafDx::Input::isPressedKey(DIK_A)) {
-        _x -= PX_C(2); //左
-    }
-    if (GgafDx::Input::isPressedKey(DIK_W)) {
-        _y += PX_C(2); //上
-    }
-    if (GgafDx::Input::isPressedKey(DIK_S)) {
-        _y -= PX_C(2); //下
+    GeoVehicle* pGeoVehicle = getGeoVehicle();
+
+
+    if (GgafDx::Input::isPressedKey(DIK_SPACE)) {
+        setPosition(0, 0, 0);
+        pGeoVehicle->setVeloZero();
+        pGeoVehicle->setAcceZero();
     }
 
-    if (GgafDx::Input::isPressedKey(DIK_R)) {
-        _z -= PX_C(2); //手前
+    if (GgafDx::Input::isPressedKey(DIK_A)) {
+        pGeoVehicle->forceVeloRange(0, PX_C(3));
+        pGeoVehicle->setAcce(PX_C(0.01), PX_C(0.02), PX_C(0));
+
     }
-    if (GgafDx::Input::isPressedKey(DIK_F)) {
-        _z += PX_C(2); //奥
-    }
-    getVecVehicle()->behave(); //力車を活動させる（Z軸回転する）
+    _TRACE_("x,y,z="<<_x<<", "<<_y<<", "<<_z);
+    pGeoVehicle->behave();
+    getVecVehicle()->behave();
 }
 
 void SmpActor2::onHit(const GgafCore::Actor* prm_pOtherActor) {

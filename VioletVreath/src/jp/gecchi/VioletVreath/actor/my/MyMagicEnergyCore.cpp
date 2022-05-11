@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/dx/actor/FigureActor.h"
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/GeoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/AxisVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
@@ -35,7 +35,7 @@ void MyMagicEnergyCore::initialize() {
 }
 
 void MyMagicEnergyCore::onActive() {
-    getGeoVehicle()->execGravitationMvSequenceTwd(
+    getAxisVehicle()->execGravitationMvSequenceTwd(
                       pMYSHIP,
                       +PX_C(90), 0, 0,
                       PX_C(10), PX_C(1), PX_C(20));
@@ -55,7 +55,7 @@ void MyMagicEnergyCore::processBehavior() {
         pChecker->disable(0);
     }
     getScaler()->behave();
-    getGeoVehicle()->behave();
+    getAxisVehicle()->behave();
 }
 
 void MyMagicEnergyCore::processJudgement() {

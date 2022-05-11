@@ -1,8 +1,8 @@
 #include "jp/ggaf/lib/actor/camera/worker/CameraWorker.h"
 
 #include "jp/ggaf/dx/actor/GeometricActor.h"
-#include "jp/ggaf/dx/actor/supporter/GeoVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/GeoVehicleAssistantA.h"
+#include "jp/ggaf/dx/actor/supporter/AxisVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/AxisVehicleAssistantA.h"
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/VecVehicleMvAssistant.h"
 #include "jp/ggaf/dx/actor/supporter/VecVehicleFaceAngAssistant.h"
@@ -124,11 +124,11 @@ void CameraWorker::setUpVec(coord tx, coord ty, coord tz) {
     _pUp->setPosition(tx,ty,tz);
 }
 void CameraWorker::stopMvCam() {
-    _pCam->getGeoVehicle()->stop();
+    _pCam->getAxisVehicle()->stop();
 }
 
 void CameraWorker::stopMvVp() {
-    _pVp->getGeoVehicle()->stop();
+    _pVp->getAxisVehicle()->stop();
 }
 
 CameraWorker::~CameraWorker() {

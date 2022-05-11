@@ -1,7 +1,7 @@
 #include "MagicPointItem.h"
 
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/GeoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/AxisVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/item/Item.h"
@@ -50,11 +50,11 @@ void MagicPointItem::initialize() {
 void MagicPointItem::onActive() {
     // _x, _y, _z ‚Í”­¶Œ³À•W‚ÉÝ’èÏ‚Ý
     setHitAble(true, false);
-    GgafDx::GeoVehicle* const pGeoVehicle = getGeoVehicle();
-    pGeoVehicle->forceVeloXYZRange(-30000, 30000);
-    pGeoVehicle->setXYZZero();
-    pGeoVehicle->setAcceXYZZero();
-    pGeoVehicle->stopGravitationMvSequence();
+    GgafDx::AxisVehicle* const pAxisVehicle = getAxisVehicle();
+    pAxisVehicle->forceVeloXYZRange(-30000, 30000);
+    pAxisVehicle->setXYZZero();
+    pAxisVehicle->setAcceXYZZero();
+    pAxisVehicle->stopGravitationMvSequence();
 
     //‰Šú•ûŒüÝ’è
     MyShip* pMyShip = pMYSHIP;
@@ -86,7 +86,7 @@ void MagicPointItem::onActive() {
 void MagicPointItem::processBehavior() {
     MyShip* pMyShip = pMYSHIP;
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
-    GgafDx::GeoVehicle* const pGeoVehicle = getGeoVehicle();
+    GgafDx::AxisVehicle* const pAxisVehicle = getAxisVehicle();
     GgafCore::Phase* pPhase = getPhase();
     //’ÊíˆÚ“®
     if (pPhase->getCurrent() == PHASE_DRIFT) {
@@ -104,10 +104,10 @@ void MagicPointItem::processBehavior() {
         MyMagicEnergyCore* pE = pMyShip->pMyMagicEnergyCore_;
         if (pPhase->hasJustChanged()) {
             //Ž©‹@‚Éˆø—Í‚Åˆø‚«Šñ‚¹‚ç‚ê‚é‚æ‚¤‚È“®‚«Ý’è
-            pGeoVehicle->setVeloXYZ(pVecVehicle->_vX * pVecVehicle->_velo_mv,
+            pAxisVehicle->setVeloXYZ(pVecVehicle->_vX * pVecVehicle->_velo_mv,
                                      pVecVehicle->_vY * pVecVehicle->_velo_mv,
                                      pVecVehicle->_vZ * pVecVehicle->_velo_mv);
-            pGeoVehicle->execGravitationMvSequenceTwd(pE,
+            pAxisVehicle->execGravitationMvSequenceTwd(pE,
                                                     PX_C(50), 300, PX_C(300));
             pVecVehicle->stop();
         }
@@ -128,9 +128,9 @@ void MagicPointItem::processBehavior() {
     if (pPhase->getCurrent() == PHASE_ABSORB) {
         MyMagicEnergyCore* pE = pMyShip->pMyMagicEnergyCore_;
         if (pPhase->hasJustChanged()) {
-            pGeoVehicle->setXYZZero();
-            pGeoVehicle->setAcceXYZZero();
-            pGeoVehicle->stopGravitationMvSequence();
+            pAxisVehicle->setXYZZero();
+            pAxisVehicle->setAcceXYZZero();
+            pAxisVehicle->stopGravitationMvSequence();
         }
         _x = pE->_x + kDX_;
         _y = pE->_y + kDY_;
@@ -145,7 +145,7 @@ void MagicPointItem::processBehavior() {
         }
     }
     pVecVehicle->behave();
-    pGeoVehicle->behave();
+    pAxisVehicle->behave();
 }
 
 void MagicPointItem::processJudgement() {

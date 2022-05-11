@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/GeoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/AxisVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -76,7 +76,7 @@ void EnemyGeria::onActive() {
 
 void EnemyGeria::processBehavior() {
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
-    GgafDx::GeoVehicle* const pGeoVehicle = getGeoVehicle();
+    GgafDx::AxisVehicle* const pAxisVehicle = getAxisVehicle();
     GgafDx::AlphaFader* pAlphaFader = getAlphaFader();
     GgafCore::Phase* pPhase = getPhase();
 
@@ -169,7 +169,7 @@ void EnemyGeria::processBehavior() {
         default :
             break;
     }
-    pGeoVehicle->behave();
+    pAxisVehicle->behave();
     pVecVehicle->behave();
     pAlphaFader->behave();
     mvd_ += pVecVehicle->getMvVelo();

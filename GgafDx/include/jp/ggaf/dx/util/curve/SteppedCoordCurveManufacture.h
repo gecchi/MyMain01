@@ -36,7 +36,7 @@ public:
     /**
      * VehicleLeader オブジェクトの生成 .
      * インスタンスは SteppedCoordCurveVecVehicleLeader です。
-     * @param GgafDx::GeoVehicle カーブ移動するための操作するオブジェクト
+     * @param GgafDx::AxisVehicle カーブ移動するための操作するオブジェクト
      * @return VehicleLeader オブジェクト
      */
     VehicleLeader* createVecVehicleLeader(GgafDx::VecVehicle* prm_pVecVehicle) override;

@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/core/actor/ex/ActorDepository.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
-#include "jp/ggaf/dx/actor/supporter/GeoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/AxisVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Geria/EnemyGeria.h"
 #include "jp/gecchi/VioletVreath/God.h"
@@ -18,7 +18,7 @@ FormationGeria002::FormationGeria002(const char* prm_name) :
 
     setPosition(PX_C(8000), 0, PX_C(8000));
     setFaceAngTwd(PX_C(-8000), 0, PX_C(8000));
-    getGeoVehicle()->setVeloXYZ(0, 0, -2000);
+    getAxisVehicle()->setVeloXYZ(0, 0, -2000);
 }
 
 void FormationGeria002::processBehavior() {
@@ -31,7 +31,7 @@ void FormationGeria002::processBehavior() {
             pGeria->setMigrationLength(PX_C(15000));
         }
     }
-    getGeoVehicle()->behave();
+    getAxisVehicle()->behave();
 }
 
 void FormationGeria002::processJudgement() {

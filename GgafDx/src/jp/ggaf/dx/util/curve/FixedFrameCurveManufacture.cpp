@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/dx/util/curve/CurveSource.h"
 #include "jp/ggaf/dx/util/curve/FixedFrameCurveVecVehicleLeader.h"
-#include "jp/ggaf/dx/util/curve/FixedFrameCurveGeoVehicleLeader.h"
+#include "jp/ggaf/dx/util/curve/FixedFrameCurveAxisVehicleLeader.h"
 
 using namespace GgafDx;
 
@@ -131,8 +131,8 @@ void FixedFrameCurveManufacture::recalculateBySpentFrame(frame prm_spent_frames)
 VehicleLeader* FixedFrameCurveManufacture::createVecVehicleLeader(GgafDx::VecVehicle* prm_pVecVehicle) {
     return NEW FixedFrameCurveVecVehicleLeader(this, prm_pVecVehicle);
 }
-VehicleLeader* FixedFrameCurveManufacture::createGeoVehicleLeader(GgafDx::GeoVehicle* prm_pGeoVehicle) {
-    return NEW FixedFrameCurveGeoVehicleLeader(this, prm_pGeoVehicle);
+VehicleLeader* FixedFrameCurveManufacture::createAxisVehicleLeader(GgafDx::AxisVehicle* prm_pAxisVehicle) {
+    return NEW FixedFrameCurveAxisVehicleLeader(this, prm_pAxisVehicle);
 }
 FixedFrameCurveManufacture::~FixedFrameCurveManufacture() {
     //イニシャライズされる前に解放されるかもしれない

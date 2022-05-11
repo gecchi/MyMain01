@@ -341,6 +341,20 @@ public:
                  );
     }
 
+    template<typename T>
+    static T getDistanceFromOrigin(T x, T y, T z) {
+        return (T)( sqrt(
+                      (
+                        ((double)(x)) * ((double)(x))
+                      ) + (
+                        ((double)(y)) * ((double)(y))
+                      ) + (
+                        ((double)(z)) * ((double)(z))
+                      )
+                    )
+                 );
+    }
+
     static double getDistance(GeometricActor* pA1, GeometricActor* pA2) {
         return sqrt(
                       (
@@ -390,7 +404,7 @@ public:
     }
 
     /**
-     * 距離の近似を計算
+     * 距離の近似を計算 .
      * @param x
      * @param y
      * @return
@@ -405,6 +419,12 @@ public:
         return (int)((d + 512) >> 10);
     }
 
+    /**
+     * 距離の近似を計算（※ 引数がすべて正と予めわかっている場合のちょい速いバージョン） .
+     * @param abs_x
+     * @param abs_y
+     * @return 原点からの距離の近似
+     */
     static int getApproxDistanceFromOrigin2(int abs_x, int abs_y) {
         int64_t max = abs_x > abs_y ? abs_x : abs_y;
         int64_t min = abs_x > abs_y ? abs_y : abs_x;
@@ -412,20 +432,31 @@ public:
                                       1016*max + 190*min;
         return (int)((d + 512) >> 10);
     }
-    /**
-     * 距離の近似を計算(3D) .
-     * @param x
-     * @param y
-     * @param z
-     * @return
-     */
-    static int getApproxDistanceFromOrigin(int x, int y, int z) {
-        return getApproxDistanceFromOrigin(getApproxDistanceFromOrigin(x, y), z);
-    }
 
-    static int getApproxDistanceFromOrigin2(int abs_x, int abs_y, int abs_z) {
-        return getApproxDistanceFromOrigin2(getApproxDistanceFromOrigin2(abs_x, abs_y), abs_z);
-    }
+
+// 引数３つバージョンは速度的にsqrt() と同じ。したがって制度が良い sqrt() を使うべき
+
+//    /**
+//     * 距離の近似を計算(3D) .
+//     * @param x
+//     * @param y
+//     * @param z
+//     * @return 原点からの距離の近似
+//     */
+//    static int getApproxDistanceFromOrigin(int x, int y, int z) {
+//        return Util::getApproxDistanceFromOrigin(getApproxDistanceFromOrigin(x, y), z);
+//    }
+//
+//    /**
+//     * 距離の近似を計算(3D) （※ 引数がすべて正と予めわかっている場合のちょい速いバージョン） .
+//     * @param abs_x
+//     * @param abs_y
+//     * @param abs_z
+//     * @return 原点からの距離の近似
+//     */
+//    static int getApproxDistanceFromOrigin2(int abs_x, int abs_y, int abs_z) {
+//        return Util::getApproxDistanceFromOrigin2(getApproxDistanceFromOrigin2(abs_x, abs_y), abs_z);
+//    }
 
     /**
      * 距離近似値計算(2D) .
@@ -433,41 +464,41 @@ public:
      * @param y1
      * @param x2
      * @param y2
-     * @return
+     * @return 距離の近似
      */
     static coord getApproxDistance(coord x1, coord y1, coord x2, coord y2) {
-        return getApproxDistanceFromOrigin(x2-x1, y2-y1);
+        return Util::getApproxDistanceFromOrigin(x2-x1, y2-y1);
     }
-
-    /**
-     * 距離の近似を計算(3D) .
-     * @param x1
-     * @param y1
-     * @param z1
-     * @param x2
-     * @param y2
-     * @param z2
-     * @return
-     */
-    static coord getApproxDistance(coord x1, coord y1, coord z1, coord x2, coord y2, coord z2) {
-        return getApproxDistanceFromOrigin(x2-x1, y2-y1, z2-z1);
-    }
-
-    static double getApproxDistance(GeometricActor* pA1, GeometricActor* pA2) {
-        return getApproxDistanceFromOrigin(pA2->_x - pA1->_x, pA2->_y - pA1->_y, pA2->_z - pA1->_z);
-    }
-
-    static double getApproxDistance(GeometricActor* pA1, GeoElem* pA2) {
-        return getApproxDistanceFromOrigin(pA2->x - pA1->_x, pA2->y - pA1->_y, pA2->z - pA1->_z);
-    }
-
-    static double getApproxDistance(GeoElem* pA1, GeometricActor* pA2) {
-        return getApproxDistanceFromOrigin(pA2->_x - pA1->x, pA2->_y - pA1->y, pA2->_z - pA1->z);
-    }
-
-    static double getApproxDistance(GeoElem* pA1 ,GeoElem* pA2) {
-        return getApproxDistanceFromOrigin(pA2->x - pA1->x, pA2->y - pA1->y, pA2->z - pA1->z);
-    }
+//
+//    /**
+//     * 距離の近似を計算(3D) .
+//     * @param x1
+//     * @param y1
+//     * @param z1
+//     * @param x2
+//     * @param y2
+//     * @param z2
+//     * @return 距離の近似
+//     */
+//    static coord getApproxDistance(coord x1, coord y1, coord z1, coord x2, coord y2, coord z2) {
+//        return Util::getApproxDistanceFromOrigin(x2-x1, y2-y1, z2-z1);
+//    }
+//
+//    static double getApproxDistance(GeometricActor* pA1, GeometricActor* pA2) {
+//        return Util::getApproxDistanceFromOrigin(pA2->_x - pA1->_x, pA2->_y - pA1->_y, pA2->_z - pA1->_z);
+//    }
+//
+//    static double getApproxDistance(GeometricActor* pA1, GeoElem* pA2) {
+//        return Util::getApproxDistanceFromOrigin(pA2->x - pA1->_x, pA2->y - pA1->_y, pA2->z - pA1->_z);
+//    }
+//
+//    static double getApproxDistance(GeoElem* pA1, GeometricActor* pA2) {
+//        return Util::getApproxDistanceFromOrigin(pA2->_x - pA1->x, pA2->_y - pA1->y, pA2->_z - pA1->z);
+//    }
+//
+//    static double getApproxDistance(GeoElem* pA1 ,GeoElem* pA2) {
+//        return Util::getApproxDistanceFromOrigin(pA2->x - pA1->x, pA2->y - pA1->y, pA2->z - pA1->z);
+//    }
 
 
     /**
@@ -729,6 +760,46 @@ public:
         out_y = in_y2 + t*vy;
         out_z = in_z2 + t*vz;
     }
+
+    /**
+     * 原点中心の球面とベクトルの交点を求める
+     * @tparam T
+     * @param in_r
+     * @param in_x
+     * @param in_y
+     * @param in_z
+     * @param out_x
+     * @param out_y
+     * @param out_z
+     */
+    template<typename T>
+    static void getIntersectionSphereAndVec(double in_r,
+                                            double in_x, double in_y, double in_z,
+                                            T& out_x, T& out_y, T& out_z) {
+//    	t=sqrt(r^2*vz^2+r^2*vy^2+r^2*vx^2)/(vz^2+vy^2+vx^2)
+        double vxvx = in_x * in_x;
+        double vyvy = in_y * in_y;
+        double vzvz = in_z * in_z;
+        double rr = in_r * in_r;
+        double t=sqrt(rr*vzvz+rr*vyvy+rr*vxvx)/(vzvz+vyvy+vxvx);
+        out_x = t*in_x;
+        out_y = t*in_y;
+        out_z = t*in_z;
+    }
+
+    template<typename T>
+    static void getIntersectionSphereAndVec(double in_x, double in_y, double in_z,
+                                            T& out_x, T& out_y, T& out_z) {
+//    		t=1/sqrt(vz^2+vy^2+vx^2)
+        double vxvx = in_x * in_x;
+        double vyvy = in_y * in_y;
+        double vzvz = in_z * in_z;
+        double t = 1.0/sqrt(vzvz+vyvy+vxvx);
+        out_x = t*in_x;
+        out_y = t*in_y;
+        out_z = t*in_z;
+    }
+
 
     /**
      * 原点中心の球内の一様なランダム座標を返す .

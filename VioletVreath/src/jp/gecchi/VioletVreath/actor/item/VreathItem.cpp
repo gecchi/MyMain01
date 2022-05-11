@@ -1,7 +1,7 @@
 #include "VreathItem.h"
 
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/GeoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/AxisVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/TractorMagic.h"
@@ -46,11 +46,11 @@ void VreathItem::initialize() {
 void VreathItem::onActive() {
     // _x, _y, _z ‚Í”­¶Œ³À•W‚ÉÝ’èÏ‚Ý
     setHitAble(true, false);
-    GgafDx::GeoVehicle* const pGeoVehicle = getGeoVehicle();
-    pGeoVehicle->forceVeloXYZRange(-30000, 30000);
-    pGeoVehicle->setXYZZero();
-    pGeoVehicle->setAcceXYZZero();
-    pGeoVehicle->stopGravitationMvSequence();
+    GgafDx::AxisVehicle* const pAxisVehicle = getAxisVehicle();
+    pAxisVehicle->forceVeloXYZRange(-30000, 30000);
+    pAxisVehicle->setXYZZero();
+    pAxisVehicle->setAcceXYZZero();
+    pAxisVehicle->stopGravitationMvSequence();
 
     //‰Šú•ûŒüÝ’è
     MyShip* pMyShip = pMYSHIP;
@@ -82,7 +82,7 @@ void VreathItem::onActive() {
 void VreathItem::processBehavior() {
     //’ÊíˆÚ“®
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
-    GgafDx::GeoVehicle* const pGeoVehicle = getGeoVehicle();
+    GgafDx::AxisVehicle* const pAxisVehicle = getAxisVehicle();
     GgafCore::Phase* pPhase = getPhase();
     if (pPhase->getCurrent() == PHASE_DRIFT) {
         //TractorMagic”­“®’†‚ÍPHASE_ATTACH‚ÖˆÚs
@@ -99,10 +99,10 @@ void VreathItem::processBehavior() {
         MyShip* pMyShip = pMYSHIP;
         if (pPhase->hasJustChanged()) {
             //Ž©‹@‚Éˆø—Í‚Åˆø‚«Šñ‚¹‚ç‚ê‚é‚æ‚¤‚È“®‚«Ý’è
-            pGeoVehicle->setVeloXYZ(pVecVehicle->_vX * pVecVehicle->_velo_mv,
+            pAxisVehicle->setVeloXYZ(pVecVehicle->_vX * pVecVehicle->_velo_mv,
                                      pVecVehicle->_vY * pVecVehicle->_velo_mv,
                                      pVecVehicle->_vZ * pVecVehicle->_velo_mv );
-            pGeoVehicle->execGravitationMvSequenceTwd(pMyShip, PX_C(20), 200, PX_C(100));
+            pAxisVehicle->execGravitationMvSequenceTwd(pMyShip, PX_C(20), 200, PX_C(100));
             pVecVehicle->stop();
         }
 
@@ -123,9 +123,9 @@ void VreathItem::processBehavior() {
     if (pPhase->getCurrent() == PHASE_ABSORB) {
         MyShip* pMyShip = pMYSHIP;
         if (pPhase->hasJustChanged()) {
-            pGeoVehicle->setXYZZero();
-            pGeoVehicle->setAcceXYZZero();
-            pGeoVehicle->stopGravitationMvSequence();
+            pAxisVehicle->setXYZZero();
+            pAxisVehicle->setAcceXYZZero();
+            pAxisVehicle->stopGravitationMvSequence();
         }
         _x = pMyShip->_x + kDX_;
         _y = pMyShip->_y + kDY_;
@@ -141,7 +141,7 @@ void VreathItem::processBehavior() {
         pMyShip->getStatus()->plus(STAT_Stamina, 1);
     }
     pVecVehicle->behave();
-    pGeoVehicle->behave();
+    pAxisVehicle->behave();
 }
 
 void VreathItem::processJudgement() {

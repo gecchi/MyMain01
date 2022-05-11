@@ -1,18 +1,18 @@
-#include "jp/ggaf/dx/util/curve/FixedFrameCurveGeoVehicleLeader.h"
+#include "jp/ggaf/dx/util/curve/FixedFrameCurveAxisVehicleLeader.h"
 
 #include "jp/ggaf/dx/exception/CriticalException.h"
-#include "jp/ggaf/dx/actor/supporter/GeoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/AxisVehicle.h"
 #include "jp/ggaf/dx/util/Util.h"
 #include "jp/ggaf/dx/util/curve/CurveSource.h"
 #include "jp/ggaf/dx/util/curve/FixedFrameCurveManufacture.h"
 
 using namespace GgafDx;
 
-FixedFrameCurveGeoVehicleLeader::FixedFrameCurveGeoVehicleLeader(
+FixedFrameCurveAxisVehicleLeader::FixedFrameCurveAxisVehicleLeader(
                                        CurveManufacture* prm_pManufacture,
-                                       GgafDx::GeoVehicle* prm_pGeoVehicle_target) :
-        VehicleLeader(prm_pManufacture, prm_pGeoVehicle_target->_pActor) {
-    _pGeoVehicle_target = prm_pGeoVehicle_target;
+                                       GgafDx::AxisVehicle* prm_pAxisVehicle_target) :
+        VehicleLeader(prm_pManufacture, prm_pAxisVehicle_target->_pActor) {
+    _pAxisVehicle_target = prm_pAxisVehicle_target;
     _pFixedFrameSplManuf = (FixedFrameCurveManufacture*)prm_pManufacture;
     _leading_frames = 0;
     _point_index = 0;
@@ -20,7 +20,7 @@ FixedFrameCurveGeoVehicleLeader::FixedFrameCurveGeoVehicleLeader(
     _hosei_frames = 0;
 }
 
-void FixedFrameCurveGeoVehicleLeader::restart() {
+void FixedFrameCurveAxisVehicleLeader::restart() {
     VehicleLeader::restart();
     _leading_frames = 0;
     _hosei_frames = 0;
@@ -40,12 +40,12 @@ void FixedFrameCurveGeoVehicleLeader::restart() {
 //    if (ABS(_distance_to_begin) <= PX_C(1)) {
     if ( (ucoord)(_distance_to_begin + PX_C(1)) <= (ucoord)(PX_C(2)) ) {
         //始点への距離が無い、間引く。
-        //_TRACE_("【警告】FixedFrameCurveGeoVehicleLeader::start("<<prm_option<<") _pActor_target="<<_pActor_target->getName()<<
+        //_TRACE_("【警告】FixedFrameCurveAxisVehicleLeader::start("<<prm_option<<") _pActor_target="<<_pActor_target->getName()<<
         //    " 現座標～始点[0]への距離は 0 であるため、現座標～始点への移動プロセスはカットされます。");
         _hosei_frames = _pFixedFrameSplManuf->_frame_of_segment;
         //これにより、_point_index は、初回いきなり1から始まる。
     } else {
-        _TRACE_("【警告】FixedFrameCurveGeoVehicleLeader::restart("<<_option<<") _pActor_target="<<_pActor_target->getName()<<
+        _TRACE_("【警告】FixedFrameCurveAxisVehicleLeader::restart("<<_option<<") _pActor_target="<<_pActor_target->getName()<<
             " 現座標～始点[0]への距離("<<_distance_to_begin<<" coord)が離れているため、現座標～始点への移動プロセスとしてセグメントが＋１されます。"<<
             "そのため、合計移動フレーム時間に誤差(+"<<_pFixedFrameSplManuf->_frame_of_segment<<"フレーム)が生じます。ご了承くださいませ。");
         _hosei_frames = 0;
@@ -54,9 +54,9 @@ void FixedFrameCurveGeoVehicleLeader::restart() {
 
 }
 
-void FixedFrameCurveGeoVehicleLeader::behave() {
+void FixedFrameCurveAxisVehicleLeader::behave() {
     if (_is_leading) {
-        GgafDx::GeoVehicle* const pGeoVehicle_target = _pGeoVehicle_target;
+        GgafDx::AxisVehicle* const pAxisVehicle_target = _pAxisVehicle_target;
         const double frame_of_segment = _pFixedFrameSplManuf->_frame_of_segment;
         //現在の点INDEX
         _point_index = (_leading_frames+_hosei_frames) / frame_of_segment;
@@ -64,7 +64,7 @@ void FixedFrameCurveGeoVehicleLeader::behave() {
             if (_cnt_loop == _max_loop) {
                 //終了
                 _is_leading = false;
-                pGeoVehicle_target->stopGravitationMvSequence();
+                pAxisVehicle_target->stopGravitationMvSequence();
                 return;
             } else {
                 //ループ
@@ -102,12 +102,12 @@ void FixedFrameCurveGeoVehicleLeader::behave() {
                     mv_velo = _pFixedFrameSplManuf->_paSPMvVeloTo[_point_index];
                 }
             }
-            //pGeoVehicle_target->setVeloXYZTwd(x, y, z, mv_velo);
-            pGeoVehicle_target->execGravitationMvSequenceTwd(x, y, z, mv_velo*2, mv_velo/10, calc_d/10);
+            //pAxisVehicle_target->setVeloXYZTwd(x, y, z, mv_velo);
+            pAxisVehicle_target->execGravitationMvSequenceTwd(x, y, z, mv_velo*2, mv_velo/10, calc_d/10);
         }
         _leading_frames++;
     }
 }
-FixedFrameCurveGeoVehicleLeader::~FixedFrameCurveGeoVehicleLeader() {
+FixedFrameCurveAxisVehicleLeader::~FixedFrameCurveAxisVehicleLeader() {
 
 }

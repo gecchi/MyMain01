@@ -1,13 +1,13 @@
-#include "jp/ggaf/dx/actor/supporter/GeoVehicleAssistantA.h"
+#include "jp/ggaf/dx/actor/supporter/AxisVehicleAssistantA.h"
 
 #include "jp/ggaf/core/util/TrapezoidalVeloValue.hpp"
-#include "jp/ggaf/dx/actor/supporter/GeoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/AxisVehicle.h"
 #include "jp/ggaf/dx/util/Util.h"
 
 
 using namespace GgafDx;
 
-GeoVehicleAssistantA::GeoVehicleAssistantA(GeoVehicle* prm_pMaster) : GgafCore::Object(),
+AxisVehicleAssistantA::AxisVehicleAssistantA(AxisVehicle* prm_pMaster) : GgafCore::Object(),
         _pMaster(prm_pMaster) {
     _smthVxMv._t_velo = _pMaster->_velo_x;
     _smthVxMv._t_acce = _pMaster->_acce_x;
@@ -16,7 +16,7 @@ GeoVehicleAssistantA::GeoVehicleAssistantA(GeoVehicle* prm_pMaster) : GgafCore::
     _smthVzMv._t_velo = _pMaster->_velo_z;
     _smthVzMv._t_acce = _pMaster->_acce_z;
 }
-void GeoVehicleAssistantA::behave() {
+void AxisVehicleAssistantA::behave() {
     if (_smthVxMv.isTransitioning()) {
         _smthVxMv.behave();
         _pMaster->setVeloX(_smthVxMv._t_velo - _smthVxMv._t_acce);
@@ -35,7 +35,7 @@ void GeoVehicleAssistantA::behave() {
 
 }
 
-void GeoVehicleAssistantA::slideVxMvByDt(coord prm_target_distance, int prm_target_frames,
+void AxisVehicleAssistantA::slideVxMvByDt(coord prm_target_distance, int prm_target_frames,
                                    float prm_p1, float prm_p2, velo prm_end_velo,
                                    bool prm_zero_acc_end_flg) {
     _smthVxMv._t_value = 0;
@@ -46,7 +46,7 @@ void GeoVehicleAssistantA::slideVxMvByDt(coord prm_target_distance, int prm_targ
                              prm_zero_acc_end_flg);
 }
 
-void GeoVehicleAssistantA::slideVyMvByDt(coord prm_target_distance, int prm_target_frames,
+void AxisVehicleAssistantA::slideVyMvByDt(coord prm_target_distance, int prm_target_frames,
                                               float prm_p1, float prm_p2, velo prm_end_velo,
                                               bool prm_zero_acc_end_flg) {
     _smthVyMv._t_value = 0;
@@ -57,7 +57,7 @@ void GeoVehicleAssistantA::slideVyMvByDt(coord prm_target_distance, int prm_targ
                              prm_zero_acc_end_flg);
 }
 
-void GeoVehicleAssistantA::slideVzMvByDt(coord prm_target_distance, int prm_target_frames,
+void AxisVehicleAssistantA::slideVzMvByDt(coord prm_target_distance, int prm_target_frames,
                                    float prm_p1, float prm_p2, velo prm_end_velo,
                                    bool prm_zero_acc_end_flg) {
     _smthVzMv._t_value = 0;
@@ -68,7 +68,7 @@ void GeoVehicleAssistantA::slideVzMvByDt(coord prm_target_distance, int prm_targ
                              prm_zero_acc_end_flg);
 }
 
-void GeoVehicleAssistantA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_target, coord prm_z_target,
+void AxisVehicleAssistantA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_target, coord prm_z_target,
                                        int prm_target_frames,
                                        float prm_p1, float prm_p2, velo prm_end_velo,
                                        bool prm_zero_acc_end_flg) {
@@ -80,7 +80,7 @@ void GeoVehicleAssistantA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_tar
                      prm_zero_acc_end_flg);
 }
 
-void GeoVehicleAssistantA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_target, coord prm_z_target,
+void AxisVehicleAssistantA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_target, coord prm_z_target,
                                        int prm_target_frames,
                                        float prm_x_p1, float prm_x_p2, velo prm_x_end_velo,
                                        float prm_y_p1, float prm_y_p2, velo prm_y_end_velo,
@@ -96,7 +96,7 @@ void GeoVehicleAssistantA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_tar
                      prm_zero_acc_end_flg);
 }
 
-void GeoVehicleAssistantA::slideVxMvByVd(velo prm_top_velo, coord prm_target_distance,
+void AxisVehicleAssistantA::slideVxMvByVd(velo prm_top_velo, coord prm_target_distance,
                                    float prm_p1, float prm_p2, velo prm_end_velo,
                                    bool prm_zero_acc_end_flg) {
     _smthVxMv._t_value = 0;
@@ -107,7 +107,7 @@ void GeoVehicleAssistantA::slideVxMvByVd(velo prm_top_velo, coord prm_target_dis
                              prm_zero_acc_end_flg);
 }
 
-void GeoVehicleAssistantA::slideVyMvByVd(velo prm_top_velo, coord prm_target_distance,
+void AxisVehicleAssistantA::slideVyMvByVd(velo prm_top_velo, coord prm_target_distance,
                                    float prm_p1, float prm_p2, velo prm_end_velo,
                                    bool prm_zero_acc_end_flg) {
     _smthVyMv._t_value = 0;
@@ -118,7 +118,7 @@ void GeoVehicleAssistantA::slideVyMvByVd(velo prm_top_velo, coord prm_target_dis
                              prm_zero_acc_end_flg);
 }
 
-void GeoVehicleAssistantA::slideVzMvByVd(velo prm_top_velo, coord prm_target_distance,
+void AxisVehicleAssistantA::slideVzMvByVd(velo prm_top_velo, coord prm_target_distance,
                                    float prm_p1, float prm_p2, velo prm_end_velo,
                                    bool prm_zero_acc_end_flg) {
     _smthVzMv._t_value = 0;
@@ -129,7 +129,7 @@ void GeoVehicleAssistantA::slideVzMvByVd(velo prm_top_velo, coord prm_target_dis
                              prm_zero_acc_end_flg);
 }
 
-void GeoVehicleAssistantA::slideVxyzMvByVd(velo prm_top_velo,
+void AxisVehicleAssistantA::slideVxyzMvByVd(velo prm_top_velo,
                                      coord prm_x_target_distance, coord prm_y_target_distance, coord prm_z_target_distance,
                                      float prm_p1, float prm_p2, velo prm_end_velo,
                                      bool prm_zero_acc_end_flg) {
@@ -147,7 +147,7 @@ void GeoVehicleAssistantA::slideVxyzMvByVd(velo prm_top_velo,
     }
 }
 
-void GeoVehicleAssistantA::slideVxyzMvByVdTo(velo prm_top_velo,
+void AxisVehicleAssistantA::slideVxyzMvByVdTo(velo prm_top_velo,
                                        coord prm_x_target, coord prm_y_target, coord prm_z_target,
                                        float prm_p1, float prm_p2, velo prm_end_velo,
                                        bool prm_zero_acc_end_flg) {
@@ -159,7 +159,7 @@ void GeoVehicleAssistantA::slideVxyzMvByVdTo(velo prm_top_velo,
                     prm_zero_acc_end_flg);
 }
 
-GeoVehicleAssistantA::~GeoVehicleAssistantA() {
+AxisVehicleAssistantA::~AxisVehicleAssistantA() {
 }
 
 

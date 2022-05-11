@@ -3,6 +3,7 @@
 #include "jp/ggaf/dx/God.h"
 #include "jp/ggaf/core/util/Status.h"
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/AxisVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/GeoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
@@ -15,6 +16,7 @@ using namespace GgafDx;
 GeometricActor::GeometricActor(const char* prm_name,
                                Checker* prm_pChecker) : BaseActor(prm_name),
 _pVecVehicle(nullptr),
+_pAxisVehicle(nullptr),
 _pGeoVehicle(nullptr),
 _pScaler(nullptr),
 _pSeTransmitter(nullptr),
@@ -53,6 +55,10 @@ VecVehicle* GeometricActor::getVecVehicle() {
     return _pVecVehicle ? _pVecVehicle : _pVecVehicle = NEW VecVehicle(this);
 }
 
+AxisVehicle* GeometricActor::getAxisVehicle() {
+    return _pAxisVehicle ? _pAxisVehicle : _pAxisVehicle = NEW AxisVehicle(this);
+}
+
 GeoVehicle* GeometricActor::getGeoVehicle() {
     return _pGeoVehicle ? _pGeoVehicle : _pGeoVehicle = NEW GeoVehicle(this);
 }
@@ -60,8 +66,8 @@ GeoVehicle* GeometricActor::getGeoVehicle() {
 VehicleLeader* GeometricActor::createCurveVehicleLeader(CurveManufacture* prm_pCurveManufacture) {
     VehicleLeader* pVehicleLeader = nullptr;
     CurveManufacture::MoveDriver move_driver = prm_pCurveManufacture->_move_driver;
-    if (move_driver == CurveManufacture::MoveDriver::GeoVehicle) {
-        pVehicleLeader = prm_pCurveManufacture->createGeoVehicleLeader(getGeoVehicle());
+    if (move_driver == CurveManufacture::MoveDriver::AxisVehicle) {
+        pVehicleLeader = prm_pCurveManufacture->createAxisVehicleLeader(getAxisVehicle());
     } else if (move_driver == CurveManufacture::MoveDriver::VecVehicle) {
         pVehicleLeader = prm_pCurveManufacture->createVecVehicleLeader(getVecVehicle());
     } else {
@@ -495,6 +501,7 @@ void GeometricActor::onEnd() {
 
 GeometricActor::~GeometricActor() {
     GGAF_DELETE_NULLABLE(_pVecVehicle);
+    GGAF_DELETE_NULLABLE(_pAxisVehicle);
     GGAF_DELETE_NULLABLE(_pGeoVehicle);
     GGAF_DELETE_NULLABLE(_pScaler);
     GGAF_DELETE_NULLABLE(_pSeTransmitter);

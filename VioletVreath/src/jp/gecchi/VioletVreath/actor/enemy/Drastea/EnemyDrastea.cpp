@@ -3,7 +3,7 @@
 #include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/GeoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/AxisVehicle.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -87,10 +87,10 @@ void EnemyDrastea::initialize() {
 void EnemyDrastea::onActive() {
     getStatus()->reset();
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
-    GgafDx::GeoVehicle* const pGeoVehicle = getGeoVehicle();
+    GgafDx::AxisVehicle* const pAxisVehicle = getAxisVehicle();
     pVecVehicle->setMvVelo(0);
     pVecVehicle->setRollPitchYawFaceAngVelo(700, 1100, 300);
-    pGeoVehicle->setVeloX(-3000);
+    pAxisVehicle->setVeloX(-3000);
     const coord appearances_renge_z = (MyShip::lim_z_left_ - MyShip::lim_z_right_) * 4;
     const coord appearances_renge_y = (MyShip::lim_y_top_ - MyShip::lim_y_bottom_) * 4;
     Spacetime* pSpacetime =  pGOD->getSpacetime();
@@ -103,7 +103,7 @@ void EnemyDrastea::onActive() {
 void EnemyDrastea::processBehavior() {
     //À•W‚É”½‰f
     getVecVehicle()->behave();
-    getGeoVehicle()->behave();
+    getAxisVehicle()->behave();
     getSeTransmitter()->behave();
 }
 

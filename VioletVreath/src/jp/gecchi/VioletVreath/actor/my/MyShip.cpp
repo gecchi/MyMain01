@@ -3,7 +3,7 @@
 #include "jp/ggaf/core/actor/ex/ActorDepository.h"
 #include "jp/ggaf/dx/actor/supporter/Checker.h"
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
-#include "jp/ggaf/dx/actor/supporter/GeoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/AxisVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 #include "jp/ggaf/dx/model/Model.h"
@@ -344,9 +344,9 @@ void MyShip::initialize() {
 
     //setMaterialColor(1.0, 0.5, 0.5);
     setAlpha(1.0);
-    GgafDx::GeoVehicle* const pGeoVehicle = getGeoVehicle();
-    pGeoVehicle->forceVeloXYZRange(-veloTurboTop_, veloTurboTop_);
-    pGeoVehicle->setAcceXYZZero();
+    GgafDx::AxisVehicle* const pAxisVehicle = getAxisVehicle();
+    pAxisVehicle->forceVeloXYZRange(-veloTurboTop_, veloTurboTop_);
+    pAxisVehicle->setAcceXYZZero();
 
     getVecVehicle()->setRollFaceAngVelo(300);
 }
@@ -396,7 +396,7 @@ void MyShip::onInactive() {
 void MyShip::processBehavior() {
     VirtualButton* pVbPlay = VB_PLAY;
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
-    GgafDx::GeoVehicle* const pGeoVehicle = getGeoVehicle();
+    GgafDx::AxisVehicle* const pAxisVehicle = getAxisVehicle();
     //操作拒否
     if (!can_control_) {
         return;
@@ -415,7 +415,7 @@ void MyShip::processBehavior() {
         }
 
         if (pVbPlay->isPushedDown(VB_TURBO)) {
-            if (pGeoVehicle->_velo_x == 0 && pGeoVehicle->_velo_y == 0 && pGeoVehicle->_velo_z == 0) {
+            if (pAxisVehicle->_velo_x == 0 && pAxisVehicle->_velo_y == 0 && pAxisVehicle->_velo_z == 0) {
                 //ターボ移動完全に終了しないと次のターボは実行不可
                 moveTurbo();
                 UTIL::activateProperEffect01Of(this); //ターボ開始のエフェクト
@@ -429,28 +429,28 @@ void MyShip::processBehavior() {
             if (pVbPlay->isPressed(VB_TURBO)) {
                 //ターボボタンを押し続けることで、速度減衰がゆるやかになり、
                 //移動距離を伸ばす
-                pGeoVehicle->_velo_x *= 0.96;
-                pGeoVehicle->_velo_y *= 0.96;
-                pGeoVehicle->_velo_z *= 0.96;
+                pAxisVehicle->_velo_x *= 0.96;
+                pAxisVehicle->_velo_y *= 0.96;
+                pAxisVehicle->_velo_z *= 0.96;
             } else {
                 //ターボを離した場合、速度減衰。
-                pGeoVehicle->_velo_x *= 0.8;
-                pGeoVehicle->_velo_y *= 0.8;
-                pGeoVehicle->_velo_z *= 0.8;
+                pAxisVehicle->_velo_x *= 0.8;
+                pAxisVehicle->_velo_y *= 0.8;
+                pAxisVehicle->_velo_z *= 0.8;
             }
-            if (ABS(pGeoVehicle->_velo_x) <= 2) {
-                pGeoVehicle->_velo_x = 0;
+            if (ABS(pAxisVehicle->_velo_x) <= 2) {
+                pAxisVehicle->_velo_x = 0;
             }
-            if (ABS(pGeoVehicle->_velo_y) <= 2) {
-                pGeoVehicle->_velo_y = 0;
+            if (ABS(pAxisVehicle->_velo_y) <= 2) {
+                pAxisVehicle->_velo_y = 0;
             }
-            if (ABS(pGeoVehicle->_velo_z) <= 2) {
-                pGeoVehicle->_velo_z = 0;
+            if (ABS(pAxisVehicle->_velo_z) <= 2) {
+                pAxisVehicle->_velo_z = 0;
             }
         }
 
         if (pVbPlay->isDoublePushedDown(VB_OPTION,8,8) ) {
-            pGeoVehicle->setXYZZero(); //ターボ移動中でも停止する。（ターボキャンセル的になる！）
+            pAxisVehicle->setXYZZero(); //ターボ移動中でも停止する。（ターボキャンセル的になる！）
         }
     }
 
@@ -480,7 +480,7 @@ void MyShip::processBehavior() {
 
     //座標に反映
     pVecVehicle->behave();
-    pGeoVehicle->behave();
+    pAxisVehicle->behave();
     getSeTransmitter()->behave();
 
     if (invincible_frames_ > 0) {
@@ -1095,12 +1095,12 @@ void MyShip::moveNomal() {
 }
 
 void MyShip::moveTurbo() {
-    GgafDx::GeoVehicle* const pGeoVehicle = getGeoVehicle();
+    GgafDx::AxisVehicle* const pAxisVehicle = getAxisVehicle();
     float vx,vy,vz;
     Direction26Util::cnvDirNo2Vec(mv_way_, vx, vy, vz);
-    pGeoVehicle->addVeloX(veloBeginMT_ * vx);
-    pGeoVehicle->addVeloY(veloBeginMT_ * vy);
-    pGeoVehicle->addVeloZ(veloBeginMT_ * vz);
+    pAxisVehicle->addVeloX(veloBeginMT_ * vx);
+    pAxisVehicle->addVeloY(veloBeginMT_ * vy);
+    pAxisVehicle->addVeloZ(veloBeginMT_ * vz);
     angle rz, ry;
     Direction26Util::cnvDirNo2RzRy(mv_way_, rz, ry);
     getVecVehicle()->setRzRyMvAng(rz, ry);

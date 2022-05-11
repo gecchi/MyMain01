@@ -9,7 +9,7 @@
 #include "jp/gecchi/VioletVreath/God.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/ggaf/dx/actor/supporter/GeoVehicle.h"
+#include "jp/ggaf/dx/actor/supporter/AxisVehicle.h"
 #include "jp/gecchi/VioletVreath/actor/effect/Blink/EffectBlink.h"
 
 using namespace GgafLib;
@@ -76,10 +76,10 @@ void EnemyDuna::processBehavior() {
 
     MyShip* pMyShip = pMYSHIP;
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
-    GgafDx::GeoVehicle* const pGeoVehicle = getGeoVehicle();
+    GgafDx::AxisVehicle* const pAxisVehicle = getAxisVehicle();
     GgafCore::Phase* pPhase = getPhase();
     if (pPhase->hasJustChanged()) {
-        pGeoVehicle->execGravitationMvSequenceTwd(pMyShip, PX_C(3), 30, PX_C(1));
+        pAxisVehicle->execGravitationMvSequenceTwd(pMyShip, PX_C(3), 30, PX_C(1));
     }
 
     switch (pPhase->getCurrent()) {
@@ -384,7 +384,7 @@ void EnemyDuna::processBehavior() {
      }
 
     pVecVehicle->behave();
-    pGeoVehicle->behave();
+    pAxisVehicle->behave();
     getMorpher()->behave();
     getAlphaFader()->behave();
 //_TRACE_("EnemyDuna f:"<<getBehaveingFrame()<<"  pPhase="<<pPhase->getCurrent()<<"   X,Y,Z="<<_x<<","<<_y<<","<<_z<<" ");

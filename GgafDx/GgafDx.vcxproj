@@ -65,10 +65,11 @@
     <ClCompile Include="src\jp\ggaf\dx\actor\SpriteSetActor.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\ActorVehicle.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\AlphaFader.cpp" />
+    <ClCompile Include="src\jp\ggaf\dx\actor\supporter\AxisVehicle.cpp" />
+    <ClCompile Include="src\jp\ggaf\dx\actor\supporter\AxisVehicleAssistantA.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\Checker.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\Colorist.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\GeoVehicle.cpp" />
-    <ClCompile Include="src\jp\ggaf\dx\actor\supporter\GeoVehicleAssistantA.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\Puppeteer.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\Scaler.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\actor\supporter\SeTransmitterForActor.cpp" />
@@ -173,7 +174,7 @@
     <ClCompile Include="src\jp\ggaf\dx\util\CollisionPart.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\util\curve\CurveManufacture.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\util\curve\CurveSource.cpp" />
-    <ClCompile Include="src\jp\ggaf\dx\util\curve\FixedFrameCurveGeoVehicleLeader.cpp" />
+    <ClCompile Include="src\jp\ggaf\dx\util\curve\FixedFrameCurveAxisVehicleLeader.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\util\curve\FixedFrameCurveManufacture.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\util\curve\FixedFrameCurveVecVehicleLeader.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\util\curve\FixedVelocityCurveManufacture.cpp" />
@@ -238,10 +239,11 @@
     <ClInclude Include="include\jp\ggaf\dx\actor\spritesetactor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\actorvehicle.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\alphafader.h" />
+    <ClInclude Include="include\jp\ggaf\dx\actor\supporter\AxisVehicle.h" />
+    <ClInclude Include="include\jp\ggaf\dx\actor\supporter\AxisVehicleAssistantA.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\checker.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\colorist.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\geovehicle.h" />
-    <ClInclude Include="include\jp\ggaf\dx\actor\supporter\geovehicleassistanta.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\morpher.hpp" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\morpherassistanta.hpp" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\puppeteer.h" />
@@ -351,7 +353,7 @@
     <ClInclude Include="include\jp\ggaf\dx\util\collisionpart.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\curve\curvemanufacture.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\curve\curvesource.h" />
-    <ClInclude Include="include\jp\ggaf\dx\util\curve\fixedframecurvegeovehicleleader.h" />
+    <ClInclude Include="include\jp\ggaf\dx\util\curve\FixedFrameCurveAxisVehicleLeader.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\curve\fixedframecurvemanufacture.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\curve\fixedframecurvevecvehicleleader.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\curve\fixedvelocitycurvemanufacture.h" />
@@ -374,7 +376,6 @@
     <ClInclude Include="include\jp\ggaf\dx\util\xfile\framework\frm_types.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\xfile\toolbox\iomodel_x.h" />
     <ClInclude Include="include\jp\ggaf\dx\util\xfile\toolbox\xfilestructs.h" />
-    <ClInclude Include="MSVC_include\sal.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F04B2BAE-F007-4DE8-A91F-EA7E9DDCB6F2}</ProjectGuid>

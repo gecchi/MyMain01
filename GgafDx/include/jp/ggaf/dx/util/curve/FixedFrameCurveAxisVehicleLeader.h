@@ -1,5 +1,5 @@
-#ifndef GGAF_DX_FIXEDFRAMECURVEGEOVEHICLELEADER_H_
-#define GGAF_DX_FIXEDFRAMECURVEGEOVEHICLELEADER_H_
+#ifndef GGAF_DX_FIXEDFRAMECURVEAXISVEHICLELEADER_H_
+#define GGAF_DX_FIXEDFRAMECURVEAXISVEHICLELEADER_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 
@@ -11,15 +11,15 @@ namespace GgafDx {
  * 中間の補完点～次の補完点までを、均等に割った時間で移動します。<BR>
  * 補完点の密度が薄いところは移動速度増。<BR>
  * 補完点の密度が濃いところは移動速度減。<BR>
- * そのように動作するよう、GgafDx::GeoVehicle に指示を出して移動を実現します。<BR>
+ * そのように動作するよう、GgafDx::AxisVehicle に指示を出して移動を実現します。<BR>
  * @version 1.00
  * @since 2018/07/25
  * @author Masatoshi Tsuge
  */
-class FixedFrameCurveGeoVehicleLeader : public VehicleLeader {
+class FixedFrameCurveAxisVehicleLeader : public VehicleLeader {
 
 public:
-    GgafDx::GeoVehicle* _pGeoVehicle_target;
+    GgafDx::AxisVehicle* _pAxisVehicle_target;
     /** [r]スプライン情報セット(ldrファイルの情報に相当) */
     FixedFrameCurveManufacture* _pFixedFrameSplManuf;
     /** _leading_framesに加算される補正フレーム */
@@ -35,10 +35,10 @@ public:
     /**
      *
      * @param prm_pManufacture
-     * @param prm_pGeoVehicle
+     * @param prm_pAxisVehicle
      */
-    FixedFrameCurveGeoVehicleLeader(CurveManufacture* prm_pManufacture,
-                                    GgafDx::GeoVehicle* prm_pGeoVehicle_target);
+    FixedFrameCurveAxisVehicleLeader(CurveManufacture* prm_pManufacture,
+                                    GgafDx::AxisVehicle* prm_pAxisVehicle_target);
 
     virtual void restart() override;
 
@@ -49,7 +49,7 @@ public:
      */
     virtual void behave() override;
 
-    virtual ~FixedFrameCurveGeoVehicleLeader();
+    virtual ~FixedFrameCurveAxisVehicleLeader();
 };
 
 }

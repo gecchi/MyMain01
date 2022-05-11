@@ -970,8 +970,8 @@ void VecVehicle::setStopTargetMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz)
 }
 
 void VecVehicle::turnRzRyFaceAngTo(angle prm_rz_target, angle prm_ry_target,
-                                angvelo prm_angvelo, angacce prm_angacce,
-                                int prm_way, bool prm_optimize_ang) {
+                                   angvelo prm_angvelo, angacce prm_angacce,
+                                   int prm_way, bool prm_optimize_ang) {
     angle out_d_rz;
     angle out_d_ry;
     if (prm_optimize_ang) {
@@ -1066,8 +1066,8 @@ void VecVehicle::turnRzRyFaceAngTo(angle prm_rz_target, angle prm_ry_target,
 }
 
 void VecVehicle::turnFaceAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
-                             angvelo prm_angvelo, angacce prm_angacce,
-                             int prm_way, bool prm_optimize_ang) {
+                                angvelo prm_angvelo, angacce prm_angacce,
+                                int prm_way, bool prm_optimize_ang) {
     coord vx = prm_tx - _pActor->_x;
     coord vy = prm_ty - _pActor->_y;
     coord vz = prm_tz - _pActor->_z;
@@ -1087,8 +1087,8 @@ void VecVehicle::turnFaceAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
 
 
 void VecVehicle::turnFaceAng(axis prm_axis,
-                          angle prm_distance,
-                          angvelo prm_angvelo, angacce prm_angacce) {
+                             angle prm_distance,
+                             angvelo prm_angvelo, angacce prm_angacce) {
     int s = SGN(prm_distance);
     setFaceAngVelo(prm_axis, ABS(prm_angvelo)*s);
     setFaceAngAcce(prm_axis, ABS(prm_angacce)*s);
@@ -1099,8 +1099,8 @@ void VecVehicle::turnFaceAng(axis prm_axis,
 
 
 void VecVehicle::turnRzFaceAngTo(angle prm_rz_target,
-                              angvelo prm_angvelo, angacce prm_angacce,
-                              int prm_way) {
+                                 angvelo prm_angvelo, angacce prm_angacce,
+                                 int prm_way) {
     if (getFaceAngDistance(AXIS_Z, prm_rz_target, prm_way) > 0) {
         setFaceAngVelo(AXIS_Z, prm_angvelo);
         setFaceAngAcce(AXIS_Z, prm_angacce);
@@ -1114,8 +1114,8 @@ void VecVehicle::turnRzFaceAngTo(angle prm_rz_target,
 }
 
 void VecVehicle::turnRyFaceAngTo(angle prm_ry_target,
-                              angvelo prm_angvelo, angacce prm_angacce,
-                              int prm_way) {
+                                 angvelo prm_angvelo, angacce prm_angacce,
+                                 int prm_way) {
     if (getFaceAngDistance(AXIS_Y, prm_ry_target, prm_way) > 0) {
         setFaceAngVelo(AXIS_Y, prm_angvelo);
         setFaceAngAcce(AXIS_Y, prm_angacce);
@@ -1129,8 +1129,8 @@ void VecVehicle::turnRyFaceAngTo(angle prm_ry_target,
 }
 
 void VecVehicle::rollFaceAngTo(angle prm_rx_target,
-                            angvelo prm_angvelo, angacce prm_angacce,
-                            int prm_way) {
+                               angvelo prm_angvelo, angacce prm_angacce,
+                               int prm_way) {
     if (getFaceAngDistance(AXIS_X, prm_rx_target, prm_way) > 0) {
         setFaceAngVelo(AXIS_X, prm_angvelo);
         setFaceAngAcce(AXIS_X, prm_angacce);
@@ -1142,8 +1142,8 @@ void VecVehicle::rollFaceAngTo(angle prm_rx_target,
 }
 
 void VecVehicle::turnRzRyMvAngTo(angle prm_rz_target, angle prm_ry_target,
-                              angvelo prm_angvelo, angacce prm_angacce,
-                              int prm_way, bool prm_optimize_ang) {
+                                 angvelo prm_angvelo, angacce prm_angacce,
+                                 int prm_way, bool prm_optimize_ang) {
     angle out_d_rz;
     angle out_d_ry;
     if (prm_optimize_ang) {
@@ -1231,8 +1231,8 @@ void VecVehicle::turnRzRyMvAngTo(angle prm_rz_target, angle prm_ry_target,
 }
 
 void VecVehicle::turnMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
-                           angvelo prm_angvelo, angacce prm_angacce,
-                           int prm_way, bool prm_optimize_ang) {
+                              angvelo prm_angvelo, angacce prm_angacce,
+                              int prm_way, bool prm_optimize_ang) {
     coord vx = prm_tx - _pActor->_x;
     coord vy = prm_ty - _pActor->_y;
     coord vz = prm_tz - _pActor->_z;
@@ -1251,7 +1251,7 @@ void VecVehicle::turnMvAngTwd(coord prm_tx, coord prm_ty, coord prm_tz,
 }
 
 void VecVehicle::turnRzMvAng(angle prm_rz_distance,
-                          angvelo prm_angvelo, angacce prm_angacce) {
+                             angvelo prm_angvelo, angacce prm_angacce) {
     int s = SGN(prm_rz_distance);
     setRzMvAngVelo(ABS(prm_angvelo) * s);
     setRzMvAngAcce(ABS(prm_angacce) * s);
@@ -1259,7 +1259,7 @@ void VecVehicle::turnRzMvAng(angle prm_rz_distance,
 }
 
 void VecVehicle::turnRyMvAng(angle prm_ry_distance,
-                          angvelo prm_angvelo, angacce prm_angacce) {
+                             angvelo prm_angvelo, angacce prm_angacce) {
     int s = SGN(prm_ry_distance);
     setRyMvAngVelo(ABS(prm_angvelo) * s);
     setRyMvAngAcce(ABS(prm_angacce) * s);
@@ -1267,8 +1267,8 @@ void VecVehicle::turnRyMvAng(angle prm_ry_distance,
 }
 
 void VecVehicle::turnRzMvAngTo(angle prm_rz_target,
-                           angvelo prm_angvelo, angacce prm_angacce,
-                           int prm_way) {
+                               angvelo prm_angvelo, angacce prm_angacce,
+                               int prm_way) {
     if (getRzMvAngDistance(prm_rz_target, prm_way) > 0) {
         setRzMvAngVelo(prm_angvelo);
         setRzMvAngAcce(prm_angacce);
@@ -1280,8 +1280,8 @@ void VecVehicle::turnRzMvAngTo(angle prm_rz_target,
 }
 
 void VecVehicle::turnRyMvAngTo(angle prm_ry_target,
-                            angvelo prm_angvelo, angacce prm_angacce,
-                            int prm_way) {
+                               angvelo prm_angvelo, angacce prm_angacce,
+                               int prm_way) {
     if (getRyMvAngDistance(prm_ry_target, prm_way) > 0) {
         setRyMvAngVelo(prm_angvelo);
         setRyMvAngAcce(prm_angacce);
@@ -1486,7 +1486,7 @@ VecVehicle::~VecVehicle() {
 // 上記の移動体系とはまったく別に、独立して X軸、Y軸、Z軸に平行な移動指定ができる。
 // 「X軸方向移動速度」「Y軸方向移動速度」「Z軸方向移動速度」を設定すると、毎フレーム(_x,_y,_z)にそれぞれの移動増分が
 // 加算される。
-// （※→この機能は GeoVehicle に集約され独立したクラスとなりました！）
+// （※→この機能は AxisVehicle に集約され独立したクラスとなりました！）
 
 //2010/02/19追記
 // ※たまに「RyRz」という表現が存在する（「RzRy」と異なる）が、これは「Y軸回転 → Z軸回転の順番の移動方角」を表しているので注意。

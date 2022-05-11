@@ -4,7 +4,7 @@
 #include "jp/ggaf/dx/util/curve/CurveSource.h"
 #include "jp/ggaf/dx/manager/CurveSourceConnection.h"
 #include "jp/ggaf/dx/manager/CurveSourceManager.h"
-#include "jp/ggaf/dx/util/curve/FixedFrameCurveGeoVehicleLeader.h"
+#include "jp/ggaf/dx/util/curve/FixedFrameCurveAxisVehicleLeader.h"
 #include "jp/ggaf/dx/util/curve/FixedFrameCurveVecVehicleLeader.h"
 #include "jp/ggaf/dx/util/curve/FixedVelocityCurveVecVehicleLeader.h"
 #include "jp/ggaf/dx/util/curve/SteppedCoordCurveVecVehicleLeader.h"
@@ -74,20 +74,20 @@ VehicleLeader* CurveManufacture::createVehicleLeader(GgafDx::GeometricActor* prm
 
     VehicleLeader* pVehicleLeader = nullptr;
     if (_move_method == FixedVelocity) {
-        if (_move_driver == GeoVehicle) {
-            //pVehicleLeader = NEW FixedVelocityCurveGeoVehicleLeader(this, prm_pActor->getGeoVehicle());
+        if (_move_driver == AxisVehicle) {
+            //pVehicleLeader = NEW FixedVelocityCurveAxisVehicleLeader(this, prm_pActor->getAxisVehicle());
         } else if (_move_driver == VecVehicle) {
             pVehicleLeader = NEW FixedVelocityCurveVecVehicleLeader(this, prm_pActor->getVecVehicle());
         }
     } else if (_move_method == FixedVelocity) {
-        if (_move_driver == GeoVehicle) {
-            pVehicleLeader = NEW FixedFrameCurveGeoVehicleLeader(this, prm_pActor->getGeoVehicle());
+        if (_move_driver == AxisVehicle) {
+            pVehicleLeader = NEW FixedFrameCurveAxisVehicleLeader(this, prm_pActor->getAxisVehicle());
         } else if (_move_driver == VecVehicle) {
             pVehicleLeader = NEW FixedFrameCurveVecVehicleLeader(this, prm_pActor->getVecVehicle());
         }
     } else if (_move_method == SteppedCoord) {
-        if (_move_driver == GeoVehicle) {
-            //pVehicleLeader = NEW SteppedCoordCurveGeoVehicleLeader(this, prm_pActor->getGeoVehicle());
+        if (_move_driver == AxisVehicle) {
+            //pVehicleLeader = NEW SteppedCoordCurveAxisVehicleLeader(this, prm_pActor->getAxisVehicle());
         } else if (_move_driver == VecVehicle) {
             pVehicleLeader = NEW SteppedCoordCurveVecVehicleLeader(this, prm_pActor->getVecVehicle());
         }
@@ -104,8 +104,8 @@ VehicleLeader* CurveManufacture::createVecVehicleLeader(GgafDx::VecVehicle* prm_
     return nullptr;
 }
 
-VehicleLeader* CurveManufacture::createGeoVehicleLeader(GgafDx::GeoVehicle* prm_pGeoVehicle) {
-    throwCriticalException("CurveManufacture::createGeoVehicleLeader() 下位でオーバーライドして実装が必要です。");
+VehicleLeader* CurveManufacture::createAxisVehicleLeader(GgafDx::AxisVehicle* prm_pAxisVehicle) {
+    throwCriticalException("CurveManufacture::createAxisVehicleLeader() 下位でオーバーライドして実装が必要です。");
     return nullptr;
 }
 
