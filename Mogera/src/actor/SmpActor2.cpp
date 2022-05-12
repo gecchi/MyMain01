@@ -72,7 +72,7 @@ void SmpActor2::processBehavior() {
 
     if (GgafDx::Input::isPressedKey(DIK_A)) {
         pGeoVehicle->forceVeloRange(0, PX_C(3));
-        pGeoVehicle->setAcce(PX_C(0.01), PX_C(0.02), PX_C(0));
+        pGeoVehicle->setAcceByVc(PX_C(0.01), PX_C(0.02), PX_C(0));
 
     }
     _TRACE_("x,y,z="<<_x<<", "<<_y<<", "<<_z);

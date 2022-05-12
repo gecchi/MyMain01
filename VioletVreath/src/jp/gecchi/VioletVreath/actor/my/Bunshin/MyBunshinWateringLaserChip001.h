@@ -42,8 +42,8 @@ public:
     static const velo MAX_VELO_RENGE;
     /** [r]計算用 */
     static const double INV_MAX_VELO_RENGE;
-    /** 加速度範囲(-MAX_ACCE_RENGE, MAX_ACCE_RENGE) */
-    static const float MAX_ACCE_RENGE;
+    /** 加速度範囲(0, MAX_ACCE_RENGE) */
+    static const acce MAX_ACCE_RENGE;
 
     static const velo INITIAL_VELO;
 

@@ -25,10 +25,10 @@ using namespace VioletVreath;
 
 const velo MyBunshinWateringLaserChip001::MAX_VELO_RENGE = PX_C(512); //この値を大きくすると、最高速度が早くなる。
 const double MyBunshinWateringLaserChip001::INV_MAX_VELO_RENGE = 1.0 / MAX_VELO_RENGE;
-const int MyBunshinWateringLaserChip001::R_MAX_ACCE = 15; //この値を大きくすると、カーブが緩くなる
-const velo MyBunshinWateringLaserChip001::INITIAL_VELO = MAX_VELO_RENGE*0.5; //レーザー発射時の初期速度
+const int MyBunshinWateringLaserChip001::R_MAX_ACCE = 16; //この値を大きくすると、カーブが緩くなる
+const velo MyBunshinWateringLaserChip001::INITIAL_VELO = MAX_VELO_RENGE*0.6; //レーザー発射時の初期速度
 const double MyBunshinWateringLaserChip001::RR_MAX_ACCE = 1.0 / R_MAX_ACCE; //計算簡素化用
-const float MyBunshinWateringLaserChip001::MAX_ACCE_RENGE = MAX_VELO_RENGE/R_MAX_ACCE;
+const acce MyBunshinWateringLaserChip001::MAX_ACCE_RENGE = MAX_VELO_RENGE/R_MAX_ACCE;
 const velo MyBunshinWateringLaserChip001::MIN_VELO_ = MyBunshinWateringLaserChip001::INITIAL_VELO/10; // ÷10 は、最低移動する各軸のINITIAL_VELOの割合
 GgafDx::Model* MyBunshinWateringLaserChip001::pModel_ = nullptr;
 int MyBunshinWateringLaserChip001::tex_no_ = 0;
@@ -95,17 +95,11 @@ void MyBunshinWateringLaserChip001::processBehavior() {
     double power = active_frame <= 300 ? UTIL::SHOT_POWER[active_frame] : UTIL::SHOT_POWER[300];
     getStatus()->set(STAT_AttackPowerRate, power);
     _power = power;
-
     GgafDx::GeoVehicle* const pGeoVehicle = getGeoVehicle();
-
-//    if (strcmp(getName(), "Bunshin4's LaserChip(75)") == 0 && _frame_of_life > 4413) {
-//        _TRACE_("なんでや1 "<<pGeoVehicle->_velo_x<<","<<pGeoVehicle->_velo_y<<","<<pGeoVehicle->_velo_z);
-//    }
-
     MyBunshin::AimInfo* pAimInfo = pAimInfo_;
 
-    if (active_frame >= 60*20) {
-        sayonara(); //保険のタイムアウト20秒
+    if (active_frame >= 60*10) {
+        sayonara(); //保険のタイムアウト10秒
     } else if (pAimInfo == nullptr || active_frame < 7) {
         //なにもしない
     } else {
@@ -125,17 +119,17 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                     //●Leader が t1 へ Aim
                     if (pAimTarget->isActiveInTheTree() && active_frame < aim_time_out_t1)  {
                         //pAimTarget が存命
-                        int vx1 = pGeoVehicle->_velo_x;
-                        int vy1 = pGeoVehicle->_velo_y;
-                        int vz1 = pGeoVehicle->_velo_z;
+                        int vx1 = pGeoVehicle->_velo_vc_x;
+                        int vy1 = pGeoVehicle->_velo_vc_y;
+                        int vz1 = pGeoVehicle->_velo_vc_z;
 
                         aimChip(pAimInfo->t1_x,
                                 pAimInfo->t1_y,
                                 pAimInfo->t1_z );
 
-                        int vx2 = pGeoVehicle->_velo_x;
-                        int vy2 = pGeoVehicle->_velo_y;
-                        int vz2 = pGeoVehicle->_velo_z;
+                        int vx2 = pGeoVehicle->_velo_vc_x;
+                        int vy2 = pGeoVehicle->_velo_vc_y;
+                        int vz2 = pGeoVehicle->_velo_vc_z;
 
                         int sgn_vx = SGN(vx1 - vx2);
                         int sgn_vy = SGN(vy1 - vy2);
@@ -154,6 +148,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                         if (inv_cnt_ > 10) { //10回も速度の正負が入れ替わったら終了
                             pAimInfo_->spent_frames_to_t1 = active_frame; //Aim t1 終了
                         } else {
+                            // t1 と衝突したら終了
                             static const coord renge = MyBunshinWateringLaserChip001::INITIAL_VELO;
                             static const ucoord renge2 = renge*2;
                             if ( (ucoord)(_x - pAimInfo->t1_x + renge) <= renge2) {
@@ -173,7 +168,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                     //●Leader が t1 へ Aim し終わったあと
                     //t2を決める
                     static const Spacetime* pSpaceTime =  pGOD->getSpacetime();
-                    static const double zf_r = UTIL::getDistance(
+                    static const double ZF_R = UTIL::getDistance(
                                                       0.0, 0.0, 0.0,
                                                       (double)(pSpaceTime->_x_bound_right),
                                                       (double)(pSpaceTime->_y_bound_top),
@@ -187,15 +182,15 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                         }
                     }
                     if (pB) {
-                        pAimInfo->setT2(zf_r, pB->_x, pB->_y, pB->_z, _x, _y, _z);
+                        pAimInfo->setT2(ZF_R, pB->_x, pB->_y, pB->_z, _x, _y, _z);
                     } else {
-                        pAimInfo->setT2(zf_r, pOrg_->_x, pOrg_->_y, pOrg_->_z, _x, _y, _z);
+                        pAimInfo->setT2(ZF_R, pOrg_->_x, pOrg_->_y, pOrg_->_z, _x, _y, _z);
                     }
                     coord t2_d = UTIL::getDistance(_x, _y, _z,
                                                    pAimInfo->t2_x,
                                                    pAimInfo->t2_y,
                                                    pAimInfo->t2_z);
-                    pAimInfo->spent_frames_to_t2 = active_frame + (frame)(t2_d*MyBunshinWateringLaserChip001::INV_MAX_VELO_RENGE); //t2到達時間概算
+                    pAimInfo->spent_frames_to_t2 = active_frame + (frame)(t2_d/MyBunshinWateringLaserChip001::MAX_VELO_RENGE); //t2到達時間概算
                     aimChip(pAimInfo->t2_x,
                             pAimInfo->t2_y,
                             pAimInfo->t2_z );
@@ -206,9 +201,9 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                                 pAimInfo->t2_y,
                                 pAimInfo->t2_z );
                     } else {
-                        aimChip(_x + pGeoVehicle->_velo_x*4+1,
-                                _y + pGeoVehicle->_velo_y*4+1,
-                                _z + pGeoVehicle->_velo_z*4+1 );
+                        aimChip(_x + pGeoVehicle->_velo_vc_x*4+1,
+                                _y + pGeoVehicle->_velo_vc_y*4+1,
+                                _z + pGeoVehicle->_velo_vc_z*4+1 );
                     }
                 }
             } else {
@@ -236,9 +231,9 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                                 pAimLeaderChip->_y,
                                 pAimLeaderChip->_z );
                     } else {
-                        aimChip(pAimInfo->t1_x,
-                                pAimInfo->t1_y,
-                                pAimInfo->t1_z );
+                        aimChip(_x + pGeoVehicle->_velo_vc_x*4+1,
+                                _y + pGeoVehicle->_velo_vc_y*4+1,
+                                _z + pGeoVehicle->_velo_vc_z*4+1 );
                     }
                 } else if (active_frame <= pAimInfo->spent_frames_to_t1) {
                     //●Leader以外が t1 が定まってから t1 到達までの動き
@@ -254,17 +249,23 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                                     pAimLeaderChip->_y,
                                     pAimLeaderChip->_z );
                         } else {
-                            aimChip(_x + pGeoVehicle->_velo_x*4+1,
-                                    _y + pGeoVehicle->_velo_y*4+1,
-                                    _z + pGeoVehicle->_velo_z*4+1 );
+                            aimChip(_x + pGeoVehicle->_velo_vc_x*4+1,
+                                    _y + pGeoVehicle->_velo_vc_y*4+1,
+                                    _z + pGeoVehicle->_velo_vc_z*4+1 );
                         }
                     } else if (active_frame <= pAimInfo->spent_frames_to_t2) {
                         //●その後 Leader以外が t2 が定まって、t2に向かうまでの動き
+                        //aimChip(pAimInfo->t2_x,
+                        //		pAimInfo->t2_y,
+                        //		pAimInfo->t2_z );
+
+                        //t2 ではなくて、あえて LeaderChip を優先で追いかける。そのほうがそれっぽい動きになる。
                         if (pAimLeaderChip) {
                             aimChip(pAimLeaderChip->_x,
                                     pAimLeaderChip->_y,
                                     pAimLeaderChip->_z );
                         } else {
+                            // LeaderChip がいないなら、仕方ないので本来の t2 へ
                             aimChip(pAimInfo->t2_x,
                                     pAimInfo->t2_y,
                                     pAimInfo->t2_z );
@@ -276,9 +277,9 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                                     pAimLeaderChip->_y,
                                     pAimLeaderChip->_z );
                         } else {
-                            aimChip(_x + pGeoVehicle->_velo_x*4+1,
-                                    _y + pGeoVehicle->_velo_y*4+1,
-                                    _z + pGeoVehicle->_velo_z*4+1 );
+                            aimChip(_x + pGeoVehicle->_velo_vc_x*4+1,
+                                    _y + pGeoVehicle->_velo_vc_y*4+1,
+                                    _z + pGeoVehicle->_velo_vc_z*4+1 );
                         }
                     } else {
                         _TRACE_("【警告】ありえない");
@@ -289,23 +290,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
         } //if (pAimTarget)
 
     }
-
-
-//    if (strcmp(getName(), "Bunshin4's LaserChip(75)") == 0 && _frame_of_life > 4413) {
-//        _TRACE_("なんでや3 "<<pGeoVehicle->_velo_x<<","<<pGeoVehicle->_velo_y<<","<<pGeoVehicle->_velo_z);
-//    }
-//
-//    if (strcmp(getName(), "Bunshin4's LaserChip(75)") == 0 && _frame_of_life == 4416) {
-//        _TRACE_("きたで3 "<<pGeoVehicle->_velo_x<<","<<pGeoVehicle->_velo_y<<","<<pGeoVehicle->_velo_z);
-//    }
-
-
     pGeoVehicle->behave();
-
-//    if (strcmp(getName(), "Bunshin4's LaserChip(75)") == 0 && _frame_of_life > 4413) {
-////    	&& pGeoVehicle->_velo_x == 0 && pGeoVehicle->_velo_y == 0 && pGeoVehicle->_velo_z == 0) {
-//        _TRACE_("なんでや4 "<<pGeoVehicle->_velo_x<<","<<pGeoVehicle->_velo_y<<","<<pGeoVehicle->_velo_z);
-//    }
     WateringLaserChip::processBehavior();
 
     tmp_x_ = _x;
@@ -316,11 +301,6 @@ void MyBunshinWateringLaserChip001::processBehavior() {
 void MyBunshinWateringLaserChip001::processSettlementBehavior() {
     //分身はFKなので、絶対座標の確定が processSettlementBehavior() 以降となるため、ここで初期設定が必要
     GgafDx::GeoVehicle* const pGeoVehicle = getGeoVehicle();
-
-//    if (strcmp(getName(), "Bunshin4's LaserChip(75)") == 0 && _frame_of_life > 4413) {
-//        _TRACE_("なんでや5 "<<pGeoVehicle->_velo_x<<","<<pGeoVehicle->_velo_y<<","<<pGeoVehicle->_velo_z);
-//    }
-
     if (hasJustChangedToActive()) {
         //チップの初期設定
         //ロックオン情報の引き継ぎ
@@ -345,15 +325,9 @@ void MyBunshinWateringLaserChip001::processSettlementBehavior() {
                 pAimInfo_->pLeaderChip = this;
                 pAimInfo_->pTarget = nullptr;
             }
-            pGeoVehicle->forceVeloRange(MIN_VELO_, MAX_VELO_RENGE);
         } else {
             //先端以外は前のを受け継ぐ
             pAimInfo_ = pF->pAimInfo_; //受け継ぐ
-
-            pGeoVehicle->forceVeloRange(MIN_VELO_, MAX_VELO_RENGE);
-
-//            velo v = MAX_VELO_RENGE - PX_C(1); //レーザーが弛まないように PX_C(1) 遅くした
-//            pGeoVehicle->forceVeloRange(MIN_VELO_, v);
 #ifdef MY_DEBUG
 if (pAimInfo_ == nullptr) {
 throwCriticalException("pAimInfo_ が引き継がれていません！"<<this<<
@@ -415,13 +389,9 @@ throwCriticalException("pAimInfo_ が引き継がれていません！"<<this<<
 //                                   pGeoVehicle->_velo_z,
 //                                   _rz, _ry );
         }
-
-//        if (strcmp(getName(), "Bunshin4's LaserChip(75)") == 0 && _frame_of_life > 4413) {
-//            _TRACE_("なんでや6 "<<pGeoVehicle->_velo_x<<","<<pGeoVehicle->_velo_y<<","<<pGeoVehicle->_velo_z);
-//        }
-        UTIL::convVectorToRzRy(pGeoVehicle->_velo_x,
-                               pGeoVehicle->_velo_y,
-                               pGeoVehicle->_velo_z,
+        UTIL::convVectorToRzRy(pGeoVehicle->_velo_vc_x,
+                               pGeoVehicle->_velo_vc_y,
+                               pGeoVehicle->_velo_vc_z,
                                _rz, _ry );
     }
     WateringLaserChip::processSettlementBehavior();
@@ -472,44 +442,24 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
 #endif
 
 
-    static const coord rv = 10.0;
+    static const coord rv = 10; // 5
     GgafDx::GeoVehicle* pGeoVehicle = getGeoVehicle();
     //自→仮、自方向ベクトル(vM)
-    coord vMx = pGeoVehicle->_velo_x;
-    coord vMy = pGeoVehicle->_velo_y;
-    coord vMz = pGeoVehicle->_velo_z;
+    coord vMx = pGeoVehicle->_velo_vc_x;
+    coord vMy = pGeoVehicle->_velo_vc_y;
+    coord vMz = pGeoVehicle->_velo_vc_z;
     //|vM|
-//    double lvM = sqrt(vMx*vMx + vMy*vMy + vMz*vMz);
-//    coord lvM = UTIL::getDistanceFromOrigin(vMx, vMy, vMz);
-
     coord lvM = pGeoVehicle->_velo;
-    //|vM|があまりに小さい場合＝速度が遅すぎる場合を考慮
-//    if  (lvM < MIN_VELO_) { //縮こまらないように
-//        if (ZEROd_EQ(lvM)) {
-//            //速度が殆ど０でもうどっち向いてるかわからんので、X軸方向に飛ばす
-//            pGeoVehicle->setVelo(MIN_VELO_, 0, 0);
-//        } else {
-//            //速度 MIN_VELO_ を保証する
-//            double r = (1.0*MIN_VELO_/lvM);
-//            pGeoVehicle->setVelo(vMx*r, vMy*r, vMz*r);
-//        }
-//        vMx = pGeoVehicle->_velo_x;
-//        vMy = pGeoVehicle->_velo_y;
-//        vMz = pGeoVehicle->_velo_z;
-//        lvM = MIN_VELO_;
-//    }
+
     coord vVMx = vMx * rv;
     coord vVMy = vMy * rv;
     coord vVMz = vMz * rv;
     coord lvVM = lvM * rv;
-
-
     //自→的、方向ベクトル (vT)
     coord vTx = tX - _x;
     coord vTy = tY - _y;
     coord vTz = tZ - _z;
     //|vT|
-//    double lvT = sqrt(vTx*vTx + vTy*vTy + vTz*vTz);
     coord lvT = UTIL::getDistanceFromOrigin(vTx, vTy, vTz);
     //|仮的| を lvVM の長さに合わせて作成
     double rMT = (lvVM * 1.2 / lvT) ;
@@ -519,20 +469,11 @@ void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
     coord vVTy = vTy * rMT;
     coord vVTz = vTz * rMT;
     coord lvVT = lvT * rMT;
-//    double cos_th = ((vMx*vTx + vMy*vTy + vMz*vTz) / (lvT * lvM)); //なす角
-//    if (cos_th < 0.5) {
-//        cos_th = 0.5;
-//    }
     //vVP 仮自→仮的 の加速度設定
     //→vVP=( vVTx-vVMx, vVTy-vVMy, vVTz-vVMz )
-    const acce accX = (vVTx-vVMx) * RR_MAX_ACCE; // * cos_th;
-    const acce accY = (vVTy-vVMy) * RR_MAX_ACCE; // * cos_th;
-    const acce accZ = (vVTz-vVMz) * RR_MAX_ACCE; // * cos_th;
-//    double top_acce_mv = pGeoVehicle->_top_acce_x*1.05; //ちょっとずつなら拡張しちょいよみたいな
-//    if (MAX_VELO_RENGE < top_acce_mv && top_acce_mv < MAX_VELO_RENGE) {
-//        pGeoVehicle->forceAcceXYZRange(-top_acce_mv, top_acce_mv);
-//    }
-    pGeoVehicle->setAcce(accX, accY, accZ);
+    pGeoVehicle->setAcceByVc((vVTx-vVMx) * RR_MAX_ACCE,
+                             (vVTy-vVMy) * RR_MAX_ACCE,
+                             (vVTz-vVMz) * RR_MAX_ACCE);
 }
 
 
@@ -553,8 +494,7 @@ void MyBunshinWateringLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor
         if (stamina <= 0) {
             //一撃でチップ消滅の攻撃力
             getStatus()->set(STAT_Stamina, default_stamina_);
-//TODO:ここで sayonara() せずに、しばらく理想のホーミングレーザー軌跡を研究する！
-            //sayonara();
+            sayonara();
         } else {
             //耐えれるならば、通貫し、スタミナ回復（攻撃力100の雑魚ならば通貫）
             getStatus()->set(STAT_Stamina, default_stamina_);

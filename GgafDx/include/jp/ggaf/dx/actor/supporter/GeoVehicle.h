@@ -19,32 +19,31 @@ namespace GgafDx {
 class GeoVehicle : public ActorVehicle {
 
 public:
-
+    /** [r]移動速度 */
     velo _velo;
-    acce _acce;
-
-    /** [r/w]X軸方向移動速度 */
-    velo _velo_x;
-    /** [r/w]Y軸方向移動速度 */
-    velo _velo_y;
-    /** [r/w]Z軸方向移動速度 */
-    velo _velo_z;
-    /** [r/w]移動速度上限 */
+    /** [r]移動速度上限 */
     velo _top_velo;
-    /** [r/w]移動速度下限 */
+    /** [r]移動速度下限 */
     velo _bottom_velo;
+    /** [r]移動速度方向ベクトルX軸成分 */
+    velo _velo_vc_x;
+    /** [r]移動速度方向ベクトルY軸成分 */
+    velo _velo_vc_y;
+    /** [r]移動速度方向ベクトルZ軸成分 */
+    velo _velo_vc_z;
 
-    /** [r/w]X軸方向移動加速度 */
-    acce _acce_x;
-    /** [r/w]Y軸方向移動加速度 */
-    acce _acce_y;
-    /** [r/w]Z軸方向移動加速度 */
-    acce _acce_z;
-    /** [r/w]移動加速度上限*/
+    /** [r]移動加速度 */
+    acce _acce;
+    /** [r]移動加速度上限*/
     acce _top_acce;
-    /** [r/w]移動加速度下限*/
+    /** [r]移動加速度下限*/
     acce _bottom_acce;
-
+    /** [r]移動加速度方向ベクトルX軸成分 */
+    acce _acce_vc_x;
+    /** [r]移動加速度方向ベクトルY軸成分 */
+    acce _acce_vc_y;
+    /** [r]移動加速度方向ベクトルZ軸成分 */
+    acce _acce_vc_z;
 
 public:
     /**
@@ -68,23 +67,50 @@ public:
     void forceAcceRange(acce prm_acce01, acce prm_acce02);
 
     /**
-     * X軸Y軸Z軸方向の移動速度を目標座標と移動速度で設定する。
-     * @param prm_tx 目標X座標
-     * @param prm_ty 目標Y座標
-     * @param prm_tz 目標Z座標
+     * 移動方向を座標、移動速度を値で設定する。
+     * @param prm_tx 移動方向X座標
+     * @param prm_ty 移動方向Y座標
+     * @param prm_tz 移動方向Z座標
      * @param prm_velo 移動速度
      */
     void setVeloTwd(coord prm_tx, coord prm_ty, coord prm_tz, velo prm_velo);
 
+    /**
+     * 移動方向を軸回転(Rz, Ry)、移動速度を値で設定する。
+     * @param prm_rz 移動方向z軸回転値
+     * @param prm_ry 移動方向y軸回転値
+     * @param prm_velo 移動速度
+     */
     void setVeloTwd(angle prm_rz, angle prm_ry, velo prm_velo);
 
-    void setVelo(velo prm_velo_x, velo prm_velo_y, velo prm_velo_z);
+
+    /**
+     * XYZ軸ベクトル成分で、移動速度を設定する .
+     * @param prm_velo_vc_x
+     * @param prm_velo_vc_y
+     * @param prm_velo_vc_z
+     */
+    void setVeloByVc(velo prm_velo_vc_x, velo prm_velo_vc_y, velo prm_velo_vc_z);
 
     void setVeloZero();
 
+
+    /**
+     * 移動方向を座標、移動加速度を値で設定する。
+     * @param prm_tx 移動方向X座標
+     * @param prm_ty 移動方向Y座標
+     * @param prm_tz 移動方向Z座標
+     * @param prm_acce 移動加速度
+     */
     void setAcceTwd(coord prm_tx, coord prm_ty, coord prm_tz, acce prm_acce);
 
-    void setAcce(acce prm_acce_x, acce prm_acce_y, acce prm_acce_z);
+    /**
+     * XYZ軸ベクトル成分で、移動加速度を設定する .
+     * @param prm_acce_vc_x
+     * @param prm_acce_vc_y
+     * @param prm_acce_vc_z
+     */
+    void setAcceByVc(acce prm_acce_vc_x, acce prm_acce_vc_y, acce prm_acce_vc_z);
 
     void setAcceZero();
 

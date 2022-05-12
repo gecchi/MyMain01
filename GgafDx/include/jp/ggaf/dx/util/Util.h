@@ -404,9 +404,10 @@ public:
     }
 
     /**
-     * 距離の近似を計算 .
-     * @param x
-     * @param y
+     * 原点からの距離(2D)の近似を計算 .
+     * sqrt() を使用するよりも速い。
+     * @param x X座標
+     * @param y Y座標
      * @return
      */
     static int getApproxDistanceFromOrigin(int x, int y) {
@@ -420,9 +421,11 @@ public:
     }
 
     /**
-     * 距離の近似を計算（※ 引数がすべて正と予めわかっている場合のちょい速いバージョン） .
-     * @param abs_x
-     * @param abs_y
+     * 原点からの距離(2D)の近似を計算 .
+     * sqrt() を使用するよりも速い。
+     * 引数がすべて正と予めわかっている場合のちょい速いバージョン
+     * @param abs_x 正のX座標
+     * @param abs_y 正のY座標
      * @return 原点からの距離の近似
      */
     static int getApproxDistanceFromOrigin2(int abs_x, int abs_y) {
@@ -433,8 +436,20 @@ public:
         return (int)((d + 512) >> 10);
     }
 
+    /**
+     * 距離近似値計算(2D) .
+     * @param x1
+     * @param y1
+     * @param x2
+     * @param y2
+     * @return 距離の近似
+     */
+    static coord getApproxDistance(coord x1, coord y1, coord x2, coord y2) {
+        return Util::getApproxDistanceFromOrigin(x2-x1, y2-y1);
+    }
 
-// 引数３つバージョンは速度的にsqrt() と同じ。したがって制度が良い sqrt() を使うべき
+// 引数３つバージョンは速度的にsqrt() と同じ。
+// したがって精度が良い sqrt() を使うべき考えて、簡易版をいったん削除
 
 //    /**
 //     * 距離の近似を計算(3D) .
@@ -458,17 +473,6 @@ public:
 //        return Util::getApproxDistanceFromOrigin2(getApproxDistanceFromOrigin2(abs_x, abs_y), abs_z);
 //    }
 
-    /**
-     * 距離近似値計算(2D) .
-     * @param x1
-     * @param y1
-     * @param x2
-     * @param y2
-     * @return 距離の近似
-     */
-    static coord getApproxDistance(coord x1, coord y1, coord x2, coord y2) {
-        return Util::getApproxDistanceFromOrigin(x2-x1, y2-y1);
-    }
 //
 //    /**
 //     * 距離の近似を計算(3D) .
