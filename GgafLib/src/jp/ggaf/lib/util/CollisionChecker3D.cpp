@@ -99,6 +99,7 @@ CNT:
                     coord max_dx = pColliPart->_hdx + pOppColliPart->_hdx;
                     if ((ucoord)( (pOppActor->_x + pOppColliPart->_cx) - (pActor->_x + pColliPart->_cx) + max_dx ) < (ucoord)(2*max_dx)) {
                         //↑左辺計算が0より小さい場合 unsigned キャストにより正の大きな数になるので条件成立しない事を利用し、ABSの判定を一つ除去してる。
+                        //BOX vs BOX の当たり判定頻度はパフォーマンスに大きな影響を与えるため、わずかでも高速化したいため。
                         coord max_dz = pColliPart->_hdz + pOppColliPart->_hdz;
                         if ((ucoord)( (pOppActor->_z + pOppColliPart->_cz) - (pActor->_z + pColliPart->_cz) + max_dz ) < (ucoord)(2*max_dz)) {
                             coord max_dy = pColliPart->_hdy + pOppColliPart->_hdy;

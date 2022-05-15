@@ -2,13 +2,12 @@
 
 #include "LockonCursor001_Main.h"
 #include "LockonCursor001_Sub.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyLockonController.h"
 
 using namespace GgafLib;
 using namespace VioletVreath;
 
-/** １オプション当たりの最大可能ロックオン数 */
-const int MyLockonController::max_lockon_num_ = 8;
 int MyLockonController::lockon_num_ = 0;
 
 MyLockonController::MyLockonController(const char* prm_name) :
@@ -17,7 +16,7 @@ MyLockonController::MyLockonController(const char* prm_name) :
     pMainLockonEffect_ = NEW LockonCursor001_Main("MAIN");
     pMainLockonEffect_->inactivate();
     appendChild(pMainLockonEffect_);
-    for (int i = 1; i < MyLockonController::max_lockon_num_; i++) {
+    for (int i = 1; i < MAX_LOCKON_NUM; i++) {
         std::string name = "ChildLockon("+XTOS(i)+")";
         LockonCursor001_Sub* pLockonCursor_Sub = NEW LockonCursor001_Sub(name.c_str());
         pLockonCursor_Sub->inactivate();
@@ -32,7 +31,7 @@ void MyLockonController::onReset() {
     listTarget_.removeAll();
     //ロックオンアクターのリセット
     LockonCursor001* pLockonCursor001;
-    for (int i = 0; i < MyLockonController::max_lockon_num_; i++) {
+    for (int i = 0; i < MAX_LOCKON_NUM; i++) {
         pLockonCursor001 = (LockonCursor001*)(getChild(i));
         pLockonCursor001->releaseLockon();
         pLockonCursor001->inactivate();

@@ -95,8 +95,6 @@ private:
     void addTurnAngleAroundAx2(float prm_ax_x, float prm_ax_y, float prm_ax_z);
 
 public:
-    /** 最大分身数 */
-    static const int MAX_BUNSHIN_NUM;
     /** [r]トレース時の分身と分身の間隔 */
     static const frame BUNSHIN_D;
     /** [r]分身の向きの角速度 */

@@ -25,8 +25,6 @@
 #include "jp/ggaf/dx/actor/supporter/Colorist.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectTurbo002.h"
 
-
-
 using namespace GgafLib;
 using namespace VioletVreath;
 

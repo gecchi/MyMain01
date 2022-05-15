@@ -4,6 +4,7 @@
 #include "jp/gecchi/VioletVreath/actor/VvEffectActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
 #include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene.h"
@@ -12,6 +13,7 @@ namespace VioletVreath {
 
 DECLARE_HASHVAL(EVENT_MyBunshin_ChangeGeoFinal);
 
+#define MAX_AIM_INFO_NUM (MAX_BUNSHIN_NUM * MAX_LOCKON_NUM)
 
 //class MyBunshin : public GgafLib::DefaultMorphMeshActor {
 class MyBunshin : public VvEffectActor<GgafLib::DefaultMeshSetActor> {
@@ -45,11 +47,11 @@ public:
                                               t2_x,t2_y,t2_z);
         }
     };
-    AimInfo pass_p_[20];
+    AimInfo pass_p_[MAX_AIM_INFO_NUM];
     int pass_p_seq_;
     AimInfo* getAimInfo() {
         pass_p_seq_++;
-        if (pass_p_seq_ >= 20) {
+        if (pass_p_seq_ >= MAX_AIM_INFO_NUM) {
             pass_p_seq_ = 0;
         }
         AimInfo* ap = &(pass_p_[pass_p_seq_]);

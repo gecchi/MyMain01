@@ -8,7 +8,6 @@
 
 namespace VioletVreath {
 
-
 /**
  * ロックオンコントローラー .
  * @version 1.00
@@ -18,8 +17,6 @@ namespace VioletVreath {
 class MyLockonController : public GgafCore::DestructActor {
 
 public:
-    /** [r]１オプション当たりの最大可能ロックオン数 */
-    static const int max_lockon_num_;
     /** [r]１オプション当たりの現在可能ロックオン数 */
     static int lockon_num_;
 

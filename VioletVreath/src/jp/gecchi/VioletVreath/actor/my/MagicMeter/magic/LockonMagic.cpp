@@ -13,7 +13,7 @@ using namespace VioletVreath;
 
 LockonMagic::LockonMagic(const char* prm_name, int* prm_pMP)
     : Magic(prm_name, prm_pMP,
-            MyLockonController::max_lockon_num_,   //max_level
+            MAX_LOCKON_NUM,   //max_level
             1000*4  , 1.0, 0.9,  //基本魔法コスト, ＋１レベル毎のコスト増加率  , 飛びレベル時のコスト削減率
             60      , 1.0, 0.9,  //基本詠唱時間  , ＋１レベル毎の詠唱時間増加率, 飛びレベル時の詠唱時間削減率
             30      , 1.0, 0.9,  //基本発動時間  , ＋１レベル毎の発動時間増加率, 飛びレベル時の発動時間削減率

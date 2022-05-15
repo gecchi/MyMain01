@@ -24,10 +24,10 @@ using namespace GgafLib;
 using namespace VioletVreath;
 
 const velo MyBunshinWateringLaserChip001::MAX_VELO_RENGE = PX_C(512); //この値を大きくすると、最高速度が早くなる。
-const double MyBunshinWateringLaserChip001::INV_MAX_VELO_RENGE = 1.0 / MAX_VELO_RENGE;
-const int MyBunshinWateringLaserChip001::R_MAX_ACCE = 16; //この値を大きくすると、カーブが緩くなる
+//const double MyBunshinWateringLaserChip001::INV_MAX_VELO_RENGE = 1.0 / MAX_VELO_RENGE;
+const int MyBunshinWateringLaserChip001::R_MAX_ACCE = 20; //MAX_VELO_RENGE に対する加速度、この値を大きくすると、カーブが緩くなる
 const velo MyBunshinWateringLaserChip001::INITIAL_VELO = MAX_VELO_RENGE*0.6; //レーザー発射時の初期速度
-const double MyBunshinWateringLaserChip001::RR_MAX_ACCE = 1.0 / R_MAX_ACCE; //計算簡素化用
+//const double MyBunshinWateringLaserChip001::RR_MAX_ACCE = 1.0 / R_MAX_ACCE; //計算簡素化用  (現在未使用)
 const acce MyBunshinWateringLaserChip001::MAX_ACCE_RENGE = MAX_VELO_RENGE/R_MAX_ACCE;
 const velo MyBunshinWateringLaserChip001::MIN_VELO_ = MyBunshinWateringLaserChip001::INITIAL_VELO/10; // ÷10 は、最低移動する各軸のINITIAL_VELOの割合
 GgafDx::Model* MyBunshinWateringLaserChip001::pModel_ = nullptr;
@@ -60,7 +60,7 @@ MyBunshinWateringLaserChip001::MyBunshinWateringLaserChip001(const char* prm_nam
 
 void MyBunshinWateringLaserChip001::initialize() {
     getVecVehicle()->linkFaceAngByMvAng(true);
-    registerHitAreaCube_AutoGenMidColli(PX_C(80));
+    registerHitAreaCube_AutoGenMidColli(MAX_VELO_RENGE/4);
     setHitAble(true);
     setScaleR(6.0);
     setCullingDraw(false);
@@ -414,67 +414,81 @@ void MyBunshinWateringLaserChip001::processJudgement() {
         sayonara();
     }
 }
+
 void MyBunshinWateringLaserChip001::aimChip(int tX, int tY, int tZ) {
-    //    |                            vVT 仮的                              |
-    //    |                                ^ ┌                              |
-    //    |               |仮的| > |仮自| /    ＼  vVP 仮自→仮的            |      仮的
-    //    |                 となるような /       ＼                          |       ↑
-    //    |                 vVTを設定   /         ┐                         |      仮自
-    //    |               (|仮自|*1.2) /        ／vVM  仮自                  |       ↑
-    //    |                           /       ／ =(vMx*5,vMy*5,vMz*5)        |       ｜
-    //    |                          /      ／                               |       ｜
-    //    |                         /     ／                                 |       ｜
-    //    |                        /    ／ |仮自| = lVM * 5                  |       ｜
-    //    |                      的 vT(vTx,vTy,vTz)                          |       的
-    //    |             ┌       ^  ／                                       |       ↑
-    //    |               ＼    / ┐vM 現在の移動方向ベクトル                |       ｜
-    //    | vVP 仮自→仮的  ＼ /／ (vMx,vMy,vMz)                             |       ｜
-    //    |                   自                                             |       自
-    //    |                     (_x,_y,_z)                                   |
-    // ---+------------------------------------------                     ---+---------------------------
-    //    |                                                                  |
-    //
-    // vVP が動きたい方向。vVPを求める！
-#ifdef MY_DEBUG
-    if (tX == INT_MAX) {
-        throwCriticalException("おかしい");
-    }
-#endif
-
-
-    static const coord rv = 10; // 5
     GgafDx::GeoVehicle* pGeoVehicle = getGeoVehicle();
-    //自→仮、自方向ベクトル(vM)
-    coord vMx = pGeoVehicle->_velo_vc_x;
-    coord vMy = pGeoVehicle->_velo_vc_y;
-    coord vMz = pGeoVehicle->_velo_vc_z;
-    //|vM|
-    coord lvM = pGeoVehicle->_velo;
-
-    coord vVMx = vMx * rv;
-    coord vVMy = vMy * rv;
-    coord vVMz = vMz * rv;
-    coord lvVM = lvM * rv;
     //自→的、方向ベクトル (vT)
     coord vTx = tX - _x;
     coord vTy = tY - _y;
     coord vTz = tZ - _z;
     //|vT|
     coord lvT = UTIL::getDistanceFromOrigin(vTx, vTy, vTz);
-    //|仮的| を lvVM の長さに合わせて作成
-    double rMT = (lvVM * 1.2 / lvT) ;
-    //1.2は右上図のように一直線に並んだ際も、進行方向を維持するために、
-    //|仮自| < |仮的| という関係を維持するためにかけた適当な割合
-    coord vVTx = vTx * rMT;
-    coord vVTy = vTy * rMT;
-    coord vVTz = vTz * rMT;
-    coord lvVT = lvT * rMT;
-    //vVP 仮自→仮的 の加速度設定
-    //→vVP=( vVTx-vVMx, vVTy-vVMy, vVTz-vVMz )
-    pGeoVehicle->setAcceByVc((vVTx-vVMx) * RR_MAX_ACCE,
-                             (vVTy-vVMy) * RR_MAX_ACCE,
-                             (vVTz-vVMz) * RR_MAX_ACCE);
+    double ve = pGeoVehicle->_velo;
+    //自→仮自
+    coord vVMx = lvT * (pGeoVehicle->_velo_vc_x / ve)*0.9;
+    coord vVMy = lvT * (pGeoVehicle->_velo_vc_y / ve)*0.9;
+    coord vVMz = lvT * (pGeoVehicle->_velo_vc_z / ve)*0.9;
+    //仮自→仮的 *2、仮自から的をはさんで２倍の距離
+    double vVTx = (vTx - vVMx)*10;
+    double vVTy = (vTy - vVMy)*10;
+    double vVTz = (vTz - vVMz)*10;
+    //自→仮的 へ加速度設定
+    const double t = 1.0 / sqrt(vVTx * vVTx + vVTy * vVTy + vVTz * vVTz);
+    pGeoVehicle->setAcceByVc((t * vVTx) * MAX_ACCE_RENGE,
+                             (t * vVTy) * MAX_ACCE_RENGE,
+                             (t * vVTz) * MAX_ACCE_RENGE);
 }
+
+/////////////////////////////
+
+// 	//    |                            vVT 仮的                              |
+// 	//    |                                ^ ┌                              |
+// 	//    |               |仮的| > |仮自| /    ＼  vVP 仮自→仮的            |      仮的
+// 	//    |                 となるような /       ＼                          |       ↑
+// 	//    |                 vVTを設定   /         ┐                         |      仮自
+// 	//    |               (|仮自|*1.2) /        ／vVM  仮自                  |       ↑
+// 	//    |                           /       ／ =(vMx*5,vMy*5,vMz*5)        |       ｜
+// 	//    |                          /      ／                               |       ｜
+// 	//    |                         /     ／                                 |       ｜
+// 	//    |                        /    ／ |仮自| = lVM * 5                  |       ｜
+// 	//    |                      的 vT(vTx,vTy,vTz)                          |       的
+// 	//    |             ┌       ^  ／                                       |       ↑
+// 	//    |               ＼    / ┐vM 現在の移動方向ベクトル                |       ｜
+// 	//    | vVP 仮自→仮的  ＼ /／ (vMx,vMy,vMz)                             |       ｜
+// 	//    |                   自                                             |       自
+// 	//    |                     (_x,_y,_z)                                   |
+// 	// ---+------------------------------------------                     ---+---------------------------
+// 	//    |                                                                  |
+// 	//
+// vVP が動きたい方向。vVPを求める！
+//    static const coord rv = 10; // 5
+//    GgafDx::GeoVehicle* pGeoVehicle = getGeoVehicle();
+//    //自→仮、自方向ベクトル(vM)
+//    //|vM|
+//    coord vVMx = pGeoVehicle->_velo_vc_x * rv;
+//    coord vVMy = pGeoVehicle->_velo_vc_y * rv;
+//    coord vVMz = pGeoVehicle->_velo_vc_z * rv;
+//    coord lvVM = pGeoVehicle->_velo * rv;
+//    //自→的、方向ベクトル (vT)
+//    coord vTx = tX - _x;
+//    coord vTy = tY - _y;
+//    coord vTz = tZ - _z;
+//    //|vT|
+//    coord lvT = UTIL::getDistanceFromOrigin(vTx, vTy, vTz);
+//    //|仮的| を lvVM の長さに合わせて作成
+//    double rMT = (lvVM * 1.2 / lvT) ;
+//    //1.2は右上図のように一直線に並んだ際も、進行方向を維持するために、
+//    //|仮自| < |仮的| という関係を維持するためにかけた適当な割合
+//    coord vVTx = vTx * rMT;
+//    coord vVTy = vTy * rMT;
+//    coord vVTz = vTz * rMT;
+//    coord lvVT = lvT * rMT;
+//    //vVP 仮自→仮的 の加速度設定
+//    //→vVP=( vVTx-vVMx, vVTy-vVMy, vVTz-vVMz )
+//    pGeoVehicle->setAcceByVc((vVTx-vVMx) * RR_MAX_ACCE,
+//                             (vVTy-vVMy) * RR_MAX_ACCE,
+//                             (vVTz-vVMz) * RR_MAX_ACCE);
+//}
 
 
 void MyBunshinWateringLaserChip001::onHit(const GgafCore::Actor* prm_pOtherActor) {
