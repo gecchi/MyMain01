@@ -72,7 +72,9 @@ void GeoVehicle::setVeloTwd(coord prm_tx, coord prm_ty, coord prm_tz, velo prm_v
     if (ZEROd_EQ(p)) {
         //速度が０になってしまったら
         //加速度の方向ベクトルに最低速度を設定
-        p = 1.0*_acce_vc_x*_acce_vc_x + 1.0*_acce_vc_y*_acce_vc_y + 1.0*_acce_vc_z*_acce_vc_z;
+        p = 1.0*_acce_vc_x*_acce_vc_x +
+            1.0*_acce_vc_y*_acce_vc_y +
+            1.0*_acce_vc_z*_acce_vc_z;
         if (ZEROd_EQ(p)) {
             //加速度も０なら、あきらめて _velo_vc_x に最低速度を設定
             _velo_vc_x = _bottom_velo;
@@ -102,11 +104,15 @@ void GeoVehicle::setVeloTwd(angle prm_rz, angle prm_ry, velo prm_velo) {
 }
 
 void GeoVehicle::setVeloByVc(velo prm_velo_vc_x, velo prm_velo_vc_y, velo prm_velo_vc_z) {
-    double p = 1.0*prm_velo_vc_x*prm_velo_vc_x + 1.0*prm_velo_vc_y*prm_velo_vc_y + 1.0*prm_velo_vc_z*prm_velo_vc_z;
+    double p = 1.0*prm_velo_vc_x*prm_velo_vc_x +
+               1.0*prm_velo_vc_y*prm_velo_vc_y +
+               1.0*prm_velo_vc_z*prm_velo_vc_z;
     if (ZEROd_EQ(p)) {
         //速度が０になってしまったら
         //加速度の方向ベクトルに最低速度を設定
-        p = 1.0*_acce_vc_x*_acce_vc_x + 1.0*_acce_vc_y*_acce_vc_y + 1.0*_acce_vc_z*_acce_vc_z;
+        p = 1.0*_acce_vc_x*_acce_vc_x +
+            1.0*_acce_vc_y*_acce_vc_y +
+            1.0*_acce_vc_z*_acce_vc_z;
         if (ZEROd_EQ(p)) {
             //加速度も０なら、あきらめて _velo_vc_x に最低速度を設定
             _velo_vc_x = _bottom_velo;
@@ -169,7 +175,9 @@ void GeoVehicle::setAcceTwd(coord prm_tx, coord prm_ty, coord prm_tz, acce prm_a
 }
 
 void GeoVehicle::setAcceByVc(acce prm_acce_vc_x, acce prm_acce_vc_y, acce prm_acce_vc_z) {
-    double p = 1.0 * prm_acce_vc_x * prm_acce_vc_x + 1.0 * prm_acce_vc_y * prm_acce_vc_y + 1.0 * prm_acce_vc_z * prm_acce_vc_z;
+    double p = 1.0 * prm_acce_vc_x * prm_acce_vc_x +
+               1.0 * prm_acce_vc_y * prm_acce_vc_y +
+               1.0 * prm_acce_vc_z * prm_acce_vc_z;
     if (ZEROd_EQ(p)) {
         _acce_vc_x = _bottom_acce;
         _acce_vc_y = 0;
@@ -208,7 +216,9 @@ void GeoVehicle::setAcceZero() {
 
 void GeoVehicle::behave() {
     if (_acce != 0) {
-        setVeloByVc(_velo_vc_x+_acce_vc_x, _velo_vc_y+_acce_vc_y, _velo_vc_z+_acce_vc_z);
+        setVeloByVc(_velo_vc_x+_acce_vc_x,
+                    _velo_vc_y+_acce_vc_y,
+                    _velo_vc_z+_acce_vc_z);
     }
     //Actorに反映
     _pActor->_x += _velo_vc_x;

@@ -8,7 +8,7 @@
 namespace GgafDx {
 
 /**
- * 作成中 .
+ * アクターを乗せる力車 .
  * GeometricActor のメンバの<BR>
  * _x, _y, _z  ・・・ アクターの座標<BR>
  * を、各成分毎に簡単に操作するために作成。<BR>
@@ -53,21 +53,23 @@ public:
     explicit GeoVehicle(GeometricActor* prm_pActor);
 
     /**
-     * 移動速度の上限下限を強制 .
+     * 移動速度の上限下限を強制強制する .
      * @param prm_velo01 速度１
      * @param prm_velo02 速度２
      */
     void forceVeloRange(velo prm_velo01, velo prm_velo02);
 
     /**
-     * 移動加速度の上限下限を強制 .
+     * 移動加速度の上限下限を強制する .
      * @param prm_acce01 加速度１
      * @param prm_acce02 加速度２
      */
     void forceAcceRange(acce prm_acce01, acce prm_acce02);
 
     /**
-     * 移動方向を座標、移動速度を値で設定する。
+     * 移動方向を座標、移動速度を値で設定する .
+     * 移動速度下限～ 移動速度上限 の範囲外を設定した場合、
+     * 方向はそのままで、直近の範囲内に納められて設定される。
      * @param prm_tx 移動方向X座標
      * @param prm_ty 移動方向Y座標
      * @param prm_tz 移動方向Z座標
@@ -76,7 +78,9 @@ public:
     void setVeloTwd(coord prm_tx, coord prm_ty, coord prm_tz, velo prm_velo);
 
     /**
-     * 移動方向を軸回転(Rz, Ry)、移動速度を値で設定する。
+     * 移動方向を軸回転(Rz, Ry)、移動速度を値で設定する .
+     * 移動速度下限～ 移動速度上限 の範囲外を設定した場合、
+     * 方向はそのままで、直近の範囲内に納められて設定される。
      * @param prm_rz 移動方向z軸回転値
      * @param prm_ry 移動方向y軸回転値
      * @param prm_velo 移動速度
@@ -86,17 +90,25 @@ public:
 
     /**
      * XYZ軸ベクトル成分で、移動速度を設定する .
+     * 移動速度下限～ 移動速度上限 の範囲外を設定した場合、
+     * 方向はそのままで、直近の範囲内に納められて設定される。
      * @param prm_velo_vc_x
      * @param prm_velo_vc_y
      * @param prm_velo_vc_z
      */
     void setVeloByVc(velo prm_velo_vc_x, velo prm_velo_vc_y, velo prm_velo_vc_z);
 
+    /**
+     * 移動速度を 0 に設定する .
+     * 但し、移動速度下限 が 0 より大きい場合、
+     * 無理やり移動速度下限の速度がX軸方向に設定される。
+     */
     void setVeloZero();
 
-
     /**
-     * 移動方向を座標、移動加速度を値で設定する。
+     * 移動方向を座標、移動加速度を値で設定する .
+     * 移動加速度下限～ 移動加速度上限 の範囲外を設定した場合、
+     * 方向はそのままで、直近の範囲内に納められて設定される。
      * @param prm_tx 移動方向X座標
      * @param prm_ty 移動方向Y座標
      * @param prm_tz 移動方向Z座標
@@ -106,18 +118,20 @@ public:
 
     /**
      * XYZ軸ベクトル成分で、移動加速度を設定する .
+     * 移動加速度下限～ 移動加速度上限 の範囲外を設定した場合、
+     * 方向はそのままで、直近の範囲内に納められて設定される。
      * @param prm_acce_vc_x
      * @param prm_acce_vc_y
      * @param prm_acce_vc_z
      */
     void setAcceByVc(acce prm_acce_vc_x, acce prm_acce_vc_y, acce prm_acce_vc_z);
 
-    void setAcceZero();
-
     /**
-     * 速度、加速度をリセット、各上限下限を初期設定。
+     * 移動加速度を 0 に設定する .
+     * 但し、移動加速度下限 が 0 より大きい場合、
+     * 無理やり移動加速度下限の速度がX軸方向に設定される。
      */
-    void reset();
+    void setAcceZero();
 
     /**
      * 駕籠(平行移動支援)が振る舞う .
