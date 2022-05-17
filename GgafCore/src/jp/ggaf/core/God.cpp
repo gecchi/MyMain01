@@ -14,6 +14,7 @@ using namespace GgafCore;
 
 CRITICAL_SECTION God::CS1;
 CRITICAL_SECTION God::CS2;
+
 #ifdef MY_DEBUG
 unsigned int God::_num_drawing = 0;
 #endif
@@ -36,9 +37,9 @@ God::God() : Object(),
     ::InitializeCriticalSection(&(God::CS2));
     ::ResumeThread(_handle_god_love01);
     ::SetThreadPriority(_handle_god_love01, THREAD_PRIORITY_IDLE);
-    _time_at_beginning_frame = timeGetTime();
-    _time_of_next_view = _time_at_beginning_frame;
-    _time_calc_fps_next = _time_at_beginning_frame + 1;
+    DWORD time_now = timeGetTime();
+    _time_of_next_view = time_now;
+    _time_calc_fps_next = time_now + 1;
     _visualize_frames = 0;
     _prev_visualize_frames = 0;
     _is_behaved_flg = false;
@@ -127,7 +128,7 @@ void God::be() {
     //
     //【安定時の理想図】
     //        _time_of_next_view                                              _time_of_next_view
-    //                 |              3frame begin                                      |              4frame begin
+    //                 |              3frame begin(_frame_of_God++)                     |              4frame begin(_frame_of_God++)
     //                 |                   |                                            |                   |
     //                 v                   v                                            v                   v
     // ==================================================================================================================================================> 時間
@@ -156,9 +157,9 @@ void God::be() {
         }
 #endif
         _pSpacetime->_pGod = this;
-        _time_at_beginning_frame = timeGetTime();
-        _time_of_next_view = _time_at_beginning_frame+100; //0.1秒後開始
-        _time_calc_fps_next = _time_at_beginning_frame + 1;
+        DWORD time_now = timeGetTime();
+        _time_of_next_view = time_now + 100; //0.1秒後開始
+        _time_calc_fps_next = time_now + 1;
     }
 #ifdef MY_DEBUG
     //神（別スレッド）例外をチェック
@@ -166,9 +167,16 @@ void God::be() {
         throw *_pException_god;
     }
 #endif
+    //フレームと時間の同期を行う
+    if (_sync_frame_time) {
+        DWORD time_now = timeGetTime();
+        _time_of_next_view = time_now + 100; //0.1秒後開始
+        _time_calc_fps_next = time_now + 1;
+        _TRACE_("God::be() フレームと時間の同期を実施。");
+        _sync_frame_time = false;
+    }
 
     if (_is_behaved_flg == false) {
-        _is_behaved_flg = true;
         BEGIN_SYNCHRONIZED1; // ----->排他開始
         _frame_of_God++;
         presentSpacetimeMoment(); //①
@@ -176,50 +184,49 @@ void God::be() {
         _time_of_next_view += _apaTime_offset_of_next_view[_slowdown_mode][_cnt_frame];
         _cnt_frame++;
         if (_cnt_frame >= CONFIG::FPS) { _cnt_frame = 0; }
-        if (timeGetTime() >= _time_of_next_view) { //描画タイミングフレームになった、或いは過ぎている場合
-            //makeSpacetimeMaterialize はパス
+
+        if (timeGetTime() >= _time_of_next_view) {
+            //描画タイミングフレームになった、或いは過ぎている場合
+            //描画無し（スキップ時）③はパスする。
             _is_materialized_flg = false;
         } else {
             //描画タイミングフレームになっていない。余裕がある。
+            //描画有り（スキップなし）
              _is_materialized_flg = true;
             makeSpacetimeMaterialize(); //③
-            //但し makeSpacetimeMaterialize() によりオーバーするかもしれない。
+            //但し ③ によりオーバーしたかもしれない。
         }
+        _is_behaved_flg = true;
         END_SYNCHRONIZED1;  // <-----排他終了
     }
 
-    _time_at_beginning_frame = timeGetTime();
-
-    if (_time_at_beginning_frame >= _time_of_next_view) {
+    DWORD time_now = timeGetTime();
+    if (time_now >= _time_of_next_view) {
         //描画タイミングフレームになった、或いは過ぎている場合
         BEGIN_SYNCHRONIZED1;  // ----->排他開始
-        if (_is_materialized_flg) { // ③ makeSpacetimeMaterialize() 実行済みの場合
-            //描画有り（スキップなし）
+        if (_is_materialized_flg) {
+            //描画有り（スキップなし）（①②③ 実行済みの場合）
             presentSpacetimeVisualize();  _visualize_frames++; //④
-            finalizeSpacetime(); //⑤
-        } else {                   // ③ makeSpacetimeMaterialize() 実行していない場合
-            //描画無し（スキップ時）
-            if (_sync_frame_time) { //同期調整モード時は
-                //無条件で描画なし。
-                finalizeSpacetime(); //⑤
-            } else {   //同期調整モードではない場合は通常スキップ
-                _skip_count_of_frame++;
-                //但し、スキップするといっても MAX_SKIP_FRAME フレームに１回は描画はする。
-                if (_skip_count_of_frame >= _max_skip_frames) {
-                    makeSpacetimeMaterialize(); //③
-                    presentSpacetimeVisualize();  _visualize_frames++; //④
-                    finalizeSpacetime();        //⑤
-                    _skip_count_of_frame = 0;
-                } else {
-                    finalizeSpacetime(); //⑤
-                }
+        } else {
+            //描画無し（スキップ時）（①②実行済み、③実行していない）
+            _skip_count_of_frame++;
+
+            if (_skip_count_of_frame >= _max_skip_frames) {
+                //但し、スキップするといっても MAX_SKIP_FRAME フレームに１回は
+                //無理やり描画して、アプリが動作していることをアピール。（無理やり③を実行し、④を実行）
+                makeSpacetimeMaterialize(); //③
+                presentSpacetimeVisualize();  _visualize_frames++; //④
+                _skip_count_of_frame = 0;
+            } else {
+                //③④をスキップとなる。
             }
         }
+        finalizeSpacetime(); //⑤
         _is_behaved_flg = false;
         END_SYNCHRONIZED1;    // <-----排他終了
 
         //fps計算
-        if (_time_at_beginning_frame >= _time_calc_fps_next) {
+        if (time_now >= _time_calc_fps_next) {
             const int d_visualize_frames = _visualize_frames - _prev_visualize_frames;
             if (d_visualize_frames == 0) {
                 _fps = 0;
@@ -232,7 +239,6 @@ void God::be() {
         }
 
      } else { //描画タイミングフレームになってない(余裕がある)
-         _sync_frame_time = false;
          Sleep(1); //<--- wait ---> な ひととき
      }
     return;

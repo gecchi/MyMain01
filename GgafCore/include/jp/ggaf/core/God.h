@@ -70,13 +70,16 @@ public:
     HANDLE _handle_god_love01;
     /** [r] GgafCore::God::love スレッドID  */
     unsigned int _th_id01;
-    /** [r] 神のフレーム開始システム時間 */
-    DWORD _time_at_beginning_frame;
+//    /** [r] 神のフレーム開始システム時間 */
+//    DWORD _time_at_beginning_frame;
     /** [r] 次にこの世を活動させるシステム時間 */
     DWORD _time_of_next_view;
+
+    DWORD _time_calc_fps_next;
+
     /** [r] 神誕生からのフレーム数 */
     frame _frame_of_God;
-    int _cnt_frame;
+    frame _cnt_frame;
 
     /** [r] この世を視覚化できなかった（スキップした）回数 */
     int _skip_count_of_frame;
@@ -85,7 +88,7 @@ public:
     /** [r] fps値（約1000ms毎に計算される） */
     double _fps;
 
-    DWORD _time_calc_fps_next;
+
     /** [r] 描画フレームカウンタ */
     frame _visualize_frames;
     /** [r] 前回fps計算時の描画フレームカウント値 */
@@ -170,7 +173,7 @@ public:
     virtual Spacetime* createSpacetime() = 0;
 
     /**
-     * 描画を一時停止し、フレームと時間の同期を行う
+     * フレームと時間の同期を行う
      */
     void syncTimeFrame() {
         _sync_frame_time = true;

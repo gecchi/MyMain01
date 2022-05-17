@@ -327,9 +327,9 @@ void World::processBehavior() {
     if (getActiveFrame() % CONFIG::FPS == 0) {
         _TRACE_("***** "<<aBufDebug_);
     }
-    if (pGOD->_sync_frame_time) {
-        _TRACE_N_("z");
-    }
+//    if (pGOD->_sync_frame_time) {
+//        _TRACE_N_("z");
+//    }
 #else
     sprintf(aBufDebug_, "%03.1fFPS", askGod()->_fps);
     pLabel_debug_->update(aBufDebug_);

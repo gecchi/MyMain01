@@ -98,7 +98,7 @@ void Util::init() {
         //PARABORA[ang] = (float)((double)((ang-(D360SANG/2))*(ang-(D360SANG/2))) /  (double)(-1.0*(D360SANG/2)*(D360SANG/2)) + 1.0);
         ////PARABORA[0] = 0 , PARABORA[D180SANG] = 1,  PARABORA[D360SANG-1] = 0 で y = -x^2  放物線の値をとる
     }
-
+    Sleep(100);
     Util::COS[0]     =  1;
     Util::COS[9000]  =  0;
     Util::COS[18000] = -1;
@@ -167,6 +167,7 @@ void Util::init() {
         }
         index_slant_prev = index_slant;
     }
+    Sleep(10);
     d_index_slant = 100000 - index_slant_prev;
     for (int i = index_slant_prev+1, d = 1; i <= 100000; i++, d++) {
         if (i > 100000) {
@@ -174,7 +175,7 @@ void Util::init() {
         }
         Util::SLANT2ANG[i] = (angle)( (45000-1) + (1.0*d)/(1.0*d_index_slant) );
     }
-    Sleep(1);
+    Sleep(10);
     //<PROJ_ANG2ROT_ANG> （2009/10/20 経緯・・・速くするためなら何でもやってみよう）
     //ある方向ベクトルから、XY平面、ZY平面に投影した時にできる軸との角（それぞれXY射影角、ZY射影角と呼ぶこととする）と、
     //その方向ベクトルの単位ベクトルが指す単位球の緯度と経度（Z軸回転角、Y軸回転角）を紐つけることを目的とする。
@@ -220,8 +221,9 @@ void Util::init() {
             //_TRACE_("["<<prj_ang_xy<<"]["<<prj_ang_xz<<"]=("<<PROJANG_XY_XZ_TO_ROTANG_z[prj_ang_xy][prj_ang_xz]<<","<<PROJANG_XY_XZ_TO_ROTANG_y_REV[prj_ang_xy][prj_ang_xz]<<")");
 
         }
+        Sleep(2);
     }
-    Sleep(1);
+    Sleep(10);
     vz = 1.0;
     for (s_ang prj_ang_zy = 0; prj_ang_zy <= D90SANG; prj_ang_zy++) {
         prj_rad_zy = (PI * 2.0 * prj_ang_zy) / (1.0*D360SANG);
@@ -256,9 +258,10 @@ void Util::init() {
             //_TRACE_("PROJANG_ZY_ZX_TO_ROTANG_y["<<prj_ang_zy<<"]["<<prj_ang_zx<<"] = D90ANG - "<<ry_rev<<"*SANG_RATE = "<<PROJANG_ZY_ZX_TO_ROTANG_y[prj_ang_zy][prj_ang_zx]);
             //_TRACE_("["<<prj_ang_xy<<"]["<<prj_ang_xz<<"]=("<<PROJANG_XY_XZ_TO_ROTANG_z[prj_ang_xy][prj_ang_xz]<<","<<PROJANG_XY_XZ_TO_ROTANG_y_REV[prj_ang_xy][prj_ang_xz]<<")");
         }
+        Sleep(2);
     }
 
-
+    Sleep(10);
     //円内、球内に一様に分布するランダムな点を生成
     for (int i = 0; i < 10000; i++) {
         const double r = dRND(0.0, 1.0);

@@ -13,7 +13,8 @@ namespace VioletVreath {
 
 DECLARE_HASHVAL(EVENT_MyBunshin_ChangeGeoFinal);
 
-#define MAX_AIM_INFO_NUM (MAX_BUNSHIN_NUM * MAX_LOCKON_NUM)
+#define MAX_LASER_CHIP_NUM (85)
+#define MAX_AIM_INFO_NUM (MAX_LASER_CHIP_NUM / 2)
 
 //class MyBunshin : public GgafLib::DefaultMorphMeshActor {
 class MyBunshin : public VvEffectActor<GgafLib::DefaultMeshSetActor> {

@@ -69,19 +69,30 @@ void LibWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, 
  */
 void LibWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
     switch (message) {
-        case WM_CHAR:
+        case WM_CHAR: {
             GgafLib::WMKeyInput::catchWmChar(wParam);
             break;
-        case WM_SIZE:
+        }
+        case WM_SIZE: {
             if (pGOD && GgafDx::God::_pHWndPrimary) {
                 if (!CONFIG::FULL_SCREEN) {
-                    _TRACE_("LibWndProc WM_SIZE");
                     GgafDx::God::_adjustGameWindow = true;
-                    GgafDx::God::_pHWnd_adjustScreen = hWnd;
+                    GgafDx::God::_pHWnd_adjustScreen = hWnd; //サイズ変更したほうのWINDOW
                 }
             }
+            GgafCore::God::_pGod->syncTimeFrame();
             break;
-        case WM_SETFOCUS:
+        }
+        case WM_SIZING: {
+            GgafCore::God::_pGod->syncTimeFrame();
+            break;
+        }
+        case WM_MOVING: {
+            GgafCore::God::_pGod->syncTimeFrame();
+            break;
+        }
+
+        case WM_SETFOCUS: {
             if (GgafDx::God::_pHWndPrimary) {
                 HRESULT hr;
                 // マウス強調レベル設定
@@ -113,14 +124,17 @@ void LibWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
                 }
             }
             break;
-        case WM_SYSCOMMAND:
+        }
+        case WM_SYSCOMMAND: {
             if(wParam == SC_CLOSE) {
                 PostQuitMessage(0);
             }
             break;
-        case WM_DESTROY:
+        }
+        case WM_DESTROY: {
             PostQuitMessage(0);
             break;
+        }
         default:
             break;
     }

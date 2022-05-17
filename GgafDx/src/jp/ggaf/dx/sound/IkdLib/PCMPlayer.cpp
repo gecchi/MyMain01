@@ -261,6 +261,12 @@ unsigned __stdcall PCMPlayer::streamThread(void* playerPtr) {
     bool waitFinish = false;
 
     while (player->_is_terminate == false) {
+        if (pGOD->_sync_frame_time) {
+            _TRACE_("PCMPlayer::streamThread() ‰‰‘t’â~’†EEE");
+            Sleep(100);
+            continue;
+        }
+
         BEGIN_SYNCHRONIZED2;
         switch (player->getState()) {
             case STATE_PLAY: // Ä¶’†

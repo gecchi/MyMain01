@@ -60,11 +60,11 @@ MyBunshin::MyBunshin(const char* prm_name, MyBunshinBase* prm_pBase) :
 
     //レーザーストック
     pLaserChipDepo_ = NEW LaserChipDepository("DepoBunshinLaser");
-    for (int i = 0; i < 80; i++) {
+    for (int i = 0; i < MAX_LASER_CHIP_NUM; i++) {
         std::string name = std::string(getName()) + "'s LaserChip(" + XTOS(i) + ")";
         pLaserChipDepo_->put(NEW MyBunshinWateringLaserChip001(name.c_str()));
     }
-    pLaserChipDepo_->config(80, 25);
+    pLaserChipDepo_->config(MAX_LASER_CHIP_NUM, MAX_LASER_CHIP_NUM/3);
     appendGroupChild(pLaserChipDepo_);
 
     //ロックオンコントローラー
