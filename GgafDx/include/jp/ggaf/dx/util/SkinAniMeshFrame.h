@@ -14,7 +14,7 @@ public:
     DWORD _bone_id;
     /** ボーンオフセット行列 */
     D3DXMATRIX _bone_offset_matrix; //ローカル頂点をボーン空間の座標に変換する行列
-                                    //考え方：boneanimesh　のXファイルのメッシュは、skinメッシュ頂点にボーンオフセット行列を掛けたもの（ではないか？）
+                                    //考え方：boneanimesh のXファイルのメッシュは、skinメッシュ頂点にボーンオフセット行列を掛けたもの（ではないか？）
     D3DXMATRIX _combined_matrix;  // 合成行列
 };
 

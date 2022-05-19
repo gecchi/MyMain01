@@ -65,7 +65,7 @@ void MagicPointItem::onActive() {
 //    //従って、scattered_distance 離れていても、自機は動かなくてもぎりぎり全て回収できる。
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->forceMvVeloRange(0, 20000);
-    float vX, vY, vZ;
+    double vX, vY, vZ;
     UTIL::getNormalizedVector(
             pMyShip->_x - _x,
             pMyShip->_y - _y,

@@ -15,7 +15,7 @@ namespace GgafDx {
  * @author Masatoshi Tsuge
  */
 class AxisVehicleAssistantA : public GgafCore::Object {
-	friend class AxisVehicle;
+    friend class AxisVehicle;
 
 private:
     /** [r]師匠 */
@@ -72,7 +72,7 @@ public:
      * @param prm_zero_acc_end_flg true:目標移動距離に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
     void slideVxMvByDt(coord prm_target_distance, int prm_target_frames,
-                       float prm_p1, float prm_p2, velo prm_end_velo,
+                       double prm_p1, double prm_p2, velo prm_end_velo,
                        bool prm_zero_acc_end_flg);
 
     /**
@@ -86,7 +86,7 @@ public:
      * @param prm_zero_acc_end_flg true:目標移動距離に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
     void slideVyMvByDt(coord prm_target_distance, int prm_target_frames,
-                       float prm_p1, float prm_p2, velo prm_end_velo,
+                       double prm_p1, double prm_p2, velo prm_end_velo,
                        bool prm_zero_acc_end_flg);
 
     /**
@@ -100,7 +100,7 @@ public:
      * @param prm_zero_acc_end_flg true:目標移動距離に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
     void slideVzMvByDt(coord prm_target_distance, int prm_target_frames,
-                       float prm_p1, float prm_p2, velo prm_end_velo,
+                       double prm_p1, double prm_p2, velo prm_end_velo,
                        bool prm_zero_acc_end_flg);
 
     /**
@@ -118,7 +118,7 @@ public:
      */
     void slideVxyzMvByDt(coord prm_x_target_distance, coord prm_y_target_distance, coord prm_z_target_distance,
                          int prm_target_frames,
-                         float prm_p1, float prm_p2, velo prm_end_velo,
+                         double prm_p1, double prm_p2, velo prm_end_velo,
                          bool prm_zero_acc_end_flg) {
         slideVxMvByDt(prm_x_target_distance, prm_target_frames,
                       prm_p1, prm_p2, prm_end_velo,
@@ -152,9 +152,9 @@ public:
      */
     void slideVxyzMvByDt(coord prm_x_target_distance, coord prm_y_target_distance, coord prm_z_target_distance,
                          int prm_target_frames,
-                         float prm_x_p1, float prm_x_p2, velo prm_x_end_velo,
-                         float prm_y_p1, float prm_y_p2, velo prm_y_end_velo,
-                         float prm_z_p1, float prm_z_p2, velo prm_z_end_velo,
+                         double prm_x_p1, double prm_x_p2, velo prm_x_end_velo,
+                         double prm_y_p1, double prm_y_p2, velo prm_y_end_velo,
+                         double prm_z_p1, double prm_z_p2, velo prm_z_end_velo,
                          bool prm_zero_acc_end_flg) {
         slideVxMvByDt(prm_x_target_distance, prm_target_frames,
                       prm_x_p1, prm_x_p2, prm_x_end_velo,
@@ -183,7 +183,7 @@ public:
      */
     void slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_target, coord prm_z_target,
                            int prm_target_frames,
-                           float prm_p1, float prm_p2, velo prm_end_velo,
+                           double prm_p1, double prm_p2, velo prm_end_velo,
                            bool prm_zero_acc_end_flg);
 
     /**
@@ -206,9 +206,9 @@ public:
      */
     void slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_target, coord prm_z_target,
                            int prm_target_frames,
-                           float prm_x_p1, float prm_x_p2, velo prm_x_end_velo,
-                           float prm_y_p1, float prm_y_p2, velo prm_y_end_velo,
-                           float prm_z_p1, float prm_z_p2, velo prm_z_end_velo,
+                           double prm_x_p1, double prm_x_p2, velo prm_x_end_velo,
+                           double prm_y_p1, double prm_y_p2, velo prm_y_end_velo,
+                           double prm_z_p1, double prm_z_p2, velo prm_z_end_velo,
                            bool prm_zero_acc_end_flg);
 
 
@@ -248,26 +248,26 @@ public:
      * @param prm_zero_acc_end_flg true:目標時間に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
     void slideVxMvByVd(velo prm_top_velo, coord prm_target_distance,
-                       float prm_p1, float prm_p2, velo prm_end_velo,
+                       double prm_p1, double prm_p2, velo prm_end_velo,
                        bool prm_zero_acc_end_flg);
 
     void slideVyMvByVd(velo prm_top_velo, coord prm_target_distance,
-                       float prm_p1, float prm_p2, velo prm_end_velo,
+                       double prm_p1, double prm_p2, velo prm_end_velo,
                        bool prm_zero_acc_end_flg);
 
     void slideVzMvByVd(velo prm_top_velo, coord prm_target_distance,
-                       float prm_p1, float prm_p2, velo prm_end_velo,
+                       double prm_p1, double prm_p2, velo prm_end_velo,
                        bool prm_zero_acc_end_flg);
 
     void slideVxyzMvByVd(velo prm_top_velo,
                          coord prm_x_target_distance, coord prm_y_target_distance, coord prm_z_target_distance,
-                         float prm_p1, float prm_p2, velo prm_end_velo,
+                         double prm_p1, double prm_p2, velo prm_end_velo,
                          bool prm_zero_acc_end_flg);
 
     void slideVxyzMvByVdTo(velo prm_top_velo,
-                          coord prm_x_target, coord prm_y_target, coord prm_z_target,
-                          float prm_p1, float prm_p2, velo prm_end_velo,
-                          bool prm_zero_acc_end_flg);
+                           coord prm_x_target, coord prm_y_target, coord prm_z_target,
+                           double prm_p1, double prm_p2, velo prm_end_velo,
+                           bool prm_zero_acc_end_flg);
 
     /**
      * なめらかな移動シークエンスが作動中か（注意：移動しているか否かではない）.

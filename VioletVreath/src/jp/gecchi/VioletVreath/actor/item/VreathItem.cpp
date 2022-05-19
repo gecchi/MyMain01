@@ -61,7 +61,7 @@ void VreathItem::onActive() {
 //    //従って、scattered_distance 離れていても、自機は動かなくてもぎりぎり全て回収できる。
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     pVecVehicle->forceMvVeloRange(0, 20000);
-    float vX, vY, vZ;
+    double vX, vY, vZ;
     UTIL::getNormalizedVector(
             pMyShip->_x - _x,
             pMyShip->_y - _y,
@@ -70,8 +70,8 @@ void VreathItem::onActive() {
     int d = PX_C(200);
     int r = PX_C(75);
     pVecVehicle->setMvAngTwd( (coord)(_x + (vX * d) + RND(-r, +r)),
-                          (coord)(_y + (vY * d) + RND(-r, +r)),
-                          (coord)(_z + (vZ * d) + RND(-r, +r)) );
+                              (coord)(_y + (vY * d) + RND(-r, +r)),
+                              (coord)(_z + (vZ * d) + RND(-r, +r)) );
     pVecVehicle->setMvVelo(2000);
     pVecVehicle->setMvAcce(100);
 

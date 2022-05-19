@@ -100,8 +100,8 @@ void DefaultMassSpriteActor::processDraw() {
     GgafDx::FigureActor* pDrawActor = this;
     static const size_t size_of_D3DXMATRIX = sizeof(D3DXMATRIX);
     static const size_t size_of_D3DCOLORVALUE = sizeof(D3DCOLORVALUE);
-    static const dxcoord model_half_width = PX_DX(pMassSpriteModel->_model_half_width_px);
-    static const dxcoord model_half_height = PX_DX(pMassSpriteModel->_model_half_height_px);
+//    static const dxcoord model_half_width = PX_DX(pMassSpriteModel->_model_half_width_px);
+//    static const dxcoord model_half_height = PX_DX(pMassSpriteModel->_model_half_height_px);
     float u,v;
     DefaultMassSpriteActor* pDefaultMassSpriteActor = nullptr;
 

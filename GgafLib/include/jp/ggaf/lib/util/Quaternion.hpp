@@ -11,17 +11,16 @@ namespace GgafLib {
  * @since 2009/04/07
  * @author Masatoshi Tsuge
  */
-template<typename T>
 class Quaternion : public GgafCore::Object {
 public:
     /** ŽÀ•” */
-    T   R;
+    double R;
     /** ‹••” i */
-    T   i;
+    double i;
     /** ‹••” j */
-    T   j;
+    double j;
     /** ‹••” k */
-    T   k;
+    double k;
 
 public:
     Quaternion() : GgafCore::Object() {
@@ -31,7 +30,7 @@ public:
         k = 0;
     }
 
-    Quaternion(const T prm_R, const T prm_i, const T prm_j, const T prm_k) : GgafCore::Object(),
+    Quaternion(const double prm_R, const double prm_i, const double prm_j, const double prm_k) : GgafCore::Object(),
         R(prm_R),
         i(prm_i),
         j(prm_j),
@@ -39,7 +38,7 @@ public:
     }
 
 
-    inline void set(const T prm_R, const T prm_i, const T prm_j, const T prm_k) {
+    inline void set(const double prm_R, const double prm_i, const double prm_j, const double prm_k) {
         R = prm_R;
         i = prm_i;
         j = prm_j;
@@ -53,18 +52,18 @@ public:
      * @param y2
      * @param z2
      */
-    inline void mul(const T a2, const T b2, const T c2, const T d2) {
-        float a1 = R;
-        float b1 = i;
-        float c1 = j;
-        float d1 = k;
+    inline void mul(const double a2, const double b2, const double c2, const double d2) {
+        double a1 = R;
+        double b1 = i;
+        double c1 = j;
+        double d1 = k;
         R = a1*a2 - b1*b2 - c1*c2 - d1*d2;
         i = a1*b2 + b1*a2 + c1*d2 - d1*c2;
         j = a1*c2 - b1*d2 + c1*a2 + d1*b2;
         k = a1*d2 + b1*c2 - c1*b2 + d1*a2;
     }
 
-    inline void mul(const Quaternion<T>& H) {
+    inline void mul(const Quaternion& H) {
         mul(H.R, H.i, H.j, H.k);
     }
 

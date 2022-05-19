@@ -13,15 +13,15 @@ FixedVelocityCurveVecVehicleLeader::FixedVelocityCurveVecVehicleLeader(CurveManu
         VehicleLeader(prm_pManufacture, prm_pVecVehicle_target->_pActor) {
     _pVecVehicle_target = prm_pVecVehicle_target;
     _pFixedVeloSplManuf = (FixedVelocityCurveManufacture*)prm_pManufacture;
-    _leadning_float_frames = 0.0f;
-    _float_frame_of_next = -0.00001f;
+    _leadning_double_frames = 0.0f;
+    _double_frame_of_next = -0.00001f;
     _point_index = -1;//最初は始点[0]に向かうので、始点前の-1になる。
 }
 
 void FixedVelocityCurveVecVehicleLeader::restart() {
     VehicleLeader::restart();
-    _leadning_float_frames = 0.0f;
-    _float_frame_of_next = -0.00001f;
+    _leadning_double_frames = 0.0f;
+    _double_frame_of_next = -0.00001f;
     _point_index = -1;//最初は始点[0]に向かうので、始点前の-1になる。
 }
 
@@ -30,7 +30,7 @@ void FixedVelocityCurveVecVehicleLeader::behave() {
         GgafDx::VecVehicle* pVecVehicle_target = _pVecVehicle_target;
         //変わり目
         const int sp_rnum = _pFixedVeloSplManuf->_pCurve->_rnum;
-        if (_leadning_float_frames >= _float_frame_of_next) {
+        if (_leadning_double_frames >= _double_frame_of_next) {
 again:
             _point_index++;
             if (_point_index == sp_rnum) {
@@ -49,14 +49,14 @@ again:
             if (_point_index == 0) {
                 //最初の必然ブレイク、始点へ行く
                 //始点までに必要なフレーム数取得
-                _float_frame_of_next = (1.0*_distance_to_begin / _pFixedVeloSplManuf->_velo_mvUnit);
+                _double_frame_of_next = (1.0*_distance_to_begin / _pFixedVeloSplManuf->_velo_mvUnit);
             } else {
                 //始点以外の場合次の補完点までに必要なフレーム数を更新
-                _float_frame_of_next = (1.0*_distance_to_begin / _pFixedVeloSplManuf->_velo_mvUnit) +
+                _double_frame_of_next = (1.0*_distance_to_begin / _pFixedVeloSplManuf->_velo_mvUnit) +
                                      _pFixedVeloSplManuf->_paFrame_need_at[_point_index];
             }
-            if (_leadning_float_frames >= _float_frame_of_next) {
-                //_float_frame_of_nextを次に進めても足りない場合、もう一つ_point_indexを進める
+            if (_leadning_double_frames >= _double_frame_of_next) {
+                //_double_frame_of_nextを次に進めても足りない場合、もう一つ_point_indexを進める
                 goto again;
             }
             coord x, y, z;
@@ -74,10 +74,10 @@ again:
                                              _pFixedVeloSplManuf->_turn_optimize);
             }
         }
-        //キャラの速度が1000ならば、_leadning_float_frames ++;
-        //キャラの速度が2000ならば  _leadning_float_frames += 2.0;
-        //キャラの速度が500ならば、 _leadning_float_frames += 0.5
-        _leadning_float_frames += (pVecVehicle_target->_velo_mv * (1.0 / LEN_UNIT));
+        //キャラの速度が1000ならば、_leadning_double_frames ++;
+        //キャラの速度が2000ならば  _leadning_double_frames += 2.0;
+        //キャラの速度が500ならば、 _leadning_double_frames += 0.5
+        _leadning_double_frames += (pVecVehicle_target->_velo_mv * (1.0 / LEN_UNIT));
     }
 }
 

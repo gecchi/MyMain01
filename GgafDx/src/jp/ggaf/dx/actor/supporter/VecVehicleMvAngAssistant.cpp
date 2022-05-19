@@ -96,7 +96,7 @@ void VecVehicleMvAngAssistant::behave() {
 
 void VecVehicleMvAngAssistant::turnRzByDt(
                         angle prm_distance, int prm_target_frames,
-                        float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                        double prm_p1, double prm_p2, angvelo prm_end_angvelo,
                         bool prm_zero_acc_end_flg ) {
 
     _smthMvRzAng._t_value = 0;
@@ -108,7 +108,7 @@ void VecVehicleMvAngAssistant::turnRzByDt(
 }
 void VecVehicleMvAngAssistant::turnRyByDt(
                         angle prm_distance, int prm_target_frames,
-                        float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                        double prm_p1, double prm_p2, angvelo prm_end_angvelo,
                         bool prm_zero_acc_end_flg ) {
 
     _smthMvRyAng._t_value = 0;
@@ -121,7 +121,7 @@ void VecVehicleMvAngAssistant::turnRyByDt(
 
 void VecVehicleMvAngAssistant::turnRzByVd(
         angvelo prm_top_angvelo, angle prm_distance,
-        float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+        double prm_p1, double prm_p2, angvelo prm_end_angvelo,
         bool prm_zero_acc_end_flg) {
     _smthMvRzAng._t_value = 0;
     _smthMvRzAng._t_velo = _pMaster->_angvelo_rz_mv;
@@ -132,7 +132,7 @@ void VecVehicleMvAngAssistant::turnRzByVd(
 }
 void VecVehicleMvAngAssistant::turnRyByVd(
         angvelo prm_top_angvelo, angle prm_distance,
-        float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+        double prm_p1, double prm_p2, angvelo prm_end_angvelo,
         bool prm_zero_acc_end_flg) {
     _smthMvRyAng._t_value = 0;
     _smthMvRyAng._t_velo = _pMaster->_angvelo_ry_mv;
@@ -144,7 +144,7 @@ void VecVehicleMvAngAssistant::turnRyByVd(
 
 
 void VecVehicleMvAngAssistant::turnRzByDtTo(angle prm_rz_target, int prm_way, int prm_target_frames,
-                                         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                         double prm_p1, double prm_p2, angvelo prm_end_angvelo,
                                          bool prm_zero_acc_end_flg) {
     angle distance = _pMaster->getRzMvAngDistance(prm_rz_target, prm_way);
     turnRzByDt(distance, prm_target_frames,
@@ -152,7 +152,7 @@ void VecVehicleMvAngAssistant::turnRzByDtTo(angle prm_rz_target, int prm_way, in
                prm_zero_acc_end_flg);
 }
 void VecVehicleMvAngAssistant::turnRyByDtTo(angle prm_ry_target, int prm_way, int prm_target_frames,
-                                         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                         double prm_p1, double prm_p2, angvelo prm_end_angvelo,
                                          bool prm_zero_acc_end_flg) {
     angle distance = _pMaster->getRyMvAngDistance(prm_ry_target, prm_way);
     turnRyByDt(distance, prm_target_frames,
@@ -163,7 +163,7 @@ void VecVehicleMvAngAssistant::turnRyByDtTo(angle prm_ry_target, int prm_way, in
 void VecVehicleMvAngAssistant::turnRzRyByDtTo(
         angle prm_rz_target, angle prm_ry_target, int prm_way, bool prm_optimize_ang,
         int prm_target_frames,
-        float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+        double prm_p1, double prm_p2, angvelo prm_end_angvelo,
         bool prm_zero_acc_end_flg) {
 
     angle out_rz_distance;
@@ -187,7 +187,7 @@ void VecVehicleMvAngAssistant::turnRzRyByDtTo(
 void VecVehicleMvAngAssistant::turnByDtTwd(
         coord prm_tx, coord prm_ty, coord prm_tz, int prm_way, bool prm_optimize_ang,
         int prm_target_frames,
-        float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+        double prm_p1, double prm_p2, angvelo prm_end_angvelo,
         bool prm_zero_acc_end_flg) {
     coord vx = prm_tx - _pMaster->_pActor->_x;
     coord vy = prm_ty - _pMaster->_pActor->_y;
@@ -211,7 +211,7 @@ void VecVehicleMvAngAssistant::turnByDtTwd(
 void VecVehicleMvAngAssistant::turnByDtTwd(
                     GeometricActor* prm_pActor_target, int prm_way, bool prm_optimize_ang,
                     int prm_target_frames,
-                    float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                    double prm_p1, double prm_p2, angvelo prm_end_angvelo,
                     bool prm_zero_acc_end_flg) {
     turnByDtTwd(
             prm_pActor_target->_x, prm_pActor_target->_y, prm_pActor_target->_z, prm_way, prm_optimize_ang,
@@ -223,7 +223,7 @@ void VecVehicleMvAngAssistant::turnByDtTwd(
 
 void VecVehicleMvAngAssistant::turnRzByVdTo(
         angvelo prm_top_angvelo, angle prm_rz_target, int prm_way,
-        float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+        double prm_p1, double prm_p2, angvelo prm_end_angvelo,
         bool prm_zero_acc_end_flg) {
     angle distance = _pMaster->getRzMvAngDistance(prm_rz_target, prm_way);
     turnRzByVd(prm_top_angvelo, distance,
@@ -233,7 +233,7 @@ void VecVehicleMvAngAssistant::turnRzByVdTo(
 
 void VecVehicleMvAngAssistant::turnRyByVdTo(
         angvelo prm_top_angvelo, angle prm_ry_target, int prm_way,
-        float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+        double prm_p1, double prm_p2, angvelo prm_end_angvelo,
         bool prm_zero_acc_end_flg) {
     angle distance = _pMaster->getRyMvAngDistance(prm_ry_target, prm_way);
     turnRyByVd(prm_top_angvelo, distance,
@@ -244,7 +244,7 @@ void VecVehicleMvAngAssistant::turnRyByVdTo(
 void VecVehicleMvAngAssistant::turnRzRyByVdTo(
         angvelo prm_top_angvelo,
         angle prm_rz_target, angle prm_ry_target, int prm_way, bool prm_optimize_ang,
-        float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+        double prm_p1, double prm_p2, angvelo prm_end_angvelo,
         bool prm_zero_acc_end_flg) {
     angle out_rz_distance;
     angle out_ry_distance;
@@ -286,7 +286,7 @@ void VecVehicleMvAngAssistant::turnRzRyByVdTo(
 void VecVehicleMvAngAssistant::turnByVdTwd(
         angvelo prm_top_angvelo,
         coord prm_tx, coord prm_ty, coord prm_tz, int prm_way, bool prm_optimize_ang,
-        float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+        double prm_p1, double prm_p2, angvelo prm_end_angvelo,
         bool prm_zero_acc_end_flg) {
 
     coord vx = prm_tx - _pMaster->_pActor->_x;
@@ -311,7 +311,7 @@ void VecVehicleMvAngAssistant::turnByVdTwd(
 void VecVehicleMvAngAssistant::turnByVdTwd(
         angvelo prm_top_angvelo,
         GeometricActor* prm_pActor_target, int prm_way, bool prm_optimize_ang,
-        float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+        double prm_p1, double prm_p2, angvelo prm_end_angvelo,
         bool prm_zero_acc_end_flg) {
 
     turnByVdTwd(
@@ -324,7 +324,7 @@ void VecVehicleMvAngAssistant::turnByVdTwd(
 void VecVehicleMvAngAssistant::turnRzPendulum(coord prm_target1, coord prm_target2,
                                            int prm_twist_num,
                                            int prm_first_way, int prm_target_frames,
-                                           float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                           double prm_p1, double prm_p2, angvelo prm_end_angvelo,
                                            bool prm_zero_acc_end_flg) {
     _pnd_rz.count = 0;
     _pnd_rz.target_num = 2;
@@ -346,7 +346,7 @@ void VecVehicleMvAngAssistant::turnRzPendulum(coord prm_target1, coord prm_targe
 void VecVehicleMvAngAssistant::turnRyPendulum(coord prm_target1, coord prm_target2,
                                            int prm_twist_num,
                                            int prm_first_way, int prm_target_frames,
-                                           float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                           double prm_p1, double prm_p2, angvelo prm_end_angvelo,
                                            bool prm_zero_acc_end_flg) {
     _pnd_ry.count = 0;
     _pnd_ry.target_num = 2;

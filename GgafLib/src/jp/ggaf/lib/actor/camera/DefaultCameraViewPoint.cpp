@@ -21,14 +21,14 @@ void DefaultCameraViewPoint::processBehavior() {
     getVecVehicle()->behave();
 }
 
-void DefaultCameraViewPoint::slideMvTo(coord tx, coord ty, coord tz, frame t, float prm_p1, float prm_p2) {
+void DefaultCameraViewPoint::slideMvTo(coord tx, coord ty, coord tz, frame t, double prm_p1, double prm_p2) {
     //ƒJƒƒ‰‚Ê‚é‚Á‚ÆˆÚ“®
     getAxisVehicle()->asst()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,
                               prm_p1, prm_p2, 0, true);
 }
 
-void DefaultCameraViewPoint::slideMvTo(GgafDx::GeometricActor* pTarget, frame t, float prm_p1, float prm_p2) {
+void DefaultCameraViewPoint::slideMvTo(GgafDx::GeometricActor* pTarget, frame t, double prm_p1, double prm_p2) {
     slideMvTo(pTarget->_x, pTarget->_y, pTarget->_z, t, prm_p1, prm_p2);
 }
 

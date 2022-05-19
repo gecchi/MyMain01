@@ -36,19 +36,19 @@ void AxisVehicleAssistantA::behave() {
 }
 
 void AxisVehicleAssistantA::slideVxMvByDt(coord prm_target_distance, int prm_target_frames,
-                                   float prm_p1, float prm_p2, velo prm_end_velo,
-                                   bool prm_zero_acc_end_flg) {
+                                          double prm_p1, double prm_p2, velo prm_end_velo,
+                                          bool prm_zero_acc_end_flg) {
     _smthVxMv._t_value = 0;
     _smthVxMv._t_velo = _pMaster->_velo_x;
     _smthVxMv._t_acce = _pMaster->_acce_x;
     _smthVxMv.moveByDt(prm_target_distance, prm_target_frames,
-                             prm_p1, prm_p2, prm_end_velo,
-                             prm_zero_acc_end_flg);
+                       prm_p1, prm_p2, prm_end_velo,
+                       prm_zero_acc_end_flg);
 }
 
 void AxisVehicleAssistantA::slideVyMvByDt(coord prm_target_distance, int prm_target_frames,
-                                              float prm_p1, float prm_p2, velo prm_end_velo,
-                                              bool prm_zero_acc_end_flg) {
+                                          double prm_p1, double prm_p2, velo prm_end_velo,
+                                          bool prm_zero_acc_end_flg) {
     _smthVyMv._t_value = 0;
     _smthVyMv._t_velo = _pMaster->_velo_y;
     _smthVyMv._t_acce = _pMaster->_acce_y;
@@ -58,8 +58,8 @@ void AxisVehicleAssistantA::slideVyMvByDt(coord prm_target_distance, int prm_tar
 }
 
 void AxisVehicleAssistantA::slideVzMvByDt(coord prm_target_distance, int prm_target_frames,
-                                   float prm_p1, float prm_p2, velo prm_end_velo,
-                                   bool prm_zero_acc_end_flg) {
+                                          double prm_p1, double prm_p2, velo prm_end_velo,
+                                          bool prm_zero_acc_end_flg) {
     _smthVzMv._t_value = 0;
     _smthVzMv._t_velo = _pMaster->_velo_z;
     _smthVzMv._t_acce = _pMaster->_acce_z;
@@ -69,9 +69,9 @@ void AxisVehicleAssistantA::slideVzMvByDt(coord prm_target_distance, int prm_tar
 }
 
 void AxisVehicleAssistantA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_target, coord prm_z_target,
-                                       int prm_target_frames,
-                                       float prm_p1, float prm_p2, velo prm_end_velo,
-                                       bool prm_zero_acc_end_flg) {
+                                              int prm_target_frames,
+                                              double prm_p1, double prm_p2, velo prm_end_velo,
+                                              bool prm_zero_acc_end_flg) {
     slideVxyzMvByDt( prm_x_target - _pMaster->_pActor->_x,
                      prm_y_target - _pMaster->_pActor->_y,
                      prm_z_target - _pMaster->_pActor->_z,
@@ -81,11 +81,11 @@ void AxisVehicleAssistantA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_ta
 }
 
 void AxisVehicleAssistantA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_target, coord prm_z_target,
-                                       int prm_target_frames,
-                                       float prm_x_p1, float prm_x_p2, velo prm_x_end_velo,
-                                       float prm_y_p1, float prm_y_p2, velo prm_y_end_velo,
-                                       float prm_z_p1, float prm_z_p2, velo prm_z_end_velo,
-                                       bool prm_zero_acc_end_flg) {
+                                              int prm_target_frames,
+                                              double prm_x_p1, double prm_x_p2, velo prm_x_end_velo,
+                                              double prm_y_p1, double prm_y_p2, velo prm_y_end_velo,
+                                              double prm_z_p1, double prm_z_p2, velo prm_z_end_velo,
+                                              bool prm_zero_acc_end_flg) {
     slideVxyzMvByDt( prm_x_target - _pMaster->_pActor->_x,
                      prm_y_target - _pMaster->_pActor->_y,
                      prm_z_target - _pMaster->_pActor->_z,
@@ -97,8 +97,8 @@ void AxisVehicleAssistantA::slideVxyzMvByDtTo(coord prm_x_target, coord prm_y_ta
 }
 
 void AxisVehicleAssistantA::slideVxMvByVd(velo prm_top_velo, coord prm_target_distance,
-                                   float prm_p1, float prm_p2, velo prm_end_velo,
-                                   bool prm_zero_acc_end_flg) {
+                                          double prm_p1, double prm_p2, velo prm_end_velo,
+                                          bool prm_zero_acc_end_flg) {
     _smthVxMv._t_value = 0;
     _smthVxMv._t_velo = _pMaster->_velo_x;
     _smthVxMv._t_acce = _pMaster->_acce_x;
@@ -108,31 +108,31 @@ void AxisVehicleAssistantA::slideVxMvByVd(velo prm_top_velo, coord prm_target_di
 }
 
 void AxisVehicleAssistantA::slideVyMvByVd(velo prm_top_velo, coord prm_target_distance,
-                                   float prm_p1, float prm_p2, velo prm_end_velo,
-                                   bool prm_zero_acc_end_flg) {
+                                          double prm_p1, double prm_p2, velo prm_end_velo,
+                                          bool prm_zero_acc_end_flg) {
     _smthVyMv._t_value = 0;
     _smthVyMv._t_velo = _pMaster->_velo_y;
     _smthVyMv._t_acce = _pMaster->_acce_y;
     _smthVyMv.moveByVd(prm_top_velo, prm_target_distance,
-                             prm_p1,prm_p2,prm_end_velo,
-                             prm_zero_acc_end_flg);
+                       prm_p1,prm_p2,prm_end_velo,
+                       prm_zero_acc_end_flg);
 }
 
 void AxisVehicleAssistantA::slideVzMvByVd(velo prm_top_velo, coord prm_target_distance,
-                                   float prm_p1, float prm_p2, velo prm_end_velo,
-                                   bool prm_zero_acc_end_flg) {
+                                          double prm_p1, double prm_p2, velo prm_end_velo,
+                                          bool prm_zero_acc_end_flg) {
     _smthVzMv._t_value = 0;
     _smthVzMv._t_velo = _pMaster->_velo_z;
     _smthVzMv._t_acce = _pMaster->_acce_z;
     _smthVzMv.moveByVd(prm_top_velo, prm_target_distance,
-                             prm_p1, prm_p2, prm_end_velo,
-                             prm_zero_acc_end_flg);
+                       prm_p1, prm_p2, prm_end_velo,
+                       prm_zero_acc_end_flg);
 }
 
 void AxisVehicleAssistantA::slideVxyzMvByVd(velo prm_top_velo,
-                                     coord prm_x_target_distance, coord prm_y_target_distance, coord prm_z_target_distance,
-                                     float prm_p1, float prm_p2, velo prm_end_velo,
-                                     bool prm_zero_acc_end_flg) {
+                                            coord prm_x_target_distance, coord prm_y_target_distance, coord prm_z_target_distance,
+                                            double prm_p1, double prm_p2, velo prm_end_velo,
+                                            bool prm_zero_acc_end_flg) {
     double r = MAX3(ABS(prm_x_target_distance), ABS(prm_y_target_distance), ABS(prm_z_target_distance));
     if (!ZEROd_EQ(r)) {
         slideVxMvByVd( prm_top_velo * ABS(prm_x_target_distance/r),  prm_x_target_distance,
@@ -148,9 +148,9 @@ void AxisVehicleAssistantA::slideVxyzMvByVd(velo prm_top_velo,
 }
 
 void AxisVehicleAssistantA::slideVxyzMvByVdTo(velo prm_top_velo,
-                                       coord prm_x_target, coord prm_y_target, coord prm_z_target,
-                                       float prm_p1, float prm_p2, velo prm_end_velo,
-                                       bool prm_zero_acc_end_flg) {
+                                              coord prm_x_target, coord prm_y_target, coord prm_z_target,
+                                              double prm_p1, double prm_p2, velo prm_end_velo,
+                                              bool prm_zero_acc_end_flg) {
     slideVxyzMvByVd(prm_top_velo,
                     prm_x_target - _pMaster->_pActor->_x,
                     prm_y_target - _pMaster->_pActor->_y,

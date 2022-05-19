@@ -90,12 +90,12 @@ void Direction8Util::cnvVec2Sgn(float prm_vx, float prm_vy,
     // u = cos(3/8ƒÎ)  = 0.3888343236509
     // v = sin(3/8ƒÎ)  = 0.92387953251129
 
-    static const float u = 0.3888343236509f;
-    static const float v = 0.92387953251129f;
+    static const double u = 0.3888343236509;
+    static const double v = 0.9238795325112;
 
-    float nvx, nvy;
+    double nvx, nvy;
     UTIL::getNormalizedVector(prm_vx, prm_vy,
-                             nvx, nvy);
+                              nvx, nvy);
 
     //
     //     ^

@@ -103,14 +103,14 @@ const Direction26Util::RzRy Direction26Util::_rzry[3*3*3] = {
 const Direction26Util::RzRy* Direction26Util::_face2rzry = &(Direction26Util::_rzry[13]); //13 ÇÕ 3*3*3=27 ÇÃê^ÇÒíÜÇÃóvëfÅB_dir2sgn[-13Å`13]Ç≈ÉAÉNÉZÉXÇ∑ÇÈà◊
 
 
-dir26 Direction26Util::cnvVec2DirNo(float prm_vx, float prm_vy, float prm_vz) {
+dir26 Direction26Util::cnvVec2DirNo(double prm_vx, double prm_vy, double prm_vz) {
     int sgn_x, sgn_y, sgn_z;
     Direction26Util::cnvVec2Sgn(prm_vx, prm_vy, prm_vz,
                               sgn_x, sgn_y, sgn_z);
     return DIR26(sgn_x, sgn_y, sgn_z);
 }
 
-void Direction26Util::cnvVec2Sgn(float prm_vx, float prm_vy, float prm_vz,
+void Direction26Util::cnvVec2Sgn(double prm_vx, double prm_vy, double prm_vz,
                                  int& out_sgn_x, int& out_sgn_y, int& out_sgn_z) {
     //îºåaÇPÇ…ì‡ê⁄Ç∑ÇÈê≥î™äpå`ÇÃÇPï”ÇÕ 2Å„2 - 2
     //                  y
@@ -130,10 +130,10 @@ void Direction26Util::cnvVec2Sgn(float prm_vx, float prm_vy, float prm_vz,
     // u = cos(3/8ÉŒ)  = 0.38268343236509
     // v = sin(3/8ÉŒ)  = 0.92387953251129
 
-    static const float u = 0.38268343236509f;
-    static const float v = 0.92387953251129f;
+    static const double u = 0.38268343236509;
+    static const double v = 0.92387953251129;
 
-    float nvx, nvy, nvz;
+    double nvx, nvy, nvz;
     UTIL::getNormalizedVector(prm_vx, prm_vy, prm_vz,
                              nvx, nvy, nvz);
 
@@ -174,12 +174,12 @@ void Direction26Util::cnvVec2Sgn(float prm_vx, float prm_vy, float prm_vz,
     }
 }
 
-void Direction26Util::cnvVec2Sgn(float prm_vx, float prm_vy, float prm_vz,
-                                 float& out_nvx, float& out_nvy, float& out_nvz,
+void Direction26Util::cnvVec2Sgn(double prm_vx, double prm_vy, double prm_vz,
+                                 double& out_nvx, double& out_nvy, double& out_nvz,
                                  int& out_sgn_x, int& out_sgn_y, int& out_sgn_z) {
 
-    static const float u = 0.38268343236509f;
-    static const float v = 0.92387953251129f;
+    static const double u = 0.38268343236509f;
+    static const double v = 0.92387953251129f;
 
     UTIL::getNormalizedVector(prm_vx, prm_vy, prm_vz,
                               out_nvx, out_nvy, out_nvz);
@@ -208,7 +208,7 @@ void Direction26Util::cnvVec2Sgn(float prm_vx, float prm_vy, float prm_vz,
     }
 }
 
-void Direction26Util::cnvDirNo2Vec(dir26 prm_dir_no, float& out_vx, float& out_vy, float& out_vz) {
+void Direction26Util::cnvDirNo2Vec(dir26 prm_dir_no, double& out_vx, double& out_vy, double& out_vz) {
     out_vx = Direction26Util::_dir2vec[prm_dir_no].vx;
     out_vy = Direction26Util::_dir2vec[prm_dir_no].vy;
     out_vz = Direction26Util::_dir2vec[prm_dir_no].vz;

@@ -14,7 +14,7 @@ namespace GgafDx {
  * @author Masatoshi Tsuge
  */
 class VecVehicleMvAssistant : public GgafCore::Object {
-	friend class VecVehicle;
+    friend class VecVehicle;
 
 private:
     /** [r]師匠 */
@@ -71,7 +71,7 @@ public:
      * @param prm_zero_acc_end_flg true:目標移動距離に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
     void slideByDt(coord prm_target_distance, int prm_target_frames,
-                   float prm_p1, float prm_p2, velo prm_end_velo,
+                   double prm_p1, double prm_p2, velo prm_end_velo,
                    bool prm_zero_acc_end_flg);
 
     /**
@@ -110,7 +110,7 @@ public:
      * @param prm_zero_acc_end_flg true:目標時間に達した際に加速度を０に強制設定/false:加速度はそのままにしておく
      */
     void slideByVd(velo prm_top_velo, coord prm_target_distance,
-                   float prm_p1, float prm_p2, velo prm_end_velo,
+                   double prm_p1, double prm_p2, velo prm_end_velo,
                    bool prm_zero_acc_end_flg);
 
     bool isSliding() {

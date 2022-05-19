@@ -252,12 +252,12 @@ void MyBunshinBase::processBehavior() {
             if (pPhase->getFrame() == 3*(no_-1)) { //ÇŒÇÁÇ¬Ç©Çπ
 
                 // (0,1,0) Å~ RxRzRy ÅÅ ( (cosRx*-sinRz*cosRy + sinRx*sinRy),  cosRx*cosRz, (cosRx*-sinRz*-sinRy + sinRx*cosRy) )
-                const float sinRx = ANG_SIN(_rx);
-                const float cosRx = ANG_COS(_rx);
-                const float sinRy = ANG_SIN(_ry);
-                const float cosRy = ANG_COS(_ry);
-                const float sinRz = ANG_SIN(_rz);
-                const float cosRz = ANG_COS(_rz);
+                const double sinRx = ANG_SIN(_rx);
+                const double cosRx = ANG_COS(_rx);
+                const double sinRy = ANG_SIN(_ry);
+                const double cosRy = ANG_COS(_ry);
+                const double sinRz = ANG_SIN(_rz);
+                const double cosRz = ANG_COS(_rz);
                 pAxisVehicle->setVeloXYZ( (cosRx*-sinRz*cosRy + sinRx*sinRy)  * MyBunshinBase::VELO_BUNSHIN_FREE_MV,
                                          (cosRx*cosRz)                       * MyBunshinBase::VELO_BUNSHIN_FREE_MV,
                                          (cosRx*-sinRz*-sinRy + sinRx*cosRy) * MyBunshinBase::VELO_BUNSHIN_FREE_MV );
@@ -337,23 +337,23 @@ void MyBunshinBase::processBehavior() {
             trace_mode_ = TRACE_FREEZE;
             //ÉJÉÅÉâà íuÇ…ÇÊÇ¡Çƒè„â∫ç∂âEÇÃëÄçÏäÑìñÇïœÇ¶ÇÈ
             const dir26 pos_up = pVAM->getPosUp();
-            const float vX = pVecVehicle->_vX;
-            const float vY = pVecVehicle->_vY;
-            const float vZ = pVecVehicle->_vZ;
+            const double vX = pVecVehicle->_vX;
+            const double vY = pVecVehicle->_vY;
+            const double vZ = pVecVehicle->_vZ;
             bool update_updown_rot_axis_timing = (pVecVehicle->isTurningMvAng() || pVbPlay->isPushedDown(VB_OPTION) || pVAM->isJustChangedPosCam());
 
             //LEFT RIGHT âÒì]é≤ = pos_up = (up_sgn_x, up_sgn_y, up_sgn_z)
-            float up_vx, up_vy, up_vz;
+            double up_vx, up_vy, up_vz;
             Direction26Util::cnvDirNo2Vec(pos_up, up_vx, up_vy, up_vz);
             //b = (vX, vY, vZ)
             //aÅ~b = (up_sgn_y*vZ-up_sgn_z*vY, up_sgn_z*vX-up_sgn_x*vZ, up_sgn_x*vY-up_sgn_y*vX)
             //Å¶ (a1,a2,a3)Å~(b1,b2,b3)=(a2*b3-a3*b2, a3*b1-a1*b3, a1*b2-a2*b1)
             if (update_updown_rot_axis_timing) {
                 // UP DOWN âÒì]é≤
-                float c_vx = up_vy*vZ-up_vz*vY;
-                float c_vy = up_vz*vX-up_vx*vZ;
-                float c_vz = up_vx*vY-up_vy*vX;
-                if ( !(ZEROf_EQ(c_vx) && ZEROf_EQ(c_vy) && ZEROf_EQ(c_vz)) ) {
+                double c_vx = up_vy*vZ-up_vz*vY;
+                double c_vy = up_vz*vX-up_vx*vZ;
+                double c_vz = up_vx*vY-up_vy*vX;
+                if ( !(ZEROd_EQ(c_vx) && ZEROd_EQ(c_vy) && ZEROd_EQ(c_vz)) ) {
                     UTIL::getNormalizedVector(c_vx, c_vy, c_vz,
                                               c_ax_x_, c_ax_y_, c_ax_z_);
                 }
@@ -491,7 +491,7 @@ void MyBunshinBase::resetBunshin(int prm_mode) {
         return_default_pos_frames_ = 0;
     }
 }
-void MyBunshinBase::addTurnAngleAroundAx1(float prm_ax_x, float prm_ax_y, float prm_ax_z) {
+void MyBunshinBase::addTurnAngleAroundAx1(double prm_ax_x, double prm_ax_y, double prm_ax_z) {
     //Ç†ÇÈç¿ïW(x, y, z)Ç…Ç®Ç¢ÇƒÅAâÒì]ÇÃé≤Ç™ v=(Éø, É¿, É¡) (íAÇµ|v|=1) Ç≈ÅAÉ∆âÒÇ∑âÒì]ÇÇµÇΩÇ¢èÍçáÅB
     //P = (0; x, y, z)
     //Q = (cos(É∆/2); Éø sin(É∆/2), É¿ sin(É∆/2), É¡ sin(É∆/2))
@@ -499,31 +499,31 @@ void MyBunshinBase::addTurnAngleAroundAx1(float prm_ax_x, float prm_ax_y, float 
     //Ç∆ÇµÇƒÅAéüÇåvéZÇ∑ÇÈÅB
     //R P Q = (0; x2, y2, z2)
     //É∆âÒì]ÇµÇΩå„ÇÃç¿ïWÇÕ (x2, y2, z2)
-    static const float p_sin_h = ANG_SIN(MyBunshinBase::ANGVELO_TURN/2);  //ANGVELO_TURN=âÒì]Ç≥ÇπÇΩÇ¢äpìx
-    static const float p_cos_h = ANG_COS(MyBunshinBase::ANGVELO_TURN/2);
+    static const double p_sin_h = ANG_SIN(MyBunshinBase::ANGVELO_TURN/2);  //ANGVELO_TURN=âÒì]Ç≥ÇπÇΩÇ¢äpìx
+    static const double p_cos_h = ANG_COS(MyBunshinBase::ANGVELO_TURN/2);
 
-    float a = prm_ax_x*p_sin_h;
-    float b = prm_ax_y*p_sin_h;
-    float c = prm_ax_z*p_sin_h;
+    double a = prm_ax_x*p_sin_h;
+    double b = prm_ax_y*p_sin_h;
+    double c = prm_ax_z*p_sin_h;
 
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
-    Quaternion<float> H(p_cos_h, -a, -b, -c); //R
+    Quaternion H(p_cos_h, -a, -b, -c); //R
     H.mul(0, pVecVehicle->_vX, pVecVehicle->_vY, pVecVehicle->_vZ); //R*P
     H.mul(p_cos_h, a, b, c);                               //R*P*Q
     pVecVehicle->setRzRyMvAng(H.i, H.j, H.k, false);
 }
 
-void MyBunshinBase::addTurnAngleAroundAx2(float prm_ax_x, float prm_ax_y, float prm_ax_z) {
-    static const float p_sin_h = ANG_SIN(MyBunshinBase::ANGVELO_TURN/2);  //ANGVELO_TURN=âÒì]Ç≥ÇπÇΩÇ¢äpìx
-    static const float p_cos_h = ANG_COS(MyBunshinBase::ANGVELO_TURN/2);
+void MyBunshinBase::addTurnAngleAroundAx2(double prm_ax_x, double prm_ax_y, double prm_ax_z) {
+    static const double p_sin_h = ANG_SIN(MyBunshinBase::ANGVELO_TURN/2);  //ANGVELO_TURN=âÒì]Ç≥ÇπÇΩÇ¢äpìx
+    static const double p_cos_h = ANG_COS(MyBunshinBase::ANGVELO_TURN/2);
 
-    float a = prm_ax_x*p_sin_h;
-    float b = prm_ax_y*p_sin_h;
-    float c = prm_ax_z*p_sin_h;
+    double a = prm_ax_x*p_sin_h;
+    double b = prm_ax_y*p_sin_h;
+    double c = prm_ax_z*p_sin_h;
 
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
-    Quaternion<float> H(p_cos_h, -a, -b, -c); //R
-    Quaternion<float> H2 = H;
+    Quaternion H(p_cos_h, -a, -b, -c); //R
+    Quaternion H2 = H;
     H.mul(0, pVecVehicle->_vX, pVecVehicle->_vY, pVecVehicle->_vZ); //R*P
     H.mul(p_cos_h, a, b, c);                               //R*P*Q
     pVecVehicle->setRzRyMvAng(H.i, H.j, H.k, false);

@@ -70,11 +70,11 @@ private:
     }
 
     /** [r]分身操作の上下入力時土台回転軸ベクトルX軸要素 */
-    float c_ax_x_;
+    double c_ax_x_;
     /** [r]分身操作の上下入力時土台回転軸ベクトルY軸要素 */
-    float c_ax_y_;
+    double c_ax_y_;
     /** [r]分身操作の上下入力時土台回転軸ベクトルZ軸要素 */
-    float c_ax_z_;
+    double c_ax_z_;
     /**
      * 本体の軸回転 .
      * 回転角度は MyBunshinBase::ANGVELO_TURN
@@ -82,7 +82,7 @@ private:
      * @param prm_ax_y 回転軸ベクトルY軸要素
      * @param prm_ax_z 回転軸ベクトルZ軸要素
      */
-    void addTurnAngleAroundAx1(float prm_ax_x, float prm_ax_y, float prm_ax_z);
+    void addTurnAngleAroundAx1(double prm_ax_x, double prm_ax_y, double prm_ax_z);
 
     /**
      * 本体の軸回転 .
@@ -92,7 +92,7 @@ private:
      * @param prm_ax_y 回転軸ベクトルY軸要素
      * @param prm_ax_z 回転軸ベクトルZ軸要素
      */
-    void addTurnAngleAroundAx2(float prm_ax_x, float prm_ax_y, float prm_ax_z);
+    void addTurnAngleAroundAx2(double prm_ax_x, double prm_ax_y, double prm_ax_z);
 
 public:
     /** [r]トレース時の分身と分身の間隔 */

@@ -52,7 +52,7 @@ void StraightLaserChip::processBehavior() {
         _rx = (*_pSource_rx);
         _ry = (*_pSource_ry);
         _rz = (*_pSource_rz);
-        float vx, vy, vz;
+        double vx, vy, vz;
         UTIL::convRzRyToVector(_rz, _ry,
                                 vx, vy, vz);
         velo v = _velo_mv * ((velo)getActiveFrame()-1);
@@ -64,7 +64,7 @@ void StraightLaserChip::processBehavior() {
         _rx = _tmp_source_rx;
         _ry = _tmp_source_ry;
         _rz = _tmp_source_rz;
-        float vx, vy, vz;
+        double vx, vy, vz;
         UTIL::convRzRyToVector(_tmp_source_rz, _tmp_source_ry,
                                 vx, vy, vz);
         velo v = _velo_mv * ((velo)getActiveFrame()-1);

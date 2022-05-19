@@ -127,16 +127,16 @@ void AroundViewCamWorker::processBehavior() {
         //視点を中心にカメラが回転移動
         if (isPressedMouseButton0 && (mdx != 0 || mdy != 0)) {
             //注視点→カメラ の方向ベクトル(vx, vy, vz)
-            double vx_eye = _t_x_CAM - _t_x_VP;
-            double vy_eye = _t_y_CAM - _t_y_VP;
-            double vz_eye = _t_z_CAM - _t_z_VP;
+            double vx_eye = (double)(_t_x_CAM - _t_x_VP);
+            double vy_eye = (double)(_t_y_CAM - _t_y_VP);
+            double vz_eye = (double)(_t_z_CAM - _t_z_VP);
             //回転させたい角度
             double ang = (PI) * (d/_cd);
             double sinHalf = sin(ang/2);
             double cosHalf = cos(ang/2);
-            Quaternion<double> qu(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
-            Quaternion<double> qu2 = qu;
-            Quaternion<double> Q(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf);
+            Quaternion qu(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
+            Quaternion qu2 = qu;
+            Quaternion Q(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf);
             qu.mul(0, vx_eye, vy_eye, vz_eye); //R*P
             qu.mul(Q); //R*P*Q
             slideMvCamTo(qu.i + _t_x_VP, qu.j + _t_y_VP, qu.k + _t_z_VP, DEFAULT_CAMERA_SLIDE_FRAMES);
@@ -150,16 +150,16 @@ void AroundViewCamWorker::processBehavior() {
         //カメラを中心に視点が回転移動
         if (isPressedMouseButton1 && (mdx != 0 || mdy != 0)) {
             //カメラ→注視点 の方向ベクトル(vx, vy, vz)
-            double vx_cam = _t_x_VP - _t_x_CAM;
-            double vy_cam = _t_y_VP - _t_y_CAM;
-            double vz_cam = _t_z_VP - _t_z_CAM;
+            double vx_cam = (double)(_t_x_VP - _t_x_CAM);
+            double vy_cam = (double)(_t_y_VP - _t_y_CAM);
+            double vz_cam = (double)(_t_z_VP - _t_z_CAM);
             //回転させたい角度
             double ang = (PI) * (d/_cd);
             double sinHalf = sin(ang/2);
             double cosHalf = cos(ang/2);
-            Quaternion<float> qu(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
-            Quaternion<float> qu2 = qu;
-            Quaternion<float> Q(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf);
+            Quaternion qu(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
+            Quaternion qu2 = qu;
+            Quaternion Q(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf);
             qu.mul(0, vx_cam, vy_cam, vz_cam);//R*P 回転軸が現在の進行方向ベクトルとなる
             qu.mul(Q); //R*P*Q
             slideMvVpTo(qu.i + _t_x_CAM, qu.j + _t_y_CAM, qu.k + _t_z_CAM, DEFAULT_CAMERA_SLIDE_FRAMES);
@@ -184,7 +184,7 @@ void AroundViewCamWorker::processBehavior() {
             vx_cam = t3 * vx_cam;
             vy_cam = t3 * vy_cam;
             vz_cam = t3 * vz_cam;
-            Quaternion<float> qu(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
+            Quaternion qu(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
             qu.mul(0, vx_cam, vy_cam, vz_cam); //R*P 回転軸が現在の進行方向ベクトルとなる
             qu.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
             double r = (d/_cd) * game_width;

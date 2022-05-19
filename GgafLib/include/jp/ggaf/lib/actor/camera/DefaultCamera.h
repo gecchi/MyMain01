@@ -62,18 +62,18 @@ public:
      * @param tz
      * @param t 所要フレーム
      */
-    void slideMvTo(coord tx, coord ty, coord tz, frame t, float prm_p1, float prm_p2);
+    void slideMvTo(coord tx, coord ty, coord tz, frame t, double prm_p1, double prm_p2);
 
     void slideMvTo(coord tx, coord ty, coord tz, frame t,
-                   float prm_x_p1, float prm_y_p1, float prm_z_p1);
+                   double prm_x_p1, double prm_y_p1, double prm_z_p1);
     /**
      * カメラを指のアクターの位置に滑らか移動させます。 .
      * @param pTarget
      * @param t 所要フレーム
      */
-    void slideMvTo(GgafDx::GeometricActor* pTarget, frame t, float prm_p1, float prm_p2);
+    void slideMvTo(GgafDx::GeometricActor* pTarget, frame t, double prm_p1, double prm_p2);
     void slideMvTo(GgafDx::GeometricActor* pTarget, frame t,
-            float prm_x_p1, float prm_y_p1, float prm_z_p1);
+            double prm_x_p1, double prm_y_p1, double prm_z_p1);
 
     bool isSliding();
 

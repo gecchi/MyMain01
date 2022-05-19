@@ -75,7 +75,6 @@ void MassPointSpriteModel::restore() {
     ModelManager* pModelManager = pGOD->_pModelManager;
     HRESULT hr;
     if (!_paVtxBuffer_data_model) {
-        ModelManager* pModelManager = pGOD->_pModelManager;
         std::string model_def_file = std::string(_model_id) + ".psprx";
         std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
         ModelManager::PointSpriteXFileFmt xdata;

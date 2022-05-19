@@ -762,7 +762,7 @@ void MyShip::onHit(const GgafCore::Actor* prm_pOtherActor) {
     if (pOther->lookUpKind() & KIND_CHIKEI) {
         //‚Á”ò‚Ñ•ûŒü‚ðl‚¦‚éB
         //Œ»Ý‚ÌˆÚ“®‚Ì‹t•ûŒüi‚Á”ò‚ÑˆÐ—Í‚Í‚Q”{‚Éj
-        float vx1,vy1,vz1;
+        double vx1,vy1,vz1;
         coord dX1 = -mv_offset_x_;
         coord dY1 = -mv_offset_y_;
         coord dZ1 = -mv_offset_z_;
@@ -772,7 +772,7 @@ void MyShip::onHit(const GgafCore::Actor* prm_pOtherActor) {
             UTIL::getNormalizedVector(dX1, dY1, dZ1,
                                      vx1, vy1, vz1 );
         }
-        float vx2, vy2, vz2;
+        double vx2, vy2, vz2;
         coord dX2,dY2,dZ2;
         if ( pOther->instanceOf(Obj_MassWallActor)) {
             GgafDx::CollisionPart** papColli = pOther->_pChecker->_pCollisionArea->_papColliPart;
@@ -985,7 +985,7 @@ void MyShip::onHit(const GgafCore::Actor* prm_pOtherActor) {
                                      vx2, vy2, vz2 );
         }
 
-        float vx3, vy3, vz3;
+        double vx3, vy3, vz3;
         UTIL::getNormalizedVector(
                     vx1+vx2, vy1+vy2, vz1+vz2,
                     vx3, vy3, vz3);
@@ -1074,7 +1074,7 @@ void MyShip::updateMoveWay() {
 
 void MyShip::moveNomal() {
     const dir26 mv_way = mv_way_;
-    float vx,vy,vz;
+    double vx,vy,vz;
     Direction26Util::cnvDirNo2Vec(mv_way, vx, vy, vz);
     _x += mv_speed_ * vx;
     _y += mv_speed_ * vy;
@@ -1096,7 +1096,7 @@ void MyShip::moveNomal() {
 
 void MyShip::moveTurbo() {
     GgafDx::AxisVehicle* const pAxisVehicle = getAxisVehicle();
-    float vx,vy,vz;
+    double vx,vy,vz;
     Direction26Util::cnvDirNo2Vec(mv_way_, vx, vy, vz);
     pAxisVehicle->addVeloX(veloBeginMT_ * vx);
     pAxisVehicle->addVeloY(veloBeginMT_ * vy);

@@ -42,20 +42,20 @@ public:
      * 要素番号範囲：0 ~ 36000
      * angle値 r の cosは、COS[r/10]
      */
-    static float COS[];
+    static double COS[];
     /**
      * sinテーブル .
      * 要素番号範囲：0 ~ 36000
      * angle値 r の sin は、SIN[r/10]
      */
-    static float SIN[];
+    static double SIN[];
 
     /**
      * 弧度法変換テーブル .
      * 要素番号範囲：0 ~ 36000
      * angle値 r のラディアンは、RAD[r/10]
      */
-    static float RAD[];
+    static double RAD[];
     /**
      * [傾き] → angle値変換テーブル
      * 要素番号範囲：直線 y = ax 傾き a の 10000 倍の整数精度が要素番号となる。
@@ -504,7 +504,11 @@ public:
 //        return Util::getApproxDistanceFromOrigin(pA2->x - pA1->x, pA2->y - pA1->y, pA2->z - pA1->z);
 //    }
 
-
+    static void calcVecToAng(double prm_x,
+                             double prm_y,
+                             double prm_z,
+                             s_ang& out_faceZ,
+                             s_ang& out_faceY_rev);
     /**
      * 原点(0,0,0) からパラメータ座標(vx,vy,vz) を向く方向ベクトルに対応する「Z軸回転のアングル値」と「Y軸回転のアングル値」を取得 .
      * 本クラスの中核とも言うべきメソッドその１<BR>
@@ -539,13 +543,13 @@ public:
                          out_ry );
     }
 
-    static void convVectorToRzRy(float nvx, float nvy, float nvz, angle& out_rz, angle& out_ry) {
-        convVectorToRzRy((int)(nvx*100000),
-                         (int)(nvy*100000),
-                         (int)(nvz*100000),
-                         out_rz,
-                         out_ry );
-    }
+//    static void convVectorToRzRy(float nvx, float nvy, float nvz, angle& out_rz, angle& out_ry) {
+//        convVectorToRzRy((int)(nvx*100000),
+//                         (int)(nvy*100000),
+//                         (int)(nvz*100000),
+//                         out_rz,
+//                         out_ry );
+//    }
 
     /**
      * Z軸回転+Y軸回転値から単位方向ベクトルを取得
@@ -560,9 +564,9 @@ public:
      */
     static void convRzRyToVector(angle prm_rz,
                                  angle prm_ry,
-                                 float& out_nvx,
-                                 float& out_nvy,
-                                 float& out_nvz);
+                                 double& out_nvx,
+                                 double& out_nvy,
+                                 double& out_nvz);
 
     /**
      * ベクトル正規化 .
@@ -573,11 +577,11 @@ public:
      */
     static void getNormalizedVector(double x,
                                     double y,
-                                    float& out_nvx,
-                                    float& out_nvy) {
+                                    double& out_nvx,
+                                    double& out_nvy) {
         const double t = 1.0 / sqrt(x * x + y * y);
-        out_nvx = (float)(t * x);
-        out_nvy = (float)(t * y);
+        out_nvx = t * x;
+        out_nvy = t * y;
     }
 
     /**
@@ -589,13 +593,13 @@ public:
      */
     static void getNormalizedVector(coord x,
                                     coord y,
-                                    float& out_nvx,
-                                    float& out_nvy ) {
+                                    double& out_nvx,
+                                    double& out_nvy ) {
         const double vx = (double)(x * (1.0 / (LEN_UNIT * PX_UNIT)));
         const double vy = (double)(y * (1.0 / (LEN_UNIT * PX_UNIT)));
         const double t = 1.0 / sqrt(vx * vx + vy * vy);
-        out_nvx = (float)(t * vx);
-        out_nvy = (float)(t * vy);
+        out_nvx = t * vx;
+        out_nvy = t * vy;
     }
 
 
@@ -611,13 +615,13 @@ public:
     static void getNormalizedVector(double x,
                                     double y,
                                     double z,
-                                    float& out_nvx,
-                                    float& out_nvy,
-                                    float& out_nvz ) {
+                                    double& out_nvx,
+                                    double& out_nvy,
+                                    double& out_nvz ) {
         const double t = 1.0 / sqrt(x * x + y * y + z * z);
-        out_nvx = (float)(t * x);
-        out_nvy = (float)(t * y);
-        out_nvz = (float)(t * z);
+        out_nvx = t * x;
+        out_nvy = t * y;
+        out_nvz = t * z;
     }
 
     /**
@@ -632,16 +636,16 @@ public:
     static void getNormalizedVector(coord x,
                                     coord y,
                                     coord z,
-                                    float& out_nvx,
-                                    float& out_nvy,
-                                    float& out_nvz ) {
-        const double vx = (double)(x * (1.0 / (LEN_UNIT * PX_UNIT)));
-        const double vy = (double)(y * (1.0 / (LEN_UNIT * PX_UNIT)));
-        const double vz = (double)(z * (1.0 / (LEN_UNIT * PX_UNIT)));
+                                    double& out_nvx,
+                                    double& out_nvy,
+                                    double& out_nvz ) {
+        const double vx = x * (1.0 / (LEN_UNIT * PX_UNIT));
+        const double vy = y * (1.0 / (LEN_UNIT * PX_UNIT));
+        const double vz = z * (1.0 / (LEN_UNIT * PX_UNIT));
         const double t = 1.0 / sqrt(vx * vx + vy * vy + vz * vz);
-        out_nvx = (float)(t * vx);
-        out_nvy = (float)(t * vy);
-        out_nvz = (float)(t * vz);
+        out_nvx = t * vx;
+        out_nvy = t * vy;
+        out_nvz = t * vz;
     }
 
     /**
@@ -932,7 +936,7 @@ public:
 
     /**
      * world変換行列設定 .
-     * ビルボードX軸回転 × ビルボードY軸回転 × ビルボードZ軸回転  × 拡大縮小 × 平行移動　の変換行列を作成＆デバイスに設定 <BR>
+     * ビルボードX軸回転 × ビルボードY軸回転 × ビルボードZ軸回転  × 拡大縮小 × 平行移動 の変換行列を作成＆デバイスに設定 <BR>
      * @param prm_pActor [in]対象アクター
      * @param out_matWorld [out]world変換行列
      */
@@ -960,12 +964,12 @@ public:
         // | (cosRx*-sinRz*cosRy + sinRx*sinRy) , cosRx*cosRz , (cosRx*-sinRz*-sinRy + sinRx*cosRy) , 0 |
         // | (-sinRx*-sinRz*cosRy + cosRx*sinRy), -sinRx*cosRz, (-sinRx*-sinRz*-sinRy + cosRx*cosRy), 0 |
         // | dx                                 , dy          , dz                                  , 1 |
-        const float sinRx = ANG_SIN(prm_pActor->_rx);
-        const float cosRx = ANG_COS(prm_pActor->_rx);
-        const float sinRy = ANG_SIN(prm_pActor->_ry);
-        const float cosRy = ANG_COS(prm_pActor->_ry);
-        const float sinRz = ANG_SIN(prm_pActor->_rz);
-        const float cosRz = ANG_COS(prm_pActor->_rz);
+        const float sinRx = (float)ANG_SIN(prm_pActor->_rx);
+        const float cosRx = (float)ANG_COS(prm_pActor->_rx);
+        const float sinRy = (float)ANG_SIN(prm_pActor->_ry);
+        const float cosRy = (float)ANG_COS(prm_pActor->_ry);
+        const float sinRz = (float)ANG_SIN(prm_pActor->_rz);
+        const float cosRz = (float)ANG_COS(prm_pActor->_rz);
 
         out_matWorld._11 = cosRz*cosRy;
         out_matWorld._12 = sinRz;

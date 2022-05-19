@@ -84,8 +84,8 @@ GgafDx::FigureActor* MyStgUtil::shotWayGoldenAng(coord prm_x, coord prm_y, coord
     D3DXMATRIX matWorldRot;
     GgafDx::Util::setWorldMatrix_RzRy(GgafDx::Util::simplifyAng(prm_rz-D90ANG),prm_ry, matWorldRot);
 
-    float vx, vy, vz;
-    float tx, ty, tz; //最終方向の絶対座標の単位ベクトル
+    double vx, vy, vz;
+    double tx, ty, tz; //最終方向の絶対座標の単位ベクトル
     for (int i = 0; i < prm_way_num; i++) {
         GgafDx::Util::convRzRyToVector(expanse_rz, GOLDEN_ANG[i], vx, vy, vz);
         tx = vx*matWorldRot._11 + vy*matWorldRot._21 + vz*matWorldRot._31;
@@ -95,7 +95,7 @@ GgafDx::FigureActor* MyStgUtil::shotWayGoldenAng(coord prm_x, coord prm_y, coord
         paGeo[i].y = (coord)(ty * prm_r);
         paGeo[i].z = (coord)(tz * prm_r);
         GgafDx::Util::convVectorToRzRy(tx, ty, tz,
-                                     paGeo[i].rz, paGeo[i].ry);
+                                       paGeo[i].rz, paGeo[i].ry);
         expanse_rz -= (prm_inc_expanse_angle/2);
     }
     GgafDx::FigureActor* pActor_shot = nullptr;

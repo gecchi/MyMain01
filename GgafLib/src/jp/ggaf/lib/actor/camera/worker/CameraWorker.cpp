@@ -73,7 +73,7 @@ void CameraWorker::slideMvCamTo(GgafDx::GeometricActor* pTarget, frame t) {
 }
 
 void CameraWorker::slideMvCamTo(GgafDx::GeometricActor* pTarget, frame t,
-                                float prm_x_p1, float prm_y_p1, float prm_z_p1) {
+                                double prm_x_p1, double prm_y_p1, double prm_z_p1) {
     slideMvCamTo(pTarget->_x, pTarget->_y, pTarget->_z, t, prm_x_p1, prm_y_p1, prm_z_p1);
 }
 
@@ -82,7 +82,7 @@ void CameraWorker::slideMvVpTo(GgafDx::GeometricActor* pTarget, frame t) {
 }
 
 void CameraWorker::slideMvCamTo(coord tx, coord ty, coord tz, frame t,
-                                float prm_p1, float prm_p2) {
+                                double prm_p1, double prm_p2) {
     _t_x_CAM = tx;
     _t_y_CAM = ty;
     _t_z_CAM = tz;
@@ -90,7 +90,7 @@ void CameraWorker::slideMvCamTo(coord tx, coord ty, coord tz, frame t,
 }
 
 void CameraWorker::slideMvCamTo(coord tx, coord ty, coord tz, frame t,
-                                float prm_x_p1, float prm_y_p1, float prm_z_p1) {
+                                double prm_x_p1, double prm_y_p1, double prm_z_p1) {
     _t_x_CAM = tx;
     _t_y_CAM = ty;
     _t_z_CAM = tz;
@@ -107,13 +107,13 @@ void CameraWorker::mvCamTo(coord tx, coord ty, coord tz) {
 bool CameraWorker::isCamSliding() {
     return _pCam->isSliding();
 }
-void CameraWorker::slideMvVpTo(coord tx, coord ty, coord tz, frame t, float prm_p1, float prm_p2)  {
+void CameraWorker::slideMvVpTo(coord tx, coord ty, coord tz, frame t, double prm_p1, double prm_p2)  {
     _t_x_VP = tx;
     _t_y_VP = ty;
     _t_z_VP = tz;
     _pVp->slideMvTo(tx, ty, tz, t, prm_p1, prm_p2);
 }
-void CameraWorker::slideMvUpVecTo(coord tx, coord ty, coord tz, frame t, float prm_p1, float prm_p2)  {
+void CameraWorker::slideMvUpVecTo(coord tx, coord ty, coord tz, frame t, double prm_p1, double prm_p2)  {
     _t_x_UP = tx;
     _t_y_UP = ty;
     _t_z_UP = tz;

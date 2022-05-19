@@ -42,10 +42,10 @@ void FormationUrydike001::onCalledUp(GgafDx::FigureActor* prm_pActor, int prm_ro
     double d_col = -1.0 * papCurveManufConn_[prm_col]->peek()->_pCurve->_rotmat._41; //‰¡‚Æ‚ÌŠÔŠu
     float X = d_col*rate_x; //rate_x‚ðŠ|‚¯‚é‚±‚Æ‚É‚æ‚èA‚±‚±‚Å X ‚Ícoord‚Ì’PˆÊ‚Æ‚È‚éB
 
-    float sinRz = ANG_SIN(entry_pos_.rz);
-    float cosRz = ANG_COS(entry_pos_.rz);
-    float sinRy = ANG_SIN(entry_pos_.ry);
-    float cosRy = ANG_COS(entry_pos_.ry);
+    double sinRz = ANG_SIN(entry_pos_.rz);
+    double cosRz = ANG_COS(entry_pos_.rz);
+    double sinRy = ANG_SIN(entry_pos_.ry);
+    double cosRy = ANG_COS(entry_pos_.ry);
 
     //(X,0,0) ‚ð Rz > Ry ‰ñ“]ˆÚ“®‚³‚¹‚é‚Æ
     //(X*cosRz*cosRy, X*sinRz, X*cosRz*-sinRy)

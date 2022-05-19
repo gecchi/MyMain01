@@ -863,7 +863,7 @@ void VecVehicle::setRzRyMvAng(angle prm_rz, angle prm_ry) {
     }
 }
 
-void VecVehicle::setRzRyMvAng(dxcoord prm_vx, dxcoord prm_vy, dxcoord prm_vz, bool prm_opt) {
+void VecVehicle::setRzRyMvAng(double prm_vx, double prm_vy, double prm_vz, bool prm_opt) {
     if (prm_opt) {
         angle rz_mv1, ry_mv1;
         UTIL::convVectorToRzRy(prm_vx, prm_vy, prm_vz,
@@ -902,7 +902,7 @@ void VecVehicle::setRzRyMvAng(dxcoord prm_vx, dxcoord prm_vy, dxcoord prm_vz, bo
 void VecVehicle::setRzRyMvAngByRyRz(angle prm_ryRz_Ry, angle prm_ryRz_Rz) {
     angle RyRz_Ry = UTIL::simplifyAng(prm_ryRz_Ry);
     angle RyRz_Rz = UTIL::simplifyAng(prm_ryRz_Rz);
-    float out_vY, out_vZ;
+    double out_vY, out_vZ;
     UTIL::convRzRyToVector(RyRz_Ry, D360ANG-RyRz_Rz, _vX, out_vY, out_vZ);
     _vY = -1.0f*out_vZ;
     _vZ = out_vY;
@@ -1009,7 +1009,7 @@ void VecVehicle::turnRzRyFaceAngTo(angle prm_rz_target, angle prm_ry_target,
             setFaceAngAcce(AXIS_Y, -ra);
         }
     } else if (drz < dry) {
-        float t_sin_rz = ABS(ANG_SIN(UTIL::simplifyAng(prm_rz_target)) * 0.8);// Y軸回転極座標補正。0.8は緩くするため
+        double t_sin_rz = ABS(ANG_SIN(UTIL::simplifyAng(prm_rz_target)) * 0.8);// Y軸回転極座標補正。0.8は緩くするため
         double hosei = 1.0 / (1.0 - t_sin_rz); //* 0.8しているので、t_sin_rz が 1.0にならないので 0除算は起こらない。
 
 
@@ -1039,7 +1039,7 @@ void VecVehicle::turnRzRyFaceAngTo(angle prm_rz_target, angle prm_ry_target,
         }
     } else {
 
-        float t_sin_rz = ABS(ANG_SIN(UTIL::simplifyAng(prm_rz_target)) * 0.8);// Y軸回転極座標補正。0.8は緩くするため
+        double t_sin_rz = ABS(ANG_SIN(UTIL::simplifyAng(prm_rz_target)) * 0.8);// Y軸回転極座標補正。0.8は緩くするため
         double hosei = 1.0 / (1.0 - t_sin_rz); //* 0.8しているので、t_sin_rz が 1.0にならないので 0除算は起こらない。
 
 
@@ -1182,7 +1182,7 @@ void VecVehicle::turnRzRyMvAngTo(angle prm_rz_target, angle prm_ry_target,
             setRyMvAngAcce(-ra);
         }
     } else if (drz < dry) {
-        float t_sin_rz = ABS(ANG_SIN(UTIL::simplifyAng(prm_rz_target)) * 0.8);// Y軸回転極座標補正。0.8は緩くするため
+        double t_sin_rz = ABS(ANG_SIN(UTIL::simplifyAng(prm_rz_target)) * 0.8);// Y軸回転極座標補正。0.8は緩くするため
         double hosei = 1.0 / (1.0 - t_sin_rz); //* 0.8しているので、t_sin_rz が 1.0にならないので 0除算は起こらない。
         double drr = drz / dry;
         angvelo rv = prm_angvelo*drr;
@@ -1209,7 +1209,7 @@ void VecVehicle::turnRzRyMvAngTo(angle prm_rz_target, angle prm_ry_target,
         }
     } else {
 
-        float t_sin_rz = ABS(ANG_SIN(UTIL::simplifyAng(prm_rz_target)) * 0.8);// Y軸回転極座標補正。0.8は緩くするため
+        double t_sin_rz = ABS(ANG_SIN(UTIL::simplifyAng(prm_rz_target)) * 0.8);// Y軸回転極座標補正。0.8は緩くするため
         double hosei = 1.0 / (1.0 - t_sin_rz); //* 0.8しているので、t_sin_rz が 1.0にならないので 0除算は起こらない。
         if (out_d_rz > 0) {
             setRzMvAngVelo(prm_angvelo);

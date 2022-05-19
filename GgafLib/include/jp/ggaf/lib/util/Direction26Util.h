@@ -17,9 +17,9 @@ namespace GgafLib {
 class Direction26Util {
 private:
     struct FaceVec {
-        float vx;
-        float vy;
-        float vz;
+        double vx;
+        double vy;
+        double vz;
     };
 
     struct FaceSgn {
@@ -53,7 +53,7 @@ public:
      * @param prm_vz 方向ベクトルZ要素
      * @return 直近の斜方立方八面体の面番号(２６方向番号)、DIR_NNN ～ DIR_PPP or FACE_XXX
      */
-    static dir26 cnvVec2DirNo(float prm_vx, float prm_vy, float prm_vz);
+    static dir26 cnvVec2DirNo(double prm_vx, double prm_vy, double prm_vz);
 
     /**
      * 方向ベクトルを、直近の２６方向に変換した場合の、XYZ軸各要素の正負の符号を取得 .
@@ -64,7 +64,7 @@ public:
      * @param out_sgn_y Y軸要素の正負 (-1 or 0 or 1)
      * @param out_sgn_z Z軸要素の正負 (-1 or 0 or 1)
      */
-    static void cnvVec2Sgn(float prm_vx, float prm_vy, float prm_vz,
+    static void cnvVec2Sgn(double prm_vx, double prm_vy, double prm_vz,
                            int& out_sgn_x, int& out_sgn_y, int& out_sgn_z);
 
     static void cnvVec2Sgn(coord prm_vx, coord prm_vy, coord prm_vz,
@@ -73,12 +73,12 @@ public:
                                     out_sgn_x, out_sgn_y, out_sgn_z);
     }
 
-    static void cnvVec2Sgn(float prm_vx, float prm_vy, float prm_vz,
-                           float& out_nvx, float& out_nvy, float& out_nvz,
+    static void cnvVec2Sgn(double prm_vx, double prm_vy, double prm_vz,
+                           double& out_nvx, double& out_nvy, double& out_nvz,
                            int& out_sgn_x, int& out_sgn_y, int& out_sgn_z);
 
     static void cnvVec2Sgn(coord prm_vx, coord prm_vy, coord prm_vz,
-                           float& out_nvx, float& out_nvy, float& out_nvz,
+                           double& out_nvx, double& out_nvy, double& out_nvz,
                            int& out_sgn_x, int& out_sgn_y, int& out_sgn_z) {
         Direction26Util::cnvVec2Sgn(C_DX(prm_vx), C_DX(prm_vy), C_DX(prm_vz),
                                           out_nvx, out_nvy, out_nvz,
@@ -91,7 +91,7 @@ public:
      * @param out_vy 方向ベクトルY要素
      * @param out_vz 方向ベクトルZ要素
      */
-    static void cnvDirNo2Vec(dir26 prm_dir_no, float& out_vx, float& out_vy, float& out_vz);
+    static void cnvDirNo2Vec(dir26 prm_dir_no, double& out_vx, double& out_vy, double& out_vz);
 
     /**
      * 斜方立方八面体の面番号(２６方向番号)から、XYZ軸各要素の正負の符号を取得 .

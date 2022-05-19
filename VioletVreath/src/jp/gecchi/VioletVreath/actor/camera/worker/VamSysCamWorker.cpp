@@ -823,9 +823,9 @@ void VamSysCamWorker::processBehavior() {
         //回転させたい角度
         const double sinHalf = VamSysCamWorker::mv_ang_sinHalf_;
         const double cosHalf = VamSysCamWorker::mv_ang_cosHalf_;
-        Quaternion<double> qu(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
-        Quaternion<double> qu2 = qu;
-        Quaternion<double> Q(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf);
+        Quaternion qu(cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
+        Quaternion qu2 = qu;
+        Quaternion Q(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf);
         qu.mul(0, f_mv_t_x_vCAM, f_mv_t_y_vCAM, f_mv_t_z_vCAM); //R*P
         qu.mul(Q); //R*P*Q
         mv_t_x_vCAM_ = DX_C(qu.i);
@@ -946,7 +946,7 @@ void VamSysCamWorker::cnvVec2VamUpSgn(const dir26 prm_vam_cam_pos,
         //VAM_POS_FRONT_ZRIGHT, VAM_POS_BEHIND_ZLEFT, VAM_POS_BEHIND_ZRIGHT, VAM_POS_FRONT_ZLEFT
         //VAM_POS_FRONT_UP, VAM_POS_BEHIND_DOWN, VAM_POS_FRONT_DOWN, VAM_POS_BEHIND_UP
         //の何れか
-        float t_nvx, t_nvy, t_nvz; //正規化された方向ベクトル
+        double t_nvx, t_nvy, t_nvz; //正規化された方向ベクトル
         Direction26Util::cnvVec2Sgn(prm_vx, prm_vy, prm_vz,
                                     t_nvx, t_nvy, t_nvz,
                                     out_sgn_x, out_sgn_y, out_sgn_z);
@@ -963,12 +963,12 @@ void VamSysCamWorker::cnvVec2VamUpSgn(const dir26 prm_vam_cam_pos,
         }
         if (!is_match) {
             //８方向のどれにもマッチしない場合、直近の方向に収める。
-            float max_dot = 0;
+            double max_dot = 0;
             dir26 nearest_dir = pa_dir8[0];
             for (int i = 0; i < 8; i++) {
-                float d_vx,d_vy,d_vz;
+                double d_vx,d_vy,d_vz;
                 Direction26Util::cnvDirNo2Vec(pa_dir8[i], d_vx, d_vy, d_vz);
-                float dot = t_nvx*d_vx + t_nvy*d_vy + t_nvz*d_vz;
+                double dot = t_nvx*d_vx + t_nvy*d_vy + t_nvz*d_vz;
                 if (max_dot < dot) { //内積が大きいものに寄せる
                     max_dot = dot;
                     nearest_dir = pa_dir8[i];
@@ -1000,9 +1000,9 @@ void VamSysCamWorker::cnvVec2VamSgn(const coord prm_vx, const coord prm_vy, cons
     // u = cos(3/8π)  = 0.38268343236509
     // v = sin(3/8π)  = 0.92387953251129
 
-    static const float u = 0.38268343236509f;
-//    static const float v = 0.92387953251129f;
-    float nvx, nvy, nvz;
+    static const double u = 0.38268343236509f;
+//    static const double v = 0.92387953251129f;
+    double nvx, nvy, nvz;
     UTIL::getNormalizedVector(prm_vx, prm_vy, prm_vz,
                               nvx, nvy, nvz);
     if (nvx < -u) {
@@ -1034,13 +1034,13 @@ void VamSysCamWorker::cnvVec2VamSgn(const coord prm_vx, const coord prm_vy, cons
         //どこに近いか内積で比較して計算
         dir26 td = DIR26(out_sgn_x, out_sgn_y, out_sgn_z);
         // nvx, nvy, nvz;
-        float max_dot = 0;
+        double max_dot = 0;
         dir26 nearest_dir = 0;
         dir26* pa_dir6 = VamSysCamWorker::nbhd_dir_[td];
         for (int i = 0; i < 6; i++) {
-            float d_vx,d_vy,d_vz;
+            double d_vx,d_vy,d_vz;
             Direction26Util::cnvDirNo2Vec(pa_dir6[i], d_vx, d_vy, d_vz);
-            float dot = nvx*d_vx + nvy*d_vy + nvz*d_vz;
+            double dot = nvx*d_vx + nvy*d_vy + nvz*d_vz;
             if (max_dot < dot) { //内積が大きいものに寄せる
                 max_dot = dot;
                 nearest_dir = pa_dir6[i];

@@ -98,7 +98,7 @@ void GeoVehicle::setVeloTwd(coord prm_tx, coord prm_ty, coord prm_tz, velo prm_v
 }
 
 void GeoVehicle::setVeloTwd(angle prm_rz, angle prm_ry, velo prm_velo) {
-    float vx, vy, vz;
+    double vx, vy, vz;
     UTIL::convRzRyToVector(prm_rz, prm_ry, vx, vy, vz);
     setVeloByVc(vx*prm_velo, vy*prm_velo, vz*prm_velo);
 }

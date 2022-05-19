@@ -57,18 +57,18 @@ void DefaultCamera::processBehavior() {
     GgafDx::Camera::processBehavior();
 }
 
-void DefaultCamera::slideMvTo(coord tx, coord ty, coord tz, frame t, float prm_p1, float prm_p2) {
+void DefaultCamera::slideMvTo(coord tx, coord ty, coord tz, frame t, double prm_p1, double prm_p2) {
     getAxisVehicle()->asst()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,
                               prm_p1, prm_p2, 0, true);
 }
 
-void DefaultCamera::slideMvTo(GgafDx::GeometricActor* pTarget, frame t, float prm_p1, float prm_p2) {
+void DefaultCamera::slideMvTo(GgafDx::GeometricActor* pTarget, frame t, double prm_p1, double prm_p2) {
     slideMvTo(pTarget->_x, pTarget->_y, pTarget->_z, t, prm_p1, prm_p2);
 }
 
 void DefaultCamera::slideMvTo(coord tx, coord ty, coord tz, frame t,
-                       float prm_x_p1, float prm_y_p1, float prm_z_p1) {
+                       double prm_x_p1, double prm_y_p1, double prm_z_p1) {
     getAxisVehicle()->asst()->slideVxyzMvByDtTo(
                               tx, ty, tz, t,
                               prm_x_p1, prm_x_p1, 0,
@@ -77,13 +77,13 @@ void DefaultCamera::slideMvTo(coord tx, coord ty, coord tz, frame t,
                               true);
 }
 void DefaultCamera::slideMvTo(GgafDx::GeometricActor* pTarget, frame t,
-                       float prm_x_p1, float prm_y_p1, float prm_z_p1) {
+                       double prm_x_p1, double prm_y_p1, double prm_z_p1) {
     slideMvTo(pTarget->_x, pTarget->_y, pTarget->_z, t,
               prm_x_p1, prm_y_p1, prm_z_p1);
 }
 
 dir26 DefaultCamera::getVpDirNo() {
-    float vcv_x, vcv_y, vcv_z;
+    double vcv_x, vcv_y, vcv_z;
     DefaultCameraViewPoint* pVp = (DefaultCameraViewPoint*)getCameraViewPoint();
     UTIL::getNormalizedVector (
             pVp->_x - _x,

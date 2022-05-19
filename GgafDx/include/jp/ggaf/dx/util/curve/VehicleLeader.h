@@ -63,12 +63,12 @@ public:
     bool _is_fix_pos;
 //    bool _is_loop_ang_by_face;
 
-    float _sinRx_begin;
-    float _cosRx_begin;
-    float _sinRz_begin;
-    float _cosRz_begin;
-    float _sinRy_begin;
-    float _cosRy_begin;
+    double _sinRx_begin;
+    double _cosRx_begin;
+    double _sinRz_begin;
+    double _cosRz_begin;
+    double _sinRy_begin;
+    double _cosRy_begin;
 
     bool _turn_smooth;
 

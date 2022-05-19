@@ -76,12 +76,12 @@ void VehicleLeader::getPointCoord(int prm_point_index, coord& out_x, coord& out_
             //力車さんが先導していない(not leading 中)
             //まだ start されていないので、未来の補間点座標が未確定
             //この場合、仮に今ココで start された場合の座標を計算して返す
-            const float sinRx_now = ANG_SIN(_pActor_target->_rx);
-            const float cosRx_now = ANG_COS(_pActor_target->_rx);
-            const float sinRz_now = ANG_SIN(_pActor_target->_rz);
-            const float cosRz_now = ANG_COS(_pActor_target->_rz);
-            const float sinRy_now = ANG_SIN(_pActor_target->_ry);
-            const float cosRy_now = ANG_COS(_pActor_target->_ry);
+            const double sinRx_now = ANG_SIN(_pActor_target->_rx);
+            const double cosRx_now = ANG_COS(_pActor_target->_rx);
+            const double sinRz_now = ANG_SIN(_pActor_target->_rz);
+            const double cosRz_now = ANG_COS(_pActor_target->_rz);
+            const double sinRy_now = ANG_SIN(_pActor_target->_ry);
+            const double cosRy_now = ANG_COS(_pActor_target->_ry);
             const double dx_cosRz_now = dx*cosRz_now;
             const double dy_cosRx_now = dy*cosRx_now;
             const double dz_sinRx_now = dz*sinRx_now;

@@ -91,7 +91,7 @@ EnemyErmione::EnemyErmione(const char* prm_name) :
     //ArmPart(“ª)          ArmPart(“ª)         ArmPart(“ª)
 
     paArm_ = NEW EnemyErmione::Arm[num_arm_];
-    float vx, vy, vz;
+    double vx, vy, vz;
     for (int arm = 0; arm < num_arm_; arm++) { //˜r‚Ì–{”‚Åƒ‹[ƒv
         paArm_[arm].pos_Rz_ = pos_rz[arm];
         paArm_[arm].pos_Ry_ = pos_ry[arm];

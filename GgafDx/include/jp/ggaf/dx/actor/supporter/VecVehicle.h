@@ -236,7 +236,7 @@ public:
 
 public: //_x, _y, _z 操作関連 //////////////////////////////////////////////
     /** [r]キャラの移動方角単位ベクトル */
-    float _vX, _vY, _vZ;
+    double _vX, _vY, _vZ;
     /** [r/w]移動方角のZ軸回転角 */
     angle _rz_mv;
     /** [r/w]移動方角のY軸回転角 */
@@ -696,7 +696,7 @@ public:
      * @param prm_vz 方向ベクトルZ軸要素
      * @param prm_opt 最適化フラグ（true:RzRyの差が最小になるように最適化する／false:普通のコンバート)
      */
-    void setRzRyMvAng(dxcoord prm_vx, dxcoord prm_vy, dxcoord prm_vz, bool prm_opt = false);
+    void setRzRyMvAng(double prm_vx, double prm_vy, double prm_vz, bool prm_opt = false);
 
     /**
      *  移動方向(RzRy)を、RyRzで設定。

@@ -83,7 +83,7 @@ bool MyTorpedoController::fire() {
 
         if (MyTorpedoController::torpedo_num_ == 1) {
             //魚雷発射可能数 が 1の場合のみ、特別に前方（レーザー発射方向）に発射
-            float vx, vy, vz;
+            double vx, vy, vz;
             UTIL::convRzRyToVector(pOrg_->_rz, pOrg_->_ry, vx, vy, vz);
             papTorpedo_[0]->setPosition(pOrg_->_x + (vx * r),
                                         pOrg_->_y + (vy * r),
@@ -118,7 +118,7 @@ bool MyTorpedoController::fire() {
             D3DXMATRIX matRotZ; //現在のオプションの向きから90度下に向く回転行列
             UTIL::setWorldMatrix_RzRy(UTIL::simplifyAng(pOrg_->_rz - D90ANG), pOrg_->_ry,
                                       matRotZ);
-            float vx, vy, vz;
+            double vx, vy, vz;
             coord x1, y1, z1, x2, y2, z2;
             coord rz,ry;
             for (int i = 0; i < firing_num_; i++) {

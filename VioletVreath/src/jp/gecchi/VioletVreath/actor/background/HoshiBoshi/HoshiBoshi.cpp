@@ -119,12 +119,12 @@ void HoshiBoshi::setWorldMatrix_HoshiBoshi(const GgafDx::GeometricActor* prm_pAc
     //World•ÏŠ·
     //Šg‘åk¬ ~ X²‰ñ“] ~ Z²‰ñ“] ~ Y²‰ñ“] ~ •½sˆÚ“® ‚Ì•ÏŠ·s—ñ‚ğİ’è<BR>
     //¦XYZ‚Ì‡‚Å‚È‚¢‚±‚Æ‚É’ˆÓ
-    float sinRx = ANG_SIN(prm_pActor->_rx);
-    float cosRx = ANG_COS(prm_pActor->_rx);
-    float sinRy = ANG_SIN(prm_pActor->_ry);
-    float cosRy = ANG_COS(prm_pActor->_ry);
-    float sinRz = ANG_SIN(prm_pActor->_rz);
-    float cosRz = ANG_COS(prm_pActor->_rz);
+    float sinRx = (float)ANG_SIN(prm_pActor->_rx);
+    float cosRx = (float)ANG_COS(prm_pActor->_rx);
+    float sinRy = (float)ANG_SIN(prm_pActor->_ry);
+    float cosRy = (float)ANG_COS(prm_pActor->_ry);
+    float sinRz = (float)ANG_SIN(prm_pActor->_rz);
+    float cosRz = (float)ANG_COS(prm_pActor->_rz);
     float sx = SC_R(prm_pActor->_sx);
     float sy = SC_R(prm_pActor->_sy);
     float sz = SC_R(prm_pActor->_sz);

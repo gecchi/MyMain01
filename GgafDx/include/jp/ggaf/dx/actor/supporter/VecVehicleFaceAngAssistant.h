@@ -87,7 +87,7 @@ public:
      */
     void turnByDt(axis prm_axis,
                   angle prm_distance, int prm_target_frames,
-                  float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                  double prm_p1, double prm_p2, angvelo prm_end_angvelo,
                   bool prm_zero_acc_end_flg);
 
     /**
@@ -102,7 +102,7 @@ public:
      * @param prm_zero_acc_end_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
     void turnRzByDtTo(angle prm_rz_target, int prm_way, int prm_target_frames,
-                      float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                      double prm_p1, double prm_p2, angvelo prm_end_angvelo,
                       bool prm_zero_acc_end_flg);
 
     /**
@@ -117,7 +117,7 @@ public:
      * @param prm_zero_acc_end_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
     void turnRyByDtTo(angle prm_ang_ry_target, int prm_way, int prm_target_frames,
-                      float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                      double prm_p1, double prm_p2, angvelo prm_end_angvelo,
                       bool prm_zero_acc_end_flg);
     /**
      * 目標の軸回転方角(X軸)へ滑らかに回転するシークエンスを実行(時間指定、角速度変動) .
@@ -131,7 +131,7 @@ public:
      * @param prm_zero_acc_end_flg true:目標移動距離に達した際に角加速度を０に強制設定/false:角加速度はそのままにしておく
      */
     void rollFaceAngByDtTo(angle prm_ang_rx_target, int prm_way, int prm_target_frames,
-                           float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                           double prm_p1, double prm_p2, angvelo prm_end_angvelo,
                            bool prm_zero_acc_end_flg);
 
     /**
@@ -157,7 +157,7 @@ public:
     void turnRzRyByDtTo(
             angle prm_rz_target, angle prm_ry_target, int prm_way, bool prm_optimize_ang,
             int prm_target_frames,
-            float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+            double prm_p1, double prm_p2, angvelo prm_end_angvelo,
             bool prm_zero_acc_end_flg);
 
     /**
@@ -177,7 +177,7 @@ public:
     void turnByDtTwd(
             coord prm_tx, coord prm_ty, coord prm_tz, int prm_way, bool prm_optimize_ang,
             int prm_target_frames,
-            float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+            double prm_p1, double prm_p2, angvelo prm_end_angvelo,
             bool prm_zero_acc_end_flg);
 
     /**
@@ -195,7 +195,7 @@ public:
     void turnByDtTwd(
             GeometricActor* prm_pActor_target, int prm_way, bool prm_optimize_ang,
             int prm_target_frames,
-            float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+            double prm_p1, double prm_p2, angvelo prm_end_angvelo,
             bool prm_zero_acc_end_flg);
 
     /**
@@ -237,41 +237,41 @@ public:
     void turnByVd(
             axis prm_axis,
             angvelo prm_top_angvelo, angle prm_distance,
-            float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+            double prm_p1, double prm_p2, angvelo prm_end_angvelo,
             bool prm_zero_acc_end_flg);
 
     void turnRzByVdTo(
             angvelo prm_top_angvelo, angle prm_rz_target, int prm_way,
-            float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+            double prm_p1, double prm_p2, angvelo prm_end_angvelo,
             bool prm_zero_acc_end_flg);
 
     void turnRyByVdTo(
             angvelo prm_top_angvelo, angle prm_ry_target, int prm_way,
-            float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+            double prm_p1, double prm_p2, angvelo prm_end_angvelo,
             bool prm_zero_acc_end_flg);
 
     void rollByVdTo(
             angvelo prm_top_angvelo, angle prm_ang_rx_target, int prm_way,
-            float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+            double prm_p1, double prm_p2, angvelo prm_end_angvelo,
             bool prm_zero_acc_end_flg);
 
 
     void turnRzRyByVdTo(
             angvelo prm_top_angvelo,
             angle prm_rz_target, angle prm_ry_target, int prm_way, bool prm_optimize_ang,
-            float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+            double prm_p1, double prm_p2, angvelo prm_end_angvelo,
             bool prm_zero_acc_end_flg);
 
     void turnByVdTwd(
             angvelo prm_top_angvelo,
             coord prm_tx, coord prm_ty, coord prm_tz, int prm_way, bool prm_optimize_ang,
-            float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+            double prm_p1, double prm_p2, angvelo prm_end_angvelo,
             bool prm_zero_acc_end_flg);
 
     void turnByVdTwd(
             angvelo prm_top_angvelo,
             GeometricActor* prm_pActor_target, int prm_way, bool prm_optimize_ang,
-            float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+            double prm_p1, double prm_p2, angvelo prm_end_angvelo,
             bool prm_zero_acc_end_flg);
 
     /**
@@ -292,7 +292,7 @@ public:
      */
     void twist(axis prm_axis, angle prm_ang_target1, angle prm_ang_target2, int prm_twist_num,
                int prm_first_way, int prm_target_frames,
-               float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+               double prm_p1, double prm_p2, angvelo prm_end_angvelo,
                bool prm_zero_acc_end_flg);
 
     inline bool isTurning() const {

@@ -62,9 +62,9 @@ using namespace GgafDx;
 bool Util::_was_GgafDx_Util_inited_flg = false;
 
 //float Util::PARABORA[D360SANG+1];
-float Util::COS[36000+1];
-float Util::SIN[36000+1];
-float Util::RAD[36000+1];
+double Util::COS[36000+1];
+double Util::SIN[36000+1];
+double Util::RAD[36000+1];
 
 angle Util::SLANT2ANG[100000 + 1];
 
@@ -92,9 +92,9 @@ void Util::init() {
 
     for (s_ang ang = 0; ang < 36000+1; ang++) {
         double rad = (PI2 * ang) / 36000;
-        Util::COS[ang] = (float)(cos(rad));
-        Util::SIN[ang] = (float)(sin(rad));
-        Util::RAD[ang] = (float)rad;
+        Util::COS[ang] = cos(rad);
+        Util::SIN[ang] = sin(rad);
+        Util::RAD[ang] = rad;
         //PARABORA[ang] = (float)((double)((ang-(D360SANG/2))*(ang-(D360SANG/2))) /  (double)(-1.0*(D360SANG/2)*(D360SANG/2)) + 1.0);
         ////PARABORA[0] = 0 , PARABORA[D180SANG] = 1,  PARABORA[D360SANG-1] = 0 Ç≈ y = -x^2  ï˙ï®ê¸ÇÃílÇÇ∆ÇÈ
     }
@@ -113,7 +113,7 @@ void Util::init() {
     //<SLANT2ANG>
     double rad;
     double vx,vy,vz;
-    float slant;
+    double slant;
     int index_slant;
     int index_slant_prev = -1;
     int d_index_slant = 0;
@@ -151,10 +151,10 @@ void Util::init() {
         rad = (PI * 2.0 * ang) / 360000;
         vx = cos(rad);
         vy = sin(rad);
-        if (ZEROf_EQ(vx)) {
-            slant = 0.0f;
+        if (ZEROd_EQ(vx)) {
+            slant = 0.0;
         } else {
-            slant = (float)(vy / vx);
+            slant = vy / vx;
         }
         index_slant = (int)(slant * 100000);
         d_index_slant = index_slant - index_slant_prev;
@@ -281,9 +281,40 @@ void Util::init() {
         Util::RND_CIRCLE_Y[i] = wk3 * sin_phi;
     }
     Util::_was_GgafDx_Util_inited_flg = true;
+
+
+//    _TRACE_("äJénÅI");
+//    for (s_ang prm_rz = 0; prm_rz <= D90ANG; prm_rz+=100) {
+//        for (s_ang prm_ry = 0; prm_ry <= D90ANG; prm_ry+=100) {
+//            double out_nvx,out_nvy,out_nvz;
+//            Util::convRzRyToVector(prm_rz,
+//                             prm_ry,
+//                              out_nvx,
+//                              out_nvy,
+//                              out_nvz);
+//            angle out_rz,out_ry;
+//            Util::convVectorToRzRy(out_nvx, out_nvy, out_nvz, out_rz, out_ry);
+//            if (prm_rz == out_rz && prm_ry == out_ry) {
+//                _TRACE_N_("o");
+//            } else {
+//                _TRACE_N_("\n");
+//                _TRACE_("x ("<<prm_rz<<","<<prm_ry<<") -> ("<<out_rz<<","<<out_ry<<") Å¶("<<out_nvx<<","<<out_nvy<<","<<out_nvz<<")");
+//            }
+//        }
+//    }
+
 }
 
+void Util::calcVecToAng(double prm_x,
+                        double prm_y,
+                        double prm_z,
+                        s_ang& out_faceZ,
+                        s_ang& out_faceY_rev) {
+    double out_x, out_y, out_z;
+    Util::getIntersectionSphereAndVec<double>(prm_x, prm_y, prm_z ,out_x, out_y, out_z);
 
+    //TODO:
+}
 
 void Util::getWayAngle2D(int prm_vx_Center,
                                int prm_vy_Center,
@@ -308,7 +339,7 @@ void Util::getRadialAngle2D(angle prm_start, int prm_ways, angle* out_paAngle) {
 }
 
 void Util::convRzRyToRyRz(angle prm_rz, angle prm_ry, angle& out_ry, angle& out_rz) {
-    float vx,vy,vz;
+    double vx,vy,vz;
     Util::convRzRyToVector(prm_rz, prm_ry , vx, vy, vz);
     Util::convVectorToRzRy(vx, vz, -1.0f*vy, out_ry, out_rz ); //-ÇXÇOìxXé≤âÒì]RzRyì¸ÇÍë÷Ç¶
     out_rz = D360ANG-out_rz; //Yé≤ÇZé≤çlÇ¶ÇÈÇΩÇﬂÅAê≥ïâÇ™ïœÇÌÇÈÅÅãtâÒì]ÅÅ360Ç©ÇÁà¯Ç≠
@@ -608,9 +639,9 @@ void Util::convVectorToRzRy(coord vx,
 
 void Util::convRzRyToVector(angle prm_rz,
                             angle prm_ry,
-                            float& out_nvx,
-                            float& out_nvy,
-                            float& out_nvz) {
+                            double& out_nvx,
+                            double& out_nvy,
+                            double& out_nvz) {
     //void SphereRadiusVectors::getVectorClosely(int out_faceY, int prm_angZ, uint16_t& out_x, uint16_t& out_y, uint16_t& out_z) {
     //âÒì]äpÇ…ÇÊÇ¡ÇƒåTå¿Ççló∂ÇµÅAgetVectorCloselyÇÃÉpÉâÉÅÅ[É^äp(< 900)ÇèoÇ∑
     int xsign, ysign, zsign;
@@ -756,12 +787,12 @@ void Util::setWorldMatrix_ScRxRzRyMv(const GeometricActor* prm_pActor, D3DXMATRI
     // | (sy* cosRx*-sinRz*cosRy + sy*sinRx*sinRy), sy*cosRx*cosRz , (sy* cosRx*-sinRz*-sinRy + sy*sinRx*cosRy), 0|
     // | (sz*-sinRx*-sinRz*cosRy + sz*cosRx*sinRy), sz*-sinRx*cosRz, (sz*-sinRx*-sinRz*-sinRy + sz*cosRx*cosRy), 0|
     // | dx                                       , dy             , dz                                        , 1|
-    const float sinRx = ANG_SIN(prm_pActor->_rx);
-    const float cosRx = ANG_COS(prm_pActor->_rx);
-    const float sinRy = ANG_SIN(prm_pActor->_ry);
-    const float cosRy = ANG_COS(prm_pActor->_ry);
-    const float sinRz = ANG_SIN(prm_pActor->_rz);
-    const float cosRz = ANG_COS(prm_pActor->_rz);
+    const float sinRx = (float)ANG_SIN(prm_pActor->_rx);
+    const float cosRx = (float)ANG_COS(prm_pActor->_rx);
+    const float sinRy = (float)ANG_SIN(prm_pActor->_ry);
+    const float cosRy = (float)ANG_COS(prm_pActor->_ry);
+    const float sinRz = (float)ANG_SIN(prm_pActor->_rz);
+    const float cosRz = (float)ANG_COS(prm_pActor->_rz);
     const float sx = SC_R(prm_pActor->_sx);
     const float sy = SC_R(prm_pActor->_sy);
     const float sz = SC_R(prm_pActor->_sz);
@@ -804,10 +835,10 @@ void Util::setWorldMatrix_RzRy(const GeometricActor* prm_pActor, D3DXMATRIX& out
     // | -sinRz*cosRy, cosRz, -sinRz*-sinRy,   0  |
     // |        sinRy,     0,         cosRy,   0  |
     // |            0,     0,             0,   1  |
-    const float sinRy = ANG_SIN(prm_pActor->_ry);
-    const float cosRy = ANG_COS(prm_pActor->_ry);
-    const float sinRz = ANG_SIN(prm_pActor->_rz);
-    const float cosRz = ANG_COS(prm_pActor->_rz);
+    const float sinRy = (float)ANG_SIN(prm_pActor->_ry);
+    const float cosRy = (float)ANG_COS(prm_pActor->_ry);
+    const float sinRz = (float)ANG_SIN(prm_pActor->_rz);
+    const float cosRz = (float)ANG_COS(prm_pActor->_rz);
 
     out_matWorld._11 = cosRz*cosRy;
     out_matWorld._12 = sinRz;
@@ -839,10 +870,10 @@ void Util::setWorldMatrix_RzRy(angle prm_rz, angle prm_ry, D3DXMATRIX& out_matWo
     // | -sinRz*cosRy, cosRz, -sinRz*-sinRy,   0  |
     // |        sinRy,     0,         cosRy,   0  |
     // |            0,     0,             0,   1  |
-    const float sinRy = ANG_SIN(prm_ry);
-    const float cosRy = ANG_COS(prm_ry);
-    const float sinRz = ANG_SIN(prm_rz);
-    const float cosRz = ANG_COS(prm_rz);
+    const float sinRy = (float)ANG_SIN(prm_ry);
+    const float cosRy = (float)ANG_COS(prm_ry);
+    const float sinRz = (float)ANG_SIN(prm_rz);
+    const float cosRz = (float)ANG_COS(prm_rz);
 
     out_matWorld._11 = cosRz*cosRy;
     out_matWorld._12 = sinRz;
@@ -873,12 +904,12 @@ void Util::setWorldMatrix_RxRzRy(const GeometricActor* prm_pActor, D3DXMATRIX& o
     // | ( cosRx*-sinRz*cosRy + sinRx*sinRy),    cosRx*cosRz, ( cosRx*-sinRz*-sinRy + sinRx*cosRy),   0  |
     // | (-sinRx*-sinRz*cosRy + cosRx*sinRy),   -sinRx*cosRz, (-sinRx*-sinRz*-sinRy + cosRx*cosRy),   0  |
     // |                                   0,              0,                                    0,   1  |
-    const float sinRx = ANG_SIN(prm_pActor->_rx);
-    const float cosRx = ANG_COS(prm_pActor->_rx);
-    const float sinRy = ANG_SIN(prm_pActor->_ry);
-    const float cosRy = ANG_COS(prm_pActor->_ry);
-    const float sinRz = ANG_SIN(prm_pActor->_rz);
-    const float cosRz = ANG_COS(prm_pActor->_rz);
+    const float sinRx = (float)ANG_SIN(prm_pActor->_rx);
+    const float cosRx = (float)ANG_COS(prm_pActor->_rx);
+    const float sinRy = (float)ANG_SIN(prm_pActor->_ry);
+    const float cosRy = (float)ANG_COS(prm_pActor->_ry);
+    const float sinRz = (float)ANG_SIN(prm_pActor->_rz);
+    const float cosRz = (float)ANG_COS(prm_pActor->_rz);
 
     out_matWorld._11 = cosRz * cosRy;
     out_matWorld._12 = sinRz;
@@ -909,12 +940,12 @@ void Util::setWorldMatrix_RxRzRy(angle prm_rx, angle prm_rz, angle prm_ry, D3DXM
     // | ( cosRx*-sinRz*cosRy + sinRx*sinRy),    cosRx*cosRz, ( cosRx*-sinRz*-sinRy + sinRx*cosRy),   0  |
     // | (-sinRx*-sinRz*cosRy + cosRx*sinRy),   -sinRx*cosRz, (-sinRx*-sinRz*-sinRy + cosRx*cosRy),   0  |
     // |                                   0,              0,                                    0,   1  |
-    const float sinRx = ANG_SIN(prm_rx);
-    const float cosRx = ANG_COS(prm_rx);
-    const float sinRy = ANG_SIN(prm_ry);
-    const float cosRy = ANG_COS(prm_ry);
-    const float sinRz = ANG_SIN(prm_rz);
-    const float cosRz = ANG_COS(prm_rz);
+    const float sinRx = (float)ANG_SIN(prm_rx);
+    const float cosRx = (float)ANG_COS(prm_rx);
+    const float sinRy = (float)ANG_SIN(prm_ry);
+    const float cosRy = (float)ANG_COS(prm_ry);
+    const float sinRz = (float)ANG_SIN(prm_rz);
+    const float cosRz = (float)ANG_COS(prm_rz);
 
     out_matWorld._11 = cosRz * cosRy;
     out_matWorld._12 = sinRz;
@@ -939,10 +970,10 @@ void Util::setWorldMatrix_RxRzRy(angle prm_rx, angle prm_rz, angle prm_ry, D3DXM
 
 
 void Util::setWorldMatrix_ScRzRyMv(const GeometricActor* const prm_pActor, D3DXMATRIX& out_matWorld) {
-    const float sinRz = ANG_SIN(prm_pActor->_rz);
-    const float cosRz = ANG_COS(prm_pActor->_rz);
-    const float sinRy = ANG_SIN(prm_pActor->_ry);
-    const float cosRy = ANG_COS(prm_pActor->_ry);
+    const float sinRz = (float)ANG_SIN(prm_pActor->_rz);
+    const float cosRz = (float)ANG_COS(prm_pActor->_rz);
+    const float sinRy = (float)ANG_SIN(prm_pActor->_ry);
+    const float cosRy = (float)ANG_COS(prm_pActor->_ry);
     const float sx = SC_R(prm_pActor->_sx);
     const float sy = SC_R(prm_pActor->_sy);
     const float sz = SC_R(prm_pActor->_sz);
@@ -974,10 +1005,10 @@ void Util::mulWorldMatrix_RzRyScMv(const GeometricActor* const prm_pActor, D3DXM
     //    | -sinRz*cosRy*sx  cosRz*sy  -sinRz*-sinRy*sz   0 |
     //    |  sinRy*sx        0          cosRy*sz          0 |
     //    |  dx              dy         dz                1 |
-    const float sinRy = ANG_SIN(prm_pActor->_ry);
-    const float cosRy = ANG_COS(prm_pActor->_ry);
-    const float sinRz = ANG_SIN(prm_pActor->_rz);
-    const float cosRz = ANG_COS(prm_pActor->_rz);
+    const float sinRy = (float)ANG_SIN(prm_pActor->_ry);
+    const float cosRy = (float)ANG_COS(prm_pActor->_ry);
+    const float sinRz = (float)ANG_SIN(prm_pActor->_rz);
+    const float cosRz = (float)ANG_COS(prm_pActor->_rz);
     const float sx = SC_R(prm_pActor->_sx);
     const float sy = SC_R(prm_pActor->_sy);
     const float sz = SC_R(prm_pActor->_sz);
@@ -1005,18 +1036,18 @@ void Util::mulWorldMatrix_RzRyScMv(const GeometricActor* const prm_pActor, D3DXM
 
 void Util::setWorldMatrix_RxRzRyScMv(const GeometricActor* const prm_pActor, D3DXMATRIX& out_matWorld) {
     //Worldïœä∑
-    //íPà çsóÒ Å~ Xé≤âÒì] Å~ Zé≤âÒì] Å~ Yé≤âÒì] Å~ ägëÂèkè¨ Å~ ïΩçsà⁄ìÆÅ@ÇÃïœä∑çsóÒÇçÏê¨
+    //íPà çsóÒ Å~ Xé≤âÒì] Å~ Zé≤âÒì] Å~ Yé≤âÒì] Å~ ägëÂèkè¨ Å~ ïΩçsà⁄ìÆ ÇÃïœä∑çsóÒÇçÏê¨
     //Å¶XYZÇÃèáÇ≈Ç»Ç¢Ç±Ç∆Ç…íçà”
     // |                         cosRz*cosRy*sx,          sinRz*sy,                         cosRz*-sinRy*sz,   0  |
     // | ( cosRx*-sinRz*cosRy + sinRx*sinRy)*sx,    cosRx*cosRz*sy, ( cosRx*-sinRz*-sinRy + sinRx*cosRy)*sz,   0  |
     // | (-sinRx*-sinRz*cosRy + cosRx*sinRy)*sx,   -sinRx*cosRz*sy, (-sinRx*-sinRz*-sinRy + cosRx*cosRy)*sz,   0  |
     // |                                     dx,                dy,                                      dz,   1  |
-    const float sinRx = ANG_SIN(prm_pActor->_rx);
-    const float cosRx = ANG_COS(prm_pActor->_rx);
-    const float sinRy = ANG_SIN(prm_pActor->_ry);
-    const float cosRy = ANG_COS(prm_pActor->_ry);
-    const float sinRz = ANG_SIN(prm_pActor->_rz);
-    const float cosRz = ANG_COS(prm_pActor->_rz);
+    const float sinRx = (float)ANG_SIN(prm_pActor->_rx);
+    const float cosRx = (float)ANG_COS(prm_pActor->_rx);
+    const float sinRy = (float)ANG_SIN(prm_pActor->_ry);
+    const float cosRy = (float)ANG_COS(prm_pActor->_ry);
+    const float sinRz = (float)ANG_SIN(prm_pActor->_rz);
+    const float cosRz = (float)ANG_COS(prm_pActor->_rz);
     const float sx = SC_R(prm_pActor->_sx);
     const float sy = SC_R(prm_pActor->_sy);
     const float sz = SC_R(prm_pActor->_sz);
@@ -1045,18 +1076,18 @@ void Util::setWorldMatrix_RxRzRyScMv(const GeometricActor* const prm_pActor, D3D
 
 void Util::setWorldMatrix_RxRyRzScMv(const GeometricActor* const prm_pActor, D3DXMATRIX& out_matWorld) {
     //Worldïœä∑
-    //íPà çsóÒ Å~ Xé≤âÒì] Å~ Yé≤âÒì] Å~ Zé≤âÒì] Å~ ägëÂèkè¨ Å~ ïΩçsà⁄ìÆÅ@ÇÃïœä∑çsóÒÇçÏê¨
+    //íPà çsóÒ Å~ Xé≤âÒì] Å~ Yé≤âÒì] Å~ Zé≤âÒì] Å~ ägëÂèkè¨ Å~ ïΩçsà⁄ìÆ ÇÃïœä∑çsóÒÇçÏê¨
     //    |                           cosRy*cosRz*sx,                        cosRy*sinRz*sy  ,      -sinRy*sz,  0 |
     //    | ((sinRx*sinRy*cosRz +  cosRx*-sinRz)*sx), ((sinRx*sinRy*sinRz +  cosRx*cosRz)*sy), sinRx*cosRy*sz,  0 |
     //    | ((cosRx*sinRy*cosRz + -sinRx*-sinRz)*sx), ((cosRx*sinRy*sinRz + -sinRx*cosRz)*sy), cosRx*cosRy*sz,  0 |
     //    |                                       dx,                                      dy,             dz,  1 |
 
-    const float sinRx = ANG_SIN(prm_pActor->_rx);
-    const float cosRx = ANG_COS(prm_pActor->_rx);
-    const float sinRy = ANG_SIN(prm_pActor->_ry);
-    const float cosRy = ANG_COS(prm_pActor->_ry);
-    const float sinRz = ANG_SIN(prm_pActor->_rz);
-    const float cosRz = ANG_COS(prm_pActor->_rz);
+    const float sinRx = (float)ANG_SIN(prm_pActor->_rx);
+    const float cosRx = (float)ANG_COS(prm_pActor->_rx);
+    const float sinRy = (float)ANG_SIN(prm_pActor->_ry);
+    const float cosRy = (float)ANG_COS(prm_pActor->_ry);
+    const float sinRz = (float)ANG_SIN(prm_pActor->_rz);
+    const float cosRz = (float)ANG_COS(prm_pActor->_rz);
     const float sx = SC_R(prm_pActor->_sx);
     const float sy = SC_R(prm_pActor->_sy);
     const float sz = SC_R(prm_pActor->_sz);
@@ -1085,18 +1116,18 @@ void Util::setWorldMatrix_RxRyRzScMv(const GeometricActor* const prm_pActor, D3D
 
 void Util::setWorldMatrix_RxRzRxScMv(const GeometricActor* const prm_pActor, D3DXMATRIX& out_matWorld) {
     //Worldïœä∑
-    //íPà çsóÒ Å~ Xé≤âÒì] Å~ Zé≤âÒì] Å~ Xé≤âÒì] Å~ ägëÂèkè¨ Å~ ïΩçsà⁄ìÆÅ@ÇÃïœä∑çsóÒÇçÏê¨.
+    //íPà çsóÒ Å~ Xé≤âÒì] Å~ Zé≤âÒì] Å~ Xé≤âÒì] Å~ ägëÂèkè¨ Å~ ïΩçsà⁄ìÆ ÇÃïœä∑çsóÒÇçÏê¨.
     //Å¶Yé≤âÒì]Ç™Ç†ÇËÇ‹ÇπÇÒÅBRYÇÕÇQâÒñ⁄ÇÃXé≤âÒì]Ç∆Ç»ÇÈ
     //|         cosRz*sx,                          sinRz*cosRy*sy ,                          sinRz*sinRy*sz, 0 |
     //|  cosRx*-sinRz*sx, (( cosRx*cosRz*cosRy + sinRx*-sinRy)*sy), (( cosRx*cosRz*sinRy + sinRx*cosRy)*sz), 0 |
     //| -sinRx*-sinRz*sx, ((-sinRx*cosRz*cosRy + cosRx*-sinRy)*sy), ((-sinRx*cosRz*sinRy + cosRx*cosRy)*sz), 0 |
     //|               dx,                                       dy,                                      dz, 1 |
-    const float sinRx = ANG_SIN(prm_pActor->_rx);
-    const float cosRx = ANG_COS(prm_pActor->_rx);
-    const float sinRy = ANG_SIN(prm_pActor->_ry);
-    const float cosRy = ANG_COS(prm_pActor->_ry);
-    const float sinRz = ANG_SIN(prm_pActor->_rz);
-    const float cosRz = ANG_COS(prm_pActor->_rz);
+    const float sinRx = (float)ANG_SIN(prm_pActor->_rx);
+    const float cosRx = (float)ANG_COS(prm_pActor->_rx);
+    const float sinRy = (float)ANG_SIN(prm_pActor->_ry);
+    const float cosRy = (float)ANG_COS(prm_pActor->_ry);
+    const float sinRz = (float)ANG_SIN(prm_pActor->_rz);
+    const float cosRz = (float)ANG_COS(prm_pActor->_rz);
     const float sx = SC_R(prm_pActor->_sx);
     const float sy = SC_R(prm_pActor->_sy);
     const float sz = SC_R(prm_pActor->_sz);
@@ -1125,13 +1156,13 @@ void Util::setWorldMatrix_RxRzRxScMv(const GeometricActor* const prm_pActor, D3D
 
 void Util::setWorldMatrix_RzMv(const GeometricActor* const prm_pActor, D3DXMATRIX& out_matWorld) {
     //Worldïœä∑
-    //íPà çsóÒ Å~ Zé≤âÒì] Å~ ïΩçsà⁄ìÆÅ@ÇÃïœä∑çsóÒÇçÏê¨
+    //íPà çsóÒ Å~ Zé≤âÒì] Å~ ïΩçsà⁄ìÆ ÇÃïœä∑çsóÒÇçÏê¨
     // |cosZ  , sinZ , 0  , 0  |
     // |-sinZ , cosZ , 0  , 0  |
     // |0     , 0    , 1  , 0  |
     // |dx    , dy   , dz , 1  |
-    const float sinRz = ANG_SIN(prm_pActor->_rz);
-    const float cosRz = ANG_COS(prm_pActor->_rz);
+    const float sinRz = (float)ANG_SIN(prm_pActor->_rz);
+    const float cosRz = (float)ANG_COS(prm_pActor->_rz);
     out_matWorld._11 = cosRz;
     out_matWorld._12 = sinRz;
     out_matWorld._13 = 0.0f;
@@ -1156,13 +1187,13 @@ void Util::setWorldMatrix_RzMv(const GeometricActor* const prm_pActor, D3DXMATRI
 
 void Util::setWorldMatrix_ScRzMv(const GeometricActor* const prm_pActor, D3DXMATRIX& out_matWorld) {
     //Worldïœä∑
-    //íPà çsóÒ Å~ ägëÂèkè¨ Å~ Zé≤âÒì] Å~ ïΩçsà⁄ìÆÅ@ÇÃïœä∑çsóÒÇçÏê¨
+    //íPà çsóÒ Å~ ägëÂèkè¨ Å~ Zé≤âÒì] Å~ ïΩçsà⁄ìÆ ÇÃïœä∑çsóÒÇçÏê¨
     // |sx*cosZ , sx*sinZ , 0    , 0  |
     // |sy*-sinZ, sy*cosZ , 0    , 0  |
     // |0       , 0       , sz   , 0  |
     // |dx      , dy      , dz   , 1  |
-    const float sinRz = ANG_SIN(prm_pActor->_rz);
-    const float cosRz = ANG_COS(prm_pActor->_rz);
+    const float sinRz = (float)ANG_SIN(prm_pActor->_rz);
+    const float cosRz = (float)ANG_COS(prm_pActor->_rz);
     const float sx = SC_R(prm_pActor->_sx);
     const float sy = SC_R(prm_pActor->_sy);
     const float sz = SC_R(prm_pActor->_sz);
@@ -1189,12 +1220,12 @@ void Util::setWorldMatrix_ScRzMv(const GeometricActor* const prm_pActor, D3DXMAT
 }
 
 void Util::setWorldMatrix_ScMvRxRzRy(const GeometricActor* const prm_pActor, D3DXMATRIX& out_matWorld) {
-    const float sinRx = ANG_SIN(prm_pActor->_rx);
-    const float cosRx = ANG_COS(prm_pActor->_rx);
-    const float sinRy = ANG_SIN(prm_pActor->_ry);
-    const float cosRy = ANG_COS(prm_pActor->_ry);
-    const float sinRz = ANG_SIN(prm_pActor->_rz);
-    const float cosRz = ANG_COS(prm_pActor->_rz);
+    const float sinRx = (float)ANG_SIN(prm_pActor->_rx);
+    const float cosRx = (float)ANG_COS(prm_pActor->_rx);
+    const float sinRy = (float)ANG_SIN(prm_pActor->_ry);
+    const float cosRy = (float)ANG_COS(prm_pActor->_ry);
+    const float sinRz = (float)ANG_SIN(prm_pActor->_rz);
+    const float cosRz = (float)ANG_COS(prm_pActor->_rz);
     const float sx = SC_R(prm_pActor->_sx);
     const float sy = SC_R(prm_pActor->_sy);
     const float sz = SC_R(prm_pActor->_sz);
@@ -1283,8 +1314,8 @@ void Util::setWorldMatrix_BxyzMv(const GeometricActor* const prm_pActor, D3DXMAT
 
 
 void Util::setWorldMatrix_ScRzBxyzMv(const GeometricActor* const prm_pActor, D3DXMATRIX& out_matWorld) {
-    const float sinRz = ANG_SIN(prm_pActor->_rz);
-    const float cosRz = ANG_COS(prm_pActor->_rz);
+    const float sinRz = (float)ANG_SIN(prm_pActor->_rz);
+    const float cosRz = (float)ANG_COS(prm_pActor->_rz);
     const float sx = SC_R(prm_pActor->_sx);
     const float sy = SC_R(prm_pActor->_sy);
     const float sz = SC_R(prm_pActor->_sz);
@@ -1319,12 +1350,12 @@ void Util::mulWorldMatrix_ScRxRzRyMv(const GeometricActor* const prm_pActor, D3D
     // | (sy* cosRx*-sinRz*cosRy + sy*sinRx*sinRy), sy*cosRx*cosRz , (sy* cosRx*-sinRz*-sinRy + sy*sinRx*cosRy), 0|
     // | (sz*-sinRx*-sinRz*cosRy + sz*cosRx*sinRy), sz*-sinRx*cosRz, (sz*-sinRx*-sinRz*-sinRy + sz*cosRx*cosRy), 0|
     // | dx                                       , dy             , dz                                        , 1|
-    const float sinRx = ANG_SIN(prm_pActor->_rx);
-    const float cosRx = ANG_COS(prm_pActor->_rx);
-    const float sinRy = ANG_SIN(prm_pActor->_ry);
-    const float cosRy = ANG_COS(prm_pActor->_ry);
-    const float sinRz = ANG_SIN(prm_pActor->_rz);
-    const float cosRz = ANG_COS(prm_pActor->_rz);
+    const float sinRx = (float)ANG_SIN(prm_pActor->_rx);
+    const float cosRx = (float)ANG_COS(prm_pActor->_rx);
+    const float sinRy = (float)ANG_SIN(prm_pActor->_ry);
+    const float cosRy = (float)ANG_COS(prm_pActor->_ry);
+    const float sinRz = (float)ANG_SIN(prm_pActor->_rz);
+    const float cosRz = (float)ANG_COS(prm_pActor->_rz);
     const float sx = SC_R(prm_pActor->_sx);
     const float sy = SC_R(prm_pActor->_sy);
     const float sz = SC_R(prm_pActor->_sz);
@@ -1356,8 +1387,8 @@ void Util::mulWorldMatrix_ScRxRzRyMv(const GeometricActor* const prm_pActor, D3D
 
 void Util::setWorldMatrix_RzBxyzMv(const GeometricActor* const prm_pActor, D3DXMATRIX& out_matWorld) {
     const D3DXMATRIX& matView = _pCam->_matView;
-    const float sinRz = ANG_SIN(prm_pActor->_rz);
-    const float cosRz = ANG_COS(prm_pActor->_rz);
+    const float sinRz = (float)ANG_SIN(prm_pActor->_rz);
+    const float cosRz = (float)ANG_COS(prm_pActor->_rz);
 
     out_matWorld._11 = cosRz*matView._11 + sinRz*matView._12;
     out_matWorld._12 = cosRz*matView._21 + sinRz*matView._22;

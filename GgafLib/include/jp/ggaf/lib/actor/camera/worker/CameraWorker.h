@@ -82,17 +82,17 @@ public:
 
     void slideMvCamTo(GgafDx::GeometricActor* pTarget, frame t);
     void slideMvCamTo(GgafDx::GeometricActor* pTarget, frame t,
-                      float prm_x_p1, float prm_y_p1, float prm_z_p1);
-    void slideMvCamTo(coord tx, coord ty, coord tz, frame t, float prm_p1=0.3f, float prm_p2=0.7f);
+                      double prm_x_p1, double prm_y_p1, double prm_z_p1);
+    void slideMvCamTo(coord tx, coord ty, coord tz, frame t, double prm_p1=0.3, double prm_p2=0.7);
     void slideMvCamTo(coord tx, coord ty, coord tz, frame t,
-                      float prm_x_p1, float prm_y_p1, float prm_z_p1);
+                      double prm_x_p1, double prm_y_p1, double prm_z_p1);
     void mvCamTo(coord tx, coord ty, coord tz);
 
     bool isCamSliding();
     void slideMvVpTo(GgafDx::GeometricActor* pTarget, frame t);
-    void slideMvVpTo(coord tx, coord ty, coord tz, frame t, float prm_p1=0.3f, float prm_p2=0.7f);
+    void slideMvVpTo(coord tx, coord ty, coord tz, frame t, double prm_p1=0.3, double prm_p2=0.7);
 
-    void slideMvUpVecTo(coord tx, coord ty, coord tz, frame t, float prm_p1=0.3f, float prm_p2=0.7f);
+    void slideMvUpVecTo(coord tx, coord ty, coord tz, frame t, double prm_p1=0.3, double prm_p2=0.7);
 
     void setUpVec(coord tx, coord ty, coord tz);
 

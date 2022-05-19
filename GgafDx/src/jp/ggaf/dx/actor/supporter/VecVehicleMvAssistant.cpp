@@ -21,7 +21,7 @@ void VecVehicleMvAssistant::behave() {
 }
 
 void VecVehicleMvAssistant::slideByDt(coord prm_target_distance, int prm_target_frames,
-                                   float prm_p1, float prm_p2, velo prm_end_velo,
+                                   double prm_p1, double prm_p2, velo prm_end_velo,
                                    bool prm_zero_acc_end_flg) {
     _smthMv._t_value = 0;
     _smthMv._t_velo = _pMaster->_velo_mv;
@@ -32,7 +32,7 @@ void VecVehicleMvAssistant::slideByDt(coord prm_target_distance, int prm_target_
 }
 
 void VecVehicleMvAssistant::slideByVd(velo prm_top_velo, coord prm_target_distance,
-                                   float prm_p1, float prm_p2, velo prm_end_velo,
+                                   double prm_p1, double prm_p2, velo prm_end_velo,
                                    bool prm_zero_acc_end_flg) {
     _smthMv._t_value = 0;
     _smthMv._t_velo = _pMaster->_velo_mv;

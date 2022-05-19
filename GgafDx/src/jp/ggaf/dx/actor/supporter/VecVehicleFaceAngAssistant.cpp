@@ -60,7 +60,7 @@ void VecVehicleFaceAngAssistant::behave() {
 
 void VecVehicleFaceAngAssistant::turnByDt(axis prm_axis,
                                        angle prm_distance, int prm_target_frames,
-                                       float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                       double prm_p1, double prm_p2, angvelo prm_end_angvelo,
                                        bool prm_zero_acc_end_flg ) {
     _smthFaceAng[prm_axis]._t_value = 0;
     _smthFaceAng[prm_axis]._t_velo = _pMaster->_angvelo_face[prm_axis];
@@ -72,7 +72,7 @@ void VecVehicleFaceAngAssistant::turnByDt(axis prm_axis,
 
 void VecVehicleFaceAngAssistant::turnByVd(axis prm_axis,
                                        angvelo prm_top_angvelo, angle prm_distance,
-                                       float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                       double prm_p1, double prm_p2, angvelo prm_end_angvelo,
                                        bool prm_zero_acc_end_flg) {
     _smthFaceAng[prm_axis]._t_value = 0;
     _smthFaceAng[prm_axis]._t_velo = _pMaster->_angvelo_face[prm_axis];
@@ -83,7 +83,7 @@ void VecVehicleFaceAngAssistant::turnByVd(axis prm_axis,
 }
 
 void VecVehicleFaceAngAssistant::turnRzByDtTo(angle prm_rz_target, int prm_way, int prm_target_frames,
-                                           float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                           double prm_p1, double prm_p2, angvelo prm_end_angvelo,
                                            bool prm_zero_acc_end_flg) {
     angle distance = _pMaster->getFaceAngDistance(AXIS_Z, prm_rz_target, prm_way);
     turnByDt(AXIS_Z,
@@ -93,7 +93,7 @@ void VecVehicleFaceAngAssistant::turnRzByDtTo(angle prm_rz_target, int prm_way, 
 }
 
 void VecVehicleFaceAngAssistant::turnRyByDtTo(angle prm_ry_target, int prm_way, int prm_target_frames,
-                                           float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                           double prm_p1, double prm_p2, angvelo prm_end_angvelo,
                                            bool prm_zero_acc_end_flg) {
     angle distance = _pMaster->getFaceAngDistance(AXIS_Y, prm_ry_target, prm_way);
     turnByDt(AXIS_Y,
@@ -103,7 +103,7 @@ void VecVehicleFaceAngAssistant::turnRyByDtTo(angle prm_ry_target, int prm_way, 
 }
 
 void VecVehicleFaceAngAssistant::rollFaceAngByDtTo(angle prm_ang_rx_target, int prm_way, int prm_target_frames,
-                                                float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                                double prm_p1, double prm_p2, angvelo prm_end_angvelo,
                                                 bool prm_zero_acc_end_flg) {
     angle distance = _pMaster->getFaceAngDistance(AXIS_X, prm_ang_rx_target, prm_way);
     turnByDt(AXIS_X,
@@ -115,7 +115,7 @@ void VecVehicleFaceAngAssistant::rollFaceAngByDtTo(angle prm_ang_rx_target, int 
 void VecVehicleFaceAngAssistant::turnRzRyByDtTo(
                                  angle prm_rz_target, angle prm_ry_target, int prm_way, bool prm_optimize_ang,
                                  int prm_target_frames,
-                                 float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                 double prm_p1, double prm_p2, angvelo prm_end_angvelo,
                                  bool prm_zero_acc_end_flg) {
     angle out_rz_distance;
     angle out_ry_distance;
@@ -140,7 +140,7 @@ void VecVehicleFaceAngAssistant::turnRzRyByDtTo(
 void VecVehicleFaceAngAssistant::turnByDtTwd(
                                  coord prm_tx, coord prm_ty, coord prm_tz, int prm_way, bool prm_optimize_ang,
                                  int prm_target_frames,
-                                 float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                 double prm_p1, double prm_p2, angvelo prm_end_angvelo,
                                  bool prm_zero_acc_end_flg) {
     coord vx = prm_tx - _pMaster->_pActor->_x;
     coord vy = prm_ty - _pMaster->_pActor->_y;
@@ -164,7 +164,7 @@ void VecVehicleFaceAngAssistant::turnByDtTwd(
 void VecVehicleFaceAngAssistant::turnByDtTwd(
                                  GeometricActor* prm_pActor_target, int prm_way, bool prm_optimize_ang,
                                  int prm_target_frames,
-                                 float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                 double prm_p1, double prm_p2, angvelo prm_end_angvelo,
                                  bool prm_zero_acc_end_flg) {
     turnByDtTwd(
             prm_pActor_target->_x, prm_pActor_target->_y, prm_pActor_target->_z, prm_way, prm_optimize_ang,
@@ -176,7 +176,7 @@ void VecVehicleFaceAngAssistant::turnByDtTwd(
 
 void VecVehicleFaceAngAssistant::turnRzByVdTo(
         angvelo prm_top_angvelo, angle prm_rz_target, int prm_way,
-        float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+        double prm_p1, double prm_p2, angvelo prm_end_angvelo,
         bool prm_zero_acc_end_flg) {
         angle distance = _pMaster->getFaceAngDistance(AXIS_Z, prm_rz_target, prm_way);
         turnByVd(AXIS_Z,
@@ -187,7 +187,7 @@ void VecVehicleFaceAngAssistant::turnRzByVdTo(
 
 void VecVehicleFaceAngAssistant::turnRyByVdTo(
         angvelo prm_top_angvelo, angle prm_ry_target, int prm_way,
-        float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+        double prm_p1, double prm_p2, angvelo prm_end_angvelo,
         bool prm_zero_acc_end_flg) {
         angle distance = _pMaster->getFaceAngDistance(AXIS_Y, prm_ry_target, prm_way);
         turnByVd(AXIS_Y,
@@ -198,7 +198,7 @@ void VecVehicleFaceAngAssistant::turnRyByVdTo(
 
 void VecVehicleFaceAngAssistant::rollByVdTo(
         angvelo prm_top_angvelo, angle prm_ang_rx_target, int prm_way,
-        float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+        double prm_p1, double prm_p2, angvelo prm_end_angvelo,
         bool prm_zero_acc_end_flg) {
         angle distance = _pMaster->getFaceAngDistance(AXIS_X, prm_ang_rx_target, prm_way);
         turnByVd(AXIS_X,
@@ -210,7 +210,7 @@ void VecVehicleFaceAngAssistant::rollByVdTo(
 void VecVehicleFaceAngAssistant::turnRzRyByVdTo(
                                  angvelo prm_top_angvelo,
                                  angle prm_rz_target, angle prm_ry_target, int prm_way, bool prm_optimize_ang,
-                                 float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                 double prm_p1, double prm_p2, angvelo prm_end_angvelo,
                                  bool prm_zero_acc_end_flg) {
     angle out_rz_distance;
     angle out_ry_distance;
@@ -258,7 +258,7 @@ void VecVehicleFaceAngAssistant::turnRzRyByVdTo(
 void VecVehicleFaceAngAssistant::turnByVdTwd(
                                  angvelo prm_top_angvelo,
                                  coord prm_tx, coord prm_ty, coord prm_tz, int prm_way, bool prm_optimize_ang,
-                                 float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                 double prm_p1, double prm_p2, angvelo prm_end_angvelo,
                                  bool prm_zero_acc_end_flg) {
     coord vx = prm_tx - _pMaster->_pActor->_x;
     coord vy = prm_ty - _pMaster->_pActor->_y;
@@ -282,7 +282,7 @@ void VecVehicleFaceAngAssistant::turnByVdTwd(
 void VecVehicleFaceAngAssistant::turnByVdTwd(
                                  angvelo prm_top_angvelo,
                                  GeometricActor* prm_pActor_target, int prm_way, bool prm_optimize_ang,
-                                 float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                 double prm_p1, double prm_p2, angvelo prm_end_angvelo,
                                  bool prm_zero_acc_end_flg) {
     turnByVdTwd(
             prm_top_angvelo,
@@ -293,7 +293,7 @@ void VecVehicleFaceAngAssistant::turnByVdTwd(
 
 void VecVehicleFaceAngAssistant::twist(axis prm_axis, angle prm_ang_target1, angle prm_ang_target2, int prm_twist_num,
                                          int prm_first_way, int prm_target_frames,
-                                         float prm_p1, float prm_p2, angvelo prm_end_angvelo,
+                                         double prm_p1, double prm_p2, angvelo prm_end_angvelo,
                                          bool prm_zero_acc_end_flg) {
 
     _tw[prm_axis].count = 0;

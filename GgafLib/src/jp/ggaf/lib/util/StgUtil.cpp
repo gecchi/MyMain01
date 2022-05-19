@@ -1786,7 +1786,7 @@ GgafDx::FigureActor* StgUtil::shotWay001(coord prm_x, coord prm_y, coord prm_z,
                                        int prm_set_num, frame prm_interval_frames, float prm_attenuated,
                                        void (*pFunc_call_back_dispatched)(GgafDx::FigureActor*, int, int)) {
     if (prm_set_num <= 0) {  return nullptr;  }
-    float vx, vy, vz;
+    double vx, vy, vz;
     GgafDx::Util::convRzRyToVector(prm_rz, prm_ry, vx, vy, vz);
     coord x = vx * prm_r;
     coord y = vy * prm_r;
@@ -1863,8 +1863,8 @@ GgafDx::FigureActor* StgUtil::shotWay002(coord prm_x, coord prm_y, coord prm_z,
     angle* paAng_way_N = NEW angle[prm_way_N];
     GgafDx::Util::getWayAngle2D(0, prm_way_N, prm_ang_clearance_N, paAng_way_N);
     GgafDx::GeoElem* paGeo = NEW GgafDx::GeoElem[prm_way_N];
-    float vx, vy, vz;
-    float tx, ty, tz; //最終方向の絶対座標の単位ベクトル
+    double vx, vy, vz;
+    double tx, ty, tz; //最終方向の絶対座標の単位ベクトル
     angle rz,ry;
     D3DXMATRIX matWorldRot;
     GgafDx::Util::setWorldMatrix_RxRzRy(prm_rx, prm_rz, prm_ry, matWorldRot);
@@ -1879,7 +1879,7 @@ GgafDx::FigureActor* StgUtil::shotWay002(coord prm_x, coord prm_y, coord prm_z,
         paGeo[i].y = (coord)(ty * prm_r);
         paGeo[i].z = (coord)(tz * prm_r);
         GgafDx::Util::convVectorToRzRy(tx, ty, tz,
-                                     paGeo[i].rz, paGeo[i].ry);
+                                       paGeo[i].rz, paGeo[i].ry);
     }
     GgafDx::FigureActor* pActor_shot = nullptr;
     velo now_velo = prm_velo_first;
@@ -1945,8 +1945,8 @@ GgafDx::FigureActor* StgUtil::shotWay003(coord prm_x, coord prm_y, coord prm_z,
     GgafDx::Util::getWayAngle2D(0, prm_way_N, prm_ang_clearance_N, paAng_way_N);
     GgafDx::Util::getWayAngle2D(0, prm_way_M, prm_ang_clearance_M, paAng_way_M);
     GgafDx::GeoElem** papaGeo = NEW GgafDx::GeoElem*[prm_way_N];
-    float vx, vy, vz;
-    float tx, ty, tz; //最終方向の絶対座標の単位ベクトル
+    double vx, vy, vz;
+    double tx, ty, tz; //最終方向の絶対座標の単位ベクトル
     angle rz,ry;
     D3DXMATRIX matWorldRot;
     GgafDx::Util::setWorldMatrix_RxRzRy(prm_rx, prm_rz, prm_ry, matWorldRot);
@@ -1973,7 +1973,7 @@ GgafDx::FigureActor* StgUtil::shotWay003(coord prm_x, coord prm_y, coord prm_z,
                 papaGeo[i][j].y = (coord)(ty * prm_r);
                 papaGeo[i][j].z = (coord)(tz * prm_r);
                 GgafDx::Util::convVectorToRzRy(tx, ty, tz,
-                                             papaGeo[i][j].rz, papaGeo[i][j].ry);
+                                               papaGeo[i][j].rz, papaGeo[i][j].ry);
             }
         }
     }
@@ -2078,8 +2078,8 @@ GgafDx::FigureActor* StgUtil::shotWay004(coord prm_x, coord prm_y, coord prm_z,
     D3DXMATRIX matWorldRot;
     GgafDx::Util::setWorldMatrix_RzRy(GgafDx::Util::simplifyAng(prm_rz-D90ANG), prm_ry, matWorldRot);
 
-    float vx, vy, vz;
-    float tx, ty, tz; //最終方向の絶対座標の単位ベクトル
+    double vx, vy, vz;
+    double tx, ty, tz; //最終方向の絶対座標の単位ベクトル
     for (int i = 0; i < prm_radial_way_num; i++) {
         GgafDx::Util::convRzRyToVector(expanse_rz, paAng_way[i], vx, vy, vz);
         tx = vx*matWorldRot._11 + vy*matWorldRot._21 + vz*matWorldRot._31;
@@ -2089,7 +2089,7 @@ GgafDx::FigureActor* StgUtil::shotWay004(coord prm_x, coord prm_y, coord prm_z,
         paGeo[i].y = (coord)(ty * prm_r);
         paGeo[i].z = (coord)(tz * prm_r);
         GgafDx::Util::convVectorToRzRy(tx, ty, tz,
-                                     paGeo[i].rz, paGeo[i].ry);
+                                       paGeo[i].rz, paGeo[i].ry);
     }
     GgafDx::FigureActor* pActor_shot = nullptr;
     velo now_velo = prm_velo_first;

@@ -401,13 +401,13 @@ void AxisVehicle::setVeloXYZ(velo prm_velo_x, velo prm_velo_y, velo prm_velo_z) 
 }
 
 void AxisVehicle::setVeloXYZTwd(angle prm_rz, angle prm_ry, velo prm_velo) {
-    float vx, vy, vz;
+    double vx, vy, vz;
     UTIL::convRzRyToVector(prm_rz, prm_ry, vx, vy, vz);
     setVeloXYZ(vx*prm_velo, vy*prm_velo, vz*prm_velo);
 }
 
 void AxisVehicle::setVeloXYZTwd(coord prm_tx, coord prm_ty, coord prm_tz, velo prm_velo) {
-    float vx, vy, vz;
+    double vx, vy, vz;
     UTIL::getNormalizedVector(prm_tx - _pActor->_x,
                               prm_ty - _pActor->_y,
                               prm_tz - _pActor->_z,
