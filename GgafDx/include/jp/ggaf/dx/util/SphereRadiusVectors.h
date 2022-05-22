@@ -8,12 +8,13 @@
 namespace GgafDx {
 
 /**
- * 単位球と、単位ベクトルの座標の関係を保持するクラスです。 .
+ * 単位球と、単位ベクトルの座標のマッピング .
  * 方向ベクトルからZ軸回転角とY軸回転角、逆にZ軸回転角とY軸回転角から方向ベクトルの相互変換を可能とするために設計。<BR>
  * 但し保持されている範囲は単位球の、x≧0 y≧0 z≧0 の範囲の方向ベクトルだけです。（1/8球分のみ）<BR>
  * 【補足】<BR>
- * 保持しているベクトルの各要(X,Y,Z)の単位(uint16_t)は、長さ1 が 10000 に相当する整数になっています。<BR>
- * 角度の単位（s_ang）は、1度 が 10 に相当します。直角は 900 になります。angle値(1度が1000)と混在しないように注意<BR>
+ * 保持しているベクトルの各要(X,Y,Z)の単位(uint32_t)は、長さ1 が 10000000 に相当する整数になっています。<BR>
+ * 角度の単位（s_ang）は、弧度法 1度 が 10 に相当します。直角は 900 になります。
+ * angle値(弧度法1度が1000)と混在しないように注意<BR>
  */
 class SphereRadiusVectors : public GgafCore::Object {
 public:
@@ -29,9 +30,7 @@ public:
     };
 
     SrVec _sr_vec[(D90SANG + 1)][(D90SANG+1)];
-    std::map<uint32_t, std::map<uint32_t, RzRy> > _vy_vz_rzry;
-
-
+    std::map<uint32_t, std::map<uint32_t, RzRy> > _vy_vz_2_rz_ry_rev;
 
 public:
     SphereRadiusVectors();

@@ -58,8 +58,8 @@ public:
     static double RAD[];
     /**
      * [傾き] → angle値変換テーブル
-     * 要素番号範囲：直線 y = ax 傾き a の 10000 倍の整数精度が要素番号となる。
-     * 直線 y = ax の成す角のアングル値は SLANT2ANG[(int)a*10000] となる。
+     * 要素番号範囲：直線 y = ax 傾き a の 100000 倍の整数精度が要素番号となる。
+     * 直線 y = ax の成す角のアングル値は SLANT2ANG[(int)a*100000] となる。
      */
     static angle SLANT2ANG[];
     /**

@@ -176,12 +176,12 @@ void Util::init() {
         Util::SLANT2ANG[i] = (angle)( (45000-1) + (1.0*d)/(1.0*d_index_slant) );
     }
     Sleep(10);
-    //<PROJ_ANG2ROT_ANG> （2009/10/20 経緯・・・速くするためなら何でもやってみよう）
-    //ある方向ベクトルから、XY平面、ZY平面に投影した時にできる軸との角（それぞれXY射影角、ZY射影角と呼ぶこととする）と、
-    //その方向ベクトルの単位ベクトルが指す単位球の緯度と経度（Z軸回転角、Y軸回転角）を紐つけることを目的とする。
-    //つまり、XY射影角、ZY射影角 → Z軸回転角、Y軸回転角 の読み替えを高速に行いたい
-    //XY射影角90度分 * ZY射影角90度分 を配列要素、値をZ軸回転角、Y軸回転角を値とする配列を構築。
-
+//    //<PROJ_ANG2ROT_ANG> （2009/10/20 経緯・・・速くするためなら何でもやってみよう）
+//    //ある方向ベクトルから、XY平面、ZY平面に投影した時にできる軸との角（それぞれXY射影角、ZY射影角と呼ぶこととする）と、
+//    //その方向ベクトルの単位ベクトルが指す単位球の緯度と経度（Z軸回転角、Y軸回転角）を紐つけることを目的とする。
+//    //つまり、XY射影角、ZY射影角 → Z軸回転角、Y軸回転角 の読み替えを高速に行いたい
+//    //XY射影角90度分 * ZY射影角90度分 を配列要素、値をZ軸回転角、Y軸回転角を値とする配列を構築。
+//
     double nvx,nvy,nvz;
     double prj_rad_xy,prj_rad_xz, prj_rad_zy, prj_rad_zx;
     s_ang rz, ry_rev;
@@ -197,18 +197,11 @@ void Util::init() {
 
             //方向ベクトルを作成
             //vx,vy,vz を正規化する。
-            //求める単位ベクトルを (X,Y,Z) とすると (X,Y,Z) = t(vx,vy,vz)
-            //関係式   X=t*vx; Y=t*vy; Z=t*vz; ・・・ (1) を得る
-            //単位球は X^2 + Y^2 + Z^2 = 1 ・・・(2)
-            //(1)(2)を連立させて、t について解く。
-            //t = 1 / sqrt(vx^2 + vy^2 + vz^2)
             double t = 1 / sqrt(vx * vx + vy * vy + vz * vz);
-            //求めた t を (1) に代入し (X,Y,Z) を求める。
             nvx = t * vx;
             nvy = t * vy;
             nvz = t * vz;
-            //convVectorToRzRy((float)nvx,(float)nvy,(float)nvz,rz,ry,30);
-            //単位ベクトルからRxRyを求める
+            //単位ベクトルからRzRy(逆回転)を求める
             Util::_srv.getFaceAngClosely(
                     (uint32_t)(nvx*10000000),
                     (uint32_t)(nvy*10000000),
@@ -218,8 +211,7 @@ void Util::init() {
             );
             Util::PROJANG_XY_XZ_TO_ROTANG_z[prj_ang_xy][prj_ang_xz] = rz*SANG_RATE;
             Util::PROJANG_XY_XZ_TO_ROTANG_y_REV[prj_ang_xy][prj_ang_xz] = ry_rev*SANG_RATE;
-            //_TRACE_("["<<prj_ang_xy<<"]["<<prj_ang_xz<<"]=("<<PROJANG_XY_XZ_TO_ROTANG_z[prj_ang_xy][prj_ang_xz]<<","<<PROJANG_XY_XZ_TO_ROTANG_y_REV[prj_ang_xy][prj_ang_xz]<<")");
-
+//            _TRACE_("["<<prj_ang_xy<<"]["<<prj_ang_xz<<"]=("<<PROJANG_XY_XZ_TO_ROTANG_z[prj_ang_xy][prj_ang_xz]<<","<<PROJANG_XY_XZ_TO_ROTANG_y_REV[prj_ang_xy][prj_ang_xz]<<")");
         }
         Sleep(2);
     }
@@ -238,8 +230,7 @@ void Util::init() {
             nvx = t * vx;
             nvy = t * vy;
             nvz = t * vz;
-            //convVectorToRzRy((float)nvx,(float)nvy,(float)nvz,rz,ry,30);
-            //単位ベクトルからRxRyを求める
+            //単位ベクトルからRzRy(逆回転)を求める
             Util::_srv.getFaceAngClosely(
                     (uint32_t)(nvx*10000000),
                     (uint32_t)(nvy*10000000),
@@ -255,8 +246,6 @@ void Util::init() {
             //これは上で求めたry_revをD90ANGから引いた値である。
             Util::PROJANG_ZY_ZX_TO_ROTANG_x_REV[prj_ang_zy][prj_ang_zx] = rx_rev*SANG_RATE;
             Util::PROJANG_ZY_ZX_TO_ROTANG_y[prj_ang_zy][prj_ang_zx] = D90ANG - ry_rev*SANG_RATE;
-            //_TRACE_("PROJANG_ZY_ZX_TO_ROTANG_y["<<prj_ang_zy<<"]["<<prj_ang_zx<<"] = D90ANG - "<<ry_rev<<"*SANG_RATE = "<<PROJANG_ZY_ZX_TO_ROTANG_y[prj_ang_zy][prj_ang_zx]);
-            //_TRACE_("["<<prj_ang_xy<<"]["<<prj_ang_xz<<"]=("<<PROJANG_XY_XZ_TO_ROTANG_z[prj_ang_xy][prj_ang_xz]<<","<<PROJANG_XY_XZ_TO_ROTANG_y_REV[prj_ang_xy][prj_ang_xz]<<")");
         }
         Sleep(2);
     }
@@ -282,23 +271,24 @@ void Util::init() {
     }
     Util::_was_GgafDx_Util_inited_flg = true;
 
-
 //    _TRACE_("開始！");
 //    for (s_ang prm_rz = 0; prm_rz <= D90ANG; prm_rz+=100) {
 //        for (s_ang prm_ry = 0; prm_ry <= D90ANG; prm_ry+=100) {
-//            double out_nvx,out_nvy,out_nvz;
-//            Util::convRzRyToVector(prm_rz,
-//                             prm_ry,
-//                              out_nvx,
-//                              out_nvy,
-//                              out_nvz);
-//            angle out_rz,out_ry;
-//            Util::convVectorToRzRy(out_nvx, out_nvy, out_nvz, out_rz, out_ry);
-//            if (prm_rz == out_rz && prm_ry == out_ry) {
-//                _TRACE_N_("o");
-//            } else {
-//                _TRACE_N_("\n");
-//                _TRACE_("x ("<<prm_rz<<","<<prm_ry<<") -> ("<<out_rz<<","<<out_ry<<") ※("<<out_nvx<<","<<out_nvy<<","<<out_nvz<<")");
+//            if (prm_rz == 35400 && prm_ry == 83700) {
+//                double out_nvx,out_nvy,out_nvz;
+//                Util::convRzRyToVector(prm_rz,
+//                                 prm_ry,
+//                                  out_nvx,
+//                                  out_nvy,
+//                                  out_nvz);
+//                angle out_rz,out_ry;
+//                Util::convVectorToRzRy(out_nvx, out_nvy, out_nvz, out_rz, out_ry);
+//                if (prm_rz == out_rz && prm_ry == out_ry) {
+//                    _TRACE_N_("o");
+//                } else {
+//                    _TRACE_N_("\n");
+//                    _TRACE_("x ("<<prm_rz<<","<<prm_ry<<") -> ("<<out_rz<<","<<out_ry<<") ※("<<out_nvx<<","<<out_nvy<<","<<out_nvz<<")");
+//                }
 //            }
 //        }
 //    }

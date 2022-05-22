@@ -75,7 +75,7 @@ void SmpActor2::processBehavior() {
         pGeoVehicle->setAcceByVc(PX_C(0.01), PX_C(0.02), PX_C(0));
 
     }
-    _TRACE_("x,y,z="<<_x<<", "<<_y<<", "<<_z);
+//    _TRACE_("x,y,z="<<_x<<", "<<_y<<", "<<_z);
     pGeoVehicle->behave();
     getVecVehicle()->behave();
 }

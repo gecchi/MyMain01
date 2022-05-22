@@ -13,15 +13,15 @@ FixedVelocityCurveVecVehicleLeader::FixedVelocityCurveVecVehicleLeader(CurveManu
         VehicleLeader(prm_pManufacture, prm_pVecVehicle_target->_pActor) {
     _pVecVehicle_target = prm_pVecVehicle_target;
     _pFixedVeloSplManuf = (FixedVelocityCurveManufacture*)prm_pManufacture;
-    _leadning_double_frames = 0.0f;
-    _double_frame_of_next = -0.00001f;
+    _leadning_double_frames = 0.0;
+    _double_frame_of_next = -0.00001;
     _point_index = -1;//最初は始点[0]に向かうので、始点前の-1になる。
 }
 
 void FixedVelocityCurveVecVehicleLeader::restart() {
     VehicleLeader::restart();
-    _leadning_double_frames = 0.0f;
-    _double_frame_of_next = -0.00001f;
+    _leadning_double_frames = 0.0;
+    _double_frame_of_next = -0.00001;
     _point_index = -1;//最初は始点[0]に向かうので、始点前の-1になる。
 }
 
