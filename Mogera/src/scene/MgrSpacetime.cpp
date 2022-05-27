@@ -8,8 +8,8 @@
 #include "actor/camera/MgrCameraWorker.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 
-
-
+using namespace GgafCore;
+using namespace GgafDx;
 using namespace GgafLib;
 using namespace Mogera;
 
@@ -44,30 +44,6 @@ void MgrSpacetime::initialize() {
     //世界シーン生成し、自シーンの配下に所属させる
     pWorld_ = desireScene(Mogera::MgrWorld);
     appendChild(pWorld_);
-
-
-//    angle rz,ry;
-//    UTIL::convVectorToRzRy(1.0,1.0,0.0,rz,ry);
-//    _TRACE_("(rz,ry)=("<<rz<<","<<ry<<")");
-//    UTIL::convVectorToRzRy(1.0,1.0,1.0,rz,ry);
-//    _TRACE_("(rz,ry)=("<<rz<<","<<ry<<")");
-//    UTIL::convVectorToRzRy(1.0,1.0,-1.0,rz,ry);
-//    _TRACE_("(rz,ry)=("<<rz<<","<<ry<<")");
-//    UTIL::convVectorToRzRy(1.0,-1.0,1.0,rz,ry);
-//    _TRACE_("(rz,ry)=("<<rz<<","<<ry<<")");
-//    UTIL::convVectorToRzRy(1.0,-1.0,-1.0,rz,ry);
-//    _TRACE_("(rz,ry)=("<<rz<<","<<ry<<")");
-//    UTIL::convVectorToRzRy(-1.0,1.0,1.0,rz,ry);
-//    _TRACE_("(rz,ry)=("<<rz<<","<<ry<<")");
-//    UTIL::convVectorToRzRy(-1.0,1.0,-1.0,rz,ry);
-//    _TRACE_("(rz,ry)=("<<rz<<","<<ry<<")");
-//    UTIL::convVectorToRzRy(-1.0,-1.0,1.0,rz,ry);
-//    _TRACE_("(rz,ry)=("<<rz<<","<<ry<<")");
-//    UTIL::convVectorToRzRy(-1.0,1.0,-1.0,rz,ry);
-//    _TRACE_("(rz,ry)=("<<rz<<","<<ry<<")");
-//    UTIL::convVectorToRzRy(-1.0,-1.0,-1.0,rz,ry);
-//    _TRACE_("(rz,ry)=("<<rz<<","<<ry<<")");
-
 }
 
 void MgrSpacetime::processBehavior() {

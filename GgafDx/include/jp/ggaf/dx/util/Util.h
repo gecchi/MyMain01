@@ -520,7 +520,7 @@ public:
      * @param out_ry [out]Y軸回転アングル値
      */
     static void convVectorToRzRy(coord vx, coord vy, coord vz, angle& out_rz, angle& out_ry);
-
+//    static void convVectorToRzRy2(coord vx, coord vy, coord vz, angle& out_rz, angle& out_ry);
     /**
      * 原点(0,0,0) からパラメータ座標を向く方向ベクトル(単位ベクトル)に対応する「Z軸回転のアングル値」と「Y軸回転のアングル値」を取得 .
      * 本クラスの中核とも言うべきメソッドその１<BR>

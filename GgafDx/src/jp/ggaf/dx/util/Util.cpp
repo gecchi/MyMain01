@@ -111,143 +111,144 @@ void Util::init() {
     Util::SIN[36000] =  0;
     Sleep(1);
     //<SLANT2ANG>
-    double rad;
-    double vx,vy,vz;
-    double slant;
-    int index_slant;
-    int index_slant_prev = -1;
-    int d_index_slant = 0;
-    //傾き 0.0 ～ 1.0 の 角度を求め配列に収める。収める角度は100倍の整数。
-    //要素番号は、傾き*10000
+    {
+        double rad;
+        double vx,vy,vz;
+        double slant;
+        int index_slant;
+        int index_slant_prev = -1;
+        int d_index_slant = 0;
+        //傾き 0.0 ～ 1.0 の 角度を求め配列に収める。収める角度は100倍の整数。
+        //要素番号は、傾き*10000
 
-    //ang=0  slant=0 vx,vy=1,0
-    //ang=1  slant=0.000174533   vx,vy=1,0.000174533
-    //ang=2  slant=0.000349066   vx,vy=1,0.000349066
-    //ang=3  slant=0.000523599   vx,vy=1,0.000523599
-    //ang=4  slant=0.000698132   vx,vy=1,0.000698132
-    //ang=5  slant=0.000872665   vx,vy=1,0.000872665
+        //ang=0  slant=0 vx,vy=1,0
+        //ang=1  slant=0.000174533   vx,vy=1,0.000174533
+        //ang=2  slant=0.000349066   vx,vy=1,0.000349066
+        //ang=3  slant=0.000523599   vx,vy=1,0.000523599
+        //ang=4  slant=0.000698132   vx,vy=1,0.000698132
+        //ang=5  slant=0.000872665   vx,vy=1,0.000872665
 
-    // SLANT2ANG[0]      = 0
-    // SLANT2ANG[1(.7)]～ = 1000～
-    // SLANT2ANG[3(.4)]～ = 2000～
-    // SLANT2ANG[5(.2)]  = 3000～
-    // SLANT2ANG[6(.9)]  = 4000～
-    // SLANT2ANG[8(.7)]  = 5000～ といった具合になるように調整
+        // SLANT2ANG[0]      = 0
+        // SLANT2ANG[1(.7)]～ = 1000～
+        // SLANT2ANG[3(.4)]～ = 2000～
+        // SLANT2ANG[5(.2)]  = 3000～
+        // SLANT2ANG[6(.9)]  = 4000～
+        // SLANT2ANG[8(.7)]  = 5000～ といった具合になるように調整
 
-    //ang=4493   slant=0.99756   vx,vy=0.70797,0.706242
-    //ang=4494   slant=0.997908  vx,vy=0.707847,0.706366
-    //ang=4495   slant=0.998256  vx,vy=0.707724,0.706489
-    //ang=4496   slant=0.998605  vx,vy=0.7076,0.706613
-    //ang=4497   slant=0.998953  vx,vy=0.707477,0.706736
-    //ang=4498   slant=0.999302  vx,vy=0.707354,0.70686
-    //ang=4499   slant=0.999651  vx,vy=0.70723,0.706983
-    //ang=4500   slant=1 vx,vy=0.707107,0.707107         <--このあたりまで求める
-    //ang=4501   slant=1.00035   vx,vy=0.706983,0.70723
-    //ang=4502   slant=1.0007    vx,vy=0.70686,0.707354
+        //ang=4493   slant=0.99756   vx,vy=0.70797,0.706242
+        //ang=4494   slant=0.997908  vx,vy=0.707847,0.706366
+        //ang=4495   slant=0.998256  vx,vy=0.707724,0.706489
+        //ang=4496   slant=0.998605  vx,vy=0.7076,0.706613
+        //ang=4497   slant=0.998953  vx,vy=0.707477,0.706736
+        //ang=4498   slant=0.999302  vx,vy=0.707354,0.70686
+        //ang=4499   slant=0.999651  vx,vy=0.70723,0.706983
+        //ang=4500   slant=1 vx,vy=0.707107,0.707107         <--このあたりまで求める
+        //ang=4501   slant=1.00035   vx,vy=0.706983,0.70723
+        //ang=4502   slant=1.0007    vx,vy=0.70686,0.707354
 
-    //2010/03/09 SLANT2ANGの精度10倍にアップ
-    //現在は要素番号は、傾き*100000
-    for (int ang = 0; ang <= 45000; ang++) {
-        rad = (PI * 2.0 * ang) / 360000;
-        vx = cos(rad);
-        vy = sin(rad);
-        if (ZEROd_EQ(vx)) {
-            slant = 0.0;
-        } else {
-            slant = vy / vx;
-        }
-        index_slant = (int)(slant * 100000);
-        d_index_slant = index_slant - index_slant_prev;
-        for (int i = index_slant_prev+1, d = 1; i <= index_slant; i++, d++) {
-            if (i > 100000) {
-                _TRACE_("【警告】想定範囲以上の傾き配列INDEXを設定。メモリが破壊されます。SLANT2ANG["<<i<<"]<="<<(ang*10));
+        //2010/03/09 SLANT2ANGの精度10倍にアップ
+        //現在は要素番号は、傾き*100000
+        for (int ang = 0; ang <= 45000; ang++) {
+            rad = (PI * 2.0 * ang) / 360000;
+            vx = cos(rad);
+            vy = sin(rad);
+            if (ZEROd_EQ(vx)) {
+                slant = 0.0;
+            } else {
+                slant = vy / vx;
             }
-            //等分する（ここがアバウトのもと）
-            Util::SLANT2ANG[i] = (angle)( ((ang-1) + (1.0*d)/(1.0*d_index_slant))*1.0);
+            index_slant = (int)(slant * 100000);
+            d_index_slant = index_slant - index_slant_prev;
+            for (int i = index_slant_prev+1, d = 1; i <= index_slant; i++, d++) {
+                if (i > 100000) {
+                    _TRACE_("【警告】想定範囲以上の傾き配列INDEXを設定。メモリが破壊されます。SLANT2ANG["<<i<<"]<="<<(ang*10));
+                }
+                //等分する（ここがアバウトのもと）
+                Util::SLANT2ANG[i] = (angle)( ((ang-1) + (1.0*d)/(1.0*d_index_slant))*1.0);
+            }
+            index_slant_prev = index_slant;
         }
-        index_slant_prev = index_slant;
-    }
-    Sleep(10);
-    d_index_slant = 100000 - index_slant_prev;
-    for (int i = index_slant_prev+1, d = 1; i <= 100000; i++, d++) {
-        if (i > 100000) {
-            _TRACE_("【警告】想定範囲以上の傾き配列INDEXを設定。メモリが破壊されます。SLANT2ANG["<<i<<"]<="<<(450000));
+        Sleep(10);
+        d_index_slant = 100000 - index_slant_prev;
+        for (int i = index_slant_prev+1, d = 1; i <= 100000; i++, d++) {
+            if (i > 100000) {
+                _TRACE_("【警告】想定範囲以上の傾き配列INDEXを設定。メモリが破壊されます。SLANT2ANG["<<i<<"]<="<<(450000));
+            }
+            Util::SLANT2ANG[i] = (angle)( (45000-1) + (1.0*d)/(1.0*d_index_slant) );
         }
-        Util::SLANT2ANG[i] = (angle)( (45000-1) + (1.0*d)/(1.0*d_index_slant) );
+        Sleep(10);
     }
-    Sleep(10);
 //    //<PROJ_ANG2ROT_ANG> （2009/10/20 経緯・・・速くするためなら何でもやってみよう）
 //    //ある方向ベクトルから、XY平面、ZY平面に投影した時にできる軸との角（それぞれXY射影角、ZY射影角と呼ぶこととする）と、
 //    //その方向ベクトルの単位ベクトルが指す単位球の緯度と経度（Z軸回転角、Y軸回転角）を紐つけることを目的とする。
 //    //つまり、XY射影角、ZY射影角 → Z軸回転角、Y軸回転角 の読み替えを高速に行いたい
 //    //XY射影角90度分 * ZY射影角90度分 を配列要素、値をZ軸回転角、Y軸回転角を値とする配列を構築。
 //
-    double nvx,nvy,nvz;
-    double prj_rad_xy,prj_rad_xz, prj_rad_zy, prj_rad_zx;
-    s_ang rz, ry_rev;
+    {
+//        double vx,vy,vz;
+        double vx1 = 1.0;
+        double vz2 = 1.0;
 
-    vx = 1.0;
-    for (s_ang prj_ang_xy = 0; prj_ang_xy <= D90SANG; prj_ang_xy++) {
-        prj_rad_xy = (PI * 2.0 * prj_ang_xy) / (1.0*D360SANG);
-        vy = tan(prj_rad_xy);
+        for (s_ang prj_ang = 0; prj_ang <= D90SANG; prj_ang++) {
 
-        for (s_ang prj_ang_xz = 0; prj_ang_xz <= D90SANG; prj_ang_xz++) {
-            prj_rad_xz = (PI * 2.0 * prj_ang_xz) / (1.0*D360SANG);
-            vz = tan(prj_rad_xz);
+            double prj_rad_xy = (PI * 2.0 * prj_ang) / (1.0*D360SANG);
+            double vy1 = tan(prj_rad_xy);
 
-            //方向ベクトルを作成
-            //vx,vy,vz を正規化する。
-            double t = 1 / sqrt(vx * vx + vy * vy + vz * vz);
-            nvx = t * vx;
-            nvy = t * vy;
-            nvz = t * vz;
-            //単位ベクトルからRzRy(逆回転)を求める
-            Util::_srv.getFaceAngClosely(
-                    (uint32_t)(nvx*10000000),
-                    (uint32_t)(nvy*10000000),
-                    (uint32_t)(nvz*10000000),
-                    rz,
-                    ry_rev
-            );
-            Util::PROJANG_XY_XZ_TO_ROTANG_z[prj_ang_xy][prj_ang_xz] = rz*SANG_RATE;
-            Util::PROJANG_XY_XZ_TO_ROTANG_y_REV[prj_ang_xy][prj_ang_xz] = ry_rev*SANG_RATE;
-//            _TRACE_("["<<prj_ang_xy<<"]["<<prj_ang_xz<<"]=("<<PROJANG_XY_XZ_TO_ROTANG_z[prj_ang_xy][prj_ang_xz]<<","<<PROJANG_XY_XZ_TO_ROTANG_y_REV[prj_ang_xy][prj_ang_xz]<<")");
+            s_ang prj_ang_xy = prj_ang;
+            for (s_ang prj_ang_xz = 0; prj_ang_xz <= D90SANG; prj_ang_xz++) {
+                double prj_rad_xz = (PI * 2.0 * prj_ang_xz) / (1.0*D360SANG);
+                double vz1 = tan(prj_rad_xz);
+
+                //方向ベクトルを作成
+                //vx,vy,vz を正規化する。
+                double t = 1 / sqrt(vx1 * vx1 + vy1 * vy1 + vz1 * vz1);
+                double nvx = t * vx1;
+                double nvy = t * vy1;
+                double nvz = t * vz1;
+                //単位ベクトルからRzRy(逆回転)を求める
+                s_ang rz, ry_rev;
+                Util::_srv.getFaceAngClosely(
+                        (uint32_t)(nvx*10000000),
+                        (uint32_t)(nvy*10000000),
+                        (uint32_t)(nvz*10000000),
+                        rz,
+                        ry_rev
+                );
+                Util::PROJANG_XY_XZ_TO_ROTANG_z[prj_ang_xy][prj_ang_xz] = rz*SANG_RATE;
+                Util::PROJANG_XY_XZ_TO_ROTANG_y_REV[prj_ang_xy][prj_ang_xz] = ry_rev*SANG_RATE;
+            }
+//            prj_rad_zy = (PI * 2.0 * prj_ang_zy) / (1.0*D360SANG);
+//            vy2 = tan(prj_rad_zy);
+            s_ang prj_ang_zy = prj_ang;
+            double vy2 = vy1;
+            for (s_ang prj_ang_zx = 0; prj_ang_zx <= D90SANG; prj_ang_zx++) {
+                double prj_rad_zx = (PI * 2.0 * prj_ang_zx) / (1.0*D360SANG);
+                //方向ベクトルを作成
+                double vx2 = tan(prj_rad_zx);
+
+                double t = 1 / sqrt(vx2 * vx2 + vy2 * vy2 + vz2 * vz2);
+                double nvx = t * vx2;
+                double nvy = t * vy2;
+                double nvz = t * vz2;
+                //単位ベクトルからRzRy(逆回転)を求める
+                s_ang rz, ry_rev;
+                Util::_srv.getFaceAngClosely(
+                        (uint32_t)(nvx*10000000),
+                        (uint32_t)(nvy*10000000),
+                        (uint32_t)(nvz*10000000),
+                        rz,
+                        ry_rev
+                );
+
+                //(0,0,1.0)を0°としX軸の正の方を向いて時計回りを正の角(rx_rev)を考える
+                //これは上で求めたrzと等しくなる。
+                int rx_rev = rz;
+                //(0,0,1.0)を0°としY軸の正の方を向いて反時計回りを正の角(ry)を考える
+                //これは上で求めたry_revをD90ANGから引いた値である。
+                Util::PROJANG_ZY_ZX_TO_ROTANG_x_REV[prj_ang_zy][prj_ang_zx] = rx_rev*SANG_RATE;
+                Util::PROJANG_ZY_ZX_TO_ROTANG_y[prj_ang_zy][prj_ang_zx] = D90ANG - ry_rev*SANG_RATE;
+            }
         }
-        Sleep(2);
-    }
-    Sleep(10);
-    vz = 1.0;
-    for (s_ang prj_ang_zy = 0; prj_ang_zy <= D90SANG; prj_ang_zy++) {
-        prj_rad_zy = (PI * 2.0 * prj_ang_zy) / (1.0*D360SANG);
-        vy = tan(prj_rad_zy);
-
-        for (s_ang prj_ang_zx = 0; prj_ang_zx <= D90SANG; prj_ang_zx++) {
-            prj_rad_zx = (PI * 2.0 * prj_ang_zx) / (1.0*D360SANG);
-            //方向ベクトルを作成
-            vx = tan(prj_rad_zx);
-
-            double t = 1 / sqrt(vx * vx + vy * vy + vz * vz);
-            nvx = t * vx;
-            nvy = t * vy;
-            nvz = t * vz;
-            //単位ベクトルからRzRy(逆回転)を求める
-            Util::_srv.getFaceAngClosely(
-                    (uint32_t)(nvx*10000000),
-                    (uint32_t)(nvy*10000000),
-                    (uint32_t)(nvz*10000000),
-                    rz,
-                    ry_rev
-            );
-
-            //(0,0,1.0)を0°としX軸の正の方を向いて時計回りを正の角(rx_rev)を考える
-            //これは上で求めたrzと等しくなる。
-            int rx_rev = rz;
-            //(0,0,1.0)を0°としY軸の正の方を向いて反時計回りを正の角(ry)を考える
-            //これは上で求めたry_revをD90ANGから引いた値である。
-            Util::PROJANG_ZY_ZX_TO_ROTANG_x_REV[prj_ang_zy][prj_ang_zx] = rx_rev*SANG_RATE;
-            Util::PROJANG_ZY_ZX_TO_ROTANG_y[prj_ang_zy][prj_ang_zx] = D90ANG - ry_rev*SANG_RATE;
-        }
-        Sleep(2);
     }
 
     Sleep(10);
@@ -270,28 +271,6 @@ void Util::init() {
         Util::RND_CIRCLE_Y[i] = wk3 * sin_phi;
     }
     Util::_was_GgafDx_Util_inited_flg = true;
-
-//    _TRACE_("開始！");
-//    for (s_ang prm_rz = 0; prm_rz <= D90ANG; prm_rz+=100) {
-//        for (s_ang prm_ry = 0; prm_ry <= D90ANG; prm_ry+=100) {
-//            if (prm_rz == 35400 && prm_ry == 83700) {
-//                double out_nvx,out_nvy,out_nvz;
-//                Util::convRzRyToVector(prm_rz,
-//                                 prm_ry,
-//                                  out_nvx,
-//                                  out_nvy,
-//                                  out_nvz);
-//                angle out_rz,out_ry;
-//                Util::convVectorToRzRy(out_nvx, out_nvy, out_nvz, out_rz, out_ry);
-//                if (prm_rz == out_rz && prm_ry == out_ry) {
-//                    _TRACE_N_("o");
-//                } else {
-//                    _TRACE_N_("\n");
-//                    _TRACE_("x ("<<prm_rz<<","<<prm_ry<<") -> ("<<out_rz<<","<<out_ry<<") ※("<<out_nvx<<","<<out_nvy<<","<<out_nvz<<")");
-//                }
-//            }
-//        }
-//    }
 
 }
 
@@ -522,6 +501,78 @@ coord Util::getDistance(coord x1, coord y1, coord x2, coord y2) {
 //    return (int)sqrt((((double)(x2 - x1)) * ((double)(x2 - x1))) + (((double)(y2 - y1)) * ((double)(y2 - y1))) + (((double)(z2 - z1)) * ((double)(z2 - z1))));
 //}
 
+
+//void Util::convVectorToRzRy2(coord vx,
+//                            coord vy,
+//                            coord vz,
+//                            angle& out_rz,
+//                            angle& out_ry ) {
+//    double dx = ABS(vx);
+//    double dy = ABS(vy);
+//    double dz = ABS(vz);
+//    double out_nvx, out_nvy, out_nvz;
+//    double t = 1.0 / sqrt(dx * dx + dy * dy + dz * dz);
+//    out_nvx = t * dx;
+//    out_nvy = t * dy;
+//    out_nvz = t * dz;
+//    //単位ベクトルからRzRy(逆回転)を求める
+//    s_ang rz, ry_rev;
+//    Util::_srv.getFaceAngClosely(
+//            (uint32_t)(out_nvx*10000000),
+//            (uint32_t)(out_nvy*10000000),
+//            (uint32_t)(out_nvz*10000000),
+//            rz,
+//            ry_rev
+//    );
+//    angle rot_z = rz * SANG_RATE;
+//    angle rot_y_rev = ry_rev * SANG_RATE;
+//    //卦限によって回転角を補正
+//    if (vx >= 0) {
+//        if (vy >= 0) {
+//            if (vz >= 0) {
+//                //第一卦限
+//                out_rz = rot_z;
+//                out_ry = (D360ANG - rot_y_rev);
+//            } else { //vz < 0
+//                //第五卦限
+//                out_rz = rot_z;
+//                out_ry = rot_y_rev;
+//            }
+//        } else { //vy < 0
+//            if (vz >= 0) {
+//                //第四卦限
+//                out_rz = (D360ANG - rot_z);
+//                out_ry = (D360ANG - rot_y_rev);
+//            } else { //vz < 0
+//                //第八卦限
+//                out_rz = (D360ANG - rot_z);
+//                out_ry = rot_y_rev;
+//            }
+//        }
+//    } else { //vx < 0
+//        if (vy >= 0) {
+//            if (vz >= 0) {
+//                //第二卦限
+//                out_rz = rot_z;
+//                out_ry = (D180ANG + rot_y_rev);
+//            } else { //vz < 0
+//                //第六卦限
+//                out_rz = rot_z;
+//                out_ry = (D180ANG - rot_y_rev);
+//            }
+//        } else { //vy < 0
+//            if (vz >= 0) {
+//                //第三卦限
+//                out_rz = (D360ANG - rot_z);
+//                out_ry = (D180ANG + rot_y_rev);
+//            } else { //vz < 0
+//                //第七卦限
+//                out_rz = (D360ANG - rot_z);
+//                out_ry = (D180ANG - rot_y_rev);
+//            }
+//        }
+//    }
+//}
 
 void Util::convVectorToRzRy(coord vx,
                             coord vy,
