@@ -11,29 +11,29 @@ SphereRadiusVectors::SphereRadiusVectors() : GgafCore::Object() {
     double xXY, yXY, x, y, z;
     double radRotAxisZ, radRotAxisY;
 
-    for (s_ang faceAxisZ = 0; faceAxisZ <= D90SANG; faceAxisZ++) {
+    for (s_ang s_ang_Rz = 0; s_ang_Rz <= D90SANG*SR_AC; s_ang_Rz++) {
         //XYïΩñ è„ÇÃãÖï\ñ ÇÃì_ÇãÅÇﬂÇÈÅB
-        radRotAxisZ = (((PI * 2.0) * faceAxisZ) / D360SANG) ;
+        radRotAxisZ = (((PI * 2.0) * s_ang_Rz) / (1.0*D360SANG*SR_AC) ) ;
         xXY = cos(radRotAxisZ);
         yXY = sin(radRotAxisZ);
         n_y = yXY * 10000000.0;
-        for (s_ang faceAxisY_rev = 0; faceAxisY_rev <= D90SANG; faceAxisY_rev++) {
+        for (s_ang s_ang_Ry_rev = 0; s_ang_Ry_rev <= D90SANG*SR_AC; s_ang_Ry_rev++) {
             //XYïΩñ è„ÇÃãÖï\ñ ÇÃì_ÇÅAYé≤âÒì]Ç∑ÇÈÅB
             //íçà”ÅFÇ±ÇÃYé≤âÒì]ÇÕÅAåvéZÇÃìsçáè„ÅAç∂éËånYé≤âÒì]ÇÃãtâÒì]Ç…Ç»ÇËÇ‹Ç∑ÅB
-            radRotAxisY = (((PI * 2.0) * faceAxisY_rev) / D360SANG);
+            radRotAxisY = (((PI * 2.0) * s_ang_Ry_rev) / (1.0*D360SANG*SR_AC) );
             x = xXY * cos(radRotAxisY);
             z = xXY * sin(radRotAxisY);
             n_x = x * 10000000.0;
             n_z = z * 10000000.0;
             //_sr_vec
-            SrVec* pVec = &(_sr_vec[faceAxisZ][faceAxisY_rev]);
+            SrVec* pVec = &(_sr_vec[s_ang_Rz][s_ang_Ry_rev]);
             pVec->x = n_x;
             pVec->y = n_y;
             pVec->z = n_z;
 
             //ãtéQè∆Çê›íË
-            _vy_vz_2_rz_ry_rev[n_y][n_z].rz = faceAxisZ;
-            _vy_vz_2_rz_ry_rev[n_y][n_z].ry = faceAxisY_rev;
+            _vy_vz_2_rz_ry_rev[n_y][n_z].s_rz = s_ang_Rz;
+            _vy_vz_2_rz_ry_rev[n_y][n_z].s_ry = s_ang_Ry_rev;
         }
     }
 }
@@ -41,8 +41,8 @@ SphereRadiusVectors::SphereRadiusVectors() : GgafCore::Object() {
 void SphereRadiusVectors::getFaceAngClosely(uint32_t prm_x,
                                             uint32_t prm_y,
                                             uint32_t prm_z,
-                                            s_ang& out_faceZ,
-                                            s_ang& out_faceY_rev) {
+                                            angle& out_faceZ,
+                                            angle& out_faceY_rev) {
     std::map<uint32_t, std::map<uint32_t, RzRy> >::iterator ite_begin_vy = _vy_vz_2_rz_ry_rev.lower_bound(prm_y);
     if (ite_begin_vy == _vy_vz_2_rz_ry_rev.end()) {
         ite_begin_vy--;
@@ -53,8 +53,8 @@ void SphereRadiusVectors::getFaceAngClosely(uint32_t prm_x,
         ite_begin_vz--;
     }
     RzRy* pRzRy = &(ite_begin_vz->second);
-    out_faceZ = pRzRy->rz;
-    out_faceY_rev = pRzRy->ry;
+    out_faceZ = pRzRy->s_rz*((1.0*SANG_RATE)/SR_AC);
+    out_faceY_rev = pRzRy->s_ry*((1.0*SANG_RATE)/SR_AC);
 
 }
 

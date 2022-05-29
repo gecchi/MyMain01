@@ -7,6 +7,8 @@
 
 namespace GgafDx {
 
+#define SR_AC (2)
+
 /**
  * 単位球と、単位ベクトルの座標のマッピング .
  * 方向ベクトルからZ軸回転角とY軸回転角、逆にZ軸回転角とY軸回転角から方向ベクトルの相互変換を可能とするために設計。<BR>
@@ -25,11 +27,11 @@ public:
     };
 
     struct RzRy {
-        s_ang rz;
-        s_ang ry;
+        s_ang s_rz;
+        s_ang s_ry;
     };
 
-    SrVec _sr_vec[(D90SANG + 1)][(D90SANG+1)];
+    SrVec _sr_vec[(D90SANG*SR_AC + 1)][(D90SANG*SR_AC +1)];
     std::map<uint32_t, std::map<uint32_t, RzRy> > _vy_vz_2_rz_ry_rev;
 
 public:
@@ -47,8 +49,8 @@ public:
     void getFaceAngClosely(uint32_t prm_x,
                            uint32_t prm_y,
                            uint32_t prm_z,
-                           s_ang& out_faceZ,
-                           s_ang& out_faceY_rev);
+                           angle& out_faceZ,
+                           angle& out_faceY_rev);
 
     /**
      * 引数のZ軸回転とY軸回転の値から、相当する単位方向ベクトルの近似を求める .
@@ -60,12 +62,12 @@ public:
      * @param out_y 単位方向ベクトルY要素（長さ 1 が 10000000) > 0
      * @param out_z 単位方向ベクトルZ要素（長さ 1 が 10000000) > 0
      */
-    inline void getVectorClosely(s_ang prm_faceZ,
-                                 s_ang prm_faceY_rev,
+    inline void getVectorClosely(angle prm_faceZ,
+                                 angle prm_faceY_rev,
                                  uint32_t& out_x,
                                  uint32_t& out_y,
                                  uint32_t& out_z ) {
-        SrVec* pV = &(_sr_vec[prm_faceZ][prm_faceY_rev]);
+        SrVec* pV = &(_sr_vec[(s_ang)(prm_faceZ/(1.0*SANG_RATE/SR_AC))][(s_ang)(prm_faceY_rev/(1.0*SANG_RATE/SR_AC))]);
         out_x = pV->x;
         out_y = pV->y;
         out_z = pV->z;

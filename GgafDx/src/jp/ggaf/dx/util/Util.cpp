@@ -72,10 +72,10 @@ angle Util::SLANT2ANG[100000 + 1];
 //angle Util::PROJANG_XY_ZX_YZ_TO_ROTANG_z[D90SANG+1][D90SANG+1];
 
 
-angle Util::PROJANG_XY_XZ_TO_ROTANG_z[D90SANG+1][D90SANG+1];
-angle Util::PROJANG_XY_XZ_TO_ROTANG_y_REV[D90SANG+1][D90SANG+1];
-angle Util::PROJANG_ZY_ZX_TO_ROTANG_x_REV[D90SANG+1][D90SANG+1];
-angle Util::PROJANG_ZY_ZX_TO_ROTANG_y[D90SANG+1][D90SANG+1];
+angle Util::PROJANG_XY_XZ_TO_ROTANG_z[D90SANG*SR_AC+1][D90SANG*SR_AC+1];
+angle Util::PROJANG_XY_XZ_TO_ROTANG_y_REV[D90SANG*SR_AC+1][D90SANG*SR_AC+1];
+angle Util::PROJANG_ZY_ZX_TO_ROTANG_x_REV[D90SANG*SR_AC+1][D90SANG*SR_AC+1];
+angle Util::PROJANG_ZY_ZX_TO_ROTANG_y[D90SANG*SR_AC+1][D90SANG*SR_AC+1];
 
 double Util::RND_CIRCLE_X[10000];
 double Util::RND_CIRCLE_Y[10000];
@@ -89,7 +89,7 @@ void Util::init() {
     if (Util::_was_GgafDx_Util_inited_flg) {
         return;
     }
-
+    // angê∏ìx 0 Å` 36000 Ç…ïœçX
     for (s_ang ang = 0; ang < 36000+1; ang++) {
         double rad = (PI2 * ang) / 36000;
         Util::COS[ang] = cos(rad);
@@ -189,24 +189,24 @@ void Util::init() {
         double vx1 = 1.0;
         double vz2 = 1.0;
 
-        for (s_ang prj_ang = 0; prj_ang <= D90SANG; prj_ang++) {
+        for (s_ang prj_s_ang = 0; prj_s_ang <= D90SANG*SR_AC; prj_s_ang++) {
 
-            double prj_rad_xy = (PI * 2.0 * prj_ang) / (1.0*D360SANG);
+            double prj_rad_xy = (PI * 2.0 * prj_s_ang) / (1.0*D360SANG*SR_AC);
             double vy1 = tan(prj_rad_xy);
 
-            s_ang prj_ang_xy = prj_ang;
-            for (s_ang prj_ang_xz = 0; prj_ang_xz <= D90SANG; prj_ang_xz++) {
-                double prj_rad_xz = (PI * 2.0 * prj_ang_xz) / (1.0*D360SANG);
+            s_ang prj_s_ang_xy = prj_s_ang;
+            for (s_ang prj_s_ang_xz = 0; prj_s_ang_xz <= D90SANG*SR_AC; prj_s_ang_xz++) {
+                double prj_rad_xz = (PI * 2.0 * prj_s_ang_xz) / (1.0*D360SANG*SR_AC);
                 double vz1 = tan(prj_rad_xz);
 
                 //ï˚å¸ÉxÉNÉgÉãÇçÏê¨
                 //vx,vy,vz Çê≥ãKâªÇ∑ÇÈÅB
-                double t = 1 / sqrt(vx1 * vx1 + vy1 * vy1 + vz1 * vz1);
+                double t = 1.0 / sqrt(vx1 * vx1 + vy1 * vy1 + vz1 * vz1);
                 double nvx = t * vx1;
                 double nvy = t * vy1;
                 double nvz = t * vz1;
                 //íPà ÉxÉNÉgÉãÇ©ÇÁRzRy(ãtâÒì])ÇãÅÇﬂÇÈ
-                s_ang rz, ry_rev;
+                angle rz, ry_rev;
                 Util::_srv.getFaceAngClosely(
                         (uint32_t)(nvx*10000000),
                         (uint32_t)(nvy*10000000),
@@ -214,39 +214,39 @@ void Util::init() {
                         rz,
                         ry_rev
                 );
-                Util::PROJANG_XY_XZ_TO_ROTANG_z[prj_ang_xy][prj_ang_xz] = rz*SANG_RATE;
-                Util::PROJANG_XY_XZ_TO_ROTANG_y_REV[prj_ang_xy][prj_ang_xz] = ry_rev*SANG_RATE;
+                Util::PROJANG_XY_XZ_TO_ROTANG_z[prj_s_ang_xy][prj_s_ang_xz] = rz;
+                Util::PROJANG_XY_XZ_TO_ROTANG_y_REV[prj_s_ang_xy][prj_s_ang_xz] = ry_rev;
             }
 //            prj_rad_zy = (PI * 2.0 * prj_ang_zy) / (1.0*D360SANG);
 //            vy2 = tan(prj_rad_zy);
-            s_ang prj_ang_zy = prj_ang;
+            s_ang prj_s_ang_zy = prj_s_ang;
             double vy2 = vy1;
-            for (s_ang prj_ang_zx = 0; prj_ang_zx <= D90SANG; prj_ang_zx++) {
-                double prj_rad_zx = (PI * 2.0 * prj_ang_zx) / (1.0*D360SANG);
+            for (s_ang prj_s_ang_zx = 0; prj_s_ang_zx <= D90SANG*SR_AC; prj_s_ang_zx++) {
+                double prj_rad_zx = (PI * 2.0 * prj_s_ang_zx) / (1.0*D360SANG*SR_AC);
                 //ï˚å¸ÉxÉNÉgÉãÇçÏê¨
                 double vx2 = tan(prj_rad_zx);
 
-                double t = 1 / sqrt(vx2 * vx2 + vy2 * vy2 + vz2 * vz2);
-                double nvx = t * vx2;
-                double nvy = t * vy2;
-                double nvz = t * vz2;
+                double t2 = 1.0 / sqrt(vx2 * vx2 + vy2 * vy2 + vz2 * vz2);
+                double nvx2 = t2 * vx2;
+                double nvy2 = t2 * vy2;
+                double nvz2 = t2 * vz2;
                 //íPà ÉxÉNÉgÉãÇ©ÇÁRzRy(ãtâÒì])ÇãÅÇﬂÇÈ
-                s_ang rz, ry_rev;
+                angle rz, ry_rev;
                 Util::_srv.getFaceAngClosely(
-                        (uint32_t)(nvx*10000000),
-                        (uint32_t)(nvy*10000000),
-                        (uint32_t)(nvz*10000000),
+                        (uint32_t)(nvx2*10000000),
+                        (uint32_t)(nvy2*10000000),
+                        (uint32_t)(nvz2*10000000),
                         rz,
                         ry_rev
                 );
 
                 //(0,0,1.0)Ç0ÅãÇ∆ÇµXé≤ÇÃê≥ÇÃï˚Çå¸Ç¢ÇƒéûåvâÒÇËÇê≥ÇÃäp(rx_rev)ÇçlÇ¶ÇÈ
                 //Ç±ÇÍÇÕè„Ç≈ãÅÇﬂÇΩrzÇ∆ìôÇµÇ≠Ç»ÇÈÅB
-                int rx_rev = rz;
+                angle rx_rev = rz;
                 //(0,0,1.0)Ç0ÅãÇ∆ÇµYé≤ÇÃê≥ÇÃï˚Çå¸Ç¢ÇƒîΩéûåvâÒÇËÇê≥ÇÃäp(ry)ÇçlÇ¶ÇÈ
                 //Ç±ÇÍÇÕè„Ç≈ãÅÇﬂÇΩry_revÇD90ANGÇ©ÇÁà¯Ç¢ÇΩílÇ≈Ç†ÇÈÅB
-                Util::PROJANG_ZY_ZX_TO_ROTANG_x_REV[prj_ang_zy][prj_ang_zx] = rx_rev*SANG_RATE;
-                Util::PROJANG_ZY_ZX_TO_ROTANG_y[prj_ang_zy][prj_ang_zx] = D90ANG - ry_rev*SANG_RATE;
+                Util::PROJANG_ZY_ZX_TO_ROTANG_x_REV[prj_s_ang_zy][prj_s_ang_zx] = rx_rev;
+                Util::PROJANG_ZY_ZX_TO_ROTANG_y[prj_s_ang_zy][prj_s_ang_zx] = D90ANG - ry_rev;
             }
         }
     }
@@ -598,18 +598,19 @@ void Util::convVectorToRzRy(coord vx,
     const angle prj_rXZ = Util::getAngle2D_first_quadrant(dx, dz);
     const angle prj_rXY = Util::getAngle2D_first_quadrant(dx, dy); //Rz
     angle rot_z, rot_y_rev;
+    const double rate = ((1.0/SANG_RATE)*SR_AC);
     if (0 <= prj_rXZ && prj_rXZ <= D45ANG) {
-        int xy = (int)(prj_rXY*0.01);
-        int xz = (int)(prj_rXZ*0.01);
-        rot_z = Util::PROJANG_XY_XZ_TO_ROTANG_z[xy][xz];
-        rot_y_rev = Util::PROJANG_XY_XZ_TO_ROTANG_y_REV[xy][xz];
+        s_ang prj_s_ang_rXY = (s_ang)(prj_rXY*rate);
+        s_ang prj_s_ang_rXZ = (s_ang)(prj_rXZ*rate);
+        rot_z = Util::PROJANG_XY_XZ_TO_ROTANG_z[prj_s_ang_rXY][prj_s_ang_rXZ];
+        rot_y_rev = Util::PROJANG_XY_XZ_TO_ROTANG_y_REV[prj_s_ang_rXY][prj_s_ang_rXZ];
     } else if (prj_rXZ <= D90ANG) {
         const angle prj_rZY = Util::getAngle2D_first_quadrant(dz, dy); //Rz
         const angle prj_rZX = Util::getAngle2D_first_quadrant(dz, dx);
-        int zy = (int)(prj_rZY*0.01);
-        int zx = (int)(prj_rZX*0.01);
-        rot_z = Util::PROJANG_ZY_ZX_TO_ROTANG_x_REV[zy][zx];
-        rot_y_rev = D90ANG - Util::PROJANG_ZY_ZX_TO_ROTANG_y[zy][zx];
+        s_ang prj_s_ang_rZY = (s_ang)(prj_rZY*rate);
+        s_ang prj_s_ang_rZX = (s_ang)(prj_rZX*rate);
+        rot_z = Util::PROJANG_ZY_ZX_TO_ROTANG_x_REV[prj_s_ang_rZY][prj_s_ang_rZX];
+        rot_y_rev = D90ANG - Util::PROJANG_ZY_ZX_TO_ROTANG_y[prj_s_ang_rZY][prj_s_ang_rZX];
     } else {
         throwCriticalException("îÕàÕÇ™îjí]ÇµÇƒÇ‹Ç∑ÅBprj_rXZ="<<prj_rXZ<<" à¯êî:"<<vx<<","<<vy<<","<<vz);
     }
@@ -686,27 +687,27 @@ void Util::convRzRyToVector(angle prm_rz,
     //void SphereRadiusVectors::getVectorClosely(int out_faceY, int prm_angZ, uint16_t& out_x, uint16_t& out_y, uint16_t& out_z) {
     //âÒì]äpÇ…ÇÊÇ¡ÇƒåTå¿Ççló∂ÇµÅAgetVectorCloselyÇÃÉpÉâÉÅÅ[É^äp(< 900)ÇèoÇ∑
     int xsign, ysign, zsign;
-    s_ang rz, ry_rev;
+    angle rz, ry_rev;
 
     if (0 <= prm_rz && prm_rz < D90ANG) {
-        rz = (prm_rz - D0ANG) * (1.0 / SANG_RATE);
+        rz = (prm_rz - D0ANG);
         if (0 <= prm_ry && prm_ry < D90ANG) { //ëÊå‹åTå¿
-            ry_rev = prm_ry * (1.0 / SANG_RATE);
+            ry_rev = prm_ry;
             xsign = 1;
             ysign = 1;
             zsign = -1;
         } else if (prm_ry < D180ANG) { //ëÊòZåTå¿
-            ry_rev = (D180ANG - prm_ry) * (1.0 / SANG_RATE);
+            ry_rev = (D180ANG - prm_ry);
             xsign = -1;
             ysign = 1;
             zsign = -1;
         } else if (prm_ry < D270ANG) { //ëÊìÒåTå¿
-            ry_rev = (prm_ry - D180ANG) * (1.0 / SANG_RATE);
+            ry_rev = (prm_ry - D180ANG);
             xsign = -1;
             ysign = 1;
             zsign = 1;
         } else if (prm_ry <= D360ANG) { //ëÊàÍåTå¿
-            ry_rev = (D360ANG - prm_ry) * (1.0 / SANG_RATE);
+            ry_rev = (D360ANG - prm_ry);
             xsign = 1;
             ysign = 1;
             zsign = 1;
@@ -714,25 +715,25 @@ void Util::convRzRyToVector(angle prm_rz,
             throwCriticalException("getNormalizedVectorZY: Ç»ÇÒÇ©Ç®Ç©ÇµÇ¢Ç≈Ç∑Ç∫(1) prm_rz="<<prm_rz<<" prm_ry="<<prm_ry);
         }
     } else if (prm_rz < D180ANG) {
-        rz = (D180ANG - prm_rz) * (1.0 / SANG_RATE);
+        rz = (D180ANG - prm_rz);
 
         if (0 <= prm_ry && prm_ry < D90ANG) { //ëÊìÒåTå¿
-            ry_rev = prm_ry * (1.0 / SANG_RATE);
+            ry_rev = prm_ry;
             xsign = -1;
             ysign = 1;
             zsign = 1;
         } else if (prm_ry < D180ANG) { //ëÊàÍåTå¿
-            ry_rev = (D180ANG - prm_ry) * (1.0 / SANG_RATE);
+            ry_rev = (D180ANG - prm_ry);
             xsign = 1;
             ysign = 1;
             zsign = 1;
         } else if (prm_ry < D270ANG) { //ëÊå‹åTå¿
-            ry_rev = (prm_ry - D180ANG) * (1.0 / SANG_RATE);
+            ry_rev = (prm_ry - D180ANG);
             xsign = 1;
             ysign = 1;
             zsign = -1;
         } else if (prm_ry <= D360ANG) { //ëÊòZåTå¿
-            ry_rev = (D360ANG - prm_ry) * (1.0 / SANG_RATE);
+            ry_rev = (D360ANG - prm_ry);
             xsign = -1;
             ysign = 1;
             zsign = -1;
@@ -741,24 +742,24 @@ void Util::convRzRyToVector(angle prm_rz,
         }
 
     } else if (prm_rz < D270ANG) {
-        rz = (prm_rz - D180ANG) * (1.0 / SANG_RATE);
+        rz = (prm_rz - D180ANG);
         if (0 <= prm_ry && prm_ry < D90ANG) { //ëÊéOåTå¿
-            ry_rev = prm_ry * (1.0 / SANG_RATE);
+            ry_rev = prm_ry;
             xsign = -1;
             ysign = -1;
             zsign = 1;
         } else if (prm_ry < D180ANG) { //ëÊélåTå¿
-            ry_rev = (D180ANG - prm_ry) * (1.0 / SANG_RATE);
+            ry_rev = (D180ANG - prm_ry);
             xsign = 1;
             ysign = -1;
             zsign = 1;
         } else if (prm_ry < D270ANG) { //ëÊî™åTå¿
-            ry_rev = (prm_ry - D180ANG) * (1.0 / SANG_RATE);
+            ry_rev = (prm_ry - D180ANG);
             xsign = 1;
             ysign = -1;
             zsign = -1;
         } else if (prm_ry <= D360ANG) { //ëÊéµåTå¿
-            ry_rev = (D360ANG - prm_ry) * (1.0 / SANG_RATE);
+            ry_rev = (D360ANG - prm_ry);
             xsign = -1;
             ysign = -1;
             zsign = -1;
@@ -766,24 +767,24 @@ void Util::convRzRyToVector(angle prm_rz,
             throwCriticalException("getNormalizedVectorZY: Ç»ÇÒÇ©Ç®Ç©ÇµÇ¢Ç≈Ç∑Ç∫(3) prm_rz="<<prm_rz<<" prm_ry="<<prm_ry);
         }
     } else if (prm_rz <= D360ANG) {
-        rz = (D360ANG - prm_rz) * (1.0 / SANG_RATE);
+        rz = (D360ANG - prm_rz);
         if (0 <= prm_ry && prm_ry < D90ANG) { //ëÊî™åTå¿
-            ry_rev = prm_ry * (1.0 / SANG_RATE);
+            ry_rev = prm_ry;
             xsign = 1;
             ysign = -1;
             zsign = -1;
         } else if (prm_ry < D180ANG) { //ëÊéµåTå¿
-            ry_rev = (D180ANG - prm_ry) * (1.0 / SANG_RATE);
+            ry_rev = (D180ANG - prm_ry);
             xsign = -1;
             ysign = -1;
             zsign = -1;
         } else if (prm_ry < D270ANG) { //ëÊéOåTå¿
-            ry_rev = (prm_ry - D180ANG) * (1.0 / SANG_RATE);
+            ry_rev = (prm_ry - D180ANG);
             xsign = -1;
             ysign = -1;
             zsign = 1;
         } else if (prm_ry <= D360ANG) { //ëÊélåTå¿
-            ry_rev = (D360ANG - prm_ry) * (1.0 / SANG_RATE);
+            ry_rev = (D360ANG - prm_ry);
             xsign = 1;
             ysign = -1;
             zsign = 1;

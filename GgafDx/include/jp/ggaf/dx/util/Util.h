@@ -29,10 +29,10 @@ namespace GgafDx {
  */
 class Util : public GgafCore::Util {
 
-    struct AngleSet {
-        angle rz[D360SANG+1];
-        angle ry[D360SANG+1];
-    };
+//    struct AngleSet {
+//        angle rz[D360SANG+1];
+//        angle ry[D360SANG+1];
+//    };
 
 public:
 
@@ -66,22 +66,22 @@ public:
      * 平面射影時にできるなす角 → 2軸の回転角  の変換テーブル(その1-1) .
      * 方向ベクトルを、[XY平面へ射影した時のなす角][XZ平面へ射影した時のなす角] → 元の方向ベクトルのZ軸回転角 の変換テーブル
      */
-    static angle PROJANG_XY_XZ_TO_ROTANG_z[D90SANG+1][D90SANG+1];
+    static angle PROJANG_XY_XZ_TO_ROTANG_z[D90SANG*SR_AC+1][D90SANG*SR_AC+1];
     /**
      * 平面射影時にできるなす角 → 2軸の回転角  の変換テーブル(その1-2) .
      * 方向ベクトルを、[XY平面へ射影した時のなす角][XZ平面へ射影した時のなす角] → 元の方向ベクトルのY軸(逆)回転角 の変換テーブル
      */
-    static angle PROJANG_XY_XZ_TO_ROTANG_y_REV[D90SANG+1][D90SANG+1];
+    static angle PROJANG_XY_XZ_TO_ROTANG_y_REV[D90SANG*SR_AC+1][D90SANG*SR_AC+1];
     /**
      * 平面射影時にできるなす角 → 2軸の回転角  の変換テーブル(その2-1) .
      * 方向ベクトルを、[ZY平面へ射影した時のなす角][ZX平面へ射影した時のなす角] → 元の方向ベクトルのX軸(逆)回転角 の変換テーブル
      */
-    static angle PROJANG_ZY_ZX_TO_ROTANG_x_REV[D90SANG+1][D90SANG+1];
+    static angle PROJANG_ZY_ZX_TO_ROTANG_x_REV[D90SANG*SR_AC+1][D90SANG*SR_AC+1];
     /**
      * 平面射影時にできるなす角 → 2軸の回転角  の変換テーブル(その2-2) .
      * 方向ベクトルを、[ZY平面へ射影した時のなす角][ZX平面へ射影した時のなす角] → 元の方向ベクトルのY軸回転角 の変換テーブル
      */
-    static angle PROJANG_ZY_ZX_TO_ROTANG_y[D90SANG+1][D90SANG+1];
+    static angle PROJANG_ZY_ZX_TO_ROTANG_y[D90SANG*SR_AC+1][D90SANG*SR_AC+1];
 
     static double RND_CIRCLE_X[];
     static double RND_CIRCLE_Y[];
