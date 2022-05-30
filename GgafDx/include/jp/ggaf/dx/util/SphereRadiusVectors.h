@@ -7,7 +7,7 @@
 
 namespace GgafDx {
 
-#define SR_AC (2)
+#define SR_AC (1)
 
 /**
  * 単位球と、単位ベクトルの座標のマッピング .

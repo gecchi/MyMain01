@@ -42,10 +42,18 @@ FormationOebius002::FormationOebius002(const char* prm_name, EnemyOebiusControll
         papCurveManufConn_[col] = connectToCurveManufactureManager(("FormationOebius002,"+XTOS(col)).c_str());
     }
     FixedFrameCurveManufacture* Manuf =  ((FixedFrameCurveManufacture*)(papCurveManufConn_[0])->peek());
-    frame spent_frames = Manuf->getSpentFrames();
+
+
+    //スプライン座標はは、メビウスなんで、２週分ある
+    //でも、列が偶数本（８列）なんで、２週しない。
+    //感覚は半分にしたほうがいいんじゃないか？
+    //    frame spent_frames = Manuf->getSpentFrames();
+    double spent_frames = Manuf->getSpentFrames() / 2.0;
+
     pa_frame_of_called_up_ = NEW frame[formation_row_num_];
     for (int row = 0; row < formation_row_num_; row++) {
         //出現フレーム(最後の +1は getFrame() が 1フレームから始まる為
+        //pa_frame_of_called_up_[row] = (frame)( ( (1.0*spent_frames*(1+row))  /  formation_row_num_)  ) + 1;
         pa_frame_of_called_up_[row] = (frame)( ( (1.0*spent_frames*(1+row))  /  formation_row_num_)  ) + 1;
     }
     called_up_row_idx_ = 0;
