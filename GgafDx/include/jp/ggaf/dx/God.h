@@ -227,6 +227,10 @@ public:
      */
     God();
 
+
+    void setAppropriateDisplaySize();
+
+
     /**
      * フルスクリーン時、最も妥当な解像度を探す。
      * @param prm_paRezos 解像度情報配列
@@ -236,7 +240,7 @@ public:
      * @return 最も妥当な要素インデックス
      */
     static int checkAppropriateDisplaySize(God::RezoInfo* prm_paRezos, int prm_rezo_num,
-                                           UINT prm_width, UINT prm_height);
+                                    UINT prm_width, UINT prm_height);
     /**
      * ウィンドウ生成処理 .
      * @param prm_wndclass1 １画面目のWNDCLASSEXパラメータ

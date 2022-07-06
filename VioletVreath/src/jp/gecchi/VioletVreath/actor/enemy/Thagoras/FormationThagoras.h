@@ -25,7 +25,7 @@ public:
     GgafDx::Scaler* pScaler4Sc_;
     GgafLib::DefaultGeometricActor* pActor4Sc_;
 
-    XpmConnection* pXpmConnection_;
+    XpmConnection* pXpmCon_;
 
 public:
     FormationThagoras(const char* prm_name, const char* prm_xpm_id);

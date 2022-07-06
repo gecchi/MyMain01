@@ -27,7 +27,7 @@ enum {
 FormationUrydike::FormationUrydike(const char* prm_name, int prm_formation_col_num, int prm_formation_row_num, frame prm_called_up_interval) :
         TreeFormation(prm_name) {
     _class_name = "FormationUrydike";
-    pXpmConnection_ = nullptr;
+    pXpmCon_ = nullptr;
     formation_col_num_ = prm_formation_col_num;
     formation_row_num_ = prm_formation_row_num;
     num_Urydike_ = prm_formation_col_num  * prm_formation_row_num;
@@ -38,8 +38,8 @@ FormationUrydike::FormationUrydike(const char* prm_name, int prm_formation_col_n
 FormationUrydike::FormationUrydike(const char* prm_name, const char* prm_xpm_id, frame prm_called_up_interval)  :
             TreeFormation(prm_name) {
     _class_name = "FormationUrydike";
-    pXpmConnection_ = connectToXpmManager(prm_xpm_id);
-    GgafCore::Xpm* pXpM = pXpmConnection_->peek();
+    pXpmCon_ = connectToXpmManager(prm_xpm_id);
+    GgafCore::Xpm* pXpM = pXpmCon_->peek();
     formation_col_num_ = pXpM->getWidth();
     formation_row_num_ = pXpM->getHeight();
     num_Urydike_ = pXpM->getPixelNum();
@@ -83,9 +83,9 @@ void FormationUrydike::processBehavior() {
             if (canCalledUp() && called_up_row_idx_ < formation_row_num_) {
                 if (getActiveFrame() % called_up_interval_ == 0) {
                     for (int col = 0; col < formation_col_num_; col++) {
-                        if (pXpmConnection_) {
+                        if (pXpmCon_) {
                             //xpm•Ò‘à
-                            if (!pXpmConnection_->peek()->isNonColor(called_up_row_idx_, col)) {
+                            if (!pXpmCon_->peek()->isNonColor(called_up_row_idx_, col)) {
                                 EnemyUrydike* pUrydike = (EnemyUrydike*)calledUpMember();
                                 if (pUrydike) {
                                     onCalledUp(pUrydike, called_up_row_idx_, col);
@@ -135,7 +135,7 @@ void FormationUrydike::onSayonaraAll() {
 }
 
 FormationUrydike::~FormationUrydike() {
-    if (pXpmConnection_) {
-        pXpmConnection_->close();
+    if (pXpmCon_) {
+        pXpmCon_->close();
     }
 }

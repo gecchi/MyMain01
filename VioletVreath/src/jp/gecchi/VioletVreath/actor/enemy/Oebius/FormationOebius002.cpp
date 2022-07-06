@@ -26,8 +26,8 @@ FormationOebius002::FormationOebius002(const char* prm_name, EnemyOebiusControll
         FormationOebius(prm_name, prm_pController) {
     _class_name = "FormationOebius002";
 
-    pXpmConnection_ = connectToXpmManager("FormationOebius002_Xpm");
-    GgafCore::Xpm* pXpM = pXpmConnection_->peek();
+    pXpmCon_ = connectToXpmManager("FormationOebius002_Xpm");
+    GgafCore::Xpm* pXpM = pXpmCon_->peek();
     formation_col_num_ = pXpM->getWidth();
     formation_row_num_ = pXpM->getHeight();
     num_Oebius_ = pXpM->getPixelNum();
@@ -46,7 +46,7 @@ FormationOebius002::FormationOebius002(const char* prm_name, EnemyOebiusControll
 
     //スプライン座標はは、メビウスなんで、２週分ある
     //でも、列が偶数本（８列）なんで、２週しない。
-    //感覚は半分にしたほうがいいんじゃないか？
+    //編隊の長さを半分にする。（＝出現間隔半分）
     //    frame spent_frames = Manuf->getSpentFrames();
     double spent_frames = Manuf->getSpentFrames() / 2.0;
 
@@ -77,7 +77,7 @@ void FormationOebius002::processBehavior() {
                 if (pPhase->getFrame() == pa_frame_of_called_up_[called_up_row_idx_]) {
                     for (int col = 0; col < formation_col_num_; col++) {
                         //xpm編隊
-                        if (!pXpmConnection_->peek()->isNonColor(called_up_row_idx_, col)) {
+                        if (!pXpmCon_->peek()->isNonColor(called_up_row_idx_, col)) {
                             EnemyOebius* pOebius = (EnemyOebius*)calledUpMember();
                             if (pOebius) {
                                 onCalledUp(pOebius, called_up_row_idx_, col);
@@ -134,7 +134,7 @@ void FormationOebius002::onCalledUp(GgafDx::FigureActor* prm_pActor, int prm_row
     pOebius->getVecVehicle()->setMvAcce(80);
 
     //色を設定
-    GgafCore::Xpm* pXpM = pXpmConnection_->peek();
+    GgafCore::Xpm* pXpM = pXpmCon_->peek();
     pOebius->setMaterialColor(pXpM->getColor(prm_row, prm_col));
 }
 
@@ -143,8 +143,8 @@ void FormationOebius002::onFinshLeading(GgafDx::FigureActor* prm_pActor) {
 }
 
 FormationOebius002::~FormationOebius002() {
-    if (pXpmConnection_) {
-        pXpmConnection_->close();
+    if (pXpmCon_) {
+        pXpmCon_->close();
     }
     for (int col = 0; col < formation_col_num_; col++) {
         papCurveManufConn_[col]->close();

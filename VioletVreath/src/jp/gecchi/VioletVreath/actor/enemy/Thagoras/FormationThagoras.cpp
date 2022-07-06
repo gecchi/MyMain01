@@ -21,7 +21,7 @@ FormationThagoras::FormationThagoras(const char* prm_name,
         TreeFormation(prm_name) {
     _class_name = "FormationThagoras";
 
-    pXpmConnection_ = connectToXpmManager(prm_xpm_id);
+    pXpmCon_ = connectToXpmManager(prm_xpm_id);
     for (int i = 0; i < getXpm()->getPixelNum(); i++) {
         std::string name = "Thagoras("+XTOS(i)+")";
         appendFormationMember(NEW EnemyThagoras(name.c_str()));
@@ -64,11 +64,11 @@ void FormationThagoras::onDestroyAll(GgafCore::Actor* prm_pActor_last_destroyed)
 }
 
 GgafCore::Xpm* FormationThagoras::getXpm() {
-    return pXpmConnection_->peek();
+    return pXpmCon_->peek();
 }
 
 FormationThagoras::~FormationThagoras() {
-    pXpmConnection_->close();
+    pXpmCon_->close();
     GGAF_DELETE(pScaler4Sc_);
     GGAF_DELETE(pActor4Sc_);
 }

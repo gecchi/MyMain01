@@ -20,7 +20,7 @@ class FormationOebius002 : public FormationOebius {
     int formation_row_num_;
     int called_up_row_idx_;
     frame* pa_frame_of_called_up_;
-    XpmConnection* pXpmConnection_;
+    XpmConnection* pXpmCon_;
 public:
     GgafDx::CurveManufactureConnection** papCurveManufConn_;
 

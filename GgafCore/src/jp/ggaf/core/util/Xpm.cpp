@@ -23,7 +23,7 @@ Xpm::Xpm(const char** prm_xpm) : Object() {
         throwCriticalException("Xpm::Xpm() 不正なヘッダデータです line0=["<<line0.str()<<"]");
     }
     if (_char_on_pixel != 1) {
-        throwCriticalException("Xpm::Xpm() _char_on_pixel は1文字しか対応していません。 line0=["<<line0.str()<<"]");
+        throwCriticalException("Xpm::Xpm() _char_on_pixel は1文字しか対応していません。色数を少なくしてください。line0=["<<line0.str()<<"]");
     }
     //"X    c #E08000"
     for (int i = 0; i < _colors; i++) {

@@ -26,7 +26,7 @@ public:
     /** [r]出現座標(シーンが設定) */
     GgafDx::GeoElem entry_pos_;
 
-    XpmConnection* pXpmConnection_;
+    XpmConnection* pXpmCon_;
 
 public:
     FormationUrydike(const char* prm_name, int prm_formation_col_num, int prm_formation_row_num, frame prm_called_up_interval);

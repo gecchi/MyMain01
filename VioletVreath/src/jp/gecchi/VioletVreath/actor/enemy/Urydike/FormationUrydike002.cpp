@@ -69,7 +69,7 @@ void FormationUrydike002::onCalledUp(GgafDx::FigureActor* prm_pActor, int prm_ro
     pUrydike->getVecVehicle()->setMvAcce(80);
 
     //F‚ðÝ’è
-    GgafCore::Xpm* pXpM = pXpmConnection_->peek();
+    GgafCore::Xpm* pXpM = pXpmCon_->peek();
     pUrydike->setMaterialColor(pXpM->getColor(prm_row, prm_col));
 }
 
