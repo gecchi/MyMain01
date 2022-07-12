@@ -155,6 +155,9 @@ public:
         }
         void init(int prm_rezo_num) {
             rezo_num = prm_rezo_num;
+            if (paRezoInfo) {
+                GGAF_DELETEARR_NULLABLE(paRezoInfo);
+            }
             paRezoInfo = NEW RezoInfo[rezo_num];
         }
         ~AdapterRezos() {
@@ -226,6 +229,8 @@ public:
      * コンストラクタ<BR>
      */
     God();
+
+    void setDisplaySizeInfo();
 
 
     void setAppropriateDisplaySize();

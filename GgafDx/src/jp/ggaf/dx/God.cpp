@@ -181,7 +181,58 @@ void God::chengeViewAspect(bool prm_b) {
         God::_pHWnd_adjustScreen = God::_pHWndPrimary;
     }
 }
+void God::setDisplaySizeInfo() {
+    //アダプタ情報格納
+    for (int adapter_no = 0; adapter_no < _num_adapter; adapter_no++) {
+        _paAvailableAdapter[adapter_no].hMonitor = God::_pID3D9->GetAdapterMonitor(adapter_no);
+        int mode_num = God::_pID3D9->GetAdapterModeCount(adapter_no, D3DFMT_X8R8G8B8);
+        _paAvailableAdapter[adapter_no].setModeNum(mode_num);
+        D3DDISPLAYMODE* paMode = _paAvailableAdapter[adapter_no].paModes;
+        for (int n = 0; n < mode_num; n++) {
+            God::_pID3D9->EnumAdapterModes(adapter_no, D3DFMT_X8R8G8B8, n, &(paMode[n]));
+        }
+    }
 
+    //解像度情報格納
+    for (int adapter_no = 0; adapter_no < _num_adapter; adapter_no++) {
+        std::vector<UINT> vecWidth;
+        std::vector<UINT> vecHeight;
+        std::vector<std::string> vecRezo;
+        int mode_num = _paAvailableAdapter[adapter_no].mode_num;
+        D3DDISPLAYMODE* paMode = pGOD->_paAvailableAdapter[adapter_no].paModes;
+        _TRACE_("画面["<<adapter_no<<"] mode_num="<<mode_num);
+        for (int n = 0; n < mode_num; n++) {
+            UINT width = paMode[n].Width;
+            UINT height = paMode[n].Height;
+            D3DFORMAT format = paMode[n].Format;
+            std::ostringstream oss;
+            oss << width << "X" << height;
+            std::string rezo = oss.str();
+            if (std::find(vecRezo.begin(), vecRezo.end(), rezo) == vecRezo.end()) {
+                vecRezo.push_back(rezo);
+                vecWidth.push_back(width);
+                vecHeight.push_back(height);
+            }
+        }
+        _paAdapterRezos[adapter_no].init(vecRezo.size());
+        for (int n = 0; n < vecRezo.size(); n++) {
+            //存在していない
+            _paAdapterRezos[adapter_no].paRezoInfo[n].width = vecWidth[n];
+            _paAdapterRezos[adapter_no].paRezoInfo[n].height = vecHeight[n];
+            _paAdapterRezos[adapter_no].paRezoInfo[n].item_str = vecRezo[n];
+        }
+    }
+
+    _TRACE_("利用可能画面解像度一覧");
+
+    for (int adapter_no = 0; adapter_no < _num_adapter; adapter_no++) {
+        for (int n = 0; n < _paAdapterRezos[adapter_no].rezo_num; n++) {
+            RezoInfo* pMode = _paAdapterRezos[adapter_no].paRezoInfo;
+            _TRACE_("["<<adapter_no<<"]["<<n<<"]="<<(pMode[n].width)<<","<<(pMode[n].height)<<" = "<<(pMode[n].item_str));
+        }
+    }
+    _TRACE_("------------------------------------------------");
+}
 void God::setAppropriateDisplaySize() {
     //フルスクリーン要求時、指定解像度に出来るか調べ、
     //出来ない場合は、近い解像度を探し、
@@ -822,133 +873,11 @@ void God::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
         }
     }
 
-    //アダプタ情報格納
+
     _paAvailableAdapter = NEW Adapter[_num_adapter];
-    for (int adapter_no = 0; adapter_no < _num_adapter; adapter_no++) {
-        _paAvailableAdapter[adapter_no].hMonitor = God::_pID3D9->GetAdapterMonitor(adapter_no);
-        int mode_num = God::_pID3D9->GetAdapterModeCount(adapter_no, D3DFMT_X8R8G8B8);
-        _paAvailableAdapter[adapter_no].setModeNum(mode_num);
-        D3DDISPLAYMODE* paMode = _paAvailableAdapter[adapter_no].paModes;
-        for (int n = 0; n < mode_num; n++) {
-            God::_pID3D9->EnumAdapterModes(adapter_no, D3DFMT_X8R8G8B8, n, &(paMode[n]));
-        }
-    }
-
-    //解像度情報格納
     _paAdapterRezos = NEW AdapterRezos[_num_adapter];
-    for (int adapter_no = 0; adapter_no < _num_adapter; adapter_no++) {
-        std::vector<UINT> vecWidth;
-        std::vector<UINT> vecHeight;
-        std::vector<std::string> vecRezo;
-        int mode_num = _paAvailableAdapter[adapter_no].mode_num;
-        D3DDISPLAYMODE* paMode = pGOD->_paAvailableAdapter[adapter_no].paModes;
-        _TRACE_("画面["<<adapter_no<<"] mode_num="<<mode_num);
-        for (int n = 0; n < mode_num; n++) {
-            UINT width = paMode[n].Width;
-            UINT height = paMode[n].Height;
-            D3DFORMAT format = paMode[n].Format;
-            std::ostringstream oss;
-            oss << width << "X" << height;
-            std::string rezo = oss.str();
-            if (std::find(vecRezo.begin(), vecRezo.end(), rezo) == vecRezo.end()) {
-                vecRezo.push_back(rezo);
-                vecWidth.push_back(width);
-                vecHeight.push_back(height);
-            }
-        }
-        _paAdapterRezos[adapter_no].init(vecRezo.size());
-        for (int n = 0; n < vecRezo.size(); n++) {
-            //存在していない
-            _paAdapterRezos[adapter_no].paRezoInfo[n].width = vecWidth[n];
-            _paAdapterRezos[adapter_no].paRezoInfo[n].height = vecHeight[n];
-            _paAdapterRezos[adapter_no].paRezoInfo[n].item_str = vecRezo[n];
-        }
-    }
-
-    _TRACE_("利用可能画面解像度一覧");
-
-    for (int adapter_no = 0; adapter_no < _num_adapter; adapter_no++) {
-        for (int n = 0; n < _paAdapterRezos[adapter_no].rezo_num; n++) {
-            RezoInfo* pMode = _paAdapterRezos[adapter_no].paRezoInfo;
-            _TRACE_("["<<adapter_no<<"]["<<n<<"]="<<(pMode[n].width)<<","<<(pMode[n].height)<<" = "<<(pMode[n].item_str));
-        }
-    }
-    _TRACE_("------------------------------------------------");
-
-//    //フルスクリーン要求時、指定解像度に出来るか調べ、
-//    //出来ない場合は、近い解像度を探し、
-//    //_paPresetPrm[] と、_paDisplayMode[] を上書きする。
-//    EnumDisplayMonitors(nullptr, nullptr, God::updateMoniterPixcoordCallback, (LPARAM)this);
-//
-//    if (CONFIG::FULL_SCREEN) {
-//        for (int adapter_no = 0; adapter_no < _num_adapter; adapter_no++) {
-//            _TRACE_("--- " << adapter_no+1 << "画面目 の解像度設定 --->");
-//            int rezo_num = _paAdapterRezos[adapter_no].rezo_num;
-//            RezoInfo* paRezos = _paAdapterRezos[adapter_no].paRezoInfo;
-//
-//            if (CONFIG::DUAL_VIEW) {
-//                //２画面フルスクリーン時
-//                if (adapter_no == _primary_adapter_no) {
-//                    //ゲーム画面１画面目
-//                    int n = checkAppropriateDisplaySize(
-//                                paRezos, rezo_num,
-//                                (UINT)CONFIG::DUAL_VIEW_FULL_SCREEN1_WIDTH,
-//                                (UINT)CONFIG::DUAL_VIEW_FULL_SCREEN1_HEIGHT
-//                            );
-//                    CONFIG::DUAL_VIEW_FULL_SCREEN1_WIDTH  = (pixcoord)(paRezos[n].width);
-//                    CONFIG::DUAL_VIEW_FULL_SCREEN1_HEIGHT = (pixcoord)(paRezos[n].height);
-//                    _paPresetPrm[_primary_adapter_no].BackBufferWidth  = CONFIG::DUAL_VIEW_FULL_SCREEN1_WIDTH;
-//                    _paPresetPrm[_primary_adapter_no].BackBufferHeight = CONFIG::DUAL_VIEW_FULL_SCREEN1_HEIGHT;
-//                    _TRACE_("ゲーム画面１画面目(adapter_no="<<adapter_no<<")は、"<<paRezos[n].width<<"x"<<paRezos[n].height<<" に設定");
-//                } else if (adapter_no == _secondary_adapter_no) {
-//                    //ゲーム画面２画面目
-//                    int n = checkAppropriateDisplaySize(
-//                                paRezos, rezo_num,
-//                                (UINT)CONFIG::DUAL_VIEW_FULL_SCREEN2_WIDTH,
-//                                (UINT)CONFIG::DUAL_VIEW_FULL_SCREEN2_HEIGHT
-//                            );
-//                    CONFIG::DUAL_VIEW_FULL_SCREEN2_WIDTH  = (pixcoord)(paRezos[n].width);
-//                    CONFIG::DUAL_VIEW_FULL_SCREEN2_HEIGHT = (pixcoord)(paRezos[n].height);
-//                    _paPresetPrm[_secondary_adapter_no].BackBufferWidth  = CONFIG::DUAL_VIEW_FULL_SCREEN2_WIDTH;
-//                    _paPresetPrm[_secondary_adapter_no].BackBufferHeight = CONFIG::DUAL_VIEW_FULL_SCREEN2_HEIGHT;
-//                    _TRACE_("ゲーム画面２画面目(adapter_no="<<adapter_no<<")は、"<<paRezos[n].width<<"x"<<paRezos[n].height<<" に設定");
-//                } else {
-//                    //メモ：ゲーム画面３画面目以降１画面目・２画面目の解像度は、現状の解像度をそのまま設定。
-//                    pixcoord width = _paAvailableAdapter[adapter_no].rcMonitor.right -  _paAvailableAdapter[adapter_no].rcMonitor.left;
-//                    pixcoord height = _paAvailableAdapter[adapter_no].rcMonitor.bottom -  _paAvailableAdapter[adapter_no].rcMonitor.top;
-//                    _paPresetPrm[adapter_no].BackBufferWidth  = width;
-//                    _paPresetPrm[adapter_no].BackBufferHeight = height;
-//                    _TRACE_("adapter_no="<<adapter_no << "の画面は、現状の "<<width<<"x"<<height<<" に設定");
-//                }
-//
-//            } else {
-//                //１画面フルスクリーン時
-//                if (adapter_no == _primary_adapter_no) {
-//                    int n = checkAppropriateDisplaySize(
-//                                paRezos, rezo_num,
-//                                (UINT)CONFIG::SINGLE_VIEW_FULL_SCREEN_WIDTH,
-//                                (UINT)CONFIG::SINGLE_VIEW_FULL_SCREEN_HEIGHT
-//                            );
-//                    CONFIG::SINGLE_VIEW_FULL_SCREEN_WIDTH = (pixcoord)(paRezos[n].width);
-//                    CONFIG::SINGLE_VIEW_FULL_SCREEN_HEIGHT = (pixcoord)(paRezos[n].height);
-//                    _paPresetPrm[_primary_adapter_no].BackBufferWidth  = CONFIG::SINGLE_VIEW_FULL_SCREEN_WIDTH;
-//                    _paPresetPrm[_primary_adapter_no].BackBufferHeight = CONFIG::SINGLE_VIEW_FULL_SCREEN_HEIGHT;
-//                } else {
-//                    _paPresetPrm[adapter_no].BackBufferWidth  = 0;
-//                    _paPresetPrm[adapter_no].BackBufferHeight = 0;
-//                }
-//
-//            }
-//            //上書き更新
-//            _paDisplayMode[adapter_no].Width  = _paPresetPrm[adapter_no].BackBufferWidth;
-//            _paDisplayMode[adapter_no].Height = _paPresetPrm[adapter_no].BackBufferHeight;
-//            _TRACE_("<---" << adapter_no+1 << "画面目の解像度は、"<<_paDisplayMode[adapter_no].Width<<"x"<<_paDisplayMode[adapter_no].Height<<"に確定しました。");
-//        }
-//    }
-
+    pGOD->setDisplaySizeInfo();
     pGOD->setAppropriateDisplaySize();
-
-
     _paHWnd = NEW HWND[_num_adapter > 2 ? _num_adapter : 2];
     for (int i = 0; i < (_num_adapter > 2 ? _num_adapter : 2); i++) {
         _paHWnd[i] = nullptr;
@@ -1622,6 +1551,8 @@ HRESULT God::initDx9Device() {
 
 
 HRESULT God::restoreFullScreenRenderTarget() {
+_TRACE_("restoreFullScreenRenderTarget() 1");
+
     if (!CONFIG::FULL_SCREEN) {
         _TRACE_("【警告】フルスクリーン時意外、呼び出し不要です。");
         return D3D_OK;
@@ -1637,7 +1568,7 @@ HRESULT God::restoreFullScreenRenderTarget() {
                                         D3DPOOL_DEFAULT,
                                         &_pRenderTexture,
                                         nullptr);
-
+_TRACE_("restoreFullScreenRenderTarget() 2");
 //    LPDIRECT3DTEXTURE9 pIDirect3DTexture9;
 //    HRESULT hr = D3DXCreateTextureFromFileEx(
 //                     God::_pID3DDevice9,  // [in] LPDIRECT3DDEVICE9 pDevice,
@@ -1669,7 +1600,7 @@ HRESULT God::restoreFullScreenRenderTarget() {
     //        HANDLE* pHandle
     //    );
 
-
+_TRACE_("restoreFullScreenRenderTarget() 3");
     returnWhenFailed(hr, D3D_OK, "レンダリングターゲットテクスチャ("<<CONFIG::RENDER_TARGET_BUFFER_WIDTH<<"x"<<CONFIG::RENDER_TARGET_BUFFER_HEIGHT<<")の作成に失敗。\nサイズを確認して下さい。");
     //RenderTarget(描画先)をテクスチャへ切り替え
     hr = _pRenderTexture->GetSurfaceLevel(0, &_pRenderTextureSurface);
@@ -1677,7 +1608,7 @@ HRESULT God::restoreFullScreenRenderTarget() {
     hr = God::_pID3DDevice9->SetRenderTarget(0, _pRenderTextureSurface);
     returnWhenFailed(hr, D3D_OK, "レンダリングターゲットテクスチャへ SetRenderTarget 出来ませんでした。");
 
-
+_TRACE_("restoreFullScreenRenderTarget() 4");
     //テクスチャに描画する際の深度バッファ用サーフェイスを別途作成
     hr = God::_pID3DDevice9->CreateDepthStencilSurface(
             CONFIG::RENDER_TARGET_BUFFER_WIDTH,
@@ -1689,22 +1620,33 @@ HRESULT God::restoreFullScreenRenderTarget() {
             &_pRenderTextureZ,                      //IDirect3DSurface9** ppSurface,
             nullptr                                 //HANDLE*             pHandle 現在未使用
     );
-    //深度バッファ作成自動生成の、深度バッファ用サーフェイスを上記に変更
     returnWhenFailed(hr, D3D_OK, "レンダリングターゲットテクスチャのZバッファ作成に失敗しました。");
+_TRACE_("restoreFullScreenRenderTarget() 5");
+    //深度バッファ作成自動生成の、深度バッファ用サーフェイスを上記に変更
     hr =  God::_pID3DDevice9->SetDepthStencilSurface(_pRenderTextureZ);
     returnWhenFailed(hr, D3D_OK, "レンダリングターゲットテクスチャへ SetDepthStencilSurface 出来ませんでした。");
+_TRACE_("restoreFullScreenRenderTarget() 6");
     //背景色でクリア
     hr = God::_pID3DDevice9->Clear(0, nullptr, D3DCLEAR_TARGET, _color_border, 1.0f, 0);
+    //returnWhenFailed(hr, D3D_OK,  "クリア色(_color_border)の塗りつぶしよる、画面クリアに失敗しました。1");
+_TRACE_("restoreFullScreenRenderTarget() 7");
     hr = God::_pID3DDevice9->Present(nullptr, nullptr, nullptr, nullptr);
+    //returnWhenFailed(hr, D3D_OK,  "クリア色(_color_border)の塗りつぶしよる、画面クリアに失敗しました。2");
+_TRACE_("restoreFullScreenRenderTarget() 8");
     hr = God::_pID3DDevice9->Clear(0, nullptr, D3DCLEAR_TARGET, _color_border, 1.0f, 0);
+    //returnWhenFailed(hr, D3D_OK,  "クリア色(_color_border)の塗りつぶしよる、画面クリアに失敗しました。3");
+_TRACE_("restoreFullScreenRenderTarget() 9");
     hr = God::_pID3DDevice9->Present(nullptr, nullptr, nullptr, nullptr);
-    returnWhenFailed(hr, D3D_OK,  "クリア色(_color_border)の塗りつぶしよる、画面クリアに失敗しました。");
+    //returnWhenFailed(hr, D3D_OK,  "クリア色(_color_border)の塗りつぶしよる、画面クリアに失敗しました。4");
+_TRACE_("restoreFullScreenRenderTarget() 10");
 
     //アダプタに関連付けられたスワップチェーンを取得してバックバッファ取得
     hr = God::_pID3DDevice9->GetSwapChain( _primary_adapter_no, &_apSwapChain[PRIMARY_VIEW] );
     returnWhenFailed(hr, D3D_OK, "スワップチェイン取得に失敗しました。");
+_TRACE_("restoreFullScreenRenderTarget() 11");
     hr = _apSwapChain[PRIMARY_VIEW]->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &_apBackBuffer[PRIMARY_VIEW] );
     returnWhenFailed(hr, D3D_OK, "スワップチェインから、ターゲットのバックバッファ取得に失敗しました。");
+_TRACE_("restoreFullScreenRenderTarget() 12");
     if (CONFIG::DUAL_VIEW) {
         hr = God::_pID3DDevice9->GetSwapChain( _secondary_adapter_no, &_apSwapChain[SECONDARY_VIEW] );
         returnWhenFailed(hr, D3D_OK, "２画面目のスワップチェイン取得に失敗しました。\nマルチディスプレイ環境に問題発生しました。");
@@ -1718,56 +1660,57 @@ HRESULT God::restoreFullScreenRenderTarget() {
                 _pRenderTextureSurface, &_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW],
                 _apBackBuffer[PRIMARY_VIEW], &_aRect_ViewScreen[PRIMARY_VIEW],
                 D3DTEXF_NONE);
-        checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 1画面目、背景色塗に失敗しました。(1)\n"
-                                     "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[PRIMARY_VIEW]="<<_apBackBuffer[PRIMARY_VIEW]);
+        //checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 1画面目、背景色塗に失敗しました。(1)\n"
+        //                             "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[PRIMARY_VIEW]="<<_apBackBuffer[PRIMARY_VIEW]);
 
         hr = God::_pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW],
                 _apBackBuffer[SECONDARY_VIEW], &_aRect_ViewScreen[SECONDARY_VIEW],
                 D3DTEXF_NONE);
-        checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 2画面目、背景色塗に失敗しました。(1)\n"
-                                     "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[PRIMARY_VIEW]="<<_apBackBuffer[PRIMARY_VIEW]);
+        //checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 2画面目、背景色塗に失敗しました。(1)\n"
+        //                             "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[PRIMARY_VIEW]="<<_apBackBuffer[PRIMARY_VIEW]);
     } else {
         hr = God::_pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_rectRenderTargetBuffer,
                 _apBackBuffer[PRIMARY_VIEW], &_aRect_ViewScreen[PRIMARY_VIEW],
                 D3DTEXF_NONE);
-        checkDxException(hr, D3D_OK, "FULL_SCREEN 背景色塗に失敗しました。(1)");
+        //checkDxException(hr, D3D_OK, "FULL_SCREEN 背景色塗に失敗しました。(1)");
     }
 
     hr = God::_pID3DDevice9->Present(nullptr, nullptr, nullptr, nullptr);
-    returnWhenFailed(hr, D3D_OK, "Present(nullptr, nullptr, nullptr, nullptr)に失敗しました。");
+    //returnWhenFailed(hr, D3D_OK, "Present(nullptr, nullptr, nullptr, nullptr)に失敗しました。");
     //フリップしてもう一度背景色で塗る
     if (CONFIG::DUAL_VIEW) {
         hr = God::_pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW],
                 _apBackBuffer[PRIMARY_VIEW], &_aRect_ViewScreen[PRIMARY_VIEW],
                 D3DTEXF_NONE);
-        checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 1画面目、背景色塗に失敗しました。(2)\n"
-                                     "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[PRIMARY_VIEW]="<<_apBackBuffer[PRIMARY_VIEW]);
+        //checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 1画面目、背景色塗に失敗しました。(2)\n"
+        //                             "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[PRIMARY_VIEW]="<<_apBackBuffer[PRIMARY_VIEW]);
 
         hr = God::_pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW],
                 _apBackBuffer[SECONDARY_VIEW], &_aRect_ViewScreen[SECONDARY_VIEW],
                 D3DTEXF_NONE);
-        checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 2画面目、背景色塗に失敗しました。(2)\n"
-                                     "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[PRIMARY_VIEW]="<<_apBackBuffer[PRIMARY_VIEW]);
+        //checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 2画面目、背景色塗に失敗しました。(2)\n"
+        //                             "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[PRIMARY_VIEW]="<<_apBackBuffer[PRIMARY_VIEW]);
     } else {
         hr = God::_pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_rectRenderTargetBuffer,
                 _apBackBuffer[PRIMARY_VIEW], &_aRect_ViewScreen[PRIMARY_VIEW],
                 D3DTEXF_NONE
                 );
-        checkDxException(hr, D3D_OK, "FULL_SCREEN 背景色塗に失敗しました。(2)");
+        //checkDxException(hr, D3D_OK, "FULL_SCREEN 背景色塗に失敗しました。(2)");
     }
     hr = God::_pID3DDevice9->Present(nullptr, nullptr, nullptr, nullptr);
-    returnWhenFailed(hr, D3D_OK, "Present(nullptr, nullptr, nullptr, nullptr)に失敗しました。(2)");
+    //returnWhenFailed(hr, D3D_OK, "Present(nullptr, nullptr, nullptr, nullptr)に失敗しました。(2)");
+_TRACE_("restoreFullScreenRenderTarget() 20");
     //↑無駄な感じだが、VISTAとXPの２画面目フルスクリーンモード時
     //  両対応させるのはこのようなコードしかないという結論。
 
     //フルスクリーンのウィンドウ位置を補正
     EnumDisplayMonitors(nullptr, nullptr, God::updateMoniterPixcoordCallback, (LPARAM)this);
-
+_TRACE_("restoreFullScreenRenderTarget() 21");
     for (int n = 0; n < _num_adapter; n++) {
         pixcoord full_screen_x = _paAvailableAdapter[n].rcMonitor.left;
         pixcoord full_screen_y = _paAvailableAdapter[n].rcMonitor.top;
@@ -1779,6 +1722,8 @@ HRESULT God::restoreFullScreenRenderTarget() {
                      full_screen_x, full_screen_y, 0, 0,
                      SWP_NOSIZE);
     }
+
+_TRACE_("restoreFullScreenRenderTarget() 23");
     return D3D_OK;
 }
 
@@ -2070,7 +2015,31 @@ void God::presentSpacetimeVisualize() {
             CONFIG::DUAL_VIEW_FULL_SCREEN2_HEIGHT = CONFIG::DUAL_VIEW_FULL_SCREEN2_HEIGHT_BK;
             CONFIG::SINGLE_VIEW_FULL_SCREEN_WIDTH = CONFIG::SINGLE_VIEW_FULL_SCREEN_WIDTH_BK;
             CONFIG::SINGLE_VIEW_FULL_SCREEN_HEIGHT = CONFIG::SINGLE_VIEW_FULL_SCREEN_HEIGHT_BK;
+_TRACE_("pGOD->setDisplaySizeInfo(); begin");
+            pGOD->setDisplaySizeInfo();
+_TRACE_("pGOD->setDisplaySizeInfo(); done");
+_TRACE_("pGOD->setAppropriateDisplaySize(); begin");
             pGOD->setAppropriateDisplaySize();
+_TRACE_("pGOD->setAppropriateDisplaySize(); done");
+
+            //バックバッファサイズ
+            if (CONFIG::FULL_SCREEN) {
+                if(CONFIG::DUAL_VIEW) {
+                    //フルスクリーンモード・２画面使用 (フルスクリーンチェックで上書きされるかもしれない)
+                    _paPresetPrm[_primary_adapter_no].BackBufferWidth  = CONFIG::DUAL_VIEW_FULL_SCREEN1_WIDTH;
+                    _paPresetPrm[_primary_adapter_no].BackBufferHeight = CONFIG::DUAL_VIEW_FULL_SCREEN1_HEIGHT;
+                    _paPresetPrm[_secondary_adapter_no].BackBufferWidth  = CONFIG::DUAL_VIEW_FULL_SCREEN2_WIDTH;
+                    _paPresetPrm[_secondary_adapter_no].BackBufferHeight = CONFIG::DUAL_VIEW_FULL_SCREEN2_HEIGHT;
+                } else {
+                    //フルスクリーンモード・１画面使用 (フルスクリーンチェックで上書きされるかもしれない)
+                    _paPresetPrm[_primary_adapter_no].BackBufferWidth  = CONFIG::SINGLE_VIEW_FULL_SCREEN_WIDTH;
+                    _paPresetPrm[_primary_adapter_no].BackBufferHeight = CONFIG::SINGLE_VIEW_FULL_SCREEN_HEIGHT;
+                    _paPresetPrm[_secondary_adapter_no].BackBufferWidth  = 0;
+                    _paPresetPrm[_secondary_adapter_no].BackBufferHeight = 0;
+                }
+            }
+
+_TRACE_("SetWindowPos()!");
             if (CONFIG::DUAL_VIEW) {
                 SetWindowPos(_paHWnd[_primary_adapter_no], NULL, 0, 0,
                         _paPresetPrm[_primary_adapter_no].BackBufferWidth,
