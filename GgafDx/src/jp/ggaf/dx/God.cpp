@@ -1981,31 +1981,7 @@ void God::presentSpacetimeVisualize() {
         }
         _TRACE_("【デバイスロスト処理/リソース解放】協調性レベルチェック <-------- END");
 
-        //デバイスリセットを試みる
-        _TRACE_("【デバイスロスト処理】デバイスリセット BEGIN ------>");
-        for (int i = 0; i < 100*60*10; i++) {
-            if (CONFIG::FULL_SCREEN && CONFIG::DUAL_VIEW) {
-                hr = pDevice->Reset(_paPresetPrm);
-            } else {
-                hr = pDevice->Reset(&(_paPresetPrm[_primary_adapter_no]));
-            }
-            if (hr != D3D_OK) {
-                if (hr == D3DERR_DRIVERINTERNALERROR) {
-                    Sleep(10);
-                    return;
-                } else if (hr == D3DERR_DRIVERINTERNALERROR) {
-                    throwCriticalDxException(hr, "【デバイスロスト処理/デバイスリセット】D3DERR_DRIVERINTERNALERROR。強制終了します。");
-                } else if (hr == D3DERR_OUTOFVIDEOMEMORY) {
-                    throwCriticalDxException(hr, "【デバイスロスト処理/デバイスリセット】D3DERR_OUTOFVIDEOMEMORY。メモリがありません。強制終了します。");
-                } else {
-                    Sleep(10);
-                    return;
-                }
-            } else {
-                break;
-            }
-        }
-        _TRACE_("【デバイスロスト処理】デバイスリセット <-------- END");
+
 
         //解像度変更を考慮
         if (CONFIG::FULL_SCREEN) {
@@ -2056,6 +2032,35 @@ _TRACE_("SetWindowPos()!");
                         SWP_NOMOVE | SWP_NOZORDER);
             }
         }
+
+
+
+        //デバイスリセットを試みる
+        _TRACE_("【デバイスロスト処理】デバイスリセット BEGIN ------>");
+        for (int i = 0; i < 100*60*10; i++) {
+            if (CONFIG::FULL_SCREEN && CONFIG::DUAL_VIEW) {
+                hr = pDevice->Reset(_paPresetPrm);
+            } else {
+                hr = pDevice->Reset(&(_paPresetPrm[_primary_adapter_no]));
+            }
+            if (hr != D3D_OK) {
+                if (hr == D3DERR_DRIVERINTERNALERROR) {
+                    Sleep(10);
+                    return;
+                } else if (hr == D3DERR_DRIVERINTERNALERROR) {
+                    throwCriticalDxException(hr, "【デバイスロスト処理/デバイスリセット】D3DERR_DRIVERINTERNALERROR。強制終了します。");
+                } else if (hr == D3DERR_OUTOFVIDEOMEMORY) {
+                    throwCriticalDxException(hr, "【デバイスロスト処理/デバイスリセット】D3DERR_OUTOFVIDEOMEMORY。メモリがありません。強制終了します。");
+                } else {
+                    Sleep(10);
+                    return;
+                }
+            } else {
+                break;
+            }
+        }
+        _TRACE_("【デバイスロスト処理】デバイスリセット <-------- END");
+
         //デバイス再設定
         _TRACE_("【デバイスロスト処理】デバイス再構築 BEGIN ------>");
         initDx9Device();
