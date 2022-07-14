@@ -232,8 +232,11 @@ public:
 
     void setDisplaySizeInfo();
 
-
-    void setAppropriateDisplaySize();
+    /**
+     * 適切な解像度設定を行う .
+     * @param allow_chang_rezo true:解像度変更を許可する／false:解像度変更はしない
+     */
+    void setAppropriateDisplaySize(bool allow_chang_rezo = true);
 
 
     /**
