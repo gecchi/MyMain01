@@ -53,6 +53,30 @@ int main(int argc, char *argv[]) {
  */
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow) {
     LibWinMain(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
+
+#ifdef MY_DEBUG
+    #ifdef _MSC_VER
+        #ifdef _DEBUG
+            ::_CrtSetDbgFlag(_CRTDBG_LEAK_CHECK_DF | _CRTDBG_ALLOC_MEM_DF);
+        #else
+            //特に何も無し
+        #endif
+    #else
+        //メモリーリ－クチェックBEGIN
+       // ::detectMemoryLeaksStart(std::cout);
+    #endif
+#else
+    #ifdef _MSC_VER
+        #ifdef _DEBUG
+            ::_CrtSetDbgFlag(_CRTDBG_LEAK_CHECK_DF | _CRTDBG_ALLOC_MEM_DF);
+        #else
+            //特に何も無し
+        #endif
+    #else
+        //特に何も無し
+    #endif
+#endif
+
     TCHAR current_dir[MAX_PATH];
     GetCurrentDirectory(MAX_PATH, current_dir);
     LPTSTR command_line = GetCommandLine();
@@ -100,29 +124,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     WNDCLASSEX wcex2 = wcex1;
     wcex2.lpszClassName = "secondary";
     DWORD dwStyle = WS_OVERLAPPEDWINDOW;
-#ifdef MY_DEBUG
-    #ifdef _MSC_VER
-        #ifdef _DEBUG
-            ::_CrtSetDbgFlag(_CRTDBG_LEAK_CHECK_DF | _CRTDBG_ALLOC_MEM_DF);
-        #else
-            //特に何も無し
-        #endif
-    #else
-        //メモリーリ－クチェックBEGIN
-       // ::detectMemoryLeaksStart(std::cout);
-    #endif
-#else
-    #ifdef _MSC_VER
-        #ifdef _DEBUG
-            ::_CrtSetDbgFlag(_CRTDBG_LEAK_CHECK_DF | _CRTDBG_ALLOC_MEM_DF);
-        #else
-            //特に何も無し
-        #endif
-    #else
-        //特に何も無し
-    #endif
-#endif
-
     MSG msg;
 #ifdef MY_DEBUG
     try {

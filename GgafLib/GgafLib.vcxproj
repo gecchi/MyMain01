@@ -117,6 +117,7 @@
     <ClInclude Include="include\jp\ggaf\lib\util\wmkeyinput.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\GgafLib.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\camera\CameraWorkerChanger.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\camera\DefaultCamera.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\camera\DefaultCameraUpVector.cpp" />

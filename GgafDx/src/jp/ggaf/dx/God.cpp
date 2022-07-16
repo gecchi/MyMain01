@@ -337,10 +337,6 @@ void God::setAppropriateDisplaySize(bool allow_chang_rezo) {
                     _paPresetPrm[_secondary_adapter_no].BackBufferHeight = CONFIG::DUAL_VIEW_FULL_SCREEN2_HEIGHT;
                 } else {
                     //ƒƒ‚FƒQ[ƒ€‰æ–Ê‚R‰æ–Ê–ÚˆÈ~‚P‰æ–Ê–ÚE‚Q‰æ–Ê–Ú‚Ì‰ð‘œ“x‚ÍAŒ»ó‚Ì‰ð‘œ“x‚ð‚»‚Ì‚Ü‚ÜÝ’èB
-//                    pixcoord width = _paAvailableAdapter[adapter_no].rcMonitor.right -  _paAvailableAdapter[adapter_no].rcMonitor.left;
-//                    pixcoord height = _paAvailableAdapter[adapter_no].rcMonitor.bottom -  _paAvailableAdapter[adapter_no].rcMonitor.top;
-//                    _paPresetPrm[adapter_no].BackBufferWidth  = width;
-//                    _paPresetPrm[adapter_no].BackBufferHeight = height;
                     D3DDISPLAYMODE structD3DDisplayMode;
                     hr = _pID3D9->GetAdapterDisplayMode(adapter_no, &structD3DDisplayMode);
                     _paPresetPrm[adapter_no].BackBufferWidth  = (pixcoord)(structD3DDisplayMode.Width);
