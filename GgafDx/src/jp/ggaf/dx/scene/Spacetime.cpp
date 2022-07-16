@@ -179,7 +179,7 @@ void Spacetime::processSettlementBehavior() {
 }
 
 void Spacetime::draw() {
-    IDirect3DDevice9* const pDevice = God::_pID3DDevice9;
+    IDirect3DDevice9* const pDevice = pGOD->_pID3DDevice9;
 
     //ここで、全 Model に対してTextureBlinkerの状態を進行させる
     ModelConnection* pModelCon = pGOD->_pModelManager->getFirstConnection();

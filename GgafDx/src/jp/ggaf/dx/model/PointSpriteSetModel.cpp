@@ -41,7 +41,7 @@ HRESULT PointSpriteSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_s
         _TRACE_(FUNC_NAME<<" "<<_model_id<<" の描画セット数オーバー。_draw_set_num="<<_draw_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
     }
 #endif
-    IDirect3DDevice9* pDevice = God::_pID3DDevice9;
+    IDirect3DDevice9* pDevice = pGOD->_pID3DDevice9;
     //対象アクター
     const PointSpriteSetActor* pTargetActor = (PointSpriteSetActor*)prm_pActor_target;
     //対象PointSpriteSetActorのエフェクトラッパ
@@ -226,7 +226,7 @@ void PointSpriteSetModel::restore() {
     if (_paVertexBuffer == nullptr) {
         HRESULT hr;
         //頂点バッファ作成
-        hr = God::_pID3DDevice9->CreateVertexBuffer(
+        hr = pGOD->_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices,
                 D3DUSAGE_WRITEONLY | D3DUSAGE_POINTS,
                 PointSpriteSetModel::FVF,

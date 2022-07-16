@@ -74,10 +74,10 @@ void LibWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
             break;
         }
         case WM_SIZE: {
-            if (pGOD && GgafDx::God::_pHWndPrimary) {
+            if (pGOD && pGOD->_pHWndPrimary) {
                 if (!CONFIG::FULL_SCREEN) {
-                    GgafDx::God::_adjustGameWindow = true;
-                    GgafDx::God::_pHWnd_adjustScreen = hWnd; //サイズ変更したほうのWINDOW
+                    pGOD->_adjustGameWindow = true;
+                    pGOD->_pHWnd_adjustScreen = hWnd; //サイズ変更したほうのWINDOW
                 }
             }
             GgafCore::God::_pGod->syncTimeFrame();
@@ -91,9 +91,12 @@ void LibWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
             GgafCore::God::_pGod->syncTimeFrame();
             break;
         }
-
+        case WM_CONTEXTMENU: {
+            GgafCore::God::_pGod->syncTimeFrame();
+            break;
+        }
         case WM_SETFOCUS: {
-            if (GgafDx::God::_pHWndPrimary) {
+            if (pGOD->_pHWndPrimary) {
                 HRESULT hr;
                 // マウス強調レベル設定
                 if (GgafDx::Input::_pMouseInputDevice) {

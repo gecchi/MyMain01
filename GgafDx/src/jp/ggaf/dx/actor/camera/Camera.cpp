@@ -77,7 +77,7 @@ _y_buffer_bottom(PX_C(CONFIG::GAME_BUFFER_HEIGHT) / -2)
     getVecVehicle()->setMvAngTwd(0,0,0);
     setHitAble(false);
 
-    God::_pID3DDevice9->GetViewport(&_viewport);
+    pGOD->_pID3DDevice9->GetViewport(&_viewport);
 
     _x_prev = 0;
     _y_prev = 0;

@@ -37,7 +37,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     WNDCLASSEX wcex2 = wcex1;
     wcex2.lpszClassName = "secondary";
     DWORD dwStyle = WS_OVERLAPPEDWINDOW;
-
     //神の誕生
     VvvGod god;
     //ゲームループ
@@ -67,7 +66,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
  */
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
     LibWndProc(hWnd, message, wParam, lParam); //直後に、この様に呼び出して下さい。
-    //必要があれば、メッセージ処理をココに追加記述
+    VvvGod::God* pGod = pGOD;
     switch (message) {
 
         case WM_CREATE: {
@@ -88,15 +87,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
         }
         case WM_SYSCOMMAND: {
             if(wParam == MY_IDM_RESET_WINDOW_SIZE) {
-                //初期ウィンドウサイズにリセット
-                if (!CONFIG::FULL_SCREEN) {
-                    if (CONFIG::DUAL_VIEW) {
-                        GgafDx::God::resetWindowsize(hWnd1, CONFIG::DUAL_VIEW_WINDOW1_WIDTH, CONFIG::DUAL_VIEW_WINDOW1_HEIGHT);
-                        GgafDx::God::resetWindowsize(hWnd2, CONFIG::DUAL_VIEW_WINDOW2_WIDTH, CONFIG::DUAL_VIEW_WINDOW2_HEIGHT);
-                    } else {
-                        GgafDx::God::resetWindowsize(hWnd1, CONFIG::SINGLE_VIEW_WINDOW_WIDTH, CONFIG::SINGLE_VIEW_WINDOW_HEIGHT);
-                    }
-                }
+                pGod->resetInitWindowsize();
             }
             break;
         }

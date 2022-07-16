@@ -40,7 +40,7 @@ HRESULT BoardSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num
         throwCriticalException(FUNC_NAME<<" "<<_model_id<<" の描画セット数オーバー。_draw_set_num="<<_draw_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
     }
 #endif
-    IDirect3DDevice9* const pDevice = God::_pID3DDevice9;
+    IDirect3DDevice9* const pDevice = pGOD->_pID3DDevice9;
     //対象Actor
     const BoardSetActor* const pTargetActor = (BoardSetActor*)prm_pActor_target;
     //対象BoardSetActorのエフェクトラッパ
@@ -239,7 +239,7 @@ void BoardSetModel::restore() {
     if (_paVertexBuffer == nullptr) {
         HRESULT hr;
         //バッファ作成
-        hr = God::_pID3DDevice9->CreateVertexBuffer(
+        hr = pGOD->_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices * _draw_set_num,
                 D3DUSAGE_WRITEONLY,
                 BoardSetModel::FVF,
@@ -271,7 +271,7 @@ void BoardSetModel::restore() {
     if (_paIndexBuffer == nullptr) {
         HRESULT hr;
         int nFaces = 2;
-        hr = God::_pID3DDevice9->CreateIndexBuffer(
+        hr = pGOD->_pID3DDevice9->CreateIndexBuffer(
                                 sizeof(WORD) * nFaces * 3 * _draw_set_num,
                                 D3DUSAGE_WRITEONLY,
                                 D3DFMT_INDEX16,

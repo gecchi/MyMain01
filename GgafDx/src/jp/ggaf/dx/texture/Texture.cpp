@@ -53,7 +53,7 @@ void Texture::restore() {
         //通常の２Dテクスチャの場合
         LPDIRECT3DTEXTURE9 pIDirect3DTexture9;
         HRESULT hr = D3DXCreateTextureFromFileEx(
-                         God::_pID3DDevice9,  // [in] LPDIRECT3DDEVICE9 pDevice,
+                         pGOD->_pID3DDevice9,  // [in] LPDIRECT3DDEVICE9 pDevice,
                          texture_file_name.c_str(), // [in] LPCTSTR pSrcFile,
                          D3DX_DEFAULT,              // [in] UINT Widths,
                          D3DX_DEFAULT,              // [in] UINT Height,
@@ -73,7 +73,7 @@ void Texture::restore() {
             //失敗用テクスチャ"IlligalTexture.dds"を設定
             std::string texture_file_name2 = getTextureFilePath(CONFIG::ILLIGAL_TEXTURE);
             HRESULT hr2 = D3DXCreateTextureFromFileEx(
-                             God::_pID3DDevice9,   // [in] LPDIRECT3DDEVICE9 pDevice,
+                             pGOD->_pID3DDevice9,   // [in] LPDIRECT3DDEVICE9 pDevice,
                              texture_file_name2.c_str(), // [in] LPCTSTR pSrcFile,
                              D3DX_DEFAULT,               // [in] UINT Width,
                              D3DX_DEFAULT,               // [in] UINT Height,
@@ -101,7 +101,7 @@ void Texture::restore() {
         //環境マップテクスチャの場合
         LPDIRECT3DCUBETEXTURE9 pIDirect3DCubeTexture9;
         HRESULT hr = D3DXCreateCubeTextureFromFileEx(
-                            God::_pID3DDevice9,  // [in ] LPDIRECT3DDEVICE9 pDevice,
+                            pGOD->_pID3DDevice9,  // [in ] LPDIRECT3DDEVICE9 pDevice,
                             texture_file_name.c_str(), // [in ] LPCTSTR pSrcFile,
                             D3DX_DEFAULT,              // [in ] UINT Size,
                             D3DX_DEFAULT,              // [in ] UINT MipLevels,
@@ -120,7 +120,7 @@ void Texture::restore() {
             //失敗用環境マップテクスチャ"IlligalCubeMapTexture.dds"を設定
             std::string texture_file_name2 = getTextureFilePath(CONFIG::ILLIGAL_CUBEMAP_TEXTURE);
             HRESULT hr2 = D3DXCreateCubeTextureFromFileEx(
-                                    God::_pID3DDevice9,   // [in ] LPDIRECT3DDEVICE9 pDevice,
+                                    pGOD->_pID3DDevice9,   // [in ] LPDIRECT3DDEVICE9 pDevice,
                                     texture_file_name2.c_str(), // [in ] LPCTSTR pSrcFile,
                                     D3DX_DEFAULT,               // [in ] UINT Size,
                                     D3DX_DEFAULT,               // [in ] UINT MipLevels,

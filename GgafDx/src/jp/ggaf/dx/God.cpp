@@ -20,7 +20,7 @@ using namespace GgafDx;
     if (HR != OKVAL) { \
         std::stringstream ss; \
         ss << X; \
-        MessageBox(GgafDx::God::_pHWndPrimary, TEXT(ss.str().c_str()), TEXT("ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND | MB_TOPMOST); \
+        MessageBox(pGOD->_pHWndPrimary, TEXT(ss.str().c_str()), TEXT("ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND | MB_TOPMOST); \
         return E_FAIL; \
     } \
 }
@@ -32,33 +32,42 @@ using namespace GgafDx;
 #define SECONDARY_VIEW 1
 
 
-HWND God::_pHWndPrimary = nullptr;
-HWND God::_pHWndSecondary = nullptr;
-HINSTANCE God::_hInstance = nullptr;
-IDirect3D9* God::_pID3D9 = nullptr;
-IDirect3DDevice9* God::_pID3DDevice9 = nullptr;
-//D3DLIGHT9 God::_d3dlight9_default;
-D3DFILLMODE God::_d3dfillmode = D3DFILL_SOLID;//D3DFILL_WIREFRAME;//D3DFILL_SOLID;
+//HWND _pHWndPrimary = nullptr;
+//HWND _pHWndSecondary = nullptr;
+//HINSTANCE _hInstance = nullptr;
+//IDirect3D9* _pID3D9 = nullptr;
+//IDirect3DDevice9* _pID3DDevice9 = nullptr;
+////D3DLIGHT9 God::_d3dlight9_default;
+//D3DFILLMODE pGOD->_d3dfillmode = D3DFILL_SOLID;//D3DFILL_WIREFRAME;//D3DFILL_SOLID;
 
 //ModelManager* God::_pModelManager = nullptr;
 //EffectManager* God::_pEffectManager = nullptr;
 //TextureManager* God::_pCubeMapTextureManager = nullptr;
 //TextureManager* God::_pBumpMapTextureManager = nullptr;
-bool God::_is_device_lost_flg = false;
-bool God::_adjustGameWindow = false;
-HWND God::_pHWnd_adjustScreen = nullptr;
+//bool pGOD->_is_device_lost_flg = false;
+//bool _adjustGameWindow = false;
+//HWND _pHWnd_adjustScreen = nullptr;
 
-uint32_t God::_vs_v = 0;
-uint32_t God::_ps_v = 0;
+//uint32_t God::_vs_v = 0;
+//uint32_t God::_ps_v = 0;
 
 God::God() : GgafCore::God() {
+    _single_view_draw_position = CONFIG::DUAL_VIEW_DRAW_POSITION1;
+    _dual_view_draw_position1 = CONFIG::DUAL_VIEW_DRAW_POSITION2;
+    _dual_view_draw_position2 = CONFIG::SINGLE_VIEW_DRAW_POSITION;
+    _pID3D9 = nullptr;
+    _pID3DDevice9 = nullptr;
+    _d3dfillmode = D3DFILL_SOLID;
+
     _is_device_lost_flg = false;
     _adjustGameWindow = false;
     _pHWnd_adjustScreen = nullptr;
 
-    God::_hInstance = GetModuleHandle(0);
-
-
+    _pHWndPrimary = nullptr;
+    _pHWndSecondary = nullptr;
+    _hInstance = GetModuleHandle(0);
+    _vs_v = 0;
+    _ps_v = 0;
     GgafCore::CmRandomNumberGenerator::getInstance()->changeSeed(19740722UL); //19740722 Seed
     GgafCore::Rgb rgb_border = GgafCore::Rgb(CONFIG::BORDER_COLOR);
     _color_border = D3DCOLOR_RGBA(rgb_border._red, rgb_border._green, rgb_border._blue, 0);
@@ -119,8 +128,27 @@ God::God() : GgafCore::God() {
     _pCurveSrcManager = nullptr;
     _pCurveManufManager = nullptr;
 }
-
-
+void God::resetDotByDotWindowsize(int d) {
+    if (!CONFIG::FULL_SCREEN) {
+        if (CONFIG::DUAL_VIEW) {
+            resetWindowsize(_pHWndPrimary, CONFIG::RENDER_TARGET_BUFFER_WIDTH/2*d, CONFIG::RENDER_TARGET_BUFFER_HEIGHT*d);
+            resetWindowsize(_pHWndSecondary, CONFIG::RENDER_TARGET_BUFFER_WIDTH/2*d, CONFIG::RENDER_TARGET_BUFFER_HEIGHT*d);
+        } else {
+            resetWindowsize(_pHWndPrimary, CONFIG::RENDER_TARGET_BUFFER_WIDTH*d, CONFIG::RENDER_TARGET_BUFFER_HEIGHT*d);
+        }
+    }
+}
+void God::resetInitWindowsize() {
+    //初期ウィンドウサイズにリセット
+    if (!CONFIG::FULL_SCREEN) {
+        if (CONFIG::DUAL_VIEW) {
+            resetWindowsize(_pHWndPrimary, CONFIG::DUAL_VIEW_WINDOW1_WIDTH, CONFIG::DUAL_VIEW_WINDOW1_HEIGHT);
+            resetWindowsize(_pHWndSecondary, CONFIG::DUAL_VIEW_WINDOW2_WIDTH, CONFIG::DUAL_VIEW_WINDOW2_HEIGHT);
+        } else {
+            resetWindowsize(_pHWndPrimary, CONFIG::SINGLE_VIEW_WINDOW_WIDTH, CONFIG::SINGLE_VIEW_WINDOW_HEIGHT);
+        }
+    }
+}
 void God::resetWindowsize(HWND hWnd, pixcoord client_width, pixcoord client_height) {
     RECT wRect1, cRect1; // ウィンドウ全体の矩形、クライアント領域の矩形
     pixcoord ww1, wh1; // ウィンドウ全体の幅、高さ
@@ -152,44 +180,62 @@ void God::resetWindowsize(HWND hWnd, pixcoord client_width, pixcoord client_heig
 void God::chengeViewPos(HWND prm_pHWnd, int pos) {
     if (!CONFIG::FULL_SCREEN) {
         if (CONFIG::DUAL_VIEW) {
-            if (prm_pHWnd ==  God::_pHWndPrimary) {
-                CONFIG::DUAL_VIEW_DRAW_POSITION1 = pos;
-            } else if (prm_pHWnd ==  God::_pHWndSecondary) {
-                CONFIG::DUAL_VIEW_DRAW_POSITION2 = pos;
+            if (prm_pHWnd ==  _pHWndPrimary) {
+                _single_view_draw_position = pos;
+            } else if (prm_pHWnd ==  _pHWndSecondary) {
+                _dual_view_draw_position1 = pos;
             }
         } else {
-            if (prm_pHWnd ==  God::_pHWndPrimary) {
-                CONFIG::SINGLE_VIEW_DRAW_POSITION = pos;
+            if (prm_pHWnd ==  _pHWndPrimary) {
+                _dual_view_draw_position2 = pos;
             }
         }
         if (!CONFIG::FULL_SCREEN && prm_pHWnd) {
-            God::_adjustGameWindow = true;
-            God::_pHWnd_adjustScreen = prm_pHWnd;
+            _adjustGameWindow = true;
+            _pHWnd_adjustScreen = prm_pHWnd;
         }
     }
 }
 void God::chengeViewPos1(int pos) {
-    God::chengeViewPos(God::_pHWndPrimary, pos);
+    if (!CONFIG::FULL_SCREEN) {
+        if (CONFIG::DUAL_VIEW) {
+            _dual_view_draw_position2 = pos;
+        } else {
+            _single_view_draw_position = pos;
+        }
+    }
+    if (!CONFIG::FULL_SCREEN) {
+        _adjustGameWindow = true;
+        _pHWnd_adjustScreen = _pHWndPrimary;
+    }
 }
 void God::chengeViewPos2(int pos) {
-    God::chengeViewPos(God::_pHWndSecondary, pos);
+    if (!CONFIG::FULL_SCREEN) {
+        if (CONFIG::DUAL_VIEW) {
+            _dual_view_draw_position2 = pos;
+        }
+    }
+    if (!CONFIG::FULL_SCREEN) {
+        _adjustGameWindow = true;
+        _pHWnd_adjustScreen = _pHWndPrimary;
+    }
 }
 void God::chengeViewAspect(bool prm_b) {
     if (!CONFIG::FULL_SCREEN) {
         CONFIG::FIXED_GAME_VIEW_ASPECT = prm_b;
-        God::_adjustGameWindow = true;
-        God::_pHWnd_adjustScreen = God::_pHWndPrimary;
+        _adjustGameWindow = true;
+        _pHWnd_adjustScreen = _pHWndPrimary;
     }
 }
 void God::setDisplaySizeInfo() {
     //アダプタ情報格納
     for (int adapter_no = 0; adapter_no < _num_adapter; adapter_no++) {
-        _paAvailableAdapter[adapter_no].hMonitor = God::_pID3D9->GetAdapterMonitor(adapter_no);
-        int mode_num = God::_pID3D9->GetAdapterModeCount(adapter_no, D3DFMT_X8R8G8B8);
+        _paAvailableAdapter[adapter_no].hMonitor = _pID3D9->GetAdapterMonitor(adapter_no);
+        int mode_num = _pID3D9->GetAdapterModeCount(adapter_no, D3DFMT_X8R8G8B8);
         _paAvailableAdapter[adapter_no].setModeNum(mode_num);
         D3DDISPLAYMODE* paMode = _paAvailableAdapter[adapter_no].paModes;
         for (int n = 0; n < mode_num; n++) {
-            God::_pID3D9->EnumAdapterModes(adapter_no, D3DFMT_X8R8G8B8, n, &(paMode[n]));
+            _pID3D9->EnumAdapterModes(adapter_no, D3DFMT_X8R8G8B8, n, &(paMode[n]));
         }
     }
 
@@ -249,7 +295,7 @@ void God::setAppropriateDisplaySize(bool allow_chang_rezo) {
                 //２画面フルスクリーン時
                 if (adapter_no == _primary_adapter_no) {
                     //ゲーム画面１画面目
-                    if (allow_chang_rezo) {
+                    if (allow_chang_rezo && CONFIG::DUAL_VIEW_FULL_SCREEN1_WIDTH > 0) {
                         //解像度変更許可
                         int n = checkAppropriateDisplaySize(
                                     paRezos, rezo_num,
@@ -261,7 +307,7 @@ void God::setAppropriateDisplaySize(bool allow_chang_rezo) {
                     } else {
                         //解像度変更無し
                         D3DDISPLAYMODE structD3DDisplayMode0;
-                        hr = God::_pID3D9->GetAdapterDisplayMode(adapter_no, &structD3DDisplayMode0);
+                        hr = _pID3D9->GetAdapterDisplayMode(adapter_no, &structD3DDisplayMode0);
                         checkDxException(hr, D3D_OK, "GetAdapterDisplayMode に失敗しました。1");
                         CONFIG::DUAL_VIEW_FULL_SCREEN1_WIDTH  = (pixcoord)(structD3DDisplayMode0.Width);
                         CONFIG::DUAL_VIEW_FULL_SCREEN1_HEIGHT = (pixcoord)(structD3DDisplayMode0.Height);
@@ -270,7 +316,7 @@ void God::setAppropriateDisplaySize(bool allow_chang_rezo) {
                     _paPresetPrm[_primary_adapter_no].BackBufferHeight = CONFIG::DUAL_VIEW_FULL_SCREEN1_HEIGHT;
                 } else if (adapter_no == _secondary_adapter_no) {
                     //ゲーム画面２画面目
-                    if (allow_chang_rezo) {
+                    if (allow_chang_rezo && CONFIG::DUAL_VIEW_FULL_SCREEN2_WIDTH > 0) {
                         //解像度変更許可
                         int n = checkAppropriateDisplaySize(
                                     paRezos, rezo_num,
@@ -282,7 +328,7 @@ void God::setAppropriateDisplaySize(bool allow_chang_rezo) {
                     } else {
                         //解像度変更無し
                         D3DDISPLAYMODE structD3DDisplayMode1;
-                        hr = God::_pID3D9->GetAdapterDisplayMode(adapter_no, &structD3DDisplayMode1);
+                        hr = _pID3D9->GetAdapterDisplayMode(adapter_no, &structD3DDisplayMode1);
                         checkDxException(hr, D3D_OK, "GetAdapterDisplayMode に失敗しました。3");
                         CONFIG::DUAL_VIEW_FULL_SCREEN1_WIDTH  = (pixcoord)(structD3DDisplayMode1.Width);
                         CONFIG::DUAL_VIEW_FULL_SCREEN1_HEIGHT = (pixcoord)(structD3DDisplayMode1.Height);
@@ -296,7 +342,7 @@ void God::setAppropriateDisplaySize(bool allow_chang_rezo) {
 //                    _paPresetPrm[adapter_no].BackBufferWidth  = width;
 //                    _paPresetPrm[adapter_no].BackBufferHeight = height;
                     D3DDISPLAYMODE structD3DDisplayMode;
-                    hr = God::_pID3D9->GetAdapterDisplayMode(adapter_no, &structD3DDisplayMode);
+                    hr = _pID3D9->GetAdapterDisplayMode(adapter_no, &structD3DDisplayMode);
                     _paPresetPrm[adapter_no].BackBufferWidth  = (pixcoord)(structD3DDisplayMode.Width);
                     _paPresetPrm[adapter_no].BackBufferHeight = (pixcoord)(structD3DDisplayMode.Height);
                     checkDxException(hr, D3D_OK, "GetAdapterDisplayMode に失敗しました。4");
@@ -307,7 +353,7 @@ void God::setAppropriateDisplaySize(bool allow_chang_rezo) {
             } else {
                 //１画面フルスクリーン時
                 if (adapter_no == _primary_adapter_no) {
-                    if (allow_chang_rezo) {
+                    if (allow_chang_rezo && CONFIG::SINGLE_VIEW_FULL_SCREEN_WIDTH > 0) {
                         //解像度変更許可
                         int n = checkAppropriateDisplaySize(
                                     paRezos, rezo_num,
@@ -319,7 +365,7 @@ void God::setAppropriateDisplaySize(bool allow_chang_rezo) {
                     } else {
                         //解像度変更無し
                         D3DDISPLAYMODE structD3DDisplayMode0;
-                        hr = God::_pID3D9->GetAdapterDisplayMode(adapter_no, &structD3DDisplayMode0);
+                        hr = _pID3D9->GetAdapterDisplayMode(adapter_no, &structD3DDisplayMode0);
                         checkDxException(hr, D3D_OK, "GetAdapterDisplayMode に失敗しました。5");
                         CONFIG::SINGLE_VIEW_FULL_SCREEN_WIDTH  = (pixcoord)(structD3DDisplayMode0.Width);
                         CONFIG::SINGLE_VIEW_FULL_SCREEN_HEIGHT = (pixcoord)(structD3DDisplayMode0.Height);
@@ -428,9 +474,9 @@ void God::setAppropriateDisplaySize(bool allow_chang_rezo) {
                     _aRect_Present[SECONDARY_VIEW].right  = _aRect_Present[SECONDARY_VIEW].left + (fix_width * rate);
                     _aRect_Present[SECONDARY_VIEW].bottom = _aRect_Present[SECONDARY_VIEW].top  + (fix_height * rate);
                 }
-                setPositionPresentRect(CONFIG::DUAL_VIEW_DRAW_POSITION1, _aRect_Present[PRIMARY_VIEW],
+                setPositionPresentRect(_single_view_draw_position, _aRect_Present[PRIMARY_VIEW],
                                        CONFIG::DUAL_VIEW_FULL_SCREEN1_WIDTH, CONFIG::DUAL_VIEW_FULL_SCREEN1_HEIGHT);
-                setPositionPresentRect(CONFIG::DUAL_VIEW_DRAW_POSITION2, _aRect_Present[SECONDARY_VIEW],
+                setPositionPresentRect(_dual_view_draw_position1, _aRect_Present[SECONDARY_VIEW],
                                        CONFIG::DUAL_VIEW_FULL_SCREEN2_WIDTH, CONFIG::DUAL_VIEW_FULL_SCREEN2_HEIGHT);
             } else {
                 //「フルスクリーンモード・２画面使用・縦横比ストレッチ」の１画面目フロントバッファ描画領域
@@ -473,9 +519,9 @@ void God::setAppropriateDisplaySize(bool allow_chang_rezo) {
                     _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + (fix_height * rate);
                 }
                 _aRect_Present[SECONDARY_VIEW] = _aRect_Present[PRIMARY_VIEW];
-                setPositionPresentRect(CONFIG::SINGLE_VIEW_DRAW_POSITION, _aRect_Present[PRIMARY_VIEW],
+                setPositionPresentRect(_dual_view_draw_position2, _aRect_Present[PRIMARY_VIEW],
                                        CONFIG::SINGLE_VIEW_FULL_SCREEN_WIDTH, CONFIG::SINGLE_VIEW_FULL_SCREEN_HEIGHT);
-                setPositionPresentRect(CONFIG::SINGLE_VIEW_DRAW_POSITION, _aRect_Present[SECONDARY_VIEW],
+                setPositionPresentRect(_dual_view_draw_position2, _aRect_Present[SECONDARY_VIEW],
                                        CONFIG::SINGLE_VIEW_FULL_SCREEN_WIDTH, CONFIG::SINGLE_VIEW_FULL_SCREEN_HEIGHT);
             } else {
                 //「フルスクリーンモード・１画面使用・縦横比ストレッチ」のフロントバッファ描画領域
@@ -530,9 +576,9 @@ void God::setAppropriateDisplaySize(bool allow_chang_rezo) {
                     _aRect_Present[SECONDARY_VIEW].bottom = _aRect_Present[SECONDARY_VIEW].top  + (fix_height * rate);
                 }
 
-                setPositionPresentRect(CONFIG::DUAL_VIEW_DRAW_POSITION1, _aRect_Present[PRIMARY_VIEW],
+                setPositionPresentRect(_single_view_draw_position, _aRect_Present[PRIMARY_VIEW],
                                        CONFIG::DUAL_VIEW_WINDOW1_WIDTH, CONFIG::DUAL_VIEW_WINDOW1_HEIGHT);
-                setPositionPresentRect(CONFIG::DUAL_VIEW_DRAW_POSITION2, _aRect_Present[SECONDARY_VIEW],
+                setPositionPresentRect(_dual_view_draw_position1, _aRect_Present[SECONDARY_VIEW],
                                        CONFIG::DUAL_VIEW_WINDOW2_WIDTH, CONFIG::DUAL_VIEW_WINDOW2_HEIGHT);
             } else {
                 //「ウィンドウモード・２窓使用・縦横比ストレッチ」の１窓目フロントバッファ描画領域
@@ -568,9 +614,9 @@ void God::setAppropriateDisplaySize(bool allow_chang_rezo) {
                     _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + (fix_height * rate);
                 }
                 _aRect_Present[SECONDARY_VIEW] = _aRect_Present[PRIMARY_VIEW];
-                setPositionPresentRect(CONFIG::SINGLE_VIEW_DRAW_POSITION, _aRect_Present[PRIMARY_VIEW],
+                setPositionPresentRect(_dual_view_draw_position2, _aRect_Present[PRIMARY_VIEW],
                                        CONFIG::SINGLE_VIEW_WINDOW_WIDTH, CONFIG::SINGLE_VIEW_WINDOW_HEIGHT);
-                setPositionPresentRect(CONFIG::SINGLE_VIEW_DRAW_POSITION, _aRect_Present[SECONDARY_VIEW],
+                setPositionPresentRect(_dual_view_draw_position2, _aRect_Present[SECONDARY_VIEW],
                                        CONFIG::SINGLE_VIEW_WINDOW_WIDTH, CONFIG::SINGLE_VIEW_WINDOW_HEIGHT);
             } else {
                 //「ウィンドウモード・１窓使用・縦横比ストレッチ」のフロントバッファ描画領域
@@ -686,11 +732,11 @@ void God::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
         }
 //        hr = pID3D9Ex->QueryInterface(IID_IDirect3D9, reinterpret_cast<void **>(&pID3D9)); //COMとして使用
 //        if (FAILED(hr)) {
-//            MessageBox(God::_pHWndPrimary, TEXT("IDirect3D9Ex コンポーネント取得に失敗しました。(2)"), TEXT("ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND | MB_TOPMOST);
+//            MessageBox(_pHWndPrimary, TEXT("IDirect3D9Ex コンポーネント取得に失敗しました。(2)"), TEXT("ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND | MB_TOPMOST);
 //            FreeLibrary(hD3D);
 //            return E_FAIL; //失敗
 //        }
-        God::_pID3D9 = (IDirect3D9*)pID3D9Ex;
+        _pID3D9 = (IDirect3D9*)pID3D9Ex;
         _can_wddm = true;
         _TRACE_("WDDM モード");
     } else {
@@ -701,7 +747,7 @@ void God::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
             FreeLibrary(hD3D);
             throwCriticalException("IDirect3D9 コンポーネント取得に失敗しました。");
         }
-        God::_pID3D9 = pID3D9;
+        _pID3D9 = pID3D9;
         _can_wddm = false;
         _TRACE_("XPDM モード");
     }
@@ -709,7 +755,7 @@ void God::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
 
     //デバイスパラメータ作成
     D3DCAPS9 caps;
-    God::_pID3D9->GetDeviceCaps(D3DADAPTER_DEFAULT, // [in] ディスプレイ アダプタを示す序数。
+    _pID3D9->GetDeviceCaps(D3DADAPTER_DEFAULT, // [in] ディスプレイ アダプタを示す序数。
                                       D3DDEVTYPE_HAL,     // [in] デバイスの種類。 D3DDEVTYPE列挙型のメンバ
                                       &caps);             // [out] デバイスの能力が格納される
 
@@ -718,7 +764,7 @@ void God::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
     if (CONFIG::FULL_SCREEN && CONFIG::DUAL_VIEW) {
         if (_num_adapter < 2) {
             _TRACE_("【警告】２画面フルスクリーン設定ですが、マルチモニタを検出できません。強制的に１画面フルスクリーンで起動します");
-            MessageBox(God::_pHWndPrimary,
+            MessageBox(_pHWndPrimary,
                        "【警告】２画面フルスクリーン設定ですが、マルチモニタを検出できません。\n強制的に１画面フルスクリーンで起動します",
                        "WARNING", MB_OK | MB_ICONSTOP | MB_SETFOREGROUND | MB_TOPMOST);
             _primary_adapter_no = 0;
@@ -786,11 +832,11 @@ void God::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
 
 //        //デスプレイモードの取得
 //        D3DDISPLAYMODE structD3DDisplayMode0; //結果が格納される構造体
-//        hr = God::_pID3D9->GetAdapterDisplayMode(0, &structD3DDisplayMode0);
+//        hr = _pID3D9->GetAdapterDisplayMode(0, &structD3DDisplayMode0);
 //        returnWhenFailed(hr, D3D_OK, "GetAdapterDisplayMode に失敗しました。");
 //        if(CONFIG::DUAL_VIEW) {
 //            D3DDISPLAYMODE structD3DDisplayMode1;
-//            hr = God::_pID3D9->GetAdapterDisplayMode(1, &structD3DDisplayMode1);
+//            hr = _pID3D9->GetAdapterDisplayMode(1, &structD3DDisplayMode1);
 //            returnWhenFailed(hr, D3D_OK, "2画面目 GetAdapterDisplayMode に失敗しました");
 //            _paPresetPrm[_primary_adapter_no].BackBufferFormat = structD3DDisplayMode0.Format; //現在の画面モードを利用
 //            _paPresetPrm[_secondary_adapter_no].BackBufferFormat = structD3DDisplayMode1.Format; //現在の画面モードを利用
@@ -803,7 +849,7 @@ void God::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
     //アンチアイリアスにできるかチェック
     DWORD qualityLevels = D3DMULTISAMPLE_NONE;
     D3DMULTISAMPLE_TYPE multiSampleType = D3DMULTISAMPLE_NONE;
-//    if( SUCCEEDED(God::_pID3D9->CheckDeviceMultiSampleType(
+//    if( SUCCEEDED(_pID3D9->CheckDeviceMultiSampleType(
 //        D3DADAPTER_DEFAULT,
 //        D3DDEVTYPE_HAL,
 //        _paPresetPrm[_primary_adapter_no].BackBufferFormat,  //TODO:ウィンドウモード時は
@@ -811,7 +857,7 @@ void God::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
 //        D3DMULTISAMPLE_2_SAMPLES,
 //        &qualityLevels) ) )
 //    {
-//        if( SUCCEEDED(God::_pID3D9->CheckDeviceMultiSampleType(
+//        if( SUCCEEDED(_pID3D9->CheckDeviceMultiSampleType(
 //            D3DADAPTER_DEFAULT,
 //            D3DDEVTYPE_HAL,
 //            _paPresetPrm[_primary_adapter_no].AutoDepthStencilFormat,
@@ -1059,15 +1105,15 @@ void God::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
     for (int adapter_no = 0; adapter_no < _num_adapter; adapter_no++) {
         _paPresetPrm[adapter_no].hDeviceWindow = _paHWnd[adapter_no];
     }
-    God::_pHWndSecondary = _paHWnd[_secondary_adapter_no];
-    God::_pHWndPrimary   = _paHWnd[_primary_adapter_no];
-    //God::_pHWndPrimary の有無が
+    _pHWndSecondary = _paHWnd[_secondary_adapter_no];
+    _pHWndPrimary   = _paHWnd[_primary_adapter_no];
+    //_pHWndPrimary の有無が
     //ウィンドウプロシージャの WM_SETFOCUS 時の排他になっているので、
     //２画面目 → １画面目の順で代入すること。
-    out_hWnd1 = God::_pHWndPrimary;
-    out_hWnd2 = God::_pHWndSecondary;
+    out_hWnd1 = _pHWndPrimary;
+    out_hWnd2 = _pHWndSecondary;
 
-    if (!God::_pHWndPrimary) {
+    if (!_pHWndPrimary) {
         throwCriticalException("ウィンドウが作成出来ませんでした。");
     }
 
@@ -1077,19 +1123,19 @@ void God::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
     if (!CONFIG::FULL_SCREEN) {
         //ウィンドウモード時
         if (CONFIG::DUAL_VIEW) {
-            resetWindowsize(God::_pHWndPrimary  , CONFIG::DUAL_VIEW_WINDOW1_WIDTH, CONFIG::DUAL_VIEW_WINDOW1_HEIGHT);
-            resetWindowsize(God::_pHWndSecondary, CONFIG::DUAL_VIEW_WINDOW2_WIDTH, CONFIG::DUAL_VIEW_WINDOW2_HEIGHT);
+            resetWindowsize(_pHWndPrimary  , CONFIG::DUAL_VIEW_WINDOW1_WIDTH, CONFIG::DUAL_VIEW_WINDOW1_HEIGHT);
+            resetWindowsize(_pHWndSecondary, CONFIG::DUAL_VIEW_WINDOW2_WIDTH, CONFIG::DUAL_VIEW_WINDOW2_HEIGHT);
         } else {
-            resetWindowsize(God::_pHWndPrimary  , CONFIG::SINGLE_VIEW_WINDOW_WIDTH, CONFIG::SINGLE_VIEW_WINDOW_HEIGHT);
+            resetWindowsize(_pHWndPrimary  , CONFIG::SINGLE_VIEW_WINDOW_WIDTH, CONFIG::SINGLE_VIEW_WINDOW_HEIGHT);
         }
     }
 
     //アクティブに
-    ShowWindow(God::_pHWndPrimary, SW_SHOWNORMAL);
-    UpdateWindow(God::_pHWndPrimary);
+    ShowWindow(_pHWndPrimary, SW_SHOWNORMAL);
+    UpdateWindow(_pHWndPrimary);
     if (CONFIG::DUAL_VIEW) {
-        ShowWindow(God::_pHWndSecondary, SW_SHOWNORMAL);
-        UpdateWindow(God::_pHWndSecondary);
+        ShowWindow(_pHWndSecondary, SW_SHOWNORMAL);
+        UpdateWindow(_pHWndSecondary);
     }
 
 
@@ -1143,7 +1189,7 @@ void God::createWindow(WNDPROC prm_WndProc,
     wcex1.cbSize = sizeof(WNDCLASSEX);
     wcex1.style = CS_HREDRAW | CS_VREDRAW | CS_CLASSDC;
     wcex1.lpfnWndProc = (WNDPROC)prm_WndProc;
-    wcex1.hInstance = God::_hInstance;
+    wcex1.hInstance = _hInstance;
     wcex1.hCursor = LoadCursor(nullptr, IDC_ARROW);
     wcex1.lpszClassName = "Gecchi Game App Framework (window[0])";
     WNDCLASSEX wcex2 = wcex1;
@@ -1178,10 +1224,10 @@ HRESULT God::initDevice() {
 //#else
 //    _TRACE_("Look for 'NVIDIA PerfHUD' adapter...");
 //    // If it is present, override default settings
-//    for (UINT Adapter = 0; Adapter < God::_pID3D9->GetAdapterCount(); Adapter++) {
+//    for (UINT Adapter = 0; Adapter < _pID3D9->GetAdapterCount(); Adapter++) {
 //        D3DADAPTER_IDENTIFIER9 Identifier;
 //        HRESULT Res;
-//        Res = God::_pID3D9->GetAdapterIdentifier(Adapter, 0, &Identifier);
+//        Res = _pID3D9->GetAdapterIdentifier(Adapter, 0, &Identifier);
 //        if (strstr(Identifier.Description, "PerfHUD") != 0) {
 //            _TRACE_("found NVIDIA PerfHUD!");
 //            AdapterToUse = Adapter;
@@ -1217,14 +1263,14 @@ HRESULT God::initDevice() {
         _TRACE_("_paDisplayMode["<<n<<"].Format           = "<<_paDisplayMode[n].Format          );
         _TRACE_("_paDisplayMode["<<n<<"].ScanLineOrdering = "<<_paDisplayMode[n].ScanLineOrdering);
     }
-    _TRACE_("God::_pHWndPrimary="<<God::_pHWndPrimary);
-    _TRACE_("God::_pHWndSecondary="<<God::_pHWndSecondary);
+    _TRACE_("_pHWndPrimary="<<_pHWndPrimary);
+    _TRACE_("_pHWndSecondary="<<_pHWndSecondary);
     _TRACE_("_primary_adapter_no="<<_primary_adapter_no);
     _TRACE_("_secondary_adapter_no="<<_secondary_adapter_no);
     HRESULT hr;
     //ピクセルシェーダー、頂点シェーダーバージョンチェック
     D3DCAPS9 caps;
-    God::_pID3D9->GetDeviceCaps(D3DADAPTER_DEFAULT, // [in] ディスプレイ アダプタを示す序数。
+    _pID3D9->GetDeviceCaps(D3DADAPTER_DEFAULT, // [in] ディスプレイ アダプタを示す序数。
                                 D3DDEVTYPE_HAL,     // [in] デバイスの種類。 D3DDEVTYPE列挙型のメンバ
                                 &caps);             // [out] デバイスの能力が格納される
     _vs_v = caps.VertexShaderVersion;
@@ -1239,7 +1285,7 @@ HRESULT God::initDevice() {
 
     if (CONFIG::FULL_SCREEN && CONFIG::DUAL_VIEW) {
         //＜フルスクリーン かつ デュアルビュー の場合＞
-        //デバイス作成を試み God::_pID3DDevice9 へ設定する。
+        //デバイス作成を試み _pID3DDevice9 へ設定する。
         //ハードウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。HAL(pure vp)
         if (_vs_v < D3DVS_VERSION(3, 0) || _ps_v < D3DPS_VERSION(3, 0)) {
             hr = D3DERR_NOTAVAILABLE;
@@ -1273,7 +1319,7 @@ HRESULT God::initDevice() {
                     if (hr != D3D_OK) {
                         //どのデバイスの作成も失敗した場合
                         _TRACE_(FUNC_NAME<<" DirectXの初期化に失敗しました。マルチヘッドD3DCREATE_SOFTWARE_VERTEXPROCESSING : "<<CriticalException::getHresultMsg(hr));
-                        MessageBox(God::_pHWndPrimary, "DirectXの初期化に失敗しました。\nマルチヘッドディスプレイ環境が存在していません。", "ERROR", MB_OK | MB_ICONSTOP | MB_SETFOREGROUND | MB_TOPMOST);
+                        MessageBox(_pHWndPrimary, "DirectXの初期化に失敗しました。\nマルチヘッドディスプレイ環境が存在していません。", "ERROR", MB_OK | MB_ICONSTOP | MB_SETFOREGROUND | MB_TOPMOST);
                         return E_FAIL;
                     } else {
                         _TRACE_(FUNC_NAME<<" デバイスは MULTI FULLSCRREEN REF で初期化できました。");
@@ -1290,12 +1336,12 @@ HRESULT God::initDevice() {
 
     } else {
         //＜(フルスクリーン かつ デュアルビュー) 以外の場合＞
-        //デバイス作成を試み God::_pID3DDevice9 へ設定する。
+        //デバイス作成を試み _pID3DDevice9 へ設定する。
         //ハードウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。HAL(pure vp)
         if (_vs_v < D3DVS_VERSION(3, 0) || _ps_v < D3DPS_VERSION(3, 0)) {
             hr = D3DERR_NOTAVAILABLE;
         } else {
-            hr = createDx9Device(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, God::_pHWndPrimary,
+            hr = createDx9Device(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, _pHWndPrimary,
                                  D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_PUREDEVICE | D3DCREATE_MULTITHREADED | D3DCREATE_FPU_PRESERVE,
                                  &_paPresetPrm[_primary_adapter_no], &_paDisplayMode[_primary_adapter_no]);
     //                                           D3DCREATE_MIXED_VERTEXPROCESSING|D3DCREATE_MULTITHREADED,
@@ -1305,7 +1351,7 @@ HRESULT God::initDevice() {
             if (_vs_v < D3DVS_VERSION(3, 0) || _ps_v < D3DPS_VERSION(3, 0)) {
                 hr = D3DERR_NOTAVAILABLE;
             } else {
-                hr = createDx9Device(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, God::_pHWndPrimary,
+                hr = createDx9Device(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, _pHWndPrimary,
                                      D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_FPU_PRESERVE,
                                      &_paPresetPrm[_primary_adapter_no], &_paDisplayMode[_primary_adapter_no]);
             }
@@ -1315,19 +1361,19 @@ HRESULT God::initDevice() {
                     hr = D3DERR_NOTAVAILABLE;
                 } else {
                     //ソフトウェアによる頂点処理、ハードウェアによるラスタライズを行うデバイス作成を試みる。HAL(soft vp)
-                    hr = createDx9Device(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, God::_pHWndPrimary,
+                    hr = createDx9Device(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, _pHWndPrimary,
                                          D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_FPU_PRESERVE,
                                          &_paPresetPrm[_primary_adapter_no], &_paDisplayMode[_primary_adapter_no]);
                 }
                 if (hr != D3D_OK) {
                     //ソフトウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。REF
-                    hr = createDx9Device(D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, God::_pHWndPrimary,
+                    hr = createDx9Device(D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, _pHWndPrimary,
                                          D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED | D3DCREATE_FPU_PRESERVE,
                                          &_paPresetPrm[_primary_adapter_no], &_paDisplayMode[_primary_adapter_no]);
                     if (hr != D3D_OK) {
                         //どのデバイスの作成も失敗した場合
                         _TRACE_(FUNC_NAME<<" DirectXの初期化に失敗しました。 "<<CriticalException::getHresultMsg(hr));
-                        MessageBox(God::_pHWndPrimary, "DirectXの初期化に失敗しました。", "ERROR", MB_OK | MB_ICONSTOP | MB_SETFOREGROUND | MB_TOPMOST);
+                        MessageBox(_pHWndPrimary, "DirectXの初期化に失敗しました。", "ERROR", MB_OK | MB_ICONSTOP | MB_SETFOREGROUND | MB_TOPMOST);
                         return E_FAIL;
                     } else {
                         _TRACE_(FUNC_NAME<<" デバイスは REF で初期化できました。");
@@ -1345,7 +1391,7 @@ HRESULT God::initDevice() {
 
     //テスト
     if (_can_wddm) {
-        hr = ((IDirect3DDevice9Ex*)God::_pID3DDevice9)->SetMaximumFrameLatency(0);
+        hr = ((IDirect3DDevice9Ex*)_pID3DDevice9)->SetMaximumFrameLatency(0);
         checkDxException(hr, D3D_OK, "SetMaximumFrameLatency(0) に失敗しました。");
     }
 
@@ -1417,7 +1463,7 @@ HRESULT God::createDx9Device(UINT adapter,
         if (!CONFIG::FULL_SCREEN) {
             pFullscreenDisplayMode = nullptr;
         }
-        IDirect3D9Ex* pID3D9Ex = (IDirect3D9Ex*)God::_pID3D9;
+        IDirect3D9Ex* pID3D9Ex = (IDirect3D9Ex*)_pID3D9;
         IDirect3DDevice9Ex* pID3DDevice9Ex;
         hr = pID3D9Ex->CreateDeviceEx(adapter,
                                       device_type,
@@ -1427,14 +1473,14 @@ HRESULT God::createDx9Device(UINT adapter,
                                       pFullscreenDisplayMode,
                                       &pID3DDevice9Ex
                                       );
-        God::_pID3DDevice9 = (IDirect3DDevice9Ex*)pID3DDevice9Ex;
+        _pID3DDevice9 = (IDirect3DDevice9Ex*)pID3DDevice9Ex;
     } else {
-        hr = God::_pID3D9->CreateDevice(adapter,
+        hr = _pID3D9->CreateDevice(adapter,
                                        device_type,
                                        hFocusWindow,
                                        behavior_flags,
                                        pPresentationParameters,
-                                       &God::_pID3DDevice9
+                                       &_pID3DDevice9
                                        );
     }
     return hr;
@@ -1453,85 +1499,85 @@ HRESULT God::initDx9Device() {
     // _cull_mode = _cull_mode_default
 
     //ライトをセット
-    //    God::_pID3DDevice9->SetLight(0, &God::_d3dlight9_default);
+    //    _pID3DDevice9->SetLight(0, &God::_d3dlight9_default);
     //ライトスイッチON
-    //    God::_pID3DDevice9->LightEnable(0, TRUE);
-    //God::_pID3DDevice9->LightEnable(0, FALSE);
+    //    _pID3DDevice9->LightEnable(0, TRUE);
+    //_pID3DDevice9->LightEnable(0, FALSE);
     //レンダ時にライトの影響（陰影）を有効
-    //    God::_pID3DDevice9->SetRenderState(D3DRS_LIGHTING, TRUE);
+    //    _pID3DDevice9->SetRenderState(D3DRS_LIGHTING, TRUE);
     //レンダ時にライトの影響（陰影）を無効 (ピクセルシェーダーで行なうため）
-    God::_pID3DDevice9->SetRenderState(D3DRS_LIGHTING, FALSE);
+    _pID3DDevice9->SetRenderState(D3DRS_LIGHTING, FALSE);
     //レンダ時、世界に共通のアンビエントライトを有効にしたように描く
-    //   God::_pID3DDevice9->SetRenderState(D3DRS_AMBIENT, _ambient_brightness_default);
+    //   _pID3DDevice9->SetRenderState(D3DRS_AMBIENT, _ambient_brightness_default);
 
     // Zバッファを有効に
-    God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
+    _pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
     // Zバッファを無効に
-    //God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
+    //_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
 
     //Zバッファ書き込み可
-    God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+    _pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
     //Zバッファ書き込み不可
-    //God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
+    //_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
 
     //D3DRENDERSTATE_ZFUNC
 
     //ステンシルテストの方法
-    God::_pID3DDevice9->SetRenderState(D3DRS_STENCILFUNC, D3DCMP_ALWAYS); //常にテストをパス
+    _pID3DDevice9->SetRenderState(D3DRS_STENCILFUNC, D3DCMP_ALWAYS); //常にテストをパス
     //画に失敗した時にステンシルの値をどう変化させるか
-    God::_pID3DDevice9->SetRenderState(D3DRS_STENCILFAIL, D3DSTENCILOP_KEEP); //変化なし
+    _pID3DDevice9->SetRenderState(D3DRS_STENCILFAIL, D3DSTENCILOP_KEEP); //変化なし
     //Zテストで失敗した場合のステンシル値の変化
-    God::_pID3DDevice9->SetRenderState(D3DRS_STENCILZFAIL, D3DSTENCILOP_KEEP); //変化なし
+    _pID3DDevice9->SetRenderState(D3DRS_STENCILZFAIL, D3DSTENCILOP_KEEP); //変化なし
 
 
     //左（反時計回り）回りにカリング ∵左手座標系
-    God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+    _pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
     //カリングしない
-    //God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+    //_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
     // ディザリング
-    //God::_pID3DDevice9->SetRenderState(D3DRS_DITHERENABLE, TRUE );
+    //_pID3DDevice9->SetRenderState(D3DRS_DITHERENABLE, TRUE );
     // マルチサンプリングアンチエイリアス(といってもフルスクリーンだけ？)↓TODO:まだ謎
-    God::_pID3DDevice9->SetRenderState(D3DRS_MULTISAMPLEANTIALIAS, TRUE);
-//    God::_pID3DDevice9->SetRenderState(D3DRS_MULTISAMPLEMASK, 0x00ffffff);
+    _pID3DDevice9->SetRenderState(D3DRS_MULTISAMPLEANTIALIAS, TRUE);
+//    _pID3DDevice9->SetRenderState(D3DRS_MULTISAMPLEMASK, 0x00ffffff);
 
     //ピクセル単位のアルファテストを有効
-    God::_pID3DDevice9->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
+    _pID3DDevice9->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
 
     //α設定はシェーダーに書く事にしたのでコメント
     // アルファブレンドＯＮ
-    //    God::_pID3DDevice9->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+    //    _pID3DDevice9->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
     //2段階目、半透明テクスチャを貼り付けたポリゴンとバックバッファ（レンダーターゲット）との合成
     //色の算出方法の設定
-    //God::_pID3DDevice9->SetRenderState(D3DRS_BLENDOPALPHA, D3DBLENDOP_ADD); //D3DBLENDOP_ADD=転送元に転送先が加算
+    //_pID3DDevice9->SetRenderState(D3DRS_BLENDOPALPHA, D3DBLENDOP_ADD); //D3DBLENDOP_ADD=転送元に転送先が加算
     //合成係数
     //    //上に書く画像の合成法(シェーダーに影響)
-    //    God::_pID3DDevice9->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA); //SRC,D3DBLEND_SRCALPHA=普通に描く。ポリゴンのアルファ値の濃さで描く。アルファ値の値が高ければ高いほど、濃く描く。
+    //    _pID3DDevice9->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA); //SRC,D3DBLEND_SRCALPHA=普通に描く。ポリゴンのアルファ値の濃さで描く。アルファ値の値が高ければ高いほど、濃く描く。
     //    //下地の画像の合成法(シェーダーに影響)
-    //    God::_pID3DDevice9->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA); //DIST,D3DBLEND_INVSRCALPHA=上に描くポリゴンのアルファ値の濃さによって、下地の描画を薄くする。
+    //    _pID3DDevice9->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA); //DIST,D3DBLEND_INVSRCALPHA=上に描くポリゴンのアルファ値の濃さによって、下地の描画を薄くする。
 
 
 
     //頂点カラーを無効にする
-    //God::_pID3DDevice9->SetRenderState(D3DRS_COLORVERTEX, FALSE );
-    // God::_pID3DDevice9->SetRenderState(D3DRS_COLORVERTEX, TRUE );
+    //_pID3DDevice9->SetRenderState(D3DRS_COLORVERTEX, FALSE );
+    // _pID3DDevice9->SetRenderState(D3DRS_COLORVERTEX, TRUE );
     //    //面のアンビエント反射は、マテリアルを参照するように設定する。（頂点カラーを参照する場合は D3DMCS_COLOR1)
-    //    God::_pID3DDevice9->SetRenderState(D3DRS_AMBIENTMATERIALSOURCE, D3DMCS_MATERIAL);
+    //    _pID3DDevice9->SetRenderState(D3DRS_AMBIENTMATERIALSOURCE, D3DMCS_MATERIAL);
     //    //面のデフューズ反射は、マテリアルを参照するように設定する。（頂点カラーを参照する場合は D3DMCS_COLOR1)
-    //    God::_pID3DDevice9->SetRenderState(D3DRS_DIFFUSEMATERIALSOURCE, D3DMCS_MATERIAL);
+    //    _pID3DDevice9->SetRenderState(D3DRS_DIFFUSEMATERIALSOURCE, D3DMCS_MATERIAL);
     //    //面のエミッシブ反射は、マテリアルを参照する設定する。（頂点カラーを参照する場合は D3DMCS_COLOR1)
-    //    God::_pID3DDevice9->SetRenderState(D3DRS_EMISSIVEMATERIALSOURCE, D3DMCS_MATERIAL);
+    //    _pID3DDevice9->SetRenderState(D3DRS_EMISSIVEMATERIALSOURCE, D3DMCS_MATERIAL);
     //    //面のスペキュラ反射は、マテリアルを参照する設定する。（頂点カラーを参照する場合は D3DMCS_COLOR1)
-    //    God::_pID3DDevice9->SetRenderState(D3DRS_SPECULARMATERIALSOURCE, D3DMCS_MATERIAL);
+    //    _pID3DDevice9->SetRenderState(D3DRS_SPECULARMATERIALSOURCE, D3DMCS_MATERIAL);
 
     //頂点αを使用するとき
-    //God::_pID3DDevice9->SetRenderState(D3DRS_DIFFUSEMATERIALSOURCE , D3DMCS_COLOR1);
+    //_pID3DDevice9->SetRenderState(D3DRS_DIFFUSEMATERIALSOURCE , D3DMCS_COLOR1);
 
     //
     //
     // アンチエイリアスの指定
-    //God::_pID3DDevice9->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
-    //God::_pID3DDevice9->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);
+    //_pID3DDevice9->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
+    //_pID3DDevice9->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);
     //  TypeにD3DSAMP_MINFILTER/D3DSAMP_MAGFILTER（拡大/縮小時） ??D3DTSS_MAGFILTER
     //  ValueにD3DTEXTUREFILTERTYPE列挙型を指定する
     //  D3DTEXF_POINT　　　　：フィルタをかけない。高速描画できる
@@ -1548,20 +1594,20 @@ HRESULT God::initDx9Device() {
 
 
     //アンチエイリアスにかかわるレンダリングステート
-    //God::_pID3DDevice9->SetRenderState(D3DRS_MULTISAMPLEANTIALIAS,TRUE);
-    //God::_pID3DDevice9->SetRenderState(D3DRS_MULTISAMPLEMASK,0x7fffffff);
+    //_pID3DDevice9->SetRenderState(D3DRS_MULTISAMPLEANTIALIAS,TRUE);
+    //_pID3DDevice9->SetRenderState(D3DRS_MULTISAMPLEMASK,0x7fffffff);
 
     //色合成も全てシェーダーで処理になったのでコメント
     //SetTextureStageStateは廃止？
     //  1段階目ポリゴンとテクスチャの合成方法設定
     //    //テクスチャーの色と、頂点カラーのDIFFUSE色を乗算するように設定
-    //    God::_pID3DDevice9->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
-    //    God::_pID3DDevice9->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
-    //    God::_pID3DDevice9->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+    //    _pID3DDevice9->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
+    //    _pID3DDevice9->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+    //    _pID3DDevice9->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
     //    //テクスチャーのαと、頂点カラーのαを乗算するように設定
-    //    God::_pID3DDevice9->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
-    //    God::_pID3DDevice9->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
-    //    God::_pID3DDevice9->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
+    //    _pID3DDevice9->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
+    //    _pID3DDevice9->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
+    //    _pID3DDevice9->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
 
 
     //Cameraへ移動した
@@ -1574,11 +1620,11 @@ HRESULT God::initDx9Device() {
     //Cameraへ移動した
     // 射影変換（３Ｄ→平面）
     //D3DXMATRIX _matProj; // 射影変換行列
-    //God::_pID3DDevice9->SetTransform(D3DTS_PROJECTION, &_matProj);
+    //_pID3DDevice9->SetTransform(D3DTS_PROJECTION, &_matProj);
     //HRESULT hr;
     //バックバッファをウィンドウBG色でクリア
     //ここではRenderTargetはまだ、通常のバックバッファである
-//    hr = God::_pID3DDevice9->Clear(0, nullptr, D3DCLEAR_TARGET, _color_border, 1.0f, 0);
+//    hr = _pID3DDevice9->Clear(0, nullptr, D3DCLEAR_TARGET, _color_border, 1.0f, 0);
 //    returnWhenFailed(hr, D3D_OK, "背景色(_color_border)の塗りつぶしよる、画面クリアに失敗しました。");
     return D3D_OK;
 }
@@ -1593,7 +1639,7 @@ _TRACE_("restoreFullScreenRenderTarget() 1");
     }
     HRESULT hr;
     //描画先となるテクスチャを別途作成（バックバッファ的な使用を行う）
-    hr = God::_pID3DDevice9->CreateTexture(
+    hr = _pID3DDevice9->CreateTexture(
                                         CONFIG::RENDER_TARGET_BUFFER_WIDTH,
                                         CONFIG::RENDER_TARGET_BUFFER_HEIGHT,
                                         1, //MipLevel Mip無し
@@ -1605,7 +1651,7 @@ _TRACE_("restoreFullScreenRenderTarget() 1");
 _TRACE_("restoreFullScreenRenderTarget() 2");
 //    LPDIRECT3DTEXTURE9 pIDirect3DTexture9;
 //    HRESULT hr = D3DXCreateTextureFromFileEx(
-//                     God::_pID3DDevice9,  // [in] LPDIRECT3DDEVICE9 pDevice,
+//                     _pID3DDevice9,  // [in] LPDIRECT3DDEVICE9 pDevice,
 //                     texture_file_name.c_str(), // [in] LPCTSTR pSrcFile,
 //                     D3DX_DEFAULT,              // [in] UINT Widths,
 //                     D3DX_DEFAULT,              // [in] UINT Height,
@@ -1639,12 +1685,12 @@ _TRACE_("restoreFullScreenRenderTarget() 3");
     //RenderTarget(描画先)をテクスチャへ切り替え
     hr = _pRenderTexture->GetSurfaceLevel(0, &_pRenderTextureSurface);
     returnWhenFailed(hr, D3D_OK, "レンダリングターゲットテクスチャのサーフェイス取得に失敗しました。");
-    hr = God::_pID3DDevice9->SetRenderTarget(0, _pRenderTextureSurface);
+    hr = _pID3DDevice9->SetRenderTarget(0, _pRenderTextureSurface);
     returnWhenFailed(hr, D3D_OK, "レンダリングターゲットテクスチャへ SetRenderTarget 出来ませんでした。");
 
 _TRACE_("restoreFullScreenRenderTarget() 4");
     //テクスチャに描画する際の深度バッファ用サーフェイスを別途作成
-    hr = God::_pID3DDevice9->CreateDepthStencilSurface(
+    hr = _pID3DDevice9->CreateDepthStencilSurface(
             CONFIG::RENDER_TARGET_BUFFER_WIDTH,
             CONFIG::RENDER_TARGET_BUFFER_HEIGHT,
             _paPresetPrm[_primary_adapter_no].AutoDepthStencilFormat, //D3DFORMAT           Format,
@@ -1657,32 +1703,32 @@ _TRACE_("restoreFullScreenRenderTarget() 4");
     returnWhenFailed(hr, D3D_OK, "レンダリングターゲットテクスチャのZバッファ作成に失敗しました。");
 _TRACE_("restoreFullScreenRenderTarget() 5");
     //深度バッファ作成自動生成の、深度バッファ用サーフェイスを上記に変更
-    hr =  God::_pID3DDevice9->SetDepthStencilSurface(_pRenderTextureZ);
+    hr =  _pID3DDevice9->SetDepthStencilSurface(_pRenderTextureZ);
     returnWhenFailed(hr, D3D_OK, "レンダリングターゲットテクスチャへ SetDepthStencilSurface 出来ませんでした。");
 _TRACE_("restoreFullScreenRenderTarget() 6");
     //背景色でクリア
-    hr = God::_pID3DDevice9->Clear(0, nullptr, D3DCLEAR_TARGET, _color_border, 1.0f, 0);
+    hr = _pID3DDevice9->Clear(0, nullptr, D3DCLEAR_TARGET, _color_border, 1.0f, 0);
     returnWhenFailed(hr, D3D_OK,  "クリア色(_color_border)の塗りつぶしよる、画面クリアに失敗しました。1");
 _TRACE_("restoreFullScreenRenderTarget() 7");
-    hr = God::_pID3DDevice9->Present(nullptr, nullptr, nullptr, nullptr);
+    hr = _pID3DDevice9->Present(nullptr, nullptr, nullptr, nullptr);
     returnWhenFailed(hr, D3D_OK,  "クリア色(_color_border)の塗りつぶしよる、画面クリアに失敗しました。2");
 _TRACE_("restoreFullScreenRenderTarget() 8");
-    hr = God::_pID3DDevice9->Clear(0, nullptr, D3DCLEAR_TARGET, _color_border, 1.0f, 0);
+    hr = _pID3DDevice9->Clear(0, nullptr, D3DCLEAR_TARGET, _color_border, 1.0f, 0);
     returnWhenFailed(hr, D3D_OK,  "クリア色(_color_border)の塗りつぶしよる、画面クリアに失敗しました。3");
 _TRACE_("restoreFullScreenRenderTarget() 9");
-    hr = God::_pID3DDevice9->Present(nullptr, nullptr, nullptr, nullptr);
+    hr = _pID3DDevice9->Present(nullptr, nullptr, nullptr, nullptr);
     returnWhenFailed(hr, D3D_OK,  "クリア色(_color_border)の塗りつぶしよる、画面クリアに失敗しました。4");
 _TRACE_("restoreFullScreenRenderTarget() 10");
 
     //アダプタに関連付けられたスワップチェーンを取得してバックバッファ取得
-    hr = God::_pID3DDevice9->GetSwapChain( _primary_adapter_no, &_apSwapChain[PRIMARY_VIEW] );
+    hr = _pID3DDevice9->GetSwapChain( _primary_adapter_no, &_apSwapChain[PRIMARY_VIEW] );
     returnWhenFailed(hr, D3D_OK, "スワップチェイン取得に失敗しました。");
 _TRACE_("restoreFullScreenRenderTarget() 11");
     hr = _apSwapChain[PRIMARY_VIEW]->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &_apBackBuffer[PRIMARY_VIEW] );
     returnWhenFailed(hr, D3D_OK, "スワップチェインから、ターゲットのバックバッファ取得に失敗しました。");
 _TRACE_("restoreFullScreenRenderTarget() 12");
     if (CONFIG::DUAL_VIEW) {
-        hr = God::_pID3DDevice9->GetSwapChain( _secondary_adapter_no, &_apSwapChain[SECONDARY_VIEW] );
+        hr = _pID3DDevice9->GetSwapChain( _secondary_adapter_no, &_apSwapChain[SECONDARY_VIEW] );
         returnWhenFailed(hr, D3D_OK, "２画面目のスワップチェイン取得に失敗しました。\nマルチディスプレイ環境に問題発生しました。");
         hr = _apSwapChain[SECONDARY_VIEW]->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &_apBackBuffer[SECONDARY_VIEW] );
         returnWhenFailed(hr, D3D_OK, "２画面目のスワップチェインから、ターゲットのバックバッファ取得に失敗しました。");
@@ -1690,53 +1736,53 @@ _TRACE_("restoreFullScreenRenderTarget() 12");
 
     //フルスクリーン時、バックバッファとフロントバッファを背景色で塗る
     if (CONFIG::DUAL_VIEW) {
-        hr = God::_pID3DDevice9->StretchRect(
+        hr = _pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW],
                 _apBackBuffer[PRIMARY_VIEW], &_aRect_ViewScreen[PRIMARY_VIEW],
                 D3DTEXF_NONE);
         checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 1画面目、背景色塗に失敗しました。(1)\n"
                                      "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[PRIMARY_VIEW]="<<_apBackBuffer[PRIMARY_VIEW]);
 
-        hr = God::_pID3DDevice9->StretchRect(
+        hr = _pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW],
                 _apBackBuffer[SECONDARY_VIEW], &_aRect_ViewScreen[SECONDARY_VIEW],
                 D3DTEXF_NONE);
         checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 2画面目、背景色塗に失敗しました。(1)\n"
                                      "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[PRIMARY_VIEW]="<<_apBackBuffer[PRIMARY_VIEW]);
     } else {
-        hr = God::_pID3DDevice9->StretchRect(
+        hr = _pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_rectRenderTargetBuffer,
                 _apBackBuffer[PRIMARY_VIEW], &_aRect_ViewScreen[PRIMARY_VIEW],
                 D3DTEXF_NONE);
         checkDxException(hr, D3D_OK, "FULL_SCREEN 背景色塗に失敗しました。(1)");
     }
 
-    hr = God::_pID3DDevice9->Present(nullptr, nullptr, nullptr, nullptr);
+    hr = _pID3DDevice9->Present(nullptr, nullptr, nullptr, nullptr);
     returnWhenFailed(hr, D3D_OK, "Present(nullptr, nullptr, nullptr, nullptr)に失敗しました。");
     //フリップしてもう一度背景色で塗る
     if (CONFIG::DUAL_VIEW) {
-        hr = God::_pID3DDevice9->StretchRect(
+        hr = _pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW],
                 _apBackBuffer[PRIMARY_VIEW], &_aRect_ViewScreen[PRIMARY_VIEW],
                 D3DTEXF_NONE);
         checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 1画面目、背景色塗に失敗しました。(2)\n"
                                      "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[PRIMARY_VIEW]="<<_apBackBuffer[PRIMARY_VIEW]);
 
-        hr = God::_pID3DDevice9->StretchRect(
+        hr = _pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW],
                 _apBackBuffer[SECONDARY_VIEW], &_aRect_ViewScreen[SECONDARY_VIEW],
                 D3DTEXF_NONE);
         checkDxException(hr, D3D_OK, "FULL_SCREEN DUAL_VIEW 2画面目、背景色塗に失敗しました。(2)\n"
                                      "_pRenderTextureSurface="<<_pRenderTextureSurface<<"/_apBackBuffer[PRIMARY_VIEW]="<<_apBackBuffer[PRIMARY_VIEW]);
     } else {
-        hr = God::_pID3DDevice9->StretchRect(
+        hr = _pID3DDevice9->StretchRect(
                 _pRenderTextureSurface, &_rectRenderTargetBuffer,
                 _apBackBuffer[PRIMARY_VIEW], &_aRect_ViewScreen[PRIMARY_VIEW],
                 D3DTEXF_NONE
                 );
         checkDxException(hr, D3D_OK, "FULL_SCREEN 背景色塗に失敗しました。(2)");
     }
-    hr = God::_pID3DDevice9->Present(nullptr, nullptr, nullptr, nullptr);
+    hr = _pID3DDevice9->Present(nullptr, nullptr, nullptr, nullptr);
     returnWhenFailed(hr, D3D_OK, "Present(nullptr, nullptr, nullptr, nullptr)に失敗しました。(2)");
 _TRACE_("restoreFullScreenRenderTarget() 20");
     //↑無駄な感じだが、VISTAとXPの２画面目フルスクリーンモード時
@@ -1790,8 +1836,8 @@ void God::chengeToBorderlessFullWindow(HWND prm_pHWnd) {
     Sleep(1);
     ShowWindow(prm_pHWnd, SW_SHOWMAXIMIZED );
     UpdateWindow(prm_pHWnd);
-    God::_adjustGameWindow = true;
-    God::_pHWnd_adjustScreen = prm_pHWnd;
+    _adjustGameWindow = true;
+    _pHWnd_adjustScreen = prm_pHWnd;
 }
 
 void God::backToNomalWindow(HWND prm_pHWnd) {
@@ -1803,12 +1849,12 @@ void God::backToNomalWindow(HWND prm_pHWnd) {
     SetWindowPos( prm_pHWnd, NULL, 0, 0, 0, 0, (SWP_NOMOVE|SWP_NOSIZE|SWP_NOZORDER|SWP_FRAMECHANGED) );
     ShowWindow(prm_pHWnd, SW_NORMAL);
     UpdateWindow(prm_pHWnd);
-    God::_adjustGameWindow = true;
-    God::_pHWnd_adjustScreen = prm_pHWnd;
+    _adjustGameWindow = true;
+    _pHWnd_adjustScreen = prm_pHWnd;
 }
 
 void God::presentSpacetimeMoment() {
-    if (God::_is_device_lost_flg) {
+    if (pGOD->_is_device_lost_flg) {
         return;
     } else {
         GgafCore::God::presentSpacetimeMoment();
@@ -1816,17 +1862,17 @@ void God::presentSpacetimeMoment() {
 }
 
 void God::executeSpacetimeJudge() {
-    if (God::_is_device_lost_flg) {
+    if (pGOD->_is_device_lost_flg) {
         return;
     } else {
         GgafCore::God::executeSpacetimeJudge();
     }
 }
 void God::makeSpacetimeMaterialize() {
-    if (God::_is_device_lost_flg) {
+    if (pGOD->_is_device_lost_flg) {
         return;
     }
-    IDirect3DDevice9* pDevice = God::_pID3DDevice9;
+    IDirect3DDevice9* pDevice = _pID3DDevice9;
     HRESULT hr;
     //通常時処理
     //バッファクリア
@@ -1844,7 +1890,7 @@ void God::makeSpacetimeMaterialize() {
     checkDxException(hr, D3D_OK, "pDevice->BeginScene() に失敗しました。");
     //全て具現化！（描画）
 #ifdef MY_DEBUG
-    pDevice->SetRenderState(D3DRS_FILLMODE, God::_d3dfillmode);
+    pDevice->SetRenderState(D3DRS_FILLMODE, pGOD->_d3dfillmode);
 #endif
     GgafCore::God::makeSpacetimeMaterialize(); //スーパーのmaterialize実行
     //描画事後処理
@@ -1854,11 +1900,11 @@ void God::makeSpacetimeMaterialize() {
 }
 
 void God::presentSpacetimeVisualize() {
-    IDirect3DDevice9* pDevice = God::_pID3DDevice9;
+    IDirect3DDevice9* pDevice = _pID3DDevice9;
     //垂直帰線期間
-    //if (God::_pID3DDevice9->Present(nullptr,&_aRect_Present[PRIMARY_VIEW],nullptr,nullptr) == D3DERR_DEVICELOST) {
+    //if (_pID3DDevice9->Present(nullptr,&_aRect_Present[PRIMARY_VIEW],nullptr,nullptr) == D3DERR_DEVICELOST) {
     //        static D3DRASTER_STATUS rs;
-    //        while (SUCCEEDED(God::_pID3DDevice9->GetRasterStatus(0, &rs)) ) {
+    //        while (SUCCEEDED(_pID3DDevice9->GetRasterStatus(0, &rs)) ) {
     //            if(rs.InVBlank) {
     //                break; //垂直帰線期間ではない
     //            } else {
@@ -1866,7 +1912,7 @@ void God::presentSpacetimeVisualize() {
     //            }
     //        }
     HRESULT hr;
-    if (God::_is_device_lost_flg == false) {
+    if (pGOD->_is_device_lost_flg == false) {
         if (_adjustGameWindow && _pHWnd_adjustScreen) {
             adjustGameWindow(_pHWndPrimary);
             adjustGameWindow(_pHWndSecondary);
@@ -1989,11 +2035,11 @@ void God::presentSpacetimeVisualize() {
             //全ノードに解放しなさいイベント発令
             getSpacetime()->throwEventLowerTree(GGAF_EVENT_ON_DEVICE_LOST);
             _TRACE_("【デバイスロスト処理】リソース解放 <-------- END");
-            God::_is_device_lost_flg = true;
+            pGOD->_is_device_lost_flg = true;
         }
     }
 
-    if (God::_is_device_lost_flg) {
+    if (pGOD->_is_device_lost_flg) {
         _TRACE_("【デバイスロスト処理/リソース解放】協調性レベルチェック BEGIN ------>");
         //for (int i = 0; i < 300; i++) {
         while (true) {
@@ -2120,7 +2166,7 @@ _TRACE_("SetWindowPos()!");
         getSpacetime()->throwEventLowerTree(GGAF_EVENT_ON_DEVICE_LOST_RESTORE);
         //前回描画モデル情報を無効にする
         ModelManager::_pModelLastDraw = nullptr;
-        God::_is_device_lost_flg = false;
+        pGOD->_is_device_lost_flg = false;
         _TRACE_("【デバイスロスト処理】リソース再構築 <-------- END");
 
         //愛再開
@@ -2142,7 +2188,7 @@ _TRACE_("SetWindowPos()!");
 }
 
 void God::finalizeSpacetime() {
-    if (God::_is_device_lost_flg) {
+    if (pGOD->_is_device_lost_flg) {
         return;
     } else {
         GgafCore::God::finalizeSpacetime();
@@ -2166,7 +2212,7 @@ void God::setLightAmbientColor(float r, float g, float b) {
 void God::clean() {
     if (!_was_cleaned) {
         _TRACE_(FUNC_NAME<<" begin");
-        IDirect3DDevice9* pDevice = God::_pID3DDevice9;
+        IDirect3DDevice9* pDevice = _pID3DDevice9;
         if (pDevice) {
             for (int i = 0; i < 8; ++i) { pDevice->SetTexture( i, nullptr ); }
             for (int i = 0; i < 8; ++i) { pDevice->SetStreamSource( i, nullptr, 0, 0 ); }
@@ -2194,10 +2240,10 @@ void God::adjustGameWindow(HWND prm_pHWnd) {
     if (prm_pHWnd && !CONFIG::FULL_SCREEN ) {
         //ウィンドウモード時
         HRESULT hr;
-        hr = God::_pID3DDevice9->Clear(0, nullptr, D3DCLEAR_TARGET, _color_border, 1.0f, 0);
-        hr = God::_pID3DDevice9->Present(nullptr, nullptr, nullptr, nullptr);
+        hr = _pID3DDevice9->Clear(0, nullptr, D3DCLEAR_TARGET, _color_border, 1.0f, 0);
+        hr = _pID3DDevice9->Present(nullptr, nullptr, nullptr, nullptr);
         if (CONFIG::DUAL_VIEW) {
-            hr = God::_pID3DDevice9->Present(nullptr, nullptr, _pHWndSecondary, nullptr);
+            hr = _pID3DDevice9->Present(nullptr, nullptr, _pHWndSecondary, nullptr);
         }
         if (::GetClientRect(prm_pHWnd, &rect)) {
             LONG c_width= rect.right;
@@ -2206,11 +2252,11 @@ void God::adjustGameWindow(HWND prm_pHWnd) {
             LONG fix_width, fix_height;
             int pos1, pos2;
             if (CONFIG::DUAL_VIEW) {
-                pos1 = CONFIG::DUAL_VIEW_DRAW_POSITION1;
-                pos2 = CONFIG::DUAL_VIEW_DRAW_POSITION2;
+                pos1 = _single_view_draw_position;
+                pos2 = _dual_view_draw_position1;
             } else {
-                pos1 = CONFIG::SINGLE_VIEW_DRAW_POSITION;
-                pos2 = CONFIG::DUAL_VIEW_DRAW_POSITION2; //とりあえず
+                pos1 = _dual_view_draw_position2;
+                pos2 = _dual_view_draw_position1; //とりあえず
             }
 
             //ウィンドウモード時・RENDER_TARGET_BUFFERサイズ無視
@@ -2309,7 +2355,7 @@ void God::adjustGameWindow(HWND prm_pHWnd) {
         //フルスクリーン時
     }
     Camera* pCam = getSpacetime()->getCamera();
-    God::_pID3DDevice9->GetViewport(&(pCam->_viewport));
+    _pID3DDevice9->GetViewport(&(pCam->_viewport));
     _adjustGameWindow = false;
     _pHWnd_adjustScreen = nullptr;
 }

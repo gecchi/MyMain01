@@ -28,14 +28,14 @@ HRESULT Input::init() {
         HRESULT hr;
         // DirectInput の作成
         hr = DirectInput8Create(
-                 God::_hInstance,
+                 pGOD->_hInstance,
                  DIRECTINPUT_VERSION,
                  IID_IDirectInput8,
                  (LPVOID*)&Input::_pIDirectInput8,
                  nullptr
              );
         if (hr != D3D_OK) {
-            MessageBox(God::_pHWndPrimary, "いきなりDirectInput8の作成に失敗しました。",
+            MessageBox(pGOD->_pHWndPrimary, "いきなりDirectInput8の作成に失敗しました。",
                        "ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
             return hr;
         }
@@ -45,7 +45,7 @@ HRESULT Input::init() {
             hr = Input::initMouse();
             hr = Input::initJoyStick();
         } else {
-            MessageBox(God::_pHWndPrimary, "キーボードデバイスの初期化に失敗しました。",
+            MessageBox(pGOD->_pHWndPrimary, "キーボードデバイスの初期化に失敗しました。",
                        "ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
             return hr;
         }
@@ -71,24 +71,24 @@ HRESULT Input::initMouse() {
                                            nullptr
                                        );
     if (hr != D3D_OK) {
-        MessageBox(God::_pHWndPrimary, "マウスデバイス作成に失敗しました",
+        MessageBox(pGOD->_pHWndPrimary, "マウスデバイス作成に失敗しました",
                 "ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
         return hr;
     }
     // マウス取得データフォーマットの設定
     hr = Input::_pMouseInputDevice->SetDataFormat(&c_dfDIMouse2);
     if (hr != D3D_OK) {
-        MessageBox(God::_pHWndPrimary, "マウスのSetDataFormat に失敗しました",
+        MessageBox(pGOD->_pHWndPrimary, "マウスのSetDataFormat に失敗しました",
                    "ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
         return hr;
     }
     // マウス強調レベル設定
     hr = Input::_pMouseInputDevice->SetCooperativeLevel(
-                                              God::_pHWndPrimary,
+                                              pGOD->_pHWndPrimary,
                                               DISCL_NONEXCLUSIVE | DISCL_FOREGROUND
                                           );
     if (hr != D3D_OK) {
-        MessageBox(God::_pHWndPrimary, "マウスのSetCooperativeLevelに失敗しました",
+        MessageBox(pGOD->_pHWndPrimary, "マウスのSetCooperativeLevelに失敗しました",
                  "ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
         return hr;
     }
@@ -133,7 +133,7 @@ HRESULT Input::initKeybord() {
                                            nullptr
                                        );
     if (hr != D3D_OK) {
-        MessageBox(God::_pHWndPrimary, "キーボードデバイス作成に失敗しました",
+        MessageBox(pGOD->_pHWndPrimary, "キーボードデバイス作成に失敗しました",
                    "ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
         return hr;
     }
@@ -141,18 +141,18 @@ HRESULT Input::initKeybord() {
     // キーボード取得データフォーマットの設定
     hr = Input::_pKeyboardInputDevice->SetDataFormat(&c_dfDIKeyboard);
     if (hr != D3D_OK) {
-        MessageBox(God::_pHWndPrimary, "キーボードのSetDataFormat に失敗しました",
+        MessageBox(pGOD->_pHWndPrimary, "キーボードのSetDataFormat に失敗しました",
                    "ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
         return hr;
     }
 
     // キーボード強調レベル設定
     hr = Input::_pKeyboardInputDevice->SetCooperativeLevel(
-                                                 God::_pHWndPrimary,
+                                                 pGOD->_pHWndPrimary,
                                                  DISCL_NONEXCLUSIVE | DISCL_FOREGROUND
                                              );
     if (hr != D3D_OK) {
-        MessageBox(God::_pHWndPrimary, "キーボードのSetCooperativeLevelに失敗しました",
+        MessageBox(pGOD->_pHWndPrimary, "キーボードのSetCooperativeLevelに失敗しました",
                    "ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
         return hr;
     }
@@ -168,7 +168,7 @@ HRESULT Input::initKeybord() {
 
      hr = Input::_pKeyboardInputDevice->SetProperty(DIPROP_BUFFERSIZE, &dipropdword.diph);
      if(hr != D3D_OK) {
-     MessageBox(God::_pHWndPrimary,"キーボードのSetPropertyに失敗しました", "ERROR", MB_OK | MB_ICONSTOP | MB_SETFOREGROUND |MB_TOPMOST);
+     MessageBox(pGOD->_pHWndPrimary,"キーボードのSetPropertyに失敗しました", "ERROR", MB_OK | MB_ICONSTOP | MB_SETFOREGROUND |MB_TOPMOST);
      return hr;
      }
      */
@@ -212,7 +212,7 @@ HRESULT Input::initJoyStick() {
 
         // ゲームスティック協調レベルを設定する
         hr = Input::_pJoystickInputDevice->SetCooperativeLevel(
-                                                     God::_pHWndPrimary,
+                                                     pGOD->_pHWndPrimary,
                                                      DISCL_FOREGROUND | DISCL_NONEXCLUSIVE
                                                  );
         if (hr != D3D_OK) {

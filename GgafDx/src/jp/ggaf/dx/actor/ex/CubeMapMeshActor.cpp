@@ -35,9 +35,9 @@ void CubeMapMeshActor::processDraw() {
     checkDxException(hr, D3D_OK, "SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     hr = pID3DXEffect->SetFloat(_pCubeMapMeshEffect->_h_reflectance, getCubeMapReflectance());
     checkDxException(hr, D3D_OK, "SetFloat(_h_reflectances) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    God::_pID3DDevice9->SetTexture(1, getCubeMapTexture());
+    pGOD->_pID3DDevice9->SetTexture(1, getCubeMapTexture());
     if (_pBumpMapTextureConnection) {
-        hr = God::_pID3DDevice9->SetTexture(2, getBumpMapTexture());
+        hr = pGOD->_pID3DDevice9->SetTexture(2, getBumpMapTexture());
         checkDxException(hr, D3D_OK, "SetTexture() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         hr = pID3DXEffect->SetMatrix(_pCubeMapMeshEffect->_h_matInvWorld, getInvMatWorldRotMv() );
         checkDxException(hr, D3D_OK, "SetMatrix(_h_matInvWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

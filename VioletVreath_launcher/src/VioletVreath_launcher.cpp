@@ -122,12 +122,13 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
         //特に何も無し
     #endif
 #endif
+
     MSG msg;
-    VioletVreath::God god;
 #ifdef MY_DEBUG
     try {
 #endif
         //神の誕生
+        VioletVreath::God god;
         god.createWindow(wcex1, wcex2, szTitle, "secondary", dwStyle, dwStyle, hWnd1, hWnd2);
         // ループ・ザ・ループ
         while (true) {
@@ -246,6 +247,7 @@ void myTerminateHandler() {
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
     LibWndProc(hWnd, message, wParam, lParam);
+    VioletVreath::God* pGod = pGOD;
     switch (message) {
         case WM_CREATE: {
             // システムメニューカスタム関数を呼ぶ
@@ -271,10 +273,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             LONG lStyle = GetWindowLong( hWnd, GWL_STYLE );
             if (lStyle & WS_POPUP) {
                 //現在ボーダレスフルスクリーンウィンドウであるので戻す。
-                GgafDx::God::backToNomalWindow(hWnd);
+                pGod->backToNomalWindow(hWnd);
             } else {
                 //現在通常ウィンドウであるので、ボーダレスフルスクリーンウィンドウに切り替える。
-                GgafDx::God::chengeToBorderlessFullWindow(hWnd);
+                pGod->chengeToBorderlessFullWindow(hWnd);
             }
             break;
         }
@@ -284,15 +286,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
                 LONG lStyle = GetWindowLong( hWnd, GWL_STYLE );
                 if (lStyle & WS_POPUP) {
                     //現在ボーダレスフルスクリーンウィンドウであるので戻す。
-                    GgafDx::God::backToNomalWindow(hWnd);
+                    pGod->backToNomalWindow(hWnd);
                 } else {
                     //現在通常ウィンドウであるので、ボーダレスフルスクリーンウィンドウに切り替える。
-                    GgafDx::God::chengeToBorderlessFullWindow(hWnd);
+                    pGod->chengeToBorderlessFullWindow(hWnd);
                 }
             }
             break;
         }
         case WM_SYSCOMMAND: {
+            pGod->syncTimeFrame();
             if ( (wParam & 0xFFF0) == SC_SCREENSAVE ) {
                 return 1;
             }
@@ -304,51 +307,23 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
                 LONG lStyle  = GetWindowLong( hWnd, GWL_STYLE );
                 if (lStyle & WS_POPUP) {
                     //現在ボーダレスフルスクリーンウィンドウであるので戻す。
-                    GgafDx::God::backToNomalWindow(hWnd);
+                    pGod->backToNomalWindow(hWnd);
                 } else {
                     //現在通常ウィンドウであるので、ボーダレスフルスクリーンウィンドウに切り替える。
-                    GgafDx::God::chengeToBorderlessFullWindow(hWnd);
+                    pGod->chengeToBorderlessFullWindow(hWnd);
                 }
             } else if(wParam == MY_IDM_RESET_WINDOW_SIZE) {
                 //初期ウィンドウサイズにリセット
-                if (!CONFIG::FULL_SCREEN) {
-                    if (CONFIG::DUAL_VIEW) {
-                        GgafDx::God::resetWindowsize(hWnd1, CONFIG::DUAL_VIEW_WINDOW1_WIDTH, CONFIG::DUAL_VIEW_WINDOW1_HEIGHT);
-                        GgafDx::God::resetWindowsize(hWnd2, CONFIG::DUAL_VIEW_WINDOW2_WIDTH, CONFIG::DUAL_VIEW_WINDOW2_HEIGHT);
-                    } else {
-                        GgafDx::God::resetWindowsize(hWnd1, CONFIG::SINGLE_VIEW_WINDOW_WIDTH, CONFIG::SINGLE_VIEW_WINDOW_HEIGHT);
-                    }
-                }
+                pGod->resetInitWindowsize();
             } else if(wParam == MY_IDM_RESET_PIXEL_BY_DOT_WINDOW_SIZE) {
                 //pixel by dot ウィンドウサイズにリセット
-                if (!CONFIG::FULL_SCREEN) {
-                    if (CONFIG::DUAL_VIEW) {
-                        GgafDx::God::resetWindowsize(hWnd1, CONFIG::RENDER_TARGET_BUFFER_WIDTH/2, CONFIG::RENDER_TARGET_BUFFER_HEIGHT);
-                        GgafDx::God::resetWindowsize(hWnd2, CONFIG::RENDER_TARGET_BUFFER_WIDTH/2, CONFIG::RENDER_TARGET_BUFFER_HEIGHT);
-                    } else {
-                        GgafDx::God::resetWindowsize(hWnd1, CONFIG::RENDER_TARGET_BUFFER_WIDTH, CONFIG::RENDER_TARGET_BUFFER_HEIGHT);
-                    }
-                }
+                pGod->resetDotByDotWindowsize(1);
             } else if(wParam == MY_IDM_RESET_PIXEL_BY_2DOT_WINDOW_SIZE) {
                 //pixel by 2*2dot ウィンドウサイズにリセット
-                if (!CONFIG::FULL_SCREEN) {
-                    if (CONFIG::DUAL_VIEW) {
-                        GgafDx::God::resetWindowsize(hWnd1, CONFIG::RENDER_TARGET_BUFFER_WIDTH/2*2, CONFIG::RENDER_TARGET_BUFFER_HEIGHT*2);
-                        GgafDx::God::resetWindowsize(hWnd2, CONFIG::RENDER_TARGET_BUFFER_WIDTH/2*2, CONFIG::RENDER_TARGET_BUFFER_HEIGHT*2);
-                    } else {
-                        GgafDx::God::resetWindowsize(hWnd1, CONFIG::RENDER_TARGET_BUFFER_WIDTH*2, CONFIG::RENDER_TARGET_BUFFER_HEIGHT*2);
-                    }
-                }
+                pGod->resetDotByDotWindowsize(2);
             } else if(wParam == MY_IDM_RESET_PIXEL_BY_3DOT_WINDOW_SIZE) {
                 //pixel by 3*3dot ウィンドウサイズにリセット
-                if (!CONFIG::FULL_SCREEN) {
-                    if (CONFIG::DUAL_VIEW) {
-                        GgafDx::God::resetWindowsize(hWnd1, CONFIG::RENDER_TARGET_BUFFER_WIDTH/2*3, CONFIG::RENDER_TARGET_BUFFER_HEIGHT*3);
-                        GgafDx::God::resetWindowsize(hWnd2, CONFIG::RENDER_TARGET_BUFFER_WIDTH/2*3, CONFIG::RENDER_TARGET_BUFFER_HEIGHT*3);
-                    } else {
-                        GgafDx::God::resetWindowsize(hWnd1, CONFIG::RENDER_TARGET_BUFFER_WIDTH*3, CONFIG::RENDER_TARGET_BUFFER_HEIGHT*3);
-                    }
-                }
+                pGod->resetDotByDotWindowsize(3);
             } else if(wParam == MY_IDM_SAVE) {
                 if (!CONFIG::FULL_SCREEN) {
                     if (CONFIG::DUAL_VIEW) {
@@ -396,27 +371,27 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
                     PostQuitMessage(0);
                 }
             } else if(wParam == MY_IDM_VPOS_1) {
-                GgafDx::God::chengeViewPos(hWnd, 1);
+                pGod->chengeViewPos(hWnd, 1);
             } else if(wParam == MY_IDM_VPOS_2) {
-                GgafDx::God::chengeViewPos(hWnd, 2);
+                pGod->chengeViewPos(hWnd, 2);
             } else if(wParam == MY_IDM_VPOS_3) {
-                GgafDx::God::chengeViewPos(hWnd, 3);
+                pGod->chengeViewPos(hWnd, 3);
             } else if(wParam == MY_IDM_VPOS_4) {
-                GgafDx::God::chengeViewPos(hWnd, 4);
+                pGod->chengeViewPos(hWnd, 4);
             } else if(wParam == MY_IDM_VPOS_5) {
-                GgafDx::God::chengeViewPos(hWnd, 5);
+                pGod->chengeViewPos(hWnd, 5);
             } else if(wParam == MY_IDM_VPOS_6) {
-                GgafDx::God::chengeViewPos(hWnd, 6);
+                pGod->chengeViewPos(hWnd, 6);
             } else if(wParam == MY_IDM_VPOS_7) {
-                GgafDx::God::chengeViewPos(hWnd, 7);
+                pGod->chengeViewPos(hWnd, 7);
             } else if(wParam == MY_IDM_VPOS_8) {
-                GgafDx::God::chengeViewPos(hWnd, 8);
+                pGod->chengeViewPos(hWnd, 8);
             } else if(wParam == MY_IDM_VPOS_9) {
-                GgafDx::God::chengeViewPos(hWnd, 9);
+                pGod->chengeViewPos(hWnd, 9);
             } else if(wParam == MY_IDM_ASPECT_FIXED) {
-                GgafDx::God::chengeViewAspect(true);
+                pGod->chengeViewAspect(true);
             } else if(wParam == MY_IDM_ASPECT_STRETCH) {
-                GgafDx::God::chengeViewAspect(false);
+                pGod->chengeViewAspect(false);
             }
             break;
         }

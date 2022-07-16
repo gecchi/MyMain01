@@ -42,7 +42,7 @@ void Sound::init() {
     if (hr != D3D_OK) {
         throwCriticalException("Soundが初期化できません。サウンドカードデバイスに問題ないか確認してください。");
     }
-    hr = Sound::_pIDirectSound8->SetCooperativeLevel(God::_pHWndPrimary, DSSCL_PRIORITY );
+    hr = Sound::_pIDirectSound8->SetCooperativeLevel(pGOD->_pHWndPrimary, DSSCL_PRIORITY );
     if (hr != D3D_OK) {
         throwCriticalException("SetCooperativeLevel失敗。");
     }

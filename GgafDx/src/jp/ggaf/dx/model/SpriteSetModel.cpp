@@ -42,7 +42,7 @@ HRESULT SpriteSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_nu
         throwCriticalException(_model_id<<" の描画セット数オーバー。_draw_set_num="<<_draw_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
     }
 #endif
-    IDirect3DDevice9* const pDevice = God::_pID3DDevice9;
+    IDirect3DDevice9* const pDevice = pGOD->_pID3DDevice9;
     //対象Actor
     const SpriteSetActor* const pTargetActor = (SpriteSetActor*)prm_pActor_target;
     //対象SpriteSetActorのエフェクトラッパ
@@ -286,7 +286,7 @@ void SpriteSetModel::restore() {
     }
     if (_paVertexBuffer == nullptr) {
         HRESULT hr;
-        hr = God::_pID3DDevice9->CreateVertexBuffer(
+        hr = pGOD->_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices * _draw_set_num,
                 D3DUSAGE_WRITEONLY,
                 SpriteSetModel::FVF,
@@ -319,7 +319,7 @@ void SpriteSetModel::restore() {
         HRESULT hr;
         int nVertices = 4;
         int nFaces = 2;
-        hr = God::_pID3DDevice9->CreateIndexBuffer(
+        hr = pGOD->_pID3DDevice9->CreateIndexBuffer(
                                sizeof(WORD) * nFaces * 3 * _draw_set_num,
                                 D3DUSAGE_WRITEONLY,
                                 D3DFMT_INDEX16,

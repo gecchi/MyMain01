@@ -66,15 +66,10 @@ public:
 public:
     /**
      * コンストラクタ .
-     * @param prm_hInstance
-     * @param prm_pHWndPrimary １画面目HWND
-     * @param prm_pHWndSecondary ２画面目HWND
      */
     God();
 
-
     void initVB();
-
 
     HRESULT initDevice() override;
 

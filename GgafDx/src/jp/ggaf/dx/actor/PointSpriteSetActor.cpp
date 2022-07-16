@@ -98,10 +98,10 @@ void PointSpriteSetActor::processDraw() {
     Spacetime::_pActor_draw_active = pPointSpriteSetActor; //描画セットの最後アクターをセット
 
     //ポイントスプライトON
-    God::_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, TRUE);
+    pGOD->_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, TRUE);
     ((PointSpriteSetModel*)_pPointSpriteSetModel)->PointSpriteSetModel::draw(this, draw_set_num);
     //ポイントスプライトOFF
-    God::_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, FALSE);
+    pGOD->_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, FALSE);
 }
 
 PointSpriteSetActor::~PointSpriteSetActor() {

@@ -36,7 +36,7 @@ void CubeMapMeshSetActor::processDraw() {
 
     hr = pID3DXEffect->SetFloat(_pCubeMapMeshSetEffect->_h_reflectance, getCubeMapReflectance());
     checkDxException(hr, D3D_OK, "SetFloat(_h_reflectances) に失敗しました。");
-    God::_pID3DDevice9->SetTexture(1, getCubeMapTexture());
+    pGOD->_pID3DDevice9->SetTexture(1, getCubeMapTexture());
 
     //基本モデル頂点数
     FigureActor* pDrawActor = this;

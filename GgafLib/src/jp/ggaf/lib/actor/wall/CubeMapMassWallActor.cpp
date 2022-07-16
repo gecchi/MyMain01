@@ -64,7 +64,7 @@ void CubeMapMassWallActor::processDraw() {
 
     hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_reflectance, getCubeMapReflectance());
     checkDxException(hr, D3D_OK, "SetFloat(_h_reflectances) に失敗しました。");
-    hr = GgafDx::God::_pID3DDevice9->SetTexture(1, getCubeMapTexture());
+    hr = pGOD->_pID3DDevice9->SetTexture(1, getCubeMapTexture());
     checkDxException(hr, D3D_OK, "SetTexture に失敗しました");
 
     int draw_set_num = 0; //MassMeshActorの同じモデルで同じテクニックが

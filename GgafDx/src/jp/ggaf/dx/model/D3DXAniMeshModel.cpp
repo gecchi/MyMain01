@@ -42,7 +42,7 @@ HRESULT D3DXAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
         if (pModelLastDraw && (pModelLastDraw->_obj_model & Obj_GgafDx_MassModel)) {
             ((MassModel*)pModelLastDraw)->resetStreamSourceFreq();
         }
-        God::_pID3DDevice9->SetFVF(D3DXAniMeshActor::FVF);
+        pGOD->_pID3DDevice9->SetFVF(D3DXAniMeshActor::FVF);
         hr = pID3DXEffect->SetFloat(pD3DXAniMeshEffect->_h_tex_blink_power, _power_blink);
         checkDxException(hr, D3D_OK, "SetFloat(_h_tex_blink_power) に失敗しました。");
         hr = pID3DXEffect->SetFloat(pD3DXAniMeshEffect->_h_tex_blink_threshold, _blink_threshold);
@@ -56,7 +56,7 @@ HRESULT D3DXAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
     std::list< BoneAniMeshFrame* > *pDrawList = pTargetActor->_stackWorldMat.GetDrawList(); // 描画リストを取得
     std::list<BoneAniMeshFrame*>::iterator it = pDrawList->begin();
 
-    IDirect3DDevice9* const pDevice = God::_pID3DDevice9;
+    IDirect3DDevice9* const pDevice = pGOD->_pID3DDevice9;
     int n = 0;
     //マテリアル・テクスチャの一発目をセット、
     LPDIRECT3DBASETEXTURE9 pTex = nullptr;
@@ -223,7 +223,7 @@ void D3DXAniMeshModel::restore() {
     hr = D3DXLoadMeshHierarchyFromX(
             xfilepath.c_str(),
             D3DXMESH_SYSTEMMEM, //D3DXMESH_MANAGED,
-            God::_pID3DDevice9,
+            pGOD->_pID3DDevice9,
             pAllocHierarchy,
             nullptr,
             (D3DXFRAME**)(&pFrameRoot),

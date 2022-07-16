@@ -49,7 +49,7 @@ BoneAniMeshModel::BoneAniMeshModel(const char* prm_model_id) : Model(prm_model_i
 
 HRESULT BoneAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
     _TRACE4_("BoneAniMeshModel::draw("<<prm_pActor_target->getName()<<")");
-    IDirect3DDevice9* const pDevice = God::_pID3DDevice9;
+    IDirect3DDevice9* const pDevice = pGOD->_pID3DDevice9;
     HRESULT hr;
     //対象アクター
     BoneAniMeshActor* pTargetActor = (BoneAniMeshActor*)prm_pActor_target;
@@ -193,7 +193,7 @@ void BoneAniMeshModel::restore() {
         hr = D3DXLoadMeshHierarchyFromX(
                 xfilepath.c_str(),
                 D3DXMESH_SYSTEMMEM, //D3DXMESH_MANAGED,
-                God::_pID3DDevice9,
+                pGOD->_pID3DDevice9,
                 _pAllocHierarchy,
                 nullptr,
                 (D3DXFRAME**)(&_pFrameRoot),
@@ -552,7 +552,7 @@ void BoneAniMeshModel::restore() {
     if (_paVertexBuffer == nullptr) {
         HRESULT hr;
         //頂点バッファ作成
-        hr = God::_pID3DDevice9->CreateVertexBuffer(
+        hr = pGOD->_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices,
                 D3DUSAGE_WRITEONLY,
                 BoneAniMeshModel::FVF,
@@ -572,7 +572,7 @@ void BoneAniMeshModel::restore() {
     //インデックスバッファデータ作成
     if (_paIndexBuffer == nullptr) {
         HRESULT hr;
-        hr = God::_pID3DDevice9->CreateIndexBuffer(
+        hr = pGOD->_pID3DDevice9->CreateIndexBuffer(
                                    sizeof(WORD) * _nFaces * 3,
                                    D3DUSAGE_WRITEONLY,
                                    D3DFMT_INDEX16,

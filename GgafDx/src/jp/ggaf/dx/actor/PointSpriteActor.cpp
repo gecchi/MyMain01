@@ -78,11 +78,11 @@ void PointSpriteActor::processDraw() {
     hr = pID3DXEffect->SetInt(_pPointSpriteEffect->_hUvFlipPtnNo, _pUvFlipper->_pattno_uvflip_now);
     checkDxException(hr, D3D_OK, "SetInt(_hUvFlipPtnNo) に失敗しました。");
     //ポイントスプライトON
-    God::_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, TRUE);
+    pGOD->_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, TRUE);
     //スケールはシェーダー内で独自計算
     _pPointSpriteModel->PointSpriteModel::draw(this);
     //ポイントスプライトOFF
-    God::_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, FALSE);
+    pGOD->_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, FALSE);
 }
 
 PointSpriteActor::~PointSpriteActor() {

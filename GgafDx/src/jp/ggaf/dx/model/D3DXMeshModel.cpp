@@ -24,7 +24,7 @@ D3DXMeshModel::D3DXMeshModel(const char* prm_model_id, DWORD prm_dwOptions) : Mo
 
 HRESULT D3DXMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
     _TRACE4_("D3DXMeshModel::draw("<<prm_pActor_target->getName()<<")");
-    IDirect3DDevice9* const pDevice = God::_pID3DDevice9;
+    IDirect3DDevice9* const pDevice = pGOD->_pID3DDevice9;
     //対象アクター
     const D3DXMeshActor* const pTargetActor = (D3DXMeshActor*)prm_pActor_target;
     //対象MeshActorのエフェクトラッパ
@@ -171,7 +171,7 @@ void D3DXMeshModel::restore() {
     hr = D3DXLoadMeshFromX(
             xfilepath.c_str(),             //[in]  LPCTSTR pFilename
             _dwOptions, //[in]  DWORD Options  D3DXMESH_SYSTEMMEM D3DXMESH_VB_DYNAMIC
-            God::_pID3DDevice9,       //[in]  LPDIRECT3DDEVICE9 pDevice
+            pGOD->_pID3DDevice9,       //[in]  LPDIRECT3DDEVICE9 pDevice
             nullptr,                        //[out] LPD3DXBUFFER* ppAdjacency
             &pID3DXBuffer,                  //[out] LPD3DXBUFFER* ppMaterials
             nullptr,                        //[out] LPD3DXBUFFER* ppEffectInstances
@@ -251,7 +251,7 @@ void D3DXMeshModel::restore() {
         hr = pID3DXMesh->CloneMeshFVF(
                            pID3DXMesh->GetOptions(),             // [in]  DWORD Options,
                            D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_TEX1, // [in]  DWORD FVF,
-                           God::_pID3DDevice9,             // [in]  LPDIRECT3DDEVICE9 pDevice,
+                           pGOD->_pID3DDevice9,             // [in]  LPDIRECT3DDEVICE9 pDevice,
                            &pID3DXMesh_tmp                       // [out] LPD3DXMESH *ppCloneMesh
                          );
         checkDxException(hr, D3D_OK, " pID3DXMesh->CloneMeshFVF()失敗。対象="<<xfilepath);

@@ -34,7 +34,7 @@ BoardModel::BoardModel(const char* prm_model_id) :
 
 HRESULT BoardModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
     _TRACE4_("BoardModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
-    IDirect3DDevice9* const pDevice = God::_pID3DDevice9;
+    IDirect3DDevice9* const pDevice = pGOD->_pID3DDevice9;
     //対象Actor
     const BoardActor* const pTargetActor = (BoardActor*)prm_pActor_target;
     //対象BoardActorのエフェクトラッパ
@@ -193,7 +193,7 @@ void BoardModel::restore() {
     //バッファ作成
     if (_paVertexBuffer == nullptr) {
         HRESULT hr;
-        hr = God::_pID3DDevice9->CreateVertexBuffer(
+        hr = pGOD->_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices,
                 D3DUSAGE_WRITEONLY,
                 BoardModel::FVF,

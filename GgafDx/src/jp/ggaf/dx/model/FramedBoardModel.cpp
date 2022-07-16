@@ -38,7 +38,7 @@ FramedBoardModel::FramedBoardModel(const char* prm_model_id) : Model(prm_model_i
 
 HRESULT FramedBoardModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
     _TRACE4_("FramedBoardModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
-    IDirect3DDevice9* const pDevice = God::_pID3DDevice9;
+    IDirect3DDevice9* const pDevice = pGOD->_pID3DDevice9;
     //対象Actor
     const FramedBoardActor* const pTargetActor = (FramedBoardActor*)prm_pActor_target;
     //対象FramedBoardActorのエフェクトラッパ
@@ -344,7 +344,7 @@ void FramedBoardModel::restore() {
     if (_paVertexBuffer == nullptr) {
         HRESULT hr;
         //バッファ作成
-        hr = God::_pID3DDevice9->CreateVertexBuffer(
+        hr = pGOD->_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices * _draw_set_num,
                 D3DUSAGE_WRITEONLY,
                 FramedBoardModel::FVF,
@@ -377,7 +377,7 @@ void FramedBoardModel::restore() {
         HRESULT hr;
         int nVertices = 4;
         int nFaces = 2;
-        hr = God::_pID3DDevice9->CreateIndexBuffer(
+        hr = pGOD->_pID3DDevice9->CreateIndexBuffer(
                                 sizeof(WORD) * nFaces * 3 * _draw_set_num,
                                 D3DUSAGE_WRITEONLY,
                                 D3DFMT_INDEX16,

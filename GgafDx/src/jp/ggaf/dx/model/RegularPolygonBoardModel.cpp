@@ -40,7 +40,7 @@ RegularPolygonBoardModel::RegularPolygonBoardModel(const char* prm_model_id) :
 
 HRESULT RegularPolygonBoardModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
     _TRACE4_("RegularPolygonBoardModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
-    IDirect3DDevice9* const pDevice = God::_pID3DDevice9;
+    IDirect3DDevice9* const pDevice = pGOD->_pID3DDevice9;
     //対象Actor
     const RegularPolygonBoardActor* const pTargetActor = (RegularPolygonBoardActor*)prm_pActor_target;
     //対象RegularPolygonBoardActorのエフェクトラッパ
@@ -211,7 +211,7 @@ void RegularPolygonBoardModel::restore() {
     //バッファ作成
     if (_paVertexBuffer == nullptr) {
         HRESULT hr;
-        hr = God::_pID3DDevice9->CreateVertexBuffer(
+        hr = pGOD->_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices,
                 D3DUSAGE_WRITEONLY,
                 RegularPolygonBoardModel::FVF,

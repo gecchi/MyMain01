@@ -95,7 +95,7 @@ void DefaultMassPointSpriteActor::createVertexInstanceData(void* prm, GgafDx::Ma
 void DefaultMassPointSpriteActor::processDraw() {
 
 
-    HRESULT hr = GgafDx::God::_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, TRUE); //ポイントスプライトON！
+    HRESULT hr = pGOD->_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, TRUE); //ポイントスプライトON！
     checkDxException(hr, D3D_OK, " D3DRS_POINTSPRITEENABLE TRUE に失敗しました。");
 
 
@@ -130,7 +130,7 @@ void DefaultMassPointSpriteActor::processDraw() {
 
     ((GgafDx::MassPointSpriteModel*)_pMassPointSpriteModel)->GgafDx::MassPointSpriteModel::draw(this, draw_set_num);
 
-    hr = GgafDx::God::_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, FALSE); //ポイントスプライトOFF
+    hr = pGOD->_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, FALSE); //ポイントスプライトOFF
     checkDxException(hr, D3D_OK, " D3DRS_POINTSPRITEENABLE FALSE に失敗しました。");
 }
 

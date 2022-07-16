@@ -166,7 +166,7 @@ void MassMeshModel::restore() {
     //デバイスに頂点バッファ作成(モデル)
     if (_paVertexBuffer_model == nullptr) {
         HRESULT hr;
-        hr = God::_pID3DDevice9->CreateVertexBuffer(
+        hr = pGOD->_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices_model,
                 D3DUSAGE_WRITEONLY,
                 0,
@@ -186,7 +186,7 @@ void MassMeshModel::restore() {
     //デバイスにインデックスバッファ作成
     if (_paIndexBuffer == nullptr) {
         HRESULT hr;
-        hr = God::_pID3DDevice9->CreateIndexBuffer(
+        hr = pGOD->_pID3DDevice9->CreateIndexBuffer(
                                 sizeof(WORD) * _nFaces * 3,
                                 D3DUSAGE_WRITEONLY,
                                 D3DFMT_INDEX16,
@@ -226,7 +226,7 @@ HRESULT MassMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num
         throwCriticalException(FUNC_NAME<<" "<<_model_id<<" の描画セット数オーバー。_draw_set_num="<<_draw_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
     }
 #endif
-    IDirect3DDevice9* pDevice = God::_pID3DDevice9;
+    IDirect3DDevice9* pDevice = pGOD->_pID3DDevice9;
     //対象アクター
     const MassMeshActor* pTargetActor = (MassMeshActor*)prm_pActor_target;
     //対象MassMeshActorのエフェクトラッパ

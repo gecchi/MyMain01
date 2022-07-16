@@ -37,7 +37,7 @@ RegularPolygonSpriteModel::RegularPolygonSpriteModel(const char* prm_model_id) :
 }
 
 HRESULT RegularPolygonSpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
-    IDirect3DDevice9* const pDevice = God::_pID3DDevice9;
+    IDirect3DDevice9* const pDevice = pGOD->_pID3DDevice9;
     _TRACE4_("RegularPolygonSpriteModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
     //対象Actor
     const RegularPolygonSpriteActor* const pTargetActor = (RegularPolygonSpriteActor*)prm_pActor_target;
@@ -227,7 +227,7 @@ void RegularPolygonSpriteModel::restore() {
     //バッファ作成
     if (_paVertexBuffer == nullptr) {
         HRESULT hr;
-        hr = God::_pID3DDevice9->CreateVertexBuffer(
+        hr = pGOD->_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices,
                 D3DUSAGE_WRITEONLY,
                 RegularPolygonSpriteModel::FVF,

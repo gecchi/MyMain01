@@ -23,9 +23,6 @@ class HgrGod : public GgafLib::DefaultGod {
 public:
     /**
      * コンストラクタ .
-     * @param prm_hInstance インスタンスハンドル
-     * @param prm_hWnd1 １画面目ウインドウハンドル
-     * @param prm_hWnd2 ２画面目ウインドウハンドル
      */
     HgrGod();
 

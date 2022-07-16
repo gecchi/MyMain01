@@ -22,7 +22,7 @@ WorldBoundModel::WorldBoundModel(const char* prm_model_id) : MorphMeshModel(prm_
 
 HRESULT WorldBoundModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
     _TRACE4_("WorldBoundModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
-    IDirect3DDevice9* pDevice = God::_pID3DDevice9;
+    IDirect3DDevice9* pDevice = pGOD->_pID3DDevice9;
     //対象アクター
     WorldBoundActor* pTargetActor = (WorldBoundActor*)prm_pActor_target;
     //対象アクターのエフェクトラッパ

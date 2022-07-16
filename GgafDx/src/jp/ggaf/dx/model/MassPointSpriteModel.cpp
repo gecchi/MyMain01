@@ -163,7 +163,7 @@ void MassPointSpriteModel::restore() {
 
     //デバイスに頂点バッファ作成(モデル)
     if (_paVertexBuffer_model == nullptr) {
-        hr = God::_pID3DDevice9->CreateVertexBuffer(
+        hr = pGOD->_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices_model,
                 D3DUSAGE_WRITEONLY | D3DUSAGE_POINTS,
                 0,
@@ -206,7 +206,7 @@ HRESULT MassPointSpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_
     }
 #endif
 
-    IDirect3DDevice9* pDevice = God::_pID3DDevice9;
+    IDirect3DDevice9* pDevice = pGOD->_pID3DDevice9;
 
     //対象アクター
     const MassPointSpriteActor* pTargetActor = (MassPointSpriteActor*)prm_pActor_target;

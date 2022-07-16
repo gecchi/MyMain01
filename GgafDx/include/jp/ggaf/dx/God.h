@@ -61,12 +61,11 @@ private:
     /** 今回採用されているデバイス（WDDM使用時のみ必要） */
     D3DDISPLAYMODEEX* _paDisplayMode;
 
-    HWND* _paHWnd;
 
 private:
     /**
      * WDDMかどうか判定し、デバイスを作成 .
-     * 結果は God::_pID3D9 と God::_pID3DDevice9に保持される。
+     * 結果は God::_pID3D9 と pGOD->_pID3DDevice9に保持される。
      * @param adapter
      * @param deviceType
      * @param hFocusWindow
@@ -113,6 +112,12 @@ private:
                                                        LPRECT   lprcMonitor,
                                                        LPARAM   dwData    );
 public:
+    /** １画面モード時かつゲーム表示領域アスペクト比を固定時、表示領域場所を指定(場所＝テンキーの数値) */
+    int _single_view_draw_position;
+    /** ２画面モード時かつゲーム表示領域アスペクト比を固定時、１画面目の表示領域場所を指定(場所＝テンキーの数値) */
+    int _dual_view_draw_position1;
+    /** ２画面モード時かつゲーム表示領域アスペクト比を固定時、２画面目の表示領域場所を指定(場所＝テンキーの数値) */
+    int _dual_view_draw_position2;
 
     ///////////////////////////////////////////////////////////
     class Adapter {
@@ -128,6 +133,7 @@ public:
         }
         void setModeNum(int prm_mode_num) {
             mode_num = prm_mode_num;
+            GGAF_DELETEARR_NULLABLE(paModes);
             paModes = NEW D3DDISPLAYMODE[mode_num];
         }
         ~Adapter() {
@@ -177,31 +183,32 @@ public:
     /** バンプマップ用テクスチャー(Texture)資源管理者。（※通常のテクスチャはModelの内部管理） */
     TextureManager* _pBumpMapTextureManager;
     /** [r] 1画面目のウィンドウハンドル  */
-    static HWND _pHWndPrimary;
+    HWND _pHWndPrimary;
     /** [r] 2画面目のウィンドウハンドル  */
-    static HWND _pHWndSecondary;
+    HWND _pHWndSecondary;
+    /** [r] ウィンドウハンドル  */
+    HWND* _paHWnd;
     /** [r] 本アプリケーションのインスタンスハンドル */
-    static HINSTANCE _hInstance;
+    HINSTANCE _hInstance;
     /** [r] デバッグモード時、ワイヤーフレーム表示 */
-    static D3DFILLMODE _d3dfillmode;
+    D3DFILLMODE _d3dfillmode;
     /** [r] DirectX9のオブジェクト */
-    static IDirect3D9* _pID3D9;
+    IDirect3D9* _pID3D9;
     /** [r] デバイス */
-    static IDirect3DDevice9* _pID3DDevice9;
+    IDirect3DDevice9* _pID3DDevice9;
     /** [r] デフォルトのライト */
     D3DLIGHT9 _d3dlight9_default;
     /** [r] デバイスロストフラグ (true=ロスト中) */
-    static bool _is_device_lost_flg;
+    bool _is_device_lost_flg;
     /** [r] 画面アスペクト比調整フラグ (true=ウィンドウがリサイズされ、表示領域を再計算) */
-    static bool _adjustGameWindow;
+    bool _adjustGameWindow;
     /** [r] 表示領域を再計算が必要なウィンドウ(のハンドル) */
-    static HWND _pHWnd_adjustScreen;
-
+    HWND _pHWnd_adjustScreen;
 
     /** [r] 頂点シェーダーのバージョン(D3DVS_VERSION(_Major,_Minor)) */
-    static uint32_t _vs_v;
+    uint32_t _vs_v;
     /** [r] ピクセルシェーダーのバージョン(D3DPS_VERSION(_Major,_Minor)) */
-    static uint32_t _ps_v;
+    uint32_t _ps_v;
 
     /** [r] ゲームバッファ領域(ピクセル的な系) */
     RECT _rectGameBuffer;
@@ -247,7 +254,7 @@ public:
      * @param prm_height 所望の解像度の高さ
      * @return 最も妥当な要素インデックス
      */
-    static int checkAppropriateDisplaySize(God::RezoInfo* prm_paRezos, int prm_rezo_num,
+    int checkAppropriateDisplaySize(God::RezoInfo* prm_paRezos, int prm_rezo_num,
                                     UINT prm_width, UINT prm_height);
     /**
      * ウィンドウ生成処理 .
@@ -332,24 +339,26 @@ public:
      * @param client_width クライアント領域横幅（ピクセル）
      * @param client_height クライアント領域縦幅（ピクセル）
      */
-    static void resetWindowsize(HWND hWnd, pixcoord client_width, pixcoord client_height);
+    void resetInitWindowsize();
+    void resetDotByDotWindowsize(int d);
+    void resetWindowsize(HWND hWnd, pixcoord client_width, pixcoord client_height);
 
-    static void chengeViewPos1(int pos);
-    static void chengeViewPos2(int pos);
-    static void chengeViewPos(HWND prm_pHWnd, int pos);
-    static void chengeViewAspect(bool prm_b);
+    void chengeViewPos1(int pos);
+    void chengeViewPos2(int pos);
+    void chengeViewPos(HWND prm_pHWnd, int pos);
+    void chengeViewAspect(bool prm_b);
 
     /**
      * ウィンドウを縁無しの最大化にする（ボーダーレス・フルスクリーン・ウィンドウ） .
      * @param prm_pHWnd 対象のウィンドウハンドル
      */
-    static void chengeToBorderlessFullWindow(HWND prm_pHWnd);
+    void chengeToBorderlessFullWindow(HWND prm_pHWnd);
 
     /**
      * ボーダーレス・フルスクリーン・ウィンドウを元に戻す .
      * @param prm_pHWnd 対象のウィンドウハンドル
      */
-    static void backToNomalWindow(HWND prm_pHWnd);
+    void backToNomalWindow(HWND prm_pHWnd);
 
     /**
      * DirectXのデバイスの初期設定を行う。

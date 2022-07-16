@@ -195,10 +195,10 @@ void FigureActor::processAfterDraw() {
 //    getEffect()->setAlphaMaster(((Scene*)getPlatformScene())->_scene_alpha);
 //    _TRACE_("this="<<getName()<<" PlathoneScene="<<((Scene*)getPlatformScene())->getName()<<" _scene_alpha="<<((Scene*)getPlatformScene())->_scene_alpha);
     //“–‚½‚è”»’è—Ìˆæ•\Ž¦
-    if (God::_d3dfillmode == D3DFILL_WIREFRAME) {
-        God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+    if (pGOD->_d3dfillmode == D3DFILL_WIREFRAME) {
+        pGOD->_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
         drawHitArea();
-        God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, God::_d3dfillmode);
+        pGOD->_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, pGOD->_d3dfillmode);
     }
 #endif
 }

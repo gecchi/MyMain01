@@ -54,10 +54,10 @@ void TrialAndErrScene::processBehavior() {
 #ifdef MY_DEBUG
     //ワイヤフレーム表示切替
     if (GgafDx::Input::isPushedDownKey(DIK_Q)) {
-        if (GgafDx::God::_d3dfillmode == D3DFILL_WIREFRAME) {
-            GgafDx::God::_d3dfillmode = D3DFILL_SOLID;
+        if (pGOD->_d3dfillmode == D3DFILL_WIREFRAME) {
+            pGOD->_d3dfillmode = D3DFILL_SOLID;
         } else {
-            GgafDx::God::_d3dfillmode = D3DFILL_WIREFRAME;
+            pGOD->_d3dfillmode = D3DFILL_WIREFRAME;
         }
     }
 #endif

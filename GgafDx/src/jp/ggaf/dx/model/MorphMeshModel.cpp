@@ -40,7 +40,7 @@ MorphMeshModel::MorphMeshModel(const char* prm_model_id) : Model(prm_model_id) {
 }
 
 HRESULT MorphMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
-    IDirect3DDevice9* pDevice = God::_pID3DDevice9;
+    IDirect3DDevice9* pDevice = pGOD->_pID3DDevice9;
     _TRACE4_("MorphMeshModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
 
     //対象アクター
@@ -466,8 +466,8 @@ void MorphMeshModel::restore() {
         paVtxelem[elemnum-1].Usage = 0;
         paVtxelem[elemnum-1].UsageIndex = 0;
 
-        hr = God::_pID3DDevice9->CreateVertexDeclaration( paVtxelem, &(_pVertexDeclaration) );
-        checkDxException(hr, D3D_OK, "God::_pID3DDevice9->CreateVertexDeclaration 失敗 model="<<(_model_id));
+        hr = pGOD->_pID3DDevice9->CreateVertexDeclaration( paVtxelem, &(_pVertexDeclaration) );
+        checkDxException(hr, D3D_OK, "pGOD->_pID3DDevice9->CreateVertexDeclaration 失敗 model="<<(_model_id));
         //ストリーム数取得        hr = m_pDecl->GetDeclaration( m_pElement, &m_numElements);
 
         GGAF_DELETEARR(paVtxelem);
@@ -480,7 +480,7 @@ void MorphMeshModel::restore() {
 
             if (pattern == 0) {
                 //プライマリ頂点バッファ
-                hr = God::_pID3DDevice9->CreateVertexBuffer(
+                hr = pGOD->_pID3DDevice9->CreateVertexBuffer(
                         _size_vertices_primary,
                         D3DUSAGE_WRITEONLY,
                         0, //MorphMeshModel::FVF,
@@ -495,7 +495,7 @@ void MorphMeshModel::restore() {
                 _paVertexBuffer_primary->Unlock();
             } else {
                 //モーフターゲット頂点バッファ
-                hr = God::_pID3DDevice9->CreateVertexBuffer(
+                hr = pGOD->_pID3DDevice9->CreateVertexBuffer(
                         _size_vertices_morph,
                         D3DUSAGE_WRITEONLY,
                         0, //MorphMeshModel::FVF,
@@ -517,7 +517,7 @@ void MorphMeshModel::restore() {
     if (_paIndexBuffer == nullptr) {
         HRESULT hr;
         int nFaces = _papMeshesFront[0]->_nFaces;
-        hr = God::_pID3DDevice9->CreateIndexBuffer(
+        hr = pGOD->_pID3DDevice9->CreateIndexBuffer(
                                     sizeof(WORD) * nFaces * 3,
                                     D3DUSAGE_WRITEONLY,
                                     D3DFMT_INDEX16,

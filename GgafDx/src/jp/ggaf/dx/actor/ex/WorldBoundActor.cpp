@@ -42,7 +42,7 @@ void WorldBoundActor::processDraw() {
     hr = pID3DXEffect->SetMatrix(_pWorldBoundEffect->_h_matWorld, &_matWorld );
     checkDxException(hr, D3D_OK, "SetMatrix(g_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
-    God::_pID3DDevice9->SetTexture(0, getCubeMapTexture());
+    pGOD->_pID3DDevice9->SetTexture(0, getCubeMapTexture());
 
     _pWorldBoundModel->draw(this);
 }

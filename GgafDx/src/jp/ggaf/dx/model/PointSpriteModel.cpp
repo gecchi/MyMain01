@@ -33,7 +33,7 @@ PointSpriteModel::PointSpriteModel(const char* prm_model_id) : Model(prm_model_i
 }
 
 HRESULT PointSpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
-    IDirect3DDevice9* const pDevice = God::_pID3DDevice9;
+    IDirect3DDevice9* const pDevice = pGOD->_pID3DDevice9;
     _TRACE4_("PointSpriteModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
 
     //対象Actor
@@ -213,7 +213,7 @@ void PointSpriteModel::restore() {
     if (_paVertexBuffer == nullptr) {
         HRESULT hr;
         //頂点バッファ作成
-        hr = God::_pID3DDevice9->CreateVertexBuffer(
+        hr = pGOD->_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices,
                 D3DUSAGE_WRITEONLY,
                 PointSpriteModel::FVF,

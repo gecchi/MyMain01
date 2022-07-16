@@ -44,7 +44,7 @@ HRESULT MeshSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num,
         _TRACE_(FUNC_NAME<<" "<<_model_id<<" の描画セット数オーバー。_draw_set_num="<<_draw_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
     }
 #endif
-    IDirect3DDevice9* const pDevice = God::_pID3DDevice9;
+    IDirect3DDevice9* const pDevice = pGOD->_pID3DDevice9;
     //対象アクター
     const MeshSetActor* const pTargetActor = (MeshSetActor*)prm_pActor_target;
     //対象MeshSetActorのエフェクトラッパ
@@ -410,7 +410,7 @@ void MeshSetModel::restore() {
     if (_paVertexBuffer == nullptr) {
         HRESULT hr;
         //頂点バッファ作成
-        hr = God::_pID3DDevice9->CreateVertexBuffer(
+        hr = pGOD->_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices * _draw_set_num,
                 D3DUSAGE_WRITEONLY,
                 MeshSetModel::FVF,
@@ -440,7 +440,7 @@ void MeshSetModel::restore() {
     //流し込むインデックスバッファデータ作成
     if (_paIndexBuffer == nullptr) {
         HRESULT hr;
-        hr = God::_pID3DDevice9->CreateIndexBuffer(
+        hr = pGOD->_pID3DDevice9->CreateIndexBuffer(
                                sizeof(WORD) * _nFaces * 3 * _draw_set_num,
                                 D3DUSAGE_WRITEONLY,
                                 D3DFMT_INDEX16,

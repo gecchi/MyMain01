@@ -137,12 +137,12 @@ void VvvWorld::processBehavior() {
         }
     } else if (GgafDx::Input::isPushedDownKey(DIK_W)) {
         //ワイヤフレーム表示切替
-        if (GgafDx::God::_d3dfillmode == D3DFILL_WIREFRAME) {
-            GgafDx::God::_d3dfillmode = D3DFILL_SOLID;
+        if (pGOD->_d3dfillmode == D3DFILL_WIREFRAME) {
+            pGOD->_d3dfillmode = D3DFILL_SOLID;
         } else {
-            GgafDx::God::_d3dfillmode = D3DFILL_WIREFRAME;
+            pGOD->_d3dfillmode = D3DFILL_WIREFRAME;
         }
-        GgafDx::God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, GgafDx::God::_d3dfillmode);
+        pGOD->_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, pGOD->_d3dfillmode);
     } else if (GgafDx::Input::isPushedDownKey(DIK_G)) {
         //グリッド表示非表示
         if (pGrid_->isActive()) {

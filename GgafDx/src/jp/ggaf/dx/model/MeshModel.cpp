@@ -37,7 +37,7 @@ MeshModel::MeshModel(const char* prm_model_id) : Model(prm_model_id) {
 }
 
 HRESULT MeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
-    IDirect3DDevice9* const pDevice = God::_pID3DDevice9;
+    IDirect3DDevice9* const pDevice = pGOD->_pID3DDevice9;
     //対象アクター
     //MeshActor* pTargetActor = (MeshActor*)prm_pActor_target;
     const FigureActor* const pTargetActor = prm_pActor_target;
@@ -373,7 +373,7 @@ void MeshModel::restore() {
     if (_paVertexBuffer == nullptr) {
         HRESULT hr;
         //頂点バッファ作成
-        hr = God::_pID3DDevice9->CreateVertexBuffer(
+        hr = pGOD->_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices,
                 D3DUSAGE_WRITEONLY,
                 MeshModel::FVF,
@@ -393,7 +393,7 @@ void MeshModel::restore() {
     //インデックスバッファデータ作成
     if (_paIndexBuffer == nullptr) {
         HRESULT hr;
-        hr = God::_pID3DDevice9->CreateIndexBuffer(
+        hr = pGOD->_pID3DDevice9->CreateIndexBuffer(
                                     sizeof(WORD) * _nFaces * 3,
                                     D3DUSAGE_WRITEONLY,
                                     D3DFMT_INDEX16,

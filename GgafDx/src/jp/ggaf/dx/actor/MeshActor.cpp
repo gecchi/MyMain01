@@ -70,7 +70,7 @@ void MeshActor::processDraw() {
     hr = pID3DXEffect->SetFloat(_pMeshEffect->_h_lambert_flg, _lambert_flg );
     checkDxException(hr, D3D_OK, "SetFloat(_h_lambert_flg) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     if (_pBumpMapTextureConnection) {
-        hr = God::_pID3DDevice9->SetTexture(2, getBumpMapTexture());
+        hr = pGOD->_pID3DDevice9->SetTexture(2, getBumpMapTexture());
         checkDxException(hr, D3D_OK, "SetTexture() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         hr = pID3DXEffect->SetMatrix(_pMeshEffect->_h_matInvWorld, getInvMatWorldRotMv() );
         checkDxException(hr, D3D_OK, "SetMatrix(_h_matInvWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
