@@ -2,7 +2,10 @@
 #define GGAF_LIB_H_
 #include "GgafLibCommonHeader.h"
 #include <windows.h>
-
+#ifdef __GNUG__
+    #undef __in
+    #undef __out
+#endif
 HINSTANCE WinMain_hInstance;
 HINSTANCE WinMain_hPrevInstance;
 LPTSTR WinMain_lpCmdLine;
