@@ -8,7 +8,7 @@
 #include "jp/ggaf/dx/util/curve/FixedVelocityCurveVecVehicleLeader.h"
 #include "jp/ggaf/dx/util/curve/FixedVelocityCurveManufacture.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/manager/CurveSourceManagerEx.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 

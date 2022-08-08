@@ -8,8 +8,8 @@ namespace GgafDx {
 /**
  * カメラアクター.
  * カメラを表したアクターです。<BR>
- * 本クラスは神(God)と連動しています。メンバを操作すると、その通りにカメラの位置と注視点が操作できます。<BR>
- * processPreDraw メソッドが実装されており、その中で神(God)のカメラに座標情報を上書きします。<BR>
+ * 本クラスは管理者(Caretaker)と連動しています。メンバを操作すると、その通りにカメラの位置と注視点が操作できます。<BR>
+ * processPreDraw メソッドが実装されており、その中で管理者(Caretaker)のカメラに座標情報を上書きします。<BR>
  * <BR>
  * _x,_y,_z             ・・・ カメラの位置 <BR>
  * <BR>
@@ -21,7 +21,7 @@ namespace GgafDx {
  * @author Masatoshi Tsuge
  */
 class Camera : public GeometricActor {
-    friend God;
+    friend Caretaker;
     friend Util;
     friend GeometricActor;
     friend SeTransmitterForActor;
@@ -53,10 +53,10 @@ public:
     /** [r]視錐台を左右に分割する垂直面、左右の効果音のパンに使用(読み込み専用、毎フレーム更新) */
     D3DXPLANE _plnVerticalCenter;
 
-    /** [r]DirectX射影変換行列 */
+    /** [r]DirectX射影変換行列（現在のカメラの射影変換行列） */
     D3DXMATRIX _matProj;
     /** [r]DirectX正射影変換行列 */
-    D3DXMATRIX _vMatrixOrthoProj;
+    D3DXMATRIX _matOrthoProj;
 
     /** [r]DirectXカメラの位置(フレーム毎更新) */
     D3DXVECTOR3* _pVecCamFromPoint;

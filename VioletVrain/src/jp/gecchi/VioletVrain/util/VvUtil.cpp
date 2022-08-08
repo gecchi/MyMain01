@@ -1,7 +1,7 @@
 #include "VvUtil.h"
 
 #include "jp/ggaf/lib/LibConfig.h"
-#include "jp/gecchi/VioletVrain/VvGod.h"
+#include "jp/gecchi/VioletVrain/VvCaretaker.h"
 
 
 

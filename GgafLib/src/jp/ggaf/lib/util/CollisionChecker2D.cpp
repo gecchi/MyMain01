@@ -4,7 +4,7 @@
 #include "jp/ggaf/core/util/LinearQuadtree.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/dx/util/CollisionArea.h"
-#include "jp/ggaf/lib/DefaultGod.h"
+#include "jp/ggaf/lib/DefaultCaretaker.h"
 #include "jp/ggaf/lib/scene/DefaultSpacetime.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/util/ColliAABox.h"
@@ -16,7 +16,7 @@
 using namespace GgafLib;
 
 CollisionChecker2D::CollisionChecker2D(GgafDx::GeometricActor* prm_pActor) : CollisionChecker(prm_pActor) ,
-        _pLinearQuadtree(pGOD->getSpacetime()->getLinearQuadtree()),
+        _pLinearQuadtree(pCARETAKER->getSpacetime()->getLinearQuadtree()),
         _pElem(NEW GgafCore::TreeElem<2u>(_pLinearQuadtree->_paQuadrant, prm_pActor))
 {
 }

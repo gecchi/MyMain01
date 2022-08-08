@@ -34,7 +34,7 @@
     <ClCompile Include="src\jp\ggaf\core\exception\CriticalException.cpp" />
     <ClCompile Include="src\jp\ggaf\core\exception\Exception.cpp" />
     <ClCompile Include="src\jp\ggaf\core\GarbageBox.cpp" />
-    <ClCompile Include="src\jp\ggaf\core\God.cpp" />
+    <ClCompile Include="src\jp\ggaf\core\Caretaker.cpp" />
     <ClCompile Include="src\jp\ggaf\core\Object.cpp" />
     <ClCompile Include="src\jp\ggaf\core\Phase.cpp" />
     <ClCompile Include="src\jp\ggaf\core\Properties.cpp" />

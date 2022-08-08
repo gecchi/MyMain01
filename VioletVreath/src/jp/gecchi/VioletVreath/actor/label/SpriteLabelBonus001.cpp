@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 
 
 
@@ -45,7 +45,7 @@ void SpriteLabelBonus001::onDispatched(GgafDx::GeometricActor* prm_pOrgActor) {
 }
 
 void SpriteLabelBonus001::processBehavior() {
-    const Camera* const pCam = pGOD->getSpacetime()->getCamera();
+    const Camera* const pCam = pCARETAKER->getSpacetime()->getCamera();
     GgafDx::VecVehicle* pVecVehicle = getVecVehicle();
     GgafCore::Phase* pPhase = getPhase();
     switch (pPhase->getCurrent()) {

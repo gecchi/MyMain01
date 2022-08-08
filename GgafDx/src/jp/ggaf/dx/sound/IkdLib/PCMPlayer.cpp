@@ -10,7 +10,7 @@
 #include <process.h>
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/dx/sound/IkdLib/PCMDecoder.h"
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 
 #ifdef __GNUG__
     #define __null
@@ -261,7 +261,7 @@ unsigned __stdcall PCMPlayer::streamThread(void* playerPtr) {
     bool waitFinish = false;
 
     while (player->_is_terminate == false) {
-        if (pGOD->_sync_frame_time) {
+        if (pCARETAKER->_sync_frame_time) {
             _TRACE_("PCMPlayer::streamThread() ‰‰‘t’â~’†EEE");
             Sleep(100);
             continue;

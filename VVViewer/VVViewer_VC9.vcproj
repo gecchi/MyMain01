@@ -265,11 +265,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\VvvGod.cpp"
+			RelativePath=".\src\VvvCaretaker.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\VvvGod.h"
+			RelativePath=".\src\VvvCaretaker.h"
 			>
 		</File>
 		<File

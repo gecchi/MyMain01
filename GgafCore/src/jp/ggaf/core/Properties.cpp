@@ -76,21 +76,115 @@ void Properties::read(std::istream& is) {
     }
 }
 
+//void Properties::write(std::string prm_properties_filename, const char *header) {
+//    std::ofstream ofs_properties(prm_properties_filename.c_str());
+//    write(ofs_properties, header);
+//    ofs_properties.close();
+//}
+
+
+
+//void Properties::write(std::ostream &os, const char *header) {
+//    if (header != nullptr) {
+//        os << '#' << header << std::endl;
+//    }
+//    os << '#' << "update " << Util::getSystemDateTimeStr() << std::endl;
+//
+//    for (StrMap::iterator it = _mapProperties.begin(), end = _mapProperties.end(); it != end; ++it) {
+//        const std::string &key = (*it).first, &val = (*it).second;
+//        os << key << '=' << val << std::endl;
+//    }
+//}
+
+
 void Properties::write(std::string prm_properties_filename, const char *header) {
-    std::ofstream ofs_properties(prm_properties_filename.c_str());
-    write(ofs_properties, header);
-    ofs_properties.close();
-}
+    std::ifstream ifs_properties(prm_properties_filename.c_str());
 
-void Properties::write(std::ostream &os, const char *header) {
-    if (header != nullptr) {
-        os << '#' << header << std::endl;
+    std::vector<std::string> lines;
+    for (std::string line; std::getline(ifs_properties, line); ){
+        lines.push_back(line);
     }
-    os << '#' << "update " << Util::getSystemDateTimeStr() << std::endl;
+    ifs_properties.close();
 
-    for (StrMap::iterator it = _mapProperties.begin(), end = _mapProperties.end(); it != end; ++it) {
-        const std::string &key = (*it).first, &val = (*it).second;
-        os << key << '=' << val << std::endl;
+    std::ofstream outs(prm_properties_filename.c_str());
+    if (header != nullptr) {
+        outs << '#' << header << std::endl;
+    }
+    outs << '#' << "update " << Util::getSystemDateTimeStr() << std::endl;
+    StrMap mapProperties = _mapProperties;
+    for (int i = 0; i < lines.size(); i++) {
+        std::string line = lines[i];
+        std::istringstream ins(line);
+        int ch = 0;
+
+        ch = ins.get();
+
+        switch (ch) {
+            case '#':
+            case '!':
+                do {
+                    ch = ins.get();
+                } while (!ins.eof() && ch >= 0 && ch != '\n' && ch != '\r');
+                //ÇªÇÃÇ‹Ç‹èëÇ≠
+                outs << line << std::endl;
+                continue;
+            case '\n':
+            case '\r':
+            case ' ':
+            case '\t':
+                ch = ins.get();
+                //ÇªÇÃÇ‹Ç‹èëÇ≠
+                outs << line << std::endl;
+                continue;
+        }
+
+        std::ostringstream key, val;
+
+        while (!ins.eof() && ch >= 0 && ch != '=' && ch != ':' && ch != ' ' && ch != '\t' && ch != '\n' && ch != '\r') {
+            key << char(ch);
+            ch = ins.get();
+        }
+
+        while (!ins.eof() && (ch == ' ' || ch == '\t'))
+            ch = ins.get();
+
+        if (!ins.eof() && (ch == '=' || ch == ':'))
+            ch = ins.get();
+
+        while (!ins.eof() && (ch == ' ' || ch == '\t'))
+            ch = ins.get();
+
+        while (!ins.eof() && ch >= 0 && ch != '\n' && ch != '\r') {
+            int next = 0;
+            next = ins.get();
+            val << char(ch);
+            ch = next;
+        }
+        // key.str()  Ç™ë∂ç›Ç∑ÇÈÇ©ÅH
+        bool is_break = false;
+        for (StrMap::iterator it = mapProperties.begin(), end = mapProperties.end(); it != end; ++it) {
+            const std::string &prop_key = (*it).first, &prop_val = (*it).second;
+            if (prop_key == key.str()) {
+                //ë∂ç›ÇµÇΩÇÃÇ≈è„èëÇ´
+                outs << prop_key << '=' << prop_val << std::endl;
+                mapProperties.erase(it);
+                is_break = true;
+                break;
+            }
+        }
+        if (is_break) {
+            continue;
+        } else {
+            //ë∂ç›ÇµÇ»Ç¢ÇÃÇ≈ÇªÇÃÇ‹Ç‹èëÇ≠
+            outs << line << std::endl;
+        }
+    }
+
+    //ó]ÇËÇç≈å„Ç…
+    outs << "#remaining..." << std::endl;
+    for (StrMap::iterator it = mapProperties.begin(), end = mapProperties.end(); it != end; ++it) {
+        const std::string &prop_key = (*it).first, &prop_val = (*it).second;
+        outs << prop_key << '=' << prop_val << std::endl;
     }
 }
 

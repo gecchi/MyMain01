@@ -3,7 +3,7 @@
 #include "VVViewer.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 
-#include "VvvGod.h"
+#include "VvvCaretaker.h"
 #include "jp/ggaf/core/util/LinkedListRing.hpp"
 
 namespace VVViewer {

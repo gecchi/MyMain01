@@ -1458,15 +1458,15 @@ template<class T>
 void MenuActor<T>::moveCursor(bool prm_smooth) {
     if (_pCursorActor) {
         GgafDx::FigureActor* pTargetItem = _lstItems.getCurrent();
-        GgafDx::VecVehicle* pCursorActor_pVecVehicle = _pCursorActor->getVecVehicle();
+        GgafDx::VecVehicle* pCursorVecVehicle = _pCursorActor->getVecVehicle();
         if (prm_smooth) {
-            pCursorActor_pVecVehicle->setMvAngTwd(
+            pCursorVecVehicle->setMvAngTwd(
                                     pTargetItem->_x + _x_cursor_adjust,
                                     pTargetItem->_y + _y_cursor_adjust,
                                     pTargetItem->_z + _z_cursor_adjust
-                                  );
-            pCursorActor_pVecVehicle->stop();
-            pCursorActor_pVecVehicle->asstMv()->slideByDt(
+                              );
+            pCursorVecVehicle->stop();
+            pCursorVecVehicle->asstMv()->slideByDt(
                                     UTIL::getDistance(_pCursorActor->_x,
                                                       _pCursorActor->_y,
                                                       _pCursorActor->_z,
@@ -1480,8 +1480,8 @@ void MenuActor<T>::moveCursor(bool prm_smooth) {
             _y_cursor_target_prev = pTargetItem->_y;
             _z_cursor_target_prev = pTargetItem->_z;
         } else {
-            pCursorActor_pVecVehicle->asstMv()->stopSliding();
-            pCursorActor_pVecVehicle->stop();
+            pCursorVecVehicle->asstMv()->stopSliding();
+            pCursorVecVehicle->stop();
             _pCursorActor->_x = pTargetItem->_x + _x_cursor_adjust;
             _pCursorActor->_y = pTargetItem->_y + _y_cursor_adjust;
             _pCursorActor->_z = pTargetItem->_z + _z_cursor_adjust;
@@ -1498,15 +1498,15 @@ void MenuActor<T>::moveSubCursor(int prm_subcur_no, bool prm_smooth) {
         GgafDx::FigureActor* pTargetItem = getSelectedItemOnSubCursor(prm_subcur_no);
         SubCursor* pSubCursor = _lstSubCursor.getFromFirst(prm_subcur_no);
         GgafDx::FigureActor* pSubCursorActor = pSubCursor->_pActor;
-        GgafDx::VecVehicle* pSubCursorActor_pVecVehicle = pSubCursorActor->getVecVehicle();
+        GgafDx::VecVehicle* pSubCursorVecVehicle = pSubCursorActor->getVecVehicle();
         if (prm_smooth) {
-            pSubCursorActor_pVecVehicle->setMvAngTwd(
-                                         pTargetItem->_x + pSubCursor->_x_adjust,
-                                         pTargetItem->_y + pSubCursor->_y_adjust,
-                                         pTargetItem->_z + pSubCursor->_z_adjust
-                                     );
-            pSubCursorActor_pVecVehicle->stop();
-            pSubCursorActor_pVecVehicle->asstMv()->slideByDt(
+            pSubCursorVecVehicle->setMvAngTwd(
+                                     pTargetItem->_x + pSubCursor->_x_adjust,
+                                     pTargetItem->_y + pSubCursor->_y_adjust,
+                                     pTargetItem->_z + pSubCursor->_z_adjust
+                                 );
+            pSubCursorVecVehicle->stop();
+            pSubCursorVecVehicle->asstMv()->slideByDt(
                                       UTIL::getDistance(pSubCursorActor->_x,
                                                         pSubCursorActor->_y,
                                                         pSubCursorActor->_z,
@@ -1520,8 +1520,8 @@ void MenuActor<T>::moveSubCursor(int prm_subcur_no, bool prm_smooth) {
             pSubCursor->_y_target_prev = pTargetItem->_y;
             pSubCursor->_z_target_prev = pTargetItem->_z;
         } else {
-            pSubCursorActor_pVecVehicle->asstMv()->stopSliding();
-            pSubCursorActor_pVecVehicle->stop();
+            pSubCursorVecVehicle->asstMv()->stopSliding();
+            pSubCursorVecVehicle->stop();
             pSubCursorActor->_x = pTargetItem->_x + pSubCursor->_x_adjust;
             pSubCursorActor->_y = pTargetItem->_y + pSubCursor->_y_adjust;
             pSubCursorActor->_z = pTargetItem->_z + pSubCursor->_z_adjust;

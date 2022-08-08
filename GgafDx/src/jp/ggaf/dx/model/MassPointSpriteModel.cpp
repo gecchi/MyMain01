@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/model/MassPointSpriteModel.h"
 
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/Config.h"
 #include "jp/ggaf/dx/actor/MassPointSpriteActor.h"
 #include "jp/ggaf/dx/effect/MassPointSpriteEffect.h"
@@ -72,7 +72,7 @@ void MassPointSpriteModel::createVertexModel(void* prm, MassModel::VertexModelIn
 
 void MassPointSpriteModel::restore() {
     _TRACE3_("_model_id=" << _model_id << " start");
-    ModelManager* pModelManager = pGOD->_pModelManager;
+    ModelManager* pModelManager = pCARETAKER->_pModelManager;
     HRESULT hr;
     if (!_paVtxBuffer_data_model) {
         std::string model_def_file = std::string(_model_id) + ".psprx";
@@ -163,7 +163,7 @@ void MassPointSpriteModel::restore() {
 
     //デバイスに頂点バッファ作成(モデル)
     if (_paVertexBuffer_model == nullptr) {
-        hr = pGOD->_pID3DDevice9->CreateVertexBuffer(
+        hr = pCARETAKER->_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices_model,
                 D3DUSAGE_WRITEONLY | D3DUSAGE_POINTS,
                 0,
@@ -206,7 +206,7 @@ HRESULT MassPointSpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_
     }
 #endif
 
-    IDirect3DDevice9* pDevice = pGOD->_pID3DDevice9;
+    IDirect3DDevice9* pDevice = pCARETAKER->_pID3DDevice9;
 
     //対象アクター
     const MassPointSpriteActor* pTargetActor = (MassPointSpriteActor*)prm_pActor_target;
@@ -324,7 +324,7 @@ HRESULT MassPointSpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_
         checkDxException(hr, D3D_OK, "１パス目 BeginPass(0) に失敗しました。");
     }
 #ifdef MY_DEBUG
-        GgafCore::God::_num_drawing++;
+        GgafCore::Caretaker::_num_drawing++;
 #endif
 
     ModelManager::_pModelLastDraw = this;

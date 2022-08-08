@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/effect/RegularPolygonSpriteEffect.h"
 
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 
@@ -9,7 +9,7 @@ using namespace GgafDx;
 
 RegularPolygonSpriteEffect::RegularPolygonSpriteEffect(const char* prm_effect_name) : Effect(prm_effect_name) {
     _obj_effect |= Obj_GgafDx_RegularPolygonSpriteEffect;
-    Camera* const pCam = pGOD->getSpacetime()->getCamera();
+    Camera* const pCam = pCARETAKER->getSpacetime()->getCamera();
     //シェーダー共通のグローバル変数設定
     HRESULT hr;
     //射影変換行列
@@ -35,7 +35,7 @@ RegularPolygonSpriteEffect::RegularPolygonSpriteEffect(const char* prm_effect_na
 }
 
 void RegularPolygonSpriteEffect::setParamPerFrame() {
-    Camera* const pCam = pGOD->getSpacetime()->getCamera();
+    Camera* const pCam = pCARETAKER->getSpacetime()->getCamera();
     HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, pCam->getViewMatrix() );
     checkDxException(hr, D3D_OK, "setParamPerFrame SetMatrix(_h_matView) に失敗しました。");
 }

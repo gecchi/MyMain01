@@ -1,6 +1,6 @@
 #include "StageWorld.h"
 
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld/StageController.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameMainScene/StageWorld/RankUpStageController.h"
@@ -23,7 +23,7 @@ StageWorld::StageWorld(const char* prm_name) : VvScene<DefaultScene>(prm_name) {
 }
 
 void StageWorld::onReset() {
-    _TRACE_(FUNC_NAME<<" "<<NODE_INFO<<" GOD="<<pGOD->_frame_of_God);
+    _TRACE_(FUNC_NAME<<" "<<NODE_INFO<<" CARETAKER="<<pCARETAKER->_frame_of_Caretaker);
     _TRACE_("MyShipScene ‚ðAƒXƒ[‚Ì‰e‹¿‚ð—^‚¦‚È‚¢‚½‚ß‚Éˆê‚Âã‚Éˆø‚«ã‚°‚Ü‚· appendChild(pMYSHIP_SCENE->extract()); ");
     pMYSHIP_SCENE->resetTree();
     pMYSHIP_SCENE->activateImmed();

@@ -1703,11 +1703,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath_launcher\God.cpp"
+			RelativePath=".\src\jp\gecchi\VioletVreath_launcher\Caretaker.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\gecchi\VioletVreath_launcher\God.h"
+			RelativePath=".\src\jp\gecchi\VioletVreath_launcher\Caretaker.h"
 			>
 		</File>
 		<File

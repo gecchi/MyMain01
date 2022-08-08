@@ -178,14 +178,14 @@ GroupHead* MainActor::searchChildGroupHead(kind_t prm_kind) {
     }
 }
 
-God* MainActor::askGod() {
-    if (_pGod == nullptr) {
+Caretaker* MainActor::askCaretaker() {
+    if (_pCaretaker == nullptr) {
         if (_pParent == nullptr) {
-            throwCriticalException("神はこの世に存在する物からのみ謁見できます。まずはこの世に属しなさい！！("<<getName()<<")");
+            throwCriticalException("管理者はこの世に存在する物からのみ謁見できます。まずはこの世に属しなさい！！("<<getName()<<")");
         }
-        _pGod = getParent()->askGod();
+        _pCaretaker = getParent()->askCaretaker();
     }
-    return _pGod;
+    return _pCaretaker;
 }
 
 kind_t MainActor::lookUpKind() {

@@ -2,10 +2,10 @@
 
 #include "EnemyAllas.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
-#include "jp/ggaf/lib/DefaultGod.h"
+#include "jp/ggaf/lib/DefaultCaretaker.h"
 #include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 
 using namespace GgafDx;

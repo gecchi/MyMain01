@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/effect/MeshEffect.h"
 
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 
@@ -9,8 +9,8 @@ using namespace GgafDx;
 
 MeshEffect::MeshEffect(const char* prm_effect_name) : Effect(prm_effect_name) {
     _obj_effect |= Obj_GgafDx_MeshEffect;
-    Camera* const pCam = pGOD->getSpacetime()->getCamera();
-    D3DLIGHT9* pLight = &(pGOD->_d3dlight9_default);
+    Camera* const pCam = pCARETAKER->getSpacetime()->getCamera();
+    D3DLIGHT9* pLight = &(pCARETAKER->_d3dlight9_default);
     //シェーダー共通のグローバル変数設定
     HRESULT hr;
     //射影変換行列
@@ -46,7 +46,7 @@ MeshEffect::MeshEffect(const char* prm_effect_name) : Effect(prm_effect_name) {
 }
 
 void MeshEffect::setParamPerFrame() {
-    Camera* const pCam = pGOD->getSpacetime()->getCamera();
+    Camera* const pCam = pCARETAKER->getSpacetime()->getCamera();
     HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, pCam->getViewMatrix() );
     checkDxException(hr, D3D_OK, "SetMatrix(_h_matView) に失敗しました。_effect_name="<<_effect_name);
     hr = _pID3DXEffect->SetValue(_h_posCam, pCam->getVecCamFromPoint(), sizeof(D3DXVECTOR3) );

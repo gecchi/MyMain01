@@ -7,7 +7,7 @@
 #include "jp/ggaf/dx/actor/supporter/Colorist.h"
 #include "jp/ggaf/dx/model/RegularPolygonSpriteModel.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "MgrGod.h"
+#include "MgrCaretaker.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 
 
@@ -39,7 +39,7 @@ void SmpPieGraphSprite::initialize() {
 }
 
 void SmpPieGraphSprite::processBehavior() {
-    VirtualButton* pVb = P_GOD->getSpacetime()->pVb_;
+    VirtualButton* pVb = P_CARETAKER->getSpacetime()->pVb_;
     if (GgafDx::Input::isPressedKey(DIK_Z)) {
         setBeginAngPos(getBeginAngPos() + D_ANG(1));
     }

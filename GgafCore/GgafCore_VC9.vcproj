@@ -296,11 +296,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\core\GgafGod.cpp"
+			RelativePath=".\src\jp\ggaf\core\GgafCaretaker.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\GgafGod.h"
+			RelativePath=".\include\jp\ggaf\core\GgafCaretaker.h"
 			>
 		</File>
 		<File

@@ -7,7 +7,7 @@
 #include "jp/ggaf/dx/manager/CurveManufactureConnection.h"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 #include "jp/ggaf/dx/util/curve/VehicleLeader.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 using namespace GgafDx;

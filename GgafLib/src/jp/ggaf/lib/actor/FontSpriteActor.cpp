@@ -14,10 +14,10 @@ FontSpriteActor::VERTEX_instancedata FontSpriteActor::_aInstancedata[GGAFDXMASS_
 
 FontSpriteActor::FontSpriteActor(const char* prm_name, const char* prm_model) :
             GgafDx::MassSpriteActor(prm_name,
-                                  prm_model,
-                                  "FontSpriteEffect",
-                                  "FontSpriteTechnique",
-                                  UTIL::createChecker(this) ) ,
+                                    prm_model,
+                                    "FontSpriteEffect",
+                                    "FontSpriteTechnique",
+                                    UTIL::createChecker(this) ) ,
             ICharacterChip<FontSpriteActor, 256, 1024>(this, (int)(_pMassSpriteModel->_model_width_px), (int)(_pMassSpriteModel->_model_height_px))
 {
     _class_name = "FontSpriteActor";

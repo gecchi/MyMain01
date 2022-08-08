@@ -1,6 +1,6 @@
 #include "jp/ggaf/lib/actor/WorldBoundActor.h"
 
-#include "jp/ggaf/lib/DefaultGod.h"
+#include "jp/ggaf/lib/DefaultCaretaker.h"
 #include "jp/ggaf/lib/scene/DefaultSpacetime.h"
 #include "jp/ggaf/lib/actor/camera/DefaultCamera.h"
 
@@ -26,7 +26,7 @@ WorldBoundActor::WorldBoundActor(const char* prm_name, const char* prm_model) :
 }
 
 void WorldBoundActor::initialize() {
-    DefaultCamera* pCam = pGOD->getSpacetime()->getCamera();
+    DefaultCamera* pCam = pCARETAKER->getSpacetime()->getCamera();
     setPositionAt(pCam);
     dxcoord world_r = pCam->getZFar(); //世界境界球半径
     dxcoord world_bound_model_r = 1.0f; //WorldBound001のモデルは半径DIRECTX距離1の球である
@@ -35,7 +35,7 @@ void WorldBoundActor::initialize() {
 
 
 void WorldBoundActor::processSettlementBehavior() {
-    DefaultCamera* pCam = pGOD->getSpacetime()->getCamera();
+    DefaultCamera* pCam = pCARETAKER->getSpacetime()->getCamera();
     //画面外判定無しに伴ない処理簡略化。
     //次の処理を無視しています
     //・自身がボーン時の考慮

@@ -40,7 +40,7 @@ public:
      */
     void write(std::string prm_properties_filename, const char *header = nullptr);
 
-    void write(std::ostream &os, const char *header = nullptr);
+//    void write(std::ostream &os, const char *header = nullptr);
 
     void print(std::ostream &os);
 

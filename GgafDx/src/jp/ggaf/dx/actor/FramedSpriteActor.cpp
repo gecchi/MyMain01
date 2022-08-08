@@ -1,7 +1,7 @@
 #include "jp/ggaf/dx/actor/FramedSpriteActor.h"
 
 #include "jp/ggaf/dx/exception/CriticalException.h"
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/util/Util.h"
 #include "jp/ggaf/dx/effect/FramedSpriteEffect.h"
 #include "jp/ggaf/dx/model/FramedSpriteModel.h"

@@ -1,34 +1,34 @@
-#ifndef HGRGOD_H_
-#define HGRGOD_H_
+#ifndef HGRCARETAKER_H_
+#define HGRCARETAKER_H_
 #include "Hogera.h"
-#include "jp/ggaf/lib/DefaultGod.h"
+#include "jp/ggaf/lib/DefaultCaretaker.h"
 
 #include "scene/HgrSpacetime.h"
 
-#undef P_GOD
-#define P_GOD ((Hogera::HgrGod*)GgafCore::God::_pGod)
+#undef P_CARETAKER
+#define P_CARETAKER ((Hogera::HgrCaretaker*)GgafCore::Caretaker::_pCaretaker)
 
 namespace Hogera {
 
 /**
- * 神の雛形 .
- * GgafLib::DefaultGod を継承し、神クラスを作成して下さい。<BR>
+ * 管理者の雛形 .
+ * GgafLib::DefaultCaretaker を継承し、管理者クラスを作成して下さい。<BR>
  * その際、GgafCore::Spacetime* createSpacetime() をオーバーライド＆実装して下さい。<BR>
  * @version 1.00
  * @since 2012/02/16
  * @author Masatoshi Tsuge
  */
-class HgrGod : public GgafLib::DefaultGod {
+class HgrCaretaker : public GgafLib::DefaultCaretaker {
 
 public:
     /**
      * コンストラクタ .
      */
-    HgrGod();
+    HgrCaretaker();
 
     /**
      * この世生成方法の実装 .
-     * 神クラスを作成するには、「この世」の生成方法を実装する必要があります。
+     * 管理者クラスを作成するには、「この世」の生成方法を実装する必要があります。
      * @return 生成した「この世」
      */
     GgafCore::Spacetime* createSpacetime() override;
@@ -37,8 +37,8 @@ public:
         return (HgrSpacetime*)_pSpacetime;
     }
 
-    virtual ~HgrGod();
+    virtual ~HgrCaretaker();
 };
 
 }
-#endif /*HGRGOD_H_*/
+#endif /*HGRCARETAKER_H_*/

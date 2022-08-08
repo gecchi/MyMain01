@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/actor/MassMeshActor.h"
 
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/dx/util/Util.h"
 #include "jp/ggaf/dx/effect/MassMeshEffect.h"

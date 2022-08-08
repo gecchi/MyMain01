@@ -1,7 +1,7 @@
 #include "FormationAppho001a.h"
 
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Appho/EnemyAppho.h"
 
 
@@ -25,7 +25,7 @@ void FormationAppho001a::onCalledUpAppho(EnemyAppho* prm_pAppho, int prm_index) 
     prm_pAppho->stagnating_pos_.set( pMYSHIP->_x + x,
                                      pMYSHIP->_y + y,
                                      pMYSHIP->_z      );
-    Spacetime* pSpacetime =  pGOD->getSpacetime();
+    Spacetime* pSpacetime =  pCARETAKER->getSpacetime();
     prm_pAppho->leave_pos_.set( (pSpacetime->_x_bound_right/2) + RND(-PX_C(d),PX_C(d)),
                                 (pSpacetime->_y_bound_top/2)   + RND(-PX_C(d),PX_C(d)),
                                 pMYSHIP->_z                                         );

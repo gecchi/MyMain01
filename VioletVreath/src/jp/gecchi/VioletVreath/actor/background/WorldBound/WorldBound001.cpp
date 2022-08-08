@@ -1,6 +1,6 @@
 #include "WorldBound001.h"
 
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 
@@ -20,7 +20,7 @@ void WorldBound001::onCreateModel() {
 }
 
 void WorldBound001::initialize() {
-    const Camera* const pCam = pGOD->getSpacetime()->getCamera();
+    const Camera* const pCam = pCARETAKER->getSpacetime()->getCamera();
     setHitAble(false);
     setPositionAt(pCam);
     setFaceAngZero();

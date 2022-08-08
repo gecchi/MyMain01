@@ -169,7 +169,7 @@ public:
         return (GeometricActor*)GgafCore::Actor::getNext();
     }
 
-
+    void setChecker(Checker* prm_pChecker);
     /**
      * 本アクターの力車を取得 .
      * @return 力車

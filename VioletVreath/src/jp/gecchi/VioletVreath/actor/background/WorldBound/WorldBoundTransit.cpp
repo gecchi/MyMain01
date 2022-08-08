@@ -1,7 +1,7 @@
 #include "WorldBoundTransit.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 
 using namespace GgafLib;
 using namespace VioletVreath;
@@ -16,7 +16,7 @@ void WorldBoundTransit::onCreateModel() {
 
 }
 void WorldBoundTransit::initialize() {
-    const Camera* const pCam = pGOD->getSpacetime()->getCamera();
+    const Camera* const pCam = pCARETAKER->getSpacetime()->getCamera();
     setHitAble(false);
     setPositionAt(pCam);
     setFaceAngZero();

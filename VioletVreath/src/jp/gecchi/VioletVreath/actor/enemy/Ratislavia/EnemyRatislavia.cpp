@@ -6,7 +6,7 @@
 #include "jp/ggaf/dx/util/CollisionArea.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/effect/EffectExplosion004.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
@@ -184,7 +184,7 @@ int EnemyRatislavia::isOutOfView() {
 }
 
 bool EnemyRatislavia::isOutOfSpacetime() const {
-    Spacetime* pSpacetime =  pGOD->getSpacetime();
+    Spacetime* pSpacetime =  pCARETAKER->getSpacetime();
     if (pSpacetime->_x_bound_left <= _x) {
         return false;
     } else {

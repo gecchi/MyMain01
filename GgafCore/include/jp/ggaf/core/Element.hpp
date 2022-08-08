@@ -12,13 +12,13 @@ namespace GgafCore {
 /**
  * ノード(Node<T>)に、様々な状態管理機能を追加したクラス .
  * 所謂タスクシステムに必要なフェーズ機能が実装されている。<BR>
- * 毎フレーム、神(God)は、この世(Spacetime)に、次のメソッドを順に呼び出す仕組みになっている。<BR>
+ * 毎フレーム、管理者(Caretaker)は、この世(Spacetime)に、次のメソッドを順に呼び出す仕組みになっている。<BR>
  * nextFrame() > behave() > settleBehavior() > judge() > [preDraw() > draw() > afterDraw()] > doFinally() <BR>
  * アプリケーションに登場するノードは全て、「この世」のツリーに所属するため、全ノードに対して上記の処理が行われる。
  * 上記の内、nextFrame() のみ毎フレーム必ず実行される。<BR>
  * behave(), settleBehavior(), judge(), doFinally() は、活動状態フラグ(_is_active_in_the_tree_flg)が true の場合実行される。<BR>
  * preDraw(), draw(), afterDraw() は、次フレームまでの残時間に余裕がある場合、実行される。<BR>
- * 次フレームまでの残時間に余裕が無い場合、神はこの3メソッドをスキップする。
+ * 次フレームまでの残時間に余裕が無い場合、管理者はこの3メソッドをスキップする。
  * 但し、スキップするといっても、MAX_SKIP_FRAME フレームに１回は必ず実行する。<BR>
  * 上記の nextFrame() ～ doFinally() の処理を下位でオーバーライドすれば、タスクシステムの完成である。<BR>
  * しかし、メソッドの直接オーバーライドは非推奨である。オーバーライド用に各メソッド内でコールバックされる<BR>
@@ -70,8 +70,8 @@ protected:
 
 
 public:
-    /** [r]神への近道 */
-    God* _pGod;
+    /** [r]管理者への近道 */
+    Caretaker* _pCaretaker;
     /** [r]initializeが行われたどうかのフラグ(true=行われた) */
     bool _was_initialize_flg;
     /** [r]ノードが誕生(appendChildされた）時からのフレーム数総計 */
@@ -115,7 +115,7 @@ public:
 
     /**
      * 掃除(実行対象：配下ノード全て、自分自身はdeleteされません) .
-     * 神が処理時間に余裕がでたとき等に、神が呼びだす。<BR>
+     * 管理者が処理時間に余裕がでたとき等に、管理者が呼びだす。<BR>
      * 配下ノードの中にノード生存フラグ(_can_live_flg)が false になっているノードがあれば
      * prm_num_cleaning 個だけ delete する。<BR>
      * @param prm_num_cleaning 解放するオブジェクト数
@@ -141,8 +141,8 @@ public:
      * また、_will_mv_first_in_next_frame_flg, _will_mv_last_in_next_frame_flg が true の場合は、<BR>
      * それぞれ、自ノードの先頭ノードへの移動、末尾ノードへの移動処理も実行される。<BR>
      * その後、配下ノード全てに nextFrame() を再帰的に実行する。<BR>
-     * 神(God)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
-     * 神(God)は、この世(Spacetime)に対して nextFrame() 実行後、次は behave() を実行することになる。<BR>
+     * 管理者(Caretaker)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
+     * 管理者(Caretaker)は、この世(Spacetime)に対して nextFrame() 実行後、次は behave() を実行することになる。<BR>
      * 次のような構造の場合、実行順は①～⑬の順序となる。いわゆる pre-order 順。<BR>
      * ノード間で参照関係がある場合は、注意が必要。<BR>
      * <pre>
@@ -165,9 +165,9 @@ public:
      * 実装用の processBehavior() がコールバックされるためのフラグの条件は、<BR>
      * 活動フラグがセット( _is_active_in_the_tree_flg == true) の場合である。 <BR>
      * behave() は 仮想関数 processBehavior() をコールした後、配下のノード全てについて behave() を再帰的に実行する。<BR>
-     * 神(God)が実行するメソッドであり、通常は下位ロジックで本メソッドを直接呼び出しを行わないこととする。<BR>
+     * 管理者(Caretaker)が実行するメソッドであり、通常は下位ロジックで本メソッドを直接呼び出しを行わないこととする。<BR>
      * 下位クラスではコールされる processBehavior() をオーバーライドして具体的な座標移動ロジックを実装する。 <BR>
-     * 神(God)は、この世(Spacetime)に対して behave() 実行後、次は settleBehavior() を実行することになる。<BR>
+     * 管理者(Caretaker)は、この世(Spacetime)に対して behave() 実行後、次は settleBehavior() を実行することになる。<BR>
      */
     virtual void behave();
 
@@ -178,9 +178,9 @@ public:
      * 実装用の processSettlementBehavior() がコールバックされるためのフラグの条件は、<BR>
      * 一時停止フラグの状態と無関係に実行される点が behave() と異なる。<BR>
      * settleBehavior()は、仮想関数 processSettlementBehavior() をコールした後、配下のノード全てについて settleBehavior() を再帰的に実行する。<BR>
-     * 神(God)が実行するメソッドであり、通常は下位ロジックで本メソッドを直接呼び出しを行わないこととする。<BR>
+     * 管理者(Caretaker)が実行するメソッドであり、通常は下位ロジックで本メソッドを直接呼び出しを行わないこととする。<BR>
      * 下位クラスではコールされる processSettlementBehavior() をオーバーライドしてロジックを実装することとする。 <BR>
-     * 神(God)は、この世(Spacetime)に対して settleBehavior() 実行後、次に judge() を実行することになる。<BR>
+     * 管理者(Caretaker)は、この世(Spacetime)に対して settleBehavior() 実行後、次に judge() を実行することになる。<BR>
      */
     virtual void settleBehavior();
 
@@ -193,10 +193,10 @@ public:
      * 実装用の processJudgement() がコールバックされるためのフラグの条件は、behave()と同じく、<BR>
      * 活動フラグがセット(_is_active_in_the_tree_flg == true)の場合 <BR>
      * judge() は 仮想関数 processJudgement() をコールした後、配下のノード全てについて judge() を再帰的に実行する。<BR>
-     * 神(God)が実行するメソッドであり、通常は下位ロジックで本メソッドを直接呼び出しを行わないこととする。<BR>
+     * 管理者(Caretaker)が実行するメソッドであり、通常は下位ロジックで本メソッドを直接呼び出しを行わないこととする。<BR>
      * 下位クラスではコールされる processJudgement() をオーバーライドしてロジックを実装する <BR>
-     * 神(God)は、この世(Spacetime)に対して judge() 実行後、<BR>
-     * 神(God)はこの後、次フレームまでの残時間に余裕があれば preDraw() 無ければ doFinally() を実行することになる。<BR>
+     * 管理者(Caretaker)は、この世(Spacetime)に対して judge() 実行後、<BR>
+     * 管理者(Caretaker)はこの後、次フレームまでの残時間に余裕があれば preDraw() 無ければ doFinally() を実行することになる。<BR>
      */
     virtual void judge();
 
@@ -205,9 +205,9 @@ public:
      * 実装用の processPreDraw() がコールバックされる条件は、活動フラグがセット<BR>
      * ( _is_active_in_the_tree_flg )の場合である。 <BR>
      * processPreDraw() をコールした後、配下のノード全てについて preDraw() を再帰的に実行する。<BR>
-     * 神(God)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
+     * 管理者(Caretaker)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
      * 下位クラスではコールされる processPreDraw() をオーバーライドしてロジックを実装する <BR>
-     * 神(God)は、この世(Spacetime)に対して preDraw() 実行後、次に draw() を実行することになる。<BR>
+     * 管理者(Caretaker)は、この世(Spacetime)に対して preDraw() 実行後、次に draw() を実行することになる。<BR>
      */
     virtual void preDraw();
 
@@ -216,9 +216,9 @@ public:
      * 実装用の processDraw() がコールバックされる条件は、活動フラグがセット<BR>
      * (_is_active_in_the_tree_flg)の場合である。 <BR>
      * processDraw() をコールした後、配下のノード全てについて draw() を再帰的に実行する。<BR>
-     * 神(God)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
+     * 管理者(Caretaker)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
      * 下位クラスではコールされる processDraw() をオーバーライドしてロジックを実装する <BR>
-     * 神(God)は、この世(Spacetime)に対して draw() 実行後、次に afterDraw() を実行することになる。<BR>
+     * 管理者(Caretaker)は、この世(Spacetime)に対して draw() 実行後、次に afterDraw() を実行することになる。<BR>
      */
     virtual void draw();
 
@@ -227,9 +227,9 @@ public:
      * 実装用の processAfterDraw() がコールバックされる条件は、活動フラグがセット<BR>
      * (_is_active_in_the_tree_flg)の場合である。 <BR>
      * processAfterDraw() をコールした後、配下のノード全てについて afterDraw() を再帰的に実行する。<BR>
-     * 神(God)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
+     * 管理者(Caretaker)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
      * 下位クラスではコールされる processAfterDraw() をオーバーライドしてロジックを実装する <BR>
-     * 神(God)は、この世(Spacetime)に対して afterDraw() 実行後、次に doFinally() を実行することになる。<BR>
+     * 管理者(Caretaker)は、この世(Spacetime)に対して afterDraw() 実行後、次に doFinally() を実行することになる。<BR>
      */
     virtual void afterDraw();
 
@@ -239,9 +239,9 @@ public:
      * 実装用の processFinal() がコールバックされる条件は、
      * 活動フラグがセット(_is_active_in_the_tree_flg == true)の場合である。 <BR>
      * processFinal() をコールした後、配下のノード全てについて doFinally() を再帰的に実行する。<BR>
-     * 神(God)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
+     * 管理者(Caretaker)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
      * 下位クラスではコールされる processFinal() をオーバーライドしてロジックを実装する <BR>
-     * 神(God)は、この世(Spacetime)に対して doFinally() 実行後、<BR>
+     * 管理者(Caretaker)は、この世(Spacetime)に対して doFinally() 実行後、<BR>
      * 次フレームまでの残時間に余裕があれば clean() を実行する。<BR>
      * その後は nextFrame() を実行することになる。<BR>
      */
@@ -299,7 +299,7 @@ public:
 
     /**
      * ノードのフレーム毎の個別描画事前処理を実装。(本フレームワーク実装用) .
-     * preDraw() 時の処理先頭でコールバックされる。 但し、神(God)が描画スキップした場合、フレーム内で呼び出されません。<BR>
+     * preDraw() 時の処理先頭でコールバックされる。 但し、管理者(Caretaker)が描画スキップした場合、フレーム内で呼び出されません。<BR>
      * このメンバ関数をオーバーライドして、ノード個別描画事前処理を実装する。<BR>
      * 個別描画事前処理とは、主に当たり背景描画などである。<BR>
      * 本メンバ関数がコールバックされると言う事は、全ノード対して、processJudgement() が実行済みであることも保証する。<BR>
@@ -309,7 +309,7 @@ public:
 
     /**
      * ノードのフレーム毎の個別描画本処理を実装。(本フレームワーク実装用／ユーザー実装用) .
-     * draw() 時の処理先頭でコールバックされる。 但し、preDraw() と同様に神(God)が描画スキップされた場合は、フレーム内で呼び出されません。<BR>
+     * draw() 時の処理先頭でコールバックされる。 但し、preDraw() と同様に管理者(Caretaker)が描画スキップされた場合は、フレーム内で呼び出されません。<BR>
      * このメンバ関数をオーバーライドして、ノード個別描画本処理を実装する。<BR>
      * 個別描画本処理とは主にキャラクタや、背景の描画を想定している。
      * 本メンバ関数がコールバックされると言う事は、全ノード対して、processPreDraw() が実行済みであることを保証する。<BR>
@@ -318,7 +318,7 @@ public:
 
     /**
      * ノードのフレーム毎の個別表示事後処理を記述。(本フレームワーク実装用) .
-     * afterDraw() 時の処理先頭でコールバックされる。 但し、preDraw() と同様に神(God)が描画スキップされた場合は、フレーム内で呼び出されません。<BR>
+     * afterDraw() 時の処理先頭でコールバックされる。 但し、preDraw() と同様に管理者(Caretaker)が描画スキップされた場合は、フレーム内で呼び出されません。<BR>
      * このメンバ関数をオーバーライドして、ノード個別表示事後処理を実装する。<BR>
      * 個別表示事後処理とは、最前面レイヤーで実現するフェードエフェクトや、常に最前面に表示される情報表示などである。<BR>
      * 本メンバがコールバックされると言う事は、全ノード対して、processDraw() が実行済みであることを保証する。<BR>
@@ -391,10 +391,10 @@ public:
 
     virtual bool isDisappear();
     /**
-     * 神に謁見 .
-     * @return  呼ばれて出てきた神
+     * 管理者に謁見 .
+     * @return  呼ばれて出てきた管理者
      */
-    virtual God* askGod() = 0;
+    virtual Caretaker* askCaretaker() = 0;
 
     //==================フェーズメソッド郡==================>
     /**
@@ -617,7 +617,7 @@ public:
      * アンセットする予約フラグを立てること事で、猶予フレーム後の先頭処理( nextFrame() )で実際にフラグが更新され
      * 本当の終了状態になる。<BR>
      * _can_live_flg がアンセットされることにより、自動的にツリーから切り離されゴミ箱(GarbageBox) 配下に、
-     * 所属することになる。その後、神(God)が余裕のある時 (FPSが高いとき) を見計らい clean() メソッドにより、<BR>
+     * 所属することになる。その後、管理者(Caretaker)が余裕のある時 (FPSが高いとき) を見計らい clean() メソッドにより、<BR>
      * GarbageBox に所属する配下ノードを delete するし、メモリーから消え去る。<BR>
      * <b>【注意】</b><BR>
      * 本メソッドを実行して引数の猶予フレーム後になっても、
@@ -817,7 +817,7 @@ public:
 template<class T>
 Element<T>::Element(const char* prm_name) :
     Node<T>(prm_name),
-    _pGod(nullptr),
+    _pCaretaker(nullptr),
     _was_initialize_flg(false),
     _frame_of_life(0),
     _frame_of_behaving(0),

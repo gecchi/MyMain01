@@ -1,7 +1,7 @@
-#ifndef GOD_H_
-#define GOD_H_
+#ifndef CARETAKER_H_
+#define CARETAKER_H_
 #include "VioletVreath.h"
-#include "jp/ggaf/lib/DefaultGod.h"
+#include "jp/ggaf/lib/DefaultCaretaker.h"
 
 #include "jp/ggaf/lib/util/VirtualButton.h"
 #include "jp/ggaf/dx/manager/CurveSourceConnection.h"
@@ -12,17 +12,17 @@
 #include "jp/gecchi/VioletVreath/manager/CurveSourceManagerEx.h"
 #include "jp/gecchi/VioletVreath/manager/CurveManufactureManagerEx.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime.h"
-#undef pGOD
-#define pGOD ((VioletVreath::God*)GgafCore::God::ask())
+#undef pCARETAKER
+#define pCARETAKER ((VioletVreath::Caretaker*)GgafCore::Caretaker::ask())
 
 namespace VioletVreath {
 
 /** ゲーム時のVirtualButton */
-#define VB_PLAY VioletVreath::God::pVbtn_PLAY_
+#define VB_PLAY VioletVreath::Caretaker::pVbtn_PLAY_
 /** UI操作時のVirtualButton */
-#define VB_UI VioletVreath::God::pVbtn_UI_
+#define VB_UI VioletVreath::Caretaker::pVbtn_UI_
 /** VB_PLAY or VB_UI のどちらかで、アクティブな方のVirtualButton */
-#define VB VioletVreath::God::pVbtn_active_
+#define VB VioletVreath::Caretaker::pVbtn_active_
 
 /** ゲームプレイのリプレイ再生用読み込みファイル */
 #define FILE_INPUT_PLAY_REPLAY    "VB_PLAY.rep"
@@ -38,21 +38,21 @@ namespace VioletVreath {
 #define FILE_REALTIME_OUTPUT_UI_REPLAY     "VB_UI_LAST_REALTIME.rep"
 
 /**
- * 神が保持する DepositoryManager に接続し、コネクションを取得。
+ * 管理者が保持する DepositoryManager に接続し、コネクションを取得。
  * X：識別文字列（DepositoryManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) の prm_idstr に渡る)
  */
-#define connectToDepositoryManager(X) ((VioletVreath::DepositoryConnection*)(pGOD->pDepoManager_->connect((X), this)))
+#define connectToDepositoryManager(X) ((VioletVreath::DepositoryConnection*)(pCARETAKER->pDepoManager_->connect((X), this)))
 
-#define connectToXpmManager(X) ((VioletVreath::XpmConnection*)(pGOD->pXpmManager_->connect((X), this)))
+#define connectToXpmManager(X) ((VioletVreath::XpmConnection*)(pCARETAKER->pXpmManager_->connect((X), this)))
 
 
 /**
- * 神
+ * 管理者
  * @version 1.00
  * @since 2007/11/26
  * @author Masatoshi Tsuge
  */
-class God : public GgafLib::DefaultGod {
+class Caretaker : public GgafLib::DefaultCaretaker {
 
 public:
     DepositoryManager* pDepoManager_;
@@ -67,7 +67,7 @@ public:
     /**
      * コンストラクタ .
      */
-    God();
+    Caretaker();
 
     void initVB();
 
@@ -87,11 +87,11 @@ public:
     /**
      * この世の瞬間を創造する前に、VBを更新する。
      */
-    virtual void presentSpacetimeMoment() override {
+    virtual void presentMoment() override {
         //VBを反映
         pVbtn_active_ = pVbtn_active_next_frame_;
         //上位呼び出し
-        GgafLib::DefaultGod::presentSpacetimeMoment();
+        GgafLib::DefaultCaretaker::presentMoment();
     }
 
     /**
@@ -117,9 +117,9 @@ public:
     virtual CurveSourceManagerEx* createCurveSourceManager() override;  //共変の戻り値
     virtual CurveManufactureManagerEx* createCurveManufactureManager() override;  //共変の戻り値
 
-    virtual ~God();
+    virtual ~Caretaker();
 };
 
 }
 
-#endif /*GOD_H_*/
+#endif /*CARETAKER_H_*/

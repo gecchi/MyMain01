@@ -49,7 +49,7 @@ SceneMediator* GroupHead::getSceneMediator() {
     if (_pSceneMediator == nullptr) {
         if (_pParent == nullptr) {
             _TRACE_("【警告】GroupHead::getSceneMediator 所属していないため、Mediatorがとれません！("<<getName()<<")。そこで勝手にこの世(Spacetime)所属のMediatorを返しました");
-            _pSceneMediator = God::_pGod->_pSpacetime->bringSceneMediator();
+            _pSceneMediator = Caretaker::_pCaretaker->_pSpacetime->bringSceneMediator();
         } else {
             if (_pParent->instanceOf(Obj_ggaf_MainActor)) {
                 _pSceneMediator = ((MainActor*)(_pParent))->getSceneMediator();
@@ -59,7 +59,7 @@ SceneMediator* GroupHead::getSceneMediator() {
                 return (SceneMediator*)_pParent; //Actorツリー頂点
             }
             _TRACE_("【警告】GroupHead::getSceneMediator このツリーにはMediatorがいません！("<<getName()<<")。そこで勝手にこの世(Spacetime)所属のMediatorを返しました");
-            _pSceneMediator = God::_pGod->_pSpacetime->bringSceneMediator();
+            _pSceneMediator = Caretaker::_pCaretaker->_pSpacetime->bringSceneMediator();
         }
     }
     return _pSceneMediator;
@@ -96,16 +96,16 @@ void GroupHead::updateActiveInTheTree() {
     }
 }
 
-God* GroupHead::askGod() {
-    if (_pGod == nullptr) {
+Caretaker* GroupHead::askCaretaker() {
+    if (_pCaretaker == nullptr) {
 #ifdef MY_DEBUG
         if (getParent() == nullptr) {
-            throwCriticalException("神はこの世に存在する物からのみ謁見できます。まずはこの世に属しなさい！！("<<getName()<<")");
+            throwCriticalException("管理者はこの世に存在する物からのみ謁見できます。まずはこの世に属しなさい！！("<<getName()<<")");
         }
 #endif
-        _pGod = getParent()->askGod();
+        _pCaretaker = getParent()->askCaretaker();
     }
-    return _pGod;
+    return _pCaretaker;
 }
 
 GroupHead::~GroupHead() {

@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/model/MeshModel.h"
 
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/Config.h"
 #include "jp/ggaf/dx/actor/MeshActor.h"
 #include "jp/ggaf/dx/effect/MeshEffect.h"
@@ -37,7 +37,7 @@ MeshModel::MeshModel(const char* prm_model_id) : Model(prm_model_id) {
 }
 
 HRESULT MeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
-    IDirect3DDevice9* const pDevice = pGOD->_pID3DDevice9;
+    IDirect3DDevice9* const pDevice = pCARETAKER->_pID3DDevice9;
     //対象アクター
     //MeshActor* pTargetActor = (MeshActor*)prm_pActor_target;
     const FigureActor* const pTargetActor = prm_pActor_target;
@@ -155,7 +155,7 @@ HRESULT MeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, vo
             checkDxException(hr, D3D_OK, "１パス目 BeginPass(0) に失敗しました。");
         }
 #ifdef MY_DEBUG
-        GgafCore::God::_num_drawing++;
+        GgafCore::Caretaker::_num_drawing++;
 #endif
     }
     ModelManager::_pModelLastDraw = this;
@@ -176,7 +176,7 @@ void MeshModel::restore() {
         //      ・マテリアル配列(要素数＝マテリアル数)
         //      ・テクスチャ配列(要素数＝マテリアル数)
         //      ・DrawIndexedPrimitive用引数配列(要素数＝マテリアルリストが変化した数)
-        ModelManager* pModelManager = pGOD->_pModelManager;
+        ModelManager* pModelManager = pCARETAKER->_pModelManager;
         ModelManager::MeshXFileFmt xdata;
 
         std::string model_def_file = std::string(_model_id) + ".meshx";
@@ -373,7 +373,7 @@ void MeshModel::restore() {
     if (_paVertexBuffer == nullptr) {
         HRESULT hr;
         //頂点バッファ作成
-        hr = pGOD->_pID3DDevice9->CreateVertexBuffer(
+        hr = pCARETAKER->_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices,
                 D3DUSAGE_WRITEONLY,
                 MeshModel::FVF,
@@ -393,7 +393,7 @@ void MeshModel::restore() {
     //インデックスバッファデータ作成
     if (_paIndexBuffer == nullptr) {
         HRESULT hr;
-        hr = pGOD->_pID3DDevice9->CreateIndexBuffer(
+        hr = pCARETAKER->_pID3DDevice9->CreateIndexBuffer(
                                     sizeof(WORD) * _nFaces * 3,
                                     D3DUSAGE_WRITEONLY,
                                     D3DFMT_INDEX16,
@@ -409,7 +409,7 @@ void MeshModel::restore() {
 
     //テクスチャ作成
     if (!_papTextureConnection) {
-        ModelManager* pModelManager = pGOD->_pModelManager;
+        ModelManager* pModelManager = pCARETAKER->_pModelManager;
         _papTextureConnection = NEW TextureConnection*[_num_materials];
         for (DWORD n = 0; n < _num_materials; n++) {
             _papTextureConnection[n] =

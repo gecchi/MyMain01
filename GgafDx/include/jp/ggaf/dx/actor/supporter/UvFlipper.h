@@ -261,6 +261,7 @@ public:
 
     /**
      * 上限パターン番号（最も若い番号）を取得 .
+     * @return 上限パターン番号（最も若い番号）
      */
     int getTopPtnno() {
         return _pattno_uvflip_top;
@@ -268,9 +269,18 @@ public:
 
     /**
      * 下限パターン番号（最も古い番号）を取得 .
+     * @return 下限パターン番号（最も古い番号）
      */
     int getBottomPtnno() {
         return _pattno_uvflip_bottom;
+    }
+
+    /**
+     * 最大アニメパターン番号を取得 .
+     * @return 最大アニメパターン番号
+     */
+    int getMaxPtnno() {
+        return _pattno_uvflip_max;
     }
 
     /**

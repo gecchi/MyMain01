@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/effect/PointSpriteSetEffect.h"
 
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 
@@ -9,7 +9,7 @@ using namespace GgafDx;
 
 PointSpriteSetEffect::PointSpriteSetEffect(const char* prm_effect_name) : Effect(prm_effect_name) {
     _obj_effect |= Obj_GgafDx_PointSpriteSetEffect;
-    Camera* const pCam = pGOD->getSpacetime()->getCamera();
+    Camera* const pCam = pCARETAKER->getSpacetime()->getCamera();
     //シェーダー共通のグローバル変数設定
     HRESULT hr;
     //射影変換行列
@@ -94,7 +94,7 @@ PointSpriteSetEffect::PointSpriteSetEffect(const char* prm_effect_name) : Effect
 }
 
 void PointSpriteSetEffect::setParamPerFrame() {
-    Camera* const pCam = pGOD->getSpacetime()->getCamera();
+    Camera* const pCam = pCARETAKER->getSpacetime()->getCamera();
     HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, pCam->getViewMatrix() );
     checkDxException(hr, D3D_OK, "SetMatrix(_h_matView) に失敗しました。_effect_name="<<_effect_name);
 //    hr = _pID3DXEffect->SetValue(_h_posCam, pCam->getVecCamFromPoint(), sizeof(D3DXVECTOR3) );

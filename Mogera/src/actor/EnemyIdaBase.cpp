@@ -3,7 +3,7 @@
 #include "EnemyIda.h"
 #include "util/MgrUtil.h"
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
-#include "jp/ggaf/lib/DefaultGod.h"
+#include "jp/ggaf/lib/DefaultCaretaker.h"
 #include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 #include "jp/ggaf/dx/manager/CurveManufactureConnection.h"
 #include "jp/ggaf/dx/util/curve/CurveManufacture.h"

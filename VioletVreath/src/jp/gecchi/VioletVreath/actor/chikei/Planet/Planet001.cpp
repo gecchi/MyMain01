@@ -5,7 +5,7 @@
 #include "Planet001Atmosphere.h"
 #include "jp/ggaf/dx/util/Input.h"
 #include "jp/ggaf/lib/actor/WorldBoundActor.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime.h"
 #include "jp/gecchi/VioletVreath/actor/background/HoshiBoshi/HoshiBoshi.h"
 
@@ -33,7 +33,7 @@ void Planet001::onCreateModel() {
 
 void Planet001::initialize() {
     setCullingDraw(false);
-    Spacetime* pSpacetime = pGOD->getSpacetime();
+    Spacetime* pSpacetime = pCARETAKER->getSpacetime();
     _x = pSpacetime->_x_bound_right*10;
     setScale(1000*1000);
     setRzFaceAng(D90ANG - D_ANG(30));

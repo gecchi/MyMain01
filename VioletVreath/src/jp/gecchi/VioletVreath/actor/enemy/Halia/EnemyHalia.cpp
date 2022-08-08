@@ -9,7 +9,7 @@
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/dx/util/curve/VehicleLeader.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/actor/common/laserchip/EnemyStraightLaserChip001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
@@ -60,7 +60,7 @@ EnemyHalia::EnemyHalia(const char* prm_name) :
     pSeTx->set(SE_FIRE     , "SE_ENEMY_FIRE_LASER_001");
 
     //‰ŠúƒJƒƒ‰ZˆÊ’u
-    const Camera* const pCam = pGOD->getSpacetime()->getCamera();
+    const Camera* const pCam = pCARETAKER->getSpacetime()->getCamera();
     dZ_camera_init_ = -1 * DX_C(pCam->getZOrigin());
 }
 

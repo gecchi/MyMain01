@@ -8,7 +8,7 @@
 #include "jp/gecchi/VioletVreath/actor/menu/title/MenuBoardTitle.h"
 #include "jp/gecchi/VioletVreath/actor/title/TitleBoard.h"
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameTitleScene.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
@@ -124,10 +124,10 @@ void GameTitleScene::processBehavior() {
                 }
             }
 
-            if (GgafDx::Input::getPressedJoyRgbButton() != -1) {
+            if (GgafDx::Input::getFirstPressedJoyRgbButton() != -1) {
                 frame_of_noinput_ = pPhase->getFrame();
             }
-            if (GgafDx::Input::getPushedDownKey() != -1) {
+            if (GgafDx::Input::getFirstPushedDownKey() != -1) {
                 frame_of_noinput_ = pPhase->getFrame();
             }
             if (pMenu_->getRisingSubMenu()) {

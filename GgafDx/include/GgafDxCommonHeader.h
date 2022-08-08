@@ -311,7 +311,7 @@ namespace GgafDx {
 
 class CriticalException;
 class Config;
-class God;
+class Caretaker;
 class Input;
 class Sound;
 

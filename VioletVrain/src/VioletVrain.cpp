@@ -1,7 +1,7 @@
 #include "GgafLib.h"
 #include "VioletVrain.h"
 
-#include "jp/gecchi/VioletVrain/VvGod.h"
+#include "jp/gecchi/VioletVrain/VvCaretaker.h"
 
 using namespace VioletVrain;
 
@@ -30,11 +30,11 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     //プロパティファイル読込み
     CONFIG::loadProperties(".\\config.properties");
 
-    VvGod god;
+    VvCaretaker crtkr;
     MSG msg;
     HWND hWnd1;
     try {
-        god.createWindow(WndProc, "VioletVrain", hWnd1);
+        crtkr.createWindow(WndProc, "VioletVrain", hWnd1);
         while (true) {
             if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
                 if (msg.message == WM_QUIT) {
@@ -43,7 +43,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
                 TranslateMessage(&msg);
                 DispatchMessage(&msg);
             } else {
-                god.be();
+                crtkr.present();
             }
         }
 

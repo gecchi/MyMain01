@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/actor/MorphMeshActor.h"
 
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/effect/MorphMeshEffect.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/dx/model/MorphMeshModel.h"
@@ -99,7 +99,7 @@ void MorphMeshActor::addMorphWeight(int prm_target_mesh_no, float prm_add_weight
 }
 
 void MorphMeshActor::processDraw() {
-    Camera* const pCam = pGOD->getSpacetime()->getCamera();
+    Camera* const pCam = pCARETAKER->getSpacetime()->getCamera();
     const MorphMeshEffect* const pMorphMeshEffect = _pMorphMeshEffect;
     ID3DXEffect* const pID3DXEffect = pMorphMeshEffect->_pID3DXEffect;
     HRESULT hr;

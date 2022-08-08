@@ -5,7 +5,7 @@
 #include "jp/ggaf/dx/model/PointSpriteSetModel.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/manager/TextureConnection.h"
 #include "jp/ggaf/dx/util/Util.h"
 
@@ -98,10 +98,10 @@ void PointSpriteSetActor::processDraw() {
     Spacetime::_pActor_draw_active = pPointSpriteSetActor; //描画セットの最後アクターをセット
 
     //ポイントスプライトON
-    pGOD->_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, TRUE);
+    pCARETAKER->_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, TRUE);
     ((PointSpriteSetModel*)_pPointSpriteSetModel)->PointSpriteSetModel::draw(this, draw_set_num);
     //ポイントスプライトOFF
-    pGOD->_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, FALSE);
+    pCARETAKER->_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, FALSE);
 }
 
 PointSpriteSetActor::~PointSpriteSetActor() {

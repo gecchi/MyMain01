@@ -6,7 +6,7 @@
 #include "jp/ggaf/dx/actor/FigureActor.h"
 #include "jp/ggaf/dx/effect/Effect.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/manager/EffectManager.h"
 #include "jp/ggaf/dx/manager/ModelConnection.h"
 #include "jp/ggaf/dx/manager/ModelManager.h"
@@ -179,17 +179,17 @@ void Spacetime::processSettlementBehavior() {
 }
 
 void Spacetime::draw() {
-    IDirect3DDevice9* const pDevice = pGOD->_pID3DDevice9;
+    IDirect3DDevice9* const pDevice = pCARETAKER->_pID3DDevice9;
 
     //ここで、全 Model に対してTextureBlinkerの状態を進行させる
-    ModelConnection* pModelCon = pGOD->_pModelManager->getFirstConnection();
+    ModelConnection* pModelCon = pCARETAKER->_pModelManager->getFirstConnection();
     while (pModelCon) {
         pModelCon->peek()->_pTexBlinker->behave();
         pModelCon = (ModelConnection*)(pModelCon->getNext());
     }
 
     //ここで、全 Effect に対してVew変換行列を設定するようにする
-    pGOD->_pEffectManager->setParamPerFrameAll();
+    pCARETAKER->_pEffectManager->setParamPerFrameAll();
 
     //段階レンダリング描画
     //描画順アクターリストを構築

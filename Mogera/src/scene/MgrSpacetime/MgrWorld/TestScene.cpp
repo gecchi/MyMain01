@@ -149,7 +149,7 @@ void TestScene::processBehavior() {
             if (pPhase->hasJustChanged()) {
                 _id_ = 0;
             }
-            if (pPhase->getFrame() % 10U == 0 && pGOD->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX) {
+            if (pPhase->getFrame() % 10U == 0 && pCARETAKER->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX) {
                 if (_id_ > order_id_end_-order_id_begin_) {
                     pPhase->changeNext();
                 } else {
@@ -171,7 +171,7 @@ void TestScene::processBehavior() {
             break;
         }
         case PHASE_CALM_DOWN: {
-            if ((pPhase->getFrame() > 60 && pGOD->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX) || pPhase->getFrame() > 60*60) {
+            if ((pPhase->getFrame() > 60 && pCARETAKER->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX) || pPhase->getFrame() > 60*60) {
 //                fadeoutSceneWithBgmTree(120);
                 pPhase->changeNext();
             }

@@ -1,23 +1,23 @@
-#include "VvvGod.h"
+#include "VvvCaretaker.h"
 
 #include "actor/VvvCamera.h"
 
 using namespace VVViewer;
 
-bool VvvGod::is_wm_dropfiles_ = false;
-char VvvGod::dropfiles_[2048];
+bool VvvCaretaker::is_wm_dropfiles_ = false;
+char VvvCaretaker::dropfiles_[2048];
 
-VvvGod::VvvGod() :
-        GgafLib::DefaultGod() {
+VvvCaretaker::VvvCaretaker() :
+        GgafLib::DefaultCaretaker() {
 }
 
-GgafCore::Spacetime* VvvGod::createSpacetime() {
+GgafCore::Spacetime* VvvCaretaker::createSpacetime() {
     //この世の作成のサンプル
     VvvCamera* pCam = new VvvCamera("SIMPLE_CAMERA");                  //カメラ作成し、
     VvvSpacetime* pSpacetime = new VvvSpacetime("SIMPLE_SPACETIME", pCam); //この世を生成。
     return pSpacetime;
 }
 
-VvvGod::~VvvGod() {
+VvvCaretaker::~VvvCaretaker() {
 }
 

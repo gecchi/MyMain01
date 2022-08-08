@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/actor/GeometricActor.h"
 
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/core/util/Status.h"
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/AxisVehicle.h"
@@ -51,6 +51,15 @@ _is_local(false)
     _class_name = "GeometricActor";
     _pFormation = nullptr;
 }
+
+void GeometricActor::setChecker(Checker* prm_pChecker) {
+    if (_pChecker) {
+        throwCriticalException("eometricActor::setChecker() : "<<
+                "this="<<NODE_INFO<<" は、既に Checker がありんす。");
+    }
+    _pChecker= prm_pChecker;
+}
+
 VecVehicle* GeometricActor::getVecVehicle() {
     return _pVecVehicle ? _pVecVehicle : _pVecVehicle = NEW VecVehicle(this);
 }
@@ -189,7 +198,7 @@ void GeometricActor::processSettlementBehavior() {
         const dxcoord fX = _fX;
         const dxcoord fY = _fY;
         const dxcoord fZ = _fZ;
-        static Camera* pCam = pGOD->getSpacetime()->getCamera();
+        static Camera* pCam = pCARETAKER->getSpacetime()->getCamera();
         static const D3DXPLANE* pPlnTop = &(pCam->_plnTop);
         _dest_from_vppln_top     = pPlnTop->a * fX +
                                    pPlnTop->b * fY +
@@ -300,8 +309,8 @@ GgafCore::GroupHead* GeometricActor::appendGroupChildAsFk(kind_t prm_kind,
     if (_pFunc_calc_rot_mv_world_matrix) {
         //OK
     } else {
-        throwCriticalException(": "<<
-                                   "this="<<NODE_INFO<<" は、_pFunc_calc_rot_mv_world_matrix が nullptrの為、FKベースとなる資格がありません");
+        throwCriticalException("GeometricActor::appendGroupChildAsFk() : "<<
+                "this="<<NODE_INFO<<" は、_pFunc_calc_rot_mv_world_matrix が nullptrの為、FKベースとなる資格がありません");
     }
 #endif
     GgafCore::GroupHead* pGroupHead = appendGroupChild(prm_kind, prm_pGeoActor);
@@ -393,7 +402,7 @@ int GeometricActor::isOutOfView() {
 }
 
 bool GeometricActor::isOutOfSpacetime() const {
-    Spacetime* pSpacetime =  pGOD->getSpacetime();
+    Spacetime* pSpacetime =  pCARETAKER->getSpacetime();
     if (pSpacetime->_x_bound_left <= _x) {
         if (_x <= pSpacetime->_x_bound_right) {
             if (pSpacetime->_y_bound_bottom <= _y) {

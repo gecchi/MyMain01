@@ -1,7 +1,7 @@
 #include "jp/ggaf/dx/model/SkinAniMeshModel.h"
 
 #include <algorithm>
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/Config.h"
 #include "jp/ggaf/dx/actor/SkinAniMeshActor.h"
 #include "jp/ggaf/dx/actor/supporter/Puppeteer.h"
@@ -47,7 +47,7 @@ SkinAniMeshModel::SkinAniMeshModel(const char* prm_model_id) : Model(prm_model_i
 
 HRESULT SkinAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
     _TRACE4_("SkinAniMeshModel::draw("<<prm_pActor_target->getName()<<")");
-    IDirect3DDevice9* const pDevice = pGOD->_pID3DDevice9;
+    IDirect3DDevice9* const pDevice = pCARETAKER->_pID3DDevice9;
     HRESULT hr;
     //対象アクター
     SkinAniMeshActor* pTargetActor = (SkinAniMeshActor*)prm_pActor_target;
@@ -150,7 +150,7 @@ HRESULT SkinAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
     }
 
 #ifdef MY_DEBUG
-    GgafCore::God::_num_drawing++;
+    GgafCore::Caretaker::_num_drawing++;
 #endif
     //前回描画モデル名反映
     ModelManager::_pModelLastDraw = this;
@@ -162,7 +162,7 @@ HRESULT SkinAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
 void SkinAniMeshModel::restore() {
     _TRACE3_("_model_id=" << _model_id << " start");
 
-    ModelManager* pModelManager = pGOD->_pModelManager;
+    ModelManager* pModelManager = pCARETAKER->_pModelManager;
     ModelManager::MeshXFileFmt xdata;
     std::string model_def_file = std::string(_model_id) + ".meshx";
     std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
@@ -185,13 +185,13 @@ void SkinAniMeshModel::restore() {
 
         HRESULT hr;
         std::string xfilepath = Model::getXFilePath(xdata.XFileNames[0]);
-        TextureManager* pTextureManager = pGOD->_pModelManager->_pModelTextureManager;
+        TextureManager* pTextureManager = pCARETAKER->_pModelManager->_pModelTextureManager;
         //Xファイルのファイルロード
         _pAllocHierarchy = NEW SkinAniMeshAllocHierarchy(); // CAllocHierarchyBaseの派生クラス
         hr = D3DXLoadMeshHierarchyFromX(
                 xfilepath.c_str(),
                 D3DXMESH_SYSTEMMEM, //D3DXMESH_MANAGED,
-                pGOD->_pID3DDevice9,
+                pCARETAKER->_pID3DDevice9,
                 _pAllocHierarchy,
                 nullptr,
                 (D3DXFRAME**)(&_pFrameRoot),
@@ -856,8 +856,8 @@ void SkinAniMeshModel::restore() {
         paVtxelem[6].Usage = 0;
         paVtxelem[6].UsageIndex = 0;
 
-        hr = pGOD->_pID3DDevice9->CreateVertexDeclaration( paVtxelem, &(_pVertexDeclaration) );
-        checkDxException(hr, D3D_OK, "pGOD->_pID3DDevice9->CreateVertexDeclaration 失敗 model="<<(_model_id));
+        hr = pCARETAKER->_pID3DDevice9->CreateVertexDeclaration( paVtxelem, &(_pVertexDeclaration) );
+        checkDxException(hr, D3D_OK, "pCARETAKER->_pID3DDevice9->CreateVertexDeclaration 失敗 model="<<(_model_id));
         //ストリーム数取得        hr = m_pDecl->GetDeclaration( m_pElement, &m_numElements);
         GGAF_DELETEARR(paVtxelem);
     }
@@ -865,7 +865,7 @@ void SkinAniMeshModel::restore() {
 
     if (_papTextureConnection == nullptr) {
         _papTextureConnection = NEW TextureConnection*[_num_materials];
-        TextureManager* pTextureManager = pGOD->_pModelManager->_pModelTextureManager;
+        TextureManager* pTextureManager = pCARETAKER->_pModelManager->_pModelTextureManager;
         for (DWORD n = 0; n < _num_materials; n++) {
             _papTextureConnection[n] =
                     (TextureConnection*)(pTextureManager->connect(_pa_texture_filenames[n].c_str(), this));
@@ -875,7 +875,7 @@ void SkinAniMeshModel::restore() {
     if (_paVertexBuffer == nullptr) {
         HRESULT hr;
         //頂点バッファ作成
-        hr = pGOD->_pID3DDevice9->CreateVertexBuffer(
+        hr = pCARETAKER->_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices,
                 D3DUSAGE_WRITEONLY,
                 0, //SkinAniMeshModel::FVF,
@@ -895,7 +895,7 @@ void SkinAniMeshModel::restore() {
     //インデックスバッファデータ作成
     if (_paIndexBuffer == nullptr) {
         HRESULT hr;
-        hr = pGOD->_pID3DDevice9->CreateIndexBuffer(
+        hr = pCARETAKER->_pID3DDevice9->CreateIndexBuffer(
                                    sizeof(WORD) * _nFaces * 3,
                                    D3DUSAGE_WRITEONLY,
                                    D3DFMT_INDEX16,

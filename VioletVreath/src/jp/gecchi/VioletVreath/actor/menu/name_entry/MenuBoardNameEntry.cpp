@@ -5,7 +5,7 @@
 #include "jp/ggaf/lib/util/WMKeyInput.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelFont16x32.h"
 #include "jp/gecchi/VioletVreath/actor/menu/confirm/MenuBoardConfirm.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 
@@ -312,7 +312,12 @@ void MenuBoardNameEntry::inputChar(const int prm_c) {
         getSeTransmitter()->play(SE_WRONG);
     } else {
         if (32 <= prm_c && prm_c <= 255) {
-            pLabelInputedName_->appendUpdate(prm_c);
+            if (pLabelInputedName_->isDispChr(prm_c)) {
+                pLabelInputedName_->appendUpdate(prm_c);
+            } else {
+                //•\Ž¦”ÍˆÍŠO•¶Žš
+                pLabelInputedName_->appendUpdate('?');
+            }
         } else {
             getSeTransmitter()->play(SE_WRONG);
         }

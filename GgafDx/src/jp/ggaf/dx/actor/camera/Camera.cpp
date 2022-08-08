@@ -4,7 +4,7 @@
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/dx/actor/camera/CameraViewPoint.h"
 #include "jp/ggaf/dx/actor/camera/CameraUpVector.h"
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 
 
 using namespace GgafDx;
@@ -52,6 +52,16 @@ _y_buffer_bottom(PX_C(CONFIG::GAME_BUFFER_HEIGHT) / -2)
 
 
     _TRACE_(FUNC_NAME<<" ”ÍˆÍ ["<<_zn<<" ~ "<<_zf<<"]");
+
+    //³ŽË‰e
+    D3DXMatrixOrthoLH(
+        &_matOrthoProj,
+        PX_DX(CONFIG::GAME_BUFFER_WIDTH),
+        PX_DX(CONFIG::GAME_BUFFER_HEIGHT),
+        _zn,
+        _zf
+    );
+
     if (CONFIG::PRJ_2D_MODE) {
         //2Dƒ‚[ƒh³ŽË‰e
         D3DXMatrixOrthoLH(
@@ -77,7 +87,7 @@ _y_buffer_bottom(PX_C(CONFIG::GAME_BUFFER_HEIGHT) / -2)
     getVecVehicle()->setMvAngTwd(0,0,0);
     setHitAble(false);
 
-    pGOD->_pID3DDevice9->GetViewport(&_viewport);
+    pCARETAKER->_pID3DDevice9->GetViewport(&_viewport);
 
     _x_prev = 0;
     _y_prev = 0;

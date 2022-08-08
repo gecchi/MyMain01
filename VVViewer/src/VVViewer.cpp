@@ -1,7 +1,7 @@
 #include "GgafLib.h"
-#include "VvvGod.h"
+#include "VvvCaretaker.h"
 
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 using namespace VVViewer;
 
 #define MY_IDM_RESET_WINDOW_SIZE  10
@@ -37,11 +37,11 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     WNDCLASSEX wcex2 = wcex1;
     wcex2.lpszClassName = "secondary";
     DWORD dwStyle = WS_OVERLAPPEDWINDOW;
-    //神の誕生
-    VvvGod god;
+    //管理者の誕生
+    VvvCaretaker crtkr;
     //ゲームループ
     MSG msg;
-    god.createWindow(wcex1, wcex2,
+    crtkr.createWindow(wcex1, wcex2,
                      "VVViewer[1]", "VVViewer[2]", //タイトル文字列
                      dwStyle, dwStyle,
                      hWnd1, hWnd2);
@@ -55,7 +55,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
             TranslateMessage(&msg);
             DispatchMessage(&msg);
         } else {
-            god.be();
+            crtkr.present();
         }
     }
     return (int)msg.wParam;
@@ -66,7 +66,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
  */
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
     LibWndProc(hWnd, message, wParam, lParam); //直後に、この様に呼び出して下さい。
-    VvvGod::God* pGod = pGOD;
+    VvvCaretaker::Caretaker* pCaretaker = pCARETAKER;
     switch (message) {
 
         case WM_CREATE: {
@@ -78,16 +78,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             HDROP hDrop = (HDROP)wParam;
             UINT uFileNo = DragQueryFile((HDROP)wParam, 0xFFFFFFFF, nullptr, 0);
             for (int i = 0; i < (int)uFileNo; i++) {
-                DragQueryFile(hDrop, i, VvvGod::dropfiles_, sizeof(VvvGod::dropfiles_));
-                _TRACE_("VvvGod::dropfiles_="<<VvvGod::dropfiles_);
+                DragQueryFile(hDrop, i, VvvCaretaker::dropfiles_, sizeof(VvvCaretaker::dropfiles_));
+                _TRACE_("VvvCaretaker::dropfiles_="<<VvvCaretaker::dropfiles_);
             }
             DragFinish(hDrop);
-            VvvGod::is_wm_dropfiles_ = true;
+            VvvCaretaker::is_wm_dropfiles_ = true;
             break;
         }
         case WM_SYSCOMMAND: {
             if(wParam == MY_IDM_RESET_WINDOW_SIZE) {
-                pGod->resetInitWindowsize();
+                pCaretaker->resetInitWindowsize();
             }
             break;
         }

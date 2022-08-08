@@ -1,41 +1,41 @@
-#ifndef GGAF_DX_GOD_H_
-#define GGAF_DX_GOD_H_
+#ifndef GGAF_DX_CARETAKER_H_
+#define GGAF_DX_CARETAKER_H_
 #include "GgafDxCommonHeader.h"
 
-#include "jp/ggaf/core/God.h"
+#include "jp/ggaf/core/Caretaker.h"
 #include "jp/ggaf/dx/util/Util.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 
 
 /**
- * 神が保持する CurveManufactureManager に接続し、コネクションを取得。
+ * 管理者が保持する CurveManufactureManager に接続し、コネクションを取得。
  * @param X：曲線移動の情報識別文字列。プロパティ DIR_CURVE 配下の「X + ".ldr"」というファイル名を使用する
  * "FormationOebius002,1" の意味。読み込むファイル=FormationOebius002.ldr
  * 1 は採用するスプラインのインデックス(0～)をあらわす。
  * CURVE=mobius1.spl,mobius3.spl,mobius5.spl
  * 定義されていた場合 1=mobius3.spl のデータを採用
  */
-#define connectToCurveManufactureManager(X) ((GgafDx::CurveManufactureConnection*)((pGOD)->_pCurveManufManager->connect((X), this)))
+#define connectToCurveManufactureManager(X) ((GgafDx::CurveManufactureConnection*)((pCARETAKER)->_pCurveManufManager->connect((X), this)))
 
 /**
- * 神が保持する CurveSourceManager に接続し、コネクションを取得。
+ * 管理者が保持する CurveSourceManager に接続し、コネクションを取得。
  * X：識別文字列（CurveSourceManager::processCreateResource(const char* prm_idstr, void* prm_pConnector) の prm_idstr に渡る)
  */
-#define connectToCurveSourceManager(X)   ((GgafDx::CurveSourceConnection*)((pGOD)->_pCurveSrcManager->connect((X), this)))
+#define connectToCurveSourceManager(X)   ((GgafDx::CurveSourceConnection*)((pCARETAKER)->_pCurveSrcManager->connect((X), this)))
 
 
-#undef pGOD
-#define pGOD ((GgafDx::God*)GgafCore::God::ask())
+#undef pCARETAKER
+#define pCARETAKER ((GgafDx::Caretaker*)GgafCore::Caretaker::ask())
 
 namespace GgafDx {
 
 /**
- * DirectX神 .
+ * DirectX管理者 .
  * @version 1.00
  * @since 2009/01/10
  * @author Masatoshi Tsuge
  */
-class God : public GgafCore::God {
+class Caretaker : public GgafCore::Caretaker {
 
 private:
     /** Windows Display Driver Model（WDDM）が使用可能か否か */
@@ -65,7 +65,7 @@ private:
 private:
     /**
      * WDDMかどうか判定し、デバイスを作成 .
-     * 結果は God::_pID3D9 と pGOD->_pID3DDevice9に保持される。
+     * 結果は Caretaker::_pID3D9 と pCARETAKER->_pID3DDevice9に保持される。
      * @param adapter
      * @param deviceType
      * @param hFocusWindow
@@ -112,12 +112,6 @@ private:
                                                        LPRECT   lprcMonitor,
                                                        LPARAM   dwData    );
 public:
-    /** １画面モード時かつゲーム表示領域アスペクト比を固定時、表示領域場所を指定(場所＝テンキーの数値) */
-    int _single_view_draw_position;
-    /** ２画面モード時かつゲーム表示領域アスペクト比を固定時、１画面目の表示領域場所を指定(場所＝テンキーの数値) */
-    int _dual_view_draw_position1;
-    /** ２画面モード時かつゲーム表示領域アスペクト比を固定時、２画面目の表示領域場所を指定(場所＝テンキーの数値) */
-    int _dual_view_draw_position2;
 
     ///////////////////////////////////////////////////////////
     class Adapter {
@@ -235,7 +229,7 @@ public:
     /**
      * コンストラクタ<BR>
      */
-    God();
+    Caretaker();
 
     void setDisplaySizeInfo();
 
@@ -254,7 +248,7 @@ public:
      * @param prm_height 所望の解像度の高さ
      * @return 最も妥当な要素インデックス
      */
-    int checkAppropriateDisplaySize(God::RezoInfo* prm_paRezos, int prm_rezo_num,
+    int checkAppropriateDisplaySize(Caretaker::RezoInfo* prm_paRezos, int prm_rezo_num,
                                     UINT prm_width, UINT prm_height);
     /**
      * ウィンドウ生成処理 .
@@ -365,11 +359,11 @@ public:
      * @return E_FAIL:失敗／D3D_OK:成功
      */
     virtual HRESULT initDevice();
-    virtual void presentSpacetimeMoment() override;
-    virtual void executeSpacetimeJudge() override;
-    virtual void makeSpacetimeMaterialize() override;
-    virtual void presentSpacetimeVisualize() override;
-    virtual void finalizeSpacetime() override;
+    virtual void presentMoment() override;
+    virtual void presentJudge() override;
+    virtual void presentMaterialize() override;
+    virtual void presentVisualize() override;
+    virtual void presentClosing() override;
 
 
     /**
@@ -414,8 +408,8 @@ public:
 
     virtual void clean() override;
 
-    virtual ~God();
+    virtual ~Caretaker();
 };
 
 }
-#endif /*GGAF_DX_GOD_H_*/
+#endif /*GGAF_DX_CARETAKER_H_*/

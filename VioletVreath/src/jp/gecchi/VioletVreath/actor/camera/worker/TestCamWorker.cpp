@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/dx/actor/camera/CameraViewPoint.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 
 
 
@@ -18,14 +18,14 @@ void TestCamWorker::onActive() {
 }
 
 void TestCamWorker::onSwitchCameraWork() {
-    Camera* pCam = pGOD->getSpacetime()->getCamera();
+    Camera* pCam = pCARETAKER->getSpacetime()->getCamera();
     pCam->setPositionAt(pMYSHIP);
     GgafDx::GeometricActor* pVP = pCam->getCameraViewPoint();
     pVP->setPositionAt(pMYSHIP);
 }
 
 void TestCamWorker::processBehavior() {
-    Camera* pCam = pGOD->getSpacetime()->getCamera();
+    Camera* pCam = pCARETAKER->getSpacetime()->getCamera();
     GgafDx::GeometricActor* pVP = pCam->getCameraViewPoint();
     pVP->setPositionAt(pMYSHIP);
     pCam->_x += 2000;

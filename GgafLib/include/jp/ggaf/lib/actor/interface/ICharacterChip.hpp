@@ -7,6 +7,14 @@
 
 namespace GgafLib {
 
+/**
+ * 文字表示用インターフェイス .
+ * UvFlipperのパターン番号0番とする文字は、
+ * デフォルトで ' ' (32) が設定されている。
+ * @tparam T 実装クラス
+ * @tparam N キャラの種類数
+ * @tparam L 最大表示行数
+ */
 template<class T, int N, int L>
 class ICharacterChip {
 
@@ -17,7 +25,7 @@ public:
     pixcoord _chr_base_width_px;
     /** [r/w]ベースの１文字高さ(px) */
     pixcoord _chr_base_height_px;
-    /** [r/w]パターン番号0とする文字 */
+    /** [r/w]パターン番号0とする文字(デフォルト＝' '(32))  */
     int _chr_ptn_zero;
     /** [r/w]表示不要空白とする文字(指定すると描画文字が減る) */
     int _chr_blank;
@@ -62,6 +70,21 @@ public:
     virtual void prepare1_delete(int prm_delete_byte_num);
     virtual void prepare2();
 public:
+    /**
+     * キャラクタパターン番号が表示範囲内か調べる .
+     * @param prm_chr  キャラクタパターン番号
+     * @return true:範囲内／false：範囲外
+     */
+    inline bool isDispChr(const int prm_chr) {
+        int max_ptnno = _pBaseActor->getUvFlipper()->getMaxPtnno();
+        if (max_ptnno < prm_chr - _chr_ptn_zero) {
+            //範囲外
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     /**
      * 描画文字を更新設定 .
      * @param X X座標(ピクセル : 座標 ＝ 1 : LEN_UNIT)
@@ -229,6 +252,12 @@ public:
     }
 
 public:
+    /**
+     * コンストラクタ .
+     * @param prm_pBaseActor thisを渡す
+     * @param prm_chr_base_width_px  基本となる１文字の横幅(px)
+     * @param prm_chr_base_height_px 基本となる１文字の高さ幅(px)
+     */
     ICharacterChip(T* prm_pBaseActor, int prm_chr_base_width_px, int prm_chr_base_height_px);
 
     virtual ~ICharacterChip();

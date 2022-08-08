@@ -40,7 +40,7 @@
 11119680 <DEBUG> CONFIG(MY_JOY_UI_CANCEL)=JOY_BUTTON_01
 11127877 <DEBUG> [detect memory leaks] start
 11127934 <DEBUG> Look for 'NVIDIA PerfHUD' adapter...
-11128110 <DEBUG> GgafDx9God::init デバイスは HAL(pure vp) で初期化できました。
+11128110 <DEBUG> GgafDx9Caretaker::init デバイスは HAL(pure vp) で初期化できました。
 11128111 <DEBUG> Hardware Vertex Shader Version = 3_0
 11128111 <DEBUG> Hardware Pixel Shader Version  = 3_0
 11128113 <DEBUG> ang=0	slant=0	vx,vy=1,0
@@ -47495,11 +47495,11 @@
 11165173 <DEBUG> 											└─
 11165174 <DEBUG> 			●DefaultScene[GameEnding]@1,001,001,0(0)
 11165174 <DEBUG> 											GgafLordActor[GameEnding]@1,0,001,001,0(0)
-11165175 <DEBUG> GgafDx9God::~GgafDx9God()
+11165175 <DEBUG> GgafDx9Caretaker::~GgafDx9Caretaker()
 11165205 <DEBUG> ●GgafScene[GarbageRootScene]@0,101,101,0(0)
 11165206 <DEBUG> 								GgafLordActor[GarbageRootScene]@0,0,101,101,0(0)
 11165206 <DEBUG> 								GgafActor[GarbageRootActor]@0,0,101,101,0(0)
-11165854 <DEBUG> RELEASE_IMPOSSIBLE_NULL(file:.\src\jp\ggaf\dx9core\GgafDx9God.cpp line:595) _pID3DDevice9は、まだ解放されません。参照カウンタ=1
-11165855 <DEBUG> RELEASE_IMPOSSIBLE_NULL(file:.\src\jp\ggaf\dx9core\GgafDx9God.cpp line:596) _pID3D9は、まだ解放されません。参照カウンタ=1
+11165854 <DEBUG> RELEASE_IMPOSSIBLE_NULL(file:.\src\jp\ggaf\dx9core\GgafDx9Caretaker.cpp line:595) _pID3DDevice9は、まだ解放されません。参照カウンタ=1
+11165855 <DEBUG> RELEASE_IMPOSSIBLE_NULL(file:.\src\jp\ggaf\dx9core\GgafDx9Caretaker.cpp line:596) _pID3D9は、まだ解放されません。参照カウンタ=1
 11165855 <DEBUG> [detect memory leaks] end
 11165856 <DEBUG> memory leak is nothing.

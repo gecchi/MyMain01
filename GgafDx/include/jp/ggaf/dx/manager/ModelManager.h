@@ -7,7 +7,7 @@
 #include "jp/ggaf/dx/util/XFile/framework/Frm_Mesh.h"
 #include "jp/ggaf/dx/util/XFile/ToolBox/IOModel_X.h"
 
-#define connectToModelTextureManager(X) ((GgafDx::TextureConnection*)pGOD->_pModelManager->_pModelTextureManager->connect((X), this))
+#define connectToModelTextureManager(X) ((GgafDx::TextureConnection*)pCARETAKER->_pModelManager->_pModelTextureManager->connect((X), this))
 
 #define TYPE_D3DXMESH_MODEL               'D'
 #define TYPE_DYNAD3DXMESH_MODEL           'd'

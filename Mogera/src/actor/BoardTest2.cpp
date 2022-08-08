@@ -11,7 +11,7 @@
 #include "jp/ggaf/dx/util/Input.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 #include "actor/BoardTest2.h"
-#include "MgrGod.h"
+#include "MgrCaretaker.h"
 
 
 
@@ -40,7 +40,7 @@ void BoardTest2::onActive() {
 }
 
 void BoardTest2::processBehavior() {
-     VirtualButton* pVb = P_GOD->getSpacetime()->pVb_;
+     VirtualButton* pVb = P_CARETAKER->getSpacetime()->pVb_;
     if (GgafDx::Input::isPressedKey(DIK_C)) {
         setDrawFanNum(getDrawFanNum() + 1);
     }

@@ -5,7 +5,7 @@
 #include "jp/ggaf/dx/actor/supporter/AxisVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Geria/EnemyGeria.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 
 
 
@@ -35,7 +35,7 @@ void FormationGeria001::processBehavior() {
 }
 
 void FormationGeria001::processJudgement() {
-    Spacetime* pSpacetime =  pGOD->getSpacetime();
+    Spacetime* pSpacetime =  pCARETAKER->getSpacetime();
     if (_x < pSpacetime->_x_bound_left) {
         _TRACE_(FUNC_NAME<<" I—¹");
         sayonara();

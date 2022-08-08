@@ -48,6 +48,11 @@ public:
     /** 現在アクティブなジョイスティック状態の表裏(0:表／1:裏) */
     static int _flip_js;
 
+
+    // マウス座標を取得する
+    static POINT _mouse_point[2];
+
+
 public:
     /**
      * 初期化 .
@@ -138,7 +143,7 @@ public:
      * 押されているキーボードのキーを調べる .
      * @return 押されたキー(DIK_* 定数) / -1:何も押されていない
      */
-    static inline int getPressedKey() {
+    static inline int getFirstPressedKey() {
         for (int i = 0x00; i <= 0xED; i ++) {
             if (_keyboard_state[_flip_ks][i] & 0x80) {
                 return i;
@@ -158,7 +163,7 @@ public:
      * キーボードの押された直後のキーを調べる .
      * @return 押された直後のキー(DIK_*) / -1:何も押されていない
      */
-    static int getPushedDownKey();
+    static int getFirstPushedDownKey();
 
     /**
      * キーボードのキーが離された直後の状態を調べる .
@@ -183,10 +188,10 @@ public:
     }
 
     /**
-     * 押されているジョイスティックのボタンを調べる .
+     * 押されているジョイスティックのボタンを調べ最初の１つの結果を返す .
      * @return 押されたジョイスティックボタン番号(0～15) / -1:何も押されていない
      */
-    static inline int getPressedJoyRgbButton() {
+    static inline int getFirstPressedJoyRgbButton() {
         for (int i = 0; i < 16; i ++) {
             if (_joy_state[_flip_js].rgbButtons[i] & 0x80) {
                 return i;
@@ -195,9 +200,18 @@ public:
         return -1;
     }
 
+    /**
+     * ジョイスティックボタンが押された直後の状態を調べる .
+     * @param prm_joy_button_no ジョイスティックボタン番号
+     * @return true：そのボタンは押された直後である／false：そうでは無い
+     */
     static bool isPushedDownJoyRgbButton(int prm_joy_button_no);
 
-    static int getPushedDownJoyRgbButton();
+    /**
+     * 押されているジョイスティックボタン番号を調べ最初の１つの結果を返す .
+     * @return ジョイスティックボタン番号
+     */
+    static int getFirstPushedDownJoyRgbButton();
 
     /**
      * ジョイスティックの上方向の状態を調べる .

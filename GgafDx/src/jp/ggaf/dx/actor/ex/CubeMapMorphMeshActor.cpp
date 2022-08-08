@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/actor/ex/CubeMapMorphMeshActor.h"
 
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/dx/effect/ex/CubeMapMorphMeshEffect.h"
 #include "jp/ggaf/dx/model/ex/CubeMapMorphMeshModel.h"
@@ -41,7 +41,7 @@ void CubeMapMorphMeshActor::processDraw() {
     checkDxException(hr, D3D_OK, "SetMatrix(g_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(_pCubeMapMorphMeshEffect->_h_reflectance, getCubeMapReflectance());
     checkDxException(hr, D3D_OK, "SetFloat(_h_reflectances) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    pGOD->_pID3DDevice9->SetTexture(1, getCubeMapTexture());
+    pCARETAKER->_pID3DDevice9->SetTexture(1, getCubeMapTexture());
 
     _pCubeMapMorphMeshModel->draw(this);
 }

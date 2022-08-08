@@ -1,36 +1,36 @@
-#include "jp/ggaf/lib/DefaultGod.h"
+#include "jp/ggaf/lib/DefaultCaretaker.h"
 
 #include "jp/ggaf/lib/util/StgUtil.h"
 
 using namespace GgafLib;
 
-DefaultGod::DefaultGod() :
-        GgafDx::God() {
+DefaultCaretaker::DefaultCaretaker() :
+        GgafDx::Caretaker() {
 }
 
-HRESULT DefaultGod::initDevice() {
+HRESULT DefaultCaretaker::initDevice() {
     StgUtil::init();  //ユーティリティ準備
-    return GgafDx::God::initDevice();
+    return GgafDx::Caretaker::initDevice();
 }
 
-void DefaultGod::clean() {
+void DefaultCaretaker::clean() {
     if (!_was_cleaned) {
         _TRACE_(FUNC_NAME<<" begin");
-        GgafDx::God::clean();
+        GgafDx::Caretaker::clean();
         _TRACE_(FUNC_NAME<<" end");
     }
 }
-DefaultEffectManager* DefaultGod::createEffectManager() {
+DefaultEffectManager* DefaultCaretaker::createEffectManager() {
     DefaultEffectManager* p = NEW DefaultEffectManager("EffectManager");
     return p;
 }
-DefaultModelManager* DefaultGod::createModelManager() {
+DefaultModelManager* DefaultCaretaker::createModelManager() {
     DefaultModelManager* p = NEW DefaultModelManager("ModelManager");
     return p;
 }
 
 
-DefaultGod::~DefaultGod() {
+DefaultCaretaker::~DefaultCaretaker() {
     clean();
     _was_cleaned = true;
 }

@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/actor/ex/WorldBoundActor.h"
 
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/dx/Config.h"
 #include "jp/ggaf/dx/util/Util.h"
@@ -42,7 +42,7 @@ void WorldBoundActor::processDraw() {
     hr = pID3DXEffect->SetMatrix(_pWorldBoundEffect->_h_matWorld, &_matWorld );
     checkDxException(hr, D3D_OK, "SetMatrix(g_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
-    pGOD->_pID3DDevice9->SetTexture(0, getCubeMapTexture());
+    pCARETAKER->_pID3DDevice9->SetTexture(0, getCubeMapTexture());
 
     _pWorldBoundModel->draw(this);
 }

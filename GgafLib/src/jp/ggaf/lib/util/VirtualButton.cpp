@@ -682,6 +682,56 @@ vb_sta VirtualButton::wasPressed(vb_sta prm_VB, frame prm_frame_ago) const {
     return (pVBRecord_temp->_state & prm_VB);
 }
 
+vb_sta VirtualButton::hasBeenPressed(vb_sta prm_VB, frame prm_frame_ago) const {
+    VirtualButton::VBRecord* pVBRecord_temp = _pVBRecord_active;
+    vb_sta state;
+    for (frame i = 0; i < prm_frame_ago+1; i++) {
+        state = pVBRecord_temp->_state & prm_VB;
+        if (!state) {
+            //押されていない瞬間あり
+            return false;
+        }
+        pVBRecord_temp = pVBRecord_temp->_prev;
+    }
+    //過去 prm_frame_ago フレームずっと押されっぱなしは成立
+    return true;
+}
+
+
+//vb_sta VirtualButton::wasPressedAtLeastOnce(vb_sta prm_VB, frame prm_frame_ago) const {
+//    VirtualButton::VBRecord* pVBRecord_temp = _pVBRecord_active;
+//    vb_sta state = pVBRecord_temp->_state & prm_VB;
+//    if (state) {
+//        return state;
+//    }
+//    for (frame i = 0; i < prm_frame_ago; i++) {
+//        pVBRecord_temp = pVBRecord_temp->_prev;
+//        state = pVBRecord_temp->_state & prm_VB;
+//        if (state) {
+//            return state;
+//        }
+//    }
+//    return false;
+//}
+//vb_sta VirtualButton::wasReleasedUpAtLeastOnce(vb_sta prm_VB, frame prm_frame_ago) const {
+//    VirtualButton::VBRecord* pVBRecord_temp = _pVBRecord_active;
+//
+//    if ((pVBRecord_temp->_prev->_state & prm_VB) && !(pVBRecord_temp->_state & prm_VB)) {
+//        return true;
+//    } else {
+//        return false;
+//    }
+//
+//    for (frame i = 0; i < prm_frame_ago; i++) {
+//        pVBRecord_temp = pVBRecord_temp->_prev;
+//        if ((pVBRecord_temp->_prev->_state & prm_VB) && !(pVBRecord_temp->_state & prm_VB)) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
+//    return false;
+//}
 
 
 bool VirtualButton::isDoublePushedDown(vb_sta prm_VB, frame prm_frame_push, frame prm_frame_delay) const {
@@ -749,7 +799,7 @@ bool VirtualButton::isDoublePushedDown(vb_sta prm_VB, frame prm_frame_push, fram
 //	}
 //}
 
-bool VirtualButton::arePushedDownAtOnce(vb_sta prm_aVB[], int prm_num_button) const {
+bool VirtualButton::arePushedDownAtOnce(vb_sta prm_aVB[], int prm_num_button, int delay) const {
 
     //現在は全て押されていなければならない
     for (int i = 0; i < prm_num_button; i++) {
@@ -765,21 +815,43 @@ bool VirtualButton::arePushedDownAtOnce(vb_sta prm_aVB[], int prm_num_button) co
     // ？ > ↑ > ？ > ↓
     //       or
     // ？ > ？ > ↑ > ↓
-    bool prev1Flg, prev2Flg, prev3Flg;
+//    for (int i = 0; i < prm_num_button; i++) {
+//        if (!wasReleasedUpAtLeastOnce(prm_aVB[i], delay)) {
+//            return false;
+//        }
+//    }
+
+    //delay フレーム余裕を見る
+    //全ボタンについて、それぞれが以下のいづれかの動作になっているかチェック。
+    // ↑ > ？ > ？ > ↓
+    //       or
+    // ？ > ↑ > ？ > ↓
+    //       or
+    // ？ > ？ > ↑ > ↓
     for (int i = 0; i < prm_num_button; i++) {
-        prev1Flg = wasNotPressed(prm_aVB[i], 1);
-        prev2Flg = wasNotPressed(prm_aVB[i], 2);
-        prev3Flg = wasNotPressed(prm_aVB[i], 3);
-        if (prev1Flg) {        //＊ > ＊ > ↑ >
-            continue;
-        } else if (prev2Flg) { //＊ > ↑ > ＊ >
-            continue;
-        } else if (prev3Flg) { //↑ > ＊ > ＊ >
-            continue;
-        } else {
+        //各ボタンについてループ
+        if (hasBeenPressed(prm_aVB[i], delay)) {
+            //過去 delay フレームずっと押されっぱなしは非成立
             return false;
         }
     }
+
+
+//    bool prev1Flg, prev2Flg, prev3Flg;
+//    for (int i = 0; i < prm_num_button; i++) {
+//        prev1Flg = wasNotPressed(prm_aVB[i], 1);
+//        prev2Flg = wasNotPressed(prm_aVB[i], 2);
+//        prev3Flg = wasNotPressed(prm_aVB[i], 3);
+//        if (prev1Flg) {        //＊ > ＊ > ↑ >
+//            continue;
+//        } else if (prev2Flg) { //＊ > ↑ > ＊ >
+//            continue;
+//        } else if (prev3Flg) { //↑ > ＊ > ＊ >
+//            continue;
+//        } else {
+//            return false;
+//        }
+//    }
 
     //但し1つ前のフレームで、全て押されていては成立しない。
     //この条件入れないと、「同時押し→押しっぱなし」の場合、最大３フレーム連続で成立してしまう場合がある。
@@ -1083,8 +1155,8 @@ void VirtualButton::clear() {
     }
 }
 
-int VirtualButton::getPushedDownVirtualJoyButton() {
-    int VBJ_pushed = GgafDx::Input::getPushedDownJoyRgbButton();
+int VirtualButton::getFirstPushedDownVirtualJoyButton() {
+    int VBJ_pushed = GgafDx::Input::getFirstPushedDownJoyRgbButton();
     if (VBJ_pushed == -1) {
         if (GgafDx::Input::isPressedJoyXAxisMinus()) {
             return VBJ_X_POS_MINUS;

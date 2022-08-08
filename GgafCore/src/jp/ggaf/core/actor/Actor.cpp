@@ -1,6 +1,6 @@
 #include "jp/ggaf/core/actor/Actor.h"
 
-#include "jp/ggaf/core/God.h"
+#include "jp/ggaf/core/Caretaker.h"
 #include "jp/ggaf/core/actor/ex/Formation.h"
 using namespace GgafCore;
 
@@ -27,8 +27,8 @@ _can_hit_out_of_view(true)
 Actor::~Actor() {
     _pFormation = nullptr;
     GGAF_DELETE(_pStatus);
-    if (pGOD->_is_loving_flg) {
-        pGOD->repent(this); //自身が望んだ命を破棄
+    if (pCARETAKER->_is_loving_flg) {
+        pCARETAKER->repent(this); //自身が望んだ命を破棄
     } else {
         //アプリ終了処理時のため、愛ももれなく掃除されるため考慮不要
     }

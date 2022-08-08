@@ -1,7 +1,7 @@
 #include "SmpSpacetime.h"
 
 #include "jp/ggaf/lib/util/VirtualButton.h"
-#include "SmpGod.h"
+#include "SmpCaretaker.h"
 #include "actor/SmpCamera.h"
 #include "SmpSpacetime/SmpWorld.h"
 

@@ -1,34 +1,34 @@
-#ifndef MGRGOD_H_
-#define MGRGOD_H_
+#ifndef MGRCARETAKER_H_
+#define MGRCARETAKER_H_
 #include "Mogera.h"
-#include "jp/ggaf/lib/DefaultGod.h"
+#include "jp/ggaf/lib/DefaultCaretaker.h"
 
 #include "scene/MgrSpacetime.h"
 
-#undef pGOD
-#define pGOD ((Mogera::MgrGod*)GgafCore::God::_pGod)
+#undef pCARETAKER
+#define pCARETAKER ((Mogera::MgrCaretaker*)GgafCore::Caretaker::_pCaretaker)
 
 namespace Mogera {
 
 /**
- * 神の雛形 .
- * GgafLib::DefaultGod を継承し、神クラスを作成して下さい。<BR>
+ * 管理者の雛形 .
+ * GgafLib::DefaultCaretaker を継承し、管理者クラスを作成して下さい。<BR>
  * その際、GgafCore::Spacetime* createSpacetime() をオーバーライド＆実装して下さい。<BR>
  * @version 1.00
  * @since 2012/02/16
  * @author Masatoshi Tsuge
  */
-class MgrGod : public GgafLib::DefaultGod {
+class MgrCaretaker : public GgafLib::DefaultCaretaker {
 
 public:
     /**
      * コンストラクタ .
      */
-    MgrGod();
+    MgrCaretaker();
 
     /**
      * この世生成方法の実装 .
-     * 神クラスを作成するには、「この世」の生成方法を実装する必要があります。
+     * 管理者クラスを作成するには、「この世」の生成方法を実装する必要があります。
      * @return 生成した「この世」
      */
     GgafCore::Spacetime* createSpacetime() override;
@@ -37,8 +37,8 @@ public:
         return (MgrSpacetime*)_pSpacetime;
     }
 
-    virtual ~MgrGod();
+    virtual ~MgrCaretaker();
 };
 
 }
-#endif /*MGRGOD_H_*/
+#endif /*MGRCARETAKER_H_*/

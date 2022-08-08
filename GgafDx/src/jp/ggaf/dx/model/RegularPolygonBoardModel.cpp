@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/model/RegularPolygonBoardModel.h"
 
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/actor/RegularPolygonBoardActor.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/ggaf/dx/effect/RegularPolygonBoardEffect.h"
@@ -40,7 +40,7 @@ RegularPolygonBoardModel::RegularPolygonBoardModel(const char* prm_model_id) :
 
 HRESULT RegularPolygonBoardModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
     _TRACE4_("RegularPolygonBoardModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
-    IDirect3DDevice9* const pDevice = pGOD->_pID3DDevice9;
+    IDirect3DDevice9* const pDevice = pCARETAKER->_pID3DDevice9;
     //対象Actor
     const RegularPolygonBoardActor* const pTargetActor = (RegularPolygonBoardActor*)prm_pActor_target;
     //対象RegularPolygonBoardActorのエフェクトラッパ
@@ -123,7 +123,7 @@ HRESULT RegularPolygonBoardModel::draw(FigureActor* prm_pActor_target, int prm_d
     EffectManager::_pEffect_active = pRegularPolygonBoardEffect;
     FigureActor::_hash_technique_last_draw = prm_pActor_target->_hash_technique;
 #ifdef MY_DEBUG
-        GgafCore::God::_num_drawing++;
+        GgafCore::Caretaker::_num_drawing++;
 #endif
 
     return D3D_OK;
@@ -133,7 +133,7 @@ void RegularPolygonBoardModel::restore() {
     _TRACE3_("_model_id=" << _model_id << " start");
     if (_paVertexBuffer_data == nullptr) {
         _papTextureConnection = nullptr;
-        ModelManager* pModelManager = pGOD->_pModelManager;
+        ModelManager* pModelManager = pCARETAKER->_pModelManager;
         std::string model_def_file = std::string(_model_id) + ".rsprx";
         std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
         ModelManager::RegPolySpriteXFileFmt xdata;
@@ -211,7 +211,7 @@ void RegularPolygonBoardModel::restore() {
     //バッファ作成
     if (_paVertexBuffer == nullptr) {
         HRESULT hr;
-        hr = pGOD->_pID3DDevice9->CreateVertexBuffer(
+        hr = pCARETAKER->_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices,
                 D3DUSAGE_WRITEONLY,
                 RegularPolygonBoardModel::FVF,
@@ -230,7 +230,7 @@ void RegularPolygonBoardModel::restore() {
     }
     if (_papTextureConnection == nullptr) {
         //テクスチャ取得しモデルに保持させる
-        ModelManager* pModelManager = pGOD->_pModelManager;
+        ModelManager* pModelManager = pCARETAKER->_pModelManager;
         _papTextureConnection = NEW TextureConnection*[1];
         _papTextureConnection[0] = (TextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[0].c_str(), this));
     }

@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/model/PointSpriteModel.h"
 
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/actor/PointSpriteActor.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/ggaf/dx/effect/PointSpriteEffect.h"
@@ -33,7 +33,7 @@ PointSpriteModel::PointSpriteModel(const char* prm_model_id) : Model(prm_model_i
 }
 
 HRESULT PointSpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
-    IDirect3DDevice9* const pDevice = pGOD->_pID3DDevice9;
+    IDirect3DDevice9* const pDevice = pCARETAKER->_pID3DDevice9;
     _TRACE4_("PointSpriteModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
 
     //対象Actor
@@ -110,7 +110,7 @@ HRESULT PointSpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
     EffectManager::_pEffect_active = pPointSpriteEffect;
     FigureActor::_hash_technique_last_draw = prm_pActor_target->_hash_technique;
 #ifdef MY_DEBUG
-        GgafCore::God::_num_drawing++;
+        GgafCore::Caretaker::_num_drawing++;
 #endif
     return D3D_OK;
 }
@@ -121,7 +121,7 @@ void PointSpriteModel::restore() {
 
     if (_paVtxBuffer_data == nullptr) {
 
-        ModelManager* pModelManager = pGOD->_pModelManager;
+        ModelManager* pModelManager = pCARETAKER->_pModelManager;
         std::string model_def_file = std::string(_model_id) + ".psprx";
         _TRACE_("model_def_file="<<model_def_file);
         std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
@@ -213,7 +213,7 @@ void PointSpriteModel::restore() {
     if (_paVertexBuffer == nullptr) {
         HRESULT hr;
         //頂点バッファ作成
-        hr = pGOD->_pID3DDevice9->CreateVertexBuffer(
+        hr = pCARETAKER->_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices,
                 D3DUSAGE_WRITEONLY,
                 PointSpriteModel::FVF,
@@ -232,7 +232,7 @@ void PointSpriteModel::restore() {
 
     if (_papTextureConnection == nullptr) {
         //テクスチャ取得しモデルに保持させる
-        ModelManager* pModelManager = pGOD->_pModelManager;
+        ModelManager* pModelManager = pCARETAKER->_pModelManager;
         _papTextureConnection = NEW TextureConnection*[1];
         _papTextureConnection[0] = (TextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[0].c_str(), this));
     }

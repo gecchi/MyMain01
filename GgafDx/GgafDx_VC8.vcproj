@@ -801,11 +801,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\dx\God.cpp"
+			RelativePath=".\src\jp\ggaf\dx\Caretaker.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\dx\God.h"
+			RelativePath=".\include\jp\ggaf\dx\Caretaker.h"
 			>
 		</File>
 		<File

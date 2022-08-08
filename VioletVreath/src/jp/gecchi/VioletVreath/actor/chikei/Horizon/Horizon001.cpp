@@ -4,7 +4,7 @@
 #include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/ggaf/dx/util/Input.h"
 #include "jp/ggaf/dx/actor/supporter/Checker.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 
 
@@ -32,7 +32,7 @@ void Horizon001::initialize() {
     setPosition(0, PX_C(-100), 0);
     CollisionChecker* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
-    Spacetime* pSpacetime =  pGOD->getSpacetime();
+    Spacetime* pSpacetime =  pCARETAKER->getSpacetime();
     pChecker->setColliAABox(0, pSpacetime->_x_bound_left  + (chip_width_*2),
                                   0,
                                   pSpacetime->_z_bound_near  + (chip_width_*2),

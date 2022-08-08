@@ -82,7 +82,7 @@ namespace GgafCore {
  */
 class Scene : public Element<Scene> {
 
-    friend class God;
+    friend class Caretaker;
     friend class Spacetime;
     friend class Actor;
     friend class GroupHead;
@@ -238,10 +238,10 @@ public:
     virtual void clean(int prm_num_cleaning) override;
 
     /**
-     * 神に謁見 .
-     * @return	呼ばれて出てきた神
+     * 管理者に謁見 .
+     * @return	呼ばれて出てきた管理者
      */
-    virtual God* askGod() override;
+    virtual Caretaker* askCaretaker() override;
 
     /**
      * 自シーンの仲介者を取得 .

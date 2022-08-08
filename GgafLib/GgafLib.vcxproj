@@ -180,7 +180,7 @@
     <ClCompile Include="src\jp\ggaf\lib\actor\wall\CubeMapMassWallActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\wall\MassWallActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\WorldBoundActor.cpp" />
-    <ClCompile Include="src\jp\ggaf\lib\DefaultGod.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\DefaultCaretaker.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\effect\MassWallEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\effect\SingleLaserEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\LibConfig.cpp" />

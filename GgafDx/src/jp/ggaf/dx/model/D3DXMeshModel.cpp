@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/model/D3DXMeshModel.h"
 
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/Config.h"
 #include "jp/ggaf/dx/actor/D3DXMeshActor.h"
 #include "jp/ggaf/dx/effect/MeshEffect.h"
@@ -24,7 +24,7 @@ D3DXMeshModel::D3DXMeshModel(const char* prm_model_id, DWORD prm_dwOptions) : Mo
 
 HRESULT D3DXMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
     _TRACE4_("D3DXMeshModel::draw("<<prm_pActor_target->getName()<<")");
-    IDirect3DDevice9* const pDevice = pGOD->_pID3DDevice9;
+    IDirect3DDevice9* const pDevice = pCARETAKER->_pID3DDevice9;
     //対象アクター
     const D3DXMeshActor* const pTargetActor = (D3DXMeshActor*)prm_pActor_target;
     //対象MeshActorのエフェクトラッパ
@@ -110,7 +110,7 @@ HRESULT D3DXMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num
         _TRACE4_("DrawSubset: /actor="<<pTargetActor->getName()<<"/model="<<_model_id<<" effect="<<pMeshEffect->_effect_name);
         hr = _pID3DXMesh->DrawSubset(i);  //なんて便利なメソッド。
 #ifdef MY_DEBUG
-        GgafCore::God::_num_drawing++;
+        GgafCore::Caretaker::_num_drawing++;
 #endif
     }
     //前回描画モデル名反映
@@ -137,7 +137,7 @@ HRESULT D3DXMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num
 
 void D3DXMeshModel::restore() {
     _TRACE3_("_model_id=" << _model_id << " start");
-    ModelManager* pModelManager = pGOD->_pModelManager;
+    ModelManager* pModelManager = pCARETAKER->_pModelManager;
     //【restoreD3DXMeshModel再構築（＝初期化）処理概要】
     //1)D3DXLoadMeshFromXを使用してXファイルを読み込む
     //2)D3DXMeshModelのメンバにセット
@@ -171,7 +171,7 @@ void D3DXMeshModel::restore() {
     hr = D3DXLoadMeshFromX(
             xfilepath.c_str(),             //[in]  LPCTSTR pFilename
             _dwOptions, //[in]  DWORD Options  D3DXMESH_SYSTEMMEM D3DXMESH_VB_DYNAMIC
-            pGOD->_pID3DDevice9,       //[in]  LPDIRECT3DDEVICE9 pDevice
+            pCARETAKER->_pID3DDevice9,       //[in]  LPDIRECT3DDEVICE9 pDevice
             nullptr,                        //[out] LPD3DXBUFFER* ppAdjacency
             &pID3DXBuffer,                  //[out] LPD3DXBUFFER* ppMaterials
             nullptr,                        //[out] LPD3DXBUFFER* ppEffectInstances
@@ -251,7 +251,7 @@ void D3DXMeshModel::restore() {
         hr = pID3DXMesh->CloneMeshFVF(
                            pID3DXMesh->GetOptions(),             // [in]  DWORD Options,
                            D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_TEX1, // [in]  DWORD FVF,
-                           pGOD->_pID3DDevice9,             // [in]  LPDIRECT3DDEVICE9 pDevice,
+                           pCARETAKER->_pID3DDevice9,             // [in]  LPDIRECT3DDEVICE9 pDevice,
                            &pID3DXMesh_tmp                       // [out] LPD3DXMESH *ppCloneMesh
                          );
         checkDxException(hr, D3D_OK, " pID3DXMesh->CloneMeshFVF()失敗。対象="<<xfilepath);

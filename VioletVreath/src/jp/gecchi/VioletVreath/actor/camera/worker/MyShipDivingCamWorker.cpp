@@ -23,7 +23,7 @@ void MyShipDivingCamWorker::onActive() {
 }
 void MyShipDivingCamWorker::processBehavior() {
     if (getActiveFrame() > 30) {
-        Spacetime* pSpacetime =  pGOD->getSpacetime();
+        Spacetime* pSpacetime =  pCARETAKER->getSpacetime();
         MyShip* pMyShip = pMYSHIP;
         coord dx = ABS(pMYSHIP->_x);
         static const coord dc = ABS(pSpacetime->_x_bound_left);

@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/model/SpriteSetModel.h"
 
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/actor/SpriteSetActor.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/ggaf/dx/effect/SpriteSetEffect.h"
@@ -42,7 +42,7 @@ HRESULT SpriteSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_nu
         throwCriticalException(_model_id<<" の描画セット数オーバー。_draw_set_num="<<_draw_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
     }
 #endif
-    IDirect3DDevice9* const pDevice = pGOD->_pID3DDevice9;
+    IDirect3DDevice9* const pDevice = pCARETAKER->_pID3DDevice9;
     //対象Actor
     const SpriteSetActor* const pTargetActor = (SpriteSetActor*)prm_pActor_target;
     //対象SpriteSetActorのエフェクトラッパ
@@ -139,7 +139,7 @@ HRESULT SpriteSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_nu
     EffectManager::_pEffect_active = pSpriteSetEffect;
     FigureActor::_hash_technique_last_draw = prm_pActor_target->_hash_technique;
 #ifdef MY_DEBUG
-        GgafCore::God::_num_drawing++;
+        GgafCore::Caretaker::_num_drawing++;
 #endif
     return D3D_OK;
 }
@@ -149,7 +149,7 @@ void SpriteSetModel::restore() {
     if (_paVertexBuffer_data == nullptr) {
         _papTextureConnection = nullptr;
 
-        ModelManager* pModelManager = pGOD->_pModelManager;
+        ModelManager* pModelManager = pCARETAKER->_pModelManager;
         ModelManager::SpriteXFileFmt xdata;
         std::string model_def_file = std::string(_model_id) + ".sprx";
         std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
@@ -286,7 +286,7 @@ void SpriteSetModel::restore() {
     }
     if (_paVertexBuffer == nullptr) {
         HRESULT hr;
-        hr = pGOD->_pID3DDevice9->CreateVertexBuffer(
+        hr = pCARETAKER->_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices * _draw_set_num,
                 D3DUSAGE_WRITEONLY,
                 SpriteSetModel::FVF,
@@ -319,7 +319,7 @@ void SpriteSetModel::restore() {
         HRESULT hr;
         int nVertices = 4;
         int nFaces = 2;
-        hr = pGOD->_pID3DDevice9->CreateIndexBuffer(
+        hr = pCARETAKER->_pID3DDevice9->CreateIndexBuffer(
                                sizeof(WORD) * nFaces * 3 * _draw_set_num,
                                 D3DUSAGE_WRITEONLY,
                                 D3DFMT_INDEX16,
@@ -340,7 +340,7 @@ void SpriteSetModel::restore() {
 
     if (_papTextureConnection == nullptr) {
         //テクスチャ取得しモデルに保持させる
-        ModelManager* pModelManager = pGOD->_pModelManager;
+        ModelManager* pModelManager = pCARETAKER->_pModelManager;
         _papTextureConnection = NEW TextureConnection*[1];
         _papTextureConnection[0] = (TextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[0].c_str(), this));
     }

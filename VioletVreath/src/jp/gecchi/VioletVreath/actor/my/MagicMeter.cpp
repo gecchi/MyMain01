@@ -25,7 +25,7 @@
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/MagicMeterCursor001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/MagicMeterStatus.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/VreathBar.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/ggaf/dx/sound/Se.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/BunshinMagic.h"
 

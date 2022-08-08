@@ -12,7 +12,7 @@ namespace GgafCore {
 /**
  * ゴミ箱 .
  * 不要になったオブジェクト（アクター、シーン）は、とりあえずココに登録。<BR>
- * ココに登録されると、CPUの余裕のあるときに神が勝手にちびちびと delete してゆきます<BR>
+ * ココに登録されると、CPUの余裕のあるときに管理者が勝手にちびちびと delete してゆきます<BR>
  * (旧TrashBox)
  * @version 1.00
  * @since 2008/12/16
@@ -61,7 +61,7 @@ public:
 
     /**
      * ゴミ箱に溜まっているオブジェクトをdeleteする .
-     * 通常、神(God)がこれを行います。
+     * 通常、管理者(Caretaker)がこれを行います。
      * @param prm_num_cleaning deleteするオブジェクト数
      */
     void clean(int prm_num_cleaning);

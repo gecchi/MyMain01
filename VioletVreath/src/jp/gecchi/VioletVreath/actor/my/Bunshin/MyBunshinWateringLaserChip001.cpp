@@ -17,7 +17,7 @@
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/LaserMagic.h"
 #include "jp/gecchi/VioletVreath/actor/my/LockonCursor001_Main.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime.h"
 
 using namespace GgafLib;
@@ -167,7 +167,7 @@ void MyBunshinWateringLaserChip001::processBehavior() {
                 } else if (pAimInfo->spent_frames_to_t2 == 0) {
                     //œLeader ‚ª t1 ‚Ö Aim ‚µI‚í‚Á‚½‚ ‚Æ
                     //t2‚ðŒˆ‚ß‚é
-                    static const Spacetime* pSpaceTime =  pGOD->getSpacetime();
+                    static const Spacetime* pSpaceTime =  pCARETAKER->getSpacetime();
                     static const double ZF_R = UTIL::getDistance(
                                                       0.0, 0.0, 0.0,
                                                       (double)(pSpaceTime->_x_bound_right),
@@ -504,7 +504,7 @@ void MyBunshinWateringLaserChip001::onInactive() {
     if (pAimInfo && pAimInfo->pLeaderChip == this) {
         if (pAimInfo->spent_frames_to_t2 == 0) {
             frame aim_time_out_t1 = pAimInfo_->aim_time_out_t1;
-            static const Spacetime* pSpaceTime =  pGOD->getSpacetime();
+            static const Spacetime* pSpaceTime =  pCARETAKER->getSpacetime();
             static const double zf_r = UTIL::getDistance(
                                                0.0, 0.0, 0.0,
                                                (double)(pSpaceTime->_x_bound_right),

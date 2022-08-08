@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/dx/Config.h"
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 #include <Shlwapi.h>
 
 
@@ -29,7 +29,7 @@ Effect::Effect(const char* prm_effect_name) : GgafCore::Object() {
     } else {
         //コンパイル済み fxo ファイルを読み込み
         effect_file_name = Effect::getEffectFileName("3_0_" + std::string(prm_effect_name) + ".fxo");
-//        if ( God::_ps_v >= D3DPS_VERSION(3, 0)) {
+//        if ( Caretaker::_ps_v >= D3DPS_VERSION(3, 0)) {
 //            effect_file_name = Effect::getEffectFileName("3_0_" + std::string(prm_effect_name) + ".fxo");
 //        } else {
 //            effect_file_name = Effect::getEffectFileName("2_0_" + std::string(prm_effect_name) + ".fxo");
@@ -46,7 +46,7 @@ Effect::Effect(const char* prm_effect_name) : GgafCore::Object() {
 #endif
 
     hr = D3DXCreateEffectFromFile(
-             pGOD->_pID3DDevice9,  // [in] LPDIRECT3DDEVICE9 pDevice
+             pCARETAKER->_pID3DDevice9,  // [in] LPDIRECT3DDEVICE9 pDevice
              effect_file_name.c_str(),  // [in] LPCTSTR pSrcFile
              0,                         // [in] CONST D3DXMACRO* pDefines
              0,                         // [in] LPD3DXINCLUDE pInclude
@@ -57,10 +57,10 @@ Effect::Effect(const char* prm_effect_name) : GgafCore::Object() {
         );
 
 
-//    if ( God::_ps_v >= D3DPS_VERSION(3, 0)) {
+//    if ( Caretaker::_ps_v >= D3DPS_VERSION(3, 0)) {
 //        //ピクセルシェーダーが 3.0 以上の場合
 //        hr = D3DXCreateEffectFromFile(
-//                 pGOD->_pID3DDevice9,  // [in] LPDIRECT3DDEVICE9 pDevice
+//                 pCARETAKER->_pID3DDevice9,  // [in] LPDIRECT3DDEVICE9 pDevice
 //                 effect_file_name.c_str(),  // [in] LPCTSTR pSrcFile
 //                 Effect::_aD3DXMacro_Defines, // [in] CONST D3DXMACRO* pDefines
 //                 0,                         // [in] LPD3DXINCLUDE pInclude
@@ -72,7 +72,7 @@ Effect::Effect(const char* prm_effect_name) : GgafCore::Object() {
 //    } else {
 //        //ピクセルシェーダーが 3.0 未満の場合(2.0と想定する)
 //        hr = D3DXCreateEffectFromFile(
-//                 pGOD->_pID3DDevice9,  // [in] LPDIRECT3DDEVICE9 pDevice
+//                 pCARETAKER->_pID3DDevice9,  // [in] LPDIRECT3DDEVICE9 pDevice
 //                 effect_file_name.c_str(),  // [in] LPCTSTR pSrcFile
 //                 0,                         // [in] CONST D3DXMACRO* pDefines
 //                 0,                         // [in] LPD3DXINCLUDE pInclude

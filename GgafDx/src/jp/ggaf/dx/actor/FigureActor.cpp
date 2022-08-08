@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/core/actor/SceneMediator.h"
 #include "jp/ggaf/core/util/Rgb.h"
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/util/Util.h"
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/dx/manager/ModelManager.h"
@@ -31,13 +31,13 @@ FigureActor::FigureActor(const char* prm_name,
                                             prm_pChecker),
 _pModelCon(
     (ModelConnection*)(
-        pGOD->_pModelManager->connect(prm_model, this)
+        pCARETAKER->_pModelManager->connect(prm_model, this)
     )
 ),
 _pModel((Model*)_pModelCon->peek()),
 _pEffectCon(
     (EffectConnection*)(
-        pGOD->_pEffectManager->connect(prm_effect, this)
+        pCARETAKER->_pEffectManager->connect(prm_effect, this)
     )
 ),
 _pEffect((Effect*)_pEffectCon->peek()),
@@ -91,7 +91,7 @@ FigureActor::FigureActor(const char* prm_name,
                                             prm_pChecker),
 _pModelCon(
     (ModelConnection*)(
-        pGOD->_pModelManager->connect(
+        pCARETAKER->_pModelManager->connect(
             (std::string(1, prm_model_type) + "," + std::string(prm_model)).c_str(), this
         )
     )
@@ -99,7 +99,7 @@ _pModelCon(
 _pModel((Model*)_pModelCon->peek()),
 _pEffectCon(
     (EffectConnection*)(
-        pGOD->_pEffectManager->connect(
+        pCARETAKER->_pEffectManager->connect(
             (std::string(1, prm_effect_type) + "," + std::string(prm_effect_id)).c_str(), this
         )
     )
@@ -152,7 +152,7 @@ Colorist* FigureActor::getColorist() {
 }
 
 void FigureActor::processPreDraw() {
-    Spacetime* pSpacetime = pGOD->getSpacetime();
+    Spacetime* pSpacetime = pCARETAKER->getSpacetime();
     GgafCore::Scene* pPlatformScene = getSceneMediator()->getPlatformScene();
 #ifdef MY_DEBUG
     if (pPlatformScene->instanceOf(Obj_GgafDx_Scene)) {
@@ -169,7 +169,7 @@ void FigureActor::processPreDraw() {
     }
     _pNextRenderActor = nullptr;
     if (isActiveInTheTree()) {
-        GgafCore::God::_num_active_actor++;
+        GgafCore::Caretaker::_num_active_actor++;
         if (_alpha > 0.0f &&  ((Scene*)pPlatformScene)->_scene_alpha > 0.0f) { //isActiveInTheTree() ‚Å”»’è‚·‚é‚±‚Æ
             _now_drawdepth = _is_2D ? pSpacetime->registerFigureActor2D(this) : pSpacetime->registerFigureActor3D(this);
         }
@@ -195,10 +195,10 @@ void FigureActor::processAfterDraw() {
 //    getEffect()->setAlphaMaster(((Scene*)getPlatformScene())->_scene_alpha);
 //    _TRACE_("this="<<getName()<<" PlathoneScene="<<((Scene*)getPlatformScene())->getName()<<" _scene_alpha="<<((Scene*)getPlatformScene())->_scene_alpha);
     //“–‚½‚è”»’è—Ìˆæ•\Ž¦
-    if (pGOD->_d3dfillmode == D3DFILL_WIREFRAME) {
-        pGOD->_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+    if (pCARETAKER->_d3dfillmode == D3DFILL_WIREFRAME) {
+        pCARETAKER->_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
         drawHitArea();
-        pGOD->_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, pGOD->_d3dfillmode);
+        pCARETAKER->_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, pCARETAKER->_d3dfillmode);
     }
 #endif
 }

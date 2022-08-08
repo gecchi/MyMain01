@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/gecchi/VioletVreath/effect/HoshiboshiEffect.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 
@@ -28,13 +28,13 @@ HoshiBoshi::HoshiBoshi(const char* prm_name, const char* prm_model) :
     //独自ワールド変換
     defineRotMvWorldMatrix(HoshiBoshi::setWorldMatrix_HoshiBoshi);
     setSpecialRenderDepthIndex(RENDER_DEPTH_INDEX_HOSHIBOSHI);
-    pCriteria_ = pGOD->getSpacetime()->getCamera();
+    pCriteria_ = pCARETAKER->getSpacetime()->getCamera();
     setFarRate(1.0);
     static volatile bool is_init = HoshiBoshi::initStatic(this); //静的メンバ初期化
 }
 
 bool HoshiBoshi::initStatic(HoshiBoshi* prm_pHoshiBoshi) {
-    HoshiBoshi::CAM_ZF_ = ABS(DX_C(pGOD->getSpacetime()->getCamera()->getZFar()));
+    HoshiBoshi::CAM_ZF_ = ABS(DX_C(pCARETAKER->getSpacetime()->getCamera()->getZFar()));
     return true;
 }
 
@@ -43,7 +43,7 @@ void HoshiBoshi::setFarRate(float prm_far_rate) {
     //現空間の大きさに散らばらせる
     far_rate_ = prm_far_rate;
     space_distance_ = HoshiBoshi::CAM_ZF_*far_rate_;
-    _sx = _sy = _sz =  (pGOD->getSpacetime()->getCamera()->getZFar()*LEN_UNIT)*far_rate_;
+    _sx = _sy = _sz =  (pCARETAKER->getSpacetime()->getCamera()->getZFar()*LEN_UNIT)*far_rate_;
 }
 int HoshiBoshi::isOutOfView() {
     //画面外判定無し

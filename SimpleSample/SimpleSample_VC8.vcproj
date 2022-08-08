@@ -227,11 +227,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\SmpGod.cpp"
+			RelativePath=".\src\SmpCaretaker.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\src\SmpGod.h"
+			RelativePath=".\src\SmpCaretaker.h"
 			>
 		</File>
 		<File

@@ -1,7 +1,7 @@
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 
 #include "jp/ggaf/core/util/RepeatSeq.h"
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/actor/camera/Camera.h"
 #include "jp/ggaf/dx/actor/GeometricActor.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
@@ -50,7 +50,7 @@ void SeTransmitterForActor::play(int prm_se_no, bool prm_can_looping) {
 }
 
 void SeTransmitterForActor::play3D(int prm_se_no, bool prm_can_looping) {
-    Spacetime* const pSpacetime = pGOD->getSpacetime();
+    Spacetime* const pSpacetime = pCARETAKER->getSpacetime();
 #ifdef MY_DEBUG
     if (prm_se_no < 0 || prm_se_no >= _se_num) {
         throwCriticalException("IDが範囲外です。0~"<<(_se_num-1)<<"でお願いします。_pActor="<<_pActor->getName()<<" prm_se_no="<<prm_se_no);
@@ -151,7 +151,7 @@ void SeTransmitterForActor::updatePanVolume3D() {
             if (calc_flg) { //初回のみ計算
                 calc_flg = false; //最初の１回目のループだけ距離計算
 
-                static const Camera* pCam = pGOD->getSpacetime()->getCamera();
+                static const Camera* pCam = pCARETAKER->getSpacetime()->getCamera();
                 static pixcoord px_cam_zf = DX_PX(pCam->getZFar());
                 const double DX = C_PX(pCam->_x - _pActor->_x);
                 const double DY = C_PX(pCam->_y - _pActor->_y);

@@ -3,7 +3,7 @@
 #include "jp/ggaf/dx/actor/supporter/VecVehicleFaceAngAssistant.h"
 #include "jp/ggaf/dx/actor/supporter/VecVehicleMvAngAssistant.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "MgrGod.h"
+#include "MgrCaretaker.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 #include "jp/ggaf/dx/actor/supporter/SeTransmitterForActor.h"
 
@@ -28,7 +28,7 @@ void SeActor3::initialize() {
 }
 
 void SeActor3::processBehavior() {
-    VirtualButton* pVb = P_GOD->getSpacetime()->pVb_;
+    VirtualButton* pVb = P_CARETAKER->getSpacetime()->pVb_;
     static int D = 20;
     if (GgafDx::Input::isPushedDownKey(DIK_1)) {
         getSeTransmitter()->play3D(0, true);

@@ -8,7 +8,7 @@
 
 #include "jp/ggaf/dx/util/Input.h"
 #include "jp/ggaf/lib/LibConfig.h"
-#include "jp/ggaf/lib/DefaultGod.h"
+#include "jp/ggaf/lib/DefaultCaretaker.h"
 #include "jp/ggaf/lib/util/WMKeyInput.h"
 
 extern HINSTANCE WinMain_hInstance;
@@ -73,29 +73,29 @@ void LibWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
             break;
         }
         case WM_SIZE: {
-            if (pGOD && pGOD->_pHWndPrimary) {
+            if (pCARETAKER && pCARETAKER->_pHWndPrimary) {
                 if (!CONFIG::FULL_SCREEN) {
-                    pGOD->_adjustGameWindow = true;
-                    pGOD->_pHWnd_adjustScreen = hWnd; //サイズ変更したほうのWINDOW
+                    pCARETAKER->_adjustGameWindow = true;
+                    pCARETAKER->_pHWnd_adjustScreen = hWnd; //サイズ変更したほうのWINDOW
                 }
             }
-            GgafCore::God::_pGod->syncTimeFrame();
+            GgafCore::Caretaker::_pCaretaker->syncTimeFrame();
             break;
         }
         case WM_SIZING: {
-            GgafCore::God::_pGod->syncTimeFrame();
+            GgafCore::Caretaker::_pCaretaker->syncTimeFrame();
             break;
         }
         case WM_MOVING: {
-            GgafCore::God::_pGod->syncTimeFrame();
+            GgafCore::Caretaker::_pCaretaker->syncTimeFrame();
             break;
         }
         case WM_CONTEXTMENU: {
-            GgafCore::God::_pGod->syncTimeFrame();
+            GgafCore::Caretaker::_pCaretaker->syncTimeFrame();
             break;
         }
         case WM_SETFOCUS: {
-            if (pGOD->_pHWndPrimary) {
+            if (pCARETAKER->_pHWndPrimary) {
                 HRESULT hr;
                 // マウス強調レベル設定
                 if (GgafDx::Input::_pMouseInputDevice) {

@@ -385,7 +385,7 @@ class Object;
 class Exception;
 class CriticalException;
 class Logger;
-class God;
+class Caretaker;
 
 class CmRandomNumberGenerator;
 

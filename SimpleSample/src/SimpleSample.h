@@ -7,7 +7,7 @@
 
 //‘O•ûéŒ¾
 namespace SimpleSample {
-class SmpGod;
+class SmpCaretaker;
 class SmpSpacetime;
 class SmpWorld;
 class SmpCamera;

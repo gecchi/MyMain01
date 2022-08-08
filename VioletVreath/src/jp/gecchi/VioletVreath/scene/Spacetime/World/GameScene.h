@@ -5,12 +5,12 @@
 #include "jp/gecchi/VioletVreath/scene/VvScene.hpp"
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 #include "../World.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 
 
 namespace VioletVreath {
 
-#define pGAME_SCENE (pGOD->getSpacetime()->getWorld()->pGameScene_)
+#define pGAME_SCENE (pCARETAKER->getSpacetime()->getWorld()->pGameScene_)
 
 /**
  * ゲームシーンクラス .

@@ -1,6 +1,6 @@
 #include "jp/ggaf/lib/actor/ColliAABoxActor.h"
 
-#include "jp/ggaf/core/God.h"
+#include "jp/ggaf/core/Caretaker.h"
 #include "jp/ggaf/dx/effect/Effect.h"
 #include "jp/ggaf/dx/util/CollisionArea.h"
 #include "jp/ggaf/dx/util/CollisionPart.h"
@@ -52,7 +52,7 @@ void ColliAABoxActor::drawHitarea(CollisionChecker* prm_pColliChecker) {
                             pActor->_y + box->_y2,
                             pActor->_z + box->_z2);
 #ifdef MY_DEBUG
-                    GgafCore::God::_num_drawing--; //当たり判定表示は表示オブジェクト数にカウントしない
+                    GgafCore::Caretaker::_num_drawing--; //当たり判定表示は表示オブジェクト数にカウントしない
 #endif
                 }
             }

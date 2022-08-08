@@ -1,7 +1,7 @@
 #include "MyShipScene.h"
 
 #include "jp/ggaf/core/actor/SceneMediator.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/actor/camera/VVCameraWorkerChanger.h"
 #include "jp/gecchi/VioletVreath/actor/camera/worker/MyShipDivingCamWorker.h"
 #include "jp/gecchi/VioletVreath/actor/camera/worker/VamSysCamWorker.h"
@@ -11,7 +11,7 @@
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/MagicLvCursor001.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/MagicLvCursor002.h"
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
@@ -90,7 +90,7 @@ void MyShipScene::onReset() {
 
     fadeoutSceneWithBgm(0);
     getPhase()->reset(PHASE_INIT);
-    pGOD->getSpacetime()->getCameraWorkerChanger()->cleanCamWorker();
+    pCARETAKER->getSpacetime()->getCameraWorkerChanger()->cleanCamWorker();
 }
 
 void MyShipScene::onActive() {
@@ -98,7 +98,7 @@ void MyShipScene::onActive() {
 }
 
 void MyShipScene::processBehavior() {
-    Spacetime* pSpacetime = pGOD->getSpacetime();
+    Spacetime* pSpacetime = pCARETAKER->getSpacetime();
      ScenePhase* pPhase = getPhase();
     switch (pPhase->getPrevWhenChanged()) {
         case PHASE_BEGIN: {

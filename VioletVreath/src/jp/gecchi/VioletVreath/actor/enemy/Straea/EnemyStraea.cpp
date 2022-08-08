@@ -9,7 +9,7 @@
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChipDepository.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
 #include "jp/ggaf/dx/util/Input.h"
@@ -104,7 +104,7 @@ void EnemyStraea::initialize() {
 void EnemyStraea::onActive() {
     getStatus()->reset();
     setHitAble(false);
-    Spacetime* pSpacetime =  pGOD->getSpacetime();
+    Spacetime* pSpacetime =  pCARETAKER->getSpacetime();
     _x = pSpacetime->_x_bound_right;
     getPhase()->reset(PHASE_INIT);
 }

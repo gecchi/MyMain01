@@ -1,7 +1,7 @@
 #include "WorldBound002.h"
 
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 
 
 
@@ -15,7 +15,7 @@ WorldBound002::WorldBound002(const char* prm_name) :
     base_v_ = 0;
 }
 void WorldBound002::initialize() {
-    const Camera* const pCam = pGOD->getSpacetime()->getCamera();
+    const Camera* const pCam = pCARETAKER->getSpacetime()->getCamera();
     //    getUvFlipper()->locatePatternNo(16, 1/16.0, 1/16.0);
     //    getUvFlipper()->exec(FLIP_ORDER_LOOP, 5);
     //    getUvFlipper()->setFlipPtnRange(0, 16*16-1);

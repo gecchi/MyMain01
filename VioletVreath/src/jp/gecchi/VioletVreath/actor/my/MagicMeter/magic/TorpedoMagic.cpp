@@ -4,7 +4,7 @@
 #include "TorpedoMagic.h"
 #include "jp/gecchi/VioletVreath/actor/my/MagicMeter/magic/effect/EffectTorpedoMagic.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyTorpedoController.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
 
 

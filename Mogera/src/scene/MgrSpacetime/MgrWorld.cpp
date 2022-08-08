@@ -5,7 +5,7 @@
 #include "scene/MgrSpacetime/MgrWorld/ParallelCurveTestScene.h"
 #include "scene/MgrSpacetime/MgrWorld/TestScene.h"
 #include "scene/MgrSpacetime.h"
-#include "MgrGod.h"
+#include "MgrCaretaker.h"
 
 using namespace GgafLib;
 using namespace Mogera;
@@ -13,7 +13,7 @@ using namespace Mogera;
 MgrWorld::MgrWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
     pTestScene_ = nullptr;
     pTrialAndErrScene_ = nullptr;
-    pHitCheckRounder_ = P_GOD->getSpacetime()->getLinearOctreeHitCheckRounder();
+    pHitCheckRounder_ = P_CARETAKER->getSpacetime()->getLinearOctreeHitCheckRounder();
 }
 
 void MgrWorld::initialize() {
@@ -25,13 +25,13 @@ void MgrWorld::initialize() {
 }
 
 void MgrWorld::processBehavior() {
-    VirtualButton* pVb = P_GOD->getSpacetime()->pVb_;
+    VirtualButton* pVb = P_CARETAKER->getSpacetime()->pVb_;
     //ワイヤフレーム表示切替
     if (pVb->isPushedDown(VB_UI_DEBUG)) {
-        if (pGOD->_d3dfillmode == D3DFILL_WIREFRAME) {
-            pGOD->_d3dfillmode = D3DFILL_SOLID;
+        if (pCARETAKER->_d3dfillmode == D3DFILL_WIREFRAME) {
+            pCARETAKER->_d3dfillmode = D3DFILL_SOLID;
         } else {
-            pGOD->_d3dfillmode = D3DFILL_WIREFRAME;
+            pCARETAKER->_d3dfillmode = D3DFILL_WIREFRAME;
         }
     }
 

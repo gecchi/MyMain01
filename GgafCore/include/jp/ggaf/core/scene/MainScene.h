@@ -14,7 +14,7 @@ namespace GgafCore {
  */
 
 class MainScene : public Scene {
-    friend class God;
+    friend class Caretaker;
     friend class Scene;
 
 public:

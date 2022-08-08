@@ -1,6 +1,6 @@
 #include "jp/ggaf/lib/actor/DefaultMassPointSpriteActor.h"
 
-#include "jp/ggaf/lib/DefaultGod.h"
+#include "jp/ggaf/lib/DefaultCaretaker.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
@@ -95,7 +95,7 @@ void DefaultMassPointSpriteActor::createVertexInstanceData(void* prm, GgafDx::Ma
 void DefaultMassPointSpriteActor::processDraw() {
 
 
-    HRESULT hr = pGOD->_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, TRUE); //ポイントスプライトON！
+    HRESULT hr = pCARETAKER->_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, TRUE); //ポイントスプライトON！
     checkDxException(hr, D3D_OK, " D3DRS_POINTSPRITEENABLE TRUE に失敗しました。");
 
 
@@ -130,7 +130,7 @@ void DefaultMassPointSpriteActor::processDraw() {
 
     ((GgafDx::MassPointSpriteModel*)_pMassPointSpriteModel)->GgafDx::MassPointSpriteModel::draw(this, draw_set_num);
 
-    hr = pGOD->_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, FALSE); //ポイントスプライトOFF
+    hr = pCARETAKER->_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, FALSE); //ポイントスプライトOFF
     checkDxException(hr, D3D_OK, " D3DRS_POINTSPRITEENABLE FALSE に失敗しました。");
 }
 

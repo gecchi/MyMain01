@@ -5,7 +5,7 @@
 #include "scene/HgrSpacetime/HgrWorld.h"
 #include "actor/Test01.h"
 #include "actor/Jiki.h"
-#include "HgrGod.h"
+#include "HgrCaretaker.h"
 
 
 
@@ -54,10 +54,10 @@ void TrialAndErrScene::processBehavior() {
 #ifdef MY_DEBUG
     //ワイヤフレーム表示切替
     if (GgafDx::Input::isPushedDownKey(DIK_Q)) {
-        if (pGOD->_d3dfillmode == D3DFILL_WIREFRAME) {
-            pGOD->_d3dfillmode = D3DFILL_SOLID;
+        if (pCARETAKER->_d3dfillmode == D3DFILL_WIREFRAME) {
+            pCARETAKER->_d3dfillmode = D3DFILL_SOLID;
         } else {
-            pGOD->_d3dfillmode = D3DFILL_WIREFRAME;
+            pCARETAKER->_d3dfillmode = D3DFILL_WIREFRAME;
         }
     }
 #endif

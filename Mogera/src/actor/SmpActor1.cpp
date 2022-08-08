@@ -3,7 +3,7 @@
 #include "jp/ggaf/dx/actor/supporter/VecVehicleFaceAngAssistant.h"
 #include "jp/ggaf/dx/actor/supporter/VecVehicleMvAngAssistant.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "MgrGod.h"
+#include "MgrCaretaker.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 
 
@@ -26,7 +26,7 @@ void SmpActor1::initialize() {
 }
 
 void SmpActor1::processBehavior() {
-    VirtualButton* pVb = P_GOD->getSpacetime()->pVb_;
+    VirtualButton* pVb = P_CARETAKER->getSpacetime()->pVb_;
     if (GgafDx::Input::isPressedKey(DIK_A)) {
         _x += PX_C(2); //‰E
     }

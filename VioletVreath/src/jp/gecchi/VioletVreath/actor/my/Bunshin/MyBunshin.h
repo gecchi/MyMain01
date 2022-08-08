@@ -3,7 +3,7 @@
 #include "VioletVreath.h"
 #include "jp/gecchi/VioletVreath/actor/VvEffectActor.hpp"
 #include "jp/ggaf/lib/actor/DefaultMeshSetActor.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World.h"

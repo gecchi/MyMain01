@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/lib/scene/DefaultSpacetime.h"
-#include "jp/ggaf/lib/DefaultGod.h"
+#include "jp/ggaf/lib/DefaultCaretaker.h"
 
 
 

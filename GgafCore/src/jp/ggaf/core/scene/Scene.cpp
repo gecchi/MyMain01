@@ -1,6 +1,6 @@
 #include "jp/ggaf/core/scene/Scene.h"
 
-#include "jp/ggaf/core/God.h"
+#include "jp/ggaf/core/Caretaker.h"
 #include "jp/ggaf/core/actor/SceneMediator.h"
 
 using namespace GgafCore;
@@ -24,8 +24,8 @@ Scene::Scene(const char* prm_name, SceneMediator* prm_pSceneMediator) : Element<
 }
 
 Scene::~Scene() {
-    if (pGOD->_is_loving_flg) {
-        pGOD->repent(this); //Ž©g‚ª–]‚ñ‚¾–½‚ð”jŠü
+    if (pCARETAKER->_is_loving_flg) {
+        pCARETAKER->repent(this); //Ž©g‚ª–]‚ñ‚¾–½‚ð”jŠü
     } else {
         //ƒAƒvƒŠI—¹ˆ—Žž‚Ì‚½‚ßAˆ¤‚à‚à‚ê‚È‚­‘|œ‚³‚ê‚é‚½‚ßl—¶•s—v
     }
@@ -248,11 +248,11 @@ void Scene::clean(int prm_num_cleaning) {
     }
 }
 
-God* Scene::askGod() {
-    if (_pGod == nullptr) {
-        _pGod = getParent()->askGod();
+Caretaker* Scene::askCaretaker() {
+    if (_pCaretaker == nullptr) {
+        _pCaretaker = getParent()->askCaretaker();
     }
-    return _pGod;
+    return _pCaretaker;
 }
 
 void Scene::dump() {

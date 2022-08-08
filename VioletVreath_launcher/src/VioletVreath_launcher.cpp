@@ -3,7 +3,7 @@
 
 #include <Shlwapi.h>
 #include "resource.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/Config.h"
 #include "jp/ggaf/lib/util/VBReplayRecorder.h"
 
@@ -128,9 +128,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
 #ifdef MY_DEBUG
     try {
 #endif
-        //神の誕生
-        VioletVreath::God god;
-        god.createWindow(wcex1, wcex2, szTitle, "secondary", dwStyle, dwStyle, hWnd1, hWnd2);
+        //管理者の誕生
+        VioletVreath::Caretaker crtkr;
+        crtkr.createWindow(wcex1, wcex2, szTitle, "secondary", dwStyle, dwStyle, hWnd1, hWnd2);
         // ループ・ザ・ループ
         while (true) {
             if (::PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
@@ -161,7 +161,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
                         //特に何も無し
     #endif
 #endif
-                    if (VioletVreath::God::g_should_reboot_) {
+                    if (VioletVreath::Caretaker::g_should_reboot_) {
                         //再起動
                         Sleep(2000);
                         PROCESS_INFORMATION pi;
@@ -189,7 +189,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
                 TranslateMessage(&msg);
                 DispatchMessage(&msg);
             } else {
-                god.be(); //be() で、この世が動く
+                crtkr.present(); //be() で、この世が動く
             }
         }
 #ifdef MY_DEBUG
@@ -248,7 +248,7 @@ void myTerminateHandler() {
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
     LibWndProc(hWnd, message, wParam, lParam);
-    VioletVreath::God* pGod = pGOD;
+    VioletVreath::Caretaker* pCaretaker = pCARETAKER;
     switch (message) {
         case WM_CREATE: {
             // システムメニューカスタム関数を呼ぶ
@@ -274,10 +274,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             LONG lStyle = GetWindowLong( hWnd, GWL_STYLE );
             if (lStyle & WS_POPUP) {
                 //現在ボーダレスフルスクリーンウィンドウであるので戻す。
-                pGod->backToNomalWindow(hWnd);
+                pCaretaker->backToNomalWindow(hWnd);
             } else {
                 //現在通常ウィンドウであるので、ボーダレスフルスクリーンウィンドウに切り替える。
-                pGod->chengeToBorderlessFullWindow(hWnd);
+                pCaretaker->chengeToBorderlessFullWindow(hWnd);
             }
             break;
         }
@@ -287,16 +287,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
                 LONG lStyle = GetWindowLong( hWnd, GWL_STYLE );
                 if (lStyle & WS_POPUP) {
                     //現在ボーダレスフルスクリーンウィンドウであるので戻す。
-                    pGod->backToNomalWindow(hWnd);
+                    pCaretaker->backToNomalWindow(hWnd);
                 } else {
                     //現在通常ウィンドウであるので、ボーダレスフルスクリーンウィンドウに切り替える。
-                    pGod->chengeToBorderlessFullWindow(hWnd);
+                    pCaretaker->chengeToBorderlessFullWindow(hWnd);
                 }
             }
             break;
         }
         case WM_SYSCOMMAND: {
-            pGod->syncTimeFrame();
+            pCaretaker->syncTimeFrame();
             if ( (wParam & 0xFFF0) == SC_SCREENSAVE ) {
                 return 1;
             }
@@ -308,23 +308,23 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
                 LONG lStyle  = GetWindowLong( hWnd, GWL_STYLE );
                 if (lStyle & WS_POPUP) {
                     //現在ボーダレスフルスクリーンウィンドウであるので戻す。
-                    pGod->backToNomalWindow(hWnd);
+                    pCaretaker->backToNomalWindow(hWnd);
                 } else {
                     //現在通常ウィンドウであるので、ボーダレスフルスクリーンウィンドウに切り替える。
-                    pGod->chengeToBorderlessFullWindow(hWnd);
+                    pCaretaker->chengeToBorderlessFullWindow(hWnd);
                 }
             } else if(wParam == MY_IDM_RESET_WINDOW_SIZE) {
                 //初期ウィンドウサイズにリセット
-                pGod->resetInitWindowsize();
+                pCaretaker->resetInitWindowsize();
             } else if(wParam == MY_IDM_RESET_PIXEL_BY_DOT_WINDOW_SIZE) {
                 //pixel by dot ウィンドウサイズにリセット
-                pGod->resetDotByDotWindowsize(1);
+                pCaretaker->resetDotByDotWindowsize(1);
             } else if(wParam == MY_IDM_RESET_PIXEL_BY_2DOT_WINDOW_SIZE) {
                 //pixel by 2*2dot ウィンドウサイズにリセット
-                pGod->resetDotByDotWindowsize(2);
+                pCaretaker->resetDotByDotWindowsize(2);
             } else if(wParam == MY_IDM_RESET_PIXEL_BY_3DOT_WINDOW_SIZE) {
                 //pixel by 3*3dot ウィンドウサイズにリセット
-                pGod->resetDotByDotWindowsize(3);
+                pCaretaker->resetDotByDotWindowsize(3);
             } else if(wParam == MY_IDM_SAVE) {
                 if (!CONFIG::FULL_SCREEN) {
                     if (CONFIG::DUAL_VIEW) {
@@ -368,31 +368,31 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
                 //再起動実行
                 int ret = MessageBox(nullptr, "Quit and Reboot. Are You Sure ?", "VioletVreath_launcher", MB_OKCANCEL|MB_SETFOREGROUND);
                 if (ret == IDOK) {
-                    VioletVreath::God::g_should_reboot_ = true;
+                    VioletVreath::Caretaker::g_should_reboot_ = true;
                     PostQuitMessage(0);
                 }
             } else if(wParam == MY_IDM_VPOS_1) {
-                pGod->chengeViewPos(hWnd, 1);
+                pCaretaker->chengeViewPos(hWnd, 1);
             } else if(wParam == MY_IDM_VPOS_2) {
-                pGod->chengeViewPos(hWnd, 2);
+                pCaretaker->chengeViewPos(hWnd, 2);
             } else if(wParam == MY_IDM_VPOS_3) {
-                pGod->chengeViewPos(hWnd, 3);
+                pCaretaker->chengeViewPos(hWnd, 3);
             } else if(wParam == MY_IDM_VPOS_4) {
-                pGod->chengeViewPos(hWnd, 4);
+                pCaretaker->chengeViewPos(hWnd, 4);
             } else if(wParam == MY_IDM_VPOS_5) {
-                pGod->chengeViewPos(hWnd, 5);
+                pCaretaker->chengeViewPos(hWnd, 5);
             } else if(wParam == MY_IDM_VPOS_6) {
-                pGod->chengeViewPos(hWnd, 6);
+                pCaretaker->chengeViewPos(hWnd, 6);
             } else if(wParam == MY_IDM_VPOS_7) {
-                pGod->chengeViewPos(hWnd, 7);
+                pCaretaker->chengeViewPos(hWnd, 7);
             } else if(wParam == MY_IDM_VPOS_8) {
-                pGod->chengeViewPos(hWnd, 8);
+                pCaretaker->chengeViewPos(hWnd, 8);
             } else if(wParam == MY_IDM_VPOS_9) {
-                pGod->chengeViewPos(hWnd, 9);
+                pCaretaker->chengeViewPos(hWnd, 9);
             } else if(wParam == MY_IDM_ASPECT_FIXED) {
-                pGod->chengeViewAspect(true);
+                pCaretaker->chengeViewAspect(true);
             } else if(wParam == MY_IDM_ASPECT_STRETCH) {
-                pGod->chengeViewAspect(false);
+                pCaretaker->chengeViewAspect(false);
             }
             break;
         }

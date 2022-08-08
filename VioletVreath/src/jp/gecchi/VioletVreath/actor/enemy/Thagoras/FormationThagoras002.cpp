@@ -1,7 +1,7 @@
 #include "FormationThagoras002.h"
 
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/MyShipScene.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/actor/enemy/Thagoras/EnemyThagoras.h"
 #include "jp/ggaf/dx/util/curve/VehicleLeader.h"
 

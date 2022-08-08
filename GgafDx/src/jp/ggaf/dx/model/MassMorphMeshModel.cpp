@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/model/MassMorphMeshModel.h"
 
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/Config.h"
 #include "jp/ggaf/dx/actor/MassMorphMeshActor.h"
 #include "jp/ggaf/dx/effect/MassMorphMeshEffect.h"
@@ -95,7 +95,7 @@ void MassMorphMeshModel::createVertexModel(void* prm, MassModel::VertexModelInfo
 void MassMorphMeshModel::restore() {
     _TRACE3_("_model_id=" << _model_id << " start");
     if (_paVtxBuffer_data_model == nullptr) {
-        ModelManager* pModelManager = pGOD->_pModelManager;
+        ModelManager* pModelManager = pCARETAKER->_pModelManager;
         ModelManager::MeshXFileFmt xdata;
         std::string model_def_file = std::string(_model_id) + ".meshx";
         std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
@@ -240,7 +240,7 @@ void MassMorphMeshModel::restore() {
         for (int pattern = 0; pattern < _morph_target_num+1; pattern++) {
             if (pattern == 0) {
                 //プライマリ頂点バッファ
-                hr = pGOD->_pID3DDevice9->CreateVertexBuffer(
+                hr = pCARETAKER->_pID3DDevice9->CreateVertexBuffer(
                         _size_vertices_model,
                         D3DUSAGE_WRITEONLY,
                         0,
@@ -257,7 +257,7 @@ void MassMorphMeshModel::restore() {
                 checkDxException(hr, D3D_OK, "頂点バッファのアンロック取得に失敗 model="<<_model_id);
             } else {
                 //モーフターゲット頂点バッファ
-                hr = pGOD->_pID3DDevice9->CreateVertexBuffer(
+                hr = pCARETAKER->_pID3DDevice9->CreateVertexBuffer(
                         _size_vertices_morph_model,
                         D3DUSAGE_WRITEONLY,
                         0,
@@ -280,7 +280,7 @@ void MassMorphMeshModel::restore() {
     //インデックスバッファデータ作成（プライマリ、モーフターゲット共に同じ）
     if (_paIndexBuffer == nullptr) {
         HRESULT hr;
-        hr = pGOD->_pID3DDevice9->CreateIndexBuffer(
+        hr = pCARETAKER->_pID3DDevice9->CreateIndexBuffer(
                                 sizeof(WORD) * _nFaces * 3,
                                 D3DUSAGE_WRITEONLY,
                                 D3DFMT_INDEX16,
@@ -295,7 +295,7 @@ void MassMorphMeshModel::restore() {
     }
 
     if (_papTextureConnection == nullptr) {
-        ModelManager* pModelManager = pGOD->_pModelManager;
+        ModelManager* pModelManager = pCARETAKER->_pModelManager;
         _papTextureConnection = NEW TextureConnection*[_num_materials];
         for (DWORD n = 0; n < _num_materials; n++) {
             _papTextureConnection[n] =
@@ -315,7 +315,7 @@ HRESULT MassMorphMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_se
         throwCriticalException(FUNC_NAME<<" "<<_model_id<<" の描画セット数オーバー。_draw_set_num="<<_draw_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
     }
 #endif
-    IDirect3DDevice9* pDevice = pGOD->_pID3DDevice9;
+    IDirect3DDevice9* pDevice = pCARETAKER->_pID3DDevice9;
     //対象アクター
     const MassMorphMeshActor* const pTargetActor = (MassMorphMeshActor*)prm_pActor_target;
     //対象アクターのエフェクトラッパ
@@ -451,7 +451,7 @@ HRESULT MassMorphMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_se
         checkDxException(hr, D3D_OK, "１パス目 BeginPass(0) に失敗しました。");
     }
 #ifdef MY_DEBUG
-        GgafCore::God::_num_drawing++;
+        GgafCore::Caretaker::_num_drawing++;
 #endif
     ModelManager::_pModelLastDraw = this;
     EffectManager::_pEffect_active = pMassMorphMeshEffect;
@@ -460,11 +460,11 @@ HRESULT MassMorphMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_se
 }
 
 void MassMorphMeshModel::resetStreamSourceFreq() {
-    pGOD->_pID3DDevice9->SetStreamSourceFreq( 0, 1 );
+    pCARETAKER->_pID3DDevice9->SetStreamSourceFreq( 0, 1 );
     for (int i = 1; i <= _morph_target_num; i++) {
-        pGOD->_pID3DDevice9->SetStreamSourceFreq( i, 1 );
+        pCARETAKER->_pID3DDevice9->SetStreamSourceFreq( i, 1 );
     }
-    pGOD->_pID3DDevice9->SetStreamSourceFreq( _morph_target_num+1, 1 );
+    pCARETAKER->_pID3DDevice9->SetStreamSourceFreq( _morph_target_num+1, 1 );
 }
 
 void MassMorphMeshModel::onDeviceLost() {

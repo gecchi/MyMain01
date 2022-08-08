@@ -94,10 +94,10 @@ public:
     GroupHead* searchChildGroupHead(kind_t prm_kind);
 
     /**
-     * _‚É‰yŒ© .
-     * @return  ŒÄ‚Î‚ê‚Äo‚Ä‚«‚½_
+     * ŠÇ—Ò‚É‰yŒ© .
+     * @return  ŒÄ‚Î‚ê‚Äo‚Ä‚«‚½ŠÇ—Ò
      */
-    virtual God* askGod() override;
+    virtual Caretaker* askCaretaker() override;
 
     /**
      * Š‘®‚µ‚Ä‚¢‚é’c’·‚Ìí•Ê‚ğæ“¾‚·‚é .

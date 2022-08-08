@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
-#include "SmpGod.h"
+#include "SmpCaretaker.h"
 #include "scene/SmpSpacetime.h"
 
 using GgafLib::DefaultMeshActor;
@@ -25,7 +25,7 @@ void SmpActor::initialize() {
 
 void SmpActor::processBehavior() {
     //キャラをボタン入力で移動
-    static VirtualButton* pVb = ((SmpSpacetime*)pGOD->getSpacetime())->getVB();
+    static VirtualButton* pVb = ((SmpSpacetime*)pCARETAKER->getSpacetime())->getVB();
     static const coord d = PX_C(2);
     if (pVb->isPressed(VB_BUTTON1)) {
         //ボタン１（スペースキー）を押しながらの場合

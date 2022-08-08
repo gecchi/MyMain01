@@ -113,10 +113,10 @@ public:
     void setSceneMediator(SceneMediator* prm_pSceneMediator);
 
     /**
-     * 神に謁見 .
-     * @return    呼ばれて出てきた神
+     * 管理者に謁見 .
+     * @return    呼ばれて出てきた管理者
      */
-    God* askGod();
+    Caretaker* askCaretaker();
 
     void updateActiveInTheTree() override;
 

@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/model/MorphMeshModel.h"
 
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/Config.h"
 #include "jp/ggaf/dx/actor/MorphMeshActor.h"
 #include "jp/ggaf/dx/effect/MorphMeshEffect.h"
@@ -40,7 +40,7 @@ MorphMeshModel::MorphMeshModel(const char* prm_model_id) : Model(prm_model_id) {
 }
 
 HRESULT MorphMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
-    IDirect3DDevice9* pDevice = pGOD->_pID3DDevice9;
+    IDirect3DDevice9* pDevice = pCARETAKER->_pID3DDevice9;
     _TRACE4_("MorphMeshModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
 
     //対象アクター
@@ -148,7 +148,7 @@ HRESULT MorphMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_nu
                                       _paIndexParam[i].StartIndex,
                                       _paIndexParam[i].PrimitiveCount);
 #ifdef MY_DEBUG
-        GgafCore::God::_num_drawing++;
+        GgafCore::Caretaker::_num_drawing++;
 #endif
     }
     ModelManager::_pModelLastDraw = this;
@@ -172,7 +172,7 @@ void MorphMeshModel::restore() {
     //　　　　・テクスチャ配列(要素数＝マテリアル数。プライマリメッシュのみ)
     //　　　　・DrawIndexedPrimitive用引数配列(要素数＝マテリアルリストが変化した数。プライマリメッシュのみ)
     if (_paVtxBuffer_data_primary == nullptr) {
-        ModelManager* pModelManager = pGOD->_pModelManager;
+        ModelManager* pModelManager = pCARETAKER->_pModelManager;
         ModelManager::MeshXFileFmt xdata;
 
         std::string model_def_file = std::string(_model_id) + ".meshx";
@@ -466,8 +466,8 @@ void MorphMeshModel::restore() {
         paVtxelem[elemnum-1].Usage = 0;
         paVtxelem[elemnum-1].UsageIndex = 0;
 
-        hr = pGOD->_pID3DDevice9->CreateVertexDeclaration( paVtxelem, &(_pVertexDeclaration) );
-        checkDxException(hr, D3D_OK, "pGOD->_pID3DDevice9->CreateVertexDeclaration 失敗 model="<<(_model_id));
+        hr = pCARETAKER->_pID3DDevice9->CreateVertexDeclaration( paVtxelem, &(_pVertexDeclaration) );
+        checkDxException(hr, D3D_OK, "pCARETAKER->_pID3DDevice9->CreateVertexDeclaration 失敗 model="<<(_model_id));
         //ストリーム数取得        hr = m_pDecl->GetDeclaration( m_pElement, &m_numElements);
 
         GGAF_DELETEARR(paVtxelem);
@@ -480,7 +480,7 @@ void MorphMeshModel::restore() {
 
             if (pattern == 0) {
                 //プライマリ頂点バッファ
-                hr = pGOD->_pID3DDevice9->CreateVertexBuffer(
+                hr = pCARETAKER->_pID3DDevice9->CreateVertexBuffer(
                         _size_vertices_primary,
                         D3DUSAGE_WRITEONLY,
                         0, //MorphMeshModel::FVF,
@@ -495,7 +495,7 @@ void MorphMeshModel::restore() {
                 _paVertexBuffer_primary->Unlock();
             } else {
                 //モーフターゲット頂点バッファ
-                hr = pGOD->_pID3DDevice9->CreateVertexBuffer(
+                hr = pCARETAKER->_pID3DDevice9->CreateVertexBuffer(
                         _size_vertices_morph,
                         D3DUSAGE_WRITEONLY,
                         0, //MorphMeshModel::FVF,
@@ -517,7 +517,7 @@ void MorphMeshModel::restore() {
     if (_paIndexBuffer == nullptr) {
         HRESULT hr;
         int nFaces = _papMeshesFront[0]->_nFaces;
-        hr = pGOD->_pID3DDevice9->CreateIndexBuffer(
+        hr = pCARETAKER->_pID3DDevice9->CreateIndexBuffer(
                                     sizeof(WORD) * nFaces * 3,
                                     D3DUSAGE_WRITEONLY,
                                     D3DFMT_INDEX16,
@@ -532,7 +532,7 @@ void MorphMeshModel::restore() {
     }
 
     if (!_papTextureConnection) {
-        ModelManager* pModelManager = pGOD->_pModelManager;
+        ModelManager* pModelManager = pCARETAKER->_pModelManager;
         _papTextureConnection = NEW TextureConnection*[_num_materials];
         for (DWORD n = 0; n < _num_materials; n++) {
             _papTextureConnection[n] =

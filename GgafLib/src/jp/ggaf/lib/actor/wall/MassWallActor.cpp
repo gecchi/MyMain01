@@ -7,7 +7,7 @@
 #include "jp/ggaf/lib/scene/WallSectionScene.h"
 #include "jp/ggaf/lib/actor/laserchip/LaserChip.h"
 #include "jp/ggaf/dx/model/Model.h"
-#include "jp/ggaf/lib/DefaultGod.h"
+#include "jp/ggaf/lib/DefaultCaretaker.h"
 #include "jp/ggaf/dx/effect/Effect.h"
 #include "jp/ggaf/lib/effect/MassWallEffect.h"
 
@@ -306,7 +306,7 @@ void MassWallActor::processDraw() {
 }
 
 bool MassWallActor::isOutOfSpacetime() const {
-    GgafDx::Spacetime* pSpacetime =  pGOD->getSpacetime();
+    GgafDx::Spacetime* pSpacetime =  pCARETAKER->getSpacetime();
     if (pSpacetime->_x_bound_left <= _x+_wall_dep) {
         return false;
     }

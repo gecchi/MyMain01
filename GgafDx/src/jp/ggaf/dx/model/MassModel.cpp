@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/model/MassModel.h"
 
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/dx/manager/ModelManager.h"
 #include "jp/ggaf/dx/effect/MassEffect.h"
@@ -90,13 +90,13 @@ void MassModel::createVertexElements() {
         paVtxelem[elem_num-1].Usage = 0;
         paVtxelem[elem_num-1].UsageIndex = 0;
 
-        hr = pGOD->_pID3DDevice9->CreateVertexDeclaration( paVtxelem, &(_pVertexDeclaration) );
-        checkDxException(hr, D3D_OK, "pGOD->_pID3DDevice9->CreateVertexDeclaration 失敗 model="<<(_model_id));
+        hr = pCARETAKER->_pID3DDevice9->CreateVertexDeclaration( paVtxelem, &(_pVertexDeclaration) );
+        checkDxException(hr, D3D_OK, "pCARETAKER->_pID3DDevice9->CreateVertexDeclaration 失敗 model="<<(_model_id));
         GGAF_DELETEARR(paVtxelem);
     }
     //デバイスに頂点バッファ作成(インスタンスデータ)
     int size_instancedata = _size_vertex_unit_instancedata * _draw_set_num;//最大同時描画数確保
-    hr = pGOD->_pID3DDevice9->CreateVertexBuffer(
+    hr = pCARETAKER->_pID3DDevice9->CreateVertexBuffer(
             size_instancedata,
             D3DUSAGE_WRITEONLY | D3DUSAGE_DYNAMIC,  //毎回書き換える為D3DUSAGE_DYNAMIC
             0,
@@ -113,8 +113,8 @@ void MassModel::createVertexElements() {
 }
 
 void MassModel::resetStreamSourceFreq() {
-    pGOD->_pID3DDevice9->SetStreamSourceFreq( 0, 1 );
-    pGOD->_pID3DDevice9->SetStreamSourceFreq( 1, 1 );
+    pCARETAKER->_pID3DDevice9->SetStreamSourceFreq( 0, 1 );
+    pCARETAKER->_pID3DDevice9->SetStreamSourceFreq( 1, 1 );
 }
 
 void MassModel::onDeviceLost() {
@@ -144,7 +144,7 @@ void MassModel::release() {
 
 void MassModel::restore() {
     _TRACE3_("MassModel::restore() _model_id=" << _model_id << " start");
-    if (pGOD->_is_device_lost_flg  && _paVertexBuffer_instancedata == nullptr) {
+    if (pCARETAKER->_is_device_lost_flg  && _paVertexBuffer_instancedata == nullptr) {
         createVertexElements(); //デバイスロスト復帰時に呼び出される
     }
     _TRACE3_("MassModel::restore() _model_id=" << _model_id << " end");

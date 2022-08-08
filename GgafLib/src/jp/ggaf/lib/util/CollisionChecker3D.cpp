@@ -4,7 +4,7 @@
 #include "jp/ggaf/core/util/LinearOctree.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/dx/util/CollisionArea.h"
-#include "jp/ggaf/lib/DefaultGod.h"
+#include "jp/ggaf/lib/DefaultCaretaker.h"
 #include "jp/ggaf/lib/scene/DefaultSpacetime.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/util/ColliAABox.h"
@@ -18,7 +18,7 @@
 using namespace GgafLib;
 
 CollisionChecker3D::CollisionChecker3D(GgafDx::GeometricActor* prm_pActor) : CollisionChecker(prm_pActor) ,
-        _pLinearOctree(pGOD->getSpacetime()->getLinearOctree()),
+        _pLinearOctree(pCARETAKER->getSpacetime()->getLinearOctree()),
         _pElem(NEW GgafCore::TreeElem<3u>(_pLinearOctree->_paOctant, prm_pActor))
 {
 }

@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/effect/MassEffect.h"
 
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 

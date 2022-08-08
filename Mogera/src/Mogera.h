@@ -8,15 +8,15 @@
 
 //その他のヘッダファイルはこの様に記述
 
-#undef P_GOD
-#define P_GOD ((Mogera::MgrGod*)Mogera::MgrGod::_pGod)
+#undef P_CARETAKER
+#define P_CARETAKER ((Mogera::MgrCaretaker*)Mogera::MgrCaretaker::_pCaretaker)
 
 #define MGR_MIKATA (0x01U)
 #define MGR_TEKI   (0x10U)
 
 //前方宣言
 namespace Mogera {
-class MgrGod;
+class MgrCaretaker;
 class MgrSpacetime;
 class MgrWorld;
 class TrialAndErrScene;

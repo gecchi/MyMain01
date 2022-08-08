@@ -1,6 +1,6 @@
 #include "jp/ggaf/lib/actor/ColliAAPyramidActor.h"
 
-#include "jp/ggaf/core/God.h"
+#include "jp/ggaf/core/Caretaker.h"
 #include "jp/ggaf/dx/effect/Effect.h"
 #include "jp/ggaf/dx/util/CollisionArea.h"
 #include "jp/ggaf/dx/util/CollisionPart.h"
@@ -56,7 +56,7 @@ void ColliAAPyramidActor::drawHitarea(CollisionChecker* prm_pColliChecker) {
                                     pyramid->_pos_info);
                     }
 #ifdef MY_DEBUG
-                    GgafCore::God::_num_drawing--; //当たり判定表示は表示オブジェクト数にカウントしない
+                    GgafCore::Caretaker::_num_drawing--; //当たり判定表示は表示オブジェクト数にカウントしない
 #endif
                 }
             }

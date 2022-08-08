@@ -328,7 +328,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVreath\Config.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\effect\HoshiboshiEffect.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\GameGlobal.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVreath\God.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVreath\Caretaker.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\manager\CurveManufactureManagerEx.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\manager\CurveSourceManagerEx.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVreath\manager\DepositoryConnection.cpp" />
@@ -691,7 +691,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVreath\Config.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\effect\HoshiboshiEffect.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\GameGlobal.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVreath\God.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVreath\Caretaker.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\manager\CurveManufactureManagerEx.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\manager\CurveSourceManagerEx.h" />
     <ClInclude Include="src\jp\gecchi\VioletVreath\manager\DepositoryConnection.h" />

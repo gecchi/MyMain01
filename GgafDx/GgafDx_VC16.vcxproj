@@ -107,7 +107,7 @@
     <ClCompile Include="src\jp\ggaf\dx\effect\SpriteEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\effect\SpriteSetEffect.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\exception\CriticalException.cpp" />
-    <ClCompile Include="src\jp\ggaf\dx\God.cpp" />
+    <ClCompile Include="src\jp\ggaf\dx\Caretaker.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\manager\BgmConnection.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\manager\BgmManager.cpp" />
     <ClCompile Include="src\jp\ggaf\dx\manager\CurveManufactureConnection.cpp" />
@@ -283,7 +283,7 @@
     <ClInclude Include="include\jp\ggaf\dx\effect\SpriteEffect.h" />
     <ClInclude Include="include\jp\ggaf\dx\effect\SpriteSetEffect.h" />
     <ClInclude Include="include\jp\ggaf\dx\exception\CriticalException.h" />
-    <ClInclude Include="include\jp\ggaf\dx\God.h" />
+    <ClInclude Include="include\jp\ggaf\dx\Caretaker.h" />
     <ClInclude Include="include\jp\ggaf\dx\manager\BgmConnection.h" />
     <ClInclude Include="include\jp\ggaf\dx\manager\BgmManager.h" />
     <ClInclude Include="include\jp\ggaf\dx\manager\CurveManufactureConnection.h" />

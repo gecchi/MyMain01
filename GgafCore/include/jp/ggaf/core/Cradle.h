@@ -14,14 +14,14 @@ namespace GgafCore {
 /**
  * 命（インスタンス）のゆりかごクラス .
  * ゆりかご番号(_cradle_no) + 受取予定人(_pReceiver) で命は管理されユニークになります。
- * 神に渡すゆりかごを表したクラスで、 命（インスタンス）１つを内部保持します。<BR>
- * またゆりかごオブジェクト同士で連結リストを作成でき、そのリストは神が操作することになります。<BR>
+ * 管理者に渡すゆりかごを表したクラスで、 命（インスタンス）１つを内部保持します。<BR>
+ * またゆりかごオブジェクト同士で連結リストを作成でき、そのリストは管理者が操作することになります。<BR>
  * @version 1.00
  * @since 2007/12/17
  * @author Masatoshi Tsuge
  */
 class Cradle : public Object {
-    friend class God;
+    friend class Caretaker;
 
 private:
     /** 望んだ人 */

@@ -30,7 +30,7 @@ _pUvFlipper(NEW UvFlipper(getModel()->getDefaultTextureConnection()->peek()))
     _obj_class |= Obj_GgafDx_MassSpriteActor;
     _class_name = "MassSpriteActor";
     _pUvFlipper->locatePatternNo(_pMassSpriteModel->_col_texture_split,
-                             _pMassSpriteModel->_row_texture_split );
+                                 _pMassSpriteModel->_row_texture_split );
     _pUvFlipper->setActivePtn(0);
     _pUvFlipper->exec(NOT_ANIMATED, 1);
 

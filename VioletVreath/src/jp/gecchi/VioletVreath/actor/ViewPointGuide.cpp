@@ -1,7 +1,7 @@
 #include "ViewPointGuide.h"
 
 #include "jp/ggaf/dx/actor/camera/CameraViewPoint.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 
 
 
@@ -24,7 +24,7 @@ void ViewPointGuide::onActive() {
 }
 
 void ViewPointGuide::processBehavior() {
-    Camera* pCam = pGOD->getSpacetime()->getCamera();
+    Camera* pCam = pCARETAKER->getSpacetime()->getCamera();
     setPositionAt(pCam->getCameraViewPoint());
 }
 

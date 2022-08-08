@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/model/FramedSpriteModel.h"
 
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/actor/FramedSpriteActor.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/ggaf/dx/effect/FramedSpriteEffect.h"
@@ -40,7 +40,7 @@ FramedSpriteModel::FramedSpriteModel(const char* prm_model_id) : Model(prm_model
 
 HRESULT FramedSpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
     _TRACE4_("FramedSpriteModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
-    IDirect3DDevice9* const pDevice = pGOD->_pID3DDevice9;
+    IDirect3DDevice9* const pDevice = pCARETAKER->_pID3DDevice9;
     //対象Actor
     const FramedSpriteActor* const pTargetActor = (FramedSpriteActor*)prm_pActor_target;
     //対象FramedSpriteActorのエフェクトラッパ
@@ -129,7 +129,7 @@ HRESULT FramedSpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_set
     EffectManager::_pEffect_active = pFramedSpriteEffect;
     FigureActor::_hash_technique_last_draw = prm_pActor_target->_hash_technique;
 #ifdef MY_DEBUG
-        GgafCore::God::_num_drawing++;
+        GgafCore::Caretaker::_num_drawing++;
 #endif
 
     return D3D_OK;
@@ -140,7 +140,7 @@ void FramedSpriteModel::restore() {
     if (_paVertexBuffer_data == nullptr) {
         _draw_set_num = 9;
         _papTextureConnection = nullptr;
-        ModelManager* pModelManager = pGOD->_pModelManager;
+        ModelManager* pModelManager = pCARETAKER->_pModelManager;
 
         std::string model_def_file = std::string(_model_id) + ".fsprx";
         std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
@@ -422,7 +422,7 @@ void FramedSpriteModel::restore() {
     if (_paVertexBuffer == nullptr) {
         HRESULT hr;
         //バッファ作成
-        hr = pGOD->_pID3DDevice9->CreateVertexBuffer(
+        hr = pCARETAKER->_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices * _draw_set_num,
                 D3DUSAGE_WRITEONLY,
                 FramedSpriteModel::FVF,
@@ -455,7 +455,7 @@ void FramedSpriteModel::restore() {
         HRESULT hr;
         int nVertices = 4;
         int nFaces = 2;
-        hr = pGOD->_pID3DDevice9->CreateIndexBuffer(
+        hr = pCARETAKER->_pID3DDevice9->CreateIndexBuffer(
                                 sizeof(WORD) * nFaces * 3 * _draw_set_num,
                                 D3DUSAGE_WRITEONLY,
                                 D3DFMT_INDEX16,
@@ -476,7 +476,7 @@ void FramedSpriteModel::restore() {
 
     if (_papTextureConnection == nullptr) {
         //テクスチャ取得しモデルに保持させる
-        ModelManager* pModelManager = pGOD->_pModelManager;
+        ModelManager* pModelManager = pCARETAKER->_pModelManager;
         _papTextureConnection = NEW TextureConnection*[2];
         _papTextureConnection[0] = (TextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[0].c_str(), this)); //中身用
         _papTextureConnection[1] = (TextureConnection*)(pModelManager->_pModelTextureManager->connect(_pa_texture_filenames[1].c_str(), this)); //フレーム用

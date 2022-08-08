@@ -4,7 +4,7 @@
 #include "jp/ggaf/dx/util/Input.h"
 #include "jp/gecchi/VioletVrain/scene/VvSpacetime/World/TrialAndErrScene.h"
 #include "jp/gecchi/VioletVrain/scene/VvSpacetime.h"
-#include "jp/gecchi/VioletVrain/VvGod.h"
+#include "jp/gecchi/VioletVrain/VvCaretaker.h"
 
 
 
@@ -20,7 +20,7 @@ World::World(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
     vb_.remapK(VB_UI_DEBUG, VBK_Q);
 
     pTrialAndErrScene_ = nullptr;
-    pHitCheckRounder_  = P_GOD->getSpacetime()->getLinearQuadtreeHitCheckRounder();
+    pHitCheckRounder_  = P_CARETAKER->getSpacetime()->getLinearQuadtreeHitCheckRounder();
 }
 
 void World::initialize() {
@@ -36,7 +36,7 @@ void World::processJudgement() {
     //当たり判定チェック
     if (GgafDx::Input::isPushedDownKey(DIK_I)) {
         _TRACE_("----------------------------------");
-        P_GOD->getSpacetime()->getLinearQuadtree()->putTree();
+        P_CARETAKER->getSpacetime()->getLinearQuadtree()->putTree();
         _TRACE_("----------------------------------");
     }
     pHitCheckRounder_->executeAll(VV_MIKATA, VV_TEKI);

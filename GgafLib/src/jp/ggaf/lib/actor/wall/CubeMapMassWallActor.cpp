@@ -5,7 +5,7 @@
 #include "jp/ggaf/dx/effect/Effect.h"
 #include "jp/ggaf/lib/scene/WallSectionScene.h"
 #include "jp/ggaf/lib/effect/MassWallEffect.h"
-#include "jp/ggaf/lib/DefaultGod.h"
+#include "jp/ggaf/lib/DefaultCaretaker.h"
 
 
 
@@ -64,7 +64,7 @@ void CubeMapMassWallActor::processDraw() {
 
     hr = pID3DXEffect->SetFloat(pMassWallEffect->_h_reflectance, getCubeMapReflectance());
     checkDxException(hr, D3D_OK, "SetFloat(_h_reflectances) に失敗しました。");
-    hr = pGOD->_pID3DDevice9->SetTexture(1, getCubeMapTexture());
+    hr = pCARETAKER->_pID3DDevice9->SetTexture(1, getCubeMapTexture());
     checkDxException(hr, D3D_OK, "SetTexture に失敗しました");
 
     int draw_set_num = 0; //MassMeshActorの同じモデルで同じテクニックが

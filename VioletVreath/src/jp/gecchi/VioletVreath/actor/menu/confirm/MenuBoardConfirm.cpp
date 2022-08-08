@@ -2,7 +2,7 @@
 
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
 #include "CursorConfirmMenu.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 
 
 

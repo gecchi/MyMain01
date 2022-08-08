@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/util/Input.h"
 
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 
 #include "jp/ggaf/dx/exception/CriticalException.h"
 
@@ -19,7 +19,7 @@ int Input::_flip_ks = 0;
 DIDEVCAPS Input::_devcap;
 DIJOYSTATE Input::_joy_state[2];
 int Input::_flip_js = 0;
-
+POINT Input::_mouse_point[2];
 
 HRESULT Input::init() {
     if (Input::_pIDirectInput8) {
@@ -28,14 +28,14 @@ HRESULT Input::init() {
         HRESULT hr;
         // DirectInput の作成
         hr = DirectInput8Create(
-                 pGOD->_hInstance,
+                 pCARETAKER->_hInstance,
                  DIRECTINPUT_VERSION,
                  IID_IDirectInput8,
                  (LPVOID*)&Input::_pIDirectInput8,
                  nullptr
              );
         if (hr != D3D_OK) {
-            MessageBox(pGOD->_pHWndPrimary, "いきなりDirectInput8の作成に失敗しました。",
+            MessageBox(pCARETAKER->_pHWndPrimary, "いきなりDirectInput8の作成に失敗しました。",
                        "ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
             return hr;
         }
@@ -45,7 +45,7 @@ HRESULT Input::init() {
             hr = Input::initMouse();
             hr = Input::initJoyStick();
         } else {
-            MessageBox(pGOD->_pHWndPrimary, "キーボードデバイスの初期化に失敗しました。",
+            MessageBox(pCARETAKER->_pHWndPrimary, "キーボードデバイスの初期化に失敗しました。",
                        "ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
             return hr;
         }
@@ -71,24 +71,24 @@ HRESULT Input::initMouse() {
                                            nullptr
                                        );
     if (hr != D3D_OK) {
-        MessageBox(pGOD->_pHWndPrimary, "マウスデバイス作成に失敗しました",
+        MessageBox(pCARETAKER->_pHWndPrimary, "マウスデバイス作成に失敗しました",
                 "ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
         return hr;
     }
     // マウス取得データフォーマットの設定
     hr = Input::_pMouseInputDevice->SetDataFormat(&c_dfDIMouse2);
     if (hr != D3D_OK) {
-        MessageBox(pGOD->_pHWndPrimary, "マウスのSetDataFormat に失敗しました",
+        MessageBox(pCARETAKER->_pHWndPrimary, "マウスのSetDataFormat に失敗しました",
                    "ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
         return hr;
     }
     // マウス強調レベル設定
     hr = Input::_pMouseInputDevice->SetCooperativeLevel(
-                                              pGOD->_pHWndPrimary,
+                                              pCARETAKER->_pHWndPrimary,
                                               DISCL_NONEXCLUSIVE | DISCL_FOREGROUND
                                           );
     if (hr != D3D_OK) {
-        MessageBox(pGOD->_pHWndPrimary, "マウスのSetCooperativeLevelに失敗しました",
+        MessageBox(pCARETAKER->_pHWndPrimary, "マウスのSetCooperativeLevelに失敗しました",
                  "ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
         return hr;
     }
@@ -133,7 +133,7 @@ HRESULT Input::initKeybord() {
                                            nullptr
                                        );
     if (hr != D3D_OK) {
-        MessageBox(pGOD->_pHWndPrimary, "キーボードデバイス作成に失敗しました",
+        MessageBox(pCARETAKER->_pHWndPrimary, "キーボードデバイス作成に失敗しました",
                    "ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
         return hr;
     }
@@ -141,18 +141,18 @@ HRESULT Input::initKeybord() {
     // キーボード取得データフォーマットの設定
     hr = Input::_pKeyboardInputDevice->SetDataFormat(&c_dfDIKeyboard);
     if (hr != D3D_OK) {
-        MessageBox(pGOD->_pHWndPrimary, "キーボードのSetDataFormat に失敗しました",
+        MessageBox(pCARETAKER->_pHWndPrimary, "キーボードのSetDataFormat に失敗しました",
                    "ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
         return hr;
     }
 
     // キーボード強調レベル設定
     hr = Input::_pKeyboardInputDevice->SetCooperativeLevel(
-                                                 pGOD->_pHWndPrimary,
+                                                 pCARETAKER->_pHWndPrimary,
                                                  DISCL_NONEXCLUSIVE | DISCL_FOREGROUND
                                              );
     if (hr != D3D_OK) {
-        MessageBox(pGOD->_pHWndPrimary, "キーボードのSetCooperativeLevelに失敗しました",
+        MessageBox(pCARETAKER->_pHWndPrimary, "キーボードのSetCooperativeLevelに失敗しました",
                    "ERROR", MB_OK|MB_ICONSTOP|MB_SETFOREGROUND|MB_TOPMOST);
         return hr;
     }
@@ -168,7 +168,7 @@ HRESULT Input::initKeybord() {
 
      hr = Input::_pKeyboardInputDevice->SetProperty(DIPROP_BUFFERSIZE, &dipropdword.diph);
      if(hr != D3D_OK) {
-     MessageBox(pGOD->_pHWndPrimary,"キーボードのSetPropertyに失敗しました", "ERROR", MB_OK | MB_ICONSTOP | MB_SETFOREGROUND |MB_TOPMOST);
+     MessageBox(pCARETAKER->_pHWndPrimary,"キーボードのSetPropertyに失敗しました", "ERROR", MB_OK | MB_ICONSTOP | MB_SETFOREGROUND |MB_TOPMOST);
      return hr;
      }
      */
@@ -212,7 +212,7 @@ HRESULT Input::initJoyStick() {
 
         // ゲームスティック協調レベルを設定する
         hr = Input::_pJoystickInputDevice->SetCooperativeLevel(
-                                                     pGOD->_pHWndPrimary,
+                                                     pCARETAKER->_pHWndPrimary,
                                                      DISCL_FOREGROUND | DISCL_NONEXCLUSIVE
                                                  );
         if (hr != D3D_OK) {
@@ -327,6 +327,9 @@ again:
             //ダメならまた次回へ
         }
     }
+
+    //マウスの座標を取得
+    GetCursorPos(&Input::_mouse_point[Input::_flip_ms]);
     return;
 }
 
@@ -373,6 +376,9 @@ bool Input::isReleasedUpMouseButton(int prm_button_no) {
 }
 
 void Input::getMousePointer(long* x, long* y, long* z) {
+    // スクリーン座標をクライアント座標に変換する
+    //ScreenToClient(pCARETAKER->_pHWndPrimary, nullptr), &Input::_mouse_point[Input::_flip_ms]);
+
     //マウスの移動
     *x = Input::_mouse_state[Input::_flip_ms].lX;
     *y = Input::_mouse_state[Input::_flip_ms].lY;
@@ -431,8 +437,8 @@ bool Input::isPushedDownKey(int prm_DIK) {
         return false;
     }
 }
-int Input::getPushedDownKey() {
-    int DIK_pressed = Input::getPressedKey();
+int Input::getFirstPushedDownKey() {
+    int DIK_pressed = Input::getFirstPressedKey();
     if (DIK_pressed >= 0 ) { //今は押している
         if (Input::_keyboard_state[!Input::_flip_ks][DIK_pressed] & 0x80) {
             //前回セット[!Input::_flip_ks]も押されている。押しっぱなし
@@ -514,8 +520,8 @@ bool Input::isPushedDownJoyRgbButton(int prm_joy_button_no) {
     }
 }
 
-int Input::getPushedDownJoyRgbButton() {
-    int JOY_pressed = Input::getPressedJoyRgbButton();
+int Input::getFirstPushedDownJoyRgbButton() {
+    int JOY_pressed = Input::getFirstPressedJoyRgbButton();
     if (JOY_pressed >= 0 ) { //今は押している
         if (Input::_joy_state[!Input::_flip_js].rgbButtons[JOY_pressed] & 0x80) {
             //前回セット[!Input::_flip_js]も押されている。押しっぱなし

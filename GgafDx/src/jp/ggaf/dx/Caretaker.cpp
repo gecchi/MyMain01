@@ -1,4 +1,4 @@
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 
 #include <algorithm>
 #include "jp/ggaf/dx/actor/camera/Camera.h"
@@ -20,7 +20,7 @@ using namespace GgafDx;
     if (HR != OKVAL) { \
         std::stringstream ss; \
         ss << X; \
-        MessageBox(pGOD->_pHWndPrimary, TEXT(ss.str().c_str()), TEXT("ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND | MB_TOPMOST); \
+        MessageBox(pCARETAKER->_pHWndPrimary, TEXT(ss.str().c_str()), TEXT("ERROR"), MB_OK | MB_ICONSTOP | MB_SETFOREGROUND | MB_TOPMOST); \
         return E_FAIL; \
     } \
 }
@@ -31,30 +31,7 @@ using namespace GgafDx;
 #define PRIMARY_VIEW 0
 #define SECONDARY_VIEW 1
 
-
-//HWND _pHWndPrimary = nullptr;
-//HWND _pHWndSecondary = nullptr;
-//HINSTANCE _hInstance = nullptr;
-//IDirect3D9* _pID3D9 = nullptr;
-//IDirect3DDevice9* _pID3DDevice9 = nullptr;
-////D3DLIGHT9 God::_d3dlight9_default;
-//D3DFILLMODE pGOD->_d3dfillmode = D3DFILL_SOLID;//D3DFILL_WIREFRAME;//D3DFILL_SOLID;
-
-//ModelManager* God::_pModelManager = nullptr;
-//EffectManager* God::_pEffectManager = nullptr;
-//TextureManager* God::_pCubeMapTextureManager = nullptr;
-//TextureManager* God::_pBumpMapTextureManager = nullptr;
-//bool pGOD->_is_device_lost_flg = false;
-//bool _adjustGameWindow = false;
-//HWND _pHWnd_adjustScreen = nullptr;
-
-//uint32_t God::_vs_v = 0;
-//uint32_t God::_ps_v = 0;
-
-God::God() : GgafCore::God() {
-    _single_view_draw_position = CONFIG::DUAL_VIEW_DRAW_POSITION1;
-    _dual_view_draw_position1 = CONFIG::DUAL_VIEW_DRAW_POSITION2;
-    _dual_view_draw_position2 = CONFIG::SINGLE_VIEW_DRAW_POSITION;
+Caretaker::Caretaker() : GgafCore::Caretaker() {
     _pID3D9 = nullptr;
     _pID3DDevice9 = nullptr;
     _d3dfillmode = D3DFILL_SOLID;
@@ -128,7 +105,7 @@ God::God() : GgafCore::God() {
     _pCurveSrcManager = nullptr;
     _pCurveManufManager = nullptr;
 }
-void God::resetDotByDotWindowsize(int d) {
+void Caretaker::resetDotByDotWindowsize(int d) {
     if (!CONFIG::FULL_SCREEN) {
         if (CONFIG::DUAL_VIEW) {
             resetWindowsize(_pHWndPrimary, CONFIG::RENDER_TARGET_BUFFER_WIDTH/2*d, CONFIG::RENDER_TARGET_BUFFER_HEIGHT*d);
@@ -138,7 +115,7 @@ void God::resetDotByDotWindowsize(int d) {
         }
     }
 }
-void God::resetInitWindowsize() {
+void Caretaker::resetInitWindowsize() {
     //初期ウィンドウサイズにリセット
     if (!CONFIG::FULL_SCREEN) {
         if (CONFIG::DUAL_VIEW) {
@@ -149,7 +126,7 @@ void God::resetInitWindowsize() {
         }
     }
 }
-void God::resetWindowsize(HWND hWnd, pixcoord client_width, pixcoord client_height) {
+void Caretaker::resetWindowsize(HWND hWnd, pixcoord client_width, pixcoord client_height) {
     RECT wRect1, cRect1; // ウィンドウ全体の矩形、クライアント領域の矩形
     pixcoord ww1, wh1; // ウィンドウ全体の幅、高さ
     pixcoord cw1, ch1; // クライアント領域の幅、高さ
@@ -177,17 +154,17 @@ void God::resetWindowsize(HWND hWnd, pixcoord client_width, pixcoord client_heig
     );
 }
 
-void God::chengeViewPos(HWND prm_pHWnd, int pos) {
+void Caretaker::chengeViewPos(HWND prm_pHWnd, int pos) {
     if (!CONFIG::FULL_SCREEN) {
         if (CONFIG::DUAL_VIEW) {
             if (prm_pHWnd ==  _pHWndPrimary) {
-                _single_view_draw_position = pos;
+                CONFIG::DUAL_VIEW_DRAW_POSITION1 = pos;
             } else if (prm_pHWnd ==  _pHWndSecondary) {
-                _dual_view_draw_position1 = pos;
+                CONFIG::DUAL_VIEW_DRAW_POSITION2 = pos;
             }
         } else {
             if (prm_pHWnd ==  _pHWndPrimary) {
-                _dual_view_draw_position2 = pos;
+                CONFIG::SINGLE_VIEW_DRAW_POSITION = pos;
             }
         }
         if (!CONFIG::FULL_SCREEN && prm_pHWnd) {
@@ -196,12 +173,12 @@ void God::chengeViewPos(HWND prm_pHWnd, int pos) {
         }
     }
 }
-void God::chengeViewPos1(int pos) {
+void Caretaker::chengeViewPos1(int pos) {
     if (!CONFIG::FULL_SCREEN) {
         if (CONFIG::DUAL_VIEW) {
-            _dual_view_draw_position2 = pos;
+            CONFIG::SINGLE_VIEW_DRAW_POSITION = pos;
         } else {
-            _single_view_draw_position = pos;
+            CONFIG::DUAL_VIEW_DRAW_POSITION1 = pos;
         }
     }
     if (!CONFIG::FULL_SCREEN) {
@@ -209,10 +186,10 @@ void God::chengeViewPos1(int pos) {
         _pHWnd_adjustScreen = _pHWndPrimary;
     }
 }
-void God::chengeViewPos2(int pos) {
+void Caretaker::chengeViewPos2(int pos) {
     if (!CONFIG::FULL_SCREEN) {
         if (CONFIG::DUAL_VIEW) {
-            _dual_view_draw_position2 = pos;
+            CONFIG::SINGLE_VIEW_DRAW_POSITION = pos;
         }
     }
     if (!CONFIG::FULL_SCREEN) {
@@ -220,14 +197,14 @@ void God::chengeViewPos2(int pos) {
         _pHWnd_adjustScreen = _pHWndPrimary;
     }
 }
-void God::chengeViewAspect(bool prm_b) {
+void Caretaker::chengeViewAspect(bool prm_b) {
     if (!CONFIG::FULL_SCREEN) {
         CONFIG::FIXED_GAME_VIEW_ASPECT = prm_b;
         _adjustGameWindow = true;
         _pHWnd_adjustScreen = _pHWndPrimary;
     }
 }
-void God::setDisplaySizeInfo() {
+void Caretaker::setDisplaySizeInfo() {
     //アダプタ情報格納
     for (int adapter_no = 0; adapter_no < _num_adapter; adapter_no++) {
         _paAvailableAdapter[adapter_no].hMonitor = _pID3D9->GetAdapterMonitor(adapter_no);
@@ -245,7 +222,7 @@ void God::setDisplaySizeInfo() {
         std::vector<UINT> vecHeight;
         std::vector<std::string> vecRezo;
         int mode_num = _paAvailableAdapter[adapter_no].mode_num;
-        D3DDISPLAYMODE* paMode = pGOD->_paAvailableAdapter[adapter_no].paModes;
+        D3DDISPLAYMODE* paMode = pCARETAKER->_paAvailableAdapter[adapter_no].paModes;
         _TRACE_("画面["<<adapter_no<<"] mode_num="<<mode_num);
         for (int n = 0; n < mode_num; n++) {
             UINT width = paMode[n].Width;
@@ -279,11 +256,11 @@ void God::setDisplaySizeInfo() {
     }
     _TRACE_("------------------------------------------------");
 }
-void God::setAppropriateDisplaySize(bool allow_chang_rezo) {
+void Caretaker::setAppropriateDisplaySize(bool allow_chang_rezo) {
     //フルスクリーン要求時、指定解像度に出来るか調べ、
     //出来ない場合は、近い解像度を探し、
     //_paPresetPrm[] と、_paDisplayMode[] を上書きする。
-    EnumDisplayMonitors(nullptr, nullptr, God::updateMoniterPixcoordCallback, (LPARAM)this);
+    EnumDisplayMonitors(nullptr, nullptr, Caretaker::updateMoniterPixcoordCallback, (LPARAM)this);
     HRESULT hr;
     if (CONFIG::FULL_SCREEN) {
         for (int adapter_no = 0; adapter_no < _num_adapter; adapter_no++) {
@@ -470,9 +447,9 @@ void God::setAppropriateDisplaySize(bool allow_chang_rezo) {
                     _aRect_Present[SECONDARY_VIEW].right  = _aRect_Present[SECONDARY_VIEW].left + (fix_width * rate);
                     _aRect_Present[SECONDARY_VIEW].bottom = _aRect_Present[SECONDARY_VIEW].top  + (fix_height * rate);
                 }
-                setPositionPresentRect(_single_view_draw_position, _aRect_Present[PRIMARY_VIEW],
+                setPositionPresentRect(CONFIG::DUAL_VIEW_DRAW_POSITION1, _aRect_Present[PRIMARY_VIEW],
                                        CONFIG::DUAL_VIEW_FULL_SCREEN1_WIDTH, CONFIG::DUAL_VIEW_FULL_SCREEN1_HEIGHT);
-                setPositionPresentRect(_dual_view_draw_position1, _aRect_Present[SECONDARY_VIEW],
+                setPositionPresentRect(CONFIG::DUAL_VIEW_DRAW_POSITION2, _aRect_Present[SECONDARY_VIEW],
                                        CONFIG::DUAL_VIEW_FULL_SCREEN2_WIDTH, CONFIG::DUAL_VIEW_FULL_SCREEN2_HEIGHT);
             } else {
                 //「フルスクリーンモード・２画面使用・縦横比ストレッチ」の１画面目フロントバッファ描画領域
@@ -515,9 +492,9 @@ void God::setAppropriateDisplaySize(bool allow_chang_rezo) {
                     _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + (fix_height * rate);
                 }
                 _aRect_Present[SECONDARY_VIEW] = _aRect_Present[PRIMARY_VIEW];
-                setPositionPresentRect(_dual_view_draw_position2, _aRect_Present[PRIMARY_VIEW],
+                setPositionPresentRect(CONFIG::SINGLE_VIEW_DRAW_POSITION, _aRect_Present[PRIMARY_VIEW],
                                        CONFIG::SINGLE_VIEW_FULL_SCREEN_WIDTH, CONFIG::SINGLE_VIEW_FULL_SCREEN_HEIGHT);
-                setPositionPresentRect(_dual_view_draw_position2, _aRect_Present[SECONDARY_VIEW],
+                setPositionPresentRect(CONFIG::SINGLE_VIEW_DRAW_POSITION, _aRect_Present[SECONDARY_VIEW],
                                        CONFIG::SINGLE_VIEW_FULL_SCREEN_WIDTH, CONFIG::SINGLE_VIEW_FULL_SCREEN_HEIGHT);
             } else {
                 //「フルスクリーンモード・１画面使用・縦横比ストレッチ」のフロントバッファ描画領域
@@ -572,9 +549,9 @@ void God::setAppropriateDisplaySize(bool allow_chang_rezo) {
                     _aRect_Present[SECONDARY_VIEW].bottom = _aRect_Present[SECONDARY_VIEW].top  + (fix_height * rate);
                 }
 
-                setPositionPresentRect(_single_view_draw_position, _aRect_Present[PRIMARY_VIEW],
+                setPositionPresentRect(CONFIG::DUAL_VIEW_DRAW_POSITION1, _aRect_Present[PRIMARY_VIEW],
                                        CONFIG::DUAL_VIEW_WINDOW1_WIDTH, CONFIG::DUAL_VIEW_WINDOW1_HEIGHT);
-                setPositionPresentRect(_dual_view_draw_position1, _aRect_Present[SECONDARY_VIEW],
+                setPositionPresentRect(CONFIG::DUAL_VIEW_DRAW_POSITION2, _aRect_Present[SECONDARY_VIEW],
                                        CONFIG::DUAL_VIEW_WINDOW2_WIDTH, CONFIG::DUAL_VIEW_WINDOW2_HEIGHT);
             } else {
                 //「ウィンドウモード・２窓使用・縦横比ストレッチ」の１窓目フロントバッファ描画領域
@@ -610,9 +587,9 @@ void God::setAppropriateDisplaySize(bool allow_chang_rezo) {
                     _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + (fix_height * rate);
                 }
                 _aRect_Present[SECONDARY_VIEW] = _aRect_Present[PRIMARY_VIEW];
-                setPositionPresentRect(_dual_view_draw_position2, _aRect_Present[PRIMARY_VIEW],
+                setPositionPresentRect(CONFIG::SINGLE_VIEW_DRAW_POSITION, _aRect_Present[PRIMARY_VIEW],
                                        CONFIG::SINGLE_VIEW_WINDOW_WIDTH, CONFIG::SINGLE_VIEW_WINDOW_HEIGHT);
-                setPositionPresentRect(_dual_view_draw_position2, _aRect_Present[SECONDARY_VIEW],
+                setPositionPresentRect(CONFIG::SINGLE_VIEW_DRAW_POSITION, _aRect_Present[SECONDARY_VIEW],
                                        CONFIG::SINGLE_VIEW_WINDOW_WIDTH, CONFIG::SINGLE_VIEW_WINDOW_HEIGHT);
             } else {
                 //「ウィンドウモード・１窓使用・縦横比ストレッチ」のフロントバッファ描画領域
@@ -658,7 +635,7 @@ void God::setAppropriateDisplaySize(bool allow_chang_rezo) {
 }
 
 
-int God::checkAppropriateDisplaySize(God::RezoInfo* prm_paRezos, int prm_rezo_num,
+int Caretaker::checkAppropriateDisplaySize(Caretaker::RezoInfo* prm_paRezos, int prm_rezo_num,
                                      UINT prm_width, UINT prm_height) {
     _TRACE_("checkAppropriateDisplaySize() 所望解像度、"<<prm_width<<"x"<<prm_height);
 
@@ -690,7 +667,7 @@ int God::checkAppropriateDisplaySize(God::RezoInfo* prm_paRezos, int prm_rezo_nu
     return resut_index;
 }
 
-void God::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
+void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
                        const char* prm_title1   , const char* prm_title2,
                        DWORD       prm_dwStyle1 , DWORD       prm_dwStyle2,
                        HWND&       out_hWnd1    , HWND&       out_hWnd2) {
@@ -952,8 +929,8 @@ void God::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
 
     _paAvailableAdapter = NEW Adapter[_num_adapter];
     _paAdapterRezos = NEW AdapterRezos[_num_adapter];
-    pGOD->setDisplaySizeInfo();
-    pGOD->setAppropriateDisplaySize();
+    pCARETAKER->setDisplaySizeInfo();
+    pCARETAKER->setAppropriateDisplaySize();
     _paHWnd = NEW HWND[_num_adapter > 2 ? _num_adapter : 2];
     for (int i = 0; i < (_num_adapter > 2 ? _num_adapter : 2); i++) {
         _paHWnd[i] = nullptr;
@@ -1145,7 +1122,7 @@ void God::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
     }
 }
 
-void God::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
+void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
                        const char* prm_title1   , const char* prm_title2,
                        HWND&       out_hWnd1    , HWND&       out_hWnd2) {
     createWindow( prm_wndclass1, prm_wndclass2,
@@ -1154,7 +1131,7 @@ void God::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
                   out_hWnd1, out_hWnd2   );
 }
 
-void God::createWindow(WNDCLASSEX& prm_wndclass1,
+void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1,
                        const char* prm_title1   ,
                        DWORD       prm_dwStyle1 ,
                        HWND&       out_hWnd1     ) {
@@ -1167,7 +1144,7 @@ void God::createWindow(WNDCLASSEX& prm_wndclass1,
                   out_hWnd1,     hWnd2   );
 }
 
-void God::createWindow(WNDCLASSEX& prm_wndclass1,
+void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1,
                        const char* prm_title1   ,
                        HWND&       out_hWnd1     ) {
     createWindow( prm_wndclass1,
@@ -1176,7 +1153,7 @@ void God::createWindow(WNDCLASSEX& prm_wndclass1,
                   out_hWnd1);
 }
 
-void God::createWindow(WNDPROC prm_WndProc,
+void Caretaker::createWindow(WNDPROC prm_WndProc,
                        const char* prm_title1, const char* prm_title2,
                        HWND&       out_hWnd1 , HWND&       out_hWnd2  ) {
     //ウィンドウ定義＆作成
@@ -1197,7 +1174,7 @@ void God::createWindow(WNDPROC prm_WndProc,
                   out_hWnd1, out_hWnd2   );
 }
 
-void God::createWindow(WNDPROC prm_WndProc,
+void Caretaker::createWindow(WNDPROC prm_WndProc,
                       const char* prm_title1,
                       HWND& out_hWnd1) {
     HWND hWnd2;
@@ -1206,7 +1183,7 @@ void God::createWindow(WNDPROC prm_WndProc,
                  out_hWnd1, hWnd2);
 }
 
-HRESULT God::initDevice() {
+HRESULT Caretaker::initDevice() {
 
 //    //default
 //    UINT AdapterToUse = D3DADAPTER_DEFAULT;
@@ -1429,17 +1406,17 @@ HRESULT God::initDevice() {
     return D3D_OK;
 }
 
-BOOL CALLBACK God::updateMoniterPixcoordCallback(HMONITOR hMonitor,
+BOOL CALLBACK Caretaker::updateMoniterPixcoordCallback(HMONITOR hMonitor,
                                                        HDC hdcMonitor,
                                                        LPRECT lprcMonitor,
                                                        LPARAM dwData) {
-    God* pGod = (God*)dwData;
+    Caretaker* pCaretaker = (Caretaker*)dwData;
     MONITORINFOEX moniter_info;
     moniter_info.cbSize = sizeof(MONITORINFOEX);
     GetMonitorInfo(hMonitor, &moniter_info);
 
-    for (int adapter_no = 0; adapter_no < pGod->_num_adapter; adapter_no++) {
-        Adapter& adpt = pGod->_paAvailableAdapter[adapter_no];
+    for (int adapter_no = 0; adapter_no < pCaretaker->_num_adapter; adapter_no++) {
+        Adapter& adpt = pCaretaker->_paAvailableAdapter[adapter_no];
         if (adpt.hMonitor == hMonitor) {
             adpt.rcMonitor = moniter_info.rcMonitor;
         }
@@ -1447,7 +1424,7 @@ BOOL CALLBACK God::updateMoniterPixcoordCallback(HMONITOR hMonitor,
     return TRUE; //列挙を続行
 }
 
-HRESULT God::createDx9Device(UINT adapter,
+HRESULT Caretaker::createDx9Device(UINT adapter,
                                    D3DDEVTYPE device_type,
                                    HWND hFocusWindow,
                                    DWORD behavior_flags,
@@ -1482,7 +1459,7 @@ HRESULT God::createDx9Device(UINT adapter,
     return hr;
  }
 
-HRESULT God::initDx9Device() {
+HRESULT Caretaker::initDx9Device() {
 
     //【注意】本フレームワークのデフォルトのRenderStateを設定。
     //変更時は以下に影響がないか確認。
@@ -1495,7 +1472,7 @@ HRESULT God::initDx9Device() {
     // _cull_mode = _cull_mode_default
 
     //ライトをセット
-    //    _pID3DDevice9->SetLight(0, &God::_d3dlight9_default);
+    //    _pID3DDevice9->SetLight(0, &Caretaker::_d3dlight9_default);
     //ライトスイッチON
     //    _pID3DDevice9->LightEnable(0, TRUE);
     //_pID3DDevice9->LightEnable(0, FALSE);
@@ -1626,7 +1603,7 @@ HRESULT God::initDx9Device() {
 }
 
 
-HRESULT God::restoreFullScreenRenderTarget() {
+HRESULT Caretaker::restoreFullScreenRenderTarget() {
 _TRACE_("restoreFullScreenRenderTarget() 1");
 
     if (!CONFIG::FULL_SCREEN) {
@@ -1785,7 +1762,7 @@ _TRACE_("restoreFullScreenRenderTarget() 20");
     //  両対応させるのはこのようなコードしかないという結論。
 
     //フルスクリーンのウィンドウ位置を補正
-    EnumDisplayMonitors(nullptr, nullptr, God::updateMoniterPixcoordCallback, (LPARAM)this);
+    EnumDisplayMonitors(nullptr, nullptr, Caretaker::updateMoniterPixcoordCallback, (LPARAM)this);
 _TRACE_("restoreFullScreenRenderTarget() 21");
     for (int n = 0; n < _num_adapter; n++) {
         pixcoord full_screen_x = _paAvailableAdapter[n].rcMonitor.left;
@@ -1804,7 +1781,7 @@ _TRACE_("restoreFullScreenRenderTarget() 23");
 }
 
 
-HRESULT God::releaseFullScreenRenderTarget() {
+HRESULT Caretaker::releaseFullScreenRenderTarget() {
     GGAF_RELEASE_BY_FROCE(_pRenderTextureSurface);
     GGAF_RELEASE_BY_FROCE(_pRenderTexture);
     GGAF_RELEASE_BY_FROCE(_pRenderTextureZ);
@@ -1817,7 +1794,7 @@ HRESULT God::releaseFullScreenRenderTarget() {
     return D3D_OK;
 }
 
-void God::chengeToBorderlessFullWindow(HWND prm_pHWnd) {
+void Caretaker::chengeToBorderlessFullWindow(HWND prm_pHWnd) {
     LONG lStyle  = GetWindowLong( prm_pHWnd, GWL_STYLE );
     lStyle &= ~WS_OVERLAPPEDWINDOW;
     lStyle |= WS_POPUP;
@@ -1836,7 +1813,7 @@ void God::chengeToBorderlessFullWindow(HWND prm_pHWnd) {
     _pHWnd_adjustScreen = prm_pHWnd;
 }
 
-void God::backToNomalWindow(HWND prm_pHWnd) {
+void Caretaker::backToNomalWindow(HWND prm_pHWnd) {
 
     LONG lStyle  = GetWindowLong( prm_pHWnd, GWL_STYLE );
     lStyle &= ~WS_POPUP;
@@ -1849,23 +1826,23 @@ void God::backToNomalWindow(HWND prm_pHWnd) {
     _pHWnd_adjustScreen = prm_pHWnd;
 }
 
-void God::presentSpacetimeMoment() {
-    if (pGOD->_is_device_lost_flg) {
+void Caretaker::presentMoment() {
+    if (pCARETAKER->_is_device_lost_flg) {
         return;
     } else {
-        GgafCore::God::presentSpacetimeMoment();
+        GgafCore::Caretaker::presentMoment();
     }
 }
 
-void God::executeSpacetimeJudge() {
-    if (pGOD->_is_device_lost_flg) {
+void Caretaker::presentJudge() {
+    if (pCARETAKER->_is_device_lost_flg) {
         return;
     } else {
-        GgafCore::God::executeSpacetimeJudge();
+        GgafCore::Caretaker::presentJudge();
     }
 }
-void God::makeSpacetimeMaterialize() {
-    if (pGOD->_is_device_lost_flg) {
+void Caretaker::presentMaterialize() {
+    if (pCARETAKER->_is_device_lost_flg) {
         return;
     }
     IDirect3DDevice9* pDevice = _pID3DDevice9;
@@ -1886,16 +1863,16 @@ void God::makeSpacetimeMaterialize() {
     checkDxException(hr, D3D_OK, "pDevice->BeginScene() に失敗しました。");
     //全て具現化！（描画）
 #ifdef MY_DEBUG
-    pDevice->SetRenderState(D3DRS_FILLMODE, pGOD->_d3dfillmode);
+    pDevice->SetRenderState(D3DRS_FILLMODE, pCARETAKER->_d3dfillmode);
 #endif
-    GgafCore::God::makeSpacetimeMaterialize(); //スーパーのmaterialize実行
+    GgafCore::Caretaker::presentMaterialize(); //スーパーのmaterialize実行
     //描画事後処理
     hr = pDevice->EndScene();
     checkDxException(hr, D3D_OK, "pDevice->EndScene() に失敗しました。");
 
 }
 
-void God::presentSpacetimeVisualize() {
+void Caretaker::presentVisualize() {
     IDirect3DDevice9* pDevice = _pID3DDevice9;
     //垂直帰線期間
     //if (_pID3DDevice9->Present(nullptr,&_aRect_Present[PRIMARY_VIEW],nullptr,nullptr) == D3DERR_DEVICELOST) {
@@ -1908,7 +1885,7 @@ void God::presentSpacetimeVisualize() {
     //            }
     //        }
     HRESULT hr;
-    if (pGOD->_is_device_lost_flg == false) {
+    if (pCARETAKER->_is_device_lost_flg == false) {
         if (_adjustGameWindow && _pHWnd_adjustScreen) {
             adjustGameWindow(_pHWndPrimary);
             adjustGameWindow(_pHWndSecondary);
@@ -2003,9 +1980,9 @@ void God::presentSpacetimeVisualize() {
 
             //愛休止
             _TRACE_("【デバイスロスト処理】愛停止 BEGIN ------>");
-            GgafCore::God::beginRest();
+            GgafCore::Caretaker::beginRest();
             END_SYNCHRONIZED1; // <----- 排他終了
-            for (int i = 0; GgafCore::God::isResting() == false; i++) {
+            for (int i = 0; GgafCore::Caretaker::isResting() == false; i++) {
                 Sleep(10); //愛が落ち着くまで待つ
                 if (i > 10*60*100) {
                     _TRACE_("【デバイスロスト処理/愛停止】 10分待機しましたが、愛から反応がありません。強制breakします。要調査");
@@ -2031,11 +2008,11 @@ void God::presentSpacetimeVisualize() {
             //全ノードに解放しなさいイベント発令
             getSpacetime()->throwEventLowerTree(GGAF_EVENT_ON_DEVICE_LOST);
             _TRACE_("【デバイスロスト処理】リソース解放 <-------- END");
-            pGOD->_is_device_lost_flg = true;
+            pCARETAKER->_is_device_lost_flg = true;
         }
     }
 
-    if (pGOD->_is_device_lost_flg) {
+    if (pCARETAKER->_is_device_lost_flg) {
         _TRACE_("【デバイスロスト処理/リソース解放】協調性レベルチェック BEGIN ------>");
         //for (int i = 0; i < 300; i++) {
         while (true) {
@@ -2068,16 +2045,16 @@ void God::presentSpacetimeVisualize() {
             CONFIG::DUAL_VIEW_FULL_SCREEN2_HEIGHT = CONFIG::DUAL_VIEW_FULL_SCREEN2_HEIGHT_BK;
             CONFIG::SINGLE_VIEW_FULL_SCREEN_WIDTH = CONFIG::SINGLE_VIEW_FULL_SCREEN_WIDTH_BK;
             CONFIG::SINGLE_VIEW_FULL_SCREEN_HEIGHT = CONFIG::SINGLE_VIEW_FULL_SCREEN_HEIGHT_BK;
-_TRACE_("pGOD->setDisplaySizeInfo(); begin");
-            pGOD->setDisplaySizeInfo();
-_TRACE_("pGOD->setDisplaySizeInfo(); done");
-_TRACE_("pGOD->setAppropriateDisplaySize(); begin");
-            pGOD->setAppropriateDisplaySize(false);
+_TRACE_("pCARETAKER->setDisplaySizeInfo(); begin");
+            pCARETAKER->setDisplaySizeInfo();
+_TRACE_("pCARETAKER->setDisplaySizeInfo(); done");
+_TRACE_("pCARETAKER->setAppropriateDisplaySize(); begin");
+            pCARETAKER->setAppropriateDisplaySize(false);
             //checkAppropriateDisplaySize() による解像度変更はしない
             //理由：画面ローテートで解像度を変更された場合、
             //その解像度から CONFIGの解像度へ、更に解像度を変更しようとすると
             //アプリ終了時に変更後の解像度のまま残るため？
-_TRACE_("pGOD->setAppropriateDisplaySize(); done");
+_TRACE_("pCARETAKER->setAppropriateDisplaySize(); done");
 
             //バックバッファサイズ
             if(CONFIG::DUAL_VIEW) {
@@ -2162,12 +2139,12 @@ _TRACE_("SetWindowPos()!");
         getSpacetime()->throwEventLowerTree(GGAF_EVENT_ON_DEVICE_LOST_RESTORE);
         //前回描画モデル情報を無効にする
         ModelManager::_pModelLastDraw = nullptr;
-        pGOD->_is_device_lost_flg = false;
+        pCARETAKER->_is_device_lost_flg = false;
         _TRACE_("【デバイスロスト処理】リソース再構築 <-------- END");
 
         //愛再開
         _TRACE_("【デバイスロスト処理】愛再起動 BEGIN ------>");
-        GgafCore::God::finishRest();
+        GgafCore::Caretaker::finishRest();
         _TRACE_("【デバイスロスト処理】愛再起動 <-------- END");
 
         _TRACE_("【デバイスロスト処理】<-------- END");
@@ -2183,15 +2160,15 @@ _TRACE_("SetWindowPos()!");
     }
 }
 
-void God::finalizeSpacetime() {
-    if (pGOD->_is_device_lost_flg) {
+void Caretaker::presentClosing() {
+    if (pCARETAKER->_is_device_lost_flg) {
         return;
     } else {
-        GgafCore::God::finalizeSpacetime();
+        GgafCore::Caretaker::presentClosing();
     }
 }
 
-void God::setLightDiffuseColor(float r, float g, float b) {
+void Caretaker::setLightDiffuseColor(float r, float g, float b) {
     _d3dlight9_default.Diffuse.r = r;
     _d3dlight9_default.Diffuse.g = g;
     _d3dlight9_default.Diffuse.b = b;
@@ -2199,13 +2176,13 @@ void God::setLightDiffuseColor(float r, float g, float b) {
     //_d3dlight9_default.Range = 1000.0f;
 
 }
-void God::setLightAmbientColor(float r, float g, float b) {
+void Caretaker::setLightAmbientColor(float r, float g, float b) {
     _d3dlight9_default.Ambient.r = r;
     _d3dlight9_default.Ambient.g = g;
     _d3dlight9_default.Ambient.b = b;
 }
 
-void God::clean() {
+void Caretaker::clean() {
     if (!_was_cleaned) {
         _TRACE_(FUNC_NAME<<" begin");
         IDirect3DDevice9* pDevice = _pID3DDevice9;
@@ -2217,7 +2194,7 @@ void God::clean() {
             pDevice->SetVertexShader( nullptr );
             pDevice->SetVertexDeclaration( nullptr );
         }
-        GgafCore::God::clean();
+        GgafCore::Caretaker::clean();
 
         GgafCore::CmRandomNumberGenerator::getInstance()->release();
         //保持モデル解放
@@ -2231,7 +2208,7 @@ void God::clean() {
     }
 }
 
-void God::adjustGameWindow(HWND prm_pHWnd) {
+void Caretaker::adjustGameWindow(HWND prm_pHWnd) {
     RECT rect;
     if (prm_pHWnd && !CONFIG::FULL_SCREEN ) {
         //ウィンドウモード時
@@ -2248,11 +2225,11 @@ void God::adjustGameWindow(HWND prm_pHWnd) {
             LONG fix_width, fix_height;
             int pos1, pos2;
             if (CONFIG::DUAL_VIEW) {
-                pos1 = _single_view_draw_position;
-                pos2 = _dual_view_draw_position1;
+                pos1 = CONFIG::DUAL_VIEW_DRAW_POSITION1;
+                pos2 = CONFIG::DUAL_VIEW_DRAW_POSITION2;
             } else {
-                pos1 = _dual_view_draw_position2;
-                pos2 = _dual_view_draw_position1; //とりあえず
+                pos1 = CONFIG::SINGLE_VIEW_DRAW_POSITION;
+                pos2 = CONFIG::DUAL_VIEW_DRAW_POSITION2; //とりあえず
             }
 
             //ウィンドウモード時・RENDER_TARGET_BUFFERサイズ無視
@@ -2318,7 +2295,7 @@ void God::adjustGameWindow(HWND prm_pHWnd) {
             }
         }
 #ifdef MY_DEBUG
-        _TRACE_("God::adjustGameWindow(" << (prm_pHWnd == _pHWndPrimary ? "Primary" : "Secondary") <<") コール");
+        _TRACE_("Caretaker::adjustGameWindow(" << (prm_pHWnd == _pHWndPrimary ? "Primary" : "Secondary") <<") コール");
         if (CONFIG::DUAL_VIEW) {
             _TRACE_(" _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].left   = "<<_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].left  );
             _TRACE_(" _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].top    = "<<_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].top   );
@@ -2356,7 +2333,7 @@ void God::adjustGameWindow(HWND prm_pHWnd) {
     _pHWnd_adjustScreen = nullptr;
 }
 
-void God::setPositionPresentRect(int prm_pos, RECT& inout_rectPresent, pixcoord prm_screen_width, pixcoord prm_screen_height) {
+void Caretaker::setPositionPresentRect(int prm_pos, RECT& inout_rectPresent, pixcoord prm_screen_width, pixcoord prm_screen_height) {
     // ７　８　９
     // 　＼｜／
     // ４―５―６
@@ -2384,23 +2361,23 @@ void God::setPositionPresentRect(int prm_pos, RECT& inout_rectPresent, pixcoord 
 }
 
 
-ModelManager* God::createModelManager() {
+ModelManager* Caretaker::createModelManager() {
     ModelManager* p =  NEW ModelManager("ModelManager");
     return p;
 }
-EffectManager* God::createEffectManager() {
+EffectManager* Caretaker::createEffectManager() {
     EffectManager* p = NEW EffectManager("EffectManager");
     return p;
 }
-CurveSourceManager* God::createCurveSourceManager() {
+CurveSourceManager* Caretaker::createCurveSourceManager() {
     CurveSourceManager* p = NEW CurveSourceManager("CurveSourceManager");
     return p;
 }
-CurveManufactureManager* God::createCurveManufactureManager() {
+CurveManufactureManager* Caretaker::createCurveManufactureManager() {
     CurveManufactureManager* p = NEW CurveManufactureManager("CurveManufactureManager");
     return p;
 }
-God::~God() {
+Caretaker::~Caretaker() {
     _TRACE_(FUNC_NAME<<" 解放開始");
     clean();
     _was_cleaned = true;

@@ -3,7 +3,7 @@
 #include "VioletVreath.h"
 
 #include "jp/ggaf/lib/actor/DefaultSceneMediator.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 
 namespace VioletVreath {
 
@@ -20,7 +20,7 @@ public:
         _is_next_frame = true;
     }
     void nextFrame() {
-        _is_next_frame = (_once_in_n_time == 1 || pGOD->_frame_of_God % _once_in_n_time == 0);
+        _is_next_frame = (_once_in_n_time == 1 || pCARETAKER->_frame_of_Caretaker % _once_in_n_time == 0);
         if (_is_next_frame) {
             T::nextFrame();
         }

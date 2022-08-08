@@ -3,8 +3,8 @@
 #include "VioletVrain.h"
 #include "GgafLibCommonHeader.h"
 
-#undef P_GOD
-#define P_GOD ((VioletVrain::VvGod*)VioletVrain::VvGod::_pGod)
+#undef P_CARETAKER
+#define P_CARETAKER ((VioletVrain::VvCaretaker*)VioletVrain::VvCaretaker::_pCaretaker)
 
 #define VV_MIKATA (0x01U)
 #define VV_TEKI   (0x10U)
@@ -18,7 +18,7 @@ class Test01;
 class Zako;
 class TrialAndErrScene;
 class VvCamera;
-class VvGod;
+class VvCaretaker;
 class VvSpacetime;
 class VvUtil;
 class World;

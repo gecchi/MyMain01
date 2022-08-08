@@ -11,7 +11,7 @@
 #include "GgafLibCommonHeader.h"
 
 namespace VVViewer {
-class VvvGod;
+class VvvCaretaker;
 class VvvSpacetime;
 class VvvWorld;
 class VvvCamera;

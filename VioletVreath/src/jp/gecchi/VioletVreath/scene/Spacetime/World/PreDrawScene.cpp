@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/core/actor/SceneMediator.h"
 #include "jp/ggaf/dx/util/Input.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/Config.h"
 #include "jp/ggaf/lib/actor/CappedGraphBarActor.h"
 #include "jp/ggaf/lib/actor/ColliAABoxActor.h"
@@ -141,7 +141,7 @@ void PreDrawScene::processBehavior() {
             if (pPhase->hasJustChanged()) {
                 _id_ = 0;
             }
-            if (pPhase->getFrame() % 6U == 0 && pGOD->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX) {
+            if (pPhase->getFrame() % 6U == 0 && pCARETAKER->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX) {
                 if (_id_ > order_id_end_-order_id_begin_) {
                     pPhase->changeNext();
                 } else {
@@ -163,7 +163,7 @@ void PreDrawScene::processBehavior() {
             break;
         }
         case PHASE_CALM_DOWN: {
-            if ((pPhase->getFrame() > 60 && pGOD->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX) || pPhase->getFrame() > 60*60) {
+            if ((pPhase->getFrame() > 60 && pCARETAKER->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX) || pPhase->getFrame() > 60*60) {
                 fadeoutSceneWithBgmTree(120);
                 pPhase->changeNext();
             }

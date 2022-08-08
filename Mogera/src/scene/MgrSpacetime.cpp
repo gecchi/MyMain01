@@ -2,7 +2,7 @@
 
 #include "scene/MgrSpacetime/MgrWorld.h"
 #include "util/MgrUtil.h"
-#include "MgrGod.h"
+#include "MgrCaretaker.h"
 #include "jp/ggaf/core/scene/Scene.h"
 #include "jp/ggaf/core/actor/SceneMediator.h"
 #include "actor/camera/MgrCameraWorker.h"
@@ -19,10 +19,10 @@ using namespace Mogera;
 MgrSpacetime::MgrSpacetime(const char* prm_name, MgrCamera* prm_pCam) :
         GgafLib::DefaultSpacetime(prm_name, prm_pCam) {
     pWorld_ = nullptr;
-    UTIL::left_top_x_ = CONFIG::DUAL_VIEW ? PX_C(P_GOD->_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].left) :
-                                            PX_C(P_GOD->_rectRenderTargetBuffer.left);
-    UTIL::left_top_y_ = CONFIG::DUAL_VIEW ? PX_C(P_GOD->_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].top) :
-                                            PX_C(P_GOD->_rectRenderTargetBuffer.top);
+    UTIL::left_top_x_ = CONFIG::DUAL_VIEW ? PX_C(P_CARETAKER->_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].left) :
+                                            PX_C(P_CARETAKER->_rectRenderTargetBuffer.left);
+    UTIL::left_top_y_ = CONFIG::DUAL_VIEW ? PX_C(P_CARETAKER->_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].top) :
+                                            PX_C(P_CARETAKER->_rectRenderTargetBuffer.top);
     UTIL::center_x_ = PX_C(CONFIG::RENDER_TARGET_BUFFER_WIDTH / 2);
     UTIL::center_y_ = PX_C(CONFIG::RENDER_TARGET_BUFFER_HEIGHT / 2);
 
@@ -48,6 +48,18 @@ void MgrSpacetime::initialize() {
 
 void MgrSpacetime::processBehavior() {
     pVb_->update(); //“ü—Íó‹µXV
+
+//    bool b1 = pVb_->isPressed(VB_UP);
+//    bool b2 = pVb_->wasPressedAtLeastOnce(VB_UP, 10);
+//    bool b3 = pVb_->wasPressedAtLeastOnce(VB_UP, 3);
+//    _TRACE_(getBehaveingFrame() <<":"<<b1<<":"<<b2<<":"<<b3);
+    bool b1 = pVb_->arePushedDownAtOnce(VB_LEFT, VB_UP, VB_RIGHT, 1);
+//    bool b2 = pVb_->arePushedDownAtOnce(VB_LEFT, VB_UP, VB_RIGHT, 10);
+//    bool b3 = pVb_->arePushedDownAtOnce(VB_LEFT, VB_UP, VB_RIGHT, 60);
+//    _TRACE_(getBehaveingFrame() <<":"<<b1<<":"<<b2<<":"<<b3);
+    if (b1) {
+        _TRACE_(getBehaveingFrame() <<":"<<b1);
+    }
 }
 
 MgrSpacetime::~MgrSpacetime() {

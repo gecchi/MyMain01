@@ -6,7 +6,7 @@
 #include "jp/gecchi/VioletVrain/actor/enemy/Zako/Zako.h"
 #include "jp/gecchi/VioletVrain/actor/Test01.h"
 #include "jp/gecchi/VioletVrain/actor/Jiki.h"
-#include "jp/gecchi/VioletVrain/VvGod.h"
+#include "jp/gecchi/VioletVrain/VvCaretaker.h"
 
 using namespace GgafLib;
 using namespace VioletVrain;
@@ -59,10 +59,10 @@ void TrialAndErrScene::processBehavior() {
 #ifdef MY_DEBUG
     //ワイヤフレーム表示切替
     if (GgafDx::Input::isPushedDownKey(DIK_Q)) {
-        if (pGOD->_d3dfillmode == D3DFILL_WIREFRAME) {
-            pGOD->_d3dfillmode = D3DFILL_SOLID;
+        if (pCARETAKER->_d3dfillmode == D3DFILL_WIREFRAME) {
+            pCARETAKER->_d3dfillmode = D3DFILL_SOLID;
         } else {
-            pGOD->_d3dfillmode = D3DFILL_WIREFRAME;
+            pCARETAKER->_d3dfillmode = D3DFILL_WIREFRAME;
         }
     }
 #endif

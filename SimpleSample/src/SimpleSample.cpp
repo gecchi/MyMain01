@@ -4,7 +4,7 @@
 #include "GgafLib.h" //"GgafLib::Lib.h" をインクルードしてください。
 
 #include "SimpleSample.h"
-#include "SmpGod.h"
+#include "SmpCaretaker.h"
 
 using namespace SimpleSample;
 
@@ -25,11 +25,11 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
 
     //プロパティファイル読込み
     CONFIG::loadProperties("config.properties");
-    //神の誕生
-    SmpGod god;
+    //管理者の誕生
+    SmpCaretaker crtkr;
     //ウィンドウ作成
     HWND hWnd1;
-    god.createWindow(WndProc, "SimpleSampleWindow", hWnd1);
+    crtkr.createWindow(WndProc, "SimpleSampleWindow", hWnd1);
     //メインループ処理
     MSG msg;
     while (true) {
@@ -40,7 +40,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
             TranslateMessage(&msg);
             DispatchMessage(&msg);
         } else {
-            god.be(); //このように神の be() メソッドをひたすらコールしてください。
+            crtkr.present(); //このように管理者の present() メソッドをひたすらコールしてください。
         }
     }
     return (int)msg.wParam;

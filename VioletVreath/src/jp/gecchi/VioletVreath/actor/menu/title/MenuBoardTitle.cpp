@@ -6,7 +6,7 @@
 #include "jp/gecchi/VioletVreath/actor/label/SpriteLabelGecchi32Font.h"
 #include "jp/gecchi/VioletVreath/actor/menu/config/MenuBoardConfig.h"
 #include "jp/gecchi/VioletVreath/actor/menu/confirm/MenuBoardConfirm.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelMenuItemFont01.h"
 #include "jp/gecchi/VioletVreath/actor/menu/config/MenuBoardKeyConfig.h"
 #include "jp/gecchi/VioletVreath/actor/menu/config/MenuBoardScreenConfig.h"
@@ -142,7 +142,7 @@ void MenuBoardTitle::processBehavior() {
     } else if (selected == ITEM_REBOOT) { //自身のメニューが"ITEM_REBOOT"を指している場合
         MenuBoardConfirm* pSubConfirm = (MenuBoardConfirm*)getSubMenu();
         if (pSubConfirm->hasJustDecidedOk()) {
-            God::reboot(); //再起動！
+            Caretaker::reboot(); //再起動！
         } else if (pSubConfirm->hasJustDecidedCancel()) {
             sinkCurrentSubMenu();
         }

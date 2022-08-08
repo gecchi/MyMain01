@@ -1,6 +1,6 @@
 #include "jp/ggaf/lib/actor/SpriteMeshWorldBoundActor.h"
 
-#include "jp/ggaf/lib/DefaultGod.h"
+#include "jp/ggaf/lib/DefaultCaretaker.h"
 #include "jp/ggaf/lib/actor/camera/DefaultCamera.h"
 #include "jp/ggaf/lib/scene/DefaultSpacetime.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
@@ -21,7 +21,7 @@ SpriteMeshWorldBoundActor::SpriteMeshWorldBoundActor(const char* prm_name,
 }
 
 void SpriteMeshWorldBoundActor::processSettlementBehavior() {
-    DefaultCamera* pCam = pGOD->getSpacetime()->getCamera();
+    DefaultCamera* pCam = pCARETAKER->getSpacetime()->getCamera();
     //画面外判定無しに伴ない処理簡略化。
     //次の処理を無視しています
     //・自身がボーン時の考慮

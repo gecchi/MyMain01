@@ -6,7 +6,7 @@
 #include "jp/ggaf/dx/actor/supporter/GeoVehicle.h"
 #include "jp/ggaf/dx/actor/supporter/UvFlipper.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
-#include "MgrGod.h"
+#include "MgrCaretaker.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 
 using namespace GgafCore;
@@ -75,6 +75,10 @@ void SmpActor2::processBehavior() {
         pGeoVehicle->setAcceByVc(PX_C(0.01), PX_C(0.02), PX_C(0));
 
     }
+
+
+
+
 //    _TRACE_("x,y,z="<<_x<<", "<<_y<<", "<<_z);
     pGeoVehicle->behave();
     getVecVehicle()->behave();

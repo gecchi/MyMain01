@@ -7,7 +7,7 @@
 #include "jp/ggaf/dx/scene/Spacetime.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/gecchi/VioletVreath/actor/my/MyShip.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 
 using namespace GgafLib;
@@ -58,7 +58,7 @@ void EnemyEtis::onActive() {
     pVecVehicle->setMvVelo(PX_C(3));
     const coord renge_y = (MyShip::lim_y_top_ - MyShip::lim_y_bottom_) * 4;
     const coord renge_z = (MyShip::lim_z_left_ - MyShip::lim_z_right_) * 4;
-    Spacetime* pSpacetime =  pGOD->getSpacetime();
+    Spacetime* pSpacetime =  pCARETAKER->getSpacetime();
     _x = pSpacetime->_x_bound_right - 1000;
     _y = RND(-(renge_y/2) , +(renge_y/2));
     _z = RND(-(renge_z/2) , +(renge_z/2));

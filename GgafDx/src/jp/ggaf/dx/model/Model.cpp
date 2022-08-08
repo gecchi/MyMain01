@@ -1,7 +1,7 @@
 #include "jp/ggaf/dx/model/Model.h"
 
 #include <Shlwapi.h>
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/Config.h"
 #include "jp/ggaf/dx/manager/ModelManager.h"
 #include "jp/ggaf/dx/manager/TextureConnection.h"

@@ -7,7 +7,7 @@
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelMenuTitleFont01.h"
 #include "jp/gecchi/VioletVreath/actor/menu/confirm/MenuBoardConfirm.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/Config.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelMenuItemFont01.h"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
@@ -184,7 +184,7 @@ void MenuBoardKeyConfig::processBehavior() {
         CONFIG::_properties.write(VV_CONFIG_FILE);
         CONFIG::loadProperties(VV_CONFIG_FILE); //再反映
         //実行中アプリへも反映
-        pGOD->initVB();
+        pCARETAKER->initVB();
 
         sinkCurrentSubMenu(); //確認メニュー閉じる
         sinkMe();        //自身メニュー閉じる
@@ -206,7 +206,7 @@ void MenuBoardKeyConfig::processBehavior() {
             paVBConfig[index].pKey->getAlphaFader()->transitionLinearToTop(5);
             paVBConfig[index].pJoy->getAlphaFader()->transitionLinearToTop(5);
         } else {
-            int DIK_pushed = GgafDx::Input::getPushedDownKey();
+            int DIK_pushed = GgafDx::Input::getFirstPushedDownKey();
             if (DIK_pushed != -1 && 0x00 <= DIK_pushed && DIK_pushed <= 0xD1) {
                 paVBConfig[index].pKey->update(VirtualButton::_mapVBK2Str[DIK_pushed].c_str());
                 paVBConfig[index].pKey->getAlphaFader()->beat(10, 5, 0, 5, 6.5);
@@ -214,7 +214,7 @@ void MenuBoardKeyConfig::processBehavior() {
                 input_mode_ = 2;
             }
 
-            int VBJ_pushed = VirtualButton::getPushedDownVirtualJoyButton();
+            int VBJ_pushed = VirtualButton::getFirstPushedDownVirtualJoyButton();
             if (VBJ_pushed != -1) {
                  paVBConfig[index].pJoy->update(VirtualButton::_mapVBJ2Str[VBJ_pushed].c_str());
                  paVBConfig[index].pJoy->getAlphaFader()->beat(10, 5, 0, 5, 6.5);

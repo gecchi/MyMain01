@@ -3,14 +3,14 @@
 #include "GgafCommonHeader.h"
 #include "jp/ggaf/core/scene/MainScene.h"
 
-#include "jp/ggaf/core/God.h"
+#include "jp/ggaf/core/Caretaker.h"
 
 namespace GgafCore {
 
 /**
  * この世クラス .
  * 本プログラムでの『この世』とは、全てのシーン階層構造の頂点に位置する特別なシーンです。<BR>
- * 神(God)自らが new してくれます。本クラスが new されると、芋づる的に配下シーン(Scene)が new されます。<BR>
+ * 管理者(Caretaker)自らが new してくれます。本クラスが new されると、芋づる的に配下シーン(Scene)が new されます。<BR>
  * アプリケーションで少なくとも１つはこの世をnewしなければいけません。<BR>
  * 『この世』 へのメソッド実行は、全てのシーンとアクターに影響します。<BR>
  * @version 1.00
@@ -18,7 +18,7 @@ namespace GgafCore {
  * @author Masatoshi Tsuge
  */
 class Spacetime : public MainScene {
-    friend class God;
+    friend class Caretaker;
     friend class Scene;
 
 public:

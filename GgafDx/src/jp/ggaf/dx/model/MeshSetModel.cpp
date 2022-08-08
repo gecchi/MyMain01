@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/model/MeshSetModel.h"
 
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/Config.h"
 #include "jp/ggaf/dx/actor/MeshSetActor.h"
 #include "jp/ggaf/dx/effect/MeshSetEffect.h"
@@ -44,7 +44,7 @@ HRESULT MeshSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num,
         _TRACE_(FUNC_NAME<<" "<<_model_id<<" の描画セット数オーバー。_draw_set_num="<<_draw_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
     }
 #endif
-    IDirect3DDevice9* const pDevice = pGOD->_pID3DDevice9;
+    IDirect3DDevice9* const pDevice = pCARETAKER->_pID3DDevice9;
     //対象アクター
     const MeshSetActor* const pTargetActor = (MeshSetActor*)prm_pActor_target;
     //対象MeshSetActorのエフェクトラッパ
@@ -161,7 +161,7 @@ HRESULT MeshSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num,
             checkDxException(hr, D3D_OK, "１パス目 BeginPass(0) に失敗しました。");
         }
 #ifdef MY_DEBUG
-        GgafCore::God::_num_drawing++;
+        GgafCore::Caretaker::_num_drawing++;
 #endif
     }
     ModelManager::_pModelLastDraw = this;
@@ -173,7 +173,7 @@ HRESULT MeshSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num,
 void MeshSetModel::restore() {
     _TRACE3_("_model_id=" << _model_id << " start");
     if (_paVtxBuffer_data == nullptr) {
-        ModelManager* pModelManager = pGOD->_pModelManager;
+        ModelManager* pModelManager = pCARETAKER->_pModelManager;
         ModelManager::MeshXFileFmt xdata;
         std::string model_def_file = std::string(_model_id) + ".meshx";
         std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
@@ -410,7 +410,7 @@ void MeshSetModel::restore() {
     if (_paVertexBuffer == nullptr) {
         HRESULT hr;
         //頂点バッファ作成
-        hr = pGOD->_pID3DDevice9->CreateVertexBuffer(
+        hr = pCARETAKER->_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices * _draw_set_num,
                 D3DUSAGE_WRITEONLY,
                 MeshSetModel::FVF,
@@ -440,7 +440,7 @@ void MeshSetModel::restore() {
     //流し込むインデックスバッファデータ作成
     if (_paIndexBuffer == nullptr) {
         HRESULT hr;
-        hr = pGOD->_pID3DDevice9->CreateIndexBuffer(
+        hr = pCARETAKER->_pID3DDevice9->CreateIndexBuffer(
                                sizeof(WORD) * _nFaces * 3 * _draw_set_num,
                                 D3DUSAGE_WRITEONLY,
                                 D3DFMT_INDEX16,
@@ -460,7 +460,7 @@ void MeshSetModel::restore() {
     }
 
     if (_papTextureConnection == nullptr) {
-        ModelManager* pModelManager = pGOD->_pModelManager;
+        ModelManager* pModelManager = pCARETAKER->_pModelManager;
         _papTextureConnection = NEW TextureConnection*[_num_materials];
         for (DWORD n = 0; n < _num_materials; n++) {
             _papTextureConnection[n] =

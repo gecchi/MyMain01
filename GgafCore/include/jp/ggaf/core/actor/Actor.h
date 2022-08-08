@@ -37,7 +37,7 @@ namespace GgafCore {
  */
 class Actor : public Element<Actor> {
 
-    friend class God;
+    friend class Caretaker;
     friend class MainActor;
     friend class SceneMediator;
     friend class GroupHead;

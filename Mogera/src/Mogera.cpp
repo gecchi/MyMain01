@@ -4,7 +4,7 @@
 #include "GgafLib.h" //"GgafLib::Lib.h" をインクルードし、
 #include "Mogera.h"
 
-#include "MgrGod.h"
+#include "MgrCaretaker.h"
 #include <scrnsave.h>
 using namespace Mogera;
 
@@ -39,12 +39,12 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     wcex2.lpszClassName = "secondary";
     DWORD dwStyle = WS_OVERLAPPEDWINDOW;
     HWND hWnd1, hWnd2;
-    MgrGod god;
+    MgrCaretaker crtkr;
     //ゲームループ
     MSG msg;
     try {
-        //神の誕生
-        god.createWindow(wcex1, wcex2,
+        //管理者の誕生
+        crtkr.createWindow(wcex1, wcex2,
                          "Mogera[1]", "Mogera[2]", //タイトル文字列
                          dwStyle, dwStyle,
                          hWnd1, hWnd2); //HWNDが代入されます(戻り値)
@@ -57,8 +57,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
                 TranslateMessage(&msg);
                 DispatchMessage(&msg);
             } else {
-                //次のようにひたすら神の be() メソッドをコールしてください。
-                god.be();
+                //次のようにひたすら管理者の present() メソッドをコールしてください。
+                crtkr.present();
             }
         }
     } catch (std::exception& e2) {

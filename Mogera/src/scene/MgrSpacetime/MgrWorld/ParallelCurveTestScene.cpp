@@ -11,7 +11,7 @@
 #include "actor/camera/MgrCamera.h"
 #include "actor/camera/MgrCameraWorker.h"
 #include "scene/MgrSpacetime.h"
-#include "MgrGod.h"
+#include "MgrCaretaker.h"
 
 using namespace GgafLib;
 using namespace Mogera;
@@ -44,7 +44,7 @@ void ParallelCurveTestScene::initialize() {
 
 void ParallelCurveTestScene::processBehavior() {
     if (GgafDx::Input::isPushedDownKey(DIK_F1)) {
-        MgrSpacetime* pSpacetime = pGOD->getSpacetime();
+        MgrSpacetime* pSpacetime = pCARETAKER->getSpacetime();
         MgrCamera* pCam = pSpacetime->getCamera();
         //ƒJƒƒ‰‚ð‰ŠúˆÊ’u‚Ö
         MgrCameraWorker* pCameraWorker = pSpacetime->pActiveCamWorker_;

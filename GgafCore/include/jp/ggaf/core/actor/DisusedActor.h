@@ -44,7 +44,7 @@ public:
     }
     void onHit(const Actor* prm_pOtherActor) override {
     }
-    God* askGod() {
+    Caretaker* askCaretaker() {
         return nullptr;
     }
 

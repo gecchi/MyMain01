@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/model/MassBoardModel.h"
 
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/actor/MassBoardActor.h"
 #include "jp/ggaf/dx/effect/MassBoardEffect.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
@@ -72,7 +72,7 @@ HRESULT MassBoardModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_nu
         throwCriticalException(FUNC_NAME<<" "<<_model_id<<" の描画セット数オーバー。_draw_set_num="<<_draw_set_num<<" に対し、prm_draw_set_num="<<prm_draw_set_num<<"でした。");
     }
 #endif
-    IDirect3DDevice9* const pDevice = pGOD->_pID3DDevice9;
+    IDirect3DDevice9* const pDevice = pCARETAKER->_pID3DDevice9;
     //対象Actor
     const MassBoardActor* const pTargetActor = (MassBoardActor*)prm_pActor_target;
     //対象MassBoardActorのエフェクトラッパ
@@ -192,7 +192,7 @@ HRESULT MassBoardModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_nu
     EffectManager::_pEffect_active = pMassBoardEffect;
     FigureActor::_hash_technique_last_draw = prm_pActor_target->_hash_technique;
 #ifdef MY_DEBUG
-        GgafCore::God::_num_drawing++;
+        GgafCore::Caretaker::_num_drawing++;
 #endif
     return D3D_OK;
 }
@@ -200,7 +200,7 @@ HRESULT MassBoardModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_nu
 void MassBoardModel::restore() {
     _TRACE3_("_model_id=" << _model_id << " start");
     if (_paVtxBuffer_data_model == nullptr) {
-        ModelManager* pModelManager = pGOD->_pModelManager;
+        ModelManager* pModelManager = pCARETAKER->_pModelManager;
         std::string model_def_file = std::string(_model_id) + ".sprx";
         std::string model_def_filepath = Model::getModelDefineFilePath(model_def_file);
         ModelManager::SpriteXFileFmt xdata;
@@ -286,7 +286,7 @@ void MassBoardModel::restore() {
     //デバイスに頂点バッファ作成(モデル)
     if (_paVertexBuffer_model == nullptr) {
         HRESULT hr;
-        hr = pGOD->_pID3DDevice9->CreateVertexBuffer(
+        hr = pCARETAKER->_pID3DDevice9->CreateVertexBuffer(
                 _size_vertices_model,
                 D3DUSAGE_WRITEONLY,
                 0,
@@ -305,7 +305,7 @@ void MassBoardModel::restore() {
     //デバイスにインデックスバッファ作成
     if (_paIndexBuffer == nullptr) {
         HRESULT hr;
-        hr = pGOD->_pID3DDevice9->CreateIndexBuffer(
+        hr = pCARETAKER->_pID3DDevice9->CreateIndexBuffer(
                                 sizeof(WORD) * _nFaces * 3,
                                 D3DUSAGE_WRITEONLY,
                                 D3DFMT_INDEX16,
@@ -322,7 +322,7 @@ void MassBoardModel::restore() {
     }
     //デバイスにテクスチャ作成
     if (_papTextureConnection == nullptr) {
-        ModelManager* pModelManager = pGOD->_pModelManager;
+        ModelManager* pModelManager = pCARETAKER->_pModelManager;
         _papTextureConnection = NEW TextureConnection*[_num_materials];
         for (DWORD n = 0; n < _num_materials; n++) {
             _papTextureConnection[n] =

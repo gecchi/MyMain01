@@ -1,7 +1,7 @@
 #include "jp/ggaf/dx/actor/RegularPolygonSpriteActor.h"
 
 #include "jp/ggaf/dx/exception/CriticalException.h"
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/util/Util.h"
 #include "jp/ggaf/dx/effect/RegularPolygonSpriteEffect.h"
 #include "jp/ggaf/dx/model/RegularPolygonSpriteModel.h"

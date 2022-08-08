@@ -292,11 +292,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\jp\ggaf\core\God.cpp"
+			RelativePath=".\src\jp\ggaf\core\Caretaker.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\include\jp\ggaf\core\God.h"
+			RelativePath=".\include\jp\ggaf\core\Caretaker.h"
 			>
 		</File>
 		<File

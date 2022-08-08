@@ -4,7 +4,7 @@
 
 #include "jp/ggaf/lib/scene/DefaultScene.h"
 #include "jp/gecchi/VioletVreath/scene/VvScene.hpp"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 
 namespace VioletVreath {
 

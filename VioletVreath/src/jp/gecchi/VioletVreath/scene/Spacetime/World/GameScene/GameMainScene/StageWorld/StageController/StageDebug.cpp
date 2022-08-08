@@ -6,7 +6,7 @@
 #include "jp/gecchi/VioletVreath/actor/background/WorldBound/WorldBound001.h"
 #include "jp/gecchi/VioletVreath/actor/chikei/Planet/Planet001.h"
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "../StageController.h"
 #include "StageDebug/StageDebugPartController.h"

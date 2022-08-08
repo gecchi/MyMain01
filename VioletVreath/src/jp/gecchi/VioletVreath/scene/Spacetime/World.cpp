@@ -221,7 +221,7 @@ void World::processBehavior() {
     ScenePhase* pPhase = getPhase();
     switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
-            if (pGOD->chkCradle(1) == 2) {
+            if (pCARETAKER->chkCradle(1) == 2) {
                 pPreDrawScene_ = (PreDrawScene*)receiveScene(1);
                 appendChild(pPreDrawScene_);
                 pPhase->changeNext();
@@ -241,7 +241,7 @@ void World::processBehavior() {
         }
 
         case PHASE_CALM2: {
-            if ((pPhase->getFrame() >= 30 && pGOD->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX && pGOD->_fps <= CONFIG::FPS*1.01) || pPhase->getFrame() >= 60*60*3) {
+            if ((pPhase->getFrame() >= 30 && pCARETAKER->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX && pCARETAKER->_fps <= CONFIG::FPS*1.01) || pPhase->getFrame() >= 60*60*3) {
                 pGameScene_ = (GameScene*)receiveScene(2);
                 pPhase->changeNext();
             }
@@ -252,7 +252,7 @@ void World::processBehavior() {
         case PHASE_CALM3: {
             if (pPhase->hasJustChanged()) {
             }
-            if ((pPhase->getFrame() >= 30 && pGOD->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX && pGOD->_fps <= CONFIG::FPS*1.01) || pPhase->getFrame() >= 60*60*3) {
+            if ((pPhase->getFrame() >= 30 && pCARETAKER->_fps >= CONFIG::FPS_TO_CLEAN_GARBAGE_BOX && pCARETAKER->_fps <= CONFIG::FPS*1.01) || pPhase->getFrame() >= 60*60*3) {
                 pPhase->changeNext();
             }
             pLabel_aster_->getAlphaFader()->behave(); //右上＊チカチカ
@@ -314,24 +314,24 @@ void World::processBehavior() {
 
 #ifdef MY_DEBUG
     sprintf(aBufDebug_, "%07uF, %06u/%06uACT, %06uDRAW, %06uCHK, %03.1fFPS(SLOW%d), V%03d",
-                            askGod()->_frame_of_God,
-                            GgafCore::God::_num_active_actor,
+                            askCaretaker()->_frame_of_Caretaker,
+                            GgafCore::Caretaker::_num_active_actor,
                             GgafCore::Actor::_num_actors,
-                            GgafCore::God::_num_drawing,
+                            GgafCore::Caretaker::_num_drawing,
                             CollisionChecker::_num_check,
-                            askGod()->_fps,
-                            askGod()->_slowdown_mode,
+                            askCaretaker()->_fps,
+                            askCaretaker()->_slowdown_mode,
                             (GgafDx::Sound::getAppMasterVolume())
                             );
     pLabel_debug_->update(aBufDebug_);
     if (getActiveFrame() % CONFIG::FPS == 0) {
         _TRACE_("***** "<<aBufDebug_);
     }
-//    if (pGOD->_sync_frame_time) {
+//    if (pCARETAKER->_sync_frame_time) {
 //        _TRACE_N_("z");
 //    }
 #else
-    sprintf(aBufDebug_, "%03.1fFPS", askGod()->_fps);
+    sprintf(aBufDebug_, "%03.1fFPS", askCaretaker()->_fps);
     pLabel_debug_->update(aBufDebug_);
 #endif
 

@@ -16,7 +16,7 @@
 #include "jp/ggaf/lib/actor/DefaultRegularPolygonSpriteActor.h"
 #include "jp/ggaf/lib/LibConfig.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
-#include "VvvGod.h"
+#include "VvvCaretaker.h"
 #include "actor/CamWorker/VvvCamWorker.h"
 #include "actor/VvvCursor.h"
 #include "actor/VvvGrid.h"
@@ -30,7 +30,7 @@ using namespace VVViewer;
 using namespace std;
 
 VvvWorld::VvvWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
-    pCamWorker_ = NEW VvvCamWorker("VvvCamWorker", pGOD->getSpacetime()->getCamera());
+    pCamWorker_ = NEW VvvCamWorker("VvvCamWorker", pCARETAKER->getSpacetime()->getCamera());
     bringSceneMediator()->appendGroupChild(pCamWorker_);
     pCursor_ = NEW VvvCursor("Cursor");
     bringSceneMediator()->appendGroupChild(pCursor_);
@@ -90,7 +90,7 @@ void VvvWorld::processBehavior() {
 
     if (GgafDx::Input::isPushedDownKey(DIK_F1)) {
         //カメラを初期位置へ
-        VvvCamera* const pCam = pGOD->getSpacetime()->getCamera();
+        VvvCamera* const pCam = pCARETAKER->getSpacetime()->getCamera();
         pCamWorker_->slideMvCamTo(0,0,DX_C(pCam->getZOrigin()),60);
         pCamWorker_->slideMvVpTo(0,0,0,60);
         pCamWorker_->slideMvUpVecTo(0, PX_C(1), 0, 60);
@@ -137,12 +137,12 @@ void VvvWorld::processBehavior() {
         }
     } else if (GgafDx::Input::isPushedDownKey(DIK_W)) {
         //ワイヤフレーム表示切替
-        if (pGOD->_d3dfillmode == D3DFILL_WIREFRAME) {
-            pGOD->_d3dfillmode = D3DFILL_SOLID;
+        if (pCARETAKER->_d3dfillmode == D3DFILL_WIREFRAME) {
+            pCARETAKER->_d3dfillmode = D3DFILL_SOLID;
         } else {
-            pGOD->_d3dfillmode = D3DFILL_WIREFRAME;
+            pCARETAKER->_d3dfillmode = D3DFILL_WIREFRAME;
         }
-        pGOD->_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, pGOD->_d3dfillmode);
+        pCARETAKER->_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, pCARETAKER->_d3dfillmode);
     } else if (GgafDx::Input::isPushedDownKey(DIK_G)) {
         //グリッド表示非表示
         if (pGrid_->isActive()) {
@@ -487,11 +487,11 @@ void VvvWorld::processBehavior() {
 
 
 
-    if (VvvGod::is_wm_dropfiles_) {
-        string dropfile_dir = UTIL::getFileDirName(VvvGod::dropfiles_) + "/";
-        string file_name = UTIL::getFileBaseName(VvvGod::dropfiles_);
-        string model = UTIL::getFileBaseNameWithoutExt(VvvGod::dropfiles_);
-        string ext = UTIL::getFileExt(VvvGod::dropfiles_);
+    if (VvvCaretaker::is_wm_dropfiles_) {
+        string dropfile_dir = UTIL::getFileDirName(VvvCaretaker::dropfiles_) + "/";
+        string file_name = UTIL::getFileBaseName(VvvCaretaker::dropfiles_);
+        string model = UTIL::getFileBaseNameWithoutExt(VvvCaretaker::dropfiles_);
+        string ext = UTIL::getFileExt(VvvCaretaker::dropfiles_);
         _TRACE_("dropfile_dir="<<dropfile_dir);
         _TRACE_("model="<<model);
         _TRACE_("ext="<<ext);
@@ -521,9 +521,9 @@ void VvvWorld::processBehavior() {
         GgafDx::FigureActor* pActor = nullptr;
         std::string modelfile = "";
         if (ext == "MESHX") {
-            GgafDx::ModelManager* pModelManager = pGOD->_pModelManager;
+            GgafDx::ModelManager* pModelManager = pCARETAKER->_pModelManager;
             GgafDx::ModelManager::MeshXFileFmt xdata;
-            std::string model_def_filepath = std::string(VvvGod::dropfiles_);
+            std::string model_def_filepath = std::string(VvvCaretaker::dropfiles_);
             pModelManager->obtainMeshModelInfo(&xdata, model_def_filepath);
             if (xdata.XFileNum >= 2) {
                 pActor = desireActor(GgafLib::DefaultMorphMeshActor, "actor", model.c_str());
@@ -551,11 +551,11 @@ void VvvWorld::processBehavior() {
         //アクター表示
         if (pActor) {
             bringSceneMediator()->appendGroupChild(pActor);
-            ActorInfo* pActorInfo = NEW ActorInfo(pActor, string(VvvGod::dropfiles_));
+            ActorInfo* pActorInfo = NEW ActorInfo(pActor, string(VvvCaretaker::dropfiles_));
             listActorInfo_.addLast(pActorInfo);
             listActorInfo_.createIndex();
             listActorInfo_.last(); //カレントをlastへ
-            VvvCamera* pCam = pGOD->getSpacetime()->getCamera();
+            VvvCamera* pCam = pCARETAKER->getSpacetime()->getCamera();
 
             GgafDx::GeometricActor* p = pCam->getCameraViewPoint();
             pActor->setPositionAt(p);
@@ -627,7 +627,7 @@ void VvvWorld::processBehavior() {
         CONFIG::DIR_TEXTURE[0]      = dir_texture_system;
         CONFIG::DIR_TEXTURE[1]      = dir_texture_user;
         CONFIG::DIR_TEXTURE[2]      = dir_texture_current;
-        VvvGod::is_wm_dropfiles_ = false;
+        VvvCaretaker::is_wm_dropfiles_ = false;
     }
 
     if (GgafDx::Input::isPushedDownKey(DIK_H)) {

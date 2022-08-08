@@ -29,8 +29,8 @@ _pTexture(prm_pTexture) {
 }
 
 void UvFlipper::locatePatternNo(float prm_base_u, float prm_base_v,
-                                      float prm_one_ptn_tex_width, float prm_one_ptn_tex_height,
-                                      int prm_ptn_col_num, int prm_num_of_max_patterns) {
+                                float prm_one_ptn_tex_width, float prm_one_ptn_tex_height,
+                                int prm_ptn_col_num, int prm_num_of_max_patterns) {
 #ifdef MY_DEBUG
     if (prm_ptn_col_num < 0) {
         throwCriticalException("prm_ptn_col_num‚Í0‚æ‚è‘å‚«‚¢”‚ÅÝ’è‚µ‚Ä‰º‚³‚¢BTexture="<<_pTexture->_texture_name);

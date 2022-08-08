@@ -5,7 +5,7 @@
 #include "jp/ggaf/dx/util/Input.h"
 #include "jp/ggaf/lib/util/Quaternion.hpp"
 #include "jp/ggaf/dx/actor/supporter/VecVehicleMvAssistant.h"
-#include "jp/ggaf/lib/DefaultGod.h"
+#include "jp/ggaf/lib/DefaultCaretaker.h"
 #include "jp/ggaf/lib/LibConfig.h"
 #include "jp/ggaf/lib/actor/camera/DefaultCamera.h"
 #include "jp/ggaf/lib/actor/camera/DefaultCameraViewPoint.h"
@@ -61,7 +61,7 @@ void AroundViewCamWorker::processBehavior() {
         RECT cRect; // クライアント領域の矩形
         int cw, ch; // クライアント領域の幅、高さ
         // クライアント領域の幅・高さを計算
-        GetClientRect(pGOD->_pHWndPrimary, &cRect);
+        GetClientRect(pCARETAKER->_pHWndPrimary, &cRect);
         cw = cRect.right - cRect.left;
         ch = cRect.bottom - cRect.top;
         if (cw > ch) {

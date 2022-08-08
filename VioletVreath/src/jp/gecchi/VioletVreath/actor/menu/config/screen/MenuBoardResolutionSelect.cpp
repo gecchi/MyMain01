@@ -1,7 +1,7 @@
 #include "MenuBoardResolutionSelect.h"
 
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "CursorResolutionSelect.h"
 
 

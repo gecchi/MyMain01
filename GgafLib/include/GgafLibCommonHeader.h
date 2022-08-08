@@ -24,7 +24,7 @@ typedef int_fast32_t dir8;
 //‘O•ûéŒ¾(forward declaration)
 namespace GgafLib {
 
-class DefaultGod;
+class DefaultCaretaker;
 class DefaultSpacetime;
 class CameraWorker;
 class AroundViewCamWorker;

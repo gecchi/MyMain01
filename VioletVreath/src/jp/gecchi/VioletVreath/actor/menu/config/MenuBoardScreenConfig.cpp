@@ -7,7 +7,7 @@
 #include "jp/gecchi/VioletVreath/actor/label/LabelGecchi16Font.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelMenuTitleFont01.h"
 #include "jp/gecchi/VioletVreath/actor/menu/confirm/MenuBoardConfirm.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/Config.h"
 #include "jp/gecchi/VioletVreath/actor/label/LabelMenuItemFont01.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World.h"
@@ -320,18 +320,18 @@ void MenuBoardScreenConfig::onRise() {
     in_DUAL_VIEW_DRAW_POSITION1_   = CONFIG::DUAL_VIEW_DRAW_POSITION1;
     in_DUAL_VIEW_DRAW_POSITION2_   = CONFIG::DUAL_VIEW_DRAW_POSITION2;
     in_SINGLE_VIEW_DRAW_POSITION_  = CONFIG::SINGLE_VIEW_DRAW_POSITION;
-    int num_adapter = pGOD->_num_adapter;
-    GgafDx::God::AdapterRezos* paAdapterRezos = pGOD->_paAdapterRezos;
+    int num_adapter = pCARETAKER->_num_adapter;
+    GgafDx::Caretaker::AdapterRezos* paAdapterRezos = pCARETAKER->_paAdapterRezos;
     if (num_adapter >= 1) {
         rezo_num_ = paAdapterRezos[0].rezo_num;
-        GgafDx::God::RezoInfo* paRezos = paAdapterRezos[0].paRezoInfo;
-        rezo_index_ = pGOD->checkAppropriateDisplaySize(
+        GgafDx::Caretaker::RezoInfo* paRezos = paAdapterRezos[0].paRezoInfo;
+        rezo_index_ = pCARETAKER->checkAppropriateDisplaySize(
                             paRezos, rezo_num_,
                             (UINT)CONFIG::_properties.getInt("SINGLE_VIEW_FULL_SCREEN_WIDTH"),
                             (UINT)CONFIG::_properties.getInt("SINGLE_VIEW_FULL_SCREEN_HEIGHT")
                       );
         rezo1_num_ = rezo_num_;
-        rezo1_index_ = pGOD->checkAppropriateDisplaySize(
+        rezo1_index_ = pCARETAKER->checkAppropriateDisplaySize(
                             paRezos, rezo1_num_,
                             (UINT)CONFIG::_properties.getInt("DUAL_VIEW_FULL_SCREEN1_WIDTH"),
                             (UINT)CONFIG::_properties.getInt("DUAL_VIEW_FULL_SCREEN1_HEIGHT")
@@ -339,8 +339,8 @@ void MenuBoardScreenConfig::onRise() {
     }
     if (num_adapter >= 2) {
         rezo2_num_ = paAdapterRezos[1].rezo_num;
-        GgafDx::God::RezoInfo* paRezos = paAdapterRezos[1].paRezoInfo;
-        rezo2_index_ = pGOD->checkAppropriateDisplaySize(
+        GgafDx::Caretaker::RezoInfo* paRezos = paAdapterRezos[1].paRezoInfo;
+        rezo2_index_ = pCARETAKER->checkAppropriateDisplaySize(
                             paRezos, rezo2_num_,
                             (UINT)CONFIG::_properties.getInt("DUAL_VIEW_FULL_SCREEN2_WIDTH"),
                             (UINT)CONFIG::_properties.getInt("DUAL_VIEW_FULL_SCREEN2_HEIGHT")
@@ -355,7 +355,7 @@ void MenuBoardScreenConfig::onRise() {
 void MenuBoardScreenConfig::processBehavior() {
     MenuBoard::processBehavior();
 
-    World* pWorld = pGOD->getSpacetime()->getWorld();
+    World* pWorld = pCARETAKER->getSpacetime()->getWorld();
     //キー入力、ボタン入力、反映
     VirtualButton* pVB = VB;
     int selected_index = getSelectedIndex();
@@ -433,16 +433,16 @@ void MenuBoardScreenConfig::processBehavior() {
             CONFIG::SWAP_GAME_VIEW = tmp_SWAP_GAME_VIEW;
 
             //実行中アプリへ即時反映できるものは反映
-            pGOD->chengeViewAspect(CONFIG::FIXED_GAME_VIEW_ASPECT);
+            pCARETAKER->chengeViewAspect(CONFIG::FIXED_GAME_VIEW_ASPECT);
             if (CONFIG::DUAL_VIEW) {
-                pGOD->chengeViewPos1(CONFIG::DUAL_VIEW_DRAW_POSITION1);
-                pGOD->chengeViewPos2(CONFIG::DUAL_VIEW_DRAW_POSITION2);
+                pCARETAKER->chengeViewPos1(CONFIG::DUAL_VIEW_DRAW_POSITION1);
+                pCARETAKER->chengeViewPos2(CONFIG::DUAL_VIEW_DRAW_POSITION2);
             } else {
-                pGOD->chengeViewPos1(CONFIG::SINGLE_VIEW_DRAW_POSITION);
+                pCARETAKER->chengeViewPos1(CONFIG::SINGLE_VIEW_DRAW_POSITION);
             }
 
             if (selected_index == ITEM_OK_REBOOT) { //さらにリブート
-                God::reboot(); //再起動！
+                Caretaker::reboot(); //再起動！
             } else {
                 sinkCurrentSubMenu();
                 sinkMe();
@@ -487,13 +487,13 @@ void MenuBoardScreenConfig::processBehavior() {
             selectItemBySubCursor(SUBCUR_FIXED_GAME_VIEW_ASPECT, VALUE_FIXED_GAME_VIEW_TRUE);
             CONFIG::_properties.setValue("FIXED_GAME_VIEW_ASPECT", true);
             if (!pWorld->need_reboot_) {
-                pGOD->chengeViewAspect(true);
+                pCARETAKER->chengeViewAspect(true);
             }
         } else if (pVB->isPushedDown(VB_UI_RIGHT)) {
             selectItemBySubCursor(SUBCUR_FIXED_GAME_VIEW_ASPECT, VALUE_FIXED_GAME_VIEW_FALSE);
             CONFIG::_properties.setValue("FIXED_GAME_VIEW_ASPECT", false);
             if (!pWorld->need_reboot_) {
-                pGOD->chengeViewAspect(false);
+                pCARETAKER->chengeViewAspect(false);
             }
         }
     } else if (selected_index == ITEM_SINGLE_VIEW_DRAW_POSITION) {
@@ -507,7 +507,7 @@ void MenuBoardScreenConfig::processBehavior() {
             selectItemBySubCursor(SUBCUR_SINGLE_VIEW_DRAW_POSITION, i);
             CONFIG::_properties.setValue("SINGLE_VIEW_DRAW_POSITION", i+1 - VALUE_POS_1);
             if (!pWorld->need_reboot_) {
-                pGOD->chengeViewPos1(i+1 - VALUE_POS_1);
+                pCARETAKER->chengeViewPos1(i+1 - VALUE_POS_1);
             }
         } else if (pVB->isAutoRepeat(VB_UI_LEFT)) {
             int i = getSelectedIndexOnSubCursor(SUBCUR_SINGLE_VIEW_DRAW_POSITION);
@@ -518,8 +518,8 @@ void MenuBoardScreenConfig::processBehavior() {
             }
             selectItemBySubCursor(SUBCUR_SINGLE_VIEW_DRAW_POSITION, i);
             CONFIG::_properties.setValue("SINGLE_VIEW_DRAW_POSITION", i+1 - VALUE_POS_1);
-            if (!pGOD->getSpacetime()->getWorld()->need_reboot_) {
-                pGOD->chengeViewPos1(i+1 - VALUE_POS_1);
+            if (!pCARETAKER->getSpacetime()->getWorld()->need_reboot_) {
+                pCARETAKER->chengeViewPos1(i+1 - VALUE_POS_1);
             }
         }
     } else if (selected_index == ITEM_DUAL_VIEW_DRAW_POSITION1) {
@@ -532,7 +532,7 @@ void MenuBoardScreenConfig::processBehavior() {
             }
             selectItemBySubCursor(SUBCUR_DUAL_VIEW_DRAW_POSITION1, i);
             CONFIG::_properties.setValue("DUAL_VIEW_DRAW_POSITION1", i+1 - VALUE_POS1_1);
-            pGOD->chengeViewPos1(i+1 - VALUE_POS1_1);
+            pCARETAKER->chengeViewPos1(i+1 - VALUE_POS1_1);
         } else if (pVB->isAutoRepeat(VB_UI_LEFT)) {
             int i = getSelectedIndexOnSubCursor(SUBCUR_DUAL_VIEW_DRAW_POSITION1);
             if (i == VALUE_POS1_1) {
@@ -542,7 +542,7 @@ void MenuBoardScreenConfig::processBehavior() {
             }
             selectItemBySubCursor(SUBCUR_DUAL_VIEW_DRAW_POSITION1, i);
             CONFIG::_properties.setValue("DUAL_VIEW_DRAW_POSITION1", i+1 - VALUE_POS1_1);
-            pGOD->chengeViewPos1(i+1 - VALUE_POS1_1);
+            pCARETAKER->chengeViewPos1(i+1 - VALUE_POS1_1);
         }
     } else if (selected_index == ITEM_DUAL_VIEW_DRAW_POSITION2) {
         if (pVB->isAutoRepeat(VB_UI_RIGHT)) {
@@ -554,7 +554,7 @@ void MenuBoardScreenConfig::processBehavior() {
             }
             selectItemBySubCursor(SUBCUR_DUAL_VIEW_DRAW_POSITION2, i);
             CONFIG::_properties.setValue("DUAL_VIEW_DRAW_POSITION1", i+1 - VALUE_POS2_1);
-            pGOD->chengeViewPos2(i+1 - VALUE_POS2_1);
+            pCARETAKER->chengeViewPos2(i+1 - VALUE_POS2_1);
         } else if (pVB->isAutoRepeat(VB_UI_LEFT)) {
             int i = getSelectedIndexOnSubCursor(SUBCUR_DUAL_VIEW_DRAW_POSITION2);
             if (i == VALUE_POS2_1) {
@@ -564,7 +564,7 @@ void MenuBoardScreenConfig::processBehavior() {
             }
             selectItemBySubCursor(SUBCUR_DUAL_VIEW_DRAW_POSITION2, i);
             CONFIG::_properties.setValue("DUAL_VIEW_DRAW_POSITION1", i+1 - VALUE_POS2_1);
-            pGOD->chengeViewPos2(i+1 - VALUE_POS2_1);
+            pCARETAKER->chengeViewPos2(i+1 - VALUE_POS2_1);
         }
     } else if (selected_index == ITEM_SINGLE_VIEW_FULL_SCREEN_RESOLUTION) {
         bool is_right = pVB->isAutoRepeat(VB_UI_RIGHT);
@@ -584,7 +584,7 @@ void MenuBoardScreenConfig::processBehavior() {
                 }
             }
             if (rezo_num_ > 0) {
-                GgafDx::God::AdapterRezos* paAdapterRezos = pGOD->_paAdapterRezos;
+                GgafDx::Caretaker::AdapterRezos* paAdapterRezos = pCARETAKER->_paAdapterRezos;
                 FontBoardActor* pLabelRezo  = (FontBoardActor*) getItem(VALUE_SINGLE_VIEW_FULL_SCREEN_RESOLUTION);
                 pLabelRezo->update(paAdapterRezos[0].paRezoInfo[rezo_index_].item_str.c_str());
                 CONFIG::_properties.setValue("SINGLE_VIEW_FULL_SCREEN_WIDTH" , paAdapterRezos[0].paRezoInfo[rezo_index_].width);
@@ -609,7 +609,7 @@ void MenuBoardScreenConfig::processBehavior() {
                 }
             }
             if (rezo1_num_ > 0) {
-                GgafDx::God::AdapterRezos* paAdapterRezos = pGOD->_paAdapterRezos;
+                GgafDx::Caretaker::AdapterRezos* paAdapterRezos = pCARETAKER->_paAdapterRezos;
                 FontBoardActor* pLabelRezo1  = (FontBoardActor*) getItem(VALUE_DUAL_VIEW_FULL_SCREEN1_RESOLUTION);
                 pLabelRezo1->update(paAdapterRezos[0].paRezoInfo[rezo1_index_].item_str.c_str());
                 CONFIG::_properties.setValue("DUAL_VIEW_FULL_SCREEN1_WIDTH" , paAdapterRezos[0].paRezoInfo[rezo1_index_].width);
@@ -634,7 +634,7 @@ void MenuBoardScreenConfig::processBehavior() {
                         rezo2_index_--;
                     }
                 }
-                GgafDx::God::AdapterRezos* paAdapterRezos = pGOD->_paAdapterRezos;
+                GgafDx::Caretaker::AdapterRezos* paAdapterRezos = pCARETAKER->_paAdapterRezos;
                 FontBoardActor* pLabelRezo2 = (FontBoardActor*) getItem(VALUE_DUAL_VIEW_FULL_SCREEN2_RESOLUTION);
                 pLabelRezo2->update(paAdapterRezos[1].paRezoInfo[rezo2_index_].item_str.c_str());
                 CONFIG::_properties.setValue("DUAL_VIEW_FULL_SCREEN2_WIDTH" , paAdapterRezos[1].paRezoInfo[rezo2_index_].width);
@@ -658,12 +658,12 @@ void MenuBoardScreenConfig::onDecision(GgafDx::FigureActor* prm_pItem, int prm_i
         CONFIG::DUAL_VIEW_DRAW_POSITION1  = in_DUAL_VIEW_DRAW_POSITION1_ ;
         CONFIG::DUAL_VIEW_DRAW_POSITION2  = in_DUAL_VIEW_DRAW_POSITION2_ ;
         CONFIG::SINGLE_VIEW_DRAW_POSITION = in_SINGLE_VIEW_DRAW_POSITION_;
-        pGOD->chengeViewAspect(CONFIG::FIXED_GAME_VIEW_ASPECT);
+        pCARETAKER->chengeViewAspect(CONFIG::FIXED_GAME_VIEW_ASPECT);
         if (CONFIG::DUAL_VIEW) {
-            pGOD->chengeViewPos1(CONFIG::DUAL_VIEW_DRAW_POSITION1);
-            pGOD->chengeViewPos2(CONFIG::DUAL_VIEW_DRAW_POSITION2);
+            pCARETAKER->chengeViewPos1(CONFIG::DUAL_VIEW_DRAW_POSITION1);
+            pCARETAKER->chengeViewPos2(CONFIG::DUAL_VIEW_DRAW_POSITION2);
         } else {
-            pGOD->chengeViewPos1(CONFIG::SINGLE_VIEW_DRAW_POSITION);
+            pCARETAKER->chengeViewPos1(CONFIG::SINGLE_VIEW_DRAW_POSITION);
         }
         sinkMe();
     } else if (prm_item_index == ITEM_OK) { //保存のOK

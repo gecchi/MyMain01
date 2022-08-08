@@ -1,6 +1,6 @@
 #include "jp/ggaf/lib/actor/ColliAAPrismActor.h"
 
-#include "jp/ggaf/core/God.h"
+#include "jp/ggaf/core/Caretaker.h"
 #include "jp/ggaf/dx/effect/Effect.h"
 #include "jp/ggaf/dx/util/CollisionArea.h"
 #include "jp/ggaf/dx/util/CollisionPart.h"
@@ -56,7 +56,7 @@ void ColliAAPrismActor::drawHitarea(CollisionChecker* prm_pColliChecker) {
                                   prism->_pos_info); //TODO:prism->_pos_info が 0 で pos2r[pos_info]._ry がおかしな値で落ちる
                     }
 #ifdef MY_DEBUG
-                    GgafCore::God::_num_drawing--; //当たり判定表示は表示オブジェクト数にカウントしない
+                    GgafCore::Caretaker::_num_drawing--; //当たり判定表示は表示オブジェクト数にカウントしない
 #endif
                 }
             }

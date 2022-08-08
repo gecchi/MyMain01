@@ -1,6 +1,6 @@
 #include "jp/ggaf/core/exception/Exception.h"
 
-#include "jp/ggaf/core/God.h"
+#include "jp/ggaf/core/Caretaker.h"
 
 using namespace GgafCore;
 
@@ -10,7 +10,7 @@ Exception::Exception(std::string prm_message) : Object() {
     _TRACE_("通常例外発生！ Exception::Exception "<<prm_message);
     timeEndPeriod(1);
     MessageBox(nullptr, message_dialog.c_str(), "不本意な事態", MB_OK|MB_ICONQUESTION|MB_SETFOREGROUND|MB_TOPMOST);
-    God::_pGod->oops(); //しまった～！
+    Caretaker::_pCaretaker->oops(); //しまった～！
 }
 
 std::string Exception::getMsg() {

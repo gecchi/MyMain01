@@ -7,7 +7,7 @@
 #include "jp/ggaf/core/util/LinearOctree.h"
 #include "jp/ggaf/core/util/LinearTreeRounder.hpp"
 #include "jp/gecchi/VioletVreath/actor/menu/pause/MenuBoardPause.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/util/MyStgUtil.h"
 #include "PreDrawScene.h"
 #include "GameScene/CommonScene.h"
@@ -62,12 +62,12 @@ pStageWorld_(nullptr) {
 
 void GameScene::initialize() {
     _TRACE_(FUNC_NAME<<" いきますよDemoSceneさん");
-    pHitCheckRounder_ = pGOD->getSpacetime()->getLinearOctreeHitCheckRounder();
+    pHitCheckRounder_ = pCARETAKER->getSpacetime()->getLinearOctreeHitCheckRounder();
 }
 
 void GameScene::onReset() {
     VB_UI->clear();
-    pGOD->setVB(VB_UI);
+    pCARETAKER->setVB(VB_UI);
     DefaultScene* pChildScene;
     ScenePhase* pPhase = getPhase();
     for (PhaseSceneMap::const_iterator it = pPhase->_mapPhase2Scene.begin(); it != pPhase->_mapPhase2Scene.end(); ++it) {
@@ -78,7 +78,7 @@ void GameScene::onReset() {
             pChildScene->inactivate();
         }
     }
-    pGOD->getSpacetime()->getCameraWorkerChanger()->cleanCamWorker();
+    pCARETAKER->getSpacetime()->getCameraWorkerChanger()->cleanCamWorker();
     G_RANK = 0.0;
     G_RANKUP_LEVEL = 0;
     G_SCORE = 0;
@@ -89,14 +89,14 @@ void GameScene::onActive() {
 }
 
 void GameScene::processBehavior() {
-    Spacetime* pSpacetime = pGOD->getSpacetime();
+    Spacetime* pSpacetime = pCARETAKER->getSpacetime();
 #ifdef MY_DEBUG
     //ワイヤフレーム表示切替
     if (VB->isPushedDown(VB_UI_DEBUG) || GgafDx::Input::isPushedDownKey(DIK_Q)) {
-        if (pGOD->_d3dfillmode == D3DFILL_WIREFRAME) {
-            pGOD->_d3dfillmode = D3DFILL_SOLID;
+        if (pCARETAKER->_d3dfillmode == D3DFILL_WIREFRAME) {
+            pCARETAKER->_d3dfillmode = D3DFILL_SOLID;
         } else {
-            pGOD->_d3dfillmode = D3DFILL_WIREFRAME;
+            pCARETAKER->_d3dfillmode = D3DFILL_WIREFRAME;
         }
     }
 #endif
@@ -105,7 +105,7 @@ void GameScene::processBehavior() {
         case PHASE_MAIN: {
             _TRACE_(FUNC_NAME<<" Phase has Just Changed 'From' PHASE_MAIN");
             VB_UI->clear();
-            pGOD->setVB(VB_UI);  //元に戻す
+            pCARETAKER->setVB(VB_UI);  //元に戻す
             break;
         }
 
@@ -118,9 +118,9 @@ void GameScene::processBehavior() {
     switch (pPhase->getCurrent()) {
         case PHASE_INIT: {
 //            _TRACE_(FUNC_NAME<<" Phase(=PHASE_INIT) has Just Changed");
-            //pGOD->syncTimeFrame(); //描画を中止して、フレームと時間の同期を行う
+            //pCARETAKER->syncTimeFrame(); //描画を中止して、フレームと時間の同期を行う
             if ((pPhase->hasArrivedFrameAt(120))) {
-                _TRACE_("pGOD->_fps = "<<pGOD->_fps);
+                _TRACE_("pCARETAKER->_fps = "<<pCARETAKER->_fps);
                 pPhase->changeWithSceneCrossfading(PHASE_PRE_TITLE);
                 getBgmConductor()->stop();
             }
@@ -179,7 +179,7 @@ void GameScene::processBehavior() {
             if (pPhase->hasJustChanged()) {
                 _TRACE_(FUNC_NAME<<" Phase has Just Changed (to PHASE_MAIN)");
                 VB_PLAY->clear();
-                pGOD->setVB(VB_PLAY); //プレイ用に変更
+                pCARETAKER->setVB(VB_PLAY); //プレイ用に変更
             }
 
             //今ポーズではない時
@@ -224,7 +224,7 @@ void GameScene::processBehavior() {
                     //ポーズ時に、ポーズキーを押して離した場合の処理
                     //ポーズ解除時直後の初期処理はココへ
                     _TRACE_("UNPAUSE!");
-                    pGOD->setVB(VB_PLAY);
+                    pCARETAKER->setVB(VB_PLAY);
                     pPhase->getGazedScene()->unpause();//ポーズ解除！！
                 }
             }
@@ -281,16 +281,16 @@ void GameScene::processBehavior() {
 
 void GameScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
 //    switch (prm_no) {
-//        case EVENT_GOD_WILL_DEMISE:
+//        case EVENT_CARETAKER_WILL_DEMISE:
 //
 //            break;
 //        default:
 //            break;
 //    }
     ScenePhase* pPhase = getPhase();
-    if (prm_no == EVENT_GOD_WILL_DEMISE) {
-        _TRACE_("GameScene::onCatchEvent(EVENT_GOD_WILL_DEMISE) CommonSceneを拾い上げて後に解放されるようにします。");
-        //神が死んでしまう前に
+    if (prm_no == EVENT_CARETAKER_WILL_DEMISE) {
+        _TRACE_("GameScene::onCatchEvent(EVENT_CARETAKER_WILL_DEMISE) CommonSceneを拾い上げて後に解放されるようにします。");
+        //管理者が死んでしまう前に
         //CommonSceneを拾い上げ、解放順序が後になるように操作する。(共有デポジトリとかあるし)
         appendChild(pMYSHIP_SCENE->extract());
         appendChild(pCOMMON_SCENE->extract());
@@ -339,7 +339,7 @@ void GameScene::onCatchEvent(hashval prm_no, void* prm_pSource) {
     } else if (prm_no == EVENT_GO_TO_TITLE) {
         _TRACE_("GameScene::onCatchEvent(EVENT_GO_TO_TITLE)");
         _TRACE_("UNPAUSE!(because EVENT_GO_TO_TITLE)");
-        pGOD->setVB(VB_PLAY);
+        pCARETAKER->setVB(VB_PLAY);
         pPhase->getGazedScene()->unpause();//ポーズ解除！！
         pPhase->change(PHASE_FINISH);
     }
@@ -359,7 +359,7 @@ void GameScene::processJudgement() {
         OctreeRounder* pHitCheckRounder = pHitCheckRounder_;
 #ifdef MY_DEBUG
         if (GgafDx::Input::isPushedDownKey(DIK_I)) {
-            pGOD->getSpacetime()->getLinearOctree()->putTree();
+            pCARETAKER->getSpacetime()->getLinearOctree()->putTree();
         }
 #endif
         //八分木アルゴリズムでヒットチェック
@@ -383,7 +383,7 @@ void GameScene::processJudgement() {
 void GameScene::pauseGame() {
     is_frame_advance_ = false;
     _TRACE_("PAUSE!");
-    pGOD->setVB(VB_UI);  //入力はＵＩに切り替え
+    pCARETAKER->setVB(VB_UI);  //入力はＵＩに切り替え
     getPhase()->getGazedScene()->pause(); //ポーズ！！
     pMenuBoardPause_->rise(PX_C(100), PX_C(20));
 }

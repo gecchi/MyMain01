@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/core/actor/SceneMediator.h"
 #include "jp/ggaf/lib/scene/FormationTableScene.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/actor/VVEnemysHeader.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/CommonScene.h"
 #include "Stage01PartWall/Stage01PartWallSection001.h"
@@ -47,7 +47,7 @@ Stage01PartWall::Stage01PartWall(const char* prm_name) :
 //    //\’z
 //    buildWallScene(
 //        wall_dep*scale_r, wall_width*scale_r, wall_height*scale_r,
-//        pGOD->getSpacetime()->_x_bound_right,
+//        pCARETAKER->getSpacetime()->_x_bound_right,
 //        (WallSectionScene**)&apSection, 8,
 //        pDepo_wall
 //    );
@@ -61,7 +61,7 @@ Stage01PartWall::Stage01PartWall(const char* prm_name) :
     //\’z
     buildWallScene(
         wall_dep*scale_r, wall_width*scale_r, wall_height*scale_r,
-        pGOD->getSpacetime()->_x_bound_right,
+        pCARETAKER->getSpacetime()->_x_bound_right,
         (WallSectionScene**)&apSection, 4,
         pDepo_wall
     );

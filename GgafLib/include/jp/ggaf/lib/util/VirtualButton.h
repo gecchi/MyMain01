@@ -404,7 +404,7 @@ public:
 
     static bool isPressedVirtualJoyButton(vbj prm_VBJ);
 
-    static int getPushedDownVirtualJoyButton();
+    static int getFirstPushedDownVirtualJoyButton();
 
     /**
      * 仮想ボタンの割り当てを変更（キーボード＆ジョイスティック） .
@@ -430,7 +430,7 @@ public:
     /**     * 過去の入力状態を取得 .     * @param prm_frame_ago 現在より何フレーム過去かを指定     * @return 過去の入力状態     */    VirtualButton::VBRecord* getPastVBRecord(frame prm_frame_ago) const;
 
     /**
-     * 現在ボタンが押されているか判定 .
+     * 現在ボタンが押されているか判定(押されている間成立する) .
      * @param prm_VB 判定対象仮想ボタン定数。VB_ で始まる定数(の論理和)
      * @retval 0   引数のボタンはいずれも押されていない(=false)
      * @retval >0  引数のボタンの内、現在押されているボタンの VB_ で始まる定数(の論理和)
@@ -456,18 +456,44 @@ public:
     }
 
     /**
-     * 過去にボタンが押されていたかどうか判定 .
+     * 過去フレームでボタンが押されていたかどうか判定 .
      * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
      * @param prm_frame_ago 何フレーム前(>0)を判定するのか指定。
      * 1 で 1フレーム前、2 で 2フレーム前、0 は isPressed(vb_sta) と同じ意味になる。
      * 最大 (VB_MAP_BUFFER-1) フレーム前まで可
-     * @retval 0   過去に、引数のボタンはいずれも押されていなかった(=false)
+     * @retval 0   isPressed() と同じ
      * @retval >0  引数のボタンの内、過去に押されていたボタンの VB_ で始まる定数(の論理和)
      */
     vb_sta wasPressed(vb_sta prm_VB, frame prm_frame_ago) const;
 
     /**
-     * 過去にボタンが押されていなかったのかどうか判定 .
+     * 現在と過去フレームの機関で、ずっとボタンが押されていたかどうか判定 .
+     * @param prm_VB  prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
+     * @param prm_frame_ago 何フレーム前までの期間を判定するのか指定。
+     * 1 で 現在と1フレーム前、2 で 現在と2フレーム前、0 は isPressed(vb_sta) と同じ意味になる。
+     * @return true：現在とprm_frame_agoの期間ずっと押しっぱなしだった／false：それ以外（少なくとも１フレーム押されていない瞬間あり）
+     */
+    vb_sta hasBeenPressed(vb_sta prm_VB, frame prm_frame_ago) const;
+
+
+//    /**
+//     * 過去フレーム範囲でボタンが少なくとも１回は押されていたかどうか判定 .
+//     * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
+//     * @param prm_frame_ago 何フレーム前(>0)までの範囲を判定するのか指定。
+//     * 1 で 1フレーム前、2 で 1～2フレーム前、3 で 1～3フレーム前 という範囲を調べる。
+//     * 最大 (VB_MAP_BUFFER-1) フレーム前まで可
+//     * @retval 0   isPressed() と同じ
+//     * @retval >0  引数のボタンの内、過去フレーム範囲で最初に成立したボタンの VB_ で始まる定数(の論理和)
+//     * @return
+//     */
+//    vb_sta wasPressedAtLeastOnce(vb_sta prm_VB, frame prm_frame_ago) const;
+//
+//
+//    vb_sta wasReleasedUpAtLeastOnce(vb_sta prm_VB, frame prm_frame_ago) const;
+
+
+    /**
+     * 過去フレームで押されていなかったのかどうか判定 .
      * wasPressed(vb_sta, frame) の否定の結果が返る。
      * @param prm_VB 判定対象仮想ボタン。VB_ で始まる定数(の論理和)
      * @param prm_frame_ago 何フレーム前(>0)を判定するのか指定。
@@ -565,51 +591,51 @@ public:
      * @param prm_num_button 配列の要素数
      * @return true / false
      */
-    bool arePushedDownAtOnce(vb_sta prm_aVB[], int prm_num_button) const;
+    bool arePushedDownAtOnce(vb_sta prm_aVB[], int prm_num_button, int delay=2) const;
 
     /**
-     * ３フレ猶予の２つボタン同時押し判定 .
+     * 2フレ猶予の２つボタン同時押し判定 .
      * @param prm_VB1 判定対象仮想ボタン１
      * @param prm_VB2 判定対象仮想ボタン２
      * @return true / false
      */
-    bool arePushedDownAtOnce(vb_sta prm_VB1, vb_sta prm_VB2) const {
+    bool arePushedDownAtOnce(vb_sta prm_VB1, vb_sta prm_VB2, int delay=2) const {
         vb_sta vb[2];
         vb[0] = prm_VB1;
         vb[1] = prm_VB2;
-        return arePushedDownAtOnce(vb, 2);
+        return arePushedDownAtOnce(vb, 2, delay);
     }
 
     /**
-     * ３フレ猶予の３つボタン同時押し判定 .
+     * 2フレ猶予の３つボタン同時押し判定 .
      * @param prm_VB1 判定対象仮想ボタン１
      * @param prm_VB2 判定対象仮想ボタン２
      * @param prm_VB3 判定対象仮想ボタン３
      * @return true / false
      */
-    bool arePushedDownAtOnce(vb_sta prm_VB1, vb_sta prm_VB2, vb_sta prm_VB3) const {
+    bool arePushedDownAtOnce(vb_sta prm_VB1, vb_sta prm_VB2, vb_sta prm_VB3, int delay=2) const {
         vb_sta vb[3];
         vb[0] = prm_VB1;
         vb[1] = prm_VB2;
         vb[2] = prm_VB3;
-        return arePushedDownAtOnce(vb, 3);
+        return arePushedDownAtOnce(vb, 3, delay);
     }
 
     /**
-     * ３フレ猶予の４つボタン同時押し判定 .
+     * 2フレ猶予の４つボタン同時押し判定 .
      * @param prm_VB1 判定対象仮想ボタン１
      * @param prm_VB2 判定対象仮想ボタン２
      * @param prm_VB3 判定対象仮想ボタン３
      * @param prm_VB4 判定対象仮想ボタン４
      * @return true / false
      */
-    bool arePushedDownAtOnce(vb_sta prm_VB1, vb_sta prm_VB2, vb_sta prm_VB3, vb_sta prm_VB4) const {
+    bool arePushedDownAtOnce(vb_sta prm_VB1, vb_sta prm_VB2, vb_sta prm_VB3, vb_sta prm_VB4, int delay=2) const {
         vb_sta vb[4];
         vb[0] = prm_VB1;
         vb[1] = prm_VB2;
         vb[2] = prm_VB3;
         vb[3] = prm_VB4;
-        return arePushedDownAtOnce(vb, 4);
+        return arePushedDownAtOnce(vb, 4, delay);
     }
 
     /**

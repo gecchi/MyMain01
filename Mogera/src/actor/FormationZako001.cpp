@@ -5,7 +5,7 @@
 #include "jp/ggaf/dx/util/curve/CurveManufacture.h"
 #include "jp/ggaf/dx/util/curve/CurveSource.h"
 
-#include "MgrGod.h"
+#include "MgrCaretaker.h"
 #include "Zako.h"
 
 using namespace GgafDx;

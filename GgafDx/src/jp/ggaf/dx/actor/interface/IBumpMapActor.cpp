@@ -3,7 +3,7 @@
 #include "jp/ggaf/dx/manager/TextureManager.h"
 #include "jp/ggaf/dx/manager/TextureConnection.h"
 #include "jp/ggaf/dx/texture/Texture.h"
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 
 using namespace GgafDx;
 
@@ -17,12 +17,12 @@ void IBumpMapActor::setBumpMapTexture(const char* prm_bumpmap_tex) {
     if (_pBumpMapTextureConnection) {
         _pBumpMapTextureConnection->close();
     }
-    _pBumpMapTextureConnection = (TextureConnection*)(pGOD->_pBumpMapTextureManager->connect(_bumpmap_tex,this));
+    _pBumpMapTextureConnection = (TextureConnection*)(pCARETAKER->_pBumpMapTextureManager->connect(_bumpmap_tex,this));
 }
 
 IDirect3DBaseTexture9* IBumpMapActor::getBumpMapTexture() {
     if (!_pBumpMapTextureConnection) {
-        _pBumpMapTextureConnection = (TextureConnection*)(pGOD->_pBumpMapTextureManager->connect("alpha_zero_cubemap.dds",this));
+        _pBumpMapTextureConnection = (TextureConnection*)(pCARETAKER->_pBumpMapTextureManager->connect("alpha_zero_cubemap.dds",this));
     }
     return _pBumpMapTextureConnection->peek()->_pIDirect3DBaseTexture9;
 }

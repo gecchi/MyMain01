@@ -86,16 +86,16 @@ void SceneMediator::updateActiveInTheTree() {
     }
 }
 
-God* SceneMediator::askGod() {
-    if (_pGod == nullptr) {
+Caretaker* SceneMediator::askCaretaker() {
+    if (_pCaretaker == nullptr) {
 #ifdef MY_DEBUG
         if (getPlatformScene() == nullptr) {
-            throwCriticalException("神はこの世に存在する物からのみ謁見できます。まずはこの世に属しなさい！！("<<getName()<<")");
+            throwCriticalException("管理者はこの世に存在する物からのみ謁見できます。まずはこの世に属しなさい！！("<<getName()<<")");
         }
 #endif
-        _pGod = getPlatformScene()->askGod();
+        _pCaretaker = getPlatformScene()->askCaretaker();
     }
-    return _pGod;
+    return _pCaretaker;
 }
 
 Actor* SceneMediator::search(hashval prm_name_hash) {

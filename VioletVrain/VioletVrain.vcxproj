@@ -233,7 +233,7 @@
     <ClCompile Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime\World.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime\World\TrialAndErrScene.cpp" />
     <ClCompile Include="src\jp\gecchi\VioletVrain\util\VvUtil.cpp" />
-    <ClCompile Include="src\jp\gecchi\VioletVrain\VvGod.cpp" />
+    <ClCompile Include="src\jp\gecchi\VioletVrain\VvCaretaker.cpp" />
     <ClCompile Include="src\VioletVrain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -254,7 +254,7 @@
     <ClInclude Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime\World.h" />
     <ClInclude Include="src\jp\gecchi\VioletVrain\scene\VvSpacetime\World\TrialAndErrScene.h" />
     <ClInclude Include="src\jp\gecchi\VioletVrain\util\VvUtil.h" />
-    <ClInclude Include="src\jp\gecchi\VioletVrain\VvGod.h" />
+    <ClInclude Include="src\jp\gecchi\VioletVrain\VvCaretaker.h" />
     <ClInclude Include="src\VioletVrain.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

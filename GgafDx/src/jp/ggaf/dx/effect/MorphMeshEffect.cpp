@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/effect/MorphMeshEffect.h"
 
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 
@@ -9,8 +9,8 @@ using namespace GgafDx;
 
 MorphMeshEffect::MorphMeshEffect(const char* prm_effect_name) : Effect(prm_effect_name) {
     _obj_effect |= Obj_GgafDx_MorphMeshEffect;
-    Camera* const pCam = pGOD->getSpacetime()->getCamera();
-    D3DLIGHT9* pLight = &(pGOD->_d3dlight9_default);
+    Camera* const pCam = pCARETAKER->getSpacetime()->getCamera();
+    D3DLIGHT9* pLight = &(pCARETAKER->_d3dlight9_default);
     //シェーダー共通のグローバル変数設定
     HRESULT hr;
     //射影変換行列
@@ -54,7 +54,7 @@ MorphMeshEffect::MorphMeshEffect(const char* prm_effect_name) : Effect(prm_effec
 }
 
 void MorphMeshEffect::setParamPerFrame() {
-    Camera* const pCam = pGOD->getSpacetime()->getCamera();
+    Camera* const pCam = pCARETAKER->getSpacetime()->getCamera();
     HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, pCam->getViewMatrix() );
     checkDxException(hr, D3D_OK, "SetMatrix(_h_matView) に失敗しました。");
     hr = _pID3DXEffect->SetValue(_h_posCam, pCam->getVecCamFromPoint(), sizeof(D3DXVECTOR3) );

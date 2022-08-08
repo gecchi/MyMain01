@@ -5,7 +5,7 @@
 #include "jp/ggaf/dx/model/Model.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/dx/util/curve/VehicleLeader.h"
-#include "MgrGod.h"
+#include "MgrCaretaker.h"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
 #include "jp/ggaf/dx/actor/supporter/Scaler.h"
 #include "scene/MgrSpacetime/MgrWorld/ParallelCurveTestScene.h"

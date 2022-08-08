@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/effect/PointSpriteEffect.h"
 
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
 
@@ -9,7 +9,7 @@ using namespace GgafDx;
 
 PointSpriteEffect::PointSpriteEffect(const char* prm_effect_name) : Effect(prm_effect_name) {
     _obj_effect |= Obj_GgafDx_PointSpriteEffect;
-    Camera* const pCam = pGOD->getSpacetime()->getCamera();
+    Camera* const pCam = pCARETAKER->getSpacetime()->getCamera();
     //シェーダー共通のグローバル変数設定
     HRESULT hr;
     hr = _pID3DXEffect->SetMatrix("g_matProj", pCam->getProjectionMatrix() );
@@ -32,7 +32,7 @@ PointSpriteEffect::PointSpriteEffect(const char* prm_effect_name) : Effect(prm_e
 }
 
 void PointSpriteEffect::setParamPerFrame() {
-    Camera* const pCam = pGOD->getSpacetime()->getCamera();
+    Camera* const pCam = pCARETAKER->getSpacetime()->getCamera();
     HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, pCam->getViewMatrix() );
     checkDxException(hr, D3D_OK, "setParamPerFrame SetMatrix(_h_matView) に失敗しました。");
 }

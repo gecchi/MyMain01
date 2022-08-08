@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/util/curve/CurveManufacture.h"
 
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/util/curve/CurveSource.h"
 #include "jp/ggaf/dx/manager/CurveSourceConnection.h"
 #include "jp/ggaf/dx/manager/CurveSourceManager.h"

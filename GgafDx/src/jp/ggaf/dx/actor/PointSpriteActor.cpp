@@ -1,7 +1,7 @@
 #include "jp/ggaf/dx/actor/PointSpriteActor.h"
 
 #include "jp/ggaf/dx/exception/CriticalException.h"
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/util/Util.h"
 #include "jp/ggaf/dx/effect/PointSpriteEffect.h"
 #include "jp/ggaf/dx/model/PointSpriteModel.h"
@@ -78,11 +78,11 @@ void PointSpriteActor::processDraw() {
     hr = pID3DXEffect->SetInt(_pPointSpriteEffect->_hUvFlipPtnNo, _pUvFlipper->_pattno_uvflip_now);
     checkDxException(hr, D3D_OK, "SetInt(_hUvFlipPtnNo) に失敗しました。");
     //ポイントスプライトON
-    pGOD->_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, TRUE);
+    pCARETAKER->_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, TRUE);
     //スケールはシェーダー内で独自計算
     _pPointSpriteModel->PointSpriteModel::draw(this);
     //ポイントスプライトOFF
-    pGOD->_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, FALSE);
+    pCARETAKER->_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, FALSE);
 }
 
 PointSpriteActor::~PointSpriteActor() {

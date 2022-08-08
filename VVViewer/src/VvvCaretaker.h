@@ -1,22 +1,22 @@
-#ifndef VVVGOD_H_
-#define VVVGOD_H_
+#ifndef VVVCARETAKER_H_
+#define VVVCARETAKER_H_
 #include "VVViewer.h"
-#include "jp/ggaf/lib/DefaultGod.h"
+#include "jp/ggaf/lib/DefaultCaretaker.h"
 
 #include "scene/VvvSpacetime.h"
 
-#undef pGOD
-#define pGOD ((VVViewer::VvvGod*)GgafCore::God::ask())
+#undef pCARETAKER
+#define pCARETAKER ((VVViewer::VvvCaretaker*)GgafCore::Caretaker::ask())
 
 namespace VVViewer {
 
 /**
- * VVViewer神 .
+ * VVViewer管理者 .
  * @version 1.00
  * @since 2012/06/05
  * @author Masatoshi Tsuge
  */
-class VvvGod : public GgafLib::DefaultGod {
+class VvvCaretaker : public GgafLib::DefaultCaretaker {
 
 public:
     static bool is_wm_dropfiles_;
@@ -26,11 +26,11 @@ public:
     /**
      * コンストラクタ .
      */
-    VvvGod();
+    VvvCaretaker();
 
     /**
      * この世生成方法の実装 .
-     * 神クラスを作成するには、「この世」の生成方法を実装する必要があります。
+     * 管理者クラスを作成するには、「この世」の生成方法を実装する必要があります。
      * @return 生成した「この世」
      */
     GgafCore::Spacetime* createSpacetime() override;
@@ -39,8 +39,8 @@ public:
         return (VvvSpacetime*)_pSpacetime;
     }
 
-    virtual ~VvvGod();
+    virtual ~VvvCaretaker();
 };
 
 }
-#endif /*VVVGOD_H_*/
+#endif /*VVVCARETAKER_H_*/

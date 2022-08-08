@@ -8,15 +8,15 @@
 
 //その他のヘッダファイルはこの様に記述
 
-#undef P_GOD
-#define P_GOD ((Hogera::HgrGod*)Hogera::HgrGod::_pGod)
+#undef P_CARETAKER
+#define P_CARETAKER ((Hogera::HgrCaretaker*)Hogera::HgrCaretaker::_pCaretaker)
 
 #define HGR_MIKATA (0x01U)
 #define HGR_TEKI   (0x10U)
 
 //前方宣言
 namespace Hogera {
-class HgrGod;
+class HgrCaretaker;
 class HgrSpacetime;
 class HgrWorld;
 class TrialAndErrScene;

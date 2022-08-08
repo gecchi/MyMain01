@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/model/ex/CubeMapMorphMeshModel.h"
 
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/dx/manager/ModelManager.h"
 #include "jp/ggaf/dx/effect/ex/CubeMapMorphMeshEffect.h"
@@ -22,7 +22,7 @@ CubeMapMorphMeshModel::CubeMapMorphMeshModel(const char* prm_model_id) : MorphMe
 
 HRESULT CubeMapMorphMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, void* prm_pPrm) {
     _TRACE4_("CubeMapMorphMeshModel::draw("<<prm_pActor_target->getName()<<") this="<<getName());
-    IDirect3DDevice9* pDevice = pGOD->_pID3DDevice9;
+    IDirect3DDevice9* pDevice = pCARETAKER->_pID3DDevice9;
     //対象アクター
     CubeMapMorphMeshActor* pTargetActor = (CubeMapMorphMeshActor*)prm_pActor_target;
     //対象アクターのエフェクトラッパ
@@ -128,7 +128,7 @@ HRESULT CubeMapMorphMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw
                                       _paIndexParam[i].StartIndex,
                                       _paIndexParam[i].PrimitiveCount);
 #ifdef MY_DEBUG
-        GgafCore::God::_num_drawing++;
+        GgafCore::Caretaker::_num_drawing++;
 #endif
     }
     ModelManager::_pModelLastDraw = this;

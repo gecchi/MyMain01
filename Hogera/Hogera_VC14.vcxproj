@@ -335,7 +335,7 @@
     <ClCompile Include="src\actor\camera\HgrCamera.cpp" />
     <ClCompile Include="src\actor\Jiki.cpp" />
     <ClCompile Include="src\actor\Test01.cpp" />
-    <ClCompile Include="src\HgrGod.cpp" />
+    <ClCompile Include="src\HgrCaretaker.cpp" />
     <ClCompile Include="src\Hogera.cpp" />
     <ClCompile Include="src\scene\HgrSpacetime.cpp" />
     <ClCompile Include="src\scene\HgrSpacetime\HgrWorld.cpp" />
@@ -346,7 +346,7 @@
     <ClInclude Include="src\actor\camera\HgrCamera.h" />
     <ClInclude Include="src\actor\Jiki.h" />
     <ClInclude Include="src\actor\Test01.h" />
-    <ClInclude Include="src\HgrGod.h" />
+    <ClInclude Include="src\HgrCaretaker.h" />
     <ClInclude Include="src\Hogera.h" />
     <ClInclude Include="src\scene\HgrSpacetime.h" />
     <ClInclude Include="src\scene\HgrSpacetime\HgrWorld.h" />

@@ -10,7 +10,7 @@
 #include "jp/ggaf/lib/actor/DefaultGeometricActor.h"
 #include "jp/ggaf/dx/util/Input.h"
 #include "actor/BoardTest.h"
-#include "MgrGod.h"
+#include "MgrCaretaker.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
 
 
@@ -43,7 +43,7 @@ void BoardTest::onActive() {
 }
 
 void BoardTest::processBehavior() {
-    VirtualButton* pVb = P_GOD->getSpacetime()->pVb_;
+    VirtualButton* pVb = P_CARETAKER->getSpacetime()->pVb_;
     if (GgafDx::Input::isPressedKey(DIK_A)) {
         addWidth(-PX_C(1));
     }

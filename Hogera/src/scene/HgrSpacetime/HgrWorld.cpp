@@ -4,7 +4,7 @@
 #include "jp/ggaf/dx/util/Input.h"
 #include "scene/HgrSpacetime/HgrWorld/TrialAndErrScene.h"
 #include "scene/HgrSpacetime.h"
-#include "HgrGod.h"
+#include "HgrCaretaker.h"
 
 
 
@@ -20,7 +20,7 @@ HgrWorld::HgrWorld(const char* prm_name) : GgafLib::DefaultScene(prm_name) {
     vb_.remapK(VB_UI_DEBUG, VBK_Q);
 
     pTrialAndErrScene_ = nullptr;
-    pHitCheckRounder_  = P_GOD->getSpacetime()->getLinearQuadtreeHitCheckRounder();
+    pHitCheckRounder_  = P_CARETAKER->getSpacetime()->getLinearQuadtreeHitCheckRounder();
 }
 
 void HgrWorld::initialize() {
@@ -36,7 +36,7 @@ void HgrWorld::processJudgement() {
     //当たり判定チェック
     if (GgafDx::Input::isPushedDownKey(DIK_I)) {
         _TRACE_("----------------------------------");
-        P_GOD->getSpacetime()->getLinearQuadtree()->putTree();
+        P_CARETAKER->getSpacetime()->getLinearQuadtree()->putTree();
         _TRACE_("----------------------------------");
     }
     pHitCheckRounder_->executeAll(HGR_MIKATA, HGR_TEKI);

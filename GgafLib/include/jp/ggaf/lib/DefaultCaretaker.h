@@ -1,7 +1,7 @@
-#ifndef GGAF_LIB_DEFAULTGOD_H_
-#define GGAF_LIB_DEFAULTGOD_H_
+#ifndef GGAF_LIB_DEFAULTCARETAKER_H_
+#define GGAF_LIB_DEFAULTCARETAKER_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 
 #include "jp/ggaf/dx/manager/CurveSourceManager.h"
 #include "jp/ggaf/dx/manager/CurveSourceConnection.h"
@@ -11,14 +11,14 @@
 #include "jp/ggaf/lib/manager/DefaultModelManager.h"
 #include "jp/ggaf/lib/scene/DefaultSpacetime.h"
 
-#undef pGOD
-#define pGOD ((GgafLib::DefaultGod*)GgafCore::God::ask())
+#undef pCARETAKER
+#define pCARETAKER ((GgafLib::DefaultCaretaker*)GgafCore::Caretaker::ask())
 
 namespace GgafLib {
-class DefaultGod : public GgafDx::God {
+class DefaultCaretaker : public GgafDx::Caretaker {
 
 public:
-    DefaultGod();
+    DefaultCaretaker();
     virtual HRESULT initDevice() override;
 
     virtual DefaultSpacetime* getSpacetime() override {  //‹¤•Ï‚Ì–ß‚è’l
@@ -28,8 +28,8 @@ public:
     virtual void clean() override;
     virtual DefaultEffectManager* createEffectManager() override;  //‹¤•Ï‚Ì–ß‚è’l
     virtual DefaultModelManager* createModelManager() override;  //‹¤•Ï‚Ì–ß‚è’l
-    virtual ~DefaultGod();
+    virtual ~DefaultCaretaker();
 };
 
 }
-#endif /*GGAF_LIB_DEFAULTGOD_H_*/
+#endif /*GGAF_LIB_DEFAULTCARETAKER_H_*/

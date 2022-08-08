@@ -6,7 +6,7 @@
 #include "jp/ggaf/dx/util/Input.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
 #include "jp/ggaf/lib/util/StgUtil.h"
-#include "HgrGod.h"
+#include "HgrCaretaker.h"
 
 
 

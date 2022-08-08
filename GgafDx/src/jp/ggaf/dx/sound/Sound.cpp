@@ -2,7 +2,7 @@
 
 #include "jp/ggaf/core/exception/CriticalException.h"
 #include "jp/ggaf/dx/Config.h"
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/manager/BgmManager.h"
 #include "jp/ggaf/dx/manager/SeManager.h"
 #include "jp/ggaf/dx/sound/Se.h"
@@ -42,7 +42,7 @@ void Sound::init() {
     if (hr != D3D_OK) {
         throwCriticalException("Soundが初期化できません。サウンドカードデバイスに問題ないか確認してください。");
     }
-    hr = Sound::_pIDirectSound8->SetCooperativeLevel(pGOD->_pHWndPrimary, DSSCL_PRIORITY );
+    hr = Sound::_pIDirectSound8->SetCooperativeLevel(pCARETAKER->_pHWndPrimary, DSSCL_PRIORITY );
     if (hr != D3D_OK) {
         throwCriticalException("SetCooperativeLevel失敗。");
     }

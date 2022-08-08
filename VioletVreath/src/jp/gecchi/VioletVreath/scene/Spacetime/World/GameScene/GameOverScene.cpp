@@ -2,7 +2,7 @@
 
 #include "jp/gecchi/VioletVreath/actor/camera/VVCameraWorkerChanger.h"
 #include "jp/ggaf/core/actor/SceneMediator.h"
-#include "jp/gecchi/VioletVreath/God.h"
+#include "jp/gecchi/VioletVreath/Caretaker.h"
 #include "jp/gecchi/VioletVreath/actor/VVCommonActorsHeader.h"
 #include "jp/gecchi/VioletVreath/GameGlobal.h"
 #include "jp/gecchi/VioletVreath/scene/Spacetime/World/GameScene/GameOverScene/NameEntryScene.h"
@@ -74,7 +74,7 @@ void GameOverScene::processBehavior() {
                 }
             }
             if (pPhase->hasArrivedFrameAt(420)) {
-                pGOD->getSpacetime()->getCameraWorkerChanger()->cleanCamWorker();
+                pCARETAKER->getSpacetime()->getCameraWorkerChanger()->cleanCamWorker();
                 if (need_name_entry_) {
                     _TRACE_("pPhase->change(PHASE_NAMEENTRY);");
                     pPhase->change(PHASE_NAMEENTRY);

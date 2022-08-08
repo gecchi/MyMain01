@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/effect/D3DXAniMeshEffect.h"
 
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/Config.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/dx/scene/Spacetime.h"
@@ -9,8 +9,8 @@ using namespace GgafDx;
 
 D3DXAniMeshEffect::D3DXAniMeshEffect(const char* prm_effect_name) : Effect(prm_effect_name) {
     _obj_effect |= Obj_GgafDx_D3DXAniMeshEffect;
-    Camera* pCam = pGOD->getSpacetime()->getCamera();
-    D3DLIGHT9* pLight = &(pGOD->_d3dlight9_default);
+    Camera* pCam = pCARETAKER->getSpacetime()->getCamera();
+    D3DLIGHT9* pLight = &(pCARETAKER->_d3dlight9_default);
     //シェーダー共通のグローバル変数設定
     HRESULT hr;
     //射影変換行列
@@ -36,7 +36,7 @@ D3DXAniMeshEffect::D3DXAniMeshEffect(const char* prm_effect_name) : Effect(prm_e
 }
 
 void D3DXAniMeshEffect::setParamPerFrame() {
-    Camera* pCam = pGOD->getSpacetime()->getCamera();
+    Camera* pCam = pCARETAKER->getSpacetime()->getCamera();
     HRESULT hr = _pID3DXEffect->SetMatrix(_h_matView, pCam->getViewMatrix() );
     checkDxException(hr, D3D_OK, "setParamPerFrame SetMatrix(_h_matView) に失敗しました。");
 }

@@ -1,6 +1,6 @@
 #include "jp/ggaf/dx/actor/ex/CubeMapMeshSetActor.h"
 
-#include "jp/ggaf/dx/God.h"
+#include "jp/ggaf/dx/Caretaker.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/dx/effect/ex/CubeMapMeshSetEffect.h"
 #include "jp/ggaf/dx/model/ex/CubeMapMeshSetModel.h"
@@ -36,7 +36,7 @@ void CubeMapMeshSetActor::processDraw() {
 
     hr = pID3DXEffect->SetFloat(_pCubeMapMeshSetEffect->_h_reflectance, getCubeMapReflectance());
     checkDxException(hr, D3D_OK, "SetFloat(_h_reflectances) に失敗しました。");
-    pGOD->_pID3DDevice9->SetTexture(1, getCubeMapTexture());
+    pCARETAKER->_pID3DDevice9->SetTexture(1, getCubeMapTexture());
 
     //基本モデル頂点数
     FigureActor* pDrawActor = this;
