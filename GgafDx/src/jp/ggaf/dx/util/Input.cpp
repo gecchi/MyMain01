@@ -19,7 +19,7 @@ int Input::_flip_ks = 0;
 DIDEVCAPS Input::_devcap;
 DIJOYSTATE Input::_joy_state[2];
 int Input::_flip_js = 0;
-POINT Input::_mouse_point[2];
+//POINT Input::_mouse_point[2];
 
 HRESULT Input::init() {
     if (Input::_pIDirectInput8) {
@@ -328,8 +328,8 @@ again:
         }
     }
 
-    //マウスの座標を取得
-    GetCursorPos(&Input::_mouse_point[Input::_flip_ms]);
+//    //マウスの座標を取得
+//    GetCursorPos(&Input::_mouse_point[Input::_flip_ms]);
     return;
 }
 
@@ -376,9 +376,6 @@ bool Input::isReleasedUpMouseButton(int prm_button_no) {
 }
 
 void Input::getMousePointer(long* x, long* y, long* z) {
-    // スクリーン座標をクライアント座標に変換する
-    //ScreenToClient(pCARETAKER->_pHWndPrimary, nullptr), &Input::_mouse_point[Input::_flip_ms]);
-
     //マウスの移動
     *x = Input::_mouse_state[Input::_flip_ms].lX;
     *y = Input::_mouse_state[Input::_flip_ms].lY;

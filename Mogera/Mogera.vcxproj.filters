@@ -10,7 +10,6 @@
     <ClCompile Include="src\scene\MgrSpacetime\MgrWorld.cpp" />
     <ClCompile Include="src\scene\MgrSpacetime.cpp" />
     <ClCompile Include="src\util\MgrUtil.cpp" />
-    <ClCompile Include="src\MgrGod.cpp" />
     <ClCompile Include="src\Mogera.cpp" />
     <ClCompile Include="src\actor\BoardTest.cpp" />
     <ClCompile Include="src\actor\camera\MgrCameraWorker.cpp" />
@@ -34,6 +33,8 @@
     <ClCompile Include="src\actor\AniTest3.cpp" />
     <ClCompile Include="src\scene\MgrSpacetime\MgrWorld\SkinMeshAnimeTestScene.cpp" />
     <ClCompile Include="src\scene\MgrSpacetime\MgrWorld\TestScene.cpp" />
+    <ClCompile Include="src\MgrCaretaker.cpp" />
+    <ClCompile Include="src\actor\PointerTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\actor\camera\MgrCamera.h" />
@@ -45,7 +46,6 @@
     <ClInclude Include="src\scene\MgrSpacetime\MgrWorld.h" />
     <ClInclude Include="src\scene\MgrSpacetime.h" />
     <ClInclude Include="src\util\MgrUtil.h" />
-    <ClInclude Include="src\MgrGod.h" />
     <ClInclude Include="src\Mogera.h" />
     <ClInclude Include="src\actor\boardtest.h" />
     <ClInclude Include="src\actor\camera\mgrcameraworker.h" />
@@ -69,5 +69,7 @@
     <ClInclude Include="src\actor\AniTest3.h" />
     <ClInclude Include="src\scene\MgrSpacetime\MgrWorld\SkinMeshAnimeTestScene.h" />
     <ClInclude Include="src\scene\mgrspacetime\mgrworld\testscene.h" />
+    <ClInclude Include="src\MgrCaretaker.h" />
+    <ClInclude Include="src\actor\pointertest.h" />
   </ItemGroup>
 </Project>

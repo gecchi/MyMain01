@@ -67,6 +67,7 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\FontSpriteActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\FramedHorizontalBarActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\GraphBarActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\HitArea2D.hpp" />
     <ClInclude Include="include\jp\ggaf\lib\actor\interface\ICharacterChip.hpp" />
     <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\HomingLaserChip.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\LaserChip.h" />
@@ -76,7 +77,9 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\StraightLaserChip.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\WateringLaserChip.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\menu\MenuActor.hpp" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\menu\PointableActor.hpp" />
     <ClInclude Include="include\jp\ggaf\lib\actor\PieGraphSpriteActor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\PointerActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\SingleLaser.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\SpriteMeshActor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\SpriteMeshSetActor.h" />
@@ -172,6 +175,7 @@
     <ClCompile Include="src\jp\ggaf\lib\actor\laserchip\StraightLaserChip.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\laserchip\WateringLaserChip.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\PieGraphSpriteActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\PointerActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\SingleLaser.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\SpriteMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\SpriteMeshSetActor.cpp" />

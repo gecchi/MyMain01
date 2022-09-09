@@ -76,7 +76,6 @@ void LibWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
             if (pCARETAKER && pCARETAKER->_pHWndPrimary) {
                 if (!CONFIG::FULL_SCREEN) {
                     pCARETAKER->_adjustGameWindow = true;
-                    pCARETAKER->_pHWnd_adjustScreen = hWnd; //サイズ変更したほうのWINDOW
                 }
             }
             GgafCore::Caretaker::_pCaretaker->syncTimeFrame();

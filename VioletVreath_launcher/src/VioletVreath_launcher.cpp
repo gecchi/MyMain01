@@ -335,29 +335,29 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
                         pixcoord ch1 = cRect1.bottom - cRect1.top;
                         pixcoord cw2 = cRect2.right - cRect2.left;
                         pixcoord ch2 = cRect2.bottom - cRect2.top;
-                        CONFIG::DUAL_VIEW_WINDOW1_WIDTH  = cw1;
-                        CONFIG::DUAL_VIEW_WINDOW1_HEIGHT = ch1;
-                        CONFIG::DUAL_VIEW_WINDOW2_WIDTH  = cw2;
-                        CONFIG::DUAL_VIEW_WINDOW2_HEIGHT = ch2;
-                        CONFIG::_properties.setValue("DUAL_VIEW_WINDOW1_WIDTH" , CONFIG::DUAL_VIEW_WINDOW1_WIDTH);
-                        CONFIG::_properties.setValue("DUAL_VIEW_WINDOW1_HEIGHT", CONFIG::DUAL_VIEW_WINDOW1_HEIGHT);
-                        CONFIG::_properties.setValue("DUAL_VIEW_WINDOW2_WIDTH" , CONFIG::DUAL_VIEW_WINDOW2_WIDTH);
-                        CONFIG::_properties.setValue("DUAL_VIEW_WINDOW2_HEIGHT", CONFIG::DUAL_VIEW_WINDOW2_HEIGHT);
+                        CONFIG::WINDOW1_WIDTH  = cw1;
+                        CONFIG::WINDOW1_HEIGHT = ch1;
+                        CONFIG::WINDOW2_WIDTH  = cw2;
+                        CONFIG::WINDOW2_HEIGHT = ch2;
+                        CONFIG::_properties.setValue("WINDOW1_WIDTH" , CONFIG::WINDOW1_WIDTH);
+                        CONFIG::_properties.setValue("WINDOW1_HEIGHT", CONFIG::WINDOW1_HEIGHT);
+                        CONFIG::_properties.setValue("WINDOW2_WIDTH" , CONFIG::WINDOW2_WIDTH);
+                        CONFIG::_properties.setValue("WINDOW2_HEIGHT", CONFIG::WINDOW2_HEIGHT);
 
-                        CONFIG::_properties.setValue("DUAL_VIEW_DRAW_POSITION1", CONFIG::DUAL_VIEW_DRAW_POSITION1);
-                        CONFIG::_properties.setValue("DUAL_VIEW_DRAW_POSITION2", CONFIG::DUAL_VIEW_DRAW_POSITION2);
+                        CONFIG::_properties.setValue("PRESENT_POSITION1", CONFIG::PRESENT_POSITION1);
+                        CONFIG::_properties.setValue("PRESENT_POSITION2", CONFIG::PRESENT_POSITION2);
 
                     } else {
                         RECT cRect1;
                         GetClientRect(hWnd1, &cRect1);
                         pixcoord cw1 = cRect1.right - cRect1.left;
                         pixcoord ch1 = cRect1.bottom - cRect1.top;
-                        CONFIG::SINGLE_VIEW_WINDOW_WIDTH  = cw1;
-                        CONFIG::SINGLE_VIEW_WINDOW_HEIGHT = ch1;
-                        CONFIG::_properties.setValue("SINGLE_VIEW_WINDOW_WIDTH" , CONFIG::SINGLE_VIEW_WINDOW_WIDTH);
-                        CONFIG::_properties.setValue("SINGLE_VIEW_WINDOW_HEIGHT", CONFIG::SINGLE_VIEW_WINDOW_HEIGHT);
+                        CONFIG::WINDOW1_WIDTH  = cw1;
+                        CONFIG::WINDOW1_HEIGHT = ch1;
+                        CONFIG::_properties.setValue("WINDOW1_WIDTH" , CONFIG::WINDOW1_WIDTH);
+                        CONFIG::_properties.setValue("WINDOW1_HEIGHT", CONFIG::WINDOW1_HEIGHT);
 
-                        CONFIG::_properties.setValue("SINGLE_VIEW_DRAW_POSITION", CONFIG::SINGLE_VIEW_DRAW_POSITION);
+                        CONFIG::_properties.setValue("PRESENT_POSITION1", CONFIG::PRESENT_POSITION1);
                     }
                     CONFIG::_properties.setValue("FIXED_GAME_VIEW_ASPECT", CONFIG::FIXED_GAME_VIEW_ASPECT);
 

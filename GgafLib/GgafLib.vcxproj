@@ -67,6 +67,7 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\fontspriteactor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\framedhorizontalbaractor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\graphbaractor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\hitarea2d.hpp" />
     <ClInclude Include="include\jp\ggaf\lib\actor\interface\icharacterchip.hpp" />
     <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\hominglaserchip.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\laserchip.h" />
@@ -77,6 +78,7 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\wateringlaserchip.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\menu\menuactor.hpp" />
     <ClInclude Include="include\jp\ggaf\lib\actor\piegraphspriteactor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\pointeractor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\singlelaser.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\spritemeshactor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\spritemeshsetactor.h" />
@@ -85,6 +87,7 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\wall\cubemapmasswallactor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\wall\masswallactor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\worldboundactor.h" />
+    <ClInclude Include="include\jp\ggaf\lib\defaultcaretaker.h" />
     <ClInclude Include="include\jp\ggaf\lib\defaultgod.h" />
     <ClInclude Include="include\jp\ggaf\lib\effect\MassWallEffect.h" />
     <ClInclude Include="include\jp\ggaf\lib\effect\SingleLaserEffect.h" />
@@ -172,6 +175,7 @@
     <ClCompile Include="src\jp\ggaf\lib\actor\laserchip\StraightLaserChip.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\laserchip\WateringLaserChip.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\PieGraphSpriteActor.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\actor\PointerActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\SingleLaser.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\SpriteMeshActor.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\actor\SpriteMeshSetActor.cpp" />

@@ -1,12 +1,14 @@
 #include "MgrSpacetime.h"
 
+#include "jp/ggaf/core/actor/SceneMediator.h"
+#include "jp/ggaf/core/scene/Scene.h"
+#include "jp/ggaf/lib/util/VirtualButton.h"
+
+#include "actor/camera/MgrCameraWorker.h"
+#include "actor/PointerTest.h"
+#include "MgrCaretaker.h"
 #include "scene/MgrSpacetime/MgrWorld.h"
 #include "util/MgrUtil.h"
-#include "MgrCaretaker.h"
-#include "jp/ggaf/core/scene/Scene.h"
-#include "jp/ggaf/core/actor/SceneMediator.h"
-#include "actor/camera/MgrCameraWorker.h"
-#include "jp/ggaf/lib/util/VirtualButton.h"
 
 using namespace GgafCore;
 using namespace GgafDx;
@@ -60,6 +62,7 @@ void MgrSpacetime::processBehavior() {
     if (b1) {
         _TRACE_(getBehaveingFrame() <<":"<<b1);
     }
+
 }
 
 MgrSpacetime::~MgrSpacetime() {

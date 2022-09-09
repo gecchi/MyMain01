@@ -57,8 +57,6 @@ public:
     /** １フレーム前、GameMainSceneが一時停止状態だったかどうか */
     bool was_paused_flg_GameMainScene_prev_frame_;
 
-    GgafLib::OctreeRounder* pHitCheckRounder_;
-
 public:
     GameScene(const char* prm_name);
 

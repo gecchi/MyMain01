@@ -38,7 +38,7 @@ Caretaker::Caretaker() : GgafCore::Caretaker() {
 
     _is_device_lost_flg = false;
     _adjustGameWindow = false;
-    _pHWnd_adjustScreen = nullptr;
+//    _pHWnd_adjustScreen = nullptr;
 
     _pHWndPrimary = nullptr;
     _pHWndSecondary = nullptr;
@@ -119,10 +119,10 @@ void Caretaker::resetInitWindowsize() {
     //初期ウィンドウサイズにリセット
     if (!CONFIG::FULL_SCREEN) {
         if (CONFIG::DUAL_VIEW) {
-            resetWindowsize(_pHWndPrimary, CONFIG::DUAL_VIEW_WINDOW1_WIDTH, CONFIG::DUAL_VIEW_WINDOW1_HEIGHT);
-            resetWindowsize(_pHWndSecondary, CONFIG::DUAL_VIEW_WINDOW2_WIDTH, CONFIG::DUAL_VIEW_WINDOW2_HEIGHT);
+            resetWindowsize(_pHWndPrimary, CONFIG::WINDOW1_WIDTH, CONFIG::WINDOW1_HEIGHT);
+            resetWindowsize(_pHWndSecondary, CONFIG::WINDOW2_WIDTH, CONFIG::WINDOW2_HEIGHT);
         } else {
-            resetWindowsize(_pHWndPrimary, CONFIG::SINGLE_VIEW_WINDOW_WIDTH, CONFIG::SINGLE_VIEW_WINDOW_HEIGHT);
+            resetWindowsize(_pHWndPrimary, CONFIG::WINDOW1_WIDTH, CONFIG::WINDOW1_HEIGHT);
         }
     }
 }
@@ -158,50 +158,50 @@ void Caretaker::chengeViewPos(HWND prm_pHWnd, int pos) {
     if (!CONFIG::FULL_SCREEN) {
         if (CONFIG::DUAL_VIEW) {
             if (prm_pHWnd ==  _pHWndPrimary) {
-                CONFIG::DUAL_VIEW_DRAW_POSITION1 = pos;
+                CONFIG::PRESENT_POSITION1 = pos;
             } else if (prm_pHWnd ==  _pHWndSecondary) {
-                CONFIG::DUAL_VIEW_DRAW_POSITION2 = pos;
+                CONFIG::PRESENT_POSITION2 = pos;
             }
         } else {
             if (prm_pHWnd ==  _pHWndPrimary) {
-                CONFIG::SINGLE_VIEW_DRAW_POSITION = pos;
+                CONFIG::PRESENT_POSITION1 = pos;
             }
         }
         if (!CONFIG::FULL_SCREEN && prm_pHWnd) {
             _adjustGameWindow = true;
-            _pHWnd_adjustScreen = prm_pHWnd;
+//            _pHWnd_adjustScreen = prm_pHWnd;
         }
     }
 }
 void Caretaker::chengeViewPos1(int pos) {
     if (!CONFIG::FULL_SCREEN) {
         if (CONFIG::DUAL_VIEW) {
-            CONFIG::SINGLE_VIEW_DRAW_POSITION = pos;
+            CONFIG::PRESENT_POSITION1 = pos;
         } else {
-            CONFIG::DUAL_VIEW_DRAW_POSITION1 = pos;
+            CONFIG::PRESENT_POSITION1 = pos;
         }
     }
     if (!CONFIG::FULL_SCREEN) {
         _adjustGameWindow = true;
-        _pHWnd_adjustScreen = _pHWndPrimary;
+//        _pHWnd_adjustScreen = _pHWndPrimary;
     }
 }
 void Caretaker::chengeViewPos2(int pos) {
     if (!CONFIG::FULL_SCREEN) {
         if (CONFIG::DUAL_VIEW) {
-            CONFIG::SINGLE_VIEW_DRAW_POSITION = pos;
+            CONFIG::PRESENT_POSITION1 = pos;
         }
     }
     if (!CONFIG::FULL_SCREEN) {
         _adjustGameWindow = true;
-        _pHWnd_adjustScreen = _pHWndPrimary;
+//        _pHWnd_adjustScreen = _pHWndPrimary;
     }
 }
 void Caretaker::chengeViewAspect(bool prm_b) {
     if (!CONFIG::FULL_SCREEN) {
         CONFIG::FIXED_GAME_VIEW_ASPECT = prm_b;
         _adjustGameWindow = true;
-        _pHWnd_adjustScreen = _pHWndPrimary;
+//        _pHWnd_adjustScreen = _pHWndPrimary;
     }
 }
 void Caretaker::setDisplaySizeInfo() {
@@ -272,46 +272,46 @@ void Caretaker::setAppropriateDisplaySize(bool allow_chang_rezo) {
                 //２画面フルスクリーン時
                 if (adapter_no == _primary_adapter_no) {
                     //ゲーム画面１画面目
-                    if (allow_chang_rezo && CONFIG::DUAL_VIEW_FULL_SCREEN1_WIDTH > 0) {
+                    if (allow_chang_rezo && CONFIG::FULL_SCREEN1_WIDTH > 0) {
                         //解像度変更許可
                         int n = checkAppropriateDisplaySize(
                                     paRezos, rezo_num,
-                                    (UINT)CONFIG::DUAL_VIEW_FULL_SCREEN1_WIDTH,
-                                    (UINT)CONFIG::DUAL_VIEW_FULL_SCREEN1_HEIGHT
+                                    (UINT)CONFIG::FULL_SCREEN1_WIDTH,
+                                    (UINT)CONFIG::FULL_SCREEN1_HEIGHT
                                 );
-                        CONFIG::DUAL_VIEW_FULL_SCREEN1_WIDTH  = (pixcoord)(paRezos[n].width);
-                        CONFIG::DUAL_VIEW_FULL_SCREEN1_HEIGHT = (pixcoord)(paRezos[n].height);
+                        CONFIG::FULL_SCREEN1_WIDTH  = (pixcoord)(paRezos[n].width);
+                        CONFIG::FULL_SCREEN1_HEIGHT = (pixcoord)(paRezos[n].height);
                     } else {
                         //解像度変更無し
                         D3DDISPLAYMODE structD3DDisplayMode0;
                         hr = _pID3D9->GetAdapterDisplayMode(adapter_no, &structD3DDisplayMode0);
                         checkDxException(hr, D3D_OK, "GetAdapterDisplayMode に失敗しました。1");
-                        CONFIG::DUAL_VIEW_FULL_SCREEN1_WIDTH  = (pixcoord)(structD3DDisplayMode0.Width);
-                        CONFIG::DUAL_VIEW_FULL_SCREEN1_HEIGHT = (pixcoord)(structD3DDisplayMode0.Height);
+                        CONFIG::FULL_SCREEN1_WIDTH  = (pixcoord)(structD3DDisplayMode0.Width);
+                        CONFIG::FULL_SCREEN1_HEIGHT = (pixcoord)(structD3DDisplayMode0.Height);
                     }
-                    _paPresetPrm[_primary_adapter_no].BackBufferWidth  = CONFIG::DUAL_VIEW_FULL_SCREEN1_WIDTH;
-                    _paPresetPrm[_primary_adapter_no].BackBufferHeight = CONFIG::DUAL_VIEW_FULL_SCREEN1_HEIGHT;
+                    _paPresetPrm[_primary_adapter_no].BackBufferWidth  = CONFIG::FULL_SCREEN1_WIDTH;
+                    _paPresetPrm[_primary_adapter_no].BackBufferHeight = CONFIG::FULL_SCREEN1_HEIGHT;
                 } else if (adapter_no == _secondary_adapter_no) {
                     //ゲーム画面２画面目
-                    if (allow_chang_rezo && CONFIG::DUAL_VIEW_FULL_SCREEN2_WIDTH > 0) {
+                    if (allow_chang_rezo && CONFIG::FULL_SCREEN2_WIDTH > 0) {
                         //解像度変更許可
                         int n = checkAppropriateDisplaySize(
                                     paRezos, rezo_num,
-                                    (UINT)CONFIG::DUAL_VIEW_FULL_SCREEN2_WIDTH,
-                                    (UINT)CONFIG::DUAL_VIEW_FULL_SCREEN2_HEIGHT
+                                    (UINT)CONFIG::FULL_SCREEN2_WIDTH,
+                                    (UINT)CONFIG::FULL_SCREEN2_HEIGHT
                                 );
-                        CONFIG::DUAL_VIEW_FULL_SCREEN2_WIDTH  = (pixcoord)(paRezos[n].width);
-                        CONFIG::DUAL_VIEW_FULL_SCREEN2_HEIGHT = (pixcoord)(paRezos[n].height);
+                        CONFIG::FULL_SCREEN2_WIDTH  = (pixcoord)(paRezos[n].width);
+                        CONFIG::FULL_SCREEN2_HEIGHT = (pixcoord)(paRezos[n].height);
                     } else {
                         //解像度変更無し
                         D3DDISPLAYMODE structD3DDisplayMode1;
                         hr = _pID3D9->GetAdapterDisplayMode(adapter_no, &structD3DDisplayMode1);
                         checkDxException(hr, D3D_OK, "GetAdapterDisplayMode に失敗しました。3");
-                        CONFIG::DUAL_VIEW_FULL_SCREEN1_WIDTH  = (pixcoord)(structD3DDisplayMode1.Width);
-                        CONFIG::DUAL_VIEW_FULL_SCREEN1_HEIGHT = (pixcoord)(structD3DDisplayMode1.Height);
+                        CONFIG::FULL_SCREEN1_WIDTH  = (pixcoord)(structD3DDisplayMode1.Width);
+                        CONFIG::FULL_SCREEN1_HEIGHT = (pixcoord)(structD3DDisplayMode1.Height);
                     }
-                    _paPresetPrm[_secondary_adapter_no].BackBufferWidth  = CONFIG::DUAL_VIEW_FULL_SCREEN2_WIDTH;
-                    _paPresetPrm[_secondary_adapter_no].BackBufferHeight = CONFIG::DUAL_VIEW_FULL_SCREEN2_HEIGHT;
+                    _paPresetPrm[_secondary_adapter_no].BackBufferWidth  = CONFIG::FULL_SCREEN2_WIDTH;
+                    _paPresetPrm[_secondary_adapter_no].BackBufferHeight = CONFIG::FULL_SCREEN2_HEIGHT;
                 } else {
                     //メモ：ゲーム画面３画面目以降１画面目・２画面目の解像度は、現状の解像度をそのまま設定。
                     D3DDISPLAYMODE structD3DDisplayMode;
@@ -326,25 +326,25 @@ void Caretaker::setAppropriateDisplaySize(bool allow_chang_rezo) {
             } else {
                 //１画面フルスクリーン時
                 if (adapter_no == _primary_adapter_no) {
-                    if (allow_chang_rezo && CONFIG::SINGLE_VIEW_FULL_SCREEN_WIDTH > 0) {
+                    if (allow_chang_rezo && CONFIG::FULL_SCREEN1_WIDTH > 0) {
                         //解像度変更許可
                         int n = checkAppropriateDisplaySize(
                                     paRezos, rezo_num,
-                                    (UINT)CONFIG::SINGLE_VIEW_FULL_SCREEN_WIDTH,
-                                    (UINT)CONFIG::SINGLE_VIEW_FULL_SCREEN_HEIGHT
+                                    (UINT)CONFIG::FULL_SCREEN1_WIDTH,
+                                    (UINT)CONFIG::FULL_SCREEN1_HEIGHT
                                 );
-                        CONFIG::SINGLE_VIEW_FULL_SCREEN_WIDTH = (pixcoord)(paRezos[n].width);
-                        CONFIG::SINGLE_VIEW_FULL_SCREEN_HEIGHT = (pixcoord)(paRezos[n].height);
+                        CONFIG::FULL_SCREEN1_WIDTH = (pixcoord)(paRezos[n].width);
+                        CONFIG::FULL_SCREEN1_HEIGHT = (pixcoord)(paRezos[n].height);
                     } else {
                         //解像度変更無し
                         D3DDISPLAYMODE structD3DDisplayMode0;
                         hr = _pID3D9->GetAdapterDisplayMode(adapter_no, &structD3DDisplayMode0);
                         checkDxException(hr, D3D_OK, "GetAdapterDisplayMode に失敗しました。5");
-                        CONFIG::SINGLE_VIEW_FULL_SCREEN_WIDTH  = (pixcoord)(structD3DDisplayMode0.Width);
-                        CONFIG::SINGLE_VIEW_FULL_SCREEN_HEIGHT = (pixcoord)(structD3DDisplayMode0.Height);
+                        CONFIG::FULL_SCREEN1_WIDTH  = (pixcoord)(structD3DDisplayMode0.Width);
+                        CONFIG::FULL_SCREEN1_HEIGHT = (pixcoord)(structD3DDisplayMode0.Height);
                     }
-                    _paPresetPrm[_primary_adapter_no].BackBufferWidth  = CONFIG::SINGLE_VIEW_FULL_SCREEN_WIDTH;
-                    _paPresetPrm[_primary_adapter_no].BackBufferHeight = CONFIG::SINGLE_VIEW_FULL_SCREEN_HEIGHT;
+                    _paPresetPrm[_primary_adapter_no].BackBufferWidth  = CONFIG::FULL_SCREEN1_WIDTH;
+                    _paPresetPrm[_primary_adapter_no].BackBufferHeight = CONFIG::FULL_SCREEN1_HEIGHT;
                 } else {
                     _paPresetPrm[adapter_no].BackBufferWidth  = 0;
                     _paPresetPrm[adapter_no].BackBufferHeight = 0;
@@ -371,30 +371,22 @@ void Caretaker::setAppropriateDisplaySize(bool allow_chang_rezo) {
     _rectGameBuffer.right  = _rectGameBuffer.left + CONFIG::GAME_BUFFER_WIDTH;
     _rectGameBuffer.bottom = _rectGameBuffer.top  + CONFIG::GAME_BUFFER_HEIGHT;
 
-    _rectRenderTargetBuffer.left   = (CONFIG::RENDER_TARGET_BUFFER_WIDTH / 2.0) - (CONFIG::VIEW_SOURCE_BUFFER_WIDTH / 2.0);
-    _rectRenderTargetBuffer.top    = (CONFIG::RENDER_TARGET_BUFFER_HEIGHT / 2.0) - (CONFIG::VIEW_SOURCE_BUFFER_HEIGHT / 2.0);
-    _rectRenderTargetBuffer.right  = _rectRenderTargetBuffer.left + CONFIG::VIEW_SOURCE_BUFFER_WIDTH;
-    _rectRenderTargetBuffer.bottom = _rectRenderTargetBuffer.top  + CONFIG::VIEW_SOURCE_BUFFER_HEIGHT;
+    if (CONFIG::DUAL_VIEW) {
+        _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].left   = CONFIG::RENDER_BUFFER_SOURCE1_LEFT;
+        _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].top    = CONFIG::RENDER_BUFFER_SOURCE1_TOP;
+        _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].right  = _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].left + CONFIG::RENDER_BUFFER_SOURCE1_WIDTH;
+        _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].bottom = _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].top  + CONFIG::RENDER_BUFFER_SOURCE1_HEIGHT;
 
-    _aRect_HarfGameBuffer[PRIMARY_VIEW].left   = 0;
-    _aRect_HarfGameBuffer[PRIMARY_VIEW].top    = 0;
-    _aRect_HarfGameBuffer[PRIMARY_VIEW].right  = _aRect_HarfGameBuffer[PRIMARY_VIEW].left  + CONFIG::GAME_BUFFER_WIDTH/2;
-    _aRect_HarfGameBuffer[PRIMARY_VIEW].bottom = _aRect_HarfGameBuffer[PRIMARY_VIEW].top + CONFIG::GAME_BUFFER_HEIGHT;
-
-    _aRect_HarfGameBuffer[SECONDARY_VIEW].left   = CONFIG::GAME_BUFFER_WIDTH/2;
-    _aRect_HarfGameBuffer[SECONDARY_VIEW].top    = 0;
-    _aRect_HarfGameBuffer[SECONDARY_VIEW].right  = _aRect_HarfGameBuffer[SECONDARY_VIEW].left + CONFIG::GAME_BUFFER_WIDTH/2;
-    _aRect_HarfGameBuffer[SECONDARY_VIEW].bottom = _aRect_HarfGameBuffer[SECONDARY_VIEW].top  + CONFIG::GAME_BUFFER_HEIGHT;
-
-    _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].left   = (CONFIG::RENDER_TARGET_BUFFER_WIDTH - CONFIG::VIEW_SOURCE_BUFFER_WIDTH) / 2;
-    _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].top    = (CONFIG::RENDER_TARGET_BUFFER_HEIGHT / 2.0) - (CONFIG::VIEW_SOURCE_BUFFER_HEIGHT / 2.0);
-    _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].right  = _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].left + CONFIG::VIEW_SOURCE_BUFFER_WIDTH/2;
-    _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].bottom = _aRect_HarfRenderTargetBuffer[PRIMARY_VIEW].top  + CONFIG::VIEW_SOURCE_BUFFER_HEIGHT;
-
-    _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].left   = CONFIG::RENDER_TARGET_BUFFER_WIDTH/2;
-    _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].top    = (CONFIG::RENDER_TARGET_BUFFER_HEIGHT / 2.0) - (CONFIG::VIEW_SOURCE_BUFFER_HEIGHT / 2.0);
-    _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].right  = _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].left + CONFIG::VIEW_SOURCE_BUFFER_WIDTH/2;
-    _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].bottom = _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].top  + CONFIG::VIEW_SOURCE_BUFFER_HEIGHT;
+        _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].left   = CONFIG::RENDER_BUFFER_SOURCE2_LEFT;
+        _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].top    = CONFIG::RENDER_BUFFER_SOURCE2_TOP;
+        _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].right  = _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].left + CONFIG::RENDER_BUFFER_SOURCE2_WIDTH;
+        _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].bottom = _aRect_HarfRenderTargetBuffer[SECONDARY_VIEW].top  + CONFIG::RENDER_BUFFER_SOURCE2_HEIGHT;
+    } else {
+        _rectRenderTargetBuffer.left   = CONFIG::RENDER_BUFFER_SOURCE1_LEFT;
+        _rectRenderTargetBuffer.top    = CONFIG::RENDER_BUFFER_SOURCE1_TOP;
+        _rectRenderTargetBuffer.right  = _rectRenderTargetBuffer.left + CONFIG::RENDER_BUFFER_SOURCE1_WIDTH;
+        _rectRenderTargetBuffer.bottom = _rectRenderTargetBuffer.top  + CONFIG::RENDER_BUFFER_SOURCE1_HEIGHT;
+    }
 
     //表示領域設定
     if (CONFIG::FULL_SCREEN) {
@@ -402,106 +394,112 @@ void Caretaker::setAppropriateDisplaySize(bool allow_chang_rezo) {
         if (CONFIG::DUAL_VIEW) {
             _aRect_ViewScreen[PRIMARY_VIEW].top    = 0;
             _aRect_ViewScreen[PRIMARY_VIEW].left   = 0;
-            _aRect_ViewScreen[PRIMARY_VIEW].right  = CONFIG::DUAL_VIEW_FULL_SCREEN1_WIDTH;
-            _aRect_ViewScreen[PRIMARY_VIEW].bottom = CONFIG::DUAL_VIEW_FULL_SCREEN1_HEIGHT;
+            _aRect_ViewScreen[PRIMARY_VIEW].right  = CONFIG::FULL_SCREEN1_WIDTH;
+            _aRect_ViewScreen[PRIMARY_VIEW].bottom = CONFIG::FULL_SCREEN1_HEIGHT;
             _aRect_ViewScreen[SECONDARY_VIEW].top    = 0;
             _aRect_ViewScreen[SECONDARY_VIEW].left   = 0;
-            _aRect_ViewScreen[SECONDARY_VIEW].right  = CONFIG::DUAL_VIEW_FULL_SCREEN2_WIDTH;
-            _aRect_ViewScreen[SECONDARY_VIEW].bottom = CONFIG::DUAL_VIEW_FULL_SCREEN2_HEIGHT;
+            _aRect_ViewScreen[SECONDARY_VIEW].right  = CONFIG::FULL_SCREEN2_WIDTH;
+            _aRect_ViewScreen[SECONDARY_VIEW].bottom = CONFIG::FULL_SCREEN2_HEIGHT;
 
             //「フルスクリーンモード・２画面使用・RENDER_TARGET_BUFFERサイズ無視
             if (CONFIG::FIXED_GAME_VIEW_ASPECT) {
                 //「フルスクリーンモード・２画面使用・縦横比FIX」の１画面目フロントバッファ描画領域
-                LONG fix_width = CONFIG::GAME_BUFFER_WIDTH*CONFIG::VIEW1_WIDTH_RATIO/2;
-                LONG fix_height = CONFIG::GAME_BUFFER_HEIGHT*CONFIG::VIEW1_HEIGHT_RATIO;
-                if (1.0f * CONFIG::DUAL_VIEW_FULL_SCREEN1_WIDTH / CONFIG::DUAL_VIEW_FULL_SCREEN1_HEIGHT > 1.0f * fix_width / fix_height) {
+//                LONG fix_width = CONFIG::GAME_BUFFER_WIDTH*CONFIG::VIEW1_WIDTH_RATIO/2;
+//                LONG fix_height = CONFIG::GAME_BUFFER_HEIGHT*CONFIG::VIEW1_HEIGHT_RATIO;
+                LONG fix_width  = CONFIG::RENDER_BUFFER_SOURCE1_WIDTH  * CONFIG::VIEW1_WIDTH_RATIO;
+                LONG fix_height = CONFIG::RENDER_BUFFER_SOURCE1_HEIGHT * CONFIG::VIEW1_HEIGHT_RATIO;
+                if (1.0f * CONFIG::FULL_SCREEN1_WIDTH / CONFIG::FULL_SCREEN1_HEIGHT > 1.0f * fix_width / fix_height) {
                     //より横長になってしまっている
-                    double rate = 1.0 * CONFIG::DUAL_VIEW_FULL_SCREEN1_HEIGHT / fix_height; //縮小率=縦幅の比率
-                    _aRect_Present[PRIMARY_VIEW].left   = (CONFIG::DUAL_VIEW_FULL_SCREEN1_WIDTH / 2.0) - (fix_width * rate / 2.0);
+                    double rate = 1.0 * CONFIG::FULL_SCREEN1_HEIGHT / fix_height; //縮小率=縦幅の比率
+                    _aRect_Present[PRIMARY_VIEW].left   = (CONFIG::FULL_SCREEN1_WIDTH / 2.0) - (fix_width * rate / 2.0);
                     _aRect_Present[PRIMARY_VIEW].top    = 0;
                     _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + (fix_width * rate);
                     _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + (fix_height * rate);
                 } else {
                     //より縦長になってしまっている
-                    double rate = 1.0 * CONFIG::DUAL_VIEW_FULL_SCREEN1_WIDTH / fix_width; //縮小率=横幅の比率
+                    double rate = 1.0 * CONFIG::FULL_SCREEN1_WIDTH / fix_width; //縮小率=横幅の比率
                     _aRect_Present[PRIMARY_VIEW].left   = 0;
-                    _aRect_Present[PRIMARY_VIEW].top    = (CONFIG::DUAL_VIEW_FULL_SCREEN1_HEIGHT / 2.0) - (fix_height * rate / 2.0);
+                    _aRect_Present[PRIMARY_VIEW].top    = (CONFIG::FULL_SCREEN1_HEIGHT / 2.0) - (fix_height * rate / 2.0);
                     _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + (fix_width * rate);
                     _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + (fix_height * rate);
                 }
                 //「フルスクリーンモード・２画面使用・縦横比FIX」の２画面目フロントバッファ描画領域
-                fix_width = CONFIG::GAME_BUFFER_WIDTH*CONFIG::VIEW2_WIDTH_RATIO/2;
-                fix_height = CONFIG::GAME_BUFFER_HEIGHT*CONFIG::VIEW2_HEIGHT_RATIO;
-                if (1.0f * CONFIG::DUAL_VIEW_FULL_SCREEN2_WIDTH / CONFIG::DUAL_VIEW_FULL_SCREEN2_HEIGHT > 1.0f * fix_width / fix_height) {
+//                fix_width = CONFIG::GAME_BUFFER_WIDTH*CONFIG::VIEW2_WIDTH_RATIO/2;
+//                fix_height = CONFIG::GAME_BUFFER_HEIGHT*CONFIG::VIEW2_HEIGHT_RATIO;
+                fix_width  = CONFIG::RENDER_BUFFER_SOURCE2_WIDTH  * CONFIG::VIEW2_WIDTH_RATIO;
+                fix_height = CONFIG::RENDER_BUFFER_SOURCE2_HEIGHT * CONFIG::VIEW2_HEIGHT_RATIO;
+                if (1.0f * CONFIG::FULL_SCREEN2_WIDTH / CONFIG::FULL_SCREEN2_HEIGHT > 1.0f * fix_width / fix_height) {
                     //より横長になってしまっている
-                    double rate = 1.0 * CONFIG::DUAL_VIEW_FULL_SCREEN2_HEIGHT / fix_height; //縮小率=縦幅の比率
-                    _aRect_Present[SECONDARY_VIEW].left   = (CONFIG::DUAL_VIEW_FULL_SCREEN2_WIDTH / 2.0) - (fix_width * rate / 2.0);
+                    double rate = 1.0 * CONFIG::FULL_SCREEN2_HEIGHT / fix_height; //縮小率=縦幅の比率
+                    _aRect_Present[SECONDARY_VIEW].left   = (CONFIG::FULL_SCREEN2_WIDTH / 2.0) - (fix_width * rate / 2.0);
                     _aRect_Present[SECONDARY_VIEW].top    = 0;
                     _aRect_Present[SECONDARY_VIEW].right  = _aRect_Present[SECONDARY_VIEW].left + (fix_width * rate);
                     _aRect_Present[SECONDARY_VIEW].bottom = _aRect_Present[SECONDARY_VIEW].top  + (fix_height * rate);
                 } else {
                     //より縦長になってしまっている
-                    double rate = 1.0 * CONFIG::DUAL_VIEW_FULL_SCREEN2_WIDTH / fix_width; //縮小率=横幅の比率
+                    double rate = 1.0 * CONFIG::FULL_SCREEN2_WIDTH / fix_width; //縮小率=横幅の比率
                     _aRect_Present[SECONDARY_VIEW].left   = 0;
-                    _aRect_Present[SECONDARY_VIEW].top    = (CONFIG::DUAL_VIEW_FULL_SCREEN2_HEIGHT / 2.0) - (fix_height * rate / 2.0);
+                    _aRect_Present[SECONDARY_VIEW].top    = (CONFIG::FULL_SCREEN2_HEIGHT / 2.0) - (fix_height * rate / 2.0);
                     _aRect_Present[SECONDARY_VIEW].right  = _aRect_Present[SECONDARY_VIEW].left + (fix_width * rate);
                     _aRect_Present[SECONDARY_VIEW].bottom = _aRect_Present[SECONDARY_VIEW].top  + (fix_height * rate);
                 }
-                setPositionPresentRect(CONFIG::DUAL_VIEW_DRAW_POSITION1, _aRect_Present[PRIMARY_VIEW],
-                                       CONFIG::DUAL_VIEW_FULL_SCREEN1_WIDTH, CONFIG::DUAL_VIEW_FULL_SCREEN1_HEIGHT);
-                setPositionPresentRect(CONFIG::DUAL_VIEW_DRAW_POSITION2, _aRect_Present[SECONDARY_VIEW],
-                                       CONFIG::DUAL_VIEW_FULL_SCREEN2_WIDTH, CONFIG::DUAL_VIEW_FULL_SCREEN2_HEIGHT);
+                setPositionPresentRect(CONFIG::PRESENT_POSITION1, _aRect_Present[PRIMARY_VIEW],
+                                       CONFIG::FULL_SCREEN1_WIDTH, CONFIG::FULL_SCREEN1_HEIGHT);
+                setPositionPresentRect(CONFIG::PRESENT_POSITION2, _aRect_Present[SECONDARY_VIEW],
+                                       CONFIG::FULL_SCREEN2_WIDTH, CONFIG::FULL_SCREEN2_HEIGHT);
             } else {
                 //「フルスクリーンモード・２画面使用・縦横比ストレッチ」の１画面目フロントバッファ描画領域
                 _aRect_Present[PRIMARY_VIEW].left   = 0;
                 _aRect_Present[PRIMARY_VIEW].top    = 0;
-                _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + CONFIG::DUAL_VIEW_FULL_SCREEN1_WIDTH;
-                _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + CONFIG::DUAL_VIEW_FULL_SCREEN1_HEIGHT;
+                _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + CONFIG::FULL_SCREEN1_WIDTH;
+                _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + CONFIG::FULL_SCREEN1_HEIGHT;
                 //「フルスクリーンモード・２画面使用・縦横比ストレッチ」の２画面目フロントバッファ描画領域
                 _aRect_Present[SECONDARY_VIEW].left   = 0;
                 _aRect_Present[SECONDARY_VIEW].top    = 0;
-                _aRect_Present[SECONDARY_VIEW].right  = _aRect_Present[SECONDARY_VIEW].left + CONFIG::DUAL_VIEW_FULL_SCREEN2_WIDTH;
-                _aRect_Present[SECONDARY_VIEW].bottom = _aRect_Present[SECONDARY_VIEW].top  + CONFIG::DUAL_VIEW_FULL_SCREEN2_HEIGHT;
+                _aRect_Present[SECONDARY_VIEW].right  = _aRect_Present[SECONDARY_VIEW].left + CONFIG::FULL_SCREEN2_WIDTH;
+                _aRect_Present[SECONDARY_VIEW].bottom = _aRect_Present[SECONDARY_VIEW].top  + CONFIG::FULL_SCREEN2_HEIGHT;
             }
         } else {
             //フルスクリーンモード・１画面使用
             _aRect_ViewScreen[PRIMARY_VIEW].top    = 0;
             _aRect_ViewScreen[PRIMARY_VIEW].left   = 0;
-            _aRect_ViewScreen[PRIMARY_VIEW].right  = CONFIG::SINGLE_VIEW_FULL_SCREEN_WIDTH;
-            _aRect_ViewScreen[PRIMARY_VIEW].bottom = CONFIG::SINGLE_VIEW_FULL_SCREEN_HEIGHT;
+            _aRect_ViewScreen[PRIMARY_VIEW].right  = CONFIG::FULL_SCREEN1_WIDTH;
+            _aRect_ViewScreen[PRIMARY_VIEW].bottom = CONFIG::FULL_SCREEN1_HEIGHT;
             _aRect_ViewScreen[SECONDARY_VIEW] = _aRect_ViewScreen[PRIMARY_VIEW];
 
             //「フルスクリーンモード・１画面使用・RENDER_TARGET_BUFFERサイズ無視」
             if (CONFIG::FIXED_GAME_VIEW_ASPECT) {
                 //「フルスクリーンモード・１画面使用・縦横比FIX」のフロントバッファ描画領域
-                LONG fix_width = CONFIG::GAME_BUFFER_WIDTH*CONFIG::VIEW1_WIDTH_RATIO;
-                LONG fix_height = CONFIG::GAME_BUFFER_HEIGHT*CONFIG::VIEW1_HEIGHT_RATIO;
-                if (1.0f * CONFIG::SINGLE_VIEW_FULL_SCREEN_WIDTH / CONFIG::SINGLE_VIEW_FULL_SCREEN_HEIGHT > 1.0f * fix_width / fix_height) {
+//                LONG fix_width = CONFIG::GAME_BUFFER_WIDTH*CONFIG::VIEW1_WIDTH_RATIO;
+//                LONG fix_height = CONFIG::GAME_BUFFER_HEIGHT*CONFIG::VIEW1_HEIGHT_RATIO;
+                LONG fix_width  = CONFIG::RENDER_BUFFER_SOURCE1_WIDTH  * CONFIG::VIEW1_WIDTH_RATIO;
+                LONG fix_height = CONFIG::RENDER_BUFFER_SOURCE1_HEIGHT * CONFIG::VIEW1_HEIGHT_RATIO;
+                if (1.0f * CONFIG::FULL_SCREEN1_WIDTH / CONFIG::FULL_SCREEN1_HEIGHT > 1.0f * fix_width / fix_height) {
                     //より横長になってしまっている
-                    double rate = 1.0 * CONFIG::SINGLE_VIEW_FULL_SCREEN_HEIGHT / fix_height; //縮小率=縦幅の比率
-                    _aRect_Present[PRIMARY_VIEW].left   = (CONFIG::SINGLE_VIEW_FULL_SCREEN_WIDTH / 2.0) - (fix_width * rate / 2.0);
+                    double rate = 1.0 * CONFIG::FULL_SCREEN1_HEIGHT / fix_height; //縮小率=縦幅の比率
+                    _aRect_Present[PRIMARY_VIEW].left   = (CONFIG::FULL_SCREEN1_WIDTH / 2.0) - (fix_width * rate / 2.0);
                     _aRect_Present[PRIMARY_VIEW].top    = 0;
                     _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + (fix_width * rate);
                     _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + (fix_height * rate);
                 } else {
                     //より縦長になってしまっている
-                    double rate = 1.0 * CONFIG::SINGLE_VIEW_FULL_SCREEN_WIDTH / fix_width; //縮小率=横幅の比率
+                    double rate = 1.0 * CONFIG::FULL_SCREEN1_WIDTH / fix_width; //縮小率=横幅の比率
                     _aRect_Present[PRIMARY_VIEW].left   = 0;
-                    _aRect_Present[PRIMARY_VIEW].top    = (CONFIG::SINGLE_VIEW_FULL_SCREEN_HEIGHT / 2.0) - (fix_height * rate / 2.0);
+                    _aRect_Present[PRIMARY_VIEW].top    = (CONFIG::FULL_SCREEN1_HEIGHT / 2.0) - (fix_height * rate / 2.0);
                     _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + (fix_width * rate);
                     _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + (fix_height * rate);
                 }
                 _aRect_Present[SECONDARY_VIEW] = _aRect_Present[PRIMARY_VIEW];
-                setPositionPresentRect(CONFIG::SINGLE_VIEW_DRAW_POSITION, _aRect_Present[PRIMARY_VIEW],
-                                       CONFIG::SINGLE_VIEW_FULL_SCREEN_WIDTH, CONFIG::SINGLE_VIEW_FULL_SCREEN_HEIGHT);
-                setPositionPresentRect(CONFIG::SINGLE_VIEW_DRAW_POSITION, _aRect_Present[SECONDARY_VIEW],
-                                       CONFIG::SINGLE_VIEW_FULL_SCREEN_WIDTH, CONFIG::SINGLE_VIEW_FULL_SCREEN_HEIGHT);
+                setPositionPresentRect(CONFIG::PRESENT_POSITION1, _aRect_Present[PRIMARY_VIEW],
+                                       CONFIG::FULL_SCREEN1_WIDTH, CONFIG::FULL_SCREEN1_HEIGHT);
+                setPositionPresentRect(CONFIG::PRESENT_POSITION1, _aRect_Present[SECONDARY_VIEW],
+                                       CONFIG::FULL_SCREEN1_WIDTH, CONFIG::FULL_SCREEN1_HEIGHT);
             } else {
                 //「フルスクリーンモード・１画面使用・縦横比ストレッチ」のフロントバッファ描画領域
                 _aRect_Present[PRIMARY_VIEW].left   = 0;
                 _aRect_Present[PRIMARY_VIEW].top    = 0;
-                _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + CONFIG::SINGLE_VIEW_FULL_SCREEN_WIDTH;
-                _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + CONFIG::SINGLE_VIEW_FULL_SCREEN_HEIGHT;
+                _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + CONFIG::FULL_SCREEN1_WIDTH;
+                _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + CONFIG::FULL_SCREEN1_HEIGHT;
                 _aRect_Present[SECONDARY_VIEW] = _aRect_Present[PRIMARY_VIEW];
             }
 
@@ -511,92 +509,92 @@ void Caretaker::setAppropriateDisplaySize(bool allow_chang_rezo) {
         if (CONFIG::DUAL_VIEW) {
             //ウィンドウモード・２窓使用
             if (CONFIG::FIXED_GAME_VIEW_ASPECT) {
-                LONG fix_width = CONFIG::VIEW_SOURCE_BUFFER_WIDTH*CONFIG::VIEW1_WIDTH_RATIO/2;
-                LONG fix_height = CONFIG::VIEW_SOURCE_BUFFER_HEIGHT*CONFIG::VIEW1_HEIGHT_RATIO;
+                LONG fix_width = CONFIG::RENDER_BUFFER_SOURCE1_WIDTH*CONFIG::VIEW1_WIDTH_RATIO;
+                LONG fix_height = CONFIG::RENDER_BUFFER_SOURCE1_HEIGHT*CONFIG::VIEW1_HEIGHT_RATIO;
                 //「ウィンドウモード・２窓使用・縦横比FIX・ピクセルストレッチ」の１窓目フロントバッファ描画領域
-                if (1.0f * CONFIG::DUAL_VIEW_WINDOW1_WIDTH / CONFIG::DUAL_VIEW_WINDOW1_HEIGHT > 1.0f * fix_width / fix_height) {
+                if (1.0f * CONFIG::WINDOW1_WIDTH / CONFIG::WINDOW1_HEIGHT > 1.0f * fix_width / fix_height) {
                     //より横長になってしまっている
-                    double rate = 1.0 * CONFIG::DUAL_VIEW_WINDOW1_HEIGHT / fix_height; //縮小率=縦幅の比率
-                    _aRect_Present[PRIMARY_VIEW].left   = (CONFIG::DUAL_VIEW_WINDOW1_WIDTH / 2.0) - (fix_width * rate / 2.0);
+                    double rate = 1.0 * CONFIG::WINDOW1_HEIGHT / fix_height; //縮小率=縦幅の比率
+                    _aRect_Present[PRIMARY_VIEW].left   = (CONFIG::WINDOW1_WIDTH / 2.0) - (fix_width * rate / 2.0);
                     _aRect_Present[PRIMARY_VIEW].top    = 0;
                     _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + (fix_width * rate);
                     _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + (fix_height * rate);
                 } else {
                     //より縦長になってしまっている
-                    double rate = 1.0 * CONFIG::DUAL_VIEW_WINDOW1_WIDTH / fix_width; //縮小率=横幅の比率
+                    double rate = 1.0 * CONFIG::WINDOW1_WIDTH / fix_width; //縮小率=横幅の比率
                     _aRect_Present[PRIMARY_VIEW].left   = 0;
-                    _aRect_Present[PRIMARY_VIEW].top    = (CONFIG::DUAL_VIEW_WINDOW1_HEIGHT / 2.0) - (fix_height * rate / 2.0);
+                    _aRect_Present[PRIMARY_VIEW].top    = (CONFIG::WINDOW1_HEIGHT / 2.0) - (fix_height * rate / 2.0);
                     _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + (fix_width * rate);
                     _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + (fix_height * rate);
                 }
 
-                fix_width = CONFIG::VIEW_SOURCE_BUFFER_WIDTH*CONFIG::VIEW2_WIDTH_RATIO/2;
-                fix_height = CONFIG::VIEW_SOURCE_BUFFER_HEIGHT*CONFIG::VIEW2_HEIGHT_RATIO;
+                fix_width = CONFIG::RENDER_BUFFER_SOURCE2_WIDTH*CONFIG::VIEW2_WIDTH_RATIO;
+                fix_height = CONFIG::RENDER_BUFFER_SOURCE2_HEIGHT*CONFIG::VIEW2_HEIGHT_RATIO;
                 //「ウィンドウモード・２窓使用・縦横比FIX」の２窓目フロントバッファ描画領域
-                if (1.0f * CONFIG::DUAL_VIEW_WINDOW2_WIDTH / CONFIG::DUAL_VIEW_WINDOW2_HEIGHT > 1.0f * fix_width / fix_height) {
+                if (1.0f * CONFIG::WINDOW2_WIDTH / CONFIG::WINDOW2_HEIGHT > 1.0f * fix_width / fix_height) {
                     //より横長になってしまっている
-                    double rate = 1.0 * CONFIG::DUAL_VIEW_WINDOW2_HEIGHT / fix_height; //縮小率=縦幅の比率
-                    _aRect_Present[SECONDARY_VIEW].left   = (CONFIG::DUAL_VIEW_WINDOW2_WIDTH / 2.0) - (fix_width * rate / 2.0);
+                    double rate = 1.0 * CONFIG::WINDOW2_HEIGHT / fix_height; //縮小率=縦幅の比率
+                    _aRect_Present[SECONDARY_VIEW].left   = (CONFIG::WINDOW2_WIDTH / 2.0) - (fix_width * rate / 2.0);
                     _aRect_Present[SECONDARY_VIEW].top    = 0;
                     _aRect_Present[SECONDARY_VIEW].right  = _aRect_Present[SECONDARY_VIEW].left + (fix_width * rate);
                     _aRect_Present[SECONDARY_VIEW].bottom = _aRect_Present[SECONDARY_VIEW].top  + (fix_height * rate);
                 } else {
                     //より縦長になってしまっている
-                    double rate = 1.0 * CONFIG::DUAL_VIEW_WINDOW2_WIDTH / fix_width; //縮小率=横幅の比率
+                    double rate = 1.0 * CONFIG::WINDOW2_WIDTH / fix_width; //縮小率=横幅の比率
                     _aRect_Present[SECONDARY_VIEW].left   = 0;
-                    _aRect_Present[SECONDARY_VIEW].top    = (CONFIG::DUAL_VIEW_WINDOW2_HEIGHT / 2.0) - (fix_height * rate / 2.0);
+                    _aRect_Present[SECONDARY_VIEW].top    = (CONFIG::WINDOW2_HEIGHT / 2.0) - (fix_height * rate / 2.0);
                     _aRect_Present[SECONDARY_VIEW].right  = _aRect_Present[SECONDARY_VIEW].left + (fix_width * rate);
                     _aRect_Present[SECONDARY_VIEW].bottom = _aRect_Present[SECONDARY_VIEW].top  + (fix_height * rate);
                 }
 
-                setPositionPresentRect(CONFIG::DUAL_VIEW_DRAW_POSITION1, _aRect_Present[PRIMARY_VIEW],
-                                       CONFIG::DUAL_VIEW_WINDOW1_WIDTH, CONFIG::DUAL_VIEW_WINDOW1_HEIGHT);
-                setPositionPresentRect(CONFIG::DUAL_VIEW_DRAW_POSITION2, _aRect_Present[SECONDARY_VIEW],
-                                       CONFIG::DUAL_VIEW_WINDOW2_WIDTH, CONFIG::DUAL_VIEW_WINDOW2_HEIGHT);
+                setPositionPresentRect(CONFIG::PRESENT_POSITION1, _aRect_Present[PRIMARY_VIEW],
+                                       CONFIG::WINDOW1_WIDTH, CONFIG::WINDOW1_HEIGHT);
+                setPositionPresentRect(CONFIG::PRESENT_POSITION2, _aRect_Present[SECONDARY_VIEW],
+                                       CONFIG::WINDOW2_WIDTH, CONFIG::WINDOW2_HEIGHT);
             } else {
                 //「ウィンドウモード・２窓使用・縦横比ストレッチ」の１窓目フロントバッファ描画領域
                 _aRect_Present[PRIMARY_VIEW].left   = 0;
                 _aRect_Present[PRIMARY_VIEW].top    = 0;
-                _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + CONFIG::DUAL_VIEW_WINDOW1_WIDTH;
-                _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + CONFIG::DUAL_VIEW_WINDOW1_HEIGHT;
+                _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + CONFIG::WINDOW1_WIDTH;
+                _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + CONFIG::WINDOW1_HEIGHT;
                 //「ウィンドウモード・２窓使用・縦横比ストレッチ」の２窓目フロントバッファ描画領域
                 _aRect_Present[SECONDARY_VIEW].left   = 0;
                 _aRect_Present[SECONDARY_VIEW].top    = 0;
-                _aRect_Present[SECONDARY_VIEW].right  = _aRect_Present[SECONDARY_VIEW].left + CONFIG::DUAL_VIEW_WINDOW2_WIDTH;
-                _aRect_Present[SECONDARY_VIEW].bottom = _aRect_Present[SECONDARY_VIEW].top  + CONFIG::DUAL_VIEW_WINDOW2_HEIGHT;
+                _aRect_Present[SECONDARY_VIEW].right  = _aRect_Present[SECONDARY_VIEW].left + CONFIG::WINDOW2_WIDTH;
+                _aRect_Present[SECONDARY_VIEW].bottom = _aRect_Present[SECONDARY_VIEW].top  + CONFIG::WINDOW2_HEIGHT;
             }
         } else {
             //ウィンドウモード・１窓使用
             if (CONFIG::FIXED_GAME_VIEW_ASPECT) {
-                LONG fix_width = CONFIG::VIEW_SOURCE_BUFFER_WIDTH*CONFIG::VIEW2_WIDTH_RATIO;
-                LONG fix_height = CONFIG::VIEW_SOURCE_BUFFER_HEIGHT*CONFIG::VIEW2_HEIGHT_RATIO;
+                LONG fix_width = CONFIG::RENDER_BUFFER_SOURCE1_WIDTH*CONFIG::VIEW1_WIDTH_RATIO;
+                LONG fix_height = CONFIG::RENDER_BUFFER_SOURCE1_HEIGHT*CONFIG::VIEW1_HEIGHT_RATIO;
                 //「ウィンドウモード・１窓使用・縦横比FIX」のフロントバッファ描画領域
-                if (1.0f * CONFIG::SINGLE_VIEW_WINDOW_WIDTH / CONFIG::SINGLE_VIEW_WINDOW_HEIGHT > 1.0f * fix_width / fix_height) {
+                if (1.0f * CONFIG::WINDOW1_WIDTH / CONFIG::WINDOW1_HEIGHT > 1.0f * fix_width / fix_height) {
                     //より横長になってしまっている
-                    double rate = 1.0 * CONFIG::SINGLE_VIEW_WINDOW_HEIGHT / fix_height; //縮小率=縦幅の比率
-                    _aRect_Present[PRIMARY_VIEW].left   = (CONFIG::SINGLE_VIEW_WINDOW_WIDTH / 2.0) - (fix_width * rate / 2.0);
+                    double rate = 1.0 * CONFIG::WINDOW1_HEIGHT / fix_height; //縮小率=縦幅の比率
+                    _aRect_Present[PRIMARY_VIEW].left   = (CONFIG::WINDOW1_WIDTH / 2.0) - (fix_width * rate / 2.0);
                     _aRect_Present[PRIMARY_VIEW].top    = 0;
                     _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + (fix_width * rate);
                     _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + (fix_height * rate);
                 } else {
                     //より縦長になってしまっている
-                    double rate = 1.0 * CONFIG::SINGLE_VIEW_WINDOW_WIDTH / fix_width; //縮小率=横幅の比率
+                    double rate = 1.0 * CONFIG::WINDOW1_WIDTH / fix_width; //縮小率=横幅の比率
                     _aRect_Present[PRIMARY_VIEW].left   = 0;
-                    _aRect_Present[PRIMARY_VIEW].top    = (CONFIG::SINGLE_VIEW_WINDOW_HEIGHT / 2.0) - (fix_height * rate / 2.0);
+                    _aRect_Present[PRIMARY_VIEW].top    = (CONFIG::WINDOW1_HEIGHT / 2.0) - (fix_height * rate / 2.0);
                     _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + (fix_width * rate);
                     _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + (fix_height * rate);
                 }
                 _aRect_Present[SECONDARY_VIEW] = _aRect_Present[PRIMARY_VIEW];
-                setPositionPresentRect(CONFIG::SINGLE_VIEW_DRAW_POSITION, _aRect_Present[PRIMARY_VIEW],
-                                       CONFIG::SINGLE_VIEW_WINDOW_WIDTH, CONFIG::SINGLE_VIEW_WINDOW_HEIGHT);
-                setPositionPresentRect(CONFIG::SINGLE_VIEW_DRAW_POSITION, _aRect_Present[SECONDARY_VIEW],
-                                       CONFIG::SINGLE_VIEW_WINDOW_WIDTH, CONFIG::SINGLE_VIEW_WINDOW_HEIGHT);
+                setPositionPresentRect(CONFIG::PRESENT_POSITION1, _aRect_Present[PRIMARY_VIEW],
+                                       CONFIG::WINDOW1_WIDTH, CONFIG::WINDOW1_HEIGHT);
+                setPositionPresentRect(CONFIG::PRESENT_POSITION1, _aRect_Present[SECONDARY_VIEW],
+                                       CONFIG::WINDOW1_WIDTH, CONFIG::WINDOW1_HEIGHT);
             } else {
                 //「ウィンドウモード・１窓使用・縦横比ストレッチ」のフロントバッファ描画領域
                 _aRect_Present[PRIMARY_VIEW].left   = 0;
                 _aRect_Present[PRIMARY_VIEW].top    = 0;
-                _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + CONFIG::SINGLE_VIEW_WINDOW_WIDTH;
-                _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + CONFIG::SINGLE_VIEW_WINDOW_HEIGHT;
+                _aRect_Present[PRIMARY_VIEW].right  = _aRect_Present[PRIMARY_VIEW].left + CONFIG::WINDOW1_WIDTH;
+                _aRect_Present[PRIMARY_VIEW].bottom = _aRect_Present[PRIMARY_VIEW].top  + CONFIG::WINDOW1_HEIGHT;
                 _aRect_Present[SECONDARY_VIEW] = _aRect_Present[PRIMARY_VIEW];
             }
         }
@@ -743,10 +741,10 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
             _primary_adapter_no = 0;
             _secondary_adapter_no = 1;
             CONFIG::DUAL_VIEW = false;
-            CONFIG::SINGLE_VIEW_FULL_SCREEN_WIDTH_BK  = CONFIG::DUAL_VIEW_FULL_SCREEN1_WIDTH;
-            CONFIG::SINGLE_VIEW_FULL_SCREEN_HEIGHT_BK = CONFIG::DUAL_VIEW_FULL_SCREEN1_HEIGHT;
-            CONFIG::SINGLE_VIEW_FULL_SCREEN_WIDTH     = CONFIG::DUAL_VIEW_FULL_SCREEN1_WIDTH;
-            CONFIG::SINGLE_VIEW_FULL_SCREEN_HEIGHT    = CONFIG::DUAL_VIEW_FULL_SCREEN1_HEIGHT;
+            CONFIG::FULL_SCREEN1_WIDTH_BK  = CONFIG::FULL_SCREEN1_WIDTH;
+            CONFIG::FULL_SCREEN1_HEIGHT_BK = CONFIG::FULL_SCREEN1_HEIGHT;
+//            CONFIG::FULL_SCREEN1_WIDTH     = CONFIG::FULL_SCREEN1_WIDTH;
+//            CONFIG::FULL_SCREEN1_HEIGHT    = CONFIG::FULL_SCREEN1_HEIGHT;
         } else {
             if (_num_adapter < CONFIG::PRIMARY_ADAPTER_NO+1 || _num_adapter < CONFIG::SECONDARY_ADAPTER_NO+1) {
                 throwCriticalException("範囲外のディスプレイアダプタ番号を指定しています。アダプタ番号は 0～"<<_num_adapter-1<<" が有効です。\n"
@@ -876,14 +874,14 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
     if (CONFIG::FULL_SCREEN) {
         if(CONFIG::DUAL_VIEW) {
             //フルスクリーンモード・２画面使用 (フルスクリーンチェックで上書きされるかもしれない)
-            _paPresetPrm[_primary_adapter_no].BackBufferWidth  = CONFIG::DUAL_VIEW_FULL_SCREEN1_WIDTH;
-            _paPresetPrm[_primary_adapter_no].BackBufferHeight = CONFIG::DUAL_VIEW_FULL_SCREEN1_HEIGHT;
-            _paPresetPrm[_secondary_adapter_no].BackBufferWidth  = CONFIG::DUAL_VIEW_FULL_SCREEN2_WIDTH;
-            _paPresetPrm[_secondary_adapter_no].BackBufferHeight = CONFIG::DUAL_VIEW_FULL_SCREEN2_HEIGHT;
+            _paPresetPrm[_primary_adapter_no].BackBufferWidth  = CONFIG::FULL_SCREEN1_WIDTH;
+            _paPresetPrm[_primary_adapter_no].BackBufferHeight = CONFIG::FULL_SCREEN1_HEIGHT;
+            _paPresetPrm[_secondary_adapter_no].BackBufferWidth  = CONFIG::FULL_SCREEN2_WIDTH;
+            _paPresetPrm[_secondary_adapter_no].BackBufferHeight = CONFIG::FULL_SCREEN2_HEIGHT;
         } else {
             //フルスクリーンモード・１画面使用 (フルスクリーンチェックで上書きされるかもしれない)
-            _paPresetPrm[_primary_adapter_no].BackBufferWidth  = CONFIG::SINGLE_VIEW_FULL_SCREEN_WIDTH;
-            _paPresetPrm[_primary_adapter_no].BackBufferHeight = CONFIG::SINGLE_VIEW_FULL_SCREEN_HEIGHT;
+            _paPresetPrm[_primary_adapter_no].BackBufferWidth  = CONFIG::FULL_SCREEN1_WIDTH;
+            _paPresetPrm[_primary_adapter_no].BackBufferHeight = CONFIG::FULL_SCREEN1_HEIGHT;
             _paPresetPrm[_secondary_adapter_no].BackBufferWidth  = 0;
             _paPresetPrm[_secondary_adapter_no].BackBufferHeight = 0;
         }
@@ -925,7 +923,6 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
             _paDisplayMode[i] = _paDisplayMode[_primary_adapter_no];
         }
     }
-
 
     _paAvailableAdapter = NEW Adapter[_num_adapter];
     _paAdapterRezos = NEW AdapterRezos[_num_adapter];
@@ -1030,8 +1027,8 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
                         prm_dwStyle1,
                         CW_USEDEFAULT,
                         CW_USEDEFAULT,
-                        CONFIG::DUAL_VIEW_WINDOW1_WIDTH,
-                        CONFIG::DUAL_VIEW_WINDOW1_HEIGHT,
+                        CONFIG::WINDOW1_WIDTH,
+                        CONFIG::WINDOW1_HEIGHT,
                         HWND_DESKTOP,
                         nullptr,
                         prm_wndclass1.hInstance,
@@ -1046,8 +1043,8 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
                         prm_dwStyle2,
                         CW_USEDEFAULT,
                         CW_USEDEFAULT,
-                        CONFIG::DUAL_VIEW_WINDOW2_WIDTH,
-                        CONFIG::DUAL_VIEW_WINDOW2_HEIGHT,
+                        CONFIG::WINDOW2_WIDTH,
+                        CONFIG::WINDOW2_HEIGHT,
                         HWND_DESKTOP,
                         nullptr,
                         prm_wndclass2.hInstance,
@@ -1065,8 +1062,8 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
                         prm_dwStyle1,  //枠なし WS_POPUP | WS_VISIBLE,
                         CW_USEDEFAULT,
                         CW_USEDEFAULT,
-                        CONFIG::SINGLE_VIEW_WINDOW_WIDTH,
-                        CONFIG::SINGLE_VIEW_WINDOW_HEIGHT,
+                        CONFIG::WINDOW1_WIDTH,
+                        CONFIG::WINDOW1_HEIGHT,
                         HWND_DESKTOP,
                         nullptr,
                         prm_wndclass1.hInstance,
@@ -1090,16 +1087,15 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
         throwCriticalException("ウィンドウが作成出来ませんでした。");
     }
 
-
     //ウィンドウモード時、クライアント領域を所望の大きさにするため、
     //タイトルバー、リサイズボーダーの厚さを考慮し再設定。
     if (!CONFIG::FULL_SCREEN) {
         //ウィンドウモード時
         if (CONFIG::DUAL_VIEW) {
-            resetWindowsize(_pHWndPrimary  , CONFIG::DUAL_VIEW_WINDOW1_WIDTH, CONFIG::DUAL_VIEW_WINDOW1_HEIGHT);
-            resetWindowsize(_pHWndSecondary, CONFIG::DUAL_VIEW_WINDOW2_WIDTH, CONFIG::DUAL_VIEW_WINDOW2_HEIGHT);
+            resetWindowsize(_pHWndPrimary  , CONFIG::WINDOW1_WIDTH, CONFIG::WINDOW1_HEIGHT);
+            resetWindowsize(_pHWndSecondary, CONFIG::WINDOW2_WIDTH, CONFIG::WINDOW2_HEIGHT);
         } else {
-            resetWindowsize(_pHWndPrimary  , CONFIG::SINGLE_VIEW_WINDOW_WIDTH, CONFIG::SINGLE_VIEW_WINDOW_HEIGHT);
+            resetWindowsize(_pHWndPrimary  , CONFIG::WINDOW1_WIDTH, CONFIG::WINDOW1_HEIGHT);
         }
     }
 
@@ -1111,10 +1107,8 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
         UpdateWindow(_pHWndSecondary);
     }
 
-
     _pCurveSrcManager = createCurveSourceManager();
     _pCurveManufManager = createCurveManufactureManager();
-
 
     //デバイス作成
     if (FAILED(initDevice())) {
@@ -1123,8 +1117,8 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
 }
 
 void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass2,
-                       const char* prm_title1   , const char* prm_title2,
-                       HWND&       out_hWnd1    , HWND&       out_hWnd2) {
+                             const char* prm_title1   , const char* prm_title2,
+                             HWND&       out_hWnd1    , HWND&       out_hWnd2) {
     createWindow( prm_wndclass1, prm_wndclass2,
                   prm_title1, prm_title2,
                   WS_OVERLAPPEDWINDOW | WS_VISIBLE, WS_OVERLAPPEDWINDOW | WS_VISIBLE,
@@ -1132,9 +1126,9 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1, WNDCLASSEX& prm_wndclass
 }
 
 void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1,
-                       const char* prm_title1   ,
-                       DWORD       prm_dwStyle1 ,
-                       HWND&       out_hWnd1     ) {
+                             const char* prm_title1   ,
+                             DWORD       prm_dwStyle1 ,
+                             HWND&       out_hWnd1     ) {
     HWND hWnd2;
     WNDCLASSEX wcex2 = prm_wndclass1;
     wcex2.lpszClassName = "Gecchi Game App Framework (window[1])";
@@ -1145,8 +1139,8 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1,
 }
 
 void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1,
-                       const char* prm_title1   ,
-                       HWND&       out_hWnd1     ) {
+                             const char* prm_title1   ,
+                             HWND&       out_hWnd1     ) {
     createWindow( prm_wndclass1,
                   prm_title1,
                   WS_OVERLAPPEDWINDOW | WS_VISIBLE,
@@ -1154,8 +1148,8 @@ void Caretaker::createWindow(WNDCLASSEX& prm_wndclass1,
 }
 
 void Caretaker::createWindow(WNDPROC prm_WndProc,
-                       const char* prm_title1, const char* prm_title2,
-                       HWND&       out_hWnd1 , HWND&       out_hWnd2  ) {
+                             const char* prm_title1, const char* prm_title2,
+                             HWND&       out_hWnd1 , HWND&       out_hWnd2  ) {
     //ウィンドウ定義＆作成
     WNDCLASSEX wcex1;
     ZeroMemory(&wcex1, sizeof(WNDCLASSEX));
@@ -1244,8 +1238,8 @@ HRESULT Caretaker::initDevice() {
     //ピクセルシェーダー、頂点シェーダーバージョンチェック
     D3DCAPS9 caps;
     _pID3D9->GetDeviceCaps(D3DADAPTER_DEFAULT, // [in] ディスプレイ アダプタを示す序数。
-                                D3DDEVTYPE_HAL,     // [in] デバイスの種類。 D3DDEVTYPE列挙型のメンバ
-                                &caps);             // [out] デバイスの能力が格納される
+                           D3DDEVTYPE_HAL,     // [in] デバイスの種類。 D3DDEVTYPE列挙型のメンバ
+                           &caps);             // [out] デバイスの能力が格納される
     _vs_v = caps.VertexShaderVersion;
     _ps_v = caps.PixelShaderVersion;
 
@@ -1653,7 +1647,6 @@ _TRACE_("restoreFullScreenRenderTarget() 2");
     //        HANDLE* pHandle
     //    );
 
-_TRACE_("restoreFullScreenRenderTarget() 3");
     returnWhenFailed(hr, D3D_OK, "レンダリングターゲットテクスチャ("<<CONFIG::RENDER_TARGET_BUFFER_WIDTH<<"x"<<CONFIG::RENDER_TARGET_BUFFER_HEIGHT<<")の作成に失敗。\nサイズを確認して下さい。");
     //RenderTarget(描画先)をテクスチャへ切り替え
     hr = _pRenderTexture->GetSurfaceLevel(0, &_pRenderTextureSurface);
@@ -1661,7 +1654,6 @@ _TRACE_("restoreFullScreenRenderTarget() 3");
     hr = _pID3DDevice9->SetRenderTarget(0, _pRenderTextureSurface);
     returnWhenFailed(hr, D3D_OK, "レンダリングターゲットテクスチャへ SetRenderTarget 出来ませんでした。");
 
-_TRACE_("restoreFullScreenRenderTarget() 4");
     //テクスチャに描画する際の深度バッファ用サーフェイスを別途作成
     hr = _pID3DDevice9->CreateDepthStencilSurface(
             CONFIG::RENDER_TARGET_BUFFER_WIDTH,
@@ -1674,32 +1666,24 @@ _TRACE_("restoreFullScreenRenderTarget() 4");
             nullptr                                 //HANDLE*             pHandle 現在未使用
     );
     returnWhenFailed(hr, D3D_OK, "レンダリングターゲットテクスチャのZバッファ作成に失敗しました。");
-_TRACE_("restoreFullScreenRenderTarget() 5");
     //深度バッファ作成自動生成の、深度バッファ用サーフェイスを上記に変更
     hr =  _pID3DDevice9->SetDepthStencilSurface(_pRenderTextureZ);
     returnWhenFailed(hr, D3D_OK, "レンダリングターゲットテクスチャへ SetDepthStencilSurface 出来ませんでした。");
-_TRACE_("restoreFullScreenRenderTarget() 6");
     //背景色でクリア
     hr = _pID3DDevice9->Clear(0, nullptr, D3DCLEAR_TARGET, _color_border, 1.0f, 0);
     returnWhenFailed(hr, D3D_OK,  "クリア色(_color_border)の塗りつぶしよる、画面クリアに失敗しました。1");
-_TRACE_("restoreFullScreenRenderTarget() 7");
     hr = _pID3DDevice9->Present(nullptr, nullptr, nullptr, nullptr);
     returnWhenFailed(hr, D3D_OK,  "クリア色(_color_border)の塗りつぶしよる、画面クリアに失敗しました。2");
-_TRACE_("restoreFullScreenRenderTarget() 8");
     hr = _pID3DDevice9->Clear(0, nullptr, D3DCLEAR_TARGET, _color_border, 1.0f, 0);
     returnWhenFailed(hr, D3D_OK,  "クリア色(_color_border)の塗りつぶしよる、画面クリアに失敗しました。3");
-_TRACE_("restoreFullScreenRenderTarget() 9");
     hr = _pID3DDevice9->Present(nullptr, nullptr, nullptr, nullptr);
     returnWhenFailed(hr, D3D_OK,  "クリア色(_color_border)の塗りつぶしよる、画面クリアに失敗しました。4");
-_TRACE_("restoreFullScreenRenderTarget() 10");
 
     //アダプタに関連付けられたスワップチェーンを取得してバックバッファ取得
     hr = _pID3DDevice9->GetSwapChain( _primary_adapter_no, &_apSwapChain[PRIMARY_VIEW] );
     returnWhenFailed(hr, D3D_OK, "スワップチェイン取得に失敗しました。");
-_TRACE_("restoreFullScreenRenderTarget() 11");
     hr = _apSwapChain[PRIMARY_VIEW]->GetBackBuffer( 0, D3DBACKBUFFER_TYPE_MONO, &_apBackBuffer[PRIMARY_VIEW] );
     returnWhenFailed(hr, D3D_OK, "スワップチェインから、ターゲットのバックバッファ取得に失敗しました。");
-_TRACE_("restoreFullScreenRenderTarget() 12");
     if (CONFIG::DUAL_VIEW) {
         hr = _pID3DDevice9->GetSwapChain( _secondary_adapter_no, &_apSwapChain[SECONDARY_VIEW] );
         returnWhenFailed(hr, D3D_OK, "２画面目のスワップチェイン取得に失敗しました。\nマルチディスプレイ環境に問題発生しました。");
@@ -1757,13 +1741,11 @@ _TRACE_("restoreFullScreenRenderTarget() 12");
     }
     hr = _pID3DDevice9->Present(nullptr, nullptr, nullptr, nullptr);
     returnWhenFailed(hr, D3D_OK, "Present(nullptr, nullptr, nullptr, nullptr)に失敗しました。(2)");
-_TRACE_("restoreFullScreenRenderTarget() 20");
     //↑無駄な感じだが、VISTAとXPの２画面目フルスクリーンモード時
     //  両対応させるのはこのようなコードしかないという結論。
 
     //フルスクリーンのウィンドウ位置を補正
     EnumDisplayMonitors(nullptr, nullptr, Caretaker::updateMoniterPixcoordCallback, (LPARAM)this);
-_TRACE_("restoreFullScreenRenderTarget() 21");
     for (int n = 0; n < _num_adapter; n++) {
         pixcoord full_screen_x = _paAvailableAdapter[n].rcMonitor.left;
         pixcoord full_screen_y = _paAvailableAdapter[n].rcMonitor.top;
@@ -1775,8 +1757,6 @@ _TRACE_("restoreFullScreenRenderTarget() 21");
                      full_screen_x, full_screen_y, 0, 0,
                      SWP_NOSIZE);
     }
-
-_TRACE_("restoreFullScreenRenderTarget() 23");
     return D3D_OK;
 }
 
@@ -1810,7 +1790,7 @@ void Caretaker::chengeToBorderlessFullWindow(HWND prm_pHWnd) {
     ShowWindow(prm_pHWnd, SW_SHOWMAXIMIZED );
     UpdateWindow(prm_pHWnd);
     _adjustGameWindow = true;
-    _pHWnd_adjustScreen = prm_pHWnd;
+//    _pHWnd_adjustScreen = prm_pHWnd;
 }
 
 void Caretaker::backToNomalWindow(HWND prm_pHWnd) {
@@ -1823,7 +1803,7 @@ void Caretaker::backToNomalWindow(HWND prm_pHWnd) {
     ShowWindow(prm_pHWnd, SW_NORMAL);
     UpdateWindow(prm_pHWnd);
     _adjustGameWindow = true;
-    _pHWnd_adjustScreen = prm_pHWnd;
+//    _pHWnd_adjustScreen = prm_pHWnd;
 }
 
 void Caretaker::presentMoment() {
@@ -1886,7 +1866,8 @@ void Caretaker::presentVisualize() {
     //        }
     HRESULT hr;
     if (pCARETAKER->_is_device_lost_flg == false) {
-        if (_adjustGameWindow && _pHWnd_adjustScreen) {
+        //if (_adjustGameWindow && _pHWnd_adjustScreen) {
+        if (_adjustGameWindow) {
             adjustGameWindow(_pHWndPrimary);
             adjustGameWindow(_pHWndSecondary);
         }
@@ -1925,45 +1906,54 @@ void Caretaker::presentVisualize() {
             if (CONFIG::DUAL_VIEW) {
                 //２画面使用・ウィンドウモード
                 if (CONFIG::FIXED_GAME_VIEW_ASPECT) {
-                    //縦横比固定モード
-                    if (CONFIG::SWAP_GAME_VIEW) {
-                        //画面入れ替えあり
-                        hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW], &_aRect_Present[PRIMARY_VIEW], nullptr, nullptr);
-                        if (hr == D3D_OK) {
-                            hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW], &_aRect_Present[SECONDARY_VIEW], _pHWndSecondary, nullptr);
-                        }
-                    } else {
-                        //画面入れ替えなし
-                        hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW], &_aRect_Present[PRIMARY_VIEW], nullptr, nullptr);
-                        if (hr == D3D_OK) {
-                            hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW], &_aRect_Present[SECONDARY_VIEW], _pHWndSecondary, nullptr);
-                        }
+                    hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW], &_aRect_Present[PRIMARY_VIEW], nullptr, nullptr);
+                    if (hr == D3D_OK) {
+                        hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW], &_aRect_Present[SECONDARY_VIEW], _pHWndSecondary, nullptr);
                     }
-                } else {
-                    //縦横ストレッチモード
-                    if (CONFIG::SWAP_GAME_VIEW) {
-                        //画面入れ替えあり
-                        hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW], nullptr, nullptr, nullptr);
-                        if (hr == D3D_OK) {
-                            hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW], nullptr, _pHWndSecondary, nullptr);
-                        }
-                    } else {
-                        //画面入れ替えなし
-                        hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW], nullptr, nullptr, nullptr);
-                        if (hr == D3D_OK) {
-                            hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW], nullptr, _pHWndSecondary, nullptr);
-                        }
-                    }
+
+
+//                    //縦横比固定モード
+//                    if (CONFIG::SWAP_GAME_VIEW) {
+//                        //画面入れ替えあり
+//                        hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW], &_aRect_Present[PRIMARY_VIEW], nullptr, nullptr);
+//                        if (hr == D3D_OK) {
+//                            hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW], &_aRect_Present[SECONDARY_VIEW], _pHWndSecondary, nullptr);
+//                        }
+//                    } else {
+//                        //画面入れ替えなし
+//                        hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW], &_aRect_Present[PRIMARY_VIEW], nullptr, nullptr);
+//                        if (hr == D3D_OK) {
+//                            hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW], &_aRect_Present[SECONDARY_VIEW], _pHWndSecondary, nullptr);
+//                        }
+//                    }
+//                } else {
+//                    //縦横ストレッチモード
+//                    if (CONFIG::SWAP_GAME_VIEW) {
+//                        //画面入れ替えあり
+//                        hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW], nullptr, nullptr, nullptr);
+//                        if (hr == D3D_OK) {
+//                            hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW], nullptr, _pHWndSecondary, nullptr);
+//                        }
+//                    } else {
+//                        //画面入れ替えなし
+//                        hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[PRIMARY_VIEW], nullptr, nullptr, nullptr);
+//                        if (hr == D3D_OK) {
+//                            hr = pDevice->Present(&_aRect_HarfRenderTargetBuffer[SECONDARY_VIEW], nullptr, _pHWndSecondary, nullptr);
+//                        }
+//                    }
+
+
                 }
             } else {
                 //１画面使用・ウィンドウモード
-                if (CONFIG::FIXED_GAME_VIEW_ASPECT) {
-                    //縦横比固定モード
-                    hr = pDevice->Present(&_rectRenderTargetBuffer, &_aRect_Present[PRIMARY_VIEW], nullptr, nullptr);
-                } else {
-                    //縦横ストレッチモード
-                    hr = pDevice->Present(&_rectRenderTargetBuffer, nullptr, nullptr, nullptr);
-                }
+                hr = pDevice->Present(&_rectRenderTargetBuffer, &_aRect_Present[_primary_adapter_no], nullptr, nullptr);
+//                if (CONFIG::FIXED_GAME_VIEW_ASPECT) {
+//                    //縦横比固定モード
+//                    hr = pDevice->Present(&_rectRenderTargetBuffer, &_aRect_Present[PRIMARY_VIEW], nullptr, nullptr);
+//                } else {
+//                    //縦横ストレッチモード
+//                    hr = pDevice->Present(&_rectRenderTargetBuffer, nullptr, nullptr, nullptr);
+//                }
             }
         }
 
@@ -2039,39 +2029,34 @@ void Caretaker::presentVisualize() {
         //解像度変更を考慮
         if (CONFIG::FULL_SCREEN) {
             //一旦戻す
-            CONFIG::DUAL_VIEW_FULL_SCREEN1_WIDTH = CONFIG::DUAL_VIEW_FULL_SCREEN1_WIDTH_BK;
-            CONFIG::DUAL_VIEW_FULL_SCREEN1_HEIGHT = CONFIG::DUAL_VIEW_FULL_SCREEN1_HEIGHT_BK;
-            CONFIG::DUAL_VIEW_FULL_SCREEN2_WIDTH = CONFIG::DUAL_VIEW_FULL_SCREEN2_WIDTH_BK;
-            CONFIG::DUAL_VIEW_FULL_SCREEN2_HEIGHT = CONFIG::DUAL_VIEW_FULL_SCREEN2_HEIGHT_BK;
-            CONFIG::SINGLE_VIEW_FULL_SCREEN_WIDTH = CONFIG::SINGLE_VIEW_FULL_SCREEN_WIDTH_BK;
-            CONFIG::SINGLE_VIEW_FULL_SCREEN_HEIGHT = CONFIG::SINGLE_VIEW_FULL_SCREEN_HEIGHT_BK;
-_TRACE_("pCARETAKER->setDisplaySizeInfo(); begin");
+            CONFIG::FULL_SCREEN1_WIDTH = CONFIG::FULL_SCREEN1_WIDTH_BK;
+            CONFIG::FULL_SCREEN1_HEIGHT = CONFIG::FULL_SCREEN1_HEIGHT_BK;
+            CONFIG::FULL_SCREEN2_WIDTH = CONFIG::FULL_SCREEN2_WIDTH_BK;
+            CONFIG::FULL_SCREEN2_HEIGHT = CONFIG::FULL_SCREEN2_HEIGHT_BK;
+            CONFIG::FULL_SCREEN1_WIDTH = CONFIG::FULL_SCREEN1_WIDTH_BK;
+            CONFIG::FULL_SCREEN1_HEIGHT = CONFIG::FULL_SCREEN1_HEIGHT_BK;
             pCARETAKER->setDisplaySizeInfo();
-_TRACE_("pCARETAKER->setDisplaySizeInfo(); done");
-_TRACE_("pCARETAKER->setAppropriateDisplaySize(); begin");
             pCARETAKER->setAppropriateDisplaySize(false);
             //checkAppropriateDisplaySize() による解像度変更はしない
             //理由：画面ローテートで解像度を変更された場合、
             //その解像度から CONFIGの解像度へ、更に解像度を変更しようとすると
             //アプリ終了時に変更後の解像度のまま残るため？
-_TRACE_("pCARETAKER->setAppropriateDisplaySize(); done");
 
             //バックバッファサイズ
             if(CONFIG::DUAL_VIEW) {
                 //フルスクリーンモード・２画面使用 (フルスクリーンチェックで上書きされるかもしれない)
-                _paPresetPrm[_primary_adapter_no].BackBufferWidth  = CONFIG::DUAL_VIEW_FULL_SCREEN1_WIDTH;
-                _paPresetPrm[_primary_adapter_no].BackBufferHeight = CONFIG::DUAL_VIEW_FULL_SCREEN1_HEIGHT;
-                _paPresetPrm[_secondary_adapter_no].BackBufferWidth  = CONFIG::DUAL_VIEW_FULL_SCREEN2_WIDTH;
-                _paPresetPrm[_secondary_adapter_no].BackBufferHeight = CONFIG::DUAL_VIEW_FULL_SCREEN2_HEIGHT;
+                _paPresetPrm[_primary_adapter_no].BackBufferWidth  = CONFIG::FULL_SCREEN1_WIDTH;
+                _paPresetPrm[_primary_adapter_no].BackBufferHeight = CONFIG::FULL_SCREEN1_HEIGHT;
+                _paPresetPrm[_secondary_adapter_no].BackBufferWidth  = CONFIG::FULL_SCREEN2_WIDTH;
+                _paPresetPrm[_secondary_adapter_no].BackBufferHeight = CONFIG::FULL_SCREEN2_HEIGHT;
             } else {
                 //フルスクリーンモード・１画面使用 (フルスクリーンチェックで上書きされるかもしれない)
-                _paPresetPrm[_primary_adapter_no].BackBufferWidth  = CONFIG::SINGLE_VIEW_FULL_SCREEN_WIDTH;
-                _paPresetPrm[_primary_adapter_no].BackBufferHeight = CONFIG::SINGLE_VIEW_FULL_SCREEN_HEIGHT;
+                _paPresetPrm[_primary_adapter_no].BackBufferWidth  = CONFIG::FULL_SCREEN1_WIDTH;
+                _paPresetPrm[_primary_adapter_no].BackBufferHeight = CONFIG::FULL_SCREEN1_HEIGHT;
                 _paPresetPrm[_secondary_adapter_no].BackBufferWidth  = 0;
                 _paPresetPrm[_secondary_adapter_no].BackBufferHeight = 0;
             }
 
-_TRACE_("SetWindowPos()!");
             //下のrestoreFullScreenRenderTarget() で似たようなことをやってるのでいらんかも
             if (CONFIG::DUAL_VIEW) {
                 SetWindowPos(_paHWnd[_primary_adapter_no], NULL, 0, 0,
@@ -2225,11 +2210,11 @@ void Caretaker::adjustGameWindow(HWND prm_pHWnd) {
             LONG fix_width, fix_height;
             int pos1, pos2;
             if (CONFIG::DUAL_VIEW) {
-                pos1 = CONFIG::DUAL_VIEW_DRAW_POSITION1;
-                pos2 = CONFIG::DUAL_VIEW_DRAW_POSITION2;
+                pos1 = CONFIG::PRESENT_POSITION1;
+                pos2 = CONFIG::PRESENT_POSITION2;
             } else {
-                pos1 = CONFIG::SINGLE_VIEW_DRAW_POSITION;
-                pos2 = CONFIG::DUAL_VIEW_DRAW_POSITION2; //とりあえず
+                pos1 = CONFIG::PRESENT_POSITION1;
+                pos2 = CONFIG::PRESENT_POSITION2; //とりあえず
             }
 
             //ウィンドウモード時・RENDER_TARGET_BUFFERサイズ無視
@@ -2237,15 +2222,15 @@ void Caretaker::adjustGameWindow(HWND prm_pHWnd) {
                 //ウィンドウモード時・アスペクト比固定
                 if (CONFIG::DUAL_VIEW) {
                     if (prm_pHWnd == _pHWndPrimary) {
-                        fix_width  = CONFIG::VIEW_SOURCE_BUFFER_WIDTH  * CONFIG::VIEW1_WIDTH_RATIO / 2.0;
-                        fix_height = CONFIG::VIEW_SOURCE_BUFFER_HEIGHT * CONFIG::VIEW1_HEIGHT_RATIO;
+                        fix_width  = CONFIG::RENDER_BUFFER_SOURCE1_WIDTH  * CONFIG::VIEW1_WIDTH_RATIO;
+                        fix_height = CONFIG::RENDER_BUFFER_SOURCE1_HEIGHT * CONFIG::VIEW1_HEIGHT_RATIO;
                     } else {
-                        fix_width  = CONFIG::VIEW_SOURCE_BUFFER_WIDTH  * CONFIG::VIEW2_WIDTH_RATIO / 2.0;
-                        fix_height = CONFIG::VIEW_SOURCE_BUFFER_HEIGHT * CONFIG::VIEW2_HEIGHT_RATIO;
+                        fix_width  = CONFIG::RENDER_BUFFER_SOURCE2_WIDTH  * CONFIG::VIEW2_WIDTH_RATIO;
+                        fix_height = CONFIG::RENDER_BUFFER_SOURCE2_HEIGHT * CONFIG::VIEW2_HEIGHT_RATIO;
                     }
                 } else {
-                    fix_width  = CONFIG::VIEW_SOURCE_BUFFER_WIDTH  * CONFIG::VIEW1_WIDTH_RATIO;
-                    fix_height = CONFIG::VIEW_SOURCE_BUFFER_HEIGHT * CONFIG::VIEW1_HEIGHT_RATIO;
+                    fix_width  = CONFIG::RENDER_BUFFER_SOURCE1_WIDTH  * CONFIG::VIEW1_WIDTH_RATIO;
+                    fix_height = CONFIG::RENDER_BUFFER_SOURCE1_HEIGHT * CONFIG::VIEW1_HEIGHT_RATIO;
                 }
 
                 if (1.0f * c_width / c_height > 1.0f * fix_width / fix_height) {
@@ -2330,7 +2315,7 @@ void Caretaker::adjustGameWindow(HWND prm_pHWnd) {
     Camera* pCam = getSpacetime()->getCamera();
     _pID3DDevice9->GetViewport(&(pCam->_viewport));
     _adjustGameWindow = false;
-    _pHWnd_adjustScreen = nullptr;
+//    _pHWnd_adjustScreen = nullptr;
 }
 
 void Caretaker::setPositionPresentRect(int prm_pos, RECT& inout_rectPresent, pixcoord prm_screen_width, pixcoord prm_screen_height) {
@@ -2413,7 +2398,7 @@ Caretaker::~Caretaker() {
 //    フロントバッファ         ／                                        ／
 //    (ウインドウ)           ／                                        ／
 //                           ￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣
-//                           SINGLE_VIEW_WINDOW_WIDTH x SINGLE_VIEW_WINDOW_HEIGHT
+//                           WINDOW1_WIDTH x WINDOW1_HEIGHT
 //
 //                                               ↑
 //                                               ｜ Present
@@ -2421,9 +2406,9 @@ Caretaker::~Caretaker() {
 //                                               ｜
 //                                  ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 //    バックバッファ              ／                                        ／
-//                              ／                                        ／ Draw   ＿＿＿
-//                            ／                                        ／    ←  ／    ／ゲームバッファ
-//                            ￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣          ￣￣￣
+//                              ／ _paPresetPrm[0].BackBufferWidthxHeight ／ 全面にDraw   ＿＿＿
+//                            ／                                        ／       ←     ／    ／ゲームバッファ
+//                            ￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣                ￣￣￣GAME_BUFFER_WIDTH x GAME_BUFFER_HEIGHT
 //                       RENDER_TARGET_BUFFER_WIDTH x RENDER_TARGET_BUFFER_HEIGHT
 //
 //
@@ -2436,8 +2421,8 @@ Caretaker::~Caretaker() {
 //    フロントバッファ    ／                    ／           ／                    ／
 //    (ウインドウ)      ／                    ／           ／                    ／
 //                      ￣￣￣￣￣￣￣￣￣￣￣             ￣￣￣￣￣￣￣￣￣￣￣
-//                     DUAL_VIEW_WINDOW1_WIDTH x            DUAL_VIEW_WINDOW2_WIDTH x
-//                       DUAL_VIEW_WINDOW1_HEIGHT             DUAL_VIEW_WINDOW2_HEIGHT
+//                     WINDOW1_WIDTH x            WINDOW2_WIDTH x
+//                       WINDOW1_HEIGHT             WINDOW2_HEIGHT
 //
 //                                 ↑                               ↑
 //                                 ｜ Present                       ｜ Present
@@ -2445,9 +2430,9 @@ Caretaker::~Caretaker() {
 //
 //                                  ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 //    バックバッファ              ／                                        ／
-//                              ／                                        ／ Draw   ＿＿＿
-//                            ／                                        ／    ←  ／    ／ゲームバッファ
-//                            ￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣          ￣￣￣
+//                              ／ _paPresetPrm[0].BackBufferWidthxHeight ／ 全面にDraw   ＿＿＿
+//                            ／                                        ／       ←     ／    ／ゲームバッファ
+//                            ￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣                ￣￣￣GAME_BUFFER_WIDTH x GAME_BUFFER_HEIGHT
 //                    RENDER_TARGET_BUFFER_WIDTH x RENDER_TARGET_BUFFER_HEIGHT
 //
 //
@@ -2462,8 +2447,8 @@ Caretaker::~Caretaker() {
 //    (ディスプレイ)               ／                              ／
 //                               ／                              ／
 //                               ￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣
-//                                SINGLE_VIEW_FULL_SCREEN_WIDTH x
-//                                  SINGLE_VIEW_FULL_SCREEN_HEIGHT
+//                                FULL_SCREEN1_WIDTH x
+//                                  FULL_SCREEN1_HEIGHT
 //
 //                                                 ↑
 //                                                 ｜ Present (flip)
@@ -2476,17 +2461,17 @@ Caretaker::~Caretaker() {
 //                                ／                              ／
 //                              ／                              ／
 //                              ￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣
-//                               SINGLE_VIEW_FULL_SCREEN_WIDTH x
-//                                 SINGLE_VIEW_FULL_SCREEN_HEIGHT
+//                               FULL_SCREEN1_WIDTH x
+//                                 FULL_SCREEN1_HEIGHT
 //
 //                                                 ↑
 //                                                 ｜ StretchRect
 //                                                 ｜
 //                                 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 //    レンダーターゲット         ／                                        ／
-//    テクスチャー             ／       _pRenderTextureSurface           ／ Draw   ＿＿＿
-//                           ／                                        ／    ←  ／    ／ゲームバッファ
-//                           ￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣          ￣￣￣
+//    テクスチャー             ／       _pRenderTextureSurface           ／ 全面にDraw   ＿＿＿
+//                           ／                                        ／       ←     ／    ／ゲームバッファ
+//                           ￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣                ￣￣￣GAME_BUFFER_WIDTH x GAME_BUFFER_HEIGHT
 //                     RENDER_TARGET_BUFFER_WIDTH x RENDER_TARGET_BUFFER_HEIGHT
 //
 //
@@ -2499,8 +2484,8 @@ Caretaker::~Caretaker() {
 //    フロントバッファ    ／                    ／       |    ／                    ／
 //    (ディスプレイ)    ／                    ／         |  ／                    ／
 //                      ￣￣￣￣￣￣￣￣￣￣￣           |  ￣￣￣￣￣￣￣￣￣￣￣
-//                     DUAL_VIEW_FULL_SCREEN1_WIDTH x    |   DUAL_VIEW_FULL_SCREEN2_WIDTH x
-//                       DUAL_VIEW_FULL_SCREEN1_HEIGHT   |     DUAL_VIEW_FULL_SCREEN2_HEIGHT
+//                     FULL_SCREEN1_WIDTH x    |   FULL_SCREEN2_WIDTH x
+//                       FULL_SCREEN1_HEIGHT   |     FULL_SCREEN2_HEIGHT
 //
 //                               ↑                                 ↑
 //                               ｜ Present (flip)                  ｜ Present (flip)
@@ -2511,17 +2496,17 @@ Caretaker::~Caretaker() {
 //    バックバッファ      ／  _apBackBuffer[0]  ／           ／  _apBackBuffer[1]  ／
 //                      ／                    ／           ／                    ／
 //                      ￣￣￣￣￣￣￣￣￣￣￣             ￣￣￣￣￣￣￣￣￣￣￣
-//                     DUAL_VIEW_FULL_SCREEN1_WIDTH x        DUAL_VIEW_FULL_SCREEN2_WIDTH x
-//                       DUAL_VIEW_FULL_SCREEN1_HEIGHT         DUAL_VIEW_FULL_SCREEN2_HEIGHT
+//                     FULL_SCREEN1_WIDTH x        FULL_SCREEN2_WIDTH x
+//                       FULL_SCREEN1_HEIGHT         FULL_SCREEN2_HEIGHT
 //
 //                                    ↑                            ↑
 //                                    ｜ StretchRect                ｜ StretchRect
 //                                    ｜                            ｜
 //                                  ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 //    レンダーターゲット          ／                                        ／
-//    テクスチャー              ／       _pRenderTextureSurface           ／ Draw   ＿＿＿
-//                            ／                                        ／    ←  ／    ／ゲームバッファ
-//                            ￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣          ￣￣￣
+//    テクスチャー              ／       _pRenderTextureSurface           ／ 全面にDraw   ＿＿＿
+//                            ／                                        ／       ←     ／    ／ゲームバッファ
+//                            ￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣                ￣￣￣  GAME_BUFFER_WIDTH x GAME_BUFFER_HEIGHT
 //                       RENDER_TARGET_BUFFER_WIDTH x RENDER_TARGET_BUFFER_HEIGHT
 
 

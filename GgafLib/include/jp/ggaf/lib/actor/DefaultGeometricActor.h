@@ -12,7 +12,9 @@ namespace GgafLib {
  * @author Masatoshi Tsuge
  */
 class DefaultGeometricActor : public GgafDx::GeometricActor {
-
+public:
+    /** 衝突判定支援オブジェクト */
+    CollisionChecker* _pColliChecker;
 public:
     DefaultGeometricActor(const char* prm_name, GgafDx::Checker* prm_pChecker = nullptr);
 
@@ -26,9 +28,10 @@ public:
 
     virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {}
 
-    virtual bool processHitChkLogic(GgafCore::Actor* prm_pOtherActor) override {
-        return false;
+    inline CollisionChecker* getCollisionChecker() {
+        return _pColliChecker;
     }
+    virtual void drawHitArea() override;
 
     virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override {}
 

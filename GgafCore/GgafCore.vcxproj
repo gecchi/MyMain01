@@ -66,6 +66,7 @@
     <ClInclude Include="include\jp\ggaf\core\actor\grouphead.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\mainactor.h" />
     <ClInclude Include="include\jp\ggaf\core\actor\scenemediator.h" />
+    <ClInclude Include="include\jp\ggaf\core\caretaker.h" />
     <ClInclude Include="include\jp\ggaf\core\config.h" />
     <ClInclude Include="include\jp\ggaf\core\Cradle.h" />
     <ClInclude Include="include\jp\ggaf\core\element.hpp" />

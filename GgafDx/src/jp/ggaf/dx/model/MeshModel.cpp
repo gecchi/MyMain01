@@ -199,7 +199,7 @@ void MeshModel::restore() {
             xdata.XFileNames[0] = xfile;
             xdata.DrawSetNum = 1;
             D3DXMatrixIdentity(&(xdata.BaseTransformMatrix));
-            _TRACE_("MeshModel::restore() model_def_file="<<model_def_file<<" が存在しないので、特別に xfile="<<xfile<<" をよみこんだげる！（べ、べつに・・略）");
+            _TRACE_("MeshModel::restore() model_def_file="<<model_def_file<<" が読めません！。特別に予想して xfile="<<xfile<<" を読みこんだげる！（べ、別にあんたの /// … 略）");
         }
         xfilepath = Model::getXFilePath(xdata.XFileNames[0]);
         HRESULT hr;

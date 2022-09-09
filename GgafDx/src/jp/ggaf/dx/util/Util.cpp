@@ -74,7 +74,7 @@ angle Util::SLANT2ANG[100000 + 1];
 
 angle Util::PROJANG_XY_XZ_TO_ROTANG_z[D90SANG*SR_AC+1][D90SANG*SR_AC+1];
 angle Util::PROJANG_XY_XZ_TO_ROTANG_y_REV[D90SANG*SR_AC+1][D90SANG*SR_AC+1];
-angle Util::PROJANG_ZY_ZX_TO_ROTANG_x_REV[D90SANG*SR_AC+1][D90SANG*SR_AC+1];
+//angle Util::PROJANG_ZY_ZX_TO_ROTANG_x_REV[D90SANG*SR_AC+1][D90SANG*SR_AC+1];
 angle Util::PROJANG_ZY_ZX_TO_ROTANG_y[D90SANG*SR_AC+1][D90SANG*SR_AC+1];
 
 double Util::RND_CIRCLE_X[10000];
@@ -245,12 +245,23 @@ void Util::init() {
                 angle rx_rev = rz;
                 //(0,0,1.0)を0°としY軸の正の方を向いて反時計回りを正の角(ry)を考える
                 //これは上で求めたry_revをD90ANGから引いた値である。
-                Util::PROJANG_ZY_ZX_TO_ROTANG_x_REV[prj_s_ang_zy][prj_s_ang_zx] = rx_rev;
+//                Util::PROJANG_ZY_ZX_TO_ROTANG_x_REV[prj_s_ang_zy][prj_s_ang_zx] = rx_rev;
                 Util::PROJANG_ZY_ZX_TO_ROTANG_y[prj_s_ang_zy][prj_s_ang_zx] = D90ANG - ry_rev;
             }
         }
     }
 
+//    for (s_ang a = 0; a <= D90SANG*SR_AC; a+=10) {
+//        for (s_ang b = 0; b <= D90SANG*SR_AC; b+=10) {
+//
+//            _TRACE_("["<<a<<"]["<<b<<"]="<<
+//                 Util::PROJANG_XY_XZ_TO_ROTANG_z[a][b] << "\t" <<
+//                 Util::PROJANG_XY_XZ_TO_ROTANG_y_REV[a][b] << "\t" <<
+//                 Util::PROJANG_ZY_ZX_TO_ROTANG_x_REV[a][b] << "\t" <<
+//                 Util::PROJANG_ZY_ZX_TO_ROTANG_y[a][b] << "\t" <<
+//                 "");
+//        }
+//    }
     Sleep(10);
     //円内、球内に一様に分布するランダムな点を生成
     for (int i = 0; i < 10000; i++) {

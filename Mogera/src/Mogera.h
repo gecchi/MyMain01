@@ -48,6 +48,8 @@ class Box;
 class AniTest;
 class AniTest2;
 class SkinMeshAnimeTestScene;
+class PointerTest;
+
 }
 
 #endif /*SIMPLEMOGERA_H_*/

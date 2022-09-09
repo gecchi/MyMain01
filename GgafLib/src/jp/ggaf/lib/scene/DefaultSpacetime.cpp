@@ -21,8 +21,8 @@ DefaultSpacetime::DefaultSpacetime(const char* prm_name, DefaultCamera* prm_pCam
         //八分木作成
         _TRACE_("八分木作成開始");
         _pLinearOctree = NEW GgafCore::LinearOctree(CONFIG::OCTREE_LEVEL,
-                                              _x_bound_left  ,_y_bound_bottom, _z_bound_near ,
-                                              _x_bound_right ,_y_bound_top   , _z_bound_far   );
+                                                    _x_bound_left  ,_y_bound_bottom, _z_bound_near ,
+                                                    _x_bound_right ,_y_bound_top   , _z_bound_far   );
         _pLinearOctreeHitCheckRounder = NEW OctreeRounder(_pLinearOctree->_paOctant,
                                                           _pLinearOctree->_num_space,
                                                           &GgafCore::Actor::executeHitChk_MeAnd);
@@ -31,8 +31,8 @@ DefaultSpacetime::DefaultSpacetime(const char* prm_name, DefaultCamera* prm_pCam
         //四分木作成
         _TRACE_("四分木作成開始");
         _pLinearQuadtree = NEW GgafCore::LinearQuadtree(CONFIG::QUADTREE_LEVEL,
-                                                  _x_bound_left  ,_y_bound_bottom,
-                                                  _x_bound_right ,_y_bound_top    );
+                                                        _x_bound_left  ,_y_bound_bottom,
+                                                        _x_bound_right ,_y_bound_top    );
         _pLinearQuadtreeHitCheckRounder = NEW QuadtreeRounder(_pLinearQuadtree->_paQuadrant,
                                                               _pLinearQuadtree->_num_space,
                                                               &GgafCore::Actor::executeHitChk_MeAnd);

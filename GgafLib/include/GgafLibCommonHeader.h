@@ -121,6 +121,8 @@ class CameraWorkerConnection;
 class CameraWorkerChanger;
 class DefaultCamWorker;
 
+class PointerActor;
+
 }
 
 #endif /*GGAFLIBHEADER_H_*/

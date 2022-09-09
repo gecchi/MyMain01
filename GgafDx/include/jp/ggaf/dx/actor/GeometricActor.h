@@ -239,6 +239,15 @@ public:
     virtual void processSettlementBehavior() override;
 
     virtual void processPreJudgement() override;
+
+    /**
+     * 共通の描画事後処理 .
+     * 俺デバッグモード (MY_DEBUG が 1)の場合は
+     * 当たり判定領域を描画する。
+     * (といっても drawHitArea() をコールするだけ)
+     */
+    virtual void processAfterDraw() override;
+
     /**
      * 絶対座標計算後の処理 .
      * 土台となるアクター(_pActor_base) がある場合、processSettlementBehavior() 内で
@@ -259,6 +268,12 @@ public:
      * @return true：ヒットしている／false：ヒットしていない
      */
     virtual bool processHitChkLogic(GgafCore::Actor* prm_pOtherActor) override;
+
+    /**
+     * 当たり判定領域を描画 .
+     * 実際の処理は下位クラスに任せる。
+     */
+    virtual void drawHitArea() {};
 
     /**
      * 画面内に表示されているか判定 .

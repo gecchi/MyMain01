@@ -18,6 +18,8 @@
 DECLARE_HASHVAL(GGAF_EVENT_ON_DEVICE_LOST);
 DECLARE_HASHVAL(GGAF_EVENT_ON_DEVICE_LOST_RESTORE);
 
+
+#define PROJANG_ZY_ZX_TO_ROTANG_x_REV PROJANG_XY_XZ_TO_ROTANG_z
 namespace GgafDx {
 
 /**
@@ -76,7 +78,7 @@ public:
      * 平面射影時にできるなす角 → 2軸の回転角  の変換テーブル(その2-1) .
      * 方向ベクトルを、[ZY平面へ射影した時のなす角][ZX平面へ射影した時のなす角] → 元の方向ベクトルのX軸(逆)回転角 の変換テーブル
      */
-    static angle PROJANG_ZY_ZX_TO_ROTANG_x_REV[D90SANG*SR_AC+1][D90SANG*SR_AC+1];
+//    static angle PROJANG_ZY_ZX_TO_ROTANG_x_REV[D90SANG*SR_AC+1][D90SANG*SR_AC+1];
     /**
      * 平面射影時にできるなす角 → 2軸の回転角  の変換テーブル(その2-2) .
      * 方向ベクトルを、[ZY平面へ射影した時のなす角][ZX平面へ射影した時のなす角] → 元の方向ベクトルのY軸回転角 の変換テーブル

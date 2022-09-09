@@ -35,7 +35,7 @@ _y_buffer_bottom(PX_C(CONFIG::GAME_BUFFER_HEIGHT) / -2)
 
     //初期カメラ位置は視点(0,0,Z)、注視点(0,0,0)
     //Zは、キャラがZ=0のXY平面で丁度キャラが値ピクセル幅と一致するような所にカメラを引く
-    _TRACE_(FUNC_NAME<<" カメラの位置(0,0,"<<_cameraZ_org<<")");
+    _TRACE_(FUNC_NAME<<" カメラの位置(0,0,"<<_cameraZ_org<<") dxcoord");
     _pVecCamFromPoint   = NEW D3DXVECTOR3( 0.0f, 0.0f, (FLOAT)_cameraZ_org); //位置
     _pVecCamLookatPoint = NEW D3DXVECTOR3( 0.0f, 0.0f, 0.0f ); //注視する方向
     _pVecCamUp          = NEW D3DXVECTOR3( 0.0f, 1.0f, 0.0f ); //上方向
@@ -49,9 +49,10 @@ _y_buffer_bottom(PX_C(CONFIG::GAME_BUFFER_HEIGHT) / -2)
     );
 
     // 射影変換行列作成
-
-
-    _TRACE_(FUNC_NAME<<" 範囲 ["<<_zn<<" ~ "<<_zf<<"]");
+    _TRACE_(FUNC_NAME<<" _cameraZ_org="<<_cameraZ_org<<" dxcoord");
+    _TRACE_(FUNC_NAME<<" _dep="<<_dep<<"");
+    _TRACE_(FUNC_NAME<<" _zf=("<<-_cameraZ_org<<"*("<<_dep<<"+1.0))=" << _zf << " dxcoord");
+    _TRACE_(FUNC_NAME<<" カメラの表示距離範囲 ["<<_zn<<" ~ "<<_zf<<"] dxcoord");
 
     //正射影
     D3DXMatrixOrthoLH(

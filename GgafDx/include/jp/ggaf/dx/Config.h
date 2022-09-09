@@ -32,35 +32,48 @@ public:
     static pixcoord RENDER_TARGET_BUFFER_WIDTH;
     /** [r] 描画先サーフェイス高さのピクセルサイズ */
     static pixcoord RENDER_TARGET_BUFFER_HEIGHT;
-    /** [r] 描画先サーフェイス（RENDER_TARGET_BUFFER）の中から、実際にゲームに表示する画面領域幅 */
-    static pixcoord VIEW_SOURCE_BUFFER_WIDTH;
-    /** [r] 描画先サーフェイス（RENDER_TARGET_BUFFER）の中から、実際にゲームに表示する画面領域高 */
-    static pixcoord VIEW_SOURCE_BUFFER_HEIGHT;
 
-    /** [r] １画面ウィンドウモードだった場合のウィンドウの初期幅サイズ */
-    static pixcoord SINGLE_VIEW_WINDOW_WIDTH;
-    /** [r] １画面ウィンドウモードだった場合のウィンドウの初期高さサイズ */
-    static pixcoord SINGLE_VIEW_WINDOW_HEIGHT;
+    /** [r] 描画先サーフェイス（RENDER_TARGET_BUFFER）の中から、実際にゲームに表示する画面領域（クリッピング） */
+//    static pixcoord RENDER_BUFFER_SOURCE1_LEFT;
+//    static pixcoord RENDER_BUFFER_SOURCE1_TOP;
+//    static pixcoord RENDER_BUFFER_SOURCE1_WIDTH;
+//    static pixcoord RENDER_BUFFER_SOURCE1_HEIGHT;
+
+    static pixcoord RENDER_BUFFER_SOURCE1_LEFT;
+    static pixcoord RENDER_BUFFER_SOURCE1_TOP;
+    static pixcoord RENDER_BUFFER_SOURCE1_WIDTH;
+    static pixcoord RENDER_BUFFER_SOURCE1_HEIGHT;
+
+    static pixcoord RENDER_BUFFER_SOURCE2_LEFT;
+    static pixcoord RENDER_BUFFER_SOURCE2_TOP;
+    static pixcoord RENDER_BUFFER_SOURCE2_WIDTH;
+    static pixcoord RENDER_BUFFER_SOURCE2_HEIGHT;
+
+
+//    /** [r] １画面ウィンドウモードだった場合のウィンドウの初期幅サイズ */
+//    static pixcoord WINDOW1_WIDTH;
+//    /** [r] １画面ウィンドウモードだった場合のウィンドウの初期高さサイズ */
+//    static pixcoord WINDOW1_HEIGHT;
     /** [r] ２画面ウィンドウモードだった場合の１画面目のウィンドウの初期幅サイズ */
-    static pixcoord DUAL_VIEW_WINDOW1_WIDTH;
+    static pixcoord WINDOW1_WIDTH;
     /** [r] ２画面ウィンドウモードだった場合の１画面目のウィンドウの初期高さサイズ */
-    static pixcoord DUAL_VIEW_WINDOW1_HEIGHT;
+    static pixcoord WINDOW1_HEIGHT;
     /** [r] ２画面ウィンドウモードだった場合の２画面目のウィンドウの初期幅サイズ */
-    static pixcoord DUAL_VIEW_WINDOW2_WIDTH;
+    static pixcoord WINDOW2_WIDTH;
     /** [r] ２画面ウィンドウモードだった場合の２画面目のウィンドウの初期高さサイズ */
-    static pixcoord DUAL_VIEW_WINDOW2_HEIGHT;
-    /** [r] １画面フルスクリーンモードだった場合のスクリーンの解像度(横) */
-    static pixcoord SINGLE_VIEW_FULL_SCREEN_WIDTH;
-    /** [r] １画面フルスクリーンモードだった場合のスクリーンの解像度(縦) */
-    static pixcoord SINGLE_VIEW_FULL_SCREEN_HEIGHT;
+    static pixcoord WINDOW2_HEIGHT;
+//    /** [r] １画面フルスクリーンモードだった場合のスクリーンの解像度(横) */
+//    static pixcoord FULL_SCREEN1_WIDTH;
+//    /** [r] １画面フルスクリーンモードだった場合のスクリーンの解像度(縦) */
+//    static pixcoord FULL_SCREEN1_HEIGHT;
     /** [r] ２画面フルスクリーンモードだった場合の１画面目スクリーンの解像度(横) */
-    static pixcoord DUAL_VIEW_FULL_SCREEN1_WIDTH;
+    static pixcoord FULL_SCREEN1_WIDTH;
     /** [r] ２画面フルスクリーンモードだった場合の１画面目スクリーンの解像度(縦) */
-    static pixcoord DUAL_VIEW_FULL_SCREEN1_HEIGHT;
+    static pixcoord FULL_SCREEN1_HEIGHT;
     /** [r] ２画面フルスクリーンモードだった場合の２画面目スクリーンの解像度(横) */
-    static pixcoord DUAL_VIEW_FULL_SCREEN2_WIDTH;
+    static pixcoord FULL_SCREEN2_WIDTH;
     /** [r] ２画面フルスクリーンモードだった場合の２画面目スクリーンの解像度(縦) */
-    static pixcoord DUAL_VIEW_FULL_SCREEN2_HEIGHT;
+    static pixcoord FULL_SCREEN2_HEIGHT;
     /** [r/w] 表示領域サイズ可変時、表示領域アスペクト比をゲームバッファの縦横比で固定にするかどうか(true=固定/false=固定にしない) */
     static bool FIXED_GAME_VIEW_ASPECT;
     /** [r/w] ２画面フルスクリーンモード時、１画面目のデイスプレイ番号(0～) */
@@ -69,12 +82,12 @@ public:
     static int SECONDARY_ADAPTER_NO;
     /** [r/w] ２画面モード時、１画面目と２画面目を入れ替えるかどうか */
     static bool SWAP_GAME_VIEW;
-    /** [r] １画面モード時かつゲーム表示領域アスペクト比を固定時、表示領域場所を指定(場所＝テンキーの数値) */
-    static int SINGLE_VIEW_DRAW_POSITION;
+//    /** [r] １画面モード時かつゲーム表示領域アスペクト比を固定時、表示領域場所を指定(場所＝テンキーの数値) */
+//    static int PRESENT_POSITION1;
     /** [r] ２画面モード時かつゲーム表示領域アスペクト比を固定時、１画面目の表示領域場所を指定(場所＝テンキーの数値) */
-    static int DUAL_VIEW_DRAW_POSITION1;
+    static int PRESENT_POSITION1;
     /** [r] ２画面モード時かつゲーム表示領域アスペクト比を固定時、２画面目の表示領域場所を指定(場所＝テンキーの数値) */
-    static int DUAL_VIEW_DRAW_POSITION2;
+    static int PRESENT_POSITION2;
     /** [r/w] アスペクト比固定の場合、ゲーム表示領域の横幅調整乗率（１画面目） */
     static double VIEW1_WIDTH_RATIO;
     /** [r/w] アスペクト比固定の場合、ゲーム表示領域の高さ調整乗率（１画面目） */
@@ -152,18 +165,18 @@ public:
     /** [r] スプライン曲線座標情報ファイル(datファイル)格納ディレクトリ */
     static std::string DIR_CURVE;
 
-    /** [r] １画面フルスクリーンモードだった場合のスクリーンの補正前解像度(横) */
-    static pixcoord SINGLE_VIEW_FULL_SCREEN_WIDTH_BK;
-    /** [r] １画面フルスクリーンモードだった場合のスクリーンの補正前解像度(縦) */
-    static pixcoord SINGLE_VIEW_FULL_SCREEN_HEIGHT_BK;
+//    /** [r] １画面フルスクリーンモードだった場合のスクリーンの補正前解像度(横) */
+//    static pixcoord FULL_SCREEN1_WIDTH_BK;
+//    /** [r] １画面フルスクリーンモードだった場合のスクリーンの補正前解像度(縦) */
+//    static pixcoord FULL_SCREEN1_HEIGHT_BK;
     /** [r] ２画面フルスクリーンモードだった場合の１画面目スクリーンの補正前解像度(横) */
-    static pixcoord DUAL_VIEW_FULL_SCREEN1_WIDTH_BK;
+    static pixcoord FULL_SCREEN1_WIDTH_BK;
     /** [r] ２画面フルスクリーンモードだった場合の１画面目スクリーンの補正前解像度(縦) */
-    static pixcoord DUAL_VIEW_FULL_SCREEN1_HEIGHT_BK;
+    static pixcoord FULL_SCREEN1_HEIGHT_BK;
     /** [r] ２画面フルスクリーンモードだった場合の２画面目スクリーンの補正前解像度(横) */
-    static pixcoord DUAL_VIEW_FULL_SCREEN2_WIDTH_BK;
+    static pixcoord FULL_SCREEN2_WIDTH_BK;
     /** [r] ２画面フルスクリーンモードだった場合の２画面目スクリーンの補正前解像度(縦) */
-    static pixcoord DUAL_VIEW_FULL_SCREEN2_HEIGHT_BK;
+    static pixcoord FULL_SCREEN2_HEIGHT_BK;
 
 public:
     static void loadProperties(std::string prm_properties_filename); //shadows

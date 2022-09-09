@@ -202,20 +202,6 @@ public:
     virtual void processPreDraw() override;
 
     /**
-     * 共通の描画事後処理 .
-     * 俺デバッグモード (MY_DEBUG が 1)の場合は
-     * 当たり判定領域を描画する。
-     * (といっても drawHitArea() をコールするだけ)
-     */
-    virtual void processAfterDraw() override;
-
-    /**
-     * 当たり判定領域を描画 .
-     * 実際の処理は下位クラスに任せる。
-     */
-    virtual void drawHitArea() {};
-
-    /**
      * 本アクターの描画時のマテリアルアルファ値設定 .
      * 1.0 以上の場合カリングがON、<br>
      * 1.0 より小さな場合、カリングがOFF、<br>

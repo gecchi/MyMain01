@@ -196,8 +196,8 @@ public:
     bool _is_device_lost_flg;
     /** [r] 画面アスペクト比調整フラグ (true=ウィンドウがリサイズされ、表示領域を再計算) */
     bool _adjustGameWindow;
-    /** [r] 表示領域を再計算が必要なウィンドウ(のハンドル) */
-    HWND _pHWnd_adjustScreen;
+//    /** [r] 表示領域を再計算が必要なウィンドウ(のハンドル) */
+//    HWND _pHWnd_adjustScreen;
 
     /** [r] 頂点シェーダーのバージョン(D3DVS_VERSION(_Major,_Minor)) */
     uint32_t _vs_v;
@@ -206,15 +206,15 @@ public:
 
     /** [r] ゲームバッファ領域(ピクセル的な系) */
     RECT _rectGameBuffer;
-    /** [r] フルスクリーン時、レンダリングターゲットテクスチャの領域(ピクセル) */
+    /** [r] レンダリングターゲットテクスチャの領域(ピクセル) */
     RECT _rectRenderTargetBuffer;
-    /** [r] ゲームバッファ領域の、[0]:左半分領域、[1]:右半分領域 (ピクセル) */
-    RECT _aRect_HarfGameBuffer[2];
+//    /** [r] ゲームバッファ領域の、[0]:左半分領域、[1]:右半分領域 (ピクセル) */
+//    RECT _aRect_HarfGameBuffer[2];
     /** [r] フルスクリーン時、レンダリングターゲットテクスチャ領域の、[0]:左半分領域、[1]:右半分領域 (ピクセル) */
     RECT _aRect_HarfRenderTargetBuffer[2];
     /** [r] 最終表示フロントバッファフレームの領域、[0]:１画面目、[1]:２画面目 (ピクセル) */
     RECT _aRect_ViewScreen[2];
-    /** [r] Present領域、[0]:１画面目、[1]:２画面目 (ピクセル) */
+    /** [r] Present領域(フルスクリーン時、またはウィンドウ＆アスペクトFIXの場合)、[0]:１画面目、[1]:２画面目 (ピクセル) */
     RECT _aRect_Present[2];
     /** [r] １画面目アダプタ番号、 _aRect_HarfRenderTargetBuffer[] の序数 0 ～ */
     int _primary_adapter_no;

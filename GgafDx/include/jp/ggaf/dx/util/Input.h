@@ -49,8 +49,8 @@ public:
     static int _flip_js;
 
 
-    // マウス座標を取得する
-    static POINT _mouse_point[2];
+//    // マウス座標を取得する
+//    static POINT _mouse_point[2];
 
 
 public:

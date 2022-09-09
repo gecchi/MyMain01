@@ -39,8 +39,8 @@ void AroundViewCamWorker::onActive() {
 void AroundViewCamWorker::processBehavior() {
     //TODO:精度を上げるアイディア
     //マウスポイントの履歴を取り、mdx,mdy,mdzは、３フレームほど過去との差にすると回転軸が安定するだろう
-    long mx,my,mz,mdx,mdy,mdz;
-    GgafDx::Input::getMousePointer(&mx, &my, &mz);
+    long mdx,mdy,mdz;
+//    GgafDx::Input::getMousePointer(&mx, &my, &mz);
     GgafDx::Input::getMousePointer_REL(&mdx, &mdy, &mdz);
     mdy = -mdy; //Yはインバーズ
     bool isPressedMouseButton0 = GgafDx::Input::isPressedMouseButton(0);

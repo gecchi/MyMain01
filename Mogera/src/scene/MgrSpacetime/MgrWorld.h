@@ -27,6 +27,10 @@ public:
 
     DefaultScene* pTestScene_;
     DefaultScene* pTrialAndErrScene_;
+
+    PointerTest* pPointerTest_;
+
+
     /**
      * コンストラクタ .
      * @param prm_name 名称

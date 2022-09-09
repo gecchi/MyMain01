@@ -143,14 +143,13 @@ void Texture::restore() {
         _tex_height = d3dsurface_desc.Height;
         _pIDirect3DBaseTexture9 = pIDirect3DCubeTexture9;
     }
-
     //    //1pxあたりのuvの大きさを求める
     //     D3DSURFACE_DESC d3dsurface_desc;
     //     model_pTextureConnection->view()->GetLevelDesc(0, &d3dsurface_desc);
     //     float pxU = 1.0 / d3dsurface_desc.Width; //テクスチャの幅(px)で割る
     //     float pxV = 1.0 / d3dsurface_desc.Height; //テクスチャの高さ(px)で割る
 
-    _TRACE_(""<<texture_name<<" のテクスチャ生成しました。this="<<this);
+    _TRACE_(""<<texture_name<<"("<<_tex_width<<"x"<<_tex_height<<") のテクスチャ生成しました。this="<<this);
 }
 void Texture::release() {
     GGAF_DELETE(_pD3DXIMAGE_INFO);

@@ -158,7 +158,7 @@ void FigureActor::processPreDraw() {
     if (pPlatformScene->instanceOf(Obj_GgafDx_Scene)) {
         //OK
     } else {
-        throwCriticalException("name="<<getName()<<"を描画登録しようとしましたが、所属シーンが name="<<getName()<<"->getPlatformScene()["<<(pPlatformScene->getName())<<"]が、Scene に変換不可です。this="<<NODE_INFO<<" \n"
+        throwCriticalException("name="<<getName()<<"を描画登録しようとしましたが、所属シーンが name="<<getName()<<"->getPlatformScene()["<<(pPlatformScene->getName())<<"]が、GgafDx::Scene に変換不可です。this="<<NODE_INFO<<" \n"
                 "getPlatformScene()->_obj_class="<<pPlatformScene->_obj_class<< " Obj_GgafDx_Scene="<<Obj_GgafDx_Scene<<" \n"
                 "(getPlatformScene()->_obj_class & Obj_GgafDx_Scene)="<<((pPlatformScene->_obj_class) & Obj_GgafDx_Scene) <<" ==?? Obj_GgafDx_Scene("<<Obj_GgafDx_Scene<<")");
     }
@@ -170,7 +170,7 @@ void FigureActor::processPreDraw() {
     _pNextRenderActor = nullptr;
     if (isActiveInTheTree()) {
         GgafCore::Caretaker::_num_active_actor++;
-        if (_alpha > 0.0f &&  ((Scene*)pPlatformScene)->_scene_alpha > 0.0f) { //isActiveInTheTree() で判定すること
+        if (_alpha > 0.0f &&  ((GgafDx::Scene*)pPlatformScene)->_scene_alpha > 0.0f) { //isActiveInTheTree() で判定すること
             _now_drawdepth = _is_2D ? pSpacetime->registerFigureActor2D(this) : pSpacetime->registerFigureActor3D(this);
         }
     }
@@ -186,21 +186,6 @@ void FigureActor::processPreDraw() {
             _hash_temp_technique = 0;
         }
     }
-}
-
-
-void FigureActor::processAfterDraw() {
-#ifdef MY_DEBUG
-//    //各所属シーンのαカーテンを設定する。
-//    getEffect()->setAlphaMaster(((Scene*)getPlatformScene())->_scene_alpha);
-//    _TRACE_("this="<<getName()<<" PlathoneScene="<<((Scene*)getPlatformScene())->getName()<<" _scene_alpha="<<((Scene*)getPlatformScene())->_scene_alpha);
-    //当たり判定領域表示
-    if (pCARETAKER->_d3dfillmode == D3DFILL_WIREFRAME) {
-        pCARETAKER->_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
-        drawHitArea();
-        pCARETAKER->_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, pCARETAKER->_d3dfillmode);
-    }
-#endif
 }
 
 void FigureActor::setMaterialColor(float r, float g, float b) {

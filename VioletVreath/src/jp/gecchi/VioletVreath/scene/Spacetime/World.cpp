@@ -113,14 +113,14 @@ void World::initialize() {
     bool is_warn2 = false;
     if (CONFIG::DUAL_VIEW) {
         if (CONFIG::FULL_SCREEN) {
-            w1 = CONFIG::DUAL_VIEW_FULL_SCREEN1_WIDTH;
-            h1 = CONFIG::DUAL_VIEW_FULL_SCREEN1_HEIGHT;
-            w2 = CONFIG::DUAL_VIEW_FULL_SCREEN2_WIDTH;
-            h2 = CONFIG::DUAL_VIEW_FULL_SCREEN2_HEIGHT;
-            w1_bk = CONFIG::DUAL_VIEW_FULL_SCREEN1_WIDTH_BK;
-            h1_bk = CONFIG::DUAL_VIEW_FULL_SCREEN1_HEIGHT_BK;
-            w2_bk = CONFIG::DUAL_VIEW_FULL_SCREEN2_WIDTH_BK;
-            h2_bk = CONFIG::DUAL_VIEW_FULL_SCREEN2_HEIGHT_BK;
+            w1 = CONFIG::FULL_SCREEN1_WIDTH;
+            h1 = CONFIG::FULL_SCREEN1_HEIGHT;
+            w2 = CONFIG::FULL_SCREEN2_WIDTH;
+            h2 = CONFIG::FULL_SCREEN2_HEIGHT;
+            w1_bk = CONFIG::FULL_SCREEN1_WIDTH_BK;
+            h1_bk = CONFIG::FULL_SCREEN1_HEIGHT_BK;
+            w2_bk = CONFIG::FULL_SCREEN2_WIDTH_BK;
+            h2_bk = CONFIG::FULL_SCREEN2_HEIGHT_BK;
             if (w1 != w1_bk || h1 != h1_bk) {
                 is_warn1 = true;
             }
@@ -128,10 +128,10 @@ void World::initialize() {
                 is_warn2 = true;
             }
         } else {
-            w1 = CONFIG::DUAL_VIEW_WINDOW1_WIDTH;
-            h1 = CONFIG::DUAL_VIEW_WINDOW1_HEIGHT;
-            w2 = CONFIG::DUAL_VIEW_WINDOW2_WIDTH;
-            h2 = CONFIG::DUAL_VIEW_WINDOW2_HEIGHT;
+            w1 = CONFIG::WINDOW1_WIDTH;
+            h1 = CONFIG::WINDOW1_HEIGHT;
+            w2 = CONFIG::WINDOW2_WIDTH;
+            h2 = CONFIG::WINDOW2_HEIGHT;
             w1_bk = w1;
             h1_bk = h1;
             w2_bk = w2;
@@ -139,16 +139,16 @@ void World::initialize() {
         }
     } else {
         if (CONFIG::FULL_SCREEN) {
-            w1 = CONFIG::SINGLE_VIEW_FULL_SCREEN_WIDTH;
-            h1 = CONFIG::SINGLE_VIEW_FULL_SCREEN_HEIGHT;
-            w1_bk = CONFIG::SINGLE_VIEW_FULL_SCREEN_WIDTH_BK;
-            h1_bk = CONFIG::SINGLE_VIEW_FULL_SCREEN_HEIGHT_BK;
+            w1 = CONFIG::FULL_SCREEN1_WIDTH;
+            h1 = CONFIG::FULL_SCREEN1_HEIGHT;
+            w1_bk = CONFIG::FULL_SCREEN1_WIDTH_BK;
+            h1_bk = CONFIG::FULL_SCREEN1_HEIGHT_BK;
             if (w1 != w1_bk || h1 != h1_bk) {
                 is_warn1 = true;
             }
         } else {
-            w1 = CONFIG::SINGLE_VIEW_WINDOW_WIDTH;
-            h1 = CONFIG::SINGLE_VIEW_WINDOW_HEIGHT;
+            w1 = CONFIG::WINDOW1_WIDTH;
+            h1 = CONFIG::WINDOW1_HEIGHT;
             w1_bk = w1;
             h1_bk = h1;
         }

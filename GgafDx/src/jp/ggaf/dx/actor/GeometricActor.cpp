@@ -246,6 +246,21 @@ void GeometricActor::processPreJudgement() {
     }
 }
 
+
+void GeometricActor::processAfterDraw() {
+#ifdef MY_DEBUG
+//    //各所属シーンのαカーテンを設定する。
+//    getEffect()->setAlphaMaster(((Scene*)getPlatformScene())->_scene_alpha);
+//    _TRACE_("this="<<getName()<<" PlathoneScene="<<((Scene*)getPlatformScene())->getName()<<" _scene_alpha="<<((Scene*)getPlatformScene())->_scene_alpha);
+    //当たり判定領域表示
+    if (pCARETAKER->_d3dfillmode == D3DFILL_WIREFRAME) {
+        pCARETAKER->_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+        drawHitArea();
+        pCARETAKER->_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, pCARETAKER->_d3dfillmode);
+    }
+#endif
+}
+
 void GeometricActor::changeGeoLocal() {
 #ifdef MY_DEBUG
         if (!_pActor_base) {
