@@ -35,6 +35,7 @@
     <ClCompile Include="src\scene\MgrSpacetime\MgrWorld\TestScene.cpp" />
     <ClCompile Include="src\MgrCaretaker.cpp" />
     <ClCompile Include="src\actor\PointerTest.cpp" />
+    <ClCompile Include="src\actor\ItemBoardTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\actor\camera\MgrCamera.h" />
@@ -71,5 +72,6 @@
     <ClInclude Include="src\scene\mgrspacetime\mgrworld\testscene.h" />
     <ClInclude Include="src\MgrCaretaker.h" />
     <ClInclude Include="src\actor\pointertest.h" />
+    <ClInclude Include="src\actor\ItemBoardTest.h" />
   </ItemGroup>
 </Project>

@@ -100,6 +100,11 @@ class ColliAAPyramid;
 class CollisionChecker;
 class CollisionChecker3D;
 class CollisionChecker2D;
+class CollisionChecker2D_b;
+
+class LinearOctree;
+class LinearQuadtree;
+class LinearQuadtree_b;
 
 class LaserChip;
 class WateringLaserChip;

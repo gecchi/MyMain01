@@ -90,7 +90,9 @@ public:
     BoardActor(const char* prm_name,
                const char* prm_model,
                const char* prm_effect_id,
-               const char* prm_technique );
+               const char* prm_technique,
+               Checker* prm_pChecker = nullptr);
+
 
     virtual void processDraw() override;
 

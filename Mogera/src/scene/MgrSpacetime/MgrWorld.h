@@ -24,6 +24,7 @@ class MgrWorld : public GgafLib::DefaultScene {
 public:
 
     GgafLib::OctreeRounder* pHitCheckRounder_;
+    GgafLib::QuadtreeRounder_b* pHitCheckRounder_b_;
 
     DefaultScene* pTestScene_;
     DefaultScene* pTrialAndErrScene_;

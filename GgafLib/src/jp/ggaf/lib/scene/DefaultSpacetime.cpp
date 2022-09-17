@@ -38,6 +38,16 @@ DefaultSpacetime::DefaultSpacetime(const char* prm_name, DefaultCamera* prm_pCam
                                                               &GgafCore::Actor::executeHitChk_MeAnd);
         _TRACE_("四分木作成終了");
     }
+
+    //Board用四分木作成
+    _TRACE_("Board用四分木作成開始");
+    _pLinearQuadtree_b = NEW GgafCore::LinearQuadtree_b(2,
+                                                    _x_bound_left_b  ,_y_bound_top_b,
+                                                    _x_bound_right_b , _y_bound_bottom_b   );
+    _pLinearQuadtreeHitCheckRounder_b = NEW QuadtreeRounder(_pLinearQuadtree_b->_paQuadrant,
+                                                              _pLinearQuadtree_b->_num_space,
+                                                              &GgafCore::Actor::executeHitChk_MeAnd);
+    _TRACE_("Board用四分木作成終了");
 }
 
 void DefaultSpacetime::processFinal() {
@@ -46,6 +56,7 @@ void DefaultSpacetime::processFinal() {
     } else {
         _pLinearQuadtree->clearAllElem();
     }
+    _pLinearQuadtree_b->clearAllElem();
 }
 
 DefaultSpacetime::~DefaultSpacetime() {
@@ -55,6 +66,9 @@ DefaultSpacetime::~DefaultSpacetime() {
     } else {
         _pLinearQuadtree->putTree();
     }
+    _TRACE_("Board用四分木 -->");
+    _pLinearQuadtree_b->putTree();
+    _TRACE_("<--Board用四分木");
     CollisionChecker::releaseHitArea();
 #endif
     if (CONFIG::IS_HIT_CHECK_3D) {
@@ -64,4 +78,6 @@ DefaultSpacetime::~DefaultSpacetime() {
         GGAF_DELETE(_pLinearQuadtree);
         GGAF_DELETE(_pLinearQuadtreeHitCheckRounder);
     }
+    GGAF_DELETE(_pLinearQuadtree_b);
+    GGAF_DELETE(_pLinearQuadtreeHitCheckRounder_b);
 }

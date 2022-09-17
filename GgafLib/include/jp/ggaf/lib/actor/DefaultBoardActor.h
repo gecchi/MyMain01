@@ -24,6 +24,9 @@ namespace GgafLib {
 class DefaultBoardActor : public GgafDx::BoardActor {
 
 public:
+    /** 衝突判定支援オブジェクト */
+    CollisionChecker2D_b* _pColliChecker;
+
     DefaultBoardActor(const char* prm_name, const char* prm_model);
 
     virtual void onCreateModel() override {
@@ -41,11 +44,15 @@ public:
     virtual void onCatchEvent(hashval prm_no, void* prm_pSource) override {
     }
 
-    virtual bool processHitChkLogic(GgafCore::Actor* prm_pOtherActor) override {
-        return false;
-    }
+//    virtual bool processHitChkLogic(GgafCore::Actor* prm_pOtherActor) override {
+//        return false;
+//    }
 
     virtual void onHit(const GgafCore::Actor* prm_pOtherActor) override {
+    }
+
+    inline CollisionChecker2D_b* getCollisionChecker() {
+        return _pColliChecker;
     }
 
     virtual ~DefaultBoardActor();

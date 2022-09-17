@@ -13,6 +13,7 @@ namespace GgafLib {
 typedef GgafCore::LinearTreeRounder<GgafCore::Actor, 3> OctreeRounder;
 typedef GgafCore::LinearTreeRounder<GgafCore::Actor, 2> QuadtreeRounder;
 
+typedef GgafCore::LinearTreeRounder<GgafCore::Actor, 2> QuadtreeRounder_b;
 /**
  * 「この世」クラスインターフェイス.
  * GgafDx::Spacetime を継承しただけのインターフェースです。<BR>
@@ -30,6 +31,10 @@ public:
     OctreeRounder* _pLinearOctreeHitCheckRounder;
     GgafCore::LinearQuadtree* _pLinearQuadtree;
     QuadtreeRounder* _pLinearQuadtreeHitCheckRounder;
+
+    GgafCore::LinearQuadtree* _pLinearQuadtree_b;
+    QuadtreeRounder_b* _pLinearQuadtreeHitCheckRounder_b;
+
 public:
     DefaultSpacetime(const char* prm_name, DefaultCamera* prm_pCamera);
 
@@ -72,6 +77,25 @@ public:
 #endif
         return _pLinearQuadtreeHitCheckRounder;
     }
+
+    inline GgafCore::LinearQuadtree* getLinearQuadtree_b() {
+#ifdef MY_DEBUG
+        if (_pLinearQuadtree_b == nullptr) {
+            throwCriticalException("DefaultSpacetime::getLinearQuadtree_b() 四分木は作成されていません。");
+        }
+#endif
+        return _pLinearQuadtree_b;
+    }
+
+    inline QuadtreeRounder* getLinearQuadtreeHitCheckRounder_b() {
+#ifdef MY_DEBUG
+        if (_pLinearQuadtreeHitCheckRounder_b == nullptr) {
+            throwCriticalException("DefaultSpacetime::_pLinearQuadtreeHitCheckRounder_b() 四分木は作成されていません。");
+        }
+#endif
+        return _pLinearQuadtreeHitCheckRounder_b;
+    }
+
     virtual DefaultCamera* getCamera() override { //共変の戻り値
         return (DefaultCamera*)_pCamera;
     }

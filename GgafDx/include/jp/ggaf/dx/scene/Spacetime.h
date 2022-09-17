@@ -85,6 +85,16 @@ public:
     /** [r]アプリケーション領域、Z座標の最大値 */
     const coord _z_bound_far;
 
+    /** [r]アプリケーション領域(Board用)、X座標の最小値 */
+    const coord _x_bound_left_b;
+    /** [r]アプリケーション領域(Board用)、X座標の最大値 */
+    const coord _x_bound_right_b;
+    /** [r]アプリケーション領域(Board用)、Y座標の最小値 */
+    const coord _y_bound_bottom_b;
+    /** [r]アプリケーション領域(Board用)、Y座標の最大値 */
+    const coord _y_bound_top_b;
+
+
     static std::string _seqkey_se_delay;
 
     /** オブジェクトのカメラからの遠さ(pixcoord)に対する、段階レンダリングインデックスの配列 */

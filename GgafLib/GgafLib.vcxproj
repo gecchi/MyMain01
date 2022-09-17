@@ -77,6 +77,7 @@
     <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\straightlaserchip.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\laserchip\wateringlaserchip.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\menu\menuactor.hpp" />
+    <ClInclude Include="include\jp\ggaf\lib\actor\menu\PointableActor.hpp" />
     <ClInclude Include="include\jp\ggaf\lib\actor\piegraphspriteactor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\pointeractor.h" />
     <ClInclude Include="include\jp\ggaf\lib\actor\singlelaser.h" />
@@ -107,6 +108,7 @@
     <ClInclude Include="include\jp\ggaf\lib\util\colliaapyramid.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\collisionchecker.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\CollisionChecker2D.h" />
+    <ClInclude Include="include\jp\ggaf\lib\util\collisionchecker2d_b.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\collisionchecker3d.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\ColliSphere.h" />
     <ClInclude Include="include\jp\ggaf\lib\util\direction26util.h" />
@@ -203,6 +205,7 @@
     <ClCompile Include="src\jp\ggaf\lib\util\ColliAAPyramid.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\CollisionChecker.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\CollisionChecker2D.cpp" />
+    <ClCompile Include="src\jp\ggaf\lib\util\CollisionChecker2D_b.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\CollisionChecker3D.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\ColliSphere.cpp" />
     <ClCompile Include="src\jp\ggaf\lib\util\Direction26Util.cpp" />

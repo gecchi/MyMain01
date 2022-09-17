@@ -4,7 +4,11 @@
 #include "jp/ggaf/core/Object.h"
 #include "jp/ggaf/core/util/TreeSpace.hpp"
 #include "jp/ggaf/core/util/LinearOctree.h"
+#include "jp/ggaf/core/util/LinearQuadtree.h"
+
 namespace GgafCore {
+
+typedef LinearQuadtree LinearQuadtree_b;
 
 /**
  * 線形N分木配列用空間にぶら下がる要素クラス .
@@ -17,7 +21,6 @@ class TreeElem : public Object {
 
     friend class LinearOctree;
     friend class LinearQuadtree;
-
 public:
     /** 空間の配列 */
     TreeSpace<DIMENSION>* _paSpace;

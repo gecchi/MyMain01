@@ -236,6 +236,7 @@
     <ClCompile Include="src\actor\FormationParaCurve.cpp" />
     <ClCompile Include="src\actor\FormationZako.cpp" />
     <ClCompile Include="src\actor\FormationZako001.cpp" />
+    <ClCompile Include="src\actor\ItemBoardTest.cpp" />
     <ClCompile Include="src\actor\PointerTest.cpp" />
     <ClCompile Include="src\actor\PointSpriteTest.cpp" />
     <ClCompile Include="src\actor\SeActor3.cpp" />
@@ -272,6 +273,7 @@
     <ClInclude Include="src\actor\FormationParaCurve.h" />
     <ClInclude Include="src\actor\FormationZako.h" />
     <ClInclude Include="src\actor\FormationZako001.h" />
+    <ClInclude Include="src\actor\ItemBoardTest.h" />
     <ClInclude Include="src\actor\pointertest.h" />
     <ClInclude Include="src\actor\PointSpriteTest.h" />
     <ClInclude Include="src\actor\SeActor3.h" />

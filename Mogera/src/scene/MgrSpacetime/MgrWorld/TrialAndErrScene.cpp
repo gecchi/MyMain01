@@ -16,10 +16,12 @@
 #include "actor/AniTest.h"
 #include "actor/AniTest2.h"
 #include "actor/AniTest3.h"
+#include "actor/ItemBoardTest.h"
 #include "scene/MgrSpacetime/MgrWorld.h"
 #include "jp/ggaf/dx/actor/supporter/AlphaFader.h"
 #include "jp/ggaf/dx/actor/supporter/Puppeteer.h"
 #include "jp/ggaf/dx/actor/supporter/VecVehicle.h"
+
 
 using namespace GgafLib;
 using namespace Mogera;
@@ -35,6 +37,7 @@ enum {
 TrialAndErrScene::TrialAndErrScene(const char* prm_name) : DefaultScene(prm_name) {
     _class_name = "TrialAndErrScene";
     requestActor(2000, SmpActor2, "SmpActor2");
+    requestActor(3000, ItemBoardTest, "ItemBoardTest");
 }
 
 
@@ -45,11 +48,19 @@ void TrialAndErrScene::initialize() {
 
 void TrialAndErrScene::processBehavior() {
     static SmpActor2* pSmpActor2 = nullptr;
+    static ItemBoardTest* pItemBoardTest = nullptr;
+
     if (hasJustChangedToActive()) {
 
         pSmpActor2 = (SmpActor2*)receiveActor(2000);
         bringSceneMediator()->appendGroupChild(MGR_MIKATA, pSmpActor2);
         pSmpActor2->setPosition(0, 0, 0);
+
+
+        pItemBoardTest = (ItemBoardTest*)receiveActor(3000);
+        bringSceneMediator()->appendGroupChild(MGR_MIKATA, pItemBoardTest);
+        pItemBoardTest->setPosition(PX_C(100), PX_C(200));
+
 
     }
 }

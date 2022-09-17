@@ -13,7 +13,8 @@ using namespace GgafDx;
 BoardActor::BoardActor(const char* prm_name,
                        const char* prm_model,
                        const char* prm_effect_id,
-                       const char* prm_technique) :
+                       const char* prm_technique,
+                       Checker* prm_pChecker) :
 
                            FigureActor(prm_name,
                                        prm_model,
@@ -21,7 +22,7 @@ BoardActor::BoardActor(const char* prm_name,
                                        prm_effect_id,
                                        TYPE_BOARD_EFFECT,
                                        prm_technique,
-                                       nullptr) ,
+                                       prm_pChecker) ,
 _pBoardModel((BoardModel*)_pModel),
 _pBoardEffect((BoardEffect*)_pEffect) ,
 _pUvFlipper(NEW UvFlipper(getModel()->getDefaultTextureConnection()->peek())) {
@@ -29,7 +30,7 @@ _pUvFlipper(NEW UvFlipper(getModel()->getDefaultTextureConnection()->peek())) {
     _obj_class |= Obj_GgafDx_BoardActor;
     _class_name = "BoardActor";
     _pUvFlipper->locatePatternNo(_pBoardModel->_col_texture_split,
-                             _pBoardModel->_row_texture_split );
+                                 _pBoardModel->_row_texture_split );
     _pUvFlipper->setActivePtn(0);
     _pUvFlipper->exec(NOT_ANIMATED, 1);
     _align = ALIGN_LEFT;

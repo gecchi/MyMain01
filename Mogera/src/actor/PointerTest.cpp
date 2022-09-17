@@ -12,7 +12,7 @@
 #include "actor/PointerTest.h"
 #include "MgrCaretaker.h"
 #include "jp/ggaf/lib/util/VirtualButton.h"
-
+#include "jp/ggaf/lib/util/CollisionChecker2D_b.h"
 
 using namespace GgafLib;
 using namespace Mogera;
@@ -21,6 +21,10 @@ using namespace Mogera;
 PointerTest::PointerTest(const char* prm_name) :
         PointerActor(prm_name, "Cur") {
     _class_name = "PointerTest";
+    CollisionChecker2D_b* pChecker = getCollisionChecker();
+    pChecker->createCollisionArea(1);
+    pChecker->setColliAABox(0, PX_C(0), PX_C(0), PX_C(32), PX_C(32));
+    setHitAble(true);
 }
 
 void PointerTest::onCreateModel() {
@@ -42,7 +46,7 @@ void PointerTest::processJudgement() {
 }
 
 void PointerTest::onHit(const GgafCore::Actor* prm_pOtherActor) {
-
+_TRACE_("マウスがひっとおお！！！！！！！！！！！！！！！！！！！！！！！！！！！！");
 }
 
 void PointerTest::onInactive() {
