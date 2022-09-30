@@ -17,13 +17,9 @@ using namespace GgafDx;
 DWORD BoardModel::FVF = (D3DFVF_XYZ | D3DFVF_TEX1);
 
 BoardModel::BoardModel(const char* prm_model_id) :
-    Model(prm_model_id) {
+        Model(prm_model_id), IPlaneModel() {
     _TRACE3_("_model_id="<<_model_id);
     _obj_model |= Obj_GgafDx_BoardModel;
-    _model_width_px = 32.0f;
-    _model_height_px = 32.0f;
-    _row_texture_split = 1;
-    _col_texture_split = 1;
     _paVertexBuffer = nullptr;
     _paVertexBuffer_data = nullptr;
     _size_vertices = 0;

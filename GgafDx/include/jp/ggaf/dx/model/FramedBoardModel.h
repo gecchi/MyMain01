@@ -1,7 +1,9 @@
 #ifndef GGAF_DX_FRAMEDBOARDMODEL_H_
 #define GGAF_DX_FRAMEDBOARDMODEL_H_
 #include "GgafDxCommonHeader.h"
+
 #include "jp/ggaf/dx/model/Model.h"
+#include "jp/ggaf/dx/model/interface/IPlaneModel.h"
 
 namespace GgafDx {
 
@@ -11,7 +13,7 @@ namespace GgafDx {
  * @since 2017/08/21
  * @author Masatoshi Tsuge
  */
-class FramedBoardModel : public Model {
+class FramedBoardModel : public Model, public IPlaneModel {
     friend class ModelManager;
     friend class FramedBoardActor;
 
@@ -44,10 +46,6 @@ public:
     INDEXPARAM _indexParam;
     VERTEX* _paVertexBuffer_data;
     WORD* _paIndexBuffer_data;
-    float _model_width_px;
-    float _model_height_px;
-    int _row_texture_split;
-    int _col_texture_split;
 
     float _model_frame_width_px;
     float _model_frame_height_px;

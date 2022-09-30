@@ -1,7 +1,9 @@
 #ifndef GGAF_DX_SPRITESETMODEL_H_
 #define GGAF_DX_SPRITESETMODEL_H_
 #include "GgafDxCommonHeader.h"
+
 #include "jp/ggaf/dx/model/Model.h"
+#include "jp/ggaf/dx/model/interface/IPlaneModel.h"
 
 namespace GgafDx {
 
@@ -11,7 +13,7 @@ namespace GgafDx {
  * @since 2009/07/14
  * @author Masatoshi Tsuge
  */
-class SpriteSetModel : public Model {
+class SpriteSetModel : public Model, public IPlaneModel {
     friend class ModelManager;
 
 public:
@@ -43,11 +45,6 @@ public:
     /** 1頂点のサイズ */
     UINT _size_vertex_unit;
     INDEXPARAM* _paIndexParam;
-
-    float _model_width_px;
-    float _model_height_px;
-    int _row_texture_split;
-    int _col_texture_split;
 
 public:
     /**

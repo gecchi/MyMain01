@@ -14,16 +14,11 @@
 using namespace GgafDx;
 
 DWORD FramedBoardModel::FVF = (D3DFVF_XYZ | D3DFVF_PSIZE | D3DFVF_TEX1);
-FramedBoardModel::FramedBoardModel(const char* prm_model_id) : Model(prm_model_id) {
+FramedBoardModel::FramedBoardModel(const char* prm_model_id) : Model(prm_model_id), IPlaneModel() {
     _TRACE3_("_model_id="<<_model_id);
     _obj_model |= Obj_GgafDx_FramedBoardModel;
     _paVertexBuffer_data = nullptr;
     _paIndexBuffer_data = nullptr;
-
-    _model_width_px = 32.0f;
-    _model_height_px = 32.0f;
-    _row_texture_split = 1;
-    _col_texture_split = 1;
     _model_frame_width_px = 32.0f;
     _model_frame_height_px = 32.0f;
     _row_frame_texture_split = 1;

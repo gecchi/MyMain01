@@ -2,6 +2,7 @@
 #define GGAF_DX_REGULARPOLYGONBOARDMODEL_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/model/Model.h"
+#include "jp/ggaf/dx/model/interface/IPlaneModel.h"
 
 namespace GgafDx {
 
@@ -11,7 +12,7 @@ namespace GgafDx {
  * @since 2009/03/10
  * @author Masatoshi Tsuge
  */
-class RegularPolygonBoardModel : public Model {
+class RegularPolygonBoardModel : public Model, public IPlaneModel {
     friend class ModelManager;
     friend class RegularPolygonBoardActor;
 
@@ -29,10 +30,6 @@ public:
     /** 1頂点のサイズ */
     UINT _size_vertex_unit;
     VERTEX* _paVertexBuffer_data;
-    float _model_width_px;
-    float _model_height_px;
-    int _row_texture_split;
-    int _col_texture_split;
 
     /** FAN描画順方向 1:時計回り/1以外:反時計回り */
     int _drawing_order;

@@ -1,7 +1,9 @@
 #ifndef GGAF_DX_MASSSPRITEMODEL_H_
 #define GGAF_DX_MASSSPRITEMODEL_H_
 #include "GgafDxCommonHeader.h"
+
 #include "jp/ggaf/dx/model/MassModel.h"
+#include "jp/ggaf/dx/model/interface/IPlaneModel.h"
 
 namespace GgafDx {
 
@@ -11,7 +13,7 @@ namespace GgafDx {
  * @since 2016/02/25
  * @author Masatoshi Tsuge
  */
-class MassSpriteModel : public MassModel {
+class MassSpriteModel : public MassModel, public IPlaneModel {
     friend class ModelManager;
 
 public:
@@ -21,12 +23,8 @@ public:
     VERTEX_model* _paVtxBuffer_data_model;
     WORD* _paIndexBuffer_data;
 
-    float _model_width_px;
-    float _model_height_px;
     float _model_half_width_px;
     float _model_half_height_px;
-    int _row_texture_split;
-    int _col_texture_split;
 
 public:
     /**

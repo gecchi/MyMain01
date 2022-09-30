@@ -254,6 +254,7 @@
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\vecvehiclefaceangassistant.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\vecvehiclemvangassistant.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\supporter\vecvehiclemvassistant.h" />
+    <ClInclude Include="include\jp\ggaf\dx\caretaker.h" />
     <ClInclude Include="include\jp\ggaf\dx\config.h" />
     <ClInclude Include="include\jp\ggaf\dx\effect\BoardEffect.h" />
     <ClInclude Include="include\jp\ggaf\dx\effect\boardseteffect.h" />
@@ -309,6 +310,7 @@
     <ClInclude Include="include\jp\ggaf\dx\model\ex\WorldBoundModel.h" />
     <ClInclude Include="include\jp\ggaf\dx\model\FramedBoardModel.h" />
     <ClInclude Include="include\jp\ggaf\dx\model\FramedSpriteModel.h" />
+    <ClInclude Include="include\jp\ggaf\dx\model\interface\iplanemodel.h" />
     <ClInclude Include="include\jp\ggaf\dx\model\massboardmodel.h" />
     <ClInclude Include="include\jp\ggaf\dx\model\massmeshmodel.h" />
     <ClInclude Include="include\jp\ggaf\dx\model\massmodel.h" />

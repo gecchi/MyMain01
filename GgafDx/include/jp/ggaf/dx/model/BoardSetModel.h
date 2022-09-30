@@ -2,6 +2,7 @@
 #define GGAF_DX_BOARDSETMODEL_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/model/Model.h"
+#include "jp/ggaf/dx/model/interface/IPlaneModel.h"
 
 namespace GgafDx {
 
@@ -11,7 +12,7 @@ namespace GgafDx {
  * @since 2009/07/21
  * @author Masatoshi Tsuge
  */
-class BoardSetModel : public Model {
+class BoardSetModel : public Model, public IPlaneModel  {
     friend class ModelManager;
     friend class BoardSetActor;
 
@@ -46,10 +47,10 @@ public:
     VERTEX* _paVertexBuffer_data;
     WORD* _paIndexBuffer_data;
 
-    float _model_width_px;
-    float _model_height_px;
-    int _row_texture_split;
-    int _col_texture_split;
+//    float _model_width_px;
+//    float _model_height_px;
+//    int _row_texture_split;
+//    int _col_texture_split;
 
 public:
     /**

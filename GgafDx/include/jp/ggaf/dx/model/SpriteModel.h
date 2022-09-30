@@ -2,6 +2,7 @@
 #define GGAF_DX_SPRITEMODEL_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/model/Model.h"
+#include "jp/ggaf/dx/model/interface/IPlaneModel.h"
 
 namespace GgafDx {
 
@@ -11,7 +12,7 @@ namespace GgafDx {
  * @since 2008/02/22
  * @author Masatoshi Tsuge
  */
-class SpriteModel : public Model {
+class SpriteModel : public Model, public IPlaneModel {
     friend class ModelManager;
 
 public:
@@ -33,11 +34,6 @@ public:
     UINT _size_vertex_unit;
     /** 基本モデル（１キャラ分）頂点数 */
     UINT _nVertices;
-
-    float _model_width_px;
-    float _model_height_px;
-    int _row_texture_split;
-    int _col_texture_split;
 
 public:
     /**

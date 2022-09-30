@@ -12,18 +12,13 @@
 
 using namespace GgafDx;
 
-MassBoardModel::MassBoardModel(const char* prm_model_id) : MassModel(prm_model_id) {
+MassBoardModel::MassBoardModel(const char* prm_model_id) : MassModel(prm_model_id), IPlaneModel() {
     _TRACE3_("_model_id="<<_model_id);
     _obj_model |= Obj_GgafDx_MassBoardModel;
     _paVtxBuffer_data_model = nullptr;
     _paIndexBuffer_data = nullptr;
-
-    _model_width_px = 32.0f;
-    _model_height_px = 32.0f;
     _model_half_width_px = _model_width_px/2;
     _model_half_height_px = _model_height_px/2;
-    _row_texture_split = 1;
-    _col_texture_split = 1;
     _papTextureConnection = nullptr;
     _max_draw_set_num = GGAFDXMASS_MAX_INSTANCE_NUM;
     registerCallback_VertexModelInfo(MassBoardModel::createVertexModel); //頂点レイアウト情報作成コールバック関数

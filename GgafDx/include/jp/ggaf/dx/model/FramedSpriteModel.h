@@ -1,7 +1,9 @@
 #ifndef GGAF_DX_FRAMEDSPRITEMODEL_H_
 #define GGAF_DX_FRAMEDSPRITEMODEL_H_
 #include "GgafDxCommonHeader.h"
+
 #include "jp/ggaf/dx/model/Model.h"
+#include "jp/ggaf/dx/model/interface/IPlaneModel.h"
 
 namespace GgafDx {
 
@@ -11,7 +13,7 @@ namespace GgafDx {
  * @since 2022/01/25
  * @author Masatoshi Tsuge
  */
-class FramedSpriteModel : public Model {
+class FramedSpriteModel : public Model, public IPlaneModel {
     friend class ModelManager;
 
 public:
@@ -46,11 +48,6 @@ public:
     UINT _size_vertex_unit;
     /** 基本モデル（１キャラ分）頂点数 */
     UINT _nVertices;
-
-    float _model_width_px;
-    float _model_height_px;
-    int _row_texture_split;
-    int _col_texture_split;
 
     float _model_frame_width_px;
     float _model_frame_height_px;

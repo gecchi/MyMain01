@@ -561,10 +561,13 @@
     <ClInclude Include="include\jp\ggaf\dx\Config.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="include\jp\ggaf\dx\God.h">
+    <ClInclude Include="include\GgafDxCommonHeader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="include\GgafDxCommonHeader.h">
+    <ClInclude Include="include\jp\ggaf\dx\Caretaker.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\dx\model\interface\IPlaneModel.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1079,7 +1082,7 @@
     <ClCompile Include="src\jp\ggaf\dx\Config.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\jp\ggaf\dx\God.cpp">
+    <ClCompile Include="src\jp\ggaf\dx\Caretaker.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

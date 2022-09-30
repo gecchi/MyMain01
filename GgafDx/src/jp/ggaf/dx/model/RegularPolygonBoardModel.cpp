@@ -18,14 +18,10 @@ using namespace GgafDx;
 DWORD RegularPolygonBoardModel::FVF = (D3DFVF_XYZ | D3DFVF_TEX1);
 
 RegularPolygonBoardModel::RegularPolygonBoardModel(const char* prm_model_id) :
-    Model(prm_model_id) {
+    Model(prm_model_id), IPlaneModel() {
     _TRACE3_("_model_id="<<_model_id);
     _obj_model |= Obj_GgafDx_RegularPolygonBoardModel;
     _paVertexBuffer_data = nullptr;
-    _model_width_px = 32.0f;
-    _model_height_px = 32.0f;
-    _row_texture_split = 1;
-    _col_texture_split = 1;
     _paVertexBuffer = nullptr;
     _size_vertices = 0;
     _size_vertex_unit = 0;

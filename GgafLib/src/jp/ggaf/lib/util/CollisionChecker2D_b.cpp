@@ -4,6 +4,10 @@
 #include "jp/ggaf/core/util/LinearQuadtree.h"
 #include "jp/ggaf/dx/exception/CriticalException.h"
 #include "jp/ggaf/dx/util/CollisionArea.h"
+#include "jp/ggaf/dx/actor/BoardActor.h"
+#include "jp/ggaf/dx/actor/BoardSetActor.h"
+#include "jp/ggaf/dx/model/BoardModel.h"
+#include "jp/ggaf/dx/model/BoardSetModel.h"
 #include "jp/ggaf/lib/DefaultCaretaker.h"
 #include "jp/ggaf/lib/scene/DefaultSpacetime.h"
 #include "jp/ggaf/lib/util/CollisionChecker.h"
@@ -49,8 +53,6 @@ bool CollisionChecker2D_b::isHit(const GgafDx::Checker* const prm_pOppChecker) {
     GgafDx::CollisionArea* const pOppCollisionArea = prm_pOppChecker->_pCollisionArea; //相手の当たり判定領域
     const GgafDx::GeometricActor* const pActor = _pActor;                //相手のアクター
     const GgafDx::GeometricActor* const pOppActor = prm_pOppChecker->_pActor;                //相手のアクター
-    const int colli_part_num = pCollisionArea->_colli_part_num;
-    const int opp_colli_part_num = pOppCollisionArea->_colli_part_num; //相手の当たり判定要素数
 
 #ifdef MY_DEBUG
     CollisionChecker::_num_check++;
@@ -95,7 +97,41 @@ void CollisionChecker2D_b::setColliAABox(int prm_index,
 //    _is_enable = true;
 }
 
+void CollisionChecker2D_b::setColliAABox(int prm_index, double per) {
 
+//	Obj_GgafDx_BoardSetActor
+    pixcoord w, h;
+    Align a;
+    Valign va;
+
+//    GgafDx::Model* pModel = _pActor->getModel();
+//    if (pModel->instanceOf(Obj_GgafDx_IPlaneModel)) {
+//        GgafDx::IPlaneModel* pPlaneModel = (GgafDx::IPlaneModel*)pModel;
+//        w = pPlaneModel->_model_width_px;
+//        h = pPlaneModel->_model_height_px;
+////        a = pActor->_align;
+////        va = pActor->_valign;
+//    }
+
+
+
+    if (_pActor->instanceOf(Obj_GgafDx_BoardActor)) {
+        GgafDx::BoardActor* pActor = (GgafDx::BoardActor*)_pActor;
+        w = (pixcoord)pActor->getModelWidth();
+        h = (pixcoord)pActor->getModelHeight();
+        a = pActor->_align;
+        va = pActor->_valign;
+//        GgafDx::BoardModel* pModel= (GgafDx::BoardModel*)pActor->getModel();
+    } else if (_pActor->instanceOf(Obj_GgafDx_BoardSetActor)) {
+        GgafDx::BoardSetActor* pActor = (GgafDx::BoardSetActor*)_pActor;
+        w = (pixcoord)pActor->getModelWidth();
+        h = (pixcoord)pActor->getModelHeight();
+//        GgafDx::BoardModel* pModel= (GgafDx::BoardModel*)pActor->getModel();
+        a = pActor->_align;
+        va = pActor->_valign;
+    }
+
+}
 
 CollisionChecker2D_b::~CollisionChecker2D_b() {
     delete _pElem;

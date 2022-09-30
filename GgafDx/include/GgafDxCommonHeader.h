@@ -381,6 +381,7 @@ class Model;
 class MassModel;
 class D3DXMeshModel;
 class D3DXAniMeshModel;
+class IPlaneModel;
 class SpriteModel;
 class SpriteSetModel;
 class MassSpriteModel;

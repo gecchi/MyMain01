@@ -309,6 +309,7 @@
     <ClInclude Include="include\jp\ggaf\dx\model\ex\WorldBoundModel.h" />
     <ClInclude Include="include\jp\ggaf\dx\model\FramedBoardModel.h" />
     <ClInclude Include="include\jp\ggaf\dx\model\FramedSpriteModel.h" />
+    <ClInclude Include="include\jp\ggaf\dx\model\interface\IPlaneModel.h" />
     <ClInclude Include="include\jp\ggaf\dx\model\MassBoardModel.h" />
     <ClInclude Include="include\jp\ggaf\dx\model\MassMeshModel.h" />
     <ClInclude Include="include\jp\ggaf\dx\model\MassModel.h" />
