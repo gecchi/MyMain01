@@ -1,7 +1,7 @@
 #ifndef GGAF_LIB_COLLIAABACTOR_H_
 #define GGAF_LIB_COLLIAABACTOR_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/dx/actor/ex/AABActor.h"
+#include "jp/ggaf/dx/actor/debug/AABActor.h"
 
 namespace GgafLib {
 

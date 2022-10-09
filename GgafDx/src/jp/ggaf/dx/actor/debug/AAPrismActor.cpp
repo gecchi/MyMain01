@@ -1,4 +1,4 @@
-#include "jp/ggaf/dx/actor/ex/AAPrismActor.h"
+#include "jp/ggaf/dx/actor/debug/AAPrismActor.h"
 
 #include "jp/ggaf/dx/Config.h"
 #include "jp/ggaf/dx/util/Util.h"

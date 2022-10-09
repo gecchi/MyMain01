@@ -1,4 +1,4 @@
-#include "jp/ggaf/dx/actor/ex/AABActor.h"
+#include "jp/ggaf/dx/actor/debug/AABActor.h"
 
 #include "jp/ggaf/dx/Config.h"
 #include "jp/ggaf/dx/util/Util.h"

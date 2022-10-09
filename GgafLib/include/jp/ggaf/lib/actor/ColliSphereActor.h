@@ -1,7 +1,7 @@
 #ifndef GGAF_LIB_COLLISPHEREACTOR_H_
 #define GGAF_LIB_COLLISPHEREACTOR_H_
 #include "GgafLibCommonHeader.h"
-#include "jp/ggaf/dx/actor/ex/SphereActor.h"
+#include "jp/ggaf/dx/actor/debug/SphereActor.h"
 
 namespace GgafLib {
 

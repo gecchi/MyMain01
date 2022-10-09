@@ -24,13 +24,16 @@
     <ClInclude Include="include\jp\ggaf\dx\actor\camera\CameraViewPoint.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="include\jp\ggaf\dx\actor\ex\AABActor.h">
+    <ClInclude Include="include\jp\ggaf\dx\actor\debug\AABActor.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="include\jp\ggaf\dx\actor\ex\AAPrismActor.h">
+    <ClInclude Include="include\jp\ggaf\dx\actor\debug\AAPrismActor.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="include\jp\ggaf\dx\actor\ex\AAPyramidActor.h">
+    <ClInclude Include="include\jp\ggaf\dx\actor\debug\AAPyramidActor.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\dx\actor\debug\SphereActor.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\dx\actor\ex\CubeMapMeshActor.h">
@@ -45,9 +48,6 @@
     <ClInclude Include="include\jp\ggaf\dx\actor\ex\FkFormation.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="include\jp\ggaf\dx\actor\ex\SphereActor.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="include\jp\ggaf\dx\actor\ex\SpriteMeshActor.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -55,6 +55,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\dx\actor\ex\WorldBoundActor.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jp\ggaf\dx\actor\interface\IAlignAbleActor.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\jp\ggaf\dx\actor\interface\IBumpMapActor.h">
@@ -336,6 +339,9 @@
     <ClInclude Include="include\jp\ggaf\dx\model\ex\WorldBoundModel.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="include\jp\ggaf\dx\model\interface\IPlaneModel.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
     <ClInclude Include="include\jp\ggaf\dx\model\supporter\TextureBlinker.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -558,16 +564,13 @@
     <ClInclude Include="include\jp\ggaf\dx\util\Util.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="include\jp\ggaf\dx\Caretaker.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
     <ClInclude Include="include\jp\ggaf\dx\Config.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="include\GgafDxCommonHeader.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\dx\Caretaker.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="include\jp\ggaf\dx\model\interface\IPlaneModel.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
@@ -581,13 +584,16 @@
     <ClCompile Include="src\jp\ggaf\dx\actor\camera\CameraViewPoint.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\jp\ggaf\dx\actor\ex\AABActor.cpp">
+    <ClCompile Include="src\jp\ggaf\dx\actor\debug\AABActor.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\jp\ggaf\dx\actor\ex\AAPrismActor.cpp">
+    <ClCompile Include="src\jp\ggaf\dx\actor\debug\AAPrismActor.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\jp\ggaf\dx\actor\ex\AAPyramidActor.cpp">
+    <ClCompile Include="src\jp\ggaf\dx\actor\debug\AAPyramidActor.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jp\ggaf\dx\actor\debug\SphereActor.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\ggaf\dx\actor\ex\CubeMapMeshActor.cpp">
@@ -600,9 +606,6 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\ggaf\dx\actor\ex\FkFormation.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\jp\ggaf\dx\actor\ex\SphereActor.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\jp\ggaf\dx\actor\ex\SpriteMeshActor.cpp">
@@ -1079,10 +1082,10 @@
     <ClCompile Include="src\jp\ggaf\dx\util\Util.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\jp\ggaf\dx\Config.cpp">
+    <ClCompile Include="src\jp\ggaf\dx\Caretaker.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\jp\ggaf\dx\Caretaker.cpp">
+    <ClCompile Include="src\jp\ggaf\dx\Config.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
