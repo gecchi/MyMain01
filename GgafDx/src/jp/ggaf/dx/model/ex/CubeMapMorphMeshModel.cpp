@@ -16,7 +16,7 @@ using namespace GgafDx;
 
 CubeMapMorphMeshModel::CubeMapMorphMeshModel(const char* prm_model_id) : MorphMeshModel(prm_model_id) {
     _TRACE3_("_model_id="<<_model_id);
-    _obj_model |= Obj_GgafDx_CubeMapMorphMeshModel;
+    _obj_class |= Obj_GgafDx_CubeMapMorphMeshModel;
 }
 
 
@@ -35,7 +35,7 @@ HRESULT CubeMapMorphMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw
     //頂点バッファ設定
     Model* pModelLastDraw = ModelManager::_pModelLastDraw;
     if (pModelLastDraw != this) {
-        if (pModelLastDraw && (pModelLastDraw->_obj_model & Obj_GgafDx_MassModel)) {
+        if (pModelLastDraw && (pModelLastDraw->_obj_class & Obj_GgafDx_MassModel)) {
             ((MassModel*)pModelLastDraw)->resetStreamSourceFreq();
         }
         pDevice->SetVertexDeclaration( _pVertexDeclaration); //頂点フォーマット

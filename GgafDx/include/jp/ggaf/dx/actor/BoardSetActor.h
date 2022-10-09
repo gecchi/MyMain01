@@ -2,6 +2,7 @@
 #define GGAF_DX_BOARDSETACTORD_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/actor/FigureActor.h"
+#include "jp/ggaf/dx/actor/interface/IAlignAbleActor.h"
 
 namespace GgafDx {
 
@@ -16,7 +17,7 @@ namespace GgafDx {
  * @since 2009/07/21
  * @author Masatoshi Tsuge
  */
-class BoardSetActor : public FigureActor {
+class BoardSetActor : public FigureActor , public IAlignAbleActor {
 private:
     /**
      * 使用不可のため、privateでoverride
@@ -119,8 +120,8 @@ public:
     pixcoord _harf_width_px;
     /** [r]高さ(px)の半分 */
     pixcoord _harf_height_px;
-    Align _align;
-    Valign _valign;
+//    Align _align;
+//    Valign _valign;
 
 public:
     /**
@@ -149,15 +150,15 @@ public:
 
     virtual void setPositionAt(const GeoElem* prm_pGeoElem) override;
 
-    virtual void setAlign(Align prm_align, Valign prm_valign);
-    virtual void setAlign(Align prm_align);
-    virtual void setValign(Valign prm_valign);
+//    virtual void setAlign(Align prm_align, Valign prm_valign);
+//    virtual void setAlign(Align prm_align);
+//    virtual void setValign(Valign prm_valign);
 
     inline UvFlipper* getUvFlipper() {
         return _pUvFlipper;
     }
-    float getModelWidth();
-    float getModelHeight();
+//    float getModelWidth();
+//    float getModelHeight();
 };
 
 }

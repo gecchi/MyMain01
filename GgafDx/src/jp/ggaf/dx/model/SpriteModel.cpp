@@ -19,7 +19,7 @@ DWORD SpriteModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_T
 
 SpriteModel::SpriteModel(const char* prm_model_id) : Model(prm_model_id), IPlaneModel() {
     _TRACE3_("_model_id="<<_model_id);
-    _obj_model |= Obj_GgafDx_SpriteModel;
+    _obj_class |= Obj_GgafDx_SpriteModel | Obj_GgafDx_IPlaneModel;
     _paVertexBuffer = nullptr;
     _paVertexBuffer_data = nullptr;
     _size_vertices = 0;
@@ -44,7 +44,7 @@ HRESULT SpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, 
     HRESULT hr;
     Model* pModelLastDraw = ModelManager::_pModelLastDraw;
     if (pModelLastDraw != this) {
-        if (pModelLastDraw && (pModelLastDraw->_obj_model & Obj_GgafDx_MassModel)) {
+        if (pModelLastDraw && (pModelLastDraw->_obj_class & Obj_GgafDx_MassModel)) {
             ((MassModel*)pModelLastDraw)->resetStreamSourceFreq();
         }
         pDevice->SetStreamSource(0, _paVertexBuffer, 0, _size_vertex_unit);

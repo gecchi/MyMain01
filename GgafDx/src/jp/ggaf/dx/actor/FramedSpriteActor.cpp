@@ -23,6 +23,7 @@ FramedSpriteActor::FramedSpriteActor(const char* prm_name,
                                          TYPE_FRAMEDSPRITE_EFFECT,
                                          prm_technique,
                                          prm_pChecker),
+                            IAlignAbleActor(),
 _pFramedSpriteModel( (FramedSpriteModel*)_pModel),
 _pFramedSpriteEffect( (FramedSpriteEffect*)_pEffect),
 _pUvFlipper(NEW UvFlipper(getModel()->_papTextureConnection[0]->peek())),
@@ -36,7 +37,7 @@ _model_total_height_px(_model_frame_height_px * 2 + _model_center_height_px),
 _lim_center_sx(R_SC( (_model_frame_width_px * 2.0) / _model_total_width_px )),
 _lim_center_sy(R_SC( (_model_frame_height_px * 2.0) / _model_total_height_px )) {
 
-    _obj_class |= Obj_GgafDx_FramedSpriteActor;
+    _obj_class |= Obj_GgafDx_FramedSpriteActor | Obj_GgafDx_IAlignAbleActor;
     _class_name = "FramedSpriteActor";
     _pUvFlipper->locatePatternNo(_pFramedSpriteModel->_col_texture_split,
                                  _pFramedSpriteModel->_row_texture_split );
@@ -258,18 +259,18 @@ void FramedSpriteActor::processDraw() {
     checkDxException(hr, D3D_OK, "SetFloat(_h_far_rate) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     _pFramedSpriteModel->FramedSpriteModel::draw(this);
 }
-void FramedSpriteActor::setAlign(Align prm_align, Valign prm_valign) {
-    _align = prm_align;
-    _valign = prm_valign;
-}
-
-void FramedSpriteActor::setAlign(Align prm_align) {
-    _align = prm_align;
-}
-
-void FramedSpriteActor::setValign(Valign prm_valign) {
-    _valign = prm_valign;
-}
+//void FramedSpriteActor::setAlign(Align prm_align, Valign prm_valign) {
+//    _align = prm_align;
+//    _valign = prm_valign;
+//}
+//
+//void FramedSpriteActor::setAlign(Align prm_align) {
+//    _align = prm_align;
+//}
+//
+//void FramedSpriteActor::setValign(Valign prm_valign) {
+//    _valign = prm_valign;
+//}
 
 void FramedSpriteActor::setWidth(coord prm_width) {
     _sx = R_SC(1.0 * C_PX(prm_width) / _model_total_width_px);

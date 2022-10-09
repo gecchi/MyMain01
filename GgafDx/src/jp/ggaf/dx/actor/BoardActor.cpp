@@ -23,11 +23,12 @@ BoardActor::BoardActor(const char* prm_name,
                                        TYPE_BOARD_EFFECT,
                                        prm_technique,
                                        prm_pChecker) ,
+                           IAlignAbleActor(),
 _pBoardModel((BoardModel*)_pModel),
 _pBoardEffect((BoardEffect*)_pEffect) ,
 _pUvFlipper(NEW UvFlipper(getModel()->getDefaultTextureConnection()->peek())) {
 
-    _obj_class |= Obj_GgafDx_BoardActor;
+    _obj_class |= Obj_GgafDx_BoardActor | Obj_GgafDx_IAlignAbleActor;
     _class_name = "BoardActor";
     _pUvFlipper->locatePatternNo(_pBoardModel->_col_texture_split,
                                  _pBoardModel->_row_texture_split );
@@ -85,16 +86,16 @@ void BoardActor::processDraw() {
     _pBoardModel->BoardModel::draw(this);
 }
 
-void BoardActor::setAlign(Align prm_align, Valign prm_valign) {
-    _align = prm_align;
-    _valign = prm_valign;
-}
-void BoardActor::setAlign(Align prm_align) {
-    _align = prm_align;
-}
-void BoardActor::setValign(Valign prm_valign) {
-    _valign = prm_valign;
-}
+//void BoardActor::setAlign(Align prm_align, Valign prm_valign) {
+//    _align = prm_align;
+//    _valign = prm_valign;
+//}
+//void BoardActor::setAlign(Align prm_align) {
+//    _align = prm_align;
+//}
+//void BoardActor::setValign(Valign prm_valign) {
+//    _valign = prm_valign;
+//}
 
 void BoardActor::setPositionAt(const GeometricActor* prm_pActor) {
     _x = prm_pActor->_x;
@@ -138,13 +139,13 @@ void BoardActor::setScaleR(float prm_x_rate, float prm_y_rate, float prm_z_rate)
     _sz = R_SC(prm_z_rate); //_szは2Dでは使用されないが、Scaler::behave() 内の判定で役に立つ。
 }
 
-float BoardActor::getModelWidth() {
-    return _pBoardModel->_model_width_px;
-}
-
-float BoardActor::getModelHeight() {
-    return _pBoardModel->_model_height_px;
-}
+//float BoardActor::getModelWidth() {
+//    return _pBoardModel->_model_width_px;
+//}
+//
+//float BoardActor::getModelHeight() {
+//    return _pBoardModel->_model_height_px;
+//}
 
 BoardActor::~BoardActor() {
     delete _pUvFlipper;

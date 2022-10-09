@@ -15,7 +15,7 @@ using namespace GgafDx;
 
 MassSpriteModel::MassSpriteModel(const char* prm_model_id) : MassModel(prm_model_id), IPlaneModel() {
     _TRACE3_("_model_id="<<_model_id);
-    _obj_model |= Obj_GgafDx_MassSpriteModel;
+    _obj_class |= Obj_GgafDx_MassSpriteModel | Obj_GgafDx_IPlaneModel;
     _paVtxBuffer_data_model = nullptr;
     _paIndexBuffer_data = nullptr;
     _model_half_width_px = _model_width_px/2;

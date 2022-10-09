@@ -2,6 +2,7 @@
 #define GGAF_DX_FRAMEDBOARDACTOR_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/actor/FigureActor.h"
+#include "jp/ggaf/dx/actor/interface/IAlignAbleActor.h"
 
 namespace GgafDx {
 
@@ -13,7 +14,7 @@ namespace GgafDx {
  * @since 2017/08/21
  * @author Masatoshi Tsuge
  */
-class FramedBoardActor : public FigureActor {
+class FramedBoardActor : public FigureActor, public IAlignAbleActor {
 private:
     /**
      * 使用不可のため、privateでoverride
@@ -90,8 +91,8 @@ public:
     /** [r]角がゆがまないで表示できる限界の _sy */
     const scale _lim_center_sy;
 
-    Align _align;
-    Valign _valign;
+//    Align _align;
+//    Valign _valign;
 public:
     /**
      * コンストラクタ .
@@ -118,9 +119,9 @@ public:
 
     virtual void setPositionAt(const GeoElem* prm_pGeoElem) override;
 
-    virtual void setAlign(Align prm_align, Valign prm_valign);
-    virtual void setAlign(Align prm_align);
-    virtual void setValign(Valign prm_valign);
+//    virtual void setAlign(Align prm_align, Valign prm_valign);
+//    virtual void setAlign(Align prm_align);
+//    virtual void setValign(Valign prm_valign);
 
     inline UvFlipper* getUvFlipper() {
         return _pUvFlipper;

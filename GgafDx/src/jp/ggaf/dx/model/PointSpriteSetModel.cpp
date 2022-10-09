@@ -21,7 +21,7 @@ DWORD PointSpriteSetModel::FVF = (D3DFVF_XYZ | D3DFVF_PSIZE | D3DFVF_DIFFUSE | D
 
 PointSpriteSetModel::PointSpriteSetModel(const char* prm_model_id) : Model(prm_model_id) {
     _TRACE3_("_model_id="<<_model_id);
-    _obj_model |= Obj_GgafDx_PointSpriteSetModel;
+    _obj_class |= Obj_GgafDx_PointSpriteSetModel;
     _paVertexBuffer = nullptr;
     _paVtxBuffer_data = nullptr;
     _square_size_px = 0.0f;
@@ -53,7 +53,7 @@ HRESULT PointSpriteSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_s
     //モデルが同じでかつ、セット数も同じならば頂点バッファ、インデックスバッファの設定はスキップできる
     Model* pModelLastDraw = ModelManager::_pModelLastDraw;
     if (pModelLastDraw != this) {
-        if (pModelLastDraw && (pModelLastDraw->_obj_model & Obj_GgafDx_MassModel)) {
+        if (pModelLastDraw && (pModelLastDraw->_obj_class & Obj_GgafDx_MassModel)) {
             ((MassModel*)pModelLastDraw)->resetStreamSourceFreq();
         }
         //頂点バッファとインデックスバッファを設定

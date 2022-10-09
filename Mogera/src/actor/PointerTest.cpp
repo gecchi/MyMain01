@@ -23,7 +23,7 @@ PointerTest::PointerTest(const char* prm_name) :
     _class_name = "PointerTest";
     CollisionChecker2D_b* pChecker = getCollisionChecker();
     pChecker->createCollisionArea(1);
-    pChecker->setColliAABox(0, PX_C(0), PX_C(0), PX_C(32), PX_C(32));
+    pChecker->setColliAABox(0, 1.0);
     setHitAble(true);
 }
 

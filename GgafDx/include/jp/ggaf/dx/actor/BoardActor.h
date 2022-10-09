@@ -2,6 +2,7 @@
 #define GGAF_DX_BOARDACTORD_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/actor/FigureActor.h"
+#include "jp/ggaf/dx/actor/interface/IAlignAbleActor.h"
 
 namespace GgafDx {
 
@@ -17,7 +18,7 @@ namespace GgafDx {
  * @since 2008/02/27
  * @author Masatoshi Tsuge
  */
-class BoardActor : public FigureActor {
+class BoardActor : public FigureActor, public IAlignAbleActor {
     /**
      * 使用不可のため、privateでoverride
      * @return
@@ -75,8 +76,8 @@ public:
     /** [r]UVフリッパー(パラパラアニメ) */
     UvFlipper* const _pUvFlipper;
 
-    Align _align;
-    Valign _valign;
+//    Align _align;
+//    Valign _valign;
 
 public:
     /**
@@ -101,9 +102,9 @@ public:
 
     virtual ~BoardActor(); //デストラクタ
 
-    virtual void setAlign(Align prm_align, Valign prm_valign);
-    virtual void setAlign(Align prm_align);
-    virtual void setValign(Valign prm_valign);
+//    virtual void setAlign(Align prm_align, Valign prm_valign);
+//    virtual void setAlign(Align prm_align);
+//    virtual void setValign(Valign prm_valign);
 
     virtual void setPositionAt(const GeometricActor* prm_pActor) override;
     virtual void setPositionAt(const GeoElem* prm_pGeoElem) override;
@@ -127,8 +128,8 @@ public:
         return _pUvFlipper;
     }
 
-    float getModelWidth();
-    float getModelHeight();
+//    float getModelWidth();
+//    float getModelHeight();
 };
 
 }

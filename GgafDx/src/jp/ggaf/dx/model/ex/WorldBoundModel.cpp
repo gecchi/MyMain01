@@ -16,7 +16,7 @@ using namespace GgafDx;
 
 WorldBoundModel::WorldBoundModel(const char* prm_model_id) : MorphMeshModel(prm_model_id) {
     _TRACE3_("_model_id="<<_model_id);
-    _obj_model |= Obj_GgafDx_WorldBoundModel;
+    _obj_class |= Obj_GgafDx_WorldBoundModel;
 }
 
 
@@ -35,7 +35,7 @@ HRESULT WorldBoundModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_n
     //頂点バッファ設定
     Model* pModelLastDraw = ModelManager::_pModelLastDraw;
     if (pModelLastDraw != this) {
-        if (pModelLastDraw && (pModelLastDraw->_obj_model & Obj_GgafDx_MassModel)) {
+        if (pModelLastDraw && (pModelLastDraw->_obj_class & Obj_GgafDx_MassModel)) {
             ((MassModel*)pModelLastDraw)->resetStreamSourceFreq();
         }
         pDevice->SetVertexDeclaration( _pVertexDeclaration); //頂点フォーマット

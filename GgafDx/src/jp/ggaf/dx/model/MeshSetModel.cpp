@@ -21,7 +21,7 @@ DWORD MeshSetModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_PSIZE | D3DFVF_DI
 
 MeshSetModel::MeshSetModel(const char* prm_model_id) : Model(prm_model_id) {
     _TRACE3_("_model_id="<<_model_id);
-    _obj_model |= Obj_GgafDx_MeshSetModel;
+    _obj_class |= Obj_GgafDx_MeshSetModel;
     _pModel3D = nullptr;
     _pMeshesFront = nullptr;
     _paVertexBuffer = nullptr;
@@ -56,7 +56,7 @@ HRESULT MeshSetModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num,
     //モデルが同じでかつ、セット数も同じならば頂点バッファ、インデックスバッファの設定はスキップできる
     Model* pModelLastDraw = ModelManager::_pModelLastDraw;
     if (pModelLastDraw != this) {
-        if (pModelLastDraw && (pModelLastDraw->_obj_model & Obj_GgafDx_MassModel)) {
+        if (pModelLastDraw && (pModelLastDraw->_obj_class & Obj_GgafDx_MassModel)) {
             ((MassModel*)pModelLastDraw)->resetStreamSourceFreq();
         }
         //頂点バッファとインデックスバッファを設定

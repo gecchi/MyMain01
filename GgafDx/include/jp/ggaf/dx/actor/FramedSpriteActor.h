@@ -2,6 +2,7 @@
 #define GGAF_DX_FRAMEDSPRITEACTOR_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/actor/FigureActor.h"
+#include "jp/ggaf/dx/actor/interface/IAlignAbleActor.h"
 
 namespace GgafDx {
 
@@ -13,7 +14,7 @@ namespace GgafDx {
  * @since 2022/01/25
  * @author Masatoshi Tsuge
  */
-class FramedSpriteActor : public FigureActor {
+class FramedSpriteActor : public FigureActor, public IAlignAbleActor {
 
 public:
     /** [r]ƒ‚ƒfƒ‹Ž‘Œ¹ */
@@ -43,8 +44,8 @@ public:
     const scale _lim_center_sy;
 
     float _far_rate;
-    Align _align;
-    Valign _valign;
+//    Align _align;
+//    Valign _valign;
 
 public:
     /**
@@ -85,9 +86,9 @@ public:
     inline UvFlipper* getUvFlipper() {
         return _pUvFlipper;
     }
-    virtual void setAlign(Align prm_align, Valign prm_valign);
-    virtual void setAlign(Align prm_align);
-    virtual void setValign(Valign prm_valign);
+//    virtual void setAlign(Align prm_align, Valign prm_valign);
+//    virtual void setAlign(Align prm_align);
+//    virtual void setValign(Valign prm_valign);
 
     void setWidth(coord prm_width);
     void setHeight(coord prm_height);

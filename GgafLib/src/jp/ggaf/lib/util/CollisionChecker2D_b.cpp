@@ -97,40 +97,61 @@ void CollisionChecker2D_b::setColliAABox(int prm_index,
 //    _is_enable = true;
 }
 
-void CollisionChecker2D_b::setColliAABox(int prm_index, double per) {
-
-//	Obj_GgafDx_BoardSetActor
-    pixcoord w, h;
-    Align a;
-    Valign va;
-
-//    GgafDx::Model* pModel = _pActor->getModel();
-//    if (pModel->instanceOf(Obj_GgafDx_IPlaneModel)) {
-//        GgafDx::IPlaneModel* pPlaneModel = (GgafDx::IPlaneModel*)pModel;
-//        w = pPlaneModel->_model_width_px;
-//        h = pPlaneModel->_model_height_px;
-////        a = pActor->_align;
-////        va = pActor->_valign;
-//    }
-
-
-
-    if (_pActor->instanceOf(Obj_GgafDx_BoardActor)) {
-        GgafDx::BoardActor* pActor = (GgafDx::BoardActor*)_pActor;
-        w = (pixcoord)pActor->getModelWidth();
-        h = (pixcoord)pActor->getModelHeight();
-        a = pActor->_align;
-        va = pActor->_valign;
-//        GgafDx::BoardModel* pModel= (GgafDx::BoardModel*)pActor->getModel();
-    } else if (_pActor->instanceOf(Obj_GgafDx_BoardSetActor)) {
-        GgafDx::BoardSetActor* pActor = (GgafDx::BoardSetActor*)_pActor;
-        w = (pixcoord)pActor->getModelWidth();
-        h = (pixcoord)pActor->getModelHeight();
-//        GgafDx::BoardModel* pModel= (GgafDx::BoardModel*)pActor->getModel();
-        a = pActor->_align;
-        va = pActor->_valign;
+void CollisionChecker2D_b::setColliAABox(int prm_index, double prm_per) {
+    pixcoord model_width = 0;
+    pixcoord model_height = 0;
+    Align align;
+    Valign valign;
+    if (_pActor->instanceOf(Obj_GgafDx_IAlignAbleActor)) {
+        GgafDx::IAlignAbleActor* pIAlignAbleActor = dynamic_cast<GgafDx::IAlignAbleActor*>(_pActor); //成立するcrosscast
+#ifdef MY_DEBUG
+        if (!pIAlignAbleActor) {
+            throwCriticalException("["<<getTargetActor()->getName()<<"]  IAlignAbleActorにキャストできません。おかしい。");
+        }
+#endif
+        GgafDx::FigureActor* pFigureActor = dynamic_cast<GgafDx::FigureActor*>(_pActor);
+        align = pIAlignAbleActor->_align;
+        valign = pIAlignAbleActor->_valign;
+        GgafDx::Model* pModel = pFigureActor->getModel();
+        if (pModel->instanceOf(Obj_GgafDx_IPlaneModel)) {
+            GgafDx::IPlaneModel* pPlaneModel = dynamic_cast<GgafDx::IPlaneModel*>(pModel); //成立するcrosscast
+#ifdef MY_DEBUG
+            if (!pPlaneModel) {
+                throwCriticalException("["<<getTargetActor()->getName()<<"]  モデルが、IPlaneModelにキャストできません。おかしい。");
+            }
+#endif
+            model_width = pPlaneModel->_model_width_px;
+            model_height = pPlaneModel->_model_height_px;
+        }
     }
+    if (model_width == 0 && model_height == 0) {
+        throwCriticalException("["<<getTargetActor()->getName()<<"] このアクターは、ヒットエリアの割合指定の setColliAABox() ができません。");
+    }
+    coord x1, y1, x2, y2;
+    if (align == ALIGN_LEFT) {
+        x1 = PX_C((model_width - (model_width*prm_per)) / 2.0);
+    } else if (align == ALIGN_CENTER) {
+        x1 = PX_C(-model_width*prm_per/ 2.0);
+    } else  {  //ALIGN_RIGHT
+        x1 = PX_C(-model_width + ((model_width - (model_width*prm_per)) / 2.0));
+    }
+    x2 = x1 + PX_C(model_width*prm_per);
 
+    if (valign == VALIGN_TOP) {
+        y1 = PX_C((model_height - (model_height*prm_per)) / 2.0);
+    } else if (valign == VALIGN_MIDDLE) {
+        y1 = PX_C(-model_height*prm_per/ 2.0);
+    } else { //VALIGN_BOTTOM
+        y1 = PX_C(-model_height + ((model_height - (model_height*prm_per)) / 2.0));
+    }
+    y2 = y1 + PX_C(model_height*prm_per);
+
+//    _TRACE_("["<<getTargetActor()->getName()<<"] prm_per="<<prm_per);
+//    _TRACE_("model="<<model_width<<"x"<<model_height);
+//    _TRACE_("結果="<<x1<<","<<x2<<","<<y1<<","<<y2<<" = ("<<x2-x1<<"x"<<y2-y1<<")");
+
+
+    setColliAABox(prm_index, x1, y1, x2, y2);
 }
 
 CollisionChecker2D_b::~CollisionChecker2D_b() {

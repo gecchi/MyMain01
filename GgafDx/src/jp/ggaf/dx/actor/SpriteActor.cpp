@@ -23,14 +23,15 @@ SpriteActor::SpriteActor(const char* prm_name,
                                          TYPE_SPRITE_EFFECT,
                                          prm_technique,
                                          prm_pChecker),
+                             IAlignAbleActor(),
 _pSpriteModel( (SpriteModel*)_pModel),
 _pSpriteEffect( (SpriteEffect*)_pEffect),
 _pUvFlipper(NEW UvFlipper(getModel()->getDefaultTextureConnection()->peek())) {
 
-    _obj_class |= Obj_GgafDx_SpriteActor;
+    _obj_class |= Obj_GgafDx_SpriteActor | Obj_GgafDx_IAlignAbleActor;
     _class_name = "SpriteActor";
     _pUvFlipper->locatePatternNo(_pSpriteModel->_col_texture_split,
-                             _pSpriteModel->_row_texture_split );
+                                 _pSpriteModel->_row_texture_split );
     _pUvFlipper->setActivePtn(0);
     _pUvFlipper->exec(NOT_ANIMATED, 1);
 

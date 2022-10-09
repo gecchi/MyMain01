@@ -34,7 +34,6 @@ _pTexBlinker(new TextureBlinker(this)) {
     _specular = 0.0f;
     _specular_power = 0.0f;
     _num_pass = 1;
-    _obj_model = 0;
     D3DXMatrixIdentity(&_matBaseTransformMatrix);
     _TRACE3_("_model_id="<<_model_id<<" _id="<<_id);
 }
@@ -115,7 +114,7 @@ void Model::transformPosNomalVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_uni
         pVtx->nz = vecNormal.z;
 
         ///MeshModelの場合だけ///////////////////
-        if (_obj_model & Obj_GgafDx_MeshModel) {
+        if (_obj_class & Obj_GgafDx_MeshModel) {
             D3DXVECTOR3 vecTangent;
             D3DXVECTOR3 vecBinormal;
             //MeshModelの場合
@@ -157,7 +156,7 @@ void Model::transformPosNomalVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_uni
         }
 
         ///MeshModelの場合だけ///////////////////
-        if (_obj_model & Obj_GgafDx_MeshModel) {
+        if (_obj_class & Obj_GgafDx_MeshModel) {
             MeshModel::VERTEX* pVtx_ex = (MeshModel::VERTEX*)pVtx;
             vec.x = pVtx_ex->tan_x;
             vec.y = pVtx_ex->tan_y;
@@ -315,7 +314,7 @@ void Model::prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,
         }
 
         ///Obj_GgafDx_MeshModelの場合だけ//////////////////////////////////////////
-        if (_obj_model & Obj_GgafDx_MeshModel) {
+        if (_obj_class & Obj_GgafDx_MeshModel) {
             //何を血迷ったか、バンプマップの為U軸 接ベクトル（Tangent）及び V軸 従法線（Binormal）の平均を計算
             //頂点バッファに、Tangent Binormal 埋め込み有りの場合
             for (int v = 0; v < 3; v++) { //p[3] と uv[3] にパラメータセット
@@ -415,7 +414,7 @@ void Model::prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,
                 pVtx->nz = vecNormal.z;
 
                 ///MeshModelの場合だけ///////////////////
-                if (_obj_model & Obj_GgafDx_MeshModel) {
+                if (_obj_class & Obj_GgafDx_MeshModel) {
                     //MeshModelの場合
                     MeshModel::VERTEX* pVtx_ex = (MeshModel::VERTEX*)pVtx;
                     vecTangent.x = pVtx_ex->tan_x;
@@ -458,7 +457,7 @@ void Model::prepareVtx(void* prm_paVtxBuffer, UINT prm_size_of_vtx_unit,
         }
 
         ///MeshModelの場合だけ///////////////////
-        if (_obj_model & Obj_GgafDx_MeshModel) {
+        if (_obj_class & Obj_GgafDx_MeshModel) {
             MeshModel::VERTEX* pVtx_ex = (MeshModel::VERTEX*)pVtx;
             vec.x = pVtx_ex->tan_x;
             vec.y = pVtx_ex->tan_y;

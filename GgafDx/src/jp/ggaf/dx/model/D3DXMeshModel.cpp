@@ -15,7 +15,7 @@
 using namespace GgafDx;
 
 D3DXMeshModel::D3DXMeshModel(const char* prm_model_id, DWORD prm_dwOptions) : Model(prm_model_id) {
-    _obj_model |= Obj_GgafDx_D3DXMeshModel;
+    _obj_class |= Obj_GgafDx_D3DXMeshModel;
     _pID3DXMesh = nullptr;
     _num_materials = 0L;
     _dwOptions = prm_dwOptions;
@@ -36,7 +36,7 @@ HRESULT D3DXMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num
     HRESULT hr;
     Model* pModelLastDraw = ModelManager::_pModelLastDraw;
     if (pModelLastDraw != this) {
-        if (pModelLastDraw && (pModelLastDraw->_obj_model & Obj_GgafDx_MassModel)) {
+        if (pModelLastDraw && (pModelLastDraw->_obj_class & Obj_GgafDx_MassModel)) {
             ((MassModel*)pModelLastDraw)->resetStreamSourceFreq();
         }
     }

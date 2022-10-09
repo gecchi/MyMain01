@@ -8,7 +8,7 @@
 using namespace GgafDx;
 
 MassEffect::MassEffect(const char* prm_effect_name) : Effect(prm_effect_name) {
-    _obj_effect |= Obj_GgafDx_MassEffect;
+    _obj_class |= Obj_GgafDx_MassEffect;
 }
 
 MassEffect::~MassEffect() {

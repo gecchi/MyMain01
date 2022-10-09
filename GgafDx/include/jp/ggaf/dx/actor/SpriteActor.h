@@ -2,6 +2,7 @@
 #define GGAF_DX_SPRITEACTORD_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/actor/FigureActor.h"
+#include "jp/ggaf/dx/actor/interface/IAlignAbleActor.h"
 
 namespace GgafDx {
 
@@ -13,7 +14,7 @@ namespace GgafDx {
  * @since 2007/11/14
  * @author Masatoshi Tsuge
  */
-class SpriteActor : public FigureActor {
+class SpriteActor : public FigureActor, public IAlignAbleActor {
 
 public:
     /** [r]ƒ‚ƒfƒ‹Ž‘Œ¹ */
@@ -24,8 +25,8 @@ public:
     UvFlipper* const _pUvFlipper;
 
     float _far_rate;
-    Align _align;
-    Valign _valign;
+//    Align _align;
+//    Valign _valign;
 
 public:
     /**

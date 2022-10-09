@@ -3,11 +3,12 @@
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/actor/MassActor.h"
 #include "jp/ggaf/dx/model/MassBoardModel.h"
+#include "jp/ggaf/dx/actor/interface/IAlignAbleActor.h"
 
 namespace GgafDx {
 
 /**
- * 2D表示用板ポリアクター(大量表示時用) .
+ * 2D表示用板ポリアクター（大量表示用） .
  * DirectX の インスタシイング により、同一モデルは大量表示に最適化<BR>
  * 但し、回転機能はなし、拡大縮小機能もなし。<BR>
  * 文字表示に使用することを想定。<BR>
@@ -15,7 +16,7 @@ namespace GgafDx {
  * @since 2016/02/25
  * @author Masatoshi Tsuge
  */
-class MassBoardActor : public MassActor {
+class MassBoardActor : public MassActor, public IAlignAbleActor {
 private:
     /**
      * 使用不可のため、privateでoverride
@@ -73,8 +74,8 @@ public:
     /** [r]UVフリッパー(パラパラアニメ) */
     UvFlipper* const _pUvFlipper;
 
-    Align _align;
-    Valign _valign;
+//    Align _align;
+//    Valign _valign;
 
 public:
     /**
@@ -97,9 +98,9 @@ public:
 
     virtual void setPositionAt(const GeoElem* prm_pGeoElem) override;
 
-    virtual void setAlign(Align prm_align, Valign prm_valign);
-    virtual void setAlign(Align prm_align);
-    virtual void setValign(Valign prm_valign);
+//    virtual void setAlign(Align prm_align, Valign prm_valign);
+//    virtual void setAlign(Align prm_align);
+//    virtual void setValign(Valign prm_valign);
     virtual void setScale(scale s) override;
     virtual void setScale(scale sx, scale sy) override;
     virtual void setScale(scale sx, scale sy, scale sz) override;
@@ -120,8 +121,8 @@ public:
     inline UvFlipper* getUvFlipper() {
         return _pUvFlipper;
     }
-    float getModelWidth();
-    float getModelHeight();
+//    float getModelWidth();
+//    float getModelHeight();
 
     virtual ~MassBoardActor(); //デストラクタ
 };

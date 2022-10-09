@@ -8,7 +8,7 @@
 using namespace GgafDx;
 
 RegularPolygonSpriteEffect::RegularPolygonSpriteEffect(const char* prm_effect_name) : Effect(prm_effect_name) {
-    _obj_effect |= Obj_GgafDx_RegularPolygonSpriteEffect;
+    _obj_class |= Obj_GgafDx_RegularPolygonSpriteEffect;
     Camera* const pCam = pCARETAKER->getSpacetime()->getCamera();
     //シェーダー共通のグローバル変数設定
     HRESULT hr;

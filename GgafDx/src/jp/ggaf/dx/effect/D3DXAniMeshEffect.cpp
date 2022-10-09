@@ -8,7 +8,7 @@
 using namespace GgafDx;
 
 D3DXAniMeshEffect::D3DXAniMeshEffect(const char* prm_effect_name) : Effect(prm_effect_name) {
-    _obj_effect |= Obj_GgafDx_D3DXAniMeshEffect;
+    _obj_class |= Obj_GgafDx_D3DXAniMeshEffect;
     Camera* pCam = pCARETAKER->getSpacetime()->getCamera();
     D3DLIGHT9* pLight = &(pCARETAKER->_d3dlight9_default);
     //シェーダー共通のグローバル変数設定

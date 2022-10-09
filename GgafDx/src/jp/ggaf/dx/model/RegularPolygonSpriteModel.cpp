@@ -19,7 +19,7 @@ DWORD RegularPolygonSpriteModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFF
 
 RegularPolygonSpriteModel::RegularPolygonSpriteModel(const char* prm_model_id) : Model(prm_model_id), IPlaneModel() {
     _TRACE3_("_model_id="<<_model_id);
-    _obj_model |= Obj_GgafDx_RegularPolygonSpriteModel;
+    _obj_class |= Obj_GgafDx_RegularPolygonSpriteModel | Obj_GgafDx_IPlaneModel;
     _paVertexBuffer = nullptr;
     _paVertexBuffer_data = nullptr;
     _size_vertices = 0;
@@ -45,7 +45,7 @@ HRESULT RegularPolygonSpriteModel::draw(FigureActor* prm_pActor_target, int prm_
     HRESULT hr;
     Model* pModelLastDraw = ModelManager::_pModelLastDraw;
     if (pModelLastDraw != this) {
-        if (pModelLastDraw && (pModelLastDraw->_obj_model & Obj_GgafDx_MassModel)) {
+        if (pModelLastDraw && (pModelLastDraw->_obj_class & Obj_GgafDx_MassModel)) {
             ((MassModel*)pModelLastDraw)->resetStreamSourceFreq();
         }
         pDevice->SetStreamSource(0, _paVertexBuffer, 0, _size_vertex_unit);

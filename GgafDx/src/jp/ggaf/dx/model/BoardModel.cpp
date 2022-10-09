@@ -19,7 +19,7 @@ DWORD BoardModel::FVF = (D3DFVF_XYZ | D3DFVF_TEX1);
 BoardModel::BoardModel(const char* prm_model_id) :
         Model(prm_model_id), IPlaneModel() {
     _TRACE3_("_model_id="<<_model_id);
-    _obj_model |= Obj_GgafDx_BoardModel;
+    _obj_class |= Obj_GgafDx_BoardModel | Obj_GgafDx_IPlaneModel;
     _paVertexBuffer = nullptr;
     _paVertexBuffer_data = nullptr;
     _size_vertices = 0;
@@ -43,7 +43,7 @@ HRESULT BoardModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_num, v
     HRESULT hr;
     Model* pModelLastDraw = ModelManager::_pModelLastDraw;
     if (pModelLastDraw != this) {
-        if (pModelLastDraw && (pModelLastDraw->_obj_model & Obj_GgafDx_MassModel)) {
+        if (pModelLastDraw && (pModelLastDraw->_obj_class & Obj_GgafDx_MassModel)) {
             ((MassModel*)pModelLastDraw)->resetStreamSourceFreq();
         }
         pDevice->SetStreamSource(0, _paVertexBuffer, 0, _size_vertex_unit);

@@ -22,7 +22,7 @@
 using namespace GgafDx;
 
 SkinAniMeshModel::SkinAniMeshModel(const char* prm_model_id) : Model(prm_model_id) {
-    _obj_model |= Obj_GgafDx_SkinAniMeshModel;
+    _obj_class |= Obj_GgafDx_SkinAniMeshModel;
     _pAllocHierarchy = nullptr;
     _pFrameRoot = nullptr;
     _pAniControllerBase = nullptr;
@@ -57,7 +57,7 @@ HRESULT SkinAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
     ID3DXEffect* pID3DXEffect = pSkinAniMeshEffect->_pID3DXEffect;
     Model* pModelLastDraw = ModelManager::_pModelLastDraw;
     if (pModelLastDraw != this) {
-        if (pModelLastDraw && (pModelLastDraw->_obj_model & Obj_GgafDx_MassModel)) {
+        if (pModelLastDraw && (pModelLastDraw->_obj_class & Obj_GgafDx_MassModel)) {
             ((MassModel*)pModelLastDraw)->resetStreamSourceFreq();
         }
         //頂点バッファとインデックスバッファを設定

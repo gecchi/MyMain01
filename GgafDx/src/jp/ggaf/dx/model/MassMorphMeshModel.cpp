@@ -14,7 +14,7 @@
 using namespace GgafDx;
 
 MassMorphMeshModel::MassMorphMeshModel(const char* prm_model_id) : MassModel(prm_model_id) {
-    _obj_model |= Obj_GgafDx_MassMorphMeshModel;
+    _obj_class |= Obj_GgafDx_MassMorphMeshModel;
     _paVtxBuffer_data_model = nullptr;
     _paIndexBuffer_data = nullptr;
     _paVertexBuffer_model_morph = nullptr;

@@ -16,7 +16,7 @@
 using namespace GgafDx;
 
 MorphMeshModel::MorphMeshModel(const char* prm_model_id) : Model(prm_model_id) {
-    _obj_model |= Obj_GgafDx_MorphMeshModel;
+    _obj_class |= Obj_GgafDx_MorphMeshModel;
     _TRACE3_("_model_id="<<_model_id);
     _morph_target_num = 0;
 
@@ -54,7 +54,7 @@ HRESULT MorphMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_nu
     //頂点バッファ設定
     Model* pModelLastDraw = ModelManager::_pModelLastDraw;
     if (pModelLastDraw != this) {
-        if (pModelLastDraw && (pModelLastDraw->_obj_model & Obj_GgafDx_MassModel)) {
+        if (pModelLastDraw && (pModelLastDraw->_obj_class & Obj_GgafDx_MassModel)) {
             ((MassModel*)pModelLastDraw)->resetStreamSourceFreq();
         }
         pDevice->SetVertexDeclaration( _pVertexDeclaration); //頂点フォーマット

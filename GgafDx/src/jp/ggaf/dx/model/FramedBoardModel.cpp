@@ -16,7 +16,7 @@ using namespace GgafDx;
 DWORD FramedBoardModel::FVF = (D3DFVF_XYZ | D3DFVF_PSIZE | D3DFVF_TEX1);
 FramedBoardModel::FramedBoardModel(const char* prm_model_id) : Model(prm_model_id), IPlaneModel() {
     _TRACE3_("_model_id="<<_model_id);
-    _obj_model |= Obj_GgafDx_FramedBoardModel;
+    _obj_class |= Obj_GgafDx_FramedBoardModel | Obj_GgafDx_IPlaneModel;
     _paVertexBuffer_data = nullptr;
     _paIndexBuffer_data = nullptr;
     _model_frame_width_px = 32.0f;
@@ -45,7 +45,7 @@ HRESULT FramedBoardModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
     //モデルが同じならば頂点バッファ等、の設定はスキップできる
     Model* pModelLastDraw = ModelManager::_pModelLastDraw;
     if (pModelLastDraw != this) {
-        if (pModelLastDraw && (pModelLastDraw->_obj_model & Obj_GgafDx_MassModel)) {
+        if (pModelLastDraw && (pModelLastDraw->_obj_class & Obj_GgafDx_MassModel)) {
             ((MassModel*)pModelLastDraw)->resetStreamSourceFreq();
         }
         pDevice->SetStreamSource(0, _paVertexBuffer, 0, _size_vertex_unit);

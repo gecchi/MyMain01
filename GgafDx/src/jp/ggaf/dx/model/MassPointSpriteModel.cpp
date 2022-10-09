@@ -17,7 +17,7 @@ using namespace GgafDx;
 
 MassPointSpriteModel::MassPointSpriteModel(const char* prm_model_id) : MassModel(prm_model_id) {
     _TRACE3_("_model_id="<<_model_id);
-    _obj_model |= Obj_GgafDx_MassPointSpriteModel;
+    _obj_class |= Obj_GgafDx_MassPointSpriteModel;
 
     _square_size_px = 0.0f;
     _texture_size_px = 0.0f;

@@ -16,7 +16,7 @@ using namespace GgafDx;
 
 MassMeshModel::MassMeshModel(const char* prm_model_id) : MassModel(prm_model_id) {
     _TRACE3_("_model_id="<<_model_id);
-    _obj_model |= Obj_GgafDx_MassMeshModel;
+    _obj_class |= Obj_GgafDx_MassMeshModel;
     _paVtxBuffer_data_model = nullptr;
     _paIndexBuffer_data = nullptr;
     registerCallback_VertexModelInfo(MassMeshModel::createVertexModel); //頂点レイアウト情報作成コールバック関数

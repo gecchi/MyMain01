@@ -23,11 +23,12 @@ BoardSetActor::BoardSetActor(const char* prm_name,
                                              TYPE_BOARDSET_EFFECT,
                                              prm_technique,
                                              prm_pChecker) ,
+                                 IAlignAbleActor(),
 _pBoardSetModel((BoardSetModel*)_pModel),
 _pBoardSetEffect((BoardSetEffect*)_pEffect),
 _pUvFlipper(NEW UvFlipper(getModel()->getDefaultTextureConnection()->peek())) {
 
-    _obj_class |= Obj_GgafDx_BoardSetActor;
+    _obj_class |= Obj_GgafDx_BoardSetActor | Obj_GgafDx_IAlignAbleActor;
     _class_name = "BoardSetActor";
     _pUvFlipper->locatePatternNo(_pBoardSetModel->_col_texture_split,
                              _pBoardSetModel->_row_texture_split
@@ -117,26 +118,26 @@ void BoardSetActor::setPositionAt(const GeoElem* prm_pGeoElem) {
     _y = prm_pGeoElem->y;
 }
 
-void BoardSetActor::setAlign(Align prm_align, Valign prm_valign) {
-    _align = prm_align;
-    _valign = prm_valign;
-}
+//void BoardSetActor::setAlign(Align prm_align, Valign prm_valign) {
+//    _align = prm_align;
+//    _valign = prm_valign;
+//}
+//
+//void BoardSetActor::setAlign(Align prm_align) {
+//    _align = prm_align;
+//}
+//
+//void BoardSetActor::setValign(Valign prm_valign) {
+//    _valign = prm_valign;
+//}
 
-void BoardSetActor::setAlign(Align prm_align) {
-    _align = prm_align;
-}
-
-void BoardSetActor::setValign(Valign prm_valign) {
-    _valign = prm_valign;
-}
-
-float BoardSetActor::getModelWidth() {
-    return _pBoardSetModel->_model_width_px;
-}
-
-float BoardSetActor::getModelHeight() {
-    return _pBoardSetModel->_model_height_px;
-}
+//float BoardSetActor::getModelWidth() {
+//    return _pBoardSetModel->_model_width_px;
+//}
+//
+//float BoardSetActor::getModelHeight() {
+//    return _pBoardSetModel->_model_height_px;
+//}
 
 BoardSetActor::~BoardSetActor() {
     delete _pUvFlipper;

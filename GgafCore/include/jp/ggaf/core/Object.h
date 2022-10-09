@@ -9,9 +9,6 @@
 
 namespace GgafCore {
 
-/** ノード種別 */
-typedef uint64_t nodekind;
-
 /**
  * 基底クラス
  * @version 1.00
@@ -31,7 +28,7 @@ public:
 
 
     /** [r]インスタンス種類 */
-    nodekind _obj_class;
+    uint64_t _obj_class;
 
 public:
     Object();
@@ -51,7 +48,7 @@ public:
      * @param prm_Obj_xxxx 調べるクラスのマクロ定数
      * @return
      */
-    inline virtual bool instanceOf(nodekind Obj_xxxx) const {
+    inline virtual bool instanceOf(uint64_t Obj_xxxx) const {
         if ((_obj_class & Obj_xxxx) == Obj_xxxx) {
             return true;
         } else {

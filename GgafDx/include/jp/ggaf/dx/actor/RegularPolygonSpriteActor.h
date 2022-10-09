@@ -26,9 +26,6 @@ public:
 
     float _far_rate;
 
-    Align _align;
-
-    Valign _valign;
     /** 何枚扇を描画するか */
     int _draw_fan_num;
     /** 多角形描画を開始する最初の頂点の角度位置 */

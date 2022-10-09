@@ -23,6 +23,7 @@ FramedBoardActor::FramedBoardActor(const char* prm_name,
                                                    TYPE_FRAMEDBOARD_EFFECT,
                                                    prm_technique,
                                                    nullptr) ,
+                                       IAlignAbleActor(),
 _pFramedBoardModel((FramedBoardModel*)_pModel),
 _pFramedBoardEffect((FramedBoardEffect*)_pEffect),
 _pUvFlipper(NEW UvFlipper(getModel()->_papTextureConnection[0]->peek())),
@@ -36,7 +37,7 @@ _model_total_height_px(_model_frame_height_px * 2 + _model_center_height_px),
 _lim_center_sx(R_SC( (_model_frame_width_px * 2.0) / _model_total_width_px )),
 _lim_center_sy(R_SC( (_model_frame_height_px * 2.0) / _model_total_height_px )) {
 
-    _obj_class |= Obj_GgafDx_FramedBoardActor;
+    _obj_class |= Obj_GgafDx_FramedBoardActor | Obj_GgafDx_IAlignAbleActor;
     _class_name = "FramedBoardActor";
     _pUvFlipper->locatePatternNo(_pFramedBoardModel->_col_texture_split,
                             _pFramedBoardModel->_row_texture_split );
@@ -242,18 +243,18 @@ void FramedBoardActor::setPositionAt(const GeoElem* prm_pGeoElem) {
     _y = prm_pGeoElem->y;
 }
 
-void FramedBoardActor::setAlign(Align prm_align, Valign prm_valign) {
-    _align = prm_align;
-    _valign = prm_valign;
-}
-
-void FramedBoardActor::setAlign(Align prm_align) {
-    _align = prm_align;
-}
-
-void FramedBoardActor::setValign(Valign prm_valign) {
-    _valign = prm_valign;
-}
+//void FramedBoardActor::setAlign(Align prm_align, Valign prm_valign) {
+//    _align = prm_align;
+//    _valign = prm_valign;
+//}
+//
+//void FramedBoardActor::setAlign(Align prm_align) {
+//    _align = prm_align;
+//}
+//
+//void FramedBoardActor::setValign(Valign prm_valign) {
+//    _valign = prm_valign;
+//}
 
 void FramedBoardActor::setScale(scale s) {
     _sx = s;

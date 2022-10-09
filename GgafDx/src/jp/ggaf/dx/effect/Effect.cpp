@@ -17,7 +17,7 @@ using namespace GgafDx;
 
 Effect::Effect(const char* prm_effect_name) : GgafCore::Object() {
     _TRACE4_("Effect::Effect(" << prm_effect_name << ")");
-    _obj_effect = Obj_GgafDx_Effect;
+    _obj_class = Obj_GgafDx_Effect;
     int len = strlen(prm_effect_name);
     _effect_name = NEW char[len+1];
     strcpy(_effect_name, prm_effect_name);

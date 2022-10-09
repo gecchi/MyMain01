@@ -2,6 +2,7 @@
 #define GGAF_DX_REGULARPOLYGONBOARDACTOR_H_
 #include "GgafDxCommonHeader.h"
 #include "jp/ggaf/dx/actor/FigureActor.h"
+#include "jp/ggaf/dx/actor/interface/IAlignAbleActor.h"
 
 namespace GgafDx {
 
@@ -15,7 +16,7 @@ namespace GgafDx {
  * @since 2018/10/30
  * @author Masatoshi Tsuge
  */
-class RegularPolygonBoardActor : public FigureActor {
+class RegularPolygonBoardActor : public FigureActor, public IAlignAbleActor {
     /**
      * 使用不可のため、privateでoverride
      * @return
@@ -100,9 +101,9 @@ public:
 
     virtual ~RegularPolygonBoardActor(); //デストラクタ
 
-    virtual void setAlign(Align prm_align, Valign prm_valign);
-    virtual void setAlign(Align prm_align);
-    virtual void setValign(Valign prm_valign);
+//    virtual void setAlign(Align prm_align, Valign prm_valign);
+//    virtual void setAlign(Align prm_align);
+//    virtual void setValign(Valign prm_valign);
 
     virtual void setPositionAt(const GeometricActor* prm_pActor) override;
     virtual void setPositionAt(const GeoElem* prm_pGeoElem) override;
@@ -125,9 +126,9 @@ public:
     inline UvFlipper* getUvFlipper() {
         return _pUvFlipper;
     }
-
-    float getModelWidth();
-    float getModelHeight();
+//
+//    float getModelWidth();
+//    float getModelHeight();
 
     /**
      * 描画するFAN(扇型)の枚数を取得

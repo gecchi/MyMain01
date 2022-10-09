@@ -23,7 +23,7 @@ using namespace GgafDx;
 DWORD BoneAniMeshModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_PSIZE | D3DFVF_DIFFUSE | D3DFVF_TEX1);
 
 BoneAniMeshModel::BoneAniMeshModel(const char* prm_model_id) : Model(prm_model_id) {
-    _obj_model |= Obj_GgafDx_BoneAniMeshModel;
+    _obj_class |= Obj_GgafDx_BoneAniMeshModel;
     _pAllocHierarchy = nullptr;
     _pFrameRoot = nullptr;
     _pAniControllerBase = nullptr;
@@ -59,7 +59,7 @@ HRESULT BoneAniMeshModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
     ID3DXEffect* pID3DXEffect = pBoneAniMeshEffect->_pID3DXEffect;
     Model* pModelLastDraw = ModelManager::_pModelLastDraw;
     if (pModelLastDraw != this) {
-        if (pModelLastDraw && (pModelLastDraw->_obj_model & Obj_GgafDx_MassModel)) {
+        if (pModelLastDraw && (pModelLastDraw->_obj_class & Obj_GgafDx_MassModel)) {
             ((MassModel*)pModelLastDraw)->resetStreamSourceFreq();
         }
         //頂点バッファとインデックスバッファを設定

@@ -311,7 +311,7 @@ void Spacetime::draw() {
         }
 #endif
         Model* pModelLastDraw = ModelManager::_pModelLastDraw;
-        if (pModelLastDraw && (pModelLastDraw->_obj_model & Obj_GgafDx_MassModel)) {
+        if (pModelLastDraw && (pModelLastDraw->_obj_class & Obj_GgafDx_MassModel)) {
             ((MassModel*)pModelLastDraw)->resetStreamSourceFreq();
         }
         EffectManager::_pEffect_active = nullptr;

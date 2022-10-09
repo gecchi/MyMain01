@@ -19,7 +19,7 @@ DWORD PointSpriteModel::FVF = (D3DFVF_XYZ | D3DFVF_PSIZE | D3DFVF_DIFFUSE | D3DF
 
 PointSpriteModel::PointSpriteModel(const char* prm_model_id) : Model(prm_model_id) {
     _TRACE3_("_model_id="<<_model_id);
-    _obj_model |= Obj_GgafDx_PointSpriteModel;
+    _obj_class |= Obj_GgafDx_PointSpriteModel;
     _paVertexBuffer = nullptr;
     _paVtxBuffer_data = nullptr;
     _vertices_num = 0;
@@ -47,7 +47,7 @@ HRESULT PointSpriteModel::draw(FigureActor* prm_pActor_target, int prm_draw_set_
     HRESULT hr;
     Model* pModelLastDraw = ModelManager::_pModelLastDraw;
     if (pModelLastDraw != this) {
-        if (pModelLastDraw && (pModelLastDraw->_obj_model & Obj_GgafDx_MassModel)) {
+        if (pModelLastDraw && (pModelLastDraw->_obj_class & Obj_GgafDx_MassModel)) {
             ((MassModel*)pModelLastDraw)->resetStreamSourceFreq();
         }
         pDevice->SetStreamSource(0, _paVertexBuffer, 0, _size_vertex_unit);

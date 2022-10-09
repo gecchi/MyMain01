@@ -21,12 +21,13 @@ RegularPolygonBoardActor::RegularPolygonBoardActor(const char* prm_name,
                                                                    prm_effect_id,
                                                                    TYPE_REGULARPOLYGONBOARD_EFFECT,
                                                                    prm_technique,
-                                                                   nullptr),
+                                                                   nullptr) ,
+                                                       IAlignAbleActor(),
 _pRegularPolygonBoardModel((RegularPolygonBoardModel*)_pModel),
 _pRegularPolygonBoardEffect((RegularPolygonBoardEffect*)_pEffect) ,
 _pUvFlipper(NEW UvFlipper(getModel()->getDefaultTextureConnection()->peek())) {
 
-    _obj_class |= Obj_GgafDx_RegularPolygonBoardActor;
+    _obj_class |= Obj_GgafDx_RegularPolygonBoardActor | Obj_GgafDx_IAlignAbleActor;
     _class_name = "RegularPolygonBoardActor";
     _pUvFlipper->locatePatternNo(_pRegularPolygonBoardModel->_col_texture_split,
                              _pRegularPolygonBoardModel->_row_texture_split );
@@ -96,16 +97,16 @@ void RegularPolygonBoardActor::processDraw() {
     _pRegularPolygonBoardModel->RegularPolygonBoardModel::draw(this);
 }
 
-void RegularPolygonBoardActor::setAlign(Align prm_align, Valign prm_valign) {
-    _align = prm_align;
-    _valign = prm_valign;
-}
-void RegularPolygonBoardActor::setAlign(Align prm_align) {
-    _align = prm_align;
-}
-void RegularPolygonBoardActor::setValign(Valign prm_valign) {
-    _valign = prm_valign;
-}
+//void RegularPolygonBoardActor::setAlign(Align prm_align, Valign prm_valign) {
+//    _align = prm_align;
+//    _valign = prm_valign;
+//}
+//void RegularPolygonBoardActor::setAlign(Align prm_align) {
+//    _align = prm_align;
+//}
+//void RegularPolygonBoardActor::setValign(Valign prm_valign) {
+//    _valign = prm_valign;
+//}
 
 void RegularPolygonBoardActor::setPositionAt(const GeometricActor* prm_pActor) {
     _x = prm_pActor->_x;
@@ -149,13 +150,13 @@ void RegularPolygonBoardActor::setScaleR(float prm_x_rate, float prm_y_rate, flo
     _sz = R_SC(prm_z_rate); //_szは2Dでは使用されないが、Scaler::behave() 内の判定で役に立つ。
 }
 
-float RegularPolygonBoardActor::getModelWidth() {
-    return _pRegularPolygonBoardModel->_model_width_px;
-}
-
-float RegularPolygonBoardActor::getModelHeight() {
-    return _pRegularPolygonBoardModel->_model_height_px;
-}
+//float RegularPolygonBoardActor::getModelWidth() {
+//    return _pRegularPolygonBoardModel->_model_width_px;
+//}
+//
+//float RegularPolygonBoardActor::getModelHeight() {
+//    return _pRegularPolygonBoardModel->_model_height_px;
+//}
 
 RegularPolygonBoardActor::~RegularPolygonBoardActor() {
     delete _pUvFlipper;

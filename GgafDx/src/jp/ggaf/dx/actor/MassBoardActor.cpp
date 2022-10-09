@@ -23,11 +23,12 @@ MassBoardActor::MassBoardActor(const char* prm_name,
                                              TYPE_MASSBOARD_EFFECT,
                                              prm_technique,
                                              nullptr) ,
+                                   IAlignAbleActor(),
 _pMassBoardModel((MassBoardModel*)_pModel),
 _pMassBoardEffect((MassBoardEffect*)_pEffect),
 _pUvFlipper(NEW UvFlipper(getModel()->getDefaultTextureConnection()->peek()))
 {
-    _obj_class |= Obj_GgafDx_MassBoardActor;
+    _obj_class |= Obj_GgafDx_MassBoardActor | Obj_GgafDx_IAlignAbleActor;
     _class_name = "MassBoardActor";
     _pUvFlipper->locatePatternNo(_pMassBoardModel->_col_texture_split,
                              _pMassBoardModel->_row_texture_split
@@ -58,19 +59,19 @@ void MassBoardActor::setPositionAt(const GeoElem* prm_pGeoElem) {
     _y = prm_pGeoElem->y;
 }
 
-void MassBoardActor::setAlign(Align prm_align, Valign prm_valign) {
-    _align = prm_align;
-    _valign = prm_valign;
-}
+//void MassBoardActor::setAlign(Align prm_align, Valign prm_valign) {
+//    _align = prm_align;
+//    _valign = prm_valign;
+//}
 
-void MassBoardActor::setAlign(Align prm_align) {
-    _align = prm_align;
-}
-
-void MassBoardActor::setValign(Valign prm_valign) {
-    _valign = prm_valign;
-}
-
+//void MassBoardActor::setAlign(Align prm_align) {
+//    _align = prm_align;
+//}
+//
+//void MassBoardActor::setValign(Valign prm_valign) {
+//    _valign = prm_valign;
+//}
+//
 void MassBoardActor::setScale(scale s) {
     _sx = s;
     _sy = s;
@@ -103,13 +104,13 @@ void MassBoardActor::setScaleR(float prm_x_rate, float prm_y_rate, float prm_z_r
     _sz = R_SC(prm_z_rate); //_szは2Dでは使用されないが、Scaler::behave() 内の判定で役に立つ。
 }
 
-float MassBoardActor::getModelWidth() {
-    return _pMassBoardModel->_model_width_px;
-}
-
-float MassBoardActor::getModelHeight() {
-    return _pMassBoardModel->_model_height_px;
-}
+//float MassBoardActor::getModelWidth() {
+//    return _pMassBoardModel->_model_width_px;
+//}
+//
+//float MassBoardActor::getModelHeight() {
+//    return _pMassBoardModel->_model_height_px;
+//}
 
 MassBoardActor::~MassBoardActor() {
     delete _pUvFlipper;

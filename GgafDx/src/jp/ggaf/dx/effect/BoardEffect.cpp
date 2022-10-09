@@ -7,7 +7,7 @@
 using namespace GgafDx;
 
 BoardEffect::BoardEffect(const char* prm_effect_name) : Effect(prm_effect_name) {
-    _obj_effect |= Obj_GgafDx_BoardEffect;
+    _obj_class |= Obj_GgafDx_BoardEffect;
     //シェーダー共通のグローバル変数設定
     HRESULT hr;
     static float game_buffer_width = (float)(CONFIG::GAME_BUFFER_WIDTH);

@@ -8,7 +8,7 @@
 using namespace GgafDx;
 
 MassPointSpriteEffect::MassPointSpriteEffect(const char* prm_effect_name) : MassEffect(prm_effect_name) {
-    _obj_effect |= Obj_GgafDx_MassPointSpriteEffect;
+    _obj_class |= Obj_GgafDx_MassPointSpriteEffect;
     Camera* const pCam = pCARETAKER->getSpacetime()->getCamera();
     //シェーダー共通のグローバル変数設定
     HRESULT hr;

@@ -218,6 +218,7 @@
     <ClInclude Include="include\jp\ggaf\dx\actor\framedboardactor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\framedspriteactor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\geometricactor.h" />
+    <ClInclude Include="include\jp\ggaf\dx\actor\interface\ialignableactor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\interface\ibumpmapactor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\interface\icubemapactor.h" />
     <ClInclude Include="include\jp\ggaf\dx\actor\massactor.h" />

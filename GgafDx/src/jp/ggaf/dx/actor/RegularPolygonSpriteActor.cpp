@@ -41,8 +41,6 @@ _pUvFlipper(NEW UvFlipper(getModel()->getDefaultTextureConnection()->peek())) {
     _draw_fan_num = _pRegularPolygonSpriteModel->_angle_num;
     _cull_mode = _pRegularPolygonSpriteModel->_drawing_order == 1 ?  D3DCULL_CCW : D3DCULL_CW;
     _circumference_begin_position = 0;
-    _align = ALIGN_CENTER;
-    _valign = VALIGN_MIDDLE;
 }
 
 void RegularPolygonSpriteActor::processDraw() {
@@ -86,19 +84,6 @@ void RegularPolygonSpriteActor::processDraw() {
     checkDxException(hr, D3D_OK, "SetFloat(_h_offset_v) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     _pRegularPolygonSpriteModel->RegularPolygonSpriteModel::draw(this);
 }
-
-//void RegularPolygonSpriteActor::setAlign(Align prm_align, Valign prm_valign) {
-//    _align = prm_align;
-//    _valign = prm_valign;
-//}
-//
-//void RegularPolygonSpriteActor::setAlign(Align prm_align) {
-//    _align = prm_align;
-//}
-//
-//void RegularPolygonSpriteActor::setValign(Valign prm_valign) {
-//    _valign = prm_valign;
-//}
 
 RegularPolygonSpriteActor::~RegularPolygonSpriteActor() {
     delete _pUvFlipper;

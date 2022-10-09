@@ -69,8 +69,7 @@ public:
     int _max_draw_set_num;
     /** [r]モデル定義の識別名。(50文字まで) */
     char* _model_id;
-    /** [r]モデルインスタンス種類 */
-    uint32_t _obj_model;
+
 
     /** [r]マテリアル配列 */
     D3DMATERIAL9* _paMaterial_default;

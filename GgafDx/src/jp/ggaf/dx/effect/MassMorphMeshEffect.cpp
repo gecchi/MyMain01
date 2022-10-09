@@ -8,7 +8,7 @@
 using namespace GgafDx;
 
 MassMorphMeshEffect::MassMorphMeshEffect(const char* prm_effect_name) : MassEffect(prm_effect_name) {
-    _obj_effect |= Obj_GgafDx_MassMorphMeshEffect;
+    _obj_class |= Obj_GgafDx_MassMorphMeshEffect;
     Camera* const pCam = pCARETAKER->getSpacetime()->getCamera();
     D3DLIGHT9* pLight = &(pCARETAKER->_d3dlight9_default);
     //シェーダー共通のグローバル変数設定

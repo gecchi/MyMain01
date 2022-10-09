@@ -64,8 +64,7 @@ public:
     char* _effect_name;
     /** [r]エフェクト */
     ID3DXEffect* _pID3DXEffect;
-    /** [r]エフェクトインスタンス種類 */
-    uint32_t _obj_effect;
+
 #ifdef MY_DEBUG
     bool _begin;
 #endif
